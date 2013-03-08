@@ -242,9 +242,9 @@ class Footnotes {
 		 *  [3] => ... the text we want to move ...
 		 */
 		$patterns = array(
-			'~<div(?:(?!</div>).)*<a[\s]+[^>]*?href[\s]?=[\s"\']+(#_ftnref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
-			'~<div(?:(?!</div>).)*<a[\s]+[^>]*?href[\s]?=[\s"\']+(#_ednref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
-			'~<div(?:(?!</div>).)*<a[\s]+[^>]*?href[\s]?=[\s"\']+(#sdfootnote([0-9]+)anc)["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // Libre Office
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(#_ftnref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(#_ednref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(#sdfootnote([0-9]+)anc)["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // Libre Office
 		);
 
 		/**
@@ -274,13 +274,13 @@ class Footnotes {
 				$tmp = \PressBooks\Sanitize\remove_control_characters( $tmp );
 				$tmp = trim( preg_replace( '/\s+/', ' ', $tmp ) ); // Normalize white spaces
 
-				$find[] = str_replace( '__REPLACE_ME__', $footnote[2], $replacers[$i] );
+				$find[] = str_replace( '__REPLACE_ME__', preg_quote( $footnote[2] ), $replacers[$i] );
 				$replace[] = '[footnote]' . $tmp . '[/footnote]';
 			}
 
 			// Remove originals when done
 			$find[] = $pattern;
-			$replace[] = '';
+			$replace[] = '&hellip;</div>';
 		}
 
 		// Twerk it

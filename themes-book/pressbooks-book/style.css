@@ -3,7 +3,7 @@ Theme Name: Luther
 Theme URI: http://pressbooks.com/
 Description: Named after Martin Luther, this is a traditional book theme, good for novels, and text-heavy non-fiction. An earlier version of this theme was commissioned by Fortress Press / Augsburg Fortress.
 Author: The PressBooks Team
-Version: 1.0
+Version: 1.1
 */
 
 /********************
@@ -245,6 +245,10 @@ hr.break-blank {
   margin: 0 0 20px;
   padding: 20px 0;
   text-align: center;
+}
+.hanging-indent {
+	padding-left: 1em;
+    text-indent: -1em;
 }
 
 /********************
@@ -666,6 +670,10 @@ a.close {
 #toc ul ul {
   border-bottom: 1px dotted #999;
   padding-bottom: 5px;
+}
+#toc ul ul:last-of-type {
+	border-bottom: none;
+	padding-bottom: 0;
 }
 li.bg-color {
   background: #eeeeee;

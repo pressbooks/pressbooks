@@ -8,38 +8,51 @@
 
 /* Header font */
 @font-face {
-  font-family: "Galdeano";
+  font-family: "LinBiolinum";
+  font-weight: normal;
+  font-style: normal;
+  src: url(../../../../symbionts/fonts/LinBiolinum_Rah.ttf) format("truetype");
+}
+@font-face {
+  font-family: "LinBiolinum";
   font-weight: bold;
   font-style: normal;
-  src: url(../../../../symbionts/fonts/Galdeano-Regular.ttf) format("truetype");
+  src: url(../../../../symbionts/fonts/LinBiolinum_RBah.ttf) format("truetype");
+}
+@font-face {
+  font-family: "LinBiolinum";
+  font-weight: normal;
+  font-style: italic;
+  src: url(../../../../symbionts/fonts/LinBiolinum_RIah.ttf) format("truetype");
 }
 
 /* Body font */
 @font-face {
-  font-family: "Tinos";
+  font-family: "LinLibertine";
   font-weight: bold;
   font-style: normal;
-  src: url(../../../../symbionts/fonts/Tinos-Bold.ttf) format("truetype");
+  src: url(../../../../symbionts/fonts/LinLibertine_RBah.ttf) format("truetype");
 }
 
 @font-face {
-  font-family: "Tinos";
+  font-family: "LinLibertine";
   font-weight: bold;
   font-style: italic;
-  src: url(../../../../symbionts/fonts/Tinos-BoldItalic.ttf) format("truetype");
+  src: url(../../../../symbionts/fonts/LinLibertine_RBIah.ttf) format("truetype");
 }
 @font-face {
-  font-family: "Tinos";
+  font-family: "LinLibertine";
   font-weight: normal;
   font-style: italic;
-  src: url(../../../../symbionts/fonts/Tinos-Italic.ttf) format("truetype");
+  src: url(../../../../symbionts/fonts/LinLibertine_RIah.ttf) format("truetype");
 }
 @font-face {
-  font-family: "Tinos";
+  font-family: "LinLibertine";
   font-weight: normal;
   font-style: normal;
-  src: url(../../../../symbionts/fonts/Tinos-Regular.ttf) format("truetype");
+  src: url(../../../../symbionts/fonts/LinLibertine_Rah.ttf) format("truetype");
 }
+
 
 /* Page */
 @page {
@@ -121,14 +134,14 @@
 
 @page introduction:left {
   @top-left {
-	font-family: "Galdeano", sans-serif;
+	font-family: "LinBiolinum", sans-serif;
 	content: counter(page) "\A0\A0" string(book-title);
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
-	font-family: "Galdeano", sans-serif;
+	font-family: "LinBiolinum", sans-serif;
 	content: string(section-title, last) "\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -159,8 +172,8 @@
 
 @page chapter:left {
   @top-left {
-	font-family: "Galdeano", sans-serif;
-	content: counter(page)"\A0\A0\A0\A0" "part "counter(part) ".\A0\A0\A0\A0" string(part);
+	font-family: "LinBiolinum", sans-serif;
+	content: counter(page) "\A0\A0\002D\A0\A0" string(book-title);
 	counter-increment: part;
 	vertical-align: left;
   }
@@ -169,7 +182,7 @@
 {
   @top-right
   {
-	font-family: "Galdeano", sans-serif;
+	font-family: "LinBiolinum", sans-serif;
 	content: string(section-title, last) "\A0\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -202,7 +215,7 @@
 /* Back-matter */
 @page back-matter:left {
   @top-left {
-	font-family: "Galdeano", sans-serif;
+	font-family: "LinBiolinum", sans-serif;
 	content: counter(page) "\A0\A0  | \A0\A0" string(book-title);
 	vertical-align: left;
   }
@@ -210,7 +223,7 @@
 @page back-matter:right {
   @top-right
   {
-	font-family: "Galdeano", sans-serif;
+	font-family: "LinBiolinum", sans-serif;
 	content: string(section-title, last) "\A0\A0  | \A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -261,6 +274,7 @@ div.introduction {
 	counter-reset: page 1;
 }
 div.chapter {
+	counter-reset: footnote;
 	page: chapter;
 	prince-page-group: start;
 }
@@ -274,7 +288,7 @@ div.part {
 	padding: part;	
 }
 body {
-	font:  10pt/1.2  "Tinos", serif;
+	font:  11pt/1.6  "LinLibertine", serif;
 }
 
 a {
@@ -283,7 +297,7 @@ a {
 }
 
 p {
-	line-height: 1.2em;
+	line-height: 1.4em;
 	text-align: justify;
 	margin-bottom: 0;
 	prince-hyphenate: auto;
@@ -391,11 +405,15 @@ p.bl_indent {
 	margin: 0 10%;
 	text-indent: 1em;
 }
-
+.hanging-indent {
+	padding-left: 1em;
+    text-indent: -1em;
+}
 
 /* HALFTITLE PAGE
 ==================== */
 body > h1.title:first-child {
+	font-family: "LinBiolinum", sans-serif;
     string-set: book-title content();
     page-break-after: always;
     bookmark-level: none;  
@@ -432,6 +450,7 @@ body > h1.title:first-child {
 	text-transform: uppercase;
 }
 #title-page > .author {
+	font-family: "LinBiolinum", sans-serif;
 	font-size: 17pt;
 	font-weight: normal;
 	margin-top: 1.5cm;
@@ -439,7 +458,6 @@ body > h1.title:first-child {
 }
 
 #title-page > .publisher {
-	font-family: "Galdeano", sans-serif;
 	display: inline-block;
 	font-size: 10pt;
 	font-weight: normal;
@@ -450,7 +468,6 @@ body > h1.title:first-child {
 }
 #title-page > .publisher-city {
 	display: inline-block;
-	font-family: "Galdeano", sans-serif;	
 	font-size: 10pt;
 	font-weight: normal;
 	margin-top: 0;
@@ -539,6 +556,14 @@ h3.chapter-number::after {
 .chapter-title-wrap .chapter-number {
 	font-weight: normal;
 }
+.front-matter-title-wrap,
+.part-title-wrap,
+.chapter-title-wrap,
+.back-matter-title-wrap,
+#toc h1,
+#title-page {
+	font-family: "LinBiolinum", sans-serif;	
+}
 
 /* SUBTITLES, CHAPTER AUTHOR & APHORIMS
 ======================================== */
@@ -586,7 +611,7 @@ h2.chapter-subtitle + h2.chapter-author {
 ==================== */
 div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
 	bookmark-level: none;
-	font-family: "Galdeano", sans-serif;
+	font-family: "LinBiolinum", sans-serif;
 	margin-bottom: 15px;
 }
 div.ugc h1 {
@@ -653,11 +678,13 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 #toc ul {
 	counter-reset: chapter;
 	line-height: 1.2em;
+	page-break-after: avoid;	
 }
 #toc a::after {
-  content: leader(' ') target-counter(attr(href), page);
-  font-style: normal;
-  text-decoration: none;
+  	content: leader(' ') target-counter(attr(href), page);
+	float: right;  
+	font-style: normal;
+	text-decoration: none;
 }
 #toc .front-matter a::after {
 	content: leader(' ') target-counter(attr(href), page, lower-roman);
@@ -667,7 +694,8 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 }
 #toc .part {
 	margin: .6cm 0 .4em;
-	font:bold 12pt "Galdeano", sans-serif;
+	font:bold 12pt "LinBiolinum", sans-serif;
+`	page-break-after: avoid;	
 }
 #toc .part a::before {
 	content: "part "counter(part) ". ";
@@ -687,12 +715,24 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 #toc .part a::after {
 	content:'' ;
 }
-#toc span.chapter-author {
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	display: inline-block;
 	font-style: italic;
+    margin-left: 3.5em;
+    text-indent: 0;
+	width: 70%;
 }
-#toc span.chapter-author::before {
-	content: '• ';
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	margin-bottom: 5px;
 }
+#toc span.chapter-subtitle + span.chapter-author {
+	margin-bottom: 5px;
+	position: relative;
+	top: -5px;
+}
+
 /*end toc*/
 
 

@@ -287,7 +287,7 @@ function add_meta_boxes() {
 
 	x_add_metadata_field( 'pb_list_price_epub', 'metadata', array(
 		'group' => 'additional-catalogue-information',
-		'label' => __( 'List Price (EPUB)', 'pressbooks' )
+		'label' => __( 'List Price (ebook)', 'pressbooks' )
 	) );
 
 	x_add_metadata_field( 'pb_list_price_web', 'metadata', array(
@@ -332,12 +332,12 @@ function add_meta_boxes() {
 
 	x_add_metadata_field( 'pb_subtitle', 'chapter', array(
 		'group' => 'chapter-metadata',
-		'label' => __( 'Chapter Subtitle (appears in the Web/EPUB/PDF output)', 'pressbooks' )
+		'label' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' )
 	) );
 
 	x_add_metadata_field( 'pb_section_author', 'chapter', array(
 		'group' => 'chapter-metadata',
-		'label' => __( 'Chapter Author (appears in Web/EPUB/PDF output)', 'pressbooks' )
+		'label' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
 
 	// Chapter Parent
@@ -381,12 +381,12 @@ function add_meta_boxes() {
 
 	x_add_metadata_field( 'pb_subtitle', 'front-matter', array(
 		'group' => 'front-matter-metadata',
-		'label' => __( 'Front Matter Subtitle (appears in the Web/EPUB/PDF output)', 'pressbooks' )
+		'label' => __( 'Front Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' )
 	) );
 
 	x_add_metadata_field( 'pb_section_author', 'front-matter', array(
 		'group' => 'front-matter-metadata',
-		'label' => __( 'Front Matter Author (appears in Web/EPUB/PDF output)', 'pressbooks' )
+		'label' => __( 'Front Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
 
 }

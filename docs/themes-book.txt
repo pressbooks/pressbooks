@@ -101,6 +101,7 @@ More functions available to book designers:
  + `pb_get_prev()`
  + `pb_get_next()`
  + `pb_get_first()`
+ + `pb_decode()`
 
 == The HTML ==
 

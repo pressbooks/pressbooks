@@ -65,7 +65,7 @@ function admin_title( $admin_title ) {
 /**
  * Removes some default WordPress Admin Sidebar items and adds our own
  */
-function replace_admin_menu() {
+function replace_book_admin_menu() {
 
 	global $menu, $submenu;
 
@@ -109,7 +109,7 @@ function replace_admin_menu() {
 
 
 	// Separator
-	$menu[56] = array( '', 'read', "separator{0}", '', 'wp-menu-separator' );
+	// $menu[56] = array( '', 'read', "separator{0}", '', 'wp-menu-separator' );
 
 
 	// Organize
@@ -159,7 +159,7 @@ function replace_admin_menu() {
 
 
 	// Separator
-	$menu[14] = array( '', 'read', "separator{0}", '', 'wp-menu-separator' );
+	// $menu[14] = array( '', 'read', "separator{0}", '', 'wp-menu-separator' );
 
 
 	// Export
@@ -182,6 +182,19 @@ function replace_admin_menu() {
 
 	// Advanced
 	add_options_page( __( 'Advanced Settings', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
+}
+
+
+/**
+ * Fix extraneous menus on WordPress Admin sidebar
+ */
+function fix_root_admin_menu() {
+
+	remove_menu_page( "edit.php?post_type=part" );
+	remove_menu_page( "edit.php?post_type=chapter" );
+	remove_menu_page( "edit.php?post_type=front-matter" );
+	remove_menu_page( "edit.php?post_type=back-matter" );
+	remove_menu_page( "edit.php?post_type=metadata" );
 }
 
 

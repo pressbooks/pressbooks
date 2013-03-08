@@ -3,15 +3,33 @@
 Plugin Name: PressBooks
 Plugin URI: http://www.pressbooks.com
 Description: Simple Book Production
-Version: 2.0
+Version: 2.0.1
 Author: BookOven Inc.
 Author URI: http://www.pressbooks.com
 Text Domain: pressbooks
 License: GPLv2
 */
 
-if ( ! defined( 'ABSPATH' ) || ! is_multisite() )
+if ( ! defined( 'ABSPATH' ) )
 	return;
+
+// -------------------------------------------------------------------------------------------------------------------
+// Minimum requirements
+// -------------------------------------------------------------------------------------------------------------------
+
+$pb_minimum_wp = '3.5.1';
+
+if ( ! is_multisite() || ! version_compare( get_bloginfo( 'version' ), $pb_minimum_wp, '>=' ) ) {
+
+	add_action( 'admin_notices', function () use ( $pb_minimum_wp ) {
+		echo '<div id="message" class="error fade"><p>';
+		printf( __( 'PressBooks will not work with your version of WordPress. PressBooks requires a dedicated install of WordPress Multi-Site, version %s or greater. Please upgrade WordPress if you would like to use PressBooks.', 'pressbooks' ), $pb_minimum_wp );
+		echo '</p></div>';
+
+	} );
+
+	return;
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Setup some defaults
@@ -97,6 +115,5 @@ if ( is_admin() ) {
 // --------------------------------------------------------------------------------------------------------------------
 
 require_once ( PB_PLUGIN_DIR . 'functions.php' );
-
 
 /* The distinction between "the internet" & "books" will disappear in 5 years. Start adjusting now. */

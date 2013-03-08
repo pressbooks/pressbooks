@@ -5,14 +5,15 @@ About fonts
 Cardo is Copyright (c) David J. Perry and released under the SIL Open Font License 1.1
 @see: http://scholarsfonts.net
 
-Galdeano is Copyright (c) Dario Manuel Muhafara and released under the SIL Open Font License 1.1
-@see: http://www.google.com/webfonts/specimen/Galdeano
-
 Oswald is Copyright (c) Vernon Adams and released under the SIL Open Font License 1.1
 @see: https://github.com/vernnobile/OswaldFont
 
-Tinos is Copyright (c) Steve Matteson and released under the SIL Open Font License 1.1
-@see: http://www.google.com/webfonts/specimen/Tinos
+Linux Libertine is Copyright (c) 2003–2012, Philipp H. Poll and released under the SIL Open Font License 1.1
+@see: http://www.linuxlibertine.org | gillian at linuxlibertine.org
+
+Linux Biolinum is Copyright (c) 2003–2012, Philipp H. Poll and and released under the SIL Open Font License 1.1
+@see: http://www.linuxlibertine.org | gillian at linuxlibertine.org
+
 
 ------------------------------------------------------------------------------
 

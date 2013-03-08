@@ -32,8 +32,11 @@ add_filter( 'admin_footer_text', '\PressBooks\Admin\Laf\add_footer_link' );
 
 if ( \PressBooks\Book::isBook() ) {
 	// Aggressively replace default interface
-	add_action( 'admin_menu', '\PressBooks\Admin\Laf\replace_admin_menu' );
+	add_action( 'admin_menu', '\PressBooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
+} else {
+	// Fix extraneous menus
+	add_action( 'admin_menu', '\PressBooks\Admin\Laf\fix_root_admin_menu', 1 );
 }
 
 if ( true == is_main_site() ) {
@@ -77,6 +80,12 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'wp_trash_post', '\PressBooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
 }
+
+// -------------------------------------------------------------------------------------------------------------------
+// Custom user profile
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'admin_init', '\PressBooks\Admin\Users\add_user_meta' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Ajax

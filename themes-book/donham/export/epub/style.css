@@ -4,7 +4,7 @@ This file must validate as CSS 2.01 with absolutely no errors
  + http://idpf.org/epub/20/spec/OPS_2.0.1_draft.htm#Section3.0
 
   Name: Donham
-  Version: 1.0
+  Version: 1.1
   Author: PressBooks (Book Oven Inc.)
   Author URI: http://pressbooks.com
   License: Creative Commons Attribution 2.0 Generic license
@@ -134,6 +134,10 @@ p.bl_nonindent {
 p.bl_indent {
 	margin: 0 10%;
 	text-indent: 1em;
+}
+.hanging-indent {
+	padding-left: 1em;
+    text-indent: -1em;
 }
 
 /* TITLE PAGE
@@ -273,16 +277,16 @@ p.bl_indent {
 	font-weight: normal;
 	text-align: right;
 }
-.part-number:before {
+div.part-title-wrap > h3.part-number:before {
 	content: "part ";
 }
 .part-title {
-	margin-left: 6em;
+	margin-left: 20%;
 	text-align: right;
 }
 .chapter-title-wrap {
     font-size: 1.1em;
-	margin:1.6em 0 4.6em 6em;
+	margin:1.6em 0 4.6em 20%;
 	text-align: right;
 }
 .chapter-title-wrap .chapter-number,
@@ -292,10 +296,10 @@ p.bl_indent {
 .chapter-title-wrap > .chapter-number {
     font-size: 1.3em;
 	font-weight: normal;
+	padding-right: 10px;
 }
 .chapter-number:after {
 	content: ".";
-	padding-right: 10px;
 }
 
 
@@ -305,8 +309,17 @@ p.bl_indent {
 	font-size: 1em;
 	text-align: left;
 }
+#toc ul > .front-matter,
+#toc ul > .back-matter {
+	font-style: italic;
+}
+#toc .part,
+#toc .front-matter + .chapter {
+	margin-top: 1.3em;
+}
 #toc a {
 	border: none;
+	color: #000;
 }
 #toc ul, #toc li {
   list-style: none;
@@ -323,22 +336,30 @@ p.bl_indent {
 #toc .part {
 	margin: 1em 0 0.4em;
 }
-#toc .front-matter,
-#toc .chapter,
-#toc .back-matter {
-	margin: 1.2em 0;
-	text-indent: 2em;
-}
 #toc .chapter {
 	margin-right: 0.75em;	
 }
 #toc span.chapter-author {
 	font-style: italic;
 }
-#toc span.chapter-author:before {
-	content: '• ';
+#toc .chapter + .back-matter {
+	margin-top: 1.3em;
 }
-
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	display: block;
+	font-style: italic;
+	margin-left: 1em;
+}
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	margin-bottom: 5px;
+}
+#toc span.chapter-subtitle + 
+span.chapter-author {
+	margin-top: -5px;
+	margin-bottom: 5px;
+}
 
 /* IMAGES
 ================== */
@@ -376,6 +397,13 @@ img.aligncenter {
 	font-size: 0.875em;
 	font-style: italic;
 	margin-top: 5px;
+}
+div.wp-caption.aligncenter,
+div.wp-caption.alignleft,
+div.wp-caption.alignright,
+div.wp-caption.alignnone {
+	/* Hack for "centering" problems on Kindle, Calibre, ... */
+	width: auto !important;
 }
 
 /* SUBTITLES, CHAPTER AUTHOR & APHORIMS

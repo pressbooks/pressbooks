@@ -372,6 +372,10 @@ ol li li li::before {
 cite {
 	font-weight: normal;
 }
+.hanging-indent {
+	padding-left: 1em;
+    text-indent: -1em;
+}
 
 /* HALFTITLE PAGE
 ==================== */
@@ -544,6 +548,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc a::after {
   content: leader(' ') target-counter(attr(href), page);
   font-style: normal;
+  float: right;
   text-decoration: none;
 }
 #toc .front-matter a::after {
@@ -555,8 +560,8 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc .part {
 	margin: .6cm 0 .4em;
 	text-align: center;
+	page-break-after: avoid;	
 }
-
 #toc {
 	page-break-before: right;
 	counter-reset: part; 
@@ -579,12 +584,22 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc .part a::after {
 	content:'' ;
 }
-
-#toc span.chapter-author {
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	display: inline-block;
 	font-style: italic;
+	margin-left: 2em;
+	width: 85%;
 }
-#toc span.chapter-author::before {
-	content: '• ';
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	margin-bottom: 5px;
+}
+#toc span.chapter-subtitle + 
+span.chapter-author {
+	margin-bottom: 5px;
+	position: relative;
+	top: -5px;
 }
 /*end toc*/
 

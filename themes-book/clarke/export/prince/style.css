@@ -1,6 +1,6 @@
 /* PRINCE XML
  * @see: http://www.princexml.com/doc/8.1/
- * CSS Version: 1.0
+ * CSS Version: 1.1
 ================== */
 
 /* FONTS
@@ -126,7 +126,7 @@
 
 @page chapter:left {
   @top-left {
-	content: counter(page) string(section) "\A0\A0\002D\A0\A0" string(part);
+	content: counter(page) "\A0\A0\002D\A0\A0" string(book-title);
 	counter-increment: part;
 	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: left;
@@ -357,7 +357,10 @@ p.bl_indent {
 	margin: 0 10%;
 	text-indent: 1em;
 }
-
+.hanging-indent {
+	padding-left: 1em;
+    text-indent: -1em;
+}
 
 /* HALFTITLE PAGE
 ==================== */
@@ -455,6 +458,7 @@ body > h1.title:first-child {
 }
 #toc a::after {
   content: leader(' ') target-counter(attr(href), page);
+  float: right;
   font-style: normal;
   text-decoration: none;
 }
@@ -467,6 +471,7 @@ body > h1.title:first-child {
 #toc .part {
 	margin: .6cm 0 .4em;
 	font:bold 12pt "Galdeano", sans-serif;
+	page-break-after: avoid;
 }
 #toc .part a::before {
 	content: "part "counter(part) ". ";
@@ -486,11 +491,23 @@ body > h1.title:first-child {
 #toc .part a::after {
 	content:'' ;
 }
-#toc span.chapter-author {
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	display: inline-block;
 	font-style: italic;
+    margin-left: 3.5em;
+    text-indent: 0;
+	width: 70%;
 }
-#toc span.chapter-author::before {
-	content: '• ';
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	margin-bottom: 5px;
+}
+#toc span.chapter-subtitle + 
+span.chapter-author {
+	margin-bottom: 5px;
+	position: relative;
+	top: -5px;
 }
 /*end toc*/
 

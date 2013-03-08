@@ -19,14 +19,24 @@ $book = pb_get_book_structure();
 		</li>
 
 		<?php foreach ($book['part'] as $part) : ?>
-			<li><h4><?php echo $part['post_title']; ?></h4><ul>
+			<li><h4><?php if ( count( $book['part'] ) > 1 ) echo $part['post_title']; ?></h4><ul>
 			<?php foreach ($part['chapters'] as $chapter) : ?>
 				<?php if ($chapter['post_status'] != 'publish') continue; // Skip ?>
 				<li><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo $chapter['post_title']; ?></a></li>
 			<?php endforeach; ?>
 			</ul></li>
 		<?php endforeach; ?>
-		</ul>
+
+		<li>
+			<ul>
+				<?php foreach ($book['back-matter'] as $fm) : ?>
+				<?php if ($fm['post_status'] != 'publish') continue; // Skip ?>
+				<li><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo $fm['post_title']; ?></a></li>
+				<?php endforeach; ?>
+			</ul>
+		</li>
+
+	</ul>
 	</div><!-- #post-## -->
 <?php else: ?>
 	<?php pb_private(); ?>

@@ -31,6 +31,7 @@ require_once( PB_PLUGIN_DIR . 'symbionts/custom-metadata/custom_metadata.php' );
 
 add_action( 'init', '\PressBooks\L10n\load_plugin_textdomain' );
 add_filter( 'gettext', '\PressBooks\L10n\override_core_strings', 10, 3 );
+add_filter( 'locale', '\PressBooks\L10n\set_locale' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies

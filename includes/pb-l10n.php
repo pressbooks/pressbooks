@@ -12,7 +12,7 @@ namespace PressBooks\L10n;
  */
 function load_plugin_textdomain() {
 	$locale = apply_filters( 'plugin_locale', get_locale(), 'pressbooks' );
-	load_textdomain( 'pressbooks', WP_LANG_DIR . '/pressbooks/pressbooks' . '-' . $locale . '.mo' );
+	load_textdomain( 'pressbooks', WP_LANG_DIR . '/pressbooks/pressbooks-' . $locale . '.mo' );
 	\load_plugin_textdomain( 'pressbooks', false, 'pressbooks/languages' );
 }
 
@@ -50,18 +50,41 @@ function override_core_strings( $translated, $original, $domain ) {
  */
 function include_core_overrides() {
 
-	static $overrides = false;
+	// Cheap cache
+	static $_overrides = array();
+
 	$locale = apply_filters( 'plugin_locale', get_locale(), 'pressbooks' );
 	$filename = PB_PLUGIN_DIR . "languages/core-" . $locale . ".php";
 
-	if ( $overrides === false ) {
-		$overrides = array();
+	if ( ! isset( $_overrides[$locale] ) ) {
+		$_overrides[$locale] = array();
 		if ( file_exists( $filename ) ) {
-			include( $filename );
+			$_overrides[$locale] = include( $filename );
 		}
 	}
 
-	return $overrides;
+	return $_overrides[$locale];
+}
+
+
+/**
+ * Hook for add_filter('locale ', ...), change the user interface language
+ *
+ * @param string $lang
+ *
+ * @return string
+ */
+function set_locale( $lang ) {
+
+	// Cheap cache
+	static $loc = '__UNSET__';
+
+	// get_current_user_id uses wp_get_current_user which may not be available the first time(s) get_locale is called
+	if ( '__UNSET__' == $loc && function_exists( 'wp_get_current_user' ) ) {
+		$loc = get_user_option( 'user_interface_lang' );
+	}
+
+	return $loc ? $loc : $lang;
 }
 
 
@@ -346,3 +369,30 @@ function number_to_words( $number ) {
 	return 'unknown';
 }
 
+
+/**
+ * Convert integer to roman numeral
+ *
+ * @param      $integer
+ * @param bool $upcase
+ *
+ * @return string
+ */
+function romanize( $integer, $upcase = true ) {
+
+	$integer = absint( $integer );
+
+	$table = array( 'M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40, 'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1 );
+	$return = '';
+	while ( $integer > 0 ) {
+		foreach ( $table as $rom => $arb ) {
+			if ( $integer >= $arb ) {
+				$integer -= $arb;
+				$return .= $rom;
+				break;
+			}
+		}
+	}
+
+	return $return;
+}

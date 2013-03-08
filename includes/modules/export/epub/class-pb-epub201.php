@@ -94,6 +94,14 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Hack to romanize part numbers
+	 *
+	 * @var bool
+	 */
+	protected $romanizePartNumbers = false;
+
+
+	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
@@ -237,9 +245,8 @@ class Epub201 extends Export {
 			$this->numbered = false;
 		}
 
-		// 1 = Indent, 2 = Skip Lines
-		if ( 2 == @$hacks['ebook_paragraph_separation'] ) {
-			// TODO: Indent paragraphs
+		if ( @$hacks['ebook_romanize_part_numbers'] ) {
+			$this->romanizePartNumbers = true;
 		}
 
 	}
@@ -632,7 +639,7 @@ class Epub201 extends Export {
 		$html = '<div id="copyright-page"><div class="ugc">';
 
 		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
-			$html .= $this->tidy( $metadata['pb_custom_copyright'] );
+			$html .= $this->kneadHtml( $this->tidy( $metadata['pb_custom_copyright'] ), 'custom' );
 		} else {
 			$html .= '<p>';
 			$html .= get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
@@ -704,7 +711,7 @@ class Epub201 extends Export {
 
 				$slug = $front_matter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
-				$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter' );
+				$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter', $i );
 
 				$vars['post_title'] = $front_matter['post_title'];
 				$vars['post_content'] = sprintf( $front_matter_printf,
@@ -770,7 +777,7 @@ class Epub201 extends Export {
 
 			$slug = $front_matter['post_name'];
 			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
-			$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter' );
+			$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter', $i );
 
 			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
@@ -862,7 +869,7 @@ class Epub201 extends Export {
 				$id = $chapter['ID'];
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
-				$content = $this->kneadHtml( $chapter['post_content'], 'chapter' );
+				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
 
 				$short_title = false; // Ie. running header title is not used in EPUB
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
@@ -921,7 +928,7 @@ class Epub201 extends Export {
 				$vars['post_content'] = sprintf(
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
 					$slug,
-					$i,
+					$this->romanizePartNumbers ? \PressBooks\L10n\romanize( $i ) : $i,
 					Sanitize\decode( $part['post_title'] ) );
 
 				$file_id = 'part-' . sprintf( "%03s", $i );
@@ -979,7 +986,7 @@ class Epub201 extends Export {
 			$subclass = \PressBooks\Taxonomy\back_matter_type( $id );
 			$slug = $back_matter['post_name'];
 			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $back_matter['post_title'] : '' );
-			$content = $this->kneadHtml( $back_matter['post_content'], 'back-matter' );
+			$content = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
 
 			$vars['post_title'] = $back_matter['post_title'];
 			$vars['post_content'] = sprintf( $back_matter_printf,
@@ -1042,6 +1049,7 @@ class Epub201 extends Export {
 
 		// HTML
 
+		$li_count = 0;
 		$i = 1;
 		$html = '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $this->manifest as $k => $v ) {
@@ -1049,15 +1057,18 @@ class Epub201 extends Export {
 			// We only care about front-matter, part, chapter, back-matter
 			// Skip the rest
 
+			$subtitle = '';
 			$author = '';
 			if ( preg_match( '/^front-matter-/', $k ) ) {
 				$class = 'front-matter ';
 				$class .= \PressBooks\Taxonomy\front_matter_type( $v['ID'] );
+				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 			} elseif ( preg_match( '/^part-/', $k ) ) {
 				$class = 'part';
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
 				$class = 'chapter';
+				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				if ( $this->numbered ) {
 					$v['post_title'] = " $i. " . $v['post_title'];
@@ -1066,26 +1077,23 @@ class Epub201 extends Export {
 			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
 				$class = 'back-matter ';
 				$class .= \PressBooks\Taxonomy\back_matter_type( $v['ID'] );
-				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 			} else {
 				continue;
 			}
 
-			if ( $author ) {
-				$html .= sprintf( '<li class="%s"><a href="%s">%s <span class="chapter-author">%s</span></a></li>',
-					$class,
-					$v['filename'],
-					Sanitize\decode( $v['post_title'] ),
-					Sanitize\decode( $author ) );
-			} else {
-				$html .= sprintf( '<li class="%s"><a href="%s">%s</a></li>',
-					$class,
-					$v['filename'],
-					Sanitize\decode( $v['post_title'] ) );
-			}
-			$html .= "\n";
+			$html .= sprintf( '<li class="%s"><a href="%s">%s', $class, $v['filename'], Sanitize\decode( $v['post_title'] ) );
+
+			if ( $subtitle )
+				$html .= ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
+
+			if ( $author )
+				$html .= ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
+
+			$html .= "</a></li>\n";
+			++$li_count;
 
 		}
+		if ( 0 == $li_count ) $html .= '<li></li>';
 		$html .= "</ul></div>\n";
 
 		// Create file
@@ -1104,10 +1112,11 @@ class Epub201 extends Export {
 	 *
 	 * @param string $html
 	 * @param string $type front-matter, part, chapter, back-matter, ...
+	 * @param int $pos (optional) position of content, used when creating filenames like: chapter-001, chapter-002, ...
 	 *
 	 * @return string
 	 */
-	protected function kneadHtml( $html, $type ) {
+	protected function kneadHtml( $html, $type, $pos = 0 ) {
 
 		libxml_use_internal_errors( true );
 
@@ -1120,7 +1129,7 @@ class Epub201 extends Export {
 		$doc = $this->scrapeAndKneadImages( $doc );
 
 		// Deal with <a href="">, <a href=''>, and other mutations
-		$doc = $this->kneadHref( $doc );
+		$doc = $this->kneadHref( $doc, $type, $pos );
 
 		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
 		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
@@ -1190,25 +1199,45 @@ class Epub201 extends Export {
 	 * Change hrefs
 	 *
 	 * @param \DOMDocument $doc
+	 * @param string $type front-matter, part, chapter, back-matter, ...
+	 * @param int $pos (optional) position of content, used when creating filenames like: chapter-001, chapter-002, ...
 	 *
 	 * @return \DOMDocument
 	 */
-	protected function kneadHref( \DOMDocument $doc ) {
+	protected function kneadHref( \DOMDocument $doc, $type, $pos ) {
 
 		$urls = $doc->getElementsByTagName( 'a' );
 		foreach ( $urls as $url ) {
-			if ( $url->childNodes->length ) {
-				foreach ( $url->childNodes as $node ) {
-					if (
-						'img' == $node->nodeName &&
-						$this->fuzzyImageNameMatch( $url->getAttribute( 'href' ), $node->getAttribute( 'src' ) )
-					) {
-						// Fix "hyperlink to non-standard resource ( of type 'image/...' )" errors
-						$url->removeAttribute( 'href' );
-						continue 2;
-					}
+
+			$current_url = '' . $url->getAttribute( 'href' ); // Stringify
+
+			// Don't touch empty urls
+			if ( ! trim( $current_url ) )
+				continue;
+
+			// WordPress auto wraps images in a href tags.
+			// For example: <a href="some_image-original.png"><img src="some_image-300x200.png" /></a>
+			// This causes an EPUB validation error of: hyperlink to non-standard resource ( of type 'image/...' )
+			// We fix this by removing the href
+			if ( $url->childNodes->length ) foreach ( $url->childNodes as $node ) {
+				if ( 'img' == $node->nodeName && $this->fuzzyImageNameMatch( $current_url, $node->getAttribute( 'src' ) ) ) {
+					$url->removeAttribute( 'href' );
+					continue 2;
 				}
 			}
+
+			// Determine if we are trying to link to our own internal content
+			$internal_url = $this->fuzzyHrefMatch( $current_url, $type, $pos );
+			if ( false !== $internal_url ) {
+				$url->setAttribute( 'href', $internal_url );
+				continue;
+			}
+
+			// Canonicalize, fix typos, remove garbage
+			if ( '#' != @$current_url[0] ) {
+				$url->setAttribute( 'href', \PressBooks\Sanitize\canonicalizeUrl( $current_url ) );
+			}
+
 		}
 
 		return $doc;
@@ -1216,7 +1245,9 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Fuzzy Image name match
+	 * Fuzzy image name match.
+	 * For example: <a href="Some_Image-original.png"><img src="some_image-300x200.PNG" /></a>
+	 * We consider both 'href' and 'src' above 'the same'
 	 *
 	 * @param string $file1
 	 * @param string $file2
@@ -1253,6 +1284,59 @@ class Epub201 extends Export {
 		}
 
 		return true;
+	}
+
+
+	/**
+	 * Try to determine if a URL is pointing to internal content.
+	 *
+	 * @param $url
+	 * @param string $type front-matter, part, chapter, back-matter, ...
+	 * @param int $pos (optional) position of content, used when creating filenames like: chapter-001, chapter-002, ...
+	 *
+	 * @return bool|string
+	 */
+	protected function fuzzyHrefMatch( $url, $type, $pos ) {
+
+		if ( ! $pos )
+			return false;
+
+		$url = trim( $url );
+		$url = rtrim( $url, '/' );
+
+		$last_part = explode( '/', $url );
+		$last_part = trim( end( $last_part ) );
+
+		if ( ! $last_part )
+			return false;
+
+		$lookup = \PressBooks\Book::getBookStructure();
+		$lookup = $lookup['__export_lookup'];
+
+		if ( ! isset( $lookup[$last_part] ) )
+			return false;
+
+		$domain = parse_url( $url );
+		$domain = @$domain['host'];
+
+		if ( $domain ) {
+			$domain2 = parse_url( wp_guess_url() );
+			if ( $domain != @$domain2['host'] ) {
+				return false;
+			}
+		}
+
+		// Seems legit...
+
+		$new_type = $lookup[$last_part];
+		$new_pos = 0;
+		foreach ( $lookup as $p => $t ) {
+			if ( $t == $new_type ) ++$new_pos;
+			if ( $p == $last_part ) break;
+		}
+		$new_url = "$new_type-" . sprintf( "%03s", $new_pos ) . "-$last_part.html";
+
+		return $new_url;
 	}
 
 

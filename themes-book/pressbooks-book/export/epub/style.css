@@ -4,7 +4,7 @@ This file must validate as CSS 2.01 with absolutely no errors
  + http://idpf.org/epub/20/spec/OPS_2.0.1_draft.htm#Section3.0
 
   Name: Luther
-  Version: 1.0
+  Version: 1.1
   Author: PressBooks (Book Oven Inc.)
   Author URI: http://pressbooks.com
   License: Creative Commons Attribution 2.0 Generic license
@@ -36,17 +36,6 @@ h1, h2, h3, h4, h5, h6 {
 p {
 	margin: 0;
 }
-
-p + p,
-.indent {
-	text-indent: 2em;
-	margin-top: 0;
-}
-.nonindent,
-.no-indent {
-	text-indent: 0;
-}
-
 p + ul {
 	margin-top: 10px;
 }
@@ -54,16 +43,6 @@ hr {
 	margin: 10px auto;
 	text-align: center;
 	width: 20%;
-}
-hr.break-symbols {
-	border: none;
-	font-size: 1.1em;
-	margin-bottom: 20px;
-}
-hr.break-symbols:after {
-	display: block;
-	content: "\2725";
-	text-align: center;
 }
 table {
 	border: 1px solid #000;
@@ -99,6 +78,29 @@ blockquote {
 	padding: 0 5%;
 	margin-bottom: 2em;
 }
+p + p,
+.indent {
+	text-indent: 2em;
+	margin-top: 0;
+}
+
+
+/* USER GENERATED CSS
+====================== */
+.nonindent,
+.no-indent {
+	text-indent: 0;
+}
+hr.break-symbols {
+	border: none;
+	font-size: 1.1em;
+	margin-bottom: 20px;
+}
+hr.break-symbols:after {
+	display: block;
+	content: "\2725";
+	text-align: center;
+}
 p.bl_nonindent {
 	margin: 2em 10% 0;
 	text-indent: 0;
@@ -106,6 +108,10 @@ p.bl_nonindent {
 p.bl_indent {
 	margin: 0 10%;
 	text-indent: 1em;
+}
+.hanging-indent {
+	padding-left: 1em;
+    text-indent: -1em;
 }
 
 /* TITLE PAGE
@@ -160,7 +166,7 @@ p.bl_indent {
 
 /*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART  
 ========================================================= */
-.part {
+div.part {
 	background-repeat: no-repeat;
 	background-position: bottom center;
 	margin-top: 6em;
@@ -174,6 +180,9 @@ p.bl_indent {
 	background-position: bottom center;
 	padding-bottom: 1em;
 	text-transform: uppercase;
+}
+div.part-title-wrap > h3.part-number:before {
+	content: "Part ";
 }
 .chapter-number {
 	margin-bottom: 3em;
@@ -241,8 +250,16 @@ p.bl_indent {
 #toc {
 	font-size: 0.875em;
 }
+#toc ul > .front-matter,
+#toc ul > .back-matter {
+	font-style: italic;
+}
+#toc .front-matter + .chapter {
+	margin-top: 1.3em;
+}
 #toc a {
 	border: none;
+	color: #000;
 }
 #toc ul, #toc li {
 	list-style: none;
@@ -257,16 +274,28 @@ p.bl_indent {
 	background-image: none;
 	margin: 1.3em 0 0.5em;
 	font:bold 1.2em Impact, sans-serif;
-	text-align: center;
 }
+
 #toc ul {
 	line-height: 1.2em;
 }
-#toc span.chapter-author {
-	font-style: italic;
+#toc .chapter + .back-matter {
+	margin-top: 1.3em;
 }
-#toc span.chapter-author:before {
-	content: '• ';
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	display: block;
+	font-style: italic;
+	margin-left: 1em;
+}
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	margin-bottom: 5px;
+}
+#toc span.chapter-subtitle + 
+span.chapter-author {
+	margin-top: -5px;
+	margin-bottom: 5px;
 }
 
 /* IMAGES
@@ -304,6 +333,13 @@ img.aligncenter {
 	font-size: 0.875em;
 	font-style: italic;
 	margin-top: 5px;
+}
+div.wp-caption.aligncenter,
+div.wp-caption.alignleft,
+div.wp-caption.alignright,
+div.wp-caption.alignnone {
+	/* Hack for "centering" problems on Kindle, Calibre, ... */
+	width: auto !important;
 }
 
 /* SUBTITLES, CHAPTER AUTHOR & APHORIMS

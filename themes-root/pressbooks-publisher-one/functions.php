@@ -16,11 +16,6 @@ if ( get_current_blog_id()==1 ) {
 }
 
 function pb_root_remove_menu_pages() {
-	remove_menu_page("edit.php?post_type=part");
-	remove_menu_page("edit.php?post_type=chapter");
-	remove_menu_page("edit.php?post_type=front-matter");
-	remove_menu_page("edit.php?post_type=back-matter");
-	remove_menu_page("edit.php?post_type=metadata");
 	remove_menu_page("link-manager.php");
 	remove_submenu_page("tools.php","pressbooks-import");
 }

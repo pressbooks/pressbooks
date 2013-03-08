@@ -2,3 +2,4 @@
 
  * Book Oven Inc. (code@pressbooks.com)
  * John Rankin (john.rankin@affinity.co.nz)
+ * Arik Chao (arik@readmoo.com)

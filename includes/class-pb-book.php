@@ -12,6 +12,15 @@ namespace PressBooks;
 
 class Book {
 
+	/**
+	 * Fix duplicate slugs.
+	 * This can happen if a post is 'draft', 'pending', or 'auto-draft'
+	 *
+	 * @see wp_unique_post_slug()
+	 * @var array
+	 */
+	static $fixDupeSlugs = array();
+
 
 	function __construct() {
 
@@ -156,10 +165,13 @@ class Book {
 			$results = $q->query( $args );
 
 			foreach ( $results as $post ) {
+
+				$post_name = static::fixSlug( $post->post_name );
+
 				$book_structure[$type][] = array(
 					'ID' => $post->ID,
 					'post_title' => $post->post_title,
-					'post_name' => $post->post_name,
+					'post_name' => $post_name,
 					'post_author' => $post->post_author,
 					'comment_count' => $post->comment_count,
 					'menu_order' => $post->menu_order,
@@ -199,18 +211,27 @@ class Book {
 		$custom_types = array_diff( $custom_types, array( 'chapter' ) );
 
 		// -----------------------------------------------------------------------------
-		// Create __order array, remove post_parent
+		// Create __order and __lookup arrays, remove post_parent
 		// -----------------------------------------------------------------------------
+
+		$book_structure['__order'] = array();
+		$book_structure['__export_lookup'] = array();
 
 		foreach ( $custom_types as $type ) {
 			foreach ( $book_structure[$type] as $i => $struct ) {
 				unset( $book_structure[$type][$i]['post_parent'] );
 				if ( $type != 'part' ) {
 					$book_structure['__order'][$struct['ID']] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
+					if ( $struct['export'] ) {
+						$book_structure['__export_lookup'][$struct['post_name']] = $type;
+					}
 				} else {
 					foreach ( $struct['chapters'] as $j => $chapter ) {
 						unset( $book_structure[$type][$i]['chapters'][$j]['post_parent'] );
-						$book_structure['__order'][$chapter['ID']] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
+						$book_structure['__order'][$chapter['ID']] = array( 'export' => $chapter['export'], 'post_status' => $chapter['post_status'] );
+						if ( $chapter['export'] ) {
+							$book_structure['__export_lookup'][$chapter['post_name']] = 'chapter';
+						}
 					}
 				}
 			}
@@ -602,6 +623,43 @@ class Book {
 		return true;
 	}
 
+
+	/**
+	 * Fix empty slugs and Fix duplicate slugs.
+	 * This can happen if a post is 'draft', 'pending', or 'auto-draft'
+	 *
+	 * @param string $old_post_name
+	 *
+	 * @return string
+	 */
+	static protected function fixSlug( $old_post_name ) {
+
+		if ( ! trim( $old_post_name ) ) {
+			$old_post_name = uniqid( 'slug-' );
+		}
+
+		if ( isset( static::$fixDupeSlugs[$old_post_name] ) ) {
+			$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[$old_post_name];
+			$i = 0;
+			while ( isset( static::$fixDupeSlugs[$new_post_name] ) ) {
+				++static::$fixDupeSlugs[$new_post_name];
+				++static::$fixDupeSlugs[$old_post_name];
+				$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[$old_post_name];
+				if ( $i > 999 ) break; // Safety
+				++$i;
+			}
+			$post_name = $new_post_name;
+			static::$fixDupeSlugs[$new_post_name] = 1;
+			++static::$fixDupeSlugs[$old_post_name];
+		} else {
+
+			$post_name = $old_post_name;
+			static::$fixDupeSlugs[$old_post_name] = 1;
+		}
+
+		return $post_name;
+	}
+
 }
 
 /* --------------------------------------------------------------------------------------------------------------------
@@ -683,6 +741,13 @@ The "book object" looks something like this:
 				'export' => false,
 				'post_status' => 'publish',
 			),
+			// ...
+		),
+		'__export_lookup' => array(
+            'introduction' => 'front-matter',
+            'chapter-1' => 'chapter',
+            'foo-bar' => 'chapter',
+            'appendix' => 'back-matter',
 			// ...
 		),
 	);

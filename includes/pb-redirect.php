@@ -100,5 +100,4 @@ function do_format() {
 		exit;
 	}
 
-	return;
 }

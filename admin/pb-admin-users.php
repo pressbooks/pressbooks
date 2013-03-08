@@ -36,3 +36,25 @@ function get_restricted( $blogId ) {
 
 	return apply_filters( 'pb_restricted_pages', $disallowed, $blogId );
 }
+
+
+/**
+ * Adds some custom fields to user profiles
+ */
+function add_user_meta() {
+
+	x_add_metadata_group( 'profile-information', 'user', array(
+		'label' => __( 'Extra Profile Information', 'pressbooks' )
+	) );
+
+	x_add_metadata_field( 'user_interface_lang', 'user', array(
+		'group' => 'profile-information',
+		'field_type' => 'select',
+		'values' => array(
+			'en_US' => __( 'English', 'pressbooks' ),
+			'zh_TW' => __( 'Chinese, Traditional', 'pressbooks' ),
+		),
+		'label' => __( 'Language', 'pressbooks' )
+	) );
+
+}

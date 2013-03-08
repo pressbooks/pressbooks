@@ -162,9 +162,9 @@ function canonicalizeUrl( $url ) {
 
 	// protocol and domain to lowercase (but NOT the rest of the URL),
 	$scheme = @parse_url( $url, PHP_URL_SCHEME );
-	$url = preg_replace( "/$scheme/", mb_strtolower( $scheme ), $url, 1 );
+	$url = preg_replace( '/' . preg_quote( $scheme ) . '/', mb_strtolower( $scheme ), $url, 1 );
 	$host = @parse_url( $url, PHP_URL_HOST );
-	$url = preg_replace( "/$host/", mb_strtolower( $host ), $url, 1 );
+	$url = preg_replace( '/' . preg_quote( $host ) . '/', mb_strtolower( $host ), $url, 1 );
 
 	// Sanitize for good measure
 	$url = filter_var( $url, FILTER_SANITIZE_URL );

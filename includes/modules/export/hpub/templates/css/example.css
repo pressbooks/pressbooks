@@ -6,8 +6,7 @@ body {
 	padding: 1em;
 }
 a {
-	border: .5px solid #09edfd;
-	color: black;
+	color: #02b4c1;
 	text-decoration: none;
 }
 
@@ -23,17 +22,6 @@ h1, h2, h3, h4, h5, h6 {
 p {
 	margin: 0;
 }
-
-p + p,
-.indent {
-	text-indent: 2em;
-	margin-top: 0;
-}
-.nonindent,
-.no-indent {
-	text-indent: 0;
-}
-
 p + ul {
 	margin-top: 10px;
 }
@@ -41,16 +29,6 @@ hr {
 	margin: 10px auto;
 	text-align: center;
 	width: 20%;
-}
-hr.break-symbols {
-	border: none;
-	font-size: 1.1em;
-	margin-bottom: 20px;
-}
-hr.break-symbols:after {
-	display: block;
-	content: "\2725";
-	text-align: center;
 }
 table {
 	border: 1px solid #000;
@@ -86,6 +64,29 @@ blockquote {
 	padding: 0 5%;
 	margin-bottom: 2em;
 }
+p + p,
+.indent {
+	text-indent: 2em;
+	margin-top: 0;
+}
+
+
+/* USER GENERATED CSS
+====================== */
+.nonindent,
+.no-indent {
+	text-indent: 0;
+}
+hr.break-symbols {
+	border: none;
+	font-size: 1.1em;
+	margin-bottom: 20px;
+}
+hr.break-symbols:after {
+	display: block;
+	content: "\2725";
+	text-align: center;
+}
 p.bl_nonindent {
 	margin: 2em 10% 0;
 	text-indent: 0;
@@ -94,20 +95,24 @@ p.bl_indent {
 	margin: 0 10%;
 	text-indent: 1em;
 }
+.hanging-indent {
+	padding-left: 1em;
+	text-indent: -1em;
+}
 
 /* TITLE PAGE
 ================ */
-#title-page .title {
+#title-page > .title {
 	font-size: 2.2em;
 	margin-top: 1em;
 	text-transform: uppercase;
 }
-#title-page .subtitle {
+#title-page > .subtitle {
 	font-size: 1.7em;
 	margin-top: 2.1em;
 	text-transform: uppercase;
 }
-#title-page .logo {
+#title-page > .logo {
 	margin-top: 5em;
 	height: 26px;
 	background-repeat: no-repeat;
@@ -116,30 +121,30 @@ p.bl_indent {
 #title-page .title + .logo {
 	margin-top: 8em;
 }
-#title-page .author {
+#title-page > .author {
 	font-size: 1.4em;
 	margin-top: 2.5em;
 	text-transform: uppercase;
 }
-#title-page .publisher {
+#title-page > .publisher {
 	font-size: 1.3em;
 	margin-bottom: 0.3em;
 }
-#title-page .publisher-city {
+#title-page > .publisher-city {
 	font-size: 0.875em;
 	margin-top: 0;
 }
 
 /* DEDICATION
 ================ */
-.dedication p {
+.dedication > div.front-matter-ugc p {
 	font-style: italic;
 	text-align: center;
 }
 
 /* COPYRIGHT PAGE
 =================== */
-#copyright-page p {
+#copyright-page > div.ugc p {
 	font-size: 0.7em;
 	text-indent: 0;
 	margin-bottom: 0.5em;
@@ -147,7 +152,7 @@ p.bl_indent {
 
 /*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART
 ========================================================= */
-.part {
+div.part {
 	background-repeat: no-repeat;
 	background-position: bottom center;
 	margin-top: 6em;
@@ -162,13 +167,16 @@ p.bl_indent {
 	padding-bottom: 1em;
 	text-transform: uppercase;
 }
+div.part-title-wrap > h3.part-number:before {
+	content: "Part ";
+}
 .chapter-number {
 	margin-bottom: 3em;
 }
 .front-matter-title {
 	margin-bottom: 3em;
 }
-.preface h1.front-matter-title {
+.front-matter.preface h1.front-matter-title {
 	font-size: 1.4em;
 }
 .chapter-title {
@@ -202,11 +210,17 @@ p.bl_indent {
 .ugc h5 {
 	text-align: left;
 }
-.ugc h4 {
+.ugc.back-matter-ugc h4,
+.ugc.part-ugc h4,
+.ugc.chapter-ugc h4,
+.ugc.front-matter-ugc h4 {
 	font-size: 0.875em;
 	font-weight: normal;
 }
-.ugc h5 {
+.ugc.back-matter-ugc h5,
+.ugc.part-ugc h5,
+.ugc.chapter-ugc h5,
+.ugc.front-matter-ugc h5 {
 	font-size: 0.75em;
 }
 .ugc h1 + p,
@@ -222,8 +236,16 @@ p.bl_indent {
 #toc {
 	font-size: 0.875em;
 }
+#toc ul > .front-matter,
+#toc ul > .back-matter {
+	font-style: italic;
+}
+#toc .front-matter + .chapter {
+	margin-top: 1.3em;
+}
 #toc a {
 	border: none;
+	color: #000;
 }
 #toc ul, #toc li {
 	list-style: none;
@@ -238,16 +260,28 @@ p.bl_indent {
 	background-image: none;
 	margin: 1.3em 0 0.5em;
 	font:bold 1.2em Impact, sans-serif;
-	text-align: center;
 }
+
 #toc ul {
 	line-height: 1.2em;
 }
-#toc span.chapter-author {
-	font-style: italic;
+#toc .chapter + .back-matter {
+	margin-top: 1.3em;
 }
-#toc span.chapter-author:before {
-	content: '• ';
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	display: block;
+	font-style: italic;
+	margin-left: 1em;
+}
+#toc span.chapter-author,
+#toc span.chapter-subtitle {
+	margin-bottom: 5px;
+}
+#toc span.chapter-subtitle +
+span.chapter-author {
+	margin-top: -5px;
+	margin-bottom: 5px;
 }
 
 /* IMAGES
@@ -451,7 +485,7 @@ sup.footnote, sup.endnote {
 .index .ugc  div {
 	margin-bottom: 4em;
 }
-.index .ugc  p {
+.index > div.back-matter-ugc  p {
 	font-size: 0.75em;
 	padding-left: 14pt;
 	text-indent: -14pt;

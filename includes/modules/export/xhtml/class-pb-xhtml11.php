@@ -402,6 +402,7 @@ class Xhtml11 extends Export {
 		$config = array(
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
+			'unique_ids' => 'fixme-',
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
 		);
 
@@ -586,52 +587,60 @@ class Xhtml11 extends Export {
 							Sanitize\decode( $title ) );
 					}
 					foreach ( $part['chapters'] as $j => $chapter ) {
-						if ( ! $chapter['export'] ) continue;
+
+						if ( ! $chapter['export'] )
+							continue;
+
 						$slug = $chapter['post_name'];
 						$title = $chapter['post_title'];
+						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $chapter['ID'], 'pb_section_author', true ) );
-						if ( $author ) {
-							printf( '<li class="chapter"><a href="#%s">%s <span class="chapter-author">%s</span></a></li>',
-								$slug,
-								Sanitize\decode( $title ),
-								Sanitize\decode( $author ) );
-						} else {
-							printf( '<li class="chapter"><a href="#%s">%s</a></li>',
-								$slug,
-								Sanitize\decode( $title ) );
-						}
+
+						printf( '<li class="chapter"><a href="#%s">%s', $slug, Sanitize\decode( $title ) );
+
+						if ( $subtitle )
+							echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
+
+						if ( $author )
+							echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
+
+						echo '</a></li>';
 					}
 				}
 			} else {
 				foreach ( $struct as $val ) {
-					if ( ! $val['export'] ) continue;
+
+					if ( ! $val['export'] )
+						continue;
+
 					$typetype = '';
+					$subtitle = '';
 					$author = '';
 					$slug = $val['post_name'];
 					$title = $val['post_title'];
+
 					if ( 'front-matter' == $type ) {
 						$subclass = \PressBooks\Taxonomy\front_matter_type( $val['ID'] );
 						if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass ) {
 							continue; // Skip
 						} else {
 							$typetype = $type . ' ' . $subclass;
+							$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 							$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
 						}
 					} elseif ( 'back-matter' == $type ) {
 						$typetype = $type . ' ' . \PressBooks\Taxonomy\back_matter_type( $val['ID'] );
 					}
-					if ( $author ) {
-						printf( '<li class="%s"><a href="#%s">%s <span class="chapter-author">%s</span></a></li>',
-							$typetype,
-							$slug,
-							Sanitize\decode( $title ),
-							Sanitize\decode( $author ) );
-					} else {
-						printf( '<li class="%s"><a href="#%s">%s</a></li>',
-							$typetype,
-							$slug,
-							Sanitize\decode( $title ) );
-					}
+
+					printf( '<li class="%s"><a href="#%s">%s', $typetype, $slug, Sanitize\decode( $title ) );
+
+					if ( $subtitle )
+						echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
+
+					if ( $author )
+						echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
+
+					echo '</a></li>';
 				}
 			}
 		}

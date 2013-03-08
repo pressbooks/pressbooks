@@ -42,7 +42,7 @@
 		<div id="toc">
 			<a href="#" class="close"><?php _e('Close', 'pressbooks'); ?></a>
 			<ul>
-				<li><h4><?php _e('Front Matter', 'pressbooks'); ?></h4></li>
+				<li><h4><!-- Front-matter --></h4></li>
 				<ul>
 					<?php foreach ($book['front-matter'] as $fm): ?>
 					<?php if ($fm['post_status'] != 'publish') continue; // Skip ?>
@@ -50,7 +50,7 @@
 					<?php endforeach; ?>
 				</ul>
 				<?php foreach ($book['part'] as $part):?>
-				<li><h4><?php echo $part['post_title']; ?></h4></li>
+				<li><h4><?php if ( count( $book['part'] ) > 1 ) echo $part['post_title']; ?></h4></li>
 				<ul>
 					<?php foreach ($part['chapters'] as $chapter) : ?>
 						<?php if ($chapter['post_status'] != 'publish') continue; // Skip ?>
@@ -58,6 +58,13 @@
 					<?php endforeach; ?>
 				</ul>
 				<?php endforeach; ?>
+				<li><h4><!-- Back-matter --></h4></li>
+				<ul>
+					<?php foreach ($book['back-matter'] as $fm): ?>
+					<?php if ($fm['post_status'] != 'publish') continue; // Skip ?>
+					<li><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo $fm['post_title'];?></a></li>
+					<?php endforeach; ?>
+				</ul>
 			</ul>
 		</div><!-- end #toc -->
 		<?php endif; ?>
