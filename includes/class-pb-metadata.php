@@ -1,9 +1,16 @@
 <?php
 /**
+ * This class has two purposes:
+ *  + Handle the custom metadata post, i.e. "Book Information". There should only be one metadata post per book.
+ *  + Perform data upgrades as PressBooks evolves.
+ *
  * @author  PressBooks <code@pressbooks.org>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks;
+
+
+use PressBooks\Book;
 
 
 class Metadata {
@@ -14,7 +21,7 @@ class Metadata {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 2;
+	static $currentVersion = 4;
 
 
 	/**
@@ -122,6 +129,12 @@ class Metadata {
 			// New title page feature missing in many books
 			wp_insert_term( 'Title Page', 'front-matter-type', array( 'slug' => 'title-page' ) );
 		}
+		if ( $version < 3 ) {
+			$this->upgradeCustomCss();
+		}
+		if ( $version < 4 ) {
+			$this->fixDoubleSlashBug();
+		}
 	}
 
 
@@ -196,7 +209,7 @@ class Metadata {
 	 */
 	function upgradeBook() {
 
-		$book_structure = \PressBooks\Book::getBookStructure();
+		$book_structure = Book::getBookStructure();
 		foreach ( $book_structure['__order'] as $post_id => $_ ) {
 
 			$meta = get_post_meta( $post_id );
@@ -320,6 +333,61 @@ class Metadata {
 		}
 
 		return $metadata;
+	}
+
+
+	/**
+	 * Upgrade Custom CSS types.
+	 *
+	 * @see \PressBooks\Activation::wpmuActivate
+	 */
+	function upgradeCustomCss() {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		$posts = array(
+			array(
+				'post_title' => __( 'Custom CSS for Ebook', 'pressbooks' ),
+				'post_name' => 'epub',
+				'post_type' => 'custom-css' ),
+			array(
+				'post_title' => __( 'Custom CSS for PDF', 'pressbooks' ),
+				'post_name' => 'prince',
+				'post_type' => 'custom-css' ),
+			array(
+				'post_title' => __( 'Custom CSS for Web', 'pressbooks' ),
+				'post_name' => 'web',
+				'post_type' => 'custom-css' ),
+		);
+
+		$post = array( 'post_status' => 'publish', 'post_author' => wp_get_current_user()->ID );
+		$query = "SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ";
+
+		foreach ( $posts as $item ) {
+			$exists = $wpdb->get_var( $wpdb->prepare( $query, array( $item['post_title'], $item['post_type'], $item['post_name'] ) ) );
+			if ( empty( $exists ) ) {
+				$data = array_merge( $item, $post );
+				wp_insert_post( $data );
+			}
+		}
+
+	}
+
+
+	/**
+	 * Fix a double slash bug by reactivating theme with new settings.
+	 *
+	 * @see \PressBooks\PressBooks::registerThemeDirectories
+	 */
+	function fixDoubleSlashBug() {
+
+		$theme = wp_get_theme();
+		if ( ! $theme->exists() || ! $theme->is_allowed() ) {
+			return; // Do nothing
+		} else {
+			switch_theme( $theme->get_stylesheet() );
+		}
 	}
 
 

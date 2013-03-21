@@ -19,21 +19,6 @@ class Pdf extends Export {
 
 
 	/**
-	 * Fullpath to CSS stylesheet used by Prince.
-	 *
-	 * @var string
-	 */
-	public $style;
-
-
-	/**
-	 * Fullpath to JavaScript used by Prince.
-	 *
-	 * @var string
-	 */
-	public $script;
-
-	/**
 	 * Fullpath to log file used by Prince.
 	 *
 	 * @var string
@@ -42,11 +27,19 @@ class Pdf extends Export {
 
 
 	/**
-	 * Path to book export theme.
+	 * Fullpath to book CSS file.
 	 *
 	 * @var string
 	 */
 	protected $exportStylePath;
+
+
+	/**
+	 * Fullpath to book JavaScript file.
+	 *
+	 * @var string
+	 */
+	protected $exportScriptPath;
 
 
 	/**
@@ -68,8 +61,7 @@ class Pdf extends Export {
 			define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 
 		$this->exportStylePath = $this->getExportStylePath( 'prince' );
-		$this->style = $this->exportStylePath . '/style.css';
-		$this->script = $this->exportStylePath . '/script.js';
+		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
 
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
@@ -89,7 +81,7 @@ class Pdf extends Export {
 
 		// Sanity check
 
-		if ( empty( $this->exportStylePath ) || ! is_dir( $this->exportStylePath ) ) {
+		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
 
 			return false;
@@ -114,9 +106,9 @@ class Pdf extends Export {
 		$prince = new \Prince( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
-		$prince->addStyleSheet( $this->style );
+		$prince->addStyleSheet( $this->exportStylePath );
 		$prince->addStylesheet( $css_file );
-		$prince->addScript( $this->script );
+		$prince->addScript( $this->exportScriptPath );
 		$prince->setLog( $this->logfile );
 		$retval = $prince->convert_file_to_file( $this->url, $this->outputPath, $msg );
 

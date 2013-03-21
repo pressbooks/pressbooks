@@ -6,6 +6,10 @@
 namespace PressBooks\Export;
 
 
+use PressBooks\Book;
+use PressBooks\CustomCss;
+
+
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
 if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
 	if ( ! empty( $_ENV['TMP'] ) ) {
@@ -80,7 +84,7 @@ abstract class Export {
 
 
 	/**
-	 * Return the fullpath to an export module's style files, no trailing slash!
+	 * Return the fullpath to an export module's style file.
 	 *
 	 * @param string $type
 	 *
@@ -88,7 +92,42 @@ abstract class Export {
 	 */
 	function getExportStylePath( $type ) {
 
-		return realpath( get_stylesheet_directory() . "/export/$type" );
+		$fullpath = false;
+
+		if ( CustomCss::isCustomCss() ) {
+			$fullpath = CustomCss::getCustomCssFolder() . "/$type.css";
+			if ( ! is_file( $fullpath ) ) $fullpath = false;
+		}
+
+		if ( ! $fullpath ) {
+			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
+		}
+
+		return $fullpath;
+	}
+
+
+	/**
+	 * Return the fullpath to an export module's Javascript file.
+	 *
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	function getExportScriptPath( $type ) {
+
+		$fullpath = false;
+
+		if ( CustomCss::isCustomCss() ) {
+			$fullpath = CustomCss::getCustomCssFolder() . "/$type.js";
+			if ( ! is_file( $fullpath ) ) $fullpath = false;
+		}
+
+		if ( ! $fullpath ) {
+			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
+		}
+
+		return $fullpath;
 	}
 
 
@@ -547,7 +586,7 @@ abstract class Export {
 
 			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
 
-			$book_lang = \PressBooks\Book::getBookInformation();
+			$book_lang = Book::getBookInformation();
 			$book_lang = @$book_lang['pb_language'];
 
 			foreach ( $compare_with as $compare ) {

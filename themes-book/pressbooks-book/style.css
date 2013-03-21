@@ -763,15 +763,15 @@ div.aligncenter {
   padding-top: 4px;
 }
 
-*/
-/********************
+/*********************
 	    Menu
-*********************/#access {
-  display: none;
-  float: left;
-  background: #000;
-  margin: 0 auto;
-  width: 940px;
+*********************/
+#access {
+	display: none;
+	float: left;
+	background: #000;
+	margin: 0 auto;
+	width: 940px;
 }
 /***********************
 	 Page Navigation

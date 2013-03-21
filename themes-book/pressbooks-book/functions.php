@@ -23,16 +23,26 @@ $metakeys = array(
  * Register and enqueue scripts and stylesheets.
  */
 function pb_enqueue_scripts() {
-  wp_register_style('pressbooks', get_bloginfo('stylesheet_url'), array(), '1.0', 'screen');
-  wp_enqueue_style('pressbooks');
-  wp_enqueue_script('pressbooks-script', get_template_directory_uri()."/js/script.js", array('jquery'), '1.0', false);
-  wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
 
-  if ( is_single() ) {
-		wp_enqueue_script('pb-pop-out-toc', get_template_directory_uri().'/js/pop-out.js', array('jquery'), '1.0', false);
-  }
+	if ( pb_is_custom_theme() ) {
+		// Use our default stylesheet, then override with the user's custom stylesheet.
+		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen' );
+		wp_enqueue_style( 'pressbooks' );
+		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), array(), null, 'screen' );
+		wp_enqueue_style( 'pressbooks-custom-css' );
+	} else {
+		wp_register_style( 'pressbooks', get_bloginfo( 'stylesheet_url' ), array(), null, 'screen' );
+		wp_enqueue_style( 'pressbooks' );
+	}
+
+	wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
+	wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
+
+	if ( is_single() ) {
+		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
+	}
 }
-add_action('wp_enqueue_scripts', 'pb_enqueue_scripts');
+add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 
 
 /* Add Custom Login Graphic TODO: Import user customized logo here if available */

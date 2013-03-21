@@ -94,5 +94,5 @@ if ( \PressBooks\Book::isBook() ) {
 			$metadata->upgrade( $meta_version );
 			update_option( 'pressbooks_metadata_version', \PressBooks\Metadata::$currentVersion );
 		}
-	} );
+	}, 1000 );
 }

@@ -6,6 +6,9 @@
 namespace PressBooks;
 
 
+use PressBooks\Book;
+
+
 class PressBooks {
 
 	/**
@@ -24,11 +27,13 @@ class PressBooks {
 	 */
 	function registerThemeDirectories() {
 
-		register_theme_directory( PB_PLUGIN_DIR . 'themes-root/' );
-		register_theme_directory( PB_PLUGIN_DIR . 'themes-book/' );
+		// No trailing slash, otherwise we get a double slash bug
+		// @see \PressBooks\Metadata::fixDoubleSlashBug
+		register_theme_directory( PB_PLUGIN_DIR . 'themes-root' );
+		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
 
 		if ( is_admin() ) {
-			if ( \PressBooks\Book::isBook() ) {
+			if ( Book::isBook() ) {
 				add_filter( 'allowed_themes', array( $this, 'allowedBookThemes' ) );
 			} else {
 				add_filter( 'allowed_themes', array( $this, 'allowedRootThemes' ) );

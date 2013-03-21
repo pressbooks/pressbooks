@@ -78,7 +78,7 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Path to book export theme.
+	 * Fullpath to book CSS file.
 	 *
 	 * @var string
 	 */
@@ -142,7 +142,7 @@ class Epub201 extends Export {
 			return false;
 		}
 
-		if ( empty( $this->exportStylePath ) || ! is_dir( $this->exportStylePath ) ) {
+		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
 
 			return false;
@@ -457,14 +457,13 @@ class Epub201 extends Export {
 	protected function createStylesheet() {
 
 		$this->stylesheet = strtolower( sanitize_file_name( wp_get_theme() . '.css' ) );
-		$stylesheet_path = $this->exportStylePath . "/style.css";
 
 		// Copy stylesheet
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/{$this->stylesheet}",
-			$this->loadTemplate( $stylesheet_path ) );
+			$this->loadTemplate( $this->exportStylePath ) );
 
-		$this->scrapeCss( $stylesheet_path );
+		$this->scrapeCss( $this->exportStylePath );
 
 		// Append overrides
 		file_put_contents(
@@ -499,7 +498,10 @@ class Epub201 extends Export {
 			$filename = sanitize_file_name( basename( $url ) );
 			if ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) == 1 ) {
 				// Copy to images directory
-				copy( realpath( "$css_dir/$url" ), $this->tmpDir . "/OEBPS/images/$filename" );
+				$my_image = realpath( "$css_dir/$url" );
+				if ( is_file( $my_image ) ) {
+					copy( $my_image, $this->tmpDir . "/OEBPS/images/$filename" );
+				}
 			}
 		}
 

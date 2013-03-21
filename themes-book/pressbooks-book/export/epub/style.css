@@ -117,8 +117,9 @@ p.bl_indent {
 /* TITLE PAGE
 ================ */
 #title-page > .title {
-	font-size: 2.2em;
+	font-size: 2.2em;	
 	margin-top: 1em;
+    line-height: 1em;		
 	text-transform: uppercase;
 }
 #title-page > .subtitle {

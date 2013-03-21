@@ -15,6 +15,7 @@ require_once( PB_PLUGIN_DIR . 'admin/pb-admin-dashboard.php' );
 require_once( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
 require_once( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
 require_once( PB_PLUGIN_DIR . 'admin/pb-admin-users.php' );
+require_once( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
@@ -100,12 +101,22 @@ add_action( 'wp_ajax_pb_update_export_options', '\PressBooks\Book::updateExportO
 add_action( 'wp_ajax_pb_delete_cover_image', '\PressBooks\Admin\Metaboxes\delete_cover_image' );
 // Convert MS Word Footnotes
 add_action( 'wp_ajax_pb_ftnref_convert', '\PressBooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes' );
+// Load CSS into Custom CSS textarea
+add_action( 'wp_ajax_pb_load_css_from', '\PressBooks\Admin\CustomCss\load_css_from' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Export page "catch-all" routine, must come after taxonomies and friends
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', '\PressBooks\Export\Export::formSubmit', 50 );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Custom Css
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'admin_menu', '\PressBooks\Admin\CustomCss\add_menu' );
+add_action( 'load-post.php', '\PressBooks\Admin\CustomCss\redirect_css_editor' );
+add_action( 'init', '\PressBooks\CustomCss::formSubmit', 50 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Leftovers
