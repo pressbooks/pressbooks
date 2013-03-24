@@ -173,6 +173,9 @@ function replace_book_admin_menu() {
 		}
 	} );
 
+	// Import
+	add_menu_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), "edit_posts", "pb_import", __NAMESPACE__ . '\display_import', '', 15 );
+
 
 	// Privacy
 	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
@@ -216,6 +219,14 @@ function display_organize() {
 function display_export() {
 
 	require( PB_PLUGIN_DIR . 'admin/templates/export.php' );
+}
+
+/**
+ * Displays the Import  Admin Page
+ */
+function display_import() {
+
+    require( PB_PLUGIN_DIR . 'admin/templates/import.php' );
 }
 
 
