@@ -13,19 +13,19 @@ if ( ! empty( $_GET['import_error'] ) ) {
 <h2><?php bloginfo( 'name' ); ?></h2>
 
 <div class="import-page">
-<h3><?=__('Import Epub')?></h3>
+<h3><?=__('Import File')?></h3>
 
 <div class="import-format-wrap">
 
-    <form action="<?php bloginfo( 'url' ); ?>/wp-admin/admin.php?page=pb_import&amp;upload_epub=yes" method="POST" enctype="multipart/form-data" class="upload_epub">
+    <form action="<?php bloginfo( 'url' ); ?>/wp-admin/admin.php?page=pb_import&amp;upload_file=yes" method="POST" enctype="multipart/form-data" class="upload_file">
 		<?php if ( isset( $_GET['import_error'] ) && $_GET['import_error'] == 'filetype' ): ?>
         <div class="input-wrap">
-            <span class="error"><?=__('You must upload a Epub file.')?></span>
+            <span class="error"><?=__('The file type you tried to upload is not yet supported.')?></span>
         </div>
 		<?php endif; ?>
-        <input type="file" name="epub_file" id="epub_file">
+        <input type="file" name="import_file" id="import_file">
 
-        <input type="submit" name="Submit" value="<?=__('Upload')?>" class="epub-submit">
+        <input type="submit" name="Submit" value="<?=__('Upload')?>" class="file-submit">
     </form>
 
 </div>

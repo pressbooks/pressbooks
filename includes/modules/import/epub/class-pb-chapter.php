@@ -70,6 +70,9 @@ class Chapter {
     }
 
     private function getImageUrl($path) {
+      //borks on relative paths
+      $path = str_replace('../','',$path);
+    
         if (!array_key_exists($path, $this->imagefiles)) {
             throw new \Exception('missing image: ' . $path);
         }
