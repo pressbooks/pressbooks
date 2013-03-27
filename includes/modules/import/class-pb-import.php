@@ -23,7 +23,7 @@ abstract class Import {
   );
 
   /**
-   * Location where imported data is held 
+   * Location of imported data file
    *
    * @var string fullpath
    */
@@ -50,9 +50,9 @@ abstract class Import {
       $file_size = $_FILES['import_file']['size']; // the size of the file
       $file_error = $_FILES['import_file']['error']; // any errors of the file
       
-      echo "<pre>";
-      var_dump($_FILES);
-      echo "</pre>";
+//      echo "<pre>";
+//      var_dump($_FILES);
+//      echo "</pre>";
       
       // if there are any errors associated with the file
       // @todo: evaluate any errors associated with $file_error and send appropriate message

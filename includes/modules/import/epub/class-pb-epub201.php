@@ -24,29 +24,56 @@ class Epub201 extends Import {
   private $tempdir;
   private $imagefiles = array();
   private $chapters = array();
+  
 
-  static function import($filename) {
+  /**
+   * Static function to call the constructor and start the import
+   * 
+   * @param string $path_and_file_name - must be /path/to/filename
+   */
+  static function import($path_and_file_name) {
     
-    $importer = new self($filename);
+    $importer = new self($path_and_file_name);
     $importer->run();
   }
 
-  public function __construct($filename) {
+  /**
+   * Constructor requires a file to import, unzips contents of the epub
+   * in a temporary directory, to be obliterated after import.
+   * 
+   * @param string $filename
+   * @throws \Exception
+   */
+   function __construct($file_name) {
 
-    if (!file_exists($filename)) {
+		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) )
+			define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+    
+    // Set the location of the file 
+    $this->importPath = $file_name;
+    
+    if (!file_exists($file_name)) {
       throw new \Exception('uploaded file does not exist.');
     }
-
+    
+    // Validate the uploaded epub file
+    $this->validate($file_name);
+    
+    // 
     $this->zip = new \ZipArchive;
-    $result = $this->zip->open($filename);
+    $result = $this->zip->open($file_name);
     if ($result !== true) {
       throw new \Exception('opening epub file failed');
     }
-
-    $this->tempdir = \PressBooks\Utility\get_media_prefix() . 'tmp/pb_import_' . \md5(\date('Y-m-d H:i:s') . \getmypid() . '') . '/';
+    
+    //$this->tempdir = \PressBooks\Utility\get_media_prefix() . 'tmp/pb_import_' . \md5(\date('Y-m-d H:i:s') . \getmypid() . '') . '/';
+    $this->tempdir = '/tmp/pb_import_' . \md5(\date('Y-m-d H:i:s') . \getmypid() . '') . '/';
   }
 
-  public function __destruct() {
+  /**
+   * Garbage collection, obliterate the mess
+   */
+   function __destruct() {
 
     //return;
 
@@ -67,7 +94,11 @@ class Epub201 extends Import {
     \rmdir($dir);
   }
 
-  public function run() {
+/**
+ * Magic happens here. Parse and conquer.
+ * 
+ */
+   function run() {
 
     $mimetype = $this->getZipContent('mimetype', false);
 
@@ -88,11 +119,21 @@ class Epub201 extends Import {
     $this->parseMetadata($contentXml->metadata);
   }
 
+  /**
+   * 
+   * @param \SimpleXMLElement $metadata
+   */
   private function parseMetadata(\SimpleXMLElement $metadata) {
     //echo "metadata<br />";
     // @todo post_type: metadata
   }
 
+  /**
+   * Iterate through each of the manifest items to extract the content files 
+   * and associated metadata. Save each 'item' as a chapter in PB.
+   * 
+   * @param \SimpleXMLElement $manifest
+   */
   private function parseManifest(\SimpleXMLElement $manifest) {
     //echo "manifest<br />";
     $files = array();
@@ -110,7 +151,7 @@ class Epub201 extends Import {
         }
       }
       $files[$id] = $file;
-    }
+    } 
     $i = 0;
     foreach ($files AS $file_id => $file) {
       ++$i;
@@ -121,6 +162,12 @@ class Epub201 extends Import {
     $this->saveChapters();
   }
 
+  /**
+   * Depending on what file/mime type is passed, call a different import function
+   * 
+   * @param string $file_id - name of file (ch.01.html, x001.jpg, template.css)
+   * @param array $file
+   */
   private function importFile($file_id, array $file) {
     $href = $file['href'];
     $media_type = $file['media-type'];
@@ -142,6 +189,12 @@ class Epub201 extends Import {
     }
   }
 
+  /**
+   * Import css files
+   * 
+   * @param string $file_id - name of file (template.css) 
+   * @param string $href - path to file (Styles/template.css)
+   */
   private function importStyle($file_id, $href) {
     $css = $this->getZipContent($this->basedir . $href, false);
     $uploads = \wp_upload_dir();
@@ -156,6 +209,12 @@ class Epub201 extends Import {
     \update_option('pressbooks_imported_css', $imported_css);
   }
 
+  /**
+   * 
+   * @global type $user_ID
+   * @param type $file_id
+   * @param type $href
+   */
   private function importChapter($file_id, $href) {
     //echo "import " . $file_id . ': ' . $href . '<br />';
 
@@ -206,14 +265,30 @@ class Epub201 extends Import {
     }
   }
 
+ /**
+  * 
+  * @param type $file_id
+  * @param \SimpleXMLElement $xml
+  * @return \PressBooks\Import\Epub\Chapter
+  */
   private function parseChapter($file_id, \SimpleXMLElement $xml) {
     return new Chapter($file_id, $xml);
   }
 
+ /**
+  * 
+  * @param type $file_id
+  * @param type $href
+  */
   private function importNcx($file_id, $href) {
     
   }
 
+  /**
+   * 
+   * @param type $file_id
+   * @param type $href
+   */
   private function importImage($file_id, $href) {
 
     //$dst = \wp_tempnam($href);
@@ -227,6 +302,13 @@ class Epub201 extends Import {
     $this->imagefiles[$href] = $image_id;
   }
 
+  /**
+   * 
+   * @param type $file
+   * @param type $as_xml
+   * @return \SimpleXMLElement
+   * @throws \Exception
+   */
   private function getZipContent($file, $as_xml = true) {
     $index = $this->zip->locateName($file);
 
@@ -241,11 +323,42 @@ class Epub201 extends Import {
     return new \SimpleXMLElement($content);
   }
 
-  /**
-   * must validate that it is an epub
-   */
+/**
+ * Check the version of the EPUB file, produce a warning if errors are discovered.
+ * 
+ * @return boolean
+ */
   function validate() {
-    // @todo: validate the ebpub file, also as epub 2.01 
+    
+		// Epubcheck command
+		$command = PB_EPUBCHECK_COMMAND . ' ' . escapeshellcmd( $this->importPath ) . ' 2>&1';
+
+		// Execute command
+		$output = array();
+		$return_var = 0;
+		exec( $command, $output, $return_var );
+
+    // What version of Epub is this?
+    $version_two = 'Validating against EPUB version 2.0';
+    if ( ! in_array($version_two, $output )){
+      return false;
+    }
+            
+		// Any errors?
+		$last_line = strtolower( end( array_filter( $output ) ) );
+		if ( false !== strpos( $last_line, 'check finished with warnings or errors' ) ) {
+			$this->logError( implode( "\n", $output ) );
+
+			echo '<p><strong>' . __( 'Some errors were detected when validating the uploaded epub file. Depending on the severity of the errors
+        it may affect the import process', 'pressbooks' ) . '</strong></p>';
+		}
+    
+//    echo "<pre>";
+//    print_r($output);
+//    echo "</pre>";
+//    die();
+
+		return true;
   }
 
 }
