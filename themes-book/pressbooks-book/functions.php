@@ -28,7 +28,7 @@ function pb_enqueue_scripts() {
 		// Use our default stylesheet, then override with the user's custom stylesheet.
 		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen' );
 		wp_enqueue_style( 'pressbooks' );
-		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), array(), null, 'screen' );
+		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), array(), get_option( 'pressbooks_last_custom_css' ), 'screen' );
 		wp_enqueue_style( 'pressbooks-custom-css' );
 	} else {
 		wp_register_style( 'pressbooks', get_bloginfo( 'stylesheet_url' ), array(), null, 'screen' );
@@ -246,6 +246,9 @@ function pressbooks_theme_options_summary() { ?>
 				case 'pdf_crop_marks': ?>
 					<li><?php _e( 'Crop marks' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'display', 'pressbooks' ) : __( 'do not display', 'pressbooks' ); ?></em></li>
 					<?php break;
+				case 'pdf_hyphens': ?>
+					<li><?php _e( 'Hyphens' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></li>
+					<?php break;
 			}
 		}
 		?>
@@ -357,6 +360,7 @@ function pressbooks_theme_options_pdf_init() {
 		'pdf_toc' => 1,
 		'pdf_footnotes_style' => 1,
 		'pdf_crop_marks' => 0,
+		'pdf_hyphens' => 0,
 	);
 	if( false == get_option( 'pressbooks_theme_options_pdf' ) ) {
 		add_option( 'pressbooks_theme_options_pdf', $defaults );
@@ -393,6 +397,16 @@ function pressbooks_theme_options_pdf_init() {
 		'pdf_options_section',
 		array(
 			__( 'Display crop marks', 'pressbooks' )
+		)
+	);
+	add_settings_field(
+		'pdf_hyphens',
+		__( 'Hyphens', 'pressbooks' ),
+		'pressbooks_theme_pdf_hyphens_callback',
+		'pressbooks_theme_options_pdf',
+		'pdf_options_section',
+		array(
+			__( 'Enable hyphenation', 'pressbooks' )
 		)
 	);
 	add_settings_field(
@@ -537,23 +551,34 @@ function pressbooks_theme_pdf_crop_marks_callback($args) {
 	echo $html;
 }
 
+function pressbooks_theme_pdf_hyphens_callback( $args ) {
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+	if ( ! isset( $options['pdf_hyphens'] ) ) {
+		$options['pdf_hyphens'] = 0;
+	}
+	$html = '<input type="checkbox" id="pdf_hyphens" name="pressbooks_theme_options_pdf[pdf_hyphens]" value="1" ' . checked( 1, $options['pdf_hyphens'], false ) . '/>';
+	$html .= '<label for="pdf_hyphens"> ' . $args[0] . '</label>';
+	echo $html;
+}
 
 /* ------------------------------------------------------------------------ *
  * PDF Options Input Sanitization
  * ------------------------------------------------------------------------ */
 
 function pressbooks_theme_options_pdf_sanitize( $input ) {
+
 	$options = get_option( 'pressbooks_theme_options_pdf' );
+
 	$options['pdf_page_size'] = $input['pdf_page_size'];
 	$options['pdf_paragraph_separation'] = $input['pdf_paragraph_separation'];
 	$options['pdf_blankpages'] = $input['pdf_blankpages'];
 	$options['pdf_footnotes_style'] = $input['pdf_footnotes_style'];
 
-	if ( ! isset( $input['pdf_toc'] ) || $input['pdf_toc'] != '1' ) $options['pdf_toc'] = 0;
-	else $options['pdf_toc'] = 1;
-
-	if ( ! isset( $input['pdf_crop_marks'] ) || $input['pdf_crop_marks'] != '1' ) $options['pdf_crop_marks'] = 0;
-	else $options['pdf_crop_marks'] = 1;
+	// Checkmarks
+	foreach ( array( 'pdf_toc', 'pdf_crop_marks', 'pdf_hyphens' ) as $val ) {
+		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
+		else $options[$val] = 1;
+	}
 
 	return $options;
 }
@@ -695,6 +720,17 @@ function pressbooks_theme_pdf_css_override( $css ) {
 	// Display crop marks? true / false (default)
 	if ( @$options['pdf_crop_marks'] ) {
 		$css .= "@page { marks: crop } \n";
+	}
+
+	// Hyphens?
+	// To debug use `hyphens: prince-expand-all;` (then every hyphenation point will be shown with a dot)
+	if ( @$options['pdf_hyphens'] ) {
+		$css .= 'p { hyphens: auto; ';
+		$hyphens_path = pb_get_hyphens_path();
+		if ( $hyphens_path ) {
+			$css .= "prince-hyphenate-patterns: '" . $hyphens_path . "'; ";
+		}
+		$css .= "} \n";
 	}
 
 	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines

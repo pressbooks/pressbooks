@@ -169,6 +169,9 @@ class CustomCss {
 			$filename = static::getCustomCssFolder() . sanitize_file_name( $slug . '.css' );
 			file_put_contents( $filename, $my_post['post_content'] );
 
+			// Update "version"
+			update_option( 'pressbooks_last_custom_css', time() );
+
 			// Ok!
 			\PressBooks\Redirect\location( $redirect_url );
 		}

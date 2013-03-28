@@ -307,7 +307,6 @@ p {
 	line-height: 1.4em;
 	text-align: justify;
 	margin-bottom: 0;
-	prince-hyphenate: auto;
 }
 p + p,
 .indent {
@@ -619,28 +618,22 @@ h2.chapter-subtitle + h2.chapter-author {
 div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
 	bookmark-level: none;
 	font-family: "LinBiolinum", sans-serif;
+	font-weight: normal;	
 	margin-bottom: 15px;
+	page-break-after:avoid;	
 }
 div.ugc h1 {
 	font-size: 14.35pt;
 }
 div.ugc h2 {
 	font-size: 11.96pt;
-	font-weight: normal;
 }
 div.ugc h3,
 div.ugc h4  {
 	font-size: 8.97pt;
-	font-weight: normal;
-	text-transform: uppercase;
-}
-div.ugc h3,
-div.ugc h5 {
-	margin-left: 2em;
 }
 div.ugc h5 {
 	font-size: 9.96pt;
-	font-weight: bold;
 }
 div.ugc h1 + p,
 div.ugc h2 + p,
@@ -819,7 +812,6 @@ sup.endnote {
 }
 .textbox {
 	border: 1px solid #000;
-	display: inline-block;
 	margin: 10px 0;
 	padding: 10px;
 }
@@ -832,7 +824,6 @@ sup.endnote {
 .textbox-caption {
 	display: block;
 	font-size: 0.9em;
-	font-weight: bold;
 	margin: 0;
 }
 .pullquote {
