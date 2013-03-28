@@ -87,16 +87,55 @@ function pb_is_custom_theme() {
 
 
 /**
- * Get url to the custom stylesheet
+ * Get url to the custom stylesheet for web.
  *
  * @see: \PressBooks\CustomCss
  * @return string
  */
 function pb_get_custom_stylesheet_url() {
 
-	if ( is_dir( WP_CONTENT_DIR . '/blogs.dir' ) ) {
-		return WP_CONTENT_URL . '/blogs.dir/' . get_current_blog_id() . '/files/custom-css/web.css';
+	$current_blog_id = get_current_blog_id();
+
+	if ( is_file( WP_CONTENT_DIR . "/blogs.dir/{$current_blog_id}/files/custom-css/web.css" ) ) {
+		return WP_CONTENT_URL . "/blogs.dir/{$current_blog_id}/files/custom-css/web.css";
+	} elseif ( is_file( WP_CONTENT_DIR . "/uploads/sites/{$current_blog_id}/custom-css/web.css" ) ) {
+		return WP_CONTENT_URL . "/uploads/sites/{$current_blog_id}/custom-css/web.css";
 	} else {
-		return WP_CONTENT_URL . '/uploads/sites/' . get_current_blog_id() . '/custom-css/web.css';
+		return PB_PLUGIN_URL . "themes-book/pressbooks-custom-css/style.css";
 	}
+}
+
+
+/**
+ * Get path to hyphenation dictionary in a book's language.
+ *
+ * @return bool|string
+ */
+function pb_get_hyphens_path() {
+
+	$loc = false;
+	$compare_with = scandir( PB_PLUGIN_DIR . '/symbionts/dictionaries/' );
+
+	$book_lang = \PressBooks\Book::getBookInformation();
+	$book_lang = @$book_lang['pb_language'];
+
+	foreach ( $compare_with as $compare ) {
+
+		if ( strpos( $compare, 'hyph_' ) !== 0 ) continue; // Skip
+
+		$c = str_replace( 'hyph_', '', $compare );
+		list( $check_me ) = explode( '_', $c );
+
+		// We only care about the first two letters
+		if ( strpos( $book_lang, $check_me ) === 0 ) {
+			$loc = $compare;
+			break;
+		}
+	}
+
+	if ( $loc ) {
+		$loc = PB_PLUGIN_DIR . "symbionts/dictionaries/$loc";
+	}
+
+	return $loc;
 }

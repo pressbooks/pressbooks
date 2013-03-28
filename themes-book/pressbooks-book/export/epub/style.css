@@ -207,6 +207,7 @@ div.part-title-wrap > h3.part-number:before {
 .ugc h5, 
 .ugc h6 {
 	margin-bottom: 5px;
+	page-break-after:avoid;	
 }
 .ugc h1,
 .ugc h2,

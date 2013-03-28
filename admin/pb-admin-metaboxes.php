@@ -187,7 +187,7 @@ function add_meta_boxes() {
 	x_add_metadata_field( 'pb_language', 'metadata', array(
 		'group' => 'general-book-information',
 		'field_type' => 'select',
-		'values' => \PressBooks\L10n\get_languages(),
+		'values' => \PressBooks\L10n\get_supported_languages(),
 		'label' => __( 'Language', 'pressbooks' )
 	) );
 

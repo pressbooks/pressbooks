@@ -27,6 +27,7 @@
 @page toc {
   @bottom {
 	content: counter(page, lower-roman);
+	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: center;
   }
 }
@@ -41,14 +42,14 @@
 {
   @top-left
   {
-	content: counter(page, lower-roman) "\A0\A0\002D\A0\A0" string(book-title);
+	content: counter(page, lower-roman) "\A0\A0" string(book-title);
 	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: left;
   }
 }
 @page front-matter:right {
   @top-right {
-	content: string(section-title, last) "\A0\A0\002D\A0\A0" counter(page, lower-roman);
+	content: string(section-title, last) "\A0\A0" counter(page, lower-roman);
 	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: right;
   }
@@ -59,6 +60,7 @@
   }
    @bottom {
 	content: counter(page, lower-roman);
+  	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: center;
   }
 }
@@ -88,14 +90,14 @@
 
 @page introduction:left {
   @top-left {
-	content: counter(page) "\A0\A0\002D\A0\A0" string(book-title);
+	content: counter(page) "\A0\A0" string(book-title);
   	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
-	content: string(section-title, last) "\A0\A0\002D\A0\A0" counter(page);
+	content: string(section-title, last) "\A0\A0" counter(page);
   	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: right;
   }
@@ -110,6 +112,7 @@
   }
   @bottom {
 	content: counter(page);
+	font-family: Helvetica, Arial, sans-serif;		
 	vertical-align: center;
   }
   
@@ -126,7 +129,7 @@
 
 @page chapter:left {
   @top-left {
-	content: counter(page) "\A0\A0\002D\A0\A0" string(book-title);
+	content: counter(page) "\A0\A0" string(book-title);
 	counter-increment: part;
 	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: left;
@@ -136,7 +139,7 @@
 {
   @top-right
   {
-	content: string(section-title, last) "\A0\A0\002D\A0\A0" counter(page);
+	content: string(section-title, last) "\A0\A0" counter(page);
 	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: right;
   }
@@ -150,6 +153,7 @@
   }
   @bottom {
 	content: counter(page);
+	font-family: Helvetica, Arial, sans-serif;		
 	vertical-align: center;
   }
 }
@@ -169,7 +173,7 @@
 /* Back-matter */
 @page back-matter:left {
   @top-left {
-	content: counter(page) "\A0\A0\002D\A0\A0" string(book-title);
+	content: counter(page) "\A0\A0" string(book-title);
 	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: left;
   }
@@ -177,7 +181,7 @@
 @page back-matter:right {
   @top-right
   {
-	content: string(section-title, last) "\A0\A0\002D\A0\A0" counter(page);
+	content: string(section-title, last) "\A0\A0" counter(page);
 	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: right;
   }
@@ -192,6 +196,7 @@
   @bottom
   {
 	content: counter(page);
+	font-family: Helvetica, Arial, sans-serif;		
 	vertical-align: center;
   }
 }
@@ -251,7 +256,6 @@ p {
 	line-height: 1.2em;
 	text-align: justify;
 	margin-bottom: 0;
-	prince-hyphenate: auto;
 	orphans: 3;
 	widows:3;
 }
@@ -267,6 +271,7 @@ p + p,
 h1, h2, h3, h4, h5, h6 {
 	font-family: Helvetica, Arial, sans-serif;
 	line-height: 1.4em;
+	font-weight: normal;
 }
 p + ul {
 	margin-top: 10px;
@@ -344,11 +349,6 @@ ol li li li::before {
 cite {
 	font-weight: normal;
 }
-
-div.blockquote,
-blockquote {
-	font-style: italic;
-}
 p.bl_nonindent {
 	margin: 2em 10% 0;
 	text-indent: 0;
@@ -368,7 +368,7 @@ body > h1.title:first-child {
     string-set: book-title content();
     page-break-after: always;
     bookmark-level: none;  
-    font-size: 24pt;
+    font-size: 21pt;
     margin-top: 6cm;
 }
 
@@ -388,15 +388,15 @@ body > h1.title:first-child {
 	bookmark-level: none;
 }	
 #title-page > .title {
-	font-size: 24pt;
+	font-size: 21pt;
 }
 #title-page > .subtitle {
-	font-size: 18pt;
+	font-size: 16pt;
 	margin-top: 1cm;
 	font-weight: normal;
 }
 #title-page > .author {
-	font-size: 16pt;
+	font-size: 13pt;
 	font-weight: normal;
 	margin-top: 1cm;
 }
@@ -448,9 +448,10 @@ body > h1.title:first-child {
 	color: inherit;	
 }
 #toc ul, #toc li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+  	list-style: none;
+  	margin: 0;
+    line-height: 1.4em; 
+    padding: 0;
 }
 #toc ul {
 	counter-reset: chapter;
@@ -470,7 +471,7 @@ body > h1.title:first-child {
 }
 #toc .part {
 	margin: .6cm 0 .4em;
-	font:bold 12pt "Galdeano", sans-serif;
+	font:12pt "Galdeano", sans-serif;
 	page-break-after: avoid;
 }
 #toc .part a::before {
@@ -480,7 +481,6 @@ body > h1.title:first-child {
 #toc .front-matter,
 #toc .chapter,
 #toc .back-matter {
-	margin: 1.2em 0;
 	text-indent: 2em;
 }
 #toc .chapter a::before {
@@ -491,24 +491,23 @@ body > h1.title:first-child {
 #toc .part a::after {
 	content:'' ;
 }
+#toc .chapter + .back-matter {
+	margin-top: 1.3em;
+}
 #toc span.chapter-author,
 #toc span.chapter-subtitle {
 	display: inline-block;
-	font-style: italic;
-    margin-left: 3.5em;
+    margin-left: 3.7em;
     text-indent: 0;
-	width: 70%;
+	width: 75%;
 }
-#toc span.chapter-author,
-#toc span.chapter-subtitle {
-	margin-bottom: 5px;
+#toc span.chapter-author {
+	font-style: italic;
+    margin-bottom: 0.1cm;
+    margin-top: 0.1cm;
+	position:relative;
 }
-#toc span.chapter-subtitle + 
-span.chapter-author {
-	margin-bottom: 5px;
-	position: relative;
-	top: -5px;
-}
+
 /*end toc*/
 
 
@@ -525,8 +524,7 @@ div.back-matter > h1:first-of-type {
 	counter-reset: footnote;
 }
 .part-title-wrap,
-.introduction .front-matter-title-wrap,
-.preface .front-matter-title-wrap,
+.front-matter-title-wrap,
 .chapter-title-wrap,
 .back-matter-title-wrap {
 	border-top: 1px solid #000;
@@ -534,8 +532,13 @@ div.back-matter > h1:first-of-type {
 	margin-bottom: 1.5cm;		
 	text-align: left;	
 }
+.dedication .front-matter-title-wrap,
+.disclaimer .front-matter-title-wrap,
+.epigraph .front-matter-title-wrap {
+	border-top: none;
+}
 .part-title-wrap h1 {
-    font-size: 20pt;
+    font-size: 21pt;
     font-weight: normal;
 }
 .chapter-title-wrap .chapter-number {
@@ -610,7 +613,7 @@ h2.chapter-subtitle + h2.chapter-author {
 .aphorism {
 	font-size: 1em;
     font-style: italic;
-    margin: -1cm auto 4em;
+    margin: -0.5cm auto 4em;
     width: 70%;
 }
 .aphorism cite {
@@ -630,6 +633,7 @@ h2.chapter-subtitle + h2.chapter-author {
 div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
 	bookmark-level: none;
 	margin-bottom: 15px;
+	page-break-after:avoid;	
 }
 div.ugc h1 {
 	font-size: 14.35pt;
@@ -678,25 +682,9 @@ sup.endnote {
 
 /* FOOTNORES & ENDNOTES
 ======================== */
-.footnotes {
-	display: block;	
-    font-size: 0.875em;
-    margin: 20px 10px 40px 40px;
-}
-.footnotes-wrap {
-	list-style: none;
-	display: block;
-	margin: 10px 10px 10px 40px;
-}
-.footnotes p + p {
-	text-indent: 0;
-} 
-.footnotes .footnotes-wrap p {
+.footnote { /* added by prince in a span */
+	padding-left: 1em;
 	text-indent: -1em;
-}
-.footnotes p a {
-	display: block;
-	text-decoration: none;
 }
 .endnotes hr {
 	border: none;
@@ -707,12 +695,12 @@ sup.endnote {
 }
 .endnotes ol {
 	font-size: 8pt;
-
 	margin-top: 5px;
 	margin-left: 0;
 }
 .endnotes li {
-	text-indent: 22pt;
+	padding-left: 1em;
+	text-indent: -1em;	
 }
 
 .endnotes p + p {
@@ -725,12 +713,14 @@ sup.endnote {
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	margin: 2em 10%;
+    line-height: 1.2em;	
 	padding: 10px 0;
 	text-indent: 0;
 }
 .textbox {
 	border: 1px solid #000;
-	display: inline-block;
+    font-size: 0.9em;	
+    line-height: 1.2em;
 	margin: 10px 0;
 	padding: 10px;
 }
@@ -742,8 +732,7 @@ sup.endnote {
 }
 .textbox-caption {
 	display: block;
-	font-size: 0.9em;
-	font-weight: bold;
+	font: bold 0.875em Helvetica, Arial, sans-serif;
 	margin: 0;
 }
 .pullquote {
@@ -758,7 +747,7 @@ sup.endnote {
 	border: 1px solid #000;
 	border-width: 1px 0;
 	float: left;
-	margin: 15px 15px 15px 0;
+	margin: 0.8em 15px 0.8em 0;
 	padding: 5px 0;
 	text-align: center;
 	width: 45%;
@@ -767,7 +756,7 @@ sup.endnote {
 	border: 1px solid #000;
 	border-width: 1px 0;
 	float: right;
-	margin: 15px 0 15px 15px;
+	margin: 0.8em 0 0.8em 15px;
 	padding: 5px 0;
 	text-align: center;
 	width: 45%;

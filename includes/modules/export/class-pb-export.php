@@ -594,7 +594,8 @@ abstract class Export {
 				$compare = str_replace( 'pressbooks-', '', $compare );
 				list( $check_me ) = explode( '_', $compare );
 
-				if ( $book_lang == $check_me ) {
+				// We only care about the first two letters
+				if ( strpos( $book_lang, $check_me ) === 0 ) {
 					$loc = $compare;
 					break;
 				}

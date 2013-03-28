@@ -50,9 +50,6 @@ p + p,
 p + ul {
 	margin-top: 10px;
 }
-ul, ol {
- 	padding-left: 30px;
-}
 hr {
 	margin: 10px auto;
 	text-align: center;
@@ -80,6 +77,14 @@ dt {
 }
 dd {
 	margin-bottom: 0;
+}
+ol {
+	padding-left: 2em;	
+}
+
+ul {
+	list-style: disc;
+ 	padding-left: 30px;	
 }
 ul ul,
 ul ul ul {
@@ -200,6 +205,7 @@ p.bl_indent {
 .ugc h5, 
 .ugc h6 {
 	margin-bottom: 1em;
+	page-break-after:avoid;	
 }
 .ugc.back-matter-ugc h1,
 .ugc.part-ugc h1,

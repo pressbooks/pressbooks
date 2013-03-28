@@ -53,6 +53,7 @@ function add_user_meta() {
 		'values' => array(
 			'en_US' => __( 'English', 'pressbooks' ),
 			'zh_TW' => __( 'Chinese, Traditional', 'pressbooks' ),
+			'es_ES' => __( 'Spanish', 'pressbooks' ),
 		),
 		'label' => __( 'Language', 'pressbooks' )
 	) );

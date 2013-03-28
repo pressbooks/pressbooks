@@ -59,11 +59,13 @@ hr.break-blank {
 	padding: 20px 0; 
 	text-align: center; 
 }
-ul, ol {
- 	padding-left: 30px;
+ol {
+	padding-left: 2em;	
 }
+
 ul {
 	list-style: disc;
+ 	padding-left: 30px;	
 }
 ul ul,
 ul ul ul {
@@ -193,7 +195,14 @@ h4.chapter-number {
 
 /*  BODY TITLES
 ===================	*/
-
+.ugc h1, 
+.ugc h2, 
+.ugc h3, 
+.ugc h4, 
+.ugc h5, 
+.ugc h6 {
+	page-break-after:avoid;	
+}
 
 /* TABLE OF CONTENT 
  ===================== */

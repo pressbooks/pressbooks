@@ -184,7 +184,7 @@ class Pdf extends Export {
 
 		// Copyright
 		$freebie_notice = 'This book was produced using PressBooks.com, and PDF rendering was done by PrinceXML.';
-		$css .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }';
+		$css .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }' . "\n";
 
 		$this->cssOverrides = $css;
 
