@@ -6,6 +6,10 @@
 namespace PressBooks\Export;
 
 
+use PressBooks\Book;
+use PressBooks\CustomCss;
+
+
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
 if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
 	if ( ! empty( $_ENV['TMP'] ) ) {
@@ -80,7 +84,7 @@ abstract class Export {
 
 
 	/**
-	 * Return the fullpath to an export module's style files, no trailing slash!
+	 * Return the fullpath to an export module's style file.
 	 *
 	 * @param string $type
 	 *
@@ -88,7 +92,42 @@ abstract class Export {
 	 */
 	function getExportStylePath( $type ) {
 
-		return realpath( get_stylesheet_directory() . "/export/$type" );
+		$fullpath = false;
+
+		if ( CustomCss::isCustomCss() ) {
+			$fullpath = CustomCss::getCustomCssFolder() . "/$type.css";
+			if ( ! is_file( $fullpath ) ) $fullpath = false;
+		}
+
+		if ( ! $fullpath ) {
+			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
+		}
+
+		return $fullpath;
+	}
+
+
+	/**
+	 * Return the fullpath to an export module's Javascript file.
+	 *
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	function getExportScriptPath( $type ) {
+
+		$fullpath = false;
+
+		if ( CustomCss::isCustomCss() ) {
+			$fullpath = CustomCss::getCustomCssFolder() . "/$type.js";
+			if ( ! is_file( $fullpath ) ) $fullpath = false;
+		}
+
+		if ( ! $fullpath ) {
+			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
+		}
+
+		return $fullpath;
 	}
 
 
@@ -406,7 +445,7 @@ abstract class Export {
 	 */
 	static function formSubmit() {
 
-		if ( ! current_user_can( 'edit_posts' ) ) {
+		if ( false == static::isFormSubmission() || false == current_user_can( 'edit_posts' ) ) {
 			// Don't do anything in this function, bail.
 			return;
 		}
@@ -528,6 +567,71 @@ abstract class Export {
 			}
 		}
 
+	}
+
+
+	/**
+	 * Hook for add_filter('locale ', ...), change the book language
+	 *
+	 * @param string $lang
+	 *
+	 * @return string
+	 */
+	static function setLocale( $lang ) {
+
+		// Cheap cache
+		static $loc = '__UNSET__';
+
+		if ( '__UNSET__' == $loc && function_exists( 'get_available_languages' ) ) {
+
+			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
+
+			$book_lang = Book::getBookInformation();
+			$book_lang = @$book_lang['pb_language'];
+
+			foreach ( $compare_with as $compare ) {
+
+				$compare = str_replace( 'pressbooks-', '', $compare );
+				list( $check_me ) = explode( '_', $compare );
+
+				// We only care about the first two letters
+				if ( strpos( $book_lang, $check_me ) === 0 ) {
+					$loc = $compare;
+					break;
+				}
+			}
+
+		}
+
+		// Return
+		if ( '__UNSET__' == $loc ) {
+			return $lang;
+		} else {
+			return ( $loc ? $loc : $lang );
+		}
+	}
+
+
+	/**
+	 * Check if a user submitted something to admin.php?page=pb_export
+	 *
+	 * @return bool
+	 */
+	static function isFormSubmission() {
+
+		if ( 'pb_export' != @$_REQUEST['page'] ) {
+			return false;
+		}
+
+		if ( ! empty( $_POST ) ) {
+			return true;
+		}
+
+		if ( count( $_GET ) > 1 ) {
+			return true;
+		}
+
+		return false;
 	}
 
 

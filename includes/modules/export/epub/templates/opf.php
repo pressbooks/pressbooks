@@ -125,6 +125,16 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 	<guide>
 		<reference type="toc" title="Table of Contents" href="OEBPS/table-of-contents.html" />
 		<reference type="cover" title="cover" href="OEBPS/front-cover.html" />
+		<?php
+		// First "real" page of content
+		$keys = array_keys( $manifest );
+		$position = array_search( 'table-of-contents', $keys );
+		if ( isset( $keys[$position + 1] ) ) {
+			$key = $keys[$position + 1];
+			printf( '<reference type="text" title="%s" href="OEBPS/%s" />', $manifest[$key]['post_title'], $manifest[$key]['filename'] );
+			echo "\n";
+		}
+		?>
 	</guide>
 
 

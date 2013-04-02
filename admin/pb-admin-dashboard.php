@@ -37,7 +37,8 @@ function replace_dashboard_widgets() {
 		}
 	}
 	// Replace with our own
-	add_meta_box( 'pb_dashboard_widget_book', get_bloginfo( 'name' ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
+	$book_name = get_bloginfo( 'name' );
+	add_meta_box( 'pb_dashboard_widget_book', ( $book_name ? $book_name : __( 'My Book', 'pressbooks' ) ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
 	add_meta_box( 'pb_dashboard_widget_metadata', __( 'PressBooks News', 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'high' );
 	add_meta_box( 'pb_dashboard_widget_users', __( 'Users', 'pressbooks' ), __NAMESPACE__ . '\display_users_widget', 'dashboard', 'side', 'high' );
 }

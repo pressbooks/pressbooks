@@ -31,7 +31,12 @@ require_once( PB_PLUGIN_DIR . 'symbionts/custom-metadata/custom_metadata.php' );
 
 add_action( 'init', '\PressBooks\L10n\load_plugin_textdomain' );
 add_filter( 'gettext', '\PressBooks\L10n\override_core_strings', 10, 3 );
-add_filter( 'locale', '\PressBooks\L10n\set_locale' );
+
+if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
+	add_filter( 'locale', '\PressBooks\Export\Export::setLocale' );
+} else {
+	add_filter( 'locale', '\PressBooks\L10n\set_locale' );
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies
@@ -89,5 +94,5 @@ if ( \PressBooks\Book::isBook() ) {
 			$metadata->upgrade( $meta_version );
 			update_option( 'pressbooks_metadata_version', \PressBooks\Metadata::$currentVersion );
 		}
-	} );
+	}, 1000 );
 }

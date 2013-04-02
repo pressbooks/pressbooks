@@ -55,6 +55,7 @@
 	content: "";
   }
 }
+
 /* Front-Matter */
 @page front-matter:left
 {
@@ -78,6 +79,7 @@
   }
    @bottom {
 	content: counter(page, lower-roman);
+	font-family: "Cardo","Times New Roman", serif;	
 	vertical-align: center;
   }
 }
@@ -129,6 +131,7 @@
   }
   @bottom {
 	content: counter(page);
+	font-family: "Cardo","Times New Roman", serif;	
 	vertical-align: center;
   }
   
@@ -173,6 +176,7 @@
   }
   @bottom {
 	content: counter(page);
+	font-family: "Cardo","Times New Roman", serif;	
 	vertical-align: center;
   }
 }
@@ -215,6 +219,7 @@
   @bottom
   {
 	content: counter(page);
+	font-family: "Cardo","Times New Roman", serif;	
 	vertical-align: center;
   }
 }
@@ -280,7 +285,6 @@ p {
 	line-height: 1.2em;
 	text-align: justify;
 	margin-bottom: 0;
-	prince-hyphenate: auto;
 }
 p + p,
 .indent {
@@ -473,6 +477,7 @@ h3.front-matter-number, h3.part-number, h3.chapter-number, h3.back-matter-number
 div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
 	bookmark-level: none;
 	margin-bottom: 5px;
+	page-break-after:avoid;
 }
 div.ugc h1,
 div.ugc h2,
@@ -518,16 +523,16 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 div.front-matter .front-matter-title-wrap > h1:first-of-type, 
 div.chapter .chapter-title-wrap > h2:first-of-type,
 div.back-matter .back-matter-title-wrap > h1:first-of-type  {
+	font-size: 15pt;
 	string-set: section-title content();
 	counter-reset: footnote;
 	margin-bottom: 20pt;
 }
 div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc > h1:first-of-type {
-	font-size: 16pt;
+	font-size: 15pt;
 	margin-top: 2cm;
 	margin-bottom: 2.5cm;	
-	text-transform: uppercase;
 }
 
 
@@ -583,6 +588,9 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 
 #toc .part a::after {
 	content:'' ;
+}
+#toc .chapter + .back-matter {
+	margin-top: 1.3em;
 }
 #toc span.chapter-author,
 #toc span.chapter-subtitle {
@@ -701,7 +709,6 @@ sup.endnote {
 }
 .textbox {
 	border: 1px solid #000;
-	display: inline-block;
 	margin: 10px 0;
 	padding: 10px;
 }
@@ -763,7 +770,6 @@ div.ugc h2.chapter-author {
 	text-align: center;
 	width: 45%;
 }
-
 
 /* IMAGES
 ================== */

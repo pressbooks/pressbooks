@@ -85,11 +85,7 @@ var PressBooks = {
 					jQuery('#message').html('<p><strong>No changes were registered.</strong></p>').addClass('error');
 				}
 				else {
-					jQuery('#pb-container').load(location.href + " #pb-container>*", "", function () {
-						jQuery('.ui-sortable').sortable(PressBooks.defaultOptions);
-						jQuery('.ui-sortable').disableSelection();
-						jQuery('#message').html('<p><strong>Chapters have been reordered.</strong></p>').addClass('updated');
-					});
+					// Chapters have been reordered.
 				}
 			},
 			complete: function () {
@@ -122,11 +118,7 @@ var PressBooks = {
 					jQuery('#message').html('<p><strong>No changes were registered.</strong></p>').addClass('error');
 				}
 				else {
-					jQuery('#pb-container').load(location.href + " #pb-container>*", "", function () {
-						jQuery('.ui-sortable').sortable(PressBooks.defaultOptions);
-						jQuery('.ui-sortable').disableSelection();
-						jQuery('#message').html('<p><strong>Front Matter has been reordered.</strong></p>').addClass('updated');
-					});
+					// Front Matter has been reordered.
 				}
 			},
 			complete: function () {
@@ -159,11 +151,7 @@ var PressBooks = {
 					jQuery('#message').html('<p><strong>No changes were registered.</strong></p>').addClass('error');
 				}
 				else {
-					jQuery('#pb-container').load(location.href + " #pb-container>*", "", function () {
-						jQuery('.ui-sortable').sortable(PressBooks.defaultOptions);
-						jQuery('.ui-sortable').disableSelection();
-						jQuery('#message').html('<p><strong>Back Matter has been reordered.</strong></p>').addClass('updated');
-					});
+					// Back Matter has been reordered.
 				}
 			},
 			complete: function () {

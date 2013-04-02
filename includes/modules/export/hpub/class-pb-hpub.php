@@ -57,6 +57,14 @@ class Hpub extends Export {
 
 
 	/**
+	 * Last known front matter position. Used to insert the TOC in the correct place.
+	 *
+	 * @var int|bool
+	 */
+	protected $frontMatterLastPos = false;
+
+
+	/**
 	 * Sometimes the user will omit an introduction so we must inject the style in either the first
 	 * part or the first chapter ourselves.
 	 *
@@ -563,6 +571,7 @@ class Hpub extends Export {
 		);
 
 		$i = 1;
+		$last_pos = false;
 		foreach ( array( 'dedication', 'epigraph' ) as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -602,9 +611,11 @@ class Hpub extends Export {
 				);
 
 				++$i;
+				$last_pos = $i;
 			}
 		}
 		$this->frontMatterPos = $i;
+		if ( $last_pos ) $this->frontMatterLastPos = $last_pos - 1;
 	}
 
 
@@ -895,9 +906,7 @@ class Hpub extends Export {
 		);
 
 		// Start by inserting self into correct manifest position
-
-		$array_pos = array_search( 'title-page', array_keys( $this->manifest ) );
-		if ( false === $array_pos ) $array_pos = - 1;
+		$array_pos = $this->positionOfToc();
 
 		$file_id = 'table-of-contents';
 		$filename = "{$file_id}.html";
@@ -961,6 +970,37 @@ class Hpub extends Export {
 			$this->tmpDir . "/$filename",
 			$this->loadTemplate( __DIR__ . '/templates/html.php', $vars ) );
 
+	}
+
+
+	/**
+	 * Determine position of TOC based on Chicago Manual Of Style.
+	 *
+	 * @return int
+	 */
+	protected function positionOfToc() {
+
+		$search = array_keys( $this->manifest );
+
+		if ( false == $this->frontMatterLastPos ) {
+
+			$array_pos = array_search( 'copyright', $search );
+			if ( false === $array_pos ) $array_pos = - 1;
+
+		} else {
+
+			$array_pos = - 1;
+			$preg = '/^front-matter-' . sprintf( "%03s", $this->frontMatterLastPos ) . '$/';
+			foreach ( $search as $key => $val ) {
+				if ( preg_match( $preg, $val ) ) {
+					$array_pos = $key;
+					break;
+				}
+			}
+
+		}
+
+		return $array_pos;
 	}
 
 

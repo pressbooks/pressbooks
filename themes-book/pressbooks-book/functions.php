@@ -23,16 +23,26 @@ $metakeys = array(
  * Register and enqueue scripts and stylesheets.
  */
 function pb_enqueue_scripts() {
-  wp_register_style('pressbooks', get_bloginfo('stylesheet_url'), array(), '1.0', 'screen');
-  wp_enqueue_style('pressbooks');
-  wp_enqueue_script('pressbooks-script', get_template_directory_uri()."/js/script.js", array('jquery'), '1.0', false);
-  wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
 
-  if ( is_single() ) {
-		wp_enqueue_script('pb-pop-out-toc', get_template_directory_uri().'/js/pop-out.js', array('jquery'), '1.0', false);
-  }
+	if ( pb_is_custom_theme() ) {
+		// Use our default stylesheet, then override with the user's custom stylesheet.
+		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen' );
+		wp_enqueue_style( 'pressbooks' );
+		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), array(), get_option( 'pressbooks_last_custom_css' ), 'screen' );
+		wp_enqueue_style( 'pressbooks-custom-css' );
+	} else {
+		wp_register_style( 'pressbooks', get_bloginfo( 'stylesheet_url' ), array(), null, 'screen' );
+		wp_enqueue_style( 'pressbooks' );
+	}
+
+	wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
+	wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
+
+	if ( is_single() ) {
+		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
+	}
 }
-add_action('wp_enqueue_scripts', 'pb_enqueue_scripts');
+add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 
 
 /* Add Custom Login Graphic TODO: Import user customized logo here if available */
@@ -236,6 +246,9 @@ function pressbooks_theme_options_summary() { ?>
 				case 'pdf_crop_marks': ?>
 					<li><?php _e( 'Crop marks' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'display', 'pressbooks' ) : __( 'do not display', 'pressbooks' ); ?></em></li>
 					<?php break;
+				case 'pdf_hyphens': ?>
+					<li><?php _e( 'Hyphens' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></li>
+					<?php break;
 			}
 		}
 		?>
@@ -302,7 +315,7 @@ add_action('admin_init', 'pressbooks_theme_options_global_init');
  * ------------------------------------------------------------------------ */
 
 function pressbooks_theme_options_global_callback() {
-	echo '<p>' . __( 'These options apply universally to webbook, PDF and ebook exports.' . 'pressbooks' ) . '</p>';
+	echo '<p>' . __( 'These options apply universally to webbook, PDF and ebook exports.', 'pressbooks' ) . '</p>';
 }
 
 
@@ -347,6 +360,7 @@ function pressbooks_theme_options_pdf_init() {
 		'pdf_toc' => 1,
 		'pdf_footnotes_style' => 1,
 		'pdf_crop_marks' => 0,
+		'pdf_hyphens' => 0,
 	);
 	if( false == get_option( 'pressbooks_theme_options_pdf' ) ) {
 		add_option( 'pressbooks_theme_options_pdf', $defaults );
@@ -383,6 +397,16 @@ function pressbooks_theme_options_pdf_init() {
 		'pdf_options_section',
 		array(
 			__( 'Display crop marks', 'pressbooks' )
+		)
+	);
+	add_settings_field(
+		'pdf_hyphens',
+		__( 'Hyphens', 'pressbooks' ),
+		'pressbooks_theme_pdf_hyphens_callback',
+		'pressbooks_theme_options_pdf',
+		'pdf_options_section',
+		array(
+			__( 'Enable hyphenation', 'pressbooks' )
 		)
 	);
 	add_settings_field(
@@ -527,23 +551,34 @@ function pressbooks_theme_pdf_crop_marks_callback($args) {
 	echo $html;
 }
 
+function pressbooks_theme_pdf_hyphens_callback( $args ) {
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+	if ( ! isset( $options['pdf_hyphens'] ) ) {
+		$options['pdf_hyphens'] = 0;
+	}
+	$html = '<input type="checkbox" id="pdf_hyphens" name="pressbooks_theme_options_pdf[pdf_hyphens]" value="1" ' . checked( 1, $options['pdf_hyphens'], false ) . '/>';
+	$html .= '<label for="pdf_hyphens"> ' . $args[0] . '</label>';
+	echo $html;
+}
 
 /* ------------------------------------------------------------------------ *
  * PDF Options Input Sanitization
  * ------------------------------------------------------------------------ */
 
 function pressbooks_theme_options_pdf_sanitize( $input ) {
+
 	$options = get_option( 'pressbooks_theme_options_pdf' );
+
 	$options['pdf_page_size'] = $input['pdf_page_size'];
 	$options['pdf_paragraph_separation'] = $input['pdf_paragraph_separation'];
 	$options['pdf_blankpages'] = $input['pdf_blankpages'];
 	$options['pdf_footnotes_style'] = $input['pdf_footnotes_style'];
 
-	if ( ! isset( $input['pdf_toc'] ) || $input['pdf_toc'] != '1' ) $options['pdf_toc'] = 0;
-	else $options['pdf_toc'] = 1;
-
-	if ( ! isset( $input['pdf_crop_marks'] ) || $input['pdf_crop_marks'] != '1' ) $options['pdf_crop_marks'] = 0;
-	else $options['pdf_crop_marks'] = 1;
+	// Checkmarks
+	foreach ( array( 'pdf_toc', 'pdf_crop_marks', 'pdf_hyphens' ) as $val ) {
+		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
+		else $options[$val] = 1;
+	}
 
 	return $options;
 }
@@ -687,6 +722,17 @@ function pressbooks_theme_pdf_css_override( $css ) {
 		$css .= "@page { marks: crop } \n";
 	}
 
+	// Hyphens?
+	// To debug use `hyphens: prince-expand-all;` (then every hyphenation point will be shown with a dot)
+	if ( @$options['pdf_hyphens'] ) {
+		$css .= 'p { hyphens: auto; ';
+		$hyphens_path = pb_get_hyphens_path();
+		if ( $hyphens_path ) {
+			$css .= "prince-hyphenate-patterns: '" . $hyphens_path . "'; ";
+		}
+		$css .= "} \n";
+	}
+
 	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines
 	if ( 2 == @$options['pdf_paragraph_separation'] ) {
 		$css .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
@@ -700,6 +746,17 @@ function pressbooks_theme_pdf_css_override( $css ) {
 	// Display TOC? true (default) / false
 	if ( ! @$options['pdf_toc'] ) {
 		$css .= "#toc { display: none; } \n";
+	}
+
+
+	// --------------------------------------------------------------------
+	// Features we inject ourselves, (not user options)
+
+	$theme = strtolower( '' . wp_get_theme() );
+	if ( 'luther' == $theme ) {
+		// Translate "Part" to whatever language this book is in
+		$css .= '#toc .part a::before { content: "' . __( 'Part', 'pressbooks' ) . ' "counter(part, upper-roman) ". "; }' . "\n";
+		$css .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
 	}
 
 	return $css;
@@ -726,6 +783,15 @@ function pressbooks_theme_ebook_css_override( $css ) {
 	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines
 	if ( 2 == @$options['ebook_paragraph_separation'] ) {
 		$css .= "p + p, .indent { text-indent: 0; margin-top: 1em; } \n";
+	}
+
+	// --------------------------------------------------------------------
+	// Features we inject ourselves, (not user options)
+
+	$theme = strtolower( '' . wp_get_theme() );
+	if ( 'luther' == $theme ) {
+		// Translate "Part" to whatever language this book is in
+		$css .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
 	}
 
 	return $css;
@@ -757,7 +823,7 @@ function pressbooks_theme_ebook_hacks( $hacks ) {
 	$hacks['chapter_numbers'] = $options['chapter_numbers'];
 
 	// --------------------------------------------------------------------
-	// Weird
+	// Features we inject ourselves, (not user options)
 
 	$theme = strtolower( '' . wp_get_theme() );
 	if ( 'luther' == $theme ) {

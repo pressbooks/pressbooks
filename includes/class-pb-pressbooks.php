@@ -6,6 +6,9 @@
 namespace PressBooks;
 
 
+use PressBooks\Book;
+
+
 class PressBooks {
 
 	/**
@@ -24,11 +27,13 @@ class PressBooks {
 	 */
 	function registerThemeDirectories() {
 
-		register_theme_directory( PB_PLUGIN_DIR . 'themes-root/' );
-		register_theme_directory( PB_PLUGIN_DIR . 'themes-book/' );
+		// No trailing slash, otherwise we get a double slash bug
+		// @see \PressBooks\Metadata::fixDoubleSlashBug
+		register_theme_directory( PB_PLUGIN_DIR . 'themes-root' );
+		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
 
 		if ( is_admin() ) {
-			if ( \PressBooks\Book::isBook() ) {
+			if ( Book::isBook() ) {
 				add_filter( 'allowed_themes', array( $this, 'allowedBookThemes' ) );
 			} else {
 				add_filter( 'allowed_themes', array( $this, 'allowedRootThemes' ) );
@@ -38,7 +43,8 @@ class PressBooks {
 
 
 	/**
-	 * Used by add_filter( 'allowed_themes' ) Will hide any theme not in ./themes-book/*
+	 * Used by add_filter( 'allowed_themes' ) Will hide any theme not in ./themes-book/* with exceptions
+	 * for the PB_BOOK_THEME constant, and $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'][]
 	 *
 	 * @param array $themes
 	 *
@@ -50,6 +56,14 @@ class PressBooks {
 
 		if ( defined( 'PB_BOOK_THEME' ) ) {
 			$exceptions[] = PB_BOOK_THEME;
+		}
+
+		if ( isset( $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] ) ) {
+			if ( is_array( $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] ) ) {
+				$exceptions = array_merge( $exceptions, $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] );
+			} else {
+				$exceptions[] = $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'];
+			}
 		}
 
 		$compare = search_theme_directories();
@@ -65,7 +79,7 @@ class PressBooks {
 
 	/**
 	 * Used by add_filter( 'allowed_themes' ) Will hide any theme not in ./themes-root/* with exceptions
-	 * for 'pressbooks-root' and PB_ROOT_THEME constant.
+	 * for 'pressbooks-root', the PB_ROOT_THEME constant, and $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'][]
 	 *
 	 * @param array $themes
 	 *
@@ -77,6 +91,14 @@ class PressBooks {
 
 		if ( defined( 'PB_ROOT_THEME' ) ) {
 			$exceptions[] = PB_ROOT_THEME;
+		}
+
+		if ( isset( $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] ) ) {
+			if ( is_array( $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] ) ) {
+				$exceptions = array_merge( $exceptions, $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] );
+			} else {
+				$exceptions[] = $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'];
+			}
 		}
 
 		$compare = search_theme_directories();

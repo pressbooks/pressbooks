@@ -62,6 +62,14 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Last known front matter position. Used to insert the TOC in the correct place.
+	 *
+	 * @var int|bool
+	 */
+	protected $frontMatterLastPos = false;
+
+
+	/**
 	 * Sometimes the user will omit an introduction so we must inject the style in either the first
 	 * part or the first chapter ourselves.
 	 *
@@ -78,7 +86,7 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Path to book export theme.
+	 * Fullpath to book CSS file.
 	 *
 	 * @var string
 	 */
@@ -142,7 +150,7 @@ class Epub201 extends Export {
 			return false;
 		}
 
-		if ( empty( $this->exportStylePath ) || ! is_dir( $this->exportStylePath ) ) {
+		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
 
 			return false;
@@ -457,14 +465,13 @@ class Epub201 extends Export {
 	protected function createStylesheet() {
 
 		$this->stylesheet = strtolower( sanitize_file_name( wp_get_theme() . '.css' ) );
-		$stylesheet_path = $this->exportStylePath . "/style.css";
 
 		// Copy stylesheet
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/{$this->stylesheet}",
-			$this->loadTemplate( $stylesheet_path ) );
+			$this->loadTemplate( $this->exportStylePath ) );
 
-		$this->scrapeCss( $stylesheet_path );
+		$this->scrapeCss( $this->exportStylePath );
 
 		// Append overrides
 		file_put_contents(
@@ -499,7 +506,10 @@ class Epub201 extends Export {
 			$filename = sanitize_file_name( basename( $url ) );
 			if ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) == 1 ) {
 				// Copy to images directory
-				copy( realpath( "$css_dir/$url" ), $this->tmpDir . "/OEBPS/images/$filename" );
+				$my_image = realpath( "$css_dir/$url" );
+				if ( is_file( $my_image ) ) {
+					copy( $my_image, $this->tmpDir . "/OEBPS/images/$filename" );
+				}
 			}
 		}
 
@@ -525,7 +535,7 @@ class Epub201 extends Export {
 
 		$img = wp_get_image_editor( $source_path );
 		if ( ! is_wp_error( $img ) ) {
-			$img->resize( 600, 800, true );
+			$img->resize( 768, 1024, true );
 			$img->save( $dest_path );
 			$this->coverImage = $dest_image;
 		}
@@ -697,6 +707,7 @@ class Epub201 extends Export {
 		);
 
 		$i = 1;
+		$last_pos = false;
 		foreach ( array( 'dedication', 'epigraph' ) as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -736,9 +747,11 @@ class Epub201 extends Export {
 				);
 
 				++$i;
+				$last_pos = $i;
 			}
 		}
 		$this->frontMatterPos = $i;
+		if ( $last_pos ) $this->frontMatterLastPos = $last_pos - 1;
 	}
 
 
@@ -1032,9 +1045,7 @@ class Epub201 extends Export {
 		);
 
 		// Start by inserting self into correct manifest position
-
-		$array_pos = array_search( 'title-page', array_keys( $this->manifest ) );
-		if ( false === $array_pos ) $array_pos = - 1;
+        $array_pos = $this->positionOfToc();
 
 		$file_id = 'table-of-contents';
 		$filename = "{$file_id}.html";
@@ -1104,6 +1115,37 @@ class Epub201 extends Export {
 			$this->tmpDir . "/OEBPS/$filename",
 			$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
 
+	}
+
+
+	/**
+	 * Determine position of TOC based on Chicago Manual Of Style.
+	 *
+	 * @return int
+	 */
+	protected function positionOfToc() {
+
+		$search = array_keys( $this->manifest );
+
+		if ( false == $this->frontMatterLastPos ) {
+
+			$array_pos = array_search( 'copyright', $search );
+			if ( false === $array_pos ) $array_pos = - 1;
+
+		} else {
+
+			$array_pos = - 1;
+			$preg = '/^front-matter-' . sprintf( "%03s", $this->frontMatterLastPos ) . '$/';
+			foreach ( $search as $key => $val ) {
+				if ( preg_match( $preg, $val ) ) {
+					$array_pos = $key;
+					break;
+				}
+			}
+
+		}
+
+		return $array_pos;
 	}
 
 

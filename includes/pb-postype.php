@@ -183,6 +183,30 @@ function register_post_types() {
 	register_post_type( 'metadata', $args );
 
 
+	/* Custom CSS */
+
+	$args = array(
+		'exclude_from_search' => true,
+		'public' => false,
+		'publicly_queryable' => false,
+		'show_ui' => false,
+		'supports' => array( 'revisions' ),
+		'label' => 'Custom CSS',
+		'can_export' => false,
+		'rewrite' => false,
+		'capabilities' => array(
+			'edit_post' => 'edit_theme_options',
+			'read_post' => 'read',
+			'delete_post' => 'edit_theme_options',
+			'edit_posts' => 'edit_theme_options',
+			'edit_others_posts' => 'edit_theme_options',
+			'publish_posts' => 'edit_theme_options',
+			'read_private_posts' => 'read'
+		)
+	);
+	register_post_type( 'custom-css', $args );
+
+
 	// Flush rewrite rules
 	$set = get_option( 'pressbooks_flushed_post_type' );
 	if ( $set !== true ) {

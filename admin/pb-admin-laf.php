@@ -163,7 +163,7 @@ function replace_book_admin_menu() {
 
 
 	// Export
-	$page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), "add_users", "pb_export", __NAMESPACE__ . '\display_export', '', 14 );
+	$page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', '', 14 );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
 			wp_enqueue_script( 'pb-export' );
@@ -767,18 +767,30 @@ function ecomm_links_sanitize( $input ) {
 /**
  * Display Ecommerce settings
  */
-function display_ecomm_settings() { ?>
+function display_ecomm_settings() {
+	?>
 	<div class="wrap">
 		<div id="icon-link" class="icon32"></div>
-		<h2>Ecommerce Settings</h2>
+		<h2><?php _e( 'Sell Your Book', 'pressbooks' ); ?></h2>
+
+		<!-- BookBaby -->
+		<p><?php
+			_e( ' You can get your books into Kindle, the iBook store, Nook, Kobo and other ebook stores using our distribution partner', 'pressbooks' );
+			echo ' <a href=" http://bookbaby.com/pressbooks">BookBaby</a>. ';
+			_e( 'Cost starts at $99, with a 10% discount for PressBooks users, and you keep 100% of your royalties.', 'pressbooks' );
+			?></p>
+		<a href=" http://bookbaby.com/pressbooks" class="button" target="_blank"><?php _e( 'Sign-up at BookBaby.com', 'pressbooks' ); ?></a>
+
+		<p><?php _e( 'Once your book is available in ebook stores, enter the links here, and we\'ll make a "Buy" page for you.', 'pressbooks' ); ?></p>
+
 		<!-- Create the form that will be used to render our options -->
 		<form method="post" action="options.php">
 			<?php settings_fields( 'ecomm_settings' );
 			do_settings_sections( 'ecomm_settings' ); ?>
 			<?php submit_button(); ?>
 		</form>
-	</div>
 
+	</div>
 <?php
 }
 

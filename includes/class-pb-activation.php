@@ -108,7 +108,7 @@ class Activation {
 		$pop = get_option( 'page_for_posts' );
 		if ( empty( $act ) ) return false;
 		if ( ( get_option( 'template' ) != 'pressbooks-book' ) || ( get_option( 'stylesheet' ) != 'pressbooks-book' ) ) return false;
-		if ( ( get_option( 'show_on_front' ) != 'page' ) || ( ( ! is_int( $pof ) ) || ( ! get_post( $pof ) ) ) || ( ( ! is_int( $pop ) ) || ( ! get_page( $pop ) ) ) ) return false;
+		if ( ( get_option( 'show_on_front' ) != 'page' ) || ( ( ! is_int( $pof ) ) || ( ! get_post( $pof ) ) ) || ( ( ! is_int( $pop ) ) || ( ! get_post( $pop ) ) ) ) return false;
 		if ( ( count( get_all_category_ids() ) < 3 ) || ( wp_count_posts()->publish < 3 ) || ( wp_count_posts( 'page' )->publish < 3 ) ) return false;
 
 		return true;
@@ -129,54 +129,69 @@ class Activation {
 		\PressBooks\Taxonomy\insert_terms();
 
 		$posts = array(
+			// Parts, Chapters, Front-Matter, Back-Matter
 			array(
 				'post_title' => __( 'Main Body', 'pressbooks' ),
-				'post_name' => __( 'main-body', 'pressbooks' ),
+				'post_name' => 'main-body',
 				'post_type' => 'part',
 				'menu_order' => 1 ),
 			array(
 				'post_title' => __( 'Introduction', 'pressbooks' ),
-				'post_name' => __( 'introduction', 'pressbooks' ),
+				'post_name' => 'introduction',
 				'post_content' => __( 'This is where you can write your introduction.', 'pressbooks' ),
 				'post_type' => 'front-matter',
 				'menu_order' => 1 ),
 			array(
 				'post_title' => __( 'Chapter 1', 'pressbooks' ),
-				'post_name' => __( 'chapter-1', 'pressbooks' ),
+				'post_name' => 'chapter-1',
 				'post_content' => __( 'This is the first chapter in the main body of the text. You can change the text, rename the chapter, add new chapters, and add new parts.', 'pressbooks' ),
 				'post_type' => 'chapter',
 				'menu_order' => 1 ),
 			array(
 				'post_title' => __( 'Appendix', 'pressbooks' ),
-				'post_name' => __( 'appendix', 'pressbooks' ),
+				'post_name' => 'appendix',
 				'post_content' => __( 'This is where you can add appendices or other back matter.', 'pressbooks' ),
 				'post_type' => 'back-matter',
 				'menu_order' => 1 ),
+			// Pages
 			array(
 				'post_title' => __( 'Authors', 'pressbooks' ),
-				'post_name' => __( 'authors', 'pressbooks' ),
+				'post_name' => 'authors',
 				'post_type' => 'page' ),
 			array(
 				'post_title' => __( 'Cover', 'pressbooks' ),
-				'post_name' => __( 'cover', 'pressbooks' ),
+				'post_name' => 'cover',
 				'post_type' => 'page' ),
 			array(
 				'post_title' => __( 'Table of Contents', 'pressbooks' ),
-				'post_name' => __( 'table-of-contents', 'pressbooks' ),
+				'post_name' => 'table-of-contents',
 				'post_type' => 'page' ),
 			array(
 				'post_title' => __( 'About', 'pressbooks' ),
-				'post_name' => __( 'about', 'pressbooks' ),
+				'post_name' => 'about',
 				'post_type' => 'page' ),
 			array(
 				'post_title' => __( 'Buy', 'pressbooks' ),
-				'post_name' => __( 'buy', 'pressbooks' ),
+				'post_name' => 'buy',
 				'post_type' => 'page' ),
 			array(
 				'post_title' => __( 'Access Denied', 'pressbooks' ),
-				'post_name' => __( 'access-denied', 'pressbooks' ),
+				'post_name' => 'access-denied',
 				'post_content' => __( 'This book is private, and accessible only to registered users. If you have an account you can login <a href="/wp-login.php">here</a>.  You can also set up your own PressBooks book at: <a href="http://pressbooks.com">PressBooks.com</a>.', 'pressbooks' ),
 				'post_type' => 'page' ),
+			// Custom CSS
+			array(
+				'post_title' => __( 'Custom CSS for Ebook', 'pressbooks' ),
+				'post_name' => 'epub',
+				'post_type' => 'custom-css' ),
+			array(
+				'post_title' => __( 'Custom CSS for PDF', 'pressbooks' ),
+				'post_name' => 'prince',
+				'post_type' => 'custom-css' ),
+			array(
+				'post_title' => __( 'Custom CSS for Web', 'pressbooks' ),
+				'post_name' => 'web',
+				'post_type' => 'custom-css' ),
 		);
 
 		$post = array( 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id, );
@@ -202,10 +217,10 @@ class Activation {
 				$newpost = wp_insert_post( $data, true );
 				if ( ! is_wp_error( $newpost ) ) {
 					switch ( $item['post_name'] ) {
-						case __( 'cover', 'pressbooks' ):
+						case 'cover':
 							$this->opts['page_on_front'] = (int) $newpost;
 							break;
-						case __( 'table-of-contents', 'pressbooks' ):
+						case 'table-of-contents':
 							$this->opts['page_for_posts'] = (int) $newpost;
 							break;
 					}

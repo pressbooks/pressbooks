@@ -71,16 +71,13 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 			 ?>
 			<form class="export-file" action="<?php echo $export_delete_url; ?>" method="post">
 				<input type="hidden" name="filename" value="<?php echo $file; ?>" />
+				<input type="hidden" name="delete_export_file" value="true" />
 				<div class="export-file-container">
-					<form class="export-file" action="<?php echo $export_delete_url; ?>" method="post">
-						<input type="hidden" name="delete_export_file" value="true" />
-						<input type="hidden" name="filename" value="<?php echo $file; ?>" />
-						<a class="export-file" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( $c == 0 ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
-						<div class="file-actions">
-							<a href="<?php echo ( $download_url_prefix . $file ); ?>"><img src="<?php echo PB_PLUGIN_URL; ?>assets/images/icon-download.png" width="16" height="16" alt="Download" /></a>
-							<input type="image" name="submit" src="<?php echo PB_PLUGIN_URL; ?>assets/images/icon-trash.gif" value="Delete" onclick="if (!confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>')){ return false }" />
-						</div>
-					</form>
+					<a class="export-file" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( $c == 0 ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
+					<div class="file-actions">
+						<a href="<?php echo ( $download_url_prefix . $file ); ?>"><img src="<?php echo PB_PLUGIN_URL; ?>assets/images/icon-download.png" width="16" height="16" alt="Download" /></a>
+						<input type="image" name="submit" src="<?php echo PB_PLUGIN_URL; ?>assets/images/icon-trash.gif" value="Delete" onclick="if (!confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>')){ return false }" />
+					</div>
 				</div>
 			</form>
 	<?php } ?>

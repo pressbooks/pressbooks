@@ -18,4 +18,6 @@ $overrides = array(
 	// Add some more strings here...
 );
 
+return $overrides;
+
 ?>

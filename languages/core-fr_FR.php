@@ -12,8 +12,8 @@ $overrides = array(
 	// 'View all posts filed under %s' => 'See all articles filed under %s',
 	// 'Howdy, %1$s' => 'Greetings, %1$s!',
 
-	'My Sites' => '我的書籍',
-	'Create a New Site' => '創建一個新的書',
+	'My Sites' => 'Mes livres',
+	'Create a New Site' => 'Créer un nouveau livre',
 
 	// Add some more strings here...
 );

@@ -3,7 +3,10 @@
 <?php if (get_option('blog_public') == '1' || (get_option('blog_public') == '0' && current_user_can_for_blog($blog_id, 'read'))): ?>
 
 				<?php edit_post_link( __( 'Edit', 'pressbooks' ), '<span class="edit-link">', '</span>' ); ?>
-				<h2 class="entry-title"><?php the_title(); ?></h2>
+			<h2 class="entry-title"><?php
+				if ( $chapter_number = pb_get_chapter_number( $post->post_name ) ) echo "$chapter_number - ";
+				the_title();
+				?></h2>
 					<?php pb_get_links(); ?>
 				<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 					
