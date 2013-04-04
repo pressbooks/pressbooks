@@ -1,0 +1,6 @@
+.add-new-h2,
+#post-body-content,
+#wp-admin-bar-view,
+#message.updated a {
+	display: none;
+}
