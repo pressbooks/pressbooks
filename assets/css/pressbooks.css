@@ -211,6 +211,13 @@ p.chapter_add {
 	font-family: "Lucida Console", Monaco, monospace
 }
 
+/* Sell Your Book styles
+========================== */
+
+.sell-your-book-copy {
+	margin-bottom: 4em;
+}
+
 /* Export Page styles
 ====================== */
 
@@ -293,75 +300,120 @@ img.theme-screenshot {
 =============== */
 
 a.menu-icon-generic .wp-menu-image {
-	background-image: url(../images/menu-pressbooks.png) !important;
+	background-image: url(../images/menu-pressbooks.png?v=2) !important;
 	background-position: -19px 5px !important;
-	background-size: 48px 48px !important;
+	background-size: 80px 50px !important;
 }
 
 a.menu-icon-generic:hover .wp-menu-image {
-	background-position: -18px -21px !important;
+	background-position: -19px -20px !important;
 }
 
 a.toplevel_page_pb_export .wp-menu-image {
-	background-image: url(../images/menu-pressbooks.png) !important;
+	background-image: url(../images/menu-pressbooks.png?v=2) !important;
 	background-position: 7px 5px !important;
-	background-size: 48px 48px !important;
+	background-size: 80px 50px !important;
 }
 
 a.toplevel_page_pb_export:hover .wp-menu-image, a.toplevel_page_pb_export.current .wp-menu-image {
 	background-position: 7px -20px !important;
 }
 
+a.toplevel_page_pb_sell .wp-menu-image {
+	background-image: url(../images/menu-pressbooks.png?v=2) !important;
+	background-position: -52px 5px !important;
+	background-size: 80px 50px !important;
+}
+
+a.toplevel_page_pb_sell:hover .wp-menu-image {
+	background-position: -52px -20px !important;
+}
+
 /* Retina menu images
 ====================== */
 
-@media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
+@media   (-o-min-device-pixel-ratio: 5/4),
+  		 (-webkit-min-device-pixel-ratio: 1.25),
+		 (min-resolution: 120dpi),
+		 only screen and (-Webkit-min-device-pixel-ratio: 1.5), 
+		 only screen and (-moz-min-device-pixel-ratio: 1.5), 
+		 only screen and (-o-min-device-pixel-ratio: 3/2), 
+		 only screen and (min-device-pixel-ratio: 1.5) {
 
-	a.menu-icon-generic .wp-menu-image {
-		background-image: url(../images/menu-pressbooks@2x.png) !important;
-		background-size: 50px 50px !important;
-		background-position: -18px 6px !important;
-	}
+			a.menu-icon-generic .wp-menu-image {
+				background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
+				background-size: 80px 50px !important;
+				background-position: -18px 6px !important;
+			}
+				
+			a.menu-icon-generic:hover .wp-menu-image {
+				background-position: -18px -19px !important;
+			}
 
-	a.menu-icon-generic:hover .wp-menu-image {
-		background-position: -18px -19px !important;
-	}
+			a.toplevel_page_pb_export .wp-menu-image {
+				background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
+				background-position: 8px 6px !important;
+			}
 
-	a.toplevel_page_pb_export .wp-menu-image {
-		background-image: url(../images/menu-pressbooks@2x.png) !important;
-		background-position: 8px 6px !important;
-	}
+			a.toplevel_page_pb_export:hover .wp-menu-image, a.toplevel_page_pb_export.current .wp-menu-image {
+				background-position: 8px -19px !important;
+			}
+			a.toplevel_page_pb_sell .wp-menu-image {
+				background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
+				background-position: -52px 5px !important;
+			}
 
-	a.toplevel_page_pb_export:hover .wp-menu-image, a.toplevel_page_pb_export.current .wp-menu-image {
-		background-position: 8px -19px !important;
-	}
-
+			a.toplevel_page_pb_sell:hover .wp-menu-image {
+				background-position: -52px -20px !important;
+			}
 }
+
 
 /* Page icons */
 
 #icon-pressbooks-export {
-	background-image: url(../images/icons-pressbooks.png);
+	background-image: url(../images/icons-pressbooks.png?v=2);
 }
 
-.icon32-posts-metadata {
-	background-image: url(../images/icons-pressbooks.png) !important;
+#wpbody-content .icon32-posts-metadata {
+	background-image: url(../images/icons-pressbooks.png?v=2) !important;
 	background-position: -48px 0 !important;
 }
 
+#wpbody-content .icon32-posts-metadata {
+	background-image: url(../images/icons-pressbooks.png?v=2) !important;
+	background-position: -48px 0 !important;
+}
+#icon-sell {
+	background-image: url(../images/icons-pressbooks.png?v=2) !important;
+	background-position: -93px 0 !important;
+}
 /* Retina page icons */
 
-@media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
-	#icon-pressbooks-export {
-		background-image: url(../images/icons-pressbooks@2x.png);
-		background-size: 100px 50px !important;
-	}
 
-	.icon32-posts-metadata {
-		background-image: url(../images/icons-pressbooks@2x.png) !important;
-		background-size: 100px 50px !important;
-	}
+
+@media  (-o-min-device-pixel-ratio: 5/4),
+  		(-webkit-min-device-pixel-ratio: 1.25),
+  		(min-resolution: 120dpi),
+  		only screen and (-webkit-min-device-pixel-ratio: 1.5), 
+  		only screen and (-moz-min-device-pixel-ratio: 1.5), 
+  		only screen and (-o-min-device-pixel-ratio: 3/2), 
+  		only screen and (min-device-pixel-ratio: 1.5) {
+			#icon-pressbooks-export {
+				background-image: url(../images/icons-pressbooks@2x.png?v=2);
+				background-size: 140px 50px !important;
+			}
+
+			#wpbody-content .icon32-posts-metadata {
+				background-image: url(../images/icons-pressbooks@2x.png?v=2) !important;
+				background-size: 140px 50px !important;
+			}
+			#icon-sell {
+				background-image: url(../images/icons-pressbooks@2x.png?v=2) !important;
+				background-size: 140px 50px !important;
+		}
 }
+
 
 .export-files {
 	margin-bottom: 1.25em;

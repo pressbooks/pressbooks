@@ -465,17 +465,18 @@ class Epub201 extends Export {
 	protected function createStylesheet() {
 
 		$this->stylesheet = strtolower( sanitize_file_name( wp_get_theme() . '.css' ) );
+		$path_to_tmp_stylesheet = $this->tmpDir . "/OEBPS/{$this->stylesheet}";
 
 		// Copy stylesheet
 		file_put_contents(
-			$this->tmpDir . "/OEBPS/{$this->stylesheet}",
+			$path_to_tmp_stylesheet,
 			$this->loadTemplate( $this->exportStylePath ) );
 
-		$this->scrapeCss( $this->exportStylePath );
+		$this->scrapeCss( $this->exportStylePath, $path_to_tmp_stylesheet );
 
 		// Append overrides
 		file_put_contents(
-			$this->tmpDir . "/OEBPS/{$this->stylesheet}",
+			$path_to_tmp_stylesheet,
 			"\n" . $this->cssOverrides,
 			FILE_APPEND
 		);
@@ -483,36 +484,47 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Parse a CSS file, copy assets into OPEBS/ directory.
+	 * Parse CSS, copy assets, rewrite copy.
 	 *
-	 * @param string $stylesheet_path
+	 * @param string $path_to_original_stylesheet*
+	 * @param string $path_to_copy_of_stylesheet
 	 */
-	protected function scrapeCss( $stylesheet_path ) {
+	protected function scrapeCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
-		$css_dir = pathinfo( $stylesheet_path, PATHINFO_DIRNAME );
-		$css_string = file_get_contents( $stylesheet_path );
+		$css_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
+		$css = file_get_contents( $path_to_copy_of_stylesheet );
+		$fullpath = $this->tmpDir . '/OEBPS/images';
 
 		// Search for url("*"), url('*'), and url(*)
-		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css_string, $matches, PREG_PATTERN_ORDER );
-		if ( empty( $matches[3] ) ) {
-			// Nothing found, abort
-			return;
-		}
+		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
+		$matches = array_unique( $matches[3] ); // Remove duplicates
 
-		// Do something with results
-		foreach ( $matches[3] as $url ) {
-			// Look for "^images/"
-			// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/"
+		foreach ( $matches as $url ) {
 			$filename = sanitize_file_name( basename( $url ) );
+
 			if ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) == 1 ) {
-				// Copy to images directory
+
+				// Look for "^images/"
+				// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/"	or "^images/../../denied/"
+
 				$my_image = realpath( "$css_dir/$url" );
-				if ( is_file( $my_image ) ) {
-					copy( $my_image, $this->tmpDir . "/OEBPS/images/$filename" );
+				if ( $my_image ) {
+					copy( $my_image, "$fullpath/$filename" );
+				}
+
+			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.jpe?g|\.gif|\.png)$/i', $url ) ) {
+
+				// Look for images via http(s), pull them in locally
+
+				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $fullpath ) ) {
+					$css = str_replace( $url, "images/$new_filename", $css );
 				}
 			}
+
 		}
 
+		// Overwrite the new file with new info
+		file_put_contents( $path_to_copy_of_stylesheet, $css );
 	}
 
 
@@ -1203,37 +1215,50 @@ class Epub201 extends Export {
 
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
-
-			// Fetch the image
+			// Fetch image, change src
 			$url = $image->getAttribute( 'src' );
-			$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
-
-			// WordPress error?
-			if ( is_wp_error( $response ) ) {
-				// TODO: handle $response->get_error_message();
-				continue; // Skip
+			if ( $filename = $this->fetchAndSaveUniqueImage( $url, $fullpath ) ) {
+				$image->setAttribute( 'src', 'images/' . $filename );
 			}
-
-			$filename = array_shift( explode( '?', basename( $url ) ) ); // Basename without query string
-			$filename = sanitize_file_name( urldecode( $filename ) );
-			$filename = Sanitize\force_ascii( $filename );
-
-			$file_contents = wp_remote_retrieve_body( $response );
-
-			// Check for duplicates, save accordingly
-			if ( ! file_exists( "$fullpath/$filename" ) ) {
-				file_put_contents( "$fullpath/$filename", $file_contents );
-			} elseif ( md5( $file_contents ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
-				$filename = wp_unique_filename( $fullpath, $filename );
-				file_put_contents( "$fullpath/$filename", $file_contents );
-			}
-
-			// Change src to new relative path
-			$image->setAttribute( 'src', 'images/' . $filename );
-
 		}
 
 		return $doc;
+	}
+
+
+	/**
+	 * Fetch a url with wp_remote_get(), save it to $fullpath with a unique name.
+	 *
+	 * @param $url string
+	 * @param $fullpath string
+	 *
+	 * @return string filename
+	 */
+	protected function fetchAndSaveUniqueImage( $url, $fullpath ) {
+
+		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
+
+		// WordPress error?
+		if ( is_wp_error( $response ) ) {
+			// TODO: handle $response->get_error_message();
+			return '';
+		}
+
+		$filename = array_shift( explode( '?', basename( $url ) ) ); // Basename without query string
+		$filename = sanitize_file_name( urldecode( $filename ) );
+		$filename = Sanitize\force_ascii( $filename );
+
+		$file_contents = wp_remote_retrieve_body( $response );
+
+		// Check for duplicates, save accordingly
+		if ( ! file_exists( "$fullpath/$filename" ) ) {
+			file_put_contents( "$fullpath/$filename", $file_contents );
+		} elseif ( md5( $file_contents ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+			$filename = wp_unique_filename( $fullpath, $filename );
+			file_put_contents( "$fullpath/$filename", $file_contents );
+		}
+
+		return $filename;
 	}
 
 

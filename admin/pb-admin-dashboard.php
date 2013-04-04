@@ -54,16 +54,19 @@ function display_book_widget() {
 	// front-matter
 	echo "<ul><li><h4>" . __( 'Front Matter', 'pressbooks' ) . "</h4></li><ul>";
 	foreach ( $book_structure['front-matter'] as $fm ) {
-		echo "<li style='margin-left:10px;'> <a href='post.php?post=" . $fm['ID'] . "&action=edit'>" . $fm['post_title'] . "</a></li>\n";
+		$title = ( ! empty( $fm['post_title'] ) ? $fm['post_title'] : '&hellip;' );
+		echo "<li style='margin-left:10px;'> <a href='post.php?post=" . $fm['ID'] . "&action=edit'>" . $title . "</a></li>\n";
 	}
 	echo "</ul>";
 
 	// parts
 	foreach ( $book_structure['part'] as $part ) {
-		echo "<ul><li><h4><a href='post.php?post=" . $part['ID'] . "&action=edit'>" . $part['post_title'] . "</a></h4></li><ul>\n";
+		$title = ( ! empty( $part['post_title'] ) ? $part['post_title'] : '&hellip;' );
+		echo "<ul><li><h4><a href='post.php?post=" . $part['ID'] . "&action=edit'>" . $title . "</a></h4></li><ul>\n";
 		// chapters
 		foreach ( $part['chapters'] as $chapter ) {
-			echo "<li style='margin-left:10px;'> <a href='post.php?post=" . $chapter['ID'] . "&action=edit'>" . $chapter['post_title'] . "</a></li>\n";
+			$title = ( ! empty( $chapter['post_title'] ) ? $chapter['post_title'] : '&hellip;' );
+			echo "<li style='margin-left:10px;'> <a href='post.php?post=" . $chapter['ID'] . "&action=edit'>" . $title . "</a></li>\n";
 		}
 		echo "</ul>\n";
 	}
@@ -71,7 +74,8 @@ function display_book_widget() {
 	// back-matter
 	echo "<li><h4>" . __( 'Back Matter', 'pressbooks' ) . "</h4></li><ul>";
 	foreach ( $book_structure['back-matter'] as $bm ) {
-		echo "<li style='margin-left:10px;'> <a href='post.php?post=" . $bm['ID'] . "&action=edit'>" . $bm['post_title'] . "</a></li>\n";
+		$title = ( ! empty( $bm['post_title'] ) ? $bm['post_title'] : '&hellip;' );
+		echo "<li style='margin-left:10px;'> <a href='post.php?post=" . $bm['ID'] . "&action=edit'>" . $title . "</a></li>\n";
 	}
 	echo "</ul>";
 

@@ -131,7 +131,8 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		$position = array_search( 'table-of-contents', $keys );
 		if ( isset( $keys[$position + 1] ) ) {
 			$key = $keys[$position + 1];
-			printf( '<reference type="text" title="%s" href="OEBPS/%s" />', $manifest[$key]['post_title'], $manifest[$key]['filename'] );
+			$title = ( ! empty( $manifest[$key]['post_title'] ) ? $manifest[$key]['post_title'] : __( 'Start', 'pressbooks' ) );
+			printf( '<reference type="text" title="%s" href="OEBPS/%s" />', $title, $manifest[$key]['filename'] );
 			echo "\n";
 		}
 		?>

@@ -101,10 +101,6 @@ class CustomCss {
 			mkdir( $path, 0775, true );
 		}
 
-		if ( ! file_exists( $path . 'images/' ) ) {
-			mkdir( $path . 'images/', 0775, true );
-		}
-
 		return $path;
 	}
 
