@@ -671,7 +671,7 @@ function pressbooks_theme_pdf_css_override( $css ) {
 
 	// Display chapter numbers? true (default) / false
 	if ( ! @$options['chapter_numbers'] ) {
-		$css .= "h3.part-number, h3.chapter-number, #toc .part a::before, #toc .chapter a::before { display: none; } \n";
+		$css .= "h3.part-number, h3.chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
 	}
 
 	// --------------------------------------------------------------------
