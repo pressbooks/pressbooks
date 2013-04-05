@@ -497,7 +497,12 @@ class Epub201 extends Export {
 
 		// Search for url("*"), url('*'), and url(*)
 		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
-		$matches = array_unique( $matches[3] ); // Remove duplicates
+
+		// Remove duplicates, sort by biggest to smallest to prevent substring replacements
+		$matches = array_unique( $matches[3] );
+		usort( $matches, function ( $a, $b ) {
+			return strlen( $b ) - strlen( $a );
+		} );
 
 		foreach ( $matches as $url ) {
 			$filename = sanitize_file_name( basename( $url ) );
