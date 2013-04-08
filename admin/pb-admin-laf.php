@@ -145,7 +145,7 @@ function replace_book_admin_menu() {
 	} else {
 		$book_info_url = 'post-new.php?post_type=metadata';
 	}
-	$page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'add_users', $book_info_url, '', '', 12 );
+	$page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'edit_posts', $book_info_url, '', '', 12 );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 			if ( 'metadata' == get_post_type() ) {
@@ -173,15 +173,11 @@ function replace_book_admin_menu() {
 		}
 	} );
 
-	// Import
-	add_menu_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), "edit_posts", "pb_import", __NAMESPACE__ . '\display_import', '', 15 );
-
+	// Sell
+	add_menu_page( __( 'Sell', 'pressbooks' ), __( 'Sell', 'pressbooks' ), 'edit_posts', 'pb_sell', __NAMESPACE__ . '\display_sell', '', 16 );
 
 	// Privacy
 	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
-
-	// Ecommerce
-	add_options_page( __( 'Ecommerce Settings', 'pressbooks' ), __( 'Ecommerce', 'pressbooks' ), 'manage_options', 'ecomm-options', __NAMESPACE__ . '\display_ecomm_settings' );
 
 	// Advanced
 	add_options_page( __( 'Advanced Settings', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
@@ -492,9 +488,9 @@ function init_css_js() {
 	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pb_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
 	update_user_option( $user_ID, 'admin_color', 'pb_colors', true );
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
-	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '1.0', 'screen' );
+	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '2.0.2', 'screen' ); // TODO: Remember to change $ver to match PB
 	wp_enqueue_style( 'pressbooks-admin' );
-	wp_register_style( 'colors-fresh', site_url() . '/wp-admin/css/colors-fresh.css', array(), '1.0', 'screen' );
+	wp_register_style( 'colors-fresh', site_url() . '/wp-admin/css/colors-fresh.css', array(), false, 'screen' );
 	wp_enqueue_style( 'colors-fresh' );
 	wp_register_style( 'bootstrap-admin', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.css', array(), '2.0.1', 'screen' );
 	wp_enqueue_style( 'bootstrap-admin' ); // Used by feedback button
@@ -775,23 +771,15 @@ function ecomm_links_sanitize( $input ) {
 	return $options;
 }
 
-/**
- * Display Ecommerce settings
- */
-function display_ecomm_settings() { ?>
-	<div class="wrap">
-		<div id="icon-link" class="icon32"></div>
-		<h2>Ecommerce Settings</h2>
-		<!-- Create the form that will be used to render our options -->
-		<form method="post" action="options.php">
-			<?php settings_fields( 'ecomm_settings' );
-			do_settings_sections( 'ecomm_settings' ); ?>
-			<?php submit_button(); ?>
-		</form>
-	</div>
 
-<?php
+/**
+ * Display Sell Your Book
+ */
+function display_sell() {
+
+	require( PB_PLUGIN_DIR . 'admin/templates/sell.php' );
 }
+
 
 /* ------------------------------------------------------------------------ *
  * Advanced

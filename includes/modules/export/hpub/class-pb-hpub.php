@@ -57,6 +57,14 @@ class Hpub extends Export {
 
 
 	/**
+	 * Last known front matter position. Used to insert the TOC in the correct place.
+	 *
+	 * @var int|bool
+	 */
+	protected $frontMatterLastPos = false;
+
+
+	/**
 	 * Sometimes the user will omit an introduction so we must inject the style in either the first
 	 * part or the first chapter ourselves.
 	 *
@@ -332,47 +340,68 @@ class Hpub extends Export {
 	protected function createStylesheet() {
 
 		// TODO, support more than one stylesheet
-
 		$stylesheet = 'example.css';
-		$stylesheet_path = __DIR__ . "/templates/css/$stylesheet";
+
+		$path_to_original_stylesheet = __DIR__ . "/templates/css/$stylesheet";
+		$path_to_tmp_stylesheet = $this->tmpDir . "/css/$stylesheet";
 
 		file_put_contents(
-			$this->tmpDir . "/css/$stylesheet",
-			$this->loadTemplate( $stylesheet_path ) );
+			$path_to_tmp_stylesheet,
+			$this->loadTemplate( $path_to_original_stylesheet ) );
 
-		$this->scrapeCss( $stylesheet_path );
+		$this->scrapeCss( $path_to_original_stylesheet, $path_to_tmp_stylesheet );
 
 		$this->stylesheet = $stylesheet;
 	}
 
 
 	/**
-	 * Parse a CSS file, copy assets.
+	 * Parse CSS, copy assets, rewrite copy.
 	 *
-	 * @param string $stylesheet_path
+	 * @param string $path_to_original_stylesheet*
+	 * @param string $path_to_copy_of_stylesheet
 	 */
-	protected function scrapeCss( $stylesheet_path ) {
+	protected function scrapeCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
-		$css_dir = pathinfo( $stylesheet_path, PATHINFO_DIRNAME );
-		$css_string = file_get_contents( $stylesheet_path );
+		$css_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
+		$css = file_get_contents( $path_to_copy_of_stylesheet );
+		$fullpath = $this->tmpDir . '/images';
 
 		// Search for url("*"), url('*'), and url(*)
-		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css_string, $matches, PREG_PATTERN_ORDER );
-		if ( empty( $matches[3] ) ) {
-			// Nothing found, abort
-			return;
+		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
+
+		// Remove duplicates, sort by biggest to smallest to prevent substring replacements
+		$matches = array_unique( $matches[3] );
+		usort( $matches, function ( $a, $b ) {
+			return strlen( $b ) - strlen( $a );
+		} );
+
+		foreach ( $matches as $url ) {
+			$filename = sanitize_file_name( basename( $url ) );
+
+			if ( preg_match( '#^\.\./images/#', $url ) && substr_count( $url, '/' ) == 2 ) {
+
+				// Look for "^../images/"
+				// Count 2 slashes so that we don't touch stuff like "^images/out/of/bounds/"	or "^images/../../denied/"
+
+				$my_image = realpath( "$css_dir/$url" );
+				if ( $my_image ) {
+					copy( $my_image, "$fullpath/$filename" );
+				}
+
+			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.jpe?g|\.gif|\.png)$/i', $url ) ) {
+
+				// Look for images via http(s), pull them in locally
+
+				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $fullpath ) ) {
+					$css = str_replace( $url, "../images/$new_filename", $css );
+				}
+			}
+
 		}
 
-		// Do something with results
-		foreach ( $matches[3] as $url ) {
-			// Look for "^../images/"
-			// Count 2 slashes so that we don't touch stuff like "^../images/out/of/bounds/"
-			$filename = basename( $url );
-			if ( preg_match( '#^\.\./images/#', $url ) && substr_count( $url, '/' ) == 2 ) {
-				// Copy to images directory
-				copy( realpath( "$css_dir/$url" ), $this->tmpDir . "/images/$filename" );
-			}
-		}
+		// Overwrite the new file with new info
+		file_put_contents( $path_to_copy_of_stylesheet, $css );
 
 	}
 
@@ -563,6 +592,7 @@ class Hpub extends Export {
 		);
 
 		$i = 1;
+		$last_pos = false;
 		foreach ( array( 'dedication', 'epigraph' ) as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -602,9 +632,11 @@ class Hpub extends Export {
 				);
 
 				++$i;
+				$last_pos = $i;
 			}
 		}
 		$this->frontMatterPos = $i;
+		if ( $last_pos ) $this->frontMatterLastPos = $last_pos - 1;
 	}
 
 
@@ -895,9 +927,7 @@ class Hpub extends Export {
 		);
 
 		// Start by inserting self into correct manifest position
-
-		$array_pos = array_search( 'title-page', array_keys( $this->manifest ) );
-		if ( false === $array_pos ) $array_pos = - 1;
+		$array_pos = $this->positionOfToc();
 
 		$file_id = 'table-of-contents';
 		$filename = "{$file_id}.html";
@@ -965,6 +995,37 @@ class Hpub extends Export {
 
 
 	/**
+	 * Determine position of TOC based on Chicago Manual Of Style.
+	 *
+	 * @return int
+	 */
+	protected function positionOfToc() {
+
+		$search = array_keys( $this->manifest );
+
+		if ( false == $this->frontMatterLastPos ) {
+
+			$array_pos = array_search( 'copyright', $search );
+			if ( false === $array_pos ) $array_pos = - 1;
+
+		} else {
+
+			$array_pos = - 1;
+			$preg = '/^front-matter-' . sprintf( "%03s", $this->frontMatterLastPos ) . '$/';
+			foreach ( $search as $key => $val ) {
+				if ( preg_match( $preg, $val ) ) {
+					$array_pos = $key;
+					break;
+				}
+			}
+
+		}
+
+		return $array_pos;
+	}
+
+
+	/**
 	 * Pummel the HTML into HPub compatible dough.
 	 *
 	 * @param string $html
@@ -1022,34 +1083,50 @@ class Hpub extends Export {
 
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
-
-			// Fetch the image
+			// Fetch image, change src
 			$url = $image->getAttribute( 'src' );
-			$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
-
-			// WordPress error?
-			if ( is_wp_error( $response ) ) {
-				// TODO: handle $response->get_error_message();
-				continue; // Skip
+			if ( $filename = $this->fetchAndSaveUniqueImage( $url, $fullpath ) ) {
+				$image->setAttribute( 'src', 'images/' . $filename );
 			}
-
-			$filename = array_shift( explode( '?', basename( $url ) ) ); // Basename without query string
-			$file_contents = wp_remote_retrieve_body( $response );
-
-			// Check for duplicates, save accordingly
-			if ( ! file_exists( "$fullpath/$filename" ) ) {
-				file_put_contents( "$fullpath/$filename", $file_contents );
-			} elseif ( md5( $file_contents ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
-				$filename = wp_unique_filename( $fullpath, $filename );
-				file_put_contents( "$fullpath/$filename", $file_contents );
-			}
-
-			// Change src to new relative path
-			$image->setAttribute( 'src', 'images/' . $filename );
-
 		}
 
 		return $doc;
+	}
+
+
+	/**
+	 * Fetch a url with wp_remote_get(), save it to $fullpath with a unique name.
+	 *
+	 * @param $url string
+	 * @param $fullpath string
+	 *
+	 * @return string filename
+	 */
+	protected function fetchAndSaveUniqueImage( $url, $fullpath ) {
+
+		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
+
+		// WordPress error?
+		if ( is_wp_error( $response ) ) {
+			// TODO: handle $response->get_error_message();
+			return '';
+		}
+
+		$filename = array_shift( explode( '?', basename( $url ) ) ); // Basename without query string
+		$filename = sanitize_file_name( urldecode( $filename ) );
+		$filename = Sanitize\force_ascii( $filename );
+
+		$file_contents = wp_remote_retrieve_body( $response );
+
+		// Check for duplicates, save accordingly
+		if ( ! file_exists( "$fullpath/$filename" ) ) {
+			file_put_contents( "$fullpath/$filename", $file_contents );
+		} elseif ( md5( $file_contents ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+			$filename = wp_unique_filename( $fullpath, $filename );
+			file_put_contents( "$fullpath/$filename", $file_contents );
+		}
+
+		return $filename;
 	}
 
 

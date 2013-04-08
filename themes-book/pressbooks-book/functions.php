@@ -315,7 +315,7 @@ add_action('admin_init', 'pressbooks_theme_options_global_init');
  * ------------------------------------------------------------------------ */
 
 function pressbooks_theme_options_global_callback() {
-	echo '<p>' . __( 'These options apply universally to webbook, PDF and ebook exports.' . 'pressbooks' ) . '</p>';
+	echo '<p>' . __( 'These options apply universally to webbook, PDF and ebook exports.', 'pressbooks' ) . '</p>';
 }
 
 
@@ -671,7 +671,7 @@ function pressbooks_theme_pdf_css_override( $css ) {
 
 	// Display chapter numbers? true (default) / false
 	if ( ! @$options['chapter_numbers'] ) {
-		$css .= "h3.part-number, h3.chapter-number, #toc .part a::before, #toc .chapter a::before { display: none; } \n";
+		$css .= "h3.part-number, h3.chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
 	}
 
 	// --------------------------------------------------------------------
@@ -748,6 +748,17 @@ function pressbooks_theme_pdf_css_override( $css ) {
 		$css .= "#toc { display: none; } \n";
 	}
 
+
+	// --------------------------------------------------------------------
+	// Features we inject ourselves, (not user options)
+
+	$theme = strtolower( '' . wp_get_theme() );
+	if ( 'luther' == $theme ) {
+		// Translate "Part" to whatever language this book is in
+		$css .= '#toc .part a::before { content: "' . __( 'Part', 'pressbooks' ) . ' "counter(part, upper-roman) ". "; }' . "\n";
+		$css .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
+	}
+
 	return $css;
 }
 add_filter( 'pb_pdf_css_override', 'pressbooks_theme_pdf_css_override' );
@@ -772,6 +783,15 @@ function pressbooks_theme_ebook_css_override( $css ) {
 	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines
 	if ( 2 == @$options['ebook_paragraph_separation'] ) {
 		$css .= "p + p, .indent { text-indent: 0; margin-top: 1em; } \n";
+	}
+
+	// --------------------------------------------------------------------
+	// Features we inject ourselves, (not user options)
+
+	$theme = strtolower( '' . wp_get_theme() );
+	if ( 'luther' == $theme ) {
+		// Translate "Part" to whatever language this book is in
+		$css .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
 	}
 
 	return $css;
@@ -803,7 +823,7 @@ function pressbooks_theme_ebook_hacks( $hacks ) {
 	$hacks['chapter_numbers'] = $options['chapter_numbers'];
 
 	// --------------------------------------------------------------------
-	// Weird
+	// Features we inject ourselves, (not user options)
 
 	$theme = strtolower( '' . wp_get_theme() );
 	if ( 'luther' == $theme ) {

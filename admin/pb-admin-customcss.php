@@ -233,29 +233,20 @@ function load_css_from() {
 
 	if ( isset( $themes[$theme] ) ) {
 
+		/** @var $theme \WP_Theme */
 		$theme = $themes[$theme]; // Get theme object
 
 		if ( 'web' == $slug ) {
-			$path_to_style = realpath( $theme->stylesheet_dir . '/style.css' );
+			$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.css' );
+			$uri_to_style = $theme->get_stylesheet_directory_uri();
 		} else {
-			$path_to_style = realpath( $theme->stylesheet_dir . "/export/$slug/style.css" );
+			$path_to_style = realpath( $theme->get_stylesheet_directory() . "/export/$slug/style.css" );
+			$uri_to_style = $theme->get_stylesheet_directory_uri() . "/export/$slug";
 		}
 
 		if ( $path_to_style ) {
 			$css = file_get_contents( $path_to_style );
-		}
-
-		// Copy images, too...
-		if ( 'web' != $slug ) {
-			$path_to_images = realpath( $theme->stylesheet_dir . "/export/$slug/images/" );
-			if ( $path_to_images ) {
-				$copy_from = scandir( $path_to_images );
-				$copy_to = CustomCss::getCustomCssFolder() . "images/";
-				foreach ( $copy_from as $copy ) {
-					if ( '.' == $copy || '..' == $copy ) continue;
-					copy( $path_to_images . '/' . $copy, $copy_to . $copy );
-				}
-			}
+			$css = fix_url_paths( $css, $uri_to_style );
 		}
 	}
 
@@ -267,4 +258,42 @@ function load_css_from() {
 	// @see http://codex.wordpress.org/AJAX_in_Plugins#Error_Return_Values
 	// Will append 0 to returned json string if we don't die()
 	die();
+}
+
+
+/**
+ * Fix url() paths in CSS
+ *
+ * @param $css string
+ * @param $style_uri string
+ *
+ * @return string
+ */
+function fix_url_paths( $css, $style_uri ) {
+
+	$style_uri = rtrim( trim( $style_uri ), '/' );
+
+	// Search for url("*"), url('*'), and url(*)
+	preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
+
+	// Remove duplicates, sort by biggest to smallest to prevent substring replacements
+	$matches = array_unique( $matches[3] );
+	usort( $matches, function ( $a, $b ) {
+		return strlen( $b ) - strlen( $a );
+	} );
+
+	foreach ( $matches as $url ) {
+
+		$url = ltrim( trim( $url ), '/' );
+
+		// Skip http and https prefixes
+		if ( preg_match( '#^https?://#i', $url ) ) {
+			continue;
+		}
+
+		$replacement = "$style_uri/$url";
+		$css = str_replace( $url, $replacement, $css );
+	}
+
+	return $css;
 }

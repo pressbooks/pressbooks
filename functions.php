@@ -139,3 +139,34 @@ function pb_get_hyphens_path() {
 
 	return $loc;
 }
+
+
+/**
+ * Get "real" chapter number
+ *
+ * @param $post_name
+ *
+ * @return int
+ */
+function pb_get_chapter_number( $post_name ) {
+
+	$options = get_option( 'pressbooks_theme_options_global' );
+	if ( ! @$options['chapter_numbers'] )
+		return 0;
+
+	$lookup = \PressBooks\Book::getBookStructure();
+	$lookup = $lookup['__export_lookup'];
+
+	if ( 'chapter' != @$lookup[$post_name] )
+		return 0;
+
+	$i = 0;
+	foreach ( $lookup as $key => $val ) {
+		if ( 'chapter' == $val ) {
+			++$i;
+			if ( $key == $post_name ) break;
+		}
+	}
+
+	return $i;
+}

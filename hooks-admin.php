@@ -35,6 +35,7 @@ if ( \PressBooks\Book::isBook() ) {
 	// Aggressively replace default interface
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
+	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\fix_root_admin_menu', 1 );

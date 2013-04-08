@@ -101,10 +101,6 @@ class CustomCss {
 			mkdir( $path, 0775, true );
 		}
 
-		if ( ! file_exists( $path . 'images/' ) ) {
-			mkdir( $path . 'images/', 0775, true );
-		}
-
 		return $path;
 	}
 
@@ -131,7 +127,9 @@ class CustomCss {
 
 
 	/**
-	 * TODO: Write a code comment
+	 * Save custom CSS to database (and filesystem)
+	 *
+	 * @see pressbooks/admin/templates/custom-css.php
 	 */
 	static function formSubmit() {
 
@@ -166,6 +164,7 @@ class CustomCss {
 			}
 
 			// Write to file
+			$my_post['post_content'] = stripslashes( $my_post['post_content'] ); // We purposely send \\A0 to WordPress, but we want to send \A0 to the file system
 			$filename = static::getCustomCssFolder() . sanitize_file_name( $slug . '.css' );
 			file_put_contents( $filename, $my_post['post_content'] );
 
@@ -214,10 +213,10 @@ class CustomCss {
 
 		$css = stripslashes( $css );
 
-		$css = preg_replace( '/\\\\([0-9a-fA-F]{4})/', '\\\\\\\\$1', $prev = $css );
+		$css = preg_replace( '/\\\\([0-9a-fA-F]{2,4})/', '\\\\\\\\$1', $prev = $css );
 
 		if ( $css != $prev )
-			$warnings[] = 'preg_replace found stuff';
+			$warnings[] = 'preg_replace() double escaped unicode escape sequences';
 
 		$css = str_replace( '<=', '&lt;=', $css ); // Some people put weird stuff in their CSS, KSES tends to be greedy
 		$css = wp_kses_split( $prev = $css, array(), array() );
@@ -225,7 +224,7 @@ class CustomCss {
 		$css = strip_tags( $css );
 
 		if ( $css != $prev )
-			$warnings[] = 'kses and strip_tags do not match';
+			$warnings[] = 'kses() and strip_tags() do not match';
 
 		// TODO: Something with $warnings[]
 

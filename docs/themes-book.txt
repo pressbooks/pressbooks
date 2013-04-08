@@ -94,7 +94,7 @@ Examples:
 	add_filter( 'pb_epub_hacks', 'pressbooks_theme_ebook_hacks' );
 
 
-More functions available to book designers:
+More functions available to book designers. See: pressbooks/functions.php
 
  + `pb_get_book_information()`
  + `pb_get_book_structure()`
@@ -102,6 +102,10 @@ More functions available to book designers:
  + `pb_get_next()`
  + `pb_get_first()`
  + `pb_decode()`
+ + `pb_is_custom_theme()`
+ + `pb_get_custom_stylesheet_url()`
+ + `pb_get_hyphens_path()`
+ + `pb_get_chapter_number( $post_name )`
 
 == The HTML ==
 

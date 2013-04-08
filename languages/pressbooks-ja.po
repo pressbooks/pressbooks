@@ -1,0 +1,1892 @@
+# Copyright (C) 2013 PressBooks
+# This file is distributed under the same license as the PressBooks package.
+msgid ""
+msgstr ""
+"Project-Id-Version: PressBooks 2.0.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
+"POT-Creation-Date: 2013-03-04 20:40:16+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-03-22 11:21-0800\n"
+"Last-Translator: Daisuke Muro <muro_daisuke@voyager.co.jp>\n"
+"Language-Team: Voyager Japan Inc., <muro_daisuke@voyager.co.jp>\n"
+"X-Generator: Poedit 1.5.5\n"
+"Language: ja\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Poedit-Bookmarks: 212,-1,-1,-1,-1,-1,-1,-1,-1,-1\n"
+
+#: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:41
+#: admin/pb-admin-dashboard.php:90
+msgid "PressBooks News"
+msgstr "プレスブックニュース"
+
+#: admin/pb-admin-dashboard.php:42 admin/pb-admin-laf.php:314
+msgid "Users"
+msgstr "ユーザー"
+
+#: admin/pb-admin-dashboard.php:54 admin/templates/organize.php:30
+#: admin/templates/organize.php:46 includes/pb-postype.php:96
+#: themes-book/pressbooks-book/sidebar.php:45
+msgid "Front Matter"
+msgstr "冒頭部分"
+
+#: admin/pb-admin-dashboard.php:71 admin/templates/organize.php:32
+#: admin/templates/organize.php:211 includes/pb-postype.php:131
+msgid "Back Matter"
+msgstr "奥付・裏表紙"
+
+#: admin/pb-admin-dashboard.php:79 admin/pb-admin-dashboard.php:118
+msgid "Add"
+msgstr "追加"
+
+#: admin/pb-admin-dashboard.php:79 admin/pb-admin-dashboard.php:118
+#: admin/pb-admin-laf.php:116
+msgid "Organize"
+msgstr "整理"
+
+#: admin/pb-admin-laf.php:18
+msgid "Powered by"
+msgstr "Powered by"
+
+#: admin/pb-admin-laf.php:19 includes/class-pb-activation.php:168
+msgid "About"
+msgstr "About"
+
+#: admin/pb-admin-laf.php:20
+msgid "Help"
+msgstr "ヘルプ"
+
+#: admin/pb-admin-laf.php:21 admin/pb-admin-laf.php:258
+msgid "Contact"
+msgstr "連絡先"
+
+#: admin/pb-admin-laf.php:42 admin/pb-admin-laf.php:53
+msgid "Feedback"
+msgstr "フィードバック"
+
+#: admin/pb-admin-laf.php:50 themes-book/pressbooks-book/sidebar.php:43
+msgid "Close"
+msgstr "閉じる"
+
+#: admin/pb-admin-laf.php:99
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:17
+msgid "Theme Options"
+msgstr "テーマオプション"
+
+#: admin/pb-admin-laf.php:148
+msgid "Book Info"
+msgstr "書籍情報"
+
+#: admin/pb-admin-laf.php:166 admin/templates/export.php:41
+#: admin/templates/organize.php:35 admin/templates/organize.php:51
+#: admin/templates/organize.php:140 admin/templates/organize.php:216
+msgid "Export"
+msgstr "出力"
+
+#: admin/pb-admin-laf.php:171
+msgid "EPUB is required for MOBI export. Would you like to reenable it?"
+msgstr "EPUBはMOBIファイルを出力するために必要です。有効化しますか？"
+
+#: admin/pb-admin-laf.php:178
+msgid "Privacy Settings"
+msgstr "プライバシー設定"
+
+#: admin/pb-admin-laf.php:178
+msgid "Privacy"
+msgstr "プライバシー"
+
+#: admin/pb-admin-laf.php:181
+msgid "Ecommerce Settings"
+msgstr "EC設定"
+
+#: admin/pb-admin-laf.php:181
+msgid "Ecommerce"
+msgstr "EC"
+
+#: admin/pb-admin-laf.php:184
+msgid "Advanced Settings"
+msgstr "アドバンス設定"
+
+#: admin/pb-admin-laf.php:184
+msgid "Advanced"
+msgstr "アドバンスド"
+
+#: admin/pb-admin-laf.php:224 admin/pb-admin-laf.php:233
+msgid "About PressBooks"
+msgstr "Pressbooksに関して"
+
+#: admin/pb-admin-laf.php:242
+msgid "PressBooks.com"
+msgstr "PressBooks.com"
+
+#: admin/pb-admin-laf.php:250
+msgid "Support Forums"
+msgstr "サポートフォーラム"
+
+#: admin/pb-admin-laf.php:282
+msgid "My Books"
+msgstr "私の本"
+
+#: admin/pb-admin-laf.php:295
+msgid "Network Admin"
+msgstr "ネットワーク管理者"
+
+#: admin/pb-admin-laf.php:302 admin/pb-admin-laf.php:352
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: admin/pb-admin-laf.php:308
+msgid "Sites"
+msgstr "サイト"
+
+#: admin/pb-admin-laf.php:320
+msgid "Visit Network"
+msgstr "訪問ネットワーク"
+
+#: admin/pb-admin-laf.php:337
+msgid "Blavatar"
+msgstr "ブラバター"
+
+#: admin/pb-admin-laf.php:364
+msgid "Visit Site"
+msgstr "訪問サイト"
+
+#: admin/pb-admin-laf.php:518
+msgid "Site Visibility"
+msgstr "サイト可視度"
+
+#: admin/pb-admin-laf.php:536
+msgid "Privacy options"
+msgstr "プライバシーオプション"
+
+#: admin/pb-admin-laf.php:550
+msgid "Public. I would like this book to be visible to everyone."
+msgstr "公開。この本は誰でも読めるようにする。"
+
+#: admin/pb-admin-laf.php:554
+msgid ""
+"Private. I would like this book to be accessible only to people I invite."
+msgstr "プライベート。この本は以下のユーザーしか開くことができません。"
+
+#: admin/pb-admin-laf.php:605
+msgid "Amazon URL"
+msgstr "Amazon URL"
+
+#: admin/pb-admin-laf.php:612
+msgid "Oreilly URL"
+msgstr "Oreilly URL"
+
+#: admin/pb-admin-laf.php:619
+msgid "Barnes and Noble URL"
+msgstr "Barnes and Nobel URL"
+
+#: admin/pb-admin-laf.php:626
+msgid "Kobo URL"
+msgstr "Kobo URL"
+
+#: admin/pb-admin-laf.php:633
+msgid "iBooks URL"
+msgstr "iBooks URL"
+
+#: admin/pb-admin-laf.php:640
+msgid "Other Service URL"
+msgstr "その他のサービスURL"
+
+#: admin/pb-admin-laf.php:657
+msgid "Links to ecommerce services"
+msgstr "ECサービスへリンク"
+
+#: admin/pb-admin-laf.php:788
+msgid "Email me validation error reports on export."
+msgstr "エキスポート時のバリデーション・エラーを電子メールで通知"
+
+#: admin/pb-admin-laf.php:806
+msgid "Advanced options"
+msgstr "アドバンス設定"
+
+#: admin/pb-admin-laf.php:820
+msgid "No. Ignore validation errors."
+msgstr "いいえ、バリデーション・エラーや無視する"
+
+#: admin/pb-admin-laf.php:824
+msgid "Yes. Send the logs."
+msgstr "はい、ログを送ってください"
+
+#: admin/pb-admin-laf.php:825
+msgid ""
+"Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
+"will require some effort to decipher. Unfortunately we cannot provide "
+"support for deciphering validation errors, but you could post errors on the "
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</"
+"a>, where we and other PressBooks users can help out as time permits. ."
+msgstr ""
+"注：バリデーション・エラーのレポート（EPUB、Mobi、PDF用）を解読するには専門的"
+"知識が必要です。エラーメッセージ解読サポートはおこなっていませんが、私たちは"
+"下記のアドレスをモニターしています。時間があればポストされたエラーメッセージ"
+"にも対応します。 <a href=\"http://forum.pressbooks.com/\" target=\"_blank"
+"\">PressBooks forum</a>"
+
+#: admin/pb-admin-metaboxes.php:107 admin/pb-admin-metaboxes.php:346
+#: admin/templates/organize.php:33
+msgid "Part"
+msgstr "段落"
+
+#: admin/pb-admin-metaboxes.php:111
+msgid "Save Part"
+msgstr "段落を保存"
+
+#: admin/pb-admin-metaboxes.php:112
+msgid "Save Book Information"
+msgstr "書籍情報を"
+
+#: admin/pb-admin-metaboxes.php:116
+msgid "Covers"
+msgstr "表紙"
+
+#: admin/pb-admin-metaboxes.php:121
+msgid "General Book Information"
+msgstr "書籍情報一般"
+
+#: admin/pb-admin-metaboxes.php:132
+msgid "Short Title"
+msgstr "副題"
+
+#: admin/pb-admin-metaboxes.php:133
+msgid ""
+"In case of long titles that might be truncated in running heads in the PDF "
+"export."
+msgstr "長すぎる題名が出力PDFのヘッダーで切り詰められた場合に"
+
+#: admin/pb-admin-metaboxes.php:138
+msgid "Subtitle"
+msgstr "字幕スーパー"
+
+#: admin/pb-admin-metaboxes.php:143 admin/templates/organize.php:47
+#: admin/templates/organize.php:123 admin/templates/organize.php:212
+#: themes-book/pressbooks-book/functions.php:12
+msgid "Author"
+msgstr "著者"
+
+#: admin/pb-admin-metaboxes.php:148
+msgid "Author, file as"
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:149
+msgid ""
+"This ensures that your ebook will sort properly in ebook stores, by the "
+"author's last name."
+msgstr "これはeBook書店がeBookを著者の姓名順にソートできるようにするためです。"
+
+#: admin/pb-admin-metaboxes.php:154
+#: themes-book/pressbooks-book/functions.php:13
+msgid "Publisher"
+msgstr "出版社"
+
+#: admin/pb-admin-metaboxes.php:159
+msgid "Publisher City"
+msgstr "出版社所在地"
+
+#: admin/pb-admin-metaboxes.php:165
+#: themes-book/pressbooks-book/functions.php:16
+msgid "Publication Date"
+msgstr "刊行日付"
+
+#: admin/pb-admin-metaboxes.php:171
+msgid "On-Sale Date"
+msgstr "販売日"
+
+#: admin/pb-admin-metaboxes.php:172
+msgid "The date you want your book to start selling in stores."
+msgstr "希望する発売日"
+
+#: admin/pb-admin-metaboxes.php:177
+#: themes-book/pressbooks-book/functions.php:18
+msgid "Ebook ISBN"
+msgstr "Ebook ISBN"
+
+#: admin/pb-admin-metaboxes.php:178
+msgid ""
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in online ebook stores."
+msgstr ""
+"International Standard Book Number（ISBN）とは国際標準図書番号の略語でeBookを"
+"オンライン書店で販売するために必要な情報です。"
+
+#: admin/pb-admin-metaboxes.php:183
+#: themes-book/pressbooks-book/functions.php:14
+msgid "Print ISBN"
+msgstr "印刷版ISBN"
+
+#: admin/pb-admin-metaboxes.php:184
+msgid ""
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in online and physical book stores."
+msgstr ""
+"International Standard Book Number（ISBN）とは国際標準図書番号の略語で紙の本"
+"を書店で販売するために必要な情報です。"
+
+#: admin/pb-admin-metaboxes.php:191
+msgid "Language"
+msgstr "言語"
+
+#: admin/pb-admin-metaboxes.php:195
+#: includes/modules/export/epub/class-pb-epub201.php:645
+#: includes/modules/export/epub/class-pb-epub201.php:659
+#: includes/modules/export/epub/templates/opf.php:58
+#: includes/modules/export/hpub/class-pb-hpub.php:513
+#: includes/modules/export/hpub/class-pb-hpub.php:527
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:509
+#: themes-book/pressbooks-book/footer.php:32
+msgid "Copyright"
+msgstr "著作権"
+
+# http://www.photoattorney.com/?p=2813
+# A. The copyright notice as provided by 17 USC 401(b) should include:
+# (1) the symbol © (the letter C in a circle), or the word “Copyright”, or the abbreviation “Copr.”; and
+# (2) the year of first publication of the work; in the case of compilations or derivative works incorporating previously published material, the year date of first publication of the compilation or derivative work is sufficient. The year date may be omitted where a pictorial, graphic, or sculptural work, with accompanying text matter, if any, is reproduced in or on greeting cards, postcards, stationery, jewelry, dolls, toys, or any useful articles; and
+#: admin/pb-admin-metaboxes.php:201
+msgid "Copyright Year"
+msgstr "初版刊行年"
+
+#: admin/pb-admin-metaboxes.php:206
+msgid "Copyright Holder"
+msgstr "著作権保有者"
+
+#: admin/pb-admin-metaboxes.php:212
+msgid "Copyright Notice"
+msgstr "著作権表示"
+
+#: admin/pb-admin-metaboxes.php:222
+msgid "Book Tagline"
+msgstr "キャッチコピー"
+
+#: admin/pb-admin-metaboxes.php:223
+msgid ""
+"A very short description of your book. It should fit in a Twitter post, and "
+"encapsulate your book in the briefest sentence."
+msgstr "ツイッターにポストできる長さの簡潔な説明文。"
+
+#: admin/pb-admin-metaboxes.php:229
+msgid "Short Description"
+msgstr "簡潔な説明文"
+
+#: admin/pb-admin-metaboxes.php:230
+msgid ""
+"A short paragraph about your book, for catalogs, reviewers etc. to quote."
+msgstr "目録、書評、引用等につかわれる説明文。短い段落の長さ。"
+
+#: admin/pb-admin-metaboxes.php:236
+msgid "Long Description"
+msgstr "詳細説明文"
+
+#: admin/pb-admin-metaboxes.php:237
+msgid "The full description of your book."
+msgstr "本書に関する詳細を説明する文章。"
+
+#: admin/pb-admin-metaboxes.php:241
+msgid "Additional Catalogue Information"
+msgstr "付加的目録情報"
+
+#: admin/pb-admin-metaboxes.php:247
+msgid "Series Title"
+msgstr "シリーズ題名"
+
+#: admin/pb-admin-metaboxes.php:252
+msgid "Series Number"
+msgstr "シリーズ番号"
+
+#: admin/pb-admin-metaboxes.php:257
+msgid "Editor"
+msgstr "編集者"
+
+#: admin/pb-admin-metaboxes.php:262
+msgid "Translator"
+msgstr "翻訳者"
+
+#: admin/pb-admin-metaboxes.php:267
+msgid "Keywords"
+msgstr "キーワード"
+
+#: admin/pb-admin-metaboxes.php:269
+msgid ""
+"To make it easier to find your book in online book stores and search engines."
+msgstr "オンライン書店および検索エンジンで本書を見つけやすくするため"
+
+#: admin/pb-admin-metaboxes.php:274
+#: themes-book/pressbooks-book/functions.php:17
+msgid "Hashtag"
+msgstr "ハッシュタグ"
+
+#: admin/pb-admin-metaboxes.php:275
+msgid "For those of you who like Twitter."
+msgstr "ツイッターファン用"
+
+#: admin/pb-admin-metaboxes.php:280
+msgid "List Price (Print)"
+msgstr "定価（印刷）"
+
+#: admin/pb-admin-metaboxes.php:285
+msgid "List Price (PDF)"
+msgstr "定価（PDF）"
+
+#: admin/pb-admin-metaboxes.php:290
+msgid "List Price (ebook)"
+msgstr "定価（eBook）"
+
+#: admin/pb-admin-metaboxes.php:295
+msgid "List Price (Web)"
+msgstr "定価（Web）"
+
+#: admin/pb-admin-metaboxes.php:300
+msgid "Bisac Subject"
+msgstr "BISAC題名"
+
+#: admin/pb-admin-metaboxes.php:302
+msgid ""
+"BISAC subject headings help your book get properly classified in (e)book "
+"stores."
+msgstr ""
+"BISAC題名（Book Industry Standard and Communication）は本書をeBook書店等が適"
+"切に分類できるようにするための情報です。"
+
+#: admin/pb-admin-metaboxes.php:307
+msgid "Bisac Regional Theme"
+msgstr "BISAC地域テーマ"
+
+#: admin/pb-admin-metaboxes.php:317
+#, fuzzy
+msgid "Catalogue Order"
+msgstr "メールオーダー"
+
+#: admin/pb-admin-metaboxes.php:325
+msgid "Chapter Metadata"
+msgstr "章メタデータ"
+
+#: admin/pb-admin-metaboxes.php:330
+msgid "Chapter Short Title (appears in the PDF running header)"
+msgstr "章副題（PDFのヘッダーに表示されます）"
+
+#: admin/pb-admin-metaboxes.php:335
+msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
+msgstr "章字幕（書きだされたWeb・eBook・PDFに表示されます）"
+
+#: admin/pb-admin-metaboxes.php:340
+msgid "Chapter Author (appears in Web/ebook/PDF output)"
+msgstr "章担当著者（書きだされたWeb・eBook・PDFに表示されます）"
+
+#: admin/pb-admin-metaboxes.php:354
+msgid "Export Settings"
+msgstr "書き出し設定"
+
+#: admin/pb-admin-metaboxes.php:362
+msgid "Include in exports"
+msgstr "書き出しに含める"
+
+#: admin/pb-admin-metaboxes.php:374
+msgid "Front Matter Metadata"
+msgstr "冒頭部分メタデータ"
+
+#: admin/pb-admin-metaboxes.php:379
+msgid "Front Matter Short Title (appears in the PDF running header)"
+msgstr "冒頭部分の副題（PDFのヘッダーに表示されます）"
+
+#: admin/pb-admin-metaboxes.php:384
+msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
+msgstr "冒頭部分の字幕（書きだされたWeb・eBook・PDFに表示されます）"
+
+#: admin/pb-admin-metaboxes.php:389
+msgid "Front Matter Author (appears in Web/ebook/PDF output)"
+msgstr "冒頭部分担当著者（書きだされたWeb・eBook・PDFに表示されます）"
+
+#: admin/templates/export.php:27
+msgid "Error: The export failed. See logs for more details."
+msgstr "エラー：書き出しに失敗しました。詳細はログを参照してください。"
+
+#: admin/templates/export.php:32
+msgid "Warning: The export has validation errors. See logs for more details."
+msgstr ""
+"警告：書きだされたファイルにバリデーション・エラーがあります。詳細はログを参"
+"照してください。"
+
+#: admin/templates/export.php:33
+msgid "Emailed to:"
+msgstr "メール受信者："
+
+#: admin/templates/export.php:42
+msgid "PressBooks saves your last %s batches of exported files."
+msgstr "Pressbookは最後に書きだされた%ファイルを保存します。"
+
+#: admin/templates/export.php:47
+msgid "Export Your Book"
+msgstr "本書を書き出す"
+
+#: admin/templates/export.php:55
+msgid "Latest Export"
+msgstr "最新の書き出し"
+
+#: admin/templates/export.php:58
+msgid "Exported"
+msgstr "書き出し済み"
+
+#: admin/templates/export.php:81
+msgid "Are you sure you want to delete this?"
+msgstr "削除を実行しますか？"
+
+#: admin/templates/export.php:94
+msgid "Your Export Format Options"
+msgstr "書き出しフォーマット設定"
+
+#: admin/templates/export.php:95
+msgid "Select which formats you want to export"
+msgstr "書き出しフォーマットを選択してください。"
+
+#: admin/templates/export.php:109
+msgid "Standard book formats"
+msgstr "標準書籍フォーマット"
+
+#: admin/templates/export.php:110
+msgid "PDF (for printing)"
+msgstr "PDF（印刷用）"
+
+#: admin/templates/export.php:111
+msgid "EPUB (for Nook, iBooks, Kobo etc.)"
+msgstr "EPUB（Nook、iBooks、Kobo等）"
+
+#: admin/templates/export.php:112
+msgid "MOBI (for Kindle)"
+msgstr "Mobi（Kindle用）"
+
+#: admin/templates/export.php:117
+msgid "Hpub"
+msgstr "Hpub"
+
+#: admin/templates/export.php:118
+msgid "ICML (for InDesign)"
+msgstr "ICML（InDesign用）"
+
+#: admin/templates/export.php:119
+msgid "XHTML"
+msgstr "XHTML"
+
+#: admin/templates/export.php:120
+msgid "WordPress XML"
+msgstr "WordPress XML"
+
+#: admin/templates/export.php:124
+msgid "Your Export Theme Options"
+msgstr "書き出し用テーマ設定"
+
+#: admin/templates/export.php:125
+msgid "You are using the &ldquo;%s&rdquo; theme"
+msgstr "あなたは &ldquo;%s&rdquo;テーマを利用しています。"
+
+#: admin/templates/export.php:127
+msgid "Change Theme"
+msgstr "テーマ変更"
+
+#: admin/templates/export.php:130
+msgid "Change Theme Options"
+msgstr "テーマ設定を変更"
+
+#: admin/templates/organize.php:31
+msgid "Chapters"
+msgstr "章"
+
+#: admin/templates/organize.php:36 admin/templates/organize.php:108
+msgid "Add Front Matter"
+msgstr "冒頭部分を追加"
+
+#: admin/templates/organize.php:37 admin/templates/organize.php:273
+msgid "Add Back Matter"
+msgstr "奥付・裏表紙を追加"
+
+#: admin/templates/organize.php:38 admin/templates/organize.php:197
+msgid "Add Chapter"
+msgstr "章を追加"
+
+#: admin/templates/organize.php:39 admin/templates/organize.php:204
+msgid "Add Part"
+msgstr "段落を追加"
+
+#: admin/templates/organize.php:48 admin/templates/organize.php:124
+#: admin/templates/organize.php:213
+msgid "Comments"
+msgstr "コメント"
+
+#: admin/templates/organize.php:49 admin/templates/organize.php:125
+#: admin/templates/organize.php:214
+msgid "Status"
+msgstr "ステータス"
+
+#: admin/templates/organize.php:76 admin/templates/organize.php:128
+#: admin/templates/organize.php:170 admin/templates/organize.php:241
+#: themes-book/pressbooks-book/page.php:11
+#: themes-book/pressbooks-book/single.php:5
+#: themes-root/pressbooks-publisher-one/loop.php:48
+#: themes-root/pressbooks-publisher-one/single-_author.php:27
+msgid "Edit"
+msgstr "編集"
+
+#: admin/templates/organize.php:81 admin/templates/organize.php:135
+#: admin/templates/organize.php:173 admin/templates/organize.php:246
+msgid "Delete"
+msgstr "削除"
+
+#: admin/templates/organize.php:283
+msgid "Reordering the Chapters"
+msgstr "章の順番を変更"
+
+#: includes/class-pb-activation.php:133
+msgid "Main Body"
+msgstr "本文"
+
+#: includes/class-pb-activation.php:134
+msgid "main-body"
+msgstr "本文"
+
+#: includes/class-pb-activation.php:138
+msgid "Introduction"
+msgstr "序文"
+
+#: includes/class-pb-activation.php:139
+msgid "introduction"
+msgstr "序文"
+
+#: includes/class-pb-activation.php:140
+msgid "This is where you can write your introduction."
+msgstr "ここに序文を書いてください。"
+
+#: includes/class-pb-activation.php:144
+msgid "Chapter 1"
+msgstr "１章"
+
+#: includes/class-pb-activation.php:145
+msgid "chapter-1"
+msgstr "１章"
+
+#: includes/class-pb-activation.php:146
+msgid ""
+"This is the first chapter in the main body of the text. You can change the "
+"text, rename the chapter, add new chapters, and add new parts."
+msgstr ""
+"この章は本文内の最初の章です。テキストの変更、章・段落の題名変更、及び章・段"
+"落を追加することができます。"
+
+#: includes/class-pb-activation.php:150
+msgid "Appendix"
+msgstr "付録"
+
+#: includes/class-pb-activation.php:151
+msgid "appendix"
+msgstr "付録"
+
+#: includes/class-pb-activation.php:152
+msgid "This is where you can add appendices or other back matter."
+msgstr "ここに付録および奥付・裏表紙を追加してください。"
+
+#: includes/class-pb-activation.php:156
+#: themes-book/pressbooks-book/page-authors.php:6
+msgid "Authors"
+msgstr "著者"
+
+#: includes/class-pb-activation.php:157
+msgid "authors"
+msgstr "著者"
+
+#: includes/class-pb-activation.php:160
+#: includes/modules/export/epub/class-pb-epub201.php:545
+#: includes/modules/export/hpub/class-pb-hpub.php:415
+msgid "Cover"
+msgstr "表紙"
+
+#: includes/class-pb-activation.php:161 includes/class-pb-activation.php:205
+msgid "cover"
+msgstr "表紙"
+
+#: includes/class-pb-activation.php:164
+#: themes-book/pressbooks-book/functions.php:385
+#: themes-book/pressbooks-book/index.php:8
+#: themes-book/pressbooks-book/sidebar.php:36
+msgid "Table of Contents"
+msgstr "目次"
+
+#: includes/class-pb-activation.php:165 includes/class-pb-activation.php:208
+msgid "table-of-contents"
+msgstr "目次"
+
+#: includes/class-pb-activation.php:169
+msgid "about"
+msgstr ""
+
+#: includes/class-pb-activation.php:172
+#: themes-book/pressbooks-book/header.php:62
+msgid "Buy"
+msgstr "購入"
+
+#: includes/class-pb-activation.php:173
+msgid "buy"
+msgstr "購入"
+
+#: includes/class-pb-activation.php:176
+#: themes-book/pressbooks-book/functions.php:70
+msgid "Access Denied"
+msgstr "アクセスが拒否されました。"
+
+#: includes/class-pb-activation.php:177
+msgid "access-denied"
+msgstr "アクセスが拒否されました。"
+
+#: includes/class-pb-activation.php:178
+msgid ""
+"This book is private, and accessible only to registered users. If you have "
+"an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
+"set up your own PressBooks book at: <a href=\"http://pressbooks.com"
+"\">PressBooks.com</a>."
+msgstr ""
+"プライベート。この本は登録ユーザーのみ読むことができるます。アカウントをお持"
+"ちの方は<a href=\"/wp-login.php\">ログイン</a>してください。Pressbookへの<a "
+"href=\"http://pressbooks.com\">新規登録</a>。"
+
+#: includes/class-pb-activation.php:183
+msgid "Default Data"
+msgstr "デフォルトデータ"
+
+#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.1)  #-#-#-#-#
+#. Description of the plugin/theme
+#: includes/class-pb-activation.php:185
+msgid "Simple Book Production"
+msgstr "Simple Book Productionプラグイン"
+
+#: includes/modules/export/class-pb-export.php:544
+msgid "File not found"
+msgstr "ファイルがありません。"
+
+#: includes/modules/export/epub/class-pb-epub201.php:609
+#: includes/modules/export/hpub/class-pb-hpub.php:478
+msgid "Title Page"
+msgstr "題扉"
+
+#: includes/modules/export/epub/class-pb-epub201.php:647
+#: includes/modules/export/epub/templates/opf.php:60
+#: includes/modules/export/hpub/class-pb-hpub.php:515
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:511
+#: themes-book/pressbooks-book/footer.php:34
+msgid "by"
+msgstr ""
+
+#: includes/modules/export/epub/class-pb-epub201.php:1041
+#: includes/modules/export/hpub/class-pb-hpub.php:904
+msgid "Table Of Contents"
+msgstr "目次"
+
+#: includes/modules/export/epub/class-pb-epub201.php:1054
+#: includes/modules/export/hpub/class-pb-hpub.php:916
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:569
+msgid "Contents"
+msgstr "コンテンツ"
+
+#: includes/modules/export/wordpress/class-pb-wxr.php:101
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:149
+msgid "Invalid permission error"
+msgstr "アクセス拒否エラー"
+
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:280
+msgid "Notes"
+msgstr "ノート"
+
+#: includes/pb-postype.php:17
+msgctxt "post type general name"
+msgid "Chapters"
+msgstr "章（一般名別）"
+
+#: includes/pb-postype.php:18
+msgctxt "post type singular name"
+msgid "Chapter"
+msgstr "章（題名別）"
+
+#: includes/pb-postype.php:19
+msgctxt "book"
+msgid "Add New Chapter"
+msgstr "章を追加"
+
+#: includes/pb-postype.php:20
+msgid "Add New Chapter"
+msgstr "新章を追加"
+
+#: includes/pb-postype.php:21
+msgid "Edit Chapter"
+msgstr "章を編集する"
+
+#: includes/pb-postype.php:22
+msgid "New Chapter"
+msgstr "新章"
+
+#: includes/pb-postype.php:23
+msgid "View Chapter"
+msgstr "章を読む"
+
+#: includes/pb-postype.php:24
+msgid "Search Chapters"
+msgstr "章を検索"
+
+#: includes/pb-postype.php:25
+msgid "No chapters found"
+msgstr "章が見つかりませんでした。"
+
+#: includes/pb-postype.php:26
+msgid "No chapters found in Trash"
+msgstr "章はゴミ箱に入っていません。"
+
+#: includes/pb-postype.php:28
+msgid "Text"
+msgstr "文章"
+
+#: includes/pb-postype.php:51
+#, fuzzy
+msgctxt "post type general name"
+msgid "Parts"
+msgstr "段落（一般名別）"
+
+#: includes/pb-postype.php:52
+msgctxt "post type singular name"
+msgid "Part"
+msgstr "段落（題名別）"
+
+#: includes/pb-postype.php:53
+msgctxt "book"
+msgid "Add Part"
+msgstr "段落を追加"
+
+#: includes/pb-postype.php:54
+msgid "Add New Part"
+msgstr "新規段落を追加"
+
+#: includes/pb-postype.php:55
+msgid "Edit Part"
+msgstr "段落を編集"
+
+#: includes/pb-postype.php:56
+msgid "New Part"
+msgstr "新規段落"
+
+#: includes/pb-postype.php:57
+msgid "View Part"
+msgstr "段落を読む"
+
+#: includes/pb-postype.php:58
+msgid "Search Parts"
+msgstr "段落を検索"
+
+#: includes/pb-postype.php:59
+msgid "No parts found"
+msgstr "段落が見つかりませんでした。"
+
+#: includes/pb-postype.php:60
+msgid "No parts found in Trash"
+msgstr "段落はゴミ箱に入っていません。"
+
+#: includes/pb-postype.php:62
+msgid "Parts"
+msgstr "段落"
+
+#: includes/pb-postype.php:85
+#, fuzzy
+msgctxt "post type general name"
+msgid "Front Matter"
+msgstr "冒頭部分（一般名別）"
+
+#: includes/pb-postype.php:86
+msgctxt "post type singular name"
+msgid "Front Matter"
+msgstr "冒頭部分（題名別）"
+
+#: includes/pb-postype.php:87
+msgctxt "book"
+msgid "Add New Front Matter"
+msgstr "冒頭部分を新規追加"
+
+#: includes/pb-postype.php:88
+msgid "Add New Front Matter"
+msgstr "冒頭部分を新規作成"
+
+#: includes/pb-postype.php:89
+msgid "Edit Front Matter"
+msgstr "冒頭を編集"
+
+#: includes/pb-postype.php:90
+msgid "New Front Matter"
+msgstr "新規冒頭部分"
+
+#: includes/pb-postype.php:91
+msgid "View Front Matter"
+msgstr "冒頭部分を読む　"
+
+#: includes/pb-postype.php:92
+msgid "Search Front Matter"
+msgstr "冒頭部分を検索　"
+
+#: includes/pb-postype.php:93
+msgid "No front matter found"
+msgstr "冒頭部分が見つかりませんでした。"
+
+#: includes/pb-postype.php:94
+msgid "No front matter found in Trash"
+msgstr "冒頭部分はゴミ箱に入っていません。"
+
+#: includes/pb-postype.php:120
+msgctxt "post type general name"
+msgid "Back Matter"
+msgstr "奥付・裏表紙（一般名別）"
+
+#: includes/pb-postype.php:121
+msgctxt "post type singular name"
+msgid "Back Matter"
+msgstr "奥付・裏表紙（題名別）"
+
+#: includes/pb-postype.php:122
+msgctxt "book"
+msgid "Add New Back Matter"
+msgstr "新規奥付・裏表紙を追加"
+
+#: includes/pb-postype.php:123
+msgid "Add New Back Matter"
+msgstr "新規奥付・裏表紙を追加"
+
+#: includes/pb-postype.php:124
+msgid "Edit Back Matter"
+msgstr "奥付・裏表紙を編集"
+
+#: includes/pb-postype.php:125
+msgid "New Back Matter"
+msgstr "新規奥付・裏表紙"
+
+#: includes/pb-postype.php:126
+msgid "View Back Matter"
+msgstr "奥付・裏表紙を見る　"
+
+#: includes/pb-postype.php:127
+msgid "Search Back Matter"
+msgstr "奥付・裏表紙を検索"
+
+#: includes/pb-postype.php:128
+msgid "No back matter found"
+msgstr "奥付・裏表紙が見つかりませんでした。"
+
+#: includes/pb-postype.php:129
+msgid "No back matter found in Trash"
+msgstr "奥付・裏表紙はゴミ箱に入っていません。"
+
+#: includes/pb-postype.php:155
+msgctxt "post type general name"
+msgid "Book Information"
+msgstr "書籍情報（一般名別）"
+
+#: includes/pb-postype.php:156
+msgctxt "post type singular name"
+msgid "Book Information"
+msgstr "書籍情報（題名別）"
+
+#: includes/pb-postype.php:157
+msgctxt "book"
+msgid "Add New Book Information"
+msgstr "新規書籍情報を追加"
+
+#: includes/pb-postype.php:158 includes/pb-postype.php:159
+msgid "Edit Book Information"
+msgstr "書籍情報を編集"
+
+#: includes/pb-postype.php:160
+msgid "New Book Information"
+msgstr "新規書籍情報"
+
+#: includes/pb-postype.php:161
+msgid "View Book Information"
+msgstr "書籍情報を見る"
+
+#: includes/pb-postype.php:162
+msgid "Search Book Information"
+msgstr "書籍情報を検索"
+
+#: includes/pb-postype.php:163
+msgid "No book information found"
+msgstr "書籍情報が見つかりませんでした。"
+
+#: includes/pb-postype.php:164
+msgid "No book information found in Trash"
+msgstr "書籍情報はゴミ箱に入っていません。"
+
+#: includes/pb-postype.php:166
+msgid "Book Information"
+msgstr "書籍情報　"
+
+#: includes/pb-taxonomy.php:17
+#, fuzzy
+msgctxt "taxonomy general name"
+msgid "Front Matter Types"
+msgstr "冒頭部分の字体（一般名別）"
+
+#: includes/pb-taxonomy.php:18
+#, fuzzy
+msgctxt "taxonomy singular name"
+msgid "Front Matter Type"
+msgstr "冒頭部分の字体（題名別）"
+
+#: includes/pb-taxonomy.php:19
+#, fuzzy
+msgid "Search Front Matter Types"
+msgstr "冒頭部分の字体の検索"
+
+#: includes/pb-taxonomy.php:20
+#, fuzzy
+msgid "Popular Front Matter Types"
+msgstr "冒頭部分に使われる人気の字体"
+
+#: includes/pb-taxonomy.php:21
+#, fuzzy
+msgid "All Front Matter Types"
+msgstr "冒頭部分の全字体"
+
+#: includes/pb-taxonomy.php:24
+#, fuzzy
+msgid "Edit Front Matter Type"
+msgstr "冒頭部分の字体を編集"
+
+#: includes/pb-taxonomy.php:25
+#, fuzzy
+msgid "Update Front Matter Type"
+msgstr "冒頭部分の字体を更新"
+
+#: includes/pb-taxonomy.php:26
+#, fuzzy
+msgid "Add New Front Matter Type"
+msgstr "冒頭部分用新規字体を追加"
+
+#: includes/pb-taxonomy.php:27
+#, fuzzy
+msgid "New Front Matter Type Name"
+msgstr "冒頭部分の新規字体名"
+
+#: includes/pb-taxonomy.php:28
+msgid "Separate front matter types with commas"
+msgstr "冒頭部分の字体をコンマで分ける"
+
+#: includes/pb-taxonomy.php:29
+msgid "Add or remove front matter type"
+msgstr "冒頭部分の字体を追加・削除"
+
+#: includes/pb-taxonomy.php:30
+msgid "Choose from the most used front matter type"
+msgstr "頻繁に利用されている冒頭部分用字体から選択"
+
+#: includes/pb-taxonomy.php:31
+msgid "Front Matter Types"
+msgstr "冒頭部分用字体"
+
+#: includes/pb-taxonomy.php:55
+msgctxt "taxonomy general name"
+msgid "Back Matter Types"
+msgstr "奥付・裏表紙用字体"
+
+#: includes/pb-taxonomy.php:56
+msgctxt "taxonomy singular name"
+msgid "Back Matter Type"
+msgstr "奥付・裏表紙用字体"
+
+#: includes/pb-taxonomy.php:57
+msgid "Search Back Matter Types"
+msgstr "奥付・裏表紙用字体を検索"
+
+#: includes/pb-taxonomy.php:58
+msgid "Popular Back Matter Types"
+msgstr "人気のある奥付・裏表紙用字体"
+
+#: includes/pb-taxonomy.php:59
+msgid "All Back Matter Types"
+msgstr "全ての奥付・裏表紙用字体"
+
+#: includes/pb-taxonomy.php:62
+msgid "Edit Back Matter Type"
+msgstr "奥付・裏表紙用字体を編集"
+
+#: includes/pb-taxonomy.php:63
+msgid "Update Back Matter Type"
+msgstr "奥付・裏表紙用字体をアップデート"
+
+#: includes/pb-taxonomy.php:64
+msgid "Add New Back Matter Type"
+msgstr "奥付・裏表紙用字体の新規追加"
+
+#: includes/pb-taxonomy.php:65
+msgid "New Back Matter Type Name"
+msgstr "新規奥付・裏表紙用字体の名前"
+
+#: includes/pb-taxonomy.php:66
+msgid "Separate back matter types with commas"
+msgstr "奥付・裏表紙用字体をカンマで分ける"
+
+#: includes/pb-taxonomy.php:67
+msgid "Add or remove back matter type"
+msgstr "奥付・裏表紙用字体を追加・削除"
+
+#: includes/pb-taxonomy.php:68
+msgid "Choose from the most used back matter type"
+msgstr "頻繁に使われている奥付・裏表紙用字体から選択"
+
+#: includes/pb-taxonomy.php:69
+msgid "Back Matter Types"
+msgstr "奥付・裏表紙用字体"
+
+#: pressbooks.php:26
+msgid ""
+"PressBooks will not work with your version of WordPress. PressBooks requires "
+"a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+"upgrade WordPress if you would like to use PressBooks."
+msgstr ""
+"Pressbookは本バージョンのWordPressでは作動しません。Pressbookをインストールす"
+"るにはWordPress Multi-site、バージョン%以降が必要です。Pressbookを利用するに"
+"はWordpressをアップグレードしてください。"
+
+#: shortcodes/footnotes/class-pb-footnotes.php:154
+msgid "Insert Footnote"
+msgstr "フットノートを混入"
+
+#: shortcodes/footnotes/class-pb-footnotes.php:155
+msgid "Convert MS Word Footnotes"
+msgstr "MSワード・フォーマットのフットノートを変換"
+
+#: shortcodes/footnotes/class-pb-footnotes.php:229
+msgid "Invalid permissions."
+msgstr "アクセス拒否"
+
+#: symbionts/custom-metadata/custom_metadata.php:399
+msgid "<strong>%1$s:</strong> %2$s"
+msgstr "<strong>%1$s:</strong> %2$s"
+
+#: symbionts/custom-metadata/custom_metadata.php:490
+msgid "Uh oh, something went wrong!"
+msgstr "なにかエラーがおこりました。"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:31
+msgctxt "post type general name"
+msgid "Tests"
+msgstr "テスト"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:32
+msgctxt "post type singular name"
+msgid "Test"
+msgstr "テスト"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:33
+msgctxt "Test"
+msgid "Add New"
+msgstr "追加（テスト）"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:34
+msgid "Add New Test"
+msgstr "新規テストを追加"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:35
+msgid "Edit Test"
+msgstr "テストを編集"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:36
+msgid "New Test"
+msgstr "新規テスト"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:37
+msgid "All Tests"
+msgstr "全テスト"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:38
+msgid "View Test"
+msgstr "テストを見る"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:39
+msgid "Search Tests"
+msgstr "テストを検索　"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:40
+msgid "No Tests found"
+msgstr "テストが見つかりませんでした。"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:41
+msgid "No Tests found in Trash"
+msgstr "テストはゴミ箱に入っていません。"
+
+#: themes-book/pressbooks-book/comments.php:3
+msgid ""
+"This post is password protected. Enter the password to view any comments."
+msgstr ""
+"このポストはパスワードにより保護されています。コメントを読むにはパスワードを"
+"入力してください。"
+
+#: themes-book/pressbooks-book/comments.php:12
+msgid "One Response to %2$s"
+msgid_plural "%1$s Responses to %2$s"
+msgstr[0] " %2$sに返信があります。"
+
+#: themes-book/pressbooks-book/comments.php:18
+#: themes-book/pressbooks-book/comments.php:29
+msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
+msgstr "<span class=\"meta-nav\">&larr;</span> 古いコメント"
+
+#: themes-book/pressbooks-book/comments.php:19
+#: themes-book/pressbooks-book/comments.php:30
+msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
+msgstr "新しいコメント <span class=\"meta-nav\">&rarr;</span>"
+
+#: themes-book/pressbooks-book/comments.php:37
+msgid "Comments are closed."
+msgstr "ただいまコメントは受け付けていません。"
+
+#: themes-book/pressbooks-book/comments.php:45
+msgid "Submit"
+msgstr "送信"
+
+#: themes-book/pressbooks-book/content-social-footer.php:4
+#: themes-book/pressbooks-book/content-social-header.php:6
+msgid "I wanted to share this post with you from"
+msgstr "このポストをシェアしたのは"
+
+#: themes-book/pressbooks-book/content-social-footer.php:4
+#: themes-book/pressbooks-book/content-social-header.php:6
+msgid "Email to a friend"
+msgstr "友達にメール"
+
+#: themes-book/pressbooks-book/content-social-footer.php:4
+#: themes-book/pressbooks-book/content-social-header.php:6
+msgid "Share via Email"
+msgstr "メールでシェア"
+
+#: themes-book/pressbooks-book/content-social-header.php:3
+msgid "Share"
+msgstr "シェア"
+
+#: themes-book/pressbooks-book/footer.php:17
+msgid "Book Name"
+msgstr "書籍名"
+
+#: themes-book/pressbooks-book/footer.php:41
+msgid "PressBooks.com: Simple Book Production"
+msgstr "PressBooks.com: Simple Book Production"
+
+#: themes-book/pressbooks-book/functions.php:15
+msgid "Keywords/Tags"
+msgstr "キーワード／タグ"
+
+#: themes-book/pressbooks-book/functions.php:54
+msgid "Previous"
+msgstr "戻る"
+
+#: themes-book/pressbooks-book/functions.php:58
+msgid "Next"
+msgstr "次"
+
+#: themes-book/pressbooks-book/functions.php:72
+msgid ""
+"This book is private, and accessible only to registered users. If you have "
+"an account you can <a href=\"/wp-login.php\" class=\"login\">login here</a> "
+" <p class=\"sign-up\">You can also set up your own PressBooks book at: <a "
+"href=\"http://pressbooks.com\">PressBooks.com</a>."
+msgstr ""
+"プライベート。この本は登録ユーザーのみアクセス可能です。アカウントをお持ちの"
+"方は<a href=\"/wp-login.php\" class=\"login\">ログイン</a>してください。<p "
+"class=\"sign-up\">新規登録： <a href=\"http://pressbooks.com\">PressBooks."
+"com</a>."
+
+#: themes-book/pressbooks-book/functions.php:99
+#, fuzzy
+msgid "%s on"
+msgstr "%s オン"
+
+#: themes-book/pressbooks-book/functions.php:99
+msgid "%1$s at %2$s"
+msgstr "%1$s at %2$s"
+
+#: themes-book/pressbooks-book/functions.php:99
+#: themes-book/pressbooks-book/functions.php:119
+msgid "(Edit)"
+msgstr "（編集）"
+
+#: themes-book/pressbooks-book/functions.php:102
+msgid "Your comment is awaiting moderation."
+msgstr "あなたのコメントは認証待ちです。"
+
+#: themes-book/pressbooks-book/functions.php:119
+msgid "Pingback:"
+msgstr "ピンバック："
+
+#: themes-book/pressbooks-book/functions.php:188
+msgid "Global options"
+msgstr "グローバル設定"
+
+#: themes-book/pressbooks-book/functions.php:195
+msgid "Chapter numbers"
+msgstr "章番号"
+
+#: themes-book/pressbooks-book/functions.php:195
+msgid "display chapter numbers"
+msgstr "章番号を表示"
+
+#: themes-book/pressbooks-book/functions.php:195
+msgid "do not display chapter numbers"
+msgstr "章番号を表示しない"
+
+#: themes-book/pressbooks-book/functions.php:201
+msgid "PDF options"
+msgstr "PDF設定"
+
+#: themes-book/pressbooks-book/functions.php:208
+msgid "Page size"
+msgstr "ページサイズ"
+
+#: themes-book/pressbooks-book/functions.php:209
+msgid "digest"
+msgstr "ダイジェスト"
+
+#: themes-book/pressbooks-book/functions.php:210
+msgid "US trade"
+msgstr "USトレード"
+
+#: themes-book/pressbooks-book/functions.php:211
+msgid "US letter"
+msgstr "USレター"
+
+#: themes-book/pressbooks-book/functions.php:214
+#: themes-book/pressbooks-book/functions.php:240
+#, fuzzy
+msgid "Paragraph separator"
+msgstr "段落分離線"
+
+#: themes-book/pressbooks-book/functions.php:215
+#: themes-book/pressbooks-book/functions.php:241
+msgid "indent"
+msgstr "字下げ"
+
+#: themes-book/pressbooks-book/functions.php:216
+#: themes-book/pressbooks-book/functions.php:242
+msgid "skip lines"
+msgstr "行をスキップ"
+
+#: themes-book/pressbooks-book/functions.php:219
+msgid "Blank pages"
+msgstr "空白ページ"
+
+#: themes-book/pressbooks-book/functions.php:220
+msgid "include blank pages (for print PDF)"
+msgstr "空白ページを含める（印刷用PDF）"
+
+#: themes-book/pressbooks-book/functions.php:221
+msgid "remove blank pages (for web PDF)"
+msgstr "空白ページを含めない（WebPDF）"
+
+#: themes-book/pressbooks-book/functions.php:224
+msgid "Table of contents"
+msgstr "目次"
+
+#: themes-book/pressbooks-book/functions.php:224
+msgid "display"
+msgstr "表示"
+
+#: themes-book/pressbooks-book/functions.php:224
+msgid "do not display"
+msgstr "非表示"
+
+#: themes-book/pressbooks-book/functions.php:227
+msgid "Footnotes style"
+msgstr "フットノート形式"
+
+#: themes-book/pressbooks-book/functions.php:227
+msgid "normal"
+msgstr "通常"
+
+#: themes-book/pressbooks-book/functions.php:227
+msgid "force as endnotes"
+msgstr "強制的にエンドノートにする"
+
+#: themes-book/pressbooks-book/functions.php:233
+msgid "Ebook options"
+msgstr "eBook設定"
+
+#: themes-book/pressbooks-book/functions.php:267
+msgid "Global Options"
+msgstr "グローバル設定"
+
+#: themes-book/pressbooks-book/functions.php:273
+msgid "Chapter Numbers"
+msgstr "章番号"
+
+#: themes-book/pressbooks-book/functions.php:278
+msgid "Display chapter numbers"
+msgstr "章番号を表示"
+
+#: themes-book/pressbooks-book/functions.php:345
+msgid "PDF Options"
+msgstr "PDF設定"
+
+#: themes-book/pressbooks-book/functions.php:351
+msgid "Page Size"
+msgstr "ページサイズ"
+
+#: themes-book/pressbooks-book/functions.php:356
+msgid "Digest (5.5&quot; &times; 8.5&quot;)"
+msgstr "ダイジェスト (5.5&quot; &times; 8.5&quot;)"
+
+#: themes-book/pressbooks-book/functions.php:357
+msgid "US Trade (6&quot; &times; 9&quot;)"
+msgstr "USトレード (6&quot; &times; 9&quot;)"
+
+#: themes-book/pressbooks-book/functions.php:358
+msgid "US Letter (8.5&quot; &times; 11&quot;)"
+msgstr "USレター (8.5&quot; &times; 11&quot;)"
+
+#: themes-book/pressbooks-book/functions.php:363
+#: themes-book/pressbooks-book/functions.php:530
+#, fuzzy
+msgid "Paragraph Separation"
+msgstr "段落分割"
+
+#: themes-book/pressbooks-book/functions.php:368
+#: themes-book/pressbooks-book/functions.php:535
+msgid "Indent paragraphs"
+msgstr "段落を字下げ"
+
+#: themes-book/pressbooks-book/functions.php:369
+#: themes-book/pressbooks-book/functions.php:536
+msgid "Skip lines between paragraphs"
+msgstr "段落間の行をスキップする。"
+
+#: themes-book/pressbooks-book/functions.php:374
+msgid "Blank Pages"
+msgstr "空白ページ"
+
+#: themes-book/pressbooks-book/functions.php:379
+msgid "Include blank pages (for print PDF)"
+msgstr "空白ページを含める（印刷用PDF）"
+
+#: themes-book/pressbooks-book/functions.php:380
+msgid "Remove all blank pages (for web PDF)"
+msgstr "空白ページを全て削除（WebPDF用）"
+
+#: themes-book/pressbooks-book/functions.php:390
+msgid "Display table of contents"
+msgstr "目次を表示"
+
+#: themes-book/pressbooks-book/functions.php:395
+msgid "Footnotes Style"
+msgstr "フットノートの形式"
+
+#: themes-book/pressbooks-book/functions.php:400
+msgid "Regular footnotes"
+msgstr "通常のフットノート"
+
+#: themes-book/pressbooks-book/functions.php:401
+msgid "Force as endnotes"
+msgstr "強制的にエンドノートにする。"
+
+#: themes-book/pressbooks-book/functions.php:524
+msgid "Ebook Options"
+msgstr "eBook設定"
+
+#: themes-book/pressbooks-book/header.php:24
+msgid "Page %s"
+msgstr "ページ %s"
+
+#: themes-book/pressbooks-book/page-about.php:5
+msgid "About The Book"
+msgstr "書籍に関して"
+
+#: themes-book/pressbooks-book/page-about.php:21
+#: themes-book/pressbooks-book/page-buy.php:14
+msgid "It's coming!"
+msgstr "導入予定！"
+
+#: themes-book/pressbooks-book/page-buy.php:4
+msgid "Buy the Book"
+msgstr "本を買う"
+
+#: themes-book/pressbooks-book/page-buy.php:17
+msgid ""
+"You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
+msgstr "下記のリンク先より<a href=\"%1$s\">%2$s</a>を購入することができます。"
+
+#: themes-book/pressbooks-book/page-buy.php:21
+msgid "Purchase on  <a href=\"%1$s\">amazon.com</a>"
+msgstr "<a href=\"%1$s\">Amazon</a>から購入。"
+
+#: themes-book/pressbooks-book/page-buy.php:25
+msgid "Purchase on  <a href=\"%1$s\">oreilly.com</a>"
+msgstr "<a href=\"%1$s\">オライリー社</a>から購入。"
+
+#: themes-book/pressbooks-book/page-buy.php:29
+msgid "Purchase on  <a href=\"%1$s\">barnesandnoble.com</a>"
+msgstr "<a href=\"%1$s\">B&N</a>から購入。"
+
+#: themes-book/pressbooks-book/page-buy.php:33
+msgid "Purchase on  <a href=\"%1$s\">kobobooks.com</a>"
+msgstr "<a href=\"%1$s\">Kobo</a>から購入。"
+
+#: themes-book/pressbooks-book/page-buy.php:37
+msgid "Purchase on  <a href=\"%1$s\">apple.com</a>"
+msgstr "<a href=\"%1$s\">Apple</a>から購入。"
+
+#: themes-book/pressbooks-book/page-buy.php:41
+msgid "Elsewhere"
+msgstr "その他"
+
+#: themes-book/pressbooks-book/page-buy.php:41
+msgid "Purchase here:"
+msgstr "ここで購入する："
+
+#: themes-book/pressbooks-book/page-cover.php:19
+msgid "Start reading"
+msgstr "今すぐ読む"
+
+#: themes-book/pressbooks-book/page-cover.php:35
+msgid "Authors(s)"
+msgstr "著者"
+
+#: themes-book/pressbooks-book/page.php:13
+msgid "Pages:"
+msgstr "ページ："
+
+#: themes-book/pressbooks-book/sidebar.php:9
+msgid "Login"
+msgstr "ログイン"
+
+#: themes-book/pressbooks-book/sidebar.php:13
+msgid "Logout"
+msgstr "ログアウト"
+
+#: themes-book/pressbooks-book/sidebar.php:21
+msgid "Admin"
+msgstr "管理者"
+
+#: themes-book/pressbooks-book/sidebar.php:26
+msgid "Read"
+msgstr "読む"
+
+#: themes-book/pressbooks-book/sidebar.php:27
+msgid "About the Book"
+msgstr "この本に関して"
+
+#: themes-book/pressbooks-book/sidebar.php:28
+msgid "About the Author(s)"
+msgstr "著者に関して"
+
+#: themes-book/pressbooks-book/sidebar.php:32
+msgid "Home"
+msgstr "ホーム"
+
+#: themes-root/pressbooks-publisher-one/404.php:17
+msgid "Search"
+msgstr "検索"
+
+#: themes-root/pressbooks-publisher-one/archive-_author.php:34
+#: themes-root/pressbooks-publisher-one/single-_author.php:24
+msgid "Read more &raquo;"
+msgstr "&raquo;をもっと読む。"
+
+#: themes-root/pressbooks-publisher-one/archive-_author.php:48
+msgid "Sorry, no authors could be found."
+msgstr "著者が見つかりませんでした。"
+
+#: themes-root/pressbooks-publisher-one/comments.php:9
+msgid "Enter password."
+msgstr "パスワード入力"
+
+#: themes-root/pressbooks-publisher-one/comments.php:12
+msgid "0 comments"
+msgstr "０コメント"
+
+#: themes-root/pressbooks-publisher-one/comments.php:12
+msgid "1 comment"
+msgstr "１コメント"
+
+#: themes-root/pressbooks-publisher-one/comments.php:12
+msgid "% comments"
+msgstr "% コメント"
+
+#: themes-root/pressbooks-publisher-one/comments.php:15
+msgid "Leave a comment"
+msgstr "コメントを残す。"
+
+#: themes-root/pressbooks-publisher-one/comments.php:33
+msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr "コメントをポストするには <a href=\"%s\">ログイン</a>してください。"
+
+#: themes-root/pressbooks-publisher-one/comments.php:41
+msgid "Sorry, comments are closed."
+msgstr "すみません。コメントは受け付けていません。"
+
+#: themes-root/pressbooks-publisher-one/front-featured.php:24
+msgid "Read more &#8594;"
+msgstr "&#8594;をもっと読む。"
+
+#: themes-root/pressbooks-publisher-one/front-homepage-block.php:14
+#: themes-root/pressbooks-publisher-one/front-homepage-block.php:36
+#: themes-root/pressbooks-publisher-one/loop.php:45
+msgid "read more &#8594;"
+msgstr "&#8594;をもっと読む。"
+
+#: themes-root/pressbooks-publisher-one/functions.php:68
+msgid "Sidebar 1"
+msgstr "サイドバー１"
+
+#: themes-root/pressbooks-publisher-one/functions.php:77
+msgid "Sidebar 2"
+msgstr "サイドバー２"
+
+#: themes-root/pressbooks-publisher-one/functions.php:86
+msgid "Sidebar 3"
+msgstr "サイドバー３"
+
+#: themes-root/pressbooks-publisher-one/functions.php:94
+msgid "Home Page Left Column"
+msgstr "HPの左側コラム。"
+
+#: themes-root/pressbooks-publisher-one/functions.php:102
+msgid "Home Page Right Column"
+msgstr "HPの右側コラム。"
+
+#: themes-root/pressbooks-publisher-one/functions.php:110
+msgid "Footer"
+msgstr "フッター"
+
+#: themes-root/pressbooks-publisher-one/functions.php:173
+msgid "\">read more &#8594;</a>"
+msgstr "\">&#8594;をもっと読む</a>"
+
+#: themes-root/pressbooks-publisher-one/functions.php:207
+#: themes-root/pressbooks-publisher-one/functions.php:208
+#: themes-root/pressbooks-publisher-one/functions.php:218
+msgctxt "_featured_content"
+msgid "Featured Content"
+msgstr "おすすめコンテンツ"
+
+#: themes-root/pressbooks-publisher-one/functions.php:209
+msgctxt "_featured_content"
+msgid "Add New"
+msgstr "新規"
+
+#: themes-root/pressbooks-publisher-one/functions.php:210
+msgctxt "_featured_content"
+msgid "Add New Featured Content"
+msgstr "新規おすすめコンテンツの追加"
+
+#: themes-root/pressbooks-publisher-one/functions.php:211
+msgctxt "_featured_content"
+msgid "Edit Featured Content"
+msgstr "おすすめコンテンツを編集"
+
+#: themes-root/pressbooks-publisher-one/functions.php:212
+msgctxt "_featured_content"
+msgid "New Featured Content"
+msgstr "新規おすすめコンテンツ"
+
+#: themes-root/pressbooks-publisher-one/functions.php:213
+msgctxt "_featured_content"
+msgid "View Featured Content"
+msgstr "おすすめコンテンツを読む。"
+
+#: themes-root/pressbooks-publisher-one/functions.php:214
+msgctxt "_featured_content"
+msgid "Search Featured Content"
+msgstr "おすすめコンテンツを検索"
+
+#: themes-root/pressbooks-publisher-one/functions.php:215
+msgctxt "_featured_content"
+msgid "No Featured Content found"
+msgstr "おすすめコンテンツは見つかりませんでした。"
+
+#: themes-root/pressbooks-publisher-one/functions.php:216
+msgctxt "_featured_content"
+msgid "No Featured Content in Trash"
+msgstr "おすすめコンテンツはゴミ箱に入っていません。"
+
+#: themes-root/pressbooks-publisher-one/functions.php:217
+msgctxt "_featured_content"
+msgid "Parent Featured Content Link:"
+msgstr "親おすすめコンテンツへのリンク"
+
+#: themes-root/pressbooks-publisher-one/functions.php:240
+#: themes-root/pressbooks-publisher-one/functions.php:251
+msgctxt "_author"
+msgid "Authors"
+msgstr "著者"
+
+#: themes-root/pressbooks-publisher-one/functions.php:241
+msgctxt "_author"
+msgid "Author"
+msgstr "著者"
+
+#: themes-root/pressbooks-publisher-one/functions.php:242
+msgctxt "_author"
+msgid "Add New"
+msgstr "新規"
+
+#: themes-root/pressbooks-publisher-one/functions.php:243
+msgctxt "_author"
+msgid "Add New Author"
+msgstr "新規著者を追加"
+
+#: themes-root/pressbooks-publisher-one/functions.php:244
+msgctxt "_author"
+msgid "Edit Author"
+msgstr "著者名を編集"
+
+#: themes-root/pressbooks-publisher-one/functions.php:245
+msgctxt "_author"
+msgid "New Author"
+msgstr "新規著者"
+
+#: themes-root/pressbooks-publisher-one/functions.php:246
+msgctxt "_author"
+msgid "View Author"
+msgstr "著者名を見る"
+
+#: themes-root/pressbooks-publisher-one/functions.php:247
+msgctxt "_author"
+msgid "Search Authors"
+msgstr "著者を検索"
+
+#: themes-root/pressbooks-publisher-one/functions.php:248
+msgctxt "_author"
+msgid "No Authors found"
+msgstr "著者は見つかりませんでした。"
+
+#: themes-root/pressbooks-publisher-one/functions.php:249
+msgctxt "_author"
+msgid "No Authors in Trash"
+msgstr "著者はゴミ箱に入っていません。"
+
+#: themes-root/pressbooks-publisher-one/functions.php:250
+#, fuzzy
+msgctxt "_author"
+msgid "Parent Author Link:"
+msgstr "親著者へのリンク。"
+
+#: themes-root/pressbooks-publisher-one/home.php:13
+msgid "&#8592 Older Entries"
+msgstr "&#8592古い項目"
+
+#: themes-root/pressbooks-publisher-one/home.php:14
+msgid "Newer Entries &#8594;"
+msgstr "&#8594;新規項目"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:29
+msgid " Theme Options"
+msgstr "テーマ設定"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:30
+msgid ""
+"These options will let you setup the social icons for your site. You can "
+"enter the URLs of your profiles to have the icons show up."
+msgstr ""
+"HPのソーシャル・アイコンを設定してください。あなたのプロファイルのURLを入力す"
+"るとアイコンが表示されます。"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:32
+msgid "Options saved"
+msgstr "設定を保存"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:47
+msgid "Hide RSS Icon?"
+msgstr "RSSアイコンを非表示にしますか？　"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:50
+msgid "Hide the RSS feed icon?"
+msgstr "RSSフィードアイコンを非表示にしますか？"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:59
+msgid "Enter your Facebook URL"
+msgstr "Facebook URLを入力"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:62
+msgid "Leave blank to hide Facebook Icon"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:71
+msgid "Enter your Twitter URL"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:74
+msgid "Leave blank to hide Twitter Icon"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:83
+msgid "Enter your Tumblr URL"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:86
+msgid "Leave blank to hide Tumblr Icon"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:95
+msgid "Enter your Youtube Channel URL"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:98
+msgid "Leave blank to hide Youtube Icon"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:105
+msgid "Save Options"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/index.php:9
+msgid "Older Entries &raquo;"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/index.php:10
+msgid "&laquo; Newer Entries"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/loop.php:48
+msgid "No Comments"
+msgstr "コメントなし"
+
+#: themes-root/pressbooks-publisher-one/loop.php:60
+#: themes-root/pressbooks-publisher-one/single-_author.php:38
+msgid "Sorry, no posts matched your criteria."
+msgstr "あなたが指定した条件に合うポストはありません。"
+
+#: themes-root/pressbooks-publisher-one/page.php:13
+msgid "keep reading"
+msgstr "読み続ける"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:5
+msgid "Twitter"
+msgstr "Twitter"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:9
+msgid "Facebook"
+msgstr "Facebook"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:13
+msgid "YouTube"
+msgstr "YouTube"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:17
+msgid "Tumblr"
+msgstr "Tumblr"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:21
+msgid "RSS Feed"
+msgstr "RSSフィード"
+
+#. Plugin Name of the plugin/theme
+msgid "PressBooks"
+msgstr "PressBooks"
+
+#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.1)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.1)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://www.pressbooks.com"
+msgstr "∫"
+
+#. Author of the plugin/theme
+msgid "BookOven Inc."
+msgstr "BookOven Inc."
