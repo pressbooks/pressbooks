@@ -16,56 +16,80 @@ require_once(ABSPATH . "wp-admin" . '/includes/image.php');
 class Epub201 extends Import {
 
   /**
-   *
+   * Reference to the object that represents the epub zip folder
    * @var \ZipArchive
    */
   private $zip;
+
+  /**
+   * relative path the where the content in is
+   * @var string 
+   */
   private $basedir = '';
   private $tempdir;
   private $imagefiles = array();
   private $chapters = array();
-  
+  private $post_types = array('front-matter' => 'front-matter', 'chapter' => 'chapter', 'back-matter' => 'back-matter');
+  private $selected_chapters = array();
+
+  /**
+   * Holds the data from OPF file
+   * @var \SimpleXMLElement 
+   */
+  private $content_xml;
 
   /**
    * Static function to call the constructor and start the import
    * 
    * @param string $path_and_file_name - must be /path/to/filename
+   * @param bool $selective_import- user wants to choose which chapters to bring in
    */
-  static function import($path_and_file_name) {
-    
-    $importer = new self($path_and_file_name);
-    $importer->run();
+  public static function import($path_and_file_name, bool $selective_import) {
+
+    $importer = new self($path_and_file_name, $selective_import);
+
+    if ($selective_import) {
+      $importer->setChapters();
+      // $importer->getChapters();
+
+    } else {
+      // find out where all the content is
+      $importer->getOpf();
+      // parse, import and save
+      $importer->parse();
+    }
   }
 
   /**
-   * Constructor requires a file to import, unzips contents of the epub
-   * in a temporary directory, to be obliterated after import.
+   * Constructor requires a file to import, validates it, unzips contents of the epub
+   * and puts it in a temporary directory.
    * 
    * @param string $filename
+   * @param bool $selective_import- user wants to choose which chapters to bring in
    * @throws \Exception
    */
-   function __construct($file_name) {
+  function __construct($file_name, bool $selective_import) {
 
-		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) )
-			define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
-    
+    if (!defined('PB_EPUBCHECK_COMMAND'))
+      define('PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar');
+
     // Set the location of the file 
-    $this->importPath = $file_name;
-    
-    if (!file_exists($file_name)) {
+    $this->import_path = $file_name;
+
+    if (!file_exists($this->import_path)) {
       throw new \Exception('uploaded file does not exist.');
     }
-    
+
     // Validate the uploaded epub file
-    $this->validate($file_name);
-    
-    // 
+    $this->validate($this->import_path);
+
+    // instantiate a zipArchive object for the epub directory
     $this->zip = new \ZipArchive;
-    $result = $this->zip->open($file_name);
+    $result = $this->zip->open($this->import_path);
     if ($result !== true) {
       throw new \Exception('opening epub file failed');
     }
-    
+
     //$this->tempdir = \PressBooks\Utility\get_media_prefix() . 'tmp/pb_import_' . \md5(\date('Y-m-d H:i:s') . \getmypid() . '') . '/';
     $this->tempdir = '/tmp/pb_import_' . \md5(\date('Y-m-d H:i:s') . \getmypid() . '') . '/';
   }
@@ -73,9 +97,7 @@ class Epub201 extends Import {
   /**
    * Garbage collection, obliterate the mess
    */
-   function __destruct() {
-
-    //return;
+  function __destruct() {
 
     $dir = $this->tempdir;
     $it = new \RecursiveDirectoryIterator($dir);
@@ -94,29 +116,82 @@ class Epub201 extends Import {
     \rmdir($dir);
   }
 
-/**
- * Magic happens here. Parse and conquer.
- * 
- */
-   function run() {
+  /**
+   * Get/Find the OPF file and extract data from the 
+   * structure of the epub/zip folder
+   * 
+   */
+  private function getOpf() {
 
     $mimetype = $this->getZipContent('mimetype', false);
 
+    // safety check
     if ($mimetype != 'application/epub+zip') {
       throw new \Exception('wrong mimetype');
     }
 
+
     $containerXml = $this->getZipContent('META-INF/container.xml');
     $contentPath = $containerXml->rootfiles->rootfile['full-path'];
 
-    $contentXml = $this->getZipContent($contentPath);
+    // this is where the OPF file is; subsequently the map to where 
+    // all the content/XHTML/images/CSS files live
+    $this->content_xml = $this->getZipContent($contentPath);
+
+//    echo "<pre>";
+//    print_r($this->content_xml);
+//    echo "</pre>";
+//    die();
 
     $this->basedir = dirname($contentPath) . '/';
+  }
 
+  /**
+   * Parse content
+   */
+  private function parse() {
     // @todo set all previous chapters to status "inactive"
 
-    $this->parseManifest($contentXml->manifest);
-    $this->parseMetadata($contentXml->metadata);
+    $this->parseManifest($this->content_xml->manifest);
+    $this->parseMetadata($this->content_xml->metadata);
+  }
+
+  /**
+   * Give it an array and set the instance variable
+   * 
+   * 
+   */
+  private function setChapters() {
+    $redirect_url = get_bloginfo('url') . '/wp-admin/admin.php?page=pb_import';
+
+    // find where the content files live
+    $this->getOpf();
+
+    // assign the value to an instance variable
+    $this->selected_chapters = $this->content_xml->spine;
+
+    // process the simplexml object array, into an array that wp can handle
+    $array_of_chapters = array();
+
+    foreach ($this->selected_chapters->children() AS $item) {
+
+      foreach ($item->attributes() as $key => $val) {
+
+        if ($key == 'idref') {
+
+          $array_of_chapters[] = (string) $val;
+        }
+      }
+    }
+
+    // update the option in wordpress, so we can access it later.
+    update_option('pressbooks_selective_import_chapters', $array_of_chapters);
+
+    \PressBooks\Redirect\location($redirect_url . '&select_chapters=step1');
+  }
+
+  private function getChapters() {
+    return $this->selected_chapters;
   }
 
   /**
@@ -138,8 +213,12 @@ class Epub201 extends Import {
     //echo "manifest<br />";
     $files = array();
     /* @var $item \SimpleXMLElement */
+
+    // create an array with file 'id' as key, each with it's own array of attributes
     foreach ($manifest->children() AS $item) {
       $file = array();
+
+      // create an array of attributes for each item, skipping 'id'
       foreach ($item->attributes() AS $attribute) {
         switch ($attribute->getName()) {
           case 'id':
@@ -150,8 +229,17 @@ class Epub201 extends Import {
             break;
         }
       }
+      // add attributes array to the file 'id' as key array
       $files[$id] = $file;
-    } 
+    }
+
+//    echo "<pre>";
+//    print_r($files);
+//    echo "</pre>";
+//    die();
+    // @todo must modify the $files array to subtract from it, the chapters 
+    // that were NOT selected. 
+
     $i = 0;
     foreach ($files AS $file_id => $file) {
       ++$i;
@@ -265,21 +353,21 @@ class Epub201 extends Import {
     }
   }
 
- /**
-  * 
-  * @param type $file_id
-  * @param \SimpleXMLElement $xml
-  * @return \PressBooks\Import\Epub\Chapter
-  */
+  /**
+   * 
+   * @param type $file_id
+   * @param \SimpleXMLElement $xml
+   * @return \PressBooks\Import\Epub\Chapter
+   */
   private function parseChapter($file_id, \SimpleXMLElement $xml) {
     return new Chapter($file_id, $xml);
   }
 
- /**
-  * 
-  * @param type $file_id
-  * @param type $href
-  */
+  /**
+   * 
+   * @param type $file_id
+   * @param type $href
+   */
   private function importNcx($file_id, $href) {
     
   }
@@ -303,6 +391,7 @@ class Epub201 extends Import {
   }
 
   /**
+   * Finds a file in the zip directory, returns the contents of the file 
    * 
    * @param type $file
    * @param type $as_xml
@@ -310,55 +399,62 @@ class Epub201 extends Import {
    * @throws \Exception
    */
   private function getZipContent($file, $as_xml = true) {
+    // locates an entry using its name
     $index = $this->zip->locateName($file);
 
     if ($index === false) {
       throw new \Exception('file [' . $file . '] not found');
     }
 
+    // returns the contents using its index
     $content = $this->zip->getFromIndex($index);
+
+    // if it's not xml, return 
     if (!$as_xml) {
       return $content;
     }
+
+    // if it is xml, then instantiate and return a simplexml object
     return new \SimpleXMLElement($content);
   }
 
-/**
- * Check the version of the EPUB file, produce a warning if errors are discovered.
- * 
- * @return boolean
- */
+  /**
+   * Check the version of the EPUB file, (we want it to be version 2)
+   * and produce a warning if errors are discovered.
+   * 
+   * @return boolean
+   */
   function validate() {
-    
-		// Epubcheck command
-		$command = PB_EPUBCHECK_COMMAND . ' ' . escapeshellcmd( $this->importPath ) . ' 2>&1';
 
-		// Execute command
-		$output = array();
-		$return_var = 0;
-		exec( $command, $output, $return_var );
+    // Epubcheck command
+    $command = PB_EPUBCHECK_COMMAND . ' ' . escapeshellcmd($this->import_path) . ' 2>&1';
+
+    // Execute command
+    $output = array();
+    $return_var = 0;
+    exec($command, $output, $return_var);
 
     // What version of Epub is this?
     $version_two = 'Validating against EPUB version 2.0';
-    if ( ! in_array($version_two, $output )){
+    if (!in_array($version_two, $output)) {
       return false;
     }
-            
-		// Any errors?
-		$last_line = strtolower( end( array_filter( $output ) ) );
-		if ( false !== strpos( $last_line, 'check finished with warnings or errors' ) ) {
-			$this->logError( implode( "\n", $output ) );
 
-			echo '<p><strong>' . __( 'Some errors were detected when validating the uploaded epub file. Depending on the severity of the errors
-        it may affect the import process', 'pressbooks' ) . '</strong></p>';
-		}
-    
+    // Any errors?
+    $last_line = strtolower(end(array_filter($output)));
+    if (false !== strpos($last_line, 'check finished with warnings or errors')) {
+      $this->logError(implode("\n", $output));
+
+      echo '<p><strong>' . __('Some errors were detected when validating the uploaded epub file. Depending on the severity of the errors
+        it may affect the import process', 'pressbooks') . '</strong></p>';
+    }
+
 //    echo "<pre>";
 //    print_r($output);
 //    echo "</pre>";
 //    die();
 
-		return true;
+    return true;
   }
 
 }
