@@ -35,18 +35,53 @@ abstract class Import {
    * 
    */
   static public function formSubmit() {
-    
-    
+
+
     if (false == static::isFormSubmission() || false == current_user_can('edit_posts')) {
       // Don't do anything in this function, bail.
       return;
     }
-    
+
     $selective_import = $_POST['pressbooks_selective_import'];
-    update_option('pressbooks_selective_import',$selective_import);
-   
+    update_option('pressbooks_selective_import', $selective_import);
+
+    // if user has selected chapters to import
+    if (isset($_GET['select_chapters']) && $_GET['select_chapters'] == 'step2' && $_POST['pressbooks_select_chapters'] == 'Import') {
+
+      // need to grab the file name, file type and path to file before overwriting the data
+      $available_chapters = get_option('pressbooks_selective_import_chapters');
+
+      $file = $available_chapters['file'];
+      $file_type = $available_chapters['file_type'];
+
+      // just get the chapters the user selected
+      $selected_chapters = $_POST['chapters'];
+
+      // save the option with the new array posted
+      // @see admin/templates/import.php
+      update_option('pressbooks_selective_import_chapters', $selected_chapters);
+
+
+      // find out what type of file is being uploaded
+      switch ($file_type) {
+
+        case 'application/epub+zip':
+          Epub201::import($file, $selective_import);
+          break;
+
+        // @todo: case 'application/msword'
+        // @todo: case 'text/html'
+        // @todo: case 'application/xhtml+xml'
+
+        default:
+          header('Location: ' . get_bloginfo('url') . '/wp-admin/admin.php?page=pb_import&import_error=step2');
+          break;
+      }
+    }
+
+
     // Uploading and importing a file
-    if (isset($_GET['upload_file']) && $_GET['upload_file'] == 'yes') {
+    if (isset($_GET['upload_file']) && $_GET['upload_file'] == 'yes' && $_POST['Submit'] == 'Upload') {
 
       $file_name = $_FILES['import_file']['name'];   // title of the file including .epub suffix
       $temp_name = $_FILES['import_file']['tmp_name'];  // string that is the directory path of the file 
@@ -69,6 +104,9 @@ abstract class Import {
       }
 
       move_uploaded_file($temp_name, $path . $file_name);
+
+
+
 
       // find out what type of file is being uploaded
       switch ($file_type) {

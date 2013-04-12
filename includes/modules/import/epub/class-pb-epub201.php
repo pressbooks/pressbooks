@@ -29,7 +29,7 @@ class Epub201 extends Import {
   private $tempdir;
   private $imagefiles = array();
   private $chapters = array();
-  private $post_types = array('front-matter' => 'front-matter', 'chapter' => 'chapter', 'back-matter' => 'back-matter');
+  //private $post_types = array('front-matter' => 'front-matter', 'chapter' => 'chapter', 'back-matter' => 'back-matter');
   private $selected_chapters = array();
 
   /**
@@ -42,16 +42,23 @@ class Epub201 extends Import {
    * Static function to call the constructor and start the import
    * 
    * @param string $path_and_file_name - must be /path/to/filename
-   * @param bool $selective_import- user wants to choose which chapters to bring in
+   * @param string $selective_import- user wants to choose which chapters to bring in
    */
-  public static function import($path_and_file_name, bool $selective_import) {
+  public static function import($path_and_file_name, $selective_import) {
 
     $importer = new self($path_and_file_name, $selective_import);
 
-    if ($selective_import) {
-      $importer->setChapters();
-      // $importer->getChapters();
-
+    if (isset($selective_import)) {
+      $step = get_option('pressbooks_selective_import');
+      $chapters = get_option('pressbooks_selective_import_chapters');
+      if ($step == 'step1') {
+        $importer->setChapters();
+      } elseif ($step == 'step2') {
+        echo "<pre>";
+        print_r($chapters);
+        echo "</pre>";
+        die();
+      }
     } else {
       // find out where all the content is
       $importer->getOpf();
@@ -65,10 +72,10 @@ class Epub201 extends Import {
    * and puts it in a temporary directory.
    * 
    * @param string $filename
-   * @param bool $selective_import- user wants to choose which chapters to bring in
+   * @param string $selective_import- user wants to choose which chapters to bring in
    * @throws \Exception
    */
-  function __construct($file_name, bool $selective_import) {
+  function __construct($file_name, $selective_import) {
 
     if (!defined('PB_EPUBCHECK_COMMAND'))
       define('PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar');
@@ -171,7 +178,9 @@ class Epub201 extends Import {
     $this->selected_chapters = $this->content_xml->spine;
 
     // process the simplexml object array, into an array that wp can handle
-    $array_of_chapters = array();
+    //$array_of_chapters[] = array();
+    $array_of_chapters['file'] = $this->import_path;
+    $array_of_chapters['file_type'] = 'application/epub+zip';
 
     foreach ($this->selected_chapters->children() AS $item) {
 
@@ -179,13 +188,14 @@ class Epub201 extends Import {
 
         if ($key == 'idref') {
 
-          $array_of_chapters[] = (string) $val;
+          $array_of_chapters['chapters'][(string) $val] = 'chapter';
         }
       }
     }
 
     // update the option in wordpress, so we can access it later.
     update_option('pressbooks_selective_import_chapters', $array_of_chapters);
+    update_option('pressbooks_selective_import', 'step1');
 
     \PressBooks\Redirect\location($redirect_url . '&select_chapters=step1');
   }
