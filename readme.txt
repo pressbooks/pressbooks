@@ -56,7 +56,7 @@ IMPORTANT!
 
  5. Navigate to: Themes → Installed Themes.
 
- 6. Network Enable "Luther", "Clarke", "Donham" and "PressBooks Publisher One".
+ 6. Network Enable "Luther", "Clarke", "Donham", "PressBooks Publisher One", and any other PressBooks theme you want to use.
 
  7. Navigate to: Settings → Network Settings.
 
@@ -67,7 +67,7 @@ IMPORTANT!
 
  9. Navigate to: My Books → __YOUR_SITE__ → Dashboard
 
- 10. Activate "PressBooks Publisher One"
+ 10. Navigate to: Appearance. Activate "PressBooks Publisher One"
 
  11. Navigate to: My Books → Network Admin → Sites
 

@@ -15,7 +15,7 @@ This file must validate as CSS 2.01 with absolutely no errors
 */
 
 body {
-	font-family: "Times New Roman", Georgia, serif;
+	font-family: "Times New Roman", Times, Georgia, serif;
 	line-height: 1.5em;
 }	 
 a {
