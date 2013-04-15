@@ -22,7 +22,7 @@ require_once( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 // Custom Metadata plugin
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'custom_metadata_manager_default_editor_args', '\PressBooks\Metadata::metadataManagerDefaultEditorArgs' );
+add_filter( 'custom_metadata_manager_default_editor_args', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
 require_once( PB_PLUGIN_DIR . 'symbionts/custom-metadata/custom_metadata.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
