@@ -853,6 +853,10 @@ div.aligncenter {
   padding-top: 5px;
   text-align: center;
 }
+.entry-title span {
+	display: block;
+	margin-bottom: 1.4em;
+}
 .page-title {
 	font-size: 1.4em;
 	font-style: normal;
