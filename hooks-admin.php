@@ -81,6 +81,9 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'save_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
+	add_filter( 'mce_buttons_3', '\PressBooks\Editor::mce_buttons');
+	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mce_before_init_insert_formats' );  
+
 }
 
 // -------------------------------------------------------------------------------------------------------------------
