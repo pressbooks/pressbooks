@@ -1257,6 +1257,13 @@ class Epub201 extends Export {
 
 		$file_contents = wp_remote_retrieve_body( $response );
 
+		// Check if file is actually an image
+		$im = @imagecreatefromstring( $file_contents );
+		if ( $im === false ) {
+			return ''; // Not an image
+		}
+		unset( $im );
+
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			file_put_contents( "$fullpath/$filename", $file_contents );
