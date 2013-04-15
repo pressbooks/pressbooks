@@ -424,7 +424,9 @@ class Hpub extends Export {
 
 		$img = wp_get_image_editor( $source_path );
 		if ( ! is_wp_error( $img ) ) {
-			$img->resize( 600, 800, true );
+			// Take the longest dimension of the image and resize.
+			// Cropping is turned off. The aspect ratio is maintained.
+			$img->resize( 1563, 2500, false );
 			$img->save( $dest_path );
 			$this->coverImage = $dest_image;
 		}
