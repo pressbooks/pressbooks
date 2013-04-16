@@ -133,6 +133,7 @@ class Icml extends Export {
 
 		// We need to change global $id for shortcodes, the_content, ...
 		global $id;
+		$old_id = $id;
 
 		// Do root level structures first.
 		foreach ( $book_contents as $type => $struct ) {
@@ -174,6 +175,7 @@ class Icml extends Export {
 			}
 		}
 
+		$id = $old_id;
 		return $book_contents;
 	}
 

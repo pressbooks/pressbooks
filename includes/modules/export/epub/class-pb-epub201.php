@@ -269,6 +269,7 @@ class Epub201 extends Export {
 
 		// We need to change global $id for shortcodes, the_content, ...
 		global $id;
+		$old_id = $id;
 
 		// Do root level structures first.
 		foreach ( $book_contents as $type => $struct ) {
@@ -310,6 +311,7 @@ class Epub201 extends Export {
 			}
 		}
 
+		$id = $old_id;
 		return $book_contents;
 	}
 
@@ -552,7 +554,9 @@ class Epub201 extends Export {
 
 		$img = wp_get_image_editor( $source_path );
 		if ( ! is_wp_error( $img ) ) {
-			$img->resize( 768, 1024, true );
+			// Take the longest dimension of the image and resize.
+			// Cropping is turned off. The aspect ratio is maintained.
+			$img->resize( 1563, 2500, false );
 			$img->save( $dest_path );
 			$this->coverImage = $dest_image;
 		}
@@ -1254,6 +1258,13 @@ class Epub201 extends Export {
 		$filename = Sanitize\force_ascii( $filename );
 
 		$file_contents = wp_remote_retrieve_body( $response );
+
+		// Check if file is actually an image
+		$im = @imagecreatefromstring( $file_contents );
+		if ( $im === false ) {
+			return ''; // Not an image
+		}
+		unset( $im );
 
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {

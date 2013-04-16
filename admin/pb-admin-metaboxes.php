@@ -74,10 +74,17 @@ function upload_cover_image( $pid, $post ) {
 
 		if ( ! empty( $image['error'] ) ) {
 			wp_die( $image['error'] );
-		} else {
-			// TODO: delete old image
-			update_post_meta( $pid, 'pb_cover_image', $image['url'] );
 		}
+
+		list( $width, $height ) = getimagesize( $image['file'] );
+		if ( $width < 625 || $height < 625 ) {
+			unlink( $image['file'] );
+			wp_die( __( 'Sorry, image must be minimum of 625 pixels on the shortest side.', 'pressbooks' ) );
+		}
+
+		// TODO: delete old image
+		update_post_meta( $pid, 'pb_cover_image', $image['url'] );
+
 	}
 }
 

@@ -391,28 +391,4 @@ class Metadata {
 	}
 
 
-	/**
-	 * We don't support "the kitchen sink" when using the custom metadata plugin,
-	 * render the WYSIWYG editor accordingly.
-	 *
-	 * @param array $args
-	 *
-	 * @return array
-	 */
-	static function metadataManagerDefaultEditorArgs( $args ) {
-
-		// Precedence when using the + operator to merge arrays is from left to right
-
-		$args = array(
-			'media_buttons' => false,
-			'tinymce' => array(
-				'theme_advanced_buttons1' => 'bold,italic,underline,strikethrough,|,link,unlink,|,numlist,bullist,|,undo,redo,pastetext,pasteword,|',
-				'theme_advanced_buttons2' => '',
-				'theme_advanced_buttons3' => ''
-			)
-		) + $args;
-
-		return $args;
-	}
-
 }
