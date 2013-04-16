@@ -30,6 +30,7 @@ class Epub201 extends Import {
   private $imagefiles = array();
   private $chapters = array();
   //private $post_types = array('front-matter' => 'front-matter', 'chapter' => 'chapter', 'back-matter' => 'back-matter');
+  private $available_chapters = array();
   private $selected_chapters = array();
 
   /**
@@ -50,14 +51,16 @@ class Epub201 extends Import {
 
     if (isset($selective_import)) {
       $step = get_option('pressbooks_selective_import');
-      $chapters = get_option('pressbooks_selective_import_chapters');
       if ($step == 'step1') {
         $importer->setChapters();
       } elseif ($step == 'step2') {
-        echo "<pre>";
-        print_r($chapters);
-        echo "</pre>";
-        die();
+        // set instance variable
+        $importer->selected_chapters = get_option('pressbooks_selective_import_chapters');
+
+        // find out where all the content is
+        $importer->getOpf();
+        // parse, import and save
+        $importer->parse();
       }
     } else {
       // find out where all the content is
@@ -175,14 +178,13 @@ class Epub201 extends Import {
     $this->getOpf();
 
     // assign the value to an instance variable
-    $this->selected_chapters = $this->content_xml->spine;
+    $this->available_chapters = $this->content_xml->spine;
 
     // process the simplexml object array, into an array that wp can handle
-    //$array_of_chapters[] = array();
     $array_of_chapters['file'] = $this->import_path;
     $array_of_chapters['file_type'] = 'application/epub+zip';
 
-    foreach ($this->selected_chapters->children() AS $item) {
+    foreach ($this->available_chapters->children() AS $item) {
 
       foreach ($item->attributes() as $key => $val) {
 
@@ -195,13 +197,8 @@ class Epub201 extends Import {
 
     // update the option in wordpress, so we can access it later.
     update_option('pressbooks_selective_import_chapters', $array_of_chapters);
-    update_option('pressbooks_selective_import', 'step1');
 
     \PressBooks\Redirect\location($redirect_url . '&select_chapters=step1');
-  }
-
-  private function getChapters() {
-    return $this->selected_chapters;
   }
 
   /**
@@ -249,6 +246,7 @@ class Epub201 extends Import {
 //    die();
     // @todo must modify the $files array to subtract from it, the chapters 
     // that were NOT selected. 
+
 
     $i = 0;
     foreach ($files AS $file_id => $file) {
@@ -317,10 +315,19 @@ class Epub201 extends Import {
     //echo "import " . $file_id . ': ' . $href . '<br />';
 
     global $user_ID;
+    $pb_type = $this->selected_chapters[$file_id]['type'];
 
     // @todo: title, content, category, "incluce chapter in exports", part, "show title in epub/pdf export"
-
-    $this->chapters[$file_id] = $this->parseChapter($file_id, $this->getZipContent($this->basedir . $href));
+    // check if the user wants this chapter
+    if (isset($this->selected_chapters) && array_key_exists('import', $this->selected_chapters[$file_id])) {
+      $this->chapters[$file_id] = $this->parseChapter($file_id, $this->getZipContent($this->basedir . $href), $pb_type);
+    } elseif (isset($this->selected_chapters) && !array_key_exists('import', $this->selected_chapters[$file_id])) {
+      // don't import it
+      return;
+    }
+    if (!isset($this->selected_chapters)) {
+      $this->chapters[$file_id] = $this->parseChapter($file_id, $this->getZipContent($this->basedir . $href));
+    }
   }
 
   private function saveChapters() {
@@ -340,10 +347,10 @@ class Epub201 extends Import {
           'post_date_gmt' => date('Y-m-d H:i:s'), //The time post was made, in GMT.
           'post_excerpt' => $chapter->getExcerpt(), //[ <an excerpt> ] //For all your post excerpt needs.
           'post_name' => $chapter->getSlug(), // The name (slug) for your post
-          'post_parent' => $chapter->getParent(), //Sets the parent of the new post.
+          //'post_parent' => $chapter->getParent(), //Sets the parent of the new post.
           'post_status' => 'publish', //[ 'draft' | 'publish' | 'pending'| 'future' | 'private' | custom registered status ] //Set the status of the new post.
           'post_title' => $chapter->getTitle(), // [ <the title> ] //The title of your post.
-          'post_type' => 'chapter', //[ 'post' | 'page' | 'link' | 'nav_menu_item' | custom post type ] //You may want to insert a regular post, page, link, a menu item or some custom post type
+          'post_type' => $chapter->getPbType(), //[ 'post' | 'page' | 'link' | 'nav_menu_item' | custom post type ] //You may want to insert a regular post, page, link, a menu item or some custom post type
               //'tags_input'     => [ '<tag>, <tag>, <...>' ] //For tags.
               //'to_ping'        => [ ? ] //?
               //'tax_input'      => [ array( 'taxonomy_name' => array( 'term', 'term2', 'term3' ) ) ] // support for custom taxonomies.
@@ -367,10 +374,11 @@ class Epub201 extends Import {
    * 
    * @param type $file_id
    * @param \SimpleXMLElement $xml
+   * @param string $pb_type - pressbooks one of chapter, front-matter, back-matter
    * @return \PressBooks\Import\Epub\Chapter
    */
-  private function parseChapter($file_id, \SimpleXMLElement $xml) {
-    return new Chapter($file_id, $xml);
+  private function parseChapter($file_id, \SimpleXMLElement $xml, $pb_type = 'chapter') {
+    return new Chapter($file_id, $xml, $pb_type);
   }
 
   /**

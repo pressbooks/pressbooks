@@ -19,15 +19,18 @@ class Chapter {
   private $parent_id = null;
   private $slug = null;
   private $imagefiles = array();
+  private $pb_type;
 
   /**
    * 
    * @param type $id_file
    * @param \SimpleXMLElement $xml
+   * @param $pb_type string - one of either front-matter, back-matter, chapter
    */
-  function __construct($id_file, \SimpleXMLElement $xml) {
+  function __construct($id_file, \SimpleXMLElement $xml, $pb_type = 'chapter') {
     $this->xml = $xml;
     $this->xml->registerXPathNamespace("n", "http://www.w3.org/1999/xhtml");
+    $this->pb_type = $pb_type;
     //$this->getContent();
     //echo "<pre>" . $this->getContent() . "</pre><br />";die();
   }
@@ -51,7 +54,7 @@ class Chapter {
       // remove first h1 headline
       $headlines = $this->xml->xpath('//n:h1');
       if (empty($headlines)) {
-        $this->title = '';
+        $this->title = 'title-missing';
       } else {
         $headline = $headlines[0];
         $this->title = (string) $headline;
@@ -115,7 +118,13 @@ class Chapter {
    * @return string
    */
   function getSlug() {
-    return 'chapter';
+    // return 'chapter';
+    $slug = 'chapter';
+    if (!empty($this->title)) {
+      $slug = strtolower($this->title);
+      $slug = str_replace(' ', '-', $slug);
+    }
+    return $slug;
   }
 
   /**
@@ -143,6 +152,14 @@ class Chapter {
    */
   function getExcerpt() {
     return '';
+  }
+
+  /**
+   * 
+   * @return type
+   */
+  function getPbType() {
+    return $this->pb_type;
   }
 
 }

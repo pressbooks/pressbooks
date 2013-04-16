@@ -26,6 +26,12 @@ if (!isset($selected)) {
   <div id="icon-edit-pages" class="icon32"></div>
   <h2><?php bloginfo('name'); ?></h2>
   <div class="import-page">
+        <?php if (( $chapters ) && $_GET['select_chapters'] == 'step2') { 
+          echo "yay, selective import";
+          
+        }
+?>
+    
     <?php if (( $chapters ) && $_GET['select_chapters'] == 'step1') { ?>
       <form id="selective-import" action="<?php bloginfo('url'); ?>/wp-admin/admin.php?page=pb_import&amp;select_chapters=step2" method="post"> 
         <table class="wp-list-table widefat">
