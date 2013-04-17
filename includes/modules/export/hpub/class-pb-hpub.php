@@ -549,8 +549,12 @@ class Hpub extends Export {
 			$html .= '</p>';
 		}
 
-		$freebie_notice = 'This book was produced using <a href="http://pressbooks.com/">PressBooks.com</a>.';
-		$html .= "<p>$freebie_notice</p>";
+		// Copyright
+		// Please be kind, help PressBooks grow by leaving this on!
+		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES'] ) ) {
+			$freebie_notice = 'This book was produced using <a href="http://pressbooks.com/">PressBooks.com</a>.';
+			$html .= "<p>$freebie_notice</p>";
+		}
 
 		$html .= "</div></div>\n";
 
@@ -1089,8 +1093,13 @@ class Hpub extends Export {
 		foreach ( $images as $image ) {
 			// Fetch image, change src
 			$url = $image->getAttribute( 'src' );
-			if ( $filename = $this->fetchAndSaveUniqueImage( $url, $fullpath ) ) {
+			$filename = $this->fetchAndSaveUniqueImage( $url, $fullpath );
+			if ( $filename ) {
+				// Replace with new image
 				$image->setAttribute( 'src', 'images/' . $filename );
+			} else {
+				// Tag broken image
+				$image->setAttribute( 'src', "{$url}#fixme" );
 			}
 		}
 
@@ -1100,6 +1109,7 @@ class Hpub extends Export {
 
 	/**
 	 * Fetch a url with wp_remote_get(), save it to $fullpath with a unique name.
+	 * Will return an empty string if something went wrong.
 	 *
 	 * @param $url string
 	 * @param $fullpath string

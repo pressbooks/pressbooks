@@ -370,6 +370,9 @@ abstract class Export {
 	 */
 	protected function transformXML( $content, $path_to_xsl ) {
 
+		libxml_use_internal_errors( true );
+		$content = iconv( 'UTF-8', 'UTF-8//IGNORE', $content );
+
 		$xsl = new \DOMDocument();
 		$xsl->load( $path_to_xsl );
 
@@ -377,8 +380,11 @@ abstract class Export {
 		$proc->importStyleSheet( $xsl );
 
 		$xml = new \DOMDocument();
-		@$xml->loadXML( $content );
-		$content = @$proc->transformToXML( $xml );
+		$xml->loadXML( $content );
+		$content = $proc->transformToXML( $xml );
+
+		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+		libxml_clear_errors();
 
 		return $content;
 	}
