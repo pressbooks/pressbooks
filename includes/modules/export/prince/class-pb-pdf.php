@@ -183,8 +183,11 @@ class Pdf extends Export {
 		$css = apply_filters( 'pb_pdf_css_override', $css ) . "\n";
 
 		// Copyright
-		$freebie_notice = 'This book was produced using PressBooks.com, and PDF rendering was done by PrinceXML.';
-		$css .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }' . "\n";
+		// Please be kind, help PressBooks grow by leaving this on!
+		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES'] ) ) {
+			$freebie_notice = 'This book was produced using PressBooks.com, and PDF rendering was done by PrinceXML.';
+			$css .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }' . "\n";
+		}
 
 		$this->cssOverrides = $css;
 
