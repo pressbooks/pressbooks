@@ -750,7 +750,7 @@ function pressbooks_theme_pdf_css_override( $css ) {
 
 
 	// --------------------------------------------------------------------
-	// Features we inject ourselves, (not user options)
+	// Luther features we inject ourselves, (not user options, this theme not child)
 
 	$theme = strtolower( '' . wp_get_theme() );
 	if ( 'luther' == $theme ) {
@@ -786,7 +786,7 @@ function pressbooks_theme_ebook_css_override( $css ) {
 	}
 
 	// --------------------------------------------------------------------
-	// Features we inject ourselves, (not user options)
+	// Luther features we inject ourselves, (not user options, this theme not child)
 
 	$theme = strtolower( '' . wp_get_theme() );
 	if ( 'luther' == $theme ) {
@@ -823,7 +823,7 @@ function pressbooks_theme_ebook_hacks( $hacks ) {
 	$hacks['chapter_numbers'] = $options['chapter_numbers'];
 
 	// --------------------------------------------------------------------
-	// Features we inject ourselves, (not user options)
+	// Luther features we inject ourselves, (not user options, this theme not child)
 
 	$theme = strtolower( '' . wp_get_theme() );
 	if ( 'luther' == $theme ) {
