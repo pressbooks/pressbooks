@@ -695,7 +695,7 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 #toc .part {
 	margin: .6cm 0 .4em;
 	font:bold 12pt "LinBiolinum", sans-serif;
-`	page-break-after: avoid;	
+	page-break-after: avoid;
 }
 #toc .part a::before {
 	content: "part "counter(part) ". ";
