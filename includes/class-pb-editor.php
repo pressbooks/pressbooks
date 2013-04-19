@@ -21,12 +21,14 @@ class Editor {
 		return $buttons;
 	}
 
+
 	/**
 	 * Adds stylesheet for MCE previewing.
 	 */
 	static function addEditorStyle() {
 		add_editor_style();
 	}
+
 
 	/**
 	 * Adds PressBooks custom CSS classes to the style select dropdown initiated above.
