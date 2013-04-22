@@ -862,3 +862,32 @@ function display_advanced_settings() { ?>
 
 <?php
 }
+
+
+/* ------------------------------------------------------------------------ *
+ * Misc
+ * ------------------------------------------------------------------------ */
+
+/**
+ * Hook for add_action( 'admin_notices', ... ) Echo _$SESSION['pb_notices'] if any.
+ *
+ * @global array $_SESSION['pb_notices']
+ */
+function admin_notices() {
+
+	if ( ! empty( $_SESSION['pb_notices'] ) ) {
+		// Array-ify
+		if ( ! is_array( $_SESSION['pb_notices'] ) ) {
+			$tmp[] = $_SESSION['pb_notices'];
+			$_SESSION['pb_notices'] = $tmp;
+		}
+		// Print
+		foreach ( $_SESSION['pb_notices'] as $msg ) {
+			echo '<div class="updated"><p>' . $msg . '</p></div>';
+		}
+	}
+
+	// Destroy
+	unset ( $_SESSION['pb_notices'] );
+}
+
