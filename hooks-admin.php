@@ -60,7 +60,7 @@ add_action( 'admin_init', '\PressBooks\Admin\Laf\advanced_settings_init' );
 add_filter( 'admin_title', '\PressBooks\Admin\Laf\admin_title' );
 
 // Echo our notices, if any
-add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices');
+add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Posts, Meta Boxes

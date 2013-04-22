@@ -869,7 +869,7 @@ function display_advanced_settings() { ?>
  * ------------------------------------------------------------------------ */
 
 /**
- * Hook for add_action( 'admin_notices', ... ) Echo _$SESSION['pb_notices'] if any.
+ * Hook for add_action( 'admin_notices', ... ) Echo $_SESSION['pb_notices'] if any.
  *
  * @global array $_SESSION['pb_notices']
  */
