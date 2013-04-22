@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PressBooks 2.0.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
-"POT-Creation-Date: 2013-04-19 17:29:19+00:00\n"
+"POT-Creation-Date: 2013-04-22 16:36:12+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -244,11 +244,13 @@ msgid ""
 "a>, where we and other PressBooks users can help out as time permits. ."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:82
-msgid "Sorry, image must be minimum of 625 pixels on the shortest side."
+#: admin/pb-admin-metaboxes.php:81
+msgid ""
+"Your cover image (%s x %s) is too small. It should be 625px on the shortest "
+"side."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:114 admin/pb-admin-metaboxes.php:353
+#: admin/pb-admin-metaboxes.php:112 admin/pb-admin-metaboxes.php:351
 #: admin/templates/organize.php:33
 #: themes-book/pressbooks-book/functions.php:758
 #: themes-book/pressbooks-book/functions.php:759
@@ -256,101 +258,101 @@ msgstr ""
 msgid "Part"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:118
+#: admin/pb-admin-metaboxes.php:116
 msgid "Save Part"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:119
+#: admin/pb-admin-metaboxes.php:117
 msgid "Save Book Information"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:123
+#: admin/pb-admin-metaboxes.php:121
 msgid "Covers"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:128
+#: admin/pb-admin-metaboxes.php:126
 msgid "General Book Information"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:139
+#: admin/pb-admin-metaboxes.php:137
 msgid "Short Title"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:140
+#: admin/pb-admin-metaboxes.php:138
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:145
+#: admin/pb-admin-metaboxes.php:143
 msgid "Subtitle"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:150 admin/templates/organize.php:47
+#: admin/pb-admin-metaboxes.php:148 admin/templates/organize.php:47
 #: admin/templates/organize.php:123 admin/templates/organize.php:212
 #: themes-book/pressbooks-book/functions.php:12
 msgid "Author"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:155
+#: admin/pb-admin-metaboxes.php:153
 msgid "Author, file as"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:156
+#: admin/pb-admin-metaboxes.php:154
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:161
+#: admin/pb-admin-metaboxes.php:159
 #: themes-book/pressbooks-book/functions.php:13
 msgid "Publisher"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:166
+#: admin/pb-admin-metaboxes.php:164
 msgid "Publisher City"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:172
+#: admin/pb-admin-metaboxes.php:170
 #: themes-book/pressbooks-book/functions.php:16
 msgid "Publication Date"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:178
+#: admin/pb-admin-metaboxes.php:176
 msgid "On-Sale Date"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:179
+#: admin/pb-admin-metaboxes.php:177
 msgid "The date you want your book to start selling in stores."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:184
+#: admin/pb-admin-metaboxes.php:182
 #: themes-book/pressbooks-book/functions.php:18
 msgid "Ebook ISBN"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:185
+#: admin/pb-admin-metaboxes.php:183
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online ebook stores."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:190
+#: admin/pb-admin-metaboxes.php:188
 #: themes-book/pressbooks-book/functions.php:14
 msgid "Print ISBN"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:191
+#: admin/pb-admin-metaboxes.php:189
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:198 admin/pb-admin-users.php:61
+#: admin/pb-admin-metaboxes.php:196 admin/pb-admin-users.php:61
 msgid "Language"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:202
+#: admin/pb-admin-metaboxes.php:200
 #: includes/modules/export/epub/class-pb-epub201.php:676
 #: includes/modules/export/epub/class-pb-epub201.php:694
 #: includes/modules/export/epub/templates/opf.php:58
@@ -361,155 +363,159 @@ msgstr ""
 msgid "Copyright"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:208
+#: admin/pb-admin-metaboxes.php:206
 msgid "Copyright Year"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:213
+#: admin/pb-admin-metaboxes.php:211
 msgid "Copyright Holder"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:219
+#: admin/pb-admin-metaboxes.php:217
 msgid "Copyright Notice"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:229
+#: admin/pb-admin-metaboxes.php:227
 msgid "Book Tagline"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:230
+#: admin/pb-admin-metaboxes.php:228
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:236
+#: admin/pb-admin-metaboxes.php:234
 msgid "Short Description"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:237
+#: admin/pb-admin-metaboxes.php:235
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:243
+#: admin/pb-admin-metaboxes.php:241
 msgid "Long Description"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:244
+#: admin/pb-admin-metaboxes.php:242
 msgid "The full description of your book."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:248
+#: admin/pb-admin-metaboxes.php:246
 msgid "Additional Catalogue Information"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:254
+#: admin/pb-admin-metaboxes.php:252
 msgid "Series Title"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:259
+#: admin/pb-admin-metaboxes.php:257
 msgid "Series Number"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:264
+#: admin/pb-admin-metaboxes.php:262
 msgid "Editor"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:269
+#: admin/pb-admin-metaboxes.php:267
 msgid "Translator"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:274
+#: admin/pb-admin-metaboxes.php:272
 msgid "Keywords"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:276
+#: admin/pb-admin-metaboxes.php:274
 msgid ""
 "To make it easier to find your book in online book stores and search engines."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:281
+#: admin/pb-admin-metaboxes.php:279
 #: themes-book/pressbooks-book/functions.php:17
 msgid "Hashtag"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:282
+#: admin/pb-admin-metaboxes.php:280
 msgid "For those of you who like Twitter."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:287
+#: admin/pb-admin-metaboxes.php:285
 msgid "List Price (Print)"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:292
+#: admin/pb-admin-metaboxes.php:290
 msgid "List Price (PDF)"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:297
+#: admin/pb-admin-metaboxes.php:295
 msgid "List Price (ebook)"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:302
+#: admin/pb-admin-metaboxes.php:300
 msgid "List Price (Web)"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:307
+#: admin/pb-admin-metaboxes.php:305
 msgid "Bisac Subject"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:309
+#: admin/pb-admin-metaboxes.php:307
 msgid ""
 "BISAC subject headings help your book get properly classified in (e)book "
 "stores."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:314
+#: admin/pb-admin-metaboxes.php:312
 msgid "Bisac Regional Theme"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:324
+#: admin/pb-admin-metaboxes.php:322
 msgid "Catalogue Order"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:332
+#: admin/pb-admin-metaboxes.php:330
 msgid "Chapter Metadata"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:337
+#: admin/pb-admin-metaboxes.php:335
 msgid "Chapter Short Title (appears in the PDF running header)"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:342
+#: admin/pb-admin-metaboxes.php:340
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:347
+#: admin/pb-admin-metaboxes.php:345
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:361
+#: admin/pb-admin-metaboxes.php:359
 msgid "Export Settings"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:369
+#: admin/pb-admin-metaboxes.php:367
 msgid "Include in exports"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:381
+#: admin/pb-admin-metaboxes.php:379
 msgid "Front Matter Metadata"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:386
+#: admin/pb-admin-metaboxes.php:384
 msgid "Front Matter Short Title (appears in the PDF running header)"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:391
+#: admin/pb-admin-metaboxes.php:389
 msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:396
+#: admin/pb-admin-metaboxes.php:394
 msgid "Front Matter Author (appears in Web/ebook/PDF output)"
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:486
+msgid "Your cover image should be 625px on the shortest side."
 msgstr ""
 
 #: admin/pb-admin-users.php:47
@@ -1171,7 +1177,7 @@ msgstr ""
 msgid "Back Matter Types"
 msgstr ""
 
-#: pressbooks.php:26
+#: pressbooks.php:46
 msgid ""
 "PressBooks will not work with your version of WordPress. PressBooks requires "
 "a dedicated install of WordPress Multi-Site, version %s or greater. Please "
