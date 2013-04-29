@@ -78,13 +78,11 @@ function upload_cover_image( $pid, $post ) {
 
 		list( $width, $height ) = getimagesize( $image['file'] );
 		if ( $width < 625 || $height < 625 ) {
-			unlink( $image['file'] );
-			wp_die( __( 'Sorry, image must be minimum of 625 pixels on the shortest side.', 'pressbooks' ) );
+			$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s x %s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
 		}
 
 		// TODO: delete old image
 		update_post_meta( $pid, 'pb_cover_image', $image['url'] );
-
 	}
 }
 
@@ -485,6 +483,7 @@ function cover_image_box( $post ) {
 		 <p><img id="cover_image_preview" src="<?php echo PB_PLUGIN_URL; ?>assets/images/default-book-cover.png" style="width: auto; height: 100px" alt="cover_image" /></p>
 		<p><input type="file" name="pb_cover_image" value="<?php echo $pb_cover_image; ?>" id="pb_cover_image" /></p>
 	<?php } ?>
+				<span class="description"><?php _e( 'Your cover image should be 625px on the shortest side.', 'pressbooks' ); ?></span>
 				</div>
 		</div>
 <?php

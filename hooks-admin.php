@@ -59,6 +59,9 @@ add_action( 'admin_init', '\PressBooks\Admin\Laf\advanced_settings_init' );
 //  Replaces 'WordPress' with 'PressBooks' in titles of admin pages.
 add_filter( 'admin_title', '\PressBooks\Admin\Laf\admin_title' );
 
+// Echo our notices, if any
+add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices');
+
 // -------------------------------------------------------------------------------------------------------------------
 // Posts, Meta Boxes
 // -------------------------------------------------------------------------------------------------------------------

@@ -14,6 +14,26 @@ if ( ! defined( 'ABSPATH' ) )
 	return;
 
 // -------------------------------------------------------------------------------------------------------------------
+// Turn on $_SESSIONS
+// -------------------------------------------------------------------------------------------------------------------
+
+function _pb_session_start() {
+	if ( ! session_id() ) {
+		ini_set( 'session.use_only_cookies', true );
+		session_start();
+	}
+}
+
+function _pb_session_kill() {
+	$_SESSION = array();
+	session_destroy();
+}
+
+add_action( 'init', '_pb_session_start', 1 );
+add_action( 'wp_logout', '_pb_session_kill' );
+add_action( 'wp_login', '_pb_session_kill' );
+
+// -------------------------------------------------------------------------------------------------------------------
 // Minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
 
