@@ -1,89 +1,115 @@
 <?php
-/* Outputs the content for the Import page for a book */
 
+if ( ! defined( 'ABSPATH' ) )
+	exit;
 
-if (!empty($_GET['import_error'])) {
-  printf('<div class="error">Warning: There was a problem with the import. See logs for more details.</div>');
-}
+// $importer = new \PressBooks\Import\Wordpress\Wxr();
+// $importer->abortCurrentImport();
+
+$import_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_import&import=yes', 'pb-import' );
+$current_import = get_option( 'pressbooks_current_import' );
+
 ?>
-<?php
-if (false == get_option('pressbooks_selective_import')) {
-  add_option('pressbooks_selective_import');
-}
-if (false == get_option('pressbooks_selective_import_chapters')) {
-  add_option('pressbooks_selective_import_chapters');
-}
-
-$selected = get_option('pressbooks_selective_import');
-$chapters = get_option('pressbooks_selective_import_chapters');
-
-if (!isset($selected)) {
-  $selected = 'step1';
-}
-?>
-
 <div class="wrap">
-  <div id="icon-edit-pages" class="icon32"></div>
-  <h2><?php bloginfo('name'); ?></h2>
-  <div class="import-page">
-        <?php if (( $chapters ) && $_GET['select_chapters'] == 'step2') { 
-          echo "yay, selective import";
-          
-        }
-?>
-    
-    <?php if (( $chapters ) && $_GET['select_chapters'] == 'step1') { ?>
-      <form id="selective-import" action="<?php bloginfo('url'); ?>/wp-admin/admin.php?page=pb_import&amp;select_chapters=step2" method="post"> 
-        <table class="wp-list-table widefat">
-          <thead>
-            <tr>
-              <th>Import</th>
-              <th>Title</th>
-              <th>Front Matter</th>
-              <th>Chapters</th>
-              <th>Back Matter</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php
-            foreach ($chapters['chapters'] as $key => $chapter) {
-              echo "<tr><td><input type='checkbox' id='selective_import' name='chapters[$key][import]' value='1' checked=''></td>
-                  <td>" . $key . "</td>
-                  <td><input type='radio' name='chapters[$key][type]' value='front-matter'> </td>
-                  <td><input type='radio' name='chapters[$key][type]' value='chapter' checked='checked'> </td>
-                  <td><input type='radio' name='chapters[$key][type]' value='back-matter'> </td>
-                    
-                    </tr>";
-            }
-            ?>
-          </tbody>
 
-        </table>
-        <input type="hidden" name="pressbooks_selective_import" value="step2">
-        <input type="submit" name="pressbooks_select_chapters" value="<?= _e('Import', 'pressbooks') ?>" >
-      </form>
+	<div id="icon-themes" class="icon32"></div>
+	<h2><?php _e( 'Import', 'pressbooks' ); ?></h2>
 
-    <?php } elseif (!isset($_GET['select_chapters'])) { ?> 
+	<?php if ( is_array( $current_import ) && isset( $current_import['file'] ) ) { ?>
 
-      <h3><?= _e('Import File', 'pressbooks') ?></h3>
+	<!-- Import in progress -->
 
+		<p><?php printf( __('Ready to import %s', 'pressbooks') , basename( $current_import['file'] ) ); ?></p>
 
-      <form action="<?php bloginfo('url'); ?>/wp-admin/admin.php?page=pb_import&amp;upload_file=yes" method="POST" enctype="multipart/form-data" class="upload_file">
-        <fieldset>
-          <legend><?php _e('Select chapters', 'pressbooks'); ?>:</legend>
-          <input type="checkbox" id="select" name="pressbooks_selective_import" value="step1" <?php checked('step1', $selected, true); ?>/>
-          <label for="select"> <?php _e('Import only the chapters that I select', 'pressbooks'); ?></label>
-        </fieldset>
-        <?php if (isset($_GET['import_error']) && $_GET['import_error'] == 'filetype'): ?>
-          <div class="input-wrap">
-            <span class="error"><?= _e('The file type you tried to upload is not yet supported.', 'pressbooks') ?></span>
-          </div>
-        <?php endif; ?>
-        <input type="file" name="import_file" id="import_file">
-        <input type="submit" name="Submit" value="<?= _e('Upload', 'pressbooks') ?>" class="file-submit">
-      </form>
+		<script type="text/javascript">
+		// <![CDATA[
+		jQuery(function () {
+			jQuery('.checkall').on('click', function () {
+				jQuery(':checkbox').prop('checked', true);
+			});
+			jQuery('#abort_button').bind('click', function() {
+				if (!confirm('<?php esc_attr_e('TODO: Are you sure you want to abort the import?', 'pressbooks'); ?>'))
+					return false;
+			});
+		});
+		// ]]>
+	</script>
+	<p><a href="javascript:;" class="checkall button">Select All</a></p>
 
+	<form id="pb-import-form" action="<?php echo $import_form_url ?>" method="post">
 
-    <?php }; ?>
-  </div>
-  <div class="clear"></div>
+		<table class="wp-list-table widefat">
+			<thead>
+			<tr>
+				<th style="width:10%;"><?php _e( 'Import', 'pressbooks' ); ?></th>
+				<th><?php _e( 'Title', 'pressbooks' ); ?></th>
+				<th style="width:10%;"><?php _e( 'Front Matter', 'pressbooks' ); ?></th>
+				<th style="width:10%;"><?php _e( 'Chapter', 'pressbooks' ); ?></th>
+				<th style="width:10%;"><?php _e( 'Back Matter', 'pressbooks' ); ?></th>
+			</tr>
+			</thead>
+			<tbody>
+			<?php
+			$i = 1;
+			foreach ( $current_import['chapters'] as $key => $chapter ) {
+				?>
+				<tr <?php if ( $i % 2 ) echo 'class="alt"'; ?> >
+					<td><input type='checkbox' id='selective_import_<?php echo $i; ?>' name='chapters[<?php echo $key; ?>][import]' value='1'></td>
+					<td><label for="selective_import_<?php echo $i; ?>"><?php echo $chapter; ?></label></td>
+					<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='front-matter'></td>
+					<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='chapter' checked='checked'></td>
+					<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='back-matter'></td>
+				</tr>
+				<?php
+				++$i;
+			}
+			?>
+			</tbody>
+		</table>
+
+		<p><?php
+			submit_button( __( 'Start The Import', 'pressbooks' ), 'primary', 'submit', false );
+			echo " "; // Space
+			submit_button( __( 'Abort', 'pressbooks' ), 'delete', 'abort_button', false );
+		?></p>
+
+	</form>
+
+	<?php } else { ?>
+
+		<!-- Start by uploading a file -->
+
+		<p>Todo: Some other text goes here...</p>
+
+		<form id="pb-import-form" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">
+
+			<table class="form-table">
+				<tbody>
+				<tr>
+					<th scope="row">
+						<label for="type_of">Type of</label>
+					</th>
+					<td>
+						<select id="type_of" name="type_of">
+							<option value="wxr">WXR</option>
+							<option value="epub">EPUB</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row">
+						<label for="import_file">File</label>
+					</th>
+					<td>
+						<input type="file" name="import_file" id="import_file">
+					</td>
+				</tr>
+				</tbody>
+			</table>
+
+			<?php submit_button( __( 'Upload file', 'pressbooks' ) ); ?>
+		</form>
+
+	<?php } ?>
+
+</div>

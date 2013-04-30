@@ -22,117 +22,139 @@ abstract class Import {
 		'errors@pressbooks.com'
 	);
 
+
 	/**
-	 * Location of imported data file
+	 * Mandatory setCurrentImportOption() method, creates WP option 'pressbooks_current_import'
 	 *
-	 * @var string fullpath
+	 * $upload should look something like:
+	 *     Array (
+	 *       [file] => /home/dac514/public_html/bdolor/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub
+	 *       [url] => http://localhost/~dac514/bdolor/helloworld/wp-content/uploads/sites/2/2013/04/Hello-World-13662149822.epub
+	 *       [type] => application/epub+zip
+	 *     )
+	 *
+	 * 'pressbooks_current_import' should look something like:
+	 *     Array (
+	 *       [file] => '/home/dac514/public_html/bdolor/wp-content/uploads/sites/2/imports/Hello-World-1366214982.epub'
+	 *       [file_type] => 'application/epub+zip'
+	 *       [type_of] => 'epub'
+	 *       [chapters] => Array (
+	 *         [some-id] => 'Some title'
+	 *         [front-cover] => 'Front Cover'
+	 *         [chapter-001] => 'Some other title'
+	 *       )
+	 *     )
+	 *
+	 * @see wp_handle_upload
+	 *
+	 * @param array $upload An associative array of file attributes
+	 *
+	 * @return bool
 	 */
-	protected $import_path;
+	abstract function setCurrentImportOption( array $upload );
 
 
 	/**
-	 * determines what type of file is being uploaded and calls the necessary
-	 * class to deal with that
+	 * @return bool
+	 */
+	abstract function import();
 
+
+	/**
+	 * @return bool
+	 */
+	function abortCurrentImport() {
+
+		$current_import = get_option( 'pressbooks_current_import' );
+
+		if ( is_array( $current_import ) && isset( $current_import['file'] ) && is_file( $current_import['file'] ) ) {
+			unlink( $current_import['file'] );
+		}
+
+		return delete_option( 'pressbooks_current_import' );
+	}
+
+
+	/**
+	 *
 	 */
 	static public function formSubmit() {
 
+		// --------------------------------------------------------------------------------------------------------
+		// Sanity check
 
 		if ( false == static::isFormSubmission() || false == current_user_can( 'edit_posts' ) ) {
 			// Don't do anything in this function, bail.
 			return;
 		}
 
-		$selective_import = $_POST['pressbooks_selective_import'];
-		update_option( 'pressbooks_selective_import', $selective_import );
+		if ( 'yes' != @$_GET['import'] || false == check_admin_referer( 'pb-import' ) ) {
+			// Not a valid submission, bail.
+			return;
+		}
 
-		// if user has selected chapters to import
-		if ( isset ( $_GET['select_chapters'] ) && $_GET['select_chapters'] == 'step2' && $_POST['pressbooks_select_chapters'] == 'Import' ) {
+		// --------------------------------------------------------------------------------------------------------
+		// Determine at what stage of the import we are and do something about it
 
-			// need to grab the file name, file type and path to file before overwriting the data
-			$available_chapters = get_option( 'pressbooks_selective_import_chapters' );
+		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_import';
+		$current_import = get_option( 'pressbooks_current_import' );
 
-			$file = $available_chapters['file'];
-			$file_type = $available_chapters['file_type'];
+		if ( is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) ) {
 
-			// just get the chapters the user selected
-			$selected_chapters = $_POST['chapters'];
+			// Do the import!
 
-			// save the option with the new array posted
-			// @see admin/templates/import.php
-			update_option( 'pressbooks_selective_import_chapters', $selected_chapters );
+			$ok = false;
+			switch ( $current_import['type_of'] ) {
 
-
-			// find out what type of file is being uploaded
-			switch ( $file_type ) {
-
-				case 'application/epub+zip':
-					Epub201::import( $file, $selective_import );
+				case 'epub': // TODO
+					// Epub201::import( $file, $selective_import );
 					break;
 
-				// @todo: case 'application/msword'
-				// @todo: case 'text/html'
-				// @todo: case 'application/xhtml+xml'
-
-				default:
-					header( 'Location: ' . get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_import&import_error=step2' );
+				case 'wxr':
+					$importer = new Wordpress\Wxr();
+					$importer->import();
 					break;
+			}
+			if ( ! $ok ) {
+				// TODO: Deal with error
+			}
+
+		} elseif ( ! @empty( $_FILES['import_file']['name'] ) && @$_POST['type_of'] ) {
+
+			// Set the 'pressbooks_current_import' option
+
+			$allowed_file_types = array( 'epub' => 'application/epub+zip', 'xml' => 'application/xml' );
+			$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types  );
+
+			if ( ! function_exists( 'wp_handle_upload' ) )
+				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+
+			$upload = wp_handle_upload( $_FILES['import_file'], $overrides );
+
+			if ( ! empty( $upload['error'] ) ) {
+				$_SESSION['pb_notices'][] = $upload['error'];
+				\PressBooks\Redirect\location( $redirect_url );
+			}
+
+			$ok = false;
+			switch ( $_POST['type_of'] ) {
+
+				case 'wxr':
+					$importer = new Wordpress\Wxr();
+					$ok = $importer->setCurrentImportOption( $upload );
+					break;
+
+				case 'epub': // TODO
+					// $importer = new Epub\Epub201();
+					// $ok = $importer->setCurrentImport( $upload );
+					break;
+			}
+			if ( ! $ok ) {
+				// TODO: Deal with error
 			}
 		}
 
-
-		// Uploading and importing a file
-		if ( isset ( $_GET['upload_file'] ) && $_GET['upload_file'] == 'yes' && $_POST['Submit'] == 'Upload' ) {
-
-			$file_name = $_FILES['import_file']['name']; // title of the file including .epub suffix
-			$temp_name = $_FILES['import_file']['tmp_name']; // string that is the directory path of the file
-			$file_type = $_FILES['import_file']['type']; // the type of file being uploaded
-			$file_size = $_FILES['import_file']['size']; // the size of the file
-			$file_error = $_FILES['import_file']['error']; // any errors of the file
-//      echo "<pre>";
-//      var_dump($_FILES);
-//      echo "</pre>";
-			// if there are any errors associated with the file
-			// @todo: evaluate any errors associated with $file_error and send appropriate message
-			// http://www.php.net/manual/en/features.file-upload.errors.php
-			// if the file size is 0
-			// @todo: evaluate if nothing was uploaded with $file_size and send appropriate error message
-			// create a directory to hold all imports
-			$path = \PressBooks\Utility\get_media_prefix() . "imports/";
-
-			if ( ! file_exists( $path ) ) {
-				mkdir( $path, 0775, true );
-			}
-
-			move_uploaded_file( $temp_name, $path . $file_name );
-
-
-			// find out what type of file is being uploaded
-			switch ( $file_type ) {
-
-				case 'application/epub+zip':
-					Epub201::import( $path . $file_name, $selective_import );
-					break;
-
-				// @todo: case 'application/msword'
-				// @todo: case 'text/html'
-				// @todo: case 'application/xhtml+xml'
-
-				default:
-					header( 'Location: ' . get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_import&import_error=filetype' );
-					break;
-			}
-		}
-	}
-
-
-	/**
-	 * Returns the location of the import files
-	 *
-	 * @return string
-	 */
-	function getImportPath() {
-		return $this->import_path;
+		\PressBooks\Redirect\location( $redirect_url );
 	}
 
 
@@ -207,10 +229,4 @@ abstract class Import {
 	}
 
 
-	/**
-	 * Mandatory validate function
-	 *
-	 * @return bool
-	 */
-	abstract function validate();
 }
