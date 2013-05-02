@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) )
 	exit;
 
 // $importer = new \PressBooks\Import\Wordpress\Wxr();
-// $importer->abortCurrentImport();
+// $importer->revokeCurrentImport();
 
 $import_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_import&import=yes', 'pb-import' );
 $current_import = get_option( 'pressbooks_current_import' );
@@ -19,22 +19,32 @@ $current_import = get_option( 'pressbooks_current_import' );
 
 	<!-- Import in progress -->
 
-		<p><?php printf( __('Ready to import %s', 'pressbooks') , basename( $current_import['file'] ) ); ?></p>
+		<p><?php printf( __('Import in progress: %s', 'pressbooks') , basename( $current_import['file'] ) ); ?></p>
 
 		<script type="text/javascript">
 		// <![CDATA[
 		jQuery(function () {
-			jQuery('.checkall').on('click', function () {
-				jQuery(':checkbox').prop('checked', true);
+			// Power hover
+			jQuery('tr').not(':first').hover(
+					function () {
+						jQuery(this).css('background', '#ffff99');
+					},
+					function () {
+						jQuery(this).css('background', '');
+					}
+			);
+			// Power select
+			jQuery("#checkall").click(function() {
+				jQuery(':checkbox').prop('checked', this.checked);
 			});
-			jQuery('#abort_button').bind('click', function() {
+			// Abort import
+			jQuery('#abort_button').bind('click', function () {
 				if (!confirm('<?php esc_attr_e('TODO: Are you sure you want to abort the import?', 'pressbooks'); ?>'))
 					return false;
 			});
 		});
 		// ]]>
 	</script>
-	<p><a href="javascript:;" class="checkall button">Select All</a></p>
 
 	<form id="pb-import-form" action="<?php echo $import_form_url ?>" method="post">
 
@@ -49,6 +59,10 @@ $current_import = get_option( 'pressbooks_current_import' );
 			</tr>
 			</thead>
 			<tbody>
+			<tr>
+				<td><input type="checkbox" id="checkall" /></td>
+				<td colspan="4" style="color:darkred;"><label for="checkall">Select all</label></td>
+			</tr>
 			<?php
 			$i = 1;
 			foreach ( $current_import['chapters'] as $key => $chapter ) {
@@ -68,9 +82,9 @@ $current_import = get_option( 'pressbooks_current_import' );
 		</table>
 
 		<p><?php
-			submit_button( __( 'Start The Import', 'pressbooks' ), 'primary', 'submit', false );
-			echo " "; // Space
-			submit_button( __( 'Abort', 'pressbooks' ), 'delete', 'abort_button', false );
+			submit_button( __( 'Start', 'pressbooks' ), 'primary', 'submit', false );
+			echo " &nbsp; "; // Space
+			submit_button( __( 'Cancel', 'pressbooks' ), 'delete', 'abort_button', false );
 		?></p>
 
 	</form>

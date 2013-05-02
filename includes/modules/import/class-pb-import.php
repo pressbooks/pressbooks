@@ -9,6 +9,8 @@ namespace PressBooks\Import;
 
 use PressBooks\Import\Epub\Epub201;
 
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 abstract class Import {
 
 	/**
@@ -55,15 +57,19 @@ abstract class Import {
 
 
 	/**
-	 * @return bool
+	 * @param array $current_import
+	 *
+	 * @return mixed
 	 */
-	abstract function import();
+	abstract function import( array $current_import );
 
 
 	/**
+	 * Delete 'pressbooks_current_import' option, delete the file too.
+	 *
 	 * @return bool
 	 */
-	function abortCurrentImport() {
+	function revokeCurrentImport() {
 
 		$current_import = get_option( 'pressbooks_current_import' );
 
@@ -72,6 +78,65 @@ abstract class Import {
 		}
 
 		return delete_option( 'pressbooks_current_import' );
+	}
+
+
+	/**
+	 * @param $id
+	 *
+	 * @return bool
+	 */
+	protected function flaggedForImport( $id ) {
+
+		if ( ! @is_array( $_POST['chapters'] ) )
+			return false;
+
+		if ( ! @isset( $_POST['chapters'][$id]['import'] ) )
+			return false;
+
+		return ( 1 == $_POST['chapters'][$id]['import'] ? true : false );
+	}
+
+
+	/**
+	 * @param string $id
+	 *
+	 * @return string
+	 */
+	protected function determinePostType( $id ) {
+
+		$supported_types = array( 'front-matter', 'chapter', 'back-matter' );
+		$default = 'chapter';
+
+		if ( ! @is_array( $_POST['chapters'] ) )
+			return $default;
+
+		if ( ! @isset( $_POST['chapters'][$id]['type'] ) )
+			return $default;
+
+		if ( ! in_array( $_POST['chapters'][$id]['type'], $supported_types ) )
+			return $default;
+
+		return $_POST['chapters'][$id]['type'];
+	}
+
+
+	/**
+	 * Tidy HTML
+	 *
+	 * @param string $html
+	 *
+	 * @return string
+	 */
+	protected function tidy( $html ) {
+
+		// Reduce the vulnerability for scripting attacks
+
+		$config = array(
+			'safe' => 1,
+		);
+
+		return htmLawed( $html, $config );
 	}
 
 
@@ -101,7 +166,10 @@ abstract class Import {
 
 		if ( is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) ) {
 
-			// Do the import!
+			// --------------------------------------------------------------------------------------------------------
+			// Do Import
+
+			@set_time_limit( 300 );
 
 			$ok = false;
 			switch ( $current_import['type_of'] ) {
@@ -112,7 +180,7 @@ abstract class Import {
 
 				case 'wxr':
 					$importer = new Wordpress\Wxr();
-					$importer->import();
+					$importer->import( $current_import );
 					break;
 			}
 			if ( ! $ok ) {
@@ -121,6 +189,7 @@ abstract class Import {
 
 		} elseif ( ! @empty( $_FILES['import_file']['name'] ) && @$_POST['type_of'] ) {
 
+			// --------------------------------------------------------------------------------------------------------
 			// Set the 'pressbooks_current_import' option
 
 			$allowed_file_types = array( 'epub' => 'application/epub+zip', 'xml' => 'application/xml' );

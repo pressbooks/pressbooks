@@ -7,6 +7,7 @@ namespace PressBooks\Import\WordPress;
 
 
 use PressBooks\Import\Import;
+use PressBooks\Book;
 
 class Wxr extends Import {
 
@@ -49,11 +50,65 @@ class Wxr extends Import {
 	}
 
 
-	function import() {
+	/**
+	 * @param array $current_import
+	 *
+	 * @return bool
+	 */
+	function import( array $current_import ) {
 
-		var_dump("UP TO HERE!");
-		die();
 
+		$parser = new Parser();
+		$xml = $parser->parse( $current_import['file'] );
+
+		if ( is_wp_error( $xml ) ) {
+			// echo $xml->get_error_message();
+			return false;
+		}
+
+		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
+
+		$q = new \WP_Query();
+
+		$args = array(
+			'post_type' => 'part',
+			'posts_per_page' => 1,
+			'orderby' => 'menu_order',
+			'order' => 'ASC',
+			'no_found_rows' => true,
+		);
+
+		$results = $q->query( $args );
+
+		$chapter_parent = $results[0]->ID;
+
+		foreach ( $xml['posts'] as $p ) {
+
+			// Skip
+			if ( ! $this->flaggedForImport( $p['post_id'] ) ) continue;
+			if ( ! isset( $match_ids[$p['post_id']] ) ) continue;
+
+			// Insert
+
+			$post_type = $this->determinePostType( $p['post_id'] );
+
+			$new_post = array(
+				'post_title' => wp_strip_all_tags( $p['post_title'] ),
+				'post_content' => $this->tidy( $p['post_content'] ),
+				'post_type' => $post_type,
+				'post_status' => 'draft',
+			);
+
+			if ( 'chapter' == $post_type ) {
+				$new_post['post_parent'] = $chapter_parent;
+			}
+
+			$pid = wp_insert_post( $new_post );
+			Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
+		}
+
+		// Done
+		return $this->revokeCurrentImport();
 	}
 
 
