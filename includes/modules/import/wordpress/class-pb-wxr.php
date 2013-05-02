@@ -104,6 +104,10 @@ class Wxr extends Import {
 			}
 
 			$pid = wp_insert_post( $new_post );
+
+			if ( ! empty( $p['post_author'] ) )
+				update_post_meta( $pid, 'pb_section_author', $p['post_author'] );
+
 			Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 		}
 
