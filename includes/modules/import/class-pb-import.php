@@ -195,8 +195,9 @@ abstract class Import {
 			$ok = false;
 			switch ( $current_import['type_of'] ) {
 
-				case 'epub': // TODO
-					// Epub201::import( $file, $selective_import );
+				case 'epub':
+					$importer = new Epub\Epub201();
+					$importer->import( $current_import );
 					break;
 
 				case 'wxr':
@@ -234,9 +235,9 @@ abstract class Import {
 					$ok = $importer->setCurrentImportOption( $upload );
 					break;
 
-				case 'epub': // TODO
-					// $importer = new Epub\Epub201();
-					// $ok = $importer->setCurrentImport( $upload );
+				case 'epub':
+					$importer = new Epub\Epub201();
+					$ok = $importer->setCurrentImportOption( $upload );
 					break;
 			}
 			if ( ! $ok ) {

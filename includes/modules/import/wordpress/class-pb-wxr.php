@@ -67,7 +67,6 @@ class Wxr extends Import {
 		}
 
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
-
 		$chapter_parent = $this->getChapterParent();
 
 		foreach ( $xml['posts'] as $p ) {
