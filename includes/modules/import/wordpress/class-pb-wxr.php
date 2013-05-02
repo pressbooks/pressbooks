@@ -68,19 +68,7 @@ class Wxr extends Import {
 
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 
-		$q = new \WP_Query();
-
-		$args = array(
-			'post_type' => 'part',
-			'posts_per_page' => 1,
-			'orderby' => 'menu_order',
-			'order' => 'ASC',
-			'no_found_rows' => true,
-		);
-
-		$results = $q->query( $args );
-
-		$chapter_parent = $results[0]->ID;
+		$chapter_parent = $this->getChapterParent();
 
 		foreach ( $xml['posts'] as $p ) {
 

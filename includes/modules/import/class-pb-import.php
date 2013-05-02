@@ -82,6 +82,27 @@ abstract class Import {
 
 
 	/**
+	 * @return int
+	 */
+	protected function getChapterParent() {
+
+		$q = new \WP_Query();
+
+		$args = array(
+			'post_type' => 'part',
+			'posts_per_page' => 1,
+			'orderby' => 'menu_order',
+			'order' => 'ASC',
+			'no_found_rows' => true,
+		);
+
+		$results = $q->query( $args );
+
+		return absint( $results[0]->ID );
+	}
+
+
+	/**
 	 * @param $id
 	 *
 	 * @return bool
