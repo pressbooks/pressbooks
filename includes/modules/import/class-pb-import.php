@@ -9,6 +9,9 @@ namespace PressBooks\Import;
 
 use PressBooks\Import\Epub\Epub201;
 
+require_once( ABSPATH . 'wp-admin/includes/image.php' );
+require_once( ABSPATH . 'wp-admin/includes/file.php' );
+require_once( ABSPATH . 'wp-admin/includes/media.php' );
 require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 abstract class Import {
@@ -82,6 +85,17 @@ abstract class Import {
 
 
 	/**
+	 * Create a temporary file that automatically gets deleted on __sleep()
+	 *
+	 * @return string fullpath
+	 */
+	function createTmpFile() {
+
+		return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[mt_rand()] = tmpfile() ) ) );
+	}
+
+
+	/**
 	 * @return int
 	 */
 	protected function getChapterParent() {
@@ -90,6 +104,7 @@ abstract class Import {
 
 		$args = array(
 			'post_type' => 'part',
+			'post_status' => 'publish',
 			'posts_per_page' => 1,
 			'orderby' => 'menu_order',
 			'order' => 'ASC',

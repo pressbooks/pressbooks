@@ -23,19 +23,21 @@ class Epub201 extends Import {
 
 
 	/**
+	 * OPF Basedir
+	 *
 	 * @var string
 	 */
 	protected $basedir = '/';
 
 
 	/**
-	 * Constructor requires a file to import, validates it, unzips contents of the epub
-	 * and puts it in a temporary directory.
+	 * @var string
+	 */
+	protected $rights;
+
+
+	/**
 	 *
-	 * @param string $filename
-	 * @param string $selective_import- user wants to choose which chapters to bring in
-	 *
-	 * @throws \Exception
 	 */
 	function __construct() {
 
@@ -98,12 +100,50 @@ class Epub201 extends Import {
 			// TODO: Do something with exception
 		}
 
+		$xml = $this->getOpf();
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 		$chapter_parent = $this->getChapterParent();
 
-		$xml = $this->getOpf();
+		$this->parseMetadata( $xml );
+		$this->parseManifest( $xml, $match_ids, $chapter_parent );
 
-		// TODO: $xml->metadata->children()
+		return $this->revokeCurrentImport();
+	}
+
+
+	/**
+	 * Parse OPF metadata nodes
+	 *
+	 * @param \SimpleXMLElement $xml
+	 */
+	protected function parseMetadata( \SimpleXMLElement $xml ) {
+
+		foreach ( $xml->metadata->children( 'dc', true ) as $key => $val ) {
+
+			$val = (string) $val;
+
+			// Set rights
+			if ( 'creator' == $key && ! empty( $val ) ) {
+				$this->rights .= trim( $val ) . ', ';
+			} elseif ( 'rights' == $key && ! empty( $val ) ) {
+				$this->rights .= trim( $val ) . ', ';
+			}
+
+		}
+
+		// Get rid of trailing comma
+		$this->rights = rtrim( $this->rights, ', ' );
+	}
+
+
+	/**
+	 * Parse OPF manifest nodes
+	 *
+	 * @param \SimpleXMLElement $xml
+	 * @param array $match_ids
+	 * @param $chapter_parent
+	 */
+	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent ) {
 
 		foreach ( $xml->manifest->children() as $item ) {
 
@@ -111,7 +151,7 @@ class Epub201 extends Import {
 			$id = $href = '';
 			foreach ( $item->attributes() as $key => $val ) {
 				if ( 'id' == $key ) $id = (string) $val;
-				elseif ( 'href' == $key ) $href = (string) $val;
+				elseif ( 'href' == $key ) $href = $this->basedir . $val;
 			}
 
 			// Skip
@@ -122,13 +162,11 @@ class Epub201 extends Import {
 			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent );
 		}
 
-		// Done
-		return $this->revokeCurrentImport();
 	}
 
 
 	/**
-	 * Get the OPF, set basedir
+	 * Get the OPF
 	 *
 	 * @return \SimpleXMLElement
 	 */
@@ -208,8 +246,7 @@ class Epub201 extends Import {
 
 		preg_match( '/(?:<body[^>]*>)(.*)<\/body>/isU', $html, $matches );
 		$body = $this->tidy( @$matches[1] );
-
-		// TODO: Pummel images found in $body
+		$body = $this->kneadHtml( $body, $post_type, $href );
 
 		$new_post = array(
 			'post_title' => $title,
@@ -224,7 +261,10 @@ class Epub201 extends Import {
 
 		$pid = wp_insert_post( $new_post );
 
-		// update_post_meta( $pid, 'pb_section_author', $foo ); // TODO
+		if ( $this->rights ) {
+			update_post_meta( $pid, 'pb_section_author', $this->rights );
+		}
+
 		update_post_meta( $pid, 'pb_show_title', 'on' );
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
@@ -249,6 +289,142 @@ class Epub201 extends Import {
 
 		return htmLawed( $html, $config );
 	}
+
+
+	/**
+	 * Pummel the HTML into WordPress compatible dough.
+	 *
+	 * @param string $html
+	 * @param string $type front-matter, part, chapter, back-matter, ...
+	 * @param string $href original filename, with (relative) path
+	 *
+	 * @return string
+	 */
+	protected function kneadHtml( $html, $type, $href ) {
+
+		libxml_use_internal_errors( true );
+
+		// Load HTMl snippet into DOMDocument using UTF-8 hack
+		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
+		$doc = new \DOMDocument();
+		$doc->loadHTML( $utf8_hack . $html );
+
+		// Download images, change to relative paths
+		$doc = $this->scrapeAndKneadImages( $doc, $href );
+
+		// Deal with <a href="">, <a href=''>, and other mutations
+		$doc = $this->kneadHref( $doc, $type, $href );
+
+		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
+		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
+		$html = $doc->saveXML( $doc->documentElement );
+
+		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
+		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
+
+		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+		libxml_clear_errors();
+
+		return $html;
+	}
+
+
+	/**
+	 * Parse HTML snippet, download all found <img> tags into /OEBPS/images/, return the HTML with changed <img> paths.
+	 *
+	 * @param \DOMDocument $doc
+	 * @param string $href original filename, with (relative) path
+	 *
+	 * @return \DOMDocument
+	 */
+	protected function scrapeAndKneadImages( \DOMDocument $doc, $href ) {
+
+		$images = $doc->getElementsByTagName( 'img' );
+		foreach ( $images as $image ) {
+			// Fetch image, change src
+			$old_src = $image->getAttribute( 'src' );
+			$new_src = $this->fetchAndSaveUniqueImage( $old_src, $href );
+			if ( $new_src ) {
+				// Replace with new image
+				$image->setAttribute( 'src', $new_src );
+			} else {
+				// Tag broken image
+				$image->setAttribute( 'src', "{$old_src}#fixme" );
+			}
+		}
+
+		return $doc;
+	}
+
+
+	/**
+	 * Fetch a url with wp_remote_get(), save it to $fullpath with a unique name.
+	 * Will return an empty string if something went wrong.
+	 *
+	 * @param $url         string
+	 * @param string $href original filename, with (relative) path
+	 *
+	 * @return string filename
+	 */
+	protected function fetchAndSaveUniqueImage( $url, $href ) {
+
+		$path_parts = pathinfo( $href );
+		$dir = @$path_parts['dirname'];
+		$img_location = ( $dir ? "$dir/$url" : $url );
+
+		// Cheap cache
+		static $already_done = array();
+		if ( isset( $already_done[$img_location] ) ) {
+			return $already_done[$img_location];
+		}
+
+		/* Process */
+
+		$filename = array_shift( explode( '?', basename( $url ) ) ); // Basename without query string
+		$filename = sanitize_file_name( urldecode( $filename ) );
+
+		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
+			// Unsupported image type
+			$already_done[$img_location] = '';
+			return '';
+		}
+
+		try {
+			$image_content = $this->getZipContent( "$dir/$url", false );
+		} catch ( \Exception $e ) {
+			// Could not find image?
+			$already_done[$img_location] = '';
+			return '';
+		}
+
+		$tmp_name = $this->createTmpFile();
+		file_put_contents( $tmp_name, $image_content );
+
+		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
+		$src = wp_get_attachment_url( $pid );
+		if ( ! $src ) $src = ''; // Change false to empty string
+		$already_done[$img_location] = $src;
+
+		return $src;
+	}
+
+
+	/**
+	 * Change hrefs
+	 *
+	 * @param \DOMDocument $doc
+	 * @param string $type front-matter, part, chapter, back-matter, ...
+	 * @param string $href original filename, with (relative) path
+	 *
+	 * @return \DOMDocument
+	 */
+	protected function kneadHref( \DOMDocument $doc, $type, $href ) {
+
+		// TODO: Knead URLs referencing internal content
+
+		return $doc;
+	}
+
 
 
 }

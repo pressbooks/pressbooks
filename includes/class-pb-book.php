@@ -546,8 +546,6 @@ class Book {
 				$query .= " AND {$wpdb->posts}.post_parent = {$post->post_parent} ";
 			}
 
-			var_dump($query);
-
 			$new = $wpdb->get_var( $query );
 
 			if ( empty( $new ) ) {
