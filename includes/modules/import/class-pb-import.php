@@ -16,17 +16,6 @@ require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 abstract class Import {
 
-	/**
-	 * Email addresses to send log errors.
-	 *
-	 * @var array
-	 */
-	public $errors_email = array(
-		'bpayne@bccampus.ca',
-		'michael@4horsemen.de',
-		'errors@pressbooks.com'
-	);
-
 
 	/**
 	 * Mandatory setCurrentImportOption() method, creates WP option 'pressbooks_current_import'
@@ -79,6 +68,8 @@ abstract class Import {
 		if ( is_array( $current_import ) && isset( $current_import['file'] ) && is_file( $current_import['file'] ) ) {
 			unlink( $current_import['file'] );
 		}
+
+		\PressBooks\Book::deleteBookObjectCache();
 
 		return delete_option( 'pressbooks_current_import' );
 	}
@@ -212,16 +203,19 @@ abstract class Import {
 
 				case 'epub':
 					$importer = new Epub\Epub201();
-					$importer->import( $current_import );
+					$ok = $importer->import( $current_import );
 					break;
 
 				case 'wxr':
 					$importer = new Wordpress\Wxr();
-					$importer->import( $current_import );
+					$ok = $importer->import( $current_import );
 					break;
 			}
-			if ( ! $ok ) {
-				// TODO: Deal with error
+
+			if ( $ok ) {
+				// Success! Redirect to organize page
+				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pressbooks';
+				\PressBooks\Redirect\location( $success_url );
 			}
 
 		} elseif ( ! @empty( $_FILES['import_file']['name'] ) && @$_POST['type_of'] ) {
@@ -238,6 +232,7 @@ abstract class Import {
 			$upload = wp_handle_upload( $_FILES['import_file'], $overrides );
 
 			if ( ! empty( $upload['error'] ) ) {
+				// Error, redirect back to form
 				$_SESSION['pb_notices'][] = $upload['error'];
 				\PressBooks\Redirect\location( $redirect_url );
 			}
@@ -255,11 +250,15 @@ abstract class Import {
 					$ok = $importer->setCurrentImportOption( $upload );
 					break;
 			}
+
 			if ( ! $ok ) {
-				// TODO: Deal with error
+				// Not ok?
+				$_SESSION['pb_errors'][] = sprintf( __( 'Sorry, Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
 			}
+
 		}
 
+		// Default, back to form
 		\PressBooks\Redirect\location( $redirect_url );
 	}
 
@@ -284,54 +283,6 @@ abstract class Import {
 		}
 
 		return false;
-	}
-
-
-	/**
-	 * Log errors using wp_mail() and error_log(), include useful WordPress info.
-	 *
-	 * @param string $message
-	 * @param array  $more_info
-	 */
-	function logError( $message, array $more_info = array() ) {
-
-		/** $var \WP_User $current_user */
-		global $current_user;
-
-		$subject = get_class( $this );
-
-		$info = array(
-			'time' => strftime( '%c' ),
-			'user' => ( isset ( $current_user ) ? $current_user->user_login : '__UNKNOWN__' ),
-			'site_url' => site_url(),
-			'blog_id' => get_current_blog_id(),
-			'theme' => '' . wp_get_theme(), // Stringify by appending to empty string
-		);
-
-		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
-
-		// ------------------------------------------------------------------------------------------------------------
-		// Write to error log
-
-		error_log( $subject . "\n" . $message );
-
-		// ------------------------------------------------------------------------------------------------------------
-		// Email logs
-
-		if ( @$current_user->user_email && get_option( 'pressbooks_email_validation_logs' ) ) {
-			$this->errors_email[] = $current_user->user_email;
-		}
-
-		add_filter( 'wp_mail_from', function ( $from_email ) {
-			return str_replace( 'wordpress@', 'pressbooks@', $from_email );
-		} );
-		add_filter( 'wp_mail_from_name', function ( $from_name ) {
-			return 'PressBooks';
-		} );
-
-		foreach ( $this->errors_email as $email ) {
-			wp_mail( $email, $subject, $message );
-		}
 	}
 
 

@@ -27,7 +27,7 @@ class Epub201 extends Import {
 	 *
 	 * @var string
 	 */
-	protected $basedir = '/';
+	protected $basedir = '';
 
 
 	/**
@@ -55,7 +55,7 @@ class Epub201 extends Import {
 		try {
 			$this->setCurrentZip( $upload['file'] );
 		} catch ( \Exception $e ) {
-			// TODO: Do something with exception
+			return false;
 		}
 
 		$option = array(
@@ -107,6 +107,7 @@ class Epub201 extends Import {
 		$this->parseMetadata( $xml );
 		$this->parseManifest( $xml, $match_ids, $chapter_parent );
 
+		// Done
 		return $this->revokeCurrentImport();
 	}
 
@@ -145,6 +146,7 @@ class Epub201 extends Import {
 	 */
 	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent ) {
 
+		$total = 0;
 		foreach ( $xml->manifest->children() as $item ) {
 
 			// Get attributes
@@ -160,21 +162,25 @@ class Epub201 extends Import {
 
 			// Insert
 			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent );
+			++$total;
 		}
 
+		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
 	}
 
 
 	/**
-	 * Get the OPF
-	 *
 	 * @return \SimpleXMLElement
 	 */
 	protected function getOpf() {
 
 		$containerXml = $this->getZipContent( 'META-INF/container.xml' );
 		$contentPath = $containerXml->rootfiles->rootfile['full-path'];
-		$this->basedir = dirname( $contentPath ) . '/';
+
+		$base = dirname( $contentPath );
+		if ( '.' != $base ) {
+			$this->basedir = "$base/";
+		}
 
 		return $this->getZipContent( $contentPath );
 	}
@@ -192,10 +198,16 @@ class Epub201 extends Import {
 			throw new \Exception ( 'Opening epub file failed' );
 		}
 
-		// Safety dance
+		/* Safety dance */
+
 		$mimetype = $this->getZipContent( 'mimetype', false );
 		if ( $mimetype != 'application/epub+zip' ) {
 			throw new \Exception ( 'Wrong mimetype!' );
+		}
+
+		$ok = $this->getZipContent( 'META-INF/container.xml' );
+		if ( ! $ok ) {
+			throw new \Exception ( 'Bad or corrupted META-INF/container.xml' );
 		}
 
 	}
@@ -205,8 +217,7 @@ class Epub201 extends Import {
 	 * @param $file
 	 * @param bool $as_xml
 	 *
-	 * @return mixed|\SimpleXMLElement
-	 * @throws \Exception
+	 * @return string|\SimpleXMLElement
 	 */
 	protected function getZipContent( $file, $as_xml = true ) {
 
@@ -214,7 +225,7 @@ class Epub201 extends Import {
 		$index = $this->zip->locateName( $file );
 
 		if ( $index === false ) {
-			throw new \Exception ( 'file [' . $file . '] not found' );
+			return '';
 		}
 
 		// returns the contents using its index
@@ -389,9 +400,8 @@ class Epub201 extends Import {
 			return '';
 		}
 
-		try {
-			$image_content = $this->getZipContent( "$dir/$url", false );
-		} catch ( \Exception $e ) {
+		$image_content = $this->getZipContent( "$dir/$url", false );
+		if ( ! $image_content ) {
 			// Could not find image?
 			$already_done[$img_location] = '';
 			return '';
@@ -420,7 +430,7 @@ class Epub201 extends Import {
 	 */
 	protected function kneadHref( \DOMDocument $doc, $type, $href ) {
 
-		// TODO: Knead URLs referencing internal content
+		// TODO: Fix self-referencing URLs
 
 		return $doc;
 	}

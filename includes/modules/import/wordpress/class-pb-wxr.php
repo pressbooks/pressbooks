@@ -18,11 +18,10 @@ class Wxr extends Import {
 	 */
 	function setCurrentImportOption( array $upload ) {
 
-		$parser = new Parser();
-		$xml = $parser->parse( $upload['file'] );
-
-		if ( is_wp_error( $xml ) ) {
-			// echo $xml->get_error_message();
+		try {
+			$parser = new Parser();
+			$xml = $parser->parse( $upload['file'] );
+		} catch ( \Exception $e ) {
 			return false;
 		}
 
@@ -57,17 +56,16 @@ class Wxr extends Import {
 	 */
 	function import( array $current_import ) {
 
-
-		$parser = new Parser();
-		$xml = $parser->parse( $current_import['file'] );
-
-		if ( is_wp_error( $xml ) ) {
-			// echo $xml->get_error_message();
+		try {
+			$parser = new Parser();
+			$xml = $parser->parse( $current_import['file'] );
+		} catch ( \Exception $e ) {
 			return false;
 		}
 
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 		$chapter_parent = $this->getChapterParent();
+		$total = 0;
 
 		foreach ( $xml['posts'] as $p ) {
 
@@ -78,6 +76,9 @@ class Wxr extends Import {
 			// Insert
 
 			$post_type = $this->determinePostType( $p['post_id'] );
+
+			// TODO: Import images
+			// TODO: Fix self-referencing URLs
 
 			$new_post = array(
 				'post_title' => wp_strip_all_tags( $p['post_title'] ),
@@ -96,12 +97,13 @@ class Wxr extends Import {
 			update_post_meta( $pid, 'pb_show_title', 'on' );
 
 			Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
+			++$total;
 		}
 
 		// Done
+		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
 		return $this->revokeCurrentImport();
 	}
-
 
 
 }

@@ -14,9 +14,10 @@ namespace PressBooks\Import\WordPress;
 class Parser {
 
 	/**
-	 * @param $file
+	 * @param string $file
 	 *
-	 * @return array|\WP_Error
+	 * @return array
+	 * @throws \Exception
 	 */
 	function parse( $file ) {
 
@@ -40,7 +41,7 @@ class Parser {
 		libxml_disable_entity_loader( $oldValue );
 
 		if ( ! $success || isset( $dom->doctype ) ) {
-			return new \WP_Error( '', __( 'There was an error when reading this WXR file', 'pressbooks' ), libxml_get_errors() );
+			throw new \Exception( print_r( libxml_get_errors(), true ) );
 		}
 
 		$xml = simplexml_import_dom( $dom );
@@ -48,16 +49,16 @@ class Parser {
 
 		// halt if loading produces an error
 		if ( ! $xml )
-			return new \WP_Error( '', __( 'There was an error when reading this WXR file', 'pressbooks' ), libxml_get_errors() );
+			throw new \Exception( print_r( libxml_get_errors(), true ) );
 
 		$wxr_version = $xml->xpath( '/rss/channel/wp:wxr_version' );
 		if ( ! $wxr_version )
-			return new \WP_Error( '', __( 'This does not appear to be a WXR file, missing/invalid WXR version number', 'pressbooks' ) );
+			throw new \Exception( __( 'This does not appear to be a WXR file, missing/invalid WXR version number', 'pressbooks' ) );
 
 		$wxr_version = (string) trim( $wxr_version[0] );
 		// confirm that we are dealing with the correct file format
 		if ( ! preg_match( '/^\d+\.\d+$/', $wxr_version ) )
-			return new \WP_Error( '', __( 'This does not appear to be a WXR file, missing/invalid WXR version number', 'pressbooks' ) );
+			throw new \Exception( __( 'This does not appear to be a WXR file, missing/invalid WXR version number', 'pressbooks' ) );
 
 
 

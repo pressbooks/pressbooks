@@ -3,9 +3,6 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
-// $importer = new \PressBooks\Import\Wordpress\Wxr();
-// $importer->revokeCurrentImport();
-
 $import_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_import&import=yes', 'pb-import' );
 $current_import = get_option( 'pressbooks_current_import' );
 
@@ -93,7 +90,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 
 		<!-- Start by uploading a file -->
 
-		<p>Todo: Some other text goes here...</p>
+		<p><?php _e( 'Supported file extensions:', 'pressbooks' ); ?> XML, EPUB</p>
 
 		<form id="pb-import-form" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">
 
