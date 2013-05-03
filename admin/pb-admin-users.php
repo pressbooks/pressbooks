@@ -53,7 +53,9 @@ function add_user_meta() {
 		'values' => array(
 			'en_US' => __( 'English', 'pressbooks' ),
 			'zh_TW' => __( 'Chinese, Traditional', 'pressbooks' ),
+			// 'et' => __( 'Estonian', 'pressbooks' ),
 			'fr_FR' => __( 'French', 'pressbooks' ),
+			'de_DE' => __( 'German', 'pressbooks' ),
 			'ja' => __( 'Japanese', 'pressbooks' ),
 			'pt_BR' => __( 'Portuguese, Brazil', 'pressbooks' ),
 			'es_ES' => __( 'Spanish', 'pressbooks' ),
