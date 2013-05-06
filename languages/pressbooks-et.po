@@ -44,7 +44,7 @@ msgstr "tegi"
 #: admin/pb-admin-customcss.php:183
 msgid "This will overwrite existing custom CSS. Are you sure?"
 msgstr ""
-"Kas te tingimata soovite muuta olemasolevat kaskaadilaadistikku (CSS'i)?"
+"Kas te tingimata soovite muuta olemasolevat kaskaadlaadistikku (CSS'i)?"
 
 #: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
 #: admin/pb-admin-dashboard.php:95
@@ -120,7 +120,7 @@ msgstr "Eksportimine"
 #: admin/pb-admin-laf.php:171
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr ""
-"MOBI-formaati teisendamiseks on vajalik EPUB-formaadi tugi. Soovite selle "
+"Raamatu MOBI-formaati teisendamiseks on vajalik EPUB-formaadi tugi. Soovite selle "
 "taastada?"
 
 #: admin/pb-admin-laf.php:177
@@ -169,7 +169,7 @@ msgstr "Töölaud"
 
 #: admin/pb-admin-laf.php:320
 msgid "Sites"
-msgstr "Veebikoht"
+msgstr "Võrgukohad"
 
 #: admin/pb-admin-laf.php:332
 msgid "Visit Network"
@@ -177,15 +177,15 @@ msgstr "Külastage võrgustikku"
 
 #: admin/pb-admin-laf.php:349
 msgid "Blavatar"
-msgstr "Blavatar (blogi avatar)"
+msgstr "Blavatar"
 
 #: admin/pb-admin-laf.php:376
 msgid "Visit Site"
-msgstr "Vaata veebilehte"
+msgstr "Vaata võrgukohta"
 
 #: admin/pb-admin-laf.php:530
 msgid "Site Visibility"
-msgstr "Veebilehe nähtavus"
+msgstr "Võrgukoha nähtavus"
 
 #: admin/pb-admin-laf.php:548
 msgid "Privacy options"
@@ -222,7 +222,7 @@ msgstr "iBooks'i URL"
 
 #: admin/pb-admin-laf.php:652
 msgid "Other Service URL"
-msgstr "Muu teenuse veebiaadress"
+msgstr "Muu teenuse võrguaadress"
 
 #: admin/pb-admin-laf.php:669
 msgid "Links to ecommerce services"
@@ -231,16 +231,16 @@ msgstr "Lingid e-kaubandusteenustele"
 #: admin/pb-admin-laf.php:792
 msgid "Email me validation error reports on export."
 msgstr ""
-"Saada eksportimisel tekkinud kinnitusvigade (validation error) teated e-"
+"Saada eksportimisel tekkinud kinnitusvigade teated mulle e-"
 "kirjaga."
 
 #: admin/pb-admin-laf.php:810
 msgid "Advanced options"
-msgstr "Täpsemad seaded"
+msgstr "Täpsemad valikud"
 
 #: admin/pb-admin-laf.php:824
 msgid "No. Ignore validation errors."
-msgstr "Ei. Eira kinnitamisvigu (validation errors)."
+msgstr "Ei. Eira kinnitamisvigu."
 
 #: admin/pb-admin-laf.php:828
 msgid "Yes. Send the logs."
@@ -258,7 +258,7 @@ msgstr ""
 "iseloomu tõttu tõlgendmiseks teatud pingutust. Paraku me antud probleemi "
 "lahendamiseks abi ei paku, kuid te võite vead postitada <a href=\"http://"
 "forum.pressbooks.com/\" target=\"_blank\">PressBooks'i foorumisse</a>, kust "
-"võib saada abi nii PressBooks'i loojatelt kui teistelt kasutajatelt."
+"võib saada abi nii PressBooks'i arendajatelt kui teistelt kasutajatelt."
 
 #: admin/pb-admin-metaboxes.php:107 admin/pb-admin-metaboxes.php:346
 #: admin/templates/organize.php:33
@@ -266,11 +266,11 @@ msgstr ""
 #: themes-book/pressbooks-book/functions.php:759
 #: themes-book/pressbooks-book/functions.php:794
 msgid "Part"
-msgstr "Osa"
+msgstr "Raamatu osa"
 
 #: admin/pb-admin-metaboxes.php:111
 msgid "Save Part"
-msgstr "Salvesta osa"
+msgstr "Salvesta raamatu osa"
 
 #: admin/pb-admin-metaboxes.php:112
 msgid "Save Book Information"
@@ -282,7 +282,7 @@ msgstr "Kaaned"
 
 #: admin/pb-admin-metaboxes.php:121
 msgid "General Book Information"
-msgstr "Raamatu üldteave"
+msgstr "Raamatut puudutav üldteave"
 
 #: admin/pb-admin-metaboxes.php:132
 msgid "Short Title"
@@ -316,8 +316,8 @@ msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
 msgstr ""
-"Antud käsklus tagab, et teie e-raamat kuvatakse e-raamatute "
-"müügikeskkondades autori perenime järele."
+"Antud käsklus tagab, et teie e-raamat kuvatakse "
+"müügikeskkondades vastavalt autori perenimele."
 
 #: admin/pb-admin-metaboxes.php:154
 #: themes-book/pressbooks-book/functions.php:13
@@ -331,7 +331,7 @@ msgstr "Kirjastaja asukoht (linn)"
 #: admin/pb-admin-metaboxes.php:165
 #: themes-book/pressbooks-book/functions.php:16
 msgid "Publication Date"
-msgstr "Kirjastamise kuupäev"
+msgstr "Kirjastamise aeg"
 
 #: admin/pb-admin-metaboxes.php:171
 msgid "On-Sale Date"
@@ -457,8 +457,7 @@ msgstr "Märksõnad"
 msgid ""
 "To make it easier to find your book in online book stores and search engines."
 msgstr ""
-"Vahendid raamatu avastamise hõlbustamiseks e-raamatupoodides ja "
-"otsimootorite poolt."
+"Muudab raamatu nähtavamaks nii otsimootoritele kui e-raamatupoodides."
 
 #: admin/pb-admin-metaboxes.php:274
 #: themes-book/pressbooks-book/functions.php:17
@@ -507,7 +506,7 @@ msgstr "Kataloogi tellimine"
 
 #: admin/pb-admin-metaboxes.php:325
 msgid "Chapter Metadata"
-msgstr "Peatüki metaandmestik"
+msgstr "Raamatu peatüki metaandmestik"
 
 #: admin/pb-admin-metaboxes.php:330
 msgid "Chapter Short Title (appears in the PDF running header)"
@@ -519,7 +518,7 @@ msgstr "Peatüki alapealkiri (kuvatakse veebis, e-raamatutes ja PDF-failis)"
 
 #: admin/pb-admin-metaboxes.php:340
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
-msgstr "Peatüki autor (kuvatakse ilmavõrgus, e-raamatutes ja PDF-failis)"
+msgstr "Peatüki autor (kuvatakse võrgus, e-raamatutes ja PDF-failis)"
 
 #: admin/pb-admin-metaboxes.php:354
 msgid "Export Settings"
@@ -579,15 +578,15 @@ msgstr "Hispaania keel"
 
 #: admin/templates/custom-css.php:20
 msgid "Error: Something went wrong. See logs for more details."
-msgstr "Viga: midagi läks valesti. Täpsem teave leidub logifailis."
+msgstr "Viga: midagi läks valesti. Täpsema teabe leiab logifailist."
 
 #: admin/templates/custom-css.php:36
 msgid "You are currently editing CSS for"
-msgstr "Te muudate kaskaadlaadistikku (CSS)"
+msgstr "Te muudate kaskaadlaadistikku"
 
 #: admin/templates/custom-css.php:37
 msgid "Copy CSS from"
-msgstr "Kopeeri kaskaadlaadistik (CSS)"
+msgstr "Kopeeri kaskaadlaadistik teemast"
 
 #: admin/templates/custom-css.php:42
 msgid "Save"
@@ -600,8 +599,8 @@ msgstr "Viga: eksportimine nurjus. Põhjused on esitatud logifailis."
 #: admin/templates/export.php:32
 msgid "Warning: The export has validation errors. See logs for more details."
 msgstr ""
-"Hoiatus: eksportimisel ilmnesid vead õigsuskontrollis. Täpsem teave leidub "
-"logifailis."
+"Hoiatus: eksportimisel ilmnesid vead õigsuskontrollis. Täpsema teabe leiab "
+"logifailist."
 
 #: admin/templates/export.php:33
 msgid "Emailed to:"
@@ -633,11 +632,11 @@ msgstr "Vorminguvalikud eksportimiseks"
 
 #: admin/templates/export.php:92
 msgid "Select which formats you want to export"
-msgstr "Valige, millistesse formaatidesse te soovite teksti eksportida"
+msgstr "Tekstiekspordi vorminguvalikud"
 
 #: admin/templates/export.php:106
 msgid "Standard book formats"
-msgstr "Raamatu tavaformaadid"
+msgstr "Enimlevinud raamatuvormingud"
 
 #: admin/templates/export.php:107
 msgid "PDF (for printing)"
@@ -665,7 +664,7 @@ msgstr "XHTML"
 
 #: admin/templates/export.php:117
 msgid "WordPress XML"
-msgstr "WordPress'i XML"
+msgstr "WordPress XML"
 
 #: admin/templates/export.php:121
 msgid "Your Export Theme Options"
@@ -697,11 +696,11 @@ msgstr "Lisage raamatu lõpposa"
 
 #: admin/templates/organize.php:38 admin/templates/organize.php:197
 msgid "Add Chapter"
-msgstr "Lisage peatükk"
+msgstr "Lisage raamatule peatükk"
 
 #: admin/templates/organize.php:39 admin/templates/organize.php:204
 msgid "Add Part"
-msgstr "Lisage osa"
+msgstr "Lisage raamatule osa"
 
 #: admin/templates/organize.php:48 admin/templates/organize.php:124
 #: admin/templates/organize.php:213
@@ -725,7 +724,7 @@ msgstr "Toimetamine"
 #: admin/templates/organize.php:81 admin/templates/organize.php:135
 #: admin/templates/organize.php:173 admin/templates/organize.php:246
 msgid "Delete"
-msgstr "Kustutamine"
+msgstr "Kustutada"
 
 #: admin/templates/organize.php:283
 msgid "Reordering the Chapters"
@@ -733,7 +732,7 @@ msgstr "Peatükkide järjestuse muutmine"
 
 #: admin/templates/sell.php:12
 msgid "Sell Your Book"
-msgstr "Raamatu müük"
+msgstr "Raamatu turustamine"
 
 #: admin/templates/sell.php:17
 msgid ""
@@ -763,7 +762,7 @@ msgid ""
 "we will make a Buy page on the web version of your PressBooks book."
 msgstr ""
 "Kui teie raamat(ud) on turustamiskõlbulik(ud), saate järgnevalt lisada "
-"viited raamatupoodidele ja meie tekitame teie raamatu veebiversioonile "
+"viited raamatupoodidele ja meie loome teie raamatu veebiversioonile "
 "müügilehekülje."
 
 #: includes/class-pb-activation.php:134
@@ -787,7 +786,7 @@ msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr ""
-"See on raamatu esimene peatükk. Te saate muuta teksti, peatüki pealkirja, "
+"See on raamatu põhiosa esimene peatükk. Te saate muuta teksti, peatüki pealkirja, "
 "lisada uusi peatükke ja raamatuosi."
 
 #: includes/class-pb-activation.php:151
@@ -797,7 +796,7 @@ msgstr "Lisa(d)"
 #: includes/class-pb-activation.php:153
 msgid "This is where you can add appendices or other back matter."
 msgstr ""
-"Raamatu täiendavate osade ja muu raamatu lõpuosa juurde kuuluva lisamine."
+"Raamatu lisade ja muu raamatu lõpuosa juurde kuuluva lisamine."
 
 #: includes/class-pb-activation.php:158
 #: themes-book/pressbooks-book/page-authors.php:6
@@ -849,7 +848,7 @@ msgstr "PDF'i kohandatud kaskaadlaadistik"
 
 #: includes/class-pb-activation.php:192 includes/class-pb-metadata.php:359
 msgid "Custom CSS for Web"
-msgstr "Veebi tarbeks kohandatud kaskaadlaadistik"
+msgstr "Võrgu tarbeks kohandatud kaskaadlaadistik"
 
 #: includes/class-pb-activation.php:198
 msgid "Default Data"
@@ -907,11 +906,11 @@ msgstr "Peatükk "
 #: includes/pb-postype.php:19
 msgctxt "book"
 msgid "Add New Chapter"
-msgstr "Lisage uus peatükk  "
+msgstr "Lisage raamatule uus peatükk  "
 
 #: includes/pb-postype.php:20
 msgid "Add New Chapter"
-msgstr "Lisage uus peatükk"
+msgstr "Lisage raamatule uus peatükk"
 
 #: includes/pb-postype.php:21
 msgid "Edit Chapter"
@@ -919,7 +918,7 @@ msgstr "Peatüki toimetamine"
 
 #: includes/pb-postype.php:22
 msgid "New Chapter"
-msgstr "Uus peatükk"
+msgstr "Uus raamatu peatükk"
 
 #: includes/pb-postype.php:23
 msgid "View Chapter"
@@ -927,11 +926,11 @@ msgstr "Peatüki vaade"
 
 #: includes/pb-postype.php:24
 msgid "Search Chapters"
-msgstr "Otsi peatükke"
+msgstr "Otsi raamatu peatükke"
 
 #: includes/pb-postype.php:25
 msgid "No chapters found"
-msgstr "Peatükke ei leitud"
+msgstr "Raamatu peatükke ei leitud"
 
 #: includes/pb-postype.php:26
 msgid "No chapters found in Trash"
@@ -944,7 +943,7 @@ msgstr "Tekst"
 #: includes/pb-postype.php:51
 msgctxt "post type general name"
 msgid "Parts"
-msgstr "Osad"
+msgstr "Raamatu osad"
 
 #: includes/pb-postype.php:52
 msgctxt "post type singular name"
@@ -954,35 +953,35 @@ msgstr "Osa"
 #: includes/pb-postype.php:53
 msgctxt "book"
 msgid "Add Part"
-msgstr "Lisage osa"
+msgstr "Lisage raamatule osa"
 
 #: includes/pb-postype.php:54
 msgid "Add New Part"
-msgstr "Lisage uus osa"
+msgstr "Lisage raamatule uus osa"
 
 #: includes/pb-postype.php:55
 msgid "Edit Part"
-msgstr "Osa toimetamine"
+msgstr "Raamatu osa toimetamine"
 
 #: includes/pb-postype.php:56
 msgid "New Part"
-msgstr "Uus osa"
+msgstr "Uus raamatu osa"
 
 #: includes/pb-postype.php:57
 msgid "View Part"
-msgstr "Osa vaade"
+msgstr "Raamatu osa vaade"
 
 #: includes/pb-postype.php:58
 msgid "Search Parts"
-msgstr "Osade otsing"
+msgstr "Raamatu osade otsing"
 
 #: includes/pb-postype.php:59
 msgid "No parts found"
-msgstr "Osi ei leitud"
+msgstr "Raamatu osi ei leitud"
 
 #: includes/pb-postype.php:60
 msgid "No parts found in Trash"
-msgstr "Kustatud osi ei leitud"
+msgstr "Kustatud raamatu osi ei leitud"
 
 #: includes/pb-postype.php:62
 msgid "Parts"
@@ -1021,7 +1020,7 @@ msgstr "Raamatu eelosa vaade"
 
 #: includes/pb-postype.php:92
 msgid "Search Front Matter"
-msgstr "Raamatu eelosa sisuotsing"
+msgstr "Raamatu eelosa otsing"
 
 #: includes/pb-postype.php:93
 msgid "No front matter found"
@@ -1064,7 +1063,7 @@ msgstr "Raamatu lõpposa vaade"
 
 #: includes/pb-postype.php:127
 msgid "Search Back Matter"
-msgstr "Raamatu lõpposa sisuotsing"
+msgstr "Raamatu lõpposa otsing"
 
 #: includes/pb-postype.php:128
 msgid "No back matter found"
