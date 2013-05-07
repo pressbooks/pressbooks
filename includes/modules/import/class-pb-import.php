@@ -16,6 +16,15 @@ require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 abstract class Import {
 
+	/**
+	 * Email addresses to send logs.
+	 *
+	 * @var array
+	 */
+	static $logsEmail = array(
+		'errors@pressbooks.com',
+	);
+
 
 	/**
 	 * Mandatory setCurrentImportOption() method, creates WP option 'pressbooks_current_import'
@@ -200,8 +209,6 @@ abstract class Import {
 
 			@set_time_limit( 300 );
 
-			// TODO: Log who is using this for error tracking purposes
-
 			$ok = false;
 			switch ( $current_import['type_of'] ) {
 
@@ -215,6 +222,10 @@ abstract class Import {
 					$ok = $importer->import( $current_import );
 					break;
 			}
+
+			$msg = "Tried to import a file of type {$current_import['type_of']} and ";
+			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
+			self::log( $msg, $current_import );
 
 			if ( $ok ) {
 				// Success! Redirect to organize page
@@ -255,6 +266,10 @@ abstract class Import {
 					break;
 			}
 
+			$msg = "Tried to upload a file of type {$_POST['type_of']} and ";
+			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
+			self::log( $msg, $upload );
+
 			if ( ! $ok ) {
 				// Not ok?
 				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
@@ -287,6 +302,49 @@ abstract class Import {
 		}
 
 		return false;
+	}
+
+
+	/**
+	 * Log something using wp_mail() and error_log(), include useful WordPress info.
+	 *
+	 * @param string $message
+	 * @param array  $more_info
+	 */
+	static function log( $message, array $more_info = array() ) {
+
+		/** $var \WP_User $current_user */
+		global $current_user;
+
+		$subject = '[ Import Log ]';
+
+		$info = array(
+			'time' => strftime( '%c' ),
+			'user' => ( isset( $current_user ) ? $current_user->user_login : '__UNKNOWN__' ),
+			'site_url' => site_url(),
+			'blog_id' => get_current_blog_id(),
+		);
+
+		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
+
+		// ------------------------------------------------------------------------------------------------------------
+		// Write to error log
+
+		error_log( $subject . "\n" . $message );
+
+		// ------------------------------------------------------------------------------------------------------------
+		// Email logs
+
+		add_filter( 'wp_mail_from', function ( $from_email ) {
+			return str_replace( 'wordpress@', 'pressbooks@', $from_email );
+		} );
+		add_filter( 'wp_mail_from_name', function ( $from_name ) {
+			return 'PressBooks';
+		} );
+
+		foreach ( self::$logsEmail as $email ) {
+			wp_mail( $email, $subject, $message );
+		}
 	}
 
 

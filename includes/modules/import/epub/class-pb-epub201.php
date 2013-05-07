@@ -97,7 +97,7 @@ class Epub201 extends Import {
 		try {
 			$this->setCurrentZip( $current_import['file'] );
 		} catch ( \Exception $e ) {
-			// TODO: Do something with exception
+			return false;
 		}
 
 		$xml = $this->getOpf();
