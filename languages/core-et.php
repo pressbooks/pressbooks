@@ -14,6 +14,7 @@ $overrides = array(
 
 	'My Sites' => 'Minu raamatud',
 	'Create a New Site' => 'Loo uus raamat',
+	'Settings' => 'Tööriistad',
 
 	// Add some more strings here...
 );
