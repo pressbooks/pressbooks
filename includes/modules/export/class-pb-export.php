@@ -235,7 +235,8 @@ abstract class Export {
 		} elseif ( function_exists( 'mime_content_type' ) ) {
 			$mime = @mime_content_type( $file ); // Suppress deprecated message
 		} else {
-			$mime = system( "file -i -b " . escapeshellarg( $file ) );
+			exec( "file -i -b " . escapeshellarg( $file ), $output );
+			$mime = $output[0];
 		}
 
 		return $mime;
