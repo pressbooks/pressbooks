@@ -172,9 +172,7 @@ function replace_book_admin_menu() {
 			) );
 		}
 	} );
-  // Import
-	add_menu_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import', '', 15 );
-  
+
 	// Sell
 	add_menu_page( __( 'Sell', 'pressbooks' ), __( 'Sell', 'pressbooks' ), 'edit_posts', 'pb_sell', __NAMESPACE__ . '\display_sell', '', 16 );
 
@@ -183,6 +181,9 @@ function replace_book_admin_menu() {
 
 	// Advanced
 	add_options_page( __( 'Advanced Settings', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
+
+	// Import
+	add_options_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
 }
 
 

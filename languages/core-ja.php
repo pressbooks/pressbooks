@@ -14,6 +14,7 @@ $overrides = array(
 
 	'My Sites' => 'マイブックス',
 	'Create a New Site' => '新規ブックを作成します。',
+	'Settings' => '公益事業',
 
 	// Add some more strings here...
 );

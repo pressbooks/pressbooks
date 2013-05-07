@@ -14,6 +14,7 @@ $overrides = array(
 
 	'My Sites' => '我的書籍',
 	'Create a New Site' => '創建一個新的書',
+	'Settings' => '公用事業',
 
 	// Add some more strings here...
 );
