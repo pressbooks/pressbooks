@@ -528,7 +528,7 @@ class Book {
 	 */
 	static function consolidatePost( $pid, $post ) {
 
-		if ( ( is_main_site() ) || wp_is_post_revision( $pid ) || $post->post_status != 'publish' )
+		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) )
 			return false;
 
 		/** @var $wpdb \wpdb */
@@ -536,23 +536,27 @@ class Book {
 
 		// if this is a new post, set its order
 		if ( empty( $post->menu_order ) ) {
-			$query = "SELECT max($wpdb->posts.menu_order)+1
-					FROM $wpdb->posts
-				   WHERE $wpdb->posts.post_type = '{$post->post_type}'
-				 AND NOT $wpdb->posts.post_status = 'trash'";
 
-			if ( $post->post_type == "chapter" ) {
-				$query .= " AND $wpdb->posts.post_parent=$post->post_parent";
+			$query = "SELECT max({$wpdb->posts}.menu_order) + 1
+					FROM {$wpdb->posts}
+				   WHERE {$wpdb->posts}.post_type = '{$post->post_type}'
+				 AND NOT {$wpdb->posts}.post_status = 'trash' ";
+
+			if ( 'chapter' == $post->post_type ) {
+				$query .= " AND {$wpdb->posts}.post_parent = {$post->post_parent} ";
 			}
+
 			$new = $wpdb->get_var( $query );
 
 			if ( empty( $new ) ) {
 				$new = 1;
+			} else {
+				$new = absint( $new );
 			}
 
-			$query = "UPDATE $wpdb->posts
-					 SET $wpdb->posts.menu_order=$new
-				   WHERE $wpdb->posts.ID = {$post->ID}";
+			$query = "UPDATE {$wpdb->posts}
+					 SET {$wpdb->posts}.menu_order = {$new}
+				   WHERE {$wpdb->posts}.ID = {$post->ID} ";
 
 			// will return false on failure
 			return $wpdb->query( $query );
@@ -572,7 +576,8 @@ class Book {
 	 */
 	static function deletePost( $pid ) {
 
-		if ( ( is_main_site() ) || wp_is_post_revision( $pid ) ) return false;
+		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) )
+			return false;
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -585,36 +590,36 @@ class Book {
 		$type = $post->post_type;
 		$parent = $post->post_parent;
 
-		$query = "UPDATE $wpdb->posts SET menu_order = menu_order - 1 WHERE menu_order > $order AND post_type='$type'";
+		$query = "UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > {$order} AND post_type = '{$type}' ";
 
-		if ( $type == 'chapter' ) {
-			$query .= " AND post_parent = $parent";
+		if ( 'chapter' == $type ) {
+			$query .= " AND post_parent = {$parent} ";
 		}
 
 		$wpdb->query( $query );
 
 
-		if ( $type == 'part' ) {
+		if ( 'part' == $type ) {
 			// We're setting two things here - the new post_parent (to the first part)
 			// And the new menu order for the chapters that were in the part being deleted.
 			$new_parent_id = $wpdb->get_var( "SELECT ID
-										 FROM $wpdb->posts
-										WHERE post_type='part'
-										  AND post_status='publish'
-										  AND NOT ID=$pid
+										 FROM {$wpdb->posts}
+										WHERE post_type = 'part'
+										  AND post_status = 'publish'
+										  AND NOT ID = {$pid}
 									 ORDER BY menu_order
-										LIMIT 1" );
+										LIMIT 1 " );
 
 			if ( $new_parent_id ) {
 
-				$existing_numposts = $wpdb->get_var( "SELECT count(1) AS numposts FROM $wpdb->posts WHERE post_type='chapter' AND post_parent=$new_parent_id" );
-				$query = "UPDATE $wpdb->posts SET post_parent=$new_parent_id, menu_order=menu_order+$existing_numposts WHERE post_parent=$pid AND post_type='chapter'";
+				$existing_numposts = $wpdb->get_var( "SELECT COUNT(1) AS numposts FROM {$wpdb->posts} WHERE post_type = 'chapter' AND post_parent = {$new_parent_id} " );
+				$query = "UPDATE {$wpdb->posts} SET post_parent = {$new_parent_id}, menu_order = menu_order + {$existing_numposts} WHERE post_parent = {$pid} AND post_type = 'chapter' ";
 
 				return $wpdb->query( $query );
 
 			} else {
 
-				$query = "UPDATE $wpdb->posts SET post_status='trash' WHERE post_parent=$pid AND post_type='chapter'";
+				$query = "UPDATE {$wpdb->posts} SET post_status = 'trash' WHERE post_parent = {$pid} AND post_type = 'chapter' ";
 
 				return $wpdb->query( $query );
 			}

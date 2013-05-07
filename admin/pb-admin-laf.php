@@ -181,6 +181,9 @@ function replace_book_admin_menu() {
 
 	// Advanced
 	add_options_page( __( 'Advanced Settings', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
+
+	// Import
+	add_options_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
 }
 
 
@@ -215,6 +218,14 @@ function display_organize() {
 function display_export() {
 
 	require( PB_PLUGIN_DIR . 'admin/templates/export.php' );
+}
+
+/**
+ * Displays the Import  Admin Page
+ */
+function display_import() {
+
+    require( PB_PLUGIN_DIR . 'admin/templates/import.php' );
 }
 
 
@@ -871,9 +882,22 @@ function display_advanced_settings() { ?>
 /**
  * Hook for add_action( 'admin_notices', ... ) Echo $_SESSION['pb_notices'] if any.
  *
+ * @global array $_SESSION['pb_errors'] *
  * @global array $_SESSION['pb_notices']
  */
 function admin_notices() {
+
+	if ( ! empty( $_SESSION['pb_errors'] ) ) {
+		// Array-ify
+		if ( ! is_array( $_SESSION['pb_errors'] ) ) {
+			$tmp[] = $_SESSION['pb_errors'];
+			$_SESSION['pb_errors'] = $tmp;
+		}
+		// Print
+		foreach ( $_SESSION['pb_errors'] as $msg ) {
+			echo '<div class="error"><p>' . $msg . '</p></div>';
+		}
+	}
 
 	if ( ! empty( $_SESSION['pb_notices'] ) ) {
 		// Array-ify
@@ -888,6 +912,7 @@ function admin_notices() {
 	}
 
 	// Destroy
+	unset ( $_SESSION['pb_errors'] );
 	unset ( $_SESSION['pb_notices'] );
 }
 

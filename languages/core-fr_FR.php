@@ -14,6 +14,7 @@ $overrides = array(
 
 	'My Sites' => 'Mes livres',
 	'Create a New Site' => 'Créer un nouveau livre',
+	'Settings' => 'Utilitaires',
 
 	// Add some more strings here...
 );
