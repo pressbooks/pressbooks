@@ -19,6 +19,7 @@ abstract class Import {
 	/**
 	 * Email addresses to send logs.
 	 *
+	 * @deprecated
 	 * @var array
 	 */
 	static $logsEmail = array(
@@ -307,6 +308,11 @@ abstract class Import {
 
 	/**
 	 * Log something using wp_mail() and error_log(), include useful WordPress info.
+	 *
+	 * Note: This method is here temporarily. We are using it to find & fix bugs for the first iterations of import.
+	 * Do not count on this method being here in the future.
+	 *
+	 * @deprecated
 	 *
 	 * @param string $message
 	 * @param array  $more_info
