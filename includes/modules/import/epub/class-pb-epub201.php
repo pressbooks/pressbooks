@@ -200,10 +200,13 @@ class Epub201 extends Import {
 
 		/* Safety dance */
 
+		/*
+		// TODO: Do we need this? Some EPUBs are garbage...
 		$mimetype = $this->getZipContent( 'mimetype', false );
 		if ( $mimetype != 'application/epub+zip' ) {
 			throw new \Exception ( 'Wrong mimetype!' );
 		}
+		*/
 
 		$ok = $this->getZipContent( 'META-INF/container.xml' );
 		if ( ! $ok ) {
@@ -273,10 +276,12 @@ class Epub201 extends Import {
 		$pid = wp_insert_post( $new_post );
 
 		if ( $this->rights ) {
-			update_post_meta( $pid, 'pb_section_author', $this->rights );
+			// TODO
+			// update_post_meta( $pid, 'pb_section_author', $this->rights );
 		}
 
 		update_post_meta( $pid, 'pb_show_title', 'on' );
+		update_post_meta( $pid, 'pb_export', 'on' );
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 	}

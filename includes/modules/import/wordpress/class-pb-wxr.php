@@ -93,8 +93,11 @@ class Wxr extends Import {
 
 			$pid = wp_insert_post( $new_post );
 
-			update_post_meta( $pid, 'pb_section_author', $p['post_author'] );
+			// TODO
+			// update_post_meta( $pid, 'pb_section_author', $p['post_author'] );
+
 			update_post_meta( $pid, 'pb_show_title', 'on' );
+			update_post_meta( $pid, 'pb_export', 'on' );
 
 			Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 			++$total;
