@@ -117,6 +117,8 @@ add_action( 'wp_ajax_pb_load_css_from', '\PressBooks\Admin\CustomCss\load_css_fr
 
 add_action( 'init', '\PressBooks\Export\Export::formSubmit', 50 );
 
+add_action( 'init', '\PressBooks\Import\Import::formSubmit' , 50 );
+
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Css
 // -------------------------------------------------------------------------------------------------------------------
