@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PressBooks 2.0.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
-"POT-Creation-Date: 2013-04-22 16:36:12+00:00\n"
+"POT-Creation-Date: 2013-05-07 18:48:43+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,17 +48,19 @@ msgstr ""
 msgid "My Book"
 msgstr ""
 
-#: admin/pb-admin-dashboard.php:43 admin/pb-admin-laf.php:326
+#: admin/pb-admin-dashboard.php:43 admin/pb-admin-laf.php:342
 msgid "Users"
 msgstr ""
 
-#: admin/pb-admin-dashboard.php:55 admin/templates/organize.php:30
-#: admin/templates/organize.php:46 includes/pb-postype.php:96
+#: admin/pb-admin-dashboard.php:55 admin/templates/import.php:59
+#: admin/templates/organize.php:30 admin/templates/organize.php:46
+#: includes/pb-postype.php:96
 msgid "Front Matter"
 msgstr ""
 
-#: admin/pb-admin-dashboard.php:75 admin/templates/organize.php:32
-#: admin/templates/organize.php:211 includes/pb-postype.php:131
+#: admin/pb-admin-dashboard.php:75 admin/templates/import.php:61
+#: admin/templates/organize.php:32 admin/templates/organize.php:211
+#: includes/pb-postype.php:131
 msgid "Back Matter"
 msgstr ""
 
@@ -83,7 +85,7 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: admin/pb-admin-laf.php:21 admin/pb-admin-laf.php:270
+#: admin/pb-admin-laf.php:21 admin/pb-admin-laf.php:286
 msgid "Contact"
 msgstr ""
 
@@ -134,108 +136,113 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: admin/pb-admin-laf.php:236 admin/pb-admin-laf.php:245
+#: admin/pb-admin-laf.php:186 admin/templates/import.php:14
+#: admin/templates/import.php:57
+msgid "Import"
+msgstr ""
+
+#: admin/pb-admin-laf.php:252 admin/pb-admin-laf.php:261
 msgid "About PressBooks"
 msgstr ""
 
-#: admin/pb-admin-laf.php:254
+#: admin/pb-admin-laf.php:270
 msgid "PressBooks.com"
 msgstr ""
 
-#: admin/pb-admin-laf.php:262
+#: admin/pb-admin-laf.php:278
 msgid "Support Forums"
 msgstr ""
 
-#: admin/pb-admin-laf.php:294
+#: admin/pb-admin-laf.php:310
 msgid "My Books"
 msgstr ""
 
-#: admin/pb-admin-laf.php:307
+#: admin/pb-admin-laf.php:323
 msgid "Network Admin"
 msgstr ""
 
-#: admin/pb-admin-laf.php:314 admin/pb-admin-laf.php:364
+#: admin/pb-admin-laf.php:330 admin/pb-admin-laf.php:380
 msgid "Dashboard"
 msgstr ""
 
-#: admin/pb-admin-laf.php:320
+#: admin/pb-admin-laf.php:336
 msgid "Sites"
 msgstr ""
 
-#: admin/pb-admin-laf.php:332
+#: admin/pb-admin-laf.php:348
 msgid "Visit Network"
 msgstr ""
 
-#: admin/pb-admin-laf.php:349
+#: admin/pb-admin-laf.php:365
 msgid "Blavatar"
 msgstr ""
 
-#: admin/pb-admin-laf.php:376
+#: admin/pb-admin-laf.php:392
 msgid "Visit Site"
 msgstr ""
 
-#: admin/pb-admin-laf.php:530
+#: admin/pb-admin-laf.php:547
 msgid "Site Visibility"
 msgstr ""
 
-#: admin/pb-admin-laf.php:548
+#: admin/pb-admin-laf.php:565
 msgid "Privacy options"
 msgstr ""
 
-#: admin/pb-admin-laf.php:562
+#: admin/pb-admin-laf.php:579
 msgid "Public. I would like this book to be visible to everyone."
 msgstr ""
 
-#: admin/pb-admin-laf.php:566
+#: admin/pb-admin-laf.php:583
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr ""
 
-#: admin/pb-admin-laf.php:617
+#: admin/pb-admin-laf.php:634
 msgid "Amazon URL"
 msgstr ""
 
-#: admin/pb-admin-laf.php:624
+#: admin/pb-admin-laf.php:641
 msgid "Oreilly URL"
 msgstr ""
 
-#: admin/pb-admin-laf.php:631
+#: admin/pb-admin-laf.php:648
 msgid "Barnes and Noble URL"
 msgstr ""
 
-#: admin/pb-admin-laf.php:638
+#: admin/pb-admin-laf.php:655
 msgid "Kobo URL"
 msgstr ""
 
-#: admin/pb-admin-laf.php:645
+#: admin/pb-admin-laf.php:662
 msgid "iBooks URL"
 msgstr ""
 
-#: admin/pb-admin-laf.php:652
+#: admin/pb-admin-laf.php:669
 msgid "Other Service URL"
 msgstr ""
 
-#: admin/pb-admin-laf.php:669
+#: admin/pb-admin-laf.php:686
 msgid "Links to ecommerce services"
 msgstr ""
 
-#: admin/pb-admin-laf.php:792
+#: admin/pb-admin-laf.php:809
 msgid "Email me validation error reports on export."
 msgstr ""
 
-#: admin/pb-admin-laf.php:810
+#: admin/pb-admin-laf.php:827
 msgid "Advanced options"
 msgstr ""
 
-#: admin/pb-admin-laf.php:824
+#: admin/pb-admin-laf.php:841
 msgid "No. Ignore validation errors."
 msgstr ""
 
-#: admin/pb-admin-laf.php:828
+#: admin/pb-admin-laf.php:845
 msgid "Yes. Send the logs."
 msgstr ""
 
-#: admin/pb-admin-laf.php:829
+#: admin/pb-admin-laf.php:846
 msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
@@ -348,7 +355,7 @@ msgid ""
 "want to sell your book in online and physical book stores."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:196 admin/pb-admin-users.php:61
+#: admin/pb-admin-metaboxes.php:196 admin/pb-admin-users.php:63
 msgid "Language"
 msgstr ""
 
@@ -531,18 +538,26 @@ msgid "Chinese, Traditional"
 msgstr ""
 
 #: admin/pb-admin-users.php:56
-msgid "French"
+msgid "Estonian"
 msgstr ""
 
 #: admin/pb-admin-users.php:57
-msgid "Japanese"
+msgid "French"
 msgstr ""
 
 #: admin/pb-admin-users.php:58
-msgid "Portuguese, Brazil"
+msgid "German"
 msgstr ""
 
 #: admin/pb-admin-users.php:59
+msgid "Japanese"
+msgstr ""
+
+#: admin/pb-admin-users.php:60
+msgid "Portuguese, Brazil"
+msgstr ""
+
+#: admin/pb-admin-users.php:61
 msgid "Spanish"
 msgstr ""
 
@@ -648,6 +663,43 @@ msgstr ""
 
 #: admin/templates/export.php:127
 msgid "Change Theme Options"
+msgstr ""
+
+#: admin/templates/import.php:20
+msgid "Import in progress: %s"
+msgstr ""
+
+#: admin/templates/import.php:40
+msgid "Are you sure you want to abort the import?"
+msgstr ""
+
+#: admin/templates/import.php:58
+msgid "Title"
+msgstr ""
+
+#: admin/templates/import.php:60
+msgid "Chapter"
+msgstr ""
+
+#: admin/templates/import.php:88
+#: includes/modules/export/epub/templates/opf.php:134
+msgid "Start"
+msgstr ""
+
+#: admin/templates/import.php:90
+msgid "Cancel"
+msgstr ""
+
+#: admin/templates/import.php:100
+msgid "Supported file extensions:"
+msgstr ""
+
+#: admin/templates/import.php:101
+msgid "Maximum file size:"
+msgstr ""
+
+#: admin/templates/import.php:130
+msgid "Upload file"
 msgstr ""
 
 #: admin/templates/organize.php:31
@@ -813,7 +865,7 @@ msgstr ""
 msgid "Simple Book Production"
 msgstr ""
 
-#: includes/modules/export/class-pb-export.php:654
+#: includes/modules/export/class-pb-export.php:655
 msgid "File not found"
 msgstr ""
 
@@ -833,10 +885,6 @@ msgstr ""
 msgid "Contents"
 msgstr ""
 
-#: includes/modules/export/epub/templates/opf.php:134
-msgid "Start"
-msgstr ""
-
 #: includes/modules/export/wordpress/class-pb-wxr.php:101
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:149
 msgid "Invalid permission error"
@@ -844,6 +892,21 @@ msgstr ""
 
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:280
 msgid "Notes"
+msgstr ""
+
+#: includes/modules/import/class-pb-import.php:276
+msgid "Your file does not appear to be a valid %s."
+msgstr ""
+
+#: includes/modules/import/epub/class-pb-epub201.php:168
+#: includes/modules/import/wordpress/class-pb-wxr.php:107
+msgid "Imported %s chapters."
+msgstr ""
+
+#: includes/modules/import/wordpress/class-pb-parser.php:56
+#: includes/modules/import/wordpress/class-pb-parser.php:61
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr ""
 
 #: includes/pb-postype.php:17
