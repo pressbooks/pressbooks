@@ -180,23 +180,27 @@ abstract class Import {
 			return;
 		}
 
-		if ( 'yes' != @$_GET['import'] || false == check_admin_referer( 'pb-import' ) ) {
-			// Not a valid submission, bail.
-			return;
-		}
-
 		// --------------------------------------------------------------------------------------------------------
 		// Determine at what stage of the import we are and do something about it
 
-		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_import';
+		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=pb_import';
 		$current_import = get_option( 'pressbooks_current_import' );
 
-		if ( is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) ) {
+		// Revoke
+		if ( @$_GET['revoke'] && check_admin_referer( 'pb-revoke-import' ) ) {
+			self::revokeCurrentImport();
+			\PressBooks\Redirect\location( $redirect_url );
+		}
+
+
+		if ( @$_GET['import'] && is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
 			// --------------------------------------------------------------------------------------------------------
 			// Do Import
 
 			@set_time_limit( 300 );
+
+			// TODO: Log who is using this for error tracking purposes
 
 			$ok = false;
 			switch ( $current_import['type_of'] ) {
@@ -218,13 +222,13 @@ abstract class Import {
 				\PressBooks\Redirect\location( $success_url );
 			}
 
-		} elseif ( ! @empty( $_FILES['import_file']['name'] ) && @$_POST['type_of'] ) {
+		} elseif ( @$_GET['import'] && ! @empty( $_FILES['import_file']['name'] ) && @$_POST['type_of'] && check_admin_referer( 'pb-import' ) ) {
 
 			// --------------------------------------------------------------------------------------------------------
 			// Set the 'pressbooks_current_import' option
 
 			$allowed_file_types = array( 'epub' => 'application/epub+zip', 'xml' => 'application/xml' );
-			$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types  );
+			$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
 
 			if ( ! function_exists( 'wp_handle_upload' ) )
 				require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -253,7 +257,7 @@ abstract class Import {
 
 			if ( ! $ok ) {
 				// Not ok?
-				$_SESSION['pb_errors'][] = sprintf( __( 'Sorry, Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
+				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
 			}
 
 		}
@@ -264,7 +268,7 @@ abstract class Import {
 
 
 	/**
-	 * Check if a user submitted something to admin.php?page=pb_import
+	 * Check if a user submitted something to options-general.php?page=pb_import
 	 *
 	 * @return bool
 	 */

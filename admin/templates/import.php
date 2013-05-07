@@ -3,7 +3,8 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
-$import_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_import&import=yes', 'pb-import' );
+$import_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=pb_import&import=yes', 'pb-import' );
+$import_revoke_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=pb_import&revoke=yes', 'pb-revoke-import' );
 $current_import = get_option( 'pressbooks_current_import' );
 
 ?>
@@ -36,8 +37,13 @@ $current_import = get_option( 'pressbooks_current_import' );
 			});
 			// Abort import
 			jQuery('#abort_button').bind('click', function () {
-				if (!confirm('<?php esc_attr_e('TODO: Are you sure you want to abort the import?', 'pressbooks'); ?>'))
+				if (!confirm('<?php esc_attr_e('Are you sure you want to abort the import?', 'pressbooks'); ?>')) {
 					return false;
+				}
+				else {
+					window.location.href = "<?php echo htmlspecialchars_decode($import_revoke_url); ?>";
+					return false;
+				}
 			});
 		});
 		// ]]>
