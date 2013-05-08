@@ -88,33 +88,10 @@ class Catalog {
 	<?php }
 	
 	/**
-	 * Catalog settings section callback
-	 */
-	function catalog_settings_section_callback() {
-	}
-	
-	
-	/**
-	 * Catalog settings, user_catalog field callback
+	 * Saves user catalog.
 	 *
-	 * @param $args
+	 * @param $user_id
 	 */
-	function user_catalog_callback( $args ) {
-		
-		//update_user_meta( get_current_user_id(), 'user_catalog', array(1,22) );
-		
-	
-		/*
-foreach($books as $book) {
-			if ( ! isset( $user_catalog[$book->userblog_id] ) ) { $user_catalog[$book->userblog_id] = 0; }
-			if ( !is_main_site( $book->userblog_id ) ) {
-				$html .= '<input type="checkbox" id="' . $book->userblog_id . '" name="user_catalog[' . $book->userblog_id . ']" value="1" '. checked(1, $user_catalog[$book->userblog_id], true) . ' /><label for="' . $book->userblog_id . '">' . $book->userblog_id . '</label><br />';
-			}
-		}
-		echo $html;
-*/
-	}
-	
 	function user_catalog_save( $user_id ) {
 		if ( $_POST) {
 			$nonce = $_REQUEST['_wpnonce'];
