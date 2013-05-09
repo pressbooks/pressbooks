@@ -1173,7 +1173,7 @@ msgstr "Raamatu eelosa tüübid"
 #: includes/pb-taxonomy.php:55
 msgctxt "taxonomy general name"
 msgid "Back Matter Types"
-msgstr "Raamatu lõpposa tüübid
+msgstr "Raamatu lõpposa tüübid"
 
 #: includes/pb-taxonomy.php:56
 msgctxt "taxonomy singular name"
