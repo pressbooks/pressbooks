@@ -21,15 +21,14 @@ class Catalog {
 	 * Displays catalog administration menu page.
 	 */
 	function displayCatalogPage() {
-		$user_catalog_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog', 'user_catalog' );
-		//print_r($_POST['user_catalog']);
+		$user_catalog_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog', 'pressbooks_user_catalog' );
 		Catalog::user_catalog_save( get_current_user_id() ); ?>
 		<div class="wrap">
 			<div id="icon-options-general" class="icon32"></div>
 			<h2><?php echo __( 'PressBooks Catalog', 'pressbooks' ); ?></h2>
 			<?php if ( $_POST) {
 				$nonce = $_REQUEST['_wpnonce'];
-				if ( !wp_verify_nonce( $nonce, 'user_catalog' ) ) { ?>
+				if ( !wp_verify_nonce( $nonce, 'pressbooks_user_catalog' ) ) { ?>
 			<div id="message" class="error below-h2"><p><?php echo __( 'Nonce verification failed.', 'pressbooks' ); ?></p></div>
 				<?php } else { ?>
 			<div id="message" class="updated below-h2"><p><?php echo __( 'Catalog saved.', 'pressbooks' ); ?></p></div>
@@ -37,7 +36,7 @@ class Catalog {
 			} ?>
 			<?php echo '<p>' . __( 'Choose from the following books for inclusion in your catalog', 'pressbooks' ) . '.</p>'; ?>
 			<form method="post" action="<?php echo $user_catalog_form_url; ?>">
-				<?php $user_catalog = get_user_meta( get_current_user_id(), 'user_catalog', true ); ?>
+				<?php $user_catalog = get_user_meta( get_current_user_id(), 'pressbooks_user_catalog', true ); ?>
 				<?php $userblogs = get_blogs_of_user( get_current_user_id() ); 
 				$books = array(); 
 				foreach ($userblogs as $book) {
@@ -72,7 +71,7 @@ class Catalog {
 					foreach ( $row as $book ) {
 						$s = $i == 3 ? '' : 'border-right: 1px solid #ccc;';
 						echo "<td valign='top' style='$s'>";
-						echo "<h3><label><input type=\"checkbox\" name=\"user_catalog[{$book->userblog_id}]\" id=\"{$book->userblog_id}\" value=\"1\" " . checked(1, $user_catalog[$book->userblog_id], false) . "/> {$book->blogname}</label></h3>";
+						echo "<h3><label><input type=\"checkbox\" name=\"pressbooks_user_catalog[{$book->userblog_id}]\" id=\"{$book->userblog_id}\" value=\"1\" " . checked(1, $user_catalog[$book->userblog_id], false) . "/> {$book->blogname}</label></h3>";
 						echo "<p>" . apply_filters( 'myblogs_blog_actions', "<a href='" . esc_url( get_home_url( $book->userblog_id ) ). "'>" . __( 'Visit' ) . "</a> | <a href='" . esc_url( get_admin_url( $book->userblog_id ) ) . "'>" . __( 'Dashboard' ) . "</a>", $book ) . "</p>";
 						echo apply_filters( 'myblogs_options', '', $book );
 						echo "</td>";
@@ -95,12 +94,12 @@ class Catalog {
 	function user_catalog_save( $user_id ) {
 		if ( $_POST) {
 			$nonce = $_REQUEST['_wpnonce'];
-			if ( !wp_verify_nonce( $nonce, 'user_catalog' ) ) { return false; }
+			if ( !wp_verify_nonce( $nonce, 'pressbooks_user_catalog' ) ) { return false; }
 			if ( !current_user_can( 'edit_user', $user_id ) ) { return false; }
-			if ( isset( $_POST['user_catalog'] ) ) {
-				update_user_meta( $user_id, 'user_catalog', $_POST['user_catalog'] );  
+			if ( isset( $_POST['pressbooks_user_catalog'] ) ) {
+				update_user_meta( $user_id, 'pressbooks_user_catalog', $_POST['pressbooks_user_catalog'] );  
 		    } else {
-			    delete_user_meta( $user_id, 'user_catalog' );
+			    delete_user_meta( $user_id, 'pressbooks_user_catalog' );
 		    }
 		}
 	}
