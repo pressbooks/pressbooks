@@ -426,6 +426,16 @@ function edit_form_hacks() {
 
 
 /**
+ * @param \WP_Customize_Manager $wp_customize
+ *
+ * @see http://codex.wordpress.org/Plugin_API/Action_Reference/customize_register
+ */
+function customize_register( $wp_customize ) {
+	$wp_customize->remove_section( 'static_front_page' );
+}
+
+
+/**
  * Default selections for checkboxes created by custom_metadata class.
  */
 function default_meta_checkboxes() {
