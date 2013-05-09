@@ -11,7 +11,7 @@ namespace PressBooks;
 class Catalog {
 
 	/**
-	 * Adds catalog administration menu page.
+	 * Registers catalog administration menu page.
 	 */
 	function addCatalogPage() {
 		add_submenu_page( 'index.php', 'My Catalog', 'My Catalog', 'read', 'catalog', __NAMESPACE__ .'\Catalog::displayCatalogPage' );
