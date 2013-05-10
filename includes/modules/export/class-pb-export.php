@@ -537,6 +537,7 @@ abstract class Export {
 					}
 				}
 				// Stats hook
+				// TODO rename to pressbooks_track_export
 				do_action( 'pb_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
 

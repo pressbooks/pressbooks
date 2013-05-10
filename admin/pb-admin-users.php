@@ -34,7 +34,7 @@ function get_restricted( $blogId ) {
 
 	if ( ( current_user_can_for_blog( $blogId, 'subscriber' ) || current_user_can_for_blog( $blogId, 'contributor' ) ) ) $disallowed[] = 'index';
 
-	return apply_filters( 'pb_restricted_pages', $disallowed, $blogId );
+	return apply_filters( 'pressbooks_restricted_pages', $disallowed, $blogId );
 }
 
 
