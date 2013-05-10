@@ -170,6 +170,8 @@ class Epub201 extends Import {
 
 
 	/**
+	 * Return book.opf as a SimpleXML object
+	 *
 	 * @return \SimpleXMLElement
 	 */
 	protected function getOpf() {
@@ -187,6 +189,8 @@ class Epub201 extends Import {
 
 
 	/**
+	 * Opens a new Epub for reading, writing or modifying
+	 *
 	 * @param string $fullpath
 	 *
 	 * @throws \Exception
@@ -217,6 +221,8 @@ class Epub201 extends Import {
 
 
 	/**
+	 * Locates an entry using its name, returns the entry contents
+	 *
 	 * @param $file
 	 * @param bool $as_xml
 	 *
@@ -245,6 +251,8 @@ class Epub201 extends Import {
 
 
 	/**
+	 * Pummel then insert HTML into our database
+	 *
 	 * @param string $href
 	 * @param string $post_type
 	 * @param int $chapter_parent
@@ -294,6 +302,7 @@ class Epub201 extends Import {
 	 */
 	protected function tidy( $html ) {
 
+		// Reduce the vulnerability for scripting attacks
 		// Make XHTML 1.1 strict using htmlLawed
 
 		$config = array(
@@ -346,7 +355,7 @@ class Epub201 extends Import {
 
 
 	/**
-	 * Parse HTML snippet, download all found <img> tags into /OEBPS/images/, return the HTML with changed <img> paths.
+	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
 	 * @param \DOMDocument $doc
 	 * @param string $href original filename, with (relative) path
@@ -374,11 +383,13 @@ class Epub201 extends Import {
 
 
 	/**
-	 * Fetch a url with wp_remote_get(), save it to $fullpath with a unique name.
+	 * Extract url from zip and load into WP using media_handle_sideload()
 	 * Will return an empty string if something went wrong.
 	 *
 	 * @param $url         string
 	 * @param string $href original filename, with (relative) path
+	 *
+	 * @see media_handle_sideload
 	 *
 	 * @return string filename
 	 */
