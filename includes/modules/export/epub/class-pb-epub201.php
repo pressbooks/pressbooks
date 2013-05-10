@@ -474,7 +474,7 @@ class Epub201 extends Export {
 			$path_to_tmp_stylesheet,
 			$this->loadTemplate( $this->exportStylePath ) );
 
-		$this->scrapeAndKneadCss( $this->exportStylePath, $path_to_tmp_stylesheet );
+		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $path_to_tmp_stylesheet );
 
 		// Append overrides
 		file_put_contents(
@@ -491,7 +491,7 @@ class Epub201 extends Export {
 	 * @param string $path_to_original_stylesheet*
 	 * @param string $path_to_copy_of_stylesheet
 	 */
-	protected function scrapeAndKneadCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
+	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
 		$css_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$css = file_get_contents( $path_to_copy_of_stylesheet );
