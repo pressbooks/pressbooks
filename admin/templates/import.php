@@ -21,22 +21,22 @@ $current_import = get_option( 'pressbooks_current_import' );
 
 		<script type="text/javascript">
 		// <![CDATA[
-		jQuery(function () {
+		jQuery(function ($) {
 			// Power hover
-			jQuery('tr').not(':first').hover(
+			$('tr').not(':first').hover(
 					function () {
-						jQuery(this).css('background', '#ffff99');
+						$(this).css('background', '#ffff99');
 					},
 					function () {
-						jQuery(this).css('background', '');
+						$(this).css('background', '');
 					}
 			);
 			// Power select
-			jQuery("#checkall").click(function() {
-				jQuery(':checkbox').prop('checked', this.checked);
+			$("#checkall").click(function() {
+				$(':checkbox').prop('checked', this.checked);
 			});
 			// Abort import
-			jQuery('#abort_button').bind('click', function () {
+			$('#abort_button').bind('click', function () {
 				if (!confirm('<?php esc_attr_e('Are you sure you want to abort the import?', 'pressbooks'); ?>')) {
 					return false;
 				}
