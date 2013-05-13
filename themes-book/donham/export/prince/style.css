@@ -178,7 +178,7 @@
 @page chapter:left {
   @top-left {
 	font-family: "LinBiolinum", sans-serif;
-	content: counter(page) "\A0\A0\002D\A0\A0" string(book-title);
+	content: counter(page) "\A0\A0" string(book-title);
 	counter-increment: part;
 	vertical-align: left;
   }
