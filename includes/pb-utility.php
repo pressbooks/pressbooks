@@ -244,7 +244,9 @@ function pm_send_mail( array $headers, array $email ) {
 
 	$response = wp_remote_post( $postmark_endpoint, $args );
 
-	if ( 200 == $response['response']['code'] ) {
+	if ( is_wp_error( $response ) ) {
+		return false;
+	} elseif ( 200 == $response['response']['code'] ) {
 		return true;
 	} else {
 		return false;
