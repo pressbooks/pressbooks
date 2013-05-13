@@ -336,6 +336,7 @@ class Book {
 			// if the part for this chapter changed, set new part for chapter
 			// and new order for this part
 			if ( $newPart != $oldPart ) {
+
 				$my_post = array();
 				$my_post['ID'] = $id;
 				$my_post['post_parent'] = $newPart;
@@ -347,6 +348,7 @@ class Book {
 							foreach ( $values as $position => $id ) {
 								$position += 1; // array is 0-indexed, but we want it to start from 1
 								$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
+								clean_post_cache( $id );
 							}
 						}
 					}
@@ -360,6 +362,7 @@ class Book {
 						foreach ( $values as $position => $id ) {
 							$position += 1; // array is 0-indexed, but we want it to start from 1
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
+							clean_post_cache( $id );
 						}
 					}
 				}
@@ -391,6 +394,7 @@ class Book {
 						foreach ( $values as $position => $id ) {
 							$position += 1;
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
+							clean_post_cache( $id );
 						}
 					}
 				}
@@ -418,6 +422,7 @@ class Book {
 						foreach ( $values as $position => $id ) {
 							$position += 1;
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
+							clean_post_cache( $id );
 						}
 					}
 				}
