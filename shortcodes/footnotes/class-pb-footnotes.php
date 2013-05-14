@@ -242,10 +242,21 @@ class Footnotes {
 		 *  [1] => #_ftnref130
 		 *  [2] => 130
 		 *  [3] => ... the text we want to move ...
+		 *
+		 * Known MS Word variations:
+		 *  href="#_ftn123"
+		 *  href="#_ednref123"
+		 *  href="/Users/foo/Documents/bar/9781426766497.doc#_ftn123"
+		 *  href="/Users/foo/Documents/bar/9781426766497.doc#_ednref123"
+		 *
+		 * Known Libre Office variations:
+		 *  href="#sdfootnote123anc"
 		 */
 		$patterns = array(
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(#_ftnref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+.*?[\.doc|\.docx](#_ftnref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(#_ednref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+.*?[\.doc|\.docx](#_ednref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(#sdfootnote([0-9]+)anc)["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // Libre Office
 		);
 
@@ -255,7 +266,9 @@ class Footnotes {
 		 */
 		$replacers = array(
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(?:#_ftn__REPLACE_ME__)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // MS Word
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+.*?[\.doc|\.docx](?:#_ftn__REPLACE_ME__)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // MS Word
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(?:#_edn__REPLACE_ME__)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // MS Word
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+.*?[\.doc|\.docx](?:#_edn__REPLACE_ME__)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // MS Word
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(?:#sdfootnote__REPLACE_ME__sym)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // Libre Office
 		);
 
@@ -287,6 +300,9 @@ class Footnotes {
 
 		// Twerk it
 		$html = preg_replace( $find, $replace, $html );
+
+		// Important, complex regular expressions have been known to, literally, crash PHP.
+		// When testing, make sure this function exists as expected.
 
 		// Send back JSON
 		header( 'Content-Type: application/json' );
