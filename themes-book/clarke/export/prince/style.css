@@ -1,6 +1,6 @@
 /* PRINCE XML
  * @see: http://www.princexml.com/doc/8.1/
- * CSS Version: 1.1
+ * CSS Version: 1.2
 ================== */
 
 /* FONTS
@@ -673,7 +673,8 @@ div.ugc h5 + p {
 	footnote-style-position: inside;
 	margin-left: 0;
 	line-height: 1.4;
-	text-indent: 1em; 
+	text-indent: 1em;
+	text-align: left;
 }
 sup.endnote {
 	line-height: 1em;
