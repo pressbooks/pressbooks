@@ -538,6 +538,7 @@ class Book {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
+		$success = true;
 
 		// if this is a new post, set its order
 		if ( empty( $post->menu_order ) ) {
@@ -566,11 +567,9 @@ class Book {
 			$success = $wpdb->query( $query );
 			clean_post_cache( $post );
 
-			return $success;
 		}
 
-		return true;
-
+		return $success ? true : false;
 	}
 
 
@@ -579,7 +578,7 @@ class Book {
 	 *
 	 * @param int $pid
 	 *
-	 * @return mixed
+	 * @return bool
 	 */
 	static function deletePost( $pid ) {
 
@@ -603,12 +602,14 @@ class Book {
 			$query .= " AND post_parent = {$parent} ";
 		}
 
-		$wpdb->query( $query );
+		$success = $wpdb->query( $query );
 		clean_post_cache( $post );
 
 		if ( 'part' == $type ) {
+
 			// We're setting two things here - the new post_parent (to the first part)
 			// And the new menu order for the chapters that were in the part being deleted.
+
 			$new_parent_id = $wpdb->get_var( "SELECT ID
 										 FROM {$wpdb->posts}
 										WHERE post_type = 'part'
@@ -618,21 +619,18 @@ class Book {
 										LIMIT 1 " );
 
 			if ( $new_parent_id ) {
-
 				$existing_numposts = $wpdb->get_var( "SELECT COUNT(1) AS numposts FROM {$wpdb->posts} WHERE post_type = 'chapter' AND post_parent = {$new_parent_id} " );
 				$query = "UPDATE {$wpdb->posts} SET post_parent = {$new_parent_id}, menu_order = menu_order + {$existing_numposts} WHERE post_parent = {$pid} AND post_type = 'chapter' ";
-
-				return $wpdb->query( $query );
-
+				$success = $wpdb->query( $query );
 			} else {
-
 				$query = "UPDATE {$wpdb->posts} SET post_status = 'trash' WHERE post_parent = {$pid} AND post_type = 'chapter' ";
-
-				return $wpdb->query( $query );
+				$success = $wpdb->query( $query );
 			}
+
+			wp_cache_flush();
 		}
 
-		return true;
+		return $success ? true : false;
 	}
 
 
