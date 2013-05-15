@@ -630,6 +630,8 @@ class Book {
 			wp_cache_flush();
 		}
 
+		static::deleteBookObjectCache();
+
 		return $success ? true : false;
 	}
 
