@@ -64,7 +64,7 @@ add_filter( 'admin_title', '\PressBooks\Admin\Laf\admin_title' );
 add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices' );
 
 // Add catalog administration page
-add_action( 'admin_menu', '\PressBooks\Catalog::addCatalogPage', 1 );
+// add_action( 'admin_menu', '\PressBooks\Catalog::addCatalogPage', 1 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Posts, Meta Boxes
