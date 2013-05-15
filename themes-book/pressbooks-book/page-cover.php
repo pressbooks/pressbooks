@@ -21,6 +21,8 @@ if (have_posts()) the_post();
 								<?php 
           			  $authors = get_posts(array('post_type' => 'back-matter',
           			                             'suppress_filters' => false,
+												 'orderby' => 'menu_order',
+												 'order' => 'ASC',
           			                             'tax_query' => array(
                                              		array(
                                              			'taxonomy' => 'back-matter-type',
@@ -32,15 +34,16 @@ if (have_posts()) the_post();
       					?>
       					<?php if ($authors): ?>
       					<div class="author-cover">
-      					<h4><?php _e('Authors(s)', 'pressbooks'); ?></h4>
-      					<?php foreach ($authors as $author): ?>
-      						<h3><?php echo $author->post_title; ?></h3>
+      					<?php
+						$i = 0;
+						foreach ($authors as $author): ?>
+      						<?php if (0 == $i): ?><h4><?php echo $author->post_title; ?></h4><?php else: ?><h3><?php echo $author->post_title; ?></h3><?php endif; ?>
       						<?php $the_content = apply_filters('the_content', $author->post_content); ?>
       						<?php echo $the_content; ?>
-      					 
-      				  <?php endforeach; ?>
-      				  </div> 
-      					<?php endif; ?>
+							<?php ++$i; ?>
+						<?php endforeach; ?>
+						</div>
+						<?php endif; ?>
 
 			</div><!-- #post-## -->
 <?php else: ?>
