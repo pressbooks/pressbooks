@@ -503,7 +503,7 @@ function init_css_js() {
 
 	}
 
-	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pb_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
+	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
 	update_user_option( $user_ID, 'admin_color', 'pb_colors', true );
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '2.0.2', 'screen' ); // TODO: Remember to change $ver to match PB

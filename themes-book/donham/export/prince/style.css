@@ -1,6 +1,6 @@
 /* PRINCE XML
  * @see: http://www.princexml.com/doc/8.1/
- * CSS Version: 1.1
+ * CSS Version: 1.2
 ================== */
 
 /* FONTS
@@ -178,7 +178,7 @@
 @page chapter:left {
   @top-left {
 	font-family: "LinBiolinum", sans-serif;
-	content: counter(page) "\A0\A0\002D\A0\A0" string(book-title);
+	content: counter(page) "\A0\A0" string(book-title);
 	counter-increment: part;
 	vertical-align: left;
   }
@@ -751,7 +751,8 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 	footnote-style-position: inside;
 	margin-left: 0;
 	line-height: 1.4;
-	text-indent: 1em; 
+	text-indent: 1em;
+	text-align: left;
 }
 sup.endnote {
 	line-height: 1em;

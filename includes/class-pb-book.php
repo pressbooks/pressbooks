@@ -341,7 +341,6 @@ class Book {
 				$my_post['ID'] = $id;
 				$my_post['post_parent'] = $newPart;
 				wp_update_post( $my_post );
-				do_action( 'pb_part_updated', $id, $newPart, $oldPart );
 
 				if ( is_array( $newPartOrder ) ) {
 					foreach ( $newPartOrder as $key => $values ) {

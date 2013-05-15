@@ -97,6 +97,8 @@ abstract class Import {
 
 
 	/**
+	 * Get a valid Part id to act as post_parent to a Chapter
+	 *
 	 * @return int
 	 */
 	protected function getChapterParent() {
@@ -119,6 +121,8 @@ abstract class Import {
 
 
 	/**
+	 * Check against what the user selected for import in our form
+	 *
 	 * @param $id
 	 *
 	 * @return bool
@@ -136,6 +140,8 @@ abstract class Import {
 
 
 	/**
+	 * Check against what the user selected for post_type in our form
+	 *
 	 * @param string $id
 	 *
 	 * @return string
@@ -178,7 +184,9 @@ abstract class Import {
 
 
 	/**
+	 * Catch form submissions
 	 *
+	 * @see pressbooks/admin/templates/import.php
 	 */
 	static public function formSubmit() {
 

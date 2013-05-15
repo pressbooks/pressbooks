@@ -87,6 +87,9 @@ class Activation {
 				else update_option( $k, $v );
 			} );
 		}
+
+		do_action( 'pressbooks_new_blog' );
+
 		restore_current_blog();
 
 		if ( is_user_logged_in() )

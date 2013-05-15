@@ -439,14 +439,8 @@ abstract class Export {
 	}
 
 
-	// ----------------------------------------------------------------------------------------------------------------
-	// Catch form submissions
-	// ----------------------------------------------------------------------------------------------------------------
-
 	/**
-	 * Overrides default WP template loading to do some funky stuff
-	 * On export page, chooses correct export module for epub, pdf, indesign, etc/
-	 * Handles deleting a saved export file
+	 * Catch form submissions
 	 *
 	 * @see pressbooks/admin/templates/export.php
 	 */
@@ -537,6 +531,7 @@ abstract class Export {
 					}
 				}
 				// Stats hook
+				// TODO rename to pressbooks_track_export
 				do_action( 'pb_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
 
