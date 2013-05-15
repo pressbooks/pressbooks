@@ -81,6 +81,13 @@ class Xhtml11 extends Export {
 		// Append endnotes to URL?
 		if ( $r['endnotes'] )
 			$this->url .= '&endnotes=true';
+
+		// HtmLawed: id values not allowed in input
+		foreach ( $this->reservedIds as $val ) {
+			$fixme[$val] = 1;
+		}
+		if ( isset( $fixme ) )
+			$GLOBALS['hl_Ids'] = $fixme;
 	}
 
 
