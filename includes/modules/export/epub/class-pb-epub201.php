@@ -110,6 +110,14 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Used by HtmLawed with $GLOBALS['hl_Ids']
+	 *
+	 * @var array
+	 */
+	protected $fixme;
+
+
+	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
@@ -123,6 +131,11 @@ class Epub201 extends Export {
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 
 		$this->themeOptionsOverrides();
+
+		// HtmLawed: id values not allowed in input
+		foreach ( $this->reservedIds as $val ) {
+			$this->fixme[$val] = 1;
+		}
 	}
 
 
@@ -344,8 +357,14 @@ class Epub201 extends Export {
 		$config = array(
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
+			'unique_ids' => 'fixme-',
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
 		);
+
+		// Reset on each htmLawed invocation
+		unset( $GLOBALS['hl_Ids'] );
+		if ( ! empty ( $this->fixme ) )
+			$GLOBALS['hl_Ids'] = $this->fixme;
 
 		return htmLawed( $html, $config );
 	}
