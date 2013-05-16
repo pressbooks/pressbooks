@@ -261,8 +261,6 @@ p {
 	line-height: 1.2em;
 	text-align: justify;
 	margin-bottom: 0;
-	orphans: 3;
-	widows:3;
 }
 p + p,
 .indent {

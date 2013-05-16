@@ -249,6 +249,12 @@ function pressbooks_theme_options_summary() { ?>
 				case 'pdf_hyphens': ?>
 					<li><?php _e( 'Hyphens' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></li>
 					<?php break;
+				case 'pdf_widows': ?>
+					<li><?php _e( 'Widows' , 'pressbooks' ) ?>: <em><?php echo $value; ?></em></li>
+					<?php break;
+				case 'pdf_orphans': ?>
+					<li><?php _e( 'Orphans' , 'pressbooks' ) ?>: <em><?php echo $value; ?></em></li>
+					<?php break;
 			}
 		}
 		?>
@@ -371,6 +377,8 @@ function pressbooks_theme_options_pdf_init() {
 		'pdf_footnotes_style' => 1,
 		'pdf_crop_marks' => 0,
 		'pdf_hyphens' => 0,
+		'pdf_widows' => 3,
+		'pdf_orphans' => 3,
 	);
 
 	if ( false == get_option( $_option ) ) {
@@ -464,6 +472,20 @@ function pressbooks_theme_options_pdf_init() {
 			 __( 'Regular footnotes', 'pressbooks' ),
 			 __( 'Force as endnotes', 'pressbooks' )
 		)
+	);
+	add_settings_field(
+		'pdf_widows',
+		__( 'Widows', 'pressbooks' ),
+		'pressbooks_theme_pdf_widows_callback',
+		$_page,
+		$_section
+	);
+	add_settings_field(
+		'pdf_orphans',
+		__( 'Orphans', 'pressbooks' ),
+		'pressbooks_theme_pdf_orphans_callback',
+		$_page,
+		$_section
 	);
 
 	register_setting(
@@ -595,15 +617,45 @@ function pressbooks_theme_pdf_hyphens_callback( $args ) {
 }
 
 
+// PDF Options Field Callback
+function pressbooks_theme_pdf_widows_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+
+	if ( ! isset( $options['pdf_widows'] ) ) {
+		$options['pdf_widows'] = 3;
+	}
+
+	$html = '<input type="text" id="pdf_widows" name="pressbooks_theme_options_pdf[pdf_widows]" value="' . $options['pdf_widows'] . '" size="3" />';
+	$html .= '<label for="pdf_widows"></label>';
+	echo $html;
+}
+
+
+// PDF Options Field Callback
+function pressbooks_theme_pdf_orphans_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+
+	if ( ! isset( $options['pdf_orphans'] ) ) {
+		$options['pdf_orphans'] = 3;
+	}
+
+	$html = '<input type="text" id="pdf_orphans" name="pressbooks_theme_options_pdf[pdf_orphans]" value="' . $options['pdf_orphans'] . '" size="3" />';
+	$html .= '<label for="pdf_orphans"></label>';
+	echo $html;
+}
+
+
 // PDF Options Input Sanitization
 function pressbooks_theme_options_pdf_sanitize( $input ) {
 
 	$options = get_option( 'pressbooks_theme_options_pdf' );
 
-	$options['pdf_page_size'] = $input['pdf_page_size'];
-	$options['pdf_paragraph_separation'] = $input['pdf_paragraph_separation'];
-	$options['pdf_blankpages'] = $input['pdf_blankpages'];
-	$options['pdf_footnotes_style'] = $input['pdf_footnotes_style'];
+	// Absint
+	foreach ( array( 'pdf_page_size', 'pdf_paragraph_separation', 'pdf_blankpages', 'pdf_footnotes_style', 'pdf_widows', 'pdf_orphans' ) as $val ) {
+		$options[$val] = absint( $input[$val] );
+	}
 
 	// Checkmarks
 	foreach ( array( 'pdf_toc', 'pdf_crop_marks', 'pdf_hyphens' ) as $val ) {
@@ -782,6 +834,14 @@ function pressbooks_theme_pdf_css_override( $css ) {
 	// Display TOC? true (default) / false
 	if ( ! @$options['pdf_toc'] ) {
 		$css .= "#toc { display: none; } \n";
+	}
+
+	// Widows & Orphans
+	if ( @$options['pdf_widows'] ) {
+		$css .= '@page { widows: ' . $options['pdf_widows'] . '; }' . "\n";
+	}
+	if ( @$options['pdf_orphans'] ) {
+		$css .= '@page { orphans: ' . $options['pdf_orphans'] . '; }' . "\n";
 	}
 
 
