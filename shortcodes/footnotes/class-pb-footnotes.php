@@ -244,13 +244,13 @@ class Footnotes {
 		 *  [3] => ... the text we want to move ...
 		 *
 		 * Known MS Word variations:
-		 *  href="#_ftn123"
-		 *  href="#_ednref123"
-		 *  href="/Users/foo/Documents/bar/9781426766497.doc#_ftn123"
-		 *  href="/Users/foo/Documents/bar/9781426766497.doc#_ednref123"
+		 *  href="#_ftn123" (-> #_ftnref123)
+		 *  href="#_edn123" (-> #_ednref123)
+		 *  href="/Users/foo/Documents/bar/9781426766497.doc#_ftn123" (-> .doc#_ftnref123)
+		 *  href="/Users/foo/Documents/bar/9781426766497.docx#_edn123" (-> .docx#_ednref123)
 		 *
 		 * Known Libre Office variations:
-		 *  href="#sdfootnote123anc"
+		 *  href="#sdfootnote123sym" (-> #sdfootnote123anc)
 		 */
 		$patterns = array(
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(#_ftnref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
