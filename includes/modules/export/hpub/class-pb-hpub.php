@@ -1261,7 +1261,19 @@ class Hpub extends Export {
 		$url = rtrim( $url, '/' );
 
 		$last_part = explode( '/', $url );
-		$last_part = trim( end( $last_part ) );
+		$last_pos = count( $last_part ) - 1;
+		$anchor = '';
+
+		// Look for #anchors
+		if ( $last_pos > 0 && '#' == substr( trim( $last_part[$last_pos] ), 0, 1 ) ) {
+			$anchor = trim( $last_part[$last_pos] );
+			$last_part = trim( $last_part[$last_pos - 1] );
+		} elseif ( false !== strpos( $last_part[$last_pos], '#' ) ) {
+			list( $last_part, $anchor ) = explode( '#', $last_part[$last_pos] );
+			$anchor = "#{$anchor}";
+		} else {
+			$last_part = trim( $last_part[$last_pos] );
+		}
 
 		if ( ! $last_part )
 			return false;
@@ -1291,6 +1303,9 @@ class Hpub extends Export {
 			if ( $p == $last_part ) break;
 		}
 		$new_url = "$new_type-" . sprintf( "%03s", $new_pos ) . "-$last_part.html";
+
+		if ( $anchor )
+			$new_url .= $anchor;
 
 		return $new_url;
 	}
