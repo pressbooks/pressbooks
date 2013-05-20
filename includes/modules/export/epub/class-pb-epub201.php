@@ -1426,7 +1426,8 @@ class Epub201 extends Export {
 			$last_part = trim( $last_part[$last_pos - 1] );
 		} elseif ( false !== strpos( $last_part[$last_pos], '#' ) ) {
 			list( $last_part, $anchor ) = explode( '#', $last_part[$last_pos] );
-			$anchor = "#{$anchor}";
+			$anchor = trim( "#{$anchor}" );
+			$last_part = trim( $last_part );
 		} else {
 			$last_part = trim( $last_part[$last_pos] );
 		}
