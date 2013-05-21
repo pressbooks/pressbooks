@@ -838,10 +838,10 @@ function pressbooks_theme_pdf_css_override( $css ) {
 
 	// Widows & Orphans
 	if ( @$options['pdf_widows'] ) {
-		$css .= '@page { widows: ' . $options['pdf_widows'] . '; }' . "\n";
+		$css .= '@page, p { widows: ' . $options['pdf_widows'] . '; }' . "\n";
 	}
 	if ( @$options['pdf_orphans'] ) {
-		$css .= '@page { orphans: ' . $options['pdf_orphans'] . '; }' . "\n";
+		$css .= '@page, p { orphans: ' . $options['pdf_orphans'] . '; }' . "\n";
 	}
 
 
