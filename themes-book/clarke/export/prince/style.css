@@ -1,10 +1,15 @@
 /* PRINCE XML
  * @see: http://www.princexml.com/doc/8.1/
- * CSS Version: 1.1
+ * CSS Version: 1.2
 ================== */
 
 /* FONTS
 ===========	*/
+
+/* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
+h1, h2, h3, h4, h5, h6 {
+	prince-bookmark-level: 1;
+}
 
 /* Page */
 @page {
@@ -256,8 +261,6 @@ p {
 	line-height: 1.2em;
 	text-align: justify;
 	margin-bottom: 0;
-	orphans: 3;
-	widows:3;
 }
 p + p,
 .indent {
@@ -673,7 +676,8 @@ div.ugc h5 + p {
 	footnote-style-position: inside;
 	margin-left: 0;
 	line-height: 1.4;
-	text-indent: 1em; 
+	text-indent: 1em;
+	text-align: left;
 }
 sup.endnote {
 	line-height: 1em;

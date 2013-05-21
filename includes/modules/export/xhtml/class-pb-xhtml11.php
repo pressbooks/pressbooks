@@ -81,6 +81,13 @@ class Xhtml11 extends Export {
 		// Append endnotes to URL?
 		if ( $r['endnotes'] )
 			$this->url .= '&endnotes=true';
+
+		// HtmLawed: id values not allowed in input
+		foreach ( $this->reservedIds as $val ) {
+			$fixme[$val] = 1;
+		}
+		if ( isset( $fixme ) )
+			$GLOBALS['hl_Ids'] = $fixme;
 	}
 
 
@@ -329,6 +336,7 @@ class Xhtml11 extends Export {
 
 		// We need to change global $id for shortcodes, the_content, ...
 		global $id;
+		$old_id = $id;
 
 		// Do root level structures first.
 		foreach ( $book_contents as $type => $struct ) {
@@ -370,6 +378,7 @@ class Xhtml11 extends Export {
 			}
 		}
 
+		$id = $old_id;
 		return $book_contents;
 	}
 

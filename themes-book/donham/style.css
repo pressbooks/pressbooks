@@ -67,6 +67,15 @@ h3, h5 {
 	margin: 100px 0 100px 80px;
 	text-align: right;
 }
+.entry-title span {
+	display: inline;
+	font-size: 0.875em;
+	font-weight: normal;	
+}
+.entry-title span:after {
+	content: ".";
+	padding-right: 10px;
+}
 .chapter_subtitle {
 	line-height: 2em;
 	margin: -80px 0 100px 80px;

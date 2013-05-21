@@ -14,6 +14,26 @@ if ( ! defined( 'ABSPATH' ) )
 	return;
 
 // -------------------------------------------------------------------------------------------------------------------
+// Turn on $_SESSION
+// -------------------------------------------------------------------------------------------------------------------
+
+function _pb_session_start() {
+	if ( ! session_id() ) {
+		ini_set( 'session.use_only_cookies', true );
+		session_start();
+	}
+}
+
+function _pb_session_kill() {
+	$_SESSION = array();
+	session_destroy();
+}
+
+add_action( 'init', '_pb_session_start', 1 );
+add_action( 'wp_logout', '_pb_session_kill' );
+add_action( 'wp_login', '_pb_session_kill' );
+
+// -------------------------------------------------------------------------------------------------------------------
 // Minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -115,5 +135,15 @@ if ( is_admin() ) {
 // --------------------------------------------------------------------------------------------------------------------
 
 require_once ( PB_PLUGIN_DIR . 'functions.php' );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Override wp_mail()
+// -------------------------------------------------------------------------------------------------------------------
+
+if ( ! function_exists( 'wp_mail' ) && isset( $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_API_KEY'] ) && isset( $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_SENDER_ADDRESS'] ) ) {
+	function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
+		return \PressBooks\Utility\wp_mail( $to, $subject, $message, $headers, $attachments );
+	}
+}
 
 /* The distinction between "the internet" & "books" will disappear in 5 years. Start adjusting now. */

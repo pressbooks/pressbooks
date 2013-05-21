@@ -1,0 +1,65 @@
+
+.indent {
+	text-indent: 2em;
+	margin-top: 0;
+}
+.nonindent,
+.no-indent {
+	text-indent: 0;
+}
+.hanging-indent {
+	padding-left: 1em;
+    	text-indent: -1em;
+}
+.textbox {
+	border: 1px solid #000;
+    	font-size: 0.9em;	
+    	line-height: 1.2em;
+	margin: 10px 0;
+	padding: 10px;
+}
+.textbox.shaded {
+	background-color: #eee;
+}
+.textbox-caption {
+	display: block;
+	font: bold 0.875em Helvetica, Arial, sans-serif;
+	margin: 0;
+}
+.pullquote {
+	border: 1px solid #000;
+	border-width: 1px 0;
+	margin: 20px auto;
+	padding: 5px 0;
+	text-align: center;
+	width: 45%;
+}
+.pullquote-left {
+	border: 1px solid #000;
+	border-width: 1px 0;
+	float: left;
+	margin: 0.8em 15px 0.8em 0;
+	padding: 5px 0;
+	text-align: center;
+	width: 45%;
+}
+.pullquote-right {
+	border: 1px solid #000;
+	border-width: 1px 0;
+	float: right;
+	margin: 0.8em 0 0.8em 15px;
+	padding: 5px 0;
+	text-align: center;
+	width: 45%;
+}
+hr.break-symbols {
+	border: none;
+	font-size: 1.1em;
+    	margin-bottom: 20px;
+}
+hr.break-symbols::after {
+	display: block;
+	content: "\066D";
+	font-size: 18pt;
+	text-align: center;
+}

@@ -1,6 +1,6 @@
 /* PRINCE XML
  * @see: http://www.princexml.com/doc/8.1/
- * CSS Version: 1.1
+ * CSS Version: 1.2
 ================== */
 
 /* FONTS
@@ -24,6 +24,11 @@
   font-weight: normal;
   font-style: normal;
   src: url(../../../../symbionts/fonts/Cardo104s.ttf) format("truetype");
+}
+
+/* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
+h1, h2, h3, h4, h5, h6 {
+	prince-bookmark-level: 1;
 }
 
 /* Page */
@@ -667,7 +672,8 @@ h3.chapter-number {
 	footnote-style-position: inside;
 	margin-left: 0;
 	line-height: 1.4;
-	text-indent: 1em; 
+	text-indent: 1em;
+	text-align: left;
 }
 sup.endnote {
 	line-height: 1em;

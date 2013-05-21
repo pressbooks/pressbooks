@@ -12,9 +12,9 @@ $overrides = array(
 	// 'View all posts filed under %s' => 'See all articles filed under %s',
 	// 'Howdy, %1$s' => 'Greetings, %1$s!',
 
-	'My Sites' => 'Mes livres',
-	'Create a New Site' => 'Créer un nouveau livre',
-	'Settings' => 'Utilitaires',
+	'My Sites' => 'Minu raamatud',
+	'Create a New Site' => 'Loo uus raamat',
+	'Settings' => 'Tööriistad',
 
 	// Add some more strings here...
 );

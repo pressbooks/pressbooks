@@ -235,7 +235,8 @@ abstract class Export {
 		} elseif ( function_exists( 'mime_content_type' ) ) {
 			$mime = @mime_content_type( $file ); // Suppress deprecated message
 		} else {
-			$mime = system( "file -i -b " . escapeshellarg( $file ) );
+			exec( "file -i -b " . escapeshellarg( $file ), $output );
+			$mime = $output[0];
 		}
 
 		return $mime;
@@ -370,6 +371,9 @@ abstract class Export {
 	 */
 	protected function transformXML( $content, $path_to_xsl ) {
 
+		libxml_use_internal_errors( true );
+		$content = iconv( 'UTF-8', 'UTF-8//IGNORE', $content );
+
 		$xsl = new \DOMDocument();
 		$xsl->load( $path_to_xsl );
 
@@ -377,8 +381,11 @@ abstract class Export {
 		$proc->importStyleSheet( $xsl );
 
 		$xml = new \DOMDocument();
-		@$xml->loadXML( $content );
-		$content = @$proc->transformToXML( $xml );
+		$xml->loadXML( $content );
+		$content = $proc->transformToXML( $xml );
+
+		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+		libxml_clear_errors();
 
 		return $content;
 	}
@@ -432,14 +439,8 @@ abstract class Export {
 	}
 
 
-	// ----------------------------------------------------------------------------------------------------------------
-	// Catch form submissions
-	// ----------------------------------------------------------------------------------------------------------------
-
 	/**
-	 * Overrides default WP template loading to do some funky stuff
-	 * On export page, chooses correct export module for epub, pdf, indesign, etc/
-	 * Handles deleting a saved export file
+	 * Catch form submissions
 	 *
 	 * @see pressbooks/admin/templates/export.php
 	 */
@@ -530,6 +531,7 @@ abstract class Export {
 					}
 				}
 				// Stats hook
+				// TODO rename to pressbooks_track_export
 				do_action( 'pb_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
 

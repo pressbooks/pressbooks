@@ -34,7 +34,7 @@ function get_restricted( $blogId ) {
 
 	if ( ( current_user_can_for_blog( $blogId, 'subscriber' ) || current_user_can_for_blog( $blogId, 'contributor' ) ) ) $disallowed[] = 'index';
 
-	return apply_filters( 'pb_restricted_pages', $disallowed, $blogId );
+	return apply_filters( 'pressbooks_restricted_pages', $disallowed, $blogId );
 }
 
 
@@ -53,7 +53,9 @@ function add_user_meta() {
 		'values' => array(
 			'en_US' => __( 'English', 'pressbooks' ),
 			'zh_TW' => __( 'Chinese, Traditional', 'pressbooks' ),
+			'et' => __( 'Estonian', 'pressbooks' ),
 			'fr_FR' => __( 'French', 'pressbooks' ),
+			'de_DE' => __( 'German', 'pressbooks' ),
 			'ja' => __( 'Japanese', 'pressbooks' ),
 			'pt_BR' => __( 'Portuguese, Brazil', 'pressbooks' ),
 			'es_ES' => __( 'Spanish', 'pressbooks' ),

@@ -181,6 +181,14 @@ function replace_book_admin_menu() {
 
 	// Advanced
 	add_options_page( __( 'Advanced Settings', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
+
+	// Import
+	$page = add_options_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
+	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
+		if ( $hook == $page ) {
+			wp_enqueue_script( 'pb-import' );
+		}
+	} );
 }
 
 
@@ -215,6 +223,14 @@ function display_organize() {
 function display_export() {
 
 	require( PB_PLUGIN_DIR . 'admin/templates/export.php' );
+}
+
+/**
+ * Displays the Import  Admin Page
+ */
+function display_import() {
+
+    require( PB_PLUGIN_DIR . 'admin/templates/import.php' );
 }
 
 
@@ -410,6 +426,16 @@ function edit_form_hacks() {
 
 
 /**
+ * @param \WP_Customize_Manager $wp_customize
+ *
+ * @see http://codex.wordpress.org/Plugin_API/Action_Reference/customize_register
+ */
+function customize_register( $wp_customize ) {
+	$wp_customize->remove_section( 'static_front_page' );
+}
+
+
+/**
  * Default selections for checkboxes created by custom_metadata class.
  */
 function default_meta_checkboxes() {
@@ -477,7 +503,7 @@ function init_css_js() {
 
 	}
 
-	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pb_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
+	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
 	update_user_option( $user_ID, 'admin_color', 'pb_colors', true );
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '2.0.2', 'screen' ); // TODO: Remember to change $ver to match PB
@@ -489,7 +515,7 @@ function init_css_js() {
 
 
 	// Don't let other plugins override our scripts
-	$badScripts = array( 'jquery-blockui', 'jquery-bootstrap', 'pb-organize', 'pb-feedback', 'pb-export', 'pb-metadata' );
+	$badScripts = array( 'jquery-blockui', 'jquery-bootstrap', 'pb-organize', 'pb-feedback', 'pb-export', 'pb-metadata', 'pb-import' );
 	array_walk( $badScripts, function ( $value, $key ) {
 		wp_deregister_script( $value );
 	} );
@@ -499,6 +525,7 @@ function init_css_js() {
 	wp_register_script( 'pb-export', PB_PLUGIN_URL . 'assets/js/export.js', array( 'jquery' ), '1.0.1' );
 	wp_register_script( 'pb-organize', PB_PLUGIN_URL . 'assets/js/organize.js', array( 'jquery', 'jquery-ui-core', 'jquery-blockui' ), '1.0.1' );
 	wp_register_script( 'pb-metadata', PB_PLUGIN_URL . 'assets/js/book-information.js', array( 'jquery' ), '1.0.1' );
+	wp_register_script( 'pb-import', PB_PLUGIN_URL . 'assets/js/import.js', array( 'jquery' ), '1.0.0' );
 
 	// Enqueue now
 	wp_register_script( 'jquery-bootstrap', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.js', array( 'jquery' ), '2.0.1' );
@@ -862,3 +889,46 @@ function display_advanced_settings() { ?>
 
 <?php
 }
+
+
+/* ------------------------------------------------------------------------ *
+ * Misc
+ * ------------------------------------------------------------------------ */
+
+/**
+ * Hook for add_action( 'admin_notices', ... ) Echo $_SESSION['pb_notices'] if any.
+ *
+ * @global array $_SESSION['pb_errors'] *
+ * @global array $_SESSION['pb_notices']
+ */
+function admin_notices() {
+
+	if ( ! empty( $_SESSION['pb_errors'] ) ) {
+		// Array-ify
+		if ( ! is_array( $_SESSION['pb_errors'] ) ) {
+			$tmp[] = $_SESSION['pb_errors'];
+			$_SESSION['pb_errors'] = $tmp;
+		}
+		// Print
+		foreach ( $_SESSION['pb_errors'] as $msg ) {
+			echo '<div class="error"><p>' . $msg . '</p></div>';
+		}
+	}
+
+	if ( ! empty( $_SESSION['pb_notices'] ) ) {
+		// Array-ify
+		if ( ! is_array( $_SESSION['pb_notices'] ) ) {
+			$tmp[] = $_SESSION['pb_notices'];
+			$_SESSION['pb_notices'] = $tmp;
+		}
+		// Print
+		foreach ( $_SESSION['pb_notices'] as $msg ) {
+			echo '<div class="updated"><p>' . $msg . '</p></div>';
+		}
+	}
+
+	// Destroy
+	unset ( $_SESSION['pb_errors'] );
+	unset ( $_SESSION['pb_notices'] );
+}
+

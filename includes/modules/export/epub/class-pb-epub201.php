@@ -110,6 +110,14 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Used by HtmLawed with $GLOBALS['hl_Ids']
+	 *
+	 * @var array
+	 */
+	protected $fixme;
+
+
+	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
@@ -123,6 +131,11 @@ class Epub201 extends Export {
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 
 		$this->themeOptionsOverrides();
+
+		// HtmLawed: id values not allowed in input
+		foreach ( $this->reservedIds as $val ) {
+			$this->fixme[$val] = 1;
+		}
 	}
 
 
@@ -269,6 +282,7 @@ class Epub201 extends Export {
 
 		// We need to change global $id for shortcodes, the_content, ...
 		global $id;
+		$old_id = $id;
 
 		// Do root level structures first.
 		foreach ( $book_contents as $type => $struct ) {
@@ -310,6 +324,7 @@ class Epub201 extends Export {
 			}
 		}
 
+		$id = $old_id;
 		return $book_contents;
 	}
 
@@ -342,8 +357,14 @@ class Epub201 extends Export {
 		$config = array(
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
+			'unique_ids' => 'fixme-',
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
 		);
+
+		// Reset on each htmLawed invocation
+		unset( $GLOBALS['hl_Ids'] );
+		if ( ! empty ( $this->fixme ) )
+			$GLOBALS['hl_Ids'] = $this->fixme;
 
 		return htmLawed( $html, $config );
 	}
@@ -472,7 +493,7 @@ class Epub201 extends Export {
 			$path_to_tmp_stylesheet,
 			$this->loadTemplate( $this->exportStylePath ) );
 
-		$this->scrapeAndKneadCss( $this->exportStylePath, $path_to_tmp_stylesheet );
+		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $path_to_tmp_stylesheet );
 
 		// Append overrides
 		file_put_contents(
@@ -489,7 +510,7 @@ class Epub201 extends Export {
 	 * @param string $path_to_original_stylesheet*
 	 * @param string $path_to_copy_of_stylesheet
 	 */
-	protected function scrapeAndKneadCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
+	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
 		$css_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$css = file_get_contents( $path_to_copy_of_stylesheet );
@@ -552,7 +573,9 @@ class Epub201 extends Export {
 
 		$img = wp_get_image_editor( $source_path );
 		if ( ! is_wp_error( $img ) ) {
-			$img->resize( 768, 1024, true );
+			// Take the longest dimension of the image and resize.
+			// Cropping is turned off. The aspect ratio is maintained.
+			$img->resize( 1563, 2500, false );
 			$img->save( $dest_path );
 			$this->coverImage = $dest_image;
 		}
@@ -675,8 +698,12 @@ class Epub201 extends Export {
 			$html .= '</p>';
 		}
 
-		$freebie_notice = 'This book was produced using <a href="http://pressbooks.com/">PressBooks.com</a>.';
-		$html .= "<p>$freebie_notice</p>";
+		// Copyright
+		// Please be kind, help PressBooks grow by leaving this on!
+		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES'] ) ) {
+			$freebie_notice = 'This book was produced using <a href="http://pressbooks.com/">PressBooks.com</a>.';
+			$html .= "<p>$freebie_notice</p>";
+		}
 
 		$html .= "</div></div>\n";
 
@@ -1222,8 +1249,13 @@ class Epub201 extends Export {
 		foreach ( $images as $image ) {
 			// Fetch image, change src
 			$url = $image->getAttribute( 'src' );
-			if ( $filename = $this->fetchAndSaveUniqueImage( $url, $fullpath ) ) {
+			$filename = $this->fetchAndSaveUniqueImage( $url, $fullpath );
+			if ( $filename ) {
+				// Replace with new image
 				$image->setAttribute( 'src', 'images/' . $filename );
+			} else {
+				// Tag broken image
+				$image->setAttribute( 'src', "{$url}#fixme" );
 			}
 		}
 
@@ -1233,6 +1265,7 @@ class Epub201 extends Export {
 
 	/**
 	 * Fetch a url with wp_remote_get(), save it to $fullpath with a unique name.
+	 * Will return an empty string if something went wrong.
 	 *
 	 * @param $url string
 	 * @param $fullpath string
@@ -1254,6 +1287,13 @@ class Epub201 extends Export {
 		$filename = Sanitize\force_ascii( $filename );
 
 		$file_contents = wp_remote_retrieve_body( $response );
+
+		// Check if file is actually an image
+		$im = @imagecreatefromstring( $file_contents );
+		if ( $im === false ) {
+			return ''; // Not an image
+		}
+		unset( $im );
 
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
@@ -1377,7 +1417,20 @@ class Epub201 extends Export {
 		$url = rtrim( $url, '/' );
 
 		$last_part = explode( '/', $url );
-		$last_part = trim( end( $last_part ) );
+		$last_pos = count( $last_part ) - 1;
+		$anchor = '';
+
+		// Look for #anchors
+		if ( $last_pos > 0 && '#' == substr( trim( $last_part[$last_pos] ), 0, 1 ) ) {
+			$anchor = trim( $last_part[$last_pos] );
+			$last_part = trim( $last_part[$last_pos - 1] );
+		} elseif ( false !== strpos( $last_part[$last_pos], '#' ) ) {
+			list( $last_part, $anchor ) = explode( '#', $last_part[$last_pos] );
+			$anchor = trim( "#{$anchor}" );
+			$last_part = trim( $last_part );
+		} else {
+			$last_part = trim( $last_part[$last_pos] );
+		}
 
 		if ( ! $last_part )
 			return false;
@@ -1407,6 +1460,9 @@ class Epub201 extends Export {
 			if ( $p == $last_part ) break;
 		}
 		$new_url = "$new_type-" . sprintf( "%03s", $new_pos ) . "-$last_part.html";
+
+		if ( $anchor )
+			$new_url .= $anchor;
 
 		return $new_url;
 	}

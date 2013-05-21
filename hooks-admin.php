@@ -36,6 +36,7 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
+	add_action( 'customize_register', '\PressBooks\Admin\Laf\customize_register', 1000 );
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\fix_root_admin_menu', 1 );
@@ -59,6 +60,12 @@ add_action( 'admin_init', '\PressBooks\Admin\Laf\advanced_settings_init' );
 //  Replaces 'WordPress' with 'PressBooks' in titles of admin pages.
 add_filter( 'admin_title', '\PressBooks\Admin\Laf\admin_title' );
 
+// Echo our notices, if any
+add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices' );
+
+// Add catalog administration page
+add_action( 'admin_menu', '\PressBooks\Catalog::addCatalogPage', 1 );
+
 // -------------------------------------------------------------------------------------------------------------------
 // Posts, Meta Boxes
 // -------------------------------------------------------------------------------------------------------------------
@@ -81,6 +88,9 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'save_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
+	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceBeforeInitInsertFormats' );
+	add_filter( 'mce_buttons_2', '\PressBooks\Editor::mceButtons');
+	add_action( 'init', '\PressBooks\Editor::addEditorStyle' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -110,6 +120,8 @@ add_action( 'wp_ajax_pb_load_css_from', '\PressBooks\Admin\CustomCss\load_css_fr
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', '\PressBooks\Export\Export::formSubmit', 50 );
+
+add_action( 'init', '\PressBooks\Import\Import::formSubmit' , 50 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Css

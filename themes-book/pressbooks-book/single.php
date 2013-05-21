@@ -4,7 +4,7 @@
 
 				<?php edit_post_link( __( 'Edit', 'pressbooks' ), '<span class="edit-link">', '</span>' ); ?>
 			<h2 class="entry-title"><?php
-				if ( $chapter_number = pb_get_chapter_number( $post->post_name ) ) echo "$chapter_number - ";
+				if ( $chapter_number = pb_get_chapter_number( $post->post_name ) ) echo "<span>$chapter_number</span>  ";
 				the_title();
 				?></h2>
 					<?php pb_get_links(); ?>

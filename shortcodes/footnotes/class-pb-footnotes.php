@@ -156,7 +156,7 @@ class Footnotes {
 			) );
 
 			add_filter( 'mce_external_plugins', array( $this, 'addFootnotePlugin' ) );
-			add_filter( 'mce_buttons', array( $this, 'registerFootnoteButton' ) );
+			add_filter( 'mce_buttons_2', array( $this, 'registerFootnoteButtons' ) );
 		}
 
 	}
@@ -183,9 +183,11 @@ class Footnotes {
 	 *
 	 * @return array
 	 */
-	function registerFootnoteButton( $buttons ) {
+	function registerFootnoteButtons( $buttons ) {
 
-		array_push( $buttons, '|', 'footnote', 'ftnref_convert' );
+		$p = array_search( 'wp_help', $buttons );
+		array_splice( $buttons, $p, 0, 'footnote' );
+		array_splice( $buttons, $p + 1, 0, 'ftnref_convert' );
 
 		return $buttons;
 	}
@@ -240,10 +242,21 @@ class Footnotes {
 		 *  [1] => #_ftnref130
 		 *  [2] => 130
 		 *  [3] => ... the text we want to move ...
+		 *
+		 * Known MS Word variations:
+		 *  href="#_ftn123" (-> #_ftnref123)
+		 *  href="#_edn123" (-> #_ednref123)
+		 *  href="/Users/foo/Documents/bar/9781426766497.doc#_ftn123" (-> .doc#_ftnref123)
+		 *  href="/Users/foo/Documents/bar/9781426766497.docx#_edn123" (-> .docx#_ednref123)
+		 *
+		 * Known Libre Office variations:
+		 *  href="#sdfootnote123sym" (-> #sdfootnote123anc)
 		 */
 		$patterns = array(
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(#_ftnref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+.*?[\.doc|\.docx](#_ftnref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(#_ednref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+.*?[\.doc|\.docx](#_ednref([0-9]+))["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // MS Word
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(#sdfootnote([0-9]+)anc)["\']+.*?>(?:[^<]+|.*?)?</a>(.*?)</div>~si', // Libre Office
 		);
 
@@ -253,7 +266,9 @@ class Footnotes {
 		 */
 		$replacers = array(
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(?:#_ftn__REPLACE_ME__)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // MS Word
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+.*?[\.doc|\.docx](?:#_ftn__REPLACE_ME__)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // MS Word
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(?:#_edn__REPLACE_ME__)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // MS Word
+			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+.*?[\.doc|\.docx](?:#_edn__REPLACE_ME__)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // MS Word
 			'~<a[\s]+[^>]*?href[\s]?=[\s"\']+(?:#sdfootnote__REPLACE_ME__sym)["\']+.*?>(?:[^<]+|.*?)?</a>~si', // Libre Office
 		);
 
@@ -285,6 +300,9 @@ class Footnotes {
 
 		// Twerk it
 		$html = preg_replace( $find, $replace, $html );
+
+		// Important, complex regular expressions have been known to, literally, crash PHP.
+		// When testing, make sure this function exists as expected.
 
 		// Send back JSON
 		header( 'Content-Type: application/json' );
