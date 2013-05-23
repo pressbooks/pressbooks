@@ -115,8 +115,6 @@
           <xsl:attribute name="style"><xsl:value-of select="@style" /></xsl:attribute>
         </xsl:if>
 
-
-
         <xsl:apply-templates />
       </p>
     </xsl:template>
@@ -131,5 +129,13 @@
       </a>
     </xsl:template>
     -->
+
+	<xsl:template match="li[starts-with(@id,'footnote-')]">
+		<li>
+			<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
+			<xsl:apply-templates />
+			<br style="line-height:0px;" />
+		</li>
+	</xsl:template>
 
 </xsl:stylesheet>
