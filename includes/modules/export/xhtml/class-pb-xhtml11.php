@@ -865,8 +865,6 @@ class Xhtml11 extends Export {
 	 */
 	protected function atLeastOneExport( array $chapters ) {
 
-		print_r($chapters);
-
 		foreach ( $chapters as $key => $val ) {
 			if ( is_array( $val ) ) {
 				return $this->atLeastOneExport( $val );
