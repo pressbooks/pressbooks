@@ -586,7 +586,7 @@ class Xhtml11 extends Export {
 				foreach ( $struct as $part ) {
 					$slug = $part['post_name'];
 					$title = $part['post_title'];
-					if ( count( $book_contents['part'] ) > 1 ) {
+					if ( count( $book_contents['part'] ) > 1 && $this->atLeastOneExport( $part['chapters'] ) ) {
 						printf( '<li class="part"><a href="#%s">%s</a></li>',
 							$slug,
 							Sanitize\decode( $title ) );
@@ -853,6 +853,29 @@ class Xhtml11 extends Export {
 			++$i;
 		}
 
+	}
+
+
+	/**
+	 * Does array of chapters have at least one export? Recursive.
+	 *
+	 * @param array $chapters
+	 *
+	 * @return bool
+	 */
+	protected function atLeastOneExport( array $chapters ) {
+
+		print_r($chapters);
+
+		foreach ( $chapters as $key => $val ) {
+			if ( is_array( $val ) ) {
+				return $this->atLeastOneExport( $val );
+			} elseif ( 'export' == (string) $key && $val ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }
