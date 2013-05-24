@@ -11,14 +11,14 @@ $overrides = array(
 
 	// 'View all posts filed under %s' => 'See all articles filed under %s',
 	// 'Howdy, %1$s' => 'Greetings, %1$s!',
+	// Add some more strings here...
 
 	'My Sites' => '我的書籍',
 	'Create a New Site' => '創建一個新的書',
-	'Settings' => '公用事業',
-
-	// Add some more strings here...
 );
 
-return $overrides;
+if ( \PressBooks\Book::isBook() ) {
+	$overrides['Settings'] = '公用事業';
+}
 
-?>
+return $overrides;
