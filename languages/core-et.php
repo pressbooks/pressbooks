@@ -11,14 +11,14 @@ $overrides = array(
 
 	// 'View all posts filed under %s' => 'See all articles filed under %s',
 	// 'Howdy, %1$s' => 'Greetings, %1$s!',
+	// Add some more strings here...
 
 	'My Sites' => 'Minu raamatud',
 	'Create a New Site' => 'Loo uus raamat',
-	'Settings' => 'Tööriistad',
-
-	// Add some more strings here...
 );
 
-return $overrides;
+if ( \PressBooks\Book::isBook() ) {
+	$overrides['Settings'] = 'Tööriistad';
+}
 
-?>
+return $overrides;
