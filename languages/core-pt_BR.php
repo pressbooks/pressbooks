@@ -11,14 +11,14 @@ $overrides = array(
 
 	// 'View all posts filed under %s' => 'See all articles filed under %s',
 	// 'Howdy, %1$s' => 'Greetings, %1$s!',
+	// Add some more strings here...
 
 	'My Sites' => 'Meus livros',
 	'Create a New Site' => 'Criar um novo livro',
-	'Settings' => 'Utilities',
-
-	// Add some more strings here...
 );
 
-return $overrides;
+if ( \PressBooks\Book::isBook() ) {
+	$overrides['Settings'] = 'Utilities';
+}
 
-?>
+return $overrides;
