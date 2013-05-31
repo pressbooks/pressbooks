@@ -204,8 +204,8 @@ class Epub201 extends Export {
 	 */
 	function validate() {
 
-		// Epubcheck command
-		$command = PB_EPUBCHECK_COMMAND . ' ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
+		// Epubcheck command, (quiet flag requires version 3.0.1+)
+		$command = PB_EPUBCHECK_COMMAND . ' -quiet ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
 
 		// Execute command
 		$output = array();
@@ -213,8 +213,7 @@ class Epub201 extends Export {
 		exec( $command, $output, $return_var );
 
 		// Is this a valid Epub?
-		$last_line = strtolower( end( array_filter( $output ) ) );
-		if ( false !== strpos( $last_line, 'check finished with warnings or errors' ) ) {
+		if ( ! empty( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
 
 			return false;
