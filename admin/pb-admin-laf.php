@@ -113,7 +113,7 @@ function replace_book_admin_menu() {
 
 
 	// Organize
-	$page = add_submenu_page( 'edit.php?post_type=chapter', __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'publish_posts', 'pressbooks', __NAMESPACE__ . '\display_organize' );
+	$page = add_submenu_page( 'edit.php?post_type=chapter', __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pressbooks', __NAMESPACE__ . '\display_organize' );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
 			wp_enqueue_script( 'jquery-blockui' );
@@ -125,11 +125,13 @@ function replace_book_admin_menu() {
 			) );
 		}
 	} );
-	$add_part = $submenu['edit.php?post_type=part'][10];
-	$add_chapter = $submenu['edit.php?post_type=chapter'][10];
-	$add_front_matter = $submenu['edit.php?post_type=front-matter'][10];
-	$add_back_matter = $submenu['edit.php?post_type=back-matter'][10];
-	array_push( $submenu['edit.php?post_type=chapter'], $add_part, $add_chapter, $add_front_matter, $add_back_matter );
+	if( current_user_can( 'create_posts' ) ){
+		$add_part = $submenu['edit.php?post_type=part'][10];
+		$add_chapter = $submenu['edit.php?post_type=chapter'][10];
+		$add_front_matter = $submenu['edit.php?post_type=front-matter'][10];
+		$add_back_matter = $submenu['edit.php?post_type=back-matter'][10];
+		array_push( $submenu['edit.php?post_type=chapter'], $add_part, $add_chapter, $add_front_matter, $add_back_matter );
+	}
 	unset( $submenu['edit.php?post_type=chapter'][10] );
 	if ( is_super_admin() ) {
 		// If network administrator, give the option to see front matter types.
