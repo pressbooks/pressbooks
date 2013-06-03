@@ -28,13 +28,19 @@
 	font: 16px/1.5 'Droid Serif', serif;
 	position: relative;
 }
+.book-info-container a {
+	text-decoration: none;
+}
 .book-info-container h1,
 .book-info-container h2, 
 .book-info-container h3, 
 .book-info-container h4,
 .book-info-container h5 {
 	font-family: 'Oswald', sans-serif;
-	margin-bottom: 20px;	
+	font-style: normal;
+    font-weight: normal;	
+	margin-bottom: 20px;
+	text-align: left;	
 }
 .book-info-container h1 {
 	font-size: 2.25em;
