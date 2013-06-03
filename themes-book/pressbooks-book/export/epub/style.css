@@ -304,6 +304,7 @@ span.chapter-author {
 ================== */
 img {
 	height: auto;
+    max-width: 100%;	
 }
 .alignleft {
 	float: left;
@@ -330,11 +331,14 @@ img.aligncenter {
 }
 .wp-caption {
 	height: auto;
+	max-width: 100%;
+	margin: 1em 0;		
 }
 .wp-caption-text {
 	font-size: 0.875em;
 	font-style: italic;
 	margin-top: 5px;
+	text-align: left;
 }
 div.wp-caption.aligncenter,
 div.wp-caption.alignleft,
