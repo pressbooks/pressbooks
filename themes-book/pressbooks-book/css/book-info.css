@@ -1,0 +1,444 @@
+/************************************************************** 
+* General styles
+**************************************************************/
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+	}
+* html .clearfix             { zoom: 1; } /* IE6 */
+*:first-child+html .clearfix { zoom: 1; } /* IE7 */
+
+/* Paul Irish's box model http://paulirish.com/2012/box-sizing-border-box-ftw/ */
+* { 
+	-moz-box-sizing: border-box; 
+	-webkit-box-sizing: border-box; 
+	box-sizing: border-box; 
+}
+
+
+/************************************************************** 
+* Cover Page/ Book info page
+**************************************************************/
+.book-info-container {
+	background-color: #fdfdfd;
+	font: 16px/1.5 'Droid Serif', serif;
+	position: relative;
+}
+.book-info-container h1,
+.book-info-container h2, 
+.book-info-container h3, 
+.book-info-container h4,
+.book-info-container h5 {
+	font-family: 'Oswald', sans-serif;
+	margin-bottom: 20px;	
+}
+.book-info-container h1 {
+	font-size: 2.25em;
+	font-weight: bold;
+}
+.book-info-container h2 {
+	font-size: 1.5em; /* 24/16 */
+}
+.book-info-container h3 {
+	font-size: 1.25em; /* 20/16 */
+}
+.book-info-container h4 {
+	font-size: 1.125em; /* 18/16 */ 
+}
+.book-info-container h3,
+.book-info-container h4 {
+	text-transform: none;
+}
+.book-info-container h5 {
+	font-size: 1em;
+}
+.pressbooks-brand img {
+	background-color: transparent;
+	border: none;
+	padding: 0;
+}
+.top-block {
+	margin: auto;
+	max-width: 960px;
+	padding-bottom: 3em;
+}
+.book-info {
+	float: left;
+	margin-right: 50px;
+	max-width: 540px;
+	margin-top: 130px;
+}
+.book-info h1 {
+	text-align: center;
+}
+.book-info h1 a {
+	color: #333;
+	text-decoration: none;
+}
+.book-info .book-author {
+	font-family: 'Oswald', sans-serif;
+	font-style: normal;
+	font-weight: lighter;
+	margin-top: 5px;
+    margin-bottom: 15px;	
+	text-align: center;
+}
+.stroke {
+	background: url(../images/book-info-stroke.png) 0 0 repeat-x;
+    display: block;
+    height: 1px;
+    margin: 0 auto 20px;
+    width: 30%;
+}
+.detail {
+	background: url(../images/book-info-detail.png) 0 0 no-repeat;
+    display: block;
+	height: 11px;
+    margin: 0 auto 20px;
+    width: 24px;
+}
+.sub-title {
+	font: 1.25em/1.3 'Oswald', sans-serif; /* 20/16 */
+	margin: 0 auto 20px;
+	text-align: center;
+	width: 85%;
+}
+.call-to-action {
+	margin: 40px auto 0;
+	max-width: 285px;
+    text-align: center;	
+}
+.btn {
+	box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+	border-radius: 4px;
+	color: #fff;
+	display: inline-block;
+	font-family: 'Oswald', sans-serif;
+	margin: 0 10px;
+	padding: 7px 20px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 120px;
+}
+.btn.red {
+	background-color: #a51b1b;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(179, 56, 56)), to(rgb(165, 27, 27)));
+	background-image: -webkit-linear-gradient(top, rgb(179, 56, 56), rgb(165, 27, 27));
+	background-image: -moz-linear-gradient(top, rgb(179, 56, 56), rgb(165, 27, 27));
+	background-image: -o-linear-gradient(top, rgb(179, 56, 56), rgb(165, 27, 27));
+	background-image: -ms-linear-gradient(top, rgb(179, 56, 56), rgb(165, 27, 27));
+	background-image: linear-gradient(top, rgb(179, 56, 56), rgb(165, 27, 27));
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#b33838', EndColorStr='#a51b1b');
+}
+a:hover.btn.red {
+	background-color: #961616;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(171, 51, 51)), to(rgb(150, 22, 22)));
+	background-image: -webkit-linear-gradient(top, rgb(171, 51, 51), rgb(150, 22, 22));
+	background-image: -moz-linear-gradient(top, rgb(171, 51, 51), rgb(150, 22, 22));
+	background-image: -o-linear-gradient(top, rgb(171, 51, 51), rgb(150, 22, 22));
+	background-image: -ms-linear-gradient(top, rgb(171, 51, 51), rgb(150, 22, 22));
+	background-image: linear-gradient(top, rgb(171, 51, 51), rgb(150, 22, 22));
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#ab3333', EndColorStr='#961616');
+}
+a:active.btn.red {
+	background-color: #841212;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(144, 42, 42)), to(rgb(132, 18, 18)));
+	background-image: -webkit-linear-gradient(top, rgb(144, 42, 42), rgb(132, 18, 18));
+	background-image: -moz-linear-gradient(top, rgb(144, 42, 42), rgb(132, 18, 18));
+	background-image: -o-linear-gradient(top, rgb(144, 42, 42), rgb(132, 18, 18));
+	background-image: -ms-linear-gradient(top, rgb(144, 42, 42), rgb(132, 18, 18));
+	background-image: linear-gradient(top, rgb(144, 42, 42), rgb(132, 18, 18));
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#902a2a', EndColorStr='#841212');
+}
+.btn.black {
+	background-color: #282828;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(73, 73, 73)), to(rgb(40, 40, 40)));
+	background-image: -webkit-linear-gradient(top, rgb(73, 73, 73), rgb(40, 40, 40));
+	background-image: -moz-linear-gradient(top, rgb(73, 73, 73), rgb(40, 40, 40));
+	background-image: -o-linear-gradient(top, rgb(73, 73, 73), rgb(40, 40, 40));
+	background-image: -ms-linear-gradient(top, rgb(73, 73, 73), rgb(40, 40, 40));
+	background-image: linear-gradient(top, rgb(73, 73, 73), rgb(40, 40, 40));
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#494949', EndColorStr='#282828');
+	box-shadow: 0 2px 2px rgba(0,0,0,0.1);
+}
+a:hover.btn.black {
+	background-color: #222222;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(62, 62, 62)), to(rgb(34, 34, 34)));
+	background-image: -webkit-linear-gradient(top, rgb(62, 62, 62), rgb(34, 34, 34));
+	background-image: -moz-linear-gradient(top, rgb(62, 62, 62), rgb(34, 34, 34));
+	background-image: -o-linear-gradient(top, rgb(62, 62, 62), rgb(34, 34, 34));
+	background-image: -ms-linear-gradient(top, rgb(62, 62, 62), rgb(34, 34, 34));
+	background-image: linear-gradient(top, rgb(62, 62, 62), rgb(34, 34, 34));
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#3e3e3e', EndColorStr='#222222');
+}
+a:active.btn.black {
+	background-color: #222222;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(rgb(49, 49, 49)), to(rgb(34, 34, 34)));
+	background-image: -webkit-linear-gradient(top, rgb(49, 49, 49), rgb(34, 34, 34));
+	background-image: -moz-linear-gradient(top, rgb(49, 49, 49), rgb(34, 34, 34));
+	background-image: -o-linear-gradient(top, rgb(49, 49, 49), rgb(34, 34, 34));
+	background-image: -ms-linear-gradient(top, rgb(49, 49, 49), rgb(34, 34, 34));
+	background-image: linear-gradient(top, rgb(49, 49, 49), rgb(34, 34, 34));
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#313131', EndColorStr='#222222');
+}
+.buy-icon {
+	background: url(../images/sprite-book-info.png) -200px -200px no-repeat;
+	display: inline-block;
+	margin-right: 10px;
+	width: 16px;
+	height: 16px;
+}
+.read-icon {
+	background: url(../images/sprite-book-info.png) -400px -198px no-repeat;
+	display: inline-block;
+	margin-right: 10px;	
+	width: 16px;
+	height: 16px;	
+}
+.right-block {
+	 height: auto;
+    float: right;
+    max-width: 350px;
+    width: 36.5%;
+    position: relative;
+}
+.pressbooks-brand {
+	display: block;
+	margin: 0 auto;
+	min-width: 350px;
+	text-align: center;	
+}
+.book-cover {
+    position: relative; 
+}
+.book-cover img {
+	background-color: transparent;
+	box-shadow: 0 10px 7px #aeaeae;
+	border: 0;
+    padding: 0px;	
+}
+.spine {
+	background: url(../images/spine.png) repeat-y 0 0 transparent;
+	height: 98.5%;
+	position: absolute;
+    left: 13px;
+    top: 0;
+    width: 2px;
+}
+.second-block-wrap,
+.home .push {
+	background-color: #3a3a3a;
+}
+.second-block-wrap,
+.third-block-wrap,
+.fourth-block-wrap {
+	padding: 3em 0;
+}
+.second-block,
+.third-block,
+.fourth-block {
+	color: #fff;
+	margin: auto;
+	max-width: 960px;
+}
+.home-post h3 {
+	font-size: 1.1em;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: bold;	
+	margin-bottom: 10px;
+	margin-top: 1.2em;
+}
+.description-book-info {
+	float: left;
+	margin-right: 3%;
+	max-width: 590px;
+	width: 62%;
+}
+.author-book-info {
+	float: left;
+	max-width: 340px;
+	width: 35%;
+}
+.author-book-info h4 {
+	border-bottom: 1px solid #fff;
+	padding-bottom: 10px;
+}
+.author-book-info h4 a {
+	color: #fff;
+}
+.more-tag {
+	color: #fff;
+	display: block;
+	font-style: italic;
+	margin: 5px 0 20px;
+}
+.author-book-info h4 a:hover,
+a:hover.more-tag {
+	color: #870D0D;
+}
+.start-reading {
+	margin: 40px 0 10px;
+	text-align: center;
+}
+a.button-black {
+  background-color: #222;
+  border: 1px solid #000;
+  color: #fff;
+  cursor: pointer;
+  font: 1em 'Oswald', Arial, Helvetica, sans-serif;
+  text-shadow: 0 1px 0 #000;
+  -moz-border-radius: 4px;
+  -o-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  margin: auto;
+  padding: 5px 15px;
+  text-decoration: none;
+}
+a.button-black:hover {
+  background-color: #333;
+}
+a.button-black:active {
+  background-color: #434343;
+}
+.third-block-wrap {
+	background-color: #e4e6e8;
+}
+.third-block {
+	color: #333;
+	font-family: 'Oswald', Arial, Helvetica, sans-serif;
+
+}
+.third-block a {
+	color: #333;
+	font-weight: lighter;	
+}
+.table-of-content  {
+/*
+	-moz-column-count: 4;
+	-moz-column-gap: 60px;
+	-webkit-column-count: 4;
+	-webkit-column-gap: 60px;
+	column-count: 4;
+	column-gap: 60px;
+*/
+	font-size: 0.875em;
+/* 	height: 250px; */
+}
+.table-of-content h4 {
+	margin-bottom: 5px;
+	margin-top: 20px;
+}
+.table-of-content ul {
+	margin-left: 10px;
+}
+.table-of-content .front-matter,
+.table-of-content .back-matter {
+	font-weight: bold;
+    margin-left: 0;
+}
+.fourth-block-wrap {
+	background-color: #3a3a3a;
+	min-height: 100px;
+}
+.fourth-block {
+ 
+}
+
+
+/************************************************************** 
+* Sharrre buttons
+**************************************************************/
+#share{
+	font-family: 'Oswald', Arial, Helvetica, sans-serif;	
+}
+.sharrre{
+	margin:55px 0 0 50px;
+	float:left;
+}
+.sharrre .box a:hover{
+	text-decoration:none;
+}
+.sharrre .count {
+	color:#525b67;
+	display:block;
+	font-size:14px;
+	line-height:30px;
+	height:30px;
+	position:relative;
+	text-align:center;
+	width: 90px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px;
+	background: #fbfbfb;	
+}
+.sharrre .count:before, .sharrre .count:after {
+	content:'';
+	display:block;
+	position:absolute;
+	left:49%;
+	width:0;
+	height:0;
+}
+.sharrre .count:before {
+	border:solid 7px transparent;
+	border-top-color:#b2c6cc;
+	margin-left:-7px;
+	bottom: -14px;
+}
+.sharrre .count:after {
+	border:solid 6px transparent;
+	margin-left:-6px;
+	bottom:-12px;
+	border-top-color:#fbfbfb;
+}
+.sharrre .share {
+	color:#FFFFFF;
+	display:block;
+	font-size:14px;
+	height:30px;
+	line-height:32px;
+	margin-top:9px;
+	padding:0;
+	text-align:center;
+	text-decoration:none;
+	width: 90px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px;
+	border-radius:4px; 
+}
+#twitter .share {
+	background-color: #00acee;
+    padding-left: 15px; 	
+}
+#twitter .share:before {
+	background: url(../images/twitter-icon.png) 0 9px no-repeat;
+	content: "";
+    display: block;
+    height: 30px;
+    line-height: 0;    
+    position: absolute;
+    width: 25px;	
+}
+#facebook .share { 
+	background-color: #34609d;
+    padding-left: 10px; 	
+}
+#facebook .share:before {
+	background: url(../images/facebook-icon.png) 7px 7px no-repeat;
+	content: "";
+    display: block;
+    height: 30px;
+    line-height: 0;    
+    position: absolute;
+    width: 25px;	
+}
+#googleplus .share {
+	background-color: #c73719;	
+}

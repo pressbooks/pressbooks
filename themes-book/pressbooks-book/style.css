@@ -459,6 +459,7 @@ h1.book-title a {
   float: right;
   margin-right: 0;
 }
+/*
 .share-wrap {
   float: right;
   margin: 10px 10px 0 0;
@@ -514,10 +515,11 @@ h1.book-title a {
 }
 .share li.facebook {
   margin-left: 8px;
-  float: none;
+  float: none; */
   /*ie fix - float right on div causing an issue */
-
+/*
 }
+*/
 /********************
 	Sidebar
 *********************/
@@ -681,15 +683,6 @@ li.bg-color {
 /********************
 	Images
 *********************/
-img.featured {
-    background-color: #FEFEFE;
-    border: 1px solid #E4E4E4;
-    float: left;
-    height: auto;
-    margin: 0 30px 30px 0;
-    max-width: 200px;
-    padding: 7px;
-}
 img.left {
   float: left;
   background-color: #fefefe;
@@ -826,20 +819,6 @@ div.aligncenter {
 .nav span.next a:hover {
   background-position:  -56px -506px;
 }
-/*
-.nav span a {
-  background: url(images/sprite.png) 0 -100px no-repeat;
-  display: block;
-  overflow: hidden;
-  text-indent: 100%;
-  width: 12px;
-  height: 17px;
-  white-space: nowrap;
-}
-.nav span.next a {
-  background: url(images/sprite.png) 0 -150px no-repeat;
-}
-*/
 
 /* TITILE, SUB-TITLE, AUTHOR AND APHORIS
 ==========================================*/
@@ -911,63 +890,6 @@ div.aligncenter {
 }
 .textbox.shaded {
 	background-color: #eee;
-}
-/********************
-     Cover Page
-********************/
-.about140 {
-  font-size: 1.1em;
-  font-weight: bold;
-  line-height: 1.3em;
-  padding: 10px 0 0;
-}
-.home-post h3 {
-	font-size: 1.1em;
-	font-style: normal;
-	font-variant: normal;
-	font-weight: bold;	
-	margin-bottom: 10px;
-	margin-top: 1.2em;
-}
-.author-cover {
-	background: #f6f6f6;
-	border: 1px solid #ddd;
-	font-size: 0.857em;
-	margin-top: 3em;
-	padding: 20px;
-}
-.author-cover h3 {
-	margin: 0 0 1em;
-}
-.author-cover h4 {
-	font-size: 1.4em;
-	font-style: normal;
-	text-align: center;
-}
-.start-reading {
-	margin: 40px 0 10px;
-	text-align: center;
-}
-a.button-black {
-  background-color: #222;
-  border: 1px solid #000;
-  color: #fff;
-  cursor: pointer;
-  font: 1em 'Oswald', Arial, Helvetica, sans-serif;
-  text-shadow: 0 1px 0 #000;
-  -moz-border-radius: 4px;
-  -o-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  margin: auto;
-  padding: 5px 15px;
-  text-decoration: none;
-}
-a.button-black:hover {
-  background-color: #333;
-}
-a.button-black:active {
-  background-color: #434343;
 }
 
 /********************

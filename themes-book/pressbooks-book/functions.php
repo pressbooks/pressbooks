@@ -18,10 +18,30 @@ $metakeys = array(
 	'pb_ebook_isbn'  => __( 'Ebook ISBN', 'pressbooks' ),
 );
 
+/* ------------------------------------------------------------------------ *
+ * Scripts and styles for Book Info Page (cover page)
+ * ------------------------------------------------------------------------ */
+ 
+function pressbooks_book_info_page () {
 
-/**
+	if ( is_front_page() ) {
+		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130517', 'all' );
+		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700');  
+		
+		// Book info page Table of Content columns
+		wp_enqueue_script( 'columnizer', get_template_directory_uri() . '/lib/columnizer/jquery.columnizer.min.js', array( 'jquery' ), '20130530', false );
+		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/lib/columnizer/columnizer-load.js', array( 'jquery' ), '20130530', false );
+		
+		// Sharrre
+		wp_enqueue_script( 'sharrre', get_template_directory_uri() . '/lib/sharrre/jquery.sharrre-1.3.4.min.js', array( 'jquery' ), '20130530', false );
+		wp_enqueue_script( 'sharrre-load', get_template_directory_uri() . '/lib/sharrre/sharrre-load.js', array( 'jquery' ), '20130530', false );				   		 		           
+	}   		 		   		   		       		           
+}     
+add_action('wp_enqueue_scripts', 'pressbooks_book_info_page'); 
+
+/* ------------------------------------------------------------------------ *
  * Register and enqueue scripts and stylesheets.
- */
+ * ------------------------------------------------------------------------ */
 function pb_enqueue_scripts() {
 
 	if ( pb_is_custom_theme() ) {
@@ -34,8 +54,9 @@ function pb_enqueue_scripts() {
 		wp_register_style( 'pressbooks', get_bloginfo( 'stylesheet_url' ), array(), null, 'screen' );
 		wp_enqueue_style( 'pressbooks' );
 	}
-
-	wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
+	if (! is_front_page() ) {
+		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
+	}
 	wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
 
 	if ( is_single() ) {
@@ -43,6 +64,17 @@ function pb_enqueue_scripts() {
 	}
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
+
+
+/* ------------------------------------------------------------------------ *
+ * Replaces the excerpt "more" text by a link
+ * ------------------------------------------------------------------------ */
+
+function new_pressbooks_excerpt_more($more) {
+       global $post;
+	return '<a class="more-tag" href="'. get_permalink($post->ID) . '"> Read more &raquo;</a>';
+}
+add_filter('excerpt_more', 'new_pressbooks_excerpt_more');
 
 
 /* Add Custom Login Graphic TODO: Import user customized logo here if available */
@@ -143,6 +175,10 @@ function pressbooks_enqueue_styles() {
    		 wp_enqueue_style( 'pressbooks-fonts', 'http://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald');  		   		   		       		           
 }     
 add_action('wp_print_styles', 'pressbooks_enqueue_styles'); 
+
+
+
+
 
 
 /* ------------------------------------------------------------------------ *
