@@ -125,7 +125,7 @@ function replace_book_admin_menu() {
 			) );
 		}
 	} );
-	if( current_user_can( 'create_posts' ) ){
+	if ( current_user_can( 'create_posts' ) ) {
 		$add_part = $submenu['edit.php?post_type=part'][10];
 		$add_chapter = $submenu['edit.php?post_type=chapter'][10];
 		$add_front_matter = $submenu['edit.php?post_type=front-matter'][10];
