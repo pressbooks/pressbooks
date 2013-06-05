@@ -8,100 +8,71 @@
 
 namespace PressBooks;
 
+
 class Catalog {
 
-	/**
-	 * Registers catalog administration menu page.
-	 */
-	function addCatalogPage() {
-		add_submenu_page( 'index.php', 'My Catalog', 'My Catalog', 'read', 'catalog', __NAMESPACE__ .'\Catalog::displayCatalogPage' );
+	function __construct() {
+
 	}
-	
+
+
+	// ----------------------------------------------------------------------------------------------------------------
+	// Catch form submissions
+	// ----------------------------------------------------------------------------------------------------------------
+
+
 	/**
-	 * Displays catalog administration menu page.
-	 */
-	function displayCatalogPage() {
-		$user_catalog_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog', 'pressbooks_user_catalog' );
-		Catalog::user_catalog_save( get_current_user_id() ); ?>
-		<div class="wrap">
-			<div id="icon-options-general" class="icon32"></div>
-			<h2><?php echo __( 'PressBooks Catalog', 'pressbooks' ); ?></h2>
-			<?php if ( $_POST) {
-				$nonce = $_REQUEST['_wpnonce'];
-				if ( !wp_verify_nonce( $nonce, 'pressbooks_user_catalog' ) ) { ?>
-			<div id="message" class="error below-h2"><p><?php echo __( 'Nonce verification failed.', 'pressbooks' ); ?></p></div>
-				<?php } else { ?>
-			<div id="message" class="updated below-h2"><p><?php echo __( 'Catalog saved.', 'pressbooks' ); ?></p></div>
-				<?php }
-			} ?>
-			<?php echo '<p>' . __( 'Choose from the following books for inclusion in your catalog', 'pressbooks' ) . '.</p>'; ?>
-			<form method="post" action="<?php echo $user_catalog_form_url; ?>">
-				<?php $user_catalog = get_user_meta( get_current_user_id(), 'pressbooks_user_catalog', true ); ?>
-				<?php $userblogs = get_blogs_of_user( get_current_user_id() ); 
-				$books = array(); 
-				foreach ($userblogs as $book) {
-					if ( !is_main_site( $book->userblog_id ) ) {
-						$books[$book->blogname] = $book;
-					}
-				}
-				ksort($books);
-				foreach ($books as $book) {
-					if ( ! isset( $user_catalog[$book->userblog_id] ) ) { $user_catalog[$book->userblog_id] = 0; }
-				}
-				?>
-				<table class="widefat fixed">
-				<?php $num = count( $books );
-				$cols = 1;
-				if ( $num >= 20 )
-					$cols = 4;
-				elseif ( $num >= 10 )
-					$cols = 2;
-				$num_rows = ceil( $num / $cols );
-				$split = 0;
-				for ( $i = 1; $i <= $num_rows; $i++ ) {
-					$rows[] = array_slice( $books, $split, $cols );
-					$split = $split + $cols;
-				}
-			
-				$c = '';
-				foreach ( $rows as $row ) {
-					$c = $c == 'alternate' ? '' : 'alternate';
-					echo "<tr class='$c'>";
-					$i = 0;
-					foreach ( $row as $book ) {
-						$s = $i == 3 ? '' : 'border-right: 1px solid #ccc;';
-						echo "<td valign='top' style='$s'>";
-						echo "<h3><label><input type=\"checkbox\" name=\"pressbooks_user_catalog[{$book->userblog_id}]\" id=\"{$book->userblog_id}\" value=\"1\" " . checked(1, $user_catalog[$book->userblog_id], false) . "/> {$book->blogname}</label></h3>";
-						echo "<p>" . apply_filters( 'myblogs_blog_actions', "<a href='" . esc_url( get_home_url( $book->userblog_id ) ). "'>" . __( 'Visit' ) . "</a> | <a href='" . esc_url( get_admin_url( $book->userblog_id ) ) . "'>" . __( 'Dashboard' ) . "</a>", $book ) . "</p>";
-						echo apply_filters( 'myblogs_options', '', $book );
-						echo "</td>";
-						$i++;
-					}
-					echo "</tr>";
-				}?>
-				</table>
-				<?php submit_button(); ?>
-			</form>
-		</div>
-	
-	<?php }
-	
-	/**
-	 * Saves user catalog.
+	 * Save custom CSS to database (and filesystem)
 	 *
-	 * @param $user_id
+	 * @see pressbooks/admin/templates/custom-css.php
 	 */
-	function user_catalog_save( $user_id ) {
-		if ( $_POST) {
-			$nonce = $_REQUEST['_wpnonce'];
-			if ( !wp_verify_nonce( $nonce, 'pressbooks_user_catalog' ) ) { return false; }
-			if ( !current_user_can( 'edit_user', $user_id ) ) { return false; }
-			if ( isset( $_POST['pressbooks_user_catalog'] ) ) {
-				update_user_meta( $user_id, 'pressbooks_user_catalog', $_POST['pressbooks_user_catalog'] );  
-		    } else {
-			    delete_user_meta( $user_id, 'pressbooks_user_catalog' );
-		    }
+	static function formSubmit() {
+
+		if ( false == static::isFormSubmission() || false == current_user_can( 'read' ) ) {
+			// Don't do anything in this function, bail.
+			return;
 		}
+
+		check_admin_referer( 'pb-user-catalog' );
+
+		$user_id = get_current_user_id();
+		if ( ! current_user_can( 'edit_user', $user_id ) ) {
+			return;
+		}
+
+		if ( is_array( @$_POST['pressbooks_user_catalog'] ) ) {
+			update_user_meta( $user_id, 'pressbooks_user_catalog', $_POST['pressbooks_user_catalog'] );
+		} else {
+			delete_user_meta( $user_id, 'pressbooks_user_catalog' );
+		}
+
+		// Ok!
+		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
+		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog';
+		\PressBooks\Redirect\location( $redirect_url );
+	}
+
+
+	/**
+	 * Check if a user submitted something to index.php?page=catalog
+	 *
+	 * @return bool
+	 */
+	static function isFormSubmission() {
+
+		if ( 'catalog' != @$_REQUEST['page'] ) {
+			return false;
+		}
+
+		if ( ! empty( $_POST ) ) {
+			return true;
+		}
+
+		if ( count( $_GET ) > 1 ) {
+			return true;
+		}
+
+		return false;
 	}
 
 
