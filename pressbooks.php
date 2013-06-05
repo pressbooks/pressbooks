@@ -67,14 +67,14 @@ if ( ! defined( 'PB_PLUGIN_URL' ) )
 
 function _pressbooks_autoload( $class_name ) {
 
-	$look_for_class = array();
-
 	$parts = explode( '\\', strtolower( $class_name ) );
 
 	if ( ! preg_match( '/^pressbooks/', @$parts[0] ) ) {
 		// Ignore classes not in our namespace
 		return;
 	}
+
+	$look_for_class = array();
 
 	if ( count( $parts ) > 1 && 'pressbooks' == @$parts[0] ) {
 		// Namespaced, Ie. PressBooks\Export\Prince\Pdf()
