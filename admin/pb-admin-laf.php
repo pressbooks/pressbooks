@@ -147,7 +147,7 @@ function replace_book_admin_menu() {
 	} else {
 		$book_info_url = 'post-new.php?post_type=metadata';
 	}
-	$page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'edit_posts', $book_info_url, '', '', 12 );
+	$page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'edit_theme_options', $book_info_url, '', '', 12 );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 			if ( 'metadata' == get_post_type() ) {
@@ -165,7 +165,7 @@ function replace_book_admin_menu() {
 
 
 	// Export
-	$page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', '', 14 );
+	$page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'export', 'pb_export', __NAMESPACE__ . '\display_export', '', 14 );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
 			wp_enqueue_script( 'pb-export' );
@@ -176,7 +176,7 @@ function replace_book_admin_menu() {
 	} );
 
 	// Sell
-	add_menu_page( __( 'Sell', 'pressbooks' ), __( 'Sell', 'pressbooks' ), 'edit_posts', 'pb_sell', __NAMESPACE__ . '\display_sell', '', 16 );
+	add_menu_page( __( 'Sell', 'pressbooks' ), __( 'Sell', 'pressbooks' ), 'edit_theme_options', 'pb_sell', __NAMESPACE__ . '\display_sell', '', 16 );
 
 	// Privacy
 	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
