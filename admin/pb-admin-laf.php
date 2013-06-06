@@ -908,8 +908,7 @@ function admin_notices() {
 	if ( ! empty( $_SESSION['pb_errors'] ) ) {
 		// Array-ify
 		if ( ! is_array( $_SESSION['pb_errors'] ) ) {
-			$tmp[] = $_SESSION['pb_errors'];
-			$_SESSION['pb_errors'] = $tmp;
+			$_SESSION['pb_errors'] = array( $_SESSION['pb_errors'] );
 		}
 		// Print
 		foreach ( $_SESSION['pb_errors'] as $msg ) {
@@ -920,8 +919,7 @@ function admin_notices() {
 	if ( ! empty( $_SESSION['pb_notices'] ) ) {
 		// Array-ify
 		if ( ! is_array( $_SESSION['pb_notices'] ) ) {
-			$tmp[] = $_SESSION['pb_notices'];
-			$_SESSION['pb_notices'] = $tmp;
+			$_SESSION['pb_notices'] = array( $_SESSION['pb_notices'] );
 		}
 		// Print
 		foreach ( $_SESSION['pb_notices'] as $msg ) {
