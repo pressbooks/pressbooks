@@ -2,7 +2,7 @@
 /**
  * This class has two purposes:
  *  + Handle the custom metadata post, i.e. "Book Information". There should only be one metadata post per book.
- *  + Perform data upgrades as PressBooks evolves.
+ *  + Perform upgrades on individual books as PressBooks evolves
  *
  * @author  PressBooks <code@pressbooks.org>
  * @license GPLv2 (or any later version)
@@ -239,7 +239,7 @@ class Metadata {
 	 * @deprecated
 	 *
 	 * @param string $table
-	 * @param bool   $new_as_keys
+	 * @param bool $new_as_keys
 	 *
 	 * @return array
 	 */
