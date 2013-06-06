@@ -867,7 +867,9 @@ class Xhtml11 extends Export {
 
 		foreach ( $chapters as $key => $val ) {
 			if ( is_array( $val ) ) {
-				return $this->atLeastOneExport( $val );
+				$found = $this->atLeastOneExport( $val );
+				if ( $found ) return true;
+				else continue;
 			} elseif ( 'export' == (string) $key && $val ) {
 				return true;
 			}
