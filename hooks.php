@@ -88,7 +88,7 @@ $_ = new \PressBooks\Shortcodes\WikiPublisher\Glyphs();
 
 if ( \PressBooks\Book::isBook() ) {
 	add_action( 'init', function () {
-		$meta_version = get_option( 'pressbooks_metadata_version' );
+		$meta_version = get_option( 'pressbooks_metadata_version', 0 );
 		if ( $meta_version < \PressBooks\Metadata::$currentVersion ) {
 			$metadata = new \PressBooks\Metadata();
 			$metadata->upgrade( $meta_version );
@@ -96,6 +96,19 @@ if ( \PressBooks\Book::isBook() ) {
 		}
 	}, 1000 );
 }
+
+// -------------------------------------------------------------------------------------------------------------------
+// Upgrade Catalog
+//  -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', function () {
+	$catalog_version = get_site_option( 'pressbooks_catalog_version', 0 );
+	if ( $catalog_version < \PressBooks\Catalog::$currentVersion ) {
+		$metadata = new \PressBooks\Catalog();
+		$metadata->upgrade( $catalog_version );
+		update_site_option( 'pressbooks_catalog_version', \PressBooks\Catalog::$currentVersion );
+	}
+}, 1000 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Turn off XML-RPC

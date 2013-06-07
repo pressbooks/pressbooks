@@ -20,7 +20,13 @@ function add_menu() {
  */
 function display_catalog_page() {
 
-	$vars = array(); // TODO
+	$vars = array();
+
+	// Are we editing our own catalog or another users?
+	if ( isset( $_REQUEST['user_id'] ) && current_user_can( 'edit_user', (int) $_REQUEST['user_id'] ) ) {
+		$vars['user_id'] = (int) $_REQUEST['user_id'];
+	}
+
 	load_catalog_template( $vars );
 }
 
