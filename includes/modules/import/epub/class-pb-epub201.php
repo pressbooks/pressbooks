@@ -346,8 +346,14 @@ class Epub201 extends Import {
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
+        // Remove PB created div id (on EPUB201 Export) that will generate a princexml error on re-export 
+        // @see createPartsAndChapters() in export/epub/class-pb-epub201.php
+        $html = preg_replace('/(?:<div class="chapter" id="(.*)">)/isU', '<div class="chapter">', $html);
+        // Remove PB generated content that is superfluous in a WP/PB environment 
+        // @see createPartsAndChapters() in export/epub/class-pb-epub201.php
+        $html = preg_replace('/(?:<div class="chapter-title-wrap"[^>]*>)(.*)<\/div>/isU', '', $html);
 
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+       	$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
 		return $html;
