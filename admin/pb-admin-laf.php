@@ -308,19 +308,28 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		return;
 
 	$wp_admin_bar->add_menu( array(
-		'id' => 'my-sites',
+		'id' => 'my-books',
 		'title' => __( 'My Books', 'pressbooks' ),
 		'href' => admin_url( 'my-sites.php' ),
 	) );
 
+	$wp_admin_bar->add_node( array(
+		'parent' => 'my-books',
+		'id' => 'add-new-book',
+		'title' => __( 'Add A New Book', 'pressbooks' ),
+		'href' => network_home_url('wp-signup.php'),
+	) );
+
+
 	if ( is_super_admin() ) {
+	
 		$wp_admin_bar->add_group( array(
-			'parent' => 'my-sites',
-			'id' => 'my-sites-super-admin',
+			'parent' => 'my-books',
+			'id' => 'my-books-super-admin',
 		) );
 
 		$wp_admin_bar->add_menu( array(
-			'parent' => 'my-sites-super-admin',
+			'parent' => 'my-books-super-admin',
 			'id' => 'network-admin',
 			'title' => __( 'Network Admin', 'pressbooks' ),
 			'href' => network_admin_url(),
@@ -350,17 +359,17 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			'title' => __( 'Visit Network', 'pressbooks' ),
 			'href' => network_home_url(),
 		) );
-	}
+	}	
 
 	// Add site links
 	$wp_admin_bar->add_group( array(
-		'parent' => 'my-sites',
-		'id' => 'my-sites-list',
+		'parent' => 'my-books',
+		'id' => 'my-books-list',
 		'meta' => array(
 			'class' => is_super_admin() ? 'ab-sub-secondary' : '',
 		),
 	) );
-
+	
 	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
 
 		// TODO: Replace with some favicon lookup.
@@ -370,7 +379,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		$menu_id = 'blog-' . $blog->userblog_id;
 
 		$wp_admin_bar->add_menu( array(
-			'parent' => 'my-sites-list',
+			'parent' => 'my-books-list',
 			'id' => $menu_id,
 			'title' => $blavatar . $blogname,
 			'href' => get_admin_url( $blog->userblog_id ),
@@ -395,6 +404,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			'href' => get_home_url( $blog->userblog_id, '/' ),
 		) );
 	}
+		
 }
 
 
