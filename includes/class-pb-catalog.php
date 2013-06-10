@@ -18,7 +18,7 @@ class Catalog {
 	 * @see install()
 	 * @var int
 	 */
-	static $currentVersion = 1;
+	static $currentVersion = 2;
 
 
 	/**
@@ -37,6 +37,7 @@ class Catalog {
 	protected $dbColumns = array(
 		'users_id' => '%d',
 		'blogs_id' => '%d',
+		'deleted' => '%d',
 		'featured' => '%d',
 		'tag_1' => '%s',
 		'tag_2' => '%s',
@@ -65,14 +66,86 @@ class Catalog {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
-		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d ", $user_id );
+		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ", $user_id );
 
 		return $wpdb->get_results( $sql, ARRAY_A );
 	}
 
 
 	/**
-	 * Save to a catalog.
+	 * Save an entire catalog.
+	 *
+	 * @param int $user_id
+	 * @param array $items
+	 */
+	function save( $user_id, array $items ) {
+
+		foreach ( $items as $item ) {
+			if ( isset( $item['blogs_id'] ) ) {
+				$this->saveBook( $user_id, $item['blogs_id'], $item );
+			}
+		}
+	}
+
+
+	/**
+	 * Delete an entire catalog.
+	 *
+	 * @param int $user_id
+	 * @param bool $for_real (optional)
+	 *
+	 * @return mixed
+	 */
+	function delete( $user_id, $for_real = false ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		if ( $for_real ) {
+			return $wpdb->delete( $this->dbTable, array( 'users_id' => $user_id ), array( '%d' ) );
+		} else {
+			return $wpdb->update( $this->dbTable, array( 'deleted' => 1 ), array( 'users_id' => $user_id ), array( '%d' ), array( '%d' ) );
+		}
+	}
+
+
+	/**
+	 * Get a book from a user catalog.
+	 *
+	 * @param int $user_id
+	 * @param int $blog_id
+	 *
+	 * @return mixed
+	 */
+	function getBook( $user_id, $blog_id ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND blogs_id = %d AND deleted = 0 ", $user_id, $blog_id );
+
+		return $wpdb->get_row( $sql, ARRAY_A );
+	}
+
+
+	/**
+	 * Get only blog IDs.
+	 *
+	 * @param int $user_id
+	 *
+	 * @return array
+	 */
+	function getBookIds( $user_id ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+		$sql = $wpdb->prepare( "SELECT blogs_id FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ", $user_id );
+
+		return $wpdb->get_col( $sql );
+	}
+
+
+	/**
+	 * Save a book to a user catalog.
 	 *
 	 * @param $user_id
 	 * @param $blog_id
@@ -85,72 +158,70 @@ class Catalog {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
-		unset( $item['users_id'], $item['blogs_id'] ); // Don't allow spoofing of IDs in the array
+		unset( $item['users_id'], $item['blogs_id'], $item['deleted'] ); // Don't allow spoofing
 
-		$data = array( 'users_id' => $user_id, 'blogs_id' => $blog_id );
-		$format = array( $this->dbColumns['users_id'], $this->dbColumns['blogs_id'] );
+		$data = array( 'users_id' => $user_id, 'blogs_id' => $blog_id, 'deleted' => 0 );
+		$format = array( 'users_id' => $this->dbColumns['users_id'], 'blogs_id' => $this->dbColumns['blogs_id'], 'deleted' => $this->dbColumns['deleted'] );
 
 		foreach ( $item as $key => $val ) {
 			if ( isset( $this->dbColumns[$key] ) ) {
 				$data[$key] = $val;
-				$format[] = $this->dbColumns[$key];
+				$format[$key] = $this->dbColumns[$key];
 			}
 		}
 
-		return $wpdb->replace( $this->dbTable, $data, $format );
+		// INSERT ... ON DUPLICATE KEY UPDATE
+		// @see http://dev.mysql.com/doc/refman/5.0/en/insert-on-duplicate.html
+
+		$args = array();
+		$sql = "INSERT INTO {$this->dbTable} ( ";
+		foreach ( $data as $key => $val ) {
+			$sql .= "`$key`, ";
+		}
+		$sql = rtrim( $sql, ', ' ) . ' ) VALUES ( ';
+
+		foreach ( $format as $key => $val ) {
+			$sql .= $val . ', ';
+			$args[] = $data[$key];
+		}
+		$sql = rtrim( $sql, ', ' ) . ' ) ON DUPLICATE KEY UPDATE ';
+
+		$i = 0;
+		foreach ( $data as $key => $val ) {
+			if ( 'users_id' == $key || 'blogs_id' == $key ) continue;
+			$sql .= "`$key` = {$format[$key]}, ";
+			$args[] = $val;
+			++$i;
+		}
+		$sql = rtrim( $sql, ', ' );
+		if ( ! $i ) $sql .= ' users_id = users_id '; // Do nothing
+
+		$sql = $wpdb->prepare( $sql, $args );
+
+		return $wpdb->query( $sql );
 	}
 
 
 	/**
-	 * Delete an entire catalog.
-	 *
-	 * @param int $user_id
-	 *
-	 * @return mixed
-	 */
-	function delete( $user_id ) {
-
-		/** @var $wpdb \wpdb */
-		global $wpdb;
-
-		return $wpdb->delete( $this->dbTable, array( 'users_id' => $user_id ), array( '%d' ) );
-	}
-
-
-	/**
-	 * Get a single book from a catalog.
+	 * Delete a book from a user catalog.
 	 *
 	 * @param int $user_id
 	 * @param int $blog_id
+	 * @param bool $for_real (optional)
 	 *
 	 * @return mixed
 	 */
-	function getBook( $user_id, $blog_id ) {
+	function deleteBook( $user_id, $blog_id, $for_real = false ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
-		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND blogs_id = %d ", $user_id, $blog_id );
 
-		return $wpdb->get_row( $sql, ARRAY_A );
+		if ( $for_real ) {
+			return $wpdb->delete( $this->dbTable, array( 'users_id' => $user_id, 'blogs_id' => $blog_id ), array( '%d', '%d' ) );
+		} else {
+			return $wpdb->update( $this->dbTable, array( 'deleted' => 1 ), array( 'users_id' => $user_id, 'blogs_id' => $blog_id ), array( '%d' ), array( '%d', '%d' ) );
+		}
 	}
-
-
-	/**
-	 * Get blog IDs only.
-	 *
-	 * @param int $user_id
-	 *
-	 * @return array
-	 */
-	function getBookIds( $user_id ) {
-
-		/** @var $wpdb \wpdb */
-		global $wpdb;
-		$sql = $wpdb->prepare( "SELECT blogs_id FROM {$this->dbTable} WHERE users_id = %d ", $user_id );
-
-		return $wpdb->get_col( $sql );
-	}
-
 
 
 	// ----------------------------------------------------------------------------------------------------------------
@@ -165,25 +236,29 @@ class Catalog {
 	 */
 	function upgrade( $version ) {
 
-		if ( $version < 1 ) {
+		if ( $version < self::$currentVersion ) {
 			$this->createTable();
 		}
 	}
 
 
 	/**
-	 * Create the initial Catalog table, SQL
+	 * DB Delta the initial Catalog table.
 	 *
+	 * If you change this, then don't forget to also change $this->dbColumns
+	 *
+	 * @see dbColumns
 	 * @see http://codex.wordpress.org/Creating_Tables_with_Plugins#Creating_or_Updating_the_Table
 	 */
 	protected function createTable() {
 
 		$sql = "CREATE TABLE {$this->dbTable} (
-				users_id INT(11) NOT NULL,
-  				blogs_id INT(11) NOT NULL,
-  				featured INT(11) DEFAULT 0 NOT NULL ,
-  				tag_1 VARCHAR(255) DEFAULT NULL,
-  				tag_2 VARCHAR(255) DEFAULT NULL,
+				users_id INT(11) NOT null,
+  				blogs_id INT(11) NOT null,
+  				deleted TINYINT(1) NOT null,
+  				featured INT(11) DEFAULT 0 NOT null ,
+  				tag_1 VARCHAR(255) DEFAULT null,
+  				tag_2 VARCHAR(255) DEFAULT null,
   				PRIMARY KEY  (users_id, blogs_id),
   				KEY featured (featured),
   				KEY tag_1 (tag_1),
@@ -225,7 +300,7 @@ class Catalog {
 
 		/* Save changes */
 
-		$catalog = new static();
+		$catalog = new self();
 		$catalog->delete( $user_id );
 		foreach ( @$_POST['pressbooks_user_catalog'] as $blog_id => $checked ) {
 			$catalog->saveBook( $user_id, $blog_id, array() );
