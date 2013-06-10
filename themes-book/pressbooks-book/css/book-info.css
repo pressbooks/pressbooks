@@ -76,9 +76,10 @@
 }
 .book-info {
 	float: left;
-	margin-right: 50px;
+	margin-right: 5%;
 	max-width: 540px;
 	margin-top: 130px;
+	width: 56.25%;
 }
 .book-info h1 {
 	text-align: center;
@@ -217,7 +218,7 @@ a:active.btn.black {
 .pressbooks-brand {
 	display: block;
 	margin: 0 auto;
-	min-width: 350px;
+	max-width: 350px;
 	text-align: center;	
 }
 .book-cover {
@@ -227,7 +228,7 @@ a:active.btn.black {
 	background-color: transparent;
 	box-shadow: 0 10px 7px #aeaeae;
 	border: 0;
-	max-width: 350px;
+	max-width: 100%;
     padding: 0px;	
 }
 .spine {
@@ -468,3 +469,79 @@ a.button-black:active {
 #googleplus .share {
 	background-color: #c73719;	
 }
+
+@media screen and (max-width: 990px) {
+	.right-block {
+		float: none;
+		margin: auto;
+	}
+	.book-info {
+		float: none;
+		margin: 70px auto 0;
+	}
+	.description-book-info,
+	.author-book-info {
+		float: none;
+		margin: 2em auto;
+		max-width: 80%;
+		overflow: hidden;
+		width: auto;
+	}
+	#share {
+	    margin: 30px auto;
+		overflow: hidden;
+		width: 350px;	
+	}
+	.sharrre {
+		margin: 0 20px;
+	}
+	.sharrre:first-child {
+		margin-left: 0;
+	}
+	.sharrre:last-child {
+		margin-right: 0;
+	}
+	.third-block {
+		width: 80%;
+	}
+}
+@media screen and (max-width: 780px) {
+	.right-block {
+		width: 95%;
+	}
+	.book-info,
+	.description-book-info,
+	.author-book-info,
+	.third-block {
+	    margin: 2em auto 0;
+		max-width: 95%;
+		width: auto;
+	}
+	.second-block-wrap, 
+	.third-block-wrap, 
+	.fourth-block-wrap {
+		padding: 1em 0;
+	}
+}	
+@media screen and (max-width: 390px) {
+	.btn.red {
+		margin-bottom: 1em;
+	}
+	#share {
+		width: 270px;
+	}
+	.sharrre .count,
+	.sharrre .share {
+		width: 60px;
+	}
+	#twitter .share:before,
+	#facebook .share:before{
+		background: none;
+	}
+	#twitter .share,
+	#facebook .share {
+		padding-left: 0;
+		text-align: center;
+	}
+}
+
