@@ -28,7 +28,6 @@
 		      				
 								<div class="author-book-info">
 		      				
-		      						<h3>About the author</h3>
 		      						<?php $loop = new WP_Query( $args );
 											while ( $loop->have_posts() ) : $loop->the_post(); ?>
 										    <h4><a href="<?php the_permalink(); ?>"><?php the_title();?></a></h4>
