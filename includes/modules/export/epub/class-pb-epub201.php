@@ -561,10 +561,10 @@ class Epub201 extends Export {
 
 		// Resize Image
 
-		if ( ! empty( $metadata['pb_cover_image'] ) && ! preg_match( '~assets/images/default-book-cover.png$~', $metadata['pb_cover_image'] ) ) {
+		if ( ! empty( $metadata['pb_cover_image'] ) && ! preg_match( '~assets/images/default-book-cover.jpg$~', $metadata['pb_cover_image'] ) ) {
 			$source_path = \PressBooks\Utility\get_media_path( $metadata['pb_cover_image'] );
 		} else {
-			$source_path = PB_PLUGIN_DIR . 'assets/images/default-book-cover.png';
+			$source_path = PB_PLUGIN_DIR . 'assets/images/default-book-cover.jpg';
 		}
 		$dest_image = sanitize_file_name( basename( $source_path ) );
 		$dest_image = Sanitize\force_ascii( $dest_image );

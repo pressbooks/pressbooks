@@ -53,7 +53,7 @@ function add_required_data( $pid, $post ) {
 	$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
 	if ( ! $pb_cover_image ) {
 		// if the pb_cover_image metadata value is not set, set it to the default image
-		update_post_meta( $post->ID, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.png' );
+		update_post_meta( $post->ID, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg' );
 	}
 }
 
@@ -465,7 +465,7 @@ function cover_image_box( $post ) {
 								jQuery("#cover_image_preview").load(function () { //avoiding blinking, wait until loaded
 									jQuery("#cover_image_preview").fadeIn();
 								});
-								jQuery('#cover_image_preview').attr('src', '<?php echo PB_PLUGIN_URL; ?>assets/images/default-book-cover.png');
+								jQuery('#cover_image_preview').attr('src', '<?php echo PB_PLUGIN_URL; ?>assets/images/default-book-cover.jpg');
 							});
 						}
 					});
@@ -474,13 +474,13 @@ function cover_image_box( $post ) {
 	  </script>
 			<label for="pb_cover_image">Cover Image</label>
 				<div class="pb_cover_image" id="pb_cover_image-1">
-	<?php if ( $pb_cover_image && ! preg_match( '~assets/images/default-book-cover.png$~', $pb_cover_image ) ) { ?>
+	<?php if ( $pb_cover_image && ! preg_match( '~assets/images/default-book-cover.jpg$~', $pb_cover_image ) ) { ?>
 		<p><img id="cover_image_preview" src="<?php echo $pb_cover_image; ?>" style="width: auto; height: 100px" alt="cover_image" /><br />
 		<button id="delete_cover_button" name="<?php echo $pb_cover_image; ?>" type="button">Delete</button></p>
 		<p><input type="file" name="pb_cover_image" value="" id="pb_cover_image" /></p>
 		<input type="hidden" id="cover_pid" name="cover_pid" value="<?php echo $_GET['post']; ?>" />
 	<?php } else { ?>
-		 <p><img id="cover_image_preview" src="<?php echo PB_PLUGIN_URL; ?>assets/images/default-book-cover.png" style="width: auto; height: 100px" alt="cover_image" /></p>
+		 <p><img id="cover_image_preview" src="<?php echo PB_PLUGIN_URL; ?>assets/images/default-book-cover.jpg" style="width: auto; height: 100px" alt="cover_image" /></p>
 		<p><input type="file" name="pb_cover_image" value="<?php echo $pb_cover_image; ?>" id="pb_cover_image" /></p>
 	<?php } ?>
 				<span class="description"><?php _e( 'Your cover image should be 625px on the shortest side.', 'pressbooks' ); ?></span>
@@ -505,7 +505,7 @@ function delete_cover_image() {
 			unlink( $image_path );
 		}
 
-		update_post_meta( $pid, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.png' );
+		update_post_meta( $pid, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg' );
 		\PressBooks\Book::deleteBookObjectCache();
 	}
 
