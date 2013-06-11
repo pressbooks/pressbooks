@@ -35,6 +35,6 @@
 										    the_excerpt();
 										    echo '</div>';
 											endwhile; ?>
-								
+								</div>			
 					</div><!-- end .secondary-block -->
-				</section> <!-- end .secondary-block -->
+				</section> <!-- end .secondary-block --> 
