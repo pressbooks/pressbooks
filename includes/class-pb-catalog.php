@@ -30,6 +30,14 @@ class Catalog {
 
 
 	/**
+	 * User ID to construct this object
+	 *
+	 * @var int
+	 */
+	protected $userId;
+
+
+	/**
 	 * Column structure of catalog_table
 	 *
 	 * @var array
@@ -45,28 +53,34 @@ class Catalog {
 
 
 	/**
-	 *
+	 * @param int $user_id (optional)
 	 */
-	function __construct() {
+	function __construct( $user_id = 0 ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 		$this->dbTable = $wpdb->base_prefix . 'pressbooks_catalog';
+
+		if ( $user_id ) {
+			$this->userId = $user_id;
+		} elseif ( isset( $_REQUEST['user_id'] ) && current_user_can( 'edit_user', (int) $_REQUEST['user_id'] ) ) {
+			$this->userId = (int) $_REQUEST['user_id'];
+		} else {
+			$this->userId = get_current_user_id();
+		}
 	}
 
 
 	/**
 	 * Get an entire catalog.
 	 *
-	 * @param int $user_id
-	 *
 	 * @return mixed
 	 */
-	function get( $user_id ) {
+	function get() {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
-		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ", $user_id );
+		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ", $this->userId );
 
 		return $wpdb->get_results( $sql, ARRAY_A );
 	}
@@ -75,14 +89,13 @@ class Catalog {
 	/**
 	 * Save an entire catalog.
 	 *
-	 * @param int $user_id
 	 * @param array $items
 	 */
-	function save( $user_id, array $items ) {
+	function save( array $items ) {
 
 		foreach ( $items as $item ) {
 			if ( isset( $item['blogs_id'] ) ) {
-				$this->saveBook( $user_id, $item['blogs_id'], $item );
+				$this->saveBook( $this->userId, $item['blogs_id'], $item );
 			}
 		}
 	}
@@ -91,20 +104,19 @@ class Catalog {
 	/**
 	 * Delete an entire catalog.
 	 *
-	 * @param int $user_id
 	 * @param bool $for_real (optional)
 	 *
 	 * @return mixed
 	 */
-	function delete( $user_id, $for_real = false ) {
+	function delete( $for_real = false ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
 		if ( $for_real ) {
-			return $wpdb->delete( $this->dbTable, array( 'users_id' => $user_id ), array( '%d' ) );
+			return $wpdb->delete( $this->dbTable, array( 'users_id' => $this->userId ), array( '%d' ) );
 		} else {
-			return $wpdb->update( $this->dbTable, array( 'deleted' => 1 ), array( 'users_id' => $user_id ), array( '%d' ), array( '%d' ) );
+			return $wpdb->update( $this->dbTable, array( 'deleted' => 1 ), array( 'users_id' => $this->userId ), array( '%d' ), array( '%d' ) );
 		}
 	}
 
@@ -112,16 +124,15 @@ class Catalog {
 	/**
 	 * Get a book from a user catalog.
 	 *
-	 * @param int $user_id
 	 * @param int $blog_id
 	 *
 	 * @return mixed
 	 */
-	function getBook( $user_id, $blog_id ) {
+	function getBook( $blog_id ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
-		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND blogs_id = %d AND deleted = 0 ", $user_id, $blog_id );
+		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND blogs_id = %d AND deleted = 0 ", $this->userId, $blog_id );
 
 		return $wpdb->get_row( $sql, ARRAY_A );
 	}
@@ -130,15 +141,13 @@ class Catalog {
 	/**
 	 * Get only blog IDs.
 	 *
-	 * @param int $user_id
-	 *
 	 * @return array
 	 */
-	function getBookIds( $user_id ) {
+	function getBookIds() {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
-		$sql = $wpdb->prepare( "SELECT blogs_id FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ", $user_id );
+		$sql = $wpdb->prepare( "SELECT blogs_id FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ", $this->userId );
 
 		return $wpdb->get_col( $sql );
 	}
@@ -147,20 +156,19 @@ class Catalog {
 	/**
 	 * Save a book to a user catalog.
 	 *
-	 * @param $user_id
 	 * @param $blog_id
 	 * @param array $item
 	 *
 	 * @return mixed
 	 */
-	function saveBook( $user_id, $blog_id, array $item ) {
+	function saveBook( $blog_id, array $item ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
 		unset( $item['users_id'], $item['blogs_id'], $item['deleted'] ); // Don't allow spoofing
 
-		$data = array( 'users_id' => $user_id, 'blogs_id' => $blog_id, 'deleted' => 0 );
+		$data = array( 'users_id' => $this->userId, 'blogs_id' => $blog_id, 'deleted' => 0 );
 		$format = array( 'users_id' => $this->dbColumns['users_id'], 'blogs_id' => $this->dbColumns['blogs_id'], 'deleted' => $this->dbColumns['deleted'] );
 
 		foreach ( $item as $key => $val ) {
@@ -205,21 +213,20 @@ class Catalog {
 	/**
 	 * Delete a book from a user catalog.
 	 *
-	 * @param int $user_id
 	 * @param int $blog_id
 	 * @param bool $for_real (optional)
 	 *
 	 * @return mixed
 	 */
-	function deleteBook( $user_id, $blog_id, $for_real = false ) {
+	function deleteBook( $blog_id, $for_real = false ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
 		if ( $for_real ) {
-			return $wpdb->delete( $this->dbTable, array( 'users_id' => $user_id, 'blogs_id' => $blog_id ), array( '%d', '%d' ) );
+			return $wpdb->delete( $this->dbTable, array( 'users_id' => $this->userId, 'blogs_id' => $blog_id ), array( '%d', '%d' ) );
 		} else {
-			return $wpdb->update( $this->dbTable, array( 'deleted' => 1 ), array( 'users_id' => $user_id, 'blogs_id' => $blog_id ), array( '%d' ), array( '%d', '%d' ) );
+			return $wpdb->update( $this->dbTable, array( 'deleted' => 1 ), array( 'users_id' => $this->userId, 'blogs_id' => $blog_id ), array( '%d' ), array( '%d', '%d' ) );
 		}
 	}
 
@@ -301,9 +308,9 @@ class Catalog {
 		/* Save changes */
 
 		$catalog = new self();
-		$catalog->delete( $user_id );
+		$catalog->delete();
 		foreach ( @$_POST['pressbooks_user_catalog'] as $blog_id => $checked ) {
-			$catalog->saveBook( $user_id, $blog_id, array() );
+			$catalog->saveBook( $blog_id, array() );
 		}
 
 		// Ok!
