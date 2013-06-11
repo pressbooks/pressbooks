@@ -221,23 +221,12 @@ a:active.btn.black {
 	max-width: 350px;
 	text-align: center;	
 }
-.book-cover {
-    position: relative; 
-}
 .book-cover img {
 	background-color: transparent;
 	box-shadow: 0 10px 7px #aeaeae;
 	border: 0;
 	max-width: 100%;
     padding: 0px;	
-}
-.spine {
-	background: url(../images/spine.png) repeat-y 0 0 transparent;
-	height: 98.5%;
-	position: absolute;
-    left: 13px;
-    top: 0;
-    width: 2px;
 }
 .second-block-wrap,
 .home .push {
@@ -343,16 +332,7 @@ a.button-black:active {
 	font-weight: lighter;	
 }
 .table-of-content  {
-/*
-	-moz-column-count: 4;
-	-moz-column-gap: 60px;
-	-webkit-column-count: 4;
-	-webkit-column-gap: 60px;
-	column-count: 4;
-	column-gap: 60px;
-*/
 	font-size: 0.875em;
-/* 	height: 250px; */
 }
 .table-of-content h4 {
 	color: #333;
@@ -372,10 +352,6 @@ a.button-black:active {
 	background-color: #3a3a3a;
 	min-height: 100px;
 }
-.fourth-block {
- 
-}
-
 
 /************************************************************** 
 * Sharrre buttons

@@ -7,7 +7,6 @@
 				<a href="http://pressbooks.com" class="pressbooks-brand"><img src="<?php bloginfo('template_url'); ?>/images/pressbooks-branding.png" alt="pressbooks-branding" width="186" height="123" /></a>
 				<?php if ( ! empty( $metadata['pb_cover_image'] ) ): ?>
 					<div class="book-cover">
-						<span class="spine"></span>
 						<img src="<?php echo $metadata['pb_cover_image']; ?>" alt="book-cover" title="<?php bloginfo( 'name' ); ?> book cover" />
 					
 					</div>	
