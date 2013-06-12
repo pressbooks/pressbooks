@@ -18,15 +18,15 @@ class Catalog {
 	 * @see install()
 	 * @var int
 	 */
-	static $currentVersion = 2;
+	static $currentVersion = 3;
 
 
 	/**
-	 * Catalog table, set in constructor
+	 * Catalog tables, set in constructor
 	 *
-	 * @var
+	 * @var string
 	 */
-	protected $dbTable;
+	protected $dbTable, $dbTagsTable, $dbLinkTable;
 
 
 	/**
@@ -47,8 +47,6 @@ class Catalog {
 		'blogs_id' => '%d',
 		'deleted' => '%d',
 		'featured' => '%d',
-		'tag_1' => '%s',
-		'tag_2' => '%s',
 	);
 
 
@@ -60,6 +58,8 @@ class Catalog {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 		$this->dbTable = $wpdb->base_prefix . 'pressbooks_catalog';
+		$this->dbTagsTable = $wpdb->base_prefix . 'pressbooks_tags';
+		$this->dbLinkTable = $wpdb->base_prefix . 'pressbooks__catalog__tags';
 
 		if ( $user_id ) {
 			$this->userId = $user_id;
@@ -68,6 +68,17 @@ class Catalog {
 		} else {
 			$this->userId = get_current_user_id();
 		}
+	}
+
+
+	/**
+	 * Get User ID
+	 *
+	 * @return int
+	 */
+	function getUserId() {
+
+		return $this->userId;
 	}
 
 
@@ -231,6 +242,138 @@ class Catalog {
 	}
 
 
+	/**
+	 * Get tags
+	 *
+	 * @param int $tag_group
+	 *
+	 * @return mixed
+	 */
+	function getTags( $tag_group ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		$sql = "SELECT {$this->dbTagsTable}.id, {$this->dbTagsTable}.tag FROM {$this->dbTagsTable}
+ 				INNER JOIN {$this->dbLinkTable} ON {$this->dbLinkTable}.tags_id = {$this->dbTagsTable}.id
+ 				INNER JOIN {$this->dbTable} ON {$this->dbTable}.users_id = {$this->dbLinkTable}.users_id
+ 				WHERE {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.users_id = %d ";
+
+		$sql = $wpdb->prepare( $sql, $tag_group, $this->userId );
+
+		return $wpdb->get_results( $sql, ARRAY_A );
+	}
+
+
+	/**
+	 * Get all tags for a book
+	 *
+	 * @param int $blog_id
+	 * @param int $tag_group
+	 *
+	 * @return mixed
+	 */
+	function getTagsByBook( $blog_id, $tag_group ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		$sql = "SELECT {$this->dbTagsTable}.id, {$this->dbTagsTable}.tag FROM {$this->dbTagsTable}
+ 				INNER JOIN {$this->dbLinkTable} ON {$this->dbLinkTable}.tags_id = {$this->dbTagsTable}.id
+ 				INNER JOIN {$this->dbTable} ON {$this->dbTable}.users_id = {$this->dbLinkTable}.users_id AND {$this->dbTable}.blogs_id = {$this->dbLinkTable}.blogs_id
+ 				WHERE {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.users_id = %d AND {$this->dbLinkTable}.blogs_id = %d AND {$this->dbTable}.deleted = 0 ";
+
+		$sql = $wpdb->prepare( $sql, $tag_group, $this->userId, $blog_id );
+
+		return $wpdb->get_results( $sql, ARRAY_A );
+	}
+
+
+	/**
+	 * Save tag
+	 *
+	 * @param string $tag
+	 * @param int $blog_id
+	 * @param int $tag_group
+	 *
+	 * @return \false|int
+	 */
+	function saveTag( $tag, $blog_id, $tag_group ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		$tag = strip_tags( $tag );
+		$tag = trim( $tag );
+
+		// INSERT ... ON DUPLICATE KEY UPDATE
+		// @see http://dev.mysql.com/doc/refman/5.0/en/insert-on-duplicate.html
+
+		$sql = "INSERT INTO {$this->dbTagsTable} ( users_id, tag ) VALUES ( %d, %s ) ON DUPLICATE KEY UPDATE id = id ";
+		$sql = $wpdb->prepare( $sql, $this->userId, $tag );
+		$_ = $wpdb->query( $sql );
+
+		// Get ID
+
+		$sql = "SELECT id FROM {$this->dbTagsTable} WHERE tag = %s ";
+		$sql = $wpdb->prepare( $sql, $tag );
+		$tag_id = $wpdb->get_var( $sql );
+
+		// Create JOIN
+
+		$sql = "INSERT INTO {$this->dbLinkTable} ( users_id, blogs_id, tags_id, tags_group ) VALUES ( %d, %d, %d, %d ) ON DUPLICATE KEY UPDATE users_id = users_id ";
+		$sql = $wpdb->prepare( $sql, $this->userId, $blog_id, $tag_id, $tag_group );
+		$result = $wpdb->query( $sql );
+
+		return $result;
+	}
+
+
+	/**
+	 * Delete a tag.
+	 *
+	 * IMPORTANT: The 'for_real' option is extremely destructive. Do not use unless you know what you are doing.
+	 *
+	 * @param string $tag
+	 * @param int $blog_id
+	 * @param int $tag_group
+	 * @param bool $for_real (optional)
+	 *
+	 * @return mixed
+	 */
+	function deleteTag( $tag, $blog_id, $tag_group, $for_real = false ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		// Get ID
+
+		$sql = "SELECT id FROM {$this->dbTagsTable} WHERE tag = %s ";
+		$sql = $wpdb->prepare( $sql, $tag );
+		$tag_id = $wpdb->get_var( $sql );
+
+		if ( ! $tag_id )
+			return false;
+
+		if ( $for_real && is_super_admin() ) {
+
+			$wpdb->delete( $this->dbLinkTable, array( 'tags_id' => $tag_id ), array( '%d' ) );
+			$wpdb->delete( $this->dbTagsTable, array( 'id' => $tag_id ), array( '%d' ) );
+			$result = 1;
+
+		} else {
+
+			$result = $wpdb->delete( $this->dbLinkTable, array( 'users_id' => $this->userId, 'blogs_id' => $blog_id, 'tags_id' => $tag_id, 'tags_group' => $tag_group ), array( '%d', '%d', '%d', '%d' ) );
+		}
+
+		// TODO:
+		// $wpdb->query( "OPTIMIZE TABLE {$this->dbLinkTable} " );
+		// $wpdb->query( "OPTIMIZE TABLE {$this->dbTagsTable} " );
+
+		return $result;
+	}
+
+
 	// ----------------------------------------------------------------------------------------------------------------
 	// Upgrades
 	// ----------------------------------------------------------------------------------------------------------------
@@ -244,35 +387,55 @@ class Catalog {
 	function upgrade( $version ) {
 
 		if ( $version < self::$currentVersion ) {
-			$this->createTable();
+			$this->createTables();
 		}
 	}
 
 
 	/**
-	 * DB Delta the initial Catalog table.
+	 * DB Delta the initial Catalog tables.
 	 *
 	 * If you change this, then don't forget to also change $this->dbColumns
 	 *
 	 * @see dbColumns
 	 * @see http://codex.wordpress.org/Creating_Tables_with_Plugins#Creating_or_Updating_the_Table
 	 */
-	protected function createTable() {
+	protected function createTables() {
+
+		/* TODO: Before launch
+		 DROP TABLE  `wp_pressbooks_catalog` ,
+		`wp_pressbooks_tags` ,
+		`wp_pressbooks__catalog__tags` ;
+		 */
+
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
 		$sql = "CREATE TABLE {$this->dbTable} (
 				users_id INT(11) NOT null,
   				blogs_id INT(11) NOT null,
   				deleted TINYINT(1) NOT null,
   				featured INT(11) DEFAULT 0 NOT null ,
-  				tag_1 VARCHAR(255) DEFAULT null,
-  				tag_2 VARCHAR(255) DEFAULT null,
   				PRIMARY KEY  (users_id, blogs_id),
-  				KEY featured (featured),
-  				KEY tag_1 (tag_1),
-  				KEY tag_2 (tag_2)
+  				KEY featured (featured)
 				); ";
+		dbDelta( $sql );
 
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		$sql = "CREATE TABLE {$this->dbLinkTable} (
+				users_id INT(11) NOT null,
+  				blogs_id INT(11) NOT null,
+  				tags_id INT(11) NOT null,
+  				tags_group INT(3) NOT null,
+  				PRIMARY KEY  (users_id, blogs_id, tags_id, tags_group)
+				); ";
+		dbDelta( $sql );
+
+		$sql = "CREATE TABLE {$this->dbTagsTable} (
+				id INT(11) NOT null AUTO_INCREMENT,
+  				users_id INT(11) NOT null,
+  				tag VARCHAR(255) NOT null,
+  				PRIMARY KEY  (id),
+  				UNIQUE KEY (tag)
+				); ";
 		dbDelta( $sql );
 	}
 
@@ -355,6 +518,50 @@ class Catalog {
 		}
 
 		return false;
+	}
+
+
+	/**
+	 * Return an array of tags from a comma delimited string
+	 *
+	 * @param string $tags
+	 *
+	 * @return array
+	 */
+	static function stringToTags( $tags ) {
+
+		$tags = mb_split( ',', $tags );
+
+		foreach ( $tags as $key => &$val ) {
+			$val = strip_tags( $val );
+			$val = mb_convert_case( $val, MB_CASE_TITLE, 'UTF-8' );
+			$val = mb_split( '\W', $val ); // Split on negated \w
+			$val = implode( ' ', $val ); // Put back together with spaces
+			$val = trim( $val );
+			if ( ! $val ) unset( $tags[$key] );
+		}
+
+		return $tags;
+	}
+
+
+	/**
+	 * Return a comma delimited string from an SQL array of tags, in alphabetical order.
+	 *
+	 * @param array $tags
+	 *
+	 * @return string
+	 */
+	static function tagsToString( array $tags ) {
+
+		$tags = \PressBooks\Utility\multi_sort( $tags, 'tag:asc' );
+
+		$str = '';
+		foreach ( $tags as $tag ) {
+			$str .= $tag['tag'] . ', ';
+		}
+
+		return rtrim( $str, ', ' );
 	}
 
 
