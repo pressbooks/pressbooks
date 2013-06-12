@@ -106,6 +106,7 @@ add_action( 'wp_ajax_pb_update_chapter', '\PressBooks\Book::updateChapter' );
 add_action( 'wp_ajax_pb_update_front_matter', '\PressBooks\Book::updateFrontMatter' );
 add_action( 'wp_ajax_pb_update_back_matter', '\PressBooks\Book::updateBackMatter' );
 add_action( 'wp_ajax_pb_update_export_options', '\PressBooks\Book::updateExportOptions' );
+add_action( 'wp_ajax_pb_update_privacy_options', '\PressBooks\Book::updatePrivacyOptions' );
 // Book Information Page
 add_action( 'wp_ajax_pb_delete_cover_image', '\PressBooks\Admin\Metaboxes\delete_cover_image' );
 // Convert MS Word Footnotes

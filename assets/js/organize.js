@@ -169,6 +169,36 @@ jQuery(document).ready(function ($) {
 	jQuery("table#front-matter").sortable(PressBooks.frontMatterOptions).disableSelection();
 	jQuery("table#back-matter").sortable(PressBooks.backMatterOptions).disableSelection();
 
+	$('.chapter_privacy').change(function () {
+		var id = $(this).attr('id');
+		id = id.split('_');
+		id = id[id.length - 1];
+		
+		if ($(this).is(':checked')) {
+			post_status = 'private';
+		} else {
+			post_status = 'publish';
+		}
+
+		jQuery.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'pb_update_privacy_options',
+				post_id: id,
+				post_status: post_status,
+				_ajax_nonce: PB_OrganizeToken.exportNonce
+			}
+		});
+		
+		if ( post_status == 'private' ) {
+			$(this).parent().prev('.column-status').text('Private');
+		} else {
+			$(this).parent().prev('.column-status').text('Published');
+		}
+
+	});
+
 	$('.chapter_export_check').change(function () {
 		var id = $(this).attr('id');
 		id = id.split('_');
@@ -191,6 +221,36 @@ jQuery(document).ready(function ($) {
 				_ajax_nonce: PB_OrganizeToken.exportNonce
 			}
 		});
+	});
+
+	$('.fm_privacy').change(function () {
+		var id = $(this).attr('id');
+		id = id.split('_');
+		id = id[id.length - 1];
+		
+		if ($(this).is(':checked')) {
+			post_status = 'private';
+		} else {
+			post_status = 'publish';
+		}
+
+		jQuery.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'pb_update_privacy_options',
+				post_id: id,
+				post_status: post_status,
+				_ajax_nonce: PB_OrganizeToken.exportNonce
+			}
+		});
+
+		if ( post_status == 'private' ) {
+			$(this).parent().prev('.column-status').text('Private');
+		} else {
+			$(this).parent().prev('.column-status').text('Published');
+		}
+
 	});
 
 	$('.fm_export_check').change(function () {
@@ -216,6 +276,36 @@ jQuery(document).ready(function ($) {
 			}
 		});
 	});
+	
+	$('.bm_privacy').change(function () {
+		var id = $(this).attr('id');
+		id = id.split('_');
+		id = id[id.length - 1];
+		
+		if ($(this).is(':checked')) {
+			post_status = 'private';
+		} else {
+			post_status = 'publish';
+		}
+
+		jQuery.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'pb_update_privacy_options',
+				post_id: id,
+				post_status: post_status,
+				_ajax_nonce: PB_OrganizeToken.exportNonce
+			}
+		});
+
+		if ( post_status == 'private' ) {
+			$(this).parent().prev('.column-status').text('Private');
+		} else {
+			$(this).parent().prev('.column-status').text('Published');
+		}
+
+	});
 
 	$('.bm_export_check').change(function () {
 		var id = $(this).attr('id');
@@ -240,4 +330,5 @@ jQuery(document).ready(function ($) {
 			}
 		});
 	});
+	
 });

@@ -450,6 +450,24 @@ class Book {
 			static::deleteBookObjectCache();
 		}
 	}
+	
+	/**
+	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
+	 */
+	static function updatePrivacyOptions() {
+
+		$post_id = absint( $_POST['post_id'] );
+		$post_status = $_POST['post_status'];
+
+		$my_post = array();
+		$my_post['ID'] = $post_id;
+		$my_post['post_status'] = $post_status;
+
+		if ( current_user_can( 'edit_post', $post_id ) && check_ajax_referer( 'pb-update-book-export' ) ) {
+			wp_update_post( $my_post );
+			static::deleteBookObjectCache();
+		}
+	}	
 
 
 	/**
