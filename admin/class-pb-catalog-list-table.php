@@ -97,6 +97,19 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @return string Text to be placed inside the column <td>
 	 */
+	function column_status( $item ) {
+
+		// TODO
+		if ( $item['status'] ) return 'In Catalog';
+		else return 'Not In Catalog';
+	}
+
+
+	/**
+	 * @param array $item A singular item (one full row's worth of data)
+	 *
+	 * @return string Text to be placed inside the column <td>
+	 */
 	function column_cover( $item ) {
 
 		$img = esc_url( $item['cover'] );
@@ -208,55 +221,8 @@ class Catalog_List_Table extends \WP_List_Table {
 			wp_die( 'TODO: Edit tags' );
 		}
 
-
-		// Query for and create data
-		// TODO: Caching
-
-		$catalog_obj = new Catalog();
-		$catalog = $catalog_obj->get();
-		$userblogs = get_blogs_of_user( $catalog_obj->getUserId() );
-		$data = array();
-		$already_loaded = array();
-		$i = 0;
-
-		foreach ( $catalog as $key => $val ) {
-			switch_to_blog( $val['blogs_id'] );
-			$metadata = Book::getBookInformation();
-			$data[$i]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
-			$data[$i]['status'] = 'In Catalog'; // TODO
-			$data[$i]['title'] = @$metadata['pb_title'];
-			$data[$i]['cover'] = @$metadata['pb_cover_image'];
-			$data[$i]['author'] = @$metadata['pb_author'];
-			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 1 );
-			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 2 );
-			$data[$i]['featured'] = $val['featured'];
-			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
-			++$i;
-			$already_loaded[$val['blogs_id']] = true;
-		}
-
-		foreach ( $userblogs as $book ) {
-
-			// Skip
-			if ( is_main_site( $book->userblog_id ) ) continue;
-			if ( isset( $already_loaded[$book->userblog_id] ) ) continue;
-
-			switch_to_blog( $book->userblog_id );
-			$metadata = Book::getBookInformation();
-			$data[$i]['ID'] = "{$catalog_obj->getUserId()}:{$book->userblog_id}";
-			$data[$i]['status'] = 'Not In Catalog'; // TODO
-			$data[$i]['title'] = @$metadata['pb_title'];
-			$data[$i]['cover'] = @$metadata['pb_cover_image'];
-			$data[$i]['author'] = @$metadata['pb_author'];
-			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $book->userblog_id, 1 );
-			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $book->userblog_id, 1 );
-			$data[$i]['featured'] = 0;
-			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
-			++$i;
-		}
-
-		restore_current_blog();
-
+		// Get data, sort
+		$data = $this->getItemsData();
 		$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'title'; // If no sort, default to title
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc'; // If no order, default to asc
 		$data = \PressBooks\Utility\multi_sort( $data, "$orderby:$order" );
@@ -324,6 +290,8 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$html = Catalog::tagsToString( $item[$column_name] );
 
+		if ( ! $html ) $html = '<span style="color:silver">n/a</span>';
+
 		// Build row actions
 		$actions = array(
 			'edit' => sprintf( '<a href="?page=%s&action=%s&book=%s">%s</a>', $_REQUEST['page'], 'edit', $item['ID'], __( 'Edit Tags', 'pressbooks' ) ),
@@ -351,6 +319,61 @@ class Catalog_List_Table extends \WP_List_Table {
 		);
 
 		return $hidden_columns;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	protected function getItemsData() {
+
+		// TODO: Caching
+
+		$catalog_obj = new Catalog();
+		$catalog = $catalog_obj->get();
+		$userblogs = get_blogs_of_user( $catalog_obj->getUserId() );
+		$data = array();
+		$already_loaded = array();
+		$i = 0;
+
+		foreach ( $catalog as $val ) {
+			switch_to_blog( $val['blogs_id'] );
+			$metadata = Book::getBookInformation();
+			$data[$i]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
+			$data[$i]['status'] = 1;
+			$data[$i]['title'] = @$metadata['pb_title'];
+			$data[$i]['cover'] = @$metadata['pb_cover_image'];
+			$data[$i]['author'] = @$metadata['pb_author'];
+			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 1 );
+			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 2 );
+			$data[$i]['featured'] = $val['featured'];
+			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
+			++$i;
+			$already_loaded[$val['blogs_id']] = true;
+		}
+
+		foreach ( $userblogs as $book ) {
+			// Skip
+			if ( is_main_site( $book->userblog_id ) ) continue;
+			if ( isset( $already_loaded[$book->userblog_id] ) ) continue;
+
+			switch_to_blog( $book->userblog_id );
+			$metadata = Book::getBookInformation();
+			$data[$i]['ID'] = "{$catalog_obj->getUserId()}:{$book->userblog_id}";
+			$data[$i]['status'] = 0;
+			$data[$i]['title'] = @$metadata['pb_title'];
+			$data[$i]['cover'] = @$metadata['pb_cover_image'];
+			$data[$i]['author'] = @$metadata['pb_author'];
+			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $book->userblog_id, 1 );
+			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $book->userblog_id, 2 );
+			$data[$i]['featured'] = 0;
+			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
+			++$i;
+		}
+
+		restore_current_blog();
+
+		return $data;
 	}
 
 }
