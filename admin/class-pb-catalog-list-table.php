@@ -20,7 +20,9 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 class Catalog_List_Table extends \WP_List_Table {
 
 
-	protected $userId;
+	// ----------------------------------------------------------------------------------------------------------------
+	// WordPress Overrides
+	// ----------------------------------------------------------------------------------------------------------------
 
 
 	/**
@@ -33,7 +35,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		$args = array(
 			'singular' => 'book',
 			'plural' => 'books',
-			'ajax' => false,
+			'ajax' => true,
 		);
 		parent::__construct( $args );
 	}
@@ -74,8 +76,8 @@ class Catalog_List_Table extends \WP_List_Table {
 		// Build row actions
 		$actions = array(
 			'visit' => sprintf( '<a href="%s">%s</a>', get_site_url( $blog_id ), __( 'Visit' ) ),
-			'dashboard' => sprintf( '<a href="%s">%s</a>', get_admin_url( $blog_id ), __( 'Dashboard' ) ),
-			'delete' => sprintf( '<a href="?page=%s&action=%s&book=%s">%s</a>', $_REQUEST['page'], 'delete', $item['ID'], __( 'Delete' ) ),
+			'dashboard' => sprintf( '<a href="%s">%s</a>', get_admin_url( $blog_id ), __( 'Edit Book', 'pressbooks' ) ),
+			'delete' => sprintf( '<a href="?page=%s&action=%s&book=%s">%s</a>', $_REQUEST['page'], 'delete', $item['ID'], __( 'Remove From Catalog', 'pressbooks' ) ),
 		);
 
 		// Return the title contents
@@ -135,12 +137,14 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$columns = array(
 			'cb' => '<input type="checkbox" />', // Render a checkbox instead of text
-			'title' => __( 'Title', 'pressbooks' ),
+			'status' => __( 'Status', 'pressbooks' ),
 			'cover' => __( 'Cover', 'pressbooks' ),
+			'title' => __( 'Title', 'pressbooks' ),
 			'author' => __( 'Author', 'pressbooks' ),
 			'tag_1' => __( 'Tag 1', 'pressbooks' ),
 			'tag_2' => __( 'Tag 2', 'pressbooks' ),
 			'featured' => __( 'Featured', 'pressbooks' ),
+			'pub_date' =>  __( 'Pub Date', 'pressbooks' ),
 		);
 
 		return $columns;
@@ -158,6 +162,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		$sortable_columns = array(
 			'title' => array( 'title', true ), // true means it's already sorted
 			'author' => array( 'author', false ),
+			'pub_date' => array( 'pub_date', false ),
 		);
 
 		return $sortable_columns;
@@ -197,26 +202,59 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		// TODO: Handle bulk actions
 		if ( 'delete' === $this->current_action() ) {
-			wp_die( 'Items deleted (or they would be if we had items to delete)!' );
+			wp_die( 'TODO: Remove from catalog' );
+		}
+		if ( 'edit' === $this->current_action() ) {
+			wp_die( 'TODO: Edit tags' );
 		}
 
 
 		// Query for and create data
+		// TODO: Caching
 
-		$catalog = ( new Catalog() )->get(); // PHP 5.4+
+		$catalog_obj = new Catalog();
+		$catalog = $catalog_obj->get();
+		$userblogs = get_blogs_of_user( $catalog_obj->getUserId() );
 		$data = array();
+		$already_loaded = array();
+		$i = 0;
 
 		foreach ( $catalog as $key => $val ) {
 			switch_to_blog( $val['blogs_id'] );
 			$metadata = Book::getBookInformation();
-			$data[$key]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
-			$data[$key]['title'] = @$metadata['pb_title'];
-			$data[$key]['cover'] = @$metadata['pb_cover_image'];
-			$data[$key]['author'] = @$metadata['pb_author'];
-			$data[$key]['tag_1'] = $val['tag_1'];
-			$data[$key]['tag_2'] = $val['tag_2'];
-			$data[$key]['featured'] = $val['featured'];
+			$data[$i]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
+			$data[$i]['status'] = 'In Catalog'; // TODO
+			$data[$i]['title'] = @$metadata['pb_title'];
+			$data[$i]['cover'] = @$metadata['pb_cover_image'];
+			$data[$i]['author'] = @$metadata['pb_author'];
+			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 1 );
+			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 2 );
+			$data[$i]['featured'] = $val['featured'];
+			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
+			++$i;
+			$already_loaded[$val['blogs_id']] = true;
 		}
+
+		foreach ( $userblogs as $book ) {
+
+			// Skip
+			if ( is_main_site( $book->userblog_id ) ) continue;
+			if ( isset( $already_loaded[$book->userblog_id] ) ) continue;
+
+			switch_to_blog( $book->userblog_id );
+			$metadata = Book::getBookInformation();
+			$data[$i]['ID'] = "{$catalog_obj->getUserId()}:{$book->userblog_id}";
+			$data[$i]['status'] = 'Not In Catalog'; // TODO
+			$data[$i]['title'] = @$metadata['pb_title'];
+			$data[$i]['cover'] = @$metadata['pb_cover_image'];
+			$data[$i]['author'] = @$metadata['pb_author'];
+			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $book->userblog_id, 1 );
+			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $book->userblog_id, 1 );
+			$data[$i]['featured'] = 0;
+			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
+			++$i;
+		}
+
 		restore_current_blog();
 
 		$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'title'; // If no sort, default to title
@@ -249,17 +287,34 @@ class Catalog_List_Table extends \WP_List_Table {
 		/**
 		 * REQUIRED. We also have to register our pagination options & calculations.
 		 */
-		$this->set_pagination_args( array(
-										 'total_items' => $total_items, //WE have to calculate the total number of items
-										 'per_page' => $per_page, //WE have to determine how many items to show on a page
-										 'total_pages' => ceil( $total_items / $per_page ) //WE have to calculate the total number of pages
-									) );
+		$args = array(
+			'total_items' => $total_items, // WE have to calculate the total number of items
+			'per_page' => $per_page, // WE have to determine how many items to show on a page
+			'total_pages' => ceil( $total_items / $per_page ) // WE have to calculate the total number of pages
+		);
+		$this->set_pagination_args( $args );
+
 	}
 
 
+	function _js_vars() {
+
+		parent::_js_vars();
+	}
+
+
+	function ajax_response() {
+
+		parent::ajax_response();
+	}
+
+
+	// ----------------------------------------------------------------------------------------------------------------
+	// PressBooks Stuff
+	// ----------------------------------------------------------------------------------------------------------------
+
+
 	/**
-	 * TODO: http://wordpress.stackexchange.com/questions/58576/auto-complete-or-auto-suggest-from-list-of-post-titles
-	 *
 	 * @param array $item A singular item (one full row's worth of data)
 	 * @param array $column_name The name/slug of the column to be processed
 	 *
@@ -267,11 +322,21 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	protected function renderTagColumn( $item, $column_name ) {
 
-		$value = esc_attr( $item[$column_name] );
+		$html = Catalog::tagsToString( $item[$column_name] );
 
-		$html = "<input type='text' value='$value' />";
+		// Build row actions
+		$actions = array(
+			'edit' => sprintf( '<a href="?page=%s&action=%s&book=%s">%s</a>', $_REQUEST['page'], 'edit', $item['ID'], __( 'Edit Tags', 'pressbooks' ) ),
+		);
 
-		return $html;
+		// Return the title contents
+		return sprintf( '%1$s %2$s',
+			/*$1%s*/
+			$html,
+			/*$2%s*/
+			$this->row_actions( $actions )
+		);
+
 	}
 
 	/**
