@@ -187,7 +187,7 @@ jQuery(document).ready(function ($) {
 				action: 'pb_update_privacy_options',
 				post_id: id,
 				post_status: post_status,
-				_ajax_nonce: PB_OrganizeToken.exportNonce
+				_ajax_nonce: PB_OrganizeToken.privacyNonce
 			}
 		});
 		
@@ -241,7 +241,7 @@ jQuery(document).ready(function ($) {
 				action: 'pb_update_privacy_options',
 				post_id: id,
 				post_status: post_status,
-				_ajax_nonce: PB_OrganizeToken.exportNonce
+				_ajax_nonce: PB_OrganizeToken.privacyNonce
 			}
 		});
 
@@ -295,7 +295,7 @@ jQuery(document).ready(function ($) {
 				action: 'pb_update_privacy_options',
 				post_id: id,
 				post_status: post_status,
-				_ajax_nonce: PB_OrganizeToken.exportNonce
+				_ajax_nonce: PB_OrganizeToken.privacyNonce
 			}
 		});
 

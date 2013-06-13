@@ -463,7 +463,7 @@ class Book {
 		$my_post['ID'] = $post_id;
 		$my_post['post_status'] = $post_status;
 
-		if ( current_user_can( 'edit_post', $post_id ) && check_ajax_referer( 'pb-update-book-export' ) ) {
+		if ( current_user_can( 'edit_post', $post_id ) && check_ajax_referer( 'pb-update-book-privacy' ) ) {
 			wp_update_post( $my_post );
 			static::deleteBookObjectCache();
 		}

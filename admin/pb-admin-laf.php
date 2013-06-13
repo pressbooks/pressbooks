@@ -122,6 +122,7 @@ function replace_book_admin_menu() {
 				// Ajax nonces
 				'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
 				'exportNonce' => wp_create_nonce( 'pb-update-book-export' ),
+				'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
 			) );
 		}
 	} );
