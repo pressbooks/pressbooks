@@ -459,6 +459,14 @@ h1.book-title a {
   float: right;
   margin-right: 0;
 }
+.share li.email a {
+  background: url(images/sprite.png) -147px -96px no-repeat;
+  height: 21px;
+  margin: 0 0 0 17px;
+  text-indent: -9999px;
+  width: 30px;
+  display: block;
+}
 /*
 .share-wrap {
   float: right;
@@ -500,14 +508,6 @@ h1.book-title a {
   -o-border-radius: 6px 6px 0 0;
   -webkit-border-radius: 6px 6px 0 0;
   border-radius: 6px 6px 0 0;
-}
-.share li.email a {
-  background: url(images/sprite.png) -147px -96px no-repeat;
-  height: 21px;
-  margin: 0 0 0 17px;
-  text-indent: -9999px;
-  width: 30px;
-  display: block;
 }
 .share li.twitter,
 .share li.facebook {
