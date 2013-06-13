@@ -468,7 +468,7 @@ a.button-black:active {
 	.book-info,
 	.call-to-action-wrap {
 		float: none;
-		margin: 70px auto 0;
+		margin: 10px auto 0;
 	}
 	.call-to-action-wrap {
 		width: 100%;
@@ -517,7 +517,7 @@ a.button-black:active {
 	.description-book-info,
 	.author-book-info,
 	.third-block {
-	    margin: 2em auto 0;
+	    margin: 10px auto 0;
 		max-width: 75%;
 		width: auto;
 	}
@@ -532,9 +532,7 @@ a.button-black:active {
 	.description-book-info,
 	.author-book-info,
 	.third-block {
-	    margin: 2em auto 0;
 		max-width: 95%;
-		width: auto;
 	}
 }
 
