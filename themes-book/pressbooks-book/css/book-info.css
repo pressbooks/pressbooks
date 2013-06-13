@@ -74,7 +74,8 @@
 	max-width: 960px;
 	padding-bottom: 3em;
 }
-.book-info {
+.book-info,
+.call-to-action-wrap {
 	float: left;
 	margin-right: 5%;
 	max-width: 540px;
@@ -96,6 +97,13 @@
     margin-bottom: 15px;	
 	text-align: center;
 }
+.book-cover {
+	float: right;
+    height: auto;
+    max-width: 350px;
+    position: relative;
+    width: 36.5%;
+}
 .stroke {
 	background: url(../images/book-info-stroke.png) 0 0 repeat-x;
     display: block;
@@ -115,6 +123,9 @@
 	margin: 0 auto 20px;
 	text-align: center;
 	width: 85%;
+}
+.call-to-action-wrap {
+	margin-top: 0;
 }
 .call-to-action {
 	margin: 40px auto 0;
@@ -416,6 +427,9 @@ a.button-black:active {
 	border-radius:4px;
 	border-bottom: none;	 
 }
+.sharrre a:hover.share {
+	color: #fff;
+}
 #twitter .share {
 	background-color: #00acee;
     padding-left: 15px; 	
@@ -451,9 +465,18 @@ a.button-black:active {
 		float: none;
 		margin: auto;
 	}
-	.book-info {
+	.book-info,
+	.call-to-action-wrap {
 		float: none;
 		margin: 70px auto 0;
+	}
+	.call-to-action-wrap {
+		width: 100%;
+	}
+	.book-cover {
+		float: none;
+		margin: 30px auto 0;
+		width: 90%;
 	}
 	.description-book-info,
 	.author-book-info {
@@ -462,6 +485,11 @@ a.button-black:active {
 		max-width: 80%;
 		overflow: hidden;
 		width: auto;
+	}
+	.second-block-wrap, 
+	.third-block-wrap, 
+	.fourth-block-wrap {
+		padding: 1em 0;
 	}
 	#share {
 	    margin: 30px auto;
@@ -490,7 +518,7 @@ a.button-black:active {
 	.author-book-info,
 	.third-block {
 	    margin: 2em auto 0;
-		max-width: 95%;
+		max-width: 75%;
 		width: auto;
 	}
 	.second-block-wrap, 
@@ -499,6 +527,17 @@ a.button-black:active {
 		padding: 1em 0;
 	}
 }	
+@media screen and (max-width: 620px) {
+	.book-info,
+	.description-book-info,
+	.author-book-info,
+	.third-block {
+	    margin: 2em auto 0;
+		max-width: 95%;
+		width: auto;
+	}
+}
+
 @media screen and (max-width: 390px) {
 	.btn.red {
 		margin-bottom: 1em;
