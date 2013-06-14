@@ -440,6 +440,7 @@ class Epub201 extends Import {
 	 * @see media_handle_sideload
 	 *
 	 * @return string filename
+	 * @throws \Exception
 	 */
 	protected function fetchAndSaveUniqueImage( $url, $href ) {
 
@@ -463,19 +464,26 @@ class Epub201 extends Import {
 			$already_done[$img_location] = '';
 			return '';
 		}
-
+	
 		$image_content = $this->getZipContent( "$dir/$url", false );
 		if ( ! $image_content ) {
 			// Could not find image?
-			$already_done[$img_location] = '';
-			return '';
-		}
+			try {  // case where $url is '../Images/someimage.jpg'
+				$trimUrl = ltrim( $url, './' );
+				$image_content = $this->getZipContent( $this->basedir . $trimUrl, false );
 
+				if ( ! $image_content ) throw new \Exception( 'Could not import images from EPUB' );
+			} catch ( Exception $e ) {
+				$already_done[$img_location] = '';
+				return '';
+			}
+		}
+		
 		$tmp_name = $this->createTmpFile();
 		file_put_contents( $tmp_name, $image_content );
 
 		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
-		$src = wp_get_attachment_url( $pid );
+		$src = wp_get_attachment_url( $pid );		
 		if ( ! $src ) $src = ''; // Change false to empty string
 		$already_done[$img_location] = $src;
 
