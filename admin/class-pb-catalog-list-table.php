@@ -353,8 +353,8 @@ class Catalog_List_Table extends \WP_List_Table {
 			$metadata = Book::getBookInformation();
 			$data[$i]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
 			$data[$i]['status'] = 1;
-			$data[$i]['title'] = ! empty( $meta['pb_title'] ) ? $meta['pb_title'] : get_bloginfo( 'name' );
-			$data[$i]['cover'] = @$metadata['pb_cover_image']; // TODO: Less resource intensive thumbnail
+			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
+			$data[$i]['cover'] = ! empty( $metadata['pb_cover_image'] ) ? $metadata['pb_cover_image'] : PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg'; // TODO: Less resource intensive thumbnail
 			$data[$i]['author'] = @$metadata['pb_author'];
 			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 1 );
 			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 2 );
@@ -373,8 +373,8 @@ class Catalog_List_Table extends \WP_List_Table {
 			$metadata = Book::getBookInformation();
 			$data[$i]['ID'] = "{$catalog_obj->getUserId()}:{$book->userblog_id}";
 			$data[$i]['status'] = 0;
-			$data[$i]['title'] = ! empty( $meta['pb_title'] ) ? $meta['pb_title'] : get_bloginfo( 'name' );
-			$data[$i]['cover'] = @$metadata['pb_cover_image']; // TODO: Less resource intensive thumbnail
+			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
+			$data[$i]['cover'] = ! empty( $metadata['pb_cover_image'] ) ? $metadata['pb_cover_image'] : PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg'; // TODO: Less resource intensive thumbnail
 			$data[$i]['author'] = @$metadata['pb_author'];
 			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $book->userblog_id, 1 );
 			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $book->userblog_id, 2 );
