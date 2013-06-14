@@ -80,12 +80,10 @@ class Catalog_List_Table extends \WP_List_Table {
 		);
 
 		// Return the title contents
-		return sprintf( '%1$s <span style="color:silver">(id:%2$s)</span>%3$s',
+		return sprintf( '<span style="font-size:1.17em;font-weight:bold";>%1$s</span> %2$s',
 			/*$1%s*/
 			$item['title'],
 			/*$2%s*/
-			$item['ID'],
-			/*$3%s*/
 			$this->row_actions( $actions )
 		);
 	}
@@ -99,8 +97,8 @@ class Catalog_List_Table extends \WP_List_Table {
 	function column_status( $item ) {
 
 		// TODO, Better HTML
-		if ( $item['status'] ) $status = 'In Catalog';
-		else $status = 'Not In Catalog';
+		if ( $item['status'] ) $status = '<span style="color:green;" >In Catalog</span>';
+		else $status = '<span style="color:silver;" >Not In Catalog';
 
 		$add_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
 		$add_url = add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url );
@@ -134,7 +132,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		$img = esc_url( $item['cover'] );
 		$alt = esc_attr( $item['title'] );
 
-		$html = "<img src='$img' style='width: auto; height: 100px' alt='$alt' />";
+		$html = "<img src='$img' style='width: auto; height: 80px; border: 1px solid #aeaeae;' alt='$alt' />";
 
 		return $html;
 	}
@@ -192,6 +190,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	function get_sortable_columns() {
 
 		$sortable_columns = array(
+			'status' => array( 'status', false ),
 			'title' => array( 'title', true ), // true means it's already sorted
 			'author' => array( 'author', false ),
 			'pub_date' => array( 'pub_date', false ),
