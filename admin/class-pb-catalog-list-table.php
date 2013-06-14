@@ -34,7 +34,7 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$args = array(
 			'singular' => 'book',
-			'plural' => 'books',
+			'plural' => 'books', // Parent will create bulk nonce: "bulk-{$plural}"
 			'ajax' => true,
 		);
 		parent::__construct( $args );
@@ -77,7 +77,6 @@ class Catalog_List_Table extends \WP_List_Table {
 		$actions = array(
 			'visit' => sprintf( '<a href="%s">%s</a>', get_site_url( $blog_id ), __( 'Visit' ) ),
 			'dashboard' => sprintf( '<a href="%s">%s</a>', get_admin_url( $blog_id ), __( 'Edit Book', 'pressbooks' ) ),
-			'delete' => sprintf( '<a href="?page=%s&action=%s&book=%s">%s</a>', $_REQUEST['page'], 'delete', $item['ID'], __( 'Remove From Catalog', 'pressbooks' ) ),
 		);
 
 		// Return the title contents
@@ -99,9 +98,29 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function column_status( $item ) {
 
-		// TODO
-		if ( $item['status'] ) return 'In Catalog';
-		else return 'Not In Catalog';
+		// TODO, Better HTML
+		if ( $item['status'] ) $status = 'In Catalog';
+		else $status = 'Not In Catalog';
+
+		$add_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
+		$add_url = add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url );
+
+		$remove_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'remove', $item['ID'] );
+		$remove_url = add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $remove_url );
+
+		// Build row actions
+		$actions = array(
+			'add' => sprintf( '<a href="%s">%s</a>', $add_url, __( 'Add', 'pressbooks' ) ),
+			'remove' => sprintf( '<a href="%s">%s</a>', $remove_url, __( 'Remove', 'pressbooks' ) ),
+		);
+
+		// Return the title contents
+		return sprintf( '%1$s %2$s',
+			/*$1%s*/
+			$status,
+			/*$2%s*/
+			$this->row_actions( $actions )
+		);
 	}
 
 
@@ -189,7 +208,8 @@ class Catalog_List_Table extends \WP_List_Table {
 	function get_bulk_actions() {
 
 		$actions = array(
-			'delete' => __( 'Delete', 'pressbooks' ),
+			'add' => __( 'Add', 'pressbooks' ),
+			'remove' => __( 'Remove', 'pressbooks' ),
 		);
 
 		return $actions;
@@ -213,14 +233,6 @@ class Catalog_List_Table extends \WP_List_Table {
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
 
-		// TODO: Handle bulk actions
-		if ( 'delete' === $this->current_action() ) {
-			wp_die( 'TODO: Remove from catalog' );
-		}
-		if ( 'edit' === $this->current_action() ) {
-			wp_die( 'TODO: Edit tags' );
-		}
-
 		// Get data, sort
 		$data = $this->getItemsData();
 		$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'title'; // If no sort, default to title
@@ -230,7 +242,7 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		// Pagination
 
-		$per_page = 5;
+		$per_page = 50;
 		$current_page = $this->get_pagenum();
 		$total_items = count( $data );
 
@@ -294,7 +306,7 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		// Build row actions
 		$actions = array(
-			'edit' => sprintf( '<a href="?page=%s&action=%s&book=%s">%s</a>', $_REQUEST['page'], 'edit', $item['ID'], __( 'Edit Tags', 'pressbooks' ) ),
+			'edit' => sprintf( '<a href="?page=%s&action=%s&ID=%s">%s</a>', $_REQUEST['page'], 'edit', $item['ID'], __( 'Edit Tags', 'pressbooks' ) ),
 		);
 
 		// Return the title contents
@@ -342,7 +354,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			$data[$i]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
 			$data[$i]['status'] = 1;
 			$data[$i]['title'] = @$metadata['pb_title'];
-			$data[$i]['cover'] = @$metadata['pb_cover_image'];
+			$data[$i]['cover'] = @$metadata['pb_cover_image']; // TODO: Less resource intensive thumbnail
 			$data[$i]['author'] = @$metadata['pb_author'];
 			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 1 );
 			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 2 );
@@ -362,7 +374,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			$data[$i]['ID'] = "{$catalog_obj->getUserId()}:{$book->userblog_id}";
 			$data[$i]['status'] = 0;
 			$data[$i]['title'] = @$metadata['pb_title'];
-			$data[$i]['cover'] = @$metadata['pb_cover_image'];
+			$data[$i]['cover'] = @$metadata['pb_cover_image']; // TODO: Less resource intensive thumbnail
 			$data[$i]['author'] = @$metadata['pb_author'];
 			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $book->userblog_id, 1 );
 			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $book->userblog_id, 2 );
@@ -374,6 +386,31 @@ class Catalog_List_Table extends \WP_List_Table {
 		restore_current_blog();
 
 		return $data;
+	}
+
+
+	/**
+	 * WP Hook, Instantiate UI
+	 */
+	static function addMenu() {
+
+		$list_table = new self();
+		$list_table->prepare_items();
+
+		?>
+		<div class="wrap">
+			<div id="icon-edit" class="icon32"><br /></div>
+			<h2>My Catalog</h2>
+
+			<form id="books-filter" method="get">
+				<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
+				<?php if ( @$_REQUEST['user_id'] ) : ?><input type="hidden" name="user_id" value="<?php echo $_REQUEST['user_id'] ?>" /><?php endif; ?>
+				<?php $list_table->display() ?>
+			</form>
+
+		</div>
+	<?php
+
 	}
 
 }

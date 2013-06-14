@@ -16,7 +16,6 @@ require_once( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
 require_once( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
 require_once( PB_PLUGIN_DIR . 'admin/pb-admin-users.php' );
 require_once( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-catalog.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
@@ -115,25 +114,19 @@ add_action( 'wp_ajax_pb_ftnref_convert', '\PressBooks\Shortcodes\Footnotes\Footn
 add_action( 'wp_ajax_pb_load_css_from', '\PressBooks\Admin\CustomCss\load_css_from' );
 
 // -------------------------------------------------------------------------------------------------------------------
-// Export/Import page "catch-all" routine, must come after taxonomies and friends
-// -------------------------------------------------------------------------------------------------------------------
-
-add_action( 'init', '\PressBooks\Export\Export::formSubmit', 50 );
-add_action( 'init', '\PressBooks\Import\Import::formSubmit', 50 );
-
-// -------------------------------------------------------------------------------------------------------------------
 // Custom Css
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'admin_menu', '\PressBooks\Admin\CustomCss\add_menu' );
 add_action( 'load-post.php', '\PressBooks\Admin\CustomCss\redirect_css_editor' );
+
+// -------------------------------------------------------------------------------------------------------------------
+// "Catch-all" routines, must come after taxonomies and friends
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', '\PressBooks\Export\Export::formSubmit', 50 );
+add_action( 'init', '\PressBooks\Import\Import::formSubmit', 50 );
 add_action( 'init', '\PressBooks\CustomCss::formSubmit', 50 );
-
-// -------------------------------------------------------------------------------------------------------------------
-// Catalog
-// -------------------------------------------------------------------------------------------------------------------
-
-add_action( 'admin_menu', '\PressBooks\Admin\Catalog\add_menu' );
 add_action( 'init', '\PressBooks\Catalog::formSubmit', 50 );
 
 // -------------------------------------------------------------------------------------------------------------------

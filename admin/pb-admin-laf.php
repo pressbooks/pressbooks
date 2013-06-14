@@ -192,6 +192,9 @@ function replace_book_admin_menu() {
 			wp_enqueue_script( 'pb-import' );
 		}
 	} );
+
+	// Catalog
+	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'catalog', '\PressBooks\Catalog::addMenu' );
 }
 
 

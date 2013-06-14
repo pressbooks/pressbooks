@@ -374,6 +374,40 @@ class Catalog {
 	}
 
 
+	/**
+	 * Delete all tags from a user catalog
+	 *
+	 * Note: Doesn't actually delete a tag, just removes the association in dbLinkTable
+	 *
+	 * @param $blog_id
+	 * @param $tag_group
+	 *
+	 * @return mixed
+	 */
+	function deleteTags( $blog_id, $tag_group ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		$result = $wpdb->delete( $this->dbLinkTable, array( 'users_id' => $this->userId, 'blogs_id' => $blog_id, 'tags_group' => $tag_group ), array( '%d', '%d', '%d' ) );
+
+		// TODO:
+		// $wpdb->query( "OPTIMIZE TABLE {$this->dbLinkTable} " );
+
+		return $result;
+
+	}
+
+
+	/**
+	 * Find all IDs in dbTagsTable that have no matching ID in dbLinkTable and delete them.
+	 */
+	function purgeOrphanTags() {
+
+		// TODO
+	}
+
+
 	// ----------------------------------------------------------------------------------------------------------------
 	// Upgrades
 	// ----------------------------------------------------------------------------------------------------------------
@@ -441,84 +475,8 @@ class Catalog {
 
 
 	// ----------------------------------------------------------------------------------------------------------------
-	// Catch form submissions
+	// Helpers
 	// ----------------------------------------------------------------------------------------------------------------
-
-
-	/**
-	 * Save custom CSS to database (and filesystem)
-	 *
-	 * @see pressbooks/admin/templates/custom-css.php
-	 */
-	static function formSubmit() {
-
-		/* Sanity check */
-
-		if ( false == static::isFormSubmission() || false == current_user_can( 'read' ) ) {
-			// Don't do anything in this function, bail.
-			return;
-		}
-
-		check_admin_referer( 'pb-user-catalog' );
-
-		$user_id = (int) $_POST['user_id'];
-
-		if ( ! current_user_can( 'edit_user', $user_id ) ) {
-			wp_die( __( 'You do not have permission to do that.', 'pressbooks' ) );
-		}
-
-
-		/* Save changes */
-
-		$catalog = new self();
-		$catalog->delete();
-		foreach ( @$_POST['pressbooks_user_catalog'] as $blog_id => $checked ) {
-			$catalog->saveBook( $blog_id, array() );
-		}
-
-		// Ok!
-		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
-
-
-		/* Redirect back to form */
-
-		if ( get_current_user_id() != $user_id ) {
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog&user_id=' . $user_id;
-		} else {
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog';
-		}
-
-		\PressBooks\Redirect\location( $redirect_url );
-	}
-
-
-	/**
-	 * Check if a user submitted something to index.php?page=catalog
-	 *
-	 * @return bool
-	 */
-	static function isFormSubmission() {
-
-		if ( 'catalog' != @$_REQUEST['page'] ) {
-			return false;
-		}
-
-		if ( ! empty( $_POST ) ) {
-			return true;
-		}
-
-		$param_count = count( $_GET );
-
-		if ( 2 == $param_count && isset( $_GET['user_id'] ) ) {
-			return false;
-		}
-
-		if ( $param_count > 1 ) {
-			return true;
-		}
-
-		return false;
-	}
 
 
 	/**
@@ -562,6 +520,185 @@ class Catalog {
 		}
 
 		return rtrim( $str, ', ' );
+	}
+
+
+	/**
+	 * WP Hook, Instantiate UI
+	 */
+	static function addMenu() {
+
+		switch ( @$_REQUEST['action'] ) {
+
+			case 'edit':
+				require( PB_PLUGIN_DIR . 'admin/templates/catalog.php' );
+				break;
+
+			case 'add':
+			case 'remove':
+				// This should not happen, formSubmit() is supposed to catch this
+				break;
+
+			default:
+				Catalog_List_Table::addMenu();
+				break;
+		}
+	}
+
+
+	// ----------------------------------------------------------------------------------------------------------------
+	// Catch form submissions
+	// ----------------------------------------------------------------------------------------------------------------
+
+
+	/**
+	 * Catch me
+	 */
+	static function formSubmit() {
+
+		if ( false == static::isFormSubmission() || false == current_user_can( 'read' ) ) {
+			// Don't do anything in this function, bail.
+			return;
+		}
+
+		if ( 'add' == @$_REQUEST['action'] || 'remove' == @$_REQUEST['action'] ) {
+			static::formBulk( $_REQUEST['action'] );
+		} else {
+			static::formTags();
+		}
+	}
+
+
+	/**
+	 * Check if a user submitted something to index.php?page=catalog
+	 *
+	 * @return bool
+	 */
+	static function isFormSubmission() {
+
+		if ( 'catalog' != @$_REQUEST['page'] ) {
+			return false;
+		}
+
+		if ( ! empty( $_POST ) ) {
+			return true;
+		}
+
+		if ( 'add' == @$_REQUEST['action'] || 'remove' == @$_REQUEST['action'] ) {
+			return true;
+		}
+
+		return false;
+	}
+
+
+
+	/**
+	 * @param $action
+	 */
+	protected static function formBulk( $action ) {
+
+		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog';
+
+		/* Sanity check */
+
+		if ( ! empty( $_REQUEST['book'] ) ) {
+			// Bulk
+			check_admin_referer( 'bulk-books' );
+			$books = $_REQUEST['book'];
+
+		} elseif ( ! empty( $_REQUEST['ID'] ) ) {
+			// Single item
+			check_admin_referer( $_REQUEST['ID'] );
+			$books = array( $_REQUEST['ID'] );
+
+		} else {
+			// Handle empty bulk submission
+			if ( ! empty( $_REQUEST['user_id'] ) ) {
+				$redirect_url .= '&user_id=' . $_REQUEST['user_id'];
+			}
+			\PressBooks\Redirect\location( $redirect_url );
+		}
+
+		// Make an educated guess as to who's catalog we are editing
+		list( $user_id, $_ ) = explode( ':', $books[0] );
+
+		if (  ! $user_id || ! current_user_can( 'edit_user', $user_id ) ) {
+			wp_die( __( 'You do not have permission to do that.', 'pressbooks' ) );
+		}
+
+		// Fix redirect URL
+		if ( get_current_user_id() != $user_id ) {
+			$redirect_url .= '&user_id=' . $user_id;
+		}
+
+		/* Go! */
+
+		$catalog = new self( $user_id );
+
+		foreach ( $books as $book ) {
+			list( $_, $book_id ) = explode( ':', $book );
+			if ( 'add' == $action ) {
+				$catalog->saveBook( $book_id, array() );
+			} elseif ( 'remove' == $action ) {
+				$catalog->deleteBook( $book_id );
+			} else {
+				// TODO: Throw Error
+				$_SESSION['pb_errors'][] = "Invalid action: $action";
+			}
+		}
+
+		// Ok!
+		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
+
+		// Redirect back to form
+		\PressBooks\Redirect\location( $redirect_url );
+	}
+
+
+	/**
+	 *
+	 */
+	protected static function formTags() {
+
+		check_admin_referer( 'pb-user-catalog' );
+
+		list( $user_id, $blog_id ) = explode( ':', @$_REQUEST['ID'] );
+		if ( ! empty( $_REQUEST['user_id'] ) ) $user_id = $_REQUEST['user_id'];
+		if ( ! empty( $_REQUEST['blog_id'] ) ) $blog_id = $_REQUEST['blog_id'];
+		$user_id = absint( $user_id );
+		$blog_id = absint( $blog_id );
+
+		if ( ! $user_id || ! current_user_can( 'edit_user', $user_id ) ) {
+			wp_die( __( 'You do not have permission to do that.', 'pressbooks' ) );
+		}
+
+		// Set Redirect URL
+		if ( get_current_user_id() != $user_id ) {
+			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog&user_id=' . $user_id;
+		} else {
+			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog';
+		}
+
+		/* Go! */
+
+		$catalog = new self( $user_id );
+		$catalog->saveBook( $blog_id, array( 'featured' => absint( @$_REQUEST['featured'] ) ) );
+
+		// Tags
+		for ( $i = 1; $i <= 2; ++$i ) {
+			$catalog->deleteTags( $blog_id, $i );
+			$tags = $catalog::stringToTags( $_REQUEST["tags_$i"] );
+			foreach ( $tags as $tag ) {
+				$catalog->saveTag( $tag, $blog_id, $i );
+			}
+		}
+
+		// Ok!
+		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
+
+		// Redirect back to form
+		\PressBooks\Redirect\location( $redirect_url );
 	}
 
 
