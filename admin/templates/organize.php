@@ -23,6 +23,17 @@ $book_structure = \PressBooks\Book::getBookStructure();
 
 
 <div class="wrap">
+
+<div style="text-align:right;float:right;margin:0.5em;">
+	<?php if ( get_option( 'blog_public' ) == 1 ) { ?>
+		This book's global privacy settings are set to: PUBLIC.<br />
+		If you wish to make some chapters private, please select privacy settings below.<br />
+		Or, <a href="<?php echo $adminUrl; ?>options-general.php?page=privacy-options">make your book PRIVATE</a>, so that only you and users you give access to can see it online.
+	<?php } else { ?>
+		This book's global privacy settings are set to: PRIVATE.<br />
+		<a href="<?php echo $adminUrl; ?>options-general.php?page=privacy-options">Make some (or all) of your book PUBLIC on the web</a>, for promotion and accessibility.
+	<?php } ?>
+</div>
 <div id="icon-edit" class="icon32"></div>
 <h2>
 	<?php bloginfo( 'name' ); ?>
@@ -39,14 +50,7 @@ $book_structure = \PressBooks\Book::getBookStructure();
     <a class="button add-new-h2" href="<?php echo $adminUrl; ?>post-new.php?post_type=part"><?php _e( 'Add Part', 'pressbooks' ); ?></a>
 	<?php endif; ?>
 </h2>
-    <?php if ( get_option('blog_public') == 1 ) { ?>
-    	<p style="text-align: right;">This book's global privacy settings are set to: PUBLIC.<br />
-    	If you wish to make some chapters private, please select privacy settings below.<br />
-    	Or, <a href="<?php echo $adminUrl; ?>options-general.php?page=privacy-options">make your book PRIVATE</a>, so that only you and users you give access to can see it online.</p>
-    <?php } else { ?>
-    	<p style="text-align: right;">This book's global privacy settings are set to: PRIVATE.<br />
-    	<a href="<?php echo $adminUrl; ?>options-general.php?page=privacy-options">Make some (or all) of your book PUBLIC on the web</a>, for promotion and accessibility.</p>
-    <?php } ?>
+<div class="clear"></div>
 
 <table id="front-matter" class="wp-list-table widefat fixed front-matter" cellspacing="0">
     <thead>
