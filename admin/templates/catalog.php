@@ -5,6 +5,8 @@ if ( ! defined( 'ABSPATH' ) )
 
 $user_catalog_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog', 'pb-user-catalog' );
 
+// TODO: Move logic out of the template
+
 @list( $user_id, $blog_id ) = explode( ':', @$_REQUEST['ID'] );
 $user_id = absint( $user_id );
 $blog_id = absint( $blog_id );
@@ -14,13 +16,14 @@ if ( ! $user_id || ! current_user_can( 'edit_user', $user_id ) ) {
 }
 
 $tag_groups = 2;
+$title =  get_blog_option( $blog_id, 'blogname' );
 $catalog = new \PressBooks\Catalog( $user_id );
 $book = $catalog->getBook( $blog_id );
 
 ?>
 <div class="wrap">
 	<div id="icon-options-general" class="icon32"></div>
-	<h2>Tags</h2>
+	<h2>Tags For <?php echo $title; ?></h2>
 
 	<form method="post" action="<?php echo $user_catalog_form_url; ?>" >
 		<input type="hidden" name="ID" value="<?php echo "$user_id:$blog_id"; ?>" />
@@ -43,7 +46,7 @@ $book = $catalog->getBook( $blog_id );
 				<?php $name = "Tags $i"; ?>
 				<tr>
 					<th><label for="tags_<?php echo $i; ?>"> <?php echo $name; ?><br /><em>Comma delimited</em></em></label></th>
-					<td><textarea id="tags_<?php echo $i; ?>" name="tags_<?php echo $i; ?>"><?php echo $catalog::tagsToString( $catalog->getTagsByBook( $blog_id, $i ) ); ?></textarea></td>
+					<td><textarea id="tags_<?php echo $i; ?>" name="tags_<?php echo $i; ?>"><?php echo esc_textarea( $catalog::tagsToString( $catalog->getTagsByBook( $blog_id, $i ) ) ); ?></textarea></td>
 				</tr>
 			<?php } ?>
 		</table>

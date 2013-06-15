@@ -519,8 +519,10 @@ function init_css_js() {
 
 	}
 
+	// Never let a user change [ Your Profile > Admin Color Scheme ] - Note: Auto-registered dependency $handle = 'colors'
 	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
 	update_user_option( $user_ID, 'admin_color', 'pb_colors', true );
+
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '2.0.2', 'screen' ); // TODO: Remember to change $ver to match PB
 	wp_enqueue_style( 'pressbooks-admin' );
@@ -529,6 +531,10 @@ function init_css_js() {
 	wp_register_style( 'bootstrap-admin', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.css', array(), '2.0.1', 'screen' );
 	wp_enqueue_style( 'bootstrap-admin' ); // Used by feedback button
 
+	if ( 'catalog' == esc_attr( @$_REQUEST['page'] ) ) {
+		wp_register_style( 'pressbooks-catalog', PB_PLUGIN_URL . 'assets/css/catalog.css', array( 'colors', 'pressbooks-admin' ), '1.0.0', 'screen' );
+		wp_enqueue_style( 'pressbooks-catalog' );
+	}
 
 	// Don't let other plugins override our scripts
 	$badScripts = array( 'jquery-blockui', 'jquery-bootstrap', 'pb-organize', 'pb-feedback', 'pb-export', 'pb-metadata', 'pb-import' );

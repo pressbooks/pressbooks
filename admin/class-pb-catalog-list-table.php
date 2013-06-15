@@ -80,7 +80,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		);
 
 		// Return the title contents
-		return sprintf( '<span style="font-size:1.17em;font-weight:bold";>%1$s</span> %2$s',
+		return sprintf( '<span class="title">%1$s</span> %2$s',
 			/*$1%s*/
 			$item['title'],
 			/*$2%s*/
@@ -97,8 +97,8 @@ class Catalog_List_Table extends \WP_List_Table {
 	function column_status( $item ) {
 
 		// TODO, Better HTML
-		if ( $item['status'] ) $status = '<span style="color:green;" >In Catalog</span>';
-		else $status = '<span style="color:silver;" >Not In Catalog';
+		if ( $item['status'] ) $status = '<img src="' . esc_url( admin_url( 'images/yes.png' ) ) . '" alt="' . __( 'Yes' ) . '" />';
+		else $status = '<img src="' . esc_url( admin_url( 'images/no.png' ) ) . '" alt="' . __( 'No' ) . '" />';
 
 		$add_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
 		$add_url = add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url );
@@ -113,7 +113,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		);
 
 		// Return the title contents
-		return sprintf( '%1$s %2$s',
+		return sprintf( '<span class="status">%1$s</span> %2$s',
 			/*$1%s*/
 			$status,
 			/*$2%s*/
@@ -132,7 +132,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		$img = esc_url( $item['cover'] );
 		$alt = esc_attr( $item['title'] );
 
-		$html = "<img src='$img' style='width: auto; height: 80px; border: 1px solid #aeaeae;' alt='$alt' />";
+		$html = "<img src='$img' alt='$alt' />";
 
 		return $html;
 	}
