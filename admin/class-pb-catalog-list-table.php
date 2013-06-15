@@ -191,7 +191,7 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$sortable_columns = array(
 			'status' => array( 'status', false ),
-			'title' => array( 'title', true ), // true means it's already sorted
+			'title' => array( 'title', false ),
 			'author' => array( 'author', false ),
 			'pub_date' => array( 'pub_date', false ),
 		);
@@ -234,9 +234,13 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		// Get data, sort
 		$data = $this->getItemsData();
-		$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'title'; // If no sort, default to title
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc'; // If no order, default to asc
-		$data = \PressBooks\Utility\multi_sort( $data, "$orderby:$order" );
+		$valid = $this->get_sortable_columns();
+		if ( isset( $_REQUEST['orderby'] ) && isset( $valid[$_REQUEST['orderby']] ) ) {
+			$data = \PressBooks\Utility\multi_sort( $data, "{$_REQUEST['orderby']}:$order" );
+		} else {
+			$data = \PressBooks\Utility\multi_sort( $data, 'status:desc', 'title:asc' ); // Default
+		}
 
 
 		// Pagination
