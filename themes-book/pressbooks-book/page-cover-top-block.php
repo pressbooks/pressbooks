@@ -1,11 +1,19 @@
+<section class="top-block clearfix" id="post-<?php the_ID(); ?>" <?php post_class('home-post'); ?>>
 	
-		<section class="top-block clearfix" id="post-<?php the_ID(); ?>" <?php post_class('home-post'); ?>>
-	
-			<?php pb_get_links(false); ?>
-			<?php $metadata = pb_get_book_information();?>
-			<div class="right-block">
-				<a href="http://pressbooks.com" class="pressbooks-brand"><img src="<?php bloginfo('template_url'); ?>/images/pressbooks-branding-2x.png" alt="pressbooks-branding" width="186" height="123" /></a>
-			</div>	
+	<?php pb_get_links(false); ?>
+	<?php $metadata = pb_get_book_information();?>
+	<div class="log-wrap">	<!-- Login/Logout -->
+	   <?php if (! is_single()): ?>
+	    	<?php if (!is_user_logged_in()): ?>
+				<a href="<?php echo wp_login_url(); ?>" class="log login"><?php _e('login', 'pressbooks'); ?></a>
+	   	 	<?php else: ?>
+				<a href="<?php echo  wp_logout_url(); ?>" class="log logout"><?php _e('logout', 'pressbooks'); ?></a>
+	    	<?php endif; ?>
+	    <?php endif; ?>
+	</div>   
+	<div class="right-block">
+		<a href="http://pressbooks.com" class="pressbooks-brand"><img src="<?php bloginfo('template_url'); ?>/images/pressbooks-branding-2x.png" alt="pressbooks-branding" width="186" height="123" /> <span>Make your own books on PressBooks</span></a>
+	</div>	
 						
 			<div class="book-info">
 				<!-- Book Title -->

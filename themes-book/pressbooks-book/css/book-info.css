@@ -232,6 +232,9 @@ a:active.btn.black {
 	max-width: 350px;
 	text-align: center;	
 }
+.pressbooks-brand span {
+	display: none;
+}
 .book-cover img {
 	background-color: transparent;
 	box-shadow: 0 10px 7px #aeaeae;
@@ -254,6 +257,25 @@ a:active.btn.black {
 	color: #fff;
 	margin: auto;
 	max-width: 960px;
+}
+.log-wrap {
+	position: absolute;
+	top: 4px;
+	right: 2%;
+	z-index: 1000;
+}
+.log-wrap a {
+	background-color: #E4E6E8;
+	border-radius: 2px;
+	color: #333;
+	display: block;
+	font: 0.75em 'Oswald',sans-serif;
+	padding: 4px 10px;
+	text-transform: uppercase;	
+}
+.log-wrap a:hover {
+	background-color: #8D8D8D;
+	color: #fff;
 }
 .home-post h3 {
 	font-size: 1.1em;
@@ -535,7 +557,61 @@ a.button-black:active {
 		max-width: 95%;
 	}
 }
-
+@media screen and (max-width: 550px) {
+	.right-block {
+		background-color: #414042;
+		border-bottom: 5px solid #E5E7E8;
+		display: block;
+		margin-top:0;
+		max-width: 100%;
+		width: 100%;
+	}
+	.right-block:after, 
+	.right-block:before { 
+		top: 100%; border: solid transparent; 
+		content: " "; height: 0; width: 0; 
+		position: absolute; 
+		pointer-events: none; 
+	} 
+	.right-block:after { 
+		border-color: rgba(65, 64, 66, 0); 
+		border-top-color: #414042; 
+		border-width: 20px; 
+		left: 50%; 
+		margin-left: -20px; 
+	} 
+	.right-block:before { 
+		border-color: rgba(229, 231, 232, 0); 
+		border-top-color: #E5E7E8; 
+		border-width: 27px; 
+		left: 50%; 
+		margin-left: -27px; 
+	}
+	.pressbooks-brand {
+		display: block;
+		max-width: 100%;
+	}
+	.pressbooks-brand img {
+		display: none;
+	}
+	.pressbooks-brand span {
+		color: #fff;
+		display: block;
+		font-family: 'Oswald', sans-serif;
+		line-height: 1.3em;		
+		max-width: 80%;
+		padding: 10px 0 12px 10px;
+		text-align: left;
+	}
+	.book-info {
+		margin-top: 0;
+		padding-top: 40px;
+	}
+	.log-wrap {
+		top: 8px;
+	}
+	
+}
 @media screen and (max-width: 390px) {
 	.btn.red {
 		margin-bottom: 1em;

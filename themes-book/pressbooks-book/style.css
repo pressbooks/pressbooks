@@ -541,36 +541,6 @@ h1.book-title a {
   font: 0.6em/1em "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
   text-decoration: none;
 }
-.log-wrap {
-  margin: -15px 0 0 -2px;
-  position: relative;
-}
-a.log {
-  -moz-border-radius: 0 6px 6px 0;
-  -o-border-radius: 0 6px 6px 0;
-  -webkit-border-radius: 0 6px 6px 0;
-  border-radius: 0 6px 6px 0;
-  -moz-box-shadow: 2px 2px 2px #dddddd;
-  -o-box-shadow: 2px 2px 2px #dddddd;
-  -webkit-box-shadow: 2px 2px 2px #dddddd;
-  box-shadow: 2px 2px 2px #dddddd;
-  display: block;
-  font: 0.875em/2em 'OpenSansCondensed', Arial, Helvetica, sans-serif;
-  /* 14px /18px */
-
-  margin: 0;
-  padding: 20px 0 20px 20px;
-  text-decoration: none;
-}
-a.login {
-  background: url(images/sprite.png) 9px 18px no-repeat #f5f5f5;
-}
-a.logout {
-  background: url(images/sprite.png) 9px -32px no-repeat #f5f5f5;
-}
-a:hover.log {
-  background-color: #aaaaaa;
-}
 #booknav {
   background: #ffffff;
   -moz-border-radius: 0 6px 6px 0;
@@ -1501,18 +1471,6 @@ code {
     right: 12px;
     top: 0;
     width: auto;
-  }
-  .log-wrap {
-    float: right;
-    margin: 0;
-  }
-  a.log {
-    padding: 20px 10px 20px 30px;
-    background-color: #f5f5f5;
-    -moz-border-radius: 6px 6px 0 0;
-    -o-border-radius: 6px 6px 0 0;
-    -webkit-border-radius: 6px 6px 0 0;
-    border-radius: 6px 6px 0 0;
   }
   #booknav {
     background-color: transparent;
