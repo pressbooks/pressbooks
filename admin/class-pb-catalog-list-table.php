@@ -102,9 +102,11 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$add_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
 		$add_url = add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url );
+		$add_url = static::addSearchParamsToUrl( $add_url );
 
 		$remove_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'remove', $item['ID'] );
 		$remove_url = add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $remove_url );
+		$remove_url = static::addSearchParamsToUrl( $remove_url );
 
 		// Build row actions
 		$actions = array(
@@ -484,5 +486,28 @@ class Catalog_List_Table extends \WP_List_Table {
 	<?php
 
 	}
+
+
+	/**
+	 * Rebuild a URL with known search parameters
+	 *
+	 * @param string $url
+	 *
+	 * @return string
+	 */
+	static function addSearchParamsToUrl( $url ) {
+
+		if ( ! empty( $_REQUEST['s'] ) )
+			$url = add_query_arg( 's', $_REQUEST['s'], $url );
+
+		if ( ! empty( $_REQUEST['orderby'] ) )
+			$url = add_query_arg( 'orderby', $_REQUEST['orderby'], $url );
+
+		if ( ! empty( $_REQUEST['order'] ) )
+			$url = add_query_arg( 'order', $_REQUEST['order'], $url );
+
+		return $url;
+	}
+
 
 }

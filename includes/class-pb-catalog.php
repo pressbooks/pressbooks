@@ -622,6 +622,7 @@ class Catalog {
 	protected static function formBulk( $action ) {
 
 		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+		$redirect_url = Catalog_List_Table::addSearchParamsToUrl( $redirect_url );
 
 		/* Sanity check */
 
