@@ -356,6 +356,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	protected function getItemsData() {
 
 		// TODO: Caching
+		// TODO: Improve search filter for big data
 
 		$catalog_obj = new Catalog();
 		$catalog = $catalog_obj->get();
@@ -412,18 +413,10 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	protected function searchFilter( array $data ) {
 
-		// TODO: Improve for big data
-
 		$keyword = (string) trim( @$_REQUEST['s'] );
 
 		if ( ! $keyword ) {
 			// No keyword
-			return $data;
-		}
-
-		if ( strlen( $keyword ) < 3 ) {
-			// Search requires a minimum of 3 characters
-			unset( $_REQUEST['s'] );
 			return $data;
 		}
 
@@ -505,6 +498,9 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		if ( ! empty( $_REQUEST['order'] ) )
 			$url = add_query_arg( 'order', $_REQUEST['order'], $url );
+
+		if ( ! empty( $_REQUEST['paged'] ) )
+			$url = add_query_arg( 'paged', $_REQUEST['paged'], $url );
 
 		return $url;
 	}
