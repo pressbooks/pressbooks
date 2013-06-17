@@ -82,6 +82,7 @@ function replace_book_admin_menu() {
 	unset( $menu[25] );
 
 	// Remove items we don't want the user to see.
+	remove_submenu_page( 'index.php', 'my-sites.php' );
 	remove_submenu_page( 'options-general.php', 'options-general.php' );
 	remove_submenu_page( 'options-general.php', 'options-writing.php' );
 	remove_submenu_page( 'options-general.php', 'options-reading.php' );
@@ -194,7 +195,7 @@ function replace_book_admin_menu() {
 	} );
 
 	// Catalog
-	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'catalog', '\PressBooks\Catalog::addMenu' );
+	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\PressBooks\Catalog::addMenu' );
 }
 
 
@@ -313,8 +314,8 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 
 	$wp_admin_bar->add_menu( array(
 		'id' => 'my-books',
-		'title' => __( 'My Books', 'pressbooks' ),
-		'href' => admin_url( 'my-sites.php' ),
+		'title' => __( 'My Catalog', 'pressbooks' ),
+		'href' => admin_url( 'index.php?page=pb_catalog' ),
 	) );
 
 	$wp_admin_bar->add_node( array(
@@ -531,7 +532,7 @@ function init_css_js() {
 	wp_register_style( 'bootstrap-admin', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.css', array(), '2.0.1', 'screen' );
 	wp_enqueue_style( 'bootstrap-admin' ); // Used by feedback button
 
-	if ( 'catalog' == esc_attr( @$_REQUEST['page'] ) ) {
+	if ( 'pb_catalog' == esc_attr( @$_REQUEST['page'] ) ) {
 		wp_register_style( 'pressbooks-catalog', PB_PLUGIN_URL . 'assets/css/catalog.css', array( 'colors', 'pressbooks-admin' ), '1.0.0', 'screen' );
 		wp_enqueue_style( 'pressbooks-catalog' );
 	}

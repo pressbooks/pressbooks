@@ -572,13 +572,13 @@ class Catalog {
 
 
 	/**
-	 * Check if a user submitted something to index.php?page=catalog
+	 * Check if a user submitted something to index.php?page=pb_catalog
 	 *
 	 * @return bool
 	 */
 	static function isFormSubmission() {
 
-		if ( 'catalog' != @$_REQUEST['page'] ) {
+		if ( 'pb_catalog' != @$_REQUEST['page'] ) {
 			return false;
 		}
 
@@ -621,7 +621,7 @@ class Catalog {
 	 */
 	protected static function formBulk( $action ) {
 
-		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog';
+		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
 
 		/* Sanity check */
 
@@ -698,9 +698,9 @@ class Catalog {
 
 		// Set Redirect URL
 		if ( get_current_user_id() != $user_id ) {
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog&user_id=' . $user_id;
+			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog&user_id=' . $user_id;
 		} else {
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog';
+			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
 		}
 
 		/* Go! */

@@ -3,7 +3,7 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
-$user_catalog_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/index.php?page=catalog', 'pb-user-catalog' );
+$user_catalog_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog', 'pb-user-catalog' );
 
 // TODO: Move logic out of the template
 
