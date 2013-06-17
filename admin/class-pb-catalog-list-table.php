@@ -167,17 +167,22 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function get_columns() {
 
+		$profile = ( new Catalog() )->getProfile(); // PHP 5.4+
+
 		$columns = array(
 			'cb' => '<input type="checkbox" />', // Render a checkbox instead of text
 			'status' => __( 'Status', 'pressbooks' ),
 			'cover' => __( 'Cover', 'pressbooks' ),
 			'title' => __( 'Title', 'pressbooks' ),
 			'author' => __( 'Author', 'pressbooks' ),
-			'tag_1' => __( 'Tag 1', 'pressbooks' ),
-			'tag_2' => __( 'Tag 2', 'pressbooks' ),
-			'featured' => __( 'Featured', 'pressbooks' ),
-			'pub_date' =>  __( 'Pub Date', 'pressbooks' ),
 		);
+
+		for ( $i = 1; $i <= Catalog::$maxTagsGroup; ++$i ) {
+			$columns["tag_{$i}"] = ! empty( $profile["pressbooks_catalog_tag_{$i}_name"] ) ? $profile["pressbooks_catalog_tag_{$i}_name"] : __( 'Tag', 'pressbooks' ) . " $i";
+		}
+
+		$columns['featured'] = __( 'Featured', 'pressbooks' );
+		$columns['pub_date'] = __( 'Pub Date', 'pressbooks' );
 
 		return $columns;
 	}
@@ -322,7 +327,7 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		// Build row actions
 		$actions = array(
-			'edit' => sprintf( '<a href="?page=%s&action=%s&ID=%s">%s</a>', $_REQUEST['page'], 'edit', $item['ID'], __( 'Edit Tags', 'pressbooks' ) ),
+			'edit_tags' => sprintf( '<a href="?page=%s&action=%s&ID=%s">%s</a>', $_REQUEST['page'], 'edit_tags', $item['ID'], __( 'Edit Tags', 'pressbooks' ) ),
 		);
 
 		// Return the title contents
@@ -373,8 +378,9 @@ class Catalog_List_Table extends \WP_List_Table {
 			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
 			$data[$i]['cover'] = ! empty( $metadata['pb_cover_image'] ) ? $metadata['pb_cover_image'] : PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg'; // TODO: Less resource intensive thumbnail
 			$data[$i]['author'] = @$metadata['pb_author'];
-			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 1 );
-			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $val['blogs_id'], 2 );
+			for ( $j = 1; $j <= $catalog_obj::$maxTagsGroup; ++$j ) {
+				$data[$i]["tag_{$j}"] = $catalog_obj->getTagsByBook( $val['blogs_id'], $j );
+			}
 			$data[$i]['featured'] = $val['featured'];
 			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
 			++$i;
@@ -393,8 +399,9 @@ class Catalog_List_Table extends \WP_List_Table {
 			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
 			$data[$i]['cover'] = ! empty( $metadata['pb_cover_image'] ) ? $metadata['pb_cover_image'] : PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg'; // TODO: Less resource intensive thumbnail
 			$data[$i]['author'] = @$metadata['pb_author'];
-			$data[$i]['tag_1'] = $catalog_obj->getTagsByBook( $book->userblog_id, 1 );
-			$data[$i]['tag_2'] = $catalog_obj->getTagsByBook( $book->userblog_id, 2 );
+			for ( $j = 1; $j <= $catalog_obj::$maxTagsGroup; ++$j ) {
+				$data[$i]["tag_{$j}"] = $catalog_obj->getTagsByBook( $val['blogs_id'], $j );
+			}
 			$data[$i]['featured'] = 0;
 			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
 			++$i;
@@ -460,15 +467,17 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	static function addMenu() {
 
+		$url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+
 		$list_table = new self();
 		$list_table->prepare_items();
 
 		?>
 		<div class="wrap">
 			<div id="icon-edit" class="icon32"><br /></div>
-			<h2>My Catalog</h2>
+			<h2>My Catalog <a href="<?php echo $url . '&action=edit_profile'; ?>" class="button add-new-h2"><?php _e( 'Edit My Catalog Profile', 'pressbooks' ); ?></a></h2>
 
-			<form id="books-filter" method="post" action="<?php echo get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog' ?>" >
+			<form id="books-filter" method="post" action="<?php echo $url; ?>" >
 				<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
 				<?php $list_table->search_box( 'search', 'search_id' ); ?>
 				<?php if ( @$_REQUEST['user_id'] ) : ?><input type="hidden" name="user_id" value="<?php echo $_REQUEST['user_id'] ?>" /><?php endif; ?>

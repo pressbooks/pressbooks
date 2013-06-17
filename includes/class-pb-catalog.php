@@ -22,6 +22,14 @@ class Catalog {
 
 
 	/**
+	 * Maximum number allowed in tags_group column
+	 *
+	 * @var int
+	 */
+	static $maxTagsGroup = 2;
+
+
+	/**
 	 * Catalog tables, set in constructor
 	 *
 	 * @var string
@@ -51,16 +59,36 @@ class Catalog {
 
 
 	/**
+	 * Profile keys, stored in user_meta table
+	 *
+	 * @var array
+	 */
+	protected $profileMetaKeys = array(
+		'pressbooks_catalog_about' => '%s',
+		'pressbooks_catalog_logo' => '%s',
+		// Tags added in constructor
+	);
+
+
+	/**
 	 * @param int $user_id (optional)
 	 */
 	function __construct( $user_id = 0 ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
+
+		// Tables
 		$this->dbTable = $wpdb->base_prefix . 'pressbooks_catalog';
 		$this->dbTagsTable = $wpdb->base_prefix . 'pressbooks_tags';
 		$this->dbLinkTable = $wpdb->base_prefix . 'pressbooks__catalog__tags';
 
+		// Tags
+		for ( $i = 1; $i <= static::$maxTagsGroup; ++$i ) {
+			$this->profileMetaKeys["pressbooks_catalog_tag_{$i}_name"] = '%s';
+		}
+
+		// User
 		if ( $user_id ) {
 			$this->userId = $user_id;
 		} elseif ( isset( $_REQUEST['user_id'] ) && current_user_can( 'edit_user', (int) $_REQUEST['user_id'] ) ) {
@@ -408,6 +436,50 @@ class Catalog {
 	}
 
 
+	/**
+	 * Get catalog profile.
+	 *
+	 * @return array
+	 */
+	function getProfile() {
+
+		$profile = array();
+		foreach ( $this->profileMetaKeys as $key => $type ) {
+			$profile[$key] = get_user_meta( $this->userId, $key, true );
+		}
+
+		return $profile;
+	}
+
+
+	/**
+	 * Save catalog profile
+	 *
+	 * @param array $item
+	 */
+	function saveProfile( array $item ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		// Sanitize
+		$item = array_intersect_key( $item, $this->profileMetaKeys );
+
+		foreach ( $item as $key => $val ) {
+
+			if ( '%d' == $this->profileMetaKeys[$key] ) {
+				$val = (int) $val;
+			} elseif ( '%f' == $this->profileMetaKeys[$key] ) {
+				$val = (float) $val;
+			} else {
+				$val = (string) $val;
+			}
+
+			update_user_meta( $this->userId, $key, $val );
+		}
+	}
+
+
 	// ----------------------------------------------------------------------------------------------------------------
 	// Upgrades
 	// ----------------------------------------------------------------------------------------------------------------
@@ -530,7 +602,8 @@ class Catalog {
 
 		switch ( @$_REQUEST['action'] ) {
 
-			case 'edit':
+			case 'edit_profile':
+			case 'edit_tags':
 				require( PB_PLUGIN_DIR . 'admin/templates/catalog.php' );
 				break;
 
@@ -565,9 +638,13 @@ class Catalog {
 			static::formBulk( 'add' );
 		} elseif ( static::isCurrentAction( 'remove' ) ) {
 			static::formBulk( 'remove' );
-		} elseif ( static::isCurrentAction( 'edit' ) ) {
+		} elseif ( static::isCurrentAction( 'edit_tags' ) ) {
 			static::formTags();
+		} elseif ( static::isCurrentAction( 'edit_profile' ) ) {
+			static::formProfile();
 		}
+
+
 	}
 
 
@@ -658,7 +735,7 @@ class Catalog {
 
 		/* Go! */
 
-		$catalog = new self( $user_id );
+		$catalog = new static( $user_id );
 
 		foreach ( $books as $book ) {
 			list( $_, $book_id ) = explode( ':', $book );
@@ -706,17 +783,51 @@ class Catalog {
 
 		/* Go! */
 
-		$catalog = new self( $user_id );
+		$catalog = new static( $user_id );
 		$catalog->saveBook( $blog_id, array( 'featured' => absint( @$_REQUEST['featured'] ) ) );
 
 		// Tags
-		for ( $i = 1; $i <= 2; ++$i ) {
+		for ( $i = 1; $i <= static::$maxTagsGroup; ++$i ) {
 			$catalog->deleteTags( $blog_id, $i );
 			$tags = $catalog::stringToTags( $_REQUEST["tags_$i"] );
 			foreach ( $tags as $tag ) {
 				$catalog->saveTag( $tag, $blog_id, $i );
 			}
 		}
+
+		// Ok!
+		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
+
+		// Redirect back to form
+		\PressBooks\Redirect\location( $redirect_url );
+	}
+
+
+	/**
+	 *
+	 */
+	protected static function formProfile() {
+
+		check_admin_referer( 'pb-user-catalog' );
+
+		$user_id = @$_REQUEST['user_id'];
+		$user_id = absint( $user_id );
+
+		if ( ! $user_id || ! current_user_can( 'edit_user', $user_id ) ) {
+			wp_die( __( 'You do not have permission to do that.', 'pressbooks' ) );
+		}
+
+		// Set Redirect URL
+		if ( get_current_user_id() != $user_id ) {
+			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog&user_id=' . $user_id;
+		} else {
+			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+		}
+
+		/* Go! */
+
+		$catalog = new static( $user_id );
+		$catalog->saveProfile( $_POST );
 
 		// Ok!
 		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
