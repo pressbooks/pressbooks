@@ -561,8 +561,10 @@ class Catalog {
 			return;
 		}
 
-		if ( 'add' == @$_REQUEST['action'] || 'remove' == @$_REQUEST['action'] ) {
-			static::formBulk( $_REQUEST['action'] );
+		if ( static::isCurrentListAction( 'add' ) ) {
+			static::formBulk( 'add' );
+		} elseif ( static::isCurrentListAction( 'remove' ) ) {
+			static::formBulk( 'remove' );
 		} else {
 			static::formTags();
 		}
@@ -584,13 +586,34 @@ class Catalog {
 			return true;
 		}
 
-		if ( 'add' == @$_REQUEST['action'] || 'remove' == @$_REQUEST['action'] ) {
+		if ( static::isCurrentListAction( 'add' ) || static::isCurrentListAction( 'remove' ) ) {
 			return true;
 		}
 
 		return false;
 	}
 
+
+	/**
+	 * Two actions are possible in a generic WP_List_Table form. The first takes precedence.
+	 *
+	 * @param $action
+	 *
+	 * @see \WP_List_Table::current_action
+	 *
+	 * @return bool
+	 */
+	static function isCurrentListAction( $action ) {
+
+		if ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] )
+			$compare = $_REQUEST['action'];
+		else if ( isset( $_REQUEST['action2'] ) && - 1 != $_REQUEST['action2'] )
+			$compare = $_REQUEST['action2'];
+		else
+			return false;
+
+		return ( $action == $compare );
+	}
 
 
 	/**
