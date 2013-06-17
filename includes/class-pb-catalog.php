@@ -586,6 +586,10 @@ class Catalog {
 			return true;
 		}
 
+		if ( static::isCurrentAction( 'add' ) || static::isCurrentAction( 'remove' ) ) {
+			return true;
+		}
+
 		return false;
 	}
 
