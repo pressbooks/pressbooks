@@ -96,7 +96,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function column_status( $item ) {
 
-		// TODO, Better HTML
+		// TODO, Better HTML?
 		if ( $item['status'] ) $status = '<img src="' . esc_url( admin_url( 'images/yes.png' ) ) . '" alt="' . __( 'Yes' ) . '" />';
 		else $status = '<img src="' . esc_url( admin_url( 'images/no.png' ) ) . '" alt="' . __( 'No' ) . '" />';
 
@@ -223,50 +223,41 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function prepare_items() {
 
-
 		// Define Columns
-
 		$columns = $this->get_columns();
 		$hidden = $this->getHiddenColumns();
 		$sortable = $this->get_sortable_columns();
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
-
 		// Get data, sort
 		$data = $this->getItemsData();
+		$valid_cols = $this->get_sortable_columns();
+
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc'; // If no order, default to asc
-		$valid = $this->get_sortable_columns();
-		if ( isset( $_REQUEST['orderby'] ) && isset( $valid[$_REQUEST['orderby']] ) ) {
+		if ( isset( $_REQUEST['orderby'] ) && isset( $valid_cols[$_REQUEST['orderby']] ) ) {
 			$data = \PressBooks\Utility\multi_sort( $data, "{$_REQUEST['orderby']}:$order" );
 		} else {
 			$data = \PressBooks\Utility\multi_sort( $data, 'status:desc', 'title:asc' ); // Default
 		}
 
-
 		// Pagination
-
-		$per_page = 50;
+		$per_page = 1000;
 		$current_page = $this->get_pagenum();
 		$total_items = count( $data );
 
-
-		/**
-		 * The WP_List_Table class does not handle pagination for us, so we need
+		/* The WP_List_Table class does not handle pagination for us, so we need
 		 * to ensure that the data is trimmed to only the current page. We can use
 		 * array_slice() to
 		 */
 		$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 
 
-		/**
-		 * REQUIRED. Now we can add our *sorted* data to the items property, where
+		/* REQUIRED. Now we can add our *sorted* data to the items property, where
 		 * it can be used by the rest of the class.
 		 */
 		$this->items = $data;
 
-
-		/**
-		 * REQUIRED. We also have to register our pagination options & calculations.
+		/* REQUIRED. We also have to register our pagination options & calculations.
 		 */
 		$args = array(
 			'total_items' => $total_items, // WE have to calculate the total number of items
@@ -275,6 +266,26 @@ class Catalog_List_Table extends \WP_List_Table {
 		);
 		$this->set_pagination_args( $args );
 
+	}
+
+
+	/**
+	 * Form is POST not GET. Override parent method to compensate.
+	 *
+	 * @param bool $with_id
+	 */
+	function print_column_headers( $with_id = true ) {
+
+		if ( empty( $_GET['s'] ) && ! empty( $_POST['s'] ) )
+			$_SERVER['REQUEST_URI'] = add_query_arg( 's', $_POST['s'] );
+
+		if ( empty( $_GET['orderby'] ) && ! empty( $_POST['orderby'] ) )
+			$_GET['orderby'] = $_POST['orderby'];
+
+		if ( empty( $_GET['order'] ) && ! empty( $_POST['order'] ) )
+			$_GET['order'] = $_POST['order'];
+
+		parent::print_column_headers( $with_id );
 	}
 
 
@@ -388,7 +399,64 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		restore_current_blog();
 
-		return $data;
+		return $this->searchFilter( $data );
+	}
+
+
+	/**
+	 * @param array $data
+	 *
+	 * @return array
+	 */
+	protected function searchFilter( array $data ) {
+
+		// TODO: Improve for big data
+
+		$keyword = (string) trim( @$_REQUEST['s'] );
+
+		if ( ! $keyword ) {
+			// No keyword
+			return $data;
+		}
+
+		if ( strlen( $keyword ) < 3 ) {
+			// Search requires a minimum of 3 characters
+			unset( $_REQUEST['s'] );
+			return $data;
+		}
+
+		$filtered_data = array();
+		foreach ( $data as $_ => $val ) {
+			if ( $this->atLeastOneKeyword( $keyword, $val ) ) {
+				$filtered_data[] = $val;
+			}
+		}
+
+		return $filtered_data;
+	}
+
+
+	/**
+	 * @param $keyword
+	 * @param array $data
+	 *
+	 * @return bool
+	 */
+	protected function atLeastOneKeyword( $keyword, array $data ) {
+
+		// TODO: Does this work with multi-byte characters?
+
+		foreach ( $data as $key => $val ) {
+			if ( is_array( $val ) ) {
+				$found = $this->atLeastOneKeyword( $keyword, $val );
+				if ( $found ) return true;
+				else continue;
+			} elseif ( false !== stripos( $val, $keyword ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 
@@ -405,8 +473,9 @@ class Catalog_List_Table extends \WP_List_Table {
 			<div id="icon-edit" class="icon32"><br /></div>
 			<h2>My Catalog</h2>
 
-			<form id="books-filter" method="get">
+			<form id="books-filter" method="post" action="<?php echo get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog' ?>" >
 				<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
+				<?php $list_table->search_box( 'search', 'search_id' ); ?>
 				<?php if ( @$_REQUEST['user_id'] ) : ?><input type="hidden" name="user_id" value="<?php echo $_REQUEST['user_id'] ?>" /><?php endif; ?>
 				<?php $list_table->display() ?>
 			</form>

@@ -26,6 +26,7 @@ $book = $catalog->getBook( $blog_id );
 	<h2>Tags For <?php echo $title; ?></h2>
 
 	<form method="post" action="<?php echo $user_catalog_form_url; ?>" >
+		<input type="hidden" name="action" value="edit" />
 		<input type="hidden" name="ID" value="<?php echo "$user_id:$blog_id"; ?>" />
 		<table class="form-table">
 			<!-- Featured -->

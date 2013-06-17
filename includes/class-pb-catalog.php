@@ -561,11 +561,11 @@ class Catalog {
 			return;
 		}
 
-		if ( static::isCurrentListAction( 'add' ) ) {
+		if ( static::isCurrentAction( 'add' ) ) {
 			static::formBulk( 'add' );
-		} elseif ( static::isCurrentListAction( 'remove' ) ) {
+		} elseif ( static::isCurrentAction( 'remove' ) ) {
 			static::formBulk( 'remove' );
-		} else {
+		} elseif ( static::isCurrentAction( 'edit' ) ) {
 			static::formTags();
 		}
 	}
@@ -586,10 +586,6 @@ class Catalog {
 			return true;
 		}
 
-		if ( static::isCurrentListAction( 'add' ) || static::isCurrentListAction( 'remove' ) ) {
-			return true;
-		}
-
 		return false;
 	}
 
@@ -603,7 +599,7 @@ class Catalog {
 	 *
 	 * @return bool
 	 */
-	static function isCurrentListAction( $action ) {
+	static function isCurrentAction( $action ) {
 
 		if ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] )
 			$compare = $_REQUEST['action'];
