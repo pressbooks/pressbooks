@@ -5,9 +5,10 @@
 	<div class="log-wrap">	<!-- Login/Logout -->
 	   <?php if (! is_single()): ?>
 	    	<?php if (!is_user_logged_in()): ?>
-				<a href="<?php echo wp_login_url(); ?>" class="log login"><?php _e('login', 'pressbooks'); ?></a>
+				<a href="<?php echo wp_login_url(); ?>" class=""><?php _e('login', 'pressbooks'); ?></a>
 	   	 	<?php else: ?>
-				<a href="<?php echo  wp_logout_url(); ?>" class="log logout"><?php _e('logout', 'pressbooks'); ?></a>
+				<a href="<?php echo  wp_logout_url(); ?>" class=""><?php _e('logout', 'pressbooks'); ?></a>
+				<a href="<?php echo get_option('home'); ?>/wp-admin"><?php _e('Admin', 'pressbooks'); ?></a>
 	    	<?php endif; ?>
 	    <?php endif; ?>
 	</div>   
