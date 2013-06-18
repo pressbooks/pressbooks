@@ -81,8 +81,17 @@ function upload_cover_image( $pid, $post ) {
 			$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s x %s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
 		}
 
-		// TODO: delete old image
+		$old = get_post_meta( $pid, 'pb_cover_image', false );
 		update_post_meta( $pid, 'pb_cover_image', $image['url'] );
+
+		// Delete old images
+		foreach ( $old as $image_url ) {
+			$image_path = \PressBooks\Utility\get_media_path( $image_url );
+			if ( file_exists( $image_path ) ) {
+				unlink( $image_path );
+			}
+		}
+
 	}
 }
 
