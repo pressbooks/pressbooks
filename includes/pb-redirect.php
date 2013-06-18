@@ -33,26 +33,35 @@ function location( $href ) {
 
 
 /**
- * Change redirect upon login to user's My Sites page
+ * Change redirect upon login to user's My Catalog page
  *
- * @param string   $redirect_to
- * @param string   $request_redirect_to
+ * @param string $redirect_to
+ * @param string $request_redirect_to
  * @param \WP_USER $user
+ *
+ * @return string
  */
 function login( $redirect_to, $request_redirect_to, $user ) {
-	if ( is_a( $user, 'WP_User' ) ) {
-		if ( ! is_user_member_of_blog( $user->ID, intval( 1 ) ) ) {
-			$user_info = get_userdata( $user->ID );
-			if ( $user_info->primary_blog ) {
-				wp_redirect( get_blogaddress_by_id( $user_info->primary_blog ) . 'wp-admin/my-sites.php' );
-				exit;
-			} else {
-				$redirect_to = network_site_url( '/wp-signup.php' );
-			}
-		}
+
+	if ( false === is_a( $user, 'WP_User' ) ) {
+		// Unknown user, bail with default
+		return $redirect_to;
 	}
 
-	return $redirect_to;
+	global $current_site; // Main site
+	if ( is_super_admin( $user->ID ) || is_user_member_of_blog( $user->ID, $current_site->blog_id ) ) {
+		// This is an admin, don't mess
+		return $redirect_to;
+	}
+
+	$user_info = get_userdata( $user->ID );
+	if ( $user_info->primary_blog ) {
+		// Send the user to their catalog page
+		return get_blogaddress_by_id( $user_info->primary_blog ) . 'wp-admin/index.php?page=pb_catalog';
+	}
+
+	// User has no primary_blog? Make them sign-up for one
+	return network_site_url( '/wp-signup.php' );
 }
 
 

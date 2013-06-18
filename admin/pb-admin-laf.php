@@ -209,6 +209,9 @@ function fix_root_admin_menu() {
 	remove_menu_page( "edit.php?post_type=front-matter" );
 	remove_menu_page( "edit.php?post_type=back-matter" );
 	remove_menu_page( "edit.php?post_type=metadata" );
+
+	// Catalog
+	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\PressBooks\Catalog::addMenu' );
 }
 
 
