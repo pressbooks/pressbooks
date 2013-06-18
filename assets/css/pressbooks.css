@@ -144,6 +144,8 @@ p.chapter_add {
 	display: none;
 }
 
+.action-links ul li:nth-child(2) { display: none; }
+
 #customize-current-theme-link {
 	display: none;
 }
