@@ -400,7 +400,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			$data[$i]['cover'] = ! empty( $metadata['pb_cover_image'] ) ? $metadata['pb_cover_image'] : PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg'; // TODO: Less resource intensive thumbnail
 			$data[$i]['author'] = @$metadata['pb_author'];
 			for ( $j = 1; $j <= $catalog_obj::$maxTagsGroup; ++$j ) {
-				$data[$i]["tag_{$j}"] = $catalog_obj->getTagsByBook( $val['blogs_id'], $j );
+				$data[$i]["tag_{$j}"] = $catalog_obj->getTagsByBook( $book->userblog_id, $j );
 			}
 			$data[$i]['featured'] = 0;
 			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
