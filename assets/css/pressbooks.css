@@ -719,3 +719,55 @@ table.front-matter tr td, table.back-matter tr td, table.chapters tr td {
 table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tfoot tr td {
 	padding: 8px 0;
 }
+.publicize-panel {
+	background: #fff;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+	margin: 16px 0;
+	padding: 20px 20px 5px;	
+}
+.publicize-panel h4 {
+	display: inline-block;
+	font-size: 15px;
+	font-weight: normal;
+	margin: 0 0 5px 0;
+}
+.publicize-panel p {
+	margin: 0 0 15px;
+}
+.publicize-panel .small {
+	font-size: 0.875em;
+	color: #767676;
+}
+.publicize-form {
+	font-size: 0.875em;
+	padding-left: 5px;
+	overflow: hidden;
+}
+.publicize-form p {
+	float: left;
+	width: 100px;
+}
+.publicize-form input[type="radio"] {
+	vertical-align: baseline;
+}
+.publicize-alert.private span,
+.publicize-alert.public span {
+	background-color: #FFDEDD;
+	font-weight: bold;
+	padding: 2px 3px;
+	margin: 15px 0 5px;
+	text-transform: uppercase;
+}
+.publicize-alert.public span {
+	background-color: #E0EDC1;
+}
+.private-nag a {
+	background-color: #E0EDC1;
+	border-radius: 4px;
+	color: #4A6015;
+	padding: 3px 5px;
+	text-decoration: none;
+}
+.private-nag a:hover {
+	color: #1c420d;
+}

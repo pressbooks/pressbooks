@@ -24,14 +24,43 @@ $book_structure = \PressBooks\Book::getBookStructure();
 
 <div class="wrap">
 
-<div style="text-align:right;float:right;margin:0.5em;">
+<div class="publicize-panel">
 	<?php if ( get_option( 'blog_public' ) == 1 ) { ?>
-		This book's global privacy settings are set to: PUBLIC.<br />
-		If you wish to make some chapters private, please select privacy settings below.<br />
-		Or, <a href="<?php echo $adminUrl; ?>options-general.php?page=privacy-options">make your book PRIVATE</a>, so that only you and users you give access to can see it online.
-	<?php } else { ?>
-		This book's global privacy settings are set to: PRIVATE.<br />
-		<a href="<?php echo $adminUrl; ?>options-general.php?page=privacy-options">Make some (or all) of your book PUBLIC on the web</a>, for promotion and accessibility.
+		<h4 class="publicize-alert public">This book's global privacy is set to <span>public</span></h4>	
+		<p class="small">Individual chapter privacy settings can be set below.</p>
+		
+		<div class="publicize-form">
+			<p>
+				<input type="radio" checked="checked" value="1" name="blog_public" id="blog-public">
+				<label for="blog-public"><strong>Public</strong> </label>
+			</p>	
+			<p>	
+				<input type="radio" value="0" name="blog_public" id="blog-public">
+				<label for="blog-norobots"> Private</label>
+			</p>	
+		</div>
+
+		
+
+	
+	<?php } else { ?>		
+		<h4 class="publicize-alert private">This book's global privacy is set to <span>private</span></h4>
+		<p class="small">Only people you invite will be able to see your book.</p>
+		
+		<div class="publicize-form">
+			<p>
+				<input type="radio" value="1" name="blog_public" id="blog-public">
+				<label for="blog-public">Public</label>
+			</p>	
+			<p>	
+				<input type="radio" checked="checked" value="0" name="blog_public" id="blog-public">
+				<label for="blog-norobots"><strong>Private</strong></label>
+			</p>	
+		</div>
+	
+	
+		<p class="private-nag"><strong>Help promote your book</strong>: make certain chapters available for all to read by using the <a href="#">public</a> setting.</p>
+
 	<?php } ?>
 </div>
 <div id="icon-edit" class="icon32"></div>
