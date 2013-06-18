@@ -21,7 +21,7 @@ class Metadata {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 5;
+	static $currentVersion = 6;
 
 
 	/**
@@ -137,6 +137,9 @@ class Metadata {
 		}
 		if ( $version < 5 ) {
 			$this->changeDefaultBookCover();
+		}
+		if ( $version < 6 ) {
+			$this->makeThumbnailsForBookCover();
 		}
 	}
 
@@ -405,6 +408,22 @@ class Metadata {
 			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
 			if ( preg_match( '~assets/images/default-book-cover\.png$~', $pb_cover_image ) ) {
 				update_post_meta( $post->ID, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg' );
+			}
+		}
+	}
+
+
+	/**
+	 * Generate thumbnails for a user uploaded cover
+	 */
+	function makeThumbnailsForBookCover() {
+
+		$post = $this->getMetaPost();
+
+		if ( $post ) {
+			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
+			if ( $pb_cover_image && ! preg_match( '~assets/images/default-book-cover\.jpg$~', $pb_cover_image ) ) {
+				\PressBooks\Utility\make_thumbnails( \PressBooks\Utility\get_media_path( $pb_cover_image ) );
 			}
 		}
 	}

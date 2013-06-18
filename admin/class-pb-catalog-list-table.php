@@ -131,7 +131,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function column_cover( $item ) {
 
-		$img = esc_url( $item['cover'] );
+		$img = esc_url( \PressBooks\Utility\thumbify( '-65x0', $item['cover'] ) );
 		$alt = esc_attr( $item['title'] );
 
 		$html = "<img src='$img' alt='$alt' />";
