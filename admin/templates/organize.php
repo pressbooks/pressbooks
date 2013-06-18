@@ -37,7 +37,8 @@ $book_structure = \PressBooks\Book::getBookStructure();
 			<p>	
 				<input type="radio" value="0" name="blog_public" id="blog-public">
 				<label for="blog-norobots"> Private</label>
-			</p>	
+			</p>
+			<p class="submit"><input type="submit" value="Save Changes" class="button button-primary" id="submit" name="submit"></p>	
 		</div>
 
 		
@@ -47,6 +48,10 @@ $book_structure = \PressBooks\Book::getBookStructure();
 		<h4 class="publicize-alert private">This book's global privacy is set to <span>private</span></h4>
 		<p class="small">Only people you invite will be able to see your book.</p>
 		
+			
+		<p class="private-nag"><strong>Help promote your book</strong>: make certain chapters available for all to read by using the <span href="#">Public</span> setting.</p>
+
+
 		<div class="publicize-form">
 			<p>
 				<input type="radio" value="1" name="blog_public" id="blog-public">
@@ -55,11 +60,10 @@ $book_structure = \PressBooks\Book::getBookStructure();
 			<p>	
 				<input type="radio" checked="checked" value="0" name="blog_public" id="blog-public">
 				<label for="blog-norobots"><strong>Private</strong></label>
-			</p>	
+			</p>
+			<p class="submit"><input type="submit" value="Save Changes" class="button button-primary" id="submit" name="submit"></p>
 		</div>
 	
-	
-		<p class="private-nag"><strong>Help promote your book</strong>: make certain chapters available for all to read by using the <a href="#">public</a> setting.</p>
 
 	<?php } ?>
 </div>

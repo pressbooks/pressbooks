@@ -740,12 +740,20 @@ table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tf
 }
 .publicize-form {
 	font-size: 0.875em;
-	padding-left: 5px;
 	overflow: hidden;
 }
 .publicize-form p {
 	float: left;
-	width: 100px;
+	padding-left: 5px;
+	width: 80px;
+}
+.publicize-form p.submit {
+	clear: both;
+	float: none;
+	margin: 0;
+	padding-top: 0;
+	padding-left: 0;
+	width: inherit;
 }
 .publicize-form input[type="radio"] {
 	vertical-align: baseline;
@@ -761,13 +769,10 @@ table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tf
 .publicize-alert.public span {
 	background-color: #E0EDC1;
 }
-.private-nag a {
+.private-nag span {
 	background-color: #E0EDC1;
 	border-radius: 4px;
 	color: #4A6015;
 	padding: 3px 5px;
 	text-decoration: none;
-}
-.private-nag a:hover {
-	color: #1c420d;
 }
