@@ -731,35 +731,18 @@ table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tf
 	display: inline-block;
 	font-size: 15px;
 	font-weight: normal;
-	margin: 0 0 5px 0;
+	margin: 0 0 15px 0;
 }
 .publicize-panel p {
 	margin: 0 0 15px;
 }
-.publicize-panel .small {
-	font-size: 0.875em;
-	color: #767676;
-}
-.publicize-form {
-	font-size: 0.875em;
-	overflow: hidden;
-}
-.publicize-form p {
-	float: left;
-	padding-left: 5px;
-	width: 80px;
-}
+
 .publicize-form p.submit {
-	clear: both;
-	float: none;
 	margin: 0;
 	padding-top: 0;
 	padding-left: 0;
-	width: inherit;
 }
-.publicize-form input[type="radio"] {
-	vertical-align: baseline;
-}
+
 .publicize-alert.private span,
 .publicize-alert.public span {
 	background-color: #FFDEDD;
@@ -771,10 +754,4 @@ table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tf
 .publicize-alert.public span {
 	background-color: #E0EDC1;
 }
-.private-nag span {
-	background-color: #E0EDC1;
-	border-radius: 4px;
-	color: #4A6015;
-	padding: 3px 5px;
-	text-decoration: none;
-}
+
