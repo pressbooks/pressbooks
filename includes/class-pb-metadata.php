@@ -423,7 +423,9 @@ class Metadata {
 		if ( $post ) {
 			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
 			if ( $pb_cover_image && ! preg_match( '~assets/images/default-book-cover\.jpg$~', $pb_cover_image ) ) {
-				\PressBooks\Utility\make_thumbnails( \PressBooks\Utility\get_media_path( $pb_cover_image ) );
+				$path = \PressBooks\Utility\get_media_path( $pb_cover_image );
+				if ( file_exists( $path ) )
+					\PressBooks\Utility\make_thumbnails( $path );
 			}
 		}
 	}
