@@ -86,7 +86,7 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <th><?php _e('Author', 'pressbooks'); ?></th>
         <th><?php _e('Comments', 'pressbooks'); ?></th>
         <th><?php _e('Status', 'pressbooks'); ?></th>
-		<?php if ( get_option('blog_public') == 1 ) { ?><th><?php _e('Private', 'pressbooks'); ?></th><?php } ?>
+		<th><?php _e('Private', 'pressbooks'); ?></th>
         <th><?php _e('Export', 'pressbooks'); ?></th>
         <th><?php _e( 'Edit', 'pressbooks' ); ?></th>
     </tr>
@@ -111,9 +111,9 @@ $book_structure = \PressBooks\Book::getBookStructure();
             </a>
         </td>
         <td class="status column-status"><?php echo $statuses[$fm['post_status']]; ?></td>
-        <?php if ( get_option('blog_public') == 1 ) { ?><td class="status column-privacy">
+        <td class="status column-privacy">
 	    	<input class="fm_privacy" type="checkbox" name="fm-private[<?php echo $fm['ID']; ?>]" id="fm_private_<?php echo $fm['ID']; ?>" <?php checked( 'private', get_post_status( $fm['ID'] ) ); ?> />	        
-        </td><?php } ?>
+        </td>
 		<?php $export = get_post_meta( $fm['ID'], 'pb_export', true ); ?>
         <td class="export column-export">
 			<?php $export = get_post_meta( $fm['ID'], 'pb_export', true );
@@ -147,7 +147,7 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
-        <?php if ( get_option('blog_public') == 1 ) { ?><th>&nbsp;</th><?php } ?>
+        <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th><a href="<?php echo $adminUrl; ?>post-new.php?post_type=front-matter" class="button"><?php _e('Add Front Matter', 'pressbooks'); ?></a>
         </th>
@@ -167,7 +167,7 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <th><?php _e('Author', 'pressbooks'); ?></th>
         <th><?php _e('Comments', 'pressbooks'); ?></th>
         <th><?php _e('Status', 'pressbooks'); ?></th>
-		<?php if ( get_option('blog_public') == 1 ) { ?><th><?php _e('Private', 'pressbooks'); ?></th><?php } ?>
+		<th><?php _e('Private', 'pressbooks'); ?></th>
         <th><?php _e('Export', 'pressbooks'); ?></th>
         <th>
             <a href="<?php echo 'post.php?post=' . $part['ID'] . '&action=edit'; ?>">
@@ -209,9 +209,9 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <td class="status column-status">
 			<?php echo $statuses[$chapter['post_status']]; ?>
         </td>
-        <?php if ( get_option('blog_public') == 1 ) { ?><td class="status column-privacy">
+        <td class="status column-privacy">
 	    	<input class="chapter_privacy" type="checkbox" name="chapter-private[<?php echo $chapter['ID']; ?>]" id="chapter_private_<?php echo $chapter['ID']; ?>" <?php checked( 'private', get_post_status( $chapter['ID'] ) ); ?> />
-        </td><?php } ?>
+        </td>
         <td class="export column-export">
 			<?php $export = get_post_meta( $chapter['ID'], 'pb_export', true ); ?>
 			<?php if ( $export ): ?>
@@ -239,7 +239,7 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
-        <?php if ( get_option('blog_public') == 1 ) { ?><th>&nbsp;</th><?php } ?>
+        <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>
             <a href="<?php echo $adminUrl; ?>post-new.php?post_type=chapter&amp;startparent=<?php echo $part['ID']; ?>" class="button"><?php _e('Add Chapter', 'pressbooks'); ?></a>
@@ -260,7 +260,7 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <th><?php _e('Author', 'pressbooks'); ?></th>
         <th><?php _e('Comments', 'pressbooks'); ?></th>
         <th><?php _e('Status', 'pressbooks'); ?></th>
-		<?php if ( get_option('blog_public') == 1 ) { ?><th><?php _e('Private', 'pressbooks'); ?></th><?php } ?>
+		<th><?php _e('Private', 'pressbooks'); ?></th>
         <th><?php _e('Export', 'pressbooks'); ?></th>
         <th><?php _e( 'Edit', 'pressbooks' ); ?></th>
     </tr>
@@ -285,9 +285,9 @@ $book_structure = \PressBooks\Book::getBookStructure();
             </a>
         </td>
         <td class="status column-status"><?php echo $statuses[$bm['post_status']]; ?></td>
-        <?php if ( get_option('blog_public') == 1 ) { ?><td class="status column-privacy">
+        <td class="status column-privacy">
 	    	<input class="bm_privacy" type="checkbox" name="bm-private[<?php echo $bm['ID']; ?>]" id="bm_private_<?php echo $bm['ID']; ?>" <?php checked( 'private', get_post_status( $bm['ID'] ) ); ?> />    
-        </td><?php } ?>
+        </td>
 		<?php $export = get_post_meta( $bm['ID'], 'pb_export', true ); ?>
         <td class="export column-export">
 			<?php $export = get_post_meta( $bm['ID'], 'pb_export', true );
@@ -321,7 +321,7 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
-        <?php if ( get_option('blog_public') == 1 ) { ?><th>&nbsp;</th><?php } ?>
+        <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th><a href="<?php echo $adminUrl; ?>post-new.php?post_type=back-matter" class="button"><?php _e('Add Back Matter', 'pressbooks'); ?></a></th>
     </tr>
