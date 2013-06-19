@@ -31,11 +31,11 @@ $book_structure = \PressBooks\Book::getBookStructure();
 		<div class="publicize-form">
 			<p>
 				<input type="radio" checked="checked" value="1" name="blog_public" id="blog-public">
-				<label for="blog-public"><strong>Public.</strong> Promote your book, set individual chapters privacy below. </label>
+				<label for="blog-public"><span class="public" style="font-weight: bold;">Public.</span> Promote your book, set individual chapters privacy below. </label>
 			</p>	
 			<p>	
 				<input type="radio" value="0" name="blog_public" id="blog-public">
-				<label for="blog-norobots"> Private. Only users you invite can see your book, regardless of individual chapter privacy settings below.</label>
+				<label for="blog-norobots"><span class="private">Private</span>. Only users you invite can see your book, regardless of individual chapter privacy settings below.</label>
 			</p>
 			<p class="submit"><input type="submit" value="Save Changes" class="button button-primary" id="submit" name="submit"></p>	
 		</div>
@@ -49,11 +49,11 @@ $book_structure = \PressBooks\Book::getBookStructure();
 		<div class="publicize-form">
 			<p>
 				<input type="radio" value="1" name="blog_public" id="blog-public">
-				<label for="blog-public">Public. Promote your book, set individual chapters privacy below.</label>
+				<label for="blog-public"><span class="public">Public</span>. Promote your book, set individual chapters privacy below.</label>
 			</p>	
 			<p>	
 				<input type="radio" checked="checked" value="0" name="blog_public" id="blog-public">
-				<label for="blog-norobots"><strong>Private.</strong> Only users you invite can see your book, regardless of individual chapter privacy settings below.</label>
+				<label for="blog-norobots"><span class="private" style="font-weight: bold;">Private</span>. Only users you invite can see your book, regardless of individual chapter privacy settings below.</label>
 			</p>
 			<p class="submit"><input type="submit" value="Save Changes" class="button button-primary" id="submit" name="submit"></p>
 		</div>

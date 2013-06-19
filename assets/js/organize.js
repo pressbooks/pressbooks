@@ -169,6 +169,35 @@ jQuery(document).ready(function ($) {
 	jQuery("table#front-matter").sortable(PressBooks.frontMatterOptions).disableSelection();
 	jQuery("table#back-matter").sortable(PressBooks.backMatterOptions).disableSelection();
 
+	$('.publicize-form #submit').click(function () {
+		var blog_public = $("input#blog-public:checked").val();
+
+		jQuery.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'pb_update_global_privacy_options',
+				blog_public: blog_public,
+				_ajax_nonce: PB_OrganizeToken.privacyNonce
+			}
+		});
+				
+		if ( blog_public == 0 ) {
+			$('.publicize-alert span.status').text('PRIVATE');
+			$('label span.public').css('font-weight', 'normal');
+			$('label span.private').css('font-weight', 'bold');
+			$('.publicize-alert').removeClass('public');
+			$('.publicize-alert').addClass('private');
+		} else {
+			$('.publicize-alert span.status').text('PUBLIC');
+			$('label span.public').css('font-weight', 'bold');
+			$('label span.private').css('font-weight', 'normal');
+			$('.publicize-alert').removeClass('private');
+			$('.publicize-alert').addClass('public');
+		}
+
+	});
+
 	$('.chapter_privacy').change(function () {
 		var id = $(this).attr('id');
 		id = id.split('_');

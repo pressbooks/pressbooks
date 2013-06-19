@@ -467,8 +467,19 @@ class Book {
 			wp_update_post( $my_post );
 			static::deleteBookObjectCache();
 		}
-	}	
+	}
+	
+	/**
+	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
+	 */
+	static function updateGlobalPrivacyOptions() {
 
+		$blog_public = absint( $_POST['blog_public'] );
+
+		if ( current_user_can( 'manage_options' ) && check_ajax_referer( 'pb-update-book-privacy' ) ) {
+			update_option( 'blog_public', $blog_public );
+		}
+	}
 
 	/**
 	 * Fetch next, previous or first post
