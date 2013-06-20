@@ -124,6 +124,9 @@ function replace_book_admin_menu() {
 				'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
 				'exportNonce' => wp_create_nonce( 'pb-update-book-export' ),
 				'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
+				'private' => __( 'Private', 'pressbooks' ),
+				'published' => __( 'Published', 'pressbooks' ),
+				'public' => __( 'Public', 'pressbooks' ),
 			) );
 		}
 	} );
