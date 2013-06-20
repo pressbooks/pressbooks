@@ -101,8 +101,13 @@ class Wxr extends Import {
 
 			$pid = wp_insert_post( $new_post );
 
-			// TODO
-			// update_post_meta( $pid, 'pb_section_author', $p['post_author'] );
+			$section_author = $this->searchForSectionAuthor( $p['postmeta'] );
+
+			if ( $section_author ) {
+				update_post_meta( $pid, 'pb_section_author', $section_author );
+			} else { // if above returns no results, take value from 'dc:creator' 
+				update_post_meta( $pid, 'pb_section_author', $p['post_author'] );
+			}
 
 			update_post_meta( $pid, 'pb_show_title', 'on' );
 			update_post_meta( $pid, 'pb_export', 'on' );
@@ -115,7 +120,26 @@ class Wxr extends Import {
 		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
 		return $this->revokeCurrentImport();
 	}
-	
+
+	/**
+	 * Check for PB specific metadata, returns empty string if not found.
+	 * 
+	 * @param array $postmeta
+	 * @return string Author's name 
+	 */
+	protected function searchForSectionAuthor( array $postmeta ) {
+		if ( ! is_array( $postmeta ) || empty( $postmeta ) ) {
+			return '';
+		}
+		foreach ( $postmeta as $meta ) {
+			// prefer this value, if it's set
+			if ( 'pb_section_author' == $meta['key'] ) {
+				return $meta['value'];
+			}
+		}
+		return '';
+	}
+
 	/**
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
