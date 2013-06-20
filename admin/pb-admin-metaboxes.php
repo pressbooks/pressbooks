@@ -9,18 +9,29 @@ namespace PressBooks\Admin\Metaboxes;
 /**
  * If the user updates the book's title, then also update the blog name
  *
- * @param int      $pid
+ * @param int $pid
  * @param \WP_Post $post
  */
 function title_update( $pid, $post ) {
-	if ( 'metadata' == $post->post_type ) {
-		$pb_title = get_post_meta( $post->ID, 'pb_title', true );
-		if ( $pb_title ) { // if the pb_title metadata value is set, update the blogname to match it
-			update_option( 'blogname', $pb_title );
-		} else { // if the pb_title metadata value is not set, update it to match the blogname
-			$pb_title = get_option( 'blogname' );
-			update_post_meta( $post->ID, 'pb_title', $pb_title );
-		}
+
+	if ( 'metadata' != $post->post_type )
+		return; // Bail
+
+	$pb_title = get_post_meta( $pid, 'pb_title', true );
+	if ( $pb_title ) { // if the pb_title metadata value is set, update the blogname to match it
+		update_option( 'blogname', $pb_title );
+	} else { // if the pb_title metadata value is not set, update it to match the blogname
+		$pb_title = get_option( 'blogname' );
+		update_post_meta( $pid, 'pb_title', $pb_title );
+	}
+
+	// Change post_title from "Auto Draft" to something useful
+	$post_title = __( 'Book Info', 'pressbooks' );
+	if ( $post_title != $post->post_title ) {
+		wp_update_post( array(
+			'ID' => $pid,
+			'post_title' => $post_title,
+		) );
 	}
 }
 
@@ -28,32 +39,35 @@ function title_update( $pid, $post ) {
 /**
  * If the user leaves certain meta info blank, forcefully fill it with our own
  *
- * @param int      $pid
+ * @param int $pid
  * @param \WP_Post $post
  */
 function add_required_data( $pid, $post ) {
 
-	$pb_author = get_post_meta( $post->ID, 'pb_author', true );
+	if ( 'metadata' != $post->post_type )
+		return; // Bail
+
+	$pb_author = get_post_meta( $pid, 'pb_author', true );
 	if ( ! $pb_author ) {
 		// if the pb_author metadata value is not set, set it to the primary book user's name
 		if ( 0 !== get_current_user_id() ) {
 			/** @var $user_info \WP_User */
 			$user_info = get_userdata( get_current_user_id() );
 			$name = $user_info->display_name;
-			update_post_meta( $post->ID, 'pb_author', $name );
+			update_post_meta( $pid, 'pb_author', $name );
 		}
 	}
 
-	$pb_language = get_post_meta( $post->ID, 'pb_language', true );
+	$pb_language = get_post_meta( $pid, 'pb_language', true );
 	if ( ! $pb_language ) {
 		// if the pb_language metadata value is not set, set it to 'en'
-		update_post_meta( $post->ID, 'pb_language', 'en' );
+		update_post_meta( $pid, 'pb_language', 'en' );
 	}
 
-	$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
+	$pb_cover_image = get_post_meta( $pid, 'pb_cover_image', true );
 	if ( ! $pb_cover_image ) {
 		// if the pb_cover_image metadata value is not set, set it to the default image
-		update_post_meta( $post->ID, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg' );
+		update_post_meta( $pid, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg' );
 	}
 }
 
@@ -66,40 +80,39 @@ function add_required_data( $pid, $post ) {
  */
 function upload_cover_image( $pid, $post ) {
 
-	if ( ! @empty( $_FILES['pb_cover_image']['name'] ) ) {
+	if ( 'metadata' != $post->post_type || @empty( $_FILES['pb_cover_image']['name'] ) )
+		return; // Bail
 
-		$allowed_file_types = array( 'jpg' => 'image/jpg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' );
-		$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
-		$image = wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
+	$allowed_file_types = array( 'jpg' => 'image/jpg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' );
+	$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
+	$image = wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
 
-		if ( ! empty( $image['error'] ) ) {
-			wp_die( $image['error'] );
+	if ( ! empty( $image['error'] ) ) {
+		wp_die( $image['error'] );
+	}
+
+	list( $width, $height ) = getimagesize( $image['file'] );
+	if ( $width < 625 || $height < 625 ) {
+		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s x %s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
+	}
+
+	$old = get_post_meta( $pid, 'pb_cover_image', false );
+
+	update_post_meta( $pid, 'pb_cover_image', $image['url'] );
+	\PressBooks\Utility\make_thumbnails( $image['file'] );
+
+	// Delete old images
+	foreach ( $old as $image_url ) {
+		$image_path = \PressBooks\Utility\get_media_path( $image_url );
+		if ( file_exists( $image_path ) ) {
+			unlink( $image_path );
 		}
-
-		list( $width, $height ) = getimagesize( $image['file'] );
-		if ( $width < 625 || $height < 625 ) {
-			$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s x %s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
-		}
-
-		$old = get_post_meta( $pid, 'pb_cover_image', false );
-
-		update_post_meta( $pid, 'pb_cover_image', $image['url'] );
-		\PressBooks\Utility\make_thumbnails( $image['file'] );
-
-		// Delete old images
-		foreach ( $old as $image_url ) {
-			$image_path = \PressBooks\Utility\get_media_path( $image_url );
-			if ( file_exists( $image_path ) ) {
-				unlink( $image_path );
+		$thumbs = \PressBooks\Utility\get_possible_thumbnail_names( $image_path );
+		foreach ( $thumbs as $thumbnail_path ) {
+			if ( file_exists( $thumbnail_path ) ) {
+				unlink( $thumbnail_path );
 			}
-			$thumbs = \PressBooks\Utility\get_possible_thumbnail_names( $image_path );
-			foreach ( $thumbs as $thumbnail_path ) {
-				if ( file_exists( $thumbnail_path ) ) {
-					unlink( $thumbnail_path );
-				}
-			}
 		}
-
 	}
 }
 
@@ -489,7 +502,7 @@ function cover_image_box( $post ) {
 				});
 			});
 	  </script>
-			<label for="pb_cover_image">Cover Image</label>
+			<label for="pb_cover_image"><?php _e( 'Cover Image', 'pressbooks' ); ?></label>
 				<div class="pb_cover_image" id="pb_cover_image-1">
 	<?php if ( $pb_cover_image && ! preg_match( '~assets/images/default-book-cover.jpg$~', $pb_cover_image ) ) { ?>
 		<p><img id="cover_image_preview" src="<?php echo $pb_cover_image; ?>" style="width: auto; height: 100px" alt="cover_image" /><br />
