@@ -171,8 +171,8 @@ jQuery(document).ready(function ($) {
 	$("table#back-matter").sortable(PressBooks.backMatterOptions).disableSelection();
 
 	// Public/Private form at top of page
-	$('.publicize-form #submit').click(function () {
-		var blog_public = $("input#blog-public:checked").val();
+	$('input[name=blog_public]').change(function () {
+		var blog_public = $("input[name=blog_public]:checked").val();
 		$.ajax({
 			url: ajaxurl,
 			type: 'POST',
@@ -182,10 +182,6 @@ jQuery(document).ready(function ($) {
 				_ajax_nonce: PB_OrganizeToken.privacyNonce
 			},
 			beforeSend: function () {
-				$('.publicize-form input[type=\"submit\"]').attr('disabled', 'disabled');
-			},
-			success: function (response) {
-				$('.publicize-form input[type=\"submit\"]').removeAttr('disabled');
 				if (blog_public == 0) {
 					$('h4.publicize-alert > span').text(PB_OrganizeToken.private);
 					$('label span.public').css('font-weight', 'normal');
@@ -197,6 +193,9 @@ jQuery(document).ready(function ($) {
 					$('label span.private').css('font-weight', 'normal');
 					$('.publicize-alert').removeClass('private').addClass('public');
 				}
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				// TODO, catch error
 			}
 		});
 	});

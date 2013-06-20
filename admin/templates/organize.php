@@ -9,57 +9,37 @@ global $user_ID;
 $adminUrl = admin_url();
 $statuses = get_post_statuses();
 $book_structure = \PressBooks\Book::getBookStructure();
+$book_is_public = ( 1 == get_option( 'blog_public' ) );
 ?>
 
 <style type="text/css">
-    .widefat thead tr th {
-        color: #676767;
-    }
-
-    tbody {
-        margin-top: 10px;
-    }
+    .widefat thead tr th { color: #676767; }
+    tbody { margin-top: 10px; }
 </style>
 
 
 <div class="wrap">
 
 <div class="publicize-panel">
-	<?php if ( get_option( 'blog_public' ) == 1 ) { ?>
-		<h4 class="publicize-alert public">This book's global privacy is set to <span>public</span></h4>	
-		
-		<div class="publicize-form">
-			<p>
-				<input type="radio" checked="checked" value="1" name="blog_public" id="blog-public">
-				<label for="blog-public"><span class="public" style="font-weight: bold;">Public.</span> Promote your book, set individual chapters privacy below. </label>
-			</p>	
-			<p>	
-				<input type="radio" value="0" name="blog_public" id="blog-public">
-				<label for="blog-norobots"><span class="private">Private</span>. Only users you invite can see your book, regardless of individual chapter privacy settings below.</label>
-			</p>
-			<p class="submit"><input type="submit" value="Save Changes" class="button button-primary" id="submit" name="submit"></p>	
-		</div>
-
-		
-
-	
-	<?php } else { ?>		
-		<h4 class="publicize-alert private">This book's global privacy is set to <span>private</span></h4>
-
-		<div class="publicize-form">
-			<p>
-				<input type="radio" value="1" name="blog_public" id="blog-public">
-				<label for="blog-public"><span class="public">Public</span>. Promote your book, set individual chapters privacy below.</label>
-			</p>	
-			<p>	
-				<input type="radio" checked="checked" value="0" name="blog_public" id="blog-public">
-				<label for="blog-norobots"><span class="private" style="font-weight: bold;">Private</span>. Only users you invite can see your book, regardless of individual chapter privacy settings below.</label>
-			</p>
-			<p class="submit"><input type="submit" value="Save Changes" class="button button-primary" id="submit" name="submit"></p>
-		</div>
-	
-
+	<?php if ( $book_is_public ) { ?>
+		<h4 class="publicize-alert public"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Public', 'pressbooks' ); ?></span></h4>
+	<?php } else { ?>
+		<h4 class="publicize-alert private"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Private', 'pressbooks' ); ?></span></h4>
 	<?php } ?>
+	<div class="publicize-form">
+		<p>
+			<input type="radio" <?php if ( $book_is_public ) echo 'checked="checked"'; ?> value="1" name="blog_public" id="blog-public">
+			<label for="blog-public"><span class="public" <?php if ( $book_is_public ) echo 'style="font-weight: bold;"'; ?> ><?php _e( 'Public', 'pressbooks' ); ?></span> -
+				<?php _e( 'Promote your book, set individual chapters privacy below.', 'pressbooks' ); ?>
+			</label>
+		</p>
+		<p>
+			<input type="radio" <?php if ( ! $book_is_public ) echo 'checked="checked"'; ?> value="0" name="blog_public" id="blog-private">
+			<label for="blog-private"><span class="private" <?php if ( ! $book_is_public ) echo 'style="font-weight: bold;"'; ?> ><?php _e( 'Private', 'pressbooks' ); ?></span> -
+				<?php _e( 'Only users you invite can see your book, regardless of individual chapter privacy settings below.', 'pressbooks' ); ?>
+			</label>
+		</p>
+	</div>
 </div>
 <div id="icon-edit" class="icon32"></div>
 <h2>
