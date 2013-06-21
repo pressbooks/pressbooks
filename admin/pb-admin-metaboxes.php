@@ -83,7 +83,7 @@ function upload_cover_image( $pid, $post ) {
 	if ( 'metadata' != $post->post_type || @empty( $_FILES['pb_cover_image']['name'] ) )
 		return; // Bail
 
-	$allowed_file_types = array( 'jpg' => 'image/jpg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' );
+	$allowed_file_types = array( 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' );
 	$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
 	$image = wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
 
@@ -97,23 +97,23 @@ function upload_cover_image( $pid, $post ) {
 	}
 
 	$old = get_post_meta( $pid, 'pb_cover_image', false );
-
 	update_post_meta( $pid, 'pb_cover_image', $image['url'] );
-	\PressBooks\Image\make_thumbnails( $image['file'] );
 
 	// Delete old images
-	foreach ( $old as $image_url ) {
-		$image_path = \PressBooks\Utility\get_media_path( $image_url );
-		if ( file_exists( $image_path ) ) {
-			unlink( $image_path );
-		}
-		$thumbs = \PressBooks\Image\get_possible_thumbnail_names( $image_path );
-		foreach ( $thumbs as $thumbnail_path ) {
-			if ( file_exists( $thumbnail_path ) ) {
-				unlink( $thumbnail_path );
-			}
-		}
+	foreach ( $old as $old_url ) {
+		$old_id = \PressBooks\Image\get_attachment_id_from_url( $old_url );
+		if ( $old_id ) wp_delete_attachment( $old_id, true );
 	}
+
+	// Insert new image, create thumbnails
+	$args = array(
+		'post_mime_type' => $image['type'],
+		'post_title' => preg_replace( '/\.[^.]+$/', '', basename( $image['file'] ) ),
+		'post_content' => '',
+		'post_status' => 'inherit'
+	);
+	$id = wp_insert_attachment( $args, $image['file'], $pid );
+	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $image['file'] ) );
 }
 
 
@@ -527,19 +527,12 @@ function delete_cover_image() {
 
 	if ( current_user_can_for_blog( get_current_blog_id(), 'delete_posts' ) && check_ajax_referer( 'pb-delete-cover-image' ) ) {
 
-		$image_file = $_POST['filename'];
+		$image_url = $_POST['filename'];
 		$pid = $_POST['pid'];
-		$image_path = \PressBooks\Utility\get_media_path( $image_file );
 
-		if ( file_exists( $image_path ) ) {
-			unlink( $image_path );
-		}
-		$thumbs = \PressBooks\Image\get_possible_thumbnail_names( $image_path );
-		foreach ( $thumbs as $thumbnail_path ) {
-			if ( file_exists( $thumbnail_path ) ) {
-				unlink( $thumbnail_path );
-			}
-		}
+		// Delete old images
+		$old_id = \PressBooks\Image\get_attachment_id_from_url( $image_url );
+		if ( $old_id ) wp_delete_attachment( $old_id, true );
 
 		update_post_meta( $pid, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg' );
 		\PressBooks\Book::deleteBookObjectCache();

@@ -9,6 +9,7 @@
 
 .wp-list-table .column-cover img {
 	border: 1px solid #aeaeae;
+	width: 65px;
 }
 
 .wp-list-table .column-title span.title {

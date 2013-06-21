@@ -21,7 +21,7 @@ class Metadata {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 6;
+	static $currentVersion = 7;
 
 
 	/**
@@ -138,7 +138,7 @@ class Metadata {
 		if ( $version < 5 ) {
 			$this->changeDefaultBookCover();
 		}
-		if ( $version < 6 ) {
+		if ( $version < 6 ||$version < 7 ) {
 			$this->makeThumbnailsForBookCover();
 		}
 	}
@@ -419,13 +419,26 @@ class Metadata {
 	function makeThumbnailsForBookCover() {
 
 		$post = $this->getMetaPost();
-
 		if ( $post ) {
+
 			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
 			if ( $pb_cover_image && ! preg_match( '~assets/images/default-book-cover\.jpg$~', $pb_cover_image ) ) {
+
 				$path = \PressBooks\Utility\get_media_path( $pb_cover_image );
-				if ( file_exists( $path ) )
-					\PressBooks\Utility\make_thumbnails( $path );
+				$type = wp_check_filetype( $path );
+				$type = $type['type'];
+
+				// Insert new image, create thumbnails
+				$args = array(
+					'post_mime_type' => $type,
+					'post_title' => preg_replace( '/\.[^.]+$/', '', basename( $path ) ),
+					'post_content' => '',
+					'post_status' => 'inherit'
+				);
+
+				include_once( ABSPATH . 'wp-admin/includes/image.php' );
+				$id = wp_insert_attachment( $args, $path, $post->ID );
+				wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
 			}
 		}
 	}

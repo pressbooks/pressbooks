@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) )
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-dashboard.php' );
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-users.php' );
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
+require( PB_PLUGIN_DIR . 'admin/pb-admin-dashboard.php' );
+require( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
+require( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
+require( PB_PLUGIN_DIR . 'admin/pb-admin-users.php' );
+require( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard

@@ -131,7 +131,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function column_cover( $item ) {
 
-		$img = esc_url( \PressBooks\Image\thumbify( '-65x0', $item['cover'] ) );
+		$img = esc_url( $item['cover'] );
 		$alt = esc_attr( $item['title'] );
 
 		$html = "<img src='$img' alt='$alt' />";
@@ -385,10 +385,10 @@ class Catalog_List_Table extends \WP_List_Table {
 			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
 
 			// Cover
-			if ( $meta_version < 6 ) { // Cover not yet upgraded, use default
-				$data[$i]['cover'] = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+			if ( $meta_version < 7 || preg_match( '~assets/images/default-book-cover\.jpg$~', $metadata['pb_cover_image'] ) ) {
+				$data[$i]['cover'] = PB_PLUGIN_URL . 'assets/images/default-book-cover-65x0.jpg';
 			} else {
-				$data[$i]['cover'] = ! empty( $metadata['pb_cover_image'] ) ? $metadata['pb_cover_image'] : PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+				$data[$i]['cover'] = \PressBooks\Image\get_thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_small' );
 			}
 
 			// Tags
@@ -418,10 +418,10 @@ class Catalog_List_Table extends \WP_List_Table {
 			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
 
 			// Cover
-			if ( $meta_version < 6 ) { // Cover not yet upgraded, use default
-				$data[$i]['cover'] = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+			if ( $meta_version < 7 || preg_match( '~assets/images/default-book-cover\.jpg$~', $metadata['pb_cover_image'] ) ) {
+				$data[$i]['cover'] = PB_PLUGIN_URL . 'assets/images/default-book-cover-65x0.jpg';
 			} else {
-				$data[$i]['cover'] = ! empty( $metadata['pb_cover_image'] ) ? $metadata['pb_cover_image'] : PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+				$data[$i]['cover'] = \PressBooks\Image\get_thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_small' );
 			}
 
 			// Tags

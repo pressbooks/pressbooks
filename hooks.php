@@ -11,20 +11,20 @@ if ( ! defined( 'ABSPATH' ) )
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-image.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'custom_metadata_manager_default_editor_args', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
-require_once( PB_PLUGIN_DIR . 'symbionts/custom-metadata/custom_metadata.php' );
+require( PB_PLUGIN_DIR . 'symbionts/custom-metadata/custom_metadata.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Languages
@@ -38,6 +38,14 @@ if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
 } else {
 	add_filter( 'locale', '\PressBooks\L10n\set_locale' );
 }
+
+// -------------------------------------------------------------------------------------------------------------------
+// Images
+// -------------------------------------------------------------------------------------------------------------------
+
+add_filter( 'intermediate_image_sizes', '\PressBooks\Image\get_intermediate_image_sizes' );
+add_filter( 'intermediate_image_sizes_advanced', '\PressBooks\Image\intermediate_image_sizes_advanced' );
+add_action( 'delete_attachment', '\PressBooks\Image\delete_attachment' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies

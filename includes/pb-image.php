@@ -64,65 +64,107 @@ function thumbify( $thumb, $path ) {
 
 
 /**
- * Get a list of possible thumbnail names for an image
+ * Get the attachment id from an image url.
  *
- * @see make_thumbnails
+ * @param string $url
  *
- * @param string $path
- *
- * @return array
+ * @return int
  */
-function get_possible_thumbnail_names( $path ) {
+function get_attachment_id_from_url( $url ) {
 
-	$thumbs = array(
-		'-100x100',
-		'-65x0',
-		'-225x0',
-		'-225x0@2x',
-	);
+	/** @var $wpdb \wpdb */
+	global $wpdb;
 
-	$names = array();
-	foreach ( $thumbs as $thumb ) {
-		$names[] = thumbify( $thumb, $path );
+	// If this is the URL of an auto-generated thumbnail, get the URL of the original image
+	$url = preg_replace( '/-\d+x\d+(?=\.(jp?g|png|gif)$)/i', '', $url );
+
+	// Remove the upload path base directory from the attachment URL
+	$preg = '#(19|20)\d\d/(0[1-9]|1[012])/.+(\.jpe?g|\.gif|\.png)$#i'; # YYYY/MM/foo-Bar.png
+	if ( preg_match( $preg, $url, $matches ) ) {
+		$url = $matches[0];
 	}
 
-	return $names;
+	// Get the attachment ID from the modified attachment URL
+	$sql = "SELECT wposts.ID FROM {$wpdb->posts} wposts, {$wpdb->postmeta} wpostmeta WHERE wposts.ID = wpostmeta.post_id AND wpostmeta.meta_key = '_wp_attached_file' AND wpostmeta.meta_value = '%s' AND wposts.post_type = 'attachment' ";
+	$sql = $wpdb->prepare( $sql, $url );
+	$id = $wpdb->get_var( $sql );
+
+	return absint( $id );
+}
+
+/**
+ * Try to get a thumbnail url from an image url.
+ *
+ * @param string $url
+ * @param string $size
+ *
+ * @return string
+ *
+ */
+function get_thumbnail_from_url( $url, $size ) {
+
+	$id = get_attachment_id_from_url( $url );
+	$image_thumb = wp_get_attachment_image_src( $id, $size );
+
+	if ( $image_thumb ) return $image_thumb[0]; // URL
+	else return $url; // Couldn't find anything, return original
 }
 
 
 /**
- * Generate thumbnails for a given image
- * Note: if you change this, don't forget to also change get_possible_thumbnail_names()
+ * Get a list of possible intermediate image sizes.
+ * If $image_sizes is not empty, then use as WP hook
  *
- * @see get_possible_thumbnail_names
+ * @param array $image_sizes (optional)
  *
- * @param $path
+ * @return array
  */
-function make_thumbnails( $path ) {
+function get_intermediate_image_sizes( array $image_sizes = array() ) {
 
-	/* $img->resize() is ignored after save, re-instantiate for each action... */
+	$our_sizes = array(
+		'pb_cover_small' => array( 'width' => 65, 'height' => 0, 'crop' => false ),
+		'pb_cover_medium' => array( 'width' => 225, 'height' => 0, 'crop' => false ),
+		'pb_cover_large' => array( 'width' => 350, 'height' => 0, 'crop' => false ),
+	);
 
-	$img = wp_get_image_editor( $path );
-	if ( ! is_wp_error( $img ) ) {
-		$img->resize( 100, 100, true );
-		$img->save( thumbify( '-100x100', $path ) );
-	}
-
-	$img = wp_get_image_editor( $path );
-	if ( ! is_wp_error( $img ) ) {
-		$img->resize( 65, null, false );
-		$img->save( thumbify( '-65x0', $path ) );
-	}
-
-	$img = wp_get_image_editor( $path );
-	if ( ! is_wp_error( $img ) ) {
-		$img->resize( 225, null, false );
-		$img->save( thumbify( '-225x0', $path ) );
-	}
-
-	$img = wp_get_image_editor( $path );
-	if ( ! is_wp_error( $img ) ) {
-		$img->resize( 450, null, false );
-		$img->save( thumbify( '-225x0@2x', $path ) );
+	if ( empty( $image_sizes ) ) {
+		return $our_sizes;
+	} else {
+		// Hook for filter 'intermediate_image_sizes'
+		return array_merge( $image_sizes, array_keys( $our_sizes ) );
 	}
 }
+
+
+/**
+ * WP Hook for filter 'intermediate_image_sizes_advanced'
+ *
+ * @param $image_sizes
+ *
+ * @return array
+ */
+function intermediate_image_sizes_advanced( array $image_sizes ) {
+
+	$image_sizes = array_merge( $image_sizes, get_intermediate_image_sizes() );
+
+	return $image_sizes;
+}
+
+
+/**
+ * WP Hook for action 'delete_attachment'. Deal with user deleting cover image from Media Library.
+ *
+ * @param $post_id
+ */
+function delete_attachment( $post_id ) {
+
+	$post = get_post( $post_id );
+	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost(); // PHP 5.4+
+
+	if ( $meta_post && $post && $post->post_parent == $meta_post->ID ) {
+		// Reset pb_cover_image to default
+		update_post_meta( $meta_post->ID, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg' );
+		\PressBooks\Book::deleteBookObjectCache();
+	}
+}
+
