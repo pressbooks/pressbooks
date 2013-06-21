@@ -132,7 +132,7 @@ class Wxr extends Import {
 	 */
 	protected function searchForSectionAuthor( array $postmeta ) {
 
-		if ( ! is_array( $postmeta ) || empty( $postmeta ) ) {
+		if ( empty( $postmeta ) ) {
 			return '';
 		}
 
@@ -145,6 +145,7 @@ class Wxr extends Import {
 
 		return '';
 	}
+
 
 	/**
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
@@ -175,6 +176,7 @@ class Wxr extends Import {
 		return $doc;
 	}
 
+
 	/**
 	 * Load remote url of image into WP using media_handle_sideload()
 	 * Will return an empty string if something went wrong.
@@ -190,6 +192,7 @@ class Wxr extends Import {
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
 			return '';
 		}
+
 		$remote_img_location = $url;
 
 		// Cheap cache
