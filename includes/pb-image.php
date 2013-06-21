@@ -170,7 +170,7 @@ function delete_attachment( $post_id ) {
 
 
 /**
- * WP Hook for action 'update_attached_file'. Deal with user editing cover image from Media Library.
+ * WP Hook for action 'wp_update_attachment_metadata'. Deal with user editing cover image from Media Library.
  */
 function save_attachment( $data, $post_id ) {
 
