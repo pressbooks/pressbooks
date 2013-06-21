@@ -40,7 +40,7 @@ class Epub201 extends Import {
 	 * 
 	 * @var boolean 
 	 */
-	protected $is_pb_epub = false;
+	protected $isPbEpub = false;
 
 	/**
 	 *
@@ -373,7 +373,7 @@ class Epub201 extends Import {
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		$result = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 
-		if ( true == $this->is_pb_epub ) {
+		if ( true == $this->isPbEpub ) {
 			// Remove PB created div id (on EPUB201 Export) that will generate a princexml error on re-export 
 			// @see createPartsAndChapters() in export/epub/class-pb-epub201.php
 			$result = preg_replace( '/(?:<div class="chapter" id="(.*)">)/isU', '<div class="chapter">', $result );
@@ -397,7 +397,7 @@ class Epub201 extends Import {
 		foreach ( $result->body->div->div->p as $node ) {
 
 			if ( strpos( $node->a['href'][0], 'pressbooks.com', 0 ) ) {
-				$this->is_pb_epub = true;
+				$this->isPbEpub = true;
 			}
 		}
 	}
