@@ -31,9 +31,11 @@ class Epub201 extends Import {
 
 
 	/**
+	 * String for authors, contributors
+	 * 
 	 * @var string
 	 */
-	protected $rights;
+	protected $authors;
 
 	/**
 	 * If PressBooks generated the epub file
@@ -129,17 +131,17 @@ class Epub201 extends Import {
 
 			$val = (string) $val;
 
-			// Set rights
+			// Set authors
 			if ( 'creator' == $key && ! empty( $val ) ) {
-				$this->rights .= trim( $val ) . ', ';
-			} elseif ( 'rights' == $key && ! empty( $val ) ) {
-				$this->rights .= trim( $val ) . ', ';
+				$this->authors .= trim( $val ) . ', ';
+			} elseif ( 'contributor' == $key && ! empty( $val ) ) {
+				$this->authors .= trim( $val ) . ', ';
 			}
 
 		}
 
 		// Get rid of trailing comma
-		$this->rights = rtrim( $this->rights, ', ' );
+		$this->authors = rtrim( $this->authors, ', ' );
 	}
 
 
@@ -292,9 +294,8 @@ class Epub201 extends Import {
 
 		$pid = wp_insert_post( $new_post );
 
-		if ( $this->rights ) {
-			// TODO
-			// update_post_meta( $pid, 'pb_section_author', $this->rights );
+		if ( $this->authors ) {
+			update_post_meta( $pid, 'pb_section_author', $this->authors );
 		}
 
 		update_post_meta( $pid, 'pb_show_title', 'on' );
