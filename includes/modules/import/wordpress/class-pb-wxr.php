@@ -101,12 +101,13 @@ class Wxr extends Import {
 
 			$pid = wp_insert_post( $new_post );
 
-			$section_author = $this->searchForSectionAuthor( $p['postmeta'] );
-
-			if ( $section_author ) {
-				update_post_meta( $pid, 'pb_section_author', $section_author );
-			} else { // if above returns no results, take value from 'dc:creator' 
-				update_post_meta( $pid, 'pb_section_author', $p['post_author'] );
+			if ( is_array( $p['postmeta'] ) ) {
+				$section_author = $this->searchForSectionAuthor( $p['postmeta'] );
+				if ( $section_author ) {
+					update_post_meta( $pid, 'pb_section_author', $section_author );
+				} else { // if above returns no results, take value from 'dc:creator'
+					update_post_meta( $pid, 'pb_section_author', $p['post_author'] );
+				}
 			}
 
 			update_post_meta( $pid, 'pb_show_title', 'on' );
@@ -121,22 +122,27 @@ class Wxr extends Import {
 		return $this->revokeCurrentImport();
 	}
 
+
 	/**
 	 * Check for PB specific metadata, returns empty string if not found.
-	 * 
+	 *
 	 * @param array $postmeta
-	 * @return string Author's name 
+	 *
+	 * @return string Author's name
 	 */
 	protected function searchForSectionAuthor( array $postmeta ) {
+
 		if ( ! is_array( $postmeta ) || empty( $postmeta ) ) {
 			return '';
 		}
+
 		foreach ( $postmeta as $meta ) {
 			// prefer this value, if it's set
 			if ( 'pb_section_author' == $meta['key'] ) {
 				return $meta['value'];
 			}
 		}
+
 		return '';
 	}
 
