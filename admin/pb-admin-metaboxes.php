@@ -99,7 +99,7 @@ function upload_cover_image( $pid, $post ) {
 	$old = get_post_meta( $pid, 'pb_cover_image', false );
 
 	update_post_meta( $pid, 'pb_cover_image', $image['url'] );
-	\PressBooks\Utility\make_thumbnails( $image['file'] );
+	\PressBooks\Image\make_thumbnails( $image['file'] );
 
 	// Delete old images
 	foreach ( $old as $image_url ) {
@@ -107,7 +107,7 @@ function upload_cover_image( $pid, $post ) {
 		if ( file_exists( $image_path ) ) {
 			unlink( $image_path );
 		}
-		$thumbs = \PressBooks\Utility\get_possible_thumbnail_names( $image_path );
+		$thumbs = \PressBooks\Image\get_possible_thumbnail_names( $image_path );
 		foreach ( $thumbs as $thumbnail_path ) {
 			if ( file_exists( $thumbnail_path ) ) {
 				unlink( $thumbnail_path );
@@ -534,7 +534,7 @@ function delete_cover_image() {
 		if ( file_exists( $image_path ) ) {
 			unlink( $image_path );
 		}
-		$thumbs = \PressBooks\Utility\get_possible_thumbnail_names( $image_path );
+		$thumbs = \PressBooks\Image\get_possible_thumbnail_names( $image_path );
 		foreach ( $thumbs as $thumbnail_path ) {
 			if ( file_exists( $thumbnail_path ) ) {
 				unlink( $thumbnail_path );
