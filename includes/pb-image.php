@@ -168,3 +168,28 @@ function delete_attachment( $post_id ) {
 	}
 }
 
+
+/**
+ * WP Hook for action 'update_attached_file'. Deal with user editing cover image from Media Library.
+ */
+function save_attachment( $data, $post_id ) {
+
+	if ( empty( $data['file'] ) )
+		return $data; // Bail
+
+	$post = get_post( $post_id );
+	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost(); // PHP 5.4+
+	if ( $meta_post && $post && $post->post_parent != $meta_post->ID )
+		return $data; // Bail
+
+	$upload_dir = wp_upload_dir();
+	$url = untrailingslashit( $upload_dir['baseurl'] ) . "/{$data['file']}";
+	$pid = $meta_post->ID;
+
+	update_post_meta( $pid, 'pb_cover_image', $url );
+	\PressBooks\Book::deleteBookObjectCache();
+
+	return $data;
+}
+
+
