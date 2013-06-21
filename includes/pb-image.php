@@ -196,7 +196,7 @@ function save_attachment( $data, $post_id ) {
 
 	$post = get_post( $post_id );
 	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost(); // PHP 5.4+
-	if ( $meta_post && $post && $post->post_parent != $meta_post->ID )
+	if ( ! $meta_post || ! $post || $post->post_parent != $meta_post->ID )
 		return $data; // Bail
 
 	$upload_dir = wp_upload_dir();
