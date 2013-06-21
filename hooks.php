@@ -43,6 +43,7 @@ if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
 // Images
 // -------------------------------------------------------------------------------------------------------------------
 
+add_action( 'init', '\PressBooks\Image\fix_intermediate_image_size_options' );
 add_filter( 'intermediate_image_sizes', '\PressBooks\Image\get_intermediate_image_sizes' );
 add_filter( 'intermediate_image_sizes_advanced', '\PressBooks\Image\intermediate_image_sizes_advanced' );
 add_action( 'delete_attachment', '\PressBooks\Image\delete_attachment' );

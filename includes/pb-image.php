@@ -137,6 +137,23 @@ function get_intermediate_image_sizes( array $image_sizes = array() ) {
 
 
 /**
+ * Fix wp_save_image() for our custom sizes, possibly other places.
+ *
+ * @see wp_save_image
+ */
+function fix_intermediate_image_size_options() {
+
+	$our_sizes = get_intermediate_image_sizes();
+
+	foreach ( $our_sizes as $key => $val ) {
+		add_filter( "pre_option_{$key}_size_w", function () use ( $val ) { return $val['width']; } );
+		add_filter( "pre_option_{$key}_size_h", function () use ( $val ) { return $val['height']; } );
+		add_filter( "pre_option_{$key}_crop", function () use ( $val ) { return $val['crop']; } );
+	}
+}
+
+
+/**
  * WP Hook for filter 'intermediate_image_sizes_advanced'
  *
  * @param $image_sizes
