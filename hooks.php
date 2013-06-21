@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) )
 // -------------------------------------------------------------------------------------------------------------------
 
 require_once( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
+require_once( PB_PLUGIN_DIR . 'includes/pb-image.php' );
 require_once( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
 require_once( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
 require_once( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );

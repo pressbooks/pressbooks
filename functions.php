@@ -182,5 +182,5 @@ function pb_get_chapter_number( $post_name ) {
  */
 function pb_thumbify( $thumb, $path ) {
 
-	return \PressBooks\Utility\thumbify( $thumb, $path );
+	return \PressBooks\Image\thumbify( $thumb, $path );
 }
