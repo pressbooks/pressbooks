@@ -473,7 +473,7 @@ class Epub201 extends Import {
 				$image_content = $this->getZipContent( $this->basedir . $trimUrl, false );
 
 				if ( ! $image_content ) throw new \Exception( 'Could not import images from EPUB' );
-			} catch ( Exception $e ) {
+			} catch ( \Exception $e ) {
 				$already_done[$img_location] = '';
 				return '';
 			}
@@ -482,8 +482,14 @@ class Epub201 extends Import {
 		$tmp_name = $this->createTmpFile();
 		file_put_contents( $tmp_name, $image_content );
 
+		if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+			// Garbage, Don't import
+			$already_done[$img_location] = '';
+			return '';
+		}
+
 		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
-		$src = wp_get_attachment_url( $pid );		
+		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) $src = ''; // Change false to empty string
 		$already_done[$img_location] = $src;
 

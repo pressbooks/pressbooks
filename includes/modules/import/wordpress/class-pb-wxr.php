@@ -101,7 +101,7 @@ class Wxr extends Import {
 
 			$pid = wp_insert_post( $new_post );
 
-			if ( is_array( $p['postmeta'] ) ) {
+			if ( isset( $p['postmeta'] ) && is_array( $p['postmeta'] ) ) {
 				$section_author = $this->searchForSectionAuthor( $p['postmeta'] );
 				if ( $section_author ) {
 					update_post_meta( $pid, 'pb_section_author', $section_author );
@@ -212,15 +212,25 @@ class Wxr extends Import {
 			return '';
 		}
 
+		$tmp_name = download_url( $remote_img_location );
+		if ( is_wp_error( $tmp_name ) ) {
+			// Download failed
+			$already_done[$remote_img_location] = '';
+			return '';
+		}
 
-		$tmp_name = $this->createTmpFile();
-
-		file_put_contents( $tmp_name, file_get_contents( $remote_img_location ) );
+		if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+			// Garbage, don't import
+			$already_done[$remote_img_location] = '';
+			unlink( $tmp_name );
+			return '';
+		}
 
 		$pid = media_handle_sideload( array ( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) $src = ''; // Change false to empty string
 		$already_done[$remote_img_location] = $src;
+		unlink( $tmp_name );
 
 		return $src;
 	}

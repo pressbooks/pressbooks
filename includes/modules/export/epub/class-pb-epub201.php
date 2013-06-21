@@ -1287,12 +1287,9 @@ class Epub201 extends Export {
 
 		$file_contents = wp_remote_retrieve_body( $response );
 
-		// Check if file is actually an image
-		$im = @imagecreatefromstring( $file_contents );
-		if ( $im === false ) {
+		if ( ! \PressBooks\Image\is_valid_image( $file_contents, $filename, true ) ) {
 			return ''; // Not an image
 		}
-		unset( $im );
 
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
