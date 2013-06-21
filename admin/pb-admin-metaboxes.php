@@ -108,7 +108,7 @@ function upload_cover_image( $pid, $post ) {
 	// Insert new image, create thumbnails
 	$args = array(
 		'post_mime_type' => $image['type'],
-		'post_title' => preg_replace( '/\.[^.]+$/', '', basename( $image['file'] ) ),
+		'post_title' => __( 'Cover Image', 'pressbooks' ),
 		'post_content' => '',
 		'post_status' => 'inherit'
 	);

@@ -431,7 +431,7 @@ class Metadata {
 				// Insert new image, create thumbnails
 				$args = array(
 					'post_mime_type' => $type,
-					'post_title' => preg_replace( '/\.[^.]+$/', '', basename( $path ) ),
+					'post_title' => __( 'Cover Image', 'pressbooks' ),
 					'post_content' => '',
 					'post_status' => 'inherit'
 				);
