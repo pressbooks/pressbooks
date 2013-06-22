@@ -7,7 +7,44 @@ namespace PressBooks\Image;
 
 
 /**
- * Check if a file (or stream) is a valid image type.
+ * URL to default cover image
+ *
+ * @return string
+ */
+function default_cover_url() {
+
+	return PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+}
+
+
+/**
+ * Full path to default cover image
+ *
+ * @return string
+ */
+function default_cover_path() {
+
+	return PB_PLUGIN_DIR . 'assets/images/default-book-cover.jpg';
+}
+
+
+/**
+ * Determine if string is default cover image
+ *
+ * @param string $compare
+ *
+ * @return bool
+ */
+function is_default_cover( $compare ) {
+
+	$found = preg_match( '~assets/images/default-book-cover.jpg$~', $compare ) ? true : false;
+
+	return ( $found ) ? true : false;
+}
+
+
+/**
+ * Check if a file (or stream) is a valid image type
  *
  * @param string $data
  * @param string $filename
@@ -180,7 +217,7 @@ function delete_attachment( $post_id ) {
 
 	if ( $meta_post && $post && $post->post_parent == $meta_post->ID ) {
 		// Reset pb_cover_image to default
-		update_post_meta( $meta_post->ID, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg' );
+		update_post_meta( $meta_post->ID, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
 		\PressBooks\Book::deleteBookObjectCache();
 	}
 }

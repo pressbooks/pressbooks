@@ -407,7 +407,7 @@ class Metadata {
 		if ( $post ) {
 			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
 			if ( preg_match( '~assets/images/default-book-cover\.png$~', $pb_cover_image ) ) {
-				update_post_meta( $post->ID, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg' );
+				update_post_meta( $post->ID, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
 			}
 		}
 	}
