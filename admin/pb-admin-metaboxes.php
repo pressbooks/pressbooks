@@ -101,7 +101,7 @@ function upload_cover_image( $pid, $post ) {
 
 	// Delete old images
 	foreach ( $old as $old_url ) {
-		$old_id = \PressBooks\Image\get_attachment_id_from_url( $old_url );
+		$old_id = \PressBooks\Image\attachment_id_from_url( $old_url );
 		if ( $old_id ) wp_delete_attachment( $old_id, true );
 	}
 
@@ -222,7 +222,7 @@ function add_meta_boxes() {
 	x_add_metadata_field( 'pb_language', 'metadata', array(
 		'group' => 'general-book-information',
 		'field_type' => 'select',
-		'values' => \PressBooks\L10n\get_supported_languages(),
+		'values' => \PressBooks\L10n\supported_languages(),
 		'label' => __( 'Language', 'pressbooks' )
 	) );
 
@@ -531,7 +531,7 @@ function delete_cover_image() {
 		$pid = $_POST['pid'];
 
 		// Delete old images
-		$old_id = \PressBooks\Image\get_attachment_id_from_url( $image_url );
+		$old_id = \PressBooks\Image\attachment_id_from_url( $image_url );
 		if ( $old_id ) wp_delete_attachment( $old_id, true );
 
 		update_post_meta( $pid, 'pb_cover_image', \PressBooks\Image\default_cover_url() );

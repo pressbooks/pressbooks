@@ -107,7 +107,7 @@ function thumbify( $thumb, $path ) {
  *
  * @return int
  */
-function get_attachment_id_from_url( $url ) {
+function attachment_id_from_url( $url ) {
 
 	/** @var $wpdb \wpdb */
 	global $wpdb;
@@ -138,9 +138,9 @@ function get_attachment_id_from_url( $url ) {
  * @return string
  *
  */
-function get_thumbnail_from_url( $url, $size ) {
+function thumbnail_from_url( $url, $size ) {
 
-	$id = get_attachment_id_from_url( $url );
+	$id = attachment_id_from_url( $url );
 	$image_thumb = wp_get_attachment_image_src( $id, $size );
 
 	if ( $image_thumb ) return $image_thumb[0]; // URL
@@ -156,7 +156,7 @@ function get_thumbnail_from_url( $url, $size ) {
  *
  * @return array
  */
-function get_intermediate_image_sizes( array $image_sizes = array() ) {
+function intermediate_image_sizes( array $image_sizes = array() ) {
 
 	$our_sizes = array(
 		'pb_cover_small' => array( 'width' => 65, 'height' => 0, 'crop' => false ),
@@ -180,7 +180,7 @@ function get_intermediate_image_sizes( array $image_sizes = array() ) {
  */
 function fix_intermediate_image_size_options() {
 
-	$our_sizes = get_intermediate_image_sizes();
+	$our_sizes = intermediate_image_sizes();
 
 	foreach ( $our_sizes as $key => $val ) {
 		add_filter( "pre_option_{$key}_size_w", function () use ( $val ) { return $val['width']; } );
@@ -199,7 +199,7 @@ function fix_intermediate_image_size_options() {
  */
 function intermediate_image_sizes_advanced( array $image_sizes ) {
 
-	$image_sizes = array_merge( $image_sizes, get_intermediate_image_sizes() );
+	$image_sizes = array_merge( $image_sizes, intermediate_image_sizes() );
 
 	return $image_sizes;
 }

@@ -388,7 +388,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			if ( $meta_version < 7 || preg_match( '~assets/images/default-book-cover\.jpg$~', $metadata['pb_cover_image'] ) ) {
 				$data[$i]['cover'] = PB_PLUGIN_URL . 'assets/images/default-book-cover-65x0.jpg';
 			} else {
-				$data[$i]['cover'] = \PressBooks\Image\get_thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_small' );
+				$data[$i]['cover'] = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_small' );
 			}
 
 			// Tags
@@ -421,7 +421,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			if ( $meta_version < 7 || preg_match( '~assets/images/default-book-cover\.jpg$~', $metadata['pb_cover_image'] ) ) {
 				$data[$i]['cover'] = PB_PLUGIN_URL . 'assets/images/default-book-cover-65x0.jpg';
 			} else {
-				$data[$i]['cover'] = \PressBooks\Image\get_thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_small' );
+				$data[$i]['cover'] = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_small' );
 			}
 
 			// Tags
