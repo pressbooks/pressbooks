@@ -1,8 +1,8 @@
 PressBooks
 ==========
 
-[PressBooks](http://pressbooks.com) is a book content management system which exports in multiple formats: ebooks, webbooks, print-ready [PDF][], and various XML flavours. [PressBooks](http://pressbooks.com) is built on top of WordPress Multi-Site, and makes significant changes to:
-  * admin interface (customized for books and other structured documents, such as magazines, journals, reports etc.)
+[PressBooks](http://pressbooks.com) is a book content management system which exports in multiple formats: ebooks, webbooks, print-ready [PDF][], and various XML flavours. [PressBooks](http://pressbooks.com) is built on top of [WordPress Multisite](http://codex.wordpress.org/Glossary#Multisite), and makes significant changes to:
+  * admin interface (customized for books and other structured documents, such as magazines, journals, reports, etc.);
   * web presentation layer (again, customized for books and structured documents); and 
   * export routines. 
 
@@ -17,7 +17,7 @@ Important!
 ----------
 
  * Do ___NOT___ use PressBooks with an existing WordPress site. 
- * Please use with a ___FRESH___ install of WP ___MULTISITE___.
+ * Please use with a ___FRESH___ install of [WP ___MULTISITE___](http://codex.wordpress.org/Glossary#Multisite).
  * If this makes you nervous, please use our free site: [PressBooks](http://pressbooks.com), or contact us.
 
 
@@ -29,12 +29,12 @@ While PressBooks is open source, we recommend you try [PressBooks.com](http://pr
 Installing the Plugin
 ---------------------
 
-PressBooks is not for use on an existing blog. Instead it should be used with a fresh, mulit-site WordPress install.
+PressBooks is not for use on an existing blog. Instead it should be used with a fresh, multisite WordPress install.
 
 Requirements
 ------------
 
-PressBooks works with PHP 5.4.X and WordPress 3.5.1 Lower versions are not supported.
+PressBooks works with PHP 5.4.X and WordPress 3.5.1. Lower versions are not supported.
 
 Disclaimers
 -----------
