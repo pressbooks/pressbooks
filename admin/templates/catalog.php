@@ -92,7 +92,7 @@ else:
 			<?php } ?>
 			<tr>
 				<th><label for="pressbooks_catalog_logo">Logo Or Image</label></th>
-				<td>Todo</td>
+				<td><?php \PressBooks\Image\catalog_logo_box( $user_id ); ?></td>
 			</tr>
 		</table>
 		<?php submit_button(); ?>

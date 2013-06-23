@@ -113,6 +113,8 @@ add_action( 'wp_ajax_pb_delete_cover_image', '\PressBooks\Admin\Metaboxes\delete
 add_action( 'wp_ajax_pb_ftnref_convert', '\PressBooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes' );
 // Load CSS into Custom CSS textarea
 add_action( 'wp_ajax_pb_load_css_from', '\PressBooks\Admin\CustomCss\load_css_from' );
+// User Catalog Page
+add_action( 'wp_ajax_pb_delete_catalog_logo', '\PressBooks\Catalog::deleteLogo' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Css

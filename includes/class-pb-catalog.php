@@ -467,6 +467,9 @@ class Catalog {
 
 		foreach ( $item as $key => $val ) {
 
+			if ( 'pressbooks_catalog_logo' == $key )
+				continue; // Skip, dev should use uploadLogo() instead
+
 			if ( '%d' == $this->profileMetaKeys[$key] ) {
 				$val = (int) $val;
 			} elseif ( '%f' == $this->profileMetaKeys[$key] ) {
@@ -477,6 +480,53 @@ class Catalog {
 
 			update_user_meta( $this->userId, $key, $val );
 		}
+	}
+
+
+	/**
+	 * @param string $meta_key
+	 */
+	function uploadLogo( $meta_key ) {
+
+		if ( @empty( $_FILES[$meta_key]['name'] ) )
+			return; // Bail
+
+		$book = get_active_blog_for_user( $this->userId );
+		if ( ! current_user_can_for_blog( $book->blog_id, 'upload_files' ) ) {
+			return; // Bail
+		}
+
+		switch_to_blog( $book->blog_id );
+
+		$allowed_file_types = array( 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' );
+		$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
+		$image = wp_handle_upload( $_FILES[$meta_key], $overrides );
+
+		if ( ! empty( $image['error'] ) ) {
+			restore_current_blog();
+			wp_die( $image['error'] );
+		}
+
+		$old = get_user_meta( $this->userId, $meta_key, false );
+		update_user_meta( $this->userId, $meta_key, $image['url'] );
+
+		// Delete old images
+		foreach ( $old as $old_url ) {
+			$old_id = \PressBooks\Image\attachment_id_from_url( $old_url );
+			if ( $old_id ) wp_delete_attachment( $old_id, true );
+		}
+
+		// Insert new image, create thumbnails
+		$args = array(
+			'post_mime_type' => $image['type'],
+			'post_title' => __( 'Catalog Logo', 'pressbooks' ),
+			'post_content' => '',
+			'post_status' => 'inherit'
+		);
+		$id = wp_insert_attachment( $args, $image['file'], 0 );
+		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $image['file'] ) );
+
+		restore_current_blog();
 	}
 
 
@@ -596,6 +646,25 @@ class Catalog {
 
 
 	/**
+	 * Catalog image is stored in user's active Media Library.
+	 *
+	 * @param int $user_id
+	 * @param string $size
+	 *
+	 * @return string
+	 */
+	static function thumbnailFromUserId( $user_id, $size ) {
+
+		$book = get_active_blog_for_user( $user_id );
+		switch_to_blog( $book->blog_id );
+		$image_url = \PressBooks\Image\thumbnail_from_url( get_user_meta( $user_id, 'pressbooks_catalog_logo', true ), $size );
+		restore_current_blog();
+
+		return $image_url;
+	}
+
+
+	/**
 	 * WP Hook, Instantiate UI
 	 */
 	static function addMenu() {
@@ -620,7 +689,7 @@ class Catalog {
 
 
 	// ----------------------------------------------------------------------------------------------------------------
-	// Catch form submissions
+	// Form stuff
 	// ----------------------------------------------------------------------------------------------------------------
 
 
@@ -690,6 +759,37 @@ class Catalog {
 			return false;
 
 		return ( $action == $compare );
+	}
+
+
+	/**
+	 * WP_Ajax hook for pb_delete_catalog_logo
+	 */
+	static function deleteLogo() {
+
+		check_ajax_referer( 'pb-delete-catalog-logo' );
+
+		$image_url = $_POST['filename'];
+		$user_id = (int) $_POST['pid'];
+
+		$book = get_active_blog_for_user( $user_id );
+		if ( current_user_can_for_blog( $book->blog_id, 'upload_files' ) ) {
+
+			switch_to_blog( $book->blog_id );
+
+			// Delete old images
+			$old_id = \PressBooks\Image\attachment_id_from_url( $image_url );
+			if ( $old_id ) wp_delete_attachment( $old_id, true );
+
+			update_user_meta( $user_id, 'pressbooks_catalog_logo', \PressBooks\Image\default_cover_url() );
+			// TODO: Delete cache
+
+			restore_current_blog();
+		}
+
+		// @see http://codex.wordpress.org/AJAX_in_Plugins#Error_Return_Values
+		// Will append 0 to returned json string if we don't die()
+		die();
 	}
 
 
@@ -828,6 +928,7 @@ class Catalog {
 
 		$catalog = new static( $user_id );
 		$catalog->saveProfile( $_POST );
+		$catalog->uploadLogo( 'pressbooks_catalog_logo' );
 
 		// Ok!
 		$_SESSION['pb_notices'][] = __( 'Settings saved.' );

@@ -148,7 +148,7 @@ function add_meta_boxes() {
 
 	// Custom Image Upload
 
-	add_meta_box( 'covers', __( 'Covers', 'pressbooks' ), '\PressBooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
+	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\PressBooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
 
 	// Book Metadata
 
@@ -462,7 +462,7 @@ function override_parent_id( $post ) {
 
 
 /**
- * WP_Ajax hook for delete_cover_image
+ * WP_Ajax hook for pb_delete_cover_image
  */
 function delete_cover_image() {
 

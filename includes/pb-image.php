@@ -219,6 +219,8 @@ function delete_attachment( $post_id ) {
 		// Reset pb_cover_image to default
 		update_post_meta( $meta_post->ID, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
 		\PressBooks\Book::deleteBookObjectCache();
+	} else {
+		// TODO: Check if this is a Catalog image
 	}
 }
 
@@ -233,48 +235,85 @@ function save_attachment( $data, $post_id ) {
 
 	$post = get_post( $post_id );
 	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost(); // PHP 5.4+
-	if ( ! $meta_post || ! $post || $post->post_parent != $meta_post->ID )
-		return $data; // Bail
 
-	$upload_dir = wp_upload_dir();
-	$url = untrailingslashit( $upload_dir['baseurl'] ) . "/{$data['file']}";
-	$pid = $meta_post->ID;
-
-	update_post_meta( $pid, 'pb_cover_image', $url );
-	\PressBooks\Book::deleteBookObjectCache();
+	if ( $meta_post && $post && $post->post_parent == $meta_post->ID ) {
+		// Update pb_cover_image to point to edited file
+		$upload_dir = wp_upload_dir();
+		$url = untrailingslashit( $upload_dir['baseurl'] ) . "/{$data['file']}";
+		update_post_meta( $meta_post->ID, 'pb_cover_image', $url );
+		\PressBooks\Book::deleteBookObjectCache();
+	} else {
+		// TODO: Check if this is a Catalog image
+	}
 
 	return $data;
 }
 
-
 /**
- * Render "Covers" meta box
+ * Render "Cover Image" meta box
  *
  * @param |WP_Post $post
  */
 function cover_image_box( $post ) {
-	$ajax_nonce = wp_create_nonce( 'pb-delete-cover-image' );
-	$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
+
+	$meta_key = 'pb_cover_image';
+	$pid = (int) $_GET['post'];
+	$image_url = thumbnail_from_url( get_post_meta( $post->ID, $meta_key, true ), 'pb_cover_medium' );
+	$action = 'pb_delete_cover_image';
+	$nonce = wp_create_nonce( 'pb-delete-cover-image' );
+	$description = __( 'Your cover image should be 625px on the shortest side.', 'pressbooks' );
+
+	render_cover_image_box( $meta_key, $pid, $image_url, $action, $nonce, $description );
+}
+
+
+/**
+ * Render "Catalog Logo" meta box
+ *
+ * @param int $user_id
+ */
+function catalog_logo_box( $user_id ) {
+
+	$meta_key = 'pressbooks_catalog_logo';
+	$image_url = \PressBooks\Catalog::thumbnailFromUserId( $user_id, 'pb_cover_medium' );
+	$action = 'pb_delete_catalog_logo';
+	$nonce = wp_create_nonce( 'pb-delete-catalog-logo' );
+
+	render_cover_image_box( $meta_key, absint( $user_id ), $image_url, $action, $nonce );
+}
+
+
+/**
+ * Render cover image widget
+ *
+* @param $form_id
+* @param $cover_pid
+* @param $image_url
+* @param $ajax_action
+* @param $nonce
+* @param string $description (optional)
+ */
+function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action, $nonce, $description = '' ) {
 	?>
 	<div class="custom-metadata-field image">
 		<script type="text/javascript">
 			jQuery.noConflict();
 			jQuery(document).ready(function($){
 				jQuery('#delete_cover_button').click(function(e) {
-					if (!confirm('Are you sure you want to delete this?')){
+					if (!confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>')) {
 						e.preventDefault();
 						return false;
 					}
-					image_file = jQuery(this).attr('name');
-					pid = jQuery('#cover_pid').attr('value');
+					var image_file = jQuery(this).attr('name');
+					var pid = jQuery('#cover_pid').attr('value');
 					jQuery.ajax({
 						url: ajaxurl,
 						type: 'POST',
 						data: {
-							action: 'pb_delete_cover_image',
+							action: '<?php echo $ajax_action; ?>',
 							filename: image_file,
 							pid: pid,
-							_ajax_nonce: '<?php echo $ajax_nonce ?>'
+							_ajax_nonce: '<?php echo $nonce ?>'
 						},
 						success: function(data) {
 							jQuery('#delete_cover_button').remove();
@@ -289,18 +328,17 @@ function cover_image_box( $post ) {
 				});
 			});
 		</script>
-		<label for="pb_cover_image"><?php _e( 'Cover Image', 'pressbooks' ); ?></label>
-		<div class="pb_cover_image" id="pb_cover_image-1">
-			<?php if ( $pb_cover_image && ! \PressBooks\Image\is_default_cover( $pb_cover_image ) ) { ?>
-				<p><img id="cover_image_preview" src="<?php echo $pb_cover_image; ?>" style="width: auto; height: 100px" alt="cover_image" /><br />
-					<button id="delete_cover_button" name="<?php echo $pb_cover_image; ?>" type="button">Delete</button></p>
-				<p><input type="file" name="pb_cover_image" value="" id="pb_cover_image" /></p>
-				<input type="hidden" id="cover_pid" name="cover_pid" value="<?php echo $_GET['post']; ?>" />
+		<div class="<?php echo $form_id; ?>" id="<?php echo $form_id; ?>-1">
+			<?php if ( $image_url && ! \PressBooks\Image\is_default_cover( $image_url ) ) { ?>
+				<p><img id="cover_image_preview" src="<?php echo $image_url; ?>" style="width:auto;height:100px;" alt="cover_image" /><br />
+					<button id="delete_cover_button" name="<?php echo $image_url; ?>" type="button" class="button-secondary" ><?php _e( 'Delete', 'pressbooks' ); ?></button></p>
+				<p><input type="file" name="<?php echo $form_id; ?>" value="" id="<?php echo $form_id; ?>" /></p>
+				<input type="hidden" id="cover_pid" name="cover_pid" value="<?php echo $cover_pid; ?>" />
 			<?php } else { ?>
-				<p><img id="cover_image_preview" src="<?php echo \PressBooks\Image\default_cover_url(); ?>" style="width: auto; height: 100px" alt="cover_image" /></p>
-				<p><input type="file" name="pb_cover_image" value="<?php echo $pb_cover_image; ?>" id="pb_cover_image" /></p>
+				<p><img id="cover_image_preview" src="<?php echo \PressBooks\Image\default_cover_url(); ?>" style="width:auto;height:100px;" alt="cover_image" /></p>
+				<p><input type="file" name="<?php echo $form_id; ?>" value="<?php echo $image_url; ?>" id="<?php echo $form_id; ?>" /></p>
 			<?php } ?>
-			<span class="description"><?php _e( 'Your cover image should be 625px on the shortest side.', 'pressbooks' ); ?></span>
+			<?php if ($description): ?><span class="description"><?php echo $description; ?></span><?php endif; ?>
 		</div>
 	</div>
 <?php
