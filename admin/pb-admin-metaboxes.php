@@ -148,7 +148,7 @@ function add_meta_boxes() {
 
 	// Custom Image Upload
 
-	add_meta_box( 'covers', __( 'Covers', 'pressbooks' ), __NAMESPACE__ . '\cover_image_box', 'metadata', 'normal', 'low' );
+	add_meta_box( 'covers', __( 'Covers', 'pressbooks' ), '\PressBooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
 
 	// Book Metadata
 
@@ -458,65 +458,6 @@ function override_parent_id( $post ) {
 	if ( ! empty( $pages ) ) {
 		echo $pages;
 	}
-}
-
-/**
- * Render "Covers" meta box
- *
- * @param |WP_Post $post
- */
-function cover_image_box( $post ) {
-	$ajax_nonce = wp_create_nonce( 'pb-delete-cover-image' );
-	$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
-	?>
-		<div class="custom-metadata-field image">
-		<script type="text/javascript">
-			jQuery.noConflict();
-			jQuery(document).ready(function($){
-				jQuery('#delete_cover_button').click(function(e) {
-					if (!confirm('Are you sure you want to delete this?')){
-						e.preventDefault();
-						return false;
-					}
-					image_file = jQuery(this).attr('name');
-					pid = jQuery('#cover_pid').attr('value');
-					jQuery.ajax({
-						url: ajaxurl,
-						type: 'POST',
-						data: {
-							action: 'pb_delete_cover_image',
-							filename: image_file,
-							pid: pid,
-							_ajax_nonce: '<?php echo $ajax_nonce ?>'
-						},
-						success: function(data) {
-							jQuery('#delete_cover_button').remove();
-							jQuery("#cover_image_preview").fadeOut("slow", function () {
-								jQuery("#cover_image_preview").load(function () { //avoiding blinking, wait until loaded
-									jQuery("#cover_image_preview").fadeIn();
-								});
-								jQuery('#cover_image_preview').attr('src', '<?php echo \PressBooks\Image\default_cover_url(); ?>');
-							});
-						}
-					});
-				});
-			});
-	  </script>
-			<label for="pb_cover_image"><?php _e( 'Cover Image', 'pressbooks' ); ?></label>
-				<div class="pb_cover_image" id="pb_cover_image-1">
-	<?php if ( $pb_cover_image && ! \PressBooks\Image\is_default_cover( $pb_cover_image ) ) { ?>
-		<p><img id="cover_image_preview" src="<?php echo $pb_cover_image; ?>" style="width: auto; height: 100px" alt="cover_image" /><br />
-		<button id="delete_cover_button" name="<?php echo $pb_cover_image; ?>" type="button">Delete</button></p>
-		<p><input type="file" name="pb_cover_image" value="" id="pb_cover_image" /></p>
-		<input type="hidden" id="cover_pid" name="cover_pid" value="<?php echo $_GET['post']; ?>" />
-	<?php } else { ?>
-		 <p><img id="cover_image_preview" src="<?php echo \PressBooks\Image\default_cover_url(); ?>" style="width: auto; height: 100px" alt="cover_image" /></p>
-		<p><input type="file" name="pb_cover_image" value="<?php echo $pb_cover_image; ?>" id="pb_cover_image" /></p>
-	<?php } ?>
-				<span class="description"><?php _e( 'Your cover image should be 625px on the shortest side.', 'pressbooks' ); ?></span>
-				</div>
-		</div>
-<?php
 }
 
 
