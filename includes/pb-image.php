@@ -37,7 +37,7 @@ function default_cover_path() {
  */
 function is_default_cover( $compare ) {
 
-	$found = preg_match( '~assets/images/default-book-cover.jpg$~', $compare ) ? true : false;
+	$found = preg_match( '~assets/images/default-book-cover.jpg$~', $compare );
 
 	return ( $found ) ? true : false;
 }
