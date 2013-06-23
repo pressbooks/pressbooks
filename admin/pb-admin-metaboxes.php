@@ -83,6 +83,9 @@ function upload_cover_image( $pid, $post ) {
 	if ( 'metadata' != $post->post_type || @empty( $_FILES['pb_cover_image']['name'] ) )
 		return; // Bail
 
+	if ( ! current_user_can_for_blog( get_current_blog_id(), 'upload_files' ) )
+		return; // Bail
+
 	$allowed_file_types = array( 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' );
 	$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
 	$image = wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
@@ -466,7 +469,7 @@ function override_parent_id( $post ) {
  */
 function delete_cover_image() {
 
-	if ( current_user_can_for_blog( get_current_blog_id(), 'delete_posts' ) && check_ajax_referer( 'pb-delete-cover-image' ) ) {
+	if ( current_user_can_for_blog( get_current_blog_id(), 'upload_files' ) && check_ajax_referer( 'pb-delete-cover-image' ) ) {
 
 		$image_url = $_POST['filename'];
 		$pid = $_POST['pid'];
