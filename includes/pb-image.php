@@ -122,7 +122,10 @@ function attachment_id_from_url( $url ) {
 	}
 
 	// Get the attachment ID from the modified attachment URL
-	$sql = "SELECT wposts.ID FROM {$wpdb->posts} wposts, {$wpdb->postmeta} wpostmeta WHERE wposts.ID = wpostmeta.post_id AND wpostmeta.meta_key = '_wp_attached_file' AND wpostmeta.meta_value = '%s' AND wposts.post_type = 'attachment' ";
+	$sql = "SELECT ID FROM {$wpdb->posts}
+			INNER JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
+			WHERE {$wpdb->posts}.post_type = 'attachment' AND {$wpdb->postmeta}.meta_key = '_wp_attached_file' AND {$wpdb->postmeta}.meta_value = '%s' ";
+
 	$sql = $wpdb->prepare( $sql, $url );
 	$id = $wpdb->get_var( $sql );
 
