@@ -113,7 +113,8 @@ function upload_cover_image( $pid, $post ) {
 		'post_mime_type' => $image['type'],
 		'post_title' => __( 'Cover Image', 'pressbooks' ),
 		'post_content' => '',
-		'post_status' => 'inherit'
+		'post_status' => 'inherit',
+		'post_name' => 'pb-cover-image',
 	);
 	$id = wp_insert_attachment( $args, $image['file'], $pid );
 	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $image['file'] ) );

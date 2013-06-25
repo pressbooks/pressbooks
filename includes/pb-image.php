@@ -224,7 +224,9 @@ function delete_attachment( $post_id ) {
 		update_post_meta( $meta_post->ID, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
 		\PressBooks\Book::deleteBookObjectCache();
 
-	} elseif ( $post && 'catalog-logo' == $post->post_name ) {
+	} elseif ( $post && 'pb-catalog-logo' == $post->post_name ) {
+
+		// Reset pb_catalog_logo to default
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -237,10 +239,8 @@ function delete_attachment( $post_id ) {
 		}
 
 		$sql = "SELECT umeta_id FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key = 'pb_catalog_logo' AND meta_value REGEXP %s ";
-		$sql = $wpdb->prepare( $sql, $post->post_author, "{$url}$" );
+		$sql = $wpdb->prepare( $sql, $post->post_author, "{$url}$" ); // End of string regex for URL
 		$id = $wpdb->get_var( $sql );
-
-		error_log($id);
 
 		if ( $id ) {
 			update_user_meta( $post->post_author, 'pb_catalog_logo', \PressBooks\Image\default_cover_url() );
@@ -260,19 +260,18 @@ function save_attachment( $data, $post_id ) {
 
 	$post = get_post( $post_id );
 	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost(); // PHP 5.4+
+	$upload_dir = wp_upload_dir();
+	$url = untrailingslashit( $upload_dir['baseurl'] ) . "/{$data['file']}";
 
 	if ( $meta_post && $post && $post->post_parent == $meta_post->ID ) {
 
 		// Update pb_cover_image to point to edited file
-		$upload_dir = wp_upload_dir();
-		$url = untrailingslashit( $upload_dir['baseurl'] ) . "/{$data['file']}";
 		update_post_meta( $meta_post->ID, 'pb_cover_image', $url );
 		\PressBooks\Book::deleteBookObjectCache();
 
-	} elseif ( $post && 'catalog-logo' == $post->post_name ) {
+	} elseif ( $post && 'pb-catalog-logo' == $post->post_name ) {
 
-		$upload_dir = wp_upload_dir();
-		$url = untrailingslashit( $upload_dir['baseurl'] ) . "/{$data['file']}";
+		// Update pb_catalog_logo to point to edited file
 		update_user_meta( $post->post_author, 'pb_catalog_logo', $url );
 		// TODO: Delete cache
 	}

@@ -521,7 +521,9 @@ class Catalog {
 			'post_mime_type' => $image['type'],
 			'post_title' => __( 'Catalog Logo', 'pressbooks' ),
 			'post_content' => '',
-			'post_status' => 'inherit'
+			'post_status' => 'inherit',
+			'post_name' => 'pb-catalog-logo',
+			'post_author' => $this->userId,
 		);
 		$id = wp_insert_attachment( $args, $image['file'], 0 );
 		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $image['file'] ) );
