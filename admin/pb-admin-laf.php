@@ -809,7 +809,7 @@ function ecomm_links_sanitize( $input ) {
 	foreach ( $input as $key => $value ) {
 		$value = trim( strip_tags( stripslashes( $value ) ) );
 		if ( $value ) {
-			$options[$key] = \PressBooks\Sanitize\canonicalizeUrl( $value );
+			$options[$key] = \PressBooks\Sanitize\canonicalize_url( $value );
 		} else {
 			$options[$key] = null;
 		}

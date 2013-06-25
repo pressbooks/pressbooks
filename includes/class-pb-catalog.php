@@ -472,7 +472,7 @@ class Catalog {
 				continue; // Skip, dev should use uploadLogo() instead
 
 			if ( 'pb_catalog_url' == $key )
-				$val = \PressBooks\Sanitize\canonicalizeUrl( $val );
+				$val = \PressBooks\Sanitize\canonicalize_url( $val );
 
 			if ( '%d' == $this->profileMetaKeys[$key] ) {
 				$val = (int) $val;

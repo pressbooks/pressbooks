@@ -1191,7 +1191,7 @@ class Hpub extends Export {
 
 			// Canonicalize, fix typos, remove garbage
 			if ( '#' != @$current_url[0] ) {
-				$url->setAttribute( 'href', \PressBooks\Sanitize\canonicalizeUrl( $current_url ) );
+				$url->setAttribute( 'href', \PressBooks\Sanitize\canonicalize_url( $current_url ) );
 			}
 
 		}

@@ -144,7 +144,7 @@ function decode( $slug ) {
  *
  * @return string
  */
-function canonicalizeUrl( $url ) {
+function canonicalize_url( $url ) {
 
 	// remove trailing slash
 	$url = rtrim( trim( $url ), '/' );
