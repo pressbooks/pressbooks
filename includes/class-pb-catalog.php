@@ -66,6 +66,7 @@ class Catalog {
 	protected $profileMetaKeys = array(
 		'pb_catalog_about' => '%s',
 		'pb_catalog_logo' => '%s',
+		'pb_catalog_url' => '%s',
 		// Tags added in constructor
 	);
 
@@ -469,6 +470,9 @@ class Catalog {
 
 			if ( 'pb_catalog_logo' == $key )
 				continue; // Skip, dev should use uploadLogo() instead
+
+			if ( 'pb_catalog_url' == $key )
+				$val = \PressBooks\Sanitize\canonicalizeUrl( $val );
 
 			if ( '%d' == $this->profileMetaKeys[$key] ) {
 				$val = (int) $val;

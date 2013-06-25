@@ -81,6 +81,10 @@ else:
 				<th><label for="pb_catalog_about">About</label></th>
 				<td><textarea id="pb_catalog_about" name="pb_catalog_about"><?php echo esc_textarea( $p['pb_catalog_about'] ); ?></textarea></td>
 			</tr>
+			<tr>
+				<th><label for="pb_catalog_url">URL</label></th>
+				<td><input type="text" id="pb_catalog_url" name="pb_catalog_url" value="<?php echo esc_attr( $p['pb_catalog_url'] ); ?>" class="regular-text" /></td>
+			</tr>
 			<?php for ( $i = 1; $i <= $catalog::$maxTagsGroup; ++$i ) { ?>
 				<?php $name = "Tags Name $i"; ?>
 				<tr>
