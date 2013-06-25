@@ -132,6 +132,7 @@ function attachment_id_from_url( $url ) {
 	return absint( $id );
 }
 
+
 /**
  * Try to get a thumbnail url from an image url.
  *
@@ -278,6 +279,7 @@ function save_attachment( $data, $post_id ) {
 
 	return $data;
 }
+
 
 /**
  * Render "Cover Image" meta box
