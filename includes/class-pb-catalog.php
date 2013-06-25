@@ -522,7 +522,7 @@ class Catalog {
 			'post_title' => __( 'Catalog Logo', 'pressbooks' ),
 			'post_content' => '',
 			'post_status' => 'inherit',
-			'post_name' => 'pb-catalog-logo',
+			'post_name' => "pb-catalog-logo-{$this->userId}",
 			'post_author' => $this->userId,
 		);
 		$id = wp_insert_attachment( $args, $image['file'], 0 );

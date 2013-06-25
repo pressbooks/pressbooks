@@ -239,7 +239,7 @@ function delete_attachment( $post_id ) {
 		update_post_meta( $meta_post->ID, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
 		\PressBooks\Book::deleteBookObjectCache();
 
-	} elseif ( $post && 'pb-catalog-logo' == $post->post_name ) {
+	} elseif ( $post && strpos( $post->post_name, 'pb-catalog-logo' ) === 0 ) {
 
 		// Reset pb_catalog_logo to default
 
@@ -279,7 +279,7 @@ function save_attachment( $data, $post_id ) {
 		update_post_meta( $meta_post->ID, 'pb_cover_image', $url );
 		\PressBooks\Book::deleteBookObjectCache();
 
-	} elseif ( $post && 'pb-catalog-logo' == $post->post_name ) {
+	} elseif ( $post && strpos( $post->post_name, 'pb-catalog-logo' ) === 0 ) {
 
 		// Update pb_catalog_logo to point to edited file
 		update_user_meta( $post->post_author, 'pb_catalog_logo', $url );
