@@ -101,6 +101,24 @@ function thumbify( $thumb, $path ) {
 
 
 /**
+ * Remove the upload path base directory from the attachment URL
+ *
+ * @param string $url
+ *
+ * @return string
+ */
+function strip_baseurl( $url ) {
+
+	$preg = '#(19|20)\d\d/(0[1-9]|1[012])/.+(\.jpe?g|\.gif|\.png)$#i'; # YYYY/MM/foo-Bar.png
+	if ( preg_match( $preg, $url, $matches ) ) {
+		$url = $matches[0];
+	}
+
+	return $url;
+}
+
+
+/**
  * Get the attachment id from an image url.
  *
  * @param string $url
@@ -115,11 +133,7 @@ function attachment_id_from_url( $url ) {
 	// If this is the URL of an auto-generated thumbnail, get the URL of the original image
 	$url = preg_replace( '/-\d+x\d+(?=\.(jp?g|png|gif)$)/i', '', $url );
 
-	// Remove the upload path base directory from the attachment URL
-	$preg = '#(19|20)\d\d/(0[1-9]|1[012])/.+(\.jpe?g|\.gif|\.png)$#i'; # YYYY/MM/foo-Bar.png
-	if ( preg_match( $preg, $url, $matches ) ) {
-		$url = $matches[0];
-	}
+	$url = strip_baseurl( $url );
 
 	// Get the attachment ID from the modified attachment URL
 	$sql = "SELECT ID FROM {$wpdb->posts}
@@ -232,12 +246,7 @@ function delete_attachment( $post_id ) {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
-		// Remove the upload path base directory from the attachment URL
-		$url = wp_get_attachment_url( $post->ID );
-		$preg = '#(19|20)\d\d/(0[1-9]|1[012])/.+(\.jpe?g|\.gif|\.png)$#i'; # YYYY/MM/foo-Bar.png
-		if ( preg_match( $preg, $url, $matches ) ) {
-			$url = $matches[0];
-		}
+		$url = strip_baseurl( wp_get_attachment_url( $post->ID ) );
 
 		$sql = "SELECT umeta_id FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key = 'pb_catalog_logo' AND meta_value REGEXP %s ";
 		$sql = $wpdb->prepare( $sql, $post->post_author, "{$url}$" ); // End of string regex for URL
