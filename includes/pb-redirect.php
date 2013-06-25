@@ -87,11 +87,12 @@ function rewrite_rules_for_format() {
  */
 function do_format() {
 
-	$format = get_query_var( 'format' );
-	if ( ! $format ) {
+	if ( ! array_key_exists( 'format', $GLOBALS['wp_query']->query_vars ) ) {
 		// Don't do anything and return
 		return;
 	}
+
+	$format = get_query_var( 'format' );
 
 	if ( 'xhtml' == $format ) {
 
@@ -108,5 +109,52 @@ function do_format() {
 		$foo->transform();
 		exit;
 	}
+
+	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
+}
+
+
+/**
+ * Add a rewrite rule for the keyword "catalog"
+ */
+function rewrite_rules_for_catalog() {
+
+	add_rewrite_endpoint( 'catalog', EP_ROOT );
+	add_filter( 'template_redirect', __NAMESPACE__ . '\do_catalog', 0 );
+
+	// Flush rewrite rules
+	$set = get_option( 'pressbooks_flushed_catalog' );
+	if ( $set !== true ) {
+		flush_rewrite_rules( false );
+		update_option( 'pressbooks_flushed_catalog', true );
+	}
+}
+
+
+/**
+ * Display catalog
+ */
+function do_catalog() {
+
+	if ( ! array_key_exists( 'catalog', $GLOBALS['wp_query']->query_vars ) ) {
+		// Don't do anything and return
+		return;
+	}
+
+	$user_login = get_query_var( 'catalog' );
+	if ( ! is_main_site() ) {
+		// Hard redirect
+		location( network_site_url( "/catalog/$user_login" ) );
+	}
+
+	$user = get_user_by( 'login', $user_login );
+	if ( false == $user ) {
+		wp_die( __( 'No catalog was found for user:', 'pressbooks' ) . " $user_login" );
+	}
+
+	$catalog = new \PressBooks\Catalog( $user->ID );
+	var_dump( $catalog->get() );
+	exit;
+
 
 }
