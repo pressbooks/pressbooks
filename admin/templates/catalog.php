@@ -48,7 +48,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 			<!-- Tags -->
 			<?php for ( $i = 1; $i <= $catalog::$maxTagsGroup; ++$i ) { ?>
 				<?php
-				$name = ! empty( $profile["pressbooks_catalog_tag_{$i}_name"] ) ? $profile["pressbooks_catalog_tag_{$i}_name"] : "Tags $i";
+				$name = ! empty( $profile["pb_catalog_tag_{$i}_name"] ) ? $profile["pb_catalog_tag_{$i}_name"] : "Tags $i";
 				?>
 				<tr>
 					<th><label for="tags_<?php echo $i; ?>"> <?php echo $name; ?><br /><em>Comma delimited</em></em></label></th>
@@ -78,20 +78,20 @@ else:
 		<input type="hidden" name="user_id" value="<?php echo $user_id ?>" />
 		<table class="form-table">
 			<tr>
-				<th><label for="pressbooks_catalog_about">About</label></th>
-				<td><textarea id="pressbooks_catalog_about" name="pressbooks_catalog_about"><?php echo esc_textarea( $p['pressbooks_catalog_about'] ); ?></textarea></td>
+				<th><label for="pb_catalog_about">About</label></th>
+				<td><textarea id="pb_catalog_about" name="pb_catalog_about"><?php echo esc_textarea( $p['pb_catalog_about'] ); ?></textarea></td>
 			</tr>
 			<?php for ( $i = 1; $i <= $catalog::$maxTagsGroup; ++$i ) { ?>
 				<?php $name = "Tags Name $i"; ?>
 				<tr>
-					<th><label for="pressbooks_catalog_tag_<?php echo $i; ?>_name"><?php echo $name; ?></label></th>
+					<th><label for="pb_catalog_tag_<?php echo $i; ?>_name"><?php echo $name; ?></label></th>
 					<td>
-						<input type="text" name="pressbooks_catalog_tag_<?php echo $i; ?>_name" id="pressbooks_catalog_tag_<?php echo $i; ?>_name" value="<?php echo esc_attr( $p["pressbooks_catalog_tag_{$i}_name"] ) ?>" class="regular-text" />
+						<input type="text" name="pb_catalog_tag_<?php echo $i; ?>_name" id="pb_catalog_tag_<?php echo $i; ?>_name" value="<?php echo esc_attr( $p["pb_catalog_tag_{$i}_name"] ) ?>" class="regular-text" />
 					</td>
 				</tr>
 			<?php } ?>
 			<tr>
-				<th><label for="pressbooks_catalog_logo">Logo Or Image</label></th>
+				<th><label for="pb_catalog_logo">Logo Or Image</label></th>
 				<td><?php \PressBooks\Image\catalog_logo_box( $user_id ); ?></td>
 			</tr>
 		</table>

@@ -219,11 +219,33 @@ function delete_attachment( $post_id ) {
 	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost(); // PHP 5.4+
 
 	if ( $meta_post && $post && $post->post_parent == $meta_post->ID ) {
+
 		// Reset pb_cover_image to default
 		update_post_meta( $meta_post->ID, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
 		\PressBooks\Book::deleteBookObjectCache();
-	} else {
-		// TODO: Check if this is a Catalog image
+
+	} elseif ( $post && 'catalog-logo' == $post->post_name ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		// Remove the upload path base directory from the attachment URL
+		$url = wp_get_attachment_url( $post->ID );
+		$preg = '#(19|20)\d\d/(0[1-9]|1[012])/.+(\.jpe?g|\.gif|\.png)$#i'; # YYYY/MM/foo-Bar.png
+		if ( preg_match( $preg, $url, $matches ) ) {
+			$url = $matches[0];
+		}
+
+		$sql = "SELECT umeta_id FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key = 'pb_catalog_logo' AND meta_value REGEXP %s ";
+		$sql = $wpdb->prepare( $sql, $post->post_author, "{$url}$" );
+		$id = $wpdb->get_var( $sql );
+
+		error_log($id);
+
+		if ( $id ) {
+			update_user_meta( $post->post_author, 'pb_catalog_logo', \PressBooks\Image\default_cover_url() );
+			// TODO: Delete cache
+		}
 	}
 }
 
@@ -240,13 +262,19 @@ function save_attachment( $data, $post_id ) {
 	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost(); // PHP 5.4+
 
 	if ( $meta_post && $post && $post->post_parent == $meta_post->ID ) {
+
 		// Update pb_cover_image to point to edited file
 		$upload_dir = wp_upload_dir();
 		$url = untrailingslashit( $upload_dir['baseurl'] ) . "/{$data['file']}";
 		update_post_meta( $meta_post->ID, 'pb_cover_image', $url );
 		\PressBooks\Book::deleteBookObjectCache();
-	} else {
-		// TODO: Check if this is a Catalog image
+
+	} elseif ( $post && 'catalog-logo' == $post->post_name ) {
+
+		$upload_dir = wp_upload_dir();
+		$url = untrailingslashit( $upload_dir['baseurl'] ) . "/{$data['file']}";
+		update_user_meta( $post->post_author, 'pb_catalog_logo', $url );
+		// TODO: Delete cache
 	}
 
 	return $data;
@@ -277,7 +305,7 @@ function cover_image_box( $post ) {
  */
 function catalog_logo_box( $user_id ) {
 
-	$meta_key = 'pressbooks_catalog_logo';
+	$meta_key = 'pb_catalog_logo';
 	$image_url = \PressBooks\Catalog::thumbnailFromUserId( $user_id, 'pb_cover_medium' );
 	$action = 'pb_delete_catalog_logo';
 	$nonce = wp_create_nonce( 'pb-delete-catalog-logo' );

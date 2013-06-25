@@ -178,7 +178,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		);
 
 		for ( $i = 1; $i <= Catalog::$maxTagsGroup; ++$i ) {
-			$columns["tag_{$i}"] = ! empty( $profile["pressbooks_catalog_tag_{$i}_name"] ) ? $profile["pressbooks_catalog_tag_{$i}_name"] : __( 'Tag', 'pressbooks' ) . " $i";
+			$columns["tag_{$i}"] = ! empty( $profile["pb_catalog_tag_{$i}_name"] ) ? $profile["pb_catalog_tag_{$i}_name"] : __( 'Tag', 'pressbooks' ) . " $i";
 		}
 
 		$columns['featured'] = __( 'Featured', 'pressbooks' );

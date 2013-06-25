@@ -64,8 +64,8 @@ class Catalog {
 	 * @var array
 	 */
 	protected $profileMetaKeys = array(
-		'pressbooks_catalog_about' => '%s',
-		'pressbooks_catalog_logo' => '%s',
+		'pb_catalog_about' => '%s',
+		'pb_catalog_logo' => '%s',
 		// Tags added in constructor
 	);
 
@@ -85,7 +85,7 @@ class Catalog {
 
 		// Tags
 		for ( $i = 1; $i <= static::$maxTagsGroup; ++$i ) {
-			$this->profileMetaKeys["pressbooks_catalog_tag_{$i}_name"] = '%s';
+			$this->profileMetaKeys["pb_catalog_tag_{$i}_name"] = '%s';
 		}
 
 		// User
@@ -467,7 +467,7 @@ class Catalog {
 
 		foreach ( $item as $key => $val ) {
 
-			if ( 'pressbooks_catalog_logo' == $key )
+			if ( 'pb_catalog_logo' == $key )
 				continue; // Skip, dev should use uploadLogo() instead
 
 			if ( '%d' == $this->profileMetaKeys[$key] ) {
@@ -657,7 +657,7 @@ class Catalog {
 
 		$book = get_active_blog_for_user( $user_id );
 		switch_to_blog( $book->blog_id );
-		$image_url = \PressBooks\Image\thumbnail_from_url( get_user_meta( $user_id, 'pressbooks_catalog_logo', true ), $size );
+		$image_url = \PressBooks\Image\thumbnail_from_url( get_user_meta( $user_id, 'pb_catalog_logo', true ), $size );
 		restore_current_blog();
 
 		return $image_url;
@@ -781,7 +781,7 @@ class Catalog {
 			$old_id = \PressBooks\Image\attachment_id_from_url( $image_url );
 			if ( $old_id ) wp_delete_attachment( $old_id, true );
 
-			update_user_meta( $user_id, 'pressbooks_catalog_logo', \PressBooks\Image\default_cover_url() );
+			update_user_meta( $user_id, 'pb_catalog_logo', \PressBooks\Image\default_cover_url() );
 			// TODO: Delete cache
 
 			restore_current_blog();
@@ -928,7 +928,7 @@ class Catalog {
 
 		$catalog = new static( $user_id );
 		$catalog->saveProfile( $_POST );
-		$catalog->uploadLogo( 'pressbooks_catalog_logo' );
+		$catalog->uploadLogo( 'pb_catalog_logo' );
 
 		// Ok!
 		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
