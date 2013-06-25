@@ -694,6 +694,29 @@ class Catalog {
 	}
 
 
+	/**
+	 * Simple templating function.
+	 *
+	 * @param array $vars
+	 */
+	static function loadTemplate( $vars ) {
+
+		extract( $vars );
+
+		$_child = untrailingslashit( get_stylesheet_directory() ) . '/pb-catalog.php';
+		$_parent = untrailingslashit( get_template_directory() ) . '/pb-catalog.php';
+		$_default = untrailingslashit( PB_PLUGIN_DIR ) . '/themes-root/pressbooks-publisher-one/pb-catalog.php';
+
+		if ( is_file( $_child ) ) {
+			require( $_child );
+		} elseif ( is_file( $_parent ) ) {
+			require( $_parent );
+		} else {
+			require( $_default );
+		}
+	}
+
+
 	// ----------------------------------------------------------------------------------------------------------------
 	// Form stuff
 	// ----------------------------------------------------------------------------------------------------------------

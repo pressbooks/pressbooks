@@ -152,9 +152,11 @@ function do_catalog() {
 		wp_die( __( 'No catalog was found for user:', 'pressbooks' ) . " $user_login" );
 	}
 
-	$catalog = new \PressBooks\Catalog( $user->ID );
-	var_dump( $catalog->get() );
+
+	$vars = array(
+		'catalog' => new \PressBooks\Catalog( $user->ID ),
+	);
+	\PressBooks\Catalog::loadTemplate( $vars );
+
 	exit;
-
-
 }
