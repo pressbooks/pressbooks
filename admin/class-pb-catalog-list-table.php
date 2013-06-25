@@ -493,6 +493,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	static function addMenu() {
 
 		$url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+		$view_url = static::viewCatalogUrl();
 
 		$list_table = new self();
 		$list_table->prepare_items();
@@ -500,7 +501,10 @@ class Catalog_List_Table extends \WP_List_Table {
 		?>
 		<div class="wrap">
 			<div id="icon-edit" class="icon32"><br /></div>
-			<h2>My Catalog <a href="<?php echo $url . '&action=edit_profile'; ?>" class="button add-new-h2"><?php _e( 'Edit My Catalog Profile', 'pressbooks' ); ?></a></h2>
+			<h2>My Catalog
+				<a href="<?php echo $url . '&action=edit_profile'; ?>" class="button add-new-h2"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
+				<a href="<?php echo $view_url; ?>" class="button add-new-h2"><?php _e( 'View Catalog', 'pressbooks' ); ?></a>
+			</h2>
 
 			<form id="books-filter" method="post" action="<?php echo $url; ?>" >
 				<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
@@ -539,5 +543,31 @@ class Catalog_List_Table extends \WP_List_Table {
 		return $url;
 	}
 
+
+	/**
+	 * Generate catalog URL. Dies on problem.
+	 *
+	 * @return string
+	 */
+	static function viewCatalogUrl() {
+
+		if ( isset( $_REQUEST['user_id'] ) ) {
+
+			if ( false == current_user_can( 'edit_user', (int) $_REQUEST['user_id'] ) )
+				wp_die( __( 'You do not have permission to do that.' ) );
+
+			$u = get_userdata( (int) $_REQUEST['user_id'] );
+			if ( false == $u )
+				wp_die( __( 'The requested user does not exist.' ) );
+
+			$user_login = get_userdata( (int) $_REQUEST['user_id'] )->user_login;
+		} else {
+			$user_login = get_userdata( get_current_user_id() )->user_login;
+		}
+
+		$view_url = network_site_url( "/catalog/$user_login" );
+
+		return $view_url;
+	}
 
 }
