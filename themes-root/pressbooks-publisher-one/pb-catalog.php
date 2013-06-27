@@ -5,7 +5,20 @@ if ( ! defined( 'ABSPATH' ) )
 
 // var_dump( $catalog->get() );
 
-$src = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher-one/';
+$base_href = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher-one/';
+
+$profile = $catalog->getProfile();
+$logo_url = \PressBooks\Image\thumbnail_from_url( $profile['pb_catalog_logo'], 'thumbnail' );
+
+$tags_1 = $catalog->getTags( 1 );
+$tags_1_name = ! empty( $profile["pb_catalog_tag_1_name"] ) ? $profile["pb_catalog_tag_1_name"] : __( 'Tag', 'pressbooks' ) . ' 1';
+
+$tags_2 = $catalog->getTags( 2 );
+$tags_2_name = ! empty( $profile["pb_catalog_tag_2_name"] ) ? $profile["pb_catalog_tag_2_name"] : __( 'Tag', 'pressbooks' ) . ' 2';
+
+
+$books = $catalog->getBookIds();
+
 
 ?>
 <!DOCTYPE html>
@@ -16,7 +29,7 @@ $src = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher-one/';
 <!--[if IE 9 ]>    <html <?php language_attributes(); ?> class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"> <!--<![endif]-->
 <head>
-	<base href="<?php echo $src; ?>">
+	<base href="<?php echo $base_href; ?>">
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 	<title>Catalog Page</title>
@@ -38,158 +51,66 @@ $src = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher-one/';
 <div class="catalog-wrap">
 
 	<div class="catalog-sidebar">
-		<img class="catalog-logo" src="images/tascha-logo.png" alt="tascha-logo" width="100" height="99" />
-		<p class="about-blurb">The Technology & Social Change Group at the University of Washington Information School explores the design, use, and effects
-			of information and communication technologies in communities facing social and economic challenges.</p>
-		<a class="link-more" href="#">Learn more about TASCHA &raquo;  </a>
+		<img class="catalog-logo" src="<?php echo $logo_url; ?>" alt="catalog-logo" width="100" height="99" />
+		<p class="about-blurb"><?php echo $profile['pb_catalog_about']; ?></p>
+		<a class="link-more" href="<?php echo $profile['pb_catalog_url']; ?>">Learn more &raquo;  </a>
 
-		<h3>Research by Area</h3>
-		<ul>
-			<li><a href="#" class="active">Accessibility & Technology</a></li>
-			<li><a href="#" >Civil Society 2.0</a></li>
-			<li><a href="#" >Crisis Informatics</a></li>
-			<li><a href="#" >Digital Inclusion</a></li>
-			<li><a href="#" >Employability</a></li>
-			<li><a href="#" >Future of Libraries</a></li>
-		</ul>
-
-		<h3>Research By Project</h3>
-		<ul>
-			<li><a href="#" class="active">Cost Benefit Analysis in Chile</a></li>
-			<li><a href="#" >e-Inclusion actors in the European Union: Theories and frameworks</a></li>
-			<li><a href="#" >Inclusion in the European Union | Mapping actors</a></li>
-			<li><a href="#" >Employability Evidence Narratives</a></li>
-		</ul>
+		<!-- Tags -->
+		<?php for ( $i = 1; $i <= 2; ++$i ) : ?>
+		<?php $name_var = "tags_{$i}_name"; $tags_var = "tags_{$i}"; ?>
+			<h3><?php echo $$name_var; ?></h3>
+			<ul>
+				<?php
+				foreach ( $$tags_var as $val ) {
+					echo "<li><a href='#{$val['id']}' >{$val['tag']}</a></li>" . "\n";
+					// TODO: class="active"
+				}
+				?>
+			</ul>
+		<?php endfor; ?>
 
 
 	</div><!-- end catalog-sidebar -->
 
 	<!-- Books! -->
+	<?php
+
+	?>
 	<div class="catalog-content" id="catalog-content">
 
-		<h1>Catalog</h1>
+		<h1><?php _e( 'Catalog', 'pressbooks' ); ?></h1>
 
 
-		<div class="book-data">
-			<div class="book">
-				<p class="book-description"><a href="#">They were sparing of the Heat-Ray that night, either because they had but a limited supply of material for its production or because they did not wish to destroy the country but only to crush. <span href="#" class="book-link">&rarr;</span></a></p>
-				<img src="images/fake-book.jpg" alt="book-cover" width="225" height="300" />
-			</div><!-- end .book -->
+		<!-- Books -->
+		<?php
+		foreach ( $books as $id ) :
 
-			<div class="book-info">
-				<h2>Book Title</h2>
-				<p><a href="#">Author Name</a></p> <!-- I'm assuming here we are linking to Author's about page -->
-			</div><!-- end book-info -->
-		</div><!-- end .book-data -->
+			switch_to_blog( $id );
 
-		<div class="book-data">
-			<div class="book">
-				<p class="book-description"><a href="#">They were sparing of the Heat-Ray that night, either because they had but a limited supply of material for its production or because they did not wish to destroy the country but only to crush and overawe the opposition they had aroused.  In the latter aim they certainly succeeded.  Sunday night was the end of the organized opposition. <span href="#" class="book-link">&rarr;</span></a></p>
-				<img src="images/default-book-cover.jpg" alt="book-cover" width="225" height="300" />
-			</div><!-- end .book -->
+			$metadata = \PressBooks\Book::getBookInformation();
+			$title = $metadata['pb_title'];
+			$author = $metadata['pb_author'];
+			$cover_url = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_medium' );
+			$about = strip_tags( pb_decode( @$metadata['pb_about_unlimited'] ) );
+		?>
+			<div class="book-data">
 
-			<div class="book-info">
-				<h2>This is a really long book title, for those times when you need it</h2>
-				<p><a href="#">Longauthorfirst Longauthorlastname</a></p> <!-- I'm assuming here we are linking to Author's about page -->
-			</div><!-- end book-info -->
-		</div><!-- end .book-data -->
+				<div class="book">
+					<p class="book-description"><a href="<?php echo get_site_url( $id ); ?>"><?php echo $about; ?><span class="book-link">&rarr;</span></a></p>
+					<img src="<?php echo $cover_url; ?>" alt="book-cover" width="225" />
+				</div><!-- end .book -->
 
+				<div class="book-info">
+					<h2><?php echo $title; ?></h2>
 
-		<div class="book-data">
-			<div class="book">
-				<p class="book-description"><a href="#">They were sparing of the Heat-Ray that night, either because they had but a limited supply of material for its production or because they did not wish to destroy the country but only to crush and overawe the opposition they had aroused.  In the latter aim they certainly succeeded.  Sunday night was the end of the organized opposition. <span href="#" class="book-link">&rarr;</span></a></p>
-				<img src="images/fake-book.jpg" alt="book-cover" width="225" height="300" />
-			</div><!-- end .book -->
+					<p><a href="<?php echo get_site_url( $id, '/authors' ); ?>"><?php echo $author; ?></a></p> <!-- I'm assuming here we are linking to Author's about page -->
+				</div><!-- end book-info -->
 
-			<div class="book-info">
-				<h2>Book Title</h2>
-				<p><a href="#">Author Name</a></p> <!-- I'm assuming here we are linking to Author's about page -->
-			</div><!-- end book-info -->
-		</div><!-- end .book-data -->
-
-
-		<div class="book-data">
-			<div class="book">
-				<p class="book-description"><a href="#">They were sparing of the Heat-Ray that night, either because they had but a limited supply of material for its production or because they did not wish to destroy the country but only <span href="#" class="book-link">&rarr;</span></a></p>
-				<img src="images/default-book-cover.jpg" alt="book-cover" width="225" height="300" />
-			</div><!-- end .book -->
-
-			<div class="book-info">
-				<h2>Book Title</h2>
-				<p><a href="#">Author Name</a></p> <!-- I'm assuming here we are linking to Author's about page -->
-			</div><!-- end book-info -->
-		</div><!-- end .book-data -->
-
-		<div class="book-data">
-			<div class="book">
-				<p class="book-description"><a href="#">They were sparing of the Heat-Ray that night, either because they had but a limited supply of material for its production or because they did not wish to destroy the country but only to crush. <span href="#" class="book-link">&rarr;</span></a></p>
-				<img src="images/short-book.jpg" alt="book-cover" width="225" height="150" />
-			</div><!-- end .book -->
-
-			<div class="book-info">
-				<h2>Book Title</h2>
-				<p><a href="#">Author Name</a></p> <!-- I'm assuming here we are linking to Author's about page -->
-			</div><!-- end book-info -->
-		</div><!-- end .book-data -->
-
-		<div class="book-data">
-			<div class="book">
-				<p class="book-description"><a href="#">They were sparing of the Heat-Ray that night, either because they had but a limited supply of material for its production or because they did not wish to destroy the country but only to crush and overawe the opposition they had aroused.  In the latter aim they certainly succeeded.  Sunday night was the end of the organized opposition. <span href="#" class="book-link">&rarr;</span></a></p>
-				<img src="images/short-book.jpg" alt="book-cover" width="225" height="150" />
-			</div><!-- end .book -->
-
-			<div class="book-info">
-				<h2>This is a really long book title, for those times when you need it. This one is reaaaaaaaaaaaaaallllly long..........</h2>
-				<p><a href="#">Longauthorfirst Longauthorlastname</a></p> <!-- I'm assuming here we are linking to Author's about page -->
-			</div><!-- end book-info -->
-		</div><!-- end .book-data -->
-
-
-		<div class="book-data">
-			<div class="book">
-				<p class="book-description"><a href="#">They were sparing of the Heat-Ray that night, either because they had but a limited supply of material for its production or because they did not wish to destroy the country but only to crush and overawe the opposition they had aroused.  In the latter aim they certainly succeeded.  Sunday night was the end of the organized opposition. <span href="#" class="book-link">&rarr;</span></a></p>
-				<img src="images/fake-book.jpg" alt="book-cover" width="225" height="300" />
-			</div><!-- end .book -->
-
-			<div class="book-info">
-				<h2>Book Title</h2>
-				<p><a href="#">Author Name</a></p> <!-- I'm assuming here we are linking to Author's about page -->
-			</div><!-- end book-info -->
-		</div><!-- end .book-data -->
-
-		<div class="book-data">
-			<div class="book">
-				<p class="book-description"><a href="#">They were sparing of the Heat-Ray that night, either because they had but a limited supply of material for its production or because they did not wish to destroy the country but only to crush and overawe the opposition they had aroused.  In the latter aim they certainly succeeded.  Sunday night was the end of the organized opposition. <span href="#" class="book-link">&rarr;</span></a></p>
-				<img src="images/fake-book.jpg" alt="book-cover" width="225" height="300" />
-			</div><!-- end .book -->
-
-			<div class="book-info">
-				<h2>Book Title</h2>
-				<p><a href="#">Author Name</a></p> <!-- I'm assuming here we are linking to Author's about page -->
-			</div><!-- end book-info -->
-		</div><!-- end .book-data -->
-		<div class="book-data">
-			<div class="book">
-				<p class="book-description"><a href="#">They were sparing of the Heat-Ray that night, either because they had but a limited supply of material for its production or because they did not wish to destroy the country but only to crush and overawe the opposition they had aroused.  In the latter aim they certainly succeeded.  Sunday night was the end of the organized opposition. <span href="#" class="book-link">&rarr;</span></a></p>
-				<img src="images/fake-book.jpg" alt="book-cover" width="225" height="300" />
-			</div><!-- end .book -->
-
-			<div class="book-info">
-				<h2>Book Title</h2>
-				<p><a href="#">Author Name</a></p> <!-- I'm assuming here we are linking to Author's about page -->
-			</div><!-- end book-info -->
-		</div><!-- end .book-data -->
-		<div class="book-data">
-			<div class="book">
-				<p class="book-description"><a href="#">They were sparing of the Heat-Ray that night, either because they had but a limited supply of material for its production or because they did not wish to destroy the country but only to crush and overawe the opposition they had aroused.  In the latter aim they certainly succeeded.  Sunday night was the end of the organized opposition. <span href="#" class="book-link">&rarr;</span></a></p>
-				<img src="images/fake-book.jpg" alt="book-cover" width="225" height="300" />
-			</div><!-- end .book -->
-
-			<div class="book-info">
-				<h2>Book Title</h2>
-				<p><a href="#">Author Name</a></p> <!-- I'm assuming here we are linking to Author's about page -->
-			</div><!-- end book-info -->
-		</div><!-- end .book-data -->
+			</div><!-- end .book-data -->
+		<?php
+		endforeach;
+		restore_current_blog();
+		?>
 
 
 	</div>	<!-- end .catalog -->
