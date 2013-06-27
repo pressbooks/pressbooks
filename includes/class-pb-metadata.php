@@ -21,7 +21,7 @@ class Metadata {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 7;
+	static $currentVersion = 8;
 
 
 	/**
@@ -140,6 +140,9 @@ class Metadata {
 		}
 		if ( $version < 6 ||$version < 7 ) {
 			$this->makeThumbnailsForBookCover();
+		}
+		if ( $version < 8 ) {
+			$this->resetLandingPage();
 		}
 	}
 
@@ -440,6 +443,30 @@ class Metadata {
 				$id = wp_insert_attachment( $args, $path, $post->ID );
 				wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
 			}
+		}
+	}
+
+
+	/**
+	 * Fix broken landing page
+	 */
+	function resetLandingPage() {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		update_option( 'show_on_front', 'page' );
+
+		$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'cover' AND post_type = 'page' AND post_status = 'publish' ";
+		$id = $wpdb->get_var( $sql );
+		if ( $id ) {
+			update_option( 'page_on_front', $id );
+		}
+
+		$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'table-of-contents' AND post_type = 'page' AND post_status = 'publish' ";
+		$id = $wpdb->get_var( $sql );
+		if ( $id ) {
+			update_option( 'page_for_posts', $id );
 		}
 	}
 
