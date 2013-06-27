@@ -509,7 +509,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			<div id="icon-edit" class="icon32"><br /></div>
 			<h2>My Catalog
 				<a href="<?php echo $url . '&action=edit_profile'; ?>" class="button add-new-h2"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
-				<a href="<?php echo $view_url; ?>" class="button add-new-h2"><?php _e( 'View Catalog', 'pressbooks' ); ?></a>
+				<a href="<?php echo $view_url; ?>" class="button add-new-h2"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
 			</h2>
 
 			<form id="books-filter" method="post" action="<?php echo $url; ?>" >
