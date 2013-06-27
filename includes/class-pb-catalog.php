@@ -67,7 +67,7 @@ class Catalog {
 		'pb_catalog_about' => '%s',
 		'pb_catalog_logo' => '%s',
 		'pb_catalog_url' => '%s',
-		// Tags added in constructor
+		// Tags added in constructor (Ie. pb_catalog_tag_1_name, pb_catalog_tag_2_name, ...)
 	);
 
 
@@ -121,6 +121,30 @@ class Catalog {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ", $this->userId );
+
+		return $wpdb->get_results( $sql, ARRAY_A );
+	}
+
+
+	/**
+	 * Get catalog by tag id
+	 *
+	 * @param int $tag_group
+	 * @param int $tag_id
+	 *
+	 * @return array
+	 */
+	function getByTagId( $tag_group, $tag_id ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		$sql = "SELECT DISTINCT {$this->dbTable}.* FROM {$this->dbTable}
+				INNER JOIN {$this->dbLinkTable} ON {$this->dbLinkTable}.blogs_id = {$this->dbTable}.blogs_id
+ 				INNER JOIN {$this->dbTagsTable} ON {$this->dbTagsTable}.id = {$this->dbLinkTable}.tags_id
+ 				WHERE {$this->dbLinkTable}.users_id = %d AND {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.tags_id = %d AND {$this->dbTable}.deleted = 0 ";
+
+		$sql = $wpdb->prepare( $sql, $this->userId, $tag_group, $tag_id );
 
 		return $wpdb->get_results( $sql, ARRAY_A );
 	}

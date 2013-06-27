@@ -69,6 +69,62 @@ function _cover_height( $cover_url ) {
 	return isset( $new_cover_height ) ? $new_cover_height : $cover_height;
 }
 
+/**
+ * Get book data
+ * Sort by featured DESC, title ASC
+ *
+ * @param PB_Catalog $catalog
+ *
+ * @return array
+ */
+function _books( PB_Catalog $catalog ) {
+
+	if ( @$_REQUEST['tag_group'] && @$_REQUEST['tag_id'] ) {
+		$book_ids = $catalog->getByTagId( $_REQUEST['tag_group'], $_REQUEST['tag_id'] );
+	} else {
+		$book_ids = $catalog->get();
+	}
+
+	$books = array();
+	foreach ( $book_ids as $i => $val ) {
+
+		switch_to_blog( $val['blogs_id'] );
+		$metadata = \PressBooks\Book::getBookInformation();
+
+		$books[$i]['ID'] = $val['blogs_id'];
+		$books[$i]['title'] = @$metadata['pb_title'];
+		$books[$i]['author'] = @$metadata['pb_author'];
+		$books[$i]['about'] = trim( strip_tags( pb_decode( @$metadata['pb_about_unlimited'] ) ) );
+		$books[$i]['cover_url'] = _cover_url( $metadata );
+		$books[$i]['cover_height'] = _cover_height( $books[$i]['cover_url'] );
+		$books[$i]['featured'] = $val['featured'];
+
+		restore_current_blog();
+	}
+
+	return \PressBooks\Utility\multi_sort( $books, 'featured:desc', 'title:asc' );
+}
+
+/**
+ * Get tag url
+ *
+ * @param int $user_id
+ * @param int $tag_group
+ * @param int $tag_id
+ *
+ * @return string
+ */
+function _tag_url( $user_id, $tag_group, $tag_id ) {
+
+	static $base_url = false; // Cheap cache
+	if ( false === $base_url ) {
+		$base_url = get_userdata( $user_id )->user_login;
+		$base_url = network_site_url( "/catalog/$base_url" );
+	}
+
+	return $base_url . "?tag_group=$tag_group&tag_id=$tag_id";
+}
+
 // -------------------------------------------------------------------------------------------------------------------
 // Variables
 // -------------------------------------------------------------------------------------------------------------------
@@ -77,13 +133,7 @@ $base_href = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher-one/';
 
 $catalog = new PB_Catalog( absint( $user_id ) ); // Note: $user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();
-$books = $catalog->getBookIds();
-
-$tags_1 = $catalog->getTags( 1 );
-$tags_1_name = ! empty( $profile['pb_catalog_tag_1_name'] ) ? $profile['pb_catalog_tag_1_name'] : __( 'Tag', 'pressbooks' ) . ' 1';
-
-$tags_2 = $catalog->getTags( 2 );
-$tags_2_name = ! empty( $profile['pb_catalog_tag_2_name'] ) ? $profile['pb_catalog_tag_2_name'] : __( 'Tag', 'pressbooks' ) . ' 2';
+$books = _books( $catalog );
 
 // -------------------------------------------------------------------------------------------------------------------
 // HTML
@@ -127,13 +177,15 @@ $tags_2_name = ! empty( $profile['pb_catalog_tag_2_name'] ) ? $profile['pb_catal
 
 		<!-- Tags -->
 		<?php for ( $i = 1; $i <= 2; ++$i ) : ?>
-		<?php $name_var = "tags_{$i}_name"; $tags_var = "tags_{$i}"; ?>
-			<h3><?php echo $$name_var; ?></h3>
+		<?php $tags = $catalog->getTags( $i ); ?>
+			<h3><?php echo ( ! empty( $profile["pb_catalog_tag_{$i}_name"] ) ) ? $profile["pb_catalog_tag_{$i}_name"] : __( 'Tag', 'pressbooks' ) . " $i"; ?></h3>
 			<ul>
 				<?php
-				foreach ( $$tags_var as $val ) {
-					echo "<li><a href='#{$val['id']}' >{$val['tag']}</a></li>" . "\n";
-					// TODO: class="active"
+				foreach ( $tags as $val ) {
+					$tag_url = _tag_url( $catalog->getUserId(), $i, $val['id'] );
+					echo "<li><a href='$tag_url' ";
+					if ( $i == @$_REQUEST['tag_group'] && $val['id'] == @$_REQUEST['tag_id'] ) echo 'class="active"';
+					echo ">{$val['tag']}</a></li>" . "\n";
 				}
 				?>
 			</ul>
@@ -152,33 +204,23 @@ $tags_2_name = ! empty( $profile['pb_catalog_tag_2_name'] ) ? $profile['pb_catal
 
 
 		<!-- Books -->
-		<?php
-		foreach ( $books as $id ) :
-			switch_to_blog( $id );
-			$metadata = \PressBooks\Book::getBookInformation();
-			$title = @$metadata['pb_title'];
-			$author = @$metadata['pb_author'];
-			$about = trim( strip_tags( pb_decode( @$metadata['pb_about_unlimited'] ) ) );
-			$cover_url = _cover_url( $metadata );
-			$cover_height = _cover_height( $cover_url );
-			?>
+		<?php foreach ( $books as $b ) : ?>
 			<div class="book-data">
 
 				<div class="book">
-					<p class="book-description"><a href="<?php echo get_site_url( $id ); ?>"><?php echo $about; ?><span class="book-link">&rarr;</span></a></p>
-					<img src="<?php echo $cover_url; ?>" alt="book-cover" width="225" height="<?php echo $cover_height; ?>" />
+					<p class="book-description"><a href="<?php echo get_site_url( $b['ID']  ); ?>"><?php echo $b['about']; ?><span class="book-link">&rarr;</span></a></p>
+					<img src="<?php echo $b['cover_url']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" />
 				</div><!-- end .book -->
 
 				<div class="book-info">
-					<h2><?php echo $title; ?></h2>
+					<h2><?php echo $b['title']; ?></h2>
 
-					<p><a href="<?php echo get_site_url( $id ); ?>"><?php echo $author; ?></a></p>
+					<p><a href="<?php echo get_site_url( $b['ID'] ); ?>"><?php echo $b['author']; ?></a></p>
 				</div><!-- end book-info -->
 
 			</div><!-- end .book-data -->
 		<?php
 		endforeach;
-		restore_current_blog();
 		?>
 
 
