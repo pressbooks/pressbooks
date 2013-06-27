@@ -105,6 +105,25 @@ function _books( PB_Catalog $catalog ) {
 	return \PressBooks\Utility\multi_sort( $books, 'featured:desc', 'title:asc' );
 }
 
+
+/**
+ * Get base url
+ *
+ * @param $user_id
+ *
+ * @return string
+ */
+function _base_url( $user_id ) {
+
+	static $base_url = false; // Cheap cache
+	if ( false === $base_url ) {
+		$base_url = get_userdata( $user_id )->user_login;
+		$base_url = network_site_url( "/catalog/$base_url" );
+	}
+
+	return $base_url;
+}
+
 /**
  * Get tag url
  *
@@ -116,13 +135,7 @@ function _books( PB_Catalog $catalog ) {
  */
 function _tag_url( $user_id, $tag_group, $tag_id ) {
 
-	static $base_url = false; // Cheap cache
-	if ( false === $base_url ) {
-		$base_url = get_userdata( $user_id )->user_login;
-		$base_url = network_site_url( "/catalog/$base_url" );
-	}
-
-	return $base_url . "?tag_group=$tag_group&tag_id=$tag_id";
+	return _base_url( $user_id ) . "?tag_group=$tag_group&tag_id=$tag_id";
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -130,10 +143,10 @@ function _tag_url( $user_id, $tag_group, $tag_id ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 $base_href = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher-one/';
-
 $catalog = new PB_Catalog( absint( $user_id ) ); // Note: $user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();
 $books = _books( $catalog );
+$h1_title = __( 'Catalog', 'pressbooks' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // HTML
@@ -184,7 +197,11 @@ $books = _books( $catalog );
 				foreach ( $tags as $val ) {
 					$tag_url = _tag_url( $catalog->getUserId(), $i, $val['id'] );
 					echo "<li><a href='$tag_url' ";
-					if ( $i == @$_REQUEST['tag_group'] && $val['id'] == @$_REQUEST['tag_id'] ) echo 'class="active"';
+					if ( $i == @$_REQUEST['tag_group'] && $val['id'] == @$_REQUEST['tag_id'] ) {
+						echo 'class="active"';
+						$h1_title = __( 'Catalog, filtering by:', 'pressbooks' ) . " {$val['tag']}";
+						$h1_title .= ' <span style="font-weight:normal;font-size:60%;">[<a href="' . _base_url( $catalog->getUserId() ) . '">x</a>]</span>';
+					}
 					echo ">{$val['tag']}</a></li>" . "\n";
 				}
 				?>
@@ -200,7 +217,7 @@ $books = _books( $catalog );
 	?>
 	<div class="catalog-content" id="catalog-content">
 
-		<h1><?php _e( 'Catalog', 'pressbooks' ); ?></h1>
+		<h1><?php echo $h1_title ?></h1>
 
 
 		<!-- Books -->
