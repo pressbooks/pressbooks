@@ -177,7 +177,7 @@ $books = _books( $catalog );
 
 		<!-- Tags -->
 		<?php for ( $i = 1; $i <= 2; ++$i ) : ?>
-		<?php $tags = $catalog->getTags( $i ); ?>
+		<?php $tags = $catalog->getTags( $i, false ); ?>
 			<h3><?php echo ( ! empty( $profile["pb_catalog_tag_{$i}_name"] ) ) ? $profile["pb_catalog_tag_{$i}_name"] : __( 'Tag', 'pressbooks' ) . " $i"; ?></h3>
 			<ul>
 				<?php

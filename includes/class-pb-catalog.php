@@ -299,19 +299,22 @@ class Catalog {
 	 * Get tags
 	 *
 	 * @param int $tag_group
+	 * @param bool $show_hidden_tags (optional)
 	 *
 	 * @return mixed
 	 */
-	function getTags( $tag_group ) {
+	function getTags( $tag_group, $show_hidden_tags = true ) {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
 		$sql = "SELECT DISTINCT {$this->dbTagsTable}.id, {$this->dbTagsTable}.tag FROM {$this->dbTagsTable}
  				INNER JOIN {$this->dbLinkTable} ON {$this->dbLinkTable}.tags_id = {$this->dbTagsTable}.id
- 				INNER JOIN {$this->dbTable} ON {$this->dbTable}.users_id = {$this->dbLinkTable}.users_id
- 				WHERE {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.users_id = %d
- 				ORDER BY  {$this->dbTagsTable}.tag ASC ";
+ 				INNER JOIN {$this->dbTable} ON {$this->dbTable}.users_id = {$this->dbLinkTable}.users_id AND {$this->dbTable}.blogs_id = {$this->dbLinkTable}.blogs_id
+ 				WHERE {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.users_id = %d ";
+
+		if ( true !== $show_hidden_tags ) $sql .= "AND {$this->dbTable}.deleted = 0 ";
+		$sql .= "ORDER BY {$this->dbTagsTable}.tag ASC ";
 
 		$sql = $wpdb->prepare( $sql, $tag_group, $this->userId );
 
@@ -336,7 +339,7 @@ class Catalog {
  				INNER JOIN {$this->dbLinkTable} ON {$this->dbLinkTable}.tags_id = {$this->dbTagsTable}.id
  				INNER JOIN {$this->dbTable} ON {$this->dbTable}.users_id = {$this->dbLinkTable}.users_id AND {$this->dbTable}.blogs_id = {$this->dbLinkTable}.blogs_id
  				WHERE {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.users_id = %d AND {$this->dbLinkTable}.blogs_id = %d
- 				ORDER BY  {$this->dbTagsTable}.tag ASC ";
+ 				ORDER BY {$this->dbTagsTable}.tag ASC ";
 
 		$sql = $wpdb->prepare( $sql, $tag_group, $this->userId, $blog_id );
 
