@@ -62,7 +62,7 @@ function _cover_height( $cover_url ) {
 
 	if ( preg_match( '/x(\d+)(?=\.(jp?g|png|gif)$)/i', $cover_url, $matches ) ) {
 		$new_cover_height = (int) $matches[1];
-		if ( $new_cover_height <= 0 ) $new_cover_height = $cover_height;
+		if ( $new_cover_height < 100 ) $new_cover_height = $cover_height;
 		elseif ( $new_cover_height > $cover_height ) $new_cover_height = $cover_height;
 	}
 
