@@ -75,8 +75,8 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		// Build row actions
 		$actions = array(
-			'visit' => sprintf( '<a href="%s">%s</a>', get_site_url( $blog_id ), __( 'Visit' ) ),
-			'dashboard' => sprintf( '<a href="%s">%s</a>', get_admin_url( $blog_id ), __( 'Edit Book', 'pressbooks' ) ),
+			'visit' => sprintf( '<a href="%s">%s</a>', get_site_url( $blog_id ), __( 'Visit Book' ) ),
+			'dashboard' => sprintf( '<a href="%s">%s</a>', get_admin_url( $blog_id ), __( 'Visit Admin', 'pressbooks' ) ),
 		);
 
 		// Return the title contents
@@ -96,10 +96,6 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function column_status( $item ) {
 
-		// TODO, Better HTML?
-		if ( $item['status'] ) $status = '<img src="' . esc_url( admin_url( 'images/yes.png' ) ) . '" alt="' . __( 'Yes' ) . '" />';
-		else $status = '<img src="' . esc_url( admin_url( 'images/no.png' ) ) . '" alt="' . __( 'No' ) . '" />';
-
 		$add_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
 		$add_url = add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url );
 		$add_url = static::addSearchParamsToUrl( $add_url );
@@ -108,11 +104,18 @@ class Catalog_List_Table extends \WP_List_Table {
 		$remove_url = add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $remove_url );
 		$remove_url = static::addSearchParamsToUrl( $remove_url );
 
-		// Build row actions
-		$actions = array(
-			'add' => sprintf( '<a href="%s">%s</a>', $add_url, __( 'Add', 'pressbooks' ) ),
-			'remove' => sprintf( '<a href="%s">%s</a>', $remove_url, __( 'Remove', 'pressbooks' ) ),
-		);
+		// TODO, Better HTML?
+		if ( $item['status'] ) {
+			$status = '<img src="' . esc_url( admin_url( 'images/yes.png' ) ) . '" alt="' . __( 'Yes' ) . '" />';
+			$actions = array(
+				'remove' => sprintf( '<a href="%s">%s</a>', $remove_url, __( 'Hide in Catalog', 'pressbooks' ) ),
+			);
+		} else {
+			$status = '<img src="' . esc_url( admin_url( 'images/no.png' ) ) . '" alt="' . __( 'No' ) . '" />';
+			$actions = array(
+				'add' => sprintf( '<a href="%s">%s</a>', $add_url, __( 'Show in Catalog', 'pressbooks' ) ),
+			);
+		}
 
 		// Return the title contents
 		return sprintf( '<span class="status">%1$s</span> %2$s',
@@ -171,7 +174,8 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$columns = array(
 			'cb' => '<input type="checkbox" />', // Render a checkbox instead of text
-			'status' => __( 'Status', 'pressbooks' ),
+			'status' => __( 'Catalog Status', 'pressbooks' ),
+			'privacy' => __( 'Privacy Status', 'pressbooks' ),
 			'cover' => __( 'Cover', 'pressbooks' ),
 			'title' => __( 'Title', 'pressbooks' ),
 			'author' => __( 'Author', 'pressbooks' ),
@@ -214,8 +218,8 @@ class Catalog_List_Table extends \WP_List_Table {
 	function get_bulk_actions() {
 
 		$actions = array(
-			'add' => __( 'Add', 'pressbooks' ),
-			'remove' => __( 'Remove', 'pressbooks' ),
+			'add' => __( 'Show in Catalog', 'pressbooks' ),
+			'remove' => __( 'Hide in Catalog', 'pressbooks' ),
 		);
 
 		return $actions;
@@ -383,6 +387,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			$data[$i]['author'] = @$metadata['pb_author'];
 			$data[$i]['featured'] = $val['featured'];
 			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
+			$data[$i]['privacy'] = ( 1 == get_option( 'blog_public' ) ? __( 'Public', 'pressbooks' ) : __( 'Private', 'pressbooks' ) );
 
 			// Cover
 			if ( $meta_version < 7 || preg_match( '~assets/images/default-book-cover\.jpg$~', $metadata['pb_cover_image'] ) ) {
@@ -416,6 +421,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			$data[$i]['author'] = @$metadata['pb_author'];
 			$data[$i]['featured'] = 0;
 			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
+			$data[$i]['privacy'] = ( 1 == get_option( 'blog_public' ) ? __( 'Public', 'pressbooks' ) : __( 'Private', 'pressbooks' ) );
 
 			// Cover
 			if ( $meta_version < 7 || preg_match( '~assets/images/default-book-cover\.jpg$~', $metadata['pb_cover_image'] ) ) {
