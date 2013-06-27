@@ -473,7 +473,7 @@ class Catalog {
 			if ( 'pb_catalog_logo' == $key )
 				continue; // Skip, dev should use uploadLogo() instead
 
-			if ( 'pb_catalog_url' == $key )
+			if ( 'pb_catalog_url' == $key && $val )
 				$val = \PressBooks\Sanitize\canonicalize_url( $val );
 
 			if ( '%d' == $this->profileMetaKeys[$key] ) {
@@ -699,11 +699,9 @@ class Catalog {
 	/**
 	 * Simple templating function.
 	 *
-	 * @param array $vars
+	 * @param int $user_id
 	 */
-	static function loadTemplate( $vars ) {
-
-		extract( $vars );
+	static function loadTemplate( $user_id ) {
 
 		$_child = untrailingslashit( get_stylesheet_directory() ) . '/pb-catalog.php';
 		$_parent = untrailingslashit( get_template_directory() ) . '/pb-catalog.php';
