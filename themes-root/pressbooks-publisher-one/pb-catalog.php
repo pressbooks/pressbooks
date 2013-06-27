@@ -70,6 +70,30 @@ function _cover_height( $cover_url ) {
 }
 
 /**
+ * Get about
+ *
+ * @param array $metadata
+ *
+ * @return string
+ */
+function _about( $metadata ) {
+
+	if ( ! empty( $metadata['pb_about_50'] ) )
+		$about = $metadata['pb_about_50'];
+
+	elseif ( ! empty( $metadata['pb_about_140'] ) )
+		$about = $metadata['pb_about_140'];
+
+	elseif ( ! empty( $metadata['pb_about_unlimited'] ) )
+		$about = $metadata['pb_about_unlimited'];
+
+	else
+		$about = '';
+
+	return trim( strip_tags( pb_decode( $about ) ) );
+}
+
+/**
  * Get book data
  * Sort by featured DESC, title ASC
  *
@@ -94,7 +118,7 @@ function _books( PB_Catalog $catalog ) {
 		$books[$i]['ID'] = $val['blogs_id'];
 		$books[$i]['title'] = @$metadata['pb_title'];
 		$books[$i]['author'] = @$metadata['pb_author'];
-		$books[$i]['about'] = trim( strip_tags( pb_decode( @$metadata['pb_about_unlimited'] ) ) );
+		$books[$i]['about'] = _about( $metadata );
 		$books[$i]['cover_url'] = _cover_url( $metadata );
 		$books[$i]['cover_height'] = _cover_height( $books[$i]['cover_url'] );
 		$books[$i]['featured'] = $val['featured'];

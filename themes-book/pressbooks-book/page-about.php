@@ -12,7 +12,7 @@
           <?php elseif ( ! empty( $metadata['pb_about_50'] ) ): ?>
           <?php echo $metadata['pb_about_50']; ?>
           
-          <!-- if no About 50 word description, set About 140 characters description --> 
+          <!-- if no About 140 word description, set About 140 characters description -->
           <?php elseif ( ! empty( $metadata['pb_about_140'] ) ): ?>
           <?php echo $metadata['pb_about_140']; ?>
           
