@@ -10,11 +10,11 @@
           
           <!-- if no About unlimited description, set About 50 word description -->
           <?php elseif ( ! empty( $metadata['pb_about_50'] ) ): ?>
-          <?php echo $metadata['pb_about_unlimited']; ?>
+          <?php echo $metadata['pb_about_50']; ?>
           
           <!-- if no About 50 word description, set About 140 characters description --> 
           <?php elseif ( ! empty( $metadata['pb_about_140'] ) ): ?>
-          <?php echo $metadata['pb_about_unlimited']; ?>
+          <?php echo $metadata['pb_about_140']; ?>
           
            <!-- if no About set at all --> 
           <?php else: ?>
