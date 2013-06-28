@@ -72,8 +72,35 @@ function is_valid_image( $data, $filename, $is_stream = false ) {
 
 		$func = 'imagecreatefrom' . $format;
 		$image = @$func( $data );
+
 		if ( $image === false ) {
-			return false;
+
+			try { // for images that lie; hide behind an extension 
+				$resource = finfo_open( FILEINFO_MIME_TYPE );
+				$mime_type = finfo_file( $resource, $data );
+
+				switch ( $mime_type ) {
+
+					case 'image/gif':
+						$func = 'imagecreatefromgif';
+						break;
+					case 'image/png':
+						$func = 'imagecreatefrompng';
+						break;
+					case 'image/jpeg':
+						$func = 'imagecreatefromjpeg';
+						break;
+				};
+
+				$image = @$func( $data );
+
+				if ( $image === false ) {
+					throw new Exception( 'Image is corrupted' );
+				}
+			} catch ( Exception $exc ) {
+
+				return false;
+			}
 		}
 	}
 
