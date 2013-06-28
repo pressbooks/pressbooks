@@ -6,6 +6,8 @@ if ( ! defined( 'ABSPATH' ) )
 use \PressBooks\Image as PB_Image;
 use \PressBooks\Catalog as PB_Catalog;
 
+// TODO: Move logic out of the template
+
 // -------------------------------------------------------------------------------------------------------------------
 // Helpers
 // -------------------------------------------------------------------------------------------------------------------
@@ -192,7 +194,7 @@ $h1_title = __( 'Catalog', 'pressbooks' );
 					echo "<li><a href='$tag_url' ";
 					if ( $i == @$_REQUEST['tag_group'] && $val['id'] == @$_REQUEST['tag_id'] ) {
 						echo 'class="active"';
-						$h1_title = __( 'Catalog, filtering by:', 'pressbooks' ) . " {$val['tag']}";
+						$h1_title = __( 'Catalog, filtering by', 'pressbooks' ) . ": {$val['tag']}";
 						$h1_title .= ' <span style="font-weight:normal;font-size:60%;">[<a href="' . _base_url( $catalog->getUserId() ) . '">x</a>]</span>';
 					}
 					echo ">{$val['tag']}</a></li>" . "\n";
