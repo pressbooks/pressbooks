@@ -220,10 +220,19 @@ class Wxr extends Import {
 		}
 
 		if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-			// Garbage, don't import
-			$already_done[$remote_img_location] = '';
-			unlink( $tmp_name );
-			return '';
+
+			try { // changing the file name so that extension matches the mime type
+				$filename = $this->properImageExtension( $tmp_name, $filename );
+
+				if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
+				}
+			} catch ( Exception $exc ) {
+				// Garbage, don't import
+				$already_done[$remote_img_location] = '';
+				unlink( $tmp_name );
+				return '';
+			}
 		}
 
 		$pid = media_handle_sideload( array ( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );

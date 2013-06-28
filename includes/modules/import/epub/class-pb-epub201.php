@@ -484,9 +484,18 @@ class Epub201 extends Import {
 		file_put_contents( $tmp_name, $image_content );
 
 		if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
-			// Garbage, Don't import
-			$already_done[$img_location] = '';
-			return '';
+
+			try { // changing the file name so that extension matches the mime type
+				$filename = $this->properImageExtension( $tmp_name, $filename );
+
+				if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
+				}
+			} catch ( Exception $exc ) {
+				// Garbage, Don't import
+				$already_done[$img_location] = '';
+				return '';
+			}
 		}
 
 		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
