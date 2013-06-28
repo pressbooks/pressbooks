@@ -127,7 +127,7 @@ class Catalog {
 	/**
 	 * Get an entire catalog.
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	function get() {
 
@@ -140,9 +140,9 @@ class Catalog {
 
 
 	/**
-	 * TODO
+	 * Get all data for an entire catalog, cached
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	function getAggregate() {
 
@@ -333,7 +333,7 @@ class Catalog {
 	 *
 	 * @param bool $for_real (optional)
 	 *
-	 * @return mixed
+	 * @return int|false
 	 */
 	function delete( $for_real = false ) {
 
@@ -362,7 +362,7 @@ class Catalog {
 	 *
 	 * @param int $blog_id
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	function getBook( $blog_id ) {
 
@@ -395,7 +395,7 @@ class Catalog {
 	 * @param $blog_id
 	 * @param array $item
 	 *
-	 * @return mixed
+	 * @return int|false
 	 */
 	function saveBook( $blog_id, array $item ) {
 
@@ -452,7 +452,7 @@ class Catalog {
 	 * @param int $blog_id
 	 * @param bool $for_real (optional)
 	 *
-	 * @return mixed
+	 * @return int|false
 	 */
 	function deleteBook( $blog_id, $for_real = false ) {
 
@@ -473,7 +473,7 @@ class Catalog {
 	 * @param int $tag_group
 	 * @param bool $show_hidden_tags (optional)
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	function getTags( $tag_group, $show_hidden_tags = true ) {
 
@@ -500,7 +500,7 @@ class Catalog {
 	 * @param int $blog_id
 	 * @param int $tag_group
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	function getTagsByBook( $blog_id, $tag_group ) {
 
@@ -526,7 +526,7 @@ class Catalog {
 	 * @param int $blog_id
 	 * @param int $tag_group
 	 *
-	 * @return \false|int
+	 * @return int|false
 	 */
 	function saveTag( $tag, $blog_id, $tag_group ) {
 
@@ -569,7 +569,7 @@ class Catalog {
 	 * @param int $tag_group
 	 * @param bool $for_real (optional)
 	 *
-	 * @return mixed
+	 * @return int|false
 	 */
 	function deleteTag( $tag, $blog_id, $tag_group, $for_real = false ) {
 
@@ -612,7 +612,7 @@ class Catalog {
 	 * @param $blog_id
 	 * @param $tag_group
 	 *
-	 * @return mixed
+	 * @return int|false
 	 */
 	function deleteTags( $blog_id, $tag_group ) {
 
@@ -1018,6 +1018,8 @@ class Catalog {
 
 
 	/**
+	 * Save bulk actions
+	 *
 	 * @param $action
 	 */
 	protected static function formBulk( $action ) {
@@ -1084,7 +1086,7 @@ class Catalog {
 
 
 	/**
-	 *
+	 * Save tags to database
 	 */
 	protected static function formTags() {
 
@@ -1132,7 +1134,7 @@ class Catalog {
 
 
 	/**
-	 *
+	 * Save catalog profile to database
 	 */
 	protected static function formProfile() {
 
