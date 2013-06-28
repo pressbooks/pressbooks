@@ -371,6 +371,7 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		foreach ( $data as $key => $val ) {
 			$data[$key]['status'] = ( 1 == $val['deleted'] ) ? 0 : 1;
+			$data[$key]['privacy'] = ( 1 == $val['private'] ? __( 'Private', 'pressbooks' ) : __( 'Public', 'pressbooks' ) );
 			$data[$key]['cover'] = $val['cover_url']['pb_cover_small'];
 		}
 

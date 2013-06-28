@@ -186,7 +186,7 @@ class Catalog {
 			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
 			$data[$i]['author'] = @$metadata['pb_author'];
 			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
-			$data[$i]['privacy'] = ( 1 == get_option( 'blog_public' ) ? __( 'Public', 'pressbooks' ) : __( 'Private', 'pressbooks' ) );
+			$data[$i]['private'] = ( 1 == get_option( 'blog_public' ) ? 0 : 1 );
 
 			// About
 			if ( ! empty( $metadata['pb_about_50'] ) ) $about = $metadata['pb_about_50'];
@@ -242,7 +242,7 @@ class Catalog {
 			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
 			$data[$i]['author'] = @$metadata['pb_author'];
 			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
-			$data[$i]['privacy'] = ( 1 == get_option( 'blog_public' ) ? __( 'Public', 'pressbooks' ) : __( 'Private', 'pressbooks' ) );
+			$data[$i]['private'] = ( 1 == get_option( 'blog_public' ) ? 0 : 1 );
 
 			// About
 			if ( ! empty( $metadata['pb_about_50'] ) ) $about = $metadata['pb_about_50'];
