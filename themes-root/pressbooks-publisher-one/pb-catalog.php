@@ -26,26 +26,7 @@ function _logo_url( $profile ) {
 		return PB_PLUGIN_URL . 'assets/images/default-book-cover-100x100.jpg';
 
 	else
-		return PB_Image\thumbnail_from_url( $profile['pb_catalog_logo'], 'thumbnail' );
-}
-
-/**
- * Get book cover
- *
- * @param array $metadata
- *
- * @return string
- */
-function _cover_url( $metadata ) {
-
-	if ( empty( $metadata['pb_cover_image'] ) )
-		return PB_PLUGIN_URL . 'assets/images/default-book-cover-225x0.jpg';
-
-	elseif ( PB_Image\is_default_cover( $metadata['pb_cover_image'] ) )
-		return PB_PLUGIN_URL . 'assets/images/default-book-cover-225x0.jpg';
-
-	else
-		return \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_medium' );
+		return PB_Catalog::thumbnailFromUserId( $profile['users_id'], 'thumbnail' );
 }
 
 /**
@@ -69,29 +50,6 @@ function _cover_height( $cover_url ) {
 	return isset( $new_cover_height ) ? $new_cover_height : $cover_height;
 }
 
-/**
- * Get about
- *
- * @param array $metadata
- *
- * @return string
- */
-function _about( $metadata ) {
-
-	if ( ! empty( $metadata['pb_about_50'] ) )
-		$about = $metadata['pb_about_50'];
-
-	elseif ( ! empty( $metadata['pb_about_140'] ) )
-		$about = $metadata['pb_about_140'];
-
-	elseif ( ! empty( $metadata['pb_about_unlimited'] ) )
-		$about = $metadata['pb_about_unlimited'];
-
-	else
-		$about = '';
-
-	return trim( strip_tags( pb_decode( $about ) ) );
-}
 
 /**
  * Get book data
@@ -103,27 +61,38 @@ function _about( $metadata ) {
  */
 function _books( PB_Catalog $catalog ) {
 
-	if ( @$_REQUEST['tag_group'] && @$_REQUEST['tag_id'] ) {
-		$book_ids = $catalog->getByTagId( $_REQUEST['tag_group'], $_REQUEST['tag_id'] );
-	} else {
-		$book_ids = $catalog->get();
+	$tag_group = $tag_id = false;
+	if ( ! empty( $_REQUEST['tag_group'] ) && ! empty( $_REQUEST['tag_id'] ) ) {
+		$tag_group = absint( $_REQUEST['tag_group'] );
+		$tag_id = absint( $_REQUEST['tag_id'] );
 	}
 
-	$books = array();
-	foreach ( $book_ids as $i => $val ) {
+	$books = $catalog->getAggregate();
 
-		switch_to_blog( $val['blogs_id'] );
-		$metadata = \PressBooks\Book::getBookInformation();
+	foreach ( $books as $key => $val ) {
 
-		$books[$i]['ID'] = $val['blogs_id'];
-		$books[$i]['title'] = @$metadata['pb_title'];
-		$books[$i]['author'] = @$metadata['pb_author'];
-		$books[$i]['about'] = _about( $metadata );
-		$books[$i]['cover_url'] = _cover_url( $metadata );
-		$books[$i]['cover_height'] = _cover_height( $books[$i]['cover_url'] );
-		$books[$i]['featured'] = $val['featured'];
+		// Deleted
+		if ( $val['deleted'] ) {
+			unset ( $books[$key] );
+			continue;
+		}
+		// Tagged
+		if ( $tag_group && $tag_id  ) {
+			$tag_found = false;
+			foreach ( $val["tag_{$tag_group}"] as $tag ) {
+				if ( $tag_id == $tag['id'] ) {
+					$tag_found = true;
+					break;
+				}
+			}
+			if ( ! $tag_found ) {
+				unset ( $books[$key] );
+				continue;
+			}
+		}
 
-		restore_current_blog();
+		// Calculate cover height
+		$books[$key]['cover_height'] = _cover_height( $val['cover_url']['pb_cover_medium'] );
 	}
 
 	return \PressBooks\Utility\multi_sort( $books, 'featured:desc', 'title:asc' );
@@ -249,14 +218,14 @@ $h1_title = __( 'Catalog', 'pressbooks' );
 			<div class="book-data">
 
 				<div class="book">
-					<p class="book-description"><a href="<?php echo get_site_url( $b['ID']  ); ?>"><?php echo $b['about']; ?><span class="book-link">&rarr;</span></a></p>
-					<img src="<?php echo $b['cover_url']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" />
+					<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id']  ); ?>"><?php echo $b['about']; ?><span class="book-link">&rarr;</span></a></p>
+					<img src="<?php echo $b['cover_url']['pb_cover_medium']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" />
 				</div><!-- end .book -->
 
 				<div class="book-info">
 					<h2><?php echo $b['title']; ?></h2>
 
-					<p><a href="<?php echo get_site_url( $b['ID'] ); ?>"><?php echo $b['author']; ?></a></p>
+					<p><a href="<?php echo get_site_url( $b['blogs_id'] ); ?>"><?php echo $b['author']; ?></a></p>
 				</div><!-- end book-info -->
 
 			</div><!-- end .book-data -->

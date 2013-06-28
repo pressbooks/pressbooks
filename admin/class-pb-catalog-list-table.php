@@ -345,7 +345,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	}
 
 	/**
-	 * TODO: This isn't documented, not sure i'm doing it right...
+	 * TODO: This isn't well documented, not sure i'm doing it right...
 	 *
 	 * @return array
 	 */
@@ -364,81 +364,15 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	protected function getItemsData() {
 
-		// TODO: Caching
 		// TODO: Improve search filter for big data
-		// TODO: Don't use switch_to_blog()
 
 		$catalog_obj = new Catalog();
-		$catalog = $catalog_obj->get();
-		$userblogs = get_blogs_of_user( $catalog_obj->getUserId() );
-		$data = array();
-		$already_loaded = array();
-		$i = 0;
+		$data = $catalog_obj->getAggregate();
 
-		foreach ( $catalog as $val ) {
-			switch_to_blog( $val['blogs_id'] );
-
-			$metadata = Book::getBookInformation();
-			$meta_version = get_option( 'pressbooks_metadata_version', 0 );
-
-			$data[$i]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
-			$data[$i]['status'] = 1;
-			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
-			$data[$i]['author'] = @$metadata['pb_author'];
-			$data[$i]['featured'] = $val['featured'];
-			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
-			$data[$i]['privacy'] = ( 1 == get_option( 'blog_public' ) ? __( 'Public', 'pressbooks' ) : __( 'Private', 'pressbooks' ) );
-
-			// Cover
-			if ( $meta_version < 7 || preg_match( '~assets/images/default-book-cover\.jpg$~', $metadata['pb_cover_image'] ) ) {
-				$data[$i]['cover'] = PB_PLUGIN_URL . 'assets/images/default-book-cover-65x0.jpg';
-			} else {
-				$data[$i]['cover'] = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_small' );
-			}
-
-			// Tags
-			for ( $j = 1; $j <= $catalog_obj::$maxTagsGroup; ++$j ) {
-				$data[$i]["tag_{$j}"] = $catalog_obj->getTagsByBook( $val['blogs_id'], $j );
-			}
-
-			++$i;
-			$already_loaded[$val['blogs_id']] = true;
+		foreach ( $data as $key => $val ) {
+			$data[$key]['status'] = ( 1 == $val['deleted'] ) ? 0 : 1;
+			$data[$key]['cover'] = $val['cover_url']['pb_cover_small'];
 		}
-
-		foreach ( $userblogs as $book ) {
-			// Skip
-			if ( is_main_site( $book->userblog_id ) ) continue;
-			if ( isset( $already_loaded[$book->userblog_id] ) ) continue;
-
-			switch_to_blog( $book->userblog_id );
-
-			$metadata = Book::getBookInformation();
-			$meta_version = get_option( 'pressbooks_metadata_version', 0 );
-
-			$data[$i]['ID'] = "{$catalog_obj->getUserId()}:{$book->userblog_id}";
-			$data[$i]['status'] = 0;
-			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
-			$data[$i]['author'] = @$metadata['pb_author'];
-			$data[$i]['featured'] = 0;
-			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
-			$data[$i]['privacy'] = ( 1 == get_option( 'blog_public' ) ? __( 'Public', 'pressbooks' ) : __( 'Private', 'pressbooks' ) );
-
-			// Cover
-			if ( $meta_version < 7 || preg_match( '~assets/images/default-book-cover\.jpg$~', $metadata['pb_cover_image'] ) ) {
-				$data[$i]['cover'] = PB_PLUGIN_URL . 'assets/images/default-book-cover-65x0.jpg';
-			} else {
-				$data[$i]['cover'] = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'pb_cover_small' );
-			}
-
-			// Tags
-			for ( $j = 1; $j <= $catalog_obj::$maxTagsGroup; ++$j ) {
-				$data[$i]["tag_{$j}"] = $catalog_obj->getTagsByBook( $book->userblog_id, $j );
-			}
-
-			++$i;
-		}
-
-		restore_current_blog();
 
 		return $this->searchFilter( $data );
 	}

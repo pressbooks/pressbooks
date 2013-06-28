@@ -46,6 +46,16 @@ class Catalog {
 
 
 	/**
+	 * WP's Memcached Object Cache prefixes keys with global $blog_id
+	 * This causes unexpected (broken) behaviour when using switch_to_blog() in a foreach() loop
+	 * We fix this by doing wp_cache_add_global_groups(array($this->globalCacheGroup)) in our constructor
+	 *
+	 * @var string
+	 */
+	protected $globalCacheGroup = 'pb';
+
+
+	/**
 	 * Column structure of catalog_table
 	 *
 	 * @var array
@@ -97,6 +107,9 @@ class Catalog {
 		} else {
 			$this->userId = get_current_user_id();
 		}
+
+		// Init global
+		wp_cache_add_global_groups( array( $this->globalCacheGroup ) );
 	}
 
 
@@ -123,6 +136,156 @@ class Catalog {
 		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ", $this->userId );
 
 		return $wpdb->get_results( $sql, ARRAY_A );
+	}
+
+
+	/**
+	 * TODO
+	 *
+	 * @return mixed
+	 */
+	function getAggregate() {
+
+		// -----------------------------------------------------------------------------
+		// Is cached?
+		// -----------------------------------------------------------------------------
+
+		$cache_id = "pb-catalog-{$this->userId}";
+		$data = wp_cache_get( $cache_id, $this->globalCacheGroup );
+		if ( $data ) {
+			return $data;
+		}
+
+		// ----------------------------------------------------------------------------
+		// User Catalog
+		// ----------------------------------------------------------------------------
+
+		$cover_sizes = array(
+			'thumbnail' => PB_PLUGIN_URL . 'assets/images/default-book-cover-100x100.jpg',
+			'pb_cover_small' => PB_PLUGIN_URL . 'assets/images/default-book-cover-65x0.jpg',
+			'pb_cover_medium' => PB_PLUGIN_URL . 'assets/images/default-book-cover-225x0.jpg',
+			'pb_cover_large' => PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg',
+		);
+
+		$catalog = $this->get();
+		$data = array();
+		$i = 0;
+		$already_loaded = array();
+
+		foreach ( $catalog as $val ) {
+			switch_to_blog( $val['blogs_id'] );
+
+			$metadata = Book::getBookInformation();
+			$meta_version = get_option( 'pressbooks_metadata_version', 0 );
+
+			$data[$i]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
+			$data[$i]['users_id'] = $val['users_id'];
+			$data[$i]['blogs_id'] = $val['blogs_id'];
+			$data[$i]['featured'] = $val['featured'];
+			$data[$i]['deleted'] = 0;
+			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
+			$data[$i]['author'] = @$metadata['pb_author'];
+			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
+			$data[$i]['privacy'] = ( 1 == get_option( 'blog_public' ) ? __( 'Public', 'pressbooks' ) : __( 'Private', 'pressbooks' ) );
+
+			// About
+			if ( ! empty( $metadata['pb_about_50'] ) ) $about = $metadata['pb_about_50'];
+			elseif ( ! empty( $metadata['pb_about_140'] ) ) $about = $metadata['pb_about_140'];
+			elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) $about = $metadata['pb_about_unlimited'];
+			else $about = '';
+			$data[$i]['about'] = $about;
+
+			// Cover Full
+			if ( $meta_version < 7 ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+			elseif ( empty( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+			elseif ( \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+			else $cover = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
+			$data[$i]['cover_url']['full'] = $cover;
+
+			// Cover Thumbnails
+			$cid = \PressBooks\Image\attachment_id_from_url( $cover );
+			foreach ( $cover_sizes as $size => $default ) {
+				$cid_thumb = wp_get_attachment_image_src( $cid, $size );
+				if ( $cid_thumb ) {
+					$data[$i]['cover_url'][$size] = $cid_thumb[0];
+				} else {
+					$data[$i]['cover_url'][$size] = $default;
+				}
+			}
+
+			// Tags
+			for ( $j = 1; $j <= static::$maxTagsGroup; ++$j ) {
+				$data[$i]["tag_{$j}"] = $this->getTagsByBook( $val['blogs_id'], $j );
+			}
+
+			$already_loaded[$val['blogs_id']] = true;
+			++$i;
+		}
+
+		$userblogs = get_blogs_of_user( $this->userId );
+		foreach ( $userblogs as $book ) {
+
+			// Skip
+			if ( is_main_site( $book->userblog_id ) ) continue;
+			if ( isset( $already_loaded[$book->userblog_id] ) ) continue;
+
+			switch_to_blog( $book->userblog_id );
+
+			$metadata = Book::getBookInformation();
+			$meta_version = get_option( 'pressbooks_metadata_version', 0 );
+
+			$data[$i]['ID'] = "{$this->userId}:{$book->userblog_id}";
+			$data[$i]['users_id'] = $this->userId;
+			$data[$i]['blogs_id'] = $book->userblog_id;
+			$data[$i]['featured'] = 0;
+			$data[$i]['deleted'] = 1;
+			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
+			$data[$i]['author'] = @$metadata['pb_author'];
+			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
+			$data[$i]['privacy'] = ( 1 == get_option( 'blog_public' ) ? __( 'Public', 'pressbooks' ) : __( 'Private', 'pressbooks' ) );
+
+			// About
+			if ( ! empty( $metadata['pb_about_50'] ) ) $about = $metadata['pb_about_50'];
+			elseif ( ! empty( $metadata['pb_about_140'] ) ) $about = $metadata['pb_about_140'];
+			elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) $about = $metadata['pb_about_unlimited'];
+			else $about = '';
+			$data[$i]['about'] = $about;
+
+			// Cover Full
+			if ( $meta_version < 7 ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+			elseif ( empty( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+			elseif ( \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+			else $cover = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
+			$data[$i]['cover_url']['full'] = $cover;
+
+			// Cover Thumbnails
+			$cid = \PressBooks\Image\attachment_id_from_url( $cover );
+			foreach ( $cover_sizes as $size => $default ) {
+				$cid_thumb = wp_get_attachment_image_src( $cid, $size );
+				if ( $cid_thumb ) {
+					$data[$i]['cover_url'][$size] = $cid_thumb[0];
+				} else {
+					$data[$i]['cover_url'][$size] = $default;
+				}
+			}
+
+			// Tags
+			for ( $j = 1; $j <= static::$maxTagsGroup; ++$j ) {
+				$data[$i]["tag_{$j}"] = $this->getTagsByBook( $book->userblog_id, $j );
+			}
+
+			++$i;
+		}
+
+		restore_current_blog();
+
+		// -----------------------------------------------------------------------------
+		// Cache & Return
+		// -----------------------------------------------------------------------------
+
+		wp_cache_set( $cache_id, $data, $this->globalCacheGroup );
+
+		return $data;
 	}
 
 
@@ -182,6 +345,15 @@ class Catalog {
 		} else {
 			return $wpdb->update( $this->dbTable, array( 'deleted' => 1 ), array( 'users_id' => $this->userId ), array( '%d' ), array( '%d' ) );
 		}
+	}
+
+
+	/**
+	 * Delete the cache(s)
+	 */
+	function deleteCache() {
+
+		wp_cache_delete( "pb-catalog-{$this->userId}", $this->globalCacheGroup );
 	}
 
 
@@ -473,7 +645,7 @@ class Catalog {
 	 */
 	function getProfile() {
 
-		$profile = array();
+		$profile['users_id'] = $this->userId;
 		foreach ( $this->profileMetaKeys as $key => $type ) {
 			$profile[$key] = get_user_meta( $this->userId, $key, true );
 		}
@@ -593,12 +765,6 @@ class Catalog {
 	 */
 	protected function createTables() {
 
-		/* TODO: Before launch
-		 DROP TABLE  `wp_pressbooks_catalog` ,
-		`wp_pressbooks_tags` ,
-		`wp_pressbooks__catalog__tags` ;
-		 */
-
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
 		$sql = "CREATE TABLE {$this->dbTable} (
@@ -690,10 +856,13 @@ class Catalog {
 	 */
 	static function thumbnailFromUserId( $user_id, $size ) {
 
+		$image_url = get_user_meta( $user_id, 'pb_catalog_logo', true );
 		$book = get_active_blog_for_user( $user_id );
-		switch_to_blog( $book->blog_id );
-		$image_url = \PressBooks\Image\thumbnail_from_url( get_user_meta( $user_id, 'pb_catalog_logo', true ), $size );
-		restore_current_blog();
+		if ( $book ) {
+			switch_to_blog( $book->blog_id );
+			$image_url = \PressBooks\Image\thumbnail_from_url( $image_url, $size );
+			restore_current_blog();
+		}
 
 		return $image_url;
 	}
@@ -838,7 +1007,6 @@ class Catalog {
 			if ( $old_id ) wp_delete_attachment( $old_id, true );
 
 			update_user_meta( $user_id, 'pb_catalog_logo', \PressBooks\Image\default_cover_url() );
-			// TODO: Delete cache
 
 			restore_current_blog();
 		}
@@ -905,6 +1073,8 @@ class Catalog {
 			}
 		}
 
+		$catalog->deleteCache();
+
 		// Ok!
 		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
 
@@ -951,6 +1121,8 @@ class Catalog {
 			}
 		}
 
+		$catalog->deleteCache();
+
 		// Ok!
 		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
 
@@ -985,6 +1157,8 @@ class Catalog {
 		$catalog = new static( $user_id );
 		$catalog->saveProfile( $_POST );
 		$catalog->uploadLogo( 'pb_catalog_logo' );
+
+		$catalog->deleteCache();
 
 		// Ok!
 		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
