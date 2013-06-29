@@ -254,7 +254,6 @@ function delete_attachment( $post_id ) {
 
 		if ( $id ) {
 			update_user_meta( $post->post_author, 'pb_catalog_logo', \PressBooks\Image\default_cover_url() );
-			// TODO: Delete cache
 		}
 	}
 }
@@ -283,7 +282,6 @@ function save_attachment( $data, $post_id ) {
 
 		// Update pb_catalog_logo to point to edited file
 		update_user_meta( $post->post_author, 'pb_catalog_logo', $url );
-		// TODO: Delete cache
 	}
 
 	return $data;
