@@ -17,8 +17,7 @@ class PressBooks {
 	function __construct() {
 
 		/**
-		/* Memcached Object Cache v2.0.2 doesn't do wp_cache_switch_to_blog()
-		/* This causes unexpected (broken) behaviour when using switch_to_blog()
+		/* Memcached Object Cache v2.0.2 doesn't like when we loop on switch_to_blog()
 		/* We "fix" this by storing our cached items in global group 'pb'
 		 */
 		wp_cache_add_global_groups( array( 'pb' ) );
