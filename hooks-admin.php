@@ -160,10 +160,10 @@ if ( \PressBooks\Book::isBook() ) {
 			update_user_meta( $user_id, 'show_welcome_panel', 0 );
 		}
 	} );
-	
-	 // Disable live preview
-    add_filter( 'theme_action_links', function ( $actions ) {
-        unset ( $actions['preview'] );
-        return $actions;
-    } );
+
+	// Disable live preview
+	add_filter( 'theme_action_links', function ( $actions ) {
+		unset ( $actions['preview'] );
+		return $actions;
+	} );
 }
