@@ -46,16 +46,6 @@ class Catalog {
 
 
 	/**
-	 * WP's Memcached Object Cache prefixes keys with global $blog_id
-	 * This causes unexpected (broken) behaviour when using switch_to_blog() in a foreach() loop
-	 * We fix this by doing wp_cache_add_global_groups(array($this->globalCacheGroup)) in our constructor
-	 *
-	 * @var string
-	 */
-	protected $globalCacheGroup = 'pb';
-
-
-	/**
 	 * Column structure of catalog_table
 	 *
 	 * @var array
@@ -108,8 +98,6 @@ class Catalog {
 			$this->userId = get_current_user_id();
 		}
 
-		// Init global
-		wp_cache_add_global_groups( array( $this->globalCacheGroup ) );
 	}
 
 
@@ -151,7 +139,7 @@ class Catalog {
 		// -----------------------------------------------------------------------------
 
 		$cache_id = "pb-catalog-{$this->userId}";
-		$data = wp_cache_get( $cache_id, $this->globalCacheGroup );
+		$data = wp_cache_get( $cache_id, 'pb' );
 		if ( $data ) {
 			return $data;
 		}
@@ -283,7 +271,7 @@ class Catalog {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $data, $this->globalCacheGroup );
+		wp_cache_set( $cache_id, $data, 'pb' );
 
 		return $data;
 	}
@@ -353,7 +341,7 @@ class Catalog {
 	 */
 	function deleteCache() {
 
-		wp_cache_delete( "pb-catalog-{$this->userId}", $this->globalCacheGroup );
+		wp_cache_delete( "pb-catalog-{$this->userId}", 'pb' );
 	}
 
 

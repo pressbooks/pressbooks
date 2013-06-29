@@ -56,7 +56,7 @@ class Book {
 
 		global $blog_id;
 		$cache_id = "pb-book-information-$blog_id";
-		$book_information = wp_cache_get( $cache_id );
+		$book_information = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_information ) {
 			return $book_information;
 		}
@@ -107,7 +107,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_information );
+		wp_cache_set( $cache_id, $book_information, 'pb' );
 
 		return $book_information;
 	}
@@ -128,7 +128,7 @@ class Book {
 
 		global $blog_id;
 		$cache_id = "pb-book-structure-$blog_id";
-		$book_structure = wp_cache_get( $cache_id );
+		$book_structure = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_structure ) {
 			return $book_structure;
 		}
@@ -241,7 +241,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_structure );
+		wp_cache_set( $cache_id, $book_structure, 'pb' );
 
 		return $book_structure;
 	}
@@ -262,7 +262,7 @@ class Book {
 
 		global $blog_id;
 		$cache_id = "pb-book-contents-$blog_id";
-		$book_contents = wp_cache_get( $cache_id );
+		$book_contents = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_contents ) {
 			return $book_contents;
 		}
@@ -297,7 +297,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_contents );
+		wp_cache_set( $cache_id, $book_contents, 'pb' );
 
 		return $book_contents;
 	}
@@ -310,9 +310,9 @@ class Book {
 
 		global $blog_id;
 
-		wp_cache_delete( "pb-book-information-$blog_id" );
-		wp_cache_delete( "pb-book-structure-$blog_id" );
-		wp_cache_delete( "pb-book-contents-$blog_id" );
+		wp_cache_delete( "pb-book-information-$blog_id", 'pb' );
+		wp_cache_delete( "pb-book-structure-$blog_id", 'pb' );
+		wp_cache_delete( "pb-book-contents-$blog_id", 'pb' );
 	}
 
 
