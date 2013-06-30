@@ -202,6 +202,7 @@ abstract class Export {
 
 		$book_title_slug = sanitize_file_name( get_bloginfo( 'name' ) );
 		$book_title_slug = str_replace( array( '+' ), '', $book_title_slug );
+		$book_title_slug = sanitize_file_name( $book_title_slug ); // str_replace() may inadvertently create a new bad filename, sanitize again for good measure.
 
 		if ( $fullpath ) {
 			$path = static::getExportFolder();
