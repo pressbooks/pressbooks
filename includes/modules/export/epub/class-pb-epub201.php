@@ -1135,7 +1135,7 @@ class Epub201 extends Export {
 				continue;
 			}
 
-			$html .= sprintf( '<li class="%s"><a href="%s">%s', $class, $v['filename'], Sanitize\decode( $v['post_title'] ) );
+			$html .= sprintf( '<li class="%s"><a href="%s"><span class="toc-chapter-title">%s</span>', $class, $v['filename'], Sanitize\decode( $v['post_title'] ) );
 
 			if ( $subtitle )
 				$html .= ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';

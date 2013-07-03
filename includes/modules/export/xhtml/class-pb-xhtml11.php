@@ -605,7 +605,7 @@ class Xhtml11 extends Export {
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $chapter['ID'], 'pb_section_author', true ) );
 
-						printf( '<li class="chapter"><a href="#%s">%s', $slug, Sanitize\decode( $title ) );
+						printf( '<li class="chapter"><a href="#%s"><span class="toc-chapter-title">%s</span>', $slug, Sanitize\decode( $title ) );
 
 						if ( $subtitle )
 							echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
@@ -641,7 +641,7 @@ class Xhtml11 extends Export {
 						$typetype = $type . ' ' . \PressBooks\Taxonomy\back_matter_type( $val['ID'] );
 					}
 
-					printf( '<li class="%s"><a href="#%s">%s', $typetype, $slug, Sanitize\decode( $title ) );
+					printf( '<li class="%s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $typetype, $slug, Sanitize\decode( $title ) );
 
 					if ( $subtitle )
 						echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
