@@ -442,15 +442,24 @@ class Catalog_List_Table extends \WP_List_Table {
 		?>
 		<div class="wrap">
 			<div id="icon-edit" class="icon32"><br /></div>
-			<h2>My Catalog
+			<h2><?php _e( 'My Catalog', 'pressbooks' ); ?>
 				<a href="<?php echo $url . '&action=edit_profile'; ?>" class="button add-new-h2"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
 				<a href="<?php echo $view_url; ?>" class="button add-new-h2"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
 			</h2>
 
 			<form id="books-filter" method="post" action="<?php echo $url; ?>" >
 				<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
-				<?php $list_table->search_box( 'search', 'search_id' ); ?>
+				<?php $list_table->search_box( __( 'Search', 'pressbooks' ), 'search_id' ); ?>
 				<?php if ( @$_REQUEST['user_id'] ) : ?><input type="hidden" name="user_id" value="<?php echo $_REQUEST['user_id'] ?>" /><?php endif; ?>
+
+				<!-- TODO: not ugly -->
+				<div style="float:right;">
+					<input type="text" id="add_book_by_url" name="add_book_by_url" /><label for="add_book_by_url">
+						<input type="submit" name="" id="search-submit" class="button" value="<?php esc_attr_e( 'Add By URL', 'pressbooks' ); ?>">
+					</label>
+					&nbsp;
+				</div>
+
 				<?php $list_table->display() ?>
 			</form>
 
