@@ -336,6 +336,7 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 	?>
 	<div class="custom-metadata-field image">
 		<script type="text/javascript">
+			// <![CDATA[
 			jQuery.noConflict();
 			jQuery(document).ready(function($){
 				jQuery('#delete_cover_button').click(function(e) {
@@ -366,6 +367,7 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 					});
 				});
 			});
+			// ]]>
 		</script>
 		<div class="<?php echo $form_id; ?>" id="<?php echo $form_id; ?>-1">
 			<?php if ( $image_url && ! \PressBooks\Image\is_default_cover( $image_url ) ) { ?>
