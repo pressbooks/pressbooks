@@ -436,7 +436,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		$url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
 		$view_url = static::viewCatalogUrl();
 
-		$list_table = new self();
+		$list_table = new static();
 		$list_table->prepare_items();
 
 		?>
