@@ -10,6 +10,10 @@
 namespace PressBooks;
 
 
+use \PressBooks\Catalog;
+use \PressBooks\Metadata;
+
+
 class Book {
 
 	/**
@@ -69,7 +73,7 @@ class Book {
 		$expected_the_content = array( 'pb_custom_copyright', 'pb_about_unlimited' );
 
 		$book_information = array();
-		$meta = new \PressBooks\Metadata();
+		$meta = new Metadata();
 		$data = $meta->getMetaPostMetadata();
 
 		foreach ( $data as $key => $val ) {
@@ -313,6 +317,7 @@ class Book {
 		wp_cache_delete( "pb-book-information-$blog_id", 'pb' );
 		wp_cache_delete( "pb-book-structure-$blog_id", 'pb' );
 		wp_cache_delete( "pb-book-contents-$blog_id", 'pb' );
+		( new Catalog() )->deleteCacheByBookId( $blog_id ); // PHP 5.4+
 	}
 
 

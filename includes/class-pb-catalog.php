@@ -337,15 +337,6 @@ class Catalog {
 
 
 	/**
-	 * Delete the cache(s)
-	 */
-	function deleteCache() {
-
-		wp_cache_delete( "pb-catalog-{$this->userId}", 'pb' );
-	}
-
-
-	/**
 	 * Get a book from a user catalog.
 	 *
 	 * @param int $blog_id
@@ -722,6 +713,34 @@ class Catalog {
 		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $image['file'] ) );
 
 		restore_current_blog();
+	}
+
+
+	/**
+	 * Delete the cache(s)
+	 */
+	function deleteCache() {
+
+		wp_cache_delete( "pb-catalog-{$this->userId}", 'pb' );
+	}
+
+
+	/**
+	 * Delete the cache(s) by Book ID
+	 *
+	 * @param int $book_id
+	 */
+	function deleteCacheByBookId( $book_id ) {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		$sql = "SELECT users_id FROM {$this->dbTable} WHERE blogs_id = %d ";
+		$results = $wpdb->get_col( $wpdb->prepare( $sql, $book_id ) );
+
+		foreach ( $results as $user_id ) {
+			wp_cache_delete( "pb-catalog-$user_id", 'pb' );
+		}
 	}
 
 
