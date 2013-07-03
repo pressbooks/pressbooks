@@ -88,6 +88,9 @@ class Wxr extends Import {
 
 			$html = $doc->saveXML( $doc->documentElement );
 
+			// Remove auto-created <html> <body> and <!DOCTYPE> tags.
+			$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
+
 			$new_post = array(
 				'post_title' => wp_strip_all_tags( $p['post_title'] ),
 				'post_content' => $html,
