@@ -447,10 +447,15 @@ class Catalog_List_Table extends \WP_List_Table {
 				<a href="<?php echo $view_url; ?>" class="button add-new-h2"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
 			</h2>
 
-			<form id="books-filter" method="post" action="<?php echo $url; ?>" >
-				<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
+			<form id="books-search" method="get" action="<?php echo $url; ?>" >
+				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>" />
+				<?php if ( @$_REQUEST['user_id'] ) : ?><input type="hidden" name="user_id" value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
 				<?php $list_table->search_box( __( 'Search', 'pressbooks' ), 'search_id' ); ?>
-				<?php if ( @$_REQUEST['user_id'] ) : ?><input type="hidden" name="user_id" value="<?php echo $_REQUEST['user_id'] ?>" /><?php endif; ?>
+			</form>
+
+			<form id="books-filter" method="post" action="<?php echo $url; ?>" >
+				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>" />
+				<?php if ( @$_REQUEST['user_id'] ) : ?><input type="hidden" name="user_id" value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
 
 				<!-- TODO: not ugly -->
 				<div style="float:right;">
