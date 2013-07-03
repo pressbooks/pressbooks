@@ -81,18 +81,18 @@ class Wxr extends Import {
 			// Load HTMl snippet into DOMDocument using UTF-8 hack
 			$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
 			$doc = new \DOMDocument();
-			$doc->loadHTML( $utf8_hack . $p['post_content'] );
+			$doc->loadHTML( $utf8_hack . $this->tidy( $p['post_content'] ) );
 
 			// Download images, change image paths
 			$doc = $this->scrapeAndKneadImages( $doc );
 
 			$html = $doc->saveXML( $doc->documentElement );
 
-			$new_post = array (
-			    'post_title' => wp_strip_all_tags( $p['post_title'] ),
-			    'post_content' => $this->tidy( $html ),
-			    'post_type' => $post_type,
-			    'post_status' => 'draft',
+			$new_post = array(
+				'post_title' => wp_strip_all_tags( $p['post_title'] ),
+				'post_content' => $html,
+				'post_type' => $post_type,
+				'post_status' => 'draft',
 			);
 
 			if ( 'chapter' == $post_type ) {
