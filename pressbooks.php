@@ -124,17 +124,17 @@ $GLOBALS['pressbooks'] = new \PressBooks\PressBooks();
 // Hooks
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once ( PB_PLUGIN_DIR . 'hooks.php' );
+require( PB_PLUGIN_DIR . 'hooks.php' );
 
 if ( is_admin() ) {
-	require_once ( PB_PLUGIN_DIR . 'hooks-admin.php' );
+	require( PB_PLUGIN_DIR . 'hooks-admin.php' );
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 // Shortcuts to help template designers who don't use real namespaces...
 // --------------------------------------------------------------------------------------------------------------------
 
-require_once ( PB_PLUGIN_DIR . 'functions.php' );
+require( PB_PLUGIN_DIR . 'functions.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Override wp_mail()
