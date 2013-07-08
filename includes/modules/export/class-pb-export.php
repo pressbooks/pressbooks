@@ -193,7 +193,7 @@ abstract class Export {
 	/**
 	 * Create a timestamped filename.
 	 *
-	 * @param      $extension
+	 * @param string $extension
 	 * @param bool $fullpath
 	 *
 	 * @return string
@@ -201,17 +201,14 @@ abstract class Export {
 	function timestampedFileName( $extension, $fullpath = true ) {
 
 		$book_title_slug = sanitize_file_name( get_bloginfo( 'name' ) );
-		$book_title_slug = str_replace( array( '+' ), '', $book_title_slug );
+		$book_title_slug = str_replace( array( '+' ), '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
+		$book_title_slug = sanitize_file_name( $book_title_slug ); // str_replace() may inadvertently create a new bad filename, sanitize again for good measure.
 
 		if ( $fullpath ) {
 			$path = static::getExportFolder();
 		} else {
 			$path = '';
 		}
-
-		// IMPORTANT: if you change the dash + time() convention then you need to also change
-		// pressbooks/admin/templates/export.php, which uses that convention to split and sort files.
-		// Maybe a few other places. :(
 
 		$filename = $path . $book_title_slug . '-' . time() . '.' . ltrim( $extension, '.' );
 
@@ -235,7 +232,8 @@ abstract class Export {
 		} elseif ( function_exists( 'mime_content_type' ) ) {
 			$mime = @mime_content_type( $file ); // Suppress deprecated message
 		} else {
-			$mime = system( "file -i -b " . escapeshellarg( $file ) );
+			exec( "file -i -b " . escapeshellarg( $file ), $output );
+			$mime = $output[0];
 		}
 
 		return $mime;
@@ -438,14 +436,8 @@ abstract class Export {
 	}
 
 
-	// ----------------------------------------------------------------------------------------------------------------
-	// Catch form submissions
-	// ----------------------------------------------------------------------------------------------------------------
-
 	/**
-	 * Overrides default WP template loading to do some funky stuff
-	 * On export page, chooses correct export module for epub, pdf, indesign, etc/
-	 * Handles deleting a saved export file
+	 * Catch form submissions
 	 *
 	 * @see pressbooks/admin/templates/export.php
 	 */
@@ -536,6 +528,7 @@ abstract class Export {
 					}
 				}
 				// Stats hook
+				// TODO rename to pressbooks_track_export
 				do_action( 'pb_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
 

@@ -1,0 +1,23 @@
+.wp-list-table .column-status,
+.wp-list-table .column-cover {
+	width: 10%;
+}
+
+.wp-list-table .column-title {
+	width: 25%;
+}
+
+.wp-list-table .column-cover img {
+	border: 1px solid #aeaeae;
+	width: 65px;
+}
+
+.wp-list-table .column-title span.title {
+	font-size: 1.17em;
+	font-weight: bold;
+}
+
+.form-table textarea {
+	width: 500px;
+	height: 5em;
+}

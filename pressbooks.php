@@ -3,7 +3,7 @@
 Plugin Name: PressBooks
 Plugin URI: http://www.pressbooks.com
 Description: Simple Book Production
-Version: 2.0.3
+Version: 2.1.0
 Author: BookOven Inc.
 Author URI: http://www.pressbooks.com
 Text Domain: pressbooks
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) )
 	return;
 
 // -------------------------------------------------------------------------------------------------------------------
-// Turn on $_SESSIONS
+// Turn on $_SESSION
 // -------------------------------------------------------------------------------------------------------------------
 
 function _pb_session_start() {
@@ -37,7 +37,7 @@ add_action( 'wp_login', '_pb_session_kill' );
 // Minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
 
-$pb_minimum_wp = '3.5.1';
+$pb_minimum_wp = '3.5.2';
 
 if ( ! is_multisite() || ! version_compare( get_bloginfo( 'version' ), $pb_minimum_wp, '>=' ) ) {
 
@@ -67,14 +67,14 @@ if ( ! defined( 'PB_PLUGIN_URL' ) )
 
 function _pressbooks_autoload( $class_name ) {
 
-	$look_for_class = array();
-
 	$parts = explode( '\\', strtolower( $class_name ) );
 
 	if ( ! preg_match( '/^pressbooks/', @$parts[0] ) ) {
 		// Ignore classes not in our namespace
 		return;
 	}
+
+	$look_for_class = array();
 
 	if ( count( $parts ) > 1 && 'pressbooks' == @$parts[0] ) {
 		// Namespaced, Ie. PressBooks\Export\Prince\Pdf()
@@ -124,16 +124,26 @@ $GLOBALS['pressbooks'] = new \PressBooks\PressBooks();
 // Hooks
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once ( PB_PLUGIN_DIR . 'hooks.php' );
+require( PB_PLUGIN_DIR . 'hooks.php' );
 
 if ( is_admin() ) {
-	require_once ( PB_PLUGIN_DIR . 'hooks-admin.php' );
+	require( PB_PLUGIN_DIR . 'hooks-admin.php' );
 }
 
 // --------------------------------------------------------------------------------------------------------------------
 // Shortcuts to help template designers who don't use real namespaces...
 // --------------------------------------------------------------------------------------------------------------------
 
-require_once ( PB_PLUGIN_DIR . 'functions.php' );
+require( PB_PLUGIN_DIR . 'functions.php' );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Override wp_mail()
+// -------------------------------------------------------------------------------------------------------------------
+
+if ( ! function_exists( 'wp_mail' ) && isset( $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_API_KEY'] ) && isset( $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_SENDER_ADDRESS'] ) ) {
+	function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
+		return \PressBooks\Utility\wp_mail( $to, $subject, $message, $headers, $attachments );
+	}
+}
 
 /* The distinction between "the internet" & "books" will disappear in 5 years. Start adjusting now. */

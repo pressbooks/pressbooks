@@ -110,6 +110,14 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Used by HtmLawed with $GLOBALS['hl_Ids']
+	 *
+	 * @var array
+	 */
+	protected $fixme;
+
+
+	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
@@ -123,6 +131,11 @@ class Epub201 extends Export {
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 
 		$this->themeOptionsOverrides();
+
+		// HtmLawed: id values not allowed in input
+		foreach ( $this->reservedIds as $val ) {
+			$this->fixme[$val] = 1;
+		}
 	}
 
 
@@ -191,8 +204,8 @@ class Epub201 extends Export {
 	 */
 	function validate() {
 
-		// Epubcheck command
-		$command = PB_EPUBCHECK_COMMAND . ' ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
+		// Epubcheck command, (quiet flag requires version 3.0.1+)
+		$command = PB_EPUBCHECK_COMMAND . ' -quiet ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
 
 		// Execute command
 		$output = array();
@@ -200,8 +213,7 @@ class Epub201 extends Export {
 		exec( $command, $output, $return_var );
 
 		// Is this a valid Epub?
-		$last_line = strtolower( end( array_filter( $output ) ) );
-		if ( false !== strpos( $last_line, 'check finished with warnings or errors' ) ) {
+		if ( ! empty( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
 
 			return false;
@@ -344,8 +356,15 @@ class Epub201 extends Export {
 		$config = array(
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
+			'unique_ids' => 'fixme-',
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
+			'tidy' => -1,
 		);
+
+		// Reset on each htmLawed invocation
+		unset( $GLOBALS['hl_Ids'] );
+		if ( ! empty ( $this->fixme ) )
+			$GLOBALS['hl_Ids'] = $this->fixme;
 
 		return htmLawed( $html, $config );
 	}
@@ -474,7 +493,7 @@ class Epub201 extends Export {
 			$path_to_tmp_stylesheet,
 			$this->loadTemplate( $this->exportStylePath ) );
 
-		$this->scrapeAndKneadCss( $this->exportStylePath, $path_to_tmp_stylesheet );
+		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $path_to_tmp_stylesheet );
 
 		// Append overrides
 		file_put_contents(
@@ -491,7 +510,7 @@ class Epub201 extends Export {
 	 * @param string $path_to_original_stylesheet*
 	 * @param string $path_to_copy_of_stylesheet
 	 */
-	protected function scrapeAndKneadCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
+	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
 		$css_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$css = file_get_contents( $path_to_copy_of_stylesheet );
@@ -543,10 +562,10 @@ class Epub201 extends Export {
 
 		// Resize Image
 
-		if ( ! empty( $metadata['pb_cover_image'] ) && ! preg_match( '~assets/images/default-book-cover.png$~', $metadata['pb_cover_image'] ) ) {
+		if ( ! empty( $metadata['pb_cover_image'] ) && ! \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
 			$source_path = \PressBooks\Utility\get_media_path( $metadata['pb_cover_image'] );
 		} else {
-			$source_path = PB_PLUGIN_DIR . 'assets/images/default-book-cover.png';
+			$source_path = \PressBooks\Image\default_cover_path();
 		}
 		$dest_image = sanitize_file_name( basename( $source_path ) );
 		$dest_image = Sanitize\force_ascii( $dest_image );
@@ -1117,7 +1136,7 @@ class Epub201 extends Export {
 				continue;
 			}
 
-			$html .= sprintf( '<li class="%s"><a href="%s">%s', $class, $v['filename'], Sanitize\decode( $v['post_title'] ) );
+			$html .= sprintf( '<li class="%s"><a href="%s"><span class="toc-chapter-title">%s</span>', $class, $v['filename'], Sanitize\decode( $v['post_title'] ) );
 
 			if ( $subtitle )
 				$html .= ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
@@ -1269,12 +1288,9 @@ class Epub201 extends Export {
 
 		$file_contents = wp_remote_retrieve_body( $response );
 
-		// Check if file is actually an image
-		$im = @imagecreatefromstring( $file_contents );
-		if ( $im === false ) {
+		if ( ! \PressBooks\Image\is_valid_image( $file_contents, $filename, true ) ) {
 			return ''; // Not an image
 		}
-		unset( $im );
 
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
@@ -1328,7 +1344,7 @@ class Epub201 extends Export {
 
 			// Canonicalize, fix typos, remove garbage
 			if ( '#' != @$current_url[0] ) {
-				$url->setAttribute( 'href', \PressBooks\Sanitize\canonicalizeUrl( $current_url ) );
+				$url->setAttribute( 'href', \PressBooks\Sanitize\canonicalize_url( $current_url ) );
 			}
 
 		}
@@ -1398,7 +1414,20 @@ class Epub201 extends Export {
 		$url = rtrim( $url, '/' );
 
 		$last_part = explode( '/', $url );
-		$last_part = trim( end( $last_part ) );
+		$last_pos = count( $last_part ) - 1;
+		$anchor = '';
+
+		// Look for #anchors
+		if ( $last_pos > 0 && '#' == substr( trim( $last_part[$last_pos] ), 0, 1 ) ) {
+			$anchor = trim( $last_part[$last_pos] );
+			$last_part = trim( $last_part[$last_pos - 1] );
+		} elseif ( false !== strpos( $last_part[$last_pos], '#' ) ) {
+			list( $last_part, $anchor ) = explode( '#', $last_part[$last_pos] );
+			$anchor = trim( "#{$anchor}" );
+			$last_part = trim( $last_part );
+		} else {
+			$last_part = trim( $last_part[$last_pos] );
+		}
 
 		if ( ! $last_part )
 			return false;
@@ -1428,6 +1457,9 @@ class Epub201 extends Export {
 			if ( $p == $last_part ) break;
 		}
 		$new_url = "$new_type-" . sprintf( "%03s", $new_pos ) . "-$last_part.html";
+
+		if ( $anchor )
+			$new_url .= $anchor;
 
 		return $new_url;
 	}

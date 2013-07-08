@@ -10,6 +10,10 @@
 namespace PressBooks;
 
 
+use \PressBooks\Catalog;
+use \PressBooks\Metadata;
+
+
 class Book {
 
 	/**
@@ -56,7 +60,7 @@ class Book {
 
 		global $blog_id;
 		$cache_id = "pb-book-information-$blog_id";
-		$book_information = wp_cache_get( $cache_id );
+		$book_information = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_information ) {
 			return $book_information;
 		}
@@ -69,7 +73,7 @@ class Book {
 		$expected_the_content = array( 'pb_custom_copyright', 'pb_about_unlimited' );
 
 		$book_information = array();
-		$meta = new \PressBooks\Metadata();
+		$meta = new Metadata();
 		$data = $meta->getMetaPostMetadata();
 
 		foreach ( $data as $key => $val ) {
@@ -107,7 +111,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_information );
+		wp_cache_set( $cache_id, $book_information, 'pb' );
 
 		return $book_information;
 	}
@@ -128,7 +132,7 @@ class Book {
 
 		global $blog_id;
 		$cache_id = "pb-book-structure-$blog_id";
-		$book_structure = wp_cache_get( $cache_id );
+		$book_structure = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_structure ) {
 			return $book_structure;
 		}
@@ -241,7 +245,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_structure );
+		wp_cache_set( $cache_id, $book_structure, 'pb' );
 
 		return $book_structure;
 	}
@@ -262,7 +266,7 @@ class Book {
 
 		global $blog_id;
 		$cache_id = "pb-book-contents-$blog_id";
-		$book_contents = wp_cache_get( $cache_id );
+		$book_contents = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_contents ) {
 			return $book_contents;
 		}
@@ -297,7 +301,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_contents );
+		wp_cache_set( $cache_id, $book_contents, 'pb' );
 
 		return $book_contents;
 	}
@@ -310,9 +314,10 @@ class Book {
 
 		global $blog_id;
 
-		wp_cache_delete( "pb-book-information-$blog_id" );
-		wp_cache_delete( "pb-book-structure-$blog_id" );
-		wp_cache_delete( "pb-book-contents-$blog_id" );
+		wp_cache_delete( "pb-book-information-$blog_id", 'pb' );
+		wp_cache_delete( "pb-book-structure-$blog_id", 'pb' );
+		wp_cache_delete( "pb-book-contents-$blog_id", 'pb' );
+		( new Catalog() )->deleteCacheByBookId( $blog_id ); // PHP 5.4+
 	}
 
 
@@ -336,11 +341,11 @@ class Book {
 			// if the part for this chapter changed, set new part for chapter
 			// and new order for this part
 			if ( $newPart != $oldPart ) {
+
 				$my_post = array();
 				$my_post['ID'] = $id;
 				$my_post['post_parent'] = $newPart;
 				wp_update_post( $my_post );
-				do_action( 'pb_part_updated', $id, $newPart, $oldPart );
 
 				if ( is_array( $newPartOrder ) ) {
 					foreach ( $newPartOrder as $key => $values ) {
@@ -348,6 +353,7 @@ class Book {
 							foreach ( $values as $position => $id ) {
 								$position += 1; // array is 0-indexed, but we want it to start from 1
 								$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
+								clean_post_cache( $id );
 							}
 						}
 					}
@@ -361,6 +367,7 @@ class Book {
 						foreach ( $values as $position => $id ) {
 							$position += 1; // array is 0-indexed, but we want it to start from 1
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
+							clean_post_cache( $id );
 						}
 					}
 				}
@@ -392,6 +399,7 @@ class Book {
 						foreach ( $values as $position => $id ) {
 							$position += 1;
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
+							clean_post_cache( $id );
 						}
 					}
 				}
@@ -419,6 +427,7 @@ class Book {
 						foreach ( $values as $position => $id ) {
 							$position += 1;
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
+							clean_post_cache( $id );
 						}
 					}
 				}
@@ -446,7 +455,36 @@ class Book {
 			static::deleteBookObjectCache();
 		}
 	}
+	
+	/**
+	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
+	 */
+	static function updatePrivacyOptions() {
 
+		$post_id = absint( $_POST['post_id'] );
+		$post_status = $_POST['post_status'];
+
+		$my_post = array();
+		$my_post['ID'] = $post_id;
+		$my_post['post_status'] = $post_status;
+
+		if ( current_user_can( 'edit_post', $post_id ) && check_ajax_referer( 'pb-update-book-privacy' ) ) {
+			wp_update_post( $my_post );
+			static::deleteBookObjectCache();
+		}
+	}
+	
+	/**
+	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
+	 */
+	static function updateGlobalPrivacyOptions() {
+
+		$blog_public = absint( $_POST['blog_public'] );
+
+		if ( current_user_can( 'manage_options' ) && check_ajax_referer( 'pb-update-book-privacy' ) ) {
+			update_option( 'blog_public', $blog_public );
+		}
+	}
 
 	/**
 	 * Fetch next, previous or first post
@@ -522,44 +560,49 @@ class Book {
 	 * Ensures this chapter/part/front matter has a "menu_order" when it is saved
 	 *
 	 * @param integer $pid  Post ID
-	 * @param object  $post Post
+	 * @param \WP_Post $post Post
 	 *
 	 * @return bool
 	 */
 	static function consolidatePost( $pid, $post ) {
 
-		if ( ( is_main_site() ) || wp_is_post_revision( $pid ) || $post->post_status != 'publish' )
+		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) )
 			return false;
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
+		$success = true;
 
 		// if this is a new post, set its order
 		if ( empty( $post->menu_order ) ) {
-			$query = "SELECT max($wpdb->posts.menu_order)+1
-					FROM $wpdb->posts
-				   WHERE $wpdb->posts.post_type = '{$post->post_type}'
-				 AND NOT $wpdb->posts.post_status = 'trash'";
 
-			if ( $post->post_type == "chapter" ) {
-				$query .= " AND $wpdb->posts.post_parent=$post->post_parent";
+			$query = "SELECT max({$wpdb->posts}.menu_order) + 1
+					FROM {$wpdb->posts}
+				   WHERE {$wpdb->posts}.post_type = '{$post->post_type}'
+				 AND NOT {$wpdb->posts}.post_status = 'trash' ";
+
+			if ( 'chapter' == $post->post_type ) {
+				$query .= " AND {$wpdb->posts}.post_parent = {$post->post_parent} ";
 			}
+
 			$new = $wpdb->get_var( $query );
 
 			if ( empty( $new ) ) {
 				$new = 1;
+			} else {
+				$new = absint( $new );
 			}
 
-			$query = "UPDATE $wpdb->posts
-					 SET $wpdb->posts.menu_order=$new
-				   WHERE $wpdb->posts.ID = {$post->ID}";
+			$query = "UPDATE {$wpdb->posts}
+					 SET {$wpdb->posts}.menu_order = {$new}
+				   WHERE {$wpdb->posts}.ID = {$post->ID} ";
 
-			// will return false on failure
-			return $wpdb->query( $query );
+			$success = $wpdb->query( $query );
+			clean_post_cache( $post );
+
 		}
 
-		return true;
-
+		return $success ? true : false;
 	}
 
 
@@ -568,11 +611,12 @@ class Book {
 	 *
 	 * @param int $pid
 	 *
-	 * @return mixed
+	 * @return bool
 	 */
 	static function deletePost( $pid ) {
 
-		if ( ( is_main_site() ) || wp_is_post_revision( $pid ) ) return false;
+		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) )
+			return false;
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -585,42 +629,43 @@ class Book {
 		$type = $post->post_type;
 		$parent = $post->post_parent;
 
-		$query = "UPDATE $wpdb->posts SET menu_order = menu_order - 1 WHERE menu_order > $order AND post_type='$type'";
+		$query = "UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > {$order} AND post_type = '{$type}' ";
 
-		if ( $type == 'chapter' ) {
-			$query .= " AND post_parent = $parent";
+		if ( 'chapter' == $type ) {
+			$query .= " AND post_parent = {$parent} ";
 		}
 
-		$wpdb->query( $query );
+		$success = $wpdb->query( $query );
+		clean_post_cache( $post );
 
+		if ( 'part' == $type ) {
 
-		if ( $type == 'part' ) {
 			// We're setting two things here - the new post_parent (to the first part)
 			// And the new menu order for the chapters that were in the part being deleted.
+
 			$new_parent_id = $wpdb->get_var( "SELECT ID
-										 FROM $wpdb->posts
-										WHERE post_type='part'
-										  AND post_status='publish'
-										  AND NOT ID=$pid
+										 FROM {$wpdb->posts}
+										WHERE post_type = 'part'
+										  AND post_status = 'publish'
+										  AND NOT ID = {$pid}
 									 ORDER BY menu_order
-										LIMIT 1" );
+										LIMIT 1 " );
 
 			if ( $new_parent_id ) {
-
-				$existing_numposts = $wpdb->get_var( "SELECT count(1) AS numposts FROM $wpdb->posts WHERE post_type='chapter' AND post_parent=$new_parent_id" );
-				$query = "UPDATE $wpdb->posts SET post_parent=$new_parent_id, menu_order=menu_order+$existing_numposts WHERE post_parent=$pid AND post_type='chapter'";
-
-				return $wpdb->query( $query );
-
+				$existing_numposts = $wpdb->get_var( "SELECT COUNT(1) AS numposts FROM {$wpdb->posts} WHERE post_type = 'chapter' AND post_parent = {$new_parent_id} " );
+				$query = "UPDATE {$wpdb->posts} SET post_parent = {$new_parent_id}, menu_order = menu_order + {$existing_numposts} WHERE post_parent = {$pid} AND post_type = 'chapter' ";
+				$success = $wpdb->query( $query );
 			} else {
-
-				$query = "UPDATE $wpdb->posts SET post_status='trash' WHERE post_parent=$pid AND post_type='chapter'";
-
-				return $wpdb->query( $query );
+				$query = "UPDATE {$wpdb->posts} SET post_status = 'trash' WHERE post_parent = {$pid} AND post_type = 'chapter' ";
+				$success = $wpdb->query( $query );
 			}
+
+			wp_cache_flush();
 		}
 
-		return true;
+		static::deleteBookObjectCache();
+
+		return $success ? true : false;
 	}
 
 

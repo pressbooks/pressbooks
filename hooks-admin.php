@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) )
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-dashboard.php' );
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-users.php' );
-require_once( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
+require( PB_PLUGIN_DIR . 'admin/pb-admin-dashboard.php' );
+require( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
+require( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
+require( PB_PLUGIN_DIR . 'admin/pb-admin-users.php' );
+require( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
@@ -36,6 +36,7 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
+	add_action( 'customize_register', '\PressBooks\Admin\Laf\customize_register', 1000 );
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\fix_root_admin_menu', 1 );
@@ -60,7 +61,7 @@ add_action( 'admin_init', '\PressBooks\Admin\Laf\advanced_settings_init' );
 add_filter( 'admin_title', '\PressBooks\Admin\Laf\admin_title' );
 
 // Echo our notices, if any
-add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices');
+add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Posts, Meta Boxes
@@ -104,18 +105,16 @@ add_action( 'wp_ajax_pb_update_chapter', '\PressBooks\Book::updateChapter' );
 add_action( 'wp_ajax_pb_update_front_matter', '\PressBooks\Book::updateFrontMatter' );
 add_action( 'wp_ajax_pb_update_back_matter', '\PressBooks\Book::updateBackMatter' );
 add_action( 'wp_ajax_pb_update_export_options', '\PressBooks\Book::updateExportOptions' );
+add_action( 'wp_ajax_pb_update_privacy_options', '\PressBooks\Book::updatePrivacyOptions' );
+add_action( 'wp_ajax_pb_update_global_privacy_options', '\PressBooks\Book::updateGlobalPrivacyOptions' );
 // Book Information Page
 add_action( 'wp_ajax_pb_delete_cover_image', '\PressBooks\Admin\Metaboxes\delete_cover_image' );
 // Convert MS Word Footnotes
 add_action( 'wp_ajax_pb_ftnref_convert', '\PressBooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes' );
 // Load CSS into Custom CSS textarea
 add_action( 'wp_ajax_pb_load_css_from', '\PressBooks\Admin\CustomCss\load_css_from' );
-
-// -------------------------------------------------------------------------------------------------------------------
-// Export page "catch-all" routine, must come after taxonomies and friends
-// -------------------------------------------------------------------------------------------------------------------
-
-add_action( 'init', '\PressBooks\Export\Export::formSubmit', 50 );
+// User Catalog Page
+add_action( 'wp_ajax_pb_delete_catalog_logo', '\PressBooks\Catalog::deleteLogo' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Css
@@ -123,7 +122,15 @@ add_action( 'init', '\PressBooks\Export\Export::formSubmit', 50 );
 
 add_action( 'admin_menu', '\PressBooks\Admin\CustomCss\add_menu' );
 add_action( 'load-post.php', '\PressBooks\Admin\CustomCss\redirect_css_editor' );
+
+// -------------------------------------------------------------------------------------------------------------------
+// "Catch-all" routines, must come after taxonomies and friends
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', '\PressBooks\Export\Export::formSubmit', 50 );
+add_action( 'init', '\PressBooks\Import\Import::formSubmit', 50 );
 add_action( 'init', '\PressBooks\CustomCss::formSubmit', 50 );
+add_action( 'init', '\PressBooks\Catalog::formSubmit', 50 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Leftovers
@@ -152,5 +159,11 @@ if ( \PressBooks\Book::isBook() ) {
 		if ( get_user_meta( $user_id, 'show_welcome_panel', true ) ) {
 			update_user_meta( $user_id, 'show_welcome_panel', 0 );
 		}
+	} );
+
+	// Disable live preview
+	add_filter( 'theme_action_links', function ( $actions ) {
+		unset ( $actions['preview'] );
+		return $actions;
 	} );
 }

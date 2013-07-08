@@ -11,19 +11,20 @@ if ( ! defined( 'ABSPATH' ) )
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require_once( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
-require_once( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'custom_metadata_manager_default_editor_args', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
-require_once( PB_PLUGIN_DIR . 'symbionts/custom-metadata/custom_metadata.php' );
+require( PB_PLUGIN_DIR . 'symbionts/custom-metadata/custom_metadata.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Languages
@@ -37,6 +38,16 @@ if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
 } else {
 	add_filter( 'locale', '\PressBooks\L10n\set_locale' );
 }
+
+// -------------------------------------------------------------------------------------------------------------------
+// Images
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', '\PressBooks\Image\fix_intermediate_image_size_options' );
+add_filter( 'intermediate_image_sizes', '\PressBooks\Image\intermediate_image_sizes' );
+add_filter( 'intermediate_image_sizes_advanced', '\PressBooks\Image\intermediate_image_sizes_advanced' );
+add_action( 'delete_attachment', '\PressBooks\Image\delete_attachment' );
+add_filter( 'wp_update_attachment_metadata', '\PressBooks\Image\save_attachment', 10, 2 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies
@@ -73,6 +84,7 @@ add_action( 'wpmu_new_blog', function ( $b, $u ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_format', 1 );
+add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_catalog', 1 );
 add_filter( 'login_redirect', '\PressBooks\Redirect\login', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -88,7 +100,7 @@ $_ = new \PressBooks\Shortcodes\WikiPublisher\Glyphs();
 
 if ( \PressBooks\Book::isBook() ) {
 	add_action( 'init', function () {
-		$meta_version = get_option( 'pressbooks_metadata_version' );
+		$meta_version = get_option( 'pressbooks_metadata_version', 0 );
 		if ( $meta_version < \PressBooks\Metadata::$currentVersion ) {
 			$metadata = new \PressBooks\Metadata();
 			$metadata->upgrade( $meta_version );
@@ -96,6 +108,19 @@ if ( \PressBooks\Book::isBook() ) {
 		}
 	}, 1000 );
 }
+
+// -------------------------------------------------------------------------------------------------------------------
+// Upgrade Catalog
+//  -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', function () {
+	$catalog_version = get_site_option( 'pressbooks_catalog_version', 0 );
+	if ( $catalog_version < \PressBooks\Catalog::$currentVersion ) {
+		$metadata = new \PressBooks\Catalog();
+		$metadata->upgrade( $catalog_version );
+		update_site_option( 'pressbooks_catalog_version', \PressBooks\Catalog::$currentVersion );
+	}
+}, 1000 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Turn off XML-RPC

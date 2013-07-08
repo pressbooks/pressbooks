@@ -9,18 +9,29 @@ namespace PressBooks\Admin\Metaboxes;
 /**
  * If the user updates the book's title, then also update the blog name
  *
- * @param int      $pid
+ * @param int $pid
  * @param \WP_Post $post
  */
 function title_update( $pid, $post ) {
-	if ( 'metadata' == $post->post_type ) {
-		$pb_title = get_post_meta( $post->ID, 'pb_title', true );
-		if ( $pb_title ) { // if the pb_title metadata value is set, update the blogname to match it
-			update_option( 'blogname', $pb_title );
-		} else { // if the pb_title metadata value is not set, update it to match the blogname
-			$pb_title = get_option( 'blogname' );
-			update_post_meta( $post->ID, 'pb_title', $pb_title );
-		}
+
+	if ( 'metadata' != $post->post_type )
+		return; // Bail
+
+	$pb_title = get_post_meta( $pid, 'pb_title', true );
+	if ( $pb_title ) { // if the pb_title metadata value is set, update the blogname to match it
+		update_option( 'blogname', $pb_title );
+	} else { // if the pb_title metadata value is not set, update it to match the blogname
+		$pb_title = get_option( 'blogname' );
+		update_post_meta( $pid, 'pb_title', $pb_title );
+	}
+
+	// Change post_title from "Auto Draft" to something useful
+	$post_title = __( 'Book Info', 'pressbooks' );
+	if ( $post_title != $post->post_title ) {
+		wp_update_post( array(
+			'ID' => $pid,
+			'post_title' => $post_title,
+		) );
 	}
 }
 
@@ -28,32 +39,35 @@ function title_update( $pid, $post ) {
 /**
  * If the user leaves certain meta info blank, forcefully fill it with our own
  *
- * @param int      $pid
+ * @param int $pid
  * @param \WP_Post $post
  */
 function add_required_data( $pid, $post ) {
 
-	$pb_author = get_post_meta( $post->ID, 'pb_author', true );
+	if ( 'metadata' != $post->post_type )
+		return; // Bail
+
+	$pb_author = get_post_meta( $pid, 'pb_author', true );
 	if ( ! $pb_author ) {
 		// if the pb_author metadata value is not set, set it to the primary book user's name
 		if ( 0 !== get_current_user_id() ) {
 			/** @var $user_info \WP_User */
 			$user_info = get_userdata( get_current_user_id() );
 			$name = $user_info->display_name;
-			update_post_meta( $post->ID, 'pb_author', $name );
+			update_post_meta( $pid, 'pb_author', $name );
 		}
 	}
 
-	$pb_language = get_post_meta( $post->ID, 'pb_language', true );
+	$pb_language = get_post_meta( $pid, 'pb_language', true );
 	if ( ! $pb_language ) {
 		// if the pb_language metadata value is not set, set it to 'en'
-		update_post_meta( $post->ID, 'pb_language', 'en' );
+		update_post_meta( $pid, 'pb_language', 'en' );
 	}
 
-	$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
+	$pb_cover_image = get_post_meta( $pid, 'pb_cover_image', true );
 	if ( ! $pb_cover_image ) {
 		// if the pb_cover_image metadata value is not set, set it to the default image
-		update_post_meta( $post->ID, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.png' );
+		update_post_meta( $pid, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
 	}
 }
 
@@ -66,24 +80,44 @@ function add_required_data( $pid, $post ) {
  */
 function upload_cover_image( $pid, $post ) {
 
-	if ( ! @empty( $_FILES['pb_cover_image']['name'] ) ) {
+	if ( 'metadata' != $post->post_type || @empty( $_FILES['pb_cover_image']['name'] ) )
+		return; // Bail
 
-		$allowed_file_types = array( 'jpg' => 'image/jpg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' );
-		$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
-		$image = wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
+	if ( ! current_user_can_for_blog( get_current_blog_id(), 'upload_files' ) )
+		return; // Bail
 
-		if ( ! empty( $image['error'] ) ) {
-			wp_die( $image['error'] );
-		}
+	$allowed_file_types = array( 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' );
+	$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
+	$image = wp_handle_upload( $_FILES['pb_cover_image'], $overrides );
 
-		list( $width, $height ) = getimagesize( $image['file'] );
-		if ( $width < 625 || $height < 625 ) {
-			$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s x %s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
-		}
-
-		// TODO: delete old image
-		update_post_meta( $pid, 'pb_cover_image', $image['url'] );
+	if ( ! empty( $image['error'] ) ) {
+		wp_die( $image['error'] );
 	}
+
+	list( $width, $height ) = getimagesize( $image['file'] );
+	if ( $width < 625 || $height < 625 ) {
+		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s x %s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
+	}
+
+	$old = get_post_meta( $pid, 'pb_cover_image', false );
+	update_post_meta( $pid, 'pb_cover_image', $image['url'] );
+
+	// Delete old images
+	foreach ( $old as $old_url ) {
+		$old_id = \PressBooks\Image\attachment_id_from_url( $old_url );
+		if ( $old_id ) wp_delete_attachment( $old_id, true );
+	}
+
+	// Insert new image, create thumbnails
+	$args = array(
+		'post_mime_type' => $image['type'],
+		'post_title' => __( 'Cover Image', 'pressbooks' ),
+		'post_content' => '',
+		'post_status' => 'inherit',
+		'post_name' => 'pb-cover-image',
+	);
+	$id = wp_insert_attachment( $args, $image['file'], $pid );
+	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $image['file'] ) );
 }
 
 
@@ -118,7 +152,7 @@ function add_meta_boxes() {
 
 	// Custom Image Upload
 
-	add_meta_box( 'covers', __( 'Covers', 'pressbooks' ), __NAMESPACE__ . '\cover_image_box', 'metadata', 'normal', 'low' );
+	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\PressBooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
 
 	// Book Metadata
 
@@ -192,7 +226,7 @@ function add_meta_boxes() {
 	x_add_metadata_field( 'pb_language', 'metadata', array(
 		'group' => 'general-book-information',
 		'field_type' => 'select',
-		'values' => \PressBooks\L10n\get_supported_languages(),
+		'values' => \PressBooks\L10n\supported_languages(),
 		'label' => __( 'Language', 'pressbooks' )
 	) );
 
@@ -430,82 +464,22 @@ function override_parent_id( $post ) {
 	}
 }
 
-/**
- * Render "Covers" meta box
- *
- * @param |WP_Post $post
- */
-function cover_image_box( $post ) {
-	$ajax_nonce = wp_create_nonce( 'pb-delete-cover-image' );
-	$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
-	?>
-		<div class="custom-metadata-field image">
-		<script type="text/javascript">
-			jQuery.noConflict();
-			jQuery(document).ready(function($){
-				jQuery('#delete_cover_button').click(function(e) {
-					if (!confirm('Are you sure you want to delete this?')){
-						e.preventDefault();
-						return false;
-					}
-					image_file = jQuery(this).attr('name');
-					pid = jQuery('#cover_pid').attr('value');
-					jQuery.ajax({
-						url: ajaxurl,
-						type: 'POST',
-						data: {
-							action: 'pb_delete_cover_image',
-							filename: image_file,
-							pid: pid,
-							_ajax_nonce: '<?php echo $ajax_nonce ?>'
-						},
-						success: function(data) {
-							jQuery('#delete_cover_button').remove();
-							jQuery("#cover_image_preview").fadeOut("slow", function () {
-								jQuery("#cover_image_preview").load(function () { //avoiding blinking, wait until loaded
-									jQuery("#cover_image_preview").fadeIn();
-								});
-								jQuery('#cover_image_preview').attr('src', '<?php echo PB_PLUGIN_URL; ?>assets/images/default-book-cover.png');
-							});
-						}
-					});
-				});
-			});
-	  </script>
-			<label for="pb_cover_image">Cover Image</label>
-				<div class="pb_cover_image" id="pb_cover_image-1">
-	<?php if ( $pb_cover_image && ! preg_match( '~assets/images/default-book-cover.png$~', $pb_cover_image ) ) { ?>
-		<p><img id="cover_image_preview" src="<?php echo $pb_cover_image; ?>" style="width: auto; height: 100px" alt="cover_image" /><br />
-		<button id="delete_cover_button" name="<?php echo $pb_cover_image; ?>" type="button">Delete</button></p>
-		<p><input type="file" name="pb_cover_image" value="" id="pb_cover_image" /></p>
-		<input type="hidden" id="cover_pid" name="cover_pid" value="<?php echo $_GET['post']; ?>" />
-	<?php } else { ?>
-		 <p><img id="cover_image_preview" src="<?php echo PB_PLUGIN_URL; ?>assets/images/default-book-cover.png" style="width: auto; height: 100px" alt="cover_image" /></p>
-		<p><input type="file" name="pb_cover_image" value="<?php echo $pb_cover_image; ?>" id="pb_cover_image" /></p>
-	<?php } ?>
-				<span class="description"><?php _e( 'Your cover image should be 625px on the shortest side.', 'pressbooks' ); ?></span>
-				</div>
-		</div>
-<?php
-}
-
 
 /**
- * WP_Ajax hook for delete_cover_image
+ * WP_Ajax hook for pb_delete_cover_image
  */
 function delete_cover_image() {
 
-	if ( current_user_can_for_blog( get_current_blog_id(), 'delete_posts' ) && check_ajax_referer( 'pb-delete-cover-image' ) ) {
+	if ( current_user_can_for_blog( get_current_blog_id(), 'upload_files' ) && check_ajax_referer( 'pb-delete-cover-image' ) ) {
 
-		$image_file = $_POST['filename'];
+		$image_url = $_POST['filename'];
 		$pid = $_POST['pid'];
-		$image_path = \PressBooks\Utility\get_media_path( $image_file );
 
-		if ( file_exists( $image_path ) ) {
-			unlink( $image_path );
-		}
+		// Delete old images
+		$old_id = \PressBooks\Image\attachment_id_from_url( $image_url );
+		if ( $old_id ) wp_delete_attachment( $old_id, true );
 
-		update_post_meta( $pid, 'pb_cover_image', PB_PLUGIN_URL . 'assets/images/default-book-cover.png' );
+		update_post_meta( $pid, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
 		\PressBooks\Book::deleteBookObjectCache();
 	}
 

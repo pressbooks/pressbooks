@@ -1,0 +1,2055 @@
+# Copyright (C) 2013 PressBooks
+# This file is distributed under the same license as the PressBooks package.
+msgid ""
+msgstr ""
+"Project-Id-Version: PressBooks 2.0.3\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
+"POT-Creation-Date: 2013-04-09 14:51:11+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-04-22 20:27+0200\n"
+"Last-Translator: Karol Kallas <karol@gutenbergipojad.org>\n"
+"Language-Team: Mart Kalvet, Karol Kallas <karol@gutenbergipojad.org>\n"
+"X-Generator: Poedit 1.5.5\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: Estonian\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Bookmarks: -1,-1,-1,-1,266,-1,-1,-1,-1,217\n"
+
+#: admin/pb-admin-customcss.php:18 admin/templates/custom-css.php:27
+msgid "Edit CSS"
+msgstr "Muuda CSS'i"
+
+#: admin/pb-admin-customcss.php:60
+msgid ""
+"Unexpected Error: There was a problem trying to query slug: %s - Please "
+"contact technical support."
+msgstr ""
+"Ootamatu andmebaasi päringuviga: %s - palun pöörduge tehnilise toe poole."
+
+#: admin/pb-admin-customcss.php:113
+msgid "Last 10 CSS Revisions"
+msgstr "Viimased 10 CSS'i muudatust"
+
+#: admin/pb-admin-customcss.php:116
+#: includes/modules/export/epub/class-pb-epub201.php:674
+#: includes/modules/export/epub/templates/opf.php:60
+#: includes/modules/export/hpub/class-pb-hpub.php:544
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:512
+#: themes-book/pressbooks-book/footer.php:34
+msgid "by"
+msgstr "tegid"
+
+#: admin/pb-admin-customcss.php:183
+msgid "This will overwrite existing custom CSS. Are you sure?"
+msgstr ""
+"Kas te tingimata soovite muuta olemasolevat CSS'i?"
+
+#: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
+#: admin/pb-admin-dashboard.php:95
+msgid "PressBooks News"
+msgstr "PressBooks'i uudised"
+
+#: admin/pb-admin-dashboard.php:41
+msgid "My Book"
+msgstr "Minu raamat"
+
+#: admin/pb-admin-dashboard.php:43 admin/pb-admin-laf.php:326
+msgid "Users"
+msgstr "Kasutajad"
+
+#: admin/pb-admin-dashboard.php:55 admin/templates/organize.php:30
+#: admin/templates/organize.php:46 includes/pb-postype.php:96
+msgid "Front Matter"
+msgstr "Raamatu eelosa"
+
+#: admin/pb-admin-dashboard.php:75 admin/templates/organize.php:32
+#: admin/templates/organize.php:211 includes/pb-postype.php:131
+msgid "Back Matter"
+msgstr "Raamatu lõpposa"
+
+#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
+msgid "Add"
+msgstr "Lisage"
+
+#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
+#: admin/pb-admin-laf.php:116
+msgid "Organize"
+msgstr "Raamatuosade järjestus"
+
+#: admin/pb-admin-laf.php:18
+msgid "Powered by"
+msgstr "Lahendust toetab"
+
+#: admin/pb-admin-laf.php:19 includes/class-pb-activation.php:170
+msgid "About"
+msgstr "Asjast"
+
+#: admin/pb-admin-laf.php:20
+msgid "Help"
+msgstr "Abi"
+
+#: admin/pb-admin-laf.php:21 admin/pb-admin-laf.php:270
+msgid "Contact"
+msgstr "Kontakt"
+
+#: admin/pb-admin-laf.php:42 admin/pb-admin-laf.php:53
+msgid "Feedback"
+msgstr "Tagasiside"
+
+#: admin/pb-admin-laf.php:50 themes-book/pressbooks-book/sidebar.php:43
+msgid "Close"
+msgstr "Sule"
+
+#: admin/pb-admin-laf.php:99
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:17
+msgid "Theme Options"
+msgstr "Kujunduse valikud"
+
+#: admin/pb-admin-laf.php:148
+msgid "Book Info"
+msgstr "Teave raamatu kohta"
+
+#: admin/pb-admin-laf.php:166 admin/templates/export.php:41
+#: admin/templates/organize.php:35 admin/templates/organize.php:51
+#: admin/templates/organize.php:140 admin/templates/organize.php:216
+msgid "Export"
+msgstr "Eksportimine"
+
+#: admin/pb-admin-laf.php:171
+msgid "EPUB is required for MOBI export. Would you like to reenable it?"
+msgstr ""
+"Raamatu MOBI-formaati teisendamiseks on vajalik EPUB-formaadi tugi. Soovite selle "
+"taastada?"
+
+#: admin/pb-admin-laf.php:177
+msgid "Sell"
+msgstr "Müük"
+
+#: admin/pb-admin-laf.php:180
+msgid "Privacy Settings"
+msgstr "Privaatsusseaded"
+
+#: admin/pb-admin-laf.php:180
+msgid "Privacy"
+msgstr "Privaatsus"
+
+#: admin/pb-admin-laf.php:183
+msgid "Advanced Settings"
+msgstr "Täpsemad seaded"
+
+#: admin/pb-admin-laf.php:183
+msgid "Advanced"
+msgstr "Täpsemalt"
+
+#: admin/pb-admin-laf.php:236 admin/pb-admin-laf.php:245
+msgid "About PressBooks"
+msgstr "PressBooks'ist"
+
+#: admin/pb-admin-laf.php:254
+msgid "PressBooks.com"
+msgstr "PressBooks.com"
+
+#: admin/pb-admin-laf.php:262
+msgid "Support Forums"
+msgstr "Tugifoorumid"
+
+#: admin/pb-admin-laf.php:294
+msgid "My Books"
+msgstr "Minu raamatud"
+
+#: admin/pb-admin-laf.php:307
+msgid "Network Admin"
+msgstr "Võrguadministraator"
+
+#: admin/pb-admin-laf.php:314 admin/pb-admin-laf.php:364
+msgid "Dashboard"
+msgstr "Juhtpaneel"
+
+#: admin/pb-admin-laf.php:320
+msgid "Sites"
+msgstr "Võrgukohad"
+
+#: admin/pb-admin-laf.php:332
+msgid "Visit Network"
+msgstr "Vaata võrgustikku"
+
+#: admin/pb-admin-laf.php:349
+msgid "Blavatar"
+msgstr "Blavatar"
+
+#: admin/pb-admin-laf.php:376
+msgid "Visit Site"
+msgstr "Vaata võrgukohta"
+
+#: admin/pb-admin-laf.php:530
+msgid "Site Visibility"
+msgstr "Võrgukoha nähtavus"
+
+#: admin/pb-admin-laf.php:548
+msgid "Privacy options"
+msgstr "Privaatsusvalikud"
+
+#: admin/pb-admin-laf.php:562
+msgid "Public. I would like this book to be visible to everyone."
+msgstr "Avalik. Raamat on nähtav kõigile."
+
+#: admin/pb-admin-laf.php:566
+msgid ""
+"Private. I would like this book to be accessible only to people I invite."
+msgstr "Ligipääs on piiratud. Raamatut näevad ainult kutsutud inimesed."
+
+#: admin/pb-admin-laf.php:617
+msgid "Amazon URL"
+msgstr "Amazon'i URL"
+
+#: admin/pb-admin-laf.php:624
+msgid "Oreilly URL"
+msgstr "Oreilly' URL"
+
+#: admin/pb-admin-laf.php:631
+msgid "Barnes and Noble URL"
+msgstr "Barnes and Noble'i URL"
+
+#: admin/pb-admin-laf.php:638
+msgid "Kobo URL"
+msgstr "Kobo URL"
+
+#: admin/pb-admin-laf.php:645
+msgid "iBooks URL"
+msgstr "iBooks'i URL"
+
+#: admin/pb-admin-laf.php:652
+msgid "Other Service URL"
+msgstr "Muu teenuse võrguaadress"
+
+#: admin/pb-admin-laf.php:669
+msgid "Links to ecommerce services"
+msgstr "Lingid e-kaubandusteenustele"
+
+#: admin/pb-admin-laf.php:792
+msgid "Email me validation error reports on export."
+msgstr ""
+"Saada eksportimisel tekkinud kinnitusvigade teated mulle e-"
+"kirjaga."
+
+#: admin/pb-admin-laf.php:810
+msgid "Advanced options"
+msgstr "Täpsemad suvandid"
+
+#: admin/pb-admin-laf.php:824
+msgid "No. Ignore validation errors."
+msgstr "Ei. Eira kinnitamisvigu."
+
+#: admin/pb-admin-laf.php:828
+msgid "Yes. Send the logs."
+msgstr "Jah. Saada logifailid."
+
+#: admin/pb-admin-laf.php:829
+msgid ""
+"Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
+"will require some effort to decipher. Unfortunately we cannot provide "
+"support for deciphering validation errors, but you could post errors on the "
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</"
+"a>, where we and other PressBooks users can help out as time permits. ."
+msgstr ""
+"Märkus: EPUB, Mobi ja PDF'i kinnitamisvigade teated nõuavad oma tehnilise "
+"iseloomu tõttu tõlgendmiseks teatud pingutust. Paraku me antud probleemi "
+"lahendamiseks abi ei paku, kuid te võite vead postitada <a href=\"http://"
+"forum.pressbooks.com/\" target=\"_blank\">PressBooks'i foorumisse</a>, kust "
+"võib saada abi nii PressBooks'i arendajatelt kui teistelt kasutajatelt."
+
+#: admin/pb-admin-metaboxes.php:107 admin/pb-admin-metaboxes.php:346
+#: admin/templates/organize.php:33
+#: themes-book/pressbooks-book/functions.php:758
+#: themes-book/pressbooks-book/functions.php:759
+#: themes-book/pressbooks-book/functions.php:794
+msgid "Part"
+msgstr "Raamatu osa"
+
+#: admin/pb-admin-metaboxes.php:111
+msgid "Save Part"
+msgstr "Salvesta raamatu osa"
+
+#: admin/pb-admin-metaboxes.php:112
+msgid "Save Book Information"
+msgstr "Salvesta raamatu teave"
+
+#: admin/pb-admin-metaboxes.php:116
+msgid "Covers"
+msgstr "Kaaned"
+
+#: admin/pb-admin-metaboxes.php:121
+msgid "General Book Information"
+msgstr "Raamatut puudutav üldteave"
+
+#: admin/pb-admin-metaboxes.php:132
+msgid "Short Title"
+msgstr "Lühipealkiri"
+
+#: admin/pb-admin-metaboxes.php:133
+msgid ""
+"In case of long titles that might be truncated in running heads in the PDF "
+"export."
+msgstr ""
+"Lühem versioon pealkirjast, mida vajadusel kasutatakse PDF-vormingusse "
+"eksportimisel jooksvalt päisepealkirjana raamatu lehekülgede "
+"ülaosas."
+
+#: admin/pb-admin-metaboxes.php:138
+msgid "Subtitle"
+msgstr "Alapealkiri"
+
+#: admin/pb-admin-metaboxes.php:143 admin/templates/organize.php:47
+#: admin/templates/organize.php:123 admin/templates/organize.php:212
+#: themes-book/pressbooks-book/functions.php:12
+msgid "Author"
+msgstr "Autor"
+
+#: admin/pb-admin-metaboxes.php:148
+msgid "Author, file as"
+msgstr "Autor (perenimi eespool)"
+
+#: admin/pb-admin-metaboxes.php:149
+msgid ""
+"This ensures that your ebook will sort properly in ebook stores, by the "
+"author's last name."
+msgstr ""
+"Antud käsklus tagab, et teie e-raamat kuvatakse "
+"müügikeskkondades autori perenime järele."
+
+#: admin/pb-admin-metaboxes.php:154
+#: themes-book/pressbooks-book/functions.php:13
+msgid "Publisher"
+msgstr "Kirjastaja"
+
+#: admin/pb-admin-metaboxes.php:159
+msgid "Publisher City"
+msgstr "Kirjastaja asukoht (linn vms)"
+
+#: admin/pb-admin-metaboxes.php:165
+#: themes-book/pressbooks-book/functions.php:16
+msgid "Publication Date"
+msgstr "Kirjastamise aeg"
+
+#: admin/pb-admin-metaboxes.php:171
+msgid "On-Sale Date"
+msgstr "Müügi alguse kuupäev"
+
+#: admin/pb-admin-metaboxes.php:172
+msgid "The date you want your book to start selling in stores."
+msgstr "Kuupäev, millal te soovite poodides raamatu müügiga alustada."
+
+#: admin/pb-admin-metaboxes.php:177
+#: themes-book/pressbooks-book/functions.php:18
+msgid "Ebook ISBN"
+msgstr "E-raamatu ISBN"
+
+#: admin/pb-admin-metaboxes.php:178
+msgid ""
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in online ebook stores."
+msgstr ""
+"ISBN (raamatu rahvusvaheline standardnumber) aitab väljaannet kiiresti ja "
+"täpselt tuvastada, hõlbustab raamatu tellimist ja müüki ning lihtsustab "
+"arvepidamist. ISBN on vajalik nii e-raamatute kui trükitud raamatute "
+"turustamiseks."
+
+#: admin/pb-admin-metaboxes.php:183
+#: themes-book/pressbooks-book/functions.php:14
+msgid "Print ISBN"
+msgstr "Trükitud raamatu ISBN"
+
+#: admin/pb-admin-metaboxes.php:184
+msgid ""
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in online and physical book stores."
+msgstr ""
+"ISBN (raamatu rahvusvaheline standardnumber) aitab väljaannet kiiresti ja "
+"täpselt tuvastada, hõlbustab raamatu tellimist ja müüki ning lihtsustab "
+"arvepidamist. ISBN on vajalik nii e-raamatute kui trükitud raamatute "
+"turustamiseks."
+
+#: admin/pb-admin-metaboxes.php:191 admin/pb-admin-users.php:61
+msgid "Language"
+msgstr "Keel"
+
+#: admin/pb-admin-metaboxes.php:195
+#: includes/modules/export/epub/class-pb-epub201.php:672
+#: includes/modules/export/epub/class-pb-epub201.php:686
+#: includes/modules/export/epub/templates/opf.php:58
+#: includes/modules/export/hpub/class-pb-hpub.php:542
+#: includes/modules/export/hpub/class-pb-hpub.php:556
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:510
+#: themes-book/pressbooks-book/footer.php:32
+msgid "Copyright"
+msgstr "Autoriõigus"
+
+#: admin/pb-admin-metaboxes.php:201
+msgid "Copyright Year"
+msgstr "Autoriõiguse aasta"
+
+#: admin/pb-admin-metaboxes.php:206
+msgid "Copyright Holder"
+msgstr "Autoriõiguse omanik"
+
+#: admin/pb-admin-metaboxes.php:212
+msgid "Copyright Notice"
+msgstr "Autoriõiguse teatis"
+
+#: admin/pb-admin-metaboxes.php:222
+msgid "Book Tagline"
+msgstr "Raamatu moto"
+
+#: admin/pb-admin-metaboxes.php:223
+msgid ""
+"A very short description of your book. It should fit in a Twitter post, and "
+"encapsulate your book in the briefest sentence."
+msgstr ""
+"Raamatu minikirjeldus, mis annab teie raamatust võimalikult täpse ülevaate "
+"ja mahub ühte Twitteri postitusse (140 märki koos tühikutega)."
+
+#: admin/pb-admin-metaboxes.php:229
+msgid "Short Description"
+msgstr "Raamatu lühikirjeldus"
+
+#: admin/pb-admin-metaboxes.php:230
+msgid ""
+"A short paragraph about your book, for catalogs, reviewers etc. to quote."
+msgstr ""
+"Raamatut kirjeldav lühike tekstilõik, mida saab kasutada raamatu "
+"arvustamisel, kataloogides jne."
+
+#: admin/pb-admin-metaboxes.php:236
+msgid "Long Description"
+msgstr "Raamatu pikem kirjeldus"
+
+#: admin/pb-admin-metaboxes.php:237
+msgid "The full description of your book."
+msgstr "Põhjalik ülevaade raamatust."
+
+#: admin/pb-admin-metaboxes.php:241
+msgid "Additional Catalogue Information"
+msgstr "Lisainformatsioon kataloogi(de) tarbeks."
+
+#: admin/pb-admin-metaboxes.php:247
+msgid "Series Title"
+msgstr "Sarjapealkiri"
+
+#: admin/pb-admin-metaboxes.php:252
+msgid "Series Number"
+msgstr "Sarja osa number"
+
+#: admin/pb-admin-metaboxes.php:257
+msgid "Editor"
+msgstr "Toimetaja"
+
+#: admin/pb-admin-metaboxes.php:262
+msgid "Translator"
+msgstr "Tõlkija"
+
+#: admin/pb-admin-metaboxes.php:267
+msgid "Keywords"
+msgstr "Märksõnad"
+
+#: admin/pb-admin-metaboxes.php:269
+msgid ""
+"To make it easier to find your book in online book stores and search engines."
+msgstr ""
+"Märksõnad aitavad otsimootoreid ja teos on e-raamatupoodides paremini nähtav."
+
+#: admin/pb-admin-metaboxes.php:274
+#: themes-book/pressbooks-book/functions.php:17
+msgid "Hashtag"
+msgstr "Teemaviide (#)"
+
+#: admin/pb-admin-metaboxes.php:275
+msgid "For those of you who like Twitter."
+msgstr "Twitterisõpradele."
+
+#: admin/pb-admin-metaboxes.php:280
+msgid "List Price (Print)"
+msgstr "Raamatu trükiversiooni hind"
+
+#: admin/pb-admin-metaboxes.php:285
+msgid "List Price (PDF)"
+msgstr "Raamatu PDF-versiooni hind"
+
+#: admin/pb-admin-metaboxes.php:290
+msgid "List Price (ebook)"
+msgstr "E-raamatu hind"
+
+#: admin/pb-admin-metaboxes.php:295
+msgid "List Price (Web)"
+msgstr "Raamatu veebiversiooni hind"
+
+#: admin/pb-admin-metaboxes.php:300
+msgid "Bisac Subject"
+msgstr "Bisac teemakood"
+
+#: admin/pb-admin-metaboxes.php:302
+msgid ""
+"BISAC subject headings help your book get properly classified in (e)book "
+"stores."
+msgstr ""
+"Bisac-teemakoodid, mis aitavad raamatut e-raamatute müügikeskkondades "
+"määratleda."
+
+#: admin/pb-admin-metaboxes.php:307
+msgid "Bisac Regional Theme"
+msgstr "Bisac-piirkonnakood"
+
+#: admin/pb-admin-metaboxes.php:317
+msgid "Catalogue Order"
+msgstr "Kataloogi tellimine"
+
+#: admin/pb-admin-metaboxes.php:325
+msgid "Chapter Metadata"
+msgstr "Raamatu peatüki metaandmestik"
+
+#: admin/pb-admin-metaboxes.php:330
+msgid "Chapter Short Title (appears in the PDF running header)"
+msgstr "Peatüki lühipealkiri (näidatakse jooksvalt PDF-i lehekülgede päises)"
+
+#: admin/pb-admin-metaboxes.php:335
+msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
+msgstr "Peatüki alapealkiri (kuvatakse veebis, e-raamatutes ja PDF-failis)"
+
+#: admin/pb-admin-metaboxes.php:340
+msgid "Chapter Author (appears in Web/ebook/PDF output)"
+msgstr "Peatüki autor (kuvatakse võrgus, e-raamatutes ja PDF-failis)"
+
+#: admin/pb-admin-metaboxes.php:354
+msgid "Export Settings"
+msgstr "Eksportimisseaded"
+
+#: admin/pb-admin-metaboxes.php:362
+msgid "Include in exports"
+msgstr "Kaasa eksportimisel"
+
+#: admin/pb-admin-metaboxes.php:374
+msgid "Front Matter Metadata"
+msgstr "Raamatu eelosa metaandmestik"
+
+#: admin/pb-admin-metaboxes.php:379
+msgid "Front Matter Short Title (appears in the PDF running header)"
+msgstr ""
+"Raamatu eelosa lühipealkiri (kuvatakse jooksvalt PDF-faili lehekülgede "
+"päises)"
+
+#: admin/pb-admin-metaboxes.php:384
+msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
+msgstr ""
+"Raamatu eelosa alapealkiri (kuvatakse ilmavõrgus, e-raamatutes ja PDF-failis)"
+
+#: admin/pb-admin-metaboxes.php:389
+msgid "Front Matter Author (appears in Web/ebook/PDF output)"
+msgstr ""
+"Raamatu eelosa autor (kuvatakse ilmavõrgus, e-raamatutes ja PDF-failis)"
+
+#: admin/pb-admin-users.php:47
+msgid "Extra Profile Information"
+msgstr "Lisateave profiili kohta"
+
+#: admin/pb-admin-users.php:54
+msgid "English"
+msgstr "Inglise keel"
+
+#: admin/pb-admin-users.php:55
+msgid "Chinese, Traditional"
+msgstr "Hiina keel, klassikaline"
+
+#: admin/pb-admin-users.php:56
+msgid "French"
+msgstr "Prantsuse keel"
+
+#: admin/pb-admin-users.php:57
+msgid "Japanese"
+msgstr "Jaapani keel"
+
+#: admin/pb-admin-users.php:58
+msgid "Portuguese, Brazil"
+msgstr "Brasiilia portugali keel"
+
+#: admin/pb-admin-users.php:59
+msgid "Spanish"
+msgstr "Hispaania keel"
+
+#: admin/templates/custom-css.php:20
+msgid "Error: Something went wrong. See logs for more details."
+msgstr "Viga: midagi läks valesti. Täpsema teabe leiab logifailist."
+
+#: admin/templates/custom-css.php:36
+msgid "You are currently editing CSS for"
+msgstr "Te muudate CSS'i"
+
+#: admin/templates/custom-css.php:37
+msgid "Copy CSS from"
+msgstr "Kopeeri CSS kujundusest"
+
+#: admin/templates/custom-css.php:42
+msgid "Save"
+msgstr "Salvesta"
+
+#: admin/templates/export.php:27
+msgid "Error: The export failed. See logs for more details."
+msgstr "Viga: eksportimine nurjus. Põhjused on kirjas logifailis."
+
+#: admin/templates/export.php:32
+msgid "Warning: The export has validation errors. See logs for more details."
+msgstr ""
+"Hoiatus: eksportimisel ilmnesid vead õigsuskontrollis. Täpsema teabe leiab "
+"logifailist."
+
+#: admin/templates/export.php:33
+msgid "Emailed to:"
+msgstr "Saadetud e-kirjaga:"
+
+#: admin/templates/export.php:42
+msgid "PressBooks saves your last %s batches of exported files."
+msgstr "PressBooks salvestab viimased %s eksporditud failikomplekti."
+
+#: admin/templates/export.php:47
+msgid "Export Your Book"
+msgstr "Raamatu eksportimine "
+
+#: admin/templates/export.php:55
+msgid "Latest Export"
+msgstr "Viimane eksport"
+
+#: admin/templates/export.php:58
+msgid "Exported"
+msgstr "Eksporditud"
+
+#: admin/templates/export.php:79
+msgid "Are you sure you want to delete this?"
+msgstr "Kas soovite kindlasti selle kustutada?"
+
+#: admin/templates/export.php:91
+msgid "Your Export Format Options"
+msgstr "Vorminguvalikud eksportimiseks"
+
+#: admin/templates/export.php:92
+msgid "Select which formats you want to export"
+msgstr "Valige sobiv vorming"
+
+#: admin/templates/export.php:106
+msgid "Standard book formats"
+msgstr "Enimlevinud raamatuvormingud"
+
+#: admin/templates/export.php:107
+msgid "PDF (for printing)"
+msgstr "PDF (trükkimiseks)"
+
+#: admin/templates/export.php:108
+msgid "EPUB (for Nook, iBooks, Kobo etc.)"
+msgstr "EPUB (e-lugerite - Nook, iBooks, Kobo jne - tarbeks)"
+
+#: admin/templates/export.php:109
+msgid "MOBI (for Kindle)"
+msgstr "MOBI (Kindle'i e-lugeri tarbeks)"
+
+#: admin/templates/export.php:114
+msgid "Hpub"
+msgstr "Hpub"
+
+#: admin/templates/export.php:115
+msgid "ICML (for InDesign)"
+msgstr "ICML (küljendusprogrammi InDesign tarbeks)"
+
+#: admin/templates/export.php:116
+msgid "XHTML"
+msgstr "XHTML"
+
+#: admin/templates/export.php:117
+msgid "WordPress XML"
+msgstr "WordPress XML"
+
+#: admin/templates/export.php:121
+msgid "Your Export Theme Options"
+msgstr "Eksportfaili kujunduse valikud"
+
+#: admin/templates/export.php:122
+msgid "You are using the &ldquo;%s&rdquo; theme"
+msgstr "Kasutusel on kujundus &ldquo;%s&rdquo;"
+
+#: admin/templates/export.php:124
+msgid "Change Theme"
+msgstr "Muuda kujundust"
+
+#: admin/templates/export.php:127
+msgid "Change Theme Options"
+msgstr "Muuda kujunduse suvandeid"
+
+#: admin/templates/organize.php:31
+msgid "Chapters"
+msgstr "Peatükid"
+
+#: admin/templates/organize.php:36 admin/templates/organize.php:108
+msgid "Add Front Matter"
+msgstr "Lisage raamatu eelosa"
+
+#: admin/templates/organize.php:37 admin/templates/organize.php:273
+msgid "Add Back Matter"
+msgstr "Lisage raamatu lõpposa"
+
+#: admin/templates/organize.php:38 admin/templates/organize.php:197
+msgid "Add Chapter"
+msgstr "Lisage raamatule peatükk"
+
+#: admin/templates/organize.php:39 admin/templates/organize.php:204
+msgid "Add Part"
+msgstr "Lisage raamatule osa"
+
+#: admin/templates/organize.php:48 admin/templates/organize.php:124
+#: admin/templates/organize.php:213
+msgid "Comments"
+msgstr "Kommentaarid"
+
+#: admin/templates/organize.php:49 admin/templates/organize.php:125
+#: admin/templates/organize.php:214
+msgid "Status"
+msgstr "Olek"
+
+#: admin/templates/organize.php:76 admin/templates/organize.php:128
+#: admin/templates/organize.php:170 admin/templates/organize.php:241
+#: themes-book/pressbooks-book/page.php:11
+#: themes-book/pressbooks-book/single.php:5
+#: themes-root/pressbooks-publisher-one/loop.php:48
+#: themes-root/pressbooks-publisher-one/single-_author.php:27
+msgid "Edit"
+msgstr "Toimetamine"
+
+#: admin/templates/organize.php:81 admin/templates/organize.php:135
+#: admin/templates/organize.php:173 admin/templates/organize.php:246
+msgid "Delete"
+msgstr "Kustutada"
+
+#: admin/templates/organize.php:283
+msgid "Reordering the Chapters"
+msgstr "Peatükkide järjestuse muutmine"
+
+#: admin/templates/sell.php:12
+msgid "Sell Your Book"
+msgstr "Raamatu turustamine"
+
+#: admin/templates/sell.php:17
+msgid ""
+"Would you like to get your book into ebook stores? Our distribution partner, "
+"<a href=\"%s\" target=\"_blank\">BookBaby</a>, can help you. "
+msgstr ""
+"Kas soovite raamatut turustada e-raamatute müügikeskondades? Abi pakub "
+"PressBooks'i levipartner <a href=\"%s\" target=\"_blank\">BookBaby</a>  ."
+
+#: admin/templates/sell.php:18
+msgid ""
+"For a flat fee starting at $99 (with a 10% discount for PressBooks users and "
+"100% royalties going to you), BookBaby will send your book to the Kindle "
+"Store, Barnes & Noble, Apple's iBook store, and Kobo."
+msgstr ""
+"Teie raamatu saatmise eest Kindle'i, Barnes & Noble'i, Apple iBook'i ja Kobo "
+"e-poodidesse küsib BookBaby 99 USA dollarit (PressBooks'i kasutajad saavad "
+"10% tavahinnast allahindlust ja kogu tulu jääb teile)."
+
+#: admin/templates/sell.php:20
+msgid "Distribute with BookBaby"
+msgstr "Levita BookBaby teenuse abil"
+
+#: admin/templates/sell.php:21
+msgid ""
+"Once your books are available, you can add the links to bookstores below and "
+"we will make a Buy page on the web version of your PressBooks book."
+msgstr ""
+"Kui teie raamat(ud) on turustamiskõlbulik(ud), saate järgnevalt lisada "
+"viited raamatupoodidele ja meie loome teie raamatu veebiversioonile "
+"müügilehekülje."
+
+#: includes/class-pb-activation.php:134
+msgid "Main Body"
+msgstr "Raamatu põhiosa"
+
+#: includes/class-pb-activation.php:139
+msgid "Introduction"
+msgstr "Sissejuhatus"
+
+#: includes/class-pb-activation.php:141
+msgid "This is where you can write your introduction."
+msgstr "Siia saate kirjutada sissejuhatuse."
+
+#: includes/class-pb-activation.php:145
+msgid "Chapter 1"
+msgstr "1. peatükk"
+
+#: includes/class-pb-activation.php:147
+msgid ""
+"This is the first chapter in the main body of the text. You can change the "
+"text, rename the chapter, add new chapters, and add new parts."
+msgstr ""
+"See on raamatu põhiosa esimene peatükk. Te saate muuta teksti, peatüki pealkirja, "
+"lisada uusi peatükke ja raamatuosi."
+
+#: includes/class-pb-activation.php:151
+msgid "Appendix"
+msgstr "Lisa(d)"
+
+#: includes/class-pb-activation.php:153
+msgid "This is where you can add appendices or other back matter."
+msgstr ""
+"Raamatu lisade ja muu raamatu lõpuosa juurde kuuluva lisamine."
+
+#: includes/class-pb-activation.php:158
+#: themes-book/pressbooks-book/page-authors.php:6
+msgid "Authors"
+msgstr "Autorid"
+
+#: includes/class-pb-activation.php:162
+#: includes/modules/export/epub/class-pb-epub201.php:572
+#: includes/modules/export/hpub/class-pb-hpub.php:444
+msgid "Cover"
+msgstr "Kaas"
+
+#: includes/class-pb-activation.php:166
+#: themes-book/pressbooks-book/functions.php:436
+#: themes-book/pressbooks-book/index.php:8
+#: themes-book/pressbooks-book/sidebar.php:36
+msgid "Table of Contents"
+msgstr "Sisukord"
+
+#: includes/class-pb-activation.php:174
+#: themes-book/pressbooks-book/header.php:62
+msgid "Buy"
+msgstr "Osta"
+
+#: includes/class-pb-activation.php:178
+#: themes-book/pressbooks-book/functions.php:81
+msgid "Access Denied"
+msgstr "Ligipääs keelatud"
+
+#: includes/class-pb-activation.php:180
+msgid ""
+"This book is private, and accessible only to registered users. If you have "
+"an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
+"set up your own PressBooks book at: <a href=\"http://pressbooks.com"
+"\">PressBooks.com</a>."
+msgstr ""
+"Antud raamat on nähtav ainult registreeritud kasutajatele. Kui te olete "
+"PressBooks'i kasutaja, sisenege: <a href=\"/wp-login.php\">siit</a>. Samuti "
+"võite luua oma isikliku PressBooks'i raamatu: <a href=\"http://pressbooks.com"
+"\">PressBooks.com</a>."
+
+#: includes/class-pb-activation.php:184 includes/class-pb-metadata.php:351
+msgid "Custom CSS for Ebook"
+msgstr "E-raamatu tarbeks kohandatud CSS"
+
+#: includes/class-pb-activation.php:188 includes/class-pb-metadata.php:355
+msgid "Custom CSS for PDF"
+msgstr "PDF'i tarbeks kohandatud CSS"
+
+#: includes/class-pb-activation.php:192 includes/class-pb-metadata.php:359
+msgid "Custom CSS for Web"
+msgstr "Võrgu tarbeks kohandatud CSS"
+
+#: includes/class-pb-activation.php:198
+msgid "Default Data"
+msgstr "Vaikeandmed"
+
+#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.3)  #-#-#-#-#
+#. Description of the plugin/theme
+#: includes/class-pb-activation.php:200
+msgid "Simple Book Production"
+msgstr "Raamat ilma jamata"
+
+#: includes/modules/export/class-pb-export.php:648
+msgid "File not found"
+msgstr "Faili ei leitud"
+
+#: includes/modules/export/epub/class-pb-epub201.php:636
+#: includes/modules/export/hpub/class-pb-hpub.php:507
+msgid "Title Page"
+msgstr "Tiitelleht"
+
+#: includes/modules/export/epub/class-pb-epub201.php:1069
+#: includes/modules/export/hpub/class-pb-hpub.php:934
+msgid "Table Of Contents"
+msgstr "Sisukord"
+
+#: includes/modules/export/epub/class-pb-epub201.php:1082
+#: includes/modules/export/hpub/class-pb-hpub.php:946
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:570
+msgid "Contents"
+msgstr "Sisu"
+
+#: includes/modules/export/epub/templates/opf.php:134
+msgid "Start"
+msgstr "Algus"
+
+#: includes/modules/export/wordpress/class-pb-wxr.php:101
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:149
+msgid "Invalid permission error"
+msgstr "Luba on vigane"
+
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:280
+msgid "Notes"
+msgstr "Märkused"
+
+#: includes/pb-postype.php:17
+msgctxt "post type general name"
+msgid "Chapters"
+msgstr "Peatükid"
+
+#: includes/pb-postype.php:18
+msgctxt "post type singular name"
+msgid "Chapter"
+msgstr "Peatükk "
+
+#: includes/pb-postype.php:19
+msgctxt "book"
+msgid "Add New Chapter"
+msgstr "Lisage raamatule uus peatükk  "
+
+#: includes/pb-postype.php:20
+msgid "Add New Chapter"
+msgstr "Lisage raamatule uus peatükk"
+
+#: includes/pb-postype.php:21
+msgid "Edit Chapter"
+msgstr "Peatüki toimetamine"
+
+#: includes/pb-postype.php:22
+msgid "New Chapter"
+msgstr "Uus raamatu peatükk"
+
+#: includes/pb-postype.php:23
+msgid "View Chapter"
+msgstr "Peatüki vaade"
+
+#: includes/pb-postype.php:24
+msgid "Search Chapters"
+msgstr "Otsi raamatu peatükke"
+
+#: includes/pb-postype.php:25
+msgid "No chapters found"
+msgstr "Raamatu peatükke ei leitud"
+
+#: includes/pb-postype.php:26
+msgid "No chapters found in Trash"
+msgstr "Kustutatud peatükke ei leitud"
+
+#: includes/pb-postype.php:28
+msgid "Text"
+msgstr "Tekst"
+
+#: includes/pb-postype.php:51
+msgctxt "post type general name"
+msgid "Parts"
+msgstr "Raamatu osad"
+
+#: includes/pb-postype.php:52
+msgctxt "post type singular name"
+msgid "Part"
+msgstr "Osa"
+
+#: includes/pb-postype.php:53
+msgctxt "book"
+msgid "Add Part"
+msgstr "Lisage raamatule osa"
+
+#: includes/pb-postype.php:54
+msgid "Add New Part"
+msgstr "Lisage raamatule uus osa"
+
+#: includes/pb-postype.php:55
+msgid "Edit Part"
+msgstr "Raamatu osa toimetamine"
+
+#: includes/pb-postype.php:56
+msgid "New Part"
+msgstr "Uus raamatu osa"
+
+#: includes/pb-postype.php:57
+msgid "View Part"
+msgstr "Raamatu osa vaade"
+
+#: includes/pb-postype.php:58
+msgid "Search Parts"
+msgstr "Raamatu osade otsing"
+
+#: includes/pb-postype.php:59
+msgid "No parts found"
+msgstr "Raamatu osi ei leitud"
+
+#: includes/pb-postype.php:60
+msgid "No parts found in Trash"
+msgstr "Kustatud raamatu osi ei leitud"
+
+#: includes/pb-postype.php:62
+msgid "Parts"
+msgstr "Osad"
+
+#: includes/pb-postype.php:85
+msgctxt "post type general name"
+msgid "Front Matter"
+msgstr "Raamatu eelosa"
+
+#: includes/pb-postype.php:86
+msgctxt "post type singular name"
+msgid "Front Matter"
+msgstr "Raamatu eelosa "
+
+#: includes/pb-postype.php:87
+msgctxt "book"
+msgid "Add New Front Matter"
+msgstr "Lisage raamatule uus eelosa "
+
+#: includes/pb-postype.php:88
+msgid "Add New Front Matter"
+msgstr "Lisage raamatule uus eelosa"
+
+#: includes/pb-postype.php:89
+msgid "Edit Front Matter"
+msgstr "Raamatu eelosa toimetamine"
+
+#: includes/pb-postype.php:90
+msgid "New Front Matter"
+msgstr "Raamatu uus eelosa"
+
+#: includes/pb-postype.php:91
+msgid "View Front Matter"
+msgstr "Raamatu eelosa vaade"
+
+#: includes/pb-postype.php:92
+msgid "Search Front Matter"
+msgstr "Raamatu eelosa otsing"
+
+#: includes/pb-postype.php:93
+msgid "No front matter found"
+msgstr "Raamatu eelosa ei leitud"
+
+#: includes/pb-postype.php:94
+msgid "No front matter found in Trash"
+msgstr "Kustutatud raamatu eelosa ei leitud"
+
+#: includes/pb-postype.php:120
+msgctxt "post type general name"
+msgid "Back Matter"
+msgstr "Raamatu lõpposa "
+
+#: includes/pb-postype.php:121
+msgctxt "post type singular name"
+msgid "Back Matter"
+msgstr "Raamatu lõpposa"
+
+#: includes/pb-postype.php:122
+msgctxt "book"
+msgid "Add New Back Matter"
+msgstr "Lisage raamatule uus lõpposa sektsioon"
+
+#: includes/pb-postype.php:123
+msgid "Add New Back Matter"
+msgstr "Lisage raamatule uus lõpposa sektsioon"
+
+#: includes/pb-postype.php:124
+msgid "Edit Back Matter"
+msgstr "Raamatu lõpposa toimetamine"
+
+#: includes/pb-postype.php:125
+msgid "New Back Matter"
+msgstr "Raamatu uus lõpposa sektsioon"
+
+#: includes/pb-postype.php:126
+msgid "View Back Matter"
+msgstr "Raamatu lõpposa sektsiooni vaade"
+
+#: includes/pb-postype.php:127
+msgid "Search Back Matter"
+msgstr "Raamatu lõpposa otsing"
+
+#: includes/pb-postype.php:128
+msgid "No back matter found"
+msgstr "Raamatu lõpposa ei leitud"
+
+#: includes/pb-postype.php:129
+msgid "No back matter found in Trash"
+msgstr "Kustutatud raamatu lõpposa ei leitud"
+
+#: includes/pb-postype.php:155
+msgctxt "post type general name"
+msgid "Book Information"
+msgstr "Teave raamatu kohta"
+
+#: includes/pb-postype.php:156
+msgctxt "post type singular name"
+msgid "Book Information"
+msgstr "Teave raamatu kohta"
+
+#: includes/pb-postype.php:157
+msgctxt "book"
+msgid "Add New Book Information"
+msgstr "Raamatut puudutava teabe täiendamine"
+
+#: includes/pb-postype.php:158 includes/pb-postype.php:159
+msgid "Edit Book Information"
+msgstr "Raamatut puudutava teabe toimetamine"
+
+#: includes/pb-postype.php:160
+msgid "New Book Information"
+msgstr "Raamatut puudutava teabe uuendamine"
+
+#: includes/pb-postype.php:161
+msgid "View Book Information"
+msgstr "Raamatut puudutava teabe kuvamine"
+
+#: includes/pb-postype.php:162
+msgid "Search Book Information"
+msgstr "Raamatut puudutava teabe otsing"
+
+#: includes/pb-postype.php:163
+msgid "No book information found"
+msgstr "Teavet raamatu kohta ei leitud"
+
+#: includes/pb-postype.php:164
+msgid "No book information found in Trash"
+msgstr "Teavet kustutatud raamatu kohta ei leitud"
+
+#: includes/pb-postype.php:166
+msgid "Book Information"
+msgstr "Raamatu teave"
+
+#: includes/pb-taxonomy.php:17
+msgctxt "taxonomy general name"
+msgid "Front Matter Types"
+msgstr "Raamatu eelosa tüübid"
+
+#: includes/pb-taxonomy.php:18
+msgctxt "taxonomy singular name"
+msgid "Front Matter Type"
+msgstr "Raamatu eelosa tüüp"
+
+#: includes/pb-taxonomy.php:19
+msgid "Search Front Matter Types"
+msgstr "Raamatu eelosade tüüpide otsing"
+
+#: includes/pb-taxonomy.php:20
+msgid "Popular Front Matter Types"
+msgstr "Populaarsed raamatu eelosade tüübid"
+
+#: includes/pb-taxonomy.php:21
+msgid "All Front Matter Types"
+msgstr "Kõik raamatu eelosa tüübid"
+
+#: includes/pb-taxonomy.php:24
+msgid "Edit Front Matter Type"
+msgstr "Raamatu eelosa tüübi muutmine"
+
+#: includes/pb-taxonomy.php:25
+msgid "Update Front Matter Type"
+msgstr "Raamatu eelosa tüübi uuendamine"
+
+#: includes/pb-taxonomy.php:26
+msgid "Add New Front Matter Type"
+msgstr "Uue raamatu eelosa tüübi lisamine"
+
+#: includes/pb-taxonomy.php:27
+msgid "New Front Matter Type Name"
+msgstr "Uue raamatu eelosa tüübi nimi"
+
+#: includes/pb-taxonomy.php:28
+msgid "Separate front matter types with commas"
+msgstr "Eraldage raamatu eelosa tüübid komadega"
+
+#: includes/pb-taxonomy.php:29
+msgid "Add or remove front matter type"
+msgstr "Raamatu eelosa tüüpide lisamine ja kustutamine"
+
+#: includes/pb-taxonomy.php:30
+msgid "Choose from the most used front matter type"
+msgstr "Valik enimkasutatud raamatu eelosa tüüpide seast"
+
+#: includes/pb-taxonomy.php:31
+msgid "Front Matter Types"
+msgstr "Raamatu eelosa tüübid"
+
+#: includes/pb-taxonomy.php:55
+msgctxt "taxonomy general name"
+msgid "Back Matter Types"
+msgstr "Raamatu lõpposa tüübid"
+
+#: includes/pb-taxonomy.php:56
+msgctxt "taxonomy singular name"
+msgid "Back Matter Type"
+msgstr "Raamatu lõpposa tüüp"
+
+#: includes/pb-taxonomy.php:57
+msgid "Search Back Matter Types"
+msgstr "Raamatu lõpposa tüüpide otsing"
+
+#: includes/pb-taxonomy.php:58
+msgid "Popular Back Matter Types"
+msgstr "Populaarsed raamatu lõpposa tüübid"
+
+#: includes/pb-taxonomy.php:59
+msgid "All Back Matter Types"
+msgstr "Kõik raamatu lõpposa tüübid"
+
+#: includes/pb-taxonomy.php:62
+msgid "Edit Back Matter Type"
+msgstr "Raamatu lõpposa tüübi muutmine"
+
+#: includes/pb-taxonomy.php:63
+msgid "Update Back Matter Type"
+msgstr "Raamatu lõpposa tüübi uuendamine"
+
+#: includes/pb-taxonomy.php:64
+msgid "Add New Back Matter Type"
+msgstr "Lisage uus raamatu lõpposa tüüp"
+
+#: includes/pb-taxonomy.php:65
+msgid "New Back Matter Type Name"
+msgstr "Uue raamatu lõpposa tüübi nimetus"
+
+#: includes/pb-taxonomy.php:66
+msgid "Separate back matter types with commas"
+msgstr "Eraldage raamatu lõpposa tüübid komadega"
+
+#: includes/pb-taxonomy.php:67
+msgid "Add or remove back matter type"
+msgstr "Lisage või kustutage raamatu lõpposa tüüp"
+
+#: includes/pb-taxonomy.php:68
+msgid "Choose from the most used back matter type"
+msgstr "Valik populaarsemaid raamatu lõpposa tüüpe"
+
+#: includes/pb-taxonomy.php:69
+msgid "Back Matter Types"
+msgstr "Raamatu lõpposa tüübid"
+
+#: pressbooks.php:26
+msgid ""
+"PressBooks will not work with your version of WordPress. PressBooks requires "
+"a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+"upgrade WordPress if you would like to use PressBooks."
+msgstr ""
+"PressBooks paraku teie WordPress'i versiooniga ei ühildu. PressBooks'i "
+"kasutamiseks peate paigaldama eraldi rakenduse WordPress Multi-Site "
+"(versioon %s või uuem)."
+
+#: shortcodes/footnotes/class-pb-footnotes.php:154
+msgid "Insert Footnote"
+msgstr "Lisage allmärkus"
+
+#: shortcodes/footnotes/class-pb-footnotes.php:155
+msgid "Convert MS Word Footnotes"
+msgstr "MS Word'i allmärkuste teisendamine"
+
+#: shortcodes/footnotes/class-pb-footnotes.php:229
+msgid "Invalid permissions."
+msgstr "Vigased juurdepääsuõigused."
+
+#: symbionts/custom-metadata/custom_metadata.php:399
+msgid "<strong>%1$s:</strong> %2$s"
+msgstr "<strong>%1$s:</strong> %2$s"
+
+#: symbionts/custom-metadata/custom_metadata.php:490
+msgid "Uh oh, something went wrong!"
+msgstr "Midagi läks valesti!"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:31
+msgctxt "post type general name"
+msgid "Tests"
+msgstr "Prooviversioonid"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:32
+msgctxt "post type singular name"
+msgid "Test"
+msgstr "Prooviversioon"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:33
+msgctxt "Test"
+msgid "Add New"
+msgstr "Lisage uus"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:34
+msgid "Add New Test"
+msgstr "Lisage uus prooviversioon"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:35
+msgid "Edit Test"
+msgstr "Prooviversiooni muutmine"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:36
+msgid "New Test"
+msgstr "Uus prooviversioon"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:37
+msgid "All Tests"
+msgstr "Kõik prooviversioonid"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:38
+msgid "View Test"
+msgstr "Prooviversiooni vaade"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:39
+msgid "Search Tests"
+msgstr "Prooviversiooni otsing"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:40
+msgid "No Tests found"
+msgstr "Prooviversioone ei leitud"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:41
+msgid "No Tests found in Trash"
+msgstr "Kustutatud prooviversioone ei leitud"
+
+#: themes-book/pressbooks-book/comments.php:3
+msgid ""
+"This post is password protected. Enter the password to view any comments."
+msgstr ""
+"Antud postitus on parooliga kaitstud. Kommentaaride lugemiseks sisestage "
+"salasõna."
+
+#: themes-book/pressbooks-book/comments.php:12
+msgid "One Response to %2$s"
+msgid_plural "%1$s Responses to %2$s"
+msgstr[0] "Üks vastus %2$s"
+msgstr[1] "%1$s Vastust %2$s"
+
+#: themes-book/pressbooks-book/comments.php:18
+#: themes-book/pressbooks-book/comments.php:29
+msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
+msgstr "<span class=\"meta-nav\">&larr;</span> Vanemad kommentaarid"
+
+#: themes-book/pressbooks-book/comments.php:19
+#: themes-book/pressbooks-book/comments.php:30
+msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Uuemad kommentaarid <span class=\"meta-nav\">&rarr;</span>"
+
+#: themes-book/pressbooks-book/comments.php:37
+msgid "Comments are closed."
+msgstr "Kommentaarium on suletud."
+
+#: themes-book/pressbooks-book/comments.php:45
+msgid "Submit"
+msgstr "Saatmine"
+
+#: themes-book/pressbooks-book/content-social-footer.php:4
+#: themes-book/pressbooks-book/content-social-header.php:6
+msgid "I wanted to share this post with you from"
+msgstr "Ma soovin teiega jagada järgmist postitust "
+
+#: themes-book/pressbooks-book/content-social-footer.php:4
+#: themes-book/pressbooks-book/content-social-header.php:6
+msgid "Email to a friend"
+msgstr "Saada sõbrale e-kirjaga"
+
+#: themes-book/pressbooks-book/content-social-footer.php:4
+#: themes-book/pressbooks-book/content-social-header.php:6
+msgid "Share via Email"
+msgstr "Jagage e-kirjaga"
+
+#: themes-book/pressbooks-book/content-social-header.php:3
+msgid "Share"
+msgstr "Jagage"
+
+#: themes-book/pressbooks-book/footer.php:17
+msgid "Book Name"
+msgstr "Raamatu nimi"
+
+#: themes-book/pressbooks-book/footer.php:41
+msgid "PressBooks.com: Simple Book Production"
+msgstr "PressBooks.com: raamat ilma jamata"
+
+#: themes-book/pressbooks-book/functions.php:15
+msgid "Keywords/Tags"
+msgstr "Märksõnad"
+
+#: themes-book/pressbooks-book/functions.php:65
+msgid "Previous"
+msgstr "Eelmine"
+
+#: themes-book/pressbooks-book/functions.php:69
+msgid "Next"
+msgstr "Järgmine"
+
+#: themes-book/pressbooks-book/functions.php:83
+msgid ""
+"This book is private, and accessible only to registered users. If you have "
+"an account you can <a href=\"/wp-login.php\" class=\"login\">login here</a> "
+" <p class=\"sign-up\">You can also set up your own PressBooks book at: <a "
+"href=\"http://pressbooks.com\">PressBooks.com</a>."
+msgstr ""
+"Antud raamatut näevad ainult registreeritud kasutajad. Kui teil on "
+"PressBooks'i konto, saate <a href=\"/wp-login.php\" class=\"login\">siseneda "
+"siit</a>  <p class=\"sign-up\"> Samuti saate luua oma PressBooks'i raamatu: "
+"<a href=\"http://pressbooks.com\">PressBooks.com</a>."
+
+#: themes-book/pressbooks-book/functions.php:110
+msgid "%s on"
+msgstr "%s töötab"
+
+#: themes-book/pressbooks-book/functions.php:110
+msgid "%1$s at %2$s"
+msgstr "%1$s at %2$s"
+
+#: themes-book/pressbooks-book/functions.php:110
+#: themes-book/pressbooks-book/functions.php:130
+msgid "(Edit)"
+msgstr "(Toimetamine)"
+
+#: themes-book/pressbooks-book/functions.php:113
+msgid "Your comment is awaiting moderation."
+msgstr "Teie kommentaar ootab läbivaatamist."
+
+#: themes-book/pressbooks-book/functions.php:130
+msgid "Pingback:"
+msgstr "Pingback:"
+
+#: themes-book/pressbooks-book/functions.php:199
+msgid "Global options"
+msgstr "Üldised valikud"
+
+#: themes-book/pressbooks-book/functions.php:206
+msgid "Chapter numbers"
+msgstr "Peatüki numbrid"
+
+#: themes-book/pressbooks-book/functions.php:206
+msgid "display chapter numbers"
+msgstr "kuva peatükkide numbreid"
+
+#: themes-book/pressbooks-book/functions.php:206
+msgid "do not display chapter numbers"
+msgstr "ära kuva peatükkide numbreid"
+
+#: themes-book/pressbooks-book/functions.php:212
+msgid "PDF options"
+msgstr "PDF-i valikud"
+
+#: themes-book/pressbooks-book/functions.php:220
+msgid "Page size"
+msgstr "Lehekülje formaat"
+
+#: themes-book/pressbooks-book/functions.php:221
+msgid "digest"
+msgstr "digest (140 x 210 mm)"
+
+#: themes-book/pressbooks-book/functions.php:222
+msgid "US trade"
+msgstr "Vorming \"US trade\" (152 x 229 mm)"
+
+#: themes-book/pressbooks-book/functions.php:223
+msgid "US letter"
+msgstr "Vorming \"US letter\" (216 x 279 mm)"
+
+#: themes-book/pressbooks-book/functions.php:224
+msgid "8.5 x 9.25\""
+msgstr "216 x 235\""
+
+#: themes-book/pressbooks-book/functions.php:225
+msgid "duodecimo"
+msgstr "Vorming \"duodecimo\" (127 x 187 mm)"
+
+#: themes-book/pressbooks-book/functions.php:226
+msgid "pocket"
+msgstr "taskuformaat ( 108 x 174,5 mm)"
+
+#: themes-book/pressbooks-book/functions.php:227
+msgid "A4"
+msgstr "A4 (210 x 297 mm)"
+
+#: themes-book/pressbooks-book/functions.php:228
+msgid "A5"
+msgstr "A5 (148 x 210 mm)"
+
+#: themes-book/pressbooks-book/functions.php:231
+#: themes-book/pressbooks-book/functions.php:263
+msgid "Paragraph separator"
+msgstr "Lõigu eraldaja"
+
+#: themes-book/pressbooks-book/functions.php:232
+#: themes-book/pressbooks-book/functions.php:264
+msgid "indent"
+msgstr "taane"
+
+#: themes-book/pressbooks-book/functions.php:233
+#: themes-book/pressbooks-book/functions.php:265
+msgid "skip lines"
+msgstr "jäta read vahele"
+
+#: themes-book/pressbooks-book/functions.php:236
+msgid "Blank pages"
+msgstr "Tühjad leheküljed"
+
+#: themes-book/pressbooks-book/functions.php:237
+msgid "include blank pages (for print PDF)"
+msgstr "Kaasa PDF-i trükkimisel tühjad leheküljed"
+
+#: themes-book/pressbooks-book/functions.php:238
+msgid "remove blank pages (for web PDF)"
+msgstr "Eemalda tühjad leheküljed (PDF-i veebis vaatamiseks)"
+
+#: themes-book/pressbooks-book/functions.php:241
+msgid "Table of contents"
+msgstr "Sisukord"
+
+#: themes-book/pressbooks-book/functions.php:241
+#: themes-book/pressbooks-book/functions.php:247
+msgid "display"
+msgstr "kuva"
+
+#: themes-book/pressbooks-book/functions.php:241
+#: themes-book/pressbooks-book/functions.php:247
+msgid "do not display"
+msgstr "ära kuva"
+
+#: themes-book/pressbooks-book/functions.php:244
+msgid "Footnotes style"
+msgstr "Allmärkuste laad"
+
+#: themes-book/pressbooks-book/functions.php:244
+msgid "normal"
+msgstr "tavaline"
+
+#: themes-book/pressbooks-book/functions.php:244
+msgid "force as endnotes"
+msgstr "käitle lõpumärkustena"
+
+#: themes-book/pressbooks-book/functions.php:247
+msgid "Crop marks"
+msgstr "Kärpimismärgid"
+
+#: themes-book/pressbooks-book/functions.php:250
+#: themes-book/pressbooks-book/functions.php:404
+msgid "Hyphens"
+msgstr "Sidekriipsud"
+
+#: themes-book/pressbooks-book/functions.php:250
+msgid "enabled"
+msgstr "lubatud"
+
+#: themes-book/pressbooks-book/functions.php:250
+msgid "disabled"
+msgstr "keelatud"
+
+#: themes-book/pressbooks-book/functions.php:256
+msgid "Ebook options"
+msgstr "E-raamatu suvandid"
+
+#: themes-book/pressbooks-book/functions.php:290
+msgid "Global Options"
+msgstr "Üldsuvandid"
+
+#: themes-book/pressbooks-book/functions.php:296
+msgid "Chapter Numbers"
+msgstr "Peatükkide numbrid"
+
+#: themes-book/pressbooks-book/functions.php:301
+msgid "Display chapter numbers"
+msgstr "Peatükkide numbrite kuvamine"
+
+#: themes-book/pressbooks-book/functions.php:318
+msgid "These options apply universally to webbook, PDF and ebook exports."
+msgstr ""
+"Antud valikud puudutavad nii raamatu veebiversiooni, PDF-i kui e-kujul "
+"eksportimist."
+
+#: themes-book/pressbooks-book/functions.php:370
+msgid "PDF Options"
+msgstr "PDF-i suvandid"
+
+#: themes-book/pressbooks-book/functions.php:376
+msgid "Page Size"
+msgstr "Lehekülje mõõt"
+
+#: themes-book/pressbooks-book/functions.php:381
+msgid "Digest (5.5&quot; &times; 8.5&quot;)"
+msgstr "Vorming \"digest\" (140mm &times; 210mm)"
+
+#: themes-book/pressbooks-book/functions.php:382
+msgid "US Trade (6&quot; &times; 9&quot;)"
+msgstr "Vorming \"US Trade\" (152mm &times; 229mm)"
+
+#: themes-book/pressbooks-book/functions.php:383
+msgid "US Letter (8.5&quot; &times; 11&quot;)"
+msgstr "Vorming \"US Letter\" (216mm &times; 279mm)"
+
+#: themes-book/pressbooks-book/functions.php:384
+msgid "Custom (8.5&quot; &times; 9.25&quot;)"
+msgstr "Kohandatud vorming (216mm &times; 235mm)"
+
+#: themes-book/pressbooks-book/functions.php:385
+msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
+msgstr "Vorming \"duodecimo\" (140mm &times; 190mm)"
+
+#: themes-book/pressbooks-book/functions.php:386
+msgid "Pocket (4.25&quot; &times; 7&quot;)"
+msgstr "Taskuformaat (pocket) (108mm &times; 174mm)"
+
+#: themes-book/pressbooks-book/functions.php:387
+msgid "A4 (21cm &times; 29.7cm)"
+msgstr "A4 (210mm &times; 297 mm)"
+
+#: themes-book/pressbooks-book/functions.php:388
+msgid "A5 (14.8cm &times; 21cm)"
+msgstr "A5 (148mm &times; 210 mm)"
+
+#: themes-book/pressbooks-book/functions.php:394
+msgid "Crop Marks"
+msgstr "Kärpimismärgid"
+
+#: themes-book/pressbooks-book/functions.php:399
+msgid "Display crop marks"
+msgstr "Kuva kärpimismärgid"
+
+#: themes-book/pressbooks-book/functions.php:409
+msgid "Enable hyphenation"
+msgstr "Luba poolitamine"
+
+#: themes-book/pressbooks-book/functions.php:414
+#: themes-book/pressbooks-book/functions.php:606
+msgid "Paragraph Separation"
+msgstr "Lõikude eristamine"
+
+#: themes-book/pressbooks-book/functions.php:419
+#: themes-book/pressbooks-book/functions.php:611
+msgid "Indent paragraphs"
+msgstr "Alusta lõiku taandreaga"
+
+#: themes-book/pressbooks-book/functions.php:420
+#: themes-book/pressbooks-book/functions.php:612
+msgid "Skip lines between paragraphs"
+msgstr "Jäta lõikude vahel rida/read tühjaks"
+
+#: themes-book/pressbooks-book/functions.php:425
+msgid "Blank Pages"
+msgstr "Tühjad leheküljed"
+
+#: themes-book/pressbooks-book/functions.php:430
+msgid "Include blank pages (for print PDF)"
+msgstr "Kaasa PDF-i trükkimisel tühjad leheküljed"
+
+#: themes-book/pressbooks-book/functions.php:431
+msgid "Remove all blank pages (for web PDF)"
+msgstr "Tühjade lehekülgede eemaldamine (PDF'i vaatamiseks veebis)"
+
+#: themes-book/pressbooks-book/functions.php:441
+msgid "Display table of contents"
+msgstr "Näita sisukorda"
+
+#: themes-book/pressbooks-book/functions.php:446
+msgid "Footnotes Style"
+msgstr "Allmärkuste laad"
+
+#: themes-book/pressbooks-book/functions.php:451
+msgid "Regular footnotes"
+msgstr "Tavalised allmärkused"
+
+#: themes-book/pressbooks-book/functions.php:452
+msgid "Force as endnotes"
+msgstr "Käitle lõpumärkustena"
+
+#: themes-book/pressbooks-book/functions.php:600
+msgid "Ebook Options"
+msgstr "E-raamatu suvandid"
+
+#: themes-book/pressbooks-book/header.php:24
+msgid "Page %s"
+msgstr "Lehekülg %s"
+
+#: themes-book/pressbooks-book/page-about.php:5
+msgid "About The Book"
+msgstr "Raamatust"
+
+#: themes-book/pressbooks-book/page-about.php:21
+#: themes-book/pressbooks-book/page-buy.php:14
+msgid "It's coming!"
+msgstr "Tulekul!"
+
+#: themes-book/pressbooks-book/page-buy.php:4
+msgid "Buy the Book"
+msgstr "Osta raamat"
+
+#: themes-book/pressbooks-book/page-buy.php:17
+msgid ""
+"You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
+msgstr ""
+"Osta saab <a href=\"%1$s\">%2$s</a> klõpsates mõnel alljärgneval lingil:"
+
+#: themes-book/pressbooks-book/page-buy.php:21
+msgid "Purchase on  <a href=\"%1$s\">amazon.com</a>"
+msgstr "Osta <a href=\"%1$s\">amazon.com</a>"
+
+#: themes-book/pressbooks-book/page-buy.php:25
+msgid "Purchase on  <a href=\"%1$s\">oreilly.com</a>"
+msgstr "Osta <a href=\"%1$s\">oreilly.com</a>"
+
+#: themes-book/pressbooks-book/page-buy.php:29
+msgid "Purchase on  <a href=\"%1$s\">barnesandnoble.com</a>"
+msgstr "Osta <a href=\"%1$s\">barnesandnoble.com</a>"
+
+#: themes-book/pressbooks-book/page-buy.php:33
+msgid "Purchase on  <a href=\"%1$s\">kobobooks.com</a>"
+msgstr "Osta <a href=\"%1$s\">kobobooks.com</a>"
+
+#: themes-book/pressbooks-book/page-buy.php:37
+msgid "Purchase on  <a href=\"%1$s\">apple.com</a>"
+msgstr "Osta <a href=\"%1$s\">apple.com</a>"
+
+#: themes-book/pressbooks-book/page-buy.php:41
+msgid "Elsewhere"
+msgstr "Mujalt"
+
+#: themes-book/pressbooks-book/page-buy.php:41
+msgid "Purchase here:"
+msgstr "Osta siit:"
+
+#: themes-book/pressbooks-book/page-cover.php:19
+msgid "Start reading"
+msgstr "Alustage lugemisega"
+
+#: themes-book/pressbooks-book/page-cover.php:35
+msgid "Authors(s)"
+msgstr "Autor(id)"
+
+#: themes-book/pressbooks-book/page.php:13
+msgid "Pages:"
+msgstr "Leheküljed:"
+
+#: themes-book/pressbooks-book/sidebar.php:9
+msgid "Login"
+msgstr "Sisene"
+
+#: themes-book/pressbooks-book/sidebar.php:13
+msgid "Logout"
+msgstr "Välju"
+
+#: themes-book/pressbooks-book/sidebar.php:21
+msgid "Admin"
+msgstr "Admin"
+
+#: themes-book/pressbooks-book/sidebar.php:26
+msgid "Read"
+msgstr "Lugege"
+
+#: themes-book/pressbooks-book/sidebar.php:27
+msgid "About the Book"
+msgstr "Raamatust"
+
+#: themes-book/pressbooks-book/sidebar.php:28
+msgid "About the Author(s)"
+msgstr "Autori(te)st"
+
+#: themes-book/pressbooks-book/sidebar.php:32
+msgid "Home"
+msgstr "Koduleht"
+
+#: themes-root/pressbooks-publisher-one/404.php:17
+msgid "Search"
+msgstr "Otsing"
+
+#: themes-root/pressbooks-publisher-one/archive-_author.php:34
+#: themes-root/pressbooks-publisher-one/single-_author.php:24
+msgid "Read more &raquo;"
+msgstr "Lugege edasi &raquo;"
+
+#: themes-root/pressbooks-publisher-one/archive-_author.php:48
+msgid "Sorry, no authors could be found."
+msgstr "Vabandage, autoreid ei leitud."
+
+#: themes-root/pressbooks-publisher-one/comments.php:9
+msgid "Enter password."
+msgstr "Sisestage salasõna"
+
+#: themes-root/pressbooks-publisher-one/comments.php:12
+msgid "0 comments"
+msgstr "0 kommentaari"
+
+#: themes-root/pressbooks-publisher-one/comments.php:12
+msgid "1 comment"
+msgstr "1 kommentaar"
+
+#: themes-root/pressbooks-publisher-one/comments.php:12
+msgid "% comments"
+msgstr "% kommentaari"
+
+#: themes-root/pressbooks-publisher-one/comments.php:15
+msgid "Leave a comment"
+msgstr "Kommenteerige"
+
+#: themes-root/pressbooks-publisher-one/comments.php:33
+msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr "Kommenteerimiseks peate olema <a href=\"%s\">sisse logitud</a>"
+
+#: themes-root/pressbooks-publisher-one/comments.php:41
+msgid "Sorry, comments are closed."
+msgstr "Vabandage, kommentaarium on suletud."
+
+#: themes-root/pressbooks-publisher-one/front-featured.php:24
+msgid "Read more &#8594;"
+msgstr "Lugege edasi &#8594;"
+
+#: themes-root/pressbooks-publisher-one/front-homepage-block.php:14
+#: themes-root/pressbooks-publisher-one/front-homepage-block.php:36
+#: themes-root/pressbooks-publisher-one/loop.php:45
+msgid "read more &#8594;"
+msgstr "lugege edasi &#8594;"
+
+#: themes-root/pressbooks-publisher-one/functions.php:63
+msgid "Sidebar 1"
+msgstr "Külgriba 1"
+
+#: themes-root/pressbooks-publisher-one/functions.php:72
+msgid "Sidebar 2"
+msgstr "Külgriba 2"
+
+#: themes-root/pressbooks-publisher-one/functions.php:81
+msgid "Sidebar 3"
+msgstr "Külgriba 3"
+
+#: themes-root/pressbooks-publisher-one/functions.php:89
+msgid "Home Page Left Column"
+msgstr "Kodulehe vasak tulp"
+
+#: themes-root/pressbooks-publisher-one/functions.php:97
+msgid "Home Page Right Column"
+msgstr "Kodulehe parem tulp"
+
+#: themes-root/pressbooks-publisher-one/functions.php:105
+msgid "Footer"
+msgstr "Jalus"
+
+#: themes-root/pressbooks-publisher-one/functions.php:168
+msgid "\">read more &#8594;</a>"
+msgstr "\">lugege edasi &#8594;</a>"
+
+#: themes-root/pressbooks-publisher-one/functions.php:202
+#: themes-root/pressbooks-publisher-one/functions.php:203
+#: themes-root/pressbooks-publisher-one/functions.php:213
+msgctxt "_featured_content"
+msgid "Featured Content"
+msgstr "Paremad palad "
+
+#: themes-root/pressbooks-publisher-one/functions.php:204
+msgctxt "_featured_content"
+msgid "Add New"
+msgstr "Lisage "
+
+#: themes-root/pressbooks-publisher-one/functions.php:205
+msgctxt "_featured_content"
+msgid "Add New Featured Content"
+msgstr "Lisage väljapaistvaid tekstinäiteid "
+
+#: themes-root/pressbooks-publisher-one/functions.php:206
+msgctxt "_featured_content"
+msgid "Edit Featured Content"
+msgstr "Paremate palade toimetamine "
+
+#: themes-root/pressbooks-publisher-one/functions.php:207
+msgctxt "_featured_content"
+msgid "New Featured Content"
+msgstr "Uued paremad palad "
+
+#: themes-root/pressbooks-publisher-one/functions.php:208
+msgctxt "_featured_content"
+msgid "View Featured Content"
+msgstr "Vaadake paremaid palu "
+
+#: themes-root/pressbooks-publisher-one/functions.php:209
+msgctxt "_featured_content"
+msgid "Search Featured Content"
+msgstr "Paremate palade otsing "
+
+#: themes-root/pressbooks-publisher-one/functions.php:210
+msgctxt "_featured_content"
+msgid "No Featured Content found"
+msgstr "Paremaid palu ei leitud "
+
+#: themes-root/pressbooks-publisher-one/functions.php:211
+msgctxt "_featured_content"
+msgid "No Featured Content in Trash"
+msgstr "Kustutatud paremaid palu ei leitud"
+
+#: themes-root/pressbooks-publisher-one/functions.php:212
+msgctxt "_featured_content"
+msgid "Parent Featured Content Link:"
+msgstr "Paremate palade vaikeviide: "
+
+#: themes-root/pressbooks-publisher-one/functions.php:235
+#: themes-root/pressbooks-publisher-one/functions.php:246
+msgctxt "_author"
+msgid "Authors"
+msgstr "Autorid "
+
+#: themes-root/pressbooks-publisher-one/functions.php:236
+msgctxt "_author"
+msgid "Author"
+msgstr "Autor "
+
+#: themes-root/pressbooks-publisher-one/functions.php:237
+msgctxt "_author"
+msgid "Add New"
+msgstr "Lisage uus"
+
+#: themes-root/pressbooks-publisher-one/functions.php:238
+msgctxt "_author"
+msgid "Add New Author"
+msgstr "Lisage uus autor "
+
+#: themes-root/pressbooks-publisher-one/functions.php:239
+msgctxt "_author"
+msgid "Edit Author"
+msgstr "Autori toimetamine"
+
+#: themes-root/pressbooks-publisher-one/functions.php:240
+msgctxt "_author"
+msgid "New Author"
+msgstr "Uus autor "
+
+#: themes-root/pressbooks-publisher-one/functions.php:241
+msgctxt "_author"
+msgid "View Author"
+msgstr "Vaata autorit"
+
+#: themes-root/pressbooks-publisher-one/functions.php:242
+msgctxt "_author"
+msgid "Search Authors"
+msgstr "Otsige autoreid "
+
+#: themes-root/pressbooks-publisher-one/functions.php:243
+msgctxt "_author"
+msgid "No Authors found"
+msgstr "Autoreid ei tuvastatud"
+
+#: themes-root/pressbooks-publisher-one/functions.php:244
+msgctxt "_author"
+msgid "No Authors in Trash"
+msgstr "Kustutatud autoreid ei tuvastatud"
+
+#: themes-root/pressbooks-publisher-one/functions.php:245
+msgctxt "_author"
+msgid "Parent Author Link:"
+msgstr "Vaikeviide autorile: "
+
+#: themes-root/pressbooks-publisher-one/home.php:13
+msgid "&#8592 Older Entries"
+msgstr "&#8592 Vanemad sissekanded"
+
+#: themes-root/pressbooks-publisher-one/home.php:14
+msgid "Newer Entries &#8594;"
+msgstr "Uuemad sissekanded &#8594"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:29
+msgid " Theme Options"
+msgstr "Kujunduse suvandid"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:30
+msgid ""
+"These options will let you setup the social icons for your site. You can "
+"enter the URLs of your profiles to have the icons show up."
+msgstr ""
+"Antud suvandite abil saate oma leheküljel kuvada suhtlusvõrgustike "
+"viiteid. Samuti võite suhtlusvõrgustike ikoonide kuvamiseks oma profiilidele "
+"lisada URL'id."
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:32
+msgid "Options saved"
+msgstr "Suvandid salvestati"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:47
+msgid "Hide RSS Icon?"
+msgstr "Peida RSS-i ikoon?"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:50
+msgid "Hide the RSS feed icon?"
+msgstr "Peida RSS-i voo ikoon?"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:59
+msgid "Enter your Facebook URL"
+msgstr "Sisestage oma Facebook'i veebiaadress"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:62
+msgid "Leave blank to hide Facebook Icon"
+msgstr "Facebook'i ikooni peitmiseks jätke tühjaks"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:71
+msgid "Enter your Twitter URL"
+msgstr "Sisestage oma Twitteri veebiaadress"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:74
+msgid "Leave blank to hide Twitter Icon"
+msgstr "Twitter'i ikooni peitmiseks jätke tühjaks"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:83
+msgid "Enter your Tumblr URL"
+msgstr "Sisestage oma Tumblr'i veebiaadress"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:86
+msgid "Leave blank to hide Tumblr Icon"
+msgstr "Tumblr'i ikooni peitmiseks jätke tühjaks"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:95
+msgid "Enter your Youtube Channel URL"
+msgstr "Sisestage oma YouTube'i kanali veebiaadress"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:98
+msgid "Leave blank to hide Youtube Icon"
+msgstr "YouTube'i ikooni peitmiseks jätke tühjaks"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:105
+msgid "Save Options"
+msgstr "Salvestamise suvandid"
+
+#: themes-root/pressbooks-publisher-one/index.php:9
+msgid "Older Entries &raquo;"
+msgstr "Vanemad sissekanded &raquo;"
+
+#: themes-root/pressbooks-publisher-one/index.php:10
+msgid "&laquo; Newer Entries"
+msgstr "&raquo; Uuemad sissekanded"
+
+#: themes-root/pressbooks-publisher-one/loop.php:48
+msgid "No Comments"
+msgstr "Kommentaarid puuduvad"
+
+#: themes-root/pressbooks-publisher-one/loop.php:60
+#: themes-root/pressbooks-publisher-one/single-_author.php:38
+msgid "Sorry, no posts matched your criteria."
+msgstr "Vabandame, teie päringuga ei sobinud ükski postitus."
+
+#: themes-root/pressbooks-publisher-one/page.php:13
+msgid "keep reading"
+msgstr "jätkake lugemist"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:5
+msgid "Twitter"
+msgstr "Twitter"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:9
+msgid "Facebook"
+msgstr "Facebook"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:13
+msgid "YouTube"
+msgstr "YouTube"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:17
+msgid "Tumblr"
+msgstr "Tumblr"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:21
+msgid "RSS Feed"
+msgstr "RSS-voog"
+
+#. Plugin Name of the plugin/theme
+msgid "PressBooks"
+msgstr "PressBooks"
+
+#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.3)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.3)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://www.pressbooks.com"
+msgstr "http://www.pressbooks.com"
+
+#. Author of the plugin/theme
+msgid "BookOven Inc."
+msgstr "BookOven Inc."
