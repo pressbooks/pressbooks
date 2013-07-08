@@ -847,7 +847,7 @@ div.aligncenter {
 	font-variant: small-caps;
 }
 
-/* TEXTBOXES 
+/* TEXTBOXES & PULLQUOTES 
 ===============*/
 .textbox {
 	border: 1px solid #333;
@@ -873,11 +873,13 @@ div.aligncenter {
   text-align: center;
   width: 65%;
 }
+.pullquote-left {
   border: 1px solid #000;
   border-width: 1px 0;
   float: left;
   hyphens: none;  
   margin: 15px 15px 15px 0;
+  padding: 5px 0;
   text-align: center;
   width: 45%;
 }
