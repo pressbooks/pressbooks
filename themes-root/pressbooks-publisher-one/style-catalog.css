@@ -50,7 +50,6 @@ body {
 	color:#333;
 }
 body, html {
-	min-height: 100%;
 	height: 100%;
 }
 body.home {
@@ -103,25 +102,29 @@ img {
 * Structure
 **************************************************************/
 .catalog-wrap {
-	height: 100%;
-}
-.catalog-content-wrap {
-	height: 100%;
+    height: 100%;
+    overflow: auto;
 }
 .catalog-sidebar {
-	background-color: #3a3a3a;
-	float: left;
-	height: 100%;
+	background-color: #3a3a3a;		
+    height: 100%;
 	max-width: 290px;
 	text-align: right;
 	width: 20%;
+	
+	position: absolute;
+	top:0;
+	left: 0;
+}
+.catalog-content-wrap {
+	float: left;
+    height: 100%;
+    margin-left: 20%;
+	padding: 3em 8%;	
+	width: 80%;		
 }
 .catalog-content {
 	float: left;
-	height: 96%;
-	padding: 3em 8%;
-	position: relative;
-	width: 80%;		
 }
 .sidebar-inner-wrap {
 	padding: 10px 25px 25px 20%;
@@ -165,13 +168,14 @@ img {
 .catalog-sidebar ul a:hover{
 	color: #65cef5;
 }
+/*
 
 /************************************************************** 
 * Login/Logout
 **************************************************************/
 .log-wrap {
     position: absolute;
-    right: 2%;
+    right: 3%;
     top: 7px;
     z-index: 1000;
 }
@@ -252,14 +256,13 @@ img {
 * Footer
 **************************************************************/
 .footer {
-	position: absolute;
-	bottom: 0; 
-	left: 50%;
+	margin-top: 60px;
 	text-align: center;
 }
 .footer a {
-	font-size: 0.875em;
+	font-size: 0.9em;
 }
+
 /*
  * Media queries for responsive design
  * These follow after primary styles so they will successfully override. 
@@ -267,9 +270,10 @@ img {
 
 @media screen and (max-width: 1020px) { 
 
-  .catalog-content  {
-  		height: 100%;
-		width: 70%;  
+  .catalog-content-wrap  {
+  	  height: 100%;
+  	  margin-left: 30%;
+	  width: 70%; 
   }
   .book-data {
       max-width: 280px;
@@ -285,6 +289,13 @@ img {
 
 @media screen and (max-width: 600px) { 
 
+	.catalog-wrap {
+	    overflow: inherit;
+	}
+  .catalog-content-wrap {
+	  margin: auto;
+	  float: none;
+  }
   .catalog-content {
   	  height: auto;
   	  padding: 20px;
@@ -300,6 +311,7 @@ img {
 	  float: none;
 	  height: auto;
 	  max-width: 100%;
+	  position: inherit;
 	  text-align: left;
 	  width: 100%;
   }
