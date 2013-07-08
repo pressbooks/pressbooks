@@ -862,6 +862,37 @@ div.aligncenter {
 	background-color: #eee;
 }
 
+.pullquote {
+  border: 1px solid #000;
+  border-width: 1px 0;
+  display: block;
+  hyphens: none;
+  margin: 20px auto;
+  overflow: hidden;
+  padding: 5px 0;
+  text-align: center;
+  width: 65%;
+}
+  border: 1px solid #000;
+  border-width: 1px 0;
+  float: left;
+  hyphens: none;  
+  margin: 15px 15px 15px 0;
+  text-align: center;
+  width: 45%;
+}
+.pullquote-right {
+  border: 1px solid #000;
+  border-width: 1px 0;
+  float: right;
+  hyphens: none;  
+  margin: 15px 0 15px 15px;
+  padding: 5px 0;
+  text-align: center;
+  width: 45%;
+}
+
+
 /********************
 	  Content
 *********************/
