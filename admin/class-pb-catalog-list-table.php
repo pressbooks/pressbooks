@@ -79,7 +79,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		);
 		
 		// Only include admin link if user has admin rights to the book in question
-		if ( is_user_member_of_blog( $user_id, $blog_id ) )
+		if ( is_super_admin( $user_id ) || is_user_member_of_blog( $user_id, $blog_id ) )
 			$actions['dashboard'] = sprintf( '<a href="%s">%s</a>', get_admin_url( $blog_id ), __( 'Visit Admin', 'pressbooks' ) );
 
 		// Return the title contents
