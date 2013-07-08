@@ -131,10 +131,11 @@ function get_media_path( $guid ) {
 
 /**
  * Array multisort function for sorting on multiple fields like in SQL, e.g: 'ORDER BY field1, field2'
+ *
  * Supports optional ASC or DESC parameter by using : delimiter, example:
  *   multiSort($array, 'foo:asc', 'bar:desc', ...);
  *
- * @param array  $array
+ * @param array $array
  * @param string $a, $b, $c ...
  *
  * @return array
