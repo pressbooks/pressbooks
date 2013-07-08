@@ -31,6 +31,7 @@ function _logo_url( $profile ) {
 		return PB_Catalog::thumbnailFromUserId( $profile['users_id'], 'thumbnail' );
 }
 
+
 /**
  * Try to get the height of cover using the image name
  * Ie. http://blah/foobar-225x126.jpg would return 126
@@ -104,15 +105,16 @@ function _books( PB_Catalog $catalog ) {
 /**
  * Get base url
  *
- * @param $user_id
+ * @global int $_current_user_id
  *
  * @return string
  */
-function _base_url( $user_id ) {
+function _base_url() {
 
 	static $base_url = false; // Cheap cache
 	if ( false === $base_url ) {
-		$base_url = get_userdata( $user_id )->user_login;
+		global $_current_user_id;
+		$base_url = get_userdata( $_current_user_id )->user_login;
 		$base_url = network_site_url( "/catalog/$base_url" );
 	}
 
@@ -122,15 +124,14 @@ function _base_url( $user_id ) {
 /**
  * Get tag url
  *
- * @param int $user_id
  * @param int $tag_group
  * @param int $tag_id
  *
  * @return string
  */
-function _tag_url( $user_id, $tag_group, $tag_id ) {
+function _tag_url( $tag_group, $tag_id ) {
 
-	return _base_url( $user_id ) . "?tag_group=$tag_group&tag_id=$tag_id";
+	return _base_url() . "?tag_group=$tag_group&tag_id=$tag_id";
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -142,6 +143,10 @@ $catalog = new PB_Catalog( absint( $user_id ) ); // Note: $user_id is set in PB_
 $profile = $catalog->getProfile();
 $books = _books( $catalog );
 $h1_title = __( 'Catalog', 'pressbooks' );
+
+// Private! Don't touch
+global $_current_user_id;
+$_current_user_id = $catalog->getUserId();
 
 // -------------------------------------------------------------------------------------------------------------------
 // HTML
@@ -177,16 +182,14 @@ $h1_title = __( 'Catalog', 'pressbooks' );
 
 <div class="catalog-wrap">
 		<div class="log-wrap">	<!-- Login/Logout -->
-		   <?php if (! is_single()): ?>
-		    	<?php if (!is_user_logged_in()): ?>
-					<a href="<?php echo wp_login_url(); ?>" class=""><?php _e('login', 'pressbooks'); ?></a>
-		   	 	<?php else: ?>
-					<a href="<?php echo  wp_logout_url(); ?>" class=""><?php _e('logout', 'pressbooks'); ?></a>
-					<?php if (is_user_member_of_blog()): ?>
-					<a href="<?php echo get_option('home'); ?>/wp-admin"><?php _e('Admin', 'pressbooks'); ?></a>
-					<?php endif; ?>
-		    	<?php endif; ?>
-		    <?php endif; ?>
+			<?php if (!is_user_logged_in()): ?>
+				<a href="<?php echo wp_login_url(); ?>" class=""><?php _e('login', 'pressbooks'); ?></a>
+			<?php else: ?>
+				<a href="<?php echo  wp_logout_url(); ?>" class=""><?php _e('logout', 'pressbooks'); ?></a>
+				<?php if (is_super_admin() || is_user_member_of_blog()): ?>
+				<a href="<?php echo get_option('home'); ?>/wp-admin"><?php _e('Admin', 'pressbooks'); ?></a>
+				<?php endif; ?>
+			<?php endif; ?>
 		</div> <!-- end .log-wrap -->
 	<div id="catalog-sidebar" class="catalog-sidebar">
 		<h2 class="pressbooks-logo">
@@ -194,9 +197,9 @@ $h1_title = __( 'Catalog', 'pressbooks' );
 		</h2>
 		<p class="tag-menu assistive-text">Menu</p>
 		<div class="sidebar-inner-wrap">
-			<?php if ( $profile['pb_catalog_url'] ): ?><a href="<?php echo $profile['pb_catalog_url']; ?>"><?php endif; ?>
+			<a href="<?php if ($profile['pb_catalog_url']) echo $profile['pb_catalog_url']; else echo _base_url(); ?>">
 			<img class="catalog-logo" src="<?php echo _logo_url( $profile ); ?>" alt="catalog-logo" width="100" height="99" />
-			<?php if ( $profile['pb_catalog_url'] ): ?></a><?php endif; ?>
+			</a>
 			<p class="about-blurb"><?php echo $profile['pb_catalog_about']; ?></p>
 			<br />
 	
@@ -207,12 +210,12 @@ $h1_title = __( 'Catalog', 'pressbooks' );
 				<ul>
 					<?php
 					foreach ( $tags as $val ) {
-						$tag_url = _tag_url( $catalog->getUserId(), $i, $val['id'] );
+						$tag_url = _tag_url( $i, $val['id'] );
 						echo "<li><a href='$tag_url' ";
 						if ( $i == @$_REQUEST['tag_group'] && $val['id'] == @$_REQUEST['tag_id'] ) {
 							echo 'class="active"';
 							$h1_title = __( 'Catalog, filtering by', 'pressbooks' ) . ": {$val['tag']}";
-							$h1_title .= ' <span style="font-weight:normal;font-size:60%;">[<a href="' . _base_url( $catalog->getUserId() ) . '">x</a>]</span>';
+							$h1_title .= ' <span style="font-weight:normal;font-size:60%;">[<a href="' . _base_url() . '">x</a>]</span>';
 						}
 						echo ">{$val['tag']}</a></li>" . "\n";
 					}
@@ -234,7 +237,7 @@ $h1_title = __( 'Catalog', 'pressbooks' );
 				<div class="book-data">
 	
 					<div class="book">
-						<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id']  ); ?>"><?php echo $b['about']; ?><span class="book-link">&rarr;</span></a></p>
+						<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id']  ); ?>"><?php echo strip_tags( $b['about'] ); ?><span class="book-link">&rarr;</span></a></p>
 						<img src="<?php echo $b['cover_url']['pb_cover_medium']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" />
 					</div><!-- end .book -->
 	
@@ -250,7 +253,7 @@ $h1_title = __( 'Catalog', 'pressbooks' );
 			?>
 			</div>	<!-- end .catalog-content-->
 			<div class="footer">
-				<p> <a href="http://pressbooks.com">PressBooks: the CMS for Books.</a></p>
+				<p><a href="http://pressbooks.com"><?php _e( 'PressBooks: the CMS for Books.', 'pressbooks' ); ?></a></p>
 			</div>
 		
 		</div>	<!-- end .catalog-content-wrap -->
