@@ -109,12 +109,12 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		// TODO, Better HTML?
 		if ( $item['status'] ) {
-			$status = '<img src="' . esc_url( admin_url( 'images/yes.png' ) ) . '" alt="' . __( 'Yes' ) . '" />';
+			$status = '<span data-icon="b" class="yes-icon"></span><span class="assistive-text">Yes</span>';
 			$actions = array(
 				'remove' => sprintf( '<a href="%s">%s</a>', $remove_url, __( 'Hide in Catalog', 'pressbooks' ) ),
 			);
 		} else {
-			$status = '<img src="' . esc_url( admin_url( 'images/no.png' ) ) . '" alt="' . __( 'No' ) . '" />';
+			$status = '<span data-icon="c" class="no-icon"></span><span class="assistive-text">No</span>';
 			$actions = array(
 				'add' => sprintf( '<a href="%s">%s</a>', $add_url, __( 'Show in Catalog', 'pressbooks' ) ),
 			);
@@ -444,6 +444,19 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		?>
 		<div class="wrap">
+			<div class="notice-panel">
+				<h4>Organize your public Catalog page.</h4>
+					<h5><span data-icon="a" class="show-hide-icon"></span>Show/Hide books</h5>
+					<p>To display a book in your catalog choose "<strong>Show in Catalog</strong>" under Catalog Status. <br> To hide a book in your catalog choose "<strong>Hide in Catalog</strong>" under Catalog Status.</p>
+					
+					<h5><span data-icon="g" class="sort-icon"></span>Catalog sorting</h5>
+					<p>To add sorting ability, add your Tag names to your <a href="<?php echo $url . '&action=edit_profile'; ?>">Catalog Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to each individual book.</p>
+						
+					<h5><span data-icon="f" class="share-icon"></span>Share your catalog</h5>
+					<p>The public link to your catalog page: <a href="<?php echo $view_url; ?>"><?php echo $view_url; ?></a></li>
+
+			</div><!-- end notice-panel -->
+			
 			<div id="icon-edit" class="icon32"><br /></div>
 			<h2><?php _e( 'My Catalog', 'pressbooks' ); ?>
 				<a href="<?php echo $url . '&action=edit_profile'; ?>" class="button add-new-h2"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
