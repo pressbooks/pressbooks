@@ -44,12 +44,15 @@ function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
 
 /**
  * Sanitize XML attribute
+ *
  * Here's what is allowed in an XML attribute value:
  *     '"' ([^<&"] | Reference)* '"'  |  "'" ([^<&'] | Reference)* "'"
+ *
  * So, you can't have:
  *  + the same character that opens/closes the attribute value (either ' or ")
  *  + a naked ampersand (& must be &amp;)
  *  + a left angle bracket (< must be &lt;)
+ *
  * You should also not being using any characters that are outright not legal anywhere in an XML document (such as
  * form feeds, etc).
  *
