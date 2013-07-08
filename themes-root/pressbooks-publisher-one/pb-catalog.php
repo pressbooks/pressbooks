@@ -250,7 +250,7 @@ $h1_title = __( 'Catalog', 'pressbooks' );
 			?>
 			</div>	<!-- end .catalog-content-->
 			<div class="footer">
-				<p> <a href="/">PressBooks: the CMS for Books.</a></p>
+				<p> <a href="http://pressbooks.com">PressBooks: the CMS for Books.</a></p>
 			</div>
 		
 		</div>	<!-- end .catalog-content-wrap -->
