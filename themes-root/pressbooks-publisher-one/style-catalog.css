@@ -98,6 +98,7 @@ img {
     clip: rect(1px, 1px, 1px, 1px);
     position: absolute !important;
 }
+
 /************************************************************** 
 * Structure
 **************************************************************/
@@ -251,12 +252,12 @@ img {
 * Footer
 **************************************************************/
 .footer {
-	float: right;
+	position: absolute;
+	bottom: 0; 
+	left: 50%;
 	text-align: center;
-	width: 80%;
 }
 .footer a {
-	color: #333;
 	font-size: 0.875em;
 }
 /*
@@ -267,6 +268,7 @@ img {
 @media screen and (max-width: 1020px) { 
 
   .catalog-content  {
+  		height: 100%;
 		width: 70%;  
   }
   .book-data {
@@ -337,10 +339,7 @@ img {
     	vertical-align: top;
     	width: 0;
     }
-    .footer {
-	    float: none;
-	    width: 100%;
-    }
+
 }
 
 

@@ -9,11 +9,15 @@
 	<?php get_template_part('page-cover', 'top-block'); ?>
 	<?php get_template_part('page-cover', 'second-block'); ?>
 	<?php get_template_part('page-cover', 'third-block'); ?>
-	<?php /* get_template_part('page-cover', 'fourth-block');  */?>
+
 
 		
 			
 <?php else: ?>
-<?php pb_private(); ?>
+
+	<?php get_template_part('page-cover', 'private-block'); ?>
+
+
 <?php endif; ?>
+
 <?php get_footer(); ?>

@@ -19,13 +19,16 @@
 	box-sizing: border-box; 
 }
 
-
+body.home {
+	background: #fdfdfd;
+}
 /************************************************************** 
 * Cover Page/ Book info page
 **************************************************************/
 .book-info-container {
 	background-color: #fdfdfd;
 	font: 16px/1.5 'Droid Serif', serif;
+	height: 100%;
 	position: relative;
 }
 .book-info-container a {
@@ -69,7 +72,8 @@
 	border: none;
 	padding: 0;
 }
-.top-block {
+.top-block,
+.private-block {
 	margin: auto;
 	max-width: 960px;
 	padding-bottom: 3em;
@@ -482,6 +486,18 @@ a.button-black:active {
 #googleplus .share {
 	background-color: #c73719;	
 }
+.private-block {
+	margin: auto;
+	padding-top: 15%;
+	width: 40%;
+}
+.private-block h2 {
+	color: #333;
+	font-size: 1.8em;
+	text-align: center;
+}
+
+
 @media screen and (max-width: 1260px) {
 	.log-wrap a {
 		display: block;
