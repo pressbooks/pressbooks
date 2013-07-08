@@ -293,12 +293,14 @@ img {
 	    overflow: inherit;
 	}
   .catalog-content-wrap {
-	  margin: auto;
-	  float: none;
+    float: none;
+    margin: auto;
+    padding: 10px;
+    width: 100%;
   }
   .catalog-content {
   	  height: auto;
-  	  padding: 20px;
+  	  padding: 0;
   	  width: 100%;  
   }
   .book-data {
