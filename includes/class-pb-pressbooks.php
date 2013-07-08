@@ -16,6 +16,12 @@ class PressBooks {
 	 */
 	function __construct() {
 
+		/**
+		/* Memcached Object Cache v2.0.2 doesn't like when we loop on switch_to_blog()
+		/* We "fix" this by storing our cached items in global group 'pb'
+		 */
+		wp_cache_add_global_groups( array( 'pb' ) );
+
 		$this->registerThemeDirectories();
 
 		do_action( 'pressbooks_loaded' );

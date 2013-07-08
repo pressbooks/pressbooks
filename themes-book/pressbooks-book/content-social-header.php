@@ -1,5 +1,6 @@
 		<!-- Share buttons -->
-		<div class="share-wrap">
+	<!--
+	<div class="share-wrap">
 			<div class="share-btn"><?php _e('Share', 'pressbooks'); ?></div>
 			<ul class="share share-header">
 				<li class="email">
@@ -11,4 +12,5 @@
 				<li class="facebook"><div class="fb-like" data-send="false" data-layout="box_count" data-width="60" data-show-faces="false"></div></li>
 	
 			</ul>
-		</div><!-- end .share-wrap -->
+		</div>
+--><!-- end .share-wrap -->

@@ -58,7 +58,7 @@ function publisherroot_options_do_page() {
 				?>
 				<tr valign="top"><th scope="row"><?php _e( 'Enter your Facebook URL', 'pressbooks' ); ?></th>
 					<td>
-						<input id="publisherroot_theme_options[facebookurl]" class="regular-text" type="text" name="publisherroot_theme_options[facebookurl]" value="<?php esc_attr_e( $options['facebookurl'], 'pressbooks' ); ?>" />
+						<input id="publisherroot_theme_options[facebookurl]" class="regular-text" type="text" name="publisherroot_theme_options[facebookurl]" value="<?php echo esc_attr( $options['facebookurl'] ); ?>" />
 						<label class="description" for="publisherroot_theme_options[facebookurl]"><?php _e( 'Leave blank to hide Facebook Icon', 'pressbooks' ); ?></label>
 					</td>
 				</tr>
@@ -70,7 +70,7 @@ function publisherroot_options_do_page() {
 				?>
 				<tr valign="top"><th scope="row"><?php _e( 'Enter your Twitter URL', 'pressbooks' ); ?></th>
 					<td>
-						<input id="publisherroot_theme_options[twitterurl]" class="regular-text" type="text" name="publisherroot_theme_options[twitterurl]" value="<?php esc_attr_e( $options['twitterurl'], 'pressbooks' ); ?>" />
+						<input id="publisherroot_theme_options[twitterurl]" class="regular-text" type="text" name="publisherroot_theme_options[twitterurl]" value="<?php echo esc_attr( $options['twitterurl'] ); ?>" />
 						<label class="description" for="publisherroot_theme_options[twitterurl]"><?php _e( 'Leave blank to hide Twitter Icon', 'pressbooks' ); ?></label>
 					</td>
 				</tr>
@@ -82,7 +82,7 @@ function publisherroot_options_do_page() {
 				?>
 				<tr valign="top"><th scope="row"><?php _e( 'Enter your Tumblr URL', 'pressbooks' ); ?></th>
 					<td>
-						<input id="publisherroot_theme_options[tumblrurl]" class="regular-text" type="text" name="publisherroot_theme_options[tumblrurl]" value="<?php esc_attr_e( $options['tumblrurl'], 'pressbooks' ); ?>" />
+						<input id="publisherroot_theme_options[tumblrurl]" class="regular-text" type="text" name="publisherroot_theme_options[tumblrurl]" value="<?php echo esc_attr( $options['tumblrurl'] ); ?>" />
 						<label class="description" for="publisherroot_theme_options[tumblrurl]"><?php _e( 'Leave blank to hide Tumblr Icon', 'pressbooks' ); ?></label>
 					</td>
 				</tr>
@@ -94,7 +94,7 @@ function publisherroot_options_do_page() {
 				?>
 				<tr valign="top"><th scope="row"><?php _e( 'Enter your Youtube Channel URL', 'pressbooks' ); ?></th>
 					<td>
-						<input id="publisherroot_theme_options[youtubeurl]" class="regular-text" type="text" name="publisherroot_theme_options[youtubeurl]" value="<?php esc_attr_e( $options['youtubeurl'], 'pressbooks' ); ?>" />
+						<input id="publisherroot_theme_options[youtubeurl]" class="regular-text" type="text" name="publisherroot_theme_options[youtubeurl]" value="<?php echo esc_attr( $options['youtubeurl'] ); ?>" />
 						<label class="description" for="publisherroot_theme_options[youtubeurl]"><?php _e( 'Leave blank to hide Youtube Icon', 'pressbooks' ); ?></label>
 					</td>
 				</tr>

@@ -2,7 +2,7 @@
 /**
  * This class has two purposes:
  *  + Handle the custom metadata post, i.e. "Book Information". There should only be one metadata post per book.
- *  + Perform data upgrades as PressBooks evolves.
+ *  + Perform upgrades on individual books as PressBooks evolves
  *
  * @author  PressBooks <code@pressbooks.org>
  * @license GPLv2 (or any later version)
@@ -21,7 +21,7 @@ class Metadata {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 4;
+	static $currentVersion = 8;
 
 
 	/**
@@ -135,6 +135,15 @@ class Metadata {
 		if ( $version < 4 ) {
 			$this->fixDoubleSlashBug();
 		}
+		if ( $version < 5 ) {
+			$this->changeDefaultBookCover();
+		}
+		if ( $version < 6 ||$version < 7 ) {
+			$this->makeThumbnailsForBookCover();
+		}
+		if ( $version < 8 ) {
+			$this->resetLandingPage();
+		}
 	}
 
 
@@ -239,7 +248,7 @@ class Metadata {
 	 * @deprecated
 	 *
 	 * @param string $table
-	 * @param bool   $new_as_keys
+	 * @param bool $new_as_keys
 	 *
 	 * @return array
 	 */
@@ -387,6 +396,77 @@ class Metadata {
 			return; // Do nothing
 		} else {
 			switch_theme( $theme->get_stylesheet() );
+		}
+	}
+
+
+	/**
+	 * Change default book cover from PNG to JPG
+	 */
+	function changeDefaultBookCover() {
+
+		$post = $this->getMetaPost();
+
+		if ( $post ) {
+			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
+			if ( preg_match( '~assets/images/default-book-cover\.png$~', $pb_cover_image ) ) {
+				update_post_meta( $post->ID, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
+			}
+		}
+	}
+
+
+	/**
+	 * Generate thumbnails for a user uploaded cover
+	 */
+	function makeThumbnailsForBookCover() {
+
+		$post = $this->getMetaPost();
+		if ( $post ) {
+
+			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
+			if ( $pb_cover_image && ! preg_match( '~assets/images/default-book-cover\.jpg$~', $pb_cover_image ) ) {
+
+				$path = \PressBooks\Utility\get_media_path( $pb_cover_image );
+				$type = wp_check_filetype( $path );
+				$type = $type['type'];
+
+				// Insert new image, create thumbnails
+				$args = array(
+					'post_mime_type' => $type,
+					'post_title' => __( 'Cover Image', 'pressbooks' ),
+					'post_content' => '',
+					'post_status' => 'inherit'
+				);
+
+				include_once( ABSPATH . 'wp-admin/includes/image.php' );
+				$id = wp_insert_attachment( $args, $path, $post->ID );
+				wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
+			}
+		}
+	}
+
+
+	/**
+	 * Fix broken landing page
+	 */
+	function resetLandingPage() {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		update_option( 'show_on_front', 'page' );
+
+		$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'cover' AND post_type = 'page' AND post_status = 'publish' ";
+		$id = $wpdb->get_var( $sql );
+		if ( $id ) {
+			update_option( 'page_on_front', $id );
+		}
+
+		$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'table-of-contents' AND post_type = 'page' AND post_status = 'publish' ";
+		$id = $wpdb->get_var( $sql );
+		if ( $id ) {
+			update_option( 'page_for_posts', $id );
 		}
 	}
 

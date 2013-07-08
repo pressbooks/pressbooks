@@ -1,10 +1,26 @@
-/* PRINCE XML
- * @see: http://www.princexml.com/doc/8.1/
- * CSS Version: 1.1
+/*
+
+  Name: Clarke PDF
+  Version: 1.2
+  Author: PressBooks (Book Oven Inc.)
+  Author URI: http://pressbooks.com
+  License: Creative Commons Attribution 2.0 Generic license
+  License URI: http://creativecommons.org/licenses/by/2.0/
+  Tags: basic, simple, serif fonts, paragraph-indents
+  Description: A basic, simple ePub style, with paragraph indents.
+  Copyright 2011-2013 Book Oven Inc. (PressBooks.com) support@pressbooks.com  
+  Reference documentation @see: http://www.princexml.com/doc/8.1/
 ================== */
+
+
 
 /* FONTS
 ===========	*/
+
+/* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
+h1, h2, h3, h4, h5, h6 {
+	prince-bookmark-level: 1;
+}
 
 /* Page */
 @page {
@@ -256,8 +272,6 @@ p {
 	line-height: 1.2em;
 	text-align: justify;
 	margin-bottom: 0;
-	orphans: 3;
-	widows:3;
 }
 p + p,
 .indent {
@@ -673,7 +687,8 @@ div.ugc h5 + p {
 	footnote-style-position: inside;
 	margin-left: 0;
 	line-height: 1.4;
-	text-indent: 1em; 
+	text-indent: 1em;
+	text-align: left;
 }
 sup.endnote {
 	line-height: 1em;
@@ -795,11 +810,14 @@ img.aligncenter {
 .wp-caption {
 	height: auto;
 	max-width: 100%;
+    margin: 1em 0;  	
 }
 .wp-caption-text {
+	float: prince-top-if-necessary;
 	font-size: 0.875em;
 	font-style: italic;
 	margin-top: 5px;
+	text-align: left;
 }
 
 /* BIBLIOGRAPHY

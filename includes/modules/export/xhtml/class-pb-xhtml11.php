@@ -81,6 +81,13 @@ class Xhtml11 extends Export {
 		// Append endnotes to URL?
 		if ( $r['endnotes'] )
 			$this->url .= '&endnotes=true';
+
+		// HtmLawed: id values not allowed in input
+		foreach ( $this->reservedIds as $val ) {
+			$fixme[$val] = 1;
+		}
+		if ( isset( $fixme ) )
+			$GLOBALS['hl_Ids'] = $fixme;
 	}
 
 
@@ -406,6 +413,7 @@ class Xhtml11 extends Export {
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
+			'tidy' => -1,
 		);
 
 		return htmLawed( $html, $config );
@@ -579,7 +587,7 @@ class Xhtml11 extends Export {
 				foreach ( $struct as $part ) {
 					$slug = $part['post_name'];
 					$title = $part['post_title'];
-					if ( count( $book_contents['part'] ) > 1 ) {
+					if ( count( $book_contents['part'] ) > 1 && $this->atLeastOneExport( $part['chapters'] ) ) {
 						printf( '<li class="part"><a href="#%s">%s</a></li>',
 							$slug,
 							Sanitize\decode( $title ) );
@@ -598,7 +606,7 @@ class Xhtml11 extends Export {
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $chapter['ID'], 'pb_section_author', true ) );
 
-						printf( '<li class="chapter"><a href="#%s">%s', $slug, Sanitize\decode( $title ) );
+						printf( '<li class="chapter"><a href="#%s"><span class="toc-chapter-title">%s</span>', $slug, Sanitize\decode( $title ) );
 
 						if ( $subtitle )
 							echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
@@ -634,7 +642,7 @@ class Xhtml11 extends Export {
 						$typetype = $type . ' ' . \PressBooks\Taxonomy\back_matter_type( $val['ID'] );
 					}
 
-					printf( '<li class="%s"><a href="#%s">%s', $typetype, $slug, Sanitize\decode( $title ) );
+					printf( '<li class="%s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $typetype, $slug, Sanitize\decode( $title ) );
 
 					if ( $subtitle )
 						echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
@@ -846,6 +854,29 @@ class Xhtml11 extends Export {
 			++$i;
 		}
 
+	}
+
+
+	/**
+	 * Does array of chapters have at least one export? Recursive.
+	 *
+	 * @param array $chapters
+	 *
+	 * @return bool
+	 */
+	protected function atLeastOneExport( array $chapters ) {
+
+		foreach ( $chapters as $key => $val ) {
+			if ( is_array( $val ) ) {
+				$found = $this->atLeastOneExport( $val );
+				if ( $found ) return true;
+				else continue;
+			} elseif ( 'export' == (string) $key && $val ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 }

@@ -1,10 +1,10 @@
 === PressBooks ===
 
 Contributors: PressBooks <code@pressbooks.org>
-Version: 2.0.3
+Version: 2.1.0
 Tags: ebooks, publishing, webbooks
-Requires at least: WordPress 3.5.1
-Tested up to: WordPress 3.5.1
+Requires at least: WordPress 3.5.2
+Tested up to: WordPress 3.5.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,7 +28,7 @@ Contributors should watch [Google Tech Talks: How Open Source Projects Survive..
 IMPORTANT!
 
  * Do not install PressBooks on an existing WordPress blog -- create a new WordPress install instead.
- * PressBooks works with PHP 5.4.x and WordPress 3.5.1. Lower versions are not supported.
+ * PressBooks works with PHP 5.4.x and WordPress 3.5.2. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 

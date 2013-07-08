@@ -82,6 +82,7 @@ function replace_book_admin_menu() {
 	unset( $menu[25] );
 
 	// Remove items we don't want the user to see.
+	remove_submenu_page( 'index.php', 'my-sites.php' );
 	remove_submenu_page( 'options-general.php', 'options-general.php' );
 	remove_submenu_page( 'options-general.php', 'options-writing.php' );
 	remove_submenu_page( 'options-general.php', 'options-reading.php' );
@@ -113,7 +114,7 @@ function replace_book_admin_menu() {
 
 
 	// Organize
-	$page = add_submenu_page( 'edit.php?post_type=chapter', __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'publish_posts', 'pressbooks', __NAMESPACE__ . '\display_organize' );
+	$page = add_submenu_page( 'edit.php?post_type=chapter', __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pressbooks', __NAMESPACE__ . '\display_organize' );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
 			wp_enqueue_script( 'jquery-blockui' );
@@ -122,14 +123,20 @@ function replace_book_admin_menu() {
 				// Ajax nonces
 				'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
 				'exportNonce' => wp_create_nonce( 'pb-update-book-export' ),
+				'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
+				'private' => __( 'Private', 'pressbooks' ),
+				'published' => __( 'Published', 'pressbooks' ),
+				'public' => __( 'Public', 'pressbooks' ),
 			) );
 		}
 	} );
-	$add_part = $submenu['edit.php?post_type=part'][10];
-	$add_chapter = $submenu['edit.php?post_type=chapter'][10];
-	$add_front_matter = $submenu['edit.php?post_type=front-matter'][10];
-	$add_back_matter = $submenu['edit.php?post_type=back-matter'][10];
-	array_push( $submenu['edit.php?post_type=chapter'], $add_part, $add_chapter, $add_front_matter, $add_back_matter );
+	if ( current_user_can( 'create_posts' ) ) {
+		$add_part = $submenu['edit.php?post_type=part'][10];
+		$add_chapter = $submenu['edit.php?post_type=chapter'][10];
+		$add_front_matter = $submenu['edit.php?post_type=front-matter'][10];
+		$add_back_matter = $submenu['edit.php?post_type=back-matter'][10];
+		array_push( $submenu['edit.php?post_type=chapter'], $add_part, $add_chapter, $add_front_matter, $add_back_matter );
+	}
 	unset( $submenu['edit.php?post_type=chapter'][10] );
 	if ( is_super_admin() ) {
 		// If network administrator, give the option to see front matter types.
@@ -181,6 +188,17 @@ function replace_book_admin_menu() {
 
 	// Advanced
 	add_options_page( __( 'Advanced Settings', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
+
+	// Import
+	$page = add_options_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
+	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
+		if ( $hook == $page ) {
+			wp_enqueue_script( 'pb-import' );
+		}
+	} );
+
+	// Catalog
+	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\PressBooks\Catalog::addMenu' );
 }
 
 
@@ -194,6 +212,9 @@ function fix_root_admin_menu() {
 	remove_menu_page( "edit.php?post_type=front-matter" );
 	remove_menu_page( "edit.php?post_type=back-matter" );
 	remove_menu_page( "edit.php?post_type=metadata" );
+
+	// Catalog
+	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\PressBooks\Catalog::addMenu' );
 }
 
 
@@ -215,6 +236,14 @@ function display_organize() {
 function display_export() {
 
 	require( PB_PLUGIN_DIR . 'admin/templates/export.php' );
+}
+
+/**
+ * Displays the Import  Admin Page
+ */
+function display_import() {
+
+    require( PB_PLUGIN_DIR . 'admin/templates/import.php' );
 }
 
 
@@ -290,19 +319,28 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		return;
 
 	$wp_admin_bar->add_menu( array(
-		'id' => 'my-sites',
-		'title' => __( 'My Books', 'pressbooks' ),
-		'href' => admin_url( 'my-sites.php' ),
+		'id' => 'my-books',
+		'title' => __( 'My Catalog', 'pressbooks' ),
+		'href' => admin_url( 'index.php?page=pb_catalog' ),
 	) );
 
+	$wp_admin_bar->add_node( array(
+		'parent' => 'my-books',
+		'id' => 'add-new-book',
+		'title' => __( 'Add A New Book', 'pressbooks' ),
+		'href' => network_home_url('wp-signup.php'),
+	) );
+
+
 	if ( is_super_admin() ) {
+	
 		$wp_admin_bar->add_group( array(
-			'parent' => 'my-sites',
-			'id' => 'my-sites-super-admin',
+			'parent' => 'my-books',
+			'id' => 'my-books-super-admin',
 		) );
 
 		$wp_admin_bar->add_menu( array(
-			'parent' => 'my-sites-super-admin',
+			'parent' => 'my-books-super-admin',
 			'id' => 'network-admin',
 			'title' => __( 'Network Admin', 'pressbooks' ),
 			'href' => network_admin_url(),
@@ -332,17 +370,17 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			'title' => __( 'Visit Network', 'pressbooks' ),
 			'href' => network_home_url(),
 		) );
-	}
+	}	
 
 	// Add site links
 	$wp_admin_bar->add_group( array(
-		'parent' => 'my-sites',
-		'id' => 'my-sites-list',
+		'parent' => 'my-books',
+		'id' => 'my-books-list',
 		'meta' => array(
 			'class' => is_super_admin() ? 'ab-sub-secondary' : '',
 		),
 	) );
-
+	
 	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
 
 		// TODO: Replace with some favicon lookup.
@@ -352,7 +390,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		$menu_id = 'blog-' . $blog->userblog_id;
 
 		$wp_admin_bar->add_menu( array(
-			'parent' => 'my-sites-list',
+			'parent' => 'my-books-list',
 			'id' => $menu_id,
 			'title' => $blavatar . $blogname,
 			'href' => get_admin_url( $blog->userblog_id ),
@@ -377,6 +415,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			'href' => get_home_url( $blog->userblog_id, '/' ),
 		) );
 	}
+		
 }
 
 
@@ -406,6 +445,16 @@ function remove_menu_bar_new_content( $wp_admin_bar ) {
 function edit_form_hacks() {
 	default_meta_checkboxes();
 	transform_category_selection_box();
+}
+
+
+/**
+ * @param \WP_Customize_Manager $wp_customize
+ *
+ * @see http://codex.wordpress.org/Plugin_API/Action_Reference/customize_register
+ */
+function customize_register( $wp_customize ) {
+	$wp_customize->remove_section( 'static_front_page' );
 }
 
 
@@ -477,19 +526,25 @@ function init_css_js() {
 
 	}
 
-	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pb_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
+	// Never let a user change [ Your Profile > Admin Color Scheme ] - Note: Auto-registered dependency $handle = 'colors'
+	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
 	update_user_option( $user_ID, 'admin_color', 'pb_colors', true );
+
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
-	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '2.0.2', 'screen' ); // TODO: Remember to change $ver to match PB
+	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '2.1.0', 'screen' ); // TODO: Remember to change $ver to match PB
 	wp_enqueue_style( 'pressbooks-admin' );
 	wp_register_style( 'colors-fresh', site_url() . '/wp-admin/css/colors-fresh.css', array(), false, 'screen' );
 	wp_enqueue_style( 'colors-fresh' );
 	wp_register_style( 'bootstrap-admin', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.css', array(), '2.0.1', 'screen' );
 	wp_enqueue_style( 'bootstrap-admin' ); // Used by feedback button
 
+	if ( 'pb_catalog' == esc_attr( @$_REQUEST['page'] ) ) {
+		wp_register_style( 'pressbooks-catalog', PB_PLUGIN_URL . 'assets/css/catalog.css', array( 'colors', 'pressbooks-admin' ), '1.0.0', 'screen' );
+		wp_enqueue_style( 'pressbooks-catalog' );
+	}
 
 	// Don't let other plugins override our scripts
-	$badScripts = array( 'jquery-blockui', 'jquery-bootstrap', 'pb-organize', 'pb-feedback', 'pb-export', 'pb-metadata' );
+	$badScripts = array( 'jquery-blockui', 'jquery-bootstrap', 'pb-organize', 'pb-feedback', 'pb-export', 'pb-metadata', 'pb-import' );
 	array_walk( $badScripts, function ( $value, $key ) {
 		wp_deregister_script( $value );
 	} );
@@ -499,6 +554,7 @@ function init_css_js() {
 	wp_register_script( 'pb-export', PB_PLUGIN_URL . 'assets/js/export.js', array( 'jquery' ), '1.0.1' );
 	wp_register_script( 'pb-organize', PB_PLUGIN_URL . 'assets/js/organize.js', array( 'jquery', 'jquery-ui-core', 'jquery-blockui' ), '1.0.1' );
 	wp_register_script( 'pb-metadata', PB_PLUGIN_URL . 'assets/js/book-information.js', array( 'jquery' ), '1.0.1' );
+	wp_register_script( 'pb-import', PB_PLUGIN_URL . 'assets/js/import.js', array( 'jquery' ), '1.0.0' );
 
 	// Enqueue now
 	wp_register_script( 'jquery-bootstrap', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.js', array( 'jquery' ), '2.0.1' );
@@ -753,7 +809,7 @@ function ecomm_links_sanitize( $input ) {
 	foreach ( $input as $key => $value ) {
 		$value = trim( strip_tags( stripslashes( $value ) ) );
 		if ( $value ) {
-			$options[$key] = \PressBooks\Sanitize\canonicalizeUrl( $value );
+			$options[$key] = \PressBooks\Sanitize\canonicalize_url( $value );
 		} else {
 			$options[$key] = null;
 		}
@@ -869,17 +925,28 @@ function display_advanced_settings() { ?>
  * ------------------------------------------------------------------------ */
 
 /**
- * Hook for add_action( 'admin_notices', ... ) Echo _$SESSION['pb_notices'] if any.
+ * Hook for add_action( 'admin_notices', ... ) Echo $_SESSION['pb_notices'] if any.
  *
+ * @global array $_SESSION['pb_errors'] *
  * @global array $_SESSION['pb_notices']
  */
 function admin_notices() {
 
+	if ( ! empty( $_SESSION['pb_errors'] ) ) {
+		// Array-ify
+		if ( ! is_array( $_SESSION['pb_errors'] ) ) {
+			$_SESSION['pb_errors'] = array( $_SESSION['pb_errors'] );
+		}
+		// Print
+		foreach ( $_SESSION['pb_errors'] as $msg ) {
+			echo '<div class="error"><p>' . $msg . '</p></div>';
+		}
+	}
+
 	if ( ! empty( $_SESSION['pb_notices'] ) ) {
 		// Array-ify
 		if ( ! is_array( $_SESSION['pb_notices'] ) ) {
-			$tmp[] = $_SESSION['pb_notices'];
-			$_SESSION['pb_notices'] = $tmp;
+			$_SESSION['pb_notices'] = array( $_SESSION['pb_notices'] );
 		}
 		// Print
 		foreach ( $_SESSION['pb_notices'] as $msg ) {
@@ -888,6 +955,7 @@ function admin_notices() {
 	}
 
 	// Destroy
+	unset ( $_SESSION['pb_errors'] );
 	unset ( $_SESSION['pb_notices'] );
 }
 

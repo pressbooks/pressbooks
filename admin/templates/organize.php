@@ -9,20 +9,40 @@ global $user_ID;
 $adminUrl = admin_url();
 $statuses = get_post_statuses();
 $book_structure = \PressBooks\Book::getBookStructure();
+$book_is_public = ( 1 == get_option( 'blog_public' ) );
 ?>
 
 <style type="text/css">
-    .widefat thead tr th {
-        color: #676767;
-    }
-
-    tbody {
-        margin-top: 10px;
-    }
+    .widefat thead tr th { color: #676767; }
+    tbody { margin-top: 10px; }
 </style>
 
 
 <div class="wrap">
+
+<?php if ( current_user_can( 'manage_options' ) ) : ?>
+<div class="publicize-panel">
+	<?php if ( $book_is_public ) { ?>
+		<h4 class="publicize-alert public"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Public', 'pressbooks' ); ?></span></h4>
+	<?php } else { ?>
+		<h4 class="publicize-alert private"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Private', 'pressbooks' ); ?></span></h4>
+	<?php } ?>
+	<div class="publicize-form">
+		<p>
+			<input type="radio" <?php if ( $book_is_public ) echo 'checked="checked"'; ?> value="1" name="blog_public" id="blog-public">
+			<label for="blog-public"><span class="public" <?php if ( $book_is_public ) echo 'style="font-weight: bold;"'; ?> ><?php _e( 'Public', 'pressbooks' ); ?></span> -
+				<?php _e( 'Promote your book, set individual chapters privacy below.', 'pressbooks' ); ?>
+			</label>
+		</p>
+		<p>
+			<input type="radio" <?php if ( ! $book_is_public ) echo 'checked="checked"'; ?> value="0" name="blog_public" id="blog-private">
+			<label for="blog-private"><span class="private" <?php if ( ! $book_is_public ) echo 'style="font-weight: bold;"'; ?> ><?php _e( 'Private', 'pressbooks' ); ?></span> -
+				<?php _e( 'Only users you invite can see your book, regardless of individual chapter privacy settings below.', 'pressbooks' ); ?>
+			</label>
+		</p>
+	</div>
+</div>
+<?php endif; ?>
 <div id="icon-edit" class="icon32"></div>
 <h2>
 	<?php bloginfo( 'name' ); ?>
@@ -39,6 +59,7 @@ $book_structure = \PressBooks\Book::getBookStructure();
     <a class="button add-new-h2" href="<?php echo $adminUrl; ?>post-new.php?post_type=part"><?php _e( 'Add Part', 'pressbooks' ); ?></a>
 	<?php endif; ?>
 </h2>
+<div class="clear"></div>
 
 <table id="front-matter" class="wp-list-table widefat fixed front-matter" cellspacing="0">
     <thead>
@@ -47,8 +68,9 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <th><?php _e('Author', 'pressbooks'); ?></th>
         <th><?php _e('Comments', 'pressbooks'); ?></th>
         <th><?php _e('Status', 'pressbooks'); ?></th>
-        <th>&nbsp;</th>
+		<th><?php _e('Private', 'pressbooks'); ?></th>
         <th><?php _e('Export', 'pressbooks'); ?></th>
+        <th><?php _e( 'Edit', 'pressbooks' ); ?></th>
     </tr>
     </thead>
 
@@ -71,15 +93,8 @@ $book_structure = \PressBooks\Book::getBookStructure();
             </a>
         </td>
         <td class="status column-status"><?php echo $statuses[$fm['post_status']]; ?></td>
-        <td class="chapter-action column-chapter-action">
-            <a href="<?php echo 'post.php?post=' . $fm['ID'] . '&action=edit'; ?>">
-				<?php _e( 'Edit', 'pressbooks' ); ?>
-            </a>
-            &mdash;
-            <a href="<?php echo get_delete_post_link( $fm['ID'] ); ?>" onclick="if (!confirm('Are you sure you want to delete this?')){ return false }"
-               style="color: #FF0000 !important;">
-				<?php _e( 'Delete', 'pressbooks' ); ?>
-            </a>
+        <td class="status column-privacy">
+	    	<input class="fm_privacy" type="checkbox" name="fm-private[<?php echo $fm['ID']; ?>]" id="fm_private_<?php echo $fm['ID']; ?>" <?php checked( 'private', get_post_status( $fm['ID'] ) ); ?> />	        
         </td>
 		<?php $export = get_post_meta( $fm['ID'], 'pb_export', true ); ?>
         <td class="export column-export">
@@ -95,11 +110,22 @@ $book_structure = \PressBooks\Book::getBookStructure();
 				<?php endif; ?>
 
         </td>
+        <td class="chapter-action column-chapter-action">
+            <a href="<?php echo 'post.php?post=' . $fm['ID'] . '&action=edit'; ?>">
+				<?php _e( 'Edit', 'pressbooks' ); ?>
+            </a>
+            &mdash;
+            <a href="<?php echo get_delete_post_link( $fm['ID'] ); ?>" onclick="if (!confirm('Are you sure you want to delete this?')){ return false }"
+               style="color: #FF0000 !important;">
+				<?php _e( 'Delete', 'pressbooks' ); ?>
+            </a>
+        </td>
     </tr>
 		<?php endforeach; ?>
     </tbody>
     <tfoot>
     <tr>
+        <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
@@ -123,6 +149,8 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <th><?php _e('Author', 'pressbooks'); ?></th>
         <th><?php _e('Comments', 'pressbooks'); ?></th>
         <th><?php _e('Status', 'pressbooks'); ?></th>
+		<th><?php _e('Private', 'pressbooks'); ?></th>
+        <th><?php _e('Export', 'pressbooks'); ?></th>
         <th>
             <a href="<?php echo 'post.php?post=' . $part['ID'] . '&action=edit'; ?>">
 				<?php _e( 'Edit', 'pressbooks' ); ?>
@@ -136,8 +164,6 @@ $book_structure = \PressBooks\Book::getBookStructure();
                 </a>
 				<?php endif; ?>
         </th>
-
-        <th><?php _e('Export', 'pressbooks'); ?></th>
     </tr>
     </thead>
 
@@ -165,13 +191,8 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <td class="status column-status">
 			<?php echo $statuses[$chapter['post_status']]; ?>
         </td>
-        <td class="chapter-action column-chapter-action">
-            <a href="<?php echo 'post.php?post=' . $chapter['ID'] . '&action=edit'; ?>">
-				<?php _e( 'Edit', 'pressbooks' ); ?>
-            </a> &mdash;
-            <a href="<?php echo get_delete_post_link( $chapter['ID'] ); ?>" onclick="if (!confirm('Are you sure you want to delete this?')){ return false }" style="color: #FF0000 !important;">
-				<?php _e( 'Delete', 'pressbooks' ); ?>
-            </a>
+        <td class="status column-privacy">
+	    	<input class="chapter_privacy" type="checkbox" name="chapter-private[<?php echo $chapter['ID']; ?>]" id="chapter_private_<?php echo $chapter['ID']; ?>" <?php checked( 'private', get_post_status( $chapter['ID'] ) ); ?> />
         </td>
         <td class="export column-export">
 			<?php $export = get_post_meta( $chapter['ID'], 'pb_export', true ); ?>
@@ -181,6 +202,14 @@ $book_structure = \PressBooks\Book::getBookStructure();
             <input class="chapter_export_check" type="checkbox" name="export[<?php echo $chapter['ID']; ?>]" id="chapter_export_<?php echo $chapter['ID']; ?>" />
 			<?php endif; ?>
         </td>
+        <td class="chapter-action column-chapter-action">
+            <a href="<?php echo 'post.php?post=' . $chapter['ID'] . '&action=edit'; ?>">
+				<?php _e( 'Edit', 'pressbooks' ); ?>
+            </a> &mdash;
+            <a href="<?php echo get_delete_post_link( $chapter['ID'] ); ?>" onclick="if (!confirm('Are you sure you want to delete this?')){ return false }" style="color: #FF0000 !important;">
+				<?php _e( 'Delete', 'pressbooks' ); ?>
+            </a>
+        </td>
     </tr>
 
 		<?php endforeach; ?>
@@ -188,6 +217,7 @@ $book_structure = \PressBooks\Book::getBookStructure();
 	<?php endif; ?>
     <tfoot>
     <tr>
+        <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
@@ -212,8 +242,9 @@ $book_structure = \PressBooks\Book::getBookStructure();
         <th><?php _e('Author', 'pressbooks'); ?></th>
         <th><?php _e('Comments', 'pressbooks'); ?></th>
         <th><?php _e('Status', 'pressbooks'); ?></th>
-        <th>&nbsp;</th>
+		<th><?php _e('Private', 'pressbooks'); ?></th>
         <th><?php _e('Export', 'pressbooks'); ?></th>
+        <th><?php _e( 'Edit', 'pressbooks' ); ?></th>
     </tr>
     </thead>
 
@@ -236,15 +267,8 @@ $book_structure = \PressBooks\Book::getBookStructure();
             </a>
         </td>
         <td class="status column-status"><?php echo $statuses[$bm['post_status']]; ?></td>
-        <td class="chapter-action column-chapter-action">
-            <a href="<?php echo 'post.php?post=' . $bm['ID'] . '&action=edit'; ?>">
-				<?php _e( 'Edit', 'pressbooks' ); ?>
-            </a>
-            &mdash;
-            <a href="<?php echo get_delete_post_link( $bm['ID'] ); ?>" onclick="if (!confirm('Are you sure you want to delete this?')){ return false }"
-               style="color: #FF0000 !important;">
-				<?php _e( 'Delete', 'pressbooks' ); ?>
-            </a>
+        <td class="status column-privacy">
+	    	<input class="bm_privacy" type="checkbox" name="bm-private[<?php echo $bm['ID']; ?>]" id="bm_private_<?php echo $bm['ID']; ?>" <?php checked( 'private', get_post_status( $bm['ID'] ) ); ?> />    
         </td>
 		<?php $export = get_post_meta( $bm['ID'], 'pb_export', true ); ?>
         <td class="export column-export">
@@ -260,11 +284,22 @@ $book_structure = \PressBooks\Book::getBookStructure();
 				<?php endif; ?>
 
         </td>
+        <td class="chapter-action column-chapter-action">
+            <a href="<?php echo 'post.php?post=' . $bm['ID'] . '&action=edit'; ?>">
+				<?php _e( 'Edit', 'pressbooks' ); ?>
+            </a>
+            &mdash;
+            <a href="<?php echo get_delete_post_link( $bm['ID'] ); ?>" onclick="if (!confirm('Are you sure you want to delete this?')){ return false }"
+               style="color: #FF0000 !important;">
+				<?php _e( 'Delete', 'pressbooks' ); ?>
+            </a>
+        </td>
     </tr>
 		<?php endforeach; ?>
     </tbody>
     <tfoot>
     <tr>
+        <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>
         <th>&nbsp;</th>

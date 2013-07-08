@@ -3,7 +3,7 @@ This file must validate as CSS 2.01 with absolutely no errors
  + http://jigsaw.w3.org/css-validator/
  + http://idpf.org/epub/20/spec/OPS_2.0.1_draft.htm#Section3.0
 
-  Name: Clarke
+  Name: Clarke EPUB
   Version: 1.1
   Author: PressBooks (Book Oven Inc.)
   Author URI: http://pressbooks.com
@@ -250,6 +250,7 @@ span.chapter-author {
 ================== */
 img {
 	height: auto;
+    max-width: 100%;	
 }
 .alignleft {
 	float: left;
@@ -276,11 +277,14 @@ img.aligncenter {
 }
 .wp-caption {
 	height: auto;
+    max-width: 100%;
+   	margin: 1em 0; 	
 }
 .wp-caption-text {
 	font-size: 0.875em;
 	font-style: italic;
 	margin-top: 5px;
+	text-align: left;
 }
 div.wp-caption.aligncenter,
 div.wp-caption.alignleft,
