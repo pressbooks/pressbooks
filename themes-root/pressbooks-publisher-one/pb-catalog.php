@@ -172,7 +172,7 @@ $_current_user_id = $catalog->getUserId();
 	<script type="text/javascript">
 		// <![CDATA[
 		$(function () {
-			$('#catalog-content').equalizer({ columns: '> div', min: 350 });
+			$('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
 		});
 		// ]]>
 	</script>
