@@ -28,7 +28,6 @@ body.home {
 .book-info-container {
 	background-color: #fdfdfd;
 	font: 16px/1.5 'Droid Serif', serif;
-	height: 100%;
 	position: relative;
 }
 .book-info-container a {

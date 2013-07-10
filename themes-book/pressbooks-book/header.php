@@ -96,7 +96,7 @@
 				 
 		</div> <!-- end .nav-container -->
 
-		<div class="wrapper"><!-- for sitting footer at the bottom of the page -->	    
+	<div class="wrapper"><!-- for sitting footer at the bottom of the page -->	    
 			<div id="wrap">	    
 				<div id="content">
 

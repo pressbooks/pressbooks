@@ -8,11 +8,11 @@
 	<?php get_sidebar(); ?>
 	</div><!-- #wrap -->
 	<div class="push"></div>
-<?php } else { ?>
-	</div><!-- #wrap -->
+	
+	</div><!-- .wrapper for sitting footer at the bottom of the page -->
 <?php } ?>
 
-</div><!-- .wrapper for sitting footer at the bottom of the page -->
+
 <div class="footer">
 	<div class="inner">
 		<?php if (get_option('blog_public') == '1' || is_user_logged_in()): ?>
