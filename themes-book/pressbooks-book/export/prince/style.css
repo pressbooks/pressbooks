@@ -807,13 +807,16 @@ img.aligncenter {
 	text-align: center;
 }
 .wp-caption {
+    float: prince-top-if-necessary;
 	height: auto;
 	max-width: 100%;
+	margin: 1em 0;
 }
 .wp-caption-text {
 	font-size: 0.875em;
 	font-style: italic;
 	margin-top: 5px;
+	text-align: left;	
 }
 
 /* BLOCKQUOTES

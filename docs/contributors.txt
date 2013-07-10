@@ -4,6 +4,7 @@
 
  * Arik (https://twitter.com/wastemobile)
  * Brad Payne
+ * Nick Ciske
  * Daisuke Muro
  * Israel Cerfin (http://twitter.com/israelcefrin)
  * John Rankin (http://www.wikipublisher.org)

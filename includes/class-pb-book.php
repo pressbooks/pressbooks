@@ -10,6 +10,10 @@
 namespace PressBooks;
 
 
+use \PressBooks\Catalog;
+use \PressBooks\Metadata;
+
+
 class Book {
 
 	/**
@@ -56,7 +60,7 @@ class Book {
 
 		global $blog_id;
 		$cache_id = "pb-book-information-$blog_id";
-		$book_information = wp_cache_get( $cache_id );
+		$book_information = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_information ) {
 			return $book_information;
 		}
@@ -69,7 +73,7 @@ class Book {
 		$expected_the_content = array( 'pb_custom_copyright', 'pb_about_unlimited' );
 
 		$book_information = array();
-		$meta = new \PressBooks\Metadata();
+		$meta = new Metadata();
 		$data = $meta->getMetaPostMetadata();
 
 		foreach ( $data as $key => $val ) {
@@ -107,7 +111,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_information );
+		wp_cache_set( $cache_id, $book_information, 'pb' );
 
 		return $book_information;
 	}
@@ -128,7 +132,7 @@ class Book {
 
 		global $blog_id;
 		$cache_id = "pb-book-structure-$blog_id";
-		$book_structure = wp_cache_get( $cache_id );
+		$book_structure = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_structure ) {
 			return $book_structure;
 		}
@@ -241,7 +245,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_structure );
+		wp_cache_set( $cache_id, $book_structure, 'pb' );
 
 		return $book_structure;
 	}
@@ -262,7 +266,7 @@ class Book {
 
 		global $blog_id;
 		$cache_id = "pb-book-contents-$blog_id";
-		$book_contents = wp_cache_get( $cache_id );
+		$book_contents = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_contents ) {
 			return $book_contents;
 		}
@@ -297,7 +301,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_contents );
+		wp_cache_set( $cache_id, $book_contents, 'pb' );
 
 		return $book_contents;
 	}
@@ -310,9 +314,10 @@ class Book {
 
 		global $blog_id;
 
-		wp_cache_delete( "pb-book-information-$blog_id" );
-		wp_cache_delete( "pb-book-structure-$blog_id" );
-		wp_cache_delete( "pb-book-contents-$blog_id" );
+		wp_cache_delete( "pb-book-information-$blog_id", 'pb' );
+		wp_cache_delete( "pb-book-structure-$blog_id", 'pb' );
+		wp_cache_delete( "pb-book-contents-$blog_id", 'pb' );
+		( new Catalog() )->deleteCacheByBookId( $blog_id ); // PHP 5.4+
 	}
 
 
@@ -450,7 +455,36 @@ class Book {
 			static::deleteBookObjectCache();
 		}
 	}
+	
+	/**
+	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
+	 */
+	static function updatePrivacyOptions() {
 
+		$post_id = absint( $_POST['post_id'] );
+		$post_status = $_POST['post_status'];
+
+		$my_post = array();
+		$my_post['ID'] = $post_id;
+		$my_post['post_status'] = $post_status;
+
+		if ( current_user_can( 'edit_post', $post_id ) && check_ajax_referer( 'pb-update-book-privacy' ) ) {
+			wp_update_post( $my_post );
+			static::deleteBookObjectCache();
+		}
+	}
+	
+	/**
+	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
+	 */
+	static function updateGlobalPrivacyOptions() {
+
+		$blog_public = absint( $_POST['blog_public'] );
+
+		if ( current_user_can( 'manage_options' ) && check_ajax_referer( 'pb-update-book-privacy' ) ) {
+			update_option( 'blog_public', $blog_public );
+		}
+	}
 
 	/**
 	 * Fetch next, previous or first post

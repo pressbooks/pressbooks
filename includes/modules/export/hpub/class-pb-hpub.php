@@ -416,10 +416,10 @@ class Hpub extends Export {
 
 		// Resize Image
 
-		if ( ! empty( $metadata['pb_cover_image'] ) && ! preg_match( '~assets/images/default-book-cover.png$~', $metadata['pb_cover_image'] ) ) {
+		if ( ! empty( $metadata['pb_cover_image'] ) && ! \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
 			$source_path = \PressBooks\Utility\get_media_path( $metadata['pb_cover_image'] );
 		} else {
-			$source_path = PB_PLUGIN_DIR . 'assets/images/default-book-cover.png';
+			$source_path = \PressBooks\Image\default_cover_path();
 		}
 		$dest_image = basename( $source_path );
 		$dest_path = $this->tmpDir . "/images/" . $dest_image;
@@ -978,7 +978,7 @@ class Hpub extends Export {
 				continue;
 			}
 
-			$html .= sprintf( '<li class="%s"><a href="%s">%s', $class, $v['filename'], Sanitize\decode( $v['post_title'] ) );
+			$html .= sprintf( '<li class="%s"><a href="%s"><span class="toc-chapter-title">%s</span>', $class, $v['filename'], Sanitize\decode( $v['post_title'] ) );
 
 			if ( $subtitle )
 				$html .= ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
@@ -1191,7 +1191,7 @@ class Hpub extends Export {
 
 			// Canonicalize, fix typos, remove garbage
 			if ( '#' != @$current_url[0] ) {
-				$url->setAttribute( 'href', \PressBooks\Sanitize\canonicalizeUrl( $current_url ) );
+				$url->setAttribute( 'href', \PressBooks\Sanitize\canonicalize_url( $current_url ) );
 			}
 
 		}

@@ -170,3 +170,17 @@ function pb_get_chapter_number( $post_name ) {
 
 	return $i;
 }
+
+
+/**
+ * Rename image with arbitrary suffix (before extension)
+ *
+ * @param $thumb
+ * @param $path
+ *
+ * @return string
+ */
+function pb_thumbify( $thumb, $path ) {
+
+	return \PressBooks\Image\thumbify( $thumb, $path );
+}

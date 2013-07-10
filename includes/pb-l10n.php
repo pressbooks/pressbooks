@@ -99,7 +99,7 @@ function set_locale( $lang ) {
  * @see http://www.mobileread.com/forums/showpost.php?p=2453537&postcount=2
  * @return array
  */
-function get_supported_languages() {
+function supported_languages() {
 
 	$languages = array(
 		'' => '',

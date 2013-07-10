@@ -27,6 +27,10 @@ Rules of thumb:
 Don't write `public function foo()`, just write `function foo()`. Public is implied.
 Order of methods in a class: magic, public, protected, private, static.
 
+Prefix WP Post meta keys with 'pb_'
+Prefix WP User meta keys with 'pb_'
+Prefix WP Option names with 'pressbooks_'
+
 Files under `themes-book/` and `themes-root/` are exempt from the above rules, but should still make an effort to follow them.
 
 For everything else not mentioned we try to respect the [WordPress coding standards](http://codex.wordpress.org/WordPress_Coding_Standards).
