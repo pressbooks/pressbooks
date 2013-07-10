@@ -262,8 +262,8 @@ $_current_user_id = $catalog->getUserId();
 <script type="text/javascript">
 	// <![CDATA[
 	jQuery.noConflict();
-	jQuery(function ($) {
-		$('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
+	jQuery(window).load(function () {
+		jQuery('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
 	});
 	// ]]>
 </script>
