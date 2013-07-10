@@ -161,22 +161,14 @@ $_current_user_id = $catalog->getUserId();
 <!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"> <!--<![endif]-->
 <head>
 	<base href="<?php echo $base_href; ?>">
-	<meta charset="<?php bloginfo( 'charset' ); ?>" />
+	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 	<title><?php _e( 'Catalog Page', 'pressbooks' ); ?> | PressBooks</title>
 	<link rel="stylesheet" type="text/css" href="style-catalog.css" />
 	<link href='http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="<?php echo esc_url( site_url( '/wp-includes/js/jquery/jquery.js?ver=1.8.3' ) ); ?>"></script>
 	<script src="js/jquery.equalizer.min.js" type="text/javascript"></script>
-	<script src="js/small-menu.js" type="text/javascript"></script>	
-	<script type="text/javascript">
-		// <![CDATA[
-		$(function () {
-			$('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
-		});
-		// ]]>
-	</script>
-<?php // wp_head(); ?>
+	<script src="js/small-menu.js" type="text/javascript"></script>
 </head>
 <body>
 
@@ -267,7 +259,14 @@ $_current_user_id = $catalog->getUserId();
 
 </div><!-- end .catalog-wrap -->
 
-
+<script type="text/javascript">
+	// <![CDATA[
+	jQuery.noConflict();
+	jQuery(function ($) {
+		$('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
+	});
+	// ]]>
+</script>
 
 <?php wp_footer(); ?>
 </body>
