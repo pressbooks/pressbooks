@@ -437,6 +437,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	static function addMenu() {
 
 		$url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+		$edit_url = $url . '&action=edit_profile';
 		$view_url = static::viewCatalogUrl();
 
 		$list_table = new static();
@@ -446,20 +447,21 @@ class Catalog_List_Table extends \WP_List_Table {
 		<div class="wrap">
 			<div class="notice-panel">
 				<h4>Organize your public Catalog page.</h4>
-					<h5><span data-icon="a" class="show-hide-icon"></span>Show/Hide books</h5>
-					<p>To display a book in your catalog choose "<strong>Show in Catalog</strong>" under Catalog Status. <br> To hide a book in your catalog choose "<strong>Hide in Catalog</strong>" under Catalog Status.</p>
-					
-					<h5><span data-icon="g" class="sort-icon"></span>Catalog sorting</h5>
-					<p>To add sorting ability, add your Tag names to your <a href="<?php echo $url . '&action=edit_profile'; ?>">Catalog Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to each individual book.</p>
-						
-					<h5><span data-icon="f" class="share-icon"></span>Share your catalog</h5>
-					<p>The public link to your catalog page: <a href="<?php echo $view_url; ?>"><?php echo $view_url; ?></a></li>
+					<h5><span data-icon="a" class="show-hide-icon"></span><?php _e('Show/Hide books', 'pressbooks'); ?></h5>
+					<p><?php _e( sprintf( 'To display a book in your catalog choose "%s" under Catalog Status. ', '<strong>' . __( 'Show in Catalog', 'pressbooks' ) . '</strong>' ), 'pressbooks' ); ?><br>
+					<?php _e( sprintf( 'To hide a book in your catalog choose "%s" under Catalog Status.', '<strong>' . __( 'Hide in Catalog', 'pressbooks' ) . '</strong>' ), 'pressbooks' ); ?></p>
+
+					<h5><span data-icon="g" class="sort-icon"></span><?php _e( 'Catalog sorting', 'pressbooks' ); ?></h5>
+					<p><?php _e( sprintf( 'To add sorting ability, add your Tag names to your <a href="%s">Catalog Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to each individual book.', $edit_url ), 'pressbooks' ); ?></p>
+
+					<h5><span data-icon="f" class="share-icon"></span><?php _e( 'Share your catalog', 'pressbooks' ); ?></h5>
+					<p><?php _e( 'The public link to your catalog page', 'pressbooks' ); ?>: <a href="<?php echo $view_url; ?>"><?php echo $view_url; ?></a></p>
 
 			</div><!-- end notice-panel -->
 			
 			<div id="icon-edit" class="icon32"><br /></div>
 			<h2><?php _e( 'My Catalog', 'pressbooks' ); ?>
-				<a href="<?php echo $url . '&action=edit_profile'; ?>" class="button add-new-h2"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
+				<a href="<?php echo $edit_url; ?>" class="button add-new-h2"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
 				<a href="<?php echo $view_url; ?>" class="button add-new-h2"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
 			</h2>
 
@@ -473,7 +475,6 @@ class Catalog_List_Table extends \WP_List_Table {
 				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>" />
 				<?php if ( @$_REQUEST['user_id'] ) : ?><input type="hidden" name="user_id" value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
 
-				<!-- TODO: not ugly -->
 				<div style="float:right;">
 					<input type="text" id="add_book_by_url" name="add_book_by_url" /><label for="add_book_by_url">
 						<input type="submit" name="" id="search-submit" class="button" value="<?php esc_attr_e( 'Add By URL', 'pressbooks' ); ?>">
