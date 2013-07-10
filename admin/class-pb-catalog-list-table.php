@@ -437,12 +437,14 @@ class Catalog_List_Table extends \WP_List_Table {
 	static function addMenu() {
 
 		$url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+		$view_url = static::viewCatalogUrl(); // Verifies $_REQUEST['user_id']
+
 		$edit_url = $url . '&action=edit_profile';
-		$view_url = static::viewCatalogUrl();
+		if ( isset( $_REQUEST['user_id'] ) )
+			$edit_url .= '&user_id=' . $_REQUEST['user_id'];
 
 		$list_table = new static();
 		$list_table->prepare_items();
-
 		?>
 		<div class="wrap">
 			<div class="notice-panel">
@@ -460,7 +462,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			</div><!-- end notice-panel -->
 			
 			<div id="icon-edit" class="icon32"><br /></div>
-			<h2><?php _e( 'My Catalog', 'pressbooks' ); ?>
+			<h2><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?>
 				<a href="<?php echo $edit_url; ?>" class="button add-new-h2"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
 				<a href="<?php echo $view_url; ?>" class="button add-new-h2"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
 			</h2>

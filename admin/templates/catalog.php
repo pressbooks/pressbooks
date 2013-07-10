@@ -18,13 +18,13 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 		wp_die( __( 'You do not have permission to do that.', 'pressbooks' ) );
 	}
 
-	$title = get_blog_option( $blog_id, 'blogname' );
 	$catalog = new \PressBooks\Catalog( $user_id );
 	$book = $catalog->getBook( $blog_id );
 	$profile = $catalog->getProfile();
+
 	?>
 	<div id="icon-options-general" class="icon32"></div>
-	<h2><?php _e( 'Tags For', 'pressbooks' ); echo " $title"; ?></h2>
+	<h2><?php _e( 'Tags For', 'pressbooks' ); echo ' ' . get_blog_option( $blog_id, 'blogname' ); ?></h2>
 
 	<form method="post" action="<?php echo $user_catalog_form_url; ?>" >
 		<input type="hidden" name="action" value="edit_tags" />
@@ -66,9 +66,10 @@ else:
 	$catalog = new \PressBooks\Catalog();
 	$user_id = $catalog->getUserId();
 	$p = $catalog->getProfile();
-?>
+
+	?>
 	<div id="icon-options-general" class="icon32"></div>
-	<h2><?php _e( 'My Catalog Profile', 'pressbooks' ); ?></h2>
+	<h2><?php echo ( get_current_user_id() != $user_id ) ? ucfirst( get_userdata( absint( $user_id ) )->user_login ) : __( 'My Catalog Profile', 'pressbooks' ); ?></h2>
 
 	<form method="post" action="<?php echo $user_catalog_form_url; ?>" enctype="multipart/form-data" >
 		<input type="hidden" name="action" value="edit_profile" />

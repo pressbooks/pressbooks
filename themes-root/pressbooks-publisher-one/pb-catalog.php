@@ -163,7 +163,7 @@ $_current_user_id = $catalog->getUserId();
 	<base href="<?php echo $base_href; ?>">
 	<meta charset="<?php bloginfo( 'charset' ); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
-	<title><?php _e( 'Catalog Page', 'pressbooks' ); ?></title>
+	<title><?php _e( 'Catalog Page', 'pressbooks' ); ?> | PressBooks</title>
 	<link rel="stylesheet" type="text/css" href="style-catalog.css" />
 	<link href='http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js" type="text/javascript"></script>
@@ -183,21 +183,28 @@ $_current_user_id = $catalog->getUserId();
 <div class="catalog-wrap">
 		<div class="log-wrap">	<!-- Login/Logout -->
 			<?php if (!is_user_logged_in()): ?>
-				<a href="<?php echo wp_login_url(); ?>" class=""><?php _e('login', 'pressbooks'); ?></a>
+				<a href="<?php echo wp_login_url(); ?>" class=""><?php _e( 'login', 'pressbooks' ); ?></a>
 			<?php else: ?>
-				<a href="<?php echo  wp_logout_url(); ?>" class=""><?php _e('logout', 'pressbooks'); ?></a>
-				<?php if (is_super_admin() || is_user_member_of_blog()): ?>
-				<a href="<?php echo get_option('home'); ?>/wp-admin"><?php _e('Admin', 'pressbooks'); ?></a>
-				<?php endif; ?>
+				<a href="<?php echo wp_logout_url(); ?>" class=""><?php _e( 'logout', 'pressbooks' ); ?></a>
+				<?php
+				if ( get_current_user_id() == $user_id || is_super_admin()) {
+					$user_info = get_userdata( $user_id );
+					$admin_url = get_blogaddress_by_id( $user_info->primary_blog ) . 'wp-admin/index.php?page=pb_catalog';
+					if ( is_super_admin() && get_current_user_id() != $user_id ) {
+						$admin_url .= "&user_id=$user_id";
+					}
+					?><a href="<?php echo $admin_url; ?>"><?php _e('Admin', 'pressbooks'); ?></a><?php
+				}
+				?>
 			<?php endif; ?>
 		</div> <!-- end .log-wrap -->
 	<div id="catalog-sidebar" class="catalog-sidebar">
 		<h2 class="pressbooks-logo">
-			<a href="/">PressBooks</a>
+			<a href="<?php echo network_site_url(); ?>">PressBooks</a>
 		</h2>
 		<p class="tag-menu assistive-text">Menu</p>
 		<div class="sidebar-inner-wrap">
-			<a href="<?php if ($profile['pb_catalog_url']) echo $profile['pb_catalog_url']; else echo _base_url(); ?>">
+			<a href="<?php echo _base_url(); ?>">
 			<img class="catalog-logo" src="<?php echo _logo_url( $profile ); ?>" alt="catalog-logo" width="100" height="99" />
 			</a>
 			<p class="about-blurb"><?php echo $profile['pb_catalog_about']; ?></p>
@@ -253,7 +260,7 @@ $_current_user_id = $catalog->getUserId();
 			?>
 			</div>	<!-- end .catalog-content-->
 			<div class="footer">
-				<p><a href="http://pressbooks.com"><?php _e( 'PressBooks: the CMS for Books.', 'pressbooks' ); ?></a></p>
+				<p><a href="<?php echo network_site_url(); ?>"><?php _e( 'PressBooks: the CMS for Books.', 'pressbooks' ); ?></a></p>
 			</div>
 		
 		</div>	<!-- end .catalog-content-wrap -->
