@@ -411,6 +411,7 @@ class Metadata {
 			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
 			if ( preg_match( '~assets/images/default-book-cover\.png$~', $pb_cover_image ) ) {
 				update_post_meta( $post->ID, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
+				Book::deleteBookObjectCache();
 			}
 		}
 	}
@@ -442,6 +443,7 @@ class Metadata {
 				include_once( ABSPATH . 'wp-admin/includes/image.php' );
 				$id = wp_insert_attachment( $args, $path, $post->ID );
 				wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
+				Book::deleteBookObjectCache();
 			}
 		}
 	}
