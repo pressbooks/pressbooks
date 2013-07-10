@@ -446,7 +446,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		?>
 		<div class="wrap">
 			<div class="notice-panel">
-				<h4>Organize your public Catalog page.</h4>
+				<h4><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h4>
 					<h5><span data-icon="a" class="show-hide-icon"></span><?php _e('Show/Hide books', 'pressbooks'); ?></h5>
 					<p><?php _e( sprintf( 'To display a book in your catalog choose "%s" under Catalog Status. ', '<strong>' . __( 'Show in Catalog', 'pressbooks' ) . '</strong>' ), 'pressbooks' ); ?><br>
 					<?php _e( sprintf( 'To hide a book in your catalog choose "%s" under Catalog Status.', '<strong>' . __( 'Hide in Catalog', 'pressbooks' ) . '</strong>' ), 'pressbooks' ); ?></p>
