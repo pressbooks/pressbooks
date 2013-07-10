@@ -167,8 +167,8 @@ $_current_user_id = $catalog->getUserId();
 	<link rel="stylesheet" type="text/css" href="style-catalog.css" />
 	<link href='http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo esc_url( site_url( '/wp-includes/js/jquery/jquery.js?ver=1.8.3' ) ); ?>"></script>
-	<script src="js/jquery.equalizer.min.js" type="text/javascript"></script>
-	<script src="js/small-menu.js" type="text/javascript"></script>
+	<script src="js/jquery.equalizer.min.js?ver=1.2.3" type="text/javascript"></script>
+	<script src="js/small-menu.js?ver=0.0.1" type="text/javascript"></script>
 </head>
 <body>
 
