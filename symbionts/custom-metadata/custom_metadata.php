@@ -960,7 +960,7 @@ class custom_metadata_manager {
 						<?php break; ?>
 
 						<?php case 'datepicker': ?>
-							<input type="text" name="<?php echo $field_id; ?>" value="<?php echo (isset($v)) ? date('Y-d-m', $v) : ''; ?>" <?php echo $readonly_str ?>/>
+							<input type="text" name="<?php echo $field_id; ?>" value="<?php echo (isset($v)) ? date('Y-d-m', (int) $v) : ''; ?>" <?php echo $readonly_str ?>/>
 						<?php break; ?>
 
 						<?php case 'wysiwyg': ?>
