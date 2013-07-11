@@ -19,6 +19,8 @@ $overrides = array(
 
 if ( \PressBooks\Book::isBook() ) {
 	$overrides['Settings'] = '公益事業';
+	$overrides['Visit Site'] = 'ブックをご覧ください';
+	$overrides['Edit Site'] = 'ブックをご覧ください';
 }
 
 return $overrides;

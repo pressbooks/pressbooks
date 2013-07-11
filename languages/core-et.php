@@ -19,6 +19,8 @@ $overrides = array(
 
 if ( \PressBooks\Book::isBook() ) {
 	$overrides['Settings'] = 'Tööriistad';
+	$overrides['Visit Site'] = 'Külasta Book';
+	$overrides['Edit Site'] = 'Muuda Book';
 }
 
 return $overrides;
