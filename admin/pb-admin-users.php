@@ -59,6 +59,7 @@ function add_user_meta() {
 			'ja' => __( 'Japanese', 'pressbooks' ),
 			'pt_BR' => __( 'Portuguese, Brazil', 'pressbooks' ),
 			'es_ES' => __( 'Spanish', 'pressbooks' ),
+			'sv_SE' => __( 'Swedish', 'pressbooks' ),
 		),
 		'label' => __( 'Language', 'pressbooks' )
 	) );

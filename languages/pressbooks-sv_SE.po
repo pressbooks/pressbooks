@@ -1,0 +1,2053 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"Project-Id-Version: test\n"
+"Language: sv\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Christian Widlund <christian.widlund@gmail.com>\n"
+"Language-Team: \n"
+
+#: admin/pb-admin-customcss.php:18 admin/templates/custom-css.php:27
+msgid "Edit CSS"
+msgstr "Redigera CSS"
+
+#: admin/class-pb-catalog-list-table.php:445 admin/pb-admin-laf.php:201
+#: admin/pb-admin-laf.php:217 admin/pb-admin-laf.php:323
+msgid "My Catalog"
+msgstr "Min Katalog"
+
+#: admin/pb-admin-customcss.php:60
+msgid ""
+"Unexpected Error: There was a problem trying to query slug: %s - Please "
+"contact technical support."
+msgstr ""
+"Oväntat Fel: Det var problem försöker fråga Slug:% s - Kontakta teknisk "
+"support."
+
+#: admin/pb-admin-customcss.php:113
+msgid "Last 10 CSS Revisions"
+msgstr "Senaste 10 CSS Revideringar"
+
+#: admin/pb-admin-customcss.php:116
+#: includes/modules/export/epub/class-pb-epub201.php:678
+#: includes/modules/export/epub/templates/opf.php:60
+#: includes/modules/export/hpub/class-pb-hpub.php:548
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:514
+#: themes-book/pressbooks-book/footer.php:34
+msgid "by"
+msgstr "av"
+
+#: admin/pb-admin-customcss.php:183
+msgid "This will overwrite existing custom CSS. Are you sure?"
+msgstr "Detta kommer att skriva över befintlig anpassad CSS. Är du säker?"
+
+#: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
+#: admin/pb-admin-dashboard.php:95
+msgid "PressBooks News"
+msgstr "PressBooks News"
+
+#: admin/pb-admin-dashboard.php:41
+msgid "My Book"
+msgstr "Min bok"
+
+#: admin/pb-admin-dashboard.php:43 admin/pb-admin-laf.php:326
+msgid "Users"
+msgstr "Användare"
+
+#: admin/pb-admin-dashboard.php:55 admin/templates/organize.php:30
+#: admin/templates/organize.php:46 includes/pb-postype.php:96
+msgid "Front Matter"
+msgstr "Front Matter"
+
+#: admin/pb-admin-dashboard.php:75 admin/templates/organize.php:32
+#: admin/templates/organize.php:211 includes/pb-postype.php:131
+msgid "Back Matter"
+msgstr "Tillbaka Matter"
+
+#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
+msgid "Add"
+msgstr "Lägg till"
+
+#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
+#: admin/pb-admin-laf.php:116
+msgid "Organize"
+msgstr "Organisera"
+
+#: admin/pb-admin-laf.php:18
+msgid "Powered by"
+msgstr "Får sin kraft från"
+
+#: admin/pb-admin-laf.php:19 includes/class-pb-activation.php:170
+msgid "About"
+msgstr "Om"
+
+#: admin/pb-admin-laf.php:20
+msgid "Help"
+msgstr "Hjälp"
+
+#: admin/pb-admin-laf.php:21 admin/pb-admin-laf.php:270
+msgid "Contact"
+msgstr "Kontakt"
+
+#: admin/pb-admin-laf.php:42 admin/pb-admin-laf.php:53
+msgid "Feedback"
+msgstr "Återkoppling"
+
+#: admin/pb-admin-laf.php:50 themes-book/pressbooks-book/sidebar.php:43
+msgid "Close"
+msgstr "Stäng"
+
+#: admin/pb-admin-laf.php:99
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:17
+msgid "Theme Options"
+msgstr "Temainställningar"
+
+#: admin/pb-admin-laf.php:148
+msgid "Book Info"
+msgstr "Bokinformation"
+
+#: admin/pb-admin-laf.php:166 admin/templates/export.php:41
+#: admin/templates/organize.php:35 admin/templates/organize.php:51
+#: admin/templates/organize.php:140 admin/templates/organize.php:216
+msgid "Export"
+msgstr "Exportera"
+
+#: admin/pb-admin-laf.php:171
+msgid "EPUB is required for MOBI export. Would you like to reenable it?"
+msgstr "EPUB krävs för MOBI export. Vill du återaktivera det?"
+
+#: admin/pb-admin-laf.php:177
+msgid "Sell"
+msgstr "Sälj"
+
+#: admin/pb-admin-laf.php:180
+msgid "Privacy Settings"
+msgstr "Integritetsinställningar"
+
+#: admin/pb-admin-laf.php:180
+msgid "Privacy"
+msgstr "Privatliv"
+
+#: admin/pb-admin-laf.php:183
+msgid "Advanced Settings"
+msgstr "Avancerade inställningar"
+
+#: admin/pb-admin-laf.php:183
+msgid "Advanced"
+msgstr "Avancerat"
+
+#: admin/pb-admin-laf.php:236 admin/pb-admin-laf.php:245
+msgid "About PressBooks"
+msgstr "Om PressBooks"
+
+#: admin/pb-admin-laf.php:254
+msgid "PressBooks.com"
+msgstr "PressBooks.com"
+
+#: admin/pb-admin-laf.php:262
+msgid "Support Forums"
+msgstr "Support Forum"
+
+#: admin/pb-admin-laf.php:294
+msgid "My Books"
+msgstr "Mina böcker"
+
+#: admin/pb-admin-laf.php:307
+msgid "Network Admin"
+msgstr "Nätverksadmin"
+
+#: admin/pb-admin-laf.php:314 admin/pb-admin-laf.php:364
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: admin/pb-admin-laf.php:320
+msgid "Sites"
+msgstr "Klientadresser"
+
+#: admin/pb-admin-laf.php:332
+msgid "Visit Network"
+msgstr "Besök Network"
+
+#: admin/pb-admin-laf.php:349
+msgid "Blavatar"
+msgstr "Blavatar"
+
+#: admin/pb-admin-laf.php:376
+msgid "Visit Site"
+msgstr "Besök sida"
+
+#: admin/pb-admin-laf.php:530
+msgid "Site Visibility"
+msgstr "Webbplatsens synlighet"
+
+#: admin/pb-admin-laf.php:548
+msgid "Privacy options"
+msgstr "Sekretessalternativ"
+
+#: admin/pb-admin-laf.php:562
+msgid "Public. I would like this book to be visible to everyone."
+msgstr "Public. Jag vill denna bok att vara synlig för alla."
+
+#: admin/pb-admin-laf.php:566
+msgid ""
+"Private. I would like this book to be accessible only to people I invite."
+msgstr ""
+"Privat. Jag vill här boken för att endast vara tillgängliga för personer som "
+"jag bjuder."
+
+#: admin/pb-admin-laf.php:617
+msgid "Amazon URL"
+msgstr "Amazon URL"
+
+#: admin/pb-admin-laf.php:624
+msgid "Oreilly URL"
+msgstr "Oreilly URL"
+
+#: admin/pb-admin-laf.php:631
+msgid "Barnes and Noble URL"
+msgstr "Barnes and Noble URL"
+
+#: admin/pb-admin-laf.php:638
+msgid "Kobo URL"
+msgstr "Kobo URL"
+
+#: admin/pb-admin-laf.php:645
+msgid "iBooks URL"
+msgstr "iBooks URL"
+
+#: admin/pb-admin-laf.php:652
+msgid "Other Service URL"
+msgstr "Andra tjänster URL"
+
+#: admin/pb-admin-laf.php:669
+msgid "Links to ecommerce services"
+msgstr "Länkar till e-handel tjänster"
+
+#: admin/pb-admin-laf.php:792
+msgid "Email me validation error reports on export."
+msgstr "Maila mig valideringsrapporter fel på export."
+
+#: admin/pb-admin-laf.php:810
+msgid "Advanced options"
+msgstr "Avancerade inställningar"
+
+#: admin/pb-admin-laf.php:824
+msgid "No. Ignore validation errors."
+msgstr "Nej Ignorera valideringsfel."
+
+#: admin/pb-admin-laf.php:828
+msgid "Yes. Send the logs."
+msgstr "Ja. Sänd loggarna."
+
+#: admin/pb-admin-laf.php:829
+msgid ""
+"Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
+"will require some effort to decipher. Unfortunately we cannot provide "
+"support for deciphering validation errors, but you could post errors on the "
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</"
+"a>, where we and other PressBooks users can help out as time permits. ."
+msgstr ""
+"Obs: validering felrapporter (för EPUB, Mobi, och PDF) är teknisk, och "
+"kommer att kräva en viss ansträngning att dechiffrera. Tyvärr kan vi inte ge "
+"stöd för att dechiffrera valideringsfel, men du kan skicka fel på <a href="
+"\"http://forum.pressbooks.com/\" target=\"_blank\"> PressBooks forum </ a>, "
+"där vi och andra PressBooks användare kan hjälpa till i mån av tid. ."
+
+#: admin/pb-admin-metaboxes.php:81
+msgid ""
+"Your cover image (%s x %s) is too small. It should be 625px on the shortest "
+"side."
+msgstr ""
+"Din omslagsbild (% s x% s) är för liten. Det bör vara 625px på den kortaste "
+"sidan."
+
+#: admin/pb-admin-metaboxes.php:112 admin/pb-admin-metaboxes.php:351
+#: admin/templates/organize.php:33
+#: themes-book/pressbooks-book/functions.php:758
+#: themes-book/pressbooks-book/functions.php:759
+#: themes-book/pressbooks-book/functions.php:794
+msgid "Part"
+msgstr "Del"
+
+#: admin/pb-admin-metaboxes.php:116
+msgid "Save Part"
+msgstr "Spara del"
+
+#: admin/pb-admin-metaboxes.php:117
+msgid "Save Book Information"
+msgstr "Spara Book Information"
+
+#: admin/pb-admin-metaboxes.php:121
+msgid "Covers"
+msgstr "Omslagsbilder"
+
+#: admin/pb-admin-metaboxes.php:126
+msgid "General Book Information"
+msgstr "Allmän Book Information"
+
+#: admin/pb-admin-metaboxes.php:137
+msgid "Short Title"
+msgstr "Kort titel"
+
+#: admin/pb-admin-metaboxes.php:138
+msgid ""
+"In case of long titles that might be truncated in running heads in the PDF "
+"export."
+msgstr "Vid långa titlar som kan stympade i rinnande huvuden i PDF-export."
+
+#: admin/pb-admin-metaboxes.php:143
+msgid "Subtitle"
+msgstr "Undertitel"
+
+#: admin/pb-admin-metaboxes.php:148 admin/templates/organize.php:47
+#: admin/templates/organize.php:123 admin/templates/organize.php:212
+#: themes-book/pressbooks-book/functions.php:12
+msgid "Author"
+msgstr "Författare"
+
+#: admin/pb-admin-metaboxes.php:153
+msgid "Author, file as"
+msgstr "Författare, filen som"
+
+#: admin/pb-admin-metaboxes.php:154
+msgid ""
+"This ensures that your ebook will sort properly in ebook stores, by the "
+"author's last name."
+msgstr ""
+"Detta garanterar att din eBok kommer att sortera rätt i ebook butiker, med "
+"författarens efternamn."
+
+#: admin/pb-admin-metaboxes.php:159
+#: themes-book/pressbooks-book/functions.php:13
+msgid "Publisher"
+msgstr "Utgivare"
+
+#: admin/pb-admin-metaboxes.php:164
+msgid "Publisher City"
+msgstr "Utgivare Stad"
+
+#: admin/pb-admin-metaboxes.php:170
+#: themes-book/pressbooks-book/functions.php:16
+msgid "Publication Date"
+msgstr "Utgivningsdatum"
+
+#: admin/pb-admin-metaboxes.php:176
+msgid "On-Sale Date"
+msgstr "On-Sale Date"
+
+#: admin/pb-admin-metaboxes.php:177
+msgid "The date you want your book to start selling in stores."
+msgstr "Det datum du vill att din bok att börja sälja i butikerna."
+
+#: admin/pb-admin-metaboxes.php:182
+#: themes-book/pressbooks-book/functions.php:18
+msgid "Ebook ISBN"
+msgstr "Ebook ISBN"
+
+#: admin/pb-admin-metaboxes.php:183
+msgid ""
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in online ebook stores."
+msgstr ""
+"ISBN är International Standard Book Number, och du behöver en om du vill "
+"sälja din bok på nätet ebook butiker."
+
+#: admin/pb-admin-metaboxes.php:188
+#: themes-book/pressbooks-book/functions.php:14
+msgid "Print ISBN"
+msgstr "Print ISBN"
+
+#: admin/pb-admin-metaboxes.php:189
+msgid ""
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in online and physical book stores."
+msgstr ""
+"ISBN är International Standard Book Number, och du behöver en om du vill "
+"sälja din bok på nätet och fysiska bokhandlar."
+
+#: admin/pb-admin-metaboxes.php:196 admin/pb-admin-users.php:61
+msgid "Language"
+msgstr "Språk"
+
+#: admin/pb-admin-metaboxes.php:200
+#: includes/modules/export/epub/class-pb-epub201.php:676
+#: includes/modules/export/epub/class-pb-epub201.php:694
+#: includes/modules/export/epub/templates/opf.php:58
+#: includes/modules/export/hpub/class-pb-hpub.php:546
+#: includes/modules/export/hpub/class-pb-hpub.php:564
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:512
+#: themes-book/pressbooks-book/footer.php:32
+msgid "Copyright"
+msgstr "Copyright"
+
+#: admin/pb-admin-metaboxes.php:206
+msgid "Copyright Year"
+msgstr "Copyright (år)"
+
+#: admin/pb-admin-metaboxes.php:211
+msgid "Copyright Holder"
+msgstr "Copyright Holder"
+
+#: admin/pb-admin-metaboxes.php:217
+msgid "Copyright Notice"
+msgstr "Upphovsrättslig notering"
+
+#: admin/pb-admin-metaboxes.php:227
+msgid "Book Tagline"
+msgstr "Bok Tagline"
+
+#: admin/pb-admin-metaboxes.php:228
+msgid ""
+"A very short description of your book. It should fit in a Twitter post, and "
+"encapsulate your book in the briefest sentence."
+msgstr ""
+"En mycket kort beskrivning av din bok. Det bör passa i ett Twitter inlägg, "
+"och kapsla in din bok i den kortaste meningen."
+
+#: admin/pb-admin-metaboxes.php:234
+msgid "Short Description"
+msgstr "Kort beskrivning"
+
+#: admin/pb-admin-metaboxes.php:235
+msgid ""
+"A short paragraph about your book, for catalogs, reviewers etc. to quote."
+msgstr ""
+"Ett kort stycke om din bok, för kataloger, recensioner etc. att citera."
+
+#: admin/pb-admin-metaboxes.php:241
+msgid "Long Description"
+msgstr "Lång beskrivning"
+
+#: admin/pb-admin-metaboxes.php:242
+msgid "The full description of your book."
+msgstr "En fullständig beskrivning av din bok."
+
+#: admin/pb-admin-metaboxes.php:246
+msgid "Additional Catalogue Information"
+msgstr "Ytterligare Catalogue information"
+
+#: admin/pb-admin-metaboxes.php:252
+msgid "Series Title"
+msgstr "Serie Titel"
+
+#: admin/pb-admin-metaboxes.php:257
+msgid "Series Number"
+msgstr "Series Antal"
+
+#: admin/pb-admin-metaboxes.php:262
+msgid "Editor"
+msgstr "Redaktör"
+
+#: admin/pb-admin-metaboxes.php:267
+msgid "Translator"
+msgstr "Översättare"
+
+#: admin/pb-admin-metaboxes.php:272
+msgid "Keywords"
+msgstr "Nyckelord"
+
+#: admin/pb-admin-metaboxes.php:274
+msgid ""
+"To make it easier to find your book in online book stores and search engines."
+msgstr ""
+"För att göra det lättare att hitta din bok i online bokhandlar och "
+"sökmotorer."
+
+#: admin/pb-admin-metaboxes.php:279
+#: themes-book/pressbooks-book/functions.php:17
+msgid "Hashtag"
+msgstr "Hashtag"
+
+#: admin/pb-admin-metaboxes.php:280
+msgid "For those of you who like Twitter."
+msgstr "För er som gillar Twitter."
+
+#: admin/pb-admin-metaboxes.php:285
+msgid "List Price (Print)"
+msgstr "Listpris (Print)"
+
+#: admin/pb-admin-metaboxes.php:290
+msgid "List Price (PDF)"
+msgstr "Listpris (PDF)"
+
+#: admin/pb-admin-metaboxes.php:295
+msgid "List Price (ebook)"
+msgstr "Listpris (ebook)"
+
+#: admin/pb-admin-metaboxes.php:300
+msgid "List Price (Web)"
+msgstr "Listpris (Web)"
+
+#: admin/pb-admin-metaboxes.php:305
+msgid "Bisac Subject"
+msgstr "BISAC Ämne"
+
+#: admin/pb-admin-metaboxes.php:307
+msgid ""
+"BISAC subject headings help your book get properly classified in (e)book "
+"stores."
+msgstr ""
+"BISAC ämnesord hjälpa din bok ordentligt får klassificeras i (e) bokhandlar."
+
+#: admin/pb-admin-metaboxes.php:312
+msgid "Bisac Regional Theme"
+msgstr "BISAC Regional tema"
+
+#: admin/pb-admin-metaboxes.php:322
+msgid "Catalogue Order"
+msgstr "Katalog Beställ"
+
+#: admin/pb-admin-metaboxes.php:330
+msgid "Chapter Metadata"
+msgstr "Kapitel Metadata"
+
+#: admin/pb-admin-metaboxes.php:335
+msgid "Chapter Short Title (appears in the PDF running header)"
+msgstr "Kapitel Kort titel (visas i PDF kör header)"
+
+#: admin/pb-admin-metaboxes.php:340
+msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
+msgstr "Kapitel Subtitle (visas i Web / ebook / PDF-utdata)"
+
+#: admin/pb-admin-metaboxes.php:345
+msgid "Chapter Author (appears in Web/ebook/PDF output)"
+msgstr "Kapitel författare (visas i Web / ebook / PDF-utdata)"
+
+#: admin/pb-admin-metaboxes.php:359
+msgid "Export Settings"
+msgstr "Exportera inställningar"
+
+#: admin/pb-admin-metaboxes.php:367
+msgid "Include in exports"
+msgstr "Inkludera i exporten"
+
+#: admin/pb-admin-metaboxes.php:379
+msgid "Front Matter Metadata"
+msgstr "Front Matter Metadata"
+
+#: admin/pb-admin-metaboxes.php:384
+msgid "Front Matter Short Title (appears in the PDF running header)"
+msgstr "Front Matter Kort titel (visas i PDF kör header)"
+
+#: admin/pb-admin-metaboxes.php:389
+msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
+msgstr "Front Matter Subtitle (visas i Web / ebook / PDF-utdata)"
+
+#: admin/pb-admin-metaboxes.php:394
+msgid "Front Matter Author (appears in Web/ebook/PDF output)"
+msgstr "Front Matter Författare (visas i Web / ebook / PDF-utdata)"
+
+#: admin/pb-admin-metaboxes.php:486
+msgid "Your cover image should be 625px on the shortest side."
+msgstr "Din omslagsbild ska vara 625px på den kortaste sidan."
+
+#: admin/pb-admin-users.php:47
+msgid "Extra Profile Information"
+msgstr "Extra Profil Information"
+
+#: admin/pb-admin-users.php:54
+msgid "English"
+msgstr "Engelska"
+
+#: admin/pb-admin-users.php:55
+msgid "Chinese, Traditional"
+msgstr "Kinesiska, traditionell"
+
+#: admin/pb-admin-users.php:56
+msgid "French"
+msgstr "Franska"
+
+#: admin/pb-admin-users.php:57
+msgid "Japanese"
+msgstr "Japansk"
+
+#: admin/pb-admin-users.php:58
+msgid "Portuguese, Brazil"
+msgstr "Portugisiska, Brasilien"
+
+#: admin/pb-admin-users.php:59
+msgid "Spanish"
+msgstr "Spanska"
+
+#: admin/templates/custom-css.php:20
+msgid "Error: Something went wrong. See logs for more details."
+msgstr "Fel: Något gick fel. Se loggarna för mer information."
+
+#: admin/templates/custom-css.php:36
+msgid "You are currently editing CSS for"
+msgstr "Du håller på att redigera CSS för"
+
+#: admin/templates/custom-css.php:37
+msgid "Copy CSS from"
+msgstr "Kopiera CSS från"
+
+#: admin/templates/custom-css.php:42
+msgid "Save"
+msgstr "Spara"
+
+#: admin/templates/export.php:27
+msgid "Error: The export failed. See logs for more details."
+msgstr "Fel: Exporten misslyckades. Se loggarna för mer information."
+
+#: admin/templates/export.php:32
+msgid "Warning: The export has validation errors. See logs for more details."
+msgstr "Varning: Exporten har valideringsfel. Se loggarna för mer information."
+
+#: admin/templates/export.php:33
+msgid "Emailed to:"
+msgstr "Mailas till:"
+
+#: admin/templates/export.php:42
+msgid "PressBooks saves your last %s batches of exported files."
+msgstr "PressBooks sparar din sista% s partier av exporterade filer."
+
+#: admin/templates/export.php:47
+msgid "Export Your Book"
+msgstr "Exportera din bok"
+
+#: admin/templates/export.php:55
+msgid "Latest Export"
+msgstr "Senaste Export"
+
+#: admin/templates/export.php:58
+msgid "Exported"
+msgstr "Exporterade"
+
+#: admin/templates/export.php:79
+msgid "Are you sure you want to delete this?"
+msgstr "Är du säker på att du vill radera detta?"
+
+#: admin/templates/export.php:91
+msgid "Your Export Format Options"
+msgstr "Dina exportformat Alternativ"
+
+#: admin/templates/export.php:92
+msgid "Select which formats you want to export"
+msgstr "Välj vilket format du vill exportera"
+
+#: admin/templates/export.php:106
+msgid "Standard book formats"
+msgstr "Standard bokformat"
+
+#: admin/templates/export.php:107
+msgid "PDF (for printing)"
+msgstr "PDF (för utskrift)"
+
+#: admin/templates/export.php:108
+msgid "EPUB (for Nook, iBooks, Kobo etc.)"
+msgstr "EPUB (för Nook, iBooks, Kobo etc.)"
+
+#: admin/templates/export.php:109
+msgid "MOBI (for Kindle)"
+msgstr "MOBI (för Kindle)"
+
+#: admin/templates/export.php:114
+msgid "Hpub"
+msgstr "Hpub"
+
+#: admin/templates/export.php:115
+msgid "ICML (for InDesign)"
+msgstr "ICML (för InDesign)"
+
+#: admin/templates/export.php:116
+msgid "XHTML"
+msgstr "XHTML"
+
+#: admin/templates/export.php:117
+msgid "WordPress XML"
+msgstr "WordPress XML"
+
+#: admin/templates/export.php:121
+msgid "Your Export Theme Options"
+msgstr "Dina Export Tema Alternativ"
+
+#: admin/templates/export.php:122
+msgid "You are using the &ldquo;%s&rdquo; theme"
+msgstr "Du använder \"% s\" tema"
+
+#: admin/templates/export.php:124
+msgid "Change Theme"
+msgstr "Ändra tema"
+
+#: admin/templates/export.php:127
+msgid "Change Theme Options"
+msgstr "Ändra tema Alternativ"
+
+#: admin/templates/organize.php:31
+msgid "Chapters"
+msgstr "Kapitlen"
+
+#: admin/templates/organize.php:36 admin/templates/organize.php:108
+msgid "Add Front Matter"
+msgstr "Lägg Front Matter"
+
+#: admin/templates/organize.php:37 admin/templates/organize.php:273
+msgid "Add Back Matter"
+msgstr "Lägg Tillbaka Matter"
+
+#: admin/templates/organize.php:38 admin/templates/organize.php:197
+msgid "Add Chapter"
+msgstr "Lägg Kapitel"
+
+#: admin/templates/organize.php:39 admin/templates/organize.php:204
+msgid "Add Part"
+msgstr "Lägg Part"
+
+#: admin/templates/organize.php:48 admin/templates/organize.php:124
+#: admin/templates/organize.php:213
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: admin/templates/organize.php:49 admin/templates/organize.php:125
+#: admin/templates/organize.php:214
+msgid "Status"
+msgstr "Status"
+
+#: admin/templates/organize.php:76 admin/templates/organize.php:128
+#: admin/templates/organize.php:170 admin/templates/organize.php:241
+#: themes-book/pressbooks-book/page.php:11
+#: themes-book/pressbooks-book/single.php:5
+#: themes-root/pressbooks-publisher-one/loop.php:48
+#: themes-root/pressbooks-publisher-one/single-_author.php:27
+msgid "Edit"
+msgstr "Ändra"
+
+#: admin/templates/organize.php:81 admin/templates/organize.php:135
+#: admin/templates/organize.php:173 admin/templates/organize.php:246
+msgid "Delete"
+msgstr "Ta bort"
+
+#: admin/templates/organize.php:283
+msgid "Reordering the Chapters"
+msgstr "Ny ordning kapitlen"
+
+#: admin/templates/sell.php:12
+msgid "Sell Your Book"
+msgstr "Sälj din bok"
+
+#: admin/templates/sell.php:17
+msgid ""
+"Would you like to get your book into ebook stores? Our distribution partner, "
+"<a href=\"%s\" target=\"_blank\">BookBaby</a>, can help you. "
+msgstr ""
+"Vill du få din bok i ebook butiker? Vår distributionspartner, <a href=\"%s\" "
+"target=\"_blank\"> BookBaby </ a>, kan hjälpa dig."
+
+#: admin/templates/sell.php:18
+msgid ""
+"For a flat fee starting at $99 (with a 10% discount for PressBooks users and "
+"100% royalties going to you), BookBaby will send your book to the Kindle "
+"Store, Barnes & Noble, Apple's iBook store, and Kobo."
+msgstr ""
+"För en fast avgift börjar på $ 99 (med en 10% rabatt för PressBooks "
+"användare och 100 royalties% går till dig), kommer BookBaby skicka din bok "
+"till Kindle Store, Barnes & Noble, Apples iBook Store, och Kobo."
+
+#: admin/templates/sell.php:20
+msgid "Distribute with BookBaby"
+msgstr "Fördela med BookBaby"
+
+#: admin/templates/sell.php:21
+msgid ""
+"Once your books are available, you can add the links to bookstores below and "
+"we will make a Buy page on the web version of your PressBooks book."
+msgstr ""
+"När böckerna tillgängliga, kan du lägga till länkar till bokhandlar nedan "
+"och vi kommer att göra ett köp sida på webbversionen av din PressBooks bok."
+
+#: includes/class-pb-activation.php:134
+msgid "Main Body"
+msgstr "HUVUDSTYRKA"
+
+#: includes/class-pb-activation.php:139
+msgid "Introduction"
+msgstr "Introduktion"
+
+#: includes/class-pb-activation.php:141
+msgid "This is where you can write your introduction."
+msgstr "Det är där du kan skriva din introduktion."
+
+#: includes/class-pb-activation.php:145
+msgid "Chapter 1"
+msgstr "Kapitel 1"
+
+#: includes/class-pb-activation.php:147
+msgid ""
+"This is the first chapter in the main body of the text. You can change the "
+"text, rename the chapter, add new chapters, and add new parts."
+msgstr ""
+"Detta är det första kapitlet i huvuddelen av texten. Du kan ändra texten, "
+"byta namn på kapitel, lägga till nya kapitel, och lägga till nya delar."
+
+#: includes/class-pb-activation.php:151
+msgid "Appendix"
+msgstr "Bilaga"
+
+#: includes/class-pb-activation.php:153
+msgid "This is where you can add appendices or other back matter."
+msgstr "Det är där du kan lägga till bilagor eller andra back materia."
+
+#: includes/class-pb-activation.php:158
+#: themes-book/pressbooks-book/page-authors.php:6
+msgid "Authors"
+msgstr "Författare"
+
+#: includes/class-pb-activation.php:162
+#: includes/modules/export/epub/class-pb-epub201.php:576
+#: includes/modules/export/hpub/class-pb-hpub.php:448
+msgid "Cover"
+msgstr "Omslag"
+
+#: includes/class-pb-activation.php:166
+#: themes-book/pressbooks-book/functions.php:436
+#: themes-book/pressbooks-book/index.php:8
+#: themes-book/pressbooks-book/sidebar.php:36
+msgid "Table of Contents"
+msgstr "Innehållsförteckning"
+
+#: includes/class-pb-activation.php:174
+#: themes-book/pressbooks-book/header.php:62
+msgid "Buy"
+msgstr "Köp"
+
+#: includes/class-pb-activation.php:178
+#: themes-book/pressbooks-book/functions.php:81
+msgid "Access Denied"
+msgstr "Åtkomst nekad"
+
+#: includes/class-pb-activation.php:180
+msgid ""
+"This book is private, and accessible only to registered users. If you have "
+"an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
+"set up your own PressBooks book at: <a href=\"http://pressbooks.com"
+"\">PressBooks.com</a>."
+msgstr ""
+"Denna bok är privat och endast tillgänglig för registrerade användare. Om du "
+"har ett konto kan du logga in <a href=\"/wp-login.php\"> här </ a>. Du kan "
+"även ställa in din egen PressBooks bok på: <a href=\"http://pressbooks.com"
+"\"> PressBooks.com </ a>."
+
+#: includes/class-pb-activation.php:184 includes/class-pb-metadata.php:351
+msgid "Custom CSS for Ebook"
+msgstr "Anpassad CSS för Ebook"
+
+#: includes/class-pb-activation.php:188 includes/class-pb-metadata.php:355
+msgid "Custom CSS for PDF"
+msgstr "Anpassad CSS för PDF"
+
+#: includes/class-pb-activation.php:192 includes/class-pb-metadata.php:359
+msgid "Custom CSS for Web"
+msgstr "Anpassad CSS för webben"
+
+#: includes/class-pb-activation.php:198
+msgid "Default Data"
+msgstr "Default Data"
+
+#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.3)  #-#-#-#-#
+#. Description of the plugin/theme
+#: includes/class-pb-activation.php:200
+msgid "Simple Book Production"
+msgstr "Enkel bokproduktion"
+
+#: includes/modules/export/class-pb-export.php:654
+msgid "File not found"
+msgstr "Filen hittades inte"
+
+#: includes/modules/export/epub/class-pb-epub201.php:640
+#: includes/modules/export/hpub/class-pb-hpub.php:511
+msgid "Title Page"
+msgstr "Titelsida"
+
+#: includes/modules/export/epub/class-pb-epub201.php:1077
+#: includes/modules/export/hpub/class-pb-hpub.php:942
+msgid "Table Of Contents"
+msgstr "INNEHÅLLSFÖRTECKNING"
+
+#: includes/modules/export/epub/class-pb-epub201.php:1090
+#: includes/modules/export/hpub/class-pb-hpub.php:954
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:572
+msgid "Contents"
+msgstr "Innehåll"
+
+#: includes/modules/export/epub/templates/opf.php:134
+msgid "Start"
+msgstr "Sätt igång"
+
+#: includes/modules/export/wordpress/class-pb-wxr.php:101
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:149
+msgid "Invalid permission error"
+msgstr "Ogiltig behörighetsfel"
+
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:280
+msgid "Notes"
+msgstr "Anteckningar"
+
+#: includes/pb-postype.php:17
+msgctxt "post type general name"
+msgid "Chapters"
+msgstr "Kapitlen"
+
+#: includes/pb-postype.php:18
+msgctxt "post type singular name"
+msgid "Chapter"
+msgstr "Kapitel"
+
+#: includes/pb-postype.php:19
+msgctxt "book"
+msgid "Add New Chapter"
+msgstr "Lägg Nytt kapitel"
+
+#: includes/pb-postype.php:20
+msgid "Add New Chapter"
+msgstr "Lägg Nytt kapitel"
+
+#: includes/pb-postype.php:21
+msgid "Edit Chapter"
+msgstr "Redigera kapitel"
+
+#: includes/pb-postype.php:22
+msgid "New Chapter"
+msgstr "Nytt kapitel"
+
+#: includes/pb-postype.php:23
+msgid "View Chapter"
+msgstr "Se kapitel"
+
+#: includes/pb-postype.php:24
+msgid "Search Chapters"
+msgstr "Sök kapitlen"
+
+#: includes/pb-postype.php:25
+msgid "No chapters found"
+msgstr "Inga kapitel hittades"
+
+#: includes/pb-postype.php:26
+msgid "No chapters found in Trash"
+msgstr "Inga kapitel som finns i papperskorgen"
+
+#: includes/pb-postype.php:28
+msgid "Text"
+msgstr "Text"
+
+#: includes/pb-postype.php:51
+msgctxt "post type general name"
+msgid "Parts"
+msgstr "Delar"
+
+#: includes/pb-postype.php:52
+msgctxt "post type singular name"
+msgid "Part"
+msgstr "Del"
+
+#: includes/pb-postype.php:53
+msgctxt "book"
+msgid "Add Part"
+msgstr "Lägg Part"
+
+#: includes/pb-postype.php:54
+msgid "Add New Part"
+msgstr "Lägg till en ny del"
+
+#: includes/pb-postype.php:55
+msgid "Edit Part"
+msgstr "Redigera del"
+
+#: includes/pb-postype.php:56
+msgid "New Part"
+msgstr "Ny del"
+
+#: includes/pb-postype.php:57
+msgid "View Part"
+msgstr "Visa del"
+
+#: includes/pb-postype.php:58
+msgid "Search Parts"
+msgstr "Sök Delar"
+
+#: includes/pb-postype.php:59
+msgid "No parts found"
+msgstr "Inga delar hittades"
+
+#: includes/pb-postype.php:60
+msgid "No parts found in Trash"
+msgstr "Inga delar hittades i papperskorgen"
+
+#: includes/pb-postype.php:62
+msgid "Parts"
+msgstr "Delar"
+
+#: includes/pb-postype.php:85
+msgctxt "post type general name"
+msgid "Front Matter"
+msgstr "Front Matter"
+
+#: includes/pb-postype.php:86
+msgctxt "post type singular name"
+msgid "Front Matter"
+msgstr "Front Matter"
+
+#: includes/pb-postype.php:87
+msgctxt "book"
+msgid "Add New Front Matter"
+msgstr "Lägg till ny Front Matter"
+
+#: includes/pb-postype.php:88
+msgid "Add New Front Matter"
+msgstr "Lägg till ny Front Matter"
+
+#: includes/pb-postype.php:89
+msgid "Edit Front Matter"
+msgstr "Redigera Front Matter"
+
+#: includes/pb-postype.php:90
+msgid "New Front Matter"
+msgstr "Ny Front Matter"
+
+#: includes/pb-postype.php:91
+msgid "View Front Matter"
+msgstr "Visa Front Matter"
+
+#: includes/pb-postype.php:92
+msgid "Search Front Matter"
+msgstr "Sök Front Matter"
+
+#: includes/pb-postype.php:93
+msgid "No front matter found"
+msgstr "Ingen främre Oavsett hittades"
+
+#: includes/pb-postype.php:94
+msgid "No front matter found in Trash"
+msgstr "Ingen främre materia som finns i papperskorgen"
+
+#: includes/pb-postype.php:120
+msgctxt "post type general name"
+msgid "Back Matter"
+msgstr "Tillbaka Matter"
+
+#: includes/pb-postype.php:121
+msgctxt "post type singular name"
+msgid "Back Matter"
+msgstr "Tillbaka Matter"
+
+#: includes/pb-postype.php:122
+msgctxt "book"
+msgid "Add New Back Matter"
+msgstr "Lägg till ny Back Matter"
+
+#: includes/pb-postype.php:123
+msgid "Add New Back Matter"
+msgstr "Lägg till ny Back Matter"
+
+#: includes/pb-postype.php:124
+msgid "Edit Back Matter"
+msgstr "Redigera Back Matter"
+
+#: includes/pb-postype.php:125
+msgid "New Back Matter"
+msgstr "Ny Back Matter"
+
+#: includes/pb-postype.php:126
+msgid "View Back Matter"
+msgstr "Visa Tillbaka Matter"
+
+#: includes/pb-postype.php:127
+msgid "Search Back Matter"
+msgstr "Sök Tillbaka Matter"
+
+#: includes/pb-postype.php:128
+msgid "No back matter found"
+msgstr "Ingen tillbaka materia hittades"
+
+#: includes/pb-postype.php:129
+msgid "No back matter found in Trash"
+msgstr "Ingen back materia som finns i papperskorgen"
+
+#: includes/pb-postype.php:155
+msgctxt "post type general name"
+msgid "Book Information"
+msgstr "Book Information"
+
+#: includes/pb-postype.php:156
+msgctxt "post type singular name"
+msgid "Book Information"
+msgstr "Book Information"
+
+#: includes/pb-postype.php:157
+msgctxt "book"
+msgid "Add New Book Information"
+msgstr "Lägg till ny bok Information"
+
+#: includes/pb-postype.php:158 includes/pb-postype.php:159
+msgid "Edit Book Information"
+msgstr "Redigera Book Information"
+
+#: includes/pb-postype.php:160
+msgid "New Book Information"
+msgstr "Ny bok Information"
+
+#: includes/pb-postype.php:161
+msgid "View Book Information"
+msgstr "Visa information om boken"
+
+#: includes/pb-postype.php:162
+msgid "Search Book Information"
+msgstr "Sök Book Information"
+
+#: includes/pb-postype.php:163
+msgid "No book information found"
+msgstr "Ingen bok information hittades"
+
+#: includes/pb-postype.php:164
+msgid "No book information found in Trash"
+msgstr "Ingen bok information hittades i papperskorgen"
+
+#: includes/pb-postype.php:166
+msgid "Book Information"
+msgstr "Book Information"
+
+#: includes/pb-taxonomy.php:17
+msgctxt "taxonomy general name"
+msgid "Front Matter Types"
+msgstr "Front matter Typer"
+
+#: includes/pb-taxonomy.php:18
+msgctxt "taxonomy singular name"
+msgid "Front Matter Type"
+msgstr "Front Matter Type"
+
+#: includes/pb-taxonomy.php:19
+msgid "Search Front Matter Types"
+msgstr "Sök Front matter Typer"
+
+#: includes/pb-taxonomy.php:20
+msgid "Popular Front Matter Types"
+msgstr "Folkfront Matter typer"
+
+#: includes/pb-taxonomy.php:21
+msgid "All Front Matter Types"
+msgstr "Alla Front matter typer"
+
+#: includes/pb-taxonomy.php:24
+msgid "Edit Front Matter Type"
+msgstr "Redigera Front Matter Type"
+
+#: includes/pb-taxonomy.php:25
+msgid "Update Front Matter Type"
+msgstr "Uppdatera Front Matter Typ"
+
+#: includes/pb-taxonomy.php:26
+msgid "Add New Front Matter Type"
+msgstr "Lägg till ny Front Matter Type"
+
+#: includes/pb-taxonomy.php:27
+msgid "New Front Matter Type Name"
+msgstr "Ny Front Matter Typ Namn"
+
+#: includes/pb-taxonomy.php:28
+msgid "Separate front matter types with commas"
+msgstr "Separata Front matter typer med kommatecken"
+
+#: includes/pb-taxonomy.php:29
+msgid "Add or remove front matter type"
+msgstr "Lägg till eller ta bort främre materia typ"
+
+#: includes/pb-taxonomy.php:30
+msgid "Choose from the most used front matter type"
+msgstr "Välj bland de mest använda främre materia typ"
+
+#: includes/pb-taxonomy.php:31
+msgid "Front Matter Types"
+msgstr "Front matter Typer"
+
+#: includes/pb-taxonomy.php:55
+msgctxt "taxonomy general name"
+msgid "Back Matter Types"
+msgstr "Tillbaka Matter Typer"
+
+#: includes/pb-taxonomy.php:56
+msgctxt "taxonomy singular name"
+msgid "Back Matter Type"
+msgstr "Tillbaka Matter Typ"
+
+#: includes/pb-taxonomy.php:57
+msgid "Search Back Matter Types"
+msgstr "Sök Tillbaka Matter Typer"
+
+#: includes/pb-taxonomy.php:58
+msgid "Popular Back Matter Types"
+msgstr "Populära Back Matter Typer"
+
+#: includes/pb-taxonomy.php:59
+msgid "All Back Matter Types"
+msgstr "Alla Back Matter typer"
+
+#: includes/pb-taxonomy.php:62
+msgid "Edit Back Matter Type"
+msgstr "Redigera Back Matter Typ"
+
+#: includes/pb-taxonomy.php:63
+msgid "Update Back Matter Type"
+msgstr "Uppdatera Tillbaka Matter Typ"
+
+#: includes/pb-taxonomy.php:64
+msgid "Add New Back Matter Type"
+msgstr "Lägg till ny Back Matter Type"
+
+#: includes/pb-taxonomy.php:65
+msgid "New Back Matter Type Name"
+msgstr "Ny Back Matter Typ Namn"
+
+#: includes/pb-taxonomy.php:66
+msgid "Separate back matter types with commas"
+msgstr "Separata rygg materia typer med kommatecken"
+
+#: includes/pb-taxonomy.php:67
+msgid "Add or remove back matter type"
+msgstr "Lägg till eller ta bort back materia typ"
+
+#: includes/pb-taxonomy.php:68
+msgid "Choose from the most used back matter type"
+msgstr "Välj bland de mest använda baksidan materia typ"
+
+#: includes/pb-taxonomy.php:69
+msgid "Back Matter Types"
+msgstr "Tillbaka Matter Typer"
+
+#: pressbooks.php:46
+msgid ""
+"PressBooks will not work with your version of WordPress. PressBooks requires "
+"a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+"upgrade WordPress if you would like to use PressBooks."
+msgstr ""
+"PressBooks kommer inte att fungera med din version av WordPress. PressBooks "
+"kräver en särskild installation av WordPress Multi-Site, version% s eller "
+"högre. Vänligen uppgradera WordPress om du vill använda PressBooks."
+
+#: shortcodes/footnotes/class-pb-footnotes.php:154
+msgid "Insert Footnote"
+msgstr "Infoga fotnot"
+
+#: shortcodes/footnotes/class-pb-footnotes.php:155
+msgid "Convert MS Word Footnotes"
+msgstr "Konvertera MS Word Fotnoter"
+
+#: shortcodes/footnotes/class-pb-footnotes.php:231
+msgid "Invalid permissions."
+msgstr "Ogiltiga behörigheter."
+
+#: symbionts/custom-metadata/custom_metadata.php:399
+msgid "<strong>%1$s:</strong> %2$s"
+msgstr "<strong>% 1 $ s: </ strong>% 2 $ s"
+
+#: symbionts/custom-metadata/custom_metadata.php:490
+msgid "Uh oh, something went wrong!"
+msgstr "Uh oh, gick något fel!"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:31
+msgctxt "post type general name"
+msgid "Tests"
+msgstr "Tester"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:32
+msgctxt "post type singular name"
+msgid "Test"
+msgstr "Test"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:33
+msgctxt "Test"
+msgid "Add New"
+msgstr "Lägg till ny"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:34
+msgid "Add New Test"
+msgstr "Lägg Nytt test"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:35
+msgid "Edit Test"
+msgstr "Redigera Test"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:36
+msgid "New Test"
+msgstr "Nytt test"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:37
+msgid "All Tests"
+msgstr "Alla Tester"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:38
+msgid "View Test"
+msgstr "Visa Test"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:39
+msgid "Search Tests"
+msgstr "Sök Tester"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:40
+msgid "No Tests found"
+msgstr "Inga tester hittades"
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:41
+msgid "No Tests found in Trash"
+msgstr "Inga tester som finns i papperskorgen"
+
+#: themes-book/clarke/functions.php:18 themes-book/donham/functions.php:27
+#: themes-book/donham/functions.php:28 themes-book/donham/functions.php:45
+msgid "part"
+msgstr "del "
+
+#: themes-book/pressbooks-book/comments.php:3
+msgid ""
+"This post is password protected. Enter the password to view any comments."
+msgstr ""
+"Detta inlägg är lösenordsskyddat. Ange lösenordet för att se eventuella "
+"kommentarer."
+
+#: themes-book/pressbooks-book/comments.php:12
+msgid "One Response to %2$s"
+msgid_plural "%1$s Responses to %2$s"
+msgstr[0] "One Response to %2$s"
+msgstr[1] "%1$s Responses to %2$s"
+
+#: themes-book/pressbooks-book/comments.php:18
+#: themes-book/pressbooks-book/comments.php:29
+msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
+msgstr "<span class=\"meta-nav\"> ← </ span> Older Comments"
+
+#: themes-book/pressbooks-book/comments.php:19
+#: themes-book/pressbooks-book/comments.php:30
+msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
+msgstr "Nyare Kommentarer <span class=\"meta-nav\"> → </ span>"
+
+#: themes-book/pressbooks-book/comments.php:37
+msgid "Comments are closed."
+msgstr "Kommentarer inaktiverade."
+
+#: themes-book/pressbooks-book/comments.php:45
+msgid "Submit"
+msgstr "Skicka"
+
+#: themes-book/pressbooks-book/content-social-footer.php:4
+#: themes-book/pressbooks-book/content-social-header.php:6
+msgid "I wanted to share this post with you from"
+msgstr "Jag ville dela det här inlägget med dig från"
+
+#: themes-book/pressbooks-book/content-social-footer.php:4
+#: themes-book/pressbooks-book/content-social-header.php:6
+msgid "Email to a friend"
+msgstr "E-posta till en vän"
+
+#: themes-book/pressbooks-book/content-social-footer.php:4
+#: themes-book/pressbooks-book/content-social-header.php:6
+msgid "Share via Email"
+msgstr "Dela via e-post"
+
+#: themes-book/pressbooks-book/content-social-header.php:3
+msgid "Share"
+msgstr "Dela"
+
+#: themes-book/pressbooks-book/footer.php:17
+msgid "Book Name"
+msgstr "Boka Namn"
+
+#: themes-book/pressbooks-book/footer.php:41
+msgid "PressBooks.com: Simple Book Production"
+msgstr "PressBooks.com: Enkel bokproduktion"
+
+#: themes-book/pressbooks-book/functions.php:15
+msgid "Keywords/Tags"
+msgstr "Nyckelord / beteckningar"
+
+#: themes-book/pressbooks-book/functions.php:65
+msgid "Previous"
+msgstr "Föregående"
+
+#: themes-book/pressbooks-book/functions.php:69
+msgid "Next"
+msgstr "Nästa"
+
+#: themes-book/pressbooks-book/functions.php:83
+msgid ""
+"This book is private, and accessible only to registered users. If you have "
+"an account you can <a href=\"/wp-login.php\" class=\"login\">login here</a> "
+" <p class=\"sign-up\">You can also set up your own PressBooks book at: <a "
+"href=\"http://pressbooks.com\">PressBooks.com</a>."
+msgstr ""
+"Denna bok är privat och endast tillgänglig för registrerade användare. Om du "
+"har ett konto kan du <a href=\"/wp-login.php\" class=\"login\"> inloggning "
+"här </ a> <p class=\"sign-up\"> Du kan även ställa in din egen PressBooks "
+"bok at: <a href=\"http://pressbooks.com\"> PressBooks.com </ a>."
+
+#: themes-book/pressbooks-book/functions.php:110
+msgid "%s on"
+msgstr "% S på"
+
+#: themes-book/pressbooks-book/functions.php:110
+msgid "%1$s at %2$s"
+msgstr "%1$s kl. %2$s"
+
+#: themes-book/pressbooks-book/functions.php:110
+#: themes-book/pressbooks-book/functions.php:130
+msgid "(Edit)"
+msgstr "(Redigera)"
+
+#: themes-book/pressbooks-book/functions.php:113
+msgid "Your comment is awaiting moderation."
+msgstr "Din kommentar inväntar granskning."
+
+#: themes-book/pressbooks-book/functions.php:130
+msgid "Pingback:"
+msgstr "Pingback:"
+
+#: themes-book/pressbooks-book/functions.php:199
+msgid "Global options"
+msgstr "Globala alternativ"
+
+#: themes-book/pressbooks-book/functions.php:206
+msgid "Chapter numbers"
+msgstr "Kapitelnummer"
+
+#: themes-book/pressbooks-book/functions.php:206
+msgid "display chapter numbers"
+msgstr "visa kapitelnummer"
+
+#: themes-book/pressbooks-book/functions.php:206
+msgid "do not display chapter numbers"
+msgstr "visas inte kapitelnummer"
+
+#: themes-book/pressbooks-book/functions.php:212
+msgid "PDF options"
+msgstr "PDF-alternativ"
+
+#: themes-book/pressbooks-book/functions.php:220
+msgid "Page size"
+msgstr "Sidstorlek"
+
+#: themes-book/pressbooks-book/functions.php:221
+msgid "digest"
+msgstr "smälta"
+
+#: themes-book/pressbooks-book/functions.php:222
+msgid "US trade"
+msgstr "USA: s handel"
+
+#: themes-book/pressbooks-book/functions.php:223
+msgid "US letter"
+msgstr "US letter"
+
+#: themes-book/pressbooks-book/functions.php:224
+msgid "8.5 x 9.25\""
+msgstr "8,5 x 9,25 \""
+
+#: themes-book/pressbooks-book/functions.php:225
+msgid "duodecimo"
+msgstr "duodecimo"
+
+#: themes-book/pressbooks-book/functions.php:226
+msgid "pocket"
+msgstr "ficka"
+
+#: themes-book/pressbooks-book/functions.php:227
+msgid "A4"
+msgstr "A4"
+
+#: themes-book/pressbooks-book/functions.php:228
+msgid "A5"
+msgstr "A5"
+
+#: themes-book/pressbooks-book/functions.php:231
+#: themes-book/pressbooks-book/functions.php:263
+msgid "Paragraph separator"
+msgstr "Punkt separator"
+
+#: themes-book/pressbooks-book/functions.php:232
+#: themes-book/pressbooks-book/functions.php:264
+msgid "indent"
+msgstr "indragning"
+
+#: themes-book/pressbooks-book/functions.php:233
+#: themes-book/pressbooks-book/functions.php:265
+msgid "skip lines"
+msgstr "hoppa linjer"
+
+#: themes-book/pressbooks-book/functions.php:236
+msgid "Blank pages"
+msgstr "Tomma sidor"
+
+#: themes-book/pressbooks-book/functions.php:237
+msgid "include blank pages (for print PDF)"
+msgstr "inkludera tomma sidor (för utskrift PDF)"
+
+#: themes-book/pressbooks-book/functions.php:238
+msgid "remove blank pages (for web PDF)"
+msgstr "ta bort tomma sidor (för webb PDF)"
+
+#: themes-book/pressbooks-book/functions.php:241
+msgid "Table of contents"
+msgstr "Innehållsförteckning"
+
+#: themes-book/pressbooks-book/functions.php:241
+#: themes-book/pressbooks-book/functions.php:247
+msgid "display"
+msgstr "skärm"
+
+#: themes-book/pressbooks-book/functions.php:241
+#: themes-book/pressbooks-book/functions.php:247
+msgid "do not display"
+msgstr "visas inte"
+
+#: themes-book/pressbooks-book/functions.php:244
+msgid "Footnotes style"
+msgstr "Fotnoter stil"
+
+#: themes-book/pressbooks-book/functions.php:244
+msgid "normal"
+msgstr "normal"
+
+#: themes-book/pressbooks-book/functions.php:244
+msgid "force as endnotes"
+msgstr "kraft som slutnoter"
+
+#: themes-book/pressbooks-book/functions.php:247
+msgid "Crop marks"
+msgstr "Skärmärken"
+
+#: themes-book/pressbooks-book/functions.php:250
+#: themes-book/pressbooks-book/functions.php:404
+msgid "Hyphens"
+msgstr "Bindestreck"
+
+#: themes-book/pressbooks-book/functions.php:250
+msgid "enabled"
+msgstr "aktiverad"
+
+#: themes-book/pressbooks-book/functions.php:250
+msgid "disabled"
+msgstr "inaktiverad"
+
+#: themes-book/pressbooks-book/functions.php:256
+msgid "Ebook options"
+msgstr "Ebook alternativ"
+
+#: themes-book/pressbooks-book/functions.php:290
+msgid "Global Options"
+msgstr "Allmängiltiga flaggor"
+
+#: themes-book/pressbooks-book/functions.php:296
+msgid "Chapter Numbers"
+msgstr "Kapitel Numbers"
+
+#: themes-book/pressbooks-book/functions.php:301
+msgid "Display chapter numbers"
+msgstr "Display kapitelnummer"
+
+#: themes-book/pressbooks-book/functions.php:318
+msgid "These options apply universally to webbook, PDF and ebook exports."
+msgstr "Dessa alternativ gäller universellt Webbook, PDF och export ebook."
+
+#: themes-book/pressbooks-book/functions.php:370
+msgid "PDF Options"
+msgstr "PDF-alternativ"
+
+#: themes-book/pressbooks-book/functions.php:376
+msgid "Page Size"
+msgstr "Sidstorlek"
+
+#: themes-book/pressbooks-book/functions.php:381
+msgid "Digest (5.5&quot; &times; 8.5&quot;)"
+msgstr "Digest (5,5 \"x 8,5\")"
+
+#: themes-book/pressbooks-book/functions.php:382
+msgid "US Trade (6&quot; &times; 9&quot;)"
+msgstr "US Trade (6 \"× 9\")"
+
+#: themes-book/pressbooks-book/functions.php:383
+msgid "US Letter (8.5&quot; &times; 11&quot;)"
+msgstr "US Letter (8,5 \"× 11\")"
+
+#: themes-book/pressbooks-book/functions.php:384
+msgid "Custom (8.5&quot; &times; 9.25&quot;)"
+msgstr "Custom (8,5 \"× 9,25\")"
+
+#: themes-book/pressbooks-book/functions.php:385
+msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
+msgstr "Duodecimo (5 \"× 7,75\")"
+
+#: themes-book/pressbooks-book/functions.php:386
+msgid "Pocket (4.25&quot; &times; 7&quot;)"
+msgstr "Pocket (4,25 \"x 7\")"
+
+#: themes-book/pressbooks-book/functions.php:387
+msgid "A4 (21cm &times; 29.7cm)"
+msgstr "A4 (21cm x 29.7cm)"
+
+#: themes-book/pressbooks-book/functions.php:388
+msgid "A5 (14.8cm &times; 21cm)"
+msgstr "A5 (14.8cm × 21cm)"
+
+#: themes-book/pressbooks-book/functions.php:394
+msgid "Crop Marks"
+msgstr "Crop Marks"
+
+#: themes-book/pressbooks-book/functions.php:399
+msgid "Display crop marks"
+msgstr "Visa skärmärken"
+
+#: themes-book/pressbooks-book/functions.php:409
+msgid "Enable hyphenation"
+msgstr "Aktivera avstavning"
+
+#: themes-book/pressbooks-book/functions.php:414
+#: themes-book/pressbooks-book/functions.php:606
+msgid "Paragraph Separation"
+msgstr "Punkt Separation"
+
+#: themes-book/pressbooks-book/functions.php:419
+#: themes-book/pressbooks-book/functions.php:611
+msgid "Indent paragraphs"
+msgstr "Indrag punkterna"
+
+#: themes-book/pressbooks-book/functions.php:420
+#: themes-book/pressbooks-book/functions.php:612
+msgid "Skip lines between paragraphs"
+msgstr "Hoppa linjer mellan punkterna"
+
+#: themes-book/pressbooks-book/functions.php:425
+msgid "Blank Pages"
+msgstr "Tomma sidor"
+
+#: themes-book/pressbooks-book/functions.php:430
+msgid "Include blank pages (for print PDF)"
+msgstr "Inkludera tomma sidor (för utskrift PDF)"
+
+#: themes-book/pressbooks-book/functions.php:431
+msgid "Remove all blank pages (for web PDF)"
+msgstr "Ta bort alla tomma sidor (för webb PDF)"
+
+#: themes-book/pressbooks-book/functions.php:441
+msgid "Display table of contents"
+msgstr "Visa innehållsförteckningen"
+
+#: themes-book/pressbooks-book/functions.php:446
+msgid "Footnotes Style"
+msgstr "Fotnoter Style"
+
+#: themes-book/pressbooks-book/functions.php:451
+msgid "Regular footnotes"
+msgstr "Regelbundna fotnoter"
+
+#: themes-book/pressbooks-book/functions.php:452
+msgid "Force as endnotes"
+msgstr "Force som slutnoter"
+
+#: themes-book/pressbooks-book/functions.php:600
+msgid "Ebook Options"
+msgstr "Ebook Val"
+
+#: themes-book/pressbooks-book/header.php:24
+msgid "Page %s"
+msgstr "Sida %s"
+
+#: themes-book/pressbooks-book/page-about.php:5
+msgid "About The Book"
+msgstr "Om boken"
+
+#: themes-book/pressbooks-book/page-about.php:21
+#: themes-book/pressbooks-book/page-buy.php:14
+msgid "It's coming!"
+msgstr "Det kommer!"
+
+#: themes-book/pressbooks-book/page-buy.php:4
+msgid "Buy the Book"
+msgstr "Köp boken"
+
+#: themes-book/pressbooks-book/page-buy.php:17
+msgid ""
+"You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
+msgstr ""
+"Du kan köpa <a href=\"%1$s\">% 2 $ s </ a> genom att följa någon av länkarna "
+"nedan:"
+
+#: themes-book/pressbooks-book/page-buy.php:21
+msgid "Purchase on  <a href=\"%1$s\">amazon.com</a>"
+msgstr "Inköp på <a href=\"%1$s\"> amazon.com </ a>"
+
+#: themes-book/pressbooks-book/page-buy.php:25
+msgid "Purchase on  <a href=\"%1$s\">oreilly.com</a>"
+msgstr "Inköp på <a href=\"%1$s\"> oreilly.com </ a>"
+
+#: themes-book/pressbooks-book/page-buy.php:29
+msgid "Purchase on  <a href=\"%1$s\">barnesandnoble.com</a>"
+msgstr "Inköp på <a href=\"%1$s\"> barnesandnoble.com </ a>"
+
+#: themes-book/pressbooks-book/page-buy.php:33
+msgid "Purchase on  <a href=\"%1$s\">kobobooks.com</a>"
+msgstr "Inköp på <a href=\"%1$s\"> kobobooks.com </ a>"
+
+#: themes-book/pressbooks-book/page-buy.php:37
+msgid "Purchase on  <a href=\"%1$s\">apple.com</a>"
+msgstr "Inköp på <a href=\"%1$s\"> apple.com </ a>"
+
+#: themes-book/pressbooks-book/page-buy.php:41
+msgid "Elsewhere"
+msgstr "På andra håll"
+
+#: themes-book/pressbooks-book/page-buy.php:41
+msgid "Purchase here:"
+msgstr "Köp här:"
+
+#: themes-book/pressbooks-book/page-cover.php:19
+msgid "Start reading"
+msgstr "Börja läsa"
+
+#: themes-book/pressbooks-book/page-cover.php:35
+msgid "Authors(s)"
+msgstr "Författare (s)"
+
+#: themes-book/pressbooks-book/page.php:13
+msgid "Pages:"
+msgstr "Sidor:"
+
+#: themes-book/pressbooks-book/sidebar.php:9
+msgid "Login"
+msgstr "Logga in"
+
+#: themes-book/pressbooks-book/sidebar.php:13
+msgid "Logout"
+msgstr "Logga ur"
+
+#: themes-book/pressbooks-book/sidebar.php:21
+msgid "Admin"
+msgstr "Administratör"
+
+#: themes-book/pressbooks-book/sidebar.php:26
+msgid "Read"
+msgstr "Läs"
+
+#: themes-book/pressbooks-book/sidebar.php:27
+msgid "About the Book"
+msgstr "Om boken"
+
+#: themes-book/pressbooks-book/sidebar.php:28
+msgid "About the Author(s)"
+msgstr "Om författaren (s)"
+
+#: themes-book/pressbooks-book/sidebar.php:32
+msgid "Home"
+msgstr "Hem"
+
+#: themes-root/pressbooks-publisher-one/404.php:17
+msgid "Search"
+msgstr "Sök"
+
+#: themes-root/pressbooks-publisher-one/archive-_author.php:34
+#: themes-root/pressbooks-publisher-one/single-_author.php:24
+msgid "Read more &raquo;"
+msgstr "Läs mer »"
+
+#: themes-root/pressbooks-publisher-one/archive-_author.php:48
+msgid "Sorry, no authors could be found."
+msgstr "Tyvärr kunde ingen författare kan hittas."
+
+#: themes-root/pressbooks-publisher-one/comments.php:9
+msgid "Enter password."
+msgstr "Ange lösenord."
+
+#: themes-root/pressbooks-publisher-one/comments.php:12
+msgid "0 comments"
+msgstr "0 kommentarer"
+
+#: themes-root/pressbooks-publisher-one/comments.php:12
+msgid "1 comment"
+msgstr "1 kommentar"
+
+#: themes-root/pressbooks-publisher-one/comments.php:12
+msgid "% comments"
+msgstr "% Kommentarer"
+
+#: themes-root/pressbooks-publisher-one/comments.php:15
+msgid "Leave a comment"
+msgstr "Lämna en kommentar"
+
+#: themes-root/pressbooks-publisher-one/comments.php:33
+msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr ""
+"Du måste vara <a href=\"%s\"> loggade in </ a> för att skriva en kommentar."
+
+#: themes-root/pressbooks-publisher-one/comments.php:41
+msgid "Sorry, comments are closed."
+msgstr "Ledsen, kommentarer är stängda."
+
+#: themes-root/pressbooks-publisher-one/front-featured.php:24
+msgid "Read more &#8594;"
+msgstr "Läs mer →"
+
+#: themes-root/pressbooks-publisher-one/front-homepage-block.php:14
+#: themes-root/pressbooks-publisher-one/front-homepage-block.php:36
+#: themes-root/pressbooks-publisher-one/loop.php:45
+msgid "read more &#8594;"
+msgstr "läs mer →"
+
+#: themes-root/pressbooks-publisher-one/functions.php:63
+msgid "Sidebar 1"
+msgstr "Sidebar 1"
+
+#: themes-root/pressbooks-publisher-one/functions.php:72
+msgid "Sidebar 2"
+msgstr "Sidebar 2"
+
+#: themes-root/pressbooks-publisher-one/functions.php:81
+msgid "Sidebar 3"
+msgstr "Sidebar 3"
+
+#: themes-root/pressbooks-publisher-one/functions.php:89
+msgid "Home Page Left Column"
+msgstr "Hemsida vänstra kolumnen"
+
+#: themes-root/pressbooks-publisher-one/functions.php:97
+msgid "Home Page Right Column"
+msgstr "Hemsida högra kolumnen"
+
+#: themes-root/pressbooks-publisher-one/functions.php:105
+msgid "Footer"
+msgstr "Sidfot"
+
+#: themes-root/pressbooks-publisher-one/functions.php:168
+msgid "\">read more &#8594;</a>"
+msgstr "\"> Läs mer → </ a>"
+
+#: themes-root/pressbooks-publisher-one/functions.php:202
+#: themes-root/pressbooks-publisher-one/functions.php:203
+#: themes-root/pressbooks-publisher-one/functions.php:213
+msgctxt "_featured_content"
+msgid "Featured Content"
+msgstr "Dagens Halt"
+
+#: themes-root/pressbooks-publisher-one/functions.php:204
+msgctxt "_featured_content"
+msgid "Add New"
+msgstr "Lägg till ny"
+
+#: themes-root/pressbooks-publisher-one/functions.php:205
+msgctxt "_featured_content"
+msgid "Add New Featured Content"
+msgstr "Lägg till ny Featured Content"
+
+#: themes-root/pressbooks-publisher-one/functions.php:206
+msgctxt "_featured_content"
+msgid "Edit Featured Content"
+msgstr "Redigera Dagens Halt"
+
+#: themes-root/pressbooks-publisher-one/functions.php:207
+msgctxt "_featured_content"
+msgid "New Featured Content"
+msgstr "Ny skisserat innehåll"
+
+#: themes-root/pressbooks-publisher-one/functions.php:208
+msgctxt "_featured_content"
+msgid "View Featured Content"
+msgstr "Visa Featured Content"
+
+#: themes-root/pressbooks-publisher-one/functions.php:209
+msgctxt "_featured_content"
+msgid "Search Featured Content"
+msgstr "Sök Utvalda Innehåll"
+
+#: themes-root/pressbooks-publisher-one/functions.php:210
+msgctxt "_featured_content"
+msgid "No Featured Content found"
+msgstr "Ingen Featured Content hittades"
+
+#: themes-root/pressbooks-publisher-one/functions.php:211
+msgctxt "_featured_content"
+msgid "No Featured Content in Trash"
+msgstr "Ingen Featured Content i papperskorgen"
+
+#: themes-root/pressbooks-publisher-one/functions.php:212
+msgctxt "_featured_content"
+msgid "Parent Featured Content Link:"
+msgstr "Moderbolaget Featured Content Länk:"
+
+#: themes-root/pressbooks-publisher-one/functions.php:235
+#: themes-root/pressbooks-publisher-one/functions.php:246
+msgctxt "_author"
+msgid "Authors"
+msgstr "Författare"
+
+#: themes-root/pressbooks-publisher-one/functions.php:236
+msgctxt "_author"
+msgid "Author"
+msgstr "Författare"
+
+#: themes-root/pressbooks-publisher-one/functions.php:237
+msgctxt "_author"
+msgid "Add New"
+msgstr "Lägg till ny"
+
+#: themes-root/pressbooks-publisher-one/functions.php:238
+msgctxt "_author"
+msgid "Add New Author"
+msgstr "Lägg till ny författare"
+
+#: themes-root/pressbooks-publisher-one/functions.php:239
+msgctxt "_author"
+msgid "Edit Author"
+msgstr "Redigera Författare"
+
+#: themes-root/pressbooks-publisher-one/functions.php:240
+msgctxt "_author"
+msgid "New Author"
+msgstr "Ny Författare"
+
+#: themes-root/pressbooks-publisher-one/functions.php:241
+msgctxt "_author"
+msgid "View Author"
+msgstr "Visa Författare"
+
+#: themes-root/pressbooks-publisher-one/functions.php:242
+msgctxt "_author"
+msgid "Search Authors"
+msgstr "Sök Författare"
+
+#: themes-root/pressbooks-publisher-one/functions.php:243
+msgctxt "_author"
+msgid "No Authors found"
+msgstr "Inga författare hittades"
+
+#: themes-root/pressbooks-publisher-one/functions.php:244
+msgctxt "_author"
+msgid "No Authors in Trash"
+msgstr "Inga Författare i papperskorgen"
+
+#: themes-root/pressbooks-publisher-one/functions.php:245
+msgctxt "_author"
+msgid "Parent Author Link:"
+msgstr "Förälder Författare Länk:"
+
+#: themes-root/pressbooks-publisher-one/home.php:13
+msgid "&#8592 Older Entries"
+msgstr "← Äldre inlägg"
+
+#: themes-root/pressbooks-publisher-one/home.php:14
+msgid "Newer Entries &#8594;"
+msgstr "Nyare inlägg →"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:29
+msgid " Theme Options"
+msgstr " Tema Alternativ"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:30
+msgid ""
+"These options will let you setup the social icons for your site. You can "
+"enter the URLs of your profiles to have the icons show up."
+msgstr ""
+"Dessa alternativ låter dig ställa in de sociala ikoner för din webbplats. Du "
+"kan ange webbadresser av dina profiler för att få ikonerna dyker upp."
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:32
+msgid "Options saved"
+msgstr "Alternativ sparade"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:47
+msgid "Hide RSS Icon?"
+msgstr "Dölj RSS Ikon?"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:50
+msgid "Hide the RSS feed icon?"
+msgstr "Dölj RSS-ikonen?"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:59
+msgid "Enter your Facebook URL"
+msgstr "Ange din Facebook-URL"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:62
+msgid "Leave blank to hide Facebook Icon"
+msgstr "Lämna tomt för att dölja Facebook Ikon"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:71
+msgid "Enter your Twitter URL"
+msgstr "Ange din Twitter URL"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:74
+msgid "Leave blank to hide Twitter Icon"
+msgstr "Lämna tomt för att dölja Twitter Icon"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:83
+msgid "Enter your Tumblr URL"
+msgstr "Ange din Tumblr URL"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:86
+msgid "Leave blank to hide Tumblr Icon"
+msgstr "Lämna tomt för att dölja Tumblr Icon"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:95
+msgid "Enter your Youtube Channel URL"
+msgstr "Ange din YouTube-kanal URL"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:98
+msgid "Leave blank to hide Youtube Icon"
+msgstr "Lämna tomt för att dölja Youtube Icon"
+
+#: themes-root/pressbooks-publisher-one/inc/theme-options.php:105
+msgid "Save Options"
+msgstr "Spara alternativ"
+
+#: themes-root/pressbooks-publisher-one/index.php:9
+msgid "Older Entries &raquo;"
+msgstr "Äldre inlägg »"
+
+#: themes-root/pressbooks-publisher-one/index.php:10
+msgid "&laquo; Newer Entries"
+msgstr "«Nyare inlägg"
+
+#: themes-root/pressbooks-publisher-one/loop.php:48
+msgid "No Comments"
+msgstr "Inga kommentarer"
+
+#: themes-root/pressbooks-publisher-one/loop.php:60
+#: themes-root/pressbooks-publisher-one/single-_author.php:38
+msgid "Sorry, no posts matched your criteria."
+msgstr "Beklagar, inga inlägg matchade dina kriterier."
+
+#: themes-root/pressbooks-publisher-one/page.php:13
+msgid "keep reading"
+msgstr "hålla behandlingen"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:5
+msgid "Twitter"
+msgstr "Twitter"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:9
+msgid "Facebook"
+msgstr "Facebook"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:13
+msgid "YouTube"
+msgstr "YouTube"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:17
+msgid "Tumblr"
+msgstr "Tumblr"
+
+#: themes-root/pressbooks-publisher-one/widget-social-media.php:21
+msgid "RSS Feed"
+msgstr "RSS-kanal"
+
+#. Plugin Name of the plugin/theme
+msgid "PressBooks"
+msgstr "PressBooks"
+
+#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.3)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.3)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://www.pressbooks.com"
+msgstr "http://www.pressbooks.com"
+
+#. Author of the plugin/theme
+msgid "BookOven Inc."
+msgstr "BookOven Inc."
