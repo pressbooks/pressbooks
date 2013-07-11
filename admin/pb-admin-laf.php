@@ -180,6 +180,9 @@ function replace_book_admin_menu() {
 		}
 	} );
 
+	// Cover
+	add_menu_page( __( 'Cover', 'pressbooks' ), __( 'Cover', 'pressbooks' ), 'edit_posts', 'pb_cover', __NAMESPACE__ . '\display_cover', '', 9 );
+
 	// Sell
 	add_menu_page( __( 'Sell', 'pressbooks' ), __( 'Sell', 'pressbooks' ), 'edit_posts', 'pb_sell', __NAMESPACE__ . '\display_sell', '', 16 );
 
@@ -819,6 +822,13 @@ function ecomm_links_sanitize( $input ) {
 	return $options;
 }
 
+/**
+ * Display Covers for your books
+ */
+function display_cover() {
+
+	require( PB_PLUGIN_DIR . 'admin/templates/cover.php' );
+}
 
 /**
  * Display Sell Your Book
