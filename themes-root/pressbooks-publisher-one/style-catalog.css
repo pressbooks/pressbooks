@@ -136,10 +136,24 @@ img {
 	padding-bottom: 40px;
 	width: 100%;
 }
+.catalog-content h1 span.filtered-by,
+.catalog-content h1 span.current-filters,
+.catalog-content h1 span.clear-filters {
+	display: none;
+}
 .sidebar-inner-wrap {
 	padding: 10px 25px 25px 20%;
 }
-
+.mix{
+    opacity: 0;
+    display: none;
+}
+.fail-message {
+	display: none;
+}
+.fail .fail-message {
+	display: block;
+}
 /************************************************************** 
 * Sidebar Syling
 **************************************************************/
@@ -169,13 +183,14 @@ img {
 	padding-bottom: 4px;
 	margin-bottom: 10px;
 }
-.catalog-sidebar ul a {
+.catalog-sidebar ul li {
 	color: #fff;
+	cursor: pointer;
 }
-.catalog-sidebar ul a.active {
+.catalog-sidebar ul li.active {
 	color: #0094cc;
 }
-.catalog-sidebar ul a:hover{
+.catalog-sidebar ul li:hover{
 	color: #65cef5;
 }
 /*

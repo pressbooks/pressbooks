@@ -64,34 +64,14 @@ function _cover_height( $cover_url ) {
  */
 function _books( PB_Catalog $catalog ) {
 
-	$tag_group = $tag_id = false;
-	if ( ! empty( $_REQUEST['tag_group'] ) && ! empty( $_REQUEST['tag_id'] ) ) {
-		$tag_group = absint( $_REQUEST['tag_group'] );
-		$tag_id = absint( $_REQUEST['tag_id'] );
-	}
-
 	$books = $catalog->getAggregate();
 
 	foreach ( $books as $key => $val ) {
-
+	
 		// Deleted
 		if ( $val['deleted'] ) {
 			unset ( $books[$key] );
 			continue;
-		}
-		// Tagged
-		if ( $tag_group && $tag_id  ) {
-			$tag_found = false;
-			foreach ( $val["tag_{$tag_group}"] as $tag ) {
-				if ( $tag_id == $tag['id'] ) {
-					$tag_found = true;
-					break;
-				}
-			}
-			if ( ! $tag_found ) {
-				unset ( $books[$key] );
-				continue;
-			}
 		}
 
 		// Calculate cover height
@@ -99,6 +79,26 @@ function _books( PB_Catalog $catalog ) {
 	}
 
 	return \PressBooks\Utility\multi_sort( $books, 'featured:desc', 'title:asc' );
+}
+
+/**
+ * Get tags for classes
+ *
+ * @param array $book
+ *
+ * @return string
+ */
+function _tag_classes( $book ) {
+	
+	$classes = ' ';
+	foreach ( $book["tag_1"] as $tag ) {
+		$classes .= $tag["id"] . ' ';
+	}
+	foreach ( $book["tag_2"] as $tag ) {
+		$classes .= $tag["id"] . ' ';
+	}
+	return $classes;
+	
 }
 
 
@@ -121,19 +121,6 @@ function _base_url() {
 	return $base_url;
 }
 
-/**
- * Get tag url
- *
- * @param int $tag_group
- * @param int $tag_id
- *
- * @return string
- */
-function _tag_url( $tag_group, $tag_id ) {
-
-	return _base_url() . "?tag_group=$tag_group&tag_id=$tag_id";
-}
-
 // -------------------------------------------------------------------------------------------------------------------
 // Variables
 // -------------------------------------------------------------------------------------------------------------------
@@ -142,7 +129,6 @@ $base_href = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher-one/';
 $catalog = new PB_Catalog( absint( $user_id ) ); // Note: $user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();
 $books = _books( $catalog );
-$h1_title = __( 'Catalog', 'pressbooks' );
 
 // Private! Don't touch
 global $_current_user_id;
@@ -168,6 +154,7 @@ $_current_user_id = $catalog->getUserId();
 	<link href='http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo esc_url( site_url( '/wp-includes/js/jquery/jquery.js?ver=1.8.3' ) ); ?>"></script>
 	<script src="js/jquery.equalizer.min.js?ver=1.2.3" type="text/javascript"></script>
+	<script src="js/jquery.mixitup.min.js?ver=1.5.4" type="text/javascript"></script>
 	<script src="js/small-menu.js?ver=0.0.1" type="text/javascript"></script>
 </head>
 <body>
@@ -209,14 +196,8 @@ $_current_user_id = $catalog->getUserId();
 				<ul>
 					<?php
 					foreach ( $tags as $val ) {
-						$tag_url = _tag_url( $i, $val['id'] );
-						echo "<li><a href='$tag_url' ";
-						if ( $i == @$_REQUEST['tag_group'] && $val['id'] == @$_REQUEST['tag_id'] ) {
-							echo 'class="active"';
-							$h1_title = __( 'Catalog, filtering by', 'pressbooks' ) . ": {$val['tag']}";
-							$h1_title .= ' <span style="font-weight:normal;font-size:60%;">[<a href="' . _base_url() . '">x</a>]</span>';
-						}
-						echo ">{$val['tag']}</a></li>" . "\n";
+						echo "<li class=\"filter-group-{$i}\" data-filter=\"{$val['id']}\">";
+						echo "{$val['tag']}</li>" . "\n";
 					}
 					?>
 				</ul>
@@ -228,12 +209,12 @@ $_current_user_id = $catalog->getUserId();
 	<!-- Books! -->
 	<div class="catalog-content-wrap">		
 		<div class="catalog-content" id="catalog-content">
-			<h1><?php echo $h1_title ?></h1>
+			<h1><?php _e( 'Catalog', 'pressbooks' ); ?><span class="filtered-by">, <?php _e( 'filtering by', 'pressbooks' ); ?> </span><span class="current-filters"></span> <span class="clear-filters" style="font-weight:normal;font-size:60%;">[<a class="clear-filters" href="#">x</a>]</span></h1>
 	
-	
+			
 			<!-- Books -->
 			<?php foreach ( $books as $b ) : ?>
-				<div class="book-data">
+				<div class="book-data mix<?php echo _tag_classes( $b ); ?>">
 	
 					<div class="book">
 						<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id']  ); ?>"><?php echo strip_tags( $b['about'] ); ?><span class="book-link">&rarr;</span></a></p>
@@ -250,11 +231,14 @@ $_current_user_id = $catalog->getUserId();
 			<?php
 			endforeach;
 			?>
+			
+			<div class="fail-message"><?php _e('Sorry, but no books matched your filtering criteria. Please <a class="clear-filters" href="#">clear your current filters</a> and try again.', 'pressbooks' ); ?></div>
+			
 			</div>	<!-- end .catalog-content-->
 			<div class="footer">
 				<p><a href="<?php echo network_site_url(); ?>"><?php _e( 'PressBooks: the CMS for Books.', 'pressbooks' ); ?></a></p>
 			</div>
-		
+					
 		</div>	<!-- end .catalog-content-wrap -->
 
 </div><!-- end .catalog-wrap -->
@@ -263,7 +247,63 @@ $_current_user_id = $catalog->getUserId();
 	// <![CDATA[
 	jQuery.noConflict();
 	jQuery(window).load(function () {
+		jQuery('#catalog-content').mixitup({ filterLogic : 'and' });
 		jQuery('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
+		jQuery('.filter-group-1').click( function () {
+			var filter1_id = jQuery(this).attr( 'data-filter' );
+			var filter1_name = jQuery(this).text();
+			if ( jQuery('.filter-group-2.active').length !== 0 ) {
+				var filter2_id = jQuery('.filter-group-2.active').attr( 'data-filter' );
+				var filter2_name = jQuery('.filter-group-2.active').text();
+			} else {
+				var filter2_id = 'all';
+				var filter2_name = '';
+			}
+			jQuery('#catalog-content').mixitup( 'filter', filter1_id + ' ' + filter2_id );
+			jQuery('.filter-group-1.active').removeClass( 'active' );
+			jQuery(this).addClass( 'active' );
+			if ( filter2_name !== '' ) {
+				var currentFilters = filter1_name + ', ' + filter2_name;
+			} else {
+				var currentFilters = filter1_name;
+			}
+			jQuery('.catalog-content h1 span.current-filters').text( currentFilters );
+			jQuery('.catalog-content h1 span.filtered-by').show();
+			jQuery('.catalog-content h1 span.current-filters').show();
+			jQuery('.catalog-content h1 span.clear-filters').show();
+		} );
+		jQuery('.filter-group-2').click( function () {
+			var filter2_id = jQuery(this).attr( 'data-filter' );
+			var filter2_name = jQuery(this).text();
+			if ( jQuery('.filter-group-1.active').length !== 0 ) {
+				var filter1_id = jQuery('.filter-group-1.active').attr( 'data-filter' );
+				var filter1_name = jQuery('.filter-group-1.active').text();
+			} else {
+				var filter1_id = 'all';
+				var filter1_name = '';
+			}
+			jQuery('#catalog-content').mixitup( 'filter', filter1_id + ' ' + filter2_id );
+			jQuery('.filter-group-2.active').removeClass( 'active' );
+			jQuery(this).addClass( 'active' );
+			if ( filter1_name !== '' ) {
+				var currentFilters = filter1_name + ', ' + filter2_name;
+			} else {
+				var currentFilters = filter2_name;
+			}
+			jQuery('.catalog-content h1 span.current-filters').text( currentFilters );
+			jQuery('.catalog-content h1 span.filtered-by').show();
+			jQuery('.catalog-content h1 span.current-filters').show();
+			jQuery('.catalog-content h1 span.clear-filters').show();
+		} );
+		jQuery('a.clear-filters').click(function (e) {
+			jQuery('.filter-group-1.active').removeClass( 'active' );
+			jQuery('.filter-group-2.active').removeClass( 'active' );
+			jQuery('#catalog-content').mixitup( 'filter', 'all' );
+			jQuery('.catalog-content h1 span.filtered-by').hide();
+			jQuery('.catalog-content h1 span.clear-filters').hide();
+			jQuery('.catalog-content h1 span.current-filters').text( '' );
+		    e.preventDefault();
+		});
 	});
 	// ]]>
 </script>
