@@ -4,7 +4,10 @@
 							<?php $metadata = pb_get_book_information();?>
 							<h2> Book Description</h2>
 								<?php if ( ! empty( $metadata['pb_about_unlimited'] ) ): ?>
-									<p><?php echo pb_decode( $metadata['pb_about_unlimited'] ); ?></p>
+									<p><?php
+										$about_unlimited = pb_decode( $metadata['pb_about_unlimited'] );
+										$about_unlimited = preg_replace( '/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $about_unlimited ); // Make valid HTML by removing first <p> and last </p>
+										echo $about_unlimited; ?></p>
 								<?php endif; ?>	
 								
 							  <div id="share">

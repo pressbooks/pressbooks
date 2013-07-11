@@ -1,4 +1,4 @@
-<section class="top-block clearfix" id="post-<?php the_ID(); ?>" <?php post_class('home-post'); ?>>
+<section id="post-<?php the_ID(); ?>" <?php post_class( array( 'top-block', 'clearfix', 'home-post' ) ); ?>>
 	
 	<?php pb_get_links(false); ?>
 	<?php $metadata = pb_get_book_information();?>
