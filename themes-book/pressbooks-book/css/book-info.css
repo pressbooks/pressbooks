@@ -268,7 +268,7 @@ a:active.btn.black {
 	z-index: 1000;
 }
 .log-wrap a{
-	background: #E4E6E8 url(images/sprite.png) 30px -187px no-repeat;
+	background: #E4E6E8;
 	border-radius: 2px;
 	color: #333;
 	display: inline;
