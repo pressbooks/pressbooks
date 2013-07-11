@@ -23,28 +23,34 @@
 			<a href="#" class="close"><?php _e('Close', 'pressbooks'); ?></a>
 			<ul>
 				<li><h4><!-- Front-matter --></h4></li>
-				<ul>
-					<?php foreach ($book['front-matter'] as $fm): ?>
-					<?php if ($fm['post_status'] != 'publish') continue; // Skip ?>
-					<li><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo $fm['post_title'];?></a></li>
-					<?php endforeach; ?>
-				</ul>
+				<li>
+					<ul>
+						<?php foreach ($book['front-matter'] as $fm): ?>
+						<?php if ($fm['post_status'] != 'publish') continue; // Skip ?>
+						<li><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo $fm['post_title'];?></a></li>
+						<?php endforeach; ?>
+					</ul>
+				</li>
 				<?php foreach ($book['part'] as $part):?>
 				<li><h4><?php if ( count( $book['part'] ) > 1 ) echo $part['post_title']; ?></h4></li>
-				<ul>
-					<?php foreach ($part['chapters'] as $chapter) : ?>
-						<?php if ($chapter['post_status'] != 'publish') continue; // Skip ?>
-						<li><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo $chapter['post_title']; ?></a></li>
-					<?php endforeach; ?>
-				</ul>
+				<li>
+					<ul>
+						<?php foreach ($part['chapters'] as $chapter) : ?>
+							<?php if ($chapter['post_status'] != 'publish') continue; // Skip ?>
+							<li><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo $chapter['post_title']; ?></a></li>
+						<?php endforeach; ?>
+					</ul>
+				</li>
 				<?php endforeach; ?>
 				<li><h4><!-- Back-matter --></h4></li>
-				<ul>
-					<?php foreach ($book['back-matter'] as $fm): ?>
-					<?php if ($fm['post_status'] != 'publish') continue; // Skip ?>
-					<li><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo $fm['post_title'];?></a></li>
-					<?php endforeach; ?>
-				</ul>
+				<li>
+					<ul>
+						<?php foreach ($book['back-matter'] as $fm): ?>
+						<?php if ($fm['post_status'] != 'publish') continue; // Skip ?>
+						<li><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo $fm['post_title'];?></a></li>
+						<?php endforeach; ?>
+					</ul>
+				</li>
 			</ul>
 		</div><!-- end #toc -->
 		<?php endif; ?>
