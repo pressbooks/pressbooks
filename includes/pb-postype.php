@@ -182,6 +182,38 @@ function register_post_types() {
 	);
 	register_post_type( 'metadata', $args );
 
+	/* Cover */
+
+	$labels = array(
+		'name' => _x( 'Cover', 'post type general name', 'pressbooks' ),
+		'singular_name' => _x( 'Cover', 'post type singular name', 'pressbooks' ),
+		'add_new' => _x( 'Cover', 'cover', 'pressbooks' ),
+		'add_new_item' => __( 'Add Cover', 'pressbooks' ),
+		'edit_item' => __( 'Edit Cover', 'pressbooks' ),
+		'new_item' => __( 'New Cover', 'pressbooks' ),
+		'view_item' => __( 'View cover', 'pressbooks' ),
+		'search_items' => __( 'Search covers', 'pressbooks' ),
+		'not_found' => __( 'No covers found', 'pressbooks' ),
+		'not_found_in_trash' => __( 'No cover found in Trash', 'pressbooks' ),
+		'parent_item_colon' => '',
+		'menu_name' => __( 'Cover', 'pressbooks' )
+
+	);
+	$args = array(
+		'labels' => $labels,
+		'public' => true,
+		'publicly_queryable' => true,
+		'show_ui' => true,
+		'show_in_menu' => true,
+		'menu_position' => 5,
+		'query_var' => true,
+		'rewrite' => false,
+		'capability_type' => 'post',
+		'has_archive' => true,
+		'hierarchical' => false,
+		'supports' => array( '' ),
+	);
+	register_post_type( 'metadata', $args );
 
 	/* Custom CSS */
 
