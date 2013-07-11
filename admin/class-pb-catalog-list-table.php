@@ -205,6 +205,7 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$sortable_columns = array(
 			'status' => array( 'status', false ),
+			'privacy' => array( 'privacy', false ),
 			'title' => array( 'title', false ),
 			'author' => array( 'author', false ),
 			'pub_date' => array( 'pub_date', false ),
