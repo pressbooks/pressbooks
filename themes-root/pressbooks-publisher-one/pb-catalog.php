@@ -217,7 +217,7 @@ $_current_user_id = $catalog->getUserId();
 				<div class="book-data mix<?php echo _tag_classes( $b ); ?>">
 	
 					<div class="book">
-						<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id']  ); ?>"><?php echo strip_tags( $b['about'] ); ?><span class="book-link">&rarr;</span></a></p>
+						<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id']  ); ?>"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></a></p>
 						<img src="<?php echo $b['cover_url']['pb_cover_medium']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" />
 					</div><!-- end .book -->
 	
