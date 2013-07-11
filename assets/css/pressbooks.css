@@ -333,39 +333,39 @@ a.toplevel_page_pb_sell:hover .wp-menu-image {
 ====================== */
 
 @media   (-o-min-device-pixel-ratio: 5/4),
-  		 (-webkit-min-device-pixel-ratio: 1.25),
-		 (min-resolution: 120dpi),
-		 only screen and (-Webkit-min-device-pixel-ratio: 1.5), 
-		 only screen and (-moz-min-device-pixel-ratio: 1.5), 
-		 only screen and (-o-min-device-pixel-ratio: 3/2), 
-		 only screen and (min-device-pixel-ratio: 1.5) {
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 120dpi),
+only screen and (-Webkit-min-device-pixel-ratio: 1.5), 
+only screen and (-moz-min-device-pixel-ratio: 1.5), 
+only screen and (-o-min-device-pixel-ratio: 3/2), 
+only screen and (min-device-pixel-ratio: 1.5) {
 
-			a.menu-icon-generic .wp-menu-image {
-				background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
-				background-size: 80px 50px !important;
-				background-position: -18px 6px !important;
-			}
-				
-			a.menu-icon-generic:hover .wp-menu-image {
-				background-position: -18px -19px !important;
-			}
+	a.menu-icon-generic .wp-menu-image {
+		background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
+		background-size: 80px 50px !important;
+		background-position: -18px 6px !important;
+	}
 
-			a.toplevel_page_pb_export .wp-menu-image {
-				background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
-				background-position: 8px 6px !important;
-			}
+	a.menu-icon-generic:hover .wp-menu-image {
+		background-position: -18px -19px !important;
+	}
 
-			a.toplevel_page_pb_export:hover .wp-menu-image, a.toplevel_page_pb_export.current .wp-menu-image {
-				background-position: 8px -19px !important;
-			}
-			a.toplevel_page_pb_sell .wp-menu-image {
-				background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
-				background-position: -52px 5px !important;
-			}
+	a.toplevel_page_pb_export .wp-menu-image {
+		background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
+		background-position: 8px 6px !important;
+	}
 
-			a.toplevel_page_pb_sell:hover .wp-menu-image {
-				background-position: -52px -20px !important;
-			}
+	a.toplevel_page_pb_export:hover .wp-menu-image, a.toplevel_page_pb_export.current .wp-menu-image {
+		background-position: 8px -19px !important;
+	}
+	a.toplevel_page_pb_sell .wp-menu-image {
+		background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
+		background-position: -52px 5px !important;
+	}
+
+	a.toplevel_page_pb_sell:hover .wp-menu-image {
+		background-position: -52px -20px !important;
+	}
 }
 
 
@@ -393,25 +393,25 @@ a.toplevel_page_pb_sell:hover .wp-menu-image {
 
 
 @media  (-o-min-device-pixel-ratio: 5/4),
-  		(-webkit-min-device-pixel-ratio: 1.25),
-  		(min-resolution: 120dpi),
-  		only screen and (-webkit-min-device-pixel-ratio: 1.5), 
-  		only screen and (-moz-min-device-pixel-ratio: 1.5), 
-  		only screen and (-o-min-device-pixel-ratio: 3/2), 
-  		only screen and (min-device-pixel-ratio: 1.5) {
-			#icon-pressbooks-export {
-				background-image: url(../images/icons-pressbooks@2x.png?v=2);
-				background-size: 140px 50px !important;
-			}
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 120dpi),
+only screen and (-webkit-min-device-pixel-ratio: 1.5), 
+only screen and (-moz-min-device-pixel-ratio: 1.5), 
+only screen and (-o-min-device-pixel-ratio: 3/2), 
+only screen and (min-device-pixel-ratio: 1.5) {
+	#icon-pressbooks-export {
+		background-image: url(../images/icons-pressbooks@2x.png?v=2);
+		background-size: 140px 50px !important;
+	}
 
-			#wpbody-content .icon32-posts-metadata {
-				background-image: url(../images/icons-pressbooks@2x.png?v=2) !important;
-				background-size: 140px 50px !important;
-			}
-			#icon-sell {
-				background-image: url(../images/icons-pressbooks@2x.png?v=2) !important;
-				background-size: 140px 50px !important;
-		}
+	#wpbody-content .icon32-posts-metadata {
+		background-image: url(../images/icons-pressbooks@2x.png?v=2) !important;
+		background-size: 140px 50px !important;
+	}
+	#icon-sell {
+		background-image: url(../images/icons-pressbooks@2x.png?v=2) !important;
+		background-size: 140px 50px !important;
+	}
 }
 
 
@@ -753,3 +753,54 @@ table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tf
 	background-color: #E0EDC1;
 }
 
+/* Cover page styling
+====================================== */
+
+#pagesize_wrapper {
+	background-color: grey;
+	border: 5px solid orange;
+}
+.pagesize_inside {
+	background-color: black;
+	display: inline-block;
+}
+#pagesize_front_page {
+	height: 100%;
+	width: 20%;
+}
+#pagesize_spine {
+	height: 100%;
+	width: 20%;
+}
+#pagesize_back_page {
+	height: 100%;
+	width: 20%;
+}
+.pdf_size1 {
+	height:100px;
+	width: 100px;
+}
+.pdf_size2 {
+	height:200px;
+	width: 200px;
+}
+.pdf_size3 {
+	height:300px;
+	width: 300px;
+}
+.pdf_size4 {
+	height:400px;
+	width: 400px;
+}
+.pdf_size5 {
+	height:500px;
+	width: 500px;
+}
+.pdf_size6 {
+	height:600px;
+	width:600px;
+}
+.pdf_size7 {
+	height:700px;
+	width: 700px;
+}
