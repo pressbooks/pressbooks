@@ -1,11 +1,16 @@
 <?php
   header('content-type: application/json');
+
+  // Fix Undefined index warnings
+  if ( ! isset( $_GET['url'] ) ) $_GET['url'] = null;
+  if ( ! isset( $_GET['type'] ) ) $_GET['type'] = null;
+
   //Sharrre by Julien Hany
   $json = array('url'=>'','count'=>0);
   $json['url'] = $_GET['url'];
   $url = urlencode($_GET['url']);
   $type = urlencode($_GET['type']);
-  
+
   if(filter_var($_GET['url'], FILTER_VALIDATE_URL)){
     if($type == 'googlePlus'){  //source http://www.helmutgranda.com/2011/11/01/get-a-url-google-count-via-php/
       $content = parse("https://plusone.google.com/u/0/_/+1/fastbutton?url=".$url."&count=true");
@@ -75,4 +80,4 @@
     }
     return $content;
   }
-?>
+
