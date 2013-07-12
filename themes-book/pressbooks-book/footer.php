@@ -6,7 +6,7 @@
 <?php if( !is_front_page() ){?>
 
 	<?php get_sidebar(); ?>
-	</div><!-- #content -->
+
 	</div><!-- #wrap -->
 	<div class="push"></div>
 	
