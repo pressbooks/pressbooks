@@ -6,7 +6,7 @@
  * @deprecated
  * @see      http://www.wikipublisher.org/wiki/PressBooks/GreekAndHebrew
  *
- * @author   PressBooks <code@pressbooks.org>
+ * @author   PressBooks <code@pressbooks.com>
  * @license  GPLv2 (or any later version)
  */
 namespace PressBooks\Shortcodes\Wikipublisher;

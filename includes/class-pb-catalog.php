@@ -2,7 +2,7 @@
 /**
  * Contains functions for creating and managing a user's PressBooks Catalog.
  *
- * @author  PressBooks <code@pressbooks.org>
+ * @author  PressBooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 

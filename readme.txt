@@ -1,6 +1,6 @@
 === PressBooks ===
 
-Contributors: PressBooks <code@pressbooks.org>
+Contributors: PressBooks <code@pressbooks.com>
 Version: 2.1.0
 Tags: ebooks, publishing, webbooks
 Requires at least: WordPress 3.5.2

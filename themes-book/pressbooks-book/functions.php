@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  PressBooks <code@pressbooks.org>
+ * @author  PressBooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 

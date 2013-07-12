@@ -4,7 +4,7 @@
  * complete representation of an idea, or set of ideas; emotion or set of emotions; and transmitted to readers in
  * various formats.
  *
- * @author  PressBooks <code@pressbooks.org>
+ * @author  PressBooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks;

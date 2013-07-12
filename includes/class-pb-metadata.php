@@ -4,7 +4,7 @@
  *  + Handle the custom metadata post, i.e. "Book Information". There should only be one metadata post per book.
  *  + Perform upgrades on individual books as PressBooks evolves
  *
- * @author  PressBooks <code@pressbooks.org>
+ * @author  PressBooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks;

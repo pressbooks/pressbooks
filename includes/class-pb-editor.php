@@ -2,7 +2,7 @@
 /**
  * Contains PressBooks-specific additions to TinyMCE, specifically custom CSS classes.
  *
- * @author  PressBooks <code@pressbooks.org>
+ * @author  PressBooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks;
