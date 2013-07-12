@@ -13,7 +13,7 @@ class Catalog {
 
 
 	/**
-	 * The value for option: pb_catalog_db_version
+	 * The value for option: pressbooks_catalog_version
 	 *
 	 * @see install()
 	 * @var int
