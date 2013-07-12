@@ -44,8 +44,8 @@ add_image_size( 'full-page-thumb', 155, 233, true);
 function publisherroot_scripts() {
 
 	if ( is_archive('_author') || is_page('books') ) {
-		wp_enqueue_script( 'equal-height', get_template_directory_uri() . '/js/jquery.equalheights.js', array( 'jquery' ), '20120914', true );
-		wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery' ), '20120914', true );
+		wp_enqueue_script( 'equal-height', PB_PLUGIN_URL . 'symbionts/jquery/jquery.equalheights.js', array( 'jquery' ), '20130712', true );
+		wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts.js', array( 'jquery', 'equal-height' ), '20130712', true );
 	}
 	
 	
