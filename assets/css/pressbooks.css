@@ -761,11 +761,3 @@ table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tf
 .pressbooks-admin-panel p {
 	margin: 0 0 15px;
 }
-
-.appearance_page_pressbooks_theme_options .pressbooks-admin-panel {
-	display: none;
-}
-
-.themes-php .wrap > h2, .themes-php .wrap > #icon-themes {
-	display: none;
-}

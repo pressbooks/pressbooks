@@ -531,7 +531,7 @@ function init_css_js() {
 	update_user_option( $user_ID, 'admin_color', 'pb_colors', true );
 
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
-	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '2.1.0', 'screen' ); // TODO: Remember to change $ver to match PB
+	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '20130712', 'screen' );
 	wp_enqueue_style( 'pressbooks-admin' );
 	wp_register_style( 'colors-fresh', site_url() . '/wp-admin/css/colors-fresh.css', array(), false, 'screen' );
 	wp_enqueue_style( 'colors-fresh' );
@@ -539,7 +539,7 @@ function init_css_js() {
 	wp_enqueue_style( 'bootstrap-admin' ); // Used by feedback button
 
 	if ( 'pb_catalog' == esc_attr( @$_REQUEST['page'] ) ) {
-		wp_register_style( 'pressbooks-catalog', PB_PLUGIN_URL . 'assets/css/catalog.css', array( 'colors', 'pressbooks-admin' ), '1.0.0', 'screen' );
+		wp_register_style( 'pressbooks-catalog', PB_PLUGIN_URL . 'assets/css/catalog.css', array( 'colors', 'pressbooks-admin' ), '20130712', 'screen' );
 		wp_enqueue_style( 'pressbooks-catalog' );
 	}
 
@@ -948,16 +948,5 @@ function admin_notices() {
 	// Destroy
 	unset ( $_SESSION['pb_errors'] );
 	unset ( $_SESSION['pb_notices'] );
-	
-	global $pagenow;
-	if ( $pagenow == 'themes.php' ) { ?>
-		<div class="wrap">
-			<div class="pressbooks-admin-panel">
-				<div id="icon-themes" class="icon32"><br></div>
-				<h2><?php _e( 'Manage Themes', 'pressbooks' ); ?></h2>
-				<p><?php printf( __( 'PressBook provides a number of free book themes which will provide the overall style for your Ebook, PDF and Webbook Exports. You can adjust the output styling using the <a href="%s">Theme Options page</a>.', 'pressbooks' ), get_admin_url( '', 'themes.php?page=pressbooks_theme_options' ) ); ?></p>
-			</div>
-		</div>
-	<?php }
 }
 

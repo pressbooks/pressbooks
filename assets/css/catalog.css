@@ -1,12 +1,13 @@
 /*****************************************
 *	Catalog admin
 *******************************************/
+@charset "UTF-8";
+
  .assistive-text {
  	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
  	clip: rect(1px, 1px, 1px, 1px);
  	position: absolute !important;
  }
-@charset "UTF-8";
  
 @font-face {
   font-family: "catalog-page";
