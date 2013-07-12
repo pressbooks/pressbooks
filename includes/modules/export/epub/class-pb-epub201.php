@@ -1545,6 +1545,7 @@ class Epub201 extends Export {
 		$vars = array(
 			'author' => @$metadata['pb_author'],
 			'manifest' => $this->manifest,
+			'dtd_uid' => ( ! empty( $metadata['pb_ebook_isbn'] ) ? $metadata['pb_ebook_isbn'] : get_bloginfo( 'url' ) ),
 		);
 
 		file_put_contents(
