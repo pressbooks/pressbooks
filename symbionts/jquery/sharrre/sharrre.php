@@ -1,5 +1,10 @@
 <?php
   header('content-type: application/json');
+
+  // Fix Undefined index warnings
+  if ( ! isset( $_GET['url'] ) ) $_GET['url'] = null;
+  if ( ! isset( $_GET['type'] ) ) $_GET['type'] = null;
+
   //Sharrre by Julien Hany
   $json = array('url'=>'','count'=>0);
   $json['url'] = $_GET['url'];

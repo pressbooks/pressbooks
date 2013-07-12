@@ -32,7 +32,7 @@
 			  },
 			  enableHover: false,
 			  enableTracking: true,
-			  urlCurl: 'wp-content/plugins/pressbooks/themes-book/pressbooks-book/lib/sharrre/sharrre.php',
+			  urlCurl: PB_SharrreToken.urlCurl,
 			  click: function(api, options){
 			    api.simulateClick();
 			    api.openPopup('googlePlus');
