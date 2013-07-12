@@ -665,7 +665,7 @@ function ecomm_settings_init() {
 	add_settings_section(
 		'ecomm_settings_section',
 		'',
-		__NAMESPACE__ . '\ecomm_settings_section_callback',
+		'',
 		'ecomm_settings'
 	);
 	add_settings_field(
@@ -716,15 +716,6 @@ function ecomm_settings_init() {
 		__NAMESPACE__ . '\ecomm_links_sanitize'
 	);
 }
-
-
-/**
- * Ecommerce settings section callback
- */
-function ecomm_settings_section_callback() {
-	echo '<p>' . __( 'Links to ecommerce services', 'pressbooks' ) . '.</p>';
-}
-
 
 /**
  * Ecommerce settings, Amazon field callback
@@ -957,5 +948,16 @@ function admin_notices() {
 	// Destroy
 	unset ( $_SESSION['pb_errors'] );
 	unset ( $_SESSION['pb_notices'] );
+	
+	global $pagenow;
+	if ( $pagenow == 'themes.php' ) { ?>
+		<div class="wrap">
+			<div class="pressbooks-admin-panel">
+				<div id="icon-themes" class="icon32"><br></div>
+				<h2><?php _e( 'Manage Themes', 'pressbooks' ); ?></h2>
+				<p><?php printf( __( 'PressBook provides a number of free book themes which will provide the overall style for your Ebook, PDF and Webbook Exports. You can adjust the output styling using the <a href="%s">Theme Options page</a>.', 'pressbooks' ), get_admin_url( '', 'themes.php?page=pressbooks_theme_options' ) ); ?></p>
+			</div>
+		</div>
+	<?php }
 }
 

@@ -21,7 +21,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 <div class="wrap">
 
 <?php if ( current_user_can( 'manage_options' ) ) : ?>
-<div class="publicize-panel">
+<div class="pressbooks-admin-panel publicize-panel">
 	<?php if ( $book_is_public ) { ?>
 		<h4 class="publicize-alert public"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Public', 'pressbooks' ); ?></span></h4>
 	<?php } else { ?>

@@ -215,7 +215,7 @@ p.chapter_add {
 ========================== */
 
 .sell-your-book-copy {
-	margin-bottom: 4em;
+	margin-bottom: 3em;
 }
 
 /* Export Page styles
@@ -719,20 +719,12 @@ table.front-matter tr td, table.back-matter tr td, table.chapters tr td {
 table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tfoot tr td {
 	padding: 8px 0;
 }
-.publicize-panel {
-	background: #fff;
-	box-shadow: 0 1px 1px rgba(0,0,0,0.3);
-	margin: 16px 0;
-	padding: 20px 20px 5px;	
-}
+
 .publicize-panel h4 {
 	display: inline-block;
 	font-size: 15px;
 	font-weight: normal;
 	margin: 0 0 15px 0;
-}
-.publicize-panel p {
-	margin: 0 0 15px;
 }
 
 .publicize-form p.submit {
@@ -753,3 +745,27 @@ table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tf
 	background-color: #E0EDC1;
 }
 
+/* Admin panels
+====================================== */
+
+.pressbooks-admin-panel {
+	background: #fff;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+	margin: 16px 0;
+	padding: 20px 20px 5px;	
+}
+.pressbooks-admin-panel h2 {
+	background: #fff !important;
+	margin-bottom: 15px !important;
+}
+.pressbooks-admin-panel p {
+	margin: 0 0 15px;
+}
+
+.appearance_page_pressbooks_theme_options .pressbooks-admin-panel {
+	display: none;
+}
+
+.themes-php .wrap > h2, .themes-php .wrap > #icon-themes {
+	display: none;
+}

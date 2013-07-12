@@ -36,10 +36,11 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 
 ?>
 <div class="wrap">
-
+<div class="pressbooks-admin-panel">
 <div id="icon-pressbooks-export" class="icon32"></div>
 <h2><?php _e( 'Export', 'pressbooks' ); ?> &ldquo;<?php bloginfo( 'name' ); ?>&rdquo;</h2>
-<p><?php printf( __( 'PressBooks saves your last %s batches of exported files.', 'pressbooks' ), \PressBooks\L10n\number_to_words( $max_batches ) );?></p>
+<p><?php printf( __( 'You can export multiple file formats by selecting your Export Format Options below.PressBooks saves your last %s batches of exported files.', 'pressbooks' ), \PressBooks\L10n\number_to_words( $max_batches ) );?></p>
+</div>
 
 <div class="export-page">
 
