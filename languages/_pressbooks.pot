@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PressBooks 2.1.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
-"POT-Creation-Date: 2013-07-10 11:51:55+00:00\n"
+"POT-Creation-Date: 2013-07-12 14:32:46+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,7 +57,7 @@ msgid "Author"
 msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:188
-#: themes-root/pressbooks-publisher-one/pb-catalog.php:216
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:208
 msgid "Tag"
 msgstr ""
 
@@ -388,15 +388,15 @@ msgid ""
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:114 admin/pb-admin-metaboxes.php:155
-#: includes/class-pb-metadata.php:437
+#: includes/class-pb-metadata.php:438
 msgid "Cover Image"
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:146 admin/pb-admin-metaboxes.php:385
 #: admin/templates/organize.php:53
-#: themes-book/pressbooks-book/functions.php:890
-#: themes-book/pressbooks-book/functions.php:891
-#: themes-book/pressbooks-book/functions.php:926
+#: themes-book/pressbooks-book/functions.php:892
+#: themes-book/pressbooks-book/functions.php:893
+#: themes-book/pressbooks-book/functions.php:928
 msgid "Part"
 msgstr ""
 
@@ -977,7 +977,7 @@ msgid "Authors"
 msgstr ""
 
 #: includes/class-pb-activation.php:169
-#: themes-book/pressbooks-book/functions.php:493
+#: themes-book/pressbooks-book/functions.php:495
 #: themes-book/pressbooks-book/index.php:8
 #: themes-book/pressbooks-book/sidebar.php:16
 msgid "Table of Contents"
@@ -990,7 +990,7 @@ msgid "Buy"
 msgstr ""
 
 #: includes/class-pb-activation.php:181
-#: themes-book/pressbooks-book/functions.php:113
+#: themes-book/pressbooks-book/functions.php:115
 msgid "Access Denied"
 msgstr ""
 
@@ -1575,287 +1575,279 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:115
-msgid ""
-"This book is private, and accessible only to registered users. If you have "
-"an account you can <a href=\"/wp-login.php\" class=\"login\">login here</a> "
-" <p class=\"sign-up\">You can also set up your own PressBooks book at: <a "
-"href=\"http://pressbooks.com\">PressBooks.com</a>."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:142
+#: themes-book/pressbooks-book/functions.php:144
 msgid "%s on"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:142
+#: themes-book/pressbooks-book/functions.php:144
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:142
-#: themes-book/pressbooks-book/functions.php:162
+#: themes-book/pressbooks-book/functions.php:144
+#: themes-book/pressbooks-book/functions.php:164
 msgid "(Edit)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:145
+#: themes-book/pressbooks-book/functions.php:147
 msgid "Your comment is awaiting moderation."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:162
+#: themes-book/pressbooks-book/functions.php:164
 msgid "Pingback:"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:235
+#: themes-book/pressbooks-book/functions.php:237
 msgid "Global options"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:242
+#: themes-book/pressbooks-book/functions.php:244
 msgid "Chapter numbers"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:242
+#: themes-book/pressbooks-book/functions.php:244
 msgid "display chapter numbers"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:242
+#: themes-book/pressbooks-book/functions.php:244
 msgid "do not display chapter numbers"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:248
+#: themes-book/pressbooks-book/functions.php:250
 msgid "PDF options"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:256
+#: themes-book/pressbooks-book/functions.php:258
 msgid "Page size"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:257
+#: themes-book/pressbooks-book/functions.php:259
 msgid "digest"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:258
+#: themes-book/pressbooks-book/functions.php:260
 msgid "US trade"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:259
+#: themes-book/pressbooks-book/functions.php:261
 msgid "US letter"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:260
+#: themes-book/pressbooks-book/functions.php:262
 msgid "8.5 x 9.25\""
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:261
+#: themes-book/pressbooks-book/functions.php:263
 msgid "duodecimo"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:262
+#: themes-book/pressbooks-book/functions.php:264
 msgid "pocket"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:263
+#: themes-book/pressbooks-book/functions.php:265
 msgid "A4"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:264
+#: themes-book/pressbooks-book/functions.php:266
 msgid "A5"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:267
-#: themes-book/pressbooks-book/functions.php:305
-msgid "Paragraph separator"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:268
-#: themes-book/pressbooks-book/functions.php:306
-msgid "indent"
 msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:269
 #: themes-book/pressbooks-book/functions.php:307
+msgid "Paragraph separator"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:270
+#: themes-book/pressbooks-book/functions.php:308
+msgid "indent"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:271
+#: themes-book/pressbooks-book/functions.php:309
 msgid "skip lines"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:272
+#: themes-book/pressbooks-book/functions.php:274
 msgid "Blank pages"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:273
+#: themes-book/pressbooks-book/functions.php:275
 msgid "include blank pages (for print PDF)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:274
+#: themes-book/pressbooks-book/functions.php:276
 msgid "remove blank pages (for web PDF)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:277
+#: themes-book/pressbooks-book/functions.php:279
 msgid "Table of contents"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:277
-#: themes-book/pressbooks-book/functions.php:283
+#: themes-book/pressbooks-book/functions.php:279
+#: themes-book/pressbooks-book/functions.php:285
 msgid "display"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:277
-#: themes-book/pressbooks-book/functions.php:283
+#: themes-book/pressbooks-book/functions.php:279
+#: themes-book/pressbooks-book/functions.php:285
 msgid "do not display"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:280
+#: themes-book/pressbooks-book/functions.php:282
 msgid "Footnotes style"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:280
+#: themes-book/pressbooks-book/functions.php:282
 msgid "normal"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:280
+#: themes-book/pressbooks-book/functions.php:282
 msgid "force as endnotes"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:283
+#: themes-book/pressbooks-book/functions.php:285
 msgid "Crop marks"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:286
-#: themes-book/pressbooks-book/functions.php:461
+#: themes-book/pressbooks-book/functions.php:288
+#: themes-book/pressbooks-book/functions.php:463
 msgid "Hyphens"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:286
+#: themes-book/pressbooks-book/functions.php:288
 msgid "enabled"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:286
+#: themes-book/pressbooks-book/functions.php:288
 msgid "disabled"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:289
-#: themes-book/pressbooks-book/functions.php:514
+#: themes-book/pressbooks-book/functions.php:291
+#: themes-book/pressbooks-book/functions.php:516
 msgid "Widows"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:292
-#: themes-book/pressbooks-book/functions.php:521
+#: themes-book/pressbooks-book/functions.php:294
+#: themes-book/pressbooks-book/functions.php:523
 msgid "Orphans"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:298
+#: themes-book/pressbooks-book/functions.php:300
 msgid "Ebook options"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:338
+#: themes-book/pressbooks-book/functions.php:340
 msgid "Global Options"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:345
+#: themes-book/pressbooks-book/functions.php:347
 msgid "Chapter Numbers"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:350
+#: themes-book/pressbooks-book/functions.php:352
 msgid "Display chapter numbers"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:365
+#: themes-book/pressbooks-book/functions.php:367
 msgid "These options apply universally to webbook, PDF and ebook exports."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:426
+#: themes-book/pressbooks-book/functions.php:428
 msgid "PDF Options"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:433
+#: themes-book/pressbooks-book/functions.php:435
 msgid "Page Size"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:438
+#: themes-book/pressbooks-book/functions.php:440
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:439
+#: themes-book/pressbooks-book/functions.php:441
 msgid "US Trade (6&quot; &times; 9&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:440
+#: themes-book/pressbooks-book/functions.php:442
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:441
+#: themes-book/pressbooks-book/functions.php:443
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:442
+#: themes-book/pressbooks-book/functions.php:444
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:443
+#: themes-book/pressbooks-book/functions.php:445
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:444
+#: themes-book/pressbooks-book/functions.php:446
 msgid "A4 (21cm &times; 29.7cm)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:445
+#: themes-book/pressbooks-book/functions.php:447
 msgid "A5 (14.8cm &times; 21cm)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:451
+#: themes-book/pressbooks-book/functions.php:453
 msgid "Crop Marks"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:456
+#: themes-book/pressbooks-book/functions.php:458
 msgid "Display crop marks"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:466
+#: themes-book/pressbooks-book/functions.php:468
 msgid "Enable hyphenation"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:471
-#: themes-book/pressbooks-book/functions.php:732
+#: themes-book/pressbooks-book/functions.php:473
+#: themes-book/pressbooks-book/functions.php:734
 msgid "Paragraph Separation"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:476
-#: themes-book/pressbooks-book/functions.php:737
+#: themes-book/pressbooks-book/functions.php:478
+#: themes-book/pressbooks-book/functions.php:739
 msgid "Indent paragraphs"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:477
-#: themes-book/pressbooks-book/functions.php:738
+#: themes-book/pressbooks-book/functions.php:479
+#: themes-book/pressbooks-book/functions.php:740
 msgid "Skip lines between paragraphs"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:482
+#: themes-book/pressbooks-book/functions.php:484
 msgid "Blank Pages"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:487
+#: themes-book/pressbooks-book/functions.php:489
 msgid "Include blank pages (for print PDF)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:488
+#: themes-book/pressbooks-book/functions.php:490
 msgid "Remove all blank pages (for web PDF)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:498
+#: themes-book/pressbooks-book/functions.php:500
 msgid "Display table of contents"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:503
+#: themes-book/pressbooks-book/functions.php:505
 msgid "Footnotes Style"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:508
+#: themes-book/pressbooks-book/functions.php:510
 msgid "Regular footnotes"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:509
+#: themes-book/pressbooks-book/functions.php:511
 msgid "Force as endnotes"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:725
+#: themes-book/pressbooks-book/functions.php:727
 msgid "Ebook Options"
 msgstr ""
 
@@ -1910,18 +1902,18 @@ msgid "Purchase here:"
 msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:8
-#: themes-root/pressbooks-publisher-one/pb-catalog.php:186
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:178
 msgid "login"
 msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:10
-#: themes-root/pressbooks-publisher-one/pb-catalog.php:188
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:180
 msgid "logout"
 msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
-#: themes-root/pressbooks-publisher-one/pb-catalog.php:196
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:188
 msgid "Admin"
 msgstr ""
 
@@ -2215,11 +2207,11 @@ msgstr ""
 msgid "Catalog Page"
 msgstr ""
 
-#: themes-root/pressbooks-publisher-one/pb-catalog.php:224
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:216
 msgid "Catalog, filtering by"
 msgstr ""
 
-#: themes-root/pressbooks-publisher-one/pb-catalog.php:263
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:255
 msgid "PressBooks: the CMS for Books."
 msgstr ""
 
