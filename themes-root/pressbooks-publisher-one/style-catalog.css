@@ -150,6 +150,7 @@ img {
 }
 .fail-message {
 	display: none;
+	margin-bottom: 30px;
 }
 .fail .fail-message {
 	display: block;

@@ -150,7 +150,7 @@ $_current_user_id = $catalog->getUserId();
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 	<title><?php _e( 'Catalog Page', 'pressbooks' ); ?> | PressBooks</title>
-	<link rel="stylesheet" type="text/css" href="style-catalog.css" />
+	<link rel="stylesheet" type="text/css" href="style-catalog.css?ver=2" />
 	<link href='http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo esc_url( site_url( '/wp-includes/js/jquery/jquery.js?ver=1.8.3' ) ); ?>"></script>
 	<script src="js/jquery.equalizer.min.js?ver=1.2.3" type="text/javascript"></script>
@@ -248,7 +248,7 @@ $_current_user_id = $catalog->getUserId();
 	// <![CDATA[
 	jQuery.noConflict();
 	jQuery(window).load(function () {
-		jQuery('#catalog-content').mixitup({ filterLogic : 'and' });
+		jQuery('#catalog-content').mixitup({ filterLogic : 'and', layoutMode : 'list' });
 		jQuery('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
 		jQuery('.filter-group-1').click( function () {
 			var filter1_id = jQuery(this).attr( 'data-filter' );
