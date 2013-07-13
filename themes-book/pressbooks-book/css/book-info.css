@@ -63,6 +63,38 @@ body.home {
 .book-info-container h4 {
 	text-transform: none;
 }
+.book-info-container blockquote {
+	background: none;
+	color: #fbfbfb;
+	line-height: 1.7;
+	margin: 0 auto 40px;
+	padding-left: 0;
+	width: 90%;
+}
+.book-info-container blockquote p {
+	padding-left: 40px;
+}
+.book-info-container blockquote p + p {
+	margin-top: 0;
+	padding-top: 0;
+    padding-left: 40px;	
+} 
+.book-info-container blockquote:before {
+	display: block;
+	float: left;
+	font-size: 100px; /* let's make it a big quote! */
+	content: "\201C"; 
+}
+.book-info-container ul, .book-info-container ol {
+    list-style: disc outside none;
+    padding-left: 30px;
+}
+.book-info-container ol {
+	list-style: decimal;
+}
+.book-info-container ol li:before {
+	content: "";
+}
 .book-info-container h5 {
 	font-size: 1em;
 }
@@ -368,17 +400,22 @@ a.button-black:active {
 	color: #333;
 	font-weight: lighter;	
 }
-.table-of-content  {
+.book-info-container ul.table-of-content  {
 	font-size: 0.875em;
+	list-style: none;
+	padding-left: 0;
 }
 .table-of-content h4 {
 	color: #333;
    	line-height: 1.3;
 	margin-bottom: 5px;
 	margin-top: 20px;
+	page-break-after: avoid;
 }
 .table-of-content ul {
 	margin-left: 10px;
+	list-style: none;
+	padding-left: 0;	
 }
 .table-of-content .front-matter,
 .table-of-content .back-matter {
@@ -638,6 +675,9 @@ a.button-black:active {
 		font-size: 0.65em;
 		margin-right: 5px;
 		top: 8px;
+	}
+	.book-info-container blockquote {
+		width: 100%;
 	}	
 }
 @media screen and (max-width: 390px) {
