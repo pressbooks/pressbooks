@@ -25,7 +25,7 @@ $metakeys = array(
 function pressbooks_book_info_page () {
 
 	if ( is_front_page() ) {
-		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130517', 'all' );
+		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130713', 'all' );
 		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700');  
 		
 		// Book info page Table of Content columns
