@@ -111,7 +111,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_information, 'pb', 3600 );
+		wp_cache_set( $cache_id, $book_information, 'pb', 86400 );
 
 		return $book_information;
 	}
@@ -245,7 +245,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_structure, 'pb', 3600 );
+		wp_cache_set( $cache_id, $book_structure, 'pb', 86400 );
 
 		return $book_structure;
 	}
@@ -301,7 +301,7 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_contents, 'pb', 3600 );
+		wp_cache_set( $cache_id, $book_contents, 'pb', 86400 );
 
 		return $book_contents;
 	}

@@ -271,7 +271,7 @@ class Catalog {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $data, 'pb', 3600 );
+		wp_cache_set( $cache_id, $data, 'pb', 86400 );
 
 		return $data;
 	}
