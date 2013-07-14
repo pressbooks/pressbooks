@@ -271,7 +271,7 @@ class Catalog {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $data, 'pb', 86400 );
+		wp_cache_set( $cache_id, $data, 'pb', 3600 );
 
 		return $data;
 	}
@@ -739,7 +739,7 @@ class Catalog {
 		$results = $wpdb->get_col( $wpdb->prepare( $sql, $book_id ) );
 
 		foreach ( $results as $user_id ) {
-			wp_cache_delete( "pb-catalog-$user_id", 'pb' );
+			wp_cache_delete( "cat-$user_id", 'pb' );
 		}
 	}
 
