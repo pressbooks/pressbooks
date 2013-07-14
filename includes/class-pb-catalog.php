@@ -138,7 +138,7 @@ class Catalog {
 		// Is cached?
 		// -----------------------------------------------------------------------------
 
-		$cache_id = "pb-catalog-{$this->userId}";
+		$cache_id = "cat-{$this->userId}";
 		$data = wp_cache_get( $cache_id, 'pb' );
 		if ( $data ) {
 			return $data;

@@ -59,7 +59,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		global $blog_id;
-		$cache_id = "pb-book-information-$blog_id";
+		$cache_id = "book-inf-$blog_id";
 		$book_information = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_information ) {
 			return $book_information;
@@ -131,7 +131,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		global $blog_id;
-		$cache_id = "pb-book-structure-$blog_id";
+		$cache_id = "book-str-$blog_id";
 		$book_structure = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_structure ) {
 			return $book_structure;
@@ -265,7 +265,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		global $blog_id;
-		$cache_id = "pb-book-contents-$blog_id";
+		$cache_id = "book-cnt-$blog_id";
 		$book_contents = wp_cache_get( $cache_id, 'pb' );
 		if ( $book_contents ) {
 			return $book_contents;
