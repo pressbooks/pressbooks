@@ -187,7 +187,10 @@ $_current_user_id = $catalog->getUserId();
 			<a href="<?php echo _base_url(); ?>">
 			<img class="catalog-logo" src="<?php echo _logo_url( $profile ); ?>" alt="catalog-logo" width="100" height="99" />
 			</a>
-			<p class="about-blurb"><?php echo $profile['pb_catalog_about']; ?></p>
+			<p class="about-blurb"><?php
+				if ( ! empty( $profile['pb_catalog_about'] ) )
+					echo preg_replace( '/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $profile['pb_catalog_about'] ); // Make valid HTML by removing first <p> and last </p>
+			?></p>
 			<br />
 	
 			<!-- Tags -->
