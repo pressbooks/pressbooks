@@ -550,9 +550,6 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc a {
 	border: none;
 }
-#toc ul {
-	display: table;
-}
 #toc ul, #toc li {
   list-style: none;
   margin: 0;
@@ -604,7 +601,6 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	left: 0;
 	top: 0;
 }
-
 #toc .part a::after {
 	content:'' ;
 }
