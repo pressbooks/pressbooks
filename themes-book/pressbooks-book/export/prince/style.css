@@ -550,15 +550,23 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc a {
 	border: none;
 }
+#toc ul {
+	display: table;
+}
 #toc ul, #toc li {
   list-style: none;
   margin: 0;
   padding: 0;
 }
+#toc li {
+	position: relative;
+}
 #toc a::after {
   content: leader(' ') target-counter(attr(href), page);
   font-style: normal;
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
   text-decoration: none;
 }
 #toc .front-matter a::after {
@@ -585,10 +593,16 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	content: "Part "counter(part, upper-roman) ". ";
 	counter-increment: part; 
 }
+#toc .chapter a {
+	padding-left: 25px;
+}
 #toc .chapter a::before {
 	content: counter(chapter) ". ";
 	counter-increment: chapter; 
 	margin-right: 7pt;	
+	position: absolute;
+	left: 0;
+	top: 0;
 }
 
 #toc .part a::after {
@@ -602,7 +616,11 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	display: inline-block;
 	font-style: italic;
 	margin-left: 2em;
-	width: 85%;
+	width: 80%;
+}
+#toc span.toc-chapter-title {
+	display: inline-block;
+	width: 80%;	
 }
 #toc span.chapter-author,
 #toc span.chapter-subtitle {
