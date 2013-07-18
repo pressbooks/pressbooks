@@ -37,24 +37,24 @@ add_action( 'wp_login', '_pb_session_kill' );
 // Minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
 
+$pb_minimum_php = '5.4.0';
+function _pb_minimum_php() {
+	global $pb_minimum_php;
+	echo '<div id="message" class="error fade"><p>';
+	printf( __( 'PressBooks will not work with your version of PHP. PressBooks requires PHP version %s or greater. Please upgrade PHP if you would like to use PressBooks.', 'pressbooks' ), $pb_minimum_php );
+	echo '</p></div>';
+}
+if ( ! version_compare( PHP_VERSION, $pb_minimum_php, '>=' ) ) {
+	add_action( 'admin_notices', '_pb_minimum_php' );
+	return;
+}
+
 $pb_minimum_wp = '3.5.2';
 if ( ! is_multisite() || ! version_compare( get_bloginfo( 'version' ), $pb_minimum_wp, '>=' ) ) {
 
 	add_action( 'admin_notices', function () use ( $pb_minimum_wp ) {
 		echo '<div id="message" class="error fade"><p>';
 		printf( __( 'PressBooks will not work with your version of WordPress. PressBooks requires a dedicated install of WordPress Multi-Site, version %s or greater. Please upgrade WordPress if you would like to use PressBooks.', 'pressbooks' ), $pb_minimum_wp );
-		echo '</p></div>';
-	} );
-
-	return;
-}
-
-$pb_minimum_php = '5.4.0';
-if ( ! version_compare( PHP_VERSION, $pb_minimum_php, '>=' ) ) {
-
-	add_action( 'admin_notices', function () use ( $pb_minimum_php ) {
-		echo '<div id="message" class="error fade"><p>';
-		printf( __( 'PressBooks will not work with your version of PHP. PressBooks requires PHP version %s or greater. Please upgrade PHP if you would like to use PressBooks.', 'pressbooks' ), $pb_minimum_php );
 		echo '</p></div>';
 	} );
 
