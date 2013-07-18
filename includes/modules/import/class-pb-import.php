@@ -256,6 +256,11 @@ abstract class Import {
 					$importer = new Wordpress\Wxr();
 					$ok = $importer->import( $current_import );
 					break;
+				
+				case 'odt':
+					$importer = new Odf\Odt();
+					$ok = $importer->import( $current_import );
+					break;
 			}
 
 			$msg = "Tried to import a file of type {$current_import['type_of']} and ";
@@ -273,7 +278,11 @@ abstract class Import {
 			// --------------------------------------------------------------------------------------------------------
 			// Set the 'pressbooks_current_import' option
 
-			$allowed_file_types = array( 'epub' => 'application/epub+zip', 'xml' => 'application/xml' );
+			$allowed_file_types = array( 
+			    'epub' => 'application/epub+zip', 
+			    'xml' => 'application/xml', 
+			    'odt' => 'application/vnd.oasis.opendocument.text',
+			);
 			$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
 
 			if ( ! function_exists( 'wp_handle_upload' ) )
@@ -297,6 +306,11 @@ abstract class Import {
 
 				case 'epub':
 					$importer = new Epub\Epub201();
+					$ok = $importer->setCurrentImportOption( $upload );
+					break;
+				
+				case 'odt':
+					$importer = new Odf\Odt();
 					$ok = $importer->setCurrentImportOption( $upload );
 					break;
 			}
