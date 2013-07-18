@@ -113,6 +113,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 						<select id="type_of" name="type_of">
 							<option value="wxr"><?php _e( 'WXR (WordPress eXtended RSS)', 'pressbooks' ); ?></option>
 							<option value="epub"><?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></option>
+							<option value="odt"><?php _e( 'ODT (word processing file format of OpenDocument)', 'pressbooks' ); ?></option>
 						</select>
 					</td>
 				</tr>
