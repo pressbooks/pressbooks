@@ -721,7 +721,7 @@ class Catalog {
 	 */
 	function deleteCache() {
 
-		wp_cache_delete( "pb-catalog-{$this->userId}", 'pb' );
+		wp_cache_delete( "cat-{$this->userId}", 'pb' );
 	}
 
 
