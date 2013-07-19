@@ -26,7 +26,7 @@ function pressbooks_book_info_page () {
 
 	if ( is_front_page() ) {
 		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130713', 'all' );
-		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700');  
+		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700|Montserrat:400,700');  
 		
 		// Book info page Table of Content columns
 		wp_enqueue_script( 'columnizer',  PB_PLUGIN_URL . 'symbionts/jquery/jquery.columnizer.min.js', array( 'jquery' ), '20130712', false );
@@ -59,12 +59,20 @@ function pb_enqueue_scripts() {
 	}
 	if (! is_front_page() ) {
 		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
+		wp_enqueue_script( 'menu-slide', get_template_directory_uri() . "/js/slide-menu/jquery.sidr.min.js", array( 'jquery' ), '1.0', true );
+		wp_enqueue_script( 'menu-slide-init', get_template_directory_uri() . "/js/slide-menu/slide.js", array( 'jquery' ), '1.0', true );		
+		wp_enqueue_style( 'menu-slide-css', PB_PLUGIN_URL . 'themes-book/pressbooks-book/js/slide-menu/stylesheets/jquery.sidr.dark.css', array(), null, 'screen' );		
+				
 	}
 	wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
 
+/*
 	if ( is_single() ) {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
+*/
+	wp_enqueue_script( 'pop-up-modal', get_template_directory_uri() . "/js/new-pop-up-2013/jquery.modal.min.js", array( 'jquery' ), '1.0', true );
+	wp_enqueue_script( 'pop-up-modal-init', get_template_directory_uri() . "/js/new-pop-up-2013/site.js", array( 'jquery' ), '1.0', true );			
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 
