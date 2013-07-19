@@ -87,7 +87,8 @@ class Odt extends Import {
 	protected function parseMetaData( \DOMDocument $meta ) {
 
 		$nodeList = $meta->getElementsByTagName( 'creator' );
-		$this->authors = $nodeList->item( 0 )->nodeValue;
+		if ( $nodeList->item( 0 ) )
+			$this->authors = $nodeList->item( 0 )->nodeValue;
 	}
 
 	/**
@@ -320,6 +321,10 @@ class Odt extends Import {
 	 */
 	protected function findTheNode( \DOMNode $node, $chapter_name ) {
 
+		if ( $node->nodeType !== XML_ELEMENT_NODE ) {
+			return '';
+		}
+
 		$currentTag = $node->tagName;
 		$currentValue = $node->nodeValue;
 
@@ -330,13 +335,20 @@ class Odt extends Import {
 		if ( $node->hasChildNodes() ) {
 			$nodeList = $node->childNodes;
 
-			for ( $i = 0; $i < $nodeList->length; $i ++  ) {
+			for ( $i = 0; $i < $nodeList->length; $i++  ) {
+
+				if( $nodeList->item( $i )->nodeType !== XML_ELEMENT_NODE ) {
+					continue;
+				}
+
 				if ( $chapter_name != $nodeList->item( $i )->nodeValue && $this->tag != $nodeList->item( $i )->tagName ) {
 					// recursive
-					$this->findTheNode( $nodeList->item( $i ), $chapter_name );
+					return $this->findTheNode( $nodeList->item( $i ), $chapter_name );
 				}
 			}
 		}
+
+		return '';
 	}
 
 	/**
@@ -350,9 +362,6 @@ class Odt extends Import {
 	 */
 	protected function getChapter( \DOMNodeList $dom_list, $index, $chapter_title ) {
 
-		var_dump("ME FIRST");
-
-		$result = '';
 		if ('' == $chapter_title) $chapter_title = 'unknown';
 		$chapter = new \DOMDocument( '1.0', 'UTF-8' );
 
@@ -367,17 +376,22 @@ class Odt extends Import {
 		('__UNKNOWN__' == $chapter_title) ? $i = 0 : $i = $index;
 
 		do {
-
 			$node = $chapter->importNode( $dom_list->item( $i ), true );
 			$chapter->documentElement->appendChild( $node );
 			$i ++;
-		} while ( $this->tag != $dom_list->item( $i )->tagName && $i < $dom_list->length );
+
+			// TODO
+			// This is problematic
+			// DOMNodeList can be made up of DOMElement(s)
+			// *and* DOMText(s) which do not have the property ->tagName
+
+		} while ( $this->tag != @$dom_list->item( $i )->tagName && $i < $dom_list->length );
 
 		// h1 tag will not be needed in the body of the html
 		$h1 = $chapter->getElementsByTagName( $this->tag )->item( 0 );
 		
 		// removeChild is quick to throw a fatal error
-		if ( $this->tag == $h1->nodeName && 'div' == $h1->parentNode->nodeName ) {
+		if ( $h1 && $this->tag == $h1->nodeName && 'div' == $h1->parentNode->nodeName ) {
 			$chapter->documentElement->removeChild( $h1 );
 		}
 
@@ -403,7 +417,7 @@ class Odt extends Import {
 		$element = $xml->documentElement;
 		$node_list = $element->childNodes;
 		$chapter_node = '';
-		$index = '';
+		$index = 0;
 
 		// loop through child siblings
 		for ( $i = 0; $i < $node_list->length; $i ++  ) {
@@ -416,7 +430,8 @@ class Odt extends Import {
 			}
 		}
 
-		$chapter_title = strtolower( preg_replace( '/\s+/', '-', $chapter_node->nodeValue ) );
+		if ( $chapter_node )
+			$chapter_title = strtolower( preg_replace( '/\s+/', '-', $chapter_node->nodeValue ) );
 
 		// iterate through
 		return $this->getChapter( $node_list, $index, $chapter_title );
