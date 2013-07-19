@@ -24,9 +24,9 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 		// Required, Primary ID
 		if ( ! empty( $meta['pb_ebook_isbn'] ) ) {
-			echo '<dc:identifier id="PrimaryID" opf:scheme="ISBN">' . $meta['pb_ebook_isbn'] . '</dc:identifier>';
+			echo '<dc:identifier id="PrimaryID" opf:scheme="ISBN">' . trim( $meta['pb_ebook_isbn'] ) . '</dc:identifier>';
 		} else {
-			echo '<dc:identifier id="PrimaryID" opf:scheme="URI">' . get_bloginfo( 'url' ) . '</dc:identifier>';
+			echo '<dc:identifier id="PrimaryID" opf:scheme="URI">' . trim( get_bloginfo( 'url' ) ) . '</dc:identifier>';
 		}
 		unset( $meta['pb_ebook_isbn'] );
 		echo "\n";
