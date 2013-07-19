@@ -377,8 +377,11 @@ abstract class Export {
 		$proc = new \XSLTProcessor();
 		$proc->importStyleSheet( $xsl );
 
+		$old_value = libxml_disable_entity_loader( true );
 		$xml = new \DOMDocument();
 		$xml->loadXML( $content );
+		libxml_disable_entity_loader( $old_value );
+
 		$content = $proc->transformToXML( $xml );
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully

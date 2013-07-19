@@ -136,10 +136,13 @@ class Odt extends Import {
 	 * @return string - modified with correct image paths
 	 */
 	protected function kneadHTML( $body ) {
+
 		libxml_use_internal_errors( true );
 
+		$old_value = libxml_disable_entity_loader( true );
 		$doc = new \DOMDocument( '1.0', 'UTF-8' );
 		$doc->loadXML( $body );
+		libxml_disable_entity_loader( $old_value );
 
 		// Download images, change to relative paths
 		$doc = $this->scrapeAndKneadImages( $doc );
@@ -499,10 +502,19 @@ class Odt extends Import {
 			return $content;
 		}
 
+		$collapsed = preg_replace( "/[:space:]/", '', $content );
+		if ( preg_match( "/<!DOCTYPE/i", $collapsed ) ) {
+			// Invalid XML: Detected use of illegal DOCTYPE
+			return false;
+		}
+
 		// trouble with simplexmlelement and elements with dashes
 		// (ODT's are ripe with dashes), so giving it to the DOM
+
+		$old_value = libxml_disable_entity_loader( true );
 		$xml = new \DOMDocument();
 		$xml->loadXML( $content, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
+		libxml_disable_entity_loader( $old_value );
 
 		return $xml;
 	}
