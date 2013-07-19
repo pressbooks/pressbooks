@@ -14,19 +14,19 @@ class Odt extends Import {
 
 	/**
 	 * 
-	 * @var type 
+	 * @var \ZipArchive
 	 */
 	protected $zip;
 
 	/**
 	 *
-	 * @var type 
+	 * @var string
 	 */
 	protected $tag = 'h1';
 
 	/**
 	 * 
-	 * @var type 
+	 * @var string
 	 */
 	protected $authors;
 
@@ -64,8 +64,8 @@ class Odt extends Import {
 		// throw it back into the DOM
 		$dom_doc = $proc->transformToDoc( $xml );
 
+		$this->parseMetaData( $meta );
 		$chapter_parent = $this->getChapterParent();
-		$metadata = $this->parseMetaData( $meta );
 
 		foreach ( $current_import['chapters'] as $id => $chapter_title ) {
 			// do nothing it has been omitted
@@ -155,7 +155,6 @@ class Odt extends Import {
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
 	 * @param \DOMDocument $doc
-	 * @param string $href original filename, with (relative) path
 	 *
 	 * @return \DOMDocument
 	 */
@@ -316,7 +315,7 @@ class Odt extends Import {
 	 * Recursive iterator to locate and return a specific node, targeting child nodes
 	 * 
 	 * @param \DOMNode $node
-	 * @param string $chapterName
+	 * @param string $chapter_name
 	 * @return \DOMNode
 	 */
 	protected function findTheNode( \DOMNode $node, $chapter_name ) {
@@ -344,12 +343,15 @@ class Odt extends Import {
 	 * Find where to start, iterate through a list, add elements to a 
 	 * new DomDocument, return resulting xhtml
 	 * 
-	 * @param \DOMNodeList $domList
+	 * @param \DOMNodeList $dom_list
 	 * @param int $index
-	 * @param string $chapterTitle
+	 * @param string $chapter_title
 	 * @return string XHTML
 	 */
 	protected function getChapter( \DOMNodeList $dom_list, $index, $chapter_title ) {
+
+		var_dump("ME FIRST");
+
 		$result = '';
 		if ('' == $chapter_title) $chapter_title = 'unknown';
 		$chapter = new \DOMDocument( '1.0', 'UTF-8' );
@@ -393,7 +395,7 @@ class Odt extends Import {
 	 * Find and return the identified chapter
 	 * 
 	 * @param \DomDocument $xml
-	 * @param type $chapterTitle
+	 * @param string $chapter_title
 	 * @return string XML
 	 */
 	protected function parseContent( \DomDocument $xml, $chapter_title ) {
