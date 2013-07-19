@@ -502,8 +502,8 @@ class Odt extends Import {
 			return $content;
 		}
 
-		$collapsed = preg_replace( "/[:space:]/", '', $content );
-		if ( preg_match( "/<!DOCTYPE/i", $collapsed ) ) {
+		$collapsed = preg_replace( '/\s+/', '', $content );
+		if ( preg_match( '/<!DOCTYPE/i', $collapsed ) ) {
 			// Invalid XML: Detected use of illegal DOCTYPE
 			return false;
 		}
