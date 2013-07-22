@@ -149,7 +149,9 @@ function do_catalog() {
 
 	$user = get_user_by( 'login', $user_login );
 	if ( false == $user ) {
-		wp_die( __( 'No catalog was found for user', 'pressbooks' ) . ": $user_login" );
+		$msg = __( 'No catalog was found for user', 'pressbooks' ) . ": $user_login";
+		$args = array( 'response' => '404' );
+		wp_die( $msg, '', $args );
 	}
 
 	\PressBooks\Catalog::loadTemplate( $user->ID );
