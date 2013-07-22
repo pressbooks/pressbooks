@@ -75,7 +75,7 @@ function rewrite_rules_for_format() {
 
 	// Flush rewrite rules
 	$set = get_option( 'pressbooks_flushed_format' );
-	if ( $set !== true ) {
+	if ( ! $set ) {
 		flush_rewrite_rules( false );
 		update_option( 'pressbooks_flushed_format', true );
 	}
@@ -124,7 +124,7 @@ function rewrite_rules_for_catalog() {
 
 	// Flush rewrite rules
 	$set = get_option( 'pressbooks_flushed_catalog' );
-	if ( $set !== true ) {
+	if ( ! $set ) {
 		flush_rewrite_rules( false );
 		update_option( 'pressbooks_flushed_catalog', true );
 	}
@@ -170,7 +170,7 @@ function rewrite_rules_for_sitemap() {
 
 	// Flush rewrite rules
 	$set = get_option( 'pressbooks_flushed_sitemap' );
-	if ( $set !== true ) {
+	if ( ! $set ) {
 		flush_rewrite_rules( false );
 		update_option( 'pressbooks_flushed_sitemap', true );
 	}
