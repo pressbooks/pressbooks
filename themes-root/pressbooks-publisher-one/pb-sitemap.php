@@ -9,7 +9,6 @@ echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'"?'.'>' . "\
 ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <?php
-	global $blog_id;
 
 	$query_args = array(
 		'post_type'   => array( 'post', 'page', 'front-matter', 'part', 'chapter', 'back-matter' ),
@@ -27,7 +26,7 @@ echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'"?'.'>' . "\
 
 		?>
 		<url>
-			<loc><?php echo get_blog_permalink( $blog_id, $post->ID ); ?></loc>
+			<loc><?php echo get_permalink( $post->ID ); ?></loc>
 			<lastmod><?php echo mysql2date( 'Y-m-d', get_post_modified_time('Y-m-d H:i:s', true), false ); ?></lastmod>
 		</url>
 	<?php
