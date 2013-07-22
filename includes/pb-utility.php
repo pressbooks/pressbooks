@@ -254,3 +254,33 @@ function pm_send_mail( array $headers, array $email ) {
 	}
 }
 
+
+/**
+ * Add sitemap to robots.txt
+ */
+function add_sitemap_to_robots_txt() {
+
+	if ( 1 == get_option( 'blog_public' ) ) {
+		echo 'Sitemap: ' . get_option( 'siteurl' ) . "/sitemap.xml\n\n";
+	}
+}
+
+
+/**
+ * Echo a sitemap
+ */
+function do_sitemap() {
+
+	if ( 1 == get_option( 'blog_public' ) ) {
+		$template = untrailingslashit( PB_PLUGIN_DIR ) . '/themes-root/pressbooks-publisher-one/pb-sitemap.php';
+		load_template( $template );
+	} else {
+		status_header( 404 );
+		nocache_headers();
+		echo '<h1>404 Not Found</h1>';
+		echo 'The page that you have requested could not be found.';
+	}
+
+	exit;
+}
+

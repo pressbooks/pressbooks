@@ -155,3 +155,23 @@ function do_catalog() {
 	\PressBooks\Catalog::loadTemplate( $user->ID );
 	exit;
 }
+
+
+/**
+ * Add a rewrite rule for sitemap xml
+ */
+function rewrite_rules_for_sitemap() {
+
+	add_rewrite_rule(
+		'.*sitemap.xml$',
+		'index.php?feed=sitemap',
+		'top'
+	);
+
+	// Flush rewrite rules
+	$set = get_option( 'pressbooks_flushed_sitemap' );
+	if ( $set !== true ) {
+		flush_rewrite_rules( false );
+		update_option( 'pressbooks_flushed_sitemap', true );
+	}
+}
