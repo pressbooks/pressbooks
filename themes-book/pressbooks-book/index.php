@@ -1,4 +1,7 @@
-<?php get_header(); ?>
+<?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+get_header();
+?>
 
 	<?php get_template_part('content', 'nav-header'); ?>
 
