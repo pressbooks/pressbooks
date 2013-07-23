@@ -53,9 +53,8 @@ function login( $redirect_to, $request_redirect_to, $user ) {
 		return $redirect_to;
 	}
 
-	global $current_site; // Main site
 	$blogs = get_blogs_of_user( $user->ID );
-	if ( array_key_exists( $current_site->blog_id, $blogs ) ) {
+	if ( array_key_exists( get_current_blog_id(), $blogs ) ) {
 		// Yes, user has access to this blog
 		return $redirect_to;
 	}
