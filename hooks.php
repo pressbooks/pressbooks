@@ -85,15 +85,14 @@ add_action( 'wpmu_new_blog', function ( $b, $u ) {
 
 add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_format', 1 );
 add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_catalog', 1 );
-add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_sitemap' );
 add_filter( 'login_redirect', '\PressBooks\Redirect\login', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Sitemap
 // -------------------------------------------------------------------------------------------------------------------
 
+add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_sitemap' );
 add_action( 'do_robotstxt', '\PressBooks\Utility\add_sitemap_to_robots_txt' );
-add_action( 'do_feed_sitemap', '\PressBooks\Utility\do_sitemap', 10, 1 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Shortcodes

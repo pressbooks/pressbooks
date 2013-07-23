@@ -169,11 +169,7 @@ function do_catalog() {
  */
 function rewrite_rules_for_sitemap() {
 
-	add_rewrite_rule(
-		'.*sitemap.xml$',
-		'index.php?feed=sitemap',
-		'top'
-	);
+	add_feed( 'sitemap.xml', '\PressBooks\Utility\do_sitemap' );
 
 	// Flush rewrite rules
 	$set = get_option( 'pressbooks_flushed_sitemap' );
