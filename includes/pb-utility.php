@@ -261,7 +261,7 @@ function pm_send_mail( array $headers, array $email ) {
 function add_sitemap_to_robots_txt() {
 
 	if ( 1 == get_option( 'blog_public' ) ) {
-		echo 'Sitemap: ' . get_option( 'siteurl' ) . "/sitemap.xml\n\n";
+		echo 'Sitemap: ' . get_option( 'siteurl' ) . "/?feed=sitemap.xml\n\n";
 	}
 }
 
