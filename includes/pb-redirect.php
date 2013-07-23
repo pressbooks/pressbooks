@@ -37,7 +37,7 @@ function location( $href ) {
  *
  * @param string $redirect_to
  * @param string $request_redirect_to
- * @param \WP_USER $user
+ * @param \WP_User $user
  *
  * @return string
  */
@@ -48,16 +48,22 @@ function login( $redirect_to, $request_redirect_to, $user ) {
 		return $redirect_to;
 	}
 
-	global $current_site; // Main site
-	if ( is_super_admin( $user->ID ) || is_user_member_of_blog( $user->ID, $current_site->blog_id ) ) {
+	if ( is_super_admin( $user->ID ) ) {
 		// This is an admin, don't mess
 		return $redirect_to;
 	}
 
-	$user_info = get_userdata( $user->ID );
-	if ( $user_info->primary_blog ) {
-		// Send the user to their catalog page
-		return get_blogaddress_by_id( $user_info->primary_blog ) . 'wp-admin/index.php?page=pb_catalog';
+	global $current_site; // Main site
+	$blogs = get_blogs_of_user( $user->ID );
+	if ( array_key_exists( $current_site->blog_id, $blogs ) ) {
+		// Yes, user has access to this blog
+		return $redirect_to;
+	}
+
+	if ( $user->primary_blog ) {
+		// Force redirect the user to their catalog, bypass wp_safe_redirect()
+		$redirect = get_blogaddress_by_id( $user->primary_blog ) . 'wp-admin/index.php?page=pb_catalog';
+		location( $redirect );
 	}
 
 	// User has no primary_blog? Make them sign-up for one
