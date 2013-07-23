@@ -22,6 +22,7 @@ echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'"?'.'>' . "\
 
 		// Skip example pages
 		if ( 'page' == $post->post_type && 'sample-page' == $post->post_name ) continue;
+		elseif ( 'page' == $post->post_type && 'access-denied' == $post->post_name ) continue;
 		elseif ( 'post' == $post->post_type && 'hello-world' == $post->post_name ) continue;
 
 		?>
