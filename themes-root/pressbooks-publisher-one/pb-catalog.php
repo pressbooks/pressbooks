@@ -152,7 +152,7 @@ $_current_user_id = $catalog->getUserId();
 	<title><?php _e( 'Catalog Page', 'pressbooks' ); ?> | PressBooks</title>
 	<link rel="stylesheet" type="text/css" href="style-catalog.css?ver=2" />
 	<link href='<?php echo \PressBooks\Sanitize\maybe_https( 'http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="<?php echo esc_url( site_url( '/wp-includes/js/jquery/jquery.js?ver=1.8.3' ) ); ?>"></script>
+	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.8.3' ); ?>"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.equalizer.min.js?ver=1.2.3" type="text/javascript"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.mixitup.min.js?ver=1.5.4" type="text/javascript"></script>
 	<script src="js/small-menu.js?ver=0.0.1" type="text/javascript"></script>
@@ -185,7 +185,7 @@ $_current_user_id = $catalog->getUserId();
 		<p class="tag-menu assistive-text">Menu</p>
 		<div class="sidebar-inner-wrap">
 			<a href="<?php echo _base_url(); ?>">
-			<img class="catalog-logo" src="<?php echo _logo_url( $profile ); ?>" alt="catalog-logo" width="100" height="99" />
+			<img class="catalog-logo" src="<?php echo \PressBooks\Sanitize\maybe_https( _logo_url( $profile ) ); ?>" alt="catalog-logo" width="100" height="99" />
 			</a>
 			<p class="about-blurb"><?php
 				if ( ! empty( $profile['pb_catalog_about'] ) )
@@ -221,14 +221,14 @@ $_current_user_id = $catalog->getUserId();
 				<div class="book-data mix<?php echo _tag_classes( $b ); ?>">
 	
 					<div class="book">
-						<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id']  ); ?>"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></a></p>
+						<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id'], '', 'http'  ); ?>"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></a></p>
 						<img src="<?php echo \PressBooks\Sanitize\maybe_https( $b['cover_url']['pb_cover_medium'] ); ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" />
 					</div><!-- end .book -->
 	
 					<div class="book-info">
 						<h2><?php echo $b['title']; ?></h2>
 	
-						<p><a href="<?php echo get_site_url( $b['blogs_id'] ); ?>"><?php echo $b['author']; ?></a></p>
+						<p><a href="<?php echo get_site_url( $b['blogs_id'], '', 'http' ); ?>"><?php echo $b['author']; ?></a></p>
 					</div><!-- end book-info -->
 	
 				</div><!-- end .book-data -->
