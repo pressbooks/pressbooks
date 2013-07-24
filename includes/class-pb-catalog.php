@@ -906,8 +906,8 @@ class Catalog {
 	 */
 	static function loadTemplate( $userId ) {
 
-		global $user_ID;
-		$user_ID = $userId;
+		global $wp_query;
+		$wp_query->set( 'pb_user_id', $userId );
 
 		if ( $overridden_template = locate_template( 'pb-catalog.php' ) ) {
 			load_template( $overridden_template, false );

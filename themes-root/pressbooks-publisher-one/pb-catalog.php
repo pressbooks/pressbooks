@@ -126,7 +126,7 @@ function _base_url() {
 // -------------------------------------------------------------------------------------------------------------------
 
 $base_href = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher-one/';
-$catalog = new PB_Catalog( absint( $user_ID ) ); // Note: $user_ID is set in PB_Catalog::loadTemplate()
+$catalog = new PB_Catalog( absint( $pb_user_id ) ); // Note: $pb_user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();
 $books = _books( $catalog );
 
@@ -167,11 +167,11 @@ $_current_user_id = $catalog->getUserId();
 			<?php else: ?>
 				<a href="<?php echo wp_logout_url(); ?>" class=""><?php _e( 'logout', 'pressbooks' ); ?></a>
 				<?php
-				if ( get_current_user_id() == $user_id || is_super_admin()) {
-					$user_info = get_userdata( $user_id );
+				if ( get_current_user_id() == $pb_user_id || is_super_admin()) {
+					$user_info = get_userdata( $pb_user_id );
 					$admin_url = get_blogaddress_by_id( $user_info->primary_blog ) . 'wp-admin/index.php?page=pb_catalog';
-					if ( is_super_admin() && get_current_user_id() != $user_id ) {
-						$admin_url .= "&user_id=$user_id";
+					if ( is_super_admin() && get_current_user_id() != $pb_user_id ) {
+						$admin_url .= "&user_id=$pb_user_id";
 					}
 					?><a href="<?php echo $admin_url; ?>"><?php _e('Admin', 'pressbooks'); ?></a><?php
 				}
