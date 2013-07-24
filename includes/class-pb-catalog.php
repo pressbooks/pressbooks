@@ -906,19 +906,13 @@ class Catalog {
 	 */
 	static function loadTemplate( $userId ) {
 
-		$_child = untrailingslashit( get_stylesheet_directory() ) . '/pb-catalog.php';
-		$_parent = untrailingslashit( get_template_directory() ) . '/pb-catalog.php';
-		$_default = untrailingslashit( PB_PLUGIN_DIR ) . '/themes-root/pressbooks-publisher-one/pb-catalog.php';
-
 		global $user_ID;
 		$user_ID = $userId;
 
-		if ( is_file( $_child ) ) {
-			load_template( $_child, false );
-		} elseif ( is_file( $_parent ) ) {
-			load_template( $_parent, false );
+		if ( $overridden_template = locate_template( 'pb-catalog.php' ) ) {
+			load_template( $overridden_template, false );
 		} else {
-			load_template( $_default, false );
+			load_template( PB_PLUGIN_DIR . 'themes-root/pressbooks-publisher-one/pb-catalog.php', false );
 		}
 	}
 
