@@ -79,7 +79,7 @@ function _pressbooks_autoload( $class_name ) {
 
 	$parts = explode( '\\', strtolower( $class_name ) );
 
-	if ( ! preg_match( '/^pressbooks/', @$parts[0] ) ) {
+	if ( strpos( @$parts[0], 'pressbooks' ) !== 0 ) {
 		// Ignore classes not in our namespace
 		return;
 	}
