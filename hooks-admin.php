@@ -14,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) )
 require( PB_PLUGIN_DIR . 'admin/pb-admin-dashboard.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
-require( PB_PLUGIN_DIR . 'admin/pb-admin-users.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -95,7 +94,7 @@ if ( \PressBooks\Book::isBook() ) {
 // Custom user profile
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'admin_init', '\PressBooks\Admin\Users\add_user_meta' );
+add_action( 'admin_init', '\PressBooks\Admin\Metaboxes\add_user_meta' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Ajax

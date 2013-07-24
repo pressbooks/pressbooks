@@ -37,7 +37,7 @@ $ mv pressbooks.pot /path/to/pressbooks/languages/pressbooks-es_ES.po
 $ cd /path/to/pressbooks/languages/
 $ msgfmt -o pressbooks-es_ES.mo pressbooks-es_ES.po
 
-Finally, add your new language to \PressBooks\Admin\Users\add_user_meta() in admin/pb-admin-users.php
+Finally, add your new language to \PressBooks\Admin\Metaboxes\add_user_meta() in admin/pb-admin-metaboxes.php
 
 ------------------------------------------------------------------------------
 Installing the rest of a language in PressBooks (Ie. WordPress)
