@@ -7,38 +7,6 @@ namespace PressBooks\Admin\Users;
 
 
 /**
- * Lists restricted Administrative URLs so we can redirect them
- *
- * @param int $blogId Blog ID
- *
- * @return array $disallowed Disallowed Files
- */
-function get_restricted( $blogId ) {
-
-	$disallowed = array(
-		'edit',
-		'edit-link-categories',
-		'export',
-		'import',
-		'link-(manager|add)',
-		'nav-menus',
-		'plugin-(install|editor)',
-		'plugins',
-		'post',
-		'post-new',
-		'theme-editor',
-		'themes',
-		'tools',
-		'widgets',
-	);
-
-	if ( ( current_user_can_for_blog( $blogId, 'subscriber' ) || current_user_can_for_blog( $blogId, 'contributor' ) ) ) $disallowed[] = 'index';
-
-	return apply_filters( 'pressbooks_restricted_pages', $disallowed, $blogId );
-}
-
-
-/**
  * Adds some custom fields to user profiles
  */
 function add_user_meta() {

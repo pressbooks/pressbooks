@@ -130,7 +130,7 @@ function replace_book_admin_menu() {
 			) );
 		}
 	} );
-	if ( current_user_can( 'create_posts' ) ) {
+	if ( current_user_can( 'publish_posts' ) ) {
 		$add_part = $submenu['edit.php?post_type=part'][10];
 		$add_chapter = $submenu['edit.php?post_type=chapter'][10];
 		$add_front_matter = $submenu['edit.php?post_type=front-matter'][10];
@@ -516,15 +516,6 @@ function init_css_js() {
 
 	// This is to work around JavaScript dependency errors
 	$concatenate_scripts = false;
-	if ( ! is_super_admin() ) {
-		$restricted = \PressBooks\Admin\Users\get_restricted( get_current_blog_id() );
-		$expr = in_array( 'index', $restricted ) ? '/^\/wp-admin\/((' . implode( '|', $restricted ) . ').php)?$/' : '/^\/wp-admin\/(' . implode( '|', $restricted ) . ').php$/';
-		$url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-		if ( preg_match( $expr, $url ) ) {
-			wp_redirect( get_site_url( get_current_blog_id(), '/' ), 401 );
-		}
-
-	}
 
 	// Never let a user change [ Your Profile > Admin Color Scheme ] - Note: Auto-registered dependency $handle = 'colors'
 	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
@@ -566,6 +557,54 @@ function init_css_js() {
 	wp_enqueue_script( 'jquery-bootstrap' );
 	wp_enqueue_script( 'pb-feedback' );
 }
+
+
+/**
+ * Redirect away from (what we consider) bad WordPress admin pages
+ */
+function redirect_away_from_bad_urls() {
+
+	if ( is_super_admin() )
+		return; // Do nothing
+
+	$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+	$redirecl_url = get_site_url( get_current_blog_id(), '/wp-admin/' );
+
+	// ---------------------------------------------------------------------------------------------------------------
+	// If user is on post-new.php, check for valid post_type
+
+	if ( preg_match( '~/wp-admin/post-new\.php$~', $check_against_url ) ) {
+		if ( ! in_array( @$_REQUEST['post_type'], array( 'metadata', 'part', 'chapter', 'front-matter', 'back-matter' ) ) ) {
+			$_SESSION['pb_notices'][] = __( 'Unsupported post type.', 'pressbooks' );
+			\PressBooks\Redirect\location( $redirecl_url );
+		}
+	}
+
+	// ---------------------------------------------------------------------------------------------------------------
+	// Don't let user go to any of these pages, under any circumstance
+
+	$restricted = array(
+		'edit-tags',
+		'export',
+		'import',
+		'link-(manager|add)',
+		'nav-menus',
+		'options-(discussion|general|media|permalink|reading|writing)',
+		'plugin-(install|editor)',
+		'plugins',
+		'theme-editor',
+		'tools',
+		'update-core',
+		'widgets',
+	);
+
+	$expr = '~/wp-admin/(' . implode( '|', $restricted ) . ')\.php$~';
+	if ( preg_match( $expr, $check_against_url ) ) {
+		$_SESSION['pb_notices'][] = __( 'You do not have sufficient permissions to access that URL.', 'pressbooks' );
+		\PressBooks\Redirect\location( $redirecl_url );
+	}
+}
+
 
 /* ------------------------------------------------------------------------ *
  * Privacy

@@ -33,6 +33,7 @@ add_filter( 'admin_footer_text', '\PressBooks\Admin\Laf\add_footer_link' );
 
 if ( \PressBooks\Book::isBook() ) {
 	// Aggressively replace default interface
+	add_action( 'admin_init', '\PressBooks\Admin\Laf\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
