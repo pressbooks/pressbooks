@@ -900,22 +900,25 @@ class Catalog {
 
 
 	/**
-	 * Simple templating function.
+	 * Find and load our catalog template.
 	 *
-	 * @param int $user_id
+	 * @param int $userId
 	 */
-	static function loadTemplate( $user_id ) {
+	static function loadTemplate( $userId ) {
 
 		$_child = untrailingslashit( get_stylesheet_directory() ) . '/pb-catalog.php';
 		$_parent = untrailingslashit( get_template_directory() ) . '/pb-catalog.php';
 		$_default = untrailingslashit( PB_PLUGIN_DIR ) . '/themes-root/pressbooks-publisher-one/pb-catalog.php';
 
+		global $user_ID;
+		$user_ID = $userId;
+
 		if ( is_file( $_child ) ) {
-			require( $_child );
+			load_template( $_child, false );
 		} elseif ( is_file( $_parent ) ) {
-			require( $_parent );
+			load_template( $_parent, false );
 		} else {
-			require( $_default );
+			load_template( $_default, false );
 		}
 	}
 
