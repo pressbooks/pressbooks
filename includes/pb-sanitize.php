@@ -175,3 +175,19 @@ function canonicalize_url( $url ) {
 	return $url;
 
 }
+
+
+/**
+ * Maybe change http:// to https://, depending on server state.
+ *
+ * @param $url
+ *
+ * @return string
+ */
+function maybe_https( $url ) {
+	if ( empty( $_SERVER['HTTPS'] ) ) {
+		return $url;
+	} else {
+		return preg_replace( '/^http:/', 'https:', $url );
+	}
+}
