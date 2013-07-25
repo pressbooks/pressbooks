@@ -405,6 +405,7 @@ h1.book-title a {
 .icon-reorder {
 	color: #333;
 	text-align: right;
+	text-decoration: none;
 }
 .icon-home-1:before {
    content: "e"; 
@@ -917,36 +918,41 @@ h3.author-name {
     Buy Page
 *****************/
 .buy-book {
-	font-size: 0.875em;
+	font-family: 'Droid Serif',serif;
+    margin: 40px auto;
+    max-width: 780px;
+    width: 800%;
+    text-align: center;	
+    width: 100%;    
+}
+.buy-book a {
+	color: #555;
 }
 .buy-book h2 {
 	color: #333;
-	font-size: 1.4em;
-	margin-top: -10px;	
+	font: bold 1.3em 'Oswald', Arial, Helvetica, sans-serif;
+	font-variant: normal;
+	text-transform: uppercase;
 	text-align: center;
 }
 .buy-book h2 + p {
-	margin-bottom: 15px;
+	margin-bottom: 30px;
 }
+
 .buy-book ul {
-	border-top: 1px solid #eee;
 	padding-left: 0;
-	margin-bottom: 0;
-	display: table;
-	width: 498px;
+	margin: 40px 0 40px;
+    max-width: 800px;
+    width: 100%;
 }
 .buy-book li {
-   	border-bottom: 1px solid #EEE;
-    border-right: 1px solid #EEE;
-	display: table-cell;
-	float: left;
+	border: 1px solid #ccc;
+	display: inline-block;
 	list-style: none;
-	height: 140px;
+	height: 150px;
 	padding: 20px;
-    width: 50%;
-}
-.buy-book li:nth-of-type(2n){
-	border-right: none;
+	margin: 0 1% 1em;
+	width: 30%;
 }
 .buy-book .logo {
 	display: block;
@@ -964,6 +970,7 @@ h3.author-name {
 	color: #fff;
 	font: 0.75em 'Oswald', Arial, Helvetica, sans-serif;	
 	padding: 5px 10px;
+	text-decoration: none;
 }
 .buy-book a:hover.button-link {
 	background-color: #666;
@@ -1019,8 +1026,8 @@ h3.author-name {
 	 Footer
 *****************/
 .footer {
-  background: url(images/footer-shadow.png) 0 0 repeat-x #8d8d8d;
-  color: #fff;
+  background-color: #efefef;
+  color: #666;
   font: 0.75em/1.5em Arial, Helvetica, sans-serif;
 }
 .footer .inner {
@@ -1046,7 +1053,7 @@ h3.author-name {
   font-weight: normal;
 }
 .cie-name a {
-  color: #ffffff;
+  color: #333;
   text-decoration: none;
 }
 /********************

@@ -20,7 +20,6 @@
 			<?php pb_private(); ?>
 			<?php endif; ?>
 		</div><!-- end .content -->
-		<?php get_sidebar(); ?>
 
 </div><!-- .content-wrapper  -->
 

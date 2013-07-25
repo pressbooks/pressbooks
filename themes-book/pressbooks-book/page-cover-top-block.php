@@ -55,17 +55,11 @@
 						
 						<?php if ( @array_filter( get_option( 'pressbooks_ecommerce_links' ) ) ) : ?>
 						 <!-- Buy -->
-							 <a class="btn black modalLink buy-button" href="#modal1"><span class="buy-icon"></span><?php _e('Buy', 'pressbooks'); ?></a>				
+						 
+						 	 <a class="btn black" href="<?php echo get_option('home'); ?>/buy"><span class="buy-icon"></span><?php _e('Buy', 'pressbooks'); ?></a>				
 						 <?php endif; ?>
-						 
-						 <div class="overlay"></div>						 
-						 <div id="modal1" class="modal">
-							 <p class="closeBtn icon-fontawesome-webfont-1"><span class="assistive-text">Close</span></p>
-							 <?php get_template_part('content', 'buy'); ?>
-						</div>
-			
-						 
-						
+						 						 
+
 					</div> <!-- end .call-to-action -->		
 				</div><!--  end .call-to-action-wrap -->
 				

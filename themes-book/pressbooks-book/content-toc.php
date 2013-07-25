@@ -4,11 +4,7 @@
 
 	<div class="slide-toc">
 		
-			 <?php if ( @array_filter( get_option( 'pressbooks_ecommerce_links' ) ) ) : ?>
-			    <!-- Buy -->
-					  <p class="icon-fontawesome-webfont"><a class="modalLink buy-button" href="#modal1"><?php _e('Buy', 'pressbooks'); ?></a></p>		
-			<?php endif; ?>	
-			
+					
 		<ul class="book-nav">
 		<!-- If Logged in show ADMIN -->
 			<?php global $blog_id; ?>
