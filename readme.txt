@@ -81,7 +81,7 @@ IMPORTANT!
 
 *Part 3, PressBooks dependencies:*
 
- * For PDF export you need to install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 8.1 rev 5
+ * For PDF export you need to install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 9.0
  * For MOBI export you need to install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.8
  * For EPUB validation you need to install [EpubCheck](http://code.google.com/p/epubcheck/) - Version 3.0.1
  * Form XML validation you need to install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
