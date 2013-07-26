@@ -668,6 +668,7 @@ abstract class Export {
 		}
 
 		// Force download
+		set_time_limit( 0 );
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Type: ' . static::mimeType( $filepath ) );
 		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
@@ -678,6 +679,7 @@ abstract class Export {
 		header( 'Content-Length: ' . filesize( $filepath ) );
 		@ob_clean();
 		flush();
+		while ( @ob_end_flush() ); // Fix out-of-memory problem
 		readfile( $filepath );
 
 		exit;
