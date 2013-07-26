@@ -146,7 +146,7 @@ $_current_user_id = $catalog->getUserId();
 <!--[if IE 9 ]>    <html <?php language_attributes(); ?> class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"> <!--<![endif]-->
 <head>
-	<base href="<?php echo $base_href; ?>">
+	<base href="<?php echo $base_href; ?>" />
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 	<title><?php _e( 'Catalog Page', 'pressbooks' ); ?> | PressBooks</title>
