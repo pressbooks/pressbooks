@@ -224,6 +224,28 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Fix annoying characters that the user probably didn't do on purpose
+	 *
+	 * @param string $html
+	 *
+	 * @return string|void
+	 */
+	function fixAnnoyingCharacters( $html ) {
+
+		// Do parent first
+		$html = parent::fixAnnoyingCharacters( $html );
+
+		// EPUB specific
+
+		// Adobe Digital Editions has problems with exotic dashes, that is to say if this were 1999...
+		$html = str_replace( array( '–', '&#8211;', '—', '&#8212;', '‑' ), '-', $html );
+
+		return $html;
+	}
+
+
+
+	/**
 	 * Override mimeType, get rid of '; charset=binary'
 	 *
 	 * @param string $file
@@ -336,6 +358,7 @@ class Epub201 extends Export {
 	protected function preProcessPostContent( $content ) {
 
 		$content = apply_filters( 'the_content', $content );
+		$content = $this->fixAnnoyingCharacters( $content );
 		$content = $this->tidy( $content );
 
 		return $content;

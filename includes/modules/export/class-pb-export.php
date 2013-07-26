@@ -283,6 +283,22 @@ abstract class Export {
 
 
 	/**
+	 * Fix annoying characters that the user probably didn't do on purpose
+	 *
+	 * @param string $html
+	 *
+	 * @return string
+	 */
+	function fixAnnoyingCharacters( $html ) {
+
+		// Non-breaking spaces
+		$html = preg_replace( '/\xC2\xA0/', ' ', $html );
+
+		return $html;
+	}
+
+
+	/**
 	 * Check a post_name against a list of reserved IDs, sanitize for use as an XML ID.
 	 *
 	 * @param string $id

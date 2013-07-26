@@ -215,6 +215,7 @@ class Hpub extends Export {
 	protected function preProcessPostContent( $content ) {
 
 		$content = apply_filters( 'the_content', $content );
+		$content = $this->fixAnnoyingCharacters( $content );
 		$content = $this->tidy( $content );
 
 		return $content;
