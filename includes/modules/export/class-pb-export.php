@@ -482,6 +482,7 @@ abstract class Export {
 			$filename = sanitize_file_name( $_POST['filename'] );
 			$path = static::getExportFolder();
 			unlink( $path . $filename );
+			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 			\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export' );
 		}
 
@@ -551,6 +552,8 @@ abstract class Export {
 				// TODO rename to pressbooks_track_export
 				do_action( 'pb_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
+
+			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 
 			// --------------------------------------------------------------------------------------------------------
 			// No errors?
