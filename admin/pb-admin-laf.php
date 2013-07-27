@@ -574,7 +574,7 @@ function redirect_away_from_bad_urls() {
 	// If user is on post-new.php, check for valid post_type
 
 	if ( preg_match( '~/wp-admin/post-new\.php$~', $check_against_url ) ) {
-		if ( ! in_array( @$_REQUEST['post_type'], array( 'metadata', 'part', 'chapter', 'front-matter', 'back-matter' ) ) ) {
+		if ( ! in_array( @$_REQUEST['post_type'], array( 'metadata', 'part', 'chapter', 'front-matter', 'back-matter', 'custom-css' ) ) ) {
 			$_SESSION['pb_notices'][] = __( 'Unsupported post type.', 'pressbooks' );
 			\PressBooks\Redirect\location( $redirecl_url );
 		}
