@@ -1008,7 +1008,7 @@ class Epub201 extends Export {
 				$vars['post_content'] = sprintf(
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
 					$slug,
-					$this->romanizePartNumbers ? \PressBooks\L10n\romanize( $i ) : $i,
+					( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $i ) : $i ) : '' ),
 					Sanitize\decode( $part['post_title'] ) );
 
 				$file_id = 'part-' . sprintf( "%03s", $i );
