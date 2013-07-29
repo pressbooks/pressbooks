@@ -80,6 +80,7 @@ abstract class Import {
 		}
 
 		\PressBooks\Book::deleteBookObjectCache();
+		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 
 		return delete_option( 'pressbooks_current_import' );
 	}
