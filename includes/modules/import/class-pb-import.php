@@ -325,6 +325,7 @@ abstract class Import {
 			if ( ! $ok ) {
 				// Not ok?
 				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
+				unlink ( $upload['file'] );
 			}
 
 		}
