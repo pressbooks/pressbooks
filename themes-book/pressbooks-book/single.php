@@ -4,6 +4,8 @@
 
 <div class="content-wrapper">  
 
+  
+
 	<div class="content">
 
 		<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
@@ -27,16 +29,16 @@
 					<?php the_content(); ?>
 				</div><!-- .entry-content -->
 			</div><!-- #post-## -->
-
+		
+		<?php get_template_part( 'content', 'social-sharing' ); ?> 		
 	</div><!-- .content -->
 			
-				<?php get_template_part( 'content', 'social-footer' ); ?> 
+
 			
 				<?php comments_template( '', true ); ?>
 				<?php else: ?>
 				<?php pb_private(); ?>
 			<?php endif; ?>
-
 
 
 	

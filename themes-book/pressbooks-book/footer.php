@@ -1,8 +1,6 @@
 <div class="footer">
 	<div class="inner">
-		<?php if (get_option('blog_public') == '1' || is_user_logged_in()): ?>
-			<?php if (is_page() || is_home( ) ): ?>
-			
+		<?php if (get_option('blog_public') == '1' || is_user_logged_in()): ?>			
 			<table>
 				<tr>
 					<td><?php _e('Book Name', 'pressbooks'); ?>:</td>
@@ -28,7 +26,7 @@
 
 				</table>
 				<?php endif; ?>
-				<?php endif; ?>
+
 			<p class="cie-name"><a href="http://pressbooks.com"><?php _e('PressBooks.com: Simple Book Production', 'pressbooks'); ?></a></p>
 	</div><!-- #inner -->
 </div><!-- #footer -->

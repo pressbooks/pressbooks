@@ -8,20 +8,26 @@
 		<ul class="book-nav">
 		<!-- If Logged in show ADMIN -->
 			<?php global $blog_id; ?>
-			<?php if (current_user_can_for_blog($blog_id, 'edit_posts') || is_super_admin()): ?>
-				<li class="icon-fontawesome-webfont-2"><a href="<?php echo get_option('home'); ?>/wp-admin"><?php _e('Admin', 'pressbooks'); ?></a></li>
-			<?php endif; ?>
-		
-				<li class="icon-home-1"><a href="<?php echo get_option('home'); ?>"><?php _e('Home', 'pressbooks'); ?></a></li>
 
-		<!-- TOC button always there -->
-				<li class="toc-btn"><a href="<?php echo get_option('home'); ?>/table-of-contents"><?php _e('Table of Contents', 'pressbooks'); ?></a></li>
+			<li class="icon-book-cover"><a href="<?php echo get_option('home'); ?>"><?php _e('Home', 'pressbooks'); ?></a></li>			
+
+    		<?php if (!is_user_logged_in()): ?>
+				<li class="icon-login"><a href="<?php echo wp_login_url(); ?>" class=""><?php _e('Login', 'pressbooks'); ?></a></li>
+			<?php else: ?>
+				<li class="icon-logout"><a href="<?php echo  wp_logout_url(); ?>" class=""><?php _e('Logout', 'pressbooks'); ?></a></li>
+			<?php if (current_user_can_for_blog($blog_id, 'edit_posts') || is_super_admin()): ?>
+				<li class="icon-admin"><a href="<?php echo get_option('home'); ?>/wp-admin"><?php _e('Admin', 'pressbooks'); ?></a></li>
+			<?php endif; ?>
+    	<?php endif; ?>
+
+
 			</ul>
 
 		<!-- Pop out TOC only on READ pages -->
 		<?php if (is_single()): ?>
 		<?php $book = pb_get_book_structure(); ?>
 		<div class="toc">
+			<h3>Table of content</h3>
 			<ul>
 				<li>
 					<ul>
@@ -51,7 +57,7 @@
 					</ul>
 				</li>
 			</ul>
-		</div><!-- end #toc -->
+		</div><!-- end #toc -->	
 		<?php endif; ?>
 
 

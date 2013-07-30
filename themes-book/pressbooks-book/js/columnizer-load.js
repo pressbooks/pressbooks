@@ -3,7 +3,7 @@
     $(document).ready(function() {
 
       	 // Book info page Table of Content columns
-		$('#table-of-content').columnize({ width: 320 });
+		$('#table-of-content').columnize({ width: 480 });
         
 
 

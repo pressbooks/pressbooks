@@ -24,20 +24,13 @@ $metakeys = array(
  
 function pressbooks_book_info_page () {
 
-	if ( is_front_page() ) {
-		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130713', 'all' );
-		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700|Montserrat:400,700');  
+		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130713', 'all' ); 
+
+	if ( is_front_page() ) { 
 		
 		// Book info page Table of Content columns
 		wp_enqueue_script( 'columnizer',  PB_PLUGIN_URL . 'symbionts/jquery/jquery.columnizer.min.js', array( 'jquery' ), '20130712', false );
 		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '20130712', false );
-		
-		// Sharrre
-		wp_enqueue_script( 'sharrre', PB_PLUGIN_URL . 'symbionts/jquery/sharrre/jquery.sharrre-1.3.4.min.js', array( 'jquery' ), '20130712', false );
-		wp_enqueue_script( 'sharrre-load', get_template_directory_uri() . '/js/sharrre-load.js', array( 'jquery', 'sharrre' ), '20130712', false );
-		wp_localize_script( 'sharrre-load', 'PB_SharrreToken', array(
-			'urlCurl' => PB_PLUGIN_URL . 'symbionts/jquery/sharrre/sharrre.php',
-		) );
 	}   		 		   		   		       		           
 }     
 add_action('wp_enqueue_scripts', 'pressbooks_book_info_page'); 
@@ -61,9 +54,17 @@ function pb_enqueue_scripts() {
 		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
 		wp_enqueue_script( 'menu-slide', get_template_directory_uri() . "/js/slide-menu/jquery.sidr.min.js", array( 'jquery' ), '1.0', true );
 		wp_enqueue_script( 'menu-slide-init', get_template_directory_uri() . "/js/slide-menu/slide.js", array( 'jquery' ), '1.0', true );		
-		wp_enqueue_style( 'menu-slide-css', PB_PLUGIN_URL . 'themes-book/pressbooks-book/js/slide-menu/stylesheets/jquery.sidr.dark.css', array(), null, 'screen' );		
+		wp_enqueue_style( 'menu-slide-css', get_template_directory_uri() . '/css/sidr.dark.css', array(), null, 'screen' );		
 				
 	}
+	wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700|Arimo:400,700,400italic');	
+	
+	// Sharrre
+	wp_enqueue_script( 'sharrre', PB_PLUGIN_URL . 'symbionts/jquery/sharrre/jquery.sharrre-1.3.4.min.js', array( 'jquery' ), '20130712', false );
+	wp_enqueue_script( 'sharrre-load', get_template_directory_uri() . '/js/sharrre-load.js', array( 'jquery', 'sharrre' ), '20130712', false );
+	wp_localize_script( 'sharrre-load', 'PB_SharrreToken', array(
+		'urlCurl' => PB_PLUGIN_URL . 'symbionts/jquery/sharrre/sharrre.php',
+	) );	
 	wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
 		
 }

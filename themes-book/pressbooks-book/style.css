@@ -290,35 +290,32 @@ a.button-red:active {
   Sticky Nav Header
 *********************/
 nav.nav-container {
-    border-bottom: 1px solid #EEE;
-	display: table;
-    margin: 0 auto 20px;
-	position: relative;
-	overflow: hidden;
+    margin: 0 auto;
+	text-align: center;
 	width: 100%;
 }
 .pressbooks-logo {
-	background-color: #444;
-	display: table-cell;	
-	float: left;
+	background-color: #fff;
+	border: 1px solid #333;
 	font: 1em 'Oswald', Arial, Helvetica, sans-serif;
+	padding: 5px 7px;
 	margin: 0;
-	padding: 10px 0;
+	position: absolute;
+	top: 10px;
+	left: 20px;
 	text-align: center;
 	text-transform: uppercase;
-	width: 15%;
 }
 .pressbooks-logo a {
-  color: #fff;
+  color: #333;
   text-decoration: none;
 }
 h1.book-title {
-	display: table-cell;	
-	font: 1.2em/1.8 'Droid Serif',serif;
-	float: left;
-	margin-bottom: 0;
-	text-align: center;
-	width: 69.9%;
+   	font: 1.2em/1.8 'Droid Serif',serif;
+    margin: 10px auto 0;
+    text-align: center;
+    max-width: 680px;
+    width: 100%;
 }
 h1.book-title a {
   color: #333;
@@ -326,18 +323,13 @@ h1.book-title a {
   text-transform: none;
 }
 .menu-wrap {
-	display: table-cell;
-	float: left;
-	line-height: 2.6em;	
-	text-align: center;
-	width: 15%;
+	font-size: 1.6em;
+	position: absolute;
+	top: 10px;
+	right: 50px;
+	width: 30px;;
 }
-.menu-wrap-inner {
-	border-left: 1px solid #eee;
-	display: table-cell;		
-	float: right;
-	width: 33%;
-}
+
 
 /**************
      Sub-Nav
@@ -347,41 +339,9 @@ h1.book-title a {
   letter-spacing: 0;
   text-align: center;
 }
-/********************
-	Modal
-*********************/
-.overlay {
-  	width: 100%;
-  	height: 100%;
-  	position: fixed;
-  	top: 0;
-  	left: 0;
-  	z-index: 1000;
-  	display: none;
-}
-.modal {
-	border: 1px solid #eee;
-	border-width: 1px 1px 0;
-	display: none;
-	background: #fff;
-	line-height: 1.4em;
-	overflow: auto;
-	z-index: 1001;
-	position: absolute;
-	width: 500px;
-	min-height: 200px;
-	margin-left: 260px; 
-}
-.book-info-container .modal {
-	margin-left: 0;
-}
-.closeBtn {
-	cursor: pointer;
-	margin: 10px 10px 0 0;
-	text-align: right;
-}
 
 /* Icon Fonts */
+
  
 [data-icon]:before {
   font-family: "pb-book-read";
@@ -402,33 +362,33 @@ h1.book-title a {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
 } 
-.icon-reorder {
+ .icon-menu-list {
 	color: #333;
 	text-align: right;
 	text-decoration: none;
 }
-.icon-home-1:before {
-   content: "e"; 
-} 
- 
-.icon-reorder:before {
+.icon-menu-list:before {
    content: "f"; 
 } 
  
-.icon-fontawesome-webfont:before {
+.icon-buy:before {
    content: "i"; 
 } 
  
-.icon-enter:before {
-   content: "j"; 
-} 
- 
-.icon-fontawesome-webfont-1:before {
+.icon-logout:before {
    content: "a"; 
 } 
  
-.icon-fontawesome-webfont-2:before {
+.icon-admin:before {
    content: "b"; 
+} 
+ 
+.icon-login:before {
+   content: "g"; 
+} 
+ 
+.icon-book-cover:before {
+   content: "c"; 
 }
 
 /********************
@@ -491,6 +451,7 @@ div.aligncenter {
   float: right;
   margin: 0 0 10px 10px;
 }
+
 /**********************
     Gallery listing
 ***********************/
@@ -517,6 +478,7 @@ div.aligncenter {
 	margin: 0 auto;
 	width: 940px;
 }
+
 /***********************
 	 Page Navigation
 ************************/
@@ -807,6 +769,7 @@ ol li li li::before {
  -webkit-transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); 
+  display: none;
 }
 .edit-link a {
   	display: block;
@@ -938,7 +901,6 @@ h3.author-name {
 .buy-book h2 + p {
 	margin-bottom: 30px;
 }
-
 .buy-book ul {
 	padding-left: 0;
 	margin: 40px 0 40px;
@@ -1028,7 +990,7 @@ h3.author-name {
 .footer {
   background-color: #efefef;
   color: #666;
-  font: 0.75em/1.5em Arial, Helvetica, sans-serif;
+  font: 0.75em/1.5em 'Arimo', sans-serif;
 }
 .footer .inner {
   margin: auto;
@@ -1058,17 +1020,21 @@ h3.author-name {
 }
 /********************
 	Comments
-*********************/#comments {
-  margin: 0 auto;
-  padding: 30px 60px;
-  width: 520px;
+*********************/
+#comments {
+	clear:both;
+	font-family: 'Arimo', sans-serif;
+	margin: auto;
+	padding-top: 100px;
+	max-width: 680px;
+	width: 100%;
 }
 h3#reply-title {
 	font-size: 1.1em;
 	font-style: normal;
 	font-variant: normal;
 	font-weight: bold;
-	margin-bottom: 10px;
+	margin-bottom: 0;
 }
 h3#comments-title {
 	font-size: 1.1em;
@@ -1108,12 +1074,8 @@ cite.fn {
   background-color: #222;
   border: 1px solid #000;
   color: #fff;
-  cursor: pointer;
-  font: 0.75em 'Oswald', Arial, Helvetica, sans-serif;
+  cursor: pointer; 
   text-shadow: 0 1px 0 #000;
-  -moz-border-radius: 6px;
-  -o-border-radius: 6px;
-  -webkit-border-radius: 6px;
   border-radius: 6px;
   padding: 2px 3px;
   text-decoration: none;
@@ -1124,42 +1086,38 @@ cite.fn {
 .reply a:active {
   background-color: #222222;
 }
+
 /********************
 	Comment Form
-*********************/.required {
+*********************/
+.required {
   color: #870d0d;
 }
 .comment-notes {
-  font-size: 0.875em;
+	color: #666;
+	font-size: 0.75em;
 }
 .comment-form-author,
 .comment-form-email,
 .comment-form-url,
 .comment-form-comment {
-  margin-bottom: 30px;
-  overflow: hidden;
+	margin-bottom: 20px;
+	overflow: hidden;
 }
 .comment-form-author {
-  margin-top: 40px;
+	margin-top: 20px;
 }
 .comment-form-comment {
-  margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 #commentform label {
-  font: 1em 'Oswald', Arial, Helvetica, sans-serif;
-  float: left;
-  padding-right: 5px;
-  text-align: right;
-  width: 115px;
+	display: block;
 }
 #commentform input,
 #commentform textarea {
-  -moz-border-radius: 6px;
-  -o-border-radius: 6px;
-  -webkit-border-radius: 6px;
-  border-radius: 6px;
-  float: right;
-  width: 350px;
+	background-color: #f0f0f0;
+	border: none;
+	border-radius: 2px;
 }
 #commentform input {
   font-size: 0.875em;
@@ -1169,11 +1127,10 @@ cite.fn {
   color: #bbb;
   font-size: 0.7em;
   line-height: 1.2em;
-  margin: 10px 0 0 170px;
-  width: 350px;
+  margin: 10px 0 0 0;
 }
 .form-submit {
-  margin: 10px 0 0 170px;
+  margin: 10px 0 0 0;
 }
 input#submit {
   background-color: #a62c2c;
@@ -1251,29 +1208,6 @@ code {
     right: 12px;
     top: 0;
     width: auto;
-  }
-  #booknav {
-    background-color: transparent;
-    float: right;
-    margin-top: 0;
-  }
-  #booknav li:first-child {
-    padding-top: 0;
-  }
-  #booknav li {
-    background: #ffffff;
-    border-right: 1px solid #E1E1E1;
-    -moz-border-radius: 6px 6px 0 0;
-    -o-border-radius: 6px 6px 0 0;
-    -webkit-border-radius: 6px 6px 0 0;
-    border-radius: 6px 6px 0 0;
-    float: left;
-    padding-bottom: 10px;
-    height: 40px;
-    width: 70px;
-  }
-  #booknav li a {
-    text-indent: -9999em;
   }
   .admin-btn a {
     background-position: 28px -184px;
@@ -1441,13 +1375,7 @@ code {
   }
 }
 @media screen and (max-device-width: 320px) {
-  /* Nav */
-  #booknav li {
-    height: 30px;
-    margin: 0 0 20px;
-    text-align: center;
-    width: 40px;
-  }
+
   a.log {
     text-indent: -9999em;
     display: block;
