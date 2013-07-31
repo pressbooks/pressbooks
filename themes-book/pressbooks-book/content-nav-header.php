@@ -17,10 +17,3 @@
 </nav>
       
 
-<!--
-    	<?php $metadata = pb_get_book_information(); ?>
-		<?php if ( ! empty( $metadata['pb_author'] ) ): ?>
-     	<h3 class="book-author"><?php echo $metadata['pb_author']; ?></h3>
- 		<?php endif; ?>
--->
-

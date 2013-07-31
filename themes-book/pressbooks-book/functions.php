@@ -51,11 +51,12 @@ function pb_enqueue_scripts() {
 		wp_enqueue_style( 'pressbooks' );
 	}
 	if (! is_front_page() ) {
-		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
-		wp_enqueue_script( 'menu-slide', get_template_directory_uri() . "/js/slide-menu/jquery.sidr.min.js", array( 'jquery' ), '1.0', true );
-		wp_enqueue_script( 'menu-slide-init', get_template_directory_uri() . "/js/slide-menu/slide.js", array( 'jquery' ), '1.0', true );		
-		wp_enqueue_style( 'menu-slide-css', get_template_directory_uri() . '/css/sidr.dark.css', array(), null, 'screen' );		
-				
+		wp_enqueue_script( 'sticky-nav', PB_PLUGIN_URL . 'symbionts/jquery/jquery.sticky.js', array( 'jquery' ), '1.0.0', true );
+		wp_enqueue_script( 'slide-menu', PB_PLUGIN_URL . 'symbionts/jquery/jquery.sidr.min.js', array( 'jquery' ), '1.0', true );		
+		wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );					
+		wp_enqueue_script( 'sticky-load', get_template_directory_uri() . '/js/sticky-load.js', array( 'jquery' ), '1.0', false );
+		wp_enqueue_script( 'slide-load', get_template_directory_uri() . '/js/slide-load.js', array( 'jquery' ), '1.0', true );		
+		wp_enqueue_style( 'slide-menu-css', get_template_directory_uri() . '/css/sidr.dark.css', array(), null, 'screen' );						
 	}
 	wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700|Arimo:400,700,400italic');	
 	
@@ -65,7 +66,7 @@ function pb_enqueue_scripts() {
 	wp_localize_script( 'sharrre-load', 'PB_SharrreToken', array(
 		'urlCurl' => PB_PLUGIN_URL . 'symbionts/jquery/sharrre/sharrre.php',
 	) );	
-	wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
+
 		
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
@@ -97,7 +98,7 @@ function pb_get_links($echo=true) {
   $prev_chapter = pb_get_prev();
   $next_chapter = pb_get_next();
   if ($echo):
-?><div class="book-navigation">
+?><div class="book-navigation" id="book-navigation">
   <?php if ($prev_chapter != '/') : ?>
   <a class="previous icon-chevron-left"href="<?php echo $prev_chapter; ?>"><span class="assistive-text"><?php _e('Previous', 'pressbooks'); ?></span></a>
   <?php endif; ?>
