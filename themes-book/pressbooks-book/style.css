@@ -484,10 +484,10 @@ div.aligncenter {
 	 Book Navigation
 ************************/
 .book-navigation {
-	background-color: #666;
+	left: 50%;
     margin-left: -420px;
-    position: relative;
-    margin-top: 10%;
+    position: fixed;
+	top: 58%;
     width: 840px;
 }
 .ie8 .book-navigation {
