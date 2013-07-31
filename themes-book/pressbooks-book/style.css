@@ -313,9 +313,7 @@ a.button-red:active {
 	right: 30px;
 }
 .pressbooks-logo {
-	float: left;
 	font: 1em 'Oswald', Arial, Helvetica, sans-serif;
-	margin: 0 15px 0 0;
 	text-align: center;
 	text-transform: uppercase;
 }
@@ -330,8 +328,8 @@ a.button-red:active {
 }
 .icon-menu-list {
 	color: #333;
-	font-size: 1.2em;
-    line-height: 1.6em;	
+	font-size: 1em;
+    line-height: 1.8em;	
 	text-decoration: none;
 }
 h1.book-title {
