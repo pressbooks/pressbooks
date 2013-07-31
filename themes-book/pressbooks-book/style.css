@@ -255,10 +255,19 @@ hr.break-blank {
 #header {
   margin: 0 auto 40px;
 }
+.content-wrapper {
+	margin: 70px 0;
+}
 .content {
-	margin: auto;
+	margin:auto ;
 	width: 100%;
-	max-width: 680px;
+	max-width: 840px;
+}
+.entry-title,
+.single .entry-content,
+.single #share {
+	margin: auto;
+	width: 680px;
 }
 .buttons {
   height: 40px;
@@ -338,16 +347,6 @@ h1.book-title a {
   text-transform: none;
 }
 
-
-
-/**************
-     Sub-Nav
-***************/
-.book-author {
-  font: normal 0.75em 'Droid Serif',serif;
-  letter-spacing: 0;
-  text-align: center;
-}
 
 /* Icon Fonts */
  
@@ -483,25 +482,18 @@ div.aligncenter {
 /***********************
 	 Book Navigation
 ************************/
-.book-navigation {
-	left: 50%;
-    margin-left: -420px;
-    position: fixed;
-	top: 58%;
+#book-navigation {
+	margin: 0 auto;
     width: 840px;
 }
 .ie8 .book-navigation {
 	top: 65%;
 }
 .book-navigation .previous {
-  position: absolute;
-  top: 45%;
-  left: 0;
+
 }
 .book-navigation .next {
-  position: absolute;
-  top: 45%;
-  right: 0;
+	float: right;
 }
 .icon-chevron-right,
 .icon-chevron-left {
@@ -617,9 +609,6 @@ div.aligncenter {
 /********************
 	  Content
 *********************/
-.content-wrapper {
-	margin: 70px 0;
-}
 aside {
   background-color: #F6F6F6;
   border: 1px solid #ccc;
