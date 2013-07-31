@@ -45,6 +45,7 @@ abstract class Export {
 		'title-page',
 		'copyright-page',
 		'toc',
+		'pressbooks-promo',
 	);
 
 

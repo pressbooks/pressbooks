@@ -491,6 +491,9 @@ class Epub201 extends Export {
 		// Front-matter
 		$this->createFrontMatter( $book_contents, $metadata );
 
+		// Promo
+		$this->createPromo( $book_contents, $metadata );
+
 		// Parts, Chapters
 		$this->createPartsAndChapters( $book_contents, $metadata );
 
@@ -901,6 +904,38 @@ class Epub201 extends Export {
 		}
 
 		$this->frontMatterPos = $i;
+	}
+
+
+	/**
+	 * @param array $book_contents
+	 * @param array $metadata
+	 */
+	protected function createPromo( $book_contents, $metadata ) {
+
+		$promo_html = apply_filters( 'pressbooks_epub_promo', '' );
+		if ( $promo_html ) {
+
+			$file_id = 'pressbooks-promo';
+			$filename = "{$file_id}.html";
+
+			$vars = array(
+				'post_title' =>  __( 'Make your own books using PressBooks.com', 'pressbooks' ),
+				'stylesheet' => $this->stylesheet,
+				'post_content' => $this->kneadHtml( $promo_html, 'custom' ),
+				'isbn' => @$metadata['pb_ebook_isbn'],
+			);
+
+			file_put_contents(
+				$this->tmpDir . "/OEBPS/$filename",
+				$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+
+			$this->manifest[$file_id] = array(
+				'ID' => -1,
+				'post_title' => $vars['post_title'],
+				'filename' => $filename,
+			);
+		}
 	}
 
 

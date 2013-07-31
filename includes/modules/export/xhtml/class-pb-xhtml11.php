@@ -202,6 +202,9 @@ class Xhtml11 extends Export {
 		// Front-matter
 		$this->echoFrontMatter( $book_contents, $metadata );
 
+		// Promo
+		$this->createPromo( $book_contents, $metadata );
+
 		// Parts, Chapters
 		$this->echoPartsAndChapters( $book_contents, $metadata );
 
@@ -718,6 +721,19 @@ class Xhtml11 extends Export {
 			++$i;
 		}
 		$this->frontMatterPos = $i;
+	}
+
+
+	/**
+	 * @param array $book_contents
+	 * @param array $metadata
+	 */
+	protected function createPromo( $book_contents, $metadata ) {
+
+		$promo_html = apply_filters( 'pressbooks_pdf_promo', '' );
+		if ( $promo_html ) {
+			echo $promo_html;
+		}
 	}
 
 
