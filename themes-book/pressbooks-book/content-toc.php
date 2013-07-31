@@ -27,7 +27,7 @@
 		<?php if (is_single()): ?>
 		<?php $book = pb_get_book_structure(); ?>
 		<div class="toc">
-			<h3>Table of content</h3>
+			<h3>Contents</h3>
 			<ul>
 				<li>
 					<ul>
