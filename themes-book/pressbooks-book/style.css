@@ -314,6 +314,7 @@ a.button-red:active {
 }
 .pressbooks-logo {
 	font: 1em 'Oswald', Arial, Helvetica, sans-serif;
+	margin: 0;
 	text-align: center;
 	text-transform: uppercase;
 }
