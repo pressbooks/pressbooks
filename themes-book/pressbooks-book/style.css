@@ -207,9 +207,11 @@ hr {
 	width: 30%;
 }
 .assistive-text {
+	position: absolute !important;
+	height: 1px; width: 1px; 
+	overflow: hidden;
 	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
 	clip: rect(1px, 1px, 1px, 1px);
-	position: absolute !important;
 }
 
 /**********************
@@ -289,26 +291,39 @@ a.button-red:active {
 /********************
   Sticky Nav Header
 *********************/
-nav.nav-container {
+.nav-wrap {
     margin: 0 auto;
+    position: relative;
 	text-align: center;
-	width: 100%;
+	width: 98%;
+}
+.menu-wrap {
+	font-size: 1.6em;
+	position: absolute;
+	top: 0;
+	right: 30px;
 }
 .pressbooks-logo {
-	background-color: #fff;
-	border: 1px solid #333;
+	float: left;
 	font: 1em 'Oswald', Arial, Helvetica, sans-serif;
-	padding: 5px 7px;
-	margin: 0;
-	position: absolute;
-	top: 10px;
-	left: 20px;
+	margin: 0 15px 0 0;
 	text-align: center;
 	text-transform: uppercase;
 }
 .pressbooks-logo a {
-  color: #333;
   text-decoration: none;
+}
+.pressbooks-logo a img {
+	background-color: transparent;
+	border: none;
+	max-width: inherit;
+	padding: 0;
+}
+.icon-menu-list {
+	color: #333;
+	font-size: 1.2em;
+    line-height: 1.6em;	
+	text-decoration: none;
 }
 h1.book-title {
    	font: 1.2em/1.8 'Droid Serif',serif;
@@ -322,13 +337,7 @@ h1.book-title a {
   text-decoration: none;
   text-transform: none;
 }
-.menu-wrap {
-	font-size: 1.6em;
-	position: absolute;
-	top: 10px;
-	right: 50px;
-	width: 30px;;
-}
+
 
 
 /**************
@@ -341,7 +350,7 @@ h1.book-title a {
 }
 
 /* Icon Fonts */
-
+ 
  
 [data-icon]:before {
   font-family: "pb-book-read";
@@ -362,15 +371,10 @@ h1.book-title a {
   line-height: 1;
   -webkit-font-smoothing: antialiased;
 } 
- .icon-menu-list {
-	color: #333;
-	text-align: right;
-	text-decoration: none;
-}
 .icon-menu-list:before {
    content: "f"; 
 } 
- 
+
 .icon-buy:before {
    content: "i"; 
 } 
@@ -389,6 +393,14 @@ h1.book-title a {
  
 .icon-book-cover:before {
    content: "c"; 
+} 
+ 
+.icon-chevron-left:before {
+   content: "d"; 
+} 
+ 
+.icon-chevron-right:before {
+   content: "e"; 
 }
 
 /********************
@@ -468,69 +480,34 @@ div.aligncenter {
   padding-top: 4px;
 }
 
-/*********************
-	    Menu
-*********************/
-#access {
-	display: none;
-	float: left;
-	background: #000;
-	margin: 0 auto;
-	width: 940px;
-}
-
 /***********************
-	 Page Navigation
+	 Book Navigation
 ************************/
-.pagenav {
-  border: 1px solid #8d8d8d;
-  border-width: 1px 0;
-  padding: 0 0 10px;
+.book-navigation {
+	background-color: #666;
+    margin-left: -420px;
+    position: relative;
+    margin-top: 10%;
+    width: 840px;
 }
-.pagenav.top {
-  margin-bottom: 40px;
-}
-.pagenav.bottom {
-  clear: both;
-  margin-top: 40px;
-}
-.nav {
-    left: 50%;
-    margin-left: -400px;
-    position: fixed;
-    top: 58%;
-    width: 800px;
-}
-.ie8 .nav {
+.ie8 .book-navigation {
 	top: 65%;
 }
-.nav span.previous {
+.book-navigation .previous {
   position: absolute;
   top: 45%;
   left: 0;
 }
-.nav span.next {
+.book-navigation .next {
   position: absolute;
   top: 45%;
   right: 0;
 }
-.nav span a {
-  background: url(images/sprite.png) 0 -573px no-repeat;
-  display: block;
-  overflow: hidden;
-  text-indent: 100%;
-  width: 42px;
-  height: 43px;
-  white-space: nowrap;
-}
-.nav span.next a {
-  background-position: 0 -506px ;
-}
-.nav span a:hover {
-  background-position: -56px -573px;
-}
-.nav span.next a:hover {
-  background-position:  -56px -506px;
+.icon-chevron-right,
+.icon-chevron-left {
+	color: #333;
+	font-size: 1.8em;
+	text-decoration: none;
 }
 
 /* TITILE, SUB-TITLE, AUTHOR AND APHORIS
@@ -641,7 +618,7 @@ div.aligncenter {
 	  Content
 *********************/
 .content-wrapper {
-	margin-top: 70px;
+	margin: 70px 0;
 }
 aside {
   background-color: #F6F6F6;
@@ -1018,6 +995,7 @@ h3.author-name {
   color: #333;
   text-decoration: none;
 }
+
 /********************
 	Comments
 *********************/
@@ -1150,13 +1128,13 @@ input#submit:active {
 }
 /*************************************************
 	Mobile Safari ( iPad, iPhone and iPod Touch )
-**************************************************/pre {
+**************************************************/
+pre {
   -webkit-text-size-adjust: 140%;
 }
 code {
   -webkit-text-size-adjust: 160%;
 }
-#access,
 .entry-meta,
 .entry-utility,
 .navigation,
@@ -1183,15 +1161,6 @@ code {
   /* Style adjustments for portrait mode goes here */
   .h1.book-title {
     width: auto;
-  }
-  .pressbooks-logo {
-    padding: 15px 0 0 20px;
-  }
-  .pressbooks-logo a {
-    background: url(images/sprite.png) -200px -50px no-repeat;
-    display: block;
-    text-indent: -9999em;
-    width: 40px;
   }
   .content,
   .footer .inner,
@@ -1254,7 +1223,7 @@ code {
     z-index: 100;
   }
   /*page nav*/
-  .nav {
+  .book-navigation {
     left: 0;
     margin-left: 0;
     width: 100%;
@@ -1268,7 +1237,7 @@ code {
   .content {
     padding: 20px 10px 10px;
   }
-  .nav {
+  .book-navigation {
     background-color: rgba(250, 250, 250, 0.8);
     bottom: 0;
     box-shadow: -1px -1px 1px #CCC;
@@ -1280,11 +1249,11 @@ code {
     top: auto;
     width: 100%;
     }
-    .nav span.previous {
+    .book-navigation .previous {
     	left: 3px;
     	top: 2px;
     }
-    .nav span.next {
+    .book-navigation .next {
 	    right: 3px;
 	    top: 2px;
     }

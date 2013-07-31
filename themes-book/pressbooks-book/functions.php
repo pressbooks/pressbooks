@@ -97,13 +97,13 @@ function pb_get_links($echo=true) {
   $prev_chapter = pb_get_prev();
   $next_chapter = pb_get_next();
   if ($echo):
-?><div class="nav">
+?><div class="book-navigation">
   <?php if ($prev_chapter != '/') : ?>
-	<span class="previous"><a href="<?php echo $prev_chapter; ?>"><?php _e('Previous', 'pressbooks'); ?></a></span>
+  <a class="previous icon-chevron-left"href="<?php echo $prev_chapter; ?>"><span class="assistive-text"><?php _e('Previous', 'pressbooks'); ?></span></a>
   <?php endif; ?>
 <!-- 	<h2 class="entry-title"><?php the_title(); ?></h2> -->
   <?php if ($next_chapter != '/') : ?>
-	<span class="next"><a href="<?php echo $next_chapter ?>"><?php _e('Next', 'pressbooks'); ?></a></span>
+	<a class="next icon-chevron-right" href="<?php echo $next_chapter ?>"><span class="assistive-text"><?php _e('Next', 'pressbooks'); ?></span></a>	
   <?php endif; ?>
   </div><?php
   endif;
