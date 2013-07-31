@@ -552,7 +552,7 @@ class Hpub extends Export {
 
 		// Copyright
 		// Please be kind, help PressBooks grow by leaving this on!
-		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES'] ) ) {
+		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_HPUB'] ) ) {
 			$freebie_notice = 'This book was produced using <a href="http://pressbooks.com/">PressBooks.com</a>.';
 			$html .= "<p>$freebie_notice</p>";
 		}
