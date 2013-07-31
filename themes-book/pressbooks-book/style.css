@@ -267,7 +267,8 @@ hr.break-blank {
 .single .entry-content,
 .single #share {
 	margin: auto;
-	width: 680px;
+    max-width: 680px;
+    width: 100%;
 }
 .buttons {
   height: 40px;
@@ -483,7 +484,8 @@ div.aligncenter {
 ************************/
 #book-navigation {
 	margin: 0 auto;
-    width: 840px;
+    max-width: 840px;
+    width: 100%;
 }
 .ie8 .book-navigation {
 	top: 65%;
@@ -960,7 +962,8 @@ h3.author-name {
 .footer .inner {
   margin: auto;
   padding: 30px 60px;
-  width: 520px;
+  width: 100%;
+  max-width: 520px;
 }
 .footer .inner table {
   margin: 0 auto 40px;
@@ -1009,48 +1012,52 @@ h3#comments-title {
 	font-weight: bold;
 }
 ol.commentlist {
-  list-style: decimal;
+  list-style: none;
 }
 ol.commentlist li {
-  background: #eeeeee;
-  border: 1px solid #ccc;
-  border-color: #FFF #CCC #CCC #DEDEDE;
-  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
 }
-ol.commentlist li.odd {
-  background: #ffffff;
-  border-left: 1px solid #dedede;
+ol.commentlist li:before {
+	content: "";
 }
 .comment-author {
-  font-size: 0.8em;
+	font-size: 0.8125em; /* 13/16 */
+	color: #888;
 }
 img.avatar {
-  float: left;
-  margin: 0 10px 10px 0;
-  width: auto;
-}
+    background-color: transparent;
+    border: medium none;
+    float: left;
+    margin: 0 10px 10px 0;
+    padding: 0;
+    width: auto;
+ }
 cite.fn {
-  display: block;
-  font-style: normal;
+	color: #333;
+	display: block;
+	font-style: normal;
+	font-size: 1.15em; /* 15/13 */ 
+}
+cite.fn a {
+	text-decoration: none;
 }
 .comment-body {
   clear: both;
+  color: #555;
+  font-size: 0.875em;
 }
 .reply a {
-  background-color: #222;
-  border: 1px solid #000;
-  color: #fff;
-  cursor: pointer; 
-  text-shadow: 0 1px 0 #000;
-  border-radius: 6px;
-  padding: 2px 3px;
+  background-color: #ddd;
+  color: #333;
+  cursor: pointer;
+  font-size: 0.65em;
+  border-radius: 2px;
+  padding: 3px 5px;
   text-decoration: none;
 }
 .reply a:hover {
-  background-color: #2c2c2c;
-}
-.reply a:active {
-  background-color: #222222;
+  background-color: #ccc;
 }
 
 /********************
@@ -1114,6 +1121,7 @@ input#submit:hover {
 input#submit:active {
   background-color: #820808;
 }
+
 /*************************************************
 	Mobile Safari ( iPad, iPhone and iPod Touch )
 **************************************************/
@@ -1136,280 +1144,38 @@ code {
  * Media queries for responsive design
  * These follow after primary styles so they will successfully override. 
  */
-@media screen and (max-width: 1024px) {
-  /* Style adjustments for portrait mode goes here */
-  .content {
-    font-size: 1.1em;
-  }
-  nav.sticky.mobile {
-    position: static;
-  }
-}
-@media screen and (max-width: 768px) {
-  /* Style adjustments for portrait mode goes here */
-  .h1.book-title {
-    width: auto;
-  }
-  .content,
-  .footer .inner,
-  #comments {
-    width: auto;
-  }
-  .content {
-    border-top: 1px solid #f5f5f5;
-    margin: 0 10px 60px;
-  }
-  #sidebar {
-    margin: 0;
-    padding: 0;
-    right: 12px;
-    top: 0;
-    width: auto;
-  }
-  .admin-btn a {
-    background-position: 28px -184px;
-  }
-  .home-btn a {
-    background-position: -24px -184px;
-  }
-  .toc-btn a {
-    background-position: -124px -182px;
-  }
-  .read-btn a {
-    background-position: -181px -187px;
-  }
-  .authors-btn a {
-    background-position: -326px -183px;
-  }
-  .about-btn a {
-    background-position: -258px -185px;
-  }
-  a.logout {
-    background-position: 9px -32px;
-  }
-  a.login {
-    background-position: 9px 18px;
-  }
-  /* Side nav*/
-  #toc h4 {
-    margin: 25px 0 2px;
-  }
-  a.close {
-    background-position: 160px -50px;
-    width: 100%;
-  }
-  .share-single li.facebook {
-    margin: 0;
-  }
-  .wrapper,
-  #toc {
-    position: relative;
-  }
-  #toc {
-    margin-top: 47px;
-    margin-left: 0;
-    z-index: 100;
-  }
-  /*page nav*/
-  .book-navigation {
-    left: 0;
-    margin-left: 0;
-    width: 100%;
-}
-}
-@media screen and (max-device-width: 480px) {
-  h1.book-title,
-  .author-wrap {
-    width: auto;
-  }
-  .content {
-    padding: 20px 10px 10px;
-  }
-  .book-navigation {
-    background-color: rgba(250, 250, 250, 0.8);
-    bottom: 0;
-    box-shadow: -1px -1px 1px #CCC;
-    height: 43px;
-    left: 0;
-    margin-left: 0;
-    overflow: hidden;
-    padding: 2px 0;
-    top: auto;
-    width: 100%;
-    }
-    .book-navigation .previous {
-    	left: 3px;
-    	top: 2px;
-    }
-    .book-navigation .next {
-	    right: 3px;
-	    top: 2px;
-    }
-  /* Cover page */
-  img.featured {
-    display: block;
-    float: none;
-    margin: 0 auto;
-  }
-  .about140 {
-    margin-left: 0;
-    padding: 20px 0 0 0;
-  }
-  /* Cover Page */
-  .buttons {
-    overflow: visible;
-    height: auto;
-    width: auto;
-  }
-  .buttons li {
-    display: block;
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  .buttons li a.button-grey,
-  .buttons li a.button-black {
-    display: block;
-    float: none;
-    margin: auto;
-    width: auto;
-  }
-  /* Navigation */
-  #toc {
-    position: absolute;
-    right: 0;
-  }
-  /* Share btns*/
-  .share-wrap {
-    display: none;
-  }
-  .share-wrap-single {
-    margin: 0 10px 30px;
-    width: auto;
-  }
-  /* Book read nav*/
-  .entry-title {
-    width: auto;
-  }
-  .pagenav.top {
-    margin-bottom: 20px;
-  }
-  .pagenav.bottom {
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-  /* Comments */
-  #commentform textarea,
-  #commentform input {
-    float: none;
-    width: 100%;
-  }
-  #commentform label {
-    float: none;
-    text-align: left;
-    width: auto;
-  }
-  .comment-form-author,
-  .comment-form-email,
-  .comment-form-url,
-  .comment-form-comment {
-    overflow: visible;
-  }
-  #respond .form-allowed-tags {
-    margin: 0 auto;
-    width: auto;
-  }
-  .form-submit {
-    margin: 10px auto 0;
-  }
-  /* About the Author page */
-  h3.author-name {
-    margin: 0 ;
-  }
-  .bio {
-    float: none;
-    margin-right: 0;
-    width: 100%;
-  }
-}
-@media screen and (max-device-width: 320px) {
 
-  a.log {
-    text-indent: -9999em;
-    display: block;
-    padding: 15px 0;
-    width: 40px;
-  }
-  .admin-btn a {
-    background-position: 12px -187px;
-  }
-  .home-btn a {
-    background-position: -38px -187px;
-  }
-  .toc-btn a {
-    background-position: -139px -186px;
-  }
-  .read-btn a {
-    background-position: -195px -190px;
-  }
-  .authors-btn a {
-    background-position: -340px -187px;
-  }
-  .about-btn a {
-    background-position: -271px -189px;
-  }
-  a.logout {
-    background-position: 13px -37px;
-  }
-  a.login {
-    background-position: 13px 14px;
-  }
-  /* Side nav*/
-  #toc h4 {
-    margin: 25px 0 2px;
-  }
-  a.close {
-    background-position: 160px -50px;
-    width: 100%;
-  }
-  .share-single li.facebook {
-    margin: 0;
-  }
-  .entry-title {
-    width: auto;
-  }
-  /* Layout */
-  blockquote {
-    padding-left: 30px;
-  }
-  blockquote p {
-    padding: 5px;
-  }
-  aside {
-    float: none;
-    width: auto;
-  }
-  .content tr td {
-    padding: 6px 14px;
-  }
-  pre {
-    padding: .5em;
-    font-size: 0.7em;
-  }
-  /* Imgages */
-  img {
-    background: transparent;
-    border: none;
-    padding: 0;
-    width: auto;
-  }
-  #commentform textarea,
-  #commentform input {
-    width: 90%;
-  }
-  /* Comments */
-  #comments {
-    padding: 30px 10px;
-  }
+@media screen and (max-width: 840px) {
+	.entry-title,
+	.single .entry-content,
+	.single #share,
+	#comments {
+	    width: 80%;
+	} 	
+}
+
+@media screen and (max-width: 480px) {
+	.entry-title,
+	.single .entry-content,
+	.single #share,
+	#comments {
+	    width: 85%;
+	}
+	h1.book-title {
+		margin-top: 60px;
+	}	
+	.menu-wrap {
+	    left: 5px;
+	    top: -55px;
+	    width: 95%;
+	} 
+	.pressbooks-logo {
+	      float: left;
+	 }
+	.icon-menu-list {
+		vertical-align: top;
+		float: right;
+	}    
 }
 /* Grade-A Mobile Browsers (Opera Mobile, iPhone Safari, Android Chrome)  
    Consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
