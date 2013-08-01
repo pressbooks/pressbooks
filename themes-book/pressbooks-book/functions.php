@@ -800,7 +800,7 @@ function pressbooks_theme_pdf_css_override( $css ) {
 
 	// Display chapter numbers? true (default) / false
 	if ( ! @$options['chapter_numbers'] ) {
-		$css .= "h3.part-number, h3.chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
+		$css .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
 	}
 
 	// --------------------------------------------------------------------
@@ -909,7 +909,7 @@ function pressbooks_theme_ebook_css_override( $css ) {
 	$options = get_option( 'pressbooks_theme_options_global' );
 
 	if ( ! @$options['chapter_numbers'] ) {
-		$css .= ".chapter-number:after { content: ''; } \n";
+		$css .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
 	}
 
 	// --------------------------------------------------------------------
