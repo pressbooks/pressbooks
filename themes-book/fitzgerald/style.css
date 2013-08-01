@@ -2,12 +2,12 @@
 Theme Name: Fitzgerald 
 Theme URI: http://pressbooks.com/
 Description: Serif body, with condensed sans serif header fonts. Based on a theme commissioned by the University of Minnesota Press.
-
 Author: PressBooks (Book Oven Inc.)
+Author URI: http://pressbooks.com
+Copyright 2011-2013 Book Oven Inc. (PressBooks.com) code@pressbooks.com
 Version: 1.0
 Template: pressbooks-book
-Author URI: http://pressbooks.com
-Copyright 2011-2013 Book Oven Inc. (PressBooks.com) support@pressbooks.com
+
 */
 
 @import url("../pressbooks-book/style.css");
