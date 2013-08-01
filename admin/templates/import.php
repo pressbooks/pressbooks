@@ -97,7 +97,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 		<!-- Start by uploading a file -->
 
 		<p>
-			<?php _e( 'Supported file extensions:', 'pressbooks' ); ?> XML, EPUB <br />
+			<?php _e( 'Supported file extensions:', 'pressbooks' ); ?> XML, EPUB, ODT <br />
 			<?php _e( 'Maximum file size:', 'pressbooks' ); echo ' ' . ini_get( 'upload_max_filesize' ); ?>
 		</p>
 
@@ -107,7 +107,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 				<tbody>
 				<tr>
 					<th scope="row">
-						<label for="type_of">Type of</label>
+						<label for="type_of"><?php _e( 'Type of file', 'pressbooks' ); ?></label>
 					</th>
 					<td>
 						<select id="type_of" name="type_of">
@@ -119,7 +119,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 				</tr>
 				<tr>
 					<th scope="row">
-						<label for="import_file">File</label>
+						<label for="import_file"><?php _e( 'File', 'pressbooks' ); ?></label>
 					</th>
 					<td>
 						<input type="file" name="import_file" id="import_file">
