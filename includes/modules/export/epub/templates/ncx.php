@@ -16,7 +16,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		<!-- The following four metadata items are required for all NCX documents,
 		including those conforming to the relaxed constraints of OPS 2.0 -->
 
-		<meta name="dtb:uid" content="<?php echo $dtd_uid; ?>" /> <!-- same as in .opf -->
+		<meta name="dtb:uid" content="<?php echo trim( $dtd_uid ); ?>" /> <!-- same as in .opf -->
 		<meta name="dtb:depth" content="2"/> <!-- 1 or higher -->
 		<meta name="dtb:totalPageCount" content="0"/> <!-- must be 0 -->
 		<meta name="dtb:maxPageNumber" content="0"/> <!-- must be 0 -->

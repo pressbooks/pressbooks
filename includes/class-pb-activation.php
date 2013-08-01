@@ -92,8 +92,10 @@ class Activation {
 
 		restore_current_blog();
 
-		if ( is_user_logged_in() )
+		if ( is_user_logged_in() ) {
+			( new \PressBooks\Catalog() )->deleteCache();
 			\PressBooks\Redirect\location( get_admin_url( $this->blog_id ) );
+		}
 
 	}
 

@@ -88,6 +88,13 @@ add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_catalog', 1 );
 add_filter( 'login_redirect', '\PressBooks\Redirect\login', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
+// Sitemap
+// -------------------------------------------------------------------------------------------------------------------
+
+add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_sitemap' );
+add_action( 'do_robotstxt', '\PressBooks\Utility\add_sitemap_to_robots_txt' );
+
+// -------------------------------------------------------------------------------------------------------------------
 // Shortcodes
 // -------------------------------------------------------------------------------------------------------------------
 
@@ -127,3 +134,5 @@ add_action( 'init', function () {
 // -------------------------------------------------------------------------------------------------------------------
 
 add_filter( 'xmlrpc_enabled', '__return_false' );
+remove_action( 'wp_head', 'rsd_link' );
+remove_action( 'wp_head', 'wlwmanifest_link' );

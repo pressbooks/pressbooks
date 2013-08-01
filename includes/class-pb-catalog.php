@@ -900,22 +900,19 @@ class Catalog {
 
 
 	/**
-	 * Simple templating function.
+	 * Find and load our catalog template.
 	 *
-	 * @param int $user_id
+	 * @param int $userId
 	 */
-	static function loadTemplate( $user_id ) {
+	static function loadTemplate( $userId ) {
 
-		$_child = untrailingslashit( get_stylesheet_directory() ) . '/pb-catalog.php';
-		$_parent = untrailingslashit( get_template_directory() ) . '/pb-catalog.php';
-		$_default = untrailingslashit( PB_PLUGIN_DIR ) . '/themes-root/pressbooks-publisher-one/pb-catalog.php';
+		global $wp_query;
+		$wp_query->set( 'pb_user_id', $userId );
 
-		if ( is_file( $_child ) ) {
-			require( $_child );
-		} elseif ( is_file( $_parent ) ) {
-			require( $_parent );
+		if ( $overridden_template = locate_template( 'pb-catalog.php' ) ) {
+			load_template( $overridden_template, false );
 		} else {
-			require( $_default );
+			load_template( PB_PLUGIN_DIR . 'themes-root/pressbooks-publisher-one/pb-catalog.php', false );
 		}
 	}
 

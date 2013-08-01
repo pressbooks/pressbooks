@@ -14,7 +14,6 @@ if ( ! defined( 'ABSPATH' ) )
 require( PB_PLUGIN_DIR . 'admin/pb-admin-dashboard.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
-require( PB_PLUGIN_DIR . 'admin/pb-admin-users.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -33,6 +32,7 @@ add_filter( 'admin_footer_text', '\PressBooks\Admin\Laf\add_footer_link' );
 
 if ( \PressBooks\Book::isBook() ) {
 	// Aggressively replace default interface
+	add_action( 'admin_init', '\PressBooks\Admin\Laf\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
@@ -94,7 +94,7 @@ if ( \PressBooks\Book::isBook() ) {
 // Custom user profile
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'admin_init', '\PressBooks\Admin\Users\add_user_meta' );
+add_action( 'admin_init', '\PressBooks\Admin\Metaboxes\add_user_meta' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Ajax

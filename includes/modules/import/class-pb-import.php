@@ -80,6 +80,7 @@ abstract class Import {
 		}
 
 		\PressBooks\Book::deleteBookObjectCache();
+		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 
 		return delete_option( 'pressbooks_current_import' );
 	}
@@ -163,20 +164,22 @@ abstract class Import {
 		return $_POST['chapters'][$id]['type'];
 	}
 
+
 	/**
 	 * Checks if the file extension matches its mimetype, returns a modified
-	 * filename if they don't match. 
-	 * 
+	 * filename if they don't match.
+	 *
 	 * @param string $path_to_file
 	 * @param string $filename
+	 *
 	 * @return string - modified filename if the extension did not match the mimetype,
 	 * otherwise returns the filename that was passed to it
 	 */
 	protected function properImageExtension( $path_to_file, $filename ) {
-		$mimes = array (
-		    'jpg|jpeg|jpe' => 'image/jpeg',
-		    'gif' => 'image/gif',
-		    'png' => 'image/png',
+		$mimes = array(
+			'jpg|jpeg|jpe' => 'image/jpeg',
+			'gif' => 'image/gif',
+			'png' => 'image/png',
 		);
 
 		// Attempt to determine the real file type of a file.
@@ -189,7 +192,8 @@ abstract class Import {
 			return $filename;
 		}
 	}
-	
+
+
 	/**
 	 * Tidy HTML
 	 *
@@ -256,6 +260,11 @@ abstract class Import {
 					$importer = new Wordpress\Wxr();
 					$ok = $importer->import( $current_import );
 					break;
+
+				case 'odt':
+					$importer = new Odf\Odt();
+					$ok = $importer->import( $current_import );
+					break;
 			}
 
 			$msg = "Tried to import a file of type {$current_import['type_of']} and ";
@@ -273,7 +282,11 @@ abstract class Import {
 			// --------------------------------------------------------------------------------------------------------
 			// Set the 'pressbooks_current_import' option
 
-			$allowed_file_types = array( 'epub' => 'application/epub+zip', 'xml' => 'application/xml' );
+			$allowed_file_types = array(
+				'epub' => 'application/epub+zip',
+				'xml' => 'application/xml',
+				'odt' => 'application/vnd.oasis.opendocument.text',
+			);
 			$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
 
 			if ( ! function_exists( 'wp_handle_upload' ) )
@@ -299,6 +312,11 @@ abstract class Import {
 					$importer = new Epub\Epub201();
 					$ok = $importer->setCurrentImportOption( $upload );
 					break;
+
+				case 'odt':
+					$importer = new Odf\Odt();
+					$ok = $importer->setCurrentImportOption( $upload );
+					break;
 			}
 
 			$msg = "Tried to upload a file of type {$_POST['type_of']} and ";
@@ -308,6 +326,7 @@ abstract class Import {
 			if ( ! $ok ) {
 				// Not ok?
 				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
+				unlink ( $upload['file'] );
 			}
 
 		}
@@ -349,7 +368,7 @@ abstract class Import {
 	 * @deprecated
 	 *
 	 * @param string $message
-	 * @param array  $more_info
+	 * @param array $more_info
 	 */
 	static function log( $message, array $more_info = array() ) {
 

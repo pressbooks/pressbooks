@@ -126,7 +126,7 @@ function _base_url() {
 // -------------------------------------------------------------------------------------------------------------------
 
 $base_href = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher-one/';
-$catalog = new PB_Catalog( absint( $user_id ) ); // Note: $user_id is set in PB_Catalog::loadTemplate()
+$catalog = new PB_Catalog( absint( $pb_user_id ) ); // Note: $pb_user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();
 $books = _books( $catalog );
 
@@ -146,13 +146,13 @@ $_current_user_id = $catalog->getUserId();
 <!--[if IE 9 ]>    <html <?php language_attributes(); ?> class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"> <!--<![endif]-->
 <head>
-	<base href="<?php echo $base_href; ?>">
+	<base href="<?php echo $base_href; ?>" />
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 	<title><?php _e( 'Catalog Page', 'pressbooks' ); ?> | PressBooks</title>
 	<link rel="stylesheet" type="text/css" href="style-catalog.css?ver=2" />
-	<link href='http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="<?php echo esc_url( site_url( '/wp-includes/js/jquery/jquery.js?ver=1.8.3' ) ); ?>"></script>
+	<link href='<?php echo \PressBooks\Sanitize\maybe_https( 'http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.8.3' ); ?>"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.equalizer.min.js?ver=1.2.3" type="text/javascript"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.mixitup.min.js?ver=1.5.4" type="text/javascript"></script>
 	<script src="js/small-menu.js?ver=0.0.1" type="text/javascript"></script>
@@ -167,11 +167,11 @@ $_current_user_id = $catalog->getUserId();
 			<?php else: ?>
 				<a href="<?php echo wp_logout_url(); ?>" class=""><?php _e( 'logout', 'pressbooks' ); ?></a>
 				<?php
-				if ( get_current_user_id() == $user_id || is_super_admin()) {
-					$user_info = get_userdata( $user_id );
+				if ( get_current_user_id() == $pb_user_id || is_super_admin()) {
+					$user_info = get_userdata( $pb_user_id );
 					$admin_url = get_blogaddress_by_id( $user_info->primary_blog ) . 'wp-admin/index.php?page=pb_catalog';
-					if ( is_super_admin() && get_current_user_id() != $user_id ) {
-						$admin_url .= "&user_id=$user_id";
+					if ( is_super_admin() && get_current_user_id() != $pb_user_id ) {
+						$admin_url .= "&user_id=$pb_user_id";
 					}
 					?><a href="<?php echo $admin_url; ?>"><?php _e('Admin', 'pressbooks'); ?></a><?php
 				}
@@ -221,14 +221,14 @@ $_current_user_id = $catalog->getUserId();
 				<div class="book-data mix<?php echo _tag_classes( $b ); ?>">
 	
 					<div class="book">
-						<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id']  ); ?>"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></a></p>
+						<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id'], '', 'http'  ); ?>"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></a></p>
 						<img src="<?php echo $b['cover_url']['pb_cover_medium']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" />
 					</div><!-- end .book -->
 	
 					<div class="book-info">
 						<h2><?php echo $b['title']; ?></h2>
 	
-						<p><a href="<?php echo get_site_url( $b['blogs_id'] ); ?>"><?php echo $b['author']; ?></a></p>
+						<p><a href="<?php echo get_site_url( $b['blogs_id'], '', 'http' ); ?>"><?php echo $b['author']; ?></a></p>
 					</div><!-- end book-info -->
 	
 				</div><!-- end .book-data -->

@@ -56,7 +56,7 @@ IMPORTANT!
 
  5. Navigate to: Themes → Installed Themes.
 
- 6. Network Enable "Luther", "Clarke", "Donham", "PressBooks Publisher One", and any other PressBooks theme you want to use.
+ 6. Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "PressBooks Publisher One", and any other PressBooks theme you want to use.
 
  7. Navigate to: Settings → Network Settings.
 
@@ -81,10 +81,12 @@ IMPORTANT!
 
 *Part 3, PressBooks dependencies:*
 
- * For PDF export you need to install [Prince](http://pressbooks.com/prince) (note: this is not free software).
- * For MOBI export you need to install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211).
- * For EPUB validation you need to install [EpubCheck](http://code.google.com/p/epubcheck/).
- * Form XML validation you need to install [xmllint](http://xmlsoft.org/xmllint.html).
+ * For PDF export you need to install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 9.0
+ * For MOBI export you need to install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
+ * For EPUB validation you need to install [EpubCheck](http://code.google.com/p/epubcheck/) - Version 3.0.1
+ * Form XML validation you need to install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
+
+Unlisted versions are not supported. Upgrade/downgrade accordingly.
 
 Once installed, define the following wp-config.php variables. The defaults are:
 

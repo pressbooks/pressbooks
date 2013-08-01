@@ -188,6 +188,7 @@ class Icml extends Export {
 	protected function preProcessPostContent( $content ) {
 
 		$content = apply_filters( 'the_content', $content );
+		$content = $this->fixAnnoyingCharacters( $content );
 		$content = $this->tidy( $content );
 
 		return $content;
@@ -207,6 +208,7 @@ class Icml extends Export {
 
 		$config = array(
 			'valid_xhtml' => 1,
+			'unique_ids' => 'fixme-',
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
 			'tidy' => -1,
 		);

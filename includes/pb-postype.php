@@ -7,6 +7,24 @@ namespace PressBooks\PostType;
 
 
 /**
+ * List our post_types
+ *
+ * @return array
+ */
+function list_post_types() {
+
+	return array(
+		'metadata',
+		'part',
+		'chapter',
+		'front-matter',
+		'back-matter',
+		'custom-css',
+	);
+}
+
+
+/**
  * Loads Chapter, Part, Front Matter, Back Matter, and Metadata custom post types
  */
 function register_post_types() {

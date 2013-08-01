@@ -224,6 +224,28 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Fix annoying characters that the user probably didn't do on purpose
+	 *
+	 * @param string $html
+	 *
+	 * @return string|void
+	 */
+	function fixAnnoyingCharacters( $html ) {
+
+		// Do parent first
+		$html = parent::fixAnnoyingCharacters( $html );
+
+		// EPUB specific
+
+		// Adobe Digital Editions has problems with exotic dashes, that is to say if this were 1999...
+		$html = str_replace( array( '–', '&#8211;', '—', '&#8212;', '‑' ), '-', $html );
+
+		return $html;
+	}
+
+
+
+	/**
 	 * Override mimeType, get rid of '; charset=binary'
 	 *
 	 * @param string $file
@@ -336,6 +358,7 @@ class Epub201 extends Export {
 	protected function preProcessPostContent( $content ) {
 
 		$content = apply_filters( 'the_content', $content );
+		$content = $this->fixAnnoyingCharacters( $content );
 		$content = $this->tidy( $content );
 
 		return $content;
@@ -467,6 +490,9 @@ class Epub201 extends Export {
 
 		// Front-matter
 		$this->createFrontMatter( $book_contents, $metadata );
+
+		// Promo
+		$this->createPromo( $book_contents, $metadata );
 
 		// Parts, Chapters
 		$this->createPartsAndChapters( $book_contents, $metadata );
@@ -700,7 +726,7 @@ class Epub201 extends Export {
 
 		// Copyright
 		// Please be kind, help PressBooks grow by leaving this on!
-		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES'] ) ) {
+		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_EPUB'] ) ) {
 			$freebie_notice = 'This book was produced using <a href="http://pressbooks.com/">PressBooks.com</a>.';
 			$html .= "<p>$freebie_notice</p>";
 		}
@@ -885,6 +911,38 @@ class Epub201 extends Export {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 */
+	protected function createPromo( $book_contents, $metadata ) {
+
+		$promo_html = apply_filters( 'pressbooks_epub_promo', '' );
+		if ( $promo_html ) {
+
+			$file_id = 'pressbooks-promo';
+			$filename = "{$file_id}.html";
+
+			$vars = array(
+				'post_title' =>  __( 'Make your own books using PressBooks.com', 'pressbooks' ),
+				'stylesheet' => $this->stylesheet,
+				'post_content' => $this->kneadHtml( $promo_html, 'custom' ),
+				'isbn' => @$metadata['pb_ebook_isbn'],
+			);
+
+			file_put_contents(
+				$this->tmpDir . "/OEBPS/$filename",
+				$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+
+			$this->manifest[$file_id] = array(
+				'ID' => -1,
+				'post_title' => $vars['post_title'],
+				'filename' => $filename,
+			);
+		}
+	}
+
+
+	/**
+	 * @param array $book_contents
+	 * @param array $metadata
+	 */
 	protected function createPartsAndChapters( $book_contents, $metadata ) {
 
 		$part_printf = '<div class="part" id="%s">';
@@ -985,7 +1043,7 @@ class Epub201 extends Export {
 				$vars['post_content'] = sprintf(
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
 					$slug,
-					$this->romanizePartNumbers ? \PressBooks\L10n\romanize( $i ) : $i,
+					( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $i ) : $i ) : '' ),
 					Sanitize\decode( $part['post_title'] ) );
 
 				$file_id = 'part-' . sprintf( "%03s", $i );

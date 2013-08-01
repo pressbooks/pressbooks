@@ -304,7 +304,7 @@ div.part-title-wrap > h3.part-number:before {
 	font-weight: normal;
 	padding-right: 10px;
 }
-.chapter-number:after {
+.chapter-title-wrap > .chapter-number:after {
 	content: ".";
 }
 

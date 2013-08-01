@@ -45,6 +45,7 @@ abstract class Export {
 		'title-page',
 		'copyright-page',
 		'toc',
+		'pressbooks-promo',
 	);
 
 
@@ -283,6 +284,22 @@ abstract class Export {
 
 
 	/**
+	 * Fix annoying characters that the user probably didn't do on purpose
+	 *
+	 * @param string $html
+	 *
+	 * @return string
+	 */
+	function fixAnnoyingCharacters( $html ) {
+
+		// Non-breaking spaces
+		$html = preg_replace( '/\xC2\xA0/', ' ', $html );
+
+		return $html;
+	}
+
+
+	/**
 	 * Check a post_name against a list of reserved IDs, sanitize for use as an XML ID.
 	 *
 	 * @param string $id
@@ -377,8 +394,11 @@ abstract class Export {
 		$proc = new \XSLTProcessor();
 		$proc->importStyleSheet( $xsl );
 
+		$old_value = libxml_disable_entity_loader( true );
 		$xml = new \DOMDocument();
 		$xml->loadXML( $content );
+		libxml_disable_entity_loader( $old_value );
+
 		$content = $proc->transformToXML( $xml );
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
@@ -463,6 +483,7 @@ abstract class Export {
 			$filename = sanitize_file_name( $_POST['filename'] );
 			$path = static::getExportFolder();
 			unlink( $path . $filename );
+			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 			\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export' );
 		}
 
@@ -532,6 +553,8 @@ abstract class Export {
 				// TODO rename to pressbooks_track_export
 				do_action( 'pb_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
+
+			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 
 			// --------------------------------------------------------------------------------------------------------
 			// No errors?
@@ -649,6 +672,7 @@ abstract class Export {
 		}
 
 		// Force download
+		set_time_limit( 0 );
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Type: ' . static::mimeType( $filepath ) );
 		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
@@ -659,6 +683,7 @@ abstract class Export {
 		header( 'Content-Length: ' . filesize( $filepath ) );
 		@ob_clean();
 		flush();
+		while ( @ob_end_flush() ); // Fix out-of-memory problem
 		readfile( $filepath );
 
 		exit;
