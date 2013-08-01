@@ -1089,8 +1089,8 @@ ol li li li::before {
 }
 .share-single li.facebook {
   float: left;
-  margin: 0 10px 0 0;
-  padding: 1px 10px 2px;
+  margin: 3px 10px 0 0;
+  padding: 3px 0 0 15px;
   width: 90px;
 }
 .share-single li.email a {
