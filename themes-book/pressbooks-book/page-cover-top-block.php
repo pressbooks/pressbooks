@@ -55,11 +55,10 @@
 						
 						<?php if ( @array_filter( get_option( 'pressbooks_ecommerce_links' ) ) ) : ?>
 						 <!-- Buy -->
+							 <a class="btn black" href="<?php echo get_option('home'); ?>/buy"><span class="buy-icon"></span><?php _e('Buy', 'pressbooks'); ?></a>				
+						 <?php endif; ?>	
 						 
-						 	 <a class="btn black" href="<?php echo get_option('home'); ?>/buy"><span class="buy-icon"></span><?php _e('Buy', 'pressbooks'); ?></a>				
-						 <?php endif; ?>
-						 						 
-
+						
 					</div> <!-- end .call-to-action -->		
 				</div><!--  end .call-to-action-wrap -->
 				
