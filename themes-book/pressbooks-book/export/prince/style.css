@@ -11,19 +11,19 @@
   font-family: "Cardo";
   font-weight: bold;
   font-style: normal;
-  src: url(../../../../symbionts/fonts/Cardob101.ttf) format("truetype");
+  src: url(../../fonts/Cardob101.ttf) format("truetype");
 }
 @font-face {
   font-family: "Cardo";
   font-weight: normal;
   font-style: italic;
-  src: url(../../../../symbionts/fonts/Cardoi99.ttf) format("truetype");
+  src: url(../../fonts/Cardoi99.ttf) format("truetype");
 }
 @font-face {
   font-family: "Cardo";
   font-weight: normal;
   font-style: normal;
-  src: url(../../../../symbionts/fonts/Cardo104s.ttf) format("truetype");
+  src: url(../../fonts/Cardo104s.ttf) format("truetype");
 }
 
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */

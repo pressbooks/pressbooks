@@ -20,19 +20,19 @@
   font-family: "LinBiolinum";
   font-weight: normal;
   font-style: normal;
-  src: url(../../../../symbionts/fonts/LinBiolinum_Rah.ttf) format("truetype");
+  src: url(../../fonts/LinBiolinum_Rah.ttf) format("truetype");
 }
 @font-face {
   font-family: "LinBiolinum";
   font-weight: bold;
   font-style: normal;
-  src: url(../../../../symbionts/fonts/LinBiolinum_RBah.ttf) format("truetype");
+  src: url(../../fonts/LinBiolinum_RBah.ttf) format("truetype");
 }
 @font-face {
   font-family: "LinBiolinum";
   font-weight: normal;
   font-style: italic;
-  src: url(../../../../symbionts/fonts/LinBiolinum_RIah.ttf) format("truetype");
+  src: url(../../fonts/LinBiolinum_RIah.ttf) format("truetype");
 }
 
 /* Body font */
@@ -40,26 +40,26 @@
   font-family: "LinLibertine";
   font-weight: bold;
   font-style: normal;
-  src: url(../../../../symbionts/fonts/LinLibertine_RBah.ttf) format("truetype");
+  src: url(../../fonts/LinLibertine_RBah.ttf) format("truetype");
 }
 
 @font-face {
   font-family: "LinLibertine";
   font-weight: bold;
   font-style: italic;
-  src: url(../../../../symbionts/fonts/LinLibertine_RBIah.ttf) format("truetype");
+  src: url(../../fonts/LinLibertine_RBIah.ttf) format("truetype");
 }
 @font-face {
   font-family: "LinLibertine";
   font-weight: normal;
   font-style: italic;
-  src: url(../../../../symbionts/fonts/LinLibertine_RIah.ttf) format("truetype");
+  src: url(../../fonts/LinLibertine_RIah.ttf) format("truetype");
 }
 @font-face {
   font-family: "LinLibertine";
   font-weight: normal;
   font-style: normal;
-  src: url(../../../../symbionts/fonts/LinLibertine_Rah.ttf) format("truetype");
+  src: url(../../fonts/LinLibertine_Rah.ttf) format("truetype");
 }
 
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
