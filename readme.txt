@@ -11,17 +11,23 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-PressBooks is an open source book publishing tool built on a WordPress multisite platform. PressBooks outputs books in multiple formats, including PDF EPUB/MOBI, web, and a variety of XML flavours, using a theming/templating system, driven by CSS. For more information, visit http://pressbooks.com.
+PressBooks is an open source book publishing tool built on a WordPress multisite platform. PressBooks outputs books in
+multiple formats, including PDF EPUB/MOBI, web, and a variety of XML flavours, using a theming/templating system,
+driven by CSS. For more information, visit http://pressbooks.com.
+
+== Maintenance and Support ==
+
+Contact us about maintenance and support contracts if you are installing PressBooks on your own servers, or if you would
+like PressBooks to run a dedicated instance for you on our servers. You can reach us at: support@pressbooks.com.
 
 == Communication ==
 
-Our main communication channels are [Google Code](http://code.google.com/p/pressbooks) and [Google Groups](http://groups.google.com/group/pressbooks).
+Our main communication channels is [Google Groups](http://groups.google.com/group/pressbooks).
 
 == Contributors ==
 
-All PressBooks code is copyright Book Oven Inc. Contributors are acknowledged in the "docs/contributors.txt" file, not in source code headers.
-
-Contributors should watch [Google Tech Talks: How Open Source Projects Survive...](http://www.youtube.com/watch?v=ZSFDm3UYkeE).
+All PressBooks code is copyright Book Oven Inc. Contributors are acknowledged in the "docs/contributors.txt" file, not
+in source code headers.
 
 == Installation ==
 
@@ -42,7 +48,8 @@ IMPORTANT!
 
  4. Login to the WordPress admin area. Navigate to Tools → Network Setup, click Install.
 
- 5. Complete the steps printed on the screen (i.e. edit your `wp-config.php` and `.htaccess files` with the information provided.)
+ 5. Complete the steps printed on the screen (i.e. edit your `wp-config.php` and `.htaccess files` with the information
+    provided.)
 
 *Part 2, PressBooks specific:*
 
@@ -56,14 +63,18 @@ IMPORTANT!
 
  5. Navigate to: Themes → Installed Themes.
 
- 6. Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "PressBooks Publisher One", and any other PressBooks theme you want to use.
+ 6. Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "Austen", "PressBooks Publisher One", and any other
+    PressBooks theme you want to use.
 
  7. Navigate to: Settings → Network Settings.
 
  8. Pick the most appropriate Registration Setting:
-    + User accounts may be registered. (do not use this setting, since it will not allow users to create new sites/books)
-    + Logged in users may register new sites. (if you are a publisher using PressBooks as a production tool, this is the best setting: it allows network administrators to add new users, who can then create books/sites. However, registration is not available to the public.)
-    + Both sites and user accounts can be registered. (use this setting if you intend on offering a publishing-platform open to the public, such as PressBooks.com)
+    + User accounts may be registered. (do not use this setting, since it will not allow users to create new books)
+    + Logged in users may register new sites. (if you are a publisher using PressBooks as a production tool, this is the
+      best setting: it allows network administrators to add new users, who can then create books/sites. However,
+      registration is not available to the public.)
+    + Both sites and user accounts can be registered. (use this setting if you intend on offering a publishing-platform
+      open to the public, such as PressBooks.com)
 
  9. Navigate to: My Books → __YOUR_SITE__ → Dashboard
 
@@ -81,10 +92,10 @@ IMPORTANT!
 
 *Part 3, PressBooks dependencies:*
 
- * For PDF export you need to install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 9.0
- * For MOBI export you need to install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
- * For EPUB validation you need to install [EpubCheck](http://code.google.com/p/epubcheck/) - Version 3.0.1
- * Form XML validation you need to install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
+ * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 9.0
+ * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
+ * For EPUB validation install [EpubCheck](http://code.google.com/p/epubcheck/) - Version 3.0.1
+ * Form XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
 
@@ -171,6 +182,7 @@ TK.
 3. Themes
 4. Theme Options
 5. Export
+6. Catalog
 
 == Upgrade Notice ==
 
@@ -178,6 +190,4 @@ TK.
 
 == Changelog ==
 
-= 2.0 =
-
-Initial open source release of PressBooks.
+See: https://github.com/pressbooks/pressbooks/commits/master
