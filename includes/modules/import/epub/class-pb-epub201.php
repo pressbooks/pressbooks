@@ -499,7 +499,7 @@ class Epub201 extends Import {
 				if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
-			} catch ( Exception $exc ) {
+			} catch ( \Exception $exc ) {
 				// Garbage, Don't import
 				$already_done[$img_location] = '';
 				return '';

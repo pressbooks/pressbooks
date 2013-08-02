@@ -271,7 +271,7 @@ class Wxr extends Import {
 				if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
-			} catch ( Exception $exc ) {
+			} catch ( \Exception $exc ) {
 				// Garbage, don't import
 				$already_done[$remote_img_location] = '';
 				unlink( $tmp_name );
@@ -283,7 +283,7 @@ class Wxr extends Import {
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) $src = ''; // Change false to empty string
 		$already_done[$remote_img_location] = $src;
-		unlink( $tmp_name );
+		@unlink( $tmp_name );
 
 		return $src;
 	}
