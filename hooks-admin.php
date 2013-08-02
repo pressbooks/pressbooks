@@ -167,3 +167,8 @@ if ( \PressBooks\Book::isBook() ) {
 		return $actions;
 	} );
 }
+
+// Hide WP update nag
+add_action( 'admin_menu', function () {
+	remove_action( 'admin_notices', 'update_nag', 3 );
+} );
