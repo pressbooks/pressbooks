@@ -550,8 +550,7 @@ abstract class Export {
 					}
 				}
 				// Stats hook
-				// TODO rename to pressbooks_track_export
-				do_action( 'pb_track_export', substr( strrchr( $module, '\\' ), 1 ) );
+				do_action( 'pressbooks_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
 
 			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
