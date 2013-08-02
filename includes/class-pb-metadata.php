@@ -21,7 +21,7 @@ class Metadata {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 8;
+	static $currentVersion = 9;
 
 
 	/**
@@ -143,6 +143,9 @@ class Metadata {
 		}
 		if ( $version < 8 ) {
 			$this->resetLandingPage();
+		}
+		if ( $version < 9 ) {
+			flush_rewrite_rules();
 		}
 	}
 

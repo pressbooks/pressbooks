@@ -91,7 +91,7 @@ add_filter( 'login_redirect', '\PressBooks\Redirect\login', 10, 3 );
 // Sitemap
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_sitemap' );
+add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_sitemap', 1 );
 add_action( 'do_robotstxt', '\PressBooks\Utility\add_sitemap_to_robots_txt' );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -118,7 +118,7 @@ if ( \PressBooks\Book::isBook() ) {
 
 // -------------------------------------------------------------------------------------------------------------------
 // Upgrade Catalog
-//  -------------------------------------------------------------------------------------------------------------------
+// -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', function () {
 	$catalog_version = get_site_option( 'pressbooks_catalog_version', 0 );
@@ -128,6 +128,14 @@ add_action( 'init', function () {
 		update_site_option( 'pressbooks_catalog_version', \PressBooks\Catalog::$currentVersion );
 	}
 }, 1000 );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Force Flush
+// -------------------------------------------------------------------------------------------------------------------
+
+if ( ! empty( $GLOBALS['PB_SECRET_SAUCE']['FORCE_FLUSH'] ) ) {
+	add_action( 'init', function () { flush_rewrite_rules( false ); }, 9999 );
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Turn off XML-RPC

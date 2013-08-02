@@ -757,7 +757,7 @@ class Catalog {
 	function upgrade( $version ) {
 
 		if ( $version < self::$currentVersion ) {
-			$this->createTables();
+			$this->createOrUpdateTables();
 		}
 	}
 
@@ -770,7 +770,7 @@ class Catalog {
 	 * @see dbColumns
 	 * @see http://codex.wordpress.org/Creating_Tables_with_Plugins#Creating_or_Updating_the_Table
 	 */
-	protected function createTables() {
+	protected function createOrUpdateTables() {
 
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
