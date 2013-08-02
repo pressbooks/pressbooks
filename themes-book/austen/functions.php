@@ -9,7 +9,7 @@
  * Google Webfonts
  */
 function austen_enqueue_styles() {
-	wp_enqueue_style( 'austen-fonts', 'http://fonts.googleapis.com/css?family=MarcellusSC|SortsMillGoudy:400,400italic' );
+	wp_enqueue_style( 'austen-fonts', 'http://fonts.googleapis.com/css?family=Marcellus+SC|Sorts+Mill+Goudy:400,400italic' );
 }
 add_action( 'wp_print_styles', 'austen_enqueue_styles' );
 
