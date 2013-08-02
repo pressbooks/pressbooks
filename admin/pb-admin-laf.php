@@ -589,7 +589,7 @@ function redirect_away_from_bad_urls() {
 		'import',
 		'link-(manager|add)',
 		'nav-menus',
-		'options-(discussion|general|media|permalink|reading|writing)',
+		'options-(discussion|media|permalink|reading|writing)',
 		'plugin-(install|editor)',
 		'plugins',
 		'theme-editor',
@@ -597,6 +597,8 @@ function redirect_away_from_bad_urls() {
 		'update-core',
 		'widgets',
 	);
+
+	// Todo: Fine grained control over: options-general.php
 
 	$expr = '~/wp-admin/(' . implode( '|', $restricted ) . ')\.php$~';
 	if ( preg_match( $expr, $check_against_url ) ) {
