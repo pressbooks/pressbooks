@@ -171,4 +171,5 @@ if ( \PressBooks\Book::isBook() ) {
 // Hide WP update nag
 add_action( 'admin_menu', function () {
 	remove_action( 'admin_notices', 'update_nag', 3 );
+	remove_filter( 'update_footer', 'core_update_footer' );
 } );
