@@ -1,4 +1,8 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) )
+	exit;
+
 get_header();
 $book = pb_get_book_structure();
 ?>
