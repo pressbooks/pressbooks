@@ -71,19 +71,62 @@ function login( $redirect_to, $request_redirect_to, $user ) {
 
 
 /**
+ * Centralize flush_rewrite_rules() in one single function so that rule does not kill the other
+ */
+function flusher() {
+
+	$pull_the_lever = false;
+
+	// @see \PressBooks\PostType\register_post_types
+	$set = get_option( 'pressbooks_flushed_post_type' );
+	if ( ! $set ) {
+		$pull_the_lever = true;
+		update_option( 'pressbooks_flushed_post_type', true );
+	}
+
+	// @see rewrite_rules_for_format()
+	$set = get_option( 'pressbooks_flushed_format' );
+	if ( ! $set ) {
+		$pull_the_lever = true;
+		update_option( 'pressbooks_flushed_format', true );
+	}
+
+	// @see rewrite_rules_for_catalog()
+	$set = get_option( 'pressbooks_flushed_catalog' );
+	if ( ! $set ) {
+		$pull_the_lever = true;
+		update_option( 'pressbooks_flushed_catalog', true );
+	}
+
+	// @see rewrite_rules_for_sitemap()
+	$set = get_option( 'pressbooks_flushed_sitemap' );
+	if ( ! $set ) {
+		$pull_the_lever = true;
+		update_option( 'pressbooks_flushed_sitemap', true );
+	}
+
+	// @see \PressBooks\VIP\Upgrade\rewrite_rules_for_upgrade()
+	$set = get_option( 'pressbooks-vip_flushed_upgrade' );
+	if ( ! $set ) {
+		$pull_the_lever = true;
+		update_option( 'pressbooks-vip_flushed_upgrade', true );
+	}
+
+	if ( $pull_the_lever ) {
+		flush_rewrite_rules( false );
+	}
+}
+
+
+/**
  * Add a rewrite rule for the keyword "format"
+ *
+ * @see flusher()
  */
 function rewrite_rules_for_format() {
 
 	add_rewrite_endpoint( 'format', EP_ROOT );
 	add_filter( 'template_redirect', __NAMESPACE__ . '\do_format', 0 );
-
-	// Flush rewrite rules
-	$set = get_option( 'pressbooks_flushed_format' );
-	if ( ! $set ) {
-		flush_rewrite_rules( false );
-		update_option( 'pressbooks_flushed_format', true );
-	}
 }
 
 
@@ -121,18 +164,13 @@ function do_format() {
 
 /**
  * Add a rewrite rule for the keyword "catalog"
+ *
+ * @see flusher()
  */
 function rewrite_rules_for_catalog() {
 
 	add_rewrite_endpoint( 'catalog', EP_ROOT );
 	add_filter( 'template_redirect', __NAMESPACE__ . '\do_catalog', 0 );
-
-	// Flush rewrite rules
-	$set = get_option( 'pressbooks_flushed_catalog' );
-	if ( ! $set ) {
-		flush_rewrite_rules( false );
-		update_option( 'pressbooks_flushed_catalog', true );
-	}
 }
 
 
@@ -166,15 +204,10 @@ function do_catalog() {
 
 /**
  * Add a rewrite rule for sitemap xml
+ *
+ * @see flusher()
  */
 function rewrite_rules_for_sitemap() {
 
 	add_feed( 'sitemap.xml', '\PressBooks\Utility\do_sitemap' );
-
-	// Flush rewrite rules
-	$set = get_option( 'pressbooks_flushed_sitemap' );
-	if ( ! $set ) {
-		flush_rewrite_rules( false );
-		update_option( 'pressbooks_flushed_sitemap', true );
-	}
 }

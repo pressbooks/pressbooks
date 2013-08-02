@@ -145,7 +145,7 @@ class Metadata {
 			$this->resetLandingPage();
 		}
 		if ( $version < 9 ) {
-			flush_rewrite_rules();
+			flush_rewrite_rules( false );
 		}
 	}
 

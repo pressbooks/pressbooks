@@ -135,6 +135,8 @@ add_action( 'init', function () {
 
 if ( ! empty( $GLOBALS['PB_SECRET_SAUCE']['FORCE_FLUSH'] ) ) {
 	add_action( 'init', function () { flush_rewrite_rules( false ); }, 9999 );
+} else {
+	add_action( 'init', '\PressBooks\Redirect\flusher', 9999 );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

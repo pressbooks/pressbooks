@@ -264,7 +264,9 @@ function publisherroot_cpt() {
         'rewrite' => array('slug' => 'authors', 'with_front' => false)
     );
     register_post_type( '_author', $args );
-	flush_rewrite_rules( false ); // TODO: This needs to be fixed more permanently.
+
+	// TODO: This needs to be fixed more permanently. @see \PressBooks\Redirect\flusher()
+	flush_rewrite_rules( false );
 }
 
 ?>

@@ -223,13 +223,4 @@ function register_post_types() {
 		)
 	);
 	register_post_type( 'custom-css', $args );
-
-
-	// Flush rewrite rules
-	$set = get_option( 'pressbooks_flushed_post_type' );
-	if ( $set !== true ) {
-		flush_rewrite_rules( false );
-		update_option( 'pressbooks_flushed_post_type', true );
-	}
-
 }
