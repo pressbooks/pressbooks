@@ -21,6 +21,7 @@ if ( \PressBooks\Book::isBook() ) {
 	$overrides['Settings'] = 'Utilities';
 	$overrides['Visit Site'] = 'Visit Book';
 	$overrides['Edit Site'] = 'Edit Book';
+	$overrides['You have used your space quota. Please delete files before uploading.'] = 'Sorry, you have used all of your storage quota. Want more space? Please upgrade your book.';
 }
 
 return $overrides;
