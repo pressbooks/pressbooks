@@ -50,13 +50,26 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 				?>
 				<tr>
 					<th><label for="tags_<?php echo $i; ?>"> <?php echo $name; ?><br /><em><?php _e( 'Comma delimited', 'pressbooks' ); ?></em></em></label></th>
-					<td><textarea id="tags_<?php echo $i; ?>" name="tags_<?php echo $i; ?>"><?php echo esc_textarea( $catalog::tagsToString( $catalog->getTagsByBook( $blog_id, $i ) ) ); ?></textarea></td>
+					<td><input id="tags_<?php echo $i; ?>" name="tags_<?php echo $i; ?>" value="<?php echo esc_textarea( $catalog::tagsToString( $catalog->getTagsByBook( $blog_id, $i ) ) ); ?>"></td>
 				</tr>
 			<?php } ?>
 		</table>
 		<?php submit_button(); ?>
 	</form>
-
+	<script>
+		jQuery(function ($) {
+			$("#tags_1").select2({
+				tags:[<?php foreach( $catalog->getTags( 1 ) as $tag ) { echo( '"' . $tag['tag'] . '", ' ); } ?>],
+				tokenSeparators: [",",],
+				containerCss: { width: '50%' }
+	        });
+	       $("#tags_2").select2({
+				tags:[<?php foreach( $catalog->getTags( 2 ) as $tag ) { echo( '"' . $tag['tag'] . '", ' ); } ?>],
+				tokenSeparators: [",",],
+				containerCss: { width: '50%' }
+	        });
+        });
+	</script>
 <?php
 
 else:
