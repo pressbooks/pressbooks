@@ -532,9 +532,9 @@ function init_css_js() {
 	if ( 'pb_catalog' == esc_attr( @$_REQUEST['page'] ) ) {
 		wp_register_style( 'pressbooks-catalog', PB_PLUGIN_URL . 'assets/css/catalog.css', array( 'colors', 'pressbooks-admin' ), '20130712', 'screen' );
 		wp_enqueue_style( 'pressbooks-catalog' );
-		wp_register_style( 'select2-css', PB_PLUGIN_URL . 'assets/css/select2.css', array(), '3.4.1', 'screen' );
+		wp_register_style( 'select2-css', PB_PLUGIN_URL . 'symbionts/select2/select2.css', array(), '3.4.1', 'screen' );
 		wp_enqueue_style( 'select2-css' );
-		wp_register_script( 'select2-js', PB_PLUGIN_URL . 'assets/js/select2.min.js', array( 'jquery' ), '3.4.1' );
+		wp_register_script( 'select2-js', PB_PLUGIN_URL . 'symbionts/select2/select2.min.js', array( 'jquery' ), '3.4.1' );
 		wp_enqueue_script( 'select2-js' );
 	}
 
