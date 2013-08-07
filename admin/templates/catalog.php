@@ -58,16 +58,13 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 	</form>
 	<script>
 		jQuery(function ($) {
-			$("#tags_1").select2({
-				tags:[<?php foreach( $catalog->getTags( 1 ) as $tag ) { echo( '"' . $tag['tag'] . '", ' ); } ?>],
+			<?php for ( $i = 1; $i <= $catalog::$maxTagsGroup; ++$i ) { ?>
+			$("#tags_<?php echo $i; ?>").select2({
+				tags:[<?php foreach( $catalog->getTags( $i ) as $tag ) { echo( '"' . $tag['tag'] . '", ' ); } ?>],
 				tokenSeparators: [",",],
 				containerCss: { width: '50%' }
-	        });
-	       $("#tags_2").select2({
-				tags:[<?php foreach( $catalog->getTags( 2 ) as $tag ) { echo( '"' . $tag['tag'] . '", ' ); } ?>],
-				tokenSeparators: [",",],
-				containerCss: { width: '50%' }
-	        });
+			});
+			<?php } ?>
         });
 	</script>
 <?php
