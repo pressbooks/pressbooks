@@ -238,7 +238,8 @@ class Epub201 extends Export {
 		// EPUB specific
 
 		// Adobe Digital Editions has problems with exotic dashes, that is to say if this were 1999...
-		$html = str_replace( array( '–', '&#8211;', '—', '&#8212;', '‑' ), '-', $html );
+		// TODO: Some users want this, others do not want this, make up your mind...
+		// $html = str_replace( array( '–', '&#8211;', '—', '&#8212;', '‑' ), '-', $html );
 
 		return $html;
 	}
