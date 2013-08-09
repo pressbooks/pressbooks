@@ -382,7 +382,6 @@ class Epub201 extends Export {
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
-			'tidy' => -1,
 		);
 
 		// Reset on each htmLawed invocation

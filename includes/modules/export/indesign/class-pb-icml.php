@@ -210,7 +210,6 @@ class Icml extends Export {
 			'valid_xhtml' => 1,
 			'unique_ids' => 'fixme-',
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
-			'tidy' => -1,
 		);
 
 		return htmLawed( $html, $config );
