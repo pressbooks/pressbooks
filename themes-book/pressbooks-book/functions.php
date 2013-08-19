@@ -4,6 +4,9 @@
  * @license GPLv2 (or any later version)
  */
 
+// Turn off admin bar
+add_filter( 'show_admin_bar', function () { return false; } );
+
 /**
  * Set up array of metadata keys for display in web book footer.
  */
@@ -26,11 +29,11 @@ function pressbooks_book_info_page () {
 
 	if ( is_front_page() ) {
 		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130713', 'all' );
-		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700');  
+		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700' );
 		
 		// Book info page Table of Content columns
-		wp_enqueue_script( 'columnizer',  PB_PLUGIN_URL . 'symbionts/jquery/jquery.columnizer.min.js', array( 'jquery' ), '20130712', false );
-		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '20130712', false );
+		wp_enqueue_script( 'columnizer',  PB_PLUGIN_URL . 'symbionts/jquery/jquery.columnizer.js', array( 'jquery' ), '1.6.0-patched', false );
+		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '20130819', false );
 		
 		// Sharrre
 		wp_enqueue_script( 'sharrre', PB_PLUGIN_URL . 'symbionts/jquery/sharrre/jquery.sharrre-1.3.4.min.js', array( 'jquery' ), '20130712', false );
@@ -40,7 +43,7 @@ function pressbooks_book_info_page () {
 		) );
 	}   		 		   		   		       		           
 }     
-add_action('wp_enqueue_scripts', 'pressbooks_book_info_page'); 
+add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
 
 /* ------------------------------------------------------------------------ *
  * Register and enqueue scripts and stylesheets.

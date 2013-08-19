@@ -2,9 +2,6 @@
 				<div class="third-block clearfix">
 				<h2>Table of Contents</h2>
 				<?php $book = pb_get_book_structure(); ?>
-				<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-					<script>jQuery("table-of-content").scrollLeft(300);
-					</script>	
 					<ul class="table-of-content" id="table-of-content">
 						<li>
 							<ul class="front-matter">
