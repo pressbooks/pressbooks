@@ -87,7 +87,8 @@ class Book {
 				if ( false !== in_array( $key, $expected_array ) ) {
 					$val = implode( ', ', $val );
 				} else {
-					$val = array_pop( array_values( $val ) );
+					$val = array_values( $val );
+					$val = array_pop( $val );
 				}
 			}
 

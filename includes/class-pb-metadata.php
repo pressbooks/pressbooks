@@ -195,7 +195,8 @@ class Metadata {
 					if ( isset( $this->upgradeCheckboxes[$meta_key] ) ) {
 						$meta_value = 'on';
 					} elseif ( is_array( $meta_value ) ) {
-						$meta_value = array_pop( array_values( $meta_value ) );
+						$meta_value = array_values( $meta_value );
+						$meta_value = array_pop( $meta_value );
 					}
 
 					// Overrides
@@ -235,7 +236,8 @@ class Metadata {
 						if ( isset( $this->upgradeCheckboxes[$meta_key] ) ) {
 							$meta_value = 'on';
 						} elseif ( is_array( $meta_value ) ) {
-							$meta_value = array_pop( array_values( $meta_value ) );
+							$meta_value = array_values( $meta_value );
+							$meta_value = array_pop( $meta_value );
 						}
 						// Updating [$meta_key] to [$new_meta_key]
 						update_metadata_by_mid( 'post', $meta_id, $meta_value, $new_meta_key );
