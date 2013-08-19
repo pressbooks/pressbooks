@@ -70,7 +70,8 @@ class Kindlegen extends Export {
 
 		// Check build results
 
-		$last_line = strtolower( end( array_filter( $output ) ) );
+		$last_line = array_filter( $output );
+		$last_line = strtolower( end( $last_line ) );
 		if ( false !== strpos( $last_line, 'mobi file built successfully' ) ) {
 
 			// Ok!
