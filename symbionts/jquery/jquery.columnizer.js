@@ -1,9 +1,6 @@
-// version 1.6.0 (patched!)
+// version 1.6.0
 // http://welcome.totheinter.net/columnizer-jquery-plugin/
 // created by: Adam Wulf @adamwulf, adam.wulf@gmail.com
-
-// Patches applied by PressBooks:
-// https://github.com/adamwulf/Columnizer-jQuery-Plugin/pull/115
 
 (function($){
 
@@ -525,8 +522,8 @@
 				}else if(!scrollHorizontally){
 					// the last column in the series
 					$col = $inBox.children().eq($inBox.children().length-1);
-					$destroyable.contents().each(function () {
-						$col.append($(this));
+					$destroyable.contents().each( function() {
+						$col.append( $(this) );
 					});
 					var afterH = $col.height();
 					var diff = afterH - targetHeight;

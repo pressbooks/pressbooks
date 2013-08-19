@@ -32,7 +32,7 @@ function pressbooks_book_info_page () {
 		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700' );
 		
 		// Book info page Table of Content columns
-		wp_enqueue_script( 'columnizer',  PB_PLUGIN_URL . 'symbionts/jquery/jquery.columnizer.js', array( 'jquery' ), '1.6.0-patched', false );
+		wp_enqueue_script( 'columnizer',  PB_PLUGIN_URL . 'symbionts/jquery/jquery.columnizer.js', array( 'jquery' ), '1.6.0', false );
 		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '20130819', false );
 		
 		// Sharrre
