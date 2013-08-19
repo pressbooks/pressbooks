@@ -33,7 +33,7 @@ function override_core_strings( $translated, $original, $domain ) {
 	$overrides = include_core_overrides();
 
 	if ( isset( $overrides[$original] ) ) {
-		$translations = & get_translations_for_domain( $domain );
+		$translations = get_translations_for_domain( $domain );
 		$translated = $translations->translate( $overrides[$original] );
 	}
 
