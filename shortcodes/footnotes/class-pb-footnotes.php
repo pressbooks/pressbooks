@@ -149,11 +149,13 @@ class Footnotes {
 
 		if ( get_user_option( 'rich_editing' ) == 'true' ) {
 
-			wp_localize_script( 'editor', 'PB_FootnotesToken', array(
-				'nonce' => wp_create_nonce( 'pb-footnote-convert' ),
-				'fn_title' => __( 'Insert Footnote', 'pressbooks' ),
-				'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
-			) );
+			add_action( 'admin_enqueue_scripts', function () {
+				wp_localize_script( 'editor', 'PB_FootnotesToken', array(
+					'nonce' => wp_create_nonce( 'pb-footnote-convert' ),
+					'fn_title' => __( 'Insert Footnote', 'pressbooks' ),
+					'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
+				) );
+			} );
 
 			add_filter( 'mce_external_plugins', array( $this, 'addFootnotePlugin' ) );
 			add_filter( 'mce_buttons_2', array( $this, 'registerFootnoteButtons' ) );
