@@ -465,7 +465,10 @@ class Epub201 extends Import {
 
 		/* Process */
 
-		$filename = array_shift( explode( '?', basename( $url ) ) ); // Basename without query string
+		// Basename without query string
+		$filename = explode( '?', basename( $url ) );
+		$filename = array_shift( $filename );
+
 		$filename = sanitize_file_name( urldecode( $filename ) );
 
 		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
