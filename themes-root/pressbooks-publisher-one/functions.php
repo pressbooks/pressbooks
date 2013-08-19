@@ -4,6 +4,9 @@
  * @license GPLv2 (or any later version)
  */
 
+// Turn off admin bar
+add_filter( 'show_admin_bar', function () { return false; } );
+
 if ( ! isset( $content_width ) )
 	$content_width  = '670';
 	
