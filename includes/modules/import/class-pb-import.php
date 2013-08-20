@@ -265,6 +265,11 @@ abstract class Import {
 					$importer = new Odf\Odt();
 					$ok = $importer->import( $current_import );
 					break;
+				
+				case 'docx':
+					$importer = new Ooxml\Docx();
+					$ok = $importer->import( $current_import );
+					break;
 			}
 
 			$msg = "Tried to import a file of type {$current_import['type_of']} and ";
@@ -286,6 +291,7 @@ abstract class Import {
 				'epub' => 'application/epub+zip',
 				'xml' => 'application/xml',
 				'odt' => 'application/vnd.oasis.opendocument.text',
+				'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 			);
 			$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
 
@@ -315,6 +321,11 @@ abstract class Import {
 
 				case 'odt':
 					$importer = new Odf\Odt();
+					$ok = $importer->setCurrentImportOption( $upload );
+					break;
+				
+				case 'docx':
+					$importer = new Ooxml\Docx();
 					$ok = $importer->setCurrentImportOption( $upload );
 					break;
 			}
