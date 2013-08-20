@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install PressBooks on an existing WordPress blog -- create a new WordPress install instead.
- * PressBooks works with PHP 5.4.x and WordPress 3.5.2. Lower versions are not supported.
+ * PressBooks works with PHP 5.4.x and WordPress 3.6. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
