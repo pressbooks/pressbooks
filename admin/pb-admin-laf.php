@@ -89,6 +89,7 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'options-general.php', 'options-discussion.php' );
 	remove_submenu_page( 'options-general.php', 'options-media.php' );
 	remove_submenu_page( 'options-general.php', 'options-permalink.php' );
+	remove_submenu_page( 'themes.php', 'customize.php' );
 
 	remove_menu_page( "edit.php?post_type=part" );
 	remove_menu_page( "edit.php" );
