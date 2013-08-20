@@ -218,30 +218,6 @@ abstract class Export {
 
 
 	/**
-	 * Detect MIME Content-type for a file.
-	 *
-	 * @param string $file fullpath
-	 *
-	 * @return string
-	 */
-	function mimeType( $file ) {
-
-		if ( function_exists( 'finfo_open' ) ) {
-			$finfo = finfo_open( FILEINFO_MIME );
-			$mime = finfo_file( $finfo, $file );
-			finfo_close( $finfo );
-		} elseif ( function_exists( 'mime_content_type' ) ) {
-			$mime = @mime_content_type( $file ); // Suppress deprecated message
-		} else {
-			exec( "file -i -b " . escapeshellarg( $file ), $output );
-			$mime = $output[0];
-		}
-
-		return $mime;
-	}
-
-
-	/**
 	 * Create a NONCE using WordPress' NONCE_KEY and a Unix timestamp.
 	 *
 	 * @see verifyNonce
@@ -430,6 +406,30 @@ abstract class Export {
 		ob_end_clean();
 
 		return $output;
+	}
+
+
+	/**
+	 * Detect MIME Content-type for a file.
+	 *
+	 * @param string $file fullpath
+	 *
+	 * @return string
+	 */
+	static function mimeType( $file ) {
+
+		if ( function_exists( 'finfo_open' ) ) {
+			$finfo = finfo_open( FILEINFO_MIME );
+			$mime = finfo_file( $finfo, $file );
+			finfo_close( $finfo );
+		} elseif ( function_exists( 'mime_content_type' ) ) {
+			$mime = @mime_content_type( $file ); // Suppress deprecated message
+		} else {
+			exec( "file -i -b " . escapeshellarg( $file ), $output );
+			$mime = $output[0];
+		}
+
+		return $mime;
 	}
 
 

@@ -255,7 +255,7 @@ class Epub201 extends Export {
 	 */
 	function mediaType( $file ) {
 
-		$mime = parent::mimeType( $file );
+		$mime = static::mimeType( $file );
 		$mime = explode( ';', $mime );
 		$mime = trim( $mime[0] );
 

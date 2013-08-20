@@ -166,7 +166,7 @@ class Pdf extends Export {
 	 */
 	protected function isPdf( $file ) {
 
-		$mime = $this->mimeType( $file );
+		$mime = static::mimeType( $file );
 
 		return ( strpos( $mime, 'application/pdf' ) !== false );
 	}
