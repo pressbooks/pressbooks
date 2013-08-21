@@ -14,6 +14,12 @@ namespace PressBooks\Shortcodes\Wikipublisher;
 
 class Glyphs {
 
+	/**
+	 * @var Glyphs - Static property to hold our singleton instance
+	 */
+	static $instance = false;
+
+
 	// ISO-639-3
 	protected $supported_languages = array(
 		'grc', // Ancient Greek (polytonic)
@@ -23,11 +29,11 @@ class Glyphs {
 
 
 	/**
-	 * Setup the [pb_language] shortcode
+	 * Setup the [pb_language] shortcode, which is private to force the use of getInstance()
 	 *
 	 * @deprecated
 	 */
-	function __construct() {
+	private function __construct() {
 
 		add_shortcode( 'pb_language', array( $this, 'lang_shortcode' ) );
 		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
@@ -35,6 +41,20 @@ class Glyphs {
 			return $excluded_shortcodes;
 		} );
 
+	}
+
+
+	/**
+	 * Function to instantiate our class and make it a singleton
+	 *
+	 * @deprecated
+	 * @return Glyphs
+	 */
+	public static function getInstance() {
+		if ( ! self::$instance )
+			self::$instance = new self;
+
+		return self::$instance;
 	}
 
 

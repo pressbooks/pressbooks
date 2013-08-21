@@ -9,9 +9,16 @@ namespace PressBooks\Shortcodes\Footnotes;
 class Footnotes {
 
 	/**
+	 * @var Footnotes - Static property to hold our singleton instance
+	 */
+	static $instance = false;
+
+
+	/**
 	 * @var array
 	 */
 	var $footnotes = array();
+
 
 	/**
 	 * @var array
@@ -20,9 +27,9 @@ class Footnotes {
 
 
 	/**
-	 * Constructor as init routine.
+	 * This is our constructor, which is private to force the use of getInstance()
 	 */
-	function __construct() {
+	private function __construct() {
 
 		add_shortcode( 'footnote', array( $this, 'shortcodeHandler' ) );
 		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
@@ -36,6 +43,19 @@ class Footnotes {
 
 		add_action( 'init', array( $this, 'footnoteButton' ) ); // TinyMCE button
 		add_action( 'admin_enqueue_scripts', array( $this, 'myCustomQuicktags' ) ); // Quicktag button
+	}
+
+
+	/**
+	 * Function to instantiate our class and make it a singleton
+	 *
+	 * @return Footnotes
+	 */
+	public static function getInstance() {
+		if ( ! self::$instance )
+			self::$instance = new self;
+
+		return self::$instance;
 	}
 
 
