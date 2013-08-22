@@ -1029,7 +1029,7 @@
         </xsl:otherwise>
       </xsl:choose>
 
-      <xsl:variable name="szAsciiTheme" select="string(w:rFonts[1]/@w:asciiTheme)"/>
+<!--      <xsl:variable name="szAsciiTheme" select="string(w:rFonts[1]/@w:asciiTheme)"/>
       <xsl:choose>
         <xsl:when test="$szAsciiTheme = ''">
           <xsl:value-of select="substring($prsR,$iAsciiTheme,1)"/>
@@ -1075,7 +1075,7 @@
             <xsl:with-param name="themeStyle" select="$szCSTheme"/>
           </xsl:call-template>
         </xsl:otherwise>
-      </xsl:choose>
+      </xsl:choose>-->
 
       <xsl:variable name="nSzCs" select="string(w:szCs[1]/@w:val)"/>
       <xsl:choose>
@@ -1090,7 +1090,7 @@
     </xsl:for-each>
   </xsl:template>
 
-  <xsl:template name="EvalThemeType">
+<!--  <xsl:template name="EvalThemeType">
     <xsl:param name="themeStyle"/>
 
     <xsl:choose>
@@ -1120,7 +1120,7 @@
       </xsl:when>
     </xsl:choose>
 
-  </xsl:template>
+  </xsl:template>-->
 
   <xsl:template name="PrsGetListPr">
     <xsl:param name="type"/>
@@ -3386,7 +3386,7 @@
 
       <xsl:choose>
         <xsl:when test="$b.font-weight = $on">font-weight:bold;</xsl:when>
-        <xsl:otherwise>font-weight:normal;</xsl:otherwise>
+        <xsl:otherwise></xsl:otherwise>
       </xsl:choose>
 
       <xsl:choose>
@@ -3531,7 +3531,7 @@
 
   <xsl:template match="w:b" mode="rpr">
     <xsl:choose>
-      <xsl:when test="@w:val = 'off'">font-weight:normal;</xsl:when>
+      <xsl:when test="@w:val = 'off'"></xsl:when>
       <xsl:otherwise>font-weight:bold;</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -4451,100 +4451,74 @@
     <xsl:param name="prsR" select="$prsRDefault"/>
 
     <xsl:if test="not(w:pPr/w:pStyle/@w:val='z-TopofForm') and not(w:pPr/w:pStyle/@w:val='z-BottomofForm')">
-      <p>
+      
 
         <xsl:variable name="pStyleId">
           <xsl:call-template name="GetPStyleId"/>
         </xsl:variable>
-        <xsl:attribute name="class">
-          <xsl:value-of select="$pStyleId"/>
-          <xsl:value-of select="$paraStyleSuffix"/>
-        </xsl:attribute>
-        <xsl:variable name="sParaStyleName" select="($nsStyles[@w:styleId=$pStyleId])[1]"/>
-        <xsl:variable name="b.bidi">
-          <xsl:choose>
-            <xsl:when test="w:pPr[1]/w:rPr[1]/w:rtl[1]">
-              <xsl:value-of select="$on"/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="$off"/>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:variable>
-
-        <xsl:variable name="prsR.updated">
-          <xsl:call-template name="PrsUpdateRPr">
-            <xsl:with-param name="ndPrContainer" select="$sParaStyleName"/>
-            <xsl:with-param name="prsR" select="$prsR"/>
-          </xsl:call-template>
-        </xsl:variable>
-
-        <xsl:variable name="prsP.updated1">
-          <xsl:call-template name="PrsUpdatePPr">
-            <xsl:with-param name="ndPrContainer" select="$sParaStyleName"/>
-            <xsl:with-param name="prsP" select="$prsP"/>
-          </xsl:call-template>
-        </xsl:variable>
-
-        <xsl:variable name="prsP.updated">
-          <xsl:call-template name="PrsUpdatePPr">
-            <xsl:with-param name="prsP" select="$prsP.updated1"/>
-          </xsl:call-template>
-        </xsl:variable>
-
-        <xsl:variable name="styleMod">
-
-          <xsl:value-of select="$prsPAccum"/>
-
-          <xsl:for-each select="$sParaStyleName">
-            <xsl:call-template name="RecursiveApplyPPr.many"/>
-          </xsl:for-each>
-
-          <xsl:call-template name="ApplyPPr.many">
-            <xsl:with-param name="cxtSpacing">
-              <xsl:variable name="cspacing" select="$sParaStyleName/w:pPr[1]/w:contextualSpacing[1]"/>
-              <xsl:if test="$cspacing and not($cspacing/@w:val = 'off')">
-                <xsl:if test="following-sibling::*[1]/w:pPr[1]/w:pStyle[1]/@w:val = $pStyleId">
-                  <xsl:value-of select="$cxtSpacing_top"/>
-                </xsl:if>
-                <xsl:if test="preceding-sibling::*[1]/w:pPr[1]/w:pStyle[1]/@w:val = $pStyleId">
-                  <xsl:value-of select="$cxtSpacing_bottom"/>
-                </xsl:if>
-              </xsl:if>
-            </xsl:with-param>
-          </xsl:call-template>
-
-          <xsl:call-template name="ApplyPPr.class"/>
-
-          <xsl:call-template name="ApplyPPr.once">
-            <xsl:with-param name="b.bidi" select="$b.bidi"/>
-            <xsl:with-param name="prsP" select="$prsP.updated"/>
-            <xsl:with-param name="i.bdrRange.this" select="position()"/>
-            <xsl:with-param name="i.bdrRange.last" select="last()"/>
-            <xsl:with-param name="pr.bdrBetween" select="$bdrBetween"/>
-          </xsl:call-template>
-        </xsl:variable>
-        <xsl:if test="not($styleMod='')">
-          <xsl:attribute name="style">
-            <xsl:value-of select="$styleMod"/>
-          </xsl:attribute>
-        </xsl:if>
-
-        <span>
-          <xsl:attribute name="class">
-            <xsl:value-of select="$pStyleId"/>
-            <xsl:value-of select="$charStyleSuffix"/>
-          </xsl:attribute>
-          <xsl:call-template name="DisplayPContent">
-            <xsl:with-param name="b.bidi" select="$b.bidi"/>
-            <xsl:with-param name="prsR" select="$prsR.updated"/>
-            <xsl:with-param name="runStyleName">
-              <xsl:value-of select="$pStyleId"/>
-              <xsl:value-of select="$charStyleSuffix"/>
-            </xsl:with-param>
-          </xsl:call-template>
-        </span>
-      </p>
+	
+	<xsl:choose>
+		<xsl:when test="$pStyleId = 'Heading1'">
+			<xsl:element name='h1'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>
+		<xsl:when test="$pStyleId = 'Heading2'">
+			<xsl:element name='h2'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>
+		<xsl:when test="$pStyleId = 'Heading3'">
+			<xsl:element name='h3'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>
+		<xsl:when test="$pStyleId = 'Heading4'">
+			<xsl:element name='h4'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>
+		<xsl:when test="$pStyleId = 'Heading5'">
+			<xsl:element name='h5'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>
+		<xsl:when test="$pStyleId = 'Heading6'">
+			<xsl:element name='h6'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>
+		<xsl:when test="$pStyleId = 'Normal'">
+			<xsl:element name='p'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>
+		<xsl:when test="$pStyleId = 'Code'">
+			<xsl:element name='pre'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>
+		<xsl:when test="$pStyleId = 'List1Bulleted'">
+			<xsl:element name='li'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>
+		<xsl:when test="$pStyleId = 'Figure'">
+			<xsl:element name='figure'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>
+		<xsl:when test="not($pStyleId = 'List1Bulleted')">
+			<xsl:element name='p'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</xsl:when>		
+		<otherwise>
+			<xsl:element name='p'>
+				<xsl:call-template name="DisplayPContent" />
+			</xsl:element>
+		</otherwise>	
+	</xsl:choose>
 <!--     <xsl:if test="./w:r/w:lastRenderedPageBreak/@ColumnEnd">  Added by Parwati to handle columns
         <xsl:variable name="columnNo">
           <xsl:value-of select="./w:r/w:lastRenderedPageBreak/@colNum"/>
@@ -4555,13 +4529,13 @@
       </xsl:if> End -->
 <!--By Sunil svg shapes positioning-->
       <xsl:if test="./w:r/div/svg">
-<!--<br/>
-        <br/>-->
+	<br/>
+        <br/>
       </xsl:if>
       </xsl:if>
   </xsl:template>
   
-  
+
   <xsl:template match="w:sdt/w:sdtContent/w:tc/w:p | w:sdt/w:sdtContent/w:p">    
     <p>
       <xsl:attribute name="class">
@@ -5933,12 +5907,12 @@
       
       <xsl:for-each select="w:tblGrid[1]">
         <!--<xsl:text disable-output-escaping="yes">&lt;![if !supportMisalignedColumns]&gt;</xsl:text>-->
-        <tr height="0">
+        <tr>
           <xsl:for-each select="w:gridCol">
-            <xsl:variable name="gridStyle">
+<!--            <xsl:variable name="gridStyle">
               margin:0;padding:0;border:none;width:<xsl:call-template name="EvalTableWidth"/>;
-            </xsl:variable>
-            <td style="{$gridStyle}"/>
+            </xsl:variable>-->
+            <td/>
           </xsl:for-each>
         </tr>
         <!--<xsl:text disable-output-escaping="yes">&lt;![endif]&gt;</xsl:text>-->
@@ -6023,7 +5997,7 @@
     <xsl:apply-templates select="*"/>
   </xsl:template>
 
-  <xsl:template match="w:font">
+<!--  <xsl:template match="w:font">
     <xsl:text>@font-face{font-family:"</xsl:text>
     <xsl:value-of select="@w:name"/>
     <xsl:text>";panose-1:</xsl:text>
@@ -6036,7 +6010,7 @@
     </xsl:variable>
     <xsl:value-of select="substring($panose1,2)"/>
     <xsl:text>;}</xsl:text>
-  </xsl:template>
+  </xsl:template>-->
 
   <xsl:template name="MakeRStyle">
     <xsl:text>.</xsl:text>
@@ -6202,7 +6176,7 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="a:fontScheme">
+<!--  <xsl:template match="a:fontScheme">
     .<xsl:value-of select="$minorAsciiTheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:latin/@typeface" />;}
     .<xsl:value-of select="$majorAsciiTheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:latin/@typeface" />;}
     .<xsl:value-of select="$minorAnsiTheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:latin/@typeface" />;}
@@ -6211,7 +6185,7 @@
     .<xsl:value-of select="$majorEATheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:ea/@typeface" />;}
     .<xsl:value-of select="$minorCSTheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:cs/@typeface" />;}
     .<xsl:value-of select="$majorCSTheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:cs/@typeface" />;}
-  </xsl:template>
+  </xsl:template>-->
 
   <xsl:template match="w:bookmarkStart">
     <a name="{@w:name}"/>
@@ -6266,7 +6240,7 @@
   <xsl:template name="DisplayAnnotationScript">
    <!-- <xsl:text disable-output-escaping="yes">&lt;![if !supportAnnotations]&gt;</xsl:text> -->
     <style id="dynCom" type="text/css"></style>
-    <script type="text/javascript" language="JavaScript">
+<!--    <script type="text/javascript" language="JavaScript">
       <xsl:comment>
         <xsl:text disable-output-escaping="yes">
 function msoCommentShow(anchor_id, com_id)
@@ -6343,7 +6317,7 @@ if (msoBrowserCheck())
 }
 </xsl:text>
       </xsl:comment>
-    </script>
+    </script>-->
     <!--<xsl:text disable-output-escaping="yes">&lt;![endif]&gt;</xsl:text>-->
   </xsl:template>
 
@@ -6476,11 +6450,11 @@ if (msoBrowserCheck())
 
       <span>
         <xsl:if test="w:rubyPr/w:hpsBaseText">
-          <xsl:attribute name="style">
+<!--          <xsl:attribute name="style">
             <xsl:text>font-size:</xsl:text>
             <xsl:value-of select="w:rubyPr/w:hpsBaseText/@w:val" />
             <xsl:text>pt;</xsl:text>
-          </xsl:attribute>
+          </xsl:attribute>-->
         </xsl:if>
 
         <xsl:apply-templates select="w:rubyBase/w:r"/>
@@ -6489,11 +6463,11 @@ if (msoBrowserCheck())
       <rt>
         <span>
           <xsl:if test="w:rubyPr/w:hps">
-            <xsl:attribute name="style">
+<!--            <xsl:attribute name="style">
               <xsl:text>font-size:</xsl:text>
               <xsl:value-of select="w:rubyPr/w:hps/@w:val div 2" />
               <xsl:text>pt;</xsl:text>
-            </xsl:attribute>
+            </xsl:attribute>-->
 
             <xsl:apply-templates select="w:rt/w:r/w:t"/>
             <!--<xsl:apply-templates select="w:r/w:t"/>-->
@@ -7975,499 +7949,500 @@ if (msoBrowserCheck())
     of an number with a One '1'. This helps quickly identify
     the first occurence of a number. 
     
-    Considers the '.' and ',' part of a number iff they are sandwiched 
-    between two other numbers. 1.3 will be recognized as a number,
-    x.3 will not be. Since these characters can also be an operator, this 
-    should be called before SReplaceOperWithMinus.
-  -->
-  <xsl:template name="SReplaceNumWithOne">			
-    <xsl:param name="sToParse" select="''" />
+	  Considers the '.' and ',' part of a number iff they are sandwiched 
+	  between two other numbers. 1.3 will be recognized as a number,
+	  x.3 will not be. Since these characters can also be an operator, this 
+	  should be called before SReplaceOperWithMinus.
+	-->
+	<xsl:template name="SReplaceNumWithOne">			
+		<xsl:param name="sToParse" select="''" />
     
-    <!-- First do a simple replace. Numbers will all be come 0's.
-      After this point, the pattern involving the . or , that 
-      we are looking for will become 1.1 or 1,1 -->
-    <xsl:variable name="sSimpleReplace" select="translate($sToParse, $sNumbers, $sOnes)" />
+		<!-- First do a simple replace. Numbers will all be come 0's.
+		After this point, the pattern involving the . or , that 
+		we are looking for will become 1.1 or 1,1 -->
+		<xsl:variable name="sSimpleReplace" select="translate($sToParse, $sNumbers, $sOnes)" />
     
-    <!-- And then, replace 1.1 with just 111. This means that the . will 
-      become part of the number -->		
-    <xsl:variable name="sReplacePeriod">
-      <xsl:call-template name="SReplace">
-        <xsl:with-param name="sInput" select="$sSimpleReplace"/>
-        <xsl:with-param name="sOrig" select="'1.1'"/>
-        <xsl:with-param name="sReplacement" select="'111'"/>			
-      </xsl:call-template>
-    </xsl:variable>
+		<!-- And then, replace 1.1 with just 111. This means that the . will 
+		become part of the number -->		
+		<xsl:variable name="sReplacePeriod">
+			<xsl:call-template name="SReplace">
+				<xsl:with-param name="sInput" select="$sSimpleReplace"/>
+				<xsl:with-param name="sOrig" select="'1.1'"/>
+				<xsl:with-param name="sReplacement" select="'111'"/>			
+			</xsl:call-template>
+		</xsl:variable>
     
-    <!-- And then, replace 1,1 with just 111. This means that the , will 
-      become part of the number -->
-    <xsl:call-template name="SReplace">
-      <xsl:with-param name="sInput" select="$sReplacePeriod"/>
-      <xsl:with-param name="sOrig" select="'1,1'"/>
-      <xsl:with-param name="sReplacement" select="'111'"/>			
-    </xsl:call-template>		
-  </xsl:template>	
-  <xsl:template match="m:m">
-    <mml:mtable>
-      <xsl:call-template name="CreateMathMLMatrixAttr">
-        <xsl:with-param name="mcJc" select="m:mPr[last()]/m:mcs/m:mc/m:mcPr[last()]/m:mcJc/@m:val" />
-      </xsl:call-template>
-      <xsl:for-each select="m:mr">
-        <mml:mtr>
-          <xsl:for-each select="m:e">
-            <mml:mtd>
-              <xsl:apply-templates select="." />
-            </mml:mtd>
-          </xsl:for-each>
-        </mml:mtr>
-      </xsl:for-each>
-    </mml:mtable>
-  </xsl:template>
+		<!-- And then, replace 1,1 with just 111. This means that the , will 
+		become part of the number -->
+		<xsl:call-template name="SReplace">
+			<xsl:with-param name="sInput" select="$sReplacePeriod"/>
+			<xsl:with-param name="sOrig" select="'1,1'"/>
+			<xsl:with-param name="sReplacement" select="'111'"/>			
+		</xsl:call-template>		
+	</xsl:template>	
+	<xsl:template match="m:m">
+		<mml:mtable>
+			<xsl:call-template name="CreateMathMLMatrixAttr">
+				<xsl:with-param name="mcJc" select="m:mPr[last()]/m:mcs/m:mc/m:mcPr[last()]/m:mcJc/@m:val" />
+			</xsl:call-template>
+			<xsl:for-each select="m:mr">
+				<mml:mtr>
+					<xsl:for-each select="m:e">
+						<mml:mtd>
+							<xsl:apply-templates select="." />
+						</mml:mtd>
+					</xsl:for-each>
+				</mml:mtr>
+			</xsl:for-each>
+		</mml:mtable>
+	</xsl:template>
   
-  <xsl:template name="CreateMathMLMatrixAttr">
-    <xsl:param name="mcJc" />
-    <xsl:variable name="sLowerCaseMcjc" select="translate($mcJc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
+	<xsl:template name="CreateMathMLMatrixAttr">
+		<xsl:param name="mcJc" />
+		<xsl:variable name="sLowerCaseMcjc" select="translate($mcJc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
-    <xsl:choose>
-      <xsl:when test="$sLowerCaseMcjc='left'">
-        <xsl:attribute name="columnalign">left</xsl:attribute>
-      </xsl:when>
-      <xsl:when test="$sLowerCaseMcjc='right'">
-        <xsl:attribute name="columnalign">right</xsl:attribute>
-      </xsl:when>
-    </xsl:choose>
-  </xsl:template>
+		<xsl:choose>
+			<xsl:when test="$sLowerCaseMcjc='left'">
+				<xsl:attribute name="columnalign">left</xsl:attribute>
+			</xsl:when>
+			<xsl:when test="$sLowerCaseMcjc='right'">
+				<xsl:attribute name="columnalign">right</xsl:attribute>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
  
-  <xsl:template match="m:limLow">
-    <mml:munder>
-      <mml:mrow>
-        <xsl:apply-templates select="m:e[1]" />
-      </mml:mrow>
-      <mml:mrow>
-        <xsl:apply-templates select="m:lim[1]" />
-      </mml:mrow>
-    </mml:munder>
-  </xsl:template>
+	<xsl:template match="m:limLow">
+		<mml:munder>
+			<mml:mrow>
+				<xsl:apply-templates select="m:e[1]" />
+			</mml:mrow>
+			<mml:mrow>
+				<xsl:apply-templates select="m:lim[1]" />
+			</mml:mrow>
+		</mml:munder>
+	</xsl:template>
   
-  <xsl:template match="m:limUpp">
-    <mml:mover>
-      <mml:mrow>
-        <xsl:apply-templates select="m:e[1]" />
-      </mml:mrow>
-      <mml:mrow>
-        <xsl:apply-templates select="m:lim[1]" />
-      </mml:mrow>
-    </mml:mover>
-  </xsl:template>
+	<xsl:template match="m:limUpp">
+		<mml:mover>
+			<mml:mrow>
+				<xsl:apply-templates select="m:e[1]" />
+			</mml:mrow>
+			<mml:mrow>
+				<xsl:apply-templates select="m:lim[1]" />
+			</mml:mrow>
+		</mml:mover>
+	</xsl:template>
   
-  <xsl:template match="m:rad"> 
-    <xsl:variable name="sLowerCaseDegHide" select="translate(m:radPr[last()]/m:degHide/@m:val, 
+	<xsl:template match="m:rad"> 
+		<xsl:variable name="sLowerCaseDegHide" select="translate(m:radPr[last()]/m:degHide/@m:val, 
       'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
-    <xsl:choose>
-      <xsl:when test="$sLowerCaseDegHide='on'"> 
-        <mml:msqrt>
-          <xsl:apply-templates select="m:e[1]" />
-        </mml:msqrt>
-      </xsl:when>
-      <xsl:otherwise> 
-        <mml:mroot>
-          <mml:mrow>
-            <xsl:apply-templates select="m:e[1]" />
-          </mml:mrow>
-          <mml:mrow>
-            <xsl:apply-templates select="m:deg[1]" />
-          </mml:mrow>
-        </mml:mroot>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-  <xsl:template match="m:acc"> 
-    <mml:mover>
-      <xsl:attribute name="accent">true</xsl:attribute>
-      <xsl:apply-templates select="m:e[1]" /> 
-      <mml:mtext>
-        <xsl:call-template name="CreateAttributesforToken">
-          <xsl:with-param name="mscr" select="m:e[1]/*/m:rPr[last()]/m:scr/@m:val" />
-          <xsl:with-param name="msty" select="m:e[1]/*/m:rPr[last()]/m:sty/@m:val" />
-          <xsl:with-param name="mnor" select="m:e[1]/*/m:rPr[last()]/m:nor/@m:val" />
-        </xsl:call-template>
-        <xsl:choose>
-          <xsl:when test="not(m:accPr[last()]/m:chr)">
-            <xsl:value-of select="'&#x0302;'" /> 
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="substring(m:accPr/m:chr/@m:val,1,1)" />
-          </xsl:otherwise>
-        </xsl:choose>
-      </mml:mtext>
-    </mml:mover>
-  </xsl:template>
+		<xsl:choose>
+			<xsl:when test="$sLowerCaseDegHide='on'"> 
+				<mml:msqrt>
+					<xsl:apply-templates select="m:e[1]" />
+				</mml:msqrt>
+			</xsl:when>
+			<xsl:otherwise> 
+				<mml:mroot>
+					<mml:mrow>
+						<xsl:apply-templates select="m:e[1]" />
+					</mml:mrow>
+					<mml:mrow>
+						<xsl:apply-templates select="m:deg[1]" />
+					</mml:mrow>
+				</mml:mroot>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="m:acc"> 
+		<mml:mover>
+			<xsl:attribute name="accent">true</xsl:attribute>
+			<xsl:apply-templates select="m:e[1]" /> 
+			<mml:mtext>
+				<xsl:call-template name="CreateAttributesforToken">
+					<xsl:with-param name="mscr" select="m:e[1]/*/m:rPr[last()]/m:scr/@m:val" />
+					<xsl:with-param name="msty" select="m:e[1]/*/m:rPr[last()]/m:sty/@m:val" />
+					<xsl:with-param name="mnor" select="m:e[1]/*/m:rPr[last()]/m:nor/@m:val" />
+				</xsl:call-template>
+				<xsl:choose>
+					<xsl:when test="not(m:accPr[last()]/m:chr)">
+						<xsl:value-of select="'&#x0302;'" /> 
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="substring(m:accPr/m:chr/@m:val,1,1)" />
+					</xsl:otherwise>
+				</xsl:choose>
+			</mml:mtext>
+		</mml:mover>
+	</xsl:template>
   
-  <xsl:template match="m:sPre">
-    <mml:mmultiscripts>
-      <mml:mrow>
-        <xsl:apply-templates select="m:e[1]" />
-      </mml:mrow>
-      <mml:mprescripts />
-      <mml:mrow>
-        <xsl:apply-templates select="m:sub[1]" />
-      </mml:mrow>
-      <mml:mrow>
-        <xsl:apply-templates select="m:sup[1]" />
-      </mml:mrow>
-    </mml:mmultiscripts>
-  </xsl:template>
+	<xsl:template match="m:sPre">
+		<mml:mmultiscripts>
+			<mml:mrow>
+				<xsl:apply-templates select="m:e[1]" />
+			</mml:mrow>
+			<mml:mprescripts />
+			<mml:mrow>
+				<xsl:apply-templates select="m:sub[1]" />
+			</mml:mrow>
+			<mml:mrow>
+				<xsl:apply-templates select="m:sup[1]" />
+			</mml:mrow>
+		</mml:mmultiscripts>
+	</xsl:template>
   
-  <!-- Fixex -->
-  <!-- avoid printing fnames twice -->
-  <xsl:template match="m:func">
-    <mml:mrow>
-      <mml:mrow>
-        <xsl:apply-templates select="m:fName[1]/*" />
-      </mml:mrow>
-      <mml:mo></mml:mo>
-      <xsl:apply-templates select="m:fName[1]/following-sibling::*" />
-    </mml:mrow>
-  </xsl:template>
+	<!-- Fixex -->
+	<!-- avoid printing fnames twice -->
+	<xsl:template match="m:func">
+		<mml:mrow>
+			<mml:mrow>
+				<xsl:apply-templates select="m:fName[1]/*" />
+			</mml:mrow>
+			<mml:mo></mml:mo>
+			<xsl:apply-templates select="m:fName[1]/following-sibling::*" />
+		</mml:mrow>
+	</xsl:template>
   
-  <!-- m:r reconstituted from Word comments don't have character data in m:t it is directly i m:r (and style information is in interleaved span and i elements, weird but true -->
+	<!-- m:r reconstituted from Word comments don't have character data in m:t it is directly i m:r (and style information is in interleaved span and i elements, weird but true -->
   
-  <xsl:template match="m:r[not(.//m:t)]">
-    <xsl:for-each select=".//text()[translate(.,' &#10;&amp;','')]">
-      <xsl:call-template name="ParseMt">
-        <xsl:with-param name="sToParse" select="translate(.,' &#10;&amp;','')" />
-        <xsl:with-param name="mscr" select="../m:rPr[last()]/m:scr/@m:val" />
-        <xsl:with-param name="msty" select="../m:rPr[last()]/m:sty/@m:val" />
-        <xsl:with-param name="mnor" select="../m:rPr[last()]/m:nor/@m:val" />
-      </xsl:call-template>
-    </xsl:for-each>
-  </xsl:template>
+	<xsl:template match="m:r[not(.//m:t)]">
+		<xsl:for-each select=".//text()[translate(.,' &#10;&amp;','')]">
+			<xsl:call-template name="ParseMt">
+				<xsl:with-param name="sToParse" select="translate(.,' &#10;&amp;','')" />
+				<xsl:with-param name="mscr" select="../m:rPr[last()]/m:scr/@m:val" />
+				<xsl:with-param name="msty" select="../m:rPr[last()]/m:sty/@m:val" />
+				<xsl:with-param name="mnor" select="../m:rPr[last()]/m:nor/@m:val" />
+			</xsl:call-template>
+		</xsl:for-each>
+	</xsl:template>
   
-  <!--
-    MS stylesheet uses DOE which is (a) unevil, (b) non necessary, and (c) breaks the pass through a temporay tree to get rid of namespace nodes.
-    repeat the templates here without doe (and without double quoting amp)
-  -->
-  <xsl:template match="m:nary">
-    <xsl:variable name="sLowerCaseSubHide">
-      <xsl:choose>
-        <xsl:when test="count(m:naryPr[last()]/m:subHide) = 0">
-          <xsl:text>off</xsl:text>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="translate(m:naryPr[last()]/m:subHide/@m:val, 
+	<!--
+	  MS stylesheet uses DOE which is (a) unevil, (b) non necessary, and (c) breaks the pass through a temporay tree to get rid of namespace nodes.
+	  repeat the templates here without doe (and without double quoting amp)
+	-->
+	<xsl:template match="m:nary">
+		<xsl:variable name="sLowerCaseSubHide">
+			<xsl:choose>
+				<xsl:when test="count(m:naryPr[last()]/m:subHide) = 0">
+					<xsl:text>off</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="translate(m:naryPr[last()]/m:subHide/@m:val, 
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
             'abcdefghijklmnopqrstuvwxyz')" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:variable name="sLowerCaseSupHide">
-      <xsl:choose>
-        <xsl:when test="count(m:naryPr[last()]/m:supHide) = 0">
-          <xsl:text>off</xsl:text>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="translate(m:naryPr[last()]/m:supHide/@m:val, 
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:variable name="sLowerCaseSupHide">
+			<xsl:choose>
+				<xsl:when test="count(m:naryPr[last()]/m:supHide) = 0">
+					<xsl:text>off</xsl:text>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:value-of select="translate(m:naryPr[last()]/m:supHide/@m:val, 
             'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
             'abcdefghijklmnopqrstuvwxyz')" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:choose>
-      <xsl:when test="not($sLowerCaseSupHide='off') and 
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
+		<xsl:choose>
+			<xsl:when test="not($sLowerCaseSupHide='off') and 
         not($sLowerCaseSubHide='off')">
-        <mml:mo>
-          <xsl:choose>
-            <xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
+				<mml:mo>
+					<xsl:choose>
+						<xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
               m:naryPr[last()]/m:chr/@m:val=''">
-              <xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
-            </xsl:otherwise>
-          </xsl:choose>
-        </mml:mo>
-      </xsl:when>
-      <xsl:when test="not($sLowerCaseSubHide='off')">
-        <xsl:choose>
-          <xsl:when test="m:naryPr[last()]/m:limLoc/@m:val='subSup'">
-            <mml:msup>
-              <mml:mo>
-                <xsl:choose>
-                  <xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
+							<xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
+						</xsl:otherwise>
+					</xsl:choose>
+				</mml:mo>
+			</xsl:when>
+			<xsl:when test="not($sLowerCaseSubHide='off')">
+				<xsl:choose>
+					<xsl:when test="m:naryPr[last()]/m:limLoc/@m:val='subSup'">
+						<mml:msup>
+							<mml:mo>
+								<xsl:choose>
+									<xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
                     m:naryPr[last()]/m:chr/@m:val=''">
-                    <xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
-                  </xsl:otherwise>
-                </xsl:choose>
-              </mml:mo>
-              <xsl:apply-templates select="m:sup[1]" />
-            </mml:msup>
-          </xsl:when>
-          <xsl:otherwise>
-            <mml:mover>
-              <mml:mo>
-                <xsl:choose>
-                  <xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
+										<xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
+									</xsl:otherwise>
+								</xsl:choose>
+							</mml:mo>
+							<xsl:apply-templates select="m:sup[1]" />
+						</mml:msup>
+					</xsl:when>
+					<xsl:otherwise>
+						<mml:mover>
+							<mml:mo>
+								<xsl:choose>
+									<xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
                     m:naryPr[last()]/m:chr/@m:val=''">
-                    <xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
-                  </xsl:otherwise>
-                </xsl:choose>
-              </mml:mo>
-              <xsl:apply-templates select="m:sup[1]" />
-            </mml:mover>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:when>
-      <xsl:when test="not($sLowerCaseSupHide='off')">
-        <xsl:choose>
-          <xsl:when test="m:naryPr[last()]/m:limLoc/@m:val='subSup'">
-            <mml:msub>
-              <mml:mo>
-                <xsl:choose>
-                  <xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
+										<xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
+									</xsl:otherwise>
+								</xsl:choose>
+							</mml:mo>
+							<xsl:apply-templates select="m:sup[1]" />
+						</mml:mover>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:when test="not($sLowerCaseSupHide='off')">
+				<xsl:choose>
+					<xsl:when test="m:naryPr[last()]/m:limLoc/@m:val='subSup'">
+						<mml:msub>
+							<mml:mo>
+								<xsl:choose>
+									<xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
                     m:naryPr[last()]/m:chr/@m:val=''">
-                    <xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
-                  </xsl:otherwise>
-                </xsl:choose>
-              </mml:mo>
-              <xsl:apply-templates select="m:sub[1]" />
-            </mml:msub>
-          </xsl:when>
-          <xsl:otherwise>
-            <mml:munder>
-              <mml:mo>
-                <xsl:choose>
-                  <xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
+										<xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
+									</xsl:otherwise>
+								</xsl:choose>
+							</mml:mo>
+							<xsl:apply-templates select="m:sub[1]" />
+						</mml:msub>
+					</xsl:when>
+					<xsl:otherwise>
+						<mml:munder>
+							<mml:mo>
+								<xsl:choose>
+									<xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
                     m:naryPr[last()]/m:chr/@m:val=''">
-                    <xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
-                  </xsl:otherwise>
-                </xsl:choose>
-              </mml:mo>
-              <xsl:apply-templates select="m:sub[1]" />
-            </mml:munder>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:choose>
-          <xsl:when test="m:naryPr[last()]/m:limLoc/@m:val='subSup'">
-            <mml:msubsup>
-              <mml:mo>
-                <xsl:choose>
-                  <xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
+										<xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
+									</xsl:otherwise>
+								</xsl:choose>
+							</mml:mo>
+							<xsl:apply-templates select="m:sub[1]" />
+						</mml:munder>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:choose>
+					<xsl:when test="m:naryPr[last()]/m:limLoc/@m:val='subSup'">
+						<mml:msubsup>
+							<mml:mo>
+								<xsl:choose>
+									<xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
                     m:naryPr[last()]/m:chr/@m:val=''">
-                    <xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
-                  </xsl:otherwise>
-                </xsl:choose>
-              </mml:mo>
-              <xsl:apply-templates select="m:sub[1]" />
-              <xsl:apply-templates select="m:sup[1]" />
-            </mml:msubsup>
-          </xsl:when>
-          <xsl:otherwise>
-            <mml:munderover>
-              <mml:mo>
-                <xsl:choose>
-                  <xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
+										<xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
+									</xsl:otherwise>
+								</xsl:choose>
+							</mml:mo>
+							<xsl:apply-templates select="m:sub[1]" />
+							<xsl:apply-templates select="m:sup[1]" />
+						</mml:msubsup>
+					</xsl:when>
+					<xsl:otherwise>
+						<mml:munderover>
+							<mml:mo>
+								<xsl:choose>
+									<xsl:when test="not(m:naryPr[last()]/m:chr/@m:val) or
                     m:naryPr[last()]/m:chr/@m:val=''">
-                    <xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
-                  </xsl:otherwise>
-                </xsl:choose>
-              </mml:mo>
-              <xsl:apply-templates select="m:sub[1]" />
-              <xsl:apply-templates select="m:sup[1]" />
-            </mml:munderover>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:otherwise>
-    </xsl:choose>
-    <mml:mrow>
-      <xsl:apply-templates select="m:e[1]" />
-    </mml:mrow>
-  </xsl:template>
-  <xsl:template name="CreateGroupChr">
-    <xsl:variable name="sLowerCasePos" select="translate(m:groupChrPr[last()]/m:pos/@m:val, 
+										<xsl:text disable-output-escaping="no">&#x222b;</xsl:text>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="m:naryPr[last()]/m:chr/@m:val" />
+									</xsl:otherwise>
+								</xsl:choose>
+							</mml:mo>
+							<xsl:apply-templates select="m:sub[1]" />
+							<xsl:apply-templates select="m:sup[1]" />
+						</mml:munderover>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:otherwise>
+		</xsl:choose>
+		<mml:mrow>
+			<xsl:apply-templates select="m:e[1]" />
+		</mml:mrow>
+	</xsl:template>
+	<xsl:template name="CreateGroupChr">
+		<xsl:variable name="sLowerCasePos" select="translate(m:groupChrPr[last()]/m:pos/@m:val, 
       'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
-    <xsl:choose>
-      <xsl:when test="$sLowerCasePos!='top' or 
+		<xsl:choose>
+			<xsl:when test="$sLowerCasePos!='top' or 
         not(m:groupChrPr[last()]/m:pos/@m:val)   or
         m:groupChrPr[last()]/m:pos/@m:val=''">
-        <mml:munder>
-          <xsl:apply-templates select="m:e[1]" />
-          <mml:mo>
-            <xsl:choose>
-              <xsl:when test="string-length(m:groupChrPr[last()]/m:chr/@m:val) &gt;= 1">
-                <xsl:value-of select="substring(m:groupChrPr[last()]/m:chr/@m:val,1,1)" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text disable-output-escaping="no">&#x023DF;</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
-          </mml:mo>
-        </mml:munder>
-      </xsl:when>
-      <xsl:otherwise>
-        <mml:mover>
-          <xsl:apply-templates select="m:e[1]" />
-          <mml:mo>
-            <xsl:choose>
-              <xsl:when test="string-length(m:groupChrPr[last()]/m:chr/@m:val) &gt;= 1">
-                <xsl:value-of select="substring(m:groupChrPr[last()]/m:chr/@m:val,1,1)" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text disable-output-escaping="no">&#x023DF;</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
-          </mml:mo>
-        </mml:mover>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-  <xsl:template match="m:bar">
-    <xsl:variable name="sLowerCasePos" select="translate(m:barPr/m:pos/@m:val, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
+				<mml:munder>
+					<xsl:apply-templates select="m:e[1]" />
+					<mml:mo>
+						<xsl:choose>
+							<xsl:when test="string-length(m:groupChrPr[last()]/m:chr/@m:val) &gt;= 1">
+								<xsl:value-of select="substring(m:groupChrPr[last()]/m:chr/@m:val,1,1)" />
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text disable-output-escaping="no">&#x023DF;</xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>
+					</mml:mo>
+				</mml:munder>
+			</xsl:when>
+			<xsl:otherwise>
+				<mml:mover>
+					<xsl:apply-templates select="m:e[1]" />
+					<mml:mo>
+						<xsl:choose>
+							<xsl:when test="string-length(m:groupChrPr[last()]/m:chr/@m:val) &gt;= 1">
+								<xsl:value-of select="substring(m:groupChrPr[last()]/m:chr/@m:val,1,1)" />
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text disable-output-escaping="no">&#x023DF;</xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>
+					</mml:mo>
+				</mml:mover>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	<xsl:template match="m:bar">
+		<xsl:variable name="sLowerCasePos" select="translate(m:barPr/m:pos/@m:val, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
-    <xsl:choose>
-      <xsl:when test="$sLowerCasePos!='bot' or 
+		<xsl:choose>
+			<xsl:when test="$sLowerCasePos!='bot' or 
         not($sLowerCasePos)   or
         $sLowerCasePos=''   ">
-        <mml:mover>
-          <xsl:attribute name="accent">true</xsl:attribute>
-          <xsl:apply-templates select="m:e[1]" />
-          <mml:mo>
-            <xsl:text disable-output-escaping="no">&#x000AF;</xsl:text>
-          </mml:mo>
-        </mml:mover>
-      </xsl:when>
-      <xsl:otherwise>
-        <mml:munder>
-          <xsl:apply-templates select="m:e[1]" />
-          <mml:mo>
-            <xsl:text disable-output-escaping="no">&#x00332;</xsl:text>
-          </mml:mo>
-        </mml:munder>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
+				<mml:mover>
+					<xsl:attribute name="accent">true</xsl:attribute>
+					<xsl:apply-templates select="m:e[1]" />
+					<mml:mo>
+						<xsl:text disable-output-escaping="no">&#x000AF;</xsl:text>
+					</mml:mo>
+				</mml:mover>
+			</xsl:when>
+			<xsl:otherwise>
+				<mml:munder>
+					<xsl:apply-templates select="m:e[1]" />
+					<mml:mo>
+						<xsl:text disable-output-escaping="no">&#x00332;</xsl:text>
+					</mml:mo>
+				</mml:munder>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
    
-  <!-- wrong name for (m)phantom -->
+	<!-- wrong name for (m)phantom -->
   
-  <xsl:template match="m:phant">
-    <xsl:variable name="sLowerCaseWidth" select="translate(m:phantPr[last()]/m:width/@m:val, 
+	<xsl:template match="m:phant">
+		<xsl:variable name="sLowerCaseWidth" select="translate(m:phantPr[last()]/m:width/@m:val, 
       'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
-    <xsl:variable name="sLowerCaseAsc" select="translate(m:phantPr[last()]/m:asc/@m:val, 
+		<xsl:variable name="sLowerCaseAsc" select="translate(m:phantPr[last()]/m:asc/@m:val, 
       'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
-    <xsl:variable name="sLowerCaseDec" select="translate(m:phantPr[last()]/m:dec/@m:val, 
+		<xsl:variable name="sLowerCaseDec" select="translate(m:phantPr[last()]/m:dec/@m:val, 
       'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
-    <xsl:if test="not($sLowerCaseWidth='off' and 
+		<xsl:if test="not($sLowerCaseWidth='off' and 
       $sLowerCaseAsc='off'   and
       $sLowerCaseDec='off')">
-      <mml:mphantom>				
-        <xsl:apply-templates select="m:e[1]" />
-      </mml:mphantom>
-    </xsl:if>
-  </xsl:template>
+			<mml:mphantom>				
+				<xsl:apply-templates select="m:e[1]" />
+			</mml:mphantom>
+		</xsl:if>
+	</xsl:template>
   
-  <!--TEMPLATES NEWLY ADDED-->
+	<!--TEMPLATES NEWLY ADDED-->
   
-  <xsl:template match="m:oMath">
-    <xsl:variable name="varAlign"> 
-      <xsl:value-of select="preceding-sibling::m:oMathParaPr/m:jc/@m:val"/></xsl:variable>
-    <xsl:variable name="spStyle">
-      <xsl:choose>
-        <xsl:when test="((parent::m:oMathPara) and not(preceding-sibling::m:oMathParaPr))">
-          display:block;
-        </xsl:when>
-        <xsl:otherwise>
-        </xsl:otherwise>
-      </xsl:choose>
-      font-family:<xsl:value-of select=".//w:rPr[last()]/w:rFonts/@w:ascii"/>;
-      font-size:<xsl:value-of select=".//w:rPr[last()]/w:sz/@w:val div 2"/>pt;
-      <xsl:choose>
-        <xsl:when test="string-length(.//w:rPr[last()]/w:color/@w:val) = 0">
-          color:<xsl:call-template name="ConvHexColor">
-            <xsl:with-param name="value" select="ancestor::w:p/w:pPr/w:rPr[last()]/w:color/@w:val"/>
-          </xsl:call-template>;
-        </xsl:when>
-        <xsl:otherwise>
-          color:<xsl:call-template name="ConvHexColor">
-            <xsl:with-param name="value" select=".//w:rPr[last()]/w:color/@w:val"/>
-          </xsl:call-template>;
-        </xsl:otherwise>
-      </xsl:choose>
-      <xsl:choose>
-        <xsl:when test="string-length(.//w:rPr[last()]/w:highlight/@w:val) = 0">
-          background-color:<xsl:call-template name="ConvColor">
-            <xsl:with-param name="value" select="ancestor::w:p/w:pPr/w:rPr[last()]/w:hightlight/@w:val"/>
-          </xsl:call-template>;
-        </xsl:when>
-        <xsl:otherwise>
-          background-color:<xsl:call-template name="ConvColor">
-            <xsl:with-param name="value" select=".//w:rPr[last()]/w:highlight/@w:val"/>
-          </xsl:call-template>;
-        </xsl:otherwise>
-      </xsl:choose>
-      <xsl:choose>
-        <xsl:when test="string-length(.//w:rPr[last()]/w:u[1]/@w:val) = 0 or .//w:rPr[last()]/w:u[1]/@w:val = 'off' or .//w:rPr[last()]/w:u[1]/@w:val = 'none' or .//w:rPr[last()]/w:u[1]/@w:val = '0' ">
-          text-decoration:none;
-        </xsl:when>
-        <xsl:otherwise>
-          text-decoration:underline;
-        </xsl:otherwise>
-      </xsl:choose>
-      text-align:<xsl:value-of select="$varAlign"></xsl:value-of>;
-    </xsl:variable>
+	<xsl:template match="m:oMath">
+		<xsl:variable name="varAlign"> 
+			<xsl:value-of select="preceding-sibling::m:oMathParaPr/m:jc/@m:val"/>
+		</xsl:variable>
+		<xsl:variable name="spStyle">
+			<xsl:choose>
+				<xsl:when test="((parent::m:oMathPara) and not(preceding-sibling::m:oMathParaPr))">
+					display:block;
+				</xsl:when>
+				<xsl:otherwise>
+				</xsl:otherwise>
+			</xsl:choose>
+			font-family:<xsl:value-of select=".//w:rPr[last()]/w:rFonts/@w:ascii"/>;
+			font-size:<xsl:value-of select=".//w:rPr[last()]/w:sz/@w:val div 2"/>pt;
+			<xsl:choose>
+				<xsl:when test="string-length(.//w:rPr[last()]/w:color/@w:val) = 0">
+					color:<xsl:call-template name="ConvHexColor">
+						<xsl:with-param name="value" select="ancestor::w:p/w:pPr/w:rPr[last()]/w:color/@w:val"/>
+					</xsl:call-template>;
+				</xsl:when>
+				<xsl:otherwise>
+					color:<xsl:call-template name="ConvHexColor">
+						<xsl:with-param name="value" select=".//w:rPr[last()]/w:color/@w:val"/>
+					</xsl:call-template>;
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test="string-length(.//w:rPr[last()]/w:highlight/@w:val) = 0">
+					background-color:<xsl:call-template name="ConvColor">
+						<xsl:with-param name="value" select="ancestor::w:p/w:pPr/w:rPr[last()]/w:hightlight/@w:val"/>
+					</xsl:call-template>;
+				</xsl:when>
+				<xsl:otherwise>
+					background-color:<xsl:call-template name="ConvColor">
+						<xsl:with-param name="value" select=".//w:rPr[last()]/w:highlight/@w:val"/>
+					</xsl:call-template>;
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test="string-length(.//w:rPr[last()]/w:u[1]/@w:val) = 0 or .//w:rPr[last()]/w:u[1]/@w:val = 'off' or .//w:rPr[last()]/w:u[1]/@w:val = 'none' or .//w:rPr[last()]/w:u[1]/@w:val = '0' ">
+					text-decoration:none;
+				</xsl:when>
+				<xsl:otherwise>
+					text-decoration:underline;
+				</xsl:otherwise>
+			</xsl:choose>
+			text-align:<xsl:value-of select="$varAlign"></xsl:value-of>;
+		</xsl:variable>
     
-    <xsl:choose>
-      <xsl:when test="(parent::m:oMathPara) and not(preceding-sibling::m:oMathParaPr)">
-        <span style="{$spStyle}"> 
-        <mml:math display="block">
-        <xsl:apply-templates select="*"/> 
-        </mml:math> 
-        </span>
-      </xsl:when>
-      <xsl:otherwise>
-        <div align="{$varAlign}">
-        <span style="{$spStyle}">
-          <mml:math>
-            <xsl:apply-templates select="*"/>  
-          </mml:math>
-        </span>   
-        </div>
-      </xsl:otherwise>
-    </xsl:choose>
+		<xsl:choose>
+			<xsl:when test="(parent::m:oMathPara) and not(preceding-sibling::m:oMathParaPr)">
+				<span style="{$spStyle}"> 
+					<mml:math display="block">
+						<xsl:apply-templates select="*"/> 
+					</mml:math> 
+				</span>
+			</xsl:when>
+			<xsl:otherwise>
+				<div align="{$varAlign}">
+					<span style="{$spStyle}">
+						<mml:math>
+							<xsl:apply-templates select="*"/>  
+						</mml:math>
+					</span>   
+				</div>
+			</xsl:otherwise>
+		</xsl:choose>
    
-  </xsl:template> 
-  <!--ADDED FOR MATHML SUPPORT BY SHUBHA align="{$varAlign}" -->
+	</xsl:template> 
+	<!--ADDED FOR MATHML SUPPORT BY SHUBHA align="{$varAlign}" -->
   
   
-  <xsl:template match="m:t">
+	<xsl:template match="m:t">
     
-    <xsl:choose>
-      <xsl:when test="/@xml:space">
+		<xsl:choose>
+			<xsl:when test="/@xml:space">
        &#160;
-      </xsl:when>
-    </xsl:choose>
-    <xsl:apply-templates select="*"/>  
-  </xsl:template>
+			</xsl:when>
+		</xsl:choose>
+		<xsl:apply-templates select="*"/>  
+	</xsl:template>
 </xsl:stylesheet>
