@@ -1,6 +1,6 @@
 /*
-htmLawed_TESTCASE.txt, 14 August 2012
-htmLawed 1.1.14, 8 August 2012
+htmLawed_TESTCASE.txt, 21 August 2013
+htmLawed 1.1.15, 11 August August 2013
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
 A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed
@@ -28,6 +28,7 @@ character encoding to Unicode/UTF-8
 <strong>Deprecated:</strong> <a id="id7" target="self" name="n">a</a>, <hr noshade="noshade" /><br />
 <strong>Casing:</strong> <a HREF=""></a><br />
 <strong>Custom:</strong> <img alt="image" my:data="portrait" /><br />
+<strong>Data-*:</strong> <a data-xml="x" data-xmnt="x" data-xmlnt="x" data-xmn:t="x" data-xmxm="x">a</a><br />
 <strong>Admin-restricted?:</strong> <a href="x" onclick="alert();"></a>
 
 <h6>Attribute values</h6>
@@ -205,6 +206,13 @@ text <img src="none" alt="none" /> 	<b>t<em> e <strong> x </strong> t</em></b>
 <strong>Malformed:</strong> <![cdata check ]]>, < ![CDATA check ]]>, < ![CDATA check ] ]><br />
 Invalid:</strong> <em <!-- check -->>comment in tag content</em>, <!--check-->
 
+<h6>HTML5</h6>
+
+<strong>figure and figcaption:</strong> <figure><img src="picture.jpg" alt="picture"><figcaption>Caption for the awesome picture</figcaption></figure>
+<strong>article:</strong> <h1>A</h1><p>B</p><article><h2>C</h2></article><article><h2>E</h2><p>F</p><p>G</p></article>
+<strong>meter</strong>: <p>Heat <meter min="100" max="200" value="150">150</meter>.</p>
+<strong>datalist</strong>: <input list="b" /><datalist id="b"><option value="c"><option value="d"></datalist>
+
 <h6>Ins-Del</h6>
 
 (depending on context, these elements can be of either block or inline type)<br />
@@ -265,6 +273,10 @@ Invalid:</strong> <em <!-- check -->>comment in tag content</em>, <!--check-->
 			</form>
 		</li></ul>
 </td></tr></table></li></ol>
+<strong>Menu</strong>: <menu type="toolbar"><li><menu label="File">
+      <button type="button" onclick="new()">New...</button>
+    </menu></li><li><menu label="Edit"><button type="button" onclick="cut()">Cut...</button></menu></li>
+    </menu>
 
 <h6>Microdata</h6>
 
@@ -278,6 +290,10 @@ Find me at <a href="http://www.xy.com" itemprop="url">www.xy.com</a>
 <strong>Proprietary tag</strong>: <p class=3DMsoNormal><o:p>&nbsp;</o:p></p><br />
 <strong>XML declaration</strong>: <?xml:namespace prefix = o ns = "urn:schemas-microsoft-com:office:office" /><br />
 <strong>XML-invalid character code-point (may not replicate)</strong>: <p class=3DMsoNormal>“Where is he?” asked both Mary – the one so lovely – and Jane.</p>
+
+<h6>Nesting</h6>
+
+<strong>Block or inline a</strong>: <p><a href="link">text</a></p><a href="link"><div>hi</div></a><br />
 
 <h6>Non-English text-1</h6>
 
@@ -326,6 +342,7 @@ na Alemanha.
   <rp>(</rp><rt>aaa</rt><rp>)</rp>
 </ruby>
 
+
 <h6>Tables</h6>
 
 <strong>Omitted closing tags:</strong> <table>
@@ -356,6 +373,9 @@ na Alemanha.
 <strong>Font element intended as 'inline' element:</strong> <p><font color='red'>hi</font></p><br />
 <strong>Font element intended as 'block' element:</strong> <div><font color='red'><div>hi</div></font></div><br />
 <strong>Font element intended as 'block' element:</strong> <center><font color='red'><div>hi</div><div>QQQ</div></font></center><br />
+
+<h6>Tidy</h6>
+<strong>White-space handling:</strong> abc<em> def </em> ghi   abc <em>def</em> ghi
 
 <h6>URLs</h6>
 

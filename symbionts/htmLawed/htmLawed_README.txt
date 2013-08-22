@@ -1,6 +1,6 @@
 /*
-htmLawed_README.txt, 17 September 2012
-htmLawed 1.1.14, 8 August 2012
+htmLawed_README.txt, 11 August 2013
+htmLawed 1.1.15, 11 August 2013
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
 A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed
@@ -744,7 +744,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
   The character values are replaced with entities/characters and not character values referred to by the entities/characters to keep this task independent of the character-encoding of input text.
 
-  The '$config["clean_ms_char"]' parameter should not be used if authors do not copy-paste Microsoft-created text, or if the input text is not believed to use the 'Windows 1252' ('Cp-1252') or a similar encoding like 'Cp-1251'. Further, the input form and the web-pages displaying it or its content should have the character encoding appropriately marked-up.
+  The '$config["clean_ms_char"]' parameter should not be used if authors do not copy-paste Microsoft-created text, or if the input text is not believed to use the 'Windows 1252' ('Cp-1252') or a similar encoding like 'Cp-1251' (otherwise, for example when UTF-8 encoding is in use, Japanese or Korean characters can get mangled). Further, the input form and the web-pages displaying it or its content should have the character encoding appropriately marked-up.
 
 
 -- 3.2  Character references/entities ------------------------------o
@@ -1344,6 +1344,8 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
   `Version number - Release date. Notes`
   
+  1.1.15 - 11 August 2013. Improved tidying/prettifying functionality
+    
   1.1.14 - 8 August 2012. Fix for possible segmental loss of incremental indentation during 'tidying' when 'balance' is disabled; fix for non-effectuation under some circumstances of a corrective behavior to preserve plain text within elements like 'blockquote'.
   
   1.1.13 - 22 July 2012. Added feature allowing use of custom, non-standard attributes or custom rules for standard attributes
@@ -1462,7 +1464,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 -- 4.10  Acknowledgements ------------------------------------------o
 
 
-  Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Ulf Harnhammer, Gareth Heyes, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Edward Yang, and many anonymous users.
+  Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Dac Chartrand, Ulf Harnhammer, Gareth Heyes, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Edward Yang, and many anonymous users.
 
   Thank you!
 

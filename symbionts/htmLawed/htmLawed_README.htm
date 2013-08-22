@@ -110,8 +110,8 @@ span.totop a, span.totop a:visited {color: #6699cc;}
 
 <div id="body">
 <br />
-<div class="comment">htmLawed_README.txt, 17 September 2012<br />
-htmLawed 1.1.14, 8 August 2012<br />
+<div class="comment">htmLawed_README.txt, 11 August 2013<br />
+htmLawed 1.1.15, 11 August 2013<br />
 Copyright Santosh Patnaik<br />
 Dual licensed with LGPL 3 and GPL 2+<br />
 A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed">http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed</a>&#160;</div>
@@ -915,7 +915,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; The character values are replaced with entities/characters and not character values referred to by the entities/characters to keep this task independent of the character-encoding of input text.<br />
 <br />
-&#160; The <span class="term">$config["clean_ms_char"]</span>&#160;parameter should not be used if authors do not copy-paste Microsoft-created text, or if the input text is not believed to use the <span class="term">Windows 1252</span>&#160;(<span class="term">Cp-1252</span>) or a similar encoding like <span class="term">Cp-1251</span>. Further, the input form and the web-pages displaying it or its content should have the character encoding appropriately marked-up.<br />
+&#160; The <span class="term">$config["clean_ms_char"]</span>&#160;parameter should not be used if authors do not copy-paste Microsoft-created text, or if the input text is not believed to use the <span class="term">Windows 1252</span>&#160;(<span class="term">Cp-1252</span>) or a similar encoding like <span class="term">Cp-1251</span>&#160;(otherwise, for example when UTF-8 encoding is in use, Japanese or Korean characters can get mangled). Further, the input form and the web-pages displaying it or its content should have the character encoding appropriately marked-up.<br />
 
 </div>
 <div class="sub-section"><h3>
@@ -1773,6 +1773,8 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; <em>Version number - Release date. Notes</em><br />
 <br />
+&#160; 1.1.15 - 11 August 2013. Improved tidying/prettifying functionality<br />
+<br />
 &#160; 1.1.14 - 8 August 2012. Fix for possible segmental loss of incremental indentation during <span class="term">tidying</span>&#160;when <span class="term">balance</span>&#160;is disabled; fix for non-effectuation under some circumstances of a corrective behavior to preserve plain text within elements like <span class="term">blockquote</span>.<br />
 <br />
 &#160; 1.1.13 - 22 July 2012. Added feature allowing use of custom, non-standard attributes or custom rules for standard attributes<br />
@@ -1898,7 +1900,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <a name="s4.10" id="s4.10"></a><span class="item-no">4.10</span>&#160; Acknowledgements
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Ulf Harnhammer, Gareth Heyes, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Edward Yang, and many anonymous users.<br />
+&#160; Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Dac Chartrand, Ulf Harnhammer, Gareth Heyes, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Edward Yang, and many anonymous users.<br />
 <br />
 &#160; Thank you!<br />
 
@@ -2167,7 +2169,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 </div>
 </div>
 <br />
-<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 18 Sep, 2012 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
+<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 11 Aug, 2013 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
 </div><!-- ended div body -->
 </div><!-- ended div top -->
 </body>
