@@ -155,7 +155,7 @@ $_current_user_id = $catalog->getUserId();
 	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.equalizer.min.js?ver=1.2.3" type="text/javascript"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.mixitup.min.js?ver=1.5.4" type="text/javascript"></script>
-	<script src="js/small-menu.js?ver=0.0.1" type="text/javascript"></script>
+	<script src="<?php echo PB_PLUGIN_URL; ?>assets/js/small-menu.js?ver=0.0.1" type="text/javascript"></script>
 	<?php if ( function_exists( 'ga_mu_plugin_add_script_to_head' ) ) ga_mu_plugin_add_script_to_head(); ?>
 </head>
 <body>
