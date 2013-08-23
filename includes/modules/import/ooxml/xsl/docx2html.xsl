@@ -4507,17 +4507,12 @@
 			<xsl:element name='figure'>
 				<xsl:call-template name="DisplayPContent" />
 			</xsl:element>
-		</xsl:when>
-		<xsl:when test="not($pStyleId = 'List1Bulleted')">
-			<xsl:element name='p'>
-				<xsl:call-template name="DisplayPContent" />
-			</xsl:element>
 		</xsl:when>		
-		<otherwise>
+		<xsl:otherwise>
 			<xsl:element name='p'>
 				<xsl:call-template name="DisplayPContent" />
 			</xsl:element>
-		</otherwise>	
+		</xsl:otherwise>	
 	</xsl:choose>
 <!--     <xsl:if test="./w:r/w:lastRenderedPageBreak/@ColumnEnd">  Added by Parwati to handle columns
         <xsl:variable name="columnNo">
