@@ -149,7 +149,7 @@ $_current_user_id = $catalog->getUserId();
 	<base href="<?php echo $base_href; ?>" />
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
-	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login ) . ' '; _e( 'Catalog Page', 'pressbooks' ); ?> | PressBooks</title>
+	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login ); _e( '\'s Catalog Page', 'pressbooks' ); ?> | PressBooks</title>
 	<link rel="stylesheet" type="text/css" href="style-catalog.css?ver=2" />
 	<link href='<?php echo \PressBooks\Sanitize\maybe_https( 'http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
