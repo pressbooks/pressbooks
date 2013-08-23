@@ -296,7 +296,7 @@ function save_attachment( $data, $post_id ) {
 function cover_image_box( $post ) {
 
 	$meta_key = 'pb_cover_image';
-	$pid = (int) $_GET['post'];
+	$pid = (int) @$_GET['post'];
 	$image_url = thumbnail_from_url( get_post_meta( $post->ID, $meta_key, true ), 'pb_cover_medium' );
 	$action = 'pb_delete_cover_image';
 	$nonce = wp_create_nonce( 'pb-delete-cover-image' );
