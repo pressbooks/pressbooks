@@ -2765,25 +2765,25 @@
         <xsl:variable name="framePr6" select="substring-after($framePr5,$sep2)"/>
         <xsl:variable name="wrap" select="substring-before($framePr6,$sep2)"/>
 
-        <table cellspacing="0" cellpadding="0" hspace="0" vspace="0">
+        <table hspace="0" vspace="0">
           <xsl:if test="not($width = '' and $height='')">
             <xsl:attribute name="style">
-              <xsl:if test="not($width = '')">
+<!--              <xsl:if test="not($width = '')">
                 width:<xsl:value-of select="$width div 20"/>pt;
-              </xsl:if>
+              </xsl:if>-->
               <xsl:if test="not($height = '')">
                 height:<xsl:value-of select="$height div 20"/>pt;
               </xsl:if>
             </xsl:attribute>
           </xsl:if>
           <xsl:attribute name="align">
-            <xsl:choose>
+<!--            <xsl:choose>
               <xsl:when test="$xalign = 'right' or $xalign = 'outside'">right</xsl:when>
               <xsl:otherwise>left</xsl:otherwise>
-            </xsl:choose>
+            </xsl:choose>-->
           </xsl:attribute>
           <tr>
-            <td valign="top" align="left">
+            <td>
               <xsl:attribute name="style">
                 <xsl:text>padding:</xsl:text>
                 <xsl:choose>
@@ -3086,7 +3086,7 @@
             </xsl:if>
           </xsl:attribute>
           <tr>
-            <td valign="top" align="left">
+            <td>
               <xsl:attribute name="style">
                 <xsl:if test="WX:apo/WX:vertFromText/@WX:val">
                   <xsl:text>;padding-top:</xsl:text>
@@ -3205,7 +3205,7 @@
 
     <span>
       <xsl:attribute name="style">
-        font-family:<xsl:value-of select="$p.SymHint/@WX:font"/>
+<!--        font-family:<xsl:value-of select="$p.SymHint/@WX:font"/>-->
       </xsl:attribute>
       <xsl:choose>
         <xsl:when test="starts-with($p.SymHint/@WX:char, 'F0')">
@@ -3238,7 +3238,7 @@
   <xsl:template match="w:sym">
     <span>
       <xsl:attribute name="style">
-        font-family:<xsl:value-of select="@w:font"/>
+<!--        font-family:<xsl:value-of select="@w:font"/>-->
       </xsl:attribute>
       <xsl:choose>
         <xsl:when test="starts-with(@w:char, 'F0')">
@@ -3331,7 +3331,7 @@
           <xsl:when test="w:numPr[1]/w:ilvl/@numFont">
             <span>
               <xsl:attribute name="style">
-                font-family:<xsl:value-of select="w:numPr[1]/w:ilvl/@numFont"/>
+<!--                font-family:<xsl:value-of select="w:numPr[1]/w:ilvl/@numFont"/>-->
               </xsl:attribute>
               <xsl:value-of select="w:numPr[1]/w:ilvl/@numString"/>
             </span>
@@ -3390,9 +3390,9 @@
       </xsl:choose>
 
       <xsl:choose>
-        <xsl:when test="$pr.sz = ''">font-size:12pt;</xsl:when>
+        <xsl:when test="$pr.sz = ''"></xsl:when>
         <xsl:otherwise>
-          font-size:<xsl:value-of select="$pr.sz div 2"/>pt;
+<!--          font-size:<xsl:value-of select="$pr.sz div 2"/>pt;-->
         </xsl:otherwise>
       </xsl:choose>
     </xsl:if>
@@ -3526,7 +3526,7 @@
   </xsl:template>
 
   <xsl:template match="w:sz" mode="rpr">
-    font-size:<xsl:value-of select="@w:val div 2"/>pt;
+<!--    font-size:<xsl:value-of select="@w:val div 2"/>pt;-->
   </xsl:template>
 
   <xsl:template match="w:b" mode="rpr">
@@ -3754,7 +3754,7 @@
           <xsl:choose>
             <xsl:when test="contains($styleMod, 'vertical-align:super') or contains($styleMod, 'vertical-align:sub')">
               <span>
-                <xsl:attribute name="style">font-size:smaller;</xsl:attribute>
+<!--                <xsl:attribute name="style">font-size:smaller;</xsl:attribute>-->
                 <xsl:call-template name="DisplayRContent"/>
               </span>
             </xsl:when>
@@ -4512,6 +4512,101 @@
 			<xsl:element name='p'>
 				<xsl:call-template name="DisplayPContent" />
 			</xsl:element>
+			<!--		
+			<p>
+
+				<xsl:variable name="pStyleId">
+					<xsl:call-template name="GetPStyleId"/>
+				</xsl:variable>
+				<xsl:attribute name="class">
+					<xsl:value-of select="$pStyleId"/>
+					<xsl:value-of select="$paraStyleSuffix"/>
+				</xsl:attribute>
+				<xsl:variable name="sParaStyleName" select="($nsStyles[@w:styleId=$pStyleId])[1]"/>
+				<xsl:variable name="b.bidi">
+					<xsl:choose>
+						<xsl:when test="w:pPr[1]/w:rPr[1]/w:rtl[1]">
+							<xsl:value-of select="$on"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="$off"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:variable>
+
+				<xsl:variable name="prsR.updated">
+					<xsl:call-template name="PrsUpdateRPr">
+						<xsl:with-param name="ndPrContainer" select="$sParaStyleName"/>
+						<xsl:with-param name="prsR" select="$prsR"/>
+					</xsl:call-template>
+				</xsl:variable>
+
+				<xsl:variable name="prsP.updated1">
+					<xsl:call-template name="PrsUpdatePPr">
+						<xsl:with-param name="ndPrContainer" select="$sParaStyleName"/>
+						<xsl:with-param name="prsP" select="$prsP"/>
+					</xsl:call-template>
+				</xsl:variable>
+
+				<xsl:variable name="prsP.updated">
+					<xsl:call-template name="PrsUpdatePPr">
+						<xsl:with-param name="prsP" select="$prsP.updated1"/>
+					</xsl:call-template>
+				</xsl:variable>
+
+				<xsl:variable name="styleMod">
+
+					<xsl:value-of select="$prsPAccum"/>
+
+					<xsl:for-each select="$sParaStyleName">
+						<xsl:call-template name="RecursiveApplyPPr.many"/>
+					</xsl:for-each>
+
+					<xsl:call-template name="ApplyPPr.many">
+						<xsl:with-param name="cxtSpacing">
+							<xsl:variable name="cspacing" select="$sParaStyleName/w:pPr[1]/w:contextualSpacing[1]"/>
+							<xsl:if test="$cspacing and not($cspacing/@w:val = 'off')">
+								<xsl:if test="following-sibling::*[1]/w:pPr[1]/w:pStyle[1]/@w:val = $pStyleId">
+									<xsl:value-of select="$cxtSpacing_top"/>
+								</xsl:if>
+								<xsl:if test="preceding-sibling::*[1]/w:pPr[1]/w:pStyle[1]/@w:val = $pStyleId">
+									<xsl:value-of select="$cxtSpacing_bottom"/>
+								</xsl:if>
+							</xsl:if>
+						</xsl:with-param>
+					</xsl:call-template>
+
+					<xsl:call-template name="ApplyPPr.class"/>
+
+					<xsl:call-template name="ApplyPPr.once">
+						<xsl:with-param name="b.bidi" select="$b.bidi"/>
+						<xsl:with-param name="prsP" select="$prsP.updated"/>
+						<xsl:with-param name="i.bdrRange.this" select="position()"/>
+						<xsl:with-param name="i.bdrRange.last" select="last()"/>
+						<xsl:with-param name="pr.bdrBetween" select="$bdrBetween"/>
+					</xsl:call-template>
+				</xsl:variable>
+				<xsl:if test="not($styleMod='')">
+					<xsl:attribute name="style">
+						<xsl:value-of select="$styleMod"/>
+					</xsl:attribute>
+				</xsl:if>
+
+				<span>
+					<xsl:attribute name="class">
+						<xsl:value-of select="$pStyleId"/>
+						<xsl:value-of select="$charStyleSuffix"/>
+					</xsl:attribute>
+					<xsl:call-template name="DisplayPContent">
+						<xsl:with-param name="b.bidi" select="$b.bidi"/>
+						<xsl:with-param name="prsR" select="$prsR.updated"/>
+						<xsl:with-param name="runStyleName">
+							<xsl:value-of select="$pStyleId"/>
+							<xsl:value-of select="$charStyleSuffix"/>
+						</xsl:with-param>
+					</xsl:call-template>
+				</span>
+			</p>-->
 		</xsl:otherwise>	
 	</xsl:choose>
 <!--     <xsl:if test="./w:r/w:lastRenderedPageBreak/@ColumnEnd">  Added by Parwati to handle columns
@@ -4607,7 +4702,7 @@
   </xsl:template>
 
   <xsl:template match="w:tcW" mode="tcpr">
-    width:<xsl:call-template name="EvalTableWidth"/>;
+<!--    width:<xsl:call-template name="EvalTableWidth"/>;-->
   </xsl:template>
   <xsl:template match="*" mode="tcpr"/>
 
@@ -5675,21 +5770,21 @@
     <xsl:for-each select="w:tblPr[1]">
 
       <xsl:if test="w:tblpPr/@w:topFromText">
-        margin-top:<xsl:value-of select="w:tblpPr/@w:topFromText[1] div 20"/>pt;
+<!--        margin-top:<xsl:value-of select="w:tblpPr/@w:topFromText[1] div 20"/>pt;-->
       </xsl:if>
       <xsl:if test="w:tblpPr/@w:rightFromText">
-        margin-right:<xsl:value-of select="w:tblpPr/@w:rightFromText[1] div 20"/>pt;
+<!--        margin-right:<xsl:value-of select="w:tblpPr/@w:rightFromText[1] div 20"/>pt;-->
       </xsl:if>
       <xsl:if test="w:tblpPr/@w:bottomFromText">
-        margin-bottom:<xsl:value-of select="w:tblpPr/@w:bottomFromText[1] div 20"/>pt;
+<!--        margin-bottom:<xsl:value-of select="w:tblpPr/@w:bottomFromText[1] div 20"/>pt;-->
       </xsl:if>
       <xsl:if test="w:tblpPr/@w:leftFromText">
-        margin-left:<xsl:value-of select="w:tblpPr/@w:leftFromText[1] div 20"/>pt;
+<!--        margin-left:<xsl:value-of select="w:tblpPr/@w:leftFromText[1] div 20"/>pt;-->
       </xsl:if>
 
       <xsl:for-each select="w:tblW[1]">
         <xsl:if test="@w:type != 'auto'">
-          width:<xsl:call-template name="EvalTableWidth"/>;
+<!--          width:<xsl:call-template name="EvalTableWidth"/>;-->
         </xsl:if>
       </xsl:for-each>
     </xsl:for-each>
@@ -5847,14 +5942,14 @@
         <xsl:if test="$b.bidivisual=$on">direction:rtl;</xsl:if>
 
         <xsl:if test="not(w:tblPr/w:tblpPr)">
-          <xsl:text>margin-</xsl:text>
+<!--          <xsl:text>margin-</xsl:text>
           <xsl:choose>
             <xsl:when test="$b.bidivisual=$on">right</xsl:when>
             <xsl:otherwise>left</xsl:otherwise>
           </xsl:choose>
           <xsl:text>:</xsl:text>
           <xsl:value-of select="$tblInd"/>
-          <xsl:text>;</xsl:text>
+          <xsl:text>;</xsl:text>-->
         </xsl:if>
       </xsl:variable>
       <xsl:if test="not($styleMod='')">
@@ -5992,8 +6087,8 @@
     <xsl:apply-templates select="*"/>
   </xsl:template>
 
-<!--  <xsl:template match="w:font">
-    <xsl:text>@font-face{font-family:"</xsl:text>
+  <xsl:template match="w:font">
+<!--    <xsl:text>@font-face{font-family:"</xsl:text>
     <xsl:value-of select="@w:name"/>
     <xsl:text>";panose-1:</xsl:text>
     <xsl:variable name="panose1">
@@ -6004,8 +6099,8 @@
       </xsl:call-template>
     </xsl:variable>
     <xsl:value-of select="substring($panose1,2)"/>
-    <xsl:text>;}</xsl:text>
-  </xsl:template>-->
+    <xsl:text>;}</xsl:text>-->
+  </xsl:template>
 
   <xsl:template name="MakeRStyle">
     <xsl:text>.</xsl:text>
@@ -6104,7 +6199,7 @@
           </xsl:if>
         </xsl:if>
 
-        <xsl:text>;font-size:10.0pt;font-family:"Times New Roman";</xsl:text>
+<!--        <xsl:text>;font-size:10.0pt;font-family:"Times New Roman";</xsl:text>-->
 
         <xsl:for-each select="/w:document[1]/w:styles[1]/w:docDefaults/w:pPrDefault">
           <xsl:call-template name="ApplyPPr.many"/>
@@ -6171,16 +6266,16 @@
     </xsl:choose>
   </xsl:template>
 
-<!--  <xsl:template match="a:fontScheme">
-    .<xsl:value-of select="$minorAsciiTheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:latin/@typeface" />;}
+  <xsl:template match="a:fontScheme">
+<!--    .<xsl:value-of select="$minorAsciiTheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:latin/@typeface" />;}
     .<xsl:value-of select="$majorAsciiTheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:latin/@typeface" />;}
     .<xsl:value-of select="$minorAnsiTheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:latin/@typeface" />;}
     .<xsl:value-of select="$majorAnsiTheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:latin/@typeface" />;}
     .<xsl:value-of select="$minorEATheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:ea/@typeface" />;}
     .<xsl:value-of select="$majorEATheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:ea/@typeface" />;}
     .<xsl:value-of select="$minorCSTheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:cs/@typeface" />;}
-    .<xsl:value-of select="$majorCSTheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:cs/@typeface" />;}
-  </xsl:template>-->
+    .<xsl:value-of select="$majorCSTheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:cs/@typeface" />;}-->
+  </xsl:template>
 
   <xsl:template match="w:bookmarkStart">
     <a name="{@w:name}"/>
@@ -6230,90 +6325,6 @@
         </xsl:call-template>
       </xsl:for-each>
     </div>
-  </xsl:template>
-
-  <xsl:template name="DisplayAnnotationScript">
-   <!-- <xsl:text disable-output-escaping="yes">&lt;![if !supportAnnotations]&gt;</xsl:text> -->
-    <style id="dynCom" type="text/css"></style>
-<!--    <script type="text/javascript" language="JavaScript">
-      <xsl:comment>
-        <xsl:text disable-output-escaping="yes">
-function msoCommentShow(anchor_id, com_id)
-{
-    if(msoBrowserCheck()) 
-        {
-        c = document.all(com_id);
-        a = document.all(anchor_id);
-        if (null != c &amp;&amp; null == c.length &amp;&amp; null != a &amp;&amp; null == a.length)
-            {
-            var cw = c.offsetWidth;
-            var ch = c.offsetHeight;
-            var aw = a.offsetWidth;
-            var ah = a.offsetHeight;
-            var x  = a.offsetLeft;
-            var y  = a.offsetTop;
-            var el = a;
-            while (el.tagName != "BODY") 
-                {
-                el = el.offsetParent;
-                x = x + el.offsetLeft;
-                y = y + el.offsetTop;
-                }
-            var bw = document.body.clientWidth;
-            var bh = document.body.clientHeight;
-            var bsl = document.body.scrollLeft;
-            var bst = document.body.scrollTop;
-            if (x + cw + ah / 2 > bw + bsl &amp;&amp; x + aw - ah / 2 - cw >= bsl ) 
-                { c.style.left = x + aw - ah / 2 - cw; }
-            else 
-                { c.style.left = x + ah / 2; }
-            if (y + ch + ah / 2 > bh + bst &amp;&amp; y + ah / 2 - ch >= bst ) 
-                { c.style.top = y + ah / 2 - ch; }
-            else 
-                { c.style.top = y + ah / 2; }
-            c.style.visibility = "visible";
-}    }    }
-function msoCommentHide(com_id) 
-{
-    if(msoBrowserCheck())
-        {
-        c = document.all(com_id);
-        if (null != c &amp;&amp; null == c.length)
-        {
-        c.style.visibility = "hidden";
-        c.style.left = -1000;
-        c.style.top = -1000;
-        } } 
-}
-function msoBrowserCheck()
-{
-    ms = navigator.appVersion.indexOf("MSIE");
-    vers = navigator.appVersion.substring(ms + 5, ms + 6);
-    ie4 = (ms > 0) &amp;&amp; (parseInt(vers) >= 4);
-    return ie4;
-}
-if (msoBrowserCheck())
-{
-    document.styleSheets.dynCom.addRule(".msocomanchor","background: infobackground");
-    document.styleSheets.dynCom.addRule(".msocomoff","display: none");
-    document.styleSheets.dynCom.addRule(".msocomtxt","visibility: hidden");
-    document.styleSheets.dynCom.addRule(".msocomtxt","position: absolute");
-    document.styleSheets.dynCom.addRule(".msocomtxt","top: -1000");
-    document.styleSheets.dynCom.addRule(".msocomtxt","left: -1000");
-    document.styleSheets.dynCom.addRule(".msocomtxt","width: 33%");
-    document.styleSheets.dynCom.addRule(".msocomtxt","background: infobackground");
-    document.styleSheets.dynCom.addRule(".msocomtxt","color: infotext");
-    document.styleSheets.dynCom.addRule(".msocomtxt","border-top: 1pt solid threedlightshadow");
-    document.styleSheets.dynCom.addRule(".msocomtxt","border-right: 2pt solid threedshadow");
-    document.styleSheets.dynCom.addRule(".msocomtxt","border-bottom: 2pt solid threedshadow");
-    document.styleSheets.dynCom.addRule(".msocomtxt","border-left: 1pt solid threedlightshadow");
-    document.styleSheets.dynCom.addRule(".msocomtxt","padding: 3pt 3pt 3pt 3pt");
-    document.styleSheets.dynCom.addRule(".msocomtxt","z-index: 100");
-}
-</xsl:text>
-      </xsl:comment>
-    </script>-->
-    <!--<xsl:text disable-output-escaping="yes">&lt;![endif]&gt;</xsl:text>-->
   </xsl:template>
 
   <xsl:template name="copyElements">
@@ -6465,7 +6476,7 @@ if (msoBrowserCheck())
             </xsl:attribute>-->
 
             <xsl:apply-templates select="w:rt/w:r/w:t"/>
-            <!--<xsl:apply-templates select="w:r/w:t"/>-->
+            <xsl:apply-templates select="w:r/w:t"/>
           </xsl:if>
         </span>
       </rt>
@@ -6660,15 +6671,15 @@ if (msoBrowserCheck())
         </style>
       </head>-->
 
-        <xsl:if test="w:background/@w:color">
-          <xsl:variable name="color"> <!-- Added by Parwati to handle Background Page Color-->
+<!--        <xsl:if test="w:background/@w:color">
+          <xsl:variable name="color">  Added by Parwati to handle Background Page Color
             <xsl:text>#</xsl:text>
           </xsl:variable>
           <xsl:attribute name="bgcolor">
             <xsl:value-of select="$color"/>
             <xsl:value-of select="w:background/@w:color"/>
           </xsl:attribute>
-        </xsl:if>
+        </xsl:if>-->
         <!-- Added for column rendering by Parwati
         <xsl:if test="//w:body//w:sectPr//w:cols[@w:num] | //w:body/w:p/w:pPr/w:sectPr/w:cols[@w:num] | //w:body/w:sdt/w:sdtContent">
           <xsl:text disable-output-escaping="yes">&lt;table cellpadding="5px"&gt;</xsl:text>
@@ -6778,7 +6789,7 @@ if (msoBrowserCheck())
     <xsl:value-of select=".//wp:extent/@cy"/>
    </xsl:variable>
 
-   <img src="?image={.//a:blip/@r:embed[1]}">
+   <img src="{.//a:blip/@r:embed[1]}">
 
      <xsl:attribute name="width">
        <xsl:value-of select="number($w) div 9525"/>px
@@ -8371,8 +8382,8 @@ if (msoBrowserCheck())
 				<xsl:otherwise>
 				</xsl:otherwise>
 			</xsl:choose>
-			font-family:<xsl:value-of select=".//w:rPr[last()]/w:rFonts/@w:ascii"/>;
-			font-size:<xsl:value-of select=".//w:rPr[last()]/w:sz/@w:val div 2"/>pt;
+<!--			font-family:<xsl:value-of select=".//w:rPr[last()]/w:rFonts/@w:ascii"/>;-->
+<!--			font-size:<xsl:value-of select=".//w:rPr[last()]/w:sz/@w:val div 2"/>pt;-->
 			<xsl:choose>
 				<xsl:when test="string-length(.//w:rPr[last()]/w:color/@w:val) = 0">
 					color:<xsl:call-template name="ConvHexColor">
