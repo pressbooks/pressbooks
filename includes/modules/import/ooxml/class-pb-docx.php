@@ -35,6 +35,7 @@ class Docx extends Import {
 	const DOCUMENT_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument';
 	const METADATA_SCHEMA = 'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties';
 	const IMAGE_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image';
+
 	/**
 	 * 
 	 */
@@ -84,7 +85,7 @@ class Docx extends Import {
 		// Done
 		return $this->revokeCurrentImport();
 	}
-	
+
 	/**
 	 * Pummel then insert HTML into our database
 	 *
@@ -100,11 +101,11 @@ class Docx extends Import {
 
 		$title = wp_strip_all_tags( $title );
 
-		$new_post = array(
-			'post_title' => $title,
-			'post_content' => $body,
-			'post_type' => $post_type,
-			'post_status' => 'draft',
+		$new_post = array (
+		    'post_title' => $title,
+		    'post_content' => $body,
+		    'post_type' => $post_type,
+		    'post_status' => 'draft',
 		);
 
 		if ( 'chapter' == $post_type ) {
@@ -122,7 +123,7 @@ class Docx extends Import {
 
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder		
 	}
-	
+
 	/**
 	 * Pummel the HTML into WordPress compatible dough.
 	 *
@@ -149,7 +150,7 @@ class Docx extends Import {
 
 		return $html;
 	}
-	
+
 	/**
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
@@ -175,7 +176,7 @@ class Docx extends Import {
 
 		return $doc;
 	}
-	
+
 	/**
 	 * Extract url from zip and load into WP using media_handle_sideload()
 	 * Will return an empty string if something went wrong.
@@ -190,15 +191,15 @@ class Docx extends Import {
 	protected function fetchAndSaveUniqueImage( $img_id ) {
 
 		// Cheap cache
-		static $already_done = array();
+		static $already_done = array ( );
 		if ( isset( $already_done[$img_id] ) ) {
 			return $already_done[$img_id];
 		}
 
 		/* Process */
 		// Get target path
-		$img_location = $this->getTargetPath(self::IMAGE_SCHEMA, $img_id);
-		
+		$img_location = $this->getTargetPath( self::IMAGE_SCHEMA, $img_id );
+
 		// Basename without query string
 		$filename = explode( '?', basename( $img_location ) );
 		$filename = array_shift( $filename );
@@ -213,7 +214,7 @@ class Docx extends Import {
 		}
 
 		$image_content = $this->getZipContent( $img_location, false );
-		
+
 		if ( ! $image_content ) {
 			$already_done[$img_location] = '';
 
@@ -239,28 +240,28 @@ class Docx extends Import {
 			}
 		}
 
-		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
+		$pid = media_handle_sideload( array ( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) $src = ''; // Change false to empty string
 		$already_done[$img_location] = $src;
 
 		return $src;
 	}
-	
+
 	/**
 	 * 
 	 * @param \DomDocument $xml
 	 * @param type $chapter_title
 	 * @return type
 	 */
-	protected function parseContent( \DomDocument $xml, $chapter_title ){
+	protected function parseContent( \DomDocument $xml, $chapter_title ) {
 		$element = $xml->documentElement;
 		$node_list = $element->childNodes;
 		$chapter_node = '';
 		$index = 0;
-		
+
 		// loop through child siblings
-		for ( $i = 0; $i < $node_list->length; $i ++ ) {
+		for ( $i = 0; $i < $node_list->length; $i ++  ) {
 
 			$chapter_node = $this->findTheNode( $node_list->item( $i ), $chapter_title );
 			if ( $chapter_node != '' ) {
@@ -271,12 +272,12 @@ class Docx extends Import {
 		}
 
 		if ( $chapter_node )
-			$chapter_title = strtolower( preg_replace( '/\s+/', '-', $chapter_node->nodeValue ) );
-		
+				$chapter_title = strtolower( preg_replace( '/\s+/', '-', $chapter_node->nodeValue ) );
+
 		// iterate through
 		return $this->getChapter( $node_list, $index, $chapter_title );
 	}
-	
+
 	/**
 	 * Find where to start, iterate through a list, add elements to a
 	 * new DomDocument, return resulting xhtml
@@ -311,7 +312,6 @@ class Docx extends Import {
 			// This is problematic
 			// DOMNodeList can be made up of DOMElement(s)
 			// *and* DOMText(s) which do not have the property ->tagName
-
 		} while ( $this->tag != @$dom_list->item( $i )->tagName && $i < $dom_list->length );
 
 		// h1 tag will not be needed in the body of the html
@@ -331,7 +331,7 @@ class Docx extends Import {
 
 		return $result;
 	}
-	
+
 	/**
 	 * Recursive iterator to locate and return a specific node, targeting child nodes
 	 *
@@ -356,7 +356,7 @@ class Docx extends Import {
 		if ( $node->hasChildNodes() ) {
 			$nodeList = $node->childNodes;
 
-			for ( $i = 0; $i < $nodeList->length; $i ++ ) {
+			for ( $i = 0; $i < $nodeList->length; $i ++  ) {
 
 				if ( $nodeList->item( $i )->nodeType !== XML_ELEMENT_NODE ) {
 					continue;
@@ -371,7 +371,7 @@ class Docx extends Import {
 
 		return '';
 	}
-	
+
 	/**
 	 * 
 	 * @param \DomDocument $meta
@@ -486,7 +486,7 @@ class Docx extends Import {
 		} else {
 			$path_to_rel_doc = 'word/_rels/document.xml.rels';
 		}
-		
+
 		$relations = simplexml_load_string(
 			$this->zip->getFromName( $path_to_rel_doc )
 		);
@@ -494,8 +494,8 @@ class Docx extends Import {
 		foreach ( $relations->Relationship as $rel ) {
 			if ( empty( $img_id ) && $rel["Type"] == $schema ) {
 				$path = $rel['Target'];
-			} else if ( $rel["Id"] == $img_id  && $rel["Type"] == $schema) {
-				$path = 'word/'.$rel['Target'];
+			} else if ( $rel["Id"] == $img_id && $rel["Type"] == $schema ) {
+				$path = 'word/' . $rel['Target'];
 			}
 		}
 		return $path;
