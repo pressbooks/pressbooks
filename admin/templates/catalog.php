@@ -61,7 +61,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 			<?php for ( $i = 1; $i <= $catalog::$maxTagsGroup; ++$i ) { ?>
 			$("#tags_<?php echo $i; ?>").select2({
 				tags:[<?php foreach( $catalog->getTags( $i ) as $tag ) { echo( '"' . $tag['tag'] . '", ' ); } ?>],
-				tokenSeparators: [",",],
+				tokenSeparators: [","],
 				containerCss: { width: '50%' }
 			});
 			<?php } ?>
