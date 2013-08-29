@@ -822,6 +822,7 @@ class Xhtml11 extends Export {
 			if ( $my_chapters ) {
 				if ( count( $book_contents['part'] ) > 1 ) {
 					echo $my_part . $my_chapters;
+					++$i;
 				} else {
 					echo $my_chapters;
 				}
@@ -832,7 +833,6 @@ class Xhtml11 extends Export {
 				$this->hasIntroduction = false;
 			}
 
-			++$i;
 		}
 
 	}
