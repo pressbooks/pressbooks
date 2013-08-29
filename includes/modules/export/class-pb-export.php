@@ -623,6 +623,7 @@ abstract class Export {
 				}
 			}
 
+			if ( '__UNSET__' == $loc ) $loc = 'en_US'; // No match found, default to english
 		}
 
 		// Return
