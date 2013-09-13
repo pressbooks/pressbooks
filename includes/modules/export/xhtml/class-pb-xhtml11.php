@@ -182,6 +182,9 @@ class Xhtml11 extends Export {
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
 		echo "</head>\n<body>\n";
 
+		// Before Title Page
+		$this->echoBeforeTitle( $book_contents, $metadata );
+
 		// Half-title
 		echo '<h1 class="title">' . get_bloginfo( 'name' ) . "</h1>\n";
 
@@ -474,6 +477,50 @@ class Xhtml11 extends Export {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 */
+	protected function echoBeforeTitle( $book_contents, $metadata ) {
+
+		$front_matter_printf = '<div class="front-matter %s" id="%s">';
+		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
+		$front_matter_printf .= '</div>';
+
+		$i = $this->frontMatterPos;
+		foreach ( array( 'before-title' ) as $compare ) {
+			foreach ( $book_contents['front-matter'] as $front_matter ) {
+
+				if ( ! $front_matter['export'] )
+					continue; // Skip
+
+				$id = $front_matter['ID'];
+				$subclass = \PressBooks\Taxonomy\front_matter_type( $id );
+
+				if ( $compare != $subclass )
+					continue; //Skip
+
+				$slug = $front_matter['post_name'];
+				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+				$content = $front_matter['post_content'];
+
+				printf( $front_matter_printf,
+					$subclass,
+					$slug,
+					$i,
+					Sanitize\decode( $title ),
+					$content,
+					$this->doEndnotes( $id ) );
+
+				echo "\n";
+				++$i;
+			}
+		}
+		$this->frontMatterPos = $i;
+	}
+
+
+	/**
+	 * @param array $book_contents
+	 * @param array $metadata
+	 */
 	protected function echoTitle( $book_contents, $metadata ) {
 
 		// Look for custom title-page
@@ -544,7 +591,7 @@ class Xhtml11 extends Export {
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
 		$front_matter_printf .= '</div>';
 
-		$i = 1;
+		$i = $this->frontMatterPos;
 		foreach ( array( 'dedication', 'epigraph' ) as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -637,7 +684,7 @@ class Xhtml11 extends Export {
 
 					if ( 'front-matter' == $type ) {
 						$subclass = \PressBooks\Taxonomy\front_matter_type( $val['ID'] );
-						if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass ) {
+						if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass ) {
 							continue; // Skip
 						} else {
 							$typetype = $type . ' ' . $subclass;
@@ -685,7 +732,7 @@ class Xhtml11 extends Export {
 			$id = $front_matter['ID'];
 			$subclass = \PressBooks\Taxonomy\front_matter_type( $id );
 
-			if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass )
+			if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass )
 				continue; // Skip
 
 			if ( 'introduction' == $subclass )
