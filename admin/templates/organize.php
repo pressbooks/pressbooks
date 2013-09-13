@@ -78,8 +78,11 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 	<?php foreach ( $book_structure['front-matter'] as $fm ): ?>
     <tr id="front-matter-<?php echo $fm['ID']; ?>">
         <td class="post-title page-title column-title">
-            <strong><a href="<?php echo 'post.php?post=' . $fm['ID'] . '&action=edit'; ?>">
-				<?php echo $fm['post_title']; ?></a>
+            <strong><a href="<?php echo 'post.php?post=' . $fm['ID'] . '&action=edit'; ?>"><?php
+				echo $fm['post_title'];
+				if ( get_post_meta( $fm['ID'], 'pb_ebook_start', true ) )
+					echo '<span title="' . __( 'Ebook start point', 'pressbooks' ) . '" style="color:#007F80;"> &#9733;</span> ';
+			?></a>
             </strong>
         </td>
         <td class="author column-author">
@@ -174,7 +177,11 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
     <tr id="chapter-<?php echo $chapter['ID']; ?>">
         <td class="post-title page-title column-title">
             <strong>
-                <a href="<?php echo 'post.php?post=' . $chapter['ID'] . '&action=edit'; ?>"><?php echo $chapter['post_title']; ?></a>
+                <a href="<?php echo 'post.php?post=' . $chapter['ID'] . '&action=edit'; ?>"><?php
+					echo $chapter['post_title'];
+					if ( get_post_meta( $chapter['ID'], 'pb_ebook_start', true ) )
+						echo '<span title="' . __( 'Ebook start point', 'pressbooks' ) . '" style="color:#007F80;"> &#9733;</span> ';
+				?></a>
             </strong>
         </td>
         <!-- Include dragger image here - ../assets/imgages/dragger.png -->
@@ -252,8 +259,11 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 	<?php foreach ( $book_structure['back-matter'] as $bm ): ?>
     <tr id="back-matter-<?php echo $bm['ID']; ?>">
         <td class="post-title page-title column-title">
-            <strong><a href="<?php echo 'post.php?post=' . $bm['ID'] . '&action=edit'; ?>">
-				<?php echo $bm['post_title']; ?></a>
+            <strong><a href="<?php echo 'post.php?post=' . $bm['ID'] . '&action=edit'; ?>"><?php
+				echo $bm['post_title'];
+				if ( get_post_meta( $bm['ID'], 'pb_ebook_start', true ) )
+					echo '<span title="' . __( 'Ebook start point', 'pressbooks' ) . '" style="color:#007F80;"> &#9733;</span> ';
+			?></a>
             </strong>
         </td>
         <td class="author column-author">
