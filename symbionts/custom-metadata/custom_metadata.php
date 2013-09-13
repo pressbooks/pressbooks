@@ -4,8 +4,14 @@ Plugin Name: Custom Metadata Manager
 Plugin URI: http://wordpress.org/extend/plugins/custom-metadata/
 Description: An easy way to add custom fields to your object types (post, pages, custom post types, users)
 Author: Mohammad Jangda, Joachim Kudish & Colin Vernon
-Version: 0.7
+Version: 0.7-patched
 Author URI: http://digitalize.ca/wordpress-plugins/custom-metadata/
+
+***********************************************************************************************************************
+ IMPORTANT: Patched by code@pressbooks.com to avoid weird double fields bug.
+ If you upgrade this class, make sure you do a diff and keep our changes.
+ Look for "Changed by code@pressbooks.com" in the sourcecode, below
+***********************************************************************************************************************
 
 Copyright 2010-2012 Mohammad Jangda, Joachim Kudish, Colin Vernon
 
@@ -56,9 +62,6 @@ TODO:
 - Links support (?)
 
 */
-
-// IMPORTANT: Patched by code@pressbooks.com to avoid weird double fields bug.
-// If you upgrade this class, make sure you do a diff and keep our changes.
 
 if (!class_exists('custom_metadata_manager')) :
 
@@ -206,7 +209,7 @@ class custom_metadata_manager {
 
 	}
 
-	function enqueue_scripts() {		
+	function enqueue_scripts() {
 		wp_enqueue_script('jquery');
 		wp_enqueue_script('jquery-ui-datepicker');
 		wp_enqueue_script('custom-metadata-manager-js', apply_filters( 'custom-metadata-manager-default-js', CUSTOM_METADATA_MANAGER_URL .'js/custom-metadata-manager.js' ), array( 'jquery' ), CUSTOM_METADATA_MANAGER_VERSION, true);
@@ -907,8 +910,21 @@ class custom_metadata_manager {
 			if (get_post_type()) $numb = $post->ID; else $numb = 1; ?>
 			<script>var numb = '<?php echo $numb ?>'; </script>
 
-			<label for="<?php echo $field_slug; ?>"><?php echo $field->label; ?></label>
 			<?php
+			// Changed by code@pressbooks.com
+			// Applied Jeremy Clarke's patch
+			// @see: https://gist.github.com/jeremyclarke/1725905
+
+			// Set up the <label> tag for this field.
+			$label_str = "<label for='$field_slug'>{$field->label}</label>";
+
+			// Define an array of field types that need the <label> AFTER the <input>
+			$label_after_field_types = array( 'checkbox' );
+
+			// Show the label now if the current field_type is not on the list
+			if ( ! in_array( $field->field_type, $label_after_field_types ) )
+				echo $label_str;
+
 			// make sure $value is an array
 				if (!$value) $value = ''; // if empty, give it an empty string instead
 				$value = (array)$value;
@@ -1003,7 +1019,16 @@ class custom_metadata_manager {
 
 				</div>
 
-			<?php endforeach; ?>
+					<?php
+					// Changed by code@pressbooks.com
+					// Applied Jeremy Clarke's patch
+					// @see: https://gist.github.com/jeremyclarke/1725905
+
+					// Now show the <label> for any field_type that needs it to come after
+					if ( in_array( $field->field_type, $label_after_field_types ) )
+						echo $label_str;
+
+				endforeach; ?>
 
 			<?php if( 'multi_select' == $field->field_type ) : ?>
 				<select id="<?php echo $field_slug; ?>" <?php if( true == $field->chosen ) { echo( 'class="chosen" ' ); } ?>name="<?php echo $field_id; ?>" multiple>
