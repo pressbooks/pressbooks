@@ -161,6 +161,15 @@ p.chapter_add {
 	box-shadow: none;
 }
 
+.custom-metadata-field.checkbox div, .custom-metadata-field.checkbox label {
+	display: inline-block;
+	vertical-align: baseline;
+}
+
+.custom-metadata-field.checkbox input {
+	margin: 0 1px 0 0;
+}
+
 /* Metadata admin page classes
 =============================== */
 
