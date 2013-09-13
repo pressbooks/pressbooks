@@ -79,12 +79,6 @@ add_action( 'wpmu_new_blog', function ( $b, $u ) {
 	$activate->wpmuNewBlog( $b, $u );
 }, 9, 2 );
 
-// Inelegant fix for: http://core.trac.wordpress.org/ticket/25166
-add_action( 'wpmu_new_user', function ( $user_id ) {
-	global $current_site;
-	remove_user_from_blog( $user_id, $current_site->blog_id ); // remove user from main blog.
-} );
-
 // -------------------------------------------------------------------------------------------------------------------
 // Redirects
 // -------------------------------------------------------------------------------------------------------------------
