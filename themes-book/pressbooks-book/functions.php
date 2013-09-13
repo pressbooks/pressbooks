@@ -872,7 +872,7 @@ function pressbooks_theme_pdf_css_override( $css ) {
 
 	// Include blank pages? 1 = Yes (default), 2 = No
 	if ( 2 == @$options['pdf_blankpages'] ) {
-		$css .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter { page-break-before: auto; } \n";
+		$css .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, body > h1.title:first-of-type  { page-break-before: auto; } \n";
 	}
 
 	// Display TOC? true (default) / false
