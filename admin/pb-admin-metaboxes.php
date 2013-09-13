@@ -404,7 +404,13 @@ function add_meta_boxes() {
 	x_add_metadata_field( 'pb_show_title', array( 'chapter', 'front-matter', 'back-matter' ), array(
 		'group' => 'export',
 		'field_type' => 'checkbox',
-		'label' => 'Show title in exports'
+		'label' => __( 'Show title in exports', 'pressbooks' )
+	) );
+
+	x_add_metadata_field( 'pb_ebook_start', array( 'chapter', 'front-matter', 'back-matter' ), array(
+		'group' => 'export',
+		'field_type' => 'checkbox',
+		'label' => __( 'Set as ebook start-point', 'pressbooks')
 	) );
 
 	// Front Matter Metadata
