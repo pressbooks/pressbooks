@@ -21,7 +21,7 @@ class Metadata {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 9;
+	static $currentVersion = 10;
 
 
 	/**
@@ -125,10 +125,6 @@ class Metadata {
 			$this->upgradeBookInformation();
 			$this->upgradeBook();
 		}
-		if ( $version < 2 ) {
-			// New title page feature missing in many books
-			wp_insert_term( 'Title Page', 'front-matter-type', array( 'slug' => 'title-page' ) );
-		}
 		if ( $version < 3 ) {
 			$this->upgradeCustomCss();
 		}
@@ -144,7 +140,8 @@ class Metadata {
 		if ( $version < 8 ) {
 			$this->resetLandingPage();
 		}
-		if ( $version < 9 ) {
+		if ( $version < 10 ) {
+			\PressBooks\Taxonomy\insert_terms();
 			flush_rewrite_rules( false );
 		}
 	}

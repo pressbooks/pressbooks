@@ -88,6 +88,10 @@ class Activation {
 			} );
 		}
 
+		// Set current metadata version to skip redundant upgrade routines
+		update_option( 'pressbooks_metadata_version', \PressBooks\Metadata::$currentVersion );
+		flush_rewrite_rules( false );
+
 		do_action( 'pressbooks_new_blog' );
 
 		restore_current_blog();

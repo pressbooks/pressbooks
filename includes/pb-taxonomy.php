@@ -97,6 +97,7 @@ function insert_terms() {
 	// Front Matter
 	wp_insert_term( 'Abstract', 'front-matter-type', array( 'slug' => 'abstracts' ) );
 	wp_insert_term( 'Acknowledgements', 'front-matter-type', array( 'slug' => 'acknowledgements' ) );
+	wp_insert_term( 'Before Title Page', 'front-matter-type', array( 'slug' => 'before-title' ) );
 	wp_insert_term( 'Chronology, Timeline', 'front-matter-type', array( 'slug' => 'chronology-timeline' ) );
 	wp_insert_term( 'Dedication', 'front-matter-type', array( 'slug' => 'dedication' ) );
 	wp_insert_term( 'Disclaimer', 'front-matter-type', array( 'slug' => 'disclaimer' ) );
