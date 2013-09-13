@@ -97,9 +97,10 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
-/* Dedication & Epigraph */
+/* Dedication, Epigraph & Before Title */
 @page dedication,
-	  epigraph {
+	  epigraph,
+	  before-title {
   @bottom {
 	content:"";
   }
@@ -250,6 +251,10 @@ div.front-matter.epigraph {
 	page: epigraph;
 	prince-page-group: start;
 }
+div.front-matter.before-title {
+	page: before-title;
+	prince-page-group: start;
+}
 div.front-matter.introduction {
 	page: introduction;
 	prince-page-group: start;
@@ -388,11 +393,11 @@ cite {
 
 /* HALFTITLE PAGE
 ==================== */
-body > h1.title:first-child {
+body > h1.title:first-of-type {
     string-set: book-title content();
+	page-break-before: right;
     page-break-after: always;
     bookmark-level: none;
-    
     font-size: 16pt;
     margin-top: 6cm;
     text-transform: uppercase;
