@@ -488,7 +488,6 @@ class Hpub extends Export {
 		);
 
 		$i = $this->frontMatterPos;
-		$last_pos = false;
 		foreach ( array( 'before-title' ) as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -528,11 +527,9 @@ class Hpub extends Export {
 				);
 
 				++$i;
-				$last_pos = $i;
 			}
 		}
 		$this->frontMatterPos = $i;
-		if ( $last_pos ) $this->frontMatterLastPos = $last_pos - 1;
 	}
 
 
