@@ -313,6 +313,9 @@ class Hpub extends Export {
 		// Cover
 		$this->createCover( $book_contents, $metadata );
 
+		// Before Title Page
+		$this->createBeforeTitle( $book_contents, $metadata );
+
 		// Title
 		$this->createTitle( $book_contents, $metadata );
 
@@ -471,6 +474,72 @@ class Hpub extends Export {
 	 * @param array $book_contents
 	 * @param array $metadata
 	 */
+	protected function createBeforeTitle( $book_contents, $metadata ) {
+
+		$front_matter_printf = '<div class="front-matter %s" id="%s">';
+		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
+		$front_matter_printf .= '</div>';
+
+		$vars = array(
+			'post_title' => '',
+			'stylesheet' => $this->stylesheet,
+			'post_content' => '',
+		);
+
+		$i = $this->frontMatterPos;
+		$last_pos = false;
+		foreach ( array( 'before-title' ) as $compare ) {
+			foreach ( $book_contents['front-matter'] as $front_matter ) {
+
+				if ( ! $front_matter['export'] )
+					continue; // Skip
+
+				$id = $front_matter['ID'];
+				$subclass = \PressBooks\Taxonomy\front_matter_type( $id );
+
+				if ( $compare != $subclass )
+					continue; //Skip
+
+				$slug = $front_matter['post_name'];
+				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
+				$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter', $i );
+
+				$vars['post_title'] = $front_matter['post_title'];
+				$vars['post_content'] = sprintf( $front_matter_printf,
+					$subclass,
+					$slug,
+					$i,
+					Sanitize\decode( $title ),
+					$content,
+					'' );
+
+				$file_id = 'front-matter-' . sprintf( "%03s", $i );
+				$filename = "{$file_id}-{$slug}.html";
+
+				file_put_contents(
+					$this->tmpDir . "/$filename",
+					$this->loadTemplate( __DIR__ . '/templates/html.php', $vars ) );
+
+				$this->manifest[$file_id] = array(
+					'ID' => $front_matter['ID'],
+					'post_title' => $front_matter['post_title'],
+					'filename' => $filename,
+				);
+
+				++$i;
+				$last_pos = $i;
+			}
+		}
+		$this->frontMatterPos = $i;
+		if ( $last_pos ) $this->frontMatterLastPos = $last_pos - 1;
+	}
+
+
+	/**
+	 * @param array $book_contents
+	 * @param array $metadata
+	 */
 	protected function createTitle( $book_contents, $metadata ) {
 
 		// Look for custom title-page
@@ -600,7 +669,7 @@ class Hpub extends Export {
 			'post_content' => '',
 		);
 
-		$i = 1;
+		$i = $this->frontMatterPos;
 		$last_pos = false;
 		foreach ( array( 'dedication', 'epigraph' ) as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
@@ -675,7 +744,7 @@ class Hpub extends Export {
 			$id = $front_matter['ID'];
 			$subclass = \PressBooks\Taxonomy\front_matter_type( $id );
 
-			if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass )
+			if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass )
 				continue; // Skip
 
 			if ( 'introduction' == $subclass )
