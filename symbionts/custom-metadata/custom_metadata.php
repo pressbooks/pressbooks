@@ -802,11 +802,13 @@ class custom_metadata_manager {
 
 		$value = get_metadata( $object_type, $object_id, $field_slug, false );
 
-		if ( is_array( $value ) && ( in_array( $field->field_type, $this->_always_multiple_fields ) || $field->multiple ) ) {
-			// Do nothing
-		} elseif ( is_array( $value ) ) {
-			// Pop out the last value
-			$value = array( 0 => array_pop( $value ) );
+		if ( is_array( $value ) ) {
+			if ( in_array( $field->field_type, $this->_always_multiple_fields ) || $field->multiple ) {
+				// Do nothing
+			} else {
+				// Pop out the last value
+				$value = array( 0 => array_pop( $value ) );
+			}
 		}
 
 		return $value;
