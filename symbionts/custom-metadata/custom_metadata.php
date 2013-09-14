@@ -804,7 +804,7 @@ class custom_metadata_manager {
 
 		if ( is_array( $value ) && ( in_array( $field->field_type, $this->_always_multiple_fields ) || $field->multiple ) ) {
 			// Do nothing
-		} else {
+		} elseif ( is_array( $value ) ) {
 			// Pop out the last value
 			$value = array( 0 => array_pop( $value ) );
 		}
