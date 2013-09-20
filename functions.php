@@ -105,6 +105,43 @@ function pb_get_custom_stylesheet_url() {
 	}
 }
 
+/**
+ * Check if custom stylesheet for web already imports pressbooks-book/style.css
+ *
+ * @see: \PressBooks\CustomCss
+ * @return bool
+ */
+function pb_custom_stylesheet_imports_base() {
+
+	$current_blog_id = get_current_blog_id();
+	$custom_file = false;
+	$_res = false;
+
+	if ( is_file( WP_CONTENT_DIR . "/blogs.dir/{$current_blog_id}/files/custom-css/web.css" ) ) {
+		$custom_file = WP_CONTENT_DIR . "/blogs.dir/{$current_blog_id}/files/custom-css/web.css";
+	} elseif ( is_file( WP_CONTENT_DIR . "/uploads/sites/{$current_blog_id}/custom-css/web.css" ) ) {
+		$custom_file = WP_CONTENT_DIR . "/uploads/sites/{$current_blog_id}/custom-css/web.css";
+	}
+
+	if ( $custom_file ) {
+		$custom_file_contents = file( $custom_file );
+		foreach ( $custom_file_contents as $line ) {
+			if ( strpos( $line, '@import' ) !== false ) {
+				// Search for url("*.css"), url('*.css'), and url(*.css)
+				preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)\.css([\"|\'])?([\s])?\)/i', $line, $matches, PREG_PATTERN_ORDER );
+				foreach ( $matches[3] as $url ) {
+					if ( strpos( $url, 'themes-book/pressbooks-book/style' ) !== false ) {
+						$_res = true;
+						break 2;
+					}
+				}
+			}
+		}
+	}
+
+	return $_res;
+}
+
 
 /**
  * Get path to hyphenation dictionary in a book's language.

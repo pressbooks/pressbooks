@@ -51,10 +51,14 @@ add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
 function pb_enqueue_scripts() {
 
 	if ( pb_is_custom_theme() ) {
-		// Use our default stylesheet, then override with the user's custom stylesheet.
-		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen' );
-		wp_enqueue_style( 'pressbooks' );
-		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), array(), get_option( 'pressbooks_last_custom_css' ), 'screen' );
+		$deps = array();
+		if ( ! pb_custom_stylesheet_imports_base() ) {
+			// Use default stylesheet as base (to avoid horribly broken webbook)
+			wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen' );
+			wp_enqueue_style( 'pressbooks' );
+			$deps = array( 'pressbooks' );
+		}
+		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), $deps, get_option( 'pressbooks_last_custom_css' ), 'screen' );
 		wp_enqueue_style( 'pressbooks-custom-css' );
 	} else {
 		wp_register_style( 'pressbooks', get_bloginfo( 'stylesheet_url' ), array(), null, 'screen' );
