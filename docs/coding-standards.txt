@@ -1,10 +1,11 @@
-== Coding Standards ==
+== PHP Coding Standards ==
 
 Write accurate [PHPDoc](http://en.wikipedia.org/wiki/PHPDoc) styled code comments.
 
 Write real Classes or Namespaced functions.
 
-[PHP Namespaces](http://php.net/manual/en/language.namespaces.php) have been available since 2009. Namespaces are not a new concept. We use them.
+[PHP Namespaces](http://php.net/manual/en/language.namespaces.php) have been available since 2009. Namespaces are not
+a new concept. We use them.
 
 Our namespace is: `\PressBooks\`
 
@@ -31,6 +32,7 @@ Prefix WP Post meta keys with 'pb_'
 Prefix WP User meta keys with 'pb_'
 Prefix WP Option names with 'pressbooks_'
 
-Files under `themes-book/` and `themes-root/` are exempt from the above rules, but should still make an effort to follow them.
+Files under `themes-book/` and `themes-root/` are exempt from the above rules, but should still make an effort to follow
+them.
 
-For everything else not mentioned we try to respect the [WordPress coding standards](http://codex.wordpress.org/WordPress_Coding_Standards).
+For everything else not mentioned we try to respect the [WordPress coding standards](http://make.wordpress.org/core/handbook/coding-standards/php/).
