@@ -770,3 +770,11 @@ table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tf
 .pressbooks-admin-panel p {
 	margin: 0 0 15px;
 }
+
+
+/* Revision
+====================================== */
+
+.revisions .revisions-controls {
+	background: #f9f9f9 !important;
+}
