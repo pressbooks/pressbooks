@@ -513,14 +513,18 @@ function transform_category_selection_box() {
  */
 function init_css_js() {
 
-	global $user_ID, $concatenate_scripts;
-
 	// This is to work around JavaScript dependency errors
+	global $concatenate_scripts;
 	$concatenate_scripts = false;
 
 	// Never let a user change [ Your Profile > Admin Color Scheme ] - Note: Auto-registered dependency $handle = 'colors'
 	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
-	update_user_option( $user_ID, 'admin_color', 'pb_colors', true );
+	add_action( 'profile_update', function ( $user_id ) {
+		update_user_option( $user_id, 'admin_color', 'pb_colors', true );
+	} );
+	add_action( 'user_register', function ( $user_id ) {
+		update_user_option( $user_id, 'admin_color', 'pb_colors', true );
+	} );
 
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '20130921', 'screen' );
