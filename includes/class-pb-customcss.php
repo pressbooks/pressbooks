@@ -112,12 +112,7 @@ class CustomCss {
 	 */
 	static function isCustomCss() {
 
-		$theme = get_stylesheet_directory();
-		$theme = rtrim( trim( $theme ), '/' );
-		$theme = explode( '/', $theme );
-		$theme = end( $theme );
-
-		return ( 'pressbooks-custom-css' == $theme );
+		return ( 'pressbooks-custom-css' == get_stylesheet() );
 	}
 
 
