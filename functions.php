@@ -124,14 +124,10 @@ function pb_custom_stylesheet_imports_base() {
 	}
 
 	if ( $custom_file ) {
-		$custom_file_contents = file_get_contents( $custom_file );
-		// Search for @import url("*.css"), @import url('*.css'), and @import url(*.css)
-		preg_match_all( '/@import url\(([\s])?([\"|\'])?(.*?)\.css([\"|\'])?([\s])?\)/i', $custom_file_contents, $matches, PREG_PATTERN_ORDER );
-		foreach ( $matches[3] as $url ) {
-			if ( stripos( $url, 'themes-book/pressbooks-book/style' ) !== false ) {
-				$_res = true;
-				break;
-			}
+		$custom_file_contents = file_get_contents( $custom_file, null, null, null, 2600 );
+		$import_pattern = '#@import(\s+)url\(([\s])?([\"|\'])?(.*?)themes-book/pressbooks-book/style\.css([\"|\'])?([\s])?\)#i';
+		if ( preg_match( $import_pattern, $custom_file_contents ) ) {
+			$_res = true;
 		}
 	}
 
