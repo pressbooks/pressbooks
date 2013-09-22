@@ -264,4 +264,24 @@ class Activation {
 		refresh_blog_details( $this->blog_id );
 	}
 
+
+	/**
+	 * Never let a user change [ Your Profile > Admin Color Scheme ]
+	 *
+	 * @param int $id
+	 * @param object $user (optional)
+	 */
+	static function forcePbColors( $id, $user = null ) {
+
+		if ( is_numeric( $id ) ) {
+			$user_id = $id;
+		} elseif ( $user instanceof \WP_User ) {
+			$user_id = $user->ID;
+		} else {
+			return;
+		}
+
+		update_user_option( $user_id, 'admin_color', 'pb_colors', true );
+	}
+
 }

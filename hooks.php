@@ -79,6 +79,11 @@ add_action( 'wpmu_new_blog', function ( $b, $u ) {
 	$activate->wpmuNewBlog( $b, $u );
 }, 9, 2 );
 
+// Force PB colors
+add_action( 'wp_login', '\PressBooks\Activation::forcePbColors', 10, 2 );
+add_action( 'profile_update', '\PressBooks\Activation::forcePbColors' );
+add_action( 'user_register', '\PressBooks\Activation::forcePbColors' );
+
 // -------------------------------------------------------------------------------------------------------------------
 // Redirects
 // -------------------------------------------------------------------------------------------------------------------
