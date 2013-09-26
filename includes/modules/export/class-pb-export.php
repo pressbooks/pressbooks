@@ -268,8 +268,9 @@ abstract class Export {
 	 */
 	function fixAnnoyingCharacters( $html ) {
 
-		// Non-breaking spaces
-		$html = preg_replace( '/\xC2\xA0/', ' ', $html );
+		// Replace Non-breaking spaces with normal spaces
+		// TODO: Some users want this, others do not want this, make up your mind...
+		// $html = preg_replace( '/\xC2\xA0/', ' ', $html );
 
 		return $html;
 	}
