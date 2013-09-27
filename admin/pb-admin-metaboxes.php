@@ -129,8 +129,11 @@ function upload_cover_image( $pid, $post ) {
 function add_metadata_styles( $hook ) {
 
 	if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
-		if ( 'metadata' == get_post_type() ) {
+		$post_type = get_post_type();
+		if ( 'metadata' == $post_type ) {
 			wp_enqueue_style( 'metadata', PB_PLUGIN_URL . 'assets/css/metadata.css', array(), '20130927' );
+		} elseif ( 'part' == $post_type ) {
+			wp_enqueue_style( 'part', PB_PLUGIN_URL . 'assets/css/part.css', array(), '20130927' );
 		}
 	}
 }
@@ -434,6 +437,17 @@ function add_meta_boxes() {
 		'label' => __( 'Front Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
 
+	// Part Metadata
+
+	x_add_metadata_group( 'part-metadata', 'part', array(
+		'label' => __( 'Replace me 1', 'pressbooks' )
+	) );
+
+	x_add_metadata_field( 'pb_part_content', 'part', array(
+		'field_type' => 'wysiwyg',
+		'group' => 'part-metadata',
+		'label' => __( 'Replace me 2', 'pressbooks' )
+	) );
 }
 
 
