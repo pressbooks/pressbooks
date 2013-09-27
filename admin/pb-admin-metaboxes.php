@@ -130,7 +130,7 @@ function add_metadata_styles( $hook ) {
 
 	if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 		if ( 'metadata' == get_post_type() ) {
-			wp_enqueue_style( 'metadata', PB_PLUGIN_URL . 'assets/css/metadata.css' );
+			wp_enqueue_style( 'metadata', PB_PLUGIN_URL . 'assets/css/metadata.css', array(), '20130927' );
 		}
 	}
 }

@@ -4,3 +4,7 @@
 #message.updated a {
 	display: none;
 }
+
+.datepicker input[readonly='readonly'] {
+	background-color: white;
+}
