@@ -92,7 +92,7 @@ function register_post_types() {
 		'capability_type' => 'post',
 		'has_archive' => true,
 		'hierarchical' => true,
-		'supports' => array( 'title' )
+		'supports' => array( 'title', 'page-attributes' )
 	);
 	register_post_type( 'part', $args );
 
