@@ -23,8 +23,9 @@ require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 // Custom Metadata plugin
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'custom_metadata_manager_default_editor_args', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
 require( PB_PLUGIN_DIR . 'symbionts/custom-metadata/custom_metadata.php' );
+add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_custom_copyright', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
+add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_about_unlimited', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Languages
