@@ -447,7 +447,7 @@ function add_meta_boxes() {
 		'field_type' => 'wysiwyg',
 		'group' => 'part-metadata-text',
 		'label' => '',
-		'description' => __( 'Appears on part page.', 'pressbooks' )
+		'description' => __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' )
 	) );
 }
 
