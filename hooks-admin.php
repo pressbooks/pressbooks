@@ -74,7 +74,7 @@ add_action( 'admin_menu', function () {
 	remove_meta_box( 'submitdiv', 'part', 'normal' );
 } );
 
-add_action( 'admin_init', '\PressBooks\Admin\Metaboxes\add_meta_boxes' );
+add_action( 'custom_metadata_manager_init_metadata', '\PressBooks\Admin\Metaboxes\add_meta_boxes' );
 
 if ( \PressBooks\Book::isBook() ) {
 	add_action( 'admin_enqueue_scripts', '\PressBooks\Admin\Metaboxes\add_metadata_styles' );

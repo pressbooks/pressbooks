@@ -12,4 +12,4 @@ should not be directly modified by PressBooks developers.
 
 Operative verb is "should," the following libs have been patched/forked by PressBooks:
 
-* custom-metadata
+* custom-metadata (https://github.com/connerbw/custom-metadata)

@@ -4,7 +4,7 @@ This code-only developer WordPress plugin allows you to add custom fields to you
 
 This is a WordPress Plugin. We sync changes between github and the [WordPress.org plugin repository](http://wordpress.org/extend/plugins/custom-metadata/). Why? Because collaboration is made much easier on github :)
 
-**NOTE**: The plugin requires WordPress 3.3+ (chiefly for the wysiwyg & datepicker fields)
+**NOTE**: The plugin requires WordPress 3.5+
 
 
 # Installation
@@ -41,9 +41,28 @@ There are usage instructions below
 
 ## 0.8 (currently under development)
 
-* allow fieldtypes that save as multiples but don't display as cloneable or multiples
-* added the taxonomy_checkbox field
-* made use of the selected() and checked() functions in WordPress instead of clumsy if statements
+* added ability to group several fields as a `multifield`; see `x_add_metadata_multifield()`, props @greatislander, @rinatkhaziev and @PhilippSchreiber for their contributions there
+* allow field types that save as multiples but don't display as cloneable or multiples
+* added the `taxonomy_checkbox` and `taxonomy_multi_select` field types, props @greatislander
+* made use of the `selected()` and `checked()` functions in WordPress instead of clumsy if statements
+* limit or exclude groups and fields using a custom callback
+* adjusted the copyright to include 2013 and to list "The Contributors" instead of specific individuals
+* adjusted the list of contributors in the plugin
+* adjusted the plugin URL and removed the donate URL
+* adjusted files for code standards
+* fixed PHP warning with empty values for date fields
+* moved filtering of instance vars to `init` instead of on `construct` which runs too early
+* added new field types: `number`, `email`, `telephone`, `datetimepicker`, `timepicker` and `link` (which uses the WP link manager)
+* added ability to add default value for certain field types
+* added ability to set placeholder for certain fields
+* updated the examples file
+* rewrote the `upload` field to use the media manager from WordPress 3.5+. Note the `upload` field is now `readonly` by default (but can be set to `false` when you setup the field)
+* updated JavaScript to be up to standard with coding standards and be fully compatible with jQuery 1.9+
+* replaced chosen.js with select2.js
+* reformat and clean up css file
+* added ability for groups to display a description
+* added ability to limit capabilities for entire groups using `required_cap`
+* convert plugin class to singleton
 
 ## 0.7
 
@@ -54,7 +73,7 @@ There are usage instructions below
 * note: the plugin now requires WordPress 3.3+ (chiefly for the wysiwyg & datepicker fields)
 * update/clean-up the examples file
 * properly enqueue admin css for WP 3.3+
-* added a filter for the CUSTOM_METADATA_MANAGER_URL constant
+* added a filter for the `CUSTOM_METADATA_MANAGER_URL` constant
 * fix fields not appearing when editing users in WP 3.3+ (props @FolioVision)
 * now passing the `$value` for a `display_callback` (props @FolioVision)
 * use the new `wp_editor()` function (since WP 3.3+) instead of `the_editor()` (now deprecated)
@@ -91,7 +110,7 @@ There are usage instructions below
 
 * better tiny mce implementation and added html/visual switch
 * small css fixes and added inline documentation
-* moved DEFINEs in to admin_init() so that they can be filtered more easily
+* moved `DEFINE`s in to `admin_init` so that they can be filtered more easily
 
 ## 0.5.1
 
@@ -112,7 +131,7 @@ There are usage instructions below
 ## 0.4
 
 * Enhanced the code which generates the different field types
-* Added new types: password, upload, wysiwyg, datepicker, taxonomy_select, taxonomy_radio, attachment_list
+* Added new types: `password`, `upload`, `wysiwyg`, `datepicker`, `taxonomy_select`, `taxonomy_radio`, `attachment_list`
 * Added field multiplication ability
 * Metadata is now deleted if a value is empty
 * Can now also generate option pages which use a metabox interface
@@ -143,15 +162,13 @@ The main idea behind this plugin is to have a single API to work with regardless
 
 ### Registering your fields
 
-For the sake of performance (and to avoid potential race conditions), always register your custom fields in the `admin_menu` hook. This way your front-end doesn't get bogged down with unnecessary processing and you can be sure that your fields will be registered safely. Here's a code sample:
+For the sake of performance (and to avoid potential race conditions), always register your custom fields in the `custom_metadata_manager_admin_init` hook. This way your front-end doesn't get bogged down with unnecessary processing and you can be sure that your fields will be registered safely. Here's a code sample:
 
 ```php
-add_action( 'admin_menu', 'my_theme_init_custom_fields' );
+add_action( 'custom_metadata_manager_init_metadata', 'my_theme_init_custom_fields' );
 
 function my_theme_init_custom_fields() {
-	if( function_exists( 'x_add_metadata_field' ) && function_exists( 'x_add_metadata_group' ) ) {
-		x_add_metadata_field( 'my_field', array( 'user', 'post' ) );
-	}
+	x_add_metadata_field( 'my_field', array( 'user', 'post' ) );
 }
 ```
 
@@ -263,27 +280,32 @@ $args = array(
 	)
 );
 ```
+You can also pass in a callback to programattically include or exclude posts:
+
+```php
+$args = array(
+	'exclude' => function( $thing_slug, $thing, $object_type, $object_id, $object_slug ) {
+		// exclude from all posts that are in the aside category.
+		return in_category( 'aside', $object_id );
+	}
+);
+```
+
+```php
+$args = array(
+	'include' => function( $thing_slug, $thing, $object_type, $object_id, $object_slug ) {
+		// include for posts that are not published.
+		$post = get_post( $object_id );
+		return 'publish' != $post->post_status;
+	}
+);
+```
 
 # Examples
 
 For examples, please see the [custom_metadata_examples.php](https://github.com/jkudish/custom-metadata/blob/master/custom_metadata_examples.php) file included with the plugin. Add a constant to your wp-config.php called `CUSTOM_METADATA_MANAGER_DEBUG` with a value of `true` to see it in action:
 
 `define( 'CUSTOM_METADATA_MANAGER_DEBUG', true );`
-
-# TODOs
-
-Stuff we have planned for the future:
-
-* Ability Pass in attributes for built-in fields (e.g. class, data-*, etc.)
-* Additional field types (multi-select, multi-checkbox)
-* Limit or exclude groups and fields using a custom callback
-* Autosave support for fields on post types
-* Client- and server-side validation support
-* Add groups and fields to Quick Edit
-
-# Credits
-
-This plugin is built and maintained by [Mo' Jangda](http://digitalize.ca/ "Mo' Jangda"), [Stresslimit Design](http://stresslimitdesign.com/about-our-wordpress-expertise "Stresslimit Design") & [Joachim Kudish](http://jkudish.com "Joachim Kudish")
 
 
 # License
