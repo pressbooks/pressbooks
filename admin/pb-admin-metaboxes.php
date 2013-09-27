@@ -439,14 +439,15 @@ function add_meta_boxes() {
 
 	// Part Metadata
 
-	x_add_metadata_group( 'part-metadata', 'part', array(
-		'label' => __( 'Replace me 1', 'pressbooks' )
+	x_add_metadata_group( 'part-metadata-text', 'part', array(
+		'label' => __( 'Part Text', 'pressbooks' )
 	) );
 
 	x_add_metadata_field( 'pb_part_content', 'part', array(
 		'field_type' => 'wysiwyg',
-		'group' => 'part-metadata',
-		'label' => __( 'Replace me 2', 'pressbooks' )
+		'group' => 'part-metadata-text',
+		'label' => '',
+		'description' => __( 'Appears on part page.', 'pressbooks' )
 	) );
 }
 
