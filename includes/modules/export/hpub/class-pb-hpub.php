@@ -834,7 +834,7 @@ class Hpub extends Export {
 			// Inject part content?
 			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
 			if ( $part_content ) {
-				$part_content = $this->preProcessPostContent( $part_content );
+				$part_content = $this->kneadHtml( $this->preProcessPostContent( $part_content ), 'custom' );
 				$part_printf_changed = str_replace( '</h1></div></div>', "</h1></div><div class=\"ugc part-ugc\">{$part_content}</div></div>", $part_printf );
 			}
 
