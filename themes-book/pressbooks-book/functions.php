@@ -318,6 +318,9 @@ function pressbooks_theme_options_summary() { ?>
 						if ( $value == 1 ) { _e( 'indent', 'pressbooks' ); }
 						elseif ( $value == 2 ) { _e( 'skip lines', 'pressbooks' ); } ?></em></li>
 					<?php break;
+				case 'ebook_compress_images': ?>
+					<li><?php _e( 'Compress images' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></li>
+					<?php break;
 			}
 		}
 		?>
@@ -725,7 +728,8 @@ function pressbooks_theme_options_ebook_init() {
 	$_page = $_option = 'pressbooks_theme_options_ebook';
 	$_section = 'ebook_options_section';
 	$defaults = array(
-		'ebook_paragraph_separation' => 1
+		'ebook_paragraph_separation' => 1,
+		'ebook_compress_images' => 0,
 	);
 
 	if ( false == get_option( $_option ) ) {
@@ -751,6 +755,17 @@ function pressbooks_theme_options_ebook_init() {
 		)
 	);
 
+	add_settings_field(
+		'ebook_compress_images',
+		__( 'Compress images', 'pressbooks' ),
+		'pressbooks_theme_ebook_compress_images_callback',
+		$_page,
+		$_section,
+		array(
+			__( 'Reduce image size and quality', 'pressbooks' )
+		)
+	);
+
 	register_setting(
 		$_option,
 		$_option,
@@ -764,7 +779,6 @@ add_action( 'admin_init', 'pressbooks_theme_options_ebook_init' );
 function pressbooks_theme_options_ebook_callback() {
 	echo '<p>' . __( 'These options apply to ebook exports.' . 'pressbooks' ) . '</p>';
 }
-
 
 // Ebook Options Field Callbacks
 function pressbooks_theme_ebook_paragraph_separation_callback( $args ) {
@@ -782,13 +796,36 @@ function pressbooks_theme_ebook_paragraph_separation_callback( $args ) {
 	echo $html;
 }
 
+// PDF Options Field Callback
+function pressbooks_theme_ebook_compress_images_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_ebook' );
+
+	if ( ! isset( $options['ebook_compress_images'] ) ) {
+		$options['ebook_compress_images'] = 0;
+	}
+
+	$html = '<input type="checkbox" id="ebook_compress_images" name="pressbooks_theme_options_ebook[ebook_compress_images]" value="1" ' . checked( 1, $options['ebook_compress_images'], false ) . '/>';
+	$html .= '<label for="ebook_compress_images"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
 
 // Ebook Options Input Sanitization
 function pressbooks_theme_options_ebook_sanitize( $input ) {
 
 	$options = get_option( 'pressbooks_theme_options_ebook' );
 
-	$options['ebook_paragraph_separation'] = absint( $input['ebook_paragraph_separation'] );
+	// Absint
+	foreach ( array( 'ebook_paragraph_separation' ) as $val ) {
+		$options[$val] = absint( $input[$val] );
+	}
+
+	// Checkmarks
+	foreach ( array( 'ebook_compress_images' ) as $val ) {
+		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
+		else $options[$val] = 1;
+	}
 
 	return $options;
 }
@@ -965,6 +1002,16 @@ function pressbooks_theme_ebook_hacks( $hacks ) {
 
 	// Display chapter numbers?
 	$hacks['chapter_numbers'] = $options['chapter_numbers'];
+
+	// --------------------------------------------------------------------
+	// Ebook Options
+
+	$options = get_option( 'pressbooks_theme_options_ebook' );
+
+	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines
+	if ( @$options['ebook_compress_images'] ) {
+		$hacks['ebook_compress_images'] = true;
+	}
 
 	// --------------------------------------------------------------------
 	// Luther features we inject ourselves, (not user options, this theme not child)

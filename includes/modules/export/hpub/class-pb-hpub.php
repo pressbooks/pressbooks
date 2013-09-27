@@ -1192,11 +1192,18 @@ class Hpub extends Export {
 	 */
 	protected function fetchAndSaveUniqueImage( $url, $fullpath ) {
 
+		// Cheap cache
+		static $already_done = array();
+		if ( isset( $already_done[$url] ) ) {
+			return $already_done[$url];
+		}
+
 		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
 			// TODO: handle $response->get_error_message();
+			$already_done[$url] = '';
 			return '';
 		}
 
@@ -1207,23 +1214,23 @@ class Hpub extends Export {
 		$filename = sanitize_file_name( urldecode( $filename ) );
 		$filename = Sanitize\force_ascii( $filename );
 
-		$file_contents = wp_remote_retrieve_body( $response );
+		$tmp_file = \PressBooks\Utility\create_tmp_file();
+		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
-		// Check if file is actually an image
-		$im = @imagecreatefromstring( $file_contents );
-		if ( $im === false ) {
+		if ( ! \PressBooks\Image\is_valid_image( $tmp_file, $filename ) ) {
+			$already_done[$url] = '';
 			return ''; // Not an image
 		}
-		unset( $im );
 
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
-			file_put_contents( "$fullpath/$filename", $file_contents );
-		} elseif ( md5( $file_contents ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+			copy( $tmp_file, "$fullpath/$filename" );
+		} elseif ( md5( file_get_contents( $tmp_file ) ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
-			file_put_contents( "$fullpath/$filename", $file_contents );
+			copy( $tmp_file, "$fullpath/$filename" );
 		}
 
+		$already_done[$url] = $filename;
 		return $filename;
 	}
 

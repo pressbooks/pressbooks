@@ -46,7 +46,7 @@ function is_default_cover( $compare ) {
 /**
  * Check if a file (or stream) is a valid image type
  *
- * @param string $data
+ * @param string $data Can be a temporary filename (think $_FILE before saving to $filename) or a stream (string). Default is temporary filename
  * @param string $filename
  * @param bool $is_stream (optional)
  *
@@ -62,19 +62,18 @@ function is_valid_image( $data, $filename, $is_stream = false ) {
 	}
 
 	if ( $is_stream ) {
+		$tmp_image_path = \PressBooks\Utility\create_tmp_file();
+		file_put_contents( $tmp_image_path, $data );
+		$data = $tmp_image_path;
+	}
 
-		$image = @imagecreatefromstring( $data );
-		if ( $image === false ) {
-			return false;
-		}
+	/* Try to avoid problems with memory limit */
+	fudge_factor( $format, $data );
 
-	} else {
-
-		$func = 'imagecreatefrom' . $format;
-		$image = @$func( $data );
-		if ( $image === false ) {
-			return false;
-		}
+	$func = 'imagecreatefrom' . $format;
+	$image = @$func( $data );
+	if ( $image === false ) {
+		return false;
 	}
 
 	imagedestroy( $image );
@@ -383,4 +382,85 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 		</div>
 	</div>
 <?php
+}
+
+
+/**
+ * Proportionally resize an image file
+ *
+ * @param string $format
+ * @param string $fullpath
+ * @param int $MAX_W (optional)
+ * @param int $MAX_H (optional)
+ *
+ * @throws \Exception
+ */
+function resize_down( $format, $fullpath, $MAX_W = 1024, $MAX_H = 1024 ) {
+
+	if ( $format == 'jpg' ) $format = 'jpeg'; // fix stupid mistake
+	if ( ! ( $format == 'jpeg' || $format == 'gif' || $format == 'png' ) ) {
+		throw new \Exception( 'Invalid image format' );
+	}
+
+	/* Try to avoid problems with memory limit */
+	fudge_factor( $format, $fullpath );
+
+	/* Proceed with resizing */
+
+	$func = 'imagecreatefrom' . $format;
+	$src = $func( $fullpath );
+	if ( ! $src )
+		throw new \Exception( 'Invalid image format' );
+
+	list( $orig_w, $orig_h ) = getimagesize( $fullpath );
+	$ratio = $orig_w * 1.0 / $orig_h;
+	$w_undersized = ( $orig_w > $MAX_W );
+	$h_undersized = ( $orig_h > $MAX_H );
+
+	if ( $w_undersized || $h_undersized ) {
+		$new_w = round( min( $MAX_W, $ratio * $MAX_H ) );
+		$new_h = round( min( $MAX_H, $MAX_W / $ratio ) );
+	} else {
+		return; // Do nothing, image is small enough already
+	}
+
+	$dst = imagecreatetruecolor( $new_w, $new_h );
+	imagecopyresampled( $dst, $src, 0, 0, 0, 0, $new_w, $new_h, $orig_w, $orig_h );
+	imagedestroy( $src );
+
+	$func = 'image' . $format;
+	$func( $dst, $fullpath );
+	imagedestroy( $dst );
+}
+
+
+/**
+ * Adjust memory for large images
+ *
+ * @param string $format expect jpg, jpeg, gif, or png
+ * @param string $fullpath path to read image file
+ */
+function fudge_factor( $format, $fullpath ) {
+
+	$size = getimagesize( $fullpath );
+	if ( false == $size ) {
+		return;
+	}
+
+	if ( $format == 'jpeg' ) {
+		// Jpeg
+		$fudge = 1.65; // This is a guestimate, your mileage may very
+		$memoryNeeded = round( ( $size[0] * $size[1] * $size['bits'] * $size['channels'] / 8 + pow( 2, 16 ) ) * $fudge );
+	} else {
+		// Not Sure
+		$memoryNeeded = $size[0] * $size[1];
+		if ( isset( $size['bits'] ) ) $memoryNeeded = $memoryNeeded * $size['bits'];
+		$memoryNeeded = round( $memoryNeeded );
+	}
+
+	if ( memory_get_usage() + $memoryNeeded > (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) {
+		trigger_error( 'Image is too big, attempting to compensate...', E_USER_WARNING );
+		ini_set( 'memory_limit', (int) ini_get( 'memory_limit' ) + ceil( ( ( memory_get_usage() + $memoryNeeded ) - (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) / pow( 1024, 2 ) ) . 'M' );
+	}
+
 }

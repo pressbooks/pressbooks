@@ -284,3 +284,13 @@ function do_sitemap() {
 	exit;
 }
 
+/**
+ * Create a temporary file that automatically gets deleted when php ends
+ *
+ * @return string path to file
+ */
+function create_tmp_file() {
+
+	return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[mt_rand()] = tmpfile() ) ) );
+}
+

@@ -187,7 +187,7 @@ abstract class Export {
 	 */
 	function createTmpFile() {
 
-		return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[mt_rand()] = tmpfile() ) ) );
+		return \PressBooks\Utility\create_tmp_file();
 	}
 
 
