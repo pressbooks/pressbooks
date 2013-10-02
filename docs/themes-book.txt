@@ -126,6 +126,7 @@ Top level elements (i.e. children nodes of <body>):
 `<div id="X">` where X can be:
 
  + cover-image
+ + half-title-page
  + title-page
  + copyright-page
  + toc

@@ -436,7 +436,7 @@ p.bl_indent {
 
 /* HALFTITLE PAGE
 ==================== */
-body > h1.title:first-of-type {
+#half-title-page h1.title:first-of-type {
 	font-family: "LinBiolinum", sans-serif;
     string-set: book-title content();
 	page-break-before: right;

@@ -186,7 +186,7 @@ class Xhtml11 extends Export {
 		$this->echoBeforeTitle( $book_contents, $metadata );
 
 		// Half-title
-		echo '<h1 class="title">' . get_bloginfo( 'name' ) . "</h1>\n";
+		$this->echoHalfTitle( $book_contents, $metadata );
 
 		// Cover
 		$this->echoCover( $book_contents, $metadata );
@@ -514,6 +514,19 @@ class Xhtml11 extends Export {
 			}
 		}
 		$this->frontMatterPos = $i;
+	}
+
+
+	/**
+	 * @param array $book_contents
+	 * @param array $metadata
+	 */
+	protected function echoHalfTitle( $book_contents, $metadata ) {
+
+		echo '<div id="half-title-page">';
+		echo '<h1 class="title">' . get_bloginfo( 'name' ) . '</h1>';
+		echo '</div>' . "\n";
+
 	}
 
 

@@ -42,6 +42,7 @@ abstract class Export {
 	 */
 	protected $reservedIds = array(
 		'cover-image',
+		'half-title-page',
 		'title-page',
 		'copyright-page',
 		'toc',
