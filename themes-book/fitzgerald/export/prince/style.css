@@ -699,7 +699,7 @@ h3.chapter-number {
 	border-bottom: 0.5px solid #000;
 	font-weight: lighter;
 	display: inline-block;
-	padding: 0 2em 0 1em;
+	padding: 0 2em 0 2em;
 }
 h3.front-matter-number, 
 h3.part-number, 
