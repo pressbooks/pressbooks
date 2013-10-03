@@ -100,7 +100,7 @@ class Pdf extends Export {
 
 		// CSS File
 		$css_file = $this->createTmpFile();
-		file_put_contents( $css_file, static::injectHouseStyles( file_get_contents( $this->exportStylePath ) ) );
+		file_put_contents( $css_file, $this->kneadCss() );
 
 		// CSS Overrides
 		$css_overrides = $this->createTmpFile();
@@ -173,6 +173,40 @@ class Pdf extends Export {
 		$mime = static::mimeType( $file );
 
 		return ( strpos( $mime, 'application/pdf' ) !== false );
+	}
+
+
+	/**
+	 * Move CSS file to a temporary directory and knead it
+	 *
+	 * @return string
+	 */
+	protected function kneadCss() {
+
+		$css_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
+
+		$css = file_get_contents( $this->exportStylePath );
+		$css = static::injectHouseStyles( $css );
+
+		// Search for url("*"), url('*'), and url(*)
+		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
+
+		// Remove duplicates, sort by biggest to smallest to prevent substring replacements
+		$matches = array_unique( $matches[3] );
+		usort( $matches, function ( $a, $b ) {
+			return strlen( $b ) - strlen( $a );
+		} );
+
+		foreach ( $matches as $url ) {
+			if ( ! preg_match( '#^https?://#i', $url ) ) {
+				$my_asset = realpath( "$css_dir/$url" );
+				if ( $my_asset ) {
+					$css = str_replace( $url, "$css_dir/$url", $css );
+				}
+			}
+		}
+
+		return $css;
 	}
 
 
