@@ -661,6 +661,30 @@ abstract class Export {
 
 
 	/**
+	 * Inject house styles into CSS
+	 *
+	 * @param string $css
+	 *
+	 * @return string
+	 */
+	static function injectHouseStyles( $css ) {
+
+		$scan = array(
+			'/*__INSERT_PDF_HOUSE_STYLE__*/' => WP_CONTENT_DIR . '/themes/pdf-house-style.css',
+			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => WP_CONTENT_DIR . '/themes/epub-house-style.css',
+		);
+
+		foreach ( $scan as $token => $replace_with ) {
+			if ( is_file( $replace_with ) ) {
+				$css = str_replace( $token, file_get_contents( $replace_with ), $css );
+			}
+		}
+
+		return $css;
+	}
+
+
+	/**
 	 * Download an .htaccess protected file from the exports directory.
 	 *
 	 * @param string $filename sanitized $_GET['download_export_file']

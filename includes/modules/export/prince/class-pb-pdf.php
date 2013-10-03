@@ -98,16 +98,20 @@ class Pdf extends Export {
 		$filename = $this->timestampedFileName( '.pdf' );
 		$this->outputPath = $filename;
 
-		// CSS Overrides
+		// CSS File
 		$css_file = $this->createTmpFile();
-		file_put_contents( $css_file, $this->cssOverrides );
+		file_put_contents( $css_file, static::injectHouseStyles( file_get_contents( $this->exportStylePath ) ) );
+
+		// CSS Overrides
+		$css_overrides = $this->createTmpFile();
+		file_put_contents( $css_overrides, $this->cssOverrides );
 
 		// Save PDF as file in exports folder
 		$prince = new \Prince( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
-		$prince->addStyleSheet( $this->exportStylePath );
-		$prince->addStylesheet( $css_file );
+		$prince->addStyleSheet( $css_file );
+		$prince->addStylesheet( $css_overrides );
 		$prince->addScript( $this->exportScriptPath );
 		$prince->setLog( $this->logfile );
 		$retval = $prince->convert_file_to_file( $this->url, $this->outputPath, $msg );

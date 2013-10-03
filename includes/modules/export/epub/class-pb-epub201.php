@@ -553,8 +553,10 @@ class Epub201 extends Export {
 	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
 		$css_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
+		$fullpath_to_epub_images = $this->tmpDir . '/OEBPS/images';
+
 		$css = file_get_contents( $path_to_copy_of_stylesheet );
-		$fullpath = $this->tmpDir . '/OEBPS/images';
+		$css = static::injectHouseStyles( $css );
 
 		// Search for url("*"), url('*'), and url(*)
 		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
@@ -575,14 +577,14 @@ class Epub201 extends Export {
 
 				$my_image = realpath( "$css_dir/$url" );
 				if ( $my_image ) {
-					copy( $my_image, "$fullpath/$filename" );
+					copy( $my_image, "$fullpath_to_epub_images/$filename" );
 				}
 
 			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.jpe?g|\.gif|\.png)$/i', $url ) ) {
 
 				// Look for images via http(s), pull them in locally
 
-				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $fullpath ) ) {
+				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $fullpath_to_epub_images ) ) {
 					$css = str_replace( $url, "images/$new_filename", $css );
 				}
 			}
