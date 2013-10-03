@@ -577,9 +577,8 @@ class Epub201 extends Export {
 
 				$my_image = realpath( "$css_dir/$url" );
 				if ( $my_image ) {
-					$new_filename = str_replace( 'images/', '', $url );
 					copy( $my_image, "$path_to_epub_assets/$filename" );
-					$css = str_replace( $url, "assets/$new_filename", $css );
+					$css = str_replace( $url, "assets/$filename", $css );
 				}
 
 			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.jpe?g|\.gif|\.png)$/i', $url ) ) {
@@ -596,9 +595,8 @@ class Epub201 extends Export {
 
 				$my_font = realpath( "$css_dir/$url" );
 				if ( $my_font ) {
-					$new_filename = str_replace( '../../fonts/', '', $url );
-					copy( $my_font, "$path_to_epub_assets/$new_filename" );
-					$css = str_replace( $url, "assets/$new_filename", $css );
+					copy( $my_font, "$path_to_epub_assets/$filename" );
+					$css = str_replace( $url, "assets/$filename", $css );
 				}
 
 			}
