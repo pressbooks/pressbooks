@@ -101,7 +101,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			printf( '<item id="%s" href="OEBPS/%s" media-type="application/xhtml+xml" />', $k, $v['filename'] );
 			echo "\n";
 		}
-		echo $manifest_images;
+		echo $manifest_assets;
 		?>
 		<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
 		<?php if ( ! empty( $stylesheet ) ): ?><item id="stylesheet" href="OEBPS/<?php echo $stylesheet; ?>"  media-type="text/css" /><?php endif; ?>
