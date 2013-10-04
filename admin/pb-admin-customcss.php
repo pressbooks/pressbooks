@@ -281,7 +281,7 @@ function fix_url_paths( $css, $style_uri ) {
 		$url = ltrim( trim( $url ), '/' );
 
 		if ( preg_match( '#^https?://#i', $url ) ) {
-			return $matches[1]; // No change
+			return $matches[0]; // No change
 		}
 
 		return "url($style_uri/$url)";

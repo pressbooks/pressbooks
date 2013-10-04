@@ -401,7 +401,7 @@ class Hpub extends Export {
 				}
 			}
 
-			return $matches[1]; // No change
+			return $matches[0]; // No change
 
 		}, $css );
 
