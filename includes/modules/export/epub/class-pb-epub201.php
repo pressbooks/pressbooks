@@ -559,15 +559,10 @@ class Epub201 extends Export {
 		$css = static::injectHouseStyles( $css );
 
 		// Search for url("*"), url('*'), and url(*)
-		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
+		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $css_dir, $path_to_epub_assets ) {
 
-		// Remove duplicates, sort by biggest to smallest to prevent substring replacements
-		$matches = array_unique( $matches[3] );
-		usort( $matches, function ( $a, $b ) {
-			return strlen( $b ) - strlen( $a );
-		} );
-
-		foreach ( $matches as $url ) {
+			$url = $matches[3];
 			$filename = sanitize_file_name( basename( $url ) );
 
 			if ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) == 1 ) {
@@ -578,7 +573,7 @@ class Epub201 extends Export {
 				$my_image = realpath( "$css_dir/$url" );
 				if ( $my_image ) {
 					copy( $my_image, "$path_to_epub_assets/$filename" );
-					$css = str_replace( $url, "assets/$filename", $css );
+					return "url(assets/$filename)";
 				}
 
 			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.jpe?g|\.gif|\.png)$/i', $url ) ) {
@@ -586,7 +581,7 @@ class Epub201 extends Export {
 				// Look for images via http(s), pull them in locally
 
 				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $path_to_epub_assets ) ) {
-					$css = str_replace( $url, "assets/$new_filename", $css );
+					return "url(assets/$new_filename)";
 				}
 
 			} elseif ( preg_match( '#^\.\./\.\./fonts/[a-zA-Z0-9_-]+(\.ttf|\.otf)$#i', $url ) ) {
@@ -596,12 +591,14 @@ class Epub201 extends Export {
 				$my_font = realpath( "$css_dir/$url" );
 				if ( $my_font ) {
 					copy( $my_font, "$path_to_epub_assets/$filename" );
-					$css = str_replace( $url, "assets/$filename", $css );
+					return "url(assets/$filename)";
 				}
 
 			}
 
-		}
+			return $matches[1]; // No change
+
+		}, $css );
 
 		// Overwrite the new file with new info
 		file_put_contents( $path_to_copy_of_stylesheet, $css );

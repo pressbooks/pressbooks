@@ -376,15 +376,10 @@ class Hpub extends Export {
 		$css = static::injectHouseStyles( $css );
 
 		// Search for url("*"), url('*'), and url(*)
-		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
+		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $css_dir, $fullpath_to_hpub_images ) {
 
-		// Remove duplicates, sort by biggest to smallest to prevent substring replacements
-		$matches = array_unique( $matches[3] );
-		usort( $matches, function ( $a, $b ) {
-			return strlen( $b ) - strlen( $a );
-		} );
-
-		foreach ( $matches as $url ) {
+			$url = $matches[3];
 			$filename = sanitize_file_name( basename( $url ) );
 
 			if ( preg_match( '#^\.\./images/#', $url ) && substr_count( $url, '/' ) == 2 ) {
@@ -402,11 +397,13 @@ class Hpub extends Export {
 				// Look for images via http(s), pull them in locally
 
 				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $fullpath_to_hpub_images ) ) {
-					$css = str_replace( $url, "../images/$new_filename", $css );
+					return "url(../images/$new_filename)";
 				}
 			}
 
-		}
+			return $matches[1]; // No change
+
+		}, $css );
 
 		// Overwrite the new file with new info
 		file_put_contents( $path_to_copy_of_stylesheet, $css );

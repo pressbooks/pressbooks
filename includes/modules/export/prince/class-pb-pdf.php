@@ -189,22 +189,21 @@ class Pdf extends Export {
 		$css = static::injectHouseStyles( $css );
 
 		// Search for url("*"), url('*'), and url(*)
-		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
+		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $css_dir ) {
 
-		// Remove duplicates, sort by biggest to smallest to prevent substring replacements
-		$matches = array_unique( $matches[3] );
-		usort( $matches, function ( $a, $b ) {
-			return strlen( $b ) - strlen( $a );
-		} );
+			$url = $matches[3];
 
-		foreach ( $matches as $url ) {
 			if ( ! preg_match( '#^https?://#i', $url ) ) {
 				$my_asset = realpath( "$css_dir/$url" );
 				if ( $my_asset ) {
-					$css = str_replace( $url, "$css_dir/$url", $css );
+					return "url($css_dir/$url)";
 				}
 			}
-		}
+
+			return $matches[1]; // No change
+
+		}, $css );
 
 		return $css;
 	}
