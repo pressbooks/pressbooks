@@ -672,6 +672,7 @@ abstract class Export {
 		$scan = array(
 			'/*__INSERT_PDF_HOUSE_STYLE__*/' => WP_CONTENT_DIR . '/themes/pdf-house-style.css',
 			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => WP_CONTENT_DIR . '/themes/epub-house-style.css',
+			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => WP_CONTENT_DIR . '/themes/mobi-house-style.css',
 		);
 
 		foreach ( $scan as $token => $replace_with ) {
