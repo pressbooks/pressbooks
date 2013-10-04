@@ -177,7 +177,7 @@ class Pdf extends Export {
 
 
 	/**
-	 * Move CSS file to a temporary directory and knead it
+	 * Return kneaded CSS string
 	 *
 	 * @return string
 	 */
