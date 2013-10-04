@@ -14,6 +14,10 @@ This file must validate as CSS 2.01 with absolutely no errors
   Copyright 2011-2012 Book Oven Inc. (PressBooks.com) support@pressbooks.com  
 */
 
+
+/*__INSERT_EPUB_HOUSE_STYLE__*/
+
+
 body {
 	font-family: "Times New Roman", Times, Georgia, serif;
 	line-height: 1.5em;
@@ -462,4 +466,7 @@ sup.footnote, sup.endnote {
 .index .ugc  p.sub-entry {
 	padding-left:30px;
 }
+
+/*__INSERT_MOBI_HOUSE_STYLE__*/
+
   
