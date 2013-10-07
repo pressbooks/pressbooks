@@ -414,10 +414,10 @@ function resize_down( $format, $fullpath, $MAX_W = 1024, $MAX_H = 1024 ) {
 
 	list( $orig_w, $orig_h ) = getimagesize( $fullpath );
 	$ratio = $orig_w * 1.0 / $orig_h;
-	$w_undersized = ( $orig_w > $MAX_W );
-	$h_undersized = ( $orig_h > $MAX_H );
+	$w_oversized = ( $orig_w > $MAX_W );
+	$h_oversized = ( $orig_h > $MAX_H );
 
-	if ( $w_undersized || $h_undersized ) {
+	if ( $w_oversized || $h_oversized ) {
 		$new_w = round( min( $MAX_W, $ratio * $MAX_H ) );
 		$new_h = round( min( $MAX_H, $MAX_W / $ratio ) );
 	} else {

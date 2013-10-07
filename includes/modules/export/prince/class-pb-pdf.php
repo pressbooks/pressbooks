@@ -98,16 +98,20 @@ class Pdf extends Export {
 		$filename = $this->timestampedFileName( '.pdf' );
 		$this->outputPath = $filename;
 
-		// CSS Overrides
+		// CSS File
 		$css_file = $this->createTmpFile();
-		file_put_contents( $css_file, $this->cssOverrides );
+		file_put_contents( $css_file, $this->kneadCss() );
+
+		// CSS Overrides
+		$css_overrides = $this->createTmpFile();
+		file_put_contents( $css_overrides, $this->cssOverrides );
 
 		// Save PDF as file in exports folder
 		$prince = new \Prince( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
-		$prince->addStyleSheet( $this->exportStylePath );
-		$prince->addStylesheet( $css_file );
+		$prince->addStyleSheet( $css_file );
+		$prince->addStylesheet( $css_overrides );
 		$prince->addScript( $this->exportScriptPath );
 		$prince->setLog( $this->logfile );
 		$retval = $prince->convert_file_to_file( $this->url, $this->outputPath, $msg );
@@ -169,6 +173,39 @@ class Pdf extends Export {
 		$mime = static::mimeType( $file );
 
 		return ( strpos( $mime, 'application/pdf' ) !== false );
+	}
+
+
+	/**
+	 * Return kneaded CSS string
+	 *
+	 * @return string
+	 */
+	protected function kneadCss() {
+
+		$css_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
+
+		$css = file_get_contents( $this->exportStylePath );
+		$css = static::injectHouseStyles( $css );
+
+		// Search for url("*"), url('*'), and url(*)
+		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $css_dir ) {
+
+			$url = $matches[3];
+
+			if ( ! preg_match( '#^https?://#i', $url ) ) {
+				$my_asset = realpath( "$css_dir/$url" );
+				if ( $my_asset ) {
+					return "url($css_dir/$url)";
+				}
+			}
+
+			return $matches[0]; // No change
+
+		}, $css );
+
+		return $css;
 	}
 
 

@@ -463,7 +463,7 @@ class Epub201 extends Export {
 
 		mkdir( $this->tmpDir . '/META-INF' );
 		mkdir( $this->tmpDir . '/OEBPS' );
-		mkdir( $this->tmpDir . '/OEBPS/images' );
+		mkdir( $this->tmpDir . '/OEBPS/assets' );
 
 		file_put_contents(
 			$this->tmpDir . '/META-INF/container.xml',
@@ -553,19 +553,16 @@ class Epub201 extends Export {
 	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
 		$css_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
+		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';
+
 		$css = file_get_contents( $path_to_copy_of_stylesheet );
-		$fullpath = $this->tmpDir . '/OEBPS/images';
+		$css = static::injectHouseStyles( $css );
 
 		// Search for url("*"), url('*'), and url(*)
-		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
+		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $css_dir, $path_to_epub_assets ) {
 
-		// Remove duplicates, sort by biggest to smallest to prevent substring replacements
-		$matches = array_unique( $matches[3] );
-		usort( $matches, function ( $a, $b ) {
-			return strlen( $b ) - strlen( $a );
-		} );
-
-		foreach ( $matches as $url ) {
+			$url = $matches[3];
 			$filename = sanitize_file_name( basename( $url ) );
 
 			if ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) == 1 ) {
@@ -575,19 +572,33 @@ class Epub201 extends Export {
 
 				$my_image = realpath( "$css_dir/$url" );
 				if ( $my_image ) {
-					copy( $my_image, "$fullpath/$filename" );
+					copy( $my_image, "$path_to_epub_assets/$filename" );
+					return "url(assets/$filename)";
 				}
 
 			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.jpe?g|\.gif|\.png)$/i', $url ) ) {
 
 				// Look for images via http(s), pull them in locally
 
-				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $fullpath ) ) {
-					$css = str_replace( $url, "images/$new_filename", $css );
+				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $path_to_epub_assets ) ) {
+					return "url(assets/$new_filename)";
 				}
+
+			} elseif ( preg_match( '#^\.\./\.\./fonts/[a-zA-Z0-9_-]+(\.ttf|\.otf)$#i', $url ) ) {
+
+				// Look for ../../fonts/*.ttf (or .otf), copy into our Epub
+
+				$my_font = realpath( "$css_dir/$url" );
+				if ( $my_font ) {
+					copy( $my_font, "$path_to_epub_assets/$filename" );
+					return "url(assets/$filename)";
+				}
+
 			}
 
-		}
+			return $matches[0]; // No change
+
+		}, $css );
 
 		// Overwrite the new file with new info
 		file_put_contents( $path_to_copy_of_stylesheet, $css );
@@ -609,7 +620,7 @@ class Epub201 extends Export {
 		}
 		$dest_image = sanitize_file_name( basename( $source_path ) );
 		$dest_image = Sanitize\force_ascii( $dest_image );
-		$dest_path = $this->tmpDir . "/OEBPS/images/" . $dest_image;
+		$dest_path = $this->tmpDir . "/OEBPS/assets/" . $dest_image;
 
 		$img = wp_get_image_editor( $source_path );
 		if ( ! is_wp_error( $img ) ) {
@@ -625,7 +636,7 @@ class Epub201 extends Export {
 
 		$html = '<div id="cover-image">';
 		if ( $this->coverImage ) {
-			$html .= sprintf( '<img src="images/%s" alt="%s" />', $this->coverImage, get_bloginfo( 'name' ) );
+			$html .= sprintf( '<img src="assets/%s" alt="%s" />', $this->coverImage, get_bloginfo( 'name' ) );
 		}
 		$html .= "</div>\n";
 
@@ -1378,7 +1389,7 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Parse HTML snippet, download all found <img> tags into /OEBPS/images/, return the HTML with changed <img> paths.
+	 * Parse HTML snippet, download all found <img> tags into /OEBPS/assets/, return the HTML with changed <img> paths.
 	 *
 	 * @param \DOMDocument $doc
 	 *
@@ -1386,7 +1397,7 @@ class Epub201 extends Export {
 	 */
 	protected function scrapeAndKneadImages( \DOMDocument $doc ) {
 
-		$fullpath = $this->tmpDir . '/OEBPS/images';
+		$fullpath = $this->tmpDir . '/OEBPS/assets';
 
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
@@ -1395,7 +1406,7 @@ class Epub201 extends Export {
 			$filename = $this->fetchAndSaveUniqueImage( $url, $fullpath );
 			if ( $filename ) {
 				// Replace with new image
-				$image->setAttribute( 'src', 'images/' . $filename );
+				$image->setAttribute( 'src', 'assets/' . $filename );
 			} else {
 				// Tag broken image
 				$image->setAttribute( 'src', "{$url}#fixme" );
@@ -1652,17 +1663,17 @@ class Epub201 extends Export {
 		// Find all the image files, insert them into the OPF file
 
 		$html = '';
-		$path_to_images = $this->tmpDir . '/OEBPS/images';
-		$images = scandir( $path_to_images );
+		$path_to_assets = $this->tmpDir . '/OEBPS/assets';
+		$assets = scandir( $path_to_assets );
 		$used_ids = array();
 
-		foreach ( $images as $image ) {
-			if ( '.' == $image || '..' == $image ) continue;
-			$mimetype = $this->mediaType( "$path_to_images/$image" );
-			if ( $this->coverImage == $image ) {
+		foreach ( $assets as $asset ) {
+			if ( '.' == $asset || '..' == $asset ) continue;
+			$mimetype = $this->mediaType( "$path_to_assets/$asset" );
+			if ( $this->coverImage == $asset ) {
 				$file_id = 'cover-image';
 			} else {
-				$file_id = 'media-' . pathinfo( "$path_to_images/$image", PATHINFO_FILENAME );
+				$file_id = 'media-' . pathinfo( "$path_to_assets/$asset", PATHINFO_FILENAME );
 				$file_id = Sanitize\sanitize_xml_id( $file_id );
 			}
 
@@ -1674,11 +1685,11 @@ class Epub201 extends Export {
 			}
 			$file_id = $check_if_used;
 
-			$html .= sprintf( '<item id="%s" href="OEBPS/images/%s" media-type="%s" />', $file_id, $image, $mimetype ) . "\n";
+			$html .= sprintf( '<item id="%s" href="OEBPS/assets/%s" media-type="%s" />', $file_id, $asset, $mimetype ) . "\n";
 
 			$used_ids[$file_id] = true;
 		}
-		$vars['manifest_images'] = $html;
+		$vars['manifest_assets'] = $html;
 
 		// Put contents
 

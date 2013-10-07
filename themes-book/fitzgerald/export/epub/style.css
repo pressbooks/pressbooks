@@ -10,6 +10,11 @@ Author URI: http://pressbooks.com
 Copyright 2011-2013 Book Oven Inc. (PressBooks.com) support@pressbooks.com
 */
 
+
+
+/*__INSERT_EPUB_HOUSE_STYLE__*/
+
+
 /* FONTS
 ===========	*/
 
@@ -512,3 +517,6 @@ sup.footnote, sup.endnote {
 .index .ugc  p.sub-entry {
 	padding-left:30px;
 }
+
+/*__INSERT_MOBI_HOUSE_STYLE__*/
+

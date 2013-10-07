@@ -274,26 +274,19 @@ function fix_url_paths( $css, $style_uri ) {
 	$style_uri = rtrim( trim( $style_uri ), '/' );
 
 	// Search for url("*"), url('*'), and url(*)
-	preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
+	$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+	$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $style_uri ) {
 
-	// Remove duplicates, sort by biggest to smallest to prevent substring replacements
-	$matches = array_unique( $matches[3] );
-	usort( $matches, function ( $a, $b ) {
-		return strlen( $b ) - strlen( $a );
-	} );
-
-	foreach ( $matches as $url ) {
-
+		$url = $matches[3];
 		$url = ltrim( trim( $url ), '/' );
 
-		// Skip http and https prefixes
 		if ( preg_match( '#^https?://#i', $url ) ) {
-			continue;
+			return $matches[0]; // No change
 		}
 
-		$replacement = "$style_uri/$url";
-		$css = str_replace( $url, $replacement, $css );
-	}
+		return "url($style_uri/$url)";
+
+	}, $css );
 
 	return $css;
 }
