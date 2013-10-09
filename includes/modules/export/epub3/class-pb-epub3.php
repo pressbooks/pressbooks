@@ -1661,7 +1661,7 @@ class Epub3 extends Export {
 
 			// Canonicalize, fix typos, remove garbage
 			if ( '#' != @$current_url[0] ) {
-				$url->setAttribute( 'href', \PressBooks\Sanitize\canonicalize_url( $current_url ) );
+				$url->setAttribute( 'href', Sanitize\canonicalizeUrl( $current_url ) );
 			}
 
 		}
