@@ -5,7 +5,7 @@
 		</xsl:text>
 	</xsl:variable>
 	<xsl:template match="/office:document">
-		<xsl:apply-templates select="office:document-content"/>	
+		<xsl:apply-templates select="office:document-content"/> 
 	</xsl:template>
 	<xsl:template match="office:document-content">
 		<html>
@@ -13,19 +13,87 @@
 			<xsl:call-template name="add-footnote-bodies"/>
 		</html>
 	</xsl:template>
-	<xsl:template match="text:p">
+	<xsl:key name="tStyles" match="style:style" use="@style:name"/>
+	<xsl:template match="text:p">       
 		<p>
-			<xsl:apply-templates/>
-			<xsl:if test="count(node())=0">
+			<!-- check for children, usually spans with their own text:style-name -->
+			<xsl:choose>
+				<xsl:when test="*">
+					<xsl:apply-templates/>  
+				</xsl:when>
+				<!-- if there are no children, then treat it with a paragraph style -->
+				<xsl:otherwise>
+					<!-- P1, P2, P3, etc-->
+					<xsl:variable name="pClass">
+						<xsl:value-of select="@text:style-name"/>
+					</xsl:variable> 
+                    
+					<xsl:variable name="node" select="key('tStyles',$pClass)//*"/>
+
+					<xsl:choose>
+						<xsl:when test="$node/@fo:font-style = 'italic'">
+							<i>
+								<xsl:apply-templates/>
+							</i>
+						</xsl:when>
+
+						<xsl:when test="$node/@fo:font-weight = 'bold'">
+							<b>
+								<xsl:apply-templates/>
+							</b>
+						</xsl:when>
+						<xsl:when test="$node/@style:text-underline-style = 'solid'">
+							<u>
+								<xsl:apply-templates/>
+							</u>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:apply-templates/>
+						</xsl:otherwise>
+					</xsl:choose>                               
+				</xsl:otherwise>
+			</xsl:choose>
+            
+			<xsl:if test="count(.)=0">
 				<br/>
-			</xsl:if>
+			</xsl:if>       
 		</p>
 	</xsl:template>
+	<!-- generate a list of all the styles -->
 	<xsl:template match="text:span">
+		<!-- T1, T2, T3, etc-->
+		<xsl:variable name="tClass">
+			<xsl:value-of select="@text:style-name"/>
+		</xsl:variable>
+        
+		<xsl:variable name="node" select="key('tStyles',$tClass)//*"/>
 		<span>
-			<xsl:apply-templates/>
+			<xsl:choose>
+				<xsl:when test="$node/@fo:font-style = 'italic'">
+					<i>
+						<xsl:apply-templates/>
+					</i>
+				</xsl:when>
+                
+				<xsl:when test="$node/@fo:font-weight = 'bold'">
+					<b>
+						<xsl:apply-templates/>
+					</b>
+				</xsl:when>
+				<xsl:when test="$node/@style:text-underline-style = 'solid'">
+					<u>
+						<xsl:apply-templates/>
+					</u>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates/>
+				</xsl:otherwise>
+            
+			</xsl:choose>
+            
 		</span>
-	</xsl:template>
+	</xsl:template> 
+
 	<xsl:template match="text:h">
 		<!-- Heading levels go only to 6 in XHTML -->
 		<xsl:variable name="level">
@@ -177,8 +245,10 @@
 			</xsl:call-template>
 		</xsl:if>
 	</xsl:template>
+	<!-- either L1 (ordered list) or L2 (unordered list) -->
 	<xsl:key name="listTypes" match="text:list-style" use="@style:name"/>
 	<xsl:template match="text:list">
+		<!-- just an integer 1,2,3,etc -->
 		<xsl:variable name="level" select="count(ancestor::text:list)+1"/>
  
 		<!-- the list class is the @text:style-name of the outermost
@@ -196,11 +266,10 @@
  
 		<!-- Now select the <text:list-level-style-foo> element at this
 		level of nesting for this list -->
-		<xsl:variable name="node" select="key('listTypes',$listClass)/*[@text:level='$level']"/>
-
+		<xsl:variable name="node" select="key('listTypes',$listClass)//*"/>
 		<!-- emit appropriate list type -->
 		<xsl:choose>
-			<xsl:when test="local-name($node)='list-level-style-number'">
+			<xsl:when test="boolean(local-name($node) = 'list-level-style-number')">
 				<ol>
 					<xsl:apply-templates/>
 				</ol>
@@ -216,18 +285,6 @@
 		<li>
 			<xsl:apply-templates/>
 		</li>
-	</xsl:template>
-	<xsl:template match="text:change">
-		<xsl:if test="$param_track_changes">
-			<xsl:variable name="id" select="@text:change-id"/>
-			<xsl:variable name="change" select="//text:changed-region[@text:id=$id]"/>
-			<xsl:element name="del">
-				<xsl:attribute name="datetime">
-					<xsl:value-of select="$change//dc:date"/>
-				</xsl:attribute>
-				<xsl:apply-templates match="$change/text:deletion/*"/>
-			</xsl:element>
-		</xsl:if>
 	</xsl:template>
 	<xsl:template match="office:change-info"/>
 	<xsl:param name="param_baseuri"/>
