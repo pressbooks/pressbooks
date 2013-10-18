@@ -30,6 +30,7 @@ class Parser {
 
 		$oldValue = libxml_disable_entity_loader( true );
 		$dom = new \DOMDocument;
+		$dom->recover = true; // Try to parse non-well formed documents
 		$success = $dom->loadXML( file_get_contents( $file ) );
 		foreach ( $dom->childNodes as $child ) {
 			if ( $child->nodeType === XML_DOCUMENT_TYPE_NODE ) {
