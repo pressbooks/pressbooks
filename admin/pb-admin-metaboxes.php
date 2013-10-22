@@ -561,6 +561,7 @@ function add_user_meta() {
 			'et' => __( 'Estonian', 'pressbooks' ),
 			'fr_FR' => __( 'French', 'pressbooks' ),
 			'de_DE' => __( 'German', 'pressbooks' ),
+			'it_IT' => __( 'Italian', 'pressbooks' ),
 			'ja' => __( 'Japanese', 'pressbooks' ),
 			'pt_BR' => __( 'Portuguese, Brazil', 'pressbooks' ),
 			'es_ES' => __( 'Spanish', 'pressbooks' ),

@@ -94,7 +94,7 @@ if ( \PressBooks\Book::isBook() ) {
 // Custom user profile
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'admin_init', '\PressBooks\Admin\Metaboxes\add_user_meta' );
+add_action( 'custom_metadata_manager_init_metadata', '\PressBooks\Admin\Metaboxes\add_user_meta' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Ajax
