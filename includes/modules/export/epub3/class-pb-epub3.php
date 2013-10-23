@@ -122,7 +122,6 @@ class Epub3 extends Export {
 	 */
 	protected $compressImages = false;
 
-
 	/**
 	 * @param array $args
 	 */
@@ -644,7 +643,7 @@ class Epub3 extends Export {
 		);
 
 		$file_id = 'front-cover';
-		$filename = "{$file_id}.html";
+		$filename = "{$file_id}.xhtml";
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
@@ -704,7 +703,7 @@ class Epub3 extends Export {
 					'' );
 
 				$file_id = 'front-matter-' . sprintf( "%03s", $i );
-				$filename = "{$file_id}-{$slug}.html";
+				$filename = "{$file_id}-{$slug}.xhtml";
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
@@ -772,7 +771,7 @@ class Epub3 extends Export {
 		);
 
 		$file_id = 'title-page';
-		$filename = "{$file_id}.html";
+		$filename = "{$file_id}.xhtml";
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
@@ -826,7 +825,7 @@ class Epub3 extends Export {
 		);
 
 		$file_id = 'copyright';
-		$filename = "{$file_id}.html";
+		$filename = "{$file_id}.xhtml";
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
@@ -887,7 +886,7 @@ class Epub3 extends Export {
 					'' );
 
 				$file_id = 'front-matter-' . sprintf( "%03s", $i );
-				$filename = "{$file_id}-{$slug}.html";
+				$filename = "{$file_id}-{$slug}.xhtml";
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
@@ -971,7 +970,7 @@ class Epub3 extends Export {
 				'' );
 
 			$file_id = 'front-matter-' . sprintf( "%03s", $i );
-			$filename = "{$file_id}-{$slug}.html";
+			$filename = "{$file_id}-{$slug}.xhtml";
 
 			file_put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
@@ -1000,7 +999,7 @@ class Epub3 extends Export {
 		if ( $promo_html ) {
 
 			$file_id = 'pressbooks-promo';
-			$filename = "{$file_id}.html";
+			$filename = "{$file_id}.xhtml";
 
 			$vars = array(
 				'post_title' =>  __( 'Make your own books using PressBooks.com', 'pressbooks' ),
@@ -1108,7 +1107,7 @@ class Epub3 extends Export {
 					'' );
 
 				$file_id = 'chapter-' . sprintf( "%03s", $j );
-				$filename = "{$file_id}-{$slug}.html";
+				$filename = "{$file_id}-{$slug}.xhtml";
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
@@ -1137,7 +1136,7 @@ class Epub3 extends Export {
 					Sanitize\decode( $part['post_title'] ) );
 
 				$file_id = 'part-' . sprintf( "%03s", $i );
-				$filename = "{$file_id}-{$slug}.html";
+				$filename = "{$file_id}-{$slug}.xhtml";
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
@@ -1203,7 +1202,7 @@ class Epub3 extends Export {
 				'' );
 
 			$file_id = 'back-matter-' . sprintf( "%03s", $i );
-			$filename = "{$file_id}-{$slug}.html";
+			$filename = "{$file_id}-{$slug}.xhtml";
 
 			file_put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
@@ -1240,7 +1239,7 @@ class Epub3 extends Export {
         $array_pos = $this->positionOfToc();
 
 		$file_id = 'table-of-contents';
-		$filename = "{$file_id}.html";
+		$filename = "{$file_id}.xhtml";
 		$vars['post_title'] = __( 'Table Of Contents', 'pressbooks' );
 
 		$this->manifest = array_slice( $this->manifest, 0, $array_pos + 1, true ) + array(
@@ -1773,7 +1772,7 @@ class Epub3 extends Export {
 			if ( $t == $new_type ) ++$new_pos;
 			if ( $p == $last_part ) break;
 		}
-		$new_url = "$new_type-" . sprintf( "%03s", $new_pos ) . "-$last_part.html";
+		$new_url = "$new_type-" . sprintf( "%03s", $new_pos ) . "-$last_part.xhtml";
 
 		if ( $anchor )
 			$new_url .= $anchor;
