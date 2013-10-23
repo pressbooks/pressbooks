@@ -139,19 +139,43 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		?>
 	</spine>
 
-
 	<guide>
-		<reference type="toc" title="Table of Contents" href="OEBPS/table-of-contents.html" />
-		<reference type="cover" title="cover" href="OEBPS/front-cover.html" />
+		<reference type="toc" title="Table of Contents" href="OEBPS/table-of-contents.xhtml" />
+		<reference type="cover" title="cover" href="OEBPS/front-cover.xhtml" />
 		<?php
-		// First "real" page of content
-		$keys = array_keys( $manifest );
-		$position = array_search( 'table-of-contents', $keys );
-		if ( isset( $keys[$position + 1] ) ) {
-			$key = $keys[$position + 1];
-			printf( '<reference type="text" title="%s" href="OEBPS/%s" />', $manifest[$key]['post_title'], $manifest[$key]['filename'] );
+
+		/* Set the EPUB's start-point */
+
+		// First, look if the user has set this themselves.
+		$start_key = false;
+		foreach ( $manifest as $key => $val ) {
+			if ( $val['ID'] > 0 && get_post_meta( $val['ID'], 'pb_ebook_start', true ) ) {
+				$start_key = $key;
+				break;
+			}
+		}
+
+		// If nothing was found, set « the first page after the table of contents » as start point
+		if ( $start_key === false ) {
+			$keys = array_keys( $manifest );
+			$position = array_search( 'table-of-contents', $keys );
+			if ( isset( $keys[$position + 1] ) ) {
+				$start_key = $keys[$position + 1];
+			}
+		}
+
+		if ( $start_key !== false ) {
+			printf( '<reference type="text" title="start" href="OEBPS/%s" />', $manifest[$start_key]['filename'] );
 			echo "\n";
 		}
+
 		?>
 	</guide>
+	
+	
+	
+	
+	
+	
+	
 </package>
