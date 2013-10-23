@@ -55,17 +55,26 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 		// Author
 //		echo '<dc:creator opf:role="aut"';
-		echo '<dc:creator';
-		if ( ! empty( $meta['pb_author_file_as'] ) ) {
-			echo ' opf:file-as="' . $meta['pb_author_file_as'] . '"';
-		}
-		echo '>';
+		echo '<dc:creator id="author">';
+
 		if ( ! empty( $meta['pb_author'] ) ) {
 			echo $meta['pb_author'];
 		} else {
 			echo 'Authored by: ' . get_bloginfo( 'url' );
 		}
 		echo '</dc:creator>' . "\n";
+
+		echo '<meta refines="#author" property="file-as">';
+
+		if ( ! empty( $meta['pb_author_file_as'] ) ) { echo $meta['pb_author_file_as']; }
+		else if ( ! empty( $meta['pb_author'] ) )    { echo $meta['pb_author'];         }
+		else                                         { echo 'Authored by: ' . get_bloginfo( 'url' ); }
+		
+		echo '</meta>';
+	
+
+		
+		
 		unset( $meta['pb_author_file_as'], $meta['pb_author'] );
 
 		// Copyright
