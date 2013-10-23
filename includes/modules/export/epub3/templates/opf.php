@@ -164,7 +164,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			}
 		}
 
-		// If nothing was found, set « the first page after the table of contents » as start point
+		// If nothing was found, set ï¿½ the first page after the table of contents ï¿½ as start point
 		if ( $start_key === false ) {
 			$keys = array_keys( $manifest );
 			$position = array_search( 'table-of-contents', $keys );

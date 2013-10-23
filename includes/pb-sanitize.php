@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  PressBooks <code@pressbooks.org>
+ * @author  PressBooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks\Sanitize;
@@ -21,7 +21,6 @@ namespace PressBooks\Sanitize;
 function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
 
 	// HTML5 elements not found in XHTML11
-
 	$html5 = array(
 		'article', 'aside', 'bdi', 'canvas', 'command', 'data', 'datalist', 'details', 'embed', 'figcaption',
 		'figure', 'footer', 'header', 'hgroup', 'keygen', 'mark', 'meter', 'nav', 'output', 'progress', 'rp', 'rt',
@@ -53,12 +52,15 @@ function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
 
 /**
  * Sanitize XML attribute
+ *
  * Here's what is allowed in an XML attribute value:
  *     '"' ([^<&"] | Reference)* '"'  |  "'" ([^<&'] | Reference)* "'"
+ *
  * So, you can't have:
  *  + the same character that opens/closes the attribute value (either ' or ")
  *  + a naked ampersand (& must be &amp;)
  *  + a left angle bracket (< must be &lt;)
+ *
  * You should also not being using any characters that are outright not legal anywhere in an XML document (such as
  * form feeds, etc).
  *
@@ -153,39 +155,7 @@ function decode( $slug ) {
  *
  * @return string
  */
- 
- /*
- function canonicalizeUrl( $url ) {
-
-	// remove trailing slash
-	$url = rtrim( trim( $url ), '/' );
-
-	// Add http:// if it's missing
-	if ( ! preg_match( '#^https?://#i', $url ) ) {
-		// Remove ftp://, gopher://, fake://, etc
-		if ( strpos( $url, '://' ) ) list( $garbage, $url ) = split( '://', $url );
-		// Prepend http
-		$url = 'http://' . $url;
-		if ( preg_match( '#^http:///#', $url ) ) {
-			return ''; // This is wrong...
-		}
-	}
-
-	// protocol and domain to lowercase (but NOT the rest of the URL),
-	$scheme = @parse_url( $url, PHP_URL_SCHEME );
-	$url = preg_replace( '/' . preg_quote( $scheme ) . '/', strtolower( $scheme ), $url, 1 );
-	$host = @parse_url( $url, PHP_URL_HOST );
-	$url = preg_replace( '/' . preg_quote( $host ) . '/', strtolower( $host ), $url, 1 );
-
-	// Sanitize for good measure
-	$url = filter_var( $url, FILTER_SANITIZE_URL );
-
-	return $url;
-}
- */
- 
- 
-function canonicalizeUrl( $url ) {
+function canonicalize_url( $url ) {
 
 	// remove trailing slash
 	$url = rtrim( trim( $url ), '/' );
@@ -199,7 +169,7 @@ function canonicalizeUrl( $url ) {
 		if ( preg_match( '#^http:///#', $url ) ) {
 			return ''; // This is wrong...
 		}
-}
+	}
 
 	// protocol and domain to lowercase (but NOT the rest of the URL),
 	$scheme = @parse_url( $url, PHP_URL_SCHEME );
@@ -211,7 +181,9 @@ function canonicalizeUrl( $url ) {
 	$url = filter_var( $url, FILTER_SANITIZE_URL );
 
 	return $url;
+
 }
+
 
 /**
  * Maybe change http:// to https://, depending on server state.
