@@ -870,9 +870,7 @@
 
       <xsl:variable name="fU_Em">
         <xsl:variable name="condition1">
-          
-          <!--here is the underline tag-->
-          
+                    
           <xsl:for-each select="w:u[1]">
             <xsl:call-template name="EvalBooleanType"/>
           </xsl:for-each>
@@ -3325,7 +3323,7 @@
     <xsl:choose>
 
       <xsl:when test="w:numPr">
-
+<!-- UNORDERED LIST / ORDERED LIST -->
         <xsl:choose>
           <xsl:when test="w:numPr[1]/w:ilvl/@isBullet">
             <xsl:text disable-output-escaping="yes">&amp;#8226;&amp;#160;</xsl:text>
@@ -3343,7 +3341,7 @@
           </xsl:otherwise>
         </xsl:choose>
 
-        <xsl:if test="w:numPr[1]/WX:t/@WX:wTabAfter">
+<!--        <xsl:if test="w:numPr[1]/WX:t/@WX:wTabAfter">
           <span>
             <xsl:attribute name="style">
               <xsl:text>padding-left:</xsl:text>
@@ -3351,7 +3349,7 @@
               <xsl:text>pt;</xsl:text>
             </xsl:attribute>
           </span>
-        </xsl:if>
+        </xsl:if>-->
       </xsl:when>
 
       <xsl:otherwise>
@@ -3544,6 +3542,12 @@
       <xsl:otherwise>font-style:italic;</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+  
+  <xsl:template match="w:u" mode="rpr">
+        <xsl:if test="@w:val = 'single'">
+          text-decoration:underline;
+	</xsl:if>
+  </xsl:template>
 
   <xsl:template match="*" mode="rpr"/>
 
@@ -3734,7 +3738,7 @@
         </xsl:if>
       </xsl:when>
       <xsl:otherwise>
-        <span>
+        
 
           <!-- <xsl:if test="not($rStyleId='')">-->
 <!--            <xsl:attribute name="class">
@@ -3747,25 +3751,40 @@
             </xsl:attribute>-->
           <!-- </xsl:if> -->
 
-          <xsl:if test="not($styleMod='')">
+<!--          <xsl:if test="not($styleMod='')">
             <xsl:attribute name="style">
               <xsl:value-of select="$styleMod"/>
             </xsl:attribute>
-          </xsl:if>
+          </xsl:if>-->
 
-          <xsl:choose>
-            <xsl:when test="contains($styleMod, 'vertical-align:super') or contains($styleMod, 'vertical-align:sub')">
-              <span>
-                <xsl:attribute name="style">font-size:smaller;</xsl:attribute>
-                <xsl:call-template name="DisplayRContent"/>
-              </span>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:call-template name="DisplayRContent"/>
-            </xsl:otherwise>
-          </xsl:choose>
+	      <xsl:choose>
+		      <xsl:when test="contains($styleMod, 'vertical-align:super') or contains($styleMod, 'vertical-align:sub')">
+			      <span>
+				      <xsl:attribute name="style">font-size:smaller;</xsl:attribute>
+				      <xsl:call-template name="DisplayRContent"/>
+			      </span>
+		      </xsl:when>
+		      <xsl:when test="contains($styleMod, 'font-weight:bold')">
+			      <b>
+				      <xsl:call-template name="DisplayRContent"/>  
+			      </b>
+		      </xsl:when>
+		      <xsl:when test="contains($styleMod, 'font-style:italic')">
+			      <i>
+				      <xsl:call-template name="DisplayRContent"/>
+			      </i>
+		      </xsl:when>
+		      <xsl:when test="contains($styleMod, 'text-decoration:underline')">
+			      <u>
+				      <xsl:call-template name="DisplayRContent"/>
+			      </u>
+		      </xsl:when>
+		      <xsl:otherwise>
+			      <xsl:call-template name="DisplayRContent"/>
+		      </xsl:otherwise>
+	      </xsl:choose>
 
-        </span>
+        
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -4494,11 +4513,17 @@
 			    </xsl:element>
 		    </xsl:when>
 		    <xsl:when test="$pStyleId = 'Figure'">
-			    <xsl:element name='figure'>
+			    <xsl:element name='small'>
 				    <xsl:call-template name="DisplayPContent" />
 			    </xsl:element>
 		    </xsl:when>
-		    
+		    <xsl:when test="$pStyleId = 'ListParagraph'">
+			    <ul>
+			    <xsl:element name='li'>
+				    <xsl:call-template name="DisplayRContent" />
+			    </xsl:element>
+			    </ul>
+		    </xsl:when>		    
 		    <xsl:otherwise>	   
 			    <p>
 
@@ -6551,7 +6576,7 @@ if (msoBrowserCheck())
     </ruby>
   </xsl:template>
 
-  <xsl:template match="w:footnote">
+<!--  <xsl:template match="w:footnote">
 
     <xsl:variable name="me" select="." />
     <xsl:variable name="meInContext" select="ancestor::w:r[1]/*[count($me|descendant-or-self::*)=count(descendant-or-self::*)]" />
@@ -6582,7 +6607,7 @@ if (msoBrowserCheck())
         <xsl:text>]</xsl:text>
       </a>
     </sup>
-  </xsl:template>
+  </xsl:template>-->
 
   <xsl:template match="w:endnote">
 
@@ -6768,7 +6793,7 @@ if (msoBrowserCheck())
           <xsl:call-template name="DisplayAnnotationText"/>
         </xsl:for-each>
 
-        <xsl:if test="//w:body//w:footnote">
+<!--        <xsl:if test="//w:body//w:footnote">
           <xsl:variable name="start">
             <xsl:choose>
               <xsl:when test="$ndDocPr/w:footnotePr/w:numStart">
@@ -6800,7 +6825,7 @@ if (msoBrowserCheck())
             </a>
             <xsl:apply-templates select="*" />
           </xsl:for-each>
-        </xsl:if>
+        </xsl:if>-->
 
         <xsl:if test="//w:body//w:endnote">
           <xsl:variable name="start">
