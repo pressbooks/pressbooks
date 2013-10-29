@@ -215,6 +215,7 @@
   <xsl:variable name="footnoteLink">_ftn</xsl:variable>
   <xsl:variable name="endnoteRefLink">_ednref</xsl:variable>
   <xsl:variable name="endnoteLink">_edn</xsl:variable>
+  <xsl:variable name="citation">false</xsl:variable>
 
   <xsl:template name="ConvertHexToDec">
     <xsl:param name="value"/>
@@ -3320,42 +3321,18 @@
   </xsl:template>
 
   <xsl:template name="DisplayRContent">
-    <xsl:choose>
 
-      <xsl:when test="w:numPr">
-<!-- UNORDERED LIST / ORDERED LIST -->
-        <xsl:choose>
-          <xsl:when test="w:numPr[1]/w:ilvl/@isBullet">
-            <xsl:text disable-output-escaping="yes">&amp;#8226;&amp;#160;</xsl:text>
-          </xsl:when>
-          <xsl:when test="w:numPr[1]/w:ilvl/@numFont">
-            <span>
-<!--              <xsl:attribute name="style">
-                font-family:<xsl:value-of select="w:numPr[1]/w:ilvl/@numFont"/>
-              </xsl:attribute>-->
-              <xsl:value-of select="w:numPr[1]/w:ilvl/@numString"/>
-            </span>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="w:numPr[1]/w:ilvl/@numString"/>
-          </xsl:otherwise>
-        </xsl:choose>
-
-<!--        <xsl:if test="w:numPr[1]/WX:t/@WX:wTabAfter">
-          <span>
-            <xsl:attribute name="style">
-              <xsl:text>padding-left:</xsl:text>
-              <xsl:value-of select="(w:numPr[1]/WX:t/@WX:wTabAfter div 20)" />
-              <xsl:text>pt;</xsl:text>
-            </xsl:attribute>
-          </span>
-        </xsl:if>-->
-      </xsl:when>
-
-      <xsl:otherwise>
-        <xsl:apply-templates select="*"/>
-      </xsl:otherwise>
-    </xsl:choose>
+	      <xsl:choose>
+		      <xsl:when test="ancestor::w:sdtContent/preceding-sibling::w:sdtPr[1]/w:citation">
+			      <xsl:element name="cite">
+				      <xsl:apply-templates select="*"/>
+			      </xsl:element>
+		      </xsl:when>
+		      <xsl:otherwise>
+			      
+			      <xsl:apply-templates select="*"/>
+		      </xsl:otherwise>
+	      </xsl:choose>
   </xsl:template>
 
   <xsl:template name="ApplyRPr.once">
@@ -3715,7 +3692,6 @@
       <xsl:when test="$rStyleId='' and $styleMod=''">
         <xsl:choose>
           <xsl:when test="not($themeStyle='')">
-            <span>
 
 <!--              <xsl:attribute name="class">
                 <xsl:value-of select="$themeStyle"/>
@@ -3725,7 +3701,6 @@
                 </xsl:if>
               </xsl:attribute>-->
               <xsl:call-template name="DisplayRContent"/>
-            </span>
 
           </xsl:when>
           <xsl:otherwise>
@@ -3758,11 +3733,19 @@
           </xsl:if>-->
 
 	      <xsl:choose>
-		      <xsl:when test="contains($styleMod, 'vertical-align:super') or contains($styleMod, 'vertical-align:sub')">
-			      <span>
-				      <xsl:attribute name="style">font-size:smaller;</xsl:attribute>
+		      <xsl:when test="contains($styleMod, 'vertical-align:super')">
+			      <small>
+				      <xsl:element name='sup'>
 				      <xsl:call-template name="DisplayRContent"/>
-			      </span>
+				      </xsl:element>
+			      </small>
+		      </xsl:when>
+		      <xsl:when test="contains($styleMod, 'vertical-align:sub')">
+			      <small>
+				      <xsl:element name='sub'>
+					      <xsl:call-template name="DisplayRContent"/>
+				      </xsl:element>
+			      </small>
 		      </xsl:when>
 		      <xsl:when test="contains($styleMod, 'font-weight:bold')">
 			      <b>
@@ -4464,7 +4447,7 @@
     <xsl:call-template name="ApplyPPr.many"/>
 
   </xsl:template>
-
+  
   <xsl:template match="w:p">
     <xsl:param name="bdrBetween" select="''"/>
     <xsl:param name="prsPAccum" select="''"/>
@@ -4476,6 +4459,7 @@
 	    <xsl:variable name="pStyleId">
 		    <xsl:call-template name="GetPStyleId"/>
 	    </xsl:variable>
+
 	    <xsl:choose>
 		    <xsl:when test="$pStyleId = 'Heading1'">
 			    <xsl:element name='h1'>
@@ -4517,13 +4501,30 @@
 				    <xsl:call-template name="DisplayPContent" />
 			    </xsl:element>
 		    </xsl:when>
+		    <xsl:when test="$pStyleId = 'Caption'">
+			    <xsl:element name='small'>
+				    <xsl:call-template name="DisplayPContent" />
+			    </xsl:element>
+		    </xsl:when>
+		    <!-- @TODO This currently sucks, and needs improvement -->
 		    <xsl:when test="$pStyleId = 'ListParagraph'">
-			    <ul>
-			    <xsl:element name='li'>
+			    <xsl:if test="not(preceding-sibling::w:p[1]/w:pPr/w:pStyle/@w:val = 'ListParagraph')">
+				    <xsl:text disable-output-escaping="yes">&lt;ul&gt;</xsl:text>
+			    </xsl:if>
+
+			    <li>
+				    <xsl:call-template name="DisplayRContent" />
+			    </li>
+			    <xsl:if test="not(following-sibling::w:p[1]/w:pPr/w:pStyle/@w:val = 'ListParagraph')">
+				    <xsl:text disable-output-escaping="yes">&lt;/ul&gt;</xsl:text>
+			    </xsl:if>			    
+		    </xsl:when>	
+<!--		    <xsl:when test="$citation = 'true'">
+			    <xsl:element name='cite'>
 				    <xsl:call-template name="DisplayRContent" />
 			    </xsl:element>
-			    </ul>
-		    </xsl:when>		    
+			    
+		    </xsl:when>	    -->
 		    <xsl:otherwise>	   
 			    <p>
 
@@ -4601,7 +4602,7 @@
 					    </xsl:attribute>
 				    </xsl:if>
 
-				    <span>
+				    
 <!--					    <xsl:attribute name="class">
 						    <xsl:value-of select="$pStyleId"/>
 						    <xsl:value-of select="$charStyleSuffix"/>
@@ -4614,7 +4615,7 @@
 							    <xsl:value-of select="$charStyleSuffix"/>
 						    </xsl:with-param>
 					    </xsl:call-template>
-				    </span>
+				   
 			    </p>
 		    </xsl:otherwise>
 	    </xsl:choose>
@@ -4634,22 +4635,6 @@
       </xsl:if>
   </xsl:template>
   
-  
-  <xsl:template match="w:sdt/w:sdtContent/w:tc/w:p | w:sdt/w:sdtContent/w:p">    
-    <p>
-      <xsl:attribute name="class">
-        <xsl:value-of select="./w:pPr/w:pStyle/@w:val"/>
-        <xsl:value-of select="$charStyleSuffix"/>
-      </xsl:attribute>
-      <xsl:attribute name="style">
-        text-align:<xsl:value-of select="./w:pPr/w:jc/@w:val"/>
-      </xsl:attribute>
-      <span>
-      <xsl:apply-templates/>
-      </span>
-    </p>
-  </xsl:template>
-
   <xsl:template name="DisplayBodyContent">
 
     <xsl:param name="ns.content" select="descendant::*[(parent::WX:sect or parent::WX:sub-section) and not(name()='WX:sub-section')]"/>
@@ -6576,7 +6561,7 @@ if (msoBrowserCheck())
     </ruby>
   </xsl:template>
 
-<!--  <xsl:template match="w:footnote">
+  <xsl:template match="w:footnote">
 
     <xsl:variable name="me" select="." />
     <xsl:variable name="meInContext" select="ancestor::w:r[1]/*[count($me|descendant-or-self::*)=count(descendant-or-self::*)]" />
@@ -6607,7 +6592,7 @@ if (msoBrowserCheck())
         <xsl:text>]</xsl:text>
       </a>
     </sup>
-  </xsl:template>-->
+  </xsl:template>
 
   <xsl:template match="w:endnote">
 
@@ -6703,9 +6688,9 @@ if (msoBrowserCheck())
   </xsl:template>
 
   <xsl:template match="w:sdtContent">
-    <xsl:apply-templates />
+	<xsl:apply-templates />
   </xsl:template>
-
+  
   <xsl:template match="w:smartTag">
     <xsl:apply-templates />
   </xsl:template>
@@ -6793,7 +6778,7 @@ if (msoBrowserCheck())
           <xsl:call-template name="DisplayAnnotationText"/>
         </xsl:for-each>
 
-<!--        <xsl:if test="//w:body//w:footnote">
+        <xsl:if test="//w:body//w:footnote">
           <xsl:variable name="start">
             <xsl:choose>
               <xsl:when test="$ndDocPr/w:footnotePr/w:numStart">
@@ -6825,7 +6810,7 @@ if (msoBrowserCheck())
             </a>
             <xsl:apply-templates select="*" />
           </xsl:for-each>
-        </xsl:if>-->
+        </xsl:if>
 
         <xsl:if test="//w:body//w:endnote">
           <xsl:variable name="start">
