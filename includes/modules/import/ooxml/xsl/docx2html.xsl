@@ -215,7 +215,6 @@
   <xsl:variable name="footnoteLink">_ftn</xsl:variable>
   <xsl:variable name="endnoteRefLink">_ednref</xsl:variable>
   <xsl:variable name="endnoteLink">_edn</xsl:variable>
-  <xsl:variable name="citation">false</xsl:variable>
 
   <xsl:template name="ConvertHexToDec">
     <xsl:param name="value"/>
