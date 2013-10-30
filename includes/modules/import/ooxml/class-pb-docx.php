@@ -27,6 +27,11 @@ class Docx extends Import {
 	 * @var type 
 	 */
 	protected $authors;
+	
+	/**
+	 * @var array
+	 */
+	protected $fn = array();
 
 	/**
 	 * 
@@ -35,6 +40,7 @@ class Docx extends Import {
 	const DOCUMENT_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument';
 	const METADATA_SCHEMA = 'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties';
 	const IMAGE_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image';
+	const FOOTNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes';
 
 	/**
 	 * 
@@ -58,10 +64,19 @@ class Docx extends Import {
 		// get the paths to content
 		$doc_path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
 		$meta_path = $this->getTargetPath( self::METADATA_SCHEMA );
-
+		
 		// get the content
 		$xml = $this->getZipContent( $doc_path );
 		$meta = $this->getZipContent( $meta_path );
+		
+		// get all Footnote IDs from document
+		$fn_ids = $this->getFootNoteIDs( $xml );
+
+		// process the footnote ids 
+		if ( $fn_ids ) {
+			// pass the IDs and get the content
+			$this->fn = $this->getFootNotes( $fn_ids );
+		}
 
 		// introduce a stylesheet 
 		$proc = new \XSLTProcessor();
@@ -84,6 +99,70 @@ class Docx extends Import {
 		}
 		// Done
 		return $this->revokeCurrentImport();
+	}
+
+	/**
+	 * Given a documentElement, it will return an arry of ids 
+	 * 
+	 * @param \DOMDocument $doc_element
+	 * @return array
+	 */
+	protected function getFootNoteIDs( \DOMDocument $dom_doc ) {
+		$fn_ids = array ();
+		$doc_elem = $dom_doc->documentElement;
+
+		$tags_fn_ref = $doc_elem->getElementsByTagName( 'footnoteReference' );
+
+		// if footnotes are in the document, get the ids
+		if ( $tags_fn_ref->length > 0 ) {
+			foreach ( $tags_fn_ref as $id ) {
+				$fn_ids[] = $id->getAttribute( 'w:id' );
+			}
+		}
+
+		return $fn_ids;
+	}
+
+	/**
+	 * Give this some ids and it returns an associcative array of footnotes
+	 * 
+	 * @param array $fn_ids
+	 * @return boolean\array
+	 * @throws \Exception if there is discrepancy between the number of footnotes
+	 * in document.xml and footnotes.xml
+	 */
+	protected function getFootNotes( array $fn_ids ) {
+		$footnotes = array ();
+
+		// get the path for the footnotes
+		$footnotes_path = $this->getTargetPath( self::FOOTNOTES_SCHEMA, 'footnotes' );
+
+		// safety — if there are no footnotes, return
+		if ( '' == $footnotes_path ) {
+			return false;
+		}
+
+		$limit = count( $fn_ids );
+
+		// set it up
+		$dom_doc = $this->getZipContent( $footnotes_path );
+		$doc_elem = $dom_doc->documentElement;
+
+		// grab all the footnotes
+		$text_tags = $doc_elem->getElementsByTagName( 't' );
+
+		// TODO
+		// could be more sophisticated
+		if ( $text_tags->length != $limit ) {
+			throw new \Exception( 'mismatch between length of FootnoteReference array number of footnotes available' );
+		}
+
+		// get all the footnote ids
+		for ( $i = 0; $i < $limit; $i ++  ) {
+			$footnotes[$fn_ids[$i]] = $text_tags->item( $i )->nodeValue;
+		}
+
+		return $footnotes;
 	}
 
 	/**
@@ -321,6 +400,27 @@ class Docx extends Import {
 		if ( $h1 && $this->tag == $h1->nodeName && 'div' == $h1->parentNode->nodeName ) {
 			$chapter->documentElement->removeChild( $h1 );
 		}
+		
+		// footnotes
+		$fn = $chapter->getElementsByTagName('sup');
+		
+		if ( $fn->length > 0 ) {
+			$fn_ids = array();
+			foreach ( $fn as $int ) {
+				if( is_numeric($int->nodeValue) ){ // TODO should be a stronger test for footnotes
+					$fn_ids[] = $int->nodeValue;
+				}
+			}
+			// append
+			foreach( $fn_ids as $id ){
+				if ( array_key_exists( $id, $this->fn )){
+					$child = $chapter->createElement('a', $this->fn[$id]);
+					$child->setAttribute('name', '#sdfootnotesym'.$id);
+					$chapter->documentElement->appendChild($child);
+				}
+			}
+			
+		}
 
 		$result = $chapter->saveHTML( $chapter->documentElement );
 
@@ -404,7 +504,7 @@ class Docx extends Import {
 
 		return update_option( 'pressbooks_current_import', $option );
 	}
-
+	
 	/**
 	 * Returns an array of available chapters, or 'unknown' if none
 	 *
@@ -476,25 +576,27 @@ class Docx extends Import {
 	 * @param string $id
 	 * @return string
 	 */
-	protected function getTargetPath( $schema, $img_id = '' ) {
+	protected function getTargetPath( $schema, $id = '' ) {
 		$path = '';
 
 		// The subfolder name "_rels", the file extension ".rels" are 
 		// reserved names in an OPC package 
-		if ( empty( $img_id ) ) {
+		if ( empty( $id ) ) {
 			$path_to_rel_doc = '_rels/.rels';
 		} else {
 			$path_to_rel_doc = 'word/_rels/document.xml.rels';
 		}
-
+				
 		$relations = simplexml_load_string(
 			$this->zip->getFromName( $path_to_rel_doc )
 		);
-
+			
 		foreach ( $relations->Relationship as $rel ) {
-			if ( empty( $img_id ) && $rel["Type"] == $schema ) {
+			if ( empty( $id ) && $rel["Type"] == $schema ) {
 				$path = $rel['Target'];
-			} else if ( $rel["Id"] == $img_id && $rel["Type"] == $schema ) {
+			} else if ( $rel["Id"] == $id && $rel["Type"] == $schema ) {
+				$path = 'word/' . $rel['Target'];
+			} else if ( 'footnotes' == $id && $rel["Type"] == $schema ){
 				$path = 'word/' . $rel['Target'];
 			}
 		}
@@ -502,6 +604,8 @@ class Docx extends Import {
 	}
 
 	/**
+	 * Give it a path to a file and it will return 
+	 * the contents of that file, either as xml or html
 	 * 
 	 * @param type $file
 	 * @param type $as_xml
@@ -514,10 +618,10 @@ class Docx extends Import {
 		if ( $index === false ) {
 			return false;
 		}
-
+		
 		// returns the contents using its index
 		$content = $this->zip->getFromIndex( $index );
-
+		
 		// if it's not xml, return
 		if ( ! $as_xml ) {
 			return $content;
@@ -531,10 +635,11 @@ class Docx extends Import {
 
 		// trouble with simplexmlelement and elements with dashes
 		// (ODT's are ripe with dashes), so giving it to the DOM
-
+		$old_value = libxml_disable_entity_loader( true );
 		$xml = new \DOMDocument();
 		$xml->loadXML( $content, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
-
+		libxml_disable_entity_loader( $old_value );
+		
 		return $xml;
 	}
 

@@ -3327,6 +3327,17 @@
 				      <xsl:apply-templates select="*"/>
 			      </xsl:element>
 		      </xsl:when>
+		      <xsl:when test="w:rPr/w:rStyle/@w:val = 'FootnoteReference'">
+			      <xsl:element name="a">
+				      <xsl:attribute name="href">
+					      <xsl:value-of select="concat('#sdfootnotesym', w:footnoteReference/@w:id)" />
+				      </xsl:attribute>
+				      <xsl:element name="sup">
+					      <xsl:value-of select="w:footnoteReference/@w:id"/>
+				      </xsl:element>
+			      </xsl:element>
+		      </xsl:when>
+		      
 		      <xsl:otherwise>
 			      
 			      <xsl:apply-templates select="*"/>
@@ -3757,9 +3768,9 @@
 			      </i>
 		      </xsl:when>
 		      <xsl:when test="contains($styleMod, 'text-decoration:underline')">
-			      <u>
+			      <span style="text-decoration: underline;">
 				      <xsl:call-template name="DisplayRContent"/>
-			      </u>
+			      </span>
 		      </xsl:when>
 		      <xsl:otherwise>
 			      <xsl:call-template name="DisplayRContent"/>
@@ -4518,12 +4529,7 @@
 				    <xsl:text disable-output-escaping="yes">&lt;/ul&gt;</xsl:text>
 			    </xsl:if>			    
 		    </xsl:when>	
-<!--		    <xsl:when test="$citation = 'true'">
-			    <xsl:element name='cite'>
-				    <xsl:call-template name="DisplayRContent" />
-			    </xsl:element>
-			    
-		    </xsl:when>	    -->
+		    
 		    <xsl:otherwise>	   
 			    <p>
 
@@ -6560,7 +6566,7 @@ if (msoBrowserCheck())
     </ruby>
   </xsl:template>
 
-  <xsl:template match="w:footnote">
+<!--  <xsl:template match="w:footnote">
 
     <xsl:variable name="me" select="." />
     <xsl:variable name="meInContext" select="ancestor::w:r[1]/*[count($me|descendant-or-self::*)=count(descendant-or-self::*)]" />
@@ -6591,7 +6597,7 @@ if (msoBrowserCheck())
         <xsl:text>]</xsl:text>
       </a>
     </sup>
-  </xsl:template>
+  </xsl:template>-->
 
   <xsl:template match="w:endnote">
 
@@ -6777,7 +6783,7 @@ if (msoBrowserCheck())
           <xsl:call-template name="DisplayAnnotationText"/>
         </xsl:for-each>
 
-        <xsl:if test="//w:body//w:footnote">
+<!--        <xsl:if test="//w:body//w:footnote">
           <xsl:variable name="start">
             <xsl:choose>
               <xsl:when test="$ndDocPr/w:footnotePr/w:numStart">
@@ -6809,7 +6815,7 @@ if (msoBrowserCheck())
             </a>
             <xsl:apply-templates select="*" />
           </xsl:for-each>
-        </xsl:if>
+        </xsl:if>-->
 
         <xsl:if test="//w:body//w:endnote">
           <xsl:variable name="start">
