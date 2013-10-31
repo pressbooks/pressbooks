@@ -3328,14 +3328,14 @@
 			      </xsl:element>
 		      </xsl:when>
 		      <xsl:when test="w:rPr/w:rStyle/@w:val = 'FootnoteReference'">
-			      <xsl:element name="a">
-				      <xsl:attribute name="href">
-					      <xsl:value-of select="concat('#sdfootnotesym', w:footnoteReference/@w:id)" />
-				      </xsl:attribute>
-				      <xsl:element name="sup">
-					      <xsl:value-of select="w:footnoteReference/@w:id"/>
+				      <xsl:element name="a">
+					      <xsl:attribute name="href">
+						      <xsl:value-of select="concat('#sdfootnote', w:footnoteReference/@w:id,'sym')"/>
+					      </xsl:attribute>
+					      <xsl:element name="sup">
+						      <xsl:value-of select="w:footnoteReference/@w:id"/>
+					      </xsl:element>
 				      </xsl:element>
-			      </xsl:element>
 		      </xsl:when>
 		      
 		      <xsl:otherwise>
@@ -6566,39 +6566,6 @@ if (msoBrowserCheck())
     </ruby>
   </xsl:template>
 
-<!--  <xsl:template match="w:footnote">
-
-    <xsl:variable name="me" select="." />
-    <xsl:variable name="meInContext" select="ancestor::w:r[1]/*[count($me|descendant-or-self::*)=count(descendant-or-self::*)]" />
-    <xsl:variable name="start">
-      <xsl:choose>
-        <xsl:when test="$ndDocPr/w:footnotePr/w:numStart">
-          <xsl:value-of select="$ndDocPr/w:footnotePr/w:numStart/@w:val" />
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="1" />
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <xsl:variable name="position" select="count($meInContext/preceding::*[name()='w:footnote' and ancestor::w:body]) + $start" />
-
-    <sup>
-      <a>
-        <xsl:attribute name="name">
-          <xsl:value-of select="$footnoteRefLink" />
-          <xsl:value-of select="$position" />
-        </xsl:attribute>
-        <xsl:attribute name="href"><xsl:text>#</xsl:text>
-          <xsl:value-of select="$footnoteLink" />
-          <xsl:value-of select="$position" />
-        </xsl:attribute>
-        <xsl:text>[</xsl:text>
-        <xsl:value-of select="$position" />
-        <xsl:text>]</xsl:text>
-      </a>
-    </sup>
-  </xsl:template>-->
-
   <xsl:template match="w:endnote">
 
     <xsl:variable name="me" select="." />
@@ -6782,40 +6749,6 @@ if (msoBrowserCheck())
         <xsl:for-each select="//aml:annotation[@w:type='Word.Comment']">
           <xsl:call-template name="DisplayAnnotationText"/>
         </xsl:for-each>
-
-<!--        <xsl:if test="//w:body//w:footnote">
-          <xsl:variable name="start">
-            <xsl:choose>
-              <xsl:when test="$ndDocPr/w:footnotePr/w:numStart">
-                <xsl:value-of select="$ndDocPr/w:footnotePr/w:numStart/@w:val" />
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:value-of select="0" />
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:variable>
-          <hr align="left" size="1" width="33%" />
-          <xsl:for-each select="//w:body//w:footnote">
-            <a>
-              <xsl:attribute name="href">
-                <xsl:text>#</xsl:text>
-                <xsl:value-of select="$footnoteRefLink" />
-                <xsl:value-of select="position() + $start" />
-              </xsl:attribute>
-              <xsl:attribute name="target">
-                <xsl:text>_self</xsl:text>
-              </xsl:attribute>
-              <xsl:attribute name="name">
-                <xsl:value-of select="$footnoteLink" />
-                <xsl:value-of select="position() + $start" />
-              </xsl:attribute>
-              <xsl:text>[</xsl:text>
-              <xsl:value-of select="position() + $start" />
-              <xsl:text>]</xsl:text>
-            </a>
-            <xsl:apply-templates select="*" />
-          </xsl:for-each>
-        </xsl:if>-->
 
         <xsl:if test="//w:body//w:endnote">
           <xsl:variable name="start">

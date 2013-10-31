@@ -414,9 +414,19 @@ class Docx extends Import {
 			// append
 			foreach( $fn_ids as $id ){
 				if ( array_key_exists( $id, $this->fn )){
-					$child = $chapter->createElement('a', $this->fn[$id]);
-					$child->setAttribute('name', '#sdfootnotesym'.$id);
-					$chapter->documentElement->appendChild($child);
+					$grandparent = $chapter->createElement('div');
+					$parent = $chapter->createElement('span');
+					$child = $chapter->createElement("a", $id);
+					$child->setAttribute("href", "#sdfootnote{$id}anc");
+					$text = $chapter->createTextNode($this->fn[$id]);
+					
+					// attach 
+					$grandparent->appendChild($parent);
+					$parent->appendChild($child);
+					$parent->appendChild($text);
+					
+					$chapter->documentElement->appendChild($grandparent);
+					
 				}
 			}
 			
@@ -659,7 +669,7 @@ class Docx extends Import {
 		    'safe' => 1,
 		    'valid_xhtml' => 1,
 		    'no_deprecated_attr' => 2,
-		    'deny_attribute' => 'id',
+//		    'deny_attribute' => 'div -id',
 		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
 		);
 
