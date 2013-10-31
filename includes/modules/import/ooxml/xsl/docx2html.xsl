@@ -2768,20 +2768,13 @@
         <table>
           <xsl:if test="not($width = '' and $height='')">
             <xsl:attribute name="style">
-<!--              <xsl:if test="not($width = '')">
-                width:<xsl:value-of select="$width div 20"/>pt;
-              </xsl:if>-->
+
               <xsl:if test="not($height = '')">
                 height:<xsl:value-of select="$height div 20"/>pt;
               </xsl:if>
             </xsl:attribute>
           </xsl:if>
-<!--          <xsl:attribute name="align">
-            <xsl:choose>
-              <xsl:when test="$xalign = 'right' or $xalign = 'outside'">right</xsl:when>
-              <xsl:otherwise>left</xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>-->
+
           <tr>
             <td>
               <xsl:attribute name="style">
@@ -3063,21 +3056,15 @@
         <table>
           <xsl:choose>
             <xsl:when test="WX:apo/WX:jc/@WX:val">
-<!--              <xsl:attribute name="align">
-                <xsl:value-of select="WX:apo/WX:jc/@WX:val"/>
-              </xsl:attribute>-->
+
             </xsl:when>
             <xsl:otherwise>
-<!--              <xsl:attribute name="align">
-                <xsl:text>left</xsl:text>
-              </xsl:attribute>-->
+
             </xsl:otherwise>
           </xsl:choose>
           <xsl:attribute name="style">
             <xsl:if test="WX:apo/WX:width/@WX:val">
-<!--              <xsl:text>;width:</xsl:text>
-              <xsl:value-of select="WX:apo/WX:width/@WX:val div 20"/>
-              <xsl:text>pt</xsl:text>-->
+
             </xsl:if>
             <xsl:if test="WX:apo/WX:height/@WX:val">
               <xsl:text>;height:</xsl:text>
@@ -3113,9 +3100,7 @@
                 <div>
                   <xsl:attribute name="style">
                     <xsl:if test="$dxaLeft">
-<!--                      <xsl:text>;margin-left:-</xsl:text>
-                      <xsl:value-of select="$dxaLeft div 20"/>
-                      <xsl:text>pt</xsl:text>-->
+
                     </xsl:if>
                     <xsl:if test="$dxaRight">
                       <xsl:text>;margin-right:-</xsl:text>
@@ -3170,9 +3155,7 @@
       </xsl:attribute>
     </div>
   </xsl:template>  
-  <!--<xsl:template match="br">
-    <br></br>
-  </xsl:template>-->
+ 
   <xsl:template match="w:br">
     <br>
       <xsl:attribute name="clear">
@@ -3204,20 +3187,7 @@
     <xsl:variable name="p.SymHint" select="../w:rPr/WX:sym"/>
 
     <span>
-<!--      <xsl:attribute name="style">
-        font-family:<xsl:value-of select="$p.SymHint/@WX:font"/>
-      </xsl:attribute>
-      <xsl:choose>
-        <xsl:when test="starts-with($p.SymHint/@WX:char, 'F0')">
-          <xsl:text disable-output-escaping="yes">&amp;</xsl:text>#x<xsl:value-of select="substring-after($p.SymHint/@WX:char, 'F0')"/><xsl:text>;</xsl:text>
-        </xsl:when>
-        <xsl:when test="starts-with($p.SymHint/@WX:char, 'f0')">
-          <xsl:text disable-output-escaping="yes">&amp;</xsl:text>#x<xsl:value-of select="substring-after($p.SymHint/@WX:char, 'f0')"/><xsl:text>;</xsl:text>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:text disable-output-escaping="yes">&amp;</xsl:text>#x<xsl:value-of select="$p.SymHint/@WX:char"/><xsl:text>;</xsl:text>
-        </xsl:otherwise>
-      </xsl:choose>-->
+
     </span>
 
   </xsl:template>
@@ -3237,20 +3207,7 @@
 
   <xsl:template match="w:sym">
     <span>
-<!--      <xsl:attribute name="style">
-        font-family:<xsl:value-of select="@w:font"/>
-      </xsl:attribute>
-      <xsl:choose>
-        <xsl:when test="starts-with(@w:char, 'F0')">
-          <xsl:text disable-output-escaping="yes">&amp;</xsl:text>#x<xsl:value-of select="substring-after(@w:char, 'F0')"/><xsl:text>;</xsl:text>
-        </xsl:when>
-        <xsl:when test="starts-with(@w:char, 'f0')">
-          <xsl:text disable-output-escaping="yes">&amp;</xsl:text>#x<xsl:value-of select="substring-after(@w:char, 'f0')"/><xsl:text>;</xsl:text>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:text disable-output-escaping="yes">&amp;</xsl:text>#x<xsl:value-of select="@w:char"/><xsl:text>;</xsl:text>
-        </xsl:otherwise>
-      </xsl:choose>-->
+
     </span>
   </xsl:template>
 
@@ -3267,14 +3224,7 @@
   </xsl:template>
 
   <xsl:template match="w:tab">    
-    <!-- Parwati:Commented to fix tab indentation.
-    <xsl:call-template name="OutputTlcChar">
-      <xsl:with-param name="tlc">
-        <xsl:text disable-output-escaping="yes">&#160;</xsl:text>
-      </xsl:with-param>
-      <xsl:with-param name="count" select="12"/>
-      </xsl:call-template>-->
-   <!--by default tab value will be 5 inch-->
+
     <span>
     <xsl:attribute name="style">
       <xsl:choose>
@@ -3386,7 +3336,6 @@
 
     <xsl:if test="not($b.bidi = '')">
       <xsl:choose>
-<!--        <xsl:when test="$b.bidi = $on and not($b.complexScript = $on)">direction:ltr;</xsl:when>-->
         <xsl:when test="not($b.bidi = $on) and $b.complexScript = $on">direction:rtl;</xsl:when>
       </xsl:choose>
     </xsl:if>
@@ -3395,12 +3344,6 @@
 
     <xsl:variable name="b.line-through" select="substring($prsR,$iStrikeDStrike,1)"/>
     <xsl:variable name="b.underline" select="substring($prsR,$iU_Em,1)"/>
-<!--    <xsl:choose>
-      <xsl:when test="$b.line-through = $off and $b.underline = $off">text-decoration:none;</xsl:when>
-      <xsl:when test="$b.line-through = $on and $b.underline = $on">text-decoration:line-through underline;</xsl:when>
-      <xsl:when test="$b.line-through = $on">text-decoration: line-through;</xsl:when>
-      <xsl:when test="$b.underline = $on">text-decoration: underline;</xsl:when>
-    </xsl:choose>-->
 
     <xsl:variable name="fSup" select="substring($prsR,$iSup,1)"/>
     <xsl:variable name="fSub" select="substring($prsR,$iSub,1)"/>
@@ -3703,13 +3646,6 @@
         <xsl:choose>
           <xsl:when test="not($themeStyle='')">
 
-<!--              <xsl:attribute name="class">
-                <xsl:value-of select="$themeStyle"/>
-                <xsl:if test="not($runStyleName='')">
-                  <xsl:value-of select="' '"/>
-                  <xsl:value-of select="$runStyleName"/>
-                </xsl:if>
-              </xsl:attribute>-->
               <xsl:call-template name="DisplayRContent"/>
 
           </xsl:when>
@@ -3723,24 +3659,6 @@
         </xsl:if>
       </xsl:when>
       <xsl:otherwise>
-        
-
-          <!-- <xsl:if test="not($rStyleId='')">-->
-<!--            <xsl:attribute name="class">
-              <xsl:if test="not($themeStyle='')">
-                <xsl:value-of select="$themeStyle"/>
-                <xsl:value-of select="' '"/>
-              </xsl:if>
-              <xsl:value-of select="$rStyleId"/>
-              <xsl:value-of select="$charStyleSuffix"/>
-            </xsl:attribute>-->
-          <!-- </xsl:if> -->
-
-<!--          <xsl:if test="not($styleMod='')">
-            <xsl:attribute name="style">
-              <xsl:value-of select="$styleMod"/>
-            </xsl:attribute>
-          </xsl:if>-->
 
 	      <xsl:choose>
 		      <xsl:when test="contains($styleMod, 'vertical-align:super')">
@@ -3786,7 +3704,6 @@
     <xsl:param name="b.bidi" select="''"/>
     <xsl:param name="prsR" select="$prsRDefault"/>
     <xsl:param name="runStyleName"/>
-    <!--<xsl:if test="not(w:fldChar or w:instrText)">-->
     <xsl:if test="not(w:fldChar or w:instrText)">
 
       <xsl:variable name="instrText" select="preceding-sibling::w:r[w:instrText][1]" />
@@ -3797,21 +3714,7 @@
       <xsl:choose>
         <xsl:when test="translate($instruction, $lowercase, $uppercase)='HYPERLINK'">
           <a>
-            <!--<xsl:template match="a">
-              <xsl:variable name="anchor-texts">
-                <xsl:value-of select="."/>
-              </xsl:variable>
-              <xsl:apply-templates/>
-              <xsl:if test="@href!=$anchor-texts">
-                <fo:inline>
-                  <xsl:text>(</xsl:text>
-                  <xsl:value-of select="@href"/>
-                  <xsl:text>)</xsl:text>
-                </fo:inline>
-              </xsl:if>
-            </xsl:template>-->
-            
-            
+
             <xsl:variable name="href">
             
               <xsl:choose>
@@ -3918,18 +3821,7 @@
     <xsl:param name="prsR" select="$prsRDefault"/>
     <xsl:param name="runStyleName"/> 
     
-    <!-- Changed For rendering column by Parwati-->
-    <!-- <xsl:if test="//w:body//w:sectPr//w:cols[@w:num] | //w:body/w:p/w:pPr/w:sectPr/w:cols[@w:num]">
-      <xsl:variable name="pageEnd">
-        <xsl:choose>
-          <xsl:when test="w:lastRenderedPageBreak[@pageNum]">
-            <xsl:value-of select="$on"/>  
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="$off"/>
-          </xsl:otherwise>
-        </xsl:choose>        
-      </xsl:variable> End of Change by Parwati -->
+
       <xsl:variable name="coverpage">
         <xsl:choose>
           <xsl:when test="./w:lastRenderedPageBreak/@Coverpage">
@@ -4018,21 +3910,7 @@
         <xsl:value-of select="parent::*[1]/w:pPr/w:jc/@w:val"/>
       </xsl:if>
     </xsl:variable>
-      <!-- Added for column rendering by Parwati -->
-   <!-- <xsl:if test="//w:body//w:sectPr//w:cols[@w:num] | //w:body/w:p/w:pPr/w:sectPr/w:cols[@w:num] | //w:body//w:sdt//w:sdtContent">
-      <xsl:if test="descendant::*[name()='w:lastRenderedPageBreak'][1]/@colNum">
-        
-        <xsl:call-template name="ColumnRender">
-          <xsl:with-param name="page" select="$pageEnd"></xsl:with-param>
-          <xsl:with-param name="colNum" select="$columnNo"></xsl:with-param>
-          <xsl:with-param name="style" select="$styleMod"></xsl:with-param>
-          <xsl:with-param name="CoverPage" select="$coverpage"></xsl:with-param>
-          <xsl:with-param name="Align" select="$alignment"></xsl:with-param>
-        </xsl:call-template>
-      </xsl:if>
-      </xsl:if>
-    </xsl:if> -->
-    <!-- End of change by Parwati -->
+
     <xsl:call-template name="DisplayR">
       <xsl:with-param name="b.bidi" select="$b.bidi"/>
       <xsl:with-param name="prsR" select="$prsR"/>
@@ -4126,11 +4004,6 @@
         <xsl:otherwise>padding:1pt 0 1pt;</xsl:otherwise>
       </xsl:choose>
     </xsl:if>
-
-<!--    <xsl:choose>
-      <xsl:when test="$b.bidi = $off">direction:ltr;unicode-bidi:normal;</xsl:when>
-      <xsl:when test="$b.bidi = $on">direction:rtl;unicode-bidi:embed;text-align:right;</xsl:when>
-    </xsl:choose>-->
 
     <xsl:variable name="nInd" select="substring($prsP,$iInd)"/>
     <xsl:variable name="pr.listInd">
@@ -4291,10 +4164,8 @@
 
       </xsl:when>
       <xsl:when test="$spacing/@w:before">
-<!--        margin-top:<xsl:value-of select="$spacing/@w:before div 20"/>pt;-->
       </xsl:when>
       <xsl:when test="$spacing/@w:before-lines">
-<!--        margin-top:<xsl:value-of select="$spacing/@w:before-lines *.12"/>pt;-->
       </xsl:when>
     </xsl:choose>
     <xsl:choose>
@@ -4303,10 +4174,8 @@
       </xsl:when>
 
       <xsl:when test="$spacing/@w:after">
-<!--        margin-bottom:<xsl:value-of select="$spacing/@w:after div 20"/>pt;-->
       </xsl:when>
       <xsl:when test="$spacing/@w:after-lines">
-<!--        margin-bottom:<xsl:value-of select="$spacing/@w:after-lines *.12"/>pt;-->
       </xsl:when>
     </xsl:choose>
     <xsl:for-each select="w:pPr[1]">
@@ -4401,13 +4270,7 @@
   </xsl:template>
 
   <xsl:template match="w:textAlignment" mode="ppr">
-<!--    <xsl:choose>
-      <xsl:when test="@w:val = 'top'">vertical-align:top;</xsl:when>
-      <xsl:when test="@w:val = 'center'">vertical-align:middle;</xsl:when>
-      <xsl:when test="@w:val = 'baseline'">vertical-align:baseline;</xsl:when>
-      <xsl:when test="@w:val = 'bottom'">vertical-align:bottom;</xsl:when>
-      <xsl:when test="@w:val = 'auto'">vertical-align:baseline;</xsl:when>
-    </xsl:choose>-->
+
   </xsl:template>
 
   <xsl:template match="w:wordWrap" mode="ppr">
@@ -4533,10 +4396,6 @@
 		    <xsl:otherwise>	   
 			    <p>
 
-<!--				    <xsl:attribute name="class">
-					    <xsl:value-of select="$pStyleId"/>
-					    <xsl:value-of select="$paraStyleSuffix"/>
-				    </xsl:attribute>-->
 				    <xsl:variable name="sParaStyleName" select="($nsStyles[@w:styleId=$pStyleId])[1]"/>
 				    <xsl:variable name="b.bidi">
 					    <xsl:choose>
@@ -4608,10 +4467,6 @@
 				    </xsl:if>
 
 				    
-<!--					    <xsl:attribute name="class">
-						    <xsl:value-of select="$pStyleId"/>
-						    <xsl:value-of select="$charStyleSuffix"/>
-					    </xsl:attribute>-->
 					    <xsl:call-template name="DisplayPContent">
 						    <xsl:with-param name="b.bidi" select="$b.bidi"/>
 						    <xsl:with-param name="prsR" select="$prsR.updated"/>
@@ -4624,18 +4479,9 @@
 			    </p>
 		    </xsl:otherwise>
 	    </xsl:choose>
-<!--     <xsl:if test="./w:r/w:lastRenderedPageBreak/@ColumnEnd">  Added by Parwati to handle columns
-        <xsl:variable name="columnNo">
-          <xsl:value-of select="./w:r/w:lastRenderedPageBreak/@colNum"/>
-        </xsl:variable>      
-        <xsl:call-template name="ColumnAddition">          
-          <xsl:with-param name="totalColumns" select="$columnNo"></xsl:with-param>
-        </xsl:call-template> 
-      </xsl:if> End -->
-<!--By Sunil svg shapes positioning-->
+
       <xsl:if test="./w:r/div/svg">
-<!--<br/>
-        <br/>-->
+
       </xsl:if>
       </xsl:if>
   </xsl:template>
@@ -5473,14 +5319,7 @@
     <xsl:variable name="meInContext" select="ancestor::w:tr[1]/*[count($me|descendant-or-self::*)=count(descendant-or-self::*)]" />
     <xsl:variable name="before" select="count($meInContext/preceding-sibling::*[descendant-or-self::*[name()='w:tc' and (count(ancestor::w:tbl)=$tblCount)]])" />
     <xsl:variable name="after" select="count($meInContext/following-sibling::*[descendant-or-self::*[name()='w:tc' and (count(ancestor::w:tbl)=$tblCount)]])" />
-  <!-- TO FIX THE COVERPAGE issue added by Shbuh
-    <xsl:variable name="tStyleId" />
-    <xsl:attribute name="class">
-      <xsl:value-of select="$tStyleId"/>
-      <xsl:value-of select="$tblStyleSuffix"/>
-    </xsl:attribute>
-    <xsl:variable name="sTblStyleName" select="($nsStyles[@w:styleId=$tStyleId])[1]"/>
-    TO FIX THE COVERPAGE issue added by Shbuha-->
+
     <xsl:if test="not($vmerge and not($vmerge/@w:val))">
       <td>
 
@@ -5769,16 +5608,12 @@
     <xsl:for-each select="w:tblPr[1]">
 
       <xsl:if test="w:tblpPr/@w:topFromText">
-<!--        margin-top:<xsl:value-of select="w:tblpPr/@w:topFromText[1] div 20"/>pt;-->
       </xsl:if>
       <xsl:if test="w:tblpPr/@w:rightFromText">
-<!--        margin-right:<xsl:value-of select="w:tblpPr/@w:rightFromText[1] div 20"/>pt;-->
       </xsl:if>
       <xsl:if test="w:tblpPr/@w:bottomFromText">
-<!--        margin-bottom:<xsl:value-of select="w:tblpPr/@w:bottomFromText[1] div 20"/>pt;-->
       </xsl:if>
       <xsl:if test="w:tblpPr/@w:leftFromText">
-<!--        margin-left:<xsl:value-of select="w:tblpPr/@w:leftFromText[1] div 20"/>pt;-->
       </xsl:if>
 
       <xsl:for-each select="w:tblW[1]">
@@ -5802,10 +5637,7 @@
           </xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
-<!--      <xsl:attribute name="class">
-        <xsl:value-of select="$tStyleId"/>
-        <xsl:value-of select="$tblStyleSuffix"/>
-      </xsl:attribute>-->
+
       <xsl:variable name="sTblStyleName" select="($nsStyles[@w:styleId=$tStyleId])[1]"/>
 
       <xsl:variable name="cellspacingTEMP">
@@ -5887,68 +5719,25 @@
       </xsl:variable>
 
       <xsl:variable name="align">
-<!--        <xsl:for-each select="w:tblPr[1]/w:tblpPr[1]/@w:tblpXSpec">
-          <xsl:value-of select="."/>
-        </xsl:for-each>-->
+
       </xsl:variable>
       <xsl:if test="not($align='')">
         <xsl:attribute name="align">
-<!--          <xsl:choose>
-            <xsl:when test="$align = 'right' or $align = 'outside'">right</xsl:when>
-            <xsl:otherwise>left</xsl:otherwise>
-          </xsl:choose>-->
+
         </xsl:attribute>
       </xsl:if>
 
-<!--      <xsl:attribute name="cellspacing">
-        <xsl:choose>
-          <xsl:when test="$cellspacing=''">0</xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="($cellspacing div 1440) * $pixelsPerInch"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-      <xsl:if test="$cellspacing=''">
-        <xsl:attribute name="cellspacing">0</xsl:attribute>
-      </xsl:if>-->
+
 
       <xsl:variable name="styleMod">
         <xsl:call-template name="ApplyTblPr.class"/>
 
-<!--        <xsl:choose>
-          <xsl:when test="$cellspacing=''">border-collapse:collapse;</xsl:when>
-          <xsl:otherwise>
-            <xsl:text>border-collapse:separate;</xsl:text>
-            <xsl:call-template name="ApplyBorderPr">
-              <xsl:with-param name="pr.bdr" select="$bdr.top"/>
-              <xsl:with-param name="bdrSide" select="$bdrSide_top"/>
-            </xsl:call-template>
-            <xsl:call-template name="ApplyBorderPr">
-              <xsl:with-param name="pr.bdr" select="$bdr.left"/>
-              <xsl:with-param name="bdrSide" select="$bdrSide_left"/>
-            </xsl:call-template>
-            <xsl:call-template name="ApplyBorderPr">
-              <xsl:with-param name="pr.bdr" select="$bdr.bottom"/>
-              <xsl:with-param name="bdrSide" select="$bdrSide_bottom"/>
-            </xsl:call-template>
-            <xsl:call-template name="ApplyBorderPr">
-              <xsl:with-param name="pr.bdr" select="$bdr.right"/>
-              <xsl:with-param name="bdrSide" select="$bdrSide_right"/>
-            </xsl:call-template>
-          </xsl:otherwise>
-        </xsl:choose>-->
+
 
         <xsl:if test="$b.bidivisual=$on">direction:rtl;</xsl:if>
 
         <xsl:if test="not(w:tblPr/w:tblpPr)">
-<!--          <xsl:text>margin-</xsl:text>
-          <xsl:choose>
-            <xsl:when test="$b.bidivisual=$on">right</xsl:when>
-            <xsl:otherwise>left</xsl:otherwise>
-          </xsl:choose>
-          <xsl:text>:</xsl:text>
-          <xsl:value-of select="$tblInd"/>
-          <xsl:text>;</xsl:text>-->
+
         </xsl:if>
       </xsl:variable>
       <xsl:if test="not($styleMod='')">
@@ -5995,7 +5784,6 @@
 
       
       <xsl:for-each select="w:tblGrid[1]">
-        <!--<xsl:text disable-output-escaping="yes">&lt;![if !supportMisalignedColumns]&gt;</xsl:text>-->
         <tr height="0">
           <xsl:for-each select="w:gridCol">
             <xsl:variable name="gridStyle">
@@ -6004,7 +5792,6 @@
             <td/>
           </xsl:for-each>
         </tr>
-        <!--<xsl:text disable-output-escaping="yes">&lt;![endif]&gt;</xsl:text>-->
       </xsl:for-each>
     </table>
   </xsl:template>
@@ -6073,9 +5860,7 @@
         <xsl:value-of select="$divBody/w:marRight/@w:val"/>
       </xsl:variable>
       <xsl:if test="not($dxaBodyLeft='' or $dxaBodyLeft=0)">
-<!--        <xsl:text>margin-left:</xsl:text>
-        <xsl:value-of select="$dxaBodyLeft div 20"/>
-        <xsl:text>pt;</xsl:text>-->
+
       </xsl:if>
       <xsl:if test="not($dxaBodyRight='' or $dxaBodyRight=0)">
         <xsl:text>margin-right:</xsl:text>
@@ -6087,18 +5872,7 @@
   </xsl:template>
 
   <xsl:template match="w:font">
-<!--    <xsl:text>@font-face{font-family:"</xsl:text>
-    <xsl:value-of select="@w:name"/>
-    <xsl:text>";panose-1:</xsl:text>
-    <xsl:variable name="panose1">
-      <xsl:call-template name="ConvertHexToDec">
-        <xsl:with-param name="value" select="w:panose-1[1]/@w:val"/>
-        <xsl:with-param name="i" select="2"/>
-        <xsl:with-param name="s" select="2"/>
-      </xsl:call-template>
-    </xsl:variable>
-    <xsl:value-of select="substring($panose1,2)"/>
-    <xsl:text>;}</xsl:text>-->
+
   </xsl:template>
 
   <xsl:template name="MakeRStyle">
@@ -6186,19 +5960,15 @@
 
         <xsl:if test="not($beforeAutospace = $on)" >
           <xsl:if test="(not($spacing/@w:before-autospacing) or $spacing/@w:before-autospacing = 'off')">
-<!--            <xsl:text>;margin-top:</xsl:text>
-            <xsl:value-of select="$paraMarginDefaultTop"/>-->
+
           </xsl:if>
         </xsl:if>
 
         <xsl:if test="not($afterAutospace = $on)" >
           <xsl:if test="(not($spacing/@w:after-autospacing) or $spacing/@w:after-autospacing = 'off')">
-<!--            <xsl:text>;margin-bottom:</xsl:text>
-            <xsl:value-of select="$paraMarginDefaultBottom"/>-->
+
           </xsl:if>
         </xsl:if>
-
-<!--        <xsl:text>;font-size:10.0pt;font-family:"Times New Roman";</xsl:text>-->
 
         <xsl:for-each select="/w:document[1]/w:styles[1]/w:docDefaults/w:pPrDefault">
           <xsl:call-template name="ApplyPPr.many"/>
@@ -6266,14 +6036,6 @@
   </xsl:template>
 
   <xsl:template match="a:fontScheme">
-<!--    .<xsl:value-of select="$minorAsciiTheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:latin/@typeface" />;}
-    .<xsl:value-of select="$majorAsciiTheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:latin/@typeface" />;}
-    .<xsl:value-of select="$minorAnsiTheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:latin/@typeface" />;}
-    .<xsl:value-of select="$majorAnsiTheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:latin/@typeface" />;}
-    .<xsl:value-of select="$minorEATheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:ea/@typeface" />;}
-    .<xsl:value-of select="$majorEATheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:ea/@typeface" />;}
-    .<xsl:value-of select="$minorCSTheme"/>{font-family:<xsl:value-of select="./a:minorFont/a:cs/@typeface" />;}
-    .<xsl:value-of select="$majorCSTheme"/>{font-family:<xsl:value-of select="./a:majorFont/a:cs/@typeface" />;}-->
   </xsl:template>
 
   <xsl:template match="w:bookmarkStart">
@@ -6559,7 +6321,6 @@ if (msoBrowserCheck())
             </xsl:attribute>
 
             <xsl:apply-templates select="w:rt/w:r/w:t"/>
-            <!--<xsl:apply-templates select="w:r/w:t"/>-->
           </xsl:if>
         </span>
       </rt>

@@ -669,7 +669,7 @@ class Docx extends Import {
 		    'safe' => 1,
 		    'valid_xhtml' => 1,
 		    'no_deprecated_attr' => 2,
-//		    'deny_attribute' => 'div -id',
+		    'deny_attribute' => 'div -id',
 		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
 		);
 
