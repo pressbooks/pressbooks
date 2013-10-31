@@ -97,7 +97,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 		<!-- Start by uploading a file -->
 
 		<p>
-			<?php _e( 'Supported file extensions:', 'pressbooks' ); ?> XML, EPUB, ODT <br />
+			<?php _e( 'Supported file extensions:', 'pressbooks' ); ?> XML, EPUB, ODT, DOCX <br />
 			<?php _e( 'Maximum file size:', 'pressbooks' ); echo ' ' . ini_get( 'upload_max_filesize' ); ?>
 		</p>
 
@@ -114,6 +114,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 							<option value="wxr"><?php _e( 'WXR (WordPress eXtended RSS)', 'pressbooks' ); ?></option>
 							<option value="epub"><?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></option>
 							<option value="odt"><?php _e( 'ODT (word processing file format of OpenDocument)', 'pressbooks' ); ?></option>
+							<option value="docx"><?php _e( 'DOCX (word processing file format of Microsoft)', 'pressbooks' ); ?></option>
 						</select>
 					</td>
 				</tr>
