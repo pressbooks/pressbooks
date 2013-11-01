@@ -666,7 +666,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
-			$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 		$this->manifest[$file_id] = array(
 			'ID' => -1,
