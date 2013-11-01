@@ -19,12 +19,12 @@ class Epub3 extends Epub\Epub201 {
 	 * @var string
 	 */
 	protected $filext = 'xhtml';
-	
+
 	/**
 	 * $var string
 	 */
 	protected $dir = __DIR__;
-	
+
 	/**
 	 * @param array $args
 	 */
@@ -85,116 +85,12 @@ class Epub3 extends Epub\Epub201 {
 
 		mkdir( $this->tmpDir . '/META-INF' );
 		mkdir( $this->tmpDir . '/OEBPS' );
-		mkdir( $this->tmpDir . '/OEBPS/images' );
+		mkdir( $this->tmpDir . '/OEBPS/assets' );
 		mkdir( $this->tmpDir . '/OEBPS/audios' );
 		mkdir( $this->tmpDir . '/OEBPS/videos' );
 
 		file_put_contents(
-			$this->tmpDir . '/META-INF/container.xml', $this->loadTemplate( __DIR__ . '/templates/container.php' ) );
-	}
-
-	/**
-	 * Parse CSS, copy assets, rewrite copy.
-	 *
-	 * @param string $path_to_original_stylesheet*
-	 * @param string $path_to_copy_of_stylesheet
-	 */
-	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
-
-		$css_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
-		$css = file_get_contents( $path_to_copy_of_stylesheet );
-		$fullpath = $this->tmpDir . '/OEBPS/images';
-
-		// Search for url("*"), url('*'), and url(*)
-		preg_match_all( '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', $css, $matches, PREG_PATTERN_ORDER );
-
-		// Remove duplicates, sort by biggest to smallest to prevent substring replacements
-		$matches = array_unique( $matches[3] );
-		usort( $matches, function ( $a, $b ) {
-			return strlen( $b ) - strlen( $a );
-		} );
-
-		foreach ( $matches as $url ) {
-			$filename = sanitize_file_name( basename( $url ) );
-
-			if ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) == 1 ) {
-
-				// Look for "^images/"
-				// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/"	or "^images/../../denied/"
-
-				$my_image = realpath( "$css_dir/$url" );
-				if ( $my_image ) {
-					copy( $my_image, "$fullpath/$filename" );
-				}
-			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.jpe?g|\.gif|\.png)$/i', $url ) ) {
-
-				// Look for images via http(s), pull them in locally
-
-				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $fullpath ) ) {
-					$css = str_replace( $url, "images/$new_filename", $css );
-				}
-			}
-		}
-
-		// Overwrite the new file with new info
-		file_put_contents( $path_to_copy_of_stylesheet, $css );
-	}
-
-	/**
-	 * @param array $book_contents
-	 * @param array $metadata
-	 */
-	protected function createCover( $book_contents, $metadata ) {
-
-		// Resize Image
-
-		if ( ! empty( $metadata['pb_cover_image'] ) && ! \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
-			$source_path = \PressBooks\Utility\get_media_path( $metadata['pb_cover_image'] );
-		} else {
-			$source_path = \PressBooks\Image\default_cover_path();
-		}
-		$dest_image = sanitize_file_name( basename( $source_path ) );
-		$dest_image = Sanitize\force_ascii( $dest_image );
-		$dest_path = $this->tmpDir . "/OEBPS/images/" . $dest_image;
-
-		$img = wp_get_image_editor( $source_path );
-		if ( ! is_wp_error( $img ) ) {
-			// Take the longest dimension of the image and resize.
-			// Cropping is turned off. The aspect ratio is maintained.
-			$img->resize( 1563, 2500, false );
-			$img->save( $dest_path );
-			$this->coverImage = $dest_image;
-		}
-
-
-		// HTML
-
-		$html = '<div id="cover-image">';
-		if ( $this->coverImage ) {
-			$html .= sprintf( '<img src="images/%s" alt="%s" />', $this->coverImage, get_bloginfo( 'name' ) );
-		}
-		$html .= "</div>\n";
-
-		// Create file, insert into manifest
-
-		$vars = array (
-		    'post_title' => __( 'Cover', 'pressbooks' ),
-		    'stylesheet' => $this->stylesheet,
-		    'post_content' => $html,
-		    'isbn' => @$metadata['pb_ebook_isbn'],
-		);
-
-		$file_id = 'front-cover';
-		$filename = "{$file_id}.{$this->filext}";
-
-		file_put_contents(
-			$this->tmpDir . "/OEBPS/$filename", $this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
-
-		$this->manifest[$file_id] = array (
-		    'ID' => -1,
-		    'post_title' => $vars['post_title'],
-		    'filename' => $filename,
-		);
+			$this->tmpDir . '/META-INF/container.xml', $this->loadTemplate( $this->dir . '/templates/container.php' ) );
 	}
 
 	/**
@@ -233,40 +129,12 @@ class Epub3 extends Epub\Epub201 {
 		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 
 		// Mobi7 hacks
-		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", __DIR__ . '/templates/mobi-hacks.xsl' );
+		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", $this->dir . '/templates/mobi-hacks.xsl' );
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
 		return $html;
-	}
-
-	/**
-	 * Parse HTML snippet, download all found <img> tags into /OEBPS/images/, return the HTML with changed <img> paths.
-	 *
-	 * @param \DOMDocument $doc
-	 *
-	 * @return \DOMDocument
-	 */
-	protected function scrapeAndKneadImages( \DOMDocument $doc ) {
-
-		$fullpath = $this->tmpDir . '/OEBPS/images';
-
-		$images = $doc->getElementsByTagName( 'img' );
-		foreach ( $images as $image ) {
-			// Fetch image, change src
-			$url = $image->getAttribute( 'src' );
-			$filename = $this->fetchAndSaveUniqueImage( $url, $fullpath );
-			if ( $filename ) {
-				// Replace with new image
-				$image->setAttribute( 'src', 'images/' . $filename );
-			} else {
-				// Tag broken image
-				$image->setAttribute( 'src', "{$url}#fixme" );
-			}
-		}
-
-		return $doc;
 	}
 
 	protected function scrapeAndKneadAudios( \DOMDocument $doc ) {
@@ -440,17 +308,17 @@ class Epub3 extends Epub\Epub201 {
 		// Find all the image files, insert them into the OPF file
 
 		$html = '';
-		$path_to_images = $this->tmpDir . '/OEBPS/images';
-		$images = scandir( $path_to_images );
+		$path_to_assets = $this->tmpDir . '/OEBPS/assets';
+		$assets = scandir( $path_to_assets );
 		$used_ids = array ();
 
-		foreach ( $images as $image ) {
-			if ( '.' == $image || '..' == $image ) continue;
-			$mimetype = $this->mediaType( "$path_to_images/$image" );
-			if ( $this->coverImage == $image ) {
+		foreach ( $assets as $asset ) {
+			if ( '.' == $asset || '..' == $asset ) continue;
+			$mimetype = $this->mediaType( "$path_to_assets/$asset" );
+			if ( $this->coverImage == $asset ) {
 				$file_id = 'cover-image';
 			} else {
-				$file_id = 'media-' . pathinfo( "$path_to_images/$image", PATHINFO_FILENAME );
+				$file_id = 'media-' . pathinfo( "$path_to_assets/$asset", PATHINFO_FILENAME );
 				$file_id = Sanitize\sanitize_xml_id( $file_id );
 			}
 
@@ -462,13 +330,13 @@ class Epub3 extends Epub\Epub201 {
 			}
 			$file_id = $check_if_used;
 
-			$html .= sprintf( '<item id="%s" href="OEBPS/images/%s" media-type="%s" />', $file_id, $image, $mimetype ) . "\n";
+			$html .= sprintf( '<item id="%s" href="OEBPS/assets/%s" media-type="%s" />', $file_id, $asset, $mimetype ) . "\n";
 
 			$used_ids[$file_id] = true;
 		}
-		$vars['manifest_images'] = $html;
+		$vars['manifest_assets'] = $html;
 
-
+		// Put contents
 		// Find all the audio files, insert them into the OPF file
 
 		$html = '';
@@ -531,7 +399,7 @@ class Epub3 extends Epub\Epub201 {
 		// Put contents
 
 		file_put_contents(
-			$this->tmpDir . "/book.opf", $this->loadTemplate( __DIR__ . '/templates/opf.php', $vars ) );
+			$this->tmpDir . "/book.opf", $this->loadTemplate( $this->dir . '/templates/opf.php', $vars ) );
 	}
 
 	/**
@@ -556,7 +424,7 @@ class Epub3 extends Epub\Epub201 {
 		);
 
 		file_put_contents(
-			$this->tmpDir . "/toc.xhtml", $this->loadTemplate( __DIR__ . '/templates/ncx.php', $vars ) );
+			$this->tmpDir . "/toc.xhtml", $this->loadTemplate( $this->dir . '/templates/ncx.php', $vars ) );
 	}
 
 }

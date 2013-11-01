@@ -126,7 +126,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			printf( '<item id="%s" href="OEBPS/%s" media-type="application/xhtml+xml" />', $k, $v['filename'] );
 			echo "\n";
 		}
-		echo $manifest_images;
+		echo $manifest_assets;
 		echo $manifest_audios;
 		echo $manifest_videos;
 		?>
