@@ -130,6 +130,12 @@ class Epub201 extends Export {
 	
 	
 	/**
+	 * $var string
+	 */
+	protected $dir = __DIR__;
+	
+	
+	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
@@ -473,7 +479,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . '/META-INF/container.xml',
-			$this->loadTemplate( __DIR__ . '/templates/container.php' ) );
+			$this->loadTemplate( $this->dir . '/templates/container.php' ) );
 	}
 
 
@@ -720,7 +726,7 @@ class Epub201 extends Export {
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+					$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 				$this->manifest[$file_id] = array(
 					'ID' => $front_matter['ID'],
@@ -788,7 +794,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
-			$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 		$this->manifest[$file_id] = array(
 			'ID' => -1,
@@ -842,7 +848,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
-			$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 		$this->manifest[$file_id] = array(
 			'ID' => - 1,
@@ -903,7 +909,7 @@ class Epub201 extends Export {
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+					$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 				$this->manifest[$file_id] = array(
 					'ID' => $front_matter['ID'],
@@ -987,7 +993,7 @@ class Epub201 extends Export {
 
 			file_put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
-				$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+				$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 			$this->manifest[$file_id] = array(
 				'ID' => $front_matter['ID'],
@@ -1023,7 +1029,7 @@ class Epub201 extends Export {
 
 			file_put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
-				$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+				$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 			$this->manifest[$file_id] = array(
 				'ID' => -1,
@@ -1124,7 +1130,7 @@ class Epub201 extends Export {
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+					$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 				$this->manifest[$file_id] = array(
 					'ID' => $chapter['ID'],
@@ -1153,7 +1159,7 @@ class Epub201 extends Export {
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+					$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 				// Insert into correct pos
 				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
@@ -1219,7 +1225,7 @@ class Epub201 extends Export {
 
 			file_put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
-				$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+				$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 			$this->manifest[$file_id] = array(
 				'ID' => $back_matter['ID'],
@@ -1317,7 +1323,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
-			$this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
 
 	}
 
@@ -1385,7 +1391,7 @@ class Epub201 extends Export {
 		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
 
 		// Mobi7 hacks
-		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", __DIR__ . '/templates/mobi-hacks.xsl' );
+		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", $this->dir . '/templates/mobi-hacks.xsl' );
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
@@ -1701,7 +1707,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/book.opf",
-			$this->loadTemplate( __DIR__ . '/templates/opf.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/opf.php', $vars ) );
 
 	}
 
@@ -1729,7 +1735,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/toc.ncx",
-			$this->loadTemplate( __DIR__ . '/templates/ncx.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/ncx.php', $vars ) );
 
 	}
 
