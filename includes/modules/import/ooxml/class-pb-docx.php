@@ -34,13 +34,15 @@ class Docx extends Import {
 	protected $fn = array();
 
 	/**
-	 * 
+	 *  @var array
 	 */
+	protected $en = array();
 
 	const DOCUMENT_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument';
 	const METADATA_SCHEMA = 'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties';
 	const IMAGE_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image';
 	const FOOTNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes';
+	const ENDNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/endnotes';
 
 	/**
 	 * 
@@ -71,13 +73,19 @@ class Docx extends Import {
 		
 		// get all Footnote IDs from document
 		$fn_ids = $this->getFootNoteIDs( $xml );
-
+		// get all Endnote IDs from document
+		$en_ids = $this->getFootNoteIDs($xml, 'endnoteReference');
 		// process the footnote ids 
 		if ( $fn_ids ) {
 			// pass the IDs and get the content
 			$this->fn = $this->getFootNotes( $fn_ids );
 		}
-
+	
+		// process the endnote ids
+		if ( $en_ids ) {
+			$this->en = $this->getFootNotes( $en_ids, 'endnotes' );
+		}
+		
 		// introduce a stylesheet 
 		$proc = new \XSLTProcessor();
 		$xsl = new \DOMDocument();
@@ -107,11 +115,11 @@ class Docx extends Import {
 	 * @param \DOMDocument $doc_element
 	 * @return array
 	 */
-	protected function getFootNoteIDs( \DOMDocument $dom_doc ) {
+	protected function getFootNoteIDs( \DOMDocument $dom_doc, $tag = 'footnoteReference' ) {
 		$fn_ids = array ();
 		$doc_elem = $dom_doc->documentElement;
 
-		$tags_fn_ref = $doc_elem->getElementsByTagName( 'footnoteReference' );
+		$tags_fn_ref = $doc_elem->getElementsByTagName( $tag );
 
 		// if footnotes are in the document, get the ids
 		if ( $tags_fn_ref->length > 0 ) {
@@ -131,35 +139,46 @@ class Docx extends Import {
 	 * @throws \Exception if there is discrepancy between the number of footnotes
 	 * in document.xml and footnotes.xml
 	 */
-	protected function getFootNotes( array $fn_ids ) {
+	protected function getFootNotes( array $ids, $tag = 'footnotes' ) {
 		$footnotes = array ();
+		$tag_name = rtrim($tag, 's');
 
 		// get the path for the footnotes
-		$footnotes_path = $this->getTargetPath( self::FOOTNOTES_SCHEMA, 'footnotes' );
+		switch ( $tag ) {
+
+			case 'endnotes':
+				$footnotes_path = $this->getTargetPath( self::ENDNOTES_SCHEMA, $tag );
+				break;
+			default:
+				$footnotes_path = $this->getTargetPath( self::FOOTNOTES_SCHEMA, $tag );
+				break;
+		}
 
 		// safety — if there are no footnotes, return
 		if ( '' == $footnotes_path ) {
 			return false;
 		}
 
-		$limit = count( $fn_ids );
+		$limit = count( $ids );
 
 		// set it up
 		$dom_doc = $this->getZipContent( $footnotes_path );
 		$doc_elem = $dom_doc->documentElement;
-
+		
 		// grab all the footnotes
-		$text_tags = $doc_elem->getElementsByTagName( 't' );
+		$text_tags = $doc_elem->getElementsByTagName( $tag_name );
+
 
 		// TODO
 		// could be more sophisticated
-		if ( $text_tags->length != $limit ) {
+		if ( $text_tags->length != $limit +2 ) {
 			throw new \Exception( 'mismatch between length of FootnoteReference array number of footnotes available' );
 		}
-
+		
 		// get all the footnote ids
+		// +2 to the domlist skips over two default nodes that don't contain end/footnotes 
 		for ( $i = 0; $i < $limit; $i ++  ) {
-			$footnotes[$fn_ids[$i]] = $text_tags->item( $i )->nodeValue;
+			$footnotes[$ids[$i]] = $text_tags->item( $i +2 )->nodeValue;
 		}
 
 		return $footnotes;
@@ -412,13 +431,18 @@ class Docx extends Import {
 				}
 			}
 			// append
+			// TODO either/or is not sufficient, needs to be built to cover
+			// a use case where both are present.
+			if (!empty($this->fn)) $notes = $this->fn;
+			if (!empty($this->en)) $notes = $this->en;
+			
 			foreach( $fn_ids as $id ){
-				if ( array_key_exists( $id, $this->fn )){
+				if ( array_key_exists( $id, $notes )){
 					$grandparent = $chapter->createElement('div');
 					$parent = $chapter->createElement('span');
 					$child = $chapter->createElement("a", $id);
 					$child->setAttribute("href", "#sdfootnote{$id}anc");
-					$text = $chapter->createTextNode($this->fn[$id]);
+					$text = $chapter->createTextNode($notes[$id]);
 					
 					// attach 
 					$grandparent->appendChild($parent);
@@ -604,11 +628,11 @@ class Docx extends Import {
 		foreach ( $relations->Relationship as $rel ) {
 			if ( empty( $id ) && $rel["Type"] == $schema ) {
 				$path = $rel['Target'];
-			} else if ( $rel["Id"] == $id && $rel["Type"] == $schema ) {
+			} elseif ( $rel["Id"] == $id && $rel["Type"] == $schema ) {
 				$path = 'word/' . $rel['Target'];
-			} else if ( 'footnotes' == $id && $rel["Type"] == $schema ){
+			} elseif ( ('footnotes' === $id || 'endnotes' === $id ) && $rel["Type"] == $schema ){
 				$path = 'word/' . $rel['Target'];
-			}
+			} 
 		}
 		return $path;
 	}
