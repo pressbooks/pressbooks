@@ -424,36 +424,34 @@ class Docx extends Import {
 		$fn = $chapter->getElementsByTagName('sup');
 		
 		if ( $fn->length > 0 ) {
-			$fn_ids = array();
+			$fn_ids = array ();
 			foreach ( $fn as $int ) {
-				if( is_numeric($int->nodeValue) ){ // TODO should be a stronger test for footnotes
+				if ( is_numeric( $int->nodeValue ) ) { // TODO should be a stronger test for footnotes
 					$fn_ids[] = $int->nodeValue;
 				}
 			}
 			// append
 			// TODO either/or is not sufficient, needs to be built to cover
 			// a use case where both are present.
-			if (!empty($this->fn)) $notes = $this->fn;
-			if (!empty($this->en)) $notes = $this->en;
-			
-			foreach( $fn_ids as $id ){
-				if ( array_key_exists( $id, $notes )){
-					$grandparent = $chapter->createElement('div');
-					$parent = $chapter->createElement('span');
-					$child = $chapter->createElement("a", $id);
-					$child->setAttribute("href", "#sdfootnote{$id}anc");
-					$text = $chapter->createTextNode($notes[$id]);
-					
+			if ( ! empty( $this->fn ) ) $notes = $this->fn;
+			if ( ! empty( $this->en ) ) $notes = $this->en;
+
+			foreach ( $fn_ids as $id ) {
+				if ( array_key_exists( $id, $notes ) ) {
+					$grandparent = $chapter->createElement( 'div' );
+					$parent = $chapter->createElement( 'span' );
+					$child = $chapter->createElement( "a", $id );
+					$child->setAttribute( "href", "#sdfootnote{$id}anc" );
+					$text = $chapter->createTextNode( $notes[$id] );
+
 					// attach 
-					$grandparent->appendChild($parent);
-					$parent->appendChild($child);
-					$parent->appendChild($text);
-					
-					$chapter->documentElement->appendChild($grandparent);
-					
+					$grandparent->appendChild( $parent );
+					$parent->appendChild( $child );
+					$parent->appendChild( $text );
+
+					$chapter->documentElement->appendChild( $grandparent );
 				}
 			}
-			
 		}
 
 		$result = $chapter->saveHTML( $chapter->documentElement );
