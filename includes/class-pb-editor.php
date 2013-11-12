@@ -41,7 +41,6 @@ class Editor {
 				'block' => 'p',
 				'classes' => 'indent',
 				'wrapper' => false,
-
 			),
 			array(
 				'title' => 'Hanging indent',
@@ -79,7 +78,6 @@ class Editor {
 				'classes' => 'very-loose',
 				'wrapper' => false,
 			),
-
 			array(
 				'title' => 'Text box',
 				'block' => 'div',
@@ -91,9 +89,7 @@ class Editor {
 				'block' => 'div',
 				'classes' => 'textbox shaded',
 				'wrapper' => false,
-			),
-			
-			
+			),	
 			array(
 				'title' => 'Pullquote (left)',
 				'inline' => 'span',
