@@ -2200,8 +2200,8 @@
       <xsl:when test="$type = $prrCantSplit">
         <xsl:for-each select="w:trPr[1]/w:cantSplit[1]">
           <xsl:choose>
-            <xsl:when test="@w:val = 'off'">page-break-inside:auto;</xsl:when>
-            <xsl:otherwise>page-break-inside:avoid;</xsl:otherwise>
+            <xsl:when test="@w:val = 'off'"></xsl:when>
+            <xsl:otherwise></xsl:otherwise>
           </xsl:choose>
         </xsl:for-each>
       </xsl:when>
@@ -3167,7 +3167,7 @@
         </xsl:choose>
       </xsl:attribute>
       <xsl:if test="@w:type = 'page'">
-        <xsl:attribute name="style">page-break-before:always</xsl:attribute>
+        <xsl:attribute name="style"></xsl:attribute>
       </xsl:if>
     </br>
   </xsl:template>
@@ -3944,12 +3944,20 @@
       <xsl:with-param name="prsR" select="$prsR"/>
     </xsl:call-template>
   </xsl:template>
-
-  <xsl:template name="DisplayHlink">
+ 
+<xsl:template name="DisplayHlink">
     <xsl:param name="b.bidi"/>
     <xsl:param name="prsR"/>
-    <a style="text-decoration:none;">
-    <xsl:variable name="href">
+    <a>
+	    <xsl:variable name="rId">
+		    <xsl:value-of select="@r:id"/>
+	    </xsl:variable>
+	    <xsl:if test="$rId != ''">
+		    <xsl:attribute name="class">
+			    <xsl:value-of select="$rId"/>
+		    </xsl:attribute>	
+	    </xsl:if>    	
+	<xsl:variable name="href">
         <xsl:for-each select="@w:dest">
           <xsl:value-of select="."/>
         </xsl:for-each>
@@ -3962,7 +3970,7 @@
           </xsl:when>
         </xsl:choose>
       </xsl:variable>
-      <xsl:if test="not(href='')">
+      <xsl:if test="not($href='')">
         <xsl:attribute name="href">
           <xsl:value-of select="$href"/>
         </xsl:attribute>
@@ -4199,15 +4207,15 @@
 
       <xsl:for-each select="w:keepNext[1]">
         <xsl:choose>
-          <xsl:when test="@w:val = 'off'">page-break-after:auto;</xsl:when>
-          <xsl:otherwise>page-break-after:avoid;</xsl:otherwise>
+          <xsl:when test="@w:val = 'off'"></xsl:when>
+          <xsl:otherwise></xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
 
       <xsl:for-each select="w:pageBreakBefore[1]">
         <xsl:choose>
-          <xsl:when test="@w:val = 'off'">page-break-before:auto;</xsl:when>
-          <xsl:otherwise>page-break-before:always;</xsl:otherwise>
+          <xsl:when test="@w:val = 'off'"></xsl:when>
+          <xsl:otherwise></xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
     </xsl:for-each>
@@ -4246,7 +4254,7 @@
   <xsl:template match="w:spacing[@w:lineRule or @w:line]" mode="ppr">
     <xsl:choose>
       <xsl:when test="not(@w:lineRule) or @w:lineRule = 'exact'or @w:lineRule = 'auto'">
-        line-height:<xsl:value-of select="@w:line div 10"/>pt;
+<!--        line-height:<xsl:value-of select="@w:line div 10"/>pt;-->
       </xsl:when>
     </xsl:choose>
   </xsl:template> 
@@ -5490,8 +5498,8 @@
 
       <xsl:for-each select="w:cantSplit[1]">
         <xsl:choose>
-          <xsl:when test="@w:val = 'off'">page-break-inside:auto;</xsl:when>
-          <xsl:otherwise>page-break-inside:avoid;</xsl:otherwise>
+          <xsl:when test="@w:val = 'off'"></xsl:when>
+          <xsl:otherwise></xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
     </xsl:for-each>

@@ -37,13 +37,19 @@ class Docx extends Import {
 	 *  @var array
 	 */
 	protected $en = array();
+	
+	/**
+	 * @var array 
+	 */
+	protected $ln = array();
 
 	const DOCUMENT_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument';
 	const METADATA_SCHEMA = 'http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties';
 	const IMAGE_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/image';
 	const FOOTNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes';
 	const ENDNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/endnotes';
-
+	const HYPERLINK_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
+	
 	/**
 	 * 
 	 */
@@ -72,18 +78,26 @@ class Docx extends Import {
 		$meta = $this->getZipContent( $meta_path );
 		
 		// get all Footnote IDs from document
-		$fn_ids = $this->getFootNoteIDs( $xml );
+		$fn_ids = $this->getIDs( $xml );
 		// get all Endnote IDs from document
-		$en_ids = $this->getFootNoteIDs($xml, 'endnoteReference');
+		$en_ids = $this->getIDs($xml, 'endnoteReference');
+		// get all Hyperlink IDs from the document
+		$ln_ids = $this->getIDs($xml, 'hyperlink', 'r:id');
+		
 		// process the footnote ids 
 		if ( $fn_ids ) {
 			// pass the IDs and get the content
-			$this->fn = $this->getFootNotes( $fn_ids );
+			$this->fn = $this->getRelationshipPart( $fn_ids );
 		}
 	
 		// process the endnote ids
 		if ( $en_ids ) {
-			$this->en = $this->getFootNotes( $en_ids, 'endnotes' );
+			$this->en = $this->getRelationshipPart( $en_ids, 'endnotes' );
+		}
+		
+		// process the hyperlink ids
+		if ( $ln_ids ){
+			$this->ln = $this->getRelationshipPart ( $ln_ids, 'hyperlink' );
 		}
 		
 		// introduce a stylesheet 
@@ -115,7 +129,7 @@ class Docx extends Import {
 	 * @param \DOMDocument $doc_element
 	 * @return array
 	 */
-	protected function getFootNoteIDs( \DOMDocument $dom_doc, $tag = 'footnoteReference' ) {
+	protected function getIDs( \DOMDocument $dom_doc, $tag = 'footnoteReference', $attr = 'w:id' ) {
 		$fn_ids = array ();
 		$doc_elem = $dom_doc->documentElement;
 
@@ -124,7 +138,9 @@ class Docx extends Import {
 		// if footnotes are in the document, get the ids
 		if ( $tags_fn_ref->length > 0 ) {
 			foreach ( $tags_fn_ref as $id ) {
-				$fn_ids[] = $id->getAttribute( 'w:id' );
+				if ( '' !== $id->getAttribute( $attr ) ) { // don't add if its empty
+					$fn_ids[] = $id->getAttribute( $attr );
+				}
 			}
 		}
 
@@ -139,46 +155,54 @@ class Docx extends Import {
 	 * @throws \Exception if there is discrepancy between the number of footnotes
 	 * in document.xml and footnotes.xml
 	 */
-	protected function getFootNotes( array $ids, $tag = 'footnotes' ) {
+	protected function getRelationshipPart( array $ids, $tag = 'footnotes' ) {
 		$footnotes = array ();
-		$tag_name = rtrim($tag, 's');
+		$tag_name = rtrim( $tag, 's' );
 
 		// get the path for the footnotes
 		switch ( $tag ) {
 
 			case 'endnotes':
-				$footnotes_path = $this->getTargetPath( self::ENDNOTES_SCHEMA, $tag );
+				$target_path = $this->getTargetPath( self::ENDNOTES_SCHEMA, $tag );
+				break;
+			case 'hyperlink':
+				$target_path = $this->getTargetPath( self::HYPERLINK_SCHEMA, $tag );
 				break;
 			default:
-				$footnotes_path = $this->getTargetPath( self::FOOTNOTES_SCHEMA, $tag );
+				$target_path = $this->getTargetPath( self::FOOTNOTES_SCHEMA, $tag );
 				break;
 		}
 
 		// safety — if there are no footnotes, return
-		if ( '' == $footnotes_path ) {
+		if ( '' == $target_path ) {
 			return false;
+		}
+
+		// if they are hyperlinks
+		if ( is_array( $target_path ) ) {
+			return $target_path;
 		}
 
 		$limit = count( $ids );
 
 		// set it up
-		$dom_doc = $this->getZipContent( $footnotes_path );
+		$dom_doc = $this->getZipContent( $target_path );
 		$doc_elem = $dom_doc->documentElement;
-		
+
 		// grab all the footnotes
 		$text_tags = $doc_elem->getElementsByTagName( $tag_name );
 
 
 		// TODO
 		// could be more sophisticated
-		if ( $text_tags->length != $limit +2 ) {
+		if ( $text_tags->length != $limit + 2 ) {
 			throw new \Exception( 'mismatch between length of FootnoteReference array number of footnotes available' );
 		}
-		
+
 		// get all the footnote ids
 		// +2 to the domlist skips over two default nodes that don't contain end/footnotes 
 		for ( $i = 0; $i < $limit; $i ++  ) {
-			$footnotes[$ids[$i]] = $text_tags->item( $i +2 )->nodeValue;
+			$footnotes[$ids[$i]] = $text_tags->item( $i + 2 )->nodeValue;
 		}
 
 		return $footnotes;
@@ -420,9 +444,54 @@ class Docx extends Import {
 			$chapter->documentElement->removeChild( $h1 );
 		}
 		
+		// hyperlinks
+		$chapter = $this->addHyperlinks( $chapter );
+
 		// footnotes
-		$fn = $chapter->getElementsByTagName('sup');
-		
+		$chapter = $this->addFootnotes( $chapter );
+
+		$result = $chapter->saveHTML( $chapter->documentElement );
+
+		// appendChild brings over the namespace which is superfluous on every html element
+		// the string below is from the xslt file 
+		// @see includes/modules/import/ooxml/xsl/docx2html.xsl
+		$result = preg_replace( '/xmlns="http:\/\/www.w3.org\/1999\/xhtml"/', '', $result );
+
+		return $result;
+	}
+
+	/**
+	 * adds external hyperlinks, if they are present in a chapter
+	 * 
+	 * @param \DOMDocument $chapter
+	 * @return \DOMDocument
+	 */
+	protected function addHyperlinks( \DOMDocument $chapter ) {
+		$ln = $chapter->getElementsByTagName( 'a' );
+
+		if ( $ln->length > 0 ) {
+			foreach ( $ln as $link ) {
+				if ( $link->hasAttribute( 'class' ) ) {
+					$ln_id = $link->getAttribute( 'class' );
+
+					if ( array_key_exists( $ln_id, $this->ln ) ) {
+						$link->setAttribute( 'href', $this->ln[$ln_id] );
+					}
+				}
+			}
+		}
+		return $chapter;
+	}
+
+	/**
+	 * adds footnotes, if they are present in the chapter
+	 * 
+	 * @param \DOMDocument $chapter
+	 */
+	protected function addFootnotes( \DOMDocument $chapter ) {
+
+		$fn = $chapter->getElementsByTagName( 'sup' );
+
 		if ( $fn->length > 0 ) {
 			$fn_ids = array ();
 			foreach ( $fn as $int ) {
@@ -453,15 +522,7 @@ class Docx extends Import {
 				}
 			}
 		}
-
-		$result = $chapter->saveHTML( $chapter->documentElement );
-
-		// appendChild brings over the namespace which is superfluous on every html element
-		// the string below is from the xslt file 
-		// @see includes/modules/import/ooxml/xsl/docx2html.xsl
-		$result = preg_replace( '/xmlns="http:\/\/www.w3.org\/1999\/xhtml"/', '', $result );
-
-		return $result;
+		return $chapter;
 	}
 
 	/**
@@ -602,11 +663,11 @@ class Docx extends Import {
 	}
 
 	/**
-	 * Give a schema, get back a path that points to the file
+	 * Give it a schema, get back a path(s) that points to a resource
 	 * 
 	 * @param string $schema
 	 * @param string $id
-	 * @return string
+	 * @return string\array 
 	 */
 	protected function getTargetPath( $schema, $id = '' ) {
 		$path = '';
@@ -618,20 +679,31 @@ class Docx extends Import {
 		} else {
 			$path_to_rel_doc = 'word/_rels/document.xml.rels';
 		}
-				
+
 		$relations = simplexml_load_string(
 			$this->zip->getFromName( $path_to_rel_doc )
 		);
-			
+
 		foreach ( $relations->Relationship as $rel ) {
-			if ( empty( $id ) && $rel["Type"] == $schema ) {
-				$path = $rel['Target'];
-			} elseif ( $rel["Id"] == $id && $rel["Type"] == $schema ) {
-				$path = 'word/' . $rel['Target'];
-			} elseif ( ('footnotes' === $id || 'endnotes' === $id ) && $rel["Type"] == $schema ){
-				$path = 'word/' . $rel['Target'];
-			} 
+			if ( $rel["Type"] == $schema ) {
+				switch ( $id ) {
+
+					case 'footnotes':
+						$path = 'word/' . $rel['Target'];
+						break;
+					case 'endnotes':
+						$path = 'word/' . $rel['Target'];
+						break;
+					case 'hyperlink':
+						$path["{$rel['Id']}"] = ( string ) $rel['Target'];
+						break;
+					default:
+						$path = $rel['Target'];
+						break;
+				}
+			}
 		}
+
 		return $path;
 	}
 
