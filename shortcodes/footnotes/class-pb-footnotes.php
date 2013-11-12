@@ -324,7 +324,7 @@ class Footnotes {
 		$html = preg_replace( $find, $replace, $html );
 
 		// Important, complex regular expressions have been known to, literally, crash PHP.
-		// When testing, make sure this function exists as expected.
+		// When testing, make sure this function exits as expected.
 
 		// Send back JSON
 		header( 'Content-Type: application/json' );
