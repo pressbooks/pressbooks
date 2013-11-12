@@ -24,7 +24,7 @@ class Docx extends Import {
 
 	/**
 	 *
-	 * @var type 
+	 * @var string
 	 */
 	protected $authors;
 	
@@ -110,9 +110,11 @@ class Docx extends Import {
 	}
 
 	/**
-	 * Given a documentElement, it will return an arry of ids 
-	 * 
-	 * @param \DOMDocument $doc_element
+	 * Given a documentElement, it will return an array of ids
+	 *
+	 * @param \DOMDocument $dom_doc
+	 * @param string $tag
+	 *
 	 * @return array
 	 */
 	protected function getFootNoteIDs( \DOMDocument $dom_doc, $tag = 'footnoteReference' ) {
@@ -132,12 +134,13 @@ class Docx extends Import {
 	}
 
 	/**
-	 * Give this some ids and it returns an associcative array of footnotes
-	 * 
-	 * @param array $fn_ids
-	 * @return boolean\array
-	 * @throws \Exception if there is discrepancy between the number of footnotes
-	 * in document.xml and footnotes.xml
+	 * Give this some ids and it returns an associative array of footnotes
+	 *
+	 * @param array $ids
+	 * @param string $tag
+	 *
+	 * @return array|bool
+	 * @throws \Exception if there is discrepancy between the number of footnotes in document.xml and footnotes.xml
 	 */
 	protected function getFootNotes( array $ids, $tag = 'footnotes' ) {
 		$footnotes = array ();
@@ -279,12 +282,9 @@ class Docx extends Import {
 	 * Extract url from zip and load into WP using media_handle_sideload()
 	 * Will return an empty string if something went wrong.
 	 *
-	 * @param string $href original filename, with (relative) path
+	 * @param string $img_id
 	 *
-	 * @see media_handle_sideload
-	 *
-	 * @return string filename
-	 * @throws \Exception
+	 * @return string
 	 */
 	protected function fetchAndSaveUniqueImage( $img_id ) {
 
@@ -347,10 +347,10 @@ class Docx extends Import {
 	}
 
 	/**
-	 * 
 	 * @param \DomDocument $xml
-	 * @param type $chapter_title
-	 * @return type
+	 * @param string $chapter_title
+	 *
+	 * @return string
 	 */
 	protected function parseContent( \DomDocument $xml, $chapter_title ) {
 		$element = $xml->documentElement;
@@ -638,11 +638,12 @@ class Docx extends Import {
 	}
 
 	/**
-	 * Give it a path to a file and it will return 
+	 * Give it a path to a file and it will return
 	 * the contents of that file, either as xml or html
-	 * 
-	 * @param type $file
-	 * @param type $as_xml
+	 *
+	 * @param string $file
+	 * @param bool $as_xml (optional)
+	 *
 	 * @return boolean|\DOMDocument
 	 */
 	protected function getZipContent( $file, $as_xml = true ) {
