@@ -1105,6 +1105,13 @@ ol li li li::before {
   float: right;
 }
 
+/* BLANK PAGE DIV USED FOR GENERATING A BLANK PAGE IN PDF SHOULD BE IGNORED */
+
+.blank-page {
+  display: none;
+}
+
+
 /* FOOTNOTES 
 ============== */
 .footnotes {
