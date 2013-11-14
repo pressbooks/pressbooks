@@ -475,6 +475,9 @@ dt {
 dd {
   margin-bottom: 0;
 }
+
+/* old lists
+
 ul ul,
 ul ul ul {
   list-style-type: none;
@@ -493,6 +496,7 @@ ul li li li::before {
 }
 ol { 
     list-style-type: none;
+    list-style-position: outside;
      counter-reset: level1;
 }
 ol li::before {
@@ -515,6 +519,13 @@ ol li li li::before {
   content: counter(level1) ". " counter(level2) ". " counter(level3) " ";
   counter-increment: level3;
 }
+
+*/
+
+ol.upper-alpha {
+  list-style-type: upper-alpha;
+}
+
 
 cite {
   font-weight: normal;
@@ -1063,4 +1074,37 @@ hr.break-symbols::after {
   font-size: 12pt;
   margin-top: 1.5cm;
   text-transform: uppercase;
+}
+
+/* INSERT A BLANK PAGE */
+div.blank-page {
+  page: blank-page;
+  prince-page-group: start;
+}
+
+page blank-page {
+    @top {
+       content: "";
+    }
+    @top-right {
+       content: "";
+    }
+    @top-left {
+       content: "";
+    }
+    @bottom {
+       content: "";
+    }
+    @bottom-right {
+       content: "";
+    }
+    @bottom-left {
+       content: "";
+    }
+}
+
+div.blank-page {
+  page-break-before: always;
+  visibility: hidden;
+  font-size: 0;
 }
