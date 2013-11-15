@@ -1,7 +1,7 @@
 /*
 
  Name: Austen PDF
-  Version: 1.1
+  Version: 1.2
   Author: PressBooks (Book Oven Inc.)
   Author URI: http://pressbooks.com
   License: Creative Commons Attribution 2.0 Generic license
@@ -16,13 +16,20 @@
 /* FONTS
 ===========	*/
 
-/* Header font */
 @font-face {
   font-family: "Sorts Mill Goudy";
   font-weight: normal;
   font-style: normal;
   src: url(../../fonts/SortsMillGoudy-Regular.ttf) format("truetype");
 }
+@font-face {
+  font-family: "Sorts Mill Goudy";
+  font-weight: normal;
+  font-style: italic;
+  src: url(../../fonts/SortsMillGoudy-Italic.ttf) format("truetype");
+}
+
+
 @font-face {
   font-family: 'Marcellus SC';
   font-weight: normal;
@@ -832,9 +839,7 @@ sup.endnote {
   margin-top: 5px;
   margin-left: 0;
 }
-.endnotes li {
-  text-indent: 22pt;
-}
+
 
 .endnotes p + p {
   text-indent: 0;
