@@ -45,7 +45,7 @@ class Epub3 extends Epub\Epub201 {
 			$this->fixme[$val] = 1;
 		}
 	}
-
+	
 	/**
 	 * Tidy HTML
 	 *
