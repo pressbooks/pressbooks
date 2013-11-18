@@ -121,21 +121,8 @@ class Epub201 extends Import {
 		// Done
 		return $this->revokeCurrentImport();
 	}
-
-
-	protected function addFileExtensions() {
-		$add_mimes = array (
-		    'mp4' => 'video/mp4',
-		    'webm' => 'video/webm',
-		    'ogv' => 'video/ogg',
-		    'mp3' => 'audio/mpeg',
-		    'aac' => 'audio/x-aac',
-		    'vorbis' => 'audio/vorbis'
-		);
-
-		return $add_mimes;
-	}
 	
+
 	/**
 	 * Parse OPF metadata nodes
 	 *
