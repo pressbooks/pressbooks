@@ -25,3 +25,37 @@ function addMimeTypes( $add_mimes = array() ) {
 
 	return $add_mimes;
 }
+
+/**
+ * Unfinished, untested check for file validity on import.
+ * @todo finish this function, test this function, use this on import
+ * @param type $data
+ * @param type $filename
+ * @return boolean
+ */
+function is_valid_media( $data, $filename ) {
+	
+	$mimes = array(
+	    'mp4' => 'video/mp4',
+	    'webm' => 'video/webm',
+	    'ogv' => 'video/ogg',
+	    'ogg' => 'audio/ogg',
+	    'mp3' => 'audio/mpeg',
+	    'aac' => 'audio/x-aac',
+	    'vorbis' => 'audio/vorbis',
+	);
+	
+	$validate = wp_check_filetype( $filename, $mimes );
+	
+	// check the file extension
+	if ( ! array_key_exists( $validate['ext'], $mimes ) ) {
+		return false;
+	}
+
+	// check the mimetype
+	if ( ! in_array( $validate['type'], $mimes ) ) {
+		return false;
+	}
+	
+	return true;
+}
