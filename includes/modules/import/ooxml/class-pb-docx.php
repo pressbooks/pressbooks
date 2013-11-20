@@ -540,7 +540,7 @@ class Docx extends Import {
 		}
 
 		$currentTag = $node->tagName;
-		$currentValue = $node->nodeValue;
+		$currentValue = trim( $node->nodeValue );
 
 		if ( $chapter_name == $currentValue && $this->tag == $currentTag ) {
 			return $node;
