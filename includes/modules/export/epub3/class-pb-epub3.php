@@ -61,7 +61,7 @@ class Epub3 extends Epub\Epub201 {
 		    'valid_xhtml' => 1,
 		    'no_deprecated_attr' => 2,
 		    'unique_ids' => 'fixme-',
-		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
+		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml5',
 		    'tidy' => -1,
 		);
 
@@ -86,8 +86,8 @@ class Epub3 extends Epub\Epub201 {
 		mkdir( $this->tmpDir . '/META-INF' );
 		mkdir( $this->tmpDir . '/OEBPS' );
 		mkdir( $this->tmpDir . '/OEBPS/assets' );
-		mkdir( $this->tmpDir . '/OEBPS/audios' );
-		mkdir( $this->tmpDir . '/OEBPS/videos' );
+		mkdir( $this->tmpDir . '/OEBPS/audio' );
+		mkdir( $this->tmpDir . '/OEBPS/video' );
 
 		file_put_contents(
 			$this->tmpDir . '/META-INF/container.xml', $this->loadTemplate( $this->dir . '/templates/container.php' ) );
@@ -139,7 +139,7 @@ class Epub3 extends Epub\Epub201 {
 
 	protected function scrapeAndKneadAudios( \DOMDocument $doc ) {
 
-		$fullpath = $this->tmpDir . '/OEBPS/audios';
+		$fullpath = $this->tmpDir . '/OEBPS/audio';
 
 		$audios = $doc->getElementsByTagName( 'audio' );
 		foreach ( $audios as $audio ) {
@@ -170,7 +170,7 @@ class Epub3 extends Epub\Epub201 {
 					}
 
 					// Change src to new relative path
-					$audio->setAttribute( 'src', 'audios/' . $filename );
+					$audio->setAttribute( 'src', 'audio/' . $filename );
 				}
 			}
 
@@ -201,7 +201,7 @@ class Epub3 extends Epub\Epub201 {
 					}
 
 					// Change src to new relative path
-					$source->setAttribute( 'src', 'audios/' . $filename );
+					$source->setAttribute( 'src', 'audio/' . $filename );
 					//$source->nodeValue = str_replace('</source>', '', $source->nodeValue);
 				}
 			}
@@ -212,7 +212,7 @@ class Epub3 extends Epub\Epub201 {
 
 	protected function scrapeAndKneadVideos( \DOMDocument $doc ) {
 
-		$fullpath = $this->tmpDir . '/OEBPS/videos';
+		$fullpath = $this->tmpDir . '/OEBPS/video';
 
 		$videos = $doc->getElementsByTagName( 'video' );
 		foreach ( $videos as $video ) {
@@ -243,7 +243,7 @@ class Epub3 extends Epub\Epub201 {
 					}
 
 					// Change src to new relative path
-					$video->setAttribute( 'src', 'videos/' . $filename );
+					$video->setAttribute( 'src', 'video/' . $filename );
 				}
 			}
 
@@ -274,7 +274,7 @@ class Epub3 extends Epub\Epub201 {
 					}
 
 					// Change src to new relative path
-					$source->setAttribute( 'src', 'videos/' . $filename );
+					$source->setAttribute( 'src', 'video/' . $filename );
 					//$source->nodeValue = str_replace('</source>', '', $source->nodeValue);
 				}
 			}
@@ -340,7 +340,7 @@ class Epub3 extends Epub\Epub201 {
 		// Find all the audio files, insert them into the OPF file
 
 		$html = '';
-		$path_to_audios = $this->tmpDir . '/OEBPS/audios';
+		$path_to_audios = $this->tmpDir . '/OEBPS/audio';
 		$audios = scandir( $path_to_audios );
 
 		foreach ( $audios as $audio ) {
@@ -361,7 +361,7 @@ class Epub3 extends Epub\Epub201 {
 			}
 			$file_id = $check_if_used;
 
-			$html .= sprintf( '<item id="%s" href="OEBPS/audios/%s" media-type="%s" />', $file_id, $audio, $mimetype ) . "\n";
+			$html .= sprintf( '<item id="%s" href="OEBPS/audio/%s" media-type="%s" />', $file_id, $audio, $mimetype ) . "\n";
 
 			$used_ids[$file_id] = true;
 		}
@@ -370,7 +370,7 @@ class Epub3 extends Epub\Epub201 {
 		// Find all the video files, insert them into the OPF file
 
 		$html = '';
-		$path_to_videos = $this->tmpDir . '/OEBPS/videos';
+		$path_to_videos = $this->tmpDir . '/OEBPS/video';
 		$videos = scandir( $path_to_videos );
 
 		foreach ( $videos as $video ) {
@@ -391,7 +391,7 @@ class Epub3 extends Epub\Epub201 {
 			}
 			$file_id = $check_if_used;
 
-			$html .= sprintf( '<item id="%s" href="OEBPS/videos/%s" media-type="%s" />', $file_id, $video, $mimetype ) . "\n";
+			$html .= sprintf( '<item id="%s" href="OEBPS/video/%s" media-type="%s" />', $file_id, $video, $mimetype ) . "\n";
 
 			$used_ids[$file_id] = true;
 		}

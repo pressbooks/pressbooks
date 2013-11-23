@@ -20,20 +20,11 @@ namespace PressBooks\Sanitize;
  */
 function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
 
-	// HTML5 elements not found in XHTML11
-	$html5 = array(
-		'article', 'aside', 'bdi', 'canvas', 'command', 'data', 'datalist', 'details', 'embed', 'figcaption',
-		'figure', 'footer', 'header', 'hgroup', 'keygen', 'mark', 'meter', 'nav', 'output', 'progress', 'rp', 'rt',
-		'ruby', 'section', 'summary', 'time', 'track', 'wbr',
-	);
-	
-/*	
 	$html5 = array(
 		'article', 'aside', 'audio', 'bdi', 'canvas', 'command', 'data', 'datalist', 'details', 'embed', 'figcaption',
 		'figure', 'footer', 'header', 'hgroup', 'keygen', 'mark', 'meter', 'nav', 'output', 'progress', 'rp', 'rt',
 		'ruby', 'section', 'source', 'summary', 'time', 'track', 'video', 'wbr',
 	);
-*/
 
 	$search_open = $replace_open = $search_closed = $replace_closed = array();
 
@@ -49,6 +40,36 @@ function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
 	return $t;
 }
 
+/**
+ * Convert HTML5 tags to XHTML5 divs
+ * 
+ * @param type $t
+ * @param type $C
+ * @param type $S
+ * @return string
+ */
+function html5_to_xhtml5( $t, $C = array(), $S = array() ) {
+
+	// HTML5 elements not found in XHTML11
+	$html5 = array(
+	    'article', 'aside', 'bdi', 'canvas', 'command', 'data', 'datalist', 'details', 'embed', 'figcaption',
+	    'figure', 'footer', 'header', 'hgroup', 'keygen', 'mark', 'meter', 'nav', 'output', 'progress', 'rp', 'rt',
+	    'ruby', 'section', 'summary', 'time', 'track', 'wbr',
+	);
+
+	$search_open = $replace_open = $search_closed = $replace_closed = array();
+
+	foreach ( $html5 as $tag ) {
+		$search_open[] = '`(<' . $tag . ')([^\w])`i';
+		$replace_open[] = "<div class='bc-$tag $tag' $2";
+		$search_closed[] = "</$tag>";
+		$replace_closed[] = '</div>';
+	}
+
+	$t = preg_replace( $search_open, $replace_open, str_replace( $search_closed, $replace_closed, $t ) );
+
+	return $t;
+}
 
 /**
  * Sanitize XML attribute
