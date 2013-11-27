@@ -239,7 +239,7 @@ class Epub3 extends Epub\Epub201 {
 		foreach ( $videos as $video ) {
 
 			//If there is a src attribute with a value, let's deal with that first
-			if ( $audio->hasAttribute( 'src' ) && ( $audio->getAttribute( 'src' ) != "" ) ) {
+			if ( $video->hasAttribute( 'src' ) && ( $video->getAttribute( 'src' ) != "" ) ) {
 
 				// Fetch the audio file
 				$url = $video->getAttribute( 'src' );
@@ -247,10 +247,10 @@ class Epub3 extends Epub\Epub201 {
 
 				if ( $filename ) {
 					// Change src to new relative path
-					$audio->setAttribute( 'src', 'assets/' . $filename );
+					$video->setAttribute( 'src', 'assets/' . $filename );
 				} else {
 					// Tag broken media
-					$audio->setAttribute( 'src', "{$url}#fixme" );
+					$video->setAttribute( 'src', "{$url}#fixme" );
 				}
 			}
 		}
