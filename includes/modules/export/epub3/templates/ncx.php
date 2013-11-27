@@ -8,50 +8,60 @@ if ( ! defined( 'ABSPATH' ) )
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+<ncx version="2005-1" xml:lang="en" xmlns="http://www.daisy.org/z3986/2005/ncx/">
 
 	<head>
-		<meta http-equiv="default-style" content="text/html; charset=utf-8"/>
-		<title><?php bloginfo('name'); ?> </title>
-		<?php if ( ! empty( $stylesheet ) ): ?><link rel="stylesheet" href="<?php echo $stylesheet; ?>" type="text/css" /><?php endif; ?>
+		<!-- The following four metadata items are required for all NCX documents,
+		including those conforming to the relaxed constraints of OPS 2.0 -->
+
+		<meta name="dtb:uid" content="<?php echo trim( $dtd_uid ); ?>" /> <!-- same as in .opf -->
+		<meta name="dtb:depth" content="2"/> <!-- 1 or higher -->
+		<meta name="dtb:totalPageCount" content="0"/> <!-- must be 0 -->
+		<meta name="dtb:maxPageNumber" content="0"/> <!-- must be 0 -->
 	</head>
 
-	<body>
-		<nav epub:type="toc">
-			<h1 class="title">Table of Contents</h1>
-				<ol epub:type="list">
-					<?php
-					// Map has a [ Part -> Chapter ] <NavPoint> hierarchy
-					$part_open = false;
-					foreach ( $manifest as $k => $v ) {
+	<docTitle>
+		<text><?php bloginfo('name'); ?></text>
+	</docTitle>
 
-						if ( true == $part_open && ! preg_match( '/^chapter-/', $k ) ) {
-							$part_open = false;
-							echo '</ol></li>' . "\n";
-						}
+	<?php if ( ! empty( $author ) ): ?>
+	<docAuthor>
+		<text><?php echo $author; ?></text>
+	</docAuthor>
+	<?php endif; ?>
 
-						$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
-						if ( ! $text ) $text = ' ';
+	<navMap>
+		<?php
+		// Map has a [ Part -> Chapter ] <NavPoint> hierarchy
+		$i = 1;
+		$part_open = false;
+		foreach ( $manifest as $k => $v ) {
 
-						if ( preg_match( '/^part-/', $k ) ) {
-							echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a>';
-						} else {
-							echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a></li>';
-						}
-						
-						if ( preg_match( '/^part-/', $k ) ) {
-							$part_open = true;
-							echo '<ol>' . "\n";
-						} else {
-							//echo '</li>';
-							//echo "\n";
-						}
-					}
-					if ( true == $part_open ) {
-						echo '</ol></li>' . "\n";
-					}
-					?>
-				</ol>
-		</nav>
-	</body>
-</html>
+			if ( true == $part_open && ! preg_match( '/^chapter-/', $k ) ) {
+				$part_open = false;
+				echo '</navPoint>';
+			}
+
+			$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
+			if ( ! $text ) $text = ' ';
+
+			printf( '
+				<navPoint id="%s" playOrder="%s">
+				<navLabel><text>%s</text></navLabel>
+				<content src="OEBPS/%s" />
+				', $k, $i, $text, $v['filename'] );
+
+			if ( preg_match( '/^part-/', $k ) ) {
+				$part_open = true;
+			} else {
+				echo '</navPoint>';
+			}
+
+			++$i;
+		}
+		if ( true == $part_open ) {
+			echo '</navPoint>';
+		}
+		?>
+	</navMap>
+</ncx>
