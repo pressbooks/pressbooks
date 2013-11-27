@@ -7,51 +7,17 @@ if ( ! defined( 'ABSPATH' ) )
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" xml:lang="en">
+<head>
+	<title><?php echo $post_title; ?> -- <?php bloginfo( 'name' ); ?></title>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+	<meta charset="utf-8"/>
+	<meta name="EPB-UUID" content="<?php echo $isbn; ?>" />
 
-	<head>
-		<meta http-equiv="default-style" content="text/html; charset=utf-8"/>
-		<title><?php bloginfo('name'); ?> </title>
-		<?php if ( ! empty( $stylesheet ) ): ?><link rel="stylesheet" href="<?php echo $stylesheet; ?>" type="text/css" /><?php endif; ?>
-	</head>
+	<?php if ( ! empty( $stylesheet ) ): ?><link rel="stylesheet" href="<?php echo $stylesheet; ?>" type="text/css" /><?php endif; ?>
 
-	<body>
-		<nav epub:type="toc">
-			<h1 class="title">Table of Contents</h1>
-				<ol epub:type="list">
-					<?php
-					// Map has a [ Part -> Chapter ] <NavPoint> hierarchy
-					$part_open = false;
-					foreach ( $manifest as $k => $v ) {
-
-						if ( true == $part_open && ! preg_match( '/^chapter-/', $k ) ) {
-							$part_open = false;
-							echo '</ol></li>' . "\n";
-						}
-
-						$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
-						if ( ! $text ) $text = ' ';
-
-						if ( preg_match( '/^part-/', $k ) ) {
-							echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a>';
-						} else {
-							echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a></li>';
-						}
-						
-						if ( preg_match( '/^part-/', $k ) ) {
-							$part_open = true;
-							echo '<ol>' . "\n";
-						} else {
-							//echo '</li>';
-							//echo "\n";
-						}
-					}
-					if ( true == $part_open ) {
-						echo '</ol></li>' . "\n";
-					}
-					?>
-				</ol>
-		</nav>
-	</body>
+</head>
+<body>
+<?php echo $post_content; ?>
+</body>
 </html>
