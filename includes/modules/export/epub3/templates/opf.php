@@ -127,8 +127,6 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			echo "\n";
 		}
 		echo $manifest_assets;
-		echo $manifest_audios;
-		echo $manifest_videos;
 		?>
 		<item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
 		<?php if ( ! empty( $stylesheet ) ): ?><item id="stylesheet" href="OEBPS/<?php echo $stylesheet; ?>"  media-type="text/css" /><?php endif; ?>
