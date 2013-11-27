@@ -69,10 +69,7 @@ class Epub3 extends Epub\Epub201 {
 		unset( $GLOBALS['hl_Ids'] );
 		if ( ! empty( $this->fixme ) ) $GLOBALS['hl_Ids'] = $this->fixme;
 
-
-		$spec = 'audio = src, preload, autoplay, mediagroup, loop, muted, controls; video = src, poster, preload, autoplay, mediagroup, loop, muted, controls, width, height; source = src, type, media; track = kind, src, srclang, label, default'; // all standards-permitted attributes are allowed in the elements
-
-		return htmLawed( $html, $config, $spec );
+		return htmLawed( $html, $config );
 	}
 
 	/**
@@ -304,6 +301,7 @@ class Epub3 extends Epub\Epub201 {
 		file_put_contents(
 			$this->tmpDir . "/toc.xhtml", $this->loadTemplate( $this->dir . '/templates/toc.php', $vars ) );
 		
+		// for backwards compatibility
 		file_put_contents(
 			$this->tmpDir . "/toc.ncx",
 			$this->loadTemplate( $this->dir . '/templates/ncx.php', $vars ) );

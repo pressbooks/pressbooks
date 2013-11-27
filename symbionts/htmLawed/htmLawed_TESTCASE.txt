@@ -1,6 +1,6 @@
 /*
-htmLawed_TESTCASE.txt, 21 August 2013
-htmLawed 1.1.15, 11 August August 2013
+htmLawed_TESTCASE.txt, 27 August 2013
+htmLawed 1.2.beta.4, 11 September 2013
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
 A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed
@@ -402,6 +402,7 @@ src=&#106;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#58;&#97;&#108;&#1
 <a style=";-moz-binding:url(http://lukasz.pilorz.net/xss/xss.xml#xss)" href="http://example.com">test</a><br />
 <strong>Bad IE7:</strong> <a href="http://x&x=%22+style%3d%22background-image%3a+expression%28alert
 %28%27xss%3f%29%29">x</a><br />
+<strong>Opera:</strong> <a href="\xE2\x80\x83javascript:alert(123)">link</a>
 <strong>Bad IE7:</strong> <a style=color:expr/*comment*/ession(alert(document.domain))>xxx</a><br />
 <strong>Bad IE7:</strong> <a href="xxx" style="background: exp&#x72;ession(alert('xss'));">xxx</a><br />
 <strong>Bad IE7:</strong> <a href="xxx" style="background: &#101;xpression(alert('xss'));">xxx</a><br />
