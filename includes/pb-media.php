@@ -27,8 +27,8 @@ function addMimeTypes( $add_mimes = array() ) {
 }
 
 /**
- * Unfinished, untested check for file validity on import.
- * @todo finish this function, test this function, use this on import
+ * Checks for file validity on import.
+ * 
  * @param type $data
  * @param type $filename
  * @return boolean
@@ -46,7 +46,7 @@ function is_valid_media( $data, $filename ) {
 	);
 	
 	$validate = wp_check_filetype( $filename, $mimes );
-	
+
 	// check the file extension
 	if ( ! array_key_exists( $validate['ext'], $mimes ) ) {
 		return false;

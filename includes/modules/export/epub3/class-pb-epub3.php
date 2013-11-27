@@ -86,8 +86,6 @@ class Epub3 extends Epub\Epub201 {
 		mkdir( $this->tmpDir . '/META-INF' );
 		mkdir( $this->tmpDir . '/OEBPS' );
 		mkdir( $this->tmpDir . '/OEBPS/assets' );
-		mkdir( $this->tmpDir . '/OEBPS/audio' );
-		mkdir( $this->tmpDir . '/OEBPS/video' );
 
 		file_put_contents(
 			$this->tmpDir . '/META-INF/container.xml', $this->loadTemplate( $this->dir . '/templates/container.php' ) );
@@ -114,9 +112,7 @@ class Epub3 extends Epub\Epub201 {
 		// Download images, change to relative paths
 		$doc = $this->scrapeAndKneadImages( $doc );
 		// Download audio files, change to relative paths
-		$doc = $this->scrapeAndKneadAudios( $doc );
-		// Download video files, change to relative paths
-		$doc = $this->scrapeAndKneadVideos( $doc );
+		$doc = $this->scrapeAndKneadMedia( $doc );
 
 		// Deal with <a href="">, <a href=''>, and other mutations
 		$doc = $this->kneadHref( $doc, $type, $pos );
@@ -137,9 +133,87 @@ class Epub3 extends Epub\Epub201 {
 		return $html;
 	}
 
-	protected function scrapeAndKneadAudios( \DOMDocument $doc ) {
+	/**
+	 * Fetch a url with wp_remote_get(), save it to $fullpath with a unique name.
+	 * Will return an empty string if something went wrong.
+	 * 
+	 * @staticvar array $already_done
+	 * @param string $url
+	 * @param string $fullpath
+	 * @return string|array
+	 */
+	protected function fetchAndSaveUniqueMedia( $url, $fullpath ) {
+		// Cheap cache
+		static $already_done = array();
+		if ( isset( $already_done[$url] ) ) {
+			return $already_done[$url];
+		}
 
-		$fullpath = $this->tmpDir . '/OEBPS/audio';
+		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
+
+		// WordPress error?
+		if ( is_wp_error( $response ) ) {
+			// TODO: handle $response->get_error_message();
+			$already_done[$url] = '';
+			return '';
+		}
+
+		// Basename without query string
+		$filename = explode( '?', basename( $url ) );
+		$filename = array_shift( $filename );
+
+		$filename = sanitize_file_name( urldecode( $filename ) );
+		$filename = Sanitize\force_ascii( $filename );
+
+		$tmp_file = \PressBooks\Utility\create_tmp_file();
+		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+
+		if ( ! \PressBooks\Media\is_valid_media( $tmp_file, $filename ) ) {
+			$already_done[$url] = '';
+			return ''; // Not a valid media type
+		}
+
+		// Check for duplicates, save accordingly
+		if ( ! file_exists( "$fullpath/$filename" ) ) {
+			copy( $tmp_file, "$fullpath/$filename" );
+		} elseif ( md5( file_get_contents( $tmp_file ) ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+			$filename = wp_unique_filename( $fullpath, $filename );
+			copy( $tmp_file, "$fullpath/$filename" );
+		}
+
+		$already_done[$url] = $filename;
+		return $filename;
+	}
+
+	/**
+	 * Parse HTML snippet, download all found <audio>, <video> and <source> tags 
+	 * into /OEBPS/assets/, return the HTML with changed 'src' paths.
+	 *
+	 * @param \DOMDocument $doc
+	 * @return \DOMDocument
+	 */
+	protected function scrapeAndKneadMedia( \DOMDocument $doc ) {
+
+		$fullpath = $this->tmpDir . '/OEBPS/assets';
+
+		//Now, we'll scan each audio file for source tags and deal with them
+		$sources = $doc->getElementsByTagName( 'source' );
+		foreach ( $sources as $source ) {
+
+			if ( $source->getAttribute( 'src' ) != '' ) {
+				// Fetch the audio file
+				$url = $source->getAttribute( 'src' );
+				$filename = $this->fetchAndSaveUniqueMedia( $url, $fullpath );
+
+				if ( $filename ) {
+					// Change src to new relative path
+					$source->setAttribute( 'src', 'assets/' . $filename );
+				} else {
+					// Tag broken media
+					$source->setAttribute( 'src', "{$url}#fixme" );
+				}
+			}
+		}
 
 		$audios = $doc->getElementsByTagName( 'audio' );
 		foreach ( $audios as $audio ) {
@@ -149,133 +223,34 @@ class Epub3 extends Epub\Epub201 {
 
 				// Fetch the audio file
 				$url = $audio->getAttribute( 'src' );
-				$response = wp_remote_get( $url, array ( 'timeout' => $this->timeout ) );
+				$filename = $this->fetchAndSaveUniqueMedia( $url, $fullpath );
 
-				// WordPress error?
-				if ( is_wp_error( $response ) ) {
-					// TODO: handle $response->get_error_message();
-				} else {
-					$filename = array_shift( explode( '?', basename( $url ) ) ); // Basename without query string
-					$filename = sanitize_file_name( urldecode( $filename ) );
-					$filename = Sanitize\force_ascii( $filename );
-
-					$file_contents = wp_remote_retrieve_body( $response );
-
-					// Check for duplicates, save accordingly
-					if ( ! file_exists( "$fullpath/$filename" ) ) {
-						file_put_contents( "$fullpath/$filename", $file_contents );
-					} elseif ( md5( $file_contents ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
-						$filename = wp_unique_filename( $fullpath, $filename );
-						file_put_contents( "$fullpath/$filename", $file_contents );
-					}
-
+				if ( $filename ) {
 					// Change src to new relative path
-					$audio->setAttribute( 'src', 'audio/' . $filename );
-				}
-			}
-
-			//Now, we'll scan each audio file for source tags and deal with them
-			$sources = $audio->getElementsByTagName( 'source' );
-			foreach ( $sources as $source ) {
-
-				// Fetch the audio file
-				$url = $source->getAttribute( 'src' );
-				$response = wp_remote_get( $url, array ( 'timeout' => $this->timeout ) );
-
-				// WordPress error?
-				if ( is_wp_error( $response ) ) {
-					// TODO: handle $response->get_error_message();
+					$audio->setAttribute( 'src', 'assets/' . $filename );
 				} else {
-					$filename = array_shift( explode( '?', basename( $url ) ) ); // Basename without query string
-					$filename = sanitize_file_name( urldecode( $filename ) );
-					$filename = Sanitize\force_ascii( $filename );
-
-					$file_contents = wp_remote_retrieve_body( $response );
-
-					// Check for duplicates, save accordingly
-					if ( ! file_exists( "$fullpath/$filename" ) ) {
-						file_put_contents( "$fullpath/$filename", $file_contents );
-					} elseif ( md5( $file_contents ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
-						$filename = wp_unique_filename( $fullpath, $filename );
-						file_put_contents( "$fullpath/$filename", $file_contents );
-					}
-
-					// Change src to new relative path
-					$source->setAttribute( 'src', 'audio/' . $filename );
-					//$source->nodeValue = str_replace('</source>', '', $source->nodeValue);
+					// Tag broken media
+					$audio->setAttribute( 'src', "{$url}#fixme" );
 				}
 			}
 		}
-
-		return $doc;
-	}
-
-	protected function scrapeAndKneadVideos( \DOMDocument $doc ) {
-
-		$fullpath = $this->tmpDir . '/OEBPS/video';
 
 		$videos = $doc->getElementsByTagName( 'video' );
 		foreach ( $videos as $video ) {
 
 			//If there is a src attribute with a value, let's deal with that first
-			if ( $video->hasAttribute( 'src' ) && ( $video->getAttribute( 'src' ) != "" ) ) {
+			if ( $audio->hasAttribute( 'src' ) && ( $audio->getAttribute( 'src' ) != "" ) ) {
 
-				// Fetch the video file
+				// Fetch the audio file
 				$url = $video->getAttribute( 'src' );
-				$response = wp_remote_get( $url, array ( 'timeout' => $this->timeout ) );
+				$filename = $this->fetchAndSaveUniqueMedia( $url, $fullpath );
 
-				// WordPress error?
-				if ( is_wp_error( $response ) ) {
-					// TODO: handle $response->get_error_message();
-				} else {
-					$filename = array_shift( explode( '?', basename( $url ) ) ); // Basename without query string
-					$filename = sanitize_file_name( urldecode( $filename ) );
-					$filename = Sanitize\force_ascii( $filename );
-
-					$file_contents = wp_remote_retrieve_body( $response );
-
-					// Check for duplicates, save accordingly
-					if ( ! file_exists( "$fullpath/$filename" ) ) {
-						file_put_contents( "$fullpath/$filename", $file_contents );
-					} elseif ( md5( $file_contents ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
-						$filename = wp_unique_filename( $fullpath, $filename );
-						file_put_contents( "$fullpath/$filename", $file_contents );
-					}
-
+				if ( $filename ) {
 					// Change src to new relative path
-					$video->setAttribute( 'src', 'video/' . $filename );
-				}
-			}
-
-			//Now, we'll scan each video tag for source tags and deal with them
-			$sources = $video->getElementsByTagName( 'source' );
-			foreach ( $sources as $source ) {
-
-				// Fetch the video file
-				$url = $source->getAttribute( 'src' );
-				$response = wp_remote_get( $url, array ( 'timeout' => $this->timeout ) );
-
-				// WordPress error?
-				if ( is_wp_error( $response ) ) {
-					// TODO: handle $response->get_error_message();
+					$audio->setAttribute( 'src', 'assets/' . $filename );
 				} else {
-					$filename = array_shift( explode( '?', basename( $url ) ) ); // Basename without query string
-					$filename = sanitize_file_name( urldecode( $filename ) );
-					$filename = Sanitize\force_ascii( $filename );
-
-					$file_contents = wp_remote_retrieve_body( $response );
-
-					// Check for duplicates, save accordingly
-					if ( ! file_exists( "$fullpath/$filename" ) ) {
-						file_put_contents( "$fullpath/$filename", $file_contents );
-					} elseif ( md5( $file_contents ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
-						$filename = wp_unique_filename( $fullpath, $filename );
-						file_put_contents( "$fullpath/$filename", $file_contents );
-					}
-
-					// Change src to new relative path
-					$source->setAttribute( 'src', 'video/' . $filename );
-					//$source->nodeValue = str_replace('</source>', '', $source->nodeValue);
+					// Tag broken media
+					$audio->setAttribute( 'src', "{$url}#fixme" );
 				}
 			}
 		}
@@ -336,66 +311,6 @@ class Epub3 extends Epub\Epub201 {
 		}
 		$vars['manifest_assets'] = $html;
 
-		// Put contents
-		// Find all the audio files, insert them into the OPF file
-
-		$html = '';
-		$path_to_audios = $this->tmpDir . '/OEBPS/audio';
-		$audios = scandir( $path_to_audios );
-
-		foreach ( $audios as $audio ) {
-			if ( '.' == $audio || '..' == $audio ) continue;
-			$mimetype = $this->mediaType( "$path_to_audios/$audio" );
-			if ( $this->coverImage == $audio ) {
-				$file_id = 'cover-audio';
-			} else {
-				$file_id = 'media-' . pathinfo( "$path_to_audios/$audio", PATHINFO_FILENAME );
-				$file_id = Sanitize\sanitize_xml_id( $file_id );
-			}
-
-			// Check if a media id has already been used, if so give it a new one
-			$check_if_used = $file_id;
-			for ( $i = 2; $i <= 999; $i ++  ) {
-				if ( empty( $used_ids[$check_if_used] ) ) break;
-				else $check_if_used = $file_id . "-$i";
-			}
-			$file_id = $check_if_used;
-
-			$html .= sprintf( '<item id="%s" href="OEBPS/audio/%s" media-type="%s" />', $file_id, $audio, $mimetype ) . "\n";
-
-			$used_ids[$file_id] = true;
-		}
-		$vars['manifest_audios'] = $html;
-
-		// Find all the video files, insert them into the OPF file
-
-		$html = '';
-		$path_to_videos = $this->tmpDir . '/OEBPS/video';
-		$videos = scandir( $path_to_videos );
-
-		foreach ( $videos as $video ) {
-			if ( '.' == $video || '..' == $video ) continue;
-			$mimetype = $this->mediaType( "$path_to_videos/$video" );
-			if ( $this->coverImage == $video ) {
-				$file_id = 'cover-video';
-			} else {
-				$file_id = 'media-' . pathinfo( "$path_to_videos/$video", PATHINFO_FILENAME );
-				$file_id = Sanitize\sanitize_xml_id( $file_id );
-			}
-
-			// Check if a media id has already been used, if so give it a new one
-			$check_if_used = $file_id;
-			for ( $i = 2; $i <= 999; $i ++  ) {
-				if ( empty( $used_ids[$check_if_used] ) ) break;
-				else $check_if_used = $file_id . "-$i";
-			}
-			$file_id = $check_if_used;
-
-			$html .= sprintf( '<item id="%s" href="OEBPS/video/%s" media-type="%s" />', $file_id, $video, $mimetype ) . "\n";
-
-			$used_ids[$file_id] = true;
-		}
-		$vars['manifest_videos'] = $html;
 		// Put contents
 
 		file_put_contents(

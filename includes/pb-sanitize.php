@@ -50,7 +50,7 @@ function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
  */
 function html5_to_xhtml5( $t, $C = array(), $S = array() ) {
 
-	// HTML5 elements not found in XHTML11
+	// HTML5 elements not found in XHTML5
 	$html5 = array(
 	    'article', 'aside', 'bdi', 'canvas', 'command', 'data', 'datalist', 'details', 'embed', 'figcaption',
 	    'figure', 'footer', 'header', 'hgroup', 'keygen', 'mark', 'meter', 'nav', 'output', 'progress', 'rp', 'rt',
