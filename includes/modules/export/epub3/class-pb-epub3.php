@@ -302,7 +302,7 @@ class Epub3 extends Epub\Epub201 {
 		);
 
 		file_put_contents(
-			$this->tmpDir . "/toc.xhtml", $this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+			$this->tmpDir . "/toc.xhtml", $this->loadTemplate( $this->dir . '/templates/toc.php', $vars ) );
 		
 		file_put_contents(
 			$this->tmpDir . "/toc.ncx",
