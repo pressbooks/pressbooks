@@ -195,62 +195,25 @@ class Epub3 extends Epub\Epub201 {
 	protected function scrapeAndKneadMedia( \DOMDocument $doc ) {
 
 		$fullpath = $this->tmpDir . '/OEBPS/assets';
+		$tags = array( 'source', 'audio', 'video' );
 
-		//Now, we'll scan each audio file for source tags and deal with them
-		$sources = $doc->getElementsByTagName( 'source' );
-		foreach ( $sources as $source ) {
+		foreach ( $tags as $tag ) {
 
-			if ( $source->getAttribute( 'src' ) != '' ) {
-				// Fetch the audio file
-				$url = $source->getAttribute( 'src' );
-				$filename = $this->fetchAndSaveUniqueMedia( $url, $fullpath );
+			$sources = $doc->getElementsByTagName( $tag );
+			foreach ( $sources as $source ) {
 
-				if ( $filename ) {
-					// Change src to new relative path
-					$source->setAttribute( 'src', 'assets/' . $filename );
-				} else {
-					// Tag broken media
-					$source->setAttribute( 'src', "{$url}#fixme" );
-				}
-			}
-		}
+				if ( $source->getAttribute( 'src' ) != '' ) {
+					// Fetch the audio file
+					$url = $source->getAttribute( 'src' );
+					$filename = $this->fetchAndSaveUniqueMedia( $url, $fullpath );
 
-		$audios = $doc->getElementsByTagName( 'audio' );
-		foreach ( $audios as $audio ) {
-
-			//If there is a src attribute with a value, let's deal with that first
-			if ( $audio->hasAttribute( 'src' ) && ( $audio->getAttribute( 'src' ) != "" ) ) {
-
-				// Fetch the audio file
-				$url = $audio->getAttribute( 'src' );
-				$filename = $this->fetchAndSaveUniqueMedia( $url, $fullpath );
-
-				if ( $filename ) {
-					// Change src to new relative path
-					$audio->setAttribute( 'src', 'assets/' . $filename );
-				} else {
-					// Tag broken media
-					$audio->setAttribute( 'src', "{$url}#fixme" );
-				}
-			}
-		}
-
-		$videos = $doc->getElementsByTagName( 'video' );
-		foreach ( $videos as $video ) {
-
-			//If there is a src attribute with a value, let's deal with that first
-			if ( $video->hasAttribute( 'src' ) && ( $video->getAttribute( 'src' ) != "" ) ) {
-
-				// Fetch the audio file
-				$url = $video->getAttribute( 'src' );
-				$filename = $this->fetchAndSaveUniqueMedia( $url, $fullpath );
-
-				if ( $filename ) {
-					// Change src to new relative path
-					$video->setAttribute( 'src', 'assets/' . $filename );
-				} else {
-					// Tag broken media
-					$video->setAttribute( 'src', "{$url}#fixme" );
+					if ( $filename ) {
+						// Change src to new relative path
+						$source->setAttribute( 'src', 'assets/' . $filename );
+					} else {
+						// Tag broken media
+						$source->setAttribute( 'src', "{$url}#fixme" );
+					}
 				}
 			}
 		}
