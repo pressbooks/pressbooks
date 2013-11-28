@@ -123,6 +123,66 @@ class Epub3 extends Epub\Epub201 {
 	}
 	
 	/**
+	 * Parse CSS, copy assets, rewrite copy.
+	 *
+	 * @param string $path_to_original_stylesheet*
+	 * @param string $path_to_copy_of_stylesheet
+	 */
+	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
+
+		$css_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
+		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';
+
+		$css = file_get_contents( $path_to_copy_of_stylesheet );
+		$css = static::injectHouseStyles( $css );
+
+		// Search for url("*"), url('*'), and url(*)
+		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $css_dir, $path_to_epub_assets ) {
+
+			$url = $matches[3];
+			$filename = sanitize_file_name( basename( $url ) );
+
+			if ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) == 1 ) {
+
+				// Look for "^images/"
+				// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/"	or "^images/../../denied/"
+
+				$my_image = realpath( "$css_dir/$url" );
+				if ( $my_image ) {
+					copy( $my_image, "$path_to_epub_assets/$filename" );
+					return "url(assets/$filename)";
+				}
+
+			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.jpe?g|\.gif|\.png)$/i', $url ) ) {
+
+				// Look for images via http(s), pull them in locally
+
+				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $path_to_epub_assets ) ) {
+					return "url(assets/$new_filename)";
+				}
+
+			} elseif ( preg_match( '#^\.\./\.\./fonts/[a-zA-Z0-9_-]+(\.woff|\.otf)$#i', $url ) ) {
+
+				// Look for ../../fonts/*.ttf (or .otf), copy into our Epub
+
+				$my_font = realpath( "$css_dir/$url" );
+				if ( $my_font ) {
+					copy( $my_font, "$path_to_epub_assets/$filename" );
+					return "url(assets/$filename)";
+				}
+
+			}
+
+			return $matches[0]; // No change
+
+		}, $css );
+
+		// Overwrite the new file with new info
+		file_put_contents( $path_to_copy_of_stylesheet, $css );
+	}
+	
+	/**
 	 * Pummel the HTML into EPUB compatible dough.
 	 *
 	 * @param string $html
