@@ -89,6 +89,40 @@ class Epub3 extends Epub\Epub201 {
 	}
 
 	/**
+	 * Create stylesheet. Change $this->stylesheet to a filename used by subsequent methods.
+	 */
+	protected function createStylesheet() {
+		
+		// html5 targeted css
+		$css3 = 'css3.css';
+		$path_to_css3_stylesheet = $this->dir . "/templates/css/$css3";
+		
+		$this->stylesheet = strtolower( sanitize_file_name( wp_get_theme() . '.css' ) );
+		$path_to_tmp_stylesheet = $this->tmpDir . "/OEBPS/{$this->stylesheet}";
+		
+		// Copy stylesheet
+		file_put_contents(
+			$path_to_tmp_stylesheet,
+			$this->loadTemplate( $this->exportStylePath ) );
+
+		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $path_to_tmp_stylesheet );
+
+		// Append overrides
+		file_put_contents(
+			$path_to_tmp_stylesheet,
+			"\n" . $this->cssOverrides,
+			FILE_APPEND
+		);
+		
+		// Append css3
+		file_put_contents(
+			$path_to_tmp_stylesheet,
+			$this->loadTemplate( $path_to_css3_stylesheet ),
+			FILE_APPEND
+		);
+	}
+	
+	/**
 	 * Pummel the HTML into EPUB compatible dough.
 	 *
 	 * @param string $html
