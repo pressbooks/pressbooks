@@ -50,11 +50,11 @@ function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
  */
 function html5_to_xhtml5( $t, $C = array(), $S = array() ) {
 
-	// HTML5 elements not found in XHTML5
+	// HTML5 elements we don't want to deal with just yet
 	$html5 = array(
-	    'article', 'aside', 'bdi', 'canvas', 'command', 'data', 'datalist', 'details', 'embed', 'figcaption',
-	    'figure', 'footer', 'header', 'hgroup', 'keygen', 'mark', 'meter', 'nav', 'output', 'progress', 'rp', 'rt',
-	    'ruby', 'section', 'summary', 'time', 'track', 'wbr',
+	    'bdi', 'canvas', 'command', 'data', 'datalist', 'embed', 
+	    'keygen', 'mark', 'meter', 'nav', 'output', 'progress', 'rp', 'rt',
+	    'ruby', 'time', 'track', 'wbr',
 	);
 
 	$search_open = $replace_open = $search_closed = $replace_closed = array();
