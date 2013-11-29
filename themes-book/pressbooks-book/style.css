@@ -75,7 +75,7 @@ body {
 body {
   background: url("images/bg.png") repeat 0 0 #f9f9f9;
   color: #1F1F1D;
-  font: 1.1em/1.4em "Cardo","Times New Roman", serif;
+  font: 1em/1.4em "Droid Serif", "Georgia", "Times New Roman", serif;
   margin: 0;
   text-align: left;
 }
@@ -964,6 +964,7 @@ aside {
 }
 ol { 
     list-style-type: none;
+    list-style-position: outside;
      counter-reset: level1;
 }
 ol li::before {
@@ -971,18 +972,22 @@ ol li::before {
 	counter-increment: level1;
 }
 ol ol {
+  list-style-position: outside;
 	list-style-type: none;
     counter-reset: level2;
 }   
 ol li li::before {
+  list-style-position: outside;
 	content: counter(level1) "." counter(level2) " ";
 	counter-increment: level2;
 }
 ol ol ol {
+  list-style-position: outside;
 	list-style-type: none;
-    counter-reset: level3;
+  counter-reset: level3;
 }
 ol li li li::before {
+  list-style-position: outside;
 	content: counter(level1) ". " counter(level2) ". " counter(level3) " ";
 	counter-increment: level3;
 }
