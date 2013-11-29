@@ -326,7 +326,7 @@ class Epub201 extends Import {
 			'no_deprecated_attr' => 2,
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
 		);
-
+		
 		return htmLawed( $html, $config );
 	}
 
@@ -382,10 +382,16 @@ class Epub201 extends Import {
 		if ( true == $this->isPbEpub ) {
 			// Remove PB created div id (on EPUB201 Export) that will generate a princexml error on re-export 
 			// @see createPartsAndChapters() in export/epub/class-pb-epub201.php
-			$result = preg_replace( '/(?:<div class="chapter" id="(.*)">)/isU', '<div class="chapter">', $result );
+			$result = preg_replace( '/(?:<div class="chapter+(.*)" id="(.*)">)/isU', '<div>', $result );
 			// Remove PB generated content that is superfluous in a WP/PB environment 
 			// @see createPartsAndChapters() in export/epub/class-pb-epub201.php
 			$result = preg_replace( '/(?:<div class="chapter-title-wrap"[^>]*>)(.*)<\/div>/isU', '', $result );
+			// Remove PB generated author content to avoid duplicate content, (it's already copied to metadata as pb_section_author )
+			$result = preg_replace( '/(?:<h2 class="chapter-author"[^>]*>)(.*)<\/h2>/isU', '', $result );
+			// Replace PB generated div class="ugc chapter">
+			$result = preg_replace( '/(?:<div class="ugc+(.*)">)/isU', '<div>', $result );
+			// Remove PB generated nonindent/indent class
+			$result = preg_replace( '/(?:<p class="(.*)+indent">)/isU', '<p>', $result );
 		}
 		return $result;
 	}
@@ -401,12 +407,17 @@ class Epub201 extends Import {
 	 */
 	protected function pbCheck( $copyrightFile ) {
 		$result = $this->getZipContent( $copyrightFile );
-
+		
 		foreach ( $result->body->div->div->p as $node ) {
 
 			if ( strpos( $node->a['href'][0], 'pressbooks.com', 0 ) ) {
 				$this->isPbEpub = true;
 			}
+		}
+		// applies to PB generated EPUBs with PB_SECRET_SAUCE 
+		// @see createCopyright() in export/epub/class-pb-epub201.php
+		if ( 'copyright-page' == $result->body->div[0]->attributes()->id[0] && 'ugc' == $result->body->div->div->attributes()->class[0] ) {
+			$this->isPbEpub = true;
 		}
 	}
 
