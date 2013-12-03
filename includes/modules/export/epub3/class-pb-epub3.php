@@ -24,7 +24,12 @@ class Epub3 extends Epub\Epub201 {
 	 * $var string
 	 */
 	protected $dir = __DIR__;
-
+	
+	/**
+	 * $var string
+	 */
+	protected $suffix = '_3.epub';
+	
 	/**
 	 * @param array $args
 	 */
@@ -107,6 +112,13 @@ class Epub3 extends Epub\Epub201 {
 
 		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $path_to_tmp_stylesheet );
 
+		// Append css3
+		file_put_contents(
+			$path_to_tmp_stylesheet,
+			$this->loadTemplate( $path_to_css3_stylesheet ),
+			FILE_APPEND
+		);
+		
 		// Append overrides
 		file_put_contents(
 			$path_to_tmp_stylesheet,
@@ -114,12 +126,6 @@ class Epub3 extends Epub\Epub201 {
 			FILE_APPEND
 		);
 		
-		// Append css3
-		file_put_contents(
-			$path_to_tmp_stylesheet,
-			$this->loadTemplate( $path_to_css3_stylesheet ),
-			FILE_APPEND
-		);
 	}
 	
 	/**
@@ -164,7 +170,7 @@ class Epub3 extends Epub\Epub201 {
 
 			} elseif ( preg_match( '#^\.\./\.\./fonts/[a-zA-Z0-9_-]+(\.woff|\.otf)$#i', $url ) ) {
 
-				// Look for ../../fonts/*.ttf (or .otf), copy into our Epub
+				// Look for ../../fonts/*.otf (or .woff), copy into our Epub
 
 				$my_font = realpath( "$css_dir/$url" );
 				if ( $my_font ) {
