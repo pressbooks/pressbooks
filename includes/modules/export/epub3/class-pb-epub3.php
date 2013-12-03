@@ -24,7 +24,12 @@ class Epub3 extends Epub\Epub201 {
 	 * $var string
 	 */
 	protected $dir = __DIR__;
-
+	
+	/**
+	 * $var string
+	 */
+	protected $suffix = '_3.epub';
+	
 	/**
 	 * @param array $args
 	 */

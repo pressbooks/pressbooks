@@ -62,12 +62,15 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	<?php }
 		foreach ( $exports as $file ) {
 			$file_extension = substr( strrchr( $file, '.' ), 1 );
+			$pre_suffix = strstr( $file, '._3.epub' );
 
-			if ( 'html' == $file_extension )
+		if ( 'html' == $file_extension )
 				$file_class = 'xhtml';
 			elseif ( 'xml' == $file_extension )
 				$file_class = 'wxr';
-			else
+			elseif ( 'epub' == $file_extension && '._3.epub' == $pre_suffix )
+				$file_class = 'epub3';
+		else
 				$file_class = $file_extension;
 
 			 ?>

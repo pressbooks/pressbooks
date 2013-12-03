@@ -134,6 +134,11 @@ class Epub201 extends Export {
 	 */
 	protected $dir = __DIR__;
 	
+	/**
+	 * $var string
+	 */
+	protected $suffix = '.epub';
+	
 	
 	/**
 	 * @param array $args
@@ -205,7 +210,7 @@ class Epub201 extends Export {
 			return false;
 		}
 
-		$filename = $this->timestampedFileName( '.epub' );
+		$filename = $this->timestampedFileName( $this->suffix );
 		if ( ! $this->zipEpub( $filename ) ) {
 			return false;
 		}

@@ -432,6 +432,10 @@ a.toplevel_page_pb_sell:hover .wp-menu-image {
 	background: url(../images/epub-36.png) -0 0 no-repeat;
 }
 
+.export-page form.export-file span.export-file-icon.small.epub3 {
+	background: url(../images/epub3-36.png) -0 0 no-repeat;
+}
+
 .export-page form.export-file span.export-file-icon.small.hpub {
 	background: url(../images/hpub-36.png) -0 0 no-repeat;
 }
@@ -458,6 +462,10 @@ a.toplevel_page_pb_sell:hover .wp-menu-image {
 
 .export-page form.export-file span.export-file-icon.large.epub {
 	background: url(../images/epub-48.png) -0 0 no-repeat;
+}
+
+.export-page form.export-file span.export-file-icon.large.epub3 {
+	background: url(../images/epub3-48.png) -0 0 no-repeat;
 }
 
 .export-page form.export-file span.export-file-icon.large.hpub {
