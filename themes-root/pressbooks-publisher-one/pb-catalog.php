@@ -251,8 +251,6 @@ $_current_user_id = $catalog->getUserId();
 	// <![CDATA[
 	jQuery.noConflict();
 	jQuery(function ($) {
-		$('#catalog-content').mixitup({ filterLogic : 'and', layoutMode : 'list' });
-		$('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
 		$('.filter-group-1').click( function () {
 			var filter1_id = $(this).attr( 'data-filter' );
 			var filter1_name = $(this).text();
@@ -306,6 +304,7 @@ $_current_user_id = $catalog->getUserId();
 			$('.catalog-content h1 span.current-filters').text( '' );
 		    e.preventDefault();
 		});
+		$('#catalog-content').mixitup({ filterLogic : 'and', layoutMode : 'list' }).equalizer({ columns: '> div.book-data', min: 350 });
 	});
 	// ]]>
 </script>
