@@ -304,7 +304,13 @@ $_current_user_id = $catalog->getUserId();
 			$('.catalog-content h1 span.current-filters').text( '' );
 		    e.preventDefault();
 		});
-		$('#catalog-content').mixitup({ filterLogic : 'and', layoutMode : 'list' }).equalizer({ columns: '> div.book-data', min: 350 });
+		$('#catalog-content').mixitup({
+			filterLogic: 'and',
+			layoutMode: 'list',
+			onMixLoad: function () {
+				$('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
+			}
+		})
 	});
 	// ]]>
 </script>
