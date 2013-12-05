@@ -307,10 +307,10 @@ $_current_user_id = $catalog->getUserId();
 		$('#catalog-content').mixitup({
 			filterLogic: 'and',
 			layoutMode: 'list',
-			onMixLoad: function () {
-				$('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
-			}
-		})
+			onMixLoad: function () { $('#catalog-content').equalizer(); },
+			onMixEnd: function () { $('#catalog-content').equalizer(); }
+		});
+		$('#catalog-content').equalizer({ columns: '> div.book-data', min: 350, resizeable: false });
 	});
 	// ]]>
 </script>
