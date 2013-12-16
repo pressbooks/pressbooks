@@ -153,8 +153,8 @@ $_current_user_id = $catalog->getUserId();
 	<link rel="stylesheet" type="text/css" href="style-catalog.css?ver=2" />
 	<link href='<?php echo \PressBooks\Sanitize\maybe_https( 'http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
-	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.equalizer.min.js?ver=1.2.3" type="text/javascript"></script>
-	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.mixitup.min.js?ver=1.5.4" type="text/javascript"></script>
+	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.equalizer.min.js?ver=1.2.5" type="text/javascript"></script>
+	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.mixitup.min.js?ver=1.5.6" type="text/javascript"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>assets/js/small-menu.js?ver=0.0.1" type="text/javascript"></script>
 	<?php if ( function_exists( 'ga_mu_plugin_add_script_to_head' ) ) ga_mu_plugin_add_script_to_head(); ?>
 </head>
@@ -250,64 +250,67 @@ $_current_user_id = $catalog->getUserId();
 <script type="text/javascript">
 	// <![CDATA[
 	jQuery.noConflict();
-	jQuery(window).load(function () {
-		jQuery('#catalog-content').mixitup({ filterLogic : 'and', layoutMode : 'list' });
-		jQuery('#catalog-content').equalizer({ columns: '> div.book-data', min: 350 });
-		jQuery('.filter-group-1').click( function () {
-			var filter1_id = jQuery(this).attr( 'data-filter' );
-			var filter1_name = jQuery(this).text();
-			if ( jQuery('.filter-group-2.active').length !== 0 ) {
-				var filter2_id = jQuery('.filter-group-2.active').attr( 'data-filter' );
-				var filter2_name = jQuery('.filter-group-2.active').text();
+	jQuery(function ($) {
+		$('.filter-group-1').click( function () {
+			var filter1_id = $(this).attr( 'data-filter' );
+			var filter1_name = $(this).text();
+			if ( $('.filter-group-2.active').length !== 0 ) {
+				var filter2_id = $('.filter-group-2.active').attr( 'data-filter' );
+				var filter2_name = $('.filter-group-2.active').text();
 			} else {
 				var filter2_id = 'all';
 				var filter2_name = '';
 			}
-			jQuery('#catalog-content').mixitup( 'filter', filter1_id + ' ' + filter2_id );
-			jQuery('.filter-group-1.active').removeClass( 'active' );
-			jQuery(this).addClass( 'active' );
+			$('#catalog-content').mixitup( 'filter', filter1_id + ' ' + filter2_id );
+			$('.filter-group-1.active').removeClass( 'active' );
+			$(this).addClass( 'active' );
 			if ( filter2_name !== '' ) {
 				var currentFilters = filter1_name + ', ' + filter2_name;
 			} else {
 				var currentFilters = filter1_name;
 			}
-			jQuery('.catalog-content h1 span.current-filters').text( currentFilters );
-			jQuery('.catalog-content h1 span.filtered-by').show();
-			jQuery('.catalog-content h1 span.current-filters').show();
-			jQuery('.catalog-content h1 span.clear-filters').show();
+			$('.catalog-content h1 span.current-filters').text(currentFilters).show();
+			$('.catalog-content h1 span.filtered-by').show();
+			$('.catalog-content h1 span.clear-filters').show();
 		} );
-		jQuery('.filter-group-2').click( function () {
-			var filter2_id = jQuery(this).attr( 'data-filter' );
-			var filter2_name = jQuery(this).text();
-			if ( jQuery('.filter-group-1.active').length !== 0 ) {
-				var filter1_id = jQuery('.filter-group-1.active').attr( 'data-filter' );
-				var filter1_name = jQuery('.filter-group-1.active').text();
+		$('.filter-group-2').click( function () {
+			var filter2_id = $(this).attr( 'data-filter' );
+			var filter2_name = $(this).text();
+			if ( $('.filter-group-1.active').length !== 0 ) {
+				var filter1_id = $('.filter-group-1.active').attr( 'data-filter' );
+				var filter1_name = $('.filter-group-1.active').text();
 			} else {
 				var filter1_id = 'all';
 				var filter1_name = '';
 			}
-			jQuery('#catalog-content').mixitup( 'filter', filter1_id + ' ' + filter2_id );
-			jQuery('.filter-group-2.active').removeClass( 'active' );
-			jQuery(this).addClass( 'active' );
+			$('#catalog-content').mixitup( 'filter', filter1_id + ' ' + filter2_id );
+			$('.filter-group-2.active').removeClass( 'active' );
+			$(this).addClass( 'active' );
 			if ( filter1_name !== '' ) {
 				var currentFilters = filter1_name + ', ' + filter2_name;
 			} else {
 				var currentFilters = filter2_name;
 			}
-			jQuery('.catalog-content h1 span.current-filters').text( currentFilters );
-			jQuery('.catalog-content h1 span.filtered-by').show();
-			jQuery('.catalog-content h1 span.current-filters').show();
-			jQuery('.catalog-content h1 span.clear-filters').show();
+			$('.catalog-content h1 span.current-filters').text(currentFilters).show();
+			$('.catalog-content h1 span.filtered-by').show();
+			$('.catalog-content h1 span.clear-filters').show();
 		} );
-		jQuery('a.clear-filters').click(function (e) {
-			jQuery('.filter-group-1.active').removeClass( 'active' );
-			jQuery('.filter-group-2.active').removeClass( 'active' );
-			jQuery('#catalog-content').mixitup( 'filter', 'all' );
-			jQuery('.catalog-content h1 span.filtered-by').hide();
-			jQuery('.catalog-content h1 span.clear-filters').hide();
-			jQuery('.catalog-content h1 span.current-filters').text( '' );
+		$('a.clear-filters').click(function (e) {
+			$('.filter-group-1.active').removeClass( 'active' );
+			$('.filter-group-2.active').removeClass( 'active' );
+			$('#catalog-content').mixitup( 'filter', 'all' );
+			$('.catalog-content h1 span.filtered-by').hide();
+			$('.catalog-content h1 span.clear-filters').hide();
+			$('.catalog-content h1 span.current-filters').text( '' );
 		    e.preventDefault();
 		});
+		$('#catalog-content').mixitup({
+			filterLogic: 'and',
+			layoutMode: 'list',
+			onMixLoad: function () { $('#catalog-content').equalizer(); },
+			onMixEnd: function () { $('#catalog-content').equalizer(); }
+		});
+		$('#catalog-content').equalizer({ columns: '> div.book-data', min: 350, resizeable: false });
 	});
 	// ]]>
 </script>

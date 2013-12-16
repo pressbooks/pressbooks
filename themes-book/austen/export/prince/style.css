@@ -1,7 +1,7 @@
 /*
 
  Name: Austen PDF
-  Version: 1.1
+  Version: 1.2
   Author: PressBooks (Book Oven Inc.)
   Author URI: http://pressbooks.com
   License: Creative Commons Attribution 2.0 Generic license
@@ -16,13 +16,20 @@
 /* FONTS
 ===========	*/
 
-/* Header font */
 @font-face {
   font-family: "Sorts Mill Goudy";
   font-weight: normal;
   font-style: normal;
   src: url(../../fonts/SortsMillGoudy-Regular.ttf) format("truetype");
 }
+@font-face {
+  font-family: "Sorts Mill Goudy";
+  font-weight: normal;
+  font-style: italic;
+  src: url(../../fonts/SortsMillGoudy-Italic.ttf) format("truetype");
+}
+
+
 @font-face {
   font-family: 'Marcellus SC';
   font-weight: normal;
@@ -475,6 +482,9 @@ dt {
 dd {
   margin-bottom: 0;
 }
+
+/* old lists
+
 ul ul,
 ul ul ul {
   list-style-type: none;
@@ -493,6 +503,7 @@ ul li li li::before {
 }
 ol { 
     list-style-type: none;
+    list-style-position: outside;
      counter-reset: level1;
 }
 ol li::before {
@@ -515,6 +526,13 @@ ol li li li::before {
   content: counter(level1) ". " counter(level2) ". " counter(level3) " ";
   counter-increment: level3;
 }
+
+*/
+
+ol.upper-alpha {
+  list-style-type: upper-alpha;
+}
+
 
 cite {
   font-weight: normal;
@@ -821,9 +839,7 @@ sup.endnote {
   margin-top: 5px;
   margin-left: 0;
 }
-.endnotes li {
-  text-indent: 22pt;
-}
+
 
 .endnotes p + p {
   text-indent: 0;
@@ -1063,4 +1079,37 @@ hr.break-symbols::after {
   font-size: 12pt;
   margin-top: 1.5cm;
   text-transform: uppercase;
+}
+
+/* INSERT A BLANK PAGE */
+div.blank-page {
+  page: blank-page;
+  prince-page-group: start;
+}
+
+page blank-page {
+    @top {
+       content: "";
+    }
+    @top-right {
+       content: "";
+    }
+    @top-left {
+       content: "";
+    }
+    @bottom {
+       content: "";
+    }
+    @bottom-right {
+       content: "";
+    }
+    @bottom-left {
+       content: "";
+    }
+}
+
+div.blank-page {
+  page-break-before: always;
+  visibility: hidden;
+  font-size: 0;
 }
