@@ -16,26 +16,39 @@ Reference @see: http://www.princexml.com/doc/8.1/
   font-family: "Crimson";
   font-weight: bold;
   font-style: normal;
-  src: url(../../fonts/CrimsonText-Bold.ttf) format("truetype");
+  src: url(../../fonts/Crimson-Bold.otf) format("opentype");
+}
+@font-face {
+  font-family: "Crimson";
+  font-weight: bold;
+  font-style: italic;
+  src: url(../../fonts/Crimson-BoldItalic.otf) format("opentype");
 }
 @font-face {
   font-family: "Crimson";
   font-weight: normal;
   font-style: italic;
-  src: url(../../fonts/CrimsonText-Italic.ttf) format("truetype");
+  src: url(../../fonts/Crimson-Italic.otf) format("opentype");
 }
 @font-face {
   font-family: "Crimson";
   font-weight: normal;
   font-style: normal;
-  src: url(../../fonts/CrimsonText-Roman.ttf) format("truetype");
+  src: url(../../fonts/Crimson-Roman.otf) format("opentype");
 }
 @font-face {
   font-family: "Crimson";
   font-weight: 600;
   font-style: normal;
-  src: url(../../fonts/CrimsonText-Semibold.ttf) format("truetype");
+  src: url(../../fonts/Crimson-Semibold.otf) format("opentype");
 }
+@font-face {
+  font-family: "Crimson";
+  font-weight: 600;
+  font-style: italic;
+  src: url(../../fonts/Crimson-SemiboldItalic.otf) format("opentype");
+}
+
 @font-face {
   font-family: "Roboto Condensed";
   font-weight: normal;

@@ -550,7 +550,7 @@ add_action( 'admin_init', 'pressbooks_theme_options_pdf_init' );
 
 // PDF Options Section Callback
 function pressbooks_theme_options_pdf_callback() {
-	echo '<p>' . __( 'These options apply to PDF exports.' . 'pressbooks' ) . '</p>';
+	echo '<p>' . __( 'These options apply to PDF exports.', 'pressbooks' ) . '</p>';
 }
 
 
@@ -777,7 +777,7 @@ add_action( 'admin_init', 'pressbooks_theme_options_ebook_init' );
 
 // Ebook Options Section Callback
 function pressbooks_theme_options_ebook_callback() {
-	echo '<p>' . __( 'These options apply to ebook exports.' . 'pressbooks' ) . '</p>';
+	echo '<p>' . __( 'These options apply to ebook exports.', 'pressbooks' ) . '</p>';
 }
 
 // Ebook Options Field Callbacks

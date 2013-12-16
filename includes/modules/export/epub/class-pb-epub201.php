@@ -611,6 +611,14 @@ class Epub201 extends Export {
 					return "url(assets/$filename)";
 				}
 
+			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.ttf|\.otf)$/i', $url ) ) {
+
+				// Look for fonts via http(s), pull them in locally
+
+				if ( $new_filename = $this->fetchAndSaveUniqueFont( $url, $path_to_epub_assets ) ) {
+					return "url(assets/$new_filename)";
+				}
+
 			}
 
 			return $matches[0]; // No change
@@ -1435,7 +1443,7 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Fetch a url with wp_remote_get(), save it to $fullpath with a unique name.
+	 * Fetch an image with wp_remote_get(), save it to $fullpath with a unique name.
 	 * Will return an empty string if something went wrong.
 	 *
 	 * @param $url string
@@ -1480,6 +1488,58 @@ class Epub201 extends Export {
 			$format = strtolower( end( $format ) ); // Extension
 			\PressBooks\Image\resize_down( $format, $tmp_file );
 		}
+
+		// Check for duplicates, save accordingly
+		if ( ! file_exists( "$fullpath/$filename" ) ) {
+			copy( $tmp_file, "$fullpath/$filename" );
+		} elseif ( md5( file_get_contents( $tmp_file ) ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+			$filename = wp_unique_filename( $fullpath, $filename );
+			copy( $tmp_file, "$fullpath/$filename" );
+		}
+
+		$already_done[$url] = $filename;
+		return $filename;
+	}
+
+
+	/**
+	 * Fetch a font with wp_remote_get(), save it to $fullpath with a unique name.
+	 * Will return an empty string if something went wrong.
+	 *
+	 * @param $url string
+	 * @param $fullpath string
+	 *
+	 * @return string filename
+	 */
+	protected function fetchAndSaveUniqueFont( $url, $fullpath ) {
+
+		// Cheap cache
+		static $already_done = array();
+		if ( isset( $already_done[$url] ) ) {
+			return $already_done[$url];
+		}
+
+		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
+
+		// WordPress error?
+		if ( is_wp_error( $response ) ) {
+			// TODO: handle $response->get_error_message();
+			$already_done[$url] = '';
+			return '';
+		}
+
+		// Basename without query string
+		$filename = explode( '?', basename( $url ) );
+		$filename = array_shift( $filename );
+
+		$filename = sanitize_file_name( urldecode( $filename ) );
+		$filename = Sanitize\force_ascii( $filename );
+
+		$tmp_file = \PressBooks\Utility\create_tmp_file();
+		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+
+		// TODO: Validate that this is actually a font
+		// TODO: Refactor fetchAndSaveUniqueImage() and fetchAndSaveUniqueFont() into a single method, but "inject" different validation
 
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
