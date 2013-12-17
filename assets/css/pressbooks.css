@@ -520,6 +520,32 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 /* Admin bar
 ============= */
 
+@media screen and (max-width: 782px) {
+	#wpadminbar li#wp-admin-bar-my-books { display: block; }
+	#wpadminbar #wp-admin-bar-my-books a.ab-item { text-overflow: clip;	}
+	#wpadminbar #wp-admin-bar-my-books>.ab-item { text-indent: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		width: 55px;
+		padding: 0;
+		color: #999;
+		position: relative;
+	}
+	#wpadminbar #wp-admin-bar-my-books>.ab-item:before {
+		font-family: FontAwesome !important;
+		-webkit-font-smoothing: antialiased;
+		background: none;
+		content: '\f02d' !important;
+	}
+}
+
+#wpadminbar #wp-admin-bar-site-name>.ab-item:before {
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f02d' !important;
+}
+
 #wp-admin-bar-wp-logo > .ab-item .ab-icon {
 	background-image: url("../images/pb.png");
 	background-position: 6px 5px;
