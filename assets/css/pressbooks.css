@@ -520,6 +520,17 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 /* Admin bar
 ============= */
 
+@font-face {
+		font-family: "PBFont";
+		src:url("../fonts/PBFont.eot");
+		src:url("../fonts/PBFont.eot?#iefix") format("embedded-opentype"),
+			url("../fonts/PBFont.ttf") format("truetype"),
+			url("../fonts/PBFont.woff") format("woff"),
+			url("../fonts/PBFont.svg#PBFont") format("svg");
+		font-weight: normal;
+		font-style: normal;
+}
+
 @media screen and (max-width: 782px) {
 	#wpadminbar li#wp-admin-bar-my-books { display: block; }
 	#wpadminbar #wp-admin-bar-my-books a.ab-item { text-overflow: clip;	}
@@ -532,11 +543,29 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 		position: relative;
 	}
 	#wpadminbar #wp-admin-bar-my-books>.ab-item:before {
-		font-family: FontAwesome !important;
+		color: #f3f1f2;
+		font: 32px/1 FontAwesome !important;
+		text-align: center;
+		text-indent: 0px;
+		top: 7px;
+		width: 55px;
 		-webkit-font-smoothing: antialiased;
 		background: none;
-		content: '\f02d' !important;
+		content: '\f07b' !important;
 	}
+	#wpadminbar #wp-admin-bar-my-books.hover>.ab-item:before {
+		color: rgb(202,0,45);
+	}
+	#wpadminbar .quicklinks li .blavatar:before {
+		display: inline-block;
+	}
+}
+
+#wpadminbar .quicklinks li .blavatar:before {
+	font: 16px/1 "PBFont" !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\e600' !important;	
 }
 
 #wpadminbar #wp-admin-bar-site-name>.ab-item:before {
@@ -546,12 +575,17 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 	content: '\f02d' !important;
 }
 
-#wp-admin-bar-wp-logo > .ab-item .ab-icon {
-	background-image: url("../images/pb.png");
-	background-position: 6px 5px;
-	margin: 0;
-	padding: 3px 8px 0 0;
-	background-size: 16px 16px;
+#wp-admin-bar-wp-logo > .ab-item .ab-icon:before {
+	font: 20px/1 "PBFont" !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\e600' !important;
+}
+
+@media screen and (max-width: 782px) {
+	#wpadminbar #wp-admin-bar-wp-logo>.ab-item .ab-icon:before {
+		font: 28px/1 "PBFont" !important;
+	}
 }
 
 @media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
