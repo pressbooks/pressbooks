@@ -47,7 +47,7 @@ function add_feedback_dialogue() {
 		<a href="mailto:support@pressbooks.com">support@pressbooks.com</a></p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal"><?php _e( 'Close', 'pressbooks' ); ?></a>
+		<a href="#" class="button-primary alignright" data-dismiss="modal"><?php _e( 'Close', 'pressbooks' ); ?></a>
 	</div>
 </div>
 <a class="admin-feedback-btn" href="#myModal" data-toggle="modal"><?php _e( 'Feedback', 'pressbooks' ); ?></a>
@@ -517,7 +517,7 @@ function init_css_js() {
 	$concatenate_scripts = false;
 
 	// Note: Will auto-register a dependency $handle named 'colors'
-	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/admin.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
+	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
 
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '20130921', 'screen' );

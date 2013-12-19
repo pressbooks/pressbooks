@@ -151,11 +151,6 @@ p.chapter_add {
 /* POST/PART
 ============= */
 
-#post-body #post-body-content,
-.has-right-sidebar #post-body {
-	background-color: #F9F9F9;
-}
-
 #post-body-content #titlediv,
 #post-body-content #postdivrich {
 	box-shadow: none;
@@ -404,6 +399,32 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 	visibility: hidden;
 }
 
+/*
+.export-file-container .file-actions .download-export:before {
+	display: inline-block;
+	font: 16px/1 FontAwesome !important;
+	text-align: center;
+	text-indent: 0px;
+	height: 16px;
+	width: 16px;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f019' !important;
+}
+
+.export-file-container .file-actions .delete-export:before {
+	display: inline-block;
+	font: 16px/1 FontAwesome !important;
+	text-align: center;
+	text-indent: 0px;
+	height: 16px;
+	width: 16px;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f014' !important;
+}
+*/
+
 .export-file-container .file-actions > input {
 	margin: 0;
 	padding: 0;
@@ -543,7 +564,6 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 		position: relative;
 	}
 	#wpadminbar #wp-admin-bar-my-books>.ab-item:before {
-		color: #f3f1f2;
 		font: 32px/1 FontAwesome !important;
 		text-align: center;
 		text-indent: 0px;
@@ -553,16 +573,13 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 		background: none;
 		content: '\f07b' !important;
 	}
-	#wpadminbar #wp-admin-bar-my-books.hover>.ab-item:before {
-		color: rgb(202,0,45);
-	}
 	#wpadminbar .quicklinks li .blavatar:before {
 		display: inline-block;
 	}
 }
 
 #wpadminbar .quicklinks li .blavatar:before {
-	font: 16px/1 "PBFont" !important;
+	font: 14px/1 "PBFont" !important;
 	-webkit-font-smoothing: antialiased;
 	background: none;
 	content: '\e600' !important;	
@@ -586,47 +603,6 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 	#wpadminbar #wp-admin-bar-wp-logo>.ab-item .ab-icon:before {
 		font: 28px/1 "PBFont" !important;
 	}
-}
-
-@media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
-	#wp-admin-bar-wp-logo > .ab-item .ab-icon {
-		background-image: url("../images/pb@2x.png");
-		background-position: 6px 6px;
-		background-size: 16px 16px;
-	}
-}
-
-#wp-admin-bar-wp-logo:hover > .ab-item .ab-icon,
-#wp-admin-bar-wp-logo.hover > .ab-item .ab-icon,
-#wpadminbar.nojs #wp-admin-bar-wp-logo:hover > .ab-item .ab-icon,
-#wpadminbar #wp-admin-bar-wp-logo.hover > .ab-item .ab-icon {
-	background-position: 6px 6px;
-}
-
-#wpadminbar {
-	background-color: #d4002d;
-	background-image: -webkit-gradient(radial, 50% 0%, 100, 50% 150%, 100, from(rgb(212, 0, 45)), to(rgb(180, 0, 38)));
-	background-image: -webkit-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -moz-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -o-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -ms-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-}
-
-#wpadminbar .quicklinks .ab-top-secondary > li > a,
-#wpadminbar .quicklinks .ab-top-secondary > li > .ab-empty-item {
-	border-left: 1px solid #E0474B;
-	border-right: 0 none;
-}
-
-#wpadminbar .ab-top-secondary {
-	background-color: #d4002d;
-	background-image: -webkit-gradient(radial, 50% 0%, 100, 50% 150%, 100, from(rgb(212, 0, 45)), to(rgb(180, 0, 38)));
-	background-image: -webkit-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -moz-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -o-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -ms-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
 }
 
 a.admin-feedback-btn {
