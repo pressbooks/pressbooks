@@ -667,12 +667,13 @@ class Xhtml11 extends Export {
 						if ( ! $chapter['export'] )
 							continue;
 
+						$subclass = \PressBooks\Taxonomy\chapter_type( $chapter['ID'] );
 						$slug = $chapter['post_name'];
 						$title = $chapter['post_title'];
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $chapter['ID'], 'pb_section_author', true ) );
 
-						printf( '<li class="chapter"><a href="#%s"><span class="toc-chapter-title">%s</span>', $slug, Sanitize\decode( $title ) );
+						printf( '<li class="chapter %s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $subclass, $slug, Sanitize\decode( $title ) );
 
 						if ( $subtitle )
 							echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';

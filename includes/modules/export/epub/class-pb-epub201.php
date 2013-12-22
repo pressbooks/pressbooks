@@ -1287,6 +1287,7 @@ class Epub201 extends Export {
 				$class = 'part';
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
 				$class = 'chapter';
+				$class .= \PressBooks\Taxonomy\chapter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				if ( $this->numbered ) {
