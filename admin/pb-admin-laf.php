@@ -138,12 +138,22 @@ function replace_book_admin_menu() {
 		$add_back_matter = $submenu['edit.php?post_type=back-matter'][10];
 		array_push( $submenu['edit.php?post_type=chapter'], $add_part, $add_chapter, $add_front_matter, $add_back_matter );
 	}
-	unset( $submenu['edit.php?post_type=chapter'][10] );
-	if ( is_super_admin() ) {
-		// If network administrator, give the option to see front matter types.
-		array_push( $submenu['edit.php?post_type=chapter'], $submenu['edit.php?post_type=front-matter'][15], $submenu['edit.php?post_type=back-matter'][15] );
-	}
 
+	$chapter_types = $submenu['edit.php?post_type=chapter'][15];
+	$front_matter_types = $submenu['edit.php?post_type=front-matter'][15];
+	$back_matter_types = $submenu['edit.php?post_type=back-matter'][15];
+	unset( $submenu['edit.php?post_type=chapter'][10] );
+	unset( $submenu['edit.php?post_type=chapter'][15] );
+	
+	if ( is_super_admin() ) {
+		// If network administrator, give the option to see chapter, front matter and back matter types.
+		array_push(
+			$submenu['edit.php?post_type=chapter'],
+			$chapter_types,
+			$front_matter_types,
+			$back_matter_types
+		);
+	}
 
 	// Book Information
 	$metadata = new \PressBooks\Metadata();

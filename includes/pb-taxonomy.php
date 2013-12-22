@@ -75,7 +75,7 @@ function register_taxonomies() {
 		'back-matter',
 		array(
 			'hierarchical' => true,
-			// only super-admins can change front matter terms
+			// only super-admins can change back matter terms
 			'capabilities' => array( 'manage_terms' => 'manage_sites',
 				'edit_terms' => 'manage_sites',
 				'delete_terms' => 'manage_sites',
@@ -84,6 +84,44 @@ function register_taxonomies() {
 			'show_ui' => true,
 			'query_var' => true,
 			'rewrite' => array( 'slug' => 'back-matter-type' ),
+		)
+	);
+
+	/* Chapter Type */
+
+	$labels = array(
+		'name' => _x( 'Chapter Types', 'taxonomy general name' ),
+		'singular_name' => _x( 'Chapter Type', 'taxonomy singular name' ),
+		'search_items' => __( 'Search Chapter Types', 'pressbooks' ),
+		'popular_items' => __( 'Popular Chapter Types', 'pressbooks' ),
+		'all_items' => __( 'All Chapter Types', 'pressbooks' ),
+		'parent_item' => null,
+		'parent_item_colon' => null,
+		'edit_item' => __( 'Edit Chapter Type', 'pressbooks' ),
+		'update_item' => __( 'Update Chapter Type', 'pressbooks' ),
+		'add_new_item' => __( 'Add New Chapter Type', 'pressbooks' ),
+		'new_item_name' => __( 'New Chapter Type Name', 'pressbooks' ),
+		'separate_items_with_commas' => __( 'Separate chapter types with commas', 'pressbooks' ),
+		'add_or_remove_items' => __( 'Add or remove chapter type', 'pressbooks' ),
+		'choose_from_most_used' => __( 'Choose from the most used chapter type', 'pressbooks' ),
+		'menu_name' => __( 'Chapter Types', 'pressbooks' ),
+	);
+
+	// can only apply back matter taxonomy to chapter post type
+	register_taxonomy(
+		'chapter-type',
+		'chapter',
+		array(
+			'hierarchical' => true,
+			// only super-admins can change chapter terms
+			'capabilities' => array( 'manage_terms' => 'manage_sites',
+				'edit_terms' => 'manage_sites',
+				'delete_terms' => 'manage_sites',
+				'assign_terms' => 'edit_posts' ),
+			'labels' => $labels,
+			'show_ui' => true,
+			'query_var' => true,
+			'rewrite' => array( 'slug' => 'chapter-type' ),
 		)
 	);
 }
@@ -142,7 +180,9 @@ function insert_terms() {
 	wp_insert_term( 'Resources', 'back-matter-type', array( 'slug', 'resources' ) );
 	wp_insert_term( 'Sources', 'back-matter-type', array( 'slug' => 'sources' ) );
 	wp_insert_term( 'Suggested Reading', 'back-matter-type', array( 'slug' => 'suggested-reading' ) );
-
+	wp_insert_term( 'Type 1', 'chapter-type', array( 'slug' => 'type-1' ) );
+	wp_insert_term( 'Type 2', 'chapter-type', array( 'slug' => 'type-2' ) );
+	wp_insert_term( 'Type 3', 'chapter-type', array( 'slug' => 'type-3' ) );
 }
 
 
@@ -176,6 +216,26 @@ function front_matter_type( $id ) {
 function back_matter_type( $id ) {
 
 	$terms = get_the_terms( $id, 'back-matter-type' );
+	if ( $terms && ! is_wp_error( $terms ) ) {
+		foreach ( $terms as $term ) {
+			return $term->slug;
+			break;
+		}
+	}
+
+	return 'miscellaneous';
+}
+
+/**
+ * Return the first (and only) chapter-type for a specific post
+ *
+ * @param $id
+ *
+ * @return string
+ */
+function chapter_type( $id ) {
+
+	$terms = get_the_terms( $id, 'chapter-type' );
 	if ( $terms && ! is_wp_error( $terms ) ) {
 		foreach ( $terms as $term ) {
 			return $term->slug;
