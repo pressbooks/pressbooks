@@ -200,6 +200,30 @@ function pb_get_chapter_number( $post_name ) {
 	return $i;
 }
 
+/**
+ * Get chapter, front or back matter type
+ *
+ * @param $post
+ *
+ * @return string
+ */
+function pb_get_section_type( $post ) {
+
+	switch ($post->post_type) {
+    case 'chapter':
+        $type = \PressBooks\Taxonomy\chapter_type( $post->ID );
+        break;
+    case 'front-matter':
+        $type = \PressBooks\Taxonomy\front_matter_type( $post->ID );
+        break;
+    case 'back-matter':
+        $type = \PressBooks\Taxonomy\back_matter_type( $post->ID );
+        break;
+	}
+	
+	return $type;
+}
+
 
 /**
  * Rename image with arbitrary suffix (before extension)

@@ -183,6 +183,8 @@ function insert_terms() {
 	wp_insert_term( 'Type 1', 'chapter-type', array( 'slug' => 'type-1' ) );
 	wp_insert_term( 'Type 2', 'chapter-type', array( 'slug' => 'type-2' ) );
 	wp_insert_term( 'Type 3', 'chapter-type', array( 'slug' => 'type-3' ) );
+	wp_insert_term( 'Type 4', 'chapter-type', array( 'slug' => 'type-4' ) );
+	wp_insert_term( 'Type 5', 'chapter-type', array( 'slug' => 'type-5' ) );
 }
 
 
@@ -243,5 +245,5 @@ function chapter_type( $id ) {
 		}
 	}
 
-	return 'miscellaneous';
+	return 'type-1';
 }

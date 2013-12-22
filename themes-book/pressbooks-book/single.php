@@ -8,7 +8,7 @@
 				the_title();
 				?></h2>
 					<?php pb_get_links(); ?>
-				<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+				<div id="post-<?php the_ID(); ?>" <?php post_class( pb_get_section_type( $post ) ); ?>>
 					
 					<div class="entry-content">
 					  <?php if ($subtitle = get_post_meta($post->ID, 'pb_subtitle', true)): ?>

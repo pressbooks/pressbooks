@@ -497,6 +497,8 @@ function transform_category_selection_box() {
 		$term = get_term_by( 'slug', 'miscellaneous', 'front-matter-type' );
 	} elseif ( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == ( $base . '/wp-admin/post-new.php?post_type=back-matter' ) ) {
 		$term = get_term_by( 'slug', 'miscellaneous', 'back-matter-type' );
+	} elseif ( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == ( $base . '/wp-admin/post-new.php?post_type=chapter' ) ) {
+		$term = get_term_by( 'slug', 'type-1', 'chapter-type' );
 	}
 
 	?>
@@ -508,9 +510,13 @@ function transform_category_selection_box() {
 	jQuery('input:checkbox[id^="in-back-matter-type"]').each(function () {
 		jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
 	});
+	jQuery('input:checkbox[id^="in-chapter-type"]').each(function () {
+		jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
+	});	
 		<?php if ( isset( $term ) ): ?>
 	jQuery('input:radio[id="in-front-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
 	jQuery('input:radio[id="in-back-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
+	jQuery('input:radio[id="in-chapter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
 		<?php endif; ?>
 </script>
 <?php
