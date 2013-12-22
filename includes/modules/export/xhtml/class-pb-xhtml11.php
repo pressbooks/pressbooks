@@ -809,7 +809,7 @@ class Xhtml11 extends Export {
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>';
 		$part_printf .= '</div>';
 
-		$chapter_printf = '<div class="chapter" id="%s">';
+		$chapter_printf = '<div class="chapter %s" id="%s">';
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%s</h3><h2 class="chapter-title">%s</h2></div>';
 		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s';
 		$chapter_printf .= '</div>';
@@ -849,6 +849,7 @@ class Xhtml11 extends Export {
 
 				$chapter_printf_changed = '';
 				$id = $chapter['ID'];
+				$subclass = \PressBooks\Taxonomy\chapter_type( $id );
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $chapter['post_content'];
@@ -871,12 +872,13 @@ class Xhtml11 extends Export {
 
 				// Inject introduction class?
 				if ( ! $this->hasIntroduction ) {
-					$chapter_printf_changed = str_replace( '<div class="chapter" id=', '<div class="chapter introduction" id=', $chapter_printf );
+					$chapter_printf_changed = str_replace( '<div class="chapter %s" id=', '<div class="chapter introduction" id=', $chapter_printf );
 					$this->hasIntroduction = true;
 				}
 
 				$my_chapters .= sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
+					$subclass,
 					$slug,
 					$j,
 					Sanitize\decode( $title ),
