@@ -393,7 +393,7 @@ ul#adminmenu > li.current > a.current:after {
   background: #c5002a; }
 
 .theme-browser .theme.active .theme-actions {
-  background: #e4e4e4; }
+  }
 
 .theme-browser .theme.add-new-theme:hover span:after {
   color: #c5002a; }
