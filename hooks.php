@@ -105,6 +105,7 @@ add_action( 'do_robotstxt', '\PressBooks\Utility\add_sitemap_to_robots_txt' );
 // -------------------------------------------------------------------------------------------------------------------
 
 $_ = \PressBooks\Shortcodes\Footnotes\Footnotes::getInstance();
+$_ = \PressBooks\Shortcodes\Generics\Generics::getInstance();
 $_ = \PressBooks\Shortcodes\WikiPublisher\Glyphs::getInstance();
 
 // -------------------------------------------------------------------------------------------------------------------
