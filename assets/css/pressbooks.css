@@ -660,6 +660,10 @@ a:active.admin-feedback-btn {
 	box-shadow: none;
 }
 
+.modal-backdrop.fade.in {
+	opacity: 0.4 !important;
+}
+
 /* Organize page styling (big tables)
 ====================================== */
 
