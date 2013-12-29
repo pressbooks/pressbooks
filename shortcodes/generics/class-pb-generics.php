@@ -13,7 +13,9 @@ class Generics {
 	static $instance = false;
 
 	/**
-	 * @array Protected array of generic shortcodes.
+	 * @array Protected array of generic shortcodes as a key => value pair,
+	 where the key is the shortcode and the value is either a string (the tag)
+	 or an array of two strings (tag and class, respectively).
 	 */
 	protected $generics = array(
 		'blockquote' 	=> 'blockquote',
@@ -22,7 +24,7 @@ class Generics {
 		'em' 			=> 'em',
 		'italics' 		=> 'em',
 		'strong'		=> 'strong',
-		'textbox'		=> 'div class="textbox"',
+		'textbox'		=> array('div', 'textbox'),
 	);
 	
 	/**
@@ -32,9 +34,14 @@ class Generics {
 	private function __construct() {
 		
 		foreach ( $this->generics as $shortcode => $tag ) {
-			add_shortcode( $shortcode, function ( $atts, $content = '' ) use( $tag) {
+			add_shortcode( $shortcode, function ( $atts, $content = '' ) use( $tag ) {
 				if ( ! $content ) { return ''; }
-				return '<' . $tag . '>' . do_shortcode( $content ) . '</' . $tag . '>';
+				$class = '';
+				if ( is_array( $tag ) ) {
+					$class = ' class="' . $tag[1] . '"';
+					$tag = $tag[0];
+				}
+				return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
 			} );
 		}
 	}
