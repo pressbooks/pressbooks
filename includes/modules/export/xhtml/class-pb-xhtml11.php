@@ -873,7 +873,7 @@ class Xhtml11 extends Export {
 
 				// Inject introduction class?
 				if ( ! $this->hasIntroduction ) {
-					$chapter_printf_changed = str_replace( '<div class="chapter %s" id=', '<div class="chapter introduction" id=', $chapter_printf );
+					$chapter_printf_changed = str_replace( '<div class="chapter %s" id=', '<div class="chapter introduction %s" id=', $chapter_printf );
 					$this->hasIntroduction = true;
 				}
 
