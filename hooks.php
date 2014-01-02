@@ -28,12 +28,6 @@ add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_custom_copyright', '\
 add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_about_unlimited', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
 
 // -------------------------------------------------------------------------------------------------------------------
-// Post Type Icons plugin
-// -------------------------------------------------------------------------------------------------------------------
-
-require( PB_PLUGIN_DIR . 'symbionts/post-type-icons/post-type-icons.php' );
-
-// -------------------------------------------------------------------------------------------------------------------
 // Languages
 // -------------------------------------------------------------------------------------------------------------------
 

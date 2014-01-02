@@ -303,6 +303,22 @@ img.theme-screenshot {
 /* Menu images
 =============== */
 
+/*
+ *  Font Awesome 4.0.3 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1)
+ */
+ 
+@font-face {
+		font-family: 'FontAwesome';
+		src:url('../fonts/fontawesome-webfont.eot?v=3.1.0');
+		src:url('../fonts/fontawesome-webfont.eot?#iefix&v=3.1.0') format('embedded-opentype'),
+			url('../fonts/fontawesome-webfont.woff?v=3.1.0') format('woff'),
+			url('../fonts/fontawesome-webfont.ttf?v=3.1.0') format('truetype'),
+			url('../fonts/fontawesome-webfont.svg#fontawesomeregular?v=3.1.0') format('svg');
+		font-weight: normal;
+		font-style: normal;
+}
+
 a.menu-icon-generic .wp-menu-image:before {
 	font-family: FontAwesome !important;
 	-webkit-font-smoothing: antialiased;
@@ -398,32 +414,6 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 .export-file-container .file-actions {
 	visibility: hidden;
 }
-
-/*
-.export-file-container .file-actions .download-export:before {
-	display: inline-block;
-	font: 16px/1 FontAwesome !important;
-	text-align: center;
-	text-indent: 0px;
-	height: 16px;
-	width: 16px;
-	-webkit-font-smoothing: antialiased;
-	background: none;
-	content: '\f019' !important;
-}
-
-.export-file-container .file-actions .delete-export:before {
-	display: inline-block;
-	font: 16px/1 FontAwesome !important;
-	text-align: center;
-	text-indent: 0px;
-	height: 16px;
-	width: 16px;
-	-webkit-font-smoothing: antialiased;
-	background: none;
-	content: '\f014' !important;
-}
-*/
 
 .export-file-container .file-actions > input {
 	margin: 0;
