@@ -959,11 +959,15 @@ function advanced_enable_chapter_types_callback( $args ) {
 	$enable_chapter_types = get_option( 'pressbooks_enable_chapter_types' );
 
 	if ( $enable_chapter_types == 1 ) { // make sure that chapter types exist if enabling
-		wp_insert_term( 'Type 1', 'chapter-type', array( 'slug' => 'type-1' ) );
-		wp_insert_term( 'Type 2', 'chapter-type', array( 'slug' => 'type-2' ) );
-		wp_insert_term( 'Type 3', 'chapter-type', array( 'slug' => 'type-3' ) );
-		wp_insert_term( 'Type 4', 'chapter-type', array( 'slug' => 'type-4' ) );
-		wp_insert_term( 'Type 5', 'chapter-type', array( 'slug' => 'type-5' ) );
+		$chapter_types_initialized = get_option( 'pressbooks_chapter_types_initialized' );
+		if ( !$chapter_types_initialized == 1 ) {
+			wp_insert_term( 'Type 1', 'chapter-type', array( 'slug' => 'type-1' ) );
+			wp_insert_term( 'Type 2', 'chapter-type', array( 'slug' => 'type-2' ) );
+			wp_insert_term( 'Type 3', 'chapter-type', array( 'slug' => 'type-3' ) );
+			wp_insert_term( 'Type 4', 'chapter-type', array( 'slug' => 'type-4' ) );
+			wp_insert_term( 'Type 5', 'chapter-type', array( 'slug' => 'type-5' ) );
+			update_option( 'pressbooks_chapter_types_initialized', 1 );
+		}
 	}
 	
 	$html = '<input type="checkbox" id="enable-chapter-types" name="pressbooks_enable_chapter_types" value="1"' . checked( 1, $enable_chapter_types, false ) . '/>';

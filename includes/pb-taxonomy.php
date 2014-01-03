@@ -191,6 +191,8 @@ function insert_terms() {
 	wp_insert_term( 'Type 3', 'chapter-type', array( 'slug' => 'type-3' ) );
 	wp_insert_term( 'Type 4', 'chapter-type', array( 'slug' => 'type-4' ) );
 	wp_insert_term( 'Type 5', 'chapter-type', array( 'slug' => 'type-5' ) );
+	update_option( 'pressbooks_chapter_types_initialized', 1 );
+
 }
 
 
