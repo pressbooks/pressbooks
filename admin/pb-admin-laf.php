@@ -901,10 +901,22 @@ function advanced_settings_init() {
 		'advanced_settings',
 		'advanced_settings_section'
 	);
+	add_settings_field(
+		'enable_chapter_types',
+		__( 'Enable chapter types.', 'pressbooks' ),
+			__NAMESPACE__ . '\advanced_enable_chapter_types_callback',
+		'advanced_settings',
+		'advanced_settings_section'
+	);
 	register_setting(
 		'advanced_settings',
 		'pressbooks_email_validation_logs',
 			__NAMESPACE__ . '\advanced_email_validation_logs_sanitize'
+	);
+	register_setting(
+		'advanced_settings',
+		'pressbooks_enable_chapter_types',
+			__NAMESPACE__ . '\advanced_enable_chapter_types_sanitize'
 	);
 
 }
@@ -935,7 +947,27 @@ function advanced_email_validation_logs_callback( $args ) {
 	$html .= '<label for="no-validation-logs"> ' . __( 'Yes. Send the logs.', 'pressbooks' ) . '</label>';
 	$html .= '<br /><br /><em> ' . __( 'Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and will require some effort to decipher. Unfortunately we cannot provide support for deciphering validation errors, but you could post errors on the <a href="http://forum.pressbooks.com/" target="_blank">PressBooks forum</a>, where we and other PressBooks users can help out as time permits. .', 'pressbooks' ) . '</em>';
 
-	$html .= '</p>';
+	echo $html;
+}
+
+/**
+ *  Advanced settings, enable_chapter_types field callback
+ *
+ * @param $args
+ */
+function advanced_enable_chapter_types_callback( $args ) {
+	$enable_chapter_types = get_option( 'pressbooks_enable_chapter_types' );
+
+	if ( $enable_chapter_types == 1 ) { // make sure that chapter types exist if enabling
+		wp_insert_term( 'Type 1', 'chapter-type', array( 'slug' => 'type-1' ) );
+		wp_insert_term( 'Type 2', 'chapter-type', array( 'slug' => 'type-2' ) );
+		wp_insert_term( 'Type 3', 'chapter-type', array( 'slug' => 'type-3' ) );
+		wp_insert_term( 'Type 4', 'chapter-type', array( 'slug' => 'type-4' ) );
+		wp_insert_term( 'Type 5', 'chapter-type', array( 'slug' => 'type-5' ) );
+	}
+	
+	$html = '<input type="checkbox" id="enable-chapter-types" name="pressbooks_enable_chapter_types" value="1"' . checked( 1, $enable_chapter_types, false ) . '/>';
+	$html .= '<label for="enable-chapter-types"> ' . __( 'Enable chapter types taxonomy.', 'pressbooks' ) . '</label><br />';
 
 	echo $html;
 }
@@ -951,6 +983,16 @@ function advanced_email_validation_logs_sanitize( $input ) {
 	return absint( $input );
 }
 
+
+/**
+ * Advanced settings, enable_chapter_types field sanitization
+ *
+ * @param $input
+ * @return string
+ */
+function advanced_enable_chapter_types_sanitize( $input ) {
+	return absint( $input );
+}
 
 /**
  * Display Advanced settings
