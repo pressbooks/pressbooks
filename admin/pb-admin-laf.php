@@ -47,7 +47,7 @@ function add_feedback_dialogue() {
 		<a href="mailto:support@pressbooks.com">support@pressbooks.com</a></p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal"><?php _e( 'Close', 'pressbooks' ); ?></a>
+		<a href="#" class="button-primary alignright" data-dismiss="modal"><?php _e( 'Close', 'pressbooks' ); ?></a>
 	</div>
 </div>
 <a class="admin-feedback-btn" href="#myModal" data-toggle="modal"><?php _e( 'Feedback', 'pressbooks' ); ?></a>
@@ -394,8 +394,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	
 	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
 
-		// TODO: Replace with some favicon lookup.
-		$blavatar = '<img src="' . esc_url( PB_PLUGIN_URL . 'assets/images/pb.png' ) . '" alt="' . esc_attr__( 'Blavatar', 'pressbooks' ) . '" width="16" height="16" class="blavatar"/> ';
+		$blavatar = '<span class="blavatar"/></span>';
 
 		$blogname = empty( $blog->blogname ) ? $blog->domain : $blog->blogname;
 		$menu_id = 'blog-' . $blog->userblog_id;

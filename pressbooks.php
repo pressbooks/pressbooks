@@ -49,7 +49,7 @@ if ( ! version_compare( PHP_VERSION, $pb_minimum_php, '>=' ) ) {
 	return;
 }
 
-$pb_minimum_wp = '3.6';
+$pb_minimum_wp = '3.8';
 if ( ! is_multisite() || ! version_compare( get_bloginfo( 'version' ), $pb_minimum_wp, '>=' ) ) {
 
 	add_action( 'admin_notices', function () use ( $pb_minimum_wp ) {
