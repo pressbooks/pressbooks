@@ -15,6 +15,7 @@ require( PB_PLUGIN_DIR . 'admin/pb-admin-dashboard.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
+require( PB_PLUGIN_DIR . 'symbionts/search-regex/search-regex.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard

@@ -1,0 +1,95 @@
+.searchargs
+{
+	width: 100%;
+}
+
+.searchargs th
+{ text-align: right}
+
+.searchargs .term
+{
+	width: 90%;
+}
+
+.searchargs .button:active {
+	padding-top: 0 !important;
+}
+
+.results li
+{
+	margin-bottom: 10px;
+	-moz-border-radius: 10px;
+	padding: 5px;
+	border: 1px solid white;
+}
+
+.results li:hover
+{
+border: 1px solid #E8EEF1;  
+}
+
+.searchx
+{
+	color: #0F3D09;
+	margin: 5px 0px 5px 20px;
+	font-size: 0.9em;
+	padding: 5px;
+	background-color: #E7F5E1;
+	-moz-border-radius: 10px;
+}
+
+.searchx strong, .replacex strong, .searchx a
+{
+	color: red;
+	background-color: pink;
+	padding: 2px 0px;
+	font-weight: bold;
+	border: none;
+}
+
+.results input, .results textarea
+{
+  font-size: 0.9em;
+}
+
+.alt .searchx
+{
+background-color: #C0DAB5;
+color: #1C465C;
+}
+
+
+.replacex
+{
+	color: #4B3510;
+	margin-top: 10px;
+	font-size: 0.9em;
+	margin-left: 20px;
+	padding: 5px;
+	background-color: #F5EEE1;
+	-moz-border-radius: 10px;
+}
+
+.alt .replacex
+{
+background-color: #E0D3BB;
+}
+
+.sub
+{
+font-weight: normal;
+font-size: 0.8em;
+color: #666;
+}
+
+.options, .options a
+{
+color: #666;
+}
+
+.options
+{
+  float: right;
+  font-size: 0.9em;
+margin-left: 10px;
+}

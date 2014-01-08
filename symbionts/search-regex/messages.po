@@ -1,0 +1,168 @@
+# Adds search &amp; replace functionality across posts, pages, comments, and meta-data, with full regular expression support
+# Copyright (C) 2007 John Godley
+# This file is distributed under the same license as the Search Regex package.
+# John Godley, http://urbangiraffe.com/, 2007.
+#
+msgid	""
+msgstr	"Project-Id-Version: Search Regex 1.4\n"
+	"Report-Msgid-Bugs-To: \n"
+	"POT-Creation-Date: 2007-03-26 17:31+0800\n"
+	"PO-Revision-Date: 2007-MO-DA HO:MI+ZONE\n"
+	"Last-Translator: John Godley http://urbangiraffe.com/\n"
+	"Language-Team: LANGUAGE <LL@li.org>\n"
+	"MIME-Version: 1.0\n"
+	"Content-Type: text/plain; charset=UTF8\n"
+	"Content-Transfer-Encoding: 8bit\n"
+
+#: view/admin/results.php:5
+#, php-format
+msgid	"%1$s result(s) found."
+msgstr	""
+
+#: searches/comment_author.php:44 searches/comment_author_email.php:44
+#: searches/comment_author_url.php:44 searches/comment_content.php:44
+#, php-format
+msgid	"Comment #%d: %s"
+msgstr	""
+
+#: searches/comment_author.php:47
+msgid	"Comment author"
+msgstr	""
+
+#: searches/comment_author_url.php:47
+msgid	"Comment author URL"
+msgstr	""
+
+#: searches/comment_author_email.php:47
+msgid	"Comment author email"
+msgstr	""
+
+#: searches/comment_content.php:47
+msgid	"Comment content"
+msgstr	""
+
+#: models/search.php:31
+msgid	"Invalid regular expression"
+msgstr	""
+
+#: searches/post_meta.php:45
+#, php-format
+msgid	"Meta data for post #%d: %s"
+msgstr	""
+
+#: view/admin/search.php:4
+msgid	"NOTE: <strong>No liability</strong> is accepted for any damage "
+	"caused.  You are strongly advised to backup your database before "
+	"making any changes."
+msgstr	""
+
+#: models/search.php:68
+msgid	"No search pattern"
+msgstr	""
+
+#: searches/post_content.php:41 searches/post_excerpt.php:41
+#: searches/post_title.php:41 searches/post_url.php:41
+#, php-format
+msgid	"Post #%d: %s"
+msgstr	""
+
+#: searches/post_url.php:44
+msgid	"Post URL"
+msgstr	""
+
+#: searches/post_content.php:44
+msgid	"Post content"
+msgstr	""
+
+#: searches/post_excerpt.php:44
+msgid	"Post excerpt"
+msgstr	""
+
+#: searches/post_meta.php:48
+msgid	"Post meta value"
+msgstr	""
+
+#: searches/post_title.php:44
+msgid	"Post title"
+msgstr	""
+
+#: view/admin/search.php:45
+msgid	"Replace"
+msgstr	""
+
+#: view/admin/search.php:46
+msgid	"Replace &amp; Save &raquo;"
+msgstr	""
+
+#: view/admin/search.php:25
+msgid	"Replace pattern"
+msgstr	""
+
+#: view/admin/search.php:3
+msgid	"Replacements will only be saved to the database if you click "
+	"'<strong>Replace &amp; Save</strong>', otherwise you will get a "
+	"preview of the results."
+msgstr	""
+
+#: view/admin/results.php:2
+msgid	"Results"
+msgstr	""
+
+#: view/admin/search.php:44
+msgid	"Search"
+msgstr	""
+
+#: search-regex.php:75 view/admin/search.php:2
+msgid	"Search Regex"
+msgstr	""
+
+#: view/admin/search.php:19
+msgid	"Search pattern"
+msgstr	""
+
+#: view/admin/search.php:9
+msgid	"Source"
+msgstr	""
+
+#: view/admin/results.php:58
+msgid	"There are no results."
+msgstr	""
+
+#: view/admin/search.php:35
+msgid	"case-insensitive:"
+msgstr	""
+
+#: models/search.php:171
+msgid	"deleted"
+msgstr	""
+
+#: view/admin/search.php:37
+msgid	"dot-all:"
+msgstr	""
+
+#: models/search.php:146 models/search.php:167 searches/comment_author.php:38
+#: searches/comment_author_email.php:38 searches/comment_author_url.php:38
+#: searches/comment_content.php:38 searches/post_content.php:35
+#: searches/post_excerpt.php:35 searches/post_meta.php:39
+#: searches/post_title.php:35 searches/post_url.php:35
+msgid	"edit"
+msgstr	""
+
+#: view/admin/search.php:36
+msgid	"multi-line:"
+msgstr	""
+
+#: view/admin/results.php:18
+msgid	"replaced with:"
+msgstr	""
+
+#: searches/post_content.php:30 searches/post_excerpt.php:30
+#: searches/post_title.php:30 searches/post_url.php:30
+msgid	"view"
+msgstr	""
+
+#: searches/comment_author.php:33 searches/comment_author_email.php:33
+#: searches/comment_author_url.php:33 searches/comment_content.php:33
+#: searches/post_meta.php:34
+msgid	"view post"
+msgstr	""
