@@ -117,10 +117,10 @@ strong .post-com-count span {
   background: #ececec; }
 
 #adminmenu a {
-  color: #676767; }
+  color: #333; }
 
 #adminmenu div.wp-menu-image:before {
-  color: #676767; }
+  color: #333; }
 
 #adminmenu a:hover,
 #adminmenu li.menu-top:hover,
@@ -199,6 +199,7 @@ ul#adminmenu > li.current > a.current:after {
   color: white;
   background: #777777; }
 
+#adminmenu li.current:hover div.wp-menu-image:before,
 #adminmenu li.wp-has-current-submenu div.wp-menu-image:before {
   color: white; }
   
@@ -220,14 +221,14 @@ ul#adminmenu > li.current > a.current:after {
 
 /* Admin Menu: collapse button */
 #collapse-menu {
-  color: #676767; }
+  color: #333; }
 
 #collapse-menu:hover {
   color: #d4002d;
   background: #e4e4e4; }
 
 #collapse-button div:after {
-  color: #676767; }
+  color: #333; }
 
 #collapse-menu:hover #collapse-button div:after {
   color: #d4002d; }
