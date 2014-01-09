@@ -1,7 +1,7 @@
 /* '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' */
 
 html {
-  background: #f3f3f3; }
+  background: #ececec; }
 
 /* Login */
 
@@ -114,7 +114,7 @@ strong .post-com-count span {
 #adminmenuback,
 #adminmenuwrap,
 #adminmenu {
-  background: #ececec; }
+  background: #dedede; }
 
 #adminmenu a {
   color: #333; }
@@ -127,7 +127,7 @@ strong .post-com-count span {
 #adminmenu li.opensub > a.menu-top,
 #adminmenu li > a.menu-top:focus {
   color: #d4002d;
-  background-color: #e4e4e4; }
+  background-color: #ececec; }
 
 #adminmenu li.menu-top:hover div.wp-menu-image:before,
 #adminmenu li.opensub > a.menu-top div.wp-menu-image:before {
@@ -375,6 +375,12 @@ ul#adminmenu > li.current > a.current:after {
 .wp-pointer.wp-pointer-top .wp-pointer-arrow,
 .wp-pointer.wp-pointer-undefined .wp-pointer-arrow {
   border-bottom-color: #d4002d; }
+
+.widget-top, .menu-item-handle, .menu-item-settings, .widget-inside, .postbox, #menu-settings-column .accordion-container, #menu-management .menu-edit, .manage-menus, table.widefat, .stuffbox, p.popular-tags, .widgets-holder-wrap, .welcome-panel, .wp-editor-container, #post-status-info, .popular-tags, .feature-filter, .imgedit-group {
+border: 1px solid #dedede;
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
 
 /* Media Uploader */
 .media-item .bar,

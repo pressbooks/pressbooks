@@ -12,12 +12,6 @@ $book_structure = \PressBooks\Book::getBookStructure();
 $book_is_public = ( 1 == get_option( 'blog_public' ) );
 ?>
 
-<style type="text/css">
-    .widefat thead tr th { color: #676767; }
-    tbody { margin-top: 10px; }
-</style>
-
-
 <div class="wrap">
 
 <?php if ( current_user_can( 'manage_options' ) ) : ?>

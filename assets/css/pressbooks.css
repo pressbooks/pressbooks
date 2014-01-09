@@ -137,6 +137,13 @@ p.chapter_add {
 	display: none;
 }
 
+body.chapter_page_pressbooks tbody { margin-top: 10px; }
+
+body.chapter_page_pressbooks .widefat thead tr th {
+	font-weight: bold;
+	color: #333333;
+}
+
 /* Themes page
 =============== */
 
@@ -699,7 +706,8 @@ table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tf
 
 .pressbooks-admin-panel {
 	background: #fff;
-	box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+	box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+	border: 1px solid #dedede;
 	margin: 16px 0;
 	padding: 20px 20px 5px;	
 }
