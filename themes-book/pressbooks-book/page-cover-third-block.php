@@ -27,7 +27,7 @@
 								<ul class="back-matter">
 									<?php foreach ($book['back-matter'] as $bm): ?>
 									<?php if ($bm['post_status'] != 'publish') continue; // Skip ?>
-									<li class="back-matter <?php echo pb_get_section_type( get_post($bm['ID']) ) ?>"><a href="<?php echo get_permalink($bm['ID']); ?>"><?php echo $fm['post_title'];?></a></li>
+									<li class="back-matter <?php echo pb_get_section_type( get_post($bm['ID']) ) ?>"><a href="<?php echo get_permalink($bm['ID']); ?>"><?php echo $bm['post_title'];?></a></li>
 									<?php endforeach; ?>
 								</ul>
 							</li>
