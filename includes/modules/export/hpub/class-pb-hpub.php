@@ -1065,6 +1065,8 @@ class Hpub extends Export {
 			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
 				$class = 'back-matter ';
 				$class .= \PressBooks\Taxonomy\back_matter_type( $v['ID'] );
+				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
+				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 			} else {
 				continue;
 			}

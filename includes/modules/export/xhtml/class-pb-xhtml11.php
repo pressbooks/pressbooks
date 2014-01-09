@@ -707,6 +707,8 @@ class Xhtml11 extends Export {
 						}
 					} elseif ( 'back-matter' == $type ) {
 						$typetype = $type . ' ' . \PressBooks\Taxonomy\back_matter_type( $val['ID'] );
+						$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
+						$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
 					}
 
 					printf( '<li class="%s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $typetype, $slug, Sanitize\decode( $title ) );
