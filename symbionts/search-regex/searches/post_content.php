@@ -7,7 +7,7 @@ class SearchPostContent extends Search
 		global $wpdb;
 
 		$results = array ();
-		$posts   = $wpdb->get_results ( "SELECT ID, post_content, post_title FROM {$wpdb->posts} WHERE post_status != 'inherit' AND post_type IN ('post','page') ORDER BY ID $orderby" );
+		$posts   = $wpdb->get_results ( "SELECT ID, post_content, post_title FROM {$wpdb->posts} WHERE post_status != 'inherit' AND post_type IN ('chapter','front-matter','back-matter') ORDER BY ID $orderby" );
 
 		if ( $limit > 0 )
 			$sql .= $wpdb->prepare( " LIMIT %d,%d", $offset, $limit );
@@ -40,10 +40,22 @@ class SearchPostContent extends Search
 
 	function show ($result)
 	{
-		printf (__ ('Post #%d: %s', 'pressbooks' ), $result->id, $result->title);
+		$post = get_post($result->id);
+		switch ($post->post_type) {
+			case "chapter":
+				$post_type='Chapter';
+				break;
+			case "front-matter":
+				$post_type='Front Matter';
+				break;
+			case "back-matter":
+				$post_type='Back Matter';
+				break;
+		}
+		printf (__ ($post_type.' ID #%d: %s', 'pressbooks' ), $result->id, $result->title);
 	}
 
-	function name () { return __ ('Post content', 'pressbooks' ); }
+	function name () { return __ ('Content', 'pressbooks' ); }
 
 	function get_content ($id)
 	{

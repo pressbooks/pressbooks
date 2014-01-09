@@ -9,6 +9,7 @@
 		  <tr>
 		    <th width="150"><?php _e( "Limit to", 'pressbooks'  ) ?></th>
 		    <td>
+					<?php $limit = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 0 ?>
 					<select name="limit">
 						<?php echo $this->select( array( '0' => __( 'No limit', 'pressbooks' ), '10' => '10', '25' => '25', '50' => '50', '100' => '100' ), $limit ) ?>
 					</select>
@@ -54,6 +55,7 @@
 					<?php if (current_user_can( 'administrator' ) || current_user_can( 'search_regex_write' )) : ?>
 					<input class="button" type="submit" name="replace" id="button_replace" value="<?php esc_attr_e( 'Preview Replacements', 'pressbooks' )?> &raquo;" />
 					<input class="button" type="button" name="replace_and_save" onClick="confSubmit(this.form);" id="button_replace_and_save" value="<?php esc_attr_e( 'Replace &amp; Save &raquo;', 'pressbooks' ) ?>"/>
+					<div id="searcharguments"></div>
 					<?php endif; ?>
 	    		</p>
 				</td>
