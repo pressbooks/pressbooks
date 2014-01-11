@@ -1,8 +1,9 @@
 <?php if (!defined( 'ABSPATH' )) die( 'No direct access allowed' ); ?>
 <div class="wrap">
 	<h2><?php _e( 'Search and Replace', 'pressbooks' ) ?></h2>
-	<p><?php _e( "Replacements will only be saved to the database if you click '<strong>Replace &amp; Save</strong>', otherwise you will get a preview of the results.", 'pressbooks'  ) ?></p>
-	<p><?php _e( "NOTE: <strong>No liability</strong> is accepted for any damage caused.  You are strongly advised to backup your database before making any changes.", 'pressbooks'  ) ?></p>
+	<p><?php _e( 'Search and replace will replace ALL instances in the entire book.', 'pressbooks' ); ?></p>
+	<p><?php _e( 'Replacements will only be saved if you click \'<strong>Replace &amp; Save</strong>\', otherwise you will ONLY get a preview of the results.', 'pressbooks'  ) ?></p>
+	<p><?php _e( 'Be careful replacing text. There is no revert button. However, you can revert using the Revision History, chapter by chapter.', 'pressbooks'  ) ?></p>
 
 	<form method="post" action="">
 		<table class="searchargs">
