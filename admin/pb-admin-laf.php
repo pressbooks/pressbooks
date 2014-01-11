@@ -536,7 +536,7 @@ function init_css_js() {
 	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
 
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
-	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '20140109', 'screen' );
+	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '20140110', 'screen' );
 	wp_enqueue_style( 'pressbooks-admin' );
 	wp_register_style( 'colors-fresh', site_url() . '/wp-admin/css/colors-fresh.css', array(), false, 'screen' );
 	wp_enqueue_style( 'colors-fresh' );

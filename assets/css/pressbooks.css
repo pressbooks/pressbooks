@@ -326,6 +326,13 @@ a.menu-icon-generic .wp-menu-image:before {
 	font-family: FontAwesome !important;
 	-webkit-font-smoothing: antialiased;
 	background: none;
+	content: '\f05a' !important;
+}
+
+a.menu-icon-post .wp-menu-image:before {
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
 	content: '\f02d' !important;
 }
 
@@ -582,7 +589,7 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 	font-family: FontAwesome !important;
 	-webkit-font-smoothing: antialiased;
 	background: none;
-	content: '\f02d' !important;
+	content: '\f06e' !important;
 }
 
 #wp-admin-bar-wp-logo > .ab-item .ab-icon:before {
