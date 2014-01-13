@@ -400,7 +400,8 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.05);
   background: #c5002a; }
 
 .theme-browser .theme.active .theme-actions {
-  }
+	display: none;
+}
 
 .theme-browser .theme.add-new-theme:hover span:after {
   color: #c5002a; }
@@ -409,6 +410,7 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.05);
 .theme-overlay .theme-header .right:hover,
 .theme-overlay .theme-header .left:hover {
   background: #c5002a; }
+
 
 /* jQuery UI Slider */
 .wp-slider .ui-slider-handle,
