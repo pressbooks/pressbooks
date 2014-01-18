@@ -1,7 +1,7 @@
 === PressBooks ===
 
 Contributors: PressBooks <code@pressbooks.com>
-Version: 2.2.1
+Version: 2.3
 Tags: ebooks, publishing, webbooks
 Requires at least: WordPress 3.8
 Tested up to: WordPress 3.8
@@ -12,17 +12,17 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 == Description ==
 
 PressBooks is an open source book publishing tool built on a WordPress multisite platform. PressBooks outputs books in
-multiple formats, including PDF EPUB/MOBI, web, and a variety of XML flavours, using a theming/templating system,
+multiple formats, including PDF, EPUB, MOBI, web, and a variety of XML flavours, using a theming/templating system,
 driven by CSS. For more information, visit http://pressbooks.com.
 
 == Maintenance and Support ==
 
 Contact us about maintenance and support contracts if you are installing PressBooks on your own servers, or if you would
-like PressBooks to run a dedicated instance for you on our servers. You can reach us at: support@pressbooks.com.
+like PressBooks to run a dedicated instance for you on our servers. You can reach us at: sales@pressbooks.com.
 
 == Communication ==
 
-Our main communication channels is [Google Groups](http://groups.google.com/group/pressbooks).
+Our main communication channel for the PressBooks plugin is [Google Groups](http://groups.google.com/group/pressbooks).
 
 == Contributors ==
 
