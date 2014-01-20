@@ -1113,17 +1113,18 @@ class Epub201 extends Export {
 					$this->hasIntroduction = true;
 				}
 
+				$n = ( $subclass == 'numberless' ) ? '' : $j;
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
 					$subclass,
 					$slug,
-					( $this->numbered ? $j : '' ),
+					( $this->numbered ? $n : '' ),
 					Sanitize\decode( $title ),
 					$content,
 					'' );
 
-				$file_id = 'chapter-' . sprintf( "%03s", $j );
+				$file_id = 'chapter-' . $id;
 				$filename = "{$file_id}-{$slug}.html";
 
 				file_put_contents(
@@ -1138,7 +1139,7 @@ class Epub201 extends Export {
 
 				$has_chapters = true;
 
-				++$j;
+				if ( $subclass !== 'numberless' ) ++$j;
 			}
 
 			if ( $has_chapters && count( $book_contents['part'] ) > 1 ) {
@@ -1306,10 +1307,10 @@ class Epub201 extends Export {
 				$class .= \PressBooks\Taxonomy\chapter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				if ( $this->numbered ) {
+				if ( $this->numbered && \PressBooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) {
 					$v['post_title'] = " $i. " . $v['post_title'];
 				}
-				++$i;
+				if ( \PressBooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) ++$i;
 			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
 				$class = 'back-matter ';
 				$class .= \PressBooks\Taxonomy\back_matter_type( $v['ID'] );

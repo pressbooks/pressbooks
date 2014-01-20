@@ -879,16 +879,17 @@ class Xhtml11 extends Export {
 					$this->hasIntroduction = true;
 				}
 
+				$n = ( $subclass == 'numberless' ) ? '' : $j;
 				$my_chapters .= sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
 					$subclass,
 					$slug,
-					$j,
+					$n,
 					Sanitize\decode( $title ),
 					$content,
 					$this->doEndnotes( $id ) ) . "\n";
 
-				++$j;
+				if ( $subclass !== 'numberless' ) ++$j;
 			}
 
 			// Echo with parts?
