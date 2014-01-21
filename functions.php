@@ -191,12 +191,15 @@ function pb_get_chapter_number( $post_name ) {
 
 	$i = 0;
 	foreach ( $lookup as $key => $val ) {
+		$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => 'publish', 'numberposts' => 1 ) );
+		$type = pb_get_section_type( $chapter[0] );
 		if ( 'chapter' == $val ) {
-			++$i;
+			if ( $type !== 'numberless' ) ++$i;
 			if ( $key == $post_name ) break;
 		}
 	}
-
+	
+	if ( $type == 'numberless' ) $i = 0;
 	return $i;
 }
 
