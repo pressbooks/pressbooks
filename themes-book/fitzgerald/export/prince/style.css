@@ -636,6 +636,10 @@ p.bl_indent {
 	left: 0;
 	top: 0;	
 }
+#toc .chapter.numberless a::before {
+	content:'' ;
+	counter-increment: none;
+}
 #toc .part a::after {
 	content:'' ;
 }
