@@ -734,6 +734,7 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 #toc .chapter.numberless a::before {
 	content:'' ;
 	counter-increment: none;
+	margin-right: 0;	
 }
 #toc .part a::after {
 	content:'' ;

@@ -609,6 +609,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc .chapter.numberless a::before {
 	content:'' ;
 	counter-increment: none;
+	margin-right: 0;	
 }
 #toc .part a::after {
 	content:'' ;

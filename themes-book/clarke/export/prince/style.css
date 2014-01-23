@@ -511,6 +511,7 @@ p.bl_indent {
 #toc .chapter.numberless a::before {
 	content:'' ;
 	counter-increment: none;
+	margin-right: 0;	
 }
 #toc .part a::after {
 	content:'' ;
