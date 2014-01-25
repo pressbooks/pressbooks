@@ -272,6 +272,9 @@ p.bl_indent {
     line-height: 1.2em;
     margin: 20px 0 -0.5em;
 }
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 .part-title {
 	font-size: 1.7em;
 }
