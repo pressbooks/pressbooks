@@ -665,6 +665,9 @@ h3.part-number::before {
 h3.chapter-number {
 	margin-bottom: 3em;
 }
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 .aphorism {
 	font-size: 1em;
     font-style: italic;

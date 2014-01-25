@@ -567,8 +567,14 @@ h3.part-number::before {
 .part-title-wrap h1 {
 	font-size: 2.6em;
 }
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 h3.chapter-number::after {
 	content: ". \A0\A0"
+}
+div.chapter.numberless h3.chapter-number {
+	display: none;
 }
 .chapter-title-wrap {
 	margin-left: 6em;

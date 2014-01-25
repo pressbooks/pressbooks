@@ -570,6 +570,9 @@ div.back-matter > h1:first-of-type {
 .chapter-title-wrap .chapter-number {
 	font-weight: normal;
 }
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 .front-matter-title-wrap h1,
 #toc h1,
 .chapter-title-wrap h2,

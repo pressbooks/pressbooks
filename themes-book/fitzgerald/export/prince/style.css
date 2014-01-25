@@ -719,6 +719,9 @@ h3.chapter-number {
 	display: inline-block;
 	padding: 0 2em 0 2em;
 }
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 h3.front-matter-number, 
 h3.part-number, 
 h3.chapter-number, 

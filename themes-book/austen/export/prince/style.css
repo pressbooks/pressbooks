@@ -622,7 +622,9 @@ cite {
 h3.front-matter-number, h3.part-number, h3.chapter-number, h3.back-matter-number {
   bookmark-level: none;
 }
-
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
   bookmark-level: none;
   margin-bottom: 5px;
