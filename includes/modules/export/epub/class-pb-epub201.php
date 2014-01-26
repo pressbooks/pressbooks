@@ -468,6 +468,11 @@ class Epub201 extends Export {
 		file_put_contents(
 			$this->tmpDir . '/META-INF/container.xml',
 			$this->loadTemplate( __DIR__ . '/templates/container.php' ) );
+
+		file_put_contents(
+			$this->tmpDir . '/META-INF/com.apple.ibooks.display-options.xml',
+			$this->loadTemplate( __DIR__ . '/templates/ibooks.php' ) );
+
 	}
 
 
