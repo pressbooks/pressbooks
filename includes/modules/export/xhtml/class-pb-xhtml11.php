@@ -669,7 +669,7 @@ class Xhtml11 extends Export {
 
 						$subclass = \PressBooks\Taxonomy\chapter_type( $chapter['ID'] );
 						$slug = $chapter['post_name'];
-						$title = $chapter['post_title'];
+						$title = Sanitize\strip_br( $chapter['post_title'] );
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $chapter['ID'], 'pb_section_author', true ) );
 
