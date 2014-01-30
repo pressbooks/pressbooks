@@ -27,7 +27,7 @@
 					<ul>
 						<?php foreach ($book['front-matter'] as $fm): ?>
 						<?php if ($fm['post_status'] != 'publish') continue; // Skip ?>
-						<li class="front-matter <?php echo pb_get_section_type( get_post($fm['ID']) ) ?>"><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo $fm['post_title'];?></a></li>
+						<li class="front-matter <?php echo pb_get_section_type( get_post($fm['ID']) ) ?>"><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo pb_strip_br( $fm['post_title'] );?></a></li>
 						<?php endforeach; ?>
 					</ul>
 				</li>
@@ -37,7 +37,7 @@
 					<ul>
 						<?php foreach ($part['chapters'] as $chapter) : ?>
 							<?php if ($chapter['post_status'] != 'publish') continue; // Skip ?>
-							<li class="chapter <?php echo pb_get_section_type( get_post($chapter['ID']) ) ?>"><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo $chapter['post_title']; ?></a></li>
+							<li class="chapter <?php echo pb_get_section_type( get_post($chapter['ID']) ) ?>"><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo pb_strip_br( $chapter['post_title'] ); ?></a></li>
 						<?php endforeach; ?>
 					</ul>
 				</li>
@@ -47,7 +47,7 @@
 					<ul>
 						<?php foreach ($book['back-matter'] as $bm): ?>
 						<?php if ($bm['post_status'] != 'publish') continue; // Skip ?>
-						<li class="back-matter <?php echo pb_get_section_type( get_post($bm['ID']) ) ?>"><a href="<?php echo get_permalink($bm['ID']); ?>"><?php echo $bm['post_title'];?></a></li>
+						<li class="back-matter <?php echo pb_get_section_type( get_post($bm['ID']) ) ?>"><a href="<?php echo get_permalink($bm['ID']); ?>"><?php echo pb_strip_br( $bm['post_title'] );?></a></li>
 						<?php endforeach; ?>
 					</ul>
 				</li>

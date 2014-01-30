@@ -74,6 +74,17 @@ function pb_decode( $val ) {
 	return \PressBooks\Sanitize\decode( $val );
 }
 
+/**
+ * Shortcut to \PressBooks\Sanitize\strip_br();
+ *
+ * @param $val
+ *
+ * @return string
+ */
+function pb_strip_br( $val ) {
+
+	return \PressBooks\Sanitize\strip_br( $val );
+}
 
 /**
  * Shortcut to \PressBooks\CustomCss::isCustomCss();
