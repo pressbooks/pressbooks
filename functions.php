@@ -74,17 +74,6 @@ function pb_decode( $val ) {
 	return \PressBooks\Sanitize\decode( $val );
 }
 
-/**
- * Shortcut to \PressBooks\strip_tags();
- *
- * @param $val
- *
- * @return string
- */
-function pb_strip_br( $val ) {
-
-	return \PressBooks\strip_tags( $val );
-}
 
 /**
  * Shortcut to \PressBooks\CustomCss::isCustomCss();

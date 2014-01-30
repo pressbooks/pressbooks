@@ -1300,7 +1300,6 @@ class Epub201 extends Export {
 
 			$subtitle = '';
 			$author = '';
-			$v['post_title'] = strip_tags( $v['post_title'] );
 			if ( preg_match( '/^front-matter-/', $k ) ) {
 				$class = 'front-matter ';
 				$class .= \PressBooks\Taxonomy\front_matter_type( $v['ID'] );

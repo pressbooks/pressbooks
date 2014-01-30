@@ -652,7 +652,7 @@ class Xhtml11 extends Export {
 			if ( 'part' == $type ) {
 				foreach ( $struct as $part ) {
 					$slug = $part['post_name'];
-					$title = strip_tags( $part['post_title'] );
+					$title = $part['post_title'];
 					if ( count( $book_contents['part'] ) > 1 && $this->atLeastOneExport( $part['chapters'] ) ) {
 						printf( '<li class="part"><a href="#%s">%s</a></li>',
 							$slug,
@@ -669,7 +669,7 @@ class Xhtml11 extends Export {
 
 						$subclass = \PressBooks\Taxonomy\chapter_type( $chapter['ID'] );
 						$slug = $chapter['post_name'];
-						$title = strip_tags( $chapter['post_title'] );
+						$title = $chapter['post_title'];
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $chapter['ID'], 'pb_section_author', true ) );
 
@@ -694,7 +694,7 @@ class Xhtml11 extends Export {
 					$subtitle = '';
 					$author = '';
 					$slug = $val['post_name'];
-					$title = strip_tags( $val['post_title'] );
+					$title = $val['post_title'];
 
 					if ( 'front-matter' == $type ) {
 						$subclass = \PressBooks\Taxonomy\front_matter_type( $val['ID'] );
