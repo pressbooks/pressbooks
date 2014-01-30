@@ -139,21 +139,6 @@ function decode( $slug ) {
 	return $slug;
 }
 
-/**
- * Remove <br> from chapter titles.
- *
- * @param $slug
- *
- * @return string
- */
-function strip_br( $slug ) {
-
-	$slug = str_replace('<br>', ' ', $slug);
-	$slug = str_replace('<br />', ' ', $slug);
-
-	return $slug;
-}
-
 
 /**
  * Canonicalize URL

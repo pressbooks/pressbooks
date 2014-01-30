@@ -75,7 +75,7 @@ function pb_decode( $val ) {
 }
 
 /**
- * Shortcut to \PressBooks\Sanitize\strip_br();
+ * Shortcut to \PressBooks\strip_tags();
  *
  * @param $val
  *
@@ -83,7 +83,7 @@ function pb_decode( $val ) {
  */
 function pb_strip_br( $val ) {
 
-	return \PressBooks\Sanitize\strip_br( $val );
+	return \PressBooks\strip_tags( $val );
 }
 
 /**
