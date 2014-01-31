@@ -150,6 +150,7 @@ function decode( $slug ) {
 function strip_br( $slug ) {
 	
 	$slug = str_replace( '&lt;br /&gt;', ' ', $slug );
+	$slug = str_replace( '<br />', ' ', $slug );
 	
 	return $slug;
 
