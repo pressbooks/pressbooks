@@ -141,6 +141,22 @@ function decode( $slug ) {
 
 
 /**
+ * Strip <br /> tags.
+ *
+ * @param $slug
+ *
+ * @return string
+ */
+function strip_br( $slug ) {
+	
+	$slug = str_replace( '&lt;br /&gt;', ' ', $slug );
+	
+	return $slug;
+
+}
+
+
+/**
  * Canonicalize URL
  *
  * @param $url
