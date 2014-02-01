@@ -124,8 +124,6 @@ class Wxr extends Import {
 				$section_author = $this->searchForSectionAuthor( $p['postmeta'] );
 				if ( $section_author ) {
 					update_post_meta( $pid, 'pb_section_author', $section_author );
-				} else { // if above returns no results, take value from 'dc:creator'
-					update_post_meta( $pid, 'pb_section_author', $p['post_author'] );
 				}
 			}
 
