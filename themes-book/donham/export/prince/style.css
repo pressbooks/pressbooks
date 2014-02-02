@@ -567,8 +567,14 @@ h3.part-number::before {
 .part-title-wrap h1 {
 	font-size: 2.6em;
 }
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 h3.chapter-number::after {
 	content: ". \A0\A0"
+}
+div.chapter.numberless h3.chapter-number {
+	display: none;
 }
 .chapter-title-wrap {
 	margin-left: 6em;
@@ -730,6 +736,11 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 	content: counter(chapter) ". ";
 	counter-increment: chapter; 
 	margin-right: 7pt;	
+}
+#toc .chapter.numberless a::before {
+	content:'' ;
+	counter-increment: none;
+	margin-right: 0;	
 }
 #toc .part a::after {
 	content:'' ;

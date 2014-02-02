@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the PressBooks package.
 msgid ""
 msgstr ""
-"Project-Id-Version: PressBooks 2.2.1\n"
+"Project-Id-Version: PressBooks 2.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
 "POT-Creation-Date: 2013-09-20 14:45:33+00:00\n"
 "MIME-Version: 1.0\n"

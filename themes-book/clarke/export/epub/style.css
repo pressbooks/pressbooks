@@ -196,7 +196,9 @@ h4.chapter-number {
     line-height: 1.2em;
     margin: 20px 0 -0.5em;
 }
-
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 /*  BODY TITLES
 ===================	*/
 .ugc h1, 

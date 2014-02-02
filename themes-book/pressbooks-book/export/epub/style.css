@@ -191,6 +191,9 @@ div.part-title-wrap > h3.part-number:before {
 .chapter-number {
 	margin-bottom: 3em;
 }
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 .front-matter-title {
 	margin-bottom: 3em;
 }

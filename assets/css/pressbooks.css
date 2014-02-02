@@ -72,10 +72,6 @@
 	border-top: 0;
 }
 
-.postbox h3 {
-	border-top: 1px solid #DFDFDF;
-}
-
 p.chapter_add {
 	margin: 0;
 	padding: 10px;
@@ -137,6 +133,13 @@ p.chapter_add {
 	display: none;
 }
 
+body.chapter_page_pressbooks tbody { margin-top: 10px; }
+
+body.chapter_page_pressbooks .widefat thead tr th {
+	font-weight: bold;
+	color: #333333;
+}
+
 /* Themes page
 =============== */
 
@@ -150,11 +153,6 @@ p.chapter_add {
 
 /* POST/PART
 ============= */
-
-#post-body #post-body-content,
-.has-right-sidebar #post-body {
-	background-color: #F9F9F9;
-}
 
 #post-body-content #titlediv,
 #post-body-content #postdivrich {
@@ -308,121 +306,56 @@ img.theme-screenshot {
 /* Menu images
 =============== */
 
-a.menu-icon-generic .wp-menu-image {
-	background-image: url(../images/menu-pressbooks.png?v=2) !important;
-	background-position: -19px 5px !important;
-	background-size: 80px 50px !important;
+/*
+ *  Font Awesome 4.0.3 by @davegandy - http://fontawesome.io - @fontawesome
+ *  License - http://fontawesome.io/license (Font: SIL OFL 1.1)
+ */
+ 
+@font-face {
+		font-family: 'FontAwesome';
+		src:url('../fonts/fontawesome-webfont.eot?v=3.1.0');
+		src:url('../fonts/fontawesome-webfont.eot?#iefix&v=3.1.0') format('embedded-opentype'),
+			url('../fonts/fontawesome-webfont.woff?v=3.1.0') format('woff'),
+			url('../fonts/fontawesome-webfont.ttf?v=3.1.0') format('truetype'),
+			url('../fonts/fontawesome-webfont.svg#fontawesomeregular?v=3.1.0') format('svg');
+		font-weight: normal;
+		font-style: normal;
 }
 
-a.menu-icon-generic:hover .wp-menu-image {
-	background-position: -19px -20px !important;
+a.menu-icon-generic .wp-menu-image:before {
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f05a' !important;
 }
 
-a.toplevel_page_pb_export .wp-menu-image {
-	background-image: url(../images/menu-pressbooks.png?v=2) !important;
-	background-position: 7px 5px !important;
-	background-size: 80px 50px !important;
+a.menu-icon-post .wp-menu-image:before {
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f02d' !important;
 }
 
-a.toplevel_page_pb_export:hover .wp-menu-image, a.toplevel_page_pb_export.current .wp-menu-image {
-	background-position: 7px -20px !important;
+a.toplevel_page_pb_upgrade .wp-menu-image:before {
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f01b' !important;
 }
 
-a.toplevel_page_pb_sell .wp-menu-image {
-	background-image: url(../images/menu-pressbooks.png?v=2) !important;
-	background-position: -52px 5px !important;
-	background-size: 80px 50px !important;
+a.toplevel_page_pb_export .wp-menu-image:before {
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f064' !important;
 }
 
-a.toplevel_page_pb_sell:hover .wp-menu-image {
-	background-position: -52px -20px !important;
+a.toplevel_page_pb_sell > .wp-menu-image:before {
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f155' !important;
 }
-
-/* Retina menu images
-====================== */
-
-@media   (-o-min-device-pixel-ratio: 5/4),
-  		 (-webkit-min-device-pixel-ratio: 1.25),
-		 (min-resolution: 120dpi),
-		 only screen and (-Webkit-min-device-pixel-ratio: 1.5), 
-		 only screen and (-moz-min-device-pixel-ratio: 1.5), 
-		 only screen and (-o-min-device-pixel-ratio: 3/2), 
-		 only screen and (min-device-pixel-ratio: 1.5) {
-
-			a.menu-icon-generic .wp-menu-image {
-				background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
-				background-size: 80px 50px !important;
-				background-position: -18px 6px !important;
-			}
-				
-			a.menu-icon-generic:hover .wp-menu-image {
-				background-position: -18px -19px !important;
-			}
-
-			a.toplevel_page_pb_export .wp-menu-image {
-				background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
-				background-position: 8px 6px !important;
-			}
-
-			a.toplevel_page_pb_export:hover .wp-menu-image, a.toplevel_page_pb_export.current .wp-menu-image {
-				background-position: 8px -19px !important;
-			}
-			a.toplevel_page_pb_sell .wp-menu-image {
-				background-image: url(../images/menu-pressbooks@2x.png?v=2) !important;
-				background-position: -52px 5px !important;
-			}
-
-			a.toplevel_page_pb_sell:hover .wp-menu-image {
-				background-position: -52px -20px !important;
-			}
-}
-
-
-/* Page icons */
-
-#icon-pressbooks-export {
-	background-image: url(../images/icons-pressbooks.png?v=2);
-}
-
-#wpbody-content .icon32-posts-metadata {
-	background-image: url(../images/icons-pressbooks.png?v=2) !important;
-	background-position: -48px 0 !important;
-}
-
-#wpbody-content .icon32-posts-metadata {
-	background-image: url(../images/icons-pressbooks.png?v=2) !important;
-	background-position: -48px 0 !important;
-}
-#icon-sell {
-	background-image: url(../images/icons-pressbooks.png?v=2) !important;
-	background-position: -93px 0 !important;
-}
-/* Retina page icons */
-
-
-
-@media  (-o-min-device-pixel-ratio: 5/4),
-  		(-webkit-min-device-pixel-ratio: 1.25),
-  		(min-resolution: 120dpi),
-  		only screen and (-webkit-min-device-pixel-ratio: 1.5), 
-  		only screen and (-moz-min-device-pixel-ratio: 1.5), 
-  		only screen and (-o-min-device-pixel-ratio: 3/2), 
-  		only screen and (min-device-pixel-ratio: 1.5) {
-			#icon-pressbooks-export {
-				background-image: url(../images/icons-pressbooks@2x.png?v=2);
-				background-size: 140px 50px !important;
-			}
-
-			#wpbody-content .icon32-posts-metadata {
-				background-image: url(../images/icons-pressbooks@2x.png?v=2) !important;
-				background-size: 140px 50px !important;
-			}
-			#icon-sell {
-				background-image: url(../images/icons-pressbooks@2x.png?v=2) !important;
-				background-size: 140px 50px !important;
-		}
-}
-
 
 .export-files {
 	margin-bottom: 1.25em;
@@ -616,55 +549,68 @@ a.toplevel_page_pb_sell:hover .wp-menu-image {
 /* Admin bar
 ============= */
 
-#wp-admin-bar-wp-logo > .ab-item .ab-icon {
-	background-image: url("../images/pb.png");
-	background-position: 6px 5px;
-	margin: 0;
-	padding: 3px 8px 0 0;
-	background-size: 16px 16px;
+@font-face {
+		font-family: "PBFont";
+		src:url("../fonts/PBFont.eot");
+		src:url("../fonts/PBFont.eot?#iefix") format("embedded-opentype"),
+			url("../fonts/PBFont.ttf") format("truetype"),
+			url("../fonts/PBFont.woff") format("woff"),
+			url("../fonts/PBFont.svg#PBFont") format("svg");
+		font-weight: normal;
+		font-style: normal;
 }
 
-@media only screen and (-Webkit-min-device-pixel-ratio: 1.5), only screen and (-moz-min-device-pixel-ratio: 1.5), only screen and (-o-min-device-pixel-ratio: 3/2), only screen and (min-device-pixel-ratio: 1.5) {
-	#wp-admin-bar-wp-logo > .ab-item .ab-icon {
-		background-image: url("../images/pb@2x.png");
-		background-position: 6px 6px;
-		background-size: 16px 16px;
+@media screen and (max-width: 782px) {
+	#wpadminbar li#wp-admin-bar-my-books { display: block; }
+	#wpadminbar #wp-admin-bar-my-books a.ab-item { text-overflow: clip;	}
+	#wpadminbar #wp-admin-bar-my-books>.ab-item { text-indent: 100%;
+		white-space: nowrap;
+		overflow: hidden;
+		width: 55px;
+		padding: 0;
+		color: #999;
+		position: relative;
+	}
+	#wpadminbar #wp-admin-bar-my-books>.ab-item:before {
+		font: 32px/1 FontAwesome !important;
+		text-align: center;
+		text-indent: 0px;
+		top: 7px;
+		width: 55px;
+		-webkit-font-smoothing: antialiased;
+		background: none;
+		content: '\f07b' !important;
+	}
+	#wpadminbar .quicklinks li .blavatar:before {
+		display: inline-block;
 	}
 }
 
-#wp-admin-bar-wp-logo:hover > .ab-item .ab-icon,
-#wp-admin-bar-wp-logo.hover > .ab-item .ab-icon,
-#wpadminbar.nojs #wp-admin-bar-wp-logo:hover > .ab-item .ab-icon,
-#wpadminbar #wp-admin-bar-wp-logo.hover > .ab-item .ab-icon {
-	background-position: 6px 6px;
+#wpadminbar .quicklinks li .blavatar:before {
+	font: 14px/1 "PBFont" !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\e600' !important;	
 }
 
-#wpadminbar {
-	background-color: #d4002d;
-	background-image: -webkit-gradient(radial, 50% 0%, 100, 50% 150%, 100, from(rgb(212, 0, 45)), to(rgb(180, 0, 38)));
-	background-image: -webkit-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -moz-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -o-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -ms-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-
-	border-bottom: 1px solid #C6C6C6;
+#wpadminbar #wp-admin-bar-site-name>.ab-item:before {
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\f06e' !important;
 }
 
-#wpadminbar .quicklinks .ab-top-secondary > li > a,
-#wpadminbar .quicklinks .ab-top-secondary > li > .ab-empty-item {
-	border-left: 1px solid #E0474B;
-	border-right: 0 none;
+#wp-admin-bar-wp-logo > .ab-item .ab-icon:before {
+	font: 20px/1 "PBFont" !important;
+	-webkit-font-smoothing: antialiased;
+	background: none;
+	content: '\e600' !important;
 }
 
-#wpadminbar .ab-top-secondary {
-	background-color: #d4002d;
-	background-image: -webkit-gradient(radial, 50% 0%, 100, 50% 150%, 100, from(rgb(212, 0, 45)), to(rgb(180, 0, 38)));
-	background-image: -webkit-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -moz-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -o-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: -ms-radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
-	background-image: radial-gradient(50% 100%, rgb(180, 0, 38), rgb(212, 0, 45));
+@media screen and (max-width: 782px) {
+	#wpadminbar #wp-admin-bar-wp-logo>.ab-item .ab-icon:before {
+		font: 28px/1 "PBFont" !important;
+	}
 }
 
 a.admin-feedback-btn {
@@ -722,6 +668,10 @@ a:active.admin-feedback-btn {
 	box-shadow: none;
 }
 
+.modal-backdrop.fade.in {
+	opacity: 0.4 !important;
+}
+
 /* Organize page styling (big tables)
 ====================================== */
 
@@ -767,7 +717,8 @@ table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tf
 
 .pressbooks-admin-panel {
 	background: #fff;
-	box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+	box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+	border: 1px solid #dedede;
 	margin: 16px 0;
 	padding: 20px 20px 5px;	
 }

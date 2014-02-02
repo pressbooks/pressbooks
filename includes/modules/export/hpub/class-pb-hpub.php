@@ -804,7 +804,7 @@ class Hpub extends Export {
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>';
 		$part_printf .= '</div>';
 
-		$chapter_printf = '<div class="chapter" id="%s">';
+		$chapter_printf = '<div class="chapter %s" id="%s">';
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%s</h3><h2 class="chapter-title">%s</h2></div>';
 		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s';
 		$chapter_printf .= '</div>';
@@ -843,6 +843,7 @@ class Hpub extends Export {
 
 				$chapter_printf_changed = '';
 				$id = $chapter['ID'];
+				$subclass = \PressBooks\Taxonomy\chapter_type( $id );
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
 				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
@@ -866,20 +867,22 @@ class Hpub extends Export {
 
 				// Inject introduction class?
 				if ( ! $this->hasIntroduction ) {
-					$chapter_printf_changed = str_replace( '<div class="chapter" id=', '<div class="chapter introduction" id=', $chapter_printf );
+					$chapter_printf_changed = str_replace( '<div class="chapter %s" id=', '<div class="chapter introduction %s" id=', $chapter_printf );
 					$this->hasIntroduction = true;
 				}
 
+				$n = ( $subclass == 'numberless' ) ? '' : $j;
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
+					$subclass,
 					$slug,
-					$j,
+					$n,
 					Sanitize\decode( $title ),
 					$content,
 					'' );
 
-				$file_id = 'chapter-' . sprintf( "%03s", $j );
+				$file_id = 'chapter-' . $id;
 				$filename = "{$file_id}-{$slug}.html";
 
 				file_put_contents(
@@ -894,7 +897,7 @@ class Hpub extends Export {
 
 				$has_chapters = true;
 
-				++$j;
+				if ( $subclass !== 'numberless' ) ++$j;
 			}
 
 			if ( $has_chapters && count( $book_contents['part'] ) > 1 ) {
@@ -964,6 +967,22 @@ class Hpub extends Export {
 			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $back_matter['post_title'] : '' );
 			$content = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
 
+			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
+			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
+			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
+
+			if ( $author ) {
+				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
+			}
+
+			if ( $subtitle ) {
+				$content = '<h2 class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</h2>' . $content;
+			}
+
+			if ( $short_title ) {
+				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
+			}
+
 			$vars['post_title'] = $back_matter['post_title'];
 			$vars['post_content'] = sprintf( $back_matter_printf,
 				$subclass,
@@ -1031,6 +1050,7 @@ class Hpub extends Export {
 
 			$subtitle = '';
 			$author = '';
+			$title = Sanitize\strip_br( $v['post_title'] );
 			if ( preg_match( '/^front-matter-/', $k ) ) {
 				$class = 'front-matter ';
 				$class .= \PressBooks\Taxonomy\front_matter_type( $v['ID'] );
@@ -1040,17 +1060,20 @@ class Hpub extends Export {
 				$class = 'part';
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
 				$class = 'chapter';
+				$class .= \PressBooks\Taxonomy\chapter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				++$i;
 			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
 				$class = 'back-matter ';
 				$class .= \PressBooks\Taxonomy\back_matter_type( $v['ID'] );
+				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
+				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 			} else {
 				continue;
 			}
 
-			$html .= sprintf( '<li class="%s"><a href="%s"><span class="toc-chapter-title">%s</span>', $class, $v['filename'], Sanitize\decode( $v['post_title'] ) );
+			$html .= sprintf( '<li class="%s"><a href="%s"><span class="toc-chapter-title">%s</span>', $class, $v['filename'], Sanitize\decode( $title ) );
 
 			if ( $subtitle )
 				$html .= ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';

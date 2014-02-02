@@ -74,6 +74,18 @@ function pb_decode( $val ) {
 	return \PressBooks\Sanitize\decode( $val );
 }
 
+/**
+ * Shortcut to \PressBooks\Sanitize\strip_br();
+ *
+ * @param $val
+ *
+ * @return string
+ */
+function pb_strip_br( $val ) {
+
+	return \PressBooks\Sanitize\strip_br( $val );
+}
+
 
 /**
  * Shortcut to \PressBooks\CustomCss::isCustomCss();
@@ -191,13 +203,40 @@ function pb_get_chapter_number( $post_name ) {
 
 	$i = 0;
 	foreach ( $lookup as $key => $val ) {
+		$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => 'publish', 'numberposts' => 1 ) );
+		$type = pb_get_section_type( $chapter[0] );
 		if ( 'chapter' == $val ) {
-			++$i;
+			if ( $type !== 'numberless' ) ++$i;
 			if ( $key == $post_name ) break;
 		}
 	}
-
+	
+	if ( $type == 'numberless' ) $i = 0;
 	return $i;
+}
+
+/**
+ * Get chapter, front or back matter type
+ *
+ * @param $post
+ *
+ * @return string
+ */
+function pb_get_section_type( $post ) {
+
+	switch ($post->post_type) {
+    case 'chapter':
+        $type = \PressBooks\Taxonomy\chapter_type( $post->ID );
+        break;
+    case 'front-matter':
+        $type = \PressBooks\Taxonomy\front_matter_type( $post->ID );
+        break;
+    case 'back-matter':
+        $type = \PressBooks\Taxonomy\back_matter_type( $post->ID );
+        break;
+	}
+	
+	return $type;
 }
 
 

@@ -508,6 +508,11 @@ p.bl_indent {
 	counter-increment: chapter; 
 	margin-right: 7pt;	
 }
+#toc .chapter.numberless a::before {
+	content:'' ;
+	counter-increment: none;
+	margin-right: 0;	
+}
 #toc .part a::after {
 	content:'' ;
 }
@@ -564,6 +569,9 @@ div.back-matter > h1:first-of-type {
 }
 .chapter-title-wrap .chapter-number {
 	font-weight: normal;
+}
+div.chapter.numberless h3.chapter-number {
+	display: none;
 }
 .front-matter-title-wrap h1,
 #toc h1,
