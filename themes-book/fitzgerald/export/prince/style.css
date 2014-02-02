@@ -636,6 +636,11 @@ p.bl_indent {
 	left: 0;
 	top: 0;	
 }
+#toc .chapter.numberless a::before {
+	content:'' ;
+	counter-increment: none;
+	margin-right: 0;	
+}
 #toc .part a::after {
 	content:'' ;
 }
@@ -713,6 +718,9 @@ h3.chapter-number {
 	font-weight: lighter;
 	display: inline-block;
 	padding: 0 2em 0 2em;
+}
+div.chapter.numberless h3.chapter-number {
+	display: none;
 }
 h3.front-matter-number, 
 h3.part-number, 

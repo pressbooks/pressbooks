@@ -47,7 +47,7 @@ function add_feedback_dialogue() {
 		<a href="mailto:support@pressbooks.com">support@pressbooks.com</a></p>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal"><?php _e( 'Close', 'pressbooks' ); ?></a>
+		<a href="#" class="button-primary alignright" data-dismiss="modal"><?php _e( 'Close', 'pressbooks' ); ?></a>
 	</div>
 </div>
 <a class="admin-feedback-btn" href="#myModal" data-toggle="modal"><?php _e( 'Feedback', 'pressbooks' ); ?></a>
@@ -138,12 +138,22 @@ function replace_book_admin_menu() {
 		$add_back_matter = $submenu['edit.php?post_type=back-matter'][10];
 		array_push( $submenu['edit.php?post_type=chapter'], $add_part, $add_chapter, $add_front_matter, $add_back_matter );
 	}
-	unset( $submenu['edit.php?post_type=chapter'][10] );
-	if ( is_super_admin() ) {
-		// If network administrator, give the option to see front matter types.
-		array_push( $submenu['edit.php?post_type=chapter'], $submenu['edit.php?post_type=front-matter'][15], $submenu['edit.php?post_type=back-matter'][15] );
-	}
 
+	$chapter_types = $submenu['edit.php?post_type=chapter'][15];
+	$front_matter_types = $submenu['edit.php?post_type=front-matter'][15];
+	$back_matter_types = $submenu['edit.php?post_type=back-matter'][15];
+	unset( $submenu['edit.php?post_type=chapter'][10] );
+	unset( $submenu['edit.php?post_type=chapter'][15] );
+	
+	if ( is_super_admin() ) {
+		// If network administrator, give the option to see chapter, front matter and back matter types.
+		array_push(
+			$submenu['edit.php?post_type=chapter'],
+			$chapter_types,
+			$front_matter_types,
+			$back_matter_types
+		);
+	}
 
 	// Book Information
 	$metadata = new \PressBooks\Metadata();
@@ -384,8 +394,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	
 	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
 
-		// TODO: Replace with some favicon lookup.
-		$blavatar = '<img src="' . esc_url( PB_PLUGIN_URL . 'assets/images/pb.png' ) . '" alt="' . esc_attr__( 'Blavatar', 'pressbooks' ) . '" width="16" height="16" class="blavatar"/> ';
+		$blavatar = '<span class="blavatar"/></span>';
 
 		$blogname = empty( $blog->blogname ) ? $blog->domain : $blog->blogname;
 		$menu_id = 'blog-' . $blog->userblog_id;
@@ -487,6 +496,8 @@ function transform_category_selection_box() {
 		$term = get_term_by( 'slug', 'miscellaneous', 'front-matter-type' );
 	} elseif ( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == ( $base . '/wp-admin/post-new.php?post_type=back-matter' ) ) {
 		$term = get_term_by( 'slug', 'miscellaneous', 'back-matter-type' );
+	} elseif ( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == ( $base . '/wp-admin/post-new.php?post_type=chapter' ) ) {
+		$term = get_term_by( 'slug', 'type-1', 'chapter-type' );
 	}
 
 	?>
@@ -498,9 +509,13 @@ function transform_category_selection_box() {
 	jQuery('input:checkbox[id^="in-back-matter-type"]').each(function () {
 		jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
 	});
+	jQuery('input:checkbox[id^="in-chapter-type"]').each(function () {
+		jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
+	});	
 		<?php if ( isset( $term ) ): ?>
 	jQuery('input:radio[id="in-front-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
 	jQuery('input:radio[id="in-back-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
+	jQuery('input:radio[id="in-chapter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
 		<?php endif; ?>
 </script>
 <?php
@@ -521,7 +536,7 @@ function init_css_js() {
 	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
 
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
-	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '20130921', 'screen' );
+	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '20140110', 'screen' );
 	wp_enqueue_style( 'pressbooks-admin' );
 	wp_register_style( 'colors-fresh', site_url() . '/wp-admin/css/colors-fresh.css', array(), false, 'screen' );
 	wp_enqueue_style( 'colors-fresh' );
@@ -885,10 +900,22 @@ function advanced_settings_init() {
 		'advanced_settings',
 		'advanced_settings_section'
 	);
+	add_settings_field(
+		'enable_chapter_types',
+		__( 'Enable chapter types.', 'pressbooks' ),
+			__NAMESPACE__ . '\advanced_enable_chapter_types_callback',
+		'advanced_settings',
+		'advanced_settings_section'
+	);
 	register_setting(
 		'advanced_settings',
 		'pressbooks_email_validation_logs',
 			__NAMESPACE__ . '\advanced_email_validation_logs_sanitize'
+	);
+	register_setting(
+		'advanced_settings',
+		'pressbooks_enable_chapter_types',
+			__NAMESPACE__ . '\advanced_enable_chapter_types_sanitize'
 	);
 
 }
@@ -919,7 +946,31 @@ function advanced_email_validation_logs_callback( $args ) {
 	$html .= '<label for="no-validation-logs"> ' . __( 'Yes. Send the logs.', 'pressbooks' ) . '</label>';
 	$html .= '<br /><br /><em> ' . __( 'Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and will require some effort to decipher. Unfortunately we cannot provide support for deciphering validation errors, but you could post errors on the <a href="http://forum.pressbooks.com/" target="_blank">PressBooks forum</a>, where we and other PressBooks users can help out as time permits. .', 'pressbooks' ) . '</em>';
 
-	$html .= '</p>';
+	echo $html;
+}
+
+/**
+ *  Advanced settings, enable_chapter_types field callback
+ *
+ * @param $args
+ */
+function advanced_enable_chapter_types_callback( $args ) {
+	$enable_chapter_types = get_option( 'pressbooks_enable_chapter_types' );
+
+	if ( $enable_chapter_types == 1 ) { // make sure that chapter types exist if enabling
+		$chapter_types_initialized = get_option( 'pressbooks_chapter_types_initialized' );
+		if ( !$chapter_types_initialized == 1 ) {
+			wp_insert_term( 'Type 1', 'chapter-type', array( 'slug' => 'type-1' ) );
+			wp_insert_term( 'Type 2', 'chapter-type', array( 'slug' => 'type-2' ) );
+			wp_insert_term( 'Type 3', 'chapter-type', array( 'slug' => 'type-3' ) );
+			wp_insert_term( 'Type 4', 'chapter-type', array( 'slug' => 'type-4' ) );
+			wp_insert_term( 'Type 5', 'chapter-type', array( 'slug' => 'type-5' ) );
+			update_option( 'pressbooks_chapter_types_initialized', 1 );
+		}
+	}
+	
+	$html = '<input type="checkbox" id="enable-chapter-types" name="pressbooks_enable_chapter_types" value="1"' . checked( 1, $enable_chapter_types, false ) . '/>';
+	$html .= '<label for="enable-chapter-types"> ' . __( 'Enable chapter types taxonomy.', 'pressbooks' ) . '</label><br />';
 
 	echo $html;
 }
@@ -935,6 +986,16 @@ function advanced_email_validation_logs_sanitize( $input ) {
 	return absint( $input );
 }
 
+
+/**
+ * Advanced settings, enable_chapter_types field sanitization
+ *
+ * @param $input
+ * @return string
+ */
+function advanced_enable_chapter_types_sanitize( $input ) {
+	return absint( $input );
+}
 
 /**
  * Display Advanced settings

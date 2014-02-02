@@ -438,6 +438,27 @@ function add_meta_boxes() {
 		'label' => __( 'Front Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
 
+	// Back Matter Metadata
+
+	x_add_metadata_group( 'back-matter-metadata', 'back-matter', array(
+		'label' => __( 'Back Matter Metadata', 'pressbooks' )
+	) );
+
+	x_add_metadata_field( 'pb_short_title', 'back-matter', array(
+		'group' => 'back-matter-metadata',
+		'label' => __( 'Back Matter Short Title (appears in the PDF running header)', 'pressbooks' )
+	) );
+
+	x_add_metadata_field( 'pb_subtitle', 'back-matter', array(
+		'group' => 'back-matter-metadata',
+		'label' => __( 'Back Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' )
+	) );
+
+	x_add_metadata_field( 'pb_section_author', 'back-matter', array(
+		'group' => 'back-matter-metadata',
+		'label' => __( 'Back Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
+	) );
+
 	// Part Metadata
 
 	x_add_metadata_group( 'part-metadata-text', 'part', array(

@@ -606,6 +606,11 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	left: 0;
 	top: 0;
 }
+#toc .chapter.numberless a::before {
+	content:'' ;
+	counter-increment: none;
+	margin-right: 0;	
+}
 #toc .part a::after {
 	content:'' ;
 }
@@ -659,6 +664,9 @@ h3.part-number::before {
 }
 h3.chapter-number {
 	margin-bottom: 3em;
+}
+div.chapter.numberless h3.chapter-number {
+	display: none;
 }
 .aphorism {
 	font-size: 1em;

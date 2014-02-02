@@ -239,10 +239,6 @@ class Docx extends Import {
 
 		$pid = wp_insert_post( $new_post );
 
-		if ( $this->authors ) {
-			update_post_meta( $pid, 'pb_section_author', $this->authors );
-		}
-
 		update_post_meta( $pid, 'pb_show_title', 'on' );
 		update_post_meta( $pid, 'pb_export', 'on' );
 

@@ -60,8 +60,12 @@ function login( $redirect_to, $request_redirect_to, $user ) {
 	}
 
 	if ( $user->primary_blog ) {
-		// Force redirect the user to their catalog, bypass wp_safe_redirect()
-		$redirect = get_blogaddress_by_id( $user->primary_blog ) . 'wp-admin/index.php?page=pb_catalog';
+		// Force redirect the user to their blog or, if they have more than one, to their catalog, bypass wp_safe_redirect()
+		if ( count( $blogs ) > 1 ) {
+			$redirect = get_blogaddress_by_id( $user->primary_blog ) . 'wp-admin/index.php?page=pb_catalog';
+		} else {
+			$redirect = get_blogaddress_by_id( $user->primary_blog ) . 'wp-admin/';
+		}
 		location( $redirect );
 	}
 

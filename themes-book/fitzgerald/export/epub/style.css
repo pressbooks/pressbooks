@@ -264,7 +264,9 @@ h3.chapter-number {
 	display: inline-block;
 	padding: 0 2em 0 1em;
 }
-
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
 
 
 /*  BODY TITLES

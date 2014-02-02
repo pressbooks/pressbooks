@@ -241,6 +241,7 @@ class Activation {
 						$my_post['ID'] = $newpost;
 						$my_post['post_parent'] = $parent_part;
 						wp_update_post( $my_post );
+						$chapter1 = $newpost;
 					} elseif ( $item['post_type'] == 'front-matter' ) {
 						$intro = $newpost;
 					} elseif ( $item['post_type'] == 'back-matter' ) {
@@ -256,6 +257,8 @@ class Activation {
 		wp_set_object_terms( $intro, 'introduction', 'front-matter-type' );
 		// Apply 'appendix' front matter type to 'appendix' post
 		wp_set_object_terms( $appendix, 'appendix', 'back-matter-type' );
+		// Apply 'type-1' chapter type to 'chapter 1' post
+		wp_set_object_terms( $chapter1, 'type-1', 'chapter-type' );
 
 		if ( ! wp_delete_comment( 1, true ) )
 			return;
