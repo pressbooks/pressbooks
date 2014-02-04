@@ -29,10 +29,22 @@ class Epub3 extends Epub\Epub201 {
 	 * $var string
 	 */
 	protected $suffix = '_3.epub';
-	
+
 	/**
 	 * @param array $args
 	 */
+	 
+	protected $MathMLTags = array(
+									'math', 'maction', 'maligngroup', 'malignmark', 'menclose',
+									'merror', 'mfenced', 'mfrac', 'mglyph', 'mi', 'mlabeledtr',
+									'mlongdiv', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded',
+									'mphantom', 'mroot', 'mrow', 'ms', 'mscarries', 'mscarry',
+									'msgroup', 'msline', 'mspace', 'msqrt', 'msrow', 'mstack',
+									'mstyle', 'msub', 'msup', 'msubsup', 'mtable', 'mtd',
+									'mtext', 'mtr', 'munder', 'munderover', 'semantics',
+									'annotation', 'annotation-xml'
+								);
+	 
 	function __construct( array $args ) {
 
 		// Some defaults
@@ -50,6 +62,60 @@ class Epub3 extends Epub\Epub201 {
 			$this->fixme[$val] = 1;
 		}
 	}
+	
+	/**
+	 * Encode MathML Markup
+	 * @param string $html
+	 *
+	 * @return string
+	*/
+	protected function encodeMathMLMarkup( $html ) {
+	
+		//Substitude MathML Open and close Tags before running HTMLawed
+		foreach( $this->MathMLTags as $tag ) {
+			$html = preg_replace( '`<(\s*)(.*?)' . $tag . '(.*?)>`', '\x83$1$2' . $tag . '$3\x84', $html);
+		}
+	
+		return $html;
+	}
+
+	/**
+	 * Restore MathML Markup
+	 * @param string $html
+	 *
+	 * @return string
+	*/
+	protected function restoreMathMLMarkup( $html ) {
+		//Restore MathML tags to complete output
+		$html = str_replace( "\\x83","<", $html );
+		$html = str_replace( "\\x84",">", $html );
+		return $html;
+	}
+	
+	
+	/**
+	 * Check to see if content contains MathML Markup
+	 * @param string $htmlFileName
+	 *
+	 * @return boolean
+	*/
+	protected function doesFileContainMathML( $htmlFile ) {
+
+		$html = file_get_contents( $htmlFile );
+	
+		if ( empty( $html ) ) {
+			throw new \Exception( 'File contents empty for doesFileContainMathML' );
+		}
+	
+		//Check all MathML type tags and return true if any are encountered
+		foreach( $this->MathMLTags as $tag ) {
+			if( preg_match_all( '`<(\s*)(.*?)' . $tag . '(.*?)>`', $html ) >= 1) {
+				return true;
+			}
+		}
+		//No MathML Tags detected in this content.
+		return false;
+	}	
 	
 	/**
 	 * Tidy HTML
@@ -72,9 +138,16 @@ class Epub3 extends Epub\Epub201 {
 
 		// Reset on each htmLawed invocation
 		unset( $GLOBALS['hl_Ids'] );
+		
 		if ( ! empty( $this->fixme ) ) $GLOBALS['hl_Ids'] = $this->fixme;
 
-		return htmLawed( $html, $config );
+		$html = $this->encodeMathMLMarkup( $html );
+		
+		$html = htmLawed( $html, $config );
+
+		$html = $this->restoreMathMLMarkup( $html );
+
+		return $html;
 	}
 
 	/**
@@ -371,6 +444,20 @@ class Epub3 extends Epub\Epub201 {
 		}
 		$vars['manifest_assets'] = $html;
 
+		//Clear the html buffer for reuse
+		$html = '';
+
+		//Loop through the html files for the manifest and assemble them. Assign properties based on their content.
+		foreach ( $this->manifest as $k => $v ) {
+			if( $this->doesFileContainMathML( $this->tmpDir . "/OEBPS/" . $v['filename'] ) ) {
+				$html .= sprintf( '<item id="%s" href="OEBPS/%s" properties="mathml" media-type="application/xhtml+xml" />', $k, $v['filename'] ) . "\n";
+			} else {
+				$html .= sprintf( '<item id="%s" href="OEBPS/%s" media-type="application/xhtml+xml" />', $k, $v['filename'] ) . "\n";
+			}
+		}
+		$vars['manifest_filelist'] = $html;
+		
+		
 		// Put contents
 
 		file_put_contents(
