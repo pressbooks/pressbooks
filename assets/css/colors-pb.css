@@ -399,7 +399,8 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.05);
 .theme-browser .theme.add-new-theme:hover:after {
   background: #c5002a; }
 
-.theme-browser .theme.active .theme-actions {
+.theme-browser .theme.active .theme-actions,
+.theme-browser .theme.active:focus .theme-actions {
 	display: none;
 }
 
@@ -410,6 +411,157 @@ box-shadow: 0 1px 1px rgba(0,0,0,0.05);
 .theme-overlay .theme-header .right:hover,
 .theme-overlay .theme-header .left:hover {
   background: #c5002a; }
+
+/* Export Page Themes */
+
+/**
+ * Main theme element
+ * (has flexible margins)
+ */
+.export-right .theme {
+	margin-top: 13px;
+	cursor: pointer;
+	float: left;
+	position: relative;
+	border: 1px solid #dedede;
+	width: 325px;
+	-webkit-box-shadow: 0 1px 1px -1px rgba(0,0,0,0.1);
+	box-shadow:         0 1px 1px -1px rgba(0,0,0,0.1);
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing:    border-box;
+	box-sizing:         border-box;
+}
+
+.export-right .theme:hover,
+.export-right .theme:focus {
+	cursor: pointer;
+}
+
+.export-right .theme .theme-name {
+	font-size: 15px;
+	font-weight: 600;
+	margin: 0;
+	padding: 15px;
+	-webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
+	box-shadow:         inset 0 1px 0 rgba(0,0,0,0.1);
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	background: #fff;
+	background: rgba(255,255,255,0.65);
+}
+
+/* Activate and Customize buttons, shown on hover */
+.export-right .theme .theme-actions {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	opacity: 0;
+	-webkit-transition: opacity 0.1s ease-in-out;
+	transition:         opacity 0.1s ease-in-out;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	height: 38px;
+	padding: 9px 10px 0 10px;
+	background: rgba(244, 244, 244, 0.7);
+	border-left: 1px solid rgba(0,0,0,0.05);
+}
+
+.export-right .theme:hover .theme-actions {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	opacity: 1;
+}
+
+.export-right .theme .theme-actions .button-primary {
+	margin-right: 3px;
+}
+
+.export-right .theme .theme-actions .button-secondary {
+	float: none;
+	margin-left: 3px;
+}
+
+/**
+ * Theme Screenshot
+ *
+ * Has a fixed aspect ratio of 1.5 to 1 regardless of screenshot size
+ * It is also responsive.
+ */
+.export-right .theme .theme-screenshot {
+	display: block;
+	overflow: hidden;
+	position: relative;
+	-webkit-transition: opacity 0.2s ease-in-out;
+	transition:         opacity 0.2s ease-in-out;
+}
+
+.export-right .theme .theme-screenshot:after {
+	content: '';
+	display: block;
+	padding-top: 66.66666%; /* using a 3/2 aspect ratio */
+}
+
+.export-right .theme .theme-screenshot img {
+	height: auto;
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	-webkit-transform: translateZ( 0 ); /* Prevents rendering bugs in Chrome */
+	-webkit-transition: opacity 0.2s ease-in-out;
+	transition:         opacity 0.2s ease-in-out;
+}
+
+.export-right .theme:hover .theme-screenshot {
+	background: #fff;
+}
+
+.export-right.rendered .theme:hover .theme-screenshot img {
+	opacity: 0.4;
+}
+
+.export-right .theme .more-details {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+	opacity: 0;
+	position: absolute;
+		top: 35%;
+		right: 25%;
+		left: 25%;
+	background: #222;
+	background: rgba(0,0,0,0.7);
+	color: #fff;
+	font-size: 15px;
+	text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+	-webkit-font-smoothing: antialiased;
+	font-weight: 600;
+	padding: 15px 12px;
+	text-align: center;
+	border-radius: 3px;
+	-webkit-transition: opacity 0.1s ease-in-out;
+	transition:         opacity 0.1s ease-in-out;
+}
+.export-right .theme:focus {
+	outline: 1px dotted #222;
+}
+/* Hide shortcut actions and hover feedback when using tab navigation */
+.export-right .theme:focus .theme-actions {
+	display: none;
+}
+/* Restore display of theme controls if you hover a focused theme */
+.export-right .theme:focus:hover .theme-actions {
+	display: block;
+}
+.export-right .theme:focus .more-details {
+	opacity: 1;
+}
+/* Current theme needs to have its action always on view */
+.export-right .theme.active:focus .theme-actions {
+	display: block;
+}
+
+.export-right.rendered .theme:hover .more-details {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	opacity: 1;
+}
 
 
 /* jQuery UI Slider */
