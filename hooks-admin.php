@@ -68,6 +68,11 @@ add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices' );
 // Posts, Meta Boxes
 // -------------------------------------------------------------------------------------------------------------------
 
+add_action('init', function() { // replace default title filtering with our custom one that allows certain tags
+	remove_filter('title_save_pre', 'wp_filter_kses');
+	add_filter( 'title_save_pre', 'PressBooks\Sanitize\filter_title');	
+});
+
 add_action( 'admin_menu', function () {
 	remove_meta_box( 'pageparentdiv', 'chapter', 'normal' );
 	remove_meta_box( 'submitdiv', 'metadata', 'normal' );
