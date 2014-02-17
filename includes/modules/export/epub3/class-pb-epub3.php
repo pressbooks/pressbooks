@@ -35,23 +35,23 @@ class Epub3 extends Epub\Epub201 {
 	 */
 	 
 	protected $MathMLTags = array(
-									'math', 'maction', 'maligngroup', 'malignmark', 'menclose',
-									'merror', 'mfenced', 'mfrac', 'mglyph', 'mi', 'mlabeledtr',
-									'mlongdiv', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded',
-									'mphantom', 'mroot', 'mrow', 'ms', 'mscarries', 'mscarry',
-									'msgroup', 'msline', 'mspace', 'msqrt', 'msrow', 'mstack',
-									'mstyle', 'msub', 'msup', 'msubsup', 'mtable', 'mtd',
-									'mtext', 'mtr', 'munder', 'munderover', 'semantics',
-									'annotation', 'annotation-xml'
-								);
-	 
+	    'math', 'maction', 'maligngroup', 'malignmark', 'menclose',
+	    'merror', 'mfenced', 'mfrac', 'mglyph', 'mi', 'mlabeledtr',
+	    'mlongdiv', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded',
+	    'mphantom', 'mroot', 'mrow', 'ms', 'mscarries', 'mscarry',
+	    'msgroup', 'msline', 'mspace', 'msqrt', 'msrow', 'mstack',
+	    'mstyle', 'msub', 'msup', 'msubsup', 'mtable', 'mtd',
+	    'mtext', 'mtr', 'munder', 'munderover', 'semantics',
+	    'annotation', 'annotation-xml'
+	);
+
 	function __construct( array $args ) {
 
 		// Some defaults
 
 		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) )
 				define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar -v 3.0' );
-
+		
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 
@@ -109,7 +109,7 @@ class Epub3 extends Epub\Epub201 {
 	
 		//Check all MathML type tags and return true if any are encountered
 		foreach( $this->MathMLTags as $tag ) {
-			if( preg_match_all( '`<(\s*)(.*?)' . $tag . '(.*?)>`', $html ) >= 1) {
+			if( preg_match_all( '`<' . $tag . '>`', $html ) >= 1) {
 				return true;
 			}
 		}
@@ -142,9 +142,9 @@ class Epub3 extends Epub\Epub201 {
 		if ( ! empty( $this->fixme ) ) $GLOBALS['hl_Ids'] = $this->fixme;
 
 		$html = $this->encodeMathMLMarkup( $html );
-		
-		$html = htmLawed( $html, $config );
 
+		$html = htmLawed( $html, $config );
+		
 		$html = $this->restoreMathMLMarkup( $html );
 
 		return $html;
