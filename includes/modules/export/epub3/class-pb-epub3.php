@@ -94,27 +94,37 @@ class Epub3 extends Epub\Epub201 {
 	
 	
 	/**
-	 * Check to see if content contains MathML Markup
-	 * @param string $htmlFileName
-	 *
-	 * @return boolean
+	 * Check for existence of properties attributes
+	 * 
+	 * @param string $html_file
+	 * @return array $properties 
+	 * @throws \Exception 
 	*/
-	protected function doesFileContainMathML( $htmlFile ) {
+	protected function getProperties( $html_file ) {
 
-		$html = file_get_contents( $htmlFile );
+		$html = file_get_contents( $html_file );
+		$properties = array();
 	
 		if ( empty( $html ) ) {
 			throw new \Exception( 'File contents empty for doesFileContainMathML' );
 		}
 	
-		//Check all MathML type tags and return true if any are encountered
+		// Check all MathML type tags and return true if any are encountered
 		foreach( $this->MathMLTags as $tag ) {
 			if( preg_match_all( '`<' . $tag . '>`', $html ) >= 1) {
-				return true;
+				$properties['mathml'] = 1;
+				continue;
 			}
 		}
+		// Check for script elements
+		if ( preg_match_all( '<script>', $html ) >= 1 ) {
+			$properties['scripted'] = 1;
+		}
+		
+		// @TODO Check for remote resources
+		
 		//No MathML Tags detected in this content.
-		return false;
+		return $properties;
 	}	
 	
 	/**
@@ -438,7 +448,7 @@ class Epub3 extends Epub\Epub201 {
 			}
 			$file_id = $check_if_used;
 
-			$html .= sprintf( '<item id="%s" href="OEBPS/assets/%s" media-type="%s" />', $file_id, $asset, $mimetype ) . "\n";
+			$html .= sprintf( '<item id="%s" href="OEBPS/assets/%s" media-type="%s" />', $file_id, $asset, $mimetype ) . "\n\t\t";
 
 			$used_ids[$file_id] = true;
 		}
@@ -449,17 +459,17 @@ class Epub3 extends Epub\Epub201 {
 
 		//Loop through the html files for the manifest and assemble them. Assign properties based on their content.
 		foreach ( $this->manifest as $k => $v ) {
-			if( $this->doesFileContainMathML( $this->tmpDir . "/OEBPS/" . $v['filename'] ) ) {
-				$html .= sprintf( '<item id="%s" href="OEBPS/%s" properties="mathml" media-type="application/xhtml+xml" />', $k, $v['filename'] ) . "\n";
-			} else {
-				$html .= sprintf( '<item id="%s" href="OEBPS/%s" media-type="application/xhtml+xml" />', $k, $v['filename'] ) . "\n";
-			}
+			$properties = $this->getProperties( $this->tmpDir . "/OEBPS/" . $v['filename'] );
+			(array_key_exists( 'mathml', $properties ) ? $mathml = 'properties="mathml" ' : $mathml = '');
+			(array_key_exists( 'scripted', $properties ) ? $scripted = 'properties="scripted" ' : $scripted = '');
+
+			$html .= sprintf( '<item id="%s" href="OEBPS/%s" %s%smedia-type="application/xhtml+xml" />', $k, $v['filename'], $mathml, $scripted ) . "\n\t\t";
+
 		}
 		$vars['manifest_filelist'] = $html;
 		
 		
 		// Put contents
-
 		file_put_contents(
 			$this->tmpDir . "/book.opf", $this->loadTemplate( $this->dir . '/templates/opf.php', $vars ) );
 	}

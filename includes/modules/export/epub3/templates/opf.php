@@ -117,10 +117,6 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 	<manifest>
 		<?php
-//		foreach ( $manifest as $k => $v ) {
-//			printf( '<item id="%s" href="OEBPS/%s" properties="mathml" media-type="application/xhtml+xml" />', $k, $v['filename'] );
-//			echo "\n";
-//		}
 		echo $manifest_filelist;
 		echo $manifest_assets;
 		?>
