@@ -203,9 +203,9 @@ function pb_get_chapter_number( $post_name ) {
 
 	$i = 0;
 	foreach ( $lookup as $key => $val ) {
-		$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => 'publish', 'numberposts' => 1 ) );
-		$type = pb_get_section_type( $chapter[0] );
 		if ( 'chapter' == $val ) {
+			$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => 'publish', 'numberposts' => 1 ) );
+			$type = pb_get_section_type( $chapter[0] );
 			if ( $type !== 'numberless' ) ++$i;
 			if ( $key == $post_name ) break;
 		}
@@ -223,8 +223,8 @@ function pb_get_chapter_number( $post_name ) {
  * @return string
  */
 function pb_get_section_type( $post ) {
-
-	switch ($post->post_type) {
+	$type = $post->post_type;
+	switch ($type) {
     case 'chapter':
         $type = \PressBooks\Taxonomy\chapter_type( $post->ID );
         break;
