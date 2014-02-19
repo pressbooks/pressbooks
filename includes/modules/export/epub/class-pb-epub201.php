@@ -1129,7 +1129,7 @@ class Epub201 extends Export {
 					$content,
 					'' );
 
-				$file_id = 'chapter-' . sprintf( "%03s", $j );
+				$file_id = 'chapter-' . $id;
 				$filename = "{$file_id}-{$slug}.html";
 
 				file_put_contents(
@@ -1144,7 +1144,7 @@ class Epub201 extends Export {
 
 				$has_chapters = true;
 
-				++$j;
+				if ( $subclass !== 'numberless' ) ++$j;
 			}
 
 			if ( $has_chapters && count( $book_contents['part'] ) > 1 ) {
