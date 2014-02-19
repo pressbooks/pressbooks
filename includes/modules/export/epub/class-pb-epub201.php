@@ -1064,7 +1064,7 @@ class Epub201 extends Export {
 		);
 
 		// Parts, Chapters
-		$i = $j = 1;
+		$i = $j = $c = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$part_printf_changed = '';
@@ -1094,7 +1094,7 @@ class Epub201 extends Export {
 				$subclass = \PressBooks\Taxonomy\chapter_type( $id );
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
-				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $id );
+				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
 
 				$short_title = false; // Ie. running header title is not used in EPUB
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
@@ -1118,7 +1118,7 @@ class Epub201 extends Export {
 					$this->hasIntroduction = true;
 				}
 
-				$n = ( $subclass == 'numberless' ) ? '' : $j;
+				$n = ( $subclass == 'numberless' ) ? '' : $c;
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
@@ -1129,7 +1129,7 @@ class Epub201 extends Export {
 					$content,
 					'' );
 
-				$file_id = 'chapter-' . $id;
+				$file_id = 'chapter-' . sprintf( "%03s", $j );
 				$filename = "{$file_id}-{$slug}.html";
 
 				file_put_contents(
@@ -1144,7 +1144,9 @@ class Epub201 extends Export {
 
 				$has_chapters = true;
 
-				if ( $subclass !== 'numberless' ) ++$j;
+				$j++;
+
+				if ( $subclass !== 'numberless' ) ++$c;
 			}
 
 			if ( $has_chapters && count( $book_contents['part'] ) > 1 ) {
