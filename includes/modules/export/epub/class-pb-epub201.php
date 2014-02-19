@@ -1094,7 +1094,7 @@ class Epub201 extends Export {
 				$subclass = \PressBooks\Taxonomy\chapter_type( $id );
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
-				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
+				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $id );
 
 				$short_title = false; // Ie. running header title is not used in EPUB
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
