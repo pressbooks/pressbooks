@@ -116,6 +116,20 @@ class CustomCss {
 	}
 
 
+	/**
+	 * Is the romanize parts option true?
+	 *
+	 * @return bool
+	 */
+	static function isRomanized() {
+
+		$options = get_option( 'pressbooks_theme_options_pdf' );
+		$romanize_parts = ( @$options['pdf_romanize_parts'] ) ? false : true;
+		
+		return ( $romanize_parts );
+	}
+
+
 	// ----------------------------------------------------------------------------------------------------------------
 	// Catch form submissions
 	// ----------------------------------------------------------------------------------------------------------------

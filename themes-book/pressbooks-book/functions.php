@@ -415,6 +415,8 @@ function pressbooks_theme_options_global_sanitize( $input ) {
  * PDF Options Tab
  * ------------------------------------------------------------------------ */
 
+use PressBooks\CustomCss;
+
 // PDF Options Registration
 function pressbooks_theme_options_pdf_init() {
 
@@ -425,6 +427,7 @@ function pressbooks_theme_options_pdf_init() {
 		'pdf_paragraph_separation' => 1,
 		'pdf_blankpages' => 1,
 		'pdf_toc' => 1,
+		'pdf_romanize_parts' => 0,
 		'pdf_footnotes_style' => 1,
 		'pdf_crop_marks' => 0,
 		'pdf_hyphens' => 0,
@@ -513,6 +516,18 @@ function pressbooks_theme_options_pdf_init() {
 			 __( 'Display table of contents', 'pressbooks' )
 		)
 	);
+	if ( CustomCss::isCustomCss() ) {
+		add_settings_field(
+			'pdf_romanize_parts',
+			__( 'Romanize Part Numbers', 'pressbooks' ),
+			'pressbooks_theme_pdf_romanize_parts_callback',
+			$_page,
+			$_section,
+			array(
+				 __( 'Convert part numbers into Roman numerals', 'pressbooks' )
+			)
+		);
+	}
 	add_settings_field(
 		'pdf_footnotes_style',
 		__( 'Footnotes Style', 'pressbooks' ),
@@ -620,6 +635,19 @@ function pressbooks_theme_pdf_toc_callback( $args ) {
 	echo $html;
 }
 
+// PDF Options Field Callback
+function pressbooks_theme_pdf_romanize_parts_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+
+	if ( ! isset( $options['pdf_romanize_parts'] ) ) {
+		$options['pdf_romanize_parts'] = 0;
+	}
+
+	$html = '<input type="checkbox" id="pdf_romanize_parts" name="pressbooks_theme_options_pdf[pdf_romanize_parts]" value="1" ' . checked( 1, $options['pdf_romanize_parts'], false ) . '/>';
+	$html .= '<label for="pdf_romanize_parts"> ' . $args[0] . '</label>';
+	echo $html;
+}
 
 // PDF Options Field Callback
 function pressbooks_theme_pdf_footnotes_callback( $args ) {
@@ -709,7 +737,7 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 	}
 
 	// Checkmarks
-	foreach ( array( 'pdf_toc', 'pdf_crop_marks', 'pdf_hyphens' ) as $val ) {
+	foreach ( array( 'pdf_toc', 'pdf_romanize_parts', 'pdf_crop_marks', 'pdf_hyphens' ) as $val ) {
 		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
 		else $options[$val] = 1;
 	}

@@ -127,6 +127,9 @@ abstract class Export {
 
 		if ( ! $fullpath ) {
 			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
+			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && $type == 'prince' ) {
+				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script-romanize.js" );
+			}
 		}
 
 		return $fullpath;
