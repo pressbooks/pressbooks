@@ -545,6 +545,46 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 	background: url(../images/icons32.png) no-repeat scroll -720px -5px transparent;
 }
 
+.file-actions a {
+	text-decoration: none;
+	font-size: 18px;
+	line-height: 18px;
+}
+.file-actions .icon {
+	font-size: 18px;
+	line-height: 18px;
+}
+.file-actions .icon:before {
+	font-size: 18px;
+	font-family: FontAwesome !important;
+	-webkit-font-smoothing: antialiased;
+	text-decoration: none;
+	background: none;
+	color: #333;
+}
+
+.file-actions a:hover .icon:before,
+.file-actions button:hover .icon:before {
+	color: #c5002a;
+}
+
+.file-actions .icon.download:before {
+	content: '\f019' !important;
+}
+
+.file-actions button.delete {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+	width: 17px;
+	height: 18px;
+}
+
+.file-actions .icon.trash:before {
+	content: '\f014' !important;
+}
+
 
 /* Admin bar
 ============= */

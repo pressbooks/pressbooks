@@ -1081,7 +1081,7 @@ class Epub201 extends Export {
 		);
 
 		// Parts, Chapters
-		$i = $j = 1;
+		$i = $j = $c = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$part_printf_changed = '';
@@ -1135,7 +1135,7 @@ class Epub201 extends Export {
 					$this->hasIntroduction = true;
 				}
 
-				$n = ( $subclass == 'numberless' ) ? '' : $j;
+				$n = ( $subclass == 'numberless' ) ? '' : $c;
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
@@ -1161,7 +1161,9 @@ class Epub201 extends Export {
 
 				$has_chapters = true;
 
-				if ( $subclass !== 'numberless' ) ++$j;
+				$j++;
+
+				if ( $subclass !== 'numberless' ) ++$c;
 			}
 
 			if ( $has_chapters && count( $book_contents['part'] ) > 1 ) {
@@ -1495,13 +1497,22 @@ class Epub201 extends Export {
 			$already_done[$url] = '';
 			return '';
 		}
-
+		
 		// Basename without query string
 		$filename = explode( '?', basename( $url ) );
-		$filename = array_shift( $filename );
 
-		$filename = sanitize_file_name( urldecode( $filename ) );
-		$filename = Sanitize\force_ascii( $filename );
+		// isolate latex image service from WP, add file extension
+		if ( 's.wordpress.com' == parse_url( $url, PHP_URL_HOST ) && 'latex.php' == $filename[0] ) {
+			$filename = md5( array_pop( $filename ) );
+			// content-type = 'image/png'
+			$type = explode( '/', $response['headers']['content-type'] );
+			$type = array_pop( $type );
+			$filename = $filename . "." . $type;
+		} else {
+			$filename = array_shift( $filename );
+			$filename = sanitize_file_name( urldecode( $filename ) );
+			$filename = Sanitize\force_ascii( $filename );
+		}
 
 		$tmp_file = \PressBooks\Utility\create_tmp_file();
 		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );

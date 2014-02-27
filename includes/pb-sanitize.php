@@ -185,6 +185,22 @@ function strip_br( $slug ) {
 
 }
 
+/**
+ * Filter post_title according to our specifications.
+ *
+ * @param $title
+ *
+ * @return string
+ */
+function filter_title( $title ) {
+	$allowed = array(
+		'br' => array(),
+		'span' => array( 'class' => array() ),
+		'em' => array(),
+		'strong' => array()
+	);
+	return wp_kses( $title, $allowed );
+}
 
 /**
  * Canonicalize URL
