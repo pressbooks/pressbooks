@@ -1480,13 +1480,22 @@ class Epub201 extends Export {
 			$already_done[$url] = '';
 			return '';
 		}
-
+		
 		// Basename without query string
 		$filename = explode( '?', basename( $url ) );
-		$filename = array_shift( $filename );
 
-		$filename = sanitize_file_name( urldecode( $filename ) );
-		$filename = Sanitize\force_ascii( $filename );
+		// isolate latex image service from WP, add file extension
+		if ( 's.wordpress.com' == parse_url( $url, PHP_URL_HOST ) && 'latex.php' == $filename[0] ) {
+			$filename = md5( array_pop( $filename ) );
+			// content-type = 'image/png'
+			$type = explode( '/', $response['headers']['content-type'] );
+			$type = array_pop( $type );
+			$filename = $filename . "." . $type;
+		} else {
+			$filename = array_shift( $filename );
+			$filename = sanitize_file_name( urldecode( $filename ) );
+			$filename = Sanitize\force_ascii( $filename );
+		}
 
 		$tmp_file = \PressBooks\Utility\create_tmp_file();
 		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
