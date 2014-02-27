@@ -9,7 +9,7 @@
 
 if ( !defined('ABSPATH') ) exit;
 
-class WP_LaTeX_Admin extends WP_LaTeX {
+class PBLatexAdmin extends PBLatex {
 	var $errors;
 
 	function init() {
@@ -18,37 +18,37 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 		// since we're activating at the network level, this needs to be called in the constructor
 		$this->addOptions();
 
-		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
+		add_action( 'admin_menu', array( &$this, 'adminMenu' ) );
 	}
 
-	function admin_menu() {
-		$hook = add_options_page( 'WP LaTeX', 'WP LaTeX', 'manage_options', 'wp-latex', array( &$this, 'admin_page' ) );
-		add_action( "load-$hook", array( &$this, 'admin_page_load' ) );
+	function adminMenu() {
+		$hook = add_options_page( 'PB LaTeX', 'PB LaTeX', 'manage_options', 'pb-latex', array( &$this, 'adminPage' ) );
+		add_action( "load-$hook", array( &$this, 'adminPageLoad' ) );
 
 
-		add_filter( 'plugin_action_links_' . plugin_basename( dirname( __FILE__ ) . '/wp-latex.php' ), array( &$this, 'plugin_action_links' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( dirname( __FILE__ ) . '/pb-latex.php' ), array( &$this, 'pluginActionLinks' ) );
 	}
 
-	function plugin_action_links( $links ) {
-		array_unshift( $links, '<a href="options-general.php?page=wp-latex">' . __( 'Settings' ) . "</a>" );
+	function pluginActionLinks( $links ) {
+		array_unshift( $links, '<a href="options-general.php?page=pb-latex">' . __( 'Settings' ) . "</a>" );
 		return $links;
 	}
 
-	function admin_page_load() {
+	function adminPageLoad() {
 		if ( ! current_user_can( 'manage_options' ) )
-				wp_die( __( 'Insufficient LaTeX-fu', 'wp-latex' ) );
+				wp_die( __( 'Insufficient LaTeX-fu', 'pb-latex' ) );
 
-		add_action( 'admin_head', array( &$this, 'admin_head' ) );
+		add_action( 'admin_head', array( &$this, 'adminHead' ) );
 
-		if ( empty( $_POST['wp_latex'] ) ) {
+		if ( empty( $_POST['pb_latex'] ) ) {
 			if ( $this->options['wrapper'] && ( false !== strpos( $this->options['wrapper'], '%BG_COLOR_RGB%' ) || false !== strpos( $this->options['wrapper'], '%FG_COLOR_RGB%' ) ) )
-					$this->errors->add( 'wrapper', __( 'WP LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them.' ), $this->options['wrapper'] );
+					$this->errors->add( 'wrapper', __( 'PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them.' ), $this->options['wrapper'] );
 			return;
 		}
 
-		check_admin_referer( 'wp-latex' );
+		check_admin_referer( 'pb-latex' );
 
-		if ( $this->update( stripslashes_deep( $_POST['wp_latex'] ) ) ) {
+		if ( $this->update( stripslashes_deep( $_POST['pb_latex'] ) ) ) {
 			wp_safe_redirect( add_query_arg( 'updated', '', wp_get_referer() ) );
 			exit;
 		}
@@ -60,7 +60,7 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 
 		if ( isset( $new['method'] ) ) {
 			if ( empty( $this->methods[$new['method']] ) ) {
-				$this->errors->add( 'method', __( 'Invalid LaTeX generation method', 'wp-latex' ), $new['method'] );
+				$this->errors->add( 'method', __( 'Invalid LaTeX generation method', 'pb-latex' ), $new['method'] );
 			} else {
 				$method = $new['method'];
 			}
@@ -69,7 +69,7 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 		if ( isset( $new['fg'] ) ) {
 			$fg = strtolower( substr( preg_replace( '/[^0-9a-f]/i', '', $new['fg'] ), 0, 6 ) );
 			if ( 6 > $l = strlen( $fg ) ) {
-				$this->errors->add( 'fg', __( 'Invalid text color', 'wp-latex' ), $new['fg'] );
+				$this->errors->add( 'fg', __( 'Invalid text color', 'pb-latex' ), $new['fg'] );
 				$fg .= str_repeat( '0', 6 - $l );
 			}
 		}
@@ -80,7 +80,7 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 			} else {
 				$bg = substr( preg_replace( '/[^0-9a-f]/i', '', $new['bg'] ), 0, 6 );
 				if ( 6 > $l = strlen( $bg ) ) {
-					$this->errors->add( 'bg', __( 'Invalid background color', 'wp-latex' ), $new['bg'] );
+					$this->errors->add( 'bg', __( 'Invalid background color', 'pb-latex' ), $new['bg'] );
 					$bg .= str_repeat( '0', 6 - $l );
 				}
 			}
@@ -97,22 +97,22 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 					$wrapper = false;
 		}
 		if ( $wrapper && ( false !== strpos( $wrapper, '%BG_COLOR_RGB%' ) || false !== strpos( $wrapper, '%FG_COLOR_RGB%' ) ) )
-				$this->errors->add( 'wrapper', __( 'WP LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them.' ), $new['wrapper'] );
+				$this->errors->add( 'wrapper', __( 'PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them.' ), $new['wrapper'] );
 
 		if ( isset( $new['latex_path'] ) ) {
 			$new['latex_path'] = trim( $new['latex_path'] );
 			if ( ( ! $new['latex_path'] || ! file_exists( $new['latex_path'] ) ) && 'Automattic_Latex_WPCOM' != $method )
-					$this->errors->add( 'latex_path', __( '<code>latex</code> path not found.', 'wp-latex' ), $new['latex_path'] );
+					$this->errors->add( 'latex_path', __( '<code>latex</code> path not found.', 'pb-latex' ), $new['latex_path'] );
 			else $latex_path = $new['latex_path'];
 		}
 
 		$this->options = compact( 'bg', 'fg', 'css', 'latex_path', 'wrapper', 'method' );
-		update_option( 'wp_latex', $this->options );
+		update_option( 'pb_latex', $this->options );
 		return ! count( $this->errors->get_error_codes() );
 	}
 
 	// Attempts to use current settings to generate a temporory image (new with every page load)
-	function test_image() {
+	function testImage() {
 		if ( 'Automattic_Latex_WPCOM' != $this->options['method'] ) return false;
 
 		if ( is_array( $this->options ) ) extract( $this->options, EXTR_SKIP );
@@ -131,22 +131,22 @@ class WP_LaTeX_Admin extends WP_LaTeX {
 			$message = '<div class="error"><p>' . $url->get_error_message() . "</p></div>\n";
 			echo $message;
 		} else {
-			$alt = attribute_escape( __( 'Test Image', 'wp-latex' ) );
+			$alt = attribute_escape( __( 'Test Image', 'pb-latex' ) );
 			echo "<img class='test-image' src='" . clean_url( $url ) . "' alt='$alt' />\n";
-			echo "<p class='test-image'>" . __( 'If you can see a big integral, all is well.', 'wp-latex' ) . '</p>';
+			echo "<p class='test-image'>" . __( 'If you can see a big integral, all is well.', 'pb-latex' ) . '</p>';
 			$r = true;
 		}
 		return $r;
 	}
 
-	function admin_head() {
+	function adminHead() {
 		$current_method = $this->methods[$this->options['method']] ? $this->methods[$this->options['method']] : 'wpcom';
 ?>
 <script type="text/javascript">
 /* <![CDATA[ */
 jQuery( function($) {
-	$( '#wp-latex-method-switch :radio' ).change( function() {
-		$( '.wp-latex-method' ).hide().css( 'background-color', '' );
+	$( '#pb-latex-method-switch :radio' ).change( function() {
+		$( '.pb-latex-method' ).hide().css( 'background-color', '' );
 		$( '.' + this.id ).show().css( 'background-color', '#ffffcc' );
 	} );
 } );
@@ -168,13 +168,13 @@ img.test-image {
 .syntax code {
 	white-space: nowrap;
 }
-.wp-latex-method {
+.pb-latex-method {
 	display: none;
 }
-tr.wp-latex-method-<?php echo $current_method; ?> {
+tr.pb-latex-method-<?php echo $current_method; ?> {
 	display: block;
 }
-tr.wp-latex-method-<?php echo $current_method; ?> {
+tr.pb-latex-method-<?php echo $current_method; ?> {
 	display: table-row;
 }
 /* ]]> */
@@ -182,9 +182,9 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 <?php
 	}
 
-	function admin_page() {
+	function adminPage() {
 		if ( !current_user_can( 'manage_options' ) )
-			wp_die( __( 'Insufficient LaTeX-fu', 'wp-latex' ) );
+			wp_die( __( 'Insufficient LaTeX-fu', 'pb-latex' ) );
 	
 		$default_wrappers = array();
 		foreach ( $this->methods as $class => $method ) {
@@ -216,9 +216,9 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 	<?php	endif; ?>
 	
 	<div class='wrap'>
-	<h2><?php _e( 'WP LaTeX Options', 'wp-latex' ); ?></h2>
+	<h2><?php _e( 'PB LaTeX Options', 'pb-latex' ); ?></h2>
 	
-	<?php if ( empty( $errors ) ) $this->test_image(); ?>
+	<?php if ( empty( $errors ) ) $this->testImage(); ?>
 	
 	<form action="<?php echo clean_url( remove_query_arg( 'updated' ) ); ?>" method="post">
 
@@ -228,7 +228,7 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 		<tr>
 			<th scope="row"><?php _e( 'Syntax' ); ?></th>
 			<td class="syntax">
-				<p><?php printf( __( 'You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; syntax %s OR %s<br /> to insert LaTeX into your posts.', 'wp-latex' ),
+				<p><?php printf( __( 'You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; syntax %s OR %s<br /> to insert LaTeX into your posts.', 'pb-latex' ),
 					'<code>[latex]e^{\i \pi} + 1 = 0[/latex]</code>',
 					'<code>$latex e^{\i \pi} + 1 = 0$</code>',
 					'<code>$$ e^{\i \pi} + 1 = 0 $$</code>'
@@ -236,34 +236,36 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 				<p><?php _e( 'For more information, see the <a href="http://wordpress.org/extend/plugins/wp-latex/faq/">FAQ</a>' ); ?></p>
 			</td>
 		</tr>
+		
 		<?php endif; ?>
+		
 		<tr<?php if ( in_array( 'method', $errors ) ) echo ' class="form-invalid"'; ?>>
-			<th scope="row"><?php _e( 'LaTeX generation method', 'wp-latex' ); ?></th>
+			<th scope="row"><?php _e( 'LaTeX generation method', 'pb-latex' ); ?></th>
 			<td>
-				<ul id="wp-latex-method-switch">
-					<li><label for="wp-latex-method-wpcom"><input type="radio" name="wp_latex[method]" id="wp-latex-method-wpcom" value='Automattic_Latex_WPCOM'<?php checked( 'Automattic_Latex_WPCOM', $values['method'] ); ?> /> <?php printf( _c( '%s LaTeX server (recommended)|WordPress.com LaTeX Server (recommended)', 'wp-latex' ), '<a href="http://wordpress.com/" target="_blank">WordPress.com</a>' ); ?></label></li>
+				<ul id="pb-latex-method-switch">
+					<li><label for="pb-latex-method-wpcom"><input type="radio" name="pb_latex[method]" id="pb-latex-method-wpcom" value='Automattic_Latex_WPCOM'<?php checked( 'Automattic_Latex_WPCOM', $values['method'] ); ?> /> <?php printf( _c( '%s LaTeX server (recommended)|WordPress.com LaTeX Server (recommended)', 'pb-latex' ), '<a href="http://wordpress.com/" target="_blank">WordPress.com</a>' ); ?></label></li>
 				</ul>
 			</td>
 		</tr>
-
-
+		
 		<tr<?php if ( in_array( 'fg', $errors ) ) echo ' class="form-invalid"'; ?>>
-			<th scope="row"><label for="wp-latex-fg"><?php _e( 'Default text color', 'wp-latex' ); ?></label></th>
+			<th scope="row"><label for="pb-latex-fg"><?php _e( 'Default text color', 'pb-latex' ); ?></label></th>
 			<td>
-				<input type='text' name='wp_latex[fg]' value='<?php echo attribute_escape( $values['fg'] ); ?>' id='wp-latex-fg' />
+				<input type='text' name='pb_latex[fg]' value='<?php echo attribute_escape( $values['fg'] ); ?>' id='pb-latex-fg' />
 				<?php _e( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>' ); ?>
 			</td>
 		</tr>
+		
 		<tr<?php if ( in_array( 'bg', $errors ) ) echo ' class="form-invalid"'; ?>>
-			<th scope="row"><label for="wp-latex-bg"><?php _e( 'Default background color', 'wp-latex' ); ?></label></th>
+			<th scope="row"><label for="pb-latex-bg"><?php _e( 'Default background color', 'pb-latex' ); ?></label></th>
 			<td>
-				<input type='text' name='wp_latex[bg]' value='<?php echo attribute_escape( $values['bg'] ); ?>' id='wp-latex-bg' />
+				<input type='text' name='pb_latex[bg]' value='<?php echo attribute_escape( $values['bg'] ); ?>' id='pb-latex-bg' />
 				<?php _e( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>, or <code>transparent</code>' ); ?>
 			</td>
 		</tr>
 		
 	<?php foreach ( $default_wrappers as $method => $default_wrapper ) : ?>
-		<tr class="wp-latex-method wp-latex-method-<?php echo $method; ?>">
+		<tr class="pb-latex-method pb-latex-method-<?php echo $method; ?>">
 			<th></th>
 			<td>
 				<h4>Leaving the above blank will use the following default preamble.</h4>
@@ -276,8 +278,8 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 	
 	
 	<p class="submit">
-		<input type="submit" class="button-primary" value="<?php echo attribute_escape( __( 'Update LaTeX Options', 'wp-latex' ) ); ?>" />
-		<?php wp_nonce_field( 'wp-latex' ); ?>
+		<input type="submit" class="button-primary" value="<?php echo attribute_escape( __( 'Update LaTeX Options', 'pb-latex' ) ); ?>" />
+		<?php wp_nonce_field( 'pb-latex' ); ?>
 	</p>
 	</form>
 	</div>
@@ -311,6 +313,6 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 			$wrapper = false;
 	
 		$this->options = compact( 'bg', 'fg', 'method', 'css', 'latex_path', 'wrapper' );
-		update_option( 'wp_latex', $this->options );
+		update_option( 'pb_latex', $this->options );
 	}
 }

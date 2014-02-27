@@ -18,7 +18,7 @@ require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
-require( PB_PLUGIN_DIR . 'symbionts/wp-latex/wp-latex.php' );
+require( PB_PLUGIN_DIR . 'symbionts/pb-latex/pb-latex.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin

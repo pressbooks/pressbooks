@@ -21,7 +21,7 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-class WP_LaTeX {
+class PBLatex {
 
 	var $options;
 	var $methods = array(
@@ -29,21 +29,21 @@ class WP_LaTeX {
 	);
 
 	function init() {
-		$this->options = get_option( 'wp_latex' );
+		$this->options = get_option( 'pb_latex' );
 
 		@define( 'AUTOMATTIC_LATEX_LATEX_PATH', $this->options['latex_path'] );
 
-		add_action( 'wp_head', array( &$this, 'wp_head' ) );
+		add_action( 'wp_head', array( &$this, 'wpHead' ) );
 
-		add_filter( 'the_content', array( &$this, 'inline_to_shortcode' ), 8 );
-		add_shortcode( 'latex', array( &$this, 'shortcode' ) );
+		add_filter( 'the_content', array( &$this, 'inlineToShortcode' ), 8 );
+		add_shortcode( 'latex', array( &$this, 'shortCode' ) );
 		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
-			$excluded_shortcodes[] = 'wp-latex';
+			$excluded_shortcodes[] = 'pb-latex';
 			return $excluded_shortcodes;
 		} );
 	}
 
-	function wp_head() {
+	function wpHead() {
 		if ( !$this->options['css'] )
 			return;
 ?>
@@ -58,7 +58,7 @@ class WP_LaTeX {
 
 	// [latex size=0 color=000000 background=ffffff]\LaTeX[/latex]
 	// Shortcode -> <img> markup.  Creates images as necessary.
-	function shortcode( $_atts, $latex ) {
+	function shortCode( $_atts, $latex ) {
 		$atts = shortcode_atts( array(
 		    'size' => 0,
 		    'color' => false,
@@ -79,7 +79,7 @@ class WP_LaTeX {
 		return "<img src='$url' alt='$alt' title='$alt' class='latex' />";
 	}
 
-	function sanitize_color( $color ) {
+	function sanitizeColor( $color ) {
 		$color = substr( preg_replace( '/[^0-9a-f]/i', '', $color ), 0, 6 );
 		if ( 6 > $l = strlen( $color ) ) $color .= str_repeat( '0', 6 - $l );
 		return $color;
@@ -102,16 +102,16 @@ class WP_LaTeX {
 		return $latex_object;
 	}
 
-	function inline_to_shortcode( $content ) {
+	function inlineToShortcode( $content ) {
 		// double dollar
 		$content = preg_replace( '/\${2}(.*)\${2}/isU', "[latex] $1 [/latex]", $content );
 
 		if ( false === strpos( $content, '$latex' ) ) return $content;
 
-		return preg_replace_callback( '#(\s*)\$latex[= ](.*?[^\\\\])\$(\s*)#', array( &$this, 'inline_to_shortcode_callback' ), $content );
+		return preg_replace_callback( '#(\s*)\$latex[= ](.*?[^\\\\])\$(\s*)#', array( &$this, 'inlineToShortcodeCallback' ), $content );
 	}
 
-	function inline_to_shortcode_callback( $matches ) {
+	function inlineToShortcodeCallback( $matches ) {
 		$r = "{$matches[1]}[latex";
 
 		if ( preg_match( '/.+((?:&#038;|&amp;)s=(-?[0-4])).*/i', $matches[2], $s_matches ) ) {
@@ -135,10 +135,10 @@ class WP_LaTeX {
 }
 
 if ( is_admin() ) {
-	require( dirname( __FILE__ ) . '/wp-latex-admin.php' );
-	$wp_latex = new WP_LaTeX_Admin;
+	require( dirname( __FILE__ ) . '/pb-latex-admin.php' );
+	$pb_latex = new PBLatexAdmin;
 } else {
-	$wp_latex = new WP_LaTeX;
+	$pb_latex = new PBLatex;
 }
 
-add_action( 'init', array( &$wp_latex, 'init' ) );
+add_action( 'init', array( &$pb_latex, 'init' ) );
