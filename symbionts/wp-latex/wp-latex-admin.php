@@ -261,13 +261,7 @@ tr.wp-latex-method-<?php echo $current_method; ?> {
 				<?php _e( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>, or <code>transparent</code>' ); ?>
 			</td>
 		</tr>
-		<tr>
-			<th scope="row"><label for="wp-latex-css"><?php _e( 'Custom CSS to use with the LaTeX images', 'wp-latex' ); ?></label></th>
-			<td>
-				<textarea name='wp_latex[css]' id='wp-latex-css' rows="8" cols="50"><?php echo wp_specialchars( $values['css'] ); ?></textarea>
-			</td>
-		</tr>
-
+		
 	<?php foreach ( $default_wrappers as $method => $default_wrapper ) : ?>
 		<tr class="wp-latex-method wp-latex-method-<?php echo $method; ?>">
 			<th></th>
