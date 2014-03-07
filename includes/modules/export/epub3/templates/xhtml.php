@@ -18,6 +18,8 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 </head>
 <body>
-<?php echo $post_content; ?>
+<article>
+	<?php echo $post_content; ?>
+</article>
 </body>
 </html>
