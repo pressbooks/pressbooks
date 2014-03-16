@@ -320,7 +320,42 @@ class Book {
 		wp_cache_delete( "book-cnt-$blog_id", 'pb' );
 		( new Catalog() )->deleteCacheByBookId( $blog_id ); // PHP 5.4+
 	}
-
+	
+	/**
+	 * Returns a hierarchical array of subsections in a chapter.
+	 *
+	 * @param $id
+	 *
+	 */
+	static function getChapterSubsections( $id ) {
+		$chapter = get_post( $id );
+		$output = array();
+		$l1 = $l2 = $l3 = $l4 = $l5 = 0;
+		$html = new \DOMDocument();
+		$html->loadHTML( $chapter->post_content );
+		$xpath = new \DOMXpath($html);
+		foreach( $xpath->query('/html/body/section/h1') as $l1node ) {
+			$l1++;
+			$output[$l1node->nodeValue] = array();
+			foreach ( $xpath->query('/html/body/section['.$l1.']/section/h1') as $l2node ) {
+				$l2++;
+				$output[$l1node->nodeValue][$l2node->nodeValue] = array();
+				foreach ( $xpath->query('/html/body/section['.$l1.']/section['.$l2.']/section/h1') as $l3node ) {
+					$l3++;
+					$output[$l1node->nodeValue][$l2node->nodeValue][$l3node->nodeValue] = array();
+					foreach ( $xpath->query('/html/body/section['.$l1.']/section['.$l2.']/section['.$l3.']/section/h1') as $l4node ) {
+						$l4++;
+						$output[$l1node->nodeValue][$l2node->nodeValue][$l3node->nodeValue][$l4node->nodeValue] = array();
+						foreach ( $xpath->query('/html/body/section['.$l1.']/section['.$l2.']/section['.$l3.']/section['.$l4.']/section/h1') as $l5node ) {
+							$l5++;
+							$output[$l1node->nodeValue][$l2node->nodeValue][$l3node->nodeValue][$l4node->nodeValue][$l5node->nodeValue] = array();
+						}
+					}
+				}
+			}
+		}
+		return $output;
+	}
 
 	/**
 	 * WP_Ajax hook. Updates the menu_order field associated with a chapter post after reordering it

@@ -239,6 +239,16 @@ function pb_get_section_type( $post ) {
 	return $type;
 }
 
+/**
+ * Returns a hierarchical array of subsections in a chapter.
+ *
+ * @param $id
+ *
+ * @return array
+ */
+function pb_get_chapter_subsections( $id ) {
+	return \PressBooks\Book::getChapterSubSections( $id );
+}
 
 /**
  * Rename image with arbitrary suffix (before extension)
