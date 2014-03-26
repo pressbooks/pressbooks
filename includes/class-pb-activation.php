@@ -236,6 +236,7 @@ class Activation {
 
 					if ( $item['post_type'] == 'part' ) {
 						$parent_part = $newpost;
+						update_post_meta( $newpost, 'pb_part_visibility', 'on' );
 					} elseif ( $item['post_type'] == 'chapter' ) {
 						$my_post = array();
 						$my_post['ID'] = $newpost;
