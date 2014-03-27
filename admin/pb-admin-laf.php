@@ -175,15 +175,6 @@ function replace_book_admin_menu() {
 		}
 	} );
 	
-	// Force visibility of new parts
-	add_action( 'admin_enqueue_scripts', function ( $hook ) {
-		if ( $hook == 'post-new.php' ) {
-			if ( 'part' == get_post_type() ) {
-				wp_enqueue_script( 'pb-part' );
-			}
-		}
-	} );
-
 	// Separator
 	// $menu[14] = array( '', 'read', "separator{0}", '', 'wp-menu-separator' );
 

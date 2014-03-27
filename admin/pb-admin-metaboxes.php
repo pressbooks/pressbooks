@@ -478,11 +478,11 @@ function add_meta_boxes() {
 		'priority' => 'low',
 	) );
 
-	x_add_metadata_field( 'pb_part_visibility', 'part', array(
+	x_add_metadata_field( 'pb_part_invisible', 'part', array(
 		'field_type' => 'checkbox',
 		'group' => 'part-metadata-visibility',
-		'label' => 'Visible',
-		'description' => __( 'Part appears in index and part numbering.', 'pressbooks' )
+		'label' => 'Invisible',
+		'description' => __( 'Hide from table of contents and part numbering.', 'pressbooks' )
 	) );
 }
 
