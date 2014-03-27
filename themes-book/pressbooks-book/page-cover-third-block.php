@@ -1,6 +1,6 @@
 			<section class="third-block-wrap"> 
 				<div class="third-block clearfix">
-				<h2>Table of Contents</h2>
+				<h2><?php _e('Table of Contents', 'pressbooks'); ?></h2>
 				<?php $book = pb_get_book_structure(); ?>
 					<ul class="table-of-content" id="table-of-content">
 						<li>

@@ -29,7 +29,7 @@
 				<?php foreach ($metadata as $key => $val): ?>
 				<?php if ( isset( $metakeys[$key] ) && ! empty( $val ) ): ?>
 				<tr>
-					<td><?php echo $metakeys[$key]; ?></td>
+					<td><?php _e($metakeys[$key], 'pressbooks'); ?>:</td>
 					<td><?php if ( 'pb_publication_date' == $key ) { $val = date_i18n( 'F j, Y', absint( $val ) );  } echo $val; ?></td>
 				<?php endif; ?>
 				<?php endforeach; ?>

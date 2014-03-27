@@ -16,7 +16,7 @@
 			
 			<section class="fourth-block-wrap"> 
 				<div class="fourth-block clearfix">
-						<h2> Other books <?php $autor ?></h2>
+						<h2> <?php _e('Other books', 'pressbooks'); ?> <?php $autor ?></h2>
 								
 					</div><!-- end .fourthary-block -->
 				</section> <!-- end .fourthary-block -->
