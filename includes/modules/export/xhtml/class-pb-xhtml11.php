@@ -653,7 +653,7 @@ class Xhtml11 extends Export {
 				foreach ( $struct as $part ) {
 					$slug = $part['post_name'];
 					$title = Sanitize\strip_br( $part['post_title'] );
-					if ( count( $book_contents['part'] ) > 1 && $this->atLeastOneExport( $part['chapters'] ) ) {
+					if ( count( $book_contents['part'] ) > 1 && $this->atLeastOneExport( $part['chapters'] ) && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) {
 						printf( '<li class="part"><a href="#%s">%s</a></li>',
 							$slug,
 							Sanitize\decode( $title ) );
@@ -808,7 +808,7 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoPartsAndChapters( $book_contents, $metadata ) {
 
-		$part_printf = '<div class="part" id="%s">';
+		$part_printf = '<div class="part %s" id="%s">';
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>';
 		$part_printf .= '</div>';
 
@@ -820,13 +820,15 @@ class Xhtml11 extends Export {
 		$i = $j = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
+			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) == 'on' ) ? 'invisible' : '';
+
 			$part_printf_changed = '';
 			$slug = $part['post_name'];
 			$title = $part['post_title'];
 
 			// Inject introduction class?
 			if ( ! $this->hasIntroduction && count( $book_contents['part'] ) > 1 ) {
-				$part_printf_changed = str_replace( '<div class="part" id=', '<div class="part introduction" id=', $part_printf );
+				$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
 				$this->hasIntroduction = true;
 			}
 
@@ -837,10 +839,12 @@ class Xhtml11 extends Export {
 				$part_printf_changed = str_replace( '</h1></div></div>', "</h1></div><div class=\"ugc part-ugc\">{$part_content}</div></div>", $part_printf );
 			}
 
+			$m = ( $invisibility == 'invisible' ) ? '' : $i;
 			$my_part = sprintf(
 				( $part_printf_changed ? $part_printf_changed : $part_printf ),
+				$invisibility,
 				$slug,
-				$i,
+				$m,
 				Sanitize\decode( $title ) ) . "\n";
 
 			$my_chapters = '';
@@ -896,7 +900,7 @@ class Xhtml11 extends Export {
 			if ( $my_chapters ) {
 				if ( count( $book_contents['part'] ) > 1 ) {
 					echo $my_part . $my_chapters;
-					++$i;
+					if ( $invisibility !== 'invisible' ) ++$i;
 				} else {
 					echo $my_chapters;
 				}

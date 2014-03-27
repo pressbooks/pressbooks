@@ -174,8 +174,7 @@ function replace_book_admin_menu() {
 			}
 		}
 	} );
-
-
+	
 	// Separator
 	// $menu[14] = array( '', 'read', "separator{0}", '', 'wp-menu-separator' );
 
@@ -564,6 +563,7 @@ function init_css_js() {
 	wp_register_script( 'pb-organize', PB_PLUGIN_URL . 'assets/js/organize.js', array( 'jquery', 'jquery-ui-core', 'jquery-blockui' ), '1.0.1' );
 	wp_register_script( 'pb-metadata', PB_PLUGIN_URL . 'assets/js/book-information.js', array( 'jquery' ), '1.0.1' );
 	wp_register_script( 'pb-import', PB_PLUGIN_URL . 'assets/js/import.js', array( 'jquery' ), '1.0.0' );
+	wp_register_script( 'pb-part', PB_PLUGIN_URL . 'assets/js/part.js', array( 'jquery' ), '1.0.0' );
 
 	// Enqueue now
 	wp_register_script( 'jquery-bootstrap', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.js', array( 'jquery' ), '2.0.1' );
@@ -576,6 +576,17 @@ function init_css_js() {
 	wp_enqueue_script( 'pb-feedback' );
 }
 
+/**
+ * Enqueue script to ensure that new parts are made visible by default.
+ */
+function force_visible_parts() {
+	$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+	if ( preg_match( '~/wp-admin/post-new\.php$~', $check_against_url ) ) {
+		if ( @$_REQUEST['post_type'] == 'part' ) {
+			wp_enqueue_script( 'pb-part' );
+		}
+	}
+}
 
 /**
  * Redirect away from (what we consider) bad WordPress admin pages

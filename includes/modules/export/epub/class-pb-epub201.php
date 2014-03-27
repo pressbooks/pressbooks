@@ -1047,7 +1047,7 @@ class Epub201 extends Export {
 	 */
 	protected function createPartsAndChapters( $book_contents, $metadata ) {
 
-		$part_printf = '<div class="part" id="%s">';
+		$part_printf = '<div class="part %s" id="%s">';
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>';
 		$part_printf .= '</div>';
 
@@ -1064,8 +1064,10 @@ class Epub201 extends Export {
 		);
 
 		// Parts, Chapters
-		$i = $j = $c = 1;
+		$i = $j = $c = $p = 1;
 		foreach ( $book_contents['part'] as $part ) {
+
+			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) == 'on' ) ? 'invisible' : '';
 
 			$part_printf_changed = '';
 			$array_pos = count( $this->manifest );
@@ -1073,7 +1075,7 @@ class Epub201 extends Export {
 
 			// Inject introduction class?
 			if ( ! $this->hasIntroduction && count( $book_contents['part'] ) > 1 ) {
-				$part_printf_changed = str_replace( '<div class="part" id=', '<div class="part introduction" id=', $part_printf );
+				$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
 				$this->hasIntroduction = true;
 			}
 
@@ -1153,11 +1155,14 @@ class Epub201 extends Export {
 
 				$slug = $part['post_name'];
 
+				$m = ( $invisibility == 'invisible' ) ? '' : $p;
+
 				$vars['post_title'] = $part['post_title'];
 				$vars['post_content'] = sprintf(
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
+					$invisibility,
 					$slug,
-					( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $i ) : $i ) : '' ),
+					( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
 					Sanitize\decode( $part['post_title'] ) );
 
 				$file_id = 'part-' . sprintf( "%03s", $i );
@@ -1176,6 +1181,8 @@ class Epub201 extends Export {
 					) ) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 				++$i;
+				
+				if ( $invisibility !== 'invisible' ) ++$p;
 			}
 
 			// Did we actually inject the introduction class?
@@ -1310,6 +1317,8 @@ class Epub201 extends Export {
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 			} elseif ( preg_match( '/^part-/', $k ) ) {
 				$class = 'part';
+				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) == 'on' )
+					$class .= ' display-none';
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
 				$class = 'chapter';
 				$class .= \PressBooks\Taxonomy\chapter_type( $v['ID'] );

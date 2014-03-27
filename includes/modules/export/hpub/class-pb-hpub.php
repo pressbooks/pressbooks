@@ -800,7 +800,7 @@ class Hpub extends Export {
 	 */
 	protected function createPartsAndChapters( $book_contents, $metadata ) {
 
-		$part_printf = '<div class="part" id="%s">';
+		$part_printf = '<div class="part %s" id="%s">';
 		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>';
 		$part_printf .= '</div>';
 
@@ -816,8 +816,10 @@ class Hpub extends Export {
 		);
 
 		// Parts, Chapters
-		$i = $j = 1;
+		$i = $j = $c = $p = 1;
 		foreach ( $book_contents['part'] as $part ) {
+
+			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) == 'on' ) ? 'invisible' : '';
 
 			$part_printf_changed = '';
 			$array_pos = count( $this->manifest );
@@ -825,7 +827,7 @@ class Hpub extends Export {
 
 			// Inject introduction class?
 			if ( ! $this->hasIntroduction && count( $book_contents['part'] ) > 1 ) {
-				$part_printf_changed = str_replace( '<div class="part" id=', '<div class="part introduction" id=', $part_printf );
+				$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
 				$this->hasIntroduction = true;
 			}
 
@@ -871,7 +873,7 @@ class Hpub extends Export {
 					$this->hasIntroduction = true;
 				}
 
-				$n = ( $subclass == 'numberless' ) ? '' : $j;
+				$n = ( $subclass == 'numberless' ) ? '' : $c;
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
@@ -882,7 +884,7 @@ class Hpub extends Export {
 					$content,
 					'' );
 
-				$file_id = 'chapter-' . $id;
+				$file_id = 'chapter-' . sprintf( "%03s", $j );
 				$filename = "{$file_id}-{$slug}.html";
 
 				file_put_contents(
@@ -897,18 +899,23 @@ class Hpub extends Export {
 
 				$has_chapters = true;
 
-				if ( $subclass !== 'numberless' ) ++$j;
+				$j++;
+
+				if ( $subclass !== 'numberless' ) ++$c;
 			}
 
 			if ( $has_chapters && count( $book_contents['part'] ) > 1 ) {
 
 				$slug = $part['post_name'];
 
+				$m = ( $invisibility == 'invisible' ) ? '' : $p;
+
 				$vars['post_title'] = $part['post_title'];
 				$vars['post_content'] = sprintf(
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
+					$invisibility,
 					$slug,
-					$i,
+					$m,
 					Sanitize\decode( $part['post_title'] ) );
 
 				$file_id = 'part-' . sprintf( "%03s", $i );
@@ -927,6 +934,8 @@ class Hpub extends Export {
 					) ) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 				++$i;
+				
+				if ( $invisibility !== 'invisible' ) ++$p;
 			}
 
 			// Did we actually inject the introduction class?
@@ -1058,12 +1067,17 @@ class Hpub extends Export {
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 			} elseif ( preg_match( '/^part-/', $k ) ) {
 				$class = 'part';
+				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) == 'on' )
+					$class .= ' display-none';
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
 				$class = 'chapter';
 				$class .= \PressBooks\Taxonomy\chapter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				++$i;
+				if ( $this->numbered && \PressBooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) {
+					$title = " $i. " . $title;
+				}
+				if ( \PressBooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) ++$i;
 			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
 				$class = 'back-matter ';
 				$class .= \PressBooks\Taxonomy\back_matter_type( $v['ID'] );

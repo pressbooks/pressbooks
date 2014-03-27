@@ -176,6 +176,9 @@ div.part {
 	margin-top: 6em;
 	padding-bottom: 0.25em;
 }
+div.part.invisible {
+	display: none;
+}
 .display-none, .front-matter-number, .back-matter-number {
 	display: none;
 }
@@ -282,6 +285,10 @@ div.chapter.numberless h3.chapter-number {
 	background-image: none;
 	margin: 1.3em 0 0.5em;
 	font:bold 1.2em Impact, sans-serif;
+}
+
+#toc .part.invisible {
+	display: none;
 }
 
 #toc ul {
