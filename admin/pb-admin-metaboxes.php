@@ -471,6 +471,19 @@ function add_meta_boxes() {
 		'label' => '',
 		'description' => __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' )
 	) );
+
+	x_add_metadata_group( 'part-metadata-visibility', 'part', array(
+		'label' => __( 'Part Visibility', 'pressbooks' ),
+		'context' => 'side',
+		'priority' => 'low',
+	) );
+
+	x_add_metadata_field( 'pb_part_invisible', 'part', array(
+		'field_type' => 'checkbox',
+		'group' => 'part-metadata-visibility',
+		'label' => 'Invisible',
+		'description' => __( 'Hide from table of contents and part numbering.', 'pressbooks' )
+	) );
 }
 
 

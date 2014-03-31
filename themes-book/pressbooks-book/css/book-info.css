@@ -59,6 +59,9 @@ body.home {
 .book-info-container h4 {
 	font-size: 1.125em; /* 18/16 */ 
 }
+.book-info-container h4 a {
+	font-weight: normal;
+}
 .book-info-container h3,
 .book-info-container h4 {
 	text-transform: none;

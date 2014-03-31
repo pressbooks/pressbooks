@@ -637,10 +637,14 @@ a.close {
   text-align: left;
 }
 #toc h4 {
-  font-size: 0.8em;
+  font: 0.8em "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
   font-style: normal;
   font-weight: bold;
   margin: 5px 0 2px;
+}
+#toc h4 a {
+  font: inherit;
+  font-weight: inherit;
 }
 #toc ul ul {
   border-bottom: 1px dotted #999;

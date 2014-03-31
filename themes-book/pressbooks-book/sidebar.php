@@ -32,7 +32,11 @@
 					</ul>
 				</li>
 				<?php foreach ($book['part'] as $part):?>
-				<li><h4><?php if ( count( $book['part'] ) > 1 ) echo $part['post_title']; ?></h4></li>
+				<li><h4><?php if ( count( $book['part'] ) > 1 && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) { ?>
+				<?php if ( get_post_meta( $part['ID'], 'pb_part_content', true ) ) { ?><a href="<?php echo get_permalink($part['ID']); ?>"><?php } ?>
+				<?php echo $part['post_title']; ?>
+				<?php if ( get_post_meta( $part['ID'], 'pb_part_content', true ) ) { ?></a><?php } ?>
+				<?php } ?></h4></li>
 				<li>
 					<ul>
 						<?php foreach ($part['chapters'] as $chapter) : ?>

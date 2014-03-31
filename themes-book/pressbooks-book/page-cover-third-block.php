@@ -1,6 +1,6 @@
 			<section class="third-block-wrap"> 
 				<div class="third-block clearfix">
-				<h2>Table of Contents</h2>
+				<h2><?php _e('Table of Contents', 'pressbooks'); ?></h2>
 				<?php $book = pb_get_book_structure(); ?>
 					<ul class="table-of-content" id="table-of-content">
 						<li>
@@ -12,7 +12,11 @@
 							</ul>
 						</li>
 							<?php foreach ($book['part'] as $part):?>
-							<li><h4><?php if ( count( $book['part'] ) > 1 ) echo $part['post_title']; ?></h4></li>
+							<li><h4><?php if ( count( $book['part'] ) > 1  && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) { ?>
+							<?php if ( get_post_meta( $part['ID'], 'pb_part_content', true ) ) { ?><a href="<?php echo get_permalink($part['ID']); ?>"><?php } ?>
+							<?php echo $part['post_title']; ?>
+							<?php if ( get_post_meta( $part['ID'], 'pb_part_content', true ) ) { ?></a><?php } ?>
+							<?php } ?></h4></li>
 							<li>
 								<ul>
 									<?php foreach ($part['chapters'] as $chapter) : ?>
@@ -34,4 +38,4 @@
 					</ul><!-- end #toc -->	
 						
 				</div><!-- end .third-block -->
-			</section> <!-- end .third-block -->		
+			</section> <!-- end .third-block -->

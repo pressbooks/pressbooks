@@ -29,14 +29,14 @@
 				<?php foreach ($metadata as $key => $val): ?>
 				<?php if ( isset( $metakeys[$key] ) && ! empty( $val ) ): ?>
 				<tr>
-					<td><?php echo $metakeys[$key]; ?></td>
+					<td><?php _e($metakeys[$key], 'pressbooks'); ?>:</td>
 					<td><?php if ( 'pb_publication_date' == $key ) { $val = date_i18n( 'F j, Y', absint( $val ) );  } echo $val; ?></td>
 				<?php endif; ?>
 				<?php endforeach; ?>
 				</tr>
 				<?php
 				// Copyright
-				echo '<tr><td>' . __( 'Copyright', 'pressbooks' ) . '</td><td>';
+				echo '<tr><td>' . __( 'Copyright', 'pressbooks' ) . ':</td><td>';
 				echo ( ! empty( $metadata['pb_copyright_year'] ) ) ? $metadata['pb_copyright_year'] : date( 'Y' );
 				if ( ! empty( $metadata['pb_copyright_holder'] ) ) echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
 				echo "</td></tr>\n";

@@ -129,6 +129,14 @@ function pb_private() {
 <?php
 }
 
+/**
+ * Add SVG to mime types.
+ */
+function pb_mime_types( $mimes ){
+	$mimes['svg'] = 'image/svg+xml';
+	return $mimes;
+}
+add_filter( 'upload_mimes', 'pb_mime_types' );
 
 if ( ! function_exists( 'pressbooks_comment' ) ) :
 
@@ -461,7 +469,7 @@ function pressbooks_theme_options_pdf_init() {
 			 __( 'Pocket (4.25&quot; &times; 7&quot;)', 'pressbooks' ),
 			 __( 'A4 (21cm &times; 29.7cm)', 'pressbooks' ),
 			 __( 'A5 (14.8cm &times; 21cm)', 'pressbooks' ),
-
+			 __( '5&quot; &times; 8&quot;', 'pressbooks' ),
 		)
 	);
 	add_settings_field(
@@ -915,6 +923,9 @@ function pressbooks_theme_pdf_css_override( $css ) {
 			break;
 		case 8:
 			$css .= "@page { size: 14.8cm 21cm; } \n";
+			break;
+		case 9:
+			$css .= "@page { size: 5in 8in; } \n";
 			break;
 	}
 

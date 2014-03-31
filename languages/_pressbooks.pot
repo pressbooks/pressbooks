@@ -1041,6 +1041,10 @@ msgstr ""
 msgid "Table of Contents"
 msgstr ""
 
+#: themes-book/pressbooks-book/page-cover-second-block.php:5
+msgid "Book Description"
+msgstr ""
+
 #: includes/class-pb-activation.php:183
 #: themes-book/pressbooks-book/header.php:76
 #: themes-book/pressbooks-book/page-cover-top-block.php:58

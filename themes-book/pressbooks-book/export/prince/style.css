@@ -280,6 +280,10 @@ div.part {
 	padding-bottom: 0.25em;
 	padding: part;	
 }
+
+div.part.invisible {
+	display: none;
+}
  
 body {
 	font:  10pt/1.1  "Cardo","Times New Roman", serif;
@@ -581,6 +585,9 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	margin: .6cm 0 .4em;
 	text-align: center;
 	page-break-after: avoid;	
+}
+#toc .part.invisible {
+	display: none;
 }
 #toc {
 	page-break-before: right;
