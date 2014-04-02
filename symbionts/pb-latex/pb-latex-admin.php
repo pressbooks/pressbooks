@@ -131,8 +131,8 @@ class PBLatexAdmin extends PBLatex {
 			$message = '<div class="error"><p>' . $url->get_error_message() . "</p></div>\n";
 			echo $message;
 		} else {
-			$alt = attribute_escape( __( 'Test Image', 'pb-latex' ) );
-			echo "<img class='test-image' src='" . clean_url( $url ) . "' alt='$alt' />\n";
+			$alt = esc_attr( __( 'Test Image', 'pb-latex' ) );
+			echo "<img class='test-image' src='" . esc_url( $url ) . "' alt='$alt' />\n";
 			echo "<p class='test-image'>" . __( 'If you can see a big integral, all is well.', 'pb-latex' ) . '</p>';
 			$r = true;
 		}
@@ -220,7 +220,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 	
 	<?php if ( empty( $errors ) ) $this->testImage(); ?>
 	
-	<form action="<?php echo clean_url( remove_query_arg( 'updated' ) ); ?>" method="post">
+	<form action="<?php echo esc_url( remove_query_arg( 'updated' ) ); ?>" method="post">
 
 	<table class="form-table">
 	<tbody>
@@ -243,7 +243,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 			<th scope="row"><?php _e( 'LaTeX generation method', 'pb-latex' ); ?></th>
 			<td>
 				<ul id="pb-latex-method-switch">
-					<li><label for="pb-latex-method-wpcom"><input type="radio" name="pb_latex[method]" id="pb-latex-method-wpcom" value='Automattic_Latex_WPCOM'<?php checked( 'Automattic_Latex_WPCOM', $values['method'] ); ?> /> <?php printf( _c( '%s LaTeX server (recommended)|WordPress.com LaTeX Server (recommended)', 'pb-latex' ), '<a href="http://wordpress.com/" target="_blank">WordPress.com</a>' ); ?></label></li>
+					<li><label for="pb-latex-method-wpcom"><input type="radio" name="pb_latex[method]" id="pb-latex-method-wpcom" value='Automattic_Latex_WPCOM'<?php checked( 'Automattic_Latex_WPCOM', $values['method'] ); ?> /> <?php printf( _x( '%s LaTeX server (recommended)|WordPress.com LaTeX Server (recommended)', 'pb-latex' ), '<a href="http://wordpress.com/" target="_blank">WordPress.com</a>' ); ?></label></li>
 				</ul>
 			</td>
 		</tr>
@@ -251,7 +251,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		<tr<?php if ( in_array( 'fg', $errors ) ) echo ' class="form-invalid"'; ?>>
 			<th scope="row"><label for="pb-latex-fg"><?php _e( 'Default text color', 'pb-latex' ); ?></label></th>
 			<td>
-				<input type='text' name='pb_latex[fg]' value='<?php echo attribute_escape( $values['fg'] ); ?>' id='pb-latex-fg' />
+				<input type='text' name='pb_latex[fg]' value='<?php echo esc_attr( $values['fg'] ); ?>' id='pb-latex-fg' />
 				<?php _e( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>' ); ?>
 			</td>
 		</tr>
@@ -259,7 +259,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		<tr<?php if ( in_array( 'bg', $errors ) ) echo ' class="form-invalid"'; ?>>
 			<th scope="row"><label for="pb-latex-bg"><?php _e( 'Default background color', 'pb-latex' ); ?></label></th>
 			<td>
-				<input type='text' name='pb_latex[bg]' value='<?php echo attribute_escape( $values['bg'] ); ?>' id='pb-latex-bg' />
+				<input type='text' name='pb_latex[bg]' value='<?php echo esc_attr( $values['bg'] ); ?>' id='pb-latex-bg' />
 				<?php _e( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>, or <code>transparent</code>' ); ?>
 			</td>
 		</tr>
@@ -278,7 +278,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 	
 	
 	<p class="submit">
-		<input type="submit" class="button-primary" value="<?php echo attribute_escape( __( 'Update LaTeX Options', 'pb-latex' ) ); ?>" />
+		<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Update LaTeX Options', 'pb-latex' ) ); ?>" />
 		<?php wp_nonce_field( 'pb-latex' ); ?>
 	</p>
 	</form>
