@@ -73,8 +73,8 @@ class PBLatex {
 
 		$latex_object = $this->latex( $latex, $atts['background'], $atts['color'], $atts['size'] );
 
-		$url = clean_url( $latex_object->url );
-		$alt = attribute_escape( is_wp_error( $latex_object->error ) ? $latex_object->error->get_error_message() . ": $latex_object->latex" : $latex_object->latex  );
+		$url = esc_url( $latex_object->url );
+		$alt = esc_attr( is_wp_error( $latex_object->error ) ? $latex_object->error->get_error_message() . ": $latex_object->latex" : $latex_object->latex  );
 
 		return "<img src='$url' alt='$alt' title='$alt' class='latex' />";
 	}

@@ -44,22 +44,27 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 				echo '</navPoint>';
 			}
 
-			$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
-			if ( ! $text ) $text = ' ';
+			if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) !== 'on' ) {
 
-			printf( '
-				<navPoint id="%s" playOrder="%s">
-				<navLabel><text>%s</text></navLabel>
-				<content src="OEBPS/%s" />
-				', $k, $i, $text, $v['filename'] );
+				$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
+				if ( ! $text ) $text = ' ';
+	
+				printf( '
+					<navPoint id="%s" playOrder="%s">
+					<navLabel><text>%s</text></navLabel>
+					<content src="OEBPS/%s" />
+					', $k, $i, $text, $v['filename'] );
+	
+				if ( preg_match( '/^part-/', $k ) ) {
+					$part_open = true;
+				} else {
+					echo '</navPoint>';
+				}
+				
+			++$i;
 
-			if ( preg_match( '/^part-/', $k ) ) {
-				$part_open = true;
-			} else {
-				echo '</navPoint>';
 			}
 
-			++$i;
 		}
 		if ( true == $part_open ) {
 			echo '</navPoint>';

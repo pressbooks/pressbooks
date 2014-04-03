@@ -233,6 +233,8 @@ class Book {
 				} else {
 					foreach ( $struct['chapters'] as $j => $chapter ) {
 						unset( $book_structure[$type][$i]['chapters'][$j]['post_parent'] );
+						if ( get_post_meta( $struct['ID'], 'pb_part_content', true ) && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' )
+							$book_structure['__order'][$struct['ID']] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
 						$book_structure['__order'][$chapter['ID']] = array( 'export' => $chapter['export'], 'post_status' => $chapter['post_status'] );
 						if ( $chapter['export'] ) {
 							$book_structure['__export_lookup'][$chapter['post_name']] = 'chapter';
