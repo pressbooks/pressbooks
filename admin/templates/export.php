@@ -112,12 +112,12 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	       <legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
 	    	<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php checked(1, $options['pdf'], true); ?>/><label for="pdf"> <?php _e( 'PDF (for printing)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="epub" name="export_formats[epub]" value="1" <?php checked(1, $options['epub'], true); ?> onclick="fixMobi();" /><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php checked(1, $options['epub3'], true); ?> onclick="fixMobi();" /><label for="epub3"> <?php _e( 'EPUB3 (Experimental.)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="mobi" name="export_formats[mobi]" value="1" <?php checked(1, $options['mobi'], true); ?> onclick="fixMobi();" /><label for="mobi"> <?php _e( 'MOBI (for Kindle)', 'pressbooks' ); ?></label>
 	    </fieldset>
 	    
 	    <fieldset>
 	    <legend>Exotic formats:</legend>
+	    	<input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php checked(1, $options['epub3'], true); ?> onclick="fixMobi();" /><label for="epub3"> <?php _e( 'EPUB 3 (Experimental)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="hpub" name="export_formats[hpub]" value="1" <?php checked(1, $options['hpub'], false); ?>/><label for="hpub"> <?php _e( 'Hpub', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="icml" name="export_formats[icml]" value="1" <?php checked(1, $options['icml'], false); ?>/><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" <?php checked(1, $options['xhtml'], false); ?>/><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
