@@ -4,44 +4,216 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PressBooks 2.0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
-"POT-Creation-Date: 2013-03-04 20:40:16+00:00\n"
+"POT-Creation-Date: 2013-09-20 14:45:33+00:00\n"
+"PO-Revision-Date: 2014-04-05 15:25-0500\n"
+"Last-Translator: wastemobile <wastemobile@me.com>\n"
+"Language-Team: Readmoo <service@readmoo.com>\n"
+"Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2013-03-07 01:14+0800\n"
-"Last-Translator: wastemobile <wastemobile@me.com>\n"
-"Language-Team: Readmoo <service@readmoo.com>\n"
-"X-Generator: Poedit 1.5.4\n"
-"Language: Chinese\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=1;\n"
 
-#: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:41
-#: admin/pb-admin-dashboard.php:90
+#: admin/class-pb-catalog-list-table.php:78
+#, fuzzy
+msgid "Visit Book"
+msgstr "造訪出版基地"
+
+#: admin/class-pb-catalog-list-table.php:83
+#, fuzzy
+msgid "Visit Admin"
+msgstr "造訪書籍"
+
+#: admin/class-pb-catalog-list-table.php:114
+#: admin/class-pb-catalog-list-table.php:226
+msgid "Hide in Catalog"
+msgstr ""
+
+#: admin/class-pb-catalog-list-table.php:119
+#: admin/class-pb-catalog-list-table.php:225
+msgid "Show in Catalog"
+msgstr ""
+
+#: admin/class-pb-catalog-list-table.php:180
+#, fuzzy
+msgid "Catalog Status"
+msgstr "狀態"
+
+#: admin/class-pb-catalog-list-table.php:181
+#, fuzzy
+msgid "Privacy Status"
+msgstr "隱私設定"
+
+#: admin/class-pb-catalog-list-table.php:182
+#: includes/class-pb-activation.php:171
+#: includes/modules/export/epub/class-pb-epub201.php:625
+#: includes/modules/export/hpub/class-pb-hpub.php:452
+msgid "Cover"
+msgstr "封面"
+
+#: admin/class-pb-catalog-list-table.php:183 admin/templates/import.php:58
+#, fuzzy
+msgid "Title"
+msgstr "書名頁"
+
+#: admin/class-pb-catalog-list-table.php:184 admin/pb-admin-metaboxes.php:182
+#: admin/templates/organize.php:68 admin/templates/organize.php:152
+#: admin/templates/organize.php:249
+#: themes-book/pressbooks-book/functions.php:15
+msgid "Author"
+msgstr "作者"
+
+#: admin/class-pb-catalog-list-table.php:188
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:199
+msgid "Tag"
+msgstr ""
+
+#: admin/class-pb-catalog-list-table.php:191 admin/templates/catalog.php:35
+#, fuzzy
+msgid "Featured"
+msgstr "推薦內容"
+
+#: admin/class-pb-catalog-list-table.php:192
+#, fuzzy
+msgid "Pub Date"
+msgstr "出版日期"
+
+#: admin/class-pb-catalog-list-table.php:338
+#, fuzzy
+msgid "Edit Tags"
+msgstr "編輯測驗"
+
+#: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:128
+#: admin/templates/organize.php:28 admin/templates/organize.php:39
+#: admin/templates/organize.php:71 admin/templates/organize.php:155
+#: admin/templates/organize.php:252
+#, fuzzy
+msgid "Private"
+msgstr "隱私"
+
+#: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:130
+#: admin/templates/organize.php:26 admin/templates/organize.php:33
+#, fuzzy
+msgid "Public"
+msgstr "出版者"
+
+#: admin/class-pb-catalog-list-table.php:452
+msgid "Organize your public Catalog page."
+msgstr ""
+
+#: admin/class-pb-catalog-list-table.php:453
+msgid "Show/Hide books"
+msgstr ""
+
+#: admin/class-pb-catalog-list-table.php:457
+#, fuzzy
+msgid "Catalog sorting"
+msgstr "型錄排序"
+
+#: admin/class-pb-catalog-list-table.php:460
+msgid "Share your catalog"
+msgstr ""
+
+#: admin/class-pb-catalog-list-table.php:461
+msgid "The public link to your catalog page"
+msgstr ""
+
+#: admin/class-pb-catalog-list-table.php:466 admin/pb-admin-laf.php:202
+#: admin/pb-admin-laf.php:218 admin/pb-admin-laf.php:324
+msgid "My Catalog"
+msgstr ""
+
+#: admin/class-pb-catalog-list-table.php:467
+#, fuzzy
+msgid "Edit Profile"
+msgstr "編輯書篇"
+
+#: admin/class-pb-catalog-list-table.php:468
+#, fuzzy
+msgid "Visit Catalog"
+msgstr "造訪出版基地"
+
+#: admin/class-pb-catalog-list-table.php:474
+#: themes-root/pressbooks-publisher-one/404.php:17
+msgid "Search"
+msgstr "搜尋"
+
+#: admin/class-pb-catalog-list-table.php:483
+msgid "Add By URL"
+msgstr ""
+
+#: admin/class-pb-catalog-list-table.php:532 admin/templates/catalog.php:18
+#: includes/class-pb-catalog.php:1059 includes/class-pb-catalog.php:1107
+#: includes/class-pb-catalog.php:1152
+msgid "You do not have permission to do that."
+msgstr ""
+
+#: admin/class-pb-catalog-list-table.php:536
+msgid "The requested user does not exist."
+msgstr ""
+
+#: admin/pb-admin-customcss.php:18 admin/templates/custom-css.php:27
+#, fuzzy
+msgid "Edit CSS"
+msgstr "編輯"
+
+#: admin/pb-admin-customcss.php:60
+msgid ""
+"Unexpected Error: There was a problem trying to query slug: %s - Please "
+"contact technical support."
+msgstr ""
+
+#: admin/pb-admin-customcss.php:113
+msgid "Last 10 CSS Revisions"
+msgstr ""
+
+#: admin/pb-admin-customcss.php:116
+#: includes/modules/export/epub/class-pb-epub201.php:791
+#: includes/modules/export/epub/templates/opf.php:60
+#: includes/modules/export/hpub/class-pb-hpub.php:615
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:575
+#: themes-book/pressbooks-book/footer.php:41
+msgid "by"
+msgstr "由"
+
+#: admin/pb-admin-customcss.php:183
+msgid "This will overwrite existing custom CSS. Are you sure?"
+msgstr ""
+
+#: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
+#: admin/pb-admin-dashboard.php:95
 msgid "PressBooks News"
 msgstr "PressBooks 最新訊息"
 
-#: admin/pb-admin-dashboard.php:42 admin/pb-admin-laf.php:314
+#: admin/pb-admin-dashboard.php:41
+#, fuzzy
+msgid "My Book"
+msgstr "出版基地"
+
+#: admin/pb-admin-dashboard.php:43 admin/pb-admin-laf.php:365
 msgid "Users"
 msgstr "用戶"
 
-#: admin/pb-admin-dashboard.php:54 admin/templates/organize.php:30
-#: admin/templates/organize.php:46 includes/pb-postype.php:96
-#: themes-book/pressbooks-book/sidebar.php:45
+#: admin/pb-admin-dashboard.php:55 admin/templates/import.php:59
+#: admin/templates/organize.php:50 admin/templates/organize.php:67
+#: includes/pb-postype.php:114
 msgid "Front Matter"
 msgstr "書前資訊"
 
-#: admin/pb-admin-dashboard.php:71 admin/templates/organize.php:32
-#: admin/templates/organize.php:211 includes/pb-postype.php:131
+#: admin/pb-admin-dashboard.php:75 admin/templates/import.php:61
+#: admin/templates/organize.php:52 admin/templates/organize.php:248
+#: includes/pb-postype.php:149
 msgid "Back Matter"
 msgstr "書後資訊"
 
-#: admin/pb-admin-dashboard.php:79 admin/pb-admin-dashboard.php:118
+#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
 msgid "Add"
 msgstr "添加"
 
-#: admin/pb-admin-dashboard.php:79 admin/pb-admin-dashboard.php:118
-#: admin/pb-admin-laf.php:116
+#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
+#: admin/pb-admin-laf.php:118
 msgid "Organize"
 msgstr "組織內文"
 
@@ -49,7 +221,8 @@ msgstr "組織內文"
 msgid "Powered by"
 msgstr "Powered by"
 
-#: admin/pb-admin-laf.php:19 includes/class-pb-activation.php:168
+#: admin/pb-admin-laf.php:19 admin/templates/catalog.php:89
+#: includes/class-pb-activation.php:179
 msgid "About"
 msgstr "關於"
 
@@ -57,7 +230,7 @@ msgstr "關於"
 msgid "Help"
 msgstr "幫助"
 
-#: admin/pb-admin-laf.php:21 admin/pb-admin-laf.php:258
+#: admin/pb-admin-laf.php:21 admin/pb-admin-laf.php:300
 msgid "Contact"
 msgstr "聯繫"
 
@@ -65,155 +238,167 @@ msgstr "聯繫"
 msgid "Feedback"
 msgstr "回饋"
 
-#: admin/pb-admin-laf.php:50 themes-book/pressbooks-book/sidebar.php:43
+#: admin/pb-admin-laf.php:50 themes-book/pressbooks-book/sidebar.php:23
 msgid "Close"
 msgstr "關閉"
 
-#: admin/pb-admin-laf.php:99
+#: admin/pb-admin-laf.php:101
 #: themes-root/pressbooks-publisher-one/inc/theme-options.php:17
 msgid "Theme Options"
 msgstr "佈景主題選項"
 
-#: admin/pb-admin-laf.php:148
+#: admin/pb-admin-laf.php:129
+#, fuzzy
+msgid "Published"
+msgstr "出版者"
+
+#: admin/pb-admin-laf.php:156 admin/pb-admin-metaboxes.php:29
 msgid "Book Info"
 msgstr "書籍資訊"
 
-#: admin/pb-admin-laf.php:166 admin/templates/export.php:41
-#: admin/templates/organize.php:35 admin/templates/organize.php:51
-#: admin/templates/organize.php:140 admin/templates/organize.php:216
+#: admin/pb-admin-laf.php:174 admin/templates/export.php:43
+#: admin/templates/organize.php:55 admin/templates/organize.php:72
+#: admin/templates/organize.php:156 admin/templates/organize.php:253
 msgid "Export"
 msgstr "製書"
 
-#: admin/pb-admin-laf.php:171
+#: admin/pb-admin-laf.php:179
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr "製作 MOBI 之前需要先製成 EPUB，現在要啟動它嗎？"
 
-#: admin/pb-admin-laf.php:178
+#: admin/pb-admin-laf.php:185
+msgid "Sell"
+msgstr ""
+
+#: admin/pb-admin-laf.php:188
 msgid "Privacy Settings"
 msgstr "隱私設定"
 
-#: admin/pb-admin-laf.php:178
+#: admin/pb-admin-laf.php:188
 msgid "Privacy"
 msgstr "隱私"
 
-#: admin/pb-admin-laf.php:181
-msgid "Ecommerce Settings"
-msgstr "銷售設定"
-
-#: admin/pb-admin-laf.php:181
-msgid "Ecommerce"
-msgstr "銷售"
-
-#: admin/pb-admin-laf.php:184
+#: admin/pb-admin-laf.php:191
 msgid "Advanced Settings"
 msgstr "進階設定"
 
-#: admin/pb-admin-laf.php:184
+#: admin/pb-admin-laf.php:191
 msgid "Advanced"
 msgstr "進階"
 
-#: admin/pb-admin-laf.php:224 admin/pb-admin-laf.php:233
+#: admin/pb-admin-laf.php:194 admin/templates/import.php:14
+#: admin/templates/import.php:57
+#, fuzzy
+msgid "Import"
+msgstr "製書"
+
+#: admin/pb-admin-laf.php:266 admin/pb-admin-laf.php:275
 msgid "About PressBooks"
 msgstr "關於 PressBooks"
 
-#: admin/pb-admin-laf.php:242
+#: admin/pb-admin-laf.php:284
 msgid "PressBooks.com"
 msgstr "PressBooks.com"
 
-#: admin/pb-admin-laf.php:250
+#: admin/pb-admin-laf.php:292
 msgid "Support Forums"
 msgstr "支援論壇"
 
-#: admin/pb-admin-laf.php:282
-msgid "My Books"
-msgstr "出版基地"
+#: admin/pb-admin-laf.php:331
+#, fuzzy
+msgid "Add A New Book"
+msgstr "新增"
 
-#: admin/pb-admin-laf.php:295
+#: admin/pb-admin-laf.php:346
 msgid "Network Admin"
 msgstr "出版基地管理"
 
-#: admin/pb-admin-laf.php:302 admin/pb-admin-laf.php:352
+#: admin/pb-admin-laf.php:353 admin/pb-admin-laf.php:403
 msgid "Dashboard"
 msgstr "控制台"
 
-#: admin/pb-admin-laf.php:308
+#: admin/pb-admin-laf.php:359
 msgid "Sites"
 msgstr "書籍"
 
-#: admin/pb-admin-laf.php:320
+#: admin/pb-admin-laf.php:371
 msgid "Visit Network"
 msgstr "造訪出版基地"
 
-#: admin/pb-admin-laf.php:337
+#: admin/pb-admin-laf.php:388
 msgid "Blavatar"
 msgstr "出版基地 Logo"
 
-#: admin/pb-admin-laf.php:364
+#: admin/pb-admin-laf.php:415
 msgid "Visit Site"
 msgstr "造訪書籍"
 
-#: admin/pb-admin-laf.php:518
+#: admin/pb-admin-laf.php:583
+msgid "Unsupported post type."
+msgstr ""
+
+#: admin/pb-admin-laf.php:610
+msgid "You do not have sufficient permissions to access that URL."
+msgstr ""
+
+#: admin/pb-admin-laf.php:632
 msgid "Site Visibility"
 msgstr "書籍的閱讀權限"
 
-#: admin/pb-admin-laf.php:536
+#: admin/pb-admin-laf.php:650
 msgid "Privacy options"
 msgstr "隱私設定選項"
 
-#: admin/pb-admin-laf.php:550
+#: admin/pb-admin-laf.php:664
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "公開，我希望讓每個人都能閱讀這本書。"
 
-#: admin/pb-admin-laf.php:554
+#: admin/pb-admin-laf.php:668
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "私密，只有我邀請的讀者才能閱讀此書。"
 
-#: admin/pb-admin-laf.php:605
+#: admin/pb-admin-laf.php:719
 msgid "Amazon URL"
 msgstr "Amazon 連結"
 
-#: admin/pb-admin-laf.php:612
+#: admin/pb-admin-laf.php:726
 msgid "Oreilly URL"
 msgstr "Oreilly 連結"
 
-#: admin/pb-admin-laf.php:619
+#: admin/pb-admin-laf.php:733
 msgid "Barnes and Noble URL"
 msgstr "Barnes and Noble 連結"
 
-#: admin/pb-admin-laf.php:626
+#: admin/pb-admin-laf.php:740
 msgid "Kobo URL"
 msgstr "Kobo 連結"
 
-#: admin/pb-admin-laf.php:633
+#: admin/pb-admin-laf.php:747
 msgid "iBooks URL"
 msgstr "iBooks 連結"
 
-#: admin/pb-admin-laf.php:640
+#: admin/pb-admin-laf.php:754
 msgid "Other Service URL"
 msgstr "其他電子書平台連結"
 
-#: admin/pb-admin-laf.php:657
-msgid "Links to ecommerce services"
-msgstr "連結至銷售服務"
-
-#: admin/pb-admin-laf.php:788
+#: admin/pb-admin-laf.php:885
 msgid "Email me validation error reports on export."
 msgstr "製書時發生錯誤，將驗證報告寄給我參考。"
 
-#: admin/pb-admin-laf.php:806
+#: admin/pb-admin-laf.php:903
 msgid "Advanced options"
 msgstr "進階選項"
 
-#: admin/pb-admin-laf.php:820
+#: admin/pb-admin-laf.php:917
 msgid "No. Ignore validation errors."
 msgstr "忽略驗證產生的錯誤。"
 
-#: admin/pb-admin-laf.php:824
+#: admin/pb-admin-laf.php:921
 msgid "Yes. Send the logs."
 msgstr "是的，寄送錯誤記錄。"
 
-#: admin/pb-admin-laf.php:825
+#: admin/pb-admin-laf.php:922
 msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
@@ -227,135 +412,140 @@ msgstr ""
 "\">PressBooks 支援論壇</a>，許多 PressBooks 的用戶在時間允許的狀況下，會樂於"
 "提供意見讓您參考。"
 
-#: admin/pb-admin-metaboxes.php:107 admin/pb-admin-metaboxes.php:346
-#: admin/templates/organize.php:33
+#: admin/pb-admin-metaboxes.php:99
+msgid ""
+"Your cover image (%s x %s) is too small. It should be 625px on the shortest "
+"side."
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:114 admin/pb-admin-metaboxes.php:155
+#: includes/class-pb-metadata.php:440
+#, fuzzy
+msgid "Cover Image"
+msgstr "封面"
+
+#: admin/pb-admin-metaboxes.php:146 admin/pb-admin-metaboxes.php:385
+#: admin/templates/organize.php:53
+#: themes-book/pressbooks-book/functions.php:898
+#: themes-book/pressbooks-book/functions.php:899
+#: themes-book/pressbooks-book/functions.php:934
 msgid "Part"
 msgstr "篇"
 
-#: admin/pb-admin-metaboxes.php:111
+#: admin/pb-admin-metaboxes.php:150
 msgid "Save Part"
 msgstr "儲存本篇"
 
-#: admin/pb-admin-metaboxes.php:112
+#: admin/pb-admin-metaboxes.php:151
 msgid "Save Book Information"
 msgstr "儲存書籍資訊"
 
-#: admin/pb-admin-metaboxes.php:116
-msgid "Covers"
-msgstr "封面"
-
-#: admin/pb-admin-metaboxes.php:121
+#: admin/pb-admin-metaboxes.php:160
 msgid "General Book Information"
 msgstr "書籍基本資訊"
 
-#: admin/pb-admin-metaboxes.php:132
+#: admin/pb-admin-metaboxes.php:171
 msgid "Short Title"
 msgstr "簡短書名"
 
-#: admin/pb-admin-metaboxes.php:133
+#: admin/pb-admin-metaboxes.php:172
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
 msgstr "提供簡短書名，可以避免在製作 PDF 時，完整書名被截斷的問題"
 
-#: admin/pb-admin-metaboxes.php:138
+#: admin/pb-admin-metaboxes.php:177
 msgid "Subtitle"
 msgstr "副標題"
 
-#: admin/pb-admin-metaboxes.php:143 admin/templates/organize.php:47
-#: admin/templates/organize.php:123 admin/templates/organize.php:212
-#: themes-book/pressbooks-book/functions.php:12
-msgid "Author"
-msgstr "作者"
-
-#: admin/pb-admin-metaboxes.php:148
+#: admin/pb-admin-metaboxes.php:187
 msgid "Author, file as"
 msgstr "歸類時使用的作者名稱"
 
-#: admin/pb-admin-metaboxes.php:149
+#: admin/pb-admin-metaboxes.php:188
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
 msgstr ""
 "確保書籍能在書店被適當的歸類至作者名下，通常會設定為作者的姓氏（last name）"
 
-#: admin/pb-admin-metaboxes.php:154
-#: themes-book/pressbooks-book/functions.php:13
+#: admin/pb-admin-metaboxes.php:193
+#: themes-book/pressbooks-book/functions.php:16
 msgid "Publisher"
 msgstr "出版者"
 
-#: admin/pb-admin-metaboxes.php:159
+#: admin/pb-admin-metaboxes.php:198
 msgid "Publisher City"
 msgstr "出版者所在城市"
 
-#: admin/pb-admin-metaboxes.php:165
-#: themes-book/pressbooks-book/functions.php:16
+#: admin/pb-admin-metaboxes.php:204
+#: themes-book/pressbooks-book/functions.php:19
 msgid "Publication Date"
 msgstr "出版日期"
 
-#: admin/pb-admin-metaboxes.php:171
+#: admin/pb-admin-metaboxes.php:210
 msgid "On-Sale Date"
 msgstr "開始販售日期"
 
-#: admin/pb-admin-metaboxes.php:172
+#: admin/pb-admin-metaboxes.php:211
 msgid "The date you want your book to start selling in stores."
 msgstr "設定書籍正式於書店開始販售的日期"
 
-#: admin/pb-admin-metaboxes.php:177
-#: themes-book/pressbooks-book/functions.php:18
+#: admin/pb-admin-metaboxes.php:216
+#: themes-book/pressbooks-book/functions.php:21
 msgid "Ebook ISBN"
 msgstr "電子書 ISBN"
 
-#: admin/pb-admin-metaboxes.php:178
+#: admin/pb-admin-metaboxes.php:217
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online ebook stores."
 msgstr "ISBN 是「國際標準書號」，部分電子書店只接受擁有 ISBN 的書籍上架販售。"
 
-#: admin/pb-admin-metaboxes.php:183
-#: themes-book/pressbooks-book/functions.php:14
+#: admin/pb-admin-metaboxes.php:222
+#: themes-book/pressbooks-book/functions.php:17
 msgid "Print ISBN"
 msgstr "紙本書 ISBN"
 
-#: admin/pb-admin-metaboxes.php:184
+#: admin/pb-admin-metaboxes.php:223
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
 msgstr ""
 "ISBN 是「國際標準書號」，部分線上與實體書店只接受擁有 ISBN 的書籍上架販售。"
 
-#: admin/pb-admin-metaboxes.php:191
+#: admin/pb-admin-metaboxes.php:230 admin/pb-admin-metaboxes.php:552
 msgid "Language"
 msgstr "語言別"
 
-#: admin/pb-admin-metaboxes.php:195
-#: includes/modules/export/epub/class-pb-epub201.php:645
-#: includes/modules/export/epub/class-pb-epub201.php:659
+#: admin/pb-admin-metaboxes.php:234
+#: includes/modules/export/epub/class-pb-epub201.php:789
+#: includes/modules/export/epub/class-pb-epub201.php:807
 #: includes/modules/export/epub/templates/opf.php:58
-#: includes/modules/export/hpub/class-pb-hpub.php:513
-#: includes/modules/export/hpub/class-pb-hpub.php:527
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:509
-#: themes-book/pressbooks-book/footer.php:32
+#: includes/modules/export/hpub/class-pb-hpub.php:613
+#: includes/modules/export/hpub/class-pb-hpub.php:631
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:573
+#: themes-book/pressbooks-book/footer.php:39
 msgid "Copyright"
 msgstr "版權"
 
-#: admin/pb-admin-metaboxes.php:201
+#: admin/pb-admin-metaboxes.php:240
 msgid "Copyright Year"
 msgstr "版權年份"
 
-#: admin/pb-admin-metaboxes.php:206
+#: admin/pb-admin-metaboxes.php:245
 msgid "Copyright Holder"
 msgstr "版權擁有者"
 
-#: admin/pb-admin-metaboxes.php:212
+#: admin/pb-admin-metaboxes.php:251
 msgid "Copyright Notice"
 msgstr "版權註記"
 
-#: admin/pb-admin-metaboxes.php:222
+#: admin/pb-admin-metaboxes.php:261
 msgid "Book Tagline"
 msgstr "書籍介紹標語"
 
-#: admin/pb-admin-metaboxes.php:223
+#: admin/pb-admin-metaboxes.php:262
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
@@ -363,134 +553,227 @@ msgstr ""
 "書籍的介紹標語。這應該能在一則推特訊息中呈現（少於140字），試著以最精煉的語句"
 "描述你的書籍。"
 
-#: admin/pb-admin-metaboxes.php:229
+#: admin/pb-admin-metaboxes.php:268
 msgid "Short Description"
 msgstr "簡短書介"
 
-#: admin/pb-admin-metaboxes.php:230
+#: admin/pb-admin-metaboxes.php:269
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr "一段精要的書籍介紹，通常用於型錄、評介的呈現，最好是易於被摘錄的長度。"
 
-#: admin/pb-admin-metaboxes.php:236
+#: admin/pb-admin-metaboxes.php:275
 msgid "Long Description"
 msgstr "詳細書介"
 
-#: admin/pb-admin-metaboxes.php:237
+#: admin/pb-admin-metaboxes.php:276
 msgid "The full description of your book."
 msgstr "書籍的完整介紹與描述。"
 
-#: admin/pb-admin-metaboxes.php:241
+#: admin/pb-admin-metaboxes.php:280
 msgid "Additional Catalogue Information"
 msgstr "附加的型錄資訊"
 
-#: admin/pb-admin-metaboxes.php:247
+#: admin/pb-admin-metaboxes.php:286
 msgid "Series Title"
 msgstr "書系名稱"
 
-#: admin/pb-admin-metaboxes.php:252
+#: admin/pb-admin-metaboxes.php:291
 msgid "Series Number"
 msgstr "書系編號"
 
-#: admin/pb-admin-metaboxes.php:257
+#: admin/pb-admin-metaboxes.php:296
 msgid "Editor"
 msgstr "編輯"
 
-#: admin/pb-admin-metaboxes.php:262
+#: admin/pb-admin-metaboxes.php:301
 msgid "Translator"
 msgstr "譯者"
 
-#: admin/pb-admin-metaboxes.php:267
+#: admin/pb-admin-metaboxes.php:306
 msgid "Keywords"
 msgstr "關鍵字"
 
-#: admin/pb-admin-metaboxes.php:269
+#: admin/pb-admin-metaboxes.php:308
 msgid ""
 "To make it easier to find your book in online book stores and search engines."
 msgstr "讓書店與搜尋引擎更容易找到你的書籍"
 
-#: admin/pb-admin-metaboxes.php:274
-#: themes-book/pressbooks-book/functions.php:17
+#: admin/pb-admin-metaboxes.php:313
+#: themes-book/pressbooks-book/functions.php:20
 msgid "Hashtag"
 msgstr "話題標籤"
 
-#: admin/pb-admin-metaboxes.php:275
+#: admin/pb-admin-metaboxes.php:314
 msgid "For those of you who like Twitter."
 msgstr "Twitter的「話題標籤（hashtag）可以連結彙整相同話題的推文。"
 
-#: admin/pb-admin-metaboxes.php:280
+#: admin/pb-admin-metaboxes.php:319
 msgid "List Price (Print)"
 msgstr "紙本書定價"
 
-#: admin/pb-admin-metaboxes.php:285
+#: admin/pb-admin-metaboxes.php:324
 msgid "List Price (PDF)"
 msgstr "PDF 定價"
 
-#: admin/pb-admin-metaboxes.php:290
+#: admin/pb-admin-metaboxes.php:329
 msgid "List Price (ebook)"
 msgstr "電子書定價"
 
-#: admin/pb-admin-metaboxes.php:295
+#: admin/pb-admin-metaboxes.php:334
 msgid "List Price (Web)"
 msgstr "線上閱讀版本定價"
 
-#: admin/pb-admin-metaboxes.php:300
+#: admin/pb-admin-metaboxes.php:339
 msgid "Bisac Subject"
 msgstr "Bisac 分類"
 
-#: admin/pb-admin-metaboxes.php:302
+#: admin/pb-admin-metaboxes.php:341
 msgid ""
 "BISAC subject headings help your book get properly classified in (e)book "
 "stores."
 msgstr "設定 BISAC 分類能讓（電子）書店自動化歸類書籍"
 
-#: admin/pb-admin-metaboxes.php:307
+#: admin/pb-admin-metaboxes.php:346
 msgid "Bisac Regional Theme"
 msgstr "Bisac 地理識別代號"
 
-#: admin/pb-admin-metaboxes.php:317
+#: admin/pb-admin-metaboxes.php:356
 msgid "Catalogue Order"
 msgstr "型錄排序"
 
-#: admin/pb-admin-metaboxes.php:325
+#: admin/pb-admin-metaboxes.php:364
 msgid "Chapter Metadata"
 msgstr "章節資訊"
 
-#: admin/pb-admin-metaboxes.php:330
+#: admin/pb-admin-metaboxes.php:369
 msgid "Chapter Short Title (appears in the PDF running header)"
 msgstr "章節簡要標題（出現於 PDF 的目錄標題）"
 
-#: admin/pb-admin-metaboxes.php:335
+#: admin/pb-admin-metaboxes.php:374
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr "章節副標題（製作 Web/EPUB/PDF 時使用）"
 
-#: admin/pb-admin-metaboxes.php:340
+#: admin/pb-admin-metaboxes.php:379
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
 msgstr "章節作者（製作 Web/EPUB/PDF 時使用）"
 
-#: admin/pb-admin-metaboxes.php:354
+#: admin/pb-admin-metaboxes.php:393
 msgid "Export Settings"
 msgstr "製書設定"
 
-#: admin/pb-admin-metaboxes.php:362
+#: admin/pb-admin-metaboxes.php:401
 msgid "Include in exports"
 msgstr "製書時包含此內容"
 
-#: admin/pb-admin-metaboxes.php:374
+#: admin/pb-admin-metaboxes.php:407
+#, fuzzy
+msgid "Show title in exports"
+msgstr "製書時包含此內容"
+
+#: admin/pb-admin-metaboxes.php:413
+msgid "Set as ebook start-point"
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:419
 msgid "Front Matter Metadata"
 msgstr "書前資訊附加說明"
 
-#: admin/pb-admin-metaboxes.php:379
+#: admin/pb-admin-metaboxes.php:424
 msgid "Front Matter Short Title (appears in the PDF running header)"
 msgstr "書前資訊簡短標題（呈現於 PDF 的目錄標題）"
 
-#: admin/pb-admin-metaboxes.php:384
+#: admin/pb-admin-metaboxes.php:429
 msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr "書前資訊副標題（製作 Web/EPUB/PDF 時使用）"
 
-#: admin/pb-admin-metaboxes.php:389
+#: admin/pb-admin-metaboxes.php:434
 msgid "Front Matter Author (appears in Web/ebook/PDF output)"
 msgstr "書前資訊作者（製作 Web/EPUB/PDF 時使用）"
+
+#: admin/pb-admin-metaboxes.php:536
+#, fuzzy
+msgid "Extra Profile Information"
+msgstr "編輯書籍基本資料"
+
+#: admin/pb-admin-metaboxes.php:543
+msgid "English"
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:544
+msgid "Chinese, Traditional"
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:545
+msgid "Estonian"
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:546
+msgid "French"
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:547
+msgid "German"
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:548
+msgid "Japanese"
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:549
+msgid "Portuguese, Brazil"
+msgstr ""
+
+#: admin/pb-admin-metaboxes.php:550
+msgid "Spanish"
+msgstr ""
+
+#: admin/templates/catalog.php:27
+msgid "Tags For"
+msgstr ""
+
+#: admin/templates/catalog.php:49
+msgid "Tags"
+msgstr ""
+
+#: admin/templates/catalog.php:52
+msgid "Comma delimited"
+msgstr ""
+
+#: admin/templates/catalog.php:82
+#, fuzzy
+msgid "My Catalog Profile"
+msgstr "型錄排序"
+
+#: admin/templates/catalog.php:93
+msgid "URL"
+msgstr ""
+
+#: admin/templates/catalog.php:97
+msgid "Tags Name"
+msgstr ""
+
+#: admin/templates/catalog.php:106
+msgid "Logo Or Image"
+msgstr ""
+
+#: admin/templates/custom-css.php:20
+#, fuzzy
+msgid "Error: Something went wrong. See logs for more details."
+msgstr "錯誤訊息：製作書籍失敗。請檢視系統紀錄，找出問題之所在。"
+
+#: admin/templates/custom-css.php:36
+msgid "You are currently editing CSS for"
+msgstr ""
+
+#: admin/templates/custom-css.php:37
+msgid "Copy CSS from"
+msgstr ""
+
+#: admin/templates/custom-css.php:42
+#, fuzzy
+msgid "Save"
+msgstr "儲存本篇"
 
 #: admin/templates/export.php:27
 msgid "Error: The export failed. See logs for more details."
@@ -504,114 +787,181 @@ msgstr "警示：製作書籍無法通過驗證。請檢視系統記錄，找出
 msgid "Emailed to:"
 msgstr "寄送給："
 
-#: admin/templates/export.php:42
-msgid "PressBooks saves your last %s batches of exported files."
-msgstr "PressBooks 儲存了你最近 %s 次的製書程序。"
+#: admin/templates/export.php:44
+msgid ""
+"You can export multiple file formats by selecting your Export Format Options "
+"below. PressBooks saves your last %s batches of exported files."
+msgstr ""
 
-#: admin/templates/export.php:47
+#: admin/templates/export.php:49
 msgid "Export Your Book"
 msgstr "製作書籍"
 
-#: admin/templates/export.php:55
+#: admin/templates/export.php:57
 msgid "Latest Export"
 msgstr "最近的製書記錄"
 
-#: admin/templates/export.php:58
+#: admin/templates/export.php:60
 msgid "Exported"
 msgstr "已製作的書籍"
 
-#: admin/templates/export.php:81
+#: admin/templates/export.php:81 includes/pb-image.php:343
 msgid "Are you sure you want to delete this?"
 msgstr "確定要刪除嗎？"
 
-#: admin/templates/export.php:94
+#: admin/templates/export.php:93
 msgid "Your Export Format Options"
 msgstr "製書格式選項"
 
-#: admin/templates/export.php:95
+#: admin/templates/export.php:94
 msgid "Select which formats you want to export"
 msgstr "選擇要製作哪些書籍格式"
 
-#: admin/templates/export.php:109
+#: admin/templates/export.php:108
 msgid "Standard book formats"
 msgstr "標準書籍格式"
 
-#: admin/templates/export.php:110
+#: admin/templates/export.php:109
 msgid "PDF (for printing)"
 msgstr "PDF（提供紙本與 POD 印刷）"
 
-#: admin/templates/export.php:111
+#: admin/templates/export.php:110 admin/templates/import.php:115
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
 msgstr "EPUB（讓 Nook, iBooks, Kobo 等服務可以閱讀）"
 
-#: admin/templates/export.php:112
+#: admin/templates/export.php:111
 msgid "MOBI (for Kindle)"
 msgstr "MOBI（在 Kindle 閱讀）"
 
-#: admin/templates/export.php:117
+#: admin/templates/export.php:116
 msgid "Hpub"
 msgstr "Hpub（一種更精簡的 HTML 書籍格式）"
 
-#: admin/templates/export.php:118
+#: admin/templates/export.php:117
 msgid "ICML (for InDesign)"
 msgstr "ICML（InDesign 可使用的後製檔案）"
 
-#: admin/templates/export.php:119
+#: admin/templates/export.php:118
 msgid "XHTML"
 msgstr "XHTML"
 
-#: admin/templates/export.php:120
+#: admin/templates/export.php:119
 msgid "WordPress XML"
 msgstr "WordPress XML"
 
-#: admin/templates/export.php:124
+#: admin/templates/export.php:123
 msgid "Your Export Theme Options"
 msgstr "製書的版面選項"
 
-#: admin/templates/export.php:125
+#: admin/templates/export.php:124
 msgid "You are using the &ldquo;%s&rdquo; theme"
 msgstr "你正在使用 &ldquo;%s&rdquo; 版面"
 
-#: admin/templates/export.php:127
+#: admin/templates/export.php:126
 msgid "Change Theme"
 msgstr "改變版面"
 
-#: admin/templates/export.php:130
+#: admin/templates/export.php:129
 msgid "Change Theme Options"
 msgstr "改變版面設置"
 
-#: admin/templates/organize.php:31
+#: admin/templates/import.php:20
+msgid "Import in progress: %s"
+msgstr ""
+
+#: admin/templates/import.php:40
+#, fuzzy
+msgid "Are you sure you want to abort the import?"
+msgstr "確定要刪除嗎？"
+
+#: admin/templates/import.php:60
+#, fuzzy
+msgid "Chapter"
+msgstr "章節"
+
+#: admin/templates/import.php:88
+msgid "Start"
+msgstr ""
+
+#: admin/templates/import.php:90
+msgid "Cancel"
+msgstr ""
+
+#: admin/templates/import.php:100
+msgid "Supported file extensions:"
+msgstr ""
+
+#: admin/templates/import.php:101
+msgid "Maximum file size:"
+msgstr ""
+
+#: admin/templates/import.php:110
+msgid "Type of file"
+msgstr ""
+
+#: admin/templates/import.php:114
+msgid "WXR (WordPress eXtended RSS)"
+msgstr ""
+
+#: admin/templates/import.php:116
+msgid "ODT (word processing file format of OpenDocument)"
+msgstr ""
+
+#: admin/templates/import.php:122
+msgid "File"
+msgstr ""
+
+#: admin/templates/import.php:131
+msgid "Upload file"
+msgstr ""
+
+#: admin/templates/organize.php:26 admin/templates/organize.php:28
+msgid "This book's global privacy is set to"
+msgstr ""
+
+#: admin/templates/organize.php:34
+msgid "Promote your book, set individual chapters privacy below."
+msgstr ""
+
+#: admin/templates/organize.php:40
+msgid ""
+"Only users you invite can see your book, regardless of individual chapter "
+"privacy settings below."
+msgstr ""
+
+#: admin/templates/organize.php:51
 msgid "Chapters"
 msgstr "章節"
 
-#: admin/templates/organize.php:36 admin/templates/organize.php:108
+#: admin/templates/organize.php:56 admin/templates/organize.php:137
 msgid "Add Front Matter"
 msgstr "添加書前資訊"
 
-#: admin/templates/organize.php:37 admin/templates/organize.php:273
+#: admin/templates/organize.php:57 admin/templates/organize.php:318
 msgid "Add Back Matter"
 msgstr "添加書後資訊"
 
-#: admin/templates/organize.php:38 admin/templates/organize.php:197
+#: admin/templates/organize.php:58 admin/templates/organize.php:234
 msgid "Add Chapter"
 msgstr "添加章節"
 
-#: admin/templates/organize.php:39 admin/templates/organize.php:204
+#: admin/templates/organize.php:59 admin/templates/organize.php:241
 msgid "Add Part"
 msgstr "添加書篇"
 
-#: admin/templates/organize.php:48 admin/templates/organize.php:124
-#: admin/templates/organize.php:213
+#: admin/templates/organize.php:69 admin/templates/organize.php:153
+#: admin/templates/organize.php:250
 msgid "Comments"
 msgstr "註記"
 
-#: admin/templates/organize.php:49 admin/templates/organize.php:125
-#: admin/templates/organize.php:214
+#: admin/templates/organize.php:70 admin/templates/organize.php:154
+#: admin/templates/organize.php:251
 msgid "Status"
 msgstr "狀態"
 
-#: admin/templates/organize.php:76 admin/templates/organize.php:128
-#: admin/templates/organize.php:170 admin/templates/organize.php:241
+#: admin/templates/organize.php:73 admin/templates/organize.php:118
+#: admin/templates/organize.php:159 admin/templates/organize.php:214
+#: admin/templates/organize.php:254 admin/templates/organize.php:299
 #: themes-book/pressbooks-book/page.php:11
 #: themes-book/pressbooks-book/single.php:5
 #: themes-root/pressbooks-publisher-one/loop.php:48
@@ -619,44 +969,96 @@ msgstr "狀態"
 msgid "Edit"
 msgstr "編輯"
 
-#: admin/templates/organize.php:81 admin/templates/organize.php:135
-#: admin/templates/organize.php:173 admin/templates/organize.php:246
+#: admin/templates/organize.php:84 admin/templates/organize.php:183
+#: admin/templates/organize.php:265
+#, fuzzy
+msgid "Ebook start point"
+msgstr "電子書選項"
+
+#: admin/templates/organize.php:123 admin/templates/organize.php:166
+#: admin/templates/organize.php:217 admin/templates/organize.php:304
+#: includes/pb-image.php:375
 msgid "Delete"
 msgstr "刪除"
 
-#: admin/templates/organize.php:283
+#: admin/templates/organize.php:328
 msgid "Reordering the Chapters"
 msgstr "重新排序章節"
 
-#: includes/class-pb-activation.php:133
+#: admin/templates/sell.php:12
+#, fuzzy
+msgid "Sell Your Book"
+msgstr "製作書籍"
+
+#: admin/templates/sell.php:13
+msgid ""
+"Would you like help getting your ebook and print-on-demand book into stores?"
+msgstr ""
+
+#: admin/templates/sell.php:18
+#, fuzzy
+msgid "Ebook Distribution"
+msgstr "電子書選項"
+
+#: admin/templates/sell.php:19
+msgid ""
+"We recommend <a href=\"%s\" target=\"_blank\">BookBaby</a>, a service which "
+"will get your book into 11 different ebooks stores. "
+msgstr ""
+
+#: admin/templates/sell.php:20
+msgid ""
+"For a flat fee starting at $99 (with a 10% discount for PressBooks users and "
+"100% royalties going to you), BookBaby will send your book to the Kindle "
+"Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
+msgstr ""
+
+#: admin/templates/sell.php:21
+msgid "Distribute with BookBaby"
+msgstr ""
+
+#: admin/templates/sell.php:26
+msgid "Print-On-Demand"
+msgstr ""
+
+#: admin/templates/sell.php:27
+msgid ""
+"You can submit your PDF exports to <a href=\"%s\" target=\"_blank"
+"\">CreateSpace</a> to get print versions of your books into Amazon, and to "
+"order copies for yourself."
+msgstr ""
+
+#: admin/templates/sell.php:28
+msgid "Print-on-Demand with CreateSpace"
+msgstr ""
+
+#: admin/templates/sell.php:34
+msgid "Create a Buy Page on PressBooks"
+msgstr ""
+
+#: admin/templates/sell.php:35
+msgid ""
+"Once your books are available in stores, you can add the links to bookstores "
+"below, and we'll make a Buy page on the web version of your PressBooks book."
+msgstr ""
+
+#: includes/class-pb-activation.php:143
 msgid "Main Body"
 msgstr "主文"
 
-#: includes/class-pb-activation.php:134
-msgid "main-body"
-msgstr "主文"
-
-#: includes/class-pb-activation.php:138
+#: includes/class-pb-activation.php:148
 msgid "Introduction"
 msgstr "介紹"
 
-#: includes/class-pb-activation.php:139
-msgid "introduction"
-msgstr "介紹"
-
-#: includes/class-pb-activation.php:140
+#: includes/class-pb-activation.php:150
 msgid "This is where you can write your introduction."
 msgstr "你可以撰寫簡短的介紹文字"
 
-#: includes/class-pb-activation.php:144
+#: includes/class-pb-activation.php:154
 msgid "Chapter 1"
 msgstr "第一章"
 
-#: includes/class-pb-activation.php:145
-msgid "chapter-1"
-msgstr "第一章"
-
-#: includes/class-pb-activation.php:146
+#: includes/class-pb-activation.php:156
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
@@ -664,71 +1066,42 @@ msgstr ""
 "這是書籍主文的第一章。你可以修改內文、變更章節名稱、添加新的章節，以及添加組"
 "織章節的篇（Parts）。"
 
-#: includes/class-pb-activation.php:150
+#: includes/class-pb-activation.php:160
 msgid "Appendix"
 msgstr "附錄"
 
-#: includes/class-pb-activation.php:151
-msgid "appendix"
-msgstr "附錄"
-
-#: includes/class-pb-activation.php:152
+#: includes/class-pb-activation.php:162
 msgid "This is where you can add appendices or other back matter."
 msgstr "你可以在此添加附錄，或是其他各種書後資訊。"
 
-#: includes/class-pb-activation.php:156
-#: themes-book/pressbooks-book/page-authors.php:6
+#: includes/class-pb-activation.php:167
 msgid "Authors"
 msgstr "作者"
 
-#: includes/class-pb-activation.php:157
-msgid "authors"
-msgstr "作者"
-
-#: includes/class-pb-activation.php:160
-#: includes/modules/export/epub/class-pb-epub201.php:545
-#: includes/modules/export/hpub/class-pb-hpub.php:415
-msgid "Cover"
-msgstr "封面"
-
-#: includes/class-pb-activation.php:161 includes/class-pb-activation.php:205
-msgid "cover"
-msgstr "封面"
-
-#: includes/class-pb-activation.php:164
-#: themes-book/pressbooks-book/functions.php:385
-#: themes-book/pressbooks-book/index.php:8
-#: themes-book/pressbooks-book/sidebar.php:36
+#: includes/class-pb-activation.php:175
+#: themes-book/pressbooks-book/functions.php:501
+#: themes-book/pressbooks-book/index.php:12
+#: themes-book/pressbooks-book/sidebar.php:16
 msgid "Table of Contents"
 msgstr "目錄"
 
-#: includes/class-pb-activation.php:165 includes/class-pb-activation.php:208
-msgid "table-of-contents"
-msgstr "目錄"
+#: themes-book/pressbooks-book/page-cover-second-block.php:5
+#, fuzzy
+msgid "Book Description"
+msgstr "詳細書介"
 
-#: includes/class-pb-activation.php:169
-msgid "about"
-msgstr "關於"
-
-#: includes/class-pb-activation.php:172
-#: themes-book/pressbooks-book/header.php:62
+#: includes/class-pb-activation.php:183
+#: themes-book/pressbooks-book/header.php:76
+#: themes-book/pressbooks-book/page-cover-top-block.php:58
 msgid "Buy"
 msgstr "購買"
 
-#: includes/class-pb-activation.php:173
-msgid "buy"
-msgstr "購買"
-
-#: includes/class-pb-activation.php:176
-#: themes-book/pressbooks-book/functions.php:70
+#: includes/class-pb-activation.php:187
+#: themes-book/pressbooks-book/functions.php:121
 msgid "Access Denied"
 msgstr "拒絕存取"
 
-#: includes/class-pb-activation.php:177
-msgid "access-denied"
-msgstr "拒絕存取"
-
-#: includes/class-pb-activation.php:178
+#: includes/class-pb-activation.php:189
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
@@ -739,275 +1112,328 @@ msgstr ""
 "login.php\">由此登入</a>。您可以前往 <a href=\"http://pressbooks.com"
 "\">PressBooks.com</a> 申請帳號，製作自己的書籍。"
 
-#: includes/class-pb-activation.php:183
+#: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:362
+msgid "Custom CSS for Ebook"
+msgstr ""
+
+#: includes/class-pb-activation.php:197 includes/class-pb-metadata.php:366
+msgid "Custom CSS for PDF"
+msgstr ""
+
+#: includes/class-pb-activation.php:201 includes/class-pb-metadata.php:370
+msgid "Custom CSS for Web"
+msgstr ""
+
+#: includes/class-pb-activation.php:207
 msgid "Default Data"
 msgstr "預設日期"
 
-#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.1)  #-#-#-#-#
 #. Description of the plugin/theme
-#: includes/class-pb-activation.php:185
+#: includes/class-pb-activation.php:209
 msgid "Simple Book Production"
 msgstr "最簡單的線上製書工具"
 
-#: includes/modules/export/class-pb-export.php:544
+#: includes/class-pb-catalog.php:706
+msgid "Catalog Logo"
+msgstr ""
+
+#: includes/class-pb-catalog.php:1086 includes/class-pb-catalog.php:1134
+#: includes/class-pb-catalog.php:1171 includes/class-pb-catalog.php:1232
+#, fuzzy
+msgid "Settings saved."
+msgstr "選項已儲存"
+
+#: includes/class-pb-catalog.php:1199
+msgid "Invalid URL"
+msgstr ""
+
+#: includes/class-pb-catalog.php:1219
+#, fuzzy
+msgid "No book found"
+msgstr "找不到作者"
+
+#: includes/modules/export/class-pb-export.php:671
 msgid "File not found"
 msgstr "找不到檔案"
 
-#: includes/modules/export/epub/class-pb-epub201.php:609
-#: includes/modules/export/hpub/class-pb-hpub.php:478
+#: includes/modules/export/epub/class-pb-epub201.php:753
+#: includes/modules/export/hpub/class-pb-hpub.php:578
 msgid "Title Page"
 msgstr "書名頁"
 
-#: includes/modules/export/epub/class-pb-epub201.php:647
-#: includes/modules/export/epub/templates/opf.php:60
-#: includes/modules/export/hpub/class-pb-hpub.php:515
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:511
-#: themes-book/pressbooks-book/footer.php:34
-msgid "by"
-msgstr "由"
+#: includes/modules/export/epub/class-pb-epub201.php:991
+msgid "Make your own books using PressBooks.com"
+msgstr ""
 
-#: includes/modules/export/epub/class-pb-epub201.php:1041
-#: includes/modules/export/hpub/class-pb-hpub.php:904
+#: includes/modules/export/epub/class-pb-epub201.php:1222
+#: includes/modules/export/hpub/class-pb-hpub.php:1009
 msgid "Table Of Contents"
 msgstr "目錄"
 
-#: includes/modules/export/epub/class-pb-epub201.php:1054
-#: includes/modules/export/hpub/class-pb-hpub.php:916
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:569
+#: includes/modules/export/epub/class-pb-epub201.php:1235
+#: includes/modules/export/hpub/class-pb-hpub.php:1021
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:633
 msgid "Contents"
 msgstr "內容"
 
 #: includes/modules/export/wordpress/class-pb-wxr.php:101
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:149
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:156
 msgid "Invalid permission error"
 msgstr "權限錯誤"
 
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:280
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:295
 msgid "Notes"
 msgstr "記事"
 
-#: includes/pb-postype.php:17
+#: includes/modules/import/class-pb-import.php:328
+msgid "Your file does not appear to be a valid %s."
+msgstr ""
+
+#: includes/modules/import/epub/class-pb-epub201.php:184
+#: includes/modules/import/wordpress/class-pb-wxr.php:140
+msgid "Imported %s chapters."
+msgstr ""
+
+#: includes/modules/import/wordpress/class-pb-parser.php:56
+#: includes/modules/import/wordpress/class-pb-parser.php:61
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
+msgstr ""
+
+#: includes/pb-image.php:303
+msgid "Your cover image should be 625px on the shortest side."
+msgstr ""
+
+#: includes/pb-postype.php:35
 msgctxt "post type general name"
 msgid "Chapters"
 msgstr "章節"
 
-#: includes/pb-postype.php:18
+#: includes/pb-postype.php:36
 msgctxt "post type singular name"
 msgid "Chapter"
 msgstr "章節"
 
-#: includes/pb-postype.php:19
+#: includes/pb-postype.php:37
 msgctxt "book"
 msgid "Add New Chapter"
 msgstr "添加新章節 [ book ]"
 
-#: includes/pb-postype.php:20
+#: includes/pb-postype.php:38
 msgid "Add New Chapter"
 msgstr "添加新章節"
 
-#: includes/pb-postype.php:21
+#: includes/pb-postype.php:39
 msgid "Edit Chapter"
 msgstr "編輯章節"
 
-#: includes/pb-postype.php:22
+#: includes/pb-postype.php:40
 msgid "New Chapter"
 msgstr "新章節"
 
-#: includes/pb-postype.php:23
+#: includes/pb-postype.php:41
 msgid "View Chapter"
 msgstr "瀏覽章節"
 
-#: includes/pb-postype.php:24
+#: includes/pb-postype.php:42
 msgid "Search Chapters"
 msgstr "搜尋章節"
 
-#: includes/pb-postype.php:25
+#: includes/pb-postype.php:43
 msgid "No chapters found"
 msgstr "找不到章節"
 
-#: includes/pb-postype.php:26
+#: includes/pb-postype.php:44
 msgid "No chapters found in Trash"
 msgstr "回收桶內找不到章節"
 
-#: includes/pb-postype.php:28
+#: includes/pb-postype.php:46
 msgid "Text"
 msgstr "文字"
 
-#: includes/pb-postype.php:51
+#: includes/pb-postype.php:69
 msgctxt "post type general name"
 msgid "Parts"
 msgstr "篇"
 
-#: includes/pb-postype.php:52
+#: includes/pb-postype.php:70
 msgctxt "post type singular name"
 msgid "Part"
 msgstr "篇"
 
-#: includes/pb-postype.php:53
+#: includes/pb-postype.php:71
 msgctxt "book"
 msgid "Add Part"
 msgstr "添加書篇 [ book ]"
 
-#: includes/pb-postype.php:54
+#: includes/pb-postype.php:72
 msgid "Add New Part"
 msgstr "添加書篇"
 
-#: includes/pb-postype.php:55
+#: includes/pb-postype.php:73
 msgid "Edit Part"
 msgstr "編輯書篇"
 
-#: includes/pb-postype.php:56
+#: includes/pb-postype.php:74
 msgid "New Part"
 msgstr "新篇"
 
-#: includes/pb-postype.php:57
+#: includes/pb-postype.php:75
 msgid "View Part"
 msgstr "瀏覽書篇"
 
-#: includes/pb-postype.php:58
+#: includes/pb-postype.php:76
 msgid "Search Parts"
 msgstr "搜尋書篇"
 
-#: includes/pb-postype.php:59
+#: includes/pb-postype.php:77
 msgid "No parts found"
 msgstr "找不到書篇"
 
-#: includes/pb-postype.php:60
+#: includes/pb-postype.php:78
 msgid "No parts found in Trash"
 msgstr "回收桶內找不到書篇"
 
-#: includes/pb-postype.php:62
+#: includes/pb-postype.php:80
 msgid "Parts"
 msgstr "書篇"
 
-#: includes/pb-postype.php:85
+#: includes/pb-postype.php:103
 msgctxt "post type general name"
 msgid "Front Matter"
 msgstr "書前資訊"
 
-#: includes/pb-postype.php:86
+#: includes/pb-postype.php:104
 msgctxt "post type singular name"
 msgid "Front Matter"
 msgstr "書前資訊"
 
-#: includes/pb-postype.php:87
+#: includes/pb-postype.php:105
 msgctxt "book"
 msgid "Add New Front Matter"
 msgstr "添加新的書前資訊 [ book ]"
 
-#: includes/pb-postype.php:88
+#: includes/pb-postype.php:106
 msgid "Add New Front Matter"
 msgstr "添加新的書前資訊"
 
-#: includes/pb-postype.php:89
+#: includes/pb-postype.php:107
 msgid "Edit Front Matter"
 msgstr "編輯書前資訊"
 
-#: includes/pb-postype.php:90
+#: includes/pb-postype.php:108
 msgid "New Front Matter"
 msgstr "新的書前資訊"
 
-#: includes/pb-postype.php:91
+#: includes/pb-postype.php:109
 msgid "View Front Matter"
 msgstr "瀏覽書前資訊"
 
-#: includes/pb-postype.php:92
+#: includes/pb-postype.php:110
 msgid "Search Front Matter"
 msgstr "搜尋書前資訊"
 
-#: includes/pb-postype.php:93
+#: includes/pb-postype.php:111
 msgid "No front matter found"
 msgstr "找不到書前資訊"
 
-#: includes/pb-postype.php:94
+#: includes/pb-postype.php:112
 msgid "No front matter found in Trash"
 msgstr "回收桶內沒有書前資訊"
 
-#: includes/pb-postype.php:120
+#: includes/pb-postype.php:138
 msgctxt "post type general name"
 msgid "Back Matter"
 msgstr "書後資訊 [ post type general name ]"
 
-#: includes/pb-postype.php:121
+#: includes/pb-postype.php:139
 msgctxt "post type singular name"
 msgid "Back Matter"
 msgstr "書後資訊 [ post type general name ]"
 
-#: includes/pb-postype.php:122
+#: includes/pb-postype.php:140
 msgctxt "book"
 msgid "Add New Back Matter"
 msgstr "添加新的書後資訊 [ book ]"
 
-#: includes/pb-postype.php:123
+#: includes/pb-postype.php:141
 msgid "Add New Back Matter"
 msgstr "添加新的書後資訊"
 
-#: includes/pb-postype.php:124
+#: includes/pb-postype.php:142
 msgid "Edit Back Matter"
 msgstr "編輯書後資訊"
 
-#: includes/pb-postype.php:125
+#: includes/pb-postype.php:143
 msgid "New Back Matter"
 msgstr "新的書後資訊"
 
-#: includes/pb-postype.php:126
+#: includes/pb-postype.php:144
 msgid "View Back Matter"
 msgstr "瀏覽書後資訊"
 
-#: includes/pb-postype.php:127
+#: includes/pb-postype.php:145
 msgid "Search Back Matter"
 msgstr "搜尋書後資訊"
 
-#: includes/pb-postype.php:128
+#: includes/pb-postype.php:146
 msgid "No back matter found"
 msgstr "找不到書後資訊"
 
-#: includes/pb-postype.php:129
+#: includes/pb-postype.php:147
 msgid "No back matter found in Trash"
 msgstr "回收桶內找不到書後資訊"
 
-#: includes/pb-postype.php:155
+#: includes/pb-postype.php:173
 msgctxt "post type general name"
 msgid "Book Information"
 msgstr "書籍基本資料"
 
-#: includes/pb-postype.php:156
+#: includes/pb-postype.php:174
 msgctxt "post type singular name"
 msgid "Book Information"
 msgstr "書籍基本資料"
 
-#: includes/pb-postype.php:157
+#: includes/pb-postype.php:175
 msgctxt "book"
 msgid "Add New Book Information"
 msgstr "添加新的書籍基本資料 [ book ]"
 
-#: includes/pb-postype.php:158 includes/pb-postype.php:159
+#: includes/pb-postype.php:176 includes/pb-postype.php:177
 msgid "Edit Book Information"
 msgstr "編輯書籍基本資料"
 
-#: includes/pb-postype.php:160
+#: includes/pb-postype.php:178
 msgid "New Book Information"
 msgstr "新的書籍基本資料"
 
-#: includes/pb-postype.php:161
+#: includes/pb-postype.php:179
 msgid "View Book Information"
 msgstr "瀏覽書籍基本資料"
 
-#: includes/pb-postype.php:162
+#: includes/pb-postype.php:180
 msgid "Search Book Information"
 msgstr "搜尋書籍基本資料"
 
-#: includes/pb-postype.php:163
+#: includes/pb-postype.php:181
 msgid "No book information found"
 msgstr "找不到書籍基本資料"
 
-#: includes/pb-postype.php:164
+#: includes/pb-postype.php:182
 msgid "No book information found in Trash"
 msgstr "回收桶內沒有書籍基本資料"
 
-#: includes/pb-postype.php:166
+#: includes/pb-postype.php:184
 msgid "Book Information"
 msgstr "書籍基本資料"
+
+#: includes/pb-redirect.php:161
+msgid "Error: Unknown export format."
+msgstr ""
+
+#: includes/pb-redirect.php:195
+msgid "No catalog was found for user"
+msgstr ""
 
 #: includes/pb-taxonomy.php:17
 msgctxt "taxonomy general name"
@@ -1117,7 +1543,18 @@ msgstr "從常用的書後資訊類型中挑選"
 msgid "Back Matter Types"
 msgstr "書後資訊類型"
 
-#: pressbooks.php:26
+#: pressbooks.php:44
+#, fuzzy
+msgid ""
+"PressBooks will not work with your version of PHP. PressBooks requires PHP "
+"version %s or greater. Please upgrade PHP if you would like to use "
+"PressBooks."
+msgstr ""
+"PressBooks 無法與你現有的 WordPress 版本相容，安裝 PressBooks 需要安裝一個全"
+"新的多站台版本 WordPress，版本 %s 或以上版本，請在安裝 PressBooks 前先完成升"
+"級。"
+
+#: pressbooks.php:57
 msgid ""
 "PressBooks will not work with your version of WordPress. PressBooks requires "
 "a dedicated install of WordPress Multi-Site, version %s or greater. Please "
@@ -1127,23 +1564,23 @@ msgstr ""
 "新的多站台版本 WordPress，版本 %s 或以上版本，請在安裝 PressBooks 前先完成升"
 "級。"
 
-#: shortcodes/footnotes/class-pb-footnotes.php:154
+#: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
 msgstr "插入註腳"
 
-#: shortcodes/footnotes/class-pb-footnotes.php:155
+#: shortcodes/footnotes/class-pb-footnotes.php:176
 msgid "Convert MS Word Footnotes"
 msgstr "轉換 MS Word 註腳"
 
-#: shortcodes/footnotes/class-pb-footnotes.php:229
+#: shortcodes/footnotes/class-pb-footnotes.php:253
 msgid "Invalid permissions."
 msgstr "權限不符。"
 
-#: symbionts/custom-metadata/custom_metadata.php:399
+#: symbionts/custom-metadata/custom_metadata.php:402
 msgid "<strong>%1$s:</strong> %2$s"
 msgstr "<strong>%1$s:</strong> %2$s"
 
-#: symbionts/custom-metadata/custom_metadata.php:490
+#: symbionts/custom-metadata/custom_metadata.php:493
 msgid "Uh oh, something went wrong!"
 msgstr "歐～ 發生錯誤了！"
 
@@ -1194,6 +1631,13 @@ msgstr "找不到測驗"
 msgid "No Tests found in Trash"
 msgstr "回收桶內找不到測驗"
 
+#: themes-book/austen/functions.php:27 themes-book/austen/functions.php:28
+#: themes-book/austen/functions.php:45 themes-book/clarke/functions.php:18
+#: themes-book/donham/functions.php:27 themes-book/donham/functions.php:28
+#: themes-book/donham/functions.php:45
+msgid "part"
+msgstr ""
+
 #: themes-book/pressbooks-book/comments.php:3
 msgid ""
 "This post is password protected. Enter the password to view any comments."
@@ -1224,247 +1668,318 @@ msgid "Submit"
 msgstr "送出"
 
 #: themes-book/pressbooks-book/content-social-footer.php:4
-#: themes-book/pressbooks-book/content-social-header.php:6
 msgid "I wanted to share this post with you from"
 msgstr "我想分享"
 
-#: themes-book/pressbooks-book/content-social-footer.php:4
-#: themes-book/pressbooks-book/content-social-header.php:6
+#: themes-book/pressbooks-book/content-social-footer.php:5
 msgid "Email to a friend"
 msgstr "寄電郵給好友"
 
-#: themes-book/pressbooks-book/content-social-footer.php:4
-#: themes-book/pressbooks-book/content-social-header.php:6
+#: themes-book/pressbooks-book/content-social-footer.php:5
 msgid "Share via Email"
 msgstr "經由電郵分享"
 
-#: themes-book/pressbooks-book/content-social-header.php:3
-msgid "Share"
-msgstr "分享"
-
-#: themes-book/pressbooks-book/footer.php:17
+#: themes-book/pressbooks-book/footer.php:24
 msgid "Book Name"
 msgstr "書籍名稱"
 
-#: themes-book/pressbooks-book/footer.php:41
+#: themes-book/pressbooks-book/footer.php:48
 msgid "PressBooks.com: Simple Book Production"
 msgstr "PressBooks.com: 最簡單的線上製書工具"
 
-#: themes-book/pressbooks-book/functions.php:15
+#: themes-book/pressbooks-book/functions.php:18
 msgid "Keywords/Tags"
 msgstr "關鍵字/標籤"
 
-#: themes-book/pressbooks-book/functions.php:54
+#: themes-book/pressbooks-book/functions.php:103
 msgid "Previous"
 msgstr "前一則"
 
-#: themes-book/pressbooks-book/functions.php:58
+#: themes-book/pressbooks-book/functions.php:107
 msgid "Next"
 msgstr "下一則"
 
-#: themes-book/pressbooks-book/functions.php:72
-msgid ""
-"This book is private, and accessible only to registered users. If you have "
-"an account you can <a href=\"/wp-login.php\" class=\"login\">login here</a> "
-" <p class=\"sign-up\">You can also set up your own PressBooks book at: <a "
-"href=\"http://pressbooks.com\">PressBooks.com</a>."
-msgstr ""
-"這本書設定為私密，只有註冊用戶才能閱讀。已經有帳號的讀者請 <a href=\"/wp-"
-"login.php\">由此登入</a>。您可以前往 <a href=\"http://pressbooks.com"
-"\">PressBooks.com</a> 申請帳號，製作自己的書籍。"
-
-#: themes-book/pressbooks-book/functions.php:99
+#: themes-book/pressbooks-book/functions.php:150
 msgid "%s on"
 msgstr "於 %s"
 
-#: themes-book/pressbooks-book/functions.php:99
+#: themes-book/pressbooks-book/functions.php:150
 msgid "%1$s at %2$s"
 msgstr "%1$s 於 %2$s"
 
-#: themes-book/pressbooks-book/functions.php:99
-#: themes-book/pressbooks-book/functions.php:119
+#: themes-book/pressbooks-book/functions.php:150
+#: themes-book/pressbooks-book/functions.php:170
 msgid "(Edit)"
 msgstr "（編輯）"
 
-#: themes-book/pressbooks-book/functions.php:102
+#: themes-book/pressbooks-book/functions.php:153
 msgid "Your comment is awaiting moderation."
 msgstr "迴響等候審核中"
 
-#: themes-book/pressbooks-book/functions.php:119
+#: themes-book/pressbooks-book/functions.php:170
 msgid "Pingback:"
 msgstr "通知："
 
-#: themes-book/pressbooks-book/functions.php:188
+#: themes-book/pressbooks-book/functions.php:243
 msgid "Global options"
 msgstr "通用選項"
 
-#: themes-book/pressbooks-book/functions.php:195
+#: themes-book/pressbooks-book/functions.php:250
 msgid "Chapter numbers"
 msgstr "章節數字"
 
-#: themes-book/pressbooks-book/functions.php:195
+#: themes-book/pressbooks-book/functions.php:250
 msgid "display chapter numbers"
 msgstr "顯示章節數字"
 
-#: themes-book/pressbooks-book/functions.php:195
+#: themes-book/pressbooks-book/functions.php:250
 msgid "do not display chapter numbers"
 msgstr "不顯示章節數字"
 
-#: themes-book/pressbooks-book/functions.php:201
+#: themes-book/pressbooks-book/functions.php:256
 msgid "PDF options"
 msgstr "PDF 選項"
 
-#: themes-book/pressbooks-book/functions.php:208
+#: themes-book/pressbooks-book/functions.php:264
 msgid "Page size"
 msgstr "頁面尺寸"
 
-#: themes-book/pressbooks-book/functions.php:209
+#: themes-book/pressbooks-book/functions.php:265
 msgid "digest"
 msgstr "digest"
 
-#: themes-book/pressbooks-book/functions.php:210
+#: themes-book/pressbooks-book/functions.php:266
 msgid "US trade"
 msgstr "US trade"
 
-#: themes-book/pressbooks-book/functions.php:211
+#: themes-book/pressbooks-book/functions.php:267
 msgid "US letter"
 msgstr "US letter"
 
-#: themes-book/pressbooks-book/functions.php:214
-#: themes-book/pressbooks-book/functions.php:240
+#: themes-book/pressbooks-book/functions.php:268
+msgid "8.5 x 9.25\""
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:269
+msgid "duodecimo"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:270
+msgid "pocket"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:271
+msgid "A4"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:272
+msgid "A5"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:275
+#: themes-book/pressbooks-book/functions.php:313
 msgid "Paragraph separator"
 msgstr "段落區隔"
 
-#: themes-book/pressbooks-book/functions.php:215
-#: themes-book/pressbooks-book/functions.php:241
+#: themes-book/pressbooks-book/functions.php:276
+#: themes-book/pressbooks-book/functions.php:314
 msgid "indent"
 msgstr "縮進"
 
-#: themes-book/pressbooks-book/functions.php:216
-#: themes-book/pressbooks-book/functions.php:242
+#: themes-book/pressbooks-book/functions.php:277
+#: themes-book/pressbooks-book/functions.php:315
 msgid "skip lines"
 msgstr "忽略空行"
 
-#: themes-book/pressbooks-book/functions.php:219
+#: themes-book/pressbooks-book/functions.php:280
 msgid "Blank pages"
 msgstr "空白頁"
 
-#: themes-book/pressbooks-book/functions.php:220
+#: themes-book/pressbooks-book/functions.php:281
 msgid "include blank pages (for print PDF)"
 msgstr "包含空白頁面（針對印刷版 PDF）"
 
-#: themes-book/pressbooks-book/functions.php:221
+#: themes-book/pressbooks-book/functions.php:282
 msgid "remove blank pages (for web PDF)"
 msgstr "移除所有空白頁（針對 web PDF）"
 
-#: themes-book/pressbooks-book/functions.php:224
+#: themes-book/pressbooks-book/functions.php:285
 msgid "Table of contents"
 msgstr "目錄"
 
-#: themes-book/pressbooks-book/functions.php:224
+#: themes-book/pressbooks-book/functions.php:285
+#: themes-book/pressbooks-book/functions.php:291
 msgid "display"
 msgstr "顯示"
 
-#: themes-book/pressbooks-book/functions.php:224
+#: themes-book/pressbooks-book/functions.php:285
+#: themes-book/pressbooks-book/functions.php:291
 msgid "do not display"
 msgstr "不顯示"
 
-#: themes-book/pressbooks-book/functions.php:227
+#: themes-book/pressbooks-book/functions.php:288
 msgid "Footnotes style"
 msgstr "附註格式"
 
-#: themes-book/pressbooks-book/functions.php:227
+#: themes-book/pressbooks-book/functions.php:288
 msgid "normal"
 msgstr "一般"
 
-#: themes-book/pressbooks-book/functions.php:227
+#: themes-book/pressbooks-book/functions.php:288
 msgid "force as endnotes"
 msgstr "強制成為章節附註"
 
-#: themes-book/pressbooks-book/functions.php:233
+#: themes-book/pressbooks-book/functions.php:291
+msgid "Crop marks"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:294
+#: themes-book/pressbooks-book/functions.php:469
+msgid "Hyphens"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:294
+msgid "enabled"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:294
+msgid "disabled"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:297
+#: themes-book/pressbooks-book/functions.php:522
+msgid "Widows"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:300
+#: themes-book/pressbooks-book/functions.php:529
+msgid "Orphans"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:306
 msgid "Ebook options"
 msgstr "電子書選項"
 
-#: themes-book/pressbooks-book/functions.php:267
+#: themes-book/pressbooks-book/functions.php:346
 msgid "Global Options"
 msgstr "通用選項"
 
-#: themes-book/pressbooks-book/functions.php:273
+#: themes-book/pressbooks-book/functions.php:353
 msgid "Chapter Numbers"
 msgstr "章節數字"
 
-#: themes-book/pressbooks-book/functions.php:278
+#: themes-book/pressbooks-book/functions.php:358
 msgid "Display chapter numbers"
 msgstr "呈現章節數字"
 
-#: themes-book/pressbooks-book/functions.php:345
+#: themes-book/pressbooks-book/functions.php:373
+msgid "These options apply universally to webbook, PDF and ebook exports."
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:434
 msgid "PDF Options"
 msgstr "PDF 選項"
 
-#: themes-book/pressbooks-book/functions.php:351
+#: themes-book/pressbooks-book/functions.php:441
 msgid "Page Size"
 msgstr "頁面尺寸"
 
-#: themes-book/pressbooks-book/functions.php:356
+#: themes-book/pressbooks-book/functions.php:446
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
 msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
 
-#: themes-book/pressbooks-book/functions.php:357
+#: themes-book/pressbooks-book/functions.php:447
 msgid "US Trade (6&quot; &times; 9&quot;)"
 msgstr "US Trade (6&quot; &times; 9&quot;)"
 
-#: themes-book/pressbooks-book/functions.php:358
+#: themes-book/pressbooks-book/functions.php:448
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr "US Letter (8.5&quot; &times; 11&quot;)"
 
-#: themes-book/pressbooks-book/functions.php:363
-#: themes-book/pressbooks-book/functions.php:530
+#: themes-book/pressbooks-book/functions.php:449
+#, fuzzy
+msgid "Custom (8.5&quot; &times; 9.25&quot;)"
+msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
+
+#: themes-book/pressbooks-book/functions.php:450
+#, fuzzy
+msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
+msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
+
+#: themes-book/pressbooks-book/functions.php:451
+#, fuzzy
+msgid "Pocket (4.25&quot; &times; 7&quot;)"
+msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
+
+#: themes-book/pressbooks-book/functions.php:452
+msgid "A4 (21cm &times; 29.7cm)"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:453
+msgid "A5 (14.8cm &times; 21cm)"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:459
+msgid "Crop Marks"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:464
+#, fuzzy
+msgid "Display crop marks"
+msgstr "呈現章節數字"
+
+#: themes-book/pressbooks-book/functions.php:474
+msgid "Enable hyphenation"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:479
+#: themes-book/pressbooks-book/functions.php:740
 msgid "Paragraph Separation"
 msgstr "段落區隔"
 
-#: themes-book/pressbooks-book/functions.php:368
-#: themes-book/pressbooks-book/functions.php:535
+#: themes-book/pressbooks-book/functions.php:484
+#: themes-book/pressbooks-book/functions.php:745
 msgid "Indent paragraphs"
 msgstr "縮進段落"
 
-#: themes-book/pressbooks-book/functions.php:369
-#: themes-book/pressbooks-book/functions.php:536
+#: themes-book/pressbooks-book/functions.php:485
+#: themes-book/pressbooks-book/functions.php:746
 msgid "Skip lines between paragraphs"
 msgstr "忽略段落之間的空行"
 
-#: themes-book/pressbooks-book/functions.php:374
+#: themes-book/pressbooks-book/functions.php:490
 msgid "Blank Pages"
 msgstr "空白頁"
 
-#: themes-book/pressbooks-book/functions.php:379
+#: themes-book/pressbooks-book/functions.php:495
 msgid "Include blank pages (for print PDF)"
 msgstr "包含空白頁面（針對印刷版 PDF）"
 
-#: themes-book/pressbooks-book/functions.php:380
+#: themes-book/pressbooks-book/functions.php:496
 msgid "Remove all blank pages (for web PDF)"
 msgstr "移除所有空白頁（針對 web PDF）"
 
-#: themes-book/pressbooks-book/functions.php:390
+#: themes-book/pressbooks-book/functions.php:506
 msgid "Display table of contents"
 msgstr "顯示目錄"
 
-#: themes-book/pressbooks-book/functions.php:395
+#: themes-book/pressbooks-book/functions.php:511
 msgid "Footnotes Style"
 msgstr "附註格式"
 
-#: themes-book/pressbooks-book/functions.php:400
+#: themes-book/pressbooks-book/functions.php:516
 msgid "Regular footnotes"
 msgstr "一般附註"
 
-#: themes-book/pressbooks-book/functions.php:401
+#: themes-book/pressbooks-book/functions.php:517
 msgid "Force as endnotes"
 msgstr "強制成為章節附註"
 
-#: themes-book/pressbooks-book/functions.php:524
+#: themes-book/pressbooks-book/functions.php:733
 msgid "Ebook Options"
 msgstr "電子書選項"
 
-#: themes-book/pressbooks-book/header.php:24
+#: themes-book/pressbooks-book/header.php:29
 msgid "Page %s"
 msgstr "第 %s 頁"
 
@@ -1514,49 +2029,35 @@ msgstr "別處"
 msgid "Purchase here:"
 msgstr "由此購買："
 
-#: themes-book/pressbooks-book/page-cover.php:19
-msgid "Start reading"
-msgstr "開始閱讀"
+#: themes-book/pressbooks-book/page-cover-top-block.php:8
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:166
+#, fuzzy
+msgid "login"
+msgstr "登入"
 
-#: themes-book/pressbooks-book/page-cover.php:35
-msgid "Authors(s)"
-msgstr "作者"
+#: themes-book/pressbooks-book/page-cover-top-block.php:10
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:168
+#, fuzzy
+msgid "logout"
+msgstr "登出"
+
+#: themes-book/pressbooks-book/page-cover-top-block.php:12
+#: themes-book/pressbooks-book/sidebar.php:10
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:176
+msgid "Admin"
+msgstr "管理"
+
+#: themes-book/pressbooks-book/page-cover-top-block.php:54
+msgid "Read"
+msgstr "閱讀"
 
 #: themes-book/pressbooks-book/page.php:13
 msgid "Pages:"
 msgstr "頁："
 
-#: themes-book/pressbooks-book/sidebar.php:9
-msgid "Login"
-msgstr "登入"
-
 #: themes-book/pressbooks-book/sidebar.php:13
-msgid "Logout"
-msgstr "登出"
-
-#: themes-book/pressbooks-book/sidebar.php:21
-msgid "Admin"
-msgstr "管理"
-
-#: themes-book/pressbooks-book/sidebar.php:26
-msgid "Read"
-msgstr "閱讀"
-
-#: themes-book/pressbooks-book/sidebar.php:27
-msgid "About the Book"
-msgstr "關於本書"
-
-#: themes-book/pressbooks-book/sidebar.php:28
-msgid "About the Author(s)"
-msgstr "關於作者"
-
-#: themes-book/pressbooks-book/sidebar.php:32
 msgid "Home"
 msgstr "首頁"
-
-#: themes-root/pressbooks-publisher-one/404.php:17
-msgid "Search"
-msgstr "搜尋"
 
 #: themes-root/pressbooks-publisher-one/archive-_author.php:34
 #: themes-root/pressbooks-publisher-one/single-_author.php:24
@@ -1605,138 +2106,138 @@ msgstr "繼續閱讀 &#8594;"
 msgid "read more &#8594;"
 msgstr "繼續閱讀 &#8594;"
 
-#: themes-root/pressbooks-publisher-one/functions.php:68
+#: themes-root/pressbooks-publisher-one/functions.php:51
 msgid "Sidebar 1"
 msgstr "側邊欄 1"
 
-#: themes-root/pressbooks-publisher-one/functions.php:77
+#: themes-root/pressbooks-publisher-one/functions.php:60
 msgid "Sidebar 2"
 msgstr "側邊欄 2"
 
-#: themes-root/pressbooks-publisher-one/functions.php:86
+#: themes-root/pressbooks-publisher-one/functions.php:69
 msgid "Sidebar 3"
 msgstr "側邊欄 3"
 
-#: themes-root/pressbooks-publisher-one/functions.php:94
+#: themes-root/pressbooks-publisher-one/functions.php:77
 msgid "Home Page Left Column"
 msgstr "首頁左欄"
 
-#: themes-root/pressbooks-publisher-one/functions.php:102
+#: themes-root/pressbooks-publisher-one/functions.php:85
 msgid "Home Page Right Column"
 msgstr "首頁右欄"
 
-#: themes-root/pressbooks-publisher-one/functions.php:110
+#: themes-root/pressbooks-publisher-one/functions.php:93
 msgid "Footer"
 msgstr "頁尾"
 
-#: themes-root/pressbooks-publisher-one/functions.php:173
+#: themes-root/pressbooks-publisher-one/functions.php:156
 msgid "\">read more &#8594;</a>"
 msgstr "\">繼續閱讀 &#8594;</a>"
 
-#: themes-root/pressbooks-publisher-one/functions.php:207
-#: themes-root/pressbooks-publisher-one/functions.php:208
-#: themes-root/pressbooks-publisher-one/functions.php:218
+#: themes-root/pressbooks-publisher-one/functions.php:190
+#: themes-root/pressbooks-publisher-one/functions.php:191
+#: themes-root/pressbooks-publisher-one/functions.php:201
 msgctxt "_featured_content"
 msgid "Featured Content"
 msgstr "推薦內容"
 
-#: themes-root/pressbooks-publisher-one/functions.php:209
+#: themes-root/pressbooks-publisher-one/functions.php:192
 msgctxt "_featured_content"
 msgid "Add New"
 msgstr "新增"
 
-#: themes-root/pressbooks-publisher-one/functions.php:210
+#: themes-root/pressbooks-publisher-one/functions.php:193
 msgctxt "_featured_content"
 msgid "Add New Featured Content"
 msgstr "新增推薦內容"
 
-#: themes-root/pressbooks-publisher-one/functions.php:211
+#: themes-root/pressbooks-publisher-one/functions.php:194
 msgctxt "_featured_content"
 msgid "Edit Featured Content"
 msgstr "編輯推薦內容"
 
-#: themes-root/pressbooks-publisher-one/functions.php:212
+#: themes-root/pressbooks-publisher-one/functions.php:195
 msgctxt "_featured_content"
 msgid "New Featured Content"
 msgstr "新的推薦內容"
 
-#: themes-root/pressbooks-publisher-one/functions.php:213
+#: themes-root/pressbooks-publisher-one/functions.php:196
 msgctxt "_featured_content"
 msgid "View Featured Content"
 msgstr "瀏覽推薦內容"
 
-#: themes-root/pressbooks-publisher-one/functions.php:214
+#: themes-root/pressbooks-publisher-one/functions.php:197
 msgctxt "_featured_content"
 msgid "Search Featured Content"
 msgstr "搜尋推薦內容"
 
-#: themes-root/pressbooks-publisher-one/functions.php:215
+#: themes-root/pressbooks-publisher-one/functions.php:198
 msgctxt "_featured_content"
 msgid "No Featured Content found"
 msgstr "找不到推薦內容"
 
-#: themes-root/pressbooks-publisher-one/functions.php:216
+#: themes-root/pressbooks-publisher-one/functions.php:199
 msgctxt "_featured_content"
 msgid "No Featured Content in Trash"
 msgstr "回收桶內沒有推薦內容"
 
-#: themes-root/pressbooks-publisher-one/functions.php:217
+#: themes-root/pressbooks-publisher-one/functions.php:200
 msgctxt "_featured_content"
 msgid "Parent Featured Content Link:"
 msgstr "上層推薦內容連結"
 
-#: themes-root/pressbooks-publisher-one/functions.php:240
-#: themes-root/pressbooks-publisher-one/functions.php:251
+#: themes-root/pressbooks-publisher-one/functions.php:223
+#: themes-root/pressbooks-publisher-one/functions.php:234
 msgctxt "_author"
 msgid "Authors"
 msgstr "作者"
 
-#: themes-root/pressbooks-publisher-one/functions.php:241
+#: themes-root/pressbooks-publisher-one/functions.php:224
 msgctxt "_author"
 msgid "Author"
 msgstr "作者"
 
-#: themes-root/pressbooks-publisher-one/functions.php:242
+#: themes-root/pressbooks-publisher-one/functions.php:225
 msgctxt "_author"
 msgid "Add New"
 msgstr "新增"
 
-#: themes-root/pressbooks-publisher-one/functions.php:243
+#: themes-root/pressbooks-publisher-one/functions.php:226
 msgctxt "_author"
 msgid "Add New Author"
 msgstr "添加新作者"
 
-#: themes-root/pressbooks-publisher-one/functions.php:244
+#: themes-root/pressbooks-publisher-one/functions.php:227
 msgctxt "_author"
 msgid "Edit Author"
 msgstr "編輯作者"
 
-#: themes-root/pressbooks-publisher-one/functions.php:245
+#: themes-root/pressbooks-publisher-one/functions.php:228
 msgctxt "_author"
 msgid "New Author"
 msgstr "新作者"
 
-#: themes-root/pressbooks-publisher-one/functions.php:246
+#: themes-root/pressbooks-publisher-one/functions.php:229
 msgctxt "_author"
 msgid "View Author"
 msgstr "瀏覽作者"
 
-#: themes-root/pressbooks-publisher-one/functions.php:247
+#: themes-root/pressbooks-publisher-one/functions.php:230
 msgctxt "_author"
 msgid "Search Authors"
 msgstr "搜尋作者"
 
-#: themes-root/pressbooks-publisher-one/functions.php:248
+#: themes-root/pressbooks-publisher-one/functions.php:231
 msgctxt "_author"
 msgid "No Authors found"
 msgstr "找不到作者"
 
-#: themes-root/pressbooks-publisher-one/functions.php:249
+#: themes-root/pressbooks-publisher-one/functions.php:232
 msgctxt "_author"
 msgid "No Authors in Trash"
 msgstr "回收桶內找不到作者"
 
-#: themes-root/pressbooks-publisher-one/functions.php:250
+#: themes-root/pressbooks-publisher-one/functions.php:233
 msgctxt "_author"
 msgid "Parent Author Link:"
 msgstr "上層作者連結"
@@ -1808,11 +2309,11 @@ msgstr "保持空白會隱藏你的 Youtube Icon"
 msgid "Save Options"
 msgstr "儲存選項"
 
-#: themes-root/pressbooks-publisher-one/index.php:9
+#: themes-root/pressbooks-publisher-one/index.php:12
 msgid "Older Entries &raquo;"
 msgstr "較早的內容 &raquo;"
 
-#: themes-root/pressbooks-publisher-one/index.php:10
+#: themes-root/pressbooks-publisher-one/index.php:13
 msgid "&laquo; Newer Entries"
 msgstr "&laquo; 較新的內容"
 
@@ -1828,6 +2329,30 @@ msgstr "抱歉，沒有吻合的內容"
 #: themes-root/pressbooks-publisher-one/page.php:13
 msgid "keep reading"
 msgstr "繼續閱讀"
+
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:152
+#, fuzzy
+msgid "'s Catalog Page"
+msgstr "型錄排序"
+
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:216
+#, fuzzy
+msgid "Catalog"
+msgstr "型錄排序"
+
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:216
+msgid "filtering by"
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:239
+msgid ""
+"Sorry, but no books matched your filtering criteria. Please <a class=\"clear-"
+"filters\" href=\"#\">clear your current filters</a> and try again."
+msgstr ""
+
+#: themes-root/pressbooks-publisher-one/pb-catalog.php:243
+msgid "PressBooks: the CMS for Books."
+msgstr ""
 
 #: themes-root/pressbooks-publisher-one/widget-social-media.php:5
 msgid "Twitter"
@@ -1853,9 +2378,7 @@ msgstr "RSS 訂閱"
 msgid "PressBooks"
 msgstr "PressBooks"
 
-#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  pressbooks.pot (PressBooks 2.0.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://www.pressbooks.com"
 msgstr "http://www.pressbooks.com"
@@ -1863,3 +2386,73 @@ msgstr "http://www.pressbooks.com"
 #. Author of the plugin/theme
 msgid "BookOven Inc."
 msgstr "BookOven Inc."
+
+#~ msgid "Ecommerce Settings"
+#~ msgstr "銷售設定"
+
+#~ msgid "Ecommerce"
+#~ msgstr "銷售"
+
+#~ msgid "Links to ecommerce services"
+#~ msgstr "連結至銷售服務"
+
+#~ msgid "Covers"
+#~ msgstr "封面"
+
+#~ msgid "PressBooks saves your last %s batches of exported files."
+#~ msgstr "PressBooks 儲存了你最近 %s 次的製書程序。"
+
+#~ msgid "main-body"
+#~ msgstr "主文"
+
+#~ msgid "introduction"
+#~ msgstr "介紹"
+
+#~ msgid "chapter-1"
+#~ msgstr "第一章"
+
+#~ msgid "appendix"
+#~ msgstr "附錄"
+
+#~ msgid "authors"
+#~ msgstr "作者"
+
+#~ msgid "cover"
+#~ msgstr "封面"
+
+#~ msgid "table-of-contents"
+#~ msgstr "目錄"
+
+#~ msgid "about"
+#~ msgstr "關於"
+
+#~ msgid "buy"
+#~ msgstr "購買"
+
+#~ msgid "access-denied"
+#~ msgstr "拒絕存取"
+
+#~ msgid "Share"
+#~ msgstr "分享"
+
+#~ msgid ""
+#~ "This book is private, and accessible only to registered users. If you "
+#~ "have an account you can <a href=\"/wp-login.php\" class=\"login\">login "
+#~ "here</a>  <p class=\"sign-up\">You can also set up your own PressBooks "
+#~ "book at: <a href=\"http://pressbooks.com\">PressBooks.com</a>."
+#~ msgstr ""
+#~ "這本書設定為私密，只有註冊用戶才能閱讀。已經有帳號的讀者請 <a href=\"/wp-"
+#~ "login.php\">由此登入</a>。您可以前往 <a href=\"http://pressbooks.com"
+#~ "\">PressBooks.com</a> 申請帳號，製作自己的書籍。"
+
+#~ msgid "Start reading"
+#~ msgstr "開始閱讀"
+
+#~ msgid "Authors(s)"
+#~ msgstr "作者"
+
+#~ msgid "About the Book"
+#~ msgstr "關於本書"
+
+#~ msgid "About the Author(s)"
+#~ msgstr "關於作者"
