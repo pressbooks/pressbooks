@@ -5,15 +5,15 @@ msgstr ""
 "Project-Id-Version: PressBooks 2.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
 "POT-Creation-Date: 2013-09-20 14:45:33+00:00\n"
+"PO-Revision-Date: 2014-04-05 15:27-0500\n"
+"Last-Translator: Lila <liladude@aruba.it>\n"
+"Language-Team: IT <elisa@ornato.it>\n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2013-10-17 12:11+0100\n"
-"Last-Translator: Lila <liladude@aruba.it>\n"
-"Language-Team: IT <elisa@ornato.it>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: Italiano\n"
-"X-Generator: Poedit 1.5.7\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: admin/class-pb-catalog-list-table.php:78
@@ -1098,6 +1098,11 @@ msgstr "Autori"
 msgid "Table of Contents"
 msgstr "Sommario"
 
+#: themes-book/pressbooks-book/page-cover-second-block.php:5
+#, fuzzy
+msgid "Book Description"
+msgstr "Descrizione Lunga"
+
 #: includes/class-pb-activation.php:183
 #: themes-book/pressbooks-book/header.php:76
 #: themes-book/pressbooks-book/page-cover-top-block.php:58
@@ -1137,7 +1142,6 @@ msgstr "CSS personalizzato per Web"
 msgid "Default Data"
 msgstr "Informazioni di Default"
 
-#. #-#-#-#-#  pressbooks.pot (PressBooks 2.2.1)  #-#-#-#-#
 #. Description of the plugin/theme
 #: includes/class-pb-activation.php:209
 msgid "Simple Book Production"
@@ -2387,9 +2391,7 @@ msgstr "RSS Feed"
 msgid "PressBooks"
 msgstr "PressBooks"
 
-#. #-#-#-#-#  pressbooks.pot (PressBooks 2.2.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  pressbooks.pot (PressBooks 2.2.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://www.pressbooks.com"
 msgstr "http://www.pressbooks.com"

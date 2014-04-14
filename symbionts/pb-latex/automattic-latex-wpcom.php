@@ -16,10 +16,6 @@ class Automattic_Latex_WPCOM {
 
 	var $error;
 
-	function Automattic_Latex_WPCOM( $latex, $bg_hex = 'ffffff', $fg_hex = '000000', $size = 0 ) {
-		$this->__construct( $latex, $bg_hex, $fg_hex, $size );
-	}
-
 	function __construct( $latex, $bg_hex = 'ffffff', $fg_hex = '000000', $size = 0 ) {
 		$this->latex  = (string) $latex;
 		$this->bg_hex = $this->sanitize_hex( $bg_hex );
