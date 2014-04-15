@@ -2,7 +2,7 @@
 
 // @see: \PressBooks\Export\Export loadTemplate()
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) 
 	exit;
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
@@ -21,47 +21,49 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 	</head>
 
 	<docTitle>
-		<text><?php bloginfo('name'); ?></text>
+		<text><?php bloginfo( 'name' ); ?></text>
 	</docTitle>
 
-	<?php if ( ! empty( $author ) ): ?>
-	<docAuthor>
-		<text><?php echo $author; ?></text>
-	</docAuthor>
-	<?php endif; ?>
+<?php if ( ! empty( $author ) ): ?>
+		<docAuthor>
+			<text><?php echo $author; ?></text>
+		</docAuthor>
+<?php endif; ?>
 
 	<navMap>
-		<?php
-		// Map has a [ Part -> Chapter ] <NavPoint> hierarchy
-		$i = 1;
+<?php
+// Map has a [ Part -> Chapter ] <NavPoint> hierarchy
+$i = 1;
+$part_open = false;
+foreach ( $manifest as $k => $v ) {
+
+	if ( true == $part_open && ! preg_match( '/^chapter-/', $k ) ) {
 		$part_open = false;
-		foreach ( $manifest as $k => $v ) {
+		echo '</navPoint>';
+	}
 
-			if ( true == $part_open && ! preg_match( '/^chapter-/', $k ) ) {
-				$part_open = false;
-				echo '</navPoint>';
-			}
+	if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) !== 'on' ) {
+		$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
+		if ( ! $text ) $text = ' ';
 
-			$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
-			if ( ! $text ) $text = ' ';
-
-			printf( '
+		printf( '
 				<navPoint id="%s" playOrder="%s">
 				<navLabel><text>%s</text></navLabel>
 				<content src="OEBPS/%s" />
 				', $k, $i, $text, $v['filename'] );
 
-			if ( preg_match( '/^part-/', $k ) ) {
-				$part_open = true;
-			} else {
-				echo '</navPoint>';
-			}
-
-			++$i;
-		}
-		if ( true == $part_open ) {
+		if ( preg_match( '/^part-/', $k ) ) {
+			$part_open = true;
+		} else {
 			echo '</navPoint>';
 		}
-		?>
+
+		++ $i;
+	}
+}
+if ( true == $part_open ) {
+	echo '</navPoint>';
+}
+?>
 	</navMap>
 </ncx>
