@@ -30,18 +30,20 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 						echo '</ol></li>' . "\n";
 					}
 
-					$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
-					if ( ! $text ) $text = ' ';
+					if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) !== 'on' ) {
+						$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
+						if ( ! $text ) $text = ' ';
 
-					if ( preg_match( '/^part-/', $k ) ) {
-						echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a>' . "\n";
-					} else {
-						echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a></li>' . "\n";
-					}
+						if ( preg_match( '/^part-/', $k ) ) {
+							echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a>' . "\n";
+						} else {
+							echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a></li>' . "\n";
+						}
 
-					if ( preg_match( '/^part-/', $k ) ) {
-						$part_open = true;
-						echo '<ol>' . "\n";
+						if ( preg_match( '/^part-/', $k ) ) {
+							$part_open = true;
+							echo '<ol>' . "\n";
+						}
 					}
 				}
 				if ( true == $part_open ) {
