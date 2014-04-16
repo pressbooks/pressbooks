@@ -121,7 +121,7 @@ class Epub201 extends Import {
 		// Done
 		return $this->revokeCurrentImport();
 	}
-
+	
 
 	/**
 	 * Parse OPF metadata nodes
