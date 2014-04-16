@@ -507,6 +507,9 @@ abstract class Export {
 			if ( isset( $x['epub'] ) ) {
 				$modules[] = '\PressBooks\Export\Epub\Epub201'; // Must be set before MOBI
 			}
+			if ( isset( $x['epub3'] ) ) {
+				$modules[] = '\PressBooks\Export\Epub3\Epub3'; // Must be set before MOBI
+			}
 			if ( isset( $x['mobi'] ) ) {
 				$modules[] = '\PressBooks\Export\Mobi\Kindlegen'; // Must be set after EPUB
 			}

@@ -18,6 +18,7 @@ require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
 require( PB_PLUGIN_DIR . 'symbionts/pb-latex/pb-latex.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -50,6 +51,12 @@ add_filter( 'intermediate_image_sizes', '\PressBooks\Image\intermediate_image_si
 add_filter( 'intermediate_image_sizes_advanced', '\PressBooks\Image\intermediate_image_sizes_advanced' );
 add_action( 'delete_attachment', '\PressBooks\Image\delete_attachment' );
 add_filter( 'wp_update_attachment_metadata', '\PressBooks\Image\save_attachment', 10, 2 );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Audio/Video
+// -------------------------------------------------------------------------------------------------------------------
+
+add_filter('upload_mimes', '\PressBooks\Media\addMimeTypes');
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies

@@ -62,12 +62,15 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	<?php }
 		foreach ( $exports as $file ) {
 			$file_extension = substr( strrchr( $file, '.' ), 1 );
+			$pre_suffix = strstr( $file, '._3.epub' );
 
-			if ( 'html' == $file_extension )
+		if ( 'html' == $file_extension )
 				$file_class = 'xhtml';
 			elseif ( 'xml' == $file_extension )
 				$file_class = 'wxr';
-			else
+			elseif ( 'epub' == $file_extension && '._3.epub' == $pre_suffix )
+				$file_class = 'epub3';
+		else
 				$file_class = $file_extension;
 
 			 ?>
@@ -97,6 +100,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	$options = get_option('export_formats');
 	if ( ! isset( $options['pdf'] ) ) { $options['pdf'] = 1; }
 	if ( ! isset( $options['epub'] ) ) { $options['epub'] = 1; }
+	if ( ! isset( $options['epub3'] ) ) { $options['epub3'] = 1; }
 	if ( ! isset( $options['mobi'] ) ) { $options['mobi'] = 1; }
 	if ( ! isset( $options['hpub'] ) ) { $options['hpub'] = 0; }
 	if ( ! isset( $options['icml'] ) ) { $options['icml'] = 0; }
@@ -113,6 +117,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    
 	    <fieldset>
 	    <legend>Exotic formats:</legend>
+	    	<input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php checked(1, $options['epub3'], false); ?>/><label for="epub3"> <?php _e( 'EPUB 3 (Experimental)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="hpub" name="export_formats[hpub]" value="1" <?php checked(1, $options['hpub'], false); ?>/><label for="hpub"> <?php _e( 'Hpub', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="icml" name="export_formats[icml]" value="1" <?php checked(1, $options['icml'], false); ?>/><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" <?php checked(1, $options['xhtml'], false); ?>/><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
