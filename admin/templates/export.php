@@ -117,7 +117,14 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    
 	    <fieldset>
 	    <legend>Exotic formats:</legend>
+	    	<?php if ( in_array( network_site_url( null, 'http' ), array(
+	    		'http://textopress.com/',
+	    		'http://pressbooks.dev/',
+	    		'http://localhost/',
+	    		'http://127.0.0.1/'
+	    	) ) ) { ?>
 	    	<input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php checked(1, $options['epub3'], false); ?>/><label for="epub3"> <?php _e( 'EPUB 3 (Experimental)', 'pressbooks' ); ?></label><br />
+	    	<?php } ?>
 	    	<input type="checkbox" id="hpub" name="export_formats[hpub]" value="1" <?php checked(1, $options['hpub'], false); ?>/><label for="hpub"> <?php _e( 'Hpub', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="icml" name="export_formats[icml]" value="1" <?php checked(1, $options['icml'], false); ?>/><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" <?php checked(1, $options['xhtml'], false); ?>/><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
