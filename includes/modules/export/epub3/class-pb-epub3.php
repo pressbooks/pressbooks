@@ -71,9 +71,11 @@ class Epub3 extends Epub\Epub201 {
 	*/
 	protected function encodeMathMLMarkup( $html ) {
 	
-		//Substitude MathML Open and close Tags before running HTMLawed
+		// Substitute MathML Open and close Tags before running HTMLawed
+		// @TODO - this regex needs to be looked at for precision, currently it targets 
+		// opening tags <math>, but not closing tags </math>
 		foreach( $this->MathMLTags as $tag ) {
-			$html = preg_replace( '`<(\s*)(.*?)' . $tag . '(.*?)>`', '\x83$1$2' . $tag . '$3\x84', $html);
+			$html = preg_replace( '`<(\s*)' . $tag . '(.*?)>`', '\x83$1' . $tag . '$2\x84', $html);
 		}
 	
 		return $html;
@@ -86,7 +88,9 @@ class Epub3 extends Epub\Epub201 {
 	 * @return string
 	*/
 	protected function restoreMathMLMarkup( $html ) {
-		//Restore MathML tags to complete output
+		// Restore MathML tags to complete output
+		// @TODO - this regex needs to be looked at for precision, currently it targets 
+		// opening tags <math>, but not closing tags </math>
 		$html = str_replace( "\\x83","<", $html );
 		$html = str_replace( "\\x84",">", $html );
 		return $html;
@@ -110,20 +114,20 @@ class Epub3 extends Epub\Epub201 {
 		}
 	
 		// Check all MathML type tags and return true if any are encountered
-		foreach( $this->MathMLTags as $tag ) {
-			if( preg_match_all( '`<' . $tag . '>`', $html ) >= 1) {
-				$properties['mathml'] = 1;
-				continue;
-			}
-		}
+//		foreach( $this->MathMLTags as $tag ) {
+//			if( preg_match_all( '`<' . $tag . '>`', $html ) >= 1) {
+//				$properties['mathml'] = 1;
+//				continue;
+//			}
+//		}
+
 		// Check for script elements
-		if ( preg_match_all( '<script>', $html ) >= 1 ) {
+		if ( preg_match_all( '/<script[^>]*>.*?<\/script>/is', $html ) >= 1 ) {
 			$properties['scripted'] = 1;
 		}
 		
 		// @TODO Check for remote resources
 		
-		//No MathML Tags detected in this content.
 		return $properties;
 	}	
 	
@@ -144,18 +148,23 @@ class Epub3 extends Epub\Epub201 {
 		    'unique_ids' => 'fixme-',
 		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml5',
 		    'tidy' => -1,
+		    'make_tag_strict' => 1,
 		);
 
 		// Reset on each htmLawed invocation
 		unset( $GLOBALS['hl_Ids'] );
 		
 		if ( ! empty( $this->fixme ) ) $GLOBALS['hl_Ids'] = $this->fixme;
-
-		$html = $this->encodeMathMLMarkup( $html );
+		
+		// @TODO - WP TinyMCE strips out MathML without a plugin
+		// encodeMathMLMarkup and restoreMathMLMarkup are, on occasion, stripping content — needs fixing
+//		$html = $this->encodeMathMLMarkup( $html );
 
 		$html = htmLawed( $html, $config );
 		
-		$html = $this->restoreMathMLMarkup( $html );
+		// @TODO - WP TinyMCE strips out MathML without a plugin
+		// encodeMathMLMarkup and restoreMathMLMarkup are, on occassion, stripping content - needs fixing
+//		$html = $this->restoreMathMLMarkup( $html );
 
 		return $html;
 	}
@@ -251,9 +260,9 @@ class Epub3 extends Epub\Epub201 {
 					return "url(assets/$new_filename)";
 				}
 
-			} elseif ( preg_match( '#^\.\./\.\./fonts/[a-zA-Z0-9_-]+(\.woff|\.otf)$#i', $url ) ) {
+			} elseif ( preg_match( '#^\.\./\.\./fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
 
-				// Look for ../../fonts/*.otf (or .woff), copy into our Epub
+				// Look for ../../fonts/*.otf (or .woff, or .ttf), copy into our Epub
 
 				$my_font = realpath( "$css_dir/$url" );
 				if ( $my_font ) {
@@ -415,8 +424,6 @@ class Epub3 extends Epub\Epub201 {
 			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEPBS() ?' );
 		}
 
-		// Vars
-
 		$vars = array (
 		    'meta' => $metadata,
 		    'manifest' => $this->manifest,
@@ -424,7 +431,6 @@ class Epub3 extends Epub\Epub201 {
 		);
 
 		// Find all the image files, insert them into the OPF file
-
 		$html = '';
 		$path_to_assets = $this->tmpDir . '/OEBPS/assets';
 		$assets = scandir( $path_to_assets );
