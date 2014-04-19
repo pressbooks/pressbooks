@@ -11,7 +11,7 @@ namespace PressBooks\Media;
  * @see \PressBooks\Export\Epub3
  * @return array
  */
-function addMimeTypes( $add_mimes = array() ) {
+function addMimeTypes( $existing_mimes = array() ) {
 	
 	$add_mimes = array(
 	    'mp4' => 'video/mp4',
@@ -23,7 +23,7 @@ function addMimeTypes( $add_mimes = array() ) {
 	    'vorbis' => 'audio/vorbis',
 	);
 
-	return $add_mimes;
+	return array_merge( $add_mimes, $existing_mimes );
 }
 
 /**
