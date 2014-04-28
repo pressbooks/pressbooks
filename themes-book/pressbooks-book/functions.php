@@ -890,7 +890,9 @@ function pressbooks_theme_pdf_css_override( $css ) {
 	6 = 4.25 x 7"
 	7 = 21 x 29.7cm
 	8 = 14.8 x 21cm
+	9 = 5in x 8in
 	*/
+	
 	switch ( @$options['pdf_page_size'] ) {
 		case 1:
 			$css .= "@page { size: 5.5in 8.5in; } \n";
