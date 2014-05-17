@@ -120,6 +120,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    	<?php if ( in_array( network_site_url( null, 'http' ), array(
 	    		'http://textopress.com/',
 	    		'http://pressbooks.dev/',
+	    		'http://localhost/',
 	    		'http://localhost/pressbooks/',
 	    		'http://127.0.0.1/'
 	    	) ) ) { ?>
