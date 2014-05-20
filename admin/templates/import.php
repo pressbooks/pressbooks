@@ -110,6 +110,8 @@ $current_import = get_option( 'pressbooks_current_import' );
 						} else {
 							$('#pb-file').show();
 							$('#pb-www').hide();
+							// clear http value at input elem
+							$('.widefat').val('');
 							
 						}	
 					

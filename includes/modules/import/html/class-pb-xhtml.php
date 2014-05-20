@@ -13,11 +13,6 @@ use PressBooks\Book;
 class Xhtml extends Import {
 
 	/**
-	 * @var string 
-	 */
-	protected $blob;
-
-	/**
 	 * 
 	 * @param array $current_import
 	 */
@@ -26,11 +21,12 @@ class Xhtml extends Import {
 		// fetch the remote content
 		$html = wp_remote_get( $current_import['file'] );
 		$url = parse_url( $current_import['file'] );
+		// get parent directory (with forward slash e.g. /parent)
 		$path = dirname( $url['path'] );
 
 		$domain = $url['scheme'] . '://' . $url['host'] . $path;
-		// get parent directory (with forward slash e.g. /parent)
-		// get id
+		
+		// get id (there will be only one)
 		$id = array_keys( $current_import['chapters'] );
 
 		// front-matter, chapter, or back-matter
@@ -38,7 +34,6 @@ class Xhtml extends Import {
 		$chapter_parent = $this->getChapterParent();
 
 		$body = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain );
-
 
 		// Done
 		return $this->revokeCurrentImport();
@@ -50,6 +45,7 @@ class Xhtml extends Import {
 	 * @param string $href
 	 * @param string $post_type
 	 * @param int $chapter_parent
+	 * @param string $domain domain name of the webpage
 	 */
 	function kneadandInsert( $html, $post_type, $chapter_parent, $domain ) {
 		$matches = array();
@@ -90,6 +86,10 @@ class Xhtml extends Import {
 		}
 
 		$pid = wp_insert_post( $new_post );
+		
+		if( ! empty( $author )){
+			update_post_meta( $pid, 'pb_section_author', $author );
+		}
 
 		update_post_meta( $pid, 'pb_show_title', 'on' );
 		update_post_meta( $pid, 'pb_export', 'on' );
@@ -97,9 +97,15 @@ class Xhtml extends Import {
 		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder		
 	}
 
+	/**
+	 * Cherry pick likely content areas, then cull known, unwanted content areas
+	 * 
+	 * @param string $html
+	 * @return string $html
+	 */
 	protected function regexSearchReplace( $html ) {
 
-		// cherry pick likely content areas
+		/* cherry pick likely content areas */
 		// HTML5, ungreedy
 		preg_match( '/(?:<main[^>]*>)(.*)<\/main>/isU', $html, $matches );
 		$html = ( ! empty( $matches[1] )) ? $matches[1] : $html;
@@ -112,7 +118,7 @@ class Xhtml extends Import {
 		preg_match( '/(?:<div id="content"[^>]*>)(.*)<\/div>/is', $html, $matches );
 		$html = ( ! empty( $matches[1] )) ? $matches[1] : $html;
 
-		// cull 
+		/* cull */
 		// get rid of script tags, ungreedy
 		$result = preg_replace( '/(?:<script[^>]*>)(.*)<\/script>/isU', '', $html );
 		// get rid of forms, ungreedy
@@ -134,7 +140,7 @@ class Xhtml extends Import {
 	 *
 	 * @param string $html
 	 * @param string $type front-matter, part, chapter, back-matter, ...
-	 * @param string $href original filename, with (relative) path
+	 * @param string $domain domain name of the webpage
 	 *
 	 * @return string
 	 */
@@ -148,7 +154,7 @@ class Xhtml extends Import {
 
 		$doc->loadHTML( $utf8_hack . $html );
 
-		// Download images, change to relative paths
+		// Download images, change relative paths to absolute
 		$doc = $this->scrapeAndKneadImages( $doc, $domain );
 
 		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
@@ -165,7 +171,7 @@ class Xhtml extends Import {
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
 	 * @param \DOMDocument $doc
-	 * @param string $href original filename, with (relative) path
+	 * @param string $domain domain name of the webpage
 	 *
 	 * @return \DOMDocument
 	 */
@@ -199,12 +205,11 @@ class Xhtml extends Import {
 	 * Extract url and load into WP using media_handle_sideload()
 	 * Will return an empty string if something went wrong.
 	 *
-	 * @param $url         string
-	 * @param string $href original filename, with (relative) path
+	 * @param string $url
 	 *
 	 * @see media_handle_sideload
 	 *
-	 * @return string filename
+	 * @return string $src 
 	 * @throws \Exception
 	 */
 	protected function fetchAndSaveUniqueImage( $url ) {
@@ -302,7 +307,7 @@ class Xhtml extends Import {
 	 *
 	 * @param string $html
 	 *
-	 * @return string
+	 * @return string $html
 	 */
 	protected function tidy( $html ) {
 
