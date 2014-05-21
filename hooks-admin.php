@@ -92,6 +92,7 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'wp_trash_post', '\PressBooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
 	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceBeforeInitInsertFormats' );
+	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceValidWordElements' );
 	add_filter( 'mce_buttons_2', '\PressBooks\Editor::mceButtons');
 	add_action( 'init', '\PressBooks\Editor::addEditorStyle' );
 }

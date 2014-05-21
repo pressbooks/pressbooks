@@ -10,6 +10,19 @@ namespace PressBooks;
 
 class Editor {
 
+
+	/**
+	 * Ensure that Word formatting that we like doesn't get filtered out.
+	 */
+	
+	static function mceValidWordElements( $init_array ) {
+
+		$init_array['paste_word_valid_elements'] = '@[class],p,h3,h4,h5,h6,a[href|target],strong/b,em/i,div[align],br,table,tbody,thead,tr,td,ul,ol,li,img[src]';
+		
+		return $init_array;
+		
+	}
+
 	/**
 	 * Adds style select dropdown to MCE buttons array.
 	 */
