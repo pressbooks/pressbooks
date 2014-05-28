@@ -18,7 +18,6 @@
 				       <h2 class="chapter_author"><?php echo $chap_author; ?></h2>
 			      <?php endif; ?>
 			      
-						
 						<?php the_content(); ?>
 					</div><!-- .entry-content -->
 				</div><!-- #post-## -->
