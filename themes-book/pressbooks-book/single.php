@@ -18,7 +18,12 @@
 				       <h2 class="chapter_author"><?php echo $chap_author; ?></h2>
 			      <?php endif; ?>
 			      
-						<?php the_content(); ?>
+						<?php $content = apply_filters ( 'the_content', get_the_content() );
+						$s = 1;
+						while ( strpos( $content, '<section>' ) !== false ) {
+						    $content = preg_replace('/<section>/', '<section id="section-' . $s++ . '">', $content, 1);
+						}
+						echo $content; ?>
 					</div><!-- .entry-content -->
 				</div><!-- #post-## -->
 
