@@ -239,6 +239,25 @@ function pb_get_section_type( $post ) {
 	return $type;
 }
 
+/**
+ * Returns a hierarchical array of subsections in a chapter.
+ *
+ * @param $id
+ *
+ * @return array
+ */
+function pb_get_chapter_sections( $id ) {
+	return \PressBooks\Book::getChapterSubSections( $id );
+}
+
+/**
+ * Is the parse sections option true?
+ *
+ * @return boolean
+ */
+function pb_should_parse_sections() {
+	return \PressBooks\Export\Export::shouldParseSections();
+}
 
 /**
  * Rename image with arbitrary suffix (before extension)
