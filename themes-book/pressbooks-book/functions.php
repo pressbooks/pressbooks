@@ -72,6 +72,7 @@ function pb_enqueue_scripts() {
 	if ( is_single() ) {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
+	
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 

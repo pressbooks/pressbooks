@@ -140,7 +140,7 @@ abstract class Export {
 	 *
 	 * @return bool
 	 */
-	static function parseSections() {
+	static function shouldParseSections() {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 		

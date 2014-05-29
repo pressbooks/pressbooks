@@ -852,6 +852,15 @@ class Hpub extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
+				$sections = \PressBooks\Book::getChapterSubsections( $id );
+				
+				if ( $sections ) {
+					$s = 1;
+					while ( strpos( $content, '<div class="bc-section section">' ) !== false ) {
+					    $content = preg_replace('/<div class="bc-section section">/', '<div class="bc-section section" id="section-' . $s++ . '">', $content, 1);
+					}
+				}
+
 				if ( $author ) {
 					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
 				}
@@ -863,7 +872,6 @@ class Hpub extends Export {
 				if ( $short_title ) {
 					$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 				}
-
 
 				// Inject introduction class?
 				if ( ! $this->hasIntroduction ) {
@@ -1081,7 +1089,22 @@ class Hpub extends Export {
 			if ( $author )
 				$html .= ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
 
-			$html .= "</a></li>\n";
+			$html .= "</a>";
+			
+			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+				$sections = \PressBooks\Book::getChapterSubsections( $v['ID'] );
+				if ( $sections ) {
+					$s = 1;
+					$html .= '<ul class="sections">';
+					foreach ( $sections as $section ) {
+						$html .= '<li class="section"><a href="' . $v['filename'] . '#section-' . $s . '">' . $section . '</a></li>';
+						 ++$s;
+					}
+					$html .= '</ul>';
+				}
+			}
+			
+			$html .= "</li>\n";
 
 		}
 		$html .= "</ul></div>\n";

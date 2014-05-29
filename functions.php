@@ -246,8 +246,17 @@ function pb_get_section_type( $post ) {
  *
  * @return array
  */
-function pb_get_chapter_subsections( $id ) {
+function pb_get_chapter_sections( $id ) {
 	return \PressBooks\Book::getChapterSubSections( $id );
+}
+
+/**
+ * Is the parse sections option true?
+ *
+ * @return boolean
+ */
+function pb_should_parse_sections() {
+	return \PressBooks\Export\Export::shouldParseSections();
 }
 
 /**
