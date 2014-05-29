@@ -682,19 +682,22 @@ class Xhtml11 extends Export {
 
 						if ( $author )
 							echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
+												
+						echo '</a>';
 						
-						$sections = \PressBooks\Book::getChapterSubsections( $chapter['ID'] );
-						
-						if ( $sections ) {
-							echo '<ul>';
-							foreach ( $sections as $section ) {
-								echo '<li class="section"><a href="#section-' . $s . '">' . $section . '</a></li>';
-								 ++$s;
+						if ( \PressBooks\Export\Export::parseSections() == true ) {
+							$sections = \PressBooks\Book::getChapterSubsections( $chapter['ID'] );
+							if ( $sections ) {
+								echo '<ul class="sections">';
+								foreach ( $sections as $section ) {
+									echo '<li class="section"><a href="#section-' . $s . '">' . $section . '</a></li>';
+									 ++$s;
+								}
+								echo '</ul>';
 							}
-							echo '</ul>';
-						}							
-
-						echo '</a></li>';
+						}
+													
+						echo '</li>';
 					}
 				}
 			} else {

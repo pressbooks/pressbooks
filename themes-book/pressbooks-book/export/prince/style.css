@@ -606,6 +606,10 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	left: 0;
 	top: 0;
 }
+#toc .chapter .section a::before {
+	content:'';
+	counter-increment: none;
+}
 #toc .chapter.numberless a::before {
 	content:'' ;
 	counter-increment: none;

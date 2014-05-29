@@ -134,6 +134,18 @@ abstract class Export {
 
 		return $fullpath;
 	}
+	
+	/**
+	 * Is the parse sections option true?
+	 *
+	 * @return bool
+	 */
+	static function parseSections() {
+
+		$options = get_option( 'pressbooks_theme_options_global' );
+		
+		return ( @$options['parse_sections'] );
+	}
 
 
 	/**
