@@ -142,7 +142,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 						</select>
 					</td>
 				</tr>
-				<tr >
+				<tr>
 					<th scope="row">
 						<label for="import_file"><?php _e( 'File', 'pressbooks' ); ?></label>
 					</th>
