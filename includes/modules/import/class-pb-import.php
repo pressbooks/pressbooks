@@ -355,6 +355,13 @@ abstract class Import {
 			// check for a valid response from server
 			$remote_head = wp_remote_head( $_POST['import_html'] );
 
+			// Something failed
+			if ( is_wp_error( $remote_head ) ) {
+				error_log( '\PressBooks\Import::formSubmit html import error, wp_remote_head()' . $remote_head->get_error_message() );
+				$_SESSION['pb_errors'][] = $remote_head->get_error_message();
+				\PressBooks\Redirect\location( $redirect_url );
+			}
+
 			if ( 200 !== $remote_head['response']['code'] ) {
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header', 'pressbooks' );
 				\PressBooks\Redirect\location( $redirect_url );
