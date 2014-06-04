@@ -59,3 +59,22 @@ function is_valid_media( $data, $filename ) {
 	
 	return true;
 }
+
+/**
+ * Wraps images in caption tag even if they aren't.
+ * 
+ * @param type $html
+ * @return string
+ */
+function force_caption( $html ) {
+  $a = strpos( $html, 'caption' );
+  if ( $a !== 1 ) {
+    preg_match( '/(alignnone|alignleft|alignright|aligncenter)/', $html, $c );
+    preg_match( '/width="(\d*)"/', $html, $w );
+    preg_match( '/alt="([^"]*)"/', $html, $m );
+    preg_match( '/wp-image-(\d*)"/', $html, $n );
+    if ( !isset( $n[1] ) ) $n[1] = '0';
+    $html = '[caption id="attachment_' . $n[1] . '" align="' . ( $c ? $c[1] : 'alignnone' ) . '" width="' . $w[1] . '"]' . $html . "&nbsp;[/caption]";
+  }
+  return $html;
+}

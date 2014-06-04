@@ -38,6 +38,7 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\PressBooks\Admin\Laf\customize_register', 1000 );
+	add_filter( 'image_send_to_editor', 'PressBooks\Media\force_caption', 100 );
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\fix_root_admin_menu', 1 );
