@@ -121,6 +121,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    		'http://textopress.com/',
 	    		'http://pressbooks.dev/',
 	    		'http://localhost/',
+	    		'http://localhost/pressbooks/',
 	    		'http://127.0.0.1/'
 	    	) ) ) { ?>
 	    	<input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php checked(1, $options['epub3'], false); ?>/><label for="epub3"> <?php _e( 'EPUB 3 (Experimental)', 'pressbooks' ); ?></label><br />
