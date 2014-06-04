@@ -51,6 +51,7 @@ add_filter( 'intermediate_image_sizes', '\PressBooks\Image\intermediate_image_si
 add_filter( 'intermediate_image_sizes_advanced', '\PressBooks\Image\intermediate_image_sizes_advanced' );
 add_action( 'delete_attachment', '\PressBooks\Image\delete_attachment' );
 add_filter( 'wp_update_attachment_metadata', '\PressBooks\Image\save_attachment', 10, 2 );
+add_filter( 'the_content', '\PressBooks\Media\force_wrap_images' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Audio/Video
