@@ -66,5 +66,10 @@ function is_valid_media( $data, $filename ) {
  */
 
 function force_wrap_images( $content ) {
-	return preg_replace('/<p[^>]*>\\s*?(<a .*?><img.*?><\\/a>|<img.*?>)?\\s*<\/p>/', '<div class="wp-nocaption">$1</div>', $content);
+	$pattern =  [
+		'/<p[^>]*>\\s*?(<img class=\"([a-z0-9\- ]*).*?>)?\\s*<\/p>/',
+		'/<p[^>]*>\\s*?(<a .*?><img class=\"([a-z0-9\- ]*).*?><\\/a>)?\\s*<\/p>/',
+	];
+	$replacement = '<div class="wp-nocaption $2">$1</div>';
+	return preg_replace($pattern, $replacement, $content);
 }
