@@ -11,10 +11,6 @@ namespace PressBooks\Export\WordPress;
  */
 class VanillaWxr extends Wxr {
 
-	function __construct( array $args ) {
-		parent::__construct( $args );
-	}
-
 	function convert() {
 		// Get WXR
 		$output = $this->queryWxr();
@@ -26,12 +22,11 @@ class VanillaWxr extends Wxr {
 		// use error handling to fetch error information as needed
 		libxml_use_internal_errors( true );
 
-		// disable the ability to load external entities
-		$oldValue = libxml_disable_entity_loader( true );
-		$dom = new \DOMDocument;
+		$dom = new \DOMDocument();
+		$dom->preserveWhiteSpace = false;
 		$dom->recover = true; // Try to parse non-well formed documents
-		$success = $dom->loadXML( $output );
-
+		$success = $dom->loadXML( $output, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
+		
 		// replace custom post_type
 		// attempting to import custom post types such as 'chapter',
 		// 'part', 'front-matter', 'back-matter' fails in a vanilla WP installation
@@ -71,10 +66,14 @@ class VanillaWxr extends Wxr {
 		for ( $i = 0; $i = $term->length; $i ++ ) {
 			$this->deleteNode( $term->item( 0 ) );
 		}
-
+		
+		//clean up whitespace
+		$dom->formatOutput = true;
+		
 		// replace category domain, and nicename attributes
 		// easier to manipulate the value of attributes with SimpleXML
 		$xml = simplexml_import_dom( $dom );
+		unset( $dom );
 
 		// sanity
 		if ( ! $xml ) {
@@ -106,14 +105,11 @@ class VanillaWxr extends Wxr {
 
 		// convert back to xml string
 		$output = $xml->asXML();
-
+		
 		// save wxr as file in exports folder
 		$filename = $this->timestampedFileName( '._vanilla.xml' );
 		file_put_contents( $filename, $output );
 		$this->outputPath = $filename;
-
-		// $dom = new \DOMDocument();
-		libxml_disable_entity_loader( $oldValue );
 
 		return true;
 	}
