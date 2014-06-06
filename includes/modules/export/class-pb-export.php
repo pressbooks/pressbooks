@@ -537,6 +537,9 @@ abstract class Export {
 			if ( isset( $x['wxr'] ) ) {
 				$modules[] = '\PressBooks\Export\WordPress\Wxr';
 			}
+			if ( isset ( $x['vanillawxr'] ) ){
+				$modules[] = '\PressBooks\Export\WordPress\VanillaWxr';
+			}
 
 			// --------------------------------------------------------------------------------------------------------
 			// Clear cache? Range is 1 hour.
