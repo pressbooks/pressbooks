@@ -214,6 +214,9 @@ function canonicalize_url( $url ) {
 	// remove trailing slash
 	$url = rtrim( trim( $url ), '/' );
 
+	if ( preg_match( '#^mailto:#i', $url ) )
+		return $url;
+	
 	// Add http:// if it's missing
 	if ( ! preg_match( '#^https?://#i', $url ) ) {
 		// Remove ftp://, gopher://, fake://, etc
