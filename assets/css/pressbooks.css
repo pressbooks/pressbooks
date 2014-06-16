@@ -389,6 +389,10 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 	background: url(../images/wxr-36.png) -0 0 no-repeat;
 }
 
+.export-page form.export-file span.export-file-icon.small.vanillawxr {
+	background: url(../images/vanillawxr-36.png) -0 0 no-repeat;
+}
+
 .export-page form.export-file span.export-file-icon.small.xhtml {
 	background: url(../images/xhtml-36.png) -0 0 no-repeat;
 }
@@ -419,6 +423,10 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 
 .export-page form.export-file span.export-file-icon.large.wxr {
 	background: url(../images/wxr-48.png) -0 0 no-repeat;
+}
+
+.export-page form.export-file span.export-file-icon.large.vanillawxr {
+	background: url(../images/vanillawxr-48.png) -0 0 no-repeat;
 }
 
 .export-page form.export-file span.export-file-icon.large.xhtml {
