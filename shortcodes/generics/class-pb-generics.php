@@ -37,9 +37,16 @@ class Generics {
 			add_shortcode( $shortcode, function ( $atts, $content = '' ) use( $tag ) {
 				if ( ! $content ) { return ''; }
 				$class = '';
-				if ( is_array( $tag ) ) {
-					$class = ' class="' . $tag[1] . '"';
-					$tag = $tag[0];
+				if ( is_array( $tag )  || ( is_array( $atts ) && array_key_exists('class', $atts) ) ) {
+                    $classnames = array();
+                    if( is_array( $tag ) ) {
+                        $classnames[] = $tag[1];
+                        $tag = $tag[0];
+                    }
+                    if( is_array( $atts ) && array_key_exists('class', $atts) ) {
+                        $classnames[] = $atts['class'];
+                    }   
+					$class = ' class="' . implode( ' ', $classnames ) . '"';
 				}
 				return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
 			} );
