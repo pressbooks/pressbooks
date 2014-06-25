@@ -97,6 +97,25 @@ function pb_is_custom_theme() {
 	return \PressBooks\CustomCss::isCustomCss();
 }
 
+/**
+ * Shortcut to \PressBooks\Metadata::getSeoMetaElements();
+ * 
+ * @return string
+ */
+function pb_get_seo_meta_elements() {
+
+	return \PressBooks\Metadata::getSeoMetaElements();
+}
+
+/**
+ * Shortcut to \PressBooks\Metadata::getMicrodataElements();
+ * 
+ * @return string
+ */
+function pb_get_microdata_elements() {
+
+	return \PressBooks\Metadata::getMicrodataElements();
+}
 
 /**
  * Get url to the custom stylesheet for web.
