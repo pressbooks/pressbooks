@@ -72,6 +72,7 @@ function pb_enqueue_scripts() {
 	if ( is_single() ) {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
+	
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 
@@ -366,6 +367,17 @@ function pressbooks_theme_options_global_init() {
 		)
 	);
 
+	add_settings_field(
+		'parse_sections',
+		__( 'Parse Sections', 'pressbooks' ),
+		'pressbooks_theme_parse_sections_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Parse section tags within chapters and display them in the TOC', 'pressbooks' )
+		)
+	);
+
 	register_setting(
 		$_option,
 		$_option,
@@ -395,6 +407,19 @@ function pressbooks_theme_chapter_numbers_callback( $args ) {
 	echo $html;
 }
 
+// Global Options Field Callback
+function pressbooks_theme_parse_sections_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_global' );
+
+	if ( ! isset( $options['parse_sections'] ) ) {
+		$options['parse_sections'] = 0;
+	}
+
+	$html = '<input type="checkbox" id="parse_sections" name="pressbooks_theme_options_global[parse_sections]" value="1" ' . checked( 1, $options['parse_sections'], false ) . '/>';
+	$html .= '<label for="parse_sections"> ' . $args[0] . '</label>';
+	echo $html;
+}
 
 // Global Options Input Sanitization
 function pressbooks_theme_options_global_sanitize( $input ) {
@@ -405,6 +430,12 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 		$options['chapter_numbers'] = 0;
 	} else {
 		$options['chapter_numbers'] = 1;
+	}
+
+	if ( ! isset( $input['parse_sections'] ) || $input['parse_sections'] != '1' ) {
+		$options['parse_sections'] = 0;
+	} else {
+		$options['parse_sections'] = 1;
 	}
 
 	return $options;

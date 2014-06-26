@@ -646,6 +646,8 @@ class Xhtml11 extends Export {
 		echo '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $book_contents as $type => $struct ) {
 
+			$s = 1; // Start section counter
+			
 			if ( preg_match( '/^__/', $type ) )
 				continue; // Skip __magic keys
 
@@ -680,8 +682,22 @@ class Xhtml11 extends Export {
 
 						if ( $author )
 							echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
-
-						echo '</a></li>';
+												
+						echo '</a>';
+						
+						if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+							$sections = \PressBooks\Book::getChapterSubsections( $chapter['ID'] );
+							if ( $sections ) {
+								echo '<ul class="sections">';
+								foreach ( $sections as $section ) {
+									echo '<li class="section"><a href="#section-' . $s . '">' . $section . '</a></li>';
+									 ++$s;
+								}
+								echo '</ul>';
+							}
+						}
+													
+						echo '</li>';
 					}
 				}
 			} else {

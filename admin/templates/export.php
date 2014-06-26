@@ -62,11 +62,13 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	<?php }
 		foreach ( $exports as $file ) {
 			$file_extension = substr( strrchr( $file, '.' ), 1 );
-			$pre_suffix = strstr( $file, '._3.epub' );
+			$pre_suffix = (false == strstr( $file, '._3.epub' )) ? strstr( $file, '._vanilla.xml') : strstr( $file, '._3.epub' );
 
 		if ( 'html' == $file_extension )
 				$file_class = 'xhtml';
-			elseif ( 'xml' == $file_extension )
+			elseif ( 'xml' == $file_extension && '._vanilla.xml' == $pre_suffix )
+				$file_class = 'vanillawxr';
+			elseif ( 'xml' == $file_extension && false == $pre_suffix )
 				$file_class = 'wxr';
 			elseif ( 'epub' == $file_extension && '._3.epub' == $pre_suffix )
 				$file_class = 'epub3';
@@ -106,6 +108,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	if ( ! isset( $options['icml'] ) ) { $options['icml'] = 0; }
 	if ( ! isset( $options['xhtml'] ) ) { $options['xhtml'] = 0; }
 	if ( ! isset( $options['wxr'] ) ) { $options['wxr'] = 0; }
+	if ( ! isset( $options['vanillawxr'] ) ) { $options['vanillawxr'] = 0; }
 	?>
     <form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 	    <fieldset>
@@ -121,6 +124,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    		'http://textopress.com/',
 	    		'http://pressbooks.dev/',
 	    		'http://localhost/',
+	    		'http://localhost/pressbooks/',
 	    		'http://127.0.0.1/'
 	    	) ) ) { ?>
 	    	<input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php checked(1, $options['epub3'], false); ?>/><label for="epub3"> <?php _e( 'EPUB 3 (Experimental)', 'pressbooks' ); ?></label><br />
@@ -128,7 +132,8 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    	<input type="checkbox" id="hpub" name="export_formats[hpub]" value="1" <?php checked(1, $options['hpub'], false); ?>/><label for="hpub"> <?php _e( 'Hpub', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="icml" name="export_formats[icml]" value="1" <?php checked(1, $options['icml'], false); ?>/><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" <?php checked(1, $options['xhtml'], false); ?>/><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="wxr" name="export_formats[wxr]" value="1" <?php checked(1, $options['wxr'], false); ?>/><label for="wxr"> <?php _e( 'WordPress XML', 'pressbooks' ); ?></label>
+	    	<input type="checkbox" id="wxr" name="export_formats[wxr]" value="1" <?php checked(1, $options['wxr'], false); ?>/><label for="wxr"> <?php _e( 'PressBooks XML', 'pressbooks' ); ?></label><br />
+	    	<input type="checkbox" id="vanillawxr" name="export_formats[vanillawxr]" value="1" <?php checked(1, $options['vanillawxr'], false); ?>/><label for="vanillawxr"> <?php _e( 'WordPress XML', 'pressbooks' ); ?></label>
 	    </fieldset>
     </form>
     <div class="clear"></div>

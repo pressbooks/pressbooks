@@ -21,7 +21,17 @@
 								<ul>
 									<?php foreach ($part['chapters'] as $chapter) : ?>
 										<?php if ($chapter['post_status'] != 'publish') continue; // Skip ?>
-										<li class="chapter <?php echo pb_get_section_type( get_post($chapter['ID']) ) ?>"><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo pb_strip_br( $chapter['post_title'] ); ?></a></li>
+										<li class="chapter <?php echo pb_get_section_type( get_post($chapter['ID']) ) ?>"><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo pb_strip_br( $chapter['post_title'] ); ?></a>
+										<?php $sections = pb_get_chapter_sections( $chapter['ID'] );
+										if ( $sections && pb_should_parse_sections() ){
+											$s = 1; ?>
+											<ul class="sections">
+											<?php foreach ( $sections as $id => $name ) { ?>
+												<li class="section"><a href="<?php echo get_permalink($chapter['ID']); ?>#<?php echo $id; ?>"><?php echo $name; ?></a></li>
+											<?php } ?>
+											</ul>
+										<?php } ?>
+										</li>
 									<?php endforeach; ?>
 								</ul>
 							</li>

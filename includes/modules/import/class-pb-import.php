@@ -270,6 +270,10 @@ abstract class Import {
 					$importer = new Ooxml\Docx();
 					$ok = $importer->import( $current_import );
 					break;
+				
+				case 'html':
+					$importer = new Html\Xhtml();
+					$ok = $importer->import( $current_import );
 			}
 
 			$msg = "Tried to import a file of type {$current_import['type_of']} and ";
@@ -327,7 +331,7 @@ abstract class Import {
 				case 'docx':
 					$importer = new Ooxml\Docx();
 					$ok = $importer->setCurrentImportOption( $upload );
-					break;
+					break;			
 			}
 
 			$msg = "Tried to upload a file of type {$_POST['type_of']} and ";
@@ -340,8 +344,60 @@ abstract class Import {
 				unlink ( $upload['file'] );
 			}
 
-		}
+		} elseif ( @$_GET['import'] && @$_POST['type_of'] === 'html' && check_admin_referer( 'pb-import' ) ) {
+			
+			// check if it's a valid url
+			if ( false == filter_var( $_POST['import_html'], FILTER_VALIDATE_URL ) ) {
+				$_SESSION['pb_errors'][] = __( 'Your URL does not appear to be valid', 'pressbooks' );
+				\PressBooks\Redirect\location( $redirect_url );
+			}
 
+			// check for a valid response from server
+			$remote_head = wp_remote_head( $_POST['import_html'] );
+
+			// Something failed
+			if ( is_wp_error( $remote_head ) ) {
+				error_log( '\PressBooks\Import::formSubmit html import error, wp_remote_head()' . $remote_head->get_error_message() );
+				$_SESSION['pb_errors'][] = $remote_head->get_error_message();
+				\PressBooks\Redirect\location( $redirect_url );
+			}
+
+			if ( 200 !== $remote_head['response']['code'] ) {
+				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header', 'pressbooks' );
+				\PressBooks\Redirect\location( $redirect_url );
+			}
+
+			// ensure the media type is HTML (not JSON, or something we can't deal with)
+			if ( false === strpos( $remote_head['headers']['content-type'], 'text/html' ) && false === strpos( $remote_head['headers']['content-type'], 'application/xhtml+xml')) {
+				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
+				\PressBooks\Redirect\location( $redirect_url );
+			}
+
+			$body = wp_remote_get( $_POST['import_html'] );
+
+			// check for wp error
+			if ( is_wp_error( $body ) ) {
+				$error_message = $body->get_error_message();
+				error_log( '\PressBooks\Import::formSubmit error, import_html' . $error_message );
+				$_SESSION['pb_errors'][] = $error_message;
+				\PressBooks\Redirect\location( $redirect_url );
+			}
+
+			// add our url
+			$body['url'] = $_POST['import_html'];
+			
+			$importer = new Html\Xhtml();
+			$ok = $importer->setCurrentImportOption( $body );
+
+			$msg = "Tried to upload a file of type {$_POST['type_of']} and ";
+			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
+			self::log( $msg, $body['headers'] );
+
+			if ( ! $ok ) {
+				// Not ok?
+				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
+			}
+		}
 		// Default, back to form
 		\PressBooks\Redirect\location( $redirect_url );
 	}

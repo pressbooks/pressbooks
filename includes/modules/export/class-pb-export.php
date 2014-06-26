@@ -134,6 +134,18 @@ abstract class Export {
 
 		return $fullpath;
 	}
+	
+	/**
+	 * Is the parse sections option true?
+	 *
+	 * @return bool
+	 */
+	static function shouldParseSections() {
+
+		$options = get_option( 'pressbooks_theme_options_global' );
+		
+		return ( @$options['parse_sections'] );
+	}
 
 
 	/**
@@ -524,6 +536,9 @@ abstract class Export {
 			}
 			if ( isset( $x['wxr'] ) ) {
 				$modules[] = '\PressBooks\Export\WordPress\Wxr';
+			}
+			if ( isset ( $x['vanillawxr'] ) ){
+				$modules[] = '\PressBooks\Export\WordPress\VanillaWxr';
 			}
 
 			// --------------------------------------------------------------------------------------------------------

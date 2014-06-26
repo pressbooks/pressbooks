@@ -97,6 +97,25 @@ function pb_is_custom_theme() {
 	return \PressBooks\CustomCss::isCustomCss();
 }
 
+/**
+ * Shortcut to \PressBooks\Metadata::getSeoMetaElements();
+ * 
+ * @return string
+ */
+function pb_get_seo_meta_elements() {
+
+	return \PressBooks\Metadata::getSeoMetaElements();
+}
+
+/**
+ * Shortcut to \PressBooks\Metadata::getMicrodataElements();
+ * 
+ * @return string
+ */
+function pb_get_microdata_elements() {
+
+	return \PressBooks\Metadata::getMicrodataElements();
+}
 
 /**
  * Get url to the custom stylesheet for web.
@@ -239,6 +258,25 @@ function pb_get_section_type( $post ) {
 	return $type;
 }
 
+/**
+ * Returns a hierarchical array of subsections in a chapter.
+ *
+ * @param $id
+ *
+ * @return array
+ */
+function pb_get_chapter_sections( $id ) {
+	return \PressBooks\Book::getChapterSubSections( $id );
+}
+
+/**
+ * Is the parse sections option true?
+ *
+ * @return boolean
+ */
+function pb_should_parse_sections() {
+	return \PressBooks\Export\Export::shouldParseSections();
+}
 
 /**
  * Rename image with arbitrary suffix (before extension)

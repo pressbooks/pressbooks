@@ -24,9 +24,22 @@ function romanizePartNumbers() {
 	}
 }
 
+function idSections() {
+	var chapters = document.getElementsByClassName("chapter-ugc");
+	var id = 0;
+	for (var c = 0; c < chapters.length; c++) {
+		var sections = chapters[c].getElementsByClassName("section");
+		for (var s = 0; s < sections.length; s++) {
+			id++;
+			sections[s].setAttribute("id", "section-" + id);
+		}
+	}
+}
+
 
 function main() {
 	romanizePartNumbers();
+	idSections();
 }
 
 

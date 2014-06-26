@@ -3,6 +3,9 @@
  * CSS Version: 1.3
 ================== */
 
+/*__INSERT_PDF_HOUSE_STYLE__*/
+
+
 /* FONTS
 ===========	*/
 
@@ -613,6 +616,10 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	position: absolute;
 	left: 0;
 	top: 0;
+}
+#toc .chapter .section a::before {
+	content:'';
+	counter-increment: none;
 }
 #toc .chapter.numberless a::before {
 	content:'' ;
