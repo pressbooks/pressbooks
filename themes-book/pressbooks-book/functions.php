@@ -374,7 +374,7 @@ function pressbooks_theme_options_global_init() {
 		$_page,
 		$_section,
 		array(
-			 __( 'Parse section tags within chapters and display them in the TOC', 'pressbooks' )
+			 __( 'Enable a two-level TOC', 'pressbooks' )
 		)
 	);
 
