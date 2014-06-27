@@ -13,6 +13,14 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<?php
+if ( is_front_page() ) {
+	echo pb_get_seo_meta_elements();
+	echo pb_get_microdata_elements();
+} else {
+	echo pb_get_microdata_elements();
+}
+?>
 <link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 <title><?php
 	global $page, $paged;
@@ -50,11 +58,13 @@
 	 <?php if (is_front_page()):?>
 	 
 	 	<!-- home page wrap -->
-	 	
+	 	<span itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor 
+		      image inLanguage keywords publisher">
+		      
 	 		<div class="book-info-container">
 	 
 		<?php else: ?>  	 
-			
+		<span itemscope itemtype="http://schema.org/WebPage" itemref="about copyrightHolder copyrightYear inLanguage publisher">		
 		<div class="nav-container">
 				<nav>
 			
