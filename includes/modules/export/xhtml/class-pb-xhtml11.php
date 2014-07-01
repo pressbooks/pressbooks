@@ -690,7 +690,7 @@ class Xhtml11 extends Export {
 							if ( $sections ) {
 								echo '<ul class="sections">';
 								foreach ( $sections as $section ) {
-									echo '<li class="section"><a href="#section-' . $s . '">' . $section . '</a></li>';
+									echo '<li class="section"><a href="#section-' . $s . '"><span class="toc-subsection-title">' . $section . '</span></a></li>';
 									 ++$s;
 								}
 								echo '</ul>';

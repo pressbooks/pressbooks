@@ -1379,7 +1379,7 @@ class Epub201 extends Export {
 					$s = 1;
 					$html .= '<ul class="sections">';
 					foreach ( $sections as $section ) {
-						$html .= '<li class="section"><a href="' . $v['filename'] . '#section-' . $s . '">' . $section . '</a></li>';
+						$html .= '<li class="section"><a href="' . $v['filename'] . '#section-' . $s . '"><span class="toc-subsection-title">' . $section . '</span></a></li>';
 						 ++$s;
 					}
 					$html .= '</ul>';
