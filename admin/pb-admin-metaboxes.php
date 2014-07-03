@@ -249,23 +249,21 @@ function add_meta_boxes() {
 		'label' => __( 'Copyright Holder', 'pressbooks' )
 	) );
 	
-	// adds a select box in the first group
 	x_add_metadata_field( 'pb_book_copyright', 'metadata', array(
 	    'group' => 'copyright',
 	    'field_type' => 'select',
-	    'values' => array( // set possible value/options
+	    'values' => array(
 		'' => '--Select--',
-		'pdm' => 'Public Domain',
-		'cc-by' => 'CC BY', // key => value pair (key is stored in DB)
-		'cc-by-sa' => 'CC BY-SA',
-		'cc-by-nd' => 'CC BY-ND',
-		'cc-by-nc' => 'CC BY-NC',
-		'cc-by-nc-sa' => 'CC BY-NC-SA',
-		'cc-by-nc-nd' => 'CC BY-NC-ND',
+		'zero' => 'No Rights Reserved (Public Domain)',
+		'cc-by' => 'CC BY (Attribution)',
+		'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
+		'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
+		'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
+		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
+		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
 		'arr' => 'All Rights Reserved',
-		'other' => 'Other',
 	    ),
-	    'label' => __( 'License' ),
+	    'label' => __( 'Copyright License', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_custom_copyright', 'metadata', array(
@@ -401,6 +399,23 @@ function add_meta_boxes() {
 		'group' => 'chapter-metadata',
 		'label' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
+	
+	x_add_metadata_field( 'pb_section_copyright', 'chapter', array(
+	    'group' => 'chapter-metadata',
+	    'field_type' => 'select',
+	    'values' => array( 
+		'' => '--Select--',
+		'zero' => 'No Rights Reserved (Public Domain)',
+		'cc-by' => 'CC BY (Attribution)', 
+		'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
+		'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
+		'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
+		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
+		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
+		'arr' => 'All Rights Reserved',
+	    ),
+	    'label' => __( 'Chapter Copyright License (overrides book license)', 'pressbooks' ),
+	) );
 
 	// Chapter Parent
 
@@ -456,6 +471,23 @@ function add_meta_boxes() {
 		'group' => 'front-matter-metadata',
 		'label' => __( 'Front Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
+	
+	x_add_metadata_field( 'pb_section_copyright', 'front-matter', array(
+	    'group' => 'front-matter-metadata',
+	    'field_type' => 'select',
+	    'values' => array(
+		'' => '--Select--',
+		'zero' => 'No Rights Reserved (Public Domain)',
+		'cc-by' => 'CC BY (Attribution)',
+		'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
+		'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
+		'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
+		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
+		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
+		'arr' => 'All Rights Reserved',
+	    ),
+	    'label' => __( 'Front Matter Copyright License (overrides book license)', 'pressbooks' ),
+	) );
 
 	// Back Matter Metadata
 
@@ -478,6 +510,22 @@ function add_meta_boxes() {
 		'label' => __( 'Back Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
 
+	x_add_metadata_field( 'pb_section_copyright', 'back-matter', array(
+	    'group' => 'back-matter-metadata',
+	    'field_type' => 'select',
+	    'values' => array(
+		'' => '--Select--',
+		'zero' => 'No Rights Reserved (Public Domain)',
+		'cc-by' => 'CC BY (Attribution)',
+		'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
+		'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
+		'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
+		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
+		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
+		'arr' => 'All Rights Reserved',
+	    ),
+	    'label' => __( 'Back Matter Copyright License (overrides book license)', 'pressbooks' ),
+	) );
 	// Part Metadata
 
 	x_add_metadata_group( 'part-metadata-text', 'part', array(

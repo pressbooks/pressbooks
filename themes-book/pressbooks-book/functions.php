@@ -189,10 +189,80 @@ function pressbooks_enqueue_styles() {
 }     
 add_action('wp_print_styles', 'pressbooks_enqueue_styles'); 
 
+/* ------------------------------------------------------------------------ *
+ * Copyright License
+ * ------------------------------------------------------------------------ */
 
+function pressbooks_copyright_license() {
+	$option = get_option( 'pressbooks_theme_options_global' );
 
+	// if they don't want to see it, return
+	if ( false == $option['copyright_notice'] ) {
+		return '';
+	}
 
+	// at minimum we need book copyright information set
+	$book_meta = \PressBooks\Book::getBookInformation();
 
+	if ( ! isset( $book_meta['pb_book_copyright'] ) ) {
+		return '';
+	}
+
+	global $post;
+	$id = $post->ID;
+	$title = ( is_front_page() ) ? get_bloginfo('name') : $post->post_title;
+	//$title = $post->post_title;
+	$post_meta = get_post_meta( $id );
+	$link = get_permalink( $id );
+	$html = $license = $copyright_holder = '';
+
+	// Copyright holder, set in order of precedence
+	if ( isset( $post_meta['pb_section_author'] ) ) { // section author overrides book author, copyrightholder
+		$copyright_holder = $post_meta['pb_section_author'][0];
+	} elseif ( isset( $book_meta['pb_copyright_holder'] ) ) { // book copyright holder overrides book author
+		$copyright_holder = $book_meta['pb_copyright_holder'];
+	} elseif ( isset( $book_meta['pb_author'] ) ) { // book author is the fallback, default
+		$copyright_holder = $book_meta['pb_author'];
+	}
+
+	// Copyright license, set in order of precedence
+	if ( isset( $post_meta['pb_section_copyright'] ) ) { // section copyright overrides book 
+		$license = $post_meta['pb_section_copyright'][0];
+	} elseif ( isset( $book_meta['pb_book_copyright'] ) ) { // book is the fallback, default
+		$license = $book_meta['pb_book_copyright'];
+	}
+//delete_transient("license-inf-$id");
+	$transient = get_transient("license-inf-$id" ); 
+	
+	// if the cache has expired, or the user changed the license
+	if ( false === $transient || ! array_key_exists( $license, $transient ) ) {
+
+		// get xml response from API
+		$response = \PressBooks\Metadata::getLicenseXml( $license, $copyright_holder, $link, $title );
+
+		try {
+			// convert to object
+			$result = simplexml_load_string( $response );
+
+			// evaluate it for errors
+			if ( ! false === $result || ! isset( $result->html ) ) {
+				throw new \Exception( 'creative commons license API not returning expected results at PressBooks\Metadata::getCreatvieCommonsLicenseApi' );
+			} else {
+				// process the response, return html
+				$html = \PressBooks\Metadata::getLicenseHtml( $result->html );
+			}
+		} catch ( \Exception $e ) {
+			error_log( $e->getMessage() );
+		}
+		// store it with the license as a key
+		$value = array( $license => $html );
+		set_transient( "license-inf-$id", $value, 3600 );
+	} else {
+		$html = $transient[$license];
+	}
+
+	return $html;
+}
 
 /* ------------------------------------------------------------------------ *
  * Theme Options Display (Appearance -> Theme Options)
@@ -378,6 +448,17 @@ function pressbooks_theme_options_global_init() {
 		)
 	);
 
+	add_settings_field(
+		'copyright_notice',
+		__( 'Copyright Notice', 'pressbooks' ),
+		'pressbooks_theme_copyright_notice_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Display the copyright notice', 'pressbooks' )
+		)
+	);
+
 	register_setting(
 		$_option,
 		$_option,
@@ -421,6 +502,20 @@ function pressbooks_theme_parse_sections_callback( $args ) {
 	echo $html;
 }
 
+// Global Options Field Callback
+function pressbooks_theme_copyright_notice_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_global' );
+
+	if ( ! isset( $options['copyright_notice'] ) ) {
+		$options['copyright_notice'] = 0;
+	}
+	
+	$html = '<input type="checkbox" id="copyright_notice" name="pressbooks_theme_options_global[copyright_notice]" value="1" ' . checked( 1, $options['copyright_notice'], false ) . '/>';
+	$html .= '<label for="copyright_notice"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
 // Global Options Input Sanitization
 function pressbooks_theme_options_global_sanitize( $input ) {
 
@@ -436,6 +531,12 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 		$options['parse_sections'] = 0;
 	} else {
 		$options['parse_sections'] = 1;
+	}
+	
+	if ( ! isset( $input['copyright_notice'] ) || $input['copyright_notice'] != '1' ) {
+		$options['copyright_notice'] = 0;
+	} else {
+		$options['copyright_notice'] = 1;
 	}
 
 	return $options;

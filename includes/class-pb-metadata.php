@@ -112,7 +112,7 @@ class Metadata {
 	 * 
 	 * @return string 
 	 */
-	function getSeoMetaElements() {
+	static function getSeoMetaElements() {
 		// map items that are already captured
 		$meta_mapping = array(
 		    'author' => 'pb_author',
@@ -138,7 +138,8 @@ class Metadata {
 	 *  
 	 * @return string
 	 */
-	function getMicrodataElements() {
+	static function getMicrodataElements() {
+		$html = '';
 		// map items that are already captured
 		$micro_mapping = array(
 		    'about' => 'pb_bisac_subject',
@@ -167,6 +168,112 @@ class Metadata {
 				$html .= "<meta itemprop='" . $itemprop . "' content='" . $content . "' id='" . $itemprop . "'>\n";
 			}
 		}
+		return $html;
+	}
+
+	/**
+	 * Takes a known string from metadata, builds a url to hit an api and returns an xml response
+	 * @see http://api.creativecommons.org/docs/readme_15.html
+	 * 
+	 * @param string $type license type
+	 * @param string $copyright_holder of the page
+	 * @param string $src_url of the page
+	 * @param string $title of the page
+	 * @return string $xml response
+	 */
+	static function getLicenseXml( $type, $copyright_holder, $src_url, $title ) {
+		$endpoint = 'http://api.creativecommons.org/rest/1.5/';
+		$expected = array(
+		    'zero' => array(
+			'license' => 'zero',
+			'commercial' => 'y',
+			'derivatives' => 'y',
+		    ),
+		    'cc-by' => array(
+			'license' => 'standard',
+			'commercial' => 'y',
+			'derivatives' => 'y',
+		    ),
+		    'cc-by-sa' => array(
+			'license' => 'standard',
+			'commercial' => 'y',
+			'derivatives' => 'sa',
+		    ),
+		    'cc-by-nd' => array(
+			'license' => 'standard',
+			'commercial' => 'y',
+			'derivatives' => 'n',
+		    ),
+		    'cc-by-nc' => array(
+			'license' => 'standard',
+			'commercial' => 'n',
+			'derivatives' => 'y',
+		    ),
+		    'cc-by-nc-sa' => array(
+			'license' => 'standard',
+			'commercial' => 'n',
+			'derivatives' => 'sa',
+		    ),
+		    'cc-by-nc-nd' => array(
+			'license' => 'standard',
+			'commercial' => 'n',
+			'derivatives' => 'n',
+		    ),
+		    'arr' => array(),
+//		    'other' => array(),
+		);
+
+		// nothing meaningful to hit the api with, so bail
+		if ( ! array_key_exists( $type, $expected ) ) {
+			return '';
+		}
+
+		switch ( $type ) {
+			// api doesn't have an 'arr' endpoint, so manual build
+			case 'arr':
+				$xml = "<result><html>"
+					. "<span property='dct:title'>$title</span> by $copyright_holder. All Rights Reserved.</html></result>";
+				break;
+
+//			case 'other':
+//				 //@TODO 
+//				break;
+
+			default:
+				// check the response at the endpoint
+				$response = wp_remote_get( $endpoint );
+				$ok = wp_remote_retrieve_response_code( $response );
+
+				if ( 200 != $ok ) {
+					return;
+				}
+
+				$key = array_keys( $expected[$type] );
+				$val = array_values( $expected[$type] );
+
+				// build the url
+				$url = $endpoint . $key[0] . "/" . $val[0] . "/get?" . $key[1] . "=" . $val[1] . "&" . $key[2] . "=" . $val[2] .
+					"&creator=" . urlencode( $copyright_holder ) . "&attribution_url=" . urlencode( $src_url ) . "&title=" . urlencode( $title );
+
+				$xml = wp_remote_get( $url );
+				$xml = $xml['body'];
+				break;
+		}
+
+		return $xml;
+	}
+
+	static function getLicenseHtml( \SimpleXMLElement $response ) {
+		$html = '';
+		
+		if ( is_object( $response ) ) {
+			$content = $response->asXML();
+			$content = trim( str_replace( array( '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ), array( '', '', '', '' ), $content ) );
+
+			$html = '<div class="license-attribution" xmlns:cc="http://creativecommons.org/ns#"><p xmlns:dct="http://purl.org/dc/terms/">'
+				. rtrim( $content, "." ) . ', except where otherwise noted.</p></div>';
+		}
+
 		return $html;
 	}
 
