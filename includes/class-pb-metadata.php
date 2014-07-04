@@ -11,6 +11,7 @@ namespace PressBooks;
 
 
 use PressBooks\Book;
+use PressBooks\Sanitize;
 
 
 class Metadata {
@@ -172,7 +173,7 @@ class Metadata {
 	}
 
 	/**
-	 * Takes a known string from metadata, builds a url to hit an api and returns an xml response
+	 * Takes a known string from metadata, builds a url to hit an api which returns an xml response
 	 * @see http://api.creativecommons.org/docs/readme_15.html
 	 * 
 	 * @param string $type license type
@@ -229,10 +230,11 @@ class Metadata {
 		}
 
 		switch ( $type ) {
-			// api doesn't have an 'arr' endpoint, so manual build
+			// api doesn't have an 'arr' endpoint, so manual build necessary
 			case 'arr':
 				$xml = "<result><html>"
-					. "<span property='dct:title'>$title</span> by $copyright_holder. All Rights Reserved.</html></result>";
+					. "<span property='dct:title'>" . Sanitize\sanitize_xml_attribute( $title ) . "</span> &#169; "
+					. Sanitize\sanitize_xml_attribute( $copyright_holder ) . ". All Rights Reserved.</html></result>";
 				break;
 
 //			case 'other':
@@ -263,7 +265,13 @@ class Metadata {
 		return $xml;
 	}
 
-	static function getLicenseHtml( \SimpleXMLElement $response ) {
+	/**
+	 * Returns an HTML blob if given an XML object
+	 * 
+	 * @param \SimpleXMLElement $response
+	 * @return string $html blob of copyright information
+	 */
+	static function getWebLicenseHtml( \SimpleXMLElement $response ) {
 		$html = '';
 		
 		if ( is_object( $response ) ) {
@@ -274,7 +282,7 @@ class Metadata {
 				. rtrim( $content, "." ) . ', except where otherwise noted.</p></div>';
 		}
 
-		return $html;
+		return html_entity_decode( $html, ENT_XHTML, 'UTF-8' );
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------

@@ -166,6 +166,9 @@ h1, h2, h3, h4, h5, h6 {
 	content: counter(page) "\A0\A0  " string(book-title);
 	vertical-align: left;
   }
+  @bottom{
+	  content: flow(copyrightnotice);
+  }
 }
 @page chapter:right
 {
@@ -174,6 +177,9 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: "Cardo","Times New Roman", serif;
 	content: string(section-title, last) "\A0\A0  " counter(page);
 	vertical-align: right;
+  }
+  @bottom{
+	  content: flow(copyrightnotice);
   }
 }
 @page chapter:first {
@@ -904,4 +910,13 @@ p.bl_indent {
 }
 .index .ugc  p.sub-entry {
 	padding-left:30px;
+}
+
+div.license-attribution > p:first-of-type {
+	flow: static(copyrightnotice);
+	text-align:center;
+	font-size: 0.75em;
+}
+
+div.license-attribution img{
 }

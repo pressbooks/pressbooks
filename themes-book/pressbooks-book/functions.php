@@ -194,8 +194,8 @@ add_action('wp_print_styles', 'pressbooks_enqueue_styles');
  * ------------------------------------------------------------------------ */
 
 function pressbooks_copyright_license() {
+	
 	$option = get_option( 'pressbooks_theme_options_global' );
-
 	// if they don't want to see it, return
 	if ( false == $option['copyright_notice'] ) {
 		return '';
@@ -203,39 +203,53 @@ function pressbooks_copyright_license() {
 
 	// at minimum we need book copyright information set
 	$book_meta = \PressBooks\Book::getBookInformation();
-
 	if ( ! isset( $book_meta['pb_book_copyright'] ) ) {
 		return '';
 	}
 
 	global $post;
 	$id = $post->ID;
-	$title = ( is_front_page() ) ? get_bloginfo('name') : $post->post_title;
-	//$title = $post->post_title;
+	$title = ( is_front_page() ) ? get_bloginfo('name')  :  $post->post_title ;
 	$post_meta = get_post_meta( $id );
 	$link = get_permalink( $id );
 	$html = $license = $copyright_holder = '';
-
+	$transient = get_transient("license-inf-$id" ); 
+	$updated = array( $license, $copyright_holder, $title );
+	$changed = false;
+	
 	// Copyright holder, set in order of precedence
-	if ( isset( $post_meta['pb_section_author'] ) ) { // section author overrides book author, copyrightholder
-		$copyright_holder = $post_meta['pb_section_author'][0];
-	} elseif ( isset( $book_meta['pb_copyright_holder'] ) ) { // book copyright holder overrides book author
-		$copyright_holder = $book_meta['pb_copyright_holder'];
-	} elseif ( isset( $book_meta['pb_author'] ) ) { // book author is the fallback, default
-		$copyright_holder = $book_meta['pb_author'];
+	if ( isset( $post_meta['pb_section_author'] ) ) { 
+		// section author overrides book author, copyrightholder
+		$copyright_holder = $post_meta['pb_section_author'][0] ;
+		
+	} elseif ( isset( $book_meta['pb_copyright_holder'] ) ) { 
+		// book copyright holder overrides book author
+		$copyright_holder =  $book_meta['pb_copyright_holder'];
+		
+	} elseif ( isset( $book_meta['pb_author'] ) ) { 
+		// book author is the fallback, default
+		$copyright_holder =  $book_meta['pb_author'];
 	}
 
 	// Copyright license, set in order of precedence
-	if ( isset( $post_meta['pb_section_copyright'] ) ) { // section copyright overrides book 
+	if ( isset( $post_meta['pb_section_copyright'] ) ) { 
+		// section copyright overrides book 
 		$license = $post_meta['pb_section_copyright'][0];
-	} elseif ( isset( $book_meta['pb_book_copyright'] ) ) { // book is the fallback, default
+		
+	} elseif ( isset( $book_meta['pb_book_copyright'] ) ) { 
+		// book is the fallback, default
 		$license = $book_meta['pb_book_copyright'];
 	}
-//delete_transient("license-inf-$id");
-	$transient = get_transient("license-inf-$id" ); 
 	
+	 //delete_transient("license-inf-$id");
+	 // check if the user has changed anything
+	 foreach ( $updated as $val ){
+		 if( ! array_key_exists( $val, $transient )){
+			 $changed = true;
+		 }
+	 }
 	// if the cache has expired, or the user changed the license
-	if ( false === $transient || ! array_key_exists( $license, $transient ) ) {
+	if ( false === $transient || true == $changed ) {
 
 		// get xml response from API
 		$response = \PressBooks\Metadata::getLicenseXml( $license, $copyright_holder, $link, $title );
@@ -246,19 +260,24 @@ function pressbooks_copyright_license() {
 
 			// evaluate it for errors
 			if ( ! false === $result || ! isset( $result->html ) ) {
-				throw new \Exception( 'creative commons license API not returning expected results at PressBooks\Metadata::getCreatvieCommonsLicenseApi' );
+				throw new \Exception( 'Creative Commons license API not returning expected results at PressBooks\Metadata::getLicenseXml' );
 			} else {
 				// process the response, return html
-				$html = \PressBooks\Metadata::getLicenseHtml( $result->html );
+				$html = \PressBooks\Metadata::getWebLicenseHtml( $result->html );
 			}
 		} catch ( \Exception $e ) {
 			error_log( $e->getMessage() );
 		}
 		// store it with the license as a key
-		$value = array( $license => $html );
-		set_transient( "license-inf-$id", $value, 3600 );
+		$value = array( 
+		    $license => $html,
+		    $copyright_holder => '',
+		    $title => '',
+		);
+		// expires in 24 hours
+		set_transient( "license-inf-$id", $value, 86400 );
 	} else {
-		$html = $transient[$license];
+		$html = $transient[$license] ;
 	}
 
 	return $html;
