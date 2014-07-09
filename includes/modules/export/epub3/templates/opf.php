@@ -132,8 +132,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		<?php
 		foreach ( $manifest as $k => $v ) {
 
-			if ( 'front-cover' == $k ) $linear = 'no';
-			else $linear = 'yes';
+			$linear = 'yes';
 
 			printf( '<itemref idref="%s" linear="%s" />', $k, $linear );
 			echo "\n";
