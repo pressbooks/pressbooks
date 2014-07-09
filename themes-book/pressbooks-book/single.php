@@ -26,8 +26,8 @@
 						}
 						echo $content;
 					} else {
-						echo get_post_meta( $post->ID, 'pb_part_content', true );
-					} ?>
+						echo apply_filters( 'the_content', get_post_meta( $post->ID, 'pb_part_content', true ) );
+			} ?>
 
 					</div><!-- .entry-content -->
 				</div><!-- #post-## -->
