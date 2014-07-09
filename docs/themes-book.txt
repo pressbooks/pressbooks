@@ -119,6 +119,17 @@ More functions available to book designers. See: pressbooks/functions.php
  + `pb_get_chapter_number( $post_name )`
  + `pb_thumbify( $thumb, $path )`
 
+More filters available to book designers:
+
+ + `pb_headline_add_numbers`
+
+Examples:
+
+    function pressbooks_theme_headline_add_numbers( $content, $cna ){
+      return(implode("-",$cna)." --- ".$content);
+    }
+    add_filter( 'pb_headline_add_numbers', 'pressbooks_theme_headline_add_numbers', 10, 2);
+
 == The HTML ==
 
 Top level elements (i.e. children nodes of <body>):

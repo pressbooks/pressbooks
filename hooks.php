@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) )
 
 require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
+require(PB_PLUGIN_DIR . 'includes/pb-content.php');
 require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
@@ -41,6 +42,10 @@ if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
 } else {
 	add_filter( 'locale', '\PressBooks\L10n\set_locale' );
 }
+// -------------------------------------------------------------------------------------------------------------------
+// Content Modifications
+// -------------------------------------------------------------------------------------------------------------------
+add_filter( 'the_content', '\PressBooks\Content\headline_add_numbers' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Images
