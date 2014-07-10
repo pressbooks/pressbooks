@@ -8,7 +8,6 @@ namespace PressBooks\Export\Xhtml;
 
 use PressBooks\Export\Export;
 use PressBooks\Sanitize;
-use PressBooks\Metadata;
 
 require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
@@ -303,66 +302,6 @@ class Xhtml11 extends Export {
 		return $e;
 	}
 
-	protected function doCopyrightNotice( $id, $metadata, $title, $section_author = '' ) {
-		$option = get_option( 'pressbooks_theme_options_global' );
-
-		// if they don't want to see it, return
-		if ( false == $option['copyright_notice'] ) {
-			return '';
-		}
-
-		// at minimum we need book copyright information set
-		if ( ! isset( $metadata['pb_book_copyright'] ) ) {
-			return '';
-		}
-
-		$section_notice = get_post_meta( $id, 'pb_section_copyright', true );
-		$link = get_permalink( $id );
-		$html = $license = $copyright_holder = '';
-
-		// Copyright holder, set in order of precedence
-		if ( ! empty( $section_author ) ) { 
-			// section author overrides book author, copyrightholder
-			$copyright_holder = $section_author;
-			
-		} elseif ( isset( $metadata['pb_copyright_holder'] ) ) { 
-			// book copyright holder overrides book author
-			$copyright_holder = $metadata['pb_copyright_holder'];
-			
-		} elseif ( isset( $metadata['pb_author'] ) ) { 
-			// book author is the fallback, default
-			$copyright_holder = $metadata['pb_author'];
-		}
-
-		// Copyright license, set in order of precedence
-		if ( ! empty( $section_notice ) ) { 
-			// section copyright overrides book 
-			$license = $section_notice;
-		} elseif ( isset( $metadata['pb_book_copyright'] ) ) { 
-			// book is the fallback, default
-			$license = $metadata['pb_book_copyright'];
-		}
-
-		// get xml response from API
-		$response = Metadata::getLicenseXml( $license, $copyright_holder, $link, $title );
-
-		try {
-			// convert to object
-			$result = simplexml_load_string( $response );
-
-			// evaluate it for errors
-			if ( ! false === $result || ! isset( $result->html ) ) {
-				throw new \Exception( 'Creative Commons license API not returning expected results at PressBooks\Metadata::getLicenseXml' );
-			} else {
-				// process the response, return html
-				$html = Metadata::getWebLicenseHtml( $result->html );
-			}
-		} catch ( \Exception $e ) {
-			$this->logError( $e->getMessage() );
-		}
-		return $html;
-	}
-
 	/**
 	 * Query the access protected "format/xhtml" URL, return the results.
 	 *
@@ -636,11 +575,16 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoCopyright( $book_contents, $metadata ) {
-
+		$options = get_option( 'pressbooks_theme_options_global' );
+		
 		echo '<div id="copyright-page"><div class="ugc">';
 
-		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
+		if ( ! empty( $metadata['pb_custom_copyright'] ) && 0 == $options['copyright_notice']) {
 			echo $this->tidy( $metadata['pb_custom_copyright'] );
+			
+		} elseif( 1 == $options['copyright_notice'] ){
+			echo $this->doCopyrightNotice( $metadata );
+			
 		} else {
 			echo '<p>';
 			echo get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
@@ -702,7 +646,8 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoToc( $book_contents, $metadata ) {
-
+		$option = get_option( 'pressbooks_theme_options_global' );
+		
 		echo '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $book_contents as $type => $struct ) {
 
@@ -734,6 +679,7 @@ class Xhtml11 extends Export {
 						$title = Sanitize\strip_br( $chapter['post_title'] );
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $chapter['ID'], 'pb_section_author', true ) );
+						$license = ( $option['copyright_notice'] ) ? get_post_meta( $chapter['ID'], 'pb_section_copyright', true ) : '';
 
 						printf( '<li class="chapter %s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $subclass, $slug, Sanitize\decode( $title ) );
 
@@ -742,6 +688,9 @@ class Xhtml11 extends Export {
 
 						if ( $author )
 							echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
+						
+						if ( $license )
+							echo ' <span class="chapter-license">' .  $license  . ', ' . __("except where otherwise noted", "pressbooks") . '.</span> ';
 												
 						echo '</a>';
 						
@@ -780,11 +729,13 @@ class Xhtml11 extends Export {
 							$typetype = $type . ' ' . $subclass;
 							$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 							$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
+							$license = ( $option['copyright_notice'] ) ? get_post_meta( $chapter['ID'], 'pb_section_copyright', true ) : '';
 						}
 					} elseif ( 'back-matter' == $type ) {
 						$typetype = $type . ' ' . \PressBooks\Taxonomy\back_matter_type( $val['ID'] );
 						$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
+						$license = ( $option['copyright_notice'] ) ? get_post_meta( $chapter['ID'], 'pb_section_copyright', true ) : '';
 					}
 
 					printf( '<li class="%s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $typetype, $slug, Sanitize\decode( $title ) );
@@ -794,6 +745,9 @@ class Xhtml11 extends Export {
 
 					if ( $author )
 						echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
+					
+					if ( $license )
+							echo ' <span class="chapter-license">' .  $license  . ', except where otherwise noted.</span> ';
 
 					echo '</a></li>';
 				}
@@ -856,7 +810,6 @@ class Xhtml11 extends Export {
 				$i,
 				Sanitize\decode( $title ),
 				$content,
-				$this->doCopyrightNotice( $id, $metadata, $title, $author ),
 				$this->doEndnotes( $id ) );
 
 			echo "\n";
@@ -968,7 +921,6 @@ class Xhtml11 extends Export {
 					$n,
 					Sanitize\decode( $title ),
 					$content,
-					$this->doCopyrightNotice( $id, $metadata, $title, $author ),
 					$this->doEndnotes( $id ) ) . "\n";
 
 				if ( $subclass !== 'numberless' ) ++$j;
@@ -1038,7 +990,6 @@ class Xhtml11 extends Export {
 				$i,
 				Sanitize\decode( $title ),
 				$content,
-				$this->doCopyrightNotice( $id, $metadata, $title, $author ),
 				$this->doEndnotes( $id ) );
 
 			echo "\n";

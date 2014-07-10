@@ -298,12 +298,14 @@ div.chapter.numberless h3.chapter-number {
 	margin-top: 1.3em;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	display: block;
 	font-style: italic;
 	margin-left: 1em;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	margin-bottom: 5px;
 }

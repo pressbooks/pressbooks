@@ -196,26 +196,25 @@ add_action('wp_print_styles', 'pressbooks_enqueue_styles');
 function pressbooks_copyright_license() {
 	
 	$option = get_option( 'pressbooks_theme_options_global' );
-	// if they don't want to see it, return
-	if ( false == $option['copyright_notice'] ) {
-		return '';
-	}
-
-	// at minimum we need book copyright information set
 	$book_meta = \PressBooks\Book::getBookInformation();
-	if ( ! isset( $book_meta['pb_book_copyright'] ) ) {
+
+	// if they don't want to see it, return
+	// at minimum we need book copyright information set
+	if ( false == $option['copyright_notice'] || ! isset( $book_meta['pb_book_copyright'] ) ) {
 		return '';
 	}
 
 	global $post;
 	$id = $post->ID;
-	$title = ( is_front_page() ) ? get_bloginfo('name')  :  $post->post_title ;
+	$title = ( is_front_page() ) ? get_bloginfo('name') : $post->post_title ;
 	$post_meta = get_post_meta( $id );
 	$link = get_permalink( $id );
 	$html = $license = $copyright_holder = '';
 	$transient = get_transient("license-inf-$id" ); 
 	$updated = array( $license, $copyright_holder, $title );
 	$changed = false;
+	$lang = $book_meta['pb_language'];
+
 	
 	// Copyright holder, set in order of precedence
 	if ( isset( $post_meta['pb_section_author'] ) ) { 
@@ -252,7 +251,7 @@ function pressbooks_copyright_license() {
 	if ( false === $transient || true == $changed ) {
 
 		// get xml response from API
-		$response = \PressBooks\Metadata::getLicenseXml( $license, $copyright_holder, $link, $title );
+		$response = \PressBooks\Metadata::getLicenseXml( $license, $copyright_holder, $link, $title, $lang );
 
 		try {
 			// convert to object

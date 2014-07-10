@@ -166,9 +166,6 @@ h1, h2, h3, h4, h5, h6 {
 	content: counter(page) "\A0\A0  " string(book-title);
 	vertical-align: left;
   }
-  @bottom{
-	  content: flow(copyrightnotice);
-  }
 }
 @page chapter:right
 {
@@ -177,9 +174,6 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: "Cardo","Times New Roman", serif;
 	content: string(section-title, last) "\A0\A0  " counter(page);
 	vertical-align: right;
-  }
-  @bottom{
-	  content: flow(copyrightnotice);
   }
 }
 @page chapter:first {
@@ -638,6 +632,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	margin-top: 1.3em;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	display: inline-block;
 	font-style: italic;
@@ -913,10 +908,7 @@ p.bl_indent {
 }
 
 div.license-attribution > p:first-of-type {
-	flow: static(copyrightnotice);
 	text-align:center;
 	font-size: 0.75em;
 }
 
-div.license-attribution img{
-}

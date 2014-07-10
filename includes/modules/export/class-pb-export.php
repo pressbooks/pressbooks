@@ -8,6 +8,7 @@ namespace PressBooks\Export;
 
 use PressBooks\Book;
 use PressBooks\CustomCss;
+use PressBooks\Metadata;
 
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
@@ -400,6 +401,77 @@ abstract class Export {
 		return $content;
 	}
 
+	/**
+	 * Will create an html blob of copyright information 
+	 * 
+	 * @param array $metadata
+	 * @param string $title
+	 * @param int $id
+	 * @param string $section_author
+	 * @return string $html blob
+	 * @throws \Exception
+	 */
+	protected function doCopyrightNotice( $metadata, $title = '', $id = '', $section_author = '', $lang = '' ) {
+		$option = get_option( 'pressbooks_theme_options_global' );
+		$html = $license = $copyright_holder = '';
+		$lang = $metadata['pb_language'];
+
+		// if they don't want to see it, return
+		// at minimum we need book copyright information set
+		if ( false == $option['copyright_notice'] || ! isset( $metadata['pb_book_copyright'] ) ) {
+			return '';
+		}
+
+		// if no post $id given, we default to book copyright 
+		if ( ! empty( $id ) ) {
+			$section_notice = get_post_meta( $id, 'pb_section_copyright', true );
+			$link = get_permalink( $id );
+		} else {
+			$section_notice = '';
+			$link = get_bloginfo( 'url' );
+			$title = get_bloginfo( 'name' );
+		}
+
+		// Copyright holder, set in order of precedence
+		if ( ! empty( $section_author ) ) {
+			// section author overrides book author, copyrightholder
+			$copyright_holder = $section_author;
+		} elseif ( isset( $metadata['pb_copyright_holder'] ) ) {
+			// book copyright holder overrides book author
+			$copyright_holder = $metadata['pb_copyright_holder'];
+		} elseif ( isset( $metadata['pb_author'] ) ) {
+			// book author is the fallback, default
+			$copyright_holder = $metadata['pb_author'];
+		}
+
+		// Copyright license, set in order of precedence
+		if ( ! empty( $section_notice ) ) {
+			// section copyright overrides book 
+			$license = $section_notice;
+		} elseif ( isset( $metadata['pb_book_copyright'] ) ) {
+			// book is the fallback, default
+			$license = $metadata['pb_book_copyright'];
+		}
+
+		// get xml response from API
+		$response = Metadata::getLicenseXml( $license, $copyright_holder, $link, $title, $lang );
+
+		try {
+			// convert to object
+			$result = simplexml_load_string( $response );
+
+			// evaluate it for errors
+			if ( ! false === $result || ! isset( $result->html ) ) {
+				throw new \Exception( 'Creative Commons license API not returning expected results at PressBooks\Metadata::getLicenseXml' );
+			} else {
+				// process the response, return html
+				$html = Metadata::getWebLicenseHtml( $result->html );
+			}
+		} catch ( \Exception $e ) {
+			$this->logError( $e->getMessage() );
+		}
+		return $html;
+	}
 
 	/**
 	 * Simple template system.

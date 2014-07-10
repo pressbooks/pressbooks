@@ -182,10 +182,11 @@ class Metadata {
 	 * @param string $title of the page
 	 * @return string $xml response
 	 */
-	static function getLicenseXml( $type, $copyright_holder, $src_url, $title ) {
+	static function getLicenseXml( $type, $copyright_holder, $src_url, $title, $lang = '' ) {
 		$endpoint = 'http://api.creativecommons.org/rest/1.5/';
+		$lang = ( ! empty( $lang ) ) ? substr( $lang, 0, 2 ) : '';
 		$expected = array(
-		    'zero' => array(
+		    'public-domain' => array(
 			'license' => 'zero',
 			'commercial' => 'y',
 			'derivatives' => 'y',
@@ -220,7 +221,7 @@ class Metadata {
 			'commercial' => 'n',
 			'derivatives' => 'n',
 		    ),
-		    'arr' => array(),
+		    'all-rights-reserved' => array(),
 //		    'other' => array(),
 		);
 
@@ -230,11 +231,11 @@ class Metadata {
 		}
 
 		switch ( $type ) {
-			// api doesn't have an 'arr' endpoint, so manual build necessary
-			case 'arr':
+			// api doesn't have an 'all-rights-reserved' endpoint, so manual build necessary
+			case 'all-rights-reserved':
 				$xml = "<result><html>"
 					. "<span property='dct:title'>" . Sanitize\sanitize_xml_attribute( $title ) . "</span> &#169; "
-					. Sanitize\sanitize_xml_attribute( $copyright_holder ) . ". All Rights Reserved.</html></result>";
+					. Sanitize\sanitize_xml_attribute( $copyright_holder ) . __( 'All Rights Reserved', 'pressbooks' ) . ".</html></result>";
 				break;
 
 //			case 'other':
@@ -255,7 +256,7 @@ class Metadata {
 
 				// build the url
 				$url = $endpoint . $key[0] . "/" . $val[0] . "/get?" . $key[1] . "=" . $val[1] . "&" . $key[2] . "=" . $val[2] .
-					"&creator=" . urlencode( $copyright_holder ) . "&attribution_url=" . urlencode( $src_url ) . "&title=" . urlencode( $title );
+					"&creator=" . urlencode( $copyright_holder ) . "&attribution_url=" . urlencode( $src_url ) . "&title=" . urlencode( $title ) . "&locale=" . $lang ;
 
 				$xml = wp_remote_get( $url );
 				$xml = $xml['body'];
@@ -279,7 +280,7 @@ class Metadata {
 			$content = trim( str_replace( array( '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ), array( '', '', '', '' ), $content ) );
 
 			$html = '<div class="license-attribution" xmlns:cc="http://creativecommons.org/ns#"><p xmlns:dct="http://purl.org/dc/terms/">'
-				. rtrim( $content, "." ) . ', except where otherwise noted.</p></div>';
+				. rtrim( $content, "." ) . ', ' . __("except where otherwise noted", "pressbooks") .'</p></div>';
 		}
 
 		return html_entity_decode( $html, ENT_XHTML, 'UTF-8' );
