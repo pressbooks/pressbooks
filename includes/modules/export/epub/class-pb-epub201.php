@@ -838,7 +838,7 @@ class Epub201 extends Export {
 		
 			
 		} elseif( 1 == $options['copyright_notice'] ){
-			$html .= $this->kneadHtml( $this->tidy( $this->doCopyrightNotice( $metadata ), 'custom' ) );
+			$html .= $this->kneadHtml( $this->tidy( $this->doCopyrightNotice( $metadata ) ), 'custom' );
 			
 		} else {
 			$html .= '<p>';
@@ -1383,7 +1383,7 @@ class Epub201 extends Export {
 				$html .= ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
 			
 			if ( $license )
-				$html .= ' <span class="chapter-license">' .  $license  . ', ' . __("except where otherwise noted", "pressbooks") . '.</span> ';
+				$html .= ' <span class="chapter-license">' .  $license  . '</span> ';
 							
 			$html .= "</a>";
 			

@@ -690,7 +690,7 @@ class Xhtml11 extends Export {
 							echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
 						
 						if ( $license )
-							echo ' <span class="chapter-license">' .  $license  . ', ' . __("except where otherwise noted", "pressbooks") . '.</span> ';
+							echo ' <span class="chapter-license">' .  $license  . '</span> ';
 												
 						echo '</a>';
 						
@@ -718,6 +718,7 @@ class Xhtml11 extends Export {
 					$typetype = '';
 					$subtitle = '';
 					$author = '';
+					$license = '';
 					$slug = $val['post_name'];
 					$title = Sanitize\strip_br( $val['post_title'] );
 
@@ -729,13 +730,13 @@ class Xhtml11 extends Export {
 							$typetype = $type . ' ' . $subclass;
 							$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 							$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
-							$license = ( $option['copyright_notice'] ) ? get_post_meta( $chapter['ID'], 'pb_section_copyright', true ) : '';
+							$license = ( $option['copyright_notice'] ) ? get_post_meta( $val['ID'], 'pb_section_copyright', true ) : '';
 						}
 					} elseif ( 'back-matter' == $type ) {
 						$typetype = $type . ' ' . \PressBooks\Taxonomy\back_matter_type( $val['ID'] );
 						$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
-						$license = ( $option['copyright_notice'] ) ? get_post_meta( $chapter['ID'], 'pb_section_copyright', true ) : '';
+						$license = ( $option['copyright_notice'] ) ? get_post_meta( $val['ID'], 'pb_section_copyright', true ) : '';
 					}
 
 					printf( '<li class="%s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $typetype, $slug, Sanitize\decode( $title ) );
@@ -747,7 +748,7 @@ class Xhtml11 extends Export {
 						echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
 					
 					if ( $license )
-							echo ' <span class="chapter-license">' .  $license  . ', except where otherwise noted.</span> ';
+							echo ' <span class="chapter-license">' .  $license  . '</span> ';
 
 					echo '</a></li>';
 				}

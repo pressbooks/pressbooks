@@ -411,7 +411,7 @@ abstract class Export {
 	 * @return string $html blob
 	 * @throws \Exception
 	 */
-	protected function doCopyrightNotice( $metadata, $title = '', $id = '', $section_author = '', $lang = '' ) {
+	protected function doCopyrightNotice( $metadata, $title = '', $id = '', $section_author = '' ) {
 		$option = get_option( 'pressbooks_theme_options_global' );
 		$html = $license = $copyright_holder = '';
 		$lang = $metadata['pb_language'];

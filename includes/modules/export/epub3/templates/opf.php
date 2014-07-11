@@ -91,7 +91,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 					break;
 
 				case 'pb_publication_date' :
-					echo '<dc:date opf:event="publication">';
+					echo '<dc:date>';
 					echo date( 'Y-m-d', ( int ) $val );
 					echo "</dc:date>\n";
 					break;
