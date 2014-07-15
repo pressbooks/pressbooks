@@ -242,11 +242,13 @@ function pressbooks_copyright_license() {
 	
 	 //delete_transient("license-inf-$id");
 	 // check if the user has changed anything
-	 foreach ( $updated as $val ){
-		 if( ! array_key_exists( $val, $transient )){
-			 $changed = true;
-		 }
-	 }
+	if ( is_array( $transient ) ) {
+		foreach ( $updated as $val ) {
+			if ( ! array_key_exists( $val, $transient ) ) {
+				$changed = true;
+			}
+		}
+	}
 	// if the cache has expired, or the user changed the license
 	if ( false === $transient || true == $changed ) {
 

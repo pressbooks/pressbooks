@@ -244,14 +244,7 @@ class Metadata {
 //				break;
 
 			default:
-				// check the response at the endpoint
-				$response = wp_remote_get( $endpoint );
-				$ok = wp_remote_retrieve_response_code( $response );
-
-				if ( 200 != $ok ) {
-					return '';
-				}
-
+				
 				$key = array_keys( $expected[$type] );
 				$val = array_values( $expected[$type] );
 
@@ -260,10 +253,17 @@ class Metadata {
 					"&creator=" . urlencode( $copyright_holder ) . "&attribution_url=" . urlencode( $src_url ) . "&title=" . urlencode( $title ) . "&locale=" . $lang ;
 
 				$xml = wp_remote_get( $url );
+				$ok = wp_remote_retrieve_response_code( $xml );
+
+				// if server response is not ok
+				if ( 200 != $ok ) {
+					return '';
+				}
 				
-				// check if remote call went sideways
+				// if remote call went sideways
 				if ( ! is_wp_error( $xml ) ) {
 					$xml = $xml['body'];
+					
 				} else {
 					// Something went wrong
 					\error_log( '\PressBooks\Metadata::getLicenseXml error: ' . $xml->get_error_message() );
