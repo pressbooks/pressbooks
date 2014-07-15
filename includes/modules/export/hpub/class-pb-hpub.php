@@ -1050,7 +1050,7 @@ class Hpub extends Export {
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
 		);
-		$option = get_option( 'pressbooks_theme_options_global' );
+		$options = get_option( 'pressbooks_theme_options_global' );
 
 		// Start by inserting self into correct manifest position
 		$array_pos = $this->positionOfToc();
@@ -1084,7 +1084,7 @@ class Hpub extends Export {
 				$class .= \PressBooks\Taxonomy\front_matter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				$license = ( $option['copyright_notice'] ) ? get_post_meta( $v['ID'], 'pb_section_copyright', true ) : '';
+				$license = ( $options['copyright_notice'] ) ? get_post_meta( $v['ID'], 'pb_section_copyright', true ) : '';
 			} elseif ( preg_match( '/^part-/', $k ) ) {
 				$class = 'part';
 				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) == 'on' )
@@ -1094,7 +1094,7 @@ class Hpub extends Export {
 				$class .= \PressBooks\Taxonomy\chapter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				$license = ( $option['copyright_notice'] ) ? get_post_meta( $v['ID'], 'pb_section_copyright', true ) : '';
+				$license = ( $options['copyright_notice'] ) ? get_post_meta( $v['ID'], 'pb_section_copyright', true ) : '';
 				if ( $this->numbered && \PressBooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) {
 					$title = " $i. " . $title;
 				}
@@ -1104,7 +1104,7 @@ class Hpub extends Export {
 				$class .= \PressBooks\Taxonomy\back_matter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				$license = ( $option['copyright_notice'] ) ? get_post_meta( $v['ID'], 'pb_section_copyright', true ) : '';
+				$license = ( $options['copyright_notice'] ) ? get_post_meta( $v['ID'], 'pb_section_copyright', true ) : '';
 			} else {
 				continue;
 			}
