@@ -184,6 +184,7 @@ class Metadata {
 	 */
 	static function getLicenseXml( $type, $copyright_holder, $src_url, $title, $lang = '' ) {
 		$endpoint = 'http://api.creativecommons.org/rest/1.5/';
+		$xml = '';
 		$lang = ( ! empty( $lang ) ) ? substr( $lang, 0, 2 ) : '';
 		$expected = array(
 		    'public-domain' => array(
@@ -248,7 +249,7 @@ class Metadata {
 				$ok = wp_remote_retrieve_response_code( $response );
 
 				if ( 200 != $ok ) {
-					return;
+					return '';
 				}
 
 				$key = array_keys( $expected[$type] );
@@ -259,7 +260,15 @@ class Metadata {
 					"&creator=" . urlencode( $copyright_holder ) . "&attribution_url=" . urlencode( $src_url ) . "&title=" . urlencode( $title ) . "&locale=" . $lang ;
 
 				$xml = wp_remote_get( $url );
-				$xml = $xml['body'];
+				
+				// check if remote call went sideways
+				if ( ! is_wp_error( $xml ) ) {
+					$xml = $xml['body'];
+				} else {
+					// Something went wrong
+					\error_log( '\PressBooks\Metadata::getLicenseXml error: ' . $xml->get_error_message() );
+				}
+
 				break;
 		}
 

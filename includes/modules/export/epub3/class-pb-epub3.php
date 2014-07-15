@@ -542,7 +542,7 @@ class Epub3 extends Epub\Epub201 {
 
 		}
 		$vars['manifest_filelist'] = $html;
-		
+		$vars['do_copyright_notice'] = strip_tags( $this->doCopyrightNotice( $metadata ) ) ;
 		
 		// Put contents
 		file_put_contents(

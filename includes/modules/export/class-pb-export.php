@@ -402,7 +402,8 @@ abstract class Export {
 	}
 
 	/**
-	 * Will create an html blob of copyright information 
+	 * Will create an html blob of copyright information, returns empty string
+	 * if user doesn't want it displayed 
 	 * 
 	 * @param array $metadata
 	 * @param string $title
@@ -434,10 +435,10 @@ abstract class Export {
 
 		// Copyright holder, set in order of precedence
 		if ( ! empty( $section_author ) ) {
-			// section author overrides book author, copyrightholder
+			// section author higher priority than book author, copyrightholder
 			$copyright_holder = $section_author;
 		} elseif ( isset( $metadata['pb_copyright_holder'] ) ) {
-			// book copyright holder overrides book author
+			// book copyright holder higher priority than book author
 			$copyright_holder = $metadata['pb_copyright_holder'];
 		} elseif ( isset( $metadata['pb_author'] ) ) {
 			// book author is the fallback, default
@@ -446,7 +447,7 @@ abstract class Export {
 
 		// Copyright license, set in order of precedence
 		if ( ! empty( $section_notice ) ) {
-			// section copyright overrides book 
+			// section copyright higher priority than book 
 			$license = $section_notice;
 		} elseif ( isset( $metadata['pb_book_copyright'] ) ) {
 			// book is the fallback, default

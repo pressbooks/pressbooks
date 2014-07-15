@@ -1816,7 +1816,6 @@ class Epub201 extends Export {
 		}
 
 		// Vars
-
 		$vars = array(
 			'meta' => $metadata,
 			'manifest' => $this->manifest,
@@ -1853,9 +1852,9 @@ class Epub201 extends Export {
 			$used_ids[$file_id] = true;
 		}
 		$vars['manifest_assets'] = $html;
-
+		$vars['do_copyright_notice'] = strip_tags( $this->doCopyrightNotice( $metadata ) ) ;
+		
 		// Put contents
-
 		file_put_contents(
 			$this->tmpDir . "/book.opf",
 			$this->loadTemplate( $this->dir . '/templates/opf.php', $vars ) );
