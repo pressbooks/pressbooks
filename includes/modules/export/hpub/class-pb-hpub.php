@@ -609,13 +609,15 @@ class Hpub extends Export {
 		// HTML
 		$html = '<div id="copyright-page"><div class="ugc">';
 
-		if ( ! empty( $metadata['pb_custom_copyright'] ) && 0 == $options['copyright_license'] ) {
+		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
 			$html .= $this->kneadHtml( $this->tidy( $metadata['pb_custom_copyright'] ), 'custom' );
-			
-		} elseif( 1 == $options['copyright_license'] ){
+		}
+		
+		if( 1 == $options['copyright_license'] ){
 			$html .= $this->kneadHtml( $this->tidy( $this->doCopyrightLicense( $metadata ) ), 'custom' );
-			
-		} else {
+		} 
+		// default, so something is displayed
+		if ( empty( $metadata['pb_custom_copyright'] ) && 0 == $options['copyright_license'] ) {
 			$html .= '<p>';
 			$html .= get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
 			$html .= ( ! empty( $metadata['pb_copyright_year'] ) ) ? $metadata['pb_copyright_year'] : date( 'Y' );

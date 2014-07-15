@@ -579,13 +579,15 @@ class Xhtml11 extends Export {
 		
 		echo '<div id="copyright-page"><div class="ugc">';
 
-		if ( ! empty( $metadata['pb_custom_copyright'] ) && 0 == $options['copyright_license']) {
+		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
 			echo $this->tidy( $metadata['pb_custom_copyright'] );
-			
-		} elseif( 1 == $options['copyright_license'] ){
+		} 
+		
+		if ( 1 == $options['copyright_license'] ){
 			echo $this->doCopyrightLicense( $metadata );
-			
-		} else {
+		} 
+		// default, so something is displayed
+		if ( empty( $metadata['pb_custom_copyright'] ) && 0 == $options['copyright_license'] ) {
 			echo '<p>';
 			echo get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
 			echo ( ! empty( $metadata['pb_copyright_year'] ) ) ? $metadata['pb_copyright_year'] : date( 'Y' );
