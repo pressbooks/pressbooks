@@ -200,7 +200,7 @@ function pressbooks_copyright_license() {
 
 	// if they don't want to see it, return
 	// at minimum we need book copyright information set
-	if ( false == $option['copyright_notice'] || ! isset( $book_meta['pb_book_copyright'] ) ) {
+	if ( false == $option['copyright_license'] || ! isset( $book_meta['pb_book_license'] ) ) {
 		return '';
 	}
 
@@ -231,13 +231,13 @@ function pressbooks_copyright_license() {
 	}
 
 	// Copyright license, set in order of precedence
-	if ( isset( $post_meta['pb_section_copyright'] ) ) { 
+	if ( isset( $post_meta['pb_section_license'] ) ) { 
 		// section copyright overrides book 
-		$license = $post_meta['pb_section_copyright'][0];
+		$license = $post_meta['pb_section_license'][0];
 		
-	} elseif ( isset( $book_meta['pb_book_copyright'] ) ) { 
+	} elseif ( isset( $book_meta['pb_book_license'] ) ) { 
 		// book is the fallback, default
-		$license = $book_meta['pb_book_copyright'];
+		$license = $book_meta['pb_book_license'];
 	}
 	
 	 //delete_transient("license-inf-$id");
@@ -469,13 +469,13 @@ function pressbooks_theme_options_global_init() {
 	);
 
 	add_settings_field(
-		'copyright_notice',
-		__( 'Copyright Notice', 'pressbooks' ),
-		'pressbooks_theme_copyright_notice_callback',
+		'copyright_license',
+		__( 'Copyright License', 'pressbooks' ),
+		'pressbooks_theme_copyright_license_callback',
 		$_page,
 		$_section,
 		array(
-			 __( 'Display the copyright notice', 'pressbooks' )
+			 __( 'Display the copyright license', 'pressbooks' )
 		)
 	);
 
@@ -523,16 +523,16 @@ function pressbooks_theme_parse_sections_callback( $args ) {
 }
 
 // Global Options Field Callback
-function pressbooks_theme_copyright_notice_callback( $args ) {
+function pressbooks_theme_copyright_license_callback( $args ) {
 
 	$options = get_option( 'pressbooks_theme_options_global' );
 
-	if ( ! isset( $options['copyright_notice'] ) ) {
-		$options['copyright_notice'] = 0;
+	if ( ! isset( $options['copyright_license'] ) ) {
+		$options['copyright_license'] = 0;
 	}
 	
-	$html = '<input type="checkbox" id="copyright_notice" name="pressbooks_theme_options_global[copyright_notice]" value="1" ' . checked( 1, $options['copyright_notice'], false ) . '/>';
-	$html .= '<label for="copyright_notice"> ' . $args[0] . '</label>';
+	$html = '<input type="checkbox" id="copyright_license" name="pressbooks_theme_options_global[copyright_license]" value="1" ' . checked( 1, $options['copyright_license'], false ) . '/>';
+	$html .= '<label for="copyright_license"> ' . $args[0] . '</label>';
 	echo $html;
 }
 
@@ -553,10 +553,10 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 		$options['parse_sections'] = 1;
 	}
 	
-	if ( ! isset( $input['copyright_notice'] ) || $input['copyright_notice'] != '1' ) {
-		$options['copyright_notice'] = 0;
+	if ( ! isset( $input['copyright_license'] ) || $input['copyright_license'] != '1' ) {
+		$options['copyright_license'] = 0;
 	} else {
-		$options['copyright_notice'] = 1;
+		$options['copyright_license'] = 1;
 	}
 
 	return $options;

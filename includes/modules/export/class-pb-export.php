@@ -412,23 +412,23 @@ abstract class Export {
 	 * @return string $html blob
 	 * @throws \Exception
 	 */
-	protected function doCopyrightNotice( $metadata, $title = '', $id = '', $section_author = '' ) {
+	protected function doCopyrightLicense( $metadata, $title = '', $id = '', $section_author = '' ) {
 		$option = get_option( 'pressbooks_theme_options_global' );
 		$html = $license = $copyright_holder = '';
 		$lang = $metadata['pb_language'];
 
 		// if they don't want to see it, return
 		// at minimum we need book copyright information set
-		if ( false == $option['copyright_notice'] || ! isset( $metadata['pb_book_copyright'] ) ) {
+		if ( false == $option['copyright_license'] || ! isset( $metadata['pb_book_license'] ) ) {
 			return '';
 		}
 
 		// if no post $id given, we default to book copyright 
 		if ( ! empty( $id ) ) {
-			$section_notice = get_post_meta( $id, 'pb_section_copyright', true );
+			$section_license = get_post_meta( $id, 'pb_section_license', true );
 			$link = get_permalink( $id );
 		} else {
-			$section_notice = '';
+			$section_license = '';
 			$link = get_bloginfo( 'url' );
 			$title = get_bloginfo( 'name' );
 		}
@@ -446,12 +446,12 @@ abstract class Export {
 		}
 
 		// Copyright license, set in order of precedence
-		if ( ! empty( $section_notice ) ) {
+		if ( ! empty( $section_license ) ) {
 			// section copyright higher priority than book 
-			$license = $section_notice;
-		} elseif ( isset( $metadata['pb_book_copyright'] ) ) {
+			$license = $section_license;
+		} elseif ( isset( $metadata['pb_book_license'] ) ) {
 			// book is the fallback, default
-			$license = $metadata['pb_book_copyright'];
+			$license = $metadata['pb_book_license'];
 		}
 
 		// get xml response from API

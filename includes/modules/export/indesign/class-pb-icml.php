@@ -39,8 +39,8 @@ class Icml extends Export {
 			'book_contents' => $this->preProcessBookContents( \PressBooks\Book::getBookContents() ),
 		);
 		
-		$cc_copyright = strip_tags( $this->doCopyrightNotice( $vars['meta'] ) );
-		$vars['do_copyright_notice'] = $cc_copyright;
+		$cc_copyright = strip_tags( $this->doCopyrightLicense( $vars['meta'] ) );
+		$vars['do_copyright_license'] = $cc_copyright;
 		
 		$book_html = $this->loadTemplate( __DIR__ . '/templates/xhtml.php', $vars );
 		$content = $this->transformXML( $book_html, PB_PLUGIN_DIR . 'symbionts/icml/tkbr2icml-v044.xsl' );

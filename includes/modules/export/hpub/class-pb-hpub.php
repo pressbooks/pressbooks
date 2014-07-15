@@ -609,11 +609,11 @@ class Hpub extends Export {
 		// HTML
 		$html = '<div id="copyright-page"><div class="ugc">';
 
-		if ( ! empty( $metadata['pb_custom_copyright'] ) && 0 == $options['copyright_notice'] ) {
+		if ( ! empty( $metadata['pb_custom_copyright'] ) && 0 == $options['copyright_license'] ) {
 			$html .= $this->kneadHtml( $this->tidy( $metadata['pb_custom_copyright'] ), 'custom' );
 			
-		} elseif( 1 == $options['copyright_notice'] ){
-			$html .= $this->kneadHtml( $this->tidy( $this->doCopyrightNotice( $metadata ) ), 'custom' );
+		} elseif( 1 == $options['copyright_license'] ){
+			$html .= $this->kneadHtml( $this->tidy( $this->doCopyrightLicense( $metadata ) ), 'custom' );
 			
 		} else {
 			$html .= '<p>';
@@ -1084,7 +1084,7 @@ class Hpub extends Export {
 				$class .= \PressBooks\Taxonomy\front_matter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				$license = ( $options['copyright_notice'] ) ? get_post_meta( $v['ID'], 'pb_section_copyright', true ) : '';
+				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
 			} elseif ( preg_match( '/^part-/', $k ) ) {
 				$class = 'part';
 				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) == 'on' )
@@ -1094,7 +1094,7 @@ class Hpub extends Export {
 				$class .= \PressBooks\Taxonomy\chapter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				$license = ( $options['copyright_notice'] ) ? get_post_meta( $v['ID'], 'pb_section_copyright', true ) : '';
+				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
 				if ( $this->numbered && \PressBooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) {
 					$title = " $i. " . $title;
 				}
@@ -1104,7 +1104,7 @@ class Hpub extends Export {
 				$class .= \PressBooks\Taxonomy\back_matter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				$license = ( $options['copyright_notice'] ) ? get_post_meta( $v['ID'], 'pb_section_copyright', true ) : '';
+				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
 			} else {
 				continue;
 			}

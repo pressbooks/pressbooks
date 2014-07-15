@@ -249,7 +249,7 @@ function add_meta_boxes() {
 		'label' => __( 'Copyright Holder', 'pressbooks' )
 	) );
 	
-	x_add_metadata_field( 'pb_book_copyright', 'metadata', array(
+	x_add_metadata_field( 'pb_book_license', 'metadata', array(
 	    'group' => 'copyright',
 	    'field_type' => 'select',
 	    'values' => array(
@@ -400,7 +400,7 @@ function add_meta_boxes() {
 		'label' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
 	
-	x_add_metadata_field( 'pb_section_copyright', 'chapter', array(
+	x_add_metadata_field( 'pb_section_license', 'chapter', array(
 	    'group' => 'chapter-metadata',
 	    'field_type' => 'select',
 	    'values' => array( 
@@ -414,7 +414,7 @@ function add_meta_boxes() {
 		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
 		'all-rights-reserved' => 'All Rights Reserved',
 	    ),
-	    'label' => __( 'Chapter Copyright License (overrides book license)', 'pressbooks' ),
+	    'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
 	) );
 
 	// Chapter Parent
@@ -472,7 +472,7 @@ function add_meta_boxes() {
 		'label' => __( 'Front Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
 	
-	x_add_metadata_field( 'pb_section_copyright', 'front-matter', array(
+	x_add_metadata_field( 'pb_section_license', 'front-matter', array(
 	    'group' => 'front-matter-metadata',
 	    'field_type' => 'select',
 	    'values' => array(
@@ -486,7 +486,7 @@ function add_meta_boxes() {
 		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
 		'all-rights-reserved' => 'All Rights Reserved',
 	    ),
-	    'label' => __( 'Front Matter Copyright License (overrides book license)', 'pressbooks' ),
+	    'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 	) );
 
 	// Back Matter Metadata
@@ -510,7 +510,7 @@ function add_meta_boxes() {
 		'label' => __( 'Back Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
 
-	x_add_metadata_field( 'pb_section_copyright', 'back-matter', array(
+	x_add_metadata_field( 'pb_section_license', 'back-matter', array(
 	    'group' => 'back-matter-metadata',
 	    'field_type' => 'select',
 	    'values' => array(
@@ -524,7 +524,7 @@ function add_meta_boxes() {
 		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
 		'all-rights-reserved' => 'All Rights Reserved',
 	    ),
-	    'label' => __( 'Back Matter Copyright License (overrides book license)', 'pressbooks' ),
+	    'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 	) );
 	// Part Metadata
 

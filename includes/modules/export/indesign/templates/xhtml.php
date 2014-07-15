@@ -44,7 +44,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>' ."\n";
 			<?php
 			if ( ! empty( $meta['pb_copyright_year'] ) ) echo $meta['pb_copyright_year'] . ' ';
 			if ( ! empty( $meta['pb_copyright_holder'] ) ) echo ' by ' . $meta['pb_copyright_holder'] . '. ';
-			if ( ! empty( $do_copyright_notice ) ) echo $do_copyright_notice . '. ';
+			if ( ! empty( $do_copyright_license ) ) echo $do_copyright_license . '. ';
 			?>
 		</p>
 	<?php } ?>
