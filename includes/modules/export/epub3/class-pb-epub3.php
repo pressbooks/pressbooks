@@ -145,6 +145,7 @@ class Epub3 extends Epub\Epub201 {
 		$config = array (
 		    'valid_xhtml' => 1,
 		    'no_deprecated_attr' => 2,
+		    'deny_attribute' => 'cellpadding,cellspacing',
 		    'unique_ids' => 'fixme-',
 		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml5',
 		    'tidy' => -1,
@@ -373,6 +374,74 @@ class Epub3 extends Epub\Epub201 {
 		$already_done[$url] = $filename;
 		return $filename;
 	}
+	
+	/**
+	 * Fetch an image with wp_remote_get(), save it to $fullpath with a unique name.
+	 * Will return an empty string if something went wrong.
+	 *
+	 * @param $url string
+	 * @param $fullpath string
+	 *
+	 * @return string filename
+	 */
+	protected function fetchAndSaveUniqueImage( $url, $fullpath ) {
+
+		// Cheap cache
+		static $already_done = array();
+		if ( isset( $already_done[$url] ) ) {
+			return $already_done[$url];
+		}
+
+		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
+
+		// WordPress error?
+		if ( is_wp_error( $response ) ) {
+			// TODO: handle $response->get_error_message();
+			$already_done[$url] = '';
+			return '';
+		}
+		
+		// Basename without query string
+		$filename = explode( '?', basename( $url ) );
+
+		// isolate latex image service from WP, add file extension
+		if ( 's.wordpress.com' == parse_url( $url, PHP_URL_HOST ) && 'latex.php' == $filename[0] ) {
+			$filename = md5( array_pop( $filename ) );
+			// content-type = 'image/png'
+			$type = explode( '/', $response['headers']['content-type'] );
+			$type = array_pop( $type );
+			$filename = $filename . "." . $type;
+		} else {
+			$filename = array_shift( $filename );
+			$filename = sanitize_file_name( urldecode( $filename ) );
+			$filename = Sanitize\force_ascii( $filename );
+		}
+
+		$tmp_file = \PressBooks\Utility\create_tmp_file();
+		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+
+		if ( ! \PressBooks\Image\is_valid_image( $tmp_file, $filename ) ) {
+			$already_done[$url] = '';
+			return ''; // Not an image
+		}
+
+		if ( $this->compressImages ) {
+			$format = explode( '.', $filename );
+			$format = strtolower( end( $format ) ); // Extension
+			\PressBooks\Image\resize_down( $format, $tmp_file );
+		}
+
+		// Check for duplicates, save accordingly
+		if ( ! file_exists( "$fullpath/$filename" ) ) {
+			copy( $tmp_file, "$fullpath/$filename" );
+		} elseif ( md5( file_get_contents( $tmp_file ) ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+			$filename = wp_unique_filename( $fullpath, $filename );
+			copy( $tmp_file, "$fullpath/$filename" );
+		}
+
+		$already_done[$url] = $filename;
+		return $filename;
+	}
 
 	/**
 	 * Parse HTML snippet, download all found <audio>, <video> and <source> tags 
@@ -409,7 +478,7 @@ class Epub3 extends Epub\Epub201 {
 
 		return $doc;
 	}
-
+	
 	/**
 	 * Create OPF File.
 	 *
@@ -473,7 +542,7 @@ class Epub3 extends Epub\Epub201 {
 
 		}
 		$vars['manifest_filelist'] = $html;
-		
+		$vars['do_copyright_license'] = strip_tags( $this->doCopyrightLicense( $metadata ) ) ;
 		
 		// Put contents
 		file_put_contents(

@@ -1279,6 +1279,18 @@ h3.author-name {
   color: #ffffff;
   text-decoration: none;
 }
+.footer div.license-attribution p{
+  font-size: 80%;
+  text-align: center;
+}
+.footer div.license-attribution p a{
+  color: #ffffff;
+  text-decoration: none;
+}
+.footer div.license-attribution img{
+  border:none;
+  background: none;
+}
 /********************
 	Comments
 *********************/#comments {

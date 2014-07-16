@@ -78,9 +78,12 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 					echo $meta['pb_copyright_year'] . ' ';
 			if ( ! empty( $meta['pb_copyright_holder'] ) )
 					echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
+			if ( ! empty( $do_copyright_license ) ) echo '. ' . $do_copyright_license;
+
 			echo "</dc:rights>\n";
 		}
 		unset( $meta['pb_copyright_year'], $meta['pb_copyright_holder'] );
+		unset( $do_copyright_license );
 
 		// Rest of metadata
 		foreach ( $meta as $key => $val ) {
@@ -91,7 +94,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 					break;
 
 				case 'pb_publication_date' :
-					echo '<dc:date opf:event="publication">';
+					echo '<dc:date>';
 					echo date( 'Y-m-d', ( int ) $val );
 					echo "</dc:date>\n";
 					break;

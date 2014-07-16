@@ -58,9 +58,11 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			echo _( 'Copyright' ) . ' &#169; ';
 			if ( ! empty( $meta['pb_copyright_year'] ) ) echo $meta['pb_copyright_year'] . ' ';
 			if ( ! empty( $meta['pb_copyright_holder'] ) ) echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
+			if ( ! empty( $do_copyright_license ) ) echo '. ' . $do_copyright_license;
 			echo "</dc:rights>\n";
 		}
 		unset( $meta['pb_copyright_year'], $meta['pb_copyright_holder'] );
+		unset( $do_copyright_license );
 
 		// Rest of metadata
 		foreach ( $meta as $key => $val ) {
