@@ -521,13 +521,15 @@ p.bl_indent {
 	margin-top: 1.3em;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	display: inline-block;
     margin-left: 3.7em;
     text-indent: 0;
 	width: 75%;
 }
-#toc span.chapter-author {
+#toc span.chapter-author,
+#toc span.chapter-license,{
 	font-style: italic;
     margin-bottom: 0.1cm;
     margin-top: 0.1cm;

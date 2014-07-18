@@ -749,6 +749,7 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 	content:'' ;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	display: inline-block;
 	font-style: italic;
@@ -757,10 +758,16 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 	width: 70%;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	margin-bottom: 5px;
 }
-#toc span.chapter-subtitle + span.chapter-author {
+#toc span.chapter-subtitle + 
+span.chapter-author, 
+span.chapter-author +
+span.chapter-license, 
+#toc span.chapter-subtitle + 
+span.chapter-license {
 	margin-bottom: 5px;
 	position: relative;
 	top: -5px;
