@@ -1,31 +1,29 @@
 # Copyright (C) 2013 PressBooks
 # This file is distributed under the same license as the PressBooks package.
+# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PressBooks 2.0.3\n"
+"Project-Id-Version: PressBooks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
 "POT-Creation-Date: 2013-09-20 14:45:33+00:00\n"
-"PO-Revision-Date: 2014-04-05 15:27-0500\n"
-"Last-Translator: Karol Kallas <karol@gutenbergipojad.org>\n"
-"Language-Team: Mart Kalvet, Karol Kallas <karol@gutenbergipojad.org>\n"
-"Language: et\n"
+"PO-Revision-Date: 2014-07-18 17:42-0400\n"
+"Last-Translator: Hugh McGuire <hugh@pressbooks.com>\n"
+"Language-Team: Estonian (http://www.transifex.com/projects/p/pressbooks/"
+"language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.4\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-Bookmarks: -1,-1,-1,-1,266,-1,-1,-1,-1,217\n"
+"X-Generator: Poedit 1.6.6\n"
 
 #: admin/class-pb-catalog-list-table.php:78
-#, fuzzy
 msgid "Visit Book"
-msgstr "Vaata võrgustikku"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:83
-#, fuzzy
 msgid "Visit Admin"
-msgstr "Vaata võrgukohta"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:114
 #: admin/class-pb-catalog-list-table.php:226
@@ -38,14 +36,12 @@ msgid "Show in Catalog"
 msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:180
-#, fuzzy
 msgid "Catalog Status"
-msgstr "Olek"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:181
-#, fuzzy
 msgid "Privacy Status"
-msgstr "Privaatsusseaded"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:182
 #: includes/class-pb-activation.php:171
@@ -55,9 +51,8 @@ msgid "Cover"
 msgstr "Kaas"
 
 #: admin/class-pb-catalog-list-table.php:183 admin/templates/import.php:58
-#, fuzzy
 msgid "Title"
-msgstr "Tiitelleht"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:184 admin/pb-admin-metaboxes.php:182
 #: admin/templates/organize.php:68 admin/templates/organize.php:152
@@ -72,33 +67,28 @@ msgid "Tag"
 msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:191 admin/templates/catalog.php:35
-#, fuzzy
 msgid "Featured"
-msgstr "Paremad palad "
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:192
-#, fuzzy
 msgid "Pub Date"
-msgstr "Kirjastamise aeg"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:338
-#, fuzzy
 msgid "Edit Tags"
-msgstr "Prooviversiooni muutmine"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:128
 #: admin/templates/organize.php:28 admin/templates/organize.php:39
 #: admin/templates/organize.php:71 admin/templates/organize.php:155
 #: admin/templates/organize.php:252
-#, fuzzy
 msgid "Private"
-msgstr "Privaatsus"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:130
 #: admin/templates/organize.php:26 admin/templates/organize.php:33
-#, fuzzy
 msgid "Public"
-msgstr "Kirjastaja"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:452
 msgid "Organize your public Catalog page."
@@ -109,9 +99,8 @@ msgid "Show/Hide books"
 msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:457
-#, fuzzy
 msgid "Catalog sorting"
-msgstr "Kataloogi tellimine"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:460
 msgid "Share your catalog"
@@ -127,14 +116,12 @@ msgid "My Catalog"
 msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:467
-#, fuzzy
 msgid "Edit Profile"
-msgstr "Raamatu osa toimetamine"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:468
-#, fuzzy
 msgid "Visit Catalog"
-msgstr "Vaata võrgustikku"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:474
 #: themes-root/pressbooks-publisher-one/404.php:17
@@ -248,9 +235,8 @@ msgid "Theme Options"
 msgstr "Kujunduse valikud"
 
 #: admin/pb-admin-laf.php:129
-#, fuzzy
 msgid "Published"
-msgstr "Kirjastaja"
+msgstr ""
 
 #: admin/pb-admin-laf.php:156 admin/pb-admin-metaboxes.php:29
 msgid "Book Info"
@@ -290,9 +276,8 @@ msgstr "Täpsemalt"
 
 #: admin/pb-admin-laf.php:194 admin/templates/import.php:14
 #: admin/templates/import.php:57
-#, fuzzy
 msgid "Import"
-msgstr "Eksportimine"
+msgstr ""
 
 #: admin/pb-admin-laf.php:266 admin/pb-admin-laf.php:275
 msgid "About PressBooks"
@@ -307,9 +292,8 @@ msgid "Support Forums"
 msgstr "Tugifoorumid"
 
 #: admin/pb-admin-laf.php:331
-#, fuzzy
 msgid "Add A New Book"
-msgstr "Lisage uus"
+msgstr ""
 
 #: admin/pb-admin-laf.php:346
 msgid "Network Admin"
@@ -422,9 +406,8 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:114 admin/pb-admin-metaboxes.php:155
 #: includes/class-pb-metadata.php:440
-#, fuzzy
 msgid "Cover Image"
-msgstr "Kaas"
+msgstr ""
 
 #: admin/pb-admin-metaboxes.php:146 admin/pb-admin-metaboxes.php:385
 #: admin/templates/organize.php:53
@@ -684,9 +667,8 @@ msgid "Include in exports"
 msgstr "Kaasa eksportimisel"
 
 #: admin/pb-admin-metaboxes.php:407
-#, fuzzy
 msgid "Show title in exports"
-msgstr "Kaasa eksportimisel"
+msgstr ""
 
 #: admin/pb-admin-metaboxes.php:413
 msgid "Set as ebook start-point"
@@ -761,9 +743,8 @@ msgid "Comma delimited"
 msgstr ""
 
 #: admin/templates/catalog.php:82
-#, fuzzy
 msgid "My Catalog Profile"
-msgstr "Kataloogi tellimine"
+msgstr ""
 
 #: admin/templates/catalog.php:93
 msgid "URL"
@@ -890,14 +871,12 @@ msgid "Import in progress: %s"
 msgstr ""
 
 #: admin/templates/import.php:40
-#, fuzzy
 msgid "Are you sure you want to abort the import?"
-msgstr "Kas soovite kindlasti selle kustutada?"
+msgstr ""
 
 #: admin/templates/import.php:60
-#, fuzzy
 msgid "Chapter"
-msgstr "Peatükk "
+msgstr ""
 
 #: admin/templates/import.php:88
 msgid "Start"
@@ -991,9 +970,8 @@ msgstr "Toimetamine"
 
 #: admin/templates/organize.php:84 admin/templates/organize.php:183
 #: admin/templates/organize.php:265
-#, fuzzy
 msgid "Ebook start point"
-msgstr "E-raamatu suvandid"
+msgstr ""
 
 #: admin/templates/organize.php:123 admin/templates/organize.php:166
 #: admin/templates/organize.php:217 admin/templates/organize.php:304
@@ -1015,9 +993,8 @@ msgid ""
 msgstr ""
 
 #: admin/templates/sell.php:18
-#, fuzzy
 msgid "Ebook Distribution"
-msgstr "E-raamatu suvandid"
+msgstr ""
 
 #: admin/templates/sell.php:19
 msgid ""
@@ -1026,15 +1003,11 @@ msgid ""
 msgstr ""
 
 #: admin/templates/sell.php:20
-#, fuzzy
 msgid ""
 "For a flat fee starting at $99 (with a 10% discount for PressBooks users and "
 "100% royalties going to you), BookBaby will send your book to the Kindle "
 "Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
 msgstr ""
-"Teie raamatu saatmise eest Kindle'i, Barnes & Noble'i, Apple iBook'i ja Kobo "
-"e-poodidesse küsib BookBaby 99 USA dollarit (PressBooks'i kasutajad saavad "
-"10% tavahinnast allahindlust ja kogu tulu jääb teile)."
 
 #: admin/templates/sell.php:21
 msgid "Distribute with BookBaby"
@@ -1060,14 +1033,10 @@ msgid "Create a Buy Page on PressBooks"
 msgstr ""
 
 #: admin/templates/sell.php:35
-#, fuzzy
 msgid ""
 "Once your books are available in stores, you can add the links to bookstores "
 "below, and we'll make a Buy page on the web version of your PressBooks book."
 msgstr ""
-"Kui teie raamat(ud) on turustamiskõlbulik(ud), saate järgnevalt lisada "
-"viited raamatupoodidele ja meie loome teie raamatu veebiversioonile "
-"müügilehekülje."
 
 #: includes/class-pb-activation.php:143
 msgid "Main Body"
@@ -1113,9 +1082,8 @@ msgid "Table of Contents"
 msgstr "Sisukord"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:5
-#, fuzzy
 msgid "Book Description"
-msgstr "Raamatu pikem kirjeldus"
+msgstr ""
 
 #: includes/class-pb-activation.php:183
 #: themes-book/pressbooks-book/header.php:76
@@ -1167,18 +1135,16 @@ msgstr ""
 
 #: includes/class-pb-catalog.php:1086 includes/class-pb-catalog.php:1134
 #: includes/class-pb-catalog.php:1171 includes/class-pb-catalog.php:1232
-#, fuzzy
 msgid "Settings saved."
-msgstr "Suvandid salvestati"
+msgstr ""
 
 #: includes/class-pb-catalog.php:1199
 msgid "Invalid URL"
 msgstr ""
 
 #: includes/class-pb-catalog.php:1219
-#, fuzzy
 msgid "No book found"
-msgstr "Autoreid ei tuvastatud"
+msgstr ""
 
 #: includes/modules/export/class-pb-export.php:671
 msgid "File not found"
@@ -1572,15 +1538,11 @@ msgid "Back Matter Types"
 msgstr "Raamatu lõpposa tüübid"
 
 #: pressbooks.php:44
-#, fuzzy
 msgid ""
 "PressBooks will not work with your version of PHP. PressBooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "PressBooks."
 msgstr ""
-"PressBooks paraku teie WordPress'i versiooniga ei ühildu. PressBooks'i "
-"kasutamiseks peate paigaldama eraldi rakenduse WordPress Multi-Site "
-"(versioon %s või uuem)."
 
 #: pressbooks.php:57
 msgid ""
@@ -2060,15 +2022,13 @@ msgstr "Osta siit:"
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:8
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:166
-#, fuzzy
 msgid "login"
-msgstr "Sisene"
+msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:10
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:168
-#, fuzzy
 msgid "logout"
-msgstr "Välju"
+msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
@@ -2362,14 +2322,12 @@ msgid "keep reading"
 msgstr "jätkake lugemist"
 
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:152
-#, fuzzy
 msgid "'s Catalog Page"
-msgstr "Kataloogi tellimine"
+msgstr ""
 
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:216
-#, fuzzy
 msgid "Catalog"
-msgstr "Kataloogi tellimine"
+msgstr ""
 
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:216
 msgid "filtering by"
@@ -2417,49 +2375,3 @@ msgstr "http://www.pressbooks.com"
 #. Author of the plugin/theme
 msgid "BookOven Inc."
 msgstr "BookOven Inc."
-
-#~ msgid "My Books"
-#~ msgstr "Minu raamatud"
-
-#~ msgid "Links to ecommerce services"
-#~ msgstr "Lingid e-kaubandusteenustele"
-
-#~ msgid "Covers"
-#~ msgstr "Kaaned"
-
-#~ msgid "PressBooks saves your last %s batches of exported files."
-#~ msgstr "PressBooks salvestab viimased %s eksporditud failikomplekti."
-
-#~ msgid ""
-#~ "Would you like to get your book into ebook stores? Our distribution "
-#~ "partner, <a href=\"%s\" target=\"_blank\">BookBaby</a>, can help you. "
-#~ msgstr ""
-#~ "Kas soovite raamatut turustada e-raamatute müügikeskondades? Abi pakub "
-#~ "PressBooks'i levipartner <a href=\"%s\" target=\"_blank\">BookBaby</a>  ."
-
-#~ msgid "Share"
-#~ msgstr "Jagage"
-
-#~ msgid ""
-#~ "This book is private, and accessible only to registered users. If you "
-#~ "have an account you can <a href=\"/wp-login.php\" class=\"login\">login "
-#~ "here</a>  <p class=\"sign-up\">You can also set up your own PressBooks "
-#~ "book at: <a href=\"http://pressbooks.com\">PressBooks.com</a>."
-#~ msgstr ""
-#~ "Antud raamatut näevad ainult registreeritud kasutajad. Kui teil on "
-#~ "PressBooks'i konto, saate <a href=\"/wp-login.php\" class=\"login"
-#~ "\">siseneda siit</a>  <p class=\"sign-up\"> Samuti saate luua oma "
-#~ "PressBooks'i raamatu: <a href=\"http://pressbooks.com\">PressBooks.com</"
-#~ "a>."
-
-#~ msgid "Start reading"
-#~ msgstr "Alustage lugemisega"
-
-#~ msgid "Authors(s)"
-#~ msgstr "Autor(id)"
-
-#~ msgid "About the Book"
-#~ msgstr "Raamatust"
-
-#~ msgid "About the Author(s)"
-#~ msgstr "Autori(te)st"

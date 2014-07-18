@@ -1,51 +1,49 @@
 # Copyright (C) 2013 PressBooks
 # This file is distributed under the same license as the PressBooks package.
+# Translators:
+# fred_sudouest <fredotic@gmail.com>, 2014
+# Ned Zimmerman, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: PressBooks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
 "POT-Creation-Date: 2013-09-20 14:45:33+00:00\n"
-"PO-Revision-Date: 2014-04-05 15:22-0500\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: fr_FR\n"
+"PO-Revision-Date: 2014-07-18 17:40-0400\n"
+"Last-Translator: fred_sudouest <fredotic@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/projects/p/pressbooks/"
+"language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Ce document est distribué sous la même licence que celle du logiciel "
-"PressBooksProject-Id-Version: PressBooks 2.0.1\n"
+"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.6\n"
 
 #: admin/class-pb-catalog-list-table.php:78
-#, fuzzy
 msgid "Visit Book"
-msgstr "Exploration du Réseau"
+msgstr "Consultez le livre"
 
 #: admin/class-pb-catalog-list-table.php:83
-#, fuzzy
 msgid "Visit Admin"
-msgstr "Explorer le Site"
+msgstr "Accéder à l'administration"
 
 #: admin/class-pb-catalog-list-table.php:114
 #: admin/class-pb-catalog-list-table.php:226
 msgid "Hide in Catalog"
-msgstr ""
+msgstr "Ne pas afficher dans le catalogue"
 
 #: admin/class-pb-catalog-list-table.php:119
 #: admin/class-pb-catalog-list-table.php:225
 msgid "Show in Catalog"
-msgstr ""
+msgstr "Afficher dans le catalogue"
 
 #: admin/class-pb-catalog-list-table.php:180
-#, fuzzy
 msgid "Catalog Status"
-msgstr "Statut"
+msgstr "Statut du catalogue"
 
 #: admin/class-pb-catalog-list-table.php:181
-#, fuzzy
 msgid "Privacy Status"
-msgstr "Paramètres de confidentialité"
+msgstr "Statut de confidentialité"
 
 #: admin/class-pb-catalog-list-table.php:182
 #: includes/class-pb-activation.php:171
@@ -55,9 +53,8 @@ msgid "Cover"
 msgstr "Couverture"
 
 #: admin/class-pb-catalog-list-table.php:183 admin/templates/import.php:58
-#, fuzzy
 msgid "Title"
-msgstr "Page de Titre"
+msgstr "Titre"
 
 #: admin/class-pb-catalog-list-table.php:184 admin/pb-admin-metaboxes.php:182
 #: admin/templates/organize.php:68 admin/templates/organize.php:152
@@ -69,57 +66,51 @@ msgstr "Auteur"
 #: admin/class-pb-catalog-list-table.php:188
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:199
 msgid "Tag"
-msgstr ""
+msgstr "Mot-clé"
 
 #: admin/class-pb-catalog-list-table.php:191 admin/templates/catalog.php:35
-#, fuzzy
 msgid "Featured"
-msgstr "Contenu Affiché"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:192
-#, fuzzy
 msgid "Pub Date"
 msgstr "Date de publication"
 
 #: admin/class-pb-catalog-list-table.php:338
-#, fuzzy
 msgid "Edit Tags"
-msgstr "Editer Essai"
+msgstr "Éditer les mots-clés"
 
 #: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:128
 #: admin/templates/organize.php:28 admin/templates/organize.php:39
 #: admin/templates/organize.php:71 admin/templates/organize.php:155
 #: admin/templates/organize.php:252
-#, fuzzy
 msgid "Private"
-msgstr "Confidentialité"
+msgstr "Privé"
 
 #: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:130
 #: admin/templates/organize.php:26 admin/templates/organize.php:33
-#, fuzzy
 msgid "Public"
-msgstr "Éditeur"
+msgstr "Public"
 
 #: admin/class-pb-catalog-list-table.php:452
 msgid "Organize your public Catalog page."
-msgstr ""
+msgstr "Organisez votre catalogue"
 
 #: admin/class-pb-catalog-list-table.php:453
 msgid "Show/Hide books"
-msgstr ""
+msgstr "Afficher/Cacher les livres"
 
 #: admin/class-pb-catalog-list-table.php:457
-#, fuzzy
 msgid "Catalog sorting"
-msgstr "Commande de Catalogue"
+msgstr "Tri du catalogue"
 
 #: admin/class-pb-catalog-list-table.php:460
 msgid "Share your catalog"
-msgstr ""
+msgstr "Partagez votre catalogue"
 
 #: admin/class-pb-catalog-list-table.php:461
 msgid "The public link to your catalog page"
-msgstr ""
+msgstr "Lien public vers votre catalogue"
 
 #: admin/class-pb-catalog-list-table.php:466 admin/pb-admin-laf.php:202
 #: admin/pb-admin-laf.php:218 admin/pb-admin-laf.php:324
@@ -127,14 +118,12 @@ msgid "My Catalog"
 msgstr "Mon Catalogue"
 
 #: admin/class-pb-catalog-list-table.php:467
-#, fuzzy
 msgid "Edit Profile"
-msgstr "Editer une Partie"
+msgstr "Éditer le profil"
 
 #: admin/class-pb-catalog-list-table.php:468
-#, fuzzy
 msgid "Visit Catalog"
-msgstr "Exploration du Réseau"
+msgstr "Consulter le catalogue"
 
 #: admin/class-pb-catalog-list-table.php:474
 #: themes-root/pressbooks-publisher-one/404.php:17
@@ -143,22 +132,21 @@ msgstr "Chercher"
 
 #: admin/class-pb-catalog-list-table.php:483
 msgid "Add By URL"
-msgstr ""
+msgstr "Ajouter par URL"
 
 #: admin/class-pb-catalog-list-table.php:532 admin/templates/catalog.php:18
 #: includes/class-pb-catalog.php:1059 includes/class-pb-catalog.php:1107
 #: includes/class-pb-catalog.php:1152
 msgid "You do not have permission to do that."
-msgstr ""
+msgstr "Cette action ne vous est pas autorisée"
 
 #: admin/class-pb-catalog-list-table.php:536
 msgid "The requested user does not exist."
-msgstr ""
+msgstr "L'utilisateur n'existe pas"
 
 #: admin/pb-admin-customcss.php:18 admin/templates/custom-css.php:27
-#, fuzzy
 msgid "Edit CSS"
-msgstr "Editer"
+msgstr "Editer le CSS"
 
 #: admin/pb-admin-customcss.php:60
 msgid ""
@@ -189,9 +177,8 @@ msgid "PressBooks News"
 msgstr "Nouvelles de PressBooks"
 
 #: admin/pb-admin-dashboard.php:41
-#, fuzzy
 msgid "My Book"
-msgstr "Mes livres"
+msgstr "Mon livre"
 
 #: admin/pb-admin-dashboard.php:43 admin/pb-admin-laf.php:365
 msgid "Users"
@@ -249,9 +236,8 @@ msgid "Theme Options"
 msgstr "Choix de Thème"
 
 #: admin/pb-admin-laf.php:129
-#, fuzzy
 msgid "Published"
-msgstr "Éditeur"
+msgstr "Publié"
 
 #: admin/pb-admin-laf.php:156 admin/pb-admin-metaboxes.php:29
 msgid "Book Info"
@@ -290,9 +276,8 @@ msgstr "Avancés"
 
 #: admin/pb-admin-laf.php:194 admin/templates/import.php:14
 #: admin/templates/import.php:57
-#, fuzzy
 msgid "Import"
-msgstr "Exporter"
+msgstr "Importer"
 
 #: admin/pb-admin-laf.php:266 admin/pb-admin-laf.php:275
 msgid "About PressBooks"
@@ -307,9 +292,8 @@ msgid "Support Forums"
 msgstr "Forums d'aide"
 
 #: admin/pb-admin-laf.php:331
-#, fuzzy
 msgid "Add A New Book"
-msgstr "Ajouter un Nouveau"
+msgstr "Ajouter un nouveau livre"
 
 #: admin/pb-admin-laf.php:346
 msgid "Network Admin"
@@ -341,7 +325,7 @@ msgstr ""
 
 #: admin/pb-admin-laf.php:610
 msgid "You do not have sufficient permissions to access that URL."
-msgstr ""
+msgstr "Vos droits d'accès sont insuffisants pour consulter cette URL."
 
 #: admin/pb-admin-laf.php:632
 msgid "Site Visibility"
@@ -426,9 +410,8 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:114 admin/pb-admin-metaboxes.php:155
 #: includes/class-pb-metadata.php:440
-#, fuzzy
 msgid "Cover Image"
-msgstr "Couverture"
+msgstr "Image de couverture"
 
 #: admin/pb-admin-metaboxes.php:146 admin/pb-admin-metaboxes.php:385
 #: admin/templates/organize.php:53
@@ -563,7 +546,9 @@ msgstr "Thèmes du livre"
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr "résumez votre livre en très peu de mots."
+msgstr ""
+"Résumez votre livre en peu de mots. Environ la longueur d'un tweet, cela "
+"doit résumer l'ouvrage en une phrase."
 
 #: admin/pb-admin-metaboxes.php:268
 msgid "Short Description"
@@ -685,9 +670,8 @@ msgid "Include in exports"
 msgstr "Inclure dans les exportations"
 
 #: admin/pb-admin-metaboxes.php:407
-#, fuzzy
 msgid "Show title in exports"
-msgstr "Inclure dans les exportations"
+msgstr "Afficher les titres à l'export"
 
 #: admin/pb-admin-metaboxes.php:413
 msgid "Set as ebook start-point"
@@ -712,41 +696,40 @@ msgid "Front Matter Author (appears in Web/ebook/PDF output)"
 msgstr "Auteur de la Section Préliminaire"
 
 #: admin/pb-admin-metaboxes.php:536
-#, fuzzy
 msgid "Extra Profile Information"
-msgstr "Editer Information sur le Livre"
+msgstr ""
 
 #: admin/pb-admin-metaboxes.php:543
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: admin/pb-admin-metaboxes.php:544
 msgid "Chinese, Traditional"
-msgstr ""
+msgstr "Chinois, traditionnel"
 
 #: admin/pb-admin-metaboxes.php:545
 msgid "Estonian"
-msgstr ""
+msgstr "Estonien"
 
 #: admin/pb-admin-metaboxes.php:546
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: admin/pb-admin-metaboxes.php:547
 msgid "German"
-msgstr ""
+msgstr "Allemand"
 
 #: admin/pb-admin-metaboxes.php:548
 msgid "Japanese"
-msgstr ""
+msgstr "Japonais"
 
 #: admin/pb-admin-metaboxes.php:549
 msgid "Portuguese, Brazil"
-msgstr ""
+msgstr "Portugais, Brésilien"
 
 #: admin/pb-admin-metaboxes.php:550
 msgid "Spanish"
-msgstr ""
+msgstr "Espagnol"
 
 #: admin/templates/catalog.php:27
 msgid "Tags For"
@@ -754,20 +737,19 @@ msgstr ""
 
 #: admin/templates/catalog.php:49
 msgid "Tags"
-msgstr ""
+msgstr "Mots-Clés"
 
 #: admin/templates/catalog.php:52
 msgid "Comma delimited"
 msgstr ""
 
 #: admin/templates/catalog.php:82
-#, fuzzy
 msgid "My Catalog Profile"
-msgstr "Commande de Catalogue"
+msgstr ""
 
 #: admin/templates/catalog.php:93
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: admin/templates/catalog.php:97
 msgid "Tags Name"
@@ -778,9 +760,8 @@ msgid "Logo Or Image"
 msgstr ""
 
 #: admin/templates/custom-css.php:20
-#, fuzzy
 msgid "Error: Something went wrong. See logs for more details."
-msgstr "Erreur : L'exportation a échoué. Voir les logs pour plus de détails"
+msgstr ""
 
 #: admin/templates/custom-css.php:36
 msgid "You are currently editing CSS for"
@@ -791,9 +772,8 @@ msgid "Copy CSS from"
 msgstr ""
 
 #: admin/templates/custom-css.php:42
-#, fuzzy
 msgid "Save"
-msgstr "Sauver la Partie"
+msgstr ""
 
 #: admin/templates/export.php:27
 msgid "Error: The export failed. See logs for more details."
@@ -892,14 +872,12 @@ msgid "Import in progress: %s"
 msgstr ""
 
 #: admin/templates/import.php:40
-#, fuzzy
 msgid "Are you sure you want to abort the import?"
-msgstr "Êtes-vous certain que vous voulez détruire cela ?"
+msgstr ""
 
 #: admin/templates/import.php:60
-#, fuzzy
 msgid "Chapter"
-msgstr "Chapitre"
+msgstr ""
 
 #: admin/templates/import.php:88
 msgid "Start"
@@ -919,7 +897,7 @@ msgstr ""
 
 #: admin/templates/import.php:110
 msgid "Type of file"
-msgstr ""
+msgstr "Type de fichier"
 
 #: admin/templates/import.php:114
 msgid "WXR (WordPress eXtended RSS)"
@@ -931,11 +909,11 @@ msgstr ""
 
 #: admin/templates/import.php:122
 msgid "File"
-msgstr ""
+msgstr "Fichier"
 
 #: admin/templates/import.php:131
 msgid "Upload file"
-msgstr ""
+msgstr "Téléverser un fichier"
 
 #: admin/templates/organize.php:26 admin/templates/organize.php:28
 msgid "This book's global privacy is set to"
@@ -993,9 +971,8 @@ msgstr "Editer"
 
 #: admin/templates/organize.php:84 admin/templates/organize.php:183
 #: admin/templates/organize.php:265
-#, fuzzy
 msgid "Ebook start point"
-msgstr "Options de Ebook"
+msgstr ""
 
 #: admin/templates/organize.php:123 admin/templates/organize.php:166
 #: admin/templates/organize.php:217 admin/templates/organize.php:304
@@ -1008,9 +985,8 @@ msgid "Reordering the Chapters"
 msgstr "Remettre les Chapitres en ordre"
 
 #: admin/templates/sell.php:12
-#, fuzzy
 msgid "Sell Your Book"
-msgstr "Exportez votre livre"
+msgstr ""
 
 #: admin/templates/sell.php:13
 msgid ""
@@ -1018,9 +994,8 @@ msgid ""
 msgstr ""
 
 #: admin/templates/sell.php:18
-#, fuzzy
 msgid "Ebook Distribution"
-msgstr "Options de Ebook"
+msgstr ""
 
 #: admin/templates/sell.php:19
 msgid ""
@@ -1110,7 +1085,7 @@ msgstr "Table des Matières"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:5
 msgid "Book Description"
-msgstr "Description du Livre"
+msgstr "Description du livre"
 
 #: includes/class-pb-activation.php:183
 #: themes-book/pressbooks-book/header.php:76
@@ -1124,17 +1099,12 @@ msgid "Access Denied"
 msgstr "Accès refusé"
 
 #: includes/class-pb-activation.php:189
-#, fuzzy
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
 "set up your own PressBooks book at: <a href=\"http://pressbooks.com"
 "\">PressBooks.com</a>."
 msgstr ""
-"Le contenu de ce livre est privé et n'est accessible qu'aux utilisateurs "
-"enregistrés. Si vous avez un compte vous pouvez vous identifier <a href=\"/"
-"wp-login.php\">here</a>. Â Vous pouvez aussi créer votre propre livre sur : "
-"<a href=\"http://pressbooks.com\">PressBooks.com</a>."
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:362
 msgid "Custom CSS for Ebook"
@@ -1159,22 +1129,20 @@ msgstr "Production Simple Book"
 
 #: includes/class-pb-catalog.php:706
 msgid "Catalog Logo"
-msgstr ""
+msgstr "Logo du catalogue"
 
 #: includes/class-pb-catalog.php:1086 includes/class-pb-catalog.php:1134
 #: includes/class-pb-catalog.php:1171 includes/class-pb-catalog.php:1232
-#, fuzzy
 msgid "Settings saved."
-msgstr "Options sauvées"
+msgstr "Paramètres sauvegardés"
 
 #: includes/class-pb-catalog.php:1199
 msgid "Invalid URL"
-msgstr ""
+msgstr "URL invalide"
 
 #: includes/class-pb-catalog.php:1219
-#, fuzzy
 msgid "No book found"
-msgstr "Auteur non trouvé"
+msgstr "Aucun livre trouvé"
 
 #: includes/modules/export/class-pb-export.php:671
 msgid "File not found"
@@ -1568,16 +1536,11 @@ msgid "Back Matter Types"
 msgstr "Types de Section Finale"
 
 #: pressbooks.php:44
-#, fuzzy
 msgid ""
 "PressBooks will not work with your version of PHP. PressBooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "PressBooks."
 msgstr ""
-"PressBooks ne peut fonctionner avec votre version de WordPress. PressBooks a "
-"besoin d'une version d'installation dédiée de WordPress Multi-Site, version "
-"%s ou plus avancée. Veuillez mettre à jour WordPress si vous voulez utiliser "
-"PressBooks."
 
 #: pressbooks.php:57
 msgid ""
@@ -1798,11 +1761,11 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:271
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: themes-book/pressbooks-book/functions.php:272
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: themes-book/pressbooks-book/functions.php:275
 #: themes-book/pressbooks-book/functions.php:313
@@ -1925,19 +1888,16 @@ msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr "Lettre au format américain (8.5&quot; &times; 11&quot;)"
 
 #: themes-book/pressbooks-book/functions.php:449
-#, fuzzy
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
-msgstr "Résumé (5.5&quot; &times; 8.5&quot;)"
+msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:450
-#, fuzzy
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
-msgstr "Résumé (5.5&quot; &times; 8.5&quot;)"
+msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:451
-#, fuzzy
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
-msgstr "Résumé (5.5&quot; &times; 8.5&quot;)"
+msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:452
 msgid "A4 (21cm &times; 29.7cm)"
@@ -1952,9 +1912,8 @@ msgid "Crop Marks"
 msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:464
-#, fuzzy
 msgid "Display crop marks"
-msgstr "Afficher les numéros de chapitre"
+msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:474
 msgid "Enable hyphenation"
@@ -2061,15 +2020,13 @@ msgstr "Acheter ici."
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:8
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:166
-#, fuzzy
 msgid "login"
-msgstr "Se connecter"
+msgstr "Connexion"
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:10
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:168
-#, fuzzy
 msgid "logout"
-msgstr "Se déconnecter"
+msgstr "Déconnexion"
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
@@ -2346,9 +2303,8 @@ msgid "Older Entries &raquo;"
 msgstr "Entrées plus anciennes &raquo;"
 
 #: themes-root/pressbooks-publisher-one/index.php:13
-#, fuzzy
 msgid "&laquo; Newer Entries"
-msgstr "Entrées plus récentes &laquo;"
+msgstr ""
 
 #: themes-root/pressbooks-publisher-one/loop.php:48
 msgid "No Comments"
@@ -2373,7 +2329,7 @@ msgstr "Catalogue"
 
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:216
 msgid "filtering by"
-msgstr ""
+msgstr "filtrer par"
 
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:239
 msgid ""
@@ -2383,7 +2339,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:243
 msgid "PressBooks: the CMS for Books."
-msgstr ""
+msgstr "Pressbooks: le CMS pour vos eBooks"
 
 #: themes-root/pressbooks-publisher-one/widget-social-media.php:5
 msgid "Twitter"
@@ -2417,75 +2373,3 @@ msgstr "http://www.pressbooks.com"
 #. Author of the plugin/theme
 msgid "BookOven Inc."
 msgstr "BookOven Inc."
-
-#~ msgid "Ecommerce Settings"
-#~ msgstr "Paramètres de Commercialisation électronique"
-
-#~ msgid "Ecommerce"
-#~ msgstr "Commercialisation électronique"
-
-#~ msgid "Links to ecommerce services"
-#~ msgstr "Liens à des services de commerce électronique"
-
-#~ msgid "Covers"
-#~ msgstr "Couvertures"
-
-#~ msgid "PressBooks saves your last %s batches of exported files."
-#~ msgstr "PressBooks sauve  vos derniers lots de fichiers exportés."
-
-#~ msgid "main-body"
-#~ msgstr "partie principale"
-
-#~ msgid "introduction"
-#~ msgstr "introduction"
-
-#~ msgid "chapter-1"
-#~ msgstr "chapitre 1"
-
-#~ msgid "appendix"
-#~ msgstr "annexes"
-
-#~ msgid "authors"
-#~ msgstr "auteurs"
-
-#~ msgid "cover"
-#~ msgstr "couverture"
-
-#~ msgid "table-of-contents"
-#~ msgstr "table des matières"
-
-#~ msgid "about"
-#~ msgstr "à propos"
-
-#~ msgid "buy"
-#~ msgstr "acheter"
-
-#~ msgid "access-denied"
-#~ msgstr "accès refusé"
-
-#~ msgid "Share"
-#~ msgstr "Partager"
-
-#~ msgid ""
-#~ "This book is private, and accessible only to registered users. If you "
-#~ "have an account you can <a href=\"/wp-login.php\" class=\"login\">login "
-#~ "here</a> Â <p class=\"sign-up\">You can also set up your own PressBooks "
-#~ "book at: <a href=\"http://pressbooks.com\">PressBooks.com</a>."
-#~ msgstr ""
-#~ "Le contenu de ce livre est privé et n'est accessible qu'aux utilisateurs "
-#~ "enregistrés. Si vous avez un compte pour pouvez <a href=\"/wp-login.php\" "
-#~ "class=\"login\">vous identifier ici</a> Â <p class=\"sign-up\">Vous "
-#~ "pouvez aussi créer votre propre livre PressBooks à : <a href=\"http://"
-#~ "pressbooks.com\">PressBooks.com</a>."
-
-#~ msgid "Start reading"
-#~ msgstr "Commencer la lecture"
-
-#~ msgid "Authors(s)"
-#~ msgstr "Auteur(s)"
-
-#~ msgid "About the Book"
-#~ msgstr "A propos du Livre"
-
-#~ msgid "About the Author(s)"
-#~ msgstr "A propos de l'Auteur/des Auteurs"

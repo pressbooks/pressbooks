@@ -1,14 +1,14 @@
 # Copyright (C) 2013 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
-# cssoares <claudio@obliqpress.com>, 2014
+# Claudio de Souza Soares <claudio@obliqpress.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: PressBooks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
 "POT-Creation-Date: 2013-09-20 14:45:33+00:00\n"
-"PO-Revision-Date: 2014-04-15 21:02-0500\n"
-"Last-Translator: cssoares <claudio@obliqpress.com>\n"
+"PO-Revision-Date: 2014-07-18 17:39-0400\n"
+"Last-Translator: Claudio de Souza Soares <claudio@obliqpress.com>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/projects/p/"
 "pressbooks/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.6\n"
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
@@ -24,12 +24,12 @@ msgstr "Visitar o Livro"
 
 #: admin/class-pb-catalog-list-table.php:83
 msgid "Visit Admin"
-msgstr "Visitar Painel Administrativos"
+msgstr "Visitar Painel Administrativo"
 
 #: admin/class-pb-catalog-list-table.php:114
 #: admin/class-pb-catalog-list-table.php:226
 msgid "Hide in Catalog"
-msgstr "Esconder no Catálogo"
+msgstr "Esconder Catálogo"
 
 #: admin/class-pb-catalog-list-table.php:119
 #: admin/class-pb-catalog-list-table.php:225

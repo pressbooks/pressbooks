@@ -1,14 +1,14 @@
 # Copyright (C) 2013 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
-# Pongsametrey SOK <metreysk@gmail.com>, 2014
+# Pongsametrey <metreysk@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: PressBooks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
 "POT-Creation-Date: 2013-09-20 14:45:33+00:00\n"
-"PO-Revision-Date: 2014-04-15 21:02-0500\n"
-"Last-Translator: Pongsametrey SOK <metreysk@gmail.com>\n"
+"PO-Revision-Date: 2014-07-18 17:40-0400\n"
+"Last-Translator: Pongsametrey <metreysk@gmail.com>\n"
 "Language-Team: Khmer (Cambodia) (http://www.transifex.com/projects/p/"
 "pressbooks/language/km_KH/)\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: km_KH\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.6\n"
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
@@ -29,20 +29,20 @@ msgstr "ចូលទៅ Admin"
 #: admin/class-pb-catalog-list-table.php:114
 #: admin/class-pb-catalog-list-table.php:226
 msgid "Hide in Catalog"
-msgstr ""
+msgstr "លាក់ពីក្នុងបញ្ជីកាតាឡុក"
 
 #: admin/class-pb-catalog-list-table.php:119
 #: admin/class-pb-catalog-list-table.php:225
 msgid "Show in Catalog"
-msgstr ""
+msgstr "បង្ហាញក្នុងបញ្ជីកាតាឡុក"
 
 #: admin/class-pb-catalog-list-table.php:180
 msgid "Catalog Status"
-msgstr ""
+msgstr "ស្ថានភាពកាតាឡុក"
 
 #: admin/class-pb-catalog-list-table.php:181
 msgid "Privacy Status"
-msgstr ""
+msgstr "ស្ថានភាព​ភាពឯកជន"
 
 #: admin/class-pb-catalog-list-table.php:182
 #: includes/class-pb-activation.php:171
@@ -69,93 +69,94 @@ msgstr "ស្លាក"
 
 #: admin/class-pb-catalog-list-table.php:191 admin/templates/catalog.php:35
 msgid "Featured"
-msgstr ""
+msgstr "លក្ខណៈពិសេស"
 
 #: admin/class-pb-catalog-list-table.php:192
 msgid "Pub Date"
-msgstr ""
+msgstr "កាលបរិច្ឆេទ​បោះពុម្ព"
 
 #: admin/class-pb-catalog-list-table.php:338
 msgid "Edit Tags"
-msgstr ""
+msgstr "កែសម្រួលស្លាក"
 
 #: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:128
 #: admin/templates/organize.php:28 admin/templates/organize.php:39
 #: admin/templates/organize.php:71 admin/templates/organize.php:155
 #: admin/templates/organize.php:252
 msgid "Private"
-msgstr ""
+msgstr "ឯកជន"
 
 #: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:130
 #: admin/templates/organize.php:26 admin/templates/organize.php:33
 msgid "Public"
-msgstr ""
+msgstr "សាធារណៈ"
 
 #: admin/class-pb-catalog-list-table.php:452
 msgid "Organize your public Catalog page."
-msgstr ""
+msgstr "រៀបចំទំព័របញ្ឌីកាតាឡុកសាធារណៈរបស់អ្នក"
 
 #: admin/class-pb-catalog-list-table.php:453
 msgid "Show/Hide books"
-msgstr ""
+msgstr "បង្ហាញ / លាក់សៀវភៅ"
 
 #: admin/class-pb-catalog-list-table.php:457
 msgid "Catalog sorting"
-msgstr ""
+msgstr "តម្រៀបលំដាប់បញ្ជី"
 
 #: admin/class-pb-catalog-list-table.php:460
 msgid "Share your catalog"
-msgstr ""
+msgstr "ចែករំលែកបញ្ជីកាតាឡុករបស់អ្នក"
 
 #: admin/class-pb-catalog-list-table.php:461
 msgid "The public link to your catalog page"
-msgstr ""
+msgstr "តំណទៅទំព័របញ្ជីកាតាឡុកសាធារណៈរបស់អ្នក"
 
 #: admin/class-pb-catalog-list-table.php:466 admin/pb-admin-laf.php:202
 #: admin/pb-admin-laf.php:218 admin/pb-admin-laf.php:324
 msgid "My Catalog"
-msgstr ""
+msgstr "បញ្ជីកាតាឡុករបស់ខ្ញុុំ"
 
 #: admin/class-pb-catalog-list-table.php:467
 msgid "Edit Profile"
-msgstr ""
+msgstr "កែសម្រួលពត៌មាន"
 
 #: admin/class-pb-catalog-list-table.php:468
 msgid "Visit Catalog"
-msgstr ""
+msgstr "ទស្សនាបញ្ជីកាតាឡុក"
 
 #: admin/class-pb-catalog-list-table.php:474
 #: themes-root/pressbooks-publisher-one/404.php:17
 msgid "Search"
-msgstr ""
+msgstr "ស្វែងរក"
 
 #: admin/class-pb-catalog-list-table.php:483
 msgid "Add By URL"
-msgstr ""
+msgstr "បន្ថែមដោយ URL"
 
 #: admin/class-pb-catalog-list-table.php:532 admin/templates/catalog.php:18
 #: includes/class-pb-catalog.php:1059 includes/class-pb-catalog.php:1107
 #: includes/class-pb-catalog.php:1152
 msgid "You do not have permission to do that."
-msgstr ""
+msgstr "អ្នកមិនមានការអនុញ្ញាតដើម្បីធ្វើដូចនោះទេ ។"
 
 #: admin/class-pb-catalog-list-table.php:536
 msgid "The requested user does not exist."
-msgstr ""
+msgstr "អ្នកប្រើដែលបានស្នើ មិនមានទេ។"
 
 #: admin/pb-admin-customcss.php:18 admin/templates/custom-css.php:27
 msgid "Edit CSS"
-msgstr ""
+msgstr "កែសម្រួល CSS"
 
 #: admin/pb-admin-customcss.php:60
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
 msgstr ""
+"កំហុសមិនបានរំពឹងទុក: មានបញ្ហាមួយកំពុងតែព្យាយាមសួរ slug : %s - សូមទាក់ទងអ្នក ជំនួយការ​បច្ចេកទេស"
 
 #: admin/pb-admin-customcss.php:113
 msgid "Last 10 CSS Revisions"
-msgstr ""
+msgstr "ការពិនិត្យឡើងវិញ 10 CSS ចុងក្រោយ"
 
 #: admin/pb-admin-customcss.php:116
 #: includes/modules/export/epub/class-pb-epub201.php:791
@@ -164,223 +165,224 @@ msgstr ""
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:575
 #: themes-book/pressbooks-book/footer.php:41
 msgid "by"
-msgstr ""
+msgstr "ដោយ"
 
 #: admin/pb-admin-customcss.php:183
 msgid "This will overwrite existing custom CSS. Are you sure?"
-msgstr ""
+msgstr "នេះនឹងសរសេរជាន់ទៅលើ CSS ដែលកំពុងតែមានស្រាប់។ តើអ្នកប្រាកដ រឺទេ?"
 
 #: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
 #: admin/pb-admin-dashboard.php:95
 msgid "PressBooks News"
-msgstr ""
+msgstr "ព័ត៌មាន​ពី PressBooks"
 
 #: admin/pb-admin-dashboard.php:41
 msgid "My Book"
-msgstr ""
+msgstr "សៀវភៅរបស់ខ្ញុំ"
 
 #: admin/pb-admin-dashboard.php:43 admin/pb-admin-laf.php:365
 msgid "Users"
-msgstr ""
+msgstr "អ្នកប្រើប្រាស់"
 
 #: admin/pb-admin-dashboard.php:55 admin/templates/import.php:59
 #: admin/templates/organize.php:50 admin/templates/organize.php:67
 #: includes/pb-postype.php:114
 msgid "Front Matter"
-msgstr ""
+msgstr "ផ្ទៃ​ខាងមុខ"
 
 #: admin/pb-admin-dashboard.php:75 admin/templates/import.php:61
 #: admin/templates/organize.php:52 admin/templates/organize.php:248
 #: includes/pb-postype.php:149
 msgid "Back Matter"
-msgstr ""
+msgstr "ផ្ទៃ​ខាងក្រោយ"
 
 #: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
 msgid "Add"
-msgstr ""
+msgstr "បន្ថែម"
 
 #: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
 #: admin/pb-admin-laf.php:118
 msgid "Organize"
-msgstr ""
+msgstr "រៀបចំ"
 
 #: admin/pb-admin-laf.php:18
 msgid "Powered by"
-msgstr ""
+msgstr "Powered by"
 
 #: admin/pb-admin-laf.php:19 admin/templates/catalog.php:89
 #: includes/class-pb-activation.php:179
 msgid "About"
-msgstr ""
+msgstr "អំពី"
 
 #: admin/pb-admin-laf.php:20
 msgid "Help"
-msgstr ""
+msgstr "ជួយ"
 
 #: admin/pb-admin-laf.php:21 admin/pb-admin-laf.php:300
 msgid "Contact"
-msgstr ""
+msgstr "ទំនាក់ទំនង"
 
 #: admin/pb-admin-laf.php:42 admin/pb-admin-laf.php:53
 msgid "Feedback"
-msgstr ""
+msgstr "មតិរិៈគន់"
 
 #: admin/pb-admin-laf.php:50 themes-book/pressbooks-book/sidebar.php:23
 msgid "Close"
-msgstr ""
+msgstr "បិទ"
 
 #: admin/pb-admin-laf.php:101
 #: themes-root/pressbooks-publisher-one/inc/theme-options.php:17
 msgid "Theme Options"
-msgstr ""
+msgstr "ជម្រើស​លើសម្បក"
 
 #: admin/pb-admin-laf.php:129
 msgid "Published"
-msgstr ""
+msgstr "បោះពុម្ពផ្សាយ"
 
 #: admin/pb-admin-laf.php:156 admin/pb-admin-metaboxes.php:29
 msgid "Book Info"
-msgstr ""
+msgstr "ព័ត៌មាន​ពី​សៀវភៅ"
 
 #: admin/pb-admin-laf.php:174 admin/templates/export.php:43
 #: admin/templates/organize.php:55 admin/templates/organize.php:72
 #: admin/templates/organize.php:156 admin/templates/organize.php:253
 msgid "Export"
-msgstr ""
+msgstr "នាំចេញ"
 
 #: admin/pb-admin-laf.php:179
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
-msgstr ""
+msgstr "EPUB ត្រូវការ​ចាំបាច់​សម្រាប់​ការនាំចេញទម្រុង MOBI។ តើ​អ្នក​ចង់បើកវាវិញទេ?"
 
 #: admin/pb-admin-laf.php:185
 msgid "Sell"
-msgstr ""
+msgstr "លក់"
 
 #: admin/pb-admin-laf.php:188
 msgid "Privacy Settings"
-msgstr ""
+msgstr "ការកំណត់ភាពឯកជន"
 
 #: admin/pb-admin-laf.php:188
 msgid "Privacy"
-msgstr ""
+msgstr "ភាពឯកជន"
 
 #: admin/pb-admin-laf.php:191
 msgid "Advanced Settings"
-msgstr ""
+msgstr "ការកំណត់កម្រិតខ្ពស់"
 
 #: admin/pb-admin-laf.php:191
 msgid "Advanced"
-msgstr ""
+msgstr "កម្រិតខ្ពស់"
 
 #: admin/pb-admin-laf.php:194 admin/templates/import.php:14
 #: admin/templates/import.php:57
 msgid "Import"
-msgstr ""
+msgstr "នាំចូល"
 
 #: admin/pb-admin-laf.php:266 admin/pb-admin-laf.php:275
 msgid "About PressBooks"
-msgstr ""
+msgstr "អំពី PressBooks"
 
 #: admin/pb-admin-laf.php:284
 msgid "PressBooks.com"
-msgstr ""
+msgstr "PressBooks.com"
 
 #: admin/pb-admin-laf.php:292
 msgid "Support Forums"
-msgstr ""
+msgstr "វេទិកា​ជំនួយ"
 
 #: admin/pb-admin-laf.php:331
 msgid "Add A New Book"
-msgstr ""
+msgstr "បន្ថែមសៀវភៅថ្មីមួយ"
 
 #: admin/pb-admin-laf.php:346
 msgid "Network Admin"
-msgstr ""
+msgstr "បណ្តាញគ្រប់គ្រង"
 
 #: admin/pb-admin-laf.php:353 admin/pb-admin-laf.php:403
 msgid "Dashboard"
-msgstr ""
+msgstr "ផ្ទៃតាប្លូ"
 
 #: admin/pb-admin-laf.php:359
 msgid "Sites"
-msgstr ""
+msgstr "វេបសាយ"
 
 #: admin/pb-admin-laf.php:371
 msgid "Visit Network"
-msgstr ""
+msgstr "ចូលមើល​ទំព័រ​ប្រព័ន្ធ"
 
 #: admin/pb-admin-laf.php:388
 msgid "Blavatar"
-msgstr ""
+msgstr "Blavatar"
 
 #: admin/pb-admin-laf.php:415
 msgid "Visit Site"
-msgstr ""
+msgstr "ទស្សនាវ៉ិបសាយ"
 
 #: admin/pb-admin-laf.php:583
 msgid "Unsupported post type."
-msgstr ""
+msgstr "ប្រភេទ​អត្ថបទ​មិនមានការគាំទ្រ។"
 
 #: admin/pb-admin-laf.php:610
 msgid "You do not have sufficient permissions to access that URL."
-msgstr ""
+msgstr "អ្នកមិនមានសិទ្ធិគ្រប់គ្រាន់ក្នុងការចូលដំណើរការ URL នោះទេ។"
 
 #: admin/pb-admin-laf.php:632
 msgid "Site Visibility"
-msgstr ""
+msgstr "ភាព​មើលឃើញ​វែបសាយ"
 
 #: admin/pb-admin-laf.php:650
 msgid "Privacy options"
-msgstr ""
+msgstr "ជម្រើសភាពឯកជន"
 
 #: admin/pb-admin-laf.php:664
 msgid "Public. I would like this book to be visible to everyone."
-msgstr ""
+msgstr "សាធារណៈ ។ ខ្ញុំចង់ឲ្យសៀវភៅនេះបង្ហាញឲ្យឃើញចំពោះអ្នកគ្រប់គ្នា"
 
 #: admin/pb-admin-laf.php:668
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr ""
+"ភាពឯកជន ។ ខ្ញុំចង់ឲ្យសៀវភៅនេះអាចត្រូវបានចូលទៅដំណើរការបានតែសំរាប់អ្នកដែល​ខ្ញុំបានអញ្ជើញ ។"
 
 #: admin/pb-admin-laf.php:719
 msgid "Amazon URL"
-msgstr ""
+msgstr "Amazon URL"
 
 #: admin/pb-admin-laf.php:726
 msgid "Oreilly URL"
-msgstr ""
+msgstr "Oreilly URL"
 
 #: admin/pb-admin-laf.php:733
 msgid "Barnes and Noble URL"
-msgstr ""
+msgstr "Barnes និង Noble URL"
 
 #: admin/pb-admin-laf.php:740
 msgid "Kobo URL"
-msgstr ""
+msgstr "Kobo URL"
 
 #: admin/pb-admin-laf.php:747
 msgid "iBooks URL"
-msgstr ""
+msgstr "iBooks URL"
 
 #: admin/pb-admin-laf.php:754
 msgid "Other Service URL"
-msgstr ""
+msgstr "URL សេវាផ្សេងៗ"
 
 #: admin/pb-admin-laf.php:885
 msgid "Email me validation error reports on export."
-msgstr ""
+msgstr "ផ្ញើអ៊ីម៉ែល​ពីរបាយការណ៍កំហុសផ្ទៀតផ្ទាត់មកខ្ញុំ​ ពេលនាំទិន្នន័យចេញ។"
 
 #: admin/pb-admin-laf.php:903
 msgid "Advanced options"
-msgstr ""
+msgstr "ជម្រើស​កម្រិតខ្ពស់"
 
 #: admin/pb-admin-laf.php:917
 msgid "No. Ignore validation errors."
-msgstr ""
+msgstr "ទេ ។ មិនអើពើចំពោះការបញ្ជាក់កំហុស"
 
 #: admin/pb-admin-laf.php:921
 msgid "Yes. Send the logs."
-msgstr ""
+msgstr "មែន សូម​ផ្ញើកំណត់ហេតុនេះ។"
 
 #: admin/pb-admin-laf.php:922
 msgid ""
@@ -390,17 +392,22 @@ msgid ""
 "<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</"
 "a>, where we and other PressBooks users can help out as time permits. ."
 msgstr ""
+"ចំណាំ៖ របាយការណ៍​កំហុសការ​ផ្ទៀតផ្ទាត់ (សម្រាប់ EPUB, Mobi, និង PDF) គឺ​ជាបញ្ហា​បច្ចេកទេស ហើយ​នឹង​"
+"ត្រូវមាន​ការខិតខំ​ថែម​ទៀត ដើម្បី​បំបែកកូដ។ តែជាអកុសល យើង​មិន​អាច​ផ្តល់ជំនួយ​សម្រាប់រាល់​កំហុសការ​"
+"ផ្ទៀងផ្ទាត់ការ​បំបែក​កូដនោះទេ តែ​អ្នក​អាច​ប្រាប់ក្នុង​វេទិការ​ក្នុង <a href=\"http://forum."
+"pressbooks.com/\" target=\"_blank\">PressBooks</a> ដែល​យើង និង​អ្នក​ប្រើប្រាស់ "
+"PressBooks ដទៃ​ទៀត​អាច​ជួយបាន​តាម​ពេលវេលា​របស់ម្នាក់ៗផ្តល់​អោយ។"
 
 #: admin/pb-admin-metaboxes.php:99
 msgid ""
 "Your cover image (%s x %s) is too small. It should be 625px on the shortest "
 "side."
-msgstr ""
+msgstr "រូបភាពគម្របរបស់អ្នក (%s x %s) មានទំហំតូចណាស់។ វាគួរតែមានទំហំយ៉ាងតូចណាស់ 625px ។"
 
 #: admin/pb-admin-metaboxes.php:114 admin/pb-admin-metaboxes.php:155
 #: includes/class-pb-metadata.php:440
 msgid "Cover Image"
-msgstr ""
+msgstr "រូបភាពគម្រប"
 
 #: admin/pb-admin-metaboxes.php:146 admin/pb-admin-metaboxes.php:385
 #: admin/templates/organize.php:53
@@ -408,91 +415,96 @@ msgstr ""
 #: themes-book/pressbooks-book/functions.php:899
 #: themes-book/pressbooks-book/functions.php:934
 msgid "Part"
-msgstr ""
+msgstr "ផ្នែក"
 
 #: admin/pb-admin-metaboxes.php:150
 msgid "Save Part"
-msgstr ""
+msgstr "រក្សាទុក​ផ្នែក"
 
 #: admin/pb-admin-metaboxes.php:151
 msgid "Save Book Information"
-msgstr ""
+msgstr "រក្សាទុកសៀវភៅព័ត៌មាន"
 
 #: admin/pb-admin-metaboxes.php:160
 msgid "General Book Information"
-msgstr ""
+msgstr "សៀវភៅពត៌មានទូទៅ"
 
 #: admin/pb-admin-metaboxes.php:171
 msgid "Short Title"
-msgstr ""
+msgstr "ចំណងជើងខ្លី"
 
 #: admin/pb-admin-metaboxes.php:172
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
+msgstr "នៅក្នុងករណីនៃចំណងជើងវែងដែលអាចនឹងត្រូវបានកាត់ឱ្យខ្លីនៅក្នុងការនាំចេញទៅជា​ PDF"
 
 #: admin/pb-admin-metaboxes.php:177
 msgid "Subtitle"
-msgstr ""
+msgstr "ចំណងជើងរង"
 
 #: admin/pb-admin-metaboxes.php:187
 msgid "Author, file as"
-msgstr ""
+msgstr "អ្នក​និពន្ធ ឯកសារដូចជា"
 
 #: admin/pb-admin-metaboxes.php:188
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
 msgstr ""
+"នេះ​ដើម្បី​បញ្ជាក់​ថា សៀវភៅ​អេឡិចត្រូនិចអ្នក​ នឹង​តម្រៀប​តាមលំដាប់​ត្រឹមត្រូវ​ក្នុងហាង ដោយ​ត្រកូល​អ្នក​និពន្ធ។"
 
 #: admin/pb-admin-metaboxes.php:193
 #: themes-book/pressbooks-book/functions.php:16
 msgid "Publisher"
-msgstr ""
+msgstr "អ្នកបោះពុម្ពផ្សាយ"
 
 #: admin/pb-admin-metaboxes.php:198
 msgid "Publisher City"
-msgstr ""
+msgstr "ទីក្រុង​រោងពុម្ព"
 
 #: admin/pb-admin-metaboxes.php:204
 #: themes-book/pressbooks-book/functions.php:19
 msgid "Publication Date"
-msgstr ""
+msgstr "កាលបរិច្ឆេទបោះពុម្ភផ្សាយ"
 
 #: admin/pb-admin-metaboxes.php:210
 msgid "On-Sale Date"
-msgstr ""
+msgstr "នៅលើកាលបរិច្ឆេទលក់"
 
 #: admin/pb-admin-metaboxes.php:211
 msgid "The date you want your book to start selling in stores."
-msgstr ""
+msgstr "កាលបរិច្ឆេទដែលអ្នកចង់សៀវភៅរបស់អ្នកក្នុងការចាប់ផ្តើមលក់នៅក្នុងហាង។"
 
 #: admin/pb-admin-metaboxes.php:216
 #: themes-book/pressbooks-book/functions.php:21
 msgid "Ebook ISBN"
-msgstr ""
+msgstr "លេខ​សៀវភៅ ISBN"
 
 #: admin/pb-admin-metaboxes.php:217
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online ebook stores."
 msgstr ""
+"ISBN គឺជាលេខសៀវភៅស្តង់ដាអន្តរជាតិ ហើយអ្នកនឹងត្រូវការវា ប្រសិនបើអ្នកចង់លក់​"
+"សៀវភៅរបស់អ្នកនៅលើបណ្តាញ ebook "
 
 #: admin/pb-admin-metaboxes.php:222
 #: themes-book/pressbooks-book/functions.php:17
 msgid "Print ISBN"
-msgstr ""
+msgstr "ព្រីន ISBN"
 
 #: admin/pb-admin-metaboxes.php:223
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
 msgstr ""
+"ISBN គឺជាលេខសៀវភៅស្តង់ដាអន្តរជាតិ ហើយអ្នកនឹងត្រូវការវា ប្រសិនបើអ្នកចង់លក់​"
+"សៀវភៅរបស់អ្នកនៅលើបណ្តាញអនឡាញ និងហាងលក់សៀវភៅនានា "
 
 #: admin/pb-admin-metaboxes.php:230 admin/pb-admin-metaboxes.php:552
 msgid "Language"
-msgstr ""
+msgstr "ភាសា"
 
 #: admin/pb-admin-metaboxes.php:234
 #: includes/modules/export/epub/class-pb-epub201.php:789
@@ -503,258 +515,262 @@ msgstr ""
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:573
 #: themes-book/pressbooks-book/footer.php:39
 msgid "Copyright"
-msgstr ""
+msgstr "កម្មសិទ្ធិ"
 
 #: admin/pb-admin-metaboxes.php:240
 msgid "Copyright Year"
-msgstr ""
+msgstr "កម្មសិទ្ធិ ឆ្នាំ"
 
 #: admin/pb-admin-metaboxes.php:245
 msgid "Copyright Holder"
-msgstr ""
+msgstr "អ្នក​កាន់​កម្មសិទ្ធិ"
 
 #: admin/pb-admin-metaboxes.php:251
 msgid "Copyright Notice"
-msgstr ""
+msgstr "សេចក្តី​បញ្ជាក់​កម្មសិទ្ធិ"
 
 #: admin/pb-admin-metaboxes.php:261
 msgid "Book Tagline"
-msgstr ""
+msgstr "ប្រយោគមួយបន្ទាត់នៃ​សៀវភៅ"
 
 #: admin/pb-admin-metaboxes.php:262
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
 msgstr ""
+"សេចក្ដីពិពណ៌នាខ្លីណាស់នៃសៀវភៅរបស់អ្នក។ វាគួរតែសាកសមល្មមនៅក្នុងគេហទំព័រ Twitter "
+"និងដាក់សៀវភៅរបស់អ្នកនៅក្នុងប្រយោគដ៏ខ្លីបំផុតមួយ ។"
 
 #: admin/pb-admin-metaboxes.php:268
 msgid "Short Description"
-msgstr ""
+msgstr "សេចក្តី​សង្ខេប"
 
 #: admin/pb-admin-metaboxes.php:269
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
+msgstr "កថាខណ្ឌខ្លីមួយអំពីសៀវភៅរបស់អ្នក សម្រាប់កាតាឡុក ពិនិត្យ -ល- ដើម្បីដកស្រង់​យោបល់។"
 
 #: admin/pb-admin-metaboxes.php:275
 msgid "Long Description"
-msgstr ""
+msgstr "សេចក្តី​អត្ថាធិប្បាយ"
 
 #: admin/pb-admin-metaboxes.php:276
 msgid "The full description of your book."
-msgstr ""
+msgstr "សេចក្ដីពណ៌នាពេញលេញនៃសៀវភៅរបស់អ្នក។"
 
 #: admin/pb-admin-metaboxes.php:280
 msgid "Additional Catalogue Information"
-msgstr ""
+msgstr "ការបន្ថែមកាតាឡុកព៌តមាន"
 
 #: admin/pb-admin-metaboxes.php:286
 msgid "Series Title"
-msgstr ""
+msgstr "ស៊េរីចំណងជើង"
 
 #: admin/pb-admin-metaboxes.php:291
 msgid "Series Number"
-msgstr ""
+msgstr "ស៊េរីលេខ"
 
 #: admin/pb-admin-metaboxes.php:296
 msgid "Editor"
-msgstr ""
+msgstr "អ្នកកែសម្រួល"
 
 #: admin/pb-admin-metaboxes.php:301
 msgid "Translator"
-msgstr ""
+msgstr "អ្នកបកប្រែ"
 
 #: admin/pb-admin-metaboxes.php:306
 msgid "Keywords"
-msgstr ""
+msgstr "ពាក្យគន្លឹះ"
 
 #: admin/pb-admin-metaboxes.php:308
 msgid ""
 "To make it easier to find your book in online book stores and search engines."
 msgstr ""
+"សម្រាប់ធ្វើវាឲ្យកាន់តែស្រួលក្នុងការស្វែងរកសៀវភៅរបស់អ្នកក្នុងបណ្តាញអនឡាញ និងម៉ាស៊ីនស្វែងរក ។"
 
 #: admin/pb-admin-metaboxes.php:313
 #: themes-book/pressbooks-book/functions.php:20
 msgid "Hashtag"
-msgstr ""
+msgstr "Hashtag"
 
 #: admin/pb-admin-metaboxes.php:314
 msgid "For those of you who like Twitter."
-msgstr ""
+msgstr "សម្រាប់អ្នកដែលចូលចិត្ត Twitter ។"
 
 #: admin/pb-admin-metaboxes.php:319
 msgid "List Price (Print)"
-msgstr ""
+msgstr "បញ្ជីតម្លៃ (ព្រីន)"
 
 #: admin/pb-admin-metaboxes.php:324
 msgid "List Price (PDF)"
-msgstr ""
+msgstr "បញ្ជីតម្លៃ (PDF)"
 
 #: admin/pb-admin-metaboxes.php:329
 msgid "List Price (ebook)"
-msgstr ""
+msgstr "បញ្ជីតម្លៃ (ebook)"
 
 #: admin/pb-admin-metaboxes.php:334
 msgid "List Price (Web)"
-msgstr ""
+msgstr "បញ្ជីតម្លៃ (វ៉ែប)"
 
 #: admin/pb-admin-metaboxes.php:339
 msgid "Bisac Subject"
-msgstr ""
+msgstr "ប្រធានបទ BISAC"
 
 #: admin/pb-admin-metaboxes.php:341
 msgid ""
 "BISAC subject headings help your book get properly classified in (e)book "
 "stores."
 msgstr ""
+"ប្រធានបទ BISAC ជួយឲ្យសៀវភៅរបស់អ្នកទទួលការចាត់ថ្នាក់ឱ្យបានត្រឹមត្រូវនៅក្នុង​បណ្តាញ(e)book ។"
 
 #: admin/pb-admin-metaboxes.php:346
 msgid "Bisac Regional Theme"
-msgstr ""
+msgstr "ស្បែក​​នៃ​តំបន់ Bisac"
 
 #: admin/pb-admin-metaboxes.php:356
 msgid "Catalogue Order"
-msgstr ""
+msgstr "តម្រៀប​លំដាប់​កាតាឡុក"
 
 #: admin/pb-admin-metaboxes.php:364
 msgid "Chapter Metadata"
-msgstr ""
+msgstr "Metadata នៃជំពូក"
 
 #: admin/pb-admin-metaboxes.php:369
 msgid "Chapter Short Title (appears in the PDF running header)"
-msgstr ""
+msgstr "ចំណងជើង​ខ្លី​នៃ​ជំពូក (បង្ហាញ​លើក្បាលទំព័រ​របស់ PDF)"
 
 #: admin/pb-admin-metaboxes.php:374
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
+msgstr "ចំណងជើងខ្លី​នៃ​ជំពូក (បង្ហាញ​លើវែប សៀវភៅ​អេឡិចត្រូនិច ឬ PDF)"
 
 #: admin/pb-admin-metaboxes.php:379
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
-msgstr ""
+msgstr "អ្នក​និពន្ធ​នៃ​ជំពូក (បង្ហាញលើ វែប សៀវភៅ​អេឡិចត្រូនិច និង PDF)"
 
 #: admin/pb-admin-metaboxes.php:393
 msgid "Export Settings"
-msgstr ""
+msgstr "ការកំណត់​ការនាំចេញ"
 
 #: admin/pb-admin-metaboxes.php:401
 msgid "Include in exports"
-msgstr ""
+msgstr "រួមបញ្ចូល​ក្នុង​ការនាំចេញ"
 
 #: admin/pb-admin-metaboxes.php:407
 msgid "Show title in exports"
-msgstr ""
+msgstr "បង្ហាញ​ចំណង​ជើង​ក្នុង​ឯកសារនាំចេញ"
 
 #: admin/pb-admin-metaboxes.php:413
 msgid "Set as ebook start-point"
-msgstr ""
+msgstr "ដាក់​ជាចំនុច​ដំបូង​សៀវភៅ​អេឡិចត្រូនិច"
 
 #: admin/pb-admin-metaboxes.php:419
 msgid "Front Matter Metadata"
-msgstr ""
+msgstr "Metadata ផ្ទៃ​ខាងមុខ"
 
 #: admin/pb-admin-metaboxes.php:424
 msgid "Front Matter Short Title (appears in the PDF running header)"
-msgstr ""
+msgstr "ចំណង​ជើង​ខ្លីលើ​ផ្ទៃ​ខាងមុខ (បង្ហាញលើ​ក្បាលទំព័រ​របស់ PDF)"
 
 #: admin/pb-admin-metaboxes.php:429
 msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
+msgstr "ចំណង​ជើង​ខ្លីលើ​ផ្ទៃ​ខាងមុខ (បង្ហាញ​លើវែប សៀវភៅ​អេឡិចត្រូនិច ឬ PDF)"
 
 #: admin/pb-admin-metaboxes.php:434
 msgid "Front Matter Author (appears in Web/ebook/PDF output)"
-msgstr ""
+msgstr "អ្នក​និពន្ធ​ផ្ទៃ​ខាងមុខ (បង្ហាញលើ វែប សៀវភៅ​អេឡិចត្រូនិច និង PDF)"
 
 #: admin/pb-admin-metaboxes.php:536
 msgid "Extra Profile Information"
-msgstr ""
+msgstr "ព័ត៌​មានអ្នក​ប្រើប្រាស់​បន្ថែម"
 
 #: admin/pb-admin-metaboxes.php:543
 msgid "English"
-msgstr ""
+msgstr "អង់គ្លេស"
 
 #: admin/pb-admin-metaboxes.php:544
 msgid "Chinese, Traditional"
-msgstr ""
+msgstr "ភាសាចិន បុរាណ"
 
 #: admin/pb-admin-metaboxes.php:545
 msgid "Estonian"
-msgstr ""
+msgstr "Estonian"
 
 #: admin/pb-admin-metaboxes.php:546
 msgid "French"
-msgstr ""
+msgstr "ភាសា​បារាំង"
 
 #: admin/pb-admin-metaboxes.php:547
 msgid "German"
-msgstr ""
+msgstr "អាល្លឺម៉ង់"
 
 #: admin/pb-admin-metaboxes.php:548
 msgid "Japanese"
-msgstr ""
+msgstr "ជប៉ុន"
 
 #: admin/pb-admin-metaboxes.php:549
 msgid "Portuguese, Brazil"
-msgstr ""
+msgstr "ប៉ទុយហ្កាល់, ប្រេហ្សីល"
 
 #: admin/pb-admin-metaboxes.php:550
 msgid "Spanish"
-msgstr ""
+msgstr "អេស្ព៉ាញ"
 
 #: admin/templates/catalog.php:27
 msgid "Tags For"
-msgstr ""
+msgstr "ស្លាកសំរាប់"
 
 #: admin/templates/catalog.php:49
 msgid "Tags"
-msgstr ""
+msgstr "ស្លាក"
 
 #: admin/templates/catalog.php:52
 msgid "Comma delimited"
-msgstr ""
+msgstr "ដាក់គម្លាត​ដោយក្បៀស"
 
 #: admin/templates/catalog.php:82
 msgid "My Catalog Profile"
-msgstr ""
+msgstr "ព័ត៌​មាន​កាតាឡុក​របស់​ខ្ញុំ"
 
 #: admin/templates/catalog.php:93
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: admin/templates/catalog.php:97
 msgid "Tags Name"
-msgstr ""
+msgstr "ឈ្មោះ​ស្លាក"
 
 #: admin/templates/catalog.php:106
 msgid "Logo Or Image"
-msgstr ""
+msgstr "រូបសញ្ញា ឬ រូបភាព"
 
 #: admin/templates/custom-css.php:20
 msgid "Error: Something went wrong. See logs for more details."
-msgstr ""
+msgstr "កំហុស៖ មាន​អ្វី​មួយខុស។ សូមមើលកំណត់​ត្រា ដើម្បីដឹង​ព័ត៌​មាន​លម្អិត។"
 
 #: admin/templates/custom-css.php:36
 msgid "You are currently editing CSS for"
-msgstr ""
+msgstr "អ្នកកំពុងតែកែសម្រួល CSS សំរាប់"
 
 #: admin/templates/custom-css.php:37
 msgid "Copy CSS from"
-msgstr ""
+msgstr "ចម្លង CSS ពី"
 
 #: admin/templates/custom-css.php:42
 msgid "Save"
-msgstr ""
+msgstr "រក្សាទុក"
 
 #: admin/templates/export.php:27
 msgid "Error: The export failed. See logs for more details."
-msgstr ""
+msgstr "កំហុស៖ ការនាំចេញបរាជ័យ។ សូមមើលកំណត់​ត្រា ដើម្បីដឹង​ព័ត៌​មាន​លម្អិត។"
 
 #: admin/templates/export.php:32
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
+msgstr "បម្រាម៖ ការនាំចេញជួបកំហុស​ផ្ទៀង​ផ្ទាត់។ សូមមើលកំណត់​ត្រា ដើម្បីដឹង​ព័ត៌​មាន​លម្អិត។"
 
 #: admin/templates/export.php:33
 msgid "Emailed to:"
-msgstr ""
+msgstr "អ៊ីម៉ែលទៅ៖ "
 
 #: admin/templates/export.php:44
 msgid ""
@@ -764,19 +780,19 @@ msgstr ""
 
 #: admin/templates/export.php:49
 msgid "Export Your Book"
-msgstr ""
+msgstr "នាំចេញសៀវភៅរបស់អ្នក"
 
 #: admin/templates/export.php:57
 msgid "Latest Export"
-msgstr ""
+msgstr "នាំចេញចុងក្រោយបង្អស់"
 
 #: admin/templates/export.php:60
 msgid "Exported"
-msgstr ""
+msgstr "បាននាំចេញ"
 
 #: admin/templates/export.php:81 includes/pb-image.php:343
 msgid "Are you sure you want to delete this?"
-msgstr ""
+msgstr "អ្នកប្រាកដទេ ដែលអ្នកចង់លុបចោលវា ?"
 
 #: admin/templates/export.php:93
 msgid "Your Export Format Options"
@@ -784,39 +800,39 @@ msgstr ""
 
 #: admin/templates/export.php:94
 msgid "Select which formats you want to export"
-msgstr ""
+msgstr "ជ្រើសរើសទ្រង់ទ្រាយមួយណាដែលអ្នកចង់នាំចេញ"
 
 #: admin/templates/export.php:108
 msgid "Standard book formats"
-msgstr ""
+msgstr "ស្តង់ដារទ្រង់ទ្រាយសៀវភៅ"
 
 #: admin/templates/export.php:109
 msgid "PDF (for printing)"
-msgstr ""
+msgstr "PDF (សំរាប់ព្រីន)"
 
 #: admin/templates/export.php:110 admin/templates/import.php:115
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
-msgstr ""
+msgstr "EPUB (សម្រាប់ Nook, iBooks, Kobo ។ល។)"
 
 #: admin/templates/export.php:111
 msgid "MOBI (for Kindle)"
-msgstr ""
+msgstr "MOBI (សម្រាប់ Kindle)"
 
 #: admin/templates/export.php:116
 msgid "Hpub"
-msgstr ""
+msgstr "Hpub"
 
 #: admin/templates/export.php:117
 msgid "ICML (for InDesign)"
-msgstr ""
+msgstr "ICML (សម្រាប់ InDesign)"
 
 #: admin/templates/export.php:118
 msgid "XHTML"
-msgstr ""
+msgstr "XHTML"
 
 #: admin/templates/export.php:119
 msgid "WordPress XML"
-msgstr ""
+msgstr "WordPress XML"
 
 #: admin/templates/export.php:123
 msgid "Your Export Theme Options"
@@ -824,19 +840,19 @@ msgstr ""
 
 #: admin/templates/export.php:124
 msgid "You are using the &ldquo;%s&rdquo; theme"
-msgstr ""
+msgstr "អ្នក​កំពុង​ប្រើស្បែក &ldquo;%s&rdquo; "
 
 #: admin/templates/export.php:126
 msgid "Change Theme"
-msgstr ""
+msgstr "ប្តូរ​សម្បក​វែបសាយ"
 
 #: admin/templates/export.php:129
 msgid "Change Theme Options"
-msgstr ""
+msgstr "ប្តូរជម្រើស​លើសម្បក"
 
 #: admin/templates/import.php:20
 msgid "Import in progress: %s"
-msgstr ""
+msgstr "ការនាំចូល​កំពុង​ដំណើរការ៖ %s"
 
 #: admin/templates/import.php:40
 msgid "Are you sure you want to abort the import?"
@@ -844,15 +860,15 @@ msgstr ""
 
 #: admin/templates/import.php:60
 msgid "Chapter"
-msgstr ""
+msgstr "ជំពូក"
 
 #: admin/templates/import.php:88
 msgid "Start"
-msgstr ""
+msgstr "ចាប់ផ្តើម"
 
 #: admin/templates/import.php:90
 msgid "Cancel"
-msgstr ""
+msgstr "លុបចោល"
 
 #: admin/templates/import.php:100
 msgid "Supported file extensions:"
@@ -860,71 +876,73 @@ msgstr ""
 
 #: admin/templates/import.php:101
 msgid "Maximum file size:"
-msgstr ""
+msgstr "អតិប្បរមាទំហំឯកសារ"
 
 #: admin/templates/import.php:110
 msgid "Type of file"
-msgstr ""
+msgstr "ប្រភេទនៃឯកសារ"
 
 #: admin/templates/import.php:114
 msgid "WXR (WordPress eXtended RSS)"
-msgstr ""
+msgstr "WXR (WordPress eXtended RSS)"
 
 #: admin/templates/import.php:116
 msgid "ODT (word processing file format of OpenDocument)"
-msgstr ""
+msgstr "ODT (ឯកសារសរសេរទម្រង់ OpenDocument)"
 
 #: admin/templates/import.php:122
 msgid "File"
-msgstr ""
+msgstr "ឯកសារ"
 
 #: admin/templates/import.php:131
 msgid "Upload file"
-msgstr ""
+msgstr "ដាក់​ឯកសារ"
 
 #: admin/templates/organize.php:26 admin/templates/organize.php:28
 msgid "This book's global privacy is set to"
-msgstr ""
+msgstr "ភាពជាឯកជន​សៀវភៅ​នេះជាទូទៅ​ដាក់ជា​"
 
 #: admin/templates/organize.php:34
 msgid "Promote your book, set individual chapters privacy below."
-msgstr ""
+msgstr "ផ្សាយ​ពី​សៀវភៅ​របស់​អ្នក ដោយ​ដាក់​ភាព​ឯកជន​លើ​ជំពូក​និមួយៗ​ផ្ទាល់​ដូច​ខាង​ក្រោម។"
 
 #: admin/templates/organize.php:40
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "privacy settings below."
 msgstr ""
+"មានតែអ្នកដែលអ្នកបានអញ្ជើញប៉ុណ្ណោះដែលអាចមើលសៀវភៅរបស់អ្នក "
+"មិនថាការចាត់ចែងជំពូកឯកជនផ្ទាល់ខ្លួនខាងក្រោម ។"
 
 #: admin/templates/organize.php:51
 msgid "Chapters"
-msgstr ""
+msgstr "ជំពូក"
 
 #: admin/templates/organize.php:56 admin/templates/organize.php:137
 msgid "Add Front Matter"
-msgstr ""
+msgstr "ដាក់​ផ្នែក​ខាងមុខ"
 
 #: admin/templates/organize.php:57 admin/templates/organize.php:318
 msgid "Add Back Matter"
-msgstr ""
+msgstr "ដាក់​ផ្នែក​ខាង​ក្រោយ"
 
 #: admin/templates/organize.php:58 admin/templates/organize.php:234
 msgid "Add Chapter"
-msgstr ""
+msgstr "បន្ថែមជំពូក"
 
 #: admin/templates/organize.php:59 admin/templates/organize.php:241
 msgid "Add Part"
-msgstr ""
+msgstr "បន្ថែមផ្នែក"
 
 #: admin/templates/organize.php:69 admin/templates/organize.php:153
 #: admin/templates/organize.php:250
 msgid "Comments"
-msgstr ""
+msgstr "មតិយោបល់"
 
 #: admin/templates/organize.php:70 admin/templates/organize.php:154
 #: admin/templates/organize.php:251
 msgid "Status"
-msgstr ""
+msgstr "ស្ថានភាព​"
 
 #: admin/templates/organize.php:73 admin/templates/organize.php:118
 #: admin/templates/organize.php:159 admin/templates/organize.php:214
@@ -934,26 +952,26 @@ msgstr ""
 #: themes-root/pressbooks-publisher-one/loop.php:48
 #: themes-root/pressbooks-publisher-one/single-_author.php:27
 msgid "Edit"
-msgstr ""
+msgstr "កែសម្រួល"
 
 #: admin/templates/organize.php:84 admin/templates/organize.php:183
 #: admin/templates/organize.php:265
 msgid "Ebook start point"
-msgstr ""
+msgstr "ចំនុច​ផ្តើមនៃ​សៀវភៅ​អេឡិចត្រូនិច"
 
 #: admin/templates/organize.php:123 admin/templates/organize.php:166
 #: admin/templates/organize.php:217 admin/templates/organize.php:304
 #: includes/pb-image.php:375
 msgid "Delete"
-msgstr ""
+msgstr "លុបចោល"
 
 #: admin/templates/organize.php:328
 msgid "Reordering the Chapters"
-msgstr ""
+msgstr "ការរៀបលំដាប់ជំពូកម្តងទៀត"
 
 #: admin/templates/sell.php:12
 msgid "Sell Your Book"
-msgstr ""
+msgstr "លក់សៀវភៅរបស់អ្នក"
 
 #: admin/templates/sell.php:13
 msgid ""
@@ -1012,15 +1030,15 @@ msgstr ""
 
 #: includes/class-pb-activation.php:148
 msgid "Introduction"
-msgstr ""
+msgstr "សេចក្តីណែនាំ"
 
 #: includes/class-pb-activation.php:150
 msgid "This is where you can write your introduction."
-msgstr ""
+msgstr "នេះគឺជាកន្លែងដែលអ្នកអាចសសេរសេចក្តីណែនាំរបស់អ្នក"
 
 #: includes/class-pb-activation.php:154
 msgid "Chapter 1"
-msgstr ""
+msgstr "ជំពូក១"
 
 #: includes/class-pb-activation.php:156
 msgid ""
@@ -1038,24 +1056,24 @@ msgstr ""
 
 #: includes/class-pb-activation.php:167
 msgid "Authors"
-msgstr ""
+msgstr "អ្នកនិពន្ធ"
 
 #: includes/class-pb-activation.php:175
 #: themes-book/pressbooks-book/functions.php:501
 #: themes-book/pressbooks-book/index.php:12
 #: themes-book/pressbooks-book/sidebar.php:16
 msgid "Table of Contents"
-msgstr ""
+msgstr "តារាងមាតិកា"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:5
 msgid "Book Description"
-msgstr ""
+msgstr "សៀវភៅពិពណ៌នា"
 
 #: includes/class-pb-activation.php:183
 #: themes-book/pressbooks-book/header.php:76
 #: themes-book/pressbooks-book/page-cover-top-block.php:58
 msgid "Buy"
-msgstr ""
+msgstr "ទិញ"
 
 #: includes/class-pb-activation.php:187
 #: themes-book/pressbooks-book/functions.php:121
@@ -1093,7 +1111,7 @@ msgstr ""
 
 #: includes/class-pb-catalog.php:706
 msgid "Catalog Logo"
-msgstr ""
+msgstr "រូបសញ្ញាកាតាឡុក"
 
 #: includes/class-pb-catalog.php:1086 includes/class-pb-catalog.php:1134
 #: includes/class-pb-catalog.php:1171 includes/class-pb-catalog.php:1232
@@ -1102,20 +1120,20 @@ msgstr ""
 
 #: includes/class-pb-catalog.php:1199
 msgid "Invalid URL"
-msgstr ""
+msgstr "URL មិនត្រឹមត្រូវ"
 
 #: includes/class-pb-catalog.php:1219
 msgid "No book found"
-msgstr ""
+msgstr "រកមិនឃើញសៀវភៅ"
 
 #: includes/modules/export/class-pb-export.php:671
 msgid "File not found"
-msgstr ""
+msgstr "រកមិនឃើញឯកសារ"
 
 #: includes/modules/export/epub/class-pb-epub201.php:753
 #: includes/modules/export/hpub/class-pb-hpub.php:578
 msgid "Title Page"
-msgstr ""
+msgstr "ចំណងជើងទំព័រ"
 
 #: includes/modules/export/epub/class-pb-epub201.php:991
 msgid "Make your own books using PressBooks.com"
@@ -1124,13 +1142,13 @@ msgstr ""
 #: includes/modules/export/epub/class-pb-epub201.php:1222
 #: includes/modules/export/hpub/class-pb-hpub.php:1009
 msgid "Table Of Contents"
-msgstr ""
+msgstr "តារាងមាតិកា"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1235
 #: includes/modules/export/hpub/class-pb-hpub.php:1021
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:633
 msgid "Contents"
-msgstr ""
+msgstr "មាតិកា"
 
 #: includes/modules/export/wordpress/class-pb-wxr.php:101
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:156
@@ -1139,7 +1157,7 @@ msgstr ""
 
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:295
 msgid "Notes"
-msgstr ""
+msgstr "កំណត់សម្គាល់"
 
 #: includes/modules/import/class-pb-import.php:328
 msgid "Your file does not appear to be a valid %s."
@@ -1158,46 +1176,46 @@ msgstr ""
 
 #: includes/pb-image.php:303
 msgid "Your cover image should be 625px on the shortest side."
-msgstr ""
+msgstr "រូបភាពគម្របរបស់អ្នកគួរតែមានទំហំយ៉ាងតូចបំផុត 625px ។"
 
 #: includes/pb-postype.php:35
 msgctxt "post type general name"
 msgid "Chapters"
-msgstr ""
+msgstr "ជំពូក"
 
 #: includes/pb-postype.php:36
 msgctxt "post type singular name"
 msgid "Chapter"
-msgstr ""
+msgstr "ជំពូក"
 
 #: includes/pb-postype.php:37
 msgctxt "book"
 msgid "Add New Chapter"
-msgstr ""
+msgstr "បន្ថែមជំពូកថ្មី"
 
 #: includes/pb-postype.php:38
 msgid "Add New Chapter"
-msgstr ""
+msgstr "បន្ថែមជំពូកថ្មី"
 
 #: includes/pb-postype.php:39
 msgid "Edit Chapter"
-msgstr ""
+msgstr "កែសម្រួលជំពូក"
 
 #: includes/pb-postype.php:40
 msgid "New Chapter"
-msgstr ""
+msgstr "ជំពូកថ្មី"
 
 #: includes/pb-postype.php:41
 msgid "View Chapter"
-msgstr ""
+msgstr "មើលជំពូក"
 
 #: includes/pb-postype.php:42
 msgid "Search Chapters"
-msgstr ""
+msgstr "ស្វែងរកជំពូក"
 
 #: includes/pb-postype.php:43
 msgid "No chapters found"
-msgstr ""
+msgstr "រកមិនឃើញជំពូក"
 
 #: includes/pb-postype.php:44
 msgid "No chapters found in Trash"
@@ -1205,46 +1223,46 @@ msgstr ""
 
 #: includes/pb-postype.php:46
 msgid "Text"
-msgstr ""
+msgstr "អត្ថបទ"
 
 #: includes/pb-postype.php:69
 msgctxt "post type general name"
 msgid "Parts"
-msgstr ""
+msgstr "ផ្នែក"
 
 #: includes/pb-postype.php:70
 msgctxt "post type singular name"
 msgid "Part"
-msgstr ""
+msgstr "ផ្នែក"
 
 #: includes/pb-postype.php:71
 msgctxt "book"
 msgid "Add Part"
-msgstr ""
+msgstr "បន្ថែមផ្នែក"
 
 #: includes/pb-postype.php:72
 msgid "Add New Part"
-msgstr ""
+msgstr "បន្ថែមផ្នែកថ្មី"
 
 #: includes/pb-postype.php:73
 msgid "Edit Part"
-msgstr ""
+msgstr "កែសម្រួលផ្នែក"
 
 #: includes/pb-postype.php:74
 msgid "New Part"
-msgstr ""
+msgstr "ផ្នែកថ្មី"
 
 #: includes/pb-postype.php:75
 msgid "View Part"
-msgstr ""
+msgstr "មើលផ្នែក"
 
 #: includes/pb-postype.php:76
 msgid "Search Parts"
-msgstr ""
+msgstr "ស្វែងរកផ្នែក"
 
 #: includes/pb-postype.php:77
 msgid "No parts found"
-msgstr ""
+msgstr "រកមិនឃើញផ្នែក"
 
 #: includes/pb-postype.php:78
 msgid "No parts found in Trash"
@@ -1252,7 +1270,7 @@ msgstr ""
 
 #: includes/pb-postype.php:80
 msgid "Parts"
-msgstr ""
+msgstr "ផ្នែក"
 
 #: includes/pb-postype.php:103
 msgctxt "post type general name"
@@ -1343,33 +1361,33 @@ msgstr ""
 #: includes/pb-postype.php:173
 msgctxt "post type general name"
 msgid "Book Information"
-msgstr ""
+msgstr "សៀ​វភៅពត៌មាន"
 
 #: includes/pb-postype.php:174
 msgctxt "post type singular name"
 msgid "Book Information"
-msgstr ""
+msgstr "សៀ​វភៅពត៌មាន"
 
 #: includes/pb-postype.php:175
 msgctxt "book"
 msgid "Add New Book Information"
-msgstr ""
+msgstr "បន្ថែមសៀវភៅពត៌មានថ្មី"
 
 #: includes/pb-postype.php:176 includes/pb-postype.php:177
 msgid "Edit Book Information"
-msgstr ""
+msgstr "កែសម្រួលសៀវភៅពត៌មាន"
 
 #: includes/pb-postype.php:178
 msgid "New Book Information"
-msgstr ""
+msgstr "សៀវភៅពត៌មានថ្មី"
 
 #: includes/pb-postype.php:179
 msgid "View Book Information"
-msgstr ""
+msgstr "មើលសៀវភៅពត៌មាន"
 
 #: includes/pb-postype.php:180
 msgid "Search Book Information"
-msgstr ""
+msgstr "ស្វែងរកសៀវភៅពត៌មាន"
 
 #: includes/pb-postype.php:181
 msgid "No book information found"
@@ -1381,7 +1399,7 @@ msgstr ""
 
 #: includes/pb-postype.php:184
 msgid "Book Information"
-msgstr ""
+msgstr "សៀ​វភៅពត៌មាន"
 
 #: includes/pb-redirect.php:161
 msgid "Error: Unknown export format."
@@ -1515,7 +1533,7 @@ msgstr ""
 
 #: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
-msgstr ""
+msgstr "បញ្ចូលលេខយោង"
 
 #: shortcodes/footnotes/class-pb-footnotes.php:176
 msgid "Convert MS Word Footnotes"
@@ -1546,7 +1564,7 @@ msgstr ""
 #: symbionts/custom-metadata/custom_metadata_examples.php:33
 msgctxt "Test"
 msgid "Add New"
-msgstr ""
+msgstr "បន្ថែមថ្មី"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:34
 msgid "Add New Test"
@@ -1585,7 +1603,7 @@ msgstr ""
 #: themes-book/donham/functions.php:27 themes-book/donham/functions.php:28
 #: themes-book/donham/functions.php:45
 msgid "part"
-msgstr ""
+msgstr "ផ្នែក"
 
 #: themes-book/pressbooks-book/comments.php:3
 msgid ""
@@ -1609,7 +1627,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/comments.php:37
 msgid "Comments are closed."
-msgstr ""
+msgstr "មតិយោបល់ត្រូវបានបិទ"
 
 #: themes-book/pressbooks-book/comments.php:45
 msgid "Submit"
@@ -1621,15 +1639,15 @@ msgstr ""
 
 #: themes-book/pressbooks-book/content-social-footer.php:5
 msgid "Email to a friend"
-msgstr ""
+msgstr "សារអេឡិចត្រូូនិចទៅកាន់មិត្ត"
 
 #: themes-book/pressbooks-book/content-social-footer.php:5
 msgid "Share via Email"
-msgstr ""
+msgstr "ចែករំលែកតាមរយៈសារអេឡិចត្រូនិច"
 
 #: themes-book/pressbooks-book/footer.php:24
 msgid "Book Name"
-msgstr ""
+msgstr "ឈ្មោះសៀវភៅ"
 
 #: themes-book/pressbooks-book/footer.php:48
 msgid "PressBooks.com: Simple Book Production"
@@ -1637,15 +1655,15 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:18
 msgid "Keywords/Tags"
-msgstr ""
+msgstr "ពាក្យគន្លឹះ / ស្លាក"
 
 #: themes-book/pressbooks-book/functions.php:103
 msgid "Previous"
-msgstr ""
+msgstr "ពីមុន"
 
 #: themes-book/pressbooks-book/functions.php:107
 msgid "Next"
-msgstr ""
+msgstr "បន្ទាប់"
 
 #: themes-book/pressbooks-book/functions.php:150
 msgid "%s on"
@@ -1658,7 +1676,7 @@ msgstr ""
 #: themes-book/pressbooks-book/functions.php:150
 #: themes-book/pressbooks-book/functions.php:170
 msgid "(Edit)"
-msgstr ""
+msgstr "កែសម្រួល"
 
 #: themes-book/pressbooks-book/functions.php:153
 msgid "Your comment is awaiting moderation."
@@ -1674,23 +1692,23 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:250
 msgid "Chapter numbers"
-msgstr ""
+msgstr "លេខជំពូក"
 
 #: themes-book/pressbooks-book/functions.php:250
 msgid "display chapter numbers"
-msgstr ""
+msgstr "បង្ហាញលេខជំពូក"
 
 #: themes-book/pressbooks-book/functions.php:250
 msgid "do not display chapter numbers"
-msgstr ""
+msgstr "កុំបង្ហាញលេខជំពូក"
 
 #: themes-book/pressbooks-book/functions.php:256
 msgid "PDF options"
-msgstr ""
+msgstr "ជម្រើស PDF"
 
 #: themes-book/pressbooks-book/functions.php:264
 msgid "Page size"
-msgstr ""
+msgstr "ទំហំសន្លឹក"
 
 #: themes-book/pressbooks-book/functions.php:265
 msgid "digest"
@@ -1727,51 +1745,51 @@ msgstr ""
 #: themes-book/pressbooks-book/functions.php:275
 #: themes-book/pressbooks-book/functions.php:313
 msgid "Paragraph separator"
-msgstr ""
+msgstr "បំបែកកថាខណ្ឌ"
 
 #: themes-book/pressbooks-book/functions.php:276
 #: themes-book/pressbooks-book/functions.php:314
 msgid "indent"
-msgstr ""
+msgstr "ចូលបន្ទាត់"
 
 #: themes-book/pressbooks-book/functions.php:277
 #: themes-book/pressbooks-book/functions.php:315
 msgid "skip lines"
-msgstr ""
+msgstr "រំលងបន្ទាត់"
 
 #: themes-book/pressbooks-book/functions.php:280
 msgid "Blank pages"
-msgstr ""
+msgstr "ទំព័រទទេរ"
 
 #: themes-book/pressbooks-book/functions.php:281
 msgid "include blank pages (for print PDF)"
-msgstr ""
+msgstr "រួមបញ្ចូលទាំងទំព័រទទេរ (សំរាប់ព្រីន PDF)"
 
 #: themes-book/pressbooks-book/functions.php:282
 msgid "remove blank pages (for web PDF)"
-msgstr ""
+msgstr "យកចេញទំព័រទទេរ (សំរាប់វ៉ែប PDF)"
 
 #: themes-book/pressbooks-book/functions.php:285
 msgid "Table of contents"
-msgstr ""
+msgstr "តារាងមាតិកា"
 
 #: themes-book/pressbooks-book/functions.php:285
 #: themes-book/pressbooks-book/functions.php:291
 msgid "display"
-msgstr ""
+msgstr "បង្ហាញ"
 
 #: themes-book/pressbooks-book/functions.php:285
 #: themes-book/pressbooks-book/functions.php:291
 msgid "do not display"
-msgstr ""
+msgstr "កុំបង្ហាញ"
 
 #: themes-book/pressbooks-book/functions.php:288
 msgid "Footnotes style"
-msgstr ""
+msgstr "ម៉ូដលេខយោង"
 
 #: themes-book/pressbooks-book/functions.php:288
 msgid "normal"
-msgstr ""
+msgstr "ធម្មតា"
 
 #: themes-book/pressbooks-book/functions.php:288
 msgid "force as endnotes"
@@ -1806,7 +1824,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:306
 msgid "Ebook options"
-msgstr ""
+msgstr "ជម្រើស Ebook"
 
 #: themes-book/pressbooks-book/functions.php:346
 msgid "Global Options"
@@ -1814,11 +1832,11 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:353
 msgid "Chapter Numbers"
-msgstr ""
+msgstr "លេខជំពូក"
 
 #: themes-book/pressbooks-book/functions.php:358
 msgid "Display chapter numbers"
-msgstr ""
+msgstr "លេខបង្ហាញជំពូក"
 
 #: themes-book/pressbooks-book/functions.php:373
 msgid "These options apply universally to webbook, PDF and ebook exports."
@@ -1826,11 +1844,11 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:434
 msgid "PDF Options"
-msgstr ""
+msgstr "ជម្រើស PDF"
 
 #: themes-book/pressbooks-book/functions.php:441
 msgid "Page Size"
-msgstr ""
+msgstr "ទំហំសន្លឹក"
 
 #: themes-book/pressbooks-book/functions.php:446
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
@@ -1879,41 +1897,41 @@ msgstr ""
 #: themes-book/pressbooks-book/functions.php:479
 #: themes-book/pressbooks-book/functions.php:740
 msgid "Paragraph Separation"
-msgstr ""
+msgstr "បំបែកកថាខណ្ឌ"
 
 #: themes-book/pressbooks-book/functions.php:484
 #: themes-book/pressbooks-book/functions.php:745
 msgid "Indent paragraphs"
-msgstr ""
+msgstr "ចូលបន្ទាត់កថាខណ្ឌ"
 
 #: themes-book/pressbooks-book/functions.php:485
 #: themes-book/pressbooks-book/functions.php:746
 msgid "Skip lines between paragraphs"
-msgstr ""
+msgstr "រំលងបន្ទាត់ចន្លោះពីកថាខណ្ឌ"
 
 #: themes-book/pressbooks-book/functions.php:490
 msgid "Blank Pages"
-msgstr ""
+msgstr "ទំព័រទទេរ"
 
 #: themes-book/pressbooks-book/functions.php:495
 msgid "Include blank pages (for print PDF)"
-msgstr ""
+msgstr "រួមបញ្ចូលទាំងទំព័រទទេរ (សំរាប់ព្រីន PDF)"
 
 #: themes-book/pressbooks-book/functions.php:496
 msgid "Remove all blank pages (for web PDF)"
-msgstr ""
+msgstr "យកចេញនូវទំព័រទទេរទាំងអស់ (សំរាប់វ៉ែប PDF)"
 
 #: themes-book/pressbooks-book/functions.php:506
 msgid "Display table of contents"
-msgstr ""
+msgstr "បង្ហាញតារាងមាតិកា"
 
 #: themes-book/pressbooks-book/functions.php:511
 msgid "Footnotes Style"
-msgstr ""
+msgstr "ម៉ូដលេខយោង"
 
 #: themes-book/pressbooks-book/functions.php:516
 msgid "Regular footnotes"
-msgstr ""
+msgstr "លេខយោងធម្មតា"
 
 #: themes-book/pressbooks-book/functions.php:517
 msgid "Force as endnotes"
@@ -1921,24 +1939,24 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:733
 msgid "Ebook Options"
-msgstr ""
+msgstr "ជម្រើស Ebook"
 
 #: themes-book/pressbooks-book/header.php:29
 msgid "Page %s"
-msgstr ""
+msgstr "ទំព័រ %s"
 
 #: themes-book/pressbooks-book/page-about.php:5
 msgid "About The Book"
-msgstr ""
+msgstr "អំពីសៀវភៅ"
 
 #: themes-book/pressbooks-book/page-about.php:21
 #: themes-book/pressbooks-book/page-buy.php:14
 msgid "It's coming!"
-msgstr ""
+msgstr "វាកំពុងមក"
 
 #: themes-book/pressbooks-book/page-buy.php:4
 msgid "Buy the Book"
-msgstr ""
+msgstr "ទិញសៀវភៅ"
 
 #: themes-book/pressbooks-book/page-buy.php:17
 msgid ""
@@ -1967,21 +1985,21 @@ msgstr ""
 
 #: themes-book/pressbooks-book/page-buy.php:41
 msgid "Elsewhere"
-msgstr ""
+msgstr "កន្លែងដទៃៗ"
 
 #: themes-book/pressbooks-book/page-buy.php:41
 msgid "Purchase here:"
-msgstr ""
+msgstr "ទិញនៅទីនេះ"
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:8
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:166
 msgid "login"
-msgstr ""
+msgstr "ចូល"
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:10
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:168
 msgid "logout"
-msgstr ""
+msgstr "ចាកចេញ"
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
@@ -1991,15 +2009,15 @@ msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:54
 msgid "Read"
-msgstr ""
+msgstr "អាន"
 
 #: themes-book/pressbooks-book/page.php:13
 msgid "Pages:"
-msgstr ""
+msgstr "ទំព័រ"
 
 #: themes-book/pressbooks-book/sidebar.php:13
 msgid "Home"
-msgstr ""
+msgstr "ផ្ទះ"
 
 #: themes-root/pressbooks-publisher-one/archive-_author.php:34
 #: themes-root/pressbooks-publisher-one/single-_author.php:24
@@ -2012,23 +2030,23 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher-one/comments.php:9
 msgid "Enter password."
-msgstr ""
+msgstr "បញ្ចូលលេខសម្ងាត់"
 
 #: themes-root/pressbooks-publisher-one/comments.php:12
 msgid "0 comments"
-msgstr ""
+msgstr "០ មតិយោបល់"
 
 #: themes-root/pressbooks-publisher-one/comments.php:12
 msgid "1 comment"
-msgstr ""
+msgstr "១​មតិយោបល់"
 
 #: themes-root/pressbooks-publisher-one/comments.php:12
 msgid "% comments"
-msgstr ""
+msgstr "​%​ មតិយោបល់"
 
 #: themes-root/pressbooks-publisher-one/comments.php:15
 msgid "Leave a comment"
-msgstr ""
+msgstr "បញ្ចេញមតិយោបល់"
 
 #: themes-root/pressbooks-publisher-one/comments.php:33
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
@@ -2036,41 +2054,41 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher-one/comments.php:41
 msgid "Sorry, comments are closed."
-msgstr ""
+msgstr "សូមទោស, មតិយោបល់ត្រូវបានបិទ"
 
 #: themes-root/pressbooks-publisher-one/front-featured.php:24
 msgid "Read more &#8594;"
-msgstr ""
+msgstr "អានថែមទៀត &#8594;"
 
 #: themes-root/pressbooks-publisher-one/front-homepage-block.php:14
 #: themes-root/pressbooks-publisher-one/front-homepage-block.php:36
 #: themes-root/pressbooks-publisher-one/loop.php:45
 msgid "read more &#8594;"
-msgstr ""
+msgstr "អានថែមទៀត &#8594;"
 
 #: themes-root/pressbooks-publisher-one/functions.php:51
 msgid "Sidebar 1"
-msgstr ""
+msgstr "របារចំហៀង១"
 
 #: themes-root/pressbooks-publisher-one/functions.php:60
 msgid "Sidebar 2"
-msgstr ""
+msgstr "របារចំហៀង​២"
 
 #: themes-root/pressbooks-publisher-one/functions.php:69
 msgid "Sidebar 3"
-msgstr ""
+msgstr "របារចំហៀង​៣"
 
 #: themes-root/pressbooks-publisher-one/functions.php:77
 msgid "Home Page Left Column"
-msgstr ""
+msgstr "ទំព័រដើមជួរឈរខាងឆ្វេង"
 
 #: themes-root/pressbooks-publisher-one/functions.php:85
 msgid "Home Page Right Column"
-msgstr ""
+msgstr "ទំព័រដើមជួរឈរខាងស្ដាំ"
 
 #: themes-root/pressbooks-publisher-one/functions.php:93
 msgid "Footer"
-msgstr ""
+msgstr "បាតកថា"
 
 #: themes-root/pressbooks-publisher-one/functions.php:156
 msgid "\">read more &#8594;</a>"
@@ -2086,7 +2104,7 @@ msgstr ""
 #: themes-root/pressbooks-publisher-one/functions.php:192
 msgctxt "_featured_content"
 msgid "Add New"
-msgstr ""
+msgstr "បន្ថែមថ្មី"
 
 #: themes-root/pressbooks-publisher-one/functions.php:193
 msgctxt "_featured_content"
@@ -2132,32 +2150,32 @@ msgstr ""
 #: themes-root/pressbooks-publisher-one/functions.php:234
 msgctxt "_author"
 msgid "Authors"
-msgstr ""
+msgstr "អ្នកនិពន្ធ"
 
 #: themes-root/pressbooks-publisher-one/functions.php:224
 msgctxt "_author"
 msgid "Author"
-msgstr ""
+msgstr "អ្នកនិពន្ធ"
 
 #: themes-root/pressbooks-publisher-one/functions.php:225
 msgctxt "_author"
 msgid "Add New"
-msgstr ""
+msgstr "បន្ថែមថ្មី"
 
 #: themes-root/pressbooks-publisher-one/functions.php:226
 msgctxt "_author"
 msgid "Add New Author"
-msgstr ""
+msgstr "បន្ថែមនិពន្ធថ្មី"
 
 #: themes-root/pressbooks-publisher-one/functions.php:227
 msgctxt "_author"
 msgid "Edit Author"
-msgstr ""
+msgstr "កែសម្រួលការនិពន្ធ"
 
 #: themes-root/pressbooks-publisher-one/functions.php:228
 msgctxt "_author"
 msgid "New Author"
-msgstr ""
+msgstr "អ្នកនិពន្ធថ្មី"
 
 #: themes-root/pressbooks-publisher-one/functions.php:229
 msgctxt "_author"
@@ -2167,7 +2185,7 @@ msgstr ""
 #: themes-root/pressbooks-publisher-one/functions.php:230
 msgctxt "_author"
 msgid "Search Authors"
-msgstr ""
+msgstr "ស្វែងរកអ្នកនិពន្ធ"
 
 #: themes-root/pressbooks-publisher-one/functions.php:231
 msgctxt "_author"
@@ -2204,7 +2222,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher-one/inc/theme-options.php:32
 msgid "Options saved"
-msgstr ""
+msgstr "ជម្រើសដែលបានរក្សាទុក"
 
 #: themes-root/pressbooks-publisher-one/inc/theme-options.php:47
 msgid "Hide RSS Icon?"
@@ -2248,7 +2266,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher-one/inc/theme-options.php:105
 msgid "Save Options"
-msgstr ""
+msgstr "ជម្រើសរក្សាទុក"
 
 #: themes-root/pressbooks-publisher-one/index.php:12
 msgid "Older Entries &raquo;"
@@ -2260,7 +2278,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher-one/loop.php:48
 msgid "No Comments"
-msgstr ""
+msgstr "គ្មានយោបល់"
 
 #: themes-root/pressbooks-publisher-one/loop.php:60
 #: themes-root/pressbooks-publisher-one/single-_author.php:38
@@ -2269,19 +2287,19 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher-one/page.php:13
 msgid "keep reading"
-msgstr ""
+msgstr "រក្សាការអាន"
 
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:152
 msgid "'s Catalog Page"
-msgstr ""
+msgstr "ទំព័រកាតាឡុក"
 
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:216
 msgid "Catalog"
-msgstr ""
+msgstr "កាតាឡុក"
 
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:216
 msgid "filtering by"
-msgstr ""
+msgstr "ត្រងដោយ"
 
 #: themes-root/pressbooks-publisher-one/pb-catalog.php:239
 msgid ""
@@ -2311,16 +2329,16 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher-one/widget-social-media.php:21
 msgid "RSS Feed"
-msgstr ""
+msgstr "RSS Feed"
 
 #. Plugin Name of the plugin/theme
 msgid "PressBooks"
-msgstr ""
+msgstr "PressBooks"
 
 #. Plugin URI of the plugin/theme
 #. Author URI of the plugin/theme
 msgid "http://www.pressbooks.com"
-msgstr ""
+msgstr "http://www.pressbooks.com"
 
 #. Author of the plugin/theme
 msgid "BookOven Inc."

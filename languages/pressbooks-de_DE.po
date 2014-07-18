@@ -1,14 +1,14 @@
 # Copyright (C) 2013 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
-# Art RM, 2014
+# Ron, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: PressBooks\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
 "POT-Creation-Date: 2013-09-20 14:45:33+00:00\n"
-"PO-Revision-Date: 2014-04-15 20:59-0500\n"
-"Last-Translator: Art RM\n"
+"PO-Revision-Date: 2014-07-18 17:39-0400\n"
+"Last-Translator: Ron\n"
 "Language-Team: German (http://www.transifex.com/projects/p/pressbooks/"
 "language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.4\n"
+"X-Generator: Poedit 1.6.6\n"
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
