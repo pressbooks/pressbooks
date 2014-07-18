@@ -749,6 +749,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
   margin-top: 1.3em;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
   display: inline-block;
   font-style: italic;
@@ -756,11 +757,16 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
   width: 85%;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
   margin-bottom: 5px;
 }
 #toc span.chapter-subtitle + 
-span.chapter-author {
+span.chapter-author, 
+span.chapter-author +
+span.chapter-license, 
+#toc span.chapter-subtitle + 
+span.chapter-license {
   margin-bottom: 5px;
   position: relative;
   top: -5px;

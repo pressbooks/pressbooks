@@ -358,17 +358,23 @@ div.part-title-wrap > h3.part-number:before {
 	margin-top: 1.3em;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	display: block;
 	font-style: italic;
 	margin-left: 1em;
 }
 #toc span.chapter-author,
+#toc span.chapter-license,
 #toc span.chapter-subtitle {
 	margin-bottom: 5px;
 }
 #toc span.chapter-subtitle + 
-span.chapter-author {
+span.chapter-author,
+#toc span.chapter-subtitle + 
+span.chapter-license,
+span.chapter-author + 
+span.chapter-license {
 	margin-top: -5px;
 	margin-bottom: 5px;
 }
