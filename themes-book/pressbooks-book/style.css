@@ -1821,11 +1821,15 @@ code {
   body {
     background: none !important;
   }
+  a{
+    color: #1f1f1d !important;
+  }
   #wrap {
     clear: both !important;
     display: block !important;
     float: none !important;
     position: relative !important;
+    margin: 0 auto !important;
   }
   #header {
     border-bottom: 2pt solid #000;
@@ -1841,23 +1845,35 @@ code {
   #access,
   #branding img,
   #respond,
+  #comments,
+  #searchform,
   .comment-edit-link,
   .edit-link,
   .navigation,
   .page-link,
-  .widget-area {
+  .widget-area,
+  .nav,
+  .share-wrap-single, 
+  .sidebar {
     display: none !important;
   }
   #container,
   #header,
-  #footer {
+  .footer {
     margin: 0;
     width: 100%;
+  }
+  .footer, 
+  nav {
+    background: none !important;
+    background-color: #ffffff !important;
+    color: #1f1f1d;
   }
   #content,
   .one-column #content {
     margin: 24pt 0 0;
     width: 100%;
+    padding: 10px;
   }
   .wp-caption p {
     font-size: 11pt;
@@ -1885,6 +1901,11 @@ code {
   }
   .home .sticky {
     border: none;
+  }
+  .wrapper{
+    height: auto !important;
+    min-height: 100px;
+    margin: 0 auto;
   }
 }
 /* =Debug Stuff (PL)
