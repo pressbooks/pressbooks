@@ -1,7 +1,7 @@
 === PressBooks ===
 
 Contributors: PressBooks <code@pressbooks.com>
-Version: 2.3
+Version: 2.3.2
 Tags: ebooks, publishing, webbooks
 Requires at least: WordPress 3.9.1
 Tested up to: WordPress 3.9.1
@@ -190,4 +190,6 @@ TK.
 
 == Changelog ==
 
-See: https://github.com/pressbooks/pressbooks/commits/master
+= 2.3.2 =
+* Cleaner print output from webbooks.
+* Ebook theme option to skip line between paragraphs is now honored in all themes.
