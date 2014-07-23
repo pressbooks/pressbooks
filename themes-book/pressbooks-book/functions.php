@@ -1148,7 +1148,7 @@ function pressbooks_theme_ebook_css_override( $css ) {
 
 	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines
 	if ( 2 == @$options['ebook_paragraph_separation'] ) {
-		$css .= "p + p, .indent { text-indent: 0; margin-top: 1em; } \n";
+		$css .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
 	}
 
 	// --------------------------------------------------------------------
