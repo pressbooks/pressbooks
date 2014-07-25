@@ -101,6 +101,7 @@ add_action( 'user_register', '\PressBooks\Activation::forcePbColors' );
 
 add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_format', 1 );
 add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_catalog', 1 );
+add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_api', 1 );
 add_filter( 'login_redirect', '\PressBooks\Redirect\login', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
