@@ -149,7 +149,7 @@ abstract class Import {
 	 */
 	protected function determinePostType( $id ) {
 
-		$supported_types = array( 'front-matter', 'chapter', 'back-matter' );
+		$supported_types = array( 'front-matter', 'chapter', 'part', 'back-matter' );
 		$default = 'chapter';
 
 		if ( ! @is_array( $_POST['chapters'] ) )

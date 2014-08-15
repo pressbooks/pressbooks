@@ -40,23 +40,27 @@ class Wxr extends Import {
 			'file_type' => $upload['type'],
 			'type_of' => 'wxr',
 			'chapters' => array(),
+			'post_types' => array(),
+			'allow_parts' => true
 		);
 
-		$supported_post_types = array( 'post', 'page', 'front-matter', 'chapter', 'back-matter' );
+		$supported_post_types = array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter' );
 
 		if ( $this->isPbWxr ) {
-			$xml['posts'] = \PressBooks\Utility\multi_sort( $xml['posts'], 'post_type:desc', 'post_parent:asc', 'menu_order:asc' );
+			//put the posts in correct part / menu_order order
+			$xml['posts'] = $this->customNestedSort( $xml['posts'] );
 		}
 
 		foreach ( $xml['posts'] as $p ) {
 
 			// Skip
 			if ( ! in_array( $p['post_type'], $supported_post_types ) ) continue;
-			if ( empty( $p['post_content'] ) ) continue;
+			if ( empty( $p['post_content'] ) && 'part' != $p['post_type'] ) continue;
 			if ( '<!-- Here be dragons.-->' == $p['post_content'] ) continue;
 
 			// Set
 			$option['chapters'][$p['post_id']] = $p['post_title'];
+			$option['post_types'][$p['post_id']] = $p['post_type'];
 		}
 
 		return update_option( 'pressbooks_current_import', $option );
@@ -78,7 +82,11 @@ class Wxr extends Import {
 		}
 
 		$this->pbCheck( $xml );
-
+		
+		if ( $this->isPbWxr ) {
+			$xml['posts'] = $this->customNestedSort( $xml['posts'] );
+		}
+		
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 		$chapter_parent = $this->getChapterParent();
 		$total = 0;
@@ -109,21 +117,33 @@ class Wxr extends Import {
 
 			$new_post = array(
 				'post_title' => wp_strip_all_tags( $p['post_title'] ),
-				'post_content' => $html,
 				'post_type' => $post_type,
-				'post_status' => 'draft',
+				'post_status' => ( 'part' == $post_type )?'publish':'draft',
 			);
-
+			if ( 'part' != $post_type ) {
+				$new_post['post_content'] = $html;
+			}
+			
 			if ( 'chapter' == $post_type ) {
 				$new_post['post_parent'] = $chapter_parent;
 			}
 
 			$pid = wp_insert_post( $new_post );
+			
+			if ( 'part' == $post_type ) {
+				$chapter_parent = $pid;
+			}
 
 			if ( isset( $p['postmeta'] ) && is_array( $p['postmeta'] ) ) {
 				$section_author = $this->searchForSectionAuthor( $p['postmeta'] );
 				if ( $section_author ) {
 					update_post_meta( $pid, 'pb_section_author', $section_author );
+				}
+				if ( 'part' == $post_type ) {
+					$part_content = $this->searchForPartContent( $p['postmeta'] );
+					if ( $part_content ) {
+						update_post_meta( $pid, 'pb_part_content', $part_content );
+					}
 				}
 			}
 
@@ -163,7 +183,49 @@ class Wxr extends Import {
 		}
 
 	}
-
+	
+	/**
+	 * Custom sort for the xml posts to put them in correct nested order
+	 *
+	 * @param array $xml
+	 *
+	 * @return array sorted $xml
+	 */
+	 protected function customNestedSort( $xml ) {
+	 	 $array = array();
+	 	 
+	 	 //first, put them in ascending menu_order
+	 	 usort($xml, function ($a, $b) {
+	 	 	return ($a['menu_order'] - $b['menu_order']);
+	 	 });
+	 	 
+	 	 //now, list all front matter
+	 	 foreach ( $xml as $p ) {
+	 	 	if ('front-matter' == $p['post_type']) {
+	 	 		$array[] = $p;	
+	 	 	}
+	 	 }
+	 	 
+	 	 //now, list all parts, then their associated chapters
+	 	 foreach ( $xml as $p ) {
+	 	 	if ('part' == $p['post_type']) {
+	 	 		$array[] = $p;
+	 	 		foreach ($xml as $psub) {
+	 	 			if ('chapter' == $psub['post_type'] && $psub['post_parent'] == $p['post_id']) {
+	 	 				$array[] = $psub;
+	 	 			}
+	 	 		}
+	 	 	}
+	 	 }
+	 	 
+	 	 //now, list all back matter
+	 	 foreach ( $xml as $p ) {
+	 	 	if ('back-matter' == $p['post_type']) {
+	 	 		$array[] = $p;	
+	 	 	}
+	 	 }
+	 	 return $array;
+	 }
 
 	/**
 	 * Check for PB specific metadata, returns empty string if not found.
@@ -188,7 +250,29 @@ class Wxr extends Import {
 		return '';
 	}
 
+	/**
+	 * Check for PB specific metadata, returns empty string if not found.
+	 *
+	 * @param array $postmeta
+	 *
+	 * @return string Part Content
+	 */
+	protected function searchForPartContent( array $postmeta ) {
 
+		if ( empty( $postmeta ) ) {
+			return '';
+		}
+
+		foreach ( $postmeta as $meta ) {
+			// prefer this value, if it's set
+			if ( 'pb_part_content' == $meta['key'] ) {
+				return $meta['value'];
+			}
+		}
+
+		return '';
+	}
+	
 	/**
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
