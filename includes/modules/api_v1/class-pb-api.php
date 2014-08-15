@@ -47,6 +47,11 @@ abstract class Api {
 				    'messages' => 'There are no records that can be returned with the request that was made',
 				);
 				break;
+			case 'offset':
+				$data = array(
+				    'messages' => 'The offset is a larger value than the number of books available',
+				);
+				break;
 			default:
 				$data = array(
 				    'messages' => 'Something went wrong with your API request',
@@ -58,7 +63,7 @@ abstract class Api {
 
 	protected function response( $data, $format='json' ) {
 		if( ! in_array( $format, $this->allowed_formats )){
-			$this->apiErrors( 'type' );
+			$this->apiErrors( 'format' );
 		}
 		
 		if ( empty( $data ) ) {

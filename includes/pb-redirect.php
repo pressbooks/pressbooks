@@ -240,30 +240,33 @@ function do_api() {
 		return;
 	}
 
-	// Only supporting GET requests for now
+	// Support only GET requests for now
 	if ( 'GET' !== $_SERVER['REQUEST_METHOD'] ) {
-		\PressBooks\Api_v1\Api::apiErrors('method');
+		\PressBooks\Api_v1\Api::apiErrors( 'method' );
 	}
 
-	// Get the rest of the URL
+	// Deal with the rest of the URL
 	$nouns = get_query_var( 'api' );
 	if ( '' === trim( $nouns, '/' ) || empty( $nouns ) ) {
-		\PressBooks\Api_v1\Api::apiErrors('resource');
+		\PressBooks\Api_v1\Api::apiErrors( 'resource' );
 	}
 
 	// parse url, at minimum we need `v1` and `books`
 	$parts = explode( '/', $nouns );
-	// required
+
+	// required 'v1'
 	$version = array_shift( $parts );
-	// required
+
+	// required 'books'
 	$resource = array_shift( $parts );
-	// optional 
+
+	// optional 'id'
 	$books_id = ( isset( $parts[0] ) ) ? $parts[0] : '';
-	
+
 	if ( 'v1' !== $version ) {
-		\PressBooks\Api_v1\Api::apiErrors('version');
+		\PressBooks\Api_v1\Api::apiErrors( 'version' );
 	}
-	
+
 	// Filter user input
 	if ( is_array( $_GET ) ) {
 
@@ -293,7 +296,7 @@ function do_api() {
 		);
 
 		$variations = filter_input_array( INPUT_GET, $args, false );
-		
+
 		if ( $variations ) {
 			// Trim whitespace
 			array_filter( $variations, __NAMESPACE__ . '\trim_value' );
@@ -304,7 +307,6 @@ function do_api() {
 		case 'books':
 			try {
 				$book = new \PressBooks\Api_v1\Books\BooksApi( $books_id, $variations );
-				
 			} catch ( Exception $exc ) {
 				echo $exc->getTraceAsString();
 			}
@@ -314,7 +316,7 @@ function do_api() {
 //			break;
 
 		default:
-			\PressBooks\Api_v1\Api::apiErrors('resource');
+			\PressBooks\Api_v1\Api::apiErrors( 'resource' );
 			break;
 	}
 
