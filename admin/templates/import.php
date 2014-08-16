@@ -85,7 +85,10 @@ $current_import = get_option( 'pressbooks_current_import' );
 		</table>
 		
 		<?php
-		do_action( 'add_import_meta_boxes' );
+		do_action( 'add_meta_boxes', 'pb_import' );
+		$fake_post = new stdClass();
+		$fake_post->ID = 0;
+		do_meta_boxes( 'pb_import', 'normal', $fake_post );
 		?>
 		<p><?php
 			submit_button( __( 'Start', 'pressbooks' ), 'primary', 'submit', false );
