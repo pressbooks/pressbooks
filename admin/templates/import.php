@@ -83,7 +83,10 @@ $current_import = get_option( 'pressbooks_current_import' );
 			?>
 			</tbody>
 		</table>
-
+		
+		<?php
+		do_action( 'add_import_meta_boxes' );
+		?>
 		<p><?php
 			submit_button( __( 'Start', 'pressbooks' ), 'primary', 'submit', false );
 			echo " &nbsp; "; // Space
