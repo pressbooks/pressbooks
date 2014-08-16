@@ -125,6 +125,9 @@ class Wxr extends Import {
 			if ( isset( $p['postmeta'] ) && is_array( $p['postmeta'] ) ) {
 				foreach ($meta_to_update as $meta_key) {
 					$meta_val = $this->searchForMetaValue( $meta_key, $p['postmeta'] );
+					if (is_serialized($meta_val)) {
+						$meta_val = unserialize($meta_val);
+					}
 					if ($meta_val) {
 						update_post_meta( $pid, $meta_key, $meta_val);
 					}
