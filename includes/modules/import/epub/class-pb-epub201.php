@@ -94,7 +94,7 @@ class Epub201 extends Import {
 			// Extract title from file
 			$html = $this->getZipContent( $this->basedir . $href, false );
 			$matches = array();
-			preg_match( '/<title>(.+)<\/title>/', $html, $matches );
+			preg_match( '/(?:<title[^>]*>)(.+)<\/title>/isU', $html, $matches );
 			$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : $id );
 			
 			$option['chapters'][$id] = $title;
