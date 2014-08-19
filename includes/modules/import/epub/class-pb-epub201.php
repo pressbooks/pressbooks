@@ -285,7 +285,7 @@ class Epub201 extends Import {
 
 		$matches = array();
 
-		preg_match( '/<title>(.+)<\/title>/', $html, $matches );
+		preg_match( '/(?:<title[^>]*>)(.+)<\/title>/isU', $html, $matches );
 		$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : '__UNKNOWN__' );
 
 		preg_match( '/(?:<body[^>]*>)(.*)<\/body>/isU', $html, $matches );
