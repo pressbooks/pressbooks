@@ -195,23 +195,23 @@ class Wxr extends Import {
 	 	 $array = array();
 	 	 
 	 	 //first, put them in ascending menu_order
-	 	 usort($xml, function ($a, $b) {
-	 	 	return ($a['menu_order'] - $b['menu_order']);
+	 	 usort( $xml, function ( $a, $b ) {
+	 	 	return ( $a['menu_order'] - $b['menu_order'] );
 	 	 });
 	 	 
 	 	 //now, list all front matter
 	 	 foreach ( $xml as $p ) {
-	 	 	if ('front-matter' == $p['post_type']) {
+	 	 	if ( 'front-matter' == $p['post_type'] ) {
 	 	 		$array[] = $p;	
 	 	 	}
 	 	 }
 	 	 
 	 	 //now, list all parts, then their associated chapters
 	 	 foreach ( $xml as $p ) {
-	 	 	if ('part' == $p['post_type']) {
+	 	 	if ( 'part' == $p['post_type'] ) {
 	 	 		$array[] = $p;
-	 	 		foreach ($xml as $psub) {
-	 	 			if ('chapter' == $psub['post_type'] && $psub['post_parent'] == $p['post_id']) {
+	 	 		foreach ( $xml as $psub ) {
+	 	 			if ( 'chapter' == $psub['post_type'] && $psub['post_parent'] == $p['post_id'] ) {
 	 	 				$array[] = $psub;
 	 	 			}
 	 	 		}
@@ -220,7 +220,7 @@ class Wxr extends Import {
 	 	 
 	 	 //now, list all back matter
 	 	 foreach ( $xml as $p ) {
-	 	 	if ('back-matter' == $p['post_type']) {
+	 	 	if ( 'back-matter' == $p['post_type'] ) {
 	 	 		$array[] = $p;	
 	 	 	}
 	 	 }
