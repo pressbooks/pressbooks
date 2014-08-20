@@ -17,7 +17,7 @@ use PressBooks\Api_v1\Api;
 class BooksApi extends Api {
 
 	protected $default_variations = array(
-	    'fields' => 'all',
+	    'titles' => 'all',
 	    'offset' => 0,
 	    'limit' => 100,
 	    'subjects' => 'all',
@@ -68,50 +68,62 @@ class BooksApi extends Api {
 	/**
 	 * If arguments are passed, this filters the results based on that
 	 * 
-	 * @param array $books
+	 * @param array $results
 	 * @param array $args
 	 * @return array of books with arguments applied
 	 */
-	protected function filterArgs( $books, $args ) {
+	protected function filterArgs( $results, $args ) {
 		$match = array();
 
 		// if everything is default
 		$diff = array_diff_assoc( $args, $this->default_variations );
 		if ( empty( $diff ) ) {
 			// no further processing required
-			return $books;
+			return $results;
 		}
 
-		// keywords, subjects, offset and limit do not apply to single records
+		// this logic does not apply to single records
 		if ( ! isset( $diff['id'] ) ) {
 
 			$args_length = count( $diff );
 
+			if ( isset( $diff['titles'] ) ) {
+
+				// bring all subjects into one array
+				$titles = $this->getMetaElement( $results, 'pb_title' );
+				$match['titles'] = $this->naiveStringSearch( $diff['titles'], $titles );
+
+				if ( empty( $match['titles'] ) ) {
+					$titles = $this->getMetaElement( $results, 'pb_subtitle' );
+					$match['titles'] = $this->naiveStringSearch( $diff['titles'], $titles );
+				}
+			}
+
 			if ( isset( $diff['subjects'] ) ) {
 
 				// bring all subjects into one array
-				$subjects = $this->getMetaElement( $books, 'pb_bisac_subject' );
+				$subjects = $this->getMetaElement( $results, 'pb_bisac_subject' );
 				$match['subjects'] = $this->naiveStringSearch( $diff['subjects'], $subjects );
 			}
 
 			if ( isset( $diff['keywords'] ) ) {
 
 				// bring all keywords into one array
-				$keywords = $this->getMetaElement( $books, 'pb_keywords_tags' );
+				$keywords = $this->getMetaElement( $results, 'pb_keywords_tags' );
 				$match['keywords'] = $this->naiveStringSearch( $diff['keywords'], $keywords );
 			}
 
 			if ( isset( $diff['licenses'] ) ) {
 
 				// bring all keywords into one array
-				$licenses = $this->getMetaElement( $books, 'pb_book_license' );
+				$licenses = $this->getMetaElement( $results, 'pb_book_license' );
 				$match['licenses'] = $this->exactStringSearch( $diff['licenses'], $licenses );
 			}
 
 			if ( isset( $diff['authors'] ) ) {
 
 				// bring all authors into one array
-				$authors = $this->getMetaElement( $books, 'pb_author' );
+				$authors = $this->getMetaElement( $results, 'pb_author' );
 				$match['authors'] = $this->naiveStringSearch( $diff['authors'], $authors );
 			}
 
@@ -122,25 +134,117 @@ class BooksApi extends Api {
 				$filtered_books = array_flip( $matches );
 
 				// preserve only the blog_ids that made it through each of the filters
-				$books = array_intersect_key( $books, $filtered_books );
+				$results = array_intersect_key( $results, $filtered_books );
+			} elseif ( empty( $matches ) ) {
+				// bail if no matches
+				return $this->apiErrors( 'empty' );
 			}
 
 			// if the offset is bigger than the book collection
-			if ( isset( $diff['offset'] ) && $diff['offset'] > count( $books ) ) {
+			if ( isset( $diff['offset'] ) && $diff['offset'] > count( $results ) ) {
 				return $this->apiErrors( 'offset' );
 			}
 
 			// set the limit, look for unlimited requests
 			$limit = ( 0 == $args['limit'] ) ? NULL : $args['limit'];
-			$books = array_slice( $books, $args['offset'], $limit, true );
+			$results = array_slice( $results, $args['offset'], $limit, true );
 
 			// safety check
-			if ( empty( $books ) ) {
+			if ( empty( $results ) ) {
+				return $this->apiErrors( 'empty' );
+			}
+
+			// for single records
+		} elseif ( isset( $diff['id'] ) ) {
+
+			if ( count( $diff ) == 1 ) {
+				// no further processing required
+				return $results;
+			}
+
+			// get all chapters into one array
+			$chapters = $this->getBookChapters( $results[$diff['id']]['book_toc'] );
+
+			if ( isset( $diff['titles'] ) ) {
+
+				foreach ( $chapters as $chap ) {
+					$chapter_titles[$chap['post_id']] = $chap['post_title'];
+				}
+				$match['titles'] = $this->naiveStringSearch( $diff['titles'], $chapter_titles );
+			}
+
+			if ( isset( $diff['licenses'] ) ) {
+
+				foreach ( $chapters as $chap ) {
+					$chapter_license[$chap['post_id']] = $chap['post_license'];
+				}
+				$match['licenses'] = $this->exactStringSearch( $diff['licenses'], $chapter_license );
+			}
+
+			if ( isset( $diff['authors'] ) ) {
+
+				foreach ( $chapters as $chap ) {
+					$chapter_authors[$chap['post_id']] = $chap['post_authors'];
+				}
+				$match['authors'] = $this->naiveStringSearch( $diff['authors'], $chapter_authors );
+			}
+
+			// evaluate matches 
+			$matches = $this->intersectArrays( $match );
+
+			if ( ! empty( $matches ) ) {
+				$filtered_chapters = array_flip( $matches );
+
+				// preserve only the blog_ids that made it through each of the filters
+				$results = array_intersect_key( $chapters, $filtered_chapters );
+				
+			} elseif ( empty( $matches ) ) {
+
+				// bail if no matches
+				return $this->apiErrors( 'empty' );
+			}
+
+			// if the offset is bigger than the book collection
+			if ( isset( $diff['offset'] ) && $diff['offset'] > count( $results ) ) {
+				return $this->apiErrors( 'offset' );
+			}
+
+			// set the limit, look for unlimited requests
+			$limit = ( 0 == $args['limit'] ) ? NULL : $args['limit'];
+			$results = array_slice( $results, $args['offset'], $limit, true );
+
+			// safety check
+			if ( empty( $results ) ) {
 				return $this->apiErrors( 'empty' );
 			}
 		}
 
-		return $books;
+		return $results;
+	}
+
+	/**
+	 * Returns a flat array of chapters
+	 * 
+	 * @param array $book
+	 * @return array $chapters
+	 */
+	protected function getBookChapters( array $book ) {
+		if ( empty( $book ) ) return;
+
+		$chapters = array();
+		$parts_count = count( $book['part'] );
+
+		$chapters[] = $book['front-matter'];
+
+		for ( $i = 0; $i < $parts_count; $i ++ ) {
+			foreach ( $book['part'][$i]['chapters'] as $chap ) {
+				$chapters[] = $chap;
+			};
+		}
+
+		$chapters[] = $book['back-matter'];
+
+		return $chapters;
 	}
 
 	/**
@@ -168,6 +272,7 @@ class BooksApi extends Api {
 	 * Give this the name of any PB meta element and it will return just those 
 	 * elements with the blog_id as array( '13' => 'Math, Science, Tech)
 	 * 
+	 * @see getBookInformation() for which meta elements are available
 	 * @param array $books
 	 * @param string $element
 	 * @return array 
@@ -189,7 +294,7 @@ class BooksApi extends Api {
 	 * an array of keys (blog_id) if found
 	 * 
 	 * @param string|array $search_words
-	 * @param array $haystack
+	 * @param array $haystack in the form of blog_id => value
 	 * @return array of key values 
 	 */
 	protected function naiveStringSearch( $search_words, array $haystack ) {
@@ -199,7 +304,7 @@ class BooksApi extends Api {
 		if ( false !== strpos( $search_words, ',' ) ) {
 			$search_words = explode( ',', $search_words );
 
-			// prevent excessive requests ?subjects=cat,bird,dog,bat,eggs,fox,greed,hell,icarus, etc
+			// prevent excessive requests ?subjects=cat,bird,dog,bat,eggs,fox,greed,hell,etc
 			$limit = 5;
 			for ( $i = 0; $i < $limit; $i ++ ) {
 				foreach ( $haystack as $key => $val ) {
@@ -222,6 +327,13 @@ class BooksApi extends Api {
 		return $matches;
 	}
 
+	/**
+	 * Looks for an exact pattern match
+	 * 
+	 * @param type $search_words
+	 * @param array $haystack
+	 * @return array
+	 */
 	protected function exactStringSearch( $search_words, array $haystack ) {
 		$matches = array();
 
@@ -265,6 +377,7 @@ class BooksApi extends Api {
 			foreach ( $this->public_books as $book_id ) {
 				@$book[$book_id];
 				$book[$book_id]['book_id'] = $book_id;
+				$book[$book_id]['book_url'] = get_blogaddress_by_id( $book_id );
 				$book[$book_id]['book_meta'] = \PressBooks\Book::getBookInformation( intval( $book_id ) );
 				$book_structure = \PressBooks\Book::getBookStructure( intval( $book_id ) );
 				$book[$book_id]['book_toc'] = $this->getToc( $book_structure );
@@ -275,9 +388,10 @@ class BooksApi extends Api {
 				return $this->apiErrors( 'empty' );
 			}
 			$book[$args['id']];
-			$book[$args['id']]['book_id'] = $id;
+			$book[$args['id']]['book_id'] = $args['id'];
+			$book[$args['id']]['book_url'] = get_blogaddress_by_id( $args['id'] );
 			$book[$args['id']]['book_meta'] = \PressBooks\Book::getBookInformation( intval( $args['id'] ) );
-			$book_structure = \PressBooks\Book::getBookStructure( intval( $id ) );
+			$book_structure = \PressBooks\Book::getBookStructure( intval( $args['id'] ) );
 			$book[$args['id']]['book_toc'] = $this->getToc( $book_structure );
 		}
 
@@ -314,7 +428,8 @@ class BooksApi extends Api {
 	}
 
 	/**
-	 * Gets the Table of Contents for a book
+	 * Gets the Table of Contents for a book. Looks for published content, not
+	 * whether the user has identified post content for 'export'
 	 * 
 	 * @param array $book
 	 * @return array Table of Contents
@@ -324,39 +439,53 @@ class BooksApi extends Api {
 
 		// front matter
 		foreach ( $book['front-matter'] as $fm ) {
-			if ( 'publish' != $fm['post_status'] ) {
-				continue;
-			}
+			if ( 'publish' != $fm['post_status'] ) continue;
+
 			$toc['front-matter'] = array(
 			    'post_id' => $fm['ID'],
 			    'post_title' => $fm['post_title'],
-			    'link' => get_permalink( $fm['ID'] ),
+			    'post_link' => get_permalink( $fm['ID'] ),
+			    'post_license' => get_post_meta( $fm['ID'], 'pb_section_license', true ),
+			    'post_authors' => get_post_meta( $fm['ID'], 'pb_section_author', true )
 			);
 		}
+
 		// parts
-		foreach ( $book['part'] as $part ) {
-			if ( count( $book['part'] ) > 1 && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) {
-				foreach ( $part['chapters'] as $chapter ) {
-					if ( 'publish' != $chapter['post_status'] ) {
-						continue;
-					}
-					$toc['part'][$part['post_title']] = array(
-					    'post_id' => $chapter['ID'],
-					    'title' => $chapter['post_title'],
-					    'link' => get_permalink( $chapter['ID'] )
-					);
-				}
+		$parts_count = count( $book['part'] );
+
+		for ( $i = 0; $i < $parts_count; $i ++ ) {
+
+			foreach ( $book['part'][$i]['chapters'] as $chapter ) {
+				if ( 'publish' != $chapter['post_status'] ) continue;
+
+				// chapters within parts
+				$chapters[] = array(
+				    'post_id' => $chapter['ID'],
+				    'post_title' => $chapter['post_title'],
+				    'post_link' => get_permalink( $chapter['ID'] ),
+				    'post_license' => get_post_meta( $chapter['ID'], 'pb_section_license', true ),
+				    'post_authors' => get_post_meta( $chapter['ID'], 'pb_section_author', true )
+				);
 			}
+
+			$toc['part'][$i] = array(
+			    'post_id' => $book['part'][$i]['ID'],
+			    'post_title' => $book['part'][$i]['post_title'],
+			    'post_link' => post_permalink( $book['part'][$i]['ID'] ),
+			    'chapters' => $chapters,
+			);
 		}
+
 		// back-matter
 		foreach ( $book['back-matter'] as $bm ) {
-			if ( 'publish' != $bm['post_status'] ) {
-				continue;
-			}
+			if ( 'publish' != $bm['post_status'] ) continue;
+
 			$toc['back-matter'] = array(
 			    'post_id' => $bm['ID'],
 			    'post_title' => $bm['post_title'],
-			    'link' => get_permalink( $bm['ID'] ),
+			    'post_link' => get_permalink( $bm['ID'] ),
+			    'post_license' => get_post_meta( $bm['ID'], 'pb_section_license', true ),
+			    'post_authors' => get_post_meta( $bm['ID'], 'pb_section_author', true )
 			);
 		}
 
