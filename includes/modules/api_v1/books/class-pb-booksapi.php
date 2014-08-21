@@ -10,12 +10,22 @@ namespace PressBooks\Api_v1\Books;
 use PressBooks\Api_v1\Api;
 
 /**
- * Description of class-pb-books
- *
- * @author bpayne
+ * Processes public information about collections of books and individual books
+ * 
+ * The format it expects is: 
+ * http://somedomain/api/v1/books
+ * http://somedomain/api/v1/books/12
+ * 
+ * Arguments can be passed:
+ * ?subjects=biology&license=cc-by&limit=3
  */
 class BooksApi extends Api {
 
+	/**
+	 * Control the arguments that can be passed to the API
+	 * 
+	 * @var type 
+	 */
 	protected $default_variations = array(
 	    'titles' => 'all',
 	    'offset' => 0,
@@ -25,8 +35,27 @@ class BooksApi extends Api {
 	    'licenses' => 'all',
 	    'keywords' => 'all',
 	);
-	protected $public_books;
 
+	/**
+	 * Default format of the response
+	 * 
+	 * @var string 
+	 */
+	protected $format = 'json';
+
+	/**
+	 * List of publically available books
+	 * 
+	 * @var array 
+	 */
+	protected $public_books = array();
+
+	/**
+	 * Parse arguments and send the response to the controller
+	 * 
+	 * @param int $id
+	 * @param array $variations
+	 */
 	function __construct( $id = '', $variations = '' ) {
 
 		// only serve info about public books
@@ -34,6 +63,15 @@ class BooksApi extends Api {
 
 		if ( empty( $this->public_books ) ) {
 			return $this->apiErrors( 'empty' );
+		}
+
+		// get the format, set it as instance variable
+		if ( isset( $variations['json'] ) && 1 == $variations['json'] ) {
+			$this->format = 'json';
+			unset( $variations['json'] );
+		} elseif ( isset( $variations['xml'] ) && 1 == $variations['xml'] ) {
+			$this->format = 'xml';
+			unset( $variations['xml'] );
 		}
 
 		// Merge args with default args
@@ -48,25 +86,20 @@ class BooksApi extends Api {
 	}
 
 	/**
-	 * Gets resources based on what is passed to it
+	 * Controls which book resources are retrieved based on what is passed to it
 	 * 
-	 * @param type $args
+	 * @param array $args
 	 */
 	public function controller( $args ) {
 
 		$books = $this->getBooksById( $args );
 		$books = $this->filterArgs( $books, $args );
 
-		// just in case the filter, filters out everything
-		if ( ! empty( $books ) ) {
-			return wp_send_json_success( $books );
-		} else {
-			return $this->apiErrors( 'empty' );
-		}
+		$this->response( $books, $this->format );
 	}
 
 	/**
-	 * If arguments are passed, this filters the results based on that
+	 * Filters the results based on what is passed to it
 	 * 
 	 * @param array $results
 	 * @param array $args
@@ -135,7 +168,9 @@ class BooksApi extends Api {
 
 				// preserve only the blog_ids that made it through each of the filters
 				$results = array_intersect_key( $results, $filtered_books );
-			} elseif ( empty( $matches ) ) {
+
+				// return empty if there is nothing else to process	
+			} elseif ( empty( $matches ) && ( ! isset( $diff['limit'] ) && ! isset( $diff['offset'] )) ) {
 				// bail if no matches
 				return $this->apiErrors( 'empty' );
 			}
@@ -146,8 +181,8 @@ class BooksApi extends Api {
 			}
 
 			// set the limit, look for unlimited requests
-			$limit = ( 0 == $args['limit'] ) ? NULL : $args['limit'];
-			$results = array_slice( $results, $args['offset'], $limit, true );
+			$limit = ( 0 == $diff['limit'] ) ? NULL : $diff['limit'];
+			$results = array_slice( $results, $diff['offset'], $limit, true );
 
 			// safety check
 			if ( empty( $results ) ) {
@@ -197,9 +232,7 @@ class BooksApi extends Api {
 
 				// preserve only the blog_ids that made it through each of the filters
 				$results = array_intersect_key( $chapters, $filtered_chapters );
-				
-			} elseif ( empty( $matches ) ) {
-
+			} elseif ( empty( $matches ) && ( ! isset( $diff['limit'] ) && ! isset( $diff['offset'] )) ) {
 				// bail if no matches
 				return $this->apiErrors( 'empty' );
 			}
@@ -234,20 +267,22 @@ class BooksApi extends Api {
 		$chapters = array();
 		$parts_count = count( $book['part'] );
 
-		$chapters[] = $book['front-matter'];
+		$chapters[$chap['post_id']] = $book['front-matter'];
 
 		for ( $i = 0; $i < $parts_count; $i ++ ) {
 			foreach ( $book['part'][$i]['chapters'] as $chap ) {
-				$chapters[] = $chap;
+				$chapters[$chap['post_id']] = $chap;
 			};
 		}
 
-		$chapters[] = $book['back-matter'];
+		$chapters[$chap['post_id']] = $book['back-matter'];
 
 		return $chapters;
 	}
 
 	/**
+	 * Keeps only arrays that are the same, used for filtering book ids based on 
+	 * arguments 
 	 * 
 	 * @param array $match
 	 * @return array
@@ -441,7 +476,7 @@ class BooksApi extends Api {
 		foreach ( $book['front-matter'] as $fm ) {
 			if ( 'publish' != $fm['post_status'] ) continue;
 
-			$toc['front-matter'] = array(
+			$front_matter[$fm['ID']] = array(
 			    'post_id' => $fm['ID'],
 			    'post_title' => $fm['post_title'],
 			    'post_link' => get_permalink( $fm['ID'] ),
@@ -449,6 +484,7 @@ class BooksApi extends Api {
 			    'post_authors' => get_post_meta( $fm['ID'], 'pb_section_author', true )
 			);
 		}
+		$toc['front-matter'] = $front_matter;
 
 		// parts
 		$parts_count = count( $book['part'] );
@@ -459,7 +495,7 @@ class BooksApi extends Api {
 				if ( 'publish' != $chapter['post_status'] ) continue;
 
 				// chapters within parts
-				$chapters[] = array(
+				$chapters[$chapter['ID']] = array(
 				    'post_id' => $chapter['ID'],
 				    'post_title' => $chapter['post_title'],
 				    'post_link' => get_permalink( $chapter['ID'] ),
@@ -480,7 +516,7 @@ class BooksApi extends Api {
 		foreach ( $book['back-matter'] as $bm ) {
 			if ( 'publish' != $bm['post_status'] ) continue;
 
-			$toc['back-matter'] = array(
+			$back_matter[$bm['ID']] = array(
 			    'post_id' => $bm['ID'],
 			    'post_title' => $bm['post_title'],
 			    'post_link' => get_permalink( $bm['ID'] ),
@@ -488,6 +524,7 @@ class BooksApi extends Api {
 			    'post_authors' => get_post_meta( $bm['ID'], 'pb_section_author', true )
 			);
 		}
+		$toc['back-matter'] = $back_matter;
 
 		return $toc;
 	}

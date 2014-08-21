@@ -277,6 +277,8 @@ function do_api() {
 		    ),
 		    'offset' => FILTER_SANITIZE_NUMBER_INT,
 		    'limit' => FILTER_SANITIZE_NUMBER_INT,
+		    'json' => FILTER_SANITIZE_NUMBER_INT,
+		    'xml' => FILTER_SANITIZE_NUMBER_INT,
 		    'subjects' => array(
 			'filter' => FILTER_SANITIZE_STRING,
 			'flags' => FILTER_FLAG_STRIP_LOW
@@ -312,9 +314,7 @@ function do_api() {
 			}
 			break;
 //		case 'search':
-//			
 //			break;
-
 		default:
 			\PressBooks\Api_v1\Api::apiErrors( 'resource' );
 			break;
