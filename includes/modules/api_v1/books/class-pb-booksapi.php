@@ -35,7 +35,7 @@ class BooksApi extends Api {
 	    'licenses' => 'all',
 	    'keywords' => 'all',
 	);
-
+	
 	/**
 	 * Default format of the response
 	 * 
@@ -62,7 +62,7 @@ class BooksApi extends Api {
 		$this->public_books = $this->getPublicBlogIds();
 
 		if ( empty( $this->public_books ) ) {
-			return $this->apiErrors( 'empty' );
+			throw new \Exception( 'There are no public facing books in this instance of PressBooks'); 
 		}
 
 		// get the format, set it as instance variable
@@ -148,7 +148,7 @@ class BooksApi extends Api {
 
 			if ( isset( $diff['licenses'] ) ) {
 
-				// bring all keywords into one array
+				// bring all licenses into one array
 				$licenses = $this->getMetaElement( $results, 'pb_book_license' );
 				$match['licenses'] = $this->exactStringSearch( $diff['licenses'], $licenses );
 			}
@@ -231,10 +231,18 @@ class BooksApi extends Api {
 				$filtered_chapters = array_flip( $matches );
 
 				// preserve only the blog_ids that made it through each of the filters
-				$results = array_intersect_key( $chapters, $filtered_chapters );
+				$chapter_results = array_intersect_key( $chapters, $filtered_chapters );
 			} elseif ( empty( $matches ) && ( ! isset( $diff['limit'] ) && ! isset( $diff['offset'] )) ) {
 				// bail if no matches
 				return $this->apiErrors( 'empty' );
+			}
+			
+			// change the value of $results depending on whether the logic
+			// above returned anything
+			if ( isset( $chapter_results ) ) {
+				$results = $chapter_results;
+			} else {
+				$results = $chapters;
 			}
 
 			// if the offset is bigger than the book collection
@@ -266,17 +274,25 @@ class BooksApi extends Api {
 
 		$chapters = array();
 		$parts_count = count( $book['part'] );
-
-		$chapters[$chap['post_id']] = $book['front-matter'];
-
+		
+		// front matter
+		foreach ( $book['front-matter'] as $fm ){
+			$chapters[$fm['post_id']] = $fm; 
+		}
+		$chapters = $front_matter;
+		
+		// parts
 		for ( $i = 0; $i < $parts_count; $i ++ ) {
+			// chapters
 			foreach ( $book['part'][$i]['chapters'] as $chap ) {
 				$chapters[$chap['post_id']] = $chap;
 			};
 		}
-
-		$chapters[$chap['post_id']] = $book['back-matter'];
-
+		// back matter
+		foreach ( $book['back-matter'] as $bm ){
+			$chapters[$bm['post_id']] = $bm; 
+		}
+		
 		return $chapters;
 	}
 
@@ -340,8 +356,10 @@ class BooksApi extends Api {
 			$search_words = explode( ',', $search_words );
 
 			// prevent excessive requests ?subjects=cat,bird,dog,bat,eggs,fox,greed,hell,etc
-			$limit = 5;
-			for ( $i = 0; $i < $limit; $i ++ ) {
+			$search_words = array_slice( $search_words, 0, 5 );
+			$count = count( $search_words );
+
+			for ( $i = 0; $i < $count; $i ++ ) {
 				foreach ( $haystack as $key => $val ) {
 					if ( false !== stripos( $val, $search_words[$i] ) ) {
 						$matches[] = $key;
@@ -376,8 +394,11 @@ class BooksApi extends Api {
 		if ( false !== strpos( $search_words, ',' ) ) {
 			$search_words = explode( ',', $search_words );
 
-			$limit = 5;
-			for ( $i = 0; $i < $limit; $i ++ ) {
+			// limit to 5
+			$search_words = array_slice( $search_words, 0, 5 );
+			$count = count( $search_words );
+
+			for ( $i = 0; $i < $count; $i ++ ) {
 				foreach ( $haystack as $key => $val ) {
 					if ( preg_match( "/^$search_words[$i]$/i", $val ) ) {
 						$matches[] = $key;

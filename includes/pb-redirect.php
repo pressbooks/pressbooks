@@ -308,13 +308,14 @@ function do_api() {
 	switch ( $resource ) {
 		case 'books':
 			try {
-				$book = new \PressBooks\Api_v1\Books\BooksApi( $books_id, $variations );
-			} catch ( Exception $exc ) {
-				echo $exc->getTraceAsString();
+				new \PressBooks\Api_v1\Books\BooksApi( $books_id, $variations );
+			} catch ( Exception $e ) {
+				echo $e->getMessage();
 			}
 			break;
-//		case 'search':
-//			break;
+		case 'docs':
+			require( PB_PLUGIN_DIR . 'includes/modules/api_v1/docs/api-documentation.php');
+			break;
 		default:
 			\PressBooks\Api_v1\Api::apiErrors( 'resource' );
 			break;

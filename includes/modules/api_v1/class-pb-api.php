@@ -36,36 +36,43 @@ abstract class Api {
 			case 'method':
 				$data = array(
 				    'messages' => 'GET is currently the only request method accepted, as of v1 of the API.',
+				    'documentation' => '/api/v1/docs',
 				);
 				break;
 			case 'resource':
 				$data = array(
 				    'messages' => 'The API requires a valid resource in order to return a response. Try looking for \'books\'',
+				    'documentation' => '/api/v1/docs',
 				);
 				break;
 			case 'version':
 				$data = array(
 				    'messages' => 'The version you\'re requesting is not supported. Current version of the API is v1',
+				    'documentation' => '/api/v1/docs',
 				);
 				break;
 			case 'format':
 				$data = array(
 				    'messages' => 'The format that is being requested is not supported. Try \'json\'',
+				    'documentation' => '/api/v1/docs',
 				);
 				break;
 			case 'empty':
 				$data = array(
 				    'messages' => 'There are no records that can be returned with the request that was made',
+				    'documentation' => '/api/v1/docs',
 				);
 				break;
 			case 'offset':
 				$data = array(
 				    'messages' => 'The offset is a larger value than the number of books available',
+				    'documentation' => '/api/v1/docs',
 				);
 				break;
 			default:
 				$data = array(
 				    'messages' => 'Something went wrong with your API request',
+				    'documentation' => '/api/v1/docs',
 				);
 		}
 
