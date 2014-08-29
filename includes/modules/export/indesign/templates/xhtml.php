@@ -25,6 +25,10 @@ echo '<?xml version="1.0" encoding="utf-8" ?>' ."\n";
 <?php if ( isset( $meta['pb_author'] ) ) {  ?>
 	<h2><?php echo $meta['pb_author']; ?></h2>
 <?php } ?>
+	
+<?php if ( isset( $meta['pb_contributing_authors'] ) ) {  ?>
+	<h3><?php echo $meta['pb_contributing_authors']; ?></h3>
+<?php } ?>
 
 <div class="page">
 	<?php if ( isset( $meta['pb_print_isbn'] ) ) { ?>

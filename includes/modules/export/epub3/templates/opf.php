@@ -52,6 +52,16 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			echo 'Authored by: ' . get_bloginfo( 'url' );
 		}
 		echo '</dc:creator>' . "\n";
+		
+		// Contributing authors
+		if ( ! empty( $meta['pb_contributing_authors'] ) ){
+			$contributors = explode( ',', $meta['pb_contributing_authors'] );
+			
+			foreach ( $contributors as $contributor ){
+				echo '<dc:contributor>' . trim( $contributor ) . '</dc:contributor>' . "\n";
+			}
+			unset( $meta['pb_contributing_authors'] );
+		}
 
 		echo '<meta refines="#author" property="file-as">';
 

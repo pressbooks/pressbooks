@@ -51,6 +51,16 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		}
 		echo '</dc:creator>' . "\n";
 		unset( $meta['pb_author_file_as'], $meta['pb_author'] );
+		
+		// Contributing authors
+		if ( ! empty( $meta['pb_contributing_authors'] ) ){
+			$contributors = explode( ',', $meta['pb_contributing_authors'] );
+			
+			foreach ( $contributors as $contributor ){
+				echo '<dc:contributor opf:role="aut">' . trim( $contributor ) . '</dc:contributor>' . "\n";
+			}
+			unset( $meta['pb_contributing_authors'] );
+		}
 
 		// Copyright
 		if ( ! empty( $meta['pb_copyright_year'] ) || ! empty( $meta['pb_copyright_holder'] ) ) {

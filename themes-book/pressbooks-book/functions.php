@@ -13,7 +13,8 @@ add_filter( 'show_admin_bar', function () { return false; } );
 global $metakeys;
 $metakeys = array(
 	'pb_author' => __( 'Author', 'pressbooks' ),
-	'pb_publisher'  => __( 'Publisher', 'pressbooks' ),
+	'pb_contributing_authors' => __( 'Contributing Author', 'pressbooks' ),
+ 	'pb_publisher'  => __( 'Publisher', 'pressbooks' ),
 	'pb_print_isbn'  => __( 'Print ISBN', 'pressbooks' ),
 	'pb_keywords_tags'  => __( 'Keywords/Tags', 'pressbooks' ),
 	'pb_publication_date'  => __( 'Publication Date', 'pressbooks' ),

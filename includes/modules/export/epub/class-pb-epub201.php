@@ -793,6 +793,7 @@ class Epub201 extends Export {
 			$html .= sprintf( '<h2 class="subtitle">%s</h2>', @$metadata['pb_subtitle'] );
 			$html .= sprintf( '<div class="logo"></div>' );
 			$html .= sprintf( '<h3 class="author">%s</h3>', @$metadata['pb_author'] );
+			$html .= sprintf( '<h4 class="author">%s</h4>', @$metadata['pb_contributing_authors'] );
 			$html .= sprintf( '<h4 class="publisher">%s</h4>', @$metadata['pb_publisher'] );
 			$html .= sprintf( '<h5 class="publisher-city">%s</h5>', @$metadata['pb_publisher_city'] );
 		}

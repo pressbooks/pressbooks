@@ -69,7 +69,7 @@ class Book {
 		// Book Information
 		// ----------------------------------------------------------------------------
 
-		$expected_array = array( 'pb_keywords_tags', 'pb_bisac_subject' );
+		$expected_array = array( 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors' );
 		$expected_the_content = array( 'pb_custom_copyright', 'pb_about_unlimited' );
 
 		$book_information = array();
