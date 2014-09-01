@@ -156,7 +156,7 @@ class Wxr extends Import {
 			elseif ( 'front-matter' == $p['post_type'] ) $fm = 1;
 			elseif ( 'back-matter' == $p['post_type'] ) $bm = 1;
 
-			if ( $pt + $ch + $fm + $bm > 3 ) {
+			if ( $pt + $ch + $fm + $bm >= 2 ) {
 				$this->isPbWxr = true;
 				break;
 			}
