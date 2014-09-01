@@ -191,6 +191,13 @@ function add_meta_boxes() {
 		'label' => __( 'Author, file as', 'pressbooks' ),
 		'description' => __( 'This ensures that your ebook will sort properly in ebook stores, by the author\'s last name.', 'pressbooks' )
 	) );
+	
+	x_add_metadata_field( 'pb_contributing_authors', 'metadata', array(
+		'group' => 'general-book-information',
+		'label' => __( 'Contributing Authors', 'pressbooks' ),
+		'multiple' => true,
+		'description' => __( 'This may be used when more than one person shares the responsibility for the intellectual content of a book', 'pressbooks' )
+	) );
 
 	x_add_metadata_field( 'pb_publisher', 'metadata', array(
 		'group' => 'general-book-information',
