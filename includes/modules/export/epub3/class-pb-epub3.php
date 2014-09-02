@@ -145,7 +145,7 @@ class Epub3 extends Epub\Epub201 {
 		$config = array (
 		    'valid_xhtml' => 1,
 		    'no_deprecated_attr' => 2,
-		    'deny_attribute' => 'cellpadding,cellspacing,frameborder,marginwidth,marginheight,scrolling',
+		    'deny_attribute' => 'cellpadding,cellspacing,frameborder,marginwidth,marginheight,scrolling,itemscope,itemtype,itemref,itemprop',
 		    'unique_ids' => 'fixme-',
 		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml5',
 		    'tidy' => -1,
