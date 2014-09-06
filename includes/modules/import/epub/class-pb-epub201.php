@@ -79,18 +79,24 @@ class Epub201 extends Import {
 		foreach ( $xml->manifest->children() as $item ) {
 
 			// Get attributes
-			$id = $title = $type = '';
+			$id = $title = $type = $href = '';
 			foreach ( $item->attributes() as $key => $val ) {
 				if ( 'id' == $key ) $id = (string) $val;
 				elseif ( 'media-type' == $key ) $type = (string) $val;
 				elseif ( 'href' == $key && 'OEBPS/copyright.html' == $val ) $this->pbCheck( $val );
+				if ( 'href' == $key ) $href = $val;
 			}
 
 			// Skip
 			if ( 'application/xhtml+xml' != $type ) continue;
 
 			// Set
-			$title = $id; // TODO: Get real title
+			// Extract title from file
+			$html = $this->getZipContent( $this->basedir . $href, false );
+			$matches = array();
+			preg_match( '/(?:<title[^>]*>)(.+)<\/title>/isU', $html, $matches );
+			$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : $id );
+			
 			$option['chapters'][$id] = $title;
 		}
 
@@ -279,7 +285,7 @@ class Epub201 extends Import {
 
 		$matches = array();
 
-		preg_match( '/<title>(.+)<\/title>/', $html, $matches );
+		preg_match( '/(?:<title[^>]*>)(.+)<\/title>/isU', $html, $matches );
 		$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : '__UNKNOWN__' );
 
 		preg_match( '/(?:<body[^>]*>)(.*)<\/body>/isU', $html, $matches );
