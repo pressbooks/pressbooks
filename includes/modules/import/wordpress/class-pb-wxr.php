@@ -128,16 +128,23 @@ class Wxr extends Import {
 				$new_post['post_parent'] = $chapter_parent;
 			}
 
-			$pid = wp_insert_post( $new_post );
-			
 			if ( 'part' == $post_type ) {
 				$chapter_parent = $pid;
 			}
 
+			$pid = wp_insert_post( $new_post );
+
+			$meta_to_update = apply_filters( 'pb_import_metakeys', array( 'pb_section_author', 'pb_section_license', 'pb_short_title', 'pb_subtitle' ) );
+			
 			if ( isset( $p['postmeta'] ) && is_array( $p['postmeta'] ) ) {
-				$section_author = $this->searchForSectionAuthor( $p['postmeta'] );
-				if ( $section_author ) {
-					update_post_meta( $pid, 'pb_section_author', $section_author );
+				foreach ($meta_to_update as $meta_key) {
+					$meta_val = $this->searchForMetaValue( $meta_key, $p['postmeta'] );
+					if (is_serialized($meta_val)) {
+						$meta_val = unserialize($meta_val);
+					}
+					if ($meta_val) {
+						update_post_meta( $pid, $meta_key, $meta_val);
+					}
 				}
 				if ( 'part' == $post_type ) {
 					$part_content = $this->searchForPartContent( $p['postmeta'] );
@@ -230,11 +237,11 @@ class Wxr extends Import {
 	/**
 	 * Check for PB specific metadata, returns empty string if not found.
 	 *
-	 * @param array $postmeta
+	 * @param $meta_key, array $postmeta
 	 *
-	 * @return string Author's name
+	 * @return string meta field value
 	 */
-	protected function searchForSectionAuthor( array $postmeta ) {
+	protected function searchForMetaValue( $meta_key, array $postmeta ) {
 
 		if ( empty( $postmeta ) ) {
 			return '';
@@ -242,7 +249,7 @@ class Wxr extends Import {
 
 		foreach ( $postmeta as $meta ) {
 			// prefer this value, if it's set
-			if ( 'pb_section_author' == $meta['key'] ) {
+			if ( $meta_key == $meta['key'] ) {
 				return $meta['value'];
 			}
 		}
