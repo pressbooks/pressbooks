@@ -448,7 +448,7 @@ class BooksApi extends Api {
 			$book[$args['id']]['book_url'] = get_blogaddress_by_id( $args['id'] );
 			$book[$args['id']]['book_meta'] = \PressBooks\Book::getBookInformation( intval( $args['id'] ) );
 			$book_structure = \PressBooks\Book::getBookStructure( intval( $args['id'] ) );
-			$book[$args['id']]['book_toc'] = $this->getToc( $book_structure );
+			$book[$args['id']]['book_toc'] = $this->getToc( $book_structure, $args['id'] );
 		}
 
 		return $book;
@@ -490,9 +490,10 @@ class BooksApi extends Api {
 	 * @param array $book
 	 * @return array Table of Contents
 	 */
-	function getToc( array $book ) {
+	function getToc( array $book, $book_id ) {
 		$toc = array();
-
+		switch_to_blog( intval( $book_id ) );
+		
 		// front matter
 		foreach ( $book['front-matter'] as $fm ) {
 			if ( 'publish' != $fm['post_status'] ) continue;
@@ -528,7 +529,7 @@ class BooksApi extends Api {
 			$toc['part'][$i] = array(
 			    'post_id' => $book['part'][$i]['ID'],
 			    'post_title' => $book['part'][$i]['post_title'],
-			    'post_link' => post_permalink( $book['part'][$i]['ID'] ),
+			    'post_link' => get_permalink( $book['part'][$i]['ID'] ),
 			    'chapters' => $chapters,
 			);
 		}
@@ -546,7 +547,9 @@ class BooksApi extends Api {
 			);
 		}
 		$toc['back-matter'] = $back_matter;
-
+		
+		restore_current_blog();
+		
 		return $toc;
 	}
 
