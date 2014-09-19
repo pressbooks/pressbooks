@@ -1,10 +1,10 @@
 === PressBooks ===
 
 Contributors: PressBooks <code@pressbooks.com>
-Version: 2.3.2
+Version: 2.3.3
 Tags: ebooks, publishing, webbooks
-Requires at least: WordPress 3.9.1
-Tested up to: WordPress 3.9.1
+Requires at least: WordPress 4.0
+Tested up to: WordPress 4.0
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install PressBooks on an existing WordPress blog -- create a new WordPress install instead.
- * PressBooks works with PHP 5.4.x and WordPress 3.9.1. Lower versions are not supported.
+ * PressBooks works with PHP 5.4.x and WordPress 4.0. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
@@ -189,6 +189,13 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.3.3 =
+* Compatibility with WordPress 4.0.
+* Fixed some issues with our experimental EPUB3 export (props to @bdolor).
+* Enhancements to WXR and EPUB import (props to @bdolor and @drlippman).
+* Added support for contributing authors in webbooks and exports (props to @bdolor).
+* Added some new translation files.
 
 = 2.3.2 =
 * Cleaner print output from webbooks.
