@@ -8,9 +8,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2014-09-20 16:23-0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 1.6.9\n"
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
@@ -1080,7 +1081,6 @@ msgstr ""
 msgid "Default Data"
 msgstr ""
 
-#. #-#-#-#-#  pressbooks.pot (PressBooks 2.2.1)  #-#-#-#-#
 #. Description of the plugin/theme
 #: includes/class-pb-activation.php:209
 msgid "Simple Book Production"
@@ -2313,9 +2313,7 @@ msgstr ""
 msgid "PressBooks"
 msgstr ""
 
-#. #-#-#-#-#  pressbooks.pot (PressBooks 2.2.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  pressbooks.pot (PressBooks 2.2.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://www.pressbooks.com"
 msgstr ""
