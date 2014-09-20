@@ -115,6 +115,12 @@ function flusher() {
 		$pull_the_lever = true;
 		update_option( 'pressbooks-vip_flushed_upgrade', true );
 	}
+	
+	$set = get_option( 'pressbooks_flushed_api' );
+	if ( ! $set ) {
+		$pull_the_lever = true;
+		update_option( 'pressbooks_flushed_api', true );
+	}
 
 	if ( $pull_the_lever ) {
 		flush_rewrite_rules( false );
@@ -214,4 +220,116 @@ function do_catalog() {
 function rewrite_rules_for_sitemap() {
 
 	add_feed( 'sitemap.xml', '\PressBooks\Utility\do_sitemap' );
+}
+
+/**
+ * Adding a rewrite rule for Book API
+ */
+function rewrite_rules_for_api() {
+	add_rewrite_endpoint( 'api', EP_ROOT );
+	add_action( 'template_redirect', __NAMESPACE__ . '\do_api', 0 );
+}
+
+/**
+ * Expects the pattern `api/v1/books/{id}`
+ * 
+ */
+function do_api() {
+	// Don't do anything and return if `api` isn't part of the URL 
+	if ( ! array_key_exists( 'api', $GLOBALS['wp_query']->query_vars ) ) {
+		return;
+	}
+
+	// Support only GET requests for now
+	if ( 'GET' !== $_SERVER['REQUEST_METHOD'] ) {
+		\PressBooks\Api_v1\Api::apiErrors( 'method' );
+	}
+
+	// Deal with the rest of the URL
+	$nouns = get_query_var( 'api' );
+	if ( '' === trim( $nouns, '/' ) || empty( $nouns ) ) {
+		\PressBooks\Api_v1\Api::apiErrors( 'resource' );
+	}
+
+	// parse url, at minimum we need `v1` and `books`
+	$parts = explode( '/', $nouns );
+
+	// required 'v1'
+	$version = array_shift( $parts );
+
+	// required 'books'
+	$resource = array_shift( $parts );
+
+	// optional 'id'
+	$books_id = ( isset( $parts[0] ) ) ? $parts[0] : '';
+
+	if ( 'v1' !== $version ) {
+		\PressBooks\Api_v1\Api::apiErrors( 'version' );
+	}
+
+	// Filter user input
+	if ( is_array( $_GET ) ) {
+
+		$args = array(
+		    'titles' => array(
+			'filter' => FILTER_SANITIZE_STRING,
+			'flags' => FILTER_FLAG_STRIP_HIGH
+		    ),
+		    'offset' => FILTER_SANITIZE_NUMBER_INT,
+		    'limit' => FILTER_SANITIZE_NUMBER_INT,
+		    'json' => FILTER_SANITIZE_NUMBER_INT,
+		    'xml' => FILTER_SANITIZE_NUMBER_INT,
+		    'subjects' => array(
+			'filter' => FILTER_SANITIZE_STRING,
+			'flags' => FILTER_FLAG_STRIP_LOW
+		    ),
+		    'authors' => array(
+			'filter' => FILTER_SANITIZE_STRING,
+			'flags' => FILTER_FLAG_STRIP_LOW
+		    ),
+		    'licenses' => array(
+			'filter' => FILTER_SANITIZE_STRING,
+			'flags' => FILTER_FLAG_STRIP_HIGH
+		    ),
+		    'keywords' => array(
+			'filter' => FILTER_SANITIZE_STRING,
+			'flags' => FILTER_FLAG_STRIP_LOW
+		    ),
+		);
+
+		$variations = filter_input_array( INPUT_GET, $args, false );
+
+		if ( $variations ) {
+			// Trim whitespace
+			array_filter( $variations, __NAMESPACE__ . '\trim_value' );
+		}
+	}
+
+	switch ( $resource ) {
+		case 'books':
+			try {
+				new \PressBooks\Api_v1\Books\BooksApi( $books_id, $variations );
+			} catch ( Exception $e ) {
+				echo $e->getMessage();
+			}
+			break;
+		case 'docs':
+			require( PB_PLUGIN_DIR . 'includes/modules/api_v1/docs/api-documentation.php');
+			break;
+		default:
+			\PressBooks\Api_v1\Api::apiErrors( 'resource' );
+			break;
+	}
+
+	exit;
+}
+
+/**
+ * Callback function that strips whitespace characters
+ * 
+ * @see array_filter()
+ * @param array $value 
+ */
+function trim_value( &$value ) {
+	$value = trim( $value );
 }
