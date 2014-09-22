@@ -253,7 +253,7 @@ class Epub201 extends Import {
 	protected function getZipContent( $file, $as_xml = true ) {
 
 		// Locates an entry using its name
-		$index = $this->zip->locateName( urldecode( $file ) );
+		$index = $this->zip->locateName( $file );
 
 		if ( $index === false ) {
 			return '';
