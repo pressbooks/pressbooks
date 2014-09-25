@@ -97,24 +97,26 @@ class Xhtml extends Import {
 	}
 	
 	/**
+	 * Expects a URL string with Creative Commons domain similar in form to: 
+	 * http://creativecommons.org/licenses/by-sa/4.0/
 	 * 
 	 * @param string $url
 	 * @return string license meta value
 	 */
-	protected function extractCCLicense( $url ){
+	protected function extractCCLicense( $url ) {
 		$license = '';
-			
+
 		// evaluate that it's a url
-		if ( ! is_string( $url ) ){
+		if ( ! is_string( $url ) ) {
 			return $license;
 		}
 		// look for creativecommons domain
 		$parts = parse_url( $url );
-		
-		if ('http' == $parts['scheme'] && 'creativecommons.org' == $parts['host']){
+
+		if ( 'http' == $parts['scheme'] && 'creativecommons.org' == $parts['host'] ) {
 			// extract the license information from it
 			$split = explode( '/', $parts['path'] );
-			if ( 'zero' == $split[2] ){
+			if ( 'zero' == $split[2] ) {
 				$license = 'cc0';
 			} else {
 				$license = 'cc-' . $split[2];
@@ -123,15 +125,17 @@ class Xhtml extends Import {
 
 		return $license;
 	}
-	
+
 	/**
+	 * Looks for  div class created by the license module in PB, returns
+	 * author and license information.
 	 * 
 	 * @param string $html
 	 * @return array $meta
 	 */
-	protected function getLicenseAttribution( $html ){
+	protected function getLicenseAttribution( $html ) {
 		$meta = array();
-		
+
 		// get license attribution statement if it exists
 		preg_match( '/(?:<div class="license-attribution[^>]*>)(.*)(<\/div>)/is', $html, $matches );
 
@@ -147,14 +151,13 @@ class Xhtml extends Import {
 			$doc->loadHTML( $utf8_hack . $matches[1] );
 
 			$meta = $this->scrapeAndKneadMeta( $doc );
-			
 		}
 		return $meta;
 	}
-	
-	
+
 	/**
-	 * 
+	 * Looks for meta data in the <head> section of an HTML document. 
+	 * Priority is given to PB generated meta data.
 	 * 
 	 * @param string $html
 	 * @return array $authors
@@ -260,6 +263,8 @@ class Xhtml extends Import {
 	}
 	
 	/**
+	 * Extracts section/book author and section/book license if they exist. 
+	 * Focus is given to CreativeCommons license information genereted by PB
 	 * 
 	 * @param \DOMDocument $doc
 	 * @return array $meta
