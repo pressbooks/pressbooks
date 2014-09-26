@@ -128,11 +128,11 @@ class Wxr extends Import {
 				$new_post['post_parent'] = $chapter_parent;
 			}
 
+			$pid = wp_insert_post( $new_post );
+			
 			if ( 'part' == $post_type ) {
 				$chapter_parent = $pid;
 			}
-
-			$pid = wp_insert_post( $new_post );
 
 			$meta_to_update = apply_filters( 'pb_import_metakeys', array( 'pb_section_author', 'pb_section_license', 'pb_short_title', 'pb_subtitle' ) );
 			
