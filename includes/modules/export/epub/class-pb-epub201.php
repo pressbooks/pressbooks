@@ -408,6 +408,7 @@ class Epub201 extends Export {
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
+			'deny_attribute' => 'itemscope,itemtype,itemref,itemprop',
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
 			'tidy' => -1,
 		);
