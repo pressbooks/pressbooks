@@ -65,7 +65,9 @@ add_filter('upload_mimes', '\PressBooks\Media\addMimeTypes');
 
 add_action( 'init', '\PressBooks\PostType\register_post_types' );
 add_action( 'init', '\PressBooks\Taxonomy\register_taxonomies' );
-add_filter( 'request', '\PressBooks\PostType\add_post_types_rss' );
+if ( \PressBooks\Book::isBook() ) {
+	add_filter( 'request', '\PressBooks\PostType\add_post_types_rss' );
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Remove the "admin bar" from any public facing theme

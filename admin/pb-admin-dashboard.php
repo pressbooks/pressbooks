@@ -91,7 +91,7 @@ function display_book_widget() {
 function display_pressbooks_blog() {
 
 	wp_widget_rss_output( array(
-		'url' => 'http://blog.pressbooks.com/?feed=rss2',
+		'url' => 'http://pressbooks.com/feed/',
 		'title' => __( 'PressBooks News', 'pressbooks' ),
 		'items' => 5,
 		'show_summary' => 1,
