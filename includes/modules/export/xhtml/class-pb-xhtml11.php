@@ -398,12 +398,26 @@ class Xhtml11 extends Export {
 	protected function preProcessPostContent( $content ) {
 
 		$content = apply_filters( 'the_content', $content );
-		$content = $this->fixAnnoyingCharacters( $content );
+		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
+		$content = $this->fixInternalLinks( $content );
 		$content = $this->tidy( $content );
 
 		return $content;
 	}
 
+
+	/**
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	protected function fixInternalLinks( $content ) {
+
+		$output = preg_replace("/href\=\"\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)\//", "href=\"#$2", $content);
+		
+		return $output;
+		
+	}
 
 	/**
 	 * Tidy HTML
