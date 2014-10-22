@@ -1073,7 +1073,7 @@ class Epub201 extends Export {
 	protected function createPartsAndChapters( $book_contents, $metadata ) {
 
 		$part_printf = '<div class="part %s" id="%s">';
-		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>';
+		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>%s';
 		$part_printf .= '</div>';
 
 		$chapter_printf = '<div class="chapter %s" id="%s">';
@@ -1108,7 +1108,7 @@ class Epub201 extends Export {
 			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
 			if ( $part_content ) {
 				$part_content = $this->kneadHtml( $this->preProcessPostContent( $part_content ), 'custom' );
-				$part_printf_changed = str_replace( '</h1></div></div>', "</h1></div><div class=\"ugc part-ugc\">{$part_content}</div></div>", $part_printf );
+				$part_printf_changed = str_replace( '</h1></div>%s</div>', "</h1></div><div class=\"ugc part-ugc\">%s</div></div>", $part_printf );
 			}
 
 			foreach ( $part['chapters'] as $chapter ) {
@@ -1197,7 +1197,8 @@ class Epub201 extends Export {
 					$invisibility,
 					$slug,
 					( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
-					Sanitize\decode( $part['post_title'] ) );
+					Sanitize\decode( $part['post_title'] ),
+					$part_content );
 
 				$file_id = 'part-' . sprintf( "%03s", $i );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
