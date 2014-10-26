@@ -436,7 +436,7 @@ class BooksApi extends Api {
 				$book[$book_id]['book_url'] = get_blogaddress_by_id( $book_id );
 				$book[$book_id]['book_meta'] = \PressBooks\Book::getBookInformation( intval( $book_id ) );
 				$book_structure = \PressBooks\Book::getBookStructure( intval( $book_id ) );
-				$book[$book_id]['book_toc'] = $this->getToc( $book_structure );
+				$book[$book_id]['book_toc'] = $this->getToc( $book_structure, $book_id );
 			}
 		} else {
 			// check if blog_id is in the collection
@@ -462,12 +462,13 @@ class BooksApi extends Api {
 	 */
 	function getPublicBlogIds() {
 		$transient = get_transient( 'pb-api-public-bookids' );
-
+		
 		if ( false === $transient ) {
 			global $wpdb;
+			$table_name = $wpdb->prefix . "blogs";
 			$result = array();
 
-			$result = $wpdb->get_col( 'SELECT blog_id FROM wp_blogs WHERE `public` = 1' );
+			$result = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM $table_name WHERE public = %d", '1' ) );
 
 			// blog id = 1 is not a book
 			if ( ! empty( $result ) && 1 == $result[0] ) {
