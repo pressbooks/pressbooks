@@ -413,7 +413,9 @@ class Xhtml11 extends Export {
 	 */
 	protected function fixInternalLinks( $content ) {
 
-		$output = preg_replace("/href\=\"\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)\//", "href=\"#$2", $content);
+		$content = preg_replace("/href\=\"\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)([\/]?)(\#[a-z0-9\-]*)\"/", "href=\"$4\"", $content);	
+		
+		$output = preg_replace("/href\=\"\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)([\/]?)\"/", "href=\"#$2\"", $content);
 		
 		return $output;
 		
