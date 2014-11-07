@@ -679,7 +679,12 @@ class Xhtml11 extends Export {
 				foreach ( $struct as $part ) {
 					$slug = $part['post_name'];
 					$title = Sanitize\strip_br( $part['post_title'] );
-					if ( count( $book_contents['part'] ) > 1 && $this->atLeastOneExport( $part['chapters'] ) && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) {
+					$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
+					if ( count( $book_contents['part'] ) > 1 && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' && $this->atLeastOneExport( $part['chapters'] ) ) {
+						printf( '<li class="part"><a href="#%s">%s</a></li>',
+							$slug,
+							Sanitize\decode( $title ) );
+					} elseif ( count( $book_contents['part'] ) > 1 && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' && $part_content ) {
 						printf( '<li class="part"><a href="#%s">%s</a></li>',
 							$slug,
 							Sanitize\decode( $title ) );
@@ -954,6 +959,11 @@ class Xhtml11 extends Export {
 					if ( $invisibility !== 'invisible' ) ++$i;
 				} else {
 					echo $my_chapters;
+				}
+			} elseif ( $part_content ) {
+				if ( count( $book_contents['part'] ) > 1 ) {
+					echo $my_part;
+					if ( $invisibility !== 'invisible' ) ++$i;
 				}
 			}
 

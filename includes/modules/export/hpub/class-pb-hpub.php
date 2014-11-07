@@ -957,6 +957,39 @@ class Hpub extends Export {
 				++$i;
 				
 				if ( $invisibility !== 'invisible' ) ++$p;
+			} elseif ( $part_content && count( $book_contents['part'] ) > 1 ) {
+
+				$slug = $part['post_name'];
+
+				$m = ( $invisibility == 'invisible' ) ? '' : $p;
+
+				$vars['post_title'] = $part['post_title'];
+				$vars['post_content'] = sprintf(
+					( $part_printf_changed ? $part_printf_changed : $part_printf ),
+					$invisibility,
+					$slug,
+					$m,
+					Sanitize\decode( $part['post_title'] ),
+					$part_content );
+
+				$file_id = 'part-' . sprintf( "%03s", $i );
+				$filename = "{$file_id}-{$slug}.html";
+
+				file_put_contents(
+					$this->tmpDir . "/$filename",
+					$this->loadTemplate( __DIR__ . '/templates/html.php', $vars ) );
+
+				// Insert into correct pos
+				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
+					$file_id => array(
+						'ID' => $part['ID'],
+						'post_title' => $part['post_title'],
+						'filename' => $filename,
+					) ) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+
+				++$i;
+				
+				if ( $invisibility !== 'invisible' ) ++$p;
 			}
 
 			// Did we actually inject the introduction class?
