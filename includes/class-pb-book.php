@@ -352,7 +352,7 @@ class Book {
 		$html = new \DOMDocument();
 		$html->loadHTML( apply_filters( 'the_content', $chapter->post_content ) );
 		$xpath = new \DOMXpath($html);
-		foreach( $xpath->query('/html/body/section/h1') as $node ) {
+		foreach( $xpath->query('/html/body/section/h1|/html/body/h1') as $node ) {
 			$output['section-' . $s] = $node->nodeValue;
 			$s++;
 		}

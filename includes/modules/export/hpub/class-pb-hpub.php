@@ -870,8 +870,8 @@ class Hpub extends Export {
 				
 				if ( $sections ) {
 					$s = 1;
-					while ( strpos( $content, '<div class="bc-section section">' ) !== false ) {
-					    $content = preg_replace('/<div class="bc-section section">/', '<div class="bc-section section" id="section-' . $s++ . '">', $content, 1);
+					while ( strpos( $content, '<h1>' ) !== false ) {
+					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
 					}
 				}
 
