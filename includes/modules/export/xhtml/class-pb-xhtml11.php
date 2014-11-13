@@ -872,7 +872,7 @@ class Xhtml11 extends Export {
 		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s';
 		$chapter_printf .= '</div>';
 
-		$i = $j = 1;
+		$s = $i = $j = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) == 'on' ) ? 'invisible' : '';
@@ -924,7 +924,6 @@ class Xhtml11 extends Export {
 				$sections = \PressBooks\Book::getChapterSubsections( $id );
 				
 				if ( $sections ) {
-					$s = 1;
 					while ( strpos( $content, '<h1>' ) !== false ) {
 					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
 					}
