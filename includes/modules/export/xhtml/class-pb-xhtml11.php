@@ -921,6 +921,15 @@ class Xhtml11 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
+				$sections = \PressBooks\Book::getChapterSubsections( $id );
+				
+				if ( $sections ) {
+					$s = 1;
+					while ( strpos( $content, '<h1>' ) !== false ) {
+					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
+					}
+				}
+
 				if ( $author ) {
 					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
 				}
