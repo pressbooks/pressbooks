@@ -651,9 +651,20 @@ a.close {
   padding-bottom: 5px;
 }
 #toc ul ul:last-of-type {
-	border-bottom: none;
-	padding-bottom: 0;
+  border-bottom: none;
+  padding-bottom: 0;
 }
+#toc h4, #toc li.chapter {
+  padding-left: 10px;
+  text-indent: -10px;
+}
+#toc .dashicons {
+  color: #aaa;
+}
+#toc h4:hover .dashicons {
+  color: #777;
+}
+
 li.bg-color {
   background: #eeeeee;
 }
