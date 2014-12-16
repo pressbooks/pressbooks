@@ -993,7 +993,7 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			$sections = \PressBooks\Book::getChapterSubsections( $id );
+			$sections = \PressBooks\Book::getSubsections( $id );
 			
 			if ( $sections ) {
 				$s = 1;
@@ -1136,7 +1136,7 @@ class Epub201 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				$sections = \PressBooks\Book::getChapterSubsections( $id );
+				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
 					$s = 1;
@@ -1305,7 +1305,7 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			$sections = \PressBooks\Book::getChapterSubsections( $id );
+			$sections = \PressBooks\Book::getSubsections( $id );
 			
 			if ( $sections ) {
 				$s = 1;
@@ -1443,7 +1443,7 @@ class Epub201 extends Export {
 			$html .= "</a>";
 			
 			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
-				$sections = \PressBooks\Book::getChapterSubsections( $v['ID'] );
+				$sections = \PressBooks\Book::getSubsections( $v['ID'] );
 				if ( $sections ) {
 					$s = 1;
 					$html .= '<ul class="sections">';

@@ -340,17 +340,17 @@ class Book {
 	}
 	
 	/**
-	 * Returns a hierarchical array of subsections in a chapter.
+	 * Returns an array of subsections in front matter, back matter, or chapters.
 	 *
 	 * @param $id
 	 *
 	 */
-	static function getChapterSubsections( $id ) {
-		$chapter = get_post( $id );
+	static function getSubsections( $id ) {
+		$parent = get_post( $id );
 		$output = array();
 		$s = 1;
 		$html = new \DOMDocument();
-		$html->loadHTML( apply_filters( 'the_content', $chapter->post_content ) );
+		$html->loadHTML( apply_filters( 'the_content', $parent->post_content ) );
 		$xpath = new \DOMXpath($html);
 		foreach( $xpath->query('/html/body/section/h1|/html/body/h1') as $node ) {
 			$output['section-' . $s] = $node->nodeValue;

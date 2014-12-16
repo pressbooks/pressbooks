@@ -719,7 +719,7 @@ class Xhtml11 extends Export {
 						echo '</a>';
 						
 						if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
-							$sections = \PressBooks\Book::getChapterSubsections( $chapter['ID'] );
+							$sections = \PressBooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								echo '<ul class="sections">';
 								foreach ( $sections as $section ) {
@@ -777,7 +777,7 @@ class Xhtml11 extends Export {
 					echo '</a>';
 					
 					if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
-						$sections = \PressBooks\Book::getChapterSubsections( $val['ID'] );
+						$sections = \PressBooks\Book::getSubsections( $val['ID'] );
 						if ( $sections ) {								
 							echo '<ul class="sections">';
 							foreach ( $sections as $section ) {
@@ -832,7 +832,7 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				$sections = \PressBooks\Book::getChapterSubsections( $id );
+				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
 					while ( strpos( $content, '<h1>' ) !== false ) {
@@ -944,7 +944,7 @@ class Xhtml11 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				$sections = \PressBooks\Book::getChapterSubsections( $id );
+				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
 					while ( strpos( $content, '<h1>' ) !== false ) {
@@ -1034,7 +1034,7 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			$sections = \PressBooks\Book::getChapterSubsections( $id );
+			$sections = \PressBooks\Book::getSubsections( $id );
 			
 			if ( $sections ) {
 				while ( strpos( $content, '<h1>' ) !== false ) {
