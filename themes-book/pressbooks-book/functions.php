@@ -488,12 +488,12 @@ function pressbooks_theme_options_global_init() {
 	
 	add_settings_field(
 		'toc_collapse',
-		__( 'Table of Contents Collapse', 'pressbooks' ),
+		__( 'Collapsable TOC', 'pressbooks' ),
 		'pressbooks_theme_toc_collapse_callback',
 		$_page,
 		$_section,
 		array(
-			 __( 'Make Table of Contents Collapsible', 'pressbooks' )
+			 __( 'Make webbook TOC collapsable', 'pressbooks' )
 		)
 	);
 
