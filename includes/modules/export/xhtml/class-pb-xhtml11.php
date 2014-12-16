@@ -774,7 +774,21 @@ class Xhtml11 extends Export {
 					if ( $license )
 							echo ' <span class="chapter-license">' .  $license  . '</span> ';
 
-					echo '</a></li>';
+					echo '</a>';
+					
+					if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+						$sections = \PressBooks\Book::getChapterSubsections( $val['ID'] );
+						if ( $sections ) {								
+							echo '<ul class="sections">';
+							foreach ( $sections as $section ) {
+								echo '<li class="section"><a href="#' . $type . '-section-' . $s . '"><span class="toc-subsection-title">' . $section . '</span></a></li>';
+								 ++$s;
+							}
+							echo '</ul>';
+						}
+					}
+					
+					echo '</li>';
 				}
 			}
 		}
@@ -794,6 +808,7 @@ class Xhtml11 extends Export {
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
 		$front_matter_printf .= '</div>';
 
+		$s = 1;
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -816,6 +831,14 @@ class Xhtml11 extends Export {
 			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
+
+				$sections = \PressBooks\Book::getChapterSubsections( $id );
+				
+				if ( $sections ) {
+					while ( strpos( $content, '<h1>' ) !== false ) {
+					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="front-matter-section-' . $s++ . '">', $content, 1);
+					}
+				}
 
 			if ( $author ) {
 				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
@@ -925,7 +948,7 @@ class Xhtml11 extends Export {
 				
 				if ( $sections ) {
 					while ( strpos( $content, '<h1>' ) !== false ) {
-					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
+					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="back-matter-section-' . $s++ . '">', $content, 1);
 					}
 				}
 
@@ -996,7 +1019,7 @@ class Xhtml11 extends Export {
 		$back_matter_printf .= '<div class="ugc back-matter-ugc">%s</div>%s';
 		$back_matter_printf .= '</div>';
 
-		$i = 1;
+		$i = $s = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
 
 			if ( ! $back_matter['export'] ) continue;
@@ -1010,6 +1033,14 @@ class Xhtml11 extends Export {
 			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
+
+			$sections = \PressBooks\Book::getChapterSubsections( $id );
+			
+			if ( $sections ) {
+				while ( strpos( $content, '<h1>' ) !== false ) {
+				    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
+				}
+			}
 
 			if ( $author ) {
 				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
