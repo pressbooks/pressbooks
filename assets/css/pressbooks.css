@@ -135,6 +135,8 @@ p.chapter_add {
 
 body.chapter_page_pressbooks tbody { margin-top: 10px; }
 
+body.chapter_page_pressbooks #menu-posts-chapter ul li.wp-first-item a { font-weight: bold; }
+
 body.chapter_page_pressbooks .widefat thead tr th {
 	font-weight: bold;
 	color: #333333;

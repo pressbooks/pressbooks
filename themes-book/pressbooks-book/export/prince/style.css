@@ -606,7 +606,9 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	content: "Part "counter(part, upper-roman) ". ";
 	counter-increment: part; 
 }
-#toc .chapter a {
+#toc .chapter a,
+#toc .front-matter a,
+#toc .back-matter a {
 	padding-left: 25px;
 }
 #toc .chapter a::before {
@@ -617,10 +619,13 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	left: 0;
 	top: 0;
 }
-#toc .chapter .section a::before {
+#toc .chapter .section a::before,
+#toc .front-matter .section a::before,
+#toc .back-matter .section a::before {
 	content:'';
 	counter-increment: none;
 }
+
 #toc .chapter.numberless a::before {
 	content:'' ;
 	counter-increment: none;
@@ -654,7 +659,7 @@ span.chapter-author,
 span.chapter-author +
 span.chapter-license, 
 #toc span.chapter-subtitle + 
-span.chapter-license{
+span.chapter-license {
 	margin-bottom: 5px;
 	position: relative;
 	top: -5px;

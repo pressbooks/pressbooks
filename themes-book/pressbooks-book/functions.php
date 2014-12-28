@@ -74,6 +74,11 @@ function pb_enqueue_scripts() {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
 	
+	$options = get_option( 'pressbooks_theme_options_global' );
+	if ( @$options['toc_collapse'] ) {
+		wp_enqueue_script( 'pressbooks_toc_collapse',	get_stylesheet_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
+		wp_enqueue_style( 'dashicons' );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 
@@ -433,7 +438,8 @@ function pressbooks_theme_options_global_init() {
 	$_page = $_option = 'pressbooks_theme_options_global';
 	$_section = 'global_options_section';
 	$defaults = array(
-		'chapter_numbers' => 1
+		'chapter_numbers' => 1,
+		'toc_collapse' => 0
 	);
 
 	if ( false == get_option( $_option ) ) {
@@ -477,6 +483,17 @@ function pressbooks_theme_options_global_init() {
 		$_section,
 		array(
 			 __( 'Display the copyright license', 'pressbooks' )
+		)
+	);
+	
+	add_settings_field(
+		'toc_collapse',
+		__( 'Collapsable TOC', 'pressbooks' ),
+		'pressbooks_theme_toc_collapse_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Make webbook TOC collapsable', 'pressbooks' )
 		)
 	);
 
@@ -537,6 +554,18 @@ function pressbooks_theme_copyright_license_callback( $args ) {
 	echo $html;
 }
 
+// Global Options Field Callback
+function pressbooks_theme_toc_collapse_callback( $args ) {
+	$options = get_option( 'pressbooks_theme_options_global' );
+	
+	if ( ! isset( $options['toc_collapse'] ) ) {
+		$options['toc_collapse'] = 0;
+	}
+	$html = '<input type="checkbox" id="toc_collapse" name="pressbooks_theme_options_global[toc_collapse]" value="1" ' . checked( 1, $options['toc_collapse'], false ) . '/>';
+	$html .= '<label for="toc_collapse"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
 // Global Options Input Sanitization
 function pressbooks_theme_options_global_sanitize( $input ) {
 
@@ -558,6 +587,12 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 		$options['copyright_license'] = 0;
 	} else {
 		$options['copyright_license'] = 1;
+	}
+	
+	if ( ! isset( $input['toc_collapse'] ) || $input['toc_collapse'] != '1' ) {
+		$options['toc_collapse'] = 0;
+	} else {
+		$options['toc_collapse'] = 1;
 	}
 
 	return $options;

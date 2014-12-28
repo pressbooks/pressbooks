@@ -993,6 +993,15 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
+			$sections = \PressBooks\Book::getSubsections( $id );
+			
+			if ( $sections ) {
+				$s = 1;
+				while ( strpos( $content, '<h1>' ) !== false ) {
+				    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
+				}
+			}
+
 			if ( $author ) {
 				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
 			}
@@ -1073,7 +1082,7 @@ class Epub201 extends Export {
 	protected function createPartsAndChapters( $book_contents, $metadata ) {
 
 		$part_printf = '<div class="part %s" id="%s">';
-		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>';
+		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>%s';
 		$part_printf .= '</div>';
 
 		$chapter_printf = '<div class="chapter %s" id="%s">';
@@ -1108,7 +1117,7 @@ class Epub201 extends Export {
 			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
 			if ( $part_content ) {
 				$part_content = $this->kneadHtml( $this->preProcessPostContent( $part_content ), 'custom' );
-				$part_printf_changed = str_replace( '</h1></div></div>', "</h1></div><div class=\"ugc part-ugc\">{$part_content}</div></div>", $part_printf );
+				$part_printf_changed = str_replace( '</h1></div>%s</div>', "</h1></div><div class=\"ugc part-ugc\">%s</div></div>", $part_printf );
 			}
 
 			foreach ( $part['chapters'] as $chapter ) {
@@ -1127,12 +1136,12 @@ class Epub201 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				$sections = \PressBooks\Book::getChapterSubsections( $id );
+				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
 					$s = 1;
-					while ( strpos( $content, '<div class="bc-section section">' ) !== false ) {
-					    $content = preg_replace('/<div class="bc-section section">/', '<div class="bc-section section" id="section-' . $s++ . '">', $content, 1);
+					while ( strpos( $content, '<h1>' ) !== false ) {
+					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
 					}
 				}
 
@@ -1197,7 +1206,41 @@ class Epub201 extends Export {
 					$invisibility,
 					$slug,
 					( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
-					Sanitize\decode( $part['post_title'] ) );
+					Sanitize\decode( $part['post_title'] ),
+					$part_content );
+
+				$file_id = 'part-' . sprintf( "%03s", $i );
+				$filename = "{$file_id}-{$slug}.{$this->filext}";
+
+				file_put_contents(
+					$this->tmpDir . "/OEBPS/$filename",
+					$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+
+				// Insert into correct pos
+				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
+					$file_id => array(
+						'ID' => $part['ID'],
+						'post_title' => $part['post_title'],
+						'filename' => $filename,
+					) ) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+
+				++$i;
+				
+				if ( $invisibility !== 'invisible' ) ++$p;
+			} elseif ( $part_content && count( $book_contents['part'] ) > 1 ) {
+
+				$slug = $part['post_name'];
+
+				$m = ( $invisibility == 'invisible' ) ? '' : $p;
+
+				$vars['post_title'] = $part['post_title'];
+				$vars['post_content'] = sprintf(
+					( $part_printf_changed ? $part_printf_changed : $part_printf ),
+					$invisibility,
+					$slug,
+					( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
+					Sanitize\decode( $part['post_title'] ),
+					$part_content );
 
 				$file_id = 'part-' . sprintf( "%03s", $i );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
@@ -1261,6 +1304,15 @@ class Epub201 extends Export {
 			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
+
+			$sections = \PressBooks\Book::getSubsections( $id );
+			
+			if ( $sections ) {
+				$s = 1;
+				while ( strpos( $content, '<h1>' ) !== false ) {
+				    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
+				}
+			}
 
 			if ( $author ) {
 				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
@@ -1391,12 +1443,12 @@ class Epub201 extends Export {
 			$html .= "</a>";
 			
 			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
-				$sections = \PressBooks\Book::getChapterSubsections( $v['ID'] );
+				$sections = \PressBooks\Book::getSubsections( $v['ID'] );
 				if ( $sections ) {
 					$s = 1;
 					$html .= '<ul class="sections">';
 					foreach ( $sections as $section ) {
-						$html .= '<li class="section"><a href="' . $v['filename'] . '#section-' . $s . '"><span class="toc-subsection-title">' . $section . '</span></a></li>';
+						$html .= '<li class="section"><a href="' . $v['filename'] . '#section-' . $s . '"><span class="toc-subsection-title">' . Sanitize\decode( $section ) . '</span></a></li>';
 						 ++$s;
 					}
 					$html .= '</ul>';

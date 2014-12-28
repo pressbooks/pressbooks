@@ -352,7 +352,7 @@ abstract class Import {
 				\PressBooks\Redirect\location( $redirect_url );
 			}
 
-			// check for a valid response from server
+			// HEAD request, check for a valid response from server
 			$remote_head = wp_remote_head( $_POST['import_html'] );
 
 			// Something failed
@@ -361,9 +361,10 @@ abstract class Import {
 				$_SESSION['pb_errors'][] = $remote_head->get_error_message();
 				\PressBooks\Redirect\location( $redirect_url );
 			}
-
-			if ( 200 !== $remote_head['response']['code'] ) {
-				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header', 'pressbooks' );
+			
+			// weebly.com (and likely some others) prevent HEAD requests, but allow GET requests
+			if ( 200 !== $remote_head['response']['code'] && 405 !== $remote_head['response']['code'] ) {
+				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ' . $remote_head['response']['code'] , 'pressbooks' );
 				\PressBooks\Redirect\location( $redirect_url );
 			}
 
@@ -372,7 +373,8 @@ abstract class Import {
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
 				\PressBooks\Redirect\location( $redirect_url );
 			}
-
+			
+			// GET http request
 			$body = wp_remote_get( $_POST['import_html'] );
 
 			// check for wp error
@@ -383,6 +385,12 @@ abstract class Import {
 				\PressBooks\Redirect\location( $redirect_url );
 			}
 
+			// check for a successful response code on GET request
+			if ( 200 !== $body['response']['code'] ){
+				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ' . $body['response']['code'] , 'pressbooks' );
+				\PressBooks\Redirect\location( $redirect_url );
+			}
+			
 			// add our url
 			$body['url'] = $_POST['import_html'];
 			

@@ -259,14 +259,14 @@ function pb_get_section_type( $post ) {
 }
 
 /**
- * Returns a hierarchical array of subsections in a chapter.
+ * Returns an array of subsections in front matter, back matter, or chapters.
  *
  * @param $id
  *
  * @return array
  */
-function pb_get_chapter_sections( $id ) {
-	return \PressBooks\Book::getChapterSubSections( $id );
+function pb_get_sections( $id ) {
+	return \PressBooks\Book::getSubsections( $id );
 }
 
 /**

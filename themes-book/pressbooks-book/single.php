@@ -21,8 +21,8 @@
 					<?php if ( get_post_type( $post->ID ) !== 'part' ) {
 						$content = apply_filters ( 'the_content', get_the_content() );
 						$s = 1;
-						while ( strpos( $content, '<section>' ) !== false ) {
-						    $content = preg_replace('/<section>/', '<section id="section-' . $s++ . '">', $content, 1);
+						while ( strpos( $content, '<h1>' ) !== false ) {
+						    $content = preg_replace('/<h1>/', '<h1 id="section-' . $s++ . '">', $content, 1);
 						}
 						echo $content;
 					} else {

@@ -413,7 +413,9 @@ class Xhtml11 extends Export {
 	 */
 	protected function fixInternalLinks( $content ) {
 
-		$output = preg_replace("/href\=\"\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)\//", "href=\"#$2", $content);
+		$content = preg_replace("/href\=\"\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)([\/]?)(\#[a-z0-9\-]*)\"/", "href=\"$4\"", $content);	
+		
+		$output = preg_replace("/href\=\"\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)([\/]?)\"/", "href=\"#$2\"", $content);
 		
 		return $output;
 		
@@ -677,14 +679,27 @@ class Xhtml11 extends Export {
 				foreach ( $struct as $part ) {
 					$slug = $part['post_name'];
 					$title = Sanitize\strip_br( $part['post_title'] );
-					if ( count( $book_contents['part'] ) > 1 && $this->atLeastOneExport( $part['chapters'] ) && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) {
-						printf( '<li class="part"><a href="#%s">%s</a></li>',
-							$slug,
-							Sanitize\decode( $title ) );
-					} else {
-						printf( '<li class="part display-none"><a href="#%s">%s</a></li>',
-							$slug,
-							Sanitize\decode( $title ) );
+					$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
+					if ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) { // visible
+						if ( count( $book_contents['part'] ) == 1 ) { // only part
+							if ( $part_content ) { // has content
+								printf( '<li class="part"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // show in TOC
+							} else { // no content
+								printf( '<li class="part display-none"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // hide from TOC
+							}
+						} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
+							if ( $this->atLeastOneExport( $part['chapters'] ) ) { // has chapter
+								printf( '<li class="part"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // show in TOC
+							} else { // no chapter
+								if ( $part_content ) { // has content
+									printf( '<li class="part"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // show in TOC
+								} else { // no content
+									printf( '<li class="part display-none"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // hide from TOC
+								}
+							}
+						}
+					} elseif ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) == 'on' ) { // invisible
+						printf( '<li class="part display-none"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // hide from TOC
 					}
 					foreach ( $part['chapters'] as $j => $chapter ) {
 
@@ -712,7 +727,7 @@ class Xhtml11 extends Export {
 						echo '</a>';
 						
 						if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
-							$sections = \PressBooks\Book::getChapterSubsections( $chapter['ID'] );
+							$sections = \PressBooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								echo '<ul class="sections">';
 								foreach ( $sections as $section ) {
@@ -767,7 +782,21 @@ class Xhtml11 extends Export {
 					if ( $license )
 							echo ' <span class="chapter-license">' .  $license  . '</span> ';
 
-					echo '</a></li>';
+					echo '</a>';
+					
+					if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+						$sections = \PressBooks\Book::getSubsections( $val['ID'] );
+						if ( $sections ) {								
+							echo '<ul class="sections">';
+							foreach ( $sections as $section ) {
+								echo '<li class="section"><a href="#' . $type . '-section-' . $s . '"><span class="toc-subsection-title">' . $section . '</span></a></li>';
+								 ++$s;
+							}
+							echo '</ul>';
+						}
+					}
+					
+					echo '</li>';
 				}
 			}
 		}
@@ -787,6 +816,7 @@ class Xhtml11 extends Export {
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
 		$front_matter_printf .= '</div>';
 
+		$s = 1;
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -809,6 +839,14 @@ class Xhtml11 extends Export {
 			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
+
+				$sections = \PressBooks\Book::getSubsections( $id );
+				
+				if ( $sections ) {
+					while ( strpos( $content, '<h1>' ) !== false ) {
+					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="front-matter-section-' . $s++ . '">', $content, 1);
+					}
+				}
 
 			if ( $author ) {
 				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
@@ -857,7 +895,7 @@ class Xhtml11 extends Export {
 	protected function echoPartsAndChapters( $book_contents, $metadata ) {
 
 		$part_printf = '<div class="part %s" id="%s">';
-		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>';
+		$part_printf .= '<div class="part-title-wrap"><h3 class="part-number">%s</h3><h1 class="part-title">%s</h1></div>%s';
 		$part_printf .= '</div>';
 
 		$chapter_printf = '<div class="chapter %s" id="%s">';
@@ -865,7 +903,7 @@ class Xhtml11 extends Export {
 		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s';
 		$chapter_printf .= '</div>';
 
-		$i = $j = 1;
+		$s = $i = $j = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) == 'on' ) ? 'invisible' : '';
@@ -884,7 +922,7 @@ class Xhtml11 extends Export {
 			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
 			if ( $part_content ) {
 				$part_content = $this->preProcessPostContent( $part_content );
-				$part_printf_changed = str_replace( '</h1></div></div>', "</h1></div><div class=\"ugc part-ugc\">{$part_content}</div></div>", $part_printf );
+				$part_printf_changed = str_replace( '</h1></div>%s</div>', "</h1></div><div class=\"ugc part-ugc\">%s</div></div>", $part_printf );
 			}
 
 			$m = ( $invisibility == 'invisible' ) ? '' : $i;
@@ -893,7 +931,8 @@ class Xhtml11 extends Export {
 				$invisibility,
 				$slug,
 				$m,
-				Sanitize\decode( $title ) ) . "\n";
+				Sanitize\decode( $title ),
+				$part_content ) . "\n";
 
 			$my_chapters = '';
 
@@ -912,6 +951,14 @@ class Xhtml11 extends Export {
 				$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
+
+				$sections = \PressBooks\Book::getSubsections( $id );
+				
+				if ( $sections ) {
+					while ( strpos( $content, '<h1>' ) !== false ) {
+					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="back-matter-section-' . $s++ . '">', $content, 1);
+					}
+				}
 
 				if ( $author ) {
 					$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
@@ -945,13 +992,28 @@ class Xhtml11 extends Export {
 			}
 
 			// Echo with parts?
-			if ( $my_chapters ) {
-				if ( count( $book_contents['part'] ) > 1 ) {
-					echo $my_part . $my_chapters;
-					if ( $invisibility !== 'invisible' ) ++$i;
-				} else {
-					echo $my_chapters;
+
+			if ( $invisibility !== 'invisible' ) { // visible
+				if ( count( $book_contents['part'] ) == 1 ) { // only part
+					if ( $part_content ) { // has content
+						echo $my_part; // show
+						if ( $my_chapters )
+							echo $my_chapters;
+					} else { // no content
+						if ( $my_chapters )
+							echo $my_chapters;
+					}
+				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
+					if ( $my_chapters ) { // has chapter
+						echo $my_part . $my_chapters; // show
+					} else { // no chapter
+						if ( $part_content ) // has content
+							echo $my_part; // show
+					}
 				}
+				++$i;
+			} elseif ( $invisibility == 'invisible' ) { // invisible
+				if ( $my_chapters ) echo $my_chapters;
 			}
 
 			// Did we actually inject the introduction class?
@@ -975,7 +1037,7 @@ class Xhtml11 extends Export {
 		$back_matter_printf .= '<div class="ugc back-matter-ugc">%s</div>%s';
 		$back_matter_printf .= '</div>';
 
-		$i = 1;
+		$i = $s = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
 
 			if ( ! $back_matter['export'] ) continue;
@@ -989,6 +1051,14 @@ class Xhtml11 extends Export {
 			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
+
+			$sections = \PressBooks\Book::getSubsections( $id );
+			
+			if ( $sections ) {
+				while ( strpos( $content, '<h1>' ) !== false ) {
+				    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
+				}
+			}
 
 			if ( $author ) {
 				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
