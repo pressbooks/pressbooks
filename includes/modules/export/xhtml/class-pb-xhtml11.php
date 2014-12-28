@@ -680,18 +680,26 @@ class Xhtml11 extends Export {
 					$slug = $part['post_name'];
 					$title = Sanitize\strip_br( $part['post_title'] );
 					$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
-					if ( count( $book_contents['part'] ) > 1 && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' && $this->atLeastOneExport( $part['chapters'] ) ) {
-						printf( '<li class="part"><a href="#%s">%s</a></li>',
-							$slug,
-							Sanitize\decode( $title ) );
-					} elseif ( count( $book_contents['part'] ) > 1 && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' && $part_content ) {
-						printf( '<li class="part"><a href="#%s">%s</a></li>',
-							$slug,
-							Sanitize\decode( $title ) );
-					} else {
-						printf( '<li class="part display-none"><a href="#%s">%s</a></li>',
-							$slug,
-							Sanitize\decode( $title ) );
+					if ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) { // visible
+						if ( count( $book_contents['part'] ) == 1 ) { // only part
+							if ( $part_content ) { // has content
+								printf( '<li class="part"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // show in TOC
+							} else { // no content
+								printf( '<li class="part display-none"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // hide from TOC
+							}
+						} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
+							if ( $this->atLeastOneExport( $part['chapters'] ) ) { // has chapter
+								printf( '<li class="part"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // show in TOC
+							} else { // no chapter
+								if ( $part_content ) { // has content
+									printf( '<li class="part"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // show in TOC
+								} else { // no content
+									printf( '<li class="part display-none"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // hide from TOC
+								}
+							}
+						}
+					} elseif ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) == 'on' ) { // invisible
+						printf( '<li class="part display-none"><a href="#%s">%s</a></li>', $slug, Sanitize\decode( $title ) ); // hide from TOC
 					}
 					foreach ( $part['chapters'] as $j => $chapter ) {
 
@@ -984,18 +992,28 @@ class Xhtml11 extends Export {
 			}
 
 			// Echo with parts?
-			if ( $my_chapters ) {
-				if ( count( $book_contents['part'] ) > 1 ) {
-					echo $my_part . $my_chapters;
-					if ( $invisibility !== 'invisible' ) ++$i;
-				} else {
-					echo $my_chapters;
+
+			if ( $invisibility !== 'invisible' ) { // visible
+				if ( count( $book_contents['part'] ) == 1 ) { // only part
+					if ( $part_content ) { // has content
+						echo $my_part; // show
+						if ( $my_chapters )
+							echo $my_chapters;
+					} else { // no content
+						if ( $my_chapters )
+							echo $my_chapters;
+					}
+				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
+					if ( $my_chapters ) { // has chapter
+						echo $my_part . $my_chapters; // show
+					} else { // no chapter
+						if ( $part_content ) // has content
+							echo $my_part; // show
+					}
 				}
-			} elseif ( $part_content ) {
-				if ( count( $book_contents['part'] ) > 1 ) {
-					echo $my_part;
-					if ( $invisibility !== 'invisible' ) ++$i;
-				}
+				++$i;
+			} elseif ( $invisibility == 'invisible' ) { // invisible
+				if ( $my_chapters ) echo $my_chapters;
 			}
 
 			// Did we actually inject the introduction class?
