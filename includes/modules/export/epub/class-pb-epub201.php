@@ -1194,12 +1194,9 @@ class Epub201 extends Export {
 				if ( $subclass !== 'numberless' ) ++$c;
 			}
 
-			if ( $has_chapters && count( $book_contents['part'] ) > 1 ) {
-
+			if ( count( $book_contents['part'] ) == 1 && $part_content ) { // only part, has content
 				$slug = $part['post_name'];
-
 				$m = ( $invisibility == 'invisible' ) ? '' : $p;
-
 				$vars['post_title'] = $part['post_title'];
 				$vars['post_content'] = sprintf(
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
@@ -1223,43 +1220,74 @@ class Epub201 extends Export {
 						'post_title' => $part['post_title'],
 						'filename' => $filename,
 					) ) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
-
-				++$i;
 				
-				if ( $invisibility !== 'invisible' ) ++$p;
-			} elseif ( $part_content && count( $book_contents['part'] ) > 1 ) {
-
-				$slug = $part['post_name'];
-
-				$m = ( $invisibility == 'invisible' ) ? '' : $p;
-
-				$vars['post_title'] = $part['post_title'];
-				$vars['post_content'] = sprintf(
-					( $part_printf_changed ? $part_printf_changed : $part_printf ),
-					$invisibility,
-					$slug,
-					( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
-					Sanitize\decode( $part['post_title'] ),
-					$part_content );
-
-				$file_id = 'part-' . sprintf( "%03s", $i );
-				$filename = "{$file_id}-{$slug}.{$this->filext}";
-
-				file_put_contents(
-					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
-
-				// Insert into correct pos
-				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
-					$file_id => array(
-						'ID' => $part['ID'],
-						'post_title' => $part['post_title'],
-						'filename' => $filename,
-					) ) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
-
 				++$i;
-				
 				if ( $invisibility !== 'invisible' ) ++$p;
+				
+			} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
+				if ( $has_chapters ) { // has chapter
+					$slug = $part['post_name'];
+					$m = ( $invisibility == 'invisible' ) ? '' : $p;
+					$vars['post_title'] = $part['post_title'];
+					$vars['post_content'] = sprintf(
+						( $part_printf_changed ? $part_printf_changed : $part_printf ),
+						$invisibility,
+						$slug,
+						( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
+						Sanitize\decode( $part['post_title'] ),
+						$part_content );
+	
+					$file_id = 'part-' . sprintf( "%03s", $i );
+					$filename = "{$file_id}-{$slug}.{$this->filext}";
+	
+					file_put_contents(
+						$this->tmpDir . "/OEBPS/$filename",
+						$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+	
+					// Insert into correct pos
+					$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
+						$file_id => array(
+							'ID' => $part['ID'],
+							'post_title' => $part['post_title'],
+							'filename' => $filename,
+						) ) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+					
+					++$i;
+					if ( $invisibility !== 'invisible' ) ++$p;
+
+				} else { // no chapter
+					if ( $part_content ) { // has content
+						$slug = $part['post_name'];
+						$m = ( $invisibility == 'invisible' ) ? '' : $p;
+						$vars['post_title'] = $part['post_title'];
+						$vars['post_content'] = sprintf(
+							( $part_printf_changed ? $part_printf_changed : $part_printf ),
+							$invisibility,
+							$slug,
+							( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
+							Sanitize\decode( $part['post_title'] ),
+							$part_content );
+		
+						$file_id = 'part-' . sprintf( "%03s", $i );
+						$filename = "{$file_id}-{$slug}.{$this->filext}";
+		
+						file_put_contents(
+							$this->tmpDir . "/OEBPS/$filename",
+							$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+		
+						// Insert into correct pos
+						$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
+							$file_id => array(
+								'ID' => $part['ID'],
+								'post_title' => $part['post_title'],
+								'filename' => $filename,
+							) ) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
+
+						++$i;
+						if ( $invisibility !== 'invisible' ) ++$p;
+
+					}
+				}
 			}
 
 			// Did we actually inject the introduction class?
