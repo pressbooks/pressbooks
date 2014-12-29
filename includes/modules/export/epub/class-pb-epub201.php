@@ -607,9 +607,9 @@ class Epub201 extends Export {
 					return "url(assets/$new_filename)";
 				}
 
-			} elseif ( preg_match( '#^\.\./\.\./fonts/[a-zA-Z0-9_-]+(\.ttf|\.otf)$#i', $url ) ) {
+			} elseif ( preg_match( '#^\.\./\.\./\.\./fonts/[a-zA-Z0-9_-]+(\.ttf|\.otf)$#i', $url ) ) {
 
-				// Look for ../../fonts/*.ttf (or .otf), copy into our Epub
+				// Look for ../../../fonts/*.ttf (or .otf), copy into our Epub
 
 				$my_font = realpath( "$css_dir/$url" );
 				if ( $my_font ) {
