@@ -199,7 +199,7 @@ TK.
 * Fixed bug that broke the running head in PDF exports.
 * Fixed bug that broke internal links in PDF exports.
 * Fixed bug that caused the Chapter Types menu item to be displayed twice for certain users.
-* Experimental PressBooks API (props to @bdolor; see http://pressbooks.com/api/v1/docs).
+* Beta PressBooks API (props to @bdolor; see http://pressbooks.com/api/v1/docs).
 * Collapsible TOCs for webbooks (props to @drlippman).
 * Import enhancements (props to @bdolor).
 * EPUB export enhancements (props to @bdolor).
