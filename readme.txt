@@ -190,8 +190,12 @@ TK.
 
 == Changelog ==
 
+= 2.4.2 =
+* Fixes licensing issue.
+* Adds child theme support to collapsible TOC functionality (props to @bdolor).
+
 = 2.4.1 =
-* Fixed issue with improperly parsted sections in chapters and back matter.
+* Fixed issue with improperly parsed sections in chapters and back matter.
 
 = 2.4 =
 * Requires WordPress 4.1.
