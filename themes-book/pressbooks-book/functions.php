@@ -76,7 +76,7 @@ function pb_enqueue_scripts() {
 	
 	$options = get_option( 'pressbooks_theme_options_global' );
 	if ( @$options['toc_collapse'] ) {
-		wp_enqueue_script( 'pressbooks_toc_collapse',	get_stylesheet_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
+		wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
 		wp_enqueue_style( 'dashicons' );
 	}
 }
