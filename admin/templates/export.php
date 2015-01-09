@@ -123,7 +123,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    	<?php 
 		$host = parse_url( network_site_url(), PHP_URL_HOST );
 
-		if ( 'pressbooks' != $host ) { ?>
+		if ( 'pressbooks.com' != $host ) { ?>
 	    	<input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php checked(1, $options['epub3'], false); ?>/><label for="epub3"> <?php _e( 'EPUB 3 (Beta)', 'pressbooks' ); ?></label><br />
 	    	<?php } ?>
 	    	<input type="checkbox" id="hpub" name="export_formats[hpub]" value="1" <?php checked(1, $options['hpub'], false); ?>/><label for="hpub"> <?php _e( 'Hpub', 'pressbooks' ); ?></label><br />

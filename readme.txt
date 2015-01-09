@@ -1,7 +1,7 @@
 === PressBooks ===
 
 Contributors: PressBooks <code@pressbooks.com>
-Version: 2.4
+Version: 2.4.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.1
 Tested up to: 4.1
@@ -189,6 +189,9 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.4.1 =
+* Fixed issue with improperly parsted sections in chapters and back matter.
 
 = 2.4 =
 * Requires WordPress 4.1.

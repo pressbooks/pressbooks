@@ -956,7 +956,7 @@ class Xhtml11 extends Export {
 				
 				if ( $sections ) {
 					while ( strpos( $content, '<h1>' ) !== false ) {
-					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="back-matter-section-' . $s++ . '">', $content, 1);
+					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
 					}
 				}
 
@@ -1056,7 +1056,7 @@ class Xhtml11 extends Export {
 			
 			if ( $sections ) {
 				while ( strpos( $content, '<h1>' ) !== false ) {
-				    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
+				    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="back-matter-section-' . $s++ . '">', $content, 1);
 				}
 			}
 
