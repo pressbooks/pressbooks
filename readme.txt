@@ -1,7 +1,7 @@
 === PressBooks ===
 
 Contributors: PressBooks <code@pressbooks.com>
-Version: 2.4.1
+Version: 2.4.2
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.1
 Tested up to: 4.1
@@ -190,8 +190,15 @@ TK.
 
 == Changelog ==
 
+= 2.4.3 =
+* Make links inside the `[footnote]` shortcode clickable (props to @bdolor).
+
+= 2.4.2 =
+* Fixed licenses.
+* Added child theme support to collapsible TOC functionality (props to @bdolor).
+
 = 2.4.1 =
-* Fixed issue with improperly parsted sections in chapters and back matter.
+* Fixed issue with improperly parsed sections in chapters and back matter.
 
 = 2.4 =
 * Requires WordPress 4.1.

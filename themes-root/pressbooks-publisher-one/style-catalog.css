@@ -136,17 +136,13 @@ img {
 	padding-bottom: 40px;
 	width: 100%;
 }
-.catalog-content h1 span.filtered-by,
-.catalog-content h1 span.current-filters,
-.catalog-content h1 span.clear-filters {
+.catalog-content-wrap h1 span.filtered-by,
+.catalog-content-wrap h1 span.current-filters,
+.catalog-content-wrap h1 span.clear-filters {
 	display: none;
 }
 .sidebar-inner-wrap {
 	padding: 10px 25px 25px 20%;
-}
-.mix{
-    opacity: 0;
-    display: none;
 }
 .fail-message {
 	display: none;
