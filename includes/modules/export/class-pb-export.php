@@ -589,6 +589,9 @@ abstract class Export {
 			if ( isset( $x['pdf'] ) ) {
 				$modules[] = '\PressBooks\Export\Prince\Pdf';
 			}
+			if ( isset( $x['mpdf'] ) ) {
+				$modules[] = '\PressBooks\Export\Mpdf\Pdf';
+			}
 			if ( isset( $x['epub'] ) ) {
 				$modules[] = '\PressBooks\Export\Epub\Epub201'; // Must be set before MOBI
 			}

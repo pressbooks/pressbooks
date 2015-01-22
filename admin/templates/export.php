@@ -101,6 +101,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	<?php
 	$options = get_option('export_formats');
 	if ( ! isset( $options['pdf'] ) ) { $options['pdf'] = 1; }
+	if ( ! isset( $options['mpdf'] ) ) { $options['mpdf'] = 1; }
 	if ( ! isset( $options['epub'] ) ) { $options['epub'] = 1; }
 	if ( ! isset( $options['epub3'] ) ) { $options['epub3'] = 1; }
 	if ( ! isset( $options['mobi'] ) ) { $options['mobi'] = 1; }
@@ -113,6 +114,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    <fieldset>
 	       <legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
 	    	<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php checked(1, $options['pdf'], true); ?>/><label for="pdf"> <?php _e( 'PDF (for printing)', 'pressbooks' ); ?></label><br />
+	    	<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" <?php checked(1, $options['mpdf'], true); ?>/><label for="mpdf"> <?php _e( 'PDF (OSS)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="epub" name="export_formats[epub]" value="1" <?php checked(1, $options['epub'], true); ?> onclick="fixMobi();" /><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="mobi" name="export_formats[mobi]" value="1" <?php checked(1, $options['mobi'], true); ?> onclick="fixMobi();" /><label for="mobi"> <?php _e( 'MOBI (for Kindle)', 'pressbooks' ); ?></label>
 	    </fieldset>
