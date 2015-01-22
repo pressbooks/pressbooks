@@ -318,12 +318,10 @@ $_current_user_id = $catalog->getUserId();
 		$container.isotope({
 			itemSelector: '.book-data',
 			layoutMode: 'fitRows',
-		});
-		$container.isotope( 'on', 'layoutComplete',
-			function( isoInstance, laidOutItems ) {
-				$container.equalizer();
-			}
-		);
+		});		
+		function webkitTrigger( isoInstance, laidOutItems ) {
+			$container.equalizer();
+		}		
 		$container.equalizer({ columns: '> div.book-data', min: 350, resizeable: false });
 	});
 	// ]]>
