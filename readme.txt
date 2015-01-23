@@ -191,7 +191,9 @@ TK.
 == Changelog ==
 
 = 2.4.3 =
-* Make links inside the `[footnote]` shortcode clickable (props to @bdolor).
+* Removed Hpub export routines.
+* Made links inside the `[footnote]` shortcode clickable (props to @bdolor).
+* Fixed issue with catalog page in WebKit browsers (props to @bdolor).
 
 = 2.4.2 =
 * Fixed licenses.

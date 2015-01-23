@@ -598,9 +598,6 @@ abstract class Export {
 			if ( isset( $x['mobi'] ) ) {
 				$modules[] = '\PressBooks\Export\Mobi\Kindlegen'; // Must be set after EPUB
 			}
-			if ( isset( $x['hpub'] ) ) {
-				$modules[] = '\PressBooks\Export\Hpub\Hpub';
-			}
 			if ( isset( $x['icml'] ) ) {
 				$modules[] = '\PressBooks\Export\InDesign\Icml';
 			}
