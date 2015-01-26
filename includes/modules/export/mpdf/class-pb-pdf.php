@@ -5,6 +5,7 @@
  */
 namespace PressBooks\Export\Mpdf;
 
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 use \PressBooks\Export\Export;
 
@@ -236,13 +237,27 @@ class Pdf extends Export {
 			}
 
 			$content = '<h2 class="entry-title">' . $page['post_title'] . '</h2>';
-			$content .= '<div class="' . $class . '">' . $page['post_content'] . '</div>';
+			$content .= '<div class="' . $class . '">' . $this->getFilteredContent( $page['post_content'] ) . '</div>';
 
 			// TODO Make this hookable.
 			$this->mpdf->WriteHTML( $content );
 		}
 
 		$previous = $page;
+	}
+
+	function getFilteredContent( $content ) {
+		$filtered = apply_filters( 'the_content', $content );
+
+		$config = array(
+			'valid_xhtml' => 1,
+			'no_deprecated_attr' => 2,
+			'unique_ids' => 'fixme-',
+			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
+			'tidy' => -1,
+		);
+
+		return htmLawed( $filtered, $config );
 	}
 
 	/**
@@ -428,5 +443,7 @@ class Pdf extends Export {
 
 		return false;
 	}
+
+
 
 }
