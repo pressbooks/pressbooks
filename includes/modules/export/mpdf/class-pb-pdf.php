@@ -302,10 +302,10 @@ class Pdf extends Export {
 			    	if ( $part_content || $this->atLeastOneExport( $part['chapters'] ) ) {
 			    		if ( ! empty( $part['post_content'] ) ) {
 			    			$part['mpdf_level'] = 1;
-			    			$part['post_content'] .= trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
+			    			$part['post_content'] .= $part_content;
 			    		}
 			    		else {
-			    			$part['post_content'] = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
+			    			$part['post_content'] = $part_content;
 			    			$part['mpdf_level' ] = 0;
 			    		}
 			    		$ordered[] = $part;
