@@ -190,42 +190,42 @@ class Pdf extends Export {
 	 */
 	function addPage( $page ) {
 		static $previous;
-		static $firstChapter;
-
-		if ( ! isset( $firstChapter ) ) {
-			$firstChapter = TRUE;
-		}
+		static $tocAdded;
 
 		// If this is our first page set the previous to this one.
 		if ( empty( $previous) ) {
 			$previous = $page;
 		}
 
-		$changed = FALSE;
-		if ($previous['post_type'] != $page['post_type'] ) {
-			$changed = TRUE;
+		// Indicate the ToC has not been added yet.
+		if ( ! isset( $tocAdded ) ) {
+			$tocAdded = FALSE;
 		}
 
+		// Add the Table of Contents before the first non front-matter page,
+		// and reset page numbers.
 		$pageoptions = array();
+		if ( ! $tocAdded && $page['post_type'] != 'front-matter' ) {
+			$this->addToc();
+			$tocAdded = TRUE;
+			$pageoptions['resetpagenum'] = 1;
+		}
+
 		switch ( $page['post_type'] ) {
 			case 'chapter':
-				$class = "chapter type-chapter";
+			case 'part':
 				$pageoptions['suppress'] = 'off';
 				$pageoptions['pagenumstyle'] = 1;
 				$bookmark = TRUE;
-				// If this is our first chapter add the ToC.
-				if ( $firstChapter ) {
-					$this->addToc();
-					$firstChapter = FALSE;
-				}
 				break;
 			default:
-				$class = $page['post_type'] . ' type-' . $page['post_type'];
 				$pageoptions['suppress'] = 'on';
 				$pageoptions['pagenumstyle'] = 'i';
 				$bookmark = FALSE;
 				break;
 		}
+
+		$class = $page['post_type'] . ' type-' . $page['post_type'];
 
 		if ( ! empty( $page['post_content'] ) ) {
 			$this->mpdf->SetFooter( $this->getFooter( $page['post_type'] ) );
