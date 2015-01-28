@@ -116,7 +116,7 @@ class Pdf extends Export {
 	 */
 	function addPreContent() {
 		$this->addCover();
-		$this->addCopyright();
+		$this->addBookInfo();
 	}
 
 	/**
@@ -139,48 +139,74 @@ class Pdf extends Export {
 	}
 
 	/**
-	 * Add copyright information for book.
+	 * Add book information page.
 	 */
-	function addCopyright() {
-		$metadata = \PressBooks\Book::getBookInformation();
+	function addBookInfo() {
+		$meta = \PressBooks\Book::getBookInformation();
 		$options = get_option( 'pressbooks_theme_options_global' );
 
-		$content = '<h2 class="entry-title">' . get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; </h2>';
-		$content .= '<div class="copyright">';
+		$content = '<h1>' . get_bloginfo( 'name' ) . '</h1>';
 
-		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
-			$content .= $metadata['pb_custom_copyright'];
+		if ( isset( $meta['pb_author'] ) ) {
+			$content .= '<h2>' . __('by', 'pressbooks') . '</h2>';
+			$content .= '<h2>' . $meta['pb_author'] . '</h2>';
+		}
+
+		if ( isset( $meta['pb_contributing_authors'] ) ) {
+			$content .= '<h3>' . $meta['pb_contributing_authors'] . '</h3>';
+		}
+
+		$content .= '<div>';
+
+		if ( isset( $meta['pb_print_isbn'] ) ) {
+			$content .= '<p class="isbn"><strong>' . __('ISBN', 'pressbooks' ) . '</strong>: ' .$meta['pb_print_isbn'] . '</p>';
+		}
+
+		if ( isset( $meta['pb_publisher'] ) ) {
+			$content .= '<p class="publisher"><strong>' . __('Publisher', 'pressbooks' ) . '</strong>: ' . $meta['pb_publisher'] . '</p>';
+		}
+
+		if ( isset( $meta['pb_copyright_year'] ) || isset( $meta['pb_copyright_holder'] )  ) {
+			$content .= '<div class="copyright_notice">';
+
+			$content .= '<p class="copyright_notice"><strong>' . __('Copyright', 'pressbooks') . '</strong>:';
+			if ( ! empty( $meta['pb_copyright_year'] ) ) {
+				$content .= $meta['pb_copyright_year'] . ' ';
+			}
+
+			if ( ! empty( $meta['pb_copyright_holder'] ) ) {
+				$content .= ' ' . __('by', 'pressbooks') . ' ' . $meta['pb_copyright_holder'] . '. ';
+			}
+			$content .= '</p>';
+
+			$content .= '</div>';
+
+		}
+
+		if ( isset( $meta['pb_keywords_tags'] ) ) {
+			$content .= '<p class="keywords_tags"><strong>' . __('Keywords/Tags', 'pressbooks' ) . '</strong>: ' .  $meta['pb_keywords_tags'] . '</p>';
+		}
+
+		$content .= '</div>';
+
+
+		if ( isset( $meta['pb_about_unlimited'] ) ) {
+			$content .= '<h3>' . __( 'About the book', 'pressbooks' ) . '</h3>';
+			$content .= '<p class="about">' . $meta['pb_about_unlimited'] . '</p>';
 		}
 
 		if ( 1 == $options['copyright_license'] ){
-			$content .= $this->doCopyrightLicense( $metadata );
-		}
-		// default, so something is displayed
-		if ( empty( $metadata['pb_custom_copyright'] ) && 0 == $options['copyright_license'] ) {
-			$content .= '<p>';
-			if ( ! empty( $metadata['pb_copyright_year'] ) ) {
-				$content .= $metadata['pb_copyright_year'];
-			}
-			else {
-				$content .= date( 'Y' );
-			}
-
-
-			if ( ! empty( $metadata['pb_copyright_holder'] ) ) {
-				$content .= ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
-			}
-
+			$content .= '<p class="copyright_license">';
+			$content .= $this->doCopyrightLicense( $meta );
 			$content .= '</p>';
 		}
-
-		$content .= "</div>\n";
 
 		$pageoptions = array(
 			'suppress' => 'on',
 			'resetpagenum' => 1,
 		);
 
-		$this->mpdf->SetFooter( $this->getFooter( 'copyright' ) );
+		$this->mpdf->SetFooter( $this->getFooter( 'bookinfo' ) );
 		$this->mpdf->addPageByArray( $pageoptions );
 		$this->mpdf->WriteHTML( $content );
 	}
