@@ -45,6 +45,7 @@ class Pdf extends Export {
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
+		set_time_limit( 600 );
 		if ( ! defined( 'MPDF_WRITEHTML_MODE_DOC' ) ) {
 			// Define some constants for mPDF::WriteHTML()
 			// @see http://mpdf1.com/manual/index.php?tid=121
