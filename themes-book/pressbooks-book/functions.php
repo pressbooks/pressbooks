@@ -74,7 +74,7 @@ function pb_enqueue_scripts() {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
 	
-	$options = get_option( 'pressbooks_theme_options_global' );
+	$options = get_option( 'pressbooks_theme_options_web' );
 	if ( @$options['toc_collapse'] ) {
 		wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
 		wp_enqueue_style( 'dashicons' );
@@ -307,6 +307,7 @@ function pressbooks_theme_options_display() { ?>
 		<?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'global_options'; ?>
 		<h2 class="nav-tab-wrapper">
 		<a href="?page=pressbooks_theme_options&tab=global_options" class="nav-tab <?php echo $active_tab == 'global_options' ? 'nav-tab-active' : ''; ?>">Global Options</a>
+		<a href="?page=pressbooks_theme_options&tab=web_options" class="nav-tab <?php echo $active_tab == 'web_options' ? 'nav-tab-active' : ''; ?>">Web Options</a>
 		<a href="?page=pressbooks_theme_options&tab=pdf_options" class="nav-tab <?php echo $active_tab == 'pdf_options' ? 'nav-tab-active' : ''; ?>">PDF Options</a>
 		<a href="?page=pressbooks_theme_options&tab=mpdf_options" class="nav-tab <?php echo $active_tab == 'mpdf_options' ? 'nav-tab-active' : ''; ?>">mPDF Options</a>
 		<a href="?page=pressbooks_theme_options&tab=ebook_options" class="nav-tab <?php echo $active_tab == 'ebook_options' ? 'nav-tab-active' : ''; ?>">Ebook Options</a>
@@ -316,6 +317,9 @@ function pressbooks_theme_options_display() { ?>
 			<?php if( $active_tab == 'global_options' ) { 
 				settings_fields( 'pressbooks_theme_options_global' );
 				do_settings_sections( 'pressbooks_theme_options_global' );
+			} elseif( $active_tab == 'web_options' ) {
+				settings_fields( 'pressbooks_theme_options_web' );
+				do_settings_sections( 'pressbooks_theme_options_web' );
 			} elseif( $active_tab == 'pdf_options' ) {
 				settings_fields( 'pressbooks_theme_options_pdf' );
 				do_settings_sections( 'pressbooks_theme_options_pdf' );
@@ -459,7 +463,6 @@ function pressbooks_theme_options_global_init() {
 	$_section = 'global_options_section';
 	$defaults = array(
 		'chapter_numbers' => 1,
-		'toc_collapse' => 0
 	);
 
 	if ( false == get_option( $_option ) ) {
@@ -503,17 +506,6 @@ function pressbooks_theme_options_global_init() {
 		$_section,
 		array(
 			 __( 'Display the copyright license', 'pressbooks' )
-		)
-	);
-	
-	add_settings_field(
-		'toc_collapse',
-		__( 'Collapsable TOC', 'pressbooks' ),
-		'pressbooks_theme_toc_collapse_callback',
-		$_page,
-		$_section,
-		array(
-			 __( 'Make webbook TOC collapsable', 'pressbooks' )
 		)
 	);
 
@@ -574,18 +566,6 @@ function pressbooks_theme_copyright_license_callback( $args ) {
 	echo $html;
 }
 
-// Global Options Field Callback
-function pressbooks_theme_toc_collapse_callback( $args ) {
-	$options = get_option( 'pressbooks_theme_options_global' );
-	
-	if ( ! isset( $options['toc_collapse'] ) ) {
-		$options['toc_collapse'] = 0;
-	}
-	$html = '<input type="checkbox" id="toc_collapse" name="pressbooks_theme_options_global[toc_collapse]" value="1" ' . checked( 1, $options['toc_collapse'], false ) . '/>';
-	$html .= '<label for="toc_collapse"> ' . $args[0] . '</label>';
-	echo $html;
-}
-
 // Global Options Input Sanitization
 function pressbooks_theme_options_global_sanitize( $input ) {
 
@@ -608,16 +588,83 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 	} else {
 		$options['copyright_license'] = 1;
 	}
+
+	return $options;
+}
+
+/* ------------------------------------------------------------------------ *
+ * Web Options Tab
+ * ------------------------------------------------------------------------ */
+
+function pressbooks_theme_options_web_init() {
 	
+	$_page = $_option = 'pressbooks_theme_options_web';
+	$_section = 'web_options_section';
+	$defaults = array(
+	    'toc_collapse' => 0,
+	);
+
+	if ( false == get_option( $_option ) ) {
+		add_option( $_option, $defaults );
+	}
+
+	add_settings_section(
+		$_section, 
+		__( 'Web Options', 'pressbooks' ), 
+		'pressbooks_theme_options_web_callback', 
+		$_page
+	);
+
+	add_settings_field(
+		'toc_collapse', 
+		__( 'Collapsable TOC', 'pressbooks' ), 
+		'pressbooks_theme_toc_collapse_callback', 
+		$_page, 
+		$_section, 
+		array(
+		    __( 'Make webbook TOC collapsable', 'pressbooks' ) 
+		)
+	);
+
+	register_setting(
+		$_option, 
+		$_option, 
+		'pressbooks_theme_options_web_sanitize'
+	);
+}
+
+// Web Options Section Callback
+function pressbooks_theme_options_web_callback() {
+	echo '<p>' . __( 'These options apply to the webbook.', 'pressbooks' ) . '</p>';
+}
+
+// Web Options Field Callback
+function pressbooks_theme_toc_collapse_callback( $args ) {
+	$options = get_option( 'pressbooks_theme_options_web' );
+
+	if ( ! isset( $options['toc_collapse'] ) ) {
+		$options['toc_collapse'] = 0;
+	}
+	$html = '<input type="checkbox" id="toc_collapse" name="pressbooks_theme_options_web[toc_collapse]" value="1" ' . checked( 1, $options['toc_collapse'], false ) . '/>';
+	$html .= '<label for="toc_collapse"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
+// Web Options Sanitize
+function pressbooks_theme_options_web_sanitize( $input ) {
+
+	$options = get_option( 'pressbooks_theme_options_web' );
+
 	if ( ! isset( $input['toc_collapse'] ) || $input['toc_collapse'] != '1' ) {
 		$options['toc_collapse'] = 0;
 	} else {
 		$options['toc_collapse'] = 1;
 	}
-
+	
 	return $options;
 }
 
+add_action( 'admin_init', 'pressbooks_theme_options_web_init' );
 
 /* ------------------------------------------------------------------------ *
  * PDF Options Tab
