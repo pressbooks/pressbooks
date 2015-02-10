@@ -1053,6 +1053,39 @@ function pressbooks_theme_options_mpdf_init() {
 		)
 	);
 
+	add_settings_field(
+		'mpdf_margin_left',
+		__( 'Left margin', 'pressbooks' ),
+		'pressbooks_theme_mpdf_margin_left_callback',
+		$_page,
+		$_section,
+		array(
+			__(  'Left Margin (in milimeters)', 'pressbooks' )
+		)
+	);
+
+	add_settings_field(
+		'mpdf_margin_right',
+		__( 'Right margin', 'pressbooks' ),
+		'pressbooks_theme_mpdf_margin_right_callback',
+		$_page,
+		$_section,
+		array(
+			__(  'Right margin (in milimeters)', 'pressbooks' )
+		)
+	);
+
+	add_settings_field(
+		'mpdf_mirror_margins',
+		__( 'Mirror Margins', 'pressbooks' ),
+		'pressbooks_theme_mpdf_mirror_margins_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'The document will mirror the left and right margin values on odd and even pages i.e. they become inner and outer margins.', 'pressbooks' )
+		)
+	);
+
 	register_setting( $_option, $_option );
 
 }
@@ -1097,6 +1130,46 @@ function pressbooks_theme_mpdf_ignore_invalid_utf8_callback( $args ) {
 	$html .= '<label for="mpdf_ignore_invalid_utf8"> ' . $args[0] . '</label>';
 	echo $html;
 }
+
+
+function pressbooks_theme_mpdf_margin_left_callback ( $args ) {
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_left_margin'] ) ) {
+		$options['mpdf_left_margin'] = '';
+	}
+
+	$html = '<input type="text" id="mpdf_left_margin" name="pressbooks_theme_options_mpdf[mpdf_left_margin]" value="' . $options['mpdf_left_margin'] . '" size="3" />';
+	$html .= '<label for="mpdf_left_margin">' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_margin_right_callback ( $args ) {
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_right_margin'] ) ) {
+		$options['mpdf_right_margin'] = '';
+	}
+
+	$html = '<input type="text" id="mpdf_right_margin" name="pressbooks_theme_options_mpdf[mpdf_right_margin]" value="' . $options['mpdf_right_margin'] . '" size="3" />';
+	$html .= '<label for="mpdf_right_margin">' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_mirror_margins_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_mirror_margins'] ) ) {
+		$options['mpdf_mirror_margins'] = 0;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_mirror_margins" name="pressbooks_theme_options_mpdf[mpdf_mirror_margins]" value="1" ' . checked( 1, $options['mpdf_mirror_margins'], false ) . '/>';
+	$html .= '<label for="mpdf_mirror_margins"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
+
 
 
 /* ------------------------------------------------------------------------ *

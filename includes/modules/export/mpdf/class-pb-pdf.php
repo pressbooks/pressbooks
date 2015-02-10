@@ -93,6 +93,10 @@ class Pdf extends Export {
 			$this->mpdf->ignore_invalude_utf8 = TRUE;
 		}
 
+		if ( ! empty ( $this->options['mpdf_mirror_margins'] ) ) {
+			$this->mpdf->mirrorMargins = TRUE;
+		}
+
 		$this->mpdf->setBasePath( home_url( '/' ) );
 		$this->mpdf->setFooter( $this->getFooter() );
 		$this->setCss();
@@ -130,6 +134,14 @@ class Pdf extends Export {
 	function mergePageOptions( $options ) {
 		if ( ! empty( $this->options['mpdf_page_size'])) {
 			$options['sheet-size'] = $this->options['mpdf_page_size'];
+		}
+
+		if ( isset( $this->options['mpdf_left_margin'] ) && is_numeric( $this->options['mpdf_left_margin'] ) ){
+			$options['margin-left'] = $this->options['mpdf_left_margin'];
+		}
+
+		if ( isset( $this->options['mpdf_right_margin'] ) && is_numeric( $this->options['mpdf_right_margin'] ) ) {
+			$options['margin-right'] = $this->options['mpdf_right_margin'];
 		}
 
 		return $options;
