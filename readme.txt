@@ -93,6 +93,10 @@ IMPORTANT!
 *Part 3, PressBooks dependencies:*
 
  * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 9.0
+ * For PDF export via mPDF ensure that the following folders have write access and/or they are owned by the appropriate user.See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
+ 		+ wp-content/plugins/pressbooks/symbionts/mpdf/ttfontdata
+ 		+ wp-content/plugins/pressbooks/symbionts/mpdf/tmp
+ 		+ wp-content/plugins/pressbooks/symbionts/mpdf/graph_cache
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
  * For EPUB validation install [EpubCheck](http://code.google.com/p/epubcheck/) - Version 3.0.1
  * Form XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
