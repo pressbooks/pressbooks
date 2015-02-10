@@ -409,19 +409,32 @@ class Pdf extends Export {
 	}
 
 	/**
+	 * Get current theme and all (grand)parent theme css.
+	 */
+	function getCssRecursive( $theme ) {
+		$css = '';
+		if ( ! empty( $theme->parent ) ) {
+			$css .= $this->getCssRecursive ( $theme->parent );
+		}
+
+		$themefiles = $theme->get_files( 'css' );
+		if ( ! empty( $themefiles ) ) {
+			foreach ( $themefiles as $file ) {
+				$css .= file_get_contents( $cssfile ) . "\n";
+			}
+		}
+
+		return $css;
+	}
+
+	/**
 	 * Add all css files
 	 */
 	function setCss() {
 
-		$css = '';
-
 		$theme = wp_get_theme();
-		$themefiles = $theme->get_files( 'css' );
-		if ( ! empty( $themefiles ) ) {
-			foreach ($themefiles as $file ) {
-				$css .= file_get_contents( $file ) . "\n";
-			}
-		}
+
+		$css = $this->getCssRecursive( $theme );
 
 		$cssfile = $this->getExportStylePath( 'mpdf' );
 		if ( ! empty($cssfile) ) {
