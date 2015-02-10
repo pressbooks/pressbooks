@@ -25,25 +25,25 @@ $metakeys = array(
 /* ------------------------------------------------------------------------ *
  * Scripts and styles for Book Info Page (cover page)
  * ------------------------------------------------------------------------ */
- 
+
 function pressbooks_book_info_page () {
 
 	if ( is_front_page() ) {
 		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130713', 'all' );
 		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700' );
-		
+
 		// Book info page Table of Content columns
 		wp_enqueue_script( 'columnizer',  PB_PLUGIN_URL . 'symbionts/jquery/jquery.columnizer.js', array( 'jquery' ), '1.6.0', false );
 		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '20130819', false );
-		
+
 		// Sharrre
 		wp_enqueue_script( 'sharrre', PB_PLUGIN_URL . 'symbionts/jquery/sharrre/jquery.sharrre-1.3.4.min.js', array( 'jquery' ), '20130712', false );
 		wp_enqueue_script( 'sharrre-load', get_template_directory_uri() . '/js/sharrre-load.js', array( 'jquery', 'sharrre' ), '20130712', false );
 		wp_localize_script( 'sharrre-load', 'PB_SharrreToken', array(
 			'urlCurl' => PB_PLUGIN_URL . 'symbionts/jquery/sharrre/sharrre.php',
 		) );
-	}   		 		   		   		       		           
-}     
+	}
+}
 add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
 
 /* ------------------------------------------------------------------------ *
@@ -73,7 +73,7 @@ function pb_enqueue_scripts() {
 	if ( is_single() ) {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
-	
+
 	$options = get_option( 'pressbooks_theme_options_web' );
 	if ( @$options['toc_collapse'] ) {
 		wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
@@ -128,7 +128,7 @@ function pb_get_links($echo=true) {
 function pb_private() {
 	$bloginfourl= get_bloginfo('url'); ?>
   <div <?php post_class(); ?>>
-  					
+
 				<h2 class="entry-title denied-title"><?php _e('Access Denied', 'pressbooks'); ?></h2>
 				<!-- Table of content loop goes here. -->
 				<div class="entry_content denied-text"><?php _e('This book is private, and accessible only to registered users. If you have an account you can <a href="'. $bloginfourl .'/wp-login.php" class="login">login here</a>  <p class="sign-up">You can also set up your own PressBooks book at: <a href="http://pressbooks.com">PressBooks.com</a>.', 'pressbooks'); ?></p></div>
@@ -148,7 +148,7 @@ if ( ! function_exists( 'pressbooks_comment' ) ) :
  * Used as a callback by wp_list_comments() for displaying the comments.
  *
  */
- 
+
 function pressbooks_comment( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
 	switch ( $comment->comment_type ) :
@@ -189,18 +189,18 @@ endif;
 /* ------------------------------------------------------------------------ *
  * Google Webfonts
  * ------------------------------------------------------------------------ */
- 
+
 function pressbooks_enqueue_styles() {
-   		 wp_enqueue_style( 'pressbooks-fonts', 'http://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald');  		   		   		       		           
-}     
-add_action('wp_print_styles', 'pressbooks_enqueue_styles'); 
+   		 wp_enqueue_style( 'pressbooks-fonts', 'http://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald');
+}
+add_action('wp_print_styles', 'pressbooks_enqueue_styles');
 
 /* ------------------------------------------------------------------------ *
  * Copyright License
  * ------------------------------------------------------------------------ */
 
 function pressbooks_copyright_license() {
-	
+
 	$option = get_option( 'pressbooks_theme_options_global' );
 	$book_meta = \PressBooks\Book::getBookInformation();
 
@@ -216,36 +216,36 @@ function pressbooks_copyright_license() {
 	$post_meta = get_post_meta( $id );
 	$link = get_permalink( $id );
 	$html = $license = $copyright_holder = '';
-	$transient = get_transient("license-inf-$id" ); 
+	$transient = get_transient("license-inf-$id" );
 	$updated = array( $license, $copyright_holder, $title );
 	$changed = false;
 	$lang = $book_meta['pb_language'];
 
-	
+
 	// Copyright holder, set in order of precedence
-	if ( isset( $post_meta['pb_section_author'] ) ) { 
+	if ( isset( $post_meta['pb_section_author'] ) ) {
 		// section author overrides book author, copyrightholder
 		$copyright_holder = $post_meta['pb_section_author'][0] ;
-		
-	} elseif ( isset( $book_meta['pb_copyright_holder'] ) ) { 
+
+	} elseif ( isset( $book_meta['pb_copyright_holder'] ) ) {
 		// book copyright holder overrides book author
 		$copyright_holder =  $book_meta['pb_copyright_holder'];
-		
-	} elseif ( isset( $book_meta['pb_author'] ) ) { 
+
+	} elseif ( isset( $book_meta['pb_author'] ) ) {
 		// book author is the fallback, default
 		$copyright_holder =  $book_meta['pb_author'];
 	}
 
 	// Copyright license, set in order of precedence
-	if ( isset( $post_meta['pb_section_license'] ) ) { 
-		// section copyright overrides book 
+	if ( isset( $post_meta['pb_section_license'] ) ) {
+		// section copyright overrides book
 		$license = $post_meta['pb_section_license'][0];
-		
-	} elseif ( isset( $book_meta['pb_book_license'] ) ) { 
+
+	} elseif ( isset( $book_meta['pb_book_license'] ) ) {
 		// book is the fallback, default
 		$license = $book_meta['pb_book_license'];
 	}
-	
+
 	 //delete_transient("license-inf-$id");
 	 // check if the user has changed anything
 	if ( is_array( $transient ) ) {
@@ -276,7 +276,7 @@ function pressbooks_copyright_license() {
 			error_log( $e->getMessage() );
 		}
 		// store it with the license as a key
-		$value = array( 
+		$value = array(
 		    $license => $html,
 		    $copyright_holder => '',
 		    $title => '',
@@ -314,7 +314,7 @@ function pressbooks_theme_options_display() { ?>
 		</h2>
 		<!-- Create the form that will be used to render our options -->
 		<form method="post" action="options.php">
-			<?php if( $active_tab == 'global_options' ) { 
+			<?php if( $active_tab == 'global_options' ) {
 				settings_fields( 'pressbooks_theme_options_global' );
 				do_settings_sections( 'pressbooks_theme_options_global' );
 			} elseif( $active_tab == 'web_options' ) {
@@ -560,7 +560,7 @@ function pressbooks_theme_copyright_license_callback( $args ) {
 	if ( ! isset( $options['copyright_license'] ) ) {
 		$options['copyright_license'] = 0;
 	}
-	
+
 	$html = '<input type="checkbox" id="copyright_license" name="pressbooks_theme_options_global[copyright_license]" value="1" ' . checked( 1, $options['copyright_license'], false ) . '/>';
 	$html .= '<label for="copyright_license"> ' . $args[0] . '</label>';
 	echo $html;
@@ -582,7 +582,7 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 	} else {
 		$options['parse_sections'] = 1;
 	}
-	
+
 	if ( ! isset( $input['copyright_license'] ) || $input['copyright_license'] != '1' ) {
 		$options['copyright_license'] = 0;
 	} else {
@@ -597,7 +597,7 @@ function pressbooks_theme_options_global_sanitize( $input ) {
  * ------------------------------------------------------------------------ */
 
 function pressbooks_theme_options_web_init() {
-	
+
 	$_page = $_option = 'pressbooks_theme_options_web';
 	$_section = 'web_options_section';
 	$defaults = array(
@@ -609,26 +609,26 @@ function pressbooks_theme_options_web_init() {
 	}
 
 	add_settings_section(
-		$_section, 
-		__( 'Web Options', 'pressbooks' ), 
-		'pressbooks_theme_options_web_callback', 
+		$_section,
+		__( 'Web Options', 'pressbooks' ),
+		'pressbooks_theme_options_web_callback',
 		$_page
 	);
 
 	add_settings_field(
-		'toc_collapse', 
-		__( 'Collapsable TOC', 'pressbooks' ), 
-		'pressbooks_theme_toc_collapse_callback', 
-		$_page, 
-		$_section, 
+		'toc_collapse',
+		__( 'Collapsable TOC', 'pressbooks' ),
+		'pressbooks_theme_toc_collapse_callback',
+		$_page,
+		$_section,
 		array(
-		    __( 'Make webbook TOC collapsable', 'pressbooks' ) 
+		    __( 'Make webbook TOC collapsable', 'pressbooks' )
 		)
 	);
 
 	register_setting(
-		$_option, 
-		$_option, 
+		$_option,
+		$_option,
 		'pressbooks_theme_options_web_sanitize'
 	);
 }
@@ -660,7 +660,7 @@ function pressbooks_theme_options_web_sanitize( $input ) {
 	} else {
 		$options['toc_collapse'] = 1;
 	}
-	
+
 	return $options;
 }
 
@@ -1178,7 +1178,6 @@ function pressbooks_theme_mpdf_ignore_invalid_utf8_callback( $args ) {
 	echo $html;
 }
 
-
 function pressbooks_theme_mpdf_margin_left_callback ( $args ) {
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
 
@@ -1215,9 +1214,6 @@ function pressbooks_theme_mpdf_mirror_margins_callback( $args ) {
 	$html .= '<label for="mpdf_mirror_margins"> ' . $args[0] . '</label>';
 	echo $html;
 }
-
-
-
 
 /* ------------------------------------------------------------------------ *
  * Ebook Options Tab
@@ -1365,7 +1361,7 @@ function pressbooks_theme_pdf_css_override( $css ) {
 	8 = 14.8 x 21cm
 	9 = 5in x 8in
 	*/
-	
+
 	switch ( @$options['pdf_page_size'] ) {
 		case 1:
 			$css .= "@page { size: 5.5in 8.5in; } \n";
