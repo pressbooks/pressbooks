@@ -93,7 +93,7 @@ class Pdf extends Export {
 			$this->mpdf->ignore_invalude_utf8 = TRUE;
 		}
 
-		$this->mpdf->setBasePath( $this->url);
+		$this->mpdf->setBasePath( home_url( '/' ) );
 		$this->mpdf->setFooter( $this->getFooter() );
 		$this->setCss();
 
