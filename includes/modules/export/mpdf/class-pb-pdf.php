@@ -184,6 +184,10 @@ class Pdf extends Export {
 
 		$content = '<h1>' . get_bloginfo( 'name' ) . '</h1>';
 
+		if (! empty ( $meta['pb_subtitle'] ) ) {
+			$content .= '<h2>' . $meta['pb_subtitle'] . '</h2>';
+		}
+
 		if ( isset( $meta['pb_author'] ) ) {
 			$content .= '<h2>' . __('by', 'pressbooks') . '</h2>';
 			$content .= '<h2>' . $meta['pb_author'] . '</h2>';
@@ -203,6 +207,10 @@ class Pdf extends Export {
 			$content .= '<p class="publisher"><strong>' . __('Publisher', 'pressbooks' ) . '</strong>: ' . $meta['pb_publisher'] . '</p>';
 		}
 
+		if ( isset( $meta['pb_publisher_city'] ) ) {
+			$content .= '<p class="publisher_city"><strong>' . __('Publisher City', 'pressbooks' ) . '</strong>: ' . $meta['pb_publisher_city'] . '</p>';
+		}
+
 		if ( isset( $meta['pb_copyright_year'] ) || isset( $meta['pb_copyright_holder'] )  ) {
 			$content .= '<div class="copyright_notice">';
 
@@ -215,6 +223,10 @@ class Pdf extends Export {
 				$content .= ' ' . __('by', 'pressbooks') . ' ' . $meta['pb_copyright_holder'] . '. ';
 			}
 			$content .= '</p>';
+
+			if ( ! empty ( $meta['pb_custom_copyright'] ) ) {
+				$content .= '<p class="custom_copyright">' . $meta['pb_custom_copyright'] .'</p>';
+			}
 
 			$content .= '</div>';
 
