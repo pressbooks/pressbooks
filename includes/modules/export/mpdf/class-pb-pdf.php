@@ -33,6 +33,13 @@ class Pdf extends Export {
 	protected $cssOverrides;
 
 	/**
+	 * mPDF options
+	 *
+	 * @var array
+	 */
+	protected $options;
+
+	/**
 	 * MPDF Class
 	 *
 	 * @var object
@@ -53,6 +60,7 @@ class Pdf extends Export {
 			define( 'MPDF_WRITEHTML_MODE_CSS', 1);
 			define(' MPDF_WRITEHTML_MODE_ELEMENTS', 2);
 		}
+		$this->options = get_option( 'pressbooks_theme_options_mpdf' );
 
 		$this->exportStylePath = $this->getExportStylePath( 'mpdf' );
 
@@ -80,6 +88,11 @@ class Pdf extends Export {
 		$contents = $this->getOrdererdBookContents();
 
 		$this->mpdf = new \mPDF('');
+
+		if ( ! empty ( $this->options['mpdf_ignore_invalid_utf8'] ) ) {
+			$this->mpdf->ignore_invalude_utf8 = TRUE;
+		}
+
 		$this->mpdf->setBasePath( $this->url);
 		$this->mpdf->setFooter( $this->getFooter() );
 		$this->setCss();
@@ -100,7 +113,7 @@ class Pdf extends Export {
 	 * Add the mpdf Table of Contents.
 	 */
 	function addToc() {
-		$this->mpdf->AddPageByArray( array( 'suppress' => 'on' ) );
+		$this->mpdf->AddPageByArray(  $this->mergePageOptions( array( 'suppress' => 'on' ) ) );
 
 		$options = array(
 			'paging' => TRUE,
@@ -109,6 +122,17 @@ class Pdf extends Export {
 		);
 		$this->mpdf->TOCpagebreakByArray( $options );
 
+	}
+
+	/**
+	 * Merge default page settings.
+	 */
+	function mergePageOptions( $options ) {
+		if ( ! empty( $this->options['mpdf_page_size'])) {
+			$options['sheet-size'] = $this->options['mpdf_page_size'];
+		}
+
+		return $options;
 	}
 
 	/**
@@ -134,7 +158,7 @@ class Pdf extends Export {
 
 			$content = '<img src="' . $metadata['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" />';
 			$this->mpdf->SetFooter( $this->getFooter( 'cover' ) );
-			$this->mpdf->addPageByArray( $pageoptions );
+			$this->mpdf->addPageByArray( $this->mergePageOptions( $pageoptions ) );
 			$this->mpdf->WriteHTML( $content );
 		}
 	}
@@ -208,7 +232,7 @@ class Pdf extends Export {
 		);
 
 		$this->mpdf->SetFooter( $this->getFooter( 'bookinfo' ) );
-		$this->mpdf->addPageByArray( $pageoptions );
+		$this->mpdf->addPageByArray( $this->mergePageOptions( $pageoptions ) );
 		$this->mpdf->WriteHTML( $content );
 	}
 
@@ -256,7 +280,7 @@ class Pdf extends Export {
 
 		if ( ! empty( $page['post_content'] ) ) {
 			$this->mpdf->SetFooter( $this->getFooter( $page['post_type'] ) );
-			$this->mpdf->AddPageByArray( $pageoptions );
+			$this->mpdf->AddPageByArray( $this->mergePageOptions( $pageoptions ) );
 
 			if ( $bookmark ) {
 				$this->mpdf->TOC_Entry( $page['post_title'] , $page['mpdf_level'] );

@@ -308,6 +308,7 @@ function pressbooks_theme_options_display() { ?>
 		<h2 class="nav-tab-wrapper">
 		<a href="?page=pressbooks_theme_options&tab=global_options" class="nav-tab <?php echo $active_tab == 'global_options' ? 'nav-tab-active' : ''; ?>">Global Options</a>
 		<a href="?page=pressbooks_theme_options&tab=pdf_options" class="nav-tab <?php echo $active_tab == 'pdf_options' ? 'nav-tab-active' : ''; ?>">PDF Options</a>
+		<a href="?page=pressbooks_theme_options&tab=mpdf_options" class="nav-tab <?php echo $active_tab == 'mpdf_options' ? 'nav-tab-active' : ''; ?>">mPDF Options</a>
 		<a href="?page=pressbooks_theme_options&tab=ebook_options" class="nav-tab <?php echo $active_tab == 'ebook_options' ? 'nav-tab-active' : ''; ?>">Ebook Options</a>
 		</h2>
 		<!-- Create the form that will be used to render our options -->
@@ -318,7 +319,10 @@ function pressbooks_theme_options_display() { ?>
 			} elseif( $active_tab == 'pdf_options' ) {
 				settings_fields( 'pressbooks_theme_options_pdf' );
 				do_settings_sections( 'pressbooks_theme_options_pdf' );
-			} elseif( $active_tab == 'ebook_options' ) { 
+			} elseif( $active_tab == 'mpdf_options' ) {
+				settings_fields( 'pressbooks_theme_options_mpdf' );
+				do_settings_sections( 'pressbooks_theme_options_mpdf' );
+			} elseif( $active_tab == 'ebook_options' ) {
 				settings_fields( 'pressbooks_theme_options_ebook' );
 				do_settings_sections( 'pressbooks_theme_options_ebook' );
 			} ?>
@@ -400,6 +404,22 @@ function pressbooks_theme_options_summary() { ?>
 				case 'pdf_orphans': ?>
 					<li><?php _e( 'Orphans' , 'pressbooks' ) ?>: <em><?php echo $value; ?></em></li>
 					<?php break;
+			}
+		}
+		?>
+	</ul>
+	<p><strong><?php _e( 'mPDF options', 'pressbooks' ) ?>:</strong></p>
+	<ul>
+		<?php
+		$mpdf_options = get_option( 'pressbooks_theme_options_mpdf' );
+		foreach ($mpdf_options as $key => $value) {
+			switch ($key) {
+				case 'mpdf_ignore_invalid_utf8':
+					if ( $value == 1 ) {
+						print '<li>' . __( 'Ignore invalid UTF8', 'pressbooks' ) . '</li>';
+					}
+					break;
+
 			}
 		}
 		?>
@@ -931,6 +951,151 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 	}
 
 	return $options;
+}
+
+
+/* ------------------------------------------------------------------------ *
+ * mPDF Options Tab
+ * ------------------------------------------------------------------------ */
+
+// mPDF Options Registration
+function pressbooks_theme_options_mpdf_init() {
+
+	$_page = $_option = 'pressbooks_theme_options_mpdf';
+	$_section = 'mpdf_options_section';
+	$defaults = array(
+		'mpdf_page_size' => 'Letter',
+		'mpdf_ignore_invalid_utf8' => 0,
+	);
+
+	if ( false == get_option( $_option ) ) {
+		add_option( $_option, $defaults );
+	}
+
+	add_settings_section(
+		$_section,
+		__( 'mPDF Options', 'pressbooks' ),
+		'pressbooks_theme_options_mpdf_callback',
+		$_page
+	);
+
+	add_settings_field(
+		'mpdf_page_size',
+		__( 'Page Size', 'pressbooks' ),
+		'pressbooks_theme_mpdf_page_size_callback',
+		$_page,
+		$_section,
+		array(
+			'A0' => __( 'A0', 'pressbooks' ),
+			'A1' => __( 'A1', 'pressbooks' ),
+			'A2' => __( 'A2', 'pressbooks' ),
+			'A3' => __( 'A3', 'pressbooks' ),
+			'A4' => __( 'A4', 'pressbooks' ),
+			'A5' => __( 'A5', 'pressbooks' ),
+			'A6' => __( 'A6', 'pressbooks' ),
+			'A7' => __( 'A7', 'pressbooks' ),
+			'A8' => __( 'A8', 'pressbooks' ),
+			'A9' => __( 'A9', 'pressbooks' ),
+			'A10' => __( 'A10', 'pressbooks' ),
+			'B0' => __( 'B0', 'pressbooks' ),
+			'B1' => __( 'B1', 'pressbooks' ),
+			'B2' => __( 'B2', 'pressbooks' ),
+			'B3' => __( 'B3', 'pressbooks' ),
+			'B4' => __( 'B4', 'pressbooks' ),
+			'B5' => __( 'B5', 'pressbooks' ),
+			'B6' => __( 'B6', 'pressbooks' ),
+			'B7' => __( 'B7', 'pressbooks' ),
+			'B8' => __( 'B8', 'pressbooks' ),
+			'B9' => __( 'B9', 'pressbooks' ),
+			'B10' => __( 'B10', 'pressbooks' ),
+			'C0' => __( 'C0', 'pressbooks' ),
+			'C1' => __( 'C1', 'pressbooks' ),
+			'C2' => __( 'C2', 'pressbooks' ),
+			'C3' => __( 'C3', 'pressbooks' ),
+			'C4' => __( 'C4', 'pressbooks' ),
+			'C5' => __( 'C5', 'pressbooks' ),
+			'C6' => __( 'C6', 'pressbooks' ),
+			'C7' => __( 'C7', 'pressbooks' ),
+			'C8' => __( 'C8', 'pressbooks' ),
+			'C9' => __( 'C9', 'pressbooks' ),
+			'C10' => __( 'C10', 'pressbooks' ),
+			'4A0' => __( '4A0', 'pressbooks' ),
+			'2A0' => __( '2A0', 'pressbooks' ),
+			'RA0' => __( 'RA0', 'pressbooks' ),
+			'RA1' => __( 'RA1', 'pressbooks' ),
+			'RA2' => __( 'RA2', 'pressbooks' ),
+			'RA3' => __( 'RA3', 'pressbooks' ),
+			'RA4' => __( 'RA4', 'pressbooks' ),
+			'SRA0' => __( 'SRA0', 'pressbooks' ),
+			'SRA1' => __( 'SRA1', 'pressbooks' ),
+			'SRA2' => __( 'SRA2', 'pressbooks' ),
+			'SRA3' => __( 'SRA3', 'pressbooks' ),
+			'SRA4' => __( 'SRA4', 'pressbooks' ),
+			'Letter' => __( 'Letter', 'pressbooks' ),
+			'Legal' => __( 'Legal' , 'pressbooks' ),
+			'Executive' => __( 'Executive' , 'pressbooks' ),
+			'Folio' => __( 'Folio' , 'pressbooks' ),
+			'Demy' => __( 'Demy' , 'pressbooks' ),
+			'Royal' => __( 'Royal' , 'pressbooks' ),
+			'A' => __( 'Type A paperback 111x178mm' , 'pressbooks' ),
+			'B' => __( 'Type B paperback 128x198mm' , 'pressbooks' ),
+		)
+	);
+
+	add_settings_field(
+		'mpdf_ignore_invalid_utf8',
+		__( 'Ignore invalid utf8', 'pressbooks' ),
+		'pressbooks_theme_mpdf_ignore_invalid_utf8_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Ignore invalid utf8', 'pressbooks' )
+		)
+	);
+
+	register_setting( $_option, $_option );
+
+}
+add_action( 'admin_init', 'pressbooks_theme_options_mpdf_init' );
+
+
+// mPDF Options Section Callback
+function pressbooks_theme_options_mpdf_callback() {
+	echo '<p>' . __( 'These options apply to mPDF exports.', 'pressbooks' ) . '</p>';
+}
+
+
+// mPDF Options Field Callback
+function pressbooks_theme_mpdf_page_size_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_page_size'] ) ) {
+		$options['mpdf_page_size'] = 'Letter';
+	}
+
+	$html = "<select name='pressbooks_theme_options_mpdf[mpdf_page_size]' id='mpdf_page_size' >";
+	foreach ( $args as $key => $val ) {
+		$html .= "<option value='" . $key . "' " . selected( $key , $options['mpdf_page_size'], false ) . ">$val</option>";
+	}
+	$html .= '<select>';
+	echo $html;
+}
+
+
+
+// PDF Options Field Callback
+function pressbooks_theme_mpdf_ignore_invalid_utf8_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_ignore_invalid_utf8'] ) ) {
+		$options['mpdf_ignore_invalid_utf8'] = 0;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_ignore_invalid_utf8" name="pressbooks_theme_options_mpdf[mpdf_ignore_invalid_utf8]" value="1" ' . checked( 1, $options['mpdf_ignore_invalid_utf8'], false ) . '/>';
+	$html .= '<label for="mpdf_ignore_invalid_utf8"> ' . $args[0] . '</label>';
+	echo $html;
 }
 
 
