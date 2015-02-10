@@ -420,7 +420,7 @@ class Pdf extends Export {
 		$themefiles = $theme->get_files( 'css' );
 		if ( ! empty( $themefiles ) ) {
 			foreach ( $themefiles as $file ) {
-				$css .= file_get_contents( $cssfile ) . "\n";
+				$css .= file_get_contents( $file ) . "\n";
 			}
 		}
 
