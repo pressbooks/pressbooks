@@ -90,11 +90,11 @@ class Pdf extends Export {
 		$this->mpdf = new \mPDF('');
 
 		if ( ! empty ( $this->options['mpdf_ignore_invalid_utf8'] ) ) {
-			$this->mpdf->ignore_invalude_utf8 = TRUE;
+			$this->mpdf->ignore_invalude_utf8 = true;
 		}
 
 		if ( ! empty ( $this->options['mpdf_mirror_margins'] ) ) {
-			$this->mpdf->mirrorMargins = TRUE;
+			$this->mpdf->mirrorMargins = true;
 		}
 
 		$this->mpdf->setBasePath( home_url( '/' ) );
@@ -110,7 +110,7 @@ class Pdf extends Export {
 		$this->mpdf->Output( $this->outputPath, 'F' );
 
 		// TODO trap errors
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -120,8 +120,8 @@ class Pdf extends Export {
 		$this->mpdf->AddPageByArray(  $this->mergePageOptions( array( 'suppress' => 'on' ) ) );
 
 		$options = array(
-			'paging' => TRUE,
-			'links' => TRUE,
+			'paging' => true,
+			'links' => true,
 			'toc-bookmarkText' => __( 'Table of Contents', 'pressbooks' ),
 		);
 		$this->mpdf->TOCpagebreakByArray( $options );
@@ -274,7 +274,7 @@ class Pdf extends Export {
 
 		// Indicate the ToC has not been added yet.
 		if ( ! isset( $tocAdded ) ) {
-			$tocAdded = FALSE;
+			$tocAdded = false;
 		}
 
 		// Add the Table of Contents before the first non front-matter page,
@@ -282,7 +282,7 @@ class Pdf extends Export {
 		$pageoptions = array();
 		if ( ! $tocAdded && $page['post_type'] != 'front-matter' ) {
 			$this->addToc();
-			$tocAdded = TRUE;
+			$tocAdded = true;
 			$pageoptions['resetpagenum'] = 1;
 		}
 
@@ -291,12 +291,12 @@ class Pdf extends Export {
 			case 'part':
 				$pageoptions['suppress'] = 'off';
 				$pageoptions['pagenumstyle'] = 1;
-				$bookmark = TRUE;
+				$bookmark = true;
 				break;
 			default:
 				$pageoptions['suppress'] = 'on';
 				$pageoptions['pagenumstyle'] = 'i';
-				$bookmark = FALSE;
+				$bookmark = false;
 				break;
 		}
 
