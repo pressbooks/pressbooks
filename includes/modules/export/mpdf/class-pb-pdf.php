@@ -90,7 +90,7 @@ class Pdf extends Export {
 		$this->mpdf = new \mPDF('');
 
 		if ( ! empty ( $this->options['mpdf_ignore_invalid_utf8'] ) ) {
-			$this->mpdf->ignore_invalude_utf8 = TRUE;
+			$this->mpdf->ignore_invalid_utf8 = TRUE;
 		}
 
 		if ( ! empty ( $this->options['mpdf_mirror_margins'] ) ) {
