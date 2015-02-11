@@ -12,13 +12,6 @@ use \PressBooks\Export\Export;
 class Pdf extends Export {
 
 	/**
-	 * Service URL
-	 *
-	 * @var string
-	 */
-	public $url;
-
-	/**
 	 * Fullpath to book CSS file.
 	 *
 	 * @var string
@@ -63,12 +56,6 @@ class Pdf extends Export {
 		$this->options = get_option( 'pressbooks_theme_options_mpdf' );
 
 		$this->exportStylePath = $this->getExportStylePath( 'mpdf' );
-
-		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
-		// @todo is this necessary?
-		$timestamp = time();
-		$md5 = $this->nonce( $timestamp );
-		$this->url = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
 
 		$this->themeOptionsOverrides();
 	}
