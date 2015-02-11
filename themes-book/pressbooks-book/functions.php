@@ -79,6 +79,17 @@ function pb_enqueue_scripts() {
 		wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
 		wp_enqueue_style( 'dashicons' );
 	}
+	if ( @$options['accessibility_fontsize'] ){
+		$deps_acc = array('pressbooks-accessibility-toolbar');
+		
+		wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
+		
+		wp_register_style( 'pressbooks-accessibility-toolbar', get_template_directory_uri() . '/css/a11y.css', array(), null, 'screen' );
+		wp_register_style( 'pressbooks-accessibility-fontsize', get_template_directory_uri() . '/css/a11y-fontsize.css', $deps_acc, null, 'screen' );
+		
+		wp_enqueue_style( 'pressbooks-accessibility-toolbar' );
+		wp_enqueue_style( 'pressbooks-accessibility-fontsize' );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 
@@ -605,6 +616,17 @@ function pressbooks_theme_options_web_init() {
 		    __( 'Make webbook TOC collapsable', 'pressbooks' ) 
 		)
 	);
+	
+	add_settings_field(
+		'accessibility_fontsize', 
+		__( 'Accessibility - Font Size', 'pressbooks' ), 
+		'pressbooks_theme_accessibility_fontsize_callback',
+		$_page,
+		$_section,
+		array(
+		    __('Add an option for the user to increase font size', 'pressbooks' )
+		)
+	);
 
 	register_setting(
 		$_option, 
@@ -616,6 +638,19 @@ function pressbooks_theme_options_web_init() {
 // Web Options Section Callback
 function pressbooks_theme_options_web_callback() {
 	echo '<p>' . __( 'These options apply to the webbook.', 'pressbooks' ) . '</p>';
+}
+
+// Web Options Field Callback
+function pressbooks_theme_accessibility_fontsize_callback( $args ){
+	$options = get_option( 'pressbooks_theme_options_web' );
+	
+	if ( ! isset( $options['accessibility_fontsize'] ) ) {
+		$options['accessibility_fontsize'] = 0;
+	}
+	$html = '<input type="checkbox" id="accessibility_fontsize" name="pressbooks_theme_options_web[accessibility_fontsize]" value="1" ' . checked( 1, $options['accessibility_fontsize'], false ) . '/>';
+	$html .= '<label for="accessibility_fontsize"> ' . $args[0] . '</label>';
+	echo $html;	
+	
 }
 
 // Web Options Field Callback
@@ -641,6 +676,11 @@ function pressbooks_theme_options_web_sanitize( $input ) {
 		$options['toc_collapse'] = 1;
 	}
 	
+	if ( ! isset( $input['accessibility_fontsize'] ) || $input['accessibility_fontsize'] != '1' ) {
+		$options['accessibility_fontsize'] = 0;
+	} else {
+		$options['accessibility_fontsize'] = 1;
+	}
 	return $options;
 }
 
