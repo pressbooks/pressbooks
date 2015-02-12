@@ -72,7 +72,7 @@ class Pdf extends Export {
 
 		require_once( PB_PLUGIN_DIR . 'symbionts/mpdf/mpdf.php' );
 
-		$contents = $this->getOrdererdBookContents();
+		$contents = $this->getOrderedBookContents();
 
 		$this->mpdf = new \mPDF('');
 
@@ -347,7 +347,7 @@ class Pdf extends Export {
 	 * for direct iteration, and tracks a nesting level for Bookmark and ToC
 	 * entries.
 	 */
-	function getOrdererdBookContents() {
+	function getOrderedBookContents() {
 		$book_contents = \PressBooks\Book::getBookContents();
 
 		$ordered = array();
