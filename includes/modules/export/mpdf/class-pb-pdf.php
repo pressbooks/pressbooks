@@ -88,7 +88,7 @@ class Pdf extends Export {
 		$this->mpdf->setFooter( $this->getFooter() );
 		$this->setCss();
 
-		$this->addPreContent();
+		$this->addPreContent( $contents );
 
 		foreach ( $contents as $page ) {
 			$this->addPage( $page );
@@ -135,12 +135,16 @@ class Pdf extends Export {
 	}
 
 	/**
-	 * Add all content that is not included via
-	 * PressBooks\PressBooks\Book::getBookContents()
+	 * Add all specially handled content.
 	 */
-	function addPreContent() {
+	function addPreContent( &$contents ) {
 		$this->addCover();
+		$this->addFrontMatterByType( 'before-title', $contents );
+		$this->addFrontMatterByType( 'title-page', $contents );
 		$this->addBookInfo();
+		$this->addFrontMatterByType( 'dedication', $contents );
+		$this->addFrontMatterByType( 'epigraph', $contents );
+		$this->addToc();
 	}
 
 	/**
@@ -238,8 +242,8 @@ class Pdf extends Export {
 		}
 
 		$pageoptions = array(
-			'suppress' => 'on',
-			'resetpagenum' => 1,
+			'suppress' => 'off',
+			'pagenumstyle' => 1,
 		);
 
 		$this->mpdf->SetFooter( $this->getFooter( 'bookinfo' ) );
@@ -247,45 +251,37 @@ class Pdf extends Export {
 		$this->mpdf->WriteHTML( $content );
 	}
 
+
+	/**
+	 * Add front matter of a specific type.
+	 */
+	function addFrontMatterByType( $type, &$contents ) {
+		foreach ( $contents as $index => $page ) {
+			// If we hit non front-matter post types we won't see anymore front-matter
+			if ( $page['post_type'] != 'front-matter' ) {
+				return;
+			}
+
+			if ( $type == \PressBooks\Taxonomy\front_matter_type( $page['ID'] ) ) {
+				$this->addPage( $page );
+				unset( $contents[$index] );
+			}
+		}
+	}
+
 	/**
 	 * Add a page to the pdf.
 	 */
-	function addPage( $page ) {
+	function addPage( $page, $pageoptions = array() ) {
 		static $previous;
-		static $tocAdded;
 
 		// If this is our first page set the previous to this one.
 		if ( empty( $previous) ) {
 			$previous = $page;
 		}
 
-		// Indicate the ToC has not been added yet.
-		if ( ! isset( $tocAdded ) ) {
-			$tocAdded = false;
-		}
-
-		// Add the Table of Contents before the first non front-matter page,
-		// and reset page numbers.
-		$pageoptions = array();
-		if ( ! $tocAdded && $page['post_type'] != 'front-matter' ) {
-			$this->addToc();
-			$tocAdded = true;
-			$pageoptions['resetpagenum'] = 1;
-		}
-
-		switch ( $page['post_type'] ) {
-			case 'chapter':
-			case 'part':
-				$pageoptions['suppress'] = 'off';
-				$pageoptions['pagenumstyle'] = 1;
-				$bookmark = true;
-				break;
-			default:
-				$pageoptions['suppress'] = 'on';
-				$pageoptions['pagenumstyle'] = 'i';
-				$bookmark = false;
-				break;
-		}
+		$pageoptions['suppress'] = 'off';
+		$pageoptions['pagenumstyle'] = 1;
 
 		$class = $page['post_type'] . ' type-' . $page['post_type'];
 
@@ -293,10 +289,8 @@ class Pdf extends Export {
 			$this->mpdf->SetFooter( $this->getFooter( $page['post_type'] ) );
 			$this->mpdf->AddPageByArray( $this->mergePageOptions( $pageoptions ) );
 
-			if ( $bookmark ) {
-				$this->mpdf->TOC_Entry( $page['post_title'] , $page['mpdf_level'] );
-				$this->mpdf->Bookmark( $page['post_title'] , $page['mpdf_level'] );
-			}
+			$this->mpdf->TOC_Entry( $page['post_title'] , $page['mpdf_level'] );
+			$this->mpdf->Bookmark( $page['post_title'] , $page['mpdf_level'] );
 
 			$content = '<h2 class="entry-title">' . $page['post_title'] . '</h2>';
 			$content .= '<div class="' . $class . '">' . $this->getFilteredContent( $page['post_content'] ) . '</div>';
@@ -330,11 +324,8 @@ class Pdf extends Export {
 	 */
 	function getFooter( $context = '' ) {
 		switch ( $context ) {
-			case 'chapter':
-				$footer = '{PAGENO}';
-				break;
 			default:
-				$footer = '';
+				$footer = '{PAGENO}';
 				break;
 		}
 		// TODO Make this hookable.
