@@ -415,6 +415,9 @@ function pressbooks_theme_options_summary() { ?>
 				case 'pdf_orphans': ?>
 					<li><?php _e( 'Orphans' , 'pressbooks' ) ?>: <em><?php echo $value; ?></em></li>
 					<?php break;
+				case 'pdf_fontsize': ?>
+					<li><?php _e( 'Accessibility Increase Font Size' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></em></li>
+					<?php break;
 			}
 		}
 		?>
@@ -619,7 +622,7 @@ function pressbooks_theme_options_web_init() {
 	
 	add_settings_field(
 		'accessibility_fontsize', 
-		__( 'Accessibility - Font Size', 'pressbooks' ), 
+		__( 'Increase Font Size for Accessibility', 'pressbooks' ), 
 		'pressbooks_theme_accessibility_fontsize_callback',
 		$_page,
 		$_section,
@@ -708,6 +711,7 @@ function pressbooks_theme_options_pdf_init() {
 		'pdf_hyphens' => 0,
 		'pdf_widows' => 3,
 		'pdf_orphans' => 3,
+		'pdf_fontsize' => 0,
 	);
 
 	if ( false == get_option( $_option ) ) {
@@ -828,7 +832,13 @@ function pressbooks_theme_options_pdf_init() {
 		$_page,
 		$_section
 	);
-
+	add_settings_field(
+		'pdf_fontsize',
+		__( 'Increase Font Size for Accessibility', 'pressbooks' ),
+		'pressbooks_theme_pdf_fontsize_callback',
+		$_page,
+		$_section
+	);
 	register_setting(
 		$_option,
 		$_option,
@@ -1000,6 +1010,19 @@ function pressbooks_theme_pdf_orphans_callback( $args ) {
 	echo $html;
 }
 
+//PDF Options Field Callback
+function pressbooks_theme_pdf_fontsize_callback( $args ) {
+	
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+	
+	if ( ! isset( $options['pdf_fontsize'] ) ){
+		$options['pdf_fontsize'] = 0;
+	}
+	
+	$html = '<input type="checkbox" id="pdf_fontsize" name="pressbooks_theme_options_pdf[pdf_fontsize]" value="1" ' . checked( 1, $options['pdf_fontsize'], false ) . '/>';
+	$html .= '<label for="pdf_fontsize"> ' . $args[0] . '</label>';
+	echo $html;
+}
 
 // PDF Options Input Sanitization
 function pressbooks_theme_options_pdf_sanitize( $input ) {
@@ -1012,7 +1035,7 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 	}
 
 	// Checkmarks
-	foreach ( array( 'pdf_toc', 'pdf_romanize_parts', 'pdf_crop_marks', 'pdf_hyphens' ) as $val ) {
+	foreach ( array( 'pdf_toc', 'pdf_romanize_parts', 'pdf_crop_marks', 'pdf_hyphens', 'pdf_fontsize' ) as $val ) {
 		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
 		else $options[$val] = 1;
 	}
@@ -1235,6 +1258,10 @@ function pressbooks_theme_pdf_css_override( $css ) {
 	}
 	if ( @$options['pdf_orphans'] ) {
 		$css .= '@page, p { orphans: ' . $options['pdf_orphans'] . '; }' . "\n";
+	}
+	
+	if ( @$options['pdf_fontsize'] ){
+		$css .= 'body, h4, h5, h6, p, li, label, input, select, legend, code, pre { font-size: 125%; line-height: 1.4; }' . "\n";
 	}
 
 
