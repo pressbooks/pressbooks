@@ -416,8 +416,8 @@ function pressbooks_theme_options_summary() { ?>
 	<ul>
 		<?php
 		$mpdf_options = get_option( 'pressbooks_theme_options_mpdf' );
-		foreach ($mpdf_options as $key => $value) {
-			switch ($key) {
+		foreach ( $mpdf_options as $key => $value ) {
+			switch ( $key ) {
 				case 'mpdf_ignore_invalid_utf8':
 					if ( $value == 1 ) {
 						print '<li>' . __( 'Ignore invalid UTF8', 'pressbooks' ) . '</li>';
@@ -1012,7 +1012,7 @@ function pressbooks_theme_options_mpdf_init() {
 	$_section = 'mpdf_options_section';
 	$defaults = array(
 		'mpdf_page_size' => 'Letter',
-		'mpdf_ignore_invalid_utf8' => 0,
+		'mpdf_ignore_invalid_utf8' => 1,
 	);
 
 	if ( false == get_option( $_option ) ) {
