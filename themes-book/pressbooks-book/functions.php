@@ -1359,3 +1359,8 @@ function pressbooks_theme_ebook_hacks( $hacks ) {
 	return $hacks;
 }
 add_filter( 'pb_epub_hacks', 'pressbooks_theme_ebook_hacks' );
+
+add_action( 'wp_enqueue_scripts', 'load_dashicons_front_end' );
+function load_dashicons_front_end() {
+wp_enqueue_style( 'dashicons' );
+}

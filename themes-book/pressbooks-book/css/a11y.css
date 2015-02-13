@@ -7,6 +7,7 @@
 /***** Accessibility styles *****/
 /***** Chris Rodriguez *****/
 
+
 .focusable:focus {
     outline: none !important;
 }
@@ -132,4 +133,12 @@
 
 .fontsize .a11y-toolbar ul li {
     font-size: 75% !important;
+}
+
+.dashicons-dashicons-search:before { 
+content: "\f179";
+display: inline-block;
+color: #1EC9B3;
+-webkit-font-smoothing: antialiased;
+font: normal 150px/1 'dashicons';
 }

@@ -8,7 +8,7 @@
 /***** Joel Dolson ****/
 
 body, h4, h5, h6, p, li, label, input, select, textarea, legend, code, pre {
-    font-size: 125% !important;
+    font-size: 140% !important;
     line-height: 1.4 !important;
 }
 
@@ -35,3 +35,7 @@ body, h4, h5, h6, p, li, label, input, select, textarea, legend, code, pre {
     line-height: 24px !important;
 }
 
+.dashicons-dashicons-search:before { 
+content: "\f177";
+
+}
