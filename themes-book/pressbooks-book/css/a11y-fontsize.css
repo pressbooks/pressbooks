@@ -7,10 +7,11 @@
 /***** Fontsize Styles *****/
 /***** Joel Dolson ****/
 
-body, h4, h5, h6, p, li, label, input, select, textarea, legend, code, pre {
-    font-size: 140% !important;
+/*body, h4, h5, h6, p, li, label, input, select, textarea, legend, code, pre {
+    font-size: 115% !important;
     line-height: 1.4 !important;
 }
+*/
 
 .navbar .nav li {
     font-size: 75% !important;
