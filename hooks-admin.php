@@ -173,6 +173,21 @@ if ( \PressBooks\Book::isBook() ) {
 		unset ( $actions['preview'] );
 		return $actions;
 	} );
+
+	// Check mpdf export paths
+	add_action( 'admin_init', function () {
+		$paths = array(
+			PB_PLUGIN_DIR . 'symbionts/mpdf/ttfontdata',
+			PB_PLUGIN_DIR . 'symbionts/mpdf/tmp',
+			PB_PLUGIN_DIR . 'symbionts/mpdf/graph_cache',
+		);
+
+		foreach ( $paths as $path ) {
+			if ( ! is_writable( $path ) ) {
+				$_SESSION['pb_errors'] = sprintf( __('The path "%s" is not writable. Please check and adjust the ownership and file permissions for mpdf export to work properly.', 'pressbooks'), $path );
+			}
+		}
+	} );
 }
 
 // Hide WP update nag
