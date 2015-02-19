@@ -304,6 +304,8 @@ class Pdf extends Export {
 
 	function getFilteredContent( $content ) {
 		$filtered = apply_filters( 'the_content', $content );
+		
+		$filtered = $this->fixAnnoyingCharacters( $filtered );
 
 		$config = array(
 			'valid_xhtml' => 1,
@@ -316,6 +318,21 @@ class Pdf extends Export {
 		return htmLawed( $filtered, $config );
 	}
 
+	/**
+	 * This function prevents mPDF from completely aborting the export routine, or replacing each non-breaking space with a '?'
+	 * if ignore_invalid_utf8 is true. Important to leave this in.
+	 *  
+	 * @param string $html
+	 * @return string
+	 */
+	function fixAnnoyingCharacters( $html ) {
+
+		// Replace Non-breaking spaces with normal spaces
+		 $html = preg_replace( '/\xC2\xA0/', ' ', $html );
+
+		return $html;
+	}
+	
 	/**
 	 * Return formatted footers.
 	 *
