@@ -184,7 +184,7 @@ if ( \PressBooks\Book::isBook() ) {
 
 		foreach ( $paths as $path ) {
 			if ( ! is_writable( $path ) ) {
-				$_SESSION['pb_errors'] = sprintf( __('The path "%s" is not writable. Please check and adjust the ownership and file permissions for mpdf export to work properly.', 'pressbooks'), $path );
+				$_SESSION['pb_errors'][] = sprintf( __('The path "%s" is not writable. Please check and adjust the ownership and file permissions for mpdf export to work properly.', 'pressbooks'), $path );
 			}
 		}
 	} );
