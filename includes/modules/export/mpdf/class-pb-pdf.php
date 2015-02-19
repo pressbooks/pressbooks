@@ -40,6 +40,11 @@ class Pdf extends Export {
 	protected $mpdf;
 
 	/**
+	 * Tracks when the ToC has been output
+	 */
+	protected $ToCStatus;
+
+	/**
 	 * Define a few constants that should have been defined in MPDF.
 	 *
 	 * @param array $args
@@ -53,8 +58,14 @@ class Pdf extends Export {
 			define( 'MPDF_WRITEHTML_MODE_CSS', 1);
 			define(' MPDF_WRITEHTML_MODE_ELEMENTS', 2);
 		}
-		$this->options = get_option( 'pressbooks_theme_options_mpdf' );
 
+		// Define a few constants to help track status of ToC
+		define( 'MPDF_TOC_NOT_OUTPUT', 0);
+		define( 'MPDF_TOC_OUTPUT_PAGENO_NOT_RESET', 1);
+		define( 'MPDF_TOC_OUTPUT_PAGENO_RESET', 2);
+
+		$this->options = get_option( 'pressbooks_theme_options_mpdf' );
+		$this->ToCStatus = MPDF_TOC_NOT_OUTPUT;
 		$this->exportStylePath = $this->getExportStylePath( 'mpdf' );
 
 		$this->themeOptionsOverrides();
@@ -92,7 +103,6 @@ class Pdf extends Export {
 
 		foreach ( $contents as $page ) {
 			$this->addPage( $page );
-			$pageno++;
 		}
 		$this->mpdf->Output( $this->outputPath, 'F' );
 
@@ -104,7 +114,7 @@ class Pdf extends Export {
 	 * Add the mpdf Table of Contents.
 	 */
 	function addToc() {
-		$this->mpdf->AddPageByArray(  $this->mergePageOptions( array( 'suppress' => 'on' ) ) );
+		$this->mpdf->AddPageByArray( $this->mergePageOptions( array( 'suppress' => 'on' ) ) );
 
 		$options = array(
 			'paging' => true,
@@ -112,7 +122,7 @@ class Pdf extends Export {
 			'toc-bookmarkText' => __( 'Table of Contents', 'pressbooks' ),
 		);
 		$this->mpdf->TOCpagebreakByArray( $options );
-
+		$this->ToCOutput = MPDF_TOC_OUTPUT_PAGENO_NOT_RESET;
 	}
 
 	/**
@@ -138,12 +148,27 @@ class Pdf extends Export {
 	 * Add all specially handled content.
 	 */
 	function addPreContent( &$contents ) {
+		$pageoptions = array( 'resetpagenum' => 1);
+
 		$this->addCover();
-		$this->addFrontMatterByType( 'before-title', $contents );
-		$this->addFrontMatterByType( 'title-page', $contents );
-		$this->addBookInfo();
-		$this->addFrontMatterByType( 'dedication', $contents );
+		$output = $this->addFrontMatterByType( 'before-title', $contents, $pageoptions );
+
+		// Check to see if we output a page (if so reset pageoptions to empty array)
+		// This ensures that regardless of whether or not these pages have content
+		// the page numbering will be reset.
+		// @TODO: Refactor this.
+		if ( ! empty( $output ) ) { $pageoptions = array(); }
+		$output = $this->addFrontMatterByType( 'title-page', $contents, $pageoptions );
+
+		if ( ! empty( $output ) ) { $pageoptions = array(); }
+		$output = $this->addBookInfo();
+
+		if ( ! empty( $output ) ) { $pageoptions = array(); }
+		$output = $this->addFrontMatterByType( 'dedication', $contents );
+
+		if ( ! empty( $output ) ) { $pageoptions = array(); }
 		$this->addFrontMatterByType( 'epigraph', $contents );
+
 		$this->addToc();
 	}
 
@@ -154,15 +179,20 @@ class Pdf extends Export {
 		$metadata = \PressBooks\Book::getBookInformation();
 
 		if ( ! empty($metadata['pb_cover_image'] ) ) {
-			$pageoptions = array(
-				'suppress' => 'on',
-				'resetpagenum' => 1,
-			);
 
 			$content = '<img src="' . $metadata['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" />';
 			$this->mpdf->SetFooter( $this->getFooter( 'cover' ) );
-			$this->mpdf->addPageByArray( $this->mergePageOptions( $pageoptions ) );
-			$this->mpdf->WriteHTML( $content );
+			$page = array(
+				'post_type' => 'cover',
+				'post_content' => $content,
+				'post_title' => '',
+				'mpdf_level' => 1,
+				'mpdf_omit_toc' => TRUE,
+			);
+
+			$pageoptions['suppress'] = 'on';
+
+			$this->addPage( $page, $pageoptions );
 		}
 	}
 
@@ -241,21 +271,21 @@ class Pdf extends Export {
 			$content .= '</p>';
 		}
 
-		$pageoptions = array(
-			'suppress' => 'off',
-			'pagenumstyle' => 1,
+		$page = array(
+			'post_title' => __('Metadata', 'pressbooks'),
+			'post_content' => $content,
+			'post_type' => 'bookinfo',
+			'mpdf_level' => 1,
 		);
 
-		$this->mpdf->SetFooter( $this->getFooter( 'bookinfo' ) );
-		$this->mpdf->addPageByArray( $this->mergePageOptions( $pageoptions ) );
-		$this->mpdf->WriteHTML( $content );
+		return $this->addPage( $page );
 	}
 
 
 	/**
 	 * Add front matter of a specific type.
 	 */
-	function addFrontMatterByType( $type, &$contents ) {
+	function addFrontMatterByType( $type, &$contents, $pageoptions = array() ) {
 		foreach ( $contents as $index => $page ) {
 			// If we hit non front-matter post types we won't see anymore front-matter
 			if ( $page['post_type'] != 'front-matter' ) {
@@ -263,7 +293,7 @@ class Pdf extends Export {
 			}
 
 			if ( $type == \PressBooks\Taxonomy\front_matter_type( $page['ID'] ) ) {
-				$this->addPage( $page );
+				$this->addPage( $page, $pageoptions );
 				unset( $contents[$index] );
 			}
 		}
@@ -273,15 +303,23 @@ class Pdf extends Export {
 	 * Add a page to the pdf.
 	 */
 	function addPage( $page, $pageoptions = array() ) {
-		static $previous;
-
-		// If this is our first page set the previous to this one.
-		if ( empty( $previous) ) {
-			$previous = $page;
+		if ( empty ( $pageoptions['suppress'] ) ) {
+			$pageoptions['suppress'] = 'off';
 		}
 
-		$pageoptions['suppress'] = 'off';
-		$pageoptions['pagenumstyle'] = 1;
+		switch ( $this->ToCOutput ) {
+			case MPDF_TOC_NOT_OUTPUT:
+				$pageoptions['pagenumstyle'] = 'i';
+				break;
+			case MPDF_TOC_OUTPUT_PAGENO_NOT_RESET:
+				$pageoptions['pagenumstyle'] = 1;
+				$pageoptions['resetpagenum'] = 1;
+				$this->ToCOutput = MPDF_TOC_OUTPUT_PAGENO_RESET;
+				break;
+			default:
+				$pageoptions['pagenumstyle'] = 1;
+				break;
+		}
 
 		$class = $page['post_type'] . ' type-' . $page['post_type'];
 
@@ -289,22 +327,25 @@ class Pdf extends Export {
 			$this->mpdf->SetFooter( $this->getFooter( $page['post_type'] ) );
 			$this->mpdf->AddPageByArray( $this->mergePageOptions( $pageoptions ) );
 
-			$this->mpdf->TOC_Entry( $page['post_title'] , $page['mpdf_level'] );
-			$this->mpdf->Bookmark( $page['post_title'] , $page['mpdf_level'] );
+			if ( empty($page['mpdf_omit_toc'] ) ) {
+				$this->mpdf->TOC_Entry( $page['post_title'] , $page['mpdf_level'] );
+				$this->mpdf->Bookmark( $page['post_title'] , $page['mpdf_level'] );
+			}
 
 			$content = '<h2 class="entry-title">' . $page['post_title'] . '</h2>';
 			$content .= '<div class="' . $class . '">' . $this->getFilteredContent( $page['post_content'] ) . '</div>';
 
 			// TODO Make this hookable.
 			$this->mpdf->WriteHTML( $content );
+			return true;
 		}
 
-		$previous = $page;
+		return false;
 	}
 
 	function getFilteredContent( $content ) {
 		$filtered = apply_filters( 'the_content', $content );
-		
+
 		$filtered = $this->fixAnnoyingCharacters( $filtered );
 
 		$config = array(
@@ -341,6 +382,9 @@ class Pdf extends Export {
 	 */
 	function getFooter( $context = '' ) {
 		switch ( $context ) {
+			case 'cover':
+				$footer = '';
+				break;
 			default:
 				$footer = '{PAGENO}';
 				break;
