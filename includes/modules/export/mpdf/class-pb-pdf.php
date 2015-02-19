@@ -253,17 +253,7 @@ class Pdf extends Export {
 
 		}
 
-		if ( isset( $meta['pb_keywords_tags'] ) ) {
-			$content .= '<p class="keywords_tags"><strong>' . __('Keywords/Tags', 'pressbooks' ) . '</strong>: ' .  $meta['pb_keywords_tags'] . '</p>';
-		}
-
 		$content .= '</div>';
-
-
-		if ( isset( $meta['pb_about_unlimited'] ) ) {
-			$content .= '<h3>' . __( 'About the book', 'pressbooks' ) . '</h3>';
-			$content .= '<p class="about">' . $meta['pb_about_unlimited'] . '</p>';
-		}
 
 		if ( 1 == $options['copyright_license'] ){
 			$content .= '<p class="copyright_license">';
