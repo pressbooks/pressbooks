@@ -384,7 +384,7 @@ class Pdf extends Export {
 				break;
 		}
 
-		apply_filters('mpdf_get_footer', $footer, $context, $page );
+		$footer = apply_filters('mpdf_get_footer', $footer, $context, $page );
 
 		return $footer;
 	}
