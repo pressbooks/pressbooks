@@ -97,6 +97,7 @@ class Pdf extends Export {
 
 		$this->mpdf->setBasePath( home_url( '/' ) );
 		$this->mpdf->setFooter( $this->getFooter( 'default' ) );
+		$this->mpdf->setHeader( $this->getHeader( 'default' ) );
 		$this->setCss();
 
 		$this->addPreContent( $contents );
@@ -192,7 +193,9 @@ class Pdf extends Export {
 				'mpdf_level' => 1,
 				'mpdf_omit_toc' => TRUE,
 			);
+
 			$this->mpdf->SetFooter( $this->getFooter( 'cover', $page ) );
+			$this->mpdf->SetHeader( $this->getHeader( 'cover', $page ) );
 
 			$pageoptions['suppress'] = 'on';
 
@@ -319,6 +322,8 @@ class Pdf extends Export {
 
 		if ( ! empty( $page['post_content'] ) ) {
 			$this->mpdf->SetFooter( $this->getFooter( $page['post_type'], $page ) );
+			$this->mpdf->SetHeader( $this->getHeader( $page['post_type'], $page ) );
+
 			$this->mpdf->AddPageByArray( $this->mergePageOptions( $pageoptions ) );
 
 			if ( empty($page['mpdf_omit_toc'] ) ) {
@@ -387,6 +392,22 @@ class Pdf extends Export {
 		$footer = apply_filters('mpdf_get_footer', $footer, $context, $page );
 
 		return $footer;
+	}
+
+	/**
+	 * Return formatted headers.
+	 *
+	 * @param string $context
+	 *  The post type being added to the page
+   *
+	 * @param array $page
+	 *  The "page" content
+	 */
+	function getHeader( $context = '', $page = NULL ) {
+		$header = '';
+
+		$header = apply_filters('mpdf_get_header', $header, $context, $page );
+		return $header;
 	}
 
 	/**
