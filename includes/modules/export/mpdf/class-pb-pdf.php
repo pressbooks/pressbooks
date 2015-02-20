@@ -150,7 +150,10 @@ class Pdf extends Export {
 	function addPreContent( &$contents ) {
 		$pageoptions = array( 'resetpagenum' => 1);
 
-		$this->addCover();
+		if ( ! empty ( $this->options['mpdf_include_cover'] ) ) {
+			$this->addCover();
+		}
+
 		$output = $this->addFrontMatterByType( 'before-title', $contents, $pageoptions );
 
 		// Check to see if we output a page (if so reset pageoptions to empty array)

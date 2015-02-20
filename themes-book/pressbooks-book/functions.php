@@ -1013,6 +1013,7 @@ function pressbooks_theme_options_mpdf_init() {
 	$defaults = array(
 		'mpdf_page_size' => 'Letter',
 		'mpdf_ignore_invalid_utf8' => 1,
+		'mpdf_include_cover' => 1,
 	);
 
 	if ( false == get_option( $_option ) ) {
@@ -1133,6 +1134,17 @@ function pressbooks_theme_options_mpdf_init() {
 		)
 	);
 
+	add_settings_field(
+		'mpdf_include_cover',
+		__( 'Include Cover', 'pressbooks' ),
+		'pressbooks_theme_mpdf_include_cover_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Include cover in pdf output', 'pressbooks' )
+		)
+	);
+
 	register_setting( $_option, $_option );
 
 }
@@ -1212,6 +1224,19 @@ function pressbooks_theme_mpdf_mirror_margins_callback( $args ) {
 
 	$html = '<input type="checkbox" id="mpdf_mirror_margins" name="pressbooks_theme_options_mpdf[mpdf_mirror_margins]" value="1" ' . checked( 1, $options['mpdf_mirror_margins'], false ) . '/>';
 	$html .= '<label for="mpdf_mirror_margins"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_include_cover_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_include_cover'] ) ) {
+		$options['mpdf_include_cover'] = 0;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_include_cover" name="pressbooks_theme_options_mpdf[mpdf_include_cover]" value="1" ' . checked( 1, $options['mpdf_include_cover'], false ) . '/>';
+	$html .= '<label for="mpdf_include_cover"> ' . $args[0] . '</label>';
 	echo $html;
 }
 
