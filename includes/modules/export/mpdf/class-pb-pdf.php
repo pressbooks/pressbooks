@@ -327,8 +327,8 @@ class Pdf extends Export {
 			$this->mpdf->AddPageByArray( $this->mergePageOptions( $pageoptions ) );
 
 			if ( empty($page['mpdf_omit_toc'] ) ) {
-				$this->mpdf->TOC_Entry( $page['post_title'] , $page['mpdf_level'] );
-				$this->mpdf->Bookmark( $page['post_title'] , $page['mpdf_level'] );
+				$this->mpdf->TOC_Entry( $this->getTocEntry( $page ) , $page['mpdf_level'] );
+				$this->mpdf->Bookmark( $this->getBookmarkEntry( $page ) , $page['mpdf_level'] );
 			}
 
 			$content = '<h2 class="entry-title">' . $page['post_title'] . '</h2>';
@@ -340,6 +340,26 @@ class Pdf extends Export {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Return the Table of Contents entry for this page.
+	 */
+	function getTocEntry( $page ) {
+		$entry = $page['post_title'];
+
+		$entry = apply_filters( 'mpdf_get_toc_entry', $entry, $page );
+		return $entry;
+	}
+
+	/**
+	 * Return the PDF bookmark entry for this page
+	 */
+	function getBookmarkEntry( $page ) {
+		$entry = $page['post_title'];
+
+		$entry = apply_filters( 'mpdf_get_bookmark_entry', $entry, $page );
+		return $entry;
 	}
 
 	function getFilteredContent( $content ) {
