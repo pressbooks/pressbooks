@@ -5,6 +5,50 @@
  */
 namespace PressBooks\Export\Mpdf;
 
+/**
+ * Available filters
+ *
+ * Overrides the Table of Contents entry;
+ *
+ *     function my_mpdf_get_toc_entry( $value , $context, $page ) {
+ *       $value = sprintf(__('Chapter: %s'), $page['page_title']);
+ *     }
+ *     add_filter( 'mpdf_get_toc_entry', 'my_mpdf_get_toc_entry', 10, 3 );
+ *
+ *
+ * Overrides the PDF bookmark entry;
+ *
+ *     function my_mpdf_get_bookmark_entry( $value , $context, $page ) {
+ *       $value = sprintf(__('Chapter: %s'), $page['page_title']);
+ *     }
+ *     add_filter( 'mpdf_get_bookmark_entry', 'my_mpdf_get_bookmark_entry', 10, 3 );
+ *
+ *
+ * Overrides the footer for the given context and page;
+ *
+ *     function my_mpdf_footer( $value, $context, $page ) {
+ *       return '{PAGENO}';
+ *     }
+ *     add_filter( 'mpdf_get_footer', 'my_mpdf_footer', 10, 3 );
+ *
+ *
+ *
+ * Overrides the header for the given context and page;
+ *
+ *     function my_mpdf_header( $value, $context, $page ) {
+ *       return '{PAGENO}';
+ *     }
+ *     add_filter( 'mpdf_get_header', 'my_mpdf_header', 10, 3 );
+ *
+ * Overrides the CSS on every page
+ *
+ *     function my_mpdf_css_override( $css ) {
+ *       return $css . "\n text-align:center;";
+ *     }
+ *     add_filter( 'mpdf_css_override', 'my_mpdf_css_override, 10, 1 );
+ */
+
+
 require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 use \PressBooks\Export\Export;
