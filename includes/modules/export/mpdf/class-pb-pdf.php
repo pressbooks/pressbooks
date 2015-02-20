@@ -183,7 +183,7 @@ class Pdf extends Export {
 
 		if ( ! empty($metadata['pb_cover_image'] ) ) {
 
-			$content = '<img src="' . $metadata['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" />';
+			$content = '<div style="text-align:center;"><img src="' . $metadata['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" /></div>';
 			$this->mpdf->SetFooter( $this->getFooter( 'cover' ) );
 			$page = array(
 				'post_type' => 'cover',
