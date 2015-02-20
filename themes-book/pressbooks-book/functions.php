@@ -1014,6 +1014,7 @@ function pressbooks_theme_options_mpdf_init() {
 		'mpdf_page_size' => 'Letter',
 		'mpdf_ignore_invalid_utf8' => 1,
 		'mpdf_include_cover' => 1,
+		'mpdf_indent_paragraphs' => 0,
 	);
 
 	if ( false == get_option( $_option ) ) {
@@ -1145,6 +1146,17 @@ function pressbooks_theme_options_mpdf_init() {
 		)
 	);
 
+	add_settings_field(
+		'mpdf_indent_paragraphs',
+		__( 'Indent paragraphs', 'pressbooks' ),
+		'pressbooks_theme_mpdf_indent_paragraphs_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Indent paragraphs in mpdf output.', 'pressbooks' )
+		)
+	);
+
 	register_setting( $_option, $_option );
 
 }
@@ -1237,6 +1249,19 @@ function pressbooks_theme_mpdf_include_cover_callback( $args ) {
 
 	$html = '<input type="checkbox" id="mpdf_include_cover" name="pressbooks_theme_options_mpdf[mpdf_include_cover]" value="1" ' . checked( 1, $options['mpdf_include_cover'], false ) . '/>';
 	$html .= '<label for="mpdf_include_cover"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_indent_paragraphs_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_indent_paragraphs'] ) ) {
+		$options['mpdf_indent_paragraphs'] = 0;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_indent_paragraphs" name="pressbooks_theme_options_mpdf[mpdf_indent_paragraphs]" value="1" ' . checked( 1, $options['mpdf_indent_paragraphs'], false ) . '/>';
+	$html .= '<label for="mpdf_indent_paragraphs"> ' . $args[0] . '</label>';
 	echo $html;
 }
 

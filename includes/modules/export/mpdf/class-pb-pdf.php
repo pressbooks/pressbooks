@@ -587,6 +587,11 @@ class Pdf extends Export {
 			$css .= $this->cssOverrides . "\n";
 		}
 
+		if ( ! empty ( $this->options['mpdf_indent_paragraphs'] ) ) {
+			$css .= "p {text-indent: 2.0 em; }\n";
+		}
+
+
 		if ( ! empty ( $css  ) ) {
 			$this->mpdf->WriteHTML( $css, MPDF_WRITEHTML_MODE_CSS );
 		}
