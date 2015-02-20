@@ -96,7 +96,7 @@ class Pdf extends Export {
 		}
 
 		$this->mpdf->setBasePath( home_url( '/' ) );
-		$this->mpdf->setFooter( $this->getFooter() );
+		$this->mpdf->setFooter( $this->getFooter( 'default' ) );
 		$this->setCss();
 
 		$this->addPreContent( $contents );
@@ -184,7 +184,7 @@ class Pdf extends Export {
 		if ( ! empty($metadata['pb_cover_image'] ) ) {
 
 			$content = '<div style="text-align:center;"><img src="' . $metadata['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" /></div>';
-			$this->mpdf->SetFooter( $this->getFooter( 'cover' ) );
+
 			$page = array(
 				'post_type' => 'cover',
 				'post_content' => $content,
@@ -192,6 +192,7 @@ class Pdf extends Export {
 				'mpdf_level' => 1,
 				'mpdf_omit_toc' => TRUE,
 			);
+			$this->mpdf->SetFooter( $this->getFooter( 'cover', $page ) );
 
 			$pageoptions['suppress'] = 'on';
 
@@ -317,7 +318,7 @@ class Pdf extends Export {
 		$class = $page['post_type'] . ' type-' . $page['post_type'];
 
 		if ( ! empty( $page['post_content'] ) ) {
-			$this->mpdf->SetFooter( $this->getFooter( $page['post_type'] ) );
+			$this->mpdf->SetFooter( $this->getFooter( $page['post_type'], $page ) );
 			$this->mpdf->AddPageByArray( $this->mergePageOptions( $pageoptions ) );
 
 			if ( empty($page['mpdf_omit_toc'] ) ) {
@@ -366,14 +367,14 @@ class Pdf extends Export {
 
 		return $html;
 	}
-	
+
 	/**
 	 * Return formatted footers.
 	 *
 	 * @param string $context
 	 *   The post type being added to the page.
 	 */
-	function getFooter( $context = '' ) {
+	function getFooter( $context = '', $page = NULL ) {
 		switch ( $context ) {
 			case 'cover':
 				$footer = '';
@@ -382,7 +383,8 @@ class Pdf extends Export {
 				$footer = '{PAGENO}';
 				break;
 		}
-		// TODO Make this hookable.
+
+		apply_filters('mpdf_get_footer', $footer, $context, $page );
 
 		return $footer;
 	}
