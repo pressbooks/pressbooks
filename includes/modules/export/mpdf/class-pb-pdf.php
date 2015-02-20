@@ -469,10 +469,9 @@ class Pdf extends Export {
 	 */
 	function getCssRecursive( $theme ) {
 		$css = '';
-		if ( ! empty( $theme->parent ) ) {
-			$css .= $this->getCssRecursive ( $theme->parent );
+		if ( ! empty( $theme->parent() ) ) {
+			$css .= $this->getCssRecursive ( $theme->parent() );
 		}
-
 		$themefiles = $theme->get_files( 'css' );
 		if ( ! empty( $themefiles ) ) {
 			foreach ( $themefiles as $file ) {
