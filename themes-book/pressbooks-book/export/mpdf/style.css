@@ -3,10 +3,10 @@
 
 /* LISTS */
 
-/* 
+/*
 A default margin-top/bottom for lists is NOT set in config.php - (standard browsers give outermost list a top and bottom margin).
 [mPDF default CSS set in config.php only works on basic elements, cannot do selectors such as "ol ol"]
-Need to add the following to do this, but also prevent margins in nested lists as per default HTML in most browsers: 
+Need to add the following to do this, but also prevent margins in nested lists as per default HTML in most browsers:
 */
 
 ul, ol { margin-top: 0.83em; margin-bottom: 0.83em; }
@@ -17,7 +17,7 @@ ul ul, ul ol, ol ul, ol ol { margin-top: 0; margin-bottom: 0; }
 
 /* INDEXES */
 div.mpdf_index_main {
-	font-family: sans-serif;
+	font-family: inherit;
 	line-height: normal;
 }
 div.mpdf_index_entry {
@@ -25,25 +25,25 @@ div.mpdf_index_entry {
 	text-indent: -1.5em;
 }
 div.mpdf_index_letter {
-	font-family: sans-serif;
+	font-family: inherit;
 	font-size: 1.8em;
 	font-weight: bold;
 	line-height: normal;
 	text-transform: uppercase;
-	page-break-after: avoid; 
-	margin-top: 0.3em; 
+	page-break-after: avoid;
+	margin-top: 0.3em;
 	margin-collapse: collapse;
 }
-a.mpdf_index_link { 
-	color: #000000; 
-	text-decoration: none; 
+a.mpdf_index_link {
+	color: #000000;
+	text-decoration: none;
 }
 
 
 
 /* TABLE OF CONTENTS */
 div.mpdf_toc {
-	font-family: sans-serif;
+	font-family: inherit;
 	line-height: normal;
 }
 a.mpdf_toc_a  {
