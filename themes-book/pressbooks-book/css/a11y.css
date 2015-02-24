@@ -126,15 +126,14 @@
     font-size: 125% !important;
     line-height: 1.4;
 }*/
-.fontsize{
+.fontsize, .fontsize sub-nav{
     font-size: 150% !important;
 }
 .fontsize li li {
-    font-size: 110% !important;
+    font-size: 150% !important;
 }
 
 .fontsize .a11y-toolbar ul li {
     font-size: 50% !important;
 }
-
 

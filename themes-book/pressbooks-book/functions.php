@@ -1261,8 +1261,21 @@ function pressbooks_theme_pdf_css_override( $css ) {
 	}
 	
 	if ( @$options['pdf_fontsize'] ){
-		$css .= 'body, h4, h5, h6, p, li, label, input, select, legend, code, pre { font-size: 125%; line-height: 1.4; }' . "\n";
-	}
+		$css .= 'li, p { font-size: 130%; line-height: 1.4; }' . "\n";
+                $css .= '.div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 { font-size: 150%; line-height:1.4 !important; }' . "\n";
+                $css .= '.wp-caption-text { font-size: 110%; line-height:1.1 !important; }' . "\n";
+                $css .= 'img, wp-caption aligncenter { height: 150%; width: 150%; !important; }' . "\n";
+                $css .= 'div.front-matter .front-matter-title-wrap > h1:first-of-type, 
+                         div.chapter .chapter-title-wrap > h2:first-of-type,
+                         div.back-matter .back-matter-title-wrap > h1:first-of-type  
+                         { font-size: 2em; !important; }' . "\n";
+#toc > h1:first-of-type
+               
+                
+    
+                //$css .= 'label, input, select, legend, code, pre { font-size: 125%; line-height: 1.4; !important; }' . "\n";
+                
+        }
 
 
 	// --------------------------------------------------------------------
