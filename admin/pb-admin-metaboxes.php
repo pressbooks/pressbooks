@@ -31,7 +31,7 @@ function title_update( $pid, $post ) {
 		wp_update_post( array(
 			'ID' => $pid,
 			'post_title' => $post_title,
-			) );
+		) );
 	}
 }
 
@@ -115,7 +115,7 @@ function upload_cover_image( $pid, $post ) {
 		'post_content' => '',
 		'post_status' => 'inherit',
 		'post_name' => 'pb-cover-image',
-		);
+	);
 	$id = wp_insert_attachment( $args, $image['file'], $pid );
 	wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $image['file'] ) );
 }
@@ -163,216 +163,216 @@ function add_meta_boxes() {
 	x_add_metadata_group( 'general-book-information', 'metadata', array(
 		'label' => __( 'General Book Information', 'pressbooks' ),
 		'priority' => 'high'
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_title', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => 'Title'
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_short_title', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Short Title', 'pressbooks' ),
 		'description' => __( 'In case of long titles that might be truncated in running heads in the PDF export.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_subtitle', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Subtitle', 'pressbooks' ),
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_author', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Author', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_author_file_as', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Author, file as', 'pressbooks' ),
 		'description' => __( 'This ensures that your ebook will sort properly in ebook stores, by the author\'s last name.', 'pressbooks' )
-		) );
+	) );
 	
 	x_add_metadata_field( 'pb_contributing_authors', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Contributing Authors', 'pressbooks' ),
 		'multiple' => true,
 		'description' => __( 'This may be used when more than one person shares the responsibility for the intellectual content of a book', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_publisher', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Publisher', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_publisher_city', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Publisher City', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_publication_date', 'metadata', array(
 		'field_type' => 'datepicker',
 		'group' => 'general-book-information',
 		'label' => __( 'Publication Date', 'pressbooks' ),
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_onsale_date', 'metadata', array(
 		'field_type' => 'datepicker',
 		'group' => 'general-book-information',
 		'label' => __( 'On-Sale Date', 'pressbooks' ),
 		'description' => __( 'The date you want your book to start selling in stores.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_ebook_isbn', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Ebook ISBN', 'pressbooks' ),
 		'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in online ebook stores.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_print_isbn', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Print ISBN', 'pressbooks' ),
 		'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in online and physical book stores.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_language', 'metadata', array(
 		'group' => 'general-book-information',
 		'field_type' => 'select',
 		'values' => \PressBooks\L10n\supported_languages(),
 		'label' => __( 'Language', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_group( 'copyright', 'metadata', array(
 		'label' => __( 'Copyright', 'pressbooks' ),
 		'priority' => 'low'
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_copyright_year', 'metadata', array(
 		'group' => 'copyright',
 		'label' => __( 'Copyright Year', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_copyright_holder', 'metadata', array(
 		'group' => 'copyright',
 		'label' => __( 'Copyright Holder', 'pressbooks' )
-		) );
+	) );
 	
 	x_add_metadata_field( 'pb_book_license', 'metadata', array(
-		'group' => 'copyright',
-		'field_type' => 'select',
-		'values' => array(
-			'' => '--Select--',
-			'public-domain' => 'No Rights Reserved (Public Domain)',
-			'cc-by' => 'CC BY (Attribution)',
-			'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
-			'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
-			'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
-			'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
-			'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
-			'all-rights-reserved' => 'All Rights Reserved',
-			),
-		'label' => __( 'Copyright License', 'pressbooks' ),
-		) );
+	    'group' => 'copyright',
+	    'field_type' => 'select',
+	    'values' => array(
+		'' => '--Select--',
+		'public-domain' => 'No Rights Reserved (Public Domain)',
+		'cc-by' => 'CC BY (Attribution)',
+		'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
+		'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
+		'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
+		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
+		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
+		'all-rights-reserved' => 'All Rights Reserved',
+	    ),
+	    'label' => __( 'Copyright License', 'pressbooks' ),
+	) );
 
 	x_add_metadata_field( 'pb_custom_copyright', 'metadata', array(
 		'field_type' => 'wysiwyg',
 		'group' => 'copyright',
 		'label' => __( 'Copyright Notice', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_group( 'about-the-book', 'metadata', array(
 		'label' => 'About the Book',
 		'priority' => 'low'
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_about_140', 'metadata', array(
 		'group' => 'about-the-book',
 		'label' => __( 'Book Tagline', 'pressbooks' ),
 		'description' => __( 'A very short description of your book. It should fit in a Twitter post, and encapsulate your book in the briefest sentence.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_about_50', 'metadata', array(
 		'field_type' => 'textarea',
 		'group' => 'about-the-book',
 		'label' => __( 'Short Description', 'pressbooks' ),
 		'description' => __( 'A short paragraph about your book, for catalogs, reviewers etc. to quote.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_about_unlimited', 'metadata', array(
 		'field_type' => 'wysiwyg',
 		'group' => 'about-the-book',
 		'label' => __( 'Long Description', 'pressbooks' ),
 		'description' => __( 'The full description of your book.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_group( 'additional-catalogue-information', 'metadata', array(
 		'label' => __( 'Additional Catalogue Information', 'pressbooks' ),
 		'priority' => 'low'
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_series_title', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Series Title', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_series_number', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Series Number', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_editor', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Editor', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_translator', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Translator', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_keywords_tags', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Keywords', 'pressbooks' ),
 		'multiple' => true,
 		'description' => __( 'To make it easier to find your book in online book stores and search engines.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_hashtag', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Hashtag', 'pressbooks' ),
 		'description' => __( 'For those of you who like Twitter.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_list_price_print', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (Print)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_list_price_pdf', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (PDF)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_list_price_epub', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (ebook)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_list_price_web', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (Web)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_bisac_subject', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Bisac Subject', 'pressbooks' ),
 		'multiple' => true,
 		'description' => __( 'BISAC subject headings help your book get properly classified in (e)book stores.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_bisac_regional_theme', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Bisac Regional Theme', 'pressbooks' )
-		) );
+	) );
 
 	// Only display Catalogue Order metadata field if site is running a root theme other than PressBooks Root.
 
@@ -382,7 +382,7 @@ function add_meta_boxes() {
 		x_add_metadata_field( 'pb_catalogue_order', 'metadata', array(
 			'group' => 'additional-catalogue-information',
 			'label' => __( 'Catalogue Order', 'pressbooks' )
-			) );
+		) );
 	}
 	restore_current_blog();
 
@@ -390,39 +390,39 @@ function add_meta_boxes() {
 
 	x_add_metadata_group( 'chapter-metadata', 'chapter', array(
 		'label' => __( 'Chapter Metadata', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_short_title', 'chapter', array(
 		'group' => 'chapter-metadata',
 		'label' => __( 'Chapter Short Title (appears in the PDF running header)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_subtitle', 'chapter', array(
 		'group' => 'chapter-metadata',
 		'label' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_section_author', 'chapter', array(
 		'group' => 'chapter-metadata',
 		'label' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
-		) );
+	) );
 	
 	x_add_metadata_field( 'pb_section_license', 'chapter', array(
-		'group' => 'chapter-metadata',
-		'field_type' => 'select',
-		'values' => array( 
-			'' => '--Select--',
-			'public-domain' => 'No Rights Reserved (Public Domain)',
-			'cc-by' => 'CC BY (Attribution)', 
-			'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
-			'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
-			'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
-			'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
-			'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
-			'all-rights-reserved' => 'All Rights Reserved',
-			),
-		'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
-		) );
+	    'group' => 'chapter-metadata',
+	    'field_type' => 'select',
+	    'values' => array( 
+		'' => '--Select--',
+		'public-domain' => 'No Rights Reserved (Public Domain)',
+		'cc-by' => 'CC BY (Attribution)', 
+		'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
+		'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
+		'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
+		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
+		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
+		'all-rights-reserved' => 'All Rights Reserved',
+	    ),
+	    'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
+	) );
 
 	// Chapter Parent
 
@@ -430,7 +430,7 @@ function add_meta_boxes() {
 		'label' => __( 'Part', 'pressbooks' ),
 		'context' => 'side',
 		'priority' => 'high'
-		) );
+	) );
 
 	// Export
 
@@ -438,126 +438,126 @@ function add_meta_boxes() {
 		'label' => __( 'Export Settings', 'pressbooks' ),
 		'context' => 'side',
 		'priority' => 'high'
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_export', array( 'chapter', 'front-matter', 'back-matter' ), array(
 		'group' => 'export',
 		'field_type' => 'checkbox',
 		'label' => __( 'Include in exports', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_show_title', array( 'chapter', 'front-matter', 'back-matter' ), array(
 		'group' => 'export',
 		'field_type' => 'checkbox',
 		'label' => __( 'Show title in exports', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_ebook_start', array( 'chapter', 'front-matter', 'back-matter' ), array(
 		'group' => 'export',
 		'field_type' => 'checkbox',
 		'label' => __( 'Set as ebook start-point', 'pressbooks')
-		) );
+	) );
 
 	// Front Matter Metadata
 
 	x_add_metadata_group( 'front-matter-metadata', 'front-matter', array(
 		'label' => __( 'Front Matter Metadata', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_short_title', 'front-matter', array(
 		'group' => 'front-matter-metadata',
 		'label' => __( 'Front Matter Short Title (appears in the PDF running header)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_subtitle', 'front-matter', array(
 		'group' => 'front-matter-metadata',
 		'label' => __( 'Front Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_section_author', 'front-matter', array(
 		'group' => 'front-matter-metadata',
 		'label' => __( 'Front Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
-		) );
+	) );
 	
 	x_add_metadata_field( 'pb_section_license', 'front-matter', array(
-		'group' => 'front-matter-metadata',
-		'field_type' => 'select',
-		'values' => array(
-			'' => '--Select--',
-			'public-domain' => 'No Rights Reserved (Public Domain)',
-			'cc-by' => 'CC BY (Attribution)',
-			'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
-			'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
-			'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
-			'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
-			'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
-			'all-rights-reserved' => 'All Rights Reserved',
-			),
-		'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
-		) );
+	    'group' => 'front-matter-metadata',
+	    'field_type' => 'select',
+	    'values' => array(
+		'' => '--Select--',
+		'public-domain' => 'No Rights Reserved (Public Domain)',
+		'cc-by' => 'CC BY (Attribution)',
+		'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
+		'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
+		'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
+		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
+		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
+		'all-rights-reserved' => 'All Rights Reserved',
+	    ),
+	    'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
+	) );
 
 	// Back Matter Metadata
 
 	x_add_metadata_group( 'back-matter-metadata', 'back-matter', array(
 		'label' => __( 'Back Matter Metadata', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_short_title', 'back-matter', array(
 		'group' => 'back-matter-metadata',
 		'label' => __( 'Back Matter Short Title (appears in the PDF running header)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_subtitle', 'back-matter', array(
 		'group' => 'back-matter-metadata',
 		'label' => __( 'Back Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_section_author', 'back-matter', array(
 		'group' => 'back-matter-metadata',
 		'label' => __( 'Back Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_section_license', 'back-matter', array(
-		'group' => 'back-matter-metadata',
-		'field_type' => 'select',
-		'values' => array(
-			'' => '--Select--',
-			'public-domain' => 'No Rights Reserved (Public Domain)',
-			'cc-by' => 'CC BY (Attribution)',
-			'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
-			'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
-			'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
-			'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
-			'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
-			'all-rights-reserved' => 'All Rights Reserved',
-			),
-		'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
-		) );
+	    'group' => 'back-matter-metadata',
+	    'field_type' => 'select',
+	    'values' => array(
+		'' => '--Select--',
+		'public-domain' => 'No Rights Reserved (Public Domain)',
+		'cc-by' => 'CC BY (Attribution)',
+		'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
+		'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
+		'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
+		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
+		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
+		'all-rights-reserved' => 'All Rights Reserved',
+	    ),
+	    'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
+	) );
 	// Part Metadata
 
 	x_add_metadata_group( 'part-metadata-text', 'part', array(
 		'label' => __( 'Part Text', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_part_content', 'part', array(
 		'field_type' => 'wysiwyg',
 		'group' => 'part-metadata-text',
 		'label' => '',
 		'description' => __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_group( 'part-metadata-visibility', 'part', array(
 		'label' => __( 'Part Visibility', 'pressbooks' ),
 		'context' => 'side',
 		'priority' => 'low',
-		) );
+	) );
 
 	x_add_metadata_field( 'pb_part_invisible', 'part', array(
 		'field_type' => 'checkbox',
 		'group' => 'part-metadata-visibility',
 		'label' => 'Invisible',
 		'description' => __( 'Hide from table of contents and part numbering.', 'pressbooks' )
-		) );
+	) );
 }
 
 
@@ -586,8 +586,8 @@ function override_parent_id( $post ) {
 			'name' => 'parent_id',
 			'sort_column' => 'menu_order',
 			'echo' => 0
-			)
-		);
+		)
+	);
 
 	if ( ! empty( $pages ) ) {
 		echo $pages;
@@ -626,11 +626,11 @@ function delete_cover_image() {
  */
 function part_save_box( $post ) {
 	if ( $post->post_status == 'publish' ) { ?>
-	<input name="original_publish" type="hidden" id="original_publish" value="Update" />
-	<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="Save" />
+		<input name="original_publish" type="hidden" id="original_publish" value="Update" />
+		<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="Save" />
 	<?php } else { ?>
-	<input name="original_publish" type="hidden" id="original_publish" value="Publish" />
-	<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p" />
+		<input name="original_publish" type="hidden" id="original_publish" value="Publish" />
+		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p" />
 	<?php }
 }
 
@@ -642,11 +642,11 @@ function part_save_box( $post ) {
  */
 function metadata_save_box( $post ) {
 	if ( $post->post_status == 'publish' ) { ?>
-	<input name="original_publish" type="hidden" id="original_publish" value="Update" />
-	<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="Save" />
+		<input name="original_publish" type="hidden" id="original_publish" value="Update" />
+		<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="Save" />
 	<?php } else { ?>
-	<input name="original_publish" type="hidden" id="original_publish" value="Publish" />
-	<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p" />
+		<input name="original_publish" type="hidden" id="original_publish" value="Publish" />
+		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p" />
 	<?php }
 }
 
@@ -658,7 +658,7 @@ function add_user_meta() {
 
 	x_add_metadata_group( 'profile-information', 'user', array(
 		'label' => __( 'Extra Profile Information', 'pressbooks' )
-		) );
+	) );
 
 	x_add_metadata_field( 'user_interface_lang', 'user', array(
 		'group' => 'profile-information',
@@ -674,8 +674,8 @@ function add_user_meta() {
 			'pt_BR' => __( 'Portuguese, Brazil', 'pressbooks' ),
 			'es_ES' => __( 'Spanish', 'pressbooks' ),
 			'sv_SE' => __( 'Swedish', 'pressbooks' ),
-			),
+		),
 		'label' => __( 'Language', 'pressbooks' )
-		) );
+	) );
 
 }
