@@ -122,10 +122,6 @@
     filter: gray !important;
 }
 
-/*.fontsize, .fontsize h1, .fontsize h2, .fontsize h3, .fontsize h4, .fontsize h5, .fontsize h6, .fontsize p, .fontsize li, .fontsize label, .fontsize input, .fontsize select, .fontsize textarea, .fontsize legend, .fontsize code, .fontsize pre, .fontsize dd, .fontsize dt, .fontsize blockquote {
-    font-size: 125% !important;
-    line-height: 1.4;
-}*/
 .fontsize, .fontsize sub-nav{
     font-size: 150% !important;
 }
