@@ -6,19 +6,6 @@
 
 /***** Fontsize Styles *****/
 /***** Joel Dolson ****/
-.navbar .nav li {
-    font-size: 75% !important;
-    line-height: 1.5 !important;
-}
-
-.navbar input {
-    font-size: 75% !important;
-    line-height: 1.5 !important;
-}
-
-.navbar .brand {
-    line-height: 1 !important;
-}
 
 .a11y-toolbar ul li {
     line-height: 20px !important;
