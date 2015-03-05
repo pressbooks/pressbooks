@@ -83,6 +83,7 @@ function pb_enqueue_scripts() {
 		wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
 		wp_register_style( 'pressbooks-accessibility-toolbar', get_template_directory_uri() . '/css/a11y.css', array(), null, 'screen' );
 		wp_enqueue_style( 'pressbooks-accessibility-toolbar' );
+		wp_enqueue_style( 'dashicons' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
@@ -1364,8 +1365,3 @@ function pressbooks_theme_ebook_hacks( $hacks ) {
 	return $hacks;
 }
 add_filter( 'pb_epub_hacks', 'pressbooks_theme_ebook_hacks' );
-
-add_action( 'wp_enqueue_scripts', 'load_dashicons_front_end' );
-function load_dashicons_front_end() {
-wp_enqueue_style( 'dashicons' );
-}
