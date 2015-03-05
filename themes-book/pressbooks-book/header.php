@@ -55,6 +55,8 @@ if ( is_front_page() ) {
 }(document, 'script', 'facebook-jssdk'));</script>
 <!-- end Facebook JS -->
 
+<?php get_template_part( 'content', 'accessibility-toolbar' ); ?>
+
 	 <?php if (is_front_page()):?>
 	 
 	 	<!-- home page wrap -->
@@ -62,7 +64,6 @@ if ( is_front_page() ) {
 		      image inLanguage keywords publisher">
 		      
 	 		<div class="book-info-container">
-			<?php get_template_part( 'content', 'accessibility-toolbar' ); ?>
 	 
 		<?php else: ?>  	 
 		<span itemscope itemtype="http://schema.org/WebPage" itemref="about copyrightHolder copyrightYear inLanguage publisher">		

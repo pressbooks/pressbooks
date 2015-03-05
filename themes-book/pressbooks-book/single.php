@@ -36,7 +36,6 @@
 				</div><!-- #content -->
 			
 				<?php 
-				get_template_part( 'content', 'accessibility-toolbar' );
 				get_template_part( 'content', 'social-footer' ); 
 				?> 
 			
