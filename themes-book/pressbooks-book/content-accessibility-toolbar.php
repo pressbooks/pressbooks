@@ -1,5 +1,5 @@
-<?php 
-	$accessibility = get_option( 'pressbooks_theme_options_web' );
+<?php
+$accessibility = get_option( 'pressbooks_theme_options_web' );
 ?>
 <!-- a11y toolbar -->
 <div class="a11y-toolbar">

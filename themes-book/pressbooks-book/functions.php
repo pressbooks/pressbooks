@@ -79,10 +79,8 @@ function pb_enqueue_scripts() {
 		wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
 		wp_enqueue_style( 'dashicons' );
 	}
-	if ( @$options['accessibility_fontsize'] ){
-		$deps_acc = array('pressbooks-accessibility-toolbar');
-		
-		wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );	
+	if ( @$options['accessibility_fontsize'] ) {
+		wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
 		wp_register_style( 'pressbooks-accessibility-toolbar', get_template_directory_uri() . '/css/a11y.css', array(), null, 'screen' );
 		wp_enqueue_style( 'pressbooks-accessibility-toolbar' );
 	}
@@ -618,12 +616,12 @@ function pressbooks_theme_options_web_init() {
 	
 	add_settings_field(
 		'accessibility_fontsize', 
-		__( 'Increase Font Size for Accessibility', 'pressbooks' ), 
+		__( 'Increase Font Size', 'pressbooks' ), 
 		'pressbooks_theme_accessibility_fontsize_callback',
 		$_page,
 		$_section,
 		array(
-		    __('Add an option for the user to increase font size', 'pressbooks' )
+		    __('Add an option for the user to increase font size for greater accessbility', 'pressbooks' )
 		)
 	);
 
@@ -830,10 +828,13 @@ function pressbooks_theme_options_pdf_init() {
 	);
 	add_settings_field(
 		'pdf_fontsize',
-		__( 'Increase Font Size for Accessibility', 'pressbooks' ),
+		__( 'Increase Font Size', 'pressbooks' ),
 		'pressbooks_theme_pdf_fontsize_callback',
 		$_page,
-		$_section
+		$_section,
+		array(
+		    __('Increases font size and line height for greater accessibility', 'pressbooks' )
+		)
 	);
 	register_setting(
 		$_option,
@@ -1260,7 +1261,6 @@ function pressbooks_theme_pdf_css_override( $css ) {
 		$css .= 'li, p { font-size: 130%; line-height: 1.4; }' . "\n";
                 $css .= '.div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 { font-size: 150%; line-height:1.4; }' . "\n";
                 $css .= '.wp-caption-text, #copyright-page p, h2.chapter-author { font-size: 110%; line-height:1.1; }' . "\n";
-                $css .= 'wp-caption aligncenter { height: 150%; width: 150%; }' . "\n";
                 $css .= 'div.front-matter .front-matter-title-wrap > h1:first-of-type, 
                          div.chapter .chapter-title-wrap > h2:first-of-type,
                          div.back-matter .back-matter-title-wrap > h1:first-of-type  
