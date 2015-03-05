@@ -9,7 +9,7 @@
 
 
 .focusable:focus {
-    outline: none !important;
+    outline: none;
 }
 
 .has-focus {
@@ -41,11 +41,11 @@
 }
 
 .a11y-toolbar a {
-    color: #000 !important;
+    color: #000;
 }
 
 .a11y-toolbar a.active {
-    color: #fff !important;
+    color: #fff;
 }
 
 .a11y-toolbar ul li a {
@@ -74,73 +74,39 @@
 }
 
 .a11y-toolbar .offscreen, .a11y_stylesheet_path {
-    position: absolute !important;
+    position: absolute;
     clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
     clip: rect(1px, 1px, 1px, 1px);
-    padding: 0 !important;
-    border: 0 !important;
-    height: 1px !important;
-    width: 1px !important;
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
     overflow: hidden;
 }
 
-/* a11y toolbar RTL */
-.a11y-toolbar.rtl {
-    right: 0;
-    left: auto;
-}
-
-.a11y-toolbar.rtl ul {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.a11y-toolbar.rtl ul li:first-child a {
-    border-top-left-radius: 4px;
-    border-top-right-radius: 0;
-}
-
-.a11y-toolbar.rtl ul li:last-child a {
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 0;
-}
-
-.desaturated {
-    filter: grayscale(100%) !important;
-    -webkit-filter: grayscale(100%) !important;
-    -webkit-filter: grayscale(1) !important;
-    -moz-filter: grayscale(100%) !important;
-    -ms-filter: grayscale(100%) !important;
-    -o-filter: grayscale(100%) !important;
-    filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale") !important;
-    filter: gray !important;
-}
-
 .fontsize {
-    font-size: 150% !important;
+    font-size: 150%;
 }
 
 .alignright {
-    height: 23px !important;
+    height: 23px;
 }
 
 .fontsize li li {
-    font-size: 150% !important;
+    font-size: 150%;
 }
 
 .fontsize .a11y-toolbar ul li {
-    font-size: 50% !important;
+    font-size: 50%;
 }
 
 .a11y-toolbar ul li {
-    line-height: 20px !important;
-    font-size: 75% !important;
+    line-height: 20px;
+    font-size: 75%;
 }
 
 .a11y-toolbar ul li a {
-    line-height: 24px !important;
+    line-height: 24px;
 }
 
 .dashicons-dashicons-search:before { 
@@ -149,17 +115,30 @@ content: "\f177";
 }
 
 .fontsize .description-book-info{
-    font-size: 125% !important;
+    font-size: 125%;
 }
 
 .fontsize .author-book-info{
-    font-size: 125% !important;
+    font-size: 125%;
 }
 
 .fontsize .book-info{
-    font-size: 125% !important;
+    font-size: 125%;
 }
 
-.fontsize .alignright .form .input {
-    font-size: 125% !important;
+/*adjusting social media alignment*/
+
+.fontsize .share-single li.email{
+    padding-top: 10px ;
+    margin-top: 1px;
 }
+
+.fontsize .share-single li.twitter{
+    padding-top: 5px ;
+}
+
+.fontsize .share-single li.facebook{
+    padding-top: 0 ;
+    margin-top: 0 ;
+}
+

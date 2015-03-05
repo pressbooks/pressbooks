@@ -82,11 +82,9 @@ function pb_enqueue_scripts() {
 	if ( @$options['accessibility_fontsize'] ){
 		$deps_acc = array('pressbooks-accessibility-toolbar');
 		
-		wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
-		
+		wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );	
 		wp_register_style( 'pressbooks-accessibility-toolbar', get_template_directory_uri() . '/css/a11y.css', array(), null, 'screen' );
 		wp_enqueue_style( 'pressbooks-accessibility-toolbar' );
-		wp_enqueue_style( 'pressbooks-accessibility-fontsize' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
@@ -1269,8 +1267,6 @@ function pressbooks_theme_pdf_css_override( $css ) {
                          { font-size: 2em; }' . "\n";
                 $css .= '#title-page > .author { font-size: 2em; line-height: 1.4; }' . "\n";
                 $css .= 'half-title-page h1.title { font-size: 200%; line-height: 1.4; }' . "\n";
-                //$css .= 'h2.chapter-author { font-size: 200%; line-height: 1.4; }' . "\n";
-                //$css .= 'body { font-size: 200%; line-height: 1.4; }' . "\n";
         }
 
 
