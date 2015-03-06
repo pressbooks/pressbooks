@@ -3,8 +3,8 @@
 Contributors: PressBooks <code@pressbooks.com>
 Version: 2.4.2
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.1
-Tested up to: 4.1
+Requires at least: 4.1.1
+Tested up to: 4.1.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -191,9 +191,11 @@ TK.
 == Changelog ==
 
 = 2.4.3 =
+* Requires WordPress 4.1.1.
 * Removed Hpub export routines.
 * Made links inside the `[footnote]` shortcode clickable (props to @bdolor).
 * Fixed issue with catalog page in WebKit browsers (props to @bdolor).
+* Swedish translation (props to @chrillep).
 
 = 2.4.2 =
 * Fixed licenses.
