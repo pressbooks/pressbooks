@@ -334,9 +334,20 @@ class Docx extends Import {
 		$image_content = $this->getZipContent( $img_location, false );
 
 		if ( ! $image_content ) {
-			$already_done[$img_location] = '';
+			// try a different directory in the zip container
+			try {
+				$alt_img_location = 'word/' . $img_location;
+				$image_content = $this->getZipContent( $alt_img_location, false );
 
-			return '';
+				if ( ! $image_content ) {
+					throw new \Exception( 'Image could not be retrieved in the DOCX file with PressBooks\Import\Ooxml\fetchAndSaveUniqueImage()' );
+				}
+			} catch ( \Exception $exc ) {
+				$this->log( $exc->getMessage() );
+				$already_done[$img_location] = '';
+
+				return '';
+			}
 		}
 
 		$tmp_name = $this->createTmpFile();
@@ -683,18 +694,18 @@ class Docx extends Import {
 		foreach ( $relations->Relationship as $rel ) {
 			if ( $rel["Type"] == $schema ) {
 				switch ( $id ) {
-
+					// must be cast as a string to avoid returning SimpleXml Object.
 					case 'footnotes':
-						$path = 'word/' . $rel['Target'];
+						$path = 'word/' . ( string ) $rel['Target'];
 						break;
 					case 'endnotes':
-						$path = 'word/' . $rel['Target'];
+						$path = 'word/' . ( string ) $rel['Target'];
 						break;
 					case 'hyperlink':
 						$path["{$rel['Id']}"] = ( string ) $rel['Target'];
 						break;
 					default:
-						$path = $rel['Target'];
+						$path = ( string ) $rel['Target'];
 						break;
 				}
 			}
