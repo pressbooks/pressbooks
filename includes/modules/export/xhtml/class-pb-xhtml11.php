@@ -1016,11 +1016,6 @@ class Xhtml11 extends Export {
 				if ( $my_chapters ) echo $my_chapters;
 			}
 
-			// Did we actually inject the introduction class?
-			if ( $part_printf_changed && empty( $my_chapters ) ) {
-				$this->hasIntroduction = false;
-			}
-
 		}
 
 	}
