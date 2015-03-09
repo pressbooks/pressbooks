@@ -4,8 +4,8 @@ Plugin Name: Custom Metadata Manager
 Plugin URI: http://wordpress.org/extend/plugins/custom-metadata/
 Description: An easy way to add custom fields to your object types (post, pages, custom post types, users)
 Author: Automattic, Stresslimit & Contributors
-Version: 0.8-dev (patched!)
-Fork URI: https://github.com/connerbw/custom-metadata
+Version: 0.8-dev
+Author URI: https://github.com/Automattic/custom-metadata/
 
 Copyright 2010-2013 The Contributors
 
@@ -51,7 +51,7 @@ class custom_metadata_manager {
 	var $_column_types = array( 'posts', 'pages', 'users', 'comments' );
 
 	// field types
-	var $_field_types = array( 'text', 'textarea', 'password', 'number', 'email', 'telephone', 'checkbox', 'radio', 'select', 'multi_select', 'upload', 'wysiwyg', 'datepicker', 'datetimepicker', 'timepicker', 'taxonomy_select', 'taxonomy_radio',  'taxonomy_checkbox', 'link' );
+	var $_field_types = array( 'text', 'textarea', 'password', 'number', 'email', 'telephone', 'checkbox', 'radio', 'select', 'multi_select', 'upload', 'wysiwyg', 'datepicker', 'datetimepicker', 'timepicker', 'colorpicker', 'taxonomy_select', 'taxonomy_radio',  'taxonomy_checkbox', 'link' );
 
 	// field types that are cloneable
 	var $_cloneable_field_types = array( 'text', 'textarea', 'upload', 'password', 'number', 'email', 'tel' );
@@ -160,10 +160,10 @@ class custom_metadata_manager {
 		// Handle actions related to users
 		if ( $object_type == 'user' ) {
 			global $user_id;
-			
+
 			if ( empty( $user_id ) )
 				$user_id = get_current_user_id();
-				
+
 			// Editing another user's profile
 			add_action( 'edit_user_profile', array( $this, 'add_user_metadata_groups' ) );
 			add_action( 'edit_user_profile_update', array( $this, 'save_user_metadata' ) );
@@ -224,8 +224,9 @@ class custom_metadata_manager {
 		wp_enqueue_script( 'wpdialogs-popup' );
 		wp_enqueue_style( 'wp-jquery-ui-dialog' );
 		wp_enqueue_script( 'select2', apply_filters( 'custom_metadata_manager_select2_js', CUSTOM_METADATA_MANAGER_URL .'js/select2.min.js' ), array( 'jquery' ), CUSTOM_METADATA_MANAGER_SELECT2_VERSION, true );
-		wp_enqueue_script( 'timepicker', apply_filters( 'custom_metadata_manager_select2_js', CUSTOM_METADATA_MANAGER_URL .'js/jquery-ui-timepicker.min.js' ), array( 'jquery', 'jquery-ui-datepicker' ), CUSTOM_METADATA_MANAGER_TIMEPICKER_VERSION, true );
+		wp_enqueue_script( 'timepicker', apply_filters( 'custom_metadata_manager_timepicker_js', CUSTOM_METADATA_MANAGER_URL .'js/jquery-ui-timepicker.min.js' ), array( 'jquery', 'jquery-ui-datepicker' ), CUSTOM_METADATA_MANAGER_TIMEPICKER_VERSION, true );
 		wp_enqueue_script( 'custom-metadata-manager-js', apply_filters( 'custom_metadata_manager_default_js', CUSTOM_METADATA_MANAGER_URL .'js/custom-metadata-manager.js' ), array( 'jquery', 'jquery-ui-datepicker', 'select2' ), CUSTOM_METADATA_MANAGER_VERSION, true );
+		wp_enqueue_script( 'wp-color-picker' );
 	}
 
 	function enqueue_styles() {
@@ -234,6 +235,7 @@ class custom_metadata_manager {
 		wp_enqueue_style( 'custom-metadata-manager-css', apply_filters( 'custom_metadata_manager_default_css', CUSTOM_METADATA_MANAGER_URL .'css/custom-metadata-manager.css' ), array(), CUSTOM_METADATA_MANAGER_VERSION );
 		wp_enqueue_style( 'jquery-ui-datepicker', apply_filters( 'custom_metadata_manager_jquery_ui_css', CUSTOM_METADATA_MANAGER_URL .'css/jquery-ui-smoothness.css' ), array(), CUSTOM_METADATA_MANAGER_VERSION );
 		wp_enqueue_style( 'select2', apply_filters( 'custom_metadata_manager_select2_css', CUSTOM_METADATA_MANAGER_URL .'css/select2.css' ), array(), CUSTOM_METADATA_MANAGER_SELECT2_VERSION );
+		wp_enqueue_style( 'wp-color-picker' );
 	}
 
 	function add_metadata_column_headers( $columns ) {
@@ -253,15 +255,13 @@ class custom_metadata_manager {
 	}
 
 	function add_user_metadata_column_content( $param, $name, $object_id ) {
-		return $this->add_metadata_column_content( $name, $object_id );
+		return $this->add_metadata_column_content( $name, $object_id, $param );
 	}
 
-	function add_metadata_column_content( $name, $object_id ) {
+	function add_metadata_column_content( $name, $object_id, $column_content = '' ) {
 
 		$object_type = $this->_get_object_type_context();
 		$field_slug = $name;
-
-		$column_content = '';
 
 		if ( $this->is_registered_object_type( $object_type ) && $this->is_registered_field( $field_slug, null, $object_type ) ) {
 			$field = $this->get_field( $field_slug, null, $object_type );
@@ -275,6 +275,16 @@ class custom_metadata_manager {
 	}
 
 	function add_metadata_field( $field_slug, $object_types = array( 'post' ), $args = array() ) {
+		static $localized_strings;
+
+		if ( ! $localized_strings ) {
+			$localized_strings = (object) array(
+				'upload_modal_title' => __( 'Choose a file', 'custom-metadata' ), // upload modal title (for upload field only)
+				'upload_modal_button_text' => __( 'Select this file', 'custom-metadata' ), // upload modal button text (for upload field only)
+				'upload_clear_button_text' => __( 'Clear', 'custom-metadata' ), // upload clear field text (for upload field only)
+				'link_modal_button_text' => __( 'Select', 'custom-metadata' ), // link field button text
+			);
+		}
 
 		$defaults = array(
 			'group' => '', // To which meta_box the field should be added
@@ -297,10 +307,10 @@ class custom_metadata_manager {
 			'select2' => false, // applies select2.js (work on select and multi select field types)
 			'min' => false, // a minimum value (for number field only)
 			'max' => false, // a maximum value (for number field only)
-			'upload_modal_title' => __( 'Choose a file', 'custom-metadata' ), // upload modal title (for upload field only)
-			'upload_modal_button_text' => __( 'Select this file', 'custom-metadata' ), // upload modal button text (for upload field only)
-			'upload_clear_button_text' => __( 'Clear', 'custom-metadata' ), // upload clear field text (for upload field only)
-			'link_modal_button_text' => __( 'Select', 'custom-metadata' ), // link field button text
+			'upload_modal_title' => $localized_strings->upload_modal_title,
+			'upload_modal_button_text' => $localized_strings->upload_modal_button_text,
+			'upload_clear_button_text' => $localized_strings->upload_clear_button_text,
+			'link_modal_button_text' => $localized_strings->link_modal_button_text,
 		);
 
 		// upload field is readonly by default (can be set explicitly to false though)
@@ -1004,6 +1014,7 @@ class custom_metadata_manager {
 	function _get_field_value( $field_slug, $field, $object_type, $object_id, $single = false ) {
 
 		$get_value_callback = $this->_get_value_callback( $field, $object_type );
+
 		if ( $get_value_callback )
 			return call_user_func( $get_value_callback, $object_type, $object_id, $field_slug );
 
@@ -1011,15 +1022,6 @@ class custom_metadata_manager {
 			$object_type = 'post';
 
 		$value = get_metadata( $object_type, $object_id, $field_slug, $single );
-
-		if ( is_array( $value ) ) {
-			if ( in_array( $field->field_type, $this->_always_multiple_fields ) || $field->multiple ) {
-				// Do nothing
-			} else {
-				// Pop out the last value
-				$value = array( 0 => array_pop( $value ) );
-			}
-		}
 
 		return $value;
 	}
@@ -1041,19 +1043,21 @@ class custom_metadata_manager {
 			wp_set_object_terms( $object_id, $value, $field->taxonomy );
 		}
 
-		delete_metadata( $object_type, $object_id, $field_slug ); // Delete first
-
-		if ( is_array( $value ) && $field->multiple ) {
+		if ( is_array( $value ) ) {
 			// multiple values
-			$value = array_reverse( $value );
+			delete_metadata( $object_type, $object_id, $field_slug ); // delete the old values and add the new ones
 			foreach ( $value as $v ) {
 				add_metadata( $object_type, $object_id, $field_slug, $v, false );
 			}
-		} elseif ( ! empty( $value ) ) {
+		} else {
 			// single value
-			add_metadata( $object_type, $object_id, $field_slug, $value, true );
+			update_metadata( $object_type, $object_id, $field_slug, $value );
 		}
 
+		// delete metadata entries if empty
+		if ( empty( $value ) ) {
+			delete_metadata( $object_type, $object_id, $field_slug );
+		}
 	}
 
 	function _delete_field_value( $field_slug, $field, $object_type, $object_id, $value = false ) {
@@ -1174,14 +1178,7 @@ class custom_metadata_manager {
 		$readonly_str = ( ! empty( $field->readonly ) ) ? ' readonly="readonly"' : '';
 		$placeholder_str = ( in_array( $field->field_type, $this->_field_types_that_support_placeholder ) && ! empty( $field->placeholder ) ) ? ' placeholder="' . esc_attr( $field->placeholder ) . '"' : '';
 
-		$label_str = sprintf( '<label for="%s">%s</label>', esc_attr( $field_slug ), esc_html( $field->label ) );
-
-		// Define an array of field types that need the <label> AFTER the <input>
-		$label_after_field_types = array( 'checkbox' );
-
-		// Show the label now if the current field_type is not on the list
-		if ( ! in_array( $field->field_type, $label_after_field_types ) )
-			echo $label_str;
+		printf( '<label for="%s">%s</label>', esc_attr( $field_slug ), esc_html( $field->label ) );
 
 		// check if there is a default value and set it if no value currently set
 		if ( empty( $value ) && in_array( $field->field_type, $this->_field_types_that_support_default_value ) && ! empty( $field->default_value ) )
@@ -1254,6 +1251,9 @@ class custom_metadata_manager {
 					$datepicker_value = ! empty( $v ) ? esc_attr( date( 'm/d/Y', $v ) ) : '';
 					printf( '<input type="text" name="%s" value="%s"%s%s/>', esc_attr( $field_id ), $datepicker_value, $readonly_str, $placeholder_str );
 					break;
+				case 'colorpicker':
+					printf( '<input type="text" name="%s" value="%s"%s%s/>', esc_attr( $field_id ), esc_attr( $v ), $readonly_str, $placeholder_str );
+					break;
 				case 'datetimepicker' :
 					$datetimepicker_value = ! empty( $v ) ? esc_attr( date( 'm/d/Y G:i', $v ) ) : '';
 					printf( '<input type="text" name="%s" value="%s"%s%s/>', esc_attr( $field_id ), $datetimepicker_value, $readonly_str, $placeholder_str );
@@ -1310,10 +1310,6 @@ class custom_metadata_manager {
 			$count++;
 
 			echo '</div>';
-
-			// Now show the <label> for any field_type that needs it to come after
-			if ( in_array( $field->field_type, $label_after_field_types ) )
-				echo $label_str;
 
 		endforeach;
 
