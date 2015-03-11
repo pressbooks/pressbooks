@@ -82,6 +82,14 @@ class Pdf extends Export {
 	 * @var object
 	 */
 	protected $mpdf;
+	
+	/**
+	 * mPDF uses a lot of memory, this the recommended minimum
+	 * 
+	 * @see http://mpdf1.com/manual/index.php?tid=408
+	 * @var int 
+	 */
+	protected $memory_needed = 128;
 
 	/**
 	 * Tracks when the ToC has been output
@@ -101,6 +109,12 @@ class Pdf extends Export {
 			define( 'MPDF_WRITEHTML_MODE_DOC', 0);
 			define( 'MPDF_WRITEHTML_MODE_CSS', 1);
 			define(' MPDF_WRITEHTML_MODE_ELEMENTS', 2);
+		}
+		
+		$memory_available = ( int ) ini_get( 'memory_limit' );
+
+		if ( $memory_available < $this->memory_needed ) {
+			ini_set( 'memory_limit', $this->memory_needed . 'M' );
 		}
 
 		// Define a few constants to help track status of ToC
