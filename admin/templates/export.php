@@ -15,6 +15,7 @@ $max_batches = 5; // How many batches we save
 $export_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export&export=yes', 'pb-export' );
 $export_delete_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export', 'pb-delete-export' );
 $download_url_prefix = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export&download_export_file=';
+$host = parse_url( network_site_url(), PHP_URL_HOST );
 
 date_default_timezone_set( 'America/Montreal' );
 
@@ -114,17 +115,18 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    <fieldset>
 	       <legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
 	    	<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php checked(1, $options['pdf'], true); ?>/><label for="pdf"> <?php _e( 'PDF (for printing)', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" <?php checked(1, $options['mpdf'], true); ?>/><label for="mpdf"> <?php _e( 'PDF (OSS)', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="epub" name="export_formats[epub]" value="1" <?php checked(1, $options['epub'], true); ?> onclick="fixMobi();" /><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
+	    	<?php 
+		if ( 'pressbooks.com' != $host ) { ?>
+		<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" <?php checked(1, $options['mpdf'], true); ?>/><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
+		<?php } ?>
+		<input type="checkbox" id="epub" name="export_formats[epub]" value="1" <?php checked(1, $options['epub'], true); ?> onclick="fixMobi();" /><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="mobi" name="export_formats[mobi]" value="1" <?php checked(1, $options['mobi'], true); ?> onclick="fixMobi();" /><label for="mobi"> <?php _e( 'MOBI (for Kindle)', 'pressbooks' ); ?></label>
 	    </fieldset>
 	    
 	    <fieldset>
 	    <legend>Exotic formats:</legend>
 	    	<?php 
-		$host = parse_url( network_site_url(), PHP_URL_HOST );
-
-			if ( 'pressbooks.com' != $host ) { ?>
+		if ( 'pressbooks.com' != $host ) { ?>
 	    	<input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php checked(1, $options['epub3'], false); ?>/><label for="epub3"> <?php _e( 'EPUB 3 (Beta)', 'pressbooks' ); ?></label><br />
 	    	<?php } ?>
 	    	<input type="checkbox" id="icml" name="export_formats[icml]" value="1" <?php checked(1, $options['icml'], false); ?>/><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
