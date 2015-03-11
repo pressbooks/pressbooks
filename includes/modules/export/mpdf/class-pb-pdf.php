@@ -552,21 +552,61 @@ class Pdf extends Export {
 	}
 
 	/**
-	 * Get current theme and all (grand)parent theme css.
+	 * Get current child and parent theme css files. Child themes only have one parent 
+	 * theme, and 99% of the time this is 'Luther' or /pressbooks-book/ whose stylesheet is 
+	 * named 'style.css'
+	 * 
+	 * @param object $theme
+	 * @return string $css
 	 */
-	function getCssRecursive( $theme ) {
+	function getThemeCss( $theme ) {
 		$css = '';
-		if ( ! empty( $theme->parent() ) ) {
-			$css .= $this->getCssRecursive ( $theme->parent() );
+
+		// get parent theme files
+		if ( is_object( $theme->parent() ) ) {
+			$parent_files = $theme->parent()->get_files( 'css' );
+
+			// exclude admin files
+			$parents = $this->stripUnwantedStyles( $parent_files );
+
+			// hopefully there is something left for us to grab
+			if ( ! empty( $parents ) ) {
+				foreach ( $parents as $parent ) {
+					$css .= file_get_contents( $parent ) . "\n";
+				}
+			}
 		}
-		$themefiles = $theme->get_files( 'css' );
-		if ( ! empty( $themefiles ) ) {
-			foreach ( $themefiles as $file ) {
-				$css .= file_get_contents( $file ) . "\n";
+		// get child theme files
+		$child_files = $theme->get_files( 'css' );
+		// exclude admin files
+		$children = $this->stripUnwantedStyles( $child_files );
+
+		if ( ! empty( $children ) ) {
+			foreach ( $children as $child ) {
+				$css .= file_get_contents( $child ) . "\n";
 			}
 		}
 
 		return $css;
+	}
+
+	/**
+	 * Helper function to omit unwanted stylesheets in the output
+	 * 
+	 * @param array $styles
+	 * @return array $sytles
+	 */
+	private function stripUnwantedStyles( array $styles ) {
+		$unwanted = array(
+		    'editor-style.css',
+		);
+
+		foreach ( $unwanted as $key ) {
+			if ( array_key_exists( $key, $styles ) ) {
+				unset( $styles[$key] );
+			}
+		}
+		return $styles;
 	}
 
 	/**
@@ -576,10 +616,17 @@ class Pdf extends Export {
 
 		$theme = wp_get_theme();
 
-		$css = $this->getCssRecursive( $theme );
+		$css = $this->getThemeCss( $theme );
 
+		// check for child theme export file
 		$cssfile = $this->getExportStylePath( 'mpdf' );
-		if ( ! empty($cssfile) ) {
+
+		// if empty, try the parent theme export directory
+		if ( empty( $cssfile ) ) {
+			$cssfile = realpath( get_template_directory() . "/export/mpdf/style.css" );
+		}
+
+		if ( is_string( $cssfile ) && ! empty( $cssfile ) ) {
 			$css .= file_get_contents( $cssfile ) . "\n";
 		}
 
@@ -587,15 +634,13 @@ class Pdf extends Export {
 			$css .= $this->cssOverrides . "\n";
 		}
 
-		if ( ! empty ( $this->options['mpdf_indent_paragraphs'] ) ) {
+		if ( ! empty( $this->options['mpdf_indent_paragraphs'] ) ) {
 			$css .= "p {text-indent: 2.0 em; }\n";
 		}
 
-
-		if ( ! empty ( $css  ) ) {
+		if ( ! empty( $css ) ) {
 			$this->mpdf->WriteHTML( $css, MPDF_WRITEHTML_MODE_CSS );
 		}
-
 	}
 
 	/**
