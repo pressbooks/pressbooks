@@ -1157,7 +1157,11 @@ function pressbooks_theme_options_mpdf_init() {
 		)
 	);
 
-	register_setting( $_option, $_option );
+	register_setting(
+		$_option,
+		$_option,
+		'pressbooks_theme_options_mpdf_sanitize'
+	);
 
 }
 add_action( 'admin_init', 'pressbooks_theme_options_mpdf_init' );
@@ -1263,6 +1267,27 @@ function pressbooks_theme_mpdf_indent_paragraphs_callback( $args ) {
 	$html = '<input type="checkbox" id="mpdf_indent_paragraphs" name="pressbooks_theme_options_mpdf[mpdf_indent_paragraphs]" value="1" ' . checked( 1, $options['mpdf_indent_paragraphs'], false ) . '/>';
 	$html .= '<label for="mpdf_indent_paragraphs"> ' . $args[0] . '</label>';
 	echo $html;
+}
+
+function pressbooks_theme_options_mpdf_sanitize ( $input ){
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	// Absint
+	foreach ( array( 'mpdf_right_margin', 'mpdf_left_margin' ) as $val ) {
+		$options[$val] = absint( $input[$val] );
+	}
+
+	// Checkmarks
+	foreach ( array( 'mpdf_indent_paragraphs', 'mpdf_include_cover', 'mpdf_mirror_margins', 'mpdf_ignore_invalid_utf8' ) as $val ) {
+		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
+		else $options[$val] = 1;
+	}
+	
+	// nothing to do 
+	$options['mpdf_page_size'] = $input['mpdf_page_size'];
+
+	return $options;	
 }
 
 /* ------------------------------------------------------------------------ *
