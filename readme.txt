@@ -95,7 +95,7 @@ IMPORTANT!
  * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 9.0
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
  * For EPUB validation install [EpubCheck](http://code.google.com/p/epubcheck/) - Version 3.0.1
- * Form XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
+ * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
 
