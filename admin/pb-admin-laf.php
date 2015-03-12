@@ -28,21 +28,6 @@ function add_footer_link() {
 	}
 }
 
-
-/**
- * Add a feedback dialogue to admin header
- */
-function add_feedback_dialogue() { ?>
-	<script>
-	  //<![CDATA[
-	    (function() {var s=document.createElement('script');
-	      s.type='text/javascript';s.async=true;
-	      s.src=('https:'==document.location.protocol?'https':'http') +
-	      '://pressbooks.groovehq.com/widgets/b8ace441-02dd-4fdb-875e-8aa279afb506/ticket.js'; var q = document.getElementsByTagName('script')[0];q.parentNode.insertBefore(s, q);})();
-	  //]]>
-	</script>
-<?php }
-
 /**
  * Replaces 'WordPress' with 'PressBooks' in titles of admin pages.
  */
