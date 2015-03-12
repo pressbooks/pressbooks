@@ -32,33 +32,22 @@ function add_footer_link() {
 /**
  * Add a feedback dialogue to admin header
  */
-function add_feedback_dialogue() {
-
-	?>
-<div id="myModal" class="modal hide fade">
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">&times;</a>
-
-		<h3><?php _e( 'Feedback', 'pressbooks' ); ?></h3>
-	</div>
-	<div class="modal-body">
-		<p>Do you have questions, feedback or comments? You can visit our
-		<a href="http://forum.pressbooks.com/" target="_blank">User Forum</a> (sorry, you will have to register there again), or send us an email at
-		<a href="mailto:support@pressbooks.com">support@pressbooks.com</a></p>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="button-primary alignright" data-dismiss="modal"><?php _e( 'Close', 'pressbooks' ); ?></a>
-	</div>
-</div>
-<a class="admin-feedback-btn" href="#myModal" data-toggle="modal"><?php _e( 'Feedback', 'pressbooks' ); ?></a>
-<?php
-}
+function add_feedback_dialogue() { ?>
+	<script>
+	  //<![CDATA[
+	    (function() {var s=document.createElement('script');
+	      s.type='text/javascript';s.async=true;
+	      s.src=('https:'==document.location.protocol?'https':'http') +
+	      '://pressbooks.groovehq.com/widgets/b8ace441-02dd-4fdb-875e-8aa279afb506/ticket.js'; var q = document.getElementsByTagName('script')[0];q.parentNode.insertBefore(s, q);})();
+	  //]]>
+	</script>
+<?php }
 
 /**
  * Replaces 'WordPress' with 'PressBooks' in titles of admin pages.
  */
 function admin_title( $admin_title ) {
-	$title = str_replace( 'WordPress', 'PressBooks', $admin_title );
+	$title = str_replace( 'WordPress', 'Pressbooks', $admin_title );
 	return $title;
 }
 
