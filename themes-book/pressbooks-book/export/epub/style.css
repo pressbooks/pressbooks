@@ -3,20 +3,20 @@ This file must validate as CSS 2.01 with absolutely no errors
  + http://jigsaw.w3.org/css-validator/
  + http://idpf.org/epub/20/spec/OPS_2.0.1_draft.htm#Section3.0
 
-  Name: Luther
-  Version: 1.4
+  Name: Luther EPUB
   Author: PressBooks (Book Oven Inc.)
   Author URI: http://pressbooks.com
   Tags: basic, simple, serif fonts, paragraph-indents
-  Description: A basic, simple ePub style, with paragraph indents.
+  Description: A basic, simple EPUB style, with paragraph indents.
   Copyright 2011-2015 Book Oven Inc. (PressBooks.com) support@pressbooks.com
+  Version: 1.4
 */
 
 
 /*__INSERT_EPUB_HOUSE_STYLE__*/
 
 body {
-	font-family: "Times New Roman", Times, Georgia, serif;
+	font-family: Georgia, serif;
 	line-height: 1.4em;
 	padding: 1em;
 }
@@ -241,14 +241,14 @@ div.chapter.numberless h3.chapter-number {
 .ugc.part-ugc h4,
 .ugc.chapter-ugc h4,
 .ugc.front-matter-ugc h4 {
-	font-size: 0.875em;
+	font-size: 0.9em;
 	font-weight: normal;
 }
 .ugc.back-matter-ugc h5,
 .ugc.part-ugc h5,
 .ugc.chapter-ugc h5,
 .ugc.front-matter-ugc h5 {
-	font-size: 0.75em;
+	font-size: 0.85em;
 }
 .ugc h1 + p,
 .ugc h2 + p,

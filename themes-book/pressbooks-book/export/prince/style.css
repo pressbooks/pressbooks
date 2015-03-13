@@ -672,7 +672,6 @@ span.chapter-license {
 	position: static !important;
 	width: 80%;
 	margin-bottom: 0.75em;
-	background-color: pink;
 }
 
 #toc li.section {
@@ -681,9 +680,7 @@ span.chapter-license {
 	text-indent: 0;
 	padding-left: 0;
 	margin-left: 0;
-	background-color: yellow;
 }
-
 
 li.section::before {
 	content: "";
