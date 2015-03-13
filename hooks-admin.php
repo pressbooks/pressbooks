@@ -28,7 +28,6 @@ add_action( 'admin_bar_menu', '\PressBooks\Admin\Laf\remove_menu_bar_update', 41
 add_action( 'admin_bar_menu', '\PressBooks\Admin\Laf\remove_menu_bar_new_content', 71 );
 
 // Add contact Info
-add_action( 'admin_head', '\PressBooks\Admin\Laf\add_feedback_dialogue' );
 add_filter( 'admin_footer_text', '\PressBooks\Admin\Laf\add_footer_link' );
 
 if ( \PressBooks\Book::isBook() ) {

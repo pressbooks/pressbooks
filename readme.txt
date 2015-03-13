@@ -1,6 +1,6 @@
-=== PressBooks ===
+=== Pressbooks ===
 
-Contributors: PressBooks <code@pressbooks.com>
+Contributors: Pressbooks <code@pressbooks.com>
 Version: 2.4.2
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.1.1
@@ -11,30 +11,30 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-PressBooks is an open source book publishing tool built on a WordPress multisite platform. PressBooks outputs books in
+Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in
 multiple formats, including PDF, EPUB, MOBI, web, and a variety of XML flavours, using a theming/templating system,
 driven by CSS. For more information, visit http://pressbooks.com.
 
 == Maintenance and Support ==
 
-Contact us about maintenance and support contracts if you are installing PressBooks on your own servers, or if you would
-like PressBooks to run a dedicated instance for you on our servers. You can reach us at: sales@pressbooks.com.
+Contact us about maintenance and support contracts if you are installing Pressbooks on your own servers, or if you would
+like Pressbooks to run a dedicated instance for you on our servers. You can reach us at: sales@pressbooks.com.
 
 == Communication ==
 
-Our main communication channel for the PressBooks plugin is [Google Groups](http://groups.google.com/group/pressbooks).
+Our main communication channel for the Pressbooks plugin is [Google Groups](http://groups.google.com/group/pressbooks).
 
 == Contributors ==
 
-All PressBooks code is copyright Book Oven Inc. Contributors are acknowledged in the "docs/contributors.txt" file, not
+All Pressbooks code is copyright Book Oven Inc. Contributors are acknowledged in the "docs/contributors.txt" file, not
 in source code headers.
 
 == Installation ==
 
 IMPORTANT!
 
- * Do not install PressBooks on an existing WordPress blog -- create a new WordPress install instead.
- * PressBooks works with PHP 5.4.x and WordPress 4.1. Lower versions are not supported.
+ * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
+ * Pressbooks works with PHP 5.4.x and WordPress 4.1. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
@@ -51,34 +51,34 @@ IMPORTANT!
  5. Complete the steps printed on the screen (i.e. edit your `wp-config.php` and `.htaccess files` with the information
     provided.)
 
-*Part 2, PressBooks specific:*
+*Part 2, Pressbooks specific:*
 
- 1. Copy/move PressBooks plugin files to: __PATH_TO_YOUR_SITE__/wp-content/plugins/pressbooks/*.
+ 1. Copy/move Pressbooks plugin files to: __PATH_TO_YOUR_SITE__/wp-content/plugins/pressbooks/*.
 
  2. Log out, log in, navigate to: My Sites → Network Admin → Dashboard.
 
  3. Navigate to: Plugins → Installed Plugins.
 
- 4. Network Enable "PressBooks."
+ 4. Network Enable "Pressbooks."
 
  5. Navigate to: Themes → Installed Themes.
 
- 6. Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "Austen", "PressBooks Publisher One", and any other
-    PressBooks theme you want to use.
+ 6. Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "Austen", "Pressbooks Publisher One", and any other
+    Pressbooks theme you want to use.
 
  7. Navigate to: Settings → Network Settings.
 
  8. Pick the most appropriate Registration Setting:
     + User accounts may be registered. (do not use this setting, since it will not allow users to create new books)
-    + Logged in users may register new sites. (if you are a publisher using PressBooks as a production tool, this is the
+    + Logged in users may register new sites. (if you are a publisher using Pressbooks as a production tool, this is the
       best setting: it allows network administrators to add new users, who can then create books/sites. However,
       registration is not available to the public.)
     + Both sites and user accounts can be registered. (use this setting if you intend on offering a publishing-platform
-      open to the public, such as PressBooks.com)
+      open to the public, such as Pressbooks.com)
 
  9. Navigate to: My Books → __YOUR_SITE__ → Dashboard
 
- 10. Navigate to: Appearance. Activate "PressBooks Publisher One"
+ 10. Navigate to: Appearance. Activate "Pressbooks Publisher One"
 
  11. Navigate to: My Books → Network Admin → Sites
 
@@ -90,12 +90,12 @@ IMPORTANT!
 
  15. Navigate to: Text → Organize. Make sure some content is selected for export.
 
-*Part 3, PressBooks dependencies:*
+*Part 3, Pressbooks dependencies:*
 
  * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 9.0
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
  * For EPUB validation install [EpubCheck](http://code.google.com/p/epubcheck/) - Version 3.0.1
- * Form XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
+ * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
 
@@ -138,7 +138,7 @@ Example config files for a dev site hosted at http://localhost/~dac514/textopres
 	define('BLOG_ID_CURRENT_SITE', 1);
 
 	/**
-	 * PressBooks
+	 * Pressbooks
 	 */
 	define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 	define( 'PB_KINDLEGEN_COMMAND', '/home/dac514/bin/kindlegen' );
@@ -196,6 +196,7 @@ TK.
 * Made links inside the `[footnote]` shortcode clickable (props to @bdolor).
 * Fixed issue with catalog page in WebKit browsers (props to @bdolor).
 * Swedish translation (props to @chrillep).
+* Fixed XHTML export issue with respect to determining the introduction part or chapter for page numbering.
 
 = 2.4.2 =
 * Fixed licenses.
@@ -213,7 +214,7 @@ TK.
 * Fixed bug that broke the running head in PDF exports.
 * Fixed bug that broke internal links in PDF exports.
 * Fixed bug that caused the Chapter Types menu item to be displayed twice for certain users.
-* Beta PressBooks API (props to @bdolor; see http://pressbooks.com/api/v1/docs).
+* Beta Pressbooks API (props to @bdolor; see http://pressbooks.com/api/v1/docs).
 * Collapsible TOCs for webbooks (props to @drlippman).
 * Import enhancements (props to @bdolor).
 * EPUB export enhancements (props to @bdolor).
