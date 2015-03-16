@@ -2,10 +2,10 @@
 Theme Name: Luther
 Theme URI: http://pressbooks.com/
 Description: Named after Martin Luther, this is a traditional book theme, good for novels, and text-heavy non-fiction. An earlier version of this theme was commissioned by Fortress Press / Augsburg Fortress.
-Author: PressBooks (Book Oven Inc.)
+Author: Pressbooks (Book Oven Inc.)
 Author URI: http://pressbooks.com
-Copyright 2011-2015 Book Oven Inc. (PressBooks.com) code@pressbooks.com
-Version: 1.3
+Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
+Version: 1.4
 
 */
 
@@ -94,43 +94,91 @@ a:hover {
   text-decoration: none;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-variant: small-caps;
 	font-weight: normal;
 	margin-bottom: 20px;
+  line-height: 1.2;
 }
-h1, h2 {
-	text-align: center;
-}
-h2, h3, h4 {
-	font-style: italic;
-}
+
+
 h1 {
-  font-size: 1.1em;
-  line-height: 1.2em;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold; 
+  font-style: normal; 
+  font-variant: normal;
+  text-transform: uppercase;
+  letter-spacing: none;
+  word-spacing: none;
+  page-break-after: avoid;
+  hyphens: none;
+  -webkit-hyphens: none;
 }
 h2 {
-  font-size: 1em;
-  line-height: 1.1em;
+  text-align: center;
+  font-size: 1em;   
+  font-weight: normal; 
+  font-style: normal; 
+  font-variant: normal;
+  text-transform: uppercase;
+  letter-spacing: none;
+  word-spacing: none; 
+  page-break-after: avoid;
+  hyphens: none;
+  -webkit-hyphens: none;
 }
 h3 {
-  font-size: 0.9em;
-  line-height: 1em;
+  text-align: center;
+  font-size: 1em;  
+  font-weight: bold; 
+  font-style: normal; 
+  font-variant: normal;
+  text-transform: none;
+  letter-spacing: none;
+  word-spacing: none;
+  page-break-after: avoid;
+  hyphens: none;
+  -webkit-hyphens: none;
 }
 h4 {
-	font-variant: normal;
-	font-size: 0.875em; 
-	line-height: 1em;
+  text-align: left;
+  font-size: 1em;  
+  font-weight: bold; 
+  font-style: normal; 
+  font-variant: normal;
+  text-transform: none;
+  letter-spacing: none;
+  word-spacing: none;
+  page-break-after: avoid;
+  hyphens: none;
+  -webkit-hyphens: none;
 }
-h5,
+h5 {
+  text-align: left;
+  font-size: 1em;   
+  font-weight: normal; 
+  font-style: italic; 
+  font-variant: normal;
+  text-transform: none;
+  letter-spacing: none;
+  word-spacing: none;
+  page-break-after: avoid;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
 h6 {
-	font-size: 0.8em;
-	font-variant: normal;
-	font-weight: 600;
-	line-height: 1em;
+  text-align: left;
+  font-size: 0.9em;
+  font-weight: normal; 
+  font-style: italic; 
+  font-variant: normal;
+  text-transform: none;
+  letter-spacing: none;
+  word-spacing: none;
+  page-break-after: avoid;
+  hyphens: none;
+  -webkit-hyphens: none;
 }
-h6 {
-	text-align: center;
-}
+
 h1 + p,
 h2 + p,
 h3 + p,
@@ -1832,7 +1880,8 @@ code {
    Consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
 /********************
 	Print
-*********************/@media print {
+*********************/
+@media print {
   body {
     background: none !important;
   }

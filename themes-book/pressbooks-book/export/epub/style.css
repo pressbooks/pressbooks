@@ -3,20 +3,20 @@ This file must validate as CSS 2.01 with absolutely no errors
  + http://jigsaw.w3.org/css-validator/
  + http://idpf.org/epub/20/spec/OPS_2.0.1_draft.htm#Section3.0
 
-  Name: Luther
-  Version: 1.3
+  Name: Luther EPUB
   Author: PressBooks (Book Oven Inc.)
   Author URI: http://pressbooks.com
   Tags: basic, simple, serif fonts, paragraph-indents
-  Description: A basic, simple ePub style, with paragraph indents.
+  Description: A basic, simple EPUB style, with paragraph indents.
   Copyright 2011-2015 Book Oven Inc. (PressBooks.com) support@pressbooks.com
+  Version: 1.4
 */
 
 
 /*__INSERT_EPUB_HOUSE_STYLE__*/
 
 body {
-	font-family: "Times New Roman", Times, Georgia, serif;
+	font-family: Georgia, serif;
 	line-height: 1.4em;
 	padding: 1em;
 }
@@ -241,14 +241,14 @@ div.chapter.numberless h3.chapter-number {
 .ugc.part-ugc h4,
 .ugc.chapter-ugc h4,
 .ugc.front-matter-ugc h4 {
-	font-size: 0.875em;
+	font-size: 0.9em;
 	font-weight: normal;
 }
 .ugc.back-matter-ugc h5,
 .ugc.part-ugc h5,
 .ugc.chapter-ugc h5,
 .ugc.front-matter-ugc h5 {
-	font-size: 0.75em;
+	font-size: 0.85em;
 }
 .ugc h1 + p,
 .ugc h2 + p,
@@ -319,54 +319,6 @@ span.chapter-author +
 span.chapter-license {
 	margin-top: -5px;
 	margin-bottom: 5px;
-}
-
-/* IMAGES
-================== */
-img {
-	height: auto;
-    max-width: 100%;	
-}
-.alignleft {
-	float: left;
-	margin: 1em 1em 1em 0;
-}
-.alignright {
-	float: right;
-	margin: 1em 0 1em 1em;
-}
-.aligncenter {
-	display: block;
-	margin: 1em auto;
-	text-align: center;
-}
-div.aligncenter {
-	display: block;
-	margin: 1em auto;
-	text-align: center;
-}
-img.aligncenter {
-	display: block;
-	margin: 1em auto;
-	text-align: center;
-}
-.wp-caption {
-	height: auto;
-	max-width: 100%;
-	margin: 1em 0;		
-}
-.wp-caption-text {
-	font-size: 0.875em;
-	font-style: italic;
-	margin-top: 5px;
-	text-align: left;
-}
-div.wp-caption.aligncenter,
-div.wp-caption.alignleft,
-div.wp-caption.alignright,
-div.wp-caption.alignnone {
-	/* Hack for "centering" problems on Kindle, Calibre, ... */
-	width: auto !important;
 }
 
 /* SUBTITLES, CHAPTER AUTHOR & APHORIMS
@@ -541,6 +493,127 @@ sup.footnote, sup.endnote {
 }
 .index .ugc  p.sub-entry {
 	padding-left:30px;
+}
+
+
+/* =============== 
+IMAGES & CAPTIONS
+================= */
+
+
+/* CAPTIONS */
+
+p.wp-caption-text {
+  font-size: 0.9em;
+  padding-bottom: 0.5em;
+}
+
+/* IMAGES - GENERIC */ 
+
+img {
+  height: auto;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding-left: 0;  
+  padding-right: 0;
+  display: inline-block;
+  page-break-inside: avoid !important;
+}
+
+/* DIV WRAPPER AROUND CAPTIONED IMAGES AND IMAGES WITH NO CAPTIONS */
+
+div.wp-caption,
+div.wp-nocaption {
+  height: auto;        
+  width: 80% !important;
+  max-width: 80% !important;
+  margin-left: 10%; 
+  margin-right: 10%;
+  text-align: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  page-break-inside: avoid !important;
+}
+
+/* ALIGNMENT */
+
+.aligncenter,
+.wp-caption.aligncenter {
+  text-align: center !important;
+  width: auto !important;
+  page-break-inside: avoid !important;
+}
+
+.wp-caption.aligncenter img,
+.aligncenter img {
+  display: inline-block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: auto !important;
+  text-align: center;
+  page-break-inside: avoid !important;
+}
+ 
+.alignleft,
+.wp-caption.alignleft,
+.wp-nocaption.alignleft {
+  width: 50% !important;
+  max-width: 50% !important;
+  margin-right: 1em !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  margin-top: 1em;
+  float: left;
+  page-break-inside: avoid !important;
+}
+
+.alignleft img,
+.wp-caption.alignleft img,
+.wp-nocaption.alignleft img {
+  width: 100% !important;
+  max-width: 100%;
+  page-break-inside: avoid !important;
+}
+ 
+.alignright,
+.wp-caption.alignright,
+.wp-nocaption.alignright {
+  width: 50% !important;
+  max-width: 50% !important;
+  margin-right: 0 !important;
+  margin-left: 1em !important;
+  padding-right: 0 !important;
+  margin-top: 1em;
+  float: right;
+  page-break-inside: avoid !important;
+}
+
+.alignright img,
+.wp-caption.alignright img,
+.wp-nocaption.alignright img {
+  width: 100% !important;
+  max-width: 100%;
+  page-break-inside: avoid !important;
+}
+
+/* BABYLONIAN INCANTATIONS ACCOMPANIED CREATION OF THIS SPECIAL CSS FOR MOBI */
+
+@media amzn-kf8 {
+  div.wp-caption,
+  div.wp-nocaption {
+    height: auto !important;        
+    width: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    page-break-inside: avoid !important;
+}
+  div.wp-caption img,
+  div.wp-nocaption img {
+    width: auto;
+    page-break-inside: avoid !important;  
+  }
 }
 
 
