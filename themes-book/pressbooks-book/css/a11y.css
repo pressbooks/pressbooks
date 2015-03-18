@@ -5,7 +5,6 @@
 */
 
 /***** Accessibility styles *****/
-
 .focusable:focus {
 	outline: none;
 }
@@ -73,29 +72,12 @@
 
 .a11y-toolbar .offscreen, .a11y_stylesheet_path {
 	position: absolute;
-	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
 	clip: rect(1px, 1px, 1px, 1px);
 	padding: 0;
 	border: 0;
 	height: 1px;
 	width: 1px;
 	overflow: hidden;
-}
-
-.fontsize {
-	font-size: 150%;
-}
-
-.alignright {
-	height: 23px;
-}
-
-.fontsize li li {
-	font-size: 150%;
-}
-
-.fontsize .a11y-toolbar ul li {
-	font-size: 50%;
 }
 
 .a11y-toolbar ul li {
@@ -112,31 +94,33 @@
 
 }
 
-.fontsize .description-book-info{
-	font-size: 125%;
+.fontsize{
+	font-size: 1.5em;   
 }
 
-.fontsize .author-book-info{
-	font-size: 125%;
+/*cover/home page only*/
+
+.fontsize .book-info, .fontsize .book-info-container ul.table-of-content {
+	font-size: 1.25em;
 }
 
-.fontsize .book-info{
-	font-size: 125%;
+.fontsize .description-book-info, .author-book-info{
+	font-size: 1.5em;
 }
 
 /*adjusting social media alignment*/
 
 .fontsize .share-single li.email{
-	padding-top: 10px ;
-	margin-top: 1px;
+	padding-top: 12px ;
+	margin-top: 2px;
 }
 
 .fontsize .share-single li.twitter{
-	padding-top: 5px ;
+	padding-top: 10px ;
+	margin-top: 1px;
 }
 
 .fontsize .share-single li.facebook{
 	padding-top: 0 ;
 	margin-top: 0 ;
 }
-
