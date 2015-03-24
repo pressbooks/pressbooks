@@ -112,7 +112,8 @@ class Pdf extends Export {
 		}
 		
 		$memory_available = ( int ) ini_get( 'memory_limit' );
-
+		
+		// lives and dies with the instantiation of the object
 		if ( $memory_available < $this->memory_needed ) {
 			ini_set( 'memory_limit', $this->memory_needed . 'M' );
 		}
@@ -207,29 +208,25 @@ class Pdf extends Export {
 	 * Add all specially handled content.
 	 */
 	function addPreContent( &$contents ) {
-		$pageoptions = array( 'resetpagenum' => 1);
+		$page_options = array(
+		    'suppress' => 'on',
+		    'resetpagenum' => 1
+		);
+		$toc_omit = true;
 
+		$this->addFrontMatterByType( 'before-title', $contents, $page_options, $toc_omit );
+		
 		if ( ! empty ( $this->options['mpdf_include_cover'] ) ) {
-			$this->addCover();
+			$this->addCover( $page_options );
 		}
+		
+		$this->addFrontMatterByType( 'title-page', $contents, $page_options, $toc_omit );
 
-		$output = $this->addFrontMatterByType( 'before-title', $contents, $pageoptions );
+		$this->addBookInfo( $page_options );
 
-		// Check to see if we output a page (if so reset pageoptions to empty array)
-		// This ensures that regardless of whether or not these pages have content
-		// the page numbering will be reset.
-		// @TODO: Refactor this.
-		if ( ! empty( $output ) ) { $pageoptions = array(); }
-		$output = $this->addFrontMatterByType( 'title-page', $contents, $pageoptions );
+		$this->addFrontMatterByType( 'dedication', $contents, $page_options, $toc_omit );
 
-		if ( ! empty( $output ) ) { $pageoptions = array(); }
-		$output = $this->addBookInfo();
-
-		if ( ! empty( $output ) ) { $pageoptions = array(); }
-		$output = $this->addFrontMatterByType( 'dedication', $contents );
-
-		if ( ! empty( $output ) ) { $pageoptions = array(); }
-		$this->addFrontMatterByType( 'epigraph', $contents );
+		$this->addFrontMatterByType( 'epigraph', $contents, $page_options, $toc_omit );
 
 		$this->addToc();
 	}
@@ -237,13 +234,27 @@ class Pdf extends Export {
 	/**
 	 * Add the cover for the book.
 	 */
-	function addCover() {
+	function addCover( $pageoptions = array() ) {
 		$metadata = \PressBooks\Book::getBookInformation();
+		
+		$content = '<h1 class="title">' . get_bloginfo( 'name' ) . '</h1>';
 
+		if (! empty ( $metadata['pb_subtitle'] ) ) {
+			$content .= '<h2 class="subtitle">' . $metadata['pb_subtitle'] . '</h2>';
+		}
+
+		if ( isset( $metadata['pb_author'] ) ) {
+			$content .= '<h3 class="book-author">' . $metadata['pb_author'] . '</h3>';
+		}
+
+		if ( isset( $metadata['pb_contributing_authors'] ) ) {
+			$content .= '<h4 class="contributing-author">' . $metadata['pb_contributing_authors'] . '</h4>';
+		}
+		
 		if ( ! empty($metadata['pb_cover_image'] ) ) {
 
-			$content = '<div style="text-align:center;"><img src="' . $metadata['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" /></div>';
-
+			$content .= '<div style="text-align:center;"><img src="' . $metadata['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" /></div>';
+		}
 			$page = array(
 				'post_type' => 'cover',
 				'post_content' => $content,
@@ -258,30 +269,15 @@ class Pdf extends Export {
 			$pageoptions['suppress'] = 'on';
 
 			$this->addPage( $page, $pageoptions );
-		}
+		
 	}
 
 	/**
 	 * Add book information page.
 	 */
-	function addBookInfo() {
+	function addBookInfo( $page_options = array() ) {
 		$meta = \PressBooks\Book::getBookInformation();
 		$options = get_option( 'pressbooks_theme_options_global' );
-
-		$content = '<h1>' . get_bloginfo( 'name' ) . '</h1>';
-
-		if (! empty ( $meta['pb_subtitle'] ) ) {
-			$content .= '<h2>' . $meta['pb_subtitle'] . '</h2>';
-		}
-
-		if ( isset( $meta['pb_author'] ) ) {
-			$content .= '<h2>' . __('by', 'pressbooks') . '</h2>';
-			$content .= '<h2>' . $meta['pb_author'] . '</h2>';
-		}
-
-		if ( isset( $meta['pb_contributing_authors'] ) ) {
-			$content .= '<h3>' . $meta['pb_contributing_authors'] . '</h3>';
-		}
 
 		$content .= '<div>';
 
@@ -327,28 +323,31 @@ class Pdf extends Export {
 		}
 
 		$page = array(
-			'post_title' => __('Metadata', 'pressbooks'),
+			'post_title' => '',
 			'post_content' => $content,
 			'post_type' => 'bookinfo',
 			'mpdf_level' => 1,
+			'mpdf_omit_toc' => true,
 		);
 
-		return $this->addPage( $page );
+		return $this->addPage( $page, $page_options );
 	}
 
 
 	/**
 	 * Add front matter of a specific type.
 	 */
-	function addFrontMatterByType( $type, &$contents, $pageoptions = array() ) {
-		foreach ( $contents as $index => $page ) {
+	function addFrontMatterByType( $type, &$contents, $page_options = array(), $toc_omit = false ) {
+			
+			foreach ( $contents as $index => $page ) {
 			// If we hit non front-matter post types we won't see anymore front-matter
 			if ( $page['post_type'] != 'front-matter' ) {
 				return;
 			}
-
+			
 			if ( $type == \PressBooks\Taxonomy\front_matter_type( $page['ID'] ) ) {
-				$this->addPage( $page, $pageoptions );
+				$page['mpdf_omit_toc'] = $toc_omit;
+				$this->addPage( $page, $page_options );
 				unset( $contents[$index] );
 			}
 		}
