@@ -622,7 +622,7 @@ function pressbooks_theme_options_web_init() {
 		$_page,
 		$_section,
 		array(
-		    __('Add an option for the user to increase font size for greater accessbility', 'pressbooks' )
+		    __('Add an option for the user to increase font size for greater accessibility', 'pressbooks' )
 		)
 	);
 
