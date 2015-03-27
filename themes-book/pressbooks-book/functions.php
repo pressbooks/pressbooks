@@ -415,22 +415,6 @@ function pressbooks_theme_options_summary() { ?>
 		}
 		?>
 	</ul>
-	<p><strong><?php _e( 'mPDF options', 'pressbooks' ) ?>:</strong></p>
-	<ul>
-		<?php
-		$mpdf_options = get_option( 'pressbooks_theme_options_mpdf' );
-		foreach ( $mpdf_options as $key => $value ) {
-			switch ( $key ) {
-				case 'mpdf_ignore_invalid_utf8':
-					if ( $value == 1 ) {
-						print '<li>' . __( 'Ignore invalid UTF8', 'pressbooks' ) . '</li>';
-					}
-					break;
-
-			}
-		}
-		?>
-	</ul>
 	<p><strong><?php _e( 'Ebook options' , 'pressbooks' ) ?>:</strong></p>
 	<ul>
 		<?php
@@ -1015,7 +999,6 @@ function pressbooks_theme_options_mpdf_init() {
 	$_section = 'mpdf_options_section';
 	$defaults = array(
 		'mpdf_page_size' => 'Letter',
-		'mpdf_ignore_invalid_utf8' => 1,
 		'mpdf_include_cover' => 1,
 		'mpdf_indent_paragraphs' => 0,
 	);
@@ -1091,17 +1074,6 @@ function pressbooks_theme_options_mpdf_init() {
 			'Royal' => __( 'Royal' , 'pressbooks' ),
 			'A' => __( 'Type A paperback 111x178mm' , 'pressbooks' ),
 			'B' => __( 'Type B paperback 128x198mm' , 'pressbooks' ),
-		)
-	);
-
-	add_settings_field(
-		'mpdf_ignore_invalid_utf8',
-		__( 'Ignore invalid utf8', 'pressbooks' ),
-		'pressbooks_theme_mpdf_ignore_invalid_utf8_callback',
-		$_page,
-		$_section,
-		array(
-			 __( 'Ignore invalid utf8', 'pressbooks' )
 		)
 	);
 
@@ -1193,22 +1165,6 @@ function pressbooks_theme_mpdf_page_size_callback( $args ) {
 	echo $html;
 }
 
-
-
-// PDF Options Field Callback
-function pressbooks_theme_mpdf_ignore_invalid_utf8_callback( $args ) {
-
-	$options = get_option( 'pressbooks_theme_options_mpdf' );
-
-	if ( ! isset( $options['mpdf_ignore_invalid_utf8'] ) ) {
-		$options['mpdf_ignore_invalid_utf8'] = 0;
-	}
-
-	$html = '<input type="checkbox" id="mpdf_ignore_invalid_utf8" name="pressbooks_theme_options_mpdf[mpdf_ignore_invalid_utf8]" value="1" ' . checked( 1, $options['mpdf_ignore_invalid_utf8'], false ) . '/>';
-	$html .= '<label for="mpdf_ignore_invalid_utf8"> ' . $args[0] . '</label>';
-	echo $html;
-}
-
 function pressbooks_theme_mpdf_margin_left_callback ( $args ) {
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
 
@@ -1282,7 +1238,7 @@ function pressbooks_theme_options_mpdf_sanitize ( $input ){
 	}
 
 	// Checkmarks
-	foreach ( array( 'mpdf_indent_paragraphs', 'mpdf_include_cover', 'mpdf_mirror_margins', 'mpdf_ignore_invalid_utf8' ) as $val ) {
+	foreach ( array( 'mpdf_indent_paragraphs', 'mpdf_include_cover', 'mpdf_mirror_margins' ) as $val ) {
 		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
 		else $options[$val] = 1;
 	}

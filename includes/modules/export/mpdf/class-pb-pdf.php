@@ -85,8 +85,8 @@ class Pdf extends Export {
 	 * 
 	 * @param array $args
 	 */
-	function __construct( array $args ) {
-
+	function __construct() {
+		// don't know who would actually wait for 10 minutes, but it's here
 		set_time_limit( 600 );
 
 		$memory_available = ( int ) ini_get( 'memory_limit' );
@@ -115,10 +115,7 @@ class Pdf extends Export {
 		$contents = $this->getOrderedBookContents();
 		$this->mpdf = new \mPDF( '' );
 		$this->mpdf->SetAnchor2Bookmark( 1 );
-
-		if ( ! empty( $this->options['mpdf_ignore_invalid_utf8'] ) ) {
-			$this->mpdf->ignore_invalid_utf8 = true;
-		}
+		$this->mpdf->ignore_invalid_utf8 = true;
 
 		if ( ! empty( $this->options['mpdf_mirror_margins'] ) ) {
 			$this->mpdf->mirrorMargins = true;
