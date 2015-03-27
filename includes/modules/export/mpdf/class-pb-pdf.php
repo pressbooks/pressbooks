@@ -96,6 +96,13 @@ class Pdf extends Export {
 	 */
 	protected $ToCStatus;
 	protected $book_title;
+	
+	/**
+	 * Parses the html as styles and stylesheets only
+	 * @see http://mpdf1.com/manual/index.php?tid=121
+	 * 
+	 */
+	const MODE_CSS = 1;
 
 	/**
 	 * Define a few constants that should have been defined in MPDF.
@@ -103,14 +110,8 @@ class Pdf extends Export {
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
+		
 		set_time_limit( 600 );
-		if ( ! defined( 'MPDF_WRITEHTML_MODE_DOC' ) ) {
-			// Define some constants for mPDF::WriteHTML()
-			// @see http://mpdf1.com/manual/index.php?tid=121
-			define( 'MPDF_WRITEHTML_MODE_DOC', 0 );
-			define( 'MPDF_WRITEHTML_MODE_CSS', 1 );
-			define( ' MPDF_WRITEHTML_MODE_ELEMENTS', 2 );
-		}
 
 		$memory_available = ( int ) ini_get( 'memory_limit' );
 
@@ -120,7 +121,7 @@ class Pdf extends Export {
 		}
 
 		$this->options = get_option( 'pressbooks_theme_options_mpdf' );
-		$this->book_title = \get_bloginfo( 'name' );
+		$this->book_title = get_bloginfo( 'name' );
 		$this->exportStylePath = $this->getExportStylePath( 'mpdf' );
 
 		$this->themeOptionsOverrides();
@@ -132,13 +133,13 @@ class Pdf extends Export {
 	 * @return bool
 	 */
 	function convert() {
+		
 		$filename = $this->timestampedFileName( '._oss.pdf' );
 		$this->outputPath = $filename;
 
 		require_once( PB_PLUGIN_DIR . 'symbionts/mpdf/mpdf.php' );
 
 		$contents = $this->getOrderedBookContents();
-
 		$this->mpdf = new \mPDF( '' );
 		$this->mpdf->SetAnchor2Bookmark( 1 );
 
@@ -200,6 +201,7 @@ class Pdf extends Export {
 	 * Merge default page settings.
 	 */
 	function mergePageOptions( $options ) {
+		
 		if ( ! empty( $this->options['mpdf_page_size'] ) ) {
 			$options['sheet-size'] = $this->options['mpdf_page_size'];
 		}
@@ -219,7 +221,6 @@ class Pdf extends Export {
 	 * Add all specially handled content.
 	 */
 	function addPreContent( &$contents ) {
-
 
 		$this->addFrontMatterByType( 'before-title', $contents );
 
@@ -242,6 +243,7 @@ class Pdf extends Export {
 	 * Add the cover for the book.
 	 */
 	function addCover() {
+		
 		$metadata = \PressBooks\Book::getBookInformation();
 		$page_options['suppress'] = 'on';
 
@@ -263,6 +265,7 @@ class Pdf extends Export {
 	 * Add book information page.
 	 */
 	function addBookInfo() {
+		
 		$meta = \PressBooks\Book::getBookInformation();
 		$options = get_option( 'pressbooks_theme_options_global' );
 		$page_options['suppress'] = 'on';
@@ -338,6 +341,7 @@ class Pdf extends Export {
 	 * Add front matter of a specific type.
 	 */
 	function addFrontMatterByType( $type, $contents ) {
+		
 		$page_options['suppress'] = 'on';
 
 		foreach ( $contents as $index => $page ) {
@@ -360,6 +364,7 @@ class Pdf extends Export {
 	 * @param array $contents
 	 */
 	function addFrontMatter( array $contents ) {
+		
 		$first_iteration = true;
 		$page_options['pagenumstyle'] = 'i';
 
@@ -426,6 +431,7 @@ class Pdf extends Export {
 	 * Return the Table of Contents entry for this page.
 	 */
 	function getTocEntry( $page ) {
+		
 		$entry = $page['post_title'];
 
 		$entry = apply_filters( 'mpdf_get_toc_entry', $entry, $page );
@@ -436,6 +442,7 @@ class Pdf extends Export {
 	 * Return the PDF bookmark entry for this page
 	 */
 	function getBookmarkEntry( $page ) {
+		
 		$entry = $page['post_title'];
 
 		$entry = apply_filters( 'mpdf_get_bookmark_entry', $entry, $page );
@@ -443,6 +450,7 @@ class Pdf extends Export {
 	}
 
 	function getFilteredContent( $content ) {
+		
 		$filtered = apply_filters( 'the_content', $content );
 
 		$filtered = $this->fixAnnoyingCharacters( $filtered );
@@ -466,7 +474,6 @@ class Pdf extends Export {
 	 * @return string
 	 */
 	function fixAnnoyingCharacters( $html ) {
-
 		// Replace Non-breaking spaces with normal spaces
 		$html = preg_replace( '/\xC2\xA0/', ' ', $html );
 
@@ -535,6 +542,7 @@ class Pdf extends Export {
 	 * entries.
 	 */
 	function getOrderedBookContents() {
+		
 		$book_contents = \PressBooks\Book::getBookContents();
 
 		$ordered = array();
@@ -614,6 +622,7 @@ class Pdf extends Export {
 	 * @return string $css
 	 */
 	function getThemeCss( $theme ) {
+		
 		$css = '';
 
 		// get parent theme files
@@ -651,6 +660,7 @@ class Pdf extends Export {
 	 * @return array $sytles
 	 */
 	private function stripUnwantedStyles( array $styles ) {
+		
 		$unwanted = array(
 		    'editor-style.css',
 		);
@@ -693,7 +703,7 @@ class Pdf extends Export {
 		}
 
 		if ( ! empty( $css ) ) {
-			$this->mpdf->WriteHTML( $css, MPDF_WRITEHTML_MODE_CSS );
+			$this->mpdf->WriteHTML( $css, self::MODE_CSS );
 		}
 	}
 
@@ -729,6 +739,7 @@ class Pdf extends Export {
 	 * Override based on Theme Options
 	 */
 	protected function themeOptionsOverrides() {
+		
 		$css = '';
 		$this->cssOverrides = apply_filters( 'pb_mpdf_css_override', $css );
 	}
