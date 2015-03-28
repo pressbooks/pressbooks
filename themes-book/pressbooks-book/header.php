@@ -55,6 +55,8 @@ if ( is_front_page() ) {
 }(document, 'script', 'facebook-jssdk'));</script>
 <!-- end Facebook JS -->
 
+<?php get_template_part( 'content', 'accessibility-toolbar' ); ?>
+
 	 <?php if (is_front_page()):?>
 	 
 	 	<!-- home page wrap -->
