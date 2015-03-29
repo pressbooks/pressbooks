@@ -141,7 +141,7 @@
 							fo:font-size="11pt" style:font-size-asian="11pt"
 							style:font-size-complex="11pt" fo:background-color="transparent"
 							style:text-underline-type="none" style:text-underline-color="font-color"
-							style:text-emphasize="none" fo:language="en" fo:country="IN"
+							style:text-emphasize="none" fo:language="en" fo:country="US"
 							style:language-asian="en" style:country-asian="US"
 							style:language-complex="ar" style:country-complex="SA"
 							style:text-combine="none" fo:hyphenate="true"/>
