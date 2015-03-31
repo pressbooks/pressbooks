@@ -294,3 +294,24 @@ function create_tmp_file() {
 	return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[mt_rand()] = tmpfile() ) ) );
 }
 
+/**
+ * Lightweight check to see if the prince constant is defined and if the 
+ * executable file exists
+ * 
+ * @return boolean
+ */
+function check_prince_install() {
+	$result = false;
+
+	// @see wp-config.php
+	if ( ! defined( PB_PRINCE_COMMAND ) ) {
+		define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
+	}
+	// check if the file exists, assume that's enough
+	if ( ! file_exists( PB_PRINCE_COMMAND ) ) {
+		$result = false;
+	} else {
+		$result = true;
+	}
+	return $result;
+}

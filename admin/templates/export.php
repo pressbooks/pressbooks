@@ -114,8 +114,11 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
     <form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 	    <fieldset>
 	       <legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
+	       <?php
+	       if ( true == \PressBooks\Utility\check_prince_install() ) { ?>
 	    	<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php checked(1, $options['pdf'], true); ?>/><label for="pdf"> <?php _e( 'PDF (for printing)', 'pressbooks' ); ?></label><br />
-	    	<?php 
+	       <?php } ;?>
+		<?php 
 		if ( 'pressbooks.com' != $host ) { ?>
 		<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" <?php checked(1, $options['mpdf'], true); ?>/><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
 		<?php } ?>
