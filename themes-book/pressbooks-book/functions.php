@@ -1086,7 +1086,7 @@ function pressbooks_theme_options_mpdf_init() {
 		$_page,
 		$_section,
 		array(
-			__(  'Left Margin (in milimeters)', 'pressbooks' )
+			__(  ' Left Margin (in milimeters)', 'pressbooks' )
 		)
 	);
 
@@ -1097,7 +1097,7 @@ function pressbooks_theme_options_mpdf_init() {
 		$_page,
 		$_section,
 		array(
-			__(  'Right margin (in milimeters)', 'pressbooks' )
+			__(  ' Right margin (in milimeters)', 'pressbooks' )
 		)
 	);
 
@@ -1171,7 +1171,7 @@ function pressbooks_theme_mpdf_margin_left_callback ( $args ) {
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
 
 	if ( ! isset( $options['mpdf_left_margin'] ) ) {
-		$options['mpdf_left_margin'] = '';
+		$options['mpdf_left_margin'] = '15';
 	}
 
 	$html = '<input type="text" id="mpdf_left_margin" name="pressbooks_theme_options_mpdf[mpdf_left_margin]" value="' . $options['mpdf_left_margin'] . '" size="3" />';
@@ -1183,7 +1183,7 @@ function pressbooks_theme_mpdf_margin_right_callback ( $args ) {
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
 
 	if ( ! isset( $options['mpdf_right_margin'] ) ) {
-		$options['mpdf_right_margin'] = '';
+		$options['mpdf_right_margin'] = '30';
 	}
 
 	$html = '<input type="text" id="mpdf_right_margin" name="pressbooks_theme_options_mpdf[mpdf_right_margin]" value="' . $options['mpdf_right_margin'] . '" size="3" />';
@@ -1196,7 +1196,7 @@ function pressbooks_theme_mpdf_mirror_margins_callback( $args ) {
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
 
 	if ( ! isset( $options['mpdf_mirror_margins'] ) ) {
-		$options['mpdf_mirror_margins'] = 0;
+		$options['mpdf_mirror_margins'] = 1;
 	}
 
 	$html = '<input type="checkbox" id="mpdf_mirror_margins" name="pressbooks_theme_options_mpdf[mpdf_mirror_margins]" value="1" ' . checked( 1, $options['mpdf_mirror_margins'], false ) . '/>';
@@ -1222,7 +1222,7 @@ function pressbooks_theme_mpdf_indent_paragraphs_callback( $args ) {
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
 
 	if ( ! isset( $options['mpdf_indent_paragraphs'] ) ) {
-		$options['mpdf_indent_paragraphs'] = 0;
+		$options['mpdf_indent_paragraphs'] = 1;
 	}
 
 	$html = '<input type="checkbox" id="mpdf_indent_paragraphs" name="pressbooks_theme_options_mpdf[mpdf_indent_paragraphs]" value="1" ' . checked( 1, $options['mpdf_indent_paragraphs'], false ) . '/>';
