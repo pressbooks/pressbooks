@@ -1144,6 +1144,17 @@ function pressbooks_theme_options_mpdf_init() {
 			 __( 'Indent paragraphs', 'pressbooks' )
 		)
 	);
+	
+	add_settings_field(
+		'mpdf_hyphens',
+		__( 'Hyphens', 'pressbooks' ),
+		'pressbooks_theme_mpdf_hyphens_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Enable hyphenation', 'pressbooks' )
+		)
+	);
 
 	register_setting(
 		$_option,
@@ -1254,6 +1265,19 @@ function pressbooks_theme_mpdf_indent_paragraphs_callback( $args ) {
 	echo $html;
 }
 
+function pressbooks_theme_mpdf_hyphens_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_hyphens'] ) ) {
+		$options['mpdf_hyphens'] = 0;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_hyphens" name="pressbooks_theme_options_mpdf[mpdf_hyphens]" value="1" ' . checked( 1, $options['mpdf_hyphens'], false ) . '/>';
+	$html .= '<label for="mpdf_hyphens"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
 function pressbooks_theme_options_mpdf_sanitize ( $input ){
 
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
@@ -1264,12 +1288,12 @@ function pressbooks_theme_options_mpdf_sanitize ( $input ){
 	}
 
 	// Checkmarks
-	foreach ( array( 'mpdf_indent_paragraphs', 'mpdf_include_cover', 'mpdf_mirror_margins', 'mpdf_include_toc' ) as $val ) {
+	foreach ( array( 'mpdf_indent_paragraphs', 'mpdf_include_cover', 'mpdf_mirror_margins', 'mpdf_include_toc', 'mpdf_hyphens' ) as $val ) {
 		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
 		else $options[$val] = 1;
 	}
 	
-	// nothing to do 
+	// nothing to do, select list 
 	$options['mpdf_page_size'] = $input['mpdf_page_size'];
 
 	return $options;	

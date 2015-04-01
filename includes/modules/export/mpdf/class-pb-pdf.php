@@ -725,9 +725,13 @@ class Pdf extends Export {
 			$theme = wp_get_theme();
 			$css = $this->getThemeCss( $theme );
 		}
-		
+		// indent paragraphs
 		if ( 1 == $this->options['mpdf_indent_paragraphs'] ) {
 			$css .= "p + p, .indent {text-indent: 2.0 em; }\n";
+		}
+		// hyphenation
+		if ( 1 == $this->options['mpdf_hyphens'] ) {
+			$css .= "p {hyphens: auto;}\n";
 		}
 
 		if ( ! empty( $css ) ) {
