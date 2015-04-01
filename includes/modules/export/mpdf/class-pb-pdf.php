@@ -73,6 +73,13 @@ class Pdf extends Export {
 	 * @var string 
 	 */
 	protected $bookTitle;
+	
+	/**
+	 * Book Metadata
+	 * 
+	 * @var array 
+	 */
+	protected $bookMeta;
 
 	/**
 	 * Parses the html as styles and stylesheets only
@@ -99,6 +106,7 @@ class Pdf extends Export {
 		$this->options = get_option( 'pressbooks_theme_options_mpdf' );
 		$this->bookTitle = get_bloginfo( 'name' );
 		$this->exportStylePath = $this->getExportStylePath( 'mpdf' );
+		$this->bookMeta = \PressBooks\Book::getBookInformation();
 
 	}
 
@@ -161,7 +169,7 @@ class Pdf extends Export {
 		    'paging' => true,
 		    'links' => true,
 		    'toc-bookmarkText' => 'toc',
-		    'toc-preHTML' => '<h1>Contents</h1>'
+		    'toc-preHTML' => '<h1>Contents</h1>',
 		);
 		$this->mpdf->TOCpagebreakByArray( $options );
 	}
@@ -205,6 +213,8 @@ class Pdf extends Export {
 		$this->addFrontMatterByType( 'title-page', $contents );
 
 		$this->addBookInfo();
+		
+		$this->addCopyright();
 
 		$this->addFrontMatterByType( 'dedication', $contents );
 
@@ -218,11 +228,10 @@ class Pdf extends Export {
 	 */
 	function addCover() {
 
-		$metadata = \PressBooks\Book::getBookInformation();
 		$page_options['suppress'] = 'on';
 
-		if ( ! empty( $metadata['pb_cover_image'] ) ) {
-			$content .= '<div style="text-align:center;"><img src="' . $metadata['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" /></div>';
+		if ( ! empty( $this->bookMeta['pb_cover_image'] ) ) {
+			$content .= '<div style="text-align:center;"><img src="' . $this->bookMeta['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" /></div>';
 		}
 		$page = array(
 		    'post_type' => 'cover',
@@ -240,66 +249,37 @@ class Pdf extends Export {
 	 * 
 	 */
 	function addBookInfo() {
-
-		$meta = \PressBooks\Book::getBookInformation();
-		$options = get_option( 'pressbooks_theme_options_global' );
 		$page_options['suppress'] = 'on';
 
 		$content = '<h1 class="title">' . $this->bookTitle . '</h1>';
 
-		if ( ! empty( $meta['pb_subtitle'] ) ) {
-			$content .= '<h2 class="subtitle">' . $meta['pb_subtitle'] . '</h2>';
+		if ( ! empty( $this->bookMeta['pb_subtitle'] ) ) {
+			$content .= '<h2 class="subtitle">' . $this->bookMeta['pb_subtitle'] . '</h2>';
 		}
 
-		if ( isset( $meta['pb_author'] ) ) {
-			$content .= '<h3 class="book-author">' . $meta['pb_author'] . '</h3>';
+		if ( isset( $this->bookMeta['pb_author'] ) ) {
+			$content .= '<h3 class="book-author">' . $this->bookMeta['pb_author'] . '</h3>';
 		}
 
-		if ( isset( $meta['pb_contributing_authors'] ) ) {
-			$content .= '<h4 class="contributing-author">' . $meta['pb_contributing_authors'] . '</h4>';
+		if ( isset( $this->bookMeta['pb_contributing_authors'] ) ) {
+			$content .= '<h4 class="contributing-author">' . $this->bookMeta['pb_contributing_authors'] . '</h4>';
 		}
 
 		$content .= '<div>';
 
-		if ( isset( $meta['pb_print_isbn'] ) ) {
-			$content .= '<p class="isbn"><strong>' . __( 'ISBN', 'pressbooks' ) . '</strong>: ' . $meta['pb_print_isbn'] . '</p>';
+		if ( isset( $this->bookMeta['pb_print_isbn'] ) ) {
+			$content .= '<p class="isbn"><strong>' . __( 'ISBN', 'pressbooks' ) . '</strong>: ' . $this->bookMeta['pb_print_isbn'] . '</p>';
 		}
 
-		if ( isset( $meta['pb_publisher'] ) ) {
-			$content .= '<p class="publisher"><strong>' . __( 'Publisher', 'pressbooks' ) . '</strong>: ' . $meta['pb_publisher'] . '</p>';
+		if ( isset( $this->bookMeta['pb_publisher'] ) ) {
+			$content .= '<p class="publisher"><strong>' . __( 'Publisher', 'pressbooks' ) . '</strong>: ' . $this->bookMeta['pb_publisher'] . '</p>';
 		}
 
-		if ( isset( $meta['pb_publisher_city'] ) ) {
-			$content .= '<p class="publisher_city"><strong>' . __( 'Publisher City', 'pressbooks' ) . '</strong>: ' . $meta['pb_publisher_city'] . '</p>';
-		}
-
-		if ( isset( $meta['pb_copyright_year'] ) || isset( $meta['pb_copyright_holder'] ) ) {
-			$content .= '<div class="copyright_notice">';
-
-			$content .= '<p class="copyright_notice"><strong>' . __( 'Copyright', 'pressbooks' ) . '</strong>:';
-			if ( ! empty( $meta['pb_copyright_year'] ) ) {
-				$content .= $meta['pb_copyright_year'] . ' ';
-			}
-
-			if ( ! empty( $meta['pb_copyright_holder'] ) ) {
-				$content .= ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'] . '. ';
-			}
-			$content .= '</p>';
-
-			if ( ! empty( $meta['pb_custom_copyright'] ) ) {
-				$content .= '<p class="custom_copyright">' . $meta['pb_custom_copyright'] . '</p>';
-			}
-
-			$content .= '</div>';
+		if ( isset( $this->bookMeta['pb_publisher_city'] ) ) {
+			$content .= '<p class="publisher_city"><strong>' . __( 'Publisher City', 'pressbooks' ) . '</strong>: ' . $this->bookMeta['pb_publisher_city'] . '</p>';
 		}
 
 		$content .= '</div>';
-
-		if ( 1 == $options['copyright_license'] ) {
-			$content .= '<p class="copyright_license">';
-			$content .= $this->doCopyrightLicense( $meta );
-			$content .= '</p>';
-		}
 
 		$page = array(
 		    'post_title' => '',
@@ -309,6 +289,50 @@ class Pdf extends Export {
 		    'mpdf_omit_toc' => true,
 		);
 
+		$this->addPage( $page, $page_options, false, false );
+	}
+	
+	/**
+	 * Copyright information on a separate page
+	 * 
+	 */
+	function addCopyright() {
+		$options = get_option( 'pressbooks_theme_options_global' );
+		$page_options['suppress'] = 'on';
+
+		if ( isset( $this->bookMeta['pb_copyright_year'] ) || isset( $this->bookMeta['pb_copyright_holder'] ) ) {
+			$content .= '<div class="container"><div class="copyright-notice">';
+
+			$content .= '<p><strong>' . __( 'Copyright', 'pressbooks' ) . '</strong>:';
+			if ( ! empty( $this->bookMeta['pb_copyright_year'] ) ) {
+				$content .= $this->bookMeta['pb_copyright_year'] . ' ';
+			}
+
+			if ( ! empty( $this->bookMeta['pb_copyright_holder'] ) ) {
+				$content .= ' ' . __( 'by', 'pressbooks' ) . ' ' . $this->bookMeta['pb_copyright_holder'] . '. ';
+			}
+			$content .= '</p>';
+
+			if ( ! empty( $this->bookMeta['pb_custom_copyright'] ) ) {
+				$content .= '<p class="custom-copyright">' . $this->bookMeta['pb_custom_copyright'] . '</p>';
+			}
+
+			$content .= '</div></div>';
+		}
+		
+		if ( 1 == $options['copyright_license'] ) {
+			$content .= '<p class="copyright_license">';
+			$content .= $this->doCopyrightLicense( $this->bookMeta );
+			$content .= '</p>';
+		}
+		$page = array(
+		    'post_title' => '',
+		    'post_content' => $content,
+		    'post_type' => 'bookinfo',
+		    'mpdf_level' => 1,
+		    'mpdf_omit_toc' => true,
+		);
+		
 		$this->addPage( $page, $page_options, false, false );
 	}
 
@@ -346,7 +370,7 @@ class Pdf extends Export {
 		$first_iteration = true;
 		$page_options['pagenumstyle'] = 'i';
 
-		foreach ( $contents as $index => $front_matter ) {
+		foreach ( $contents as $front_matter ) {
 			// safety
 			$type = \PressBooks\Taxonomy\front_matter_type( $front_matter['ID'] );
 			if ( 'dedication' == $type || 'epigraph' == $type || 'title-page' == $type || 'before-title' == $type )
@@ -385,7 +409,7 @@ class Pdf extends Export {
 
 		$options = \wp_parse_args( $page_options, $defaults );
 
-		$class = $page['post_type'] . ' type-' . $page['post_type'];
+		$class = $page['post_type'];
 
 		if ( ! empty( $page['post_content'] ) || 'part' == $page['post_type'] ) {
 
@@ -677,10 +701,10 @@ class Pdf extends Export {
 	 */
 	function setCss() {
 
-		$theme = wp_get_theme();
+//		$theme = wp_get_theme();
 
-		$css = $this->getThemeCss( $theme );
-
+//		$css = $this->getThemeCss( $theme );
+		
 		// check for child theme export file
 		$cssfile = $this->getExportStylePath( 'mpdf' );
 
@@ -694,7 +718,7 @@ class Pdf extends Export {
 		}
 
 		if ( ! empty( $this->options['mpdf_indent_paragraphs'] ) ) {
-			$css .= "p {text-indent: 2.0 em; }\n";
+			$css .= "p + p, .indent {text-indent: 2.0 em; }\n";
 		}
 
 		if ( ! empty( $css ) ) {
