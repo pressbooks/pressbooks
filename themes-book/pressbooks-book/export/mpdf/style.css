@@ -147,7 +147,7 @@ cite {
 #title-page h1, #title-page h2, #title-page h3, #title-page h4, #title-page h5,#title-page h6, #title-page p {
 	text-align:center;
 }
-	
+
 #title-page .title {
 	border-bottom: 1px solid #000;
 	font-size: 2.5em;
@@ -250,14 +250,14 @@ h5 + p {
 	margin-top: 0;
 }
 
-div.front-matter h1.entry-title, 
-div.chapter h1.entry-title,
-div.back-matter h1.entry-title, 
-div.part h1.entry-title,
+div.front-matter .entry-title, 
+div.chapter .entry-title,
+div.back-matter .entry-title, 
+div.part .entry-title,
 h1.toc {
 	font-size: 1.5em;
-	margin-top: 2cm;
 	margin-bottom: 2.5cm;
+	font-style: normal;
 }
 
 /* MOAR TRADITIONAL CSS
@@ -268,8 +268,6 @@ h1.toc {
 }
 
 h3.part-number, h3.chapter-number {
-	background-repeat: no-repeat;
-	background-position: bottom center;
 	padding-bottom: 1em;
 	text-transform: uppercase;
 }
@@ -278,7 +276,10 @@ h3.part-number::before {
 	content: "Part ";
 }
 h3.chapter-number {
-	margin-bottom: 3em;
+	font-weight: lighter;
+	display: inline-block;
+	padding: 0 2em 0 2em;
+	text-align: center;
 }
 div.chapter.numberless h3.chapter-number {
 	display: none;
@@ -571,6 +572,8 @@ div.mpdf_toc_level_0 {		/* Whole line level 0 */
 	line-height: 1.5;
 	margin-left: 0;
 	padding-right: 0em;	/* should match the outdent specified for ToC; 0 is default; suggested value 2em */
+	margin-top: 2em;
+
 }
 span.mpdf_toc_t_level_0 {	/* Title level 0 - may be inside <a> */
 	font-weight: bold;
@@ -585,6 +588,7 @@ div.mpdf_toc_level_1 {		/* Whole line level 1 */
 }
 span.mpdf_toc_t_level_1 {	/* Title level 1 */
 	font-weight: normal;
+	font-style: normal;
 }
 span.mpdf_toc_p_level_1  {	/* Page no. level 1 - may be inside <a> */
 }

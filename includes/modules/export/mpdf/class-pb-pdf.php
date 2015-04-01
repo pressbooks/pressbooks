@@ -47,11 +47,18 @@ class Pdf extends Export {
 	protected $exportStylePath;
 
 	/**
-	 * mPDF options
+	 * mPDF theme options, set by the user
 	 *
 	 * @var array
 	 */
 	protected $options;
+
+	/**
+	 * Global theme options, set by the user 
+	 * 
+	 * @var array 
+	 */
+	protected $globalOptions;
 
 	/**
 	 * MPDF Class
@@ -73,7 +80,7 @@ class Pdf extends Export {
 	 * @var string 
 	 */
 	protected $bookTitle;
-	
+
 	/**
 	 * Book Metadata
 	 * 
@@ -82,12 +89,19 @@ class Pdf extends Export {
 	protected $bookMeta;
 
 	/**
+	 * Number the chapters
+	 * 
+	 * @var boolean
+	 */
+	protected $numbered = false;
+
+	/**
 	 * Parses the html as styles and stylesheets only
 	 * @see http://mpdf1.com/manual/index.php?tid=121
 	 * 
 	 */
 	const MODE_CSS = 1;
-	
+
 	/**
 	 * 
 	 * @param array $args
@@ -104,10 +118,11 @@ class Pdf extends Export {
 		}
 
 		$this->options = get_option( 'pressbooks_theme_options_mpdf' );
+		$this->globalOptions = get_option( 'pressbooks_theme_options_global' );
 		$this->bookTitle = get_bloginfo( 'name' );
 		$this->exportStylePath = $this->getExportStylePath( 'mpdf' );
 		$this->bookMeta = \PressBooks\Book::getBookInformation();
-
+		$this->numbered = ( 1 == $this->globalOptions['chapter_numbers'] ) ? true : false;
 	}
 
 	/**
@@ -119,16 +134,15 @@ class Pdf extends Export {
 
 		$filename = $this->timestampedFileName( '._oss.pdf' );
 		$this->outputPath = $filename;
-
 		$contents = $this->getOrderedBookContents();
+
+		// set up mPDF
 		$this->mpdf = new \mPDF( '' );
 		$this->mpdf->SetAnchor2Bookmark( 1 );
 		$this->mpdf->ignore_invalid_utf8 = true;
-
 		if ( 1 == $this->options['mpdf_mirror_margins'] ) {
 			$this->mpdf->mirrorMargins = true;
 		}
-
 		$this->mpdf->setBasePath( home_url( '/' ) );
 
 		$this->setCss();
@@ -139,20 +153,7 @@ class Pdf extends Export {
 		// all front matter page numbers are romanized
 		$this->addFrontMatter( $contents );
 
-		// change the numbering system to numeric
-		// iterate through, parts, chapters, back-matter
-		$first_iteration = true;
-		foreach ( $contents as $page ) {
-
-			if ( 'front-matter' == $page['post_type'] ) continue; //skip all front-matter
-
-			if ( true == $first_iteration ) {
-				$page_options['pagenumstyle'] = 1;
-			}
-
-			$this->addPage( $page, $page_options );
-			$first_iteration = false;
-		}
+		$this->addPartsandChapters( $contents );
 
 		$this->mpdf->Output( $this->outputPath, 'F' );
 
@@ -169,7 +170,7 @@ class Pdf extends Export {
 	 * 
 	 */
 	function addToc() {
-		
+
 		$options = array(
 		    'paging' => true,
 		    'links' => true,
@@ -190,21 +191,21 @@ class Pdf extends Export {
 
 		$this->addFrontMatterByType( 'before-title', $contents );
 
-		if ( 1 == $this->options['mpdf_include_cover']  ) {
+		if ( 1 == $this->options['mpdf_include_cover'] ) {
 			$this->addCover();
 		}
 
 		$this->addFrontMatterByType( 'title-page', $contents );
 
 		$this->addBookInfo();
-		
+
 		$this->addCopyright();
 
 		$this->addFrontMatterByType( 'dedication', $contents );
 
 		$this->addFrontMatterByType( 'epigraph', $contents );
-		
-		if ( 1 == $this->options['mpdf_include_toc']  ) {
+
+		if ( 1 == $this->options['mpdf_include_toc'] ) {
 			$this->addToc();
 		}
 	}
@@ -243,7 +244,7 @@ class Pdf extends Export {
 		    'margin-left' => 15,
 		    'margin-right' => 15,
 		);
-		
+
 		$content .= '<div id="title-page">';
 		$content .= '<h1 class="title">' . $this->bookTitle . '</h1>';
 
@@ -284,13 +285,13 @@ class Pdf extends Export {
 
 		$this->addPage( $page, $page_options, false, false );
 	}
-	
+
 	/**
 	 * Copyright information on a separate page
 	 * 
 	 */
 	function addCopyright() {
-		$options = get_option( 'pressbooks_theme_options_global' );
+		$options = $this->globalOptions;
 		$page_options = array(
 		    'suppress' => 'on',
 		    'margin-left' => 15,
@@ -313,17 +314,16 @@ class Pdf extends Export {
 			if ( ! empty( $this->bookMeta['pb_custom_copyright'] ) ) {
 				$content .= '<p class="custom-copyright">' . $this->bookMeta['pb_custom_copyright'] . '</p>';
 			}
-
 		}
-		
+
 		if ( 1 == $options['copyright_license'] ) {
 			$content .= '<p class="copyright-license">';
 			$content .= $this->doCopyrightLicense( $this->bookMeta );
 			$content .= '</p>';
 		}
-		
+
 		$content .= '</div>';
-		
+
 		$page = array(
 		    'post_title' => '',
 		    'post_content' => $content,
@@ -331,7 +331,7 @@ class Pdf extends Export {
 		    'mpdf_level' => 1,
 		    'mpdf_omit_toc' => true,
 		);
-		
+
 		$this->addPage( $page, $page_options, false, false );
 	}
 
@@ -380,7 +380,8 @@ class Pdf extends Export {
 			if ( 'dedication' == $type || 'epigraph' == $type || 'title-page' == $type || 'before-title' == $type )
 					continue; // Skip
 
-			// only reset the page number on first iteration
+				
+// only reset the page number on first iteration
 			( true == $first_iteration ) ? $page_options['resetpagenum'] = 1 : $page_options['resetpagenum'] = 0;
 
 			// assumes the array of book contents is in order 
@@ -390,6 +391,27 @@ class Pdf extends Export {
 			if ( ! empty( $front_matter['post_content'] ) ) {
 				$this->addPage( $front_matter, $page_options, true, true );
 				$first_iteration = false;
+			}
+		}
+	}
+
+	function addPartsAndChapters( $contents ) {
+		// change the numbering system to numeric
+		// iterate through, parts, chapters, back-matter
+		$first_iteration = true;
+		$i = 1;
+		foreach ( $contents as $page ) {
+
+			if ( 'front-matter' == $page['post_type'] ) continue; //skip all front-matter
+
+			if ( true == $first_iteration ) {
+				$page_options['pagenumstyle'] = 1;
+			}
+			$page['chapter_num'] = $i;
+			$this->addPage( $page, $page_options );
+			$first_iteration = false;
+			if ( 'part' != $page['post_type'] ) {
+				$i ++;
 			}
 		}
 	}
@@ -415,23 +437,28 @@ class Pdf extends Export {
 		);
 
 		$options = \wp_parse_args( $page_options, $defaults );
-
-		$class = $page['post_type'];
+		$class = ( $this->numbered ) ? '<div class="' . $page['post_type'] . '">' : '<div class="' . $page['post_type'] . ' numberless">';
+		$toc_entry = ( 'chapter' == $page['post_type'] ) ? $page['chapter_num'] . ' ' . $page['post_title'] : $page['post_title'];
 
 		if ( ! empty( $page['post_content'] ) || 'part' == $page['post_type'] ) {
 
-			$this->mpdf->SetFooter( $this->getFooter( $display_footer, $this->bookTitle . '| | {PAGENO}'  ) );
+			$this->mpdf->SetFooter( $this->getFooter( $display_footer, $this->bookTitle . '| | {PAGENO}' ) );
 			$this->mpdf->SetHeader( $this->getHeader( $display_header, '' ) );
 
 			$this->mpdf->AddPageByArray( $options );
 
 			if ( empty( $page['mpdf_omit_toc'] ) ) {
-				$this->mpdf->TOC_Entry( $this->getTocEntry( $page['post_title'] ), $page['mpdf_level'] );
+				$this->mpdf->TOC_Entry( $this->getTocEntry( $toc_entry ), $page['mpdf_level'] );
 				$this->mpdf->Bookmark( $this->getBookmarkEntry( $page ), $page['mpdf_level'] );
 			}
 
-			$content .= '<div class="' . $class . '">'
-				. '<h1 class="entry-title">' . $page['post_title'] . '</h1>'
+			if ( 'chapter' == $page['post_type'] ) {
+				$title = '<h3 class="chapter-number">' . $page['chapter_num'] . '</h3><h2 class="entry-title">' . $page['post_title'] . '</h2>';
+			} else {
+				$title = '<h2 class="entry-title">' . $page['post_title'] . '</h2>';
+			}
+			$content .= $class
+				. $title
 				. $this->getFilteredContent( $page['post_content'] )
 				. '</div>';
 
@@ -456,7 +483,7 @@ class Pdf extends Export {
 		$entry = apply_filters( 'mpdf_get_toc_entry', $page );
 		// sanitize
 		$entry = \PressBooks\Sanitize\filter_title( $entry );
-		
+
 		return $entry;
 	}
 
@@ -470,9 +497,9 @@ class Pdf extends Export {
 	 */
 	function getBookmarkEntry( $page ) {
 		static $id = 1;
-		$entry = $id.$page['post_title'];
-		$id++;
-		
+		$entry = $id . $page['post_title'];
+		$id ++;
+
 		return $entry;
 	}
 
@@ -562,7 +589,7 @@ class Pdf extends Export {
 		$header = apply_filters( 'mpdf_get_header', $content );
 		//sanitize
 		$header = \PressBooks\Sanitize\filter_title( $header );
-		
+
 		return $header;
 	}
 
@@ -709,7 +736,7 @@ class Pdf extends Export {
 	 * Add all css files
 	 */
 	function setCss() {
-		
+
 		// check for child theme export file
 		$cssfile = $this->getExportStylePath( 'mpdf' );
 
@@ -735,6 +762,11 @@ class Pdf extends Export {
 		if ( 1 == $this->options['mpdf_hyphens'] ) {
 			$css .= "p {hyphens: auto;}\n";
 		}
+		// chapter numbers
+		if ( false == $this->numbered ) {
+			$css .= "h3.chapter-number {display: none;}\n";
+		}
+
 
 		if ( ! empty( $css ) ) {
 			$this->mpdf->WriteHTML( $css, self::MODE_CSS );
