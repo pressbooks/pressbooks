@@ -125,7 +125,7 @@ class Pdf extends Export {
 		$this->mpdf->SetAnchor2Bookmark( 1 );
 		$this->mpdf->ignore_invalid_utf8 = true;
 
-		if ( ! empty( $this->options['mpdf_mirror_margins'] ) ) {
+		if ( 1 == $this->options['mpdf_mirror_margins'] ) {
 			$this->mpdf->mirrorMargins = true;
 		}
 
@@ -162,9 +162,14 @@ class Pdf extends Export {
 
 	/**
 	 * Add the mpdf Table of Contents.
+	 * Note, the functionality of the TOC is limited: its behaviour varies
+	 * according mirrored margin settings, and will always generate blank pages
+	 * after.
+	 * http://mpdf1.com/forum/discussion/comment/6417#Comment_6417
+	 * 
 	 */
 	function addToc() {
-
+		
 		$options = array(
 		    'paging' => true,
 		    'links' => true,
@@ -186,11 +191,11 @@ class Pdf extends Export {
 			$options['sheet-size'] = $this->options['mpdf_page_size'];
 		}
 
-		if ( isset( $this->options['mpdf_left_margin'] ) && is_numeric( $this->options['mpdf_left_margin'] ) ) {
+		if ( isset( $this->options['mpdf_left_margin'] ) ) {
 			$options['margin-left'] = $this->options['mpdf_left_margin'];
 		}
 
-		if ( isset( $this->options['mpdf_right_margin'] ) && is_numeric( $this->options['mpdf_right_margin'] ) ) {
+		if ( isset( $this->options['mpdf_right_margin'] ) ) {
 			$options['margin-right'] = $this->options['mpdf_right_margin'];
 		}
 
@@ -206,7 +211,7 @@ class Pdf extends Export {
 
 		$this->addFrontMatterByType( 'before-title', $contents );
 
-		if ( ! empty( $this->options['mpdf_include_cover'] ) ) {
+		if ( 1 == $this->options['mpdf_include_cover']  ) {
 			$this->addCover();
 		}
 
@@ -219,8 +224,10 @@ class Pdf extends Export {
 		$this->addFrontMatterByType( 'dedication', $contents );
 
 		$this->addFrontMatterByType( 'epigraph', $contents );
-
-		$this->addToc();
+		
+		if ( 1 == $this->options['mpdf_include_toc']  ) {
+			$this->addToc();
+		}
 	}
 
 	/**
@@ -700,10 +707,6 @@ class Pdf extends Export {
 	 * Add all css files
 	 */
 	function setCss() {
-
-//		$theme = wp_get_theme();
-
-//		$css = $this->getThemeCss( $theme );
 		
 		// check for child theme export file
 		$cssfile = $this->getExportStylePath( 'mpdf' );
@@ -717,7 +720,13 @@ class Pdf extends Export {
 			$css .= file_get_contents( $cssfile ) . "\n";
 		}
 
-		if ( ! empty( $this->options['mpdf_indent_paragraphs'] ) ) {
+		// grab the web theme, ONLY as a backup
+		if ( empty( $css ) ) {
+			$theme = wp_get_theme();
+			$css = $this->getThemeCss( $theme );
+		}
+		
+		if ( 1 == $this->options['mpdf_indent_paragraphs'] ) {
 			$css .= "p + p, .indent {text-indent: 2.0 em; }\n";
 		}
 

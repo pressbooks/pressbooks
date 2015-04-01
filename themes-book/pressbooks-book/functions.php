@@ -1114,15 +1114,26 @@ function pressbooks_theme_options_mpdf_init() {
 
 	add_settings_field(
 		'mpdf_include_cover',
-		__( 'Include Cover', 'pressbooks' ),
+		__( 'Cover Image', 'pressbooks' ),
 		'pressbooks_theme_mpdf_include_cover_callback',
 		$_page,
 		$_section,
 		array(
-			 __( 'Include cover in pdf output', 'pressbooks' )
+			 __( 'Display cover image', 'pressbooks' )
 		)
 	);
-
+	
+	add_settings_field(
+		'mpdf_include_toc',
+		__( 'Table of Contents', 'pressbooks' ),
+		'pressbooks_theme_mpdf_include_toc_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Display table of contents', 'pressbooks' )
+		)
+	);
+	
 	add_settings_field(
 		'mpdf_indent_paragraphs',
 		__( 'Indent paragraphs', 'pressbooks' ),
@@ -1130,7 +1141,7 @@ function pressbooks_theme_options_mpdf_init() {
 		$_page,
 		$_section,
 		array(
-			 __( 'Indent paragraphs in mpdf output.', 'pressbooks' )
+			 __( 'Indent paragraphs', 'pressbooks' )
 		)
 	);
 
@@ -1217,6 +1228,19 @@ function pressbooks_theme_mpdf_include_cover_callback( $args ) {
 	echo $html;
 }
 
+function pressbooks_theme_mpdf_include_toc_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_include_toc'] ) ) {
+		$options['mpdf_include_toc'] = 1;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_include_toc" name="pressbooks_theme_options_mpdf[mpdf_include_toc]" value="1" ' . checked( 1, $options['mpdf_include_toc'], false ) . '/>';
+	$html .= '<label for="mpdf_include_toc"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
 function pressbooks_theme_mpdf_indent_paragraphs_callback( $args ) {
 
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
@@ -1240,7 +1264,7 @@ function pressbooks_theme_options_mpdf_sanitize ( $input ){
 	}
 
 	// Checkmarks
-	foreach ( array( 'mpdf_indent_paragraphs', 'mpdf_include_cover', 'mpdf_mirror_margins' ) as $val ) {
+	foreach ( array( 'mpdf_indent_paragraphs', 'mpdf_include_cover', 'mpdf_mirror_margins', 'mpdf_include_toc' ) as $val ) {
 		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
 		else $options[$val] = 1;
 	}
