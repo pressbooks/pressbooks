@@ -30,7 +30,7 @@ body {
 
 a {
 	border: none;
-	color: inherit;
+	color: blue;
 	text-decoration: none;
 }
 
@@ -72,13 +72,7 @@ hr.break-symbols::after {
 	font-size: 1.8em;
 	text-align: center;
 }
-table::after {
-	border-bottom: none;
-	
-}
-table{
-	border-width: 0;
-}
+
 div.chapter table,div.front-matter table,div.back-matter table,div.part table {
 	border-collapse: collapse;
 	width:100%;
@@ -144,18 +138,96 @@ cite {
 	padding-left: 1em;
 	text-indent: -1em;
 }
+/* TITLE PAGE
+================ */
+#title-page { 
+	font-weight: normal;
+	height: 100%;
+}
+#title-page h1, #title-page h2, #title-page h3, #title-page h4, #title-page h5,#title-page h6, #title-page p {
+	text-align:center;
+}
+	
+#title-page .title {
+	border-bottom: 1px solid #000;
+	font-size: 2.5em;
+	margin-top: 3cm;
+	margin-bottom: 0;
+	padding-bottom: 5px;
+}
+
+#title-page  .subtitle {
+	font-size: 2em;
+	font-style: italic;
+	margin-top: 0;
+	padding-top: 5px;	
+}
+
+#title-page .author,
+#title-page .contributing-authors,
+#title-page .publisher,
+#title-page .publisher-city {
+	font-weight: normal;
+}	
+
+#title-page .author {
+	font-size: 1.5em;
+	margin-top: 3cm;
+}
+
+#title-page .contributing-authors{
+	font-weight: normal;
+	margin-top: 1cm;
+}
+
+#title-page .publisher {
+	font-size: 1.25em;
+	font-style: italic;
+	margin-bottom: 0;
+	margin-top: 3cm;
+}
+
+#title-page .publisher-city {
+	font-size: 1em;
+	font-style: italic;
+	margin-top: 0;
+}
+
+/*	COPYRIGHT PAGE
+====================== */
+
+#copyright-page p {
+	font-size: 0.9em;
+	text-indent: 0;
+	margin-bottom: 0.5em;
+	text-align: center;
+}
+#copyright-page .custom-copyright {
+	margin-top: 3cm;
+}
+#copyright-page .copyright-license {
+	margin-top: 3cm;
+}
+
+/* DEDICATION
+================ */
+.dedication p {
+	font-style: italic;
+	text-align: center;
+}
+
 h1,
 h2,
 h3 {
 	font-weight: normal;
 }
 h1 {
-	font-size: 1.1em;
+	font-size: 1.3em;
 }
 h2,
 h3 {
 	font-style: italic;
-	font-size: 1em;
+	font-size: 1.1em;
 }
 h3,
 h4,
@@ -177,6 +249,17 @@ h4 + p,
 h5 + p {
 	margin-top: 0;
 }
+
+div.front-matter h1.entry-title, 
+div.chapter h1.entry-title,
+div.back-matter h1.entry-title, 
+div.part h1.entry-title,
+h1.toc {
+	font-size: 1.5em;
+	margin-top: 2cm;
+	margin-bottom: 2.5cm;
+}
+
 /* MOAR TRADITIONAL CSS
 ================== */
 
@@ -244,13 +327,6 @@ div.chapter.numberless h3.chapter-number {
 	font-size: 0.9em;
 	font-weight: bold;
 	margin: 0;
-}
-.container{
-	position: relative;
-}
-.copyright-notice{
-	position: absolute;
-	bottom: 0;
 }
 
 /*h2.chapter-subtitle {
@@ -384,7 +460,7 @@ p.bl_indent {
 	padding-left:30px;
 }
 
-div.license-attribution > p:first-of-type {
+div.license-attribution p:first-of-type {
 	text-align:center;
 	font-size: 0.75em;
 }
@@ -482,8 +558,10 @@ a.mpdf_index_link {
 
 /* TABLE OF CONTENTS */
 div.mpdf_toc {
-	font-family: inherit;
+	font-family: "Cardo","Times New Roman", serif;
 	line-height: normal;
+	page-break-after: avoid;
+	page-break-before: avoid;
 }
 a.mpdf_toc_a  {
 	text-decoration: none;
@@ -496,6 +574,7 @@ div.mpdf_toc_level_0 {		/* Whole line level 0 */
 }
 span.mpdf_toc_t_level_0 {	/* Title level 0 - may be inside <a> */
 	font-weight: bold;
+	margin-top: 2em;
 }
 span.mpdf_toc_p_level_0 {	/* Page no. level 0 - may be inside <a> */
 }
@@ -505,8 +584,7 @@ div.mpdf_toc_level_1 {		/* Whole line level 1 */
 	padding-right: 0em;	/* should match the outdent specified for ToC; 0 is default; suggested value 2em */
 }
 span.mpdf_toc_t_level_1 {	/* Title level 1 */
-	font-style: italic;
-	font-weight: bold;
+	font-weight: normal;
 }
 span.mpdf_toc_p_level_1  {	/* Page no. level 1 - may be inside <a> */
 }

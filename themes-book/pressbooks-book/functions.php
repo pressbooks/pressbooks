@@ -1108,7 +1108,7 @@ function pressbooks_theme_options_mpdf_init() {
 		$_page,
 		$_section,
 		array(
-			 __( 'The document will mirror the left and right margin values on odd and even pages i.e. they become inner and outer margins.', 'pressbooks' )
+			 __( 'The document will mirror the left and right margin values on odd and even pages (i.e. they become inner and outer margins)', 'pressbooks' )
 		)
 	);
 

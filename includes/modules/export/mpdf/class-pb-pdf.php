@@ -174,32 +174,11 @@ class Pdf extends Export {
 		    'paging' => true,
 		    'links' => true,
 		    'toc-bookmarkText' => 'toc',
-		    'toc-preHTML' => '<h1>Contents</h1>',
+		    'toc-preHTML' => '<h1 class="toc">Contents</h1>',
+		    'toc-margin-left' => 15,
+		    'toc-margin-right' => 15,
 		);
 		$this->mpdf->TOCpagebreakByArray( $options );
-	}
-
-	/**
-	 * Merge default page settings
-	 * 
-	 * @param array $options
-	 * @return array
-	 */
-	function mergePageOptions( $options ) {
-
-		if ( ! empty( $this->options['mpdf_page_size'] ) ) {
-			$options['sheet-size'] = $this->options['mpdf_page_size'];
-		}
-
-		if ( isset( $this->options['mpdf_left_margin'] ) ) {
-			$options['margin-left'] = $this->options['mpdf_left_margin'];
-		}
-
-		if ( isset( $this->options['mpdf_right_margin'] ) ) {
-			$options['margin-right'] = $this->options['mpdf_right_margin'];
-		}
-
-		return $options;
 	}
 
 	/**
@@ -234,8 +213,11 @@ class Pdf extends Export {
 	 * Add the cover for the book.
 	 */
 	function addCover() {
-
-		$page_options['suppress'] = 'on';
+		$page_options = array(
+		    'suppress' => 'on',
+		    'margin-left' => 15,
+		    'margin-right' => 15,
+		);
 
 		if ( ! empty( $this->bookMeta['pb_cover_image'] ) ) {
 			$content .= '<div style="text-align:center;"><img src="' . $this->bookMeta['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" /></div>';
@@ -252,38 +234,42 @@ class Pdf extends Export {
 	}
 
 	/**
-	 * Add book information page
+	 * Add book information page, otherwise known as title page
 	 * 
 	 */
 	function addBookInfo() {
-		$page_options['suppress'] = 'on';
-
-		$content = '<h1 class="title">' . $this->bookTitle . '</h1>';
+		$page_options = array(
+		    'suppress' => 'on',
+		    'margin-left' => 15,
+		    'margin-right' => 15,
+		);
+		
+		$content .= '<div id="title-page">';
+		$content .= '<h1 class="title">' . $this->bookTitle . '</h1>';
 
 		if ( ! empty( $this->bookMeta['pb_subtitle'] ) ) {
 			$content .= '<h2 class="subtitle">' . $this->bookMeta['pb_subtitle'] . '</h2>';
 		}
 
 		if ( isset( $this->bookMeta['pb_author'] ) ) {
-			$content .= '<h3 class="book-author">' . $this->bookMeta['pb_author'] . '</h3>';
+			$content .= '<h3 class="author">' . $this->bookMeta['pb_author'] . '</h3>';
 		}
 
 		if ( isset( $this->bookMeta['pb_contributing_authors'] ) ) {
-			$content .= '<h4 class="contributing-author">' . $this->bookMeta['pb_contributing_authors'] . '</h4>';
+			$content .= '<h4 class="contributing-authors">' . $this->bookMeta['pb_contributing_authors'] . '</h4>';
 		}
 
-		$content .= '<div>';
 
 		if ( isset( $this->bookMeta['pb_print_isbn'] ) ) {
 			$content .= '<p class="isbn"><strong>' . __( 'ISBN', 'pressbooks' ) . '</strong>: ' . $this->bookMeta['pb_print_isbn'] . '</p>';
 		}
 
 		if ( isset( $this->bookMeta['pb_publisher'] ) ) {
-			$content .= '<p class="publisher"><strong>' . __( 'Publisher', 'pressbooks' ) . '</strong>: ' . $this->bookMeta['pb_publisher'] . '</p>';
+			$content .= '<p class="publisher">' . $this->bookMeta['pb_publisher'] . '</p>';
 		}
 
 		if ( isset( $this->bookMeta['pb_publisher_city'] ) ) {
-			$content .= '<p class="publisher_city"><strong>' . __( 'Publisher City', 'pressbooks' ) . '</strong>: ' . $this->bookMeta['pb_publisher_city'] . '</p>';
+			$content .= '<p class="publisher-city">' . $this->bookMeta['pb_publisher_city'] . '</p>';
 		}
 
 		$content .= '</div>';
@@ -305,10 +291,14 @@ class Pdf extends Export {
 	 */
 	function addCopyright() {
 		$options = get_option( 'pressbooks_theme_options_global' );
-		$page_options['suppress'] = 'on';
+		$page_options = array(
+		    'suppress' => 'on',
+		    'margin-left' => 15,
+		    'margin-right' => 15,
+		);
 
 		if ( isset( $this->bookMeta['pb_copyright_year'] ) || isset( $this->bookMeta['pb_copyright_holder'] ) ) {
-			$content .= '<div class="container"><div class="copyright-notice">';
+			$content .= '<div id="copyright-page">';
 
 			$content .= '<p><strong>' . __( 'Copyright', 'pressbooks' ) . '</strong>:';
 			if ( ! empty( $this->bookMeta['pb_copyright_year'] ) ) {
@@ -324,14 +314,16 @@ class Pdf extends Export {
 				$content .= '<p class="custom-copyright">' . $this->bookMeta['pb_custom_copyright'] . '</p>';
 			}
 
-			$content .= '</div></div>';
 		}
 		
 		if ( 1 == $options['copyright_license'] ) {
-			$content .= '<p class="copyright_license">';
+			$content .= '<p class="copyright-license">';
 			$content .= $this->doCopyrightLicense( $this->bookMeta );
 			$content .= '</p>';
 		}
+		
+		$content .= '</div>';
+		
 		$page = array(
 		    'post_title' => '',
 		    'post_content' => $content,
@@ -350,8 +342,9 @@ class Pdf extends Export {
 	 * @param array $contents - book contents
 	 */
 	function addFrontMatterByType( $type, $contents ) {
-
-		$page_options['suppress'] = 'on';
+		$page_options = array(
+		    'suppress' => 'on',
+		);
 
 		foreach ( $contents as $index => $page ) {
 			// If we hit non front-matter post types we won't see anymore front-matter
@@ -375,7 +368,11 @@ class Pdf extends Export {
 	function addFrontMatter( array $contents ) {
 
 		$first_iteration = true;
-		$page_options['pagenumstyle'] = 'i';
+		$page_options = array(
+		    'pagenumstyle' => 'i',
+		    'margin-left' => 15,
+		    'margin-right' => 15,
+		);
 
 		foreach ( $contents as $front_matter ) {
 			// safety
@@ -412,6 +409,9 @@ class Pdf extends Export {
 		    'suppress' => 'off',
 		    'resetpagenum' => 0,
 		    'pagenumstyle' => 1,
+		    'margin-right' => $this->options['mpdf_right_margin'],
+		    'margin-left' => $this->options['mpdf_left_margin'],
+		    'sheet-size' => $this->options['mpdf_page_size'],
 		);
 
 		$options = \wp_parse_args( $page_options, $defaults );
@@ -420,18 +420,20 @@ class Pdf extends Export {
 
 		if ( ! empty( $page['post_content'] ) || 'part' == $page['post_type'] ) {
 
-			$this->mpdf->SetFooter( $this->getFooter( $display_footer, '' ) );
-			$this->mpdf->SetHeader( $this->getHeader( $display_header, $this->bookTitle . '| | {PAGENO}' ) );
+			$this->mpdf->SetFooter( $this->getFooter( $display_footer, $this->bookTitle . '| | {PAGENO}'  ) );
+			$this->mpdf->SetHeader( $this->getHeader( $display_header, '' ) );
 
-			$this->mpdf->AddPageByArray( $this->mergePageOptions( $options ) );
+			$this->mpdf->AddPageByArray( $options );
 
 			if ( empty( $page['mpdf_omit_toc'] ) ) {
 				$this->mpdf->TOC_Entry( $this->getTocEntry( $page['post_title'] ), $page['mpdf_level'] );
 				$this->mpdf->Bookmark( $this->getBookmarkEntry( $page ), $page['mpdf_level'] );
 			}
 
-			$content = '<h2 class="entry-title">' . $page['post_title'] . '</h2>';
-			$content .= '<div class="' . $class . '">' . $this->getFilteredContent( $page['post_content'] ) . '</div>';
+			$content .= '<div class="' . $class . '">'
+				. '<h1 class="entry-title">' . $page['post_title'] . '</h1>'
+				. $this->getFilteredContent( $page['post_content'] )
+				. '</div>';
 
 			// TODO Make this hookable.
 			$this->mpdf->WriteHTML( $content );
@@ -522,7 +524,7 @@ class Pdf extends Export {
 		if ( false == $display ) {
 			return '';
 		}
-		// default is to print page number
+		// default is to print nothing
 		if ( empty( $content ) ) {
 			$footer = '';
 		} else {
@@ -550,9 +552,9 @@ class Pdf extends Export {
 		if ( false == $display ) {
 			return '';
 		}
-		// default is to print page number
+		// default is to print nothing
 		if ( empty( $content ) ) {
-			$header = '{PAGENO}';
+			$header = '';
 		} else {
 			$header = $content;
 		}
