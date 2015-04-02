@@ -1217,6 +1217,16 @@ function pressbooks_theme_options_mpdf_init() {
 		)
 	);
 
+	add_settings_field(
+		'mpdf_fontsize',
+		__( 'Increase Font Size', 'pressbooks' ),
+		'pressbooks_theme_mpdf_fontsize_callback',
+		$_page,
+		$_section,
+		array(
+		    __('Increases font size and line height for greater accessibility', 'pressbooks' )
+		)
+	);
 	register_setting(
 		$_option,
 		$_option,
@@ -1339,6 +1349,19 @@ function pressbooks_theme_mpdf_hyphens_callback( $args ) {
 	echo $html;
 }
 
+function pressbooks_theme_mpdf_fontsize_callback( $args ) {
+	
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+	
+	if ( ! isset( $options['mpdf_fontsize'] ) ){
+		$options['mpdf_fontsize'] = 0;
+	}
+	
+	$html = '<input type="checkbox" id="mpdf_fontsize" name="pressbooks_theme_options_mpdf[mpdf_fontsize]" value="1" ' . checked( 1, $options['mpdf_fontsize'], false ) . '/>';
+	$html .= '<label for="mpdf_fontsize"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
 function pressbooks_theme_options_mpdf_sanitize ( $input ){
 
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
@@ -1349,7 +1372,7 @@ function pressbooks_theme_options_mpdf_sanitize ( $input ){
 	}
 
 	// Checkmarks
-	foreach ( array( 'mpdf_indent_paragraphs', 'mpdf_include_cover', 'mpdf_mirror_margins', 'mpdf_include_toc', 'mpdf_hyphens' ) as $val ) {
+	foreach ( array( 'mpdf_indent_paragraphs', 'mpdf_include_cover', 'mpdf_mirror_margins', 'mpdf_include_toc', 'mpdf_hyphens', 'mpdf_fontsize' ) as $val ) {
 		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
 		else $options[$val] = 1;
 	}
@@ -1595,6 +1618,30 @@ function pressbooks_theme_pdf_css_override( $css ) {
 }
 add_filter( 'pb_pdf_css_override', 'pressbooks_theme_pdf_css_override' );
 
+function pressbooks_theme_mpdf_css_override( $css ) {
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+	$global_options = get_option( 'pressbooks_theme_options_global' );
+
+	// indent paragraphs
+	if ( $options['mpdf_indent_paragraphs'] ) {
+		$css .= "p + p, .indent {text-indent: 2.0 em; }" . "\n";
+	}
+	// hyphenation
+	if ( $options['mpdf_hyphens'] ) {
+		$css .= "p {hyphens: auto;}" . "\n";
+	}
+	// font-size
+	if ( $options['mpdf_fontsize'] ){
+                $css .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
+        }
+	// chapter numbers
+	if ( ! $global_options['chapter_numbers'] ) {
+		$css .= "h3.chapter-number {display: none;}" . "\n";
+	}
+	return $css;
+}
+
+add_filter( 'pb_mpdf_css_override', 'pressbooks_theme_mpdf_css_override' );
 
 function pressbooks_theme_ebook_css_override( $css ) {
 

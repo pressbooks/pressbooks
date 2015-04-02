@@ -738,7 +738,8 @@ class Pdf extends Export {
 	 * Add all css files
 	 */
 	function setCss() {
-
+		$css = '';
+		
 		// check for child theme export file
 		$cssfile = $this->getExportStylePath( 'mpdf' );
 
@@ -756,19 +757,9 @@ class Pdf extends Export {
 			$theme = wp_get_theme();
 			$css = $this->getThemeCss( $theme );
 		}
-		// indent paragraphs
-		if ( 1 == $this->options['mpdf_indent_paragraphs'] ) {
-			$css .= "p + p, .indent {text-indent: 2.0 em; }\n";
-		}
-		// hyphenation
-		if ( 1 == $this->options['mpdf_hyphens'] ) {
-			$css .= "p {hyphens: auto;}\n";
-		}
-		// chapter numbers
-		if ( false == $this->numbered ) {
-			$css .= "h3.chapter-number {display: none;}\n";
-		}
-
+		
+		// Theme options override
+		$css .= apply_filters( 'pb_mpdf_css_override', $css ) . "\n";
 
 		if ( ! empty( $css ) ) {
 			$this->mpdf->WriteHTML( $css, self::MODE_CSS );
