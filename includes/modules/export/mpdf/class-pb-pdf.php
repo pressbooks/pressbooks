@@ -152,7 +152,7 @@ class Pdf extends Export {
 
 		// all front matter page numbers are romanized
 		$this->addFrontMatter( $contents );
-
+		// all parts, chapters, back-matter
 		$this->addPartsandChapters( $contents );
 
 		$this->mpdf->Output( $this->outputPath, 'F' );
@@ -188,23 +188,22 @@ class Pdf extends Export {
 	 * @param array $contents - the book
 	 */
 	function addPreContent( $contents ) {
-		// Before Title Page
+		// Before Title Page (user generated)
 		$this->addFrontMatterByType( 'before-title', $contents );
-		
+		// Cover
 		if ( 1 == $this->options['mpdf_include_cover'] ) {
 			$this->addCover();
 		}
-		
+		// Title (user generated) 
 		$this->addFrontMatterByType( 'title-page', $contents );
-
+		// Title page
 		$this->addBookInfo();
-
+		// Copyright
 		$this->addCopyright();
-
+		// Dedication and Epigraph (In that order!)
 		$this->addFrontMatterByType( 'dedication', $contents );
-
 		$this->addFrontMatterByType( 'epigraph', $contents );
-
+		// Table of Contents
 		if ( 1 == $this->options['mpdf_include_toc'] ) {
 			$this->addToc();
 		}
@@ -384,7 +383,7 @@ class Pdf extends Export {
 					continue; // Skip
 
 				
-// only reset the page number on first iteration
+			// only reset the page number on first iteration
 			( true == $first_iteration ) ? $page_options['resetpagenum'] = 1 : $page_options['resetpagenum'] = 0;
 
 			// assumes the array of book contents is in order 
