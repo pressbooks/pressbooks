@@ -1,15 +1,18 @@
-/* PRINCE XML
- * @see: http://www.princexml.com/doc/8.1/
- * CSS Version: 1.3
-================== */
+/*
+Theme Name: Luther PDF
+Theme URI: http://pressbooks.com/
+Description: Named after Martin Luther, this is a traditional book theme, good for novels, and text-heavy non-fiction. An earlier version of this theme was commissioned by Fortress Press / Augsburg Fortress.
+Author: Pressbooks (Book Oven Inc.)
+Author URI: http://pressbooks.com
+Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
+Version: 1.4
+*/
 
 /*__INSERT_PDF_HOUSE_STYLE__*/
 
 
 /* FONTS
 ===========	*/
-
-/*__INSERT_PDF_HOUSE_STYLE__*/
 
 @font-face {
   font-family: "Cardo";
@@ -39,7 +42,7 @@ h1, h2, h3, h4, h5, h6 {
 @page {
   size:6in 9in;
   margin: 2cm;
-  font-size: 9pt;
+  font-size: 0.9em;
   orphans:3; 
   widows:3;  
 }
@@ -71,14 +74,14 @@ h1, h2, h3, h4, h5, h6 {
   @top-left
   {
 	font-family: "Cardo","Times New Roman", serif;
-	content: counter(page, lower-roman) "\A0\A0  " string(book-title);
+	content: counter(page, lower-roman) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
 }
 @page front-matter:right {
   @top-right {
 	font-family: "Cardo","Times New Roman", serif;
-	content: string(section-title, last) "\A0\A0  " counter(page, lower-roman);
+	content: string(section-title, last) "\A0\A0\A0" counter(page, lower-roman);
 	vertical-align: right;
   }
 }
@@ -120,14 +123,14 @@ h1, h2, h3, h4, h5, h6 {
 @page introduction:left {
   @top-left {
 	font-family: "Cardo","Times New Roman", serif;
-	content: counter(page) "\A0\A0 " string(book-title);
+	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
 	font-family: "Cardo","Times New Roman", serif;
-	content: string(section-title, last) "\A0\A0  " counter(page);
+	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
 }
@@ -156,7 +159,6 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Part */
 @page part {
-  
 }
 
 /* Chapter */
@@ -164,7 +166,7 @@ h1, h2, h3, h4, h5, h6 {
 @page chapter:left {
   @top-left {
 	font-family: "Cardo","Times New Roman", serif;
-	content: counter(page) "\A0\A0  " string(book-title);
+	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
 }
@@ -173,7 +175,7 @@ h1, h2, h3, h4, h5, h6 {
   @top-right
   {
 	font-family: "Cardo","Times New Roman", serif;
-	content: string(section-title, last) "\A0\A0  " counter(page);
+	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
 }
@@ -207,7 +209,7 @@ h1, h2, h3, h4, h5, h6 {
 @page back-matter:left {
   @top-left {
 	font-family: "Cardo","Times New Roman", serif;
-	content: counter(page) "\A0\A0  " string(book-title);
+	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
 }
@@ -215,7 +217,7 @@ h1, h2, h3, h4, h5, h6 {
   @top-right
   {
 	font-family: "Cardo","Times New Roman", serif;
-	content: string(section-title, last) "\A0\A0  " counter(page);
+	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
 }
@@ -294,8 +296,8 @@ body {
 }
 
 a {
-	border: .5px solid #02b4c1;
-	color: black;
+	border: none;
+	color: inherit;
 	text-decoration: none;
 }
 
@@ -334,7 +336,7 @@ hr.break-symbols {
 hr.break-symbols::after {
 	display: block;
 	content: "\066D";
-	font-size: 18pt;
+	font-size: 1.8em;
 	text-align: center;
 }
 table {
@@ -406,7 +408,7 @@ cite {
 	page-break-before: right;
     page-break-after: always;
     bookmark-level: none;
-    font-size: 16pt;
+    font-size: 1.5em;
     margin-top: 6cm;
     text-transform: uppercase;
 }
@@ -426,13 +428,13 @@ cite {
 	bookmark-level: none;
 }	
 #title-page > .title {
-	font-size: 28pt;
+	font-size: 2.5em;
 	margin-top: 2cm;
 	text-transform: uppercase;
 }
 
 #title-page > .subtitle {
-	font-size: 20pt;
+	font-size: 2em;
 	margin-top: 1.5cm;
 	text-transform: uppercase;
 }
@@ -447,21 +449,21 @@ cite {
 	margin-top: 4cm;
 }
 #title-page > .author {
-	font-size: 17pt;
+	font-size: 1.5em;
 	margin-top: 1.5cm;
 	text-transform: uppercase;	
 }
 
 #title-page > .publisher {
-	font-size: 18pt;
+	font-size: 1.25em;
 	float: bottom;
 	margin-bottom: 0;
  }
 
 #title-page > .publisher-city {
-	font-size: 10pt;
+	font-size: 1em;
 	float: bottom;
-	margin-top: 0;
+	margin-top: 1em;
 }
 
 
@@ -471,7 +473,7 @@ cite {
 
 
 #copyright-page p {
-	font-size: 9pt;
+	font-size: 0.9em;
     text-indent: 0;
     margin-bottom: 0.5em;
 }
@@ -541,14 +543,14 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 div.front-matter .front-matter-title-wrap > h1:first-of-type, 
 div.chapter .chapter-title-wrap > h2:first-of-type,
 div.back-matter .back-matter-title-wrap > h1:first-of-type  {
-	font-size: 15pt;
+	font-size: 1.5em;
 	string-set: section-title content();
 	counter-reset: footnote;
 	margin-bottom: 20pt;
 }
 div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc > h1:first-of-type {
-	font-size: 15pt;
+	font-size: 1.5em;
 	margin-top: 2cm;
 	margin-bottom: 2.5cm;	
 }
@@ -588,6 +590,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc .part {
 	margin: .6cm 0 .4em;
 	text-align: center;
+	font-weight: bold;
 	page-break-after: avoid;	
 }
 #toc .part.invisible {
@@ -596,7 +599,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc {
 	page-break-before: right;
 	counter-reset: part; 
-	font-size: 10pt;
+	font-size: 1em;
 }
 #toc ul {
 	counter-reset: chapter;
@@ -614,7 +617,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc .chapter a::before {
 	content: counter(chapter) ". ";
 	counter-increment: chapter; 
-	margin-right: 7pt;	
+	margin-right: 0.7em;	
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -664,6 +667,30 @@ span.chapter-license {
 	position: relative;
 	top: -5px;
 }
+
+#toc ul.sections {
+	position: static !important;
+	width: 80%;
+	margin-bottom: 0.75em;
+}
+
+#toc li.section {
+	position: static !important;
+	display: block;
+	text-indent: 0;
+	padding-left: 0;
+	margin-left: 0;
+}
+
+li.section::before {
+	content: "";
+}
+
+li.section a::after {
+	content: "" !important;
+	display: none;
+}
+
 /*end toc*/
 
 /* MOAR TRADITIONAL CSS
@@ -743,7 +770,7 @@ sup.endnote {
 	margin-bottom: 0;
 }
 .endnotes ol {
-	font-size: 8pt;
+	font-size: 0.8em;
 
 	margin-top: 5px;
 	margin-left: 0;
@@ -909,7 +936,7 @@ p.bl_indent {
 	margin-bottom: 4em;
 }
 .index .ugc  p {
-    font-size: 9pt;
+    font-size: 0.9em;
 	padding-left: 14pt;
 	text-indent: -14pt;
 	text-align: left;

@@ -1,4 +1,4 @@
-# Custom Metada Manager for WordPress
+# Custom Metadata Manager for WordPress
 
 This code-only developer WordPress plugin allows you to add custom fields to your object types (post, pages, custom post types, users)
 

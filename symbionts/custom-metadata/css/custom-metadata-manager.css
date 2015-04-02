@@ -60,12 +60,6 @@
 .custom-metadata-field.checkbox {
 	background: transparent;
 }
-.custom-metadata-field.checkbox div, .custom-metadata-field.checkbox label {
-	display: inline-block;
-}
-.custom-metadata-field.checkbox input {
-	margin: 0 1px 0 0;
-}
 
 .custom-metadata-field input[type="checkbox"] {
 	margin-right: 5px;

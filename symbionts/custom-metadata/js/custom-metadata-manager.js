@@ -68,9 +68,9 @@
 					$div.attr( 'id', $field_id + '-1' ).attr( 'class', $field_id );
 
 					$.each( $field_inputs, function( k, field_input ){
-						
+
 						var $field_input = $( field_input );
-						
+
 						if ( ! _.isEmpty( $field_input.attr( 'id' ) ) ) {
 							$field_input.attr( 'id', $field_id );
 						}
@@ -195,6 +195,10 @@
 		$custom_metadata_field.find( '.custom-metadata-select2' ).each(function(index) {
 			$(this).select2({ placeholder : $(this).attr('data-placeholder'), allowClear : true });
 		});
+
+		// init the color picker fields
+		$( '.colorpicker' ).find( 'input' ).wpColorPicker();
+
 
 	});
 })(jQuery);

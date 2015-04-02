@@ -151,6 +151,13 @@ function x_init_custom_fields() {
 			'label' => 'Timepicker field',
 		) );
 
+	// adds a colorpicker field to the 1st group
+	x_add_metadata_field( 'x_fieldColorpicker1', 'x_test', array(
+			'group' => 'x_metaBox1',
+			'field_type' => 'colorpicker',
+			'label' => 'Colorpicker field',
+		) );
+
 	// adds an upload field to the 1st group
 	x_add_metadata_field( 'x_fieldUpload1', 'x_test', array(
 			'group' => 'x_metaBox1',

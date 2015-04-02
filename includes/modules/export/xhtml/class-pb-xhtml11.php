@@ -911,15 +911,26 @@ class Xhtml11 extends Export {
 			$part_printf_changed = '';
 			$slug = $part['post_name'];
 			$title = $part['post_title'];
+			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
 
 			// Inject introduction class?
-			if ( ! $this->hasIntroduction && count( $book_contents['part'] ) > 1 ) {
-				$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
-				$this->hasIntroduction = true;
+			if ( $invisibility !== 'invisible' ) { // visible
+				if ( count( $book_contents['part'] ) == 1 ) { // only part
+					if ( $part_content ) { // has content
+						if ( ! $this->hasIntroduction ) {
+							$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
+							$this->hasIntroduction = true;
+						}
+					}
+				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
+					if ( ! $this->hasIntroduction ) {
+						$part_printf_changed = str_replace( '<div class="part %s" id=', '<div class="part introduction %s" id=', $part_printf );
+						$this->hasIntroduction = true;
+					}
+				}
 			}
-
+			
 			// Inject part content?
-			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
 			if ( $part_content ) {
 				$part_content = $this->preProcessPostContent( $part_content );
 				$part_printf_changed = str_replace( '</h1></div>%s</div>', "</h1></div><div class=\"ugc part-ugc\">%s</div></div>", $part_printf );
@@ -1014,11 +1025,6 @@ class Xhtml11 extends Export {
 				++$i;
 			} elseif ( $invisibility == 'invisible' ) { // invisible
 				if ( $my_chapters ) echo $my_chapters;
-			}
-
-			// Did we actually inject the introduction class?
-			if ( $part_printf_changed && empty( $my_chapters ) ) {
-				$this->hasIntroduction = false;
 			}
 
 		}

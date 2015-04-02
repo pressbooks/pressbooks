@@ -73,10 +73,16 @@ function pb_enqueue_scripts() {
 	if ( is_single() ) {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
-
+	
 	$options = get_option( 'pressbooks_theme_options_web' );
 	if ( @$options['toc_collapse'] ) {
 		wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
+		wp_enqueue_style( 'dashicons' );
+	}
+	if ( @$options['accessibility_fontsize'] ) {
+		wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
+		wp_register_style( 'pressbooks-accessibility-toolbar', get_template_directory_uri() . '/css/a11y.css', array(), null, 'screen' );
+		wp_enqueue_style( 'pressbooks-accessibility-toolbar' );
 		wp_enqueue_style( 'dashicons' );
 	}
 }
@@ -413,6 +419,9 @@ function pressbooks_theme_options_summary() { ?>
 				case 'pdf_orphans': ?>
 					<li><?php _e( 'Orphans' , 'pressbooks' ) ?>: <em><?php echo $value; ?></em></li>
 					<?php break;
+				case 'pdf_fontsize': ?>
+					<li><?php _e( 'Accessibility Increase Font Size' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></em></li>
+					<?php break;
 			}
 		}
 		?>
@@ -586,7 +595,7 @@ function pressbooks_theme_options_global_sanitize( $input ) {
  * ------------------------------------------------------------------------ */
 
 function pressbooks_theme_options_web_init() {
-
+	
 	$_page = $_option = 'pressbooks_theme_options_web';
 	$_section = 'web_options_section';
 	$defaults = array(
@@ -598,26 +607,37 @@ function pressbooks_theme_options_web_init() {
 	}
 
 	add_settings_section(
-		$_section,
-		__( 'Web Options', 'pressbooks' ),
-		'pressbooks_theme_options_web_callback',
+		$_section, 
+		__( 'Web Options', 'pressbooks' ), 
+		'pressbooks_theme_options_web_callback', 
 		$_page
 	);
 
 	add_settings_field(
-		'toc_collapse',
-		__( 'Collapsable TOC', 'pressbooks' ),
-		'pressbooks_theme_toc_collapse_callback',
+		'toc_collapse', 
+		__( 'Collapsable TOC', 'pressbooks' ), 
+		'pressbooks_theme_toc_collapse_callback', 
+		$_page, 
+		$_section, 
+		array(
+		    __( 'Make webbook TOC collapsable', 'pressbooks' ) 
+		)
+	);
+	
+	add_settings_field(
+		'accessibility_fontsize', 
+		__( 'Increase Font Size', 'pressbooks' ), 
+		'pressbooks_theme_accessibility_fontsize_callback',
 		$_page,
 		$_section,
 		array(
-		    __( 'Make webbook TOC collapsable', 'pressbooks' )
+		    __('Add an option for the user to increase font size for greater accessibility', 'pressbooks' )
 		)
 	);
 
 	register_setting(
-		$_option,
-		$_option,
+		$_option, 
+		$_option, 
 		'pressbooks_theme_options_web_sanitize'
 	);
 }
@@ -625,6 +645,19 @@ function pressbooks_theme_options_web_init() {
 // Web Options Section Callback
 function pressbooks_theme_options_web_callback() {
 	echo '<p>' . __( 'These options apply to the webbook.', 'pressbooks' ) . '</p>';
+}
+
+// Web Options Field Callback
+function pressbooks_theme_accessibility_fontsize_callback( $args ){
+	$options = get_option( 'pressbooks_theme_options_web' );
+	
+	if ( ! isset( $options['accessibility_fontsize'] ) ) {
+		$options['accessibility_fontsize'] = 0;
+	}
+	$html = '<input type="checkbox" id="accessibility_fontsize" name="pressbooks_theme_options_web[accessibility_fontsize]" value="1" ' . checked( 1, $options['accessibility_fontsize'], false ) . '/>';
+	$html .= '<label for="accessibility_fontsize"> ' . $args[0] . '</label>';
+	echo $html;	
+	
 }
 
 // Web Options Field Callback
@@ -649,7 +682,12 @@ function pressbooks_theme_options_web_sanitize( $input ) {
 	} else {
 		$options['toc_collapse'] = 1;
 	}
-
+	
+	if ( ! isset( $input['accessibility_fontsize'] ) || $input['accessibility_fontsize'] != '1' ) {
+		$options['accessibility_fontsize'] = 0;
+	} else {
+		$options['accessibility_fontsize'] = 1;
+	}
 	return $options;
 }
 
@@ -677,6 +715,7 @@ function pressbooks_theme_options_pdf_init() {
 		'pdf_hyphens' => 0,
 		'pdf_widows' => 3,
 		'pdf_orphans' => 3,
+		'pdf_fontsize' => 0,
 	);
 
 	if ( false == get_option( $_option ) ) {
@@ -797,7 +836,16 @@ function pressbooks_theme_options_pdf_init() {
 		$_page,
 		$_section
 	);
-
+	add_settings_field(
+		'pdf_fontsize',
+		__( 'Increase Font Size', 'pressbooks' ),
+		'pressbooks_theme_pdf_fontsize_callback',
+		$_page,
+		$_section,
+		array(
+		    __('Increases font size and line height for greater accessibility', 'pressbooks' )
+		)
+	);
 	register_setting(
 		$_option,
 		$_option,
@@ -969,6 +1017,19 @@ function pressbooks_theme_pdf_orphans_callback( $args ) {
 	echo $html;
 }
 
+//PDF Options Field Callback
+function pressbooks_theme_pdf_fontsize_callback( $args ) {
+	
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+	
+	if ( ! isset( $options['pdf_fontsize'] ) ){
+		$options['pdf_fontsize'] = 0;
+	}
+	
+	$html = '<input type="checkbox" id="pdf_fontsize" name="pressbooks_theme_options_pdf[pdf_fontsize]" value="1" ' . checked( 1, $options['pdf_fontsize'], false ) . '/>';
+	$html .= '<label for="pdf_fontsize"> ' . $args[0] . '</label>';
+	echo $html;
+}
 
 // PDF Options Input Sanitization
 function pressbooks_theme_options_pdf_sanitize( $input ) {
@@ -981,7 +1042,7 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 	}
 
 	// Checkmarks
-	foreach ( array( 'pdf_toc', 'pdf_romanize_parts', 'pdf_crop_marks', 'pdf_hyphens' ) as $val ) {
+	foreach ( array( 'pdf_toc', 'pdf_romanize_parts', 'pdf_crop_marks', 'pdf_hyphens', 'pdf_fontsize' ) as $val ) {
 		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
 		else $options[$val] = 1;
 	}
@@ -1514,6 +1575,10 @@ function pressbooks_theme_pdf_css_override( $css ) {
 	if ( @$options['pdf_orphans'] ) {
 		$css .= '@page, p { orphans: ' . $options['pdf_orphans'] . '; }' . "\n";
 	}
+	
+	if ( @$options['pdf_fontsize'] ){
+                $css .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
+        }
 
 
 	// --------------------------------------------------------------------

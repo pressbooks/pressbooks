@@ -395,6 +395,10 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 	background: url(../images/xhtml-36.png) -0 0 no-repeat;
 }
 
+.export-page form.export-file span.export-file-icon.small.odt {
+	background: url(../images/odt-36.png) -0 0 no-repeat;
+}
+
 .export-page form.export-file span.export-file-icon.large.epub {
 	background: url(../images/epub-48.png) -0 0 no-repeat;
 }
@@ -425,6 +429,9 @@ a.toplevel_page_pb_sell > .wp-menu-image:before {
 
 .export-page form.export-file span.export-file-icon.large.xhtml {
 	background: url(../images/xhtml-48.png) -0 0 no-repeat;
+}
+.export-page form.export-file span.export-file-icon.large.odt {
+	background: url(../images/odt-48.png) -0 0 no-repeat;
 }
 
 .export-file-container {
