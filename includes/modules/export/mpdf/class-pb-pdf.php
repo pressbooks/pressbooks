@@ -188,13 +188,13 @@ class Pdf extends Export {
 	 * @param array $contents - the book
 	 */
 	function addPreContent( $contents ) {
-
+		// Before Title Page
 		$this->addFrontMatterByType( 'before-title', $contents );
-
+		
 		if ( 1 == $this->options['mpdf_include_cover'] ) {
 			$this->addCover();
 		}
-
+		
 		$this->addFrontMatterByType( 'title-page', $contents );
 
 		$this->addBookInfo();
@@ -219,6 +219,9 @@ class Pdf extends Export {
 		    'margin-left' => 15,
 		    'margin-right' => 15,
 		);
+		$content .= '<div id="half-title-page">';
+		$content .=  '<h1 class="title">' . $this->bookTitle . '</h1>';
+		$content .=  '</div>' . "\n";
 
 		if ( ! empty( $this->bookMeta['pb_cover_image'] ) ) {
 			$content .= '<div style="text-align:center;"><img src="' . $this->bookMeta['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" /></div>';
@@ -411,7 +414,7 @@ class Pdf extends Export {
 			$this->addPage( $page, $page_options );
 			$first_iteration = false;
 			if ( 'part' != $page['post_type'] ) {
-				$i ++;
+				$i++;
 			}
 		}
 	}
@@ -498,7 +501,7 @@ class Pdf extends Export {
 	function getBookmarkEntry( $page ) {
 		static $id = 1;
 		$entry = $id . $page['post_title'];
-		$id ++;
+		$id++;
 
 		return $entry;
 	}

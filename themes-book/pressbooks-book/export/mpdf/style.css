@@ -138,6 +138,11 @@ cite {
 	padding-left: 1em;
 	text-indent: -1em;
 }
+/* HALF TITLE PAGE 
+================== */
+#half-title-page h1 {
+	font-size: 1.5em;
+}
 /* TITLE PAGE
 ================ */
 #title-page { 
