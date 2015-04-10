@@ -225,6 +225,9 @@ table {
   /* tables still need 'cellspacing="0"' in the markup */
 
   border-spacing: 0;
+  max-width: 100%; 
+  overflow-x: auto; 
+  display: block;
 }
 pre {
   background: #f7f7f7;
