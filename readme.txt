@@ -194,6 +194,7 @@ TK.
 * Requires WordPress 4.1.1.
 * Removed Hpub export routines.
 * Made links inside the `[footnote]` shortcode clickable (props to @bdolor).
+* Added accessibility plugin to allow font size increases in webbook and PDF exports (props to @BakingSoda and @bdolor).
 * Fixed issue with catalog page in WebKit browsers (props to @bdolor).
 * Swedish translation (props to @chrillep).
 * Fixed XHTML export issue with respect to determining the introduction part or chapter for page numbering.
