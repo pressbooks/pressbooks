@@ -1178,7 +1178,14 @@ class custom_metadata_manager {
 		$readonly_str = ( ! empty( $field->readonly ) ) ? ' readonly="readonly"' : '';
 		$placeholder_str = ( in_array( $field->field_type, $this->_field_types_that_support_placeholder ) && ! empty( $field->placeholder ) ) ? ' placeholder="' . esc_attr( $field->placeholder ) . '"' : '';
 
-		printf( '<label for="%s">%s</label>', esc_attr( $field_slug ), esc_html( $field->label ) );
+		$label_str = sprintf( '<label for="%s">%s</label>', esc_attr( $field_slug ), esc_html( $field->label ) );
+
+		// Define an array of field types that need the <label> AFTER the <input>
+		$label_after_field_types = array( 'checkbox' );
+
+		// Show the label now if the current field_type is not on the list
+		if ( ! in_array( $field->field_type, $label_after_field_types ) )
+			echo $label_str;
 
 		// check if there is a default value and set it if no value currently set
 		if ( empty( $value ) && in_array( $field->field_type, $this->_field_types_that_support_default_value ) && ! empty( $field->default_value ) )
@@ -1310,6 +1317,10 @@ class custom_metadata_manager {
 			$count++;
 
 			echo '</div>';
+
+			// Now show the <label> for any field_type that needs it to come after
+			if ( in_array( $field->field_type, $label_after_field_types ) )
+				echo $label_str;
 
 		endforeach;
 
