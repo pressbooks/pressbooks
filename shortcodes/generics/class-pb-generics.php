@@ -48,6 +48,7 @@ class Generics {
                     }   
 					$class = ' class="' . implode( ' ', $classnames ) . '"';
 				}
+				$content = wpautop( trim( $content ) );
 				return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
 			} );
 		}

@@ -117,6 +117,9 @@ add_action( 'do_robotstxt', '\PressBooks\Utility\add_sitemap_to_robots_txt' );
 // Shortcodes
 // -------------------------------------------------------------------------------------------------------------------
 
+remove_filter( 'the_content', 'wpautop' );
+add_filter( 'the_content', 'wpautop' , 12); // execute wpautop after shortcode processing
+
 $_ = \PressBooks\Shortcodes\Footnotes\Footnotes::getInstance();
 $_ = \PressBooks\Shortcodes\Generics\Generics::getInstance();
 $_ = \PressBooks\Shortcodes\WikiPublisher\Glyphs::getInstance();
