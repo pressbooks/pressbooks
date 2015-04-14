@@ -87,7 +87,7 @@ class Odt extends Export {
 		
 		$zip = new \PclZip( $filename );
 		
-		$list = $zip->add($mimeType . ',' . $content . ',' . $meta . ',' . $settings . ',' . $settings . ',' . $styles . ',' . $metaFolder, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_PATH, $contentPath['dirname'] . '/' );
+		$list = $zip->add($mimeType . ',' . $content . ',' . $meta . ',' . $settings . ',' . $styles . ',' . $metaFolder, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_PATH, $contentPath['dirname'] . '/' );
 		if ( $list == 0 ) {
 			die( "Error : " . $zip->errorInfo(true) );
 		}
