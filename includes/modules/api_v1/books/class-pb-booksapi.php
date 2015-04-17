@@ -279,8 +279,7 @@ class BooksApi extends Api {
 		foreach ( $book['front-matter'] as $fm ){
 			$chapters[$fm['post_id']] = $fm; 
 		}
-		$chapters = $front_matter;
-		
+
 		// parts
 		for ( $i = 0; $i < $parts_count; $i ++ ) {
 			// chapters
@@ -443,7 +442,6 @@ class BooksApi extends Api {
 			if ( ! in_array( $args['id'], $this->public_books ) ) {
 				return $this->apiErrors( 'empty' );
 			}
-			$book[$args['id']];
 			$book[$args['id']]['book_id'] = $args['id'];
 			$book[$args['id']]['book_url'] = get_blogaddress_by_id( $args['id'] );
 			$book[$args['id']]['book_meta'] = \PressBooks\Book::getBookInformation( intval( $args['id'] ) );
