@@ -195,10 +195,11 @@ TK.
 * Removed Hpub export routines.
 * Made links inside the `[footnote]` shortcode clickable (props to @bdolor).
 * Added accessibility plugin to allow font size increases in webbook and PDF exports (props to @BakingSoda and @bdolor).
-* Fixed issue with catalog page in WebKit browsers (props to @bdolor).
 * Fixed internal links for subdirectory installs within PDF exports (props to @bdolor).
-* Swedish translation (props to @chrillep).
+* Fixed issue with catalog page in WebKit browsers (props to @bdolor).
+* Fixed variable-related warnings on RESTful API when debugging mode is enabled (props to @julienCXX).
 * Fixed XHTML export issue with respect to determining the introduction part or chapter for page numbering.
+* Swedish translation (props to @chrillep).
 
 = 2.4.2 =
 * Fixed licenses.
