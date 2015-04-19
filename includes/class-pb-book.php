@@ -349,8 +349,9 @@ class Book {
 		$parent = get_post( $id );
 		$output = array();
 		$s = 1;
+		$content = mb_convert_encoding(apply_filters( 'the_content', $parent->post_content ), 'HTML-ENTITIES', 'UTF-8');
 		$html = new \DOMDocument();
-		$html->loadHTML( apply_filters( 'the_content', $parent->post_content ) );
+		$html->loadHTML( $content );
 		$xpath = new \DOMXpath($html);
 		foreach( $xpath->query('/html/body/section/h1|/html/body/h1') as $node ) {
 			$output['section-' . $s] = $node->nodeValue;
