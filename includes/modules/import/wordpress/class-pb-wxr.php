@@ -128,7 +128,7 @@ class Wxr extends Import {
 				$new_post['post_parent'] = $chapter_parent;
 			}
 
-			$pid = wp_insert_post( $new_post );
+			$pid = wp_insert_post( add_magic_quotes( $new_post ) );
 			
 			if ( 'part' == $post_type ) {
 				$chapter_parent = $pid;
