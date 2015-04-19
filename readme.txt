@@ -195,6 +195,7 @@ TK.
 * Removed Hpub export routines.
 * Made links inside the `[footnote]` shortcode clickable (props to @bdolor).
 * Added accessibility plugin to allow font size increases in webbook and PDF exports (props to @BakingSoda and @bdolor).
+* Fixed encoding issue with the TOC display of subsection titles.
 * Fixed internal links for subdirectory installs within PDF exports (props to @bdolor).
 * Fixed issue with catalog page in WebKit browsers (props to @bdolor).
 * Fixed variable-related warnings on RESTful API when debugging mode is enabled (props to @julienCXX).
