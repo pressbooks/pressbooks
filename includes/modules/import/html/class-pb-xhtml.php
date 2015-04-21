@@ -80,7 +80,7 @@ class Xhtml extends Import {
 			$new_post['post_parent'] = $chapter_parent;
 		}
 
-		$pid = wp_insert_post( $new_post );
+		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
 		
 		if( ! empty( $author )){
 			update_post_meta( $pid, 'pb_section_author', $author );
