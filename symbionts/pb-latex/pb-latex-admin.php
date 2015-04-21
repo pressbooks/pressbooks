@@ -49,7 +49,7 @@ class PBLatexAdmin extends PBLatex {
 		check_admin_referer( 'pb-latex' );
 
 		if ( $this->update( stripslashes_deep( $_POST['pb_latex'] ) ) ) {
-			wp_safe_redirect( esc_url( add_query_arg( 'updated', '', wp_get_referer() ) ) );
+			wp_safe_redirect( esc_url_raw( add_query_arg( 'updated', '', wp_get_referer() ) ) );
 			exit;
 		}
 	}
