@@ -34,7 +34,7 @@ Pressbooks is not for use on an existing blog. Instead it should be used with a 
 Requirements
 ------------
 
-Pressbooks works with PHP 5.4.X and WordPress 4.1.1. Lower versions are not supported.
+Pressbooks works with PHP 5.4.X and WordPress 4.1.2. Lower versions are not supported.
 
 Disclaimers
 -----------

@@ -1,10 +1,10 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.4.2
+Version: 2.4.3
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.1.1
-Tested up to: 4.1.1
+Requires at least: 4.1.2
+Tested up to: 4.1.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -191,15 +191,18 @@ TK.
 == Changelog ==
 
 = 2.4.3 =
-* Requires WordPress 4.1.1.
+* Requires WordPress 4.1.2.
 * Removed Hpub export routines.
 * Made links inside the `[footnote]` shortcode clickable (props to @bdolor).
 * Added accessibility plugin to allow font size increases in webbook and PDF exports (props to @BakingSoda and @bdolor).
-* Fixed encoding issue with the TOC display of subsection titles.
+* Added some instructional text to Book Info page.
+* Fixed character encoding issue with the TOC display of subsection titles.
 * Fixed internal links for subdirectory installs within PDF exports (props to @bdolor).
 * Fixed issue with catalog page in WebKit browsers (props to @bdolor).
+* Fixed potential XSS attack via `remove_query_arg` (see: https://blog.sucuri.net/2015/04/security-advisory-xss-vulnerability-affecting-multiple-wordpress-plugins.html; props to @bdolor).
 * Fixed variable-related warnings on RESTful API when debugging mode is enabled (props to @julienCXX).
 * Fixed XHTML export issue with respect to determining the introduction part or chapter for page numbering.
+* Updated included custom-metadata plugin to fix `array_reverse` bug (@props to bdolor).
 * Swedish translation (props to @chrillep).
 
 = 2.4.2 =
