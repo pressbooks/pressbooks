@@ -1,10 +1,10 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.4.3
+Version: 2.4.4
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.1.2
-Tested up to: 4.1.2
+Requires at least: 4.2
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.4.x and WordPress 4.1. Lower versions are not supported.
+ * Pressbooks works with PHP 5.4.x and WordPress 4.2. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
@@ -189,6 +189,11 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.4.4 =
+* Requires WordPress 4.2.
+* Added experimental ODT export capability.
+* Fixed issue where useful backslashes were stripped on import (props to @lukaiser for identifying this issue).
 
 = 2.4.3 =
 * Requires WordPress 4.1.2.
