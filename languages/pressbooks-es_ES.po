@@ -1365,11 +1365,11 @@ msgstr "Páginas finales"
 #: includes/pb-postype.php:140
 msgctxt "book"
 msgid "Add New Back Matter"
-msgstr "Añadir páginas finales]"
+msgstr "Añadir páginas finales"
 
 #: includes/pb-postype.php:141
 msgid "Add New Back Matter"
-msgstr "Añadir páginas finales]"
+msgstr "Añadir páginas finales"
 
 #: includes/pb-postype.php:142
 msgid "Edit Back Matter"
