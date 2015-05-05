@@ -237,7 +237,7 @@ class Metadata {
 			case 'all-rights-reserved':
 				$xml = "<result><html>"
 					. "<span property='dct:title'>" . Sanitize\sanitize_xml_attribute( $title ) . "</span> &#169; "
-					. Sanitize\sanitize_xml_attribute( $copyright_holder ) . __( 'All Rights Reserved', 'pressbooks' ) . ".</html></result>";
+					. Sanitize\sanitize_xml_attribute( $copyright_holder ) . '. ' . __( 'All Rights Reserved', 'pressbooks' ) . ".</html></result>";
 				break;
 
 //			case 'other':
@@ -289,8 +289,7 @@ class Metadata {
 			$content = $response->asXML();
 			$content = trim( str_replace( array( '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ), array( '', '', '', '' ), $content ) );
 
-			$html = '<div class="license-attribution" xmlns:cc="http://creativecommons.org/ns#"><p xmlns:dct="http://purl.org/dc/terms/">'
-				. rtrim( $content, "." ) . ', ' . __("except where otherwise noted", "pressbooks") .'</p></div>';
+			$html = '<div class="license-attribution" xmlns:cc="http://creativecommons.org/ns#"><p xmlns:dct="http://purl.org/dc/terms/">' . rtrim( $content, "." ) . ', ' . __("except where otherwise noted.", "pressbooks") .'</p></div>';
 		}
 
 		return html_entity_decode( $html, ENT_XHTML, 'UTF-8' );
