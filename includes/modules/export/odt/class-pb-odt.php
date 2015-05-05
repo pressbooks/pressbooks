@@ -92,7 +92,7 @@ class Odt extends Export {
 		$urlContent = preg_replace("/xmlns\=\"http\:\/\/www\.w3\.org\/1999\/xhtml\"/i", '', $urlContent);
 		
 		$doc = new \DOMDocument();
-		$doc->loadXML($urlContent);
+		$doc->loadXML( $urlContent, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
 		$xpath = new \DOMXPath($doc);
 		
 		$tables = $xpath->query('//table');
