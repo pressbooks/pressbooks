@@ -115,7 +115,6 @@ class Odt extends Export {
 		
 		$images = $xpath->query( '//img' );
 		$coverimages = $xpath->query( '//meta[@name="pb-cover-image"]' );
-		
 		if ( ( $images->length > 0 ) || ( $coverimages->length > 0 ) ) {
 			mkdir($mediafolder);
 		}
@@ -304,7 +303,7 @@ class Odt extends Export {
 		} else {
 			$filename = array_shift( $filename );
 			$filename = sanitize_file_name( urldecode( $filename ) );
-			$filename = Sanitize\force_ascii( $filename );
+			$filename = \PressBooks\Sanitize\force_ascii( $filename );
 		}
 
 		$tmp_file = \PressBooks\Utility\create_tmp_file();
