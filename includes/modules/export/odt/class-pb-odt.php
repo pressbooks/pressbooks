@@ -43,7 +43,7 @@ class Odt extends Export {
 	function __construct( array $args ) {
 
 		// Some defaults
-		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+		if ( strtoupper( substr( PHP_OS, 0, 3 ) ) === 'WIN' ) {
 			if ( ! defined( 'PB_SAXON_COMMAND' ) )
 			define( 'PB_SAXON_COMMAND', 'java -jar ' . PB_PLUGIN_DIR . 'symbionts/saxonhe/saxon9he.jar' );
 
@@ -66,159 +66,127 @@ class Odt extends Export {
 	function convert() {
 
 		// Set logfile
+		
 		$this->logfile = $this->createTmpFile();
 
 		// Set filename
+		
 		$filename = $this->timestampedFileName( '.odt' );
 		$this->outputPath = $filename;
 
 		// Save ODT as file in exports folder
-		
-		$contentPath = pathinfo($filename);
-		$source = $contentPath['dirname'] . '/source.xhtml';
+	
+		$contentPath	= pathinfo($filename);
+		$source			= $contentPath['dirname'] . '/source.xhtml';
 		file_put_contents( $source, $this->queryXhtml() );
-		$xslt = PB_PLUGIN_DIR . 'includes/modules/export/odt/xhtml2odt.xsl';
-		$content = $contentPath['dirname'] . '/content.xml';
-		$mimeType = $contentPath['dirname'] . "/mimetype";
-		$metaFolder = $contentPath['dirname'] . "/META-INF";
-		$meta = $contentPath['dirname'] ."/meta.xml";
-		$settings = $contentPath['dirname'] . "/settings.xml";
-		$styles = $contentPath['dirname'] . "/styles.xml";
-		$graphicFolder = $contentPath['dirname'] . '/media/';
+
+		$xslt			= PB_PLUGIN_DIR . 'includes/modules/export/odt/xhtml2odt.xsl';
+		$content		= $contentPath['dirname'] . '/content.xml';
+		$mimetype		= $contentPath['dirname'] . "/mimetype";
+		$metafolder		= $contentPath['dirname'] . "/META-INF";
+		$meta 			= $contentPath['dirname'] ."/meta.xml";
+		$settings 		= $contentPath['dirname'] . "/settings.xml";
+		$styles 		= $contentPath['dirname'] . "/styles.xml";
+		$mediafolder	= $contentPath['dirname'] . '/media/';
 		
-		/*get all images and save it to the link folder to zip*/
-		$urlContent = file_get_contents($source);
-		
-		$urlContent = preg_replace("/xmlns\=\"http\:\/\/www\.w3\.org\/1999\/xhtml\"/i", '', $urlContent);
+		$urlcontent = file_get_contents( $source );
+		$urlcontent = preg_replace( "/xmlns\=\"http\:\/\/www\.w3\.org\/1999\/xhtml\"/i", '', $urlcontent );
 		
 		$doc = new \DOMDocument();
-		$doc->loadXML( $urlContent, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
-		$xpath = new \DOMXPath($doc);
+		$doc->loadXML( $urlcontent, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
+		$xpath = new \DOMXPath( $doc );
 		
-		$tables = $xpath->query('//table');
-		//to get column count of a table
-		foreach ($tables as $table){	
-			$colCount = 0;
-			$columns = $xpath->query('//tr[1]/*', $table);
-			foreach ($columns as $column){
-				if ($column->hasAttribute('colspan')){
-					$colCount = $colCount + $column->getAttribute('colspan');
-				}else{
-					$colCount++;
+		$tables = $xpath->query( '//table' );
+
+		foreach ( $tables as $table ) {
+			$columncount = 0;
+			$columns = $xpath->query( '//tr[1]/*', $table );
+			foreach ( $columns as $column ) {
+				if ( $column->hasAttribute( 'colspan' ) ) {
+					$columncount = $columncount + $column->getAttribute( 'colspan' );
+				} else {
+					$columncount++;
 				}
 			}
-			$table->setAttribute('colcount', $colCount);
+			$table->setAttribute( 'colcount', $columncount );
 		}
 		
 		file_put_contents( $source, $doc->saveXML() );
 		
-		$images = $xpath->query('//img');
+		$images = $xpath->query( '//img' );
+		$coverimages = $xpath->query( '//meta[@name="pb-cover-image"]' );
 		
-		$coverImages = $xpath->query('//meta[@name="pb-cover-image"]');
-		if (($images->length > 0) || ($coverImages->length > 0)){
-			//create a folder named as 'media'
-			$graphicPath = $contentPath['dirname'] . '/media/';
-			mkdir($graphicPath);
+		if ( ( $images->length > 0 ) || ( $coverimages->length > 0 ) ) {
+			mkdir($mediafolder);
 		}
-		foreach ($images as $image){
-			//copy all images to the media folder
+		
+		foreach ( $images as $image ) {
 			$src = $image->getAttribute('src');
-			$realPath = realpath($src);
-			if ($realPath){
-				$imgFileName = $graphicPath . basename($realPath);
-				if (! copy($realPath, $imgFileName)){
-					$this->logError( 'cannot copy image file ' .  basename($realPath));
-					return false;
-				}
-			}else{
-				$imgContent = file_get_contents($src);
-				if ((!$imgContent) || ($imgContent == "")){
-					$this->logError( 'cannot copy image file ' .  basename($src));
-					return false;
-				}
-				$imgFileName = $graphicPath . basename($src);
-				file_put_contents($imgFileName, $imgContent);
-			}
+			$this->fetchAndSaveUniqueImage( $src, $mediafolder );
 		}
 		
-		foreach ($coverImages as $coverImage){
-			//copy cover image to the media folder
-			$src = $coverImage->getAttribute('content');
-			$realPath = realpath($src);
-			if ($realPath){
-				$imgFileName = $graphicPath . basename($realPath);
-				if (! copy($realPath, $imgFileName)){
-					$this->logError( 'cannot copy image file ' .  basename($realPath));
-					return false;
-				}
-			}else{
-				$imgContent = file_get_contents($src);
-				if ((!$imgContent) || ($imgContent == "")){
-					$this->logError( 'cannot copy image file ' .  basename($src));
-					return false;
-				}
-				$imgFileName = $graphicPath . basename($src);
-				file_put_contents($imgFileName, $imgContent);
-			}
+		foreach ( $coverimages as $coverimage ) {
+			$src = $coverimage->getAttribute('src');
+			$this->fetchAndSaveUniqueImage( $src, $mediafolder );
 		}
 		
 		try {
-			$result = exec( PB_SAXON_COMMAND . ' -xsl:' . $xslt .' -s:' . $source .' -o:' . $content);
+			$result = exec( PB_SAXON_COMMAND . ' -xsl:' . $xslt .' -s:' . $source .' -o:' . $content );
 		} catch ( \Exception $e ) {
 			$this->logError( $e->getMessage() );
 			return false;
 		}
 
-		if ((!file_exists($content)) ||  (!file_exists($mimeType)) || (!file_exists($meta)) || (!file_exists($settings)) || (!file_exists($styles)) || (!file_exists($metaFolder))){
+		if ( ( !file_exists( $content ) ) || ( !file_exists( $mimetype ) ) || ( !file_exists( $meta ) ) || ( !file_exists( $settings ) ) || ( !file_exists( $styles ) ) || ( !file_exists( $metafolder ) ) ) {
 			$this->logError( 'Transformation failed' );
 			return false;
 		}
 		
 		$zip = new \PclZip( $filename );
 		
-		if ($images->length > 0){
-			$list = $zip->add($mimeType . ',' . $content . ',' . $meta . ',' . $settings . ',' . $styles . ',' . $graphicFolder . ',' . $metaFolder, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_PATH, $contentPath['dirname'] . '/' );
-		}else{
-			$list = $zip->add($mimeType . ',' . $content . ',' . $meta . ',' . $settings . ',' . $styles . ',' . $metaFolder, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_PATH, $contentPath['dirname'] . '/' );
+		if ( $images->length > 0 ) {
+			$list = $zip->add( $mimetype . ',' . $content . ',' . $meta . ',' . $settings . ',' . $styles . ',' . $mediafolder . ',' . $metafolder, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_PATH, $contentPath['dirname'] . '/' );
+		} else {
+			$list = $zip->add( $mimetype . ',' . $content . ',' . $meta . ',' . $settings . ',' . $styles . ',' . $metafolder, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_PATH, $contentPath['dirname'] . '/' );
 		}
 		
 		if ( $list == 0 ) {
-			$this->logError( $zip->errorInfo(true) );
-			//die( "Error : " . $zip->errorInfo(true) );
+			$this->logError( $zip->errorInfo( true ) );
 			return false;
 		}
 		unlink( $source );
-		unlink( $mimeType );
+		unlink( $mimetype );
 		unlink( $content );
 		unlink( $meta );
 		unlink( $settings );
 		unlink( $styles );
-		unlink( $metaFolder . '/manifest.xml' );
-		rmdir( $metaFolder);
-		if ($images->length > 0){
-			$this -> deleteDir( $graphicPath );
+		unlink( $metafolder . '/manifest.xml' );
+		rmdir( $metafolder);
+		
+		if ( $images->length > 0 ) {
+			$this->deleteDirectory( $mediafolder );
 		}
 		
 		return true;
 	}
 
 	/*Recursive Directory Deletion for media folder */
-	public static function deleteDir($dirPath) {
-			if (! is_dir($dirPath)) {
-				throw new InvalidArgumentException("$dirPath must be a directory");
+	public static function deleteDirectory( $dirpath ) {
+		if ( !is_dir( $dirpath ) ) {
+			throw new InvalidArgumentException( "$dirpath must be a directory." );
 		}
-		if (substr($dirPath, strlen($dirPath) - 1, 1) != '/') {
-			$dirPath .= '/';
+		if ( substr( $dirpath, strlen( $dirpath ) - 1, 1 ) != '/' ) {
+			$dirpath .= '/';
 		}
-		$files = glob($dirPath . '*', GLOB_MARK);
-		foreach ($files as $file) {
-			if (is_dir($file)) {
-				self::deleteDir($file);
+		$files = glob( $dirpath . '*', GLOB_MARK );
+		foreach ( $files as $file ) {
+			if ( is_dir( $file ) ) {
+				self::deleteDirectory( $file );
 			} else {
-				unlink($file);
+				unlink( $file );
 			}
 		}
-		rmdir($dirPath);
+		rmdir( $dirpath );
 	}
 
 	/**
@@ -295,6 +263,74 @@ class Odt extends Export {
 		$mime = static::mimeType( $file );
 
 		return ( strpos( $mime, 'application/vnd.oasis.opendocument.text' ) !== false );
+	}
+
+	/**
+	 * Fetch an image with wp_remote_get(), save it to $fullpath with a unique name.
+	 * Will return an empty string if something went wrong.
+	 *
+	 * @param $url string
+	 * @param $fullpath string
+	 *
+	 * @return string filename
+	 */
+	protected function fetchAndSaveUniqueImage( $url, $fullpath ) {
+
+		// Cheap cache
+		static $already_done = array();
+		if ( isset( $already_done[$url] ) ) {
+			return $already_done[$url];
+		}
+
+		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
+
+		// WordPress error?
+		if ( is_wp_error( $response ) ) {
+			// TODO: handle $response->get_error_message();
+			$already_done[$url] = '';
+			return '';
+		}
+		
+		// Basename without query string
+		$filename = explode( '?', basename( $url ) );
+
+		// isolate latex image service from WP, add file extension
+		if ( 's.wordpress.com' == parse_url( $url, PHP_URL_HOST ) && 'latex.php' == $filename[0] ) {
+			$filename = md5( array_pop( $filename ) );
+			// content-type = 'image/png'
+			$type = explode( '/', $response['headers']['content-type'] );
+			$type = array_pop( $type );
+			$filename = $filename . "." . $type;
+		} else {
+			$filename = array_shift( $filename );
+			$filename = sanitize_file_name( urldecode( $filename ) );
+			$filename = Sanitize\force_ascii( $filename );
+		}
+
+		$tmp_file = \PressBooks\Utility\create_tmp_file();
+		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
+
+		if ( ! \PressBooks\Image\is_valid_image( $tmp_file, $filename ) ) {
+			$already_done[$url] = '';
+			return ''; // Not an image
+		}
+
+		if ( $this->compressImages ) {
+			$format = explode( '.', $filename );
+			$format = strtolower( end( $format ) ); // Extension
+			\PressBooks\Image\resize_down( $format, $tmp_file );
+		}
+
+		// Check for duplicates, save accordingly
+		if ( ! file_exists( "$fullpath/$filename" ) ) {
+			copy( $tmp_file, "$fullpath/$filename" );
+		} elseif ( md5( file_get_contents( $tmp_file ) ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+			$filename = wp_unique_filename( $fullpath, $filename );
+			copy( $tmp_file, "$fullpath/$filename" );
+		}
+
+		$already_done[$url] = $filename;
+		return $filename;
 	}
 
 }
