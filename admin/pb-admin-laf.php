@@ -315,32 +315,32 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'my-books-super-admin',
-			'id' => 'network-admin',
+			'id' => 'pb-network-admin',
 			'title' => __( 'Network Admin', 'pressbooks' ),
 			'href' => network_admin_url(),
 		) );
 
 		$wp_admin_bar->add_menu( array(
-			'parent' => 'network-admin',
-			'id' => 'network-admin-d',
+			'parent' => 'pb-network-admin',
+			'id' => 'pb-network-admin-d',
 			'title' => __( 'Dashboard', 'pressbooks' ),
 			'href' => network_admin_url(),
 		) );
 		$wp_admin_bar->add_menu( array(
-			'parent' => 'network-admin',
-			'id' => 'network-admin-s',
+			'parent' => 'pb-network-admin',
+			'id' => 'pb-network-admin-s',
 			'title' => __( 'Sites', 'pressbooks' ),
 			'href' => network_admin_url( 'sites.php' ),
 		) );
 		$wp_admin_bar->add_menu( array(
-			'parent' => 'network-admin',
-			'id' => 'network-admin-u',
+			'parent' => 'pb-network-admin',
+			'id' => 'pb-network-admin-u',
 			'title' => __( 'Users', 'pressbooks' ),
 			'href' => network_admin_url( 'users.php' ),
 		) );
 		$wp_admin_bar->add_menu( array(
-			'parent' => 'network-admin',
-			'id' => 'network-admin-v',
+			'parent' => 'pb-network-admin',
+			'id' => 'pb-network-admin-v',
 			'title' => __( 'Visit Network', 'pressbooks' ),
 			'href' => network_home_url(),
 		) );
