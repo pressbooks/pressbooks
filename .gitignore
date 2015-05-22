@@ -1,3 +1,5 @@
 .idea/
 .DS_Store
-
+symbionts/mpdf/tmp/
+symbionts/mpdf/ttfontdata/
+symbionts/mpdf/graph_cache/

@@ -25,25 +25,25 @@ $metakeys = array(
 /* ------------------------------------------------------------------------ *
  * Scripts and styles for Book Info Page (cover page)
  * ------------------------------------------------------------------------ */
- 
+
 function pressbooks_book_info_page () {
 
 	if ( is_front_page() ) {
 		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130713', 'all' );
 		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700' );
-		
+
 		// Book info page Table of Content columns
 		wp_enqueue_script( 'columnizer',  PB_PLUGIN_URL . 'symbionts/jquery/jquery.columnizer.js', array( 'jquery' ), '1.6.0', false );
 		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '20130819', false );
-		
+
 		// Sharrre
 		wp_enqueue_script( 'sharrre', PB_PLUGIN_URL . 'symbionts/jquery/sharrre/jquery.sharrre-1.3.4.min.js', array( 'jquery' ), '20130712', false );
 		wp_enqueue_script( 'sharrre-load', get_template_directory_uri() . '/js/sharrre-load.js', array( 'jquery', 'sharrre' ), '20130712', false );
 		wp_localize_script( 'sharrre-load', 'PB_SharrreToken', array(
 			'urlCurl' => PB_PLUGIN_URL . 'symbionts/jquery/sharrre/sharrre.php',
 		) );
-	}   		 		   		   		       		           
-}     
+	}
+}
 add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
 
 /* ------------------------------------------------------------------------ *
@@ -134,7 +134,7 @@ function pb_get_links($echo=true) {
 function pb_private() {
 	$bloginfourl= get_bloginfo('url'); ?>
   <div <?php post_class(); ?>>
-  					
+
 				<h2 class="entry-title denied-title"><?php _e('Access Denied', 'pressbooks'); ?></h2>
 				<!-- Table of content loop goes here. -->
 				<div class="entry_content denied-text"><?php _e('This book is private, and accessible only to registered users. If you have an account you can <a href="'. $bloginfourl .'/wp-login.php" class="login">login here</a>  <p class="sign-up">You can also set up your own PressBooks book at: <a href="http://pressbooks.com">PressBooks.com</a>.', 'pressbooks'); ?></p></div>
@@ -154,7 +154,7 @@ if ( ! function_exists( 'pressbooks_comment' ) ) :
  * Used as a callback by wp_list_comments() for displaying the comments.
  *
  */
- 
+
 function pressbooks_comment( $comment, $args, $depth ) {
 	$GLOBALS['comment'] = $comment;
 	switch ( $comment->comment_type ) :
@@ -195,18 +195,18 @@ endif;
 /* ------------------------------------------------------------------------ *
  * Google Webfonts
  * ------------------------------------------------------------------------ */
- 
+
 function pressbooks_enqueue_styles() {
-   		 wp_enqueue_style( 'pressbooks-fonts', 'http://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald');  		   		   		       		           
-}     
-add_action('wp_print_styles', 'pressbooks_enqueue_styles'); 
+   		 wp_enqueue_style( 'pressbooks-fonts', 'http://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald');
+}
+add_action('wp_print_styles', 'pressbooks_enqueue_styles');
 
 /* ------------------------------------------------------------------------ *
  * Copyright License
  * ------------------------------------------------------------------------ */
 
 function pressbooks_copyright_license() {
-	
+
 	$option = get_option( 'pressbooks_theme_options_global' );
 	$book_meta = \PressBooks\Book::getBookInformation();
 
@@ -222,36 +222,36 @@ function pressbooks_copyright_license() {
 	$post_meta = get_post_meta( $id );
 	$link = get_permalink( $id );
 	$html = $license = $copyright_holder = '';
-	$transient = get_transient("license-inf-$id" ); 
+	$transient = get_transient("license-inf-$id" );
 	$updated = array( $license, $copyright_holder, $title );
 	$changed = false;
 	$lang = $book_meta['pb_language'];
 
-	
+
 	// Copyright holder, set in order of precedence
-	if ( isset( $post_meta['pb_section_author'] ) ) { 
+	if ( isset( $post_meta['pb_section_author'] ) ) {
 		// section author overrides book author, copyrightholder
 		$copyright_holder = $post_meta['pb_section_author'][0] ;
-		
-	} elseif ( isset( $book_meta['pb_copyright_holder'] ) ) { 
+
+	} elseif ( isset( $book_meta['pb_copyright_holder'] ) ) {
 		// book copyright holder overrides book author
 		$copyright_holder =  $book_meta['pb_copyright_holder'];
-		
-	} elseif ( isset( $book_meta['pb_author'] ) ) { 
+
+	} elseif ( isset( $book_meta['pb_author'] ) ) {
 		// book author is the fallback, default
 		$copyright_holder =  $book_meta['pb_author'];
 	}
 
 	// Copyright license, set in order of precedence
-	if ( isset( $post_meta['pb_section_license'] ) ) { 
-		// section copyright overrides book 
+	if ( isset( $post_meta['pb_section_license'] ) ) {
+		// section copyright overrides book
 		$license = $post_meta['pb_section_license'][0];
-		
-	} elseif ( isset( $book_meta['pb_book_license'] ) ) { 
+
+	} elseif ( isset( $book_meta['pb_book_license'] ) ) {
 		// book is the fallback, default
 		$license = $book_meta['pb_book_license'];
 	}
-	
+
 	 //delete_transient("license-inf-$id");
 	 // check if the user has changed anything
 	if ( is_array( $transient ) ) {
@@ -282,7 +282,7 @@ function pressbooks_copyright_license() {
 			error_log( $e->getMessage() );
 		}
 		// store it with the license as a key
-		$value = array( 
+		$value = array(
 		    $license => $html,
 		    $copyright_holder => '',
 		    $title => '',
@@ -310,16 +310,22 @@ function pressbooks_theme_options_display() { ?>
 		<div id="icon-themes" class="icon32"></div>
 		<h2><?php echo wp_get_theme(); ?> Theme Options</h2>
 		<?php settings_errors(); ?>
+		<?php $host = parse_url( network_site_url(), PHP_URL_HOST ); ?>
 		<?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'global_options'; ?>
 		<h2 class="nav-tab-wrapper">
 		<a href="?page=pressbooks_theme_options&tab=global_options" class="nav-tab <?php echo $active_tab == 'global_options' ? 'nav-tab-active' : ''; ?>">Global Options</a>
 		<a href="?page=pressbooks_theme_options&tab=web_options" class="nav-tab <?php echo $active_tab == 'web_options' ? 'nav-tab-active' : ''; ?>">Web Options</a>
+		<?php if( true == \PressBooks\Utility\check_prince_install() ){ ?>
 		<a href="?page=pressbooks_theme_options&tab=pdf_options" class="nav-tab <?php echo $active_tab == 'pdf_options' ? 'nav-tab-active' : ''; ?>">PDF Options</a>
+		<?php } ;?>
+		<?php if( 'pressbooks.com' != $host ) {?>
+		<a href="?page=pressbooks_theme_options&tab=mpdf_options" class="nav-tab <?php echo $active_tab == 'mpdf_options' ? 'nav-tab-active' : ''; ?>">mPDF Options</a>
+		<?php } ?>
 		<a href="?page=pressbooks_theme_options&tab=ebook_options" class="nav-tab <?php echo $active_tab == 'ebook_options' ? 'nav-tab-active' : ''; ?>">Ebook Options</a>
 		</h2>
 		<!-- Create the form that will be used to render our options -->
 		<form method="post" action="options.php">
-			<?php if( $active_tab == 'global_options' ) { 
+			<?php if( $active_tab == 'global_options' ) {
 				settings_fields( 'pressbooks_theme_options_global' );
 				do_settings_sections( 'pressbooks_theme_options_global' );
 			} elseif( $active_tab == 'web_options' ) {
@@ -328,7 +334,10 @@ function pressbooks_theme_options_display() { ?>
 			} elseif( $active_tab == 'pdf_options' ) {
 				settings_fields( 'pressbooks_theme_options_pdf' );
 				do_settings_sections( 'pressbooks_theme_options_pdf' );
-			} elseif( $active_tab == 'ebook_options' ) { 
+			} elseif( $active_tab == 'mpdf_options' ) {
+				settings_fields( 'pressbooks_theme_options_mpdf' );
+				do_settings_sections( 'pressbooks_theme_options_mpdf' );
+			} elseif( $active_tab == 'ebook_options' ) {
 				settings_fields( 'pressbooks_theme_options_ebook' );
 				do_settings_sections( 'pressbooks_theme_options_ebook' );
 			} ?>
@@ -549,7 +558,7 @@ function pressbooks_theme_copyright_license_callback( $args ) {
 	if ( ! isset( $options['copyright_license'] ) ) {
 		$options['copyright_license'] = 0;
 	}
-	
+
 	$html = '<input type="checkbox" id="copyright_license" name="pressbooks_theme_options_global[copyright_license]" value="1" ' . checked( 1, $options['copyright_license'], false ) . '/>';
 	$html .= '<label for="copyright_license"> ' . $args[0] . '</label>';
 	echo $html;
@@ -571,7 +580,7 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 	} else {
 		$options['parse_sections'] = 1;
 	}
-	
+
 	if ( ! isset( $input['copyright_license'] ) || $input['copyright_license'] != '1' ) {
 		$options['copyright_license'] = 0;
 	} else {
@@ -1043,6 +1052,338 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 
 
 /* ------------------------------------------------------------------------ *
+ * mPDF Options Tab
+ * ------------------------------------------------------------------------ */
+
+// mPDF Options Registration
+function pressbooks_theme_options_mpdf_init() {
+
+	$_page = $_option = 'pressbooks_theme_options_mpdf';
+	$_section = 'mpdf_options_section';
+	$defaults = array(
+		'mpdf_page_size' => 'Letter',
+		'mpdf_include_cover' => 1,
+		'mpdf_indent_paragraphs' => 0,
+	);
+
+	if ( false == get_option( $_option ) ) {
+		add_option( $_option, $defaults );
+	}
+
+	add_settings_section(
+		$_section,
+		__( 'mPDF Options', 'pressbooks' ),
+		'pressbooks_theme_options_mpdf_callback',
+		$_page
+	);
+
+	add_settings_field(
+		'mpdf_page_size',
+		__( 'Page Size', 'pressbooks' ),
+		'pressbooks_theme_mpdf_page_size_callback',
+		$_page,
+		$_section,
+		array(
+			'A0' => __( 'A0', 'pressbooks' ),
+			'A1' => __( 'A1', 'pressbooks' ),
+			'A2' => __( 'A2', 'pressbooks' ),
+			'A3' => __( 'A3', 'pressbooks' ),
+			'A4' => __( 'A4', 'pressbooks' ),
+			'A5' => __( 'A5', 'pressbooks' ),
+			'A6' => __( 'A6', 'pressbooks' ),
+			'A7' => __( 'A7', 'pressbooks' ),
+			'A8' => __( 'A8', 'pressbooks' ),
+			'A9' => __( 'A9', 'pressbooks' ),
+			'A10' => __( 'A10', 'pressbooks' ),
+			'B0' => __( 'B0', 'pressbooks' ),
+			'B1' => __( 'B1', 'pressbooks' ),
+			'B2' => __( 'B2', 'pressbooks' ),
+			'B3' => __( 'B3', 'pressbooks' ),
+			'B4' => __( 'B4', 'pressbooks' ),
+			'B5' => __( 'B5', 'pressbooks' ),
+			'B6' => __( 'B6', 'pressbooks' ),
+			'B7' => __( 'B7', 'pressbooks' ),
+			'B8' => __( 'B8', 'pressbooks' ),
+			'B9' => __( 'B9', 'pressbooks' ),
+			'B10' => __( 'B10', 'pressbooks' ),
+			'C0' => __( 'C0', 'pressbooks' ),
+			'C1' => __( 'C1', 'pressbooks' ),
+			'C2' => __( 'C2', 'pressbooks' ),
+			'C3' => __( 'C3', 'pressbooks' ),
+			'C4' => __( 'C4', 'pressbooks' ),
+			'C5' => __( 'C5', 'pressbooks' ),
+			'C6' => __( 'C6', 'pressbooks' ),
+			'C7' => __( 'C7', 'pressbooks' ),
+			'C8' => __( 'C8', 'pressbooks' ),
+			'C9' => __( 'C9', 'pressbooks' ),
+			'C10' => __( 'C10', 'pressbooks' ),
+			'4A0' => __( '4A0', 'pressbooks' ),
+			'2A0' => __( '2A0', 'pressbooks' ),
+			'RA0' => __( 'RA0', 'pressbooks' ),
+			'RA1' => __( 'RA1', 'pressbooks' ),
+			'RA2' => __( 'RA2', 'pressbooks' ),
+			'RA3' => __( 'RA3', 'pressbooks' ),
+			'RA4' => __( 'RA4', 'pressbooks' ),
+			'SRA0' => __( 'SRA0', 'pressbooks' ),
+			'SRA1' => __( 'SRA1', 'pressbooks' ),
+			'SRA2' => __( 'SRA2', 'pressbooks' ),
+			'SRA3' => __( 'SRA3', 'pressbooks' ),
+			'SRA4' => __( 'SRA4', 'pressbooks' ),
+			'Letter' => __( 'Letter', 'pressbooks' ),
+			'Legal' => __( 'Legal' , 'pressbooks' ),
+			'Executive' => __( 'Executive' , 'pressbooks' ),
+			'Folio' => __( 'Folio' , 'pressbooks' ),
+			'Demy' => __( 'Demy' , 'pressbooks' ),
+			'Royal' => __( 'Royal' , 'pressbooks' ),
+			'A' => __( 'Type A paperback 111x178mm' , 'pressbooks' ),
+			'B' => __( 'Type B paperback 128x198mm' , 'pressbooks' ),
+		)
+	);
+
+	add_settings_field(
+		'mpdf_margin_left',
+		__( 'Left margin', 'pressbooks' ),
+		'pressbooks_theme_mpdf_margin_left_callback',
+		$_page,
+		$_section,
+		array(
+			__(  ' Left Margin (in milimeters)', 'pressbooks' )
+		)
+	);
+
+	add_settings_field(
+		'mpdf_margin_right',
+		__( 'Right margin', 'pressbooks' ),
+		'pressbooks_theme_mpdf_margin_right_callback',
+		$_page,
+		$_section,
+		array(
+			__(  ' Right margin (in milimeters)', 'pressbooks' )
+		)
+	);
+
+	add_settings_field(
+		'mpdf_mirror_margins',
+		__( 'Mirror Margins', 'pressbooks' ),
+		'pressbooks_theme_mpdf_mirror_margins_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'The document will mirror the left and right margin values on odd and even pages (i.e. they become inner and outer margins)', 'pressbooks' )
+		)
+	);
+
+	add_settings_field(
+		'mpdf_include_cover',
+		__( 'Cover Image', 'pressbooks' ),
+		'pressbooks_theme_mpdf_include_cover_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Display cover image', 'pressbooks' )
+		)
+	);
+	
+	add_settings_field(
+		'mpdf_include_toc',
+		__( 'Table of Contents', 'pressbooks' ),
+		'pressbooks_theme_mpdf_include_toc_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Display table of contents', 'pressbooks' )
+		)
+	);
+	
+	add_settings_field(
+		'mpdf_indent_paragraphs',
+		__( 'Indent paragraphs', 'pressbooks' ),
+		'pressbooks_theme_mpdf_indent_paragraphs_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Indent paragraphs', 'pressbooks' )
+		)
+	);
+	
+	add_settings_field(
+		'mpdf_hyphens',
+		__( 'Hyphens', 'pressbooks' ),
+		'pressbooks_theme_mpdf_hyphens_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Enable hyphenation', 'pressbooks' )
+		)
+	);
+
+	add_settings_field(
+		'mpdf_fontsize',
+		__( 'Increase Font Size', 'pressbooks' ),
+		'pressbooks_theme_mpdf_fontsize_callback',
+		$_page,
+		$_section,
+		array(
+		    __('Increases font size and line height for greater accessibility', 'pressbooks' )
+		)
+	);
+	register_setting(
+		$_option,
+		$_option,
+		'pressbooks_theme_options_mpdf_sanitize'
+	);
+
+}
+add_action( 'admin_init', 'pressbooks_theme_options_mpdf_init' );
+
+
+// mPDF Options Section Callback
+function pressbooks_theme_options_mpdf_callback() {
+	echo '<p>' . __( 'These options apply to mPDF exports.', 'pressbooks' ) . '</p>';
+}
+
+
+// mPDF Options Field Callback
+function pressbooks_theme_mpdf_page_size_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_page_size'] ) ) {
+		$options['mpdf_page_size'] = 'Letter';
+	}
+
+	$html = "<select name='pressbooks_theme_options_mpdf[mpdf_page_size]' id='mpdf_page_size' >";
+	foreach ( $args as $key => $val ) {
+		$html .= "<option value='" . $key . "' " . selected( $key , $options['mpdf_page_size'], false ) . ">$val</option>";
+	}
+	$html .= '<select>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_margin_left_callback ( $args ) {
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_left_margin'] ) ) {
+		$options['mpdf_left_margin'] = '15';
+	}
+
+	$html = '<input type="text" id="mpdf_left_margin" name="pressbooks_theme_options_mpdf[mpdf_left_margin]" value="' . $options['mpdf_left_margin'] . '" size="3" />';
+	$html .= '<label for="mpdf_left_margin">' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_margin_right_callback ( $args ) {
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_right_margin'] ) ) {
+		$options['mpdf_right_margin'] = '30';
+	}
+
+	$html = '<input type="text" id="mpdf_right_margin" name="pressbooks_theme_options_mpdf[mpdf_right_margin]" value="' . $options['mpdf_right_margin'] . '" size="3" />';
+	$html .= '<label for="mpdf_right_margin">' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_mirror_margins_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_mirror_margins'] ) ) {
+		$options['mpdf_mirror_margins'] = 1;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_mirror_margins" name="pressbooks_theme_options_mpdf[mpdf_mirror_margins]" value="1" ' . checked( 1, $options['mpdf_mirror_margins'], false ) . '/>';
+	$html .= '<label for="mpdf_mirror_margins"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_include_cover_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_include_cover'] ) ) {
+		$options['mpdf_include_cover'] = 0;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_include_cover" name="pressbooks_theme_options_mpdf[mpdf_include_cover]" value="1" ' . checked( 1, $options['mpdf_include_cover'], false ) . '/>';
+	$html .= '<label for="mpdf_include_cover"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_include_toc_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_include_toc'] ) ) {
+		$options['mpdf_include_toc'] = 1;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_include_toc" name="pressbooks_theme_options_mpdf[mpdf_include_toc]" value="1" ' . checked( 1, $options['mpdf_include_toc'], false ) . '/>';
+	$html .= '<label for="mpdf_include_toc"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_indent_paragraphs_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_indent_paragraphs'] ) ) {
+		$options['mpdf_indent_paragraphs'] = 1;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_indent_paragraphs" name="pressbooks_theme_options_mpdf[mpdf_indent_paragraphs]" value="1" ' . checked( 1, $options['mpdf_indent_paragraphs'], false ) . '/>';
+	$html .= '<label for="mpdf_indent_paragraphs"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_hyphens_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	if ( ! isset( $options['mpdf_hyphens'] ) ) {
+		$options['mpdf_hyphens'] = 0;
+	}
+
+	$html = '<input type="checkbox" id="mpdf_hyphens" name="pressbooks_theme_options_mpdf[mpdf_hyphens]" value="1" ' . checked( 1, $options['mpdf_hyphens'], false ) . '/>';
+	$html .= '<label for="mpdf_hyphens"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_mpdf_fontsize_callback( $args ) {
+	
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+	
+	if ( ! isset( $options['mpdf_fontsize'] ) ){
+		$options['mpdf_fontsize'] = 0;
+	}
+	
+	$html = '<input type="checkbox" id="mpdf_fontsize" name="pressbooks_theme_options_mpdf[mpdf_fontsize]" value="1" ' . checked( 1, $options['mpdf_fontsize'], false ) . '/>';
+	$html .= '<label for="mpdf_fontsize"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
+function pressbooks_theme_options_mpdf_sanitize ( $input ){
+
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+
+	// Absint
+	foreach ( array( 'mpdf_right_margin', 'mpdf_left_margin' ) as $val ) {
+		$options[$val] = absint( $input[$val] );
+	}
+
+	// Checkmarks
+	foreach ( array( 'mpdf_indent_paragraphs', 'mpdf_include_cover', 'mpdf_mirror_margins', 'mpdf_include_toc', 'mpdf_hyphens', 'mpdf_fontsize' ) as $val ) {
+		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
+		else $options[$val] = 1;
+	}
+	
+	// nothing to do, select list 
+	$options['mpdf_page_size'] = $input['mpdf_page_size'];
+
+	return $options;	
+}
+
+/* ------------------------------------------------------------------------ *
  * Ebook Options Tab
  * ------------------------------------------------------------------------ */
 
@@ -1188,7 +1529,7 @@ function pressbooks_theme_pdf_css_override( $css ) {
 	8 = 14.8 x 21cm
 	9 = 5in x 8in
 	*/
-	
+
 	switch ( @$options['pdf_page_size'] ) {
 		case 1:
 			$css .= "@page { size: 5.5in 8.5in; } \n";
@@ -1277,6 +1618,30 @@ function pressbooks_theme_pdf_css_override( $css ) {
 }
 add_filter( 'pb_pdf_css_override', 'pressbooks_theme_pdf_css_override' );
 
+function pressbooks_theme_mpdf_css_override( $css ) {
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+	$global_options = get_option( 'pressbooks_theme_options_global' );
+
+	// indent paragraphs
+	if ( $options['mpdf_indent_paragraphs'] ) {
+		$css .= "p + p, .indent {text-indent: 2.0 em; }" . "\n";
+	}
+	// hyphenation
+	if ( $options['mpdf_hyphens'] ) {
+		$css .= "p {hyphens: auto;}" . "\n";
+	}
+	// font-size
+	if ( $options['mpdf_fontsize'] ){
+                $css .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
+        }
+	// chapter numbers
+	if ( ! $global_options['chapter_numbers'] ) {
+		$css .= "h3.chapter-number {display: none;}" . "\n";
+	}
+	return $css;
+}
+
+add_filter( 'pb_mpdf_css_override', 'pressbooks_theme_mpdf_css_override' );
 
 function pressbooks_theme_ebook_css_override( $css ) {
 
