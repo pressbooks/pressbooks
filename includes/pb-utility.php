@@ -315,3 +315,24 @@ function check_prince_install() {
 	}
 	return $result;
 }
+
+/**
+ * Function to determine whether or not experimental features should be visible to users. Currently just hides them from *.pressbooks.com.
+ * 
+ * @return boolean
+ */
+function show_experimental_features() {
+	$result = true;
+
+	// hosts where experimental features should be hidden
+	$hosts_for_hiding = array( 
+		'pressbooks.com',
+	);
+
+	$host = parse_url( network_site_url(), PHP_URL_HOST );
+	
+	if ( in_array( $host, $hosts_for_hiding ) )
+		$result = false;
+
+	return $result;
+}
