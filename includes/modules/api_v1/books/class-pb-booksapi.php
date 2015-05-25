@@ -531,6 +531,7 @@ class BooksApi extends Api {
 			    'post_link' => get_permalink( $book['part'][$i]['ID'] ),
 			    'chapters' => $chapters,
 			);
+			unset( $chapters );
 		}
 
 		// back-matter
