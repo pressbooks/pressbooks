@@ -559,7 +559,7 @@ function redirect_away_from_bad_urls() {
 		return; // Do nothing
 
 	$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-	$redirecl_url = get_site_url( get_current_blog_id(), '/wp-admin/' );
+	$redirect_url = get_site_url( get_current_blog_id(), '/wp-admin/' );
 
 	// ---------------------------------------------------------------------------------------------------------------
 	// If user is on post-new.php, check for valid post_type
@@ -567,7 +567,7 @@ function redirect_away_from_bad_urls() {
 	if ( preg_match( '~/wp-admin/post-new\.php$~', $check_against_url ) ) {
 		if ( ! in_array( @$_REQUEST['post_type'], \PressBooks\PostType\list_post_types() ) ) {
 			$_SESSION['pb_notices'][] = __( 'Unsupported post type.', 'pressbooks' );
-			\PressBooks\Redirect\location( $redirecl_url );
+			\PressBooks\Redirect\location( $redirect_url );
 		}
 	}
 
@@ -594,7 +594,7 @@ function redirect_away_from_bad_urls() {
 	$expr = '~/wp-admin/(' . implode( '|', $restricted ) . ')\.php$~';
 	if ( preg_match( $expr, $check_against_url ) ) {
 		$_SESSION['pb_notices'][] = __( 'You do not have sufficient permissions to access that URL.', 'pressbooks' );
-		\PressBooks\Redirect\location( $redirecl_url );
+		\PressBooks\Redirect\location( $redirect_url );
 	}
 }
 
