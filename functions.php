@@ -224,8 +224,12 @@ function pb_get_chapter_number( $post_name ) {
 	foreach ( $lookup as $key => $val ) {
 		if ( 'chapter' == $val ) {
 			$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => 'publish', 'numberposts' => 1 ) );
-			$type = pb_get_section_type( $chapter[0] );
-			if ( $type !== 'numberless' ) ++$i;
+			if ( isset( $chapter[0] ) ) {
+				$type = pb_get_section_type( $chapter[0] );
+				if ( $type !== 'numberless' ) ++$i;
+			} else {
+				return 0;
+			}
 			if ( $key == $post_name ) break;
 		}
 	}

@@ -547,6 +547,8 @@ class Book {
 		if ( 'first' == $what )
 			return static::getFirst();
 
+		global $blog_id;
+		
 		global $post;
 
 		$current_post_id = $post->ID;
@@ -570,6 +572,8 @@ class Book {
 		$what( $pos );
 		while ( $post_id = current( $pos ) ) {
 			if ( $order[$post_id]['post_status'] == 'publish' ) {
+				break;
+			} elseif ( current_user_can_for_blog( $blog_id, 'read' ) ) {
 				break;
 			} else {
 				$what( $pos );
