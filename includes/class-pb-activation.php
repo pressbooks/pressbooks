@@ -54,8 +54,8 @@ class Activation {
 			update_blog_option( 1, 'blogdescription', 'Simple Book Publishing' );
 
 			// Configure theme and remove widgets from root blog
-			update_blog_option( 1, 'template', 'pressbooks-publisher-one' );
-			update_blog_option( 1, 'stylesheet', 'pressbooks-publisher-one' );
+			update_blog_option( 1, 'template', 'pressbooks-publisher' );
+			update_blog_option( 1, 'stylesheet', 'pressbooks-publisher' );
 			delete_blog_option( 1, 'sidebars_widgets' );
 
 			// Add "activated" key to enable check above
