@@ -1,10 +1,10 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.4.5
+Version: 2.5
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.2.1
-Tested up to: 4.2.1
+Requires at least: 4.2.2
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.4.x and WordPress 4.2.1. Lower versions are not supported.
+ * Pressbooks works with PHP 5.4.x and WordPress 4.2.2. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
@@ -193,6 +193,22 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.5 =
+* Requires WordPress 4.2.2.
+* New root theme, Pressbooks Publisher 2.0.
+* Added centralized `show_experimental_features()` function to control where such things appear.
+* Added experimental PDF export via mPDF as an open source alternative to Prince (props to @bdolor).
+* Added fallbacks for title, author and cover image fetching in `getBookInformation()` function.
+* Improved image fetching in ODT export (props to @bdolor).
+* Improved import of Pressbooks XML files (props to @bdolor).
+* Fixed issue where the API could show chapters as appearing in the wrong part (props to @bdolor).
+* Fixed issue where entities would be improperly loaded in XML document in ODT export (props to @bdolor).
+* Fixed issue with the network administration menu in the admin bar.
+* Fixed issue with spacing and punctuation in webbook license module output.
+
+= 2.4.5 =
+* Requires WordPress 4.2.1.
 
 = 2.4.4 =
 * Requires WordPress 4.2.
