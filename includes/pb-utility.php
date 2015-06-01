@@ -304,7 +304,7 @@ function check_prince_install() {
 	$result = false;
 
 	// @see wp-config.php
-	if ( ! defined( PB_PRINCE_COMMAND ) ) {
+	if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
 		define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 	}
 	// check if the file exists, assume that's enough
