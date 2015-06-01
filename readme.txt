@@ -196,7 +196,7 @@ TK.
 
 = 2.5 =
 * Requires WordPress 4.2.2.
-* New root theme, Pressbooks Publisher 2.0.
+* New root theme, Pressbooks Publisher 2.0. Pressbooks Publisher One has been deprecated and is now available (unsupported) [here](https://github.com/pressbooks/pressbooks-publisher-one/).
 * Added centralized `show_experimental_features()` function to control where such things appear.
 * Added experimental PDF export via mPDF as an open source alternative to Prince (props to @bdolor).
 * Added fallbacks for title, author and cover image fetching in `getBookInformation()` function.
