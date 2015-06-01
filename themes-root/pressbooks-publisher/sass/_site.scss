@@ -1,0 +1,275 @@
+/*--------------------------------------------------------------
+10.1 Layout
+--------------------------------------------------------------*/
+.content-area {
+	margin: auto;
+	max-width: $size__site-main;
+	width: 100%;
+}
+.site-width {
+	margin: auto;
+	max-width: $size__site-main;
+	padding: 0 20px;
+	width: 100%;
+}
+
+/*--------------------------------------------------------------
+10.2 Header
+--------------------------------------------------------------*/
+.site-header {
+	background-color: $color__background-screen;
+	color: #fff;
+	padding: 0 0 6em;	
+	text-align: center;
+	
+	@media screen and (min-width: 700px){
+		padding-top: 1em;
+		text-align: inherit;
+	}	
+	
+	a {
+		color: #fff;
+	}
+	
+}
+
+.link-wrap {	
+	background-color: #fff;
+	display: block;
+	margin-left: -20px;
+	margin-right: -20px;
+	margin-bottom: 3em;
+	padding: 10px;
+	text-align: center;
+	
+	@media screen and (min-width: 700px){
+		background-color: transparent;
+		margin: 0;		
+		padding: 0;
+	}
+}
+
+a.site-login-btn {
+	background-color: $color__background-button;
+	border: 1px solid $color__background-button;
+	border-radius: 2px;
+	color: $color__text-screen;
+	font: normal .75em $font__meta;
+	margin-left: 15px;
+	padding: 5px 10px;
+	text-transform: uppercase;
+	
+	&:hover {
+		background-color: transparent;
+		text-decoration: none;
+	}
+	
+	@media screen and (min-width: 700px){		
+		float: right;	
+	
+		&:hover {
+			color: #fff;
+		}		
+		
+	}	
+}
+
+.site-branding {
+	text-align: center;
+}
+.site-title {
+	font-size: 3.75em;
+	margin-top: .5em;
+	margin-bottom: 20px;
+	font-weight: normal;
+	
+	@media screen and (min-width: 700px){
+		margin-top: inherit;
+	}	
+	
+	a:hover {
+		color: $color__background-button;
+		text-decoration: none;
+	}
+}
+.site-description {
+	font-size: 1.875em;
+	margin-bottom: 25px;
+	font-weight: normal;
+}
+.intro-text{
+	line-height: 1.6;
+	margin: auto;
+    text-align: center;	
+	
+	&.two-column {
+		-webkit-columns: 300px 2;
+		-moz-columns: 300px 2;
+        columns: 300px 2;
+        text-align: left;
+        
+		@media screen and (min-width: $size__site-med) {  
+	        max-width: 65%;		      
+	    }    
+	}
+	@media screen and (min-width: $size__site-med) {  
+        max-width: 50%;		      
+    } 	
+}
+
+/*--------------------------------------------------------------
+10.3 Catalog
+--------------------------------------------------------------*/
+.site-main {
+	padding: 80px 0;
+
+	article {
+		background-color: $color__background-book;
+		box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+		margin: 20px;
+
+		
+		@media screen and (min-width: $size__site-med) {
+			float: left;	
+			margin: 0 1% 3%;	
+			padding: 0;			
+			width: 48%;	
+		}
+				
+		@media screen and (min-width: $size__site-lrg) {
+			float: left;	
+			margin: 0 1.5% 3%;	
+			padding: 0;			
+			width: 30%;	
+		}		
+		
+		img {
+			max-width: 100%;
+			height: auto;
+			width: 100%;
+		}
+	}
+	
+	.entry-header,	
+	.entry-content,
+	.entry-footer {
+		padding: 0 10px 15px;
+		
+		@media screen and (min-width: $size__site-med) {
+			padding: 0 25px 25px;		
+		}		
+	}
+	
+	.entry-header {
+		line-height: 1.2;
+		padding: 25px 35px 5px;
+		text-align: center;	
+	}
+	
+	.entry-content {
+		text-align: left;
+	}
+	
+	.entry-title {
+		font-size: 2.125em; /* 34/16 */
+		margin: 0;
+		
+		a:hover {
+			color: $color__text-input;
+			text-decoration: none;
+		}
+	}
+	.entry-author {
+		font-family: $font__header;
+		font-size: 1.375em; /* 22/16 */
+		font-weight: normal;
+		margin: 10px 0 0;
+	}
+	
+	.entry-footer {
+		text-align: center;
+		
+		.button-wrap {
+			margin-bottom: 20px;
+		}
+		.more-btn {
+			background-color: $color__background-button-alt;
+			border: 1px solid $color__background-button-alt;		
+			border-radius: 2px;
+			color: #fff;
+			display: inline-block;
+			font-family: $font__header;	
+			font-size: .875em;
+			margin: 0 auto;
+			padding: 5px 15px;
+			text-align: center;
+			text-transform: uppercase;
+			
+			&:hover {
+				background-color: transparent;
+				color: $color__background-button-alt;
+				text-decoration: none;
+			}
+		}		
+		
+		.book-tag {
+			color: $color__text-input;
+			font: .875em $font__meta;
+			padding: 0 3px;	
+		}
+	}	
+}
+
+
+/*--------------------------------------------------------------
+10.4 Posts and pages
+--------------------------------------------------------------*/
+.sticky {
+	display: block;
+}
+
+.hentry {
+	margin: 0 0 1.5em;
+}
+
+.byline,
+.updated:not(.published){
+	display: none;
+}
+
+.single .byline,
+.group-blog .byline {
+	display: inline;
+}
+
+.page-content,
+.entry-summary {
+	margin: 1.5em 0 0;
+}
+
+.page-links {
+	clear: both;
+	margin: 0 0 1.5em;
+}
+
+/*--------------------------------------------------------------
+10.5 Footer
+--------------------------------------------------------------*/
+.site-footer{
+	background-color: $color__background-screen;
+	color: #fff;
+	font-family: $font__meta;
+	font-size: .875em;
+	padding: 2em 0;
+	text-align: center;
+	
+	a{
+		color: #fff;
+	}
+	
+	.site-info {
+		margin: auto;
+		max-width: $size__site-main;		
+		width: 100%;
+	}	
+}	
