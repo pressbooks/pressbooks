@@ -912,7 +912,7 @@ class Catalog {
 		if ( $overridden_template = locate_template( 'pb-catalog.php' ) ) {
 			load_template( $overridden_template, false );
 		} else {
-			load_template( PB_PLUGIN_DIR . 'themes-root/pressbooks-publisher-one/pb-catalog.php', false );
+			load_template( PB_PLUGIN_DIR . 'includes/pb-catalog.php', false );
 		}
 	}
 
