@@ -32,9 +32,11 @@
 						<a href="<?php echo wp_login_url(); ?>" class="site-login-btn"><?php _e('Sign in', 'pressbooks-publisher'); ?></a>
 			   	 	<?php else: ?>
 						<a href="<?php echo  wp_logout_url(); ?>" class="site-login-btn"><?php _e('Sign out', 'pressbooks-publisher'); ?></a>
+						<a href="<?php echo get_option('home'); ?>/wp-admin/index.php?page=pb_catalog" class="site-login-btn"><?php _e('My Books', 'pressbooks-publisher'); ?></a>
 						<?php if (is_super_admin() || is_user_member_of_blog()): ?>
 						<a href="<?php echo get_option('home'); ?>/wp-admin" class="site-login-btn"><?php _e('Admin', 'pressbooks-publisher'); ?></a>
 						<?php endif; ?>
+
 			    	<?php endif; ?>
 			    <?php endif; ?>
 		   </div>
