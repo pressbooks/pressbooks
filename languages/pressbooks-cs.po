@@ -1,20 +1,19 @@
 # Copyright (C) 2015 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
-# LaScapigliata <ditri2000@hotmail.com>, 2015
-# ZedRyder <zedryder@gmail.com>, 2014
+# fri, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-06-08 10:56-0500\n"
 "PO-Revision-Date: 2015-06-08 20:48+0000\n"
 "Last-Translator: Ned Zimmerman\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/pressbooks/language/el/)\n"
+"Language-Team: Czech (http://www.transifex.com/projects/p/pressbooks/language/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: cs\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Poedit 1.7.4\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
@@ -24,143 +23,143 @@ msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
-msgstr "Δες Βιβλίο"
+msgstr "Navštívit knihu"
 
 #: admin/class-pb-catalog-list-table.php:83
 msgid "Visit Admin"
-msgstr "Δες Διαχειριστή"
+msgstr "Navštívit správce"
 
 #: admin/class-pb-catalog-list-table.php:114
 #: admin/class-pb-catalog-list-table.php:226
 #: admin/class-pb-catalog-list-table.php:455
 msgid "Hide in Catalog"
-msgstr "Κρύψε στον Κατάλογο"
+msgstr "Skrýt v soupisu"
 
 #: admin/class-pb-catalog-list-table.php:119
 #: admin/class-pb-catalog-list-table.php:225
 #: admin/class-pb-catalog-list-table.php:454
 msgid "Show in Catalog"
-msgstr "Εμφάνιση στον Κατάλογο"
+msgstr "Ukázat v soupisu"
 
 #: admin/class-pb-catalog-list-table.php:180
 msgid "Catalog Status"
-msgstr "Κατάσταση καταλόγου"
+msgstr "Stav soupisu"
 
 #: admin/class-pb-catalog-list-table.php:181
 msgid "Privacy Status"
-msgstr "Κατάσταση προσωπικού απορρήτου"
+msgstr "Stav soukromí"
 
 #: admin/class-pb-catalog-list-table.php:182
 #: includes/class-pb-activation.php:171
 #: includes/modules/export/epub/class-pb-epub201.php:677
 msgid "Cover"
-msgstr "Εξώφυλλο"
+msgstr "Obal"
 
 #: admin/class-pb-catalog-list-table.php:183 admin/templates/import.php:58
 msgid "Title"
-msgstr "Τίτλος"
+msgstr "Název"
 
 #: admin/class-pb-catalog-list-table.php:184 admin/pb-admin-metaboxes.php:186
 #: admin/templates/organize.php:62 admin/templates/organize.php:146
 #: admin/templates/organize.php:243
 #: themes-book/pressbooks-book/functions.php:15
 msgid "Author"
-msgstr "Συγγραφέας"
+msgstr "Autor"
 
 #: admin/class-pb-catalog-list-table.php:188 includes/pb-catalog.php:199
 msgid "Tag"
-msgstr "Ετικέτα"
+msgstr "Značka"
 
 #: admin/class-pb-catalog-list-table.php:191 admin/templates/catalog.php:35
 msgid "Featured"
-msgstr "Προτεινόμενα"
+msgstr "Vystaveno"
 
 #: admin/class-pb-catalog-list-table.php:192
 msgid "Pub Date"
-msgstr "Ημερομηνία δημοσίευσης"
+msgstr "Datum vydání"
 
 #: admin/class-pb-catalog-list-table.php:338
 msgid "Edit Tags"
-msgstr "Επεξεργασία ετικετών"
+msgstr "Upravit značky"
 
 #: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:96
 #: admin/templates/organize.php:22 admin/templates/organize.php:33
 #: admin/templates/organize.php:65 admin/templates/organize.php:149
 #: admin/templates/organize.php:246
 msgid "Private"
-msgstr "Ιδιωτικό"
+msgstr "Soukromý"
 
 #: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:98
 #: admin/templates/organize.php:20 admin/templates/organize.php:27
 msgid "Public"
-msgstr "Δημόσιο"
+msgstr "Veřejný"
 
 #: admin/class-pb-catalog-list-table.php:452
 msgid "Organize your public Catalog page."
-msgstr "Οργανώστε την ιδιωτική σας σελίδα καταλόγου"
+msgstr "Uspořádat vaši veřejnou stranu se soupisem."
 
 #: admin/class-pb-catalog-list-table.php:453
 msgid "Show/Hide books"
-msgstr "Εμφάνιση/απόκρυψη βιβλίων"
+msgstr "Ukázat/Skrýt knihy"
 
 #: admin/class-pb-catalog-list-table.php:457
 msgid "Catalog sorting"
-msgstr "Ταξινόμηση καταλόγου"
+msgstr "Třídění soupisu"
 
 #: admin/class-pb-catalog-list-table.php:460
 msgid "Share your catalog"
-msgstr "Μοιραστείτε τον κατάλογό σας"
+msgstr "Sdílet soupis"
 
 #: admin/class-pb-catalog-list-table.php:461
 msgid "The public link to your catalog page"
-msgstr "Ο δημόσιος σύνδεσμος για την σελίδα του καταλόγου σας"
+msgstr "Veřejný odkaz na stránku se soupisem"
 
 #: admin/class-pb-catalog-list-table.php:466 admin/pb-admin-laf.php:175
 #: admin/pb-admin-laf.php:191 admin/pb-admin-laf.php:297
 msgid "My Catalog"
-msgstr "Ο κατάλογός μου"
+msgstr "Můj soupis"
 
 #: admin/class-pb-catalog-list-table.php:467
 msgid "Edit Profile"
-msgstr "Επεξεργασία προφίλ"
+msgstr "Upravit profil"
 
 #: admin/class-pb-catalog-list-table.php:468
 msgid "Visit Catalog"
-msgstr "Επισκεφθείτε τον κατάλογο"
+msgstr "Navštívit soupis"
 
 #: admin/class-pb-catalog-list-table.php:474
 #: symbionts/search-regex/view/admin/search.php:54
 msgid "Search"
-msgstr "Αναζήτηση"
+msgstr "Hledat"
 
 #: admin/class-pb-catalog-list-table.php:483
 msgid "Add By URL"
-msgstr "Προσθέστε με διεύθυνση"
+msgstr "Přidat podle adresy (URL)"
 
 #: admin/class-pb-catalog-list-table.php:532 admin/templates/catalog.php:18
 #: includes/class-pb-catalog.php:1059 includes/class-pb-catalog.php:1107
 #: includes/class-pb-catalog.php:1152
 msgid "You do not have permission to do that."
-msgstr "Δεν έχετε την άδεια να το κάνετε αυτό."
+msgstr "Nemáte oprávnění k tomu, abyste to mohl udělat."
 
 #: admin/class-pb-catalog-list-table.php:536
 msgid "The requested user does not exist."
-msgstr "Ο χρήστης που ζητήσατε δεν υπάρχει"
+msgstr "Požadovaný uživatel neexistuje."
 
 #: admin/pb-admin-customcss.php:18 admin/templates/custom-css.php:27
 msgid "Edit CSS"
-msgstr "Επεξεργασία CSS"
+msgstr "Upravit CSS"
 
 #: admin/pb-admin-customcss.php:60
 #, php-format
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
+msgstr "Neočekávaná chyba: Při pokusu o dotaz na strojovou řádku se vyskytly potíže: %s - Spojte se, prosím, s technickou podporou."
 
 #: admin/pb-admin-customcss.php:113
 msgid "Last 10 CSS Revisions"
-msgstr ""
+msgstr "Posledních 10 změn CSS"
 
 #: admin/pb-admin-customcss.php:116
 #: includes/modules/export/epub/class-pb-epub201.php:850
@@ -170,165 +169,165 @@ msgstr ""
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:613
 #: themes-book/pressbooks-book/footer.php:41
 msgid "by"
-msgstr ""
+msgstr "od"
 
 #: admin/pb-admin-customcss.php:183
 msgid "This will overwrite existing custom CSS. Are you sure?"
-msgstr "Αυτό θα υπερκαλύψει το υπάρχων custom CSS. Είστε βέβαιος;"
+msgstr "Tímto se přepíše stávající vlastní CSS. Jste si jistý?"
 
 #: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
 #: admin/pb-admin-dashboard.php:95
 msgid "PressBooks News"
-msgstr "Τα νέα του Pressbooks"
+msgstr "Zprávy PressBooks"
 
 #: admin/pb-admin-dashboard.php:41
 msgid "My Book"
-msgstr "Το βιβλίο μου"
+msgstr "Moje kniha"
 
 #: admin/pb-admin-dashboard.php:43 admin/pb-admin-laf.php:338
 msgid "Users"
-msgstr "Χρήστες"
+msgstr "Uživatelé"
 
 #: admin/pb-admin-dashboard.php:55 admin/templates/import.php:59
 #: admin/templates/organize.php:44 admin/templates/organize.php:61
 #: includes/pb-postype.php:115
 msgid "Front Matter"
-msgstr ""
+msgstr "Úvodní stránka knihy"
 
 #: admin/pb-admin-dashboard.php:75 admin/templates/import.php:64
 #: admin/templates/organize.php:46 admin/templates/organize.php:242
 #: includes/pb-postype.php:150
 msgid "Back Matter"
-msgstr ""
+msgstr "Závěrečná část"
 
 #: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
 msgid "Add"
-msgstr "Προσθήκη"
+msgstr "Přidat"
 
 #: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
 #: admin/pb-admin-laf.php:86
 msgid "Organize"
-msgstr "Οργάνωση"
+msgstr "Uspořádat"
 
 #: admin/pb-admin-laf.php:18
 msgid "Powered by"
-msgstr ""
+msgstr "Poháněno"
 
 #: admin/pb-admin-laf.php:19 admin/templates/catalog.php:89
 #: includes/class-pb-activation.php:179
 msgid "About"
-msgstr "Σχετικα με"
+msgstr "O programu"
 
 #: admin/pb-admin-laf.php:20
 msgid "Help"
-msgstr "Βοήθεια"
+msgstr "Nápověda"
 
 #: admin/pb-admin-laf.php:21 admin/pb-admin-laf.php:273
 msgid "Contact"
-msgstr "Επικοινωνία"
+msgstr "Spojení"
 
 #: admin/pb-admin-laf.php:74
 msgid "Theme Options"
-msgstr ""
+msgstr "Volby pro motivy"
 
 #: admin/pb-admin-laf.php:97
 msgid "Published"
-msgstr "Εκδόθηκε"
+msgstr "Vydáno"
 
 #: admin/pb-admin-laf.php:134 admin/pb-admin-metaboxes.php:29
 msgid "Book Info"
-msgstr "Πληροφορίες βιβλίου"
+msgstr "Informace o knize"
 
 #: admin/pb-admin-laf.php:147 admin/templates/export.php:43
 #: admin/templates/organize.php:49 admin/templates/organize.php:66
 #: admin/templates/organize.php:150 admin/templates/organize.php:247
 msgid "Export"
-msgstr "Εξαγωγή"
+msgstr "Vyvést"
 
 #: admin/pb-admin-laf.php:152
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
-msgstr ""
+msgstr "EPUB je vyžadován pro uložení ve formátu MOBI. Chcete jej znovu povolit?"
 
 #: admin/pb-admin-laf.php:158
 msgid "Sell"
-msgstr "Πώληση"
+msgstr "Prodat"
 
 #: admin/pb-admin-laf.php:161
 msgid "Privacy Settings"
-msgstr "Ρυθμίσεις ασφαλείας"
+msgstr "Nastavení soukromí"
 
 #: admin/pb-admin-laf.php:161
 msgid "Privacy"
-msgstr ""
+msgstr "Soukromí"
 
 #: admin/pb-admin-laf.php:164
 msgid "Advanced Settings"
-msgstr ""
+msgstr "Pokročilá nastavení"
 
 #: admin/pb-admin-laf.php:164
 msgid "Advanced"
-msgstr ""
+msgstr "Pokročilé"
 
 #: admin/pb-admin-laf.php:167 admin/templates/import.php:14
 #: admin/templates/import.php:57
 msgid "Import"
-msgstr "Εισαγωγή"
+msgstr "Zavést"
 
 #: admin/pb-admin-laf.php:239 admin/pb-admin-laf.php:248
 msgid "About PressBooks"
-msgstr "Σχετικα με το PressBooks"
+msgstr "O programu PressBooks"
 
 #: admin/pb-admin-laf.php:257
 msgid "PressBooks.com"
-msgstr ""
+msgstr "PressBooks.com"
 
 #: admin/pb-admin-laf.php:265
 msgid "Support Forums"
-msgstr ""
+msgstr "Fóra pro podporu"
 
 #: admin/pb-admin-laf.php:304
 msgid "Add A New Book"
-msgstr ""
+msgstr "Přidat novou knihu"
 
 #: admin/pb-admin-laf.php:319
 msgid "Network Admin"
-msgstr ""
+msgstr "Správce sítě"
 
 #: admin/pb-admin-laf.php:326 admin/pb-admin-laf.php:375
 msgid "Dashboard"
-msgstr ""
+msgstr "Nástěnka"
 
 #: admin/pb-admin-laf.php:332
 msgid "Sites"
-msgstr ""
+msgstr "Stránky"
 
 #: admin/pb-admin-laf.php:344
 msgid "Visit Network"
-msgstr ""
+msgstr "Navštívit síť"
 
 #: admin/pb-admin-laf.php:387
 msgid "Visit Site"
-msgstr ""
+msgstr "Navštívit stránku"
 
 #: admin/pb-admin-laf.php:569
 msgid "Unsupported post type."
-msgstr ""
+msgstr "Nepodporováný typ příspěvku."
 
 #: admin/pb-admin-laf.php:596
 msgid "You do not have sufficient permissions to access that URL."
-msgstr ""
+msgstr "Nemáte dostatečná oprávnění pro přistupování k této adrese (URL)."
 
 #: admin/pb-admin-laf.php:618
 msgid "Site Visibility"
-msgstr ""
+msgstr "Viditelnost stránky"
 
 #: admin/pb-admin-laf.php:636
 msgid "Privacy options"
-msgstr ""
+msgstr "Volby pro soukromí"
 
 #: admin/pb-admin-laf.php:650
 msgid "Public. I would like this book to be visible to everyone."
-msgstr ""
+msgstr "Veřejné. Rád bych, aby byla tato kniha každému viditelná."
 
 #: admin/pb-admin-laf.php:654
 msgid ""
@@ -337,31 +336,31 @@ msgstr ""
 
 #: admin/pb-admin-laf.php:705
 msgid "Amazon URL"
-msgstr ""
+msgstr "Adresa (URL) Amazon"
 
 #: admin/pb-admin-laf.php:712
 msgid "Oreilly URL"
-msgstr ""
+msgstr "Adresa (URL) Oreilly"
 
 #: admin/pb-admin-laf.php:719
 msgid "Barnes and Noble URL"
-msgstr ""
+msgstr "Adresa (URL) Barnes and Noble"
 
 #: admin/pb-admin-laf.php:726
 msgid "Kobo URL"
-msgstr ""
+msgstr "Adresa (URL) Kobo"
 
 #: admin/pb-admin-laf.php:733
 msgid "iBooks URL"
-msgstr ""
+msgstr "Adresa (URL) iBooks"
 
 #: admin/pb-admin-laf.php:740
 msgid "Other Service URL"
-msgstr ""
+msgstr "Adresy (URL) jiných služeb"
 
 #: admin/pb-admin-laf.php:871
 msgid "Email me validation error reports on export."
-msgstr ""
+msgstr "Při ukládání zasílat elektronickou poštou zprávy o chybách zjištěných při schvalování dokumentu."
 
 #: admin/pb-admin-laf.php:878
 msgid "Enable chapter types."
@@ -369,15 +368,15 @@ msgstr ""
 
 #: admin/pb-admin-laf.php:901
 msgid "Advanced options"
-msgstr ""
+msgstr "Pokročilé volby"
 
 #: admin/pb-admin-laf.php:915
 msgid "No. Ignore validation errors."
-msgstr ""
+msgstr "Ne. Nevšímat si chyb zjištěných při schvalování"
 
 #: admin/pb-admin-laf.php:919
 msgid "Yes. Send the logs."
-msgstr ""
+msgstr "Ano. Poslat záznamy."
 
 #: admin/pb-admin-laf.php:920
 msgid ""
@@ -398,13 +397,13 @@ msgstr ""
 msgid ""
 "Your cover image (%s x %s) is too small. It should be 625px on the shortest "
 "side."
-msgstr ""
+msgstr "Obrázek s obalem je příliš malý (%s x %s). Měl by mít na nejkratší straně 625 obrazových bodů."
 
 #: admin/pb-admin-metaboxes.php:114 admin/pb-admin-metaboxes.php:159
 #: includes/class-pb-metadata.php:627
 #: themes-book/pressbooks-book/functions.php:1178
 msgid "Cover Image"
-msgstr ""
+msgstr "Obrázek obalu"
 
 #: admin/pb-admin-metaboxes.php:150 admin/pb-admin-metaboxes.php:447
 #: admin/templates/import.php:62 admin/templates/organize.php:47
@@ -412,43 +411,43 @@ msgstr ""
 #: themes-book/pressbooks-book/functions.php:1614
 #: themes-book/pressbooks-book/functions.php:1673
 msgid "Part"
-msgstr ""
+msgstr "Část"
 
 #: admin/pb-admin-metaboxes.php:154
 msgid "Save Part"
-msgstr ""
+msgstr "Uložit část"
 
 #: admin/pb-admin-metaboxes.php:155
 msgid "Save Book Information"
-msgstr ""
+msgstr "Uložit informace o knize"
 
 #: admin/pb-admin-metaboxes.php:164
 msgid "General Book Information"
-msgstr ""
+msgstr "Obecné informace o knize"
 
 #: admin/pb-admin-metaboxes.php:175
 msgid "Short Title"
-msgstr ""
+msgstr "Krátký název"
 
 #: admin/pb-admin-metaboxes.php:176
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
+msgstr "V případě, že je použit příliš dlouhého názvu, může být tento v hlavičce souboru při ukládání ve formátu PDF zkrácen."
 
 #: admin/pb-admin-metaboxes.php:181
 msgid "Subtitle"
-msgstr ""
+msgstr "Podnázev"
 
 #: admin/pb-admin-metaboxes.php:191
 msgid "Author, file as"
-msgstr ""
+msgstr "Autor, uložit jako"
 
 #: admin/pb-admin-metaboxes.php:192
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
-msgstr ""
+msgstr "Tímto se zajistí, že bude vaše kniha řádně v obchodech s elektronickými knihami zařazena podle příjmení autora."
 
 #: admin/pb-admin-metaboxes.php:197
 msgid "Contributing Authors"
@@ -463,7 +462,7 @@ msgstr ""
 #: admin/pb-admin-metaboxes.php:204
 #: themes-book/pressbooks-book/functions.php:17
 msgid "Publisher"
-msgstr ""
+msgstr "Nakladatel"
 
 #: admin/pb-admin-metaboxes.php:205 admin/pb-admin-metaboxes.php:211
 msgid "This text appears on the title page of your book."
@@ -471,12 +470,12 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:210
 msgid "Publisher City"
-msgstr ""
+msgstr "Místo vydání"
 
 #: admin/pb-admin-metaboxes.php:217
 #: themes-book/pressbooks-book/functions.php:20
 msgid "Publication Date"
-msgstr ""
+msgstr "Datum vydání"
 
 #: admin/pb-admin-metaboxes.php:218 admin/pb-admin-metaboxes.php:225
 msgid "This is added to the metadata in your ebook."
@@ -484,12 +483,12 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:224
 msgid "On-Sale Date"
-msgstr ""
+msgstr "Prodejní datum"
 
 #: admin/pb-admin-metaboxes.php:230
 #: themes-book/pressbooks-book/functions.php:22
 msgid "Ebook ISBN"
-msgstr ""
+msgstr "ISBN elektronické knihy"
 
 #: admin/pb-admin-metaboxes.php:231
 msgid ""
@@ -501,7 +500,7 @@ msgstr ""
 #: admin/pb-admin-metaboxes.php:236
 #: themes-book/pressbooks-book/functions.php:18
 msgid "Print ISBN"
-msgstr ""
+msgstr "Tisk ISBN"
 
 #: admin/pb-admin-metaboxes.php:237
 msgid ""
@@ -511,7 +510,7 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:244 admin/pb-admin-metaboxes.php:695
 msgid "Language"
-msgstr ""
+msgstr "Jazyk"
 
 #: admin/pb-admin-metaboxes.php:245
 msgid ""
@@ -529,11 +528,11 @@ msgstr ""
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:611
 #: themes-book/pressbooks-book/footer.php:39
 msgid "Copyright"
-msgstr ""
+msgstr "Autorské právo"
 
 #: admin/pb-admin-metaboxes.php:255
 msgid "Copyright Year"
-msgstr ""
+msgstr "Rok autorského práva"
 
 #: admin/pb-admin-metaboxes.php:256
 msgid "Year that the book is/was published."
@@ -541,7 +540,7 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:261
 msgid "Copyright Holder"
-msgstr ""
+msgstr "Držitel autorského práva"
 
 #: admin/pb-admin-metaboxes.php:262
 msgid "Name of the copyright holder."
@@ -558,7 +557,7 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:286
 msgid "Copyright Notice"
-msgstr ""
+msgstr "Oznámení o autorském"
 
 #: admin/pb-admin-metaboxes.php:287
 msgid ""
@@ -569,26 +568,26 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:297
 msgid "Book Tagline"
-msgstr ""
+msgstr "Obsah knihy"
 
 #: admin/pb-admin-metaboxes.php:298
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
+msgstr "Velice krátký popis vaší knihy. Měl by se vejít do zprávy šířené prostřednictvím služby Twitter a vaši knihu shrnout stručnou větou."
 
 #: admin/pb-admin-metaboxes.php:304
 msgid "Short Description"
-msgstr ""
+msgstr "Krátký popis"
 
 #: admin/pb-admin-metaboxes.php:305
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
+msgstr "Krátký odstavec o vaší knize, určený k tomu, aby byl uveden v soupisech, kritiky atd."
 
 #: admin/pb-admin-metaboxes.php:311
 msgid "Long Description"
-msgstr ""
+msgstr "Dlouhý popis"
 
 #: admin/pb-admin-metaboxes.php:312
 msgid "The full description of your book."
@@ -600,7 +599,7 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:322
 msgid "Series Title"
-msgstr ""
+msgstr "Název řady"
 
 #: admin/pb-admin-metaboxes.php:323 admin/pb-admin-metaboxes.php:329
 msgid "Add if your book is part of a series. This is not used by Pressbooks."
@@ -608,11 +607,11 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:328
 msgid "Series Number"
-msgstr ""
+msgstr "Číslo řady"
 
 #: admin/pb-admin-metaboxes.php:334
 msgid "Editor"
-msgstr ""
+msgstr "Vydavatel"
 
 #: admin/pb-admin-metaboxes.php:335 admin/pb-admin-metaboxes.php:341
 #: admin/pb-admin-metaboxes.php:360 admin/pb-admin-metaboxes.php:366
@@ -623,11 +622,11 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:340
 msgid "Translator"
-msgstr ""
+msgstr "Překladatel"
 
 #: admin/pb-admin-metaboxes.php:346
 msgid "Keywords"
-msgstr ""
+msgstr "Klíčová slova"
 
 #: admin/pb-admin-metaboxes.php:348
 msgid ""
@@ -638,7 +637,7 @@ msgstr ""
 #: admin/pb-admin-metaboxes.php:353
 #: themes-book/pressbooks-book/functions.php:21
 msgid "Hashtag"
-msgstr ""
+msgstr "Informace popisných dat"
 
 #: admin/pb-admin-metaboxes.php:354
 msgid ""
@@ -648,23 +647,23 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:359
 msgid "List Price (Print)"
-msgstr ""
+msgstr "Ceníková cena (Tisk)"
 
 #: admin/pb-admin-metaboxes.php:365
 msgid "List Price (PDF)"
-msgstr ""
+msgstr "Ceníková cena (PDF)"
 
 #: admin/pb-admin-metaboxes.php:371
 msgid "List Price (ebook)"
-msgstr ""
+msgstr "Ceníková cena (elektronická kniha)"
 
 #: admin/pb-admin-metaboxes.php:377
 msgid "List Price (Web)"
-msgstr ""
+msgstr "Ceníková cena (internet)"
 
 #: admin/pb-admin-metaboxes.php:383
 msgid "Bisac Subject"
-msgstr ""
+msgstr "Definice BISAC"
 
 #: admin/pb-admin-metaboxes.php:385
 msgid ""
@@ -674,7 +673,7 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:390
 msgid "Bisac Regional Theme"
-msgstr ""
+msgstr "Oblastní téma BISAC"
 
 #: admin/pb-admin-metaboxes.php:401
 msgid "Catalog Order"
@@ -682,19 +681,19 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:409
 msgid "Chapter Metadata"
-msgstr ""
+msgstr "Popisná data o kapitole"
 
 #: admin/pb-admin-metaboxes.php:414
 msgid "Chapter Short Title (appears in the PDF running header)"
-msgstr ""
+msgstr "Krátký název kapitoly"
 
 #: admin/pb-admin-metaboxes.php:419
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
+msgstr "Podnázev kapitoly (objeví se ve výstupu pro internet/elektronické knize/PDF)"
 
 #: admin/pb-admin-metaboxes.php:424
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
-msgstr ""
+msgstr "Autor kapitoly (objeví se ve výstupu pro internet/elektronické knize/PDF)"
 
 #: admin/pb-admin-metaboxes.php:441
 msgid "Chapter Copyright License (overrides book license on this page)"
@@ -702,35 +701,35 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:455
 msgid "Export Settings"
-msgstr ""
+msgstr "Nastavení ukládání"
 
 #: admin/pb-admin-metaboxes.php:463
 msgid "Include in exports"
-msgstr ""
+msgstr "Zahrnout v ukládaných souborech"
 
 #: admin/pb-admin-metaboxes.php:469
 msgid "Show title in exports"
-msgstr ""
+msgstr "Ukázat v ukládaných souborech název"
 
 #: admin/pb-admin-metaboxes.php:475
 msgid "Set as ebook start-point"
-msgstr ""
+msgstr "Nastavit jako začátek elektronické knihy"
 
 #: admin/pb-admin-metaboxes.php:481
 msgid "Front Matter Metadata"
-msgstr ""
+msgstr "Popisná data na úvodní stránce knihy"
 
 #: admin/pb-admin-metaboxes.php:486
 msgid "Front Matter Short Title (appears in the PDF running header)"
-msgstr ""
+msgstr "Krátký název na úvodní stránce knihy (objeví se v hlavičce PDF)"
 
 #: admin/pb-admin-metaboxes.php:491
 msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
+msgstr "Podnázev na úvodní stránce knihy (objeví se ve výstupu pro internet/elektronické knize/PDF)"
 
 #: admin/pb-admin-metaboxes.php:496
 msgid "Front Matter Author (appears in Web/ebook/PDF output)"
-msgstr ""
+msgstr "Autor na úvodní stránce knihy (objeví se ve výstupu pro internet/elektronické knize/PDF)"
 
 #: admin/pb-admin-metaboxes.php:513
 msgid "Front Matter Copyright License (overrides book license on this page)"
@@ -775,27 +774,27 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:677
 msgid "Extra Profile Information"
-msgstr ""
+msgstr "Dodatečný profil - informace"
 
 #: admin/pb-admin-metaboxes.php:684
 msgid "English"
-msgstr ""
+msgstr "Anglický"
 
 #: admin/pb-admin-metaboxes.php:685
 msgid "Chinese, Traditional"
-msgstr ""
+msgstr "Čínský, tradiční"
 
 #: admin/pb-admin-metaboxes.php:686
 msgid "Estonian"
-msgstr ""
+msgstr "Estonský"
 
 #: admin/pb-admin-metaboxes.php:687
 msgid "French"
-msgstr ""
+msgstr "Francouzský"
 
 #: admin/pb-admin-metaboxes.php:688
 msgid "German"
-msgstr ""
+msgstr "Německý"
 
 #: admin/pb-admin-metaboxes.php:689
 msgid "Italian"
@@ -803,15 +802,15 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:690
 msgid "Japanese"
-msgstr ""
+msgstr "Japonský"
 
 #: admin/pb-admin-metaboxes.php:691
 msgid "Portuguese, Brazil"
-msgstr ""
+msgstr "Portugalský, brazilský"
 
 #: admin/pb-admin-metaboxes.php:692
 msgid "Spanish"
-msgstr ""
+msgstr "Španělský"
 
 #: admin/pb-admin-metaboxes.php:693
 msgid "Swedish"
@@ -819,11 +818,11 @@ msgstr ""
 
 #: admin/templates/catalog.php:27
 msgid "Tags For"
-msgstr ""
+msgstr "Značky pro"
 
 #: admin/templates/catalog.php:49
 msgid "Tags"
-msgstr ""
+msgstr "Značky"
 
 #: admin/templates/catalog.php:52
 msgid "Comma delimited"
@@ -835,15 +834,15 @@ msgstr ""
 
 #: admin/templates/catalog.php:93
 msgid "URL"
-msgstr ""
+msgstr "Adresa (URL)"
 
 #: admin/templates/catalog.php:97
 msgid "Tags Name"
-msgstr ""
+msgstr "Označení značek"
 
 #: admin/templates/catalog.php:106
 msgid "Logo Or Image"
-msgstr ""
+msgstr "Logo nebo obrázek"
 
 #: admin/templates/custom-css.php:20
 msgid "Error: Something went wrong. See logs for more details."
@@ -861,7 +860,7 @@ msgstr ""
 #: symbionts/search-regex/view/admin/results.php:34
 #: symbionts/search-regex/view/admin/results.php:35
 msgid "Save"
-msgstr ""
+msgstr "Uložit"
 
 #: admin/templates/export.php:27
 msgid "Error: The export failed. See logs for more details."
@@ -884,19 +883,19 @@ msgstr ""
 
 #: admin/templates/export.php:49
 msgid "Export Your Book"
-msgstr ""
+msgstr "Vyvést knihu"
 
 #: admin/templates/export.php:57
 msgid "Latest Export"
-msgstr ""
+msgstr "Poslední uložení"
 
 #: admin/templates/export.php:60
 msgid "Exported"
-msgstr ""
+msgstr "Uloženo"
 
 #: admin/templates/export.php:86 includes/pb-image.php:342
 msgid "Are you sure you want to delete this?"
-msgstr ""
+msgstr "Opravdu toto chcete smazat?"
 
 #: admin/templates/export.php:98
 msgid "Your Export Format Options"
@@ -912,7 +911,7 @@ msgstr ""
 
 #: admin/templates/export.php:118
 msgid "PDF (for printing)"
-msgstr ""
+msgstr "PDF (pro tisk)"
 
 #: admin/templates/export.php:121
 msgid "PDF (mPDF)"
@@ -920,11 +919,11 @@ msgstr ""
 
 #: admin/templates/export.php:123 admin/templates/import.php:144
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
-msgstr ""
+msgstr "EPUB (pro Nook, iBooks, Kobo atd.)"
 
 #: admin/templates/export.php:124
 msgid "MOBI (for Kindle)"
-msgstr ""
+msgstr "MOBI (pro Kindle)"
 
 #: admin/templates/export.php:130
 msgid "EPUB 3 (Beta)"
@@ -932,11 +931,11 @@ msgstr ""
 
 #: admin/templates/export.php:132
 msgid "ICML (for InDesign)"
-msgstr ""
+msgstr "ICML (pro InDesign)"
 
 #: admin/templates/export.php:133
 msgid "XHTML"
-msgstr ""
+msgstr "XHTML"
 
 #: admin/templates/export.php:134
 msgid "PressBooks XML"
@@ -944,7 +943,7 @@ msgstr ""
 
 #: admin/templates/export.php:135
 msgid "WordPress XML"
-msgstr ""
+msgstr "XML pro WordPress"
 
 #: admin/templates/export.php:137
 msgid "ODT"
@@ -956,7 +955,7 @@ msgstr ""
 
 #: admin/templates/export.php:149
 msgid "Change Theme"
-msgstr ""
+msgstr "Změnit téma"
 
 #: admin/templates/export.php:150
 msgid "Options"
@@ -965,23 +964,23 @@ msgstr ""
 #: admin/templates/import.php:20
 #, php-format
 msgid "Import in progress: %s"
-msgstr ""
+msgstr "Probíhá zavádění... %s"
 
 #: admin/templates/import.php:40
 msgid "Are you sure you want to abort the import?"
-msgstr ""
+msgstr "Opravdu si zavádění přejete zrušit?"
 
 #: admin/templates/import.php:60
 msgid "Chapter"
-msgstr ""
+msgstr "Kapitola"
 
 #: admin/templates/import.php:94
 msgid "Start"
-msgstr ""
+msgstr "Začít"
 
 #: admin/templates/import.php:96
 msgid "Cancel"
-msgstr ""
+msgstr "Zrušit"
 
 #: admin/templates/import.php:129
 msgid "Supported file extensions:"
@@ -989,11 +988,11 @@ msgstr ""
 
 #: admin/templates/import.php:130
 msgid "Maximum file size:"
-msgstr ""
+msgstr "Největší velikost souboru:"
 
 #: admin/templates/import.php:139
 msgid "Type of file"
-msgstr ""
+msgstr "Typ souboru"
 
 #: admin/templates/import.php:143
 msgid "WXR (WordPress eXtended RSS)"
@@ -1013,15 +1012,15 @@ msgstr ""
 
 #: admin/templates/import.php:153
 msgid "File"
-msgstr ""
+msgstr "Soubor"
 
 #: admin/templates/import.php:166
 msgid "Upload file"
-msgstr ""
+msgstr "Nahrát soubor"
 
 #: admin/templates/organize.php:20 admin/templates/organize.php:22
 msgid "This book's global privacy is set to"
-msgstr ""
+msgstr "Celkové soukromí této knihy je nastaveno na"
 
 #: admin/templates/organize.php:28
 msgid "Promote your book, set individual chapters privacy below."
@@ -1035,33 +1034,33 @@ msgstr ""
 
 #: admin/templates/organize.php:45
 msgid "Chapters"
-msgstr ""
+msgstr "Kapitoly"
 
 #: admin/templates/organize.php:50 admin/templates/organize.php:131
 msgid "Add Front Matter"
-msgstr ""
+msgstr "Přidat úvodní stránku knihy"
 
 #: admin/templates/organize.php:51 admin/templates/organize.php:312
 msgid "Add Back Matter"
-msgstr ""
+msgstr "Přidat závěrečnou část"
 
 #: admin/templates/organize.php:52 admin/templates/organize.php:228
 msgid "Add Chapter"
-msgstr ""
+msgstr "Přidat kapitolu"
 
 #: admin/templates/organize.php:53 admin/templates/organize.php:235
 msgid "Add Part"
-msgstr ""
+msgstr "Přidat část"
 
 #: admin/templates/organize.php:63 admin/templates/organize.php:147
 #: admin/templates/organize.php:244
 msgid "Comments"
-msgstr ""
+msgstr "Poznámky"
 
 #: admin/templates/organize.php:64 admin/templates/organize.php:148
 #: admin/templates/organize.php:245
 msgid "Status"
-msgstr ""
+msgstr "Stav"
 
 #: admin/templates/organize.php:67 admin/templates/organize.php:112
 #: admin/templates/organize.php:153 admin/templates/organize.php:208
@@ -1071,27 +1070,27 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:126
 #: themes-root/pressbooks-publisher/template-parts/content-page.php:25
 msgid "Edit"
-msgstr ""
+msgstr "Upravit"
 
 #: admin/templates/organize.php:78 admin/templates/organize.php:177
 #: admin/templates/organize.php:259
 msgid "Ebook start point"
-msgstr ""
+msgstr "Začátek elektronické knihy"
 
 #: admin/templates/organize.php:117 admin/templates/organize.php:160
 #: admin/templates/organize.php:211 admin/templates/organize.php:298
 #: includes/pb-image.php:374
 #: symbionts/custom-metadata/custom_metadata.php:1315
 msgid "Delete"
-msgstr ""
+msgstr "Smazat"
 
 #: admin/templates/organize.php:322
 msgid "Reordering the Chapters"
-msgstr ""
+msgstr "Přeuspořádání kapitol"
 
 #: admin/templates/sell.php:12
 msgid "Sell Your Book"
-msgstr ""
+msgstr "Prodat knihu"
 
 #: admin/templates/sell.php:13
 msgid ""
@@ -1100,7 +1099,7 @@ msgstr ""
 
 #: admin/templates/sell.php:18
 msgid "Ebook Distribution"
-msgstr ""
+msgstr "Odbyt elektronické knihy"
 
 #: admin/templates/sell.php:19
 #, php-format
@@ -1160,7 +1159,7 @@ msgstr ""
 
 #: includes/class-pb-activation.php:148
 msgid "Introduction"
-msgstr ""
+msgstr "Úvod"
 
 #: includes/class-pb-activation.php:150
 msgid "This is where you can write your introduction."
@@ -1168,7 +1167,7 @@ msgstr ""
 
 #: includes/class-pb-activation.php:154
 msgid "Chapter 1"
-msgstr ""
+msgstr "Kapitola 1"
 
 #: includes/class-pb-activation.php:156
 msgid ""
@@ -1178,7 +1177,7 @@ msgstr ""
 
 #: includes/class-pb-activation.php:160
 msgid "Appendix"
-msgstr ""
+msgstr "Dodatek"
 
 #: includes/class-pb-activation.php:162
 msgid "This is where you can add appendices or other back matter."
@@ -1186,7 +1185,7 @@ msgstr ""
 
 #: includes/class-pb-activation.php:167
 msgid "Authors"
-msgstr ""
+msgstr "Autoři"
 
 #: includes/class-pb-activation.php:175
 #: themes-book/pressbooks-book/functions.php:794
@@ -1195,18 +1194,18 @@ msgstr ""
 #: themes-book/pressbooks-book/page-cover-third-block.php:4
 #: themes-book/pressbooks-book/sidebar.php:16
 msgid "Table of Contents"
-msgstr ""
+msgstr "Obsah"
 
 #: includes/class-pb-activation.php:183
 #: themes-book/pressbooks-book/header.php:88
 #: themes-book/pressbooks-book/page-cover-top-block.php:58
 msgid "Buy"
-msgstr ""
+msgstr "Koupit"
 
 #: includes/class-pb-activation.php:187
 #: themes-book/pressbooks-book/functions.php:138
 msgid "Access Denied"
-msgstr ""
+msgstr "Přístup odepřen"
 
 #: includes/class-pb-activation.php:189
 msgid ""
@@ -1247,7 +1246,7 @@ msgstr ""
 
 #: includes/class-pb-catalog.php:1199
 msgid "Invalid URL"
-msgstr ""
+msgstr "Neplatná adresa (URL)"
 
 #: includes/class-pb-catalog.php:1219
 msgid "No book found"
@@ -1263,11 +1262,11 @@ msgstr ""
 
 #: includes/modules/export/class-pb-export.php:795
 msgid "File not found"
-msgstr ""
+msgstr "Soubor nebyl nalezen"
 
 #: includes/modules/export/epub/class-pb-epub201.php:806
 msgid "Title Page"
-msgstr ""
+msgstr "Titulní strana"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1059
 msgid "Make your own books using PressBooks.com"
@@ -1275,12 +1274,12 @@ msgstr ""
 
 #: includes/modules/export/epub/class-pb-epub201.php:1407
 msgid "Table Of Contents"
-msgstr ""
+msgstr "Obsah"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1420
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:672
 msgid "Contents"
-msgstr ""
+msgstr "Obsah"
 
 #: includes/modules/export/mpdf/class-pb-pdf.php:267
 msgid "ISBN"
@@ -1293,7 +1292,7 @@ msgstr ""
 
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:295
 msgid "Notes"
-msgstr ""
+msgstr "Poznámky"
 
 #: includes/modules/import/class-pb-import.php:343
 #: includes/modules/import/class-pb-import.php:406
@@ -1335,32 +1334,32 @@ msgstr ""
 
 #: includes/pb-catalog.php:152
 msgid "'s Catalog Page"
-msgstr ""
+msgstr "strany soupisu"
 
 #: includes/pb-catalog.php:166
 #: themes-book/pressbooks-book/page-cover-top-block.php:8
 msgid "login"
-msgstr ""
+msgstr "Přihlášení"
 
 #: includes/pb-catalog.php:168
 #: themes-book/pressbooks-book/page-cover-top-block.php:10
 msgid "logout"
-msgstr ""
+msgstr "Odhlášení"
 
 #: includes/pb-catalog.php:176
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
 #: themes-root/pressbooks-publisher/header.php:37
 msgid "Admin"
-msgstr ""
+msgstr "Správce"
 
 #: includes/pb-catalog.php:215
 msgid "Catalog"
-msgstr ""
+msgstr "Soupis"
 
 #: includes/pb-catalog.php:215
 msgid "filtering by"
-msgstr ""
+msgstr "Filtrování podle"
 
 #: includes/pb-catalog.php:239
 msgid ""
@@ -1370,7 +1369,7 @@ msgstr ""
 
 #: includes/pb-catalog.php:243
 msgid "PressBooks: the CMS for Books."
-msgstr ""
+msgstr "PressBooks: CMS pro Books."
 
 #: includes/pb-image.php:302
 msgid "Your cover image should be 625px on the shortest side."
@@ -1379,225 +1378,225 @@ msgstr ""
 #: includes/pb-postype.php:35
 msgctxt "post type general name"
 msgid "Chapters"
-msgstr ""
+msgstr "Kapitoly"
 
 #: includes/pb-postype.php:36
 msgctxt "post type singular name"
 msgid "Chapter"
-msgstr ""
+msgstr "Kapitola"
 
 #: includes/pb-postype.php:37
 msgctxt "book"
 msgid "Add New Chapter"
-msgstr ""
+msgstr "Přidat novou kapitolu"
 
 #: includes/pb-postype.php:38
 msgid "Add New Chapter"
-msgstr ""
+msgstr "Přidat novou kapitolu"
 
 #: includes/pb-postype.php:39
 msgid "Edit Chapter"
-msgstr ""
+msgstr "Upravit kapitolu"
 
 #: includes/pb-postype.php:40
 msgid "New Chapter"
-msgstr ""
+msgstr "Nová kapitola"
 
 #: includes/pb-postype.php:41
 msgid "View Chapter"
-msgstr ""
+msgstr "Zobrazit kapitolu"
 
 #: includes/pb-postype.php:42
 msgid "Search Chapters"
-msgstr ""
+msgstr "Hledat kapitoly"
 
 #: includes/pb-postype.php:43
 msgid "No chapters found"
-msgstr ""
+msgstr "Nenalezeny žádné kapitoly"
 
 #: includes/pb-postype.php:44
 msgid "No chapters found in Trash"
-msgstr ""
+msgstr "V koši nebyly nalezeny žádné kapitoly"
 
 #: includes/pb-postype.php:46
 msgid "Text"
-msgstr ""
+msgstr "Text"
 
 #: includes/pb-postype.php:70
 msgctxt "post type general name"
 msgid "Parts"
-msgstr ""
+msgstr "Části"
 
 #: includes/pb-postype.php:71
 msgctxt "post type singular name"
 msgid "Part"
-msgstr ""
+msgstr "Část"
 
 #: includes/pb-postype.php:72
 msgctxt "book"
 msgid "Add Part"
-msgstr ""
+msgstr "Přidat část"
 
 #: includes/pb-postype.php:73
 msgid "Add New Part"
-msgstr ""
+msgstr "Přidat novou část"
 
 #: includes/pb-postype.php:74
 msgid "Edit Part"
-msgstr ""
+msgstr "Upravit část"
 
 #: includes/pb-postype.php:75
 msgid "New Part"
-msgstr ""
+msgstr "Nová část"
 
 #: includes/pb-postype.php:76
 msgid "View Part"
-msgstr ""
+msgstr "Zobrazit část"
 
 #: includes/pb-postype.php:77
 msgid "Search Parts"
-msgstr ""
+msgstr "Hledat části"
 
 #: includes/pb-postype.php:78
 msgid "No parts found"
-msgstr ""
+msgstr "Nenalezeny žádné části"
 
 #: includes/pb-postype.php:79
 msgid "No parts found in Trash"
-msgstr ""
+msgstr "V koši nebyly nalezeny žádné části"
 
 #: includes/pb-postype.php:81
 msgid "Parts"
-msgstr ""
+msgstr "Části"
 
 #: includes/pb-postype.php:104
 msgctxt "post type general name"
 msgid "Front Matter"
-msgstr ""
+msgstr "Úvodní stránka knihy"
 
 #: includes/pb-postype.php:105
 msgctxt "post type singular name"
 msgid "Front Matter"
-msgstr ""
+msgstr "Úvodní stránka knihy"
 
 #: includes/pb-postype.php:106
 msgctxt "book"
 msgid "Add New Front Matter"
-msgstr ""
+msgstr "Přidat novou úvodní stránku knihy"
 
 #: includes/pb-postype.php:107
 msgid "Add New Front Matter"
-msgstr ""
+msgstr "Přidat novou úvodní stránku knihy"
 
 #: includes/pb-postype.php:108
 msgid "Edit Front Matter"
-msgstr ""
+msgstr "Upravit úvodní stránku knihy"
 
 #: includes/pb-postype.php:109
 msgid "New Front Matter"
-msgstr ""
+msgstr "Upravit úvodní stránku knihy"
 
 #: includes/pb-postype.php:110
 msgid "View Front Matter"
-msgstr ""
+msgstr "Zobrazit úvodní stránku knihy"
 
 #: includes/pb-postype.php:111
 msgid "Search Front Matter"
-msgstr ""
+msgstr "Hledat úvodní stránku knihy"
 
 #: includes/pb-postype.php:112
 msgid "No front matter found"
-msgstr ""
+msgstr "Nenalezena žádná úvodní stránka knihy"
 
 #: includes/pb-postype.php:113
 msgid "No front matter found in Trash"
-msgstr ""
+msgstr "V koši nebyla nalezena žádná úvodní stránka knihy"
 
 #: includes/pb-postype.php:139
 msgctxt "post type general name"
 msgid "Back Matter"
-msgstr ""
+msgstr "Závěrečná část"
 
 #: includes/pb-postype.php:140
 msgctxt "post type singular name"
 msgid "Back Matter"
-msgstr ""
+msgstr "Závěrečná část"
 
 #: includes/pb-postype.php:141
 msgctxt "book"
 msgid "Add New Back Matter"
-msgstr ""
+msgstr "Přidat novou závěrečnou část"
 
 #: includes/pb-postype.php:142
 msgid "Add New Back Matter"
-msgstr ""
+msgstr "Přidat novou závěrečnou část"
 
 #: includes/pb-postype.php:143
 msgid "Edit Back Matter"
-msgstr ""
+msgstr "Upravit závěrečnou část"
 
 #: includes/pb-postype.php:144
 msgid "New Back Matter"
-msgstr ""
+msgstr "Nová závěrečná část"
 
 #: includes/pb-postype.php:145
 msgid "View Back Matter"
-msgstr ""
+msgstr "Zobrazit závěrečnou část"
 
 #: includes/pb-postype.php:146
 msgid "Search Back Matter"
-msgstr ""
+msgstr "Hledat závěrečnou část"
 
 #: includes/pb-postype.php:147
 msgid "No back matter found"
-msgstr ""
+msgstr "Nenalezena žádná závěrečná část"
 
 #: includes/pb-postype.php:148
 msgid "No back matter found in Trash"
-msgstr ""
+msgstr "V koši nebyla nalezena žádná závěrečná část"
 
 #: includes/pb-postype.php:174
 msgctxt "post type general name"
 msgid "Book Information"
-msgstr ""
+msgstr "Informace o knize"
 
 #: includes/pb-postype.php:175
 msgctxt "post type singular name"
 msgid "Book Information"
-msgstr ""
+msgstr "Informace o knize"
 
 #: includes/pb-postype.php:176
 msgctxt "book"
 msgid "Add New Book Information"
-msgstr ""
+msgstr "Přidat nové informace o knize"
 
 #: includes/pb-postype.php:177 includes/pb-postype.php:178
 msgid "Edit Book Information"
-msgstr ""
+msgstr "Upravit informace o knize"
 
 #: includes/pb-postype.php:179
 msgid "New Book Information"
-msgstr ""
+msgstr "Nová informace o knize"
 
 #: includes/pb-postype.php:180
 msgid "View Book Information"
-msgstr ""
+msgstr "Zobrazit informace o knize"
 
 #: includes/pb-postype.php:181
 msgid "Search Book Information"
-msgstr ""
+msgstr "Hledat informace o knize"
 
 #: includes/pb-postype.php:182
 msgid "No book information found"
-msgstr ""
+msgstr "Nenalezeny žádné informace o knize"
 
 #: includes/pb-postype.php:183
 msgid "No book information found in Trash"
-msgstr ""
+msgstr "V koši nebyly nalezeny žádné informace o knize"
 
 #: includes/pb-postype.php:185
 msgid "Book Information"
-msgstr ""
+msgstr "Informace o knize"
 
 #: includes/pb-redirect.php:171
 msgid "Error: Unknown export format."
@@ -1787,7 +1786,7 @@ msgstr ""
 
 #: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
-msgstr ""
+msgstr "Vložit poznámku pod čarou"
 
 #: shortcodes/footnotes/class-pb-footnotes.php:176
 msgid "Convert MS Word Footnotes"
@@ -1849,49 +1848,49 @@ msgstr ""
 #: symbionts/custom-metadata/custom_metadata_examples.php:32
 msgctxt "post type general name"
 msgid "Tests"
-msgstr ""
+msgstr "Zkoušky"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:33
 msgctxt "post type singular name"
 msgid "Test"
-msgstr ""
+msgstr "Zkouška"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:34
 msgctxt "Test"
 msgid "Add New"
-msgstr ""
+msgstr "Přidat novou zkoušku"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:35
 msgid "Add New Test"
-msgstr ""
+msgstr "Přidat novou zkoušku"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:36
 msgid "Edit Test"
-msgstr ""
+msgstr "Upravit zkoušku"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:37
 msgid "New Test"
-msgstr ""
+msgstr "Nová zkouška"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:38
 msgid "All Tests"
-msgstr ""
+msgstr "Všechny zkoušky"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:39
 msgid "View Test"
-msgstr ""
+msgstr "Zobrazit zkoušku"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:40
 msgid "Search Tests"
-msgstr ""
+msgstr "Hledat zkoušky"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:41
 msgid "No Tests found"
-msgstr ""
+msgstr "Nenalezeny žádné zkoušky"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:42
 msgid "No Tests found in Trash"
-msgstr ""
+msgstr "V koši nebyly nalezeny žádné zkoušky"
 
 #: symbionts/pb-latex/pb-latex-admin.php:33
 msgid "Settings"
@@ -2118,7 +2117,7 @@ msgstr ""
 #: themes-book/donham/functions.php:27 themes-book/donham/functions.php:28
 #: themes-book/donham/functions.php:45
 msgid "part"
-msgstr ""
+msgstr "Část"
 
 #: themes-book/pressbooks-book/comments.php:3
 msgid ""
@@ -2131,6 +2130,7 @@ msgid "One Response to %2$s"
 msgid_plural "%1$s Responses to %2$s"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: themes-book/pressbooks-book/comments.php:18
 #: themes-book/pressbooks-book/comments.php:29
@@ -2149,7 +2149,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/comments.php:45
 msgid "Submit"
-msgstr ""
+msgstr "Odeslat"
 
 #: themes-book/pressbooks-book/content-social-footer.php:4
 msgid "I wanted to share this post with you from"
@@ -2165,7 +2165,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/footer.php:24
 msgid "Book Name"
-msgstr ""
+msgstr "Název knihy"
 
 #: themes-book/pressbooks-book/footer.php:51
 msgid "PressBooks.com: Simple Book Production"
@@ -2181,11 +2181,11 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:120
 msgid "Previous"
-msgstr ""
+msgstr "Předchozí"
 
 #: themes-book/pressbooks-book/functions.php:124
 msgid "Next"
-msgstr ""
+msgstr "Další"
 
 #: themes-book/pressbooks-book/functions.php:140
 msgid ""
@@ -2206,7 +2206,7 @@ msgstr ""
 #: themes-book/pressbooks-book/functions.php:167
 #: themes-book/pressbooks-book/functions.php:187
 msgid "(Edit)"
-msgstr ""
+msgstr "(Upravit)"
 
 #: themes-book/pressbooks-book/functions.php:170
 msgid "Your comment is awaiting moderation."
@@ -2238,7 +2238,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:384
 msgid "Page size"
-msgstr ""
+msgstr "Velikost strany"
 
 #: themes-book/pressbooks-book/functions.php:385
 msgid "digest"
@@ -2254,7 +2254,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:388
 msgid "8.5 x 9.25\""
-msgstr ""
+msgstr "8.5 x 9.25\""
 
 #: themes-book/pressbooks-book/functions.php:389
 msgid "duodecimo"
@@ -2267,22 +2267,22 @@ msgstr ""
 #: themes-book/pressbooks-book/functions.php:391
 #: themes-book/pressbooks-book/functions.php:1091
 msgid "A4"
-msgstr ""
+msgstr "A4"
 
 #: themes-book/pressbooks-book/functions.php:392
 #: themes-book/pressbooks-book/functions.php:1092
 msgid "A5"
-msgstr ""
+msgstr "A5"
 
 #: themes-book/pressbooks-book/functions.php:395
 #: themes-book/pressbooks-book/functions.php:436
 msgid "Paragraph separator"
-msgstr ""
+msgstr "Oddělovač odstavce"
 
 #: themes-book/pressbooks-book/functions.php:396
 #: themes-book/pressbooks-book/functions.php:437
 msgid "indent"
-msgstr ""
+msgstr "Odsadit"
 
 #: themes-book/pressbooks-book/functions.php:397
 #: themes-book/pressbooks-book/functions.php:438
@@ -2291,7 +2291,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:400
 msgid "Blank pages"
-msgstr ""
+msgstr "Prázdné strany"
 
 #: themes-book/pressbooks-book/functions.php:401
 msgid "include blank pages (for print PDF)"
@@ -2303,12 +2303,12 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:405
 msgid "Table of contents"
-msgstr ""
+msgstr "Obsah"
 
 #: themes-book/pressbooks-book/functions.php:405
 #: themes-book/pressbooks-book/functions.php:411
 msgid "display"
-msgstr ""
+msgstr "Zobrazit"
 
 #: themes-book/pressbooks-book/functions.php:405
 #: themes-book/pressbooks-book/functions.php:411
@@ -2321,7 +2321,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:408
 msgid "normal"
-msgstr ""
+msgstr "Normální"
 
 #: themes-book/pressbooks-book/functions.php:408
 msgid "force as endnotes"
@@ -2335,29 +2335,29 @@ msgstr ""
 #: themes-book/pressbooks-book/functions.php:762
 #: themes-book/pressbooks-book/functions.php:1211
 msgid "Hyphens"
-msgstr ""
+msgstr "Spojovníky"
 
 #: themes-book/pressbooks-book/functions.php:414
 #: themes-book/pressbooks-book/functions.php:423
 #: themes-book/pressbooks-book/functions.php:441
 msgid "enabled"
-msgstr ""
+msgstr "Povoleno"
 
 #: themes-book/pressbooks-book/functions.php:414
 #: themes-book/pressbooks-book/functions.php:423
 #: themes-book/pressbooks-book/functions.php:441
 msgid "disabled"
-msgstr ""
+msgstr "Zakázáno"
 
 #: themes-book/pressbooks-book/functions.php:417
 #: themes-book/pressbooks-book/functions.php:827
 msgid "Widows"
-msgstr ""
+msgstr "Vdovy"
 
 #: themes-book/pressbooks-book/functions.php:420
 #: themes-book/pressbooks-book/functions.php:834
 msgid "Orphans"
-msgstr ""
+msgstr "Sirotci"
 
 #: themes-book/pressbooks-book/functions.php:423
 msgid "Accessibility Increase Font Size"
@@ -2365,7 +2365,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:429
 msgid "Ebook options"
-msgstr ""
+msgstr "Volby pro elektronické knihy"
 
 #: themes-book/pressbooks-book/functions.php:441
 #: themes-book/pressbooks-book/functions.php:1425
@@ -2374,15 +2374,15 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:472
 msgid "Global Options"
-msgstr ""
+msgstr "Celkové volby"
 
 #: themes-book/pressbooks-book/functions.php:479
 msgid "Chapter Numbers"
-msgstr ""
+msgstr "Čísla kapitol"
 
 #: themes-book/pressbooks-book/functions.php:484
 msgid "Display chapter numbers"
-msgstr ""
+msgstr "Zobrazit čísla kapitol"
 
 #: themes-book/pressbooks-book/functions.php:490
 msgid "Parse Sections"
@@ -2429,12 +2429,12 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:727
 msgid "PDF Options"
-msgstr ""
+msgstr "Volby pro PDF"
 
 #: themes-book/pressbooks-book/functions.php:734
 #: themes-book/pressbooks-book/functions.php:1082
 msgid "Page Size"
-msgstr ""
+msgstr "Velikost strany"
 
 #: themes-book/pressbooks-book/functions.php:739
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
@@ -2504,11 +2504,11 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:783
 msgid "Blank Pages"
-msgstr ""
+msgstr "Prázdné strany"
 
 #: themes-book/pressbooks-book/functions.php:788
 msgid "Include blank pages (for print PDF)"
-msgstr ""
+msgstr "Zahrnout prázdné strany (pro tisk PDF)"
 
 #: themes-book/pressbooks-book/functions.php:789
 msgid "Remove all blank pages (for web PDF)"
@@ -2870,26 +2870,26 @@ msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:5
 msgid "Book Description"
-msgstr ""
+msgstr "Popis knihy"
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:54
 msgid "Read"
-msgstr ""
+msgstr "Čtení"
 
 #: themes-book/pressbooks-book/page.php:13
 #: themes-root/pressbooks-publisher/template-parts/content-page.php:18
 #: themes-root/pressbooks-publisher/template-parts/content-single.php:20
 #: themes-root/pressbooks-publisher/template-parts/content.php:29
 msgid "Pages:"
-msgstr ""
+msgstr "Strany:"
 
 #: themes-book/pressbooks-book/sidebar.php:13
 msgid "Home"
-msgstr ""
+msgstr "Začátek"
 
 #: themes-book/pressbooks-book/sidebar.php:23
 msgid "Close"
-msgstr "Κλείσιμο"
+msgstr "Zavřít"
 
 #: themes-root/pressbooks-publisher/404.php:15
 msgid "Oops! That page can&rsquo;t be found."
@@ -2917,6 +2917,7 @@ msgid "One thought on &ldquo;%2$s&rdquo;"
 msgid_plural "%1$s thoughts on &ldquo;%2$s&rdquo;"
 msgstr[0] ""
 msgstr[1] ""
+msgstr[2] ""
 
 #: themes-root/pressbooks-publisher/comments.php:38
 #: themes-root/pressbooks-publisher/comments.php:59
@@ -3087,7 +3088,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:122
 msgid "Leave a comment"
-msgstr ""
+msgstr "Zanechat Poznámku"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:122
 msgid "1 Comment"

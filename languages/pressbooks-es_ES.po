@@ -1,22 +1,25 @@
-# Copyright (C) 2013 PressBooks
+# Copyright (C) 2015 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
 # taskforsome <taskforsome@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: PressBooks\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
+"Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-06-08 10:56-0500\n"
-"PO-Revision-Date: 2015-06-08 11:06-0500\n"
-"Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/pressbooks/"
-"language/es/)\n"
-"Language: es\n"
+"PO-Revision-Date: 2015-06-08 20:48+0000\n"
+"Last-Translator: Ned Zimmerman\n"
+"Language-Team: Spanish (http://www.transifex.com/projects/p/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
@@ -152,8 +155,7 @@ msgstr "Editar CSS"
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
-"Error inesperado: no se pudo recuperar %s. Contacte a asistencia técnica."
+msgstr "Error inesperado: no se pudo recuperar %s. Contacte a asistencia técnica."
 
 #: admin/pb-admin-customcss.php:113
 msgid "Last 10 CSS Revisions"
@@ -171,8 +173,7 @@ msgstr "por"
 
 #: admin/pb-admin-customcss.php:183
 msgid "This will overwrite existing custom CSS. Are you sure?"
-msgstr ""
-"Se sobreescribirá la plantilla CSS personalizada existente. ¿Desea continuar?"
+msgstr "Se sobreescribirá la plantilla CSS personalizada existente. ¿Desea continuar?"
 
 #: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
 #: admin/pb-admin-dashboard.php:95
@@ -331,9 +332,7 @@ msgstr "Público. Quiero que el libro esté disponible públicamente."
 #: admin/pb-admin-laf.php:654
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr ""
-"Privado. Quiero que el libro solo esté disponible para aquellos que yo "
-"invite."
+msgstr "Privado. Quiero que el libro solo esté disponible para aquellos que yo invite."
 
 #: admin/pb-admin-laf.php:705
 msgid "Amazon URL"
@@ -361,8 +360,7 @@ msgstr "URL de otros servicios"
 
 #: admin/pb-admin-laf.php:871
 msgid "Email me validation error reports on export."
-msgstr ""
-"Al exportar, enviarme los informes de errores de validación por correo."
+msgstr "Al exportar, enviarme los informes de errores de validación por correo."
 
 #: admin/pb-admin-laf.php:878
 msgid "Enable chapter types."
@@ -385,16 +383,10 @@ msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
 "support for deciphering validation errors, but you could post errors on the "
-"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</"
-"a>, where we and other PressBooks users can help out as time permits. ."
-msgstr ""
-"Nota: los informes de validación de errores (para EPUB, MOBI y PDF) son "
-"técnicos y se requiere cierto esfuerzo para decifrarlos. Lamentablemente no "
-"podemos ofrecer asistencia para decifrar los errores de validación, pero "
-"puede publicar los errores en el <a href=\"http://forum.pressbooks.com/\" "
-"target=\"_blank\">foro de PressBooks</a> , donde los desarrolladores y otros "
-"usuarios podrán ayudarle en la medida de sus posibilidades y "
-"disponibilidad. ."
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks "
+"forum</a>, where we and other PressBooks users can help out as time permits."
+" ."
+msgstr "Nota: los informes de validación de errores (para EPUB, MOBI y PDF) son técnicos y se requiere cierto esfuerzo para decifrarlos. Lamentablemente no podemos ofrecer asistencia para decifrar los errores de validación, pero puede publicar los errores en el <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">foro de PressBooks</a> , donde los desarrolladores y otros usuarios podrán ayudarle en la medida de sus posibilidades y disponibilidad. ."
 
 #: admin/pb-admin-laf.php:947
 msgid "Enable chapter types taxonomy."
@@ -405,9 +397,7 @@ msgstr ""
 msgid ""
 "Your cover image (%s x %s) is too small. It should be 625px on the shortest "
 "side."
-msgstr ""
-"Tu imagen de portada (%s x %s) es demasiado pequeña. Debería tener 625px en "
-"su lado más corto."
+msgstr "Tu imagen de portada (%s x %s) es demasiado pequeña. Debería tener 625px en su lado más corto."
 
 #: admin/pb-admin-metaboxes.php:114 admin/pb-admin-metaboxes.php:159
 #: includes/class-pb-metadata.php:627
@@ -443,9 +433,7 @@ msgstr "Título corto"
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
-"En el caso de títulos largos que puedan quedar cortados en los encabezados "
-"al exportar a PDF."
+msgstr "En el caso de títulos largos que puedan quedar cortados en los encabezados al exportar a PDF."
 
 #: admin/pb-admin-metaboxes.php:181
 msgid "Subtitle"
@@ -459,9 +447,7 @@ msgstr "Autor, archivar como"
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
-msgstr ""
-"Esto permite que el libro se archive correctamente en las tiendas de ebooks, "
-"por el apellido del autor."
+msgstr "Esto permite que el libro se archive correctamente en las tiendas de ebooks, por el apellido del autor."
 
 #: admin/pb-admin-metaboxes.php:197
 msgid "Contributing Authors"
@@ -469,8 +455,8 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:199
 msgid ""
-"This may be used when more than one person shares the responsibility for the "
-"intellectual content of a book."
+"This may be used when more than one person shares the responsibility for the"
+" intellectual content of a book."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:204
@@ -520,9 +506,7 @@ msgstr "ISBN del libro en papel"
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
-"Necesitará un ISBN (International Standard Book Number) si quiere vender el "
-"libro en tiendas en línea y librerías tradicionales."
+msgstr "Necesitará un ISBN (International Standard Book Number) si quiere vender el libro en tiendas en línea y librerías tradicionales."
 
 #: admin/pb-admin-metaboxes.php:244 admin/pb-admin-metaboxes.php:695
 msgid "Language"
@@ -578,8 +562,8 @@ msgstr "Declaración de derechos de autor"
 #: admin/pb-admin-metaboxes.php:287
 msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
-"will override the auto-generated copyright notice, and be inserted after the "
-"title page."
+"will override the auto-generated copyright notice, and be inserted after the"
+" title page."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:297
@@ -590,9 +574,7 @@ msgstr "Eslogan del libro"
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
-"Una descripción corta del libro. Debería tener menos de 140 caracteres y "
-"encapsular el libro en una oración breve."
+msgstr "Una descripción corta del libro. Debería tener menos de 140 caracteres y encapsular el libro en una oración breve."
 
 #: admin/pb-admin-metaboxes.php:304
 msgid "Short Description"
@@ -601,8 +583,7 @@ msgstr "Descripción corta"
 #: admin/pb-admin-metaboxes.php:305
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
-"Un párrafo corto sobre el libro, para incluirlo en catálogos, reseñas, etc."
+msgstr "Un párrafo corto sobre el libro, para incluirlo en catálogos, reseñas, etc."
 
 #: admin/pb-admin-metaboxes.php:311
 msgid "Long Description"
@@ -740,8 +721,7 @@ msgstr "Metadatos de las páginas preliminares"
 
 #: admin/pb-admin-metaboxes.php:486
 msgid "Front Matter Short Title (appears in the PDF running header)"
-msgstr ""
-"Título corto de las páginas preliminares (aparece en el encabezado del PDF)"
+msgstr "Título corto de las páginas preliminares (aparece en el encabezado del PDF)"
 
 #: admin/pb-admin-metaboxes.php:491
 msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
@@ -884,14 +864,11 @@ msgstr "Guardar"
 
 #: admin/templates/export.php:27
 msgid "Error: The export failed. See logs for more details."
-msgstr ""
-"Error: fallo en la exportación Para más información, vea los registros."
+msgstr "Error: fallo en la exportación Para más información, vea los registros."
 
 #: admin/templates/export.php:32
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
-"Advertencia: se produjeron errores de validación durante la exportación. "
-"Para más información, vea los registros."
+msgstr "Advertencia: se produjeron errores de validación durante la exportación. Para más información, vea los registros."
 
 #: admin/templates/export.php:33
 msgid "Emailed to:"
@@ -900,12 +877,9 @@ msgstr "Enviar a:"
 #: admin/templates/export.php:44
 #, php-format
 msgid ""
-"You can export multiple file formats by selecting your Export Format Options "
-"below. PressBooks saves your last %s batches of exported files."
-msgstr ""
-"Puede exportar a distintos formatos de archivo mediante las opciones de "
-"Exportar formato situadas debajo. PressBooks guarda los últimos %s lotes de "
-"los archivos exportados."
+"You can export multiple file formats by selecting your Export Format Options"
+" below. PressBooks saves your last %s batches of exported files."
+msgstr "Puede exportar a distintos formatos de archivo mediante las opciones de Exportar formato situadas debajo. PressBooks guarda los últimos %s lotes de los archivos exportados."
 
 #: admin/templates/export.php:49
 msgid "Export Your Book"
@@ -1056,9 +1030,7 @@ msgstr "Promociona tu libro. Establece la privacidad de los capítulos debajo."
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "privacy settings below."
-msgstr ""
-"Solo los usuarios a los que invites pueden ver tu libro, independientemente "
-"de la configuración de privacidad para capítulos de abajo."
+msgstr "Solo los usuarios a los que invites pueden ver tu libro, independientemente de la configuración de privacidad para capítulos de abajo."
 
 #: admin/templates/organize.php:45
 msgid "Chapters"
@@ -1134,19 +1106,14 @@ msgstr "Distribución del ebook"
 msgid ""
 "We recommend <a href=\"%s\" target=\"_blank\">BookBaby</a>, a service which "
 "will get your book into 11 different ebooks stores. "
-msgstr ""
-"Recomendamos <a href=\"%s\" target=\"_blank\">BookBaby</a>, un servicio que "
-"te permite subir tu libro a 11 tiendas diferentes."
+msgstr "Recomendamos <a href=\"%s\" target=\"_blank\">BookBaby</a>, un servicio que te permite subir tu libro a 11 tiendas diferentes."
 
 #: admin/templates/sell.php:20
 msgid ""
-"For a flat fee starting at $99 (with a 10% discount for PressBooks users and "
-"100% royalties going to you), BookBaby will send your book to the Kindle "
+"For a flat fee starting at $99 (with a 10% discount for PressBooks users and"
+" 100% royalties going to you), BookBaby will send your book to the Kindle "
 "Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
-msgstr ""
-"BookBaby envía tu libro a Kindle Store, Barnes & Noble, iBook store, Kobo, y "
-"más, con una tarifa básica de 99 $ (con un descuento del 10 % para usuarios "
-"de PressBooks y el 100 % de regalías para ti)."
+msgstr "BookBaby envía tu libro a Kindle Store, Barnes & Noble, iBook store, Kobo, y más, con una tarifa básica de 99 $ (con un descuento del 10 % para usuarios de PressBooks y el 100 % de regalías para ti)."
 
 #: admin/templates/sell.php:21
 msgid "Distribute with BookBaby"
@@ -1159,12 +1126,10 @@ msgstr "Print-On-Demand (Impresión bajo demanda)"
 #: admin/templates/sell.php:27
 #, php-format
 msgid ""
-"You can submit your PDF exports to <a href=\"%s\" target=\"_blank"
-"\">CreateSpace</a> to get print versions of your books into Amazon, and to "
-"order copies for yourself."
-msgstr ""
-"Puedes enviar tu archivo PDF a <a href=\"%s\" target=\"_blank\">CreateSpace</"
-"a> para vender copias físicas de tu libro en Amazon, o pedir copias para ti."
+"You can submit your PDF exports to <a href=\"%s\" "
+"target=\"_blank\">CreateSpace</a> to get print versions of your books into "
+"Amazon, and to order copies for yourself."
+msgstr "Puedes enviar tu archivo PDF a <a href=\"%s\" target=\"_blank\">CreateSpace</a> para vender copias físicas de tu libro en Amazon, o pedir copias para ti."
 
 #: admin/templates/sell.php:28
 msgid "Print-on-Demand with CreateSpace"
@@ -1176,12 +1141,10 @@ msgstr "Crear una página de compra en PressBooks"
 
 #: admin/templates/sell.php:35
 msgid ""
-"Once your books are available in stores, you can add the links to bookstores "
-"below, and we'll make a Buy page on the web version of your PressBooks book."
-msgstr ""
-"Una vez que tus libros estén disponibles en tiendas, puedes añadir los "
-"enlaces debajo, y crearemos una página de compra incluida en la versión web "
-"de tu libro de PressBooks."
+"Once your books are available in stores, you can add the links to bookstores"
+" below, and we'll make a Buy page on the web version of your PressBooks "
+"book."
+msgstr "Una vez que tus libros estén disponibles en tiendas, puedes añadir los enlaces debajo, y crearemos una página de compra incluida en la versión web de tu libro de PressBooks."
 
 #: hooks-admin.php:187
 #, php-format
@@ -1210,9 +1173,7 @@ msgstr "Capítulo 1"
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
-"Este es el primer capítulo en el cuerpo principal del texto. Puede cambiar "
-"el texto, renombrar el capítulo, añadir nuevos capítulos y añadir partes."
+msgstr "Este es el primer capítulo en el cuerpo principal del texto. Puede cambiar el texto, renombrar el capítulo, añadir nuevos capítulos y añadir partes."
 
 #: includes/class-pb-activation.php:160
 msgid "Appendix"
@@ -1250,13 +1211,9 @@ msgstr "Acceso denegado"
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
-"set up your own PressBooks book at: <a href=\"http://pressbooks.com"
-"\">PressBooks.com</a>."
-msgstr ""
-"Este libro es privado y solo está disponible para usuarios registrados. Si "
-"tiene cuenta de usuario puede ingresar <a href=\"/wp-login.php\">aquí</a>. "
-"También puede crear su propio libro en <a href=\"http://pressbooks.com"
-"\">PressBooks.com</a>."
+"set up your own PressBooks book at: <a "
+"href=\"http://pressbooks.com\">PressBooks.com</a>."
+msgstr "Este libro es privado y solo está disponible para usuarios registrados. Si tiene cuenta de usuario puede ingresar <a href=\"/wp-login.php\">aquí</a>. También puede crear su propio libro en <a href=\"http://pressbooks.com\">PressBooks.com</a>."
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
@@ -1373,8 +1330,7 @@ msgstr "%s capítulos importados."
 #: includes/modules/import/wordpress/class-pb-parser.php:62
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
-msgstr ""
-"Este archivo no tiene el formato WXR. La versión es incorrecta o no válida."
+msgstr "Este archivo no tiene el formato WXR. La versión es incorrecta o no válida."
 
 #: includes/pb-catalog.php:152
 msgid "'s Catalog Page"
@@ -1407,12 +1363,9 @@ msgstr "filtrado por"
 
 #: includes/pb-catalog.php:239
 msgid ""
-"Sorry, but no books matched your filtering criteria. Please <a class=\"clear-"
-"filters\" href=\"#\">clear your current filters</a> and try again."
-msgstr ""
-"Lo sentimos, pero ningún libro concuerda con tus criterios de filtrado. <a "
-"class=\"clear-filters\" href=\"#\">Actualiza tus filtros</a> e inténtalo de "
-"nuevo."
+"Sorry, but no books matched your filtering criteria. Please <a class"
+"=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
+msgstr "Lo sentimos, pero ningún libro concuerda con tus criterios de filtrado. <a class=\"clear-filters\" href=\"#\">Actualiza tus filtros</a> e inténtalo de nuevo."
 
 #: includes/pb-catalog.php:243
 msgid "PressBooks: the CMS for Books."
@@ -1821,21 +1774,15 @@ msgid ""
 "PressBooks will not work with your version of PHP. PressBooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "PressBooks."
-msgstr ""
-"PressBooks no funciona con esta versión de PHP. PressBooks requiere la "
-"versión %s o superior de PHP. Actualiza tu instalación si quieres utilizar "
-"PressBooks."
+msgstr "PressBooks no funciona con esta versión de PHP. PressBooks requiere la versión %s o superior de PHP. Actualiza tu instalación si quieres utilizar PressBooks."
 
 #: pressbooks.php:57
 #, php-format
 msgid ""
-"PressBooks will not work with your version of WordPress. PressBooks requires "
-"a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+"PressBooks will not work with your version of WordPress. PressBooks requires"
+" a dedicated install of WordPress Multi-Site, version %s or greater. Please "
 "upgrade WordPress if you would like to use PressBooks."
-msgstr ""
-"PressBooks no funciona con esta versión de WordPress. PressBooks requiere "
-"una instalación nueva de WordPress Multi-Site, versión %s o más reciente. "
-"Para utilizar PressBooks debe actualizar WordPress."
+msgstr "PressBooks no funciona con esta versión de WordPress. PressBooks requiere una instalación nueva de WordPress Multi-Site, versión %s o más reciente. Para utilizar PressBooks debe actualizar WordPress."
 
 #: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
@@ -1957,8 +1904,8 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:45
 #: symbionts/pb-latex/pb-latex-admin.php:100
 msgid ""
-"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>"
-"%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
+"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
+"<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:63
@@ -1996,14 +1943,14 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:231
 #, php-format
 msgid ""
-"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; "
-"syntax %s OR %s<br /> to insert LaTeX into your posts."
+"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
+" syntax %s OR %s<br /> to insert LaTeX into your posts."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:236
 msgid ""
-"For more information, see the <a href=\"http://wordpress.org/extend/plugins/"
-"wp-latex/faq/\">FAQ</a>"
+"For more information, see the <a href=\"http://wordpress.org/extend/plugins"
+"/wp-latex/faq/\">FAQ</a>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:243
@@ -2022,8 +1969,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:255
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</"
-"code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:260
@@ -2032,8 +1979,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:263
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</"
-"code>, or <code>transparent</code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>, or <code>transparent</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:281
@@ -2099,8 +2046,8 @@ msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:5
 msgid ""
-"Replacements will only be saved if you click '<strong>Replace &amp; Save</"
-"strong>', otherwise you will ONLY get a preview of the results."
+"Replacements will only be saved if you click '<strong>Replace &amp; "
+"Save</strong>', otherwise you will ONLY get a preview of the results."
 msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:6
@@ -2175,9 +2122,7 @@ msgstr "parte"
 #: themes-book/pressbooks-book/comments.php:3
 msgid ""
 "This post is password protected. Enter the password to view any comments."
-msgstr ""
-"Esta entrada está protegida con contraseña. Ingrese la contraseña para ver "
-"los comentarios."
+msgstr "Esta entrada está protegida con contraseña. Ingrese la contraseña para ver los comentarios."
 
 #: themes-book/pressbooks-book/comments.php:12
 #, php-format
@@ -2452,9 +2397,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:521
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
-"Estas opciones aplican igualmente a la versión web y a los formatos "
-"exportados. "
+msgstr "Estas opciones aplican igualmente a la versión web y a los formatos exportados. "
 
 #: themes-book/pressbooks-book/functions.php:611
 msgid "Web Options"
@@ -2879,8 +2822,7 @@ msgstr "Comprar el libro"
 
 #: themes-book/pressbooks-book/page-buy.php:17
 #, php-format
-msgid ""
-"You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
+msgid "You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
 msgstr "Puede comprar <a href=\"%1$s\">%2$s</a> en los siguientes sitios:"
 
 #: themes-book/pressbooks-book/page-buy.php:21
@@ -2954,8 +2896,8 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:19
 msgid ""
-"It looks like nothing was found at this location. Maybe try one of the links "
-"below or a search?"
+"It looks like nothing was found at this location. Maybe try one of the links"
+" below or a search?"
 msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:27
@@ -3279,8 +3221,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:19
 #, php-format
-msgid ""
-"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:23
@@ -3299,280 +3240,3 @@ msgstr ""
 #, php-format
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
-
-#~ msgid "Feedback"
-#~ msgstr "Comentarios"
-
-#~ msgid "Blavatar"
-#~ msgstr "Blavatar"
-
-#~ msgid "The date you want your book to start selling in stores."
-#~ msgstr "La fecha en que quiere empezar a vender el libro en las tiendas."
-
-#~ msgid ""
-#~ "ISBN is the International Standard Book Number, and you'll need one if "
-#~ "you want to sell your book in online ebook stores."
-#~ msgstr ""
-#~ "Necesitará un ISBN (International Standard Book Number) si quiere vender "
-#~ "el libro en tiendas en línea."
-
-#~ msgid "Additional Catalogue Information"
-#~ msgstr "Información adicional para catálogos"
-
-#~ msgid ""
-#~ "To make it easier to find your book in online book stores and search "
-#~ "engines."
-#~ msgstr ""
-#~ "Para que sea más fácil encontrar el libro en las tiendas en línea y en "
-#~ "los motores de búsqueda."
-
-#~ msgid "For those of you who like Twitter."
-#~ msgstr "Para quienes utilizan Twitter."
-
-#~ msgid ""
-#~ "BISAC subject headings help your book get properly classified in (e)book "
-#~ "stores."
-#~ msgstr ""
-#~ "Los códigos de clasificación BISAC permiten que el libro sea clasificado "
-#~ "correctamente en las librerías."
-
-#~ msgid "Catalogue Order"
-#~ msgstr "Orden en catálogos"
-
-#~ msgid "Hpub"
-#~ msgstr "Hpub"
-
-#~ msgid "Your Export Theme Options"
-#~ msgstr "Opciones del tema de exportación"
-
-#~ msgid "You are using the &ldquo;%s&rdquo; theme"
-#~ msgstr "Está usando el tema &ldquo;%s&rdquo;"
-
-#~ msgid "Change Theme Options"
-#~ msgstr "Cambiar las opciones del tema"
-
-#~ msgid "Read more &raquo;"
-#~ msgstr "Leer más &raquo;"
-
-#~ msgid "Sorry, no authors could be found."
-#~ msgstr "Lo sentimos, no se encontraron autores."
-
-#~ msgid "Enter password."
-#~ msgstr "Ingresar contraseña."
-
-#~ msgid "0 comments"
-#~ msgstr "0 comentarios"
-
-#~ msgid "1 comment"
-#~ msgstr "1 comentario"
-
-#~ msgid "% comments"
-#~ msgstr "% comentarios"
-
-#~ msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
-#~ msgstr "Debe <a href=\"%s\">iniciar sesión</a> para publicar un comentario."
-
-#~ msgid "Sorry, comments are closed."
-#~ msgstr "Comentarios cerrados."
-
-#~ msgid "Read more &#8594;"
-#~ msgstr "Leer más &#8594;"
-
-#~ msgid "read more &#8594;"
-#~ msgstr "leer más &#8594;"
-
-#~ msgid "Sidebar 1"
-#~ msgstr "Barra lateral 1"
-
-#~ msgid "Sidebar 2"
-#~ msgstr "Barra lateral 2"
-
-#~ msgid "Sidebar 3"
-#~ msgstr "Barra lateral 3"
-
-#~ msgid "Home Page Left Column"
-#~ msgstr "Columna izquierda de la página de inicio"
-
-#~ msgid "Home Page Right Column"
-#~ msgstr "Columna derecha de la página de inicio"
-
-#~ msgid "Footer"
-#~ msgstr "Pie de página"
-
-#~ msgid "\">read more &#8594;</a>"
-#~ msgstr "\">leer más &#8594;</a>"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Featured Content"
-#~ msgstr "Contenido destacado"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New"
-#~ msgstr "Añadir nuevo"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New Featured Content"
-#~ msgstr "Añadir nuevo contenido destacado"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Edit Featured Content"
-#~ msgstr "Editar contenido destacado"
-
-#~ msgctxt "_featured_content"
-#~ msgid "New Featured Content"
-#~ msgstr "Nuevo contenido destacado"
-
-#~ msgctxt "_featured_content"
-#~ msgid "View Featured Content"
-#~ msgstr "Ver contenido destacado"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Search Featured Content"
-#~ msgstr "Buscar contenido destacado"
-
-#~ msgctxt "_featured_content"
-#~ msgid "No Featured Content found"
-#~ msgstr "No se encontró contenido destacado"
-
-#~ msgctxt "_featured_content"
-#~ msgid "No Featured Content in Trash"
-#~ msgstr "No se encontró contenido destacado en la papelera"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Parent Featured Content Link:"
-#~ msgstr "Enlace al contenido destacado superior:"
-
-#~ msgctxt "_author"
-#~ msgid "Authors"
-#~ msgstr "Autores"
-
-#~ msgctxt "_author"
-#~ msgid "Author"
-#~ msgstr "Autor"
-
-#~ msgctxt "_author"
-#~ msgid "Add New"
-#~ msgstr "Añadir nuevo"
-
-#~ msgctxt "_author"
-#~ msgid "Add New Author"
-#~ msgstr "Añadir nuevo autor"
-
-#~ msgctxt "_author"
-#~ msgid "Edit Author"
-#~ msgstr "Editar autor"
-
-#~ msgctxt "_author"
-#~ msgid "New Author"
-#~ msgstr "Nuevo autor"
-
-#~ msgctxt "_author"
-#~ msgid "View Author"
-#~ msgstr "Ver autor"
-
-#~ msgctxt "_author"
-#~ msgid "Search Authors"
-#~ msgstr "Buscar autores"
-
-#~ msgctxt "_author"
-#~ msgid "No Authors found"
-#~ msgstr "No se encontraron autores"
-
-#~ msgctxt "_author"
-#~ msgid "No Authors in Trash"
-#~ msgstr "No se encontraron autores en la papelera"
-
-#~ msgctxt "_author"
-#~ msgid "Parent Author Link:"
-#~ msgstr "Enlace al autor superior:"
-
-#~ msgid "&#8592 Older Entries"
-#~ msgstr "&#8592 Entradas anteriores"
-
-#~ msgid "Newer Entries &#8594;"
-#~ msgstr "Entradas más recientes &#8594;"
-
-#~ msgid " Theme Options"
-#~ msgstr " Opciones del tema"
-
-#~ msgid ""
-#~ "These options will let you setup the social icons for your site. You can "
-#~ "enter the URLs of your profiles to have the icons show up."
-#~ msgstr ""
-#~ "Estas opciones le permiten configurar los iconos de redes sociales para "
-#~ "su sitio. Ingrese las direcciones de sus perfiles para activar los iconos."
-
-#~ msgid "Options saved"
-#~ msgstr "Opciones guardadas"
-
-#~ msgid "Hide RSS Icon?"
-#~ msgstr "Ocultar icono RSS"
-
-#~ msgid "Hide the RSS feed icon?"
-#~ msgstr "¿Ocultar el icono RSS?"
-
-#~ msgid "Enter your Facebook URL"
-#~ msgstr "Dirección de su perfil en Facebook"
-
-#~ msgid "Leave blank to hide Facebook Icon"
-#~ msgstr "Dejar en blanco para ocultar el icono de Facebook."
-
-#~ msgid "Enter your Twitter URL"
-#~ msgstr "Dirección de su perfil en Twitter"
-
-#~ msgid "Leave blank to hide Twitter Icon"
-#~ msgstr "Dejar en blanco para ocultar el icono de Twitter."
-
-#~ msgid "Enter your Tumblr URL"
-#~ msgstr "Dirección de su perfil en Tumblr"
-
-#~ msgid "Leave blank to hide Tumblr Icon"
-#~ msgstr "Dejar en blanco para ocultar el icono de Tumblr."
-
-#~ msgid "Enter your Youtube Channel URL"
-#~ msgstr "Dirección de su canal en YouTube"
-
-#~ msgid "Leave blank to hide Youtube Icon"
-#~ msgstr "Dejar en blanco para ocultar el icono de YouTube."
-
-#~ msgid "Save Options"
-#~ msgstr "Guardar opciones"
-
-#~ msgid "Older Entries &raquo;"
-#~ msgstr "Entradas anteriores &raquo;"
-
-#~ msgid "&laquo; Newer Entries"
-#~ msgstr "&laquo; Entradas más recientes"
-
-#~ msgid "No Comments"
-#~ msgstr "No hay comentarios"
-
-#~ msgid "Sorry, no posts matched your criteria."
-#~ msgstr "No se encontraron entradas para su búsqueda."
-
-#~ msgid "keep reading"
-#~ msgstr "seguir leyendo"
-
-#~ msgid "Twitter"
-#~ msgstr "Twitter"
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
-
-#~ msgid "YouTube"
-#~ msgstr "YouTube"
-
-#~ msgid "Tumblr"
-#~ msgstr "Tumblr"
-
-#~ msgid "RSS Feed"
-#~ msgstr "Feed RSS"
-
-#~ msgid "PressBooks"
-#~ msgstr "PressBooks"
-
-#~ msgid "http://www.pressbooks.com"
-#~ msgstr "http://www.pressbooks.com"
-
-#~ msgid "BookOven Inc."
-#~ msgstr "BookOven Inc."

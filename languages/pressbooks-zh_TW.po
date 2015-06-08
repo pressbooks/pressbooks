@@ -1,21 +1,24 @@
-# Copyright (C) 2013 PressBooks
+# Copyright (C) 2015 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PressBooks\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
+"Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-06-08 10:56-0500\n"
-"PO-Revision-Date: 2015-06-08 11:03-0500\n"
-"Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
-"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/"
-"pressbooks/language/zh_TW/)\n"
-"Language: zh_TW\n"
+"PO-Revision-Date: 2015-06-08 20:48+0000\n"
+"Last-Translator: Ned Zimmerman\n"
+"Language-Team: Chinese (Taiwan) (http://www.transifex.com/projects/p/pressbooks/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
@@ -379,14 +382,10 @@ msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
 "support for deciphering validation errors, but you could post errors on the "
-"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</"
-"a>, where we and other PressBooks users can help out as time permits. ."
-msgstr ""
-"註記：驗證 EPUB、Mobi 與 PDF 產生的錯誤報告均為技術語彙文件，需要額外的解讀與"
-"理解，才能進行後續的修正。我們無法提供針對每一種狀況的解決方法，但您可以將錯"
-"誤訊息轉貼到 <a href=\"http://forum.pressbooks.com/\" target=\"_blank"
-"\">PressBooks 支援論壇</a>，許多 PressBooks 的用戶在時間允許的狀況下，會樂於"
-"提供意見讓您參考。"
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks "
+"forum</a>, where we and other PressBooks users can help out as time permits."
+" ."
+msgstr "註記：驗證 EPUB、Mobi 與 PDF 產生的錯誤報告均為技術語彙文件，需要額外的解讀與理解，才能進行後續的修正。我們無法提供針對每一種狀況的解決方法，但您可以將錯誤訊息轉貼到 <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks 支援論壇</a>，許多 PressBooks 的用戶在時間允許的狀況下，會樂於提供意見讓您參考。"
 
 #: admin/pb-admin-laf.php:947
 msgid "Enable chapter types taxonomy."
@@ -447,8 +446,7 @@ msgstr "歸類時使用的作者名稱"
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
-msgstr ""
-"確保書籍能在書店被適當的歸類至作者名下，通常會設定為作者的姓氏（last name）"
+msgstr "確保書籍能在書店被適當的歸類至作者名下，通常會設定為作者的姓氏（last name）"
 
 #: admin/pb-admin-metaboxes.php:197
 msgid "Contributing Authors"
@@ -456,8 +454,8 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:199
 msgid ""
-"This may be used when more than one person shares the responsibility for the "
-"intellectual content of a book."
+"This may be used when more than one person shares the responsibility for the"
+" intellectual content of a book."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:204
@@ -507,8 +505,7 @@ msgstr "紙本書 ISBN"
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
-"ISBN 是「國際標準書號」，部分線上與實體書店只接受擁有 ISBN 的書籍上架販售。"
+msgstr "ISBN 是「國際標準書號」，部分線上與實體書店只接受擁有 ISBN 的書籍上架販售。"
 
 #: admin/pb-admin-metaboxes.php:244 admin/pb-admin-metaboxes.php:695
 msgid "Language"
@@ -564,8 +561,8 @@ msgstr "版權註記"
 #: admin/pb-admin-metaboxes.php:287
 msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
-"will override the auto-generated copyright notice, and be inserted after the "
-"title page."
+"will override the auto-generated copyright notice, and be inserted after the"
+" title page."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:297
@@ -576,9 +573,7 @@ msgstr "書籍介紹標語"
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
-"書籍的介紹標語。這應該能在一則推特訊息中呈現（少於140字），試著以最精煉的語句"
-"描述你的書籍。"
+msgstr "書籍的介紹標語。這應該能在一則推特訊息中呈現（少於140字），試著以最精煉的語句描述你的書籍。"
 
 #: admin/pb-admin-metaboxes.php:304
 msgid "Short Description"
@@ -881,8 +876,8 @@ msgstr "寄送給："
 #: admin/templates/export.php:44
 #, php-format
 msgid ""
-"You can export multiple file formats by selecting your Export Format Options "
-"below. PressBooks saves your last %s batches of exported files."
+"You can export multiple file formats by selecting your Export Format Options"
+" below. PressBooks saves your last %s batches of exported files."
 msgstr ""
 
 #: admin/templates/export.php:49
@@ -1114,8 +1109,8 @@ msgstr ""
 
 #: admin/templates/sell.php:20
 msgid ""
-"For a flat fee starting at $99 (with a 10% discount for PressBooks users and "
-"100% royalties going to you), BookBaby will send your book to the Kindle "
+"For a flat fee starting at $99 (with a 10% discount for PressBooks users and"
+" 100% royalties going to you), BookBaby will send your book to the Kindle "
 "Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
 msgstr ""
 
@@ -1130,9 +1125,9 @@ msgstr ""
 #: admin/templates/sell.php:27
 #, php-format
 msgid ""
-"You can submit your PDF exports to <a href=\"%s\" target=\"_blank"
-"\">CreateSpace</a> to get print versions of your books into Amazon, and to "
-"order copies for yourself."
+"You can submit your PDF exports to <a href=\"%s\" "
+"target=\"_blank\">CreateSpace</a> to get print versions of your books into "
+"Amazon, and to order copies for yourself."
 msgstr ""
 
 #: admin/templates/sell.php:28
@@ -1145,8 +1140,9 @@ msgstr ""
 
 #: admin/templates/sell.php:35
 msgid ""
-"Once your books are available in stores, you can add the links to bookstores "
-"below, and we'll make a Buy page on the web version of your PressBooks book."
+"Once your books are available in stores, you can add the links to bookstores"
+" below, and we'll make a Buy page on the web version of your PressBooks "
+"book."
 msgstr ""
 
 #: hooks-admin.php:187
@@ -1176,9 +1172,7 @@ msgstr "第一章"
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
-"這是書籍主文的第一章。你可以修改內文、變更章節名稱、添加新的章節，以及添加組"
-"織章節的篇（Parts）。"
+msgstr "這是書籍主文的第一章。你可以修改內文、變更章節名稱、添加新的章節，以及添加組織章節的篇（Parts）。"
 
 #: includes/class-pb-activation.php:160
 msgid "Appendix"
@@ -1216,12 +1210,9 @@ msgstr "拒絕存取"
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
-"set up your own PressBooks book at: <a href=\"http://pressbooks.com"
-"\">PressBooks.com</a>."
-msgstr ""
-"這本書設定為私密，只有註冊用戶才能閱讀。已經有帳號的讀者請 <a href=\"/wp-"
-"login.php\">由此登入</a>。您可以前往 <a href=\"http://pressbooks.com"
-"\">PressBooks.com</a> 申請帳號，製作自己的書籍。"
+"set up your own PressBooks book at: <a "
+"href=\"http://pressbooks.com\">PressBooks.com</a>."
+msgstr "這本書設定為私密，只有註冊用戶才能閱讀。已經有帳號的讀者請 <a href=\"/wp-login.php\">由此登入</a>。您可以前往 <a href=\"http://pressbooks.com\">PressBooks.com</a> 申請帳號，製作自己的書籍。"
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
@@ -1371,8 +1362,8 @@ msgstr ""
 
 #: includes/pb-catalog.php:239
 msgid ""
-"Sorry, but no books matched your filtering criteria. Please <a class=\"clear-"
-"filters\" href=\"#\">clear your current filters</a> and try again."
+"Sorry, but no books matched your filtering criteria. Please <a class"
+"=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr ""
 
 #: includes/pb-catalog.php:243
@@ -1787,13 +1778,10 @@ msgstr ""
 #: pressbooks.php:57
 #, php-format
 msgid ""
-"PressBooks will not work with your version of WordPress. PressBooks requires "
-"a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+"PressBooks will not work with your version of WordPress. PressBooks requires"
+" a dedicated install of WordPress Multi-Site, version %s or greater. Please "
 "upgrade WordPress if you would like to use PressBooks."
-msgstr ""
-"PressBooks 無法與你現有的 WordPress 版本相容，安裝 PressBooks 需要安裝一個全"
-"新的多站台版本 WordPress，版本 %s 或以上版本，請在安裝 PressBooks 前先完成升"
-"級。"
+msgstr "PressBooks 無法與你現有的 WordPress 版本相容，安裝 PressBooks 需要安裝一個全新的多站台版本 WordPress，版本 %s 或以上版本，請在安裝 PressBooks 前先完成升級。"
 
 #: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
@@ -1915,8 +1903,8 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:45
 #: symbionts/pb-latex/pb-latex-admin.php:100
 msgid ""
-"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>"
-"%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
+"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
+"<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:63
@@ -1954,14 +1942,14 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:231
 #, php-format
 msgid ""
-"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; "
-"syntax %s OR %s<br /> to insert LaTeX into your posts."
+"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
+" syntax %s OR %s<br /> to insert LaTeX into your posts."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:236
 msgid ""
-"For more information, see the <a href=\"http://wordpress.org/extend/plugins/"
-"wp-latex/faq/\">FAQ</a>"
+"For more information, see the <a href=\"http://wordpress.org/extend/plugins"
+"/wp-latex/faq/\">FAQ</a>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:243
@@ -1980,8 +1968,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:255
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</"
-"code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:260
@@ -1990,8 +1978,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:263
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</"
-"code>, or <code>transparent</code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>, or <code>transparent</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:281
@@ -2057,8 +2045,8 @@ msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:5
 msgid ""
-"Replacements will only be saved if you click '<strong>Replace &amp; Save</"
-"strong>', otherwise you will ONLY get a preview of the results."
+"Replacements will only be saved if you click '<strong>Replace &amp; "
+"Save</strong>', otherwise you will ONLY get a preview of the results."
 msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:6
@@ -2832,8 +2820,7 @@ msgstr "購買本書"
 
 #: themes-book/pressbooks-book/page-buy.php:17
 #, php-format
-msgid ""
-"You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
+msgid "You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
 msgstr "你可以經由下列連結購買 <a href=\"%1$s\">%2$s</a> ："
 
 #: themes-book/pressbooks-book/page-buy.php:21
@@ -2907,8 +2894,8 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:19
 msgid ""
-"It looks like nothing was found at this location. Maybe try one of the links "
-"below or a search?"
+"It looks like nothing was found at this location. Maybe try one of the links"
+" below or a search?"
 msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:27
@@ -3231,8 +3218,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:19
 #, php-format
-msgid ""
-"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:23
@@ -3251,274 +3237,3 @@ msgstr ""
 #, php-format
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
-
-#~ msgid "Feedback"
-#~ msgstr "回饋"
-
-#~ msgid "Blavatar"
-#~ msgstr "出版基地 Logo"
-
-#~ msgid "The date you want your book to start selling in stores."
-#~ msgstr "設定書籍正式於書店開始販售的日期"
-
-#~ msgid ""
-#~ "ISBN is the International Standard Book Number, and you'll need one if "
-#~ "you want to sell your book in online ebook stores."
-#~ msgstr ""
-#~ "ISBN 是「國際標準書號」，部分電子書店只接受擁有 ISBN 的書籍上架販售。"
-
-#~ msgid "Additional Catalogue Information"
-#~ msgstr "附加的型錄資訊"
-
-#~ msgid ""
-#~ "To make it easier to find your book in online book stores and search "
-#~ "engines."
-#~ msgstr "讓書店與搜尋引擎更容易找到你的書籍"
-
-#~ msgid "For those of you who like Twitter."
-#~ msgstr "Twitter的「話題標籤（hashtag）可以連結彙整相同話題的推文。"
-
-#~ msgid ""
-#~ "BISAC subject headings help your book get properly classified in (e)book "
-#~ "stores."
-#~ msgstr "設定 BISAC 分類能讓（電子）書店自動化歸類書籍"
-
-#~ msgid "Catalogue Order"
-#~ msgstr "型錄排序"
-
-#~ msgid "Hpub"
-#~ msgstr "Hpub（一種更精簡的 HTML 書籍格式）"
-
-#~ msgid "Your Export Theme Options"
-#~ msgstr "製書的版面選項"
-
-#~ msgid "You are using the &ldquo;%s&rdquo; theme"
-#~ msgstr "你正在使用 &ldquo;%s&rdquo; 版面"
-
-#~ msgid "Change Theme Options"
-#~ msgstr "改變版面設置"
-
-#~ msgid "Read more &raquo;"
-#~ msgstr "繼續閱讀 &raquo;"
-
-#~ msgid "Sorry, no authors could be found."
-#~ msgstr "抱歉，找不到作者"
-
-#~ msgid "Enter password."
-#~ msgstr "輸入密碼"
-
-#~ msgid "0 comments"
-#~ msgstr "沒有迴響"
-
-#~ msgid "1 comment"
-#~ msgstr "一則迴響"
-
-#~ msgid "% comments"
-#~ msgstr "% 則迴響"
-
-#~ msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
-#~ msgstr "必須 <a href=\"%s\">登入</a> 之後才能張貼迴響。"
-
-#~ msgid "Sorry, comments are closed."
-#~ msgstr "抱歉，迴響功能已關閉"
-
-#~ msgid "Read more &#8594;"
-#~ msgstr "繼續閱讀 &#8594;"
-
-#~ msgid "read more &#8594;"
-#~ msgstr "繼續閱讀 &#8594;"
-
-#~ msgid "Sidebar 1"
-#~ msgstr "側邊欄 1"
-
-#~ msgid "Sidebar 2"
-#~ msgstr "側邊欄 2"
-
-#~ msgid "Sidebar 3"
-#~ msgstr "側邊欄 3"
-
-#~ msgid "Home Page Left Column"
-#~ msgstr "首頁左欄"
-
-#~ msgid "Home Page Right Column"
-#~ msgstr "首頁右欄"
-
-#~ msgid "Footer"
-#~ msgstr "頁尾"
-
-#~ msgid "\">read more &#8594;</a>"
-#~ msgstr "\">繼續閱讀 &#8594;</a>"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Featured Content"
-#~ msgstr "推薦內容"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New"
-#~ msgstr "新增"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New Featured Content"
-#~ msgstr "新增推薦內容"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Edit Featured Content"
-#~ msgstr "編輯推薦內容"
-
-#~ msgctxt "_featured_content"
-#~ msgid "New Featured Content"
-#~ msgstr "新的推薦內容"
-
-#~ msgctxt "_featured_content"
-#~ msgid "View Featured Content"
-#~ msgstr "瀏覽推薦內容"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Search Featured Content"
-#~ msgstr "搜尋推薦內容"
-
-#~ msgctxt "_featured_content"
-#~ msgid "No Featured Content found"
-#~ msgstr "找不到推薦內容"
-
-#~ msgctxt "_featured_content"
-#~ msgid "No Featured Content in Trash"
-#~ msgstr "回收桶內沒有推薦內容"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Parent Featured Content Link:"
-#~ msgstr "上層推薦內容連結"
-
-#~ msgctxt "_author"
-#~ msgid "Authors"
-#~ msgstr "作者"
-
-#~ msgctxt "_author"
-#~ msgid "Author"
-#~ msgstr "作者"
-
-#~ msgctxt "_author"
-#~ msgid "Add New"
-#~ msgstr "新增"
-
-#~ msgctxt "_author"
-#~ msgid "Add New Author"
-#~ msgstr "添加新作者"
-
-#~ msgctxt "_author"
-#~ msgid "Edit Author"
-#~ msgstr "編輯作者"
-
-#~ msgctxt "_author"
-#~ msgid "New Author"
-#~ msgstr "新作者"
-
-#~ msgctxt "_author"
-#~ msgid "View Author"
-#~ msgstr "瀏覽作者"
-
-#~ msgctxt "_author"
-#~ msgid "Search Authors"
-#~ msgstr "搜尋作者"
-
-#~ msgctxt "_author"
-#~ msgid "No Authors found"
-#~ msgstr "找不到作者"
-
-#~ msgctxt "_author"
-#~ msgid "No Authors in Trash"
-#~ msgstr "回收桶內找不到作者"
-
-#~ msgctxt "_author"
-#~ msgid "Parent Author Link:"
-#~ msgstr "上層作者連結"
-
-#~ msgid "&#8592 Older Entries"
-#~ msgstr "&#8592 較舊的內容"
-
-#~ msgid "Newer Entries &#8594;"
-#~ msgstr "較新的內容 &#8594;"
-
-#~ msgid " Theme Options"
-#~ msgstr "佈景主題選項"
-
-#~ msgid ""
-#~ "These options will let you setup the social icons for your site. You can "
-#~ "enter the URLs of your profiles to have the icons show up."
-#~ msgstr ""
-#~ "下列選項用於設定你的各種社群網站連結與圖像，輸入正確的網址就會讓圖示出現"
-
-#~ msgid "Options saved"
-#~ msgstr "選項已儲存"
-
-#~ msgid "Hide RSS Icon?"
-#~ msgstr "隱藏 RSS 圖示？"
-
-#~ msgid "Hide the RSS feed icon?"
-#~ msgstr "隱藏 RSS 訂閱圖示？"
-
-#~ msgid "Enter your Facebook URL"
-#~ msgstr "輸入你的臉書網址"
-
-#~ msgid "Leave blank to hide Facebook Icon"
-#~ msgstr "保持空白會隱藏你的臉書頭像"
-
-#~ msgid "Enter your Twitter URL"
-#~ msgstr "輸入你的推特網址"
-
-#~ msgid "Leave blank to hide Twitter Icon"
-#~ msgstr "保持空白會隱藏你的推特頭像"
-
-#~ msgid "Enter your Tumblr URL"
-#~ msgstr "輸入你的 Tumblr 連結"
-
-#~ msgid "Leave blank to hide Tumblr Icon"
-#~ msgstr "保持空白會隱藏你的 Tumblr Icon"
-
-#~ msgid "Enter your Youtube Channel URL"
-#~ msgstr "輸入你的 Youtube 頻道連結"
-
-#~ msgid "Leave blank to hide Youtube Icon"
-#~ msgstr "保持空白會隱藏你的 Youtube Icon"
-
-#~ msgid "Save Options"
-#~ msgstr "儲存選項"
-
-#~ msgid "Older Entries &raquo;"
-#~ msgstr "較早的內容 &raquo;"
-
-#~ msgid "&laquo; Newer Entries"
-#~ msgstr "&laquo; 較新的內容"
-
-#~ msgid "No Comments"
-#~ msgstr "沒有迴響"
-
-#~ msgid "Sorry, no posts matched your criteria."
-#~ msgstr "抱歉，沒有吻合的內容"
-
-#~ msgid "keep reading"
-#~ msgstr "繼續閱讀"
-
-#~ msgid "Twitter"
-#~ msgstr "推特"
-
-#~ msgid "Facebook"
-#~ msgstr "臉書"
-
-#~ msgid "YouTube"
-#~ msgstr "YouTube"
-
-#~ msgid "Tumblr"
-#~ msgstr "Tumblr"
-
-#~ msgid "RSS Feed"
-#~ msgstr "RSS 訂閱"
-
-#~ msgid "PressBooks"
-#~ msgstr "PressBooks"
-
-#~ msgid "http://www.pressbooks.com"
-#~ msgstr "http://www.pressbooks.com"
-
-#~ msgid "BookOven Inc."
-#~ msgstr "BookOven Inc."

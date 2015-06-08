@@ -1,21 +1,24 @@
-# Copyright (C) 2013 PressBooks
+# Copyright (C) 2015 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PressBooks\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
+"Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-06-08 10:56-0500\n"
-"PO-Revision-Date: 2015-06-08 11:05-0500\n"
-"Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
-"Language-Team: Japanese (http://www.transifex.com/projects/p/pressbooks/"
-"language/ja/)\n"
-"Language: ja\n"
+"PO-Revision-Date: 2015-06-08 20:48+0000\n"
+"Last-Translator: Ned Zimmerman\n"
+"Language-Team: Japanese (http://www.transifex.com/projects/p/pressbooks/language/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
@@ -379,14 +382,10 @@ msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
 "support for deciphering validation errors, but you could post errors on the "
-"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</"
-"a>, where we and other PressBooks users can help out as time permits. ."
-msgstr ""
-"注：バリデーション・エラーのレポート（EPUB、Mobi、PDF用）を解読するには専門的"
-"知識が必要です。エラーメッセージ解読サポートはおこなっていませんが、私たちは"
-"下記のアドレスをモニターしています。時間があればポストされたエラーメッセージ"
-"にも対応します。 <a href=\"http://forum.pressbooks.com/\" target=\"_blank"
-"\">PressBooks forum</a>"
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks "
+"forum</a>, where we and other PressBooks users can help out as time permits."
+" ."
+msgstr "注：バリデーション・エラーのレポート（EPUB、Mobi、PDF用）を解読するには専門的知識が必要です。エラーメッセージ解読サポートはおこなっていませんが、私たちは下記のアドレスをモニターしています。時間があればポストされたエラーメッセージにも対応します。 <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</a>"
 
 #: admin/pb-admin-laf.php:947
 msgid "Enable chapter types taxonomy."
@@ -455,8 +454,8 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:199
 msgid ""
-"This may be used when more than one person shares the responsibility for the "
-"intellectual content of a book."
+"This may be used when more than one person shares the responsibility for the"
+" intellectual content of a book."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:204
@@ -506,9 +505,7 @@ msgstr "印刷版ISBN"
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
-"International Standard Book Number（ISBN）とは国際標準図書番号の略語で紙の本"
-"を書店で販売するために必要な情報です。"
+msgstr "International Standard Book Number（ISBN）とは国際標準図書番号の略語で紙の本を書店で販売するために必要な情報です。"
 
 #: admin/pb-admin-metaboxes.php:244 admin/pb-admin-metaboxes.php:695
 msgid "Language"
@@ -564,8 +561,8 @@ msgstr "著作権表示"
 #: admin/pb-admin-metaboxes.php:287
 msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
-"will override the auto-generated copyright notice, and be inserted after the "
-"title page."
+"will override the auto-generated copyright notice, and be inserted after the"
+" title page."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:297
@@ -870,9 +867,7 @@ msgstr "エラー：書き出しに失敗しました。詳細はログを参照
 
 #: admin/templates/export.php:32
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
-"警告：書きだされたファイルにバリデーション・エラーがあります。詳細はログを参"
-"照してください。"
+msgstr "警告：書きだされたファイルにバリデーション・エラーがあります。詳細はログを参照してください。"
 
 #: admin/templates/export.php:33
 msgid "Emailed to:"
@@ -881,8 +876,8 @@ msgstr "メール受信者："
 #: admin/templates/export.php:44
 #, php-format
 msgid ""
-"You can export multiple file formats by selecting your Export Format Options "
-"below. PressBooks saves your last %s batches of exported files."
+"You can export multiple file formats by selecting your Export Format Options"
+" below. PressBooks saves your last %s batches of exported files."
 msgstr ""
 
 #: admin/templates/export.php:49
@@ -1114,8 +1109,8 @@ msgstr ""
 
 #: admin/templates/sell.php:20
 msgid ""
-"For a flat fee starting at $99 (with a 10% discount for PressBooks users and "
-"100% royalties going to you), BookBaby will send your book to the Kindle "
+"For a flat fee starting at $99 (with a 10% discount for PressBooks users and"
+" 100% royalties going to you), BookBaby will send your book to the Kindle "
 "Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
 msgstr ""
 
@@ -1130,9 +1125,9 @@ msgstr ""
 #: admin/templates/sell.php:27
 #, php-format
 msgid ""
-"You can submit your PDF exports to <a href=\"%s\" target=\"_blank"
-"\">CreateSpace</a> to get print versions of your books into Amazon, and to "
-"order copies for yourself."
+"You can submit your PDF exports to <a href=\"%s\" "
+"target=\"_blank\">CreateSpace</a> to get print versions of your books into "
+"Amazon, and to order copies for yourself."
 msgstr ""
 
 #: admin/templates/sell.php:28
@@ -1145,8 +1140,9 @@ msgstr ""
 
 #: admin/templates/sell.php:35
 msgid ""
-"Once your books are available in stores, you can add the links to bookstores "
-"below, and we'll make a Buy page on the web version of your PressBooks book."
+"Once your books are available in stores, you can add the links to bookstores"
+" below, and we'll make a Buy page on the web version of your PressBooks "
+"book."
 msgstr ""
 
 #: hooks-admin.php:187
@@ -1176,9 +1172,7 @@ msgstr "１章"
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
-"この章は本文内の最初の章です。テキストの変更、章・段落の題名変更、及び章・段"
-"落を追加することができます。"
+msgstr "この章は本文内の最初の章です。テキストの変更、章・段落の題名変更、及び章・段落を追加することができます。"
 
 #: includes/class-pb-activation.php:160
 msgid "Appendix"
@@ -1216,12 +1210,9 @@ msgstr "アクセスが拒否されました。"
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
-"set up your own PressBooks book at: <a href=\"http://pressbooks.com"
-"\">PressBooks.com</a>."
-msgstr ""
-"プライベート。この本は登録ユーザーのみ読むことができるます。アカウントをお持"
-"ちの方は<a href=\"/wp-login.php\">ログイン</a>してください。Pressbookへの<a "
-"href=\"http://pressbooks.com\">新規登録</a>。"
+"set up your own PressBooks book at: <a "
+"href=\"http://pressbooks.com\">PressBooks.com</a>."
+msgstr "プライベート。この本は登録ユーザーのみ読むことができるます。アカウントをお持ちの方は<a href=\"/wp-login.php\">ログイン</a>してください。Pressbookへの<a href=\"http://pressbooks.com\">新規登録</a>。"
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
@@ -1371,8 +1362,8 @@ msgstr ""
 
 #: includes/pb-catalog.php:239
 msgid ""
-"Sorry, but no books matched your filtering criteria. Please <a class=\"clear-"
-"filters\" href=\"#\">clear your current filters</a> and try again."
+"Sorry, but no books matched your filtering criteria. Please <a class"
+"=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr ""
 
 #: includes/pb-catalog.php:243
@@ -1785,15 +1776,12 @@ msgid ""
 msgstr ""
 
 #: pressbooks.php:57
-#, fuzzy, php-format
+#, php-format
 msgid ""
-"PressBooks will not work with your version of WordPress. PressBooks requires "
-"a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+"PressBooks will not work with your version of WordPress. PressBooks requires"
+" a dedicated install of WordPress Multi-Site, version %s or greater. Please "
 "upgrade WordPress if you would like to use PressBooks."
-msgstr ""
-"Pressbookは本バージョンのWordPressでは作動しません。Pressbookをインストールす"
-"るにはWordPress Multi-site、バージョン%以降が必要です。Pressbookを利用するに"
-"はWordpressをアップグレードしてください。"
+msgstr "Pressbookは本バージョンのWordPressでは作動しません。PressbookをインストールするにはWordPress Multi-site、バージョン%以降が必要です。Pressbookを利用するにはWordpressをアップグレードしてください。"
 
 #: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
@@ -1915,8 +1903,8 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:45
 #: symbionts/pb-latex/pb-latex-admin.php:100
 msgid ""
-"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>"
-"%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
+"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
+"<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:63
@@ -1954,14 +1942,14 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:231
 #, php-format
 msgid ""
-"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; "
-"syntax %s OR %s<br /> to insert LaTeX into your posts."
+"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
+" syntax %s OR %s<br /> to insert LaTeX into your posts."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:236
 msgid ""
-"For more information, see the <a href=\"http://wordpress.org/extend/plugins/"
-"wp-latex/faq/\">FAQ</a>"
+"For more information, see the <a href=\"http://wordpress.org/extend/plugins"
+"/wp-latex/faq/\">FAQ</a>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:243
@@ -1980,8 +1968,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:255
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</"
-"code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:260
@@ -1990,8 +1978,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:263
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</"
-"code>, or <code>transparent</code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>, or <code>transparent</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:281
@@ -2057,8 +2045,8 @@ msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:5
 msgid ""
-"Replacements will only be saved if you click '<strong>Replace &amp; Save</"
-"strong>', otherwise you will ONLY get a preview of the results."
+"Replacements will only be saved if you click '<strong>Replace &amp; "
+"Save</strong>', otherwise you will ONLY get a preview of the results."
 msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:6
@@ -2133,12 +2121,10 @@ msgstr ""
 #: themes-book/pressbooks-book/comments.php:3
 msgid ""
 "This post is password protected. Enter the password to view any comments."
-msgstr ""
-"このポストはパスワードにより保護されています。コメントを読むにはパスワードを"
-"入力してください。"
+msgstr "このポストはパスワードにより保護されています。コメントを読むにはパスワードを入力してください。"
 
 #: themes-book/pressbooks-book/comments.php:12
-#, fuzzy, php-format
+#, php-format
 msgid "One Response to %2$s"
 msgid_plural "%1$s Responses to %2$s"
 msgstr[0] " %2$sに返信があります。"
@@ -2834,8 +2820,7 @@ msgstr "本を買う"
 
 #: themes-book/pressbooks-book/page-buy.php:17
 #, php-format
-msgid ""
-"You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
+msgid "You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
 msgstr "下記のリンク先より<a href=\"%1$s\">%2$s</a>を購入することができます。"
 
 #: themes-book/pressbooks-book/page-buy.php:21
@@ -2909,8 +2894,8 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:19
 msgid ""
-"It looks like nothing was found at this location. Maybe try one of the links "
-"below or a search?"
+"It looks like nothing was found at this location. Maybe try one of the links"
+" below or a search?"
 msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:27
@@ -3233,8 +3218,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:19
 #, php-format
-msgid ""
-"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:23
@@ -3253,241 +3237,3 @@ msgstr ""
 #, php-format
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
-
-#~ msgid "Feedback"
-#~ msgstr "フィードバック"
-
-#~ msgid "Blavatar"
-#~ msgstr "ブラバター"
-
-#~ msgid "The date you want your book to start selling in stores."
-#~ msgstr "希望する発売日"
-
-#~ msgid ""
-#~ "ISBN is the International Standard Book Number, and you'll need one if "
-#~ "you want to sell your book in online ebook stores."
-#~ msgstr ""
-#~ "International Standard Book Number（ISBN）とは国際標準図書番号の略語で"
-#~ "eBookをオンライン書店で販売するために必要な情報です。"
-
-#~ msgid "Additional Catalogue Information"
-#~ msgstr "付加的目録情報"
-
-#~ msgid ""
-#~ "To make it easier to find your book in online book stores and search "
-#~ "engines."
-#~ msgstr "オンライン書店および検索エンジンで本書を見つけやすくするため"
-
-#~ msgid "For those of you who like Twitter."
-#~ msgstr "ツイッターファン用"
-
-#~ msgid ""
-#~ "BISAC subject headings help your book get properly classified in (e)book "
-#~ "stores."
-#~ msgstr ""
-#~ "BISAC題名（Book Industry Standard and Communication）は本書をeBook書店等が"
-#~ "適切に分類できるようにするための情報です。"
-
-#~ msgid "Hpub"
-#~ msgstr "Hpub"
-
-#~ msgid "Your Export Theme Options"
-#~ msgstr "書き出し用テーマ設定"
-
-#~ msgid "You are using the &ldquo;%s&rdquo; theme"
-#~ msgstr "あなたは &ldquo;%s&rdquo;テーマを利用しています。"
-
-#~ msgid "Change Theme Options"
-#~ msgstr "テーマ設定を変更"
-
-#~ msgid "Read more &raquo;"
-#~ msgstr "&raquo;をもっと読む。"
-
-#~ msgid "Sorry, no authors could be found."
-#~ msgstr "著者が見つかりませんでした。"
-
-#~ msgid "Enter password."
-#~ msgstr "パスワード入力"
-
-#~ msgid "0 comments"
-#~ msgstr "０コメント"
-
-#~ msgid "1 comment"
-#~ msgstr "１コメント"
-
-#~ msgid "% comments"
-#~ msgstr "% コメント"
-
-#~ msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
-#~ msgstr "コメントをポストするには <a href=\"%s\">ログイン</a>してください。"
-
-#~ msgid "Sorry, comments are closed."
-#~ msgstr "すみません。コメントは受け付けていません。"
-
-#~ msgid "Read more &#8594;"
-#~ msgstr "&#8594;をもっと読む。"
-
-#~ msgid "read more &#8594;"
-#~ msgstr "&#8594;をもっと読む。"
-
-#~ msgid "Sidebar 1"
-#~ msgstr "サイドバー１"
-
-#~ msgid "Sidebar 2"
-#~ msgstr "サイドバー２"
-
-#~ msgid "Sidebar 3"
-#~ msgstr "サイドバー３"
-
-#~ msgid "Home Page Left Column"
-#~ msgstr "HPの左側コラム。"
-
-#~ msgid "Home Page Right Column"
-#~ msgstr "HPの右側コラム。"
-
-#~ msgid "Footer"
-#~ msgstr "フッター"
-
-#~ msgid "\">read more &#8594;</a>"
-#~ msgstr "\">&#8594;をもっと読む</a>"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Featured Content"
-#~ msgstr "おすすめコンテンツ"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New"
-#~ msgstr "新規"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New Featured Content"
-#~ msgstr "新規おすすめコンテンツの追加"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Edit Featured Content"
-#~ msgstr "おすすめコンテンツを編集"
-
-#~ msgctxt "_featured_content"
-#~ msgid "New Featured Content"
-#~ msgstr "新規おすすめコンテンツ"
-
-#~ msgctxt "_featured_content"
-#~ msgid "View Featured Content"
-#~ msgstr "おすすめコンテンツを読む。"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Search Featured Content"
-#~ msgstr "おすすめコンテンツを検索"
-
-#~ msgctxt "_featured_content"
-#~ msgid "No Featured Content found"
-#~ msgstr "おすすめコンテンツは見つかりませんでした。"
-
-#~ msgctxt "_featured_content"
-#~ msgid "No Featured Content in Trash"
-#~ msgstr "おすすめコンテンツはゴミ箱に入っていません。"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Parent Featured Content Link:"
-#~ msgstr "親おすすめコンテンツへのリンク"
-
-#~ msgctxt "_author"
-#~ msgid "Authors"
-#~ msgstr "著者"
-
-#~ msgctxt "_author"
-#~ msgid "Author"
-#~ msgstr "著者"
-
-#~ msgctxt "_author"
-#~ msgid "Add New"
-#~ msgstr "新規"
-
-#~ msgctxt "_author"
-#~ msgid "Add New Author"
-#~ msgstr "新規著者を追加"
-
-#~ msgctxt "_author"
-#~ msgid "Edit Author"
-#~ msgstr "著者名を編集"
-
-#~ msgctxt "_author"
-#~ msgid "New Author"
-#~ msgstr "新規著者"
-
-#~ msgctxt "_author"
-#~ msgid "View Author"
-#~ msgstr "著者名を見る"
-
-#~ msgctxt "_author"
-#~ msgid "Search Authors"
-#~ msgstr "著者を検索"
-
-#~ msgctxt "_author"
-#~ msgid "No Authors found"
-#~ msgstr "著者は見つかりませんでした。"
-
-#~ msgctxt "_author"
-#~ msgid "No Authors in Trash"
-#~ msgstr "著者はゴミ箱に入っていません。"
-
-#~ msgid "&#8592 Older Entries"
-#~ msgstr "&#8592古い項目"
-
-#~ msgid "Newer Entries &#8594;"
-#~ msgstr "&#8594;新規項目"
-
-#~ msgid " Theme Options"
-#~ msgstr "テーマ設定"
-
-#~ msgid ""
-#~ "These options will let you setup the social icons for your site. You can "
-#~ "enter the URLs of your profiles to have the icons show up."
-#~ msgstr ""
-#~ "HPのソーシャル・アイコンを設定してください。あなたのプロファイルのURLを入"
-#~ "力するとアイコンが表示されます。"
-
-#~ msgid "Options saved"
-#~ msgstr "設定を保存"
-
-#~ msgid "Hide RSS Icon?"
-#~ msgstr "RSSアイコンを非表示にしますか？　"
-
-#~ msgid "Hide the RSS feed icon?"
-#~ msgstr "RSSフィードアイコンを非表示にしますか？"
-
-#~ msgid "Enter your Facebook URL"
-#~ msgstr "Facebook URLを入力"
-
-#~ msgid "No Comments"
-#~ msgstr "コメントなし"
-
-#~ msgid "Sorry, no posts matched your criteria."
-#~ msgstr "あなたが指定した条件に合うポストはありません。"
-
-#~ msgid "keep reading"
-#~ msgstr "読み続ける"
-
-#~ msgid "Twitter"
-#~ msgstr "Twitter"
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
-
-#~ msgid "YouTube"
-#~ msgstr "YouTube"
-
-#~ msgid "Tumblr"
-#~ msgstr "Tumblr"
-
-#~ msgid "RSS Feed"
-#~ msgstr "RSSフィード"
-
-#~ msgid "PressBooks"
-#~ msgstr "PressBooks"
-
-#~ msgid "http://www.pressbooks.com"
-#~ msgstr "∫"
-
-#~ msgid "BookOven Inc."
-#~ msgstr "BookOven Inc."

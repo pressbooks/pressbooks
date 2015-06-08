@@ -1,21 +1,24 @@
-# Copyright (C) 2013 PressBooks
+# Copyright (C) 2015 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: PressBooks\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
+"Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-06-08 10:56-0500\n"
-"PO-Revision-Date: 2015-06-08 11:06-0500\n"
-"Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
-"Language-Team: Estonian (http://www.transifex.com/projects/p/pressbooks/"
-"language/et/)\n"
-"Language: et\n"
+"PO-Revision-Date: 2015-06-08 20:48+0000\n"
+"Last-Translator: Ned Zimmerman\n"
+"Language-Team: Estonian (http://www.transifex.com/projects/p/pressbooks/language/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: et\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
@@ -151,8 +154,7 @@ msgstr "Muuda CSS'i"
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
-"Ootamatu andmebaasi päringuviga: %s - palun pöörduge tehnilise toe poole."
+msgstr "Ootamatu andmebaasi päringuviga: %s - palun pöörduge tehnilise toe poole."
 
 #: admin/pb-admin-customcss.php:113
 msgid "Last 10 CSS Revisions"
@@ -243,9 +245,7 @@ msgstr "Eksportimine"
 
 #: admin/pb-admin-laf.php:152
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
-msgstr ""
-"Raamatu MOBI-formaati teisendamiseks on vajalik EPUB-formaadi tugi. Soovite "
-"selle taastada?"
+msgstr "Raamatu MOBI-formaati teisendamiseks on vajalik EPUB-formaadi tugi. Soovite selle taastada?"
 
 #: admin/pb-admin-laf.php:158
 msgid "Sell"
@@ -382,14 +382,10 @@ msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
 "support for deciphering validation errors, but you could post errors on the "
-"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</"
-"a>, where we and other PressBooks users can help out as time permits. ."
-msgstr ""
-"Märkus: EPUB, Mobi ja PDF'i kinnitamisvigade teated nõuavad oma tehnilise "
-"iseloomu tõttu tõlgendmiseks teatud pingutust. Paraku me antud probleemi "
-"lahendamiseks abi ei paku, kuid te võite vead postitada <a href=\"http://"
-"forum.pressbooks.com/\" target=\"_blank\">PressBooks'i foorumisse</a>, kust "
-"võib saada abi nii PressBooks'i arendajatelt kui teistelt kasutajatelt."
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks "
+"forum</a>, where we and other PressBooks users can help out as time permits."
+" ."
+msgstr "Märkus: EPUB, Mobi ja PDF'i kinnitamisvigade teated nõuavad oma tehnilise iseloomu tõttu tõlgendmiseks teatud pingutust. Paraku me antud probleemi lahendamiseks abi ei paku, kuid te võite vead postitada <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks'i foorumisse</a>, kust võib saada abi nii PressBooks'i arendajatelt kui teistelt kasutajatelt."
 
 #: admin/pb-admin-laf.php:947
 msgid "Enable chapter types taxonomy."
@@ -436,9 +432,7 @@ msgstr "Lühipealkiri"
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
-"Lühem versioon pealkirjast, mida vajadusel kasutatakse PDF-vormingusse "
-"eksportimisel jooksvalt päisepealkirjana raamatu lehekülgede ülaosas."
+msgstr "Lühem versioon pealkirjast, mida vajadusel kasutatakse PDF-vormingusse eksportimisel jooksvalt päisepealkirjana raamatu lehekülgede ülaosas."
 
 #: admin/pb-admin-metaboxes.php:181
 msgid "Subtitle"
@@ -452,9 +446,7 @@ msgstr "Autor (perenimi eespool)"
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
-msgstr ""
-"Antud käsklus tagab, et teie e-raamat kuvatakse müügikeskkondades autori "
-"perenime järele."
+msgstr "Antud käsklus tagab, et teie e-raamat kuvatakse müügikeskkondades autori perenime järele."
 
 #: admin/pb-admin-metaboxes.php:197
 msgid "Contributing Authors"
@@ -462,8 +454,8 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:199
 msgid ""
-"This may be used when more than one person shares the responsibility for the "
-"intellectual content of a book."
+"This may be used when more than one person shares the responsibility for the"
+" intellectual content of a book."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:204
@@ -513,11 +505,7 @@ msgstr "Trükitud raamatu ISBN"
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
-"ISBN (raamatu rahvusvaheline standardnumber) aitab väljaannet kiiresti ja "
-"täpselt tuvastada, hõlbustab raamatu tellimist ja müüki ning lihtsustab "
-"arvepidamist. ISBN on vajalik nii e-raamatute kui trükitud raamatute "
-"turustamiseks."
+msgstr "ISBN (raamatu rahvusvaheline standardnumber) aitab väljaannet kiiresti ja täpselt tuvastada, hõlbustab raamatu tellimist ja müüki ning lihtsustab arvepidamist. ISBN on vajalik nii e-raamatute kui trükitud raamatute turustamiseks."
 
 #: admin/pb-admin-metaboxes.php:244 admin/pb-admin-metaboxes.php:695
 msgid "Language"
@@ -573,8 +561,8 @@ msgstr "Autoriõiguse teatis"
 #: admin/pb-admin-metaboxes.php:287
 msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
-"will override the auto-generated copyright notice, and be inserted after the "
-"title page."
+"will override the auto-generated copyright notice, and be inserted after the"
+" title page."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:297
@@ -585,9 +573,7 @@ msgstr "Raamatu moto"
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
-"Raamatu minikirjeldus, mis annab teie raamatust võimalikult täpse ülevaate "
-"ja mahub ühte Twitteri postitusse (140 märki koos tühikutega)."
+msgstr "Raamatu minikirjeldus, mis annab teie raamatust võimalikult täpse ülevaate ja mahub ühte Twitteri postitusse (140 märki koos tühikutega)."
 
 #: admin/pb-admin-metaboxes.php:304
 msgid "Short Description"
@@ -596,9 +582,7 @@ msgstr "Raamatu lühikirjeldus"
 #: admin/pb-admin-metaboxes.php:305
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
-"Raamatut kirjeldav lühike tekstilõik, mida saab kasutada raamatu "
-"arvustamisel, kataloogides jne."
+msgstr "Raamatut kirjeldav lühike tekstilõik, mida saab kasutada raamatu arvustamisel, kataloogides jne."
 
 #: admin/pb-admin-metaboxes.php:311
 msgid "Long Description"
@@ -736,19 +720,15 @@ msgstr "Raamatu eelosa metaandmestik"
 
 #: admin/pb-admin-metaboxes.php:486
 msgid "Front Matter Short Title (appears in the PDF running header)"
-msgstr ""
-"Raamatu eelosa lühipealkiri (kuvatakse jooksvalt PDF-faili lehekülgede "
-"päises)"
+msgstr "Raamatu eelosa lühipealkiri (kuvatakse jooksvalt PDF-faili lehekülgede päises)"
 
 #: admin/pb-admin-metaboxes.php:491
 msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
-"Raamatu eelosa alapealkiri (kuvatakse ilmavõrgus, e-raamatutes ja PDF-failis)"
+msgstr "Raamatu eelosa alapealkiri (kuvatakse ilmavõrgus, e-raamatutes ja PDF-failis)"
 
 #: admin/pb-admin-metaboxes.php:496
 msgid "Front Matter Author (appears in Web/ebook/PDF output)"
-msgstr ""
-"Raamatu eelosa autor (kuvatakse ilmavõrgus, e-raamatutes ja PDF-failis)"
+msgstr "Raamatu eelosa autor (kuvatakse ilmavõrgus, e-raamatutes ja PDF-failis)"
 
 #: admin/pb-admin-metaboxes.php:513
 msgid "Front Matter Copyright License (overrides book license on this page)"
@@ -887,9 +867,7 @@ msgstr "Viga: eksportimine nurjus. Põhjused on kirjas logifailis."
 
 #: admin/templates/export.php:32
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
-"Hoiatus: eksportimisel ilmnesid vead õigsuskontrollis. Täpsema teabe leiab "
-"logifailist."
+msgstr "Hoiatus: eksportimisel ilmnesid vead õigsuskontrollis. Täpsema teabe leiab logifailist."
 
 #: admin/templates/export.php:33
 msgid "Emailed to:"
@@ -898,8 +876,8 @@ msgstr "Saadetud e-kirjaga:"
 #: admin/templates/export.php:44
 #, php-format
 msgid ""
-"You can export multiple file formats by selecting your Export Format Options "
-"below. PressBooks saves your last %s batches of exported files."
+"You can export multiple file formats by selecting your Export Format Options"
+" below. PressBooks saves your last %s batches of exported files."
 msgstr ""
 
 #: admin/templates/export.php:49
@@ -1131,8 +1109,8 @@ msgstr ""
 
 #: admin/templates/sell.php:20
 msgid ""
-"For a flat fee starting at $99 (with a 10% discount for PressBooks users and "
-"100% royalties going to you), BookBaby will send your book to the Kindle "
+"For a flat fee starting at $99 (with a 10% discount for PressBooks users and"
+" 100% royalties going to you), BookBaby will send your book to the Kindle "
 "Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
 msgstr ""
 
@@ -1147,9 +1125,9 @@ msgstr ""
 #: admin/templates/sell.php:27
 #, php-format
 msgid ""
-"You can submit your PDF exports to <a href=\"%s\" target=\"_blank"
-"\">CreateSpace</a> to get print versions of your books into Amazon, and to "
-"order copies for yourself."
+"You can submit your PDF exports to <a href=\"%s\" "
+"target=\"_blank\">CreateSpace</a> to get print versions of your books into "
+"Amazon, and to order copies for yourself."
 msgstr ""
 
 #: admin/templates/sell.php:28
@@ -1162,8 +1140,9 @@ msgstr ""
 
 #: admin/templates/sell.php:35
 msgid ""
-"Once your books are available in stores, you can add the links to bookstores "
-"below, and we'll make a Buy page on the web version of your PressBooks book."
+"Once your books are available in stores, you can add the links to bookstores"
+" below, and we'll make a Buy page on the web version of your PressBooks "
+"book."
 msgstr ""
 
 #: hooks-admin.php:187
@@ -1193,9 +1172,7 @@ msgstr "1. peatükk"
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
-"See on raamatu põhiosa esimene peatükk. Te saate muuta teksti, peatüki "
-"pealkirja, lisada uusi peatükke ja raamatuosi."
+msgstr "See on raamatu põhiosa esimene peatükk. Te saate muuta teksti, peatüki pealkirja, lisada uusi peatükke ja raamatuosi."
 
 #: includes/class-pb-activation.php:160
 msgid "Appendix"
@@ -1233,13 +1210,9 @@ msgstr "Ligipääs keelatud"
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
-"set up your own PressBooks book at: <a href=\"http://pressbooks.com"
-"\">PressBooks.com</a>."
-msgstr ""
-"Antud raamat on nähtav ainult registreeritud kasutajatele. Kui te olete "
-"PressBooks'i kasutaja, sisenege: <a href=\"/wp-login.php\">siit</a>. Samuti "
-"võite luua oma isikliku PressBooks'i raamatu: <a href=\"http://pressbooks.com"
-"\">PressBooks.com</a>."
+"set up your own PressBooks book at: <a "
+"href=\"http://pressbooks.com\">PressBooks.com</a>."
+msgstr "Antud raamat on nähtav ainult registreeritud kasutajatele. Kui te olete PressBooks'i kasutaja, sisenege: <a href=\"/wp-login.php\">siit</a>. Samuti võite luua oma isikliku PressBooks'i raamatu: <a href=\"http://pressbooks.com\">PressBooks.com</a>."
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
@@ -1389,8 +1362,8 @@ msgstr ""
 
 #: includes/pb-catalog.php:239
 msgid ""
-"Sorry, but no books matched your filtering criteria. Please <a class=\"clear-"
-"filters\" href=\"#\">clear your current filters</a> and try again."
+"Sorry, but no books matched your filtering criteria. Please <a class"
+"=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr ""
 
 #: includes/pb-catalog.php:243
@@ -1805,13 +1778,10 @@ msgstr ""
 #: pressbooks.php:57
 #, php-format
 msgid ""
-"PressBooks will not work with your version of WordPress. PressBooks requires "
-"a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+"PressBooks will not work with your version of WordPress. PressBooks requires"
+" a dedicated install of WordPress Multi-Site, version %s or greater. Please "
 "upgrade WordPress if you would like to use PressBooks."
-msgstr ""
-"PressBooks paraku teie WordPress'i versiooniga ei ühildu. PressBooks'i "
-"kasutamiseks peate paigaldama eraldi rakenduse WordPress Multi-Site "
-"(versioon %s või uuem)."
+msgstr "PressBooks paraku teie WordPress'i versiooniga ei ühildu. PressBooks'i kasutamiseks peate paigaldama eraldi rakenduse WordPress Multi-Site (versioon %s või uuem)."
 
 #: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
@@ -1933,8 +1903,8 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:45
 #: symbionts/pb-latex/pb-latex-admin.php:100
 msgid ""
-"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>"
-"%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
+"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
+"<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:63
@@ -1972,14 +1942,14 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:231
 #, php-format
 msgid ""
-"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; "
-"syntax %s OR %s<br /> to insert LaTeX into your posts."
+"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
+" syntax %s OR %s<br /> to insert LaTeX into your posts."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:236
 msgid ""
-"For more information, see the <a href=\"http://wordpress.org/extend/plugins/"
-"wp-latex/faq/\">FAQ</a>"
+"For more information, see the <a href=\"http://wordpress.org/extend/plugins"
+"/wp-latex/faq/\">FAQ</a>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:243
@@ -1998,8 +1968,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:255
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</"
-"code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:260
@@ -2008,8 +1978,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:263
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</"
-"code>, or <code>transparent</code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>, or <code>transparent</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:281
@@ -2075,8 +2045,8 @@ msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:5
 msgid ""
-"Replacements will only be saved if you click '<strong>Replace &amp; Save</"
-"strong>', otherwise you will ONLY get a preview of the results."
+"Replacements will only be saved if you click '<strong>Replace &amp; "
+"Save</strong>', otherwise you will ONLY get a preview of the results."
 msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:6
@@ -2151,9 +2121,7 @@ msgstr ""
 #: themes-book/pressbooks-book/comments.php:3
 msgid ""
 "This post is password protected. Enter the password to view any comments."
-msgstr ""
-"Antud postitus on parooliga kaitstud. Kommentaaride lugemiseks sisestage "
-"salasõna."
+msgstr "Antud postitus on parooliga kaitstud. Kommentaaride lugemiseks sisestage salasõna."
 
 #: themes-book/pressbooks-book/comments.php:12
 #, php-format
@@ -2428,9 +2396,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:521
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
-"Antud valikud puudutavad nii raamatu veebiversiooni, PDF-i kui e-kujul "
-"eksportimist."
+msgstr "Antud valikud puudutavad nii raamatu veebiversiooni, PDF-i kui e-kujul eksportimist."
 
 #: themes-book/pressbooks-book/functions.php:611
 msgid "Web Options"
@@ -2855,10 +2821,8 @@ msgstr "Osta raamat"
 
 #: themes-book/pressbooks-book/page-buy.php:17
 #, php-format
-msgid ""
-"You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
-msgstr ""
-"Osta saab <a href=\"%1$s\">%2$s</a> klõpsates mõnel alljärgneval lingil:"
+msgid "You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
+msgstr "Osta saab <a href=\"%1$s\">%2$s</a> klõpsates mõnel alljärgneval lingil:"
 
 #: themes-book/pressbooks-book/page-buy.php:21
 #, php-format
@@ -2931,8 +2895,8 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:19
 msgid ""
-"It looks like nothing was found at this location. Maybe try one of the links "
-"below or a search?"
+"It looks like nothing was found at this location. Maybe try one of the links"
+" below or a search?"
 msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:27
@@ -3256,8 +3220,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:19
 #, php-format
-msgid ""
-"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:23
@@ -3276,283 +3239,3 @@ msgstr ""
 #, php-format
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
-
-#~ msgid "Feedback"
-#~ msgstr "Tagasiside"
-
-#~ msgid "Blavatar"
-#~ msgstr "Blavatar"
-
-#~ msgid "The date you want your book to start selling in stores."
-#~ msgstr "Kuupäev, millal te soovite poodides raamatu müügiga alustada."
-
-#~ msgid ""
-#~ "ISBN is the International Standard Book Number, and you'll need one if "
-#~ "you want to sell your book in online ebook stores."
-#~ msgstr ""
-#~ "ISBN (raamatu rahvusvaheline standardnumber) aitab väljaannet kiiresti ja "
-#~ "täpselt tuvastada, hõlbustab raamatu tellimist ja müüki ning lihtsustab "
-#~ "arvepidamist. ISBN on vajalik nii e-raamatute kui trükitud raamatute "
-#~ "turustamiseks."
-
-#~ msgid "Additional Catalogue Information"
-#~ msgstr "Lisainformatsioon kataloogi(de) tarbeks."
-
-#~ msgid ""
-#~ "To make it easier to find your book in online book stores and search "
-#~ "engines."
-#~ msgstr ""
-#~ "Märksõnad aitavad otsimootoreid ja teos on e-raamatupoodides paremini "
-#~ "nähtav."
-
-#~ msgid "For those of you who like Twitter."
-#~ msgstr "Twitterisõpradele."
-
-#~ msgid ""
-#~ "BISAC subject headings help your book get properly classified in (e)book "
-#~ "stores."
-#~ msgstr ""
-#~ "Bisac-teemakoodid, mis aitavad raamatut e-raamatute müügikeskkondades "
-#~ "määratleda."
-
-#~ msgid "Catalogue Order"
-#~ msgstr "Kataloogi tellimine"
-
-#~ msgid "Hpub"
-#~ msgstr "Hpub"
-
-#~ msgid "Your Export Theme Options"
-#~ msgstr "Eksportfaili kujunduse valikud"
-
-#~ msgid "You are using the &ldquo;%s&rdquo; theme"
-#~ msgstr "Kasutusel on kujundus &ldquo;%s&rdquo;"
-
-#~ msgid "Change Theme Options"
-#~ msgstr "Muuda kujunduse suvandeid"
-
-#~ msgid "Read more &raquo;"
-#~ msgstr "Lugege edasi &raquo;"
-
-#~ msgid "Sorry, no authors could be found."
-#~ msgstr "Vabandage, autoreid ei leitud."
-
-#~ msgid "Enter password."
-#~ msgstr "Sisestage salasõna"
-
-#~ msgid "0 comments"
-#~ msgstr "0 kommentaari"
-
-#~ msgid "1 comment"
-#~ msgstr "1 kommentaar"
-
-#~ msgid "% comments"
-#~ msgstr "% kommentaari"
-
-#~ msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
-#~ msgstr "Kommenteerimiseks peate olema <a href=\"%s\">sisse logitud</a>"
-
-#~ msgid "Sorry, comments are closed."
-#~ msgstr "Vabandage, kommentaarium on suletud."
-
-#~ msgid "Read more &#8594;"
-#~ msgstr "Lugege edasi &#8594;"
-
-#~ msgid "read more &#8594;"
-#~ msgstr "lugege edasi &#8594;"
-
-#~ msgid "Sidebar 1"
-#~ msgstr "Külgriba 1"
-
-#~ msgid "Sidebar 2"
-#~ msgstr "Külgriba 2"
-
-#~ msgid "Sidebar 3"
-#~ msgstr "Külgriba 3"
-
-#~ msgid "Home Page Left Column"
-#~ msgstr "Kodulehe vasak tulp"
-
-#~ msgid "Home Page Right Column"
-#~ msgstr "Kodulehe parem tulp"
-
-#~ msgid "Footer"
-#~ msgstr "Jalus"
-
-#~ msgid "\">read more &#8594;</a>"
-#~ msgstr "\">lugege edasi &#8594;</a>"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Featured Content"
-#~ msgstr "Paremad palad "
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New"
-#~ msgstr "Lisage "
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New Featured Content"
-#~ msgstr "Lisage väljapaistvaid tekstinäiteid "
-
-#~ msgctxt "_featured_content"
-#~ msgid "Edit Featured Content"
-#~ msgstr "Paremate palade toimetamine "
-
-#~ msgctxt "_featured_content"
-#~ msgid "New Featured Content"
-#~ msgstr "Uued paremad palad "
-
-#~ msgctxt "_featured_content"
-#~ msgid "View Featured Content"
-#~ msgstr "Vaadake paremaid palu "
-
-#~ msgctxt "_featured_content"
-#~ msgid "Search Featured Content"
-#~ msgstr "Paremate palade otsing "
-
-#~ msgctxt "_featured_content"
-#~ msgid "No Featured Content found"
-#~ msgstr "Paremaid palu ei leitud "
-
-#~ msgctxt "_featured_content"
-#~ msgid "No Featured Content in Trash"
-#~ msgstr "Kustutatud paremaid palu ei leitud"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Parent Featured Content Link:"
-#~ msgstr "Paremate palade vaikeviide: "
-
-#~ msgctxt "_author"
-#~ msgid "Authors"
-#~ msgstr "Autorid "
-
-#~ msgctxt "_author"
-#~ msgid "Author"
-#~ msgstr "Autor "
-
-#~ msgctxt "_author"
-#~ msgid "Add New"
-#~ msgstr "Lisage uus"
-
-#~ msgctxt "_author"
-#~ msgid "Add New Author"
-#~ msgstr "Lisage uus autor "
-
-#~ msgctxt "_author"
-#~ msgid "Edit Author"
-#~ msgstr "Autori toimetamine"
-
-#~ msgctxt "_author"
-#~ msgid "New Author"
-#~ msgstr "Uus autor "
-
-#~ msgctxt "_author"
-#~ msgid "View Author"
-#~ msgstr "Vaata autorit"
-
-#~ msgctxt "_author"
-#~ msgid "Search Authors"
-#~ msgstr "Otsige autoreid "
-
-#~ msgctxt "_author"
-#~ msgid "No Authors found"
-#~ msgstr "Autoreid ei tuvastatud"
-
-#~ msgctxt "_author"
-#~ msgid "No Authors in Trash"
-#~ msgstr "Kustutatud autoreid ei tuvastatud"
-
-#~ msgctxt "_author"
-#~ msgid "Parent Author Link:"
-#~ msgstr "Vaikeviide autorile: "
-
-#~ msgid "&#8592 Older Entries"
-#~ msgstr "&#8592 Vanemad sissekanded"
-
-#~ msgid "Newer Entries &#8594;"
-#~ msgstr "Uuemad sissekanded &#8594"
-
-#~ msgid " Theme Options"
-#~ msgstr "Kujunduse suvandid"
-
-#~ msgid ""
-#~ "These options will let you setup the social icons for your site. You can "
-#~ "enter the URLs of your profiles to have the icons show up."
-#~ msgstr ""
-#~ "Antud suvandite abil saate oma leheküljel kuvada suhtlusvõrgustike "
-#~ "viiteid. Samuti võite suhtlusvõrgustike ikoonide kuvamiseks oma "
-#~ "profiilidele lisada URL'id."
-
-#~ msgid "Options saved"
-#~ msgstr "Suvandid salvestati"
-
-#~ msgid "Hide RSS Icon?"
-#~ msgstr "Peida RSS-i ikoon?"
-
-#~ msgid "Hide the RSS feed icon?"
-#~ msgstr "Peida RSS-i voo ikoon?"
-
-#~ msgid "Enter your Facebook URL"
-#~ msgstr "Sisestage oma Facebook'i veebiaadress"
-
-#~ msgid "Leave blank to hide Facebook Icon"
-#~ msgstr "Facebook'i ikooni peitmiseks jätke tühjaks"
-
-#~ msgid "Enter your Twitter URL"
-#~ msgstr "Sisestage oma Twitteri veebiaadress"
-
-#~ msgid "Leave blank to hide Twitter Icon"
-#~ msgstr "Twitter'i ikooni peitmiseks jätke tühjaks"
-
-#~ msgid "Enter your Tumblr URL"
-#~ msgstr "Sisestage oma Tumblr'i veebiaadress"
-
-#~ msgid "Leave blank to hide Tumblr Icon"
-#~ msgstr "Tumblr'i ikooni peitmiseks jätke tühjaks"
-
-#~ msgid "Enter your Youtube Channel URL"
-#~ msgstr "Sisestage oma YouTube'i kanali veebiaadress"
-
-#~ msgid "Leave blank to hide Youtube Icon"
-#~ msgstr "YouTube'i ikooni peitmiseks jätke tühjaks"
-
-#~ msgid "Save Options"
-#~ msgstr "Salvestamise suvandid"
-
-#~ msgid "Older Entries &raquo;"
-#~ msgstr "Vanemad sissekanded &raquo;"
-
-#~ msgid "&laquo; Newer Entries"
-#~ msgstr "&raquo; Uuemad sissekanded"
-
-#~ msgid "No Comments"
-#~ msgstr "Kommentaarid puuduvad"
-
-#~ msgid "Sorry, no posts matched your criteria."
-#~ msgstr "Vabandame, teie päringuga ei sobinud ükski postitus."
-
-#~ msgid "keep reading"
-#~ msgstr "jätkake lugemist"
-
-#~ msgid "Twitter"
-#~ msgstr "Twitter"
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
-
-#~ msgid "YouTube"
-#~ msgstr "YouTube"
-
-#~ msgid "Tumblr"
-#~ msgstr "Tumblr"
-
-#~ msgid "RSS Feed"
-#~ msgstr "RSS-voog"
-
-#~ msgid "PressBooks"
-#~ msgstr "PressBooks"
-
-#~ msgid "http://www.pressbooks.com"
-#~ msgstr "http://www.pressbooks.com"
-
-#~ msgid "BookOven Inc."
-#~ msgstr "BookOven Inc."

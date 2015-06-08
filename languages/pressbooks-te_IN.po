@@ -1,19 +1,17 @@
 # Copyright (C) 2015 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
-# LaScapigliata <ditri2000@hotmail.com>, 2015
-# ZedRyder <zedryder@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-06-08 10:56-0500\n"
 "PO-Revision-Date: 2015-06-08 20:48+0000\n"
 "Last-Translator: Ned Zimmerman\n"
-"Language-Team: Greek (http://www.transifex.com/projects/p/pressbooks/language/el/)\n"
+"Language-Team: Telugu (India) (http://www.transifex.com/projects/p/pressbooks/language/te_IN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: el\n"
+"Language: te_IN\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.4\n"
 "X-Poedit-Basepath: ..\n"
@@ -24,132 +22,132 @@ msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
-msgstr "Δες Βιβλίο"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:83
 msgid "Visit Admin"
-msgstr "Δες Διαχειριστή"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:114
 #: admin/class-pb-catalog-list-table.php:226
 #: admin/class-pb-catalog-list-table.php:455
 msgid "Hide in Catalog"
-msgstr "Κρύψε στον Κατάλογο"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:119
 #: admin/class-pb-catalog-list-table.php:225
 #: admin/class-pb-catalog-list-table.php:454
 msgid "Show in Catalog"
-msgstr "Εμφάνιση στον Κατάλογο"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:180
 msgid "Catalog Status"
-msgstr "Κατάσταση καταλόγου"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:181
 msgid "Privacy Status"
-msgstr "Κατάσταση προσωπικού απορρήτου"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:182
 #: includes/class-pb-activation.php:171
 #: includes/modules/export/epub/class-pb-epub201.php:677
 msgid "Cover"
-msgstr "Εξώφυλλο"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:183 admin/templates/import.php:58
 msgid "Title"
-msgstr "Τίτλος"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:184 admin/pb-admin-metaboxes.php:186
 #: admin/templates/organize.php:62 admin/templates/organize.php:146
 #: admin/templates/organize.php:243
 #: themes-book/pressbooks-book/functions.php:15
 msgid "Author"
-msgstr "Συγγραφέας"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:188 includes/pb-catalog.php:199
 msgid "Tag"
-msgstr "Ετικέτα"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:191 admin/templates/catalog.php:35
 msgid "Featured"
-msgstr "Προτεινόμενα"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:192
 msgid "Pub Date"
-msgstr "Ημερομηνία δημοσίευσης"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:338
 msgid "Edit Tags"
-msgstr "Επεξεργασία ετικετών"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:96
 #: admin/templates/organize.php:22 admin/templates/organize.php:33
 #: admin/templates/organize.php:65 admin/templates/organize.php:149
 #: admin/templates/organize.php:246
 msgid "Private"
-msgstr "Ιδιωτικό"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:98
 #: admin/templates/organize.php:20 admin/templates/organize.php:27
 msgid "Public"
-msgstr "Δημόσιο"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:452
 msgid "Organize your public Catalog page."
-msgstr "Οργανώστε την ιδιωτική σας σελίδα καταλόγου"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:453
 msgid "Show/Hide books"
-msgstr "Εμφάνιση/απόκρυψη βιβλίων"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:457
 msgid "Catalog sorting"
-msgstr "Ταξινόμηση καταλόγου"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:460
 msgid "Share your catalog"
-msgstr "Μοιραστείτε τον κατάλογό σας"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:461
 msgid "The public link to your catalog page"
-msgstr "Ο δημόσιος σύνδεσμος για την σελίδα του καταλόγου σας"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:466 admin/pb-admin-laf.php:175
 #: admin/pb-admin-laf.php:191 admin/pb-admin-laf.php:297
 msgid "My Catalog"
-msgstr "Ο κατάλογός μου"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:467
 msgid "Edit Profile"
-msgstr "Επεξεργασία προφίλ"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:468
 msgid "Visit Catalog"
-msgstr "Επισκεφθείτε τον κατάλογο"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:474
 #: symbionts/search-regex/view/admin/search.php:54
 msgid "Search"
-msgstr "Αναζήτηση"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:483
 msgid "Add By URL"
-msgstr "Προσθέστε με διεύθυνση"
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:532 admin/templates/catalog.php:18
 #: includes/class-pb-catalog.php:1059 includes/class-pb-catalog.php:1107
 #: includes/class-pb-catalog.php:1152
 msgid "You do not have permission to do that."
-msgstr "Δεν έχετε την άδεια να το κάνετε αυτό."
+msgstr ""
 
 #: admin/class-pb-catalog-list-table.php:536
 msgid "The requested user does not exist."
-msgstr "Ο χρήστης που ζητήσατε δεν υπάρχει"
+msgstr ""
 
 #: admin/pb-admin-customcss.php:18 admin/templates/custom-css.php:27
 msgid "Edit CSS"
-msgstr "Επεξεργασία CSS"
+msgstr ""
 
 #: admin/pb-admin-customcss.php:60
 #, php-format
@@ -174,20 +172,20 @@ msgstr ""
 
 #: admin/pb-admin-customcss.php:183
 msgid "This will overwrite existing custom CSS. Are you sure?"
-msgstr "Αυτό θα υπερκαλύψει το υπάρχων custom CSS. Είστε βέβαιος;"
+msgstr ""
 
 #: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
 #: admin/pb-admin-dashboard.php:95
 msgid "PressBooks News"
-msgstr "Τα νέα του Pressbooks"
+msgstr ""
 
 #: admin/pb-admin-dashboard.php:41
 msgid "My Book"
-msgstr "Το βιβλίο μου"
+msgstr ""
 
 #: admin/pb-admin-dashboard.php:43 admin/pb-admin-laf.php:338
 msgid "Users"
-msgstr "Χρήστες"
+msgstr ""
 
 #: admin/pb-admin-dashboard.php:55 admin/templates/import.php:59
 #: admin/templates/organize.php:44 admin/templates/organize.php:61
@@ -203,12 +201,12 @@ msgstr ""
 
 #: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
 msgid "Add"
-msgstr "Προσθήκη"
+msgstr ""
 
 #: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
 #: admin/pb-admin-laf.php:86
 msgid "Organize"
-msgstr "Οργάνωση"
+msgstr ""
 
 #: admin/pb-admin-laf.php:18
 msgid "Powered by"
@@ -217,15 +215,15 @@ msgstr ""
 #: admin/pb-admin-laf.php:19 admin/templates/catalog.php:89
 #: includes/class-pb-activation.php:179
 msgid "About"
-msgstr "Σχετικα με"
+msgstr ""
 
 #: admin/pb-admin-laf.php:20
 msgid "Help"
-msgstr "Βοήθεια"
+msgstr ""
 
 #: admin/pb-admin-laf.php:21 admin/pb-admin-laf.php:273
 msgid "Contact"
-msgstr "Επικοινωνία"
+msgstr ""
 
 #: admin/pb-admin-laf.php:74
 msgid "Theme Options"
@@ -233,17 +231,17 @@ msgstr ""
 
 #: admin/pb-admin-laf.php:97
 msgid "Published"
-msgstr "Εκδόθηκε"
+msgstr ""
 
 #: admin/pb-admin-laf.php:134 admin/pb-admin-metaboxes.php:29
 msgid "Book Info"
-msgstr "Πληροφορίες βιβλίου"
+msgstr ""
 
 #: admin/pb-admin-laf.php:147 admin/templates/export.php:43
 #: admin/templates/organize.php:49 admin/templates/organize.php:66
 #: admin/templates/organize.php:150 admin/templates/organize.php:247
 msgid "Export"
-msgstr "Εξαγωγή"
+msgstr ""
 
 #: admin/pb-admin-laf.php:152
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
@@ -251,11 +249,11 @@ msgstr ""
 
 #: admin/pb-admin-laf.php:158
 msgid "Sell"
-msgstr "Πώληση"
+msgstr ""
 
 #: admin/pb-admin-laf.php:161
 msgid "Privacy Settings"
-msgstr "Ρυθμίσεις ασφαλείας"
+msgstr ""
 
 #: admin/pb-admin-laf.php:161
 msgid "Privacy"
@@ -272,11 +270,11 @@ msgstr ""
 #: admin/pb-admin-laf.php:167 admin/templates/import.php:14
 #: admin/templates/import.php:57
 msgid "Import"
-msgstr "Εισαγωγή"
+msgstr ""
 
 #: admin/pb-admin-laf.php:239 admin/pb-admin-laf.php:248
 msgid "About PressBooks"
-msgstr "Σχετικα με το PressBooks"
+msgstr ""
 
 #: admin/pb-admin-laf.php:257
 msgid "PressBooks.com"
@@ -2889,7 +2887,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/sidebar.php:23
 msgid "Close"
-msgstr "Κλείσιμο"
+msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:15
 msgid "Oops! That page can&rsquo;t be found."

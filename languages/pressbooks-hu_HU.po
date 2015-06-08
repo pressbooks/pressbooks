@@ -1,22 +1,25 @@
-# Copyright (C) 2013 PressBooks
+# Copyright (C) 2015 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
 # dragonweb <zoltan@dragonweb.hu>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: PressBooks\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
+"Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-06-08 10:56-0500\n"
-"PO-Revision-Date: 2015-06-08 11:05-0500\n"
-"Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
-"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/"
-"pressbooks/language/hu_HU/)\n"
-"Language: hu_HU\n"
+"PO-Revision-Date: 2015-06-08 20:48+0000\n"
+"Last-Translator: Ned Zimmerman\n"
+"Language-Team: Hungarian (Hungary) (http://www.transifex.com/projects/p/pressbooks/language/hu_HU/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: hu_HU\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
@@ -152,9 +155,7 @@ msgstr "CSS szerkesztése"
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
-"Váratlan hiba: A következő kérés futtatása problémába ütközött: %s - Kérjük, "
-"vegye fel a kapcsolatot a technikai ügyfélszolgálattal!"
+msgstr "Váratlan hiba: A következő kérés futtatása problémába ütközött: %s - Kérjük, vegye fel a kapcsolatot a technikai ügyfélszolgálattal!"
 
 #: admin/pb-admin-customcss.php:113
 msgid "Last 10 CSS Revisions"
@@ -331,8 +332,7 @@ msgstr "Nyilvános. Szeretném, ha ez a könyv mindenki számára látható lenn
 #: admin/pb-admin-laf.php:654
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr ""
-"Privát. Szeretném, ha ez a könyv csak meghívottak számára lenne hozzáférhető."
+msgstr "Privát. Szeretném, ha ez a könyv csak meghívottak számára lenne hozzáférhető."
 
 #: admin/pb-admin-laf.php:705
 msgid "Amazon URL"
@@ -383,8 +383,9 @@ msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
 "support for deciphering validation errors, but you could post errors on the "
-"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</"
-"a>, where we and other PressBooks users can help out as time permits. ."
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks "
+"forum</a>, where we and other PressBooks users can help out as time permits."
+" ."
 msgstr ""
 
 #: admin/pb-admin-laf.php:947
@@ -396,9 +397,7 @@ msgstr ""
 msgid ""
 "Your cover image (%s x %s) is too small. It should be 625px on the shortest "
 "side."
-msgstr ""
-"A borítókép (%s x %s) túl kisméretű. A rövidebb oldalán 625 pixelnyinek kell "
-"lennie."
+msgstr "A borítókép (%s x %s) túl kisméretű. A rövidebb oldalán 625 pixelnyinek kell lennie."
 
 #: admin/pb-admin-metaboxes.php:114 admin/pb-admin-metaboxes.php:159
 #: includes/class-pb-metadata.php:627
@@ -456,8 +455,8 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:199
 msgid ""
-"This may be used when more than one person shares the responsibility for the "
-"intellectual content of a book."
+"This may be used when more than one person shares the responsibility for the"
+" intellectual content of a book."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:204
@@ -563,8 +562,8 @@ msgstr ""
 #: admin/pb-admin-metaboxes.php:287
 msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
-"will override the auto-generated copyright notice, and be inserted after the "
-"title page."
+"will override the auto-generated copyright notice, and be inserted after the"
+" title page."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:297
@@ -878,8 +877,8 @@ msgstr ""
 #: admin/templates/export.php:44
 #, php-format
 msgid ""
-"You can export multiple file formats by selecting your Export Format Options "
-"below. PressBooks saves your last %s batches of exported files."
+"You can export multiple file formats by selecting your Export Format Options"
+" below. PressBooks saves your last %s batches of exported files."
 msgstr ""
 
 #: admin/templates/export.php:49
@@ -1111,8 +1110,8 @@ msgstr ""
 
 #: admin/templates/sell.php:20
 msgid ""
-"For a flat fee starting at $99 (with a 10% discount for PressBooks users and "
-"100% royalties going to you), BookBaby will send your book to the Kindle "
+"For a flat fee starting at $99 (with a 10% discount for PressBooks users and"
+" 100% royalties going to you), BookBaby will send your book to the Kindle "
 "Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
 msgstr ""
 
@@ -1127,9 +1126,9 @@ msgstr ""
 #: admin/templates/sell.php:27
 #, php-format
 msgid ""
-"You can submit your PDF exports to <a href=\"%s\" target=\"_blank"
-"\">CreateSpace</a> to get print versions of your books into Amazon, and to "
-"order copies for yourself."
+"You can submit your PDF exports to <a href=\"%s\" "
+"target=\"_blank\">CreateSpace</a> to get print versions of your books into "
+"Amazon, and to order copies for yourself."
 msgstr ""
 
 #: admin/templates/sell.php:28
@@ -1142,8 +1141,9 @@ msgstr ""
 
 #: admin/templates/sell.php:35
 msgid ""
-"Once your books are available in stores, you can add the links to bookstores "
-"below, and we'll make a Buy page on the web version of your PressBooks book."
+"Once your books are available in stores, you can add the links to bookstores"
+" below, and we'll make a Buy page on the web version of your PressBooks "
+"book."
 msgstr ""
 
 #: hooks-admin.php:187
@@ -1211,8 +1211,8 @@ msgstr "Hozzáférés megtagadva"
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
-"set up your own PressBooks book at: <a href=\"http://pressbooks.com"
-"\">PressBooks.com</a>."
+"set up your own PressBooks book at: <a "
+"href=\"http://pressbooks.com\">PressBooks.com</a>."
 msgstr ""
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
@@ -1363,8 +1363,8 @@ msgstr ""
 
 #: includes/pb-catalog.php:239
 msgid ""
-"Sorry, but no books matched your filtering criteria. Please <a class=\"clear-"
-"filters\" href=\"#\">clear your current filters</a> and try again."
+"Sorry, but no books matched your filtering criteria. Please <a class"
+"=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr ""
 
 #: includes/pb-catalog.php:243
@@ -1779,8 +1779,8 @@ msgstr ""
 #: pressbooks.php:57
 #, php-format
 msgid ""
-"PressBooks will not work with your version of WordPress. PressBooks requires "
-"a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+"PressBooks will not work with your version of WordPress. PressBooks requires"
+" a dedicated install of WordPress Multi-Site, version %s or greater. Please "
 "upgrade WordPress if you would like to use PressBooks."
 msgstr ""
 
@@ -1904,8 +1904,8 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:45
 #: symbionts/pb-latex/pb-latex-admin.php:100
 msgid ""
-"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>"
-"%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
+"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
+"<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:63
@@ -1943,14 +1943,14 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:231
 #, php-format
 msgid ""
-"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; "
-"syntax %s OR %s<br /> to insert LaTeX into your posts."
+"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
+" syntax %s OR %s<br /> to insert LaTeX into your posts."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:236
 msgid ""
-"For more information, see the <a href=\"http://wordpress.org/extend/plugins/"
-"wp-latex/faq/\">FAQ</a>"
+"For more information, see the <a href=\"http://wordpress.org/extend/plugins"
+"/wp-latex/faq/\">FAQ</a>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:243
@@ -1969,8 +1969,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:255
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</"
-"code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:260
@@ -1979,8 +1979,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:263
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</"
-"code>, or <code>transparent</code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>, or <code>transparent</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:281
@@ -2046,8 +2046,8 @@ msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:5
 msgid ""
-"Replacements will only be saved if you click '<strong>Replace &amp; Save</"
-"strong>', otherwise you will ONLY get a preview of the results."
+"Replacements will only be saved if you click '<strong>Replace &amp; "
+"Save</strong>', otherwise you will ONLY get a preview of the results."
 msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:6
@@ -2822,8 +2822,7 @@ msgstr "Könyv megvásárlása"
 
 #: themes-book/pressbooks-book/page-buy.php:17
 #, php-format
-msgid ""
-"You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
+msgid "You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
 msgstr ""
 
 #: themes-book/pressbooks-book/page-buy.php:21
@@ -2897,8 +2896,8 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:19
 msgid ""
-"It looks like nothing was found at this location. Maybe try one of the links "
-"below or a search?"
+"It looks like nothing was found at this location. Maybe try one of the links"
+" below or a search?"
 msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:27
@@ -3222,8 +3221,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:19
 #, php-format
-msgid ""
-"Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
+msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:23
@@ -3242,129 +3240,3 @@ msgstr ""
 #, php-format
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
-
-#~ msgid "Feedback"
-#~ msgstr "Visszajelzés"
-
-#~ msgid "Blavatar"
-#~ msgstr "Blavatar"
-
-#~ msgid "The date you want your book to start selling in stores."
-#~ msgstr "A dátum, amit ki szeretne jelölni az árusítás megkezdésére."
-
-#~ msgid "Additional Catalogue Information"
-#~ msgstr "További katalógus információk"
-
-#~ msgid "For those of you who like Twitter."
-#~ msgstr "Azoknak, akik szeretik a Twittert."
-
-#~ msgid "Hpub"
-#~ msgstr "Hpub"
-
-#~ msgid "Read more &raquo;"
-#~ msgstr "Tovább &raquo;"
-
-#~ msgid "0 comments"
-#~ msgstr "0 hozzászólás"
-
-#~ msgid "1 comment"
-#~ msgstr "1 hozzászólás"
-
-#~ msgid "% comments"
-#~ msgstr "% hozzászólás"
-
-#~ msgid "Sidebar 1"
-#~ msgstr "Oldalsáv 1"
-
-#~ msgid "Sidebar 2"
-#~ msgstr "Oldalsáv 2"
-
-#~ msgid "Sidebar 3"
-#~ msgstr "Oldalsáv 3"
-
-#~ msgid "Footer"
-#~ msgstr "Lábléc"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New"
-#~ msgstr "Új hozzáadása"
-
-#~ msgctxt "_author"
-#~ msgid "Authors"
-#~ msgstr "Szerzők"
-
-#~ msgctxt "_author"
-#~ msgid "Author"
-#~ msgstr "Szerző"
-
-#~ msgctxt "_author"
-#~ msgid "Add New"
-#~ msgstr "Új hozzáadása"
-
-#~ msgctxt "_author"
-#~ msgid "Add New Author"
-#~ msgstr "Új szerző hozzáadása"
-
-#~ msgctxt "_author"
-#~ msgid "Edit Author"
-#~ msgstr "Szerző szerkesztése"
-
-#~ msgctxt "_author"
-#~ msgid "New Author"
-#~ msgstr "Új szerző"
-
-#~ msgctxt "_author"
-#~ msgid "View Author"
-#~ msgstr "Szerző megtekintése"
-
-#~ msgctxt "_author"
-#~ msgid "Search Authors"
-#~ msgstr "Szerzők keresése"
-
-#~ msgid "&#8592 Older Entries"
-#~ msgstr "&#8592 Korábbi bejegyzések"
-
-#~ msgid "Newer Entries &#8594;"
-#~ msgstr "Újabb bejegyzések &#8594;"
-
-#~ msgid " Theme Options"
-#~ msgstr "Sablon opciók"
-
-#~ msgid "Save Options"
-#~ msgstr "Opciók mentése"
-
-#~ msgid "Older Entries &raquo;"
-#~ msgstr "Korábbi bejegyzések &raquo;"
-
-#~ msgid "&laquo; Newer Entries"
-#~ msgstr "&laquo; Újabb bejegyzések"
-
-#~ msgid "No Comments"
-#~ msgstr "Nincs hozzászólás"
-
-#~ msgid "keep reading"
-#~ msgstr "olvasson tovább"
-
-#~ msgid "Twitter"
-#~ msgstr "Twitter"
-
-#~ msgid "Facebook"
-#~ msgstr "Facebook"
-
-#~ msgid "YouTube"
-#~ msgstr "YouTube"
-
-#~ msgid "Tumblr"
-#~ msgstr "Tumblr"
-
-#~ msgid "RSS Feed"
-#~ msgstr "RSS hírcsatorna"
-
-#~ msgid "PressBooks"
-#~ msgstr "PressBooks"
-
-#~ msgid "http://www.pressbooks.com"
-#~ msgstr "http://www.pressbooks.com"
-
-#~ msgid "BookOven Inc."
-#~ msgstr "BookOven Inc."

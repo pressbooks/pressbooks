@@ -1,4 +1,4 @@
-# Copyright (C) 2013 PressBooks
+# Copyright (C) 2015 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
 # arunkumar <app.dev.arun@gmail.com>, 2014
@@ -8,18 +8,22 @@
 # Shrinivasan <tshrinivasan@gmail.com>, 2014
 msgid ""
 msgstr ""
-"Project-Id-Version: PressBooks\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
+"Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-06-08 10:56-0500\n"
-"PO-Revision-Date: 2015-06-08 11:03-0500\n"
-"Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
+"PO-Revision-Date: 2015-06-08 20:48+0000\n"
+"Last-Translator: Ned Zimmerman\n"
 "Language-Team: Tamil (http://www.transifex.com/projects/p/pressbooks/language/ta/)\n"
-"Language: ta\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ta\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.4\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 
 #: admin/class-pb-catalog-list-table.php:78
 msgid "Visit Book"
@@ -29,12 +33,14 @@ msgstr "புத்தகத்தைப் பார்க்க"
 msgid "Visit Admin"
 msgstr "நிர்வாகியைப் பார்க்க "
 
-#: admin/class-pb-catalog-list-table.php:114 admin/class-pb-catalog-list-table.php:226
+#: admin/class-pb-catalog-list-table.php:114
+#: admin/class-pb-catalog-list-table.php:226
 #: admin/class-pb-catalog-list-table.php:455
 msgid "Hide in Catalog"
 msgstr "பட்டியலில் இருந்து மறைக்கவும்"
 
-#: admin/class-pb-catalog-list-table.php:119 admin/class-pb-catalog-list-table.php:225
+#: admin/class-pb-catalog-list-table.php:119
+#: admin/class-pb-catalog-list-table.php:225
 #: admin/class-pb-catalog-list-table.php:454
 msgid "Show in Catalog"
 msgstr "பட்டியலில் காட்டுக "
@@ -47,7 +53,8 @@ msgstr "பட்டியல் நிலை"
 msgid "Privacy Status"
 msgstr "தனியுரிமை நிலை"
 
-#: admin/class-pb-catalog-list-table.php:182 includes/class-pb-activation.php:171
+#: admin/class-pb-catalog-list-table.php:182
+#: includes/class-pb-activation.php:171
 #: includes/modules/export/epub/class-pb-epub201.php:677
 msgid "Cover"
 msgstr "மேல் அட்டை"
@@ -58,7 +65,8 @@ msgstr "தலைப்பு"
 
 #: admin/class-pb-catalog-list-table.php:184 admin/pb-admin-metaboxes.php:186
 #: admin/templates/organize.php:62 admin/templates/organize.php:146
-#: admin/templates/organize.php:243 themes-book/pressbooks-book/functions.php:15
+#: admin/templates/organize.php:243
+#: themes-book/pressbooks-book/functions.php:15
 msgid "Author"
 msgstr "நூல் ஆசிரியர்"
 
@@ -123,7 +131,8 @@ msgstr "அறிமுகக் குறிப்பை மாற்றுக"
 msgid "Visit Catalog"
 msgstr "பட்டியலைப் பார்க்க "
 
-#: admin/class-pb-catalog-list-table.php:474 symbionts/search-regex/view/admin/search.php:54
+#: admin/class-pb-catalog-list-table.php:474
+#: symbionts/search-regex/view/admin/search.php:54
 msgid "Search"
 msgstr "தேடுக "
 
@@ -148,15 +157,16 @@ msgstr "பாங்கைத் திருத்துக "
 #: admin/pb-admin-customcss.php:60
 #, php-format
 msgid ""
-"Unexpected Error: There was a problem trying to query slug: %s - Please contact technical "
-"support."
+"Unexpected Error: There was a problem trying to query slug: %s - Please "
+"contact technical support."
 msgstr "எதிர்பாராத வழு: slugஐ வினவுவதில் பழுது:%s - தொழில்நுட்ப உதவியை நாடுக."
 
 #: admin/pb-admin-customcss.php:113
 msgid "Last 10 CSS Revisions"
 msgstr "கடைசி 10 பாங்குப் பதிப்புகள் "
 
-#: admin/pb-admin-customcss.php:116 includes/modules/export/epub/class-pb-epub201.php:850
+#: admin/pb-admin-customcss.php:116
+#: includes/modules/export/epub/class-pb-epub201.php:850
 #: includes/modules/export/epub/templates/opf.php:70
 #: includes/modules/export/epub3/templates/opf.php:90
 #: includes/modules/export/mpdf/class-pb-pdf.php:312
@@ -183,12 +193,14 @@ msgid "Users"
 msgstr "பயனாளர்கள்"
 
 #: admin/pb-admin-dashboard.php:55 admin/templates/import.php:59
-#: admin/templates/organize.php:44 admin/templates/organize.php:61 includes/pb-postype.php:115
+#: admin/templates/organize.php:44 admin/templates/organize.php:61
+#: includes/pb-postype.php:115
 msgid "Front Matter"
 msgstr "முன்பகுதி"
 
 #: admin/pb-admin-dashboard.php:75 admin/templates/import.php:64
-#: admin/templates/organize.php:46 admin/templates/organize.php:242 includes/pb-postype.php:150
+#: admin/templates/organize.php:46 admin/templates/organize.php:242
+#: includes/pb-postype.php:150
 msgid "Back Matter"
 msgstr "பிற்பகுதி"
 
@@ -196,7 +208,8 @@ msgstr "பிற்பகுதி"
 msgid "Add"
 msgstr "சேர்க்கவும்"
 
-#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123 admin/pb-admin-laf.php:86
+#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
+#: admin/pb-admin-laf.php:86
 msgid "Organize"
 msgstr "ஒருங்கிணை"
 
@@ -229,9 +242,9 @@ msgstr "வெளியிடப்பட்ட"
 msgid "Book Info"
 msgstr "நூல் விவரங்கள்"
 
-#: admin/pb-admin-laf.php:147 admin/templates/export.php:43 admin/templates/organize.php:49
-#: admin/templates/organize.php:66 admin/templates/organize.php:150
-#: admin/templates/organize.php:247
+#: admin/pb-admin-laf.php:147 admin/templates/export.php:43
+#: admin/templates/organize.php:49 admin/templates/organize.php:66
+#: admin/templates/organize.php:150 admin/templates/organize.php:247
 msgid "Export"
 msgstr "ஏற்றுமதி "
 
@@ -259,7 +272,8 @@ msgstr "மேம்பட்ட அமைப்புகள்"
 msgid "Advanced"
 msgstr "மேம்பட்ட "
 
-#: admin/pb-admin-laf.php:167 admin/templates/import.php:14 admin/templates/import.php:57
+#: admin/pb-admin-laf.php:167 admin/templates/import.php:14
+#: admin/templates/import.php:57
 msgid "Import"
 msgstr "இறக்குமதி"
 
@@ -320,7 +334,8 @@ msgid "Public. I would like this book to be visible to everyone."
 msgstr "பொது.  நான் இப்புத்தகத்தை எல்லோரும் பார்க்கும் வண்ணம் வைத்திட விரும்புகிறேன். "
 
 #: admin/pb-admin-laf.php:654
-msgid "Private. I would like this book to be accessible only to people I invite."
+msgid ""
+"Private. I would like this book to be accessible only to people I invite."
 msgstr "தனிப்பயனுக்கானது. இந்நூலை நான் அழைப்பவர் மட்டும் காணத்தக்கதாக்க விரும்புகிறேன்."
 
 #: admin/pb-admin-laf.php:705
@@ -369,16 +384,13 @@ msgstr "ஆம். பதிவுகளை அனுப்பவும்."
 
 #: admin/pb-admin-laf.php:920
 msgid ""
-"Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and will require some "
-"effort to decipher. Unfortunately we cannot provide support for deciphering validation "
-"errors, but you could post errors on the <a href=\"http://forum.pressbooks.com/\" target="
-"\"_blank\">PressBooks forum</a>, where we and other PressBooks users can help out as time "
-"permits. ."
-msgstr ""
-"குறிப்பு: (EPUB, Mobi, மற்றும் PDF) சரிபார்ப்புப் பிழை அறிக்கைகளைப் புரிந்துகொள்ள, தொழில்நுட்ப அறிவு "
-"தேவை. எங்களால் தொழில்நுட்ப உதவி தர இயலாது. உங்கள் பிழை அறிக்கையை  <a href=\"http://forum.pressbooks."
-"com/\" target=\"_blank\">PressBooks பயனர் மன்றத்தில்</a> பதிவு செய்து உதவி கோரலாம். நாங்களும் மற்ற  "
-"பயனர்களும் உங்களுக்கு உதவுவோம்."
+"Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
+"will require some effort to decipher. Unfortunately we cannot provide "
+"support for deciphering validation errors, but you could post errors on the "
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks "
+"forum</a>, where we and other PressBooks users can help out as time permits."
+" ."
+msgstr "குறிப்பு: (EPUB, Mobi, மற்றும் PDF) சரிபார்ப்புப் பிழை அறிக்கைகளைப் புரிந்துகொள்ள, தொழில்நுட்ப அறிவு தேவை. எங்களால் தொழில்நுட்ப உதவி தர இயலாது. உங்கள் பிழை அறிக்கையை  <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks பயனர் மன்றத்தில்</a> பதிவு செய்து உதவி கோரலாம். நாங்களும் மற்ற  பயனர்களும் உங்களுக்கு உதவுவோம்."
 
 #: admin/pb-admin-laf.php:947
 msgid "Enable chapter types taxonomy."
@@ -386,11 +398,14 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:99
 #, php-format
-msgid "Your cover image (%s x %s) is too small. It should be 625px on the shortest side."
+msgid ""
+"Your cover image (%s x %s) is too small. It should be 625px on the shortest "
+"side."
 msgstr "உங்கள் அட்டைப்படம் (%s x %s) மிகவும் சிறிதாக உள்ளது.  குறைந்தது 625px இருக்க வேண்டும்."
 
 #: admin/pb-admin-metaboxes.php:114 admin/pb-admin-metaboxes.php:159
-#: includes/class-pb-metadata.php:627 themes-book/pressbooks-book/functions.php:1178
+#: includes/class-pb-metadata.php:627
+#: themes-book/pressbooks-book/functions.php:1178
 msgid "Cover Image"
 msgstr "அட்டைப்படம்"
 
@@ -419,7 +434,9 @@ msgid "Short Title"
 msgstr "குறுந்தலைப்பு"
 
 #: admin/pb-admin-metaboxes.php:176
-msgid "In case of long titles that might be truncated in running heads in the PDF export."
+msgid ""
+"In case of long titles that might be truncated in running heads in the PDF "
+"export."
 msgstr "PDF ஏற்றுமதியின் ஓடு தலைக்குறிப்பாக பயன்படும்போது துண்டிக்கப்படும் அளவுக்கு நீண்ட தலைப்பு எனில் "
 
 #: admin/pb-admin-metaboxes.php:181
@@ -432,9 +449,9 @@ msgstr "எழுத்தாளர் பெயரை இப்படிப் 
 
 #: admin/pb-admin-metaboxes.php:192
 msgid ""
-"This ensures that your ebook will sort properly in ebook stores, by the author's last name."
-msgstr ""
-"இது உங்கள் மின்னூல், அங்காடிகளில் ஆசிரியரின் உபப்பெயர் படி சரியாக வரிசைப்படுத்தப்படுவதை உறுதி செய்யும்."
+"This ensures that your ebook will sort properly in ebook stores, by the "
+"author's last name."
+msgstr "இது உங்கள் மின்னூல், அங்காடிகளில் ஆசிரியரின் உபப்பெயர் படி சரியாக வரிசைப்படுத்தப்படுவதை உறுதி செய்யும்."
 
 #: admin/pb-admin-metaboxes.php:197
 msgid "Contributing Authors"
@@ -442,11 +459,12 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:199
 msgid ""
-"This may be used when more than one person shares the responsibility for the intellectual "
-"content of a book."
+"This may be used when more than one person shares the responsibility for the"
+" intellectual content of a book."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:204 themes-book/pressbooks-book/functions.php:17
+#: admin/pb-admin-metaboxes.php:204
+#: themes-book/pressbooks-book/functions.php:17
 msgid "Publisher"
 msgstr "வெளியீட்டாளர்"
 
@@ -458,7 +476,8 @@ msgstr ""
 msgid "Publisher City"
 msgstr "வெளியீட்டு இடம்"
 
-#: admin/pb-admin-metaboxes.php:217 themes-book/pressbooks-book/functions.php:20
+#: admin/pb-admin-metaboxes.php:217
+#: themes-book/pressbooks-book/functions.php:20
 msgid "Publication Date"
 msgstr "வெளியீட்டு நாள்"
 
@@ -470,27 +489,28 @@ msgstr ""
 msgid "On-Sale Date"
 msgstr "விற்பனை நாள்"
 
-#: admin/pb-admin-metaboxes.php:230 themes-book/pressbooks-book/functions.php:22
+#: admin/pb-admin-metaboxes.php:230
+#: themes-book/pressbooks-book/functions.php:22
 msgid "Ebook ISBN"
 msgstr "மின்னூல் ISBN"
 
 #: admin/pb-admin-metaboxes.php:231
 msgid ""
-"ISBN is the International Standard Book Number, and you'll need one if you want to sell your "
-"book in some online ebook stores. This is added to the metadata in your ebook."
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in some online ebook stores. This is added to the "
+"metadata in your ebook."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:236 themes-book/pressbooks-book/functions.php:18
+#: admin/pb-admin-metaboxes.php:236
+#: themes-book/pressbooks-book/functions.php:18
 msgid "Print ISBN"
 msgstr "அச்சு ISBN"
 
 #: admin/pb-admin-metaboxes.php:237
 msgid ""
-"ISBN is the International Standard Book Number, and you'll need one if you want to sell your "
-"book in online and physical book stores."
-msgstr ""
-"ஐஎஸ்பிஎன் என்பது International Standard Book Number. உங்கள் நூலை மின்னூலாகவோ அச்சுப் படியாகவோ விற்க "
-"இது தேவைப்படும்."
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in online and physical book stores."
+msgstr "ஐஎஸ்பிஎன் என்பது International Standard Book Number. உங்கள் நூலை மின்னூலாகவோ அச்சுப் படியாகவோ விற்க இது தேவைப்படும்."
 
 #: admin/pb-admin-metaboxes.php:244 admin/pb-admin-metaboxes.php:695
 msgid "Language"
@@ -498,11 +518,13 @@ msgstr "மொழி"
 
 #: admin/pb-admin-metaboxes.php:245
 msgid ""
-"This sets metadata in your ebook, making it easier to find in some stores. It also changes "
-"some system generated content for supported languages, such as the \"Contents\" header."
+"This sets metadata in your ebook, making it easier to find in some stores. "
+"It also changes some system generated content for supported languages, such "
+"as the \"Contents\" header."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:249 includes/modules/export/epub/class-pb-epub201.php:848
+#: admin/pb-admin-metaboxes.php:249
+#: includes/modules/export/epub/class-pb-epub201.php:848
 #: includes/modules/export/epub/class-pb-epub201.php:866
 #: includes/modules/export/epub/templates/opf.php:68
 #: includes/modules/export/epub3/templates/opf.php:86
@@ -528,7 +550,8 @@ msgstr "பதிப்புரிமை பெற்றவர்"
 msgid "Name of the copyright holder."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:279 themes-book/pressbooks-book/functions.php:501
+#: admin/pb-admin-metaboxes.php:279
+#: themes-book/pressbooks-book/functions.php:501
 msgid "Copyright License"
 msgstr ""
 
@@ -542,8 +565,9 @@ msgstr "பதிப்புரிமை அறிவிப்பு"
 
 #: admin/pb-admin-metaboxes.php:287
 msgid ""
-"Enter a custom copyright notice, with whatever infomation you like. This will override the "
-"auto-generated copyright notice, and be inserted after the title page."
+"Enter a custom copyright notice, with whatever infomation you like. This "
+"will override the auto-generated copyright notice, and be inserted after the"
+" title page."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:297
@@ -552,18 +576,17 @@ msgstr "புத்தகத்தின் துணைத் தலைப்�
 
 #: admin/pb-admin-metaboxes.php:298
 msgid ""
-"A very short description of your book. It should fit in a Twitter post, and encapsulate your "
-"book in the briefest sentence."
-msgstr ""
-"உங்கள் நூல் பற்றிய அறிமுக உரை. ஒரு டிவிட்டர் பதிவுக்குள் அடங்கும்படியும் நூலின் மையக்கருவை விளக்கும் படியும் "
-"இருக்க வேண்டும்."
+"A very short description of your book. It should fit in a Twitter post, and "
+"encapsulate your book in the briefest sentence."
+msgstr "உங்கள் நூல் பற்றிய அறிமுக உரை. ஒரு டிவிட்டர் பதிவுக்குள் அடங்கும்படியும் நூலின் மையக்கருவை விளக்கும் படியும் இருக்க வேண்டும்."
 
 #: admin/pb-admin-metaboxes.php:304
 msgid "Short Description"
 msgstr "குறு விளக்கம்"
 
 #: admin/pb-admin-metaboxes.php:305
-msgid "A short paragraph about your book, for catalogs, reviewers etc. to quote."
+msgid ""
+"A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr "பட்டியலுக்காகவும் விமர்சகர்களுக்காகவும் உங்கள் நூலைப்பற்றிய குறுகிய விளக்கம்."
 
 #: admin/pb-admin-metaboxes.php:311
@@ -603,7 +626,7 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:340
 msgid "Translator"
-msgstr "மொழிபெயர்ப்பாளர்"
+msgstr "மொழிபெயர்ப்பாளர்"
 
 #: admin/pb-admin-metaboxes.php:346
 msgid "Keywords"
@@ -611,16 +634,19 @@ msgstr "குறிச்சொற்கள்"
 
 #: admin/pb-admin-metaboxes.php:348
 msgid ""
-"These are added to your webbook cover page, and in your ebook metadata. Keywords are used by "
-"online book stores and search engines."
+"These are added to your webbook cover page, and in your ebook metadata. "
+"Keywords are used by online book stores and search engines."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:353 themes-book/pressbooks-book/functions.php:21
+#: admin/pb-admin-metaboxes.php:353
+#: themes-book/pressbooks-book/functions.php:21
 msgid "Hashtag"
 msgstr "Hashtag"
 
 #: admin/pb-admin-metaboxes.php:354
-msgid "These are added to your webbook cover page. For those of you who like Twitter."
+msgid ""
+"These are added to your webbook cover page. For those of you who like "
+"Twitter."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:359
@@ -645,8 +671,8 @@ msgstr "Bisac கருப்பொருள் "
 
 #: admin/pb-admin-metaboxes.php:385
 msgid ""
-"BISAC subject headings help your book get properly classified in (e)book stores. This is not "
-"used by Pressbooks."
+"BISAC subject headings help your book get properly classified in (e)book "
+"stores. This is not used by Pressbooks."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:390
@@ -738,7 +764,8 @@ msgid "Part Text"
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:563
-msgid "Appears on part page. Parts will not appear if a book has only one part."
+msgid ""
+"Appears on part page. Parts will not appear if a book has only one part."
 msgstr ""
 
 #: admin/pb-admin-metaboxes.php:567
@@ -771,7 +798,7 @@ msgstr "பிரெஞ்சு மொழி"
 
 #: admin/pb-admin-metaboxes.php:688
 msgid "German"
-msgstr "ஜெர்மன் மொழி"
+msgstr "ஜெர்மன் மொழி"
 
 #: admin/pb-admin-metaboxes.php:689
 msgid "Italian"
@@ -833,7 +860,8 @@ msgstr "நீங்கள் தற்போது திருத்திக�
 msgid "Copy CSS from"
 msgstr "CSSஐ இதனின்று நகல் எடு"
 
-#: admin/templates/custom-css.php:42 symbionts/search-regex/view/admin/results.php:34
+#: admin/templates/custom-css.php:42
+#: symbionts/search-regex/view/admin/results.php:34
 #: symbionts/search-regex/view/admin/results.php:35
 msgid "Save"
 msgstr "சேமி"
@@ -844,9 +872,7 @@ msgstr "வழு: ஏற்றுமதியில் தவறு நேர�
 
 #: admin/templates/export.php:32
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
-"எச்சரிக்கை: இந்த ஏற்றுமதியில் சரிபார்த்தல் பிழைகள் உள்ளன.  மேலதிக விவரங்களுக்குப் பின்னணிக் குறிப்புகளைப் "
-"(logs) பார்க்கவும்"
+msgstr "எச்சரிக்கை: இந்த ஏற்றுமதியில் சரிபார்த்தல் பிழைகள் உள்ளன.  மேலதிக விவரங்களுக்குப் பின்னணிக் குறிப்புகளைப் (logs) பார்க்கவும்"
 
 #: admin/templates/export.php:33
 msgid "Emailed to:"
@@ -855,11 +881,9 @@ msgstr "இவருக்கு மின்னஞ்சல் அனுப்�
 #: admin/templates/export.php:44
 #, php-format
 msgid ""
-"You can export multiple file formats by selecting your Export Format Options below. "
-"PressBooks saves your last %s batches of exported files."
-msgstr ""
-"கோப்பு வகைகளைத் தெரிவு செய்வதன் மூலம், நீங்கள் பல்வேறு கோப்பு வகைகளில் ஏற்றுமதி செய்ய முடியும். "
-"அச்சுப்புத்தகங்கள் கடைசி %s முறை ஏற்றுமதி செய்தவற்றைச் சேமித்து வைக்கிறது."
+"You can export multiple file formats by selecting your Export Format Options"
+" below. PressBooks saves your last %s batches of exported files."
+msgstr "கோப்பு வகைகளைத் தெரிவு செய்வதன் மூலம், நீங்கள் பல்வேறு கோப்பு வகைகளில் ஏற்றுமதி செய்ய முடியும். அச்சுப்புத்தகங்கள் கடைசி %s முறை ஏற்றுமதி செய்தவற்றைச் சேமித்து வைக்கிறது."
 
 #: admin/templates/export.php:49
 msgid "Export Your Book"
@@ -968,7 +992,7 @@ msgstr "ஆதரிக்கப்படும் கோப்பு நீட�
 
 #: admin/templates/import.php:130
 msgid "Maximum file size:"
-msgstr "அதிகபட்ச கோப்பு அளவு:"
+msgstr "கோப்பின் உச்ச அளவு"
 
 #: admin/templates/import.php:139
 msgid "Type of file"
@@ -992,7 +1016,7 @@ msgstr ""
 
 #: admin/templates/import.php:153
 msgid "File"
-msgstr "கோப்பு"
+msgstr "கோப்பு"
 
 #: admin/templates/import.php:166
 msgid "Upload file"
@@ -1008,11 +1032,9 @@ msgstr "அதிகாரங்களின் தனிப்பயனைக�
 
 #: admin/templates/organize.php:34
 msgid ""
-"Only users you invite can see your book, regardless of individual chapter privacy settings "
-"below."
-msgstr ""
-"கீழுள்ள அதிகாரங்களின் தனிஉரிமை அமைப்பு எதுவாக இருந்தாலும், உங்களால் அழைக்கப்படுபவர் மட்டுமே இப்புத்தகத்தைப் "
-"பார்க்க இயலும்."
+"Only users you invite can see your book, regardless of individual chapter "
+"privacy settings below."
+msgstr "கீழுள்ள அதிகாரங்களின் தனிஉரிமை அமைப்பு எதுவாக இருந்தாலும், உங்களால் அழைக்கப்படுபவர் மட்டுமே இப்புத்தகத்தைப் பார்க்க இயலும்."
 
 #: admin/templates/organize.php:45
 msgid "Chapters"
@@ -1047,11 +1069,12 @@ msgstr "நிலை"
 #: admin/templates/organize.php:67 admin/templates/organize.php:112
 #: admin/templates/organize.php:153 admin/templates/organize.php:208
 #: admin/templates/organize.php:248 admin/templates/organize.php:293
-#: themes-book/pressbooks-book/page.php:11 themes-book/pressbooks-book/single.php:5
+#: themes-book/pressbooks-book/page.php:11
+#: themes-book/pressbooks-book/single.php:5
 #: themes-root/pressbooks-publisher/inc/template-tags.php:126
 #: themes-root/pressbooks-publisher/template-parts/content-page.php:25
 msgid "Edit"
-msgstr "தொகு"
+msgstr "தொகு"
 
 #: admin/templates/organize.php:78 admin/templates/organize.php:177
 #: admin/templates/organize.php:259
@@ -1059,7 +1082,8 @@ msgid "Ebook start point"
 msgstr "மின்னூலின் தொடக்கம்"
 
 #: admin/templates/organize.php:117 admin/templates/organize.php:160
-#: admin/templates/organize.php:211 admin/templates/organize.php:298 includes/pb-image.php:374
+#: admin/templates/organize.php:211 admin/templates/organize.php:298
+#: includes/pb-image.php:374
 #: symbionts/custom-metadata/custom_metadata.php:1315
 msgid "Delete"
 msgstr "நீக்குக"
@@ -1073,10 +1097,9 @@ msgid "Sell Your Book"
 msgstr "உங்கள் நூலை விற்க"
 
 #: admin/templates/sell.php:13
-msgid "Would you like help getting your ebook and print-on-demand book into stores?"
-msgstr ""
-"உங்கள் மின்னூல், கோரிக்கையின் பேரில் அச்சிடப்படும் நூல் (Print-on-demand book) ஆகியவற்றை அங்காடிகளில் "
-"வெளியிட உங்களுக்கு உதவி தேவையா?"
+msgid ""
+"Would you like help getting your ebook and print-on-demand book into stores?"
+msgstr "உங்கள் மின்னூல், கோரிக்கையின் பேரில் அச்சிடப்படும் நூல் (Print-on-demand book) ஆகியவற்றை அங்காடிகளில் வெளியிட உங்களுக்கு உதவி தேவையா?"
 
 #: admin/templates/sell.php:18
 msgid "Ebook Distribution"
@@ -1085,21 +1108,16 @@ msgstr "மின்னூல் பகிர்வு"
 #: admin/templates/sell.php:19
 #, php-format
 msgid ""
-"We recommend <a href=\"%s\" target=\"_blank\">BookBaby</a>, a service which will get your "
-"book into 11 different ebooks stores. "
-msgstr ""
-"நாங்கள் <a href=\"%s\" target=\"_blank\">BookBaby</a> சேவையைப் பரிந்துரைக்கிறோம். இச்சேவை உங்கள் நூலை "
-"11 மின்னூல் அங்காடிகளில் வெளியிட  உதவும்."
+"We recommend <a href=\"%s\" target=\"_blank\">BookBaby</a>, a service which "
+"will get your book into 11 different ebooks stores. "
+msgstr "நாங்கள் <a href=\"%s\" target=\"_blank\">BookBaby</a> சேவையைப் பரிந்துரைக்கிறோம். இச்சேவை உங்கள் நூலை 11 மின்னூல் அங்காடிகளில் வெளியிட  உதவும்."
 
 #: admin/templates/sell.php:20
 msgid ""
-"For a flat fee starting at $99 (with a 10% discount for PressBooks users and 100% royalties "
-"going to you), BookBaby will send your book to the Kindle Store, Barnes & Noble, Apple's "
-"iBook store, Kobo, and more."
-msgstr ""
-"தொடக்கக் கட்டணம் 99 டாலருக்கு, 'புக்பேபி' உங்கள் நூலை கிண்டில் ஸ்டோர், பார்னஸ் & நோபிள், ஆப்பிளின் ஐபுக் ஸ்டோர், "
-"கோபோ போன்ற அங்காடிகளுக்கு அனுப்பும். \n"
-"(PressBooks பயனாளர்களுக்கு 10% தள்ளுபடியும் உண்டு. விற்பனையில் 100% உரிமை உங்களுக்கே)"
+"For a flat fee starting at $99 (with a 10% discount for PressBooks users and"
+" 100% royalties going to you), BookBaby will send your book to the Kindle "
+"Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
+msgstr "தொடக்கக் கட்டணம் 99 டாலருக்கு, 'புக்பேபி' உங்கள் நூலை கிண்டில் ஸ்டோர், பார்னஸ் & நோபிள், ஆப்பிளின் ஐபுக் ஸ்டோர், கோபோ போன்ற அங்காடிகளுக்கு அனுப்பும். \n(PressBooks பயனாளர்களுக்கு 10% தள்ளுபடியும் உண்டு. விற்பனையில் 100% உரிமை உங்களுக்கே)"
 
 #: admin/templates/sell.php:21
 msgid "Distribute with BookBaby"
@@ -1112,11 +1130,10 @@ msgstr "வேண்டுகோளின் பேரில் அச்சி�
 #: admin/templates/sell.php:27
 #, php-format
 msgid ""
-"You can submit your PDF exports to <a href=\"%s\" target=\"_blank\">CreateSpace</a> to get "
-"print versions of your books into Amazon, and to order copies for yourself."
-msgstr ""
-"உங்கள்  PDF exportகளை <a href=\"%s\" target=\"_blank\">CreateSpace</a>க்கு சமர்ப்பித்து உங்கள் நூலின் "
-"அச்சுப் பிரதிகளை Amazonக்கு அனுப்பலாம்; நீங்களும் தருவித்துக் கொள்ளலாம்."
+"You can submit your PDF exports to <a href=\"%s\" "
+"target=\"_blank\">CreateSpace</a> to get print versions of your books into "
+"Amazon, and to order copies for yourself."
+msgstr "உங்கள்  PDF exportகளை <a href=\"%s\" target=\"_blank\">CreateSpace</a>க்கு சமர்ப்பித்து உங்கள் நூலின் அச்சுப் பிரதிகளை Amazonக்கு அனுப்பலாம்; நீங்களும் தருவித்துக் கொள்ளலாம்."
 
 #: admin/templates/sell.php:28
 msgid "Print-on-Demand with CreateSpace"
@@ -1128,17 +1145,16 @@ msgstr "அச்சுப்புத்தகத்தில் விற்�
 
 #: admin/templates/sell.php:35
 msgid ""
-"Once your books are available in stores, you can add the links to bookstores below, and we'll "
-"make a Buy page on the web version of your PressBooks book."
-msgstr ""
-"உங்கள் புத்தகங்கள் அங்காடிகளில் வெளிவந்த பின், அந்தந்த அங்காடிகளின் சுட்டியைக் கீழ்க்கண்டவாறு சேர்க்கவும். நாங்கள் "
-"உங்கள் புத்தகத்தின் மின் வடிவில், ஒரு விற்பனைப் பக்கத்தை உருவாக்கி இணைத்துவிடுவோம்."
+"Once your books are available in stores, you can add the links to bookstores"
+" below, and we'll make a Buy page on the web version of your PressBooks "
+"book."
+msgstr "உங்கள் புத்தகங்கள் அங்காடிகளில் வெளிவந்த பின், அந்தந்த அங்காடிகளின் சுட்டியைக் கீழ்க்கண்டவாறு சேர்க்கவும். நாங்கள் உங்கள் புத்தகத்தின் மின் வடிவில், ஒரு விற்பனைப் பக்கத்தை உருவாக்கி இணைத்துவிடுவோம்."
 
 #: hooks-admin.php:187
 #, php-format
 msgid ""
-"The path \"%s\" is not writable. Please check and adjust the ownership and file permissions "
-"for mpdf export to work properly."
+"The path \"%s\" is not writable. Please check and adjust the ownership and "
+"file permissions for mpdf export to work properly."
 msgstr ""
 
 #: includes/class-pb-activation.php:143
@@ -1159,11 +1175,9 @@ msgstr "அதிகாரம் 1"
 
 #: includes/class-pb-activation.php:156
 msgid ""
-"This is the first chapter in the main body of the text. You can change the text, rename the "
-"chapter, add new chapters, and add new parts."
-msgstr ""
-"இதுவே உங்கள் நூலின் முதன்மைப் பகுதியின் முதல் அதிகாரம் ஆகும். நீங்கள் உரையைத் திருத்தலாம்; அதிகாரத்தை "
-"மறுபெயரிடலாம்; புதிய அதிகாரத்தையையோ  புதிய பகுதியையோ சேர்க்கலாம்."
+"This is the first chapter in the main body of the text. You can change the "
+"text, rename the chapter, add new chapters, and add new parts."
+msgstr "இதுவே உங்கள் நூலின் முதன்மைப் பகுதியின் முதல் அதிகாரம் ஆகும். நீங்கள் உரையைத் திருத்தலாம்; அதிகாரத்தை மறுபெயரிடலாம்; புதிய அதிகாரத்தையையோ  புதிய பகுதியையோ சேர்க்கலாம்."
 
 #: includes/class-pb-activation.php:160
 msgid "Appendix"
@@ -1177,31 +1191,33 @@ msgstr "நூலின் பின்னிணைப்புகளையு�
 msgid "Authors"
 msgstr "நூல் ஆசிரியர்கள் "
 
-#: includes/class-pb-activation.php:175 themes-book/pressbooks-book/functions.php:794
-#: themes-book/pressbooks-book/functions.php:1189 themes-book/pressbooks-book/index.php:12
+#: includes/class-pb-activation.php:175
+#: themes-book/pressbooks-book/functions.php:794
+#: themes-book/pressbooks-book/functions.php:1189
+#: themes-book/pressbooks-book/index.php:12
 #: themes-book/pressbooks-book/page-cover-third-block.php:4
 #: themes-book/pressbooks-book/sidebar.php:16
 msgid "Table of Contents"
-msgstr "பொருளடக்கம்"
+msgstr "பொருளடக்கம்"
 
-#: includes/class-pb-activation.php:183 themes-book/pressbooks-book/header.php:88
+#: includes/class-pb-activation.php:183
+#: themes-book/pressbooks-book/header.php:88
 #: themes-book/pressbooks-book/page-cover-top-block.php:58
 msgid "Buy"
 msgstr "வாங்குக "
 
-#: includes/class-pb-activation.php:187 themes-book/pressbooks-book/functions.php:138
+#: includes/class-pb-activation.php:187
+#: themes-book/pressbooks-book/functions.php:138
 msgid "Access Denied"
 msgstr "ஒப்புதல் இல்லை"
 
 #: includes/class-pb-activation.php:189
 msgid ""
-"This book is private, and accessible only to registered users. If you have an account you can "
-"login <a href=\"/wp-login.php\">here</a>.  You can also set up your own PressBooks book at: "
-"<a href=\"http://pressbooks.com\">PressBooks.com</a>."
-msgstr ""
-"இந்தப் புத்தகம் தனிப்பயனுக்கானது. பதிவு செய்த உறுப்பினர்கள் மட்டுமே படிக்க முடியும். உங்களிடம் ஒரு கணக்கு "
-"இருந்தால் <a href=\"/wp-login.php\">நுழைக</a> .  உங்கள் சொந்த நூல்களையும் இங்கு <a href=\"http://"
-"pressbooks.com\">PressBooks.com</a>. உருவாக்கலாம். "
+"This book is private, and accessible only to registered users. If you have "
+"an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
+"set up your own PressBooks book at: <a "
+"href=\"http://pressbooks.com\">PressBooks.com</a>."
+msgstr "இந்தப் புத்தகம் தனிப்பயனுக்கானது. பதிவு செய்த உறுப்பினர்கள் மட்டுமே படிக்க முடியும். உங்களிடம் ஒரு கணக்கு இருந்தால் <a href=\"/wp-login.php\">நுழைக</a> .  உங்கள் சொந்த நூல்களையும் இங்கு <a href=\"http://pressbooks.com\">PressBooks.com</a>. உருவாக்கலாம். "
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
@@ -1262,7 +1278,7 @@ msgstr "PressBooks.comஐ பயன்படுத்தி உங்கள் �
 
 #: includes/modules/export/epub/class-pb-epub201.php:1407
 msgid "Table Of Contents"
-msgstr "பொருளடக்கம்"
+msgstr "பொருளடக்கம்"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1420
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:672
@@ -1294,8 +1310,8 @@ msgstr ""
 
 #: includes/modules/import/class-pb-import.php:367
 msgid ""
-"The website you are attempting to reach is not returning a successful response header on a "
-"HEAD request: "
+"The website you are attempting to reach is not returning a successful "
+"response header on a HEAD request: "
 msgstr ""
 
 #: includes/modules/import/class-pb-import.php:373
@@ -1304,8 +1320,8 @@ msgstr ""
 
 #: includes/modules/import/class-pb-import.php:390
 msgid ""
-"The website you are attempting to reach is not returning a successful response on a GET "
-"request: "
+"The website you are attempting to reach is not returning a successful "
+"response on a GET request: "
 msgstr ""
 
 #: includes/modules/import/epub/class-pb-epub201.php:190
@@ -1316,23 +1332,28 @@ msgstr "%s அதிகாரங்களைக் கொண்டு வந்�
 
 #: includes/modules/import/wordpress/class-pb-parser.php:57
 #: includes/modules/import/wordpress/class-pb-parser.php:62
-msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr "இது ஒரு WXR கோப்பா என அறியமுடியவில்லை. WXR பதிப்பு எண் சரியாக இல்லை அல்லது அகப்படவில்லை.  "
 
 #: includes/pb-catalog.php:152
 msgid "'s Catalog Page"
 msgstr "இன் பட்டியல் பக்கம்"
 
-#: includes/pb-catalog.php:166 themes-book/pressbooks-book/page-cover-top-block.php:8
+#: includes/pb-catalog.php:166
+#: themes-book/pressbooks-book/page-cover-top-block.php:8
 msgid "login"
 msgstr "புகுபதிகை"
 
-#: includes/pb-catalog.php:168 themes-book/pressbooks-book/page-cover-top-block.php:10
+#: includes/pb-catalog.php:168
+#: themes-book/pressbooks-book/page-cover-top-block.php:10
 msgid "logout"
 msgstr "விடு பதிகை"
 
-#: includes/pb-catalog.php:176 themes-book/pressbooks-book/page-cover-top-block.php:12
-#: themes-book/pressbooks-book/sidebar.php:10 themes-root/pressbooks-publisher/header.php:37
+#: includes/pb-catalog.php:176
+#: themes-book/pressbooks-book/page-cover-top-block.php:12
+#: themes-book/pressbooks-book/sidebar.php:10
+#: themes-root/pressbooks-publisher/header.php:37
 msgid "Admin"
 msgstr "நிர்வாகி "
 
@@ -1346,11 +1367,9 @@ msgstr "வடிகட்டப்பட்டது"
 
 #: includes/pb-catalog.php:239
 msgid ""
-"Sorry, but no books matched your filtering criteria. Please <a class=\"clear-filters\" href="
-"\"#\">clear your current filters</a> and try again."
-msgstr ""
-"மன்னிக்கவும், உங்கள் தேடலுக்கு ஒரு புத்தகமும் பொருந்தவில்லை.\n"
-"உங்கள்  <a class=\"clear-filters\" href=\"#\">வடிகட்டிகளை நீக்கி விட்டு</a>, மீண்டும் முயலவும்.  "
+"Sorry, but no books matched your filtering criteria. Please <a class"
+"=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
+msgstr "மன்னிக்கவும், உங்கள் தேடலுக்கு ஒரு புத்தகமும் பொருந்தவில்லை.\nஉங்கள்  <a class=\"clear-filters\" href=\"#\">வடிகட்டிகளை நீக்கி விட்டு</a>, மீண்டும் முயலவும்.  "
 
 #: includes/pb-catalog.php:243
 msgid "PressBooks: the CMS for Books."
@@ -1756,22 +1775,18 @@ msgstr ""
 #: pressbooks.php:44
 #, php-format
 msgid ""
-"PressBooks will not work with your version of PHP. PressBooks requires PHP version %s or "
-"greater. Please upgrade PHP if you would like to use PressBooks."
-msgstr ""
-"இந்த பிஎச்பி பதிப்பிற்கு அச்சுப்புத்தகம் செயல்படாது.  அச்சுப்புத்தகம் சரிவர இயங்க, பிஎச்பியின் %s பதிப்போ "
-"அதற்கு மேலோ தேவை.  எனவே, தயவுசெய்து உங்கள் பிஎச்பியைத் தகுந்த பதிப்பிற்கு உயர்த்தவும்.  "
+"PressBooks will not work with your version of PHP. PressBooks requires PHP "
+"version %s or greater. Please upgrade PHP if you would like to use "
+"PressBooks."
+msgstr "இந்த பிஎச்பி பதிப்பிற்கு அச்சுப்புத்தகம் செயல்படாது.  அச்சுப்புத்தகம் சரிவர இயங்க, பிஎச்பியின் %s பதிப்போ அதற்கு மேலோ தேவை.  எனவே, தயவுசெய்து உங்கள் பிஎச்பியைத் தகுந்த பதிப்பிற்கு உயர்த்தவும்.  "
 
 #: pressbooks.php:57
-#, fuzzy, php-format
+#, php-format
 msgid ""
-"PressBooks will not work with your version of WordPress. PressBooks requires a dedicated "
-"install of WordPress Multi-Site, version %s or greater. Please upgrade WordPress if you would "
-"like to use PressBooks."
-msgstr ""
-"PressBooks உங்கள் WordPress பதிப்பில் வேலை செய்யாது. PressBooks க்கு WordPress Multi-Site, பதிப்பு "
-"%S அல்லது மேம்பட்ட பதிப்பு,  தனியாக நிறுவப் பட வேண்டும்.  PressBooksஐ பயன்படுத்த விரும்பினால், உங்கள் "
-"WordPress ஐ மேம்படுத்துங்கள்."
+"PressBooks will not work with your version of WordPress. PressBooks requires"
+" a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+"upgrade WordPress if you would like to use PressBooks."
+msgstr "PressBooks உங்கள் WordPress பதிப்பில் வேலை செய்யாது. PressBooks க்கு WordPress Multi-Site, பதிப்பு %S அல்லது மேம்பட்ட பதிப்பு,  தனியாக நிறுவப் பட வேண்டும்.  PressBooksஐ பயன்படுத்த விரும்பினால், உங்கள் WordPress ஐ மேம்படுத்துங்கள்."
 
 #: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
@@ -1885,14 +1900,16 @@ msgstr "குப்பைத் தொட்டியில் ஓர் ஆய
 msgid "Settings"
 msgstr ""
 
-#: symbionts/pb-latex/pb-latex-admin.php:39 symbionts/pb-latex/pb-latex-admin.php:187
+#: symbionts/pb-latex/pb-latex-admin.php:39
+#: symbionts/pb-latex/pb-latex-admin.php:187
 msgid "Insufficient LaTeX-fu"
 msgstr ""
 
-#: symbionts/pb-latex/pb-latex-admin.php:45 symbionts/pb-latex/pb-latex-admin.php:100
+#: symbionts/pb-latex/pb-latex-admin.php:45
+#: symbionts/pb-latex/pb-latex-admin.php:100
 msgid ""
-"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>%FG_COLOR_RGB</code> in the "
-"LaTeX preamble.  Please remove them."
+"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
+"<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:63
@@ -1930,14 +1947,14 @@ msgstr ""
 #: symbionts/pb-latex/pb-latex-admin.php:231
 #, php-format
 msgid ""
-"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; syntax %s OR "
-"%s<br /> to insert LaTeX into your posts."
+"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
+" syntax %s OR %s<br /> to insert LaTeX into your posts."
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:236
 msgid ""
-"For more information, see the <a href=\"http://wordpress.org/extend/plugins/wp-latex/faq/"
-"\">FAQ</a>"
+"For more information, see the <a href=\"http://wordpress.org/extend/plugins"
+"/wp-latex/faq/\">FAQ</a>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:243
@@ -1955,7 +1972,9 @@ msgid "Default text color"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:255
-msgid "A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>"
+msgid ""
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:260
@@ -1964,8 +1983,8 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:263
 msgid ""
-"A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>, or "
-"<code>transparent</code>"
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>, or <code>transparent</code>"
 msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:281
@@ -1989,7 +2008,8 @@ msgstr ""
 msgid "deleted"
 msgstr ""
 
-#: symbionts/search-regex/search-regex.php:89 symbionts/search-regex/search-regex.php:91
+#: symbionts/search-regex/search-regex.php:89
+#: symbionts/search-regex/search-regex.php:91
 #: symbionts/search-regex/view/admin/search.php:3
 msgid "Search and Replace"
 msgstr ""
@@ -2030,14 +2050,14 @@ msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:5
 msgid ""
-"Replacements will only be saved if you click '<strong>Replace &amp; Save</strong>', otherwise "
-"you will ONLY get a preview of the results."
+"Replacements will only be saved if you click '<strong>Replace &amp; "
+"Save</strong>', otherwise you will ONLY get a preview of the results."
 msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:6
 msgid ""
-"Be careful replacing text. There is no revert button. However, you can revert using the "
-"Revision History, chapter by chapter."
+"Be careful replacing text. There is no revert button. However, you can "
+"revert using the Revision History, chapter by chapter."
 msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:11
@@ -2104,7 +2124,8 @@ msgid "part"
 msgstr "பாகம்"
 
 #: themes-book/pressbooks-book/comments.php:3
-msgid "This post is password protected. Enter the password to view any comments."
+msgid ""
+"This post is password protected. Enter the password to view any comments."
 msgstr "இந்தப் பதிவு கடவுச்சொல் மூலம் பாதுகாக்கப் பட்டுள்ளது. கடவுச்சொல் தந்து பின்னூட்டங்களைப் பார்க்கலாம்"
 
 #: themes-book/pressbooks-book/comments.php:12
@@ -2114,15 +2135,18 @@ msgid_plural "%1$s Responses to %2$s"
 msgstr[0] "%2$sக்கு ஒரு மறுமொழி"
 msgstr[1] "%2$sக்கு %1$s மறுமொழிகள்"
 
-#: themes-book/pressbooks-book/comments.php:18 themes-book/pressbooks-book/comments.php:29
+#: themes-book/pressbooks-book/comments.php:18
+#: themes-book/pressbooks-book/comments.php:29
 msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
 msgstr "<span class=\"meta-nav\">&larr;</span> பழைய பின்னூட்டங்கள்"
 
-#: themes-book/pressbooks-book/comments.php:19 themes-book/pressbooks-book/comments.php:30
+#: themes-book/pressbooks-book/comments.php:19
+#: themes-book/pressbooks-book/comments.php:30
 msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
 msgstr "புதிய பின்னூட்டங்கள் <span class=\"meta-nav\">&rarr;</span> "
 
-#: themes-book/pressbooks-book/comments.php:37 themes-root/pressbooks-publisher/comments.php:75
+#: themes-book/pressbooks-book/comments.php:37
+#: themes-root/pressbooks-publisher/comments.php:75
 msgid "Comments are closed."
 msgstr "பின்னூட்டங்களுக்கு ஒப்புதல் இல்லை"
 
@@ -2168,8 +2192,8 @@ msgstr "அடுத்தது"
 
 #: themes-book/pressbooks-book/functions.php:140
 msgid ""
-"This book is private, and accessible only to registered users. If you have an account you can "
-"<a href=\""
+"This book is private, and accessible only to registered users. If you have "
+"an account you can <a href=\""
 msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:167
@@ -2182,9 +2206,10 @@ msgstr "%s மேல் "
 msgid "%1$s at %2$s"
 msgstr "%1$s at %2$s"
 
-#: themes-book/pressbooks-book/functions.php:167 themes-book/pressbooks-book/functions.php:187
+#: themes-book/pressbooks-book/functions.php:167
+#: themes-book/pressbooks-book/functions.php:187
 msgid "(Edit)"
-msgstr "(தொகு)"
+msgstr "(தொகு)"
 
 #: themes-book/pressbooks-book/functions.php:170
 msgid "Your comment is awaiting moderation."
@@ -2242,23 +2267,28 @@ msgstr "duodecimo"
 msgid "pocket"
 msgstr "pocket"
 
-#: themes-book/pressbooks-book/functions.php:391 themes-book/pressbooks-book/functions.php:1091
+#: themes-book/pressbooks-book/functions.php:391
+#: themes-book/pressbooks-book/functions.php:1091
 msgid "A4"
 msgstr "ஏ4"
 
-#: themes-book/pressbooks-book/functions.php:392 themes-book/pressbooks-book/functions.php:1092
+#: themes-book/pressbooks-book/functions.php:392
+#: themes-book/pressbooks-book/functions.php:1092
 msgid "A5"
 msgstr "ஏ5"
 
-#: themes-book/pressbooks-book/functions.php:395 themes-book/pressbooks-book/functions.php:436
+#: themes-book/pressbooks-book/functions.php:395
+#: themes-book/pressbooks-book/functions.php:436
 msgid "Paragraph separator"
 msgstr "பத்தி பிரிப்பான்"
 
-#: themes-book/pressbooks-book/functions.php:396 themes-book/pressbooks-book/functions.php:437
+#: themes-book/pressbooks-book/functions.php:396
+#: themes-book/pressbooks-book/functions.php:437
 msgid "indent"
 msgstr "ஓரம் சீர்செய்க"
 
-#: themes-book/pressbooks-book/functions.php:397 themes-book/pressbooks-book/functions.php:438
+#: themes-book/pressbooks-book/functions.php:397
+#: themes-book/pressbooks-book/functions.php:438
 msgid "skip lines"
 msgstr "வரிகளைத் தவிர்த்திடுக "
 
@@ -2276,13 +2306,15 @@ msgstr "வெற்றுப்பக்கங்களை நீக்கவ�
 
 #: themes-book/pressbooks-book/functions.php:405
 msgid "Table of contents"
-msgstr "பொருளடக்கம்"
+msgstr "பொருளடக்கம்"
 
-#: themes-book/pressbooks-book/functions.php:405 themes-book/pressbooks-book/functions.php:411
+#: themes-book/pressbooks-book/functions.php:405
+#: themes-book/pressbooks-book/functions.php:411
 msgid "display"
 msgstr "காட்டு"
 
-#: themes-book/pressbooks-book/functions.php:405 themes-book/pressbooks-book/functions.php:411
+#: themes-book/pressbooks-book/functions.php:405
+#: themes-book/pressbooks-book/functions.php:411
 msgid "do not display"
 msgstr "காட்டாதே"
 
@@ -2302,26 +2334,31 @@ msgstr "கடைக்குறிப்புகளாகக் கட்ட�
 msgid "Crop marks"
 msgstr "கத்தரிக்கப்பட்ட தடங்கள்"
 
-#: themes-book/pressbooks-book/functions.php:414 themes-book/pressbooks-book/functions.php:762
+#: themes-book/pressbooks-book/functions.php:414
+#: themes-book/pressbooks-book/functions.php:762
 #: themes-book/pressbooks-book/functions.php:1211
 msgid "Hyphens"
 msgstr "சொல்லிடை கோடு"
 
-#: themes-book/pressbooks-book/functions.php:414 themes-book/pressbooks-book/functions.php:423
+#: themes-book/pressbooks-book/functions.php:414
+#: themes-book/pressbooks-book/functions.php:423
 #: themes-book/pressbooks-book/functions.php:441
 msgid "enabled"
 msgstr "செயல்படுத்தப்பட்ட"
 
-#: themes-book/pressbooks-book/functions.php:414 themes-book/pressbooks-book/functions.php:423
+#: themes-book/pressbooks-book/functions.php:414
+#: themes-book/pressbooks-book/functions.php:423
 #: themes-book/pressbooks-book/functions.php:441
 msgid "disabled"
 msgstr "முடக்கப்பட்ட "
 
-#: themes-book/pressbooks-book/functions.php:417 themes-book/pressbooks-book/functions.php:827
+#: themes-book/pressbooks-book/functions.php:417
+#: themes-book/pressbooks-book/functions.php:827
 msgid "Widows"
 msgstr "சாளரங்கள் "
 
-#: themes-book/pressbooks-book/functions.php:420 themes-book/pressbooks-book/functions.php:834
+#: themes-book/pressbooks-book/functions.php:420
+#: themes-book/pressbooks-book/functions.php:834
 msgid "Orphans"
 msgstr "ஏதிலிகள்"
 
@@ -2333,7 +2370,8 @@ msgstr ""
 msgid "Ebook options"
 msgstr "மின்னூல் தேர்வுகள்"
 
-#: themes-book/pressbooks-book/functions.php:441 themes-book/pressbooks-book/functions.php:1425
+#: themes-book/pressbooks-book/functions.php:441
+#: themes-book/pressbooks-book/functions.php:1425
 msgid "Compress images"
 msgstr ""
 
@@ -2377,13 +2415,15 @@ msgstr ""
 msgid "Make webbook TOC collapsable"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:629 themes-book/pressbooks-book/functions.php:841
+#: themes-book/pressbooks-book/functions.php:629
+#: themes-book/pressbooks-book/functions.php:841
 #: themes-book/pressbooks-book/functions.php:1222
 msgid "Increase Font Size"
 msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:634
-msgid "Add an option for the user to increase font size for greater accessibility"
+msgid ""
+"Add an option for the user to increase font size for greater accessibility"
 msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:647
@@ -2394,7 +2434,8 @@ msgstr ""
 msgid "PDF Options"
 msgstr "PDF தேர்வுகள்"
 
-#: themes-book/pressbooks-book/functions.php:734 themes-book/pressbooks-book/functions.php:1082
+#: themes-book/pressbooks-book/functions.php:734
+#: themes-book/pressbooks-book/functions.php:1082
 msgid "Page Size"
 msgstr "பக்க அளவு"
 
@@ -2442,21 +2483,25 @@ msgstr "கத்தரிக்கப்பட்ட தடங்கள்"
 msgid "Display crop marks"
 msgstr "கத்தரிக்கப்பட்ட தடங்களைக் காட்டுக"
 
-#: themes-book/pressbooks-book/functions.php:767 themes-book/pressbooks-book/functions.php:1216
+#: themes-book/pressbooks-book/functions.php:767
+#: themes-book/pressbooks-book/functions.php:1216
 msgid "Enable hyphenation"
 msgstr "hyphenation ஐ செயல்படுத்துக"
 
-#: themes-book/pressbooks-book/functions.php:772 themes-book/pressbooks-book/functions.php:1413
+#: themes-book/pressbooks-book/functions.php:772
+#: themes-book/pressbooks-book/functions.php:1413
 msgid "Paragraph Separation"
 msgstr "பத்திப் பிரித்தல்"
 
-#: themes-book/pressbooks-book/functions.php:777 themes-book/pressbooks-book/functions.php:1200
+#: themes-book/pressbooks-book/functions.php:777
+#: themes-book/pressbooks-book/functions.php:1200
 #: themes-book/pressbooks-book/functions.php:1205
 #: themes-book/pressbooks-book/functions.php:1418
 msgid "Indent paragraphs"
 msgstr "ஓரம் சீர்செய்யப்பட்ட பத்திகள்"
 
-#: themes-book/pressbooks-book/functions.php:778 themes-book/pressbooks-book/functions.php:1419
+#: themes-book/pressbooks-book/functions.php:778
+#: themes-book/pressbooks-book/functions.php:1419
 msgid "Skip lines between paragraphs"
 msgstr "பத்திகளுக்கு இடையேயான வரிகளைத் தவிர்த்திடுக."
 
@@ -2472,7 +2517,8 @@ msgstr "வெற்று பக்கங்களை சேர்க்கவ�
 msgid "Remove all blank pages (for web PDF)"
 msgstr "வெற்றுப் பக்கங்களை நீக்கவும் (இணைய வலை PDFக்காக) "
 
-#: themes-book/pressbooks-book/functions.php:799 themes-book/pressbooks-book/functions.php:1194
+#: themes-book/pressbooks-book/functions.php:799
+#: themes-book/pressbooks-book/functions.php:1194
 msgid "Display table of contents"
 msgstr "பொருளடக்க அட்டவணையைக் காட்டுக "
 
@@ -2496,7 +2542,8 @@ msgstr "வழக்கமான அடிக்குறிப்புகள�
 msgid "Force as endnotes"
 msgstr "கடைக்குறிப்புகளாகக் கட்டாயப்படுத்து"
 
-#: themes-book/pressbooks-book/functions.php:846 themes-book/pressbooks-book/functions.php:1227
+#: themes-book/pressbooks-book/functions.php:846
+#: themes-book/pressbooks-book/functions.php:1227
 msgid "Increases font size and line height for greater accessibility"
 msgstr ""
 
@@ -2734,8 +2781,8 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:1172
 msgid ""
-"The document will mirror the left and right margin values on odd and even pages (i.e. they "
-"become inner and outer margins)"
+"The document will mirror the left and right margin values on odd and even "
+"pages (i.e. they become inner and outer margins)"
 msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:1183
@@ -2758,7 +2805,8 @@ msgstr ""
 msgid "These options apply to ebook exports."
 msgstr ""
 
-#: themes-book/pressbooks-book/header.php:37 themes-root/pressbooks-publisher/inc/extras.php:52
+#: themes-book/pressbooks-book/header.php:37
+#: themes-root/pressbooks-publisher/inc/extras.php:52
 #, php-format
 msgid "Page %s"
 msgstr "பக்கம் %s"
@@ -2767,7 +2815,8 @@ msgstr "பக்கம் %s"
 msgid "About The Book"
 msgstr "இந்தப் புத்தகத்தைப் பற்றி "
 
-#: themes-book/pressbooks-book/page-about.php:21 themes-book/pressbooks-book/page-buy.php:14
+#: themes-book/pressbooks-book/page-about.php:21
+#: themes-book/pressbooks-book/page-buy.php:14
 msgid "It's coming!"
 msgstr "இன்னும் சில நாட்களில் வெளியிடப்படும்"
 
@@ -2851,8 +2900,8 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:19
 msgid ""
-"It looks like nothing was found at this location. Maybe try one of the links below or a "
-"search?"
+"It looks like nothing was found at this location. Maybe try one of the links"
+" below or a search?"
 msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:27
@@ -3165,7 +3214,9 @@ msgid "Read more"
 msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-catalog.php:52
-msgid "The manager of this Pressbooks network has not made any books public viewable."
+msgid ""
+"The manager of this Pressbooks network has not made any books public "
+"viewable."
 msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:13
@@ -3179,285 +3230,17 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:23
 msgid ""
-"Sorry, but nothing matched your search terms. Please try again with some different keywords."
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
 msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:28
-msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
 msgstr ""
 
 #: themes-root/pressbooks-publisher/template-parts/content.php:22
 #, php-format
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
-
-#~ msgid "Feedback"
-#~ msgstr "பின்னூட்டம்"
-
-#~ msgid "Blavatar"
-#~ msgstr "Blavatar"
-
-#~ msgid "The date you want your book to start selling in stores."
-#~ msgstr "அங்காடிகளில் உங்கள் நூல் விற்பனைக்கு வர வேண்டிய நாள்"
-
-#~ msgid ""
-#~ "ISBN is the International Standard Book Number, and you'll need one if you want to sell "
-#~ "your book in online ebook stores."
-#~ msgstr ""
-#~ "ஐஎஸ்பிஎன் என்பது பன்னாட்டு அளவில் தரப்படும் புத்தகத் தர எண்.  (International Standard Book Number.)  "
-#~ "உங்கள் நூலை இணைய மின்னூல் தளங்களில் விற்றிட இந்த எண் தேவைப்படும்."
-
-#~ msgid "Additional Catalogue Information"
-#~ msgstr "மேலதிகப் பட்டியல் தகவல்கள் "
-
-#~ msgid "To make it easier to find your book in online book stores and search engines."
-#~ msgstr "மின் புத்தகக் கடைகளிலும் தேடு தளங்களிலும் உங்கள் நூலை எளிதாகப் பிறர் கண்டறிவதற்காக."
-
-#~ msgid "For those of you who like Twitter."
-#~ msgstr "டிவிட்டரை விரும்புவோர்க்கு"
-
-#~ msgid "BISAC subject headings help your book get properly classified in (e)book stores."
-#~ msgstr ""
-#~ "BISAC கருப்பொருள் தலைப்புகள் உங்கள் நூலை மின்னூல், அச்சுப்புத்தகக் கடைகள் ஆகியவற்றில் முறையாக வகைப்படுத்த "
-#~ "உதவும்."
-
-#~ msgid "Catalogue Order"
-#~ msgstr "பட்டியல் வரிசை"
-
-#~ msgid "Hpub"
-#~ msgstr "Hpub"
-
-#~ msgid "Your Export Theme Options"
-#~ msgstr "உங்கள் ஏற்றுமதி வடிவமைப்புத் தேர்வுகள்"
-
-#~ msgid "You are using the &ldquo;%s&rdquo; theme"
-#~ msgstr "&ldquo;%s&rdquo; என்ற வடிவமைப்பு உங்கள் பயன்பாட்டில் உள்ளது."
-
-#~ msgid "Change Theme Options"
-#~ msgstr "வடிவமைப்புத் தேர்வுகளை மாற்றவும்"
-
-#~ msgid "Read more &raquo;"
-#~ msgstr "மேலும் வாசிக்க &raquo;"
-
-#~ msgid "Sorry, no authors could be found."
-#~ msgstr "மன்னிக்கவும்! நூல் ஆசிரியர் எவரும் கிடைக்கவில்லை."
-
-#~ msgid "Enter password."
-#~ msgstr "கடவுச் சொல்லைத் தருக."
-
-#~ msgid "0 comments"
-#~ msgstr "பின்னூட்டங்கள் இல்லை"
-
-#~ msgid "1 comment"
-#~ msgstr "1 பின்னூட்டம்"
-
-#~ msgid "% comments"
-#~ msgstr "% பின்னூட்டங்கள்"
-
-#~ msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
-#~ msgstr "கருத்து தெரிவிக்க நீங்கள் <a href=\"%s\"> புகுபதிகை</a> செய்ய வேண்டும்."
-
-#~ msgid "Sorry, comments are closed."
-#~ msgstr "மன்னிக்கவும். பின்னூட்டங்களுக்கு அனுமதி இல்லை."
-
-#~ msgid "Read more &#8594;"
-#~ msgstr "மேலும் வாசிக்க &#8594;"
-
-#~ msgid "read more &#8594;"
-#~ msgstr "மேலும் வாசிக்க &#8594;"
-
-#~ msgid "Sidebar 1"
-#~ msgstr "பக்கப் பட்டி 1"
-
-#~ msgid "Sidebar 2"
-#~ msgstr "பக்கப் பட்டி 2"
-
-#~ msgid "Sidebar 3"
-#~ msgstr "பக்கப் பட்டி 3"
-
-#~ msgid "Home Page Left Column"
-#~ msgstr "முதற் பக்கத்தின் இடது நிரல்"
-
-#~ msgid "Home Page Right Column"
-#~ msgstr "முதற் பக்கத்தின் வலது நிரல்"
-
-#~ msgid "Footer"
-#~ msgstr "அடிக்குறிப்பு"
-
-#~ msgid "\">read more &#8594;</a>"
-#~ msgstr "\">மேலும் வாசிக்க &#8594;</a>"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Featured Content"
-#~ msgstr "சிறப்பு உள்ளடக்கம்"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New"
-#~ msgstr "புதிதாகச் சேர்"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Add New Featured Content"
-#~ msgstr "புதிய சிறப்பு அங்கத்தை சேர்க்கவும்"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Edit Featured Content"
-#~ msgstr "சிறப்பு உள்ளடக்கத்தைத் தொகுக்கவும்"
-
-#~ msgctxt "_featured_content"
-#~ msgid "New Featured Content"
-#~ msgstr "சிறப்பு உள்ளடக்கம் - புதிது"
-
-#~ msgctxt "_featured_content"
-#~ msgid "View Featured Content"
-#~ msgstr "சிறப்பு உள்ளடக்கத்தைப் பார்க்க"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Search Featured Content"
-#~ msgstr "சிறப்பு உள்ளடக்கத்தைத் தேடுக"
-
-#~ msgctxt "_featured_content"
-#~ msgid "No Featured Content found"
-#~ msgstr "சிறப்பு உள்ளடக்கம் எதுவும் கிடைக்கவில்லை"
-
-#~ msgctxt "_featured_content"
-#~ msgid "No Featured Content in Trash"
-#~ msgstr "குப்பைத்தொட்டியில் சிறப்பு உள்ளடக்கம் எதுவும் இல்லை"
-
-#~ msgctxt "_featured_content"
-#~ msgid "Parent Featured Content Link:"
-#~ msgstr "சிறப்பு உள்ளடக்கத்தின் மூல இணைப்பு:"
-
-#~ msgctxt "_author"
-#~ msgid "Authors"
-#~ msgstr "நூல் ஆசிரியர்கள் "
-
-#~ msgctxt "_author"
-#~ msgid "Author"
-#~ msgstr "நூல் ஆசிரியர்"
-
-#~ msgctxt "_author"
-#~ msgid "Add New"
-#~ msgstr "புதிதாகச் சேர்"
-
-#~ msgctxt "_author"
-#~ msgid "Add New Author"
-#~ msgstr "புது எழுத்தாளரைச் சேர்"
-
-#~ msgctxt "_author"
-#~ msgid "Edit Author"
-#~ msgstr "எழுத்தாளரைத் தொகு"
-
-#~ msgctxt "_author"
-#~ msgid "New Author"
-#~ msgstr "புது எழுத்தாளர்"
-
-#~ msgctxt "_author"
-#~ msgid "View Author"
-#~ msgstr "எழுத்தாளரைப் பற்றித் தெரிந்து கொள்ள"
-
-#~ msgctxt "_author"
-#~ msgid "Search Authors"
-#~ msgstr "நூல் ஆசிரியர்களைத் தேடுக "
-
-#~ msgctxt "_author"
-#~ msgid "No Authors found"
-#~ msgstr "எழுத்தாளர் எவரும் இல்லை"
-
-#~ msgctxt "_author"
-#~ msgid "No Authors in Trash"
-#~ msgstr "குப்பைத் தொட்டியில் நூல் ஆசிரியர் பெயர்கள் எவையும் இல்லை"
-
-#~ msgctxt "_author"
-#~ msgid "Parent Author Link:"
-#~ msgstr "மூல ஆசிரியர் பற்றிய இணைப்பு :"
-
-#~ msgid "&#8592 Older Entries"
-#~ msgstr "&#8592; பழைய பதிவுகள்"
-
-#~ msgid "Newer Entries &#8594;"
-#~ msgstr "புதிய பதிவுகள் &#8594;"
-
-#~ msgid " Theme Options"
-#~ msgstr "வடிவமைப்புத் தேர்வுகள்"
-
-#~ msgid ""
-#~ "These options will let you setup the social icons for your site. You can enter the URLs of "
-#~ "your profiles to have the icons show up."
-#~ msgstr ""
-#~ "இந்தத் தேர்வுகள் சமூக வலைத்தளக் குறி உருக்களை அமைக்க உதவுகின்றன. அவற்றைக் காட்ட, உங்கள் சமூக வலைத்தளங்களின் "
-#~ "முகவரிகளைத் தருக. "
-
-#~ msgid "Options saved"
-#~ msgstr "தேர்வுகள் சேமிக்கப்பட்டன"
-
-#~ msgid "Hide RSS Icon?"
-#~ msgstr "RSS குறிஉருவை மறைக்கவா?"
-
-#~ msgid "Hide the RSS feed icon?"
-#~ msgstr "RSS செய்தியோடை படத்தை மறைக்கவா?"
-
-#~ msgid "Enter your Facebook URL"
-#~ msgstr "உங்கள் முகநூல் முகவரியைத் தருக"
-
-#~ msgid "Leave blank to hide Facebook Icon"
-#~ msgstr "முகநூல் குறிஉருவை மறைக்க வேண்டுமானால் காலியாக விடுக "
-
-#~ msgid "Enter your Twitter URL"
-#~ msgstr "உங்கள் டிவிட்டர் முகவரியைத் தருக"
-
-#~ msgid "Leave blank to hide Twitter Icon"
-#~ msgstr "டிவிட்டர் குறிஉருவை மறைக்கக் காலியாக விடுக "
-
-#~ msgid "Enter your Tumblr URL"
-#~ msgstr "உங்கள் டம்ப்ளர் தள முகவரியைத் தருக"
-
-#~ msgid "Leave blank to hide Tumblr Icon"
-#~ msgstr "டம்ப்ளர் குறிஉருவை மறைக்கக் காலியாக விடுக "
-
-#~ msgid "Enter your Youtube Channel URL"
-#~ msgstr "உங்கள் யூடியூப் தள உறுப்பினர்  முகவரியைத் தருக"
-
-#~ msgid "Leave blank to hide Youtube Icon"
-#~ msgstr "யூடியூப் குறிஉருவை மறைக்கக் காலியாக விடுக."
-
-#~ msgid "Save Options"
-#~ msgstr "தேர்வுகளைச் சேமிக்கவும்"
-
-#~ msgid "Older Entries &raquo;"
-#~ msgstr "பழைய பதிவுகள் &raquo;"
-
-#~ msgid "&laquo; Newer Entries"
-#~ msgstr "&laquo; புதிய பதிவுகள்"
-
-#~ msgid "No Comments"
-#~ msgstr "பின்னூட்டங்கள் இல்லை"
-
-#~ msgid "Sorry, no posts matched your criteria."
-#~ msgstr "ஐயோ! உங்கள் தேடலுக்குப் பொருந்துகின்ற பதிவுகள் ஏதுமில்லையே!"
-
-#~ msgid "keep reading"
-#~ msgstr "தொடர்ந்து படிக்கவும்"
-
-#~ msgid "Twitter"
-#~ msgstr "டிவிட்டர்"
-
-#~ msgid "Facebook"
-#~ msgstr "முகநூல்"
-
-#~ msgid "YouTube"
-#~ msgstr "யூடியூப்"
-
-#~ msgid "Tumblr"
-#~ msgstr "டம்ப்ளர்"
-
-#~ msgid "RSS Feed"
-#~ msgstr "RSS செய்தியோடை"
-
-#~ msgid "PressBooks"
-#~ msgstr "அச்சுப்புத்தகங்கள் "
-
-#~ msgid "http://www.pressbooks.com"
-#~ msgstr "http://www.pressbooks.com"
-
-#~ msgid "BookOven Inc."
-#~ msgstr "புக்ஓவன் வணிக நிறுவனம்"
