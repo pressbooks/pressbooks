@@ -125,7 +125,6 @@ function _base_url() {
 // Variables
 // -------------------------------------------------------------------------------------------------------------------
 
-$base_href = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher/';
 $catalog = new PB_Catalog( absint( $pb_user_id ) ); // Note: $pb_user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();
 $books = _books( $catalog );
@@ -146,7 +145,6 @@ $_current_user_id = $catalog->getUserId();
 <!--[if IE 9 ]>    <html <?php language_attributes(); ?> class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"> <!--<![endif]-->
 <head>
-	<base href="<?php echo $base_href; ?>" />
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login ); _e( '\'s Catalog Page', 'pressbooks' ); ?> | PressBooks</title>
