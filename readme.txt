@@ -194,6 +194,9 @@ TK.
 
 == Changelog ==
 
+= 2.5.1 =
+* Improved `show_experimental_features()` function.
+
 = 2.5 =
 * Requires WordPress 4.2.2.
 * New root theme, Pressbooks Publisher 2.0. Pressbooks Publisher One has been deprecated and is now available (unsupported) [here](https://github.com/pressbooks/pressbooks-publisher-one/).

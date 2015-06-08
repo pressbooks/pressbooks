@@ -125,7 +125,7 @@ function _base_url() {
 // Variables
 // -------------------------------------------------------------------------------------------------------------------
 
-$base_href = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher-one/';
+$base_href = PB_PLUGIN_URL . 'themes-root/pressbooks-publisher/';
 $catalog = new PB_Catalog( absint( $pb_user_id ) ); // Note: $pb_user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();
 $books = _books( $catalog );
