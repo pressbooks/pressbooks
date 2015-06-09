@@ -175,7 +175,7 @@ class Metadata {
 
 	/**
 	 * Takes a known string from metadata, builds a url to hit an api which returns an xml response
-	 * @see http://api.creativecommons.org/docs/readme_15.html
+	 * @see https://api.creativecommons.org/docs/readme_15.html
 	 * 
 	 * @param string $type license type
 	 * @param string $copyright_holder of the page
@@ -184,7 +184,7 @@ class Metadata {
 	 * @return string $xml response
 	 */
 	static function getLicenseXml( $type, $copyright_holder, $src_url, $title, $lang = '' ) {
-		$endpoint = 'http://api.creativecommons.org/rest/1.5/';
+		$endpoint = 'https://api.creativecommons.org/rest/1.5/';
 		$xml = '';
 		$lang = ( ! empty( $lang ) ) ? substr( $lang, 0, 2 ) : '';
 		$expected = array(
