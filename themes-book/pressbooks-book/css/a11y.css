@@ -104,7 +104,7 @@
 	font-size: 1.25em;
 }
 
-.fontsize .description-book-info, .author-book-info{
+.fontsize .description-book-info, .fontsize .author-book-info{
 	font-size: 1.5em;
 }
 
