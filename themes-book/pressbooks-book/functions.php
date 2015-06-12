@@ -635,6 +635,16 @@ function pressbooks_theme_options_web_init() {
 		)
 	);
 
+	add_settings_field(
+		'social_media_buttons', 
+		__( 'Enable Social Media', 'pressbooks' ), 
+		'pressbooks_theme_social_media_callback',
+		$_page,
+		$_section,
+		array(
+		    __('Add buttons to each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+.', 'pressbooks' )
+		)
+	);
 	register_setting(
 		$_option, 
 		$_option, 
@@ -672,6 +682,18 @@ function pressbooks_theme_toc_collapse_callback( $args ) {
 	echo $html;
 }
 
+// Web Options Field Callback
+function pressbooks_theme_social_media_callback( $args ) {
+	$options = get_option( 'pressbooks_theme_options_web' );
+
+	if ( ! isset( $options['social_media'] ) ) {
+		$options['social_media'] = 1;
+	}
+	$html = '<input type="checkbox" id="social_media" name="pressbooks_theme_options_web[social_media]" value="1" ' . checked( 1, $options['social_media'], false ) . '/>';
+	$html .= '<label for="social_media"> ' . $args[0] . '</label>';
+	echo $html;
+}
+
 // Web Options Sanitize
 function pressbooks_theme_options_web_sanitize( $input ) {
 
@@ -688,7 +710,12 @@ function pressbooks_theme_options_web_sanitize( $input ) {
 	} else {
 		$options['accessibility_fontsize'] = 1;
 	}
-	return $options;
+	
+	if ( ! isset( $input['social_media'] ) || $input['social_media'] != '1' ) {
+		$options['social_media'] = 0;
+	} else {
+		$options['social_media'] = 1;
+	}	return $options;
 }
 
 add_action( 'admin_init', 'pressbooks_theme_options_web_init' );
