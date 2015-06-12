@@ -715,7 +715,9 @@ function pressbooks_theme_options_web_sanitize( $input ) {
 		$options['social_media'] = 0;
 	} else {
 		$options['social_media'] = 1;
-	}	return $options;
+	}	
+	
+	return $options;
 }
 
 add_action( 'admin_init', 'pressbooks_theme_options_web_init' );
