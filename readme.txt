@@ -100,6 +100,7 @@ IMPORTANT!
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
  * For EPUB validation install [EpubCheck](http://code.google.com/p/epubcheck/) - Version 3.0.1
  * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
+ * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl" 
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
 
