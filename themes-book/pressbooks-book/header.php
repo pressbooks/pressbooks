@@ -46,14 +46,19 @@ if ( is_front_page() ) {
 <body <?php body_class(); if(wp_title('', false) != '') { print ' id="' . str_replace(' ', '', strtolower(wp_title('', false))) . '"'; } ?>>
 <!-- Faccebook share js sdk -->
 <div id="fb-root"></div>
-<script>(function(d, s, id) {
+<?php
+$fb_script = get_option( 'pressbooks_theme_options_web' );
+
+if ( 1 === $fb_script['social_media'] ) {
+	echo '<script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-<!-- end Facebook JS -->
+}(document, "script", "facebook-jssdk"));</script>';
+}
+?>
 
 <?php get_template_part( 'content', 'accessibility-toolbar' ); ?>
 
