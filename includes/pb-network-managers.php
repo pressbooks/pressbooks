@@ -9,8 +9,8 @@ namespace PressBooks\Admin\NetworkManagers;
 function add_menu() {
 	$page = add_submenu_page(
 		'settings.php',
-		'Pressbooks Network Managers',
-		'Network Managers',
+		__('Network Managers', 'pressbooks'),
+		__('Network Managers', 'pressbooks'),
 		'manage_network',
 		'pb_network_managers',
 		__NAMESPACE__ . '\options'
