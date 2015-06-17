@@ -14,6 +14,13 @@ html {
 	margin-left: 65.5px;
 }
 
+.login .message {
+	border-left: 4px solid #c5002a;
+}
+
+.login #backtoblog a:hover, .login #backtoblog a:active, .login #backtoblog a:focus, .login #nav a:hover, .login #nav a:active, .login #nav a:focus {
+	color: #c5002a; }
+
 /* Links */
 a {
   color: #c5002a; }
