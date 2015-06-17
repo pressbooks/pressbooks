@@ -16,6 +16,7 @@ require( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
 require( PB_PLUGIN_DIR . 'symbionts/search-regex/search-regex.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-network-managers.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
@@ -62,6 +63,12 @@ add_filter( 'admin_title', '\PressBooks\Admin\Laf\admin_title' );
 
 // Echo our notices, if any
 add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices' );
+
+// Network Manager routines
+add_action( 'network_admin_menu', '\PressBooks\Admin\NetworkManagers\add_menu' );
+add_action( 'wp_ajax_pb_update_admin_status', '\PressBooks\Admin\NetworkManagers\update_admin_status' );
+add_action( 'network_admin_menu', '\PressBooks\Admin\NetworkManagers\hide_menus' );
+add_action( 'admin_init', '\PressBooks\Admin\NetworkManagers\restrict_access' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Posts, Meta Boxes
