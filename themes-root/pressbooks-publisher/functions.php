@@ -166,6 +166,22 @@ function pressbooks_publisher_scripts() {
 add_action( 'wp_enqueue_scripts', 'pressbooks_publisher_scripts' );
 
 /**
+ * Add Pressbooks branding to login screen.
+ */
+
+add_action( 'login_head', create_function('', 'echo \'<link rel="stylesheet" type="text/css" href="' . PB_PLUGIN_URL . 'assets/css/colors-pb.css" media="screen" />\';') );
+
+/**
+ * Change login logo URL.
+ */
+
+function custom_login_url( $url ) {
+	return get_bloginfo( 'url' );
+} 
+
+add_filter( 'login_headerurl', 'custom_login_url' );
+
+/**
  * Custom template tags for this theme.
  */
 require get_template_directory() . '/inc/template-tags.php';
