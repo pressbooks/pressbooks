@@ -642,7 +642,7 @@ function pressbooks_theme_options_web_init() {
 		$_page,
 		$_section,
 		array(
-		    __('Add buttons to each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+.', 'pressbooks' )
+		    __('Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+.', 'pressbooks' )
 		)
 	);
 	register_setting(
