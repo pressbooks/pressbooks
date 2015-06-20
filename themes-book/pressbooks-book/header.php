@@ -49,7 +49,7 @@ if ( is_front_page() ) {
 <?php
 $fb_script = get_option( 'pressbooks_theme_options_web' );
 
-if ( 1 === $fb_script['social_media'] ) {
+if ( 1 === $fb_script['social_media'] || ! isset( $fb_script['social_media'] ) ) {
 	echo '<script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
