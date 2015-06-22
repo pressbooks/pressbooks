@@ -339,3 +339,45 @@ function show_experimental_features() {
 
 	return $result;
 }
+
+/**
+ * Function to return a string representing max import size by comparing values of upload_max_filesize, post_max_size
+ * Uses parse_size helper function since the values in php.ini are strings like 64M and 128K
+ * @return string
+ */
+
+function file_upload_max_size() {
+  static $max_size = -1;
+  //  This function is adapted from Drupal and http://stackoverflow.com/questions/13076480/php-get-actual-maximum-upload-size 
+  if ($max_size < 0) {
+    
+    $post_max_size_str=ini_get('post_max_size');
+    $upload_max_filesize_str=ini_get('upload_max_filesize');
+    $post_max_size=parse_size($post_max_size_str);
+    $upload_max_filesize=parse_size($upload_max_filesize_str);
+
+    // If upload_max_size is less, then reduce. Except if upload_max_size is
+    // zero, which indicates no limit.
+    $returnVal = $post_max_size_str;
+    if ($upload_max_filesize > 0 && $upload_max_filesize < $post_max_size) {
+      $returnVal = $upload_max_filesize_str;
+    }
+  }
+  return $returnVal;
+}
+
+/**
+ * parse_size converts php.ini values from strings (like 128M or 64K) into actual numbers that can be compared
+ * @return integer
+ */
+function parse_size($size) {
+  $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
+  $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
+  if ($unit) {
+    // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
+    return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
+  }
+  else {
+    return round($size);
+  }
+}
