@@ -326,7 +326,8 @@ function show_experimental_features() {
 
 	// hosts where experimental features should be hidden
 	$hosts_for_hiding = array( 
-		'pressbooks.com'
+		'pressbooks.com',
+		'pressbooks.pub',
 	);
 
 	$host = parse_url( network_site_url(), PHP_URL_HOST );
