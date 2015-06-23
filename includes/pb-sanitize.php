@@ -37,8 +37,8 @@ function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
 
 	$t = preg_replace( $search_open, $replace_open, str_replace( $search_closed, $replace_closed, $t ) );
 
-	$t = preg_replace('/(class=\'wp-audio-shortcode\' id=\'audio[0-9-]+\')( style=\'[^\']+\')/u', "$1", $t);
-
+	$t = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', "$1", $t );
+	
 	return $t;
 }
 
