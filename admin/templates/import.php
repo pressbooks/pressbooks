@@ -127,7 +127,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 			</script>
 		<p>
 			<?php _e( 'Supported file extensions:', 'pressbooks' ); ?> XML, EPUB, ODT, DOCX, HTML <br />
-			<?php _e( 'Maximum file size:', 'pressbooks' ); echo ' ' . ini_get( 'upload_max_filesize' ); ?>
+			<?php _e( 'Maximum file size:', 'pressbooks' ); echo ' ' . \PressBooks\Utility\file_upload_max_size(); ?>
 		</p>
 
 		<form id="pb-import-form" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">
