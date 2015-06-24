@@ -63,3 +63,10 @@ hr.break-symbols::after {
 	font-size: 18pt;
 	text-align: center;
 }
+
+img,
+.wp-caption,
+.wp-nocaption {
+	max-width: 100%;
+	height: auto;
+}
