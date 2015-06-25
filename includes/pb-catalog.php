@@ -249,6 +249,7 @@ $_current_user_id = $catalog->getUserId();
 	// <![CDATA[
 	jQuery.noConflict();
 	jQuery(function ($) {
+		$container.equalizer({ columns: '> div.book-data', min: 350, resizeable: false });
 		var $container = $('#catalog-content');
 		$('.filter-group-1').click( function () {
 			var filter1_id = $(this).attr( 'data-filter' );
@@ -320,7 +321,6 @@ $_current_user_id = $catalog->getUserId();
 		function webkitTrigger( isoInstance, laidOutItems ) {
 			$container.equalizer();
 		}		
-		$container.equalizer({ columns: '> div.book-data', min: 350, resizeable: false });
 	});
 	// ]]>
 </script>
