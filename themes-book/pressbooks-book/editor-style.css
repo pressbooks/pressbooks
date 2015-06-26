@@ -1,4 +1,5 @@
-
+table {
+	min-width: 50%; }
 .indent {
 	text-indent: 2em;
 	margin-top: 0;

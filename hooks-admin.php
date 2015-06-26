@@ -16,6 +16,7 @@ require( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
 require( PB_PLUGIN_DIR . 'symbionts/search-regex/search-regex.php' );
+require( PB_PLUGIN_DIR . 'symbionts/mce-table-buttons/mce_table_buttons.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-network-managers.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
