@@ -127,7 +127,7 @@ class Odt extends Export {
 		}
 		
 		foreach ( $coverimages as $coverimage ) {
-			$src = $coverimage->getAttribute('src');
+			$src = $coverimage->getAttribute('content');
 			$this->fetchAndSaveUniqueImage( $src, $mediafolder );
 		}
 		
