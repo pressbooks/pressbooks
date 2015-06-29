@@ -25,7 +25,6 @@ require( PB_PLUGIN_DIR . 'symbionts/pb-latex/pb-latex.php' );
 // Custom Metadata plugin
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'symbionts/custom-metadata/custom_metadata.php' );
 add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_custom_copyright', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
 add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_about_unlimited', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
 

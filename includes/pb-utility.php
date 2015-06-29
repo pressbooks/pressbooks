@@ -342,6 +342,52 @@ function show_experimental_features() {
 }
 
 /**
+ * Include plugins in /symbionts
+ * 
+ * @since 2.5.1
+ */
+function include_plugins() {
+	$symbionts = array(
+	    'custom-metadata/custom_metadata.php' => 1,
+	    'search-regex/search-regex.php' => 1,
+	    // 'mce-table-buttons/mce_table_buttons.php' => 1,
+	);
+
+	$symbionts = filter_plugins( $symbionts );
+
+	// include plugins
+	if ( ! empty( $symbionts ) ) {
+		foreach ( $symbionts as $key => $val ) {
+			require_once( PB_PLUGIN_DIR . 'symbionts/' . $key);
+		}
+	}
+}
+
+/**
+ * Filters out active plugins, to avoid collisions with plugins already installed.
+ * 
+ * @since 2.5.1
+ * @param array $symbionts
+ * @return array
+ */
+function filter_plugins( $symbionts ) {
+	$already_active = get_option( 'active_plugins' );
+	$network_already_active = get_site_option( 'active_sitewide_plugins' );
+	
+	// don't include plugins already active at the site level, network level
+	if ( ! empty( $symbionts ) ) {
+		foreach ( $symbionts as $key => $val ) {
+			if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active )) {
+				unset( $symbionts[$key] );
+			}
+			
+		}
+	}
+	return $symbionts;
+}
+
+
+/**
  * Function to return a string representing max import size by comparing values of upload_max_filesize, post_max_size
  * Uses parse_size helper function since the values in php.ini are strings like 64M and 128K
  * @return string
