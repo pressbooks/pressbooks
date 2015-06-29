@@ -38,6 +38,14 @@ class Odt extends Export {
 
 
 	/**
+	 * Compress images?
+	 *
+	 * @var bool
+	 */
+	public $compressImages = false;
+
+
+	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
@@ -112,9 +120,7 @@ class Odt extends Export {
 			}
 			$table->setAttribute( 'colcount', $columncount );
 		}
-		
-		file_put_contents( $source, $doc->saveXML() );
-		
+				
 		$images = $xpath->query( '//img' );
 		$coverimages = $xpath->query( '//meta[@name="pb-cover-image"]' );
 		if ( ( $images->length > 0 ) || ( $coverimages->length > 0 ) ) {
@@ -123,13 +129,23 @@ class Odt extends Export {
 		
 		foreach ( $images as $image ) {
 			$src = $image->getAttribute('src');
-			$this->fetchAndSaveUniqueImage( $src, $mediafolder );
+ 			$image_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
+			if ( $image_filename ) {
+				// Replace with new image
+				$image->setAttribute( 'src', $image_filename );
+			}
 		}
 		
 		foreach ( $coverimages as $coverimage ) {
 			$src = $coverimage->getAttribute('content');
-			$this->fetchAndSaveUniqueImage( $src, $mediafolder );
+ 			$cover_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
+			if ( $cover_filename ) {
+				// Replace with new image
+				$coverimage->setAttribute( 'src', $cover_filename );
+			}
 		}
+
+		file_put_contents( $source, $doc->saveXML() );
 		
 		try {
 			$result = exec( PB_SAXON_COMMAND . ' -xsl:' . $xslt .' -s:' . $source .' -o:' . $content );
@@ -137,7 +153,7 @@ class Odt extends Export {
 			$this->logError( $e->getMessage() );
 			return false;
 		}
-
+		
 		if ( ( !file_exists( $content ) ) || ( !file_exists( $mimetype ) ) || ( !file_exists( $meta ) ) || ( !file_exists( $settings ) ) || ( !file_exists( $styles ) ) || ( !file_exists( $metafolder ) ) ) {
 			$this->logError( 'Transformation failed' );
 			return false;
@@ -155,6 +171,7 @@ class Odt extends Export {
 			$this->logError( $zip->errorInfo( true ) );
 			return false;
 		}
+				
 		unlink( $source );
 		unlink( $mimetype );
 		unlink( $content );
@@ -171,7 +188,8 @@ class Odt extends Export {
 		return true;
 	}
 
-	/*Recursive Directory Deletion for media folder */
+	/* Recursive Directory Deletion for media folder */
+	
 	public static function deleteDirectory( $dirpath ) {
 		if ( !is_dir( $dirpath ) ) {
 			throw new InvalidArgumentException( "$dirpath must be a directory." );
