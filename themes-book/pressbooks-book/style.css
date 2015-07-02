@@ -661,6 +661,7 @@ h1.book-title a {
    Pop out TOC
 *****************/
 #toc {
+  display: none;
   background: #eeeeee;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
