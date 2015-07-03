@@ -1,7 +1,7 @@
 jQuery(document).ready(function(){
 
 	jQuery('#toc').hide();
-	jQuery('.toc-btn a, a.close').live('click', function() {
+	jQuery(document).on('click', '.toc-btn a, a.close', function() {
 		if(jQuery('#toc').css('display') == 'none') {
 			jQuery('.toc-btn a').addClass('tabbed');
 			jQuery('.toc-btn').addClass('bg-color');
