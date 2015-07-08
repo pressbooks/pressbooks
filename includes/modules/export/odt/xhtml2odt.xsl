@@ -213,6 +213,17 @@
 							fo:border-bottom="0.0138in solid #000000" style:shadow="none"/>
 					</style:style>
 					
+					<style:style style:name="pullquotebox-left" style:family="graphic" style:parent-style-name="imageFrame1">
+						<style:graphic-properties fo:margin-left="0.1in" fo:margin-right="0in"
+							style:run-through="foreground" style:wrap="parallel"
+							style:number-wrapped-paragraphs="no-limit" style:vertical-pos="from-top"
+							style:vertical-rel="paragraph" style:horizontal-pos="left"
+							style:horizontal-rel="paragraph" fo:padding="0.1in"
+							fo:border-left="none" fo:border-right="none"
+							fo:border-top="0.0138in solid #000000"
+							fo:border-bottom="0.0138in solid #000000" style:shadow="none"/>
+					</style:style>
+					
 					<style:style style:name="textbox" style:family="graphic" style:parent-style-name="imageFrame1">
 						<style:graphic-properties fo:margin-left="0in" fo:margin-right="0in" fo:margin-top="0.1in" fo:margin-bottom="0in"
 							style:run-through="foreground" style:wrap="none"
@@ -285,6 +296,14 @@
 					</style:style>
 					<style:style style:name="P_Justify" style:family="paragraph" style:parent-style-name="Standard">
 						<style:paragraph-properties fo:text-align="justify" style:justify-single-word="false"/>
+					</style:style>
+					<style:style style:name="P_Indent" style:family="paragraph" style:parent-style-name="Standard">
+						<style:paragraph-properties fo:margin-left="0.4925in" fo:margin-right="0in"
+							fo:text-indent="0in" style:auto-text-indent="false"/>
+					</style:style>
+					<style:style style:name="P_Hanging-Indent" style:family="paragraph" style:parent-style-name="Standard">
+						<style:paragraph-properties fo:margin-left="0.4925in" fo:margin-right="0in"
+							fo:text-indent="-0.4925in" style:auto-text-indent="false"/>
 					</style:style>
 
 					<style:style style:name="blockquote" style:family="paragraph" style:parent-style-name="Standard">
@@ -527,6 +546,16 @@
 		</text:h>
 	</xsl:template>
 
+	<xsl:template match="p[@class='wp-caption-text']" mode="captionMode">
+		<text:span>
+			<xsl:apply-templates/>
+		</text:span>
+	</xsl:template>
+	
+	<xsl:template match="p[@class='wp-caption-text']">
+		<!-- Do Nothing -->
+	</xsl:template>
+	
 	<xsl:template match="p">
 		<text:p>
 			<xsl:attribute name="text:style-name">
@@ -543,6 +572,12 @@
 					<xsl:when test="replace(@style, '^^(.+)?text-align:\s*(center|right|left|justify)(.+)*$', '$2') = 'justify'">
 						<xsl:text>P_Justify</xsl:text>
 					</xsl:when>
+					<xsl:when test="contains(@class, 'hanging-indent')">
+						<xsl:text>P_Hanging-Indent</xsl:text>
+					</xsl:when>
+					<xsl:when test="contains(@class, 'indent')">
+						<xsl:text>P_Indent</xsl:text>
+					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text>Standard</xsl:text>
 					</xsl:otherwise>
@@ -558,6 +593,15 @@
 				<draw:frame draw:style-name="pullquotebox" text:anchor-type="char" svg:y="0.0598in" svg:width="2.2in">
 					<draw:text-box fo:min-height="1in">
 						<text:p text:style-name="P_Center">
+							<xsl:apply-templates/>
+						</text:p>
+					</draw:text-box>
+				</draw:frame>
+			</xsl:when>
+			<xsl:when test="@class='pullquote-left'">
+				<draw:frame draw:style-name="pullquotebox-left" text:anchor-type="char" svg:y="0.0598in" svg:width="2.2in">
+					<draw:text-box fo:min-height="1in">
+						<text:p text:style-name="Standard">
 							<xsl:apply-templates/>
 						</text:p>
 					</draw:text-box>
@@ -580,9 +624,14 @@
 				<text:span>
 					<xsl:if test="contains(@style, 'text-decoration: line-through;')">
 						<xsl:attribute name="text:style-name">strikeout</xsl:attribute>
-						<xsl:apply-templates/>
 					</xsl:if>
-					<xsl:apply-templates/>
+					<xsl:if test="@id">
+						<text:bookmark text:name="{@id}"/>
+					</xsl:if>
+					<xsl:if test="contains(@class, 'chapter-author') or contains(@class, 'chapter-subtitle')">
+						<text:line-break/>
+					</xsl:if>
+					<xsl:apply-templates/>							
 				</text:span>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -625,7 +674,7 @@
 					<xsl:apply-templates/>
 				</text:section>
 			</xsl:when>
-			<xsl:when test="@class='textbox'">
+			<xsl:when test="contains(@class, 'textbox')">
 				<text:p text:style-name="Standard">
 					<draw:frame draw:style-name="textbox" text:anchor-type="paragraph" svg:width="6.268in" draw:z-index="0">
 						<draw:text-box fo:min-height="1in">
@@ -691,41 +740,42 @@
 		</xsl:template>-->
 
 	<xsl:template match="li">
-		<text:list-item>
-			<xsl:choose>
-				<xsl:when test="a[starts-with(., '#')] and ancestor::div[@id=toc]">
-					<text:p>
-						<xsl:apply-templates/>
-					</text:p>
-				</xsl:when>
-				<xsl:when
-					test="./(ul|ol) and not(descendant::*[matches(local-name(), '^(p|h[1-6])$')])">
-					<!-- span -->
-					<text:p>
-						<xsl:for-each select="./(ul|ol)/preceding-sibling::node()">
-							<xsl:apply-templates select="."/>
-						</xsl:for-each>
-					</text:p>
-					<xsl:apply-templates select="./(ul|ol)"/>
-					<xsl:if test="./(ul|ol)/following-sibling::node()">
+		<xsl:if test="not (contains(@class, 'display-none') and contains(@class, 'part'))">
+			<text:list-item>
+				<xsl:choose>
+					<xsl:when test="a[starts-with(., '#')] and ancestor::div[@id=toc]">
 						<text:p>
-							<xsl:for-each select="./(ul|ol)/following-sibling::node()">
+							<xsl:apply-templates/>
+						</text:p>
+					</xsl:when>
+					<xsl:when test="./(ul|ol) and not(descendant::*[matches(local-name(), '^(p|h[1-6])$')])">
+						<!-- span -->
+						<text:p>
+							<xsl:for-each select="./(ul|ol)/preceding-sibling::node()">
 								<xsl:apply-templates select="."/>
 							</xsl:for-each>
 						</text:p>
-					</xsl:if>
-				</xsl:when>
-				<xsl:when test="descendant::*[matches(local-name(), '^(p|h[1-6])$')]">
-					<!-- span -->
-					<xsl:apply-templates/>
-				</xsl:when>
-				<xsl:otherwise>
-					<text:p>
+						<xsl:apply-templates select="./(ul|ol)"/>
+						<xsl:if test="./(ul|ol)/following-sibling::node()">
+							<text:p>
+								<xsl:for-each select="./(ul|ol)/following-sibling::node()">
+									<xsl:apply-templates select="."/>
+								</xsl:for-each>
+							</text:p>
+						</xsl:if>
+					</xsl:when>
+					<xsl:when test="descendant::*[matches(local-name(), '^(p|h[1-6])$')]">
+						<!-- span -->
 						<xsl:apply-templates/>
-					</text:p>
-				</xsl:otherwise>
-			</xsl:choose>
-		</text:list-item>
+					</xsl:when>
+					<xsl:otherwise>
+						<text:p>
+							<xsl:apply-templates/>
+						</text:p>
+					</xsl:otherwise>
+				</xsl:choose>
+			</text:list-item>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="pre">
@@ -772,7 +822,20 @@
 	</xsl:template>
 
 	<!--<xsl:template match="table|tr|td|th"/>-->
+	<xsl:template match="caption" mode="tablecaption">
+		<text:p text:style-name="Standard">
+			<xsl:apply-templates/>
+		</text:p>
+	</xsl:template>
+	
+	<xsl:template match="caption">
+		<!--Do Nothing-->
+	</xsl:template>
+	
 	<xsl:template match="table">
+		<xsl:if test="caption">
+			<xsl:apply-templates select="caption" mode="tablecaption"/>
+		</xsl:if>
 		<table:table>	
 			<table:table-column table:number-columns-repeated="{@colcount}"/>
 			<xsl:apply-templates/>
@@ -817,8 +880,41 @@
 		<xsl:choose>
 			<xsl:when test="parent::p">
 				<draw:frame draw:style-name="imageFrame1" text:anchor-type="paragraph" svg:x="0in"
-					svg:y="0in" svg:width="6.26806in" svg:height="4.70139in" style:rel-width="scale"
-					style:rel-height="scale">
+					svg:y="0in" style:rel-width="scale" style:rel-height="scale">
+					<xsl:attribute name="svg:width">
+						<xsl:choose>
+							<xsl:when test="@width">
+								<xsl:choose>
+									<xsl:when test="number((@width div 96)) &gt; 6.26806">
+										<xsl:text>6.26806in</xsl:text>		
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="(@width div 96)"/><xsl:text>in</xsl:text>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text>6.26806in</xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
+					<xsl:attribute name="svg:height">
+						<xsl:choose>
+							<xsl:when test="@height">
+								<xsl:choose>
+									<xsl:when test="number(@height div 96) &gt; 4.70139">
+										<xsl:text>4.70139in</xsl:text>		
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="(@height div 96)"/><xsl:text>in</xsl:text>
+									</xsl:otherwise>
+								</xsl:choose>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text>4.70139in</xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
 					<xsl:attribute name="draw:name">
 						<xsl:text>Picture </xsl:text>
 						<xsl:number/>
@@ -834,8 +930,41 @@
 			<xsl:otherwise>
 				<text:p>
 					<draw:frame draw:style-name="imageFrame1" text:anchor-type="paragraph"
-						svg:x="0in" svg:y="0in" svg:width="6.26806in" svg:height="4.70139in"
-						style:rel-width="scale" style:rel-height="scale">
+						svg:x="0in" svg:y="0in" style:rel-width="scale" style:rel-height="scale">
+						<xsl:attribute name="svg:width">
+							<xsl:choose>
+								<xsl:when test="@width">
+									<xsl:choose>
+										<xsl:when test="number((@width div 96)) &gt; 6.26806">
+											<xsl:text>6.26806in</xsl:text>		
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="(@width div 96)"/><xsl:text>in</xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text>6.26806in</xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
+						<xsl:attribute name="svg:height">
+							<xsl:choose>
+								<xsl:when test="@height">
+									<xsl:choose>
+										<xsl:when test="number(@height div 96) &gt; 4.70139">
+											<xsl:text>4.70139in</xsl:text>		
+										</xsl:when>
+										<xsl:otherwise>
+											<xsl:value-of select="(@height div 96)"/><xsl:text>in</xsl:text>
+										</xsl:otherwise>
+									</xsl:choose>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:text>4.70139in</xsl:text>
+								</xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
 						<xsl:attribute name="draw:name">
 							<xsl:text>Picture </xsl:text>
 							<xsl:number/>
@@ -846,10 +975,16 @@
 								<xsl:value-of select="escape-html-uri(replace(@src, '(http.+/)(.+?)$', '$2'))" />
 							</xsl:attribute>
 						</draw:image>
+						<svg:title><xsl:value-of select="@alt"/></svg:title>
 					</draw:frame>
-					<text:span>
-						<xsl:value-of select="@alt"/>
-					</text:span>
+					<xsl:choose>
+						<xsl:when test="following-sibling::p[@class='wp-caption-text']">
+							<xsl:apply-templates select="following-sibling::p[@class='wp-caption-text']" mode="captionMode"/>
+						</xsl:when>
+						<xsl:when test="ancestor::div[1]/p[@class='wp-caption-text']">
+							<xsl:apply-templates select="ancestor::div[1]/p[@class='wp-caption-text']" mode="captionMode"/>
+						</xsl:when>
+					</xsl:choose>
 				</text:p>
 			</xsl:otherwise>
 		</xsl:choose>
