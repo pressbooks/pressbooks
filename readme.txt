@@ -199,6 +199,7 @@ TK.
 * Added MCE Table Editor (migrated from Pressbooks Textbook, props to @bdolor and the plugin's creators).
 * Added support for excluding root domains _and_ subdomains in `show_experimental_features()` function.
 * Added the ability to toggle social media integration on or off in webbooks (props to @bdolor).
+* Added the ability to restrict specific network administrators' access to some network administration pages.
 * Added a note in readme.txt indicating that `php5-xsl` is a required extension for certain exports (props to @jflowers45).
 * Added a function to intelligently load plugins in `/symbionts` so as to avoid conflicts (props to @bdolor and the Pressbooks Textbook team for providing the basis for this).
 * Forced Google webfonts to load via SSL (props to @bdolor).
