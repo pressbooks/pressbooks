@@ -67,7 +67,7 @@ function _books( PB_Catalog $catalog ) {
 	$books = $catalog->getAggregate();
 
 	foreach ( $books as $key => $val ) {
-	
+
 		// Deleted
 		if ( $val['deleted'] ) {
 			unset ( $books[$key] );
@@ -89,7 +89,7 @@ function _books( PB_Catalog $catalog ) {
  * @return string
  */
 function _tag_classes( $book ) {
-	
+
 	$classes = ' ';
 	foreach ( $book["tag_1"] as $tag ) {
 		$classes .= $tag["id"] . ' ';
@@ -98,7 +98,7 @@ function _tag_classes( $book ) {
 		$classes .= $tag["id"] . ' ';
 	}
 	return $classes;
-	
+
 }
 
 
@@ -190,7 +190,7 @@ $_current_user_id = $catalog->getUserId();
 					echo preg_replace( '/<p[^>]*>(.*)<\/p[^>]*>/i', '$1', $profile['pb_catalog_about'] ); // Make valid HTML by removing first <p> and last </p>
 			?></p>
 			<br />
-	
+
 			<!-- Tags -->
 			<?php for ( $i = 1; $i <= 2; ++$i ) : ?>
 			<?php $tags = $catalog->getTags( $i, false ); ?>
@@ -204,43 +204,44 @@ $_current_user_id = $catalog->getUserId();
 					?>
 				</ul>
 			<?php endfor; ?>
-		</div><!-- end .sidebar-inner-wra -->	
+		</div><!-- end .sidebar-inner-wra -->
 
 	</div><!-- end catalog-sidebar -->
 
 	<!-- Books! -->
-	<div class="catalog-content-wrap">		
+	<div class="catalog-content-wrap">
 			<h1><?php _e( 'Catalog', 'pressbooks' ); ?><span class="filtered-by">, <?php _e( 'filtering by', 'pressbooks' ); ?> </span><span class="current-filters"></span> <span class="clear-filters" style="font-weight:normal;font-size:60%;">[<a class="clear-filters" href="#">x</a>]</span></h1>
 		<div class="catalog-content" id="catalog-content">
-	
-			
+
+
 			<!-- Books -->
 			<?php foreach ( $books as $b ) : ?>
 				<div class="book-data mix<?php echo _tag_classes( $b ); ?>">
-	
+
 					<div class="book">
-						<p class="book-description"><a href="<?php echo get_site_url( $b['blogs_id'], '', 'http'  ); ?>"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></a></p>
-						<img src="<?php echo $b['cover_url']['pb_cover_medium']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" />
+						<a href="<?php echo get_site_url( $b['blogs_id'], '', 'http'  ); ?>">
+						<p class="book-description"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></p>
+						<img src="<?php echo $b['cover_url']['pb_cover_medium']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" /></a>
 					</div><!-- end .book -->
 	
 					<div class="book-info">
 						<h2><?php echo $b['title']; ?></h2>
-	
+
 						<p><a href="<?php echo get_site_url( $b['blogs_id'], '', 'http' ); ?>"><?php echo $b['author']; ?></a></p>
 					</div><!-- end book-info -->
-	
+
 				</div><!-- end .book-data -->
 			<?php
 			endforeach;
 			?>
-			
+
 			<div class="fail-message"><?php _e('Sorry, but no books matched your filtering criteria. Please <a class="clear-filters" href="#">clear your current filters</a> and try again.', 'pressbooks' ); ?></div>
-			
+
 			</div>	<!-- end .catalog-content-->
 			<div class="footer">
 				<p><a href="<?php echo network_site_url(); ?>"><?php _e( 'PressBooks: the CMS for Books.', 'pressbooks' ); ?></a></p>
 			</div>
-					
+
 		</div>	<!-- end .catalog-content-wrap -->
 
 </div><!-- end .catalog-wrap -->
@@ -317,10 +318,10 @@ $_current_user_id = $catalog->getUserId();
 		$container.isotope({
 			itemSelector: '.book-data',
 			layoutMode: 'fitRows',
-		});		
+		});
 		function webkitTrigger( isoInstance, laidOutItems ) {
 			$container.equalizer();
-		}		
+		}
 	});
 	// ]]>
 </script>
