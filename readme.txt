@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.5.1
+Version: 2.5.2
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.2.2
 Tested up to: 4.2.2
@@ -194,6 +194,9 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.5.2 =
+* Improved user catalog: book covers are now clickable links (props to @kdv24).
 
 = 2.5.1 =
 * Added MCE Table Editor (migrated from Pressbooks Textbook, props to @bdolor and the plugin's creators).
