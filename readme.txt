@@ -198,6 +198,7 @@ TK.
 = 2.5.2 =
 * Improved ODT export: temporary files are now deleted when export fails (props to @sswettenham for the bug report).
 * Improved user catalog: book covers are now clickable links (props to @kdv24).
+* Improved user catalog: sidebars are sized to fit content instead of being restricted to window height (props to @changemachine).
 
 = 2.5.1 =
 * Added MCE Table Editor (migrated from Pressbooks Textbook, props to @bdolor and the plugin's creators).
