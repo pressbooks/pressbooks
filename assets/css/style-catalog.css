@@ -1,12 +1,12 @@
 /**
- 
+
 	Pressbooks Catalog page styles
 *
 *
 */
 
 
-/************************************************************** 
+/**************************************************************
 * Reset
 **************************************************************/
 html, body, div, span, object, iframe,
@@ -18,7 +18,7 @@ b, i,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, figcaption, figure, 
+article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
   margin:0;
@@ -28,17 +28,17 @@ time, mark, audio, video {
   font-size:100%;
   vertical-align:baseline;
   background:transparent;
-}  
-
-/* apply a natural box layout model to all elements */
-* {  
-	-webkit-box-sizing: border-box;  
-	   -moz-box-sizing: border-box; 
-	    -ms-box-sizing: border-box; 
-	        box-sizing: border-box; 
 }
 
-/************************************************************** 
+/* apply a natural box layout model to all elements */
+* {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	    -ms-box-sizing: border-box;
+	        box-sizing: border-box;
+}
+
+/**************************************************************
 * Main tags
 **************************************************************/
 html { overflow-y: scroll; }
@@ -55,11 +55,11 @@ body, html {
 }
 
 /* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
-a, a:active, a:visited { 
+a, a:active, a:visited {
 	color: #0094cc;
 	text-decoration: none;
 }
-a:hover { 
+a:hover {
 	color: #65cef5;
 	-webkit-transition: color 0.3s linear;
 	   -moz-transition: color 0.3s linear;
@@ -77,10 +77,10 @@ h2 {
 h3	{
 	font-size: 1.08em;
 	line-height: 1.4em;   /* 14/13 */
-	text-transform: uppercase;		
+	text-transform: uppercase;
 }
 h4 {
-	font-size:1.4em;	
+	font-size:1.4em;
 }
 
 ul {
@@ -106,15 +106,16 @@ img {
 * html .clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
-/************************************************************** 
+/**************************************************************
 * Structure
 **************************************************************/
 .catalog-wrap {
 	height:100%;
 }
 .catalog-sidebar {
-	background-color: #3a3a3a;		
-    height: 100%;
+	background-color: #3a3a3a;
+    min-height: 100%;
+    height: auto;
 	max-width: 290px;
 	text-align: right;
 	width: 20%;
@@ -125,11 +126,11 @@ img {
 }
 .catalog-content-wrap {
 	float: left;
-    min-height: 100%;	
+    min-height: 100%;
     margin-left: 20%;
-	padding: 3em 8%;	
+	padding: 3em 8%;
 	position: relative;
-	width: 80%;		
+	width: 80%;
 }
 .catalog-content {
 	float: left;
@@ -151,7 +152,7 @@ img {
 .fail .fail-message {
 	display: block;
 }
-/************************************************************** 
+/**************************************************************
 * Sidebar Syling
 **************************************************************/
 .pressbooks-logo {
@@ -192,7 +193,7 @@ img {
 }
 /*
 
-/************************************************************** 
+/**************************************************************
 * Login/Logout
 **************************************************************/
 .log-wrap {
@@ -215,7 +216,7 @@ img {
 	background-color: #8d8d8d;
 	color: #fff;
 }
-/************************************************************** 
+/**************************************************************
 * Book Data Styling
 **************************************************************/
 .book-data {
@@ -235,8 +236,8 @@ img {
 }
 .book-description {
   	background-color: #e9e7e4;
-  	background-color: rgba(255, 255, 255, 0.8);  
-    opacity: 0;	    	
+  	background-color: rgba(255, 255, 255, 0.8);
+    opacity: 0;
     height: 100%;
     overflow: hidden;
     padding: 18px;
@@ -248,7 +249,7 @@ img {
 	   -moz-transition: opacity 0.3s linear;
          -o-transition: opacity 0.3s linear;
 	        transition: opacity 0.3s linear;
-    width: 100%;              	
+    width: 100%;
 }
 .book-description a {
 	display: block;
@@ -257,16 +258,16 @@ img {
 .book:hover .book-description,
 .book:active .book-description  {
 	display: block;
-	opacity: 1;	
+	opacity: 1;
 	-webkit-transition: opacity 0.3s linear;
 	   -moz-transition: opacity 0.3s linear;
          -o-transition: opacity 0.3s linear;
 	        transition: opacity 0.3s linear;
-         	
+
 }
 .book:hover .book-description a,
 .book:active .book-description a {
-	color: #0094cc;	
+	color: #0094cc;
 }
 .book-link {
 	display: block;
@@ -274,7 +275,7 @@ img {
 	position: absolute;
 	right: 10px;
 }
-/************************************************************** 
+/**************************************************************
 * Footer
 **************************************************************/
 .footer {
@@ -293,17 +294,17 @@ img {
 
 /*
  * Media queries for responsive design
- * These follow after primary styles so they will successfully override. 
+ * These follow after primary styles so they will successfully override.
  */
 
-@media screen and (max-width: 1020px) { 
+@media screen and (max-width: 1020px) {
 	body {
  		background: url(images/sidebar-bg-2.png) 30% 0 repeat-y;
- 	}	
+ 	}
   .catalog-content-wrap  {
   	  height: 100%;
   	  margin-left: 30%;
-	  width: 70%; 
+	  width: 70%;
   }
   .book-data {
       max-width: 280px;
@@ -317,7 +318,7 @@ img {
   }
 }
 
-@media screen and (max-width: 600px) { 
+@media screen and (max-width: 600px) {
 	body {
 		background: none;
 	}
@@ -333,7 +334,7 @@ img {
   .catalog-content {
   	  height: auto;
   	  padding: 0;
-  	  width: 100%;  
+  	  width: 100%;
   }
   .book-data {
   	float: none;
@@ -364,7 +365,7 @@ img {
      margin: auto;
      text-align: center;
      width: auto;
-  } 
+  }
   .main-small-navigation {
 	  display: none;
   }
@@ -394,18 +395,18 @@ img {
 }
 
 
-/* 
+/*
  * print styles
- * inlined to avoid required HTTP connection www.phpied.com/delay-loading-your-print-css/ 
+ * inlined to avoid required HTTP connection www.phpied.com/delay-loading-your-print-css/
  */
 @media print {
   * { background: transparent !important; color: #444 !important; text-shadow: none !important; }
   a, a:visited { color: #444 !important; text-decoration: underline; }
-  a:after { content: " (" attr(href) ")"; } 
+  a:after { content: " (" attr(href) ")"; }
   abbr:after { content: " (" attr(title) ")"; }
   .ir a:after { content: ""; }  /* Don't show links for images */
   pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
-  thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */ 
+  thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */
   tr, img { page-break-inside: avoid; }
   @page { margin: 0.5cm; }
   p, h2, h3 { orphans: 3; widows: 3; }
