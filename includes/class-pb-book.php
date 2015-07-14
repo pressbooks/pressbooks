@@ -574,9 +574,7 @@ class Book {
 		// Get next/previous
 		$what( $pos );
 		while ( $post_id = current( $pos ) ) {
-			if ( $order[$post_id]['post_status'] == 'publish' ) {
-				break;
-			} elseif ( current_user_can_for_blog( $blog_id, 'read' ) ) {
+			if ( $order[$post_id]['post_status'] == 'publish' && current_user_can_for_blog( $blog_id, 'read' ) ) {
 				break;
 			} else {
 				$what( $pos );
