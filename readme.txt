@@ -196,6 +196,7 @@ TK.
 == Changelog ==
 
 = 2.5.2 =
+* Improved ODT export: temporary files are now deleted when export fails (props to @sswettenham for the bug report).
 * Improved user catalog: book covers are now clickable links (props to @kdv24).
 
 = 2.5.1 =
