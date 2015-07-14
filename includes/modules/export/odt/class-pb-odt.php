@@ -86,6 +86,7 @@ class Odt extends Export {
 	
 		$contentPath	= pathinfo($filename);
 		$source			= $contentPath['dirname'] . '/source.xhtml';
+		
 		file_put_contents( $source, $this->queryXhtml() );
 
 		$xslt			= PB_PLUGIN_DIR . 'includes/modules/export/odt/xhtml2odt.xsl';
@@ -96,6 +97,10 @@ class Odt extends Export {
 		$settings 		= $contentPath['dirname'] . "/settings.xml";
 		$styles 		= $contentPath['dirname'] . "/styles.xml";
 		$mediafolder	= $contentPath['dirname'] . '/media/';
+		
+		if ( is_dir( $mediafolder ) ) {
+			$this->deleteDirectory( $mediafolder );
+		}
 		
 		$urlcontent = file_get_contents( $source );
 		$urlcontent = preg_replace( "/xmlns\=\"http\:\/\/www\.w3\.org\/1999\/xhtml\"/i", '', $urlcontent );
@@ -151,11 +156,15 @@ class Odt extends Export {
 			$result = exec( PB_SAXON_COMMAND . ' -xsl:' . $xslt .' -s:' . $source .' -o:' . $content );
 		} catch ( \Exception $e ) {
 			$this->logError( $e->getMessage() );
+			unlink( $source );
+			$this->deleteDirectory( $mediafolder );
 			return false;
 		}
 		
 		if ( ( !file_exists( $content ) ) || ( !file_exists( $mimetype ) ) || ( !file_exists( $meta ) ) || ( !file_exists( $settings ) ) || ( !file_exists( $styles ) ) || ( !file_exists( $metafolder ) ) ) {
 			$this->logError( 'Transformation failed' );
+			unlink( $source );
+			$this->deleteDirectory( $mediafolder );
 			return false;
 		}
 		
@@ -169,6 +178,8 @@ class Odt extends Export {
 		
 		if ( $list == 0 ) {
 			$this->logError( $zip->errorInfo( true ) );
+			unlink( $source );
+			$this->deleteDirectory( $mediafolder );
 			return false;
 		}
 				
