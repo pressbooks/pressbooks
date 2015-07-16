@@ -228,7 +228,11 @@ class Epub201 extends Export {
 	function validate() {
 
 		// Epubcheck command, (quiet flag requires version 3.0.1+)
-		$command = PB_EPUBCHECK_COMMAND . ' -quiet ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
+		$epubCheckCommand = PB_EPUBCHECK_COMMAND;
+		if ( $this->suffix == "_3.epub" && false === strpos( $epubCheckCommand, '-v 3' ) ) {
+			$epubCheckCommand = $epubCheckCommand . " -v 3.0";
+		}
+		$command = $epubCheckCommand . ' -quiet ' . escapeshellcmd( $this->outputPath ) . ' 2>&1';
 
 		// Execute command
 		$output = array();
