@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.5.1
+Version: 2.5.2
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.2.2
 Tested up to: 4.2.2
@@ -194,6 +194,13 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.5.2 =
+* Added MCE Superscript & Subscript Buttons (migrated from Pressbooks Textbook, props to @bdolor and the plugin's creators).
+* Improved ODT export: temporary files are now deleted when export fails (props to @sswettenham for the bug report).
+* Improved user catalog: book covers are now clickable links (props to @kdv24).
+* Improved user catalog: sidebars are sized to fit content instead of being restricted to window height (props to @changemachine).
+* Fixed an issue where private chapters would appear in webbook TOC for logged-in users without the permissions to actually view them (props to @marcusschiesser for the bug report).
 
 = 2.5.1 =
 * Added MCE Table Editor (migrated from Pressbooks Textbook, props to @bdolor and the plugin's creators).
