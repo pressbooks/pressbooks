@@ -351,6 +351,7 @@ function include_plugins() {
 	    'custom-metadata/custom_metadata.php' => 1,
 	    'search-regex/search-regex.php' => 1,
 	    'mce-table-buttons/mce_table_buttons.php' => 1,
+	    'mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php' => 1,
 	);
 
 	$symbionts = filter_plugins( $symbionts );
