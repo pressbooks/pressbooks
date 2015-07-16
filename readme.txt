@@ -196,6 +196,7 @@ TK.
 == Changelog ==
 
 = 2.5.2 =
+* Added MCE Superscript & Subscript Buttons (migrated from Pressbooks Textbook, props to @bdolor and the plugin's creators).
 * Improved ODT export: temporary files are now deleted when export fails (props to @sswettenham for the bug report).
 * Improved user catalog: book covers are now clickable links (props to @kdv24).
 * Improved user catalog: sidebars are sized to fit content instead of being restricted to window height (props to @changemachine).
