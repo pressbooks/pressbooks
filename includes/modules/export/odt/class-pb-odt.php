@@ -192,9 +192,7 @@ class Odt extends Export {
 		unlink( $metafolder . '/manifest.xml' );
 		rmdir( $metafolder);
 		
-		if ( $images->length > 0 ) {
-			$this->deleteDirectory( $mediafolder );
-		}
+		$this->deleteDirectory( $mediafolder );
 		
 		return true;
 	}
