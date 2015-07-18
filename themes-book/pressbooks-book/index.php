@@ -16,7 +16,15 @@ $book = pb_get_book_structure();
 		<li>
 			<ul>
 			<?php foreach ($book['front-matter'] as $fm) : ?>
-				<?php if ($fm['post_status'] != 'publish') continue; // Skip ?>
+				<?php if ( $fm['post_status'] !== 'publish' ) {
+					if ( current_user_can_for_blog( $blog_id, 'read' ) ) {
+						if ( absint( get_option( 'permissive_private_content' ) ) !== 1 ) continue; // Skip
+					} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
+						 continue; // Skip
+					}
+				} else {
+					if ( !current_user_can_for_blog( $blog_id, 'read' ) ) continue; // Skip
+				} ?>
 				<li class="front-matter <?php echo pb_get_section_type( get_post($fm['ID']) ) ?>"><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo $fm['post_title']; ?></a></li>
 			<?php endforeach; ?>
 			</ul>
@@ -25,7 +33,15 @@ $book = pb_get_book_structure();
 		<?php foreach ($book['part'] as $part) : ?>
 			<li><h4><?php if ( count( $book['part'] ) > 1 ) echo $part['post_title']; ?></h4><ul>
 			<?php foreach ($part['chapters'] as $chapter) : ?>
-				<?php if ($chapter['post_status'] != 'publish') continue; // Skip ?>
+				<?php if ( $chapter['post_status'] !== 'publish' ) {
+					if ( current_user_can_for_blog( $blog_id, 'read' ) ) {
+						if ( absint( get_option( 'permissive_private_content' ) ) !== 1 ) continue; // Skip
+					} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
+						 continue; // Skip
+					}
+				} else {
+					if ( !current_user_can_for_blog( $blog_id, 'read' ) ) continue; // Skip
+				} ?>
 				<li class="chapter <?php echo pb_get_section_type( get_post($chapter['ID']) ) ?>"><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo $chapter['post_title']; ?></a></li>
 			<?php endforeach; ?>
 			</ul></li>
@@ -34,7 +50,15 @@ $book = pb_get_book_structure();
 		<li>
 			<ul>
 				<?php foreach ($book['back-matter'] as $bm) : ?>
-				<?php if ($bm['post_status'] != 'publish') continue; // Skip ?>
+				<?php if ( $bm['post_status'] !== 'publish' ) {
+					if ( current_user_can_for_blog( $blog_id, 'read' ) ) {
+						if ( absint( get_option( 'permissive_private_content' ) ) !== 1 ) continue; // Skip
+					} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
+						 continue; // Skip
+					}
+				} else {
+					if ( !current_user_can_for_blog( $blog_id, 'read' ) ) continue; // Skip
+				} ?>
 				<li class="back-matter <?php echo pb_get_section_type( get_post($bm['ID']) ) ?>"><a href="<?php echo get_permalink($bm['ID']); ?>"><?php echo $bm['post_title']; ?></a></li>
 				<?php endforeach; ?>
 			</ul>
