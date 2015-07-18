@@ -576,6 +576,8 @@ class Book {
 		while ( $post_id = current( $pos ) ) {
 			if ( $order[$post_id]['post_status'] == 'publish' && current_user_can_for_blog( $blog_id, 'read' ) ) {
 				break;
+			} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_blog( $blog_id, 'read' ) ) {
+				break;
 			} else {
 				$what( $pos );
 			}
