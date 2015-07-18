@@ -212,7 +212,7 @@ function pressbooks_copyright_license() {
 
 	// if they don't want to see it, return
 	// at minimum we need book copyright information set
-	if ( false == $option['copyright_license'] || ! isset( $book_meta['pb_book_license'] ) ) {
+	if ( isset ( $option['copyright_license'] ) && false == $option['copyright_license'] || !isset ( $option['copyright_license'] ) || !isset( $book_meta['pb_book_license'] ) ) {
 		return '';
 	}
 

@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.5.2
+Version: 2.5.3
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.2.2
 Tested up to: 4.2.2
@@ -194,6 +194,9 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.5.3 =
+* Added option to allow logged-in subscribers, contributors and authors to view a book's private content (props to @marcusschiesser for the feature request).
 
 = 2.5.2 =
 * Added MCE Superscript & Subscript Buttons (migrated from Pressbooks Textbook, props to @bdolor and the plugin's creators).

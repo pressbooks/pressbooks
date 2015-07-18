@@ -48,8 +48,7 @@ if ( is_front_page() ) {
 <div id="fb-root"></div>
 <?php
 $fb_script = get_option( 'pressbooks_theme_options_web' );
-
-if ( 1 === $fb_script['social_media'] || ! isset( $fb_script['social_media'] ) ) {
+if ( isset ( $fb_script['social_media'] ) && 1 === $fb_script['social_media'] || !isset( $fb_script['social_media'] ) ) {
 	echo '<script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
@@ -57,8 +56,7 @@ if ( 1 === $fb_script['social_media'] || ! isset( $fb_script['social_media'] ) )
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, "script", "facebook-jssdk"));</script>';
-}
-?>
+}?>
 
 <?php get_template_part( 'content', 'accessibility-toolbar' ); ?>
 

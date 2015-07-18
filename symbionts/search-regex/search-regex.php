@@ -85,11 +85,10 @@ class SearchRegex extends SearchRegex_Plugin {
 	}
 
 	function admin_menu()	{
-		if ( current_user_can( 'administrator' ) )
-    	$menu = add_options_page( __( 'Search and Replace', 'pressbooks' ), __( 'Search and Replace', 'pressbooks' ), 'administrator', 'search-and-replace', array( &$this, 'admin_screen' ) );
-		elseif ( current_user_can('search_regex_read'))
-    	$menu = add_options_page( __( 'Search and Replace', 'pressbooks' ), __( 'Search and Replace', 'pressbooks' ), 'search_regex_read', 'search-and-replace', array( &$this, 'admin_screen' ) );
-    	add_action( 'admin_print_scripts-' . $menu, array( &$this, 'js' ) );
+		if ( current_user_can( 'administrator' ) ) {
+    		$menu = add_options_page( __( 'Search and Replace', 'pressbooks' ), __( 'Search and Replace', 'pressbooks' ), 'administrator', 'search-and-replace', array( &$this, 'admin_screen' ) );
+    		add_action( 'admin_print_scripts-' . $menu, array( &$this, 'js' ) );
+    	}
 	}
 	
 	function js() {
