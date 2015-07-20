@@ -440,7 +440,7 @@ class Pdf extends Export {
 
 		$options = \wp_parse_args( $page_options, $defaults );
 		$class = ( $this->numbered ) ? '<div class="' . $page['post_type'] . '">' : '<div class="' . $page['post_type'] . ' numberless">';
-		$toc_entry = ( 'chapter' == $page['post_type'] ) ? $page['chapter_num'] . ' ' . $page['post_title'] : $page['post_title'];
+		$toc_entry = ( 'chapter' == $page['post_type']  && true === $this->numbered ) ? $page['chapter_num'] . ' ' . $page['post_title'] : $page['post_title'];
 
 		if ( ! empty( $page['post_content'] ) || 'part' == $page['post_type'] ) {
 
