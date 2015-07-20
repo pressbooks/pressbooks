@@ -197,6 +197,7 @@ TK.
 
 = 2.5.3 =
 * Added option to allow logged-in subscribers, contributors and authors to view a book's private content (props to @marcusschiesser for the feature request).
+* Fixed an issue where the webbook TOC would not be displayed for any user who was not logged in (props to @sswettenham for the bug report).
 * Fixed an issue where the media folder was not being deleted after ODT exports without a cover image.
 
 = 2.5.2 =
