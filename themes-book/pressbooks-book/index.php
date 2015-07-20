@@ -22,8 +22,6 @@ $book = pb_get_book_structure();
 					} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
 						 continue; // Skip
 					}
-				} else {
-					if ( !current_user_can_for_blog( $blog_id, 'read' ) ) continue; // Skip
 				} ?>
 				<li class="front-matter <?php echo pb_get_section_type( get_post($fm['ID']) ) ?>"><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo $fm['post_title']; ?></a></li>
 			<?php endforeach; ?>
@@ -39,8 +37,6 @@ $book = pb_get_book_structure();
 					} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
 						 continue; // Skip
 					}
-				} else {
-					if ( !current_user_can_for_blog( $blog_id, 'read' ) ) continue; // Skip
 				} ?>
 				<li class="chapter <?php echo pb_get_section_type( get_post($chapter['ID']) ) ?>"><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo $chapter['post_title']; ?></a></li>
 			<?php endforeach; ?>
@@ -56,8 +52,6 @@ $book = pb_get_book_structure();
 					} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
 						 continue; // Skip
 					}
-				} else {
-					if ( !current_user_can_for_blog( $blog_id, 'read' ) ) continue; // Skip
 				} ?>
 				<li class="back-matter <?php echo pb_get_section_type( get_post($bm['ID']) ) ?>"><a href="<?php echo get_permalink($bm['ID']); ?>"><?php echo $bm['post_title']; ?></a></li>
 				<?php endforeach; ?>
