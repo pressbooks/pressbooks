@@ -25,7 +25,7 @@ function pressbooks_publisher_customize_register( $wp_customize ) {
 	$wp_customize->add_setting(
 	    'pressbooks_publisher_intro_textbox',
 	    array(
-	        'default'           => __('', 'pressbooks'),
+	        'default'           => '',
 			'sanitize_callback' => 'pressbooks_publisher_sanitize_text',	        
 	    )
 	);
