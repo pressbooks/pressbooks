@@ -101,7 +101,8 @@ class Book {
 				continue;
 
 			if ( false !== in_array( $key, $expected_the_content ) ) {
-				$val = apply_filters( 'the_content', $val );
+				$val = wptexturize( $val );
+				$val = wpautop( $val );
 			} else {
 				$val = htmlspecialchars( $val, ENT_NOQUOTES | ENT_XHTML, 'UTF-8', false );
 			}
