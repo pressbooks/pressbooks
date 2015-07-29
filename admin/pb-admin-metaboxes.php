@@ -98,6 +98,12 @@ function upload_cover_image( $pid, $post ) {
 	if ( $width < 625 || $height < 625 ) {
 		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s x %s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
 	}
+	
+	$filesize = filesize( $image['file'] );
+	if ( $filesize > 2000000 ) {
+		$filesize_in_mb = \PressBooks\Utility\format_bytes( $filesize );
+		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s) is too big. It should be no more than 2MB.', 'pressbooks' ), $filesize_in_mb );
+	}
 
 	$old = get_post_meta( $pid, 'pb_cover_image', false );
 	update_post_meta( $pid, 'pb_cover_image', $image['url'] );

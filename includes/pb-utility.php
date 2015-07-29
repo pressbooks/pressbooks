@@ -428,3 +428,17 @@ function parse_size( $size ) {
 		return round( $size );
 	}
 }
+
+/**
+ * format_bytes converts an byte value supplied as an integer into a string suffixed with the appropriate unit of measurement.
+ * @return string
+ */
+function format_bytes( $bytes, $precision = 2 ) { 
+    $units = array('B', 'KB', 'MB', 'GB', 'TB'); 
+    $bytes = max( $bytes, 0 ); 
+    $pow = floor( ( $bytes ? log( $bytes ) : 0 ) / log( 1024 ) ); 
+    $pow = min( $pow, count( $units ) - 1 ); 
+    $bytes /= (1 << (10 * $pow)); 
+
+    return round( $bytes, $precision ) . ' ' . $units[$pow]; 
+}
