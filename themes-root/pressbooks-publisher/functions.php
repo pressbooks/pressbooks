@@ -200,7 +200,7 @@ require get_template_directory() . '/inc/customizer.php';
  * Load site-logo file
  */
 
-if ( !function_exists( 'jetpack_the_site_logo' ) )
+if ( !function_exists( 'site_logo_init' ) )
 	require PB_PLUGIN_DIR . 'symbionts/site-logo/site-logo.php';
 
 /**
