@@ -145,7 +145,7 @@ class Book {
 	 * @see bottom of this file for more info
 	 * @return array
 	 */
-	static function getBookStructure( $id = '' ) {
+	static function getBookStructure( $id = '', $get_pb_export_meta=false  ) {
 
 		// -----------------------------------------------------------------------------
 		// Is cached?
@@ -197,6 +197,12 @@ class Book {
 
 				$post_name = static::fixSlug( $post->post_name );
 
+        if($get_pb_export_meta) {
+          $export = ( get_post_meta( $post->ID, 'pb_export', true ) ? true : false );
+        } else {
+          $export = false;
+        }
+
 				$book_structure[$type][] = array(
 					'ID' => $post->ID,
 					'post_title' => $post->post_title,
@@ -205,7 +211,7 @@ class Book {
 					'comment_count' => $post->comment_count,
 					'menu_order' => $post->menu_order,
 					'post_status' => $post->post_status,
-					'export' => ( get_post_meta( $post->ID, 'pb_export', true ) ? true : false ),
+					'export' => $export,
 					'post_parent' => $post->post_parent,
 				);
 			}
@@ -307,7 +313,7 @@ class Book {
 		// Precedence when using the + operator to merge arrays is from left to right
 		// -----------------------------------------------------------------------------
 
-		$book_contents = static::getBookStructure();
+    $book_contents = static::getBookStructure('', true);
 
 		foreach ( $book_contents as $type => $struct ) {
 
