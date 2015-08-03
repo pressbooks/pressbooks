@@ -199,6 +199,7 @@ TK.
 * Added a warning message when users upload a cover image above the recommended size.
 * Fixed a conflict with Jetpack (props to @programmieraffe for the bug report).
 * Fixed an issue where chapters were being number in mPDF TOCs regardless of user preference (props to @bdolor for the fix and to @sswettenham for the bug report).
+* Fixed an issue where sections would be parsed unnecessarily in webbooks (props to @bracken).
 * Fixed an issue that caused a recursion during PDF export (props to @bseeger for the bug report).
 
 = 2.5.3 =
