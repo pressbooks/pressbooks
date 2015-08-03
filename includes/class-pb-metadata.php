@@ -406,7 +406,7 @@ class Metadata {
 	 */
 	function upgradeBook() {
 
-		$book_structure = Book::getBookStructure();
+    $book_structure = Book::getBookStructure('', true);
 		foreach ( $book_structure['__order'] as $post_id => $_ ) {
 
 			$meta = get_post_meta( $post_id );
