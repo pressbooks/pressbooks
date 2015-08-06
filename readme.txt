@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.5.3
+Version: 2.5.4
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.2.2
 Tested up to: 4.2.2
-Stable tag: 2.5.3
+Stable tag: 2.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,14 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.5.4 =
+* Added a warning message when users upload a cover image above the recommended size.
+* Optimized \PressBooks\Book::getBookStructure() so as to only fetch export status during export routines (props to @bracken).
+* Fixed a conflict with Jetpack (props to @programmieraffe for the bug report).
+* Fixed an issue where chapters were being number in mPDF TOCs regardless of user preference (props to @bdolor for the fix and to @sswettenham for the bug report).
+* Fixed an issue where sections would be parsed unnecessarily in webbooks (props to @bracken).
+* Fixed an issue that caused a recursion during PDF export (props to @bseeger for the bug report).
 
 = 2.5.3 =
 * Added option to allow logged-in subscribers, contributors and authors to view a book's private content (props to @marcusschiesser for the feature request).

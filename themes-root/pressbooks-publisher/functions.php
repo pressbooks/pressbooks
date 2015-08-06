@@ -199,7 +199,9 @@ require get_template_directory() . '/inc/customizer.php';
 /**
  * Load site-logo file
  */
-require get_template_directory() . '/inc/site-logo.php';
+
+if ( !function_exists( 'site_logo_init' ) ) // Jetpack is not installed and activated.
+	require PB_PLUGIN_DIR . 'symbionts/site-logo/site-logo.php';
 
 /**
  * Hide the admin bar.

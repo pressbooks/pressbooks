@@ -3,7 +3,7 @@
 Plugin Name: PressBooks
 Plugin URI: http://www.pressbooks.com
 Description: Simple Book Production
-Version: 2.5.3
+Version: 2.5.4
 Author: BookOven Inc.
 Author URI: http://www.pressbooks.com
 Text Domain: pressbooks
@@ -66,7 +66,7 @@ if ( ! is_multisite() || ! version_compare( get_bloginfo( 'version' ), $pb_minim
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! defined( 'PB_PLUGIN_VERSION' ) )
-	define ( 'PB_PLUGIN_VERSION', '2.5.3' ); // Must have trailing slash!
+	define ( 'PB_PLUGIN_VERSION', '2.5.4' ); // Must have trailing slash!
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) )
 	define ( 'PB_PLUGIN_DIR', __DIR__ . '/' ); // Must have trailing slash!
