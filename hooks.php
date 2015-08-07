@@ -21,6 +21,8 @@ require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
 require( PB_PLUGIN_DIR . 'symbionts/pb-latex/pb-latex.php' );
 
+PressBooks\Utility\include_plugins();
+
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin
 // -------------------------------------------------------------------------------------------------------------------
@@ -40,6 +42,7 @@ if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
 } else {
 	add_filter( 'locale', '\PressBooks\L10n\set_locale' );
 }
+add_action( 'user_register', '\PressBooks\L10n\set_user_interface_lang', 10, 1 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Images

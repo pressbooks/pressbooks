@@ -17,8 +17,6 @@ require( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
 require( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-network-managers.php' );
 
-PressBooks\Utility\include_plugins();
-
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
 // -------------------------------------------------------------------------------------------------------------------

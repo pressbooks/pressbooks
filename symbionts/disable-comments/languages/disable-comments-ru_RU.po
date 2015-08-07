@@ -1,0 +1,178 @@
+# Translation of Disable Comments in Russian
+# This file is distributed under the same license as the Disable Comments package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Disable Comments\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/disable-comments\n"
+"POT-Creation-Date: 2013-06-19 05:01:50+00:00\n"
+"PO-Revision-Date: 2014-01-08 01:28+0400\n"
+"Last-Translator: Elvis TEAM <elviswebteam@gmail.com>\n"
+"Language-Team: Elvis WT <elviswebteam@gmail.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 1.6.3\n"
+
+#: disable-comments.php:38
+msgid "Disable Comments requires WordPress version %s or greater."
+msgstr "Для работы плагина требуется WordPress версии %s или выше."
+
+#: disable-comments.php:169
+msgid ""
+"Note: The <em>Disable Comments</em> plugin is currently active, and comments "
+"are completely disabled on: %s. Many of the settings below will not be "
+"applicable for those post types."
+msgstr ""
+"Заметка: Плагин успешно активирован и комментарии на блоге полностью "
+"отключены: %s. Настройки ниже неприменимы к указанным ранее типам записей."
+
+#: disable-comments.php:169
+msgid ", "
+msgstr ","
+
+#: disable-comments.php:183
+msgid ""
+"The <em>Disable Comments</em> plugin is active, but isn't configured to do "
+"anything yet. Visit the <a href=\"%s\">configuration page</a> to choose "
+"which post types to disable comments on."
+msgstr ""
+"Плагин активирован, но еще не настроен. Чтобы сделать это, перейдите на <a "
+"href=\"%s\">страницу настроек</a>. Там можно задать типы записей, для "
+"которых будут отключены комментарии."
+
+#: disable-comments.php:225 disable-comments.php:269
+msgid "Disable Comments"
+msgstr "Откл. комментарии"
+
+#: disable-comments.php:262
+msgid ""
+"If a caching/performance plugin is active, please invalidate its cache to "
+"ensure that changes are reflected immediately."
+msgstr ""
+"Если плагин для кэширования или ускорения блога включен, не забудьте "
+"очистить кэш сразу после изменения настроек, чтобы они вступили в силу."
+
+#: disable-comments.php:263
+msgid ""
+"Options updated. Changes to the Admin Menu and Admin Bar will not appear "
+"until you leave or reload this page."
+msgstr ""
+"Настройки обновлены. Изменения панели и меню администратора вступят в силу "
+"только после обновления страницы."
+
+#: disable-comments.php:272
+msgid ""
+"<em>Disable Comments</em> is Network Activated. The settings below will "
+"affect <strong>all sites</strong> in this network."
+msgstr ""
+"Плагин работает в режиме сети. Измененные ниже настройки повлияют на "
+"<strong>все блоги</strong> данной сети."
+
+#: disable-comments.php:274
+msgid ""
+"It seems that a caching/performance plugin is active on this site. Please "
+"manually invalidate that plugin's cache after making any changes to the "
+"settings below."
+msgstr ""
+"Похоже, Вы используете плагин для кэширования или ускорения блога. Не "
+"забудьте после изменения любых настроек очистить кэш вручную!"
+
+#: disable-comments.php:278
+msgid "Everywhere"
+msgstr "Везде"
+
+#: disable-comments.php:278
+msgid "Disable all comment-related controls and settings in WordPress."
+msgstr ""
+"Отключить все параметры и настройки WordPress, связанные с управлением "
+"комментариями."
+
+#: disable-comments.php:279
+msgid ""
+"%s: This option is global and will affect your entire site. Use it only if "
+"you want to disable comments <em>everywhere</em>. A complete description of "
+"what this option does is <a href=\"%s\" target=\"_blank\">available here</a>."
+msgstr ""
+"%s: Эта опция имеет глобальное значение и будет применена даже к Вашему "
+"сайту. Используйте только если хотите отключить комментарии <em>везде</em>. "
+"Полное описание опции можно найти <a href=\"%s\" target=\"_blank\">здесь</a>."
+
+#: disable-comments.php:279 disable-comments.php:295 disable-comments.php:297
+#: disable-comments.php:325
+msgid "Warning"
+msgstr "Внимание"
+
+#: disable-comments.php:281
+msgid "On certain post types"
+msgstr "Для типов записей"
+
+#: disable-comments.php:286
+msgid ""
+"Disabling comments will also disable trackbacks and pingbacks. All comment-"
+"related fields will also be hidden from the edit/quick-edit screens of the "
+"affected posts. These settings cannot be overridden for individual posts."
+msgstr ""
+"При использовании плагина будут также отключены трекбэки и пингбэки. Все "
+"относящиеся к комментированию поля будут скрыты (для выбранных типов "
+"записей). Эти настройки вступают в силу для ВСЕХ записей указанного типа, "
+"без исключений."
+
+#: disable-comments.php:289
+msgid "Other options"
+msgstr "Другие настройки"
+
+#: disable-comments.php:294
+msgid "Use persistent mode"
+msgstr "Использовать \"живое\" сохранение"
+
+#: disable-comments.php:295
+msgid ""
+"%s: <strong>This will make persistent changes to your database &mdash; "
+"comments will remain closed even if you later disable the plugin!</strong> "
+"You should not use it if you only want to disable comments temporarily. "
+"Please <a href=\"%s\" target=\"_blank\">read the FAQ</a> before selecting "
+"this option."
+msgstr ""
+"%s: <strong>Включение опции позволит записывать изменения в \"живом\" режиме "
+"в базу данных &mdash; а комментарии будут отключены даже после деактивации "
+"плагина!</strong> Не стоит использовать опцию, если не хотите надолго "
+"отключить все комментарии. Прежде всего, <a href=\"%s\" target=\"_blank"
+"\">прочитайте внимательно FAQ</a>."
+
+#: disable-comments.php:297
+msgid ""
+"%s: Entering persistent mode on large multi-site networks requires a large "
+"number of database queries and can take a while. Use with caution!"
+msgstr ""
+"%s: Включение \"живого\" режима на больших мультиблоговых сайтах сильно "
+"нагружает базу данных запросами. Использовать осторожно!"
+
+#: disable-comments.php:300
+msgid ""
+"Persistent mode has been manually disabled. See the <a href=\"%s\" target="
+"\"_blank\">FAQ</a> for more information."
+msgstr ""
+"Режим \"живого\" сохранения был отключен вручную. Подробнее читайте <a href="
+"\"%s\" target=\"_blank\">FAQ</a>."
+
+#: disable-comments.php:305
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: disable-comments.php:325
+msgid ""
+"%s: Selecting this option will make persistent changes to your database. Are "
+"you sure you want to enable it?"
+msgstr ""
+"%s: При включении этой опции все изменения будут заноситься в базу данных. "
+"Вы уверены, что хотите включить опцию?"
+
+#~ msgid ""
+#~ "Allows administrators to globally disable comments on their site. "
+#~ "Comments can be disabled according to post type."
+#~ msgstr ""
+#~ "Позволяет администраторам сайтов вручную отключать комментарии на своих "
+#~ "блогах. Комментарии отключаются для указанных типов записей."

@@ -1,0 +1,171 @@
+# This file is distributed under the same license as the Disable Comments package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Disable Comments 0.9.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/disable-comments\n"
+"POT-Creation-Date: 2013-06-19 05:01:50+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-12-08 22:10+0800\n"
+"Last-Translator: Nasrulhaq Muiz <nasrulhaq81@gmail.com>\n"
+"Language-Team: Nasrulhaq Muiz <nasroel@al-badar.net>\n"
+"Language: id_ID\n"
+"X-Generator: Poedit 1.5.7\n"
+
+#: disable-comments.php:38
+msgid "Disable Comments requires WordPress version %s or greater."
+msgstr "Matikan Komentar membutuhkan versi WordPress %s atau lebih."
+
+#: disable-comments.php:169
+msgid ""
+"Note: The <em>Disable Comments</em> plugin is currently active, and comments "
+"are completely disabled on: %s. Many of the settings below will not be "
+"applicable for those post types."
+msgstr ""
+"Catatan: Plugin <em>Matikan Komentar</> saat ini aktif, dan semua komentar "
+"dimatikan pada: %s. Ragam pengaturan dibawah tidak dapat diterapkan tipe "
+"posting tersebut.  "
+
+#: disable-comments.php:169
+msgid ", "
+msgstr ","
+
+#: disable-comments.php:183
+msgid ""
+"The <em>Disable Comments</em> plugin is active, but isn't configured to do "
+"anything yet. Visit the <a href=\"%s\">configuration page</a> to choose "
+"which post types to disable comments on."
+msgstr ""
+"Plugin <em>Matikan Komentar</em> aktif, tapi belum diatur untuk melakukan "
+"apapun. Kunjungi <a href=\"%s\">halaman konfigurasi</a> untuk memilih tipe "
+"posting yang mana agar komentar yang dimatikan menyala."
+
+#: disable-comments.php:225 disable-comments.php:269
+msgid "Disable Comments"
+msgstr "Matikan Komentar"
+
+#: disable-comments.php:262
+msgid ""
+"If a caching/performance plugin is active, please invalidate its cache to "
+"ensure that changes are reflected immediately."
+msgstr ""
+"Jika sebuah plugin caching / kinerja dalam keadaan aktif, silakan "
+"membatalkan cache untuk memastikan bahwa perubahan tercermin segera."
+
+#: disable-comments.php:263
+msgid ""
+"Options updated. Changes to the Admin Menu and Admin Bar will not appear "
+"until you leave or reload this page."
+msgstr ""
+"Pilihan diperbarui. Perubahan pada Menu Admin dan Bilah Admin tidak akan "
+"nampak hingga anda meninggalkan atau memuat ulang halaman ini"
+
+#: disable-comments.php:272
+msgid ""
+"<em>Disable Comments</em> is Network Activated. The settings below will "
+"affect <strong>all sites</strong> in this network."
+msgstr ""
+"<em>Disable Comments</em> adalah Jaringan Diaktifkan. Pengaturan di bawah "
+"ini akan mempengaruhi<strong>semua situs</strong> dalam jaringan ini."
+
+#: disable-comments.php:274
+msgid ""
+"It seems that a caching/performance plugin is active on this site. Please "
+"manually invalidate that plugin's cache after making any changes to the "
+"settings below."
+msgstr ""
+"Tampaknya plugin caching / kinerja aktif di situs ini. Harap membatalkan "
+"cache plugin secara manual setelah membuat perubahan apapun untuk pengaturan "
+"di bawah ini."
+
+#: disable-comments.php:278
+msgid "Everywhere"
+msgstr "Di mana-mana"
+
+#: disable-comments.php:278
+msgid "Disable all comment-related controls and settings in WordPress."
+msgstr ""
+"Menonaktifkan semua kontrol-komentar terkait dan pengaturan dalam WordPress."
+
+#: disable-comments.php:279
+msgid ""
+"%s: This option is global and will affect your entire site. Use it only if "
+"you want to disable comments <em>everywhere</em>. A complete description of "
+"what this option does is <a href=\"%s\" target=\"_blank\">available here</a>."
+msgstr ""
+"Pilihan ini global dan akan mempengaruhi seluruh situs Anda. Gunakan hanya "
+"jika Anda ingin menonaktifkan komentar <em>mana-mana</em>. Penjelasan "
+"lengkap tentang apa pilihan yang dilakukan adalah <a href=\"%s\" target="
+"\"_blank\">tersedia disini</a>"
+
+#: disable-comments.php:279 disable-comments.php:295 disable-comments.php:297
+#: disable-comments.php:325
+msgid "Warning"
+msgstr "Peringatan"
+
+#: disable-comments.php:281
+msgid "On certain post types"
+msgstr "Pada jenis pos tertentu"
+
+#: disable-comments.php:286
+msgid ""
+"Disabling comments will also disable trackbacks and pingbacks. All comment-"
+"related fields will also be hidden from the edit/quick-edit screens of the "
+"affected posts. These settings cannot be overridden for individual posts."
+msgstr ""
+"Menonaktifkan komentar juga akan menonaktifkan trackbacks dan pingbacks. "
+"Semua bidang-komentar terkait juga akan disembunyikan dari edit / cepat-"
+"mengedit layar dari tulisan terpengaruh. Pengaturan ini tidak dapat diganti "
+"untuk setiap posting."
+
+#: disable-comments.php:289
+msgid "Other options"
+msgstr "Pilihan lainnya"
+
+#: disable-comments.php:294
+msgid "Use persistent mode"
+msgstr "Gunakan mode Tetap"
+
+#: disable-comments.php:295
+msgid ""
+"%s: <strong>This will make persistent changes to your database &mdash; "
+"comments will remain closed even if you later disable the plugin!</strong> "
+"You should not use it if you only want to disable comments temporarily. "
+"Please <a href=\"%s\" target=\"_blank\">read the FAQ</a> before selecting "
+"this option."
+msgstr ""
+"%s: <strong> Ini akan membuat perubahan tetap pada basis data &mdash; anda, "
+"komentar akan dikeluarkan walaupun kemudian akan menonaktifkan plugin!</"
+"strong> Anda seharusnya tidak menggunakan jika hanya menonaktifkan komentar "
+"sementara waktu. Harap <a href=\"%s\" target=\"_blank\">baca FAQ</a> sebelum "
+"menentukan pilihan."
+
+#: disable-comments.php:297
+msgid ""
+"%s: Entering persistent mode on large multi-site networks requires a large "
+"number of database queries and can take a while. Use with caution!"
+msgstr ""
+"%s: Memasukkan mode tetap pada jaringan multi situs yang lebih besar "
+"membutuhkan sejumlah besar kueri basis data dan membutuhkan beberapa waktu. "
+"Gunakan dengan seksama! "
+
+#: disable-comments.php:300
+msgid ""
+"Persistent mode has been manually disabled. See the <a href=\"%s\" target="
+"\"_blank\">FAQ</a> for more information."
+msgstr ""
+"Mode Tetap telah diaktifkan secara manual, Lihat <a href=\"%s\" target="
+"\"_blank\">FAQ</a> untuk informasi lebih lanjut."
+
+#: disable-comments.php:305
+msgid "Save Changes"
+msgstr "Simpan Perubahan"
+
+#: disable-comments.php:325
+msgid ""
+"%s: Selecting this option will make persistent changes to your database. Are "
+"you sure you want to enable it?"
+msgstr ""
+"%s: Memilih opsi ini akan membuat perubahan yang tetap pada basis data anda. "
+"Apakah anda yakin mengaktifkannnya?"
