@@ -35,7 +35,6 @@ function title_update( $pid, $post ) {
 	}
 }
 
-
 /**
  * If the user leaves certain meta info blank, forcefully fill it with our own
  *
@@ -60,8 +59,10 @@ function add_required_data( $pid, $post ) {
 
 	$pb_language = get_post_meta( $pid, 'pb_language', true );
 	if ( ! $pb_language ) {
-		// if the pb_language metadata value is not set, set it to 'en'
-		update_post_meta( $pid, 'pb_language', 'en' );
+		// if the pb_language metadata value is not set, set it to the network default
+		$locale = get_site_option( 'WPLANG' );
+		$locale = array_search( $locale, \PressBooks\L10n\wplang_codes() );
+ 		update_post_meta( $pid, 'pb_language', $locale );
 	}
 
 	$pb_cover_image = get_post_meta( $pid, 'pb_cover_image', true );
