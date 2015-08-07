@@ -687,18 +687,7 @@ function add_user_meta() {
 	x_add_metadata_field( 'user_interface_lang', 'user', array(
 		'group' => 'profile-information',
 		'field_type' => 'select',
-		'values' => array(
-			'en_US' => __( 'English', 'pressbooks' ),
-			'zh_TW' => __( 'Chinese, Traditional', 'pressbooks' ),
-			'et' => __( 'Estonian', 'pressbooks' ),
-			'fr_FR' => __( 'French', 'pressbooks' ),
-			'de_DE' => __( 'German', 'pressbooks' ),
-			'it_IT' => __( 'Italian', 'pressbooks' ),
-			'ja' => __( 'Japanese', 'pressbooks' ),
-			'pt_BR' => __( 'Portuguese, Brazil', 'pressbooks' ),
-			'es_ES' => __( 'Spanish', 'pressbooks' ),
-			'sv_SE' => __( 'Swedish', 'pressbooks' ),
-		),
+		'values' => \PressBooks\L10n\get_dashboard_languages(),
 		'label' => __( 'Language', 'pressbooks' )
 	) );
 

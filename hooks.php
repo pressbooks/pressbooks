@@ -40,6 +40,7 @@ if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
 } else {
 	add_filter( 'locale', '\PressBooks\L10n\set_locale' );
 }
+add_action( 'user_register', '\PressBooks\L10n\set_user_interface_lang', 10, 1 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Images

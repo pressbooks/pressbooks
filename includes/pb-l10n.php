@@ -108,7 +108,8 @@ function set_locale( $lang ) {
 
 
 /**
- * KindleGen is based on Mobipocket Creator and apparently supports only the following language codes:
+ * KindleGen is based on Mobipocket Creator and apparently supports only the following language codes.
+ * This populates the language dropdown on the Book Info page.
  *
  * @see http://www.mobileread.com/forums/showpost.php?p=2453537&postcount=2
  * @return array
@@ -262,6 +263,12 @@ function supported_languages() {
 	return $languages;
 }
 
+/**
+ * This helps us convert KindleGen language codes to WordPress-compatible ones and vice versa.
+ *
+ * @return array
+ */
+
 function wplang_codes() {
 	
 	$languages = array(
@@ -406,6 +413,46 @@ function wplang_codes() {
 	);
 	
 	return $languages;
+}
+
+/**
+ * The fully-translated and installed languages for the Pressbooks dashboard.
+ * Populates the language selector on the User Profile.
+ *
+ * @return array
+ */
+
+function get_dashboard_languages() {
+
+	$languages = array(
+		'en_US' =>	__( 'English (United States)', 'pressbooks' ),
+		'zh_TW' =>	__( 'Chinese (Taiwan)', 'pressbooks' ),
+		'et' =>		__( 'Estonian', 'pressbooks' ),
+		'fr_FR' =>	__( 'French (France)', 'pressbooks' ),
+		'de_DE' =>	__( 'German', 'pressbooks' ),
+		'it_IT' =>	__( 'Italian', 'pressbooks' ),
+		'ja' =>		__( 'Japanese', 'pressbooks' ),
+		'pt_BR' =>	__( 'Portuguese (Brazil)', 'pressbooks' ),
+		'es_ES' =>	__( 'Spanish', 'pressbooks' ),
+		'sv_SE' =>	__( 'Swedish', 'pressbooks' ),
+	);
+	
+	asort( $languages );
+
+	return $languages;
+}
+
+/**
+ * Sets the interface language for new users to the site's language.
+ *
+ * @return array
+ */
+
+function set_user_interface_lang( $user_id ) {
+	$locale = get_site_option( 'WPLANG' );
+    if ( $locale ) {
+	    update_user_meta( $user_id, 'user_interface_lang', $locale );
+	}
 }
 
 /**
