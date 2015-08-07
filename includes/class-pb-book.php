@@ -583,6 +583,8 @@ class Book {
 		while ( $post_id = current( $pos ) ) {
 			if ( $order[$post_id]['post_status'] == 'publish' ) {
 				break;
+			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
+				break;
 			} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_blog( $blog_id, 'read' ) ) {
 				break;
 			} else {

@@ -8,10 +8,12 @@
 							<ul class="front-matter">
 								<?php foreach ($book['front-matter'] as $fm): ?>
 								<?php if ( $fm['post_status'] !== 'publish' ) {
-									if ( current_user_can_for_blog( $blog_id, 'read' ) ) {
-										if ( absint( get_option( 'permissive_private_content' ) ) !== 1 ) continue; // Skip
-									} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
-										 continue; // Skip
+									if ( !current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
+										if ( current_user_can_for_blog( $blog_id, 'read' ) ) {
+											if ( absint( get_option( 'permissive_private_content' ) ) !== 1 ) continue; // Skip
+										} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
+											 continue; // Skip
+										}
 									}
 								} ?>
 								<li class="front-matter <?php echo pb_get_section_type( get_post($fm['ID']) ) ?>"><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo pb_strip_br( $fm['post_title'] );?></a>
@@ -39,10 +41,12 @@
 								<ul>
 									<?php foreach ($part['chapters'] as $chapter) : ?>
 										<?php if ( $chapter['post_status'] !== 'publish' ) {
-											if ( current_user_can_for_blog( $blog_id, 'read' ) ) {
-												if ( absint( get_option( 'permissive_private_content' ) ) !== 1 ) continue; // Skip
-											} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
-												 continue; // Skip
+											if ( !current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
+												if ( current_user_can_for_blog( $blog_id, 'read' ) ) {
+													if ( absint( get_option( 'permissive_private_content' ) ) !== 1 ) continue; // Skip
+												} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
+													 continue; // Skip
+												}
 											}
 										} ?>
 										<li class="chapter <?php echo pb_get_section_type( get_post($chapter['ID']) ) ?>"><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo pb_strip_br( $chapter['post_title'] ); ?></a>
@@ -66,10 +70,12 @@
 								<ul class="back-matter">
 									<?php foreach ($book['back-matter'] as $bm): ?>
 									<?php if ( $bm['post_status'] !== 'publish' ) {
-										if ( current_user_can_for_blog( $blog_id, 'read' ) ) {
-											if ( absint( get_option( 'permissive_private_content' ) ) !== 1 ) continue; // Skip
-										} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
-											 continue; // Skip
+										if ( !current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
+											if ( current_user_can_for_blog( $blog_id, 'read' ) ) {
+												if ( absint( get_option( 'permissive_private_content' ) ) !== 1 ) continue; // Skip
+											} elseif ( !current_user_can_for_blog( $blog_id, 'read' ) ) {
+												 continue; // Skip
+											}
 										}
 									} ?>
 									<li class="back-matter <?php echo pb_get_section_type( get_post($bm['ID']) ) ?>"><a href="<?php echo get_permalink($bm['ID']); ?>"><?php echo pb_strip_br( $bm['post_title'] );?></a>
