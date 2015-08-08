@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
 # infonauten <infonauten@gmail.com>, 2014
-# Toke Riis Ebbesen, 2014
+# Toke Riis Ebbesen, 2014-2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-06-17 13:51-0500\n"
-"PO-Revision-Date: 2015-06-18 09:21+0000\n"
-"Last-Translator: Hugh McGuire <hugh@pressbooks.com>\n"
-"Language-Team: Danish (Denmark) (http://www.transifex.com/projects/p/pressbooks/language/da_DK/)\n"
+"PO-Revision-Date: 2015-07-27 06:37+0000\n"
+"Last-Translator: Toke Riis Ebbesen\n"
+"Language-Team: Danish (Denmark) (http://www.transifex.com/pressbooks/pressbooks/language/da_DK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -809,7 +809,7 @@ msgstr "Tysk"
 
 #: admin/pb-admin-metaboxes.php:689
 msgid "Italian"
-msgstr ""
+msgstr "Italiensk"
 
 #: admin/pb-admin-metaboxes.php:690
 msgid "Japanese"
@@ -825,7 +825,7 @@ msgstr "Spansk"
 
 #: admin/pb-admin-metaboxes.php:693
 msgid "Swedish"
-msgstr ""
+msgstr "Svensk"
 
 #: admin/templates/catalog.php:27
 msgid "Tags For"
@@ -926,7 +926,7 @@ msgstr "Pdf (til print)"
 
 #: admin/templates/export.php:121
 msgid "PDF (mPDF)"
-msgstr ""
+msgstr "PDF (mPDF)"
 
 #: admin/templates/export.php:123 admin/templates/import.php:144
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
@@ -938,7 +938,7 @@ msgstr "Mobi (til Kindle)"
 
 #: admin/templates/export.php:130
 msgid "EPUB 3 (Beta)"
-msgstr ""
+msgstr "EPUB 3 (Beta)"
 
 #: admin/templates/export.php:132
 msgid "ICML (for InDesign)"
@@ -950,7 +950,7 @@ msgstr "XHTML"
 
 #: admin/templates/export.php:134
 msgid "PressBooks XML"
-msgstr ""
+msgstr "PressBooks XML"
 
 #: admin/templates/export.php:135
 msgid "WordPress XML"
@@ -958,11 +958,11 @@ msgstr "Wordpress XML"
 
 #: admin/templates/export.php:137
 msgid "ODT"
-msgstr ""
+msgstr "ODT"
 
 #: admin/templates/export.php:142
 msgid "Your Theme Options"
-msgstr ""
+msgstr "Dine tema-valg"
 
 #: admin/templates/export.php:149
 msgid "Change Theme"
@@ -970,7 +970,7 @@ msgstr "Skift tema"
 
 #: admin/templates/export.php:150
 msgid "Options"
-msgstr ""
+msgstr "Valg"
 
 #: admin/templates/import.php:20
 #, php-format
@@ -1015,11 +1015,11 @@ msgstr "ODT (OpenDocument tekstbehandlingsformat)"
 
 #: admin/templates/import.php:146
 msgid "DOCX (word processing file format of Microsoft)"
-msgstr ""
+msgstr "DOCX (Microsofts tekstbehandlingsformat)"
 
 #: admin/templates/import.php:147
 msgid "HTML (scrape content from a URL)"
-msgstr ""
+msgstr "HTML (udtræk indhold fra en URL)"
 
 #: admin/templates/import.php:153
 msgid "File"
@@ -1746,56 +1746,56 @@ msgstr "Afsluttende teksttyper"
 #: includes/pb-taxonomy.php:97
 msgctxt "taxonomy general name"
 msgid "Chapter Types"
-msgstr ""
+msgstr "Kapiteltyper"
 
 #: includes/pb-taxonomy.php:98
 msgctxt "taxonomy singular name"
 msgid "Chapter Type"
-msgstr ""
+msgstr "Kapiteltype"
 
 #: includes/pb-taxonomy.php:99
 msgid "Search Chapter Types"
-msgstr ""
+msgstr "Søg i kapiteltyper"
 
 #: includes/pb-taxonomy.php:100
 msgid "Popular Chapter Types"
-msgstr ""
+msgstr "Populære kapiteltyper"
 
 #: includes/pb-taxonomy.php:101
 msgid "All Chapter Types"
-msgstr ""
+msgstr "Alle kapiteltyper"
 
 #: includes/pb-taxonomy.php:104
 msgid "Edit Chapter Type"
-msgstr ""
+msgstr "Rediger Kapiteltype"
 
 #: includes/pb-taxonomy.php:105
 msgid "Update Chapter Type"
-msgstr ""
+msgstr "Opdater kapiteltype"
 
 #: includes/pb-taxonomy.php:106
 msgid "Add New Chapter Type"
-msgstr ""
+msgstr "Tilføj ny kapiteltype"
 
 #: includes/pb-taxonomy.php:107
 msgid "New Chapter Type Name"
-msgstr ""
+msgstr "Nyt kapiteltype-navn"
 
 #: includes/pb-taxonomy.php:108
 msgid "Separate chapter types with commas"
-msgstr ""
+msgstr "Adskil kapiteltyper med kommaer"
 
 #: includes/pb-taxonomy.php:109
 msgid "Add or remove chapter type"
-msgstr ""
+msgstr "Tilføj eller fjern kapiteltype"
 
 #: includes/pb-taxonomy.php:110
 msgid "Choose from the most used chapter type"
-msgstr ""
+msgstr "Vælg blandt de mest anvendte kapiteltyper"
 
 #: includes/pb-taxonomy.php:111
 msgid "Chapter Types"
-msgstr ""
+msgstr "Kapiteltyper"
 
 #: pressbooks.php:44
 #, php-format
@@ -1827,19 +1827,19 @@ msgstr "Ugyldige tilladelser"
 
 #: symbionts/custom-metadata/custom_metadata.php:282
 msgid "Choose a file"
-msgstr ""
+msgstr "Vælg en fil"
 
 #: symbionts/custom-metadata/custom_metadata.php:283
 msgid "Select this file"
-msgstr ""
+msgstr "Vælg denne fil"
 
 #: symbionts/custom-metadata/custom_metadata.php:284
 msgid "Clear"
-msgstr ""
+msgstr "Ryd"
 
 #: symbionts/custom-metadata/custom_metadata.php:285
 msgid "Select"
-msgstr ""
+msgstr "Vælg"
 
 #: symbionts/custom-metadata/custom_metadata.php:509
 #, php-format
@@ -1852,15 +1852,15 @@ msgstr "Hovsa, noget gik galt!"
 
 #: symbionts/custom-metadata/custom_metadata.php:1135
 msgid "duplicate this set of fields"
-msgstr ""
+msgstr "dupliker dette sæt felter"
 
 #: symbionts/custom-metadata/custom_metadata.php:1138
 msgid "remove this set of fields"
-msgstr ""
+msgstr "fjern dette sæt felter"
 
 #: symbionts/custom-metadata/custom_metadata.php:1170
 msgid "<strong>Note:</strong> this field type cannot be multiplied"
-msgstr ""
+msgstr "<strong>Note:</strong> du kan ikke lave mange kopier af denne felttype"
 
 #: symbionts/custom-metadata/custom_metadata.php:1287
 #: symbionts/custom-metadata/custom_metadata.php:1302
@@ -1868,11 +1868,11 @@ msgstr ""
 #: symbionts/custom-metadata/custom_metadata.php:1362
 #, php-format
 msgid "There are no %s to select from yet."
-msgstr ""
+msgstr "Der er ikke nogen %s at vælge fra endnu."
 
 #: symbionts/custom-metadata/custom_metadata.php:1379
 msgid "+ Add New"
-msgstr ""
+msgstr "+Tilføj ny"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:32
 msgctxt "post type general name"
@@ -1923,58 +1923,58 @@ msgstr "Ingen eksperimenter i skraldespanden"
 
 #: symbionts/pb-latex/pb-latex-admin.php:33
 msgid "Settings"
-msgstr ""
+msgstr "Indstillinger"
 
 #: symbionts/pb-latex/pb-latex-admin.php:39
 #: symbionts/pb-latex/pb-latex-admin.php:187
 msgid "Insufficient LaTeX-fu"
-msgstr ""
+msgstr "Utilstrækkelig LaTex-fu"
 
 #: symbionts/pb-latex/pb-latex-admin.php:45
 #: symbionts/pb-latex/pb-latex-admin.php:100
 msgid ""
 "PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
 "<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
-msgstr ""
+msgstr "PB LaTeX understøtter ikke længere ><code>%BG_COLOR_RGB%</code> eller <code>%FG_COLOR_RGB</code> i LaTeX-indledningen. Fjern dem venligst."
 
 #: symbionts/pb-latex/pb-latex-admin.php:63
 msgid "Invalid LaTeX generation method"
-msgstr ""
+msgstr "Ugyldig LaTeX-genereringsmetode"
 
 #: symbionts/pb-latex/pb-latex-admin.php:72
 msgid "Invalid text color"
-msgstr ""
+msgstr "Ugyldig tekstfarve"
 
 #: symbionts/pb-latex/pb-latex-admin.php:83
 msgid "Invalid background color"
-msgstr ""
+msgstr "Ugyldig baggrundsfarve"
 
 #: symbionts/pb-latex/pb-latex-admin.php:105
 msgid "<code>latex</code> path not found."
-msgstr ""
+msgstr "<code>latex</code> sti blev ikke fundet."
 
 #: symbionts/pb-latex/pb-latex-admin.php:134
 msgid "Test Image"
-msgstr ""
+msgstr "Test billede"
 
 #: symbionts/pb-latex/pb-latex-admin.php:136
 msgid "If you can see a big integral, all is well."
-msgstr ""
+msgstr "Hvis du kan se et stort integral er alt vel."
 
 #: symbionts/pb-latex/pb-latex-admin.php:219
 msgid "PB LaTeX Options"
-msgstr ""
+msgstr "PB LaTeX indstillinger"
 
 #: symbionts/pb-latex/pb-latex-admin.php:229
 msgid "Syntax"
-msgstr ""
+msgstr "Syntax"
 
 #: symbionts/pb-latex/pb-latex-admin.php:231
 #, php-format
 msgid ""
 "You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
 " syntax %s OR %s<br /> to insert LaTeX into your posts."
-msgstr ""
+msgstr "Du kan enten bruge tastaturgenvejs-syntaksen %s<br /> eller &#8220;inline&#8221; syntaks %s OR %s<br /> for at indsætte LaTeX i dine indlæg."
 
 #: symbionts/pb-latex/pb-latex-admin.php:236
 msgid ""
@@ -1984,23 +1984,23 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:243
 msgid "LaTeX generation method"
-msgstr ""
+msgstr "LaTeX generingmetode"
 
 #: symbionts/pb-latex/pb-latex-admin.php:246
 #, php-format
 msgctxt "pb-latex"
 msgid "%s LaTeX server (recommended)|WordPress.com LaTeX Server (recommended)"
-msgstr ""
+msgstr "%s LaTeX-server (anbefalet)|WordPress.com LaTeX Server (anbefalet)"
 
 #: symbionts/pb-latex/pb-latex-admin.php:252
 msgid "Default text color"
-msgstr ""
+msgstr "Standard tekstfarve"
 
 #: symbionts/pb-latex/pb-latex-admin.php:255
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>"
-msgstr ""
+msgstr "Et hexadecimal tal med 6 cifre, som <code>000000</code> eller <code>ffffff</code>"
 
 #: symbionts/pb-latex/pb-latex-admin.php:260
 msgid "Default background color"
@@ -2014,80 +2014,80 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:281
 msgid "Update LaTeX Options"
-msgstr ""
+msgstr "Opdater LaTeX-indstillinger"
 
 #: symbionts/search-regex/models/search.php:31
 msgid "Invalid regular expression"
-msgstr ""
+msgstr "Ugyldigt regulært udtryk"
 
 #: symbionts/search-regex/models/search.php:73
 msgid "No search pattern"
-msgstr ""
+msgstr "Intet søgemønster"
 
 #: symbionts/search-regex/models/search.php:171
 #: symbionts/search-regex/searches/post_content.php:37
 msgid "edit"
-msgstr ""
+msgstr "rediger"
 
 #: symbionts/search-regex/models/search.php:175
 msgid "deleted"
-msgstr ""
+msgstr "slettet"
 
 #: symbionts/search-regex/search-regex.php:89
 #: symbionts/search-regex/search-regex.php:91
 #: symbionts/search-regex/view/admin/search.php:3
 msgid "Search and Replace"
-msgstr ""
+msgstr "Søg og erstat"
 
 #: symbionts/search-regex/searches/post_content.php:34
 msgid "view"
-msgstr ""
+msgstr "se"
 
 #: symbionts/search-regex/searches/post_content.php:55
 #, php-format
 msgid " ID #%d: %s"
-msgstr ""
+msgstr "ID #%d: %s"
 
 #: symbionts/search-regex/searches/post_content.php:58
 msgid "Content"
-msgstr ""
+msgstr "Indhold"
 
 #: symbionts/search-regex/view/admin/results.php:3
 msgid "Results"
-msgstr ""
+msgstr "Resultater"
 
 #: symbionts/search-regex/view/admin/results.php:6
 #, php-format
 msgid "%1$s result(s) found."
-msgstr ""
+msgstr "%1$s resultat(er) fundet."
 
 #: symbionts/search-regex/view/admin/results.php:19
 msgid "replaced with:"
-msgstr ""
+msgstr "erstattet med:"
 
 #: symbionts/search-regex/view/admin/results.php:59
 msgid "There are no results."
-msgstr ""
+msgstr "Der er ingen resultater."
 
 #: symbionts/search-regex/view/admin/search.php:4
 msgid "Search and replace will replace ALL instances in the entire book."
-msgstr ""
+msgstr "Søg og erstat vil erstatte ALLE forekomster i hele bogen."
 
 #: symbionts/search-regex/view/admin/search.php:5
 msgid ""
 "Replacements will only be saved if you click '<strong>Replace &amp; "
 "Save</strong>', otherwise you will ONLY get a preview of the results."
-msgstr ""
+msgstr "Erstatninger bliver kun gemt, hvis du klikker '<strong>Erstat &amp; Gem</strong>', ellers får du KUN en forhåndsvisning af resultaterne"
 
 #: symbionts/search-regex/view/admin/search.php:6
 msgid ""
 "Be careful replacing text. There is no revert button. However, you can "
 "revert using the Revision History, chapter by chapter."
-msgstr ""
+msgstr "Vær forsigtig med at erstatte tekst. Der er ingen fortryd-knap. Du kan dog fjerne ændringer ved at bruge funktionen Revisionshistorie, kapitel for kapitel."
 
 #: symbionts/search-regex/view/admin/search.php:11
 msgid "Limit to"
-msgstr ""
+msgstr "Begræns til "
 
 #: symbionts/search-regex/view/admin/search.php:15
 msgid "No limit"
