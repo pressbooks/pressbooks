@@ -25,10 +25,10 @@ if ( post_password_required() ) {
 	<?php if ( have_comments() ) : ?>
 		<h2 class="comments-title">
 			<?php
-				printf( // WPCS: XSS OK
-					esc_html( _nx( 'One thought on &ldquo;%2$s&rdquo;', '%1$s thoughts on &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'pressbooks-publisher' ) ),
+				printf( // WPCS: XSS OK.
+					esc_html( _nx( 'One Response to &ldquo;%2$s&rdquo;', '%1$s Responses to &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'pressbooks' ) ),
 					number_format_i18n( get_comments_number() ),
-					'<span>' . get_the_title() . '</span>'
+					'<em>' . get_the_title() . '</em>'
 				);
 			?>
 		</h2>
