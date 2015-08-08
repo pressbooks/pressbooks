@@ -26,7 +26,7 @@ if ( post_password_required() ) {
 		<h2 class="comments-title">
 			<?php
 				printf( // WPCS: XSS OK.
-					esc_html( _nx( 'One Response to &ldquo;%2$s&rdquo;', '%1$s Responses to &ldquo;%2$s&rdquo;', get_comments_number(), 'comments title', 'pressbooks' ) ),
+					esc_html( _nx( 'One Response to %2$s', '%1$s Responses to %2$s', get_comments_number(), 'comments title', 'pressbooks' ) ),
 					number_format_i18n( get_comments_number() ),
 					'<em>' . get_the_title() . '</em>'
 				);

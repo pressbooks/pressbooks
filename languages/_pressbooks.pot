@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2015-08-08 13:49-0300\n"
+"POT-Creation-Date: 2015-08-08 13:51-0300\n"
 "PO-Revision-Date: 2015-08-08 13:43-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Pressbooks <code@pressbooks.com>\n"
@@ -2179,9 +2179,10 @@ msgstr ""
 #: themes-root/pressbooks-publisher/comments.php:29
 #, php-format
 msgctxt "comments title"
-msgid "One Response to &ldquo;%2$s&rdquo;"
-msgid_plural "%1$s Responses to &ldquo;%2$s&rdquo;"
+msgid "One Response to %2$s"
+msgid_plural "%1$s Responses to %2$s"
 msgstr[0] ""
+msgstr[1] ""
 
 #: themes-book/pressbooks-book/comments.php:21
 #: themes-book/pressbooks-book/comments.php:32
@@ -3242,3 +3243,4 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "BookOven Inc."
 msgstr ""
+
