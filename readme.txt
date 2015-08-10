@@ -3,8 +3,8 @@
 Contributors: Pressbooks <code@pressbooks.com>
 Version: 2.5.4
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.2.2
-Tested up to: 4.2.2
+Requires at least: 4.2.4
+Tested up to: 4.2.4
 Stable tag: 2.5.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -196,11 +196,14 @@ TK.
 == Changelog ==
 
 = 2.5.4 =
+* Requires WordPress 4.2.4.
+* Added Disable Comments (migrated from Pressbooks Textbook, props to @bdolor and the plugin's creators).
 * Added a warning message when users upload a cover image above the recommended size.
 * Optimized \PressBooks\Book::getBookStructure() so as to only fetch export status during export routines (props to @bracken).
 * Fixed a conflict with Jetpack (props to @programmieraffe for the bug report).
 * Fixed an issue where chapters were being number in mPDF TOCs regardless of user preference (props to @bdolor for the fix and to @sswettenham for the bug report).
 * Fixed an issue where sections would be parsed unnecessarily in webbooks (props to @bracken).
+* Fixed two issues related to permissive private content (props to @marcusschiesser for the bug reports).
 * Fixed an issue that caused a recursion during PDF export (props to @bseeger for the bug report).
 
 = 2.5.3 =
