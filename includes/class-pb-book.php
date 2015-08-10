@@ -603,6 +603,8 @@ class Book {
 	 */
 	static function getFirst() {
 
+		global $blog_id;
+
 		$book_structure = static::getBookStructure();
 		$order = $book_structure['__order'];
 		$pos = array_keys( $order );
@@ -610,6 +612,10 @@ class Book {
 		reset( $pos );
 		while ( $first_id = current( $pos ) ) {
 			if ( $order[$first_id]['post_status'] == 'publish' ) {
+				break;
+			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
+				break;
+			} elseif ( get_option( 'permissive_private_content' ) && current_user_can_for_blog( $blog_id, 'read' ) ) {
 				break;
 			} else {
 				next( $pos );
