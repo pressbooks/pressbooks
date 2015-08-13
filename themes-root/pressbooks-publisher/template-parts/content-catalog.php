@@ -35,7 +35,7 @@ if ( get_blog_option( $book['blog_id'], 'pressbooks_publisher_in_catalog' ) ) :
 		<footer class="entry-footer">
 		
 			<div class="button-wrap">
-				<a href="//<?php echo $book['domain'] . $book['path']; ?>" class="more-btn"><?php _e('Read more', 'pressbooks-publisher'); ?></a>
+				<a href="//<?php echo $book['domain'] . $book['path']; ?>" class="more-btn"><?php _e('Read more', 'pressbooks'); ?></a>
 			</div>	
 			
 			<?php if ( isset( $metadata['pb_keywords_tags'] ) ) : ?>

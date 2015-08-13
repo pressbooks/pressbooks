@@ -39,8 +39,10 @@ add_filter( 'gettext', '\PressBooks\L10n\override_core_strings', 10, 3 );
 
 if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
 	add_filter( 'locale', '\PressBooks\Export\Export::setLocale' );
-} else {
+} elseif ( \PressBooks\Book::isBook() ) {
 	add_filter( 'locale', '\PressBooks\L10n\set_locale' );
+} elseif ( ! \PressBooks\Book::isBook() ) {
+	add_filter( 'locale', '\PressBooks\L10n\set_root_locale' );
 }
 add_action( 'user_register', '\PressBooks\L10n\set_user_interface_lang', 10, 1 );
 

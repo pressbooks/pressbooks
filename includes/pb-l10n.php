@@ -79,9 +79,23 @@ function set_locale( $lang ) {
 	// Cheap cache
 	static $loc = '__UNSET__';
 
-	// get_current_user_id uses wp_get_current_user which may not be available the first time(s) get_locale is called
-	if ( '__UNSET__' == $loc && function_exists( 'wp_get_current_user' ) ) {
-		$loc = get_user_option( 'user_interface_lang' );
+	if ( is_admin() ) { // go with the user setting
+		// get_current_user_id uses wp_get_current_user which may not be available the first time(s) get_locale is called
+		if ( '__UNSET__' == $loc && function_exists( 'wp_get_current_user' ) ) {
+			$loc = get_user_option( 'user_interface_lang' );
+		}
+
+	} elseif ( $GLOBALS['pagenow'] == 'wp-signup.php' ) {
+		// use global setting
+		$loc = get_site_option( 'WPLANG' );
+	} else {
+		// go with the book info setting
+		$metadata = \PressBooks\Book::getBookInformation();
+		
+		if (  '__UNSET__' == $loc && !empty( $metadata['pb_language'] ) ) {
+			$locations = \PressBooks\L10n\wplang_codes();
+			$loc = $locations[$metadata['pb_language']];
+		}
 	}
 
 	// Return
@@ -90,11 +104,27 @@ function set_locale( $lang ) {
 	} else {
 		return ( $loc ? $loc : $lang );
 	}
+
+}
+
+/**
+ * Hook for add_filter('locale ', ...), change the user interface language
+ *
+ * @param string $lang
+ *
+ * @return string
+ */
+function set_root_locale( $lang ) {
+
+	$loc = get_site_option( 'WPLANG' );
+	return $loc;
+
 }
 
 
 /**
- * KindleGen is based on Mobipocket Creator and apparently supports only the following language codes:
+ * KindleGen is based on Mobipocket Creator and apparently supports only the following language codes.
+ * This populates the language dropdown on the Book Info page.
  *
  * @see http://www.mobileread.com/forums/showpost.php?p=2453537&postcount=2
  * @return array
@@ -248,6 +278,197 @@ function supported_languages() {
 	return $languages;
 }
 
+/**
+ * This helps us convert KindleGen language codes to WordPress-compatible ones and vice versa.
+ *
+ * @return array
+ */
+
+function wplang_codes() {
+	
+	$languages = array(
+		'af' => '', // Afrikaans
+		'sq' => 'sq', // Albanian
+		'ar' => 'ar', // Arabic
+		'ar-dz' => 'ar', // Arabic (Algeria)
+		'ar-bh' => 'ar', // Arabic (Bahrain)
+		'ar-eg' => 'ar', // Arabic (Egypt)
+		'ar-jo' => 'ar', // Arabic (Jordan)
+		'ar-kw' => 'ar', // Arabic (Kuwait)
+		'ar-lb' => 'ar', // Arabic (Lebanon)
+		'ar-ma' => 'ar', // Arabic (Morocco)
+		'ar-om' => 'ar', // Arabic (Oman)
+		'ar-qa' => 'ar', // Arabic (Qatar)
+		'ar-sa' => 'ar', // Arabic (Saudi Aria)
+		'ar-sy' => 'ar', // Arabic (Syria)
+		'ar-tn' => 'ar', // Arabic (Tunisia)
+		'ar-ae' => 'ar', // Arabic (U.A.E.)
+		'ar-ye' => 'ar', // Arabic (Yemen)
+		'hy' => 'hy', // Armenian
+		'az' => 'az', 
+		'eu' => 'eu',
+		'be' => '', // Belarusian
+		'bn' => '', // Bengali
+		'bg' => 'bg_BG',
+		'ca' => 'ca', // Catalan
+		'zh' => 'zh_CN', // Chinese
+		'zh-hk' => 'zh_CN', // Chinese (Hong Kong)
+		'zh-cn' => 'zh_CN', // Chinese (PRC)
+		'zh-sg' => 'zh_CN', // Chinese (Singapore)
+		'zh-tw' => 'zh_TW', // Chinese (Taiwan)
+		'hr' => 'hr',
+		'cs' => '', // Czech
+		'da' => 'da_DK',
+		'nl' => 'nl_NL',
+		'nl-be' => 'nl_NL', // Dutch (Belgium)
+		'en' => '',
+		'en-au' => 'en_AU',
+		'en-bz' => '', // English (Belize)
+		'en-ca' => 'en_CA',
+		'en-ie' => '', // English (Ireland)
+		'en-jm' => '', // English (Jamaica)
+		'en-nz' => '', // English (New Zealand)
+		'en-ph' => '', // English (Philippines)
+		'en-za' => '', // English (South Africa)
+		'en-tt' => '', // English (Trinidad)
+		'en-gb' => 'en_GB',
+		'en-us' => 'en_US',
+		'en-zw' => '', // English (Zimbabwe)
+		'et' => 'et',
+		'fo' => '', // Faeroese
+		'fa' => '', // Farsi
+		'fi' => 'fi',
+		'fr-be' => 'fr_FR', // French (Belgium)
+		'fr-ca' => 'fr_FR', // French (Canada)
+		'fr' => 'fr_FR',
+		'fr-lu' => 'fr_FR', // French (Luxembourg)
+		'fr-mc' => 'fr_FR', // French (Monaco)
+		'fr-ch' => 'fr_FR', // French (Switzerland)
+		'ka' => '', // Georgian
+		'de' => 'de_DE',
+		'de-at' => 'de_DE', // German (Austria)
+		'de-li' => 'de_DE', // German (Liechtenstein)
+		'de-lu' => 'de_DE', // German (Luxembourg)
+		'de-ch' => 'de_CH',
+		'el' => 'el',
+		'gu' => '', // Gujarati
+		'he' => 'he_IL',
+		'hi' => '', // Hindi
+		'hu' => 'hu_HU',
+		'is' => 'is_IS',
+		'id' => 'id_ID',
+		'it' => 'it_IT',
+		'it-ch' => 'it_IT', // Italian (Switzerland)
+		'ja' => 'ja',
+		'kn' => '', // Kannada
+		'kk' => '', // Kazakh
+		'x-kok' => '', // Konkani
+		'ko' => 'ko_KR',
+		'lv' => '', // Latvian
+		'lt' => 'lt_LT',
+		'mk' => '', // Macedonian
+		'ms' => '', // Malay
+		'ml' => '', // Malayalam
+		'mt' => '', // Maltese
+		'mr' => '', // Marathi
+		'ne' => '', // Nepali
+		'no' => 'nn_NO',
+		'or' => 'Oriya',
+		'pl' => 'pl_PL',
+		'pt' => 'pt_PT',
+		'pt-br' => 'pt_BR',
+		'pa' => '', // Punjabi
+		'rm' => '', // Rhaeto-Romanic
+		'ro' => 'ro_RO',
+		'ro-mo' => 'ro_RO', // Romanian (Moldova)
+		'ru' => 'ru_RU',
+		'ru-mo' => 'ru_RU', // Russian (Moldova)
+		'sz' => '', // Sami (Lappish)
+		'sa' => '', // Sanskrit
+		'sr' => 'sr_RS',
+		'sk' => 'sk_SK',
+		'sl' => 'sl_SI',
+		'sb' => '', // Sorbian
+		'es' => 'es_ES',
+		'es-ar' => '', // Spanish (Argentina)
+		'es-bo' => '', // Spanish (Bolivia)
+		'es-cl' => 'es_CL',
+		'es-co' => '', // Spanish (Colombia)
+		'es-cr' => '', // Spanish (Costa Rica)
+		'es-do' => '', // Spanish (Dominican Republic)
+		'es-ec' => '', // Spanish (Ecuador)
+		'es-sv' => '', // Spanish (El Salvador)
+		'es-gt' => '', // Spanish (Guatemala)
+		'es-hn' => '', // Spanish (Honduras)
+		'es-mx' => 'es_MX',
+		'es-ni' => '', // Spanish (Nicaragua)
+		'es-pa' => '', // Spanish (Panama)
+		'es-py' => '', // Spanish (Paraguay)
+		'es-pe' => 'es_PE',
+		'es-pr' => '', // Spanish (Puerto Rico)
+		'es-uy' => '', // Spanish (Uruguay)
+		'es-ve' => '', // Spanish (Venezuela)
+		'sx' => '', // Sutu
+		'sw' => '', // Swahili
+		'sv' => 'sv_SE',
+		'sv-fi' => 'sv_SE', // Swedish (Finland)
+		'ta' => '', // Tamil
+		'tt' => '', // Tatar
+		'te' => '', // Telugu
+		'th' => 'th',
+		'ts' => '', // Tsonga
+		'tn' => '', // Tswana
+		'tr' => 'tr_TR',
+		'uk' => 'uk',
+		'ur' => '', // Urdu
+		'uz' => '', // Uzbek
+		'vi' => '', // Vietnamese
+		'xh' => '', // Xhosa
+		'zu' => '', // Zulu
+	);
+	
+	return $languages;
+}
+
+/**
+ * The fully-translated and installed languages for the Pressbooks dashboard.
+ * Populates the language selector on the User Profile.
+ *
+ * @return array
+ */
+
+function get_dashboard_languages() {
+
+	$languages = array(
+		'en_US' =>	__( 'English (United States)', 'pressbooks' ),
+		'zh_TW' =>	__( 'Chinese (Taiwan)', 'pressbooks' ),
+		'et' =>		__( 'Estonian', 'pressbooks' ),
+		'fr_FR' =>	__( 'French (France)', 'pressbooks' ),
+		'de_DE' =>	__( 'German', 'pressbooks' ),
+		'it_IT' =>	__( 'Italian', 'pressbooks' ),
+		'ja' =>		__( 'Japanese', 'pressbooks' ),
+		'pt_BR' =>	__( 'Portuguese (Brazil)', 'pressbooks' ),
+		'es_ES' =>	__( 'Spanish', 'pressbooks' ),
+		'sv_SE' =>	__( 'Swedish', 'pressbooks' ),
+	);
+	
+	asort( $languages );
+
+	return $languages;
+}
+
+/**
+ * Sets the interface language for new users to the site's language.
+ *
+ * @return array
+ */
+
+function set_user_interface_lang( $user_id ) {
+	$locale = get_site_option( 'WPLANG' );
+    if ( $locale ) {
+	    update_user_meta( $user_id, 'user_interface_lang', $locale );
+	}
+}
 
 /**
  * Number to words.
