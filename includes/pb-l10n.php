@@ -107,6 +107,20 @@ function set_locale( $lang ) {
 
 }
 
+/**
+ * Hook for add_filter('locale ', ...), change the user interface language
+ *
+ * @param string $lang
+ *
+ * @return string
+ */
+function set_root_locale( $lang ) {
+
+	$loc = get_site_option( 'WPLANG' );
+	return $loc;
+
+}
+
 
 /**
  * KindleGen is based on Mobipocket Creator and apparently supports only the following language codes.
