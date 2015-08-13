@@ -80,19 +80,19 @@ function pressbooks_publisher_fonts_url() {
     * supported by Oswald, translate this to 'off'. Do not translate
     * into your own language.
     */
-	$oswald = _x( 'on', 'Oswald font: on or off', 'pressbooks-publisher' );
+	$oswald = _x( 'on', 'Oswald font: on or off', 'pressbooks' );
 
 	/* Translators: If there are characters in your language that are not
     * supported by Droid Serif, translate this to 'off'. Do not translate
     * into your own language.
     */
-	$droid_serif = _x( 'on', 'Droid Serif font: on or off', 'pressbooks-publisher' );
+	$droid_serif = _x( 'on', 'Droid Serif font: on or off', 'pressbooks' );
 	
 	/* Translators: If there are characters in your language that are not
     * supported by Droid Sans, translate this to 'off'. Do not translate
     * into your own language.
     */
-	$droid_sans = _x( 'on', 'Droid Sans font: on or off', 'pressbooks-publisher' );	
+	$droid_sans = _x( 'on', 'Droid Sans font: on or off', 'pressbooks' );	
 
 	if ( 'off' !== $oswald || 'off' !== $droid_serif || 'off' !== $droid_sans ) {
 		$font_families = array();
@@ -267,7 +267,7 @@ function pressbooks_publisher_update_catalog() {
 add_action( 'wp_ajax_pressbooks_publisher_update_catalog', 'pressbooks_publisher_update_catalog' );
 
 function pressbooks_publisher_catalog_columns( $columns ) {
-	$columns[ 'in_catalog' ] = __( 'In Catalog', 'pressbooks-publisher' );
+	$columns[ 'in_catalog' ] = __( 'In Catalog', 'pressbooks' );
 	return $columns;
 }
 

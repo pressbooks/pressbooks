@@ -12,7 +12,7 @@
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
 		<div class="site-info">
-		Copyright &copy; <?php echo date('Y'); ?> <?php bloginfo('name');?> <a href="<?php echo esc_url( __( 'http://pressbooks.com', 'pressbooks-publisher' ) ); ?>"><?php printf( esc_html__( 'is powered by %s', 'pressbooks-publisher' ), 'Pressbooks.com' ); ?></a>
+		Copyright &copy; <?php echo date('Y'); ?> <?php bloginfo('name');?> <a href="<?php echo esc_url( __( 'http://pressbooks.com', 'pressbooks' ) ); ?>"><?php printf( esc_html__( 'is powered by %s', 'pressbooks' ), 'Pressbooks.com' ); ?></a>
 		</div><!-- .site-info -->
 	</footer><!-- #colophon -->
 </div><!-- #page -->
