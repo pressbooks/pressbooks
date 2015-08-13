@@ -80,21 +80,22 @@ function set_locale( $lang ) {
 	static $loc = '__UNSET__';
 
 	if ( is_admin() ) { // go with the user setting
-
 		// get_current_user_id uses wp_get_current_user which may not be available the first time(s) get_locale is called
 		if ( '__UNSET__' == $loc && function_exists( 'wp_get_current_user' ) ) {
 			$loc = get_user_option( 'user_interface_lang' );
 		}
-		
-	} else { // go with the book info setting
-		
+
+	} elseif ( $GLOBALS['pagenow'] == 'wp-signup.php' ) {
+		// use global setting
+		$loc = get_site_option( 'WPLANG' );
+	} else {
+		// go with the book info setting
 		$metadata = \PressBooks\Book::getBookInformation();
-			
+		
 		if (  '__UNSET__' == $loc && !empty( $metadata['pb_language'] ) ) {
 			$locations = \PressBooks\L10n\wplang_codes();
 			$loc = $locations[$metadata['pb_language']];
 		}
-
 	}
 
 	// Return
