@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.5.4
+Version: 2.6
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.2.4
-Tested up to: 4.2.4
-Stable tag: 2.5.4
+Requires at least: 4.3
+Tested up to: 4.3
+Stable tag: 2.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,7 @@ like Pressbooks to run a dedicated instance for you on our servers. You can reac
 
 == Communication ==
 
-Our main communication channel for the Pressbooks plugin is [Google Groups](http://groups.google.com/group/pressbooks).
+Our main communication channel for the Pressbooks plugin is [GitHub](https://github.com/pressbooks/pressbooks/issues). You can post issues or ask questions there.
 
 == Contributors ==
 
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.4.x and WordPress 4.2.2. Lower versions are not supported.
+ * Pressbooks works with PHP 5.4.x and WordPress 4.3. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
@@ -194,6 +194,13 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.6 =
+* Requires WordPress 4.3.
+* The language selected on the book info page now applies to the book's webbook display.
+* The language selected on the network settings page now applies automatically to new books and users.
+* The language selected on a user's profile now overrides the network and book languages when they view the Pressbooks dashboard.
+
 
 = 2.5.4 =
 * Requires WordPress 4.2.4.
