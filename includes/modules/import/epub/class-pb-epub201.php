@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 
@@ -39,7 +39,7 @@ class Epub201 extends Import {
 
 
 	/**
-	 * If PressBooks generated the epub file
+	 * If Pressbooks generated the epub file
 	 *
 	 * @var boolean
 	 */

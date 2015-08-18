@@ -2,7 +2,7 @@
 /**
  * Contains the class for generating and displaying the Pressbooks Network Manager table.
  *
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 

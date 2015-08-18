@@ -2,7 +2,7 @@
 /**
  * Look and feel.
  *
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks\Admin\Laf;
@@ -14,7 +14,7 @@ namespace PressBooks\Admin\Laf;
 function add_footer_link() {
 
 	printf(
-		'<p id="footer-left" class="alignleft"><span id="footer-thankyou">%s <a href="http://pressbooks.com">PressBooks</a></span> &bull; <a href="http://pressbooks.com/about">%s</a> &bull; <a href="http://pressbooks.com/help">%s</a> &bull; <a href="http://pressbooks.com/contact">%s</a></p>',
+		'<p id="footer-left" class="alignleft"><span id="footer-thankyou">%s <a href="http://pressbooks.com">Pressbooks</a></span> &bull; <a href="http://pressbooks.com/about">%s</a> &bull; <a href="http://pressbooks.com/help">%s</a> &bull; <a href="http://pressbooks.com/contact">%s</a></p>',
 		__( 'Powered by', 'pressbooks' ),
 		__( 'About', 'pressbooks' ),
 		__( 'Help', 'pressbooks' ),
@@ -29,7 +29,7 @@ function add_footer_link() {
 }
 
 /**
- * Replaces 'WordPress' with 'PressBooks' in titles of admin pages.
+ * Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
  */
 function admin_title( $admin_title ) {
 	$title = str_replace( 'WordPress', 'Pressbooks', $admin_title );
@@ -244,7 +244,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 		'title' => '<span class="ab-icon"></span>',
 		'href' => ( 'http://pressbooks.com/about' ),
 		'meta' => array(
-			'title' => __( 'About PressBooks', 'pressbooks' ),
+			'title' => __( 'About Pressbooks', 'pressbooks' ),
 		),
 	) );
 
@@ -253,7 +253,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'wp-logo',
 			'id' => 'about',
-			'title' => __( 'About PressBooks', 'pressbooks' ),
+			'title' => __( 'About Pressbooks', 'pressbooks' ),
 			'href' => 'http://pressbooks.com/about',
 		) );
 	}
@@ -262,7 +262,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 	$wp_admin_bar->add_menu( array(
 		'parent' => 'wp-logo-external',
 		'id' => 'wporg',
-		'title' => __( 'PressBooks.com', 'pressbooks' ),
+		'title' => __( 'Pressbooks.com', 'pressbooks' ),
 		'href' => 'http://pressbooks.com',
 	) );
 
@@ -504,7 +504,7 @@ function init_css_js() {
 	$concatenate_scripts = false;
 
 	// Note: Will auto-register a dependency $handle named 'colors'
-	wp_admin_css_color( 'pb_colors', 'PressBooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
+	wp_admin_css_color( 'pb_colors', 'Pressbooks', PB_PLUGIN_URL . 'assets/css/colors-pb.css', apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
 
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '20140110', 'screen' );
@@ -974,7 +974,7 @@ function advanced_email_validation_logs_callback( $args ) {
 	if ( $email_validation_logs ) $html .= 'checked="checked" ';
 	$html .= '/>';
 	$html .= '<label for="no-validation-logs"> ' . __( 'Yes. Send the logs.', 'pressbooks' ) . '</label>';
-	$html .= '<br /><br /><em> ' . __( 'Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and will require some effort to decipher. Unfortunately we cannot provide support for deciphering validation errors, but you could post errors on the <a href="http://forum.pressbooks.com/" target="_blank">PressBooks forum</a>, where we and other PressBooks users can help out as time permits. .', 'pressbooks' ) . '</em>';
+	$html .= '<br /><br /><em> ' . __( 'Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and will require some effort to decipher. Unfortunately we cannot provide support for deciphering validation errors, but you could post errors on the <a href="http://forum.pressbooks.com/" target="_blank">Pressbooks forum</a>, where we and other Pressbooks users can help out as time permits. .', 'pressbooks' ) . '</em>';
 
 	echo $html;
 }

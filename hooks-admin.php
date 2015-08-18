@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 
@@ -57,7 +57,7 @@ add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );
 add_action( 'admin_init', '\PressBooks\Admin\Laf\ecomm_settings_init' );
 add_action( 'admin_init', '\PressBooks\Admin\Laf\advanced_settings_init' );
 
-//  Replaces 'WordPress' with 'PressBooks' in titles of admin pages.
+//  Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
 add_filter( 'admin_title', '\PressBooks\Admin\Laf\admin_title' );
 
 // Echo our notices, if any

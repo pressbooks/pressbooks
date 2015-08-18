@@ -1,8 +1,8 @@
 <?php
 /**
- * Contains PressBooks-specific additions to TinyMCE, specifically custom CSS classes.
+ * Contains Pressbooks-specific additions to TinyMCE, specifically custom CSS classes.
  *
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks;
@@ -44,7 +44,7 @@ class Editor {
 
 
 	/**
-	 * Adds PressBooks custom CSS classes to the style select dropdown initiated above.
+	 * Adds Pressbooks custom CSS classes to the style select dropdown initiated above.
 	 */
 	static function mceBeforeInitInsertFormats( $init_array ) {
 

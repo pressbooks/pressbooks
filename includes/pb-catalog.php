@@ -147,7 +147,7 @@ $_current_user_id = $catalog->getUserId();
 <head>
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
-	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login ); _e( '\'s Catalog Page', 'pressbooks' ); ?> | PressBooks</title>
+	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login ); _e( '\'s Catalog Page', 'pressbooks' ); ?> | Pressbooks</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo PB_PLUGIN_URL; ?>assets/css/style-catalog.css?ver=2" />
 	<link href='<?php echo \PressBooks\Sanitize\maybe_https( 'http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
@@ -178,7 +178,7 @@ $_current_user_id = $catalog->getUserId();
 		</div> <!-- end .log-wrap -->
 	<div id="catalog-sidebar" class="catalog-sidebar">
 		<h2 class="pressbooks-logo">
-			<a href="<?php echo network_site_url(); ?>">PressBooks</a>
+			<a href="<?php echo network_site_url(); ?>">Pressbooks</a>
 		</h2>
 		<p class="tag-menu assistive-text">Menu</p>
 		<div class="sidebar-inner-wrap">
@@ -239,7 +239,7 @@ $_current_user_id = $catalog->getUserId();
 
 			</div>	<!-- end .catalog-content-->
 			<div class="footer">
-				<p><a href="<?php echo network_site_url(); ?>"><?php _e( 'PressBooks: the CMS for Books.', 'pressbooks' ); ?></a></p>
+				<p><a href="<?php echo network_site_url(); ?>"><?php _e( 'Pressbooks: the CMS for Books.', 'pressbooks' ); ?></a></p>
 			</div>
 
 		</div>	<!-- end .catalog-content-wrap -->

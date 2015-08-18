@@ -17,7 +17,7 @@ Files should be named like:
 @see pressbooks/includes/pb-l10n.php
 
 ------------------------------------------------------------------------------
-Creating new PO and MO files for PressBooks
+Creating new PO and MO files for Pressbooks
 --------------------------------------------------------------------------
 
 Follow the steps described here:
@@ -40,10 +40,10 @@ $ msgfmt -o pressbooks-es_ES.mo pressbooks-es_ES.po
 Finally, add your new language to \PressBooks\Admin\Metaboxes\add_user_meta() in admin/pb-admin-metaboxes.php
 
 ------------------------------------------------------------------------------
-Installing the rest of a language in PressBooks (Ie. WordPress)
+Installing the rest of a language in Pressbooks (Ie. WordPress)
 ------------------------------------------------------------------------------
 
-In your existing PressBooks install, create the 'wordpress/wp-content/languages/' directory.
+In your existing Pressbooks install, create the 'wordpress/wp-content/languages/' directory.
 
 Download a translated WordPress from:
 http://codex.wordpress.org/WordPress_in_Your_Language

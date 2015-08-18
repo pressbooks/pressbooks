@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks\Admin\NetworkManagers;
@@ -67,7 +67,7 @@ function options() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 
-    $superadmins = new \Pressbooks\Network_Managers_List_Table();
+    $superadmins = new \PressBooks\Network_Managers_List_Table();
     $superadmins->prepare_items(); ?>
     <div class="wrap">
         

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks\Import\WordPress;
@@ -12,7 +12,7 @@ use PressBooks\Book;
 class Wxr extends Import {
 
 	/**
-	 * If PressBooks generated the WXR file
+	 * If Pressbooks generated the WXR file
 	 *
 	 * @var boolean
 	 */

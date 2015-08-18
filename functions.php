@@ -2,7 +2,7 @@
 /**
  * Shortcuts for template designers who don't use real namespaces, and other helper functions.
  *
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 

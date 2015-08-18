@@ -6,10 +6,10 @@ Symbionts are 3rd party open source vendors that may or may not be licensed
 under the GPLv2.
 
 These additional libraries have their own licensing requirements and, as such,
-should not be directly modified by PressBooks developers.
+should not be directly modified by Pressbooks developers.
 
 ------------------------------------------------------------------------------
 
-Operative verb is "should," the following libs have been patched/forked by PressBooks:
+Operative verb is "should," the following libs have been patched/forked by Pressbooks:
 
 * custom-metadata (https://github.com/connerbw/custom-metadata)

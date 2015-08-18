@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 
@@ -473,7 +473,7 @@ abstract class Import {
 			return str_replace( 'wordpress@', 'pressbooks@', $from_email );
 		} );
 		add_filter( 'wp_mail_from_name', function ( $from_name ) {
-			return 'PressBooks';
+			return 'Pressbooks';
 		} );
 
 		foreach ( self::$logsEmail as $email ) {

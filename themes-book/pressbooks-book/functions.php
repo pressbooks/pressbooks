@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 
@@ -137,7 +137,7 @@ function pb_private() {
 
 				<h2 class="entry-title denied-title"><?php _e('Access Denied', 'pressbooks'); ?></h2>
 				<!-- Table of content loop goes here. -->
-				<div class="entry_content denied-text"><?php _e('This book is private, and accessible only to registered users. If you have an account you can <a href="'. $bloginfourl .'/wp-login.php" class="login">login here</a>  <p class="sign-up">You can also set up your own PressBooks book at: <a href="http://pressbooks.com">PressBooks.com</a>.', 'pressbooks'); ?></p></div>
+				<div class="entry_content denied-text"><?php _e('This book is private, and accessible only to registered users. If you have an account you can <a href="'. $bloginfourl .'/wp-login.php" class="login">login here</a>  <p class="sign-up">You can also set up your own Pressbooks book at: <a href="http://pressbooks.com">Pressbooks.com</a>.', 'pressbooks'); ?></p></div>
 			</div><!-- #post-## -->
 <?php
 }
@@ -273,7 +273,7 @@ function pressbooks_copyright_license() {
 
 			// evaluate it for errors
 			if ( ! false === $result || ! isset( $result->html ) ) {
-				throw new \Exception( 'Creative Commons license API not returning expected results at PressBooks\Metadata::getLicenseXml' );
+				throw new \Exception( 'Creative Commons license API not returning expected results at Pressbooks\Metadata::getLicenseXml' );
 			} else {
 				// process the response, return html
 				$html = \PressBooks\Metadata::getWebLicenseHtml( $result->html );
@@ -303,7 +303,7 @@ function pressbooks_copyright_license() {
 if ( ! function_exists( 'pressbooks_theme_options_display' ) ) :
 
 /**
- * Function called by the PressBooks plugin when user is on [ Appearance → Theme Options ] page
+ * Function called by the Pressbooks plugin when user is on [ Appearance → Theme Options ] page
  */
 function pressbooks_theme_options_display() { ?>
 	<div class="wrap">
@@ -356,7 +356,7 @@ endif;
 if ( ! function_exists( 'pressbooks_theme_options_summary' ) ) :
 
 /**
- * Function called by the PressBooks plugin when user is on [ Export ] page
+ * Function called by the Pressbooks plugin when user is on [ Export ] page
  */
 function pressbooks_theme_options_summary() { ?>
 	<p><strong><?php _e('Global options', 'pressbooks' ); ?>:</strong></p>

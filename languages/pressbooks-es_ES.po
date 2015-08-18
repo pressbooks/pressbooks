@@ -187,7 +187,7 @@ msgstr "Se sobreescribirá la plantilla CSS personalizada existente. ¿Desea con
 
 #: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
 #: admin/pb-admin-dashboard.php:95
-msgid "PressBooks News"
+msgid "Pressbooks News"
 msgstr "Novedades"
 
 #: admin/pb-admin-dashboard.php:41
@@ -284,12 +284,12 @@ msgid "Import"
 msgstr "Importar"
 
 #: admin/pb-admin-laf.php:247 admin/pb-admin-laf.php:256
-msgid "About PressBooks"
-msgstr "Acerca de PressBooks"
+msgid "About Pressbooks"
+msgstr "Acerca de Pressbooks"
 
 #: admin/pb-admin-laf.php:265
-msgid "PressBooks.com"
-msgstr "PressBooks.com"
+msgid "Pressbooks.com"
+msgstr "Pressbooks.com"
 
 #: admin/pb-admin-laf.php:273
 msgid "Support Forums"
@@ -409,10 +409,10 @@ msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
 "support for deciphering validation errors, but you could post errors on the "
-"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks "
-"forum</a>, where we and other PressBooks users can help out as time permits."
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">Pressbooks "
+"forum</a>, where we and other Pressbooks users can help out as time permits."
 " ."
-msgstr "Nota: los informes de validación de errores (para EPUB, MOBI y PDF) son técnicos y se requiere cierto esfuerzo para decifrarlos. Lamentablemente no podemos ofrecer asistencia para decifrar los errores de validación, pero puede publicar los errores en el <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">foro de PressBooks</a> , donde los desarrolladores y otros usuarios podrán ayudarle en la medida de sus posibilidades y disponibilidad. ."
+msgstr "Nota: los informes de validación de errores (para EPUB, MOBI y PDF) son técnicos y se requiere cierto esfuerzo para decifrarlos. Lamentablemente no podemos ofrecer asistencia para decifrar los errores de validación, pero puede publicar los errores en el <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">foro de Pressbooks</a> , donde los desarrolladores y otros usuarios podrán ayudarle en la medida de sus posibilidades y disponibilidad. ."
 
 #: admin/pb-admin-laf.php:1004
 msgid "Enable chapter types taxonomy."
@@ -909,8 +909,8 @@ msgstr "Enviar a:"
 #, php-format
 msgid ""
 "You can export multiple file formats by selecting your Export Format Options"
-" below. PressBooks saves your last %s batches of exported files."
-msgstr "Puede exportar a distintos formatos de archivo mediante las opciones de Exportar formato situadas debajo. PressBooks guarda los últimos %s lotes de los archivos exportados."
+" below. Pressbooks saves your last %s batches of exported files."
+msgstr "Puede exportar a distintos formatos de archivo mediante las opciones de Exportar formato situadas debajo. Pressbooks guarda los últimos %s lotes de los archivos exportados."
 
 #: admin/templates/export.php:49
 msgid "Export Your Book"
@@ -969,7 +969,7 @@ msgid "XHTML"
 msgstr "XHTML"
 
 #: admin/templates/export.php:134
-msgid "PressBooks XML"
+msgid "Pressbooks XML"
 msgstr ""
 
 #: admin/templates/export.php:135
@@ -1141,10 +1141,10 @@ msgstr "Recomendamos <a href=\"%s\" target=\"_blank\">BookBaby</a>, un servicio 
 
 #: admin/templates/sell.php:20
 msgid ""
-"For a flat fee starting at $99 (with a 10% discount for PressBooks users and"
+"For a flat fee starting at $99 (with a 10% discount for Pressbooks users and"
 " 100% royalties going to you), BookBaby will send your book to the Kindle "
 "Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
-msgstr "BookBaby envía tu libro a Kindle Store, Barnes & Noble, iBook store, Kobo, y más, con una tarifa básica de 99 $ (con un descuento del 10 % para usuarios de PressBooks y el 100 % de regalías para ti)."
+msgstr "BookBaby envía tu libro a Kindle Store, Barnes & Noble, iBook store, Kobo, y más, con una tarifa básica de 99 $ (con un descuento del 10 % para usuarios de Pressbooks y el 100 % de regalías para ti)."
 
 #: admin/templates/sell.php:21
 msgid "Distribute with BookBaby"
@@ -1167,15 +1167,15 @@ msgid "Print-on-Demand with CreateSpace"
 msgstr "Impresión bajo demanda con CreateSpace"
 
 #: admin/templates/sell.php:34
-msgid "Create a Buy Page on PressBooks"
-msgstr "Crear una página de compra en PressBooks"
+msgid "Create a Buy Page on Pressbooks"
+msgstr "Crear una página de compra en Pressbooks"
 
 #: admin/templates/sell.php:35
 msgid ""
 "Once your books are available in stores, you can add the links to bookstores"
-" below, and we'll make a Buy page on the web version of your PressBooks "
+" below, and we'll make a Buy page on the web version of your Pressbooks "
 "book."
-msgstr "Una vez que tus libros estén disponibles en tiendas, puedes añadir los enlaces debajo, y crearemos una página de compra incluida en la versión web de tu libro de PressBooks."
+msgstr "Una vez que tus libros estén disponibles en tiendas, puedes añadir los enlaces debajo, y crearemos una página de compra incluida en la versión web de tu libro de Pressbooks."
 
 #: hooks-admin.php:193
 #, php-format
@@ -1242,9 +1242,9 @@ msgstr "Acceso denegado"
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
-"set up your own PressBooks book at: <a "
-"href=\"http://pressbooks.com\">PressBooks.com</a>."
-msgstr "Este libro es privado y solo está disponible para usuarios registrados. Si tiene cuenta de usuario puede ingresar <a href=\"/wp-login.php\">aquí</a>. También puede crear su propio libro en <a href=\"http://pressbooks.com\">PressBooks.com</a>."
+"set up your own Pressbooks book at: <a "
+"href=\"http://pressbooks.com\">Pressbooks.com</a>."
+msgstr "Este libro es privado y solo está disponible para usuarios registrados. Si tiene cuenta de usuario puede ingresar <a href=\"/wp-login.php\">aquí</a>. También puede crear su propio libro en <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
@@ -1301,7 +1301,7 @@ msgid "Title Page"
 msgstr "Página de título"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1059
-msgid "Make your own books using PressBooks.com"
+msgid "Make your own books using Pressbooks.com"
 msgstr "Crea tus propios libros usando PresBooks.com"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1407
@@ -1400,8 +1400,8 @@ msgid ""
 msgstr "Lo sentimos, pero ningún libro concuerda con tus criterios de filtrado. <a class=\"clear-filters\" href=\"#\">Actualiza tus filtros</a> e inténtalo de nuevo."
 
 #: includes/pb-catalog.php:242
-msgid "PressBooks: the CMS for Books."
-msgstr "PressBooks: el CMS para libros."
+msgid "Pressbooks: the CMS for Books."
+msgstr "Pressbooks: el CMS para libros."
 
 #: includes/pb-image.php:302
 msgid "Your cover image should be 625px on the shortest side."
@@ -1821,18 +1821,18 @@ msgstr ""
 #: pressbooks.php:44
 #, php-format
 msgid ""
-"PressBooks will not work with your version of PHP. PressBooks requires PHP "
+"Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
-"PressBooks."
-msgstr "PressBooks no funciona con esta versión de PHP. PressBooks requiere la versión %s o superior de PHP. Actualiza tu instalación si quieres utilizar PressBooks."
+"Pressbooks."
+msgstr "Pressbooks no funciona con esta versión de PHP. Pressbooks requiere la versión %s o superior de PHP. Actualiza tu instalación si quieres utilizar Pressbooks."
 
 #: pressbooks.php:57
 #, php-format
 msgid ""
-"PressBooks will not work with your version of WordPress. PressBooks requires"
+"Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multi-Site, version %s or greater. Please "
-"upgrade WordPress if you would like to use PressBooks."
-msgstr "PressBooks no funciona con esta versión de WordPress. PressBooks requiere una instalación nueva de WordPress Multi-Site, versión %s o más reciente. Para utilizar PressBooks debe actualizar WordPress."
+"upgrade WordPress if you would like to use Pressbooks."
+msgstr "Pressbooks no funciona con esta versión de WordPress. Pressbooks requiere una instalación nueva de WordPress Multi-Site, versión %s o más reciente. Para utilizar Pressbooks debe actualizar WordPress."
 
 #: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
@@ -1965,7 +1965,7 @@ msgstr ""
 #, php-format
 msgid ""
 "The <em>Disable Comments</em> plugin is active and configured to disable "
-"comments on custom post types for PressBooks. Visit the <a "
+"comments on custom post types for Pressbooks. Visit the <a "
 "href=\"%s\">configuration page</a> to choose which post types to "
 "<b>enable</b> comments on."
 msgstr ""
@@ -2327,8 +2327,8 @@ msgid "Book Name"
 msgstr "Nombre del libro"
 
 #: themes-book/pressbooks-book/footer.php:51
-msgid "PressBooks.com: Simple Book Production"
-msgstr "PressBooks.com: Simple Book Production"
+msgid "Pressbooks.com: Simple Book Production"
+msgstr "Pressbooks.com: Simple Book Production"
 
 #: themes-book/pressbooks-book/functions.php:16
 msgid "Contributing Author"
@@ -3034,7 +3034,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-private-block.php:2
 #: themes-book/pressbooks-book/page-cover-top-block.php:18
-msgid "Make your own books on PressBooks"
+msgid "Make your own books on Pressbooks"
 msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:5
@@ -3359,7 +3359,7 @@ msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "PressBooks"
+msgid "Pressbooks"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

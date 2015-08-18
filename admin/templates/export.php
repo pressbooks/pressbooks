@@ -41,7 +41,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 
 <div id="icon-pressbooks-export" class="icon32"></div>
 <h2><?php _e( 'Export', 'pressbooks' ); ?> &ldquo;<?php bloginfo( 'name' ); ?>&rdquo;</h2>
-<p><?php printf( __( 'You can export multiple file formats by selecting your Export Format Options below. PressBooks saves your last %s batches of exported files.', 'pressbooks' ), $max_batches  );?></p>
+<p><?php printf( __( 'You can export multiple file formats by selecting your Export Format Options below. Pressbooks saves your last %s batches of exported files.', 'pressbooks' ), $max_batches  );?></p>
 
 <div class="export-page">
 
@@ -131,7 +131,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    	<?php } ?>
 	    	<input type="checkbox" id="icml" name="export_formats[icml]" value="1" <?php checked(1, $options['icml'], false); ?>/><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" <?php checked(1, $options['xhtml'], false); ?>/><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="wxr" name="export_formats[wxr]" value="1" <?php checked(1, $options['wxr'], false); ?>/><label for="wxr"> <?php _e( 'PressBooks XML', 'pressbooks' ); ?></label><br />
+	    	<input type="checkbox" id="wxr" name="export_formats[wxr]" value="1" <?php checked(1, $options['wxr'], false); ?>/><label for="wxr"> <?php _e( 'Pressbooks XML', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="vanillawxr" name="export_formats[vanillawxr]" value="1" <?php checked(1, $options['vanillawxr'], false); ?>/><label for="vanillawxr"> <?php _e( 'WordPress XML', 'pressbooks' ); ?></label>
 	    	<?php if ( true == \PressBooks\Utility\show_experimental_features() ) { ?><br/>
 	    	<input type="checkbox" id="odt" name="export_formats[odt]" value="1" <?php checked(1, $options['odt'], false); ?>/><label for="odt"> <?php _e( 'ODT', 'pressbooks' ); ?></label>

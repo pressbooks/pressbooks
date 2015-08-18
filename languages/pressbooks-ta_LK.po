@@ -191,7 +191,7 @@ msgstr "இது ஏற்கெனவே உள்ள வழக்கமான
 
 #: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
 #: admin/pb-admin-dashboard.php:95
-msgid "PressBooks News"
+msgid "Pressbooks News"
 msgstr "அச்சுப்புத்தகங்கள் பற்றிய செய்திகள்"
 
 #: admin/pb-admin-dashboard.php:41
@@ -288,12 +288,12 @@ msgid "Import"
 msgstr "இறக்குமதி"
 
 #: admin/pb-admin-laf.php:247 admin/pb-admin-laf.php:256
-msgid "About PressBooks"
+msgid "About Pressbooks"
 msgstr "அச்சுப்புத்தகங்கள் பற்றி"
 
 #: admin/pb-admin-laf.php:265
-msgid "PressBooks.com"
-msgstr "PressBooks.com"
+msgid "Pressbooks.com"
+msgstr "Pressbooks.com"
 
 #: admin/pb-admin-laf.php:273
 msgid "Support Forums"
@@ -413,10 +413,10 @@ msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
 "support for deciphering validation errors, but you could post errors on the "
-"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks "
-"forum</a>, where we and other PressBooks users can help out as time permits."
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">Pressbooks "
+"forum</a>, where we and other Pressbooks users can help out as time permits."
 " ."
-msgstr "குறிப்பு: (EPUB, Mobi, மற்றும் PDF) சரிபார்ப்புப் பிழை அறிக்கைகளைப் புரிந்துகொள்ள, தொழில்நுட்ப அறிவு தேவை. எங்களால் தொழில்நுட்ப உதவி தர இயலாது. உங்கள் பிழை அறிக்கையை  <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks பயனர் மன்றத்தில்</a> பதிவு செய்து உதவி கோரலாம். நாங்களும் மற்ற  பயனர்களும் உங்களுக்கு உதவுவோம்."
+msgstr "குறிப்பு: (EPUB, Mobi, மற்றும் PDF) சரிபார்ப்புப் பிழை அறிக்கைகளைப் புரிந்துகொள்ள, தொழில்நுட்ப அறிவு தேவை. எங்களால் தொழில்நுட்ப உதவி தர இயலாது. உங்கள் பிழை அறிக்கையை  <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">Pressbooks பயனர் மன்றத்தில்</a> பதிவு செய்து உதவி கோரலாம். நாங்களும் மற்ற  பயனர்களும் உங்களுக்கு உதவுவோம்."
 
 #: admin/pb-admin-laf.php:1004
 msgid "Enable chapter types taxonomy."
@@ -913,7 +913,7 @@ msgstr "இவருக்கு மின்னஞ்சல் அனுப்�
 #, php-format
 msgid ""
 "You can export multiple file formats by selecting your Export Format Options"
-" below. PressBooks saves your last %s batches of exported files."
+" below. Pressbooks saves your last %s batches of exported files."
 msgstr "கோப்பு வகைகளைத் தெரிவு செய்வதன் மூலம், நீங்கள் பல்வேறு கோப்பு வகைகளில் ஏற்றுமதி செய்ய முடியும். அச்சுப்புத்தகங்கள் கடைசி %s முறை ஏற்றுமதி செய்தவற்றைச் சேமித்து வைக்கிறது."
 
 #: admin/templates/export.php:49
@@ -973,7 +973,7 @@ msgid "XHTML"
 msgstr "XHTML"
 
 #: admin/templates/export.php:134
-msgid "PressBooks XML"
+msgid "Pressbooks XML"
 msgstr ""
 
 #: admin/templates/export.php:135
@@ -1145,10 +1145,10 @@ msgstr "நாங்கள் <a href=\"%s\" target=\"_blank\">BookBaby</a> ச�
 
 #: admin/templates/sell.php:20
 msgid ""
-"For a flat fee starting at $99 (with a 10% discount for PressBooks users and"
+"For a flat fee starting at $99 (with a 10% discount for Pressbooks users and"
 " 100% royalties going to you), BookBaby will send your book to the Kindle "
 "Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
-msgstr "தொடக்கக் கட்டணம் 99 டாலருக்கு, 'புக்பேபி' உங்கள் நூலை கிண்டில் ஸ்டோர், பார்னஸ் & நோபிள், ஆப்பிளின் ஐபுக் ஸ்டோர், கோபோ போன்ற அங்காடிகளுக்கு அனுப்பும். \n(PressBooks பயனாளர்களுக்கு 10% தள்ளுபடியும் உண்டு. விற்பனையில் 100% உரிமை உங்களுக்கே)"
+msgstr "தொடக்கக் கட்டணம் 99 டாலருக்கு, 'புக்பேபி' உங்கள் நூலை கிண்டில் ஸ்டோர், பார்னஸ் & நோபிள், ஆப்பிளின் ஐபுக் ஸ்டோர், கோபோ போன்ற அங்காடிகளுக்கு அனுப்பும். \n(Pressbooks பயனாளர்களுக்கு 10% தள்ளுபடியும் உண்டு. விற்பனையில் 100% உரிமை உங்களுக்கே)"
 
 #: admin/templates/sell.php:21
 msgid "Distribute with BookBaby"
@@ -1171,13 +1171,13 @@ msgid "Print-on-Demand with CreateSpace"
 msgstr "CreateSpace மூலம் கோரிக்கையின் பேரில் அச்சிடு (Print-on-Demand)"
 
 #: admin/templates/sell.php:34
-msgid "Create a Buy Page on PressBooks"
+msgid "Create a Buy Page on Pressbooks"
 msgstr "அச்சுப்புத்தகத்தில் விற்பனைப் பக்கத்தை உருவாக்கவும் "
 
 #: admin/templates/sell.php:35
 msgid ""
 "Once your books are available in stores, you can add the links to bookstores"
-" below, and we'll make a Buy page on the web version of your PressBooks "
+" below, and we'll make a Buy page on the web version of your Pressbooks "
 "book."
 msgstr "உங்கள் புத்தகங்கள் அங்காடிகளில் வெளிவந்த பின், அந்தந்த அங்காடிகளின் சுட்டியைக் கீழ்க்கண்டவாறு சேர்க்கவும். நாங்கள் உங்கள் புத்தகத்தின் மின் வடிவில், ஒரு விற்பனைப் பக்கத்தை உருவாக்கி இணைத்துவிடுவோம்."
 
@@ -1246,9 +1246,9 @@ msgstr "ஒப்புதல் இல்லை"
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
-"set up your own PressBooks book at: <a "
-"href=\"http://pressbooks.com\">PressBooks.com</a>."
-msgstr "இந்தப் புத்தகம் தனிப்பயனுக்கானது. பதிவு செய்த உறுப்பினர்கள் மட்டுமே படிக்க முடியும். உங்களிடம் ஒரு கணக்கு இருந்தால் <a href=\"/wp-login.php\">நுழைக</a> .  உங்கள் சொந்த நூல்களையும் இங்கு <a href=\"http://pressbooks.com\">PressBooks.com</a>. உருவாக்கலாம். "
+"set up your own Pressbooks book at: <a "
+"href=\"http://pressbooks.com\">Pressbooks.com</a>."
+msgstr "இந்தப் புத்தகம் தனிப்பயனுக்கானது. பதிவு செய்த உறுப்பினர்கள் மட்டுமே படிக்க முடியும். உங்களிடம் ஒரு கணக்கு இருந்தால் <a href=\"/wp-login.php\">நுழைக</a> .  உங்கள் சொந்த நூல்களையும் இங்கு <a href=\"http://pressbooks.com\">Pressbooks.com</a>. உருவாக்கலாம். "
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
@@ -1305,8 +1305,8 @@ msgid "Title Page"
 msgstr "தலைப்புப் பக்கம்"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1059
-msgid "Make your own books using PressBooks.com"
-msgstr "PressBooks.comஐ பயன்படுத்தி உங்கள் புத்தகத்தை உருவாக்குங்கள்"
+msgid "Make your own books using Pressbooks.com"
+msgstr "Pressbooks.comஐ பயன்படுத்தி உங்கள் புத்தகத்தை உருவாக்குங்கள்"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1407
 msgid "Table Of Contents"
@@ -1404,7 +1404,7 @@ msgid ""
 msgstr "மன்னிக்கவும், உங்கள் தேடலுக்கு ஒரு புத்தகமும் பொருந்தவில்லை.\nஉங்கள்  <a class=\"clear-filters\" href=\"#\">வடிகட்டிகளை நீக்கி விட்டு</a>, மீண்டும் முயலவும்.  "
 
 #: includes/pb-catalog.php:242
-msgid "PressBooks: the CMS for Books."
+msgid "Pressbooks: the CMS for Books."
 msgstr "அச்சுப்புத்தகங்கள்: புத்தகங்களுக்கான உள்ளடக்க மேலாண்மைக் கட்டகம்"
 
 #: includes/pb-image.php:302
@@ -1825,18 +1825,18 @@ msgstr ""
 #: pressbooks.php:44
 #, php-format
 msgid ""
-"PressBooks will not work with your version of PHP. PressBooks requires PHP "
+"Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
-"PressBooks."
+"Pressbooks."
 msgstr "இந்த பிஎச்பி பதிப்பிற்கு அச்சுப்புத்தகம் செயல்படாது.  அச்சுப்புத்தகம் சரிவர இயங்க, பிஎச்பியின் %s பதிப்போ அதற்கு மேலோ தேவை.  எனவே, தயவுசெய்து உங்கள் பிஎச்பியைத் தகுந்த பதிப்பிற்கு உயர்த்தவும்.  "
 
 #: pressbooks.php:57
 #, php-format
 msgid ""
-"PressBooks will not work with your version of WordPress. PressBooks requires"
+"Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multi-Site, version %s or greater. Please "
-"upgrade WordPress if you would like to use PressBooks."
-msgstr "PressBooks உங்கள் WordPress பதிப்பில் வேலை செய்யாது. PressBooks க்கு WordPress Multi-Site, பதிப்பு %S அல்லது மேம்பட்ட பதிப்பு,  தனியாக நிறுவப் பட வேண்டும்.  PressBooksஐ பயன்படுத்த விரும்பினால், உங்கள் WordPress ஐ மேம்படுத்துங்கள்."
+"upgrade WordPress if you would like to use Pressbooks."
+msgstr "Pressbooks உங்கள் WordPress பதிப்பில் வேலை செய்யாது. Pressbooks க்கு WordPress Multi-Site, பதிப்பு %S அல்லது மேம்பட்ட பதிப்பு,  தனியாக நிறுவப் பட வேண்டும்.  Pressbooksஐ பயன்படுத்த விரும்பினால், உங்கள் WordPress ஐ மேம்படுத்துங்கள்."
 
 #: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
@@ -1969,7 +1969,7 @@ msgstr ""
 #, php-format
 msgid ""
 "The <em>Disable Comments</em> plugin is active and configured to disable "
-"comments on custom post types for PressBooks. Visit the <a "
+"comments on custom post types for Pressbooks. Visit the <a "
 "href=\"%s\">configuration page</a> to choose which post types to "
 "<b>enable</b> comments on."
 msgstr ""
@@ -2331,8 +2331,8 @@ msgid "Book Name"
 msgstr "நூலின் பெயர்"
 
 #: themes-book/pressbooks-book/footer.php:51
-msgid "PressBooks.com: Simple Book Production"
-msgstr "PressBooks.com: எளிய புத்தக உருவாக்கம்"
+msgid "Pressbooks.com: Simple Book Production"
+msgstr "Pressbooks.com: எளிய புத்தக உருவாக்கம்"
 
 #: themes-book/pressbooks-book/functions.php:16
 msgid "Contributing Author"
@@ -3038,7 +3038,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-private-block.php:2
 #: themes-book/pressbooks-book/page-cover-top-block.php:18
-msgid "Make your own books on PressBooks"
+msgid "Make your own books on Pressbooks"
 msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:5
@@ -3363,7 +3363,7 @@ msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "PressBooks"
+msgid "Pressbooks"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

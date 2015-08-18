@@ -20,11 +20,11 @@
  * http://rayofsolaris.net/
  * https://github.com/solarissmoke/disable-comments
  * 
- * This fork modifies the plugin to work with PressBooks; strips unwanted features, adds others.
+ * This fork modifies the plugin to work with Pressbooks; strips unwanted features, adds others.
  * 
  * Designed to be activated only at the site level for site autonomy. Also gets rid of the atomic/permanently destructive 
  * comment disabling that the original plugin currently has. 
- * The default state is to disable the comments for the custom post types that PressBooks defines. 
+ * The default state is to disable the comments for the custom post types that Pressbooks defines. 
  * Requires the user to actively turn comments on if they want comments.
  *
  */
@@ -92,7 +92,7 @@ class Disable_Comments {
 		}
 		
 		// Not part of the original plugin
-		// Added for integration with PressBooks Textbook plugin
+		// Added for integration with Pressbooks Textbook plugin
 		// Sets defaults, disables comments on custom post types
 		$this->pbtModifyDisableComments();
 		
@@ -284,7 +284,7 @@ class Disable_Comments {
 				return;
 		$hascaps = current_user_can( 'manage_options' );
 		if ( $hascaps )
-				echo '<div class="updated fade"><p>' . sprintf( __( 'The <em>Disable Comments</em> plugin is active and configured to disable comments on custom post types for PressBooks. Visit the <a href="%s">configuration page</a> to choose which post types to <b>enable</b> comments on.', 'disable-comments' ), esc_attr( $this->settings_page_url() ) ) . '</p></div>';
+				echo '<div class="updated fade"><p>' . sprintf( __( 'The <em>Disable Comments</em> plugin is active and configured to disable comments on custom post types for Pressbooks. Visit the <a href="%s">configuration page</a> to choose which post types to <b>enable</b> comments on.', 'disable-comments' ), esc_attr( $this->settings_page_url() ) ) . '</p></div>';
 	}
 
 	/**
@@ -493,7 +493,7 @@ class Disable_Comments {
 
 	/**
 	 * Not part of the original plugin. 
-	 * Added for integration with PressBooks Textbook plugin
+	 * Added for integration with Pressbooks Textbook plugin
 	 */
 	private function pbtModifyDisableComments() {
 		$post_types = array( 'chapter', 'front-matter', 'back-matter', 'attachment' );

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 
@@ -62,7 +62,7 @@ class BooksApi extends Api {
 		$this->public_books = $this->getPublicBlogIds();
 
 		if ( empty( $this->public_books ) ) {
-			throw new \Exception( 'There are no public facing books in this instance of PressBooks'); 
+			throw new \Exception( 'There are no public facing books in this instance of Pressbooks'); 
 		}
 
 		// get the format, set it as instance variable

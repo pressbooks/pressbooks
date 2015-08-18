@@ -1,8 +1,8 @@
-# Copyright (C) 2013 PressBooks
-# This file is distributed under the same license as the PressBooks package.
+# Copyright (C) 2013 Pressbooks
+# This file is distributed under the same license as the Pressbooks package.
 msgid ""
 msgstr ""
-"Project-Id-Version: PressBooks 2.3\n"
+"Project-Id-Version: Pressbooks 2.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
 "POT-Creation-Date: 2015-06-08 10:56-0500\n"
 "PO-Revision-Date: 2015-06-08 11:04-0500\n"
@@ -173,8 +173,8 @@ msgstr "Detta kommer att skriva över befintlig anpassad CSS. Är du säker?"
 
 #: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
 #: admin/pb-admin-dashboard.php:95
-msgid "PressBooks News"
-msgstr "PressBooks News"
+msgid "Pressbooks News"
+msgstr "Pressbooks News"
 
 #: admin/pb-admin-dashboard.php:41
 msgid "My Book"
@@ -270,12 +270,12 @@ msgid "Import"
 msgstr "Importera"
 
 #: admin/pb-admin-laf.php:239 admin/pb-admin-laf.php:248
-msgid "About PressBooks"
-msgstr "Om PressBooks"
+msgid "About Pressbooks"
+msgstr "Om Pressbooks"
 
 #: admin/pb-admin-laf.php:257
-msgid "PressBooks.com"
-msgstr "PressBooks.com"
+msgid "Pressbooks.com"
+msgstr "Pressbooks.com"
 
 #: admin/pb-admin-laf.php:265
 msgid "Support Forums"
@@ -381,14 +381,14 @@ msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
 "support for deciphering validation errors, but you could post errors on the "
-"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">PressBooks forum</"
-"a>, where we and other PressBooks users can help out as time permits. ."
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">Pressbooks forum</"
+"a>, where we and other Pressbooks users can help out as time permits. ."
 msgstr ""
 "Obs: validering felrapporter (för EPUB, Mobi, och PDF) är teknisk, och "
 "kommer att kräva en viss ansträngning att dechiffrera. Tyvärr kan vi inte ge "
 "stöd för att dechiffrera valideringsfel, men du kan skicka fel på <a href="
-"\"http://forum.pressbooks.com/\" target=\"_blank\"> PressBooks forum </ a>, "
-"där vi och andra PressBooks användare kan hjälpa till i mån av tid. ."
+"\"http://forum.pressbooks.com/\" target=\"_blank\"> Pressbooks forum </ a>, "
+"där vi och andra Pressbooks användare kan hjälpa till i mån av tid. ."
 
 #: admin/pb-admin-laf.php:947
 msgid "Enable chapter types taxonomy."
@@ -895,10 +895,10 @@ msgstr "Mailas till:"
 #, php-format
 msgid ""
 "You can export multiple file formats by selecting your Export Format Options "
-"below. PressBooks saves your last %s batches of exported files."
+"below. Pressbooks saves your last %s batches of exported files."
 msgstr ""
 "Du kan exportera flera filformat genom att välja dina "
-"Exportformatsalternativ nedan. PressBooks sparar dina senaste %s partier av "
+"Exportformatsalternativ nedan. Pressbooks sparar dina senaste %s partier av "
 "exporterade filer."
 
 #: admin/templates/export.php:49
@@ -958,7 +958,7 @@ msgid "XHTML"
 msgstr "XHTML"
 
 #: admin/templates/export.php:134
-msgid "PressBooks XML"
+msgid "Pressbooks XML"
 msgstr ""
 
 #: admin/templates/export.php:135
@@ -1133,11 +1133,11 @@ msgstr ""
 
 #: admin/templates/sell.php:20
 msgid ""
-"For a flat fee starting at $99 (with a 10% discount for PressBooks users and "
+"For a flat fee starting at $99 (with a 10% discount for Pressbooks users and "
 "100% royalties going to you), BookBaby will send your book to the Kindle "
 "Store, Barnes & Noble, Apple's iBook store, Kobo, and more."
 msgstr ""
-"För en fast avgift börjar på $ 99 (med en 10% rabatt för PressBooks "
+"För en fast avgift börjar på $ 99 (med en 10% rabatt för Pressbooks "
 "användare och 100 royalties% går till dig), kommer BookBaby skicka din bok "
 "till Kindle Store, Barnes & Noble, Apples iBook Store, och Kobo."
 
@@ -1162,16 +1162,16 @@ msgid "Print-on-Demand with CreateSpace"
 msgstr "Print ISBN"
 
 #: admin/templates/sell.php:34
-msgid "Create a Buy Page on PressBooks"
-msgstr "Skapa en Köp sida på PressBooks"
+msgid "Create a Buy Page on Pressbooks"
+msgstr "Skapa en Köp sida på Pressbooks"
 
 #: admin/templates/sell.php:35
 msgid ""
 "Once your books are available in stores, you can add the links to bookstores "
-"below, and we'll make a Buy page on the web version of your PressBooks book."
+"below, and we'll make a Buy page on the web version of your Pressbooks book."
 msgstr ""
 "När böckerna tillgängliga, kan du lägga till länkar till bokhandlar nedan "
-"och vi kommer att göra ett köp sida på webbversionen av din PressBooks bok."
+"och vi kommer att göra ett köp sida på webbversionen av din Pressbooks bok."
 
 #: hooks-admin.php:187
 #, php-format
@@ -1240,13 +1240,13 @@ msgstr "Åtkomst nekad"
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>.  You can also "
-"set up your own PressBooks book at: <a href=\"http://pressbooks.com"
-"\">PressBooks.com</a>."
+"set up your own Pressbooks book at: <a href=\"http://pressbooks.com"
+"\">Pressbooks.com</a>."
 msgstr ""
 "Denna bok är privat och endast tillgänglig för registrerade användare. Om du "
 "har ett konto kan du logga in <a href=\"/wp-login.php\"> här </ a>. Du kan "
-"även ställa in din egen PressBooks bok på: <a href=\"http://pressbooks.com"
-"\"> PressBooks.com </ a>."
+"även ställa in din egen Pressbooks bok på: <a href=\"http://pressbooks.com"
+"\"> Pressbooks.com </ a>."
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
@@ -1302,8 +1302,8 @@ msgid "Title Page"
 msgstr "Titelsida"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1059
-msgid "Make your own books using PressBooks.com"
-msgstr "Gör dina egna böcker med PressBooks.com"
+msgid "Make your own books using Pressbooks.com"
+msgstr "Gör dina egna böcker med Pressbooks.com"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1407
 msgid "Table Of Contents"
@@ -1405,7 +1405,7 @@ msgstr ""
 "\"clear-filters\" href=\"#\">rensa dina nuvarande filter</a> och försök igen."
 
 #: includes/pb-catalog.php:243
-msgid "PressBooks: the CMS for Books."
+msgid "Pressbooks: the CMS for Books."
 msgstr "Mina böcker"
 
 #: includes/pb-image.php:302
@@ -1808,21 +1808,21 @@ msgstr ""
 #: pressbooks.php:44
 #, php-format
 msgid ""
-"PressBooks will not work with your version of PHP. PressBooks requires PHP "
+"Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
-"PressBooks."
+"Pressbooks."
 msgstr ""
 
 #: pressbooks.php:57
 #, php-format
 msgid ""
-"PressBooks will not work with your version of WordPress. PressBooks requires "
+"Pressbooks will not work with your version of WordPress. Pressbooks requires "
 "a dedicated install of WordPress Multi-Site, version %s or greater. Please "
-"upgrade WordPress if you would like to use PressBooks."
+"upgrade WordPress if you would like to use Pressbooks."
 msgstr ""
-"PressBooks kommer inte att fungera med din version av WordPress. PressBooks "
+"Pressbooks kommer inte att fungera med din version av WordPress. Pressbooks "
 "kräver en särskild installation av WordPress Multi-Site, version% s eller "
-"högre. Vänligen uppgradera WordPress om du vill använda PressBooks."
+"högre. Vänligen uppgradera WordPress om du vill använda Pressbooks."
 
 #: shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
@@ -2209,8 +2209,8 @@ msgid "Book Name"
 msgstr "Boka Namn"
 
 #: themes-book/pressbooks-book/footer.php:51
-msgid "PressBooks.com: Simple Book Production"
-msgstr "PressBooks.com: Enkel bokproduktion"
+msgid "Pressbooks.com: Simple Book Production"
+msgstr "Pressbooks.com: Enkel bokproduktion"
 
 #: themes-book/pressbooks-book/functions.php:16
 msgid "Contributing Author"
@@ -2911,7 +2911,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-private-block.php:2
 #: themes-book/pressbooks-book/page-cover-top-block.php:18
-msgid "Make your own books on PressBooks"
+msgid "Make your own books on Pressbooks"
 msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:5
@@ -3558,8 +3558,8 @@ msgstr ""
 #~ msgid "RSS Feed"
 #~ msgstr "RSS-kanal"
 
-#~ msgid "PressBooks"
-#~ msgstr "PressBooks"
+#~ msgid "Pressbooks"
+#~ msgstr "Pressbooks"
 
 #~ msgid "http://www.pressbooks.com"
 #~ msgstr "http://www.pressbooks.com"

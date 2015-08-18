@@ -1,8 +1,8 @@
 <?php
 /**
- * Contains functions for creating and managing a user's PressBooks Catalog.
+ * Contains functions for creating and managing a user's Pressbooks Catalog.
  *
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 

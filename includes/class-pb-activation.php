@@ -3,7 +3,7 @@
  * Contains all procedures which will be run on 'wpmu_new_blog' hook, register_activation_hook, and
  * register_deactivation_hook
  *
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks;
@@ -47,10 +47,10 @@ class Activation {
 	 */
 	function registerActivationHook() {
 
-		// Prevent overwriting customizations if PressBooks has been disabled
+		// Prevent overwriting customizations if Pressbooks has been disabled
 		if ( ! get_site_option( 'pressbooks-activated' ) ) {
 
-			// Insert PressBooks description on root blog
+			// Insert Pressbooks description on root blog
 			update_blog_option( 1, 'blogdescription', 'Simple Book Publishing' );
 
 			// Configure theme and remove widgets from root blog
@@ -186,7 +186,7 @@ class Activation {
 			array(
 				'post_title' => __( 'Access Denied', 'pressbooks' ),
 				'post_name' => 'access-denied',
-				'post_content' => __( 'This book is private, and accessible only to registered users. If you have an account you can login <a href="/wp-login.php">here</a>.  You can also set up your own PressBooks book at: <a href="http://pressbooks.com">PressBooks.com</a>.', 'pressbooks' ),
+				'post_content' => __( 'This book is private, and accessible only to registered users. If you have an account you can login <a href="/wp-login.php">here</a>.  You can also set up your own Pressbooks book at: <a href="http://pressbooks.com">Pressbooks.com</a>.', 'pressbooks' ),
 				'post_type' => 'page' ),
 			// Custom CSS
 			array(

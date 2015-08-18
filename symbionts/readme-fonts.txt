@@ -1,5 +1,5 @@
 ------------------------------------------------------------------------------
-The following fonts are distributed with PressBooks
+The following fonts are distributed with Pressbooks
 ------------------------------------------------------------------------------
 
 Cardo is Copyright (c) David J. Perry and released under the SIL Open Font License 1.1

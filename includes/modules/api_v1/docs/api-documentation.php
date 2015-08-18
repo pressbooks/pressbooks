@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<meta name="author" content="">
 		<link rel="icon" href="../../favicon.ico">
 
-		<title>PressBooks v1 RESTful API Documentation</title>
+		<title>Pressbooks v1 RESTful API Documentation</title>
 
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -120,7 +120,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">PressBooks v1 RESTful API Documentation</a>
+					<a class="navbar-brand" href="#">Pressbooks v1 RESTful API Documentation</a>
 				</div>
 			</div>
 		</nav>
@@ -164,7 +164,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 									<td></td>
 									<td class="text-info">/books</td>
 									<td><a href="#titles">titles</a>, <a href="#subjects">subjects</a>, <a href="#authors">authors</a>, <a href="#licenses">licenses</a>, <a href="#keywords">keywords</a>, <a href="#limit">limit</a>, <a href="#offset">offset</a></td>
-									<td>Gets information about a collection of books in a PressBooks instance. <br>
+									<td>Gets information about a collection of books in a Pressbooks instance. <br>
 										Limit of 100 returned unless otherwise specified (ie.<code>?limit=0</code>)
 									</td>
 								</tr>

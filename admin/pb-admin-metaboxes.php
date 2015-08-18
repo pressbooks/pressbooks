@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks\Admin\Metaboxes;
@@ -398,7 +398,7 @@ function add_meta_boxes() {
 		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' )
 	) );
 
-	// Only display Catalog Order metadata field if site is running a root theme other than PressBooks Root.
+	// Only display Catalog Order metadata field if site is running a root theme other than Pressbooks Root.
 
 	switch_to_blog(1);
 	$root_theme = wp_get_theme();

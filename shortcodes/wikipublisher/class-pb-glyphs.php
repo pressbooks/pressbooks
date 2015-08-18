@@ -4,9 +4,9 @@
  * non-UTF8 documents.
  *
  * @deprecated
- * @see      http://www.wikipublisher.org/wiki/PressBooks/GreekAndHebrew
+ * @see      http://www.wikipublisher.org/wiki/Pressbooks/GreekAndHebrew
  *
- * @author   PressBooks <code@pressbooks.com>
+ * @author   Pressbooks <code@pressbooks.com>
  * @license  GPLv2 (or any later version)
  */
 namespace PressBooks\Shortcodes\Wikipublisher;

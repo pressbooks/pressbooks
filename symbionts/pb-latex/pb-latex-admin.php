@@ -3,7 +3,7 @@
  * Copyright 2014 Brad Payne. GPL v2, of course.
  * 
  * This plugin is forked from the original WP Latex v1.8 http://wordpress.org/plugins/wp-latex/ (c) Sidney Markowitz, Automattic, Inc.
- * It modifies the plugin to work with PressBooks, strips unwanted features, adds others — activated at the network level
+ * It modifies the plugin to work with Pressbooks, strips unwanted features, adds others — activated at the network level
  *
  */
 

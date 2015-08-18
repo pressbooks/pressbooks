@@ -2,9 +2,9 @@
 /**
  * This class has two purposes:
  *  + Handle the custom metadata post, i.e. "Book Information". There should only be one metadata post per book.
- *  + Perform upgrades on individual books as PressBooks evolves
+ *  + Perform upgrades on individual books as Pressbooks evolves
  *
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks;
@@ -121,7 +121,7 @@ class Metadata {
 		    'keywords' => 'pb_keywords_tags',
 		    'publisher' => 'pb_publisher'
 		);
-		$html = "<meta name='application-name' content='PressBooks'>\n";
+		$html = "<meta name='application-name' content='Pressbooks'>\n";
 		$metadata = Book::getBookInformation();
 
 		// create meta elements

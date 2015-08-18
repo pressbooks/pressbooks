@@ -1,6 +1,6 @@
 // This script is loaded when a user is on the [ Text → Organize ] page
 
-var PressBooks = {
+var Pressbooks = {
 	"oldPart": null,
 	"newPart": null,
 	"defaultOptions": {
@@ -15,11 +15,11 @@ var PressBooks = {
 		cursor: 'crosshair',
 		items: 'tbody > tr',
 		start: function (index, el) {
-			PressBooks.oldPart = el.item.parents('table').attr("id");
+			Pressbooks.oldPart = el.item.parents('table').attr("id");
 		},
 		stop: function (index, el) {
-			PressBooks.newPart = el.item.parents('table').attr("id");
-			PressBooks.update(el.item);
+			Pressbooks.newPart = el.item.parents('table').attr("id");
+			Pressbooks.update(el.item);
 		}
 	},
 	"frontMatterOptions": {
@@ -36,7 +36,7 @@ var PressBooks = {
 			//alert(el);
 		},
 		stop: function (index, el) {
-			PressBooks.fmupdate(el.item);
+			Pressbooks.fmupdate(el.item);
 		}
 	},
 	"backMatterOptions": {
@@ -53,7 +53,7 @@ var PressBooks = {
 			//alert(el);
 		},
 		stop: function (index, el) {
-			PressBooks.bmupdate(el.item);
+			Pressbooks.bmupdate(el.item);
 		}
 	},
 	update: function (el) {
@@ -67,10 +67,10 @@ var PressBooks = {
 			data: {
 				action: 'pb_update_chapter',
 				// see http://forum.jquery.com/topic/sortable-serialize-not-changing-sort-order-over-3-div-cols
-				new_part_order: jQuery("#" + PressBooks.newPart).sortable("serialize"),
-				old_part_order: jQuery("#" + PressBooks.oldPart).sortable("serialize"),
-				new_part: PressBooks.newPart.replace(/^part\-([0-9]+)$/i, '$1'),
-				old_part: PressBooks.oldPart.replace(/^part\-([0-9]+)$/i, '$1'),
+				new_part_order: jQuery("#" + Pressbooks.newPart).sortable("serialize"),
+				old_part_order: jQuery("#" + Pressbooks.oldPart).sortable("serialize"),
+				new_part: Pressbooks.newPart.replace(/^part\-([0-9]+)$/i, '$1'),
+				old_part: Pressbooks.oldPart.replace(/^part\-([0-9]+)$/i, '$1'),
 				id: jQuery(el).attr('id').replace(/^chapter\-([0-9]+)$/i, '$1'),
 				_ajax_nonce: PB_OrganizeToken.orderNonce
 			},
@@ -166,9 +166,9 @@ var PressBooks = {
 jQuery(document).ready(function ($) {
 
 	// Init drag & drop
-	$("table.chapters").sortable(PressBooks.defaultOptions).disableSelection();
-	$("table#front-matter").sortable(PressBooks.frontMatterOptions).disableSelection();
-	$("table#back-matter").sortable(PressBooks.backMatterOptions).disableSelection();
+	$("table.chapters").sortable(Pressbooks.defaultOptions).disableSelection();
+	$("table#front-matter").sortable(Pressbooks.frontMatterOptions).disableSelection();
+	$("table#back-matter").sortable(Pressbooks.backMatterOptions).disableSelection();
 
 	// Public/Private form at top of page
 	$('input[name=blog_public]').change(function () {

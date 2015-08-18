@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) )
 		<div class="sell-your-book-copy">
 			<h3><?php _e('Ebook Distribution', 'pressbooks'); ?></h3>
 			<p><?php printf( __( 'We recommend <a href="%s" target="_blank">BookBaby</a>, a service which will get your book into 11 different ebooks stores. ', 'pressbooks' ), 'http://bookbaby.com/pressbooks' ); ?></p>
-			<p><?php _e( 'For a flat fee starting at $99 (with a 10% discount for PressBooks users and 100% royalties going to you), BookBaby will send your book to the Kindle Store, Barnes & Noble, Apple\'s iBook store, Kobo, and more.', 'pressbooks' ); ?></p>
+			<p><?php _e( 'For a flat fee starting at $99 (with a 10% discount for Pressbooks users and 100% royalties going to you), BookBaby will send your book to the Kindle Store, Barnes & Noble, Apple\'s iBook store, Kobo, and more.', 'pressbooks' ); ?></p>
 			<a href="http://bookbaby.com/pressbooks" class="button" target="_blank"><?php _e( 'Distribute with BookBaby', 'pressbooks' ); ?></a>
 		</div>
 
@@ -31,8 +31,8 @@ if ( ! defined( 'ABSPATH' ) )
 	</div>
 
 	<br>
-	<h3><?php _e('Create a Buy Page on PressBooks', 'pressbooks'); ?></h3>
-	<p><?php _e( 'Once your books are available in stores, you can add the links to bookstores below, and we\'ll make a Buy page on the web version of your PressBooks book.', 'pressbooks' ); ?></p>
+	<h3><?php _e('Create a Buy Page on Pressbooks', 'pressbooks'); ?></h3>
+	<p><?php _e( 'Once your books are available in stores, you can add the links to bookstores below, and we\'ll make a Buy page on the web version of your Pressbooks book.', 'pressbooks' ); ?></p>
 
 		<!-- Create the form that will be used to render our options -->
 		<form method="post" action="options.php">

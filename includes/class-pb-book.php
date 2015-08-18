@@ -4,7 +4,7 @@
  * complete representation of an idea, or set of ideas; emotion or set of emotions; and transmitted to readers in
  * various formats.
  *
- * @author  PressBooks <code@pressbooks.com>
+ * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
 namespace PressBooks;
@@ -781,7 +781,7 @@ class Book {
 /* --------------------------------------------------------------------------------------------------------------------
 
 getBookStructure() and getBookContents() will return a "super array" or a "book object" that contains everything
-PressBooks considers a book. This "book object" is returned in the correct order so that, with straightforward foreach()
+Pressbooks considers a book. This "book object" is returned in the correct order so that, with straightforward foreach()
 logic, a programmer or template designer can render a book however they see fit.
 
  * getBookStructure() returns a minimal subset of get_post( $post->ID, ARRAY_A ) plus our own custom key/values
