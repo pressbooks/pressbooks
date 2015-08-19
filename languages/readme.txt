@@ -6,7 +6,7 @@ Put load_plugin_textdomain() compatible language files here.
 
 Domain: pressbooks
 
-We also support overriding core WordPress strings. See "core-en_US.php" for example syntax.
+We also support overriding core WordPress strings. See 'core-en_US.php' for example syntax.
 
 Files should be named like:
 
@@ -17,35 +17,28 @@ Files should be named like:
 @see pressbooks/includes/pb-l10n.php
 
 ------------------------------------------------------------------------------
-Creating new PO and MO files for Pressbooks
+Creating new translations for Pressbooks
 --------------------------------------------------------------------------
 
-Follow the steps described here:
-http://codex.wordpress.org/I18n_for_WordPress_Developers#Generating_a_POT_file
+We use Transifex to manage translations of Pressbooks. If you would like to submit a translation in your language, join a team at:
+https://www.transifex.com/pressbooks/pressbooks/
 
-Quick and nerdy HOWTO, search and replace accordingly:
+We update the .pot file and incorporate new translations with every release of the Pressbooks plugin. Please be patient if your translations do not appear immediately.
 
-$ mkdir tmp
-$ cd tmp
-$ svn co http://i18n.svn.wordpress.org/tools/trunk/
-$ cd trunk
-$ php makepot.php wp-plugin /path/to/pressbooks
-$ mv pressbooks.pot /path/to/pressbooks/languages/pressbooks-es_ES.po
-
-... Translate pressbooks-es_ES.po ...
-
-$ cd /path/to/pressbooks/languages/
-$ msgfmt -o pressbooks-es_ES.mo pressbooks-es_ES.po
-
-Finally, add your new language to \PressBooks\Admin\Metaboxes\add_user_meta() in admin/pb-admin-metaboxes.php
+For core WordPress strings, create a new file (i.e. 'core-pt_BR.php' and submit a pull request via GitHub:
+http://github.com/pressbooks/pressbooks/
 
 ------------------------------------------------------------------------------
-Installing the rest of a language in Pressbooks (Ie. WordPress)
+Installing the rest of a language in Pressbooks (i.e. WordPress)
 ------------------------------------------------------------------------------
 
 In your existing Pressbooks install, create the 'wordpress/wp-content/languages/' directory.
 
 Download a translated WordPress from:
-http://codex.wordpress.org/WordPress_in_Your_Language
+https://make.wordpress.org/polyglots/teams/
 
 Copy 'wordpress/wp-content/languages/*' from the downloaded file into your own 'wordpress/wp-content/languages/' folder.
+
+Alternatively, use wp-cli:
+
+$ wp core language install es_ES
