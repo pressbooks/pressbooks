@@ -6,3 +6,4 @@ symbionts/mpdf/graph_cache/
 .sass-cache
 .tx
 __MACOSX
+*.DS_Store
