@@ -370,14 +370,33 @@ class Book {
 		$content = mb_convert_encoding(apply_filters( 'the_content', $parent->post_content ), 'HTML-ENTITIES', 'UTF-8');
 		$html = new \DOMDocument();
 		$html->loadHTML( $content );
-		$xpath = new \DOMXpath($html);
-		foreach( $xpath->query('/html/body/section/h1|/html/body/h1') as $node ) {
-			$output['section-' . $s] = $node->nodeValue;
+		$sections = $html->getElementsByTagName('h1');
+		foreach( $sections as $section ) {
+			$output['section-' . $s] = $section->textContent;
 			$s++;
 		}
 		if ( empty( $output ) )
 			$output = false;
 		return $output;
+	}
+
+	/**
+	 * Returns chapter, front or back matter content with section ID and classes added.
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	static function tagSubsections( $content ) {
+		$html = new \DOMDocument();
+		$html->loadHTML( $content );
+		$sections = $html->getElementsByTagName('h1');
+		$s = 1;
+		foreach ( $sections as $section ) {
+		    $section->setAttribute( 'id','section-' . $s++ );
+		    $section->setAttribute( 'class','section-header' );
+		}
+		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html->saveHTML() ) );
 	}
 
 	/**

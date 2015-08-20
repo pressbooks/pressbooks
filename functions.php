@@ -283,6 +283,17 @@ function pb_should_parse_sections() {
 }
 
 /**
+ * Tag the subsections
+ *
+ * @param $content string
+ *
+ * @return string
+ */
+function pb_tag_sections( $content ) {
+	return \PressBooks\Book::tagSubsections( $content );
+}
+
+/**
  * Rename image with arbitrary suffix (before extension)
  *
  * @param $thumb

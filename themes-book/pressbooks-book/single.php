@@ -19,12 +19,13 @@
 			      <?php endif; ?>
 									
 					<?php if ( get_post_type( $post->ID ) !== 'part' ) {
-						$content = apply_filters ( 'the_content', get_the_content() );
-						$s = 1;
-						while ( strpos( $content, '<h1>' ) !== false ) {
-						    $content = preg_replace('/<h1>/', '<h1 id="section-' . $s++ . '">', $content, 1);
+						if ( pb_should_parse_sections() ) {
+							$content = pb_tag_sections( mb_convert_encoding( apply_filters( 'the_content', get_the_content() ), 'HTML-ENTITIES', 'UTF-8' ) );
+							echo $content;
+						} else {
+							$content = apply_filters( 'the_content', get_the_content() );
+							echo $content;
 						}
-						echo $content;
 					} else {
 						echo apply_filters( 'the_content', get_post_meta( $post->ID, 'pb_part_content', true ) );
 			} ?>

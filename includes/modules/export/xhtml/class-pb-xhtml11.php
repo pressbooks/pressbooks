@@ -845,9 +845,7 @@ class Xhtml11 extends Export {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
-					while ( strpos( $content, '<h1>' ) !== false ) {
-					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="front-matter-section-' . $s++ . '">', $content, 1);
-					}
+					$content = \PressBooks\Book::tagSubsections( $content );
 				}
 
 			if ( $author ) {
@@ -972,9 +970,7 @@ class Xhtml11 extends Export {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
-					while ( strpos( $content, '<h1>' ) !== false ) {
-					    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="section-' . $s++ . '">', $content, 1);
-					}
+					$content = \PressBooks\Book::tagSubsections( $content );
 				}
 
 				if ( $author ) {
@@ -1067,9 +1063,7 @@ class Xhtml11 extends Export {
 			$sections = \PressBooks\Book::getSubsections( $id );
 			
 			if ( $sections ) {
-				while ( strpos( $content, '<h1>' ) !== false ) {
-				    $content = preg_replace('/<h1>/', '<h1 class="section-header" id="back-matter-section-' . $s++ . '">', $content, 1);
-				}
+				$content = \PressBooks\Book::tagSubsections( $content );
 			}
 
 			if ( $author ) {
