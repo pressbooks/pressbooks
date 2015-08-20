@@ -388,6 +388,7 @@ class Book {
 	 * @return string
 	 */
 	static function tagSubsections( $content ) {
+		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 		$html = new \DOMDocument();
 		$html->loadHTML( $content );
 		$sections = $html->getElementsByTagName('h1');
