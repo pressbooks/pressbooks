@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) )
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
+require( PB_PLUGIN_DIR . 'admin/pb-admin-branding.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
@@ -22,6 +23,14 @@ require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
 require( PB_PLUGIN_DIR . 'symbionts/pb-latex/pb-latex.php' );
 
 PressBooks\Utility\include_plugins();
+
+// -------------------------------------------------------------------------------------------------------------------
+// Login screen branding
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'login_head', '\PressBooks\Admin\Branding\custom_login_logo' );
+add_filter( 'login_headerurl', '\PressBooks\Admin\Branding\login_url' );
+add_filter( 'login_headertitle', '\PressBooks\Admin\Branding\login_title' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin
