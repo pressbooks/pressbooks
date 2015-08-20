@@ -397,7 +397,8 @@ class Book {
 		    $section->setAttribute( 'id','section-' . $s++ );
 		    $section->setAttribute( 'class','section-header' );
 		}
-		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html->saveHTML() ) );
+		error_log('a-ok');
+		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>', '<br>' ), array( '', '', '', '', '<br />' ), $html->saveHTML() ) );
 	}
 
 	/**
