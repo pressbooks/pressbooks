@@ -321,7 +321,7 @@ function wplang_codes() {
 		'da' => 'da_DK',
 		'nl' => 'nl_NL',
 		'nl-be' => 'nl_NL', // Dutch (Belgium)
-		'en' => '',
+		'en' => 'en_US',
 		'en-au' => 'en_AU',
 		'en-bz' => '', // English (Belize)
 		'en-ca' => 'en_CA',
