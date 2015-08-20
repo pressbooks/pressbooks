@@ -324,40 +324,32 @@ img.theme-screenshot {
 		font-style: normal;
 }
 
-a.menu-icon-generic .wp-menu-image:before {
-	font-family: FontAwesome !important;
-	-webkit-font-smoothing: antialiased;
-	background: none;
-	content: '\f05a' !important;
-}
-
+/*
 a.menu-icon-post .wp-menu-image:before {
 	font-family: FontAwesome !important;
 	-webkit-font-smoothing: antialiased;
 	background: none;
 	content: '\f02d' !important;
 }
+*/
 
+/*
 a.toplevel_page_pb_upgrade .wp-menu-image:before {
 	font-family: FontAwesome !important;
 	-webkit-font-smoothing: antialiased;
 	background: none;
 	content: '\f01b' !important;
 }
+*/
 
+/*
 a.toplevel_page_pb_export .wp-menu-image:before {
 	font-family: FontAwesome !important;
 	-webkit-font-smoothing: antialiased;
 	background: none;
 	content: '\f064' !important;
 }
-
-a.toplevel_page_pb_sell > .wp-menu-image:before {
-	font-family: FontAwesome !important;
-	-webkit-font-smoothing: antialiased;
-	background: none;
-	content: '\f155' !important;
-}
+*/
 
 .export-files {
 	margin-bottom: 1.25em;

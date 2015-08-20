@@ -35,6 +35,10 @@ function admin_title( $admin_title ) {
 	return $title;
 }
 
+function extras_page() {
+	
+}
+
 /**
  * Removes some default WordPress Admin Sidebar items and adds our own
  */
@@ -52,7 +56,7 @@ function replace_book_admin_menu() {
 
 	$menu[69] = $menu[25]; // Relocate Comments
 	unset( $menu[25] );
-
+	
 	// Remove items we don't want the user to see.
 	remove_submenu_page( 'index.php', 'my-sites.php' );
 	remove_submenu_page( 'options-general.php', 'options-general.php' );
@@ -79,6 +83,9 @@ function replace_book_admin_menu() {
 	remove_submenu_page( "tools.php", "export.php" );
 	remove_submenu_page( "tools.php", "ms-delete-site.php" );
 	remove_menu_page( "plugins.php" );
+
+	add_menu_page( __( 'Extras', 'pressbooks' ), __( 'Extras', 'pressbooks' ), 'manage_options', 'pb_extras', __NAMESPACE__ . '\extras_page', 'dashicons-admin-plugins', 74 );	
+	
 	remove_submenu_page( "edit.php?post_type=chapter", "edit.php?post_type=chapter" );
 
 	// Organize
@@ -138,7 +145,7 @@ function replace_book_admin_menu() {
 	} else {
 		$book_info_url = 'post-new.php?post_type=metadata';
 	}
-	$page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'edit_posts', $book_info_url, '', '', 12 );
+	$page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'edit_posts', $book_info_url, '', 'dashicons-info', 12 );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 			if ( 'metadata' == get_post_type() ) {
@@ -151,7 +158,7 @@ function replace_book_admin_menu() {
 	} );
 
 	// Export
-	$page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', '', 14 );
+	$page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', 'dashicons-migrate', 14 );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
 			wp_enqueue_script( 'pb-export' );
@@ -161,14 +168,14 @@ function replace_book_admin_menu() {
 		}
 	} );
 
-	// Sell
-	add_menu_page( __( 'Sell', 'pressbooks' ), __( 'Sell', 'pressbooks' ), 'edit_posts', 'pb_sell', __NAMESPACE__ . '\display_sell', '', 16 );
-
 	// Privacy
 	add_options_page( __( 'Privacy Options', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Advanced
 	add_options_page( __( 'Advanced Options', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
+
+	// Sell
+	add_options_page( __( 'Sell', 'pressbooks' ), __( 'Sell', 'pressbooks' ), 'edit_posts', 'pb_sell', __NAMESPACE__ . '\display_sell' );
 
 	// Import
 	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );

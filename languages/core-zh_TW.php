@@ -18,7 +18,6 @@ $overrides = array(
 );
 
 if ( \PressBooks\Book::isBook() ) {
-	$overrides['Settings'] = '公用事業';
 	$overrides['Visit Site'] = '訪問書';
 	$overrides['Edit Site'] = '編輯書';
 }

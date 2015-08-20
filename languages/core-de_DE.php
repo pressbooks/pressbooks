@@ -18,7 +18,6 @@ $overrides = array(
 );
 
 if ( \PressBooks\Book::isBook() ) {
-	$overrides['Settings'] = 'Nützliches';
 	$overrides['Visit Site'] = 'Besuchen Buch';
 	$overrides['Edit Site'] = 'Bearbeiten Book';
 }
