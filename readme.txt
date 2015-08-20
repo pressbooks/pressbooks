@@ -196,6 +196,7 @@ TK.
 == Changelog ==
 
 = 2.6.1 =
+* Fixed issues with subsection parsing where <h1> tags had inline styles or were wrapped in other block elements.
 * Fixed an issue where changing a book's language to "English" as opposed to "English (United States)" would fail to override the network's language setting.
 * Updated documentation.
 
