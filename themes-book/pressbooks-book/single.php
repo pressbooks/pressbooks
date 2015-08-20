@@ -20,7 +20,7 @@
 									
 					<?php if ( get_post_type( $post->ID ) !== 'part' ) {
 						if ( pb_should_parse_sections() ) {
-							$content = pb_tag_sections( mb_convert_encoding( apply_filters( 'the_content', get_the_content() ), 'HTML-ENTITIES', 'UTF-8' ) );
+							$content = pb_tag_sections( apply_filters( 'the_content', get_the_content() ) );
 							echo $content;
 						} else {
 							$content = apply_filters( 'the_content', get_the_content() );
