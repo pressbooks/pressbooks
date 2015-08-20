@@ -231,7 +231,7 @@ abstract class Import {
 		// --------------------------------------------------------------------------------------------------------
 		// Determine at what stage of the import we are and do something about it
 
-		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/options-general.php?page=pb_import';
+		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/tools.php?page=pb_import';
 		$current_import = get_option( 'pressbooks_current_import' );
 
 		// Revoke

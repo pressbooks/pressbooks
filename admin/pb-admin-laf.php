@@ -71,9 +71,9 @@ function replace_book_admin_menu() {
 	remove_menu_page( "link-manager.php" );
 	remove_menu_page( "edit.php?post_type=page" );
 	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', 'pressbooks_theme_options_display' );
-	if ( ! current_user_can( 'import' ) || ! function_exists( 'register_pressbooks_import_page' ) ) {
-		remove_menu_page( "tools.php" );
-	}
+//	if ( ! current_user_can( 'import' ) || ! function_exists( 'register_pressbooks_import_page' ) ) {
+		//remove_menu_page( "tools.php" );
+//	}
 	remove_submenu_page( "tools.php", "tools.php" );
 	remove_submenu_page( "tools.php", "import.php" );
 	remove_submenu_page( "tools.php", "export.php" );
@@ -165,13 +165,13 @@ function replace_book_admin_menu() {
 	add_menu_page( __( 'Sell', 'pressbooks' ), __( 'Sell', 'pressbooks' ), 'edit_posts', 'pb_sell', __NAMESPACE__ . '\display_sell', '', 16 );
 
 	// Privacy
-	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
+	add_options_page( __( 'Privacy Options', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Advanced
-	add_options_page( __( 'Advanced Settings', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
+	add_options_page( __( 'Advanced Options', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
 
 	// Import
-	$page = add_options_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
+	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
 			wp_enqueue_script( 'pb-import' );
@@ -220,7 +220,7 @@ function display_export() {
 }
 
 /**
- * Displays the Import  Admin Page
+ * Displays the Import Admin Page
  */
 function display_import() {
 

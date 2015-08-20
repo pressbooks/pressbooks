@@ -15,7 +15,7 @@ class SearchRegex extends SearchRegex_Plugin {
 		if (  is_admin()) {
 			$this->register_plugin( 'search-regex', __FILE__ );
 			$this->add_filter( 'admin_menu' );
-			$this->add_action( 'load-settings_page_search-and-replace', 'search_head' );
+			$this->add_action( 'load-tools_page_search-and-replace', 'search_head' );
 		}
 	}
 
@@ -86,7 +86,7 @@ class SearchRegex extends SearchRegex_Plugin {
 
 	function admin_menu()	{
 		if ( current_user_can( 'administrator' ) ) {
-    		$menu = add_options_page( __( 'Search and Replace', 'pressbooks' ), __( 'Search and Replace', 'pressbooks' ), 'administrator', 'search-and-replace', array( &$this, 'admin_screen' ) );
+    		$menu = add_management_page( __( 'Search and Replace', 'pressbooks' ), __( 'Search and Replace', 'pressbooks' ), 'administrator', 'search-and-replace', array( &$this, 'admin_screen' ) );
     		add_action( 'admin_print_scripts-' . $menu, array( &$this, 'js' ) );
     	}
 	}
