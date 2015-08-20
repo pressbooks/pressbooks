@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.6
+Version: 2.6.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 2.6
+Stable tag: 2.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -195,12 +195,15 @@ TK.
 
 == Changelog ==
 
+= 2.6.1 =
+* Fixed an issue where changing a book's language to "English" as opposed to "English (United States)" would fail to override the network's language setting.
+* Updated documentation.
+
 = 2.6 =
 * Requires WordPress 4.3.
 * The language selected on the book info page now applies to the book's webbook display.
 * The language selected on the network settings page now applies automatically to new books and users.
 * The language selected on a user's profile now overrides the network and book languages when they view the Pressbooks dashboard.
-
 
 = 2.5.4 =
 * Requires WordPress 4.2.4.
