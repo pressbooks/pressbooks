@@ -35,10 +35,6 @@ function admin_title( $admin_title ) {
 	return $title;
 }
 
-function extras_page() {
-	
-}
-
 /**
  * Removes some default WordPress Admin Sidebar items and adds our own
  */
@@ -83,8 +79,6 @@ function replace_book_admin_menu() {
 	remove_submenu_page( "tools.php", "export.php" );
 	remove_submenu_page( "tools.php", "ms-delete-site.php" );
 	remove_menu_page( "plugins.php" );
-
-	add_menu_page( __( 'Extras', 'pressbooks' ), __( 'Extras', 'pressbooks' ), 'manage_options', 'pb_extras', __NAMESPACE__ . '\extras_page', 'dashicons-admin-plugins', 74 );	
 	
 	remove_submenu_page( "edit.php?post_type=chapter", "edit.php?post_type=chapter" );
 

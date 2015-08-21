@@ -82,8 +82,8 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 				<div class="export-file-container">
 					<a class="export-file" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( $c == 0 ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
 					<div class="file-actions">
-						<a href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="icon download"></span></a>
-						<button class="delete" type="submit" name="submit" src="" value="Delete" onclick="if (!confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>')){ return false }"><span class="icon trash"></span></button>
+						<a href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="dashicons dashicons-download"></span></a>
+						<button class="delete" type="submit" name="submit" src="" value="Delete" onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><span class="dashicons dashicons-trash"></span></button>
 					</div>
 				</div>
 			</form>
