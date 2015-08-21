@@ -294,6 +294,10 @@ class Epub3 extends Epub\Epub201 {
 
 		libxml_use_internal_errors( true );
 
+		//these lines are produced by wordpress if Audio or Video are embedded and cause validation to fail
+		$html = str_replace( "<!--[if lt IE 9]><script>document.createElement('audio');</script><![endif] -->", '', $html );
+		$html = str_replace( "<!--[if lt IE 9]><script>document.createElement('video');</script><![endif] -->", '', $html );
+
 		// Load HTMl snippet into DOMDocument using UTF-8 hack
 		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
 		$doc = new \DOMDocument();
@@ -459,6 +463,16 @@ class Epub3 extends Epub\Epub201 {
 
 			$sources = $doc->getElementsByTagName( $tag );
 			foreach ( $sources as $source ) {
+
+				if ( $tag == 'audio' ) {
+					//  Wordpress uses MediaElementJS by default and hides audio until javascript unhides it.  Here's a workaround  
+					$oldStyle = $source->getAttribute( 'style' );
+					$newStyle = str_replace( 'visibility: hidden;', '', $oldStyle );
+					$source->setAttribute( 'style', $newStyle );
+
+					//The Audio Player always shows 'Loading' until pressing play if you don't add this
+					$source->setAttribute( 'preload', '' );
+				}
 
 				if ( $source->getAttribute( 'src' ) != '' ) {
 					// Fetch the audio file

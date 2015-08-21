@@ -1167,6 +1167,9 @@ class Epub201 extends Export {
 					Sanitize\decode( $title ),
 					$content,
 					'' );
+				
+				// Audio shortcodes in ePub3 exports (which inherit this method) result in the creation of <br> tags without closing tags, which breaks validation
+				$vars['post_content'] = str_ireplace( '<br>', '<br />', $vars['post_content'] ); 
 
 				$file_id = 'chapter-' . sprintf( "%03s", $j );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
