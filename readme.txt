@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.6.2
+Version: 2.6.3
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 2.6.2
+Stable tag: 2.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,9 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.6.3 =
+* Fixed issue with self-closing tags introduced in 2.6.1.
 
 = 2.6.2 =
 * Fixed issues with character encoding and improperly formed <br /> tags introduced in 2.6.1.
