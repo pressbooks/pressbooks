@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.6.3
+Version: 2.6.4
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 2.6.3
+Stable tag: 2.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,9 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.6.4 =
+* Fixed issue where updating a book's URL would break permalinks to front matter, back matter and parts (props to @programmieraffe for the bug report).
 
 = 2.6.3 =
 * Fixed issue with self-closing tags introduced in 2.6.1.
