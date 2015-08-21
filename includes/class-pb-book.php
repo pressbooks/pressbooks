@@ -389,16 +389,16 @@ class Book {
 	 */
 	static function tagSubsections( $content ) {
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-		$html = new \DOMDocument();
-		$html->loadHTML( $content );
-		$sections = $html->getElementsByTagName('h1');
+		$doc = new \DOMDocument();
+		$doc->loadHTML( $content );
+		$sections = $doc->getElementsByTagName('h1');
 		$s = 1;
 		foreach ( $sections as $section ) {
 		    $section->setAttribute( 'id','section-' . $s++ );
 		    $section->setAttribute( 'class','section-header' );
 		}
-		error_log('a-ok');
-		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>', '<br>' ), array( '', '', '', '', '<br />' ), $html->saveHTML() ) );
+		$html = $doc->saveXML( $doc->documentElement );
+		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
 	}
 
 	/**
