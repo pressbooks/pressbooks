@@ -196,7 +196,9 @@ TK.
 == Changelog ==
 
 = 2.6.4 =
+* Modified login buttons to redirect users to the page they were viewing after login rather than force redirecting them to their dashboard (props to @marcusschiesser for the feature request).
 * Fixed issue where updating a book's URL would break permalinks to front matter, back matter and parts (props to @programmieraffe for the bug report).
+* Removed the WordPress contextual help button to avoid confusion on the dashboard (props to @colomet for noting its presence).
 
 = 2.6.3 =
 * Fixed issue with self-closing tags introduced in 2.6.1.
