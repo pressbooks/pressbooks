@@ -2,30 +2,10 @@
 * default mpdf css stylesheet, can be configured on a per theme basis
 */
 
-/* FONTS
-===========	*/
-
-@font-face {
-	font-family: "Cardo";
-	font-weight: bold;
-	font-style: normal;
-	src: url(../../fonts/Cardob101.ttf) format("truetype");
-}
-@font-face {
-	font-family: "Cardo";
-	font-weight: normal;
-	font-style: italic;
-	src: url(../../fonts/Cardoi99.ttf) format("truetype");
-}
-@font-face {
-	font-family: "Cardo";
-	font-weight: normal;
-	font-style: normal;
-	src: url(../../fonts/Cardo104s.ttf) format("truetype");
-}
-
 body {
-	font:  10pt/1.1  "Cardo","Times New Roman", serif;
+	font-family:  "Trebuchet MS","Times", serif;
+	font-size: 0.9em;
+	
 }
 
 a {
@@ -564,7 +544,7 @@ a.mpdf_index_link {
 
 /* TABLE OF CONTENTS */
 div.mpdf_toc {
-	font-family: "Cardo","Times New Roman", serif;
+	font-family: "Times", serif;
 	line-height: normal;
 	page-break-after: avoid;
 	page-break-before: avoid;
