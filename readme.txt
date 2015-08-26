@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.6.4
+Version: 2.6.5
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 2.6.4
+Stable tag: 2.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,9 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.6.5 =
+* Changes TK.
 
 = 2.6.4 =
 * Added support for audio shortcodes in EPUB3 (props to @jflowers45).
