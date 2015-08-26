@@ -162,14 +162,14 @@ function replace_book_admin_menu() {
 		}
 	} );
 
+	// Sell
+	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', __NAMESPACE__ . '\display_publish', 'dashicons-products', 16 );
+
 	// Privacy
 	add_options_page( __( 'Privacy Options', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Advanced
 	add_options_page( __( 'Advanced Options', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
-
-	// Sell
-	add_options_page( __( 'Sell', 'pressbooks' ), __( 'Sell', 'pressbooks' ), 'edit_posts', 'pb_sell', __NAMESPACE__ . '\display_sell' );
 
 	// Import
 	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
@@ -901,11 +901,11 @@ function ecomm_links_sanitize( $input ) {
 
 
 /**
- * Display Sell Your Book
+ * Display Publish
  */
-function display_sell() {
+function display_publish() {
 
-	require( PB_PLUGIN_DIR . 'admin/templates/sell.php' );
+	require( PB_PLUGIN_DIR . 'admin/templates/publish.php' );
 }
 
 
