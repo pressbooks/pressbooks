@@ -196,8 +196,11 @@ TK.
 == Changelog ==
 
 = 2.6.4 =
+* Added support for audio shortcodes in EPUB3 (props to @jflowers45).
 * Modified login buttons to redirect users to the page they were viewing after login rather than force redirecting them to their dashboard (props to @marcusschiesser for the feature request).
-* Fixed issue where updating a book's URL would break permalinks to front matter, back matter and parts (props to @programmieraffe for the bug report).
+* Fixed an issue where PDF exports were not respecting user-defined widow and orphan settings.
+* Fixed an issue where unsupported @font-face declarations where being used in mPDF exports (props to @jflowers45 for the bug report and @bdolor for fixing it).
+* Fixed an issue where updating a book's URL would break permalinks to front matter, back matter and parts (props to @programmieraffe for the bug report).
 * Removed the WordPress contextual help button to avoid confusion on the dashboard (props to @colomet for noting its presence).
 
 = 2.6.3 =
