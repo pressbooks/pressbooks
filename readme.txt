@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.6.3
+Version: 2.6.4
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 2.6.3
+Stable tag: 2.6.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,14 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.6.4 =
+* Added support for audio shortcodes in EPUB3 (props to @jflowers45).
+* Modified login buttons to redirect users to the page they were viewing after login rather than force redirecting them to their dashboard (props to @marcusschiesser for the feature request).
+* Fixed an issue where PDF exports were not respecting user-defined widow and orphan settings.
+* Fixed an issue where unsupported @font-face declarations where being used in mPDF exports (props to @jflowers45 for the bug report and @bdolor for fixing it).
+* Fixed an issue where updating a book's URL would break permalinks to front matter, back matter and parts (props to @programmieraffe for the bug report).
+* Removed the WordPress contextual help button to avoid confusion on the dashboard (props to @colomet for noting its presence).
 
 = 2.6.3 =
 * Fixed issue with self-closing tags introduced in 2.6.1.
