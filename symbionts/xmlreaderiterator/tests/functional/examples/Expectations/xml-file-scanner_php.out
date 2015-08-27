@@ -1,0 +1,18 @@
+~^\Qinput.: data/movies.xml
+output: php://stdout
+limits: 5000 elements with 10 seconds time-limit
+\E\r\Q00000 /movies/movie                                    (0.0\E[012]\Q secs; 0.00 per second)
+scanning done. scanned 14 elements in 0 seconds. last element was /movies/movie/rating.
+creating scan summary in php://stdout.
+\-movies (1)
+  \-movie (1)
+    |-title (1)
+    |-characters (1)
+    | \-character (2)
+    |   |-name (2)
+    |   \-actor (2)
+    |-plot (1)
+    |-great-lines (1)
+    | \-line (1)
+    \-rating (2)
+\E$~

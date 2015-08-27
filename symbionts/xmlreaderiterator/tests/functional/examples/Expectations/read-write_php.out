@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<DBOS>
+    <ITEMS>
+        <ITEM id="1-1">item #1</ITEM>
+        <ITEM id="1-2">item #2</ITEM>
+        <ITEM id="1-3">item #3</ITEM>
+    </ITEMS>
+    <ITEMS>
+        <ITEM id="2-1">item #4</ITEM>
+        <ITEM id="2-2">item #5</ITEM>
+    </ITEMS>
+</DBOS>

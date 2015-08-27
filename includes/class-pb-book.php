@@ -389,10 +389,16 @@ class Book {
 	 */
 	static function tagSubsections( $content ) {
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-		$content = str_replace( array( '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ), array( '', '', '', '' ), $content );
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
-		$sections = $doc->getElementsByTagName('h1');
+		$reader = new \XMLReader();
+		$iterator = new \DOMReadingIteration( $doc, $reader );
+		foreach ( $iterator as $index => $value ) {
+		    if ( $iterator->isEndElementOfEmptyElement() ) {
+		        $iterator->getLastNode()->appendChild( new DOMText('') );
+		    }
+		}
+		$sections = $doc->getElementsByTagName( 'h1' );
 		$s = 1;
 		foreach ( $sections as $section ) {
 		    $section->setAttribute( 'id','section-' . $s++ );

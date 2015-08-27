@@ -1,0 +1,5 @@
+XMLReader over 'sequence.xml.bz2':
+- xml #1: us-patent-grant: names (39): Akima; Balazs; Barbucci; Bonsen; Broder; Brown; Buckbinder; Bulpitt; Calias; Chari; Chaudhuri; Cialdi; Della Valle; Eppstein; Falk; Friedman; Gill; Harper; Igari; Inomata; Iwamitsu; Johnson; Kim; Micale; Pallado; Penco; Platz; Reed; Renier; Sola; Takahashi; Theeuwes; Turley; Urdal; Varadhachary; Welte; Willoughby; Yang; Young
+- xml #2: us-patent-grant: names (35): Barbera-Guillem; Blay; Chen; Giles-Komar; Igawa; Ishida; Isobe; Ito; Kirk; Kishimoto; Kobara; Koudou; Lawless; Maeda; Mihara; Mitsunaga; Nakade; Nakashima; Nemeth; Nishimoto; Novick; Ochiai; Okano; Okuda; Queen; Schuurman; Shima; Shimamura; Takahashi; Tsuchiya; Tsujinaka; Yasunami; Yoshizaki; Young; Zaki
+- xml #3: us-patent-grant: names (3): Holliger; Lindhofer; Weiner
+- xml #4: sequence-cwu: names (0): %

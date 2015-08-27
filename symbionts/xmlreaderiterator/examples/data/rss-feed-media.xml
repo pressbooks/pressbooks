@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"
+     xmlns:flow="http://www.flownetworks.com/schemas/media/0.1.0" xmlns="http://backend.userland.com/rss2">
+    <channel>
+        <title>flow-Media Catalog</title>
+        <link>http://catalog.flownetworks.com/catalogs/1/videos.mrss</link>
+        <description>Video Catalog</description>
+        <image>
+            <url>http://images.flow-media.com/flow_media_current.png</url>
+            <title>Get to know flow-Media</title>
+            <link>http://www.flow-media.com</link>
+        </image>
+        <generator>flow-Media</generator>
+        <item>
+            <title>..</title>
+            <link>..</link>
+            <description>..</description>
+            <pubDate>Wed, 01 May 2013 07:01:08 GMT</pubDate>
+            <guid isPermaLink="false">9809880</guid>
+            <flow:short_description/>
+            <flow:video_product_id>52985890</flow:video_product_id>
+            <flow:availability end="" start="2013-05-01T06:44:41Z"/>
+            <flow:show/>
+            <media:group>
+                <media:category>US</media:category>
+                <media:thumbnail
+                        url="http://images.flow-media.com/ap/2013/05/01/09d462107646ab09def454a1a923a423edd6d2d9_preview.jpg"
+                        height="360" width="640"/>
+                <media:thumbnail
+                        url="http://images.flow-media.com/ap/2013/05/01/09d462107646ab09def454a1a923a423edd6d2d9_thumbnail.jpg"
+                        height="90" width="160"/>
+                <media:content duration="101" medium="video" isDefault="true"
+                               url="http://player.flownetworks.com/swf/cube.swf?a=V5299690&amp;m=9&amp;w=420&amp;h=375"
+                               type="application/x-shockwave-flash" expression="full" height="375" lang="en-us"
+                               width="420">
+                </media:content>
+            </media:group>
+        </item>
+    </channel>
+</rss>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- comment -->
+<?php processing instruction; ?>
+<root>
+    <tag attribute="value">value</tag>
+    <element>some text</element>
+    <element></element>
+    <element/>
+    &amp;
+</root>

@@ -1,0 +1,35 @@
+(#1) ELEMENT <movies> (isEmptyElement: No) 
+  (#14) SIGNIFICANT_WHITESPACE (6) "\n    " 
+  (#1) ELEMENT <movie> (isEmptyElement: No) 
+    (#14) SIGNIFICANT_WHITESPACE (10) "\n        " 
+    (#1) ELEMENT <title> (isEmptyElement: No) 
+      (#3) TEXT (20) "PHP: Behind the P..." 
+    (#15) END_ELEMENT </title> 
+    (#14) SIGNIFICANT_WHITESPACE (6) "\n    " 
+  (#15) END_ELEMENT </movie> 
+  (#14) SIGNIFICANT_WHITESPACE (6) "\n    " 
+  (#1) ELEMENT <movie> (isEmptyElement: No) 
+    (#14) SIGNIFICANT_WHITESPACE (10) "\n        " 
+    (#1) ELEMENT <title> (isEmptyElement: No) 
+      (#3) TEXT (10) "Whitespace" 
+    (#15) END_ELEMENT </title> 
+    (#14) SIGNIFICANT_WHITESPACE (6) "\n    " 
+  (#15) END_ELEMENT </movie> 
+  (#14) SIGNIFICANT_WHITESPACE (6) "\n    " 
+  (#1) ELEMENT <movie> (isEmptyElement: No) 
+    (#14) SIGNIFICANT_WHITESPACE (10) "\n        " 
+    (#1) ELEMENT <title> (isEmptyElement: No) 
+      (#3) TEXT (20) "Whitespace - Tabs..." 
+    (#15) END_ELEMENT </title> 
+    (#14) SIGNIFICANT_WHITESPACE (6) "\n    " 
+  (#15) END_ELEMENT </movie> 
+  (#14) SIGNIFICANT_WHITESPACE (6) "\n    " 
+  (#1) ELEMENT <movie> (isEmptyElement: No) 
+    (#14) SIGNIFICANT_WHITESPACE (10) "\n        " 
+    (#1) ELEMENT <title> (isEmptyElement: No) 
+      (#3) TEXT (20) "Whitespace - The ..." 
+    (#15) END_ELEMENT </title> 
+    (#14) SIGNIFICANT_WHITESPACE (6) "\n    " 
+  (#15) END_ELEMENT </movie> 
+  (#14) SIGNIFICANT_WHITESPACE (2) "\n" 
+(#15) END_ELEMENT </movies> 

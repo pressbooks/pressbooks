@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- comment -->
+<?php processing instruction; ?>
+<abc:root xmlns:abc="ns:abc">
+    <element abc:attribute="value" def:attribute="none" xmlns:def="ns:def"/>
+    <element></element>
+    <element/>
+    &amp;
+</abc:root>

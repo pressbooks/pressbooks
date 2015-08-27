@@ -1,0 +1,119 @@
+<!--
+    Sample XML document with standard example content
+
+    This is the XMLReaderIterator standard XML for the first examples on Stackoverflow
+    Link: <http://stackoverflow.com/q/15423594/367456>
+-->
+<posts>
+    <user id="1">
+        <post>
+            <message>message 1</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+    </user>
+    <user id="2">
+        <post>
+            <message>message 2</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+    </user>
+    <user id="3">
+        <post>
+            <message>message 3</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+    </user>
+    <user id="4">
+        <post>
+            <message>message 4</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+    </user>
+    <user id="5">
+        <post>
+            <message>message 5</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+    </user>
+    <user id="6">
+        <post>
+            <message>message 6</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+    </user>
+    <user id="7">
+        <post>
+            <message>message 7</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+    </user>
+    <user id="8">
+        <post>
+            <message>message 8.1</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+        <post>
+            <message>message 8.2</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+        <post>
+            <message>message 8.3</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+    </user>
+    <user id="9">
+        <post>
+            <message>message 9</message>
+            <client>client</client>
+            <time>time</time>
+            <related>
+                <post>
+                    <message>message 9 A</message>
+                    <client>client</client>
+                    <time>time</time>
+                </post>
+            </related>
+        </post>
+    </user>
+    <user id="10">
+        <post>
+            <message>message 10</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+    </user>
+    <user id="1222334">
+        <post>
+            <message>hello</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+        <post>
+            <message>hello client how can I help?</message>
+            <client>operator</client>
+            <time>time</time>
+        </post>
+    </user>
+    <user id="2333343">
+        <post>
+            <message>good morning</message>
+            <client>client</client>
+            <time>time</time>
+        </post>
+        <post>
+            <message>good morning how can I help?</message>
+            <client>operator</client>
+            <time>time</time>
+        </post>
+    </user>
+</posts>
