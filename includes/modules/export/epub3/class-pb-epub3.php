@@ -311,7 +311,7 @@ class Epub3 extends Epub\Epub201 {
 		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
 		$html = $doc->saveXML( $doc->documentElement );
 
-		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
+		// Remove auto-created <html> <body> and <!DOCTYPE> tags, make <br> self-closing.
 		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 
 		// Mobi7 hacks

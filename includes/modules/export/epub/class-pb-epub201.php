@@ -1552,7 +1552,7 @@ class Epub201 extends Export {
 		$html = $doc->saveXML( $doc->documentElement );
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
+		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 
 		// Mobi7 hacks
 		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", $this->dir . '/templates/mobi-hacks.xsl' );
