@@ -196,7 +196,7 @@ TK.
 == Changelog ==
 
 = 2.6.5 =
-* Changes TK.
+* Fixed an issue where internal links on subdirectory installs were not being properly modified for PDF output (props to @bdolor).
 
 = 2.6.4 =
 * Added support for audio shortcodes in EPUB3 (props to @jflowers45).
