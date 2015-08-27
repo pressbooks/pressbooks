@@ -309,7 +309,7 @@ class Epub3 extends Epub\Epub201 {
 
 		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
 		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
-		$html = $doc->saveXML( $doc->documentElement );
+		$html = $doc->saveXML( $doc->documentElement, LIBXML_NOEMPTYTAG );
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags, make <br> self-closing.
 		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );

@@ -394,6 +394,10 @@ class Book {
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
 		
+		$prefix = '';
+		if ( $type )
+			$prefix = $type . '-';
+		
 		$sections = $doc->getElementsByTagName('h1');
 		$s = 1;
 		foreach ( $sections as $section ) {
