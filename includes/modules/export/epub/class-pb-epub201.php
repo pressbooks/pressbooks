@@ -1540,15 +1540,6 @@ class Epub201 extends Export {
 		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $utf8_hack . $html );
-		
-		// Preserve empty elements as non-self-closing by making them non-empty with a single text-node child that has zero-length text
-		$reader = new XMLReader();
-		$iterator = new \DOMReadingIteration( $doc, $reader );
-		foreach ( $iterator as $index => $value ) {
-		    if ( $iterator->isEndElementOfEmptyElement() ) {
-		        $iterator->getLastNode()->appendChild( new DOMText( '' ) );
-		    }
-		}
 
 		// Download images, change to relative paths
 		$doc = $this->scrapeAndKneadImages( $doc );
