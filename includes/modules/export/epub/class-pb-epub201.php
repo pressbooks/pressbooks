@@ -1547,6 +1547,14 @@ class Epub201 extends Export {
 		// Deal with <a href="">, <a href=''>, and other mutations
 		$doc = $this->kneadHref( $doc, $type, $pos );
 
+		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
+		$xpath = new \DOMXPath( $doc );
+		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br)]' ) ) && $nodes->length > 0 ) {
+		    foreach ( $nodes as $node ) {
+		        $node->appendChild( new \DOMText('') );
+		    }
+		}
+
 		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
 		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
 		$html = $doc->saveXML( $doc->documentElement );

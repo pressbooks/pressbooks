@@ -389,7 +389,10 @@ class Book {
 	 *
 	 * @return string
 	 */
-	static function tagSubsections( $content ) {
+	static function tagSubsections( $content, $type = '') {
+		global $s;
+		if ( !$s ) $s = 1;
+		
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
@@ -399,10 +402,15 @@ class Book {
 			$prefix = $type . '-';
 		
 		$sections = $doc->getElementsByTagName('h1');
-		$s = 1;
 		foreach ( $sections as $section ) {
-		    $section->setAttribute( 'id','section-' . $s++ );
-		    $section->setAttribute( 'class','section-header' );
+		    $section->setAttribute( 'id', $prefix . 'section-' . $s++ );
+		    $section->setAttribute( 'class', 'section-header' );
+		}
+		$xpath = new \DOMXPath( $doc );
+		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br)]' ) ) && $nodes->length > 0 ) {
+		    foreach ( $nodes as $node ) {
+		        $node->appendChild( new \DOMText('') );
+		    }
 		}
 		$html = $doc->saveXML( $doc->documentElement );
 		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );

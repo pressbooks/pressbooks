@@ -845,17 +845,7 @@ class Xhtml11 extends Export {
 			$sections = \PressBooks\Book::getSubsections( $id );
 			
 			if ( $sections ) {
-				$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-				$doc = new \DOMDocument();
-				$doc->loadHTML( $content );
-				
-				$sections = $doc->getElementsByTagName('h1');
-				foreach ( $sections as $section ) {
-				    $section->setAttribute( 'id', 'front-matter-section-' . $s++ );
-				    $section->setAttribute( 'class','section-header' );
-				}
-				$html = $doc->saveXML( $doc->documentElement );
-				$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
+				$content = \PressBooks\Book::tagSubsections( $content, 'front-matter' );
 			}
 
 			if ( $author ) {
@@ -980,17 +970,7 @@ class Xhtml11 extends Export {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
-					$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-					$doc = new \DOMDocument();
-					$doc->loadHTML( $content );
-					
-					$sections = $doc->getElementsByTagName('h1');
-					foreach ( $sections as $section ) {
-					    $section->setAttribute( 'id', 'section-' . $s++ );
-					    $section->setAttribute( 'class','section-header' );
-					}
-					$html = $doc->saveXML( $doc->documentElement );
-					$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
+					$content = \PressBooks\Book::tagSubsections( $content );
 				}
 
 				if ( $author ) {
@@ -1083,17 +1063,7 @@ class Xhtml11 extends Export {
 			$sections = \PressBooks\Book::getSubsections( $id );
 			
 			if ( $sections ) {
-				$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-				$doc = new \DOMDocument();
-				$doc->loadHTML( $content );
-				
-				$sections = $doc->getElementsByTagName('h1');
-				foreach ( $sections as $section ) {
-				    $section->setAttribute( 'id', 'back-matter-section-' . $s++ );
-				    $section->setAttribute( 'class','section-header' );
-				}
-				$html = $doc->saveXML( $doc->documentElement );
-				$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
+				$content = \PressBooks\Book::tagSubsections( $content, 'back-matter' );
 			}
 
 			if ( $author ) {
