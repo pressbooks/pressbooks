@@ -367,13 +367,15 @@ class Book {
 		$parent = get_post( $id );
 		$output = array();
 		$s = 1;
-		$content = mb_convert_encoding(apply_filters( 'the_content', $parent->post_content ), 'HTML-ENTITIES', 'UTF-8');
-		$html = new \DOMDocument();
-		$html->loadHTML( $content );
-		$sections = $html->getElementsByTagName('h1');
-		foreach( $sections as $section ) {
-			$output['section-' . $s] = $section->textContent;
-			$s++;
+		$content = mb_convert_encoding( apply_filters( 'the_content', $parent->post_content ), 'HTML-ENTITIES', 'UTF-8' );
+		if ( $content ) {
+			$doc = new \DOMDocument();
+			$doc->loadHTML( $content );
+			$sections = $doc->getElementsByTagName('h1');
+			foreach( $sections as $section ) {
+				$output['section-' . $s] = $section->textContent;
+				$s++;
+			}
 		}
 		if ( empty( $output ) )
 			$output = false;
@@ -389,17 +391,18 @@ class Book {
 	 */
 	static function tagSubsections( $content ) {
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-		$content = str_replace( array( '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ), array( '', '', '', '' ), $content );
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
+		
 		$sections = $doc->getElementsByTagName('h1');
 		$s = 1;
 		foreach ( $sections as $section ) {
 		    $section->setAttribute( 'id','section-' . $s++ );
 		    $section->setAttribute( 'class','section-header' );
 		}
-		$html = $doc->saveXML( $doc->documentElement );
-		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
+		$html = $doc->saveXML( $doc->documentElement, LIBXML_NOEMPTYTAG );
+		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>', '<br></br>' ), array ( '', '', '', '', '<br />' ), $html ) );
+		return $html;
 	}
 
 	/**

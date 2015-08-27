@@ -1540,7 +1540,7 @@ class Epub201 extends Export {
 		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $utf8_hack . $html );
-
+		
 		// Download images, change to relative paths
 		$doc = $this->scrapeAndKneadImages( $doc );
 
@@ -1549,10 +1549,10 @@ class Epub201 extends Export {
 
 		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
 		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
-		$html = $doc->saveXML( $doc->documentElement );
+		$html = $doc->saveXML( $doc->documentElement, LIBXML_NOEMPTYTAG );
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
+		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>', '<br></br>' ), array ( '', '', '', '', '<br />' ), $html ) );
 
 		// Mobi7 hacks
 		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", $this->dir . '/templates/mobi-hacks.xsl' );
