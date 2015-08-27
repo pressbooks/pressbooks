@@ -854,7 +854,7 @@ class Xhtml11 extends Export {
 				    $section->setAttribute( 'id', 'front-matter-section-' . $s++ );
 				    $section->setAttribute( 'class','section-header' );
 				}
-				$html = $doc->saveXML( $doc->documentElement, LIBXML_NOEMPTYTAG );
+				$html = $doc->saveXML( $doc->documentElement );
 				$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 			}
 
@@ -989,7 +989,7 @@ class Xhtml11 extends Export {
 					    $section->setAttribute( 'id', 'section-' . $s++ );
 					    $section->setAttribute( 'class','section-header' );
 					}
-					$html = $doc->saveXML( $doc->documentElement, LIBXML_NOEMPTYTAG );
+					$html = $doc->saveXML( $doc->documentElement );
 					$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 				}
 
@@ -1092,7 +1092,7 @@ class Xhtml11 extends Export {
 				    $section->setAttribute( 'id', 'back-matter-section-' . $s++ );
 				    $section->setAttribute( 'class','section-header' );
 				}
-				$html = $doc->saveXML( $doc->documentElement, LIBXML_NOEMPTYTAG );
+				$html = $doc->saveXML( $doc->documentElement );
 				$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 			}
 

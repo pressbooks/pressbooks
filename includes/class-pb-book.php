@@ -404,7 +404,7 @@ class Book {
 		    $section->setAttribute( 'id','section-' . $s++ );
 		    $section->setAttribute( 'class','section-header' );
 		}
-		$html = $doc->saveXML( $doc->documentElement, LIBXML_NOEMPTYTAG );
+		$html = $doc->saveXML( $doc->documentElement );
 		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 		return $html;
 	}
