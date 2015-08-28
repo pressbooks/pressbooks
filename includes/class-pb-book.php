@@ -406,17 +406,14 @@ class Book {
 		    $section->setAttribute( 'id', $prefix . 'section-' . $s++ );
 		    $section->setAttribute( 'class', 'section-header' );
 		}
-/*
 		$xpath = new \DOMXPath( $doc );
 		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 		    foreach ( $nodes as $node ) {
 		        $node->appendChild( new \DOMText('') );
 		    }
 		}
-*/
 		$html = $doc->saveXML( $doc->documentElement );
-		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
-		return $html;
+		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 	}
 
 	/**
