@@ -196,6 +196,7 @@ TK.
 == Changelog ==
 
 = 2.6.5 =
+* Fixed a number of issues with multi-level TOC parsing.
 * Fixed an issue where internal links on subdirectory installs were not being properly modified for PDF output (props to @bdolor).
 
 = 2.6.4 =
