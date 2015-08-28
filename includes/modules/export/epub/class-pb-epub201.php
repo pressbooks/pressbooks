@@ -993,10 +993,12 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			$sections = \PressBooks\Book::getSubsections( $id );
-			
-			if ( $sections ) {
-				$content = \PressBooks\Book::tagSubsections( $content );
+			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+				$sections = \PressBooks\Book::getSubsections( $id );
+				
+				if ( $sections ) {
+					$content = \PressBooks\Book::tagSubsections( $content, $id );
+				}
 			}
 
 			if ( $author ) {
@@ -1133,10 +1135,12 @@ class Epub201 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				$sections = \PressBooks\Book::getSubsections( $id );
-				
-				if ( $sections ) {
-					$content = \PressBooks\Book::tagSubsections( $content );
+				if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+					$sections = \PressBooks\Book::getSubsections( $id );
+					
+					if ( $sections ) {
+						$content = \PressBooks\Book::tagSubsections( $content, $id );
+					}
 				}
 
 				if ( $author ) {
@@ -1327,12 +1331,14 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			$sections = \PressBooks\Book::getSubsections( $id );
-			
-			if ( $sections ) {
-				$content = \PressBooks\Book::tagSubsections( $content );
+			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+				$sections = \PressBooks\Book::getSubsections( $id );
+				
+				if ( $sections ) {
+					$content = \PressBooks\Book::tagSubsections( $content, $id );
+				}
 			}
-
+			
 			if ( $author ) {
 				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
 			}
@@ -1464,11 +1470,9 @@ class Epub201 extends Export {
 			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $v['ID'] );
 				if ( $sections ) {
-					$s = 1;
 					$html .= '<ul class="sections">';
-					foreach ( $sections as $section ) {
-						$html .= '<li class="section"><a href="' . $v['filename'] . '#section-' . $s . '"><span class="toc-subsection-title">' . Sanitize\decode( $section ) . '</span></a></li>';
-						 ++$s;
+					foreach ( $sections as $id => $title ) {
+						$html .= '<li class="section"><a href="' . $v['filename'] . '#' . $id . '"><span class="toc-subsection-title">' . Sanitize\decode( $title ) . '</span></a></li>';
 					}
 					$html .= '</ul>';
 				}
@@ -1549,7 +1553,7 @@ class Epub201 extends Export {
 
 		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
 		$xpath = new \DOMXPath( $doc );
-		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br)]' ) ) && $nodes->length > 0 ) {
+		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 		    foreach ( $nodes as $node ) {
 		        $node->appendChild( new \DOMText('') );
 		    }

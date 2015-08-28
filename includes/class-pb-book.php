@@ -363,19 +363,18 @@ class Book {
 	 * @param $id
 	 *
 	 */
-	static function getSubsections( $id, $prefix = false ) {
+	static function getSubsections( $id ) {
 		$parent = get_post( $id );
+		$type = $parent->post_type;
 		$output = array();
 		$s = 1;
 		$content = mb_convert_encoding( apply_filters( 'the_content', $parent->post_content ), 'HTML-ENTITIES', 'UTF-8' );
-		if ( $content ) {
-			$doc = new \DOMDocument();
-			$doc->loadHTML( $content );
-			$sections = $doc->getElementsByTagName('h1');
-			foreach( $sections as $section ) {
-				$output['section-' . $s] = $section->textContent;
-				$s++;
-			}
+		$doc = new \DOMDocument();
+		$doc->loadHTML( $content );
+		$sections = $doc->getElementsByTagName('h1');
+		foreach( $sections as $section ) {
+			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
+			$s++;
 		}
 		if ( empty( $output ) )
 			$output = false;
@@ -389,10 +388,10 @@ class Book {
 	 *
 	 * @return string
 	 */
-	static function tagSubsections( $content, $type = '') {
-		global $s;
-		if ( !$s ) $s = 1;
-		
+	static function tagSubsections( $content, $id ) {	
+		$s = 1;
+		$parent = get_post( $id );
+		$type = $parent->post_type;
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
@@ -404,11 +403,11 @@ class Book {
 		
 		$sections = $doc->getElementsByTagName('h1');
 		foreach ( $sections as $section ) {
-		    $section->setAttribute( 'id', $prefix . 'section-' . $s++ );
+		    $section->setAttribute( 'id', $type . '-' . $id . '-section-' . $s++ );
 		    $section->setAttribute( 'class', 'section-header' );
 		}
 		$xpath = new \DOMXPath( $doc );
-		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br)]' ) ) && $nodes->length > 0 ) {
+		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 		    foreach ( $nodes as $node ) {
 		        $node->appendChild( new \DOMText('') );
 		    }

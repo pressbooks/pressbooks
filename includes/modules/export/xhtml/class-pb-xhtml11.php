@@ -671,8 +671,6 @@ class Xhtml11 extends Export {
 		
 		echo '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $book_contents as $type => $struct ) {
-
-			$s = 1; // Start section counter
 			
 			if ( preg_match( '/^__/', $type ) )
 				continue; // Skip __magic keys
@@ -732,9 +730,8 @@ class Xhtml11 extends Export {
 							$sections = \PressBooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								echo '<ul class="sections">';
-								foreach ( $sections as $section ) {
-									echo '<li class="section"><a href="#section-' . $s . '"><span class="toc-subsection-title">' . $section . '</span></a></li>';
-									 ++$s;
+								foreach ( $sections as $id => $title ) {
+									echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . $title . '</span></a></li>';
 								}
 								echo '</ul>';
 							}
@@ -790,9 +787,8 @@ class Xhtml11 extends Export {
 						$sections = \PressBooks\Book::getSubsections( $val['ID'], true );
 						if ( $sections ) {								
 							echo '<ul class="sections">';
-							foreach ( $sections as $section ) {
-								echo '<li class="section"><a href="#' . $type . '-section-' . $s . '"><span class="toc-subsection-title">' . $section . '</span></a></li>';
-								 ++$s;
+							foreach ( $sections as $id => $title ) {
+								echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . $title . '</span></a></li>';
 							}
 							echo '</ul>';
 						}
@@ -845,7 +841,7 @@ class Xhtml11 extends Export {
 			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				if ( $sections ) {
-					$content = \PressBooks\Book::tagSubsections( $content, 'front-matter' );
+					$content = \PressBooks\Book::tagSubsections( $content, $id );
 				}
 			}
 
@@ -971,7 +967,7 @@ class Xhtml11 extends Export {
 				if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
 					$sections = \PressBooks\Book::getSubsections( $id );
 					if ( $sections ) {
-						$content = \PressBooks\Book::tagSubsections( $content );
+						$content = \PressBooks\Book::tagSubsections( $content, $id );
 					}
 				}
 
@@ -1065,7 +1061,7 @@ class Xhtml11 extends Export {
 			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				if ( $sections ) {
-					$content = \PressBooks\Book::tagSubsections( $content, 'back-matter' );
+					$content = \PressBooks\Book::tagSubsections( $content, $id );
 				}
 			}
 
