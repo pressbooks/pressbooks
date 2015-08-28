@@ -407,7 +407,7 @@ class Book {
 		    $section->setAttribute( 'class', 'section-header' );
 		}
 		$xpath = new \DOMXPath( $doc );
-		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::img or self::hr)]' ) ) && $nodes->length > 0 ) {
+		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 		    foreach ( $nodes as $node ) {
 		        $node->appendChild( new \DOMText('') );
 		    }
