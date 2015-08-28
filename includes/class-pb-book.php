@@ -197,13 +197,13 @@ class Book {
 
 				$post_name = static::fixSlug( $post->post_name );
 
-        if($get_pb_export_meta) {
-          $export = ( get_post_meta( $post->ID, 'pb_export', true ) ? true : false );
-        } else {
-          $export = false;
-        }
+		        if ( $get_pb_export_meta ) {
+		          $export = ( get_post_meta( $post->ID, 'pb_export', true ) ? true : false );
+		        } else {
+		          $export = false;
+		        }
 
-				$book_structure[$type][] = array(
+				$book_structure[ $type ][] = array(
 					'ID' => $post->ID,
 					'post_title' => $post->post_title,
 					'post_name' => $post_name,
@@ -285,6 +285,7 @@ class Book {
 		}
 		
 		return $book_structure;
+		error_log( print_r( $book_structure ) );
 	}
 
 
