@@ -729,7 +729,7 @@ class Xhtml11 extends Export {
 						echo '</a>';
 						
 						if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
-							$sections = \PressBooks\Book::getSubsections( $chapter['ID'] );
+							/* $sections = \PressBooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								echo '<ul class="sections">';
 								foreach ( $sections as $section ) {
@@ -737,7 +737,7 @@ class Xhtml11 extends Export {
 									 ++$s;
 								}
 								echo '</ul>';
-							}
+							} */
 						}
 													
 						echo '</li>';
@@ -787,7 +787,7 @@ class Xhtml11 extends Export {
 					echo '</a>';
 					
 					if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
-						$sections = \PressBooks\Book::getSubsections( $val['ID'] );
+						/* $sections = \PressBooks\Book::getSubsections( $val['ID'], true );
 						if ( $sections ) {								
 							echo '<ul class="sections">';
 							foreach ( $sections as $section ) {
@@ -795,7 +795,7 @@ class Xhtml11 extends Export {
 								 ++$s;
 							}
 							echo '</ul>';
-						}
+						} */
 					}
 					
 					echo '</li>';
@@ -842,10 +842,11 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			$sections = \PressBooks\Book::getSubsections( $id );
-			
-			if ( $sections ) {
-				$content = \PressBooks\Book::tagSubsections( $content, 'front-matter' );
+			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+				$sections = \PressBooks\Book::getSubsections( $id );
+				if ( $sections ) {
+					$content = \PressBooks\Book::tagSubsections( $content, 'front-matter' );
+				}
 			}
 
 			if ( $author ) {
@@ -967,10 +968,11 @@ class Xhtml11 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				$sections = \PressBooks\Book::getSubsections( $id );
-				
-				if ( $sections ) {
-					$content = \PressBooks\Book::tagSubsections( $content );
+				if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+					$sections = \PressBooks\Book::getSubsections( $id );
+					if ( $sections ) {
+						$content = \PressBooks\Book::tagSubsections( $content,  );
+					}
 				}
 
 				if ( $author ) {
@@ -1060,10 +1062,11 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			$sections = \PressBooks\Book::getSubsections( $id );
-			
-			if ( $sections ) {
-				$content = \PressBooks\Book::tagSubsections( $content, 'back-matter' );
+			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+				$sections = \PressBooks\Book::getSubsections( $id );
+				if ( $sections ) {
+					$content = \PressBooks\Book::tagSubsections( $content, 'back-matter' );
+				}
 			}
 
 			if ( $author ) {

@@ -363,7 +363,7 @@ class Book {
 	 * @param $id
 	 *
 	 */
-	static function getSubsections( $id ) {
+	static function getSubsections( $id, $prefix = false ) {
 		$parent = get_post( $id );
 		$output = array();
 		$s = 1;
