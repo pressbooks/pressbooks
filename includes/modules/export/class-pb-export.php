@@ -599,6 +599,9 @@ abstract class Export {
 				$modules[] = '\PressBooks\Export\Epub3\Epub3'; // Must be set before MOBI
 			}
 			if ( isset( $x['mobi'] ) ) {
+				if  ( !isset( $x['epub'] ) ) { // Make sure Epub source file is generated
+					$modules[] = '\PressBooks\Export\Epub\Epub201'; // Must be set before MOBI
+				}
 				$modules[] = '\PressBooks\Export\Mobi\Kindlegen'; // Must be set after EPUB
 			}
 			if ( isset( $x['icml'] ) ) {
@@ -635,6 +638,7 @@ abstract class Export {
 			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export';
 			$conversion_error = array();
 			$validation_warning = array();
+			$outputs = array();
 
 			foreach ( $modules as $module ) {
 
@@ -648,11 +652,23 @@ abstract class Export {
 						$validation_warning[$module] = $exporter->getOutputPath();
 					}
 				}
+				
+				// Add to outputs array
+				
+				$outputs[$module] = $exporter->getOutputPath();
+				
 				// Stats hook
 				do_action( 'pressbooks_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
 
 			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
+
+			// --------------------------------------------------------------------------------------------------------
+			// MOBI cleanup
+			
+			if ( isset( $x['mobi'] ) && !isset( $x['epub'] ) ) {
+				unlink( $outputs['\PressBooks\Export\Epub\Epub201'] );
+			}
 
 			// --------------------------------------------------------------------------------------------------------
 			// No errors?

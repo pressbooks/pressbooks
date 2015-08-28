@@ -14,16 +14,3 @@ jQuery(function ($) {
 			function () { $(this).children(".file-actions").css('visibility', 'hidden'); }
 	);
 });
-/* Fix MOBI by forcing EPUB if desired  */
-function fixMobi() {
-	if (!jQuery("#epub").attr('checked') && jQuery("#mobi").attr('checked')) {
-		var enable = confirm(PB_ExportToken.mobiConfirm);
-		if (enable==true) {
-			jQuery("#epub").attr('checked', true);
-			jQuery("#mobi").attr('checked', true);
-		} else {
-			jQuery("#mobi").attr('checked', false);
-			jQuery("#epub").attr('checked', false);
-		}
-	}
-}
