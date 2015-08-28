@@ -971,7 +971,7 @@ class Xhtml11 extends Export {
 				if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
 					$sections = \PressBooks\Book::getSubsections( $id );
 					if ( $sections ) {
-						$content = \PressBooks\Book::tagSubsections( $content,  );
+						$content = \PressBooks\Book::tagSubsections( $content );
 					}
 				}
 
