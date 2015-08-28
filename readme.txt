@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.6.5
+Version: 2.6.6
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 2.6.5
+Stable tag: 2.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,9 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.6.6 =
+* Exporting a MOBI file no longer requires you to export an EPUB file also.
 
 = 2.6.5 =
 * Fixed a number of issues with multi-level TOC parsing.
