@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-08-18 18:30-0300\n"
-"PO-Revision-Date: 2015-08-30 18:39+0000\n"
+"PO-Revision-Date: 2015-08-30 20:31+0000\n"
 "Last-Translator: Toni Devís <colomet@hotmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -430,7 +430,7 @@ msgstr "Tu imagen de portada (%s x %s) es demasiado pequeña. Debería tener 625
 #: admin/pb-admin-metaboxes.php:106
 #, php-format
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
-msgstr ""
+msgstr "Su imagen de portada (%s) es muy grande. No debería exceder los 2MB."
 
 #: admin/pb-admin-metaboxes.php:121 admin/pb-admin-metaboxes.php:166
 #: includes/class-pb-metadata.php:627
@@ -470,7 +470,7 @@ msgstr "En el caso de títulos largos que puedan quedar cortados en los encabeza
 
 #: admin/pb-admin-metaboxes.php:188
 msgid "Subtitle"
-msgstr "Subrítulo"
+msgstr "Subtítulo"
 
 #: admin/pb-admin-metaboxes.php:198
 msgid "Author, file as"
@@ -490,7 +490,7 @@ msgstr "Autores secundarios"
 msgid ""
 "This may be used when more than one person shares the responsibility for the"
 " intellectual content of a book."
-msgstr ""
+msgstr "Esto puede ser utilizado cuando más de una persona comparte la responsabilidad por el contenido intelectual del libro."
 
 #: admin/pb-admin-metaboxes.php:211
 #: themes-book/pressbooks-book/functions.php:17
@@ -512,7 +512,7 @@ msgstr "Fecha de publicación"
 
 #: admin/pb-admin-metaboxes.php:225 admin/pb-admin-metaboxes.php:232
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "Esto se añade a los metadatos de su ebook."
 
 #: admin/pb-admin-metaboxes.php:231
 msgid "On-Sale Date"
@@ -528,7 +528,7 @@ msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr ""
+msgstr "ISBN es el Número Internacional Normalizado del Libro, necesitarás uno si  quiere vender su libro en algunas tiendas de libros electrónicos en línea. Esta información se añade a los metadatos en su ebook."
 
 #: admin/pb-admin-metaboxes.php:243
 #: themes-book/pressbooks-book/functions.php:18
@@ -569,7 +569,7 @@ msgstr "Año"
 
 #: admin/pb-admin-metaboxes.php:263
 msgid "Year that the book is/was published."
-msgstr ""
+msgstr "Año en el que el libro es/fue publicado."
 
 #: admin/pb-admin-metaboxes.php:268
 msgid "Copyright Holder"
@@ -577,16 +577,16 @@ msgstr "Titular de los derechos"
 
 #: admin/pb-admin-metaboxes.php:269
 msgid "Name of the copyright holder."
-msgstr ""
+msgstr "Nombre del titular de los derechos de autor."
 
 #: admin/pb-admin-metaboxes.php:286
 #: themes-book/pressbooks-book/functions.php:500
 msgid "Copyright License"
-msgstr ""
+msgstr "Licencia de Derechos de Autor"
 
 #: admin/pb-admin-metaboxes.php:287
 msgid "You can select various licenses including Creative Commons."
-msgstr ""
+msgstr "Puedes seleccionar varias licencias, incluyendo Creative Commons."
 
 #: admin/pb-admin-metaboxes.php:293
 msgid "Copyright Notice"
@@ -597,7 +597,7 @@ msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
 "will override the auto-generated copyright notice, and be inserted after the"
 " title page."
-msgstr ""
+msgstr "Introduzca un aviso de copyright personalizado con la infomación que desee. Este anulará el aviso de copyright generado automáticamente y se insertará después de la página del título."
 
 #: admin/pb-admin-metaboxes.php:304
 msgid "Book Tagline"
@@ -628,7 +628,7 @@ msgstr "La descripción completa del libro."
 
 #: admin/pb-admin-metaboxes.php:323
 msgid "Additional Catalog Information"
-msgstr ""
+msgstr "Información Adicional del Catálogo"
 
 #: admin/pb-admin-metaboxes.php:329
 msgid "Series Title"
@@ -636,7 +636,7 @@ msgstr "Título de la serie"
 
 #: admin/pb-admin-metaboxes.php:330 admin/pb-admin-metaboxes.php:336
 msgid "Add if your book is part of a series. This is not used by Pressbooks."
-msgstr ""
+msgstr "Añada si su libro es parte de una serie. Esto no será utilizado por Pressbooks"
 
 #: admin/pb-admin-metaboxes.php:335
 msgid "Series Number"
@@ -651,7 +651,7 @@ msgstr "Editor"
 #: admin/pb-admin-metaboxes.php:379 admin/pb-admin-metaboxes.php:385
 #: admin/pb-admin-metaboxes.php:398
 msgid "This is not used by Pressbooks."
-msgstr ""
+msgstr "No se utilizará por Pressbooks"
 
 #: admin/pb-admin-metaboxes.php:347
 msgid "Translator"
@@ -665,7 +665,7 @@ msgstr "Palabras clave"
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr ""
+msgstr "Estas se añaden a su portada WebBook y en los metadatos del ebook. Las Palabras clave son utilizadas por las tiendas de libros en línea y motores de búsqueda."
 
 #: admin/pb-admin-metaboxes.php:360
 #: themes-book/pressbooks-book/functions.php:21
@@ -676,7 +676,7 @@ msgstr "Hashtag"
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr ""
+msgstr "Se añade a su portada del WebBook. Para quienes os gusta Twitter."
 
 #: admin/pb-admin-metaboxes.php:366
 msgid "List Price (Print)"
@@ -730,7 +730,7 @@ msgstr "Autor del capítulo (aparece en la web, ebook y PDF)"
 
 #: admin/pb-admin-metaboxes.php:448
 msgid "Chapter Copyright License (overrides book license on this page)"
-msgstr ""
+msgstr "Licencia de Derechos de Autor del capítulo (anula la licencia del libro en esta página)"
 
 #: admin/pb-admin-metaboxes.php:462
 msgid "Export Settings"
@@ -766,11 +766,11 @@ msgstr "Autor de las páginas preliminares (aparece en la web, ebook y PDF)"
 
 #: admin/pb-admin-metaboxes.php:520
 msgid "Front Matter Copyright License (overrides book license on this page)"
-msgstr ""
+msgstr "Licencia de Derechos de autor de las páginas preliminares  (anula la licencia del libro en esta página)"
 
 #: admin/pb-admin-metaboxes.php:526
 msgid "Back Matter Metadata"
-msgstr ""
+msgstr "Metadatos de las páginas finales"
 
 #: admin/pb-admin-metaboxes.php:531
 msgid "Back Matter Short Title (appears in the PDF running header)"
@@ -790,20 +790,20 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:563
 msgid "Part Text"
-msgstr ""
+msgstr "Texto de la Parte"
 
 #: admin/pb-admin-metaboxes.php:570
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
+msgstr "Aparece en la página típo parte. Las partes no aparecerán si un libro tiene sólo una parte."
 
 #: admin/pb-admin-metaboxes.php:574
 msgid "Part Visibility"
-msgstr ""
+msgstr "Visibilidad de la Parte"
 
 #: admin/pb-admin-metaboxes.php:583
 msgid "Hide from table of contents and part numbering."
-msgstr ""
+msgstr "Ocultar de la tabla de contenidos y de la numeración de la parte."
 
 #: admin/pb-admin-metaboxes.php:684
 msgid "Extra Profile Information"
@@ -944,7 +944,7 @@ msgstr "ODT"
 
 #: admin/templates/export.php:142
 msgid "Your Theme Options"
-msgstr ""
+msgstr "Opciones del Tema"
 
 #: admin/templates/export.php:149
 msgid "Change Theme"
@@ -952,7 +952,7 @@ msgstr "Cambiar tema"
 
 #: admin/templates/export.php:150
 msgid "Options"
-msgstr ""
+msgstr "Opciones"
 
 #: admin/templates/import.php:20
 #, php-format
@@ -1252,7 +1252,7 @@ msgstr "Todos los derechos reservados"
 
 #: includes/class-pb-metadata.php:292
 msgid "except where otherwise noted."
-msgstr ""
+msgstr "excepto cuando se indique lo contrario."
 
 #: includes/modules/export/class-pb-export.php:795
 msgid "File not found"
@@ -1302,11 +1302,11 @@ msgstr "No parece que su URL sea válida"
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response header on a HEAD request: "
-msgstr ""
+msgstr "La página web a la que está intentando acceder, no esta devolviendo con éxito el encabezado en una petición HEAD:"
 
 #: includes/modules/import/class-pb-import.php:373
 msgid "The website you are attempting to reach is not returning HTML content"
-msgstr ""
+msgstr "La página web que está intentando acceder no devuelve el contenido HTML"
 
 #: includes/modules/import/class-pb-import.php:390
 msgid ""
@@ -1407,19 +1407,19 @@ msgstr "Español"
 
 #: includes/pb-l10n.php:452
 msgid "Swedish"
-msgstr ""
+msgstr "Sueco"
 
 #: includes/pb-network-managers.php:12 includes/pb-network-managers.php:13
 msgid "Network Managers"
-msgstr ""
+msgstr "Administradores de red"
 
 #: includes/pb-network-managers.php:67
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
+msgstr "No tienes suficientes permisos para acceder a esta página."
 
 #: includes/pb-network-managers.php:75
 msgid "Pressbooks Network Managers"
-msgstr ""
+msgstr "Administradores de red de Pressbooks"
 
 #: includes/pb-network-managers.php:76
 msgid ""
@@ -1850,11 +1850,11 @@ msgstr "Permisos no válidos."
 
 #: symbionts/custom-metadata/custom_metadata.php:282
 msgid "Choose a file"
-msgstr ""
+msgstr "Eliga un archivo"
 
 #: symbionts/custom-metadata/custom_metadata.php:283
 msgid "Select this file"
-msgstr ""
+msgstr "Seleccionar este archivo"
 
 #: symbionts/custom-metadata/custom_metadata.php:284
 msgid "Clear"
@@ -1875,11 +1875,11 @@ msgstr "Algo ha salido mal."
 
 #: symbionts/custom-metadata/custom_metadata.php:1135
 msgid "duplicate this set of fields"
-msgstr ""
+msgstr "duplicar este conjunto de campos"
 
 #: symbionts/custom-metadata/custom_metadata.php:1138
 msgid "remove this set of fields"
-msgstr ""
+msgstr "eliminar este conjunto de campos"
 
 #: symbionts/custom-metadata/custom_metadata.php:1170
 msgid "<strong>Note:</strong> this field type cannot be multiplied"
@@ -1891,7 +1891,7 @@ msgstr ""
 #: symbionts/custom-metadata/custom_metadata.php:1362
 #, php-format
 msgid "There are no %s to select from yet."
-msgstr ""
+msgstr "No hay %s para seleccionar todavía."
 
 #: symbionts/custom-metadata/custom_metadata.php:1379
 msgid "+ Add New"
@@ -1947,7 +1947,7 @@ msgstr "No se encontraron pruebas en la papelera"
 #: symbionts/disable-comments/disable-comments.php:69
 #, php-format
 msgid "Disable Comments requires WordPress version %s or greater."
-msgstr ""
+msgstr "Desactivar Comentarios requiere una versión %s de WordPress o mayor."
 
 #: symbionts/disable-comments/disable-comments.php:261
 #, php-format
@@ -2009,7 +2009,7 @@ msgstr ""
 
 #: symbionts/disable-comments/disable-comments.php:437
 msgid "On certain post types"
-msgstr ""
+msgstr "En ciertos típos de posts"
 
 #: symbionts/disable-comments/disable-comments.php:444
 msgid ""
@@ -2056,7 +2056,7 @@ msgstr "Imagen de prueba"
 
 #: symbionts/pb-latex/pb-latex-admin.php:136
 msgid "If you can see a big integral, all is well."
-msgstr ""
+msgstr "Si usted puede ver una gran integral, está todo correcto."
 
 #: symbionts/pb-latex/pb-latex-admin.php:219
 msgid "PB LaTeX Options"
@@ -2064,7 +2064,7 @@ msgstr "PB LaTeX opciones"
 
 #: symbionts/pb-latex/pb-latex-admin.php:229
 msgid "Syntax"
-msgstr ""
+msgstr "Sintaxis"
 
 #: symbionts/pb-latex/pb-latex-admin.php:231
 #, php-format
@@ -2081,7 +2081,7 @@ msgstr ""
 
 #: symbionts/pb-latex/pb-latex-admin.php:243
 msgid "LaTeX generation method"
-msgstr ""
+msgstr "Método de generación de LaTeX"
 
 #: symbionts/pb-latex/pb-latex-admin.php:246
 #, php-format
@@ -2119,7 +2119,7 @@ msgstr ""
 
 #: symbionts/search-regex/models/search.php:73
 msgid "No search pattern"
-msgstr ""
+msgstr "Sin patrón de búsqueda"
 
 #: symbionts/search-regex/models/search.php:171
 #: symbionts/search-regex/searches/post_content.php:37
@@ -2133,7 +2133,7 @@ msgstr "Borrar"
 #: symbionts/search-regex/search-regex.php:89
 #: symbionts/search-regex/view/admin/search.php:3
 msgid "Search and Replace"
-msgstr ""
+msgstr "Buscar y remplazar"
 
 #: symbionts/search-regex/searches/post_content.php:34
 msgid "view"
@@ -2159,11 +2159,11 @@ msgstr ""
 
 #: symbionts/search-regex/view/admin/results.php:19
 msgid "replaced with:"
-msgstr ""
+msgstr "Reemplazado con:"
 
 #: symbionts/search-regex/view/admin/results.php:59
 msgid "There are no results."
-msgstr ""
+msgstr "No hay resultados."
 
 #: symbionts/search-regex/view/admin/search.php:4
 msgid "Search and replace will replace ALL instances in the entire book."
@@ -2183,7 +2183,7 @@ msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:11
 msgid "Limit to"
-msgstr ""
+msgstr "Limitar a"
 
 #: symbionts/search-regex/view/admin/search.php:15
 msgid "No limit"
@@ -2191,7 +2191,7 @@ msgstr "Sin límite"
 
 #: symbionts/search-regex/view/admin/search.php:18
 msgid "Order By"
-msgstr ""
+msgstr "Ordenar por"
 
 #: symbionts/search-regex/view/admin/search.php:21
 msgid "Ascending"
@@ -2203,11 +2203,11 @@ msgstr "Descendente"
 
 #: symbionts/search-regex/view/admin/search.php:26
 msgid "Search string"
-msgstr ""
+msgstr "Buscar cadena"
 
 #: symbionts/search-regex/view/admin/search.php:32
 msgid "Replace string"
-msgstr ""
+msgstr "Reemplazar cadena"
 
 #: symbionts/search-regex/view/admin/search.php:39
 msgid "Regex"
@@ -2215,7 +2215,7 @@ msgstr ""
 
 #: symbionts/search-regex/view/admin/search.php:43
 msgid "case-insensitive:"
-msgstr ""
+msgstr "Diferencia entre mayúsculas y minúsculas:"
 
 #: symbionts/search-regex/view/admin/search.php:44
 msgid "multi-line:"
@@ -2267,7 +2267,7 @@ msgstr ""
 
 #: symbionts/site-logo/site-logo/inc/class-site-logo.php:89
 msgid "Display Header Text"
-msgstr ""
+msgstr "Muestrar el texto del encabezamiento"
 
 #: symbionts/site-logo/site-logo/inc/class-site-logo.php:111
 msgid "Logo"
@@ -2531,7 +2531,7 @@ msgstr "Opciones de ebook"
 #: themes-book/pressbooks-book/functions.php:440
 #: themes-book/pressbooks-book/functions.php:1453
 msgid "Compress images"
-msgstr ""
+msgstr "Comprimir imágenes"
 
 #: themes-book/pressbooks-book/functions.php:471
 msgid "Global Options"
@@ -2551,11 +2551,11 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:494
 msgid "Enable a two-level TOC"
-msgstr ""
+msgstr "Activar tabla de contenidos a dos niveles"
 
 #: themes-book/pressbooks-book/functions.php:505
 msgid "Display the copyright license"
-msgstr ""
+msgstr "Muestrar la licencia de derechos de autor"
 
 #: themes-book/pressbooks-book/functions.php:520
 msgid "These options apply universally to webbook, PDF and ebook exports."
@@ -2596,7 +2596,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:656
 msgid "These options apply to the webbook."
-msgstr ""
+msgstr "Estas opciones aplican al webbook."
 
 #: themes-book/pressbooks-book/functions.php:755
 msgid "PDF Options"
@@ -2692,11 +2692,11 @@ msgstr "Mostrar tabla de contenido"
 
 #: themes-book/pressbooks-book/functions.php:833
 msgid "Romanize Part Numbers"
-msgstr ""
+msgstr "Romanizar los números de las Partes"
 
 #: themes-book/pressbooks-book/functions.php:838
 msgid "Convert part numbers into Roman numerals"
-msgstr ""
+msgstr "Convertir los números de las parte en números Romanos"
 
 #: themes-book/pressbooks-book/functions.php:844
 msgid "Footnotes Style"
@@ -2717,11 +2717,11 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:888
 msgid "These options apply to PDF exports."
-msgstr ""
+msgstr "Estas opciones se alicarán en la exportación a pdf."
 
 #: themes-book/pressbooks-book/functions.php:1103
 msgid "mPDF Options"
-msgstr ""
+msgstr "Opciones mPDF"
 
 #: themes-book/pressbooks-book/functions.php:1115
 msgid "A0"
@@ -2897,15 +2897,15 @@ msgstr "SRA4"
 
 #: themes-book/pressbooks-book/functions.php:1160
 msgid "Letter"
-msgstr ""
+msgstr "Carta"
 
 #: themes-book/pressbooks-book/functions.php:1161
 msgid "Legal"
-msgstr ""
+msgstr "Legal"
 
 #: themes-book/pressbooks-book/functions.php:1162
 msgid "Executive"
-msgstr ""
+msgstr "Ejecutivo"
 
 #: themes-book/pressbooks-book/functions.php:1163
 msgid "Folio"
@@ -2917,35 +2917,35 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:1165
 msgid "Royal"
-msgstr ""
+msgstr "Real"
 
 #: themes-book/pressbooks-book/functions.php:1166
 msgid "Type A paperback 111x178mm"
-msgstr ""
+msgstr "Libro de bolsillo típo A 111x178mm"
 
 #: themes-book/pressbooks-book/functions.php:1167
 msgid "Type B paperback 128x198mm"
-msgstr ""
+msgstr "Libro de bolsillo típo B 128x198mm"
 
 #: themes-book/pressbooks-book/functions.php:1173
 msgid "Left margin"
-msgstr ""
+msgstr "Margen izquierdo"
 
 #: themes-book/pressbooks-book/functions.php:1178
 msgid " Left Margin (in milimeters)"
-msgstr ""
+msgstr "Margen izquierdo (en milímetros)"
 
 #: themes-book/pressbooks-book/functions.php:1184
 msgid "Right margin"
-msgstr ""
+msgstr "Margen derecho"
 
 #: themes-book/pressbooks-book/functions.php:1189
 msgid " Right margin (in milimeters)"
-msgstr ""
+msgstr "Margen derecho (en milímetros)"
 
 #: themes-book/pressbooks-book/functions.php:1195
 msgid "Mirror Margins"
-msgstr ""
+msgstr "Margen espejo"
 
 #: themes-book/pressbooks-book/functions.php:1200
 msgid ""
@@ -2955,11 +2955,11 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:1211
 msgid "Display cover image"
-msgstr ""
+msgstr "Visualización de la imagen de portada"
 
 #: themes-book/pressbooks-book/functions.php:1270
 msgid "These options apply to mPDF exports."
-msgstr ""
+msgstr "Estas opciones se aplicarán en la exportación a mPDF"
 
 #: themes-book/pressbooks-book/functions.php:1434
 msgid "Ebook Options"
@@ -2967,11 +2967,11 @@ msgstr "Opciones de ebook"
 
 #: themes-book/pressbooks-book/functions.php:1458
 msgid "Reduce image size and quality"
-msgstr ""
+msgstr "Reduce el tamaño y calidad de las imagenes"
 
 #: themes-book/pressbooks-book/functions.php:1473
 msgid "These options apply to ebook exports."
-msgstr ""
+msgstr "Estas opciones se aplicarán en la exportación de ebooks"
 
 #: themes-book/pressbooks-book/header.php:37
 #: themes-root/pressbooks-publisher/inc/extras.php:52
@@ -3032,12 +3032,12 @@ msgstr "Comprar aquí:"
 
 #: themes-book/pressbooks-book/page-cover-fourth-block.php:19
 msgid "Other books"
-msgstr ""
+msgstr "Otros libros"
 
 #: themes-book/pressbooks-book/page-cover-private-block.php:2
 #: themes-book/pressbooks-book/page-cover-top-block.php:18
 msgid "Make your own books on Pressbooks"
-msgstr ""
+msgstr "Crea su propio libro en Pressbooks"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:5
 msgid "Book Description"
@@ -3064,7 +3064,7 @@ msgstr "Cerrar"
 
 #: themes-root/pressbooks-publisher/404.php:15
 msgid "Oops! That page can&rsquo;t be found."
-msgstr ""
+msgstr "Uups! Esta página no puede ser encontrada."
 
 #: themes-root/pressbooks-publisher/404.php:19
 msgid ""
@@ -3074,7 +3074,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/404.php:27
 msgid "Most Used Categories"
-msgstr ""
+msgstr "Categorías más utilizadas"
 
 #: themes-root/pressbooks-publisher/404.php:44
 #, php-format
@@ -3126,7 +3126,7 @@ msgstr "En catalogo"
 
 #: themes-root/pressbooks-publisher/header.php:22
 msgid "Skip to content"
-msgstr ""
+msgstr "Saltar contenido"
 
 #: themes-root/pressbooks-publisher/header.php:32
 msgid "Sign in"
@@ -3143,7 +3143,7 @@ msgstr "Mis Libros"
 #: themes-root/pressbooks-publisher/inc/customizer.php:20
 #: themes-root/pressbooks-publisher/inc/customizer.php:36
 msgid "About Us"
-msgstr ""
+msgstr "Sobre nosotros"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:21
 msgid "Add a description of your collection or institution below."
@@ -3155,15 +3155,15 @@ msgstr "Columnas"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:53
 msgid "Display your intro text in one or two columns."
-msgstr ""
+msgstr "Visualizar el texto de introducción en una o dos columnas."
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:57
 msgid "One column"
-msgstr ""
+msgstr "Una columna"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:58
 msgid "Two columns"
-msgstr ""
+msgstr "Dos columnas"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:23
 msgid "Posts navigation"
@@ -3213,12 +3213,12 @@ msgstr "1 Comentario"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:122
 msgid "% Comments"
-msgstr ""
+msgstr "% Comentarios"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:143
 #, php-format
 msgid "Category: %s"
-msgstr ""
+msgstr "Categoría: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:145
 #, php-format
@@ -3268,12 +3268,12 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:158
 msgctxt "post format archive title"
 msgid "Galleries"
-msgstr ""
+msgstr "Galerías"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:160
 msgctxt "post format archive title"
 msgid "Images"
-msgstr ""
+msgstr "Imágenes"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:162
 msgctxt "post format archive title"
@@ -3283,32 +3283,32 @@ msgstr "Videos"
 #: themes-root/pressbooks-publisher/inc/template-tags.php:164
 msgctxt "post format archive title"
 msgid "Quotes"
-msgstr ""
+msgstr "Citas"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:166
 msgctxt "post format archive title"
 msgid "Links"
-msgstr ""
+msgstr "Links"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:168
 msgctxt "post format archive title"
 msgid "Statuses"
-msgstr ""
+msgstr "Estados"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:170
 msgctxt "post format archive title"
 msgid "Audio"
-msgstr ""
+msgstr "Audio"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:172
 msgctxt "post format archive title"
 msgid "Chats"
-msgstr ""
+msgstr "Chats"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:175
 #, php-format
 msgid "Archives: %s"
-msgstr ""
+msgstr "Archivos: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:179
 #, php-format
@@ -3317,26 +3317,26 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:181
 msgid "Archives"
-msgstr ""
+msgstr "Archivos"
 
 #: themes-root/pressbooks-publisher/search.php:16
 #, php-format
 msgid "Search Results for: %s"
-msgstr ""
+msgstr "Buscar el resultado para: %s"
 
 #: themes-root/pressbooks-publisher/template-parts/content-catalog.php:38
 msgid "Read more"
-msgstr ""
+msgstr "Lee más"
 
 #: themes-root/pressbooks-publisher/template-parts/content-catalog.php:52
 msgid ""
 "The manager of this Pressbooks network has not made any books public "
 "viewable."
-msgstr ""
+msgstr "El administrador de esta red pressbooks no ha hecho ningún libro visible al público."
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:13
 msgid "Nothing Found"
-msgstr ""
+msgstr "Nada encontrado"
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:19
 #, php-format
