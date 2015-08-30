@@ -37,8 +37,8 @@
 				</div><!-- #content -->
 			
 				<?php 
-				$chapter_buttons = get_option( 'pressbooks_theme_options_web' );
-				if ( isset ( $chapter_buttons['social_media'] ) && 1 === $chapter_buttons['social_media'] || !isset( $social_buttons['social_media'] ) ) {
+				$social_media = get_option( 'pressbooks_theme_options_web' );
+				if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media'] ) ) {
 					get_template_part( 'content', 'social-footer' ); 
 				}
 				?> 
