@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.6.6
+Version: 2.6.7
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 2.6.6
+Stable tag: 2.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,11 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.6.7 =
+* Fixed an issue where Chinese would appear as the default user interface language.
+* Fixed an issue where disabling social media sharing buttons would only disable Facebook (props to @colomet for the bug report).
+* Updated localizations.
 
 = 2.6.6 =
 * Exporting a MOBI file no longer requires you to export an EPUB file also.
