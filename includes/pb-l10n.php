@@ -452,8 +452,6 @@ function get_dashboard_languages() {
 		'sv_SE' =>	__( 'Swedish', 'pressbooks' ),
 	);
 	
-	asort( $languages );
-
 	return $languages;
 }
 
