@@ -70,6 +70,12 @@ function html5_to_xhtml5( $t, $C = array(), $S = array() ) {
 
 	$t = preg_replace( $search_open, $replace_open, str_replace( $search_closed, $replace_closed, $t ) );
 
+	//WP audio shortcode automatically adds style attributes that we want to remove.
+	$t = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', "$1", $t );
+
+	//TODO: remove IE9 audio/video shims that break validation here.  Audio example
+	//<!--[if lt IE 9]><script>document.createElement('audio');</script><![endif] -->
+
 	return $t;
 }
 

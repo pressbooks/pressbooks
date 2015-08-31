@@ -29,10 +29,10 @@
 		  <div class="link-wrap">
 			   <?php if (! is_single()): ?>
 			    	<?php if (!is_user_logged_in()): ?>
-						<a href="<?php echo wp_login_url(); ?>" class="site-login-btn"><?php _e('Sign in', 'pressbooks'); ?></a>
+						<a href="<?php echo wp_login_url( get_option('home') ); ?>" class="site-login-btn"><?php _e('Sign in', 'pressbooks'); ?></a>
 			   	 	<?php else: ?>
 						<a href="<?php echo  wp_logout_url(); ?>" class="site-login-btn"><?php _e('Sign out', 'pressbooks'); ?></a>
-						<a href="<?php $user_info = get_userdata( get_current_user_id() ); echo get_blogaddress_by_id( $user_info->primary_blog ); ?>wp-admin/wp-admin/index.php?page=pb_catalog" class="site-login-btn"><?php _e('My Books', 'pressbooks'); ?></a>
+						<a href="<?php $user_info = get_userdata( get_current_user_id() ); echo get_blogaddress_by_id( $user_info->primary_blog ); ?>wp-admin/index.php?page=pb_catalog" class="site-login-btn"><?php _e('My Books', 'pressbooks'); ?></a>
 						<?php if (is_super_admin() || is_user_member_of_blog()): ?>
 						<a href="<?php echo get_option('home'); ?>/wp-admin" class="site-login-btn"><?php _e('Admin', 'pressbooks'); ?></a>
 						<?php endif; ?>

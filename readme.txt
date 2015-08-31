@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.6.1
+Version: 2.6.7
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 2.6.1
+Stable tag: 2.6.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,32 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.6.7 =
+* Fixed an issue where Chinese would appear as the default user interface language.
+* Fixed an issue where disabling social media sharing buttons would only disable Facebook (props to @colomet for the bug report).
+* Updated localizations.
+
+= 2.6.6 =
+* Exporting a MOBI file no longer requires you to export an EPUB file also.
+
+= 2.6.5 =
+* Fixed a number of issues with multi-level TOC parsing.
+* Fixed an issue where internal links on subdirectory installs were not being properly modified for PDF output (props to @bdolor).
+
+= 2.6.4 =
+* Added support for audio shortcodes in EPUB3 (props to @jflowers45).
+* Modified login buttons to redirect users to the page they were viewing after login rather than force redirecting them to their dashboard (props to @marcusschiesser for the feature request).
+* Fixed an issue where PDF exports were not respecting user-defined widow and orphan settings.
+* Fixed an issue where unsupported @font-face declarations where being used in mPDF exports (props to @jflowers45 for the bug report and @bdolor for fixing it).
+* Fixed an issue where updating a book's URL would break permalinks to front matter, back matter and parts (props to @programmieraffe for the bug report).
+* Removed the WordPress contextual help button to avoid confusion on the dashboard (props to @colomet for noting its presence).
+
+= 2.6.3 =
+* Fixed issue with self-closing tags introduced in 2.6.1.
+
+= 2.6.2 =
+* Fixed issues with character encoding and improperly formed <br /> tags introduced in 2.6.1.
 
 = 2.6.1 =
 * Fixed issues with subsection parsing where <h1> tags had inline styles or were wrapped in other block elements.

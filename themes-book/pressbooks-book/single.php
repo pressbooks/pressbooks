@@ -20,7 +20,7 @@
 									
 					<?php if ( get_post_type( $post->ID ) !== 'part' ) {
 						if ( pb_should_parse_sections() ) {
-							$content = pb_tag_sections( mb_convert_encoding( apply_filters( 'the_content', get_the_content() ), 'HTML-ENTITIES', 'UTF-8' ) );
+							$content = pb_tag_sections( apply_filters( 'the_content', get_the_content() ), $post->ID );
 							echo $content;
 						} else {
 							$content = apply_filters( 'the_content', get_the_content() );
@@ -37,8 +37,8 @@
 				</div><!-- #content -->
 			
 				<?php 
-				$chapter_buttons = get_option( 'pressbooks_theme_options_web' );
-				if ( isset ( $chapter_buttons['social_media'] ) && 1 === $chapter_buttons['social_media'] || !isset( $social_buttons['social_media'] ) ) {
+				$social_media = get_option( 'pressbooks_theme_options_web' );
+				if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media'] ) ) {
 					get_template_part( 'content', 'social-footer' ); 
 				}
 				?> 

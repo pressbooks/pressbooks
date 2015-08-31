@@ -85,7 +85,7 @@ function set_locale( $lang ) {
 			$loc = get_user_option( 'user_interface_lang' );
 		}
 
-	} elseif ( $GLOBALS['pagenow'] == 'wp-signup.php' ) {
+	} elseif ( @$GLOBALS['pagenow'] == 'wp-signup.php' ) {
 		// use global setting
 		$loc = get_site_option( 'WPLANG' );
 	} else {
@@ -452,8 +452,6 @@ function get_dashboard_languages() {
 		'sv_SE' =>	__( 'Swedish', 'pressbooks' ),
 	);
 	
-	asort( $languages );
-
 	return $languages;
 }
 
