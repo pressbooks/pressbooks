@@ -28,7 +28,6 @@ PressBooks\Utility\include_plugins();
 // Login screen branding
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'login_head', '\PressBooks\Admin\Branding\custom_login_logo' );
 add_filter( 'login_headerurl', '\PressBooks\Admin\Branding\login_url' );
 add_filter( 'login_headertitle', '\PressBooks\Admin\Branding\login_title' );
 

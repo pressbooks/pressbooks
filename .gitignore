@@ -7,3 +7,4 @@ symbionts/mpdf/graph_cache/
 .tx
 __MACOSX
 *.DS_Store
+assets/config.codekit

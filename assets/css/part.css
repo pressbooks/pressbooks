@@ -1,7 +1,5 @@
 #message.updated a {
-	display: none;
-}
+  display: none; }
 
 div#edit-slug-box {
-	visibility: hidden;
-}
+  visibility: hidden; }

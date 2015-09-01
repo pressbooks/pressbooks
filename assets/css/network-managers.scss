@@ -6,19 +6,22 @@
 
 #the-list tr.restricted td:first-child {
   border-left: solid 4px #ffbb00; }
-
+  
 #the-list img.avatar {
   margin-right: 6px;
   float: left; }
 
 #the-list .user_login {
   float: left;
-  clear: right; }
-
+  clear: right;
+}
+	 
 #the-list .row-actions {
   float: left;
   width: 100%;
-  margin-top: 6px; }
-
+  margin-top: 6px;
+}
+	 
 #the-list .restrict a, #the-list .unrestrict a {
-  cursor: pointer; }
+  cursor: pointer;
+}

@@ -509,9 +509,6 @@ function init_css_js() {
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '20140110', 'screen' );
 	wp_enqueue_style( 'pressbooks-admin' );
-	wp_register_style( 'bootstrap-admin', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.css', array(), '2.0.1', 'screen' );
-	wp_enqueue_style( 'bootstrap-admin' ); // Used by feedback button
-
 	if ( 'pb_catalog' == esc_attr( @$_REQUEST['page'] ) ) {
 		wp_register_style( 'pressbooks-catalog', PB_PLUGIN_URL . 'assets/css/catalog.css', array( 'colors', 'pressbooks-admin' ), '20130712', 'screen' );
 		wp_enqueue_style( 'pressbooks-catalog' );
@@ -535,15 +532,9 @@ function init_css_js() {
 	wp_register_script( 'pb-import', PB_PLUGIN_URL . 'assets/js/import.js', array( 'jquery' ), '1.0.0' );
 	wp_register_script( 'pb-part', PB_PLUGIN_URL . 'assets/js/part.js', array( 'jquery' ), '1.0.0' );
 
-	// Enqueue now
-	wp_register_script( 'jquery-bootstrap', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.js', array( 'jquery' ), '2.0.1' );
-	wp_register_script( 'pb-feedback', PB_PLUGIN_URL . 'assets/js/feedback.js', array( 'jquery' ), '1.0' );
-
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-sortable' );
-	wp_enqueue_script( 'jquery-bootstrap' );
-	wp_enqueue_script( 'pb-feedback' );
 }
 
 /**
