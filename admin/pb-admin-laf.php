@@ -766,7 +766,7 @@ function ecomm_settings_init() {
 	);
 	add_settings_field(
 		'oreilly',
-		__( 'Oreilly URL', 'pressbooks' ),
+		__( 'O\'Reilly URL', 'pressbooks' ),
 		__NAMESPACE__ . '\ecomm_oreilly_callback',
 		'ecomm_settings',
 		'ecomm_settings_section'
