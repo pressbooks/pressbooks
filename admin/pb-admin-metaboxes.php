@@ -138,9 +138,9 @@ function add_metadata_styles( $hook ) {
 	if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 		$post_type = get_post_type();
 		if ( 'metadata' == $post_type ) {
-			wp_enqueue_style( 'metadata', PB_PLUGIN_URL . 'assets/css/metadata.css', array(), '20130927' );
+			wp_enqueue_style( 'metadata', PB_PLUGIN_URL . 'assets/css/metadata.css', array(), '20150901' );
 		} elseif ( 'part' == $post_type ) {
-			wp_enqueue_style( 'part', PB_PLUGIN_URL . 'assets/css/part.css', array(), '20130927' );
+			wp_enqueue_style( 'part', PB_PLUGIN_URL . 'assets/css/part.css', array(), '20150901' );
 			add_filter( 'page_attributes_dropdown_pages_args', function () { return array( 'post_type' => '__GARBAGE__' ); } ); // Hide this dropdown by querying for garbage
 		}
 	}
