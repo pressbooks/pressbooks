@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-08-18 18:30-0300\n"
-"PO-Revision-Date: 2015-08-30 20:31+0000\n"
+"PO-Revision-Date: 2015-09-02 13:57+0000\n"
 "Last-Translator: Toni Devís <colomet@hotmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -550,7 +550,7 @@ msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
-msgstr ""
+msgstr "Esto establece los metadatos en su libro electrónico, haciendolo más fácil de encontrar en algunas tiendas. También cambia el contenido generado por algunos sistemas en aquellas lenguas soportadas, como el \"contenido\" del encabezado."
 
 #: admin/pb-admin-metaboxes.php:256
 #: includes/modules/export/epub/class-pb-epub201.php:848
@@ -702,7 +702,7 @@ msgstr "Clasificación Bisac"
 msgid ""
 "BISAC subject headings help your book get properly classified in (e)book "
 "stores. This is not used by Pressbooks."
-msgstr ""
+msgstr "Los encabezamientos de materia BISAC ayudan a tu libro (ebook) a ser correctamente clasificado en las librerías. Esto no es utilizado por pressbooks."
 
 #: admin/pb-admin-metaboxes.php:397
 msgid "Bisac Regional Theme"
@@ -774,7 +774,7 @@ msgstr "Metadatos de las páginas finales"
 
 #: admin/pb-admin-metaboxes.php:531
 msgid "Back Matter Short Title (appears in the PDF running header)"
-msgstr ""
+msgstr "Titulo resumido de las páginas finales (aparece en el encabezado del PDF)"
 
 #: admin/pb-admin-metaboxes.php:536
 msgid "Back Matter Subtitle (appears in the Web/ebook/PDF output)"
@@ -782,11 +782,11 @@ msgstr ""
 
 #: admin/pb-admin-metaboxes.php:541
 msgid "Back Matter Author (appears in Web/ebook/PDF output)"
-msgstr ""
+msgstr "Autor de las páginas finales ( aparece en la salida Web/ebook/pdf)"
 
 #: admin/pb-admin-metaboxes.php:558
 msgid "Back Matter Copyright License (overrides book license on this page)"
-msgstr ""
+msgstr "Licencia de derechos de autor de las páginas finales (sobreescribe la licencia del libro en esta página)"
 
 #: admin/pb-admin-metaboxes.php:563
 msgid "Part Text"
@@ -1001,7 +1001,7 @@ msgstr "DOCX (editor de textos de Microsoft)"
 
 #: admin/templates/import.php:147
 msgid "HTML (scrape content from a URL)"
-msgstr ""
+msgstr "HTML (contenido obtenido desde una URL)"
 
 #: admin/templates/import.php:153
 msgid "File"
@@ -3079,7 +3079,7 @@ msgstr "Categorías más utilizadas"
 #: themes-root/pressbooks-publisher/404.php:44
 #, php-format
 msgid "Try looking in the monthly archives. %1$s"
-msgstr ""
+msgstr "Prueba mirando en los archivos de mes. %1$s"
 
 #: themes-root/pressbooks-publisher/comments.php:38
 #: themes-root/pressbooks-publisher/comments.php:59
@@ -3108,17 +3108,17 @@ msgstr ""
 #: themes-root/pressbooks-publisher/functions.php:83
 msgctxt "Oswald font: on or off"
 msgid "on"
-msgstr ""
+msgstr "on"
 
 #: themes-root/pressbooks-publisher/functions.php:89
 msgctxt "Droid Serif font: on or off"
 msgid "on"
-msgstr ""
+msgstr "on"
 
 #: themes-root/pressbooks-publisher/functions.php:95
 msgctxt "Droid Sans font: on or off"
 msgid "on"
-msgstr ""
+msgstr "on"
 
 #: themes-root/pressbooks-publisher/functions.php:270
 msgid "In Catalog"
@@ -3130,11 +3130,11 @@ msgstr "Saltar contenido"
 
 #: themes-root/pressbooks-publisher/header.php:32
 msgid "Sign in"
-msgstr ""
+msgstr "Entrar"
 
 #: themes-root/pressbooks-publisher/header.php:34
 msgid "Sign out"
-msgstr ""
+msgstr "Salir"
 
 #: themes-root/pressbooks-publisher/header.php:35
 msgid "My Books"
@@ -3185,7 +3185,7 @@ msgstr ""
 #, php-format
 msgctxt "post date"
 msgid "Posted on %s"
-msgstr ""
+msgstr "Públicado en %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:91
 #, php-format
@@ -3196,7 +3196,7 @@ msgstr "por %s"
 #: themes-root/pressbooks-publisher/inc/template-tags.php:110
 #, php-format
 msgid "Posted in %1$s"
-msgstr ""
+msgstr "Publicado el %1$s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:116
 #, php-format
@@ -3228,12 +3228,12 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:147
 #, php-format
 msgid "Author: %s"
-msgstr ""
+msgstr "Autor: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:149
 #, php-format
 msgid "Year: %s"
-msgstr ""
+msgstr "Año: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:149
 msgctxt "yearly archives date format"
@@ -3243,7 +3243,7 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:151
 #, php-format
 msgid "Month: %s"
-msgstr ""
+msgstr "Mes: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:151
 msgctxt "monthly archives date format"
@@ -3253,7 +3253,7 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:153
 #, php-format
 msgid "Day: %s"
-msgstr ""
+msgstr "Día: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:153
 msgctxt "daily archives date format"
@@ -3263,7 +3263,7 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:156
 msgctxt "post format archive title"
 msgid "Asides"
-msgstr ""
+msgstr "Margen"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:158
 msgctxt "post format archive title"
@@ -3313,7 +3313,7 @@ msgstr "Archivos: %s"
 #: themes-root/pressbooks-publisher/inc/template-tags.php:179
 #, php-format
 msgid "%1$s: %2$s"
-msgstr ""
+msgstr "%1$s: %2$s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:181
 msgid "Archives"
@@ -3341,7 +3341,7 @@ msgstr "Nada encontrado"
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:19
 #, php-format
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr ""
+msgstr "¿Listo para públicar tu primer post? <a href=\"%1$s\">Empieza aquí</a>."
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:23
 msgid ""
@@ -3353,12 +3353,12 @@ msgstr ""
 msgid ""
 "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
 "searching can help."
-msgstr ""
+msgstr "Parece que no podemos encontrar lo que estas buscando. Tal vez, continuar buscando pueda ayudar."
 
 #: themes-root/pressbooks-publisher/template-parts/content.php:22
 #, php-format
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
-msgstr ""
+msgstr "Continua leyendo %s <span class=\"meta-nav\">&rarr;</span>"
 
 #. Plugin Name of the plugin/theme
 msgid "Pressbooks"
