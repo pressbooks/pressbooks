@@ -804,7 +804,7 @@ function ecomm_settings_init() {
  */
 function ecomm_amazon_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="amazon" name="pressbooks_ecommerce_links[amazon]" value="' . sanitize_text_field(@$options['amazon']) . '" />';
+	$html = '<input type="text" id="amazon" name="pressbooks_ecommerce_links[amazon]" class="regular-text" value="' . sanitize_text_field(@$options['amazon']) . '" />';
 	echo $html;
 }
 
@@ -816,7 +816,7 @@ function ecomm_amazon_callback( $args ) {
  */
 function ecomm_oreilly_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="oreilly" name="pressbooks_ecommerce_links[oreilly]" value="' . sanitize_text_field(@$options['oreilly']) . '" />';
+	$html = '<input type="text" id="oreilly" name="pressbooks_ecommerce_links[oreilly]" class="regular-text" value="' . sanitize_text_field(@$options['oreilly']) . '" />';
 	echo $html;
 }
 
@@ -828,7 +828,7 @@ function ecomm_oreilly_callback( $args ) {
  */
 function ecomm_barnesandnoble_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="barnesandnoble" name="pressbooks_ecommerce_links[barnesandnoble]" value="' . sanitize_text_field(@$options['barnesandnoble']) . '" />';
+	$html = '<input type="text" id="barnesandnoble" name="pressbooks_ecommerce_links[barnesandnoble]" class="regular-text" value="' . sanitize_text_field(@$options['barnesandnoble']) . '" />';
 	echo $html;
 }
 
@@ -840,7 +840,7 @@ function ecomm_barnesandnoble_callback( $args ) {
  */
 function ecomm_kobo_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="kobo" name="pressbooks_ecommerce_links[kobo]" value="' . sanitize_text_field(@$options['kobo']) . '" />';
+	$html = '<input type="text" id="kobo" name="pressbooks_ecommerce_links[kobo]" class="regular-text" value="' . sanitize_text_field(@$options['kobo']) . '" />';
 	echo $html;
 }
 
@@ -852,7 +852,7 @@ function ecomm_kobo_callback( $args ) {
  */
 function ecomm_ibooks_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="ibooks" name="pressbooks_ecommerce_links[ibooks]" value="' . sanitize_text_field(@$options['ibooks']) . '" />';
+	$html = '<input type="text" id="ibooks" name="pressbooks_ecommerce_links[ibooks]" class="regular-text" value="' . sanitize_text_field(@$options['ibooks']) . '" />';
 	echo $html;
 }
 
@@ -864,7 +864,7 @@ function ecomm_ibooks_callback( $args ) {
  */
 function ecomm_otherservice_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="otherservice" name="pressbooks_ecommerce_links[otherservice]" value="' . sanitize_text_field(@$options['otherservice']) . '" />';
+	$html = '<input type="text" id="otherservice" name="pressbooks_ecommerce_links[otherservice]" class="regular-text" value="' . sanitize_text_field(@$options['otherservice']) . '" />';
 	echo $html;
 }
 

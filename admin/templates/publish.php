@@ -24,7 +24,6 @@ if ( ! defined( 'ABSPATH' ) )
 		</div>
 	</div>
 
-	<br>
 	<h3><?php _e( 'Adding BUY Links to Your Pressbooks Web Book', 'pressbooks' ); ?></h3>
 	<p><?php _e( 'If you would like to add <strong>BUY</strong> links to your Pressbooks web book, add the links to your book at the different retailers below:', 'pressbooks' ); ?></p>
 
