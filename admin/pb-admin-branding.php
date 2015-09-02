@@ -7,6 +7,31 @@
  */
 namespace PressBooks\Admin\Branding;
 
+
+function login_logo() {
+}
+
+/**
+ * Add Custom Login Graphic
+ */
+function custom_login_logo() {
+    ?>
+<style type="text/css">
+.login h1 a {
+  background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/PB-logo.svg);
+  background-size: 276px 40px;
+  width: 276px;
+  height: 40px; }
+.login .message {
+  border-left: 4px solid #d90030; }
+.login #backtoblog a:hover, .login #backtoblog a:active, .login #backtoblog a:focus, .login #nav a:hover, .login #nav a:active, .login #nav a:focus {
+  color: #d90030; }
+
+.no-svg .login h1 a {
+  background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/PB-logo.png); }
+</style>
+<?php }
+
 /**
  * Changing the login page URL
  */
