@@ -196,6 +196,7 @@ TK.
 == Changelog ==
 
 = 2.6.7 =
+* Added the ability to edit a table's class in the MCE Table Button's properties editor.
 * Fixed an issue where Chinese would appear as the default user interface language.
 * Fixed an issue where disabling social media sharing buttons would only disable Facebook (props to @colomet for the bug report).
 * Updated localizations.
