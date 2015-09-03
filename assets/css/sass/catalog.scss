@@ -1,3 +1,5 @@
+@import '_colors';
+
 .postbox {
 	h4 {
 		font-size: #{(15/13)}em;
@@ -45,10 +47,10 @@
 		padding: 5px;     
 	}	
 	&.yes-icon {
-	  color: #94c02c;
+	  color: $green;
 	}
 	&.no-icon {
-		color: #c4484a;
+		color: $red;
 	}
 }
 

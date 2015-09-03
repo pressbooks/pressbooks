@@ -1,68 +1,94 @@
-/* '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' */
+@import '_colors';
 
-$base-color: #dedede;
-$icon-color: #333;
-$highlight-color: #ececec;
-$notification-color: #e9e9e9;
-$button-color: #d20633;
-$text-color: #333;
-$body-background: #ececec;
-$link: #c3042f;
-$link-focus: #fc091b;
-$form-checked: #c3042f;
-$menu-background: #dedede;
-$menu-text: #333;
-$menu-icon: #333;
-$menu-highlight-background: #ececec;
-$menu-highlight-text: #d90030;
-$menu-highlight-icon: #d90030;
-$menu-current-background: #777;
-$menu-current-text: #fff;
-$menu-current-icon: #fff;
-$menu-submenu-background: #fff;
-$menu-submenu-text: #000000;
-$menu-submenu-background-alt: #fff;
-$menu-submenu-focus-text: #d90030;
-$menu-submenu-current-text: #333;
-$menu-bubble-background: #e9e9e9;
-$menu-bubble-text: #333;
-$menu-bubble-current-background: #fff;
-$menu-bubble-current-text: #d4002d;
-$menu-collapse-text: #333;
-$menu-collapse-icon: #333;
-$menu-collapse-focus-text: #d90030;
-$menu-collapse-focus-icon: #d90030;
-$adminbar-avatar-frame: #fff;
-$adminbar-input-background: #fff;
+$base-color:						$medium-grey;
+$icon-color:						$black;
+$highlight-color:					$lightest-grey;
+$notification-color:				$light-grey;
+$button-color:						$red;
+$text-color:						$black;
+$body-background:					$lightest-grey;
+$link:								$dark-red;
+$link-focus:						$red;
+$form-checked:						$red;
+$menu-background:					$medium-grey;
+$menu-text:							$black;
+$menu-icon:							$black;
+$menu-highlight-background:			$lightest-grey;
+$menu-highlight-text:				$red;
+$menu-highlight-icon:				$red;
+$menu-current-background:			$dark-grey;
+$menu-current-text:					$white;
+$menu-current-icon:					$white;
+$menu-submenu-background:			$white;
+$menu-submenu-text:					$black;
+$menu-submenu-background-alt:		$white;
+$menu-submenu-focus-text:			$red;
+$menu-submenu-current-text:			$black;
+$menu-bubble-background:			$light-grey;
+$menu-bubble-text:					$black;
+$menu-bubble-current-background:	$white;
+$menu-bubble-current-text:			$red;
+$menu-collapse-text:				$black;
+$menu-collapse-icon:				$black;
+$menu-collapse-focus-text:			$red;
+$menu-collapse-focus-icon:			$red;
+$adminbar-avatar-frame:				$white;
+$adminbar-input-background:			$white;
 
 @import "../../../../../../wp-admin/css/colors/_admin.scss";
+
+/* Core UI */
+
+.notice-success, div.updated {
+    border-color: $green;
+}
+
+.notice-warning {
+    border-color: $orange;
+}
+
+.notice-error, div.error {
+    border-color: $bright-red;
+}
+
+.notice-info {
+    border-color: $blue;
+}
+
+.plugin-update-tr.active td, .plugins .active th.check-column {
+	border-color: $red;
+}
+
+.plugins .active td, .plugins .active th {
+	background: $pink;
+}
 
 /* Admin Menu */
 
 #adminmenu li.current:hover div.wp-menu-image:before,
 #adminmenu li.wp-menu-open:hover div.wp-menu-image:before {
-	color: #fff;
+	color: $white;
 }
 
 /* Admin Bar */
 
 #wpadminbar {
-	color: #fff;
-	background: #b40026;
+	color: $white;
+	background: $dark-red;
 }
 
 #wpadminbar .ab-item,
 #wpadminbar a.ab-item,
 #wpadminbar > #wp-toolbar span.ab-label,
 #wpadminbar > #wp-toolbar span.noticon {
-	color: #fff;
+	color: $white;
 }
 
 #wpadminbar .ab-icon,
 #wpadminbar .ab-icon:before,
 #wpadminbar .ab-item:before,
 #wpadminbar .ab-item:after {
-	color: #fff;
+	color: $white;
 }
 
 /* Themes */
@@ -70,7 +96,7 @@ $adminbar-input-background: #fff;
 .theme-browser .theme.active .theme-name,
 .theme-browser .theme.add-new-theme a:hover:after,
 .theme-browser .theme.add-new-theme a:focus:after {
-	background: #b40026;
+	background: $dark-red;
 }
 
 .theme-browser .theme.active .theme-actions {

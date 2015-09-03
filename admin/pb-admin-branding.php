@@ -23,9 +23,9 @@ function custom_login_logo() {
   width: 276px;
   height: 40px; }
 .login .message {
-  border-left: 4px solid #d90030; }
+  border-left: 4px solid #0077cc; }
 .login #backtoblog a:hover, .login #backtoblog a:active, .login #backtoblog a:focus, .login #nav a:hover, .login #nav a:active, .login #nav a:focus {
-  color: #d90030; }
+  color: #d4002d; }
 
 .no-svg .login h1 a {
   background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/PB-logo.png); }
