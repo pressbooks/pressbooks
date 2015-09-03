@@ -23,7 +23,6 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 	$profile = $catalog->getProfile();
 
 	?>
-	<div id="icon-options-general" class="icon32"></div>
 	<h2><?php _e( 'Tags For', 'pressbooks' ); echo ' ' . get_blog_option( $blog_id, 'blogname' ); ?></h2>
 
 	<form method="post" action="<?php echo $user_catalog_form_url; ?>" >
@@ -49,8 +48,9 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 				$name = ! empty( $profile["pb_catalog_tag_{$i}_name"] ) ? $profile["pb_catalog_tag_{$i}_name"] : __( 'Tags', 'pressbooks' ) . " $i";
 				?>
 				<tr>
-					<th><label for="tags_<?php echo $i; ?>"> <?php echo $name; ?><br /><em><?php _e( 'Comma delimited', 'pressbooks' ); ?></em></em></label></th>
-					<td><input id="tags_<?php echo $i; ?>" name="tags_<?php echo $i; ?>" value="<?php echo esc_textarea( $catalog::tagsToString( $catalog->getTagsByBook( $blog_id, $i ) ) ); ?>"></td>
+					<th><label for="tags_<?php echo $i; ?>"> <?php echo $name; ?><br /></em></label></th>
+					<td><input id="tags_<?php echo $i; ?>" name="tags_<?php echo $i; ?>" value="<?php echo esc_textarea( $catalog::tagsToString( $catalog->getTagsByBook( $blog_id, $i ) ) ); ?>">					<p class="description"><?php _e( 'Comma delimited', 'pressbooks' ); ?>.</p>
+</td>
 				</tr>
 			<?php } ?>
 		</table>
@@ -78,7 +78,6 @@ else:
 	$p = $catalog->getProfile();
 
 	?>
-	<div id="icon-options-general" class="icon32"></div>
 	<h2><?php echo ( get_current_user_id() != $user_id ) ? ucfirst( get_userdata( absint( $user_id ) )->user_login ) : __( 'My Catalog Profile', 'pressbooks' ); ?></h2>
 
 	<form method="post" action="<?php echo $user_catalog_form_url; ?>" enctype="multipart/form-data" >
@@ -87,7 +86,7 @@ else:
 		<table class="form-table">
 			<tr>
 				<th><label for="pb_catalog_about"><?php _e( 'About', 'pressbooks' ); ?></label></th>
-				<td><textarea id="pb_catalog_about" name="pb_catalog_about"><?php echo esc_textarea( $p['pb_catalog_about'] ); ?></textarea></td>
+				<td><textarea id="pb_catalog_about" name="pb_catalog_about" rows="5" cols="30"><?php echo esc_textarea( $p['pb_catalog_about'] ); ?></textarea></td>
 			</tr>
 			<tr>
 				<th><label for="pb_catalog_url"><?php _e( 'URL', 'pressbooks' ); ?></label></th>

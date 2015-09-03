@@ -448,8 +448,9 @@ class Catalog_List_Table extends \WP_List_Table {
 		$list_table->prepare_items();
 		?>
 		<div class="wrap">
-			<div class="notice-panel">
-				<h4><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h4>
+			<div class="postbox">
+				<div class="inside">
+					<h4><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h4>
 					<h5><span data-icon="a" class="show-hide-icon"></span><?php _e('Show/Hide books', 'pressbooks'); ?></h5>
 					<p><?php _e( sprintf( 'To display a book in your catalog choose "%s" under Catalog Status. ', '<strong>' . __( 'Show in Catalog', 'pressbooks' ) . '</strong>' ), 'pressbooks' ); ?><br>
 					<?php _e( sprintf( 'To hide a book in your catalog choose "%s" under Catalog Status.', '<strong>' . __( 'Hide in Catalog', 'pressbooks' ) . '</strong>' ), 'pressbooks' ); ?></p>
@@ -459,13 +460,12 @@ class Catalog_List_Table extends \WP_List_Table {
 
 					<h5><span data-icon="f" class="share-icon"></span><?php _e( 'Share your catalog', 'pressbooks' ); ?></h5>
 					<p><?php _e( 'The public link to your catalog page', 'pressbooks' ); ?>: <a href="<?php echo $view_url; ?>"><?php echo $view_url; ?></a></p>
-
-			</div><!-- end notice-panel -->
+				</div>
+			</div><!-- end .postbox -->
 			
-			<div id="icon-edit" class="icon32"><br /></div>
 			<h2><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?>
-				<a href="<?php echo $edit_url; ?>" class="button add-new-h2"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
-				<a href="<?php echo $view_url; ?>" class="button add-new-h2"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
+				<a href="<?php echo $edit_url; ?>" class=" page-title-action"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
+				<a href="<?php echo $view_url; ?>" class=" page-title-action"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
 			</h2>
 
 			<form id="books-search" method="get" action="<?php echo $url; ?>" >
@@ -478,7 +478,7 @@ class Catalog_List_Table extends \WP_List_Table {
 				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>" />
 				<?php if ( @$_REQUEST['user_id'] ) : ?><input type="hidden" name="user_id" value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
 
-				<div style="float:right;">
+				<div id="add-by-url">
 					<input type="text" id="add_book_by_url" name="add_book_by_url" /><label for="add_book_by_url">
 						<input type="submit" name="" id="search-submit" class="button" value="<?php esc_attr_e( 'Add By URL', 'pressbooks' ); ?>">
 					</label>
