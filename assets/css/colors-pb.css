@@ -455,18 +455,34 @@ div#wp-responsive-toggle a:before {
 #wpadminbar {
   color: #fff;
   background: #b40026; }
-
-#wpadminbar .ab-item,
-#wpadminbar a.ab-item,
-#wpadminbar > #wp-toolbar span.ab-label,
-#wpadminbar > #wp-toolbar span.noticon {
-  color: #fff; }
-
-#wpadminbar .ab-icon,
-#wpadminbar .ab-icon:before,
-#wpadminbar .ab-item:before,
-#wpadminbar .ab-item:after {
-  color: #fff; }
+  #wpadminbar .ab-item,
+  #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon {
+    color: #fff; }
+  #wpadminbar .ab-icon,
+  #wpadminbar .ab-icon:before,
+  #wpadminbar .ab-item:before,
+  #wpadminbar .ab-item:after {
+    color: #fff; }
+  #wpadminbar #wp-admin-bar-menu-toggle .ab-item {
+    background: #b40026; }
+    #wpadminbar #wp-admin-bar-menu-toggle .ab-item .ab-icon,
+    #wpadminbar #wp-admin-bar-menu-toggle .ab-item .ab-icon:before {
+      color: #fff; }
+    #wpadminbar #wp-admin-bar-menu-toggle .ab-item:hover, #wpadminbar #wp-admin-bar-menu-toggle .ab-item:active {
+      background: #fff; }
+      #wpadminbar #wp-admin-bar-menu-toggle .ab-item:hover .ab-icon,
+      #wpadminbar #wp-admin-bar-menu-toggle .ab-item:hover .ab-icon:before, #wpadminbar #wp-admin-bar-menu-toggle .ab-item:active .ab-icon,
+      #wpadminbar #wp-admin-bar-menu-toggle .ab-item:active .ab-icon:before {
+        color: #d4002d; }
+    #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"] {
+      background: #fff; }
+      #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"] .ab-icon,
+      #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"] .ab-icon:before {
+        color: #b40026; }
+      #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"]:hover .ab-icon,
+      #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"]:hover .ab-icon:before, #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"]:active .ab-icon,
+      #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"]:active .ab-icon:before {
+        color: #d4002d; }
 
 /* Themes */
 .theme-browser .theme.active .theme-name,

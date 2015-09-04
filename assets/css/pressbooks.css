@@ -76,44 +76,6 @@
   font-family: "Lucida Console", Monaco, monospace; }
 
 /* Organize Page */
-/*
-table.front-matter, table.back-matter, table.chapters {
-	margin-top: 10px;
-}
-
-table.front-matter tr td, table.back-matter tr td, table.chapters tr td {
-	vertical-align: middle;
-}
-
-table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tfoot tr td {
-	padding: 8px 0;
-}
-
- h4 {
-	display: inline-block;
-	font-size: 15px;
-	font-weight: normal;
-	margin: 0 0 15px 0;
-}
-
-.publicize-form p.submit {
-	margin: 0;
-	padding-top: 0;
-	padding-left: 0;
-}
-
-.publicize-alert.private span,
-.publicize-alert.public span {
-	background-color: #FFDEDD;
-	font-weight: bold;
-	padding: 2px 3px;
-	margin: 15px 0 5px;
-	text-transform: uppercase;
-}
-.publicize-alert.public span {
-	background-color: #E0EDC1;
-}
-*/
 body.chapter_page_pressbooks #publicize-panel h4 {
   font-size: 15px;
   font-weight: normal; }
@@ -130,13 +92,24 @@ body.chapter_page_pressbooks #publicize-panel .publicize-form label {
   display: block; }
   body.chapter_page_pressbooks #publicize-panel .publicize-form label:first-child {
     margin-bottom: 10px; }
-body.chapter_page_pressbooks .widefat thead tr th {
-  font-weight: bold; }
-body.chapter_page_pressbooks .widefat tbody tr.ui-state-highlight {
-  background: #e9e9e9;
-  color: #333;
-  height: 1.5em;
-  line-height: 1.2em; }
+  body.chapter_page_pressbooks #publicize-panel .publicize-form label span.active {
+    font-weight: bold; }
+body.chapter_page_pressbooks .widefat {
+  margin-top: 10px; }
+  body.chapter_page_pressbooks .widefat thead tr th {
+    font-weight: bold; }
+  body.chapter_page_pressbooks .widefat tbody tr td {
+    vertical-align: middle; }
+    body.chapter_page_pressbooks .widefat tbody tr td span.comment-count {
+      width: auto !important;
+      float: none; }
+    body.chapter_page_pressbooks .widefat tbody tr td .delete-link {
+      color: #fc091b; }
+  body.chapter_page_pressbooks .widefat tbody tr.ui-state-highlight {
+    background: #e9e9e9;
+    color: #333;
+    height: 1.5em;
+    line-height: 1.2em; }
 body.chapter_page_pressbooks #loader {
   display: none; }
 
@@ -424,31 +397,6 @@ img.theme-screenshot {
 	padding: 0;
 }
 */
-/* Admin panels
-====================================== */
-/*
-.pressbooks-admin-panel {
-	background: #fff;
-	box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-	border: 1px solid #dedede;
-	margin: 16px 0;
-	padding: 20px 20px 5px;	
-}
-.pressbooks-admin-panel h2 {
-	background: #fff !important;
-	margin-bottom: 15px !important;
-}
-.pressbooks-admin-panel p {
-	margin: 0 0 15px;
-}
-*/
-/* Revision
-====================================== */
-/*
-.revisions .revisions-controls {
-	background: #f9f9f9 !important;
-}
-
 /* Export Page Themes */
 /**
  * Main theme element
