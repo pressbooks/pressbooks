@@ -60,7 +60,7 @@ var Pressbooks = {
 		jQuery.ajax({
 			beforeSend: function () {
 				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI({message: jQuery('#loader')});
+				jQuery.blockUI({message: jQuery('#loader.chapter')});
 			},
 			url: ajaxurl,
 			type: 'POST',
@@ -98,7 +98,7 @@ var Pressbooks = {
 		jQuery.ajax({
 			beforeSend: function () {
 				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI({message: jQuery('#loader')});
+				jQuery.blockUI({message: jQuery('#loader.fm')});
 			},
 			url: ajaxurl,
 			type: 'POST',
@@ -131,7 +131,7 @@ var Pressbooks = {
 		jQuery.ajax({
 			beforeSend: function () {
 				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI({message: jQuery('#loader')});
+				jQuery.blockUI({message: jQuery('#loader.bm')});
 			},
 			url: ajaxurl,
 			type: 'POST',

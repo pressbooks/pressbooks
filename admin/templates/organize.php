@@ -203,7 +203,17 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 	<?php endforeach; ?>
 </div>
 
-<div id="loader">
+<div id="loader" class="chapter">
     <p><img src="<?php echo PB_PLUGIN_URL; ?>assets/images/loader.gif" alt="Loader" id="loaderimg" /></p>
-    <h3 id="loadermsg"><?php _e( 'Reordering', 'pressbooks' ); ?>&hellip;</h3>
+    <h3 id="loadermsg"><?php _e( 'Reordering Chapters', 'pressbooks' ); ?>&hellip;</h3>
+</div>
+
+<div id="loader" class="fm">
+    <p><img src="<?php echo PB_PLUGIN_URL; ?>assets/images/loader.gif" alt="Loader" id="loaderimg" /></p>
+    <h3 id="loadermsg"><?php _e( 'Reordering Front Matter', 'pressbooks' ); ?>&hellip;</h3>
+</div>
+
+<div id="loader" class="bm">
+    <p><img src="<?php echo PB_PLUGIN_URL; ?>assets/images/loader.gif" alt="Loader" id="loaderimg" /></p>
+    <h3 id="loadermsg"><?php _e( 'Reordering Back Matter', 'pressbooks' ); ?>&hellip;</h3>
 </div>
