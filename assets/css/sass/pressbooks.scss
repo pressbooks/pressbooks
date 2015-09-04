@@ -154,6 +154,9 @@ body.chapter_page_pressbooks {
 	
 	.widefat {
 		margin-top: 10px;
+		.delete-link {
+			color: $bright-red;
+		}
 		thead {
 			tr {
 				th {
@@ -168,9 +171,6 @@ body.chapter_page_pressbooks {
 					span.comment-count {
 						width: auto !important;
 						float: none;
-					}
-					.delete-link {
-						color: $bright-red;
 					}
 				}
 				&.ui-state-highlight {
