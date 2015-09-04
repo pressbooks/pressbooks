@@ -53,213 +53,95 @@
 /* Dashboard Widgets */
 #dashboard-widgets #pb_dashboard_widget_book h4 {
   font-weight: bold; }
+#dashboard-widgets #pb_dashboard_widget_book ul li.front-matter, #dashboard-widgets #pb_dashboard_widget_book ul li.chapter, #dashboard-widgets #pb_dashboard_widget_book ul li.back-matter {
+  margin-left: 10px; }
+#dashboard-widgets #pb_dashboard_widget_book .part-buttons {
+  width: 200px;
+  text-align: right;
+  position: absolute;
+  right: 8px;
+  top: 0; }
 
-/* 
-	Organize
-	#loader {
-	display: none;
+/* Custom Metadata Manager */
+.custom-metadata-field.checkbox div, .custom-metadata-field.checkbox label {
+  display: inline-block;
+  vertical-align: baseline; }
+.custom-metadata-field.checkbox input {
+  margin: 0 1px 0 0; }
+
+/* Custom CSS Editor */
+.custom-css-page form #my_custom_css {
+  width: 100%;
+  margin-top: 1em;
+  font-family: "Lucida Console", Monaco, monospace; }
+
+/* Organize Page */
+/*
+table.front-matter, table.back-matter, table.chapters {
+	margin-top: 10px;
 }
 
-
-.part-title-header h3 {
-	background: none repeat scroll 0 0 #f1f1f1 !important;
-	color: #000 !important;
-	text-shadow: none !important;
+table.front-matter tr td, table.back-matter tr td, table.chapters tr td {
+	vertical-align: middle;
 }
 
-.part-title-header {
-	display: block;
+table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tfoot tr td {
+	padding: 8px 0;
 }
 
-.part-title-header span,
-.part-item-buttons span {
-	float: right;
-	display: block;
-	width: 170px;
-}
-
-.part-title-header span.chapter_export,
-.part-item-buttons span.fm_export {
-	width: 70px;
-}
-
-.part-item {
-	cursor: move !important;
-}
-
-.part-item-buttons {
-	color: #666;
-	font-family: sans-serif;
-	font-size: 13px;
-	position: absolute;
-	top: 9px;
-	right: 0;
-	height: 1em;
-}
-
-.part-title-header span.chapter_action {
-	width: 105px;
-}
-
-.part-item-buttons span.chapter_action {
-	width: 115px;
-}
-
-.part-item-buttons span.chapter_status,
-.part-item-buttons span.chapter_action,
-.part-item-buttons span.chapter_author {
+ h4 {
+	display: inline-block;
+	font-size: 15px;
 	font-weight: normal;
+	margin: 0 0 15px 0;
 }
 
-.postbox {
-	border-top: 0;
-}
-
-p.chapter_add {
+.publicize-form p.submit {
 	margin: 0;
-	padding: 10px;
-	text-align: right;
-}
-
-.part-buttons {
-	width: 200px;
-	text-align: right;
-}
-
-.part-item {
-	background: url("../images/dragger.png") no-repeat scroll 7px 10px #FCFCFC;
+	padding-top: 0;
 	padding-left: 0;
 }
 
-.part-items ul li {
-	margin-bottom: 0;
-}
-
-.part-header .part-item h3 {
-	position: relative;
-	background: none repeat scroll 0 0 !important;
-	border: 1px solid #ccc;
-	border-width: 0 0 1px 0;
-	padding-left: 25px;
-	color: #464646 !important;
-	text-shadow: none !important;
-}
-
-.part-items ul {
-	min-height: 50px;
-}
-
-.part-title {
-	display: block;
-	padding-right: 640px;
-	line-height: 120%;
-}
-
-.ui-state-highlight {
-	border: 2px dotted #CFCFCF;
-	background: #EFEFEF;
-	color: #363636;
-	height: 1.5em;
-	line-height: 1.2em;
-	-moz-border-radius: 6px 6px 0 0;
-}
-
-.part-buttons {
-	width: 200px;
-	text-align: right;
-	position: absolute;
-	right: 8px;
-	top: 0;
-}
-
-#favorite-actions {
-	display: none;
-}
-
-body.chapter_page_pressbooks tbody { margin-top: 10px; }
-
-body.chapter_page_pressbooks #menu-posts-chapter ul li.wp-first-item a { font-weight: bold; }
-
-body.chapter_page_pressbooks .widefat thead tr th {
+.publicize-alert.private span,
+.publicize-alert.public span {
+	background-color: #FFDEDD;
 	font-weight: bold;
-	color: #333333;
-} */
-/* POST/PART
-============= */
-/*
-#post-body-content #titlediv,
-#post-body-content #postdivrich {
-	box-shadow: none;
+	padding: 2px 3px;
+	margin: 15px 0 5px;
+	text-transform: uppercase;
 }
-
-.custom-metadata-field.checkbox div, .custom-metadata-field.checkbox label {
-	display: inline-block;
-	vertical-align: baseline;
-}
-
-.custom-metadata-field.checkbox input {
-	margin: 0 1px 0 0;
+.publicize-alert.public span {
+	background-color: #E0EDC1;
 }
 */
-/* Metadata admin page classes
-=============================== */
-/*
-.item-value-col {
-	float: left;
-	width: 40%;
-	padding-top: 5px;
-}
+body.chapter_page_pressbooks #publicize-panel h4 {
+  font-size: 15px;
+  font-weight: normal; }
+  body.chapter_page_pressbooks #publicize-panel h4 span {
+    font-weight: bold;
+    padding: 2px 3px;
+    margin: 15px 0 5px;
+    text-transform: uppercase; }
+  body.chapter_page_pressbooks #publicize-panel h4.private span {
+    background-color: #FFDEDD; }
+  body.chapter_page_pressbooks #publicize-panel h4.public span {
+    background-color: #E0EDC1; }
+body.chapter_page_pressbooks #publicize-panel .publicize-form label {
+  display: block; }
+  body.chapter_page_pressbooks #publicize-panel .publicize-form label:first-child {
+    margin-bottom: 10px; }
+body.chapter_page_pressbooks .widefat thead tr th {
+  font-weight: bold; }
+body.chapter_page_pressbooks .widefat tbody tr.ui-state-highlight {
+  background: #e9e9e9;
+  color: #333;
+  height: 1.5em;
+  line-height: 1.2em; }
+body.chapter_page_pressbooks #loader {
+  display: none; }
 
-.item-value-col-area {
-	float: right;
-	width: 59%;
-	margin-top: 5px;
-}
-
-.item-value {
-	background-color: #fff;
-	min-height: 50px;
-	margin-bottom: 8px;
-	padding: 5px 10px;
-	border: 1px solid #dfdfdf;
-	-moz-border-radius: 7px;
-	border-radius: 7px;
-}
-
-.item-value input {
-	width: 100%;
-}
-
-.item-value h4, .item-value-area h4 {
-	margin: 0;
-}
-
-.wp_themeSkin .mceStatusbar {
-	border: 1px solid #DFDFDF;
-}
-
-.post-com-count {
-	display: inline !important;
-}
-*/
-/* Custom CSS Page styles
-========================== */
-/*
-.custom-css-page form #my_custom_css {
-	width: 100%;
-	margin-top: 1em;
-	font-family: "Lucida Console", Monaco, monospace
-}
-*/
-/* Sell Your Book styles
-========================== */
-/*
-.sell-your-book-copy {
-	margin-bottom: 3em;
-}
-*/
-/* Export Page styles
-====================== */
+/* Book Information Page */
+/* Export Page */
 /*
 img.theme-screenshot {
 	margin: 5px 0 10px;
@@ -540,46 +422,6 @@ img.theme-screenshot {
 	border: none;
 	cursor: pointer;
 	padding: 0;
-}
-*/
-/* Organize page styling (big tables)
-====================================== */
-/*
-table.front-matter, table.back-matter, table.chapters {
-	margin-top: 10px;
-}
-
-table.front-matter tr td, table.back-matter tr td, table.chapters tr td {
-	vertical-align: middle;
-}
-
-table.front-matter tfoot tr td, table.back-matter tfoot tr td, table.chapters tfoot tr td {
-	padding: 8px 0;
-}
-
-.publicize-panel h4 {
-	display: inline-block;
-	font-size: 15px;
-	font-weight: normal;
-	margin: 0 0 15px 0;
-}
-
-.publicize-form p.submit {
-	margin: 0;
-	padding-top: 0;
-	padding-left: 0;
-}
-
-.publicize-alert.private span,
-.publicize-alert.public span {
-	background-color: #FFDEDD;
-	font-weight: bold;
-	padding: 2px 3px;
-	margin: 15px 0 5px;
-	text-transform: uppercase;
-}
-.publicize-alert.public span {
-	background-color: #E0EDC1;
 }
 */
 /* Admin panels

@@ -15,42 +15,38 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 <div class="wrap">
 
 <?php if ( current_user_can( 'manage_options' ) ) : ?>
-<div class="pressbooks-admin-panel publicize-panel">
+<div id="publicize-panel" class="postbox">
+	<div class="inside">
 	<?php if ( $book_is_public ) { ?>
 		<h4 class="publicize-alert public"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Public', 'pressbooks' ); ?></span></h4>
 	<?php } else { ?>
 		<h4 class="publicize-alert private"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Private', 'pressbooks' ); ?></span></h4>
 	<?php } ?>
 	<div class="publicize-form">
-		<p>
-			<input type="radio" <?php if ( $book_is_public ) echo 'checked="checked"'; ?> value="1" name="blog_public" id="blog-public">
-			<label for="blog-public"><span class="public" <?php if ( $book_is_public ) echo 'style="font-weight: bold;"'; ?> ><?php _e( 'Public', 'pressbooks' ); ?></span> -
+			
+			<label for="blog-public"><input type="radio" <?php if ( $book_is_public ) echo 'checked="checked"'; ?> value="1" name="blog_public" id="blog-public"><span class="public" <?php if ( $book_is_public ) echo 'style="font-weight: bold;"'; ?> ><?php _e( 'Public', 'pressbooks' ); ?></span> -
 				<?php _e( 'Promote your book, set individual chapters privacy below.', 'pressbooks' ); ?>
 			</label>
-		</p>
-		<p>
-			<input type="radio" <?php if ( ! $book_is_public ) echo 'checked="checked"'; ?> value="0" name="blog_public" id="blog-private">
-			<label for="blog-private"><span class="private" <?php if ( ! $book_is_public ) echo 'style="font-weight: bold;"'; ?> ><?php _e( 'Private', 'pressbooks' ); ?></span> -
+			<label for="blog-private"><input type="radio" <?php if ( ! $book_is_public ) echo 'checked="checked"'; ?> value="0" name="blog_public" id="blog-private"><span class="private" <?php if ( ! $book_is_public ) echo 'style="font-weight: bold;"'; ?> ><?php _e( 'Private', 'pressbooks' ); ?></span> -
 				<?php _e( 'Only users you invite can see your book, regardless of individual chapter privacy settings below.', 'pressbooks' ); ?>
 			</label>
-		</p>
 	</div>
 </div>
+</div>
 <?php endif; ?>
-<div id="icon-edit" class="icon32"></div>
 <h2>
 	<?php bloginfo( 'name' ); ?>
 	<?php if ( is_super_admin() ): ?>
-    <a class="add-new-h2" href="<?php echo $adminUrl; ?>edit.php?post_type=front-matter"><?php _e( 'Front Matter', 'pressbooks' ); ?></a>
-    <a class="add-new-h2" href="<?php echo $adminUrl; ?>edit.php?post_type=chapter"><?php _e( 'Chapters', 'pressbooks' ); ?></a>
-    <a class="add-new-h2" href="<?php echo $adminUrl; ?>edit.php?post_type=back-matter"><?php _e( 'Back Matter', 'pressbooks' ); ?></a>
-    <a class="add-new-h2" href="<?php echo $adminUrl; ?>edit.php?post_type=part"><?php _e( 'Part', 'pressbooks' ); ?></a>
+    <a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=front-matter' ); ?>"><?php _e( 'Front Matter', 'pressbooks' ); ?></a>
+    <a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=chapter' ); ?>"><?php _e( 'Chapters', 'pressbooks' ); ?></a>
+    <a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=back-matter' ); ?>"><?php _e( 'Back Matter', 'pressbooks' ); ?></a>
+    <a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=part' ); ?>"><?php _e( 'Part', 'pressbooks' ); ?></a>
 	<?php else: ?>
-    <a class="add-new-h2" href="<?php echo $adminUrl; ?>admin.php?page=pb_export"><?php _e( 'Export', 'pressbooks' ); ?></a>
-    <a class="add-new-h2" href="<?php echo $adminUrl; ?>post-new.php?post_type=front-matter"><?php _e( 'Add Front Matter', 'pressbooks' ); ?></a>
-    <a class="add-new-h2" href="<?php echo $adminUrl; ?>post-new.php?post_type=back-matter"><?php _e( 'Add Back Matter', 'pressbooks' ); ?></a>
-    <a class="add-new-h2" href="<?php echo $adminUrl; ?>post-new.php?post_type=chapter"><?php _e( 'Add Chapter', 'pressbooks' ); ?></a>
-    <a class="add-new-h2" href="<?php echo $adminUrl; ?>post-new.php?post_type=part"><?php _e( 'Add Part', 'pressbooks' ); ?></a>
+    <a class="page-title-action" href="<?php echo admin_url( 'admin.php?page=pb_export' ); ?>"><?php _e( 'Export', 'pressbooks' ); ?></a>
+    <a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=front-matter' ); ?>"><?php _e( 'Add Front Matter', 'pressbooks' ); ?></a>
+    <a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=back-matter' ); ?>"><?php _e( 'Add Back Matter', 'pressbooks' ); ?></a>
+    <a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=chapter' ); ?>"><?php _e( 'Add Chapter', 'pressbooks' ); ?></a>
+    <a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a>
 	<?php endif; ?>
 </h2>
 <div class="clear"></div>
@@ -58,12 +54,12 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 <table id="front-matter" class="wp-list-table widefat fixed front-matter" cellspacing="0">
     <thead>
     <tr>
-        <th><?php _e('Front Matter', 'pressbooks'); ?></th>
-        <th><?php _e('Author', 'pressbooks'); ?></th>
-        <th><?php _e('Comments', 'pressbooks'); ?></th>
-        <th><?php _e('Status', 'pressbooks'); ?></th>
-		<th><?php _e('Private', 'pressbooks'); ?></th>
-        <th><?php _e('Export', 'pressbooks'); ?></th>
+        <th><?php _e( 'Front Matter', 'pressbooks' ); ?></th>
+        <th><?php _e( 'Author', 'pressbooks' ); ?></th>
+        <th><?php _e( 'Comments', 'pressbooks' ); ?></th>
+        <th><?php _e( 'Status', 'pressbooks' ); ?></th>
+		<th><?php _e( 'Private', 'pressbooks' ); ?></th>
+        <th><?php _e( 'Export', 'pressbooks' ); ?></th>
         <th><?php _e( 'Edit', 'pressbooks' ); ?></th>
     </tr>
     </thead>
