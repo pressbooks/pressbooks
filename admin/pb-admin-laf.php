@@ -730,7 +730,7 @@ function privacy_permissive_private_content_sanitize( $input ) {
  */
 function display_privacy_settings() { ?>
 <div class="wrap">
-	<h2><?php _e( 'Privacy Options', 'pressbooks' ); ?></h2>
+	<h2><?php _e( 'Privacy Settings', 'pressbooks' ); ?></h2>
 	<form method="post" action="options.php">
 		<?php settings_fields( 'privacy_settings' );
 		do_settings_sections( 'privacy_settings' ); ?>
