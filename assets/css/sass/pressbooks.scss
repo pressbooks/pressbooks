@@ -187,485 +187,291 @@ body.chapter_page_pressbooks {
 	}
 }
 
-/* Book Information Page */
-
-
-
 /* Export Page */
 
-/*
-img.theme-screenshot {
-	margin: 5px 0 10px;
-	border: solid 1px #999;
-}
-
-.export-left {
-	float: left;
-	margin-right: 3%;
-	width: 47%;
-}
-
-.export-right {
-	width: 40%;
-	float: left;
-}
-
-.export-right h3 {
-	margin-bottom: 0;
-}
-
-.export-format-wrap {
-	float: left;
-	margin-bottom: 40px;
-	width: 80%;
-}
-
-.export-page form {
-	background: none;
-	margin-bottom: 0;
-	padding: 0 0 20px;
-	width: auto;
-	clear: both;
-}
-
-#pb-export-form fieldset,
-#pb-export-form p {
-	float: left;
-	width: 50%;
-}
-
-#pb-export-form fieldset {
-	margin-bottom: 15px;
-}
-
-#pb-export-form p {
-	padding-right: 15px;
-	text-align: right;
-}
-
-.export-page form.export-file {
-	display: inline-block;
-	text-align: center;
-	padding: 0 10px 0 0;
-}
-
-.export-page form.export-file a {
-	text-align: center;
-}
-
-.export-page form.export-file span.export-file-icon.small {
-	width: 36px;
-	height: 36px;
-	background-size: 36px 36px;
-	display: block;
-	margin: 0 auto 8px;
-}
-
-.export-page form.export-file span.export-file-icon.large {
-	width: 48px;
-	height: 48px;
-	background-size: 48px 48px;
-	display: block;
-	margin: 0 auto 8px;
-}
-
-.export-files {
-	margin-bottom: 1.25em;
-}
-
-.export-page form.export-file span.export-file-icon.small.epub {
-	background: url(../images/epub-36.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.small.epub3 {
-	background: url(../images/epub3-36.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.small.icml {
-	background: url(../images/icml-36.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.small.mobi {
-	background: url(../images/mobi-36.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.small.pdf {
-	background: url(../images/pdf-36.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.small.wxr {
-	background: url(../images/wxr-36-red.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.small.vanillawxr {
-	background: url(../images/vanillawxr-36.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.small.xhtml {
-	background: url(../images/xhtml-36.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.small.odt {
-	background: url(../images/odt-36.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.large.epub {
-	background: url(../images/epub-48.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.large.epub3 {
-	background: url(../images/epub3-48.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.large.icml {
-	background: url(../images/icml-48.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.large.mobi {
-	background: url(../images/mobi-48.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.large.pdf {
-	background: url(../images/pdf-48.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.large.wxr {
-	background: url(../images/wxr-48-red.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.large.vanillawxr {
-	background: url(../images/vanillawxr-48.png) -0 0 no-repeat;
-}
-
-.export-page form.export-file span.export-file-icon.large.xhtml {
-	background: url(../images/xhtml-48.png) -0 0 no-repeat;
-}
-.export-page form.export-file span.export-file-icon.large.odt {
-	background: url(../images/odt-48.png) -0 0 no-repeat;
-}
-
-.export-file-container {
-	padding-right: 1.5em;
-}
-
-.export-file-container .file-actions {
-	visibility: hidden;
-}
-
-.export-left #loader {
-	margin-bottom: 4em;
-}
-
-.export-page legend {
-	color: #676767;
-	font-weight: bold;
-	margin-bottom: 10px;
-}
-
-.export-page label {
-	margin-right: 25px;
-}
-
-.export-page label span {
-	font-size: 10px;
-	font-weight: bold;
-}
-
-.export-page input {
-	margin-right: 7px;
-}
-
-.input-wrap {
-	background: #eee;
-	display: block;
-	white-space: nowrap;
-}
-
-.input-wrap p.no-upload {
-	color: #087BA5;
-	font-style: italic;
-}
-
-.wrap .export-left h2 {
-	background-color: #fff;
-	border: 1px solid #eee;
-	border-width: 0 1px;
-	padding-left: 10px;
-}
-
-.export-left h3 {
-	font-weight: normal;
-	margin-bottom: 0;
-	padding: 10px 0 0 10px;
-}
-
-.export-files {
-	padding: 10px;
-}
-
-.export-files:nth-of-type(odd),
-.export-left h3:nth-of-type(even) {
-	background-color: #eee;
-}
-
-.export-files:nth-of-type(1) {
-	background: #fff;
-	border: 1px solid #eee;
-	border-width: 0 1px 1px;
-}
-*/
-
-/* Generate button */
-
-/*
-.export-page .export-page input.generate[type="submit"] {
-	text-transform: uppercase;
-}
-
-.generate-disclaimer {
-	color: #676767;
-	font-style: italic;
-	font-weight: bold;
-}
-
-.generate-disclaimer span {
-	color: #333;
-	font-style: normal;
-}
-*/
-
-/* Exported list */
-
-/*
-.export-list {
-	margin-bottom: 40px;
-	width: 80%;
-}
-
-.export-list li {
-	background: url(../images/form-border.png) 0 0 repeat-x;
-	display: block;
-	height: 41px;
-	margin-bottom: 0;
-	padding: 11px 10px 11px 12px;
-}
-
-.export-list li:nth-of-type(odd),
-.export-list li.odd {
-	background-color: #eee;
-}
-
-.export .icon32 {
-	background: url(../images/icons32.png) no-repeat scroll -720px -5px transparent;
-}
-
-.file-actions a, .file-actions button {
-	color: black;
-	text-decoration: none;
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-}
-
-.file-actions a:hover,
-.file-actions button:hover {
-	color: #c5002a;
-}
-
-.file-actions button {
-	background-color: transparent;
-	border: none;
-	cursor: pointer;
-	padding: 0;
-}
-*/
+.toplevel_page_pb_export {
+	legend {
+		color: #676767;
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+	
+	label {
+		margin-right: 25px;
+		span {
+			font-size: 10px;
+			font-weight: bold;
+		}
+	}
+	
+	.postbox {
+		.inside {
+			margin-bottom: 0;
+			.fully-upgraded {
+				color: $green;
+			}
+		}
+	}
+
+	input {
+		margin-right: 7px;
+		&.generate {
+			text-transform: uppercase;
+		}
+
+	}
+	.export-left {
+		float: left;
+		margin-right: 3%;
+		width: 47%;
+		h2 {
+			background-color: #fff;
+			border: 1px solid #eee;
+			border-width: 0 1px;
+			padding-left: 10px;
+		}
+		h3 {
+			font-weight: normal;
+			margin-bottom: 0;
+			padding: 10px 0 0 10px;
+			&:nth-of-type(even) {
+				background-color: #eee;
+			}
+		}
+		#loader {
+			display: none;
+			margin-bottom: 4em;
+		}
+		.export-file-container {
+			padding-right: 1.5em;
+			.file-actions {
+				visibility: hidden;
+				a, button {
+					color: black;
+					text-decoration: none;
+					display: inline-block;
+					width: 20px;
+					height: 20px;
+					&:hover {
+						color: #c5002a;
+					}
+				}
+				button {
+					background-color: transparent;
+					border: none;
+					cursor: pointer;
+					padding: 0;
+				}
+			}
+		}
+		.export-files {
+			padding: 10px;
+			margin-bottom: 1.25em;
+			&:nth-of-type(odd) {
+				background-color: #eee;
+			}
+			&:nth-of-type(1) {
+				background: #fff;
+				border: 1px solid #eee;
+				border-width: 0 1px 1px;
+			}
+			form.export-file {
+				display: inline-block;
+				text-align: center;
+				padding: 0 10px 0 0;
+				a {
+					text-align: center;
+				}
+				span.export-file-icon {
+					display: block;
+					margin: 0 auto 8px;
+					&.small {
+						width: 36px;
+						height: 36px;
+						background-size: 36px 36px;
+						&.epub {
+							background: url(../images/epub-36.png) -0 0 no-repeat;
+						}
+						&.epub3 {
+							background: url(../images/epub3-36.png) -0 0 no-repeat;
+						}
+						&.icml {
+							background: url(../images/icml-36.png) -0 0 no-repeat;
+						}
+						&.mobi {
+							background: url(../images/mobi-36.png) -0 0 no-repeat;
+						}
+						&.pdf {
+							background: url(../images/pdf-36.png) -0 0 no-repeat;
+						}
+						&.wxr {
+							background: url(../images/wxr-36-red.png) -0 0 no-repeat;
+						}
+						&.vanillawxr {
+							background: url(../images/vanillawxr-36.png) -0 0 no-repeat;
+						}
+						&.xhtml {
+							background: url(../images/xhtml-36.png) -0 0 no-repeat;
+						}
+						&.odt {
+							background: url(../images/odt-36.png) -0 0 no-repeat;
+						}
+					}
+					&.large {
+						width: 48px;
+						height: 48px;
+						background-size: 48px 48px;
+						&.epub {
+							background: url(../images/epub-48.png) -0 0 no-repeat;
+						}
+						&.epub3 {
+							background: url(../images/epub3-48.png) -0 0 no-repeat;
+						}
+						&.icml {
+							background: url(../images/icml-48.png) -0 0 no-repeat;
+						}
+						&.mobi {
+							background: url(../images/mobi-48.png) -0 0 no-repeat;
+						}
+						&.pdf {
+							background: url(../images/pdf-48.png) -0 0 no-repeat;
+						}
+						&.wxr {
+							background: url(../images/wxr-48-red.png) -0 0 no-repeat;
+						}
+						&.vanillawxr {
+							background: url(../images/vanillawxr-48.png) -0 0 no-repeat;
+						}
+						&.xhtml {
+							background: url(../images/xhtml-48.png) -0 0 no-repeat;
+						}
+						&.odt {
+							background: url(../images/odt-48.png) -0 0 no-repeat;
+						}				
+					}					
+				}
+			}
+		}
+	}
+	
+	.export-right {
+		width: 40%;
+		float: left;
+		form {
+			background: none;
+			margin-bottom: 0;
+			padding: 0 0 20px;
+			width: auto;
+			clear: both;
+			fieldset, p {
+				float: left;
+				width: 50%;
+			}
+			fieldset {
+				margin-bottom: 15px;
+			}
+			p {
+				padding-right: 15px;
+				text-align: right;
+			}
+		}
+		h3 {
+			margin-bottom: 0;
+		}
+		.theme {
+			margin-top: 13px;
+			cursor: pointer;
+			float: left;
+			position: relative;
+			border: 1px solid #dedede;
+			width: 325px;
+			-webkit-box-shadow: 0 1px 1px -1px rgba(0,0,0,0.1);
+			box-shadow:         0 1px 1px -1px rgba(0,0,0,0.1);
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing:    border-box;
+			box-sizing:         border-box;
+			&:hover, &:focus {
+				cursor: pointer;
+			}
+			/* Has a fixed aspect ratio of 1.5 to 1 regardless of screenshot size */
+			.theme-screenshot {
+				display: block;
+				overflow: hidden;
+				position: relative;
+				-webkit-transition: opacity 0.2s ease-in-out;
+				transition:         opacity 0.2s ease-in-out;
+				&:after {
+					content: '';
+					display: block;
+					padding-top: 66.66666%; // using a 3/2 aspect ratio
+				}
+				img {
+					height: auto;
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 100%;
+					-webkit-transform: translateZ( 0 ); // Prevents rendering bugs in Chrome
+					-webkit-transition: opacity 0.2s ease-in-out;
+					transition:         opacity 0.2s ease-in-out;
+				}
+			}
+			.theme-name {
+				font-size: 15px;
+				font-weight: 600;
+				margin: 0;
+				padding: 15px;
+				-webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
+				box-shadow:         inset 0 1px 0 rgba(0,0,0,0.1);
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				background: #fff;
+				background: rgba(255,255,255,0.65);
+			}
+			.theme-actions {
+				-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+				opacity: 0;
+				-webkit-transition: opacity 0.1s ease-in-out;
+				transition:         opacity 0.1s ease-in-out;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				height: 38px;
+				padding: 9px 10px 0 10px;
+				background: rgba(244, 244, 244, 0.7);
+				border-left: 1px solid rgba(0,0,0,0.05);
+				.button-primary {
+					margin-right: 3px;
+				}
+				.button-secondary {
+					float: none;
+					margin-left: 3px;
+				}
+			}
+			&:focus {
+				outline: 1px dotted #222;
+				/* Hide shortcut actions and hover feedback when using tab navigation */
+				.theme-actions {
+					display: none;
+				}
+				/* Restore display of theme controls if you hover a focused theme */
+				&:hover {
+					.theme-actions {
+						display: block;
+					}
+				}
+			}
+			&:hover {
+				.theme-actions {
+					-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+					opacity: 1;
+				}
+				.theme-screenshot {
+					background: #fff;
+				}
+			}
+		}
+	}
 
-/* Export Page Themes */
-
-/**
- * Main theme element
- * (has flexible margins)
- */
-/*
-.export-right .theme {
-	margin-top: 13px;
-	cursor: pointer;
-	float: left;
-	position: relative;
-	border: 1px solid #dedede;
-	width: 325px;
-	-webkit-box-shadow: 0 1px 1px -1px rgba(0,0,0,0.1);
-	box-shadow:         0 1px 1px -1px rgba(0,0,0,0.1);
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing:    border-box;
-	box-sizing:         border-box;
-}
-
-.export-right .theme:hover,
-.export-right .theme:focus {
-	cursor: pointer;
-}
-
-.export-right .theme .theme-name {
-	font-size: 15px;
-	font-weight: 600;
-	margin: 0;
-	padding: 15px;
-	-webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
-	box-shadow:         inset 0 1px 0 rgba(0,0,0,0.1);
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	background: #fff;
-	background: rgba(255,255,255,0.65);
-}
-*/
-
-/* Activate and Customize buttons, shown on hover */
-/*
-.export-right .theme .theme-actions {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	opacity: 0;
-	-webkit-transition: opacity 0.1s ease-in-out;
-	transition:         opacity 0.1s ease-in-out;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	height: 38px;
-	padding: 9px 10px 0 10px;
-	background: rgba(244, 244, 244, 0.7);
-	border-left: 1px solid rgba(0,0,0,0.05);
-}
-
-.export-right .theme:hover .theme-actions {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-	opacity: 1;
-}
-
-.export-right .theme .theme-actions .button-primary {
-	margin-right: 3px;
-}
-
-.export-right .theme .theme-actions .button-secondary {
-	float: none;
-	margin-left: 3px;
-}
-*/
-
-/**
- * Theme Screenshot
- *
- * Has a fixed aspect ratio of 1.5 to 1 regardless of screenshot size
- * It is also responsive.
- */
-/*
-.export-right .theme .theme-screenshot {
-	display: block;
-	overflow: hidden;
-	position: relative;
-	-webkit-transition: opacity 0.2s ease-in-out;
-	transition:         opacity 0.2s ease-in-out;
-}
-
-.export-right .theme .theme-screenshot:after {
-	content: '';
-	display: block;
-	padding-top: 66.66666%; // using a 3/2 aspect ratio
-}
-
-.export-right .theme .theme-screenshot img {
-	height: auto;
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	-webkit-transform: translateZ( 0 ); // Prevents rendering bugs in Chrome
-	-webkit-transition: opacity 0.2s ease-in-out;
-	transition:         opacity 0.2s ease-in-out;
 }
-
-.export-right .theme:hover .theme-screenshot {
-	background: #fff;
-}
-
-.export-right.rendered .theme:hover .theme-screenshot img {
-	opacity: 0.4;
-}
-
-.export-right .theme .more-details {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-	opacity: 0;
-	position: absolute;
-		top: 35%;
-		right: 25%;
-		left: 25%;
-	background: #222;
-	background: rgba(0,0,0,0.7);
-	color: #fff;
-	font-size: 15px;
-	text-shadow: 0 1px 0 rgba(0,0,0,0.6);
-	-webkit-font-smoothing: antialiased;
-	font-weight: 600;
-	padding: 15px 12px;
-	text-align: center;
-	border-radius: 3px;
-	-webkit-transition: opacity 0.1s ease-in-out;
-	transition:         opacity 0.1s ease-in-out;
-}
-.export-right .theme:focus {
-	outline: 1px dotted #222;
-}
-*/
-/* Hide shortcut actions and hover feedback when using tab navigation */
-/*
-.export-right .theme:focus .theme-actions {
-	display: none;
-}
-*/
-/* Restore display of theme controls if you hover a focused theme */
-/*
-.export-right .theme:focus:hover .theme-actions {
-	display: block;
-}
-.export-right .theme:focus .more-details {
-	opacity: 1;
-}
-*/
-/* Current theme needs to have its action always on view */
-/*
-.export-right .theme.active:focus .theme-actions {
-	display: block;
-}
-
-.export-right.rendered .theme:hover .more-details {
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-	opacity: 1;
-}
-*/
-
-
-/* jQuery UI Slider */
-/*
-.wp-slider .ui-slider-handle,
-.wp-slider .ui-slider-handle.ui-state-hover,
-.wp-slider .ui-slider-handle.focus {
-  background: #e9e9e9;
-  border-color: #d0d0d0;
-  -webkit-box-shadow: inset 0 1px 0 white, 0 1px 0 rgba(0, 0, 0, 0.15);
-  box-shadow: inset 0 1px 0 white, 0 1px 0 rgba(0, 0, 0, 0.15); }
-*/
-
-/* Responsive Component */
-/*div#wp-responsive-toggle a:before {
-  color: #f3f1f2; }
-
-.wp-responsive-open div#wp-responsive-toggle a {
-  border-color: transparent;
-  background: #d4002d; }
-
-.star-rating .star {
-  color: #d4002d; }
-
-.wp-responsive-open #wpadminbar #wp-admin-bar-menu-toggle a {
-  background: #90001e; }
-*/

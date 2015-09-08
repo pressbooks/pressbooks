@@ -616,7 +616,7 @@ function privacy_settings_init() {
 	);
 	add_settings_field(
 		'blog_public',
-		__( 'Site Visibility', 'pressbooks' ),
+		__( 'Book Visibility', 'pressbooks' ),
 		__NAMESPACE__ . '\privacy_blog_public_callback',
 		'privacy_settings',
 		'privacy_settings_section'
@@ -646,7 +646,7 @@ function privacy_settings_init() {
  * Privacy settings section callback
  */
 function privacy_settings_section_callback() {
-	echo '<p>' . __( 'Privacy options', 'pressbooks' ) . '.</p>';
+	echo '<p>' . __( '', 'pressbooks' ) . '.</p>'; // TK
 }
 
 
@@ -722,9 +722,7 @@ function privacy_permissive_private_content_sanitize( $input ) {
  */
 function display_privacy_settings() { ?>
 <div class="wrap">
-	<div id="icon-options-general" class="icon32"></div>
-	<h2>Privacy Settings</h2>
-	<!-- Create the form that will be used to render our options -->
+	<h2><?php _e( 'Privacy Options', 'pressbooks' ); ?></h2>
 	<form method="post" action="options.php">
 		<?php settings_fields( 'privacy_settings' );
 		do_settings_sections( 'privacy_settings' ); ?>
