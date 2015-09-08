@@ -165,10 +165,10 @@ function replace_book_admin_menu() {
 	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', __NAMESPACE__ . '\display_publish', 'dashicons-products', 16 );
 
 	// Privacy
-	add_options_page( __( 'Privacy Options', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
+	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Advanced
-	add_options_page( __( 'Advanced Options', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
+	add_options_page( __( 'Advanced Settings', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
 
 	// Import
 	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
@@ -654,7 +654,7 @@ function privacy_settings_init() {
  * Privacy settings section callback
  */
 function privacy_settings_section_callback() {
-	echo '<p>' . __( '', 'pressbooks' ) . '.</p>'; // TK
+	echo '<p>' . __( 'Privacy settings', 'pressbooks' ) . '.</p>'; // TK
 }
 
 
@@ -954,7 +954,7 @@ function advanced_settings_init() {
  * Advanced settings section callback
  */
 function advanced_settings_section_callback() {
-	echo '<p>' . __( 'Advanced options', 'pressbooks' ) . '.</p>';
+	echo '<p>' . __( 'Advanced settings', 'pressbooks' ) . '.</p>';
 }
 
 
