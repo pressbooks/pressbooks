@@ -1203,7 +1203,7 @@ class Catalog {
 		$main = parse_url( network_site_url() );
 
 		if ( strpos( $url['host'], $main['host'] ) === false ) {
-			$_SESSION['pb_errors'][] = __( 'Invalid URL', 'pressbooks' );
+			$_SESSION['pb_errors'][] = __( 'Invalid URL.', 'pressbooks' );
 			\PressBooks\Redirect\location( $redirect_url );
 		}
 
@@ -1223,7 +1223,7 @@ class Catalog {
 
 		$book_id = get_id_from_blogname( $slug );
 		if ( ! $book_id ) {
-			$_SESSION['pb_errors'][] = __( 'No book found', 'pressbooks' );
+			$_SESSION['pb_errors'][] = __( 'No book found.', 'pressbooks' );
 			\PressBooks\Redirect\location( $redirect_url );
 		}
 

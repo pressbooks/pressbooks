@@ -77,6 +77,7 @@ add_filter('upload_mimes', '\PressBooks\Media\addMimeTypes');
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', '\PressBooks\PostType\register_post_types' );
+add_action( 'post_updated_messages', '\PressBooks\PostType\post_type_messages' );
 add_action( 'init', '\PressBooks\Taxonomy\register_taxonomies' );
 if ( \PressBooks\Book::isBook() ) {
 	add_filter( 'request', '\PressBooks\PostType\add_post_types_rss' );

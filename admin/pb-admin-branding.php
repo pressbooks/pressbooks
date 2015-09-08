@@ -7,34 +7,28 @@
  */
 namespace PressBooks\Admin\Branding;
 
+
+function login_logo() {
+}
+
 /**
  * Add Custom Login Graphic
  */
 function custom_login_logo() {
     ?>
 <style type="text/css">
-    .login h1 a {
-    	background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/PB-logo.svg) !important;
-		background-size: 276px 40px;
-		width: 276px;
-		height: 40px;
-    }
-    body.login {
-    	 background-color: #fff;
-    }
-    .no-svg .login h1 a {
-    	background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/PB-logo.png) !important;	    
-    }
-    .wp-core-ui .button-primary {
-	    background-color: #c3c3c3;
-	    border: none;
-	    box-shadow: none;
-	    color: #333;
-    }
-    .wp-core-ui .button-primary:hover {
-	    background-color: #ccc;
-	    box-shadow: none;
-    }
+.login h1 a {
+  background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/PB-logo.svg);
+  background-size: 276px 40px;
+  width: 276px;
+  height: 40px; }
+.login .message {
+  border-left: 4px solid #0077cc; }
+.login #backtoblog a:hover, .login #backtoblog a:active, .login #backtoblog a:focus, .login #nav a:hover, .login #nav a:active, .login #nav a:focus {
+  color: #d4002d; }
+
+.no-svg .login h1 a {
+  background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/PB-logo.png); }
 </style>
 <?php }
 

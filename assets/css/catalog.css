@@ -1,129 +1,56 @@
-/*****************************************
-*	Catalog admin
-*******************************************/
-@charset "UTF-8";
+.postbox h4 {
+  font-size: 1.1538461538em;
+  font-weight: normal; }
+.postbox h5 {
+  font-size: 1.1em;
+  margin: 0; }
+.postbox p {
+  margin: 0 0 10px 28px; }
 
- .assistive-text {
- 	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
- 	clip: rect(1px, 1px, 1px, 1px);
- 	position: absolute !important;
- }
- 
+.assistive-text {
+  clip: rect(1px 1px 1px 1px);
+  /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important; }
+
 @font-face {
   font-family: "catalog-page";
-  src:url("../fonts/catalog-page.eot");
-  src:url("../fonts/catalog-page.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/catalog-page.ttf") format("truetype"),
-    url("../fonts/catalog-page.svg#catalog-page") format("svg"),
-    url("../fonts/catalog-page.woff") format("woff");
+  src: url("../fonts/catalog-page.eot");
+  src: url("../fonts/catalog-page.eot?#iefix") format("embedded-opentype"), url("../fonts/catalog-page.ttf") format("truetype"), url("../fonts/catalog-page.svg#catalog-page") format("svg"), url("../fonts/catalog-page.woff") format("woff");
   font-weight: normal;
-  font-style: normal;
-}
- 
-[data-icon]:before {
-  font-family: "catalog-page";
-  content: attr(data-icon);  
-  font-style: normal;
-  font-weight: normal;
-  speak: none;
-   line-height: 1; 
-  -webkit-font-smoothing: antialiased;
-  
-}
-[data-icon]:before {
-  background-color: #ededed;
-  border-radius: 100px;
-  font-size: 1em; 
-  line-height: 2.2;
-  padding: 5px;     
-}
+  font-style: normal; }
+[data-icon] {
+  margin-right: 5px; }
+  [data-icon]:before {
+    font-family: "catalog-page";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1em;
+    content: attr(data-icon);
+    speak: none;
+    line-height: 2.2;
+    -webkit-font-smoothing: antialiased;
+    background-color: #ededed;
+    border-radius: 100px;
+    padding: 5px; }
+  [data-icon].yes-icon {
+    color: #337800; }
+  [data-icon].no-icon {
+    color: #d4002d; }
 
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
-  font-family: "catalog-page";
-  font-style: normal;
-  font-weight: normal;
-  speak: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-} 
-.icon-fontawesome-webfont:before {
-   content: "b"; 
-} 
- 
-.icon-fontawesome-webfont-1:before {
-   content: "c"; 
-} 
- 
-.icon-fontawesome-webfont-3:before {
-   content: "g"; 
-} 
- 
-.icon-eye-view-1:before {
-   content: "a"; 
-} 
- 
-.icon-link-1:before {
-   content: "f"; 
-}
-.yes-icon {
-  color: #94c02c;
-}
-.no-icon {
-  color: #C4484A;
-}
-.show-hide-icon{
-   margin-right: 5px;
-}
-.sort-icon {
-   margin-right: 5px;	
-}
-.share-icon {
-   margin-right: 5px;	
-}
-.wp-list-table .column-status,
-.wp-list-table .column-cover {
-	width: 10%;
-}
+#add-by-url {
+  float: right; }
 
+.wp-list-table .column-status, .wp-list-table .column-cover {
+  width: 10%; }
 .wp-list-table .column-title {
-	width: 25%;
-}
-
+  width: 25%; }
 .wp-list-table .column-cover img {
-	border: 1px solid #ddd;
-	width: 65px;
-}
-
+  border: 1px solid #ddd;
+  width: 65px; }
 .wp-list-table .column-title span.title {
-	font-size: 1.1em;
-	font-weight: bold;
-}
+  font-size: 1.1em;
+  font-weight: bold; }
 
 .form-table textarea {
-	width: 500px;
-	height: 5em;
-}
-.notice-panel {
-	background: #fff;
-	box-shadow: 0 1px 1px rgba(0,0,0,0.3);
-	margin: 16px 0;
-	padding: 20px 20px 5px;	
-}
-.notice-panel h4 {
-	display: inline-block;
-	font-size: 15px;
-	font-weight: normal;
-	margin: 0 0 15px 0;
-}
-.notice-panel h5 {
-	font-size: 1.1em;
-	line-height: 1em;
-	margin: 0;
-}
-.notice-panel p {
-	margin: 0 0 10px 28px;
-}
-.notice-panel p a {
-	color:#C5002A ;
-}
+  width: 500px; }

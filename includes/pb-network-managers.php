@@ -119,7 +119,7 @@ function restrict_access() {
 	// ---------------------------------------------------------------------------------------------------------------
 	// Don't let user go to any of these pages, under any circumstances
 
-	$restricted = array(
+	$restricted_urls = array(
 		'themes',
 		'theme-(install|editor)',
 		'plugins',
@@ -128,9 +128,9 @@ function restrict_access() {
 		'update-core',
 	);
 
-	$expr = '~/wp-admin/network/(' . implode( '|', $restricted ) . ')\.php$~';
+	$expr = '~/wp-admin/network/(' . implode( '|', $restricted_urls ) . ')\.php$~';
 	if ( in_array( $user->ID, $restricted ) && preg_match( $expr, $check_against_url ) ) {
-		$_SESSION['pb_notices'][] = __( 'You do not have sufficient permissions to access that URL.', 'pressbooks' );
 		\PressBooks\Redirect\location( $redirect_url );
 	}
+	
 }

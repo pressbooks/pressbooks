@@ -49,6 +49,9 @@ if ( true == is_main_site() ) {
 // Javascript, Css
 add_action( 'admin_init', '\PressBooks\Admin\Laf\init_css_js' );
 
+// Disable theme customizer
+add_action( 'admin_body_class', '\PressBooks\Admin\Laf\disable_customizer');
+
 // Hacks
 add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
 

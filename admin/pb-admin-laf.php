@@ -52,7 +52,7 @@ function replace_book_admin_menu() {
 
 	$menu[69] = $menu[25]; // Relocate Comments
 	unset( $menu[25] );
-
+	
 	// Remove items we don't want the user to see.
 	remove_submenu_page( 'index.php', 'my-sites.php' );
 	remove_submenu_page( 'options-general.php', 'options-general.php' );
@@ -61,7 +61,6 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'options-general.php', 'options-discussion.php' );
 	remove_submenu_page( 'options-general.php', 'options-media.php' );
 	remove_submenu_page( 'options-general.php', 'options-permalink.php' );
-	remove_submenu_page( 'themes.php', 'customize.php' );
 
 	remove_menu_page( "edit.php?post_type=part" );
 	remove_menu_page( "edit.php" );
@@ -71,20 +70,20 @@ function replace_book_admin_menu() {
 	remove_menu_page( "link-manager.php" );
 	remove_menu_page( "edit.php?post_type=page" );
 	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', 'pressbooks_theme_options_display' );
-	if ( ! current_user_can( 'import' ) || ! function_exists( 'register_pressbooks_import_page' ) ) {
-		remove_menu_page( "tools.php" );
-	}
+
 	remove_submenu_page( "tools.php", "tools.php" );
 	remove_submenu_page( "tools.php", "import.php" );
 	remove_submenu_page( "tools.php", "export.php" );
 	remove_submenu_page( "tools.php", "ms-delete-site.php" );
 	remove_menu_page( "plugins.php" );
+	
 	remove_submenu_page( "edit.php?post_type=chapter", "edit.php?post_type=chapter" );
 
 	// Organize
 	$page = add_submenu_page( 'edit.php?post_type=chapter', __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pressbooks', __NAMESPACE__ . '\display_organize' );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
+			wp_enqueue_style( 'pb-organize' );
 			wp_enqueue_script( 'jquery-blockui' );
 			wp_enqueue_script( 'pb-organize' );
 			wp_localize_script( 'pb-organize', 'PB_OrganizeToken', array(
@@ -138,7 +137,7 @@ function replace_book_admin_menu() {
 	} else {
 		$book_info_url = 'post-new.php?post_type=metadata';
 	}
-	$page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'edit_posts', $book_info_url, '', '', 12 );
+	$page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'edit_posts', $book_info_url, '', 'dashicons-info', 12 );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 			if ( 'metadata' == get_post_type() ) {
@@ -151,9 +150,10 @@ function replace_book_admin_menu() {
 	} );
 
 	// Export
-	$page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', '', 14 );
+	$page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', 'dashicons-migrate', 14 );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
+			wp_enqueue_style( 'pb-export' );
 			wp_enqueue_script( 'pb-export' );
 			wp_localize_script( 'pb-export', 'PB_ExportToken', array(
 				'mobiConfirm' => __( 'EPUB is required for MOBI export. Would you like to reenable it?', 'pressbooks' ),
@@ -162,16 +162,16 @@ function replace_book_admin_menu() {
 	} );
 
 	// Sell
-	add_menu_page( __( 'Sell', 'pressbooks' ), __( 'Sell', 'pressbooks' ), 'edit_posts', 'pb_sell', __NAMESPACE__ . '\display_sell', '', 16 );
+	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', __NAMESPACE__ . '\display_publish', 'dashicons-products', 16 );
 
 	// Privacy
-	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
+	add_options_page( __( 'Privacy Options', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Advanced
-	add_options_page( __( 'Advanced Settings', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
+	add_options_page( __( 'Advanced Options', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
 
 	// Import
-	$page = add_options_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
+	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
 			wp_enqueue_script( 'pb-import' );
@@ -220,7 +220,7 @@ function display_export() {
 }
 
 /**
- * Displays the Import  Admin Page
+ * Displays the Import Admin Page
  */
 function display_import() {
 
@@ -491,6 +491,9 @@ function transform_category_selection_box() {
 <?php
 }
 
+function disable_customizer() {
+	return 'no-customize-support';
+}
 
 /**
  * Init event called at admin_init
@@ -508,16 +511,18 @@ function init_css_js() {
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 	wp_register_style( 'pressbooks-admin', PB_PLUGIN_URL . 'assets/css/pressbooks.css', array(), '20140110', 'screen' );
 	wp_enqueue_style( 'pressbooks-admin' );
-	wp_register_style( 'bootstrap-admin', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.css', array(), '2.0.1', 'screen' );
-	wp_enqueue_style( 'bootstrap-admin' ); // Used by feedback button
-
 	if ( 'pb_catalog' == esc_attr( @$_REQUEST['page'] ) ) {
-		wp_register_style( 'pressbooks-catalog', PB_PLUGIN_URL . 'assets/css/catalog.css', array( 'colors', 'pressbooks-admin' ), '20130712', 'screen' );
+		wp_register_style( 'pressbooks-catalog', PB_PLUGIN_URL . 'assets/css/catalog.css', array( 'colors' , 'pressbooks-admin' ), '20130712', 'screen' );
 		wp_enqueue_style( 'pressbooks-catalog' );
 		wp_register_style( 'select2-css', PB_PLUGIN_URL . 'symbionts/select2/select2.css', array(), '3.4.1', 'screen' );
 		wp_enqueue_style( 'select2-css' );
 		wp_register_script( 'select2-js', PB_PLUGIN_URL . 'symbionts/select2/select2.min.js', array( 'jquery' ), '3.4.1' );
 		wp_enqueue_script( 'select2-js' );
+	}
+	
+	if ( 'pb_custom_css' == esc_attr( @$_REQUEST['page'] ) ) {
+		wp_register_style( 'pb-custom-css', PB_PLUGIN_URL . 'assets/css/custom-css.css', array(), '20150908', 'screen' );
+		wp_enqueue_style( 'pb-custom-css' );
 	}
 
 	// Don't let other plugins override our scripts
@@ -534,15 +539,12 @@ function init_css_js() {
 	wp_register_script( 'pb-import', PB_PLUGIN_URL . 'assets/js/import.js', array( 'jquery' ), '1.0.0' );
 	wp_register_script( 'pb-part', PB_PLUGIN_URL . 'assets/js/part.js', array( 'jquery' ), '1.0.0' );
 
-	// Enqueue now
-	wp_register_script( 'jquery-bootstrap', PB_PLUGIN_URL . 'symbionts/jquery/bootstrap.min.js', array( 'jquery' ), '2.0.1' );
-	wp_register_script( 'pb-feedback', PB_PLUGIN_URL . 'assets/js/feedback.js', array( 'jquery' ), '1.0' );
+	wp_register_style( 'pb-export', PB_PLUGIN_URL . 'assets/css/export.css' );
+	wp_register_style( 'pb-organize', PB_PLUGIN_URL . 'assets/css/organize.css' );
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
 	wp_enqueue_script( 'jquery-ui-sortable' );
-	wp_enqueue_script( 'jquery-bootstrap' );
-	wp_enqueue_script( 'pb-feedback' );
 }
 
 /**
@@ -622,7 +624,7 @@ function privacy_settings_init() {
 	);
 	add_settings_field(
 		'blog_public',
-		__( 'Site Visibility', 'pressbooks' ),
+		__( 'Book Visibility', 'pressbooks' ),
 		__NAMESPACE__ . '\privacy_blog_public_callback',
 		'privacy_settings',
 		'privacy_settings_section'
@@ -652,7 +654,7 @@ function privacy_settings_init() {
  * Privacy settings section callback
  */
 function privacy_settings_section_callback() {
-	echo '<p>' . __( 'Privacy options', 'pressbooks' ) . '.</p>';
+	echo '<p>' . __( '', 'pressbooks' ) . '.</p>'; // TK
 }
 
 
@@ -728,9 +730,7 @@ function privacy_permissive_private_content_sanitize( $input ) {
  */
 function display_privacy_settings() { ?>
 <div class="wrap">
-	<div id="icon-options-general" class="icon32"></div>
-	<h2>Privacy Settings</h2>
-	<!-- Create the form that will be used to render our options -->
+	<h2><?php _e( 'Privacy Options', 'pressbooks' ); ?></h2>
 	<form method="post" action="options.php">
 		<?php settings_fields( 'privacy_settings' );
 		do_settings_sections( 'privacy_settings' ); ?>
@@ -765,7 +765,7 @@ function ecomm_settings_init() {
 	);
 	add_settings_field(
 		'oreilly',
-		__( 'Oreilly URL', 'pressbooks' ),
+		__( 'O\'Reilly URL', 'pressbooks' ),
 		__NAMESPACE__ . '\ecomm_oreilly_callback',
 		'ecomm_settings',
 		'ecomm_settings_section'
@@ -812,7 +812,7 @@ function ecomm_settings_init() {
  */
 function ecomm_amazon_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="amazon" name="pressbooks_ecommerce_links[amazon]" value="' . sanitize_text_field(@$options['amazon']) . '" />';
+	$html = '<input type="text" id="amazon" name="pressbooks_ecommerce_links[amazon]" class="regular-text" value="' . sanitize_text_field(@$options['amazon']) . '" />';
 	echo $html;
 }
 
@@ -824,7 +824,7 @@ function ecomm_amazon_callback( $args ) {
  */
 function ecomm_oreilly_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="oreilly" name="pressbooks_ecommerce_links[oreilly]" value="' . sanitize_text_field(@$options['oreilly']) . '" />';
+	$html = '<input type="text" id="oreilly" name="pressbooks_ecommerce_links[oreilly]" class="regular-text" value="' . sanitize_text_field(@$options['oreilly']) . '" />';
 	echo $html;
 }
 
@@ -836,7 +836,7 @@ function ecomm_oreilly_callback( $args ) {
  */
 function ecomm_barnesandnoble_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="barnesandnoble" name="pressbooks_ecommerce_links[barnesandnoble]" value="' . sanitize_text_field(@$options['barnesandnoble']) . '" />';
+	$html = '<input type="text" id="barnesandnoble" name="pressbooks_ecommerce_links[barnesandnoble]" class="regular-text" value="' . sanitize_text_field(@$options['barnesandnoble']) . '" />';
 	echo $html;
 }
 
@@ -848,7 +848,7 @@ function ecomm_barnesandnoble_callback( $args ) {
  */
 function ecomm_kobo_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="kobo" name="pressbooks_ecommerce_links[kobo]" value="' . sanitize_text_field(@$options['kobo']) . '" />';
+	$html = '<input type="text" id="kobo" name="pressbooks_ecommerce_links[kobo]" class="regular-text" value="' . sanitize_text_field(@$options['kobo']) . '" />';
 	echo $html;
 }
 
@@ -860,7 +860,7 @@ function ecomm_kobo_callback( $args ) {
  */
 function ecomm_ibooks_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="ibooks" name="pressbooks_ecommerce_links[ibooks]" value="' . sanitize_text_field(@$options['ibooks']) . '" />';
+	$html = '<input type="text" id="ibooks" name="pressbooks_ecommerce_links[ibooks]" class="regular-text" value="' . sanitize_text_field(@$options['ibooks']) . '" />';
 	echo $html;
 }
 
@@ -872,7 +872,7 @@ function ecomm_ibooks_callback( $args ) {
  */
 function ecomm_otherservice_callback( $args ) {
 	$options = get_option('pressbooks_ecommerce_links');
-	$html = '<input type="text" id="otherservice" name="pressbooks_ecommerce_links[otherservice]" value="' . sanitize_text_field(@$options['otherservice']) . '" />';
+	$html = '<input type="text" id="otherservice" name="pressbooks_ecommerce_links[otherservice]" class="regular-text" value="' . sanitize_text_field(@$options['otherservice']) . '" />';
 	echo $html;
 }
 
@@ -900,11 +900,11 @@ function ecomm_links_sanitize( $input ) {
 
 
 /**
- * Display Sell Your Book
+ * Display Publish
  */
-function display_sell() {
+function display_publish() {
 
-	require( PB_PLUGIN_DIR . 'admin/templates/sell.php' );
+	require( PB_PLUGIN_DIR . 'admin/templates/publish.php' );
 }
 
 
