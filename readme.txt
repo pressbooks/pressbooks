@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.6.7
+Version: 2.7
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 2.6.7
+Stable tag: 2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,9 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.7 =
+* Major cleanup of the administration interface.
 
 = 2.6.7 =
 * Added the ability to edit a table's class in the MCE Table Button's properties editor.
