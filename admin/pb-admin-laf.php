@@ -71,6 +71,10 @@ function replace_book_admin_menu() {
 	remove_menu_page( "edit.php?post_type=page" );
 	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', 'pressbooks_theme_options_display' );
 
+	
+	if ( ! current_user_can( 'import' ) ) { // TODO: Better check than this
+		remove_menu_page( "tools.php" );
+	}
 	remove_submenu_page( "tools.php", "tools.php" );
 	remove_submenu_page( "tools.php", "import.php" );
 	remove_submenu_page( "tools.php", "export.php" );
@@ -98,15 +102,14 @@ function replace_book_admin_menu() {
 		}
 	} );
 	if ( current_user_can( 'publish_posts' ) ) {
-		$add_part = $submenu['edit.php?post_type=part'][10];
 		$add_chapter = $submenu['edit.php?post_type=chapter'][10];
+		unset( $submenu['edit.php?post_type=chapter'][10] );
+		$add_part = $submenu['edit.php?post_type=part'][10];
 		$add_front_matter = $submenu['edit.php?post_type=front-matter'][10];
 		$add_back_matter = $submenu['edit.php?post_type=back-matter'][10];
 		array_push( $submenu['edit.php?post_type=chapter'], $add_part, $add_chapter, $add_front_matter, $add_back_matter );
 	}
 
-	unset( $submenu['edit.php?post_type=chapter'][10] );
-	unset( $submenu['edit.php?post_type=chapter'][15] );
 
 	if ( is_super_admin() ) {
 		// If network administrator, give the option to see chapter, front matter and back matter types.
@@ -114,6 +117,7 @@ function replace_book_admin_menu() {
 		$back_matter_types = $submenu['edit.php?post_type=back-matter'][15];
 		if ( isset( $submenu['edit.php?post_type=chapter'][15] ) ) :
 			$chapter_types = $submenu['edit.php?post_type=chapter'][15];
+			unset( $submenu['edit.php?post_type=chapter'][15] );
 			array_push(
 				$submenu['edit.php?post_type=chapter'],
 				$chapter_types,
@@ -165,13 +169,13 @@ function replace_book_admin_menu() {
 	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', __NAMESPACE__ . '\display_publish', 'dashicons-products', 16 );
 
 	// Privacy
-	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'privacy-options', __NAMESPACE__ . '\display_privacy_settings' );
+	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'pb_privacy_settings', __NAMESPACE__ . '\display_privacy_settings' );
 
-	// Advanced
-	add_options_page( __( 'Advanced Settings', 'pressbooks' ), __( 'Advanced', 'pressbooks' ), 'manage_options', 'advanced-options', __NAMESPACE__ . '\display_advanced_settings' );
+	// Export
+	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pb_export_settings', __NAMESPACE__ . '\display_export_settings' );
 
 	// Import
-	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
+	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'import', 'pb_import', __NAMESPACE__ . '\display_import' );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
 			wp_enqueue_script( 'pb-import' );
@@ -909,61 +913,49 @@ function display_publish() {
 
 
 /* ------------------------------------------------------------------------ *
- * Advanced
+ * Export Settings
  * ------------------------------------------------------------------------ */
 
 /**
- * Advanced settings initialization
+ * Export settings initialization
  */
-function advanced_settings_init() {
+function export_settings_init() {
 	add_settings_section(
-		'advanced_settings_section',
+		'export_settings_section',
 		'',
-			__NAMESPACE__ . '\advanced_settings_section_callback',
-		'advanced_settings'
+			__NAMESPACE__ . '\export_settings_section_callback',
+		'export_settings'
 	);
 	add_settings_field(
 		'email_validation_logs',
 		__( 'Email me validation error reports on export.', 'pressbooks' ),
-			__NAMESPACE__ . '\advanced_email_validation_logs_callback',
-		'advanced_settings',
-		'advanced_settings_section'
-	);
-	add_settings_field(
-		'enable_chapter_types',
-		__( 'Enable chapter types.', 'pressbooks' ),
-			__NAMESPACE__ . '\advanced_enable_chapter_types_callback',
-		'advanced_settings',
-		'advanced_settings_section'
+			__NAMESPACE__ . '\export_email_validation_logs_callback',
+		'export_settings',
+		'export_settings_section'
 	);
 	register_setting(
-		'advanced_settings',
+		'export_settings',
 		'pressbooks_email_validation_logs',
-			__NAMESPACE__ . '\advanced_email_validation_logs_sanitize'
-	);
-	register_setting(
-		'advanced_settings',
-		'pressbooks_enable_chapter_types',
-			__NAMESPACE__ . '\advanced_enable_chapter_types_sanitize'
+			__NAMESPACE__ . '\export_email_validation_logs_sanitize'
 	);
 
 }
 
 
 /**
- * Advanced settings section callback
+ * Export settings section callback
  */
-function advanced_settings_section_callback() {
-	echo '<p>' . __( 'Advanced settings', 'pressbooks' ) . '.</p>';
+function export_settings_section_callback() {
+	echo '<p>' . __( 'Export settings', 'pressbooks' ) . '.</p>';
 }
 
 
 /**
- *  Advanced settings, email_validation_logs field callback
+ *  Export settings, email_validation_logs field callback
  *
  * @param $args
  */
-function advanced_email_validation_logs_callback( $args ) {
+function export_email_validation_logs_callback( $args ) {
 	$email_validation_logs = get_option( 'pressbooks_email_validation_logs' );
 	$html = '<input type="radio" id="yes-validation-logs" name="pressbooks_email_validation_logs" value="0" ';
 	if ( ! $email_validation_logs ) $html .= 'checked="checked" ';
@@ -979,65 +971,25 @@ function advanced_email_validation_logs_callback( $args ) {
 }
 
 /**
- *  Advanced settings, enable_chapter_types field callback
- *
- * @param $args
- */
-function advanced_enable_chapter_types_callback( $args ) {
-	$enable_chapter_types = get_option( 'pressbooks_enable_chapter_types' );
-
-	if ( $enable_chapter_types == 1 ) { // make sure that chapter types exist if enabling
-		$chapter_types_initialized = get_option( 'pressbooks_chapter_types_initialized' );
-		if ( !$chapter_types_initialized == 1 ) {
-			wp_insert_term( 'Type 1', 'chapter-type', array( 'slug' => 'type-1' ) );
-			wp_insert_term( 'Type 2', 'chapter-type', array( 'slug' => 'type-2' ) );
-			wp_insert_term( 'Type 3', 'chapter-type', array( 'slug' => 'type-3' ) );
-			wp_insert_term( 'Type 4', 'chapter-type', array( 'slug' => 'type-4' ) );
-			wp_insert_term( 'Type 5', 'chapter-type', array( 'slug' => 'type-5' ) );
-			wp_insert_term( 'Numberless', 'chapter-type', array( 'slug' => 'numberless' ) );
-			update_option( 'pressbooks_chapter_types_initialized', 1 );
-		}
-	}
-	
-	$html = '<input type="checkbox" id="enable-chapter-types" name="pressbooks_enable_chapter_types" value="1"' . checked( 1, $enable_chapter_types, false ) . '/>';
-	$html .= '<label for="enable-chapter-types"> ' . __( 'Enable chapter types taxonomy.', 'pressbooks' ) . '</label><br />';
-
-	echo $html;
-}
-
-
-/**
- * Advanced settings, email_validation_logs field sanitization
+ * Export settings, email_validation_logs field sanitization
  *
  * @param $input
  * @return string
  */
-function advanced_email_validation_logs_sanitize( $input ) {
+function export_email_validation_logs_sanitize( $input ) {
 	return absint( $input );
 }
 
 
 /**
- * Advanced settings, enable_chapter_types field sanitization
- *
- * @param $input
- * @return string
+ * Display Export settings
  */
-function advanced_enable_chapter_types_sanitize( $input ) {
-	return absint( $input );
-}
-
-/**
- * Display Advanced settings
- */
-function display_advanced_settings() { ?>
+function display_export_settings() { ?>
 <div class="wrap">
-	<div id="icon-options-general" class="icon32"></div>
-	<h2>Advanced Settings</h2>
-	<!-- Create the form that will be used to render our options -->
+	<h2><?php _e( 'Export Settings', 'pressbooks' ); ?></h2>
 	<form method="post" action="options.php">
-		<?php settings_fields( 'advanced_settings' );
-		do_settings_sections( 'advanced_settings' ); ?>
+		<?php settings_fields( 'export_settings' );
+		do_settings_sections( 'export_settings' ); ?>
 		<?php submit_button(); ?>
 	</form>
 </div>

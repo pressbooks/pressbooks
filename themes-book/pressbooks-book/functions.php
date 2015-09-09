@@ -485,6 +485,17 @@ function pressbooks_theme_options_global_init() {
 	);
 
 	add_settings_field(
+		'pressbooks_enable_chapter_types',
+		__( 'Chapter Types', 'pressbooks' ),
+		'pressbooks_theme_chapter_types_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Enable chapter types taxonomy', 'pressbooks' )
+		)
+	);
+
+	add_settings_field(
 		'parse_sections',
 		__( 'Parse Sections', 'pressbooks' ),
 		'pressbooks_theme_parse_sections_callback',
@@ -507,9 +518,15 @@ function pressbooks_theme_options_global_init() {
 	);
 
 	register_setting(
-		$_option,
+		$_page,
 		$_option,
 		'pressbooks_theme_options_global_sanitize'
+	);
+	
+	register_setting(
+		$_page,
+		'pressbooks_enable_chapter_types',
+		'pressbooks_theme_chapter_types_sanitize'
 	);
 }
 add_action('admin_init', 'pressbooks_theme_options_global_init');
@@ -534,6 +551,34 @@ function pressbooks_theme_chapter_numbers_callback( $args ) {
 	$html .= '<label for="chapter_numbers"> ' . $args[0] . '</label>';
 	echo $html;
 }
+
+/**
+ *  Advanced settings, pressbooks_enable_chapter_types field callback
+ *
+ * @param $args
+ */
+function pressbooks_theme_chapter_types_callback( $args ) {
+	$enable_chapter_types = get_option( 'pressbooks_enable_chapter_types' );
+
+	if ( $enable_chapter_types == 1 ) { // make sure that chapter types exist if enabling
+		$chapter_types_initialized = get_option( 'pressbooks_chapter_types_initialized' );
+		if ( !$chapter_types_initialized == 1 ) {
+			wp_insert_term( 'Type 1', 'chapter-type', array( 'slug' => 'type-1' ) );
+			wp_insert_term( 'Type 2', 'chapter-type', array( 'slug' => 'type-2' ) );
+			wp_insert_term( 'Type 3', 'chapter-type', array( 'slug' => 'type-3' ) );
+			wp_insert_term( 'Type 4', 'chapter-type', array( 'slug' => 'type-4' ) );
+			wp_insert_term( 'Type 5', 'chapter-type', array( 'slug' => 'type-5' ) );
+			wp_insert_term( 'Numberless', 'chapter-type', array( 'slug' => 'numberless' ) );
+			update_option( 'pressbooks_chapter_types_initialized', 1 );
+		}
+	}
+	
+	$html = '<input type="checkbox" id="enable-chapter-types" name="pressbooks_enable_chapter_types" value="1"' . checked( 1, $enable_chapter_types, false ) . '/>';
+	$html .= '<label for="enable-chapter-types"> ' . __( 'Enable chapter types taxonomy.', 'pressbooks' ) . '</label>';
+
+	echo $html;
+}
+
 
 // Global Options Field Callback
 function pressbooks_theme_parse_sections_callback( $args ) {
@@ -587,6 +632,10 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 	}
 
 	return $options;
+}
+
+function pressbooks_theme_chapter_types_sanitize( $input ) {
+	return absint( $input );
 }
 
 /* ------------------------------------------------------------------------ *

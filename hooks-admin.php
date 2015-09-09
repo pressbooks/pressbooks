@@ -55,10 +55,10 @@ add_action( 'admin_body_class', '\PressBooks\Admin\Laf\disable_customizer');
 // Hacks
 add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
 
-// Privacy, Ecommerce, and Advanced settings
+// Privacy, Ecommerce, and Export settings
 add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );
 add_action( 'admin_init', '\PressBooks\Admin\Laf\ecomm_settings_init' );
-add_action( 'admin_init', '\PressBooks\Admin\Laf\advanced_settings_init' );
+add_action( 'admin_init', '\PressBooks\Admin\Laf\export_settings_init' );
 
 //  Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
 add_filter( 'admin_title', '\PressBooks\Admin\Laf\admin_title' );
