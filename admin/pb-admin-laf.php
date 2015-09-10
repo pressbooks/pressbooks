@@ -72,9 +72,6 @@ function replace_book_admin_menu() {
 	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', 'pressbooks_theme_options_display' );
 
 	
-	if ( ! current_user_can( 'import' ) ) { // TODO: Better check than this
-		remove_menu_page( "tools.php" );
-	}
 	remove_submenu_page( "tools.php", "tools.php" );
 	remove_submenu_page( "tools.php", "import.php" );
 	remove_submenu_page( "tools.php", "export.php" );
@@ -175,7 +172,7 @@ function replace_book_admin_menu() {
 	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pb_export_settings', __NAMESPACE__ . '\display_export_settings' );
 
 	// Import
-	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'import', 'pb_import', __NAMESPACE__ . '\display_import' );
+	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 		if ( $hook == $page ) {
 			wp_enqueue_script( 'pb-import' );
@@ -597,7 +594,6 @@ function redirect_away_from_bad_urls() {
 		'plugin-(install|editor)',
 		'plugins',
 		'theme-editor',
-		'tools',
 		'update-core',
 		'widgets',
 	);
