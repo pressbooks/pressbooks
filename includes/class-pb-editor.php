@@ -8,8 +8,7 @@
 namespace PressBooks;
 
 
-class Editor {
-
+class Editor {	
 
 	/**
 	 * Ensure that Word formatting that we like doesn't get filtered out.
@@ -34,12 +33,86 @@ class Editor {
 		return $buttons;
 	}
 
+	/**
+	 * Updates custom stylesheet for MCE previewing.
+	 */
+	static function updateEditorStyle() {
+		
+		$scss = '/* Editor Styles */';
+		
+		$options = get_option( 'pressbooks_theme_options_global' );
+				
+		switch ( @$options['foreign_language_typography'] ) {
+			case 'Coptic':
+				$scss .= "@mixin AntinoouFont {
+				   @font-face {
+				      font-family: 'Antinoou';
+				      src: url(../../../fonts/Antinoou.ttf) format('truetype');
+				      font-weight: normal;
+				      font-style: normal;
+				  }
+				  @font-face {
+				      font-family: 'Antinoou';
+				      src: url(../../../fonts/AntinoouItalic.ttf) format('truetype');
+				      font-weight: normal;
+				      font-style: italic;
+				  }
+				}
+				@include AntinoouFont;
+				p { font-family: 'Antinoou', serif; }";
+				break;
+		}
+				
+		$wp_upload_dir = wp_upload_dir();
+
+		$upload_dir = $wp_upload_dir['basedir'] . '/editor';
+
+		if ( ! is_dir( $upload_dir ) ) {
+			mkdir( $upload_dir );
+		}
+		
+		if ( ! is_dir( $upload_dir ) ) {
+			throw new \Exception( 'Could not create stylesheet directory.' );
+		}
+					
+		$scss_file = $upload_dir . '/editor.scss';
+		$css_file = $upload_dir . '/editor.css';
+
+		if ( ! file_put_contents( $scss_file, $scss ) ) {
+			throw new \Exception( 'Could not write custom SCSS file.' );
+		}
+		
+		require_once( PB_PLUGIN_DIR . 'symbionts/phpsass/SassParser.php' );
+		$sass = new \SassParser();
+		$css = $sass->toCss( $scss_file );
+		unlink( $scss_file );
+		
+		if ( '' == $css ) {
+			$css = '/* No editor styles present. */';
+		}
+				
+		if ( ! file_put_contents( $css_file, $css ) ) {
+			throw new \Exception( 'Could not write custom CSS file.' );
+		}
+		
+	}	
 
 	/**
 	 * Adds stylesheet for MCE previewing.
 	 */
 	static function addEditorStyle() {
-		add_editor_style();
+		
+		$wp_upload_dir = wp_upload_dir();
+		
+		$path = $wp_upload_dir['basedir'] . '/editor/editor.css';
+		$uri = $wp_upload_dir['baseurl'] . '/editor/editor.css';
+
+		if ( !is_file( $path ) ) {
+			\PressBooks\Editor::updateEditorStyle();
+		}
+		
+		add_editor_style( $uri );
+		
 	}
 
 

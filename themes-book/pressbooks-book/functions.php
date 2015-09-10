@@ -517,6 +517,17 @@ function pressbooks_theme_options_global_init() {
 		)
 	);
 
+	add_settings_field(
+		'foreign_language_typography',
+		__( 'Foreign Language Typography', 'pressbooks' ),
+		'pressbooks_theme_foreign_language_typography_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Include fonts which support the following languages:', 'pressbooks' )
+		)
+	);
+
 	register_setting(
 		$_page,
 		$_option,
@@ -608,6 +619,37 @@ function pressbooks_theme_copyright_license_callback( $args ) {
 	echo $html;
 }
 
+// Global Options Field Callback
+function pressbooks_theme_foreign_language_typography_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_global' );
+
+	if ( ! isset( $options['foreign_language_typography'] ) ) {
+		$options['foreign_language_typography'] = '';
+	}
+	
+	$languages = array(
+		'Ancient Greek',
+		'Arabic',
+		'Biblical Hebrew',
+		'Chinese',
+		'Coptic',
+		'Japanese',
+		'Syrianic',
+		'Tamil',
+	);
+
+	$html = '<label for="foreign_language_typography"> ' . $args[0] . '</label><br /><br />';
+	$html .= '<select id="foreign_language_typography" name="pressbooks_theme_options_global[foreign_language_typography]">';
+	$html .= '<option value="">--</option>';
+	foreach ( $languages as $language ) {
+		$html .= '<option value="' . $language . '" ' . selected( $options['foreign_language_typography'], $language, false ) . '>' . $language . '</option>';
+	}
+	$html .= '</select>';
+
+	echo $html;
+}
+
 // Global Options Input Sanitization
 function pressbooks_theme_options_global_sanitize( $input ) {
 
@@ -629,6 +671,12 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 		$options['copyright_license'] = 0;
 	} else {
 		$options['copyright_license'] = 1;
+	}
+	
+	if ( ! isset( $input['foreign_language_typography'] ) ) {
+		$options['foreign_language_typography'] = null;
+	} else {
+		$options['foreign_language_typography'] = $input['foreign_language_typography'];
 	}
 
 	return $options;
