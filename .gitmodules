@@ -1,0 +1,3 @@
+[submodule "symbionts/phpsass"]
+	path = symbionts/phpsass
+	url = git@github.com:richthegeek/phpsass.git
