@@ -1,3 +1,15 @@
 [submodule "symbionts/phpsass"]
 	path = symbionts/phpsass
 	url = git@github.com:richthegeek/phpsass.git
+[submodule "symbionts/search-regex"]
+	path = symbionts/search-regex
+	url = git@github.com:pressbooks/search-regex.git
+[submodule "symbionts/custom-metadata"]
+	path = symbionts/custom-metadata
+	url = git@github.com:pressbooks/custom-metadata.git
+[submodule "symbionts/mce-table-buttons"]
+	path = symbionts/mce-table-buttons
+	url = git@github.com:pressbooks/mce-table-buttons.git
+[submodule "symbionts/disable-comments"]
+	path = symbionts/disable-comments
+	url = git@github.com:pressbooks/disable-comments.git
