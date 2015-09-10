@@ -55,6 +55,7 @@ add_action( 'admin_body_class', '\PressBooks\Admin\Laf\disable_customizer');
 
 // Hacks
 add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
+add_action( 'update_option_pressbooks_foreign_language_typography', '\PressBooks\Editor::updateEditorStyle' );
 
 // Privacy, Ecommerce, and Export settings
 add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );

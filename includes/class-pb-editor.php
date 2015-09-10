@@ -38,30 +38,100 @@ class Editor {
 	 */
 	static function updateEditorStyle() {
 		
-		$scss = '/* Editor Styles */';
+		$scss = '/* Editor Styles */ ';
 		
-		$options = get_option( 'pressbooks_theme_options_global' );
-				
-		switch ( @$options['foreign_language_typography'] ) {
-			case 'Coptic':
-				$scss .= "@mixin AntinoouFont {
-				   @font-face {
-				      font-family: 'Antinoou';
-				      src: url(../../../fonts/Antinoou.ttf) format('truetype');
-				      font-weight: normal;
-				      font-style: normal;
-				  }
-				  @font-face {
-				      font-family: 'Antinoou';
-				      src: url(../../../fonts/AntinoouItalic.ttf) format('truetype');
-				      font-weight: normal;
-				      font-style: italic;
-				  }
-				}
-				@include AntinoouFont;
-				p { font-family: 'Antinoou', serif; }";
+		$body_font_stack = 'body { font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, ';
+		
+		$foreign_languages = get_option( 'pressbooks_foreign_language_typography' );
+		
+		if ( !isset( $foreign_languages ) ) {
+			$foreign_languages = array();
+		}
+		foreach ( $foreign_languages as $language )	{
+			switch ( $language ) {
+				case 'grc': // Ancient Greek
+					$scss .= '/* ANCIENT GREEK GOES HERE */';
+					break;
+				case 'ar': // Arabic
+					$scss .= '/* ARABIC GOES HERE */';
+					break;
+				case 'he': // Biblical Hebrew
+					$scss .= '/* BIBLICAL HEBREW GOES HERE */';
+					break;
+				case 'zh': // Chinese
+					$scss .= '/* CHINESE GOES HERE */';
+					break;
+				case 'cop': // Coptic
+					$scss .= "@mixin AntinoouFont {
+					   @font-face {
+					      font-family: 'Antinoou';
+					      src: url(../../../fonts/Antinoou.ttf) format('truetype');
+					      font-weight: normal;
+					      font-style: normal;
+					  }
+					  @font-face {
+					      font-family: 'Antinoou';
+					      src: url(../../../fonts/AntinoouItalic.ttf) format('truetype');
+					      font-weight: normal;
+					      font-style: italic;
+					  }
+					}
+					@include AntinoouFont;";
+					$body_font_stack .= '"Antinoou", ';
+					break;
+				case 'ja': // Japanese
+					$scss .= '/* JAPANESE GOES HERE */';
+					break;
+				case 'syr': // Syrianic
+					$scss .= '/* SYRIANIC GOES HERE */';
+					break;
+				case 'ta': // Tamil
+					$scss .= '/* TAMIL GOES HERE */';
+					break;
+			}
+		}
+		
+		$book_lang = \PressBooks\Book::getBookInformation();
+		$book_lang = @$book_lang['pb_language'];
+		
+		switch ( $book_lang ) {
+			case 'ar': // Arabic
+			case 'ar-dz':
+			case 'ar-bh':
+			case 'ar-eg':
+			case 'ar-jo':
+			case 'ar-kw':
+			case 'ar-lb':
+			case 'ar-ma':
+			case 'ar-om':
+			case 'ar-qa':
+			case 'ar-sa':
+			case 'ar-sy':
+			case 'ar-tn':
+			case 'ar-ae':
+			case 'ar-ye':
+				$scss .= '/* ARABIC GOES HERE */';
+				break;
+			case 'he': // Biblical Hebrew
+				$scss .= '/* BIBLICAL HEBREW GOES HERE */';
+				break;
+			case 'zh': // Chinese
+			case 'zh-hk':
+			case 'zh-cn':
+			case 'zh-sg':
+			case 'zh-tw':
+				$scss .= '/* CHINESE GOES HERE */';
+				break;
+			case 'ja': // Japanese
+				$scss .= '/* JAPANESE GOES HERE */';
+				break;
+			case 'ta': // Tamil
+				$scss .= '/* TAMIL GOES HERE */';
 				break;
 		}
+		
+		$body_font_stack .= 'serif; }';
+		$scss .= $body_font_stack;
 				
 		$wp_upload_dir = wp_upload_dir();
 
