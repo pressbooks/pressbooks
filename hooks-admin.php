@@ -37,6 +37,7 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\PressBooks\Admin\Laf\customize_register', 1000 );
+	add_action( 'after_switch_theme', '\PressBooks\Editor::updateEditorStyle' );
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\fix_root_admin_menu', 1 );
@@ -54,6 +55,7 @@ add_action( 'admin_body_class', '\PressBooks\Admin\Laf\disable_customizer');
 
 // Hacks
 add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
+add_action( 'update_option_pressbooks_foreign_language_typography', '\PressBooks\Editor::updateEditorStyle' );
 
 // Privacy, Ecommerce, and Export settings
 add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );
@@ -102,7 +104,7 @@ if ( \PressBooks\Book::isBook() ) {
 	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceBeforeInitInsertFormats' );
 	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceValidWordElements' );
 	add_filter( 'mce_buttons_2', '\PressBooks\Editor::mceButtons');
-	add_action( 'init', '\PressBooks\Editor::addEditorStyle' );
+	add_action( 'admin_init', '\PressBooks\Editor::addEditorStyle' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

@@ -517,6 +517,17 @@ function pressbooks_theme_options_global_init() {
 		)
 	);
 
+	add_settings_field(
+		'pressbooks_foreign_language_typography',
+		__( 'Foreign Language Typography', 'pressbooks' ),
+		'pressbooks_theme_foreign_language_typography_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Include fonts to support the following languages:', 'pressbooks' )
+		)
+	);
+
 	register_setting(
 		$_page,
 		$_option,
@@ -525,9 +536,16 @@ function pressbooks_theme_options_global_init() {
 	
 	register_setting(
 		$_page,
+		'pressbooks_foreign_language_typography',
+		'pressbooks_theme_pressbooks_foreign_language_typography_sanitize'
+	);
+
+	register_setting(
+		$_page,
 		'pressbooks_enable_chapter_types',
 		'pressbooks_theme_chapter_types_sanitize'
 	);
+
 }
 add_action('admin_init', 'pressbooks_theme_options_global_init');
 
@@ -608,6 +626,37 @@ function pressbooks_theme_copyright_license_callback( $args ) {
 	echo $html;
 }
 
+// Global Options Field Callback
+function pressbooks_theme_foreign_language_typography_callback( $args ) {
+
+	$foreign_languages = get_option( 'pressbooks_foreign_language_typography' );
+
+	if ( ! isset( $foreign_languages ) ) {
+		$foreign_languages = array();
+	}
+	
+	$languages = array(
+		'grc' => 'Ancient Greek',
+		'ar' => 'Arabic',
+		'he' => 'Biblical Hebrew',
+		'zh' => 'Chinese',
+		'cop' => 'Coptic',
+		'ja' => 'Japanese',
+		'syr' => 'Syrianic',
+		'ta' => 'Tamil',
+	);
+
+	$html = '<label for="foreign_language_typography"> ' . $args[0] . '</label><br /><br />';
+	$html .= '<select id="foreign_language_typography" name="pressbooks_foreign_language_typography[]" multiple>';
+	foreach ( $languages as $key => $value ) {
+		$selected = ( in_array( $key, $foreign_languages ) ) ? ' selected' : '';
+		$html .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option>';
+	}
+	$html .= '</select>';
+
+	echo $html;
+}
+
 // Global Options Input Sanitization
 function pressbooks_theme_options_global_sanitize( $input ) {
 
@@ -630,12 +679,16 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 	} else {
 		$options['copyright_license'] = 1;
 	}
-
+	
 	return $options;
 }
 
 function pressbooks_theme_chapter_types_sanitize( $input ) {
 	return absint( $input );
+}
+
+function pressbooks_theme_pressbooks_foreign_language_typography_sanitize( $input ) {
+	return $input;
 }
 
 /* ------------------------------------------------------------------------ *
