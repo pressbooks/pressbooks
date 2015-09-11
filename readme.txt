@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.7
+Version: 2.7.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3
 Tested up to: 4.3
-Stable tag: 2.7
+Stable tag: 2.7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,11 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.7.1 =
+* Fixed an issue where changes made with the Search & Replace tool would not be saved (props to @connerbw).
+* Fixed an issue where users without super admin privileges would be incorrectly prevented from using the Import or Search & Replace tools.
+* Fixed a display bug in recent builds of Google Chrome (props to @connerbw).
 
 = 2.7 =
 * Major cleanup of the administration interface.
