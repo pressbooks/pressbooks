@@ -365,6 +365,9 @@ class Book {
 	 *
 	 */
 	static function getSubsections( $id ) {
+
+		libxml_use_internal_errors( true );
+
 		$parent = get_post( $id );
 		$type = $parent->post_type;
 		$output = array();
@@ -379,6 +382,10 @@ class Book {
 		}
 		if ( empty( $output ) )
 			$output = false;
+
+		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+		libxml_clear_errors();
+
 		return $output;
 	}
 
@@ -389,7 +396,10 @@ class Book {
 	 *
 	 * @return string
 	 */
-	static function tagSubsections( $content, $id ) {	
+	static function tagSubsections( $content, $id ) {
+
+		libxml_use_internal_errors( true );
+
 		$s = 1;
 		$parent = get_post( $id );
 		$type = $parent->post_type;
@@ -409,6 +419,10 @@ class Book {
 		    }
 		}
 		$html = $doc->saveXML( $doc->documentElement );
+
+		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+		libxml_clear_errors();
+
 		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 	}
 

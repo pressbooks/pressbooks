@@ -156,6 +156,9 @@ class Xhtml extends Import {
 			$doc->loadHTML( $utf8_hack . $matches[1] );
 
 			$meta = $this->scrapeAndKneadMeta( $doc );
+
+			$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+			libxml_clear_errors();
 		}
 		return $meta;
 	}

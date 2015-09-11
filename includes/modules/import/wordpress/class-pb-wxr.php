@@ -161,6 +161,9 @@ class Wxr extends Import {
 			++$total;
 		}
 
+		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+		libxml_clear_errors();
+
 		// Done
 		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
 		return $this->revokeCurrentImport();
