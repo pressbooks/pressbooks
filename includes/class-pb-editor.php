@@ -38,7 +38,7 @@ class Editor {
 	 */
 	static function updateEditorStyle() {
 		
-		$scss = '/* Editor Styles */ ';
+		$scss = "/* Editor Styles */\n";
 		
 		$body_font_stack = 'body { font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, ';
 		
@@ -50,16 +50,16 @@ class Editor {
 		foreach ( $foreign_languages as $language )	{
 			switch ( $language ) {
 				case 'grc': // Ancient Greek
-					$scss .= '/* ANCIENT GREEK GOES HERE */';
+					$scss .= "";
 					break;
 				case 'ar': // Arabic
-					$scss .= '/* ARABIC GOES HERE */';
+					$scss .= "";
 					break;
 				case 'he': // Biblical Hebrew
-					$scss .= '/* BIBLICAL HEBREW GOES HERE */';
+					$scss .= "";
 					break;
 				case 'zh': // Chinese
-					$scss .= '/* CHINESE GOES HERE */';
+					$scss .= "";
 					break;
 				case 'cop': // Coptic
 					$scss .= "@mixin AntinoouFont {
@@ -80,13 +80,13 @@ class Editor {
 					$body_font_stack .= '"Antinoou", ';
 					break;
 				case 'ja': // Japanese
-					$scss .= '/* JAPANESE GOES HERE */';
+					$scss .= "";
 					break;
 				case 'syr': // Syrianic
-					$scss .= '/* SYRIANIC GOES HERE */';
+					$scss .= "";
 					break;
 				case 'ta': // Tamil
-					$scss .= '/* TAMIL GOES HERE */';
+					$scss .= "";
 					break;
 			}
 		}
@@ -110,23 +110,23 @@ class Editor {
 			case 'ar-tn':
 			case 'ar-ae':
 			case 'ar-ye':
-				$scss .= '/* ARABIC GOES HERE */';
+				$scss .= "";
 				break;
 			case 'he': // Biblical Hebrew
-				$scss .= '/* BIBLICAL HEBREW GOES HERE */';
+				$scss .= "";
 				break;
 			case 'zh': // Chinese
 			case 'zh-hk':
 			case 'zh-cn':
 			case 'zh-sg':
 			case 'zh-tw':
-				$scss .= '/* CHINESE GOES HERE */';
+				$scss .= "";
 				break;
 			case 'ja': // Japanese
-				$scss .= '/* JAPANESE GOES HERE */';
+				$scss .= "";
 				break;
 			case 'ta': // Tamil
-				$scss .= '/* TAMIL GOES HERE */';
+				$scss .= "";
 				break;
 		}
 		
@@ -145,22 +145,10 @@ class Editor {
 			throw new \Exception( 'Could not create stylesheet directory.' );
 		}
 					
-		$scss_file = $upload_dir . '/editor.scss';
 		$css_file = $upload_dir . '/editor.css';
 
-		if ( ! file_put_contents( $scss_file, $scss ) ) {
-			throw new \Exception( 'Could not write custom SCSS file.' );
-		}
-		
-		require_once( PB_PLUGIN_DIR . 'symbionts/phpsass/SassParser.php' );
-		$sass = new \SassParser();
-		$css = $sass->toCss( $scss_file );
-		unlink( $scss_file );
-		
-		if ( '' == $css ) {
-			$css = '/* No editor styles present. */';
-		}
-				
+		$css = \PressBooks\SASS\compile( $scss );
+						
 		if ( ! file_put_contents( $css_file, $css ) ) {
 			throw new \Exception( 'Could not write custom CSS file.' );
 		}

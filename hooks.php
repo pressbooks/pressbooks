@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) )
 
 require( PB_PLUGIN_DIR . 'admin/pb-admin-branding.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-sass.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );

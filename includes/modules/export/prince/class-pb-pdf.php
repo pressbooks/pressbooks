@@ -186,7 +186,6 @@ class Pdf extends Export {
 		$css_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 
 		$css = file_get_contents( $this->exportStylePath );
-		$css = static::injectHouseStyles( $css );
 
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';

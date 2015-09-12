@@ -688,6 +688,9 @@ function pressbooks_theme_chapter_types_sanitize( $input ) {
 }
 
 function pressbooks_theme_pressbooks_foreign_language_typography_sanitize( $input ) {
+	if ( !is_array( $input ) ) {
+		$input = array();
+	}
 	return $input;
 }
 
