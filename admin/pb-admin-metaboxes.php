@@ -61,7 +61,11 @@ function add_required_data( $pid, $post ) {
 	if ( ! $pb_language ) {
 		// if the pb_language metadata value is not set, set it to the network default
 		$locale = get_site_option( 'WPLANG' );
-		$locale = array_search( $locale, \PressBooks\L10n\wplang_codes() );
+		if ( $locale ) {
+			$locale = array_search( $locale, \PressBooks\L10n\wplang_codes() );
+		} else {
+			$locale = 'en';
+		}
  		update_post_meta( $pid, 'pb_language', $locale );
 	}
 
