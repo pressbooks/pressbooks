@@ -262,9 +262,9 @@ class Epub3 extends Epub\Epub201 {
 					return "url(assets/$new_filename)";
 				}
 
-			} elseif ( preg_match( '#^\.\./\.\./fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+			} elseif ( preg_match( '#^\.\./\.\./\.\./\.\./plugins/pressbooks/themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
 
-				// Look for ../../fonts/*.otf (or .woff, or .ttf), copy into our Epub
+				// Look for ../../../../plugins/pressbooks/themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), copy into our Epub
 
 				$my_font = realpath( "$scss_dir/$url" );
 				if ( $my_font ) {

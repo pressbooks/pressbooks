@@ -196,14 +196,17 @@ class Pdf extends Export {
 
 		$scss = file_get_contents( $this->exportStylePath );
 
+		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
+
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$scss = preg_replace_callback( $url_regex, function ( $matches ) use ( $scss_dir ) {
+		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $scss_dir ) {
 
 			$url = $matches[3];
 
 			if ( ! preg_match( '#^https?://#i', $url ) ) {
 				$my_asset = realpath( "$scss_dir/$url" );
+				error_log( $my_asset );
 				if ( $my_asset ) {
 					return "url($scss_dir/$url)";
 				}
@@ -211,10 +214,8 @@ class Pdf extends Export {
 
 			return $matches[0]; // No change
 
-		}, $scss );
+		}, $css );
 		
-		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
-
 		return $css;
 	}
 
