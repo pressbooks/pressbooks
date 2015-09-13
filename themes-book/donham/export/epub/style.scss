@@ -3,8 +3,8 @@ This file must validate as CSS 2.01 with absolutely no errors
  + http://jigsaw.w3.org/css-validator/
  + http://idpf.org/epub/20/spec/OPS_2.0.1_draft.htm#Section3.0
 
-  Name: Austen
-  Version: 1.1
+  Name: Donham EPUB
+  Version: 1.3
   Author: Pressbooks (Book Oven Inc.)
   Author URI: http://pressbooks.com
   Tags: basic, simple, serif fonts, paragraph-indents
@@ -13,9 +13,7 @@ This file must validate as CSS 2.01 with absolutely no errors
 */
 
 
-/*__INSERT_EPUB_HOUSE_STYLE__*/
-
-
+@import '../../../assets/export/_epub-house-style';
 
 body {
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, Times, serif;
@@ -151,32 +149,38 @@ p.bl_indent {
 /* TITLE PAGE
 ======================= */
 #title-page {
-    text-align: center;
-    text-transform: uppercase;
+    text-align: right;
 }
 #title-page > .title {
 	font-size: 2em;
-	margin-top: 10%;
+	margin-top: 30%;
 }
 #title-page > .subtitle {
-	font-size: 1.2em;
+	font-size: 1.6em;
 	margin-top: 1em;
 }
 #title-page > .author {
 	font-size: 1em;
 	font-weight: normal;
-	margin-top: 6em;	
+	margin-top: 1em;
+	text-transform: uppercase;	
 }
 #title-page > .publisher {
+	display: inline-block;
 	font-size: 0.875em;
 	font-weight: normal;
-	margin-top: 12em;
+	margin-bottom: 0;
+}
+#title-page .publisher:after {
+	content: "\25CF";
+	padding-left: 10px;
 }
 #title-page > .publisher-city {
-	text-transform: capitalize;
+	display: inline-block;
 	font-size: 0.875em;
 	font-weight: normal;
 	margin-top: 0;
+	margin-left: 10px;
 }
 
 /* DEDICATION
@@ -191,7 +195,6 @@ p.bl_indent {
 	font-size: 0.7em;
     text-indent: 0;
     margin-bottom: 0.5em;
-    text-align: center;
 }
 
 /*  BODY TITLES
@@ -271,59 +274,43 @@ div.chapter.numberless h3.chapter-number {
 	display: none;
 }
 .part-title {
-	font-size: 2em;
-	text-transform: uppercase;
+	font-size: 1.7em;
 }
 .front-matter-number,
 .front-matter-title,
 #toc > h1 {
     font-size: 1.7em;
 	margin:1em 0 3em;
-	text-align: center;
+	text-align: right;
 }
 .part-number {
 	font-weight: normal;
-	text-align: center;
-	
+	text-align: right;
 }
 div.part-title-wrap > h3.part-number:before {
 	content: "part ";
-	text-transform: uppercase;
-
 }
 .part-title {
-	text-align: center;
+	margin-left: 20%;
+	text-align: right;
 }
 .chapter-title-wrap {
     font-size: 1.1em;
-	margin:1.6em auto 2.6em auto;
-	text-align: center;
+	margin:1.6em 0 4.6em 20%;
+	text-align: right;
 }
 .chapter-title-wrap .chapter-number,
 .chapter-title-wrap .chapter-title {
-	display: block;
-	text-transform: uppercase;
-}
-.chapter-title-wrap .chapter-title {
-	font-weight: normal;
-}
-.chapter-title-wrap .chapter-title:after {
-	content:""; 
-  height:1px;
-  border-bottom: 1px solid #000;
-  width:25%;
-  display:block;
-  margin: 0 auto;
-  margin-top: 20px;
-  
+	display: inline;
 }
 .chapter-title-wrap > .chapter-number {
     font-size: 1.3em;
 	font-weight: normal;
 	padding-right: 10px;
-	margin-bottom: 3em;
 }
-
+.chapter-title-wrap > .chapter-number:after {
+	content: ".";
+}
 
 
 /* TABLE OF CONTENT 
@@ -421,11 +408,14 @@ img.aligncenter {
 }
 .wp-caption {
 	height: auto;
+  	max-width: 100%;
+  	margin: 1em 0;		
 }
 .wp-caption-text {
 	font-size: 0.875em;
 	font-style: italic;
 	margin-top: 5px;
+	text-align: left;
 }
 div.wp-caption.aligncenter,
 div.wp-caption.alignleft,
@@ -441,21 +431,19 @@ h2.chapter-subtitle {
 	font-weight: normal;
 	margin-bottom: 2.8em;
     padding-top: 0.2em;	
-	text-align: center;
-	font-style: italic;
-	text-transform: capitalize;    
+	text-align: right;
+	text-transform: uppercase;    
 }
 h2.chapter-author {
 	font-style: normal;
-	text-align: center;
+	text-align: right;
 }
 h2.chapter-subtitle,
 h2.chapter-author {
     font-size: 1.1em;
     font-variant: normal;
-    margin: 0em 0 3em;
+    margin: -4em 0 3em;
 }
-
 h2.chapter-subtitle + h2.chapter-author {
 	margin-top: -2em;
 }
@@ -599,4 +587,5 @@ aside {
 	padding-left:30px;
 }
 
-/*__INSERT_MOBI_HOUSE_STYLE__*/
+
+@import '../../../assets/export/_mobi-house-style'

@@ -1,0 +1,1509 @@
+//SASSS - Generic mixins for Prince
+
+//Page Headers & Footers
+
+
+//========================
+//BLANK HEAD AND FOOT
+//========================
+
+@mixin blankheadandfoot {
+    @top {
+       content: "";
+    }
+    @top-right {
+       content: "";
+    }
+    @top-right-corner {
+      content: "";
+    }
+    @top-left {
+       content: "";
+    }
+    @top-left-corner {
+      content: "";
+    }
+    @bottom {
+       content: "";
+    }
+    @bottom-right {
+       content: "";
+    }
+    @bottom-right-corner {
+       content: "";
+    }
+    @bottom-left {
+       content: "";
+    }
+    @bottom-left-corner {
+       content: "";
+    }
+}
+ 
+//========================
+//RUNNING HEAD OUTSIDE
+//========================
+
+@mixin RunningHeadOutside {
+
+/* RUNNING HEAD OUTSIDE: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page front-matter:left {
+  @top-left {
+    content: $FrontMatterRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+  }
+}
+@page front-matter:right {
+  @top-right {
+    content: $FrontMatterRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+  }
+}
+
+/* RUNNING HEAD OUTSIDE: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page introduction:left {
+  @top-left {
+    content: $IntroductionRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left {
+    content: counter(page);
+    @include pagenumber;    
+
+  }
+}
+@page introduction:right {
+  @top-right {
+    content: $IntroductionRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right {
+    content: counter(page);
+    @include pagenumber;   
+  }
+}
+
+/* RUNNING HEAD OUTSIDE: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @include blankheadandfoot;
+}
+@page part:left {
+  @top-left {
+    content: $PartRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left {
+    content: counter(page);
+    @include pagenumber;    
+  }
+}
+@page part:right {
+  @top-right {
+    content: $PartRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right {
+    content: counter(page);
+    @include pagenumber;    
+  }
+}
+
+/* RUNNING HEAD OUTSIDE: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page chapter:left {
+  @top-left {
+    content: $ChapterRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left {
+    content: counter(page);
+    @include pagenumber;    
+  }
+}
+@page chapter:right {
+  @top-right {
+    content: $ChapterRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right {
+    content: counter(page);
+    @include pagenumber;    
+  }
+}
+
+/* RUNNING HEAD OUTSIDE: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page back-matter:left {
+  @top-left {
+     content: $BackMatterRunningContentLeft;
+     @include runningheadleft;
+  }
+  @bottom-left {
+    content: counter(page);
+    @include pagenumber;  
+  }
+}
+@page back-matter:right {
+  @top-right {
+     content: $BackMatterRunningContentRight;
+     @include runningheadright;
+  }
+  @bottom-right {
+    content: counter(page);
+    @include pagenumber;  
+  }
+}
+}
+
+//========================
+//RUNNING HEAD OUTSIDE2
+//========================
+
+@mixin RunningHeadOutside2 {
+
+/* RUNNING HEAD OUTSIDE2: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page front-matter:left {
+  @top-left {
+    content: $FrontMatterRunningContentLeft;
+    @include runningheadleft;
+  }
+  @top-left-corner {
+    content: counter(page, lower-roman) "\A0\A0\A0\A0";
+    @include frontmatterpagenumber;    
+  }
+}
+@page front-matter:right {
+  @top-right {
+    content: $FrontMatterRunningContentRight;
+    @include frontmatterpagenumber;
+  }
+  @top-right-corner {
+    content: "\A0\A0\A0\A0" counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+  }
+}
+
+/* RUNNING HEAD OUTSIDE2: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page introduction:left {
+  @top-left {
+    content: $IntroductionRunningContentLeft;
+    @include runningheadleft;
+  }
+  @top-left-corner {
+    content: counter(page) "\A0\A0\A0\A0";
+    @include pagenumber;    
+
+  }
+}
+@page introduction:right {
+  @top-right {
+    content: $IntroductionRunningContentRight;
+    @include runningheadright;
+  }
+  @top-right-corner {
+    content: "\A0\A0\A0\A0" counter(page);
+    @include pagenumber;   
+  }
+}
+
+/* RUNNING HEAD OUTSIDE2: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @include blankheadandfoot;
+}
+@page part:left {
+  @top-left {
+    content: $PartRunningContentLeft;
+    @include runningheadleft;
+  }
+  @top-left-corner {
+    content: counter(page) "\A0\A0\A0\A0";
+    @include pagenumber;    
+  }
+}
+@page part:right {
+  @top-right {
+    content: $PartRunningContentRight;
+    @include runningheadright;
+  }
+  @top-right {
+    content: "\A0\A0\A0\A0" counter(page);
+    @include pagenumber;    
+  }
+}
+
+/* RUNNING HEAD OUTSIDE2: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page chapter:left {
+  @top-left {
+    content: $ChapterRunningContentLeft;
+    @include runningheadleft;
+  }
+  @top-left-corner {
+    content: counter(page) "\A0\A0\A0\A0";
+    @include pagenumber;    
+  }
+}
+@page chapter:right {
+  @top-right {
+    content: $ChapterRunningContentRight;
+    @include runningheadright;
+  }
+  @top-right-corner {
+    content: "\A0\A0\A0\A0" counter(page);
+    @include pagenumber;    
+  }
+}
+
+/* RUNNING HEAD OUTSIDE2: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page back-matter:left {
+  @top-left {
+     content: $BackMatterRunningContentLeft;
+     @include runningheadleft;
+  }
+  @top-left-corner {
+    content: counter(page) "\A0\A0\A0\A0";
+    @include pagenumber;  
+  }
+}
+@page back-matter:right {
+  @top-right {
+     content: $BackMatterRunningContentRight;
+     @include runningheadright;
+  }
+  @top-right-corner {
+    content: "\A0\A0\A0\A0" counter(page);
+    @include pagenumber;  
+  }
+}
+}
+
+
+
+//========================
+// RUNNING HEAD INSIDE
+//========================
+
+@mixin RunningHeadInside {
+
+/* RUNNING HEAD INSIDE: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @include blankheadandfoot;
+}
+@page front-matter:left {
+
+  @top-right {
+    content: $FrontMatterRunningContentLeft;
+    @include runningheadleft;
+    text-align: right;
+  }
+  @top-left {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+    text-align: left;
+  }
+}
+@page front-matter:right {
+  @top-left {
+    content: $FrontMatterRunningContentRight;
+    @include runningheadright;
+    text-align: left;
+  }
+  @top-right {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+    text-align: right;
+  }
+}
+
+/* RUNNING HEADS INSIDE: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @include blankheadandfoot;
+}
+
+@page introduction:left {
+  @top-right {
+    content: $IntroductionRunningContentLeft;
+    @include runningheadleft;
+    text-align: right;
+  }
+  @top-left {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: left;
+  }
+}
+@page introduction:right {
+  @top-left {
+    content: $IntroductionRunningContentRight;
+    @include runningheadright;
+    text-align: left;
+  }
+  @top-right {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: right;
+  }
+}
+
+/*  RUNNING HEADS INSIDE: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @include blankheadandfoot;
+}
+@page part:left {
+  @top-right {
+    content: $PartRunningContentLeft;
+    @include runningheadleft;
+    text-align: left;
+  }
+  @top-left {
+    content: counter(page);
+    @include pagenumber;    
+    text-algin: left;
+  }
+}
+@page part:right {
+  @top-left {
+    content: $PartRunningContentRight;
+    @include runningheadright;
+    text-align: left;
+  }
+  @top-right {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: right;
+  }
+}
+
+/* RUNNING HEADS INSIDE: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @include blankheadandfoot;
+}
+@page chapter:left {
+  @top-right {
+    content: $ChapterRunningContentLeft;
+    @include runningheadleft;
+    text-align: right;
+  }
+  @top-left {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: left;
+  }
+}
+@page chapter:right {
+  @top-left {
+    content: $ChapterRunningContentRight;
+    @include runningheadright;
+    text-align: left;
+  }
+  @top-right {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: right;
+  }
+}
+
+/* RUNNING HEADS INSIDE: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @include blankheadandfoot;
+}
+@page back-matter:left {
+  @top-right {
+     content: $BackMatterRunningContentLeft;
+     @include runningheadleft;
+     text-align: right;
+  }
+  @top-left {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: left;
+  }
+}
+@page back-matter:right {
+  @top-left {
+     content: $BackMatterRunningContentRight;
+     @include runningheadright;
+     text-align: left;
+  }
+  @top-right {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: right;
+  }
+}
+}
+
+//=============================
+//RUNNING HEADS CENTER 
+//=============================
+
+@mixin RunningHeadCenter {
+
+/* RUNNING HEAD CENTER: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @include blankheadandfoot;
+  @bottom {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+    text-align: center;
+  }
+}
+@page front-matter:left {
+
+  @top {
+    content: $FrontMatterRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+    text-align: center;
+  }
+}
+@page front-matter:right {
+  @top {
+    content: $FrontMatterRunningContentRight;
+    @include runningheadright;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @include blankheadandfoot;
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+
+@page introduction:left {
+  @top {
+    content: $IntroductionRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+@page introduction:right {
+  @top {
+    content: $IntroductionRunningContentRight;
+    @include runningheadright;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+
+/*  RUNNING HEADS CENTER: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @include blankheadandfoot;
+}
+@page part:left {
+  @top {
+    content: $PartRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-algin: center;
+  }
+}
+@page part:right {
+  @top {
+    content: $PartRunningContentRight;
+    @include runningheadright;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @include blankheadandfoot;
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+@page chapter:left {
+  @top {
+    content: $ChapterRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+@page chapter:right {
+  @top {
+    content: $ChapterRunningContentRight;
+    @include runningheadright;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @include blankheadandfoot;
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+@page back-matter:left {
+  @top {
+     content: $BackMatterRunningContentLeft;
+     @include runningheadleft;
+     text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+@page back-matter:right {
+  @top {
+     content: $BackMatterRunningContentRight;
+     @include runningheadright;
+     text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+}
+
+//=============================
+//RUNNING HEADS CENTER2 
+//=============================
+
+@mixin RunningHeadCenter2 {
+
+/* RUNNING HEAD CENTER2: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @include blankheadandfoot;
+ 
+}
+@page front-matter:left {
+
+  @top {
+    content: counter(page, lower-roman) "\A0\A0•\A0\A0" $FrontMatterRunningContentLeft  ;
+    @include runningheadleft;
+    text-align: center;
+  }
+}
+@page front-matter:right {
+  @top {
+    content: $FrontMatterRunningContentRight "\A0\A0•\A0\A0" counter(page, lower-roman);
+    @include runningheadright;
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER2: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @include blankheadandfoot;
+}
+
+@page introduction:left {
+  @top {
+    content: counter(page) "\A0\A0•\A0\A0" $IntroductionRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+}
+@page introduction:right {
+  @top {
+    content:  $IntroductionRunningContentRight "\A0\A0•\A0\A0" counter(page);
+    @include runningheadright;
+    text-align: center;
+  }
+}
+
+/*  RUNNING HEADS CENTER2: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @include blankheadandfoot;
+}
+@page part:left {
+  @top {
+    content: counter(page) "\A0\A0•\A0\A0" $PartRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+}
+@page part:right {
+  @top {
+    content: $PartRunningContentRight "\A0\A0•\A0\A0" counter(page);;
+    @include runningheadright;
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER2: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @include blankheadandfoot;
+}
+@page chapter:left {
+  @top {
+    content: counter(page) "\A0\A0•\A0\A0" $ChapterRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+
+}
+@page chapter:right {
+  @top {
+    content: $ChapterRunningContentRight "\A0\A0•\A0\A0" counter(page);
+    @include runningheadright;
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER2: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @include blankheadandfoot;
+}
+@page back-matter:left {
+  @top {
+     content: counter(page) "\A0\A0•\A0\A0" $BackMatterRunningContentLeft;
+     @include runningheadleft;
+     text-align: center;
+  }
+}
+@page back-matter:right {
+  @top {
+     content: $BackMatterRunningContentRight "\A0\A0•\A0\A0" counter(page);
+     @include runningheadright;
+     text-align: center;
+  }
+
+}
+}
+
+
+//========================
+//RUNNING FOOT OUTSIDE 
+//========================
+
+@mixin RunningFootOutside {
+
+/* RUNNING FOOT OUTSIDE: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page front-matter:left {
+  @bottom-left {
+    content: $FrontMatterRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page, lower-roman) "\A0\A0";
+    @include frontmatterpagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page front-matter:right {
+  @bottom-right {
+    content: $FrontMatterRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0" counter(page, lower-roman) ;
+    @include frontmatterpagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page introduction:left {
+  @bottom-left {
+    content: $IntroductionRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page introduction:right {
+  @bottom-right {
+    content: $IntroductionRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0" counter(page) ;
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page part:left {
+  @bottom-left {
+    content: $PartRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page part:right {
+  @bottom-right {
+    content: $PartRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0" counter(page) ;
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page chapter:left {
+  @bottom-left {
+    content: $ChapterRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page chapter:right {
+  @bottom-right {
+    content: $ChapterRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0" counter(page) ;
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page back-matter:left {
+  @bottom-left {
+     content: $BackMatterRunningContentLeft;
+     @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page back-matter:right {
+  @bottom-right {
+     content: $BackMatterRunningContentRight;
+     @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0" counter(page);
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+}
+
+//========================
+//RUNNING FOOT OUTSIDE2 
+//========================
+
+@mixin RunningFootOutside2 {
+
+/* RUNNING FOOT OUTSIDE2: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page front-matter:left {
+  @bottom-left {
+    content: $FrontMatterRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page, lower-roman) "\A0\A0|\A0\A0";
+    @include frontmatterpagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page front-matter:right {
+  @bottom-right {
+    content: $FrontMatterRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0|\A0\A0" counter(page, lower-roman) ;
+    @include frontmatterpagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE2: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page introduction:left {
+  @bottom-left {
+    content: $IntroductionRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0|\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page introduction:right {
+  @bottom-right {
+    content: $IntroductionRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0|\A0\A0" counter(page) ;
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE2: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page part:left {
+  @bottom-left {
+    content: $PartRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0|\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page part:right {
+  @bottom-right {
+    content: $PartRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0|\A0\A0" counter(page) ;
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE2: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page chapter:left {
+  @bottom-left {
+    content: $ChapterRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0|\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page chapter:right {
+  @bottom-right {
+    content: $ChapterRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0|\A0\A0" counter(page) ;
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE2: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page back-matter:left {
+  @bottom-left {
+     content: $BackMatterRunningContentLeft;
+     @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0|\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page back-matter:right {
+  @bottom-right {
+     content: $BackMatterRunningContentRight;
+     @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0|\A0\A0" counter(page);
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+}
+
+//=============================
+//RUNNING HEADS CENTER3
+//=============================
+// Centered runningheads + top corner pagenumbers
+
+@mixin RunningHeadCenter3 {
+
+/* RUNNING HEAD CENTER3: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+  @page front-matter:first {
+    @include blankheadandfoot;
+  }
+  @page front-matter:left {
+    @top-left-corner {
+      @include frontmatterpagenumber;
+      content: counter(page, lower-roman) "\A0\A0\A0\A0"; 
+    }
+    @top {
+      content: $FrontMatterRunningContentLeft;
+      @include runningheadleft;
+      text-align: center;
+    }
+  }
+  @page front-matter:right {
+    @top-right-corner {
+      @include frontmatterpagenumber;
+      content: "\A0\A0\A0\A0" counter(page, lower-roman);
+    }
+    @top {
+      content: $FrontMatterRunningContentRight;
+      @include runningheadright;
+      text-align: center;
+    }
+  }
+  /* RUNNING HEADS CENTER3: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+  @page introduction:first {
+    @include blankheadandfoot;
+  }
+
+  @page introduction:left {
+    @top-left-corner {
+      @include pagenumber;
+      content: counter(page) "\A0\A0\A0\A0";
+    }
+    @top {
+      content: $IntroductionRunningContentLeft;
+      @include runningheadleft;
+      text-align: center;
+    }
+  }
+  @page introduction:right {
+    @top-right-corner {
+      @include pagenumber;
+      content: "\A0\A0\A0\A0" counter(page);
+    }
+    @top {
+      content:  $IntroductionRunningContentRight; 
+      @include runningheadright;
+      text-align: center;
+    }
+  }
+
+/*  RUNNING HEADS CENTER3: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+  @page part:first {
+    @include blankheadandfoot;
+  }
+  @page part:left {
+    @top-left-corner{
+      @include pagenumber;
+      content: counter(page) "\A0\A0\A0\A0";
+    }  
+    @top {
+      content: $PartRunningContentLeft;
+      @include runningheadleft;
+      text-align: center;
+    }
+  }
+  @page part:right {
+    @top-right-corner {
+      @include pagenumber;
+      content: "\A0\A0\A0\A0" counter(page);
+    }
+    @top {
+      content: $PartRunningContentRight;
+      @include runningheadright;
+      text-align: center;
+    }
+  }
+
+
+
+/* RUNNING HEADS CENTER3: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+  @page chapter:first {
+    @include blankheadandfoot;
+  }
+  @page chapter:left {
+    @top-left-corner {
+      @include pagenumber;
+      content: counter(page) "\A0\A0\A0\A0"; 
+    }
+    @top {
+      content: $ChapterRunningContentLeft;
+      @include runningheadleft;
+      text-align: center;
+    }
+  }
+  @page chapter:right {
+    @top-right-corner {
+      @include pagenumber;
+      content:  "\A0\A0\A0\A0" counter(page);
+    }
+    @top {
+      content: $ChapterRunningContentRight;
+      @include runningheadright;
+      text-align: center;
+    }
+  }
+
+  /* RUNNING HEADS CENTER3: 
+  BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+  @page back-matter:first {
+    @include blankheadandfoot;
+  }
+  @page back-matter:left {
+    @top-left-corner {
+      @include pagenumber;
+      content: counter(page) "\A0\A0\A0\A0";
+    }
+    @top {
+       content: $BackMatterRunningContentLeft;
+       @include runningheadleft;
+       text-align: center;
+    }
+  }
+  @page back-matter:right {
+    @top-right-corner {
+      @include pagenumber;
+      content:  "\A0\A0\A0\A0" counter(page);
+    }
+    @top {
+       content: $BackMatterRunningContentRight;
+       @include runningheadright;
+       text-align: center;
+    }
+  }  
+
+}
+
+

@@ -13,7 +13,7 @@ This file must validate as CSS 2.01 with absolutely no errors
 */
 
 
-/*__INSERT_EPUB_HOUSE_STYLE__*/
+@import '../../../assets/export/_epub-house-style';
 
 
 body {
@@ -473,6 +473,6 @@ sup.footnote, sup.endnote {
 	padding-left:30px;
 }
 
-/*__INSERT_MOBI_HOUSE_STYLE__*/
+@import '../../../assets/export/_mobi-house-style'
 
   

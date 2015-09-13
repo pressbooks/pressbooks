@@ -173,7 +173,7 @@ class CustomCss {
 
 			// Write to file
 			$my_post['post_content'] = stripslashes( $my_post['post_content'] ); // We purposely send \\A0 to WordPress, but we want to send \A0 to the file system
-			$filename = static::getCustomCssFolder() . sanitize_file_name( $slug . '.css' );
+			$filename = static::getCustomCssFolder() . sanitize_file_name( $slug . '.scss' );
 			file_put_contents( $filename, $my_post['post_content'] );
 
 			// Update "version"

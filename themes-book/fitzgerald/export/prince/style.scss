@@ -1,39 +1,100 @@
 /*
+Name: Fitzgerald PDF
+Version: 1.1
+Author: Pressbooks (Book Oven Inc.)
+Author URI: http://pressbooks.com
+Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) support@pressbooks.com
+Reference @see: http://www.princexml.com/doc/8.1/
 
-  Name: Clarke PDF
-  Version: 1.3
-  Author: Pressbooks (Book Oven Inc.)
-  Author URI: http://pressbooks.com
-  Tags: basic, simple, serif fonts, paragraph-indents
-  Description: A basic, simple ePub style, with paragraph indents.
-  Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) support@pressbooks.com
-  Reference documentation @see: http://www.princexml.com/doc/8.1/
 ================== */
 
-/*__INSERT_PDF_HOUSE_STYLE__*/
+@import '../../../assets/export/_pdf-house-style'
 
 
 /* FONTS
-===========	*/
+===========    */
+
+
+@font-face {
+  font-family: "Crimson";
+  font-weight: bold;
+  font-style: normal;
+  src: url(../../fonts/Crimson-Bold.otf) format("opentype");
+}
+@font-face {
+  font-family: "Crimson";
+  font-weight: bold;
+  font-style: italic;
+  src: url(../../fonts/Crimson-BoldItalic.otf) format("opentype");
+}
+@font-face {
+  font-family: "Crimson";
+  font-weight: normal;
+  font-style: italic;
+  src: url(../../fonts/Crimson-Italic.otf) format("opentype");
+}
+@font-face {
+  font-family: "Crimson";
+  font-weight: normal;
+  font-style: normal;
+  src: url(../../fonts/Crimson-Roman.otf) format("opentype");
+}
+@font-face {
+  font-family: "Crimson";
+  font-weight: 600;
+  font-style: normal;
+  src: url(../../fonts/Crimson-Semibold.otf) format("opentype");
+}
+@font-face {
+  font-family: "Crimson";
+  font-weight: 600;
+  font-style: italic;
+  src: url(../../fonts/Crimson-SemiboldItalic.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: normal;
+  font-style: normal;
+  src: url(../../fonts/RobotoCondensed-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: normal;
+  font-style: italic;
+  src: url(../../fonts/RobotoCondensed-Italic.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: 300;
+  font-style: normal;
+  src: url(../../fonts/RobotoCondensed-Light.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: 300;
+  font-style: italic;
+  src: url(../../fonts/RobotoCondensed-LightItalic.ttf) format("truetype");
+}
 
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
 h1, h2, h3, h4, h5, h6 {
 	prince-bookmark-level: 1;
 }
 
-/* Page */
+/* PAGE
+========================== */
 @page {
-  size:6in 9in;
-  margin: 2cm;
-  font-size: 9pt;
-  orphans:3; 
-  widows:3;  
+  size:7in 10in;
+  margin: 3cm;
+  orphans:1; 
+  widows:2;  
 }
 
 @page :left {
   margin-left: 1.5cm;
 }
-
+ 
 @page :right {
   margin-right: 1.5cm;
 }
@@ -41,9 +102,11 @@ h1, h2, h3, h4, h5, h6 {
 /* TOC */
 @page toc {
   @bottom {
+  	font: 6.5pt "Roboto Condensed", sans-serif;	
 	content: counter(page, lower-roman);
-	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: center;
+	font-family: "Roboto Condensed", sans-serif;
+	font-size: 6.5pt;
   }
 }
 @page toc:blank {
@@ -53,19 +116,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Front-Matter */
+@page front-matter {
+	font: 6.5pt "Roboto Condensed", sans-serif;	
+	text-transform: uppercase;
+}
 @page front-matter:left
 {
-  @top-left
-  {
-	content: counter(page, lower-roman) "\A0\A0" string(book-title);
-	font-family: Helvetica, Arial, sans-serif;	
+  @top-left {
+	content: counter(page, lower-roman) "\A0\A0\2022\A0\A0" string(book-title);
 	vertical-align: left;
   }
 }
 @page front-matter:right {
   @top-right {
-	content: string(section-title, last) "\A0\A0" counter(page, lower-roman);
-	font-family: Helvetica, Arial, sans-serif;	
+	content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page, lower-roman);	
 	vertical-align: right;
   }
 }
@@ -75,8 +139,9 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
 	content: counter(page, lower-roman);
-  	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: center;
+	font-family: "Roboto Condensed", sans-serif;
+	font-size: 6.5pt;
   }
 }
 @page front-matter:blank {
@@ -103,18 +168,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Introduction */
+@page introduction {
+	font: 6.5pt "Roboto Condensed", sans-serif;	
+	text-transform: uppercase;
+}
 
 @page introduction:left {
   @top-left {
-	content: counter(page) "\A0\A0" string(book-title);
-  	font-family: Helvetica, Arial, sans-serif;	
+	content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);	
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
-	content: string(section-title, last) "\A0\A0" counter(page);
-  	font-family: Helvetica, Arial, sans-serif;	
+	content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);	
 	vertical-align: right;
   }
 }
@@ -128,7 +195,6 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: Helvetica, Arial, sans-serif;		
 	vertical-align: center;
   }
   
@@ -142,12 +208,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Chapter */
-
+@page chapter {
+	font: 6.5pt "Roboto Condensed", sans-serif;	
+	text-transform: uppercase;
+}
 @page chapter:left {
   @top-left {
-	content: counter(page) "\A0\A0" string(book-title);
-	counter-increment: part;
-	font-family: Helvetica, Arial, sans-serif;	
+	content: counter(page) string(section) "\A0\A0\2022\A0\A0" string(part);
+	counter-increment: part;	
 	vertical-align: left;
   }
 }
@@ -155,9 +223,13 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-right
   {
-	content: string(section-title, last) "\A0\A0" counter(page);
-	font-family: Helvetica, Arial, sans-serif;	
+	content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);	
 	vertical-align: right;
+  }
+}
+@page chapter:right:after{
+	@top-right {
+	content: counter(page);
   }
 }
 @page chapter:first {
@@ -168,9 +240,9 @@ h1, h2, h3, h4, h5, h6 {
 	content: "";
   }
   @bottom {
-	content: counter(page);
-	font-family: Helvetica, Arial, sans-serif;		
+	content: counter(page);	
 	vertical-align: center;
+	font-family: "Roboto Condensed", sans-serif;
   }
 }
 @page chapter:blank {
@@ -186,19 +258,21 @@ h1, h2, h3, h4, h5, h6 {
 		padding-top: 1em;
 	}
 }
+@page back-matter {
+	font: 6.5pt "Roboto Condensed", sans-serif;	
+	text-transform: uppercase;
+}
 /* Back-matter */
 @page back-matter:left {
   @top-left {
-	content: counter(page) "\A0\A0" string(book-title);
-	font-family: Helvetica, Arial, sans-serif;	
+	content: counter(page) "\A0\A0\2022\A0\A0" string(book-title);	
 	vertical-align: left;
   }
 }
 @page back-matter:right {
   @top-right
   {
-	content: string(section-title, last) "\A0\A0" counter(page);
-	font-family: Helvetica, Arial, sans-serif;	
+	content: string(section-title, last) "\A0\A0\2022\A0\A0" counter(page);
 	vertical-align: right;
   }
 }
@@ -212,8 +286,8 @@ h1, h2, h3, h4, h5, h6 {
   @bottom
   {
 	content: counter(page);
-	font-family: Helvetica, Arial, sans-serif;		
 	vertical-align: center;
+	font-family: "Roboto Condensed", sans-serif;
   }
 }
 @page back-matter:blank {
@@ -266,7 +340,8 @@ div.part {
 	padding: part;	
 }
 body {
-	font: 12pt/1.6 "Times New Roman", Georgia, serif;
+	font: 10.5pt/1.4 "Crimson","Times New Roman", serif;
+	prince-hyphenate-before: 3;
 }
 a {
 	color: blue;
@@ -276,18 +351,18 @@ p {
 	line-height: 1.2em;
 	text-align: justify;
 	margin-bottom: 0;
+	hyphens: auto;
+	prince-hyphenate-lines: 2;
+	orphans: 1;
+	widows:2;
 }
 p + p,
 .indent {
-	text-indent: 2em;
+	text-indent: 1em;
 	margin-top: 0;
 }
-.nonindent,
-.no-indent {
-	text-indent: 0;
-}
 h1, h2, h3, h4, h5, h6 {
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: "Roboto Condensed", sans-serif;
 	line-height: 1.4em;
 	font-weight: normal;
 }
@@ -299,29 +374,20 @@ hr {
 	text-align: center;
 	width: 20%;
 }
-hr.break-symbols {
-	border: none;
-	font-size: 1.1em;
-    margin-bottom: 20px;
-}
-hr.break-symbols::after {
-	display: block;
-	content: "\066D";
-	font-size: 18pt;
-	text-align: center;
-}
 table {
 	border: 1px solid #000;
 	border-width: 1px 0;
 }
 dt {
-    float: left;
-    font-weight: bold;
-    margin-right: 5px;
-    margin-bottom: 0;
+	font-weight: bold;
 }
-dd {
-	margin-bottom: 0;
+dt, dd {
+	display: inline;
+	margin: 0;
+}
+dd:after {
+	content: "\A";
+	white-space: pre;
 }
 ul ul,
 ul ul ul {
@@ -367,6 +433,30 @@ ol li li li::before {
 cite {
 	font-weight: normal;
 }
+
+div.blockquote,
+blockquote {
+	font-size: 0.9em;
+}
+
+
+/* USER GENERATED STYLES
+========================== */
+.nonindent,
+.no-indent {
+	text-indent: 0;
+}
+hr.break-symbols {
+	border: none;
+	font-size: 1.1em;
+    margin-bottom: 20px;
+}
+hr.break-symbols::after {
+	display: block;
+	content: "\066D";
+	font-size: 18pt;
+	text-align: center;
+}
 p.bl_nonindent {
 	margin: 2em 10% 0;
 	text-indent: 0;
@@ -380,6 +470,7 @@ p.bl_indent {
     text-indent: -1em;
 }
 
+
 /* HALFTITLE PAGE
 ==================== */
 #half-title-page h1.title:first-of-type {
@@ -387,18 +478,21 @@ p.bl_indent {
 	page-break-before: right;
     page-break-after: always;
     bookmark-level: none;  
-    font-size: 21pt;
-    margin-top: 6cm;
+    font-size: 12pt;
+    font-style: italic;
+    margin-top: 3cm;
+    text-align: left;
 }
 
 /* TITLE PAGE
-======================= */
-#title-page {
-    height: 100%;
-    margin-top: 6cm;
+================ */
+#title-page { 
+	font-weight: normal;
     page-break-before: right;
-    text-align: left;
+    height: 100%;
+	text-align: left;
 }
+
 #title-page > .subtitle,
 #title-page > div.logo,
 #title-page > .author,
@@ -407,27 +501,47 @@ p.bl_indent {
 	bookmark-level: none;
 }	
 #title-page > .title {
-	font-size: 21pt;
-}
-#title-page > .subtitle {
-	font-size: 16pt;
-	margin-top: 1cm;
+	border-bottom: 1px solid #000;
+	font-size: 18pt;
 	font-weight: normal;
-}
-#title-page > .author {
-	font-size: 13pt;
-	font-weight: normal;
-	margin-top: 1cm;
-}
-#title-page > .publisher {
-	font-size: 10pt;
-	font-weight: normal;
+	margin-top: 3cm;
 	margin-bottom: 0;
+	padding-bottom: 5px;
 }
-#title-page > .publisher-city {
-	font-size: 10pt;
-	font-weight: normal;
+
+#title-page > .subtitle {
+	font-size: 12pt;
+	font-style: italic;
 	margin-top: 0;
+	padding-top: 5px;	
+}
+#title-page > .author,
+#title-page > .publisher,
+#title-page > .publisher-city {
+	font-family: "Crimson","Times New Roman", serif;
+	font-weight: normal;
+}	
+#title-page > .author {
+	font-size: 12pt;
+	font-weight: normal;
+	margin-top: 3cm;
+}
+
+#title-page > .publisher {
+	float: bottom;
+	font-size: 12pt;
+    font-style: italic;
+    margin-bottom: 0;
+    padding-bottom: 80px;
+}
+
+#title-page > .publisher-city {
+	float: bottom;
+ 	font-size: 10pt;
+    font-style: italic;
+    margin-top: 0;
+    position: relative;
+    top: -80px;
 }
 
 /*
@@ -442,7 +556,7 @@ p.bl_indent {
     margin-bottom: 0.5em;
 }
 #copyright-page > .ugc {
-	float: bottom;
+	margin-top: 6cm;
 }
 
 
@@ -452,35 +566,45 @@ p.bl_indent {
 	font-style: italic;
 	text-align: center;
 }
+
  /* TABLE OF CONTENTS
 ======================= */
 #toc {
 	page-break-before: right;
 	counter-reset: part; 
-	font-size: 10pt;
+	font-size: 9pt;
 }
 #toc h1 {
 	text-align: left;
+	font-weight: bold;
 }
 #toc a {
 	border: none;
 	color: inherit;	
 }
 #toc ul, #toc li {
-  	list-style: none;
-  	margin: 0;
-    line-height: 1.4em; 
-    padding: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 #toc ul {
 	counter-reset: chapter;
 	line-height: 1.2em;
 }
+#toc li {
+	position: relative;
+}
+#toc .front-matter,
+#toc .back-matter {
+	margin-bottom: 3px;
+}
 #toc a::after {
-  content: leader(' ') target-counter(attr(href), page);
-  float: right;
-  font-style: normal;
-  text-decoration: none;
+	content: leader(' ') target-counter(attr(href), page);
+	font-style: normal; 
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-decoration: none;
 }
 #toc .front-matter a::after {
 	content: leader(' ') target-counter(attr(href), page, lower-roman);
@@ -489,23 +613,31 @@ p.bl_indent {
 	content: leader(' ') target-counter(attr(href), page);
 }
 #toc .part {
-	margin: .6cm 0 .4em;
-	font:12pt "Galdeano", sans-serif;
-	page-break-after: avoid;
+	margin: .5cm 0 0;
+	font-weight: 600;
 }
 #toc .part a::before {
-	content: "part "counter(part) ". ";
+	content: counter(part, upper-roman)". ";
 	counter-increment: part; 
+	margin-right: 1em;
 }
-#toc .front-matter,
-#toc .chapter,
-#toc .back-matter {
-	text-indent: 2em;
+#toc .part,
+#toc .chapter {
+	margin-left: 2em;
+}
+#toc .chapter a {
+	padding-left: 25px;
+}
+#toc .chapter {
+	margin-top: .2cm;
 }
 #toc .chapter a::before {
 	content: counter(chapter) ". ";
 	counter-increment: chapter; 
-	margin-right: 7pt;	
+	margin-right: 7pt;
+	position: absolute;
+	left: 0;
+	top: 0;	
 }
 #toc .chapter.numberless a::before {
 	content:'' ;
@@ -515,6 +647,10 @@ p.bl_indent {
 #toc .part a::after {
 	content:'' ;
 }
+#toc span.toc-chapter-title {
+	display: inline-block;
+	width: 80%;	
+}
 #toc .chapter + .back-matter {
 	margin-top: 1.3em;
 }
@@ -522,15 +658,14 @@ p.bl_indent {
 #toc span.chapter-license,
 #toc span.chapter-subtitle {
 	display: inline-block;
-    margin-left: 3.7em;
+    margin-left: 2em;
     text-indent: 0;
 	width: 75%;
 }
 #toc span.chapter-author,
 #toc span.chapter-license,{
 	font-style: italic;
-    margin-bottom: 0.1cm;
-    margin-top: 0.1cm;
+	margin-top: .2cm;
 	position:relative;
 }
 
@@ -549,42 +684,48 @@ div.back-matter > h1:first-of-type {
 	string-set: section-title content();
 	counter-reset: footnote;
 }
-.part-title-wrap,
-.front-matter-title-wrap,
+.introduction .front-matter-title-wrap,
+.preface .front-matter-title-wrap,
 .chapter-title-wrap,
+.part-title-wrap,
 .back-matter-title-wrap {
-	border-top: 1px solid #000;
 	font-weight: normal;	
 	margin-bottom: 1.5cm;		
 	text-align: left;	
 }
-.dedication .front-matter-title-wrap,
-.disclaimer .front-matter-title-wrap,
-.epigraph .front-matter-title-wrap,
-.before-title .front-matter-title-wrap {
-	border-top: none;
+.introduction .front-matter-title-wrap {
+	
 }
-.part-title-wrap h1 {
-    font-size: 21pt;
-    font-weight: normal;
-}
-.chapter-title-wrap .chapter-number {
-	font-weight: normal;
-}
-div.chapter.numberless h3.chapter-number {
-	display: none;
-}
-.front-matter-title-wrap h1,
+.front-matter-title-wrap h1.front-matter-title,
 #toc h1,
-.chapter-title-wrap h2,
-.back-matter-title-wrap h1 {
-	font-size: 16pt;
+.chapter-title-wrap h2.chapter-title,
+.back-matter-title-wrap h1.back-matter-title {
+	font-size: 13pt;
 	font-weight: normal;
 	margin-top: 0.5cm;
 }
-.chapter-title-wrap,
-.front-matter-title-wrap {
-	margin-top: 0;
+
+.part-title-wrap {
+	font-family: "Crimson","Times New Roman", serif;
+}
+.part-title-wrap h3.part-number {
+	border-bottom: 1px solid #000;
+	display: inline-block;
+	font-weight: normal;
+	font-family: "Crimson","Times New Roman", serif;	
+	padding: 0 2em 0 1em;
+}
+.part-title-wrap h1.part-title {
+	font: italic bold 14pt "Crimson","Times New Roman", serif;
+}
+h3.chapter-number {
+	border-bottom: 0.5px solid #000;
+	font-weight: lighter;
+	display: inline-block;
+	padding: 0 2em 0 2em;
+}
+div.chapter.numberless h3.chapter-number {
+	display: none;
 }
 h3.front-matter-number, 
 h3.part-number, 
@@ -625,25 +766,28 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 /* SUBTITLES, CHAPTER AUTHOR & APHORIMS
 ======================================== */
 div.ugc h2.chapter-subtitle {
-	font-size: 13pt;
+	font-size: 10pt;
+	font-style: italic;
 	font-weight: normal;
 }
 div.ugc h2.chapter-author {
-    font-size: 10pt;
-	font-style: bold;
+	font: italic 9pt "Crimson","Times New Roman", serif;
 }
 div.ugc h2.chapter-subtitle,
 div.ugc h2.chapter-author {
-    margin: -1.5cm 0 3em;
+    margin: -1.3cm 0 3em;
     padding-top: 0.2em;	    
 }
+div.ugc h2.chapter-subtitle {
+	font-weight: lighter;
+}	
 h2.chapter-subtitle + h2.chapter-author {
-	margin-top: -1.3cm;
+	margin-top: -0.65cm;
 }
 .aphorism {
 	font-size: 1em;
     font-style: italic;
-    margin: -0.5cm auto 4em;
+    margin: -0.65cm auto 4em;
     width: 70%;
 }
 .aphorism cite {
@@ -663,7 +807,7 @@ h2.chapter-subtitle + h2.chapter-author {
 div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
 	bookmark-level: none;
 	margin-bottom: 15px;
-	page-break-after:avoid;	
+	page-break-after: avoid;
 }
 div.ugc h1 {
 	font-size: 14.35pt;
@@ -671,8 +815,7 @@ div.ugc h1 {
 div.ugc h2 {
 	font-size: 12pt;
 }
-div.ugc h3,
-div.ugc h4  {
+div.ugc h3 {
 	font-size: 10pt;
 }
 div.ugc h4  {
@@ -711,11 +854,27 @@ sup.endnote {
     vertical-align: top;
 }
 
-/* FOOTNORES & ENDNOTES
+/* FOOTNOTES & ENDNOTES
 ======================== */
-.footnote { /* added by prince in a span */
-	padding-left: 1em;
+.footnotes {
+	display: block;	
+    font-size: 0.875em;
+    margin: 20px 10px 40px 40px;
+}
+.footnotes-wrap {
+	list-style: none;
+	display: block;
+	margin: 10px 10px 10px 40px;
+}
+.footnotes p + p {
+	text-indent: 0;
+} 
+.footnotes .footnotes-wrap p {
 	text-indent: -1em;
+}
+.footnotes p a {
+	display: block;
+	text-decoration: none;
 }
 .endnotes hr {
 	border: none;
@@ -726,17 +885,18 @@ sup.endnote {
 }
 .endnotes ol {
 	font-size: 8pt;
+
 	margin-top: 5px;
 	margin-left: 0;
 }
 .endnotes li {
-	padding-left: 1em;
-	text-indent: -1em;	
+	text-indent: 22pt;
 }
 
 .endnotes p + p {
 	text-indent: 0;
 }
+
 /* ASIDES, PULLQUOTES & TEXTBOXES
 ================================== */
 .aside {
@@ -744,16 +904,14 @@ sup.endnote {
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	margin: 2em 10%;
-    line-height: 1.2em;	
 	padding: 10px 0;
 	text-indent: 0;
 }
 .textbox {
 	border: 1px solid #000;
-    font-size: 0.9em;	
-    line-height: 1.2em;
 	margin: 10px 0;
 	padding: 10px;
+	float: prince-top-if-necessary;
 }
 .textbox.shaded {
 	background-color: #eee;
@@ -763,22 +921,27 @@ sup.endnote {
 }
 .textbox-caption {
 	display: block;
-	font: bold 0.875em Helvetica, Arial, sans-serif;
+	font-size: 0.9em;
+	font-weight: bold;
 	margin: 0;
 }
 .pullquote {
 	border: 1px solid #000;
 	border-width: 1px 0;
+	display: block;
+	hyphens: none;
 	margin: 20px auto;
+	overflow: hidden;
 	padding: 5px 0;
 	text-align: center;
-	width: 45%;
+	width: 65%;
 }
 .pullquote-left {
 	border: 1px solid #000;
 	border-width: 1px 0;
 	float: left;
-	margin: 0.8em 15px 0.8em 0;
+	hyphens: none;	
+	margin: 15px 15px 15px 0;
 	padding: 5px 0;
 	text-align: center;
 	width: 45%;
@@ -787,7 +950,8 @@ sup.endnote {
 	border: 1px solid #000;
 	border-width: 1px 0;
 	float: right;
-	margin: 0.8em 0 0.8em 15px;
+	hyphens: none;	
+	margin: 15px 0 15px 15px;
 	padding: 5px 0;
 	text-align: center;
 	width: 45%;
@@ -824,16 +988,15 @@ img.aligncenter {
 	text-align: center;
 }
 .wp-caption {
+	float: prince-top-if-necessary;
 	height: auto;
 	max-width: 100%;
-    margin: 1em 0;  	
+	margin: 1em 0;	
 }
 .wp-caption-text {
-	float: prince-top-if-necessary;
 	font-size: 0.875em;
 	font-style: italic;
 	margin-top: 5px;
-	text-align: left;
 }
 
 /* BIBLIOGRAPHY

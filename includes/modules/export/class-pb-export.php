@@ -98,13 +98,28 @@ abstract class Export {
 		$fullpath = false;
 
 		if ( CustomCss::isCustomCss() ) {
-			$fullpath = CustomCss::getCustomCssFolder() . "/$type.css";
+			$fullpath = CustomCss::getCustomCssFolder() . "/$type.scss";
 			if ( ! is_file( $fullpath ) ) $fullpath = false;
 		}
 
 		if ( ! $fullpath ) {
-			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
+			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
 		}
+
+		return $fullpath;
+	}
+
+
+	/**
+	 * Return the fullpath to our generic SCSS mixins.
+	 *
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	function getGenericMixinsPath() {
+
+		$fullpath = PB_PLUGIN_DIR . 'assets/export/';
 
 		return $fullpath;
 	}

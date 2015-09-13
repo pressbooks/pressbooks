@@ -39,7 +39,7 @@ class Editor {
 	static function updateEditorStyle() {
 		
 		$scss = "/* Editor Styles */\n";
-		
+				
 		$body_font_stack = 'body { font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, ';
 		
 		$foreign_languages = get_option( 'pressbooks_foreign_language_typography' );
@@ -132,7 +132,8 @@ class Editor {
 		
 		$body_font_stack .= 'serif; }';
 		$scss .= $body_font_stack;
-				
+		$scss .= "@import '" . PB_PLUGIN_DIR . "assets/css/sass/_editor';\n";
+						
 		$wp_upload_dir = wp_upload_dir();
 
 		$upload_dir = $wp_upload_dir['basedir'] . '/editor';

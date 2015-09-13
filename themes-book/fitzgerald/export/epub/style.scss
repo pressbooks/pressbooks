@@ -12,7 +12,7 @@ Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) support@pressbooks.com
 
 
 
-/*__INSERT_EPUB_HOUSE_STYLE__*/
+@import '../../../assets/export/_epub-house-style';
 
 
 /* FONTS
@@ -526,5 +526,5 @@ sup.footnote, sup.endnote {
 	padding-left:30px;
 }
 
-/*__INSERT_MOBI_HOUSE_STYLE__*/
+@import '../../../assets/export/_mobi-house-style'
 

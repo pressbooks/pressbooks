@@ -35,6 +35,14 @@ class Pdf extends Export {
 
 
 	/**
+	 * Fullpath to generic SCSS mixins.
+	 *
+	 * @var string
+	 */
+	protected $genericMixinsPath;
+
+
+	/**
 	 * Fullpath to book JavaScript file.
 	 *
 	 * @var string
@@ -62,6 +70,7 @@ class Pdf extends Export {
 
 		$this->exportStylePath = $this->getExportStylePath( 'prince' );
 		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
+		$this->genericMixinsPath = $this->getGenericMixinsPath();
 
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
@@ -183,26 +192,28 @@ class Pdf extends Export {
 	 */
 	protected function kneadCss() {
 
-		$css_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
+		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 
-		$css = file_get_contents( $this->exportStylePath );
+		$scss = file_get_contents( $this->exportStylePath );
 
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $css_dir ) {
+		$scss = preg_replace_callback( $url_regex, function ( $matches ) use ( $scss_dir ) {
 
 			$url = $matches[3];
 
 			if ( ! preg_match( '#^https?://#i', $url ) ) {
-				$my_asset = realpath( "$css_dir/$url" );
+				$my_asset = realpath( "$scss_dir/$url" );
 				if ( $my_asset ) {
-					return "url($css_dir/$url)";
+					return "url($scss_dir/$url)";
 				}
 			}
 
 			return $matches[0]; // No change
 
-		}, $css );
+		}, $scss );
+		
+		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
 
 		return $css;
 	}

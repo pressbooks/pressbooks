@@ -1,6 +1,6 @@
 /*
 
-  Name: Donham PDF
+  Name: Clarke PDF
   Version: 1.3
   Author: Pressbooks (Book Oven Inc.)
   Author URI: http://pressbooks.com
@@ -10,58 +10,11 @@
   Reference documentation @see: http://www.princexml.com/doc/8.1/
 ================== */
 
+@import '../../../assets/export/_pdf-house-style'
 
-/*__INSERT_PDF_HOUSE_STYLE__*/
 
 /* FONTS
 ===========	*/
-
-/* Header font */
-@font-face {
-  font-family: "LinBiolinum";
-  font-weight: normal;
-  font-style: normal;
-  src: url(../../fonts/LinBiolinum_Rah.ttf) format("truetype");
-}
-@font-face {
-  font-family: "LinBiolinum";
-  font-weight: bold;
-  font-style: normal;
-  src: url(../../fonts/LinBiolinum_RBah.ttf) format("truetype");
-}
-@font-face {
-  font-family: "LinBiolinum";
-  font-weight: normal;
-  font-style: italic;
-  src: url(../../fonts/LinBiolinum_RIah.ttf) format("truetype");
-}
-
-/* Body font */
-@font-face {
-  font-family: "LinLibertine";
-  font-weight: bold;
-  font-style: normal;
-  src: url(../../fonts/LinLibertine_RBah.ttf) format("truetype");
-}
-
-@font-face {
-  font-family: "LinLibertine";
-  font-weight: bold;
-  font-style: italic;
-  src: url(../../fonts/LinLibertine_RBIah.ttf) format("truetype");
-}
-@font-face {
-  font-family: "LinLibertine";
-  font-weight: normal;
-  font-style: italic;
-  src: url(../../fonts/LinLibertine_RIah.ttf) format("truetype");
-}
-@font-face {
-  font-family: "LinLibertine";
-  font-weight: normal;
-  font-style: normal;
-  src: url(../../fonts/LinLibertine_Rah.ttf) format("truetype");
-}
 
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
 h1, h2, h3, h4, h5, h6 {
@@ -89,7 +42,7 @@ h1, h2, h3, h4, h5, h6 {
 @page toc {
   @bottom {
 	content: counter(page, lower-roman);
-	font-family: "LinBiolinum", sans-serif;	
+	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: center;
   }
 }
@@ -105,14 +58,14 @@ h1, h2, h3, h4, h5, h6 {
   @top-left
   {
 	content: counter(page, lower-roman) "\A0\A0" string(book-title);
-	font-family: "LinBiolinum", sans-serif;	
+	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: left;
   }
 }
 @page front-matter:right {
   @top-right {
 	content: string(section-title, last) "\A0\A0" counter(page, lower-roman);
-	font-family: "LinBiolinum", sans-serif;	
+	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: right;
   }
 }
@@ -122,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
 	content: counter(page, lower-roman);
-	font-family: "LinBiolinum", sans-serif;	
+  	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: center;
   }
 }
@@ -153,15 +106,15 @@ h1, h2, h3, h4, h5, h6 {
 
 @page introduction:left {
   @top-left {
-	font-family: "LinBiolinum", sans-serif;
 	content: counter(page) "\A0\A0" string(book-title);
+  	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
-	font-family: "LinBiolinum", sans-serif;
 	content: string(section-title, last) "\A0\A0" counter(page);
+  	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: right;
   }
 }
@@ -175,7 +128,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: "LinBiolinum", sans-serif;	
+	font-family: Helvetica, Arial, sans-serif;		
 	vertical-align: center;
   }
   
@@ -192,9 +145,9 @@ h1, h2, h3, h4, h5, h6 {
 
 @page chapter:left {
   @top-left {
-	font-family: "LinBiolinum", sans-serif;
 	content: counter(page) "\A0\A0" string(book-title);
 	counter-increment: part;
+	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: left;
   }
 }
@@ -202,8 +155,8 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-right
   {
-	font-family: "LinBiolinum", sans-serif;
-	content: string(section-title, last) "\A0\A0\A0\A0" counter(page);
+	content: string(section-title, last) "\A0\A0" counter(page);
+	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: right;
   }
 }
@@ -216,7 +169,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: "LinBiolinum", sans-serif;	
+	font-family: Helvetica, Arial, sans-serif;		
 	vertical-align: center;
   }
 }
@@ -236,16 +189,16 @@ h1, h2, h3, h4, h5, h6 {
 /* Back-matter */
 @page back-matter:left {
   @top-left {
-	font-family: "LinBiolinum", sans-serif;
-	content: counter(page) "\A0\A0  | \A0\A0" string(book-title);
+	content: counter(page) "\A0\A0" string(book-title);
+	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: left;
   }
 }
 @page back-matter:right {
   @top-right
   {
-	font-family: "LinBiolinum", sans-serif;
-	content: string(section-title, last) "\A0\A0  | \A0\A0" counter(page);
+	content: string(section-title, last) "\A0\A0" counter(page);
+	font-family: Helvetica, Arial, sans-serif;	
 	vertical-align: right;
   }
 }
@@ -259,7 +212,7 @@ h1, h2, h3, h4, h5, h6 {
   @bottom
   {
 	content: counter(page);
-	font-family: "LinBiolinum", sans-serif;	
+	font-family: Helvetica, Arial, sans-serif;		
 	vertical-align: center;
   }
 }
@@ -300,7 +253,6 @@ div.introduction {
 	counter-reset: page 1;
 }
 div.chapter {
-	counter-reset: footnote;
 	page: chapter;
 	prince-page-group: start;
 }
@@ -309,21 +261,19 @@ div.back-matter {
 	prince-page-group: start;
 }
 div.part {
-    margin-top: 40%;	
+	margin-top: 1.5cm;	
 	padding-bottom: 0.25em;
 	padding: part;	
 }
 body {
-	font:  11pt/1.6  "LinLibertine", serif;
+	font: 12pt/1.6 "Times New Roman", Georgia, serif;
 }
-
 a {
 	color: blue;
 	text-decoration: none;
 }
-
 p {
-	line-height: 1.4em;
+	line-height: 1.2em;
 	text-align: justify;
 	margin-bottom: 0;
 }
@@ -336,12 +286,13 @@ p + p,
 .no-indent {
 	text-indent: 0;
 }
-
+h1, h2, h3, h4, h5, h6 {
+	font-family: Helvetica, Arial, sans-serif;
+	line-height: 1.4em;
+	font-weight: normal;
+}
 p + ul {
 	margin-top: 10px;
-}
-h1 {
-	font-size: 1.6em;
 }
 hr {
 	margin: 10px auto;
@@ -416,12 +367,6 @@ ol li li li::before {
 cite {
 	font-weight: normal;
 }
-
-div.blockquote {
-	border-width: 0 4px;
-	padding: 0 15%;
-	margin-bottom: 2em;
-}
 p.bl_nonindent {
 	margin: 2em 10% 0;
 	text-indent: 0;
@@ -438,14 +383,12 @@ p.bl_indent {
 /* HALFTITLE PAGE
 ==================== */
 #half-title-page h1.title:first-of-type {
-	font-family: "LinBiolinum", sans-serif;
     string-set: book-title content();
 	page-break-before: right;
     page-break-after: always;
     bookmark-level: none;  
-    font-size: 24pt;
-    float: bottom;
-    text-align: right;
+    font-size: 21pt;
+    margin-top: 6cm;
 }
 
 /* TITLE PAGE
@@ -454,9 +397,8 @@ p.bl_indent {
     height: 100%;
     margin-top: 6cm;
     page-break-before: right;
-    text-align: right;
+    text-align: left;
 }
-
 #title-page > .subtitle,
 #title-page > div.logo,
 #title-page > .author,
@@ -465,35 +407,24 @@ p.bl_indent {
 	bookmark-level: none;
 }	
 #title-page > .title {
-	color: #acacac;
-	font-size: 28pt;
-	margin-top: 5.5cm;
+	font-size: 21pt;
 }
-
 #title-page > .subtitle {
-	font-size: 20pt;
-	margin-top: 1.5cm;
-	text-transform: uppercase;
+	font-size: 16pt;
+	margin-top: 1cm;
+	font-weight: normal;
 }
 #title-page > .author {
-	font-family: "LinBiolinum", sans-serif;
-	font-size: 17pt;
+	font-size: 13pt;
 	font-weight: normal;
-	margin-top: 1.5cm;
-	text-transform: uppercase;	
+	margin-top: 1cm;
 }
-
 #title-page > .publisher {
-	display: inline-block;
 	font-size: 10pt;
 	font-weight: normal;
 	margin-bottom: 0;
 }
-#title-page > .publisher::after {
-	content: "\A0\A0\25CF\A0\A0"
-}
 #title-page > .publisher-city {
-	display: inline-block;
 	font-size: 10pt;
 	font-weight: normal;
 	margin-top: 0;
@@ -521,6 +452,90 @@ p.bl_indent {
 	font-style: italic;
 	text-align: center;
 }
+ /* TABLE OF CONTENTS
+======================= */
+#toc {
+	page-break-before: right;
+	counter-reset: part; 
+	font-size: 10pt;
+}
+#toc h1 {
+	text-align: left;
+}
+#toc a {
+	border: none;
+	color: inherit;	
+}
+#toc ul, #toc li {
+  	list-style: none;
+  	margin: 0;
+    line-height: 1.4em; 
+    padding: 0;
+}
+#toc ul {
+	counter-reset: chapter;
+	line-height: 1.2em;
+}
+#toc a::after {
+  content: leader(' ') target-counter(attr(href), page);
+  float: right;
+  font-style: normal;
+  text-decoration: none;
+}
+#toc .front-matter a::after {
+	content: leader(' ') target-counter(attr(href), page, lower-roman);
+}
+#toc .introduction a::after {
+	content: leader(' ') target-counter(attr(href), page);
+}
+#toc .part {
+	margin: .6cm 0 .4em;
+	font:12pt "Galdeano", sans-serif;
+	page-break-after: avoid;
+}
+#toc .part a::before {
+	content: "part "counter(part) ". ";
+	counter-increment: part; 
+}
+#toc .front-matter,
+#toc .chapter,
+#toc .back-matter {
+	text-indent: 2em;
+}
+#toc .chapter a::before {
+	content: counter(chapter) ". ";
+	counter-increment: chapter; 
+	margin-right: 7pt;	
+}
+#toc .chapter.numberless a::before {
+	content:'' ;
+	counter-increment: none;
+	margin-right: 0;	
+}
+#toc .part a::after {
+	content:'' ;
+}
+#toc .chapter + .back-matter {
+	margin-top: 1.3em;
+}
+#toc span.chapter-author,
+#toc span.chapter-license,
+#toc span.chapter-subtitle {
+	display: inline-block;
+    margin-left: 3.7em;
+    text-indent: 0;
+	width: 75%;
+}
+#toc span.chapter-author,
+#toc span.chapter-license,{
+	font-style: italic;
+    margin-bottom: 0.1cm;
+    margin-top: 0.1cm;
+	position:relative;
+}
+
+/*end toc*/
+
 
 
 /*  TITLES for FONT-MATTER, BACK_MATTER, CHAPTER & PART  
@@ -534,98 +549,102 @@ div.back-matter > h1:first-of-type {
 	string-set: section-title content();
 	counter-reset: footnote;
 }
-.front-matter-title-wrap > h1:first-of-type, 
-div.chapter > h2:first-of-type, 
-div.back-matter > h1:first-of-type,
-.part .part-title-wrap > h3.part-number,
-.part .part-title-wrap > h1:first-of-type,
-h3.chapter-number,
-#toc > h1:first-of-type {
-	text-align: right;
+.part-title-wrap,
+.front-matter-title-wrap,
+.chapter-title-wrap,
+.back-matter-title-wrap {
+	border-top: 1px solid #000;
+	font-weight: normal;	
+	margin-bottom: 1.5cm;		
+	text-align: left;	
 }
-.front-matter-title-wrap > h1:first-of-type,
-#toc > h1:first-of-type,
-.chapter-title-wrap  {
-	font-size: 20.66pt;
-	margin-top: 3cm;
-	margin-bottom: 2.5cm;	
-}
-h3.front-matter-number, h3.part-number, h3.chapter-number, h3.back-matter-number {
-	bookmark-level: none;
-}
-div.part, div.front-matter, div.back-matter, div.chapter {
-	page-break-before: right;
-}
-.display-none, h3.front-matter-number, h3.front-matter-number.dedication, h3.back-matter-number {
-	display: none;
-}
-h3.part-number, h3.chapter-number {
-	padding-bottom: 1em;
-}
-h3.part-number::before {
-	content: "part ";
+.dedication .front-matter-title-wrap,
+.disclaimer .front-matter-title-wrap,
+.epigraph .front-matter-title-wrap,
+.before-title .front-matter-title-wrap {
+	border-top: none;
 }
 .part-title-wrap h1 {
-	font-size: 2.6em;
-}
-div.chapter.numberless h3.chapter-number {
-	display: none;
-}
-h3.chapter-number::after {
-	content: ". \A0\A0"
-}
-div.chapter.numberless h3.chapter-number {
-	display: none;
-}
-.chapter-title-wrap {
-	margin-left: 6em;
-	text-align: right;
-}
-.chapter-title-wrap .chapter-number,
-.chapter-title-wrap h2 {
-	display: inline;
+    font-size: 21pt;
+    font-weight: normal;
 }
 .chapter-title-wrap .chapter-number {
 	font-weight: normal;
 }
-.front-matter-title-wrap,
-.part-title-wrap,
-.chapter-title-wrap,
-.back-matter-title-wrap,
-#toc h1,
-#title-page {
-	font-family: "LinBiolinum", sans-serif;	
+div.chapter.numberless h3.chapter-number {
+	display: none;
 }
+.front-matter-title-wrap h1,
+#toc h1,
+.chapter-title-wrap h2,
+.back-matter-title-wrap h1 {
+	font-size: 16pt;
+	font-weight: normal;
+	margin-top: 0.5cm;
+}
+.chapter-title-wrap,
+.front-matter-title-wrap {
+	margin-top: 0;
+}
+h3.front-matter-number, 
+h3.part-number, 
+h3.chapter-number, 
+h3.back-matter-number {
+	bookmark-level: none;
+}
+div.part, 
+div.front-matter, 
+div.back-matter, 
+div.chapter {
+	page-break-before: right;
+}
+.display-none, 
+h3.front-matter-number, 
+h3.front-matter-number.dedication, 
+h3.back-matter-number {
+	display: none;
+}
+
+div.front-matter .front-matter-title-wrap > h1:first-of-type, 
+div.chapter .chapter-title-wrap > h2:first-of-type,
+div.back-matter .back-matter-title-wrap > h1:first-of-type  {
+	string-set: section-title content();
+	counter-reset: footnote;
+	margin-bottom: 20pt;
+}
+div.front-matter > div.ugc h6.short-title:first-of-type,
+div.chapter > div.ugc h6.short-title:first-of-type,
+div.back-matter > div.ugc h6.short-title:first-of-type {
+	string-set: section-title content() !important; /* override running header */
+	visibility: hidden; /* display:none breaks string-set: */
+	font-size: 0;
+	height: 0;
+}
+
 
 /* SUBTITLES, CHAPTER AUTHOR & APHORIMS
 ======================================== */
 div.ugc h2.chapter-subtitle {
+	font-size: 13pt;
 	font-weight: normal;
-	margin-bottom: 2.8em;
-    padding-top: 0.2em;	
-	text-align: right;
-	text-transform: uppercase;    
 }
 div.ugc h2.chapter-author {
-	font-style: normal;
-	text-align: right;
+    font-size: 10pt;
+	font-style: bold;
 }
 div.ugc h2.chapter-subtitle,
 div.ugc h2.chapter-author {
-    font-size: 14.35pt;
-    font-variant: normal;
-    margin: -2.5cm 0 3em;
+    margin: -1.5cm 0 3em;
+    padding-top: 0.2em;	    
 }
 h2.chapter-subtitle + h2.chapter-author {
-	margin-top: -1cm;
+	margin-top: -1.3cm;
 }
 .aphorism {
 	font-size: 1em;
     font-style: italic;
-    margin: 0 0 4em 50%;
-}
-.aphorism p {
-	text-align: right;
+    margin: -0.5cm auto 4em;
+    width: 70%;
 }
 .aphorism cite {
     display: block;
@@ -643,8 +662,6 @@ h2.chapter-subtitle + h2.chapter-author {
 ==================== */
 div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
 	bookmark-level: none;
-	font-family: "LinBiolinum", sans-serif;
-	font-weight: normal;	
 	margin-bottom: 15px;
 	page-break-after:avoid;	
 }
@@ -652,14 +669,17 @@ div.ugc h1 {
 	font-size: 14.35pt;
 }
 div.ugc h2 {
-	font-size: 11.96pt;
+	font-size: 12pt;
 }
 div.ugc h3,
 div.ugc h4  {
-	font-size: 8.97pt;
+	font-size: 10pt;
+}
+div.ugc h4  {
+	font-size: 9pt;
 }
 div.ugc h5 {
-	font-size: 9.96pt;
+	font-size: 8pt;
 }
 div.ugc h1 + p,
 div.ugc h2 + p,
@@ -668,112 +688,6 @@ div.ugc h4 + p,
 div.ugc h5 + p {
 	margin-top: 0;
 }
-div.front-matter .front-matter-title-wrap > h1:first-of-type, 
-div.chapter .chapter-title-wrap > h2:first-of-type,
-div.back-matter .back-matter-title-wrap > h1:first-of-type  {
-	string-set: section-title content();
-	counter-reset: footnote;
-	margin-bottom: 20pt;
-}
-div.front-matter > div.ugc h6.short-title:first-of-type,
-div.chapter > div.ugc h6.short-title:first-of-type,
-div.back-matter > div.ugc h6.short-title:first-of-type {
-	string-set: section-title content() !important; /* override running header */
-	visibility: hidden; /* display:none breaks string-set: */
-	font-size: 0;
-	height: 0;
-}
-
- /* TABLE OF CONTENTS
-======================= */
-#toc {
-	page-break-before: right;
-	counter-reset: part; 
-	font-size: 10pt;
-}
-
-#toc a {
-	border: none;
-	color: inherit;	
-}
-#toc ul, #toc li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#toc ul {
-	counter-reset: chapter;
-	line-height: 1.2em;
-	page-break-after: avoid;	
-}
-#toc a::after {
-  	content: leader(' ') target-counter(attr(href), page);
-	float: right;  
-	font-style: normal;
-	text-decoration: none;
-}
-#toc .front-matter a::after {
-	content: leader(' ') target-counter(attr(href), page, lower-roman);
-}
-#toc .introduction a::after {
-	content: leader(' ') target-counter(attr(href), page);
-}
-#toc .part {
-	margin: .6cm 0 .4em;
-	font:bold 12pt "LinBiolinum", sans-serif;
-	page-break-after: avoid;
-}
-#toc .part a::before {
-	content: "part "counter(part) ". ";
-	counter-increment: part; 
-}
-#toc .front-matter,
-#toc .chapter,
-#toc .back-matter {
-	margin: 1.2em 0;
-	text-indent: 2em;
-}
-#toc .chapter a::before {
-	content: counter(chapter) ". ";
-	counter-increment: chapter; 
-	margin-right: 7pt;	
-}
-#toc .chapter.numberless a::before {
-	content:'' ;
-	counter-increment: none;
-	margin-right: 0;	
-}
-#toc .part a::after {
-	content:'' ;
-}
-#toc span.chapter-author,
-#toc span.chapter-license,
-#toc span.chapter-subtitle {
-	display: inline-block;
-	font-style: italic;
-    margin-left: 3.5em;
-    text-indent: 0;
-	width: 70%;
-}
-#toc span.chapter-author,
-#toc span.chapter-license,
-#toc span.chapter-subtitle {
-	margin-bottom: 5px;
-}
-#toc span.chapter-subtitle + 
-span.chapter-author, 
-span.chapter-author +
-span.chapter-license, 
-#toc span.chapter-subtitle + 
-span.chapter-license {
-	margin-bottom: 5px;
-	position: relative;
-	top: -5px;
-}
-
-/*end toc*/
-
-
 
 /* FOOTNOTES
 * @see: http://www.princexml.com/doc/8.1/footnotes/
@@ -799,25 +713,9 @@ sup.endnote {
 
 /* FOOTNORES & ENDNOTES
 ======================== */
-.footnotes {
-	display: block;	
-    font-size: 0.875em;
-    margin: 20px 10px 40px 40px;
-}
-.footnotes-wrap {
-	list-style: none;
-	display: block;
-	margin: 10px 10px 10px 40px;
-}
-.footnotes p + p {
-	text-indent: 0;
-} 
-.footnotes .footnotes-wrap p {
+.footnote { /* added by prince in a span */
+	padding-left: 1em;
 	text-indent: -1em;
-}
-.footnotes p a {
-	display: block;
-	text-decoration: none;
 }
 .endnotes hr {
 	border: none;
@@ -828,12 +726,12 @@ sup.endnote {
 }
 .endnotes ol {
 	font-size: 8pt;
-
 	margin-top: 5px;
 	margin-left: 0;
 }
 .endnotes li {
-	text-indent: 22pt;
+	padding-left: 1em;
+	text-indent: -1em;	
 }
 
 .endnotes p + p {
@@ -846,11 +744,14 @@ sup.endnote {
 	border-top: 1px solid #000;
 	border-bottom: 1px solid #000;
 	margin: 2em 10%;
+    line-height: 1.2em;	
 	padding: 10px 0;
 	text-indent: 0;
 }
 .textbox {
 	border: 1px solid #000;
+    font-size: 0.9em;	
+    line-height: 1.2em;
 	margin: 10px 0;
 	padding: 10px;
 }
@@ -862,7 +763,7 @@ sup.endnote {
 }
 .textbox-caption {
 	display: block;
-	font-size: 0.9em;
+	font: bold 0.875em Helvetica, Arial, sans-serif;
 	margin: 0;
 }
 .pullquote {
@@ -877,7 +778,7 @@ sup.endnote {
 	border: 1px solid #000;
 	border-width: 1px 0;
 	float: left;
-	margin: 15px 15px 15px 0;
+	margin: 0.8em 15px 0.8em 0;
 	padding: 5px 0;
 	text-align: center;
 	width: 45%;
@@ -886,7 +787,7 @@ sup.endnote {
 	border: 1px solid #000;
 	border-width: 1px 0;
 	float: right;
-	margin: 15px 0 15px 15px;
+	margin: 0.8em 0 0.8em 15px;
 	padding: 5px 0;
 	text-align: center;
 	width: 45%;
@@ -923,23 +824,23 @@ img.aligncenter {
 	text-align: center;
 }
 .wp-caption {
-    float: prince-top-if-necessary;
 	height: auto;
 	max-width: 100%;
     margin: 1em 0;  	
 }
 .wp-caption-text {
+	float: prince-top-if-necessary;
 	font-size: 0.875em;
 	font-style: italic;
 	margin-top: 5px;
-	text-align: left;	
+	text-align: left;
 }
-
 
 /* BIBLIOGRAPHY
  =============== */
 
 .bibliography p  {
+	font-size: 9pt;
 	padding-left: 14pt;
 	text-indent: -14pt;
 }

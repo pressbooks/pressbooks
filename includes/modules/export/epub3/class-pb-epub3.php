@@ -54,6 +54,7 @@ class Epub3 extends Epub\Epub201 {
 		
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
+		$this->genericMixinsPath = $this->getGenericMixinsPath();
 
 		$this->themeOptionsOverrides();
 
@@ -229,14 +230,15 @@ class Epub3 extends Epub\Epub201 {
 	 */
 	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
-		$css_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
+		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';
 
-		$css = file_get_contents( $path_to_copy_of_stylesheet );
+		$scss = file_get_contents( $path_to_copy_of_stylesheet );
+		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
 
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $css_dir, $path_to_epub_assets ) {
+		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $scss_dir, $path_to_epub_assets ) {
 
 			$url = $matches[3];
 			$filename = sanitize_file_name( basename( $url ) );
@@ -246,7 +248,7 @@ class Epub3 extends Epub\Epub201 {
 				// Look for "^images/"
 				// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/"	or "^images/../../denied/"
 
-				$my_image = realpath( "$css_dir/$url" );
+				$my_image = realpath( "$scss_dir/$url" );
 				if ( $my_image ) {
 					copy( $my_image, "$path_to_epub_assets/$filename" );
 					return "url(assets/$filename)";
@@ -264,7 +266,7 @@ class Epub3 extends Epub\Epub201 {
 
 				// Look for ../../fonts/*.otf (or .woff, or .ttf), copy into our Epub
 
-				$my_font = realpath( "$css_dir/$url" );
+				$my_font = realpath( "$scss_dir/$url" );
 				if ( $my_font ) {
 					copy( $my_font, "$path_to_epub_assets/$filename" );
 					return "url(assets/$filename)";
