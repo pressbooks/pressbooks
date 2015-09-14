@@ -370,18 +370,20 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		$blogname = empty( $blog->blogname ) ? $blog->domain : $blog->blogname;
 		$menu_id = 'blog-' . $blog->userblog_id;
 
+		$admin_url = get_admin_url( $blog->userblog_id );
+
 		$wp_admin_bar->add_menu( array(
 			'parent' => 'my-books-list',
 			'id' => $menu_id,
 			'title' => $blavatar . $blogname,
-			'href' => get_admin_url( $blog->userblog_id ),
+			'href' => $admin_url,
 		) );
 
 		$wp_admin_bar->add_menu( array(
 			'parent' => $menu_id,
 			'id' => $menu_id . '-d',
 			'title' => __( 'Dashboard', 'pressbooks' ),
-			'href' => get_admin_url( $blog->userblog_id ),
+			'href' => $admin_url,
 		) );
 
 		if ( current_user_can_for_blog( $blog->userblog_id, 'edit_posts' ) ) {
