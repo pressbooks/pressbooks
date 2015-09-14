@@ -517,17 +517,6 @@ function pressbooks_theme_options_global_init() {
 		)
 	);
 
-	add_settings_field(
-		'pressbooks_foreign_language_typography',
-		__( 'Foreign Language Typography', 'pressbooks' ),
-		'pressbooks_theme_foreign_language_typography_callback',
-		$_page,
-		$_section,
-		array(
-			 __( 'Include fonts to support the following languages:', 'pressbooks' )
-		)
-	);
-
 	register_setting(
 		$_page,
 		$_option,
@@ -536,15 +525,30 @@ function pressbooks_theme_options_global_init() {
 	
 	register_setting(
 		$_page,
-		'pressbooks_foreign_language_typography',
-		'pressbooks_theme_pressbooks_foreign_language_typography_sanitize'
-	);
-
-	register_setting(
-		$_page,
 		'pressbooks_enable_chapter_types',
 		'pressbooks_theme_chapter_types_sanitize'
 	);
+
+	if ( pb_is_scss() == true ) { // we can only enable foreign language typography for themes that use SCSS
+
+		add_settings_field(
+			'pressbooks_foreign_language_typography',
+			__( 'Foreign Language Typography', 'pressbooks' ),
+			'pressbooks_theme_foreign_language_typography_callback',
+			$_page,
+			$_section,
+			array(
+				 __( 'Include fonts to support the following languages:', 'pressbooks' )
+			)
+		);
+		
+		register_setting(
+			$_page,
+			'pressbooks_foreign_language_typography',
+			'pressbooks_theme_pressbooks_foreign_language_typography_sanitize'
+		);
+
+	}
 
 }
 add_action('admin_init', 'pressbooks_theme_options_global_init');

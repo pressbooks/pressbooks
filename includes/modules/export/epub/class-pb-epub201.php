@@ -160,7 +160,7 @@ class Epub201 extends Export {
 
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
-		$this->genericMixinsPath = $this->getGenericMixinsPath();
+		$this->genericMixinsPath = $this->getMixinsPath();
 
 		$this->themeOptionsOverrides();
 
@@ -1002,7 +1002,7 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+			if ( \PressBooks\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
@@ -1144,7 +1144,7 @@ class Epub201 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+				if ( \PressBooks\Export\Export::isParsingSections() == true ) {
 					$sections = \PressBooks\Book::getSubsections( $id );
 					
 					if ( $sections ) {
@@ -1340,7 +1340,7 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+			if ( \PressBooks\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
@@ -1476,7 +1476,7 @@ class Epub201 extends Export {
 							
 			$html .= "</a>";
 			
-			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+			if ( \PressBooks\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $v['ID'] );
 				if ( $sections ) {
 					$html .= '<ul class="sections">';

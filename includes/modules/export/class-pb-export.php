@@ -117,7 +117,7 @@ abstract class Export {
 	 *
 	 * @return string
 	 */
-	function getGenericMixinsPath() {
+	function getMixinsPath() {
 
 		$fullpath = PB_PLUGIN_DIR . 'assets/export/';
 
@@ -151,12 +151,35 @@ abstract class Export {
 		return $fullpath;
 	}
 	
+	
 	/**
-	 * Is the parse sections option true?
+	 * Is the current theme's stylesheet SCSS?
 	 *
 	 * @return bool
 	 */
-	static function shouldParseSections() {
+	static function isScss() {
+				
+		$types = array(
+			'prince',
+			'epub'	
+		);
+		
+		foreach ( $types as $type ) {
+			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
+			if ( ! is_file( $fullpath ) )
+			return false;
+		}
+
+		return true;		
+	}
+
+
+	/**
+	 * Is section parsing enabled?
+	 *
+	 * @return bool
+	 */
+	static function isParsingSections() {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 		

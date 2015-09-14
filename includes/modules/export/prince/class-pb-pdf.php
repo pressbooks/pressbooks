@@ -70,7 +70,7 @@ class Pdf extends Export {
 
 		$this->exportStylePath = $this->getExportStylePath( 'prince' );
 		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
-		$this->genericMixinsPath = $this->getGenericMixinsPath();
+		$this->genericMixinsPath = $this->getMixinsPath();
 
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();

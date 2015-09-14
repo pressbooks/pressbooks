@@ -54,7 +54,7 @@ class Epub3 extends Epub\Epub201 {
 		
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
-		$this->genericMixinsPath = $this->getGenericMixinsPath();
+		$this->genericMixinsPath = $this->getMixinsPath();
 
 		$this->themeOptionsOverrides();
 
