@@ -1,9 +1,11 @@
 /**
-* default mpdf css stylesheet, can be configured on a per theme basis
+* default mpdf scss stylesheet, can be configured on a per theme basis
 */
 
+@import 'mixins';
+
 body {
-	font-family:  "Trebuchet MS","Times", serif;
+	font-family: $body-font-stack-mpdf;
 	font-size: 0.9em;
 	
 }

@@ -8,7 +8,7 @@ Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
 Version: 1.4
 */
 
-@import 'pdf-house-style';
+@import 'mixins', 'pdf-house-style';
 
 
 /* FONTS
@@ -292,7 +292,7 @@ div.part.invisible {
 }
  
 body {
-	font:  10pt/1.1  "Cardo","Times New Roman", serif;
+	font: 10pt/1.1 $body-font-stack-prince;
 }
 
 a {

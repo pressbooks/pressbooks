@@ -13,10 +13,11 @@ This file must validate as CSS 2.01 with absolutely no errors
 */
 
 
-@import '../../../assets/export/_epub-house-style';
+@import 'mixins';
+@import 'epub-house-style';
 
 body {
-	font-family: Georgia, serif;
+	font-family: $body-font-stack-epub;
 	line-height: 1.4em;
 	padding: 1em;
 }
