@@ -200,6 +200,7 @@ TK.
 * Added MCE Anchor Button (migrated from Pressbooks Textbook, props to @bdolor).
 * Fixed an issue where the book language could be incorrectly set to Afrikaans if the network language was undefined.
 * Fixed an issue where loading a user's catalog would call memory-intensive functions repeatedly (props to @connerbw).
+* Suppressed unhelpful errors when calling getSubsections() function (props to @connerbw).
 
 = 2.7.1 =
 * Fixed an issue where changes made with the Search & Replace tool would not be saved (props to @connerbw).
