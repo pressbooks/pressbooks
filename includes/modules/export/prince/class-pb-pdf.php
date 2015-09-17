@@ -111,16 +111,11 @@ class Pdf extends Export {
 		$css_file = $this->createTmpFile();
 		file_put_contents( $css_file, $this->kneadCss() );
 
-		// CSS Overrides
-		$css_overrides = $this->createTmpFile();
-		file_put_contents( $css_overrides, $this->cssOverrides );
-
 		// Save PDF as file in exports folder
 		$prince = new \Prince( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
 		$prince->addStyleSheet( $css_file );
-		$prince->addStylesheet( $css_overrides );
 		$prince->addScript( $this->exportScriptPath );
 		$prince->setLog( $this->logfile );
 		$retval = $prince->convert_file_to_file( $this->url, $this->outputPath, $msg );
@@ -195,6 +190,7 @@ class Pdf extends Export {
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 
 		$scss = file_get_contents( $this->exportStylePath );
+		$scss .= $this->cssOverrides;
 
 		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
 
@@ -206,7 +202,6 @@ class Pdf extends Export {
 
 			if ( ! preg_match( '#^https?://#i', $url ) ) {
 				$my_asset = realpath( "$scss_dir/$url" );
-				error_log( $my_asset );
 				if ( $my_asset ) {
 					return "url($scss_dir/$url)";
 				}
@@ -215,7 +210,7 @@ class Pdf extends Export {
 			return $matches[0]; // No change
 
 		}, $css );
-		
+				
 		return $css;
 	}
 
@@ -228,16 +223,40 @@ class Pdf extends Export {
 		// --------------------------------------------------------------------
 		// CSS
 
-		$css = '';
-		$css = apply_filters( 'pb_pdf_css_override', $css ) . "\n";
+		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
+		
+		$scss = '';
+		$scss = apply_filters( 'pb_pdf_css_override', $scss ) . "\n";
 
 		// Copyright
 		// Please be kind, help Pressbooks grow by leaving this on!
 		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF'] ) ) {
 			$freebie_notice = 'This book was produced using Pressbooks.com, and PDF rendering was done by PrinceXML.';
-			$css .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }' . "\n";
+			$scss .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }' . "\n";
 		}
+		
+		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
 
+		error_log( $css );
+
+		// Search for url("*"), url('*'), and url(*)
+		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $scss_dir ) {
+
+			$url = $matches[3];
+
+			if ( ! preg_match( '#^https?://#i', $url ) ) {
+				$my_asset = realpath( "$scss_dir/$url" );
+				
+				if ( $my_asset ) {
+					return "url($scss_dir/$url)";
+				}
+			}
+
+			return $matches[0]; // No change
+
+		}, $css );
+			
 		$this->cssOverrides = $css;
 
 
