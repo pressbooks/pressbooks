@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.7.1
+Version: 2.7.2
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.3
-Tested up to: 4.3
-Stable tag: 2.7.1
+Requires at least: 4.3.1
+Tested up to: 4.3.1
+Stable tag: 2.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.4.x and WordPress 4.3. Lower versions are not supported.
+ * Pressbooks works with PHP 5.4.x and WordPress 4.3.1. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
@@ -194,6 +194,13 @@ TK.
 TK.
 
 == Changelog ==
+
+= 2.7.2 =
+* Requires WordPress 4.3.1.
+* Added MCE Anchor Button (migrated from Pressbooks Textbook, props to @bdolor).
+* Fixed an issue where the book language could be incorrectly set to Afrikaans if the network language was undefined.
+* Fixed an issue where loading a user's catalog would call memory-intensive functions repeatedly (props to @connerbw).
+* Suppressed unhelpful errors when calling getSubsections() function (props to @connerbw).
 
 = 2.7.1 =
 * Fixed an issue where changes made with the Search & Replace tool would not be saved (props to @connerbw).
