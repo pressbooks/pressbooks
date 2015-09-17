@@ -201,9 +201,9 @@ class Pdf extends Export {
 			$url = $matches[3];
 
 			if ( ! preg_match( '#^https?://#i', $url ) ) {
-				$my_asset = realpath( "$scss_dir/$url" );
+				$my_asset = realpath( PB_PLUGIN_DIR . $url );
 				if ( $my_asset ) {
-					return "url($scss_dir/$url)";
+					return 'url(' . PB_PLUGIN_DIR . $url . ')';
 				}
 			}
 
@@ -237,8 +237,6 @@ class Pdf extends Export {
 		
 		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
 
-		error_log( $css );
-
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
 		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $scss_dir ) {
@@ -246,10 +244,9 @@ class Pdf extends Export {
 			$url = $matches[3];
 
 			if ( ! preg_match( '#^https?://#i', $url ) ) {
-				$my_asset = realpath( "$scss_dir/$url" );
-				
+				$my_asset = realpath( PB_PLUGIN_DIR . $url );
 				if ( $my_asset ) {
-					return "url($scss_dir/$url)";
+					return 'url(' . PB_PLUGIN_DIR . $url . ')';
 				}
 			}
 
