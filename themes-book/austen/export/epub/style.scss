@@ -12,8 +12,7 @@ This file must validate as CSS 2.01 with absolutely no errors
   Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) support@pressbooks.com
 */
 
-
-@import '../../../assets/export/_epub-house-style';
+@import 'epub-house-style', 'fonts', 'mixins';
 
 body {
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, Times, serif;
@@ -597,4 +596,4 @@ aside {
 	padding-left:30px;
 }
 
-@import '../../../assets/export/_mobi-house-style'
+@import 'mobi-house-style';

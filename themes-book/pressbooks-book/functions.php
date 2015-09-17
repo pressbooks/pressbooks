@@ -1755,30 +1755,28 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	foreach ( $foreign_languages as $language )	{
 		switch ( $language ) {
 			case 'grc': // Ancient Greek
-				$scss .= "";
+				$scss .= "@import 'foreign-language-fonts';\n@include LangFontGreekAncient;\n";
 				break;
 			case 'ar': // Arabic
-				$scss .= "";
+				$scss .= "@import 'foreign-language-fonts';\n@//include LangFontArabicKufi;\n@include LangFontArabicNaskh;\n";
 				break;
 			case 'he': // Biblical Hebrew
-				$scss .= "";
+				$scss .= "@import 'foreign-language-fonts';\n@include LangFontHebrewBiblical;\n";
 				break;
 			case 'zh': // Chinese
-				$scss .= "";
+				$scss .= "@import 'foreign-language-fonts';\n@include LangFontChineseSimplified;\n@include LangFontChineseTraditional;\n";
 				break;
 			case 'cop': // Coptic
-				$scss .= '@import "fonts";
-				@include AntinoouFont;
-				$foreign-language-fonts: "Antinoou";';
+				$scss .= "@import 'foreign-language-fonts';\n@include LangFontCoptic;\n";
 				break;
 			case 'ja': // Japanese
-				$scss .= "";
+				$scss .= "@import 'foreign-language-fonts';\n@include LangFontJapanese;\n";
 				break;
-			case 'syr': // Syrianic
-				$scss .= "";
+			case 'syr': // Syriac
+				$scss .= "@import 'foreign-language-fonts';\n@include LangFontSyriac;\n";
 				break;
 			case 'ta': // Tamil
-				$scss .= "";
+				$scss .= "@import 'foreign-language-fonts';\n@include LangFontTamil;\n";
 				break;
 		}
 	}
@@ -1873,7 +1871,7 @@ function pressbooks_theme_ebook_css_override( $scss ) {
 			case 'ja': // Japanese
 				$scss .= "";
 				break;
-			case 'syr': // Syrianic
+			case 'syr': // Syriac
 				$scss .= "";
 				break;
 			case 'ta': // Tamil

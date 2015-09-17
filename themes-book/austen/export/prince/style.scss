@@ -10,31 +10,13 @@
   Reference documentation @see: http://www.princexml.com/doc/8.1/
 ================== */
 
-@import '../../../assets/export/_pdf-house-style'
+@import 'fonts', 'mixins', 'pdf-house-style';
 
 /* FONTS
 ===========	*/
 
-@font-face {
-  font-family: "Sorts Mill Goudy";
-  font-weight: normal;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/SortsMillGoudy-Regular.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Sorts Mill Goudy";
-  font-weight: normal;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/SortsMillGoudy-Italic.ttf) format("truetype");
-}
-
-
-@font-face {
-  font-family: 'Marcellus SC';
-  font-weight: normal;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/MarcellusSC-Regular.ttf) format("truetype");
-}
+@include SortsMillGoudyFont;
+@include MarcellusSCFont;
 
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
 h1, h2, h3, h4, h5, h6 {

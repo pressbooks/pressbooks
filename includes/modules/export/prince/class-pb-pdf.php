@@ -239,8 +239,10 @@ class Pdf extends Export {
 			$freebie_notice = 'This book was produced using Pressbooks.com, and PDF rendering was done by PrinceXML.';
 			$scss .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }' . "\n";
 		}
-		
+				
 		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
+
+		error_log( $css );
 
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';

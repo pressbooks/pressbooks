@@ -1,0 +1,183 @@
+//LANGUAGE FONTS
+
+@mixin LangFontArabicKufi {
+  @font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoKufiArabic-Regular.ttf) format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoKufiArabic-Bold.ttf) format('truetype');
+    font-style: normal;
+    font-weight: bold;
+  }
+}
+
+@mixin LangFontArabicNaskh {
+ @font-face {
+    font-family: 'Noto Naskh Arabic';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoNaskhArabic-Regular.ttf) format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Noto Naskh Arabic';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoNaskhArabic-Bold.ttf) format('truetype');
+    font-style: normal;
+    font-weight: bold;
+  }
+}
+
+@mixin LangFontChineseTraditional {
+ @font-face {
+    font-family: 'Noto CJK TC';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansCJKtc-Regular.otf) format('opentype');
+    font-style: normal;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Noto CJK TC';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansCJKtc-Bold.otf) format('opentype');
+    font-style: normal;
+    font-weight: bold;
+  }
+}
+
+@mixin LangFontChineseSimplified {
+ @font-face {
+    font-family: 'Noto CJK SC';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansCJKsc-Regular.otf) format('opentype');
+    font-style: normal;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Noto CJK SC';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansCJKsc-Bold.otf) format('opentype');
+    font-style: normal;
+    font-weight: bold;
+  }
+}
+
+@mixin LangFontCoptic {
+	@font-face {
+    font-family: 'Antinoou';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/Antinoou.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Antinoou';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/AntinoouItalic.ttf) format('truetype');
+    font-weight: normal;
+    font-style: italic;
+  }
+}
+	
+@mixin LangFontGreekAncient {
+  @font-face {
+    font-family: 'SBL Greek';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/SBL-grk.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+@mixin LangFontGuajarati {
+ 	@font-face {
+    font-family: 'Ekatra';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/EkatraUnicode.ttf) format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
+ 	@font-face {
+    font-family: 'Ekatra';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/EkatraUnicode-NormalItalic.ttf) format('truetype');
+    font-style: italic;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Ekatra';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/EkatraUnicode-Bold.ttf) format('truetype');
+    font-style: normal;
+    font-weight: bold;
+  }
+}
+
+@mixin LangFontHebrewBiblical {
+	  @font-face {
+    font-family: 'SBL Hebrew';
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/SBL_Hbrw.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+
+@mixin LangFontJapanese {
+  @font-face {
+    font-family: 'Noto CJK JP';
+    font-style: normal;
+    font-weight: 400;
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansCJKjp-Regular.otf) format('opentype');
+  }
+  @font-face {
+    font-family: 'Noto CJK JP';
+    font-style: normal;
+    font-weight: bold;
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansCJKjp-Bold.otf) format('opentype');
+  }
+}
+
+@mixin LangFontKorean {
+  @font-face {
+    font-family: 'Noto CJK KR';
+    font-style: normal;
+    font-weight: normal;
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansCJKkr-Regular.otf) format('opentype');
+  }
+  @font-face {
+    font-family: 'Noto CJK KR';
+    font-style: normal;
+    font-weight: bold;
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansCJKkr-Bold.otf) format('opentype');
+  }
+}
+
+@mixin LangFontSyriac {
+	  @font-face {
+    font-family: 'Noto Sans Syriac';
+    font-style: normal;
+    font-weight: normal;
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansSyriacEstrangela-Regular.ttf) format('truetype');
+  }
+}
+
+@mixin LangFontTamil {
+	 @font-face {
+    font-family: 'Noto Sans Tamil';
+    font-style: normal;
+    font-weight: normal;
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansTamil-Regular.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans Tamil';
+    font-style: normal;
+    font-weight: bold;
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansTamil-Bold.ttf) format('truetype');
+  }
+}
+
+@mixin LangFontTibetan {
+	 @font-face {
+    font-family: 'Noto Sans Tibetan';
+    font-style: normal;
+    font-weight: normal;
+    src: url(templates-book/pressbooks-book/fonts/language-fonts/NotoSansTibetan-Regular.ttf) format('truetype');
+  }	
+}
+
+
+
+
