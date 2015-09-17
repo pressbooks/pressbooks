@@ -191,11 +191,7 @@ class Epub3 extends Epub\Epub201 {
 	 * Create stylesheet. Change $this->stylesheet to a filename used by subsequent methods.
 	 */
 	protected function createStylesheet() {
-		
-		// html5 targeted css
-		$css3 = 'css3.css';
-		$path_to_css3_stylesheet = $this->dir . "/templates/css/$css3";
-		
+				
 		$this->stylesheet = strtolower( sanitize_file_name( wp_get_theme() . '.css' ) );
 		$path_to_tmp_stylesheet = $this->tmpDir . "/OEBPS/{$this->stylesheet}";
 		
@@ -205,20 +201,6 @@ class Epub3 extends Epub\Epub201 {
 			$this->loadTemplate( $this->exportStylePath ) );
 
 		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $path_to_tmp_stylesheet );
-
-		// Append css3
-		file_put_contents(
-			$path_to_tmp_stylesheet,
-			$this->loadTemplate( $path_to_css3_stylesheet ),
-			FILE_APPEND
-		);
-		
-		// Append overrides
-		file_put_contents(
-			$path_to_tmp_stylesheet,
-			"\n" . $this->cssOverrides,
-			FILE_APPEND
-		);
 		
 	}
 	
@@ -230,10 +212,21 @@ class Epub3 extends Epub\Epub201 {
 	 */
 	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
+		// html5 targeted css
+		$css3 = 'css3.css';
+		$path_to_css3_stylesheet = $this->dir . "/templates/css/$css3";
+
 		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';
 
 		$scss = file_get_contents( $path_to_copy_of_stylesheet );
+		
+		// Append css3
+		$scss .= $this->loadTemplate( $path_to_css3_stylesheet );
+		
+		// Append overrides
+		$scss .=  $this->cssOverrides;
+		
 		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
 
 		// Search for url("*"), url('*'), and url(*)
@@ -262,11 +255,11 @@ class Epub3 extends Epub\Epub201 {
 					return "url(assets/$new_filename)";
 				}
 
-			} elseif ( preg_match( '#^\.\./\.\./\.\./\.\./plugins/pressbooks/themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+			} elseif ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
 
-				// Look for ../../../../plugins/pressbooks/themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), copy into our Epub
+				// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), copy into our Epub
 
-				$my_font = realpath( "$scss_dir/$url" );
+				$my_font = realpath( PB_PLUGIN_DIR . $url );
 				if ( $my_font ) {
 					copy( $my_font, "$path_to_epub_assets/$filename" );
 					return "url(assets/$filename)";

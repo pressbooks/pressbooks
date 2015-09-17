@@ -306,7 +306,6 @@ class Epub201 extends Export {
 		$css = '';
 		$this->cssOverrides = apply_filters( 'pb_epub_css_override', $css ) . "\n";
 
-
 		// --------------------------------------------------------------------
 		// Hacks
 
@@ -567,12 +566,6 @@ class Epub201 extends Export {
 
 		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $path_to_tmp_stylesheet );
 
-		// Append overrides
-		file_put_contents(
-			$path_to_tmp_stylesheet,
-			"\n" . $this->cssOverrides,
-			FILE_APPEND
-		);
 	}
 
 
@@ -588,6 +581,10 @@ class Epub201 extends Export {
 		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';
 
 		$scss = file_get_contents( $path_to_copy_of_stylesheet );
+
+		// Append overrides
+		$scss .= $this->cssOverrides;
+		
 		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
 
 		// Search for url("*"), url('*'), and url(*)
@@ -616,11 +613,11 @@ class Epub201 extends Export {
 					return "url(assets/$new_filename)";
 				}
 
-			} elseif ( preg_match( '#^\.\./\.\./\.\./\.\./plugins/pressbooks/themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.ttf|\.otf)$#i', $url ) ) {
+			} elseif ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.ttf|\.otf)$#i', $url ) ) {
 
-				// Look for ../../../../plugins/pressbooks/themes-book/pressbooks-book/fonts/*.ttf (or .otf), copy into our Epub
+				// Look for themes-book/pressbooks-book/fonts/*.ttf (or .otf), copy into our Epub
 
-				$my_font = realpath( "$scss_dir/$url" );
+				$my_font = realpath( PB_PLUGIN_DIR . $url );
 				if ( $my_font ) {
 					copy( $my_font, "$path_to_epub_assets/$filename" );
 					return "url(assets/$filename)";

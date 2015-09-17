@@ -200,10 +200,15 @@ class Pdf extends Export {
 
 			$url = $matches[3];
 
-			if ( ! preg_match( '#^https?://#i', $url ) ) {
+			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
 				$my_asset = realpath( PB_PLUGIN_DIR . $url );
 				if ( $my_asset ) {
 					return 'url(' . PB_PLUGIN_DIR . $url . ')';
+				}
+			} elseif ( ! preg_match( '#^https?://#i', $url ) ) {
+				$my_asset = realpath( "$scss_dir/$url" );
+				if ( $my_asset ) {
+					return "url($scss_dir/$url)";
 				}
 			}
 
@@ -243,10 +248,15 @@ class Pdf extends Export {
 
 			$url = $matches[3];
 
-			if ( ! preg_match( '#^https?://#i', $url ) ) {
+			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
 				$my_asset = realpath( PB_PLUGIN_DIR . $url );
 				if ( $my_asset ) {
 					return 'url(' . PB_PLUGIN_DIR . $url . ')';
+				}
+			} elseif ( ! preg_match( '#^https?://#i', $url ) ) {
+				$my_asset = realpath( "$scss_dir/$url" );
+				if ( $my_asset ) {
+					return "url($scss_dir/$url)";
 				}
 			}
 
