@@ -1752,35 +1752,59 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	if ( !isset( $foreign_languages ) ) {
 		$foreign_languages = array();
 	}
+	
+	$foreign_language_fonts = '$foreign-language-fonts: ';
+	
 	foreach ( $foreign_languages as $language )	{
 		switch ( $language ) {
 			case 'grc': // Ancient Greek
-				$scss .= "@import 'foreign-language-fonts';\n@include LangFontGreekAncient;\n";
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontGreekAncient;\n";
+				$foreign_language_fonts .= "'SBL Greek', ";
 				break;
 			case 'ar': // Arabic
-				$scss .= "@import 'foreign-language-fonts';\n@//include LangFontArabicKufi;\n@include LangFontArabicNaskh;\n";
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontArabicKufi;
+				@include LangFontArabicNaskh;\n";
+				$foreign_language_fonts .= "'Noto Kufi Arabic', 'Noto Naskh Arabic', ";
 				break;
 			case 'he': // Biblical Hebrew
-				$scss .= "@import 'foreign-language-fonts';\n@include LangFontHebrewBiblical;\n";
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontHebrewBiblical;\n";
+				$foreign_language_fonts .= "'SBL Hebrew', ";
 				break;
 			case 'zh': // Chinese
-				$scss .= "@import 'foreign-language-fonts';\n@include LangFontChineseSimplified;\n@include LangFontChineseTraditional;\n";
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontChineseSimplified;
+				@include LangFontChineseTraditional;\n";
+				$foreign_language_fonts .= "'Noto CJK TC', 'Noto CJK SC', ";
 				break;
 			case 'cop': // Coptic
-				$scss .= "@import 'foreign-language-fonts';\n@include LangFontCoptic;\n";
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontCoptic;\n";
+				$foreign_language_fonts .= "'Antinoou', ";
 				break;
 			case 'ja': // Japanese
-				$scss .= "@import 'foreign-language-fonts';\n@include LangFontJapanese;\n";
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontJapanese;\n";
+				$foreign_language_fonts .= "'Noto CJK JP', ";
 				break;
 			case 'syr': // Syriac
-				$scss .= "@import 'foreign-language-fonts';\n@include LangFontSyriac;\n";
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontSyriac;\n";
+				$foreign_language_fonts .= "'Noto Sans Syriac', ";
 				break;
 			case 'ta': // Tamil
-				$scss .= "@import 'foreign-language-fonts';\n@include LangFontTamil;\n";
+				$scss .= "@import 'foreign-language-fonts';@include LangFontTamil;\n";
+				$foreign_language_fonts .= "'Noto Sans Tamil', ";
 				break;
 		}
 	}
-
+	
+	$foreign_language_fonts = rtrim( $foreign_language_fonts, ', ' );
+	$foreign_language_fonts .= ";\n";
+	$scss .= $foreign_language_fonts;
+		
 	// --------------------------------------------------------------------
 	// Luther features we inject ourselves, (not user options, this theme not child)
 

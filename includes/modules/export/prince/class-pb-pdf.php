@@ -189,8 +189,8 @@ class Pdf extends Export {
 
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 
-		$scss = file_get_contents( $this->exportStylePath );
-		$scss .= $this->cssOverrides;
+		$scss = $this->cssOverrides;
+		$scss .= file_get_contents( $this->exportStylePath );
 
 		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
 
@@ -216,6 +216,8 @@ class Pdf extends Export {
 
 		}, $css );
 				
+		error_log( $css );
+
 		return $css;
 	}
 
@@ -239,35 +241,8 @@ class Pdf extends Export {
 			$freebie_notice = 'This book was produced using Pressbooks.com, and PDF rendering was done by PrinceXML.';
 			$scss .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }' . "\n";
 		}
-				
-		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
 
-		error_log( $css );
-
-		// Search for url("*"), url('*'), and url(*)
-		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $scss_dir ) {
-
-			$url = $matches[3];
-
-			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				$my_asset = realpath( PB_PLUGIN_DIR . $url );
-				if ( $my_asset ) {
-					return 'url(' . PB_PLUGIN_DIR . $url . ')';
-				}
-			} elseif ( ! preg_match( '#^https?://#i', $url ) ) {
-				$my_asset = realpath( "$scss_dir/$url" );
-				if ( $my_asset ) {
-					return "url($scss_dir/$url)";
-				}
-			}
-
-			return $matches[0]; // No change
-
-		}, $css );
-			
-		$this->cssOverrides = $css;
-
+		$this->cssOverrides = $scss;
 
 		// --------------------------------------------------------------------
 		// Hacks
