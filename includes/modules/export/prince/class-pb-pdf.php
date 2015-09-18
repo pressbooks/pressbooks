@@ -43,6 +43,14 @@ class Pdf extends Export {
 
 
 	/**
+	 * Fullpath to global typography SCSS mixin.
+	 *
+	 * @var string
+	 */
+	protected $globalTypographyMixinPath;
+
+
+	/**
 	 * Fullpath to book JavaScript file.
 	 *
 	 * @var string
@@ -71,6 +79,7 @@ class Pdf extends Export {
 		$this->exportStylePath = $this->getExportStylePath( 'prince' );
 		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
 		$this->genericMixinsPath = $this->getMixinsPath();
+		$this->globalTypographyMixinPath = $this->getGlobalTypographyMixinPath();
 
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
@@ -192,7 +201,7 @@ class Pdf extends Export {
 		$scss = $this->cssOverrides;
 		$scss .= file_get_contents( $this->exportStylePath );
 
-		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
+		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
 
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';

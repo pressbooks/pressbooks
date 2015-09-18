@@ -102,6 +102,14 @@ class Epub201 extends Export {
 
 
 	/**
+	 * Fullpath to global typography SCSS mixin.
+	 *
+	 * @var string
+	 */
+	protected $globalTypographyMixinPath;
+
+
+	/**
 	 * CSS overrides
 	 *
 	 * @var string
@@ -161,7 +169,8 @@ class Epub201 extends Export {
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
 		$this->genericMixinsPath = $this->getMixinsPath();
-
+		$this->globalTypographyMixinPath = $this->getGlobalTypographyMixinPath();
+		
 		$this->themeOptionsOverrides();
 
 		// HtmLawed: id values not allowed in input
@@ -585,7 +594,7 @@ class Epub201 extends Export {
 		// Append overrides
 		$scss .= $this->cssOverrides;
 		
-		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, get_stylesheet_directory() ) ) );
+		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
 
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';

@@ -123,6 +123,23 @@ abstract class Export {
 
 		return $fullpath;
 	}
+	
+	
+	/**
+	 * Return the fullpath to the global typography SCSS mixin.
+	 *
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	function getGlobalTypographyMixinPath() {
+
+		$wp_upload_dir = wp_upload_dir();
+
+		$fullpath = $wp_upload_dir['basedir'] . '/global-typography';
+
+		return $fullpath;
+	}
 
 
 	/**

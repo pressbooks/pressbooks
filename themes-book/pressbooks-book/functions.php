@@ -532,9 +532,9 @@ function pressbooks_theme_options_global_init() {
 	if ( pb_is_scss() == true ) { // we can only enable foreign language typography for themes that use SCSS
 
 		add_settings_field(
-			'pressbooks_foreign_language_typography',
+			'pressbooks_global_typography',
 			__( 'Foreign Language Typography', 'pressbooks' ),
-			'pressbooks_theme_foreign_language_typography_callback',
+			'pressbooks_theme_global_typography_callback',
 			$_page,
 			$_section,
 			array(
@@ -544,8 +544,8 @@ function pressbooks_theme_options_global_init() {
 		
 		register_setting(
 			$_page,
-			'pressbooks_foreign_language_typography',
-			'pressbooks_theme_pressbooks_foreign_language_typography_sanitize'
+			'pressbooks_global_typography',
+			'pressbooks_theme_pressbooks_global_typography_sanitize'
 		);
 
 	}
@@ -631,31 +631,18 @@ function pressbooks_theme_copyright_license_callback( $args ) {
 }
 
 // Global Options Field Callback
-function pressbooks_theme_foreign_language_typography_callback( $args ) {
-
-	$foreign_languages = get_option( 'pressbooks_foreign_language_typography' );
+function pressbooks_theme_global_typography_callback( $args ) {
+	
+	$foreign_languages = get_option( 'pressbooks_global_typography' );
 
 	if ( ! isset( $foreign_languages ) ) {
 		$foreign_languages = array();
 	}
 	
-	$languages = array(
-		'ar' => __( 'Arabic', 'pressbooks' ),
-		'he' => __( 'Biblical Hebrew', 'pressbooks' ),
-		'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
-		'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
-		'grc' => __( 'Classical Greek', 'pressbooks' ),
-		'cop' => __( 'Coptic', 'pressbooks' ),
-		'gu' => __( 'Gujarati', 'pressbooks' ),
-		'ja' => __( 'Japanese', 'pressbooks' ),
-		'ko' => __( 'Korean', 'pressbooks' ),
-		'syr' => __( 'Syriac', 'pressbooks' ),
-		'ta' => __( 'Tamil', 'pressbooks' ),
-		'bo' => __( 'Tibetan', 'pressbooks' ),
-	);
+	$languages = \PressBooks\GlobalTypography::getSupportedLanguages();
 
-	$html = '<label for="foreign_language_typography"> ' . $args[0] . '</label><br /><br />';
-	$html .= '<select id="foreign_language_typography" name="pressbooks_foreign_language_typography[]" multiple>';
+	$html = '<label for="global_typography"> ' . $args[0] . '</label><br /><br />';
+	$html .= '<select id="global_typography" name="pressbooks_global_typography[]" multiple>';
 	foreach ( $languages as $key => $value ) {
 		$selected = ( in_array( $key, $foreign_languages ) ) ? ' selected' : '';
 		$html .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option>';
@@ -695,7 +682,7 @@ function pressbooks_theme_chapter_types_sanitize( $input ) {
 	return absint( $input );
 }
 
-function pressbooks_theme_pressbooks_foreign_language_typography_sanitize( $input ) {
+function pressbooks_theme_pressbooks_global_typography_sanitize( $input ) {
 	if ( !is_array( $input ) ) {
 		$input = array();
 	}
@@ -1747,82 +1734,6 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	if ( @$options['pdf_fontsize'] ){
 		$scss .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
 	}
-
-	// --------------------------------------------------------------------
-	// Foreign Language Typography
-
-	$foreign_languages = get_option( 'pressbooks_foreign_language_typography' );
-	
-	if ( !isset( $foreign_languages ) ) {
-		$foreign_languages = array();
-	}
-	
-	$foreign_language_fonts = '$foreign-language-fonts: ';
-	
-	foreach ( $foreign_languages as $language )	{
-		switch ( $language ) {
-			case 'ar': // Arabic
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontArabicKufi;
-				@include LangFontArabicNaskh;\n";
-				$foreign_language_fonts .= "'Noto Kufi Arabic', 'Noto Naskh Arabic', ";
-				break;
-			case 'he': // Biblical Hebrew
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontHebrewBiblical;\n";
-				$foreign_language_fonts .= "'SBL Hebrew', ";
-				break;
-			case 'zh_HANS': // Chinese (Simplified)
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontChineseSimplified;\n";
-				$foreign_language_fonts .= "'Noto CJK SC', ";
-				break;
-			case 'zh_HANT': // Chinese (Simplified)
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontChineseTraditional;\n";
-				$foreign_language_fonts .= "'Noto CJK TC', ";
-				break;
-			case 'grc': // Classical Greek
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontGreekAncient;\n";
-				$foreign_language_fonts .= "'SBL Greek', ";
-				break;
-			case 'cop': // Coptic
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontCoptic;\n";
-				$foreign_language_fonts .= "'Antinoou', ";
-				break;
-			case 'ja': // Japanese
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontJapanese;\n";
-				$foreign_language_fonts .= "'Noto CJK JP', ";
-				break;
-			case 'ko': // Korean
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontKorean;\n";
-				$foreign_language_fonts .= "'Noto CJK KR', ";
-				break;
-			case 'syr': // Syriac
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontSyriac;\n";
-				$foreign_language_fonts .= "'Noto Sans Syriac', ";
-				break;
-			case 'ta': // Tamil
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontTamil;\n";
-				$foreign_language_fonts .= "'Noto Sans Tamil', ";
-				break;
-			case 'bo': // Tibetan
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontTibetan;\n";
-				$foreign_language_fonts .= "'Noto Sans Tibetan', ";
-				break;
-		}
-	}
-	
-	$foreign_language_fonts = rtrim( $foreign_language_fonts, ', ' );
-	$foreign_language_fonts .= ";\n";
-	$scss .= $foreign_language_fonts;
 		
 	// --------------------------------------------------------------------
 	// Luther features we inject ourselves, (not user options, this theme not child)
@@ -1884,45 +1795,6 @@ function pressbooks_theme_ebook_css_override( $scss ) {
 		$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
 	}
 	
-	// --------------------------------------------------------------------
-	// Foreign Language Typography
-
-	$foreign_languages = get_option( 'pressbooks_foreign_language_typography' );
-	
-	if ( !isset( $foreign_languages ) ) {
-		$foreign_languages = array();
-	}
-	foreach ( $foreign_languages as $language )	{
-		switch ( $language ) {
-			case 'grc': // Ancient Greek
-				$scss .= "";
-				break;
-			case 'ar': // Arabic
-				$scss .= "";
-				break;
-			case 'he': // Biblical Hebrew
-				$scss .= "";
-				break;
-			case 'zh': // Chinese
-				$scss .= "";
-				break;
-			case 'cop': // Coptic
-				$scss .= '@import "fonts";
-				@include AntinoouFont;
-				$foreign-language-fonts: "Antinoou";';
-				break;
-			case 'ja': // Japanese
-				$scss .= "";
-				break;
-			case 'syr': // Syriac
-				$scss .= "";
-				break;
-			case 'ta': // Tamil
-				$scss .= "";
-				break;
-		}
-	}	
-
 	// --------------------------------------------------------------------
 	// Luther features we inject ourselves, (not user options, this theme not child)
 

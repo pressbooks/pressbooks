@@ -40,17 +40,22 @@ class Editor {
 		
 		$scss = "/* Editor Styles */\n";
 				
-		$body_font_stack = 'body { font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, $foreign-language-fonts, serif; }';
+		$body_font_stack = 'body { font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, $global-font-stack, serif; }';
 		
-		$foreign_languages = get_option( 'pressbooks_foreign_language_typography' );
+		$foreign_languages = get_option( 'pressbooks_global_typography' );
 		
-		$foreign_language_fonts = '$foreign-language-fonts: ';
+		$foreign_language_fonts = '$global-font-stack: ';
 		
 		if ( !isset( $foreign_languages ) ) {
 			$foreign_languages = array();
 		}
 		foreach ( $foreign_languages as $language )	{
 			switch ( $language ) {
+				case 'grc': // Ancient Greek
+					$scss .= "@import 'foreign-language-fonts';
+					@include LangFontGreekAncient;\n";
+					$foreign_language_fonts .= "'SBL Greek', ";
+					break;
 				case 'ar': // Arabic
 					$scss .= "@import 'foreign-language-fonts';
 					@include LangFontArabicKufi;
@@ -71,11 +76,6 @@ class Editor {
 					$scss .= "@import 'foreign-language-fonts';
 					@include LangFontChineseTraditional;\n";
 					$foreign_language_fonts .= "'Noto CJK TC', ";
-					break;
-				case 'grc': // Classical Greek
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontGreekAncient;\n";
-					$foreign_language_fonts .= "'SBL Greek', ";
 					break;
 				case 'cop': // Coptic
 					$scss .= "@import 'foreign-language-fonts';
