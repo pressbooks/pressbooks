@@ -8,7 +8,8 @@
 namespace PressBooks;
 
 
-class Editor {	
+class Editor {
+
 
 	/**
 	 * Ensure that Word formatting that we like doesn't get filtered out.

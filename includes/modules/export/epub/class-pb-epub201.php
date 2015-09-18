@@ -315,6 +315,7 @@ class Epub201 extends Export {
 		$css = '';
 		$this->cssOverrides = apply_filters( 'pb_epub_css_override', $css ) . "\n";
 
+
 		// --------------------------------------------------------------------
 		// Hacks
 
@@ -1218,7 +1219,6 @@ class Epub201 extends Export {
 					( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
 					Sanitize\decode( $part['post_title'] ),
 					$part_content );
-
 				$file_id = 'part-' . sprintf( "%03s", $i );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
 
@@ -1558,7 +1558,7 @@ class Epub201 extends Export {
 		// Load HTMl snippet into DOMDocument using UTF-8 hack
 		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
 		$doc = new \DOMDocument();
-		$doc->loadHTML( $utf8_hack . $html );
+		$doc->loadHTML( $utf8_hack . mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' ) );
 
 		// Download images, change to relative paths
 		$doc = $this->scrapeAndKneadImages( $doc );
