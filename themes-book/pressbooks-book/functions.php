@@ -640,14 +640,18 @@ function pressbooks_theme_foreign_language_typography_callback( $args ) {
 	}
 	
 	$languages = array(
-		'grc' => 'Ancient Greek',
-		'ar' => 'Arabic',
-		'he' => 'Biblical Hebrew',
-		'zh' => 'Chinese',
-		'cop' => 'Coptic',
-		'ja' => 'Japanese',
-		'syr' => 'Syrianic',
-		'ta' => 'Tamil',
+		'ar' => __( 'Arabic', 'pressbooks' ),
+		'he' => __( 'Biblical Hebrew', 'pressbooks' ),
+		'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
+		'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
+		'grc' => __( 'Classical Greek', 'pressbooks' ),
+		'cop' => __( 'Coptic', 'pressbooks' ),
+		'gu' => __( 'Gujarati', 'pressbooks' ),
+		'ja' => __( 'Japanese', 'pressbooks' ),
+		'ko' => __( 'Korean', 'pressbooks' ),
+		'syr' => __( 'Syriac', 'pressbooks' ),
+		'ta' => __( 'Tamil', 'pressbooks' ),
+		'bo' => __( 'Tibetan', 'pressbooks' ),
 	);
 
 	$html = '<label for="foreign_language_typography"> ' . $args[0] . '</label><br /><br />';
@@ -1757,11 +1761,6 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	
 	foreach ( $foreign_languages as $language )	{
 		switch ( $language ) {
-			case 'grc': // Ancient Greek
-				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontGreekAncient;\n";
-				$foreign_language_fonts .= "'SBL Greek', ";
-				break;
 			case 'ar': // Arabic
 				$scss .= "@import 'foreign-language-fonts';
 				@include LangFontArabicKufi;
@@ -1773,11 +1772,20 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 				@include LangFontHebrewBiblical;\n";
 				$foreign_language_fonts .= "'SBL Hebrew', ";
 				break;
-			case 'zh': // Chinese
+			case 'zh_HANS': // Chinese (Simplified)
 				$scss .= "@import 'foreign-language-fonts';
-				@include LangFontChineseSimplified;
+				@include LangFontChineseSimplified;\n";
+				$foreign_language_fonts .= "'Noto CJK SC', ";
+				break;
+			case 'zh_HANT': // Chinese (Simplified)
+				$scss .= "@import 'foreign-language-fonts';
 				@include LangFontChineseTraditional;\n";
-				$foreign_language_fonts .= "'Noto CJK TC', 'Noto CJK SC', ";
+				$foreign_language_fonts .= "'Noto CJK TC', ";
+				break;
+			case 'grc': // Classical Greek
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontGreekAncient;\n";
+				$foreign_language_fonts .= "'SBL Greek', ";
 				break;
 			case 'cop': // Coptic
 				$scss .= "@import 'foreign-language-fonts';
@@ -1789,14 +1797,25 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 				@include LangFontJapanese;\n";
 				$foreign_language_fonts .= "'Noto CJK JP', ";
 				break;
+			case 'ko': // Korean
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontKorean;\n";
+				$foreign_language_fonts .= "'Noto CJK KR', ";
+				break;
 			case 'syr': // Syriac
 				$scss .= "@import 'foreign-language-fonts';
 				@include LangFontSyriac;\n";
 				$foreign_language_fonts .= "'Noto Sans Syriac', ";
 				break;
 			case 'ta': // Tamil
-				$scss .= "@import 'foreign-language-fonts';@include LangFontTamil;\n";
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontTamil;\n";
 				$foreign_language_fonts .= "'Noto Sans Tamil', ";
+				break;
+			case 'bo': // Tibetan
+				$scss .= "@import 'foreign-language-fonts';
+				@include LangFontTibetan;\n";
+				$foreign_language_fonts .= "'Noto Sans Tibetan', ";
 				break;
 		}
 	}
