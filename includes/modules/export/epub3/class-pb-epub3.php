@@ -292,7 +292,7 @@ class Epub3 extends Epub\Epub201 {
 		// Load HTMl snippet into DOMDocument using UTF-8 hack
 		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
 		$doc = new \DOMDocument();
-		$doc->loadHTML( $utf8_hack . mb_convert_encoding( $html, 'HTML-ENTITIES', 'UTF-8' ) );
+		$doc->loadHTML( $utf8_hack . $html );
 
 		// Download images, change to relative paths
 		$doc = $this->scrapeAndKneadImages( $doc );
