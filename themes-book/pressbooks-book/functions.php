@@ -350,106 +350,6 @@ endif;
 
 
 /* ------------------------------------------------------------------------ *
- * Theme Options Summary (displayed on Export Page)
- * ------------------------------------------------------------------------ */
-
-if ( ! function_exists( 'pressbooks_theme_options_summary' ) ) :
-
-/**
- * Function called by the Pressbooks plugin when user is on [ Export ] page
- */
-function pressbooks_theme_options_summary() { ?>
-	<p><strong><?php _e('Global options', 'pressbooks' ); ?>:</strong></p>
-	<ul>
-	<?php
-	$global_options = get_option('pressbooks_theme_options_global');
-	foreach ($global_options as $key => $value) {
-		switch($key) {
-			case 'chapter_numbers': ?>
-			<li><?php _e('Chapter numbers', 'pressbooks' ); ?>: <em><?php echo $value == 1 ? __( 'display chapter numbers', 'pressbooks' ) : __( 'do not display chapter numbers', 'pressbooks' ); ?></em></li>
-			<?php break;
-		}
-	}
-	?>
-	</ul>
-	<p><strong><?php _e('PDF options', 'pressbooks' ) ?>:</strong></p>
-	<ul>
-		<?php
-		// TODO: Control the order of display.
-		$pdf_options = get_option('pressbooks_theme_options_pdf');
-		foreach ($pdf_options as $key => $value) {
-			switch($key) {
-				case 'pdf_page_size': ?>
-					<li><?php _e( 'Page size', 'pressbooks' ) ?>: <em><?php
-						if ( $value == 1 ) { _e( 'digest', 'pressbooks' ); }
-						elseif ( $value == 2 ) { _e( 'US trade', 'pressbooks' ); }
-						elseif ( $value == 3 ) { _e( 'US letter', 'pressbooks' ); }
-						elseif ( $value == 4 ) { _e( '8.5 x 9.25"', 'pressbooks' ); }
-						elseif ( $value == 5 ) { _e( 'duodecimo', 'pressbooks' ); }
-						elseif ( $value == 6 ) { _e( 'pocket', 'pressbooks' ); }
-						elseif ( $value == 7 ) { _e( 'A4', 'pressbooks' ); }
-						elseif ( $value == 8 ) { _e( 'A5', 'pressbooks' ); } ?></em></li>
-					<?php break;
-				case 'pdf_paragraph_separation': ?>
-					<li><?php _e( 'Paragraph separator', 'pressbooks' ) ?>: <em><?php
-						if ( $value == 1 ) { _e( 'indent', 'pressbooks' ); }
-						elseif ( $value == 2 ) { _e( 'skip lines', 'pressbooks' ); } ?></em></li>
-					<?php break;
-				case 'pdf_blankpages': ?>
-					<li><?php _e( 'Blank pages' , 'pressbooks' ) ?>: <em><?php
-						if ( $value == 1 ) { _e( 'include blank pages (for print PDF)', 'pressbooks' ); }
-						elseif ( $value == 2 ) { _e( 'remove blank pages (for web PDF)', 'pressbooks' ); } ?></em></li>
-					<?php break;
-				case 'pdf_toc': ?>
-					<li><?php _e( 'Table of contents' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'display', 'pressbooks' ) : __( 'do not display', 'pressbooks' ); ?></em></li>
-					<?php break;
-				case 'pdf_footnotes_style': ?>
-					<li><?php _e( 'Footnotes style' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'normal', 'pressbooks' ) : __( 'force as endnotes', 'pressbooks' ); ?></em></li>
-					<?php break;
-				case 'pdf_crop_marks': ?>
-					<li><?php _e( 'Crop marks' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'display', 'pressbooks' ) : __( 'do not display', 'pressbooks' ); ?></em></li>
-					<?php break;
-				case 'pdf_hyphens': ?>
-					<li><?php _e( 'Hyphens' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></li>
-					<?php break;
-				case 'widows': ?>
-					<li><?php _e( 'Widows' , 'pressbooks' ) ?>: <em><?php echo $value; ?></em></li>
-					<?php break;
-				case 'orphans': ?>
-					<li><?php _e( 'Orphans' , 'pressbooks' ) ?>: <em><?php echo $value; ?></em></li>
-					<?php break;
-				case 'pdf_fontsize': ?>
-					<li><?php _e( 'Accessibility Increase Font Size' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></em></li>
-					<?php break;
-			}
-		}
-		?>
-	</ul>
-	<p><strong><?php _e( 'Ebook options' , 'pressbooks' ) ?>:</strong></p>
-	<ul>
-		<?php
-		$ebook_options = get_option('pressbooks_theme_options_ebook');
-		foreach ($ebook_options as $key => $value) {
-			switch($key) {
-				case 'ebook_paragraph_separation': ?>
-					<li><?php _e( 'Paragraph separator' , 'pressbooks' ) ?>: <em><?php
-						if ( $value == 1 ) { _e( 'indent', 'pressbooks' ); }
-						elseif ( $value == 2 ) { _e( 'skip lines', 'pressbooks' ); } ?></em></li>
-					<?php break;
-				case 'ebook_compress_images': ?>
-					<li><?php _e( 'Compress images' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></li>
-					<?php break;
-			}
-		}
-		?>
-	</ul>
-<?php
-}
-
-endif;
-
-
-/* ------------------------------------------------------------------------ *
  * Global Options Tab
  * ------------------------------------------------------------------------ */
 
@@ -635,7 +535,7 @@ function pressbooks_theme_global_typography_callback( $args ) {
 	
 	$foreign_languages = get_option( 'pressbooks_global_typography' );
 
-	if ( ! isset( $foreign_languages ) ) {
+	if ( ! $foreign_languages ) {
 		$foreign_languages = array();
 	}
 	

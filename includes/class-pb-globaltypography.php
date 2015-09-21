@@ -34,24 +34,6 @@ class GlobalTypography {
 	}
 	
 	/**
-	 * Get the path to the SCSS mixin which assigns the $global-typography variable.
-	 *
-	 * @return string
-	 */
-	 
-	function getGlobalTypographyMixin() {
-		
-/*
-		$wp_upload_dir = wp_upload_dir();
-
-		$fullpath = $wp_upload_dir['basedir'] . '/global-typography/global-typography.scss';
-						
-		return $fullpath;
-*/
-	}
-
-
-	/**
 	 * Update and save the SCSS mixin which assigns the $global-typography variable.
 	 */
 	 
@@ -75,6 +57,10 @@ class GlobalTypography {
 						$scss .= "@include LangFontArabicKufi;\n";
 						$scss .= "@include LangFontArabicNaskh;\n";
 						$global_typography .= "'Noto Kufi Arabic', 'Noto Naskh Arabic', ";
+						break;
+					case 'gu': // Gujarati
+						$scss .= "@include LangFontGujarati;\n";
+						$global_typography .= "'Ekatra', ";
 						break;
 					case 'he': // Biblical Hebrew
 						$scss .= "@include LangFontHebrewBiblical;\n";
