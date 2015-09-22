@@ -35,18 +35,78 @@ class GlobalTypography {
 	
 	/**
 	 * Update and save the SCSS mixin which assigns the $global-typography variable.
+	 *
+	 * @param int $pid
+	 * @param \WP_Post $post
 	 */
 	 
-	static function updateGlobalTypographyMixin() {
-				
-		$languages = get_option( 'pressbooks_global_typography' );
+	static function updateGlobalTypographyMixin( $pid = null, $post = null ) {
 		
+		if ( isset( $post ) && 'metadata' !== $post->post_type )
+			return; // Bail
+				
 		$scss = "// Global Typography\n";
 		$scss .= "@import 'global-fonts';\n";
 		
 		$global_typography = '$global-font-stack: ';
 		
-		if ( $languages && is_array( $languages ) ) {
+		$languages = get_option( 'pressbooks_global_typography' );
+
+		$book_lang = \PressBooks\Book::getBookInformation();
+		$book_lang = @$book_lang['pb_language'];
+		
+		if ( !is_array( $languages ) ) {
+			$languages = array();
+		}
+		
+		switch ( $book_lang ) {
+			case 'el': // Ancient Greek
+				$languages[] = 'grc';
+				break;
+			case 'ar': // Arabic
+			case 'ar-dz':
+			case 'ar-bh':
+			case 'ar-eg':
+			case 'ar-jo':
+			case 'ar-kw':
+			case 'ar-lb':
+			case 'ar-ma':
+			case 'ar-om':
+			case 'ar-qa':
+			case 'ar-sa':
+			case 'ar-sy':
+			case 'ar-tn':
+			case 'ar-ae':
+			case 'ar-ye':
+				$languages[] = 'ar';
+				break;
+			case 'he': // Biblical Hebrew
+				$languages[] = 'he';
+				break;
+			case 'zh': // Chinese (Simplified)
+			case 'zh-cn':
+			case 'zh-sg':
+				$languages[] = 'zh_HANS';
+				break;
+			case 'zh-hk': // Chinese (Traditional)
+			case 'zh-tw':
+				$languages[] = 'zh_HANT';
+				break;
+			case 'gu': // Gujarati
+				$languages[] = 'gu';
+				break;
+			case 'ja': // Japanese
+				$languages[] = 'ja';
+				break;
+			case 'ko': // Korean
+				$languages[] = 'ko';
+				break;
+			case 'ta': // Tamil
+				$languages[] = 'ta';
+				break;
+		}
+				
+		if ( !empty( $languages ) ) {
 			foreach ( $languages as $language )	{
 				switch ( $language ) {
 					case 'grc': // Ancient Greek
@@ -57,10 +117,6 @@ class GlobalTypography {
 						$scss .= "@include LangFontArabicKufi;\n";
 						$scss .= "@include LangFontArabicNaskh;\n";
 						$global_typography .= "'Noto Kufi Arabic', 'Noto Naskh Arabic', ";
-						break;
-					case 'gu': // Gujarati
-						$scss .= "@include LangFontGujarati;\n";
-						$global_typography .= "'Ekatra', ";
 						break;
 					case 'he': // Biblical Hebrew
 						$scss .= "@include LangFontHebrewBiblical;\n";
@@ -77,6 +133,10 @@ class GlobalTypography {
 					case 'cop': // Coptic
 						$scss .= "@include LangFontCoptic;\n";
 						$global_typography .= "'Antinoou', ";
+						break;
+					case 'gu': // Gujarati
+						$scss .= "@include LangFontGujarati;\n";
+						$global_typography .= "'Ekatra', ";
 						break;
 					case 'ja': // Japanese
 						$scss .= "@include LangFontJapanese;\n";
@@ -100,6 +160,7 @@ class GlobalTypography {
 						break;
 				}
 			}
+						
 			$global_typography = rtrim( $global_typography, ', ' );
 			$global_typography .= ";\n";
 		} else {
@@ -126,6 +187,55 @@ class GlobalTypography {
 			throw new \Exception( 'Could not write mixin file.' );
 		}
 		
+	}
+	
+	/**
+	 * Update and save the supplementary webBook stylesheet which adds global typography support.
+	 *
+	 * @param int $pid
+	 * @param \WP_Post $post
+	 */
+	 
+	static function updateWebBookStyleSheet( $pid = null, $post = null ) {
+		
+		if ( isset( $post ) && 'metadata' !== $post->post_type )
+			return; // Bail
+				
+		$scss = "@import 'mixins';\n";
+
+		$scss .= 'body { font-family: $body-font-stack-web; }';
+		
+		$wp_upload_dir = wp_upload_dir();
+
+		$upload_dir = $wp_upload_dir['basedir'] . '/global-typography';
+
+		$css_file = $upload_dir . '/global-typography.css';
+
+		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $upload_dir, get_stylesheet_directory() ) ) );
+		
+		// Search for url("*"), url('*'), and url(*)
+		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $upload_dir ) {
+
+			$url = $matches[3];
+			$filename = sanitize_file_name( basename( $url ) );
+
+			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+
+				// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
+
+				return "url(" . site_url( '/' ) . "themes-book/pressbooks-book/fonts/$filename)";
+
+			}
+
+			return $matches[0]; // No change
+
+		}, $css );
+		
+		if ( ! file_put_contents( $css_file, $css ) ) {
+			throw new \Exception( 'Could not write webBook stylesheet.' );
+		}
+	
 	}
 	
 }

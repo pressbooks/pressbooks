@@ -1,3 +1,4 @@
+
 table {
 	min-width: 50%; }
 .indent {
@@ -14,12 +15,12 @@ table {
 }
 .textbox {
 	border: 1px solid #000;
-    	font-size: 0.9em;	
-    	line-height: 1.2em;
+	font-size: 0.9em;	
+	line-height: 1.2em;
 	margin: 10px 0;
 	padding: 10px;
 	&.shaded {
-	background-color: #eee;
+		background-color: #eee;
 	}
 }
 .textbox-caption {
@@ -34,35 +35,27 @@ table {
 	padding: 5px 0;
 	text-align: center;
 	width: 45%;
-}
-.pullquote-left {
-	border: 1px solid #000;
-	border-width: 1px 0;
-	float: left;
-	margin: 0.8em 15px 0.8em 0;
-	padding: 5px 0;
-	text-align: center;
-	width: 45%;
-}
-.pullquote-right {
-	border: 1px solid #000;
-	border-width: 1px 0;
-	float: right;
-	margin: 0.8em 0 0.8em 15px;
-	padding: 5px 0;
-	text-align: center;
-	width: 45%;
+	&.pullquote-left {
+		float: left;
+		margin: 0.8em 15px 0.8em 0;
+		padding: 5px 0;
+	}
+	&.pullquote-right {
+		float: right;
+		margin: 0.8em 0 0.8em 15px;
+		padding: 5px 0;
+	}
 }
 hr.break-symbols {
 	border: none;
 	font-size: 1.1em;
-    	margin-bottom: 20px;
-}
-hr.break-symbols::after {
-	display: block;
-	content: "\066D";
-	font-size: 18pt;
-	text-align: center;
+    margin-bottom: 20px;
+    &:after {
+		display: block;
+		content: "\066D";
+		font-size: 18pt;
+		text-align: center;
+    }
 }
 
 img,

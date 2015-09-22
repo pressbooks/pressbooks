@@ -35,125 +35,22 @@ class Editor {
 
 	/**
 	 * Updates custom stylesheet for MCE previewing.
+	 *
+	 * @param int $pid
+	 * @param \WP_Post $post
 	 */
-	static function updateEditorStyle() {
+	static function updateEditorStyle( $pid = null, $post = null ) {
 		
-		$scss = "/* Editor Styles */\n";
+		if ( isset( $post ) && 'metadata' !== $post->post_type )
+			return; // Bail
+		
+		$scss = "@import 'mixins';\n";
 				
-		$body_font_stack = 'body { font-family: Georgia, "Times New Roman", "Bitstream Charter", Times, $global-font-stack, serif; }';
-		
-		$foreign_languages = get_option( 'pressbooks_global_typography' );
-		
-		$foreign_language_fonts = '$global-font-stack: ';
-		
-		if ( !isset( $foreign_languages ) ) {
-			$foreign_languages = array();
-		}
-		foreach ( $foreign_languages as $language )	{
-			switch ( $language ) {
-				case 'grc': // Ancient Greek
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontGreekAncient;\n";
-					$foreign_language_fonts .= "'SBL Greek', ";
-					break;
-				case 'ar': // Arabic
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontArabicKufi;
-					@include LangFontArabicNaskh;\n";
-					$foreign_language_fonts .= "'Noto Kufi Arabic', 'Noto Naskh Arabic', ";
-					break;
-				case 'he': // Biblical Hebrew
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontHebrewBiblical;\n";
-					$foreign_language_fonts .= "'SBL Hebrew', ";
-					break;
-				case 'zh_HANS': // Chinese (Simplified)
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontChineseSimplified;\n";
-					$foreign_language_fonts .= "'Noto CJK SC', ";
-					break;
-				case 'zh_HANT': // Chinese (Simplified)
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontChineseTraditional;\n";
-					$foreign_language_fonts .= "'Noto CJK TC', ";
-					break;
-				case 'cop': // Coptic
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontCoptic;\n";
-					$foreign_language_fonts .= "'Antinoou', ";
-					break;
-				case 'ja': // Japanese
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontJapanese;\n";
-					$foreign_language_fonts .= "'Noto CJK JP', ";
-					break;
-				case 'ko': // Korean
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontKorean;\n";
-					$foreign_language_fonts .= "'Noto CJK KR', ";
-					break;
-				case 'syr': // Syriac
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontSyriac;\n";
-					$foreign_language_fonts .= "'Noto Sans Syriac', ";
-					break;
-				case 'ta': // Tamil
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontTamil;\n";
-					$foreign_language_fonts .= "'Noto Sans Tamil', ";
-					break;
-				case 'bo': // Tibetan
-					$scss .= "@import 'foreign-language-fonts';
-					@include LangFontTibetan;\n";
-					$foreign_language_fonts .= "'Noto Sans Tibetan', ";
-					break;
-			}
-		}
-		
-		$book_lang = \PressBooks\Book::getBookInformation();
-		$book_lang = @$book_lang['pb_language'];
-		
-		switch ( $book_lang ) {
-			case 'ar': // Arabic
-			case 'ar-dz':
-			case 'ar-bh':
-			case 'ar-eg':
-			case 'ar-jo':
-			case 'ar-kw':
-			case 'ar-lb':
-			case 'ar-ma':
-			case 'ar-om':
-			case 'ar-qa':
-			case 'ar-sa':
-			case 'ar-sy':
-			case 'ar-tn':
-			case 'ar-ae':
-			case 'ar-ye':
-				$scss .= "";
-				break;
-			case 'he': // Biblical Hebrew
-				$scss .= "";
-				break;
-			case 'zh': // Chinese
-			case 'zh-hk':
-			case 'zh-cn':
-			case 'zh-sg':
-			case 'zh-tw':
-				$scss .= "";
-				break;
-			case 'ja': // Japanese
-				$scss .= "";
-				break;
-			case 'ta': // Tamil
-				$scss .= "";
-				break;
-		}
-		
-		$foreign_language_fonts = rtrim( $foreign_language_fonts, ', ' );
-		$foreign_language_fonts .= ";\n";
-		$scss .= $foreign_language_fonts;
+		$body_font_stack = 'body { font-family: $body-font-stack-web; }';
+						
 		$scss .= $body_font_stack;
-		$scss .= "@import '" . PB_PLUGIN_DIR . "assets/css/sass/_editor';\n";
+		
+		$scss .= "@import 'editor';\n";
 						
 		$wp_upload_dir = wp_upload_dir();
 
@@ -169,7 +66,7 @@ class Editor {
 					
 		$css_file = $upload_dir . '/editor.css';
 
-		$css = \PressBooks\SASS\compile( $scss );
+		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $wp_upload_dir['basedir'] . '/global-typography', get_stylesheet_directory() ) ) );
 						
 		if ( ! file_put_contents( $css_file, $css ) ) {
 			throw new \Exception( 'Could not write custom CSS file.' );

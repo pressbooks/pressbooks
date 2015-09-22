@@ -55,7 +55,7 @@ function pb_enqueue_scripts() {
 		$deps = array();
 		if ( ! pb_custom_stylesheet_imports_base() ) {
 			// Use default stylesheet as base (to avoid horribly broken webbook)
-			wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen,print' );
+			wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
 			wp_enqueue_style( 'pressbooks' );
 			$deps = array( 'pressbooks' );
 		}
@@ -65,6 +65,17 @@ function pb_enqueue_scripts() {
 		wp_register_style( 'pressbooks', get_bloginfo( 'stylesheet_url' ), array(), null, 'screen,print' );
 		wp_enqueue_style( 'pressbooks' );
 	}
+	
+	$wp_upload_dir = wp_upload_dir();
+
+	$fullpath = $wp_upload_dir['basedir'] . '/global-typography/global-typography.css';
+	
+	
+	if ( is_file( $fullpath ) ) {
+		wp_register_style( 'pressbooks-global-typography', $wp_upload_dir['baseurl'] . '/global-typography/global-typography.css', array(), null, 'screen, print' );
+		wp_enqueue_style( 'pressbooks-global-typography' );
+	}
+	
 	if (! is_front_page() ) {
 		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
 	}
