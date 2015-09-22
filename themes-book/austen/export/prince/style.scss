@@ -1,16 +1,4 @@
-/*
-
- Name: Austen PDF
-  Version: 1.2
-  Author: Pressbooks (Book Oven Inc.)
-  Author URI: http://pressbooks.com
-  Tags: basic, simple, serif fonts
-  Description: Named for English author Jane Austen, this is an traditional book theme, with serif fonts, that works well for fiction and simple-layout non-fiction.  
-  Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) support@pressbooks.com
-  Reference documentation @see: http://www.princexml.com/doc/8.1/
-================== */
-
-@import 'fonts', 'mixins', 'pdf-house-style';
+@import 'mixins', 'pdf-house-style';
 
 /* FONTS
 ===========	*/
@@ -402,7 +390,7 @@ div.part {
 }
  
 body {
-  font:  10pt/1.1  "Sorts Mill Goudy", serif;
+  font:  10pt/1.1  $body-font-stack-prince;
   font-weight: 100;
 }
 
