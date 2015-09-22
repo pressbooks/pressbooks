@@ -1,81 +1,11 @@
-/*
-Name: Fitzgerald PDF
-Version: 1.1
-Author: Pressbooks (Book Oven Inc.)
-Author URI: http://pressbooks.com
-Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) support@pressbooks.com
-Reference @see: http://www.princexml.com/doc/8.1/
-
-================== */
-
-@import '../../../assets/export/_pdf-house-style'
+@import 'mixins', 'pdf-house-style';
 
 
 /* FONTS
 ===========    */
 
-
-@font-face {
-  font-family: "Crimson";
-  font-weight: bold;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/Crimson-Bold.otf) format("opentype");
-}
-@font-face {
-  font-family: "Crimson";
-  font-weight: bold;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/Crimson-BoldItalic.otf) format("opentype");
-}
-@font-face {
-  font-family: "Crimson";
-  font-weight: normal;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/Crimson-Italic.otf) format("opentype");
-}
-@font-face {
-  font-family: "Crimson";
-  font-weight: normal;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/Crimson-Roman.otf) format("opentype");
-}
-@font-face {
-  font-family: "Crimson";
-  font-weight: 600;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/Crimson-Semibold.otf) format("opentype");
-}
-@font-face {
-  font-family: "Crimson";
-  font-weight: 600;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/Crimson-SemiboldItalic.otf) format("opentype");
-}
-
-@font-face {
-  font-family: "Roboto Condensed";
-  font-weight: normal;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-Regular.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Roboto Condensed";
-  font-weight: normal;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-Italic.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Roboto Condensed";
-  font-weight: 300;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-Light.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Roboto Condensed";
-  font-weight: 300;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-LightItalic.ttf) format("truetype");
-}
+@include CrimsonFont;
+@include RobotoCondensedFont;
 
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
 h1, h2, h3, h4, h5, h6 {
@@ -340,7 +270,9 @@ div.part {
 	padding: part;	
 }
 body {
-	font: 10.5pt/1.4 "Crimson","Times New Roman", serif;
+	font-size: 10.5pt;
+	line-height: 1.4;
+	font-family: $body-font-stack-prince;
 	prince-hyphenate-before: 3;
 }
 a {

@@ -1,0 +1,16 @@
+/*
+Theme Name: Fitzgerald 
+Theme URI: http://pressbooks.com/
+Description: Serif body, with condensed sans serif header fonts. Based on a theme commissioned by the University of Minnesota Press.
+Author: Pressbooks (Book Oven Inc.)
+Author URI: http://pressbooks.com
+Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
+Version: 1.1
+Template: pressbooks-book
+*/
+
+@import 'fonts', 'global-fonts', 'global-font-stack';
+
+$body-font-stack-epub: "Times New Roman", Times, Georgia, $global-font-stack, serif;
+$body-font-stack-prince: "Crimson", "Times New Roman", $global-font-stack, serif;
+$body-font-stack-web: "Crimson", "Times New Roman", $global-font-stack, serif;

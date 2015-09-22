@@ -38,6 +38,8 @@
 //IMFellFrenchCanonSCFont 'IM Fell French Canon SC'
 //LatoFont 'Lato'
 //LibreBaskervilleFont 'Libre Baskerville'
+//LinuxBiolinum 'Linux Biolinum'
+//LinuxLibertine 'Linux Libertine'
 //MacondoSwashCapsFont
 //MarcellusFont 'Marcellus'
 //MarcellusSCFont 'MarcellusSC'
@@ -1034,6 +1036,59 @@
   }
 }
 
+@mixin LinuxBiolinum {
+	@font-face {
+	  font-family: "Linux Biolinum";
+	  font-weight: normal;
+	  font-style: normal;
+	  src: url(themes-book/pressbooks-book/fonts/LinBiolinum_Rah.ttf) format("truetype");
+	}
+	@font-face {
+	  font-family: "Linux Biolinum";
+	  font-weight: bold;
+	  font-style: normal;
+	  src: url(themes-book/pressbooks-book/fonts/LinBiolinum_RBah.ttf) format("truetype");
+	}
+	@font-face {
+	  font-family: "Linux Biolinum";
+	  font-weight: normal;
+	  font-style: italic;
+	  src: url(themes-book/pressbooks-book/fonts/LinBiolinum_RIah.ttf) format("truetype");
+	}
+}
+
+
+//LINUX LIBERTINE
+//SERIF
+
+@mixin LinuxLibertine {
+	@font-face {
+	  font-family: "Linux Libertine";
+	  font-weight: bold;
+	  font-style: normal;
+	  src: url(themes-book/pressbooks-book/fonts/LinLibertine_RBah.ttf) format("truetype");
+	}
+	
+	@font-face {
+	  font-family: "Linux Libertine";
+	  font-weight: bold;
+	  font-style: italic;
+	  src: url(themes-book/pressbooks-book/fonts/LinLibertine_RBIah.ttf) format("truetype");
+	}
+	@font-face {
+	  font-family: "Linux Libertine";
+	  font-weight: normal;
+	  font-style: italic;
+	  src: url(themes-book/pressbooks-book/fonts/LinLibertine_RIah.ttf) format("truetype");
+	}
+	@font-face {
+	  font-family: "Linux Libertine";
+	  font-weight: normal;
+	  font-style: normal;
+	  src: url(themes-book/pressbooks-book/fonts/LinLibertine_Rah.ttf) format("truetype");
+	}
+}
+
 //LORA
 //SERIF
 
@@ -1549,6 +1604,35 @@
     font-weight: 900;
     src: url(themes-book/pressbooks-book/fonts/Roboto-BlackItalic.ttf) format('truetype');
   }
+}
+
+//ROBOTO CONDENSED
+
+@mixin RobotoCondensedFont {
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: normal;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: normal;
+  font-style: italic;
+  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-Italic.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: 300;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-Light.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: 300;
+  font-style: italic;
+  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-LightItalic.ttf) format("truetype");
+}
 }
 
 //SBL GREEK

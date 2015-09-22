@@ -281,7 +281,9 @@ div.part.invisible {
 }
  
 body {
-	font: 10pt/1.1 $body-font-stack-prince;
+	font-size: 10pt;
+	line-height: 1.1;
+	font-family: $body-font-stack-prince;
 }
 
 a {
