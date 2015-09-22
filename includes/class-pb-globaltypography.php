@@ -11,7 +11,7 @@ namespace PressBooks;
 class GlobalTypography {
 	
 	/**
-	 * Get supported languages.
+	 * Get Pressbooks-supported languages.
 	 *
 	 * @return array
 	 */
@@ -34,6 +34,25 @@ class GlobalTypography {
 	}
 	
 	/**
+	 * Get the current theme's supported languages.
+	 *
+	 * @return array
+	 */
+	 
+	static function getThemeSupportedLanguages() {
+		
+		$return_value = array();
+		
+		$fullpath = get_stylesheet_directory() . '/theme-information.php';
+		
+		if ( is_file( $fullpath ) ) require_once( $fullpath );
+				
+		if ( @$supported_languages ) $return_value = $supported_languages;
+						
+		return $return_value;
+	}
+
+	/**
 	 * Update and save the SCSS mixin which assigns the $global-typography variable.
 	 *
 	 * @param int $pid
@@ -52,6 +71,8 @@ class GlobalTypography {
 		
 		$languages = get_option( 'pressbooks_global_typography' );
 
+		$already_supported_languages = \PressBooks\GlobalTypography::getThemeSupportedLanguages();
+		
 		$book_lang = \PressBooks\Book::getBookInformation();
 		$book_lang = @$book_lang['pb_language'];
 		
@@ -110,53 +131,77 @@ class GlobalTypography {
 			foreach ( $languages as $language )	{
 				switch ( $language ) {
 					case 'grc': // Ancient Greek
-						$scss .= "@include LangFontGreekAncient;\n";
-						$global_typography .= "'SBL Greek', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontGreekAncient;\n";
+							$global_typography .= "'SBL Greek', ";
+						}
 						break;
 					case 'ar': // Arabic
-						$scss .= "@include LangFontArabicKufi;\n";
-						$scss .= "@include LangFontArabicNaskh;\n";
-						$global_typography .= "'Noto Kufi Arabic', 'Noto Naskh Arabic', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontArabicKufi;\n";
+							$scss .= "@include LangFontArabicNaskh;\n";
+							$global_typography .= "'Noto Kufi Arabic', 'Noto Naskh Arabic', ";
+						}
 						break;
 					case 'he': // Biblical Hebrew
-						$scss .= "@include LangFontHebrewBiblical;\n";
-						$global_typography .= "'SBL Hebrew', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontHebrewBiblical;\n";
+							$global_typography .= "'SBL Hebrew', ";
+						}
 						break;
 					case 'zh_HANS': // Chinese (Simplified)
-						$scss .= "@include LangFontChineseSimplified;\n";
-						$global_typography .= "'Noto CJK SC', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontChineseSimplified;\n";
+							$global_typography .= "'Noto CJK SC', ";
+						}
 						break;
 					case 'zh_HANT': // Chinese (Simplified)
-						$scss .= "@include LangFontChineseTraditional;\n";
-						$global_typography .= "'Noto CJK TC', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontChineseTraditional;\n";
+							$global_typography .= "'Noto CJK TC', ";
+						}
 						break;
 					case 'cop': // Coptic
-						$scss .= "@include LangFontCoptic;\n";
-						$global_typography .= "'Antinoou', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontCoptic;\n";
+							$global_typography .= "'Antinoou', ";
+						}
 						break;
 					case 'gu': // Gujarati
-						$scss .= "@include LangFontGujarati;\n";
-						$global_typography .= "'Ekatra', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontGujarati;\n";
+							$global_typography .= "'Ekatra', ";
+						}
 						break;
 					case 'ja': // Japanese
-						$scss .= "@include LangFontJapanese;\n";
-						$global_typography .= "'Noto CJK JP', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontJapanese;\n";
+							$global_typography .= "'Noto CJK JP', ";
+						}
 						break;
 					case 'ko': // Korean
-						$scss .= "@include LangFontKorean;\n";
-						$global_typography .= "'Noto CJK KR', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontKorean;\n";
+							$global_typography .= "'Noto CJK KR', ";
+						}
 						break;
 					case 'syr': // Syriac
-						$scss .= "@include LangFontSyriac;\n";
-						$global_typography .= "'Noto Sans Syriac', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontSyriac;\n";
+							$global_typography .= "'Noto Sans Syriac', ";
+						}
 						break;
 					case 'ta': // Tamil
-						$scss .= "@include LangFontTamil;\n";
-						$global_typography .= "'Noto Sans Tamil', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontTamil;\n";
+							$global_typography .= "'Noto Sans Tamil', ";
+						}
 						break;
 					case 'bo': // Tibetan
-						$scss .= "@include LangFontTibetan;\n";
-						$global_typography .= "'Noto Sans Tibetan', ";
+						if ( !in_array( $language, $already_supported_languages ) ) {
+							$scss .= "@include LangFontTibetan;\n";
+							$global_typography .= "'Noto Sans Tibetan', ";
+						}
 						break;
 				}
 			}
