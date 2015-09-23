@@ -62,14 +62,14 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-left
   {
-	font-family: "Cardo","Times New Roman", serif;
+	font-family: $body-font-stack-prince;
 	content: counter(page, lower-roman) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
 }
 @page front-matter:right {
   @top-right {
-	font-family: "Cardo","Times New Roman", serif;
+	font-family: $body-font-stack-prince;
 	content: string(section-title, last) "\A0\A0\A0" counter(page, lower-roman);
 	vertical-align: right;
   }
@@ -80,7 +80,7 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
 	content: counter(page, lower-roman);
-	font-family: "Cardo","Times New Roman", serif;	
+	font-family: $body-font-stack-prince;	
 	vertical-align: center;
   }
 }
@@ -111,14 +111,14 @@ h1, h2, h3, h4, h5, h6 {
 
 @page introduction:left {
   @top-left {
-	font-family: "Cardo","Times New Roman", serif;
+	font-family: $body-font-stack-prince;
 	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
-	font-family: "Cardo","Times New Roman", serif;
+	font-family: $body-font-stack-prince;
 	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -133,7 +133,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: "Cardo","Times New Roman", serif;	
+	font-family: $body-font-stack-prince;	
 	vertical-align: center;
   }
   
@@ -154,7 +154,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @page chapter:left {
   @top-left {
-	font-family: "Cardo","Times New Roman", serif;
+	font-family: $body-font-stack-prince;
 	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
@@ -163,7 +163,7 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-right
   {
-	font-family: "Cardo","Times New Roman", serif;
+	font-family: $body-font-stack-prince;
 	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -177,7 +177,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: "Cardo","Times New Roman", serif;	
+	font-family: $body-font-stack-prince;	
 	vertical-align: center;
   }
 }
@@ -197,7 +197,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Back-matter */
 @page back-matter:left {
   @top-left {
-	font-family: "Cardo","Times New Roman", serif;
+	font-family: $body-font-stack-prince;
 	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
@@ -205,7 +205,7 @@ h1, h2, h3, h4, h5, h6 {
 @page back-matter:right {
   @top-right
   {
-	font-family: "Cardo","Times New Roman", serif;
+	font-family: $body-font-stack-prince;
 	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -220,7 +220,7 @@ h1, h2, h3, h4, h5, h6 {
   @bottom
   {
 	content: counter(page);
-	font-family: "Cardo","Times New Roman", serif;	
+	font-family: $body-font-stack-prince;	
 	vertical-align: center;
   }
 }
