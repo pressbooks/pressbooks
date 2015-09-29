@@ -50,7 +50,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 	</script>
 
 	<form id="pb-import-form" action="<?php echo $import_form_url ?>" method="post">
-
+		<?php $colspan = ! empty( $current_import['allow_parts'] ) ? 5 : 4; ?>
 		<table class="wp-list-table widefat">
 			<thead>
 			<tr>
@@ -67,7 +67,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 			<tbody>
 			<tr>
 				<td><input type="checkbox" id="checkall" /></td>
-				<td colspan="4" style="color:darkred;"><label for="checkall">Select all</label></td>
+				<td colspan="<?php echo $colspan; ?>" style="color:darkred;"><label for="checkall">Select all</label></td>
 			</tr>
 			<?php
 			$i = 1;
@@ -75,13 +75,18 @@ $current_import = get_option( 'pressbooks_current_import' );
 				?>
 				<tr <?php if ( $i % 2 ) echo 'class="alt"'; ?> >
 					<td><input type='checkbox' id='selective_import_<?php echo $i; ?>' name='chapters[<?php echo $key; ?>][import]' value='1'></td>
-					<td><label for="selective_import_<?php echo $i; ?>"><?php echo $chapter; ?></label></td>
-					<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='front-matter' <?php checked(isset( $current_import['post_types'][$key] ) && 'front-matter' == $current_import['post_types'][$key]);?>></td>
-					<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='chapter' <?php checked(!isset( $current_import['post_types'][$key] ) || 'chapter' == $current_import['post_types'][$key]);?>></td>
-					<?php if ( !empty( $current_import['allow_parts'] ) ) {?>
-					<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='part' <?php checked(isset( $current_import['post_types'][$key] ) && 'part' == $current_import['post_types'][$key]);?>></td>
+					<?php if ( isset( $current_import['post_types'][ $key ] ) && 'metadata' == $current_import['post_types'][ $key ] ) { ?>
+						<td><label for="selective_import_<?php echo $i; ?>"><em>(<?php echo __( 'Book Info', 'pressbooks' ); ?>)</em></label></td>
+						<td colspan="<?php echo $colspan; ?>"><input type="hidden" name='chapters[<?php echo $key; ?>][type]' value="metadata" /></td>
+					<?php } else { ?>
+						<td><label for="selective_import_<?php echo $i; ?>"><?php echo $chapter; ?></label></td>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='front-matter' <?php checked(isset( $current_import['post_types'][$key] ) && 'front-matter' == $current_import['post_types'][$key]);?>></td>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='chapter' <?php checked(!isset( $current_import['post_types'][$key] ) || 'chapter' == $current_import['post_types'][$key]);?>></td>
+						<?php if ( !empty( $current_import['allow_parts'] ) ) {?>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='part' <?php checked(isset( $current_import['post_types'][$key] ) && 'part' == $current_import['post_types'][$key]);?>></td>
+						<?php } ?>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='back-matter' <?php checked(isset( $current_import['post_types'][$key] ) && 'back-matter' == $current_import['post_types'][$key]);?>></td>
 					<?php } ?>
-					<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='back-matter' <?php checked(isset( $current_import['post_types'][$key] ) && 'back-matter' == $current_import['post_types'][$key]);?>></td>
 				</tr>
 				<?php
 				++$i;
