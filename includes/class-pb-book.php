@@ -362,7 +362,7 @@ class Book {
 	 * Returns an array of subsections in front matter, back matter, or chapters.
 	 *
 	 * @param $id
-	 *
+	 * @return array|false
 	 */
 	static function getSubsections( $id ) {
 
@@ -373,6 +373,10 @@ class Book {
 		$output = array();
 		$s = 1;
 		$content = mb_convert_encoding( apply_filters( 'the_content', $parent->post_content ), 'HTML-ENTITIES', 'UTF-8' );
+
+		if ( empty( $content ) )
+			return false;
+
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
 		$sections = $doc->getElementsByTagName('h1');
@@ -380,11 +384,12 @@ class Book {
 			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
 			$s++;
 		}
-		if ( empty( $output ) )
-			$output = false;
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
+
+		if ( empty( $output ) )
+			return false;
 
 		return $output;
 	}
