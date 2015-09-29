@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6 {
 /* TOC */
 @page toc {
   @bottom {
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   content: counter(page, lower-roman);
   vertical-align: center;
   text-transform: lowercase;
@@ -54,7 +54,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 175px;
   }
   @top-left {
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   content: string(book-author);
   font-variant:small-caps;
   text-align: center;
@@ -71,7 +71,7 @@ h1, h2, h3, h4, h5, h6 {
 
   @top-right
   {
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   content: string(book-title);
   font-variant:small-caps;
   text-align: center;
@@ -88,7 +88,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
   content: counter(page);
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -101,7 +101,7 @@ h1, h2, h3, h4, h5, h6 {
 @page chapter{
   @bottom {
   content: counter(page);
-  font-family: "Marcellus SC", serif;  
+  font-family: $font-stack-2-prince;  
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -139,7 +139,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @page introduction:left {
   @top-left {
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   content: string(book-author);
   font-variant:small-caps;
   text-align: center;
@@ -150,7 +150,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @page introduction:right {
   @top-right {
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   content: string(book-title);
   font-variant:small-caps;
   text-align: center;
@@ -169,7 +169,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
   content: counter(page);
-  font-family: "Marcellus SC", serif;  
+  font-family: $font-stack-2-prince;  
   vertical-align: top;
   margin-bottom: 20px;
   margin-top: 25px;
@@ -179,7 +179,7 @@ h1, h2, h3, h4, h5, h6 {
 @page introduction{
   @bottom {
   content: counter(page);
-  font-family: "Marcellus SC", serif;  
+  font-family: $font-stack-2-prince;  
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -204,7 +204,7 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-left
   {
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   content: string(book-author);
   font-variant:small-caps;
   text-align: center;
@@ -215,7 +215,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @page front-matter:right {
   @top-right {
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   content: string(book-title);
   font-variant:small-caps;
   text-align: center;
@@ -233,7 +233,7 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
   content: counter(page, lower-roman);
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   vertical-align: center;
   border-top: 0.9px solid #000;
   margin-bottom: 20px;
@@ -245,7 +245,7 @@ h1, h2, h3, h4, h5, h6 {
 @page front-matter{
    @bottom {
     content: counter(page, lower-roman);
-    font-family: "Marcellus SC", serif;
+    font-family: $font-stack-2-prince;
     text-align: center;
     vertical-align: top;
     border-top: 0.9px solid #000;
@@ -277,7 +277,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 175px;
   }
   @top-left {
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   content: string(book-author);
   font-variant:small-caps;
   text-align: center;
@@ -292,7 +292,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @top-right
   {
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   content: string(book-title);
   font-variant:small-caps;
   text-align: center;
@@ -309,7 +309,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
   content: counter(page);
-  font-family: "Marcellus SC", serif;
+  font-family: $font-stack-2-prince;
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -322,7 +322,7 @@ h1, h2, h3, h4, h5, h6 {
 @page back-matter{
   @bottom {
   content: counter(page);
-  font-family: "Marcellus SC", serif;  
+  font-family: $font-stack-2-prince;  
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -392,7 +392,7 @@ div.part {
 body {
   font-size: 10pt;
   line-height: 1.1;
-  font-family: $body-font-stack-prince;
+  font-family: $font-stack-1-prince;
   font-weight: 100;
 }
 
@@ -454,56 +454,9 @@ dd {
   margin-bottom: 0;
 }
 
-/* old lists
-
-ul ul,
-ul ul ul {
-  list-style-type: none;
-}
-ul li li {
-  list-style-image: url('images/em-dash.png');
-
-}
-ul li li li {
-  list-style-image: none;
-}
-ul li li li::before {
-  content: "\002A";
-  font-size: 0.5em;
-  margin-right: 5px;
-}
-ol { 
-    list-style-type: none;
-    list-style-position: outside;
-     counter-reset: level1;
-}
-ol li::before {
-  content: counter(level1) ". ";
-  counter-increment: level1;
-}
-ol ol {
-  list-style-type: none;
-    counter-reset: level2;
-}   
-ol li li::before {
-  content: counter(level1) "." counter(level2) " ";
-  counter-increment: level2;
-}
-ol ol ol {
-  list-style-type: none;
-    counter-reset: level3;
-}
-ol li li li::before {
-  content: counter(level1) ". " counter(level2) ". " counter(level3) " ";
-  counter-increment: level3;
-}
-
-*/
-
 ol.upper-alpha {
   list-style-type: upper-alpha;
 }
-
 
 cite {
   font-weight: normal;
