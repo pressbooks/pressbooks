@@ -9,7 +9,7 @@ Version: 1.1
 Template: pressbooks-book
 */
 
-@import 'fonts', 'global-fonts', 'global-font-stack';
+@import 'fonts', 'global-font-stack';
 
 $font-stack-1-epub: "Times New Roman", Times, Georgia, $global-font-stack-serif, serif;
 $font-stack-1-prince: "Crimson", "Times New Roman", $global-font-stack-serif, serif;

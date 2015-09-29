@@ -9,7 +9,7 @@ Version: 1.3
 Template: pressbooks-book
 */
 
-@import 'fonts', 'global-fonts', 'global-font-stack';
+@import 'fonts', 'global-font-stack';
 
 $font-stack-1-epub: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, Times $global-font-stack-serif, serif;
 $font-stack-1-prince: "Linux Libertine", $global-font-stack-serif, serif;

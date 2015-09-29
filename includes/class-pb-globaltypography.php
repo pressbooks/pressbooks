@@ -53,6 +53,25 @@ class GlobalTypography {
 	}
 
 	/**
+	 * Get the current theme's font stacks.
+	 *
+	 * @return array
+	 */
+	 
+	static function getThemeFontStacks() {
+		
+		$return_value = array();
+		
+		$fullpath = get_stylesheet_directory() . '/theme-information.php';
+		
+		if ( is_file( $fullpath ) ) require_once( $fullpath );
+				
+		if ( @$font_stacks ) $return_value = $font_stacks;
+						
+		return $return_value;
+	}
+
+	/**
 	 * Update and save the SCSS mixin which assigns the $global-typography variable.
 	 *
 	 * @param int $pid
@@ -67,8 +86,22 @@ class GlobalTypography {
 		$scss = "// Global Typography\n";
 		$scss .= "@import 'global-fonts';\n";
 		
-		$global_typography = '$global-font-stack: ';
+		$font_stacks = \PressBooks\GlobalTypography::getThemeFontStacks()
 		
+		if ( in_array( 'sans', $font_stacks ) ) {
+			$global_font_stack_sans = '$global-font-stack-sans: ';
+			$sans = true;
+		} else {
+			$global_font_stack_sans = '$global-font-stack-sans: null;';
+		}
+		 
+		if ( in_array( 'serif', $font_stacks ) ) { 
+			$global_font_stack_serif = '$global-font-stack-serif: ';
+			$serif = true;
+		} else {
+			$global_font_stack_serif = '$global-font-stack-serif: null;';
+		}
+
 		$languages = get_option( 'pressbooks_global_typography' );
 
 		$already_supported_languages = \PressBooks\GlobalTypography::getThemeSupportedLanguages();
@@ -132,87 +165,162 @@ class GlobalTypography {
 				switch ( $language ) {
 					case 'grc': // Ancient Greek
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontGreekAncient;\n";
-							$global_typography .= "'SBL Greek', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontGreekAncient;\n";
+								$global_font_stack_sans .= "'SBL Greek', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontGreekAncient;\n";
+								$global_font_stack_serif .= "'SBL Greek', ";
+							}
 						}
 						break;
 					case 'ar': // Arabic
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontArabicKufi;\n";
-							$scss .= "@include LangFontArabicNaskh;\n";
-							$global_typography .= "'Noto Kufi Arabic', 'Noto Naskh Arabic', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontArabicKufi;\n";
+								$global_font_stack_sans .= "'Noto Kufi Arabic', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontArabicNaskh;\n";
+								$global_font_stack_serif .= "'Noto Naskh Arabic', ";
+							}
 						}
 						break;
 					case 'he': // Biblical Hebrew
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontHebrewBiblical;\n";
-							$global_typography .= "'SBL Hebrew', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontHebrewBiblical;\n";
+								$global_font_stack_sans .= "'SBL Hebrew', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontHebrewBiblical;\n";
+								$global_font_stack_serif .= "'SBL Hebrew', ";
+							}
 						}
 						break;
 					case 'zh_HANS': // Chinese (Simplified)
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontChineseSimplified;\n";
-							$global_typography .= "'Noto CJK SC', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontChineseSimplified;\n";
+								$global_font_stack_sans .= "'Noto CJK SC', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontChineseSimplified;\n";
+								$global_font_stack_serif .= "'Noto CJK SC', ";
+							}
 						}
 						break;
 					case 'zh_HANT': // Chinese (Simplified)
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontChineseTraditional;\n";
-							$global_typography .= "'Noto CJK TC', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontChineseTraditional;\n";
+								$global_font_stack_sans .= "'Noto CJK TC', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontChineseTraditional;\n";
+								$global_font_stack_serif .= "'Noto CJK TC', ";
+							}
 						}
 						break;
 					case 'cop': // Coptic
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontCoptic;\n";
-							$global_typography .= "'Antinoou', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontCoptic;\n";
+								$global_font_stack_sans .= "'Antinoou', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontCoptic;\n";
+								$global_font_stack_serif .= "'Antinoou', ";
+							}
 						}
 						break;
 					case 'gu': // Gujarati
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontGujarati;\n";
-							$global_typography .= "'Ekatra', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontCoptic;\n";
+								$global_font_stack_sans .= "'Antinoou', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontGujarati;\n";
+								$global_font_stack_serif .= "'Ekatra', ";
+							}
 						}
 						break;
 					case 'ja': // Japanese
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontJapanese;\n";
-							$global_typography .= "'Noto CJK JP', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontJapanese;\n";
+								$global_font_stack_sans .= "'Noto CJK JP', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontJapanese;\n";
+								$global_font_stack_serif .= "'Noto CJK JP', ";
+							}
 						}
 						break;
 					case 'ko': // Korean
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontKorean;\n";
-							$global_typography .= "'Noto CJK KR', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontKorean;\n";
+								$global_font_stack_sans .= "'Noto CJK KR', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontKorean;\n";
+								$global_font_stack_serif .= "'Noto CJK KR', ";
+							}
 						}
 						break;
 					case 'syr': // Syriac
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontSyriac;\n";
-							$global_typography .= "'Noto Sans Syriac', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontSyriac;\n";
+								$global_font_stack_sans .= "'Noto Sans Syriac', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontSyriac;\n";
+								$global_font_stack_serif .= "'Noto Sans Syriac', ";
+							}
 						}
 						break;
 					case 'ta': // Tamil
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontTamil;\n";
-							$global_typography .= "'Noto Sans Tamil', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontTamil;\n";
+								$global_font_stack_sans .= "'Noto Sans Tamil', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontTamil;\n";
+								$global_font_stack_serif .= "'Noto Sans Tamil', ";
+							}
 						}
 						break;
 					case 'bo': // Tibetan
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							$scss .= "@include LangFontTibetan;\n";
-							$global_typography .= "'Noto Sans Tibetan', ";
+							if ( $sans ) {
+								$scss .= "@include LangFontTibetan;\n";
+								$global_font_stack_sans .= "'Noto Sans Tibetan', ";
+							}
+							if ( $serif ) {
+								$scss .= "@include LangFontTibetan;\n";
+								$global_font_stack_serif .= "'Noto Sans Tibetan', ";
+							}
 						}
 						break;
 				}
 			}
 						
-			$global_typography = rtrim( $global_typography, ', ' );
-			$global_typography .= ";\n";
+			$global_font_stack_sans = rtrim( $global_font_stack_sans, ', ' );
+			$global_font_stack_sans .= ";\n";
+			$global_font_stack_serif = rtrim( $global_font_stack_serif, ', ' );
+			$global_font_stack_serif .= ";\n";
 		} else {
-			$global_typography .= 'null;';
+			$global_font_stack_sans .= 'null;';
+			$global_font_stack_serif .= 'null;';
 		}
 
-		$scss .= $global_typography;
+		$scss .= $global_font_stack_sans;
+		$scss .= $global_font_stack_serif;
 		
 		$wp_upload_dir = wp_upload_dir();
 
