@@ -163,7 +163,7 @@ class Metadata {
 		foreach ( $micro_mapping as $itemprop => $content ) {
 			if ( array_key_exists( $content, $metadata ) ) {
 				if ( 'pb_publication_date' == $content ) {
-					$content = date( 'Y-m-d', $metadata[$content] );
+					$content = date( 'Y-m-d', (int) $metadata[$content] );
 				} else {
 					$content = $metadata[$content];
 				}
