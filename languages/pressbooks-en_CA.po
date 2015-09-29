@@ -3,12 +3,13 @@
 # Translators:
 # Hugh McGuire <hugh@pressbooks.com>, 2015
 # Ned Zimmerman, 2015
+# Ned Zimmerman, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-09-08 22:49-0300\n"
-"PO-Revision-Date: 2015-09-09 01:50+0000\n"
-"Last-Translator: Ned Zimmerman\n"
+"PO-Revision-Date: 2015-09-28 15:10+0000\n"
+"Last-Translator: Hugh McGuire <hugh@pressbooks.com>\n"
 "Language-Team: English (Canada) (http://www.transifex.com/pressbooks/pressbooks/language/en_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -261,7 +262,7 @@ msgstr "EPUB is required for MOBI export. Would you like to reenable it?"
 
 #: admin/pb-admin-laf.php:169 admin/templates/publish.php:10
 msgid "Publish"
-msgstr ""
+msgstr "Publish"
 
 #: admin/pb-admin-laf.php:172 admin/pb-admin-laf.php:737
 msgid "Privacy Settings"
@@ -327,7 +328,7 @@ msgstr "You do not have sufficient permissions to access that URL."
 
 #: admin/pb-admin-laf.php:631
 msgid "Book Visibility"
-msgstr ""
+msgstr "Book Visibility"
 
 #: admin/pb-admin-laf.php:638
 msgid "Private Content"
@@ -335,7 +336,7 @@ msgstr "Private Content"
 
 #: admin/pb-admin-laf.php:661
 msgid "Privacy settings"
-msgstr ""
+msgstr "Privacy settings"
 
 #: admin/pb-admin-laf.php:675
 msgid "Public. I would like this book to be visible to everyone."
@@ -364,7 +365,7 @@ msgstr "Amazon URL"
 
 #: admin/pb-admin-laf.php:772
 msgid "O'Reilly URL"
-msgstr ""
+msgstr "O'Reilly URL"
 
 #: admin/pb-admin-laf.php:779
 msgid "Barnes and Noble URL"
@@ -388,7 +389,7 @@ msgstr "Email me validation error reports on export."
 
 #: admin/pb-admin-laf.php:949
 msgid "Export settings"
-msgstr ""
+msgstr "Export settings"
 
 #: admin/pb-admin-laf.php:963
 msgid "No. Ignore validation errors."
@@ -1060,26 +1061,26 @@ msgstr "Ebook start point"
 
 #: admin/templates/organize.php:208
 msgid "Reordering Chapters"
-msgstr ""
+msgstr "Reordering Chapters"
 
 #: admin/templates/organize.php:213
 msgid "Reordering Front Matter"
-msgstr ""
+msgstr "Reordering Front Matter"
 
 #: admin/templates/organize.php:218
 msgid "Reordering Back Matter"
-msgstr ""
+msgstr "Reordering Back Matter"
 
 #: admin/templates/publish.php:11
 msgid ""
 "Once your book is finished, you can download the files and submit them to "
 "ebookstores and print-on-demand providers. And if you like, Pressbooks can "
 "print your books, and ship them right to your door."
-msgstr ""
+msgstr "Once your book is finished, you can download the files and submit them to ebookstores and print-on-demand providers. And if you like, Pressbooks can print your books, and ship them right to your door."
 
 #: admin/templates/publish.php:15
 msgid "Ebook Stores"
-msgstr ""
+msgstr "Ebook Stores"
 
 #: admin/templates/publish.php:16
 #, php-format
@@ -1089,7 +1090,7 @@ msgid ""
 "serve ebookstores are <a href=\"%1s\">Kindle</a>, <a href=\"%2s\">Kobo</a>, "
 "and <a href=\"%3s\">Nook</a>. Other ebook stores include Apple iBooks and "
 "Google."
-msgstr ""
+msgstr "Once you have downloaded your files, you can either submit them to ebookstores yourself, or use a third-party distributor. Recommended self-serve ebookstores are <a href=\"%1s\">Kindle</a>, <a href=\"%2s\">Kobo</a>, and <a href=\"%3s\">Nook</a>. Other ebook stores include Apple iBooks and Google."
 
 #: admin/templates/publish.php:17
 #, php-format
@@ -1097,39 +1098,39 @@ msgid ""
 "If you do not wish to submit your ebooks yourself, we recommend using a "
 "third-party distribution service such as <a href=\"%1s\">IngramSpark</a>, "
 "which can also make your books available online in print."
-msgstr ""
+msgstr "If you do not wish to submit your ebooks yourself, we recommend using a third-party distribution service such as <a href=\"%1s\">IngramSpark</a>, which can also make your books available online in print."
 
 #: admin/templates/publish.php:19
 msgid "Print-on-Demand"
-msgstr ""
+msgstr "Print-on-Demand"
 
 #: admin/templates/publish.php:20
 #, php-format
 msgid ""
 "If you wish to sell your printed books online, we recommend going through <a"
 " href=\"%1s\">IngramSpark</a> or Amazon's <a href=\"%2s\">CreateSpace</a>."
-msgstr ""
+msgstr "If you wish to sell your printed books online, we recommend going through <a href=\"%1s\">IngramSpark</a> or Amazon's <a href=\"%2s\">CreateSpace</a>."
 
 #: admin/templates/publish.php:22
 msgid "Ordering Printed Books"
-msgstr ""
+msgstr "Ordering Printed Books"
 
 #: admin/templates/publish.php:23
 #, php-format
 msgid ""
 "Pressbooks can print your books and send them to you. For pricing and more "
 "details, please send an email to: <a href=\"%1s\">print@pressbooks.com</a>"
-msgstr ""
+msgstr "Pressbooks can print your books and send them to you. For pricing and more details, please send an email to: <a href=\"%1s\">print@pressbooks.com</a>"
 
 #: admin/templates/publish.php:27
 msgid "Adding BUY Links to Your Pressbooks Web Book"
-msgstr ""
+msgstr "Adding BUY Links to Your Pressbooks Web Book"
 
 #: admin/templates/publish.php:28
 msgid ""
 "If you would like to add <strong>BUY</strong> links to your Pressbooks web "
 "book, add the links to your book at the different retailers below:"
-msgstr ""
+msgstr "If you would like to add <strong>BUY</strong> links to your Pressbooks web book, add the links to your book at the different retailers below:"
 
 #: hooks-admin.php:196
 #, php-format
@@ -1232,11 +1233,11 @@ msgstr "Settings saved."
 
 #: includes/class-pb-catalog.php:1206
 msgid "Invalid URL."
-msgstr ""
+msgstr "Invalid URL."
 
 #: includes/class-pb-catalog.php:1226
 msgid "No book found."
-msgstr ""
+msgstr "No book found."
 
 #: includes/class-pb-metadata.php:240
 msgid "All Rights Reserved"
@@ -1645,209 +1646,209 @@ msgstr "Book Information"
 #: includes/pb-postype.php:238
 #, php-format
 msgid "Part updated. <a target=\"_blank\" href=\"%s\">View Part</a>"
-msgstr ""
+msgstr "Part updated. <a target=\"_blank\" href=\"%s\">View Part</a>"
 
 #: includes/pb-postype.php:238 includes/pb-postype.php:241
 msgid "Part updated."
-msgstr ""
+msgstr "Part updated."
 
 #: includes/pb-postype.php:239 includes/pb-postype.php:256
 #: includes/pb-postype.php:269 includes/pb-postype.php:286
 #: includes/pb-postype.php:303
 msgid "Custom field updated."
-msgstr ""
+msgstr "Custom field updated."
 
 #: includes/pb-postype.php:240 includes/pb-postype.php:257
 #: includes/pb-postype.php:270 includes/pb-postype.php:287
 #: includes/pb-postype.php:304
 msgid "Custom field deleted."
-msgstr ""
+msgstr "Custom field deleted."
 
 #: includes/pb-postype.php:243
 #, php-format
 msgid "Part restored to revision from %s"
-msgstr ""
+msgstr "Part restored to revision from %s"
 
 #: includes/pb-postype.php:244
 #, php-format
 msgid "Part published. <a target=\"_blank\" href=\"%s\">View Part</a>"
-msgstr ""
+msgstr "Part published. <a target=\"_blank\" href=\"%s\">View Part</a>"
 
 #: includes/pb-postype.php:244
 msgid "Part published."
-msgstr ""
+msgstr "Part published."
 
 #: includes/pb-postype.php:245
 msgid "Part saved."
-msgstr ""
+msgstr "Part saved."
 
 #: includes/pb-postype.php:246
 #, php-format
 msgid "Part submitted. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
-msgstr ""
+msgstr "Part submitted. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
 
 #: includes/pb-postype.php:247
 #, php-format
 msgid ""
 "Part scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Part</a>"
-msgstr ""
+msgstr "Part scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Part</a>"
 
 #: includes/pb-postype.php:249 includes/pb-postype.php:279
 #: includes/pb-postype.php:296 includes/pb-postype.php:313
 msgid "M j, Y @ G:i"
-msgstr ""
+msgstr "M j, Y @ G:i"
 
 #: includes/pb-postype.php:250
 #, php-format
 msgid "Part draft updated. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
-msgstr ""
+msgstr "Part draft updated. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
 
 #: includes/pb-postype.php:255 includes/pb-postype.php:258
 #: includes/pb-postype.php:261
 msgid "Book Information updated."
-msgstr ""
+msgstr "Book Information updated."
 
 #: includes/pb-postype.php:260
 #, php-format
 msgid "Book Information restored to revision from %s"
-msgstr ""
+msgstr "Book Information restored to revision from %s"
 
 #: includes/pb-postype.php:262
 msgid "Book Information saved."
-msgstr ""
+msgstr "Book Information saved."
 
 #: includes/pb-postype.php:263
 msgid "Book Information submitted."
-msgstr ""
+msgstr "Book Information submitted."
 
 #: includes/pb-postype.php:268
 #, php-format
 msgid "Chapter updated. <a target=\"_blank\" href=\"%s\">View Chapter</a>"
-msgstr ""
+msgstr "Chapter updated. <a target=\"_blank\" href=\"%s\">View Chapter</a>"
 
 #: includes/pb-postype.php:271
 msgid "Chapter updated."
-msgstr ""
+msgstr "Chapter updated."
 
 #: includes/pb-postype.php:273
 #, php-format
 msgid "Chapter restored to revision from %s"
-msgstr ""
+msgstr "Chapter restored to revision from %s"
 
 #: includes/pb-postype.php:274
 #, php-format
 msgid "Chapter published. <a href=\"%s\">View Chapter</a>"
-msgstr ""
+msgstr "Chapter published. <a href=\"%s\">View Chapter</a>"
 
 #: includes/pb-postype.php:275
 msgid "Chapter saved."
-msgstr ""
+msgstr "Chapter saved."
 
 #: includes/pb-postype.php:276
 #, php-format
 msgid "Chapter submitted. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
-msgstr ""
+msgstr "Chapter submitted. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
 
 #: includes/pb-postype.php:277
 #, php-format
 msgid ""
 "Chapter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Chapter</a>"
-msgstr ""
+msgstr "Chapter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Chapter</a>"
 
 #: includes/pb-postype.php:280
 #, php-format
 msgid "Chapter draft updated. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
-msgstr ""
+msgstr "Chapter draft updated. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
 
 #: includes/pb-postype.php:285
 #, php-format
 msgid "Front Matter updated. <a target=\"_blank\" href=\"%s\">View Front Matter</a>"
-msgstr ""
+msgstr "Front Matter updated. <a target=\"_blank\" href=\"%s\">View Front Matter</a>"
 
 #: includes/pb-postype.php:288
 msgid "Front Matter updated."
-msgstr ""
+msgstr "Front Matter updated."
 
 #: includes/pb-postype.php:290
 #, php-format
 msgid "Front Matter restored to revision from %s"
-msgstr ""
+msgstr "Front Matter restored to revision from %s"
 
 #: includes/pb-postype.php:291
 #, php-format
 msgid "Front Matter published. <a href=\"%s\">View Front Matter</a>"
-msgstr ""
+msgstr "Front Matter published. <a href=\"%s\">View Front Matter</a>"
 
 #: includes/pb-postype.php:292
 msgid "Front Matter saved."
-msgstr ""
+msgstr "Front Matter saved."
 
 #: includes/pb-postype.php:293
 #, php-format
 msgid ""
 "Front Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Front "
 "Matter</a>"
-msgstr ""
+msgstr "Front Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Front Matter</a>"
 
 #: includes/pb-postype.php:294
 #, php-format
 msgid ""
 "Front Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Front Matter</a>"
-msgstr ""
+msgstr "Front Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Front Matter</a>"
 
 #: includes/pb-postype.php:297
 #, php-format
 msgid ""
 "Front Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Front "
 "Matter</a>"
-msgstr ""
+msgstr "Front Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Front Matter</a>"
 
 #: includes/pb-postype.php:302
 #, php-format
 msgid "Back Matter updated. <a target=\"_blank\" href=\"%s\">View Back Matter</a>"
-msgstr ""
+msgstr "Back Matter updated. <a target=\"_blank\" href=\"%s\">View Back Matter</a>"
 
 #: includes/pb-postype.php:305
 msgid "Back Matter updated."
-msgstr ""
+msgstr "Back Matter updated."
 
 #: includes/pb-postype.php:307
 #, php-format
 msgid "Back Matter restored to revision from %s"
-msgstr ""
+msgstr "Back Matter restored to revision from %s"
 
 #: includes/pb-postype.php:308
 #, php-format
 msgid "Back Matter published. <a href=\"%s\">View Back Matter</a>"
-msgstr ""
+msgstr "Back Matter published. <a href=\"%s\">View Back Matter</a>"
 
 #: includes/pb-postype.php:309
 msgid "Back Matter saved."
-msgstr ""
+msgstr "Back Matter saved."
 
 #: includes/pb-postype.php:310
 #, php-format
 msgid ""
 "Back Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Back "
 "Matter</a>"
-msgstr ""
+msgstr "Back Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Back Matter</a>"
 
 #: includes/pb-postype.php:311
 #, php-format
 msgid ""
 "Back Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Back Matter</a>"
-msgstr ""
+msgstr "Back Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Back Matter</a>"
 
 #: includes/pb-postype.php:314
 #, php-format
 msgid ""
 "Back Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Back "
 "Matter</a>"
-msgstr ""
+msgstr "Back Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Back Matter</a>"
 
 #: includes/pb-redirect.php:171
 msgid "Error: Unknown export format."
@@ -2746,7 +2747,7 @@ msgstr "Display chapter numbers"
 
 #: themes-book/pressbooks-book/functions.php:494
 msgid "Enable chapter types taxonomy"
-msgstr ""
+msgstr "Enable chapter types taxonomy"
 
 #: themes-book/pressbooks-book/functions.php:500
 msgid "Parse Sections"

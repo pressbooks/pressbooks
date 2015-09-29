@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-09-08 22:49-0300\n"
-"PO-Revision-Date: 2015-09-09 01:50+0000\n"
-"Last-Translator: Ned Zimmerman\n"
+"PO-Revision-Date: 2015-09-26 09:44+0000\n"
+"Last-Translator: Toni Devís <colomet@hotmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -261,7 +261,7 @@ msgstr "Se requiere EPUB para exportar a MOBI. ¿Quiere volver a activarlo?"
 
 #: admin/pb-admin-laf.php:169 admin/templates/publish.php:10
 msgid "Publish"
-msgstr ""
+msgstr "Publicado"
 
 #: admin/pb-admin-laf.php:172 admin/pb-admin-laf.php:737
 msgid "Privacy Settings"
@@ -327,7 +327,7 @@ msgstr "No tienes permisos para acceder a esa URL."
 
 #: admin/pb-admin-laf.php:631
 msgid "Book Visibility"
-msgstr ""
+msgstr "Visibilidad del Libro"
 
 #: admin/pb-admin-laf.php:638
 msgid "Private Content"
@@ -335,7 +335,7 @@ msgstr "Contenido Privado"
 
 #: admin/pb-admin-laf.php:661
 msgid "Privacy settings"
-msgstr ""
+msgstr "Opciones de privacidad"
 
 #: admin/pb-admin-laf.php:675
 msgid "Public. I would like this book to be visible to everyone."
@@ -364,7 +364,7 @@ msgstr "URL de Amazon"
 
 #: admin/pb-admin-laf.php:772
 msgid "O'Reilly URL"
-msgstr ""
+msgstr "URL de Oreilly"
 
 #: admin/pb-admin-laf.php:779
 msgid "Barnes and Noble URL"
@@ -388,7 +388,7 @@ msgstr "Al exportar, enviarme los informes de errores de validación por correo.
 
 #: admin/pb-admin-laf.php:949
 msgid "Export settings"
-msgstr ""
+msgstr "Opciones de exportación"
 
 #: admin/pb-admin-laf.php:963
 msgid "No. Ignore validation errors."
@@ -1060,15 +1060,15 @@ msgstr "Comienzo del ebook"
 
 #: admin/templates/organize.php:208
 msgid "Reordering Chapters"
-msgstr ""
+msgstr "Reordenar los capítulos"
 
 #: admin/templates/organize.php:213
 msgid "Reordering Front Matter"
-msgstr ""
+msgstr "Reordenar las páginas preliminares"
 
 #: admin/templates/organize.php:218
 msgid "Reordering Back Matter"
-msgstr ""
+msgstr "Reordenar las páginas finales"
 
 #: admin/templates/publish.php:11
 msgid ""
@@ -1079,7 +1079,7 @@ msgstr ""
 
 #: admin/templates/publish.php:15
 msgid "Ebook Stores"
-msgstr ""
+msgstr "Tiendas de eBooks"
 
 #: admin/templates/publish.php:16
 #, php-format
@@ -1101,7 +1101,7 @@ msgstr ""
 
 #: admin/templates/publish.php:19
 msgid "Print-on-Demand"
-msgstr ""
+msgstr "Print-On-Demand (Impresión bajo demanda)"
 
 #: admin/templates/publish.php:20
 #, php-format
@@ -1123,7 +1123,7 @@ msgstr ""
 
 #: admin/templates/publish.php:27
 msgid "Adding BUY Links to Your Pressbooks Web Book"
-msgstr ""
+msgstr "Añadir enlaces de compra a su libro web de Pressbooks"
 
 #: admin/templates/publish.php:28
 msgid ""
@@ -1232,11 +1232,11 @@ msgstr "Configuración guardada."
 
 #: includes/class-pb-catalog.php:1206
 msgid "Invalid URL."
-msgstr ""
+msgstr "URL inválida"
 
 #: includes/class-pb-catalog.php:1226
 msgid "No book found."
-msgstr ""
+msgstr "Libro no encontrado"
 
 #: includes/class-pb-metadata.php:240
 msgid "All Rights Reserved"
@@ -1715,11 +1715,11 @@ msgstr ""
 
 #: includes/pb-postype.php:262
 msgid "Book Information saved."
-msgstr ""
+msgstr "Información del libro guardada."
 
 #: includes/pb-postype.php:263
 msgid "Book Information submitted."
-msgstr ""
+msgstr "Información del libro enviada."
 
 #: includes/pb-postype.php:268
 #, php-format
@@ -1742,7 +1742,7 @@ msgstr ""
 
 #: includes/pb-postype.php:275
 msgid "Chapter saved."
-msgstr ""
+msgstr "Capítulo guardado."
 
 #: includes/pb-postype.php:276
 #, php-format
@@ -1768,7 +1768,7 @@ msgstr ""
 
 #: includes/pb-postype.php:288
 msgid "Front Matter updated."
-msgstr ""
+msgstr "Páginas preliminares actualizadas."
 
 #: includes/pb-postype.php:290
 #, php-format
@@ -1782,7 +1782,7 @@ msgstr ""
 
 #: includes/pb-postype.php:292
 msgid "Front Matter saved."
-msgstr ""
+msgstr "Páginas preliminares guardadas."
 
 #: includes/pb-postype.php:293
 #, php-format
