@@ -32,10 +32,9 @@ h1, h2, h3, h4, h5, h6 {
 /* TOC */
 @page toc {
   @bottom {
-  	font: 6.5pt "Roboto Condensed", sans-serif;	
 	content: counter(page, lower-roman);
 	vertical-align: center;
-	font-family: "Roboto Condensed", sans-serif;
+	font-family: $font-stack-2-prince;
 	font-size: 6.5pt;
   }
 }
@@ -47,7 +46,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Front-Matter */
 @page front-matter {
-	font: 6.5pt "Roboto Condensed", sans-serif;	
+	font-family: $font-stack-2-prince;	
+	font-size: 6.5pt;
 	text-transform: uppercase;
 }
 @page front-matter:left
@@ -70,7 +70,7 @@ h1, h2, h3, h4, h5, h6 {
    @bottom {
 	content: counter(page, lower-roman);
 	vertical-align: center;
-	font-family: "Roboto Condensed", sans-serif;
+	font-family: $font-stack-2-prince;
 	font-size: 6.5pt;
   }
 }
@@ -99,7 +99,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Introduction */
 @page introduction {
-	font: 6.5pt "Roboto Condensed", sans-serif;	
+	font-family: $font-stack-2-prince;
+	font-size: 6.5pt;
 	text-transform: uppercase;
 }
 
@@ -139,7 +140,8 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Chapter */
 @page chapter {
-	font: 6.5pt "Roboto Condensed", sans-serif;	
+	font-family: $font-stack-2-prince;
+	font-size: 6.5pt;
 	text-transform: uppercase;
 }
 @page chapter:left {
@@ -172,7 +174,7 @@ h1, h2, h3, h4, h5, h6 {
   @bottom {
 	content: counter(page);	
 	vertical-align: center;
-	font-family: "Roboto Condensed", sans-serif;
+	font-family: $font-stack-2-prince;
   }
 }
 @page chapter:blank {
@@ -189,7 +191,8 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 @page back-matter {
-	font: 6.5pt "Roboto Condensed", sans-serif;	
+	font-family: $font-stack-2-prince;
+	font-size: 6.5pt;
 	text-transform: uppercase;
 }
 /* Back-matter */
@@ -217,7 +220,7 @@ h1, h2, h3, h4, h5, h6 {
   {
 	content: counter(page);
 	vertical-align: center;
-	font-family: "Roboto Condensed", sans-serif;
+	font-family: $font-stack-2-prince;
   }
 }
 @page back-matter:blank {
@@ -272,7 +275,7 @@ div.part {
 body {
 	font-size: 10.5pt;
 	line-height: 1.4;
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 	prince-hyphenate-before: 3;
 }
 a {
@@ -294,7 +297,7 @@ p + p,
 	margin-top: 0;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: "Roboto Condensed", sans-serif;
+	font-family: $font-stack-2-prince;
 	line-height: 1.4em;
 	font-weight: normal;
 }
@@ -450,7 +453,7 @@ p.bl_indent {
 #title-page > .author,
 #title-page > .publisher,
 #title-page > .publisher-city {
-	font-family: "Crimson","Times New Roman", serif;
+	font-family: $font-stack-1-prince;
 	font-weight: normal;
 }	
 #title-page > .author {
@@ -638,17 +641,20 @@ div.back-matter > h1:first-of-type {
 }
 
 .part-title-wrap {
-	font-family: "Crimson","Times New Roman", serif;
+	font-family: $font-stack-1-prince;
 }
 .part-title-wrap h3.part-number {
 	border-bottom: 1px solid #000;
 	display: inline-block;
 	font-weight: normal;
-	font-family: "Crimson","Times New Roman", serif;	
+	font-family: $font-stack-1-prince;	
 	padding: 0 2em 0 1em;
 }
 .part-title-wrap h1.part-title {
-	font: italic bold 14pt "Crimson","Times New Roman", serif;
+	font-weight: bold;
+	font-style: italic;
+	font-size: 14pt;
+	font-family: $font-stack-1-prince;
 }
 h3.chapter-number {
 	border-bottom: 0.5px solid #000;
@@ -703,7 +709,9 @@ div.ugc h2.chapter-subtitle {
 	font-weight: normal;
 }
 div.ugc h2.chapter-author {
-	font: italic 9pt "Crimson","Times New Roman", serif;
+	font-style: italic;
+	font-size: 9pt;
+	font-family: $font-stack-1-prince;
 }
 div.ugc h2.chapter-subtitle,
 div.ugc h2.chapter-author {

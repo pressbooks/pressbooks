@@ -7,7 +7,7 @@
 body {
 	font-size: 100%;
 	line-height: 1.4;
-	font-family: $body-font-stack-epub;
+	font-family: $font-stack-1-epub;
 	padding: 1em;
 }
 a {
@@ -20,7 +20,7 @@ a {
 	 HEADERS
  =============== */
 h1, h2, h3, h4, h5, h6 {
-	font-family: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, sans-serif;
+	font-family: $font-stack-2-epub;
 	line-height: 1.4em;
 	font-weight: normal;
 }
@@ -127,7 +127,7 @@ p.bl_indent {
 #title-page .author,
 #title-page .publisher,
 #title-page .publisher-city {
-	font-family: "Times New Roman", Times, Georgia, serif;
+	font-family: $font-stack-1-epub;
 	font-weight: normal;
 }
 #title-page .author {
@@ -240,17 +240,20 @@ span.chapter-license {
 }
 
 .part-title-wrap {
-	font-family: "Times New Roman", Times, Georgia, serif;
+	font-family: $font-stack-1-epub;
 }
 .part-title-wrap h3.part-number {
 	border-bottom: 1px solid #000;
 	display: inline-block;
 	font-weight: normal;
-	font-family: "Times New Roman", Times, Georgia, serif;	
+	font-family: $font-stack-1-epub;	
 	padding: 0 2em 0 1em;
 }
 .part-title-wrap h1.part-title {
-	font: italic bold 1.1em "Times New Roman", Times, Georgia, serif;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 1.1em;
+	font-family: $font-stack-1-epub;
 }
 h3.chapter-number {
 	border-bottom: 1px solid #000;
@@ -350,7 +353,9 @@ h2.chapter-subtitle {
 	font-weight: normal;
 }
 h2.chapter-author {
-	font: italic 0.75em "Times New Roman", Times, Georgia, serif;
+	font-style: italic;
+	font-size: 0.75em;
+	font-family: $font-stack-1-epub;
 }
 div.ugc h2.chapter-subtitle,
 div.ugc h2.chapter-author {
