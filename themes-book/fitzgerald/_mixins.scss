@@ -11,6 +11,6 @@ Template: pressbooks-book
 
 @import 'fonts', 'global-fonts', 'global-font-stack';
 
-$body-font-stack-epub: "Times New Roman", Times, Georgia, $global-font-stack, serif;
-$body-font-stack-prince: "Crimson", "Times New Roman", $global-font-stack, serif;
-$body-font-stack-web: "Crimson", "Times New Roman", $global-font-stack, serif;
+$body-font-stack-epub: "Times New Roman", Times, Georgia, $global-font-stack-serif, serif;
+$body-font-stack-prince: "Crimson", "Times New Roman", $global-font-stack-serif, serif;
+$body-font-stack-web: "Crimson", "Times New Roman", $global-font-stack-serif, serif;
