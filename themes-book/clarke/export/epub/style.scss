@@ -92,7 +92,9 @@ dd {
 div.blockquote,
 .blockquote {
 	border-width: 0 4px;
-	font:0.8em/1.5em  Helvetica, Arial, sans-serif;
+	font-size: 0.8em;
+	line-height: 1.5em;
+	font-family: $font-stack-2-epub;
 	padding: 0 15px;
 }
 .hanging-indent {
@@ -104,7 +106,7 @@ div.blockquote,
 	 HEADERS
  =============== */
 h1, h2, h3, h4, h5, h6 {
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: $font-stack-2-epub;
 	line-height: 1.4em;
 }
 h1 {
@@ -164,7 +166,9 @@ h3 {
 .front-matter-title,
 .chapter-title,
 .part-title {
-    font:1.4em/1.6em Helvetica, Arial, sans-serif;
+	font-size: 1.4em;
+	line-height: 1.6em;
+    font-family: $font-stack-2-epub;
     margin: 0.25em auto 1.25em;
     padding	: 15px 15px 0 0;
 }

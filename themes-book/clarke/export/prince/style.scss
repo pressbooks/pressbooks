@@ -29,7 +29,7 @@ h1, h2, h3, h4, h5, h6 {
 @page toc {
   @bottom {
 	content: counter(page, lower-roman);
-	font-family: Helvetica, Arial, sans-serif;	
+	font-family: $font-stack-2-prince;	
 	vertical-align: center;
   }
 }
@@ -45,14 +45,14 @@ h1, h2, h3, h4, h5, h6 {
   @top-left
   {
 	content: counter(page, lower-roman) "\A0\A0" string(book-title);
-	font-family: Helvetica, Arial, sans-serif;	
+	font-family: $font-stack-2-prince;	
 	vertical-align: left;
   }
 }
 @page front-matter:right {
   @top-right {
 	content: string(section-title, last) "\A0\A0" counter(page, lower-roman);
-	font-family: Helvetica, Arial, sans-serif;	
+	font-family: $font-stack-2-prince;	
 	vertical-align: right;
   }
 }
@@ -62,7 +62,7 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
 	content: counter(page, lower-roman);
-  	font-family: Helvetica, Arial, sans-serif;	
+  	font-family: $font-stack-2-prince;	
 	vertical-align: center;
   }
 }
@@ -94,14 +94,14 @@ h1, h2, h3, h4, h5, h6 {
 @page introduction:left {
   @top-left {
 	content: counter(page) "\A0\A0" string(book-title);
-  	font-family: Helvetica, Arial, sans-serif;	
+  	font-family: $font-stack-2-prince;	
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
 	content: string(section-title, last) "\A0\A0" counter(page);
-  	font-family: Helvetica, Arial, sans-serif;	
+  	font-family: $font-stack-2-prince;	
 	vertical-align: right;
   }
 }
@@ -115,7 +115,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: Helvetica, Arial, sans-serif;		
+	font-family: $font-stack-2-prince;		
 	vertical-align: center;
   }
   
@@ -134,7 +134,7 @@ h1, h2, h3, h4, h5, h6 {
   @top-left {
 	content: counter(page) "\A0\A0" string(book-title);
 	counter-increment: part;
-	font-family: Helvetica, Arial, sans-serif;	
+	font-family: $font-stack-2-prince;	
 	vertical-align: left;
   }
 }
@@ -143,7 +143,7 @@ h1, h2, h3, h4, h5, h6 {
   @top-right
   {
 	content: string(section-title, last) "\A0\A0" counter(page);
-	font-family: Helvetica, Arial, sans-serif;	
+	font-family: $font-stack-2-prince;	
 	vertical-align: right;
   }
 }
@@ -156,7 +156,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: Helvetica, Arial, sans-serif;		
+	font-family: $font-stack-2-prince;		
 	vertical-align: center;
   }
 }
@@ -177,7 +177,7 @@ h1, h2, h3, h4, h5, h6 {
 @page back-matter:left {
   @top-left {
 	content: counter(page) "\A0\A0" string(book-title);
-	font-family: Helvetica, Arial, sans-serif;	
+	font-family: $font-stack-2-prince;	
 	vertical-align: left;
   }
 }
@@ -185,7 +185,7 @@ h1, h2, h3, h4, h5, h6 {
   @top-right
   {
 	content: string(section-title, last) "\A0\A0" counter(page);
-	font-family: Helvetica, Arial, sans-serif;	
+	font-family: $font-stack-2-prince;	
 	vertical-align: right;
   }
 }
@@ -199,7 +199,7 @@ h1, h2, h3, h4, h5, h6 {
   @bottom
   {
 	content: counter(page);
-	font-family: Helvetica, Arial, sans-serif;		
+	font-family: $font-stack-2-prince;		
 	vertical-align: center;
   }
 }
@@ -255,7 +255,7 @@ div.part {
 body {
 	font-size: 12pt;
 	line-height: 1.6;
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 }
 a {
 	color: blue;
@@ -276,7 +276,7 @@ p + p,
 	text-indent: 0;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: $font-stack-2-prince;
 	line-height: 1.4em;
 	font-weight: normal;
 }
@@ -752,7 +752,9 @@ sup.endnote {
 }
 .textbox-caption {
 	display: block;
-	font: bold 0.875em Helvetica, Arial, sans-serif;
+	font-weight: bold;
+	font-size: 0.875em;
+	font-family: $font-stack-2-prince;
 	margin: 0;
 }
 .pullquote {

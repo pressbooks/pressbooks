@@ -11,3 +11,8 @@
 $supported_languages = array(
 	'grc',
 );
+
+$font_stacks = array(
+	'font-stack-1' => 'serif',
+	'font-stack-2' => 'sans-serif',
+);
