@@ -1340,6 +1340,35 @@
   }
 }
 
+@mixin NotoSansCopticFont {
+
+  @font-face {
+    font-family: 'Noto Sans Coptic';
+    font-style: normal;
+    font-weight: 400;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansCoptic-Regular.ttf) format('truetype');
+  }
+  
+}
+
+
+@mixin NotoSansGujaratiFont {
+
+  @font-face {
+    font-family: 'Noto Sans Gujarati';
+    font-style: normal;
+    font-weight: 400;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansGujarati-Regular.ttf) format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans Gujarati';
+    font-style: normal;
+    font-weight: bold;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansGujarati-Bold.ttf) format('truetype');
+  }
+}
+
 @mixin NotoSansSyriacFont {
 	  @font-face {
     font-family: 'Noto Sans Syriac';

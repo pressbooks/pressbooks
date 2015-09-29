@@ -227,8 +227,8 @@ class GlobalTypography {
 					case 'cop': // Coptic
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'AntinoouFont';
-								$global_font_stack_sans .= "'Antinoou', ";
+								$includes[] = 'NotoSansCopticFont';
+								$global_font_stack_sans .= "'Noto Sans Coptic', ";
 							}
 							if ( @$serif ) {
 								$includes[] = 'AntinoouFont';
@@ -239,8 +239,8 @@ class GlobalTypography {
 					case 'gu': // Gujarati
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'EkatraFont';
-								$global_font_stack_sans .= "'Ekatra', ";
+								$includes[] = 'NotoSansGujaratiFont';
+								$global_font_stack_sans .= "'Noto Sans Gujarati', ";
 							}
 							if ( @$serif ) {
 								$includes[] = 'EkatraFont';
