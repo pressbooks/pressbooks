@@ -1211,58 +1211,166 @@
   }
 }
 
-// NOTO SANS JP
+// NOTO NASKH ARABIC
+// ARABIC FONT SANS 
+
+@mixin NotoKufiArabic {
+  @font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url(themes-book/pressbooks-book/fonts/NotoKufiArabic-Regular.ttf) format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Noto Kufi Arabic';
+    src: url(themes-book/pressbooks-book/fonts/NotoKufiArabic-Bold.ttf) format('truetype');
+    font-style: normal;
+    font-weight: bold;
+  }
+}
+
+// NOTO NASKH ARABIC
+// ARABIC FONT SERIF 
+
+@mixin NotoNaskhArabic {
+ @font-face {
+    font-family: 'Noto Naskh Arabic';
+    src: url(themes-book/pressbooks-book/fonts/NotoNaskhArabic-Regular.ttf) format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Noto Naskh Arabic';
+    src: url(themes-book/pressbooks-book/fonts/NotoNaskhArabic-Bold.ttf) format('truetype');
+    font-style: normal;
+    font-weight: bold;
+  }
+}
+
+// NOTO SANS CJK JP
 // JAPANESE FONT 
 
 
-@mixin NotoSansJPFont {
+@mixin NotoSansCJKJPFont {
 
  @font-face {
-    font-family: 'Noto Sans JP';
+    font-family: 'Noto Sans CJK JP';
     font-style: normal;
     font-weight: 200;
     src: url(themes-book/pressbooks-book/fonts/NotoSansCJKjp-Light.otf) format('truetype');
   }
   
   @font-face {
-    font-family: 'Noto Sans JP';
+    font-family: 'Noto Sans CJK JP';
     font-style: normal;
     font-weight: 400;
     src: url(themes-book/pressbooks-book/fonts/NotoSansCJKjp-Regular.otf) format('truetype');
   }
   @font-face {
-    font-family: 'Noto Sans JP';
+    font-family: 'Noto Sans CJK JP';
     font-style: normal;
     font-weight: bold;
     src: url(themes-book/pressbooks-book/fonts/NotoSansCJKjp-Bold.otf) format('truetype');
   }
 }
 
+// NOTO SANS CJK KR
+// KOREAN FONT 
 
-// NOTO SANS TC
+@mixin NotoSansCJKKRFont {
+  @font-face {
+    font-family: 'Noto Sans CJK KR';
+    font-style: normal;
+    font-weight: normal;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansCJKkr-Regular.otf) format('opentype');
+  }
+  @font-face {
+    font-family: 'Noto Sans CJK KR';
+    font-style: normal;
+    font-weight: bold;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansCJKkr-Bold.otf) format('opentype');
+  }
+}
+
+// NOTO SANS CJK SC
+// SIMPLIFIED CHINESE FONT 
+
+@mixin NotoSansCJKSCFont {
+
+  @font-face {
+    font-family: 'Noto Sans CJK SC';
+    font-style: normal;
+    font-weight: 400;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansCJKsc-Regular.otf) format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Noto Sans CJK SC';
+    font-style: normal;
+    font-weight: bold;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansCJKsc-Bold.otf) format('truetype');
+  }
+}
+
+
+// NOTO SANS CJK TC
 // TRADITIONAL CHINESE FONT 
 
-@mixin NotoSansTCFont {
+@mixin NotoSansCJKTCFont {
 
  @font-face {
-    font-family: 'Noto Sans TC';
+    font-family: 'Noto Sans CJK TC';
     font-style: normal;
     font-weight: 200;
     src: url(themes-book/pressbooks-book/fonts/NotoSansCJKtc-Light.otf) format('truetype');
   }
   
   @font-face {
-    font-family: 'Noto Sans TC';
+    font-family: 'Noto Sans CJK TC';
     font-style: normal;
     font-weight: 400;
     src: url(themes-book/pressbooks-book/fonts/NotoSansCJKtc-Regular.otf) format('truetype');
   }
+  
   @font-face {
-    font-family: 'Noto Sans TC';
+    font-family: 'Noto Sans CJK TC';
     font-style: normal;
     font-weight: bold;
     src: url(themes-book/pressbooks-book/fonts/NotoSansCJKtc-Bold.otf) format('truetype');
   }
+}
+
+@mixin NotoSansSyriacFont {
+	  @font-face {
+    font-family: 'Noto Sans Syriac';
+    font-style: normal;
+    font-weight: normal;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansSyriacEstrangela-Regular.ttf) format('truetype');
+  }
+}
+
+@mixin NotoSansTamilFont {
+	 @font-face {
+    font-family: 'Noto Sans Tamil';
+    font-style: normal;
+    font-weight: normal;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansTamil-Regular.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Noto Sans Tamil';
+    font-style: normal;
+    font-weight: bold;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansTamil-Bold.ttf) format('truetype');
+  }
+}
+
+@mixin NotoSansTibetanFont {
+	 @font-face {
+    font-family: 'Noto Sans Tibetan';
+    font-style: normal;
+    font-weight: normal;
+    src: url(themes-book/pressbooks-book/fonts/NotoSansTibetan-Regular.ttf) format('truetype');
+  }	
 }
 
 //OLD Standard
