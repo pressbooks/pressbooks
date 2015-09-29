@@ -143,9 +143,11 @@ class Book {
 	 * with a minimum amount of fields. Data is raw and must be post-processed.
 	 *
 	 * @see bottom of this file for more info
+	 *
+	 * @param string $id
 	 * @return array
 	 */
-	static function getBookStructure( $id = '', $get_pb_export_meta=false  ) {
+	static function getBookStructure( $id = '' ) {
 
 		// -----------------------------------------------------------------------------
 		// Is cached?
@@ -197,13 +199,7 @@ class Book {
 
 				$post_name = static::fixSlug( $post->post_name );
 
-		        if ( $get_pb_export_meta ) {
-		          $export = ( get_post_meta( $post->ID, 'pb_export', true ) ? true : false );
-		        } else {
-		          $export = false;
-		        }
-
-				$book_structure[ $type ][] = array(
+				$book_structure[$type][] = array(
 					'ID' => $post->ID,
 					'post_title' => $post->post_title,
 					'post_name' => $post_name,
@@ -211,7 +207,7 @@ class Book {
 					'comment_count' => $post->comment_count,
 					'menu_order' => $post->menu_order,
 					'post_status' => $post->post_status,
-					'export' => $export,
+					'export' => ( get_post_meta( $post->ID, 'pb_export', true ) ? true : false ),
 					'post_parent' => $post->post_parent,
 				);
 			}
@@ -314,7 +310,7 @@ class Book {
 		// Precedence when using the + operator to merge arrays is from left to right
 		// -----------------------------------------------------------------------------
 
-    $book_contents = static::getBookStructure('', true);
+		$book_contents = static::getBookStructure();
 
 		foreach ( $book_contents as $type => $struct ) {
 
