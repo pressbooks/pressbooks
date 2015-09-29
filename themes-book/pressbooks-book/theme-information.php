@@ -15,6 +15,4 @@ $supported_languages = array(
 
 $font_stacks = array(
 	'font-stack-1' => 'serif',
-	'font-stack-2' => null,
-	'font-stack-3' => null,
 );

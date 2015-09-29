@@ -3,24 +3,7 @@
 /* FONTS
 ===========	*/
 
-@font-face {
-  font-family: "Cardo";
-  font-weight: bold;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/Cardob101.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Cardo";
-  font-weight: normal;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/Cardoi99.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Cardo";
-  font-weight: normal;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/Cardo104s.ttf) format("truetype");
-}
+@include CardoFont; 
 
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
 h1, h2, h3, h4, h5, h6 {
@@ -62,14 +45,14 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-left
   {
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 	content: counter(page, lower-roman) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
 }
 @page front-matter:right {
   @top-right {
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 	content: string(section-title, last) "\A0\A0\A0" counter(page, lower-roman);
 	vertical-align: right;
   }
@@ -80,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
 	content: counter(page, lower-roman);
-	font-family: $body-font-stack-prince;	
+	font-family: $font-stack-1-prince;	
 	vertical-align: center;
   }
 }
@@ -111,14 +94,14 @@ h1, h2, h3, h4, h5, h6 {
 
 @page introduction:left {
   @top-left {
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -133,7 +116,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: $body-font-stack-prince;	
+	font-family: $font-stack-1-prince;	
 	vertical-align: center;
   }
   
@@ -154,7 +137,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @page chapter:left {
   @top-left {
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
@@ -163,7 +146,7 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-right
   {
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -177,7 +160,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: $body-font-stack-prince;	
+	font-family: $font-stack-1-prince;	
 	vertical-align: center;
   }
 }
@@ -197,7 +180,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Back-matter */
 @page back-matter:left {
   @top-left {
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
@@ -205,7 +188,7 @@ h1, h2, h3, h4, h5, h6 {
 @page back-matter:right {
   @top-right
   {
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -220,7 +203,7 @@ h1, h2, h3, h4, h5, h6 {
   @bottom
   {
 	content: counter(page);
-	font-family: $body-font-stack-prince;	
+	font-family: $font-stack-1-prince;	
 	vertical-align: center;
   }
 }
@@ -283,7 +266,7 @@ div.part.invisible {
 body {
 	font-size: 10pt;
 	line-height: 1.1;
-	font-family: $body-font-stack-prince;
+	font-family: $font-stack-1-prince;
 }
 
 a {

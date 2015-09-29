@@ -5,7 +5,7 @@
 @import 'mixins';
 
 body {
-	font-family: $body-font-stack-mpdf;
+	font-family: "Trebuchet MS", "Times", serif;
 	font-size: 0.9em;
 	
 }
