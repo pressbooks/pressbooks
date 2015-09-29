@@ -91,14 +91,14 @@ class GlobalTypography {
 			$global_font_stack_sans = '$global-font-stack-sans: ';
 			$sans = true;
 		} else {
-			$global_font_stack_sans = '$global-font-stack-sans: null';
+			$global_font_stack_sans = '$global-font-stack-sans: sans-serif';
 		}
 		 
 		if ( in_array( 'serif', $font_stacks ) ) { 
 			$global_font_stack_serif = '$global-font-stack-serif: ';
 			$serif = true;
 		} else {
-			$global_font_stack_serif = '$global-font-stack-serif: null';
+			$global_font_stack_serif = '$global-font-stack-serif: serif';
 		}
 
 		$languages = get_option( 'pressbooks_global_typography' );
@@ -322,8 +322,8 @@ class GlobalTypography {
 			$global_font_stack_serif = rtrim( $global_font_stack_serif, ', ' );
 			$global_font_stack_serif .= ";\n";
 		} else {
-			$global_font_stack_sans .= 'null;';
-			$global_font_stack_serif .= 'null;';
+			$global_font_stack_sans .= 'sans-serif;';
+			$global_font_stack_serif .= 'serif;';
 		}
 
 		$scss .= $global_font_stack_sans;

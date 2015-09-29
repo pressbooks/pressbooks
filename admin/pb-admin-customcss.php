@@ -227,9 +227,12 @@ function load_css_from() {
 	check_ajax_referer( 'pb-load-css-from' );
 	if ( false == current_user_can( 'edit_theme_options' ) ) die( - 1 );
 
-	$css = '';
+	$scss = '';
 	$themes = wp_get_themes( array( 'allowed' => true ) );
 	list( $theme, $slug ) = explode( '__', @$_POST['slug'] );
+
+	$wp_upload_dir = wp_upload_dir();
+	$upload_dir = $wp_upload_dir['basedir'] . '/global-typography';
 
 	if ( isset( $themes[$theme] ) ) {
 
@@ -240,15 +243,18 @@ function load_css_from() {
 			$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.css' );
 			$uri_to_style = $theme->get_stylesheet_directory_uri();
 		} else {
-			$path_to_style = realpath( $theme->get_stylesheet_directory() . "/export/$slug/style.css" );
+			$path_to_style = realpath( $theme->get_stylesheet_directory() . "/export/$slug/style.scss" );
 			$uri_to_style = $theme->get_stylesheet_directory_uri() . "/export/$slug";
 		}
 
 		if ( $path_to_style ) {
-			$css = file_get_contents( $path_to_style );
+			$scss = file_get_contents( $path_to_style );
+			$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $upload_dir, $theme->get_stylesheet_directory() ) ) );
 			$css = fix_url_paths( $css, $uri_to_style );
 		}
 	}
+
+	
 
 	// Send back JSON
 	header( 'Content-Type: application/json' );
