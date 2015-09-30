@@ -228,9 +228,7 @@ class Pdf extends Export {
 			return $matches[0]; // No change
 
 		}, $css );
-		
-		error_log( $css );
-		
+				
 		return $css;
 	}
 
