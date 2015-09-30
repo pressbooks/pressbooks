@@ -200,8 +200,12 @@ class Pdf extends Export {
 
 		$scss = $this->cssOverrides;
 		$scss .= file_get_contents( $this->exportStylePath );
-
-		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
+		
+		if ( $this->isScss() ) {
+			$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
+		} else {
+			$css = $scss;
+		}
 
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
@@ -224,7 +228,7 @@ class Pdf extends Export {
 			return $matches[0]; // No change
 
 		}, $css );
-
+		
 		return $css;
 	}
 

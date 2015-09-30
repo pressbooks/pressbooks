@@ -98,12 +98,17 @@ abstract class Export {
 		$fullpath = false;
 
 		if ( CustomCss::isCustomCss() ) {
-			$fullpath = CustomCss::getCustomCssFolder() . "/$type.scss";
+			$fullpath = CustomCss::getCustomCssFolder() . "/$type.css";
 			if ( ! is_file( $fullpath ) ) $fullpath = false;
 		}
 
+
 		if ( ! $fullpath ) {
-			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
+			if ( $this->isScss() ) {
+				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
+			} else {
+				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
+			}
 		}
 
 		return $fullpath;

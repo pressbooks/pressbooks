@@ -228,7 +228,11 @@ class Epub3 extends Epub\Epub201 {
 		// Append overrides
 		$scss .=  $this->cssOverrides;
 		
-		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
+		if ( $this->isScss() ) {
+			$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
+		} else {
+			$css = $scss;
+		}
 
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
