@@ -231,7 +231,7 @@ class Epub3 extends Epub\Epub201 {
 		if ( $this->isScss() ) {
 			$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
 		} else {
-			$css = $scss;
+			$css = static::injectHouseStyles( $scss );
 		}
 
 		// Search for url("*"), url('*'), and url(*)

@@ -834,6 +834,31 @@ abstract class Export {
 
 
 	/**
+	 * Inject house styles into CSS
+	 *
+	 * @param string $css
+	 *
+	 * @return string
+	 */
+	static function injectHouseStyles( $css ) {
+
+		$scan = array(
+			'/*__INSERT_PDF_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/export/_pdf-house-style.scss',
+			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/export/_epub-house-style.scss',
+			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/export/_mobi-house-style.scss',
+		);
+
+		foreach ( $scan as $token => $replace_with ) {
+			if ( is_file( $replace_with ) ) {
+				$css = str_replace( $token, file_get_contents( $replace_with ), $css );
+			}
+		}
+
+		return $css;
+	}
+
+
+	/**
 	 * Download an .htaccess protected file from the exports directory.
 	 *
 	 * @param string $filename sanitized $_GET['download_export_file']
