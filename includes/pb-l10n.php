@@ -219,6 +219,8 @@ function supported_languages() {
 		'mr' => 'Marathi',
 		'ne' => 'Nepali',
 		'no' => 'Norwegian',
+		'nb' => 'Norwegian (Bokm&aring;l)',
+		'nn' => 'Norwegian (Nynorsk)',
 		'or' => 'Oriya',
 		'pl' => 'Polish',
 		'pt' => 'Portuguese',
@@ -372,7 +374,9 @@ function wplang_codes() {
 		'mt' => '', // Maltese
 		'mr' => '', // Marathi
 		'ne' => '', // Nepali
-		'no' => 'nn_NO',
+		'no' => 'nb_NO',
+		'nb' => 'nb_NO',
+		'nn' => 'nn_NO',
 		'or' => 'Oriya',
 		'pl' => 'pl_PL',
 		'pt' => 'pt_PT',
