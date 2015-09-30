@@ -244,7 +244,7 @@ function load_css_from() {
 			$uri_to_style = $theme->get_stylesheet_directory_uri();
 		} else {
 			$path_to_style = realpath( $theme->get_stylesheet_directory() . "/export/$slug/style.scss" );
-			$uri_to_style = $theme->get_stylesheet_directory_uri() . "/export/$slug";
+			$uri_to_style = false; // We don't want a URI for EPUB or Prince exports
 		}
 
 		if ( $path_to_style ) {
@@ -277,7 +277,9 @@ function load_css_from() {
  */
 function fix_url_paths( $css, $style_uri ) {
 
-	$style_uri = rtrim( trim( $style_uri ), '/' );
+	if ( $style_uri ) {
+		$style_uri = rtrim( trim( $style_uri ), '/' );
+	}
 
 	// Search for url("*"), url('*'), and url(*)
 	$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
@@ -289,8 +291,12 @@ function fix_url_paths( $css, $style_uri ) {
 		if ( preg_match( '#^https?://#i', $url ) ) {
 			return $matches[0]; // No change
 		}
-
-		return "url($style_uri/$url)";
+		
+		if ( $style_uri ) {
+			return "url($style_uri/$url)";
+		} else {
+			return "url($url)";
+		}
 
 	}, $css );
 
