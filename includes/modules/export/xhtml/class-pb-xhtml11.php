@@ -59,6 +59,14 @@ class Xhtml11 extends Export {
 
 
 	/**
+	 * Main language of document, two letter code
+	 *
+	 * @var string
+	 */
+	protected $lang = 'en';
+
+
+	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
@@ -171,16 +179,23 @@ class Xhtml11 extends Export {
 		$metadata = \PressBooks\Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( \PressBooks\Book::getBookContents() );
 
+		// Set two letter language code
+		if ( isset( $metadata['pb_language'] ) ) {
+			list( $this->lang ) = explode( '-', $metadata['pb_language'] );
+		}
+
 		$this->echoDocType( $book_contents, $metadata );
 
 		echo "<head>\n";
 		echo '<meta content="text/html; charset=UTF-8" http-equiv="content-type" />' . "\n";
+		echo '<meta http-equiv="Content-Language" content="' . $this->lang . '" />' . "\n";
 		echo '<base href="' . trailingslashit( site_url( '', 'http' ) ) . '" />' . "\n";
+
 
 		$this->echoMetaData( $book_contents, $metadata );
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
-		echo "</head>\n<body>\n";
+		echo "</head>\n<body lang='{$this->lang}'>\n";
 
 		// Before Title Page
 		$this->echoBeforeTitle( $book_contents, $metadata );
@@ -460,7 +475,7 @@ class Xhtml11 extends Export {
 
 		echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">' . "\n";
-		echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $lang . '">' . "\n";
+		echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $this->lang . '">' . "\n";
 	}
 
 

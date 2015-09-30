@@ -1643,14 +1643,10 @@ function pressbooks_theme_pdf_css_override( $css ) {
 	}
 
 	// Hyphens?
-	// To debug use `hyphens: prince-expand-all;` (then every hyphenation point will be shown with a dot)
 	if ( @$options['pdf_hyphens'] ) {
 		$css .= 'p { hyphens: auto; ';
+		// To debug use `hyphens: prince-expand-all;` (then every hyphenation point will be shown with a dot)
 		// $css .= "hyphens: prince-expand-all; ";
-		$hyphens_path = pb_get_hyphens_path();
-		if ( $hyphens_path ) {
-			$css .= "prince-hyphenate-patterns: '" . $hyphens_path . "'; ";
-		}
 		$css .= "} \n";
 	}
 

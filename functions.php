@@ -165,42 +165,6 @@ function pb_custom_stylesheet_imports_base() {
 	return $_res;
 }
 
-
-/**
- * Get path to hyphenation dictionary in a book's language.
- *
- * @return bool|string
- */
-function pb_get_hyphens_path() {
-
-	$loc = false;
-	$compare_with = scandir( PB_PLUGIN_DIR . '/symbionts/dictionaries/' );
-
-	$book_lang = \PressBooks\Book::getBookInformation();
-	$book_lang = @$book_lang['pb_language'];
-
-	foreach ( $compare_with as $compare ) {
-
-		if ( strpos( $compare, 'hyph_' ) !== 0 ) continue; // Skip
-
-		$c = str_replace( 'hyph_', '', $compare );
-		list( $check_me ) = explode( '_', $c );
-
-		// We only care about the first two letters
-		if ( strpos( $book_lang, $check_me ) === 0 ) {
-			$loc = $compare;
-			break;
-		}
-	}
-
-	if ( $loc ) {
-		$loc = PB_PLUGIN_DIR . "symbionts/dictionaries/$loc";
-	}
-
-	return $loc;
-}
-
-
 /**
  * Get "real" chapter number
  *

@@ -115,7 +115,6 @@ More functions available to book designers. See: pressbooks/functions.php
  + `pb_decode()`
  + `pb_is_custom_theme()`
  + `pb_get_custom_stylesheet_url()`
- + `pb_get_hyphens_path()`
  + `pb_get_chapter_number( $post_name )`
  + `pb_thumbify( $thumb, $path )`
 
