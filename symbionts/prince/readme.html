@@ -85,7 +85,13 @@ installation.
 <li><a href="#setfileroot"><code>setFileRoot</code></a></li>
 <li><a href="#setembedfonts"><code>setEmbedFonts</code></a></li>
 <li><a href="#setsubsetfonts"><code>setSubsetFonts</code></a></li>
+<li><a href="#setartificialfonts"><code>setArtificialFonts</code></a></li>
 <li><a href="#setcompress"><code>setCompress</code></a></li>
+<li><a href="#setpdftitle"><code>setPDFTitle</code></a></li>
+<li><a href="#setpdfsubject"><code>setPDFSubject</code></a></li>
+<li><a href="#setpdfauthor"><code>setPDFAuthor</code></a></li>
+<li><a href="#setpdfkeywords"><code>setPDFKeywords</code></a></li>
+<li><a href="#setpdfcreator"><code>setPDFCreator</code></a></li>
 <li><a href="#setencrypt"><code>setEncrypt</code></a></li>
 <li><a href="#setencryptinfo"><code>setEncryptInfo</code></a></li>
 </ul>
@@ -680,6 +686,23 @@ will be subset by default unless explicitly disabled.
 
 <hr>
 
+<a name="setartificialfonts">
+
+<pre>
+public function setArtificialFonts($artificialFonts)
+</pre>
+
+<p>
+Specify whether artificial bold/italic fonts should be generated if
+necessary. Artificial fonts are enabled by default.
+</p>
+<dl>
+<dt><code>artificialFonts</code></dt>
+<dd>False to disable artificial bold/italic fonts.</dd>
+</dl>
+
+<hr>
+
 <a name="setcompress">
 
 <pre>
@@ -695,6 +718,51 @@ Compression will be applied by default unless explicitly disabled.
 <dt><code>compress</code></dt>
 <dd>False to disable PDF compression.</dd>
 </dl>
+
+<hr>
+
+<a name="setpdftitle">
+
+<pre>
+public function setPDFTitle($pdfTitle)
+</pre>
+<p>Specify the document title for PDF metadata.</p>
+
+<hr>
+
+<a name="setpdfsubject">
+
+<pre>
+public function setPDFSubject($pdfSubject)
+</pre>
+<p>Specify the document subject for PDF metadata.</p>
+
+<hr>
+
+<a name="setpdfauthor">
+
+<pre>
+public function setPDFAuthor($pdfAuthor)
+</pre>
+<p>Specify the document author for PDF metadata.</p>
+
+<hr>
+
+<a name="setpdfkeywords">
+
+<pre>
+public function setPDFKeywords($pdfKeywords)
+</pre>
+<p>Specify the document keywords for PDF metadata.</p>
+
+<hr>
+
+<a name="setpdfcreator">
+
+<pre>
+public function setPDFCreator($pdfCreator)
+</pre>
+<p>Specify the document creator for PDF metadata.</p>
 
 <hr>
 
@@ -751,7 +819,7 @@ method for encryption information to be applied.
 <hr>
 
 <p>
-Copyright &#xA9; 2005-2012 YesLogic Pty. Ltd.
+Copyright &#xA9; 2005-2013 YesLogic Pty. Ltd.
 </p>
 
 </div>

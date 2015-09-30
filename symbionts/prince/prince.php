@@ -1,7 +1,7 @@
 <?php
 
 // Prince - PHP interface
-// Copyright 2005-2013 YesLogic Pty. Ltd.
+// Copyright 2005-2014 YesLogic Pty. Ltd.
 // http://www.princexml.com
 
 class Prince
@@ -24,7 +24,13 @@ class Prince
     private $fileRoot;
     private $embedFonts;
     private $subsetFonts;
+    private $artificialFonts;
     private $compress;
+    private $pdfTitle;
+    private $pdfSubject;
+    private $pdfAuthor;
+    private $pdfKeywords;
+    private $pdfCreator;
     private $encrypt;
     private $encryptInfo;
 
@@ -48,7 +54,13 @@ class Prince
 	$this->fileRoot = '';
 	$this->embedFonts = true;
 	$this->subsetFonts = true;
+	$this->artificialFonts = true;
 	$this->compress = true;
+	$this->pdfTitle = '';
+	$this->pdfSubject = '';
+	$this->pdfAuthor = '';
+	$this->pdfKeywords = '';
+	$this->pdfCreator = '';
 	$this->encrypt = false;
 	$this->encryptInfo = '';
     }
@@ -163,14 +175,14 @@ class Prince
     // user: The username to use for basic HTTP authentication.
     public function setHttpUser($user)
     {
-	$this->httpUser = $this->cmdlineArgEscape2($this->cmdlineArgEscape1($user));
+	$this->httpUser = $this->cmdlineArgEscape($user);
     }
     
     // Specify a password to use when fetching remote resources over HTTP.
     // password: The password to use for basic HTTP authentication.
     public function setHttpPassword($password)
     {
-	$this->httpPassword = $this->cmdlineArgEscape2($this->cmdlineArgEscape1($password));
+	$this->httpPassword = $this->cmdlineArgEscape($password);
     }
     
     //Specify the URL for the HTTP proxy server, if needed.
@@ -213,12 +225,50 @@ class Prince
 	$this->subsetFonts = $subsetFonts;
     }
 
+    // Specify whether artificial bold/italic fonts should be generated if
+    // necessary. Artificial fonts are enabled by default.
+    // artificialFonts: False to disable artificial bold/italic fonts.
+    public function setArtificialFonts($artificialFonts)
+    {
+	$this->artificialFonts = $artificialFonts;
+    }
+
     // Specify whether compression should be applied to the output PDF file.
     // Compression will be applied by default unless explicitly disabled.
     // compress: False to disable PDF compression.
     public function setCompress($compress)
     {
 	$this->compress = $compress;
+    }
+
+    // Specify the document title for PDF metadata.
+    public function setPDFTitle($pdfTitle)
+    {
+	$this->pdfTitle = $pdfTitle;
+    }
+
+    // Specify the document subject for PDF metadata.
+    public function setPDFSubject($pdfSubject)
+    {
+	$this->pdfSubject = $pdfSubject;
+    }
+
+    // Specify the document author for PDF metadata.
+    public function setPDFAuthor($pdfAuthor)
+    {
+	$this->pdfAuthor = $pdfAuthor;
+    }
+
+    // Specify the document keywords for PDF metadata.
+    public function setPDFKeywords($pdfKeywords)
+    {
+	$this->pdfKeywords = $pdfKeywords;
+    }
+
+    // Specify the document creator for PDF metadata.
+    public function setPDFCreator($pdfCreator)
+    {
+	$this->pdfCreator = $pdfCreator;
     }
 
     // Specify whether encryption should be applied to the output PDF file.
@@ -256,8 +306,8 @@ class Prince
 
         $this->encryptInfo =
 		' --key-bits ' . $keyBits .
-		' --user-password="' . $this->cmdlineArgEscape2($this->cmdlineArgEscape1($userPassword)) .
-		'" --owner-password="' . $this->cmdlineArgEscape2($this->cmdlineArgEscape1($ownerPassword)) . '" ';
+		' --user-password="' . $this->cmdlineArgEscape($userPassword) .
+		'" --owner-password="' . $this->cmdlineArgEscape($ownerPassword) . '" ';
 
         if ($disallowPrint)
 	{
@@ -477,9 +527,39 @@ class Prince
 	    $cmdline .= '--no-subset-fonts ';
 	}
 
+	if ($this->artificialFonts == false)
+	{
+	    $cmdline .= '--no-artificial-fonts ';
+	}
+
 	if ($this->compress == false)
 	{
 	    $cmdline .= '--no-compress ';
+	}
+
+	if ($this->pdfTitle != '')
+	{
+	    $cmdline .= '--pdf-title="' . $this->cmdlineArgEscape($this->pdfTitle) . '" ';
+	}
+
+	if ($this->pdfSubject != '')
+	{
+	    $cmdline .= '--pdf-subject="' . $this->cmdlineArgEscape($this->pdfSubject) . '" ';
+	}
+
+	if ($this->pdfAuthor != '')
+	{
+	    $cmdline .= '--pdf-author="' . $this->cmdlineArgEscape($this->pdfAuthor) . '" ';
+	}
+
+	if ($this->pdfKeywords != '')
+	{
+	    $cmdline .= '--pdf-keywords="' . $this->cmdlineArgEscape($this->pdfKeywords) . '" ';
+	}
+
+	if ($this->pdfCreator != '')
+	{
+	    $cmdline .= '--pdf-creator="' . $this->cmdlineArgEscape($this->pdfCreator) . '" ';
 	}
 
 	if ($this->encrypt)
@@ -498,7 +578,7 @@ class Prince
 				2 => array("pipe", "w")
 				);
 	
-	$process = proc_open($pathAndArgs, $descriptorspec, $pipes);
+	$process = proc_open($pathAndArgs, $descriptorspec, $pipes, NULL, NULL, array('bypass_shell' => TRUE));
 	
 	if (is_resource($process))
 	{
@@ -526,7 +606,7 @@ class Prince
 			    2 => array("pipe", "w")
 			    );
 	
-	$process = proc_open($pathAndArgs, $descriptorspec, $pipes);
+	$process = proc_open($pathAndArgs, $descriptorspec, $pipes, NULL, NULL, array('bypass_shell' => TRUE));
 	
 	if (is_resource($process))
 	{
@@ -556,7 +636,7 @@ class Prince
 			    2 => array("pipe", "w")
 			    );
 	
-	$process = proc_open($pathAndArgs, $descriptorspec, $pipes);
+	$process = proc_open($pathAndArgs, $descriptorspec, $pipes, NULL, NULL, array('bypass_shell' => TRUE));
 	
 	if (is_resource($process))
 	{
@@ -586,7 +666,7 @@ class Prince
 			    2 => array("pipe", "w")
 			    );
 	
-	$process = proc_open($pathAndArgs, $descriptorspec, $pipes);
+	$process = proc_open($pathAndArgs, $descriptorspec, $pipes, NULL, NULL, array('bypass_shell' => TRUE));
 	
 	if (is_resource($process))
 	{
@@ -645,34 +725,41 @@ class Prince
     }
     
     
-    	//Puts double-quotes around space(s) in file path.
+    	//Puts double-quotes around space(s) in file path,
+    	//and also around semicolon(;), comma(,), ampersand(&), up-arrow(^) and parentheses.
 	//This is needed if the file path is used in a command line.
 	private function addDoubleQuotes($str)
 	{
 		$len = strlen($str);
 		
 		$outputStr = '';
-		$numSpaces = 0;
+		$numWeirdChars = 0;
 		$subStrStart = 0;
 		for ($i = 0; $i < $len; $i++)
 		{
-			if($str[$i] == ' ')
+			if(($str[$i] == ' ') ||
+			   ($str[$i] == ';') ||
+			   ($str[$i] == ',') ||
+			   ($str[$i] == '&') ||
+			   ($str[$i] == '^') ||
+			   ($str[$i] == '(') ||
+			   ($str[$i] == ')'))
 			{
-				if($numSpaces == 0)
+				if($numWeirdChars == 0)
 				{
 					$outputStr .= substr($str, $subStrStart, ($i - $subStrStart));
-					$spaceStart = $i;
+					$weirdCharsStart = $i;
 				}
-				$numSpaces += 1;
+				$numWeirdChars += 1;
 			}
 			else
 			{
-				if($numSpaces > 0)
+				if($numWeirdChars > 0)
 				{
-					$outputStr .=  chr(34) . substr($str, $spaceStart, $numSpaces) . chr(34);
+					$outputStr .=  chr(34) . substr($str, $weirdCharsStart, $numWeirdChars) . chr(34);
 				
 					$subStrStart = $i;
-					$numSpaces = 0;
+					$numWeirdChars = 0;
 				}
 			}
 		}
@@ -681,6 +768,10 @@ class Prince
 		return $outputStr;
 	}
 	
+	private function cmdlineArgEscape($argStr)
+	{
+		return $this->cmdlineArgEscape2($this->cmdlineArgEscape1($argStr));
+	}
 	
 	//In the input string $argStr, a double quote with zero or more preceding backslash(es)
 	//will be replaced with: n*backslash + doublequote => (2*n+1)*backslash + doublequote
