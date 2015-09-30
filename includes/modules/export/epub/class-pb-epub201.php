@@ -1873,7 +1873,7 @@ class Epub201 extends Export {
 		if ( ! $last_part )
 			return false;
 
-    $lookup = \PressBooks\Book::getBookStructure('', true);
+		$lookup = \PressBooks\Book::getBookStructure();
 		$lookup = $lookup['__export_lookup'];
 
 		if ( ! isset( $lookup[$last_part] ) )

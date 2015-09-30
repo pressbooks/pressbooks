@@ -184,3 +184,11 @@ if ( ! empty( $GLOBALS['PB_SECRET_SAUCE']['FORCE_FLUSH'] ) ) {
 add_filter( 'xmlrpc_enabled', '__return_false' );
 remove_action( 'wp_head', 'rsd_link' );
 remove_action( 'wp_head', 'wlwmanifest_link' );
+
+
+// -------------------------------------------------------------------------------------------------------------------
+// Override other people's plugins
+// -------------------------------------------------------------------------------------------------------------------
+
+// Disable logging of Akismet debug data when WP_DEBUG_LOG is true
+add_filter( 'akismet_debug_log', '__return_false' );
