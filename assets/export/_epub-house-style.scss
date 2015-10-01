@@ -10,7 +10,12 @@ copyright 2013-2014 Book Oven Inc. */
 
 /* HEADERS */
 
-h1, h2, h3, h4, h5, h6 {
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
 	hyphens: none;
 	-webkit-hyphens: none;
   page-break-after: avoid;
@@ -57,10 +62,13 @@ h6.short-title {
   display: none;
 }
 
+/* Invisible Parts are invisible */ 
 
 .part.invisible {
 	display: none;
 }
+
+/* Numberless chapters have no chapter numbers */ 
 
 div.chapter.numberless h3.chapter-number {
 	display: none;
@@ -129,9 +137,6 @@ div.ugc.chapter-ugc p.indent.no-indent {
   margin-top: 1em !important;
 }
 
-.redtest {
-  color:red;
-}
 
 body, 
 p {
@@ -191,16 +196,6 @@ img.small-image {
   width: 30%;
 }
 
-img,
-.wp-caption,
-.wp-caption img,
-.wp-nocaption img
-img.full-bleed,
-img.full-bleed-bottom,
-.full-bleed-wrap {
-  page-break-inside: avoid !important;
-}
-
 .full-bleed-wrap {
   width: 100%;
   height: auto;
@@ -214,6 +209,7 @@ img.full-bleed-bottom,
 
 #toc ul.sections {
   padding-top: 0.5em !important;
+  padding-bottom: 0.5em !important;
   margin-left: 2em !important;
 }
 
