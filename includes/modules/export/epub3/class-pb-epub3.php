@@ -278,6 +278,15 @@ class Epub3 extends Epub\Epub201 {
 
 		// Overwrite the new file with new info
 		file_put_contents( $path_to_copy_of_stylesheet, $css );
+		
+		// Output compiled CSS for debugging.
+		$wp_upload_dir = wp_upload_dir();
+		$debug_dir = $wp_upload_dir['basedir'] . '/export-css';
+		if ( ! is_dir( $debug_dir ) ) {
+			mkdir( $debug_dir );
+		}
+		$debug_file = $debug_dir . '/epub3.css';
+		file_put_contents( $debug_file, $css );
 	}
 	
 	/**
