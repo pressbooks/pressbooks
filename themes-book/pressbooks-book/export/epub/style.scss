@@ -1,13 +1,16 @@
-//LUTHER EPUB
+//LUTHER EPUB OLD
 
 
 @import 'mixins';
 
+
+
 body {
 	font-family: $font-stack-1-epub;
 	line-height: 1.4;
-	padding: 1em;
 }
+
+
 a {
 	text-decoration: none;
 }
@@ -409,12 +412,12 @@ blockquote.aphorism p {
 .footnotes {
 	display: block;	
   font-size: 0.875em;
-  margin: 20px 10px 40px 40px;
+  margin: 2em 1em 3em 3em;
 }
 .footnotes-wrap {
 	list-style: none;
 	display: block;
-	margin: 10px 10px 10px 40px;
+	margin: 1em 1em 1em 3em;
 }
 .footnotes p + p {
 	text-indent: 0;
@@ -446,7 +449,7 @@ sup.endnote {
 }
 .endnotes ol {
 	font-size: 0.7em;
-	margin-top: 5px;
+	margin-top: 0.5em;
 	margin-left: 0;
 }
 .endnotes li {
@@ -474,12 +477,12 @@ sup.endnote {
 }
 .index > div.back-matter-ugc  p {
 	font-size: 0.75em;
-	padding-left: 14pt;
-	text-indent: -14pt;
+	padding-left: 1.5em;
+	text-indent: -.15em;
 	text-align: left;
 }
 .index .ugc  p.sub-entry {
-	padding-left:30px;
+	padding-left:3em;
 }
 
 
@@ -495,3 +498,4 @@ p.wp-caption-text {
 }
 
 @import 'epub-images' , 'epub-house-style' , 'mobi-house-style';
+
