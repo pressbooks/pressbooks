@@ -15,18 +15,14 @@ h2,
 h3, 
 h4, 
 h5, 
-h6 {
-	hyphens: none;
-	-webkit-hyphens: none;
-  page-break-after: avoid;
-}
-
+h6,
 h1.front-matter-title,
 h1.part-title,
 h2.chapter-title,
 h1.back-matter-title {
 	hyphens: none;
 	-webkit-hyphens: none;
+  page-break-after: avoid;
 }
 
 /* DISPLAY NONE 
@@ -74,8 +70,7 @@ div.chapter.numberless h3.chapter-number {
 	display: none;
 }
 
-/* Blank page ... this is to add a blank page in PDF ... can;'t think of a case it is wanted in EPUB.
-hrm.  */
+/* Blank page ... this is to add a blank page in PDF ... */
 
 div.blank-page {
   display: none;
@@ -178,33 +173,6 @@ p.no-hyphens {
   -webkit-hyphens: none;
 }
 
-/* IMAGE STYLING */
-
-.thin-image-wrap {
-  width: 60%;
-  margin-left: 20%;
-  margin-right: 20%;
-  text-align: center;
-  display: inline-block;
-}
-.thin-image img {
-  width: 100%;
-  height: auto;
-}
-
-img.small-image {
-  width: 30%;
-}
-
-.full-bleed-wrap {
-  width: 100%;
-  height: auto;
-  margin: 0;
-  page-break-before: always;
-  page-break-after: always;
-}
-
-
 /* TOC SECTIONS */ 
 
 #toc ul.sections {
@@ -267,14 +235,7 @@ div.index .ugc p.nonindent,
   padding-left: 2.5em;
 }
 
-/* FLOAT TOP MARGINS? */ 
-
-.float-top {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
-/* DROPCAPPY THINGS */ 
+/* DROPCAPS */ 
 
 span.firstcharacter {
   font-weight: bold;
@@ -285,7 +246,7 @@ span.firstcharacter {
   padding-bottom: 0;
 }
 
-/* SIDEBAR -- SHOULD MOVE UP TO THE PULLQUOTE SECTION */
+/* SIDEBAR */
 
 div.sidebar {
   width: 35%;
