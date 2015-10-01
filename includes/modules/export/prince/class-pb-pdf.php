@@ -207,8 +207,8 @@ class Pdf extends Export {
 
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 
-		$scss = $this->cssOverrides;
-		$scss .= file_get_contents( $this->exportStylePath );
+		$scss = file_get_contents( $this->exportStylePath );
+		$scss .= $this->cssOverrides;
 		
 		if ( $this->isScss() ) {
 			$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
