@@ -1,73 +1,85 @@
-//SASS - FONTS 
+// FONTS 
+// These fonts are available for use in Pressbooks Themes.
 
-//List of fonts
 
-//AbrilFatfaceFont 
-//AlegreyaSansSCFont 'Alegreya Sans SC'
-//AlegreyaFont 'Alegreya'
-//AlegreyaSansFont 'Alegreya Sans'
-//AmaranteFont 'Amarante'
-//AmiriArabicFont 'Amiri'
-//Antinoou, 'Antinoou'
-//ArvoFont 'Arvo'
-//AudiowideFont 'Audiowide'
-//BellezaFont 'Belleza'
-//BergamotOrnamentsFont 'Bergamot Ornaments'
-//BerkshireSwashFont 'Berkshire Swash'
-//ButchermanFont 'Butcherman'
-//CardoFont 'Cardo'
-//CardoNGFont 'Cardo NG'
-//CherrySwashFont 'Cherry Swash'
-//CoveredByYourGraceFont 'Covered By Your Grace'
-//CrimsonFont 'Crimson'
-//DosisFont 'Dosis'
-//DroidSansFont 'Droid Sans'
-//DroidSansTazmilFont 'Droid Sans Tamil'
-//DroidSerifFont 'Droid Serif'
-//EuphoriaScriptFont
-//Exo2Font 'Exo 2'
-//FjallaOneFont 'Fjalla One'
-//FederoFont 'Federo'
-//EkatraFont 'Ekatra'
-//GentiumBasicFront 'Gentium Basic'
-//GriffyFont 'Griffy'
-//GruppoFont 'Gruppo'
-//JuliusSansOneFont 'Julius Sans One'
-//IMFellEnglishFont 'IM Fell English'
-//IMFellFrenchCanonFont 'IM Fell French Canon'
-//IMFellFrenchCanonSCFont 'IM Fell French Canon SC'
-//LatoFont 'Lato'
-//LibreBaskervilleFont 'Libre Baskerville'
-//LinuxBiolinum 'Linux Biolinum'
-//LinuxLibertine 'Linux Libertine'
-//MacondoSwashCapsFont
-//MarcellusFont 'Marcellus'
-//MarcellusSCFont 'MarcellusSC'
-//MichromaFont 'Michroma'
-//NixieOneFont 'Nixie One'
-//NoticiaTextFont 'Noticia Text'
-//NotoSansJPFont 'Noto Sans JP'
-//NotoSansTCFont 'Noto Sans TC'
-//OldStandardFont 'Old Standard'
-//OpenSansFont 'Open Sans'
-//OpenSansCondensedFont 'Open Sans Condensed'
-//OrbitronFont 'Orbitron'
-//OswaldFont 'Oswald'
-//PhilosopherFont 'Philosopher'
-//PlayfairDisplayFont 'PlayfairDisplay'
-//PoiretOneFont 'Poiret One' 
-//PTSerifFont 'PT Serif'
-//RobotoFont 'Roboto'
-//RobotoCondensedFont 'Roboto Condensed'
-//SBLGreekFont 'SBL Greek'
-//SortsMillGoudyFont 'Sorts Mill Goudy'
-//TekoFont 'Teko'
-//TinosFont 'Tinos'
-//TrochutFont 'Trochut'
-//WWDesignsFont 'WWDesigns'
+// 'Abril Fatface', @mixin AbrilFatfaceFont
+// 'Alegreya Sans SC', @mixin AlegreyaSansSCFont
+// 'Alegreya', @mixin AlegreyaFont
+// 'Alegreya Sans', @mixin AlegreyaSansFont
+// 'Amarante', @mixin AmaranteFont
+// 'Amiri', @mixin AmiriFont
+// 'Antinoou', @mixin AntinoouFont,
+// 'Arapey', @mixin ArapeyFont
+// 'Arvo', @mixin ArvoFont
+// 'Audiowide', @mixin AudiowideFont
+// 'Belleza', @mixin BellezaFont
+// 'BenchNine', @mixin BenchNineFont
+// 'Bergamot Ornaments', @mixin BergamotOrnamentsFont
+// 'Bevan', @mixin BevanFont
+// 'Butcherman', @mixin ButchermanFont
+// TODO: 'Cardo', @mixin CardoFont
+// TODO: 'Cardo NG', @mixin CardoNGFont
+// 'Cherry Swash', @mixin CherrySwashFont
+// TODO: 'Cinzel', @mixin CinzelFont
+// 'Covered By Your Grace', @mixin CoveredByYourGraceFont
+// TODO: 'Crimson', @mixin CrimsonFont
+// 'Droid Arabic Kufi', @mixin DroidArabicKufiFont
+// 'Droid Arabic Naskh', @mixin DroidArabicNaskhFont
+// 'Droid Sans', @mixin DroidSansFont
+// 'Droid Sans Tamil', @mixin DroidSansTamilFont
+// 'Droid Serif', @mixin DroidSerifFont
+// 'Ekatra', @mixin EkatraFont
+// 'Exo', @mixin ExoFont
+// 'Exo 2', @mixin Exo2Font
+// 'Gentium Basic', @mixin GentiumBasicFont
+// TODO: 'GFS Didot', @mixin GFSDidotFont
+// TODO: 'Gilda Display', @mixin GildaDisplayFont
+// TODO: 'Great Vibes', @mixin GreatVibesFont
+// 'Griffy', @mixin GriffyFont
+// 'Gruppo', @mixin GruppoFont
+// 'Julius Sans One', @mixin JuliusSansOneFont
+// 'IM Fell English', @mixin IMFellEnglishFont
+// 'IM Fell French Canon', @mixin IMFellFrenchCanonFont
+// 'IM Fell French Canon SC', @mixin IMFellFrenchCanonSCFont
+// 'Lato', @mixin LatoFont
+// 'Libre Baskerville', @mixin LibreBaskervilleFont
+// 'Linux Biolinum', @mixin LinuxBiolinum
+// 'Linux Libertine', @mixin LinuxLibertine
+// 'Marcellus', @mixin MarcellusFont
+// 'Marcellus SC', @mixin MarcellusSCFont
+// 'Nixie One', @mixin NixieOneFont
+// 'Noticia Text', @mixin NoticiaTextFont
+// 'Noto Kufi Arabic', @mixin NotoKufiArabicFont
+// 'Noto Naskh Arabic', @mixin NotoNaskhArabicFont
+// 'Noto Sans CJK JP', @mixin NotoSansCJKJPFont
+// 'Noto Sans CJK KR', @mixin NotoSansCJKKRFont
+// 'Noto Sans CJK SC', @mixin NotoSansCJKSCFont
+// 'Noto Sans CJK TC', @mixin NotoSansCJKTCFont
+// 'Noto Sans Coptic', @mixin NotoSansCopticFont
+// 'Noto Sans Gujarati', @mixin NotoSansGujaratiFont
+// 'Noto Sans Syriac', @mixin NotoSansSyriacFont
+// 'Noto Sans Tamil', @mixin NotoSansTamilFont
+// 'Noto Sans Tibetan', @mixin NotoSansTibetanFont
+// 'Old Standard', @mixin OldStandardFont
+// 'Open Sans', @mixin OpenSansFont
+// 'Open Sans Condensed', @mixin OpenSansCondensedFont
+// 'Orbitron', @mixin OrbitronFont
+// 'Oswald', @mixin OswaldFont
+// 'Philosopher', @mixin PhilosopherFont
+// 'PlayfairDisplay', @mixin PlayfairDisplayFont
+// 'Poiret One', @mixin PoiretOneFont 
+// 'PT Serif', @mixin PTSerifFont
+// 'Roboto', @mixin RobotoFont
+// 'Roboto Condensed', @mixin RobotoCondensedFont
+// 'SBL Greek', @mixin SBLGreekFont
+// 'Sorts Mill Goudy', @mixin SortsMillGoudyFont
+// 'Teko', @mixin TekoFont
+// 'Tinos', @mixin TinosFont
+// 'Trochut', @mixin TrochutFont
+// 'WWDesigns', @mixin WWDesignsFont
 
-//ABRIL FATFACE 
-//CURSIVE, SLAB
+// ABRIL FATFACE 
+// CURSIVE, SLAB
 
 @mixin AbrilFatfaceFont {
   @font-face {
@@ -196,7 +208,7 @@
 //Amiri Arabic
 //ARABIC
 
-@mixin AmiriArabicFont {
+@mixin AmiriFont {
   @font-face {
       font-family: 'Amiri';
       src: url(themes-book/pressbooks-book/fonts/Amiri-Bold.ttf) format('truetype');
@@ -235,12 +247,31 @@
       font-style: normal;
   }
   @font-face {
-      font-family: 'Amiri';
+      font-family: 'Antinoou';
       src: url(themes-book/pressbooks-book/fonts/AntinoouItalic.ttf) format('truetype');
       font-weight: normal;
       font-style: italic;
   }
 }
+
+//ARAPEY
+//SERIF
+
+@mixin ArapeyFont {
+   @font-face {
+      font-family: 'Arapey';
+      src: url(themes-book/pressbooks-book/fonts/Arapey-Regular.ttf) format('truetype');
+      font-weight: normal;
+      font-style: normal;
+  }
+  @font-face {
+      font-family: 'Arapey';
+      src: url(themes-book/pressbooks-book/fonts/Arapey-Italic.ttf) format('truetype');
+      font-weight: normal;
+      font-style: italic;
+  }
+}
+
 
 //ARVO
 //DISPLAY, SLAB
@@ -297,6 +328,29 @@
   }
 }
 
+// BENCHNINE 
+// SANS-SERIF
+
+@mixin BenchNineFont {
+  @font-face {
+      font-family: 'BenchNine';
+      src: url(themes-book/pressbooks-book/fonts/BenchNine-Bold.ttf) format('truetype');
+      font-weight: bold;
+      font-style: normal;
+  }
+  @font-face {
+      font-family: 'BenchNine';
+      src: url(themes-book/pressbooks-book/fonts/BenchNine-Regular.ttf) format('truetype');
+      font-weight: normal;
+      font-style: normal;
+  }
+  @font-face {
+      font-family: 'BenchNine';
+      src: url(themes-book/pressbooks-book/fonts/BenchNine-Light.ttf) format('truetype');
+      font-weight: lighter;
+      font-style: normal;
+  }
+}
 
 //BERGAMOT ORNAMENTS 
 //ORNAMENTS
@@ -310,20 +364,8 @@
   }
 }
 
-//BERKSHIRE SWASH 
-//CURSIVE
-
-@mixin BerkshireSwashFont {
-  @font-face {
-      font-family: 'Berkshire Swash';
-      src: url(themes-book/pressbooks-book/fonts/BerkshireSwash-Regular.ttf) format('truetype');
-      font-weight: normal;
-      font-style: normal;
-  }
-}
-
-//BEVAN
-//CURSIVE, SLAB
+//BEVAN 
+//DISPLAY, SLAB
 
 @mixin BevanFont {
   @font-face {
@@ -394,36 +436,6 @@
   }
 }
 
-
-//CAUDEX 
-//SERIF, very conservative
-
-@mixin CaudexFont {
- @font-face {
-      font-family: 'Caudex';
-      src: url(themes-book/pressbooks-book/fonts/Caudex-Bold.ttf) format('truetype');
-      font-weight: bold;
-      font-style: normal;
-  }
-  @font-face {
-      font-family: 'Caudex';
-      src: url(themes-book/pressbooks-book/fonts/Caudex-BoldItalic.ttf) format('truetype');
-      font-weight: bold;
-      font-style: italic;
-  }
-  @font-face {
-      font-family: 'Caudex';
-      src: url(themes-book/pressbooks-book/fonts/Caudex-Regular.ttf) format('truetype');
-      font-weight: normal;
-      font-style: normal;
-  }
-  @font-face {
-      font-family: 'Caudex';
-      src: url(themes-book/pressbooks-book/fonts/Caudex-Italic.ttf) format('truetype');
-      font-weight: normal;
-      font-style: italic;
-  }
-}  
 
 //CHERRY SWASH 
 //CURSIVE
@@ -499,41 +511,42 @@
   }
 }
 
-//DOSIS
-//SANS-SERIF 
+//DROID ARABIC KUFI 
+//SANS-SERIF, ARABIC
 
-@mixin DosisFont {
+@mixin DroidArabicKufiFont {
   @font-face {
-    font-family: 'Dosis';
-    src: url(themes-book/pressbooks-book/fonts/Dosis-Regular.ttf) format('truetype');
+    font-family: 'Droid Arabic Kufi';
+    src: url(themes-book/pressbooks-book/fonts/DroidKufi-Regular.ttf) format('truetype');
     font-style: normal;
     font-weight: normal;
   }
   @font-face {
-    font-family: 'Dosis';
-    src: url(themes-book/pressbooks-book/fonts/Dosis-Bold.ttf) format('truetype');
+    font-family: 'Droid Arabic Kufi';
+    src: url(themes-book/pressbooks-book/fonts/DroidKufi-Bold.ttf) format('truetype');
     font-style: normal;
     font-weight: bold;
   }
+}
+
+//DROID ARABIC NASKH 
+//SERIF, ARABIC
+
+@mixin DroidArabicNaskhFont {
   @font-face {
-    font-family: 'Dosis';
-    src: url(themes-book/pressbooks-book/fonts/Dosis-Light.ttf) format('truetype');
+    font-family: 'Droid Arabic Naskh';
+    src: url(themes-book/pressbooks-book/fonts/DroidNaskh-Regular.ttf) format('truetype');
     font-style: normal;
-    font-weight: lighter;
-  }
-  @font-face {
-    font-family: 'Dosis';
-    src: url(themes-book/pressbooks-book/fonts/Dosis-ExtraBold.ttf) format('truetype');
-    font-style: italic;
-    font-weight: 700;
-  }
-  @font-face {
-    font-family: 'Dosis';
-    src: url(themes-book/pressbooks-book/fonts/OpenSans-Italic.ttf) format('truetype');
-    font-style: italic;
     font-weight: normal;
   }
+  @font-face {
+    font-family: 'Droid Arabic Naskh';
+    src: url(themes-book/pressbooks-book/fonts/DroidNaskh-Bold.ttf) format('truetype');
+    font-style: normal;
+    font-weight: bold;
+  }
 }
+
 
 //DROID SANS
 //SANS-SERIF 
@@ -548,25 +561,6 @@
   @font-face {
     font-family: 'Droid Sans';
     src: url(themes-book/pressbooks-book/fonts/DroidSans-Bold.ttf) format('truetype');
-    font-style: normal;
-    font-weight: bold;
-  }
-}
-
-
-//DROID ARABIC KUFI 
-//SANS-SERIF, ARABIC
-
-@mixin DroidArabicKufiFont {
-  @font-face {
-    font-family: 'Droid Arabic Kufi';
-    src: url(themes-book/pressbooks-book/fonts/DroidKufi-Regular.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
-  }
-  @font-face {
-    font-family: 'Droid Arabic Kufi';
-    src: url(themes-book/pressbooks-book/fonts/DroidKufi-Bold.ttf) format('truetype');
     font-style: normal;
     font-weight: bold;
   }
@@ -660,73 +654,6 @@
 }
 
 
-//EXO 2
-//SANS-SERIF
-//NOTE: breaks in Kindle eink ... use Exo Instead. Maybe don't use it at all? 
-
-@mixin Exo2Font {
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: 300;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-Light.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: italic;
-    font-weight: 300;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-LightItalic.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: normal;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-Regular.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: italic;
-    font-weight: normal;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-RegularItalic.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: bold;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-Bold.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: italic;
-    font-weight: bold;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-BoldItalic.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: 800;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-ExtraBold.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: italic;
-    font-weight: 800;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-ExtraBoldItalic.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: 900;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-Black.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: italic;
-    font-weight: 900;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-BlackItalic.ttf) format('truetype');
-  }
-}
-
 //EXO 
 //SANS-SERIF
 
@@ -793,6 +720,73 @@
   }
 }
 
+
+//EXO 2
+//SANS-SERIF
+//NOTE: breaks in Kindle eink ... use Exo Instead. Maybe don't use it at all? 
+
+@mixin Exo2Font {
+  @font-face {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 300;
+    src: url(themes-book/pressbooks-book/fonts/Exo2-Light.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Exo 2';
+    font-style: italic;
+    font-weight: 300;
+    src: url(themes-book/pressbooks-book/fonts/Exo2-LightItalic.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: normal;
+    src: url(themes-book/pressbooks-book/fonts/Exo2-Regular.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Exo 2';
+    font-style: italic;
+    font-weight: normal;
+    src: url(themes-book/pressbooks-book/fonts/Exo2-RegularItalic.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: bold;
+    src: url(themes-book/pressbooks-book/fonts/Exo2-Bold.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Exo 2';
+    font-style: italic;
+    font-weight: bold;
+    src: url(themes-book/pressbooks-book/fonts/Exo2-BoldItalic.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 800;
+    src: url(themes-book/pressbooks-book/fonts/Exo2-ExtraBold.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Exo 2';
+    font-style: italic;
+    font-weight: 800;
+    src: url(themes-book/pressbooks-book/fonts/Exo2-ExtraBoldItalic.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Exo 2';
+    font-style: normal;
+    font-weight: 900;
+    src: url(themes-book/pressbooks-book/fonts/Exo2-Black.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'Exo 2';
+    font-style: italic;
+    font-weight: 900;
+    src: url(themes-book/pressbooks-book/fonts/Exo2-BlackItalic.ttf) format('truetype');
+  }
+}
 
 //FJALLA ONE
 //SANS-SERIF
@@ -1119,18 +1113,6 @@
   }
 }
 
-//MACONDO SWASH CAPS 
-//CURSIVE
-
-@mixin MacondoSwashCapsFont {
-  @font-face {
-      font-family: 'Macondo Swash Caps';
-      src: url(themes-book/pressbooks-book/fonts/MacondoSwashCaps-Regular.ttf) format('truetype');
-      font-weight: normal;
-      font-style: normal;
-  }
-}
-
 //MARCELLUS 
 //SERIF 
 
@@ -1152,18 +1134,6 @@
       src: url(themes-book/pressbooks-book/fonts/MarcellusSC-Regular.ttf) format('truetype');
       font-weight: normal;
       font-style: normal;
-  }
-}
-
-//MICHROMA
-//SANS-SERIF
-
-@mixin MichromaFont {
-  @font-face {
-    font-family: 'Michroma';
-    src: url(themes-book/pressbooks-book/fonts/Michroma.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
   }
 }
 
@@ -1211,10 +1181,10 @@
   }
 }
 
-// NOTO NASKH ARABIC
+// NOTO KUFI ARABIC
 // ARABIC FONT SANS 
 
-@mixin NotoKufiArabic {
+@mixin NotoKufiArabicFont {
   @font-face {
     font-family: 'Noto Kufi Arabic';
     src: url(themes-book/pressbooks-book/fonts/NotoKufiArabic-Regular.ttf) format('truetype');
@@ -1232,7 +1202,7 @@
 // NOTO NASKH ARABIC
 // ARABIC FONT SERIF 
 
-@mixin NotoNaskhArabic {
+@mixin NotoNaskhArabicFont {
  @font-face {
     font-family: 'Noto Naskh Arabic';
     src: url(themes-book/pressbooks-book/fonts/NotoNaskhArabic-Regular.ttf) format('truetype');

@@ -179,11 +179,11 @@ class GlobalTypography {
 					case 'ar': // Arabic
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoKufiArabic';
+								$includes[] = 'NotoKufiArabicFont';
 								$global_font_stack_sans .= "'Noto Kufi Arabic', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'NotoNaskhArabic';
+								$includes[] = 'NotoNaskhArabicFont';
 								$global_font_stack_serif .= "'Noto Naskh Arabic', ";
 							}
 						}
