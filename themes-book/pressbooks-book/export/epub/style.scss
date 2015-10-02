@@ -1,11 +1,21 @@
-@import 'mixins', 'epub-house-style';
+//LUTHER EPUB OLD
+
+
+@import 'mixins';
+
+
 
 body {
 	font-family: $font-stack-1-epub;
+<<<<<<< HEAD
 	line-height: 1.4em;
+=======
+	line-height: 1.4;
+>>>>>>> themestruc
 }
+
+
 a {
-	color: #02b4c1;
 	text-decoration: none;
 }
 
@@ -22,10 +32,10 @@ p {
 	margin: 0;
 }
 p + ul {
-	margin-top: 10px;
+	margin-top: 1em;
 }
 hr {
-	margin: 10px auto;
+	margin: 1em auto;
 	text-align: center;
 	width: 20%;
 }
@@ -36,7 +46,7 @@ table {
 dt {
 	float: left;
 	font-weight: bold;
-	margin-right: 5px;
+	margin-right: 0.5em;
 	margin-bottom: 0;
 }
 dd {
@@ -59,7 +69,7 @@ cite {
 
 div.blockquote,
 blockquote {
-	border-width: 0 4px;
+	border-width: 0 0.5em;
 	padding: 0 5%;
 	margin-bottom: 2em;
 }
@@ -79,7 +89,7 @@ p + p,
 hr.break-symbols {
 	border: none;
 	font-size: 1.1em;
-	margin-bottom: 20px;
+	margin-bottom: 2em;
 }
 hr.break-symbols:after {
 	display: block;
@@ -96,7 +106,7 @@ p.bl_indent {
 }
 .hanging-indent {
 	padding-left: 1em;
-    text-indent: -1em;
+  text-indent: -1em;
 }
 
 /* TITLE PAGE
@@ -104,7 +114,7 @@ p.bl_indent {
 #title-page > .title {
 	font-size: 2.2em;	
 	margin-top: 1em;
-    line-height: 1em;		
+  line-height: 1em;		
 	text-transform: uppercase;
 }
 #title-page > .subtitle {
@@ -114,7 +124,6 @@ p.bl_indent {
 }
 #title-page > .logo {
 	margin-top: 5em;
-	height: 26px;
 	background-repeat: no-repeat;
 	background-position: bottom center;
 }
@@ -146,10 +155,10 @@ p.bl_indent {
 =================== */
 #copyright-page > div.ugc p {
 	font-size: 0.7em;
-    text-indent: 0;
-    margin-bottom: 0.5em;
+  text-indent: 0;
+  margin-bottom: 0.5em;
 }
-div.license-attribution{
+div.license-attribution {
 	text-align: center;
 	margin-bottom: 1em;
 }
@@ -169,8 +178,6 @@ div.part.invisible {
 	display: none;
 }
 .part-number, .chapter-number {
-	background-repeat: no-repeat;
-	background-position: bottom center;
 	padding-bottom: 1em;
 	text-transform: uppercase;
 }
@@ -201,13 +208,13 @@ div.chapter.numberless h3.chapter-number {
 .ugc h4, 
 .ugc h5, 
 .ugc h6 {
-	margin-bottom: 5px;
+	margin-bottom: 0.5em;
 	page-break-after:avoid;	
 }
 .ugc h1,
 .ugc h2,
 .ugc h3 {
-	font-weight: normal;
+	font-weight: bold;
 }
 .ugc h1 {
 	font-size: 1.1em;
@@ -220,6 +227,8 @@ div.chapter.numberless h3.chapter-number {
 .ugc h4,
 .ugc h5 {
 	text-align: left;
+	font-style: italic;
+	font-size: 0.9em;
 }
 .ugc.back-matter-ugc h4,
 .ugc.part-ugc h4,
@@ -232,7 +241,8 @@ div.chapter.numberless h3.chapter-number {
 .ugc.part-ugc h5,
 .ugc.chapter-ugc h5,
 .ugc.front-matter-ugc h5 {
-	font-size: 0.85em;
+	font-size: 1em;
+
 }
 .ugc h1 + p,
 .ugc h2 + p,
@@ -245,7 +255,7 @@ div.chapter.numberless h3.chapter-number {
 /* TABLE OF CONTENTS
 ======================= */
 #toc {
-	font-size: 0.875em;
+	font-size: 0.95em;
 }
 #toc ul > .front-matter,
 #toc ul > .back-matter {
@@ -256,7 +266,6 @@ div.chapter.numberless h3.chapter-number {
 }
 #toc a {
 	border: none;
-	color: #000;
 }
 #toc ul, #toc li {
 	list-style: none;
@@ -268,9 +277,10 @@ div.chapter.numberless h3.chapter-number {
 	text-decoration: none;
 }
 #toc .part {
-	background-image: none;
+	font-family: Impact, sans-serif;
+	font-size: 1.2em;
+	font-weight: bold;
 	margin: 1.3em 0 0.5em;
-	font:bold 1.2em Impact, sans-serif;
 }
 
 #toc .part.invisible {
@@ -288,12 +298,12 @@ div.chapter.numberless h3.chapter-number {
 #toc span.chapter-subtitle {
 	display: block;
 	font-style: italic;
-	margin-left: 1em;
+	margin-left: 2em;
 }
 #toc span.chapter-author,
 #toc span.chapter-license,
 #toc span.chapter-subtitle {
-	margin-bottom: 5px;
+	margin-bottom: 0.5em;
 }
 #toc span.chapter-subtitle + 
 span.chapter-author,
@@ -301,8 +311,8 @@ span.chapter-author,
 span.chapter-license,
 span.chapter-author + 
 span.chapter-license {
-	margin-top: -5px;
-	margin-bottom: 5px;
+	margin-top: -0.5em;
+	margin-bottom: 0.5em;
 }
 
 /* SUBTITLES, CHAPTER AUTHOR & APHORIMS
@@ -405,13 +415,13 @@ blockquote.aphorism p {
 ======================== */
 .footnotes {
 	display: block;	
-    font-size: 0.875em;
-    margin: 20px 10px 40px 40px;
+  font-size: 0.875em;
+  margin: 2em 1em 3em 3em;
 }
 .footnotes-wrap {
 	list-style: none;
 	display: block;
-	margin: 10px 10px 10px 40px;
+	margin: 1em 1em 1em 3em;
 }
 .footnotes p + p {
 	text-indent: 0;
@@ -423,7 +433,8 @@ blockquote.aphorism p {
 	display: block;
 	text-decoration: none;
 }
-sup.footnote, sup.endnote {
+sup.footnote, 
+sup.endnote {
 	line-height: 1em;
 	vertical-align: top;
 }
@@ -442,13 +453,12 @@ sup.footnote, sup.endnote {
 }
 .endnotes ol {
 	font-size: 0.7em;
-	margin-top: 5px;
+	margin-top: 0.5em;
 	margin-left: 0;
 }
 .endnotes li {
 	text-indent: 2em;
 }
-
 .endnotes p + p {
 	text-indent: 0;
 }
@@ -471,19 +481,18 @@ sup.footnote, sup.endnote {
 }
 .index > div.back-matter-ugc  p {
 	font-size: 0.75em;
-	padding-left: 14pt;
-	text-indent: -14pt;
+	padding-left: 1.5em;
+	text-indent: -.15em;
 	text-align: left;
 }
 .index .ugc  p.sub-entry {
-	padding-left:30px;
+	padding-left:3em;
 }
 
 
 /* =============== 
 IMAGES & CAPTIONS
 ================= */
-
 
 /* CAPTIONS */
 
@@ -492,113 +501,5 @@ p.wp-caption-text {
   padding-bottom: 0.5em;
 }
 
-/* IMAGES - GENERIC */ 
+@import 'epub-images' , 'epub-house-style' , 'mobi-house-style';
 
-img {
-  height: auto;
-  width: 100%;
-  max-width: 100%;
-  margin: 0;
-  padding-left: 0;  
-  padding-right: 0;
-  display: inline-block;
-  page-break-inside: avoid !important;
-}
-
-/* DIV WRAPPER AROUND CAPTIONED IMAGES AND IMAGES WITH NO CAPTIONS */
-
-div.wp-caption,
-div.wp-nocaption {
-  height: auto;        
-  width: 80% !important;
-  max-width: 80% !important;
-  margin-left: 10%; 
-  margin-right: 10%;
-  text-align: center;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  page-break-inside: avoid !important;
-}
-
-/* ALIGNMENT */
-
-.aligncenter,
-.wp-caption.aligncenter {
-  text-align: center !important;
-  width: auto !important;
-  page-break-inside: avoid !important;
-}
-
-.wp-caption.aligncenter img,
-.aligncenter img {
-  display: inline-block !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: auto !important;
-  text-align: center;
-  page-break-inside: avoid !important;
-}
- 
-.alignleft,
-.wp-caption.alignleft,
-.wp-nocaption.alignleft {
-  width: 50% !important;
-  max-width: 50% !important;
-  margin-right: 1em !important;
-  margin-left: 0 !important;
-  padding-left: 0 !important;
-  margin-top: 1em;
-  float: left;
-  page-break-inside: avoid !important;
-}
-
-.alignleft img,
-.wp-caption.alignleft img,
-.wp-nocaption.alignleft img {
-  width: 100% !important;
-  max-width: 100%;
-  page-break-inside: avoid !important;
-}
- 
-.alignright,
-.wp-caption.alignright,
-.wp-nocaption.alignright {
-  width: 50% !important;
-  max-width: 50% !important;
-  margin-right: 0 !important;
-  margin-left: 1em !important;
-  padding-right: 0 !important;
-  margin-top: 1em;
-  float: right;
-  page-break-inside: avoid !important;
-}
-
-.alignright img,
-.wp-caption.alignright img,
-.wp-nocaption.alignright img {
-  width: 100% !important;
-  max-width: 100%;
-  page-break-inside: avoid !important;
-}
-
-/* BABYLONIAN INCANTATIONS ACCOMPANIED CREATION OF THIS SPECIAL CSS FOR MOBI */
-
-@media amzn-kf8 {
-  div.wp-caption,
-  div.wp-nocaption {
-    height: auto !important;        
-    width: auto !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center !important;
-    page-break-inside: avoid !important;
-}
-  div.wp-caption img,
-  div.wp-nocaption img {
-    width: auto;
-    page-break-inside: avoid !important;  
-  }
-}
-
-
-@import 'mobi-house-style';
