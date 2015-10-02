@@ -238,6 +238,31 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
+	$('.chapter_show_title_check').change(function () {
+
+		var id = $(this).attr('id');
+		id = id.split('_');
+		id = id[id.length - 1];
+
+		if ($(this).is(':checked')) {
+			chapter_show_title = 1;
+		} else {
+			chapter_show_title = 0;
+		}
+
+		$.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'pb_update_show_title_options',
+				post_id: id,
+				chapter_show_title: chapter_show_title,
+				type: 'pb_show_title',
+				_ajax_nonce: PB_OrganizeToken.showTitleNonce
+			}
+		});
+	});
+
 	$('.chapter_export_check').change(function () {
 
 		var id = $(this).attr('id');
@@ -301,6 +326,31 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
+	$('.fm_show_title_check').change(function () {
+
+		var id = $(this).attr('id');
+		id = id.split('_');
+		id = id[id.length - 1];
+
+		if ($(this).is(':checked')) {
+			chapter_show_title = 1;
+		} else {
+			chapter_show_title = 0;
+		}
+
+		$.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'pb_update_show_title_options',
+				post_id: id,
+				chapter_show_title: chapter_show_title,
+				type: 'pb_show_title',
+				_ajax_nonce: PB_OrganizeToken.showTitleNonce
+			}
+		});
+	});
+
 	$('.fm_export_check').change(function () {
 
 		var id = $(this).attr('id');
@@ -360,6 +410,31 @@ jQuery(document).ready(function ($) {
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 				// TODO, catch error
+			}
+		});
+	});
+
+	$('.bm_show_title_check').change(function () {
+
+		var id = $(this).attr('id');
+		id = id.split('_');
+		id = id[id.length - 1];
+
+		if ($(this).is(':checked')) {
+			chapter_show_title = 1;
+		} else {
+			chapter_show_title = 0;
+		}
+
+		$.ajax({
+			url: ajaxurl,
+			type: 'POST',
+			data: {
+				action: 'pb_update_show_title_options',
+				post_id: id,
+				chapter_show_title: chapter_show_title,
+				type: 'pb_show_title',
+				_ajax_nonce: PB_OrganizeToken.showTitleNonce
 			}
 		});
 	});

@@ -78,6 +78,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 					        <th><?php _e( 'Comments', 'pressbooks' ); ?></th>
 					        <th><?php _e( 'Status', 'pressbooks' ); ?></th>
 							<th><?php _e( 'Private', 'pressbooks' ); ?></th>
+							<th><?php _e( 'Show Title', 'pressbooks' ); ?></th>
 					        <th><?php _e( 'Export', 'pressbooks' ); ?></th>
 					        <th>
 						        <a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a>
@@ -114,8 +115,11 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 						    	<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />	        
 					        </td>
 							<?php $export = get_post_meta( $content['ID'], 'pb_export', true ); ?>
+					        <td class="export column-showtitle">
+								<input class="<?php echo $type_abbr; ?>_show_title_check" type="checkbox" name="<?php echo $type_abbr; ?>-showtitle[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_show_title_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', true ); ?>/>
+					        </td>
 					        <td class="export column-export">
-								<input class="<?php echo $type_abbr; ?>_export_check" type="checkbox" name="<?php echo $type_abbr; ?>-export[<?php echo $content['ID']; ?>]" id="fm_export_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_export', true ), 'on', true ); ?>/>
+								<input class="<?php echo $type_abbr; ?>_export_check" type="checkbox" name="<?php echo $type_abbr; ?>-export[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_export_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_export', true ), 'on', true ); ?>/>
 							</td>
 					        <td class="action column-action">
 					            <a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> &mdash; <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
@@ -126,6 +130,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 					<?php endif; ?>
 				    <tfoot>
 					    <tr>
+					        <th>&nbsp;</th>
 					        <th>&nbsp;</th>
 					        <th>&nbsp;</th>
 					        <th>&nbsp;</th>
@@ -149,6 +154,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 			        <th><?php _e( 'Comments', 'pressbooks' ); ?></th>
 			        <th><?php _e( 'Status', 'pressbooks' ); ?></th>
 					<th><?php _e( 'Private', 'pressbooks' ); ?></th>
+					<th><?php _e( 'Show Title', 'pressbooks' ); ?></th>
 			        <th><?php _e( 'Export', 'pressbooks' ); ?></th>
 			        <th><?php _e( 'Edit', 'pressbooks' ); ?></th>
 			    </tr>
@@ -177,8 +183,11 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 				    	<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />	        
 			        </td>
 					<?php $export = get_post_meta( $content['ID'], 'pb_export', true ); ?>
+			        <td class="status column-showtitle">
+						<input class="<?php echo $type_abbr; ?>_show_title_check" type="checkbox" name="<?php echo $type_abbr; ?>-showtitle[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_show_title_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', true ); ?>/>
+			        </td>
 			        <td class="export column-export">
-						<input class="<?php echo $type_abbr; ?>_export_check" type="checkbox" name="<?php echo $type_abbr; ?>-export[<?php echo $content['ID']; ?>]" id="fm_export_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_export', true ), 'on', true ); ?>/>
+						<input class="<?php echo $type_abbr; ?>_export_check" type="checkbox" name="<?php echo $type_abbr; ?>-export[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_export_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_export', true ), 'on', true ); ?>/>
 					</td>
 			        <td class="action column-action">
 			            <a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> &mdash; <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
@@ -188,6 +197,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 		    </tbody>
 		    <tfoot>
 			    <tr>
+			        <th>&nbsp;</th>
 			        <th>&nbsp;</th>
 			        <th>&nbsp;</th>
 			        <th>&nbsp;</th>
