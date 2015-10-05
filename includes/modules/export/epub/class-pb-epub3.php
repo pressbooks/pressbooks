@@ -33,52 +33,7 @@ class Epub3 extends Epub\Epub201 {
 	/**
 	 * @param array $args
 	 */
-	 
-	protected $MathMLTags = array(
-	    'math', 'maction', 'maligngroup', 'malignmark', 'menclose',
-	    'merror', 'mfenced', 'mfrac', 'mglyph', 'mi', 'mlabeledtr',
-	    'mlongdiv', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded',
-	    'mphantom', 'mroot', 'mrow', 'ms', 'mscarries', 'mscarry',
-	    'msgroup', 'msline', 'mspace', 'msqrt', 'msrow', 'mstack',
-	    'mstyle', 'msub', 'msup', 'msubsup', 'mtable', 'mtd',
-	    'mtext', 'mtr', 'munder', 'munderover', 'semantics',
-	    'annotation', 'annotation-xml'
-	);
 
-	
-	/**
-	 * Encode MathML Markup
-	 * @param string $html
-	 *
-	 * @return string
-	*/
-	protected function encodeMathMLMarkup( $html ) {
-	
-		// Substitute MathML Open and close Tags before running HTMLawed
-		// @TODO - this regex needs to be looked at for precision, currently it targets 
-		// opening tags <math>, but not closing tags </math>
-		foreach( $this->MathMLTags as $tag ) {
-			$html = preg_replace( '`<(\s*)' . $tag . '(.*?)>`', '\x83$1' . $tag . '$2\x84', $html);
-		}
-	
-		return $html;
-	}
-
-	/**
-	 * Restore MathML Markup
-	 * @param string $html
-	 *
-	 * @return string
-	*/
-	protected function restoreMathMLMarkup( $html ) {
-		// Restore MathML tags to complete output
-		// @TODO - this regex needs to be looked at for precision, currently it targets 
-		// opening tags <math>, but not closing tags </math>
-		$html = str_replace( "\\x83","<", $html );
-		$html = str_replace( "\\x84",">", $html );
-		return $html;
-	}
-	
 	
 	/**
 	 * Check for existence of properties attributes
@@ -93,16 +48,8 @@ class Epub3 extends Epub\Epub201 {
 		$properties = array();
 	
 		if ( empty( $html ) ) {
-			throw new \Exception( 'File contents empty for doesFileContainMathML' );
+			throw new \Exception( 'File contents empty for getProperties' );
 		}
-	
-		// Check all MathML type tags and return true if any are encountered
-//		foreach( $this->MathMLTags as $tag ) {
-//			if( preg_match_all( '`<' . $tag . '>`', $html ) >= 1) {
-//				$properties['mathml'] = 1;
-//				continue;
-//			}
-//		}
 
 		// Check for script elements
 		if ( preg_match_all( '/<script[^>]*>.*?<\/script>/is', $html ) >= 1 ) {
@@ -139,16 +86,8 @@ class Epub3 extends Epub\Epub201 {
 		unset( $GLOBALS['hl_Ids'] );
 		
 		if ( ! empty( $this->fixme ) ) $GLOBALS['hl_Ids'] = $this->fixme;
-		
-		// @TODO - WP TinyMCE strips out MathML without a plugin
-		// encodeMathMLMarkup and restoreMathMLMarkup are, on occasion, stripping content — needs fixing
-//		$html = $this->encodeMathMLMarkup( $html );
 
 		$html = htmLawed( $html, $config );
-		
-		// @TODO - WP TinyMCE strips out MathML without a plugin
-		// encodeMathMLMarkup and restoreMathMLMarkup are, on occassion, stripping content - needs fixing
-//		$html = $this->restoreMathMLMarkup( $html );
 
 		return $html;
 	}
@@ -532,18 +471,18 @@ class Epub3 extends Epub\Epub201 {
 		//Loop through the html files for the manifest and assemble them. Assign properties based on their content.
 		foreach ( $this->manifest as $k => $v ) {
 			$properties = $this->getProperties( $this->tmpDir . "/OEBPS/" . $v['filename'] );
-			(array_key_exists( 'mathml', $properties ) ? $mathml = 'properties="mathml" ' : $mathml = '');
 			(array_key_exists( 'scripted', $properties ) ? $scripted = 'properties="scripted" ' : $scripted = '');
 
-			$html .= sprintf( '<item id="%s" href="OEBPS/%s" %s%smedia-type="application/xhtml+xml" />', $k, $v['filename'], $mathml, $scripted ) . "\n\t\t";
+			$html .= sprintf( '<item id="%s" href="OEBPS/%s" %smedia-type="application/xhtml+xml" />', $k, $v['filename'], $scripted ) . "\n\t\t";
 
 		}
 		$vars['manifest_filelist'] = $html;
-		$vars['do_copyright_license'] = strip_tags( $this->doCopyrightLicense( $metadata ) ) ;
-		
+		$vars['do_copyright_license'] = strip_tags( $this->doCopyrightLicense( $metadata ) );
+
 		// Put contents
 		file_put_contents(
-			$this->tmpDir . "/book.opf", $this->loadTemplate( $this->dir . '/templates/epub3/opf.php', $vars ) );
+			$this->tmpDir . "/book.opf", $this->loadTemplate( $this->dir . '/templates/epub3/opf.php', $vars )
+		);
 	}
 
 	/**
