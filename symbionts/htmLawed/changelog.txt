@@ -1,0 +1,57 @@
+htmLawed 1.2 beta change-log
+
+**** 1.2.beta.8, 9 June 2015 release ****
+
+Fix for a potential security vulnerability arising from unescaped double-quote character in single-quoted attribute value of some deprecated elements when tag transformation is enabled; 'allowfullscreen' attribute in 'iframe' element is now recognized.
+
+**** 1.2.beta.7, 19 January 2015 release ****
+
+Fix for a bug in cleaning of soft-hyphens in URL values, etc.
+
+**** 1.2.beta.6, 2 August 2014 release ****
+
+Fix for a potential security vulnerability arising from specially encoded text with serial opening tags
+
+**** 1.2.beta.5, 12 March 2014 release ****
+
+Incorporated the one change made for htmLawed 1.1.17 for PHP 5.5 compatibility
+
+**** 1.2.beta.4, 11 September 2013 release ****
+
+Incorporated the changes made from htmLawed 1.1.14 to 1.1.16: improved Tidy functionality and detection of specially crafted URL protocols
+
+**** 1.2.beta.3, 6 August 2013 release ****
+
+Improved checking for valid nesting within the a element
+
+**** 1.2.beta.2, 9 June 2013 release ****
+
+Support for new (HTML5) element: main
+
+Support for HTML5's custom data-* attributes
+
+Checks that the value of config. parameter 'unique_ids' does not have a non-word character
+
+The value attribute of li, border of img, and start and type of ol are no longer considered as deprecated
+
+**** 1.2.beta.1, 2 June 2013 release ****
+
+Support for new (HTML5) element: hgroup
+
+Corrected checking for child elements allowed within a to comply with HTML5 specification
+
+**** 1.2.beta, 26 May 2013 release ****
+
+Support for new (HTML5) elements: article, aside, audio, bdi, canvas, command, data, datalist, details, figcaption, figure, footer, header, keygen, mark, meter, nav, output, progress, section, source, summary, time, track, video, wbr (of these, audio, canvas, and video are considered 'unsafe' elements)
+
+Support for these existing (HTML4 'head') elements: link, meta and style (for use within HTML 'body')
+
+Changes in handling of previously supported elements, for compliance with current HTML(5) specification: embed, menu, and u are no longer deprecated (i.e., no tag transformation [when enforced]); acronym will get tag-transformed to abbr; big will get tag-transformed to span (with font-size:larger) and tt will get tag-transformed to code; address is not allowed within address; embed is not allowed with a or button; a is no longer considered an inline element
+
+Global attributes, for compliance with current HTML(5) specification: many new global attributes, including inert and translate, 35 WAI-ARIA attibutes like aria-busy, and the 5 item* attributes like itemscope for microdata specification; accesskey, tabindex, xml:space and xmlns are now global attributes; previous restrictions on global attributes (e.g., id not allowed in script) are removed; now 54 instead of 10 event attributes like onclick and oncuechange; the id attribute is now allowed to have any value, as long as it is unique (when enforced), is not an empty string, and does not contain space characters
+
+Support for new or previously deprecated attributes of previously supported elements, for compliance with current HTML(5) specification -- a: download, media, ping, target; area: hreflang, media, rel, target, type; button, input: formaction, formenctype, formmethod, formnovalidate, formtarget; button, input, select, textarea: autofocus, required; button, fieldset, input, label, object, select, textarea: form; embed: hspace, vspace; fieldset: disabled, name; form: novalidate; iframe: sandbox, seamless, srcdoc; img: crossorigin; input: autocomplete, height, list, max, min, multiple, pattern, step, width; input, textarea: dirname, placeholder; menu: type, label; object: typemustmatch; ol: reversed; script: async, type; textarea: maxlength, wrap
+
+Support for new values for the type attribute of input: tel, search, url, email, datetime, date, month, week, time, datetime-local, number, range, color.
+
+Functions kses() and kses_hook() have been removed.
