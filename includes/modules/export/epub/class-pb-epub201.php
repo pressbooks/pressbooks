@@ -859,7 +859,13 @@ class Epub201 extends Export {
 	 * @param array $metadata
 	 */
 	protected function createCopyright( $book_contents, $metadata ) {
+
 		$options = get_option( 'pressbooks_theme_options_global' );
+		foreach ( array( 'copyright_license' ) as $requiredGlobalOption ) {
+			if ( ! isset ( $options[$requiredGlobalOption] ) ) {
+				$options[$requiredGlobalOption] = 0;
+			}
+		}
 
 		// HTML
 		$html = '<div id="copyright-page"><div class="ugc">';
@@ -1422,7 +1428,13 @@ class Epub201 extends Export {
 			'post_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
 		);
+
 		$options = get_option( 'pressbooks_theme_options_global' );
+		foreach ( array( 'copyright_license' ) as $requiredGlobalOption ) {
+			if ( ! isset ( $options[$requiredGlobalOption] ) ) {
+				$options[$requiredGlobalOption] = 0;
+			}
+		}
 
 
 		// Start by inserting self into correct manifest position
