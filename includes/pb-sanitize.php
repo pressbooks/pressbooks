@@ -12,9 +12,9 @@ namespace PressBooks\Sanitize;
  * Example: <aside>Howdy</aside> will become <div class="bc-aside aside">Howdy</div> (bc = Backward Compatible)
  * This function is used by htmLawed's hook.
  *
- * @param $t
- * @param $C (optional) unused
- * @param $S (optional) unused
+ * @param string $t
+ * @param array $C (optional) unused
+ * @param array $S (optional) unused
  *
  * @return string
  */
@@ -45,9 +45,9 @@ function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
 /**
  * Convert HTML5 tags to XHTML5 divs
  * 
- * @param type $t
- * @param type $C
- * @param type $S
+ * @param string $t
+ * @param array $C (optional) unused
+ * @param array $S (optional) unused
  * @return string
  */
 function html5_to_xhtml5( $t, $C = array(), $S = array() ) {

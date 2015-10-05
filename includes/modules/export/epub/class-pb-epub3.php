@@ -5,7 +5,7 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Export\Epub3;
+namespace PressBooks\Export\Epub;
 
 use PressBooks\Export\Epub;
 use PressBooks\Sanitize;
@@ -45,25 +45,6 @@ class Epub3 extends Epub\Epub201 {
 	    'annotation', 'annotation-xml'
 	);
 
-	function __construct( array $args ) {
-
-		// Some defaults
-
-		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) )
-				define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar -v 3.0' );
-		
-		$this->tmpDir = $this->createTmpDir();
-		$this->exportStylePath = $this->getExportStylePath( 'epub' );
-		$this->genericMixinsPath = $this->getMixinsPath();
-		$this->globalTypographyMixinPath = $this->getGlobalTypographyMixinPath();
-
-		$this->themeOptionsOverrides();
-
-		// HtmLawed: id values not allowed in input
-		foreach ( $this->reservedIds as $val ) {
-			$this->fixme[$val] = 1;
-		}
-	}
 	
 	/**
 	 * Encode MathML Markup
@@ -185,7 +166,7 @@ class Epub3 extends Epub\Epub201 {
 		mkdir( $this->tmpDir . '/OEBPS/assets' );
 
 		file_put_contents(
-			$this->tmpDir . '/META-INF/container.xml', $this->loadTemplate( $this->dir . '/templates/container.php' ) );
+			$this->tmpDir . '/META-INF/container.xml', $this->loadTemplate( $this->dir . '/templates/epub201/container.php' ) );
 	}
 
 	/**
@@ -215,7 +196,7 @@ class Epub3 extends Epub\Epub201 {
 
 		// html5 targeted css
 		$css3 = 'css3.css';
-		$path_to_css3_stylesheet = $this->dir . "/templates/css/$css3";
+		$path_to_css3_stylesheet = $this->dir . "/templates/epub3/css/$css3";
 
 		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';
@@ -331,7 +312,7 @@ class Epub3 extends Epub\Epub201 {
 		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 
 		// Mobi7 hacks
-		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", $this->dir . '/templates/mobi-hacks.xsl' );
+		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", $this->dir . '/templates/epub201/mobi-hacks.xsl' );
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
@@ -562,7 +543,7 @@ class Epub3 extends Epub\Epub201 {
 		
 		// Put contents
 		file_put_contents(
-			$this->tmpDir . "/book.opf", $this->loadTemplate( $this->dir . '/templates/opf.php', $vars ) );
+			$this->tmpDir . "/book.opf", $this->loadTemplate( $this->dir . '/templates/epub3/opf.php', $vars ) );
 	}
 
 	/**
@@ -587,14 +568,40 @@ class Epub3 extends Epub\Epub201 {
 		);
 
 		file_put_contents(
-			$this->tmpDir . "/toc.xhtml", $this->loadTemplate( $this->dir . '/templates/toc.php', $vars ) );
+			$this->tmpDir . "/toc.xhtml", $this->loadTemplate( $this->dir . '/templates/epub3/toc.php', $vars ) );
 		
 		// for backwards compatibility
 		file_put_contents(
 			$this->tmpDir . "/toc.ncx",
-			$this->loadTemplate( $this->dir . '/templates/ncx.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/epub3/ncx.php', $vars ) );
 
-	
+
+	}
+
+
+	/**
+	 * Override load template function, switch path from epub201 to epub3 when possible.
+	 *
+	 * @param string $path
+	 * @param array $vars (optional)
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+	protected function loadTemplate( $path, array $vars = array() ) {
+
+		$search = '/templates/epub201/';
+		$replace = '/templates/epub3/';
+
+		$pos = strpos( $path, $search );
+		if ( $pos !== false ) {
+			$newPath = substr_replace( $path, $replace, $pos, strlen( $search ) );
+			if ( file_exists( $newPath ) ) {
+				$path = $newPath;
+			}
+		}
+
+		return parent::loadTemplate( $path, $vars );
 	}
 
 }

@@ -663,11 +663,11 @@ abstract class Export {
 				$modules[] = '\PressBooks\Export\Epub\Epub201'; // Must be set before MOBI
 			}
 			if ( isset( $x['epub3'] ) ) {
-				$modules[] = '\PressBooks\Export\Epub3\Epub3'; // Must be set before MOBI
+				$modules[] = '\PressBooks\Export\Epub\Epub3'; // Must be set before MOBI
 			}
 			if ( isset( $x['mobi'] ) ) {
-				if  ( !isset( $x['epub'] ) ) { // Make sure Epub source file is generated
-					$modules[] = '\PressBooks\Export\Epub\Epub201'; // Must be set before MOBI
+				if  ( !isset( $x['epub3'] ) ) { // Make sure Epub source file is generated
+					$modules[] = '\PressBooks\Export\Epub\Epub3'; // Must be set before MOBI
 				}
 				$modules[] = '\PressBooks\Export\Mobi\Kindlegen'; // Must be set after EPUB
 			}
@@ -733,8 +733,8 @@ abstract class Export {
 			// --------------------------------------------------------------------------------------------------------
 			// MOBI cleanup
 			
-			if ( isset( $x['mobi'] ) && !isset( $x['epub'] ) ) {
-				unlink( $outputs['\PressBooks\Export\Epub\Epub201'] );
+			if ( isset( $x['mobi'] ) && !isset( $x['epub3'] ) ) {
+				unlink( $outputs['\PressBooks\Export\Epub\Epub3'] );
 			}
 
 			// --------------------------------------------------------------------------------------------------------

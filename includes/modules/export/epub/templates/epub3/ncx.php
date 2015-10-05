@@ -43,6 +43,7 @@ foreach ( $manifest as $k => $v ) {
 	}
 
 	if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) !== 'on' ) {
+
 		$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
 		if ( ! $text ) $text = ' ';
 
@@ -59,7 +60,9 @@ foreach ( $manifest as $k => $v ) {
 		}
 
 		++ $i;
+
 	}
+
 }
 if ( true == $part_open ) {
 	echo '</navPoint>';

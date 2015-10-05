@@ -502,11 +502,11 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . '/META-INF/container.xml',
-			$this->loadTemplate( $this->dir . '/templates/container.php' ) );
+			$this->loadTemplate( $this->dir . '/templates/epub201/container.php' ) );
 
 		file_put_contents(
 			$this->tmpDir . '/META-INF/com.apple.ibooks.display-options.xml',
-			$this->loadTemplate( $this->dir. '/templates/ibooks.php' ) );
+			$this->loadTemplate( $this->dir. '/templates/epub201/ibooks.php' ) );
 
 	}
 
@@ -714,7 +714,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
-			$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 		$this->manifest[$file_id] = array(
 			'ID' => -1,
@@ -774,7 +774,7 @@ class Epub201 extends Export {
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 				$this->manifest[$file_id] = array(
 					'ID' => $front_matter['ID'],
@@ -843,7 +843,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
-			$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 		$this->manifest[$file_id] = array(
 			'ID' => -1,
@@ -909,7 +909,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
-			$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 		$this->manifest[$file_id] = array(
 			'ID' => - 1,
@@ -970,7 +970,7 @@ class Epub201 extends Export {
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 				$this->manifest[$file_id] = array(
 					'ID' => $front_matter['ID'],
@@ -1062,7 +1062,7 @@ class Epub201 extends Export {
 
 			file_put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
-				$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 			$this->manifest[$file_id] = array(
 				'ID' => $front_matter['ID'],
@@ -1098,7 +1098,7 @@ class Epub201 extends Export {
 
 			file_put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
-				$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 			$this->manifest[$file_id] = array(
 				'ID' => -1,
@@ -1212,7 +1212,7 @@ class Epub201 extends Export {
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 				$this->manifest[$file_id] = array(
 					'ID' => $chapter['ID'],
@@ -1244,7 +1244,7 @@ class Epub201 extends Export {
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 				// Insert into correct pos
 				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
@@ -1275,7 +1275,7 @@ class Epub201 extends Export {
 	
 					file_put_contents(
 						$this->tmpDir . "/OEBPS/$filename",
-						$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+						$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 	
 					// Insert into correct pos
 					$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
@@ -1306,7 +1306,7 @@ class Epub201 extends Export {
 		
 						file_put_contents(
 							$this->tmpDir . "/OEBPS/$filename",
-							$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+							$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 		
 						// Insert into correct pos
 						$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
@@ -1400,7 +1400,7 @@ class Epub201 extends Export {
 
 			file_put_contents(
 				$this->tmpDir . "/OEBPS/$filename",
-				$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 			$this->manifest[$file_id] = array(
 				'ID' => $back_matter['ID'],
@@ -1532,7 +1532,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/OEBPS/$filename",
-			$this->loadTemplate( $this->dir . '/templates/xhtml.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 	}
 
@@ -1608,7 +1608,7 @@ class Epub201 extends Export {
 		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
 
 		// Mobi7 hacks
-		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", $this->dir . '/templates/mobi-hacks.xsl' );
+		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", $this->dir . '/templates/epub201/mobi-hacks.xsl' );
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
@@ -1984,7 +1984,7 @@ class Epub201 extends Export {
 		// Put contents
 		file_put_contents(
 			$this->tmpDir . "/book.opf",
-			$this->loadTemplate( $this->dir . '/templates/opf.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/epub201/opf.php', $vars ) );
 
 	}
 
@@ -2012,7 +2012,7 @@ class Epub201 extends Export {
 
 		file_put_contents(
 			$this->tmpDir . "/toc.ncx",
-			$this->loadTemplate( $this->dir . '/templates/ncx.php', $vars ) );
+			$this->loadTemplate( $this->dir . '/templates/epub201/ncx.php', $vars ) );
 
 	}
 
