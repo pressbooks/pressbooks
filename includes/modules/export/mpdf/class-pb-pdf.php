@@ -103,8 +103,7 @@ class Pdf extends Export {
 	const MODE_CSS = 1;
 
 	/**
-	 * 
-	 * @param array $args
+	 *
 	 */
 	function __construct() {
 		// don't know who would actually wait for 10 minutes, but it's here
@@ -218,7 +217,7 @@ class Pdf extends Export {
 		    'margin-left' => 15,
 		    'margin-right' => 15,
 		);
-		$content .= '<div id="half-title-page">';
+		$content = '<div id="half-title-page">';
 		$content .=  '<h1 class="title">' . $this->bookTitle . '</h1>';
 		$content .=  '</div>' . "\n";
 
@@ -247,7 +246,7 @@ class Pdf extends Export {
 		    'margin-right' => 15,
 		);
 
-		$content .= '<div id="title-page">';
+		$content = '<div id="title-page">';
 		$content .= '<h1 class="title">' . $this->bookTitle . '</h1>';
 
 		if ( ! empty( $this->bookMeta['pb_subtitle'] ) ) {
@@ -300,8 +299,9 @@ class Pdf extends Export {
 		    'margin-right' => 15,
 		);
 
+		$content = '<div id="copyright-page">';
+
 		if ( isset( $this->bookMeta['pb_copyright_year'] ) || isset( $this->bookMeta['pb_copyright_holder'] ) ) {
-			$content .= '<div id="copyright-page">';
 
 			$content .= '<p><strong>' . __( 'Copyright', 'pressbooks' ) . '</strong>:';
 			if ( ! empty( $this->bookMeta['pb_copyright_year'] ) ) {
@@ -402,6 +402,7 @@ class Pdf extends Export {
 		// iterate through, parts, chapters, back-matter
 		$first_iteration = true;
 		$i = 1;
+		$page_options = array();
 		foreach ( $contents as $page ) {
 
 			if ( 'front-matter' == $page['post_type'] ) continue; //skip all front-matter
@@ -459,7 +460,7 @@ class Pdf extends Export {
 			} else {
 				$title = '<h2 class="entry-title">' . $page['post_title'] . '</h2>';
 			}
-			$content .= $class
+			$content = $class
 				. $title
 				. $this->getFilteredContent( $page['post_content'] )
 				. '</div>';
@@ -480,7 +481,6 @@ class Pdf extends Export {
 	 */
 	function getTocEntry( $page ) {
 
-		$entry = $page;
 		// allow override
 		$entry = apply_filters( 'mpdf_get_toc_entry', $page );
 		// sanitize
@@ -545,8 +545,11 @@ class Pdf extends Export {
 	/**
 	 * Return formatted footers.
 	 *
-	 * @param string $context
+	 * @param bool $display
+	 * @param string $content
 	 *   The post type being added to the page.
+	 *
+	 * @return string
 	 */
 	function getFooter( $display = true, $content = '' ) {
 		// bail early
@@ -570,11 +573,11 @@ class Pdf extends Export {
 	/**
 	 * Return formatted headers.
 	 *
-	 * @param string $context
+	 * @param bool $display
+	 * @param string $content
 	 *  The post type being added to the page
 	 *
-	 * @param array $page
-	 *  The "page" content
+	 * @return string
 	 */
 	function getHeader( $display = true, $content = '' ) {
 		// bail early
