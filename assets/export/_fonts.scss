@@ -17,7 +17,7 @@
 // 'Bergamot Ornaments', @mixin BergamotOrnamentsFont
 // 'Bevan', @mixin BevanFont
 // 'Butcherman', @mixin ButchermanFont
-// CLEANUP: 'Cardo', @mixin CardoFont
+// 'Cardo', @mixin CardoFont
 // 'Cherry Swash', @mixin CherrySwashFont
 // 'Cinzel', @mixin CinzelFont
 // 'Covered By Your Grace', @mixin CoveredByYourGraceFont
@@ -411,31 +411,6 @@
     src: url(themes-book/pressbooks-book/fonts/Cardo104s.ttf) format('truetype');
   }
 }
-
-//CARDO NG: A CONSERVATIVE SERIF
-//SERIF, NO GREEK GLYPHS
-
-@mixin CardoFont {
-  @font-face {
-    font-family: 'Cardo';
-    font-weight: bold;
-    font-style: normal;
-    src: url(themes-book/pressbooks-book/fonts/Cardob101.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Cardo';
-    font-weight: normal;
-    font-style: italic;
-    src: url(themes-book/pressbooks-book/fonts/Cardoi99.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Cardo';
-    font-weight: normal;
-    font-style: normal;
-    src: url(themes-book/pressbooks-book/fonts/Cardo104s.ttf) format('truetype');
-  }
-}
-
 
 //CHERRY SWASH 
 //CURSIVE
