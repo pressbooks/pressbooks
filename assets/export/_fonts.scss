@@ -26,7 +26,6 @@
 // 'Droid Serif', @mixin DroidSerifFont
 // 'Ekatra', @mixin EkatraFont
 // 'Exo', @mixin ExoFont
-// 'Exo 2', @mixin Exo2Font
 // 'Gentium Basic', @mixin GentiumBasicFont
 // 'GFS Didot', @mixin GFSDidotFont
 // 'Gilda Display', @mixin GildaDisplayFont
@@ -57,7 +56,7 @@
 // 'Noto Sans Tamil', @mixin NotoSansTamilFont
 // 'Noto Sans Tibetan', @mixin NotoSansTibetanFont
 // 'Noto Serif', @mixin NotoSerifFont
-// 'Old Standard', @mixin OldStandardFont
+// 'Old Standard TT', @mixin OldStandardTTFont
 // 'Open Sans', @mixin OpenSansFont
 // 'Open Sans Condensed', @mixin OpenSansCondensedFont
 // 'Orbitron', @mixin OrbitronFont
@@ -666,73 +665,6 @@
 }
 
 
-//EXO 2
-//SANS-SERIF
-//NOTE: breaks in Kindle eink ... use Exo Instead. Maybe don't use it at all? 
-
-@mixin Exo2Font {
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: 300;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-Light.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: italic;
-    font-weight: 300;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-LightItalic.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: normal;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-Regular.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: italic;
-    font-weight: normal;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-RegularItalic.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: bold;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-Bold.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: italic;
-    font-weight: bold;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-BoldItalic.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: 800;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-ExtraBold.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: italic;
-    font-weight: 800;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-ExtraBoldItalic.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: normal;
-    font-weight: 900;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-Black.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Exo 2';
-    font-style: italic;
-    font-weight: 900;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-BlackItalic.ttf) format('truetype');
-  }
-}
-
 //FJALLA ONE
 //SANS-SERIF
 
@@ -1051,36 +983,6 @@
 	}
 }
 
-//LORA
-//SERIF
-
-@mixin LoraFont {
-  @font-face {
-    font-family: 'Lora';
-    src: url(themes-book/pressbooks-book/fonts/Lora-Regular.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
-  }
-  @font-face {
-    font-family: 'Lora';
-    src: url(themes-book/pressbooks-book/fonts/Lora-Bold.ttf) format('truetype');
-    font-style: normal;
-    font-weight: bold;
-  }
-  @font-face {
-    font-family: 'Lora';
-    src: url(themes-book/pressbooks-book/fonts/Lora-BoldItalic.ttf) format('truetype');
-    font-style: italic;
-    font-weight: bold;
-  }
-  @font-face {
-    font-family: 'Lora';
-    src: url(themes-book/pressbooks-book/fonts/Lora-Italic.ttf) format('truetype');
-    font-style: italic;
-    font-weight: normal;
-  }
-}
-
 //MARCELLUS 
 //SERIF 
 
@@ -1361,22 +1263,22 @@
 //OLD Standard
 //DISPLAY, SERIF
 
-@mixin OldStandardFont {
+@mixin OldStandardTTFont {
   
   @font-face {
-    font-family: 'Old Standard TT';
+    font-family: 'Old Standard TT TT';
     font-style: normal;
     font-weight: 400;
     src: url(themes-book/pressbooks-book/fonts/OldStandard-Regular.ttf) format('truetype');
   }
   @font-face {
-    font-family: 'Old Standard TT';
+    font-family: 'Old Standard TT TT';
     font-style: normal;
     font-weight: bold;
     src: url(themes-book/pressbooks-book/fonts/OldStandard-Bold.ttf) format('truetype');
   }
   @font-face {
-    font-family: 'Old Standard TT';
+    font-family: 'Old Standard TT TT';
     font-style: italic;
     font-weight: 400;
     src: url(themes-book/pressbooks-book/fonts/OldStandard-Italic.ttf) format('truetype');
@@ -1741,7 +1643,7 @@
 }
 
 //TEKO
-//SANS-SERIF, DISPLAY
+//SANS-SERIF, DISPLAY, Devanagari
 
 @mixin TekoFont {
   @font-face {
