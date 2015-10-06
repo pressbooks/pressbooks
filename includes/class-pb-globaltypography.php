@@ -60,14 +60,12 @@ class GlobalTypography {
 	 
 	static function getThemeFontStacks() {
 		
-		$return_value = array();
+		$return_value = false;
 		
-		$fullpath = get_stylesheet_directory() . '/theme-information.php';
-		
-		if ( is_file( $fullpath ) ) require_once( $fullpath );
+		$fullpath = get_stylesheet_directory() . '/_mixins.scss';
 				
-		if ( @$font_stacks ) $return_value = $font_stacks;
-						
+		if ( is_file( $fullpath ) ) $return_value = file_get_contents( $fullpath );
+
 		return $return_value;
 	}
 
@@ -87,18 +85,20 @@ class GlobalTypography {
 		
 		$font_stacks = \PressBooks\GlobalTypography::getThemeFontStacks();
 		
-		if ( in_array( 'sans', $font_stacks ) ) {
-			$global_font_stack_sans = '$global-font-stack-sans: ';
+		error_log($font_stacks);
+		
+		if ( strpos( $font_stacks, '$sans-serif' ) !== false ) {
+			$global_font_stack_sans = '$sans-serif: ';
 			$sans = true;
 		} else {
-			$global_font_stack_sans = '$global-font-stack-sans: sans-serif';
+			$global_font_stack_sans = '$sans-serif: ';
 		}
 		 
-		if ( in_array( 'serif', $font_stacks ) ) { 
-			$global_font_stack_serif = '$global-font-stack-serif: ';
+		if ( strpos( $font_stacks, '$serif' ) !== false ) {
+			$global_font_stack_serif = '$serif: ';
 			$serif = true;
 		} else {
-			$global_font_stack_serif = '$global-font-stack-serif: serif';
+			$global_font_stack_serif = '$serif: ';
 		}
 
 		$languages = get_option( 'pressbooks_global_typography' );
@@ -317,13 +317,11 @@ class GlobalTypography {
 				$scss .= "@include $include;\n";
 			}
 						
-			$global_font_stack_sans = rtrim( $global_font_stack_sans, ', ' );
-			$global_font_stack_sans .= ";\n";
-			$global_font_stack_serif = rtrim( $global_font_stack_serif, ', ' );
-			$global_font_stack_serif .= ";\n";
+			$global_font_stack_sans .= "sans-serif;\n";
+			$global_font_stack_serif .= "serif;\n";
 		} else {
-			$global_font_stack_sans .= 'sans-serif;';
-			$global_font_stack_serif .= 'serif;';
+			$global_font_stack_sans .= ";\n";
+			$global_font_stack_serif .= ";\n";
 		}
 
 		$scss .= $global_font_stack_sans;
@@ -363,7 +361,7 @@ class GlobalTypography {
 				
 		$scss = "@import 'mixins';\n";
 
-		$scss .= 'body { font-family: $body-font-stack-web; }';
+		$scss .= 'body { font-family: $font-stack-1-web; }';
 		
 		$wp_upload_dir = wp_upload_dir();
 
