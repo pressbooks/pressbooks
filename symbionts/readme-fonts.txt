@@ -1,11 +1,19 @@
 ------------------------------------------------------------------------------
-The following fonts are distributed with Pressbooks
+The following fonts are distributed with Pressbooks.
 ------------------------------------------------------------------------------
 
-// 'Abril Fatface', @mixin AbrilFatfaceFont
-// 'Alegreya Sans SC', @mixin AlegreyaSansSCFont
-// 'Alegreya', @mixin AlegreyaFont
-// 'Alegreya Sans', @mixin AlegreyaSansFont
+Abril Fatface is Copyright (c) TypeTogether (Veronika Burian & José Scaglione) and released under the SIL Open Font License 1.1
+@see: http://www.type-together.com/Abril
+
+Alegreya is Copyright (c) Juan Pablo del Peral and released under the SIL Open Font License 1.1
+@see: https://www.google.com/fonts/specimen/Alegreya
+
+Alegreya Sans is Copyright (c) Juan Pablo del Peral and released under the SIL Open Font License 1.1
+@see: https://www.google.com/fonts/specimen/Alegreya+Sans
+
+Alegreya Sans SC is Copyright (c) Juan Pablo del Peral and released under the SIL Open Font License 1.1
+@see: https://www.google.com/fonts/specimen/Alegreya+Sans+SC
+
 // 'Amarante', @mixin AmaranteFont
 // 'Amiri', @mixin AmiriFont
 // 'Antinoou', @mixin AntinoouFont,
