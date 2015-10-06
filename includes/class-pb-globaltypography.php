@@ -84,9 +84,7 @@ class GlobalTypography {
 		$scss = "// Global Typography\n";
 		
 		$font_stacks = \PressBooks\GlobalTypography::getThemeFontStacks();
-		
-		error_log($font_stacks);
-		
+				
 		if ( strpos( $font_stacks, '$sans-serif' ) !== false ) {
 			$global_font_stack_sans = '$sans-serif: ';
 			$sans = true;
