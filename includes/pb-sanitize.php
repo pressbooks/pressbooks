@@ -8,17 +8,18 @@ namespace PressBooks\Sanitize;
 
 /**
  * Convert HTML5 tags to XHTML11 divs.
+ *
  * Will give a converted tag two classes.
  * Example: <aside>Howdy</aside> will become <div class="bc-aside aside">Howdy</div> (bc = Backward Compatible)
  * This function is used by htmLawed's hook.
  *
- * @param string $t
- * @param array $C (optional) unused
- * @param array $S (optional) unused
+ * @param string $html
+ * @param array $config (optional)
+ * @param array $spec (optional) Extra HTML specifications using the $spec parameter
  *
  * @return string
  */
-function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
+function html5_to_xhtml11( $html, $config = array(), $spec = array() ) {
 
 	$html5 = array(
 		'article', 'aside', 'audio', 'bdi', 'canvas', 'command', 'data', 'datalist', 'details', 'embed', 'figcaption',
@@ -35,22 +36,24 @@ function html5_to_xhtml11( $t, $C = array(), $S = array() ) {
 		$replace_closed[] = '</div>';
 	}
 
-	$t = preg_replace( $search_open, $replace_open, str_replace( $search_closed, $replace_closed, $t ) );
+	$html = preg_replace( $search_open, $replace_open, str_replace( $search_closed, $replace_closed, $html ) );
 
-	$t = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', "$1", $t );
-	
-	return $t;
+	// WP audio shortcode automatically adds style attributes that we want to remove.
+	$html = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', "$1", $html );
+
+	return $html;
 }
 
 /**
- * Convert HTML5 tags to XHTML5 divs
- * 
- * @param string $t
- * @param array $C (optional) unused
- * @param array $S (optional) unused
- * @return string
+ * Convert HTML5 to Epub3 compatible soup
+ *
+ * @param string $html
+ * @param array $config (optional)
+ * @param array $spec (optional) Extra HTML specifications using the $spec parameter
+ *
+*@return string
  */
-function html5_to_xhtml5( $t, $C = array(), $S = array() ) {
+function html5_to_epub3( $html, $config = array(), $spec = array() ) {
 
 	// HTML5 elements we don't want to deal with just yet
 	$html5 = array(
@@ -68,15 +71,15 @@ function html5_to_xhtml5( $t, $C = array(), $S = array() ) {
 		$replace_closed[] = '</div>';
 	}
 
-	$t = preg_replace( $search_open, $replace_open, str_replace( $search_closed, $replace_closed, $t ) );
+	$html = preg_replace( $search_open, $replace_open, str_replace( $search_closed, $replace_closed, $html ) );
 
-	//WP audio shortcode automatically adds style attributes that we want to remove.
-	$t = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', "$1", $t );
+	// WP audio shortcode automatically adds style attributes that we want to remove.
+	$html = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', "$1", $html );
 
 	//TODO: remove IE9 audio/video shims that break validation here.  Audio example
 	//<!--[if lt IE 9]><script>document.createElement('audio');</script><![endif] -->
 
-	return $t;
+	return $html;
 }
 
 /**

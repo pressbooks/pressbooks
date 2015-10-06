@@ -98,7 +98,7 @@ IMPORTANT!
    + wp-content/plugins/pressbooks/symbionts/mpdf/tmp
    + wp-content/plugins/pressbooks/symbionts/mpdf/graph_cache
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
- * For EPUB validation install [EpubCheck](http://code.google.com/p/epubcheck/) - Version 3.0.1
+ * For EPUB validation install [EpubCheck](https://github.com/idpf/epubcheck) - Version 4.0
  * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
  * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl" 
 
@@ -147,7 +147,7 @@ Example config files for a dev site hosted at http://localhost/~dac514/textopres
 	 */
 	define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 	define( 'PB_KINDLEGEN_COMMAND', '/home/dac514/bin/kindlegen' );
-	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /home/dac514/bin/epubcheck-3.0-RC-1/epubcheck-3.0-RC-1.jar' );
+	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /home/dac514/bin/epubcheck-4.0/epubcheck-4.0.jar' );
 	define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
 
 	/**

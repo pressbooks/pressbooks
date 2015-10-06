@@ -70,61 +70,65 @@ class Epub3 extends Epub\Epub201 {
 	 */
 	protected function tidy( $html ) {
 
-		// Make XHTML 1.1 strict using htmlLawed
+		// Venn diagram join between XTHML + HTML5 Deprecated Attributes
+		//
+		// Our $spec is artisanally hand crafted based on squinting very hard while reading the following docs:
+		//
+		//  + 2.3 - Extra HTML specifications using the $spec parameter
+		//  + 3.4.6 -  Transformation of deprecated attributes
+		//  + 3.3.2  - Tag-transformation for better compliance with standards
+		//  + HTML5 - Deprecated Tags & Attributes
+		//
+		// That is we do not remove deprecated attributes that are already transformed by htmLawed
+		//
+		// More info:
+		//  + http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/beta/htmLawed_README.htm
+		//  + http://www.tutorialspoint.com/html5/html5_deprecated_tags.htm
 
-		$config = array (
-		    'valid_xhtml' => 1,
-		    'no_deprecated_attr' => 2,
-		    'deny_attribute' => 'cellpadding,cellspacing,frameborder,marginwidth,marginheight,scrolling,itemscope,itemtype,itemref,itemprop',
-		    'unique_ids' => 'fixme-',
-		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml5',
-		    'tidy' => -1,
-		    'make_tag_strict' => 1,
+		$config = array(
+			'valid_xhtml' => 1,
+			'no_deprecated_attr' => 2,
+			'unique_ids' => 'fixme-',
+			// 'hook' => '\PressBooks\Sanitize\html5_to_epub3', // TODO
+			'tidy' => - 1,
+			'make_tag_strict' => 2,
+
 		);
+
+		$spec = '';
+		$spec .= 'a=,-charset,-coords,-rev,-shape;';
+		$spec .= 'area=-nohref;';
+		$spec .= 'col=-align,-char,-charoff,-valign,-width;';
+		$spec .= 'colgroup=-align,-char,-charoff,-valign,-width;';
+		$spec .= 'div=-align;';
+		$spec .= 'iframe=-align,-frameborder,-longdesc,-marginheight,-marginwidth,-scrolling;';
+		$spec .= 'img=-longdesc;';
+		$spec .= 'li=-type;';
+		$spec .= 'link=-charset,-rev,-target;';
+		$spec .= 'menu=-compact;';
+		$spec .= 'object=-archive,-classid,-codebase,-codetype,-declare,-standby;';
+		$spec .= 'ol=-type;';
+		$spec .= 'param=-type,-valuetype;';
+		$spec .= 't=-abbr,-axis;';
+		$spec .= 'table=-border,-cellspacing,-cellpadding,-frame,-rules,-width;';
+		$spec .= 'tbody=-align,-char,-charoff,-valign;';
+		$spec .= 'td=-axis,-abbr,-align,-char,-charoff,-scope,-valign;';
+		$spec .= 'tfoot=-align,-char,-charoff,-valign;';
+		$spec .= 'th=-align,-char,-charoff,-valign;';
+		$spec .= 'thead=-align,-char,-charoff,-valign;';
+		$spec .= 'tr=-align,-char,-charoff,-valign;';
+		$spec .= 'ul=-type;';
 
 		// Reset on each htmLawed invocation
 		unset( $GLOBALS['hl_Ids'] );
-		
-		if ( ! empty( $this->fixme ) ) $GLOBALS['hl_Ids'] = $this->fixme;
+		if ( ! empty( $this->fixme ) )
+			$GLOBALS['hl_Ids'] = $this->fixme;
 
-		$html = htmLawed( $html, $config );
+		$html = htmLawed( $html, $config, $spec );
 
 		return $html;
 	}
 
-	/**
-	 * Create Open Publication Structure 2.0.1 container.
-	 */
-	protected function createContainer() {
-
-		file_put_contents(
-			$this->tmpDir . '/mimetype', utf8_decode( 'application/epub+zip' ) );
-
-		mkdir( $this->tmpDir . '/META-INF' );
-		mkdir( $this->tmpDir . '/OEBPS' );
-		mkdir( $this->tmpDir . '/OEBPS/assets' );
-
-		file_put_contents(
-			$this->tmpDir . '/META-INF/container.xml', $this->loadTemplate( $this->dir . '/templates/epub201/container.php' ) );
-	}
-
-	/**
-	 * Create stylesheet. Change $this->stylesheet to a filename used by subsequent methods.
-	 */
-	protected function createStylesheet() {
-				
-		$this->stylesheet = strtolower( sanitize_file_name( wp_get_theme() . '.css' ) );
-		$path_to_tmp_stylesheet = $this->tmpDir . "/OEBPS/{$this->stylesheet}";
-		
-		// Copy stylesheet
-		file_put_contents(
-			$path_to_tmp_stylesheet,
-			$this->loadTemplate( $this->exportStylePath ) );
-
-		$this->scrapeKneadAndSaveCss( $this->exportStylePath, $path_to_tmp_stylesheet );
-		
-	}
-	
 	/**
 	 * Parse CSS, copy assets, rewrite copy.
 	 *
@@ -229,6 +233,7 @@ class Epub3 extends Epub\Epub201 {
 
 		// Download images, change to relative paths
 		$doc = $this->scrapeAndKneadImages( $doc );
+
 		// Download audio files, change to relative paths
 		$doc = $this->scrapeAndKneadMedia( $doc );
 
