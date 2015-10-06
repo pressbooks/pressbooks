@@ -50,7 +50,6 @@
 // TODO: 'Marquis de Sade Ornaments', @mixin MarquisDeSadeOrnamentsFont
 // TODO: 'Medula One', @mixin MedulaOneFont
 // TODO: 'Nanum Gothic', @mixin NanumGothicFont
-// MISSING: 'Nixie One', @mixin NixieOneFont
 // 'Noticia Text', @mixin NoticiaTextFont
 // 'Noto Kufi Arabic', @mixin NotoKufiArabicFont
 // 'Noto Naskh Arabic', @mixin NotoNaskhArabicFont
@@ -69,8 +68,6 @@
 // CLEANUP: 'Open Sans Condensed', @mixin OpenSansCondensedFont
 // 'Orbitron', @mixin OrbitronFont
 // 'Oswald', @mixin OswaldFont
-// MISSING: 'Philosopher', @mixin PhilosopherFont
-// MISSING: 'PlayfairDisplay', @mixin PlayfairDisplayFont
 // 'Poiret One', @mixin PoiretOneFont 
 // 'PT Serif', @mixin PTSerifFont
 // TODO: 'Quantico', @mixin QuanticoFont
@@ -82,7 +79,6 @@
 // TODO: 'Special Elite', @mixin SpecialEliteFont
 // 'Teko', @mixin TekoFont
 // 'Tinos', @mixin TinosFont
-// MISSING: 'Trochut', @mixin TrochutFont
 // 'WWDesigns', @mixin WWDesignsFont
 
 // ABRIL FATFACE 
@@ -1511,79 +1507,6 @@
   }
 }
 
-//PHILOSOPHER 
-//FANCY SANS-SERIF
-
-@mixin PhilosopherFont {
-  @font-face {
-    font-family: 'Philosopher';
-    src: url(themes-book/pressbooks-book/fonts/Philosopher-Regular.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
-  }
-  @font-face {
-    font-family: 'Philosopher';
-    src: url(themes-book/pressbooks-book/fonts/Philosopher-Bold.ttf) format('truetype');
-    font-style: normal;
-    font-weight: bold;
-  }
-  @font-face {
-    font-family: 'Philosopher';
-    src: url(themes-book/pressbooks-book/fonts/Philosopher-Italic.ttf) format('truetype');
-    font-style: italic;
-    font-weight: normal;
-  }
-  @font-face {
-    font-family: 'Philosopher';
-    src: url(themes-book/pressbooks-book/fonts/Philosopher-BoldItalic.ttf) format('truetype');
-    font-style: italic;
-    font-weight: bold;
-  }
-}
-
-//PLAYFAIR DISPLAY
-//SERIF
-
-@mixin PlayfairDisplayFont {
-  @font-face {
-    font-family: 'Playfair Display';
-    font-style: normal;
-    font-weight: 400;
-    src: url(themes-book/pressbooks-book/fonts/PlayfairDisplay-Regular.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Playfair Display';
-    font-style: normal;
-    font-weight: 700;
-    src: url(themes-book/pressbooks-book/fonts/PlayfairDisplay-Bold.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Playfair Display';
-    font-style: normal;
-    font-weight: 900;
-    src: url(themes-book/pressbooks-book/fonts/PlayfairDisplay-Black.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 400;
-    src: url(themes-book/pressbooks-book/fonts/PlayfairDisplay-Italic.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 700;
-    src: url(themes-book/pressbooks-book/fonts/PlayfairDisplay-BoldItalic.ttf) format('truetype');
-  }
-  @font-face {
-    font-family: 'Playfair Display';
-    font-style: italic;
-    font-weight: 900;
-    src: url(themes-book/pressbooks-book/fonts/PlayfairDisplay-BlackItalic.ttf) format('truetype');
-  }
-}
-
-
 //POIRETONE 
 //SANS-SERIF
 
@@ -1872,30 +1795,6 @@
     src: url(themes-book/pressbooks-book/fonts/TinosNGH-BoldItalic.ttf) format('truetype');
     font-style: italic;
     font-weight: bold;
-  }
-}
-
-//TROCHUT 
-//SANS-SERIF
-
-@mixin TrochutFont {
-  @font-face {
-    font-family: 'Trochut';
-    src: url(themes-book/pressbooks-book/fonts/Trochut-Regular.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
-  }
-  @font-face {
-    font-family: 'Trochut';
-    src: url(themes-book/pressbooks-book/fonts/Trochut-Bold.ttf) format('truetype');
-    font-style: normal;
-    font-weight: bold;
-  }
-  @font-face {
-    font-family: 'Trochut';
-    src: url(themes-book/pressbooks-book/fonts/Trochut-Italic.ttf) format('truetype');
-    font-style: italic;
-    font-weight: normal;
   }
 }
 
