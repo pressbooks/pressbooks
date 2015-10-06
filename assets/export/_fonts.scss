@@ -18,9 +18,8 @@
 // 'Bevan', @mixin BevanFont
 // 'Butcherman', @mixin ButchermanFont
 // CLEANUP: 'Cardo', @mixin CardoFont
-// CLEANUP: 'Cardo NG', @mixin CardoNGFont
 // 'Cherry Swash', @mixin CherrySwashFont
-// TODO: 'Cinzel', @mixin CinzelFont
+// 'Cinzel', @mixin CinzelFont
 // 'Covered By Your Grace', @mixin CoveredByYourGraceFont
 // CLEANUP: 'Crimson', @mixin CrimsonFont
 // 'Droid Arabic Kufi', @mixin DroidArabicKufiFont
@@ -32,9 +31,9 @@
 // 'Exo', @mixin ExoFont
 // 'Exo 2', @mixin Exo2Font
 // 'Gentium Basic', @mixin GentiumBasicFont
-// TODO: 'GFS Didot', @mixin GFSDidotFont
-// TODO: 'Gilda Display', @mixin GildaDisplayFont
-// TODO: 'Great Vibes', @mixin GreatVibesFont
+// 'GFS Didot', @mixin GFSDidotFont
+// 'Gilda Display', @mixin GildaDisplayFont
+// 'Great Vibes', @mixin GreatVibesFont
 // 'Griffy', @mixin GriffyFont
 // 'Gruppo', @mixin GruppoFont
 // 'Julius Sans One', @mixin JuliusSansOneFont
@@ -47,7 +46,7 @@
 // 'Linux Libertine', @mixin LinuxLibertine
 // 'Marcellus', @mixin MarcellusFont
 // 'Marcellus SC', @mixin MarcellusSCFont
-// TODO: 'Medula One', @mixin MedulaOneFont
+// 'Medula One', @mixin MedulaOneFont
 // 'Noticia Text', @mixin NoticiaTextFont
 // 'Noto Kufi Arabic', @mixin NotoKufiArabicFont
 // 'Noto Naskh Arabic', @mixin NotoNaskhArabicFont
@@ -60,7 +59,7 @@
 // 'Noto Sans Syriac', @mixin NotoSansSyriacFont
 // 'Noto Sans Tamil', @mixin NotoSansTamilFont
 // 'Noto Sans Tibetan', @mixin NotoSansTibetanFont
-// TODO: 'Noto Serif', @mixin NotoSerifFont
+// 'Noto Serif', @mixin NotoSerifFont
 // 'Old Standard', @mixin OldStandardFont
 // CLEANUP: 'Open Sans', @mixin OpenSansFont
 // CLEANUP: 'Open Sans Condensed', @mixin OpenSansCondensedFont
@@ -68,13 +67,13 @@
 // 'Oswald', @mixin OswaldFont
 // 'Poiret One', @mixin PoiretOneFont 
 // 'PT Serif', @mixin PTSerifFont
-// TODO: 'Quantico', @mixin QuanticoFont
+// 'Quantico', @mixin QuanticoFont
 // 'Roboto', @mixin RobotoFont
 // 'Roboto Condensed', @mixin RobotoCondensedFont
 // 'SBL Greek', @mixin SBLGreekFont
 // 'SBL Hebrew', @mixin SBLHebrewFont
 // 'Sorts Mill Goudy', @mixin SortsMillGoudyFont
-// TODO: 'Special Elite', @mixin SpecialEliteFont
+// 'Special Elite', @mixin SpecialEliteFont
 // 'Teko', @mixin TekoFont
 // 'Tinos', @mixin TinosFont
 // 'WWDesigns', @mixin WWDesignsFont
@@ -454,6 +453,33 @@
       font-weight: bold;
       font-style: normal;
   }
+}
+
+
+//CINZEL
+//SERIF
+
+@mixin CinzelFont {
+	@font-face {
+	  font-family: "Cinzel";
+	  font-weight: normal;
+	  font-style: normal;
+	  src: url(themes-book/pressbooks-book/fonts/Cinzel-Regular.ttf) format("truetype");
+	}
+	
+	@font-face {
+	  font-family: "Cinzel";
+	  font-weight: bold;
+	  font-style: normal;
+	  src: url(themes-book/pressbooks-book/fonts/Cinzel-Bold.ttf) format("truetype");
+	}
+	
+	@font-face {
+	  font-family: "Cinzel";
+	  font-weight: 600;
+	  font-style: normal;
+	  src: url(themes-book/pressbooks-book/fonts/Cinzel-Black.ttf) format("truetype");
+	}
 }
 
 
@@ -856,6 +882,29 @@
   }
 }
 
+//GILDA DISPLAY
+//SERIF
+
+@mixin GildaDisplayFont {
+	@font-face {
+		font-family: "Gilda Display";
+		font-weight: normal;
+		font-style: normal;
+		src: url(themes-book/pressbooks-book/fonts/GildaDisplay-Regular.ttf) format("truetype");
+	}
+}
+
+//GREATVIBES
+//
+
+@mixin GreatVibesFont {
+	@font-face {
+		font-family: "Great Vibes";
+		font-weight: normal;
+		font-style: normal;
+		src: url(themes-book/pressbooks-book/fonts/GreatVibes-Regular.ttf) format("truetype");
+	}
+}
 //GRIFFY
 //DISPLAY
 
@@ -1138,6 +1187,18 @@
   }
 }
 
+//MEDULAONE
+//
+
+@mixin MedulaOneFont {
+	@font-face {
+		font-family: "Medula One";
+		font-weight: normal;
+		font-style: normal;
+		src: url(themes-book/pressbooks-book/fonts/MedulaOne-Regular.ttf) format("truetype");
+	}
+}
+
 //NOTICIA TEXT
 //DISPLAY, SERIF
 
@@ -1360,6 +1421,25 @@
   }	
 }
 
+
+//NOTOSERIF
+//SERIF
+
+@mixin NotoSerifFont {
+	@font-face {
+		font-family: 'Noto Serif';
+		font-weight: normal;
+		font-style: normal;
+		src: url(themes-book/pressbooks-book/fonts/NotoSerif-Regular.ttf) format("truetype");
+	}
+	@font-face {
+		font-family: 'Noto Serif';
+		font-weight: normal;
+		font-style: italic;
+		src: url(themes-book/pressbooks-book/fonts/NotoSerif-Italic.ttf) format("truetype");
+	}
+}
+
 //OLD Standard
 //DISPLAY, SERIF
 
@@ -1549,6 +1629,36 @@
 }
 
 
+//QUANTICO
+//SERIF
+
+@mixin QuanticoFont {
+	@font-face {
+		font-family: "Quantico";
+		font-weight: normal;
+		font-style: normal;
+		src: url(themes-book/pressbooks-book/fonts/Quantico-Regular.ttf) format("truetype");
+	}
+	@font-face {
+		font-family: "Quantico";
+		font-weight: normal;
+		font-style: italic;
+		src: url(themes-book/pressbooks-book/fonts/Quantico-Italic.ttf) format("truetype");
+	}
+	@font-face {
+		font-family: "Quantico";
+		font-weight: bold;
+		font-style: italic;
+		src: url(themes-book/pressbooks-book/fonts/Quantico-BoldItalic.ttf) format("truetype");
+	}
+	@font-face {
+		font-family: "Quantico";
+		font-weight: bold;
+		font-style: normal;
+		src: url(themes-book/pressbooks-book/fonts/Quantico-Bold.ttf) format("truetype");
+	}
+}
+
 
 //ROBOTO 
 //SANS-SERIF
@@ -1698,6 +1808,18 @@
     font-style: italic;
     src: url(themes-book/pressbooks-book/fonts/SortsMillGoudy-Italic.ttf) format('truetype');
   }
+}
+
+
+//SPECIALELITE
+
+@mixin SpecialEliteFont {
+	@font-face {
+		font-family: "Special Elite";
+		font-weight: normal;
+		font-style: normal;
+		src: url(themes-book/pressbooks-book/fonts/SpecialElite.ttf) format("truetype");
+	}
 }
 
 //TEKO
