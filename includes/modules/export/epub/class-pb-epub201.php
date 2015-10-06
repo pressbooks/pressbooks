@@ -14,6 +14,15 @@ require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 class Epub201 extends Export {
 
+	/**
+	 * @var array
+	 */
+	protected $fetchedImageCache = array();
+
+	/**
+	 * @var array
+	 */
+	protected $fetchedFontCache = array();
 
 	/**
 	 * Timeout in seconds.
@@ -161,6 +170,27 @@ class Epub201 extends Export {
 	 * @var string
 	 */
 	protected $lang = 'en';
+
+	/**
+	 * Regular expression for supported images (used in #($supportedImageExtensions)#i')
+	 *
+	 * @var string
+	 */
+	protected $supportedImageExtensions = '\.jpe?g|\.gif|\.png';
+
+	/**
+	 * Regular expression for supported fonts  (used in #($supportedFontExtensions)#i')
+	 *
+	 * @var string
+	 */
+	protected $supportedFontExtensions = '\.ttf|\.otf';
+
+	/**
+	 * Extra CSS (to be used by child classes if necessary)
+	 *
+	 * @var string
+	 */
+	protected $extraCss = null;
 	
 	
 	/**
@@ -593,7 +623,7 @@ class Epub201 extends Export {
 	/**
 	 * Parse CSS, copy assets, rewrite copy.
 	 *
-	 * @param string $path_to_original_stylesheet*
+	 * @param string $path_to_original_stylesheet *
 	 * @param string $path_to_copy_of_stylesheet
 	 */
 	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
@@ -603,12 +633,17 @@ class Epub201 extends Export {
 
 		$scss = file_get_contents( $path_to_copy_of_stylesheet );
 
+		if ( $this->extraCss ) {
+			$scss .= $this->loadTemplate( $this->extraCss );
+		}
+
 		// Append overrides
 		$scss .= $this->cssOverrides;
-		
+
 		if ( $this->isScss() ) {
 			$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
-		} else {
+		}
+		else {
 			$css = static::injectHouseStyles( $scss );
 		}
 
@@ -630,7 +665,8 @@ class Epub201 extends Export {
 					return "url(assets/$filename)";
 				}
 
-			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.jpe?g|\.gif|\.png)$/i', $url ) ) {
+			}
+			elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(' . $this->supportedImageExtensions . ')$/i', $url ) ) {
 
 				// Look for images via http(s), pull them in locally
 
@@ -638,7 +674,8 @@ class Epub201 extends Export {
 					return "url(assets/$new_filename)";
 				}
 
-			} elseif ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.ttf|\.otf)$#i', $url ) ) {
+			}
+			elseif ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(' . $this->supportedFontExtensions . ')$#i', $url ) ) {
 
 				// Look for themes-book/pressbooks-book/fonts/*.ttf (or .otf), copy into our Epub
 
@@ -648,7 +685,8 @@ class Epub201 extends Export {
 					return "url(assets/$filename)";
 				}
 
-			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.ttf|\.otf)$/i', $url ) ) {
+			}
+			elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(' . $this->supportedFontExtensions . ')$/i', $url ) ) {
 
 				// Look for fonts via http(s), pull them in locally
 
@@ -664,7 +702,7 @@ class Epub201 extends Export {
 
 		// Overwrite the new file with new info
 		file_put_contents( $path_to_copy_of_stylesheet, $css );
-		
+
 		// Output compiled CSS for debugging.
 		$wp_upload_dir = wp_upload_dir();
 		$debug_dir = $wp_upload_dir['basedir'] . '/export-css';
@@ -1603,13 +1641,16 @@ class Epub201 extends Export {
 
 		libxml_use_internal_errors( true );
 
-		// Load HTMl snippet into DOMDocument using UTF-8 hack
+		// Load HTML snippet into DOMDocument using UTF-8 hack
 		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $utf8_hack . $html );
 
 		// Download images, change to relative paths
 		$doc = $this->scrapeAndKneadImages( $doc );
+
+		// Download audio files, change to relative paths
+		$doc = $this->scrapeAndKneadMedia( $doc );
 
 		// Deal with <a href="">, <a href=''>, and other mutations
 		$doc = $this->kneadHref( $doc, $type, $pos );
@@ -1679,10 +1720,8 @@ class Epub201 extends Export {
 	 */
 	protected function fetchAndSaveUniqueImage( $url, $fullpath ) {
 
-		// Cheap cache
-		static $already_done = array();
-		if ( isset( $already_done[$url] ) ) {
-			return $already_done[$url];
+		if ( isset( $this->fetchedImageCache[$url] ) ) {
+			return $this->fetchedImageCache[$url];
 		}
 
 		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
@@ -1690,7 +1729,7 @@ class Epub201 extends Export {
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
 			// TODO: handle $response->get_error_message();
-			$already_done[$url] = '';
+			$this->fetchedImageCache[$url] = '';
 			return '';
 		}
 		
@@ -1714,7 +1753,7 @@ class Epub201 extends Export {
 		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \PressBooks\Image\is_valid_image( $tmp_file, $filename ) ) {
-			$already_done[$url] = '';
+			$this->fetchedImageCache[$url] = '';
 			return ''; // Not an image
 		}
 
@@ -1732,7 +1771,7 @@ class Epub201 extends Export {
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
 
-		$already_done[$url] = $filename;
+		$this->fetchedImageCache[$url] = $filename;
 		return $filename;
 	}
 
@@ -1748,10 +1787,8 @@ class Epub201 extends Export {
 	 */
 	protected function fetchAndSaveUniqueFont( $url, $fullpath ) {
 
-		// Cheap cache
-		static $already_done = array();
-		if ( isset( $already_done[$url] ) ) {
-			return $already_done[$url];
+		if ( isset( $this->fetchedFontCache[$url] ) ) {
+			return $this->fetchedFontCache[$url];
 		}
 
 		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
@@ -1759,7 +1796,7 @@ class Epub201 extends Export {
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
 			// TODO: handle $response->get_error_message();
-			$already_done[$url] = '';
+			$this->fetchedFontCache[$url] = '';
 			return '';
 		}
 
@@ -1784,10 +1821,20 @@ class Epub201 extends Export {
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
 
-		$already_done[$url] = $filename;
+		$this->fetchedFontCache[$url] = $filename;
 		return $filename;
 	}
 
+	/**
+	 * This is a stub for an Epub3 feature
+	 * Do nothing
+	 *
+	 * @param \DOMDocument $doc
+	 * @return \DOMDocument
+	 */
+	protected function scrapeAndKneadMedia( \DOMDocument $doc ) {
+		return $doc;
+	}
 
 	/**
 	 * Change hrefs

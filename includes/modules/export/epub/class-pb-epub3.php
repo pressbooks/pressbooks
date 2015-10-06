@@ -16,6 +16,11 @@ require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 class Epub3 extends Epub\Epub201 {
 
 	/**
+	 * @var array
+	 */
+	protected $fetchedMediaCache = array();
+
+	/**
 	 * @var string
 	 */
 	protected $filext = 'xhtml';
@@ -31,16 +36,31 @@ class Epub3 extends Epub\Epub201 {
 	protected $suffix = '_3.epub';
 
 	/**
-	 * @param array $args
+	 * Regular expression for supported fonts  (used in /($supportedFontExtensions)/i')
+	 *
+	 * @var string
 	 */
+	protected $supportedFontExtensions = '\.woff|\.otf|\.ttf';
 
-	
+	/**
+	 * Create $this->outputPath
+	 *
+	 * @return bool
+	 */
+	function convert() {
+
+		// HTML5 targeted css
+		$this->extraCss = $this->dir . '/templates/epub3/css/css3.css';
+
+		return parent::convert();
+	}
+
 	/**
 	 * Check for existence of properties attributes
-	 * 
+	 *
 	 * @param string $html_file
-	 * @return array $properties 
-	 * @throws \Exception 
+	 * @return array $properties
+	 * @throws \Exception
 	*/
 	protected function getProperties( $html_file ) {
 
@@ -130,154 +150,17 @@ class Epub3 extends Epub\Epub201 {
 	}
 
 	/**
-	 * Parse CSS, copy assets, rewrite copy.
-	 *
-	 * @param string $path_to_original_stylesheet*
-	 * @param string $path_to_copy_of_stylesheet
-	 */
-	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
-
-		// html5 targeted css
-		$css3 = 'css3.css';
-		$path_to_css3_stylesheet = $this->dir . "/templates/epub3/css/$css3";
-
-		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
-		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';
-
-		$scss = file_get_contents( $path_to_copy_of_stylesheet );
-		
-		// Append css3
-		$scss .= $this->loadTemplate( $path_to_css3_stylesheet );
-		
-		// Append overrides
-		$scss .=  $this->cssOverrides;
-		
-		if ( $this->isScss() ) {
-			$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
-		} else {
-			$css = static::injectHouseStyles( $scss );
-		}
-
-		// Search for url("*"), url('*'), and url(*)
-		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $scss_dir, $path_to_epub_assets ) {
-
-			$url = $matches[3];
-			$filename = sanitize_file_name( basename( $url ) );
-
-			if ( preg_match( '#^images/#', $url ) && substr_count( $url, '/' ) == 1 ) {
-
-				// Look for "^images/"
-				// Count 1 slash so that we don't touch stuff like "^images/out/of/bounds/"	or "^images/../../denied/"
-
-				$my_image = realpath( "$scss_dir/$url" );
-				if ( $my_image ) {
-					copy( $my_image, "$path_to_epub_assets/$filename" );
-					return "url(assets/$filename)";
-				}
-
-			} elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(\.jpe?g|\.gif|\.png)$/i', $url ) ) {
-
-				// Look for images via http(s), pull them in locally
-
-				if ( $new_filename = $this->fetchAndSaveUniqueImage( $url, $path_to_epub_assets ) ) {
-					return "url(assets/$new_filename)";
-				}
-
-			} elseif ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-
-				// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), copy into our Epub
-
-				$my_font = realpath( PB_PLUGIN_DIR . $url );
-				if ( $my_font ) {
-					copy( $my_font, "$path_to_epub_assets/$filename" );
-					return "url(assets/$filename)";
-				}
-
-			}
-
-			return $matches[0]; // No change
-
-		}, $css );
-
-		// Overwrite the new file with new info
-		file_put_contents( $path_to_copy_of_stylesheet, $css );
-		
-		// Output compiled CSS for debugging.
-		$wp_upload_dir = wp_upload_dir();
-		$debug_dir = $wp_upload_dir['basedir'] . '/export-css';
-		if ( ! is_dir( $debug_dir ) ) {
-			mkdir( $debug_dir );
-		}
-		$debug_file = $debug_dir . '/epub3.css';
-		file_put_contents( $debug_file, $css );
-	}
-	
-	/**
-	 * Pummel the HTML into EPUB compatible dough.
-	 *
-	 * @param string $html
-	 * @param string $type front-matter, part, chapter, back-matter, ...
-	 * @param int $pos (optional) position of content, used when creating filenames like: chapter-001, chapter-002, ...
-	 *
-	 * @return string
-	 */
-	protected function kneadHtml( $html, $type, $pos = 0 ) {
-
-		libxml_use_internal_errors( true );
-
-		// Load HTMl snippet into DOMDocument using UTF-8 hack
-		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-		$doc = new \DOMDocument();
-		$doc->loadHTML( $utf8_hack . $html );
-
-		// Download images, change to relative paths
-		$doc = $this->scrapeAndKneadImages( $doc );
-
-		// Download audio files, change to relative paths
-		$doc = $this->scrapeAndKneadMedia( $doc );
-
-		// Deal with <a href="">, <a href=''>, and other mutations
-		$doc = $this->kneadHref( $doc, $type, $pos );
-
-		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
-		$xpath = new \DOMXPath( $doc );
-		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
-		    foreach ( $nodes as $node ) {
-		        $node->appendChild( new \DOMText('') );
-		    }
-		}
-
-		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
-		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
-		$html = $doc->saveXML( $doc->documentElement );
-
-		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
-
-		// Mobi7 hacks
-		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", $this->dir . '/templates/epub201/mobi-hacks.xsl' );
-
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
-
-		return $html;
-	}
-
-	/**
 	 * Fetch a url with wp_remote_get(), save it to $fullpath with a unique name.
 	 * Will return an empty string if something went wrong.
-	 * 
-	 * @staticvar array $already_done
+	 *
 	 * @param string $url
 	 * @param string $fullpath
 	 * @return string|array
 	 */
 	protected function fetchAndSaveUniqueMedia( $url, $fullpath ) {
-		// Cheap cache
-		static $already_done = array();
-		if ( isset( $already_done[$url] ) ) {
-			return $already_done[$url];
+
+		if ( isset( $this->fetchedMediaCache[$url] ) ) {
+			return $this->fetchedMediaCache[$url];
 		}
 
 		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
@@ -285,7 +168,7 @@ class Epub3 extends Epub\Epub201 {
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
 			// TODO: handle $response->get_error_message();
-			$already_done[$url] = '';
+			$this->fetchedMediaCache[$url] = '';
 			return '';
 		}
 
@@ -300,87 +183,20 @@ class Epub3 extends Epub\Epub201 {
 		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \PressBooks\Media\is_valid_media( $tmp_file, $filename ) ) {
-			$already_done[$url] = '';
+			$this->fetchedMediaCache[$url] = '';
 			return ''; // Not a valid media type
 		}
 
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			copy( $tmp_file, "$fullpath/$filename" );
-		} elseif ( md5( file_get_contents( $tmp_file ) ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+		}
+		elseif ( md5( file_get_contents( $tmp_file ) ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
 
-		$already_done[$url] = $filename;
-		return $filename;
-	}
-	
-	/**
-	 * Fetch an image with wp_remote_get(), save it to $fullpath with a unique name.
-	 * Will return an empty string if something went wrong.
-	 *
-	 * @param $url string
-	 * @param $fullpath string
-	 *
-	 * @return string filename
-	 */
-	protected function fetchAndSaveUniqueImage( $url, $fullpath ) {
-
-		// Cheap cache
-		static $already_done = array();
-		if ( isset( $already_done[$url] ) ) {
-			return $already_done[$url];
-		}
-
-		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
-
-		// WordPress error?
-		if ( is_wp_error( $response ) ) {
-			// TODO: handle $response->get_error_message();
-			$already_done[$url] = '';
-			return '';
-		}
-		
-		// Basename without query string
-		$filename = explode( '?', basename( $url ) );
-
-		// isolate latex image service from WP, add file extension
-		if ( 's.wordpress.com' == parse_url( $url, PHP_URL_HOST ) && 'latex.php' == $filename[0] ) {
-			$filename = md5( array_pop( $filename ) );
-			// content-type = 'image/png'
-			$type = explode( '/', $response['headers']['content-type'] );
-			$type = array_pop( $type );
-			$filename = $filename . "." . $type;
-		} else {
-			$filename = array_shift( $filename );
-			$filename = sanitize_file_name( urldecode( $filename ) );
-			$filename = Sanitize\force_ascii( $filename );
-		}
-
-		$tmp_file = \PressBooks\Utility\create_tmp_file();
-		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
-
-		if ( ! \PressBooks\Image\is_valid_image( $tmp_file, $filename ) ) {
-			$already_done[$url] = '';
-			return ''; // Not an image
-		}
-
-		if ( $this->compressImages ) {
-			$format = explode( '.', $filename );
-			$format = strtolower( end( $format ) ); // Extension
-			\PressBooks\Image\resize_down( $format, $tmp_file );
-		}
-
-		// Check for duplicates, save accordingly
-		if ( ! file_exists( "$fullpath/$filename" ) ) {
-			copy( $tmp_file, "$fullpath/$filename" );
-		} elseif ( md5( file_get_contents( $tmp_file ) ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
-			$filename = wp_unique_filename( $fullpath, $filename );
-			copy( $tmp_file, "$fullpath/$filename" );
-		}
-
-		$already_done[$url] = $filename;
+		$this->fetchedMediaCache[$url] = $filename;
 		return $filename;
 	}
 
