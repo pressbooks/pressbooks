@@ -17,12 +17,12 @@
 // 'Bergamot Ornaments', @mixin BergamotOrnamentsFont
 // 'Bevan', @mixin BevanFont
 // 'Butcherman', @mixin ButchermanFont
-// TODO: 'Cardo', @mixin CardoFont
-// TODO: 'Cardo NG', @mixin CardoNGFont
+// CLEANUP: 'Cardo', @mixin CardoFont
+// CLEANUP: 'Cardo NG', @mixin CardoNGFont
 // 'Cherry Swash', @mixin CherrySwashFont
 // TODO: 'Cinzel', @mixin CinzelFont
 // 'Covered By Your Grace', @mixin CoveredByYourGraceFont
-// TODO: 'Crimson', @mixin CrimsonFont
+// CLEANUP: 'Crimson', @mixin CrimsonFont
 // 'Droid Arabic Kufi', @mixin DroidArabicKufiFont
 // 'Droid Arabic Naskh', @mixin DroidArabicNaskhFont
 // 'Droid Sans', @mixin DroidSansFont
@@ -47,7 +47,10 @@
 // 'Linux Libertine', @mixin LinuxLibertine
 // 'Marcellus', @mixin MarcellusFont
 // 'Marcellus SC', @mixin MarcellusSCFont
-// 'Nixie One', @mixin NixieOneFont
+// TODO: 'Marquis de Sade Ornaments', @mixin MarquisDeSadeOrnamentsFont
+// TODO: 'Medula One', @mixin MedulaOneFont
+// TODO: 'Nanum Gothic', @mixin NanumGothicFont
+// MISSING: 'Nixie One', @mixin NixieOneFont
 // 'Noticia Text', @mixin NoticiaTextFont
 // 'Noto Kufi Arabic', @mixin NotoKufiArabicFont
 // 'Noto Naskh Arabic', @mixin NotoNaskhArabicFont
@@ -60,22 +63,26 @@
 // 'Noto Sans Syriac', @mixin NotoSansSyriacFont
 // 'Noto Sans Tamil', @mixin NotoSansTamilFont
 // 'Noto Sans Tibetan', @mixin NotoSansTibetanFont
+// TODO: 'Noto Serif', @mixin NotoSerifFont
 // 'Old Standard', @mixin OldStandardFont
-// 'Open Sans', @mixin OpenSansFont
-// 'Open Sans Condensed', @mixin OpenSansCondensedFont
+// CLEANUP: 'Open Sans', @mixin OpenSansFont
+// CLEANUP: 'Open Sans Condensed', @mixin OpenSansCondensedFont
 // 'Orbitron', @mixin OrbitronFont
 // 'Oswald', @mixin OswaldFont
-// 'Philosopher', @mixin PhilosopherFont
-// 'PlayfairDisplay', @mixin PlayfairDisplayFont
+// MISSING: 'Philosopher', @mixin PhilosopherFont
+// MISSING: 'PlayfairDisplay', @mixin PlayfairDisplayFont
 // 'Poiret One', @mixin PoiretOneFont 
 // 'PT Serif', @mixin PTSerifFont
+// TODO: 'Quantico', @mixin QuanticoFont
 // 'Roboto', @mixin RobotoFont
 // 'Roboto Condensed', @mixin RobotoCondensedFont
 // 'SBL Greek', @mixin SBLGreekFont
+// 'SBL Hebrew', @mixin SBLHebrewFont
 // 'Sorts Mill Goudy', @mixin SortsMillGoudyFont
+// TODO: 'Special Elite', @mixin SpecialEliteFont
 // 'Teko', @mixin TekoFont
 // 'Tinos', @mixin TinosFont
-// 'Trochut', @mixin TrochutFont
+// MISSING: 'Trochut', @mixin TrochutFont
 // 'WWDesigns', @mixin WWDesignsFont
 
 // ABRIL FATFACE 
@@ -1136,19 +1143,6 @@
       font-style: normal;
   }
 }
-
-//NIXIE ONE
-//SERIF, DISPLAY
-
-@mixin NixieOneFont {
-  @font-face {
-    font-family: 'Nixie One';
-    src: url(themes-book/pressbooks-book/fonts/NixieOne-Regular.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
-  }
-}
-
 
 //NOTICIA TEXT
 //DISPLAY, SERIF
