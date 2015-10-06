@@ -6,11 +6,13 @@ if ( ! defined( 'ABSPATH' ) )
 	exit;
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
-?>
-<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN"
-"http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">
 
-<ncx version="2005-1" xml:lang="en" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+if ( $enable_external_identifier ) {
+	echo '<!DOCTYPE ncx PUBLIC "-//NISO//DTD ncx 2005-1//EN" "http://www.daisy.org/z3986/2005/ncx-2005-1.dtd">' . "\n";
+}
+
+?>
+<ncx version="2005-1" xml:lang="<?php echo $lang; ?>" xmlns="http://www.daisy.org/z3986/2005/ncx/">
 
 	<head>
 		<!-- The following four metadata items are required for all NCX documents,

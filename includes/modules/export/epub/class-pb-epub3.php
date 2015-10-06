@@ -438,6 +438,7 @@ class Epub3 extends Epub\Epub201 {
 		    'meta' => $metadata,
 		    'manifest' => $this->manifest,
 		    'stylesheet' => $this->stylesheet,
+			'lang' => $this->lang,
 		);
 
 		// Find all the image files, insert them into the OPF file
@@ -504,27 +505,30 @@ class Epub3 extends Epub\Epub201 {
 			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEPBS() ?' );
 		}
 
-
-		$vars = array (
-		    'author' => @$metadata['pb_author'],
-		    'manifest' => $this->manifest,
-		    'dtd_uid' => ( ! empty( $metadata['pb_ebook_isbn'] ) ? $metadata['pb_ebook_isbn'] : get_bloginfo( 'url' ) ),
+		$vars = array(
+			'author' => @$metadata['pb_author'],
+			'manifest' => $this->manifest,
+			'dtd_uid' => ( ! empty( $metadata['pb_ebook_isbn'] ) ? $metadata['pb_ebook_isbn'] : get_bloginfo( 'url' ) ),
+			'enable_external_identifier' => false,
+			'lang' => $this->lang,
 		);
 
 		file_put_contents(
-			$this->tmpDir . "/toc.xhtml", $this->loadTemplate( $this->dir . '/templates/epub3/toc.php', $vars ) );
-		
-		// for backwards compatibility
+			$this->tmpDir . "/toc.xhtml",
+			$this->loadTemplate( $this->dir . '/templates/epub3/toc.php', $vars )
+		);
+
+		// For backwards compatibility
 		file_put_contents(
 			$this->tmpDir . "/toc.ncx",
-			$this->loadTemplate( $this->dir . '/templates/epub3/ncx.php', $vars ) );
-
-
+			$this->loadTemplate( $this->dir . '/templates/epub201/ncx.php', $vars )
+		);
 	}
 
 
 	/**
-	 * Override load template function, switch path from epub201 to epub3 when possible.
+	 * Override load template function
+	 * Switch path from /epub201 to /epub3 when possible.
 	 *
 	 * @param string $path
 	 * @param array $vars (optional)

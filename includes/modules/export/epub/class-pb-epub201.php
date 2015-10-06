@@ -154,6 +154,13 @@ class Epub201 extends Export {
 	 * $var string
 	 */
 	protected $suffix = '.epub';
+
+	/**
+	 * Main language of document, two letter code
+	 *
+	 * @var string
+	 */
+	protected $lang = 'en';
 	
 	
 	/**
@@ -214,6 +221,11 @@ class Epub201 extends Export {
 
 		$metadata = \PressBooks\Book::getBookInformation();
 		$book_contents = $this->preProcessBookContents( \PressBooks\Book::getBookContents() );
+
+		// Set two letter language code
+		if ( isset( $metadata['pb_language'] ) ) {
+			list( $this->lang ) = explode( '-', $metadata['pb_language'] );
+		}
 
 		try {
 
@@ -707,6 +719,7 @@ class Epub201 extends Export {
 			'stylesheet' => $this->stylesheet,
 			'post_content' => $html,
 			'isbn' => @$metadata['pb_ebook_isbn'],
+			'lang' => $this->lang,
 		);
 
 		$file_id = 'front-cover';
@@ -741,6 +754,7 @@ class Epub201 extends Export {
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
+			'lang' => $this->lang,
 		);
 
 		$i = $this->frontMatterPos;
@@ -836,6 +850,7 @@ class Epub201 extends Export {
 			'stylesheet' => $this->stylesheet,
 			'post_content' => $html,
 			'isbn' => @$metadata['pb_ebook_isbn'],
+			'lang' => $this->lang,
 		);
 
 		$file_id = 'title-page';
@@ -902,6 +917,7 @@ class Epub201 extends Export {
 			'stylesheet' => $this->stylesheet,
 			'post_content' => $html,
 			'isbn' => @$metadata['pb_ebook_isbn'],
+			'lang' => $this->lang,
 		);
 
 		$file_id = 'copyright';
@@ -936,6 +952,7 @@ class Epub201 extends Export {
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
+			'lang' => $this->lang,
 		);
 
 		$i = $this->frontMatterPos;
@@ -1003,6 +1020,7 @@ class Epub201 extends Export {
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
+			'lang' => $this->lang,
 		);
 
 		$i = $this->frontMatterPos;
@@ -1094,6 +1112,7 @@ class Epub201 extends Export {
 				'stylesheet' => $this->stylesheet,
 				'post_content' => $this->kneadHtml( $promo_html, 'custom' ),
 				'isbn' => @$metadata['pb_ebook_isbn'],
+				'lang' => $this->lang,
 			);
 
 			file_put_contents(
@@ -1129,6 +1148,7 @@ class Epub201 extends Export {
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
+			'lang' => $this->lang,
 		);
 
 		// Parts, Chapters
@@ -1348,6 +1368,7 @@ class Epub201 extends Export {
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
+			'lang' => $this->lang,
 		);
 
 		$i = 1;
@@ -1427,6 +1448,7 @@ class Epub201 extends Export {
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
+			'lang' => $this->lang,
 		);
 
 		$options = get_option( 'pressbooks_theme_options_global' );
@@ -1947,6 +1969,7 @@ class Epub201 extends Export {
 			'meta' => $metadata,
 			'manifest' => $this->manifest,
 			'stylesheet' => $this->stylesheet,
+			'lang' => $this->lang,
 		);
 
 		// Find all the image files, insert them into the OPF file
@@ -2003,17 +2026,18 @@ class Epub201 extends Export {
 			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEPBS() ?' );
 		}
 
-
 		$vars = array(
 			'author' => @$metadata['pb_author'],
 			'manifest' => $this->manifest,
 			'dtd_uid' => ( ! empty( $metadata['pb_ebook_isbn'] ) ? $metadata['pb_ebook_isbn'] : get_bloginfo( 'url' ) ),
+			'enable_external_identifier' => true,
+			'lang' => $this->lang,
 		);
 
 		file_put_contents(
 			$this->tmpDir . "/toc.ncx",
-			$this->loadTemplate( $this->dir . '/templates/epub201/ncx.php', $vars ) );
-
+			$this->loadTemplate( $this->dir . '/templates/epub201/ncx.php', $vars )
+		);
 	}
 
 

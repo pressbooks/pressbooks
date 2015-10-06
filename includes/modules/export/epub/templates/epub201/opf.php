@@ -18,7 +18,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		echo "\n";
 
 		// Required, Language
-		echo '<dc:language>' . ( ! empty( $meta['pb_language'] ) ? $meta['pb_language'] : 'en' ) . '</dc:language>';
+		echo '<dc:language>' . $lang . '</dc:language>';
 		unset ( $meta['pb_language'] );
 		echo "\n";
 
