@@ -56,7 +56,7 @@ class Epub3 extends Epub\Epub201 {
 			$properties['scripted'] = 1;
 		}
 		
-		// @TODO Check for remote resources
+		// TODO: Check for remote resources
 		
 		return $properties;
 	}	
@@ -441,53 +441,24 @@ class Epub3 extends Epub\Epub201 {
 			'lang' => $this->lang,
 		);
 
-		// Find all the image files, insert them into the OPF file
+		$vars['manifest_assets'] = $this->buildManifestAssetsHtml();
+
+		$vars['do_copyright_license'] = strip_tags( $this->doCopyrightLicense( $metadata ) );
+
+		// Loop through the html files for the manifest and assemble them. Assign properties based on their content.
+		//
 		$html = '';
-		$path_to_assets = $this->tmpDir . '/OEBPS/assets';
-		$assets = scandir( $path_to_assets );
-		$used_ids = array ();
-
-		foreach ( $assets as $asset ) {
-			if ( '.' == $asset || '..' == $asset ) continue;
-			$mimetype = $this->mediaType( "$path_to_assets/$asset" );
-			if ( $this->coverImage == $asset ) {
-				$file_id = 'cover-image';
-			} else {
-				$file_id = 'media-' . pathinfo( "$path_to_assets/$asset", PATHINFO_FILENAME );
-				$file_id = Sanitize\sanitize_xml_id( $file_id );
-			}
-
-			// Check if a media id has already been used, if so give it a new one
-			$check_if_used = $file_id;
-			for ( $i = 2; $i <= 999; $i ++  ) {
-				if ( empty( $used_ids[$check_if_used] ) ) break;
-				else $check_if_used = $file_id . "-$i";
-			}
-			$file_id = $check_if_used;
-
-			$html .= sprintf( '<item id="%s" href="OEBPS/assets/%s" media-type="%s" />', $file_id, $asset, $mimetype ) . "\n\t\t";
-
-			$used_ids[$file_id] = true;
-		}
-		$vars['manifest_assets'] = $html;
-
-		//Clear the html buffer for reuse
-		$html = '';
-
-		//Loop through the html files for the manifest and assemble them. Assign properties based on their content.
 		foreach ( $this->manifest as $k => $v ) {
 			$properties = $this->getProperties( $this->tmpDir . "/OEBPS/" . $v['filename'] );
-			(array_key_exists( 'scripted', $properties ) ? $scripted = 'properties="scripted" ' : $scripted = '');
-
+			( array_key_exists( 'scripted', $properties ) ? $scripted = 'properties="scripted" ' : $scripted = '' );
 			$html .= sprintf( '<item id="%s" href="OEBPS/%s" %smedia-type="application/xhtml+xml" />', $k, $v['filename'], $scripted ) . "\n\t\t";
-
 		}
 		$vars['manifest_filelist'] = $html;
-		$vars['do_copyright_license'] = strip_tags( $this->doCopyrightLicense( $metadata ) );
 
 		// Put contents
 		file_put_contents(
-			$this->tmpDir . "/book.opf", $this->loadTemplate( $this->dir . '/templates/epub3/opf.php', $vars )
+			$this->tmpDir . "/book.opf",
+			$this->loadTemplate( $this->dir . '/templates/epub3/opf.php', $vars )
 		);
 	}
 

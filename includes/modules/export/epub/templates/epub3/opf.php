@@ -2,7 +2,8 @@
 
 // @see: \PressBooks\Export\Export loadTemplate()
 
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) )
+	exit;
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
@@ -26,9 +27,9 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 		// Required, Primary ID
 		if ( ! empty( $meta['pb_ebook_isbn'] ) ) {
-			echo '<dc:identifier id="PrimaryID">' . $meta['pb_ebook_isbn'] . '</dc:identifier>';
+			echo '<dc:identifier id="PrimaryID">' . trim( $meta['pb_ebook_isbn'] ) . '</dc:identifier>';
 		} else {
-			echo '<dc:identifier id="PrimaryID">' . get_bloginfo( 'url' ) . '</dc:identifier>';
+			echo '<dc:identifier id="PrimaryID">' . trim( get_bloginfo( 'url' ) ) . '</dc:identifier>';
 		}
 
 		unset( $meta['pb_ebook_isbn'] );
@@ -64,7 +65,6 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		}
 
 		echo '<meta refines="#author" property="file-as">';
-
 		if ( ! empty( $meta['pb_author_file_as'] ) ) {
 			echo $meta['pb_author_file_as'];
 		} else if ( ! empty( $meta['pb_author'] ) ) {
@@ -72,24 +72,16 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		} else {
 			echo 'Authored by: ' . get_bloginfo( 'url' );
 		}
-
 		echo '</meta>';
-
-
-
-
 		unset( $meta['pb_author_file_as'], $meta['pb_author'] );
 
 		// Copyright
 		if ( ! empty( $meta['pb_copyright_year'] ) || ! empty( $meta['pb_copyright_holder'] ) ) {
 			echo '<dc:rights>';
 			echo _( 'Copyright' ) . ' &#169; ';
-			if ( ! empty( $meta['pb_copyright_year'] ) )
-					echo $meta['pb_copyright_year'] . ' ';
-			if ( ! empty( $meta['pb_copyright_holder'] ) )
-					echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
+			if ( ! empty( $meta['pb_copyright_year'] ) ) echo $meta['pb_copyright_year'] . ' ';
+			if ( ! empty( $meta['pb_copyright_holder'] ) ) echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
 			if ( ! empty( $do_copyright_license ) ) echo '. ' . $do_copyright_license;
-
 			echo "</dc:rights>\n";
 		}
 		unset( $meta['pb_copyright_year'], $meta['pb_copyright_holder'] );
@@ -168,7 +160,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			}
 		}
 
-		// If nothing was found, set � the first page after the table of contents � as start point
+		// If nothing was found, set « the first page after the table of contents » as start point
 		if ( $start_key === false ) {
 			$keys = array_keys( $manifest );
 			$position = array_search( 'table-of-contents', $keys );
@@ -181,7 +173,9 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			printf( '<reference type="text" title="start" href="OEBPS/%s" />', $manifest[$start_key]['filename'] );
 			echo "\n";
 		}
+
 		?>
 	</guide>
+
 
 </package>

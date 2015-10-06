@@ -1972,7 +1972,23 @@ class Epub201 extends Export {
 			'lang' => $this->lang,
 		);
 
-		// Find all the image files, insert them into the OPF file
+		$vars['manifest_assets'] = $this->buildManifestAssetsHtml();
+
+		$vars['do_copyright_license'] = strip_tags( $this->doCopyrightLicense( $metadata ) ) ;
+		
+		// Put contents
+		file_put_contents(
+			$this->tmpDir . "/book.opf",
+			$this->loadTemplate( $this->dir . '/templates/epub201/opf.php', $vars )
+		);
+	}
+
+	/**
+	 * Find all the image files, insert them into the OPF file
+	 *
+	 * @return string
+	 */
+	protected function buildManifestAssetsHtml() {
 
 		$html = '';
 		$path_to_assets = $this->tmpDir . '/OEBPS/assets';
@@ -1984,7 +2000,8 @@ class Epub201 extends Export {
 			$mimetype = $this->mediaType( "$path_to_assets/$asset" );
 			if ( $this->coverImage == $asset ) {
 				$file_id = 'cover-image';
-			} else {
+			}
+			else {
 				$file_id = 'media-' . pathinfo( "$path_to_assets/$asset", PATHINFO_FILENAME );
 				$file_id = Sanitize\sanitize_xml_id( $file_id );
 			}
@@ -2001,14 +2018,8 @@ class Epub201 extends Export {
 
 			$used_ids[$file_id] = true;
 		}
-		$vars['manifest_assets'] = $html;
-		$vars['do_copyright_license'] = strip_tags( $this->doCopyrightLicense( $metadata ) ) ;
-		
-		// Put contents
-		file_put_contents(
-			$this->tmpDir . "/book.opf",
-			$this->loadTemplate( $this->dir . '/templates/epub201/opf.php', $vars ) );
 
+		return $html;
 	}
 
 
