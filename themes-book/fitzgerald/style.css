@@ -17,7 +17,7 @@ Template: pressbooks-book
 /* Google fonts included via functions.php */
 
 body {
-	font-family: "Crimson", "Times New Roman", serif;
+	font-family: "Crimson Text", "Times New Roman", serif;
 	line-height: 1.5em;
 }
 a {
@@ -85,7 +85,7 @@ h3, h4 {
 	line-height: 1.4em;
 }
 .chapter_author {
-	font-family: "Crimson","Times New Roman", serif;
+	font-family: "Crimson Text","Times New Roman", serif;
 	font-style: italic;
 	font-weight: normal;
 	margin: -70px 0 100px;

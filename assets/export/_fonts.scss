@@ -21,7 +21,7 @@
 // 'Cherry Swash', @mixin CherrySwashFont
 // 'Cinzel', @mixin CinzelFont
 // 'Covered By Your Grace', @mixin CoveredByYourGraceFont
-// 'Crimson', @mixin CrimsonFont
+// 'Crimson Text', @mixin CrimsonTextFont
 // 'Droid Arabic Kufi', @mixin DroidArabicKufiFont
 // 'Droid Arabic Naskh', @mixin DroidArabicNaskhFont
 // 'Droid Sans', @mixin DroidSansFont
@@ -61,8 +61,8 @@
 // 'Noto Sans Tibetan', @mixin NotoSansTibetanFont
 // 'Noto Serif', @mixin NotoSerifFont
 // 'Old Standard', @mixin OldStandardFont
-// CLEANUP: 'Open Sans', @mixin OpenSansFont
-// CLEANUP: 'Open Sans Condensed', @mixin OpenSansCondensedFont
+// 'Open Sans', @mixin OpenSansFont
+// 'Open Sans Condensed', @mixin OpenSansCondensedFont
 // 'Orbitron', @mixin OrbitronFont
 // 'Oswald', @mixin OswaldFont
 // 'Poiret One', @mixin PoiretOneFont 
@@ -474,39 +474,39 @@
 //CRIMSON
 //SERIF, CLASSIC
 
-@mixin CrimsonFont {
+@mixin CrimsonTextFont {
   @font-face {
-      font-family: 'Crimson';
+      font-family: 'Crimson Text';
       src: url(themes-book/pressbooks-book/fonts/crimson-bold-webfont.ttf) format('truetype');
       font-weight: bold;
       font-style: normal;
   }
   @font-face {
-      font-family: 'Crimson';
+      font-family: 'Crimson Text';
       src: url(themes-book/pressbooks-book/fonts/crimson-bolditalic-webfont.ttf) format('truetype');
       font-weight: bold;
       font-style: italic;
   }
   @font-face {
-      font-family: 'Crimson';
+      font-family: 'Crimson Text';
       src: url(themes-book/pressbooks-book/fonts/crimson-italic-webfont.ttf) format('truetype');
       font-weight: normal;
       font-style: italic;
   }
   @font-face {
-      font-family: 'Crimson';
+      font-family: 'Crimson Text';
       src: url(themes-book/pressbooks-book/fonts/crimson-roman-webfont.ttf) format('truetype');
       font-weight: normal;
       font-style: normal;
   }
   @font-face {
-      font-family: 'Crimson';
+      font-family: 'Crimson Text';
       src: url(themes-book/pressbooks-book/fonts/crimson-semibold-webfont.ttf) format('truetype');
       font-weight: 600;
       font-style: normal;
   }
   @font-face {
-      font-family: 'Crimson';
+      font-family: 'Crimson Text';
       src: url(themes-book/pressbooks-book/fonts/crimson-semibolditalic-webfont.ttf) format('truetype');
       font-weight: 600;
       font-style: italic;
