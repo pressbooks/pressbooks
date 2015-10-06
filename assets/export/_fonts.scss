@@ -22,10 +22,7 @@
 // 'Cinzel', @mixin CinzelFont
 // 'Covered By Your Grace', @mixin CoveredByYourGraceFont
 // 'Crimson Text', @mixin CrimsonTextFont
-// 'Droid Arabic Kufi', @mixin DroidArabicKufiFont
-// 'Droid Arabic Naskh', @mixin DroidArabicNaskhFont
 // 'Droid Sans', @mixin DroidSansFont
-// 'Droid Sans Tamil', @mixin DroidSansTamilFont
 // 'Droid Serif', @mixin DroidSerifFont
 // 'Ekatra', @mixin EkatraFont
 // 'Exo', @mixin ExoFont
@@ -513,43 +510,6 @@
   }
 }
 
-//DROID ARABIC KUFI 
-//SANS-SERIF, ARABIC
-
-@mixin DroidArabicKufiFont {
-  @font-face {
-    font-family: 'Droid Arabic Kufi';
-    src: url(themes-book/pressbooks-book/fonts/DroidKufi-Regular.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
-  }
-  @font-face {
-    font-family: 'Droid Arabic Kufi';
-    src: url(themes-book/pressbooks-book/fonts/DroidKufi-Bold.ttf) format('truetype');
-    font-style: normal;
-    font-weight: bold;
-  }
-}
-
-//DROID ARABIC NASKH 
-//SERIF, ARABIC
-
-@mixin DroidArabicNaskhFont {
-  @font-face {
-    font-family: 'Droid Arabic Naskh';
-    src: url(themes-book/pressbooks-book/fonts/DroidNaskh-Regular.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
-  }
-  @font-face {
-    font-family: 'Droid Arabic Naskh';
-    src: url(themes-book/pressbooks-book/fonts/DroidNaskh-Bold.ttf) format('truetype');
-    font-style: normal;
-    font-weight: bold;
-  }
-}
-
-
 //DROID SANS
 //SANS-SERIF 
 
@@ -568,23 +528,6 @@
   }
 }
 
-//DROID SANS TAMIL
-//SANS-SERIF 
-
-@mixin DroidSansTamilFont {
-  @font-face {
-    font-family: 'Droid Sans Tamil';
-    src: url(themes-book/pressbooks-book/fonts/DroidSansTamil-Regular.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
-  }
-  @font-face {
-    font-family: 'Droid Sans Tamil';
-    src: url(themes-book/pressbooks-book/fonts/DroidSansTamil-Bold.ttf) format('truetype');
-    font-style: normal;
-    font-weight: bold;
-  }
-}
 
 //DROID SERIF
 //SERIF 

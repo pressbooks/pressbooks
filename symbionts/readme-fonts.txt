@@ -2,108 +2,130 @@
 The following fonts are distributed with Pressbooks.
 ------------------------------------------------------------------------------
 
-Abril Fatface is Copyright (c) TypeTogether (Veronika Burian & José Scaglione) and released under the SIL Open Font License 1.1
+Abril Fatface is Copyright (c) TypeTogether (Veronika Burian & José Scaglione) and is released under the SIL Open Font License 1.1.
 @see: http://www.type-together.com/Abril
 
-Alegreya is Copyright (c) Juan Pablo del Peral and released under the SIL Open Font License 1.1
+Alegreya is Copyright (c) Huerta Tipográfica (Juan Pablo del Peral) and is released under the SIL Open Font License 1.1.
 @see: https://www.google.com/fonts/specimen/Alegreya
 
-Alegreya Sans is Copyright (c) Juan Pablo del Peral and released under the SIL Open Font License 1.1
+Alegreya Sans is Copyright (c) Huerta Tipográfica (Juan Pablo del Peral) and is released under the SIL Open Font License 1.1.
 @see: https://www.google.com/fonts/specimen/Alegreya+Sans
 
-Alegreya Sans SC is Copyright (c) Juan Pablo del Peral and released under the SIL Open Font License 1.1
+Alegreya Sans SC is Copyright (c) Huerta Tipográfica (Juan Pablo del Peral) and is released under the SIL Open Font License 1.1.
 @see: https://www.google.com/fonts/specimen/Alegreya+Sans+SC
 
-// 'Amarante', @mixin AmaranteFont
-// 'Amiri', @mixin AmiriFont
-// 'Antinoou', @mixin AntinoouFont,
-// 'Arapey', @mixin ArapeyFont
-// 'Arvo', @mixin ArvoFont
-// 'Audiowide', @mixin AudiowideFont
-// 'Belleza', @mixin BellezaFont
-// 'BenchNine', @mixin BenchNineFont
-// 'Bergamot Ornaments', @mixin BergamotOrnamentsFont
-// 'Bevan', @mixin BevanFont
-// 'Butcherman', @mixin ButchermanFont
+Amarante is Copyright (c) Karolina Lach and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/Amarante
 
-Cardo is Copyright (c) David J. Perry and released under the SIL Open Font License 1.1
+Amiri is Copyright (c) Khaled Hosny and is released under the SIL Open Font License 1.1.
+@see: http://www.amirifont.org
+
+Antinoou is Copyright (c) 2007-2011 Michael Everson and the International Association for Coptic Studies and is released under the included freeware license in `/themes-book/pressbooks-book/fonts/antinoou-licence.txt.
+@see: http://evertype.com/fonts/coptic/
+
+Arapey is Copyright (c) Eduardo Tunni (edu@tipo.net.ar) and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/Arapey
+
+Arvo is Copyright (c) Anton Koovit and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/Arvo
+
+Audiowide is Copyright (c) Brian J. Bonislawsky DBA Astigmatic (AOETI) (astigma@astigmatic.com) and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/Audiowide
+
+Belleza is Copyright (c) Eduardo Tunni (edu@tipo.net.ar) and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/Belleza
+
+BenchNine is Copyright (c) Vernon Adams and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/BenchNine
+
+Bergamot Ornaments is Copyright (c) Emily Lime (Emily Conners) and is released under a freeware license.
+@see: https://www.myfonts.com/fonts/emily-lime/bergamot/ornaments/
+
+Bevan is Copyright (c) Vernon Adams and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/Bevan
+
+Butcherman is Copyright (c) Typomondo and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/Butcherman
+
+Cardo is Copyright (c) David J. Perry and is released under the SIL Open Font License 1.1.
 @see: http://scholarsfonts.net
 
-// 'Cherry Swash', @mixin CherrySwashFont
-// 'Cinzel', @mixin CinzelFont
-// 'Covered By Your Grace', @mixin CoveredByYourGraceFont
+Cherry Swash is Copyright (c) Nataliya Kasatkina and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/Cherry+Swash
 
-Crimson Text is Copyright (c) 2010, Sebastian Kosch (sebastian@aldusleaf.org) and released under the SIL Open Font License 1.1
+Cinzel is Copyright (c) Natanael Gama and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/Cinzel
+
+Covered By Your Grace
+
+Crimson Text is Copyright (c) 2010 Sebastian Kosch (sebastian@aldusleaf.org) and is released under the SIL Open Font License 1.1.
 @see: http://www.google.com/fonts/specimen/Crimson+Text
 
-// 'Droid Arabic Kufi', @mixin DroidArabicKufiFont
-// 'Droid Arabic Naskh', @mixin DroidArabicNaskhFont
-// 'Droid Sans', @mixin DroidSansFont
-// 'Droid Sans Tamil', @mixin DroidSansTamilFont
-// 'Droid Serif', @mixin DroidSerifFont
-// 'Ekatra', @mixin EkatraFont
-// 'Exo', @mixin ExoFont
-// 'Exo 2', @mixin Exo2Font
-// 'Gentium Basic', @mixin GentiumBasicFont
-// 'GFS Didot', @mixin GFSDidotFont
-// 'Gilda Display', @mixin GildaDisplayFont
-// 'Great Vibes', @mixin GreatVibesFont
-// 'Griffy', @mixin GriffyFont
-// 'Gruppo', @mixin GruppoFont
-// 'Julius Sans One', @mixin JuliusSansOneFont
-// 'IM Fell English', @mixin IMFellEnglishFont
-// 'IM Fell French Canon', @mixin IMFellFrenchCanonFont
-// 'IM Fell French Canon SC', @mixin IMFellFrenchCanonSCFont
-// 'Lato', @mixin LatoFont
-// 'Libre Baskerville', @mixin LibreBaskervilleFont
+Droid Sans
+Droid Serif
+Ekatra
+Exo
+Exo 2
+Gentium Basic
+GFS Didot
+Gilda Display
+Great Vibes
+Griffy
+Gruppo
+Julius Sans One
+IM Fell English
+IM Fell French Canon
+IM Fell French Canon SC
+Lato
+Libre Baskerville
 
-Linux Biolinum is Copyright (c) 2003–2012, Philipp H. Poll released under the SIL Open Font License 1.1
+Linux Biolinum is Copyright (c) 2003–2012, Philipp H. Poll released under the SIL Open Font License 1.1.
 @see: http://www.linuxlibertine.org | gillian at linuxlibertine.org
 
-Linux Libertine is Copyright (c) 2003–2012, Philipp H. Poll and released under the SIL Open Font License 1.1
+Linux Libertine is Copyright (c) 2003–2012, Philipp H. Poll and is released under the SIL Open Font License 1.1.
 @see: http://www.linuxlibertine.org | gillian at linuxlibertine.org
 
-Marcellus is Copyright (c) 2012, Brian J. Bonislawsky DBA Astigmatic (AOETI) (astigma@astigmatic.com) and released under the SIL Open Font License 1.1
+Marcellus is Copyright (c) 2012, Brian J. Bonislawsky DBA Astigmatic (AOETI) (astigma@astigmatic.com) and is released under the SIL Open Font License 1.1.
 @see: http://www.google.com/fonts/specimen/Marcellus+SC
 
-// 'Marcellus SC', @mixin MarcellusSCFont
-// 'Medula One', @mixin MedulaOneFont
-// 'Noticia Text', @mixin NoticiaTextFont
-// 'Noto Kufi Arabic', @mixin NotoKufiArabicFont
-// 'Noto Naskh Arabic', @mixin NotoNaskhArabicFont
-// 'Noto Sans CJK JP', @mixin NotoSansCJKJPFont
-// 'Noto Sans CJK KR', @mixin NotoSansCJKKRFont
-// 'Noto Sans CJK SC', @mixin NotoSansCJKSCFont
-// 'Noto Sans CJK TC', @mixin NotoSansCJKTCFont
-// 'Noto Sans Coptic', @mixin NotoSansCopticFont
-// 'Noto Sans Gujarati', @mixin NotoSansGujaratiFont
-// 'Noto Sans Syriac', @mixin NotoSansSyriacFont
-// 'Noto Sans Tamil', @mixin NotoSansTamilFont
-// 'Noto Sans Tibetan', @mixin NotoSansTibetanFont
-// 'Noto Serif', @mixin NotoSerifFont
-// 'Old Standard', @mixin OldStandardFont
-// 'Open Sans', @mixin OpenSansFont
-// 'Open Sans Condensed', @mixin OpenSansCondensedFont
-// 'Orbitron', @mixin OrbitronFont
+Marcellus SC
+Medula One
+Noticia Text
+Noto Kufi Arabic
+Noto Naskh Arabic
+Noto Sans CJK JP
+Noto Sans CJK KR
+Noto Sans CJK SC
+Noto Sans CJK TC
+Noto Sans Coptic
+Noto Sans Gujarati
+Noto Sans Syriac
+Noto Sans Tamil
+Noto Sans Tibetan
+Noto Serif
+Old Standard
+Open Sans
+Open Sans Condensed
+Orbitron
 
-Oswald is Copyright (c) Vernon Adams and released under the SIL Open Font License 1.1
+Oswald is Copyright (c) Vernon Adams and is released under the SIL Open Font License 1.1.
 @see: https://github.com/vernnobile/OswaldFont
 
-// 'Poiret One', @mixin PoiretOneFont 
-// 'PT Serif', @mixin PTSerifFont
-// 'Quantico', @mixin QuanticoFont
-// 'Roboto', @mixin RobotoFont
+Poiret One
+PT Serif
+Quantico
+Roboto
 
-Roboto Condensed is copyright Christian Robertson and released under the Apache License, version 2.0
+Roboto Condensed is Copyright (c) Christian Robertson and is released under the Apache License, version 2.0.
 @see: http://www.google.com/fonts/specimen/Roboto+Condensed
 
-// 'SBL Greek', @mixin SBLGreekFont
-// 'SBL Hebrew', @mixin SBLHebrewFont
+SBL Greek
+SBL Hebrew
 
-Sorts Mill Goudy is Copyright Barry Schwartz and released under the SIL Open Font License 1.1
+Sorts Mill Goudy is Copyright (c) Barry Schwartz and is released under the SIL Open Font License 1.1.
 @see: http://www.google.com/fonts/specimen/Sorts+Mill+Goudy
 
-// 'Special Elite', @mixin SpecialEliteFont
-// 'Teko', @mixin TekoFont
-// 'Tinos', @mixin TinosFont
-// 'WWDesigns', @mixin WWDesignsFont
+Special Elite
+Teko
+Tinos
+WWDesigns
