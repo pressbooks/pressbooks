@@ -473,13 +473,20 @@ abstract class Export {
 	 * @throws \Exception
 	 */
 	protected function doCopyrightLicense( $metadata, $title = '', $id = '', $section_author = '' ) {
-		$option = get_option( 'pressbooks_theme_options_global' );
+
+		$options = get_option( 'pressbooks_theme_options_global' );
+		foreach ( array( 'copyright_license' ) as $requiredGlobalOption ) {
+			if ( ! isset ( $options[$requiredGlobalOption] ) ) {
+				$options[$requiredGlobalOption] = 0;
+			}
+		}
+
 		$html = $license = $copyright_holder = '';
 		$lang = $metadata['pb_language'];
 
 		// if they don't want to see it, return
 		// at minimum we need book copyright information set
-		if ( false == $option['copyright_license'] || ! isset( $metadata['pb_book_license'] ) ) {
+		if ( false == $options['copyright_license'] || ! isset( $metadata['pb_book_license'] ) ) {
 			return '';
 		}
 
