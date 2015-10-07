@@ -3,13 +3,10 @@
 
 @import 'mixins';
 
-
-
 body {
 	font-family: $font-stack-1-epub;
 	line-height: 1.4;
 }
-
 
 a {
 	text-decoration: none;
@@ -262,6 +259,7 @@ div.chapter.numberless h3.chapter-number {
 }
 #toc a {
 	border: none;
+	color: inherit;
 }
 #toc ul, #toc li {
 	list-style: none;
@@ -490,11 +488,14 @@ sup.endnote {
 IMAGES & CAPTIONS
 ================= */
 
+
+
 /* CAPTIONS */
 
 p.wp-caption-text {
   font-size: 0.9em;
   padding-bottom: 0.5em;
+  font-style: italic;
 }
 
 @import 'epub-images' , 'epub-house-style' , 'mobi-house-style';

@@ -1,3 +1,5 @@
+//DONHAM PRINCE
+
 @import 'mixins', 'pdf-house-style';
 
 /* FONTS
@@ -721,6 +723,14 @@ span.chapter-license {
 	top: -5px;
 }
 
+/* Multi-level TOC support */ 
+
+li.section {
+  position: relative !important;
+  margin-left: 1.5cm !important;
+}
+
+
 /*end toc*/
 
 
@@ -914,3 +924,4 @@ img.aligncenter {
 .index .ugc  p.sub-entry {
 	padding-left:30px;
 }
+
