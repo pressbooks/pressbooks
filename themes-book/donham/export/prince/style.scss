@@ -1,4 +1,4 @@
-//DONHAM PRINCE-PDF
+//DONHAM PRINCE
 
 @import 'mixins', 'pdf-house-style';
 
@@ -723,13 +723,13 @@ span.chapter-license {
 	top: -5px;
 }
 
-/* TOC fixes for multi-level TOC, needs improvement 
+/* Multi-level TOC support */ 
 
 li.section {
   position: relative !important;
+  margin-left: 1.5cm !important;
 }
 
-*/
 
 /*end toc*/
 

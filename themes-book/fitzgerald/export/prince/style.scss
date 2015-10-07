@@ -1,3 +1,5 @@
+/// FITZGERALD PRINCE
+
 @import 'mixins', 'pdf-house-style';
 
 
@@ -603,6 +605,14 @@ p.bl_indent {
 	margin-top: .2cm;
 	position:relative;
 }
+
+/* Multi-level TOC support */ 
+
+li.section {
+  position: relative !important;
+  margin-left: 1cm !important;
+}
+
 
 /*end toc*/
 
