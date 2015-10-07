@@ -43,6 +43,33 @@ class Epub3 extends Epub\Epub201 {
 	protected $supportedFontExtensions = '\.woff|\.otf|\.ttf';
 
 	/**
+	 * MathML Tags
+	 *
+	 * @var array
+	 */
+	protected $MathMLTags = array(
+		'math', 'maction', 'maligngroup', 'malignmark', 'menclose', 'merror', 'mfenced', 'mfrac', 'mglyph', 'mi', 'mlabeledtr',
+		'mlongdiv', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded', 'mphantom', 'mroot', 'mrow', 'ms', 'mscarries', 'mscarry',
+		'msgroup', 'msline', 'mspace', 'msqrt', 'msrow', 'mstack', 'mstyle', 'msub', 'msup', 'msubsup', 'mtable', 'mtd',
+		'mtext', 'mtr', 'munder', 'munderover', 'semantics', 'annotation', 'annotation-xml'
+	);
+
+	/**
+	 * JavaScript Events
+	 *
+	 * @var array
+	 */
+	protected $javaScriptEvents = array(
+		'onabort', 'onblur', 'oncanplay', 'oncanplaythrough', 'onchange', 'onclick', 'oncontextmenu', 'ondblclick',
+		'ondrag', 'ondragend', 'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'ondurationchange',
+		'onemptied', 'onended', 'onerror', 'onfocus', 'oninput', 'oninvalid', 'onkeydown', 'onkeypress', 'onkeyup',
+		'onload', 'onloadeddata', 'onloadedmetadata', 'onloadstart', 'onmousedown', 'onmousemove', 'onmouseout',
+		'onmouseover', 'onmouseup', 'onmousewheel', 'onpause', 'onplay', 'onplaying', 'onprogress', 'onratechange',
+		'onreadystatechange', 'onreset', 'onscroll', 'onseeked', 'onseeking', 'onselect', 'onshow', 'onstalled',
+		'onsubmit', 'onsuspend', 'ontimeupdate', 'onvolumechange', 'onwaiting',
+	);
+
+	/**
 	 * Create $this->outputPath
 	 *
 	 * @return bool
@@ -66,20 +93,73 @@ class Epub3 extends Epub\Epub201 {
 
 		$html = file_get_contents( $html_file );
 		$properties = array();
-	
+
 		if ( empty( $html ) ) {
 			throw new \Exception( 'File contents empty for getProperties' );
 		}
 
-		// Check for script elements
-		if ( preg_match_all( '/<script[^>]*>.*?<\/script>/is', $html ) >= 1 ) {
+		if ( $this->isMathML( $html ) ) {
+			$properties['mathml'] = 1;
+		}
+
+		if ( $this->isScripted( $html ) ) {
 			$properties['scripted'] = 1;
 		}
-		
+
 		// TODO: Check for remote resources
-		
+
+
 		return $properties;
-	}	
+	}
+
+	/**
+	 * Check for existence of scripting MathML elements
+	 *
+	 * @param string $html
+	 *
+	 * @return bool
+	 */
+	protected function isMathML( $html ) {
+
+		foreach ( $this->MathMLTags as $tag ) {
+			if ( false !== stripos( $html, "<$tag>" ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+
+	/**
+	 * Check for existence of scripting elements
+	 *
+	 * @param string $html
+	 *
+	 * @return bool
+	 */
+	protected function isScripted( $html ) {
+
+		if ( preg_match( '/<script[^>]*>.*?<\/script>/is', $html ) ) {
+			return true;
+		}
+
+		try {
+			$doc = new \DOMDocument();
+			$doc->loadHTML( $html );
+			foreach ( $doc->getElementsByTagname( '*' ) as $element ) {
+				foreach ( iterator_to_array( $element->attributes ) as $name => $attribute ) {
+					if ( in_array( $name, $this->javaScriptEvents ) ) {
+						return true;
+					}
+				}
+			}
+		} catch ( \Exception $e ) {
+			// Do nothing
+		}
+
+		return false;
+	}
 	
 	/**
 	 * Tidy HTML
@@ -109,10 +189,10 @@ class Epub3 extends Epub\Epub201 {
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
-			// 'hook' => '\PressBooks\Sanitize\html5_to_epub3', // TODO
+			'hook' => '\PressBooks\Sanitize\html5_to_epub3',
 			'tidy' => - 1,
 			'make_tag_strict' => 2,
-
+			'comment' => 1,
 		);
 
 		$spec = '';
@@ -264,8 +344,11 @@ class Epub3 extends Epub\Epub201 {
 		$html = '';
 		foreach ( $this->manifest as $k => $v ) {
 			$properties = $this->getProperties( $this->tmpDir . "/OEBPS/" . $v['filename'] );
-			( array_key_exists( 'scripted', $properties ) ? $scripted = 'properties="scripted" ' : $scripted = '' );
-			$html .= sprintf( '<item id="%s" href="OEBPS/%s" %smedia-type="application/xhtml+xml" />', $k, $v['filename'], $scripted ) . "\n\t\t";
+
+			array_key_exists( 'mathml', $properties ) ? $mathml = 'properties="mathml" ' : $mathml = '';
+			array_key_exists( 'scripted', $properties ) ? $scripted = 'properties="scripted" ' : $scripted = '';
+
+			$html .= sprintf( '<item id="%s" href="OEBPS/%s" %s%smedia-type="application/xhtml+xml" />', $k, $v['filename'], $mathml, $scripted ) . "\n\t\t";
 		}
 		$vars['manifest_filelist'] = $html;
 

@@ -38,9 +38,6 @@ function html5_to_xhtml11( $html, $config = array(), $spec = array() ) {
 
 	$html = preg_replace( $search_open, $replace_open, str_replace( $search_closed, $replace_closed, $html ) );
 
-	// WP audio shortcode automatically adds style attributes that we want to remove.
-	$html = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', "$1", $html );
-
 	return $html;
 }
 
@@ -51,16 +48,12 @@ function html5_to_xhtml11( $html, $config = array(), $spec = array() ) {
  * @param array $config (optional)
  * @param array $spec (optional) Extra HTML specifications using the $spec parameter
  *
-*@return string
+ * @return string
  */
 function html5_to_epub3( $html, $config = array(), $spec = array() ) {
 
 	// HTML5 elements we don't want to deal with just yet
-	$html5 = array(
-	    'bdi', 'canvas', 'command', 'data', 'datalist', 'embed', 
-	    'keygen', 'mark', 'meter', 'nav', 'output', 'progress', 'rp', 'rt',
-	    'ruby', 'time', 'track', 'wbr',
-	);
+	$html5 = array( 'command', 'embed', 'track' );
 
 	$search_open = $replace_open = $search_closed = $replace_closed = array();
 
@@ -73,13 +66,21 @@ function html5_to_epub3( $html, $config = array(), $spec = array() ) {
 
 	$html = preg_replace( $search_open, $replace_open, str_replace( $search_closed, $replace_closed, $html ) );
 
-	// WP audio shortcode automatically adds style attributes that we want to remove.
-	$html = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', "$1", $html );
-
-	//TODO: remove IE9 audio/video shims that break validation here.  Audio example
-	//<!--[if lt IE 9]><script>document.createElement('audio');</script><![endif] -->
-
 	return $html;
+}
+
+/**
+ * Setup a filter that removes style from WP audio shortcode
+ *
+ * @see \wp_audio_shortcode (in /wp-includes/media.php line ~1658)
+ */
+function fix_audio_shortcode() {
+
+	add_filter( 'wp_audio_shortcode', function ( $html, $atts, $audio, $post_id, $library ) {
+		$html = str_replace( 'width: 100%; visibility: hidden;', '', $html );
+		return $html;
+	}, 10, 5 );
+
 }
 
 /**

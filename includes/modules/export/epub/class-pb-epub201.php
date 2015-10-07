@@ -470,6 +470,7 @@ class Epub201 extends Export {
 			'deny_attribute' => 'itemscope,itemtype,itemref,itemprop',
 			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
 			'tidy' => -1,
+			'comment' => 1,
 		);
 
 		// Reset on each htmLawed invocation
