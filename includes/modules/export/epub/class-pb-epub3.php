@@ -123,11 +123,9 @@ class Epub3 extends Epub\Epub201 {
 		$spec .= 'div=-align;';
 		$spec .= 'iframe=-align,-frameborder,-longdesc,-marginheight,-marginwidth,-scrolling;';
 		$spec .= 'img=-longdesc;';
-		$spec .= 'li=-type;';
 		$spec .= 'link=-charset,-rev,-target;';
 		$spec .= 'menu=-compact;';
 		$spec .= 'object=-archive,-classid,-codebase,-codetype,-declare,-standby;';
-		$spec .= 'ol=-type;';
 		$spec .= 'param=-type,-valuetype;';
 		$spec .= 't=-abbr,-axis;';
 		$spec .= 'table=-border,-cellspacing,-cellpadding,-frame,-rules,-width;';
