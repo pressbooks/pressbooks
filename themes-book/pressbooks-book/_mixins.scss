@@ -10,6 +10,6 @@ Version: 1.4
 
 @import 'fonts', 'global-font-stack';
 
-$font-stack-1-epub: Georgia, $global-font-stack-serif;
+$font-stack-1-epub: "Georgia" , $global-font-stack-serif , serif;
 $font-stack-1-prince: "Cardo", "Times New Roman", $global-font-stack-serif, serif;
 $font-stack-1-web: "Droid Serif", "Georgia", "Times New Roman", $global-font-stack-serif, serif;
