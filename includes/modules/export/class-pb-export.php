@@ -478,7 +478,7 @@ abstract class Export {
 		}
 
 		$html = $license = $copyright_holder = '';
-		$lang = $metadata['pb_language'];
+		$lang = ! empty( $metadata['pb_language'] ) ? $metadata['pb_language'] : 'en';
 
 		// if they don't want to see it, return
 		// at minimum we need book copyright information set
