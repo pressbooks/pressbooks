@@ -549,11 +549,10 @@ function init_css_js() {
 	// Enqueue later, on-the-fly, using action: admin_print_scripts-
 	wp_register_script( 'jquery-blockui', PB_PLUGIN_URL . 'symbionts/jquery/jquery.blockUI.js', array( 'jquery', 'jquery-ui-core' ), '2.64' );
 	wp_register_script( 'jquery-cookie', PB_PLUGIN_URL . 'symbionts/jquery/jquery.cookie.min.js', array( 'jquery' ), '1.4.1' );
-	wp_register_script( 'pb-export', PB_PLUGIN_URL . 'assets/js/export.js', array( 'jquery', 'jquery-cookie' ), '1.0.2' );
-	wp_register_script( 'pb-organize', PB_PLUGIN_URL . 'assets/js/organize.js', array( 'jquery', 'jquery-ui-core', 'jquery-blockui' ), '1.0.1' );
-	wp_register_script( 'pb-metadata', PB_PLUGIN_URL . 'assets/js/book-information.js', array( 'jquery' ), '1.0.1' );
-	wp_register_script( 'pb-import', PB_PLUGIN_URL . 'assets/js/import.js', array( 'jquery' ), '1.0.0' );
-	wp_register_script( 'pb-part', PB_PLUGIN_URL . 'assets/js/part.js', array( 'jquery' ), '1.0.0' );
+	wp_register_script( 'pb-export', PB_PLUGIN_URL . 'assets/js/export.min.js', array( 'jquery', 'jquery-cookie' ), '1.0.2' );
+	wp_register_script( 'pb-organize', PB_PLUGIN_URL . 'assets/js/organize.min.js', array( 'jquery', 'jquery-ui-core', 'jquery-blockui' ), '1.0.1' );
+	wp_register_script( 'pb-metadata', PB_PLUGIN_URL . 'assets/js/book-information.min.js', array( 'jquery' ), '1.0.1' );
+	wp_register_script( 'pb-import', PB_PLUGIN_URL . 'assets/js/import.min.js', array( 'jquery' ), '1.0.0' );
 
 	wp_register_style( 'pb-export', PB_PLUGIN_URL . 'assets/css/export.css' );
 	wp_register_style( 'pb-organize', PB_PLUGIN_URL . 'assets/css/organize.css' );
@@ -563,17 +562,6 @@ function init_css_js() {
 	wp_enqueue_script( 'jquery-ui-sortable' );
 }
 
-/**
- * Enqueue script to ensure that new parts are made visible by default.
- */
-function force_visible_parts() {
-	$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-	if ( preg_match( '~/wp-admin/post-new\.php$~', $check_against_url ) ) {
-		if ( @$_REQUEST['post_type'] == 'part' ) {
-			wp_enqueue_script( 'pb-part' );
-		}
-	}
-}
 
 /**
  * Redirect away from (what we consider) bad WordPress admin pages
