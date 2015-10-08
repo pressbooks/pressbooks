@@ -117,17 +117,20 @@ class Pdf extends Export {
 		$this->outputPath = $filename;
 
 		// CSS File
+		$css = $this->kneadCss();
 		$css_file = $this->createTmpFile();
-		file_put_contents( $css_file, $this->kneadCss() );
+		file_put_contents( $css_file, $css );
 
-		// Output compiled CSS for debugging.
-		$wp_upload_dir = wp_upload_dir();
-		$debug_dir = $wp_upload_dir['basedir'] . '/export-css';
-		if ( ! is_dir( $debug_dir ) ) {
-			mkdir( $debug_dir );
+		if ( ! empty( $GLOBALS['PB_SECRET_SAUCE']['DEBUG_EXPORT_CSS'] ) ) {
+			// Output compiled CSS for debugging.
+			$wp_upload_dir = wp_upload_dir();
+			$debug_dir = $wp_upload_dir['basedir'] . '/export-css';
+			if ( ! is_dir( $debug_dir ) ) {
+				mkdir( $debug_dir );
+			}
+			$debug_file = $debug_dir . '/prince.css';
+			file_put_contents( $debug_file, $css );
 		}
-		$debug_file = $debug_dir . '/prince.css';
-		file_put_contents( $debug_file, $this->kneadCss() );
 
 		// Save PDF as file in exports folder
 		$prince = new \Prince( PB_PRINCE_COMMAND );
