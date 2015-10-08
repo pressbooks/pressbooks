@@ -118,8 +118,6 @@ abstract class Export {
 	/**
 	 * Return the fullpath to our generic SCSS mixins.
 	 *
-	 * @param string $type
-	 *
 	 * @return string
 	 */
 	function getMixinsPath() {
@@ -132,8 +130,6 @@ abstract class Export {
 	
 	/**
 	 * Return the fullpath to the global typography SCSS mixin.
-	 *
-	 * @param string $type
 	 *
 	 * @return string
 	 */
@@ -472,7 +468,7 @@ abstract class Export {
 	 * @return string $html blob
 	 * @throws \Exception
 	 */
-	protected function doCopyrightLicense( $metadata, $title = '', $id = '', $section_author = '' ) {
+	protected function doCopyrightLicense( $metadata, $title = '', $id = null, $section_author = '' ) {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 		foreach ( array( 'copyright_license' ) as $requiredGlobalOption ) {
@@ -482,7 +478,7 @@ abstract class Export {
 		}
 
 		$html = $license = $copyright_holder = '';
-		$lang = $metadata['pb_language'];
+		$lang = ! empty( $metadata['pb_language'] ) ? $metadata['pb_language'] : 'en';
 
 		// if they don't want to see it, return
 		// at minimum we need book copyright information set
@@ -629,6 +625,9 @@ abstract class Export {
 		setlocale( LC_CTYPE, 'UTF8', 'en_US.UTF-8' );
 		putenv( 'LC_CTYPE=en_US.UTF-8' );
 
+		// Override some WP behaviours when exporting
+		\PressBooks\Sanitize\fix_audio_shortcode();
+
 		// Download
 		if ( ! empty( $_GET['download_export_file'] ) ) {
 			$filename = sanitize_file_name( $_GET['download_export_file'] );
@@ -663,7 +662,7 @@ abstract class Export {
 				$modules[] = '\PressBooks\Export\Epub\Epub201'; // Must be set before MOBI
 			}
 			if ( isset( $x['epub3'] ) ) {
-				$modules[] = '\PressBooks\Export\Epub3\Epub3'; // Must be set before MOBI
+				$modules[] = '\PressBooks\Export\Epub\Epub3'; // Must be set before MOBI
 			}
 			if ( isset( $x['mobi'] ) ) {
 				if  ( !isset( $x['epub'] ) ) { // Make sure Epub source file is generated
@@ -721,9 +720,9 @@ abstract class Export {
 				}
 				
 				// Add to outputs array
-				
+
 				$outputs[$module] = $exporter->getOutputPath();
-				
+
 				// Stats hook
 				do_action( 'pressbooks_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
@@ -732,7 +731,7 @@ abstract class Export {
 
 			// --------------------------------------------------------------------------------------------------------
 			// MOBI cleanup
-			
+
 			if ( isset( $x['mobi'] ) && !isset( $x['epub'] ) ) {
 				unlink( $outputs['\PressBooks\Export\Epub\Epub201'] );
 			}

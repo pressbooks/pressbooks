@@ -1,6 +1,6 @@
 /*
-htmLawed_README.txt, 11 September 2013
-htmLawed 1.2.beta.4, 11 September 2013
+htmLawed_README.txt, 9 June 2015
+htmLawed 1.2.beta.8, 9 June 2015
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
 A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/beta
@@ -1348,7 +1348,15 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
   `Version number - Release date. Notes`
   
-  1.12.beta - 26 May 2013. Added support for HTML5; removed support for code using kses functions (see section:- #2.6); changes in revisions to the beta version are not noted here
+  1.2.beta - 26 May 2013 (first release). Added support for HTML5; removed support for code using kses functions (see section:- #2.6); changes in revisions to the beta version are not noted here
+
+  1.1.20 - 9 June 2015. Fix for a potential security vulnerability arising from unescaped double-quote character in single-quoted attribute value of some deprecated elements when tag transformation is enabled; recognition for non-(HTML4) standard 'allowfullscreen' attribute of 'iframe.'
+    
+  1.1.19 - 19 January 2015. Fix for a bug in cleaning of soft-hyphens in URL values, etc.
+
+  1.1.18 - 2 August 2014. Fix for a potential security vulnerability arising from specially encoded text with serial opening tags
+  
+  1.1.17 - 11 March 2014. Removed use of PHP function preg_replace with 'e' modifier for compatibility with PHP 5.5 
 
   1.1.16 - 29 August 2013. Fix for a potential security vulnerability arising from specialy encoded space characters in URL schemes/protocols
   
@@ -1474,7 +1482,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 -- 4.10  Acknowledgements ------------------------------------------o
 
 
-  Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Dac Chartrand, Ulf Harnhammer, Gareth Heyes, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Harro Verton, Edward Yang, and many anonymous users.
+  Nicholas Alipaz, Bryan Blakey, Pádraic Brady, Dac Chartrand, Ulf Harnhammer, Gareth Heyes, Hakre, Klaus Leithoff, Lukasz Pilorz, Shelley Powers, Psych0tr1a, Lincoln Russell, Tomas Sykorka, Harro Verton, Edward Yang, and many anonymous users.
 
   Thank you!
 
@@ -1495,7 +1503,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
   Valid attribute-element combinations as per W3C specifications.
 
-  *  includes deprecated attributes (marked '^'), attributes for microdata (marked '*'), the non-standard 'biordercolor', and HTML5 attributes (marked '~')
+  *  includes deprecated attributes (marked '^'), attributes for microdata (marked '*'), the non-standard 'bordercolor', and HTML5 attributes (marked '~')
   *  only non-frameset, HTML body elements
   *  'name' for 'a' and 'map', and 'lang' are invalid in XHTML 1.1
   *  'target' is valid for 'a' in XHTML 1.1 and higher
@@ -1506,6 +1514,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
   accept-charset - form
   action - form
   align - applet, caption^, col, colgroup, div^, embed, h1^, h2^, h3^, h4^, h5^, h6^, hr^, iframe, img^, input^, legend^, object^, p^, table^, tbody, td, tfoot, th, thead, tr
+  allowfullscreen - iframe
   alt - applet, area, img, input
   archive - applet, object
   async~ - script

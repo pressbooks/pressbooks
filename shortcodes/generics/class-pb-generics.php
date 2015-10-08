@@ -8,7 +8,7 @@ namespace PressBooks\Shortcodes\Generics;
 class Generics {
 
 	/**
-	 * @var Static property to hold our singleton instance
+	 * @var Generics - Static property to hold our singleton instance
 	 */
 	static $instance = false;
 
@@ -57,7 +57,7 @@ class Generics {
 	/**
 	 * Function to instantiate our class and make it a singleton
 	 *
-	 * @return Footnotes
+	 * @return Generics
 	 */
 	public static function getInstance() {
 		if ( ! self::$instance )

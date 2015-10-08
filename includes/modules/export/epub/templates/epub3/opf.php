@@ -7,8 +7,7 @@ if ( ! defined( 'ABSPATH' ) )
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
-<package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="PrimaryID">
-
+<package version="3.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="PrimaryID">
 
 	<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
 		<?php
@@ -18,16 +17,21 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		echo "\n";
 
 		// Required, Language
-		echo '<dc:language>' . ( ! empty( $meta['pb_language'] ) ? $meta['pb_language'] : 'en' ) . '</dc:language>';
-		unset ( $meta['pb_language'] );
+		echo '<dc:language>' . $lang . '</dc:language>';
+		unset( $meta['pb_language'] );
+		echo "\n";
+
+		// Required, Modification date
+		echo '<meta property="dcterms:modified">' . ( date( 'Y-m-d\TH:i:s\Z' ) ) . '</meta>';
 		echo "\n";
 
 		// Required, Primary ID
 		if ( ! empty( $meta['pb_ebook_isbn'] ) ) {
-			echo '<dc:identifier id="PrimaryID" opf:scheme="ISBN">' . trim( $meta['pb_ebook_isbn'] ) . '</dc:identifier>';
+			echo '<dc:identifier id="PrimaryID">' . trim( $meta['pb_ebook_isbn'] ) . '</dc:identifier>';
 		} else {
-			echo '<dc:identifier id="PrimaryID" opf:scheme="URI">' . trim( get_bloginfo( 'url' ) ) . '</dc:identifier>';
+			echo '<dc:identifier id="PrimaryID">' . trim( get_bloginfo( 'url' ) ) . '</dc:identifier>';
 		}
+
 		unset( $meta['pb_ebook_isbn'] );
 		echo "\n";
 
@@ -41,26 +45,35 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		}
 
 		// Author
-		echo '<dc:creator opf:role="aut"';
-		if ( ! empty( $meta['pb_author_file_as'] ) ) {
-			echo ' opf:file-as="' . $meta['pb_author_file_as'] . '"';
-		}
-		echo '>';
+		echo '<dc:creator id="author">';
+
 		if ( ! empty( $meta['pb_author'] ) ) {
 			echo $meta['pb_author'];
+		} else {
+			echo 'Authored by: ' . get_bloginfo( 'url' );
 		}
 		echo '</dc:creator>' . "\n";
-		unset( $meta['pb_author_file_as'], $meta['pb_author'] );
 		
 		// Contributing authors
 		if ( ! empty( $meta['pb_contributing_authors'] ) ){
 			$contributors = explode( ',', $meta['pb_contributing_authors'] );
 			
 			foreach ( $contributors as $contributor ){
-				echo '<dc:contributor opf:role="aut">' . trim( $contributor ) . '</dc:contributor>' . "\n";
+				echo '<dc:contributor>' . trim( $contributor ) . '</dc:contributor>' . "\n";
 			}
 			unset( $meta['pb_contributing_authors'] );
 		}
+
+		echo '<meta refines="#author" property="file-as">';
+		if ( ! empty( $meta['pb_author_file_as'] ) ) {
+			echo $meta['pb_author_file_as'];
+		} else if ( ! empty( $meta['pb_author'] ) ) {
+			echo $meta['pb_author'];
+		} else {
+			echo 'Authored by: ' . get_bloginfo( 'url' );
+		}
+		echo '</meta>';
+		unset( $meta['pb_author_file_as'], $meta['pb_author'] );
 
 		// Copyright
 		if ( ! empty( $meta['pb_copyright_year'] ) || ! empty( $meta['pb_copyright_holder'] ) ) {
@@ -83,8 +96,8 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 					break;
 
 				case 'pb_publication_date' :
-					echo '<dc:date opf:event="publication">';
-					echo date( 'Y-m-d', (int) $val );
+					echo '<dc:date>';
+					echo date( 'Y-m-d', ( int ) $val );
 					echo "</dc:date>\n";
 					break;
 
@@ -109,14 +122,14 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 	<manifest>
 		<?php
-		foreach ( $manifest as $k => $v ) {
-			printf( '<item id="%s" href="OEBPS/%s" media-type="application/xhtml+xml" />', $k, $v['filename'] );
-			echo "\n";
-		}
+		echo $manifest_filelist;
 		echo $manifest_assets;
 		?>
+		<item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
 		<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
-		<?php if ( ! empty( $stylesheet ) ): ?><item id="stylesheet" href="OEBPS/<?php echo $stylesheet; ?>"  media-type="text/css" /><?php endif; ?>
+		<?php if ( ! empty( $stylesheet ) ): ?>
+		<item id="stylesheet" href="OEBPS/<?php echo $stylesheet; ?>"  media-type="text/css" />
+		<?php endif; ?>
 	</manifest>
 
 
@@ -132,12 +145,10 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		?>
 	</spine>
 
-
 	<guide>
-		<reference type="toc" title="Table of Contents" href="OEBPS/table-of-contents.html" />
-		<reference type="cover" title="cover" href="OEBPS/front-cover.html" />
+		<reference type="toc" title="Table of Contents" href="OEBPS/table-of-contents.xhtml" />
+		<reference type="cover" title="cover" href="OEBPS/front-cover.xhtml" />
 		<?php
-
 		/* Set the EPUB's start-point */
 
 		// First, look if the user has set this themselves.

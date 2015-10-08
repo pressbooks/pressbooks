@@ -24,7 +24,7 @@ function add_menu() {
 
 function admin_enqueues() {
 	wp_enqueue_style( 'pb-network-managers', PB_PLUGIN_URL . 'assets/css/network-managers.css', array(), '20150617' );
-	wp_enqueue_script( 'pb-network-managers', PB_PLUGIN_URL . 'assets/js/network-managers.js', array('jquery'), '20150617' );
+	wp_enqueue_script( 'pb-network-managers', PB_PLUGIN_URL . 'assets/js/network-managers.min.js', array('jquery'), '20150617' );
 	wp_localize_script( 'pb-network-managers', 'PB_NetworkManagerToken', array(
 		'networkManagerNonce' => wp_create_nonce( 'pb-network-managers' ),
 	));
