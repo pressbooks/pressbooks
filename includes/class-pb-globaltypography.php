@@ -318,8 +318,8 @@ class GlobalTypography {
 			$global_font_stack_sans .= "sans-serif;\n";
 			$global_font_stack_serif .= "serif;\n";
 		} else {
-			$global_font_stack_sans .= ";\n";
-			$global_font_stack_serif .= ";\n";
+			$global_font_stack_sans .= "sans-serif;\n";
+			$global_font_stack_serif .= "serif;\n";
 		}
 
 		$scss .= $global_font_stack_sans;
