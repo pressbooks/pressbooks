@@ -1,3 +1,5 @@
+// CLARKE PRINCE
+
 @import 'mixins', 'pdf-house-style';
 
 /* FONTS
@@ -485,7 +487,7 @@ p.bl_indent {
 	page-break-after: avoid;
 }
 #toc .part a::before {
-	content: "part "counter(part) ". ";
+	content: "Part "counter(part) ". ";
 	counter-increment: part; 
 }
 #toc .front-matter,
@@ -523,6 +525,14 @@ p.bl_indent {
     margin-bottom: 0.1cm;
     margin-top: 0.1cm;
 	position:relative;
+}
+
+
+/* Multi-level TOC support */ 
+
+li.section {
+  position: relative !important;
+  margin-left: 1.5cm !important;
 }
 
 /*end toc*/

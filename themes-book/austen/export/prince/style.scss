@@ -1,3 +1,5 @@
+// AUSTEN PRINCE
+
 @import 'mixins', 'pdf-house-style';
 
 /* FONTS
@@ -694,6 +696,14 @@ span.chapter-license {
   position: relative;
   top: -5px;
 }
+
+/* TOC fixes for multi-level TOC, needs improvement */
+
+li.section {
+  position: relative !important;
+  margin-left: 2cm !important;
+}
+
 /*end toc*/
 
 /* MOAR TRADITIONAL CSS
