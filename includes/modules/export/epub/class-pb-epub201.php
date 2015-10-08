@@ -653,15 +653,8 @@ class Epub201 extends Export {
 		// Overwrite the new file with new info
 		file_put_contents( $path_to_copy_of_stylesheet, $css );
 		
-		if ( ! empty( $GLOBALS['PB_SECRET_SAUCE']['DEBUG_EXPORT_CSS'] ) ) {
-			// Output compiled CSS for debugging.
-			$wp_upload_dir = wp_upload_dir();
-			$debug_dir = $wp_upload_dir['basedir'] . '/export-css';
-			if ( ! is_dir( $debug_dir ) ) {
-				mkdir( $debug_dir );
-			}
-			$debug_file = $debug_dir . '/epub.css';
-			file_put_contents( $debug_file, $css );
+		if ( WP_DEBUG ) {
+		    \PressBooks\SASS\debug( $css, 'epub.css' );
 		}
 
 	}

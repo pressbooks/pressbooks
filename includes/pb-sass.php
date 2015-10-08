@@ -31,3 +31,21 @@ function compile( $scss, $options = array() ) {
 	
 	return $css;
 }
+
+/**
+ * Write CSS to a a file in subdir named 'export-css'
+ *
+ * @param string $css
+ *
+ * @param string $filename
+ */
+function debug( $css, $filename ) {
+    // Output compiled CSS for debugging.
+    $wp_upload_dir = wp_upload_dir();
+    $debug_dir = $wp_upload_dir['basedir'] . '/export-css';
+    if ( ! is_dir( $debug_dir ) ) {
+        mkdir( $debug_dir );
+    }
+    $debug_file = $debug_dir . '/' . $filename;
+    file_put_contents( $debug_file, $css );
+}
