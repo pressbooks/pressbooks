@@ -4,6 +4,7 @@
 
 // 'Abril Fatface', @mixin AbrilFatfaceFont
 // 'Alegreya', @mixin AlegreyaFont
+// 'Alegreya SC', @mixin AlegreyaSCFont
 // 'Alegreya Sans', @mixin AlegreyaSansFont
 // 'Alegreya Sans SC', @mixin AlegreyaSansSCFont
 // 'Amarante', @mixin AmaranteFont
@@ -93,13 +94,13 @@
 @mixin AlegreyaFont {
   @font-face {
       font-family: 'Alegreya';
-      src: url(themes-book/pressbooks-book/fonts/AlegreyaSans-Bold.ttf) format('truetype');
+      src: url(themes-book/pressbooks-book/fonts/Alegreya-Bold.ttf) format('truetype');
       font-weight: bold;
       font-style: normal;
   }
   @font-face {
       font-family: 'Alegreya';
-      src: url(themes-book/pressbooks-book/fonts/AlegreyaSans-BoldItalic.ttf) format('truetype');
+      src: url(themes-book/pressbooks-book/fonts/Alegreya-BoldItalic.ttf) format('truetype');
       font-weight: bold;
       font-style: italic;
   }
@@ -113,6 +114,18 @@
       font-family: 'Alegreya';
       src: url(themes-book/pressbooks-book/fonts/Alegreya-Regular.ttf) format('truetype');
       font-weight: normal;
+      font-style: normal;
+  }
+}
+
+//ALEGREYA 
+//SERIF
+
+@mixin AlegreyaSCFont {
+  @font-face {
+      font-family: 'Alegreya SC';
+      src: url(themes-book/pressbooks-book/fonts/AlegreyaSC-Bold.ttf) format('truetype');
+      font-weight: bold;
       font-style: normal;
   }
 }
