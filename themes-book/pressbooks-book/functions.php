@@ -576,7 +576,7 @@ function pressbooks_theme_global_typography_callback( $args ) {
 	$html .= '</select>';
 	
 	if ( $already_supported_languages_string ) {
-		$html .= '<br /><br />' . sprintf( __( 'This theme includes built-in support for %s characters.', 'pressbooks' ), $already_supported_languages_string );
+		$html .= '<br /><br />' . sprintf( __( 'This theme includes built-in support for %s.', 'pressbooks' ), $already_supported_languages_string );
 	}
 
 	echo $html;
