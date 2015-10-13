@@ -551,14 +551,33 @@ function pressbooks_theme_global_typography_callback( $args ) {
 	}
 	
 	$languages = \PressBooks\GlobalTypography::getSupportedLanguages();
+	$already_supported_languages = \PressBooks\GlobalTypography::getThemeSupportedLanguages();
+	$already_supported_languages_string = '';
+	
+	$i = 1;
+	$c = count( $already_supported_languages );
+	foreach ( $already_supported_languages as $lang ) {
+		$already_supported_languages_string .= $languages[ $lang ];
+		if ( $i < $c && $i == $c - 1 ) {
+			$already_supported_languages_string .= ' ' . __( 'and', 'pressbooks' ) . ' ';
+		} elseif ( $i < $c ) {
+			$already_supported_languages_string .= ', ';
+		}
+		unset( $languages[ $lang ] );
+		$i++;
+	}
 
 	$html = '<label for="global_typography"> ' . $args[0] . '</label><br /><br />';
 	$html .= '<select id="global_typography" class="select2" data-placeholder="' . __( 'Select languages…', 'pressbooks' ) . '" name="pressbooks_global_typography[]" multiple>';
 	foreach ( $languages as $key => $value ) {
-		$selected = ( in_array( $key, $foreign_languages ) ) ? ' selected' : '';
+		$selected = ( in_array( $key, $foreign_languages ) || in_array( $key, $already_supported_languages ) ) ? ' selected' : '';
 		$html .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option>';
 	}
 	$html .= '</select>';
+	
+	if ( $already_supported_languages_string ) {
+		$html .= '<br /><br />' . sprintf( __( 'This theme includes built-in support for %s.', 'pressbooks' ), $already_supported_languages_string );
+	}
 
 	echo $html;
 }
