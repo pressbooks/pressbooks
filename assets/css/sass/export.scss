@@ -1,5 +1,16 @@
 @import 'colors';
 
+// HiDPI mixin. Default value set to 1.3 to target Google Nexus 7 (http://bjango.com/articles/min-device-pixel-ratio/)
+@mixin hidpi($ratio: 1.3) {
+  @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
+  only screen and (min--moz-device-pixel-ratio: $ratio),
+  only screen and (-o-min-device-pixel-ratio: #{$ratio}/1),
+  only screen and (min-resolution: round($ratio * 96dpi)),
+  only screen and (min-resolution: $ratio * 1dppx) {
+    @content;
+  }
+}
+
 /* Export Page */
 
 .toplevel_page_pb_export {
@@ -99,67 +110,125 @@
 					display: block;
 					margin: 0 auto 8px;
 					&.small {
-						width: 36px;
-						height: 36px;
-						background-size: 36px 36px;
+						width: 32px;
+						height: 32px;
+						background-size: 32px 32px;
+						background-position: -0 0;
+						background-repeat: no-repeat;
 						&.epub {
-							background: url(../images/epub-36.png) -0 0 no-repeat;
+							background-image: url(../images/epub-36.png);
+							@include hidpi {
+								// background-image: url(../images/epub-72.png);
+							}
 						}
 						&.epub3 {
-							background: url(../images/epub3-36.png) -0 0 no-repeat;
+							background-image: url(../images/epub3-36.png);
+							@include hidpi {
+								// background-image: url(../images/epub3-72.png);
+							}
 						}
 						&.icml {
-							background: url(../images/icml-36.png) -0 0 no-repeat;
+							background-image: url(../images/icml-36.png);
+							@include hidpi {
+								// background-image: url(../images/icml-72.png);
+							}
 						}
 						&.mobi {
-							background: url(../images/mobi-36.png) -0 0 no-repeat;
+							background-image: url(../images/mobi-36.png);
+							@include hidpi {
+								// background-image: url(../images/mobi-72.png);
+							}
 						}
 						&.pdf {
-							background: url(../images/pdf-36.png) -0 0 no-repeat;
+							background-image: url(../images/pdf-36.png);
+							@include hidpi {
+								// background-image: url(../images/pdf-72.png);
+							}
 						}
 						&.wxr {
-							background: url(../images/wxr-36-red.png) -0 0 no-repeat;
+							background-image: url(../images/wxr-36-red.png);
+							@include hidpi {
+								// background-image: url(../images/wxr-72.png);
+							}
 						}
 						&.vanillawxr {
-							background: url(../images/vanillawxr-36.png) -0 0 no-repeat;
+							background-image: url(../images/vanillawxr-36.png);
+							@include hidpi {
+								// background-image: url(../images/vanillawxr-72.png);
+							}
 						}
 						&.xhtml {
-							background: url(../images/xhtml-36.png) -0 0 no-repeat;
+							background-image: url(../images/xhtml-36.png);
+							@include hidpi {
+								// background-image: url(../images/xhtml-72.png);
+							}
 						}
 						&.odt {
-							background: url(../images/odt-36.png) -0 0 no-repeat;
+							background-image: url(../images/odt-36.png);
+							@include hidpi {
+								// background-image: url(../images/odt-72.png);
+							}
 						}
 					}
 					&.large {
 						width: 48px;
 						height: 48px;
 						background-size: 48px 48px;
+						background-position: -0 0;
+						background-repeat: no-repeat;
 						&.epub {
-							background: url(../images/epub-48.png) -0 0 no-repeat;
+							background-image: url(../images/epub-48.png);
+							@include hidpi {
+								// background-image: url(../images/epub-96.png);
+							}
 						}
 						&.epub3 {
-							background: url(../images/epub3-48.png) -0 0 no-repeat;
+							background-image: url(../images/epub3-48.png);
+							@include hidpi {
+								// background-image: url(../images/epub3-96.png);
+							}
 						}
 						&.icml {
-							background: url(../images/icml-48.png) -0 0 no-repeat;
+							background-image: url(../images/icml-48.png);
+							@include hidpi {
+								// background-image: url(../images/icml-96.png);
+							}
 						}
 						&.mobi {
-							background: url(../images/mobi-48.png) -0 0 no-repeat;
+							background-image: url(../images/mobi-48.png);
+							@include hidpi {
+								// background-image: url(../images/mobi-96.png);
+							}
 						}
 						&.pdf {
-							background: url(../images/pdf-48.png) -0 0 no-repeat;
+							background-image: url(../images/pdf-48.png);
+							@include hidpi {
+								// background-image: url(../images/pdf-96.png);
+							}
 						}
 						&.wxr {
-							background: url(../images/wxr-48-red.png) -0 0 no-repeat;
+							background-image: url(../images/wxr-48-red.png);
+							@include hidpi {
+								// background-image: url(../images/wxr-96.png);
+							}
 						}
 						&.vanillawxr {
-							background: url(../images/vanillawxr-48.png) -0 0 no-repeat;
+							background-image: url(../images/vanillawxr-48.png);
+							@include hidpi {
+								// background-image: url(../images/vanillawxr-96.png);
+							}
 						}
 						&.xhtml {
-							background: url(../images/xhtml-48.png) -0 0 no-repeat;
+							background-image: url(../images/xhtml-48.png);
+							@include hidpi {
+								// background-image: url(../images/xhtml-96.png);
+							}
 						}
 						&.odt {
-							background: url(../images/odt-48.png) -0 0 no-repeat;
+							background-image: url(../images/odt-48.png);
+							@include hidpi {
+								// background-image: url(../images/odt-96.png);
+							}
 						}				
 					}					
 				}
