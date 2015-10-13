@@ -1,7 +1,9 @@
+$type: 'epub';
+
 @import 'mixins', 'epub-house-style';
 
 body {
-	font-family: $font-stack-1-epub;
+	font-family: $font-1;
 	line-height: 1.5em;
 }	 
 a {

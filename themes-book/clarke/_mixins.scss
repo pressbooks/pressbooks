@@ -11,11 +11,13 @@ Template: pressbooks-book
 
 @import 'fonts', 'global-font-stack';
 
-$font-stack-1-epub: "Times New Roman", Times, Georgia, $serif;
-$font-stack-2-epub: Helvetica, Arial, $sans-serif;
-
-$font-stack-1-prince: "Times New Roman", Georgia, $serif;
-$font-stack-2-prince: 'Lato', Helvetica, Arial, $sans-serif;
-
-$font-stack-1-web: "Times New Roman", Georgia, $serif;
-$font-stack-2-web: Helvetica, Arial, $sans-serif;
+@if $type == 'epub' {
+	$font-1: "Times New Roman", Times, Georgia, $serif-epub;
+	$font-2: Helvetica, Arial, $sans-serif-epub;
+} @else if $type == 'prince' {
+	$font-1: "Times New Roman", Georgia, $serif-prince;
+	$font-2: 'Lato', Helvetica, Arial, $sans-serif-prince;
+} @else if $type == 'web' {
+	$font-1: "Times New Roman", Georgia, $serif-web;
+	$font-2: Helvetica, Arial, $sans-serif-web;
+}

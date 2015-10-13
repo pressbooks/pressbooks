@@ -1,4 +1,4 @@
-// AUSTEN PRINCE
+$type: 'prince';
 
 @import 'mixins', 'pdf-house-style';
 
@@ -38,7 +38,7 @@ h1, h2, h3, h4, h5, h6 {
 /* TOC */
 @page toc {
   @bottom {
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   content: counter(page, lower-roman);
   vertical-align: center;
   text-transform: lowercase;
@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 175px;
   }
   @top-left {
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   content: string(book-author);
   font-variant:small-caps;
   text-align: center;
@@ -73,7 +73,7 @@ h1, h2, h3, h4, h5, h6 {
 
   @top-right
   {
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   content: string(book-title);
   font-variant:small-caps;
   text-align: center;
@@ -90,7 +90,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
   content: counter(page);
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -103,7 +103,7 @@ h1, h2, h3, h4, h5, h6 {
 @page chapter{
   @bottom {
   content: counter(page);
-  font-family: $font-stack-2-prince;  
+  font-family: $font-2;  
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -141,7 +141,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @page introduction:left {
   @top-left {
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   content: string(book-author);
   font-variant:small-caps;
   text-align: center;
@@ -152,7 +152,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @page introduction:right {
   @top-right {
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   content: string(book-title);
   font-variant:small-caps;
   text-align: center;
@@ -171,7 +171,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
   content: counter(page);
-  font-family: $font-stack-2-prince;  
+  font-family: $font-2;  
   vertical-align: top;
   margin-bottom: 20px;
   margin-top: 25px;
@@ -181,7 +181,7 @@ h1, h2, h3, h4, h5, h6 {
 @page introduction{
   @bottom {
   content: counter(page);
-  font-family: $font-stack-2-prince;  
+  font-family: $font-2;  
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -206,7 +206,7 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-left
   {
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   content: string(book-author);
   font-variant:small-caps;
   text-align: center;
@@ -217,7 +217,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @page front-matter:right {
   @top-right {
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   content: string(book-title);
   font-variant:small-caps;
   text-align: center;
@@ -235,7 +235,7 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
   content: counter(page, lower-roman);
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   vertical-align: center;
   border-top: 0.9px solid #000;
   margin-bottom: 20px;
@@ -247,7 +247,7 @@ h1, h2, h3, h4, h5, h6 {
 @page front-matter{
    @bottom {
     content: counter(page, lower-roman);
-    font-family: $font-stack-2-prince;
+    font-family: $font-2;
     text-align: center;
     vertical-align: top;
     border-top: 0.9px solid #000;
@@ -279,7 +279,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 175px;
   }
   @top-left {
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   content: string(book-author);
   font-variant:small-caps;
   text-align: center;
@@ -294,7 +294,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @top-right
   {
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   content: string(book-title);
   font-variant:small-caps;
   text-align: center;
@@ -311,7 +311,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
   content: counter(page);
-  font-family: $font-stack-2-prince;
+  font-family: $font-2;
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -324,7 +324,7 @@ h1, h2, h3, h4, h5, h6 {
 @page back-matter{
   @bottom {
   content: counter(page);
-  font-family: $font-stack-2-prince;  
+  font-family: $font-2;  
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -394,7 +394,7 @@ div.part {
 body {
   font-size: 10pt;
   line-height: 1.1;
-  font-family: $font-stack-1-prince;
+  font-family: $font-1;
   font-weight: 100;
 }
 

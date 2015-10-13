@@ -1,4 +1,4 @@
-// CLARKE PRINCE
+$type: 'prince';
 
 @import 'mixins', 'pdf-house-style';
 
@@ -33,7 +33,7 @@ h1, h2, h3, h4, h5, h6 {
 @page toc {
   @bottom {
 	content: counter(page, lower-roman);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: center;
   }
 }
@@ -49,14 +49,14 @@ h1, h2, h3, h4, h5, h6 {
   @top-left
   {
 	content: counter(page, lower-roman) "\A0\A0" string(book-title);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: left;
   }
 }
 @page front-matter:right {
   @top-right {
 	content: string(section-title, last) "\A0\A0" counter(page, lower-roman);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: right;
   }
 }
@@ -66,7 +66,7 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
 	content: counter(page, lower-roman);
-  	font-family: $font-stack-2-prince;	
+  	font-family: $font-2;	
 	vertical-align: center;
   }
 }
@@ -98,14 +98,14 @@ h1, h2, h3, h4, h5, h6 {
 @page introduction:left {
   @top-left {
 	content: counter(page) "\A0\A0" string(book-title);
-  	font-family: $font-stack-2-prince;	
+  	font-family: $font-2;	
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
 	content: string(section-title, last) "\A0\A0" counter(page);
-  	font-family: $font-stack-2-prince;	
+  	font-family: $font-2;	
 	vertical-align: right;
   }
 }
@@ -119,7 +119,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: $font-stack-2-prince;		
+	font-family: $font-2;		
 	vertical-align: center;
   }
   
@@ -138,7 +138,7 @@ h1, h2, h3, h4, h5, h6 {
   @top-left {
 	content: counter(page) "\A0\A0" string(book-title);
 	counter-increment: part;
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: left;
   }
 }
@@ -147,7 +147,7 @@ h1, h2, h3, h4, h5, h6 {
   @top-right
   {
 	content: string(section-title, last) "\A0\A0" counter(page);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: right;
   }
 }
@@ -160,7 +160,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: $font-stack-2-prince;		
+	font-family: $font-2;		
 	vertical-align: center;
   }
 }
@@ -181,7 +181,7 @@ h1, h2, h3, h4, h5, h6 {
 @page back-matter:left {
   @top-left {
 	content: counter(page) "\A0\A0" string(book-title);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: left;
   }
 }
@@ -189,7 +189,7 @@ h1, h2, h3, h4, h5, h6 {
   @top-right
   {
 	content: string(section-title, last) "\A0\A0" counter(page);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: right;
   }
 }
@@ -203,7 +203,7 @@ h1, h2, h3, h4, h5, h6 {
   @bottom
   {
 	content: counter(page);
-	font-family: $font-stack-2-prince;		
+	font-family: $font-2;		
 	vertical-align: center;
   }
 }
@@ -259,7 +259,7 @@ div.part {
 body {
 	font-size: 12pt;
 	line-height: 1.6;
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 }
 a {
 	color: blue;
@@ -280,7 +280,7 @@ p + p,
 	text-indent: 0;
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	line-height: 1.4em;
 	font-weight: normal;
 }
@@ -766,7 +766,7 @@ sup.endnote {
 	display: block;
 	font-weight: bold;
 	font-size: 0.875em;
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	margin: 0;
 }
 .pullquote {

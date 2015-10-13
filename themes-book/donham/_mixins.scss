@@ -11,9 +11,11 @@ Template: pressbooks-book
 
 @import 'fonts', 'global-font-stack';
 
-$font-stack-1-epub: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, Times $serif;
-
-$font-stack-1-prince: "Linux Libertine", $serif;
-$font-stack-2-prince: "Linux Biolinum", $sans-serif;
-
-$font-stack-1-web: "Tinos", $serif;
+@if $type == 'epub' {
+	$font-1: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, Times, $serif-epub;
+} @else if $type == 'prince' {
+	$font-1: "Linux Libertine", $serif-prince;
+	$font-2: "Linux Biolinum", $sans-serif-prince;
+} @else if $type == 'web' {
+	$font-1: "Tinos", $serif-web;
+}

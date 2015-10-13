@@ -1,4 +1,4 @@
-//DONHAM PRINCE
+$type: 'prince';
 
 @import 'mixins', 'pdf-house-style';
 
@@ -37,7 +37,7 @@ h1, h2, h3, h4, h5, h6 {
 @page toc {
   @bottom {
 	content: counter(page, lower-roman);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: center;
   }
 }
@@ -53,14 +53,14 @@ h1, h2, h3, h4, h5, h6 {
   @top-left
   {
 	content: counter(page, lower-roman) "\A0\A0" string(book-title);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: left;
   }
 }
 @page front-matter:right {
   @top-right {
 	content: string(section-title, last) "\A0\A0" counter(page, lower-roman);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: right;
   }
 }
@@ -70,7 +70,7 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
 	content: counter(page, lower-roman);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: center;
   }
 }
@@ -101,14 +101,14 @@ h1, h2, h3, h4, h5, h6 {
 
 @page introduction:left {
   @top-left {
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	content: counter(page) "\A0\A0" string(book-title);
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	content: string(section-title, last) "\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -123,7 +123,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: center;
   }
   
@@ -140,7 +140,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @page chapter:left {
   @top-left {
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	content: counter(page) "\A0\A0" string(book-title);
 	counter-increment: part;
 	vertical-align: left;
@@ -150,7 +150,7 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-right
   {
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	content: string(section-title, last) "\A0\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -164,7 +164,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: center;
   }
 }
@@ -184,7 +184,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Back-matter */
 @page back-matter:left {
   @top-left {
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	content: counter(page) "\A0\A0  | \A0\A0" string(book-title);
 	vertical-align: left;
   }
@@ -192,7 +192,7 @@ h1, h2, h3, h4, h5, h6 {
 @page back-matter:right {
   @top-right
   {
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	content: string(section-title, last) "\A0\A0  | \A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -207,7 +207,7 @@ h1, h2, h3, h4, h5, h6 {
   @bottom
   {
 	content: counter(page);
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 	vertical-align: center;
   }
 }
@@ -264,7 +264,7 @@ div.part {
 body {
 	font-size: 11pt;
 	line-height: 1.6;
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 }
 
 a {
@@ -388,7 +388,7 @@ p.bl_indent {
 /* HALFTITLE PAGE
 ==================== */
 #half-title-page h1.title:first-of-type {
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
     string-set: book-title content();
 	page-break-before: right;
     page-break-after: always;
@@ -426,7 +426,7 @@ p.bl_indent {
 	text-transform: uppercase;
 }
 #title-page > .author {
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	font-size: 17pt;
 	font-weight: normal;
 	margin-top: 1.5cm;
@@ -544,7 +544,7 @@ div.chapter.numberless h3.chapter-number {
 .back-matter-title-wrap,
 #toc h1,
 #title-page {
-	font-family: $font-stack-2-prince;	
+	font-family: $font-2;	
 }
 
 /* SUBTITLES, CHAPTER AUTHOR & APHORIMS
@@ -593,7 +593,7 @@ h2.chapter-subtitle + h2.chapter-author {
 ==================== */
 div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
 	bookmark-level: none;
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	font-weight: normal;	
 	margin-bottom: 15px;
 	page-break-after:avoid;	
@@ -672,7 +672,7 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 	margin: .6cm 0 .4em;
 	font-size: 12pt;
 	font-weight: bold;
-	font-family: $font-stack-2-prince;
+	font-family: $font-2;
 	page-break-after: avoid;
 }
 #toc .part a::before {

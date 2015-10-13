@@ -10,7 +10,10 @@ Version: 1.5
 
 @import 'fonts', 'global-font-stack';
 
-$font-stack-1-epub: Georgia, $serif;
-$font-stack-1-prince: "Cardo", "Times New Roman", $serif;
-$font-stack-1-web: "Droid Serif", "Georgia", "Times New Roman", $serif;
-
+@if $type == 'epub' {
+	$font-1: Georgia, $serif-epub;
+} @else if $type == 'prince' {
+	$font-1: "Cardo", "Times New Roman", $serif-prince;
+} @else if $type == 'web' {
+	$font-1: "Droid Serif", "Georgia", "Times New Roman", $serif-web;
+}

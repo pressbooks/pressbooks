@@ -86,17 +86,25 @@ class GlobalTypography {
 		$font_stacks = \PressBooks\GlobalTypography::getThemeFontStacks();
 				
 		if ( strpos( $font_stacks, '$sans-serif' ) !== false ) {
-			$global_font_stack_sans = '$sans-serif: ';
+			$global_font_stack_sans_epub = '$sans-serif-epub: ';
+			$global_font_stack_sans_prince = '$sans-serif-prince: ';
+			$global_font_stack_sans_web = '$sans-serif-web: ';
 			$sans = true;
 		} else {
-			$global_font_stack_sans = '$sans-serif: ';
+			$global_font_stack_sans_epub = '$sans-serif-epub: ';
+			$global_font_stack_sans_prince = '$sans-serif-prince: ';
+			$global_font_stack_sans_web = '$sans-serif-web: ';
 		}
 		 
 		if ( strpos( $font_stacks, '$serif' ) !== false ) {
-			$global_font_stack_serif = '$serif: ';
+			$global_font_stack_serif_epub = '$serif-epub: ';
+			$global_font_stack_serif_prince = '$serif-prince: ';
+			$global_font_stack_serif_web = '$serif-web: ';
 			$serif = true;
 		} else {
-			$global_font_stack_serif = '$serif: ';
+			$global_font_stack_serif_epub = '$serif-epub: ';
+			$global_font_stack_serif_prince = '$serif-prince: ';
+			$global_font_stack_serif_web = '$serif-web: ';
 		}
 
 		$languages = get_option( 'pressbooks_global_typography' );
@@ -157,7 +165,9 @@ class GlobalTypography {
 				break;
 		}
 		
-		$includes = array();
+		$includes_epub = array();
+		$includes_prince = array();
+		$includes_web = array();
 				
 		if ( !empty( $languages ) ) {
 			foreach ( $languages as $language )	{
@@ -165,165 +175,268 @@ class GlobalTypography {
 					case 'grc': // Ancient Greek
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'SBLGreekFont';
-								$global_font_stack_sans .= "'SBL Greek', ";
+								$includes_epub[] = 'SBLGreekFont';
+								$includes_prince[] = 'SBLGreekFont';
+								$includes_web[] = 'SBLGreekFont';
+								$global_font_stack_sans_epub .= "'SBL Greek', ";
+								$global_font_stack_sans_prince .= "'SBL Greek', ";
+								$global_font_stack_sans_web .= "'SBL Greek', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'SBLGreekFont';
-								$global_font_stack_serif .= "'SBL Greek', ";
+								$includes_epub[] = 'SBLGreekFont';
+								$includes_prince[] = 'SBLGreekFont';
+								$includes_web[] = 'SBLGreekFont';
+								$global_font_stack_serif_epub .= "'SBL Greek', ";
+								$global_font_stack_serif_prince .= "'SBL Greek', ";
+								$global_font_stack_serif_web .= "'SBL Greek', ";
 							}
 						}
 						break;
 					case 'ar': // Arabic
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoKufiArabicFont';
-								$global_font_stack_sans .= "'Noto Kufi Arabic', ";
+								$includes_epub[] = 'NotoKufiArabicFont';
+								$includes_prince[] = 'NotoKufiArabicFont';
+								$includes_web[] = 'NotoKufiArabicFont';
+								$global_font_stack_sans_epub .= "'Noto Kufi Arabic', ";
+								$global_font_stack_sans_prince .= "'Noto Kufi Arabic', ";
+								$global_font_stack_sans_web .= "'Noto Kufi Arabic', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'NotoNaskhArabicFont';
-								$global_font_stack_serif .= "'Noto Naskh Arabic', ";
+								$includes_epub[] = 'NotoNaskhArabicFont';
+								$includes_prince[] = 'NotoNaskhArabicFont';
+								$includes_web[] = 'NotoNaskhArabicFont';
+								$global_font_stack_serif_epub .= "'Noto Naskh Arabic', ";
+								$global_font_stack_serif_prince .= "'Noto Naskh Arabic', ";
+								$global_font_stack_serif_web .= "'Noto Naskh Arabic', ";
 							}
 						}
 						break;
 					case 'he': // Biblical Hebrew
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'SBLHebrewFont';
-								$global_font_stack_sans .= "'SBL Hebrew', ";
+								$includes_epub[] = 'SBLHebrewFont';
+								$includes_prince[] = 'SBLHebrewFont';
+								$includes_web[] = 'SBLHebrewFont';
+								$global_font_stack_sans_epub .= "'SBL Hebrew', ";
+								$global_font_stack_sans_prince .= "'SBL Hebrew', ";
+								$global_font_stack_sans_web .= "'SBL Hebrew', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'SBLHebrewFont';
-								$global_font_stack_serif .= "'SBL Hebrew', ";
+								$includes_epub[] = 'SBLHebrewFont';
+								$includes_prince[] = 'SBLHebrewFont';
+								$includes_web[] = 'SBLHebrewFont';
+								$global_font_stack_serif_epub .= "'SBL Hebrew', ";
+								$global_font_stack_serif_prince .= "'SBL Hebrew', ";
+								$global_font_stack_serif_web .= "'SBL Hebrew', ";
 							}
 						}
 						break;
 					case 'zh_HANS': // Chinese (Simplified)
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoSansCJKSCFont';
-								$global_font_stack_sans .= "'Noto Sans CJK SC', ";
+								$includes_prince[] = 'NotoSansCJKSCFont';
+								$includes_web[] = 'NotoSansCJKSCFont';
+								$global_font_stack_sans_prince .= "'Noto Sans CJK SC', ";
+								$global_font_stack_sans_web .= "'Noto Sans CJK SC', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'NotoSansCJKSCFont';
-								$global_font_stack_serif .= "'Noto Sans CJK SC', ";
+								$includes_prince[] = 'NotoSansCJKSCFont';
+								$includes_web[] = 'NotoSansCJKSCFont';
+								$global_font_stack_serif_prince .= "'Noto Sans CJK SC', ";
+								$global_font_stack_serif_web .= "'Noto Sans CJK SC', ";
 							}
 						}
 						break;
 					case 'zh_HANT': // Chinese (Simplified)
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoSansCJKTCFont';
-								$global_font_stack_sans .= "'Noto Sans CJK TC', ";
+								$includes_prince[] = 'NotoSansCJKTCFont';
+								$includes_web[] = 'NotoSansCJKTCFont';
+								$global_font_stack_sans_prince .= "'Noto Sans CJK TC', ";
+								$global_font_stack_sans_web .= "'Noto Sans CJK TC', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'NotoSansCJKTCFont';
-								$global_font_stack_serif .= "'Noto Sans CJK TC', ";
+								$includes_prince[] = 'NotoSansCJKTCFont';
+								$includes_web[] = 'NotoSansCJKTCFont';
+								$global_font_stack_serif_prince .= "'Noto Sans CJK TC', ";
+								$global_font_stack_serif_web .= "'Noto Sans CJK TC', ";
 							}
 						}
 						break;
 					case 'cop': // Coptic
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoSansCopticFont';
-								$global_font_stack_sans .= "'Noto Sans Coptic', ";
+								$includes_epub[] = 'NotoSansCopticFont';
+								$includes_prince[] = 'NotoSansCopticFont';
+								$includes_web[] = 'NotoSansCopticFont';
+								$global_font_stack_sans_epub .= "'Noto Sans Coptic', ";
+								$global_font_stack_sans_prince .= "'Noto Sans Coptic', ";
+								$global_font_stack_sans_web .= "'Noto Sans Coptic', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'AntinoouFont';
-								$global_font_stack_serif .= "'Antinoou', ";
+								$includes_epub[] = 'AntinoouFont';
+								$includes_prince[] = 'AntinoouFont';
+								$includes_web[] = 'AntinoouFont';
+								$global_font_stack_serif_epub .= "'Antinoou', ";
+								$global_font_stack_serif_prince .= "'Antinoou', ";
+								$global_font_stack_serif_web .= "'Antinoou', ";
 							}
 						}
 						break;
 					case 'gu': // Gujarati
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoSansGujaratiFont';
-								$global_font_stack_sans .= "'Noto Sans Gujarati', ";
+								$includes_epub[] = 'NotoSansGujaratiFont';
+								$includes_prince[] = 'NotoSansGujaratiFont';
+								$includes_web[] = 'NotoSansGujaratiFont';
+								$global_font_stack_sans_epub .= "'Noto Sans Gujarati', ";
+								$global_font_stack_sans_prince .= "'Noto Sans Gujarati', ";
+								$global_font_stack_sans_web .= "'Noto Sans Gujarati', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'EkatraFont';
-								$global_font_stack_serif .= "'Ekatra', ";
+								$includes_epub[] = 'EkatraFont';
+								$includes_prince[] = 'EkatraFont';
+								$includes_web[] = 'EkatraFont';
+								$global_font_stack_serif_epub .= "'Ekatra', ";
+								$global_font_stack_serif_prince .= "'Ekatra', ";
+								$global_font_stack_serif_web .= "'Ekatra', ";
 							}
 						}
 						break;
 					case 'ja': // Japanese
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoSansCJKJPFont';
-								$global_font_stack_sans .= "'Noto Sans CJK JP', ";
+								$includes_prince[] = 'NotoSansCJKJPFont';
+								$includes_web[] = 'NotoSansCJKJPFont';
+								$global_font_stack_sans_prince .= "'Noto Sans CJK JP', ";
+								$global_font_stack_sans_web .= "'Noto Sans CJK JP', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'NotoSansCJKJPFont';
-								$global_font_stack_serif .= "'Noto Sans CJK JP', ";
+								$includes_prince[] = 'NotoSansCJKJPFont';
+								$includes_web[] = 'NotoSansCJKJPFont';
+								$global_font_stack_serif_prince .= "'Noto Sans CJK JP', ";
+								$global_font_stack_serif_web .= "'Noto Sans CJK JP', ";
 							}
 						}
 						break;
 					case 'ko': // Korean
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoSansCJKKRFont';
-								$global_font_stack_sans .= "'Noto Sans CJK KR', ";
+								$includes_prince[] = 'NotoSansCJKKRFont';
+								$includes_web[] = 'NotoSansCJKKRFont';
+								$global_font_stack_sans_prince .= "'Noto Sans CJK KR', ";
+								$global_font_stack_sans_web .= "'Noto Sans CJK KR', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'NotoSansCJKKRFont';
-								$global_font_stack_serif .= "'Noto Sans CJK KR', ";
+								$includes_prince[] = 'NotoSansCJKKRFont';
+								$includes_web[] = 'NotoSansCJKKRFont';
+								$global_font_stack_serif_prince .= "'Noto Sans CJK KR', ";
+								$global_font_stack_serif_web .= "'Noto Sans CJK KR', ";
 							}
 						}
 						break;
 					case 'syr': // Syriac
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoSansSyriacFont';
-								$global_font_stack_sans .= "'Noto Sans Syriac', ";
+								$includes_epub[] = 'NotoSansSyriacFont';
+								$includes_prince[] = 'NotoSansSyriacFont';
+								$includes_web[] = 'NotoSansSyriacFont';
+								$global_font_stack_sans_epub .= "'Noto Sans Syriac', ";
+								$global_font_stack_sans_prince .= "'Noto Sans Syriac', ";
+								$global_font_stack_sans_web .= "'Noto Sans Syriac', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'NotoSansSyriacFont';
-								$global_font_stack_serif .= "'Noto Sans Syriac', ";
+								$includes_epub[] = 'NotoSansSyriacFont';
+								$includes_prince[] = 'NotoSansSyriacFont';
+								$includes_web[] = 'NotoSansSyriacFont';
+								$global_font_stack_serif_epub .= "'Noto Sans Syriac', ";
+								$global_font_stack_serif_prince .= "'Noto Sans Syriac', ";
+								$global_font_stack_serif_web .= "'Noto Sans Syriac', ";
 							}
 						}
 						break;
 					case 'ta': // Tamil
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoSansTamilFont';
-								$global_font_stack_sans .= "'Noto Sans Tamil', ";
+								$includes_epub[] = 'NotoSansTamilFont';
+								$includes_prince[] = 'NotoSansTamilFont';
+								$includes_web[] = 'NotoSansTamilFont';
+								$global_font_stack_sans_epub .= "'Noto Sans Tamil', ";
+								$global_font_stack_sans_prince .= "'Noto Sans Tamil', ";
+								$global_font_stack_sans_web .= "'Noto Sans Tamil', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'NotoSansTamilFont';
-								$global_font_stack_serif .= "'Noto Sans Tamil', ";
+								$includes_epub[] = 'NotoSansTamilFont';
+								$includes_prince[] = 'NotoSansTamilFont';
+								$includes_web[] = 'NotoSansTamilFont';
+								$global_font_stack_serif_epub .= "'Noto Sans Tamil', ";
+								$global_font_stack_serif_prince .= "'Noto Sans Tamil', ";
+								$global_font_stack_serif_web .= "'Noto Sans Tamil', ";
 							}
 						}
 						break;
 					case 'bo': // Tibetan
 						if ( !in_array( $language, $already_supported_languages ) ) {
 							if ( @$sans ) {
-								$includes[] = 'NotoSansTibetanFont';
-								$global_font_stack_sans .= "'Noto Sans Tibetan', ";
+								$includes_epub[] = 'NotoSansTibetanFont';
+								$includes_prince[] = 'NotoSansTibetanFont';
+								$includes_web[] = 'NotoSansTibetanFont';
+								$global_font_stack_sans_epub .= "'Noto Sans Tibetan', ";
+								$global_font_stack_sans_prince .= "'Noto Sans Tibetan', ";
+								$global_font_stack_sans_web .= "'Noto Sans Tibetan', ";
 							}
 							if ( @$serif ) {
-								$includes[] = 'NotoSansTibetanFont';
-								$global_font_stack_serif .= "'Noto Sans Tibetan', ";
+								$includes_epub[] = 'NotoSansTibetanFont';
+								$includes_prince[] = 'NotoSansTibetanFont';
+								$includes_web[] = 'NotoSansTibetanFont';
+								$global_font_stack_serif_epub .= "'Noto Sans Tibetan', ";
+								$global_font_stack_serif_prince .= "'Noto Sans Tibetan', ";
+								$global_font_stack_serif_web .= "'Noto Sans Tibetan', ";
 							}
 						}
 						break;
 				}
 			}
+						
+			$scss .= '@if $type == \'epub\' {' . "\n";
 			
-			$includes = array_unique( $includes );
-			
-			foreach ( $includes as $include ) {
+			$includes_epub = array_unique( $includes_epub );
+			foreach ( $includes_epub as $include ) {
 				$scss .= "@include $include;\n";
 			}
+			
+			$scss .= '} @else if $type == \'prince\' {' . "\n";
 						
-			$global_font_stack_sans .= "sans-serif;\n";
-			$global_font_stack_serif .= "serif;\n";
-		} else {
-			$global_font_stack_sans .= "sans-serif;\n";
-			$global_font_stack_serif .= "serif;\n";
-		}
+			$includes_prince = array_unique( $includes_prince );
+			foreach ( $includes_prince as $include ) {
+				$scss .= "@include $include;\n";
+			}
 
-		$scss .= $global_font_stack_sans;
-		$scss .= $global_font_stack_serif;
+			$scss .= '} @else if $type == \'web\' {' . "\n";
+			
+			$includes_web = array_unique( $includes_web );
+			foreach ( $includes_web as $include ) {
+				$scss .= "@include $include;\n";
+			}
+			
+			$scss .= "}\n";
+
+		}
+		
+		$global_font_stack_sans_epub .= "sans-serif;\n";
+		$global_font_stack_sans_prince .= "sans-serif;\n";
+		$global_font_stack_sans_web .= "sans-serif;\n";
+		$global_font_stack_serif_epub .= "serif;\n";
+		$global_font_stack_serif_prince .= "serif;\n";
+		$global_font_stack_serif_web .= "serif;\n";
+
+		$scss .= $global_font_stack_sans_epub;
+		$scss .= $global_font_stack_sans_prince;
+		$scss .= $global_font_stack_sans_web;
+		$scss .= $global_font_stack_serif_epub;
+		$scss .= $global_font_stack_serif_prince;
+		$scss .= $global_font_stack_serif_web;
 		
 		$wp_upload_dir = wp_upload_dir();
 
@@ -359,7 +472,7 @@ class GlobalTypography {
 				
 		$scss = "@import 'mixins';\n";
 
-		$scss .= 'body { font-family: $font-stack-1-web; }';
+		$scss .= 'body { font-family: $font-1; }';
 		
 		$wp_upload_dir = wp_upload_dir();
 

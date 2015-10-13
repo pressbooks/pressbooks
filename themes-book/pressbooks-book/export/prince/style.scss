@@ -1,4 +1,4 @@
-// LUTHER PRINCE
+$type: 'prince';
 
 @import 'mixins', 'pdf-house-style';
 
@@ -47,14 +47,14 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-left
   {
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 	content: counter(page, lower-roman) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
 }
 @page front-matter:right {
   @top-right {
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 	content: string(section-title, last) "\A0\A0\A0" counter(page, lower-roman);
 	vertical-align: right;
   }
@@ -65,7 +65,7 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
 	content: counter(page, lower-roman);
-	font-family: $font-stack-1-prince;	
+	font-family: $font-1;	
 	vertical-align: center;
   }
 }
@@ -96,14 +96,14 @@ h1, h2, h3, h4, h5, h6 {
 
 @page introduction:left {
   @top-left {
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;	
   }
 }
 @page introduction:right {
   @top-right {
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -118,7 +118,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: $font-stack-1-prince;	
+	font-family: $font-1;	
 	vertical-align: center;
   }
   
@@ -139,7 +139,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @page chapter:left {
   @top-left {
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
@@ -148,7 +148,7 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top-right
   {
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -162,7 +162,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: $font-stack-1-prince;	
+	font-family: $font-1;	
 	vertical-align: center;
   }
 }
@@ -182,7 +182,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Back-matter */
 @page back-matter:left {
   @top-left {
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 	content: counter(page) "\A0\A0\A0" string(book-title);
 	vertical-align: left;
   }
@@ -190,7 +190,7 @@ h1, h2, h3, h4, h5, h6 {
 @page back-matter:right {
   @top-right
   {
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 	content: string(section-title, last) "\A0\A0\A0" counter(page);
 	vertical-align: right;
   }
@@ -205,7 +205,7 @@ h1, h2, h3, h4, h5, h6 {
   @bottom
   {
 	content: counter(page);
-	font-family: $font-stack-1-prince;	
+	font-family: $font-1;	
 	vertical-align: center;
   }
 }
@@ -268,7 +268,7 @@ div.part.invisible {
 body {
 	font-size: 10pt;
 	line-height: 1.1;
-	font-family: $font-stack-1-prince;
+	font-family: $font-1;
 }
 
 a {

@@ -1,3 +1,5 @@
+$type: 'epub';
+
 @import 'mixins', 'epub-house-style';
 
 
@@ -7,7 +9,7 @@
 body {
 	font-size: 100%;
 	line-height: 1.4;
-	font-family: $font-stack-1-epub;
+	font-family: $font-1;
 }
 a {
 	border: .5px solid #09edfd;
@@ -19,7 +21,7 @@ a {
 	 HEADERS
  =============== */
 h1, h2, h3, h4, h5, h6 {
-	font-family: $font-stack-2-epub;
+	font-family: $font-2;
 	line-height: 1.4em;
 	font-weight: normal;
 }
@@ -126,7 +128,7 @@ p.bl_indent {
 #title-page .author,
 #title-page .publisher,
 #title-page .publisher-city {
-	font-family: $font-stack-1-epub;
+	font-family: $font-1;
 	font-weight: normal;
 }
 #title-page .author {
@@ -239,20 +241,20 @@ span.chapter-license {
 }
 
 .part-title-wrap {
-	font-family: $font-stack-1-epub;
+	font-family: $font-1;
 }
 .part-title-wrap h3.part-number {
 	border-bottom: 1px solid #000;
 	display: inline-block;
 	font-weight: normal;
-	font-family: $font-stack-1-epub;	
+	font-family: $font-1;	
 	padding: 0 2em 0 1em;
 }
 .part-title-wrap h1.part-title {
 	font-style: italic;
 	font-weight: bold;
 	font-size: 1.1em;
-	font-family: $font-stack-1-epub;
+	font-family: $font-1;
 }
 h3.chapter-number {
 	border-bottom: 1px solid #000;
@@ -354,7 +356,7 @@ h2.chapter-subtitle {
 h2.chapter-author {
 	font-style: italic;
 	font-size: 0.75em;
-	font-family: $font-stack-1-epub;
+	font-family: $font-1;
 }
 div.ugc h2.chapter-subtitle,
 div.ugc h2.chapter-author {

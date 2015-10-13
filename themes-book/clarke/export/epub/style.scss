@@ -1,7 +1,9 @@
+$type: 'epub';
+
 @import 'mixins', 'epub-house-style';
 
 body {
-	font-family: $font-stack-1-epub;
+	font-family: $font-1;
 	line-height: 1.5em;
 }	 
 a {
@@ -94,7 +96,7 @@ div.blockquote,
 	border-width: 0 4px;
 	font-size: 0.8em;
 	line-height: 1.5em;
-	font-family: $font-stack-2-epub;
+	font-family: $font-2;
 	padding: 0 15px;
 }
 .hanging-indent {
@@ -106,7 +108,7 @@ div.blockquote,
 	 HEADERS
  =============== */
 h1, h2, h3, h4, h5, h6 {
-	font-family: $font-stack-2-epub;
+	font-family: $font-2;
 	line-height: 1.4em;
 }
 h1 {
@@ -168,7 +170,7 @@ h3 {
 .part-title {
 	font-size: 1.4em;
 	line-height: 1.6em;
-    font-family: $font-stack-2-epub;
+    font-family: $font-2;
     margin: 0.25em auto 1.25em;
     padding	: 15px 15px 0 0;
 }
