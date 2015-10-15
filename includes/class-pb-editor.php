@@ -43,14 +43,14 @@ class Editor {
 		
 		if ( isset( $post ) && 'metadata' !== $post->post_type )
 			return; // Bail
-		
-		$scss = "@import 'mixins';\n";
+	
+		$scss = '$type: \'web\';';
+	
+		$scss .= "\n@import 'mixins';\n";
 				
-		$body_font_stack = 'body { font-family: $body-font-stack-web; }';
-						
-		$scss .= $body_font_stack;
+		$scss .= 'body { font-family: $font-1; }';
 		
-		$scss .= "@import 'editor';\n";
+		$scss .= "\n@import 'editor';\n";
 						
 		$wp_upload_dir = wp_upload_dir();
 
@@ -66,7 +66,7 @@ class Editor {
 					
 		$css_file = $upload_dir . '/editor.css';
 
-		$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $wp_upload_dir['basedir'] . '/global-typography', get_stylesheet_directory() ) ) );
+		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $wp_upload_dir['basedir'] . '/global-typography/', get_stylesheet_directory() ) );
 						
 		if ( ! file_put_contents( $css_file, $css ) ) {
 			throw new \Exception( 'Could not write custom CSS file.' );
