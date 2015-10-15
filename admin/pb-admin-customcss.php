@@ -249,7 +249,7 @@ function load_css_from() {
 
 		if ( $path_to_style ) {
 			$scss = file_get_contents( $path_to_style );
-			$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $upload_dir, $theme->get_stylesheet_directory() ) ) );
+			$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $upload_dir, $theme->get_stylesheet_directory() ) );
 			$css = fix_url_paths( $css, $uri_to_style );
 		}
 	}

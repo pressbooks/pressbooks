@@ -642,7 +642,7 @@ class Epub201 extends Export {
 		$scss .= $this->cssOverrides;
 
 		if ( $this->isScss() ) {
-			$css = \PressBooks\SASS\compile( $scss, array( 'load_paths' => array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) ) );
+			$css = \PressBooks\SASS\compile( $scss, array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) );
 		}
 		else {
 			$css = static::injectHouseStyles( $scss );

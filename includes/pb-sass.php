@@ -14,7 +14,7 @@ namespace PressBooks\SASS;
  *
  * @return string the compiled CSS
  */
-function compile( $scss, $options = array() ) {
+function compile( $scss, $includes = array() ) {
 	
 	$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
 
@@ -23,10 +23,10 @@ function compile( $scss, $options = array() ) {
 		rename( $scss_file, $scss_file .= '.scss' ); 
 		register_shutdown_function( create_function( '', "unlink('{$scss_file}');" ) ); 
 		file_put_contents( $scss_file, $scss );
-		require_once( PB_PLUGIN_DIR . 'symbionts/phpsass/SassLoader.php' );
-		
-		$sass = new \SassParser( $options );
-		$css = $sass->toCss( $scss_file );
+		$sass = new \Sass();
+		$include_paths = implode( ':', $includes );
+		$sass->setIncludePath( $include_paths );
+		$css = $sass->compileFile( $scss_file );
 	}
 	
 	return $css;
