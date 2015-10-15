@@ -406,6 +406,10 @@ class Book {
 		$type = $parent->post_type;
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 		$content = str_replace( array( '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ), array( '', '', '', '' ), $content );
+
+		if ( empty( $content ) )
+			return false;
+
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
 		$sections = $doc->getElementsByTagName('h1');
