@@ -48,9 +48,9 @@ class Editor {
 	
 		$scss .= "\n@import 'mixins';\n";
 				
-		$scss .= 'body { font-family: $font-1; }\n';
+		$scss .= 'body { font-family: $font-1; }';
 		
-		$scss .= "@import 'editor';\n";
+		$scss .= "\n@import 'editor';\n";
 						
 		$wp_upload_dir = wp_upload_dir();
 
