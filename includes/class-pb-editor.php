@@ -40,17 +40,19 @@ class Editor {
 	 * @param \WP_Post $post
 	 */
 	static function updateEditorStyle( $pid = null, $post = null ) {
-		
+
 		if ( isset( $post ) && 'metadata' !== $post->post_type )
 			return; // Bail
-	
-		$scss = '$type: \'web\';';
-	
-		$scss .= "\n@import 'mixins';\n";
-				
-		$scss .= 'body { font-family: $font-1; }';
-		
-		$scss .= "\n@import 'editor';\n";
+
+		$scss = '$type: \'web\';' . "\n";
+
+		$scss .= "@import 'mixins';" . "\n";
+
+		$scss .= '@if variable-exists(font-1) {' . "\n";
+		$scss .= 'body { font-family: $font-1; }' . "\n";
+		$scss .= '}' . "\n";
+
+		$scss .= "@import 'editor';" . "\n";
 						
 		$wp_upload_dir = wp_upload_dir();
 
