@@ -786,7 +786,7 @@ class Catalog {
   				blogs_id INT(11) NOT null,
   				deleted TINYINT(1) NOT null,
   				featured INT(11) DEFAULT 0 NOT null ,
-  				PRIMARY KEY  (users_id, blogs_id),
+  				PRIMARY KEY  (users_id,blogs_id),
   				KEY featured (featured)
 				); ";
 		dbDelta( $sql );
@@ -796,7 +796,7 @@ class Catalog {
   				blogs_id INT(11) NOT null,
   				tags_id INT(11) NOT null,
   				tags_group INT(3) NOT null,
-  				PRIMARY KEY  (users_id, blogs_id, tags_id, tags_group)
+  				PRIMARY KEY  (users_id,blogs_id,tags_id,tags_group)
 				); ";
 		dbDelta( $sql );
 

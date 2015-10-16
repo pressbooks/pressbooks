@@ -19,8 +19,13 @@ if ( ! defined( 'ABSPATH' ) )
 
 function _pb_session_start() {
 	if ( ! session_id() ) {
-		ini_set( 'session.use_only_cookies', true );
-		session_start();
+		if ( ! headers_sent() ) {
+			ini_set( 'session.use_only_cookies', true );
+			session_start();
+		}
+		else {
+			error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
+		}
 	}
 }
 
