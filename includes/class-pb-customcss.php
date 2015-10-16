@@ -137,7 +137,7 @@ class CustomCss {
 	/**
 	 * Save custom CSS to database (and filesystem)
 	 *
-	 * @see pressbooks/assets/templates/admin/custom-css.php
+	 * @see pressbooks/templates/admin/custom-css.php
 	 */
 	static function formSubmit() {
 

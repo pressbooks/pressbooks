@@ -209,7 +209,7 @@ function fix_root_admin_menu() {
  */
 function display_organize() {
 
-	require( PB_PLUGIN_DIR . 'assets/templates/admin/organize.php' );
+	require( PB_PLUGIN_DIR . 'templates/admin/organize.php' );
 }
 
 
@@ -218,7 +218,7 @@ function display_organize() {
  */
 function display_export() {
 
-	require( PB_PLUGIN_DIR . 'assets/templates/admin/export.php' );
+	require( PB_PLUGIN_DIR . 'templates/admin/export.php' );
 }
 
 /**
@@ -226,7 +226,7 @@ function display_export() {
  */
 function display_import() {
 
-    require( PB_PLUGIN_DIR . 'assets/templates/admin/import.php' );
+    require( PB_PLUGIN_DIR . 'templates/admin/import.php' );
 }
 
 
@@ -907,7 +907,7 @@ function ecomm_links_sanitize( $input ) {
  */
 function display_publish() {
 
-	require( PB_PLUGIN_DIR . 'assets/templates/admin/publish.php' );
+	require( PB_PLUGIN_DIR . 'templates/admin/publish.php' );
 }
 
 

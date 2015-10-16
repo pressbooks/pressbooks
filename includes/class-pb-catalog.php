@@ -891,7 +891,7 @@ class Catalog {
 
 			case 'edit_profile':
 			case 'edit_tags':
-				require( PB_PLUGIN_DIR . 'assets/templates/admin/catalog.php' );
+				require( PB_PLUGIN_DIR . 'templates/admin/catalog.php' );
 				break;
 
 			case 'add':
