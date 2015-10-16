@@ -81,7 +81,7 @@ function display_custom_css() {
 function load_custom_css_template( $vars ) {
 
 	extract( $vars );
-	require( PB_PLUGIN_DIR . 'admin/templates/custom-css.php' );
+	require( PB_PLUGIN_DIR . 'assets/templates/admin/custom-css.php' );
 }
 
 

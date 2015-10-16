@@ -618,7 +618,7 @@ abstract class Export {
 	/**
 	 * Catch form submissions
 	 *
-	 * @see pressbooks/admin/templates/export.php
+	 * @see pressbooks/assets/templates/admin/export.php
 	 */
 	static function formSubmit() {
 

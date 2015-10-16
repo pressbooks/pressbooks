@@ -216,7 +216,7 @@ abstract class Import {
 	/**
 	 * Catch form submissions
 	 *
-	 * @see pressbooks/admin/templates/import.php
+	 * @see pressbooks/assets/templates/admin/import.php
 	 */
 	static public function formSubmit() {
 
