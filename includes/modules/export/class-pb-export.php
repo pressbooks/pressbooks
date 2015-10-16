@@ -138,6 +138,12 @@ abstract class Export {
 		$wp_upload_dir = wp_upload_dir();
 
 		$fullpath = $wp_upload_dir['basedir'] . '/global-typography';
+		
+		$mixin = $wp_upload_dir['basedir'] . '/global-typography/_global-font-stack.scss';
+		
+		if ( !is_file( $mixin ) ) {
+			\PressBooks\GlobalTypography::updateGlobalTypographyMixin();
+		}
 
 		return $fullpath;
 	}
