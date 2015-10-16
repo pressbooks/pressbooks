@@ -1,52 +1,7 @@
-/*
-Theme Name: Luther
-Theme URI: http://pressbooks.com/themes/pressbooks-book
-Description: Named after Martin Luther, this is a traditional book theme, good for novels, and text-heavy non-fiction. An earlier version of this theme was commissioned by Fortress Press / Augsburg Fortress.
-Author: Pressbooks (Book Oven Inc.)
-Author URI: http://pressbooks.com
-Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
-Version: 1.5
+$type: 'web';
+@import 'mixins';
 
-*/
-
-/********************
-	@Font-Face
-*********************/
-
-@import url(http://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald);
-
-@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic);
-
-@font-face {
-  font-family: 'OpenSansCondensed';
-  src: url('fonts/OpenSans-CondLight-webfont.eot');
-  src: url('fonts/OpenSans-CondLight-webfont.eot') format('embedded-opentype'),
-  url('fonts/OpenSans-CondLight-webfont.woff') format('woff'),
-  url('fonts/OpenSans-CondLight-webfont.ttf') format('truetype'),
-  url('fonts/OpenSans-CondLight-webfont.svg#OpenSansCondensedLight') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'OpenSansCondensed';
-  src: url('fonts/OpenSans-CondLightItalic-webfont.eot');
-  src: url('fonts/OpenSans-CondLightItalic-webfont.eot') format('embedded-opentype'),
-  url('fonts/OpenSans-CondLightItalic-webfont.woff') format('woff'),
-  url('fonts/OpenSans-CondLightItalic-webfont.ttf') format('truetype'),
-  url('fonts/OpenSans-CondLightItalic-webfont.svg#OpenSansCondensedLightItalic') format('svg');
-  font-weight: normal;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'OpenSansCondensed';
-  src: url('fonts/OpenSans-CondBold-webfont.eot');
-  src: url('fonts/OpenSans-CondBold-webfont.eot') format('embedded-opentype'),
-  url('fonts/OpenSans-CondBold-webfont.woff') format('woff'),
-  url('fonts/OpenSans-CondBold-webfont.ttf') format('truetype'),
-  url('fonts/OpenSans-CondBold-webfont.svg#OpenSansCondensedBold') format('svg');
-  font-weight: bold;
-  font-style: normal;
-}
+@import url(https://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald|Droid+Serif:400,700,400italic,700italic|Open+Sans+Condensed:300,300italic&subset=latin,cyrillic,greek,cyrillic-ext,greek-ext);
 
 /* 
   html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
@@ -80,7 +35,9 @@ body {
 body {
   background: url("images/bg.png") repeat 0 0 #f9f9f9;
   color: #1F1F1D;
-  font: 1em/1.8 "Droid Serif", "Georgia", "Times New Roman", serif;
+  font-size: 1em;
+  line-height: 1.8;
+  font: $font-1;
   margin: 0;
   text-align: left;
 }
@@ -381,7 +338,7 @@ a.button-red {
   border: 1px solid #4d0a0a;
   color: #ffffff;
   cursor: pointer;
-  font: 0.75em 'Oswald', Arial, Helvetica, sans-serif;
+  font: 0.75em $font-4;
   text-shadow: 0 1px 0 #000;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
@@ -454,7 +411,7 @@ nav {
 }
 .pressbooks-logo {
   float: left;
-  font: 1em 'Oswald', Arial, Helvetica, sans-serif;
+  font: 1em $font-4;
   line-height: 2.6em;
   margin: 0;
   padding: 2px 10px 1px 30px;
@@ -465,7 +422,9 @@ nav {
   text-decoration: none;
 }
 h1.book-title {
-  font: 1.2em/1.6em "Minion Pro", "Times New Roman", Times, serif;
+  font-size: 1.2em;
+  line-height: 1.6em;
+  font-family: $font-2;
   /* 26px/16px */
   margin: 0 auto;
   padding: 10px 60px 0;
@@ -500,7 +459,9 @@ h1.book-title a {
 }
 .author-wrap h3 {
   display: inline;
-  font: normal 0.75em "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  font-weight: normal;
+  font-size: 0.75em;
+  font-family: $font-3;
   letter-spacing: 0;
 }
 .instapaper {
@@ -597,7 +558,7 @@ h1.book-title a {
 }
 #sidebar a {
   color: #4a4a4a;
-  font: 0.6em/1em "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  font: 0.6em/1em $font-3;
   text-decoration: none;
 }
 #booknav {
@@ -694,7 +655,7 @@ a.close {
   text-align: left;
 }
 #toc h4 {
-  font: 0.8em "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  font: 0.8em $font-3;
   font-style: normal;
   font-weight: bold;
   margin: 5px 0 2px;
@@ -1101,7 +1062,7 @@ ol li li li::before {
   margin: 120px 0 0 -98px;
   text-align: center;
   text-transform: uppercase;
-  font: bold 13px 'OpenSansCondensed', Arial, Helvetica, sans-serif;
+  font: bold 13px $font-5;
   -webkit-transform: rotate(-90deg);
   -moz-transform: rotate(-90deg);
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
@@ -1234,7 +1195,7 @@ h3.author-name {
   background: url(images/sprite.png) 0 -296px no-repeat;
   color: #4a4a4a;
   display: block;
-  font: 1em/2em 'OpenSansCondensed', Arial, Helvetica, sans-serif;
+  font: 1em/2em $font-5;
   height: 30px;
   padding-left: 30px;
 }
@@ -1277,7 +1238,7 @@ h3.author-name {
 	TOC Page
 *******************/
 #inline-toc h4 {
-	font: 1.2em 'Oswald', Arial, Helvetica, sans-serif;
+	font: 1.2em $font-4;
 	font-style: normal;
 	margin: 25px 0 5px;
 	text-align: center;
@@ -1302,7 +1263,7 @@ h3.author-name {
   -webkit-border-radius: 6px;
   border-radius: 6px;
   color: #4a4a4a;
-  font: 0.7em 'Oswald', Arial, Helvetica, sans-serif;
+  font: 0.7em $font-4;
   padding: 5px;
   text-decoration: none;
 }
@@ -1318,7 +1279,7 @@ h3.author-name {
 .footer {
   background: url(images/footer-shadow.png) 0 0 repeat-x #8d8d8d;
   color: #ffffff;
-  font: 0.75em/1.5em 'OpenSansCondensed', Arial, Helvetica, sans-serif;
+  font: 0.75em/1.5em $font-5;
   font-weight: bold;
 }
 .footer .inner {
@@ -1339,7 +1300,7 @@ h3.author-name {
   text-align: right;
 }
 .cie-name {
-  font-family: 'Oswald', Arial, Helvetica, sans-serif;
+  font-family: $font-4;
   text-align: center;
   font-weight: normal;
 }
@@ -1402,7 +1363,7 @@ img.avatar {
 }
 cite.fn {
   display: block;
-  font: 1.2em 'OpenSansCondensed', Arial, Helvetica, sans-serif;
+  font: 1.2em $font-5;
   font-style: normal;
 }
 .comment-body {
@@ -1413,7 +1374,7 @@ cite.fn {
   border: 1px solid #000;
   color: #fff;
   cursor: pointer;
-  font: 0.75em 'Oswald', Arial, Helvetica, sans-serif;
+  font: 0.75em $font-4;
   text-shadow: 0 1px 0 #000;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
@@ -1464,7 +1425,7 @@ cite.fn {
   margin-bottom: 10px;
 }
 #commentform label {
-  font: 1em 'Oswald', Arial, Helvetica, sans-serif;
+  font: 1em $font-4;
   float: left;
   padding-right: 5px;
   text-align: right;
@@ -1508,7 +1469,7 @@ input#submit {
   border: 1px solid #4d0a0a;
   color: #ffffff;
   cursor: pointer;
-  font: 0.75em 'Oswald', Arial, Helvetica, sans-serif;
+  font: 0.75em $font-4;
   text-shadow: 0 1px 0 #000;
   float: none;
   padding-bottom: 2px;
