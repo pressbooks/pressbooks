@@ -5,9 +5,9 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Import\Ooxml;
+namespace PressBooks\Modules\Import\Ooxml;
 
-use PressBooks\Import\Import;
+use PressBooks\Modules\Import\Import;
 use PressBooks\Book;
 
 class Docx extends Import {

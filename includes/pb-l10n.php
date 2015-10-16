@@ -606,7 +606,7 @@ function romanize( $integer, $upcase = true ) {
  */
 function use_book_locale() {
 
-	if ( \PressBooks\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
+	if ( \PressBooks\Modules\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
 		return true;
 	}
 

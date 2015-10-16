@@ -5,15 +5,14 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Export\Epub;
+namespace PressBooks\Modules\Export\Epub;
 
-use PressBooks\Export\Epub;
 use PressBooks\Sanitize;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
 require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
-class Epub3 extends Epub\Epub201 {
+class Epub3 extends Epub201 {
 
 	/**
 	 * @var array

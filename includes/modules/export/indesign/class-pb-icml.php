@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Export\InDesign;
+namespace PressBooks\Modules\Export\InDesign;
 
 
-use PressBooks\Export\Export;
+use PressBooks\Modules\Export\Export;
 
 require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 

@@ -1,6 +1,6 @@
 <?php
 
-// @see: \PressBooks\Export\Export loadTemplate()
+// @see: \PressBooks\Modules\Export\Export loadTemplate()
 
 if ( ! defined( 'ABSPATH' ) )
 	exit;

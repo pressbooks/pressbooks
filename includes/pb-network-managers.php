@@ -67,7 +67,7 @@ function options() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 
-    $superadmins = new \PressBooks\Network_Managers_List_Table();
+    $superadmins = new \PressBooks\Admin\Network_Managers_List_Table();
     $superadmins->prepare_items(); ?>
     <div class="wrap">
         

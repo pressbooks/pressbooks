@@ -40,7 +40,7 @@ function group_exports() {
 
 	$ignored = array( '.', '..', '.svn', '.git', '.htaccess' );
 
-	$dir = \PressBooks\Export\Export::getExportFolder();
+	$dir = \PressBooks\Modules\Export\Export::getExportFolder();
 
 	$files = array();
 	foreach ( scandir( $dir ) as $file ) {
@@ -75,7 +75,7 @@ function group_exports() {
 function truncate_exports( $max ) {
 
 	$max = absint( $max );
-	$dir = \PressBooks\Export\Export::getExportFolder();
+	$dir = \PressBooks\Modules\Export\Export::getExportFolder();
 	$files = group_exports();
 
 	$i = 1;

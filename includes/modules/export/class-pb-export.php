@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Export;
+namespace PressBooks\Modules\Export;
 
 
 use PressBooks\Book;
@@ -659,37 +659,37 @@ abstract class Export {
 			$modules = array();
 
 			if ( isset( $x['pdf'] ) ) {
-				$modules[] = '\PressBooks\Export\Prince\Pdf';
+				$modules[] = '\PressBooks\Modules\Export\Prince\Pdf';
 			}
 			if ( isset( $x['mpdf'] ) ) {
-				$modules[] = '\PressBooks\Export\Mpdf\Pdf';
+				$modules[] = '\PressBooks\Modules\Export\Mpdf\Pdf';
 			}
 			if ( isset( $x['epub'] ) ) {
-				$modules[] = '\PressBooks\Export\Epub\Epub201'; // Must be set before MOBI
+				$modules[] = '\PressBooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 			}
 			if ( isset( $x['epub3'] ) ) {
-				$modules[] = '\PressBooks\Export\Epub\Epub3'; // Must be set before MOBI
+				$modules[] = '\PressBooks\Modules\Export\Epub\Epub3'; // Must be set before MOBI
 			}
 			if ( isset( $x['mobi'] ) ) {
 				if  ( !isset( $x['epub'] ) ) { // Make sure Epub source file is generated
-					$modules[] = '\PressBooks\Export\Epub\Epub201'; // Must be set before MOBI
+					$modules[] = '\PressBooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 				}
-				$modules[] = '\PressBooks\Export\Mobi\Kindlegen'; // Must be set after EPUB
+				$modules[] = '\PressBooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB
 			}
 			if ( isset( $x['icml'] ) ) {
-				$modules[] = '\PressBooks\Export\InDesign\Icml';
+				$modules[] = '\PressBooks\Modules\Export\InDesign\Icml';
 			}
 			if ( isset( $x['xhtml'] ) ) {
-				$modules[] = '\PressBooks\Export\Xhtml\Xhtml11';
+				$modules[] = '\PressBooks\Modules\Export\Xhtml\Xhtml11';
 			}
 			if ( isset( $x['wxr'] ) ) {
-				$modules[] = '\PressBooks\Export\WordPress\Wxr';
+				$modules[] = '\PressBooks\Modules\Export\WordPress\Wxr';
 			}
 			if ( isset ( $x['vanillawxr'] ) ){
-				$modules[] = '\PressBooks\Export\WordPress\VanillaWxr';
+				$modules[] = '\PressBooks\Modules\Export\WordPress\VanillaWxr';
 			}
 			if ( isset ( $x['odt'] ) ){
-				$modules[] = '\PressBooks\Export\Odt\Odt';
+				$modules[] = '\PressBooks\Modules\Export\Odt\Odt';
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -714,7 +714,7 @@ abstract class Export {
 
 			foreach ( $modules as $module ) {
 
-				/** @var \PressBooks\Export\Export $exporter */
+				/** @var \PressBooks\Modules\Export\Export $exporter */
 				$exporter = new $module( array() );
 
 				if ( ! $exporter->convert() ) {
@@ -739,7 +739,7 @@ abstract class Export {
 			// MOBI cleanup
 
 			if ( isset( $x['mobi'] ) && !isset( $x['epub'] ) ) {
-				unlink( $outputs['\PressBooks\Export\Epub\Epub201'] );
+				unlink( $outputs['\PressBooks\Modules\Export\Epub\Epub201'] );
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -753,13 +753,13 @@ abstract class Export {
 			// --------------------------------------------------------------------------------------------------------
 			// Error exceptions
 
-			if ( isset( $validation_warning['\PressBooks\Export\Prince\Pdf'] ) ) {
+			if ( isset( $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'] ) ) {
 
 				// The PDF is garbage and we don't want the user to have it.
 				// Delete file. Report error instead of warning.
-				unlink( $validation_warning['\PressBooks\Export\Prince\Pdf'] );
-				$conversion_error['\PressBooks\Export\Prince\Pdf'] = $validation_warning['\PressBooks\Export\Prince\Pdf'];
-				unset ( $validation_warning['\PressBooks\Export\Prince\Pdf'] );
+				unlink( $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'] );
+				$conversion_error['\PressBooks\Modules\Export\Prince\Pdf'] = $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'];
+				unset ( $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'] );
 			}
 
 			// --------------------------------------------------------------------------------------------------------

@@ -10,10 +10,6 @@
 namespace PressBooks;
 
 
-use \PressBooks\Catalog;
-use \PressBooks\Metadata;
-
-
 class Book {
 
 	/**

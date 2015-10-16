@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version))
  */
-namespace PressBooks\Export\Odt;
+namespace PressBooks\Modules\Export\Odt;
 
 
-use \PressBooks\Export\Export;
+use \PressBooks\Modules\Export\Export;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
 

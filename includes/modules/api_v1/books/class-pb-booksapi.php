@@ -5,9 +5,9 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Api_v1\Books;
+namespace PressBooks\Modules\Api_v1\Books;
 
-use PressBooks\Api_v1\Api;
+use PressBooks\Modules\Api_v1\Api;
 
 /**
  * Processes public information about collections of books and individual books

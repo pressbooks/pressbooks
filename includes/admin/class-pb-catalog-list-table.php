@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks;
+namespace PressBooks\Admin;
 
 
 use \PressBooks\Book;

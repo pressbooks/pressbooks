@@ -92,33 +92,10 @@ function _pressbooks_autoload( $class_name ) {
 		return;
 	}
 
-	$look_for_class = array();
-
-	if ( count( $parts ) > 1 && 'pressbooks' == @$parts[0] ) {
-		// Namespaced, Ie. PressBooks\Export\Prince\Pdf()
-		array_shift( $parts );
-		$class_file = 'class-pb-' . str_replace( '_', '-', array_pop( $parts ) ) . '.php';
-		$sub_path = count( $parts ) ? implode( '/', $parts ) . '/' : '';
-
-		$look_for_class[] = PB_PLUGIN_DIR . $sub_path . $class_file;
-		$look_for_class[] = PB_PLUGIN_DIR . "includes/modules/" . $sub_path . $class_file;
-
-	} else {
-		// Classic, Ie. PressBooks_Export()
-		$class_file = 'class-' . str_replace( '_', '-', str_replace( 'pressbooks', 'pb', end( $parts ) ) ) . '.php';
-	}
-
-	$look_for_class[] = PB_PLUGIN_DIR . "admin/$class_file";
-	array_unshift( $look_for_class, PB_PLUGIN_DIR . "includes/$class_file" ); // Most probable first
-
-	foreach ( $look_for_class as $file ) {
-		if ( is_file( $file ) ) {
-			require_once( $file );
-			if ( class_exists( $class_name ) ) {
-				break;
-			}
-		}
-	}
+	array_shift( $parts );
+	$class_file = 'class-pb-' . str_replace( '_', '-', array_pop( $parts ) ) . '.php';
+	$path = count( $parts ) ? implode( '/', $parts ) . '/' : '';
+	require( PB_PLUGIN_DIR . 'includes/' . $path . $class_file );
 }
 
 spl_autoload_register( '_pressbooks_autoload' );

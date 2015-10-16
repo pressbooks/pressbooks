@@ -5,7 +5,7 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Api_v1;
+namespace PressBooks\Modules\Api_v1;
 
 /**
  *  Abstract class provides common functionality for all resource requests
@@ -108,7 +108,7 @@ abstract class Api {
 	 */
 	protected function renderJson( $data ) {
 		if ( ! is_array( $data ) ) {
-			throw new Exception( 'Data variable passed to \PressBooks\Api_v1\Api\renderJson is not an array' );
+			throw new Exception( 'Data variable passed to \PressBooks\Modules\Api_v1\Api\renderJson is not an array' );
 			$this->apiErrors( 'empty' );
 		}
 
@@ -124,7 +124,7 @@ abstract class Api {
 	 */
 	protected function renderXml( $data ) {
 		if ( ! is_array( $data ) ) {
-			throw new Exception( 'Data variable passed to \PressBooks\Api_v1\Api\renderXml is not an array' );
+			throw new Exception( 'Data variable passed to \PressBooks\Modules\Api_v1\Api\renderXml is not an array' );
 			$this->apiErrors( 'empty' );
 		}
 

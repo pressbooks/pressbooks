@@ -4,7 +4,7 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Export\WordPress;
+namespace PressBooks\Modules\Export\WordPress;
 
 /**
  * This class will export wxr that can be consumed by a vanilla installation of WP

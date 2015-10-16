@@ -5,9 +5,9 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Import\Html;
+namespace PressBooks\Modules\Import\Html;
 
-use PressBooks\Import\Import;
+use PressBooks\Modules\Import\Import;
 use PressBooks\Book;
 
 class Xhtml extends Import {

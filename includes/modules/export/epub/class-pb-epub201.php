@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Export\Epub;
+namespace PressBooks\Modules\Export\Epub;
 
 
-use PressBooks\Export\Export;
+use PressBooks\Modules\Export\Export;
 use PressBooks\Sanitize;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
@@ -1080,7 +1080,7 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
@@ -1224,7 +1224,7 @@ class Epub201 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+				if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 					$sections = \PressBooks\Book::getSubsections( $id );
 					
 					if ( $sections ) {
@@ -1421,7 +1421,7 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				
 				if ( $sections ) {
@@ -1564,7 +1564,7 @@ class Epub201 extends Export {
 							
 			$html .= "</a>";
 			
-			if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $v['ID'] );
 				if ( $sections ) {
 					$html .= '<ul class="sections">';

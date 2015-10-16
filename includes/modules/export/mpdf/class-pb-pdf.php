@@ -5,7 +5,7 @@
  * @license GPLv2 (or any later version))
  */
 
-namespace PressBooks\Export\Mpdf;
+namespace PressBooks\Modules\Export\Mpdf;
 
 /**
  * Available filters
@@ -35,7 +35,7 @@ namespace PressBooks\Export\Mpdf;
 require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 require_once( PB_PLUGIN_DIR . 'symbionts/mpdf/mpdf.php' );
 
-use \PressBooks\Export\Export;
+use \PressBooks\Modules\Export\Export;
 
 class Pdf extends Export {
 
@@ -638,7 +638,7 @@ class Pdf extends Export {
 								$chapter['mpdf_level'] = $part['mpdf_level'] + 1;
 								$ordered[] = $chapter;
 
-								if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+								if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 									$sections = \PressBooks\Book::getSubsections( $chapter['ID'] );
 									if ( $sections ) {
 										foreach ( $sections as $section ) {
@@ -660,7 +660,7 @@ class Pdf extends Export {
 						$item['mpdf_level'] = 1;
 						$ordered[] = $item;
 
-						if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+						if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 							$sections = \PressBooks\Book::getSubsections( $item['ID'] );
 							if ( $sections ) {
 								foreach ( $sections as $section ) {

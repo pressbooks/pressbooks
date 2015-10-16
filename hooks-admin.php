@@ -11,10 +11,10 @@ if ( ! defined( 'ABSPATH' ) )
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'admin/pb-admin-dashboard.php' );
-require( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
-require( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
-require( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-dashboard.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-laf.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-metaboxes.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-customcss.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-network-managers.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -156,8 +156,8 @@ add_action( 'load-post.php', '\PressBooks\Admin\CustomCss\redirect_css_editor' )
 // "Catch-all" routines, must come after taxonomies and friends
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', '\PressBooks\Export\Export::formSubmit', 50 );
-add_action( 'init', '\PressBooks\Import\Import::formSubmit', 50 );
+add_action( 'init', '\PressBooks\Modules\Export\Export::formSubmit', 50 );
+add_action( 'init', '\PressBooks\Modules\Import\Import::formSubmit', 50 );
 add_action( 'init', '\PressBooks\CustomCss::formSubmit', 50 );
 add_action( 'init', '\PressBooks\Catalog::formSubmit', 50 );
 
