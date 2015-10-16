@@ -54,10 +54,10 @@ class Editor {
 						
 		$wp_upload_dir = wp_upload_dir();
 
-		$upload_dir = $wp_upload_dir['basedir'] . '/editor';
+		$upload_dir = $wp_upload_dir['basedir'] . '/css';
 
 		if ( ! is_dir( $upload_dir ) ) {
-			mkdir( $upload_dir );
+			mkdir( $upload_dir, 0777, true );
 		}
 		
 		if ( ! is_dir( $upload_dir ) ) {
@@ -66,13 +66,13 @@ class Editor {
 					
 		$css_file = $upload_dir . '/editor.css';
 		
-		$global_typography = $wp_upload_dir['basedir'] . '/global-typography/_global-font-stack.scss';
+		$global_typography = $wp_upload_dir['basedir'] . '/css/scss/_global-font-stack.scss';
 
 		if ( !is_file( $global_typography ) ) {
 			\PressBooks\GlobalTypography::updateGlobalTypographyMixin();
 		}
 
-		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/scss', PB_PLUGIN_DIR . 'assets/css/scss/export/', $wp_upload_dir['basedir'] . '/global-typography/', get_stylesheet_directory() ) );
+		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/scss', PB_PLUGIN_DIR . 'assets/css/scss/export/', $wp_upload_dir['basedir'] . '/css/scss/', get_stylesheet_directory() ) );
 						
 		if ( ! file_put_contents( $css_file, $css ) ) {
 			throw new \Exception( 'Could not write custom CSS file.' );
@@ -87,8 +87,8 @@ class Editor {
 		
 		$wp_upload_dir = wp_upload_dir();
 		
-		$path = $wp_upload_dir['basedir'] . '/editor/editor.css';
-		$uri = $wp_upload_dir['baseurl'] . '/editor/editor.css';
+		$path = $wp_upload_dir['basedir'] . '/css/editor.css';
+		$uri = $wp_upload_dir['baseurl'] . '/css/editor.css';
 
 		if ( !is_file( $path ) ) {
 			\PressBooks\Editor::updateEditorStyle();

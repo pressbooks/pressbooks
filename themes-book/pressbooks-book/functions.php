@@ -51,7 +51,7 @@ add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
  * ------------------------------------------------------------------------ */
 function pb_enqueue_scripts() {
 
-	if ( pb_is_custom_theme() ) {
+	if ( pb_is_custom_theme() ) { // Custom CSS
 		$deps = array();
 		if ( ! pb_custom_stylesheet_imports_base() ) {
 			// Use default stylesheet as base (to avoid horribly broken webbook)
@@ -61,20 +61,27 @@ function pb_enqueue_scripts() {
 		}
 		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), $deps, get_option( 'pressbooks_last_custom_css' ), 'screen' );
 		wp_enqueue_style( 'pressbooks-custom-css' );
-	} else {
-		wp_register_style( 'pressbooks', get_bloginfo( 'stylesheet_url' ), array(), null, 'screen,print' );
+	} else { // Standard theme
+		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
 		wp_enqueue_style( 'pressbooks' );
-	}
-	
-	$wp_upload_dir = wp_upload_dir();
+		// Use default stylesheet as base (to avoid horribly broken webbook)
+		$deps = array( 'pressbooks' );		
+		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
+			$wp_upload_dir = wp_upload_dir();
+			$fullpath = $wp_upload_dir['basedir'] . '/css/style.css';
+			if ( is_file( $fullpath ) ) { // Custom webbook style has been generated
+				wp_register_style( 'pressbooks-theme', $wp_upload_dir['baseurl'] . '/css/style.css', $deps, null, 'screen, print' );
+				wp_enqueue_style( 'pressbooks-theme' );
+			} else { // Use the bundled stylesheet
+				wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', $deps, null, 'screen, print' );
+				wp_enqueue_style( 'pressbooks-theme' );
+			}
+		}
 
-	$fullpath = $wp_upload_dir['basedir'] . '/global-typography/global-typography.css';
-	
-	
-	if ( is_file( $fullpath ) ) {
-		wp_register_style( 'pressbooks-global-typography', $wp_upload_dir['baseurl'] . '/global-typography/global-typography.css', array(), null, 'screen, print' );
-		wp_enqueue_style( 'pressbooks-global-typography' );
 	}
+	
+	
+	
 	
 	if (! is_front_page() ) {
 		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );

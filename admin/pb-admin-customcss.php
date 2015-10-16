@@ -232,7 +232,7 @@ function load_css_from() {
 	list( $theme, $slug ) = explode( '__', @$_POST['slug'] );
 
 	$wp_upload_dir = wp_upload_dir();
-	$upload_dir = $wp_upload_dir['basedir'] . '/global-typography';
+	$upload_dir = $wp_upload_dir['basedir'] . '/css/scss';
 
 	if ( isset( $themes[$theme] ) ) {
 
@@ -240,7 +240,7 @@ function load_css_from() {
 		$theme = $themes[$theme]; // Get theme object
 
 		if ( 'web' == $slug ) {
-			$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.css' );
+			$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.scss' );
 			$uri_to_style = $theme->get_stylesheet_directory_uri();
 		} else {
 			$path_to_style = realpath( $theme->get_stylesheet_directory() . "/export/$slug/style.scss" );
