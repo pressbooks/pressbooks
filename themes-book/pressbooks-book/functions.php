@@ -209,16 +209,6 @@ function pressbooks_comment( $comment, $args, $depth ) {
 }
 endif;
 
-
-/* ------------------------------------------------------------------------ *
- * Google Webfonts
- * ------------------------------------------------------------------------ */
-
-function pressbooks_enqueue_styles() {
-   		 wp_enqueue_style( 'pressbooks-fonts', 'http://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald');
-}
-add_action('wp_print_styles', 'pressbooks_enqueue_styles');
-
 /* ------------------------------------------------------------------------ *
  * Copyright License
  * ------------------------------------------------------------------------ */

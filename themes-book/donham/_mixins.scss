@@ -18,4 +18,5 @@ Template: pressbooks-book
 	$font-2: "Linux Biolinum", $sans-serif-prince;
 } @else if $type == 'web' {
 	$font-1: "Tinos", $serif-web;
+	$font-2: "Galdeano", $sans-serif-web;
 }

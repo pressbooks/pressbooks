@@ -7,10 +7,7 @@ Author URI: http://pressbooks.com
 Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
 Version: 1.5
 Template: pressbooks-book
-
 */
-
-@import url("../pressbooks-book/style.css");
 
 body {
 	font-family: "Times New Roman", Georgia, serif;
