@@ -232,7 +232,7 @@ function load_css_from() {
 	list( $theme, $slug ) = explode( '__', @$_POST['slug'] );
 
 	$wp_upload_dir = wp_upload_dir();
-	$upload_dir = $wp_upload_dir['basedir'] . '/global-typography';
+	$upload_dir = $wp_upload_dir['basedir'] . '/css/scss';
 
 	if ( isset( $themes[$theme] ) ) {
 
@@ -240,7 +240,7 @@ function load_css_from() {
 		$theme = $themes[$theme]; // Get theme object
 
 		if ( 'web' == $slug ) {
-			$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.css' );
+			$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.scss' );
 			$uri_to_style = $theme->get_stylesheet_directory_uri();
 		} else {
 			$path_to_style = realpath( $theme->get_stylesheet_directory() . "/export/$slug/style.scss" );
@@ -249,7 +249,7 @@ function load_css_from() {
 
 		if ( $path_to_style ) {
 			$scss = file_get_contents( $path_to_style );
-			$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $upload_dir, $theme->get_stylesheet_directory() ) );
+			$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/scss', PB_PLUGIN_DIR . 'assets/css/scss/export/', $upload_dir, $theme->get_stylesheet_directory() ) );
 			$css = fix_url_paths( $css, $uri_to_style );
 		}
 	}

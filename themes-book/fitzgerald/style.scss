@@ -1,18 +1,10 @@
-/*
-Theme Name: Fitzgerald 
-Theme URI: http://pressbooks.com/themes/fitzgerald
-Description: Serif body, with condensed sans serif header fonts. Based on a theme commissioned by the University of Minnesota Press.
-Author: Pressbooks (Book Oven Inc.)
-Author URI: http://pressbooks.com
-Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
-Version: 1.5
-Template: pressbooks-book
-*/
+$type: 'web';
+@import 'mixins';
 
 @import url(http://fonts.googleapis.com/css?family=Crimson+Text:400,400italic,700|Roboto+Condensed:400,300,300italic,400italic);
 
 body {
-	font-family: "Crimson Text", "Times New Roman", serif;
+	font-family: $font-1;
 	line-height: 1.5em;
 }
 a {
@@ -20,7 +12,7 @@ a {
 
 }
 h1, h2, h3, h4, h5, h6 {
-	font-family: "Roboto Condensed", sans-serif;
+	font-family: $font-2;
 	font-variant: normal;
 	font-weight: normal;
 }
@@ -80,7 +72,7 @@ h3, h4 {
 	line-height: 1.4em;
 }
 .chapter_author {
-	font-family: "Crimson Text", "Times New Roman", serif;
+	font-family: $font-1;
 	font-style: italic;
 	font-weight: normal;
 	margin: -70px 0 100px;

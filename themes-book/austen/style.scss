@@ -1,18 +1,10 @@
-/*
-Theme Name: Austen
-Theme URI: http://pressbooks.com/themes/austen
-Description: Named for English author Jane Austen, this is a traditional book theme, with serif fonts, that works well for fiction and simple-layout non-fiction.
-Author: Pressbooks (Book Oven Inc.)
-Author URI: http://pressbooks.com
-Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
-Version: 1.5
-Template: pressbooks-book
-*/
+$type: 'web';
+@import 'mixins';
 
 @import url(https://fonts.googleapis.com/css?family=Sorts+Mill+Goudy:400,400italic|Marcellus+SC);
 
 body {
-	font-family: "Sorts Mill Goudy", "Times New Roman", serif;
+	font-family: $font-1;
 	line-height: 1.5em;
 
 }
@@ -21,15 +13,9 @@ a {
 	text-decoration: none;
 
 }
-/* h1, h2, h3, h4, h5, h6 {
-	font-family: "Sorts Mill Goudy", "Times New Roman" serif;
-	font-variant: normal;
-	text-align: left;
-}
-*/
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: "Sorts Mill Goudy", serif;
+	font-family: $font-2;
 	margin-top: 5px;
 	padding-bottom: 4px;
 	font-variant: normal;
@@ -89,7 +75,7 @@ h3, h4, h5 {
 .entry-title {
 	margin: 100px 0;
 	text-align: center;
-	font-family: "Marcellus SC", "Times New Roman", serif;
+	font-family: $font-3;
 	font-variant: normal;
 	text-transform: uppercase;
 }
@@ -109,7 +95,7 @@ h3, h4, h5 {
 	margin: -80px 0 100px 0;
 	text-align: center;
     text-transform: uppercase;
-	font-family: "Marcellus SC", "Times New Roman", serif;
+	font-family: $font-3;
 	font-variant: normal;	
 	font-style: italic;
 	font-size: 0.95em;
@@ -120,7 +106,7 @@ h3, h4, h5 {
 	text-align: center;
 	
 
-	font-family: "Marcellus SC", "Times New Roman", serif;
+	font-family: $font-3;
 	font-variant: normal;	
 }
 .chapter_subtitle + .chapter_author {

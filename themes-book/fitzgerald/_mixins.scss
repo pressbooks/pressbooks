@@ -19,4 +19,5 @@ Template: pressbooks-book
 	$font-2: "Roboto Condensed", $sans-serif-prince;
 } @else if $type == 'web' {
 	$font-1: "Crimson Text", "Times New Roman", $serif-web;
+	$font-2: "Roboto Condensed", $sans-serif-web;
 }

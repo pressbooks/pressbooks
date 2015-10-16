@@ -4,18 +4,8 @@
  * @license GPLv2 (or any later version)
  */
 
-
 /**
- * Google Webfonts
- */
-function austen_enqueue_styles() {
-	wp_enqueue_style( 'austen-fonts', 'http://fonts.googleapis.com/css?family=Marcellus+SC|Sorts+Mill+Goudy:400,400italic' );
-}
-add_action( 'wp_print_styles', 'austen_enqueue_styles' );
-
-
-/**
- * Aonham features we inject ourselves, (not user options)
+ * Austen features we inject ourselves, (not user options)
  *
  * @param $css
  *

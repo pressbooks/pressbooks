@@ -440,10 +440,10 @@ class GlobalTypography {
 		
 		$wp_upload_dir = wp_upload_dir();
 
-		$upload_dir = $wp_upload_dir['basedir'] . '/global-typography';
+		$upload_dir = $wp_upload_dir['basedir'] . '/css/scss';
 
 		if ( ! is_dir( $upload_dir ) ) {
-			mkdir( $upload_dir );
+			mkdir( $upload_dir, 0777, true );
 		}
 		
 		if ( ! is_dir( $upload_dir ) ) {
@@ -470,19 +470,21 @@ class GlobalTypography {
 		if ( isset( $post ) && 'metadata' !== $post->post_type )
 			return; // Bail
 				
-		$scss = '$type: \'web\';';
+		$path_to_style = realpath( get_stylesheet_directory() . '/style.scss' );
 		
-		$scss .= "\n@import 'mixins';\n";
-
-		$scss .= 'body { font-family: $font-1; }';
-		
+		if ( $path_to_style ) {
+			$scss = file_get_contents( $path_to_style );
+		} else {
+			return false;
+		}
+				
 		$wp_upload_dir = wp_upload_dir();
 
-		$upload_dir = $wp_upload_dir['basedir'] . '/global-typography';
+		$upload_dir = $wp_upload_dir['basedir'] . '/css/scss';
 
-		$css_file = $upload_dir . '/global-typography.css';
+		$css_file = $wp_upload_dir['basedir'] . '/css/style.css';
 
-		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $upload_dir, get_stylesheet_directory() ) );
+		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/scss', PB_PLUGIN_DIR . 'assets/css/scss/export/', $upload_dir, get_stylesheet_directory() ) );
 		
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';

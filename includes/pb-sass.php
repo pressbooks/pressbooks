@@ -49,7 +49,7 @@ function compile( $scss, $includes = array() ) {
 function debug( $css, $filename ) {
     // Output compiled CSS for debugging.
     $wp_upload_dir = wp_upload_dir();
-    $debug_dir = $wp_upload_dir['basedir'] . '/export-css';
+    $debug_dir = $wp_upload_dir['basedir'] . '/css/debug';
     if ( ! is_dir( $debug_dir ) ) {
         mkdir( $debug_dir );
     }
