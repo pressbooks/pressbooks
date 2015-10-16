@@ -72,7 +72,7 @@ class Editor {
 			\PressBooks\GlobalTypography::updateGlobalTypographyMixin();
 		}
 
-		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $wp_upload_dir['basedir'] . '/global-typography/', get_stylesheet_directory() ) );
+		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/scss', PB_PLUGIN_DIR . 'assets/css/scss/export/', $wp_upload_dir['basedir'] . '/global-typography/', get_stylesheet_directory() ) );
 						
 		if ( ! file_put_contents( $css_file, $css ) ) {
 			throw new \Exception( 'Could not write custom CSS file.' );

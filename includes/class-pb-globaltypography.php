@@ -482,7 +482,7 @@ class GlobalTypography {
 
 		$css_file = $upload_dir . '/global-typography.css';
 
-		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $upload_dir, get_stylesheet_directory() ) );
+		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/scss', PB_PLUGIN_DIR . 'assets/css/scss/export/', $upload_dir, get_stylesheet_directory() ) );
 		
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
