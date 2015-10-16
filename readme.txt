@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.7.2
+Version: 3.0
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3.1
 Tested up to: 4.3.1
-Stable tag: 2.7.2
+Stable tag: 3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -194,6 +194,25 @@ TK.
 TK.
 
 == Changelog ==
+
+= 3.0 =
+* SASS-y themes: book themes are now built with SASS and compiled for export or web display using either the bundled scssphp compiler (https://github.com/leafo/scssphp/) or the SASS PHP extension if installed (https://github.com/sensational/sassphp).
+* Global Typography: users can add fonts to display Ancient Greek, Arabic, Biblical Hebrew, Chinese (Simplified or Traditional), Coptic, Gujarati, Japanese, Korean, Syriac, Tamil or Tibetan in any theme across all standard export formats via the Theme Options page.
+* EPUB 3: the current version of the EPUB standard is now fully supported and will soon become Pressbooks' default EPUB export format.
+* Added support for importing book information from a Pressbooks XML file.
+* Added support for persistent export format selections on the Export page.
+* Added the ability to show or hide front matter, chapter and back matter titles on the Organize page.
+* Updated the Prince command line wrapper to support Prince 10r5.
+* Updated export icons to support Retina screens.
+* Fixed an issue where Norwegian localization files were not being properly loaded.
+* Fixed an issue where the xml:lang attribute would set to `en` regardless of the book language.
+* Fixed an issue that prevented Prince from loading its built-in hyphenation dictionaries.
+* Fixed an issue with Kindle exports in bundled book themes.
+* Fixed an issue with multi-level TOC styling in bundled book themes.
+* Fixed an issue with EPUB images.
+* Fixed some PHP warnings.
+* Various localization updates.
+* Various performance enhancements.
 
 = 2.7.2 =
 * Requires WordPress 4.3.1.
