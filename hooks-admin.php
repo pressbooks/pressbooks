@@ -45,6 +45,10 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\fix_root_admin_menu', 1 );
 }
 
+if ( is_network_admin() ) {
+	add_action( 'wp_network_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_network_dashboard_widgets' );
+}
+
 if ( true == is_main_site() ) {
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_root_dashboard_widgets' );
 }
