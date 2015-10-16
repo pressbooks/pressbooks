@@ -65,6 +65,12 @@ class Editor {
 		}
 					
 		$css_file = $upload_dir . '/editor.css';
+		
+		$global_typography = $wp_upload_dir['basedir'] . '/global-typography/_global-font-stack.scss';
+
+		if ( !is_file( $global_typography ) ) {
+			\PressBooks\GlobalTypography::updateGlobalTypographyMixin();
+		}
 
 		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/sass', PB_PLUGIN_DIR . 'assets/export/', $wp_upload_dir['basedir'] . '/global-typography/', get_stylesheet_directory() ) );
 						
