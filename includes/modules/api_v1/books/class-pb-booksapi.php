@@ -514,6 +514,7 @@ class BooksApi extends Api {
 	 * whether the user has identified post content for 'export'
 	 *
 	 * @param array $book
+	 * @param int $book_id
 	 *
 	 * @return array Table of Contents
 	 */
