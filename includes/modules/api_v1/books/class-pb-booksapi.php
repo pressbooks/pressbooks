@@ -11,11 +11,11 @@ use PressBooks\Modules\Api_v1\Api;
 
 /**
  * Processes public information about collections of books and individual books
- * 
- * The format it expects is: 
+ *
+ * The format it expects is:
  * http://somedomain/api/v1/books
  * http://somedomain/api/v1/books/12
- * 
+ *
  * Arguments can be passed:
  * ?subjects=biology&license=cc-by&limit=3
  */
@@ -23,53 +23,56 @@ class BooksApi extends Api {
 
 	/**
 	 * Control the arguments that can be passed to the API
-	 * 
-	 * @var type 
+	 *
+	 * @var array
 	 */
 	protected $default_variations = array(
-	    'titles' => 'all',
-	    'offset' => 0,
-	    'limit' => 100,
-	    'subjects' => 'all',
-	    'authors' => 'all',
-	    'licenses' => 'all',
-	    'keywords' => 'all',
+		'titles' => 'all',
+		'offset' => 0,
+		'limit' => 100,
+		'subjects' => 'all',
+		'authors' => 'all',
+		'licenses' => 'all',
+		'keywords' => 'all',
 	);
-	
+
 	/**
 	 * Default format of the response
-	 * 
-	 * @var string 
+	 *
+	 * @var string
 	 */
 	protected $format = 'json';
 
 	/**
 	 * List of publically available books
-	 * 
-	 * @var array 
+	 *
+	 * @var array
 	 */
 	protected $public_books = array();
 
 	/**
 	 * Parse arguments and send the response to the controller
-	 * 
+	 *
 	 * @param int $id
 	 * @param array $variations
+	 *
+	 * @throws \Exception
 	 */
-	function __construct( $id = '', $variations = '' ) {
+	function __construct( $id = null, $variations = array() ) {
 
 		// only serve info about public books
 		$this->public_books = $this->getPublicBlogIds();
 
 		if ( empty( $this->public_books ) ) {
-			throw new \Exception( 'There are no public facing books in this instance of Pressbooks'); 
+			throw new \Exception( 'There are no public facing books in this instance of Pressbooks' );
 		}
 
 		// get the format, set it as instance variable
 		if ( isset( $variations['json'] ) && 1 == $variations['json'] ) {
 			$this->format = 'json';
 			unset( $variations['json'] );
-		} elseif ( isset( $variations['xml'] ) && 1 == $variations['xml'] ) {
+		}
+		elseif ( isset( $variations['xml'] ) && 1 == $variations['xml'] ) {
 			$this->format = 'xml';
 			unset( $variations['xml'] );
 		}
@@ -87,7 +90,7 @@ class BooksApi extends Api {
 
 	/**
 	 * Controls which book resources are retrieved based on what is passed to it
-	 * 
+	 *
 	 * @param array $args
 	 */
 	public function controller( $args ) {
@@ -100,9 +103,10 @@ class BooksApi extends Api {
 
 	/**
 	 * Filters the results based on what is passed to it
-	 * 
+	 *
 	 * @param array $results
 	 * @param array $args
+	 *
 	 * @return array of books with arguments applied
 	 */
 	protected function filterArgs( $results, $args ) {
@@ -118,7 +122,7 @@ class BooksApi extends Api {
 		// this logic does not apply to single records
 		if ( ! isset( $diff['id'] ) ) {
 
-			$args_length = count( $diff );
+			// $args_length = count( $diff );
 
 			if ( isset( $diff['titles'] ) ) {
 
@@ -170,27 +174,32 @@ class BooksApi extends Api {
 				$results = array_intersect_key( $results, $filtered_books );
 
 				// return empty if there is nothing else to process	
-			} elseif ( empty( $matches ) && ( ! isset( $diff['limit'] ) && ! isset( $diff['offset'] )) ) {
+			}
+			elseif ( empty( $matches ) && ( ! isset( $diff['limit'] ) && ! isset( $diff['offset'] ) ) ) {
 				// bail if no matches
-				return $this->apiErrors( 'empty' );
+				$this->apiErrors( 'empty' );
+				// ^ print and die... ^
 			}
 
 			// if the offset is bigger than the book collection
 			if ( isset( $diff['offset'] ) && $diff['offset'] > count( $results ) ) {
-				return $this->apiErrors( 'offset' );
+				$this->apiErrors( 'offset' );
+				// ^ print and die... ^
 			}
 
 			// set the limit, look for unlimited requests
-			$limit = ( 0 == $diff['limit'] ) ? NULL : $diff['limit'];
+			$limit = ( 0 == $diff['limit'] ) ? null : $diff['limit'];
 			$results = array_slice( $results, $diff['offset'], $limit, true );
 
 			// safety check
 			if ( empty( $results ) ) {
-				return $this->apiErrors( 'empty' );
+				$this->apiErrors( 'empty' );
+				// ^ print and die... ^
 			}
 
 			// for single records
-		} elseif ( isset( $diff['id'] ) ) {
+		}
+		elseif ( isset( $diff['id'] ) ) {
 
 			if ( count( $diff ) == 1 ) {
 				// no further processing required
@@ -202,6 +211,7 @@ class BooksApi extends Api {
 
 			if ( isset( $diff['titles'] ) ) {
 
+				$chapter_titles = array();
 				foreach ( $chapters as $chap ) {
 					$chapter_titles[$chap['post_id']] = $chap['post_title'];
 				}
@@ -210,6 +220,7 @@ class BooksApi extends Api {
 
 			if ( isset( $diff['licenses'] ) ) {
 
+				$chapter_license = array();
 				foreach ( $chapters as $chap ) {
 					$chapter_license[$chap['post_id']] = $chap['post_license'];
 				}
@@ -218,6 +229,7 @@ class BooksApi extends Api {
 
 			if ( isset( $diff['authors'] ) ) {
 
+				$chapter_authors = array();
 				foreach ( $chapters as $chap ) {
 					$chapter_authors[$chap['post_id']] = $chap['post_authors'];
 				}
@@ -232,31 +244,36 @@ class BooksApi extends Api {
 
 				// preserve only the blog_ids that made it through each of the filters
 				$chapter_results = array_intersect_key( $chapters, $filtered_chapters );
-			} elseif ( empty( $matches ) && ( ! isset( $diff['limit'] ) && ! isset( $diff['offset'] )) ) {
-				// bail if no matches
-				return $this->apiErrors( 'empty' );
 			}
-			
+			elseif ( empty( $matches ) && ( ! isset( $diff['limit'] ) && ! isset( $diff['offset'] ) ) ) {
+				// bail if no matches
+				$this->apiErrors( 'empty' );
+				// ^ print and die... ^
+			}
+
 			// change the value of $results depending on whether the logic
 			// above returned anything
 			if ( isset( $chapter_results ) ) {
 				$results = $chapter_results;
-			} else {
+			}
+			else {
 				$results = $chapters;
 			}
 
 			// if the offset is bigger than the book collection
 			if ( isset( $diff['offset'] ) && $diff['offset'] > count( $results ) ) {
-				return $this->apiErrors( 'offset' );
+				$this->apiErrors( 'offset' );
+				// ^ print and die... ^
 			}
 
 			// set the limit, look for unlimited requests
-			$limit = ( 0 == $args['limit'] ) ? NULL : $args['limit'];
+			$limit = ( 0 == $args['limit'] ) ? null : $args['limit'];
 			$results = array_slice( $results, $args['offset'], $limit, true );
 
 			// safety check
 			if ( empty( $results ) ) {
-				return $this->apiErrors( 'empty' );
+				$this->apiErrors( 'empty' );
+				// ^ print and die... ^
 			}
 		}
 
@@ -265,19 +282,20 @@ class BooksApi extends Api {
 
 	/**
 	 * Returns a flat array of chapters
-	 * 
+	 *
 	 * @param array $book
+	 *
 	 * @return array $chapters
 	 */
 	protected function getBookChapters( array $book ) {
-		if ( empty( $book ) ) return;
+		if ( empty( $book ) ) return array();
 
 		$chapters = array();
 		$parts_count = count( $book['part'] );
-		
+
 		// front matter
-		foreach ( $book['front-matter'] as $fm ){
-			$chapters[$fm['post_id']] = $fm; 
+		foreach ( $book['front-matter'] as $fm ) {
+			$chapters[$fm['post_id']] = $fm;
 		}
 
 		// parts
@@ -288,30 +306,30 @@ class BooksApi extends Api {
 			};
 		}
 		// back matter
-		foreach ( $book['back-matter'] as $bm ){
-			$chapters[$bm['post_id']] = $bm; 
+		foreach ( $book['back-matter'] as $bm ) {
+			$chapters[$bm['post_id']] = $bm;
 		}
-		
+
 		return $chapters;
 	}
 
 	/**
-	 * Keeps only arrays that are the same, used for filtering book ids based on 
-	 * arguments 
-	 * 
+	 * Keeps only arrays that are the same, used for filtering book ids based on
+	 * arguments
+	 *
 	 * @param array $match
+	 *
 	 * @return array
 	 */
 	protected function intersectArrays( array $match ) {
 		// needs to be at least two arrays to intersect
 		$keys = array_keys( $match );
 		$minimum = count( $keys );
-		$result = array();
 
 		if ( $minimum < 2 ) {
 			return $match[$keys[0]];
-		} else {
-
+		}
+		else {
 			$result = call_user_func_array( 'array_intersect', $match );
 		}
 
@@ -319,13 +337,15 @@ class BooksApi extends Api {
 	}
 
 	/**
-	 * Give this the name of any PB meta element and it will return just those 
+	 * Give this the name of any PB meta element and it will return just those
 	 * elements with the blog_id as array( '13' => 'Math, Science, Tech)
-	 * 
+	 *
 	 * @see getBookInformation() for which meta elements are available
+	 *
 	 * @param array $books
 	 * @param string $element
-	 * @return array 
+	 *
+	 * @return array
 	 */
 	protected function getMetaElement( array $books, $element ) {
 		$result = array();
@@ -342,10 +362,11 @@ class BooksApi extends Api {
 	/**
 	 * Checks for the existence of a substring pattern within an array and returns
 	 * an array of keys (blog_id) if found
-	 * 
+	 *
 	 * @param string|array $search_words
 	 * @param array $haystack in the form of blog_id => value
-	 * @return array of key values 
+	 *
+	 * @return array of key values
 	 */
 	protected function naiveStringSearch( $search_words, array $haystack ) {
 		$matches = array();
@@ -368,7 +389,8 @@ class BooksApi extends Api {
 
 			// get rid of duplicates
 			$matches = array_unique( $matches );
-		} else {
+		}
+		else {
 			foreach ( $haystack as $key => $val ) {
 				if ( false !== stripos( $val, $search_words ) ) {
 					$matches[] = $key;
@@ -381,9 +403,10 @@ class BooksApi extends Api {
 
 	/**
 	 * Looks for an exact pattern match
-	 * 
-	 * @param type $search_words
+	 *
+	 * @param string $search_words
 	 * @param array $haystack
+	 *
 	 * @return array
 	 */
 	protected function exactStringSearch( $search_words, array $haystack ) {
@@ -407,7 +430,8 @@ class BooksApi extends Api {
 
 			// get rid of duplicates
 			$matches = array_unique( $matches );
-		} else {
+		}
+		else {
 			foreach ( $haystack as $key => $val ) {
 				if ( 1 === preg_match( "/^$search_words$/i", $val ) ) {
 					$matches[] = $key;
@@ -419,9 +443,10 @@ class BooksApi extends Api {
 	}
 
 	/**
-	 * Expose public information about a book 
-	 * 
+	 * Expose public information about a book
+	 *
 	 * @param array $args
+	 *
 	 * @return array of book information
 	 */
 	protected function getBooksById( array $args ) {
@@ -437,10 +462,12 @@ class BooksApi extends Api {
 				$book_structure = \PressBooks\Book::getBookStructure( intval( $book_id ) );
 				$book[$book_id]['book_toc'] = $this->getToc( $book_structure, $book_id );
 			}
-		} else {
+		}
+		else {
 			// check if blog_id is in the collection
 			if ( ! in_array( $args['id'], $this->public_books ) ) {
-				return $this->apiErrors( 'empty' );
+				$this->apiErrors( 'empty' );
+				// ^ print and die... ^
 			}
 			$book[$args['id']]['book_id'] = $args['id'];
 			$book[$args['id']]['book_url'] = get_blogaddress_by_id( $args['id'] );
@@ -454,17 +481,16 @@ class BooksApi extends Api {
 
 	/**
 	 * Only interested in public books
-	 * 
-	 * @global global $wpdb
+	 *
+	 * @global \wpdb $wpdb
 	 * @return array of blog_id for books that are public
 	 */
 	function getPublicBlogIds() {
 		$transient = get_transient( 'pb-api-public-bookids' );
-		
+
 		if ( false === $transient ) {
 			global $wpdb;
 			$table_name = $wpdb->prefix . "blogs";
-			$result = array();
 
 			$result = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM $table_name WHERE public = %d", '1' ) );
 
@@ -475,7 +501,8 @@ class BooksApi extends Api {
 
 			// expires in 24 hours
 			set_transient( 'pb-api-public-bookids', $result, 86400 );
-		} else {
+		}
+		else {
 			$result = $transient;
 		}
 
@@ -485,24 +512,26 @@ class BooksApi extends Api {
 	/**
 	 * Gets the Table of Contents for a book. Looks for published content, not
 	 * whether the user has identified post content for 'export'
-	 * 
+	 *
 	 * @param array $book
+	 *
 	 * @return array Table of Contents
 	 */
 	function getToc( array $book, $book_id ) {
 		$toc = array();
 		switch_to_blog( intval( $book_id ) );
-		
+
 		// front matter
+		$front_matter = array();
 		foreach ( $book['front-matter'] as $fm ) {
 			if ( 'publish' != $fm['post_status'] ) continue;
 
 			$front_matter[$fm['ID']] = array(
-			    'post_id' => $fm['ID'],
-			    'post_title' => $fm['post_title'],
-			    'post_link' => get_permalink( $fm['ID'] ),
-			    'post_license' => get_post_meta( $fm['ID'], 'pb_section_license', true ),
-			    'post_authors' => get_post_meta( $fm['ID'], 'pb_section_author', true )
+				'post_id' => $fm['ID'],
+				'post_title' => $fm['post_title'],
+				'post_link' => get_permalink( $fm['ID'] ),
+				'post_license' => get_post_meta( $fm['ID'], 'pb_section_license', true ),
+				'post_authors' => get_post_meta( $fm['ID'], 'pb_section_author', true )
 			);
 		}
 		$toc['front-matter'] = $front_matter;
@@ -512,44 +541,46 @@ class BooksApi extends Api {
 
 		for ( $i = 0; $i < $parts_count; $i ++ ) {
 
+			$chapters = array();
 			foreach ( $book['part'][$i]['chapters'] as $chapter ) {
 				if ( 'publish' != $chapter['post_status'] ) continue;
 
 				// chapters within parts
 				$chapters[$chapter['ID']] = array(
-				    'post_id' => $chapter['ID'],
-				    'post_title' => $chapter['post_title'],
-				    'post_link' => get_permalink( $chapter['ID'] ),
-				    'post_license' => get_post_meta( $chapter['ID'], 'pb_section_license', true ),
-				    'post_authors' => get_post_meta( $chapter['ID'], 'pb_section_author', true )
+					'post_id' => $chapter['ID'],
+					'post_title' => $chapter['post_title'],
+					'post_link' => get_permalink( $chapter['ID'] ),
+					'post_license' => get_post_meta( $chapter['ID'], 'pb_section_license', true ),
+					'post_authors' => get_post_meta( $chapter['ID'], 'pb_section_author', true )
 				);
 			}
 
 			$toc['part'][$i] = array(
-			    'post_id' => $book['part'][$i]['ID'],
-			    'post_title' => $book['part'][$i]['post_title'],
-			    'post_link' => get_permalink( $book['part'][$i]['ID'] ),
-			    'chapters' => $chapters,
+				'post_id' => $book['part'][$i]['ID'],
+				'post_title' => $book['part'][$i]['post_title'],
+				'post_link' => get_permalink( $book['part'][$i]['ID'] ),
+				'chapters' => $chapters,
 			);
 			unset( $chapters );
 		}
 
 		// back-matter
+		$back_matter = array();
 		foreach ( $book['back-matter'] as $bm ) {
 			if ( 'publish' != $bm['post_status'] ) continue;
 
 			$back_matter[$bm['ID']] = array(
-			    'post_id' => $bm['ID'],
-			    'post_title' => $bm['post_title'],
-			    'post_link' => get_permalink( $bm['ID'] ),
-			    'post_license' => get_post_meta( $bm['ID'], 'pb_section_license', true ),
-			    'post_authors' => get_post_meta( $bm['ID'], 'pb_section_author', true )
+				'post_id' => $bm['ID'],
+				'post_title' => $bm['post_title'],
+				'post_link' => get_permalink( $bm['ID'] ),
+				'post_license' => get_post_meta( $bm['ID'], 'pb_section_license', true ),
+				'post_authors' => get_post_meta( $bm['ID'], 'pb_section_author', true )
 			);
 		}
 		$toc['back-matter'] = $back_matter;
-		
+
 		restore_current_blog();
-		
+
 		return $toc;
 	}
 

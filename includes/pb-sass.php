@@ -40,7 +40,7 @@ function compile( $scss, $includes = array() ) {
 }
 
 /**
- * Write CSS to a a file in subdir named 'export-css'
+ * Write CSS to a a file in subdir named '/css/debug'
  *
  * @param string $css
  *

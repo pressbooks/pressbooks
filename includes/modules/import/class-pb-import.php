@@ -7,8 +7,6 @@
 namespace PressBooks\Modules\Import;
 
 
-use PressBooks\Modules\Import\Epub\Epub201;
-
 require_once( ABSPATH . 'wp-admin/includes/image.php' );
 require_once( ABSPATH . 'wp-admin/includes/file.php' );
 require_once( ABSPATH . 'wp-admin/includes/media.php' );
@@ -61,7 +59,7 @@ abstract class Import {
 	/**
 	 * @param array $current_import
 	 *
-	 * @return mixed
+	 * @return bool
 	 */
 	abstract function import( array $current_import );
 

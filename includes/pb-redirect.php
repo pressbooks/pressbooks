@@ -262,6 +262,7 @@ function do_api() {
 
 	// optional 'id'
 	$books_id = ( isset( $parts[0] ) ) ? $parts[0] : '';
+	$variations = array();
 
 	if ( 'v1' !== $version ) {
 		\PressBooks\Modules\Api_v1\Api::apiErrors( 'version' );
@@ -309,7 +310,7 @@ function do_api() {
 		case 'books':
 			try {
 				new \PressBooks\Modules\Api_v1\Books\BooksApi( $books_id, $variations );
-			} catch ( Exception $e ) {
+			} catch ( \Exception $e ) {
 				echo $e->getMessage();
 			}
 			break;

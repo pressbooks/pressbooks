@@ -574,12 +574,11 @@ function number_to_words( $number ) {
 /**
  * Convert integer to roman numeral
  *
- * @param      $integer
- * @param bool $upcase
+ * @param int $integer
  *
  * @return string
  */
-function romanize( $integer, $upcase = true ) {
+function romanize( $integer ) {
 
 	$integer = absint( $integer );
 

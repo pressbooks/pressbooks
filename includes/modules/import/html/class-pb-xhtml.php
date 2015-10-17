@@ -15,6 +15,7 @@ class Xhtml extends Import {
 	/**
 	 * 
 	 * @param array $current_import
+	 * @return bool
 	 */
 	function import( array $current_import ) {
 
@@ -171,7 +172,6 @@ class Xhtml extends Import {
 	 * @return array $authors
 	 */
 	protected function getAuthors( $html ) {
-		$authors = '';
 
 		// go for the book metadata set in PB <head>
 		preg_match( '/(<meta itemprop="copyrightHolder" content=")(.+)(" id="copyrightHolder")>/is', $html, $matches );
@@ -414,6 +414,7 @@ class Xhtml extends Import {
 	/**
 	 * 
 	 * @param array $upload
+	 * @return bool
 	 */
 	function setCurrentImportOption( array $upload ) {
 		// just get the body of the array

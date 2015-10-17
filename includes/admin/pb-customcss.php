@@ -227,7 +227,7 @@ function load_css_from() {
 	check_ajax_referer( 'pb-load-css-from' );
 	if ( false == current_user_can( 'edit_theme_options' ) ) die( - 1 );
 
-	$scss = '';
+	$css = '';
 	$themes = wp_get_themes( array( 'allowed' => true ) );
 	list( $theme, $slug ) = explode( '__', @$_POST['slug'] );
 
@@ -236,8 +236,8 @@ function load_css_from() {
 
 	if ( isset( $themes[$theme] ) ) {
 
-		/** @var $theme \WP_Theme */
 		$theme = $themes[$theme]; // Get theme object
+		/** @var $theme \WP_Theme */
 
 		if ( 'web' == $slug ) {
 			$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.scss' );

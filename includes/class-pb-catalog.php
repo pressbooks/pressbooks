@@ -317,7 +317,7 @@ class Catalog {
 
 		foreach ( $items as $item ) {
 			if ( isset( $item['blogs_id'] ) ) {
-				$this->saveBook( $this->userId, $item['blogs_id'], $item );
+				$this->saveBook( $this->userId, $item );
 			}
 		}
 	}
@@ -647,9 +647,6 @@ class Catalog {
 	 */
 	function saveProfile( array $item ) {
 
-		/** @var $wpdb \wpdb */
-		global $wpdb;
-
 		// Sanitize
 		$item = array_intersect_key( $item, $this->profileMetaKeys );
 
@@ -919,7 +916,7 @@ class Catalog {
 		if ( $overridden_template = locate_template( 'pb-catalog.php' ) ) {
 			load_template( $overridden_template, false );
 		} else {
-			load_template( PB_PLUGIN_DIR . 'includes/pb-catalog.php', false );
+			load_template( PB_PLUGIN_DIR . 'templates/pb-catalog.php', false );
 		}
 	}
 

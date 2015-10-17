@@ -492,8 +492,9 @@ class Docx extends Import {
 
 	/**
 	 * adds footnotes, if they are present in the chapter
-	 * 
+	 *
 	 * @param \DOMDocument $chapter
+	 * @return \DOMDocument
 	 */
 	protected function addFootnotes( \DOMDocument $chapter ) {
 
@@ -674,7 +675,7 @@ class Docx extends Import {
 	 * 
 	 * @param string $schema
 	 * @param string $id
-	 * @return string\array 
+	 * @return string
 	 */
 	protected function getTargetPath( $schema, $id = '' ) {
 		$path = '';

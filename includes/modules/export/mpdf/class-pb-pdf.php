@@ -556,12 +556,7 @@ class Pdf extends Export {
 		if ( false == $display ) {
 			return '';
 		}
-		// default is to print nothing
-		if ( empty( $content ) ) {
-			$footer = '';
-		} else {
-			$footer = $content;
-		}
+
 		// override
 		$footer = apply_filters( 'mpdf_get_footer', $content );
 		// sanitize
@@ -584,12 +579,7 @@ class Pdf extends Export {
 		if ( false == $display ) {
 			return '';
 		}
-		// default is to print nothing
-		if ( empty( $content ) ) {
-			$header = '';
-		} else {
-			$header = $content;
-		}
+
 		// override
 		$header = apply_filters( 'mpdf_get_header', $content );
 		//sanitize

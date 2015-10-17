@@ -246,8 +246,6 @@ class Pdf extends Export {
 		// --------------------------------------------------------------------
 		// CSS
 
-		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
-		
 		$scss = '';
 		$scss = apply_filters( 'pb_pdf_css_override', $scss ) . "\n";
 

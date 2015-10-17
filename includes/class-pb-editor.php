@@ -38,6 +38,7 @@ class Editor {
 	 *
 	 * @param int $pid
 	 * @param \WP_Post $post
+	 * @throws \Exception
 	 */
 	static function updateEditorStyle( $pid = null, $post = null ) {
 

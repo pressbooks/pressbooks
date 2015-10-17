@@ -139,6 +139,7 @@ class Parser {
 			$post['post_content'] = (string) $content->encoded;
 			$post['post_excerpt'] = (string) $excerpt->encoded;
 
+			/** @var \WP_Post $wp */
 			$wp = $item->children( $namespaces['wp'] );
 			$post['post_id'] = (int) $wp->post_id;
 			$post['post_date'] = (string) $wp->post_date;

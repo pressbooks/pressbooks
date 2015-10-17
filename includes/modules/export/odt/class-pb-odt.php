@@ -201,7 +201,7 @@ class Odt extends Export {
 	
 	public static function deleteDirectory( $dirpath ) {
 		if ( !is_dir( $dirpath ) ) {
-			throw new InvalidArgumentException( "$dirpath must be a directory." );
+			throw new \InvalidArgumentException( "$dirpath must be a directory." );
 		}
 		if ( substr( $dirpath, strlen( $dirpath ) - 1, 1 ) != '/' ) {
 			$dirpath .= '/';

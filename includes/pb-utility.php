@@ -272,7 +272,7 @@ function add_sitemap_to_robots_txt() {
 function do_sitemap() {
 
 	if ( 1 == get_option( 'blog_public' ) ) {
-		$template = untrailingslashit( PB_PLUGIN_DIR ) . '/includes/pb-sitemap.php';
+		$template = untrailingslashit( PB_PLUGIN_DIR ) . '/templates/pb-sitemap.php';
 		load_template( $template );
 	} else {
 		status_header( 404 );

@@ -277,7 +277,6 @@ class Book {
 		}
 		
 		return $book_structure;
-		error_log( print_r( $book_structure ) );
 	}
 
 
