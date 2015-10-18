@@ -250,8 +250,8 @@ $_current_user_id = $catalog->getUserId();
 	// <![CDATA[
 	jQuery.noConflict();
 	jQuery(function ($) {
-		$container.equalizer({ columns: '> div.book-data', min: 350, resizeable: false });
 		var $container = $('#catalog-content');
+    $container.equalizer({ columns: '> div.book-data', min: 350, resizeable: false });
 		$('.filter-group-1').click( function () {
 			var filter1_id = $(this).attr( 'data-filter' );
 			var filter1_name = $(this).text();
