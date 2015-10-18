@@ -42,7 +42,7 @@ add_action( 'wp_login', '_pb_session_kill' );
 // Minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
 
-$pb_minimum_php = '5.4.0';
+$pb_minimum_php = '5.6.0';
 function _pb_minimum_php() {
 	global $pb_minimum_php;
 	echo '<div id="message" class="error fade"><p>';
