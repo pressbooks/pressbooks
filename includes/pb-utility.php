@@ -469,6 +469,7 @@ function emailErrorLog( $emails, $subject, $message ) {
 	} );
 
 	foreach ( $emails as $email ) {
-		wp_mail( $email, $subject, $message );
+		// Call pluggable
+		\wp_mail( $email, $subject, $message );
 	}
 }
