@@ -101,7 +101,7 @@
               .toplevel_page_pb_export .export-left .export-files form.export-file span.export-file-icon.small.pdf {
                 background-image: url(../images/pdf-72.png); } }
           .toplevel_page_pb_export .export-left .export-files form.export-file span.export-file-icon.small.wxr {
-            background-image: url(../images/wxr-36-red.png); }
+            background-image: url(../images/wxr-36.png); }
             @media only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (min--moz-device-pixel-ratio: 1.3), only screen and (-o-min-device-pixel-ratio: 1.3 / 1), only screen and (min-resolution: 125dpi), only screen and (min-resolution: 1.3dppx) {
               .toplevel_page_pb_export .export-left .export-files form.export-file span.export-file-icon.small.wxr {
                 background-image: url(../images/wxr-72.png); } }
@@ -152,7 +152,7 @@
               .toplevel_page_pb_export .export-left .export-files form.export-file span.export-file-icon.large.pdf {
                 background-image: url(../images/pdf-96.png); } }
           .toplevel_page_pb_export .export-left .export-files form.export-file span.export-file-icon.large.wxr {
-            background-image: url(../images/wxr-48-red.png); }
+            background-image: url(../images/wxr-48.png); }
             @media only screen and (-webkit-min-device-pixel-ratio: 1.3), only screen and (min--moz-device-pixel-ratio: 1.3), only screen and (-o-min-device-pixel-ratio: 1.3 / 1), only screen and (min-resolution: 125dpi), only screen and (min-resolution: 1.3dppx) {
               .toplevel_page_pb_export .export-left .export-files form.export-file span.export-file-icon.large.wxr {
                 background-image: url(../images/wxr-96.png); } }
