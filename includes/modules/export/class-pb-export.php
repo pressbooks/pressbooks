@@ -234,28 +234,11 @@ abstract class Export {
 
 		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
 
-		// ------------------------------------------------------------------------------------------------------------
-		// Write to error log
-
-		error_log( $subject . "\n" . $message );
-
-		// ------------------------------------------------------------------------------------------------------------
-		// Email logs
-
 		if ( @$current_user->user_email && get_option( 'pressbooks_email_validation_logs' ) ) {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
 
-		add_filter( 'wp_mail_from', function ( $from_email ) {
-			return str_replace( 'wordpress@', 'pressbooks@', $from_email );
-		} );
-		add_filter( 'wp_mail_from_name', function ( $from_name ) {
-			return 'Pressbooks';
-		} );
-
-		foreach ( $this->errorsEmail as $email ) {
-			wp_mail( $email, $subject, $message );
-		}
+		\PressBooks\Utility\emailErrorLog( $this->errorsEmail, $subject, $message );
 	}
 
 

@@ -442,3 +442,33 @@ function format_bytes( $bytes, $precision = 2 ) {
 
     return round( $bytes, $precision ) . ' ' . $units[$pow]; 
 }
+
+
+/**
+ * Email error to an array of recipients
+ *
+ * @param array $emails
+ * @param string $subject
+ * @param string $message
+ */
+function emailErrorLog( $emails, $subject, $message ) {
+
+	// ------------------------------------------------------------------------------------------------------------
+	// Write to generic error log to be safe
+
+	error_log( $subject . "\n" . $message );
+
+	// ------------------------------------------------------------------------------------------------------------
+	// Email logs
+
+	add_filter( 'wp_mail_from', function ( $from_email ) {
+		return str_replace( 'wordpress@', 'pressbooks@', $from_email );
+	} );
+	add_filter( 'wp_mail_from_name', function ( $from_name ) {
+		return 'Pressbooks';
+	} );
+
+	foreach ( $emails as $email ) {
+		wp_mail( $email, $subject, $message );
+	}
+}
