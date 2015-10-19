@@ -10,10 +10,6 @@
 namespace PressBooks;
 
 
-use \PressBooks\Catalog;
-use \PressBooks\Metadata;
-
-
 class Book {
 
 	/**
@@ -281,7 +277,6 @@ class Book {
 		}
 		
 		return $book_structure;
-		error_log( print_r( $book_structure ) );
 	}
 
 

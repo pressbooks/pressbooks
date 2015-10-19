@@ -190,7 +190,7 @@ class Footnotes {
 	function myCustomQuicktags() {
 		wp_enqueue_script(
 			'my_custom_quicktags',
-				PB_PLUGIN_URL . 'shortcodes/footnotes/quicktags.js',
+				PB_PLUGIN_URL . 'assets/js/quicktags.min.js',
 			array( 'quicktags' )
 		);
 
@@ -224,8 +224,8 @@ class Footnotes {
 	 */
 	function addFootnotePlugin( $plugin_array ) {
 
-		$plugin_array['footnote'] = PB_PLUGIN_URL . 'shortcodes/footnotes/footnote.js?ver=1.0';
-		$plugin_array['ftnref_convert'] = PB_PLUGIN_URL . 'shortcodes/footnotes/ftnref-convert.js?ver=1.0';
+		$plugin_array['footnote'] = PB_PLUGIN_URL . 'assets/js/footnote.min.js?ver=1.0';
+		$plugin_array['ftnref_convert'] = PB_PLUGIN_URL . 'assets/js/ftnref-convert.min.js?ver=1.0';
 
 		return $plugin_array;
 	}

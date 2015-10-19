@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version))
  */
-namespace PressBooks\Export\Prince;
+namespace PressBooks\Modules\Export\Prince;
 
 
-use \PressBooks\Export\Export;
+use \PressBooks\Modules\Export\Export;
 
 class Pdf extends Export {
 
@@ -246,8 +246,6 @@ class Pdf extends Export {
 		// --------------------------------------------------------------------
 		// CSS
 
-		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
-		
 		$scss = '';
 		$scss = apply_filters( 'pb_pdf_css_override', $scss ) . "\n";
 

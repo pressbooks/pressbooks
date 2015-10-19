@@ -40,7 +40,7 @@ function group_exports() {
 
 	$ignored = array( '.', '..', '.svn', '.git', '.htaccess' );
 
-	$dir = \PressBooks\Export\Export::getExportFolder();
+	$dir = \PressBooks\Modules\Export\Export::getExportFolder();
 
 	$files = array();
 	foreach ( scandir( $dir ) as $file ) {
@@ -75,7 +75,7 @@ function group_exports() {
 function truncate_exports( $max ) {
 
 	$max = absint( $max );
-	$dir = \PressBooks\Export\Export::getExportFolder();
+	$dir = \PressBooks\Modules\Export\Export::getExportFolder();
 	$files = group_exports();
 
 	$i = 1;
@@ -272,7 +272,7 @@ function add_sitemap_to_robots_txt() {
 function do_sitemap() {
 
 	if ( 1 == get_option( 'blog_public' ) ) {
-		$template = untrailingslashit( PB_PLUGIN_DIR ) . '/includes/pb-sitemap.php';
+		$template = untrailingslashit( PB_PLUGIN_DIR ) . '/templates/pb-sitemap.php';
 		load_template( $template );
 	} else {
 		status_header( 404 );
@@ -301,7 +301,6 @@ function create_tmp_file() {
  * @return boolean
  */
 function check_prince_install() {
-	$result = false;
 
 	// @see wp-config.php
 	if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
@@ -397,20 +396,19 @@ function filter_plugins( $symbionts ) {
  */
 
 function file_upload_max_size() {
-	static $max_size = -1;
-	// This function is adapted from Drupal and http://stackoverflow.com/questions/13076480/php-get-actual-maximum-upload-size 
-	if ($max_size < 0) {
-	
+	static $returnVal = false;
+	// This function is adapted from Drupal and http://stackoverflow.com/questions/13076480/php-get-actual-maximum-upload-size
+	if ( false === $returnVal ) {
 		$post_max_size_str = ini_get( 'post_max_size' );
 		$upload_max_filesize_str = ini_get( 'upload_max_filesize' );
 		$post_max_size = parse_size( $post_max_size_str );
 		$upload_max_filesize = parse_size( $upload_max_filesize_str );
-		
+
 		// If upload_max_size is less, then reduce. Except if upload_max_size is
 		// zero, which indicates no limit.
 		$returnVal = $post_max_size_str;
 		if ( $upload_max_filesize > 0 && $upload_max_filesize < $post_max_size ) {
-		  $returnVal = $upload_max_filesize_str;
+			$returnVal = $upload_max_filesize_str;
 		}
 	}
 	return $returnVal;

@@ -3,12 +3,9 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks;
+namespace PressBooks\Admin;
 
-
-use \PressBooks\Book;
 use \PressBooks\Catalog;
-
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
@@ -30,8 +27,6 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function __construct() {
 
-		global $status, $page;
-
 		$args = array(
 			'singular' => 'book',
 			'plural' => 'books', // Parent will create bulk nonce: "bulk-{$plural}"
@@ -49,8 +44,8 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @see WP_List_Table::single_row_columns()
 	 *
-	 * @param array $item A singular item (one full row's worth of data)
-	 * @param array $column_name The name/slug of the column to be processed
+	 * @param object $item A singular item (one full row's worth of data)
+	 * @param string $column_name The name/slug of the column to be processed
 	 *
 	 * @return string Text or HTML to be placed inside the column <td>
 	 */
@@ -322,8 +317,8 @@ class Catalog_List_Table extends \WP_List_Table {
 
 
 	/**
-	 * @param array $item A singular item (one full row's worth of data)
-	 * @param array $column_name The name/slug of the column to be processed
+	 * @param object $item A singular item (one full row's worth of data)
+	 * @param string $column_name The name/slug of the column to be processed
 	 *
 	 * @return string Text to be placed inside the column <td>
 	 */

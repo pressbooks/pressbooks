@@ -4,10 +4,8 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Import;
+namespace PressBooks\Modules\Import;
 
-
-use PressBooks\Import\Epub\Epub201;
 
 require_once( ABSPATH . 'wp-admin/includes/image.php' );
 require_once( ABSPATH . 'wp-admin/includes/file.php' );
@@ -61,7 +59,7 @@ abstract class Import {
 	/**
 	 * @param array $current_import
 	 *
-	 * @return mixed
+	 * @return bool
 	 */
 	abstract function import( array $current_import );
 
@@ -216,7 +214,7 @@ abstract class Import {
 	/**
 	 * Catch form submissions
 	 *
-	 * @see pressbooks/admin/templates/import.php
+	 * @see pressbooks/templates/admin/import.php
 	 */
 	static public function formSubmit() {
 
@@ -357,7 +355,7 @@ abstract class Import {
 
 			// Something failed
 			if ( is_wp_error( $remote_head ) ) {
-				error_log( '\PressBooks\Import::formSubmit html import error, wp_remote_head()' . $remote_head->get_error_message() );
+				error_log( '\PressBooks\Modules\Import::formSubmit html import error, wp_remote_head()' . $remote_head->get_error_message() );
 				$_SESSION['pb_errors'][] = $remote_head->get_error_message();
 				\PressBooks\Redirect\location( $redirect_url );
 			}
@@ -380,7 +378,7 @@ abstract class Import {
 			// check for wp error
 			if ( is_wp_error( $body ) ) {
 				$error_message = $body->get_error_message();
-				error_log( '\PressBooks\Import::formSubmit error, import_html' . $error_message );
+				error_log( '\PressBooks\Modules\Import::formSubmit error, import_html' . $error_message );
 				$_SESSION['pb_errors'][] = $error_message;
 				\PressBooks\Redirect\location( $redirect_url );
 			}

@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Import\WordPress;
+namespace PressBooks\Modules\Import\WordPress;
 
 
-use PressBooks\Import\Import;
+use PressBooks\Modules\Import\Import;
 use PressBooks\Book;
 
 class Wxr extends Import {
@@ -245,7 +245,7 @@ class Wxr extends Import {
 	 * Insert a new post
 	 *
 	 * @param string $post_type Post Type
-	 * @param array $p Single Item Returned From \PressBooks\Import\WordPress\Parser::parse
+	 * @param array $p Single Item Returned From \PressBooks\Modules\Import\WordPress\Parser::parse
 	 * @param string $html
 	 * @param int $chapter_parent
 	 *
@@ -279,7 +279,7 @@ class Wxr extends Import {
 	 *
 	 * @param int $pid Post ID
 	 * @param string $post_type Post Type
-	 * @param array $p Single Item Returned From \PressBooks\Import\WordPress\Parser::parse
+	 * @param array $p Single Item Returned From \PressBooks\Modules\Import\WordPress\Parser::parse
 	 */
 	protected function importPbPostMeta($pid, $post_type, $p) {
 
@@ -310,7 +310,7 @@ class Wxr extends Import {
 	 * @see \PressBooks\Admin\Metaboxes\add_meta_boxes
 	 *
 	 * @param int $pid Post ID
-	 * @param array $p Single Item Returned From \PressBooks\Import\WordPress\Parser::parse
+	 * @param array $p Single Item Returned From \PressBooks\Modules\Import\WordPress\Parser::parse
 	 */
 	protected function importMetaBoxes( $pid, $p ) {
 

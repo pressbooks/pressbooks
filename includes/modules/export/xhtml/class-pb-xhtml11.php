@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Export\Xhtml;
+namespace PressBooks\Modules\Export\Xhtml;
 
 
-use PressBooks\Export\Export;
+use PressBooks\Modules\Export\Export;
 use PressBooks\Sanitize;
 
 require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
@@ -755,7 +755,7 @@ class Xhtml11 extends Export {
 												
 						echo '</a>';
 						
-						if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+						if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 							$sections = \PressBooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								echo '<ul class="sections">';
@@ -812,7 +812,7 @@ class Xhtml11 extends Export {
 
 					echo '</a>';
 					
-					if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+					if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 						$sections = \PressBooks\Book::getSubsections( $val['ID'], true );
 						if ( $sections ) {								
 							echo '<ul class="sections">';
@@ -867,7 +867,7 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				if ( $sections ) {
 					$content = \PressBooks\Book::tagSubsections( $content, $id );
@@ -993,7 +993,7 @@ class Xhtml11 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+				if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 					$sections = \PressBooks\Book::getSubsections( $id );
 					if ( $sections ) {
 						$content = \PressBooks\Book::tagSubsections( $content, $id );
@@ -1087,7 +1087,7 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \PressBooks\Export\Export::isParsingSections() == true ) {
+			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				if ( $sections ) {
 					$content = \PressBooks\Book::tagSubsections( $content, $id );

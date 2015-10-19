@@ -574,12 +574,11 @@ function number_to_words( $number ) {
 /**
  * Convert integer to roman numeral
  *
- * @param      $integer
- * @param bool $upcase
+ * @param int $integer
  *
  * @return string
  */
-function romanize( $integer, $upcase = true ) {
+function romanize( $integer ) {
 
 	$integer = absint( $integer );
 
@@ -606,7 +605,7 @@ function romanize( $integer, $upcase = true ) {
  */
 function use_book_locale() {
 
-	if ( \PressBooks\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
+	if ( \PressBooks\Modules\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
 		return true;
 	}
 

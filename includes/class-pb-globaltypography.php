@@ -15,7 +15,6 @@ class GlobalTypography {
 	 *
 	 * @return array
 	 */
-	 
 	static function getSupportedLanguages() {
 		return array(
 			'grc'		=> __( 'Ancient Greek', 'pressbooks' ),
@@ -38,33 +37,38 @@ class GlobalTypography {
 	 *
 	 * @return array
 	 */
-	 
 	static function getThemeSupportedLanguages() {
-		
+
 		$return_value = array();
-		
+
 		$fullpath = get_stylesheet_directory() . '/theme-information.php';
-		
-		if ( is_file( $fullpath ) ) require_once( $fullpath );
-				
-		if ( @$supported_languages ) $return_value = $supported_languages;
-						
+
+		if ( is_file( $fullpath ) ) {
+
+			require( $fullpath );
+
+			if ( isset( $supported_languages ) && ! empty( $supported_languages ) ) {
+				$return_value = $supported_languages;
+			}
+		}
+
 		return $return_value;
 	}
 
 	/**
 	 * Get the current theme's font stacks.
 	 *
-	 * @return array
+	 * @return string
 	 */
-	 
 	static function getThemeFontStacks() {
 		
-		$return_value = false;
+		$return_value = '';
 		
 		$fullpath = get_stylesheet_directory() . '/_mixins.scss';
 				
-		if ( is_file( $fullpath ) ) $return_value = file_get_contents( $fullpath );
+		if ( is_file( $fullpath ) ) {
+			$return_value = file_get_contents( $fullpath );
+		}
 
 		return $return_value;
 	}
@@ -74,8 +78,8 @@ class GlobalTypography {
 	 *
 	 * @param int $pid
 	 * @param \WP_Post $post
+	 * @throws \Exception
 	 */
-	 
 	static function updateGlobalTypographyMixin( $pid = null, $post = null ) {
 		
 		if ( isset( $post ) && 'metadata' !== $post->post_type )
@@ -84,6 +88,8 @@ class GlobalTypography {
 		$scss = "// Global Typography\n";
 		
 		$font_stacks = \PressBooks\GlobalTypography::getThemeFontStacks();
+
+		$sans = $serif = false;
 				
 		if ( strpos( $font_stacks, '$sans-serif' ) !== false ) {
 			$global_font_stack_sans_epub = '$sans-serif-epub: ';
@@ -174,7 +180,7 @@ class GlobalTypography {
 				switch ( $language ) {
 					case 'grc': // Ancient Greek
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_epub[] = 'SBLGreekFont';
 								$includes_prince[] = 'SBLGreekFont';
 								$includes_web[] = 'SBLGreekFont';
@@ -182,7 +188,7 @@ class GlobalTypography {
 								$global_font_stack_sans_prince .= "'SBL Greek', ";
 								$global_font_stack_sans_web .= "'SBL Greek', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_epub[] = 'SBLGreekFont';
 								$includes_prince[] = 'SBLGreekFont';
 								$includes_web[] = 'SBLGreekFont';
@@ -194,7 +200,7 @@ class GlobalTypography {
 						break;
 					case 'ar': // Arabic
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_epub[] = 'NotoKufiArabicFont';
 								$includes_prince[] = 'NotoKufiArabicFont';
 								$includes_web[] = 'NotoKufiArabicFont';
@@ -202,7 +208,7 @@ class GlobalTypography {
 								$global_font_stack_sans_prince .= "'Noto Kufi Arabic', ";
 								$global_font_stack_sans_web .= "'Noto Kufi Arabic', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_epub[] = 'NotoNaskhArabicFont';
 								$includes_prince[] = 'NotoNaskhArabicFont';
 								$includes_web[] = 'NotoNaskhArabicFont';
@@ -214,7 +220,7 @@ class GlobalTypography {
 						break;
 					case 'he': // Biblical Hebrew
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_epub[] = 'SBLHebrewFont';
 								$includes_prince[] = 'SBLHebrewFont';
 								$includes_web[] = 'SBLHebrewFont';
@@ -222,7 +228,7 @@ class GlobalTypography {
 								$global_font_stack_sans_prince .= "'SBL Hebrew', ";
 								$global_font_stack_sans_web .= "'SBL Hebrew', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_epub[] = 'SBLHebrewFont';
 								$includes_prince[] = 'SBLHebrewFont';
 								$includes_web[] = 'SBLHebrewFont';
@@ -234,13 +240,13 @@ class GlobalTypography {
 						break;
 					case 'zh_HANS': // Chinese (Simplified)
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_prince[] = 'NotoSansCJKSCFont';
 								$includes_web[] = 'NotoSansCJKSCFont';
 								$global_font_stack_sans_prince .= "'Noto Sans CJK SC', ";
 								$global_font_stack_sans_web .= "'Noto Sans CJK SC', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_prince[] = 'NotoSansCJKSCFont';
 								$includes_web[] = 'NotoSansCJKSCFont';
 								$global_font_stack_serif_prince .= "'Noto Sans CJK SC', ";
@@ -250,13 +256,13 @@ class GlobalTypography {
 						break;
 					case 'zh_HANT': // Chinese (Simplified)
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_prince[] = 'NotoSansCJKTCFont';
 								$includes_web[] = 'NotoSansCJKTCFont';
 								$global_font_stack_sans_prince .= "'Noto Sans CJK TC', ";
 								$global_font_stack_sans_web .= "'Noto Sans CJK TC', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_prince[] = 'NotoSansCJKTCFont';
 								$includes_web[] = 'NotoSansCJKTCFont';
 								$global_font_stack_serif_prince .= "'Noto Sans CJK TC', ";
@@ -266,7 +272,7 @@ class GlobalTypography {
 						break;
 					case 'cop': // Coptic
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_epub[] = 'NotoSansCopticFont';
 								$includes_prince[] = 'NotoSansCopticFont';
 								$includes_web[] = 'NotoSansCopticFont';
@@ -274,7 +280,7 @@ class GlobalTypography {
 								$global_font_stack_sans_prince .= "'Noto Sans Coptic', ";
 								$global_font_stack_sans_web .= "'Noto Sans Coptic', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_epub[] = 'AntinoouFont';
 								$includes_prince[] = 'AntinoouFont';
 								$includes_web[] = 'AntinoouFont';
@@ -286,7 +292,7 @@ class GlobalTypography {
 						break;
 					case 'gu': // Gujarati
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_epub[] = 'NotoSansGujaratiFont';
 								$includes_prince[] = 'NotoSansGujaratiFont';
 								$includes_web[] = 'NotoSansGujaratiFont';
@@ -294,7 +300,7 @@ class GlobalTypography {
 								$global_font_stack_sans_prince .= "'Noto Sans Gujarati', ";
 								$global_font_stack_sans_web .= "'Noto Sans Gujarati', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_epub[] = 'EkatraFont';
 								$includes_prince[] = 'EkatraFont';
 								$includes_web[] = 'EkatraFont';
@@ -306,13 +312,13 @@ class GlobalTypography {
 						break;
 					case 'ja': // Japanese
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_prince[] = 'NotoSansCJKJPFont';
 								$includes_web[] = 'NotoSansCJKJPFont';
 								$global_font_stack_sans_prince .= "'Noto Sans CJK JP', ";
 								$global_font_stack_sans_web .= "'Noto Sans CJK JP', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_prince[] = 'NotoSansCJKJPFont';
 								$includes_web[] = 'NotoSansCJKJPFont';
 								$global_font_stack_serif_prince .= "'Noto Sans CJK JP', ";
@@ -322,13 +328,13 @@ class GlobalTypography {
 						break;
 					case 'ko': // Korean
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_prince[] = 'NotoSansCJKKRFont';
 								$includes_web[] = 'NotoSansCJKKRFont';
 								$global_font_stack_sans_prince .= "'Noto Sans CJK KR', ";
 								$global_font_stack_sans_web .= "'Noto Sans CJK KR', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_prince[] = 'NotoSansCJKKRFont';
 								$includes_web[] = 'NotoSansCJKKRFont';
 								$global_font_stack_serif_prince .= "'Noto Sans CJK KR', ";
@@ -338,7 +344,7 @@ class GlobalTypography {
 						break;
 					case 'syr': // Syriac
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_epub[] = 'NotoSansSyriacFont';
 								$includes_prince[] = 'NotoSansSyriacFont';
 								$includes_web[] = 'NotoSansSyriacFont';
@@ -346,7 +352,7 @@ class GlobalTypography {
 								$global_font_stack_sans_prince .= "'Noto Sans Syriac', ";
 								$global_font_stack_sans_web .= "'Noto Sans Syriac', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_epub[] = 'NotoSansSyriacFont';
 								$includes_prince[] = 'NotoSansSyriacFont';
 								$includes_web[] = 'NotoSansSyriacFont';
@@ -358,7 +364,7 @@ class GlobalTypography {
 						break;
 					case 'ta': // Tamil
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_epub[] = 'NotoSansTamilFont';
 								$includes_prince[] = 'NotoSansTamilFont';
 								$includes_web[] = 'NotoSansTamilFont';
@@ -366,7 +372,7 @@ class GlobalTypography {
 								$global_font_stack_sans_prince .= "'Noto Sans Tamil', ";
 								$global_font_stack_sans_web .= "'Noto Sans Tamil', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_epub[] = 'NotoSansTamilFont';
 								$includes_prince[] = 'NotoSansTamilFont';
 								$includes_web[] = 'NotoSansTamilFont';
@@ -378,7 +384,7 @@ class GlobalTypography {
 						break;
 					case 'bo': // Tibetan
 						if ( !in_array( $language, $already_supported_languages ) ) {
-							if ( @$sans ) {
+							if ( $sans ) {
 								$includes_epub[] = 'NotoSansTibetanFont';
 								$includes_prince[] = 'NotoSansTibetanFont';
 								$includes_web[] = 'NotoSansTibetanFont';
@@ -386,7 +392,7 @@ class GlobalTypography {
 								$global_font_stack_sans_prince .= "'Noto Sans Tibetan', ";
 								$global_font_stack_sans_web .= "'Noto Sans Tibetan', ";
 							}
-							if ( @$serif ) {
+							if ( $serif ) {
 								$includes_epub[] = 'NotoSansTibetanFont';
 								$includes_prince[] = 'NotoSansTibetanFont';
 								$includes_web[] = 'NotoSansTibetanFont';
@@ -463,8 +469,8 @@ class GlobalTypography {
 	 *
 	 * @param int $pid
 	 * @param \WP_Post $post
+	 * @throws \Exception
 	 */
-	 
 	static function updateWebBookStyleSheet( $pid = null, $post = null ) {
 		
 		if ( isset( $post ) && 'metadata' !== $post->post_type )

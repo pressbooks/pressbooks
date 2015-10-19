@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) )
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'admin/pb-admin-branding.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-branding.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-sass.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
@@ -48,7 +48,7 @@ add_action( 'init', '\PressBooks\L10n\load_plugin_textdomain' );
 add_filter( 'gettext', '\PressBooks\L10n\override_core_strings', 10, 3 );
 
 if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
-	add_filter( 'locale', '\PressBooks\Export\Export::setLocale' );
+	add_filter( 'locale', '\PressBooks\Modules\Export\Export::setLocale' );
 } elseif ( \PressBooks\Book::isBook() ) {
 	add_filter( 'locale', '\PressBooks\L10n\set_locale' );
 } elseif ( ! \PressBooks\Book::isBook() ) {

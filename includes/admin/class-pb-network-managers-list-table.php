@@ -6,7 +6,7 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks;
+namespace PressBooks\Admin;
 
 if ( !class_exists( 'WP_List_Table' ) ) {
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
@@ -21,7 +21,6 @@ class Network_Managers_List_Table extends \WP_List_Table {
      * Constructor.
      ***************************************************************************/
     function __construct() {
-        global $status, $page;
                 
         parent::__construct( array(
             'singular'  => 'super-admin',
@@ -122,7 +121,8 @@ class Network_Managers_List_Table extends \WP_List_Table {
 
     /**
      * Set up classes for a single row based on active status
-     * 
+     *
+     * @param object $item The current item
      * @return string A row of cells
      */
 	function single_row( $item ) {
@@ -130,14 +130,14 @@ class Network_Managers_List_Table extends \WP_List_Table {
 		if ( $item['restricted'] == 1 )
 			$class = 'restricted';
 		echo "<tr id='" . $item['ID'] . "' class='$class'>";
-		echo $this->single_row_columns( $item );
+		$this->single_row_columns( $item );
 		echo "</tr>\n";
 	}
 
     /** ************************************************************************
      * Prepare data for display
      * 
-     * @global WPDB $wpdb
+     * @global \wpdb $wpdb
      * @uses $this->_column_headers
      * @uses $this->items
      * @uses $this->get_columns()

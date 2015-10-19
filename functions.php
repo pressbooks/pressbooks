@@ -98,13 +98,13 @@ function pb_is_custom_theme() {
 }
 
 /**
- * Shortcut to \PressBooks\Export::isScss();
+ * Shortcut to \PressBooks\Modules\Export::isScss();
  *
  * @return bool
  */
 function pb_is_scss() {
 
-	return \PressBooks\Export\Export::isScss();
+	return \PressBooks\Modules\Export\Export::isScss();
 }
 
 
@@ -254,7 +254,7 @@ function pb_get_sections( $id ) {
  * @return boolean
  */
 function pb_should_parse_sections() {
-	return \PressBooks\Export\Export::isParsingSections();
+	return \PressBooks\Modules\Export\Export::isParsingSections();
 }
 
 /**

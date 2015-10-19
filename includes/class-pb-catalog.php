@@ -317,7 +317,7 @@ class Catalog {
 
 		foreach ( $items as $item ) {
 			if ( isset( $item['blogs_id'] ) ) {
-				$this->saveBook( $this->userId, $item['blogs_id'], $item );
+				$this->saveBook( $this->userId, $item );
 			}
 		}
 	}
@@ -647,9 +647,6 @@ class Catalog {
 	 */
 	function saveProfile( array $item ) {
 
-		/** @var $wpdb \wpdb */
-		global $wpdb;
-
 		// Sanitize
 		$item = array_intersect_key( $item, $this->profileMetaKeys );
 
@@ -891,7 +888,7 @@ class Catalog {
 
 			case 'edit_profile':
 			case 'edit_tags':
-				require( PB_PLUGIN_DIR . 'admin/templates/catalog.php' );
+				require( PB_PLUGIN_DIR . 'templates/admin/catalog.php' );
 				break;
 
 			case 'add':
@@ -900,7 +897,7 @@ class Catalog {
 				break;
 
 			default:
-				Catalog_List_Table::addMenu();
+				Admin\Catalog_List_Table::addMenu();
 				break;
 		}
 	}
@@ -919,7 +916,7 @@ class Catalog {
 		if ( $overridden_template = locate_template( 'pb-catalog.php' ) ) {
 			load_template( $overridden_template, false );
 		} else {
-			load_template( PB_PLUGIN_DIR . 'includes/pb-catalog.php', false );
+			load_template( PB_PLUGIN_DIR . 'templates/pb-catalog.php', false );
 		}
 	}
 
@@ -1037,7 +1034,7 @@ class Catalog {
 	protected static function formBulk( $action ) {
 
 		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
-		$redirect_url = Catalog_List_Table::addSearchParamsToUrl( $redirect_url );
+		$redirect_url = Admin\Catalog_List_Table::addSearchParamsToUrl( $redirect_url );
 
 		/* Sanity check */
 

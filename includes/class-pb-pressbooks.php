@@ -6,8 +6,6 @@
 namespace PressBooks;
 
 
-use PressBooks\Book;
-
 
 class PressBooks {
 

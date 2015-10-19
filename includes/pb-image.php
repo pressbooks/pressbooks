@@ -352,8 +352,8 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 							jQuery("#cover_image_preview").fadeOut("slow", function () {
 								jQuery("#cover_image_preview").load(function () { //avoiding blinking, wait until loaded
 									jQuery("#cover_image_preview").fadeIn();
-								});
-								jQuery('#cover_image_preview').attr('src', '<?php echo \PressBooks\Image\default_cover_url(); ?>');
+								})
+								.attr('src', '<?php echo \PressBooks\Image\default_cover_url(); ?>');
 							});
 						}
 					});

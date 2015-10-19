@@ -250,30 +250,31 @@ $_current_user_id = $catalog->getUserId();
 	// <![CDATA[
 	jQuery.noConflict();
 	jQuery(function ($) {
-		$container.equalizer({ columns: '> div.book-data', min: 350, resizeable: false });
 		var $container = $('#catalog-content');
+		$container.equalizer({ columns: '> div.book-data', min: 350, resizeable: false });
 		$('.filter-group-1').click( function () {
 			var filter1_id = $(this).attr( 'data-filter' );
 			var filter1_name = $(this).text();
+			var filter2_id, filter2_name, currentFilterIDs, currentFilters;
 			if ( $('.filter-group-2.active').length !== 0 ) {
-				var filter2_id = $('.filter-group-2.active').attr( 'data-filter' );
-				var filter2_name = $('.filter-group-2.active').text();
+				filter2_id = $('.filter-group-2.active').attr( 'data-filter' );
+				filter2_name = $('.filter-group-2.active').text();
 			} else {
-				var filter2_id = '';
-				var filter2_name = '';
+				filter2_id = '';
+				filter2_name = '';
 			}
 			if ( filter2_id !== '' ) {
-				var currentFilterIDs = filter1_id + filter2_id;
+				currentFilterIDs = filter1_id + filter2_id;
 			} else {
-				var currentFilterIDs = filter1_id;
+				currentFilterIDs = filter1_id;
 			}
 			$container.isotope({ filter: currentFilterIDs });
 			$('.filter-group-1.active').removeClass( 'active' );
 			$(this).addClass( 'active' );
 			if ( filter2_name !== '' ) {
-				var currentFilters = filter1_name + ', ' + filter2_name;
+				currentFilters = filter1_name + ', ' + filter2_name;
 			} else {
-				var currentFilters = filter1_name;
+				currentFilters = filter1_name;
 			}
 			$('.catalog-content-wrap h1 span.current-filters').text(currentFilters).show();
 			$('.catalog-content-wrap h1 span.filtered-by').show();
@@ -282,25 +283,26 @@ $_current_user_id = $catalog->getUserId();
 		$('.filter-group-2').click( function () {
 			var filter2_id = $(this).attr( 'data-filter' );
 			var filter2_name = $(this).text();
+			var filter1_id, filter1_name, currentFilterIDs, currentFilters;
 			if ( $('.filter-group-1.active').length !== 0 ) {
-				var filter1_id = $('.filter-group-1.active').attr( 'data-filter' );
-				var filter1_name = $('.filter-group-1.active').text();
+				filter1_id = $('.filter-group-1.active').attr( 'data-filter' );
+				filter1_name = $('.filter-group-1.active').text();
 			} else {
-				var filter1_id = '';
-				var filter1_name = '';
+				filter1_id = '';
+				filter1_name = '';
 			}
 			if ( filter1_id !== '' ) {
-				var currentFilterIDs = filter1_id + filter2_id;
+				currentFilterIDs = filter1_id + filter2_id;
 			} else {
-				var currentFilterIDs = filter2_id;
+				currentFilterIDs = filter2_id;
 			}
 			$container.isotope({ filter: currentFilterIDs });
 			$('.filter-group-2.active').removeClass( 'active' );
 			$(this).addClass( 'active' );
 			if ( filter1_name !== '' ) {
-				var currentFilters = filter1_name + ', ' + filter2_name;
+				currentFilters = filter1_name + ', ' + filter2_name;
 			} else {
-				var currentFilters = filter2_name;
+				currentFilters = filter2_name;
 			}
 			$('.catalog-content-wrap h1 span.current-filters').text(currentFilters).show();
 			$('.catalog-content-wrap h1 span.filtered-by').show();
@@ -313,11 +315,11 @@ $_current_user_id = $catalog->getUserId();
 			$('.catalog-content-wrap h1 span.filtered-by').hide();
 			$('.catalog-content-wrap h1 span.clear-filters').hide();
 			$('.catalog-content-wrap h1 span.current-filters').text( '' );
-		    e.preventDefault();
+			e.preventDefault();
 		});
 		$container.isotope({
 			itemSelector: '.book-data',
-			layoutMode: 'fitRows',
+			layoutMode: 'fitRows'
 		});
 		function webkitTrigger( isoInstance, laidOutItems ) {
 			$container.equalizer();

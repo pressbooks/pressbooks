@@ -7,7 +7,7 @@ namespace PressBooks\Media;
 
 /**
  * Filter to alter the list of acceptable file extensions
- * @see \PressBooks\Export\Epub3
+ * @see \PressBooks\Modules\Export\Epub3
  *
  * @param array $existing_mimes
  *
