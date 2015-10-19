@@ -52,7 +52,6 @@ $type: 'prince';
 @import 'mixins';
 ```
 
-
 == PDF (Prince) Best Practices ==
 
 1. Use CSS and JavaScript as outlined in the [Prince user guide](http://www.princexml.com/doc/).

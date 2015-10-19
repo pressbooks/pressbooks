@@ -197,12 +197,13 @@ TK.
 == Changelog ==
 
 = 3.0 =
-* SASS-y themes: book themes are now built with SASS and compiled for export or web display using either the bundled scssphp compiler (https://github.com/leafo/scssphp/) or the SASS PHP extension if installed (https://github.com/sensational/sassphp).
+* SASS-y themes: book themes are now built with SASS (specifically the SCSS variant) and compiled for export or web display using either the bundled scssphp compiler (https://github.com/leafo/scssphp/) or the SASS PHP extension if installed (https://github.com/sensational/sassphp). See `/docs/themes-book.txt` for details if you are developing your own themes.
 * Global Typography: users can add fonts to display Ancient Greek, Arabic, Biblical Hebrew, Chinese (Simplified or Traditional), Coptic, Gujarati, Japanese, Korean, Syriac, Tamil or Tibetan in any theme across all standard export formats via the Theme Options page.
 * EPUB 3: the current version of the EPUB standard is now fully supported and will soon become Pressbooks' default EPUB export format.
 * Added support for importing book information from a Pressbooks XML file.
 * Added support for persistent export format selections on the Export page.
 * Added the ability to show or hide front matter, chapter and back matter titles on the Organize page.
+* Added initial support for unit testing.
 * Updated the Prince command line wrapper to support Prince 10r5.
 * Updated export icons to support Retina screens.
 * Fixed an issue where Norwegian localization files were not being properly loaded.
@@ -212,6 +213,7 @@ TK.
 * Fixed an issue with multi-level TOC styling in bundled book themes.
 * Fixed an issue with EPUB images.
 * Fixed some PHP warnings.
+* Refactored some code for consistent namespacing and other improvements.
 * Various localization updates.
 * Various performance enhancements.
 
