@@ -12,13 +12,13 @@ namespace PressBooks\SASS;
  *
  * @param string $scss
  *
- * @return string|false the compiled CSS, false on failiure
+ * @return string the compiled CSS (or empty string on error)
  */
 function compile( $scss, $includes = array() ) {
-	
-	$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
 
 	try {
+
+		$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
 
 		if ( $scss !== '' ) {
 			if ( extension_loaded( 'sass' ) ) { // use sassphp extension
@@ -43,44 +43,26 @@ function compile( $scss, $includes = array() ) {
 
 		$message = sprintf( __( 'There was a problem with SASS. Contact your site administrator. Error: %s', 'pressbooks' ), $e->getMessage() );
 		$_SESSION['pb_errors'][] = $message;
-		_logError( '[ SASS Compile Error ]', $e );
-		return false;
+		_logException( $e );
+		return ''; // Return empty string on error
 	}
 
 	return $css;
 }
 
 /**
- * Write CSS to a a file in subdir named '/css/debug'
+ * Log Exceptions
  *
- * @param string $css
- *
- * @param string $filename
- */
-function debug( $css, $filename ) {
-    // Output compiled CSS for debugging.
-    $wp_upload_dir = wp_upload_dir();
-	$debug_dir = $wp_upload_dir['basedir'] . '/css/debug';
-	if ( ! is_dir( $debug_dir ) ) {
-		mkdir( $debug_dir );
-	}
-	$debug_file = $debug_dir . '/' . $filename;
-	file_put_contents( $debug_file, $css );
-}
-
-
-/**
- * Log an error we care about.
- *
- * @param string $subject
  * @param \Exception $e
  */
-function _logError( $subject, $e ) {
+function _logException( \Exception $e ) {
 
 	// List of people who care about SASS Errors
 	$emails = array(
 		'errors@pressbooks.com',
 	);
+
+	$subject = '[ SASS Error ]';
 
 	/** $var \WP_User $current_user */
 	global $current_user;
@@ -106,4 +88,22 @@ function _logError( $subject, $e ) {
 		$subject,
 		$message
 	);
+}
+
+/**
+ * Write CSS to a a file in subdir named '/css/debug'
+ *
+ * @param string $css
+ *
+ * @param string $filename
+ */
+function debug( $css, $filename ) {
+	// Output compiled CSS for debugging.
+	$wp_upload_dir = wp_upload_dir();
+	$debug_dir = $wp_upload_dir['basedir'] . '/css/debug';
+	if ( ! is_dir( $debug_dir ) ) {
+		mkdir( $debug_dir );
+	}
+	$debug_file = $debug_dir . '/' . $filename;
+	file_put_contents( $debug_file, $css );
 }

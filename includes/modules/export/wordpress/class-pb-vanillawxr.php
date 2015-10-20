@@ -63,7 +63,8 @@ class VanillaWxr extends Wxr {
 
 		// when you remove a child node, the next node becomes the first one,
 		// hence '$term->item(0)' and NOT '$term->item($i)'
-		for ( $i = 0; $i = $term->length; $i ++ ) {
+		$length = $term->length;
+		for ( $i = 0; $i < $length; $i ++ ) {
 			$this->deleteNode( $term->item( 0 ) );
 		}
 		
