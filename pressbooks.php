@@ -77,9 +77,9 @@ spl_autoload_register( '_pressbooks_autoload' );
 // -------------------------------------------------------------------------------------------------------------------
 
 // Override PHP version at your own risk!
+global $pb_minimum_php;
 if ( ! isset( $pb_minimum_php ) ) $pb_minimum_php = '5.6.0';
 function _pb_minimum_php() {
-	global $pb_minimum_php;
 	echo '<div id="message" class="error fade"><p>';
 	printf( __( 'Pressbooks will not work with your version of PHP. Pressbooks requires PHP version %s or greater. Please upgrade PHP if you would like to use Pressbooks.', 'pressbooks' ), $pb_minimum_php );
 	echo '</p></div>';
