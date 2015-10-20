@@ -57,13 +57,14 @@ if ( ! defined( 'PB_PLUGIN_URL' ) )
 
 function _pressbooks_autoload( $class_name ) {
 
-	$parts = explode( '\\', strtolower( $class_name ) );
-
-	if ( strpos( @$parts[0], 'pressbooks' ) !== 0 ) {
+	$prefix = 'PressBooks\\';
+	$len = strlen( $prefix );
+	if ( strncmp( $prefix, $class_name, $len ) !== 0 ) {
 		// Ignore classes not in our namespace
 		return;
 	}
 
+	$parts = explode( '\\', strtolower( $class_name ) );
 	array_shift( $parts );
 	$class_file = 'class-pb-' . str_replace( '_', '-', array_pop( $parts ) ) . '.php';
 	$path = count( $parts ) ? implode( '/', $parts ) . '/' : '';
