@@ -78,6 +78,7 @@ spl_autoload_register( '_pressbooks_autoload' );
 // -------------------------------------------------------------------------------------------------------------------
 
 // Override PHP version at your own risk!
+global $pb_minimum_php;
 if ( ! isset( $pb_minimum_php ) ) $pb_minimum_php = '5.6.0';
 function _pb_minimum_php() {
 	global $pb_minimum_php;
