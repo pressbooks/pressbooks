@@ -204,7 +204,7 @@ class Pdf extends Export {
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 
 		$scss = file_get_contents( $this->exportStylePath );
-		$scss .= "\n";
+		$scss .= "\n"; // ensure newline
 		$scss .= $this->cssOverrides;
 		
 		if ( $this->isScss() ) {
