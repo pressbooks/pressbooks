@@ -635,11 +635,11 @@ class Epub201 extends Export {
 		$scss = file_get_contents( $path_to_copy_of_stylesheet );
 
 		if ( $this->extraCss ) {
-			$scss .= $this->loadTemplate( $this->extraCss );
+			$scss .= "\n" . $this->loadTemplate( $this->extraCss );
 		}
 
 		// Append overrides
-		$scss .= $this->cssOverrides;
+		$scss .= "\n" . $this->cssOverrides;
 
 		if ( $this->isScss() ) {
 			$css = \PressBooks\SASS\compile( $scss, array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) );
@@ -705,7 +705,7 @@ class Epub201 extends Export {
 		file_put_contents( $path_to_copy_of_stylesheet, $css );
 
 		if ( WP_DEBUG ) {
-			\PressBooks\SASS\debug( $css, 'epub.css' );
+			\PressBooks\SASS\debug( $css, $scss, 'epub' );
 		}
 
 	}
