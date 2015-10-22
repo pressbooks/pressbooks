@@ -34,7 +34,11 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.3.1. Lower versions are not supported.
+ * Pressbooks works with PHP 5.6.x and WordPress 4.3.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ 
+	$pb_minimum_php = 5.4;
+	
+However, we encourage you to upgrade your environment instead as [PHP 5.4 is no longer supported](http://php.net/supported-versions.php).
 
 *Part 1, WordPress generic:*
 
@@ -192,7 +196,7 @@ TK.
 
 == Upgrade Notice ==
 
-TK.
+Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
 
@@ -204,6 +208,7 @@ TK.
 * Added support for persistent export format selections on the Export page.
 * Added the ability to show or hide front matter, chapter and back matter titles on the Organize page.
 * Added initial support for unit testing.
+* Requires PHP 5.6 (this can be overridden by setting `$pb_minimum_php` in wp-config.php, but we do not encourage this).
 * Updated the Prince command line wrapper to support Prince 10r5.
 * Updated export icons to support Retina screens.
 * Fixed an issue where Norwegian localization files were not being properly loaded.
