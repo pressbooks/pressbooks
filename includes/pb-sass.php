@@ -36,7 +36,7 @@ function compile( $scss, $includes = array() ) {
 				$sass = new \Leafo\ScssPhp\Compiler;
 				$sass->setImportPaths( $includes );
 				$css = $sass->compile( $scss );
-			}
+ 			}
 		}
 
 	} catch ( \Exception $e ) {
@@ -97,13 +97,15 @@ function _logException( \Exception $e ) {
  *
  * @param string $filename
  */
-function debug( $css, $filename ) {
-	// Output compiled CSS for debugging.
+function debug( $css, $scss, $filename ) {
+	// Output SCSS and compiled CSS for debugging.
 	$wp_upload_dir = wp_upload_dir();
 	$debug_dir = $wp_upload_dir['basedir'] . '/css/debug';
 	if ( ! is_dir( $debug_dir ) ) {
 		mkdir( $debug_dir );
 	}
-	$debug_file = $debug_dir . '/' . $filename;
-	file_put_contents( $debug_file, $css );
+	$css_debug_file = $debug_dir . '/' . $filename . '.css';
+	$scss_debug_file = $debug_dir . '/' . $filename . '.scss';
+	file_put_contents( $css_debug_file, $css );
+	file_put_contents( $scss_debug_file, $scss );
 }

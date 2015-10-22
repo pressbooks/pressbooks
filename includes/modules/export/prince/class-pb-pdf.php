@@ -121,10 +121,6 @@ class Pdf extends Export {
 		$css_file = $this->createTmpFile();
 		file_put_contents( $css_file, $css );
 
-		if ( WP_DEBUG ) {
-		    \PressBooks\SASS\debug( $css, 'prince.css' );
-		}
-
 		// Save PDF as file in exports folder
 		$prince = new \Prince( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
@@ -235,6 +231,10 @@ class Pdf extends Export {
 
 		}, $css );
 				
+		if ( WP_DEBUG ) {
+			\PressBooks\SASS\debug( $css, $scss, 'prince' );
+		}
+
 		return $css;
 	}
 
