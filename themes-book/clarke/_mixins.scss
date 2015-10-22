@@ -15,7 +15,7 @@ Template: pressbooks-book
 	$font-1: "Times New Roman", Times, Georgia, $serif-epub;
 	$font-2: Helvetica, Arial, $sans-serif-epub;
 } @else if $type == 'prince' {
-	$font-1: "Times New Roman", Georgia, $serif-prince;
+	$font-1: "Tinos", Georgia, $serif-prince;
 	$font-2: 'Lato', Helvetica, Arial, $sans-serif-prince;
 } @else if $type == 'web' {
 	$font-1: "Times New Roman", Georgia, $serif-web;

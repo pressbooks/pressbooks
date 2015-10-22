@@ -1,3 +1,6 @@
+//CLARKE - PRINCE
+
+
 $type: 'prince';
 
 @import 'mixins', 'pdf-house-style';
@@ -6,6 +9,7 @@ $type: 'prince';
 ===========	*/
 
 @include LatoFont;
+@include TinosFont;
 
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
 h1, h2, h3, h4, h5, h6 {
