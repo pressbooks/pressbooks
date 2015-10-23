@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) )
 
 /**
  * Check if installation environment meets minimum PB requirements.
- * Can be shared by other plugins that depend on pressbooks. Example usage:
+ * Can be shared by other plugins that depend on Pressbooks. Example usage:
  *
  *     if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
  *         add_action( 'admin_notices', function () {
