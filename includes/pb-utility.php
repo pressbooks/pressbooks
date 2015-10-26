@@ -473,3 +473,28 @@ function email_error_log( $emails, $subject, $message ) {
 		\wp_mail( $email, $subject, $message );
 	}
 }
+
+
+/**
+ * Simple template system.
+ *
+ * @param string $path
+ * @param array $vars (optional)
+ *
+ * @return string
+ * @throws \Exception
+ */
+function template( $path, array $vars = array() ) {
+
+	if ( ! file_exists( $path ) ) {
+		throw new \Exception( "File not found: $path" );
+	}
+
+	ob_start();
+	extract( $vars );
+	include( $path );
+	$output = ob_get_contents();
+	ob_end_clean();
+
+	return $output;
+}
