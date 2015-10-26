@@ -83,7 +83,7 @@ function _logException( \Exception $e ) {
 
 	$message = print_r( array_merge( $info ), true );
 
-	\PressBooks\Utility\emailErrorLog(
+	\PressBooks\Utility\email_error_log(
 		$emails,
 		$subject,
 		$message

@@ -459,7 +459,7 @@ abstract class Import {
 
 		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
 
-		\PressBooks\Utility\emailErrorLog( self::$logsEmail, $subject, $message );
+		\PressBooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
 	}
 
 

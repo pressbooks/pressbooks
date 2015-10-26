@@ -238,7 +238,7 @@ abstract class Export {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
 
-		\PressBooks\Utility\emailErrorLog( $this->errorsEmail, $subject, $message );
+		\PressBooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
 	}
 
 

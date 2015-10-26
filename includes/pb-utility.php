@@ -451,7 +451,7 @@ function format_bytes( $bytes, $precision = 2 ) {
  * @param string $subject
  * @param string $message
  */
-function emailErrorLog( $emails, $subject, $message ) {
+function email_error_log( $emails, $subject, $message ) {
 
 	// ------------------------------------------------------------------------------------------------------------
 	// Write to generic error log to be safe
