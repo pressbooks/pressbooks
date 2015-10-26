@@ -451,7 +451,7 @@ function format_bytes( $bytes, $precision = 2 ) {
  * @param string $subject
  * @param string $message
  */
-function emailErrorLog( $emails, $subject, $message ) {
+function email_error_log( $emails, $subject, $message ) {
 
 	// ------------------------------------------------------------------------------------------------------------
 	// Write to generic error log to be safe
@@ -472,4 +472,29 @@ function emailErrorLog( $emails, $subject, $message ) {
 		// Call pluggable
 		\wp_mail( $email, $subject, $message );
 	}
+}
+
+
+/**
+ * Simple template system.
+ *
+ * @param string $path
+ * @param array $vars (optional)
+ *
+ * @return string
+ * @throws \Exception
+ */
+function template( $path, array $vars = array() ) {
+
+	if ( ! file_exists( $path ) ) {
+		throw new \Exception( "File not found: $path" );
+	}
+
+	ob_start();
+	extract( $vars );
+	include( $path );
+	$output = ob_get_contents();
+	ob_end_clean();
+
+	return $output;
 }

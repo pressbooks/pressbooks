@@ -238,7 +238,7 @@ abstract class Export {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
 
-		\PressBooks\Utility\emailErrorLog( $this->errorsEmail, $subject, $message );
+		\PressBooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
 	}
 
 
@@ -529,7 +529,7 @@ abstract class Export {
 	/**
 	 * Simple template system.
 	 *
-	 * @param       $path
+	 * @param string $path
 	 * @param array $vars (optional)
 	 *
 	 * @return string
@@ -537,17 +537,7 @@ abstract class Export {
 	 */
 	protected function loadTemplate( $path, array $vars = array() ) {
 
-		if ( ! file_exists( $path ) ) {
-			throw new \Exception( "File not found: $path" );
-		}
-
-		ob_start();
-		extract( $vars );
-		include( $path );
-		$output = ob_get_contents();
-		ob_end_clean();
-
-		return $output;
+		return \PressBooks\Utility\template($path, $vars);
 	}
 
 
