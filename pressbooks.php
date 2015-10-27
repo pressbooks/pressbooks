@@ -77,7 +77,7 @@ spl_autoload_register( '_pressbooks_autoload' );
 // Check minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+if ( ! @include_once( __DIR__ . '/compatibility.php' ) ) {
 	add_action( 'admin_notices', function () {
 		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 	} );
