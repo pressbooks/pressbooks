@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-09-08 22:49-0300\n"
-"PO-Revision-Date: 2015-10-16 12:29-0300\n"
+"PO-Revision-Date: 2015-10-29 16:05-0400\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Khmer (Cambodia) (http://www.transifex.com/pressbooks/pressbooks/language/km_KH/)\n"
 "MIME-Version: 1.0\n"
@@ -30,11 +30,15 @@ msgstr "អាន​សៀវភៅ"
 msgid "Visit Admin"
 msgstr "ចូលទៅ Admin"
 
-#: admin/class-pb-catalog-list-table.php:114 admin/class-pb-catalog-list-table.php:226 admin/class-pb-catalog-list-table.php:456
+#: admin/class-pb-catalog-list-table.php:114
+#: admin/class-pb-catalog-list-table.php:226
+#: admin/class-pb-catalog-list-table.php:456
 msgid "Hide in Catalog"
 msgstr "លាក់ពីក្នុងបញ្ជីកាតាឡុក"
 
-#: admin/class-pb-catalog-list-table.php:119 admin/class-pb-catalog-list-table.php:225 admin/class-pb-catalog-list-table.php:455
+#: admin/class-pb-catalog-list-table.php:119
+#: admin/class-pb-catalog-list-table.php:225
+#: admin/class-pb-catalog-list-table.php:455
 msgid "Show in Catalog"
 msgstr "បង្ហាញក្នុងបញ្ជីកាតាឡុក"
 
@@ -46,7 +50,9 @@ msgstr "ស្ថានភាពកាតាឡុក"
 msgid "Privacy Status"
 msgstr "ស្ថានភាព​ភាពឯកជន"
 
-#: admin/class-pb-catalog-list-table.php:182 includes/class-pb-activation.php:171 includes/modules/export/epub/class-pb-epub201.php:677
+#: admin/class-pb-catalog-list-table.php:182
+#: includes/class-pb-activation.php:171
+#: includes/modules/export/epub/class-pb-epub201.php:677
 msgid "Cover"
 msgstr "ក្រប"
 
@@ -54,7 +60,9 @@ msgstr "ក្រប"
 msgid "Title"
 msgstr "ចំណងជើង"
 
-#: admin/class-pb-catalog-list-table.php:184 admin/pb-admin-metaboxes.php:193 admin/templates/organize.php:77 admin/templates/organize.php:148 themes-book/pressbooks-book/functions.php:15
+#: admin/class-pb-catalog-list-table.php:184 admin/pb-admin-metaboxes.php:193
+#: admin/templates/organize.php:77 admin/templates/organize.php:148
+#: themes-book/pressbooks-book/functions.php:15
 msgid "Author"
 msgstr "អ្នក​និពន្ធ"
 
@@ -74,11 +82,14 @@ msgstr "កាលបរិច្ឆេទ​បោះពុម្ព"
 msgid "Edit Tags"
 msgstr "កែសម្រួលស្លាក"
 
-#: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:98 admin/templates/organize.php:21 admin/templates/organize.php:27 admin/templates/organize.php:80 admin/templates/organize.php:151
+#: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:98
+#: admin/templates/organize.php:21 admin/templates/organize.php:27
+#: admin/templates/organize.php:80 admin/templates/organize.php:151
 msgid "Private"
 msgstr "ឯកជន"
 
-#: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:100 admin/templates/organize.php:19 admin/templates/organize.php:24
+#: admin/class-pb-catalog-list-table.php:378 admin/pb-admin-laf.php:100
+#: admin/templates/organize.php:19 admin/templates/organize.php:24
 msgid "Public"
 msgstr "សាធារណៈ"
 
@@ -102,7 +113,8 @@ msgstr "ចែករំលែកបញ្ជីកាតាឡុករបស់
 msgid "The public link to your catalog page"
 msgstr "តំណទៅទំព័របញ្ជីកាតាឡុកសាធារណៈរបស់អ្នក"
 
-#: admin/class-pb-catalog-list-table.php:466 admin/pb-admin-laf.php:186 admin/pb-admin-laf.php:202 admin/pb-admin-laf.php:308
+#: admin/class-pb-catalog-list-table.php:466 admin/pb-admin-laf.php:186
+#: admin/pb-admin-laf.php:202 admin/pb-admin-laf.php:308
 msgid "My Catalog"
 msgstr "បញ្ជីកាតាឡុករបស់ខ្ញុុំ"
 
@@ -114,7 +126,8 @@ msgstr "កែសម្រួលពត៌មាន"
 msgid "Visit Catalog"
 msgstr "ទស្សនាបញ្ជីកាតាឡុក"
 
-#: admin/class-pb-catalog-list-table.php:474 symbionts/search-regex/view/admin/search.php:54
+#: admin/class-pb-catalog-list-table.php:474
+#: symbionts/search-regex/view/admin/search.php:54
 msgid "Search"
 msgstr "ស្វែងរក"
 
@@ -122,7 +135,9 @@ msgstr "ស្វែងរក"
 msgid "Add By URL"
 msgstr "បន្ថែមដោយ URL"
 
-#: admin/class-pb-catalog-list-table.php:532 admin/templates/catalog.php:18 includes/class-pb-catalog.php:1066 includes/class-pb-catalog.php:1114 includes/class-pb-catalog.php:1159
+#: admin/class-pb-catalog-list-table.php:532 admin/templates/catalog.php:18
+#: includes/class-pb-catalog.php:1066 includes/class-pb-catalog.php:1114
+#: includes/class-pb-catalog.php:1159
 msgid "You do not have permission to do that."
 msgstr "អ្នកមិនមានការអនុញ្ញាតដើម្បីធ្វើដូចនោះទេ ។"
 
@@ -130,11 +145,13 @@ msgstr "អ្នកមិនមានការអនុញ្ញាតដើម
 msgid "The requested user does not exist."
 msgstr "អ្នកប្រើដែលបានស្នើ មិនមានទេ។"
 
-#: admin/class-pb-network-managers-list-table.php:73 admin/class-pb-network-managers-list-table.php:77
+#: admin/class-pb-network-managers-list-table.php:73
+#: admin/class-pb-network-managers-list-table.php:77
 msgid "Restrict Access"
 msgstr ""
 
-#: admin/class-pb-network-managers-list-table.php:73 admin/class-pb-network-managers-list-table.php:77
+#: admin/class-pb-network-managers-list-table.php:73
+#: admin/class-pb-network-managers-list-table.php:77
 msgid "Unrestrict Access"
 msgstr ""
 
@@ -151,7 +168,13 @@ msgstr "កំហុសមិនបានរំពឹងទុក: មានប�
 msgid "Last 10 CSS Revisions"
 msgstr "ការពិនិត្យឡើងវិញ 10 CSS ចុងក្រោយ"
 
-#: admin/pb-admin-customcss.php:116 includes/modules/export/epub/class-pb-epub201.php:850 includes/modules/export/epub/templates/opf.php:70 includes/modules/export/epub3/templates/opf.php:90 includes/modules/export/mpdf/class-pb-pdf.php:312 includes/modules/export/xhtml/class-pb-xhtml11.php:613 themes-book/pressbooks-book/footer.php:41
+#: admin/pb-admin-customcss.php:116
+#: includes/modules/export/epub/class-pb-epub201.php:850
+#: includes/modules/export/epub/templates/opf.php:70
+#: includes/modules/export/epub3/templates/opf.php:90
+#: includes/modules/export/mpdf/class-pb-pdf.php:312
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:613
+#: themes-book/pressbooks-book/footer.php:41
 msgid "by"
 msgstr "ដោយ"
 
@@ -159,7 +182,8 @@ msgstr "ដោយ"
 msgid "This will overwrite existing custom CSS. Are you sure?"
 msgstr "នេះនឹងសរសេរជាន់ទៅលើ CSS ដែលកំពុងតែមានស្រាប់។ តើអ្នកប្រាកដ រឺទេ?"
 
-#: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42 admin/pb-admin-dashboard.php:95
+#: admin/pb-admin-dashboard.php:21 admin/pb-admin-dashboard.php:42
+#: admin/pb-admin-dashboard.php:95
 msgid "Pressbooks News"
 msgstr "ព័ត៌មាន​ពី Pressbooks"
 
@@ -171,19 +195,25 @@ msgstr "សៀវភៅរបស់ខ្ញុំ"
 msgid "Users"
 msgstr "អ្នកប្រើប្រាស់"
 
-#: admin/pb-admin-dashboard.php:55 admin/templates/import.php:59 admin/templates/organize.php:36 admin/templates/organize.php:53 includes/pb-postype.php:115
+#: admin/pb-admin-dashboard.php:55 admin/templates/import.php:59
+#: admin/templates/organize.php:36 admin/templates/organize.php:53
+#: includes/pb-postype.php:115
 msgid "Front Matter"
 msgstr "ផ្ទៃ​ខាងមុខ"
 
-#: admin/pb-admin-dashboard.php:75 admin/templates/import.php:64 admin/templates/organize.php:38 admin/templates/organize.php:61 includes/pb-postype.php:150
+#: admin/pb-admin-dashboard.php:75 admin/templates/import.php:64
+#: admin/templates/organize.php:38 admin/templates/organize.php:61
+#: includes/pb-postype.php:150
 msgid "Back Matter"
 msgstr "ផ្ទៃ​ខាងក្រោយ"
 
-#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123 admin/templates/organize.php:136 admin/templates/organize.php:197
+#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
+#: admin/templates/organize.php:136 admin/templates/organize.php:197
 msgid "Add"
 msgstr "បន្ថែម"
 
-#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123 admin/pb-admin-laf.php:87
+#: admin/pb-admin-dashboard.php:84 admin/pb-admin-dashboard.php:123
+#: admin/pb-admin-laf.php:87
 msgid "Organize"
 msgstr "រៀបចំ"
 
@@ -191,7 +221,8 @@ msgstr "រៀបចំ"
 msgid "Powered by"
 msgstr "Powered by"
 
-#: admin/pb-admin-laf.php:18 admin/templates/catalog.php:88 includes/class-pb-activation.php:179
+#: admin/pb-admin-laf.php:18 admin/templates/catalog.php:88
+#: includes/class-pb-activation.php:179
 msgid "About"
 msgstr "អំពី"
 
@@ -215,7 +246,9 @@ msgstr "បោះពុម្ពផ្សាយ"
 msgid "Book Info"
 msgstr "ព័ត៌មាន​ពី​សៀវភៅ"
 
-#: admin/pb-admin-laf.php:157 admin/pb-admin-laf.php:175 admin/templates/export.php:43 admin/templates/organize.php:41 admin/templates/organize.php:81 admin/templates/organize.php:152
+#: admin/pb-admin-laf.php:157 admin/pb-admin-laf.php:175
+#: admin/templates/export.php:43 admin/templates/organize.php:41
+#: admin/templates/organize.php:81 admin/templates/organize.php:152
 msgid "Export"
 msgstr "នាំចេញ"
 
@@ -235,11 +268,13 @@ msgstr "ការកំណត់ភាពឯកជន"
 msgid "Privacy"
 msgstr "ភាពឯកជន"
 
-#: admin/pb-admin-laf.php:175 admin/pb-admin-laf.php:989 admin/pb-admin-metaboxes.php:462
+#: admin/pb-admin-laf.php:175 admin/pb-admin-laf.php:989
+#: admin/pb-admin-metaboxes.php:462
 msgid "Export Settings"
 msgstr "ការកំណត់​ការនាំចេញ"
 
-#: admin/pb-admin-laf.php:178 admin/templates/import.php:14 admin/templates/import.php:57
+#: admin/pb-admin-laf.php:178 admin/templates/import.php:14
+#: admin/templates/import.php:57
 msgid "Import"
 msgstr "នាំចូល"
 
@@ -373,11 +408,17 @@ msgstr "រូបភាពគម្របរបស់អ្នក (%s x %s) ម�
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:121 admin/pb-admin-metaboxes.php:166 includes/class-pb-metadata.php:627 themes-book/pressbooks-book/functions.php:1255
+#: admin/pb-admin-metaboxes.php:121 admin/pb-admin-metaboxes.php:166
+#: includes/class-pb-metadata.php:627
+#: themes-book/pressbooks-book/functions.php:1255
 msgid "Cover Image"
 msgstr "រូបភាពគម្រប"
 
-#: admin/pb-admin-metaboxes.php:157 admin/pb-admin-metaboxes.php:454 admin/templates/import.php:62 admin/templates/organize.php:39 themes-book/pressbooks-book/functions.php:1694 themes-book/pressbooks-book/functions.php:1695 themes-book/pressbooks-book/functions.php:1754
+#: admin/pb-admin-metaboxes.php:157 admin/pb-admin-metaboxes.php:454
+#: admin/templates/import.php:62 admin/templates/organize.php:39
+#: themes-book/pressbooks-book/functions.php:1694
+#: themes-book/pressbooks-book/functions.php:1695
+#: themes-book/pressbooks-book/functions.php:1754
 msgid "Part"
 msgstr "ផ្នែក"
 
@@ -421,7 +462,8 @@ msgstr ""
 msgid "This may be used when more than one person shares the responsibility for the intellectual content of a book."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:211 themes-book/pressbooks-book/functions.php:17
+#: admin/pb-admin-metaboxes.php:211
+#: themes-book/pressbooks-book/functions.php:17
 msgid "Publisher"
 msgstr "អ្នកបោះពុម្ពផ្សាយ"
 
@@ -433,7 +475,8 @@ msgstr ""
 msgid "Publisher City"
 msgstr "ទីក្រុង​រោងពុម្ព"
 
-#: admin/pb-admin-metaboxes.php:224 themes-book/pressbooks-book/functions.php:20
+#: admin/pb-admin-metaboxes.php:224
+#: themes-book/pressbooks-book/functions.php:20
 msgid "Publication Date"
 msgstr "កាលបរិច្ឆេទបោះពុម្ភផ្សាយ"
 
@@ -445,7 +488,8 @@ msgstr ""
 msgid "On-Sale Date"
 msgstr "នៅលើកាលបរិច្ឆេទលក់"
 
-#: admin/pb-admin-metaboxes.php:237 themes-book/pressbooks-book/functions.php:22
+#: admin/pb-admin-metaboxes.php:237
+#: themes-book/pressbooks-book/functions.php:22
 msgid "Ebook ISBN"
 msgstr "លេខ​សៀវភៅ ISBN"
 
@@ -453,7 +497,8 @@ msgstr "លេខ​សៀវភៅ ISBN"
 msgid "ISBN is the International Standard Book Number, and you'll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:243 themes-book/pressbooks-book/functions.php:18
+#: admin/pb-admin-metaboxes.php:243
+#: themes-book/pressbooks-book/functions.php:18
 msgid "Print ISBN"
 msgstr "ព្រីន ISBN"
 
@@ -469,7 +514,14 @@ msgstr "ភាសា"
 msgid "This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the \"Contents\" header."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:256 includes/modules/export/epub/class-pb-epub201.php:848 includes/modules/export/epub/class-pb-epub201.php:866 includes/modules/export/epub/templates/opf.php:68 includes/modules/export/epub3/templates/opf.php:86 includes/modules/export/mpdf/class-pb-pdf.php:306 includes/modules/export/xhtml/class-pb-xhtml11.php:611 themes-book/pressbooks-book/footer.php:39
+#: admin/pb-admin-metaboxes.php:256
+#: includes/modules/export/epub/class-pb-epub201.php:848
+#: includes/modules/export/epub/class-pb-epub201.php:866
+#: includes/modules/export/epub/templates/opf.php:68
+#: includes/modules/export/epub3/templates/opf.php:86
+#: includes/modules/export/mpdf/class-pb-pdf.php:306
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:611
+#: themes-book/pressbooks-book/footer.php:39
 msgid "Copyright"
 msgstr "កម្មសិទ្ធិ"
 
@@ -489,7 +541,8 @@ msgstr "អ្នក​កាន់​កម្មសិទ្ធិ"
 msgid "Name of the copyright holder."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:286 themes-book/pressbooks-book/functions.php:511
+#: admin/pb-admin-metaboxes.php:286
+#: themes-book/pressbooks-book/functions.php:511
 msgid "Copyright License"
 msgstr ""
 
@@ -549,7 +602,10 @@ msgstr "ស៊េរីលេខ"
 msgid "Editor"
 msgstr "អ្នកកែសម្រួល"
 
-#: admin/pb-admin-metaboxes.php:342 admin/pb-admin-metaboxes.php:348 admin/pb-admin-metaboxes.php:367 admin/pb-admin-metaboxes.php:373 admin/pb-admin-metaboxes.php:379 admin/pb-admin-metaboxes.php:385 admin/pb-admin-metaboxes.php:398
+#: admin/pb-admin-metaboxes.php:342 admin/pb-admin-metaboxes.php:348
+#: admin/pb-admin-metaboxes.php:367 admin/pb-admin-metaboxes.php:373
+#: admin/pb-admin-metaboxes.php:379 admin/pb-admin-metaboxes.php:385
+#: admin/pb-admin-metaboxes.php:398
 msgid "This is not used by Pressbooks."
 msgstr ""
 
@@ -565,7 +621,8 @@ msgstr "ពាក្យគន្លឹះ"
 msgid "These are added to your webbook cover page, and in your ebook metadata. Keywords are used by online book stores and search engines."
 msgstr ""
 
-#: admin/pb-admin-metaboxes.php:360 themes-book/pressbooks-book/functions.php:21
+#: admin/pb-admin-metaboxes.php:360
+#: themes-book/pressbooks-book/functions.php:21
 msgid "Hashtag"
 msgstr "Hashtag"
 
@@ -737,7 +794,9 @@ msgstr "អ្នកកំពុងតែកែសម្រួល CSS សំរ�
 msgid "Copy CSS from"
 msgstr "ចម្លង CSS ពី"
 
-#: admin/templates/custom-css.php:42 symbionts/search-regex/view/admin/results.php:34 symbionts/search-regex/view/admin/results.php:35
+#: admin/templates/custom-css.php:42
+#: symbionts/search-regex/view/admin/results.php:34
+#: symbionts/search-regex/view/admin/results.php:35
 msgid "Save"
 msgstr "រក្សាទុក"
 
@@ -770,7 +829,9 @@ msgstr "នាំចេញចុងក្រោយបង្អស់"
 msgid "Exported"
 msgstr "បាននាំចេញ"
 
-#: admin/templates/export.php:86 admin/templates/organize.php:86 admin/templates/organize.php:121 admin/templates/organize.php:184 includes/pb-image.php:342
+#: admin/templates/export.php:86 admin/templates/organize.php:86
+#: admin/templates/organize.php:121 admin/templates/organize.php:184
+#: includes/pb-image.php:342
 msgid "Are you sure you want to delete this?"
 msgstr "អ្នកប្រាកដទេ ដែលអ្នកចង់លុបចោលវា ?"
 
@@ -935,11 +996,18 @@ msgstr "មតិយោបល់"
 msgid "Status"
 msgstr "ស្ថានភាព​"
 
-#: admin/templates/organize.php:83 admin/templates/organize.php:121 admin/templates/organize.php:153 admin/templates/organize.php:184 themes-book/pressbooks-book/page.php:11 themes-book/pressbooks-book/single.php:5 themes-root/pressbooks-publisher/inc/template-tags.php:126 themes-root/pressbooks-publisher/template-parts/content-page.php:25
+#: admin/templates/organize.php:83 admin/templates/organize.php:121
+#: admin/templates/organize.php:153 admin/templates/organize.php:184
+#: themes-book/pressbooks-book/page.php:11
+#: themes-book/pressbooks-book/single.php:5
+#: themes-root/pressbooks-publisher/inc/template-tags.php:126
+#: themes-root/pressbooks-publisher/template-parts/content-page.php:25
 msgid "Edit"
 msgstr "កែសម្រួល"
 
-#: admin/templates/organize.php:86 admin/templates/organize.php:121 admin/templates/organize.php:184 includes/pb-image.php:374 symbionts/custom-metadata/custom_metadata.php:1315
+#: admin/templates/organize.php:86 admin/templates/organize.php:121
+#: admin/templates/organize.php:184 includes/pb-image.php:374
+#: symbionts/custom-metadata/custom_metadata.php:1315
 msgid "Delete"
 msgstr "លុបចោល"
 
@@ -1040,15 +1108,23 @@ msgstr ""
 msgid "Authors"
 msgstr "អ្នកនិពន្ធ"
 
-#: includes/class-pb-activation.php:175 themes-book/pressbooks-book/functions.php:871 themes-book/pressbooks-book/functions.php:1266 themes-book/pressbooks-book/index.php:12 themes-book/pressbooks-book/page-cover-third-block.php:4 themes-book/pressbooks-book/sidebar.php:16
+#: includes/class-pb-activation.php:175
+#: themes-book/pressbooks-book/functions.php:871
+#: themes-book/pressbooks-book/functions.php:1266
+#: themes-book/pressbooks-book/index.php:12
+#: themes-book/pressbooks-book/page-cover-third-block.php:4
+#: themes-book/pressbooks-book/sidebar.php:16
 msgid "Table of Contents"
 msgstr "តារាងមាតិកា"
 
-#: includes/class-pb-activation.php:183 themes-book/pressbooks-book/header.php:90 themes-book/pressbooks-book/page-cover-top-block.php:58
+#: includes/class-pb-activation.php:183
+#: themes-book/pressbooks-book/header.php:90
+#: themes-book/pressbooks-book/page-cover-top-block.php:58
 msgid "Buy"
 msgstr "ទិញ"
 
-#: includes/class-pb-activation.php:187 themes-book/pressbooks-book/functions.php:138
+#: includes/class-pb-activation.php:187
+#: themes-book/pressbooks-book/functions.php:138
 msgid "Access Denied"
 msgstr ""
 
@@ -1081,7 +1157,8 @@ msgstr ""
 msgid "Catalog Logo"
 msgstr "រូបសញ្ញាកាតាឡុក"
 
-#: includes/class-pb-catalog.php:1093 includes/class-pb-catalog.php:1141 includes/class-pb-catalog.php:1178 includes/class-pb-catalog.php:1239
+#: includes/class-pb-catalog.php:1093 includes/class-pb-catalog.php:1141
+#: includes/class-pb-catalog.php:1178 includes/class-pb-catalog.php:1239
 msgid "Settings saved."
 msgstr ""
 
@@ -1117,7 +1194,8 @@ msgstr ""
 msgid "Table Of Contents"
 msgstr "តារាងមាតិកា"
 
-#: includes/modules/export/epub/class-pb-epub201.php:1417 includes/modules/export/xhtml/class-pb-xhtml11.php:672
+#: includes/modules/export/epub/class-pb-epub201.php:1417
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:672
 msgid "Contents"
 msgstr "មាតិកា"
 
@@ -1125,7 +1203,8 @@ msgstr "មាតិកា"
 msgid "ISBN"
 msgstr ""
 
-#: includes/modules/export/wordpress/class-pb-wxr.php:101 includes/modules/export/xhtml/class-pb-xhtml11.php:156
+#: includes/modules/export/wordpress/class-pb-wxr.php:101
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:156
 msgid "Invalid permission error"
 msgstr ""
 
@@ -1133,7 +1212,8 @@ msgstr ""
 msgid "Notes"
 msgstr "កំណត់សម្គាល់"
 
-#: includes/modules/import/class-pb-import.php:343 includes/modules/import/class-pb-import.php:406
+#: includes/modules/import/class-pb-import.php:343
+#: includes/modules/import/class-pb-import.php:406
 #, php-format
 msgid "Your file does not appear to be a valid %s."
 msgstr ""
@@ -1154,12 +1234,14 @@ msgstr ""
 msgid "The website you are attempting to reach is not returning a successful response on a GET request: "
 msgstr ""
 
-#: includes/modules/import/epub/class-pb-epub201.php:190 includes/modules/import/wordpress/class-pb-wxr.php:165
+#: includes/modules/import/epub/class-pb-epub201.php:190
+#: includes/modules/import/wordpress/class-pb-wxr.php:165
 #, php-format
 msgid "Imported %s chapters."
 msgstr ""
 
-#: includes/modules/import/wordpress/class-pb-parser.php:57 includes/modules/import/wordpress/class-pb-parser.php:62
+#: includes/modules/import/wordpress/class-pb-parser.php:57
+#: includes/modules/import/wordpress/class-pb-parser.php:62
 msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr ""
 
@@ -1167,15 +1249,20 @@ msgstr ""
 msgid "'s Catalog Page"
 msgstr "ទំព័រកាតាឡុក"
 
-#: includes/pb-catalog.php:164 themes-book/pressbooks-book/page-cover-top-block.php:8
+#: includes/pb-catalog.php:164
+#: themes-book/pressbooks-book/page-cover-top-block.php:8
 msgid "login"
 msgstr "ចូល"
 
-#: includes/pb-catalog.php:166 themes-book/pressbooks-book/page-cover-top-block.php:10
+#: includes/pb-catalog.php:166
+#: themes-book/pressbooks-book/page-cover-top-block.php:10
 msgid "logout"
 msgstr "ចាកចេញ"
 
-#: includes/pb-catalog.php:174 themes-book/pressbooks-book/page-cover-top-block.php:12 themes-book/pressbooks-book/sidebar.php:10 themes-root/pressbooks-publisher/header.php:37
+#: includes/pb-catalog.php:174
+#: themes-book/pressbooks-book/page-cover-top-block.php:12
+#: themes-book/pressbooks-book/sidebar.php:10
+#: themes-root/pressbooks-publisher/header.php:37
 msgid "Admin"
 msgstr ""
 
@@ -1487,11 +1574,15 @@ msgstr ""
 msgid "Part updated."
 msgstr ""
 
-#: includes/pb-postype.php:239 includes/pb-postype.php:256 includes/pb-postype.php:269 includes/pb-postype.php:286 includes/pb-postype.php:303
+#: includes/pb-postype.php:239 includes/pb-postype.php:256
+#: includes/pb-postype.php:269 includes/pb-postype.php:286
+#: includes/pb-postype.php:303
 msgid "Custom field updated."
 msgstr ""
 
-#: includes/pb-postype.php:240 includes/pb-postype.php:257 includes/pb-postype.php:270 includes/pb-postype.php:287 includes/pb-postype.php:304
+#: includes/pb-postype.php:240 includes/pb-postype.php:257
+#: includes/pb-postype.php:270 includes/pb-postype.php:287
+#: includes/pb-postype.php:304
 msgid "Custom field deleted."
 msgstr ""
 
@@ -1523,7 +1614,8 @@ msgstr ""
 msgid "Part scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Part</a>"
 msgstr ""
 
-#: includes/pb-postype.php:249 includes/pb-postype.php:279 includes/pb-postype.php:296 includes/pb-postype.php:313
+#: includes/pb-postype.php:249 includes/pb-postype.php:279
+#: includes/pb-postype.php:296 includes/pb-postype.php:313
 msgid "M j, Y @ G:i"
 msgstr ""
 
@@ -1532,7 +1624,8 @@ msgstr ""
 msgid "Part draft updated. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
 msgstr ""
 
-#: includes/pb-postype.php:255 includes/pb-postype.php:258 includes/pb-postype.php:261
+#: includes/pb-postype.php:255 includes/pb-postype.php:258
+#: includes/pb-postype.php:261
 msgid "Book Information updated."
 msgstr ""
 
@@ -1892,7 +1985,10 @@ msgstr ""
 msgid "<strong>Note:</strong> this field type cannot be multiplied"
 msgstr ""
 
-#: symbionts/custom-metadata/custom_metadata.php:1287 symbionts/custom-metadata/custom_metadata.php:1302 symbionts/custom-metadata/custom_metadata.php:1349 symbionts/custom-metadata/custom_metadata.php:1362
+#: symbionts/custom-metadata/custom_metadata.php:1287
+#: symbionts/custom-metadata/custom_metadata.php:1302
+#: symbionts/custom-metadata/custom_metadata.php:1349
+#: symbionts/custom-metadata/custom_metadata.php:1362
 #, php-format
 msgid "There are no %s to select from yet."
 msgstr ""
@@ -1958,7 +2054,9 @@ msgstr ""
 msgid "Note: The <em>Disable Comments</em> plugin is currently active, and comments are completely disabled on: %s. Many of the settings below will not be applicable for those post types."
 msgstr ""
 
-#: symbionts/disable-comments/disable-comments.php:261 themes-root/pressbooks-publisher/inc/template-tags.php:108 themes-root/pressbooks-publisher/inc/template-tags.php:114
+#: symbionts/disable-comments/disable-comments.php:261
+#: themes-root/pressbooks-publisher/inc/template-tags.php:108
+#: themes-root/pressbooks-publisher/inc/template-tags.php:114
 msgid ", "
 msgstr ""
 
@@ -1967,15 +2065,19 @@ msgstr ""
 msgid "The <em>Disable Comments</em> plugin is active and configured to disable comments on custom post types for Pressbooks. Visit the <a href=\"%s\">configuration page</a> to choose which post types to <b>enable</b> comments on."
 msgstr ""
 
-#: symbionts/disable-comments/disable-comments.php:298 themes-book/pressbooks-book/comments.php:40 themes-root/pressbooks-publisher/comments.php:75
+#: symbionts/disable-comments/disable-comments.php:298
+#: themes-book/pressbooks-book/comments.php:40
+#: themes-root/pressbooks-publisher/comments.php:75
 msgid "Comments are closed."
 msgstr "មតិយោបល់ត្រូវបានបិទ"
 
-#: symbionts/disable-comments/disable-comments.php:374 symbionts/pb-latex/pb-latex-admin.php:33
+#: symbionts/disable-comments/disable-comments.php:374
+#: symbionts/pb-latex/pb-latex-admin.php:33
 msgid "Settings"
 msgstr ""
 
-#: symbionts/disable-comments/disable-comments.php:385 symbionts/disable-comments/disable-comments.php:429
+#: symbionts/disable-comments/disable-comments.php:385
+#: symbionts/disable-comments/disable-comments.php:429
 msgid "Disable Comments"
 msgstr ""
 
@@ -2003,11 +2105,13 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: symbionts/pb-latex/pb-latex-admin.php:39 symbionts/pb-latex/pb-latex-admin.php:187
+#: symbionts/pb-latex/pb-latex-admin.php:39
+#: symbionts/pb-latex/pb-latex-admin.php:187
 msgid "Insufficient LaTeX-fu"
 msgstr ""
 
-#: symbionts/pb-latex/pb-latex-admin.php:45 symbionts/pb-latex/pb-latex-admin.php:100
+#: symbionts/pb-latex/pb-latex-admin.php:45
+#: symbionts/pb-latex/pb-latex-admin.php:100
 msgid "PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 msgstr ""
 
@@ -2090,7 +2194,8 @@ msgstr ""
 msgid "No search pattern"
 msgstr ""
 
-#: symbionts/search-regex/models/search.php:171 symbionts/search-regex/searches/post_content.php:37
+#: symbionts/search-regex/models/search.php:171
+#: symbionts/search-regex/searches/post_content.php:37
 msgid "edit"
 msgstr ""
 
@@ -2098,7 +2203,8 @@ msgstr ""
 msgid "deleted"
 msgstr ""
 
-#: symbionts/search-regex/search-regex.php:89 symbionts/search-regex/view/admin/search.php:3
+#: symbionts/search-regex/search-regex.php:89
+#: symbionts/search-regex/view/admin/search.php:3
 msgid "Search and Replace"
 msgstr ""
 
@@ -2240,7 +2346,10 @@ msgstr ""
 msgid "Site Logo"
 msgstr ""
 
-#: themes-book/austen/functions.php:27 themes-book/austen/functions.php:28 themes-book/austen/functions.php:45 themes-book/clarke/functions.php:18 themes-book/donham/functions.php:27 themes-book/donham/functions.php:28 themes-book/donham/functions.php:45
+#: themes-book/austen/functions.php:27 themes-book/austen/functions.php:28
+#: themes-book/austen/functions.php:45 themes-book/clarke/functions.php:18
+#: themes-book/donham/functions.php:27 themes-book/donham/functions.php:28
+#: themes-book/donham/functions.php:45
 msgid "part"
 msgstr "ផ្នែក"
 
@@ -2248,18 +2357,21 @@ msgstr "ផ្នែក"
 msgid "This post is password protected. Enter the password to view any comments."
 msgstr ""
 
-#: themes-book/pressbooks-book/comments.php:13 themes-root/pressbooks-publisher/comments.php:29
+#: themes-book/pressbooks-book/comments.php:13
+#: themes-root/pressbooks-publisher/comments.php:29
 #, php-format
 msgctxt "comments title"
 msgid "One Response to %2$s"
 msgid_plural "%1$s Responses to %2$s"
 msgstr[0] ""
 
-#: themes-book/pressbooks-book/comments.php:21 themes-book/pressbooks-book/comments.php:32
+#: themes-book/pressbooks-book/comments.php:21
+#: themes-book/pressbooks-book/comments.php:32
 msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
 msgstr ""
 
-#: themes-book/pressbooks-book/comments.php:22 themes-book/pressbooks-book/comments.php:33
+#: themes-book/pressbooks-book/comments.php:22
+#: themes-book/pressbooks-book/comments.php:33
 msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
@@ -2317,7 +2429,8 @@ msgstr ""
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:167 themes-book/pressbooks-book/functions.php:187
+#: themes-book/pressbooks-book/functions.php:167
+#: themes-book/pressbooks-book/functions.php:187
 msgid "(Edit)"
 msgstr "កែសម្រួល"
 
@@ -2377,23 +2490,28 @@ msgstr ""
 msgid "pocket"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:390 themes-book/pressbooks-book/functions.php:1168
+#: themes-book/pressbooks-book/functions.php:390
+#: themes-book/pressbooks-book/functions.php:1168
 msgid "A4"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:391 themes-book/pressbooks-book/functions.php:1169
+#: themes-book/pressbooks-book/functions.php:391
+#: themes-book/pressbooks-book/functions.php:1169
 msgid "A5"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:394 themes-book/pressbooks-book/functions.php:435
+#: themes-book/pressbooks-book/functions.php:394
+#: themes-book/pressbooks-book/functions.php:435
 msgid "Paragraph separator"
 msgstr "បំបែកកថាខណ្ឌ"
 
-#: themes-book/pressbooks-book/functions.php:395 themes-book/pressbooks-book/functions.php:436
+#: themes-book/pressbooks-book/functions.php:395
+#: themes-book/pressbooks-book/functions.php:436
 msgid "indent"
 msgstr "ចូលបន្ទាត់"
 
-#: themes-book/pressbooks-book/functions.php:396 themes-book/pressbooks-book/functions.php:437
+#: themes-book/pressbooks-book/functions.php:396
+#: themes-book/pressbooks-book/functions.php:437
 msgid "skip lines"
 msgstr "រំលងបន្ទាត់"
 
@@ -2413,11 +2531,13 @@ msgstr "យកចេញទំព័រទទេរ (សំរាប់វ៉ែ�
 msgid "Table of contents"
 msgstr "តារាងមាតិកា"
 
-#: themes-book/pressbooks-book/functions.php:404 themes-book/pressbooks-book/functions.php:410
+#: themes-book/pressbooks-book/functions.php:404
+#: themes-book/pressbooks-book/functions.php:410
 msgid "display"
 msgstr "បង្ហាញ"
 
-#: themes-book/pressbooks-book/functions.php:404 themes-book/pressbooks-book/functions.php:410
+#: themes-book/pressbooks-book/functions.php:404
+#: themes-book/pressbooks-book/functions.php:410
 msgid "do not display"
 msgstr "កុំបង្ហាញ"
 
@@ -2437,23 +2557,31 @@ msgstr ""
 msgid "Crop marks"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:413 themes-book/pressbooks-book/functions.php:839 themes-book/pressbooks-book/functions.php:1288
+#: themes-book/pressbooks-book/functions.php:413
+#: themes-book/pressbooks-book/functions.php:839
+#: themes-book/pressbooks-book/functions.php:1288
 msgid "Hyphens"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:413 themes-book/pressbooks-book/functions.php:422 themes-book/pressbooks-book/functions.php:440
+#: themes-book/pressbooks-book/functions.php:413
+#: themes-book/pressbooks-book/functions.php:422
+#: themes-book/pressbooks-book/functions.php:440
 msgid "enabled"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:413 themes-book/pressbooks-book/functions.php:422 themes-book/pressbooks-book/functions.php:440
+#: themes-book/pressbooks-book/functions.php:413
+#: themes-book/pressbooks-book/functions.php:422
+#: themes-book/pressbooks-book/functions.php:440
 msgid "disabled"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:416 themes-book/pressbooks-book/functions.php:904
+#: themes-book/pressbooks-book/functions.php:416
+#: themes-book/pressbooks-book/functions.php:904
 msgid "Widows"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:419 themes-book/pressbooks-book/functions.php:911
+#: themes-book/pressbooks-book/functions.php:419
+#: themes-book/pressbooks-book/functions.php:911
 msgid "Orphans"
 msgstr ""
 
@@ -2465,7 +2593,8 @@ msgstr ""
 msgid "Ebook options"
 msgstr "ជម្រើស Ebook"
 
-#: themes-book/pressbooks-book/functions.php:440 themes-book/pressbooks-book/functions.php:1502
+#: themes-book/pressbooks-book/functions.php:440
+#: themes-book/pressbooks-book/functions.php:1502
 msgid "Compress images"
 msgstr ""
 
@@ -2517,7 +2646,9 @@ msgstr ""
 msgid "Make webbook TOC collapsable"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:677 themes-book/pressbooks-book/functions.php:918 themes-book/pressbooks-book/functions.php:1299
+#: themes-book/pressbooks-book/functions.php:677
+#: themes-book/pressbooks-book/functions.php:918
+#: themes-book/pressbooks-book/functions.php:1299
 msgid "Increase Font Size"
 msgstr ""
 
@@ -2541,7 +2672,8 @@ msgstr ""
 msgid "PDF Options"
 msgstr "ជម្រើស PDF"
 
-#: themes-book/pressbooks-book/functions.php:811 themes-book/pressbooks-book/functions.php:1159
+#: themes-book/pressbooks-book/functions.php:811
+#: themes-book/pressbooks-book/functions.php:1159
 msgid "Page Size"
 msgstr "ទំហំសន្លឹក"
 
@@ -2589,19 +2721,25 @@ msgstr ""
 msgid "Display crop marks"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:844 themes-book/pressbooks-book/functions.php:1293
+#: themes-book/pressbooks-book/functions.php:844
+#: themes-book/pressbooks-book/functions.php:1293
 msgid "Enable hyphenation"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:849 themes-book/pressbooks-book/functions.php:1490
+#: themes-book/pressbooks-book/functions.php:849
+#: themes-book/pressbooks-book/functions.php:1490
 msgid "Paragraph Separation"
 msgstr "បំបែកកថាខណ្ឌ"
 
-#: themes-book/pressbooks-book/functions.php:854 themes-book/pressbooks-book/functions.php:1277 themes-book/pressbooks-book/functions.php:1282 themes-book/pressbooks-book/functions.php:1495
+#: themes-book/pressbooks-book/functions.php:854
+#: themes-book/pressbooks-book/functions.php:1277
+#: themes-book/pressbooks-book/functions.php:1282
+#: themes-book/pressbooks-book/functions.php:1495
 msgid "Indent paragraphs"
 msgstr "ចូលបន្ទាត់កថាខណ្ឌ"
 
-#: themes-book/pressbooks-book/functions.php:855 themes-book/pressbooks-book/functions.php:1496
+#: themes-book/pressbooks-book/functions.php:855
+#: themes-book/pressbooks-book/functions.php:1496
 msgid "Skip lines between paragraphs"
 msgstr "រំលងបន្ទាត់ចន្លោះពីកថាខណ្ឌ"
 
@@ -2617,7 +2755,8 @@ msgstr "រួមបញ្ចូលទាំងទំព័រទទេរ (ស�
 msgid "Remove all blank pages (for web PDF)"
 msgstr "យកចេញនូវទំព័រទទេរទាំងអស់ (សំរាប់វ៉ែប PDF)"
 
-#: themes-book/pressbooks-book/functions.php:876 themes-book/pressbooks-book/functions.php:1271
+#: themes-book/pressbooks-book/functions.php:876
+#: themes-book/pressbooks-book/functions.php:1271
 msgid "Display table of contents"
 msgstr "បង្ហាញតារាងមាតិកា"
 
@@ -2641,7 +2780,8 @@ msgstr "លេខយោងធម្មតា"
 msgid "Force as endnotes"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:923 themes-book/pressbooks-book/functions.php:1304
+#: themes-book/pressbooks-book/functions.php:923
+#: themes-book/pressbooks-book/functions.php:1304
 msgid "Increases font size and line height for greater accessibility"
 msgstr ""
 
@@ -2901,7 +3041,8 @@ msgstr ""
 msgid "These options apply to ebook exports."
 msgstr ""
 
-#: themes-book/pressbooks-book/header.php:37 themes-root/pressbooks-publisher/inc/extras.php:52
+#: themes-book/pressbooks-book/header.php:37
+#: themes-root/pressbooks-publisher/inc/extras.php:52
 #, php-format
 msgid "Page %s"
 msgstr "ទំព័រ %s"
@@ -2910,7 +3051,8 @@ msgstr "ទំព័រ %s"
 msgid "About The Book"
 msgstr "អំពីសៀវភៅ"
 
-#: themes-book/pressbooks-book/page-about.php:21 themes-book/pressbooks-book/page-buy.php:14
+#: themes-book/pressbooks-book/page-about.php:21
+#: themes-book/pressbooks-book/page-buy.php:14
 msgid "It's coming!"
 msgstr "វាកំពុងមក"
 
@@ -2960,7 +3102,8 @@ msgstr "ទិញនៅទីនេះ"
 msgid "Other books"
 msgstr ""
 
-#: themes-book/pressbooks-book/page-cover-private-block.php:2 themes-book/pressbooks-book/page-cover-top-block.php:18
+#: themes-book/pressbooks-book/page-cover-private-block.php:2
+#: themes-book/pressbooks-book/page-cover-top-block.php:18
 msgid "Make your own books on Pressbooks"
 msgstr ""
 
@@ -2972,7 +3115,10 @@ msgstr "សៀវភៅពិពណ៌នា"
 msgid "Read"
 msgstr "អាន"
 
-#: themes-book/pressbooks-book/page.php:13 themes-root/pressbooks-publisher/template-parts/content-page.php:18 themes-root/pressbooks-publisher/template-parts/content-single.php:20 themes-root/pressbooks-publisher/template-parts/content.php:29
+#: themes-book/pressbooks-book/page.php:13
+#: themes-root/pressbooks-publisher/template-parts/content-page.php:18
+#: themes-root/pressbooks-publisher/template-parts/content-single.php:20
+#: themes-root/pressbooks-publisher/template-parts/content.php:29
 msgid "Pages:"
 msgstr "ទំព័រ"
 
@@ -3001,15 +3147,18 @@ msgstr ""
 msgid "Try looking in the monthly archives. %1$s"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/comments.php:38 themes-root/pressbooks-publisher/comments.php:59
+#: themes-root/pressbooks-publisher/comments.php:38
+#: themes-root/pressbooks-publisher/comments.php:59
 msgid "Comment navigation"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/comments.php:41 themes-root/pressbooks-publisher/comments.php:62
+#: themes-root/pressbooks-publisher/comments.php:41
+#: themes-root/pressbooks-publisher/comments.php:62
 msgid "Older Comments"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/comments.php:42 themes-root/pressbooks-publisher/comments.php:63
+#: themes-root/pressbooks-publisher/comments.php:42
+#: themes-root/pressbooks-publisher/comments.php:63
 msgid "Newer Comments"
 msgstr ""
 
@@ -3057,7 +3206,8 @@ msgstr ""
 msgid "My Books"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:20 themes-root/pressbooks-publisher/inc/customizer.php:36
+#: themes-root/pressbooks-publisher/inc/customizer.php:20
+#: themes-root/pressbooks-publisher/inc/customizer.php:36
 msgid "About Us"
 msgstr ""
 
