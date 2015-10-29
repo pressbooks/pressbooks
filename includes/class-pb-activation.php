@@ -211,6 +211,7 @@ class Activation {
 		$parent_part = 0;
 		$intro = 0;
 		$appendix = 0;
+		$chapter1 = 0;
 		$query = "SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ";
 
 		foreach ( $posts as $item ) {

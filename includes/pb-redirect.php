@@ -155,7 +155,7 @@ function do_format() {
 	if ( 'xhtml' == $format ) {
 
 		$args = array();
-		$foo = new \PressBooks\Export\Xhtml\Xhtml11( $args );
+		$foo = new \PressBooks\Modules\Export\Xhtml\Xhtml11( $args );
 		$foo->transform();
 		exit;
 	}
@@ -163,7 +163,7 @@ function do_format() {
 	if ( 'wxr' == $format ) {
 
 		$args = array();
-		$foo = new \PressBooks\Export\WordPress\Wxr( $args );
+		$foo = new \PressBooks\Modules\Export\WordPress\Wxr( $args );
 		$foo->transform();
 		exit;
 	}
@@ -242,13 +242,13 @@ function do_api() {
 
 	// Support only GET requests for now
 	if ( 'GET' !== $_SERVER['REQUEST_METHOD'] ) {
-		\PressBooks\Api_v1\Api::apiErrors( 'method' );
+		\PressBooks\Modules\Api_v1\Api::apiErrors( 'method' );
 	}
 
 	// Deal with the rest of the URL
 	$nouns = get_query_var( 'api' );
 	if ( '' === trim( $nouns, '/' ) || empty( $nouns ) ) {
-		\PressBooks\Api_v1\Api::apiErrors( 'resource' );
+		\PressBooks\Modules\Api_v1\Api::apiErrors( 'resource' );
 	}
 
 	// parse url, at minimum we need `v1` and `books`
@@ -262,9 +262,10 @@ function do_api() {
 
 	// optional 'id'
 	$books_id = ( isset( $parts[0] ) ) ? $parts[0] : '';
+	$variations = array();
 
 	if ( 'v1' !== $version ) {
-		\PressBooks\Api_v1\Api::apiErrors( 'version' );
+		\PressBooks\Modules\Api_v1\Api::apiErrors( 'version' );
 	}
 
 	// Filter user input
@@ -308,8 +309,8 @@ function do_api() {
 	switch ( $resource ) {
 		case 'books':
 			try {
-				new \PressBooks\Api_v1\Books\BooksApi( $books_id, $variations );
-			} catch ( Exception $e ) {
+				new \PressBooks\Modules\Api_v1\Books\BooksApi( $books_id, $variations );
+			} catch ( \Exception $e ) {
 				echo $e->getMessage();
 			}
 			break;
@@ -317,7 +318,7 @@ function do_api() {
 			require( PB_PLUGIN_DIR . 'includes/modules/api_v1/docs/api-documentation.php');
 			break;
 		default:
-			\PressBooks\Api_v1\Api::apiErrors( 'resource' );
+			\PressBooks\Modules\Api_v1\Api::apiErrors( 'resource' );
 			break;
 	}
 

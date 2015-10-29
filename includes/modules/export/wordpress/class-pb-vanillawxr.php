@@ -4,7 +4,7 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Export\WordPress;
+namespace PressBooks\Modules\Export\WordPress;
 
 /**
  * This class will export wxr that can be consumed by a vanilla installation of WP
@@ -63,7 +63,8 @@ class VanillaWxr extends Wxr {
 
 		// when you remove a child node, the next node becomes the first one,
 		// hence '$term->item(0)' and NOT '$term->item($i)'
-		for ( $i = 0; $i = $term->length; $i ++ ) {
+		$length = $term->length;
+		for ( $i = 0; $i < $length; $i ++ ) {
 			$this->deleteNode( $term->item( 0 ) );
 		}
 		
@@ -117,7 +118,7 @@ class VanillaWxr extends Wxr {
 	/**
 	 * deletes a node and all of its children
 	 * 
-	 * @param DOMNode $node
+	 * @param \DOMNode $node
 	 */
 	private function deleteNode( $node ) {
 		$this->deleteChildren( $node );
@@ -128,7 +129,7 @@ class VanillaWxr extends Wxr {
 	/**
 	 * recursive function to delete all children of a node
 	 * 
-	 * @param DOMNode $node
+	 * @param \DOMNode $node
 	 */
 	private function deleteChildren( $node ) {
 		while ( isset( $node->firstChild ) ) {

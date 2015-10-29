@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Export;
+namespace PressBooks\Modules\Export;
 
 
 use PressBooks\Book;
@@ -102,8 +102,47 @@ abstract class Export {
 			if ( ! is_file( $fullpath ) ) $fullpath = false;
 		}
 
+
 		if ( ! $fullpath ) {
-			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
+			if ( $this->isScss() ) {
+				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
+			} else {
+				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
+			}
+		}
+
+		return $fullpath;
+	}
+
+
+	/**
+	 * Return the fullpath to our generic SCSS mixins.
+	 *
+	 * @return string
+	 */
+	function getMixinsPath() {
+
+		$fullpath = PB_PLUGIN_DIR . 'assets/css/scss/export/';
+
+		return $fullpath;
+	}
+	
+	
+	/**
+	 * Return the fullpath to the global typography SCSS mixin.
+	 *
+	 * @return string
+	 */
+	function getGlobalTypographyMixinPath() {
+
+		$wp_upload_dir = wp_upload_dir();
+
+		$fullpath = $wp_upload_dir['basedir'] . '/css/scss';
+		
+		$mixin = $wp_upload_dir['basedir'] . '/css/scss/_global-font-stack.scss';
+		
+		if ( !is_file( $mixin ) ) {
+			\PressBooks\GlobalTypography::updateGlobalTypographyMixin();
 		}
 
 		return $fullpath;
@@ -136,12 +175,35 @@ abstract class Export {
 		return $fullpath;
 	}
 	
+	
 	/**
-	 * Is the parse sections option true?
+	 * Is the current theme's stylesheet SCSS?
 	 *
 	 * @return bool
 	 */
-	static function shouldParseSections() {
+	static function isScss() {
+				
+		$types = array(
+			'prince',
+			'epub'	
+		);
+		
+		foreach ( $types as $type ) {
+			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
+			if ( ! is_file( $fullpath ) )
+			return false;
+		}
+
+		return true;		
+	}
+
+
+	/**
+	 * Is section parsing enabled?
+	 *
+	 * @return bool
+	 */
+	static function isParsingSections() {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 		
@@ -172,28 +234,11 @@ abstract class Export {
 
 		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
 
-		// ------------------------------------------------------------------------------------------------------------
-		// Write to error log
-
-		error_log( $subject . "\n" . $message );
-
-		// ------------------------------------------------------------------------------------------------------------
-		// Email logs
-
 		if ( @$current_user->user_email && get_option( 'pressbooks_email_validation_logs' ) ) {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
 
-		add_filter( 'wp_mail_from', function ( $from_email ) {
-			return str_replace( 'wordpress@', 'pressbooks@', $from_email );
-		} );
-		add_filter( 'wp_mail_from_name', function ( $from_name ) {
-			return 'Pressbooks';
-		} );
-
-		foreach ( $this->errorsEmail as $email ) {
-			wp_mail( $email, $subject, $message );
-		}
+		\PressBooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
 	}
 
 
@@ -412,14 +457,21 @@ abstract class Export {
 	 * @return string $html blob
 	 * @throws \Exception
 	 */
-	protected function doCopyrightLicense( $metadata, $title = '', $id = '', $section_author = '' ) {
-		$option = get_option( 'pressbooks_theme_options_global' );
+	protected function doCopyrightLicense( $metadata, $title = '', $id = null, $section_author = '' ) {
+
+		$options = get_option( 'pressbooks_theme_options_global' );
+		foreach ( array( 'copyright_license' ) as $requiredGlobalOption ) {
+			if ( ! isset ( $options[$requiredGlobalOption] ) ) {
+				$options[$requiredGlobalOption] = 0;
+			}
+		}
+
 		$html = $license = $copyright_holder = '';
-		$lang = $metadata['pb_language'];
+		$lang = ! empty( $metadata['pb_language'] ) ? $metadata['pb_language'] : 'en';
 
 		// if they don't want to see it, return
 		// at minimum we need book copyright information set
-		if ( false == $option['copyright_license'] || ! isset( $metadata['pb_book_license'] ) ) {
+		if ( false == $options['copyright_license'] || ! isset( $metadata['pb_book_license'] ) ) {
 			return '';
 		}
 
@@ -477,7 +529,7 @@ abstract class Export {
 	/**
 	 * Simple template system.
 	 *
-	 * @param       $path
+	 * @param string $path
 	 * @param array $vars (optional)
 	 *
 	 * @return string
@@ -485,17 +537,7 @@ abstract class Export {
 	 */
 	protected function loadTemplate( $path, array $vars = array() ) {
 
-		if ( ! file_exists( $path ) ) {
-			throw new \Exception( "File not found: $path" );
-		}
-
-		ob_start();
-		extract( $vars );
-		include( $path );
-		$output = ob_get_contents();
-		ob_end_clean();
-
-		return $output;
+		return \PressBooks\Utility\template($path, $vars);
 	}
 
 
@@ -549,7 +591,7 @@ abstract class Export {
 	/**
 	 * Catch form submissions
 	 *
-	 * @see pressbooks/admin/templates/export.php
+	 * @see pressbooks/templates/admin/export.php
 	 */
 	static function formSubmit() {
 
@@ -561,6 +603,9 @@ abstract class Export {
 		// Set locale to UTF8 so escapeshellcmd() doesn't strip valid characters.
 		setlocale( LC_CTYPE, 'UTF8', 'en_US.UTF-8' );
 		putenv( 'LC_CTYPE=en_US.UTF-8' );
+
+		// Override some WP behaviours when exporting
+		\PressBooks\Sanitize\fix_audio_shortcode();
 
 		// Download
 		if ( ! empty( $_GET['download_export_file'] ) ) {
@@ -587,37 +632,37 @@ abstract class Export {
 			$modules = array();
 
 			if ( isset( $x['pdf'] ) ) {
-				$modules[] = '\PressBooks\Export\Prince\Pdf';
+				$modules[] = '\PressBooks\Modules\Export\Prince\Pdf';
 			}
 			if ( isset( $x['mpdf'] ) ) {
-				$modules[] = '\PressBooks\Export\Mpdf\Pdf';
+				$modules[] = '\PressBooks\Modules\Export\Mpdf\Pdf';
 			}
 			if ( isset( $x['epub'] ) ) {
-				$modules[] = '\PressBooks\Export\Epub\Epub201'; // Must be set before MOBI
+				$modules[] = '\PressBooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 			}
 			if ( isset( $x['epub3'] ) ) {
-				$modules[] = '\PressBooks\Export\Epub3\Epub3'; // Must be set before MOBI
+				$modules[] = '\PressBooks\Modules\Export\Epub\Epub3'; // Must be set before MOBI
 			}
 			if ( isset( $x['mobi'] ) ) {
 				if  ( !isset( $x['epub'] ) ) { // Make sure Epub source file is generated
-					$modules[] = '\PressBooks\Export\Epub\Epub201'; // Must be set before MOBI
+					$modules[] = '\PressBooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 				}
-				$modules[] = '\PressBooks\Export\Mobi\Kindlegen'; // Must be set after EPUB
+				$modules[] = '\PressBooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB
 			}
 			if ( isset( $x['icml'] ) ) {
-				$modules[] = '\PressBooks\Export\InDesign\Icml';
+				$modules[] = '\PressBooks\Modules\Export\InDesign\Icml';
 			}
 			if ( isset( $x['xhtml'] ) ) {
-				$modules[] = '\PressBooks\Export\Xhtml\Xhtml11';
+				$modules[] = '\PressBooks\Modules\Export\Xhtml\Xhtml11';
 			}
 			if ( isset( $x['wxr'] ) ) {
-				$modules[] = '\PressBooks\Export\WordPress\Wxr';
+				$modules[] = '\PressBooks\Modules\Export\WordPress\Wxr';
 			}
 			if ( isset ( $x['vanillawxr'] ) ){
-				$modules[] = '\PressBooks\Export\WordPress\VanillaWxr';
+				$modules[] = '\PressBooks\Modules\Export\WordPress\VanillaWxr';
 			}
 			if ( isset ( $x['odt'] ) ){
-				$modules[] = '\PressBooks\Export\Odt\Odt';
+				$modules[] = '\PressBooks\Modules\Export\Odt\Odt';
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -642,7 +687,7 @@ abstract class Export {
 
 			foreach ( $modules as $module ) {
 
-				/** @var \PressBooks\Export\Export $exporter */
+				/** @var \PressBooks\Modules\Export\Export $exporter */
 				$exporter = new $module( array() );
 
 				if ( ! $exporter->convert() ) {
@@ -654,9 +699,9 @@ abstract class Export {
 				}
 				
 				// Add to outputs array
-				
+
 				$outputs[$module] = $exporter->getOutputPath();
-				
+
 				// Stats hook
 				do_action( 'pressbooks_track_export', substr( strrchr( $module, '\\' ), 1 ) );
 			}
@@ -665,9 +710,9 @@ abstract class Export {
 
 			// --------------------------------------------------------------------------------------------------------
 			// MOBI cleanup
-			
+
 			if ( isset( $x['mobi'] ) && !isset( $x['epub'] ) ) {
-				unlink( $outputs['\PressBooks\Export\Epub\Epub201'] );
+				unlink( $outputs['\PressBooks\Modules\Export\Epub\Epub201'] );
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -681,13 +726,13 @@ abstract class Export {
 			// --------------------------------------------------------------------------------------------------------
 			// Error exceptions
 
-			if ( isset( $validation_warning['\PressBooks\Export\Prince\Pdf'] ) ) {
+			if ( isset( $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'] ) ) {
 
 				// The PDF is garbage and we don't want the user to have it.
 				// Delete file. Report error instead of warning.
-				unlink( $validation_warning['\PressBooks\Export\Prince\Pdf'] );
-				$conversion_error['\PressBooks\Export\Prince\Pdf'] = $validation_warning['\PressBooks\Export\Prince\Pdf'];
-				unset ( $validation_warning['\PressBooks\Export\Prince\Pdf'] );
+				unlink( $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'] );
+				$conversion_error['\PressBooks\Modules\Export\Prince\Pdf'] = $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'];
+				unset ( $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'] );
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -783,9 +828,9 @@ abstract class Export {
 	static function injectHouseStyles( $css ) {
 
 		$scan = array(
-			'/*__INSERT_PDF_HOUSE_STYLE__*/' => WP_CONTENT_DIR . '/themes/pdf-house-style.css',
-			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => WP_CONTENT_DIR . '/themes/epub-house-style.css',
-			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => WP_CONTENT_DIR . '/themes/mobi-house-style.css',
+			'/*__INSERT_PDF_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/css/scss/export/_pdf-house-style.scss',
+			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/css/scss/export/_epub-house-style.scss',
+			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/css/scss/export/_mobi-house-style.scss',
 		);
 
 		foreach ( $scan as $token => $replace_with ) {

@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: Pressbooks 2.3\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/pressbooks\n"
 "POT-Creation-Date: 2015-06-08 10:56-0500\n"
-"PO-Revision-Date: 2015-06-08 11:04-0500\n"
+"PO-Revision-Date: 2015-10-16 12:29-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: \n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.4\n"
+"X-Generator: Poedit 1.8.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: admin/class-pb-catalog-list-table.php:78
@@ -1101,8 +1101,7 @@ msgstr "Sätt igång"
 
 #: admin/templates/organize.php:117 admin/templates/organize.php:160
 #: admin/templates/organize.php:211 admin/templates/organize.php:298
-#: includes/pb-image.php:374
-#: symbionts/custom-metadata/custom_metadata.php:1315
+#: includes/pb-image.php:374 symbionts/custom-metadata/custom_metadata.php:1315
 msgid "Delete"
 msgstr "Ta bort"
 

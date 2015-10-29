@@ -11,11 +11,11 @@ if ( ! defined( 'ABSPATH' ) )
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'admin/pb-admin-dashboard.php' );
-require( PB_PLUGIN_DIR . 'admin/pb-admin-laf.php' );
-require( PB_PLUGIN_DIR . 'admin/pb-admin-metaboxes.php' );
-require( PB_PLUGIN_DIR . 'admin/pb-admin-customcss.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-network-managers.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-dashboard.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-laf.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-metaboxes.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-customcss.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-network-managers.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
@@ -37,9 +37,16 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\PressBooks\Admin\Laf\customize_register', 1000 );
+	add_action( 'after_switch_theme', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin' );
+	add_action( 'after_switch_theme', '\PressBooks\GlobalTypography::updateWebBookStyleSheet' );
+	add_action( 'after_switch_theme', '\PressBooks\Editor::updateEditorStyle' );
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\fix_root_admin_menu', 1 );
+}
+
+if ( is_network_admin() ) {
+	add_action( 'wp_network_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_network_dashboard_widgets' );
 }
 
 if ( true == is_main_site() ) {
@@ -54,6 +61,9 @@ add_action( 'admin_body_class', '\PressBooks\Admin\Laf\disable_customizer');
 
 // Hacks
 add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
+add_action( 'update_option_pressbooks_global_typography', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin' );
+add_action( 'update_option_pressbooks_global_typography', '\PressBooks\GlobalTypography::updateWebBookStyleSheet' );
+add_action( 'update_option_pressbooks_global_typography', '\PressBooks\Editor::updateEditorStyle' );
 
 // Privacy, Ecommerce, and Export settings
 add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );
@@ -96,13 +106,16 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'save_post', '\PressBooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
 	add_action( 'save_post', '\PressBooks\Admin\Metaboxes\title_update', 20, 2 );
 	add_action( 'save_post', '\PressBooks\Admin\Metaboxes\add_required_data', 30, 2 );
+	add_action( 'save_post', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin', 40, 2 );
+	add_action( 'save_post', '\PressBooks\GlobalTypography::updateWebBookStyleSheet', 50, 2 );
+	add_action( 'save_post', '\PressBooks\Editor::updateEditorStyle', 60, 2 );
 	add_action( 'save_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
 	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceBeforeInitInsertFormats' );
 	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceValidWordElements' );
 	add_filter( 'mce_buttons_2', '\PressBooks\Editor::mceButtons');
-	add_action( 'init', '\PressBooks\Editor::addEditorStyle' );
+	add_action( 'admin_init', '\PressBooks\Editor::addEditorStyle' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -143,8 +156,8 @@ add_action( 'load-post.php', '\PressBooks\Admin\CustomCss\redirect_css_editor' )
 // "Catch-all" routines, must come after taxonomies and friends
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', '\PressBooks\Export\Export::formSubmit', 50 );
-add_action( 'init', '\PressBooks\Import\Import::formSubmit', 50 );
+add_action( 'init', '\PressBooks\Modules\Export\Export::formSubmit', 50 );
+add_action( 'init', '\PressBooks\Modules\Import\Import::formSubmit', 50 );
 add_action( 'init', '\PressBooks\CustomCss::formSubmit', 50 );
 add_action( 'init', '\PressBooks\Catalog::formSubmit', 50 );
 

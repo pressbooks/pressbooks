@@ -1,9 +1,9 @@
 /**
-* default mpdf css stylesheet, can be configured on a per theme basis
+* default mpdf scss stylesheet, can be configured on a per theme basis
 */
 
 body {
-	font-family:  "Trebuchet MS","Times", serif;
+	font-family: "Trebuchet MS", "Times", serif;
 	font-size: 0.9em;
 	
 }

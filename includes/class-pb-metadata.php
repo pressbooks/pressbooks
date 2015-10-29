@@ -10,7 +10,6 @@
 namespace PressBooks;
 
 
-use PressBooks\Book;
 use PressBooks\Sanitize;
 
 
@@ -98,7 +97,7 @@ class Metadata {
 	 */
 	function getMidByKey( $post_id, $meta_key ) {
 
-		/** @var $wpdb wpdb */
+		/** @var \wpdb $wpdb */
 		global $wpdb;
 		$mid = $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s LIMIT 1 ", $post_id, $meta_key ) );
 		if ( $mid != '' ) {
@@ -185,7 +184,6 @@ class Metadata {
 	 */
 	static function getLicenseXml( $type, $copyright_holder, $src_url, $title, $lang = '' ) {
 		$endpoint = 'https://api.creativecommons.org/rest/1.5/';
-		$xml = '';
 		$lang = ( ! empty( $lang ) ) ? substr( $lang, 0, 2 ) : '';
 		$expected = array(
 		    'public-domain' => array(

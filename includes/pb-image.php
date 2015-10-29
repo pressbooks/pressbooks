@@ -46,40 +46,33 @@ function is_default_cover( $compare ) {
 /**
  * Check if a file (or stream) is a valid image type
  *
- * @param string $data Can be a temporary filename (think $_FILE before saving to $filename) or a stream (string). Default is temporary filename
+ * @param string $file Can be a temporary filename (think $_FILE before saving to $filename) or a stream (string). Default is temporary filename
  * @param string $filename
  * @param bool $is_stream (optional)
  *
  * @return bool
  */
-function is_valid_image( $data, $filename, $is_stream = false ) {
+function is_valid_image( $file, $filename, $is_stream = false ) {
 
 	$format = explode( '.', $filename );
 	$format = strtolower( end( $format ) ); // Extension
-	if ( $format == 'jpg' ) $format = 'jpeg'; // Fix stupid mistake
-	if ( ! ( $format == 'jpeg' || $format == 'gif' || $format == 'png' ) ) {
+	if ( ! ( $format == 'jpg' || $format == 'jpeg' || $format == 'gif' || $format == 'png' ) ) {
 		return false;
 	}
 
 	if ( $is_stream ) {
 		$tmp_image_path = \PressBooks\Utility\create_tmp_file();
-		file_put_contents( $tmp_image_path, $data );
-		$data = $tmp_image_path;
+		file_put_contents( $tmp_image_path, $file );
+		$file = $tmp_image_path;
 	}
 
-	/* Try to avoid problems with memory limit */
-	fudge_factor( $format, $data );
-
-	$func = 'imagecreatefrom' . $format;
-	$image = @$func( $data );
-	if ( $image === false ) {
+	$type = @exif_imagetype( $file );
+	if ( IMAGETYPE_JPEG == $type || IMAGETYPE_GIF == $type || IMAGETYPE_PNG == $type ) {
+		return true;
+	}
+	else {
 		return false;
 	}
-
-	imagedestroy( $image );
-	unset( $image );
-
-	return true;
 }
 
 
@@ -359,8 +352,8 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 							jQuery("#cover_image_preview").fadeOut("slow", function () {
 								jQuery("#cover_image_preview").load(function () { //avoiding blinking, wait until loaded
 									jQuery("#cover_image_preview").fadeIn();
-								});
-								jQuery('#cover_image_preview').attr('src', '<?php echo \PressBooks\Image\default_cover_url(); ?>');
+								})
+								.attr('src', '<?php echo \PressBooks\Image\default_cover_url(); ?>');
 							});
 						}
 					});
@@ -451,7 +444,8 @@ function fudge_factor( $format, $fullpath ) {
 		// Jpeg
 		$fudge = 1.65; // This is a guestimate, your mileage may very
 		$memoryNeeded = round( ( $size[0] * $size[1] * $size['bits'] * $size['channels'] / 8 + pow( 2, 16 ) ) * $fudge );
-	} else {
+	}
+	else {
 		// Not Sure
 		$memoryNeeded = $size[0] * $size[1];
 		if ( isset( $size['bits'] ) ) $memoryNeeded = $memoryNeeded * $size['bits'];
@@ -459,8 +453,9 @@ function fudge_factor( $format, $fullpath ) {
 	}
 
 	if ( memory_get_usage() + $memoryNeeded > (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) {
-		trigger_error( 'Image is too big, attempting to compensate...', E_USER_WARNING );
-		ini_set( 'memory_limit', (int) ini_get( 'memory_limit' ) + ceil( ( ( memory_get_usage() + $memoryNeeded ) - (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) / pow( 1024, 2 ) ) . 'M' );
+		$memory_limit = (int) ini_get( 'memory_limit' ) + ceil( ( ( memory_get_usage() + $memoryNeeded ) - (int) ini_get( 'memory_limit' ) * pow( 1024, 2 ) ) / pow( 1024, 2 ) ) . 'M';
+		trigger_error( "Image is too big, attempting to compensate by setting memory_limit to {$memory_limit} ...", E_USER_WARNING );
+		ini_set( 'memory_limit', $memory_limit );
 	}
 
 }

@@ -1,53 +1,16 @@
 /*
 Theme Name: Luther
-Theme URI: http://pressbooks.com/
+Theme URI: http://pressbooks.com/themes/pressbooks-book
 Description: Named after Martin Luther, this is a traditional book theme, good for novels, and text-heavy non-fiction. An earlier version of this theme was commissioned by Fortress Press / Augsburg Fortress.
 Author: Pressbooks (Book Oven Inc.)
 Author URI: http://pressbooks.com
 Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
-Version: 1.4
-
+Version: 1.5
 */
 
-/********************
-	@Font-Face
-*********************/
+@import url(https://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald|Droid+Serif:400,700,400italic,700italic|Open+Sans+Condensed:300,300italic&subset=latin,cyrillic,greek,cyrillic-ext,greek-ext);
 
-
-@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic);
-
-@font-face {
-  font-family: 'OpenSansCondensed';
-  src: url('fonts/OpenSans-CondLight-webfont.eot');
-  src: url('fonts/OpenSans-CondLight-webfont.eot') format('embedded-opentype'),
-  url('fonts/OpenSans-CondLight-webfont.woff') format('woff'),
-  url('fonts/OpenSans-CondLight-webfont.ttf') format('truetype'),
-  url('fonts/OpenSans-CondLight-webfont.svg#OpenSansCondensedLight') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: 'OpenSansCondensed';
-  src: url('fonts/OpenSans-CondLightItalic-webfont.eot');
-  src: url('fonts/OpenSans-CondLightItalic-webfont.eot') format('embedded-opentype'),
-  url('fonts/OpenSans-CondLightItalic-webfont.woff') format('woff'),
-  url('fonts/OpenSans-CondLightItalic-webfont.ttf') format('truetype'),
-  url('fonts/OpenSans-CondLightItalic-webfont.svg#OpenSansCondensedLightItalic') format('svg');
-  font-weight: normal;
-  font-style: italic;
-}
-@font-face {
-  font-family: 'OpenSansCondensed';
-  src: url('fonts/OpenSans-CondBold-webfont.eot');
-  src: url('fonts/OpenSans-CondBold-webfont.eot') format('embedded-opentype'),
-  url('fonts/OpenSans-CondBold-webfont.woff') format('woff'),
-  url('fonts/OpenSans-CondBold-webfont.ttf') format('truetype'),
-  url('fonts/OpenSans-CondBold-webfont.svg#OpenSansCondensedBold') format('svg');
-  font-weight: bold;
-  font-style: normal;
-}
-
-/* 
+/*
   html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
   v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark
   html5doctor.com/html-5-reset-stylesheet/
@@ -464,7 +427,7 @@ nav {
   text-decoration: none;
 }
 h1.book-title {
-  font: 1.2em/1.6em "Minion Pro", "Times New Roman", Times, serif;
+  font: 1.2em/1.6em "Cardo", "Times New Roman", Times, serif;
   /* 26px/16px */
   margin: 0 auto;
   padding: 10px 60px 0;

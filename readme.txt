@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 2.7.2
+Version: 3.0
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3.1
 Tested up to: 4.3.1
-Stable tag: 2.7.2
+Stable tag: 3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,11 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.4.x and WordPress 4.3.1. Lower versions are not supported.
+ * Pressbooks works with PHP 5.6.x and WordPress 4.3.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ 
+	$pb_minimum_php = 5.4;
+	
+However, we encourage you to upgrade your environment instead as [PHP 5.4 is no longer supported](http://php.net/supported-versions.php).
 
 *Part 1, WordPress generic:*
 
@@ -92,14 +96,15 @@ IMPORTANT!
 
 *Part 3, Pressbooks dependencies:*
 
- * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 9.0
+ * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 10r5
  * For PDF export via mPDF ensure that the following folders have write access and/or they are owned by the appropriate user.See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
    + wp-content/plugins/pressbooks/symbionts/mpdf/ttfontdata
    + wp-content/plugins/pressbooks/symbionts/mpdf/tmp
    + wp-content/plugins/pressbooks/symbionts/mpdf/graph_cache
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
- * For EPUB validation install [EpubCheck](http://code.google.com/p/epubcheck/) - Version 3.0.1
+ * For EPUB validation install [EpubCheck](https://github.com/idpf/epubcheck) - Version 4.0
  * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
+ * It is recommended that you install [sassphp](https://github.com/sensational/sassphp) for SASS compilation; however, Pressbooks includes a bundled compiler, [scssphp](https://github.com/leafo/scssphp/), and will fall back to this if sassphp is absent.
  * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl" 
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
@@ -147,7 +152,7 @@ Example config files for a dev site hosted at http://localhost/~dac514/textopres
 	 */
 	define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 	define( 'PB_KINDLEGEN_COMMAND', '/home/dac514/bin/kindlegen' );
-	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /home/dac514/bin/epubcheck-3.0-RC-1/epubcheck-3.0-RC-1.jar' );
+	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /home/dac514/bin/epubcheck-4.0/epubcheck-4.0.jar' );
 	define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
 
 	/**
@@ -191,9 +196,31 @@ TK.
 
 == Upgrade Notice ==
 
-TK.
+Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
+
+= 3.0 =
+* SASS-y themes: book themes are now built with SASS (specifically the SCSS variant) and compiled for export or web display using either the bundled scssphp compiler (https://github.com/leafo/scssphp/) or the SASS PHP extension if installed (https://github.com/sensational/sassphp). See `/docs/themes-book.txt` for details if you are developing your own themes.
+* Global Typography: users can add fonts to display Ancient Greek, Arabic, Biblical Hebrew, Chinese (Simplified or Traditional), Coptic, Gujarati, Japanese, Korean, Syriac, Tamil or Tibetan in any theme across all standard export formats via the Theme Options page.
+* EPUB 3: the current version of the EPUB standard is now fully supported and will soon become Pressbooks' default EPUB export format.
+* Added support for importing book information from a Pressbooks XML file.
+* Added support for persistent export format selections on the Export page.
+* Added the ability to show or hide front matter, chapter and back matter titles on the Organize page.
+* Added initial support for unit testing.
+* Requires PHP 5.6 (this can be overridden by setting `$pb_minimum_php` in wp-config.php, but we do not encourage this).
+* Updated the Prince command line wrapper to support Prince 10r5.
+* Updated export icons to support Retina screens.
+* Fixed an issue where Norwegian localization files were not being properly loaded.
+* Fixed an issue where the xml:lang attribute would set to `en` regardless of the book language.
+* Fixed an issue that prevented Prince from loading its built-in hyphenation dictionaries.
+* Fixed an issue with Kindle exports in bundled book themes.
+* Fixed an issue with multi-level TOC styling in bundled book themes.
+* Fixed an issue with EPUB images.
+* Fixed some PHP warnings.
+* Refactored some code for consistent namespacing and other improvements.
+* Various localization updates.
+* Various performance enhancements.
 
 = 2.7.2 =
 * Requires WordPress 4.3.1.

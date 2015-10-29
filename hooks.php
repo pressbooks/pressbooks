@@ -11,8 +11,9 @@ if ( ! defined( 'ABSPATH' ) )
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'admin/pb-admin-branding.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-branding.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-sass.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
@@ -47,7 +48,7 @@ add_action( 'init', '\PressBooks\L10n\load_plugin_textdomain' );
 add_filter( 'gettext', '\PressBooks\L10n\override_core_strings', 10, 3 );
 
 if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
-	add_filter( 'locale', '\PressBooks\Export\Export::setLocale' );
+	add_filter( 'locale', '\PressBooks\Modules\Export\Export::setLocale' );
 } elseif ( \PressBooks\Book::isBook() ) {
 	add_filter( 'locale', '\PressBooks\L10n\set_locale' );
 } elseif ( ! \PressBooks\Book::isBook() ) {
@@ -64,7 +65,7 @@ add_filter( 'intermediate_image_sizes', '\PressBooks\Image\intermediate_image_si
 add_filter( 'intermediate_image_sizes_advanced', '\PressBooks\Image\intermediate_image_sizes_advanced' );
 add_action( 'delete_attachment', '\PressBooks\Image\delete_attachment' );
 add_filter( 'wp_update_attachment_metadata', '\PressBooks\Image\save_attachment', 10, 2 );
-add_filter( 'the_content', '\PressBooks\Media\force_wrap_images' );
+add_filter( 'the_content', '\PressBooks\Media\force_wrap_images', 13 ); // execute image-hack after wpautop processing
 
 // -------------------------------------------------------------------------------------------------------------------
 // Audio/Video

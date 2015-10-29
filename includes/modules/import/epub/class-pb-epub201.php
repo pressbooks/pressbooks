@@ -5,10 +5,10 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Import\Epub;
+namespace PressBooks\Modules\Import\Epub;
 
 
-use PressBooks\Import\Import;
+use PressBooks\Modules\Import\Import;
 use PressBooks\Book;
 
 class Epub201 extends Import {

@@ -227,6 +227,8 @@ function pressbooks_publisher_menu() {
 
 	remove_submenu_page( 'themes.php', 'themes.php' );
 	remove_submenu_page( 'themes.php', 'nav-menus.php' );
+	$submenu['themes.php'][6][4] = 'customize-support'; // Fix empty submenu by overriding css. See line ~152 in: ./wp-admin/menu.php
+
 	remove_menu_page( 'plugins.php' );
 	remove_menu_page( 'users.php' );
 	remove_menu_page( 'tools.php' );

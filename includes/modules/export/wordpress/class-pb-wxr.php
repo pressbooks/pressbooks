@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Export\WordPress;
+namespace PressBooks\Modules\Export\WordPress;
 
 
-use PressBooks\Export\Export;
+use PressBooks\Modules\Export\Export;
 
 class Wxr extends Export {
 

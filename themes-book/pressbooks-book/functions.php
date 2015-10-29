@@ -51,20 +51,38 @@ add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
  * ------------------------------------------------------------------------ */
 function pb_enqueue_scripts() {
 
-	if ( pb_is_custom_theme() ) {
+	if ( pb_is_custom_theme() ) { // Custom CSS
 		$deps = array();
 		if ( ! pb_custom_stylesheet_imports_base() ) {
 			// Use default stylesheet as base (to avoid horribly broken webbook)
-			wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen,print' );
-			wp_enqueue_style( 'pressbooks' );
+			wp_register_style( 'pressbooks-book', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
+			wp_enqueue_style( 'pressbooks-book' );
 			$deps = array( 'pressbooks' );
 		}
 		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), $deps, get_option( 'pressbooks_last_custom_css' ), 'screen' );
 		wp_enqueue_style( 'pressbooks-custom-css' );
-	} else {
-		wp_register_style( 'pressbooks', get_bloginfo( 'stylesheet_url' ), array(), null, 'screen,print' );
+	} else { // Standard theme
+		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
 		wp_enqueue_style( 'pressbooks' );
+		// Use default stylesheet as base (to avoid horribly broken webbook)
+		$deps = array( 'pressbooks' );		
+		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
+			$wp_upload_dir = wp_upload_dir();
+			$fullpath = $wp_upload_dir['basedir'] . '/css/style.css';
+			if ( is_file( $fullpath ) ) { // Custom webbook style has been generated
+				wp_register_style( 'pressbooks-theme', $wp_upload_dir['baseurl'] . '/css/style.css', $deps, null, 'screen, print' );
+				wp_enqueue_style( 'pressbooks-theme' );
+			} else { // Use the bundled stylesheet
+				wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', $deps, null, 'screen, print' );
+				wp_enqueue_style( 'pressbooks-theme' );
+			}
+		}
+
 	}
+	
+	
+	
+	
 	if (! is_front_page() ) {
 		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
 	}
@@ -190,16 +208,6 @@ function pressbooks_comment( $comment, $args, $depth ) {
 	endswitch;
 }
 endif;
-
-
-/* ------------------------------------------------------------------------ *
- * Google Webfonts
- * ------------------------------------------------------------------------ */
-
-function pressbooks_enqueue_styles() {
-   		 wp_enqueue_style( 'pressbooks-fonts', 'http://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald');
-}
-add_action('wp_print_styles', 'pressbooks_enqueue_styles');
 
 /* ------------------------------------------------------------------------ *
  * Copyright License
@@ -350,106 +358,6 @@ endif;
 
 
 /* ------------------------------------------------------------------------ *
- * Theme Options Summary (displayed on Export Page)
- * ------------------------------------------------------------------------ */
-
-if ( ! function_exists( 'pressbooks_theme_options_summary' ) ) :
-
-/**
- * Function called by the Pressbooks plugin when user is on [ Export ] page
- */
-function pressbooks_theme_options_summary() { ?>
-	<p><strong><?php _e('Global options', 'pressbooks' ); ?>:</strong></p>
-	<ul>
-	<?php
-	$global_options = get_option('pressbooks_theme_options_global');
-	foreach ($global_options as $key => $value) {
-		switch($key) {
-			case 'chapter_numbers': ?>
-			<li><?php _e('Chapter numbers', 'pressbooks' ); ?>: <em><?php echo $value == 1 ? __( 'display chapter numbers', 'pressbooks' ) : __( 'do not display chapter numbers', 'pressbooks' ); ?></em></li>
-			<?php break;
-		}
-	}
-	?>
-	</ul>
-	<p><strong><?php _e('PDF options', 'pressbooks' ) ?>:</strong></p>
-	<ul>
-		<?php
-		// TODO: Control the order of display.
-		$pdf_options = get_option('pressbooks_theme_options_pdf');
-		foreach ($pdf_options as $key => $value) {
-			switch($key) {
-				case 'pdf_page_size': ?>
-					<li><?php _e( 'Page size', 'pressbooks' ) ?>: <em><?php
-						if ( $value == 1 ) { _e( 'digest', 'pressbooks' ); }
-						elseif ( $value == 2 ) { _e( 'US trade', 'pressbooks' ); }
-						elseif ( $value == 3 ) { _e( 'US letter', 'pressbooks' ); }
-						elseif ( $value == 4 ) { _e( '8.5 x 9.25"', 'pressbooks' ); }
-						elseif ( $value == 5 ) { _e( 'duodecimo', 'pressbooks' ); }
-						elseif ( $value == 6 ) { _e( 'pocket', 'pressbooks' ); }
-						elseif ( $value == 7 ) { _e( 'A4', 'pressbooks' ); }
-						elseif ( $value == 8 ) { _e( 'A5', 'pressbooks' ); } ?></em></li>
-					<?php break;
-				case 'pdf_paragraph_separation': ?>
-					<li><?php _e( 'Paragraph separator', 'pressbooks' ) ?>: <em><?php
-						if ( $value == 1 ) { _e( 'indent', 'pressbooks' ); }
-						elseif ( $value == 2 ) { _e( 'skip lines', 'pressbooks' ); } ?></em></li>
-					<?php break;
-				case 'pdf_blankpages': ?>
-					<li><?php _e( 'Blank pages' , 'pressbooks' ) ?>: <em><?php
-						if ( $value == 1 ) { _e( 'include blank pages (for print PDF)', 'pressbooks' ); }
-						elseif ( $value == 2 ) { _e( 'remove blank pages (for web PDF)', 'pressbooks' ); } ?></em></li>
-					<?php break;
-				case 'pdf_toc': ?>
-					<li><?php _e( 'Table of contents' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'display', 'pressbooks' ) : __( 'do not display', 'pressbooks' ); ?></em></li>
-					<?php break;
-				case 'pdf_footnotes_style': ?>
-					<li><?php _e( 'Footnotes style' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'normal', 'pressbooks' ) : __( 'force as endnotes', 'pressbooks' ); ?></em></li>
-					<?php break;
-				case 'pdf_crop_marks': ?>
-					<li><?php _e( 'Crop marks' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'display', 'pressbooks' ) : __( 'do not display', 'pressbooks' ); ?></em></li>
-					<?php break;
-				case 'pdf_hyphens': ?>
-					<li><?php _e( 'Hyphens' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></li>
-					<?php break;
-				case 'widows': ?>
-					<li><?php _e( 'Widows' , 'pressbooks' ) ?>: <em><?php echo $value; ?></em></li>
-					<?php break;
-				case 'orphans': ?>
-					<li><?php _e( 'Orphans' , 'pressbooks' ) ?>: <em><?php echo $value; ?></em></li>
-					<?php break;
-				case 'pdf_fontsize': ?>
-					<li><?php _e( 'Accessibility Increase Font Size' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></em></li>
-					<?php break;
-			}
-		}
-		?>
-	</ul>
-	<p><strong><?php _e( 'Ebook options' , 'pressbooks' ) ?>:</strong></p>
-	<ul>
-		<?php
-		$ebook_options = get_option('pressbooks_theme_options_ebook');
-		foreach ($ebook_options as $key => $value) {
-			switch($key) {
-				case 'ebook_paragraph_separation': ?>
-					<li><?php _e( 'Paragraph separator' , 'pressbooks' ) ?>: <em><?php
-						if ( $value == 1 ) { _e( 'indent', 'pressbooks' ); }
-						elseif ( $value == 2 ) { _e( 'skip lines', 'pressbooks' ); } ?></em></li>
-					<?php break;
-				case 'ebook_compress_images': ?>
-					<li><?php _e( 'Compress images' , 'pressbooks' ) ?>: <em><?php echo $value == 1 ? __( 'enabled', 'pressbooks' ) : __( 'disabled', 'pressbooks' ); ?></em></li>
-					<?php break;
-			}
-		}
-		?>
-	</ul>
-<?php
-}
-
-endif;
-
-
-/* ------------------------------------------------------------------------ *
  * Global Options Tab
  * ------------------------------------------------------------------------ */
 
@@ -528,6 +436,28 @@ function pressbooks_theme_options_global_init() {
 		'pressbooks_enable_chapter_types',
 		'pressbooks_theme_chapter_types_sanitize'
 	);
+
+	if ( pb_is_scss() == true ) { // we can only enable foreign language typography for themes that use SCSS
+
+		add_settings_field(
+			'pressbooks_global_typography',
+			__( 'Global Typography', 'pressbooks' ),
+			'pressbooks_theme_global_typography_callback',
+			$_page,
+			$_section,
+			array(
+				 __( 'Include fonts to support the following languages:', 'pressbooks' )
+			)
+		);
+		
+		register_setting(
+			$_page,
+			'pressbooks_global_typography',
+			'pressbooks_theme_pressbooks_global_typography_sanitize'
+		);
+
+	}
+
 }
 add_action('admin_init', 'pressbooks_theme_options_global_init');
 
@@ -608,6 +538,47 @@ function pressbooks_theme_copyright_license_callback( $args ) {
 	echo $html;
 }
 
+// Global Options Field Callback
+function pressbooks_theme_global_typography_callback( $args ) {
+	
+	$foreign_languages = get_option( 'pressbooks_global_typography' );
+
+	if ( ! $foreign_languages ) {
+		$foreign_languages = array();
+	}
+	
+	$languages = \PressBooks\GlobalTypography::getSupportedLanguages();
+	$already_supported_languages = \PressBooks\GlobalTypography::getThemeSupportedLanguages();
+	$already_supported_languages_string = '';
+	
+	$i = 1;
+	$c = count( $already_supported_languages );
+	foreach ( $already_supported_languages as $lang ) {
+		$already_supported_languages_string .= $languages[ $lang ];
+		if ( $i < $c && $i == $c - 1 ) {
+			$already_supported_languages_string .= ' ' . __( 'and', 'pressbooks' ) . ' ';
+		} elseif ( $i < $c ) {
+			$already_supported_languages_string .= ', ';
+		}
+		unset( $languages[ $lang ] );
+		$i++;
+	}
+
+	$html = '<label for="global_typography"> ' . $args[0] . '</label><br /><br />';
+	$html .= '<select id="global_typography" class="select2" data-placeholder="' . __( 'Select languages…', 'pressbooks' ) . '" name="pressbooks_global_typography[]" multiple>';
+	foreach ( $languages as $key => $value ) {
+		$selected = ( in_array( $key, $foreign_languages ) || in_array( $key, $already_supported_languages ) ) ? ' selected' : '';
+		$html .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option>';
+	}
+	$html .= '</select>';
+	
+	if ( $already_supported_languages_string ) {
+		$html .= '<br /><br />' . sprintf( __( 'This theme includes built-in support for %s.', 'pressbooks' ), $already_supported_languages_string );
+	}
+
+	echo $html;
+}
+
 // Global Options Input Sanitization
 function pressbooks_theme_options_global_sanitize( $input ) {
 
@@ -630,12 +601,19 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 	} else {
 		$options['copyright_license'] = 1;
 	}
-
+	
 	return $options;
 }
 
 function pressbooks_theme_chapter_types_sanitize( $input ) {
 	return absint( $input );
+}
+
+function pressbooks_theme_pressbooks_global_typography_sanitize( $input ) {
+	if ( !is_array( $input ) ) {
+		$input = array();
+	}
+	return $input;
 }
 
 /* ------------------------------------------------------------------------ *
@@ -1577,7 +1555,7 @@ function pressbooks_theme_options_ebook_sanitize( $input ) {
  * Hooks, Actions and Filters
  * ------------------------------------------------------------------------ */
 
-function pressbooks_theme_pdf_css_override( $css ) {
+function pressbooks_theme_pdf_css_override( $scss ) {
 
 	// --------------------------------------------------------------------
 	// Global Options
@@ -1586,7 +1564,7 @@ function pressbooks_theme_pdf_css_override( $css ) {
 
 	// Display chapter numbers? true (default) / false
 	if ( ! @$options['chapter_numbers'] ) {
-		$css .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
+		$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
 	}
 
 	// --------------------------------------------------------------------
@@ -1609,119 +1587,118 @@ function pressbooks_theme_pdf_css_override( $css ) {
 
 	switch ( @$options['pdf_page_size'] ) {
 		case 1:
-			$css .= "@page { size: 5.5in 8.5in; } \n";
+			$scss .= "@page { size: 5.5in 8.5in; } \n";
 			break;
 		case 2:
-			$css .= "@page { size: 6in 9in; } \n";
+			$scss .= "@page { size: 6in 9in; } \n";
 			break;
 		case 3:
-			$css .= "@page { size: 8.5in 11in; } \n";
+			$scss .= "@page { size: 8.5in 11in; } \n";
 			break;
 		case 4:
-			$css .= "@page { size: 8.5in 9.25in } \n";
+			$scss .= "@page { size: 8.5in 9.25in } \n";
 			break;
 		case 5:
-			$css .= "@page { size: 5in 7.75in } \n";
+			$scss .= "@page { size: 5in 7.75in } \n";
 			break;
 		case 6:
-			$css .= "@page { size: 4.25in 7in } \n";
+			$scss .= "@page { size: 4.25in 7in } \n";
 			break;
 		case 7:
-			$css .= "@page { size: 21cm 29.7cm } \n";
+			$scss .= "@page { size: 21cm 29.7cm } \n";
 			break;
 		case 8:
-			$css .= "@page { size: 14.8cm 21cm; } \n";
+			$scss .= "@page { size: 14.8cm 21cm; } \n";
 			break;
 		case 9:
-			$css .= "@page { size: 5in 8in; } \n";
+			$scss .= "@page { size: 5in 8in; } \n";
 			break;
 	}
 
 	// Display crop marks? true / false (default)
 	if ( @$options['pdf_crop_marks'] ) {
-		$css .= "@page { marks: crop } \n";
+		$scss .= "@page { marks: crop } \n";
 	}
 
 	// Hyphens?
 	if ( @$options['pdf_hyphens'] ) {
-		$css .= 'p { hyphens: auto; ';
+		$scss .= 'p { hyphens: auto; ';
 		// To debug use `hyphens: prince-expand-all;` (then every hyphenation point will be shown with a dot)
-		// $css .= "hyphens: prince-expand-all; ";
-		$css .= "} \n";
+		// $scss .= "hyphens: prince-expand-all; ";
+		$scss .= "} \n";
 	}
 
 	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines
 	if ( 2 == @$options['pdf_paragraph_separation'] ) {
-		$css .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+		$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
 	}
 
 	// Include blank pages? 1 = Yes (default), 2 = No
 	if ( 2 == @$options['pdf_blankpages'] ) {
-		$css .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: auto; } \n";
+		$scss .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: auto; } \n";
 	}
 
 	// Display TOC? true (default) / false
 	if ( ! @$options['pdf_toc'] ) {
-		$css .= "#toc { display: none; } \n";
+		$scss .= "#toc { display: none; } \n";
 	}
 
 	// Widows & Orphans
 	if ( @$options['widows'] ) {
-		$css .= 'p { widows: ' . $options['widows'] . '; }' . "\n";
+		$scss .= 'p { widows: ' . $options['widows'] . '; }' . "\n";
 	} else {
-		$css .= 'p { widows: 2; }' . "\n";
+		$scss .= 'p { widows: 2; }' . "\n";
 	}
 	if ( @$options['orphans'] ) {
-		$css .= 'p { orphans: ' . $options['orphans'] . '; }' . "\n";
+		$scss .= 'p { orphans: ' . $options['orphans'] . '; }' . "\n";
 	} else {
-		$css .= 'p { orphans: 1; }' . "\n";
+		$scss .= 'p { orphans: 1; }' . "\n";
 	}
 	
 	if ( @$options['pdf_fontsize'] ){
-                $css .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
-        }
-
-
+		$scss .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
+	}
+		
 	// --------------------------------------------------------------------
 	// Luther features we inject ourselves, (not user options, this theme not child)
 
 	$theme = strtolower( '' . wp_get_theme() );
 	if ( 'luther' == $theme ) {
 		// Translate "Part" to whatever language this book is in
-		$css .= '#toc .part a::before { content: "' . __( 'Part', 'pressbooks' ) . ' "counter(part, upper-roman) ". "; }' . "\n";
-		$css .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
+		$scss .= '#toc .part a::before { content: "' . __( 'Part', 'pressbooks' ) . ' "counter(part, upper-roman) ". "; }' . "\n";
+		$scss .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
 	}
 
-	return $css;
+	return $scss;
 }
 add_filter( 'pb_pdf_css_override', 'pressbooks_theme_pdf_css_override' );
 
-function pressbooks_theme_mpdf_css_override( $css ) {
+function pressbooks_theme_mpdf_css_override( $scss ) {
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
 	$global_options = get_option( 'pressbooks_theme_options_global' );
 
 	// indent paragraphs
 	if ( $options['mpdf_indent_paragraphs'] ) {
-		$css .= "p + p, .indent {text-indent: 2.0 em; }" . "\n";
+		$scss .= "p + p, .indent {text-indent: 2.0 em; }" . "\n";
 	}
 	// hyphenation
 	if ( $options['mpdf_hyphens'] ) {
-		$css .= "p {hyphens: auto;}" . "\n";
+		$scss .= "p {hyphens: auto;}" . "\n";
 	}
 	// font-size
 	if ( $options['mpdf_fontsize'] ){
-                $css .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
+                $scss .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
         }
 	// chapter numbers
 	if ( ! $global_options['chapter_numbers'] ) {
-		$css .= "h3.chapter-number {display: none;}" . "\n";
+		$scss .= "h3.chapter-number {display: none;}" . "\n";
 	}
-	return $css;
+	return $scss;
 }
 
 add_filter( 'pb_mpdf_css_override', 'pressbooks_theme_mpdf_css_override' );
 
-function pressbooks_theme_ebook_css_override( $css ) {
+function pressbooks_theme_ebook_css_override( $scss ) {
 
 	// --------------------------------------------------------------------
 	// Global Options
@@ -1729,7 +1706,7 @@ function pressbooks_theme_ebook_css_override( $css ) {
 	$options = get_option( 'pressbooks_theme_options_global' );
 
 	if ( ! @$options['chapter_numbers'] ) {
-		$css .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
+		$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
 	}
 
 	// --------------------------------------------------------------------
@@ -1739,19 +1716,19 @@ function pressbooks_theme_ebook_css_override( $css ) {
 
 	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines
 	if ( 2 == @$options['ebook_paragraph_separation'] ) {
-		$css .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
+		$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
 	}
-
+	
 	// --------------------------------------------------------------------
 	// Luther features we inject ourselves, (not user options, this theme not child)
 
 	$theme = strtolower( '' . wp_get_theme() );
 	if ( 'luther' == $theme ) {
 		// Translate "Part" to whatever language this book is in
-		$css .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
+		$scss .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
 	}
 
-	return $css;
+	return $scss;
 
 }
 add_filter( 'pb_epub_css_override', 'pressbooks_theme_ebook_css_override' );

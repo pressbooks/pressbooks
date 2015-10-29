@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Export\Xhtml;
+namespace PressBooks\Modules\Export\Xhtml;
 
 
-use PressBooks\Export\Export;
+use PressBooks\Modules\Export\Export;
 use PressBooks\Sanitize;
 
 require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
@@ -611,7 +611,13 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoCopyright( $book_contents, $metadata ) {
+
 		$options = get_option( 'pressbooks_theme_options_global' );
+		foreach ( array( 'copyright_license' ) as $requiredGlobalOption ) {
+			if ( ! isset ( $options[$requiredGlobalOption] ) ) {
+				$options[$requiredGlobalOption] = 0;
+			}
+		}
 		
 		echo '<div id="copyright-page"><div class="ugc">';
 
@@ -619,11 +625,11 @@ class Xhtml11 extends Export {
 			echo $this->tidy( $metadata['pb_custom_copyright'] );
 		} 
 		
-		if ( 1 == @$options['copyright_license'] ){
+		if ( 1 == $options['copyright_license'] ){
 			echo $this->doCopyrightLicense( $metadata );
 		} 
 		// default, so something is displayed
-		if ( empty( $metadata['pb_custom_copyright'] ) && 0 == @$options['copyright_license'] ) {
+		if ( empty( $metadata['pb_custom_copyright'] ) && 0 == $options['copyright_license'] ) {
 			echo '<p>';
 			echo get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
 			echo ( ! empty( $metadata['pb_copyright_year'] ) ) ? $metadata['pb_copyright_year'] : date( 'Y' );
@@ -684,8 +690,14 @@ class Xhtml11 extends Export {
 	 * @param array $metadata
 	 */
 	protected function echoToc( $book_contents, $metadata ) {
-		$option = get_option( 'pressbooks_theme_options_global' );
-		
+
+		$options = get_option( 'pressbooks_theme_options_global' );
+		foreach ( array( 'copyright_license' ) as $requiredGlobalOption ) {
+			if ( ! isset ( $options[$requiredGlobalOption] ) ) {
+				$options[$requiredGlobalOption] = 0;
+			}
+		}
+
 		echo '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $book_contents as $type => $struct ) {
 			
@@ -728,7 +740,7 @@ class Xhtml11 extends Export {
 						$title = Sanitize\strip_br( $chapter['post_title'] );
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $chapter['ID'], 'pb_section_author', true ) );
-						$license = ( @$option['copyright_license'] ) ? get_post_meta( $chapter['ID'], 'pb_section_license', true ) : '';
+						$license = ( $options['copyright_license'] ) ? get_post_meta( $chapter['ID'], 'pb_section_license', true ) : '';
 
 						printf( '<li class="chapter %s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $subclass, $slug, Sanitize\decode( $title ) );
 
@@ -743,7 +755,7 @@ class Xhtml11 extends Export {
 												
 						echo '</a>';
 						
-						if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+						if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 							$sections = \PressBooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								echo '<ul class="sections">';
@@ -778,13 +790,13 @@ class Xhtml11 extends Export {
 							$typetype = $type . ' ' . $subclass;
 							$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 							$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
-							$license = ( @$option['copyright_license'] ) ? get_post_meta( $val['ID'], 'pb_section_license', true ) : '';
+							$license = ( $options['copyright_license'] ) ? get_post_meta( $val['ID'], 'pb_section_license', true ) : '';
 						}
 					} elseif ( 'back-matter' == $type ) {
 						$typetype = $type . ' ' . \PressBooks\Taxonomy\back_matter_type( $val['ID'] );
 						$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
-						$license = ( @$option['copyright_license'] ) ? get_post_meta( $val['ID'], 'pb_section_license', true ) : '';
+						$license = ( $options['copyright_license'] ) ? get_post_meta( $val['ID'], 'pb_section_license', true ) : '';
 					}
 
 					printf( '<li class="%s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $typetype, $slug, Sanitize\decode( $title ) );
@@ -800,7 +812,7 @@ class Xhtml11 extends Export {
 
 					echo '</a>';
 					
-					if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+					if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 						$sections = \PressBooks\Book::getSubsections( $val['ID'], true );
 						if ( $sections ) {								
 							echo '<ul class="sections">';
@@ -855,7 +867,7 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				if ( $sections ) {
 					$content = \PressBooks\Book::tagSubsections( $content, $id );
@@ -981,7 +993,7 @@ class Xhtml11 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+				if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 					$sections = \PressBooks\Book::getSubsections( $id );
 					if ( $sections ) {
 						$content = \PressBooks\Book::tagSubsections( $content, $id );
@@ -1075,7 +1087,7 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \PressBooks\Export\Export::shouldParseSections() == true ) {
+			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
 				if ( $sections ) {
 					$content = \PressBooks\Book::tagSubsections( $content, $id );

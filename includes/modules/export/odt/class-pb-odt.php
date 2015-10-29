@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version))
  */
-namespace PressBooks\Export\Odt;
+namespace PressBooks\Modules\Export\Odt;
 
 
-use \PressBooks\Export\Export;
+use \PressBooks\Modules\Export\Export;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
 
@@ -201,7 +201,7 @@ class Odt extends Export {
 	
 	public static function deleteDirectory( $dirpath ) {
 		if ( !is_dir( $dirpath ) ) {
-			throw new InvalidArgumentException( "$dirpath must be a directory." );
+			throw new \InvalidArgumentException( "$dirpath must be a directory." );
 		}
 		if ( substr( $dirpath, strlen( $dirpath ) - 1, 1 ) != '/' ) {
 			$dirpath .= '/';

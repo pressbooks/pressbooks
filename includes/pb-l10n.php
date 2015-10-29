@@ -7,6 +7,24 @@ namespace PressBooks\L10n;
 
 
 /**
+ * Override get_locale
+ * For performance reasons, we only want functions in this namespace to call WP get_locale once.
+ *
+ * @return string
+ */
+function get_locale() {
+
+	// Cheap cache
+	static $locale = null;
+
+	if ( empty ( $locale ) ) {
+		$locale = \get_locale();
+	}
+
+	return $locale;
+}
+
+/**
  * When multiple mo-files are loaded for the same domain, the first found translation will be used. To allow for easier
  * customization we load from the WordPress languages directory by default then fallback on our own, if any.
  */
@@ -556,12 +574,11 @@ function number_to_words( $number ) {
 /**
  * Convert integer to roman numeral
  *
- * @param      $integer
- * @param bool $upcase
+ * @param int $integer
  *
  * @return string
  */
-function romanize( $integer, $upcase = true ) {
+function romanize( $integer ) {
 
 	$integer = absint( $integer );
 
@@ -588,7 +605,7 @@ function romanize( $integer, $upcase = true ) {
  */
 function use_book_locale() {
 
-	if ( \PressBooks\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
+	if ( \PressBooks\Modules\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
 		return true;
 	}
 
