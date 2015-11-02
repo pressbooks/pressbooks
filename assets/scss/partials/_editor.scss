@@ -1,3 +1,5 @@
+@import 'textboxes';
+
 body#tinymce.wp-editor {
 	table {
 		min-width: 50%; }
@@ -13,21 +15,7 @@ body#tinymce.wp-editor {
 		padding-left: 1em;
 	    	text-indent: -1em;
 	}
-	.textbox {
-		border: 1px solid #000;
-		font-size: 0.9em;	
-		line-height: 1.2em;
-		margin: 10px 0;
-		padding: 10px;
-		&.shaded {
-			background-color: #eee;
-		}
-	}
-	.textbox-caption {
-		display: block;
-		font: bold 0.875em Helvetica, Arial, sans-serif;
-		margin: 0;
-	}
+	@include textboxes();
 	.pullquote {
 		border: 1px solid #000;
 		border-width: 1px 0;

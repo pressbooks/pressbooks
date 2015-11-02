@@ -1,8 +1,9 @@
 
 /* PRESSBOOKS PDF FALL-BACK STYLESHEET FOR VARIOUS SPECIAL THINGS 
 in development
-copyright 2013-2014 Book Oven Inc. */
+copyright 2013-2015 Book Oven Inc. */
 
+@import 'textboxes';
 
 @mixin header-style {
 	color: red;
@@ -800,17 +801,7 @@ ol.upper-alpha {
   padding: 10px 0;
   text-indent: 0;
 }
-.textbox {
-  border: 1px solid #000;
-  margin: 10px 0;
-  padding: 10px;
-}
-.textbox.shaded {
-  background-color: #eee;
-}
-.textbox p {
-  margin-top: 0;
-}
+@include textboxes();
 .pullquote {
   border: 1px solid;
   border-width: 1px 0;

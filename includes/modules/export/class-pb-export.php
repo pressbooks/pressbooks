@@ -122,7 +122,7 @@ abstract class Export {
 	 */
 	function getMixinsPath() {
 
-		$fullpath = PB_PLUGIN_DIR . 'assets/css/scss/export/';
+		$fullpath = PB_PLUGIN_DIR . 'assets/scss/partials/';
 
 		return $fullpath;
 	}
@@ -828,9 +828,9 @@ abstract class Export {
 	static function injectHouseStyles( $css ) {
 
 		$scan = array(
-			'/*__INSERT_PDF_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/css/scss/export/_pdf-house-style.scss',
-			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/css/scss/export/_epub-house-style.scss',
-			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/css/scss/export/_mobi-house-style.scss',
+			'/*__INSERT_PDF_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/scss/partials/_pdf-house-style.scss',
+			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/scss/partials/_epub-house-style.scss',
+			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/scss/partials/_mobi-house-style.scss',
 		);
 
 		foreach ( $scan as $token => $replace_with ) {

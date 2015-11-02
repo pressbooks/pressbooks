@@ -39,7 +39,7 @@ tinymce.PluginManager.add('textboxes', function (editor) {
             { text: 'Key Takeaway', onclick: function () {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox key-takeaway">{$selection}</div>');
             } },
-            { text: 'Excercise', onclick: function () {
+            { text: 'Exercise', onclick: function () {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox exercise">{$selection}</div>');
             } },
             { text: 'Example', onclick: function () {
