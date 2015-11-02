@@ -17,7 +17,7 @@ tinymce.PluginManager.add('textboxes', function (editor) {
             title: 'Custom Textbox',
             body: {type: 'textbox', name: 'className', size: 40, label: 'Class', value: selectedNode.name || selectedNode.id},
             onsubmit: function (e) {
-                editor.execCommand('mceReplaceContent', false, '<div class="' + e.data.className + '">{$selection}</div>');
+                editor.execCommand('mceReplaceContent', false, '<div class="textbox ' + e.data.className + '">{$selection}</div>');
             }
         });
     }
@@ -45,7 +45,7 @@ tinymce.PluginManager.add('textboxes', function (editor) {
             { text: 'Example', onclick: function () {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox example">{$selection}</div>');
             } },
-            { text: 'Custom…', onclick: function () { showDialog(); } }
+            { text: 'Custom...', onclick: function () { showDialog(); } }
         ]
     });
 
