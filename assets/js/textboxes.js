@@ -45,7 +45,7 @@ tinymce.PluginManager.add('textboxes', function (editor) {
             { text: 'Example', onclick: function () {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox example">{$selection}</div>');
             } },
-            { text: 'Custom', onclick: function () { showDialog(); } }
+            { text: 'Custom…', onclick: function () { showDialog(); } }
         ]
     });
 
