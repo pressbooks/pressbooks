@@ -1,5 +1,5 @@
 $type: 'web';
-@import 'mixins';
+@import 'mixins', 'textboxes';
 
 @import url(https://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald|Droid+Serif:400,700,400italic,700italic|Open+Sans+Condensed:300,300italic&subset=latin,cyrillic,greek,cyrillic-ext,greek-ext);
 
@@ -885,18 +885,7 @@ div.aligncenter {
 
 /* TEXTBOXES & PULLQUOTES 
 ===============*/
-.textbox {
-	border: 1px solid #333;
-	margin-bottom: 20px;
-	padding: 15px;
-}
-.textbox-caption {
-	display: block;
-	font-weight: bold;
-}
-.textbox.shaded {
-	background-color: #eee;
-}
+@include textboxes();
 
 .pullquote {
   border: 1px solid #000;
