@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.0
+Version: 3.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3.1
 Tested up to: 4.3.1
-Stable tag: 3.0
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -199,6 +199,9 @@ TK.
 Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
+
+= 3.1 =
+* Fixed some issues with MCE editor styles.
 
 = 3.0 =
 * SASS-y themes: book themes are now built with SASS (specifically the SCSS variant) and compiled for export or web display using either the bundled scssphp compiler (https://github.com/leafo/scssphp/) or the SASS PHP extension if installed (https://github.com/sensational/sassphp). See `/docs/themes-book.txt` for details if you are developing your own themes.
