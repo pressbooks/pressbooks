@@ -50,12 +50,12 @@ class Editor {
 		$scss .= "@import 'mixins';" . "\n";
 
 		$scss .= '@if variable-exists(font-1) {' . "\n";
-		$scss .= 'body { font-family: $font-1; }' . "\n";
+		$scss .= 'body#tinymce.wp-editor { font-family: $font-1; }' . "\n";
 		$scss .= '}' . "\n";
 
 		$scss .= '@if variable-exists(font-2) {' . "\n";
-		$scss .= 'h1, h2, h3, h4, h5, h6 { font-family: $font-2; }' . "\n";
-		$scss .= '}' . "\n";
+		$scss .= 'body#tinymce.wp-editor { h1, h2, h3, h4, h5, h6 { font-family: $font-2; }' . "\n";
+		$scss .= '} }' . "\n";
 
 		$scss .= "@import 'editor';" . "\n";
 						
@@ -155,13 +155,13 @@ class Editor {
 				'wrapper' => false,
 			),
 			array(
-				'title' => 'Text box',
+				'title' => 'Textbox',
 				'block' => 'div',
 				'classes' => 'textbox',
 				'wrapper' => false,
 			),
 			array(
-				'title' => 'Text box (shaded)',
+				'title' => 'Textbox (shaded)',
 				'block' => 'div',
 				'classes' => 'textbox shaded',
 				'wrapper' => false,

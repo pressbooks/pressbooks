@@ -1,66 +1,67 @@
-
-table {
-	min-width: 50%; }
-.indent {
-	text-indent: 2em;
-	margin-top: 0;
-}
-.nonindent,
-.no-indent {
-	text-indent: 0;
-}
-.hanging-indent {
-	padding-left: 1em;
-    	text-indent: -1em;
-}
-.textbox {
-	border: 1px solid #000;
-	font-size: 0.9em;	
-	line-height: 1.2em;
-	margin: 10px 0;
-	padding: 10px;
-	&.shaded {
-		background-color: #eee;
+body#tinymce.wp-editor {
+	table {
+		min-width: 50%; }
+	.indent {
+		text-indent: 2em;
+		margin-top: 0;
 	}
-}
-.textbox-caption {
-	display: block;
-	font: bold 0.875em Helvetica, Arial, sans-serif;
-	margin: 0;
-}
-.pullquote {
-	border: 1px solid #000;
-	border-width: 1px 0;
-	margin: 20px auto;
-	padding: 5px 0;
-	text-align: center;
-	width: 45%;
-	&.pullquote-left {
-		float: left;
-		margin: 0.8em 15px 0.8em 0;
-		padding: 5px 0;
+	.nonindent,
+	.no-indent {
+		text-indent: 0;
 	}
-	&.pullquote-right {
-		float: right;
-		margin: 0.8em 0 0.8em 15px;
-		padding: 5px 0;
+	.hanging-indent {
+		padding-left: 1em;
+	    	text-indent: -1em;
 	}
-}
-hr.break-symbols {
-	border: none;
-	font-size: 1.1em;
-    margin-bottom: 20px;
-    &:after {
+	.textbox {
+		border: 1px solid #000;
+		font-size: 0.9em;	
+		line-height: 1.2em;
+		margin: 10px 0;
+		padding: 10px;
+		&.shaded {
+			background-color: #eee;
+		}
+	}
+	.textbox-caption {
 		display: block;
-		content: "\066D";
-		font-size: 18pt;
+		font: bold 0.875em Helvetica, Arial, sans-serif;
+		margin: 0;
+	}
+	.pullquote {
+		border: 1px solid #000;
+		border-width: 1px 0;
+		margin: 20px auto;
+		padding: 5px 0;
 		text-align: center;
-    }
-}
-
-img,
-.wp-caption,
-.wp-nocaption {
-	max-width: 100%;
-	height: auto;
+		width: 45%;
+		&.pullquote-left {
+			float: left;
+			margin: 0.8em 15px 0.8em 0;
+			padding: 5px 0;
+		}
+		&.pullquote-right {
+			float: right;
+			margin: 0.8em 0 0.8em 15px;
+			padding: 5px 0;
+		}
+	}
+	hr.break-symbols {
+		border: none;
+		font-size: 1.1em;
+	    margin-bottom: 20px;
+	    &:after {
+			display: block;
+			content: "\066D";
+			font-size: 18pt;
+			text-align: center;
+	    }
+	}
+	
+	img,
+	.wp-caption,
+	.wp-nocaption {
+		max-width: 100%;
+		height: auto;
+	}
 }
