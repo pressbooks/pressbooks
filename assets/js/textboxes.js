@@ -14,8 +14,8 @@ tinymce.PluginManager.add('textboxes', function (editor) {
         var selectedNode = editor.selection.getNode();
 
         editor.windowManager.open({
-            title: 'Custom Textbox',
-            body: {type: 'textbox', name: 'className', size: 40, label: 'Class', value: selectedNode.name || selectedNode.id},
+            title: editor.getLang('strings.customtextbox'),
+            body: {type: 'textbox', name: 'className', size: 40, label: editor.getLang('strings.classtitle'), value: selectedNode.name || selectedNode.id},
             onsubmit: function (e) {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox ' + e.data.className + '">{$selection}</div>');
             }
@@ -24,28 +24,28 @@ tinymce.PluginManager.add('textboxes', function (editor) {
 
     editor.addButton('textboxes', {
         type: 'menubutton',
-        text: 'Textboxes',
+        text: editor.getLang('strings.textboxes'),
         icon: false,
         menu: [
-            { text: 'Standard', onclick: function () {
+            { text: editor.getLang('strings.standard'), onclick: function () {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox">{$selection}</div>');
             } },
-            { text: 'Shaded', onclick: function () {
+            { text: editor.getLang('strings.shaded'), onclick: function () {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox shaded">{$selection}</div>');
             } },
-            { text: 'Learning Objective', onclick: function () {
+            { text: editor.getLang('strings.learningobjective'), onclick: function () {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox learning-objective">{$selection}</div>');
             } },
-            { text: 'Key Takeaway', onclick: function () {
+            { text: editor.getLang('strings.keytakeaway'), onclick: function () {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox key-takeaway">{$selection}</div>');
             } },
-            { text: 'Exercise', onclick: function () {
+            { text: editor.getLang('strings.exercise'), onclick: function () {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox exercise">{$selection}</div>');
             } },
-            { text: 'Example', onclick: function () {
+            { text: editor.getLang('strings.example'), onclick: function () {
                 editor.execCommand('mceReplaceContent', false, '<div class="textbox example">{$selection}</div>');
             } },
-            { text: 'Custom...', onclick: function () { showDialog(); } }
+            { text: editor.getLang('strings.customellipses'), onclick: function () { showDialog(); } }
         ]
     });
 

@@ -23,6 +23,14 @@ class Editor {
 	}
 
 	/**
+	 * Localize TinyMCE plugins.
+	 */
+	static function addLanguages( $array ) {
+	    $array[] = PB_PLUGIN_DIR . 'languages/tinymce.php';
+	    return $array;
+	}
+
+	/**
 	 * Adds style select dropdown and textbox buttons to MCE buttons array.
 	 */
 	static function mceButtons( $buttons ) {
