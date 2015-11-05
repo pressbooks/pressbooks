@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2015-11-03 15:13-0500\n"
+"POT-Creation-Date: 2015-11-05 10:30-0500\n"
 "PO-Revision-Date: 2015-08-08 13:43-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Pressbooks <code@pressbooks.com>\n"
@@ -886,6 +886,42 @@ msgstr ""
 msgid "No book found."
 msgstr ""
 
+#: includes/class-pb-editor.php:62
+msgid "Indent"
+msgstr ""
+
+#: includes/class-pb-editor.php:68
+msgid "Hanging indent"
+msgstr ""
+
+#: includes/class-pb-editor.php:74
+msgid "No indent"
+msgstr ""
+
+#: includes/class-pb-editor.php:80
+msgid "Tight tracking"
+msgstr ""
+
+#: includes/class-pb-editor.php:86
+msgid "Very tight tracking"
+msgstr ""
+
+#: includes/class-pb-editor.php:92
+msgid "Loose tracking"
+msgstr ""
+
+#: includes/class-pb-editor.php:98
+msgid "Very loose tracking"
+msgstr ""
+
+#: includes/class-pb-editor.php:104
+msgid "Pullquote (left)"
+msgstr ""
+
+#: includes/class-pb-editor.php:110
+msgid "Pullquote (right)"
+msgstr ""
+
 #: includes/class-pb-globaltypography.php:20
 msgid "Ancient Greek"
 msgstr ""
@@ -1679,27 +1715,55 @@ msgid "Standard"
 msgstr ""
 
 #: languages/tinymce.php:8
-msgid "Shaded"
+msgid "Type your textbox content here."
 msgstr ""
 
 #: languages/tinymce.php:9
-msgid "Learning Objective"
+msgid "Shaded"
 msgstr ""
 
 #: languages/tinymce.php:10
-msgid "Key Takeaway"
+msgid "Learning Objectives"
 msgstr ""
 
 #: languages/tinymce.php:11
-msgid "Exercise"
+msgid "Type your learning objectives here."
 msgstr ""
 
 #: languages/tinymce.php:12
-msgid "Example"
+msgid "Key Takeaways"
 msgstr ""
 
 #: languages/tinymce.php:13
+msgid "Type your key takeaways here."
+msgstr ""
+
+#: languages/tinymce.php:14
+msgid "Exercises"
+msgstr ""
+
+#: languages/tinymce.php:15
+msgid "Type your exercises here."
+msgstr ""
+
+#: languages/tinymce.php:16
+msgid "Examples"
+msgstr ""
+
+#: languages/tinymce.php:17
+msgid "Type your examples here."
+msgstr ""
+
+#: languages/tinymce.php:18
 msgid "Custom..."
+msgstr ""
+
+#: languages/tinymce.php:19
+msgid "First"
+msgstr ""
+
+#: languages/tinymce.php:20
+msgid "Second"
 msgstr ""
 
 #: pressbooks.php:82
