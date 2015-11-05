@@ -4,14 +4,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2015-11-05 10:30-0500\n"
+"POT-Creation-Date: 2015-11-05 13:31-0400\n"
 "PO-Revision-Date: 2015-08-08 13:43-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Pressbooks <code@pressbooks.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.3\n"
+"X-Generator: Poedit 1.8.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: pressbooks.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "Pressbooks will not work with your version of WordPress. Pressbooks requires a dedicated install of WordPress Multi-Site, version %s or greater. Please upgrade WordPress if you would like to use Pressbooks."
 msgstr ""
 
-#: hooks-admin.php:212
+#: hooks-admin.php:213
 #, php-format
 msgid "The path \"%s\" is not writable. Please check and adjust the ownership and file permissions for mpdf export to work properly."
 msgstr ""
@@ -922,6 +922,32 @@ msgstr ""
 msgid "Pullquote (right)"
 msgstr ""
 
+#: includes/class-pb-editor.php:158 includes/class-pb-editor.php:180
+#: includes/class-pb-editor.php:194 languages/tinymce.php:7
+msgid "Standard"
+msgstr ""
+
+#: includes/class-pb-editor.php:162
+msgid "No lines"
+msgstr ""
+
+#: includes/class-pb-editor.php:166
+msgid "Lines"
+msgstr ""
+
+#: includes/class-pb-editor.php:170 includes/class-pb-editor.php:188
+#: includes/class-pb-editor.php:202 languages/tinymce.php:9
+msgid "Shaded"
+msgstr ""
+
+#: includes/class-pb-editor.php:174 languages/tinymce.php:18
+msgid "Custom..."
+msgstr ""
+
+#: includes/class-pb-editor.php:184 includes/class-pb-editor.php:198
+msgid "Border"
+msgstr ""
+
 #: includes/class-pb-globaltypography.php:20
 msgid "Ancient Greek"
 msgstr ""
@@ -1710,16 +1736,8 @@ msgstr ""
 msgid "Custom Textbox"
 msgstr ""
 
-#: languages/tinymce.php:7
-msgid "Standard"
-msgstr ""
-
 #: languages/tinymce.php:8
 msgid "Type your textbox content here."
-msgstr ""
-
-#: languages/tinymce.php:9
-msgid "Shaded"
 msgstr ""
 
 #: languages/tinymce.php:10
@@ -1752,10 +1770,6 @@ msgstr ""
 
 #: languages/tinymce.php:17
 msgid "Type your examples here."
-msgstr ""
-
-#: languages/tinymce.php:18
-msgid "Custom..."
 msgstr ""
 
 #: languages/tinymce.php:19
@@ -3492,4 +3506,3 @@ msgstr ""
 #. Author of the plugin/theme
 msgid "BookOven Inc."
 msgstr ""
-
