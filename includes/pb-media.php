@@ -7,13 +7,15 @@ namespace PressBooks\Media;
 
 /**
  * Filter to alter the list of acceptable file extensions
+ *
+ * @see \get_allowed_mime_types
  * @see \PressBooks\Modules\Export\Epub3
  *
  * @param array $existing_mimes
  *
  * @return array
  */
-function addMimeTypes( $existing_mimes = array() ) {
+function add_mime_types( $existing_mimes = array() ) {
 
 	$add_mimes = array(
 		'mp4' => 'video/mp4',
@@ -29,7 +31,7 @@ function addMimeTypes( $existing_mimes = array() ) {
 }
 
 /**
- * Checks for file validity on import.
+ * Checks for valid EPUB3 video or audio file names.
  *
  * @param string $pathToFile
  * @param string $filename
@@ -38,17 +40,9 @@ function addMimeTypes( $existing_mimes = array() ) {
  */
 function is_valid_media( $pathToFile, $filename ) {
 
-	$mimes = addMimeTypes();
+	$validate = wp_check_filetype( $filename, add_mime_types() );
 
-	$validate = wp_check_filetype( $filename, $mimes );
-
-	// check the file extension
-	if ( ! array_key_exists( $validate['ext'], $mimes ) ) {
-		return false;
-	}
-
-	// check the mimetype
-	if ( ! in_array( $validate['type'], $mimes ) ) {
+	if ( false === $validate['ext'] || false === $validate['type'] ) {
 		return false;
 	}
 
