@@ -146,6 +146,74 @@ class Editor {
 
 
 	/**
+	 * Builds custom list of classes and adjusts other aspects of the table editor plugin.
+	 *
+	 * @param array $settings
+	 *
+	 * @return array
+	 */
+	static function mceTableEditorOptions( $settings ) {
+		$table_classes = array(
+			array(
+				'title' => __( 'Standard', 'pressbooks' ),
+				'value'	=> ''
+			),
+			array(
+				'title'	=> __( 'No lines', 'pressbooks' ),
+				'value'	=> 'no-lines',
+			),
+			array(
+				'title'	=> __( 'Lines', 'pressbooks' ),
+				'value'	=> 'lines',
+			),
+			array(
+				'title'	=> __( 'Shaded', 'pressbooks' ),
+				'value'	=> 'shaded',
+			),
+			array(
+				'title'	=> __( 'Custom...', 'pressbooks' ),
+				'value'	=> 'custom',
+			)
+		);
+		$cell_classes = array(
+			array(
+				'title' => __( 'Standard', 'pressbooks' ),
+				'value'	=> ''
+			),
+			array(
+				'title'	=> __( 'Border', 'pressbooks' ),
+				'value'	=> 'border',
+			),
+			array(
+				'title'	=> __( 'Shaded', 'pressbooks' ),
+				'value'	=> 'shaded',
+			),
+		);
+		$row_classes = array(
+			array(
+				'title' => __( 'Standard', 'pressbooks' ),
+				'value'	=> ''
+			),
+			array(
+				'title'	=> __( 'Border', 'pressbooks' ),
+				'value'	=> 'border',
+			),
+			array(
+				'title'	=> __( 'Shaded', 'pressbooks' ),
+				'value'	=> 'shaded',
+			),
+		);
+		$settings['table_advtab'] = false;
+		$settings['table_class_list'] = json_encode( $table_classes );
+		$settings['table_cell_advtab'] = false;
+		$settings['table_cell_class_list'] = json_encode( $cell_classes );
+		$settings['table_row_advtab'] = false;
+		$settings['table_row_class_list'] = json_encode( $row_classes );
+		return $settings;
+	}
+
+
+	/**
 	 * Updates custom stylesheet for MCE previewing.
 	 *
 	 * @param int $pid
