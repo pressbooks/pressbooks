@@ -8,7 +8,7 @@ This file must validate as CSS 2.01 with absolutely no errors
 in development
 copyright 2013-2014 Book Oven Inc. */
 
-@import 'textboxes';
+@import 'tables', 'textboxes';
 
 /* HEADERS */
 
@@ -188,6 +188,8 @@ p.no-hyphens {
 }
 
 /* TABLES */
+
+@include tables();
 
 table,
 table tr,

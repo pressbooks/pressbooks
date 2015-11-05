@@ -3,7 +3,7 @@
 in development
 copyright 2013-2015 Book Oven Inc. */
 
-@import 'textboxes';
+@import 'tables', 'textboxes';
 
 @mixin header-style {
 	color: red;
@@ -1099,6 +1099,8 @@ div.chapter.introduction {
 }
 
 /* TABLES */
+
+@include tables();
 
 table,
 table tr,

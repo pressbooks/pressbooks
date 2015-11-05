@@ -1,4 +1,4 @@
-@import 'textboxes';
+@import 'tables', 'textboxes';
 
 body#tinymce.wp-editor {
 	table {
@@ -15,6 +15,7 @@ body#tinymce.wp-editor {
 		padding-left: 1em;
 	    	text-indent: -1em;
 	}
+	@include tables();
 	@include textboxes();
 	.pullquote {
 		border: 1px solid #000;

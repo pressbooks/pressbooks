@@ -1050,6 +1050,27 @@ aside {
   margin-bottom: 0;
   margin-left: 2em; }
 
+#content table.no-lines {
+  border: none; }
+
+#content table.lines {
+  border: 1px solid #000; }
+
+#content table.shaded {
+  background-color: #eee; }
+
+#content table tr.border {
+  border: 1px solid #000; }
+
+#content table tr.shaded {
+  background-color: #eee; }
+
+#content table tr td.border {
+  border: 1px solid #000; }
+
+#content table tr td.shaded {
+  background-color: #eee; }
+
 #content table {
   border: 1px solid #e7e7e7;
   margin: 0 -1px 24px 0;
