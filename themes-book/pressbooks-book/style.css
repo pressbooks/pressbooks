@@ -881,6 +881,107 @@ div.aligncenter {
     margin-top: 0; }
   .textbox.shaded {
     background-color: #eee; }
+  .textbox.learning-objectives {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 15px;
+    padding-bottom: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 2%;
+    width: 100%;
+    background-color: #F7F7F9; }
+    .textbox.learning-objectives h3:first-child {
+      color: #FFFFFF;
+      margin-bottom: 15px;
+      margin-left: -3%;
+      margin-right: -3%;
+      margin-top: -2%;
+      padding-bottom: 15px;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 15px;
+      text-align: center; }
+    .textbox.learning-objectives h3 {
+      background-color: #111111; }
+  .textbox.key-takeaways {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 15px;
+    padding-bottom: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 2%;
+    width: 100%;
+    background-color: #EAF5EA; }
+    .textbox.key-takeaways h3:first-child {
+      color: #FFFFFF;
+      margin-bottom: 15px;
+      margin-left: -3%;
+      margin-right: -3%;
+      margin-top: -2%;
+      padding-bottom: 15px;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 15px;
+      text-align: center; }
+    .textbox.key-takeaways h3 {
+      background-color: #3A7A33; }
+  .textbox.exercises {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 15px;
+    padding-bottom: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 2%;
+    width: 100%;
+    background-color: #E3EFF6; }
+    .textbox.exercises h3:first-child {
+      color: #FFFFFF;
+      margin-bottom: 15px;
+      margin-left: -3%;
+      margin-right: -3%;
+      margin-top: -2%;
+      padding-bottom: 15px;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 15px;
+      text-align: center; }
+    .textbox.exercises h3 {
+      background-color: #0B6396; }
+  .textbox.examples {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-bottom: 15px;
+    padding-bottom: 2%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 2%;
+    width: 100%;
+    background-color: #EAF5EA; }
+    .textbox.examples h3:first-child {
+      color: #FFFFFF;
+      margin-bottom: 15px;
+      margin-left: -3%;
+      margin-right: -3%;
+      margin-top: -2%;
+      padding-bottom: 15px;
+      padding-left: 0;
+      padding-right: 0;
+      padding-top: 15px;
+      text-align: center; }
+    .textbox.examples h3 {
+      background-color: #3A7A33; }
+
 
 .textbox-caption {
   display: block;
