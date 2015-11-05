@@ -101,18 +101,6 @@ class Editor {
 				'wrapper' => false,
 			),
 			array(
-				'title' => 'Textbox',
-				'block' => 'div',
-				'classes' => 'textbox',
-				'wrapper' => false,
-			),
-			array(
-				'title' => 'Textbox (shaded)',
-				'block' => 'div',
-				'classes' => 'textbox shaded',
-				'wrapper' => false,
-			),
-			array(
 				'title' => 'Pullquote (left)',
 				'inline' => 'span',
 				'classes' => 'pullquote-left',
