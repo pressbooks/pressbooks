@@ -11,6 +11,7 @@ namespace PressBooks\SASS;
  * Returns the compiled CSS from SCSS input
  *
  * @param string $scss
+ * @param array $includes (optional)
  *
  * @return string the compiled CSS (or empty string on error)
  */

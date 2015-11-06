@@ -112,8 +112,11 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'save_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
+	add_filter( 'mce_external_languages', '\PressBooks\Editor::addLanguages' );
 	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceBeforeInitInsertFormats' );
 	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceValidWordElements' );
+	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceTableEditorOptions' );
+	add_filter( 'mce_external_plugins', '\PressBooks\Editor::mceButtonScripts' );
 	add_filter( 'mce_buttons_2', '\PressBooks\Editor::mceButtons');
 	add_action( 'admin_init', '\PressBooks\Editor::addEditorStyle' );
 }

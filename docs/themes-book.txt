@@ -37,7 +37,7 @@ We use the SCSS variant of [SASS](http://sass-lang.com) for our stylesheets, whi
 
 Most themes have at least two font stacks. `$font-1` must be the body font, and `$font-2` must be the header font.
 
-The `@import` rules load the `fonts` mixin file which includes `font-face` declarations for all bundled fonts (found in `/assets/css/scss/export/_fonts.scss`). These `font-face` declarations can be included in each format's `style.scss` file, e.g.:
+The `@import` rules load the `fonts` mixin file which includes `font-face` declarations for all bundled fonts (found in `/assets/scss/partials/_fonts.scss`). These `font-face` declarations can be included in each format's `style.scss` file, e.g.:
 
 ```
 @include LatoFont;

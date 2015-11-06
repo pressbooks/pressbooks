@@ -71,7 +71,7 @@ add_filter( 'the_content', '\PressBooks\Media\force_wrap_images', 13 ); // execu
 // Audio/Video
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter('upload_mimes', '\PressBooks\Media\addMimeTypes');
+add_filter('upload_mimes', '\PressBooks\Media\add_mime_types');
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies
