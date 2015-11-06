@@ -2,22 +2,24 @@
 
 class MediaTest extends \WP_UnitTestCase {
 
-
 	/**
 	 * @covers \PressBooks\Media\add_mime_types
 	 */
 	public function test_add_mime_types() {
 
-		$mimes = \PressBooks\Media\add_mime_types( [ 'foobar' => 'foo/bar' ] );
+		$supportedFileExtensions = [ 'mp4', 'webm', 'ogv', 'ogg', 'mp3', 'aac', 'vorbis' ];
+		$jitMimes = [ 'foobar' => 'foo/bar' ];
 
-		$this->assertTrue( isset( $mimes['foobar'] ) );
-		$this->assertTrue( 'foo/bar' == $mimes['foobar'] );
+		$mimes = \PressBooks\Media\add_mime_types( $jitMimes );
 
-		foreach ( [ 'mp4', 'webm', 'ogv', 'ogg', 'mp3', 'aac', 'vorbis' ] as $supportedFileExt ) {
-			$this->assertTrue( isset( $mimes[$supportedFileExt] ) );
+		$this->assertArrayHasKey( 'foobar', $mimes );
+		$this->assertEquals( 'foo/bar', $mimes['foobar'] );
+
+		foreach ( $supportedFileExtensions as $ext ) {
+			$this->assertArrayHasKey( $ext, $mimes );
 		}
 
-		$this->assertFalse( isset( $mimes['baz'] ) );
+		$this->assertArrayNotHasKey( 'baz', $mimes );
 	}
 
 

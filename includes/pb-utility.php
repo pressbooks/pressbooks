@@ -334,6 +334,7 @@ function show_experimental_features() {
 	foreach( $hosts_for_hiding as $host_for_hiding ) {
 		if ( $host == $host_for_hiding || strpos( $host, $host_for_hiding ) ) {
 			$result = false;
+			break;
 		}
 	}
 
@@ -416,7 +417,10 @@ function file_upload_max_size() {
 
 /**
  * parse_size converts php.ini values from strings (like 128M or 64K) into actual numbers that can be compared
- * @return integer
+ *
+ * @param string $size
+ *
+ * @return float
  */
 function parse_size( $size ) {
 	$unit = preg_replace( '/[^bkmgtpezy]/i', '', $size ); // Remove the non-unit characters from the size.
