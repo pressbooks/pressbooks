@@ -45,3 +45,5 @@ More Details
 ------------
 
 See readme.txt for installation details. If you are cloning the plugin from our GitHub repository, you will need to initiate and update submodules. See [here](http://git-scm.com/docs/git-submodule) for details.
+
+[![Build Status](https://travis-ci.org/pressbooks/pressbooks.svg?branch=dev)](https://travis-ci.org/pressbooks/pressbooks)
