@@ -3,8 +3,10 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
-header( 'HTTP/1.0 200 OK' );
-header( 'Content-Type: text/xml; charset=' . get_option( 'blog_charset' ), true );
+if ( ! headers_sent() ) {
+	header( 'HTTP/1.0 200 OK' );
+	header( 'Content-Type: text/xml; charset=' . get_option( 'blog_charset' ), true );
+}
 echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'"?'.'>' . "\n";
 ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

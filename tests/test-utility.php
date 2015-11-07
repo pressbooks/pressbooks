@@ -19,26 +19,31 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @covers \PressBooks\Utility\group_exports
 	 */
 	public function test_group_exports() {
-		// TODO
-		$this->markTestIncomplete();
+
+		$files = \PressBooks\Utility\group_exports();
+		$this->assertTrue( is_array( $files ) );
 	}
 
 
-	/**
-	 * @covers \PressBooks\Utility\truncate_exports
-	 */
-	public function test_truncate_exports() {
-		// TODO
-		$this->markTestIncomplete();
-	}
+//	/**
+//	 * @covers \PressBooks\Utility\truncate_exports
+//	 */
+//	public function test_truncate_exports() {
+//		// TODO: Testing this as-is would delete files. Need to refactor to allow mocking the file system.
+//		$this->markTestIncomplete();
+//	}
 
 
 	/**
 	 * @covers \PressBooks\Utility\get_media_prefix
 	 */
 	public function test_get_media_prefix() {
-		// TODO
-		$this->markTestIncomplete();
+
+		$prefix = \PressBooks\Utility\get_media_prefix();
+
+		$this->assertTrue(
+			false !== strpos( $prefix, '/blogs.dir/' ) || false !== strpos( $prefix, '/uploads/sites/' )
+		);
 	}
 
 
@@ -47,11 +52,15 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_get_media_path() {
 
-		$guid = 'http://pressbooks.dev/test/wp-content/uploads/sites/3/2015/11/the-shaman.jpg';
+		$guid = 'http://pressbooks.dev/test/wp-content/uploads/sites/3/2015/11/foobar.jpg';
 
-		// TODO
-		$todo = \PressBooks\Utility\get_media_path( $guid );
-		$this->markTestIncomplete();
+		$path = \PressBooks\Utility\get_media_path( $guid );
+
+		$this->assertStringStartsWith( WP_CONTENT_DIR, $path );
+		$this->assertStringEndsWith( 'foobar.jpg', $path );
+		$this->assertTrue(
+			false !== strpos( $path, '/blogs.dir/' ) || false !== strpos( $path, '/uploads/sites/' )
+		);
 	}
 
 
@@ -59,8 +68,22 @@ class UtilityTest extends \WP_UnitTestCase {
 	 * @covers \PressBooks\Utility\multi_sort
 	 */
 	public function test_multi_sort() {
-		// TODO
-		$this->markTestIncomplete();
+
+		$arr = [
+			[ 'foo' => 1, 'bar' => 'A' ],
+			[ 'foo' => 3, 'bar' => 'C' ],
+			[ 'foo' => 2, 'bar' => 'B' ],
+		];
+
+		$res = \PressBooks\Utility\multi_sort( $arr, 'foo:desc' );
+
+		$this->assertEquals( '3', $res[0]['foo'] );
+		$this->assertEquals( '1', $res[2]['foo'] );
+
+		$res = \PressBooks\Utility\multi_sort( $arr, 'bar:asc', 'foo:desc' );
+
+		$this->assertEquals( 'A', $res[0]['bar'] );
+		$this->assertEquals( 'C', $res[2]['bar'] );
 	}
 
 
@@ -68,16 +91,16 @@ class UtilityTest extends \WP_UnitTestCase {
 //	 * @covers \PressBooks\Utility\wp_mail
 //	 */
 //	public function test_wp_mail() {
-//		// TODO
+//		// TODO: Testing this as-is would send emails. Need to refactor to allow mocking of postmarkapp endpoint.
 //		$this->markTestIncomplete();
 //	}
-//
-//
+
+
 //	/**
 //	 * @covers \PressBooks\Utility\pm_send_mail
 //	 */
 //	public function test_pm_send_mail() {
-//		// TODO
+//		// TODO: Testing this as-is would send emails. Need to refactor to allow mocking of postmarkapp endpoint.
 //		$this->markTestIncomplete();
 //	}
 
@@ -108,7 +131,7 @@ class UtilityTest extends \WP_UnitTestCase {
 //	 * @covers \PressBooks\Utility\do_sitemap
 //	 */
 //	public function test_do_sitemap() {
-//		// TODO
+//		// TODO: Testing this as-is calls exit(), breaks PHPUnit
 //		$this->markTestIncomplete();
 //	}
 
@@ -146,13 +169,14 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 
-//	/**
-//	 * @covers \PressBooks\Utility\include_plugins
-//	 */
-//	public function test_include_plugins() {
-//		// TODO
-//		$this->markTestIncomplete();
-//	}
+	/**
+	 * @covers \PressBooks\Utility\include_plugins
+	 */
+	public function test_include_plugins() {
+
+		\PressBooks\Utility\include_plugins();
+		$this->assertTrue( class_exists( 'custom_metadata_manager' ) );
+	}
 
 
 	/**
@@ -222,7 +246,7 @@ class UtilityTest extends \WP_UnitTestCase {
 //	 * @covers \PressBooks\Utility\email_error_log
 //	 */
 //	public function test_email_error_log() {
-//		// TODO
+//		// TODO: Testing this as-is would send emails. Need to refactor to allow mocking of postmarkapp endpoint.
 //		$this->markTestIncomplete();
 //	}
 
