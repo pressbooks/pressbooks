@@ -44,4 +44,4 @@ The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 More Details
 ------------
 
-See readme.txt for installation details.
+See readme.txt for installation details. If you are cloning the plugin from our GitHub repository, you will need to initiate and update submodules. See [here](http://git-scm.com/docs/git-submodule) for details.

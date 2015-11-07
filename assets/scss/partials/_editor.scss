@@ -1,0 +1,61 @@
+@import 'tables', 'textboxes';
+
+body#tinymce.wp-editor {
+	table {
+		min-width: 50%; }
+	.indent {
+		text-indent: 2em;
+		margin-top: 0;
+	}
+	.nonindent,
+	.no-indent {
+		text-indent: 0;
+	}
+	.hanging-indent {
+		padding-left: 1em;
+	    	text-indent: -1em;
+	}
+	@include tables();
+	@include textboxes();
+	.textbox {
+		&.learning-objectives, &.key-takeaways, &.exercises, &.examples {
+			width: auto;
+		}
+	}
+	.pullquote {
+		border: 1px solid #000;
+		border-width: 1px 0;
+		margin: 20px auto;
+		padding: 5px 0;
+		text-align: center;
+		width: 45%;
+		&.pullquote-left {
+			float: left;
+			margin: 0.8em 15px 0.8em 0;
+			padding: 5px 0;
+		}
+		&.pullquote-right {
+			float: right;
+			margin: 0.8em 0 0.8em 15px;
+			padding: 5px 0;
+		}
+	}
+	hr.break-symbols {
+		border: none;
+		font-size: 1.1em;
+	    margin-bottom: 20px;
+	    &:after {
+			display: block;
+			content: "\066D";
+			font-size: 18pt;
+			text-align: center;
+	    }
+	}
+	
+	img,
+	.wp-caption,
+	.wp-nocaption {
+		max-width: 100%;
+		height: auto;
+	}
+}

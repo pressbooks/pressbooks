@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.0
+Version: 3.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.3.1
 Tested up to: 4.3.1
-Stable tag: 3.0
+Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,7 +36,7 @@ IMPORTANT!
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
  * Pressbooks works with PHP 5.6.x and WordPress 4.3.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
  
-	$pb_minimum_php = 5.4;
+	$pb_minimum_php = '5.4';
 	
 However, we encourage you to upgrade your environment instead as [PHP 5.4 is no longer supported](http://php.net/supported-versions.php).
 
@@ -199,6 +199,12 @@ TK.
 Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
+
+= 3.1 =
+* Added a new Textboxes menu in TinyMCE which supports some new types of textboxes in addition to standard and shaded.
+* Added support for assigning classes to tables within the TinyMCE Table Editor and removed some unnecessary features from it.
+* Localized strings within some of our TinyMCE plugins. More to come.
+* Fixed some issues with TinyMCE styles.
 
 = 3.0 =
 * SASS-y themes: book themes are now built with SASS (specifically the SCSS variant) and compiled for export or web display using either the bundled scssphp compiler (https://github.com/leafo/scssphp/) or the SASS PHP extension if installed (https://github.com/sensational/sassphp). See `/docs/themes-book.txt` for details if you are developing your own themes.

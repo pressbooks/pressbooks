@@ -490,7 +490,7 @@ class GlobalTypography {
 
 		$css_file = $wp_upload_dir['basedir'] . '/css/style.css';
 
-		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/css/scss', PB_PLUGIN_DIR . 'assets/css/scss/export/', $upload_dir, get_stylesheet_directory() ) );
+		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/scss/partials', $upload_dir, get_stylesheet_directory() ) );
 		
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';

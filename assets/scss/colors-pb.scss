@@ -1,4 +1,4 @@
-@import 'colors';
+@import 'partials/colors';
 
 $base-color:						$medium-grey;
 $icon-color:						$black;
@@ -35,7 +35,7 @@ $menu-collapse-focus-icon:			$red;
 $adminbar-avatar-frame:				$white;
 $adminbar-input-background:			$white;
 
-@import "../../../../../../wp-admin/css/colors/_admin.scss";
+@import "../../../../../wp-admin/css/colors/_admin.scss";
 
 /* Core UI */
 

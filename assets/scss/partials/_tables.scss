@@ -1,0 +1,47 @@
+@mixin tables() {
+	table {
+		&.no-lines {
+			border: none;
+		}
+		&.lines {
+			border: 1px solid #000;
+		}
+		&.shaded {
+			background-color: #eee;
+		}
+		tr {
+			&.border {
+				border: 1px solid #000;
+			}
+			&.shaded {
+				background-color: #eee;
+			}
+			td {
+				&.border {
+					border: 1px solid #000;
+				}
+				&.shaded {
+					background-color: #eee;
+				}
+			}
+		}
+		thead {
+			tr {
+				td {
+				}
+			}
+		}
+		tbody {
+			tr {
+				td {
+				}
+			}
+		}
+		tbody {
+			tr {
+				td {
+				}
+			}
+		}
+	}
+}
