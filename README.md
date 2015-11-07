@@ -1,6 +1,8 @@
 Pressbooks
 ==========
 
+[![Build Status](https://travis-ci.org/pressbooks/pressbooks.svg?branch=dev)](https://travis-ci.org/pressbooks/pressbooks)
+
 [Pressbooks](http://pressbooks.com) is a book content management system which exports in multiple formats: ebooks, webbooks, print-ready [PDF][], and various XML flavours. [Pressbooks](http://pressbooks.com) is built on top of [WordPress Multisite](http://codex.wordpress.org/Glossary#Multisite), and makes significant changes to:
   * admin interface (customized for books and other structured documents, such as magazines, journals, reports, etc.);
   * web presentation layer (again, customized for books and structured documents); and 
@@ -45,5 +47,3 @@ More Details
 ------------
 
 See readme.txt for installation details. If you are cloning the plugin from our GitHub repository, you will need to initiate and update submodules. See [here](http://git-scm.com/docs/git-submodule) for details.
-
-[![Build Status](https://travis-ci.org/pressbooks/pressbooks.svg?branch=dev)](https://travis-ci.org/pressbooks/pressbooks)
