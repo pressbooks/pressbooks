@@ -165,11 +165,11 @@ class Network_Managers_List_Table extends \WP_List_Table {
          * Check for sorting input and sort the data in our array accordingly.
          */
          
-        $data = $wpdb->get_results( 'SELECT * FROM wp_sitemeta WHERE meta_key = "site_admins"' ); // Get site admins
+        $data = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'site_admins'" ); // Get site admins
         $data = maybe_unserialize( $data[0]->meta_value );
         if ( !is_array( $data ) )
         	$data = array( $data );
-        $restricted = $wpdb->get_results( 'SELECT * FROM wp_sitemeta WHERE meta_key = "pressbooks_network_managers"' );
+        $restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
         // Get restricted site admins (network managers)
         if ( $restricted ) {
 	        $restricted = maybe_unserialize( $restricted[0]->meta_value );
