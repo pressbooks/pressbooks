@@ -8,3 +8,4 @@ symbionts/mpdf/graph_cache/
 __MACOSX
 *.DS_Store
 config.codekit
+tests/logs/

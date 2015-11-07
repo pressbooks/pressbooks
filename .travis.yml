@@ -11,12 +11,8 @@ php:
 env:
   - WP_VERSION=latest WP_MULTISITE=1
 
-matrix:
-  include:
-    - php: 5.6
-      env: WP_VERSION=latest WP_MULTISITE=1
-
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION 
 
-script: phpunit
+script:
+  - phpunit --configuration phpunit.xml --coverage-clover ./tests/logs/clover.xml
