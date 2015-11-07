@@ -15,7 +15,7 @@
 		</testsuite>
 	</testsuites>
 	<filter>
-		<whitelist>
+		<whitelist processUncoveredFilesFromWhitelist="false">
 			<directory suffix=".php">./includes</directory>
 			<exclude>
 				<directory suffix=".php">./includes/modules/export/epub/templates</directory>
