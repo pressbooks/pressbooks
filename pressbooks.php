@@ -68,7 +68,7 @@ function _pressbooks_autoload( $class_name ) {
 	array_shift( $parts );
 	$class_file = 'class-pb-' . str_replace( '_', '-', array_pop( $parts ) ) . '.php';
 	$path = count( $parts ) ? implode( '/', $parts ) . '/' : '';
-	@include( PB_PLUGIN_DIR . 'includes/' . $path . $class_file );
+	require( PB_PLUGIN_DIR . 'includes/' . $path . $class_file );
 }
 
 spl_autoload_register( '_pressbooks_autoload' );
