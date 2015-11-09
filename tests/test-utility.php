@@ -121,7 +121,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		\PressBooks\Utility\add_sitemap_to_robots_txt();
 		$out = ob_get_contents();
 		ob_end_clean();
-		$this->assertEquals( null, $out );
+		$this->assertEmpty( $out );
 
 		update_option( 'blog_public', $old );
 	}
