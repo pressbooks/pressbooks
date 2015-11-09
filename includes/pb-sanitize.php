@@ -106,6 +106,7 @@ function sanitize_xml_attribute( $slug ) {
 	$slug = trim( $slug );
 	$slug = html_entity_decode( $slug, ENT_COMPAT | ENT_XHTML, 'UTF-8' );
 	$slug = htmlspecialchars( $slug, ENT_COMPAT | ENT_XHTML, 'UTF-8', false );
+	$slug = str_replace( array( "\f" ), '', $slug );
 
 	return $slug;
 }
@@ -151,7 +152,7 @@ function remove_control_characters( $slug ) {
 
 
 /**
- * Force ASCII
+ * Force ASCII (no control characters)
  *
  * @param $slug
  *
@@ -159,7 +160,7 @@ function remove_control_characters( $slug ) {
  */
 function force_ascii( $slug ) {
 
-	$slug = preg_replace( '/[^(\x20-\x7F)]*/', '', $slug );
+	$slug = preg_replace( '/[^(\x20-\x7E)]*/', '', $slug );
 
 	return $slug;
 }
@@ -189,12 +190,11 @@ function decode( $slug ) {
  * @return string
  */
 function strip_br( $slug ) {
-	
-	$slug = str_replace( '&lt;br /&gt;', ' ', $slug );
-	$slug = str_replace( '<br />', ' ', $slug );
+
+	$slug = preg_replace( '/&lt;br\W*?\/&gt;/', ' ', $slug );
+	$slug = preg_replace('/<br\W*?\/>/', ' ', $slug);
 	
 	return $slug;
-
 }
 
 /**
@@ -227,7 +227,7 @@ function canonicalize_url( $url ) {
 	$url = rtrim( trim( $url ), '/' );
 
 	if ( preg_match( '#^mailto:#i', $url ) )
-		return $url;
+		return filter_var( $url, FILTER_SANITIZE_URL );
 	
 	// Add http:// if it's missing
 	if ( ! preg_match( '#^https?://#i', $url ) ) {

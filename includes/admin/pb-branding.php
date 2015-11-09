@@ -7,10 +7,6 @@
  */
 namespace PressBooks\Admin\Branding;
 
-
-function login_logo() {
-}
-
 /**
  * Add Custom Login Graphic
  */

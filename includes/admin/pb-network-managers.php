@@ -39,7 +39,7 @@ function update_admin_status() {
 	global $wpdb;
 
 	if ( check_ajax_referer( 'pb-network-managers' ) ) {
-		$restricted = $wpdb->get_results( 'SELECT * FROM wp_sitemeta WHERE meta_key = "pressbooks_network_managers"' );
+		$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
 		if ( $restricted ) {
 			$restricted = maybe_unserialize( $restricted[0]->meta_value );
 		}
@@ -99,7 +99,7 @@ function hide_menus() {
 
 	$user = wp_get_current_user();
 
-	$restricted = $wpdb->get_results( 'SELECT * FROM wp_sitemeta WHERE meta_key = "pressbooks_network_managers"' );
+	$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
 	if ( $restricted ) {
 		$restricted = maybe_unserialize( $restricted[0]->meta_value );
 	}
@@ -125,7 +125,7 @@ function restrict_access() {
 
 	$user = wp_get_current_user();
 
-	$restricted = $wpdb->get_results( 'SELECT * FROM wp_sitemeta WHERE meta_key = "pressbooks_network_managers"' );
+	$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
 	if ( $restricted ) {
 		$restricted = maybe_unserialize( $restricted[0]->meta_value );
 	}
