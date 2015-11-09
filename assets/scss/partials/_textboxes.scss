@@ -18,6 +18,9 @@ $examples-header-background: #7A333A !default;
     padding-left: 3%;
     padding-right: 3%;
     padding-top: 2%;
+    margin-inside: auto;
+  	margin-outside: auto;
+  	float: none;
     /* width: 100%; */
 	h3:first-child {
 	    color: $edu-header-text-color;
