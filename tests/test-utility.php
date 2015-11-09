@@ -154,7 +154,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_check_prince_install() {
 
-		$this->assertTrue( is_bool( \PressBooks\Utility\check_prince_install() ) );
+		$this->assertInternalType( 'bool', \PressBooks\Utility\check_prince_install() );
 		$this->assertTrue( defined( 'PB_PRINCE_COMMAND' ) );
 	}
 
@@ -164,8 +164,7 @@ class UtilityTest extends \WP_UnitTestCase {
 	 */
 	public function test_show_experimental_features() {
 
-		$this->assertTrue( is_bool( \PressBooks\Utility\show_experimental_features() ) );
-
+		$this->assertInternalType( 'bool', \PressBooks\Utility\show_experimental_features() );
 	}
 
 
