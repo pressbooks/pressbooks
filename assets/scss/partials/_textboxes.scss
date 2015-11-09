@@ -21,8 +21,7 @@ $examples-header-background: #7A333A !default;
     margin-inside: auto;
   	margin-outside: auto;
   	float: none;
-    /* width: 100%; */
-	h3:first-child {
+	h3 {
 	    color: $edu-header-text-color;
 	    margin-bottom: 15px;
 	    margin-left: -3%;
