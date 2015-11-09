@@ -802,7 +802,7 @@ class Catalog {
   				users_id INT(11) NOT null,
   				tag VARCHAR(255) NOT null,
   				PRIMARY KEY  (id),
-  				UNIQUE KEY (tag)
+  				UNIQUE KEY tag (tag)
 				); ";
 		dbDelta( $sql );
 	}
