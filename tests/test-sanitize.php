@@ -39,9 +39,9 @@ class SanitizeTest extends \WP_UnitTestCase {
 		\PressBooks\Sanitize\fix_audio_shortcode();
 		$this->assertTrue( has_filter( 'wp_audio_shortcode' ) );
 
-		$var = 'width: 100%; visibility: hidden;';
-		$var = apply_filters( 'wp_audio_shortcode', $var, '', '', '', '' );
-		$this->assertEmpty( $var );
+		// Verify that style attribute is empty.
+		$var = wp_audio_shortcode( array( 'src' => 'http://foo/audio.mp3' ) );
+		$this->assertContains( 'style=""', $var );
 	}
 
 
