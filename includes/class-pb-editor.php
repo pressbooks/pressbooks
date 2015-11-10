@@ -226,16 +226,20 @@ class Editor {
 			return; // Bail
 
 		$scss = '$type: \'web\';' . "\n";
+		
+		if ( \PressBooks\Modules\Export\Export::isScss() ) {
 
-		$scss .= "@import 'mixins';" . "\n";
-
-		$scss .= '@if variable-exists(font-1) {' . "\n";
-		$scss .= 'body#tinymce.wp-editor { font-family: $font-1; }' . "\n";
-		$scss .= '}' . "\n";
-
-		$scss .= '@if variable-exists(font-2) {' . "\n";
-		$scss .= 'body#tinymce.wp-editor { h1, h2, h3, h4, h5, h6 { font-family: $font-2; }' . "\n";
-		$scss .= '} }' . "\n";
+			$scss .= "@import 'mixins';" . "\n";
+	
+			$scss .= '@if variable-exists(font-1) {' . "\n";
+			$scss .= 'body#tinymce.wp-editor { font-family: $font-1; }' . "\n";
+			$scss .= '}' . "\n";
+	
+			$scss .= '@if variable-exists(font-2) {' . "\n";
+			$scss .= 'body#tinymce.wp-editor { h1, h2, h3, h4, h5, h6 { font-family: $font-2; }' . "\n";
+			$scss .= '} }' . "\n";
+			
+		}
 
 		$scss .= "@import 'editor';" . "\n";
 
