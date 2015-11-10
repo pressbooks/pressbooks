@@ -38,6 +38,10 @@ class SanitizeTest extends \WP_UnitTestCase {
 
 		\PressBooks\Sanitize\fix_audio_shortcode();
 		$this->assertTrue( has_filter( 'wp_audio_shortcode' ) );
+
+		$var = 'width: 100%; visibility: hidden;';
+		$var = apply_filters( 'wp_audio_shortcode', $var, '', '', '', '' );
+		$this->assertEmpty( $var );
 	}
 
 
@@ -70,6 +74,10 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$var = " Héllö Wôrld! ";
 		$test = \PressBooks\Sanitize\sanitize_xml_id( $var );
 		$this->assertEquals( 'HelloWorld', $test );
+
+		$var = '123';
+		$test = \PressBooks\Sanitize\sanitize_xml_id( $var );
+		$this->assertStringStartsWith( 'slug-123', $test );
 
 		$var = "こんにちは世界!";
 		$test = \PressBooks\Sanitize\sanitize_xml_id( $var );
