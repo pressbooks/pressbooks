@@ -125,7 +125,7 @@ class CustomCss {
 
 		$options = get_option( 'pressbooks_theme_options_pdf' );
 		
-		return ( @$options['pdf_romanize_parts'] );
+		return (bool) ( @$options['pdf_romanize_parts'] );
 	}
 
 

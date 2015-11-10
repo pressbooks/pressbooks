@@ -1,6 +1,6 @@
 <?php
 
-class AdminBrandingTest extends \WP_UnitTestCase {
+class Admin_BrandingTest extends \WP_UnitTestCase {
 
 
 	/**

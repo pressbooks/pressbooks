@@ -102,7 +102,6 @@ abstract class Export {
 			if ( ! is_file( $fullpath ) ) $fullpath = false;
 		}
 
-
 		if ( ! $fullpath ) {
 			if ( $this->isScss() ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
@@ -174,27 +173,28 @@ abstract class Export {
 
 		return $fullpath;
 	}
-	
-	
+
+
 	/**
 	 * Is the current theme's stylesheet SCSS?
 	 *
 	 * @return bool
 	 */
 	static function isScss() {
-				
+
 		$types = array(
 			'prince',
-			'epub'	
+			'epub',
 		);
-		
+
 		foreach ( $types as $type ) {
 			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
-			if ( ! is_file( $fullpath ) )
-			return false;
+			if ( ! is_file( $fullpath ) ) {
+				return false;
+			}
 		}
 
-		return true;		
+		return true;
 	}
 
 
@@ -206,8 +206,8 @@ abstract class Export {
 	static function isParsingSections() {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
-		
-		return ( @$options['parse_sections'] );
+
+		return (bool) ( @$options['parse_sections'] );
 	}
 
 
