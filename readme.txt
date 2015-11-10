@@ -204,7 +204,8 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 * Added a new Textboxes menu in TinyMCE which supports some new types of textboxes in addition to standard and shaded.
 * Added support for assigning classes to tables within the TinyMCE Table Editor and removed some unnecessary features from it.
 * Localized strings within some of our TinyMCE plugins. More to come.
-* Fixed some issues with TinyMCE styles.
+* Improved some TinyMCE styles.
+* Fixed an issue where activating a non-SCSS theme would cause an error.
 
 = 3.0 =
 * SASS-y themes: book themes are now built with SASS (specifically the SCSS variant) and compiled for export or web display using either the bundled scssphp compiler (https://github.com/leafo/scssphp/) or the SASS PHP extension if installed (https://github.com/sensational/sassphp). See `/docs/themes-book.txt` for details if you are developing your own themes.
