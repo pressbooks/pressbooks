@@ -134,7 +134,7 @@ class SanitizeTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Sanitize\test_decode
+	 * @covers \PressBooks\Sanitize\decode
 	 */
 	public function test_decode() {
 
