@@ -12,7 +12,7 @@ env:
   - WP_VERSION=latest WP_MULTISITE=1
 
 before_install:
-  - composer require phpunit/phpunit:4.8.*
+  - composer global require "phpunit/phpunit=4.8.*"
   - composer install --dev
 
 before_script:
