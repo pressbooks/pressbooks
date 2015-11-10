@@ -34,13 +34,19 @@ function scandir_by_date( $dir ) {
 /**
  * Scan the exports directory, return the files grouped into intervals of 3 minutes, newest first.
  *
+ * @param string $dir fullpath to the Exports folder. (optional)
  * @return array
  */
-function group_exports() {
+function group_exports( $dir = null ) {
 
 	$ignored = array( '.', '..', '.svn', '.git', '.htaccess' );
 
-	$dir = \PressBooks\Modules\Export\Export::getExportFolder();
+	if ( ! $dir ) {
+		$dir = \PressBooks\Modules\Export\Export::getExportFolder();
+	}
+	else {
+		$dir = rtrim( $dir, '/' ) . '/';
+	}
 
 	$files = array();
 	foreach ( scandir( $dir ) as $file ) {
@@ -71,18 +77,31 @@ function group_exports() {
  * Truncate the exports directory, delete old files.
  *
  * @param int $max
+ * @param string $dir fullpath to the Exports fo
+ * lder. (optional)
  */
-function truncate_exports( $max ) {
+function truncate_exports( $max, $dir = null ) {
+
+	if ( ! $dir ) {
+		$dir = \PressBooks\Modules\Export\Export::getExportFolder();
+	}
+	else {
+		$dir = rtrim( $dir, '/' ) . '/';
+	}
 
 	$max = absint( $max );
-	$dir = \PressBooks\Modules\Export\Export::getExportFolder();
-	$files = group_exports();
+	$files = group_exports( $dir );
 
 	$i = 1;
 	foreach ( $files as $date => $exports ) {
 		if ( $i > $max ) {
 			foreach ( $exports as $export ) {
 				$export = realpath( $dir . $export );
+
+				WP_Filesystem();
+
+
+
 				unlink( $export );
 			}
 		}
@@ -280,8 +299,6 @@ function do_sitemap() {
 		echo '<h1>404 Not Found</h1>';
 		echo 'The page that you have requested could not be found.';
 	}
-
-	exit;
 }
 
 /**

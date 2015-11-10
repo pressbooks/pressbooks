@@ -22,6 +22,9 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$files = \PressBooks\Utility\group_exports();
 		$this->assertTrue( is_array( $files ) );
+
+		$files = \PressBooks\Utility\group_exports( __DIR__ );
+		$this->assertNotContains( '.htaccess', $files );
 	}
 
 
@@ -108,32 +111,45 @@ class UtilityTest extends \WP_UnitTestCase {
 	/**
 	 * @covers \PressBooks\Utility\add_sitemap_to_robots_txt
 	 */
-	public function test_add_sitemap_to_robots_txt() {
+	public function test_add_sitemap_to_robots_txt_0() {
 
-		$old = get_option( 'blog_public' );
+		update_option( 'blog_public', 0 );
+		$this->expectOutputRegex( '/^\s*$/' ); // string is empty or has only whitespace
+		\PressBooks\Utility\add_sitemap_to_robots_txt();
+	}
+
+
+	/**
+	 * @covers \PressBooks\Utility\add_sitemap_to_robots_txt
+	 */
+	public function test_add_sitemap_to_robots_txt_1() {
 
 		update_option( 'blog_public', 1 );
 		$this->expectOutputRegex( '/Sitemap:(.+)feed=sitemap.xml/' );
 		\PressBooks\Utility\add_sitemap_to_robots_txt();
-
-		update_option( 'blog_public', 0 );
-		ob_start();
-		\PressBooks\Utility\add_sitemap_to_robots_txt();
-		$out = ob_get_contents();
-		ob_end_clean();
-		$this->assertEmpty( $out );
-
-		update_option( 'blog_public', $old );
 	}
 
 
-//	/**
-//	 * @covers \PressBooks\Utility\do_sitemap
-//	 */
-//	public function test_do_sitemap() {
-//		// TODO: Testing this as-is calls exit(), breaks PHPUnit
-//		$this->markTestIncomplete();
-//	}
+	/**
+	 * @covers \PressBooks\Utility\do_sitemap
+	 */
+	public function test_do_sitemap_0() {
+
+		update_option( 'blog_public', 0 );
+		$this->expectOutputRegex( '/404 Not Found/i' );
+		\PressBooks\Utility\do_sitemap();
+	}
+
+
+	/**
+	 * @covers \PressBooks\Utility\do_sitemap
+	 */
+	public function test_do_sitemap_1() {
+
+		update_option( 'blog_public', 1 );
+		$this->expectOutputRegex( '/^<\?xml /' );
+		\PressBooks\Utility\do_sitemap();
+	}
 
 
 	/**
@@ -245,7 +261,7 @@ class UtilityTest extends \WP_UnitTestCase {
 //	 * @covers \PressBooks\Utility\email_error_log
 //	 */
 //	public function test_email_error_log() {
-//		// TODO: Testing this as-is would send emails. Need to refactor to allow mocking of postmarkapp endpoint.
+//		// TODO: Testing this as-is would send emails, write to error_log... Need to refactor
 //		$this->markTestIncomplete();
 //	}
 
