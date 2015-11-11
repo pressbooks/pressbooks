@@ -1,5 +1,9 @@
 language: php
 
+branches:
+  only:
+    - dev
+
 notifications:
   email:
     on_success: never
