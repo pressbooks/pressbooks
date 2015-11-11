@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-11-05 13:31-0400\n"
-"PO-Revision-Date: 2015-11-05 17:32+0000\n"
-"Last-Translator: Ned Zimmerman\n"
+"PO-Revision-Date: 2015-11-11 15:25+0000\n"
+"Last-Translator: Thomas Dumm <t.dumm@delivros.ch>\n"
 "Language-Team: German (http://www.transifex.com/pressbooks/pressbooks/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -162,7 +162,7 @@ msgstr "Katalog besuchen"
 #: includes/admin/class-pb-catalog-list-table.php:469
 #: symbionts/search-regex/view/admin/search.php:54
 msgid "Search"
-msgstr "Suche"
+msgstr "Suchen"
 
 #: includes/admin/class-pb-catalog-list-table.php:478
 msgid "Add By URL"
@@ -197,7 +197,7 @@ msgstr "CSS bearbeiten"
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr "Unerwarteter Fehler: Es trat ein Problem durch diesen Befehl auf: %s - Bitte setzen Sie sich mit dem Support in Verbindung."
+msgstr "Unerwarteter Fehler: Bei der Abfrage ist ein Fehler aufgetreten: %s - Bitte setzen Sie sich mit dem Support in Verbindung."
 
 #: includes/admin/pb-customcss.php:113
 msgid "Last 10 CSS Revisions"
@@ -220,7 +220,7 @@ msgstr "Dies wird die benutzerdefinierten CSS Einstellungen überschreiben. Sind
 #: includes/admin/pb-dashboard.php:20 includes/admin/pb-dashboard.php:36
 #: includes/admin/pb-dashboard.php:57 includes/admin/pb-dashboard.php:110
 msgid "Pressbooks News"
-msgstr ""
+msgstr "Pressbooks Neuigkeiten"
 
 #: includes/admin/pb-dashboard.php:56
 msgid "My Book"
@@ -271,7 +271,7 @@ msgstr "Kontakt"
 
 #: includes/admin/pb-laf.php:72
 msgid "Theme Options"
-msgstr "Theme Optionen"
+msgstr "Layout Optionen"
 
 #: includes/admin/pb-laf.php:97
 msgid "Published"
@@ -295,7 +295,7 @@ msgstr "EPUB wird für MOBI Export benötigt. Möchten Sie es reaktivieren?"
 
 #: includes/admin/pb-laf.php:167 templates/admin/publish.php:10
 msgid "Publish"
-msgstr ""
+msgstr "Veröffentlichen"
 
 #: includes/admin/pb-laf.php:170 includes/admin/pb-laf.php:736
 msgid "Privacy Settings"
@@ -317,11 +317,11 @@ msgstr "Import"
 
 #: includes/admin/pb-laf.php:248 includes/admin/pb-laf.php:257
 msgid "About Pressbooks"
-msgstr ""
+msgstr "Über Pressbooks"
 
 #: includes/admin/pb-laf.php:266
 msgid "Pressbooks.com"
-msgstr ""
+msgstr "Pressbooks.com"
 
 #: includes/admin/pb-laf.php:274
 msgid "Support Forums"
@@ -361,15 +361,15 @@ msgstr "Sie besitzen nicht die erforderlichen Rechte um diese URL aufzurufen."
 
 #: includes/admin/pb-laf.php:630
 msgid "Book Visibility"
-msgstr ""
+msgstr "Sichtbarkeit des Buchs"
 
 #: includes/admin/pb-laf.php:637
 msgid "Private Content"
-msgstr ""
+msgstr "Privater Inhalt"
 
 #: includes/admin/pb-laf.php:660
 msgid "Privacy settings"
-msgstr ""
+msgstr "Einstellungen zur Privatspäre"
 
 #: includes/admin/pb-laf.php:674
 msgid "Public. I would like this book to be visible to everyone."
@@ -382,15 +382,15 @@ msgstr "Privat. Das Buch soll nur mit Einladung sichtbar sein."
 
 #: includes/admin/pb-laf.php:701
 msgid "Who can see private front matter, chapters and back matter?"
-msgstr ""
+msgstr "Wer darf private Titeleien, Kapitel und Anhänge sehen?"
 
 #: includes/admin/pb-laf.php:704
 msgid "Only logged in editors and administrators."
-msgstr ""
+msgstr "Nur eingeloggte Editoren und Administratoren"
 
 #: includes/admin/pb-laf.php:706
 msgid "All logged in users including subscribers."
-msgstr ""
+msgstr "Alle eingeloggten Benutzer inklusive Teilnehmer"
 
 #: includes/admin/pb-laf.php:764
 msgid "Amazon URL"
@@ -398,7 +398,7 @@ msgstr "Amazon URL"
 
 #: includes/admin/pb-laf.php:771
 msgid "O'Reilly URL"
-msgstr ""
+msgstr "O'Reilly URL"
 
 #: includes/admin/pb-laf.php:778
 msgid "Barnes and Noble URL"
@@ -422,7 +422,7 @@ msgstr "Benachrichtigung bei Überprüfungsfehlern beim Export."
 
 #: includes/admin/pb-laf.php:948
 msgid "Export settings"
-msgstr ""
+msgstr "Export Einstellungen"
 
 #: includes/admin/pb-laf.php:962
 msgid "No. Ignore validation errors."
@@ -447,12 +447,12 @@ msgstr ""
 msgid ""
 "Your cover image (%s x %s) is too small. It should be 625px on the shortest "
 "side."
-msgstr "Ihr Coverbild (%s x %s) ist zu klein. Es sollte wenigstens 625px an der kürzesten Seite sein."
+msgstr "Ihr Coverbild (%s x %s) ist zu klein. Die Breite sollte wenigstens 625px betragen."
 
 #: includes/admin/pb-metaboxes.php:109
 #, php-format
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
-msgstr ""
+msgstr "Ihr Coverbild ist zu gross (%s). Es sollte kleiner als 2 MB sein."
 
 #: includes/admin/pb-metaboxes.php:124 includes/admin/pb-metaboxes.php:169
 #: includes/class-pb-metadata.php:625
@@ -466,11 +466,11 @@ msgstr "Coverbild"
 #: themes-book/pressbooks-book/functions.php:1669
 #: themes-book/pressbooks-book/functions.php:1728
 msgid "Part"
-msgstr "Kapitel"
+msgstr "Teil"
 
 #: includes/admin/pb-metaboxes.php:164
 msgid "Save Part"
-msgstr "Kapitel speichern"
+msgstr "Teil speichern"
 
 #: includes/admin/pb-metaboxes.php:165
 msgid "Save Book Information"
@@ -506,7 +506,7 @@ msgstr "Dies versichert das ihr EBOOK durch den Nachnamen des Autoren sortiert w
 
 #: includes/admin/pb-metaboxes.php:207
 msgid "Contributing Authors"
-msgstr ""
+msgstr "Mitautoren"
 
 #: includes/admin/pb-metaboxes.php:209
 msgid ""
@@ -521,7 +521,7 @@ msgstr "Verlag"
 
 #: includes/admin/pb-metaboxes.php:215 includes/admin/pb-metaboxes.php:221
 msgid "This text appears on the title page of your book."
-msgstr ""
+msgstr "Dieser Text erscheint auf der Titelseite Ihres Buchs"
 
 #: includes/admin/pb-metaboxes.php:220
 msgid "Publisher City"
@@ -534,7 +534,7 @@ msgstr "Datum der Veröffentlichung"
 
 #: includes/admin/pb-metaboxes.php:228 includes/admin/pb-metaboxes.php:235
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "Dies wird zu den Metadaten Ihres Buchs hinzugefügt."
 
 #: includes/admin/pb-metaboxes.php:234
 msgid "On-Sale Date"
@@ -591,7 +591,7 @@ msgstr "Jahr des Copyrights"
 
 #: includes/admin/pb-metaboxes.php:266
 msgid "Year that the book is/was published."
-msgstr ""
+msgstr "Jahr in dem das Buch publiziert wird/wurde."
 
 #: includes/admin/pb-metaboxes.php:271
 msgid "Copyright Holder"
@@ -599,16 +599,16 @@ msgstr "Rechteinhaber"
 
 #: includes/admin/pb-metaboxes.php:272
 msgid "Name of the copyright holder."
-msgstr ""
+msgstr "Name des Rechteinhabers"
 
 #: includes/admin/pb-metaboxes.php:289
 #: themes-book/pressbooks-book/functions.php:419
 msgid "Copyright License"
-msgstr ""
+msgstr "Copyright Lizenz"
 
 #: includes/admin/pb-metaboxes.php:290
 msgid "You can select various licenses including Creative Commons."
-msgstr ""
+msgstr "Sie können aus meheren Lizenzen auswählen, unter anderem die Creative Commons Lizenz."
 
 #: includes/admin/pb-metaboxes.php:296
 msgid "Copyright Notice"
@@ -619,7 +619,7 @@ msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
 "will override the auto-generated copyright notice, and be inserted after the"
 " title page."
-msgstr ""
+msgstr "Geben Sie einen benutzerdefinierten Copyright-Vermerk ein. Dieser wird den automatisch generierten Copyright-Vermerk überschreiben, und nach der Titelseite eingefügt werden."
 
 #: includes/admin/pb-metaboxes.php:307
 msgid "Book Tagline"
@@ -638,7 +638,7 @@ msgstr "Kurzbeschreibung"
 #: includes/admin/pb-metaboxes.php:315
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr "Ein kurzer Paragraph über Ihr Buch, für Kataloge, Rezensionen etc. für ein Zitat."
+msgstr "Ein kurzer Abschnitt über Ihr Buch, für Kataloge, Rezensionen etc. für ein Zitat."
 
 #: includes/admin/pb-metaboxes.php:321
 msgid "Long Description"
@@ -650,7 +650,7 @@ msgstr "Die Gesamtbeschreibung des Buches."
 
 #: includes/admin/pb-metaboxes.php:326
 msgid "Additional Catalog Information"
-msgstr ""
+msgstr "Zusätzliche Katalog Informationen"
 
 #: includes/admin/pb-metaboxes.php:332
 msgid "Series Title"
@@ -658,7 +658,7 @@ msgstr "Titel der Serie"
 
 #: includes/admin/pb-metaboxes.php:333 includes/admin/pb-metaboxes.php:339
 msgid "Add if your book is part of a series. This is not used by Pressbooks."
-msgstr ""
+msgstr "Ausfüllen, falls Ihr Buch Teil einer Serie ist. Der Text wird von Pressbooks nicht weiterverwendet."
 
 #: includes/admin/pb-metaboxes.php:338
 msgid "Series Number"
@@ -673,7 +673,7 @@ msgstr "Lektor"
 #: includes/admin/pb-metaboxes.php:382 includes/admin/pb-metaboxes.php:388
 #: includes/admin/pb-metaboxes.php:401
 msgid "This is not used by Pressbooks."
-msgstr ""
+msgstr "Dies wird von Pressbooks nicht weiterverwendet."
 
 #: includes/admin/pb-metaboxes.php:350
 msgid "Translator"
@@ -687,7 +687,7 @@ msgstr "Schlagwörter"
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr ""
+msgstr "Für ein besseres Auffinden Ihres Buches bei Online-Buchhändlern und in Suchmaschinen."
 
 #: includes/admin/pb-metaboxes.php:363
 #: themes-book/pressbooks-book/functions.php:21
@@ -808,20 +808,20 @@ msgstr ""
 
 #: includes/admin/pb-metaboxes.php:566
 msgid "Part Text"
-msgstr ""
+msgstr "Teil Text"
 
 #: includes/admin/pb-metaboxes.php:573
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
+msgstr "Erscheint auf der Teileseite. Die Teileseite erscheinen nicht, wenn das Buch nur einen Teil hat."
 
 #: includes/admin/pb-metaboxes.php:577
 msgid "Part Visibility"
-msgstr ""
+msgstr "Teile Sichtbarkeit"
 
 #: includes/admin/pb-metaboxes.php:586
 msgid "Hide from table of contents and part numbering."
-msgstr ""
+msgstr "Im Inhatsverzeichnis nicht anzeigen und nicht nummerieren"
 
 #: includes/admin/pb-metaboxes.php:687
 msgid "Extra Profile Information"
@@ -940,97 +940,97 @@ msgstr "Einstellungen gespeichert."
 
 #: includes/class-pb-catalog.php:1203
 msgid "Invalid URL."
-msgstr ""
+msgstr "Ungültige URL"
 
 #: includes/class-pb-catalog.php:1223
 msgid "No book found."
-msgstr ""
+msgstr "Kein Buch gefunden"
 
 #: includes/class-pb-editor.php:62
 msgid "Indent"
-msgstr ""
+msgstr "Einzug"
 
 #: includes/class-pb-editor.php:68
 msgid "Hanging indent"
-msgstr ""
+msgstr "Hängender Einzug"
 
 #: includes/class-pb-editor.php:74
 msgid "No indent"
-msgstr ""
+msgstr "Kein Einzug"
 
 #: includes/class-pb-editor.php:80
 msgid "Tight tracking"
-msgstr ""
+msgstr "Enger Zeichenabstand"
 
 #: includes/class-pb-editor.php:86
 msgid "Very tight tracking"
-msgstr ""
+msgstr "Sehr enger Zeichenabstand"
 
 #: includes/class-pb-editor.php:92
 msgid "Loose tracking"
-msgstr ""
+msgstr "Weiter Zeichenabstand"
 
 #: includes/class-pb-editor.php:98
 msgid "Very loose tracking"
-msgstr ""
+msgstr "Sehr weiter Zeichenabstand"
 
 #: includes/class-pb-editor.php:104
 msgid "Pullquote (left)"
-msgstr ""
+msgstr "Zitat (linksbündig)"
 
 #: includes/class-pb-editor.php:110
 msgid "Pullquote (right)"
-msgstr ""
+msgstr "Zitat (rechtsbündig)"
 
 #: includes/class-pb-editor.php:158 includes/class-pb-editor.php:180
 #: includes/class-pb-editor.php:194 languages/tinymce.php:7
 msgid "Standard"
-msgstr ""
+msgstr "Standard"
 
 #: includes/class-pb-editor.php:162
 msgid "No lines"
-msgstr ""
+msgstr "Keine Lineatur"
 
 #: includes/class-pb-editor.php:166
 msgid "Lines"
-msgstr ""
+msgstr "Lineatur"
 
 #: includes/class-pb-editor.php:170 includes/class-pb-editor.php:188
 #: includes/class-pb-editor.php:202 languages/tinymce.php:9
 msgid "Shaded"
-msgstr ""
+msgstr "Schattiert"
 
 #: includes/class-pb-editor.php:174 languages/tinymce.php:18
 msgid "Custom..."
-msgstr ""
+msgstr "Eigene ..."
 
 #: includes/class-pb-editor.php:184 includes/class-pb-editor.php:198
 msgid "Border"
-msgstr ""
+msgstr "Rahmen"
 
 #: includes/class-pb-globaltypography.php:20
 msgid "Ancient Greek"
-msgstr ""
+msgstr "Altgriechisch"
 
 #: includes/class-pb-globaltypography.php:21
 msgid "Arabic"
-msgstr ""
+msgstr "Arabisch"
 
 #: includes/class-pb-globaltypography.php:22
 msgid "Biblical Hebrew"
-msgstr ""
+msgstr "Biblisches Häbraisch"
 
 #: includes/class-pb-globaltypography.php:23
 msgid "Chinese (Simplified)"
-msgstr ""
+msgstr "Einfaches Chinesisch"
 
 #: includes/class-pb-globaltypography.php:24
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "Traditionelles Chinesisch"
 
 #: includes/class-pb-globaltypography.php:25
 msgid "Coptic"
-msgstr ""
+msgstr "Koptisch"
 
 #: includes/class-pb-globaltypography.php:26
 msgid "Gujarati"
@@ -1042,27 +1042,27 @@ msgstr "Japanisch"
 
 #: includes/class-pb-globaltypography.php:28
 msgid "Korean"
-msgstr ""
+msgstr "Koreanisch"
 
 #: includes/class-pb-globaltypography.php:29
 msgid "Syriac"
-msgstr ""
+msgstr "Syrisch"
 
 #: includes/class-pb-globaltypography.php:30
 msgid "Tamil"
-msgstr ""
+msgstr "Tamilisch"
 
 #: includes/class-pb-globaltypography.php:31
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibetanisch"
 
 #: includes/class-pb-metadata.php:238
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "Alle Rechte vorbehalten"
 
 #: includes/class-pb-metadata.php:290
 msgid "except where otherwise noted."
-msgstr ""
+msgstr "ausser anderst vermerkt."
 
 #: includes/modules/export/class-pb-export.php:856
 msgid "File not found"
@@ -1087,7 +1087,7 @@ msgstr "Inhalt"
 
 #: includes/modules/export/mpdf/class-pb-pdf.php:266
 msgid "ISBN"
-msgstr ""
+msgstr "ISBN"
 
 #: includes/modules/export/wordpress/class-pb-wxr.php:101
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:164
@@ -1415,11 +1415,11 @@ msgstr "Buchinformationen"
 #: includes/pb-postype.php:238
 #, php-format
 msgid "Part updated. <a target=\"_blank\" href=\"%s\">View Part</a>"
-msgstr ""
+msgstr "Teil aktualisiert. <a target=\"_blank\" href=\"%s\">Teil anschauen</a>"
 
 #: includes/pb-postype.php:238 includes/pb-postype.php:241
 msgid "Part updated."
-msgstr ""
+msgstr "Teil aktualisiert"
 
 #: includes/pb-postype.php:239 includes/pb-postype.php:256
 #: includes/pb-postype.php:269 includes/pb-postype.php:286
@@ -1445,11 +1445,11 @@ msgstr ""
 
 #: includes/pb-postype.php:244
 msgid "Part published."
-msgstr ""
+msgstr "Teil veröffentlicht"
 
 #: includes/pb-postype.php:245
 msgid "Part saved."
-msgstr ""
+msgstr "Teil gespeichert"
 
 #: includes/pb-postype.php:246
 #, php-format
@@ -1485,7 +1485,7 @@ msgstr ""
 
 #: includes/pb-postype.php:262
 msgid "Book Information saved."
-msgstr ""
+msgstr "Buchinformationen gespeichert"
 
 #: includes/pb-postype.php:263
 msgid "Book Information submitted."
@@ -1512,7 +1512,7 @@ msgstr ""
 
 #: includes/pb-postype.php:275
 msgid "Chapter saved."
-msgstr ""
+msgstr "Kapitel gespeichert"
 
 #: includes/pb-postype.php:276
 #, php-format
@@ -1552,7 +1552,7 @@ msgstr ""
 
 #: includes/pb-postype.php:292
 msgid "Front Matter saved."
-msgstr ""
+msgstr "Titelei speichern"
 
 #: includes/pb-postype.php:293
 #, php-format
@@ -1596,7 +1596,7 @@ msgstr ""
 
 #: includes/pb-postype.php:309
 msgid "Back Matter saved."
-msgstr ""
+msgstr "Anhang gespeichert"
 
 #: includes/pb-postype.php:310
 #, php-format
@@ -1809,59 +1809,59 @@ msgstr "Ungültige Berechtigungen"
 
 #: languages/tinymce.php:4
 msgid "Class"
-msgstr ""
+msgstr "Klasse"
 
 #: languages/tinymce.php:5
 msgid "Textboxes"
-msgstr ""
+msgstr "Textboxen"
 
 #: languages/tinymce.php:6
 msgid "Custom Textbox"
-msgstr ""
+msgstr "Eigene Textbox"
 
 #: languages/tinymce.php:8
 msgid "Type your textbox content here."
-msgstr ""
+msgstr "Textbox-Inhalt hier ergänzen "
 
 #: languages/tinymce.php:10
 msgid "Learning Objectives"
-msgstr ""
+msgstr "Lernziele"
 
 #: languages/tinymce.php:11
 msgid "Type your learning objectives here."
-msgstr ""
+msgstr "Lernziele hier ergänzen"
 
 #: languages/tinymce.php:12
 msgid "Key Takeaways"
-msgstr ""
+msgstr "Zusammenfassung"
 
 #: languages/tinymce.php:13
 msgid "Type your key takeaways here."
-msgstr ""
+msgstr "Zusammenfassung hier ergänzen"
 
 #: languages/tinymce.php:14
 msgid "Exercises"
-msgstr ""
+msgstr "Aufgaben"
 
 #: languages/tinymce.php:15
 msgid "Type your exercises here."
-msgstr ""
+msgstr "Aufgaben hier ergänzen"
 
 #: languages/tinymce.php:16
 msgid "Examples"
-msgstr ""
+msgstr "Beispiele"
 
 #: languages/tinymce.php:17
 msgid "Type your examples here."
-msgstr ""
+msgstr "Beispiele hier ergänzen"
 
 #: languages/tinymce.php:19
 msgid "First"
-msgstr ""
+msgstr "Erstens"
 
 #: languages/tinymce.php:20
 msgid "Second"
-msgstr ""
+msgstr "Zeitens"
 
 #: pressbooks.php:82
 msgid "Cannot find Pressbooks install."
@@ -1914,7 +1914,7 @@ msgstr ""
 
 #: symbionts/custom-metadata/custom_metadata.php:1379
 msgid "+ Add New"
-msgstr ""
+msgstr "+ Hinzufügen"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:32
 msgctxt "post type general name"
@@ -2000,7 +2000,7 @@ msgstr "Kommentare sind geschlossen."
 #: symbionts/disable-comments/disable-comments.php:374
 #: symbionts/pb-latex/pb-latex-admin.php:33
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: symbionts/disable-comments/disable-comments.php:385
 #: symbionts/disable-comments/disable-comments.php:429
@@ -2039,7 +2039,7 @@ msgstr ""
 
 #: symbionts/disable-comments/disable-comments.php:449
 msgid "Save Changes"
-msgstr ""
+msgstr "Änderungen speichern"
 
 #: symbionts/pb-latex/pb-latex-admin.php:39
 #: symbionts/pb-latex/pb-latex-admin.php:187
@@ -2143,20 +2143,20 @@ msgstr ""
 #: symbionts/search-regex/models/search.php:171
 #: symbionts/search-regex/searches/post_content.php:37
 msgid "edit"
-msgstr ""
+msgstr "bearbeiten"
 
 #: symbionts/search-regex/models/search.php:175
 msgid "deleted"
-msgstr ""
+msgstr "gelöscht"
 
 #: symbionts/search-regex/search-regex.php:89
 #: symbionts/search-regex/view/admin/search.php:3
 msgid "Search and Replace"
-msgstr ""
+msgstr "Suchen und Ersetzen"
 
 #: symbionts/search-regex/searches/post_content.php:34
 msgid "view"
-msgstr ""
+msgstr "anschauen"
 
 #: symbionts/search-regex/searches/post_content.php:55
 #, php-format
@@ -2165,20 +2165,20 @@ msgstr ""
 
 #: symbionts/search-regex/searches/post_content.php:58
 msgid "Content"
-msgstr ""
+msgstr "Inhalt"
 
 #: symbionts/search-regex/view/admin/results.php:3
 msgid "Results"
-msgstr ""
+msgstr "Ergebnisse"
 
 #: symbionts/search-regex/view/admin/results.php:6
 #, php-format
 msgid "%1$s result(s) found."
-msgstr ""
+msgstr "%1$s Ergebniss(e) gefunden."
 
 #: symbionts/search-regex/view/admin/results.php:19
 msgid "replaced with:"
-msgstr ""
+msgstr "ersetzen mit:"
 
 #: symbionts/search-regex/view/admin/results.php:34
 #: symbionts/search-regex/view/admin/results.php:35
@@ -2188,11 +2188,11 @@ msgstr "Speichern"
 
 #: symbionts/search-regex/view/admin/results.php:59
 msgid "There are no results."
-msgstr ""
+msgstr "Keine Ergebnisse."
 
 #: symbionts/search-regex/view/admin/search.php:4
 msgid "Search and replace will replace ALL instances in the entire book."
-msgstr ""
+msgstr "Suchen und Ersetzen wird ALLE Ergebnisse im ganzen Buch ersetzen."
 
 #: symbionts/search-regex/view/admin/search.php:5
 msgid ""
@@ -2359,7 +2359,7 @@ msgstr "Email an:"
 msgid ""
 "You can export multiple file formats by selecting your Export Format Options"
 " below. Pressbooks saves your last %s batches of exported files."
-msgstr ""
+msgstr "Sie können mehrere Formate exportieren, indem Sie die entsprechenden Formate anwählen. Pressbooks speichert die letzten %s Exporte."
 
 #: templates/admin/export.php:49
 msgid "Export Your Book"
@@ -2427,15 +2427,15 @@ msgstr ""
 
 #: templates/admin/export.php:127
 msgid "Your Theme Options"
-msgstr ""
+msgstr "Ihre Layout Optionen"
 
 #: templates/admin/export.php:134
 msgid "Change Theme"
-msgstr "Template wechseln"
+msgstr "Layout wechseln"
 
 #: templates/admin/export.php:135
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #: templates/admin/import.php:20
 #, php-format
@@ -2526,7 +2526,7 @@ msgstr "Kapitel hinzufügen"
 
 #: templates/admin/organize.php:45 templates/admin/organize.php:147
 msgid "Add Part"
-msgstr "Teil / Kapitel hinzufügen"
+msgstr "Teil hinzufügen"
 
 #: templates/admin/organize.php:78 templates/admin/organize.php:154
 msgid "Comments"
@@ -2538,7 +2538,7 @@ msgstr "Status"
 
 #: templates/admin/organize.php:81 templates/admin/organize.php:157
 msgid "Show Title"
-msgstr ""
+msgstr "Titel anzeigen"
 
 #: templates/admin/organize.php:84 templates/admin/organize.php:125
 #: templates/admin/organize.php:159 templates/admin/organize.php:193
@@ -2787,7 +2787,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:413
 msgid "Enable a two-level TOC"
-msgstr ""
+msgstr "IVZ mit zwei Titelhierarchien"
 
 #: themes-book/pressbooks-book/functions.php:424
 msgid "Display the copyright license"
@@ -2824,21 +2824,21 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:637
 msgid "Web Options"
-msgstr ""
+msgstr "Web Einstellungen"
 
 #: themes-book/pressbooks-book/functions.php:644
 msgid "Collapsable TOC"
-msgstr ""
+msgstr "Aufklappbares IVZ"
 
 #: themes-book/pressbooks-book/functions.php:649
 msgid "Make webbook TOC collapsable"
-msgstr ""
+msgstr "IVZ des Webbuchs aufklappbar machen"
 
 #: themes-book/pressbooks-book/functions.php:655
 #: themes-book/pressbooks-book/functions.php:896
 #: themes-book/pressbooks-book/functions.php:1277
 msgid "Increase Font Size"
-msgstr ""
+msgstr "Schriftgrösse vergrössen"
 
 #: themes-book/pressbooks-book/functions.php:660
 msgid ""
@@ -3417,11 +3417,11 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/header.php:32
 msgid "Sign in"
-msgstr ""
+msgstr "Einloggen"
 
 #: themes-root/pressbooks-publisher/header.php:34
 msgid "Sign out"
-msgstr ""
+msgstr "Ausloggen"
 
 #: themes-root/pressbooks-publisher/header.php:35
 msgid "My Books"
@@ -3430,7 +3430,7 @@ msgstr "Meine Bücher"
 #: themes-root/pressbooks-publisher/inc/customizer.php:20
 #: themes-root/pressbooks-publisher/inc/customizer.php:36
 msgid "About Us"
-msgstr ""
+msgstr "Über uns"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:21
 msgid "Add a description of your collection or institution below."
@@ -3438,7 +3438,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:52
 msgid "Columns"
-msgstr ""
+msgstr "Spalten"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:53
 msgid "Display your intro text in one or two columns."
@@ -3446,11 +3446,11 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:57
 msgid "One column"
-msgstr ""
+msgstr "Eine Spalte"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:58
 msgid "Two columns"
-msgstr ""
+msgstr "Zwei Spalten"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:23
 msgid "Posts navigation"

@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-11-05 13:31-0400\n"
-"PO-Revision-Date: 2015-11-05 17:32+0000\n"
-"Last-Translator: Ned Zimmerman\n"
+"PO-Revision-Date: 2015-11-05 19:33+0000\n"
+"Last-Translator: aggelos manousopoulos <a.manousopoulos@gmail.com>\n"
 "Language-Team: Greek (http://www.transifex.com/pressbooks/pressbooks/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -839,7 +839,7 @@ msgstr "Δεν έχετε δικαίωμα πρόσβασης στη σελίδ�
 
 #: includes/admin/pb-network-managers.php:86
 msgid "Pressbooks Network Managers"
-msgstr ""
+msgstr "Δίκτυο διαχειριστών Pressbooks"
 
 #: includes/admin/pb-network-managers.php:88
 msgid ""

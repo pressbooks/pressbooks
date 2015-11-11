@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2015-11-05 13:31-0400\n"
-"PO-Revision-Date: 2015-11-05 17:32+0000\n"
-"Last-Translator: Ned Zimmerman\n"
+"PO-Revision-Date: 2015-11-10 15:14+0000\n"
+"Last-Translator: Toni Devís <colomet@hotmail.com>\n"
 "Language-Team: Spanish (http://www.transifex.com/pressbooks/pressbooks/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -947,7 +947,7 @@ msgstr "Libro no encontrado"
 
 #: includes/class-pb-editor.php:62
 msgid "Indent"
-msgstr ""
+msgstr "Indentar"
 
 #: includes/class-pb-editor.php:68
 msgid "Hanging indent"
@@ -955,7 +955,7 @@ msgstr ""
 
 #: includes/class-pb-editor.php:74
 msgid "No indent"
-msgstr ""
+msgstr "No indentar"
 
 #: includes/class-pb-editor.php:80
 msgid "Tight tracking"
@@ -1009,23 +1009,23 @@ msgstr ""
 
 #: includes/class-pb-globaltypography.php:20
 msgid "Ancient Greek"
-msgstr ""
+msgstr "Griego antiguo"
 
 #: includes/class-pb-globaltypography.php:21
 msgid "Arabic"
-msgstr ""
+msgstr "Arabe"
 
 #: includes/class-pb-globaltypography.php:22
 msgid "Biblical Hebrew"
-msgstr ""
+msgstr "Hebreo Bíblico"
 
 #: includes/class-pb-globaltypography.php:23
 msgid "Chinese (Simplified)"
-msgstr ""
+msgstr "Chino (Simplificado)"
 
 #: includes/class-pb-globaltypography.php:24
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "Chino (Tradicional)"
 
 #: includes/class-pb-globaltypography.php:25
 msgid "Coptic"
@@ -1053,7 +1053,7 @@ msgstr ""
 
 #: includes/class-pb-globaltypography.php:31
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibetano"
 
 #: includes/class-pb-metadata.php:238
 msgid "All Rights Reserved"
@@ -1824,7 +1824,7 @@ msgstr ""
 
 #: languages/tinymce.php:10
 msgid "Learning Objectives"
-msgstr ""
+msgstr "Objetivos de Aprendizaje"
 
 #: languages/tinymce.php:11
 msgid "Type your learning objectives here."
@@ -1840,7 +1840,7 @@ msgstr ""
 
 #: languages/tinymce.php:14
 msgid "Exercises"
-msgstr ""
+msgstr "Ejercicios"
 
 #: languages/tinymce.php:15
 msgid "Type your exercises here."
@@ -1848,23 +1848,23 @@ msgstr ""
 
 #: languages/tinymce.php:16
 msgid "Examples"
-msgstr ""
+msgstr "Ejemplos"
 
 #: languages/tinymce.php:17
 msgid "Type your examples here."
-msgstr ""
+msgstr "Escribe tus ejemplos aquí."
 
 #: languages/tinymce.php:19
 msgid "First"
-msgstr ""
+msgstr "Primero"
 
 #: languages/tinymce.php:20
 msgid "Second"
-msgstr ""
+msgstr "Segundo"
 
 #: pressbooks.php:82
 msgid "Cannot find Pressbooks install."
-msgstr ""
+msgstr "No puedo encontrar la instalación de Pressbooks."
 
 #: symbionts/custom-metadata/custom_metadata.php:282
 msgid "Choose a file"
@@ -2537,7 +2537,7 @@ msgstr "Estado"
 
 #: templates/admin/organize.php:81 templates/admin/organize.php:157
 msgid "Show Title"
-msgstr ""
+msgstr "Mostrar Título"
 
 #: templates/admin/organize.php:84 templates/admin/organize.php:125
 #: templates/admin/organize.php:159 templates/admin/organize.php:193
@@ -2794,11 +2794,11 @@ msgstr "Muestrar la licencia de derechos de autor"
 
 #: themes-book/pressbooks-book/functions.php:444
 msgid "Global Typography"
-msgstr ""
+msgstr "Tipografía Global"
 
 #: themes-book/pressbooks-book/functions.php:449
 msgid "Include fonts to support the following languages:"
-msgstr ""
+msgstr "Incluye fuentes para permitir las siguientes lenguas:"
 
 #: themes-book/pressbooks-book/functions.php:467
 msgid "These options apply universally to webbook, PDF and ebook exports."
@@ -2810,11 +2810,11 @@ msgstr "Habilitar taxonomía para los tipos de capítulo."
 
 #: themes-book/pressbooks-book/functions.php:559
 msgid "and"
-msgstr ""
+msgstr "y"
 
 #: themes-book/pressbooks-book/functions.php:568
 msgid "Select languages…"
-msgstr ""
+msgstr "Elige lenguas..."
 
 #: themes-book/pressbooks-book/functions.php:576
 #, php-format
