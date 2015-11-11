@@ -141,6 +141,7 @@ abstract class Export {
 		$mixin = $wp_upload_dir['basedir'] . '/css/scss/_global-font-stack.scss';
 		
 		if ( !is_file( $mixin ) ) {
+			// TODO: Not a getters job to create (set) something, get rid of this
 			\PressBooks\GlobalTypography::updateGlobalTypographyMixin();
 		}
 

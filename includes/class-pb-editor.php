@@ -226,7 +226,9 @@ class Editor {
 			return; // Bail
 
 		$scss = '$type: \'web\';' . "\n";
-		
+
+		// TODO: Move code to SCSS module
+
 		if ( \PressBooks\Modules\Export\Export::isScss() ) {
 
 			$scss .= "@import 'mixins';" . "\n";
@@ -243,6 +245,8 @@ class Editor {
 
 		$scss .= "@import 'editor';" . "\n";
 
+		// TODO move all code related to on-the-fly css creation to SCSS module.
+
 		$wp_upload_dir = wp_upload_dir();
 
 		$upload_dir = $wp_upload_dir['basedir'] . '/css';
@@ -252,6 +256,7 @@ class Editor {
 		}
 
 		if ( ! is_dir( $upload_dir ) ) {
+			// TODO: This is used by 3 add_action() hooks, but a WP hook cannot catch an exception, so the app may crash
 			throw new \Exception( 'Could not create stylesheet directory.' );
 		}
 
@@ -260,12 +265,16 @@ class Editor {
 		$global_typography = $wp_upload_dir['basedir'] . '/css/scss/_global-font-stack.scss';
 
 		if ( !is_file( $global_typography ) ) {
+			// TODO: This is called by hooks, it is redundant to call it here again if hooks set $priority correctly?
 			\PressBooks\GlobalTypography::updateGlobalTypographyMixin();
 		}
 
+		// TODO: Catch exception, gracefully bail.
+		// TODO: Consider moving this out of here, includes are mostly known? We don't need to set them every time
 		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/scss/partials', $wp_upload_dir['basedir'] . '/css/scss/', get_stylesheet_directory() ) );
 
 		if ( ! file_put_contents( $css_file, $css ) ) {
+			// TODO: This is used by 3 add_action() hooks, but a WP hook cannot catch an exception, so the app may crash
 			throw new \Exception( 'Could not write custom CSS file.' );
 		}
 
@@ -282,6 +291,7 @@ class Editor {
 		$uri = $wp_upload_dir['baseurl'] . '/css/editor.css';
 
 		if ( !is_file( $path ) ) {
+			// TODO: updateEditorStyle function can throw exception, but we don't deal with it?
 			\PressBooks\Editor::updateEditorStyle();
 		}
 

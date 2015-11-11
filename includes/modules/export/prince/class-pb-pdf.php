@@ -204,6 +204,8 @@ class Pdf extends Export {
 		$scss .= $this->cssOverrides;
 		
 		if ( $this->isScss() ) {
+			// TODO: Catch exception, gracefully bail.
+			// TODO: Consider moving this into SCSS module because includes are mostly known? We don't need to set them every time, just prepend the differences.
 			$css = \PressBooks\SASS\compile( $scss, array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) );
 		} else {
 			$css = static::injectHouseStyles( $scss );

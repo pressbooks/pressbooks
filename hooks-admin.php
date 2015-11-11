@@ -37,9 +37,9 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\PressBooks\Admin\Laf\customize_register', 1000 );
-	add_action( 'after_switch_theme', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin' );
-	add_action( 'after_switch_theme', '\PressBooks\GlobalTypography::updateWebBookStyleSheet' );
-	add_action( 'after_switch_theme', '\PressBooks\Editor::updateEditorStyle' );
+	add_action( 'after_switch_theme', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin' ); // TODO DUPE-C
+	add_action( 'after_switch_theme', '\PressBooks\GlobalTypography::updateWebBookStyleSheet' ); // TODO - DUPE-B
+	add_action( 'after_switch_theme', '\PressBooks\Editor::updateEditorStyle' ); // TODO - DUPE-A, calls updateGlobalTypographyMixin which is redundant as we also call it two lines up, so why not set $priority instead?
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\fix_root_admin_menu', 1 );
@@ -61,9 +61,9 @@ add_action( 'admin_body_class', '\PressBooks\Admin\Laf\disable_customizer');
 
 // Hacks
 add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
-add_action( 'update_option_pressbooks_global_typography', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin' );
-add_action( 'update_option_pressbooks_global_typography', '\PressBooks\GlobalTypography::updateWebBookStyleSheet' );
-add_action( 'update_option_pressbooks_global_typography', '\PressBooks\Editor::updateEditorStyle' );
+add_action( 'update_option_pressbooks_global_typography', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin' ); // TODO DUPE-C
+add_action( 'update_option_pressbooks_global_typography', '\PressBooks\GlobalTypography::updateWebBookStyleSheet' ); // TODO DUPE-B
+add_action( 'update_option_pressbooks_global_typography', '\PressBooks\Editor::updateEditorStyle' ); // TODO DUPE-A, calls updateGlobalTypographyMixin() which is redundant as we also call it two lines up, so why not set $priority instead?
 
 // Privacy, Ecommerce, and Export settings
 add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );
@@ -106,9 +106,9 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'save_post', '\PressBooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
 	add_action( 'save_post', '\PressBooks\Admin\Metaboxes\title_update', 20, 2 );
 	add_action( 'save_post', '\PressBooks\Admin\Metaboxes\add_required_data', 30, 2 );
-	add_action( 'save_post', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin', 40, 2 );
-	add_action( 'save_post', '\PressBooks\GlobalTypography::updateWebBookStyleSheet', 50, 2 );
-	add_action( 'save_post', '\PressBooks\Editor::updateEditorStyle', 60, 2 );
+	add_action( 'save_post', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin', 40, 2 ); // TODO DUPE-C
+	add_action( 'save_post', '\PressBooks\GlobalTypography::updateWebBookStyleSheet', 50, 2 ); // TODO DUPE-B
+	add_action( 'save_post', '\PressBooks\Editor::updateEditorStyle', 60, 2 ); // TODO DUPE-A, calls updateGlobalTypographyMixin() which is redundant as we also call it two lines up, so why not set $priority instead?
 	add_action( 'save_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
@@ -118,7 +118,7 @@ if ( \PressBooks\Book::isBook() ) {
 	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceTableEditorOptions' );
 	add_filter( 'mce_external_plugins', '\PressBooks\Editor::mceButtonScripts' );
 	add_filter( 'mce_buttons_2', '\PressBooks\Editor::mceButtons');
-	add_action( 'admin_init', '\PressBooks\Editor::addEditorStyle' );
+	add_action( 'admin_init', '\PressBooks\Editor::addEditorStyle' ); // TODO calls updateEditorStyle, which is called by 3 different hooks (see DUPE-A), so why not set $priority instead?
 }
 
 // -------------------------------------------------------------------------------------------------------------------

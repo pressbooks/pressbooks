@@ -239,6 +239,8 @@ function load_css_from() {
 		$theme = $themes[$theme]; // Get theme object
 		/** @var $theme \WP_Theme */
 
+		// TODO: SCSS is optional, what if the user wants to copy from an old theme that has not yet been covnerted? This file won't exist?
+
 		if ( 'web' == $slug ) {
 			$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.scss' );
 			$uri_to_style = $theme->get_stylesheet_directory_uri();
@@ -249,6 +251,8 @@ function load_css_from() {
 
 		if ( $path_to_style ) {
 			$scss = file_get_contents( $path_to_style );
+			// TODO: Catch exception, gracefully bail.
+			// TODO: Consider moving this into SCSS module because includes are mostly known? We don't need to set them every time, just prepend the differences.
 			$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/scss/partials', $upload_dir, $theme->get_stylesheet_directory() ) );
 			$css = fix_url_paths( $css, $uri_to_style );
 		}

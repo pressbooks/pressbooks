@@ -42,6 +42,8 @@ function compile( $scss, $includes = array() ) {
 
 	} catch ( \Exception $e ) {
 
+		// TODO: Compiler should not catch it's own exception. We did this because we were lazy. This needs to be handled by the caller
+
 		$message = sprintf( __( 'There was a problem with SASS. Contact your site administrator. Error: %s', 'pressbooks' ), $e->getMessage() );
 		$_SESSION['pb_errors'][] = $message;
 		_logException( $e );

@@ -74,6 +74,9 @@ class GlobalTypography {
 	}
 
 	/**
+	 * TODO: Change this to SCSS files
+	 * TODO: Move code to SCSS module
+	 *
 	 * Update and save the SCSS mixin which assigns the $global-typography variable.
 	 *
 	 * @param int $pid
@@ -470,6 +473,7 @@ class GlobalTypography {
 	 * @param int $pid
 	 * @param \WP_Post $post
 	 * @throws \Exception
+	 * @return void
 	 */
 	static function updateWebBookStyleSheet( $pid = null, $post = null ) {
 		
@@ -481,7 +485,7 @@ class GlobalTypography {
 		if ( $path_to_style ) {
 			$scss = file_get_contents( $path_to_style );
 		} else {
-			return false;
+			return;
 		}
 				
 		$wp_upload_dir = wp_upload_dir();
@@ -490,6 +494,8 @@ class GlobalTypography {
 
 		$css_file = $wp_upload_dir['basedir'] . '/css/style.css';
 
+		// TODO: Catch exception, gracefully bail.
+		// TODO: Consider moving this into SCSS module because includes are mostly known? We don't need to set them every time, just prepend the differences.
 		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/scss/partials', $upload_dir, get_stylesheet_directory() ) );
 		
 		// Search for url("*"), url('*'), and url(*)
@@ -512,6 +518,7 @@ class GlobalTypography {
 		}, $css );
 		
 		if ( ! file_put_contents( $css_file, $css ) ) {
+			// TODO: This is used by 3 add_action() hooks, but a WP hook cannot catch an exception, so the app may crash
 			throw new \Exception( 'Could not write webBook stylesheet.' );
 		}
 	
