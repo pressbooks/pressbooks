@@ -200,7 +200,7 @@ if ( \PressBooks\Book::isBook() ) {
 	} );
 
 	// Check mpdf export paths
-	if ( \PressBooks\Utility\show_experimental_features() ) {
+	if ( \PressBooks\Modules\Export\Mpdf\Pdf::isInstalled() ) {
 		add_action( 'admin_notices', function () {
 			$paths = array(
 				PB_PLUGIN_DIR . 'symbionts/mpdf/ttfontdata',

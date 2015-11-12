@@ -1,8 +1,6 @@
 .idea/
 .DS_Store
-symbionts/mpdf/tmp/
-symbionts/mpdf/ttfontdata/
-symbionts/mpdf/graph_cache/
+symbionts/mpdf/
 .sass-cache
 .tx
 __MACOSX

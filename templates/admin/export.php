@@ -104,7 +104,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	       <?php if ( true == \PressBooks\Utility\check_prince_install() ) { ?>
 	    	<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" /><label for="pdf"> <?php _e( 'PDF (for printing)', 'pressbooks' ); ?></label><br />
 	       <?php } ;?>
-		<?php if ( true == \PressBooks\Utility\show_experimental_features() ) { ?>
+		<?php if ( \PressBooks\Modules\Export\Mpdf\Pdf::isInstalled() ) { ?>
 		<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" /><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
 		<?php } ?>
 		<input type="checkbox" id="epub" name="export_formats[epub]" value="1" /><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />

@@ -33,11 +33,15 @@ namespace PressBooks\Modules\Export\Mpdf;
  *
  */
 require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
-require_once( PB_PLUGIN_DIR . 'symbionts/mpdf/mpdf.php' );
 
 use \PressBooks\Modules\Export\Export;
 
 class Pdf extends Export {
+
+	/**
+	 * Path to mPDF
+	 */
+	const PATH_TO_LIB = PB_PLUGIN_DIR . 'symbionts/mpdf/mpdf.php';
 
 	/**
 	 * Fullpath to book CSS file.
@@ -136,6 +140,10 @@ class Pdf extends Export {
 		$contents = $this->getOrderedBookContents();
 
 		// set up mPDF
+		if ( ! file_exists( static::PATH_TO_LIB ) ) {
+			return false; // mPDF is not installed
+		}
+		require_once( PB_PLUGIN_DIR . 'symbionts/mpdf/mpdf.php' );
 		$this->mpdf = new \mPDF( '' );
 		$this->mpdf->SetAnchor2Bookmark( 1 );
 		$this->mpdf->ignore_invalid_utf8 = true;
@@ -806,6 +814,17 @@ class Pdf extends Export {
 		}
 
 		return false;
+	}
+
+
+	/**
+	 * Is mPDF installed?
+	 *
+	 * @return bool
+	 */
+	static function isInstalled() {
+
+		return file_exists( static::PATH_TO_LIB );
 	}
 
 }
