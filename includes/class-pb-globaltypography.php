@@ -479,40 +479,36 @@ class GlobalTypography {
 		if ( isset( $post ) && 'metadata' !== $post->post_type )
 			return; // Bail
 
-		$sass = Container::get('Sass');
-				
 		$path_to_style = realpath( get_stylesheet_directory() . '/style.scss' );
-		
-		if ( $path_to_style ) {
-			$scss = file_get_contents( $path_to_style );
-		} else {
+		if ( ! $path_to_style ) {
 			return;
 		}
 
-		$upload_dir = $sass->pathToUserGeneratedSass();
-		$css_file = $sass->pathToUserGeneratedCss() . '/style.css';
+		$sass = Container::get( 'Sass' );
 
-		$css = Container::get( 'Sass' )->compile( $scss );
-		
+		$scss = file_get_contents( $path_to_style );
+		$css = $sass->compile( $scss );
+
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $upload_dir ) {
+		$css = preg_replace_callback( $url_regex, function ( $matches ) {
 
 			$url = $matches[3];
 			$filename = sanitize_file_name( basename( $url ) );
 
+			// TODO: How does this work if the theme is not "pressbooks-book" ?
+			// TODO: Currently hundreds of fonts in pressbooks-book/fonts/, can we not move these?
+
+			// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
 			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-
-				// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
-
 				return "url(" . site_url( '/' ) . "themes-book/pressbooks-book/fonts/$filename)";
-
 			}
 
 			return $matches[0]; // No change
 
 		}, $css );
 
+		$css_file = $sass->pathToUserGeneratedCss() . '/style.css';
 		file_put_contents( $css_file, $css );
 	}
 	

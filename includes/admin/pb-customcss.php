@@ -7,6 +7,7 @@ namespace PressBooks\Admin\CustomCss;
 
 
 use PressBooks\Book;
+use PressBooks\Container;
 use PressBooks\CustomCss;
 
 /**
@@ -231,9 +232,6 @@ function load_css_from() {
 	$themes = wp_get_themes( array( 'allowed' => true ) );
 	list( $theme, $slug ) = explode( '__', @$_POST['slug'] );
 
-	$wp_upload_dir = wp_upload_dir();
-	$upload_dir = $wp_upload_dir['basedir'] . '/css/scss';
-
 	if ( isset( $themes[$theme] ) ) {
 
 		$theme = $themes[$theme]; // Get theme object
@@ -249,9 +247,14 @@ function load_css_from() {
 			$uri_to_style = false; // We don't want a URI for EPUB or Prince exports
 		}
 
+
 		if ( $path_to_style ) {
+
 			$scss = file_get_contents( $path_to_style );
-			$css = \PressBooks\Container::get('Sass')->compile( $scss ) ;
+
+			$sass = Container::get( 'Sass' );
+			$css = $sass->compile( $scss, [ $sass->pathTPartials(), $sass->pathToUserGeneratedSass(), $theme->get_stylesheet_directory() ] );
+
 			$css = fix_url_paths( $css, $uri_to_style );
 		}
 	}

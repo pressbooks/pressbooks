@@ -19,38 +19,6 @@ class Sass {
 
 
 	/**
-	 * @var array
-	 */
-	protected $includePaths = array();
-
-
-	/**
-	 * Set include paths
-	 *
-	 * @param array $includePaths
-	 */
-	function setIncludePaths( array $includePaths ) {
-
-		$this->includePaths = $includePaths;
-	}
-
-
-	/**
-	 * Get include paths, if nothing was set fallback to defaults
-	 *
-	 * @return array
-	 */
-	function getIncludePaths() {
-
-		if ( empty( $this->includePaths ) ) {
-			return $this->defaultIncludePaths();
-		}
-
-		return $this->includePaths;
-	}
-
-
-	/**
 	 * Get default include paths
 	 */
 	function defaultIncludePaths() {
@@ -146,13 +114,18 @@ class Sass {
 	/**
 	 * Returns the compiled CSS from SCSS input
 	 *
-	 * @param $scss
+	 * @param string $scss
+	 * @param array $includes (optional)
 	 * @return string
 	 */
-	function compile( $scss ) {
+	function compile( $scss, $includes = array() ) {
 
 		try {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
+
+			if ( empty( $includes ) ) {
+				$includes = $this->defaultIncludePaths();
+			}
 
 			if ( $scss !== '' ) {
 				if ( extension_loaded( 'sass' ) ) { // use sassphp extension
@@ -161,14 +134,14 @@ class Sass {
 					register_shutdown_function( create_function( '', "unlink('{$scss_file}');" ) );
 					file_put_contents( $scss_file, $scss );
 					$sass = new \Sass();
-					$include_paths = implode( ':', $this->getIncludePaths() );
+					$include_paths = implode( ':', $includes );
 					$sass->setIncludePath( $include_paths );
 					$css = $sass->compileFile( $scss_file );
 				}
 				else { // use scssphp library
 					require_once( PB_PLUGIN_DIR . 'symbionts/scssphp/scss.inc.php' );
 					$sass = new \Leafo\ScssPhp\Compiler;
-					$sass->setImportPaths( $this->getIncludePaths() );
+					$sass->setImportPaths( $includes );
 					$css = $sass->compile( $scss );
 				}
 			}

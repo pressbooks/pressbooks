@@ -67,10 +67,9 @@ function pb_enqueue_scripts() {
 		// Use default stylesheet as base (to avoid horribly broken webbook)
 		$deps = array( 'pressbooks' );		
 		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
-			$wp_upload_dir = wp_upload_dir();
-			$fullpath = $wp_upload_dir['basedir'] . '/css/style.css';
+			$fullpath = \PressBooks\Container::get('Sass')->pathToUserGeneratedCss() . '/style.css';
 			if ( is_file( $fullpath ) ) { // Custom webbook style has been generated
-				wp_register_style( 'pressbooks-theme', $wp_upload_dir['baseurl'] . '/css/style.css', $deps, null, 'screen, print' );
+				wp_register_style( 'pressbooks-theme', \PressBooks\Container::get('Sass')->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
 				wp_enqueue_style( 'pressbooks-theme' );
 			} else { // Use the bundled stylesheet
 				wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', $deps, null, 'screen, print' );
