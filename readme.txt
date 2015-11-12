@@ -204,6 +204,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 * Added a new Textboxes menu in TinyMCE which supports some new types of textboxes in addition to standard and shaded.
 * Added support for assigning classes to tables within the TinyMCE Table Editor and removed some unnecessary features from it.
 * Localized strings within some of our TinyMCE plugins. More to come.
+* Improved XSL file for ODT export.
 * Improved some TinyMCE styles.
 * Fixed an issue where activating a non-SCSS theme would cause an error.
 
