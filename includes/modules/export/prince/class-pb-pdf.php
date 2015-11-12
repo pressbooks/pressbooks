@@ -7,6 +7,7 @@ namespace PressBooks\Modules\Export\Prince;
 
 
 use \PressBooks\Modules\Export\Export;
+use PressBooks\Container;
 
 class Pdf extends Export {
 
@@ -32,22 +33,6 @@ class Pdf extends Export {
 	 * @var string
 	 */
 	protected $exportStylePath;
-
-
-	/**
-	 * Fullpath to generic SCSS mixins.
-	 *
-	 * @var string
-	 */
-	protected $genericMixinsPath;
-
-
-	/**
-	 * Fullpath to global typography SCSS mixin.
-	 *
-	 * @var string
-	 */
-	protected $globalTypographyMixinPath;
 
 
 	/**
@@ -78,8 +63,6 @@ class Pdf extends Export {
 
 		$this->exportStylePath = $this->getExportStylePath( 'prince' );
 		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
-		$this->genericMixinsPath = $this->getMixinsPath();
-		$this->globalTypographyMixinPath = $this->getGlobalTypographyMixinPath();
 
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
@@ -197,17 +180,17 @@ class Pdf extends Export {
 	 */
 	protected function kneadCss() {
 
+		$sass = Container::get( 'Sass' );
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 
 		$scss = file_get_contents( $this->exportStylePath );
 		$scss .= "\n";
 		$scss .= $this->cssOverrides;
-		
-		if ( $this->isScss() ) {
-			// TODO: Catch exception, gracefully bail.
-			// TODO: Consider moving this into SCSS module because includes are mostly known? We don't need to set them every time, just prepend the differences.
-			$css = \PressBooks\SASS\compile( $scss, array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) );
-		} else {
+
+		if ( $sass->isCurrentThemeCompatible() ) {
+			$css = $sass->compile( $scss );
+		}
+		else {
 			$css = static::injectHouseStyles( $scss );
 		}
 
@@ -232,9 +215,9 @@ class Pdf extends Export {
 			return $matches[0]; // No change
 
 		}, $css );
-				
+
 		if ( WP_DEBUG ) {
-			\PressBooks\SASS\debug( $css, $scss, 'prince' );
+			Container::get('Sass')->debug( $css, $scss, 'prince' );
 		}
 
 		return $css;

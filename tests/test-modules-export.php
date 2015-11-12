@@ -132,24 +132,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	}
 
 
-
-	/**
-	 * @covers \PressBooks\Modules\Export\Export::isScss
-	 */
-	public function test_isScss() {
-
-		$this->_book();
-
-		$val = $this->export->isScss();
-		$this->assertTrue( $val );
-
-		switch_theme( 'pressbooks-custom-css' );
-
-		$val = $this->export->isScss();;
-		$this->assertFalse( $val );
-	}
-
-
 	/**
 	 * @covers \PressBooks\Modules\Export\Export::isParsingSections
 	 */

@@ -12,14 +12,15 @@ class Editor {
 
 	/**
 	 * Ensure that Word formatting that we like doesn't get filtered out.
+	 *
+	 * @param array $init_array
+	 * @return array
 	 */
-
 	static function mceValidWordElements( $init_array ) {
 
 		$init_array['paste_word_valid_elements'] = '@[class],p,h3,h4,h5,h6,a[href|target],strong/b,em/i,div[align],br,table,tbody,thead,tr,td,ul,ol,li,img[src]';
 
 		return $init_array;
-
 	}
 
 	/**
@@ -225,78 +226,34 @@ class Editor {
 		if ( isset( $post ) && 'metadata' !== $post->post_type )
 			return; // Bail
 
-		$scss = '$type: \'web\';' . "\n";
+		$sass = Container::get('Sass');
 
-		// TODO: Move code to SCSS module
-
-		if ( \PressBooks\Modules\Export\Export::isScss() ) {
-
-			$scss .= "@import 'mixins';" . "\n";
-	
-			$scss .= '@if variable-exists(font-1) {' . "\n";
-			$scss .= 'body#tinymce.wp-editor { font-family: $font-1; }' . "\n";
-			$scss .= '}' . "\n";
-	
-			$scss .= '@if variable-exists(font-2) {' . "\n";
-			$scss .= 'body#tinymce.wp-editor { h1, h2, h3, h4, h5, h6 { font-family: $font-2; }' . "\n";
-			$scss .= '} }' . "\n";
-			
+		if ( $sass->isCurrentThemeCompatible() ) {
+			$scss = file_get_contents( $sass->pathTPartials() . '/_editor-with-custom-fonts.scss' );
+		}
+		else {
+			$scss = file_get_contents( $sass->pathTPartials() . '/_editor.scss' );
 		}
 
-		$scss .= "@import 'editor';" . "\n";
-
-		// TODO move all code related to on-the-fly css creation to SCSS module.
-
-		$wp_upload_dir = wp_upload_dir();
-
-		$upload_dir = $wp_upload_dir['basedir'] . '/css';
-
-		if ( ! is_dir( $upload_dir ) ) {
-			mkdir( $upload_dir, 0777, true );
-		}
-
-		if ( ! is_dir( $upload_dir ) ) {
-			// TODO: This is used by 3 add_action() hooks, but a WP hook cannot catch an exception, so the app may crash
-			throw new \Exception( 'Could not create stylesheet directory.' );
-		}
-
-		$css_file = $upload_dir . '/editor.css';
-
-		$global_typography = $wp_upload_dir['basedir'] . '/css/scss/_global-font-stack.scss';
-
-		if ( !is_file( $global_typography ) ) {
-			// TODO: This is called by hooks, it is redundant to call it here again if hooks set $priority correctly?
-			\PressBooks\GlobalTypography::updateGlobalTypographyMixin();
-		}
-
-		// TODO: Catch exception, gracefully bail.
-		// TODO: Consider moving this out of here, includes are mostly known? We don't need to set them every time
-		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/scss/partials', $wp_upload_dir['basedir'] . '/css/scss/', get_stylesheet_directory() ) );
-
-		if ( ! file_put_contents( $css_file, $css ) ) {
-			// TODO: This is used by 3 add_action() hooks, but a WP hook cannot catch an exception, so the app may crash
-			throw new \Exception( 'Could not write custom CSS file.' );
-		}
-
+		$css = $sass->compile( $scss );
+		$output = $sass->pathToUserGeneratedCss() . '/editor.css';
+		file_put_contents( $output, $css );
 	}
+
 
 	/**
 	 * Adds stylesheet for MCE previewing.
 	 */
 	static function addEditorStyle() {
 
-		$wp_upload_dir = wp_upload_dir();
+		$sass = Container::get('Sass');
 
-		$path = $wp_upload_dir['basedir'] . '/css/editor.css';
-		$uri = $wp_upload_dir['baseurl'] . '/css/editor.css';
-
-		if ( !is_file( $path ) ) {
-			// TODO: updateEditorStyle function can throw exception, but we don't deal with it?
-			\PressBooks\Editor::updateEditorStyle();
+		if ( ! is_file( $sass->pathToUserGeneratedCss() . '/editor.css' ) ) {
+			static::updateEditorStyle();
 		}
 
+		$uri = $sass->pathToUserGeneratedCss() . '/editor.css';
 		add_editor_style( $uri );
-
 	}
 
 }

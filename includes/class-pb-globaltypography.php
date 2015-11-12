@@ -472,13 +472,14 @@ class GlobalTypography {
 	 *
 	 * @param int $pid
 	 * @param \WP_Post $post
-	 * @throws \Exception
 	 * @return void
 	 */
 	static function updateWebBookStyleSheet( $pid = null, $post = null ) {
 		
 		if ( isset( $post ) && 'metadata' !== $post->post_type )
 			return; // Bail
+
+		$sass = Container::get('Sass');
 				
 		$path_to_style = realpath( get_stylesheet_directory() . '/style.scss' );
 		
@@ -487,16 +488,11 @@ class GlobalTypography {
 		} else {
 			return;
 		}
-				
-		$wp_upload_dir = wp_upload_dir();
 
-		$upload_dir = $wp_upload_dir['basedir'] . '/css/scss';
+		$upload_dir = $sass->pathToUserGeneratedSass();
+		$css_file = $sass->pathToUserGeneratedCss() . '/style.css';
 
-		$css_file = $wp_upload_dir['basedir'] . '/css/style.css';
-
-		// TODO: Catch exception, gracefully bail.
-		// TODO: Consider moving this into SCSS module because includes are mostly known? We don't need to set them every time, just prepend the differences.
-		$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/scss/partials', $upload_dir, get_stylesheet_directory() ) );
+		$css = Container::get( 'Sass' )->compile( $scss );
 		
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
@@ -516,12 +512,8 @@ class GlobalTypography {
 			return $matches[0]; // No change
 
 		}, $css );
-		
-		if ( ! file_put_contents( $css_file, $css ) ) {
-			// TODO: This is used by 3 add_action() hooks, but a WP hook cannot catch an exception, so the app may crash
-			throw new \Exception( 'Could not write webBook stylesheet.' );
-		}
-	
+
+		file_put_contents( $css_file, $css );
 	}
 	
 }

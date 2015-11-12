@@ -251,9 +251,7 @@ function load_css_from() {
 
 		if ( $path_to_style ) {
 			$scss = file_get_contents( $path_to_style );
-			// TODO: Catch exception, gracefully bail.
-			// TODO: Consider moving this into SCSS module because includes are mostly known? We don't need to set them every time, just prepend the differences.
-			$css = \PressBooks\SASS\compile( $scss, array( PB_PLUGIN_DIR . 'assets/scss/partials', $upload_dir, $theme->get_stylesheet_directory() ) );
+			$css = \PressBooks\Container::get('Sass')->compile( $scss ) ;
 			$css = fix_url_paths( $css, $uri_to_style );
 		}
 	}

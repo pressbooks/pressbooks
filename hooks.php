@@ -13,7 +13,6 @@ if ( ! defined( 'ABSPATH' ) )
 
 require( PB_PLUGIN_DIR . 'includes/admin/pb-branding.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-sass.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
@@ -24,6 +23,18 @@ require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
 require( PB_PLUGIN_DIR . 'symbionts/pb-latex/pb-latex.php' );
 
 PressBooks\Utility\include_plugins();
+
+// -------------------------------------------------------------------------------------------------------------------
+// Initialize services
+// -------------------------------------------------------------------------------------------------------------------
+
+require( PB_PLUGIN_DIR . 'symbionts/pimple/Container.php' );
+require( PB_PLUGIN_DIR . 'symbionts/pimple/ServiceProviderInterface.php' );
+
+if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
+	\PressBooks\Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
+}
+else \PressBooks\Container::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Login screen branding

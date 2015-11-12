@@ -7,6 +7,7 @@ namespace PressBooks\Modules\Export\Epub;
 
 
 use PressBooks\Modules\Export\Export;
+use PressBooks\Container;
 use PressBooks\Sanitize;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
@@ -103,22 +104,6 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Fullpath to generic SCSS mixins.
-	 *
-	 * @var string
-	 */
-	protected $genericMixinsPath;
-
-
-	/**
-	 * Fullpath to global typography SCSS mixin.
-	 *
-	 * @var string
-	 */
-	protected $globalTypographyMixinPath;
-
-
-	/**
 	 * CSS overrides
 	 *
 	 * @var string
@@ -205,8 +190,6 @@ class Epub201 extends Export {
 
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
-		$this->genericMixinsPath = $this->getMixinsPath();
-		$this->globalTypographyMixinPath = $this->getGlobalTypographyMixinPath();
 		
 		$this->themeOptionsOverrides();
 
@@ -629,6 +612,7 @@ class Epub201 extends Export {
 	 */
 	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
+		$sass = Container::get( 'Sass' );
 		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';
 
@@ -641,10 +625,8 @@ class Epub201 extends Export {
 		// Append overrides
 		$scss .= "\n" . $this->cssOverrides;
 
-		if ( $this->isScss() ) {
-			// TODO: Catch exception, gracefully bail.
-			// TODO: Consider moving this into SCSS module because includes are mostly known? We don't need to set them every time, just prepend the differences.
-			$css = \PressBooks\SASS\compile( $scss, array( $this->genericMixinsPath, $this->globalTypographyMixinPath, get_stylesheet_directory() ) );
+		if ( $sass->isCurrentThemeCompatible() ) {
+			$css = $sass->compile( $scss );
 		}
 		else {
 			$css = static::injectHouseStyles( $scss );
@@ -707,7 +689,7 @@ class Epub201 extends Export {
 		file_put_contents( $path_to_copy_of_stylesheet, $css );
 
 		if ( WP_DEBUG ) {
-			\PressBooks\SASS\debug( $css, $scss, 'epub' );
+			Container::get('Sass')->debug( $css, $scss, 'epub' );
 		}
 
 	}

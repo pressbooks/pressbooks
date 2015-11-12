@@ -8,6 +8,7 @@ namespace PressBooks\Modules\Export;
 
 use PressBooks\Book;
 use PressBooks\CustomCss;
+use PressBooks\Container;
 use PressBooks\Metadata;
 
 
@@ -103,46 +104,11 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( $this->isScss() ) {
+			if ( Container::get('Sass')->isCurrentThemeCompatible() ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
 			} else {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
 			}
-		}
-
-		return $fullpath;
-	}
-
-
-	/**
-	 * Return the fullpath to our generic SCSS mixins.
-	 *
-	 * @return string
-	 */
-	function getMixinsPath() {
-
-		$fullpath = PB_PLUGIN_DIR . 'assets/scss/partials/';
-
-		return $fullpath;
-	}
-	
-	
-	/**
-	 * Return the fullpath to the global typography SCSS mixin.
-	 *
-	 * @return string
-	 */
-	function getGlobalTypographyMixinPath() {
-
-		$wp_upload_dir = wp_upload_dir();
-
-		$fullpath = $wp_upload_dir['basedir'] . '/css/scss';
-		
-		$mixin = $wp_upload_dir['basedir'] . '/css/scss/_global-font-stack.scss';
-		
-		if ( !is_file( $mixin ) ) {
-			// TODO: Not a getters job to create (set) something, get rid of this
-			\PressBooks\GlobalTypography::updateGlobalTypographyMixin();
 		}
 
 		return $fullpath;
@@ -173,29 +139,6 @@ abstract class Export {
 		}
 
 		return $fullpath;
-	}
-
-
-	/**
-	 * Is the current theme's stylesheet SCSS?
-	 *
-	 * @return bool
-	 */
-	static function isScss() {
-
-		$types = array(
-			'prince',
-			'epub',
-		);
-
-		foreach ( $types as $type ) {
-			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
-			if ( ! is_file( $fullpath ) ) {
-				return false;
-			}
-		}
-
-		return true;
 	}
 
 

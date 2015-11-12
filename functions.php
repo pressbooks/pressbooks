@@ -104,7 +104,7 @@ function pb_is_custom_theme() {
  */
 function pb_is_scss() {
 
-	return \PressBooks\Modules\Export\Export::isScss();
+	return \PressBooks\Container::get('Sass')->isCurrentThemeCompatible();
 }
 
 
