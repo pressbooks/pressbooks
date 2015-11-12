@@ -427,7 +427,7 @@
 			<xsl:text>application/vnd.oasis.opendocument.text</xsl:text>
 		</xsl:result-document>
 
-		<xsl:result-document href="META-INF/manifest.xml" method="xml">
+		<xsl:result-document href="manifest.xml" method="xml">
 			<manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0">
 				<manifest:file-entry manifest:full-path="/"
 					manifest:media-type="application/vnd.oasis.opendocument.text"/>
@@ -521,29 +521,87 @@
 	</xsl:template>
 
 	<xsl:template match="h1|h2|h3|h4|h5|h6">
-		<text:h>
-			<xsl:attribute name="text:outline-level">
-				<xsl:choose>
-					<xsl:when test="@class='chapter-title'">
-						<xsl:text>1</xsl:text>
-					</xsl:when>
-					<xsl:otherwise>
-						<xsl:value-of select="replace(local-name(), 'h', '')"/>
-					</xsl:otherwise>
-				</xsl:choose>
-			</xsl:attribute>
-			<xsl:choose>
-				<xsl:when test="@id">
-					<text:bookmark text:name="{@id}"/>
-				</xsl:when>
-				<xsl:when test="@class='chapter-title' or @class='back-matter-title' or @class='front-matter-title'">
-					<xsl:if test="ancestor::div[@id][1]">
-						<text:bookmark text:name="{ancestor::div[@id][1]/@id}"/>
-					</xsl:if>
-				</xsl:when>
-			</xsl:choose>
-			<xsl:apply-templates/>
-		</text:h>
+		<xsl:choose>
+			<xsl:when test="matches(.,'^[0-9]+$') and following-sibling::h1"/>
+			<xsl:otherwise>
+				<text:h>
+					<xsl:attribute name="text:outline-level">
+						<xsl:choose>
+							<xsl:when test="@class='chapter-title'">
+								<xsl:text>1</xsl:text>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:value-of select="replace(local-name(), 'h', '')"/>
+							</xsl:otherwise>
+						</xsl:choose>
+					</xsl:attribute>
+					<!--KK Gupta-->
+					<xsl:choose>
+						<xsl:when test="parent::div[parent::div[@class='front-matter before-title']][@class='front-matter-title-wrap' or @class='back-matter-title-wrap'] and (@class='front-matter-title' or @class='back-matter-title' or @class='short-title' or @class='chapter-author')">
+							<xsl:attribute name="text:style-name">
+								<xsl:text>P_Center</xsl:text>
+							</xsl:attribute>							
+						</xsl:when>
+						<xsl:when test="parent::div[@class='chapter-title-wrap' or @class='front-matter-title-wrap' or @class='back-matter-title-wrap' or @class='part-title-wrap'] and (@class='front-matter-title' or @class='back-matter-title' or @class='part-title' or @class='part-number' or @class='chapter-author' or @class='chapter-title' or @class='chapter-number')">
+							<xsl:attribute name="text:style-name">
+								<xsl:text>P_Right</xsl:text>
+							</xsl:attribute>							
+						</xsl:when>
+						<xsl:when test="parent::div[@class='ugc chapter-ugc'] and (@class='short-title' or @class='chapter-subtitle' or @class='chapter-author')">
+							<xsl:attribute name="text:style-name">
+								<xsl:text>P_Right</xsl:text>
+							</xsl:attribute>							
+						</xsl:when>
+						<xsl:when test="(@class='section-break' or @class='section-break-space')">
+							<xsl:attribute name="text:style-name">
+								<xsl:text>P_Center</xsl:text>
+							</xsl:attribute>							
+						</xsl:when>
+						<xsl:when test="parent::div[@id='half-title-page'] and (@class='title')">
+							<xsl:attribute name="text:style-name">
+								<xsl:text>P_Center</xsl:text>
+							</xsl:attribute>							
+						</xsl:when>
+						<xsl:when test="parent::div[@id='title-page'] and (@class='title' or @class='subtitle' or @class='author' or @class='publisher' or @class='publisher-city')">
+							<xsl:attribute name="text:style-name">
+								<xsl:text>P_Right</xsl:text>
+							</xsl:attribute>							
+						</xsl:when>
+					</xsl:choose>
+					<xsl:choose>
+						<xsl:when test="@id">
+							<text:bookmark text:name="{@id}"/>
+						</xsl:when>
+						<xsl:when test="@class='chapter-title' or @class='back-matter-title' or @class='front-matter-title'">
+							<xsl:if test="ancestor::div[@id][1]">
+								<text:bookmark text:name="{ancestor::div[@id][1]/@id}"/>
+							</xsl:if>
+						</xsl:when>
+					</xsl:choose>
+					<!--<xsl:apply-templates/>-->
+					<!--KK Gupta-->
+					<xsl:choose>
+						<xsl:when test="parent::div[@class='front-matter-title-wrap' or @class='part-title-wrap' or @class='chapter-title-wrap'] and (@class='front-matter-title' or @class='part-number' or @class='part-title' or @class='chapter-number' or @class='chapter-title')">
+							<text:span text:style-name="bold">
+								<xsl:value-of select="upper-case(.)"/>
+							</text:span>
+						</xsl:when>
+						<xsl:when test="parent::div[@id='half-title-page' or @id='title-page'] and (@class='title' or @class='author')">
+							<text:span text:style-name="bold">
+								<xsl:value-of select="upper-case(.)"/>
+							</text:span>
+						</xsl:when>
+						<xsl:otherwise>
+							<text:span text:style-name="bold">
+								<xsl:apply-templates/>
+							</text:span>
+						</xsl:otherwise>
+					</xsl:choose>
+				</text:h>
+			</xsl:otherwise>
+		</xsl:choose>
+		
+		
 	</xsl:template>
 
 	<xsl:template match="p[@class='wp-caption-text']" mode="captionMode">
@@ -555,7 +613,18 @@
 	<xsl:template match="p[@class='wp-caption-text']">
 		<!-- Do Nothing -->
 	</xsl:template>
-	
+	<xsl:template match="hr">
+		<xsl:choose>
+			<xsl:when test="@class='break-symbols'">
+				<text:p>
+					<xsl:attribute name="text:style-name">
+						<xsl:text>P_Center</xsl:text>
+					</xsl:attribute>
+					<xsl:text>*</xsl:text>
+				</text:p>
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
 	<xsl:template match="p">
 		<text:p>
 			<xsl:attribute name="text:style-name">
@@ -576,6 +645,18 @@
 						<xsl:text>P_Hanging-Indent</xsl:text>
 					</xsl:when>
 					<xsl:when test="contains(@class, 'indent')">
+						<!--<xsl:text>P_Indent</xsl:text>-->
+						<!--KK Gupta-->
+						<xsl:choose>
+							<xsl:when test="contains(@class, 'no-indent')">
+								<xsl:text>Standard</xsl:text>
+							</xsl:when>
+							<xsl:otherwise>
+								<xsl:text>P_Indent</xsl:text>
+							</xsl:otherwise>
+						</xsl:choose>						
+					</xsl:when>
+					<xsl:when test="contains(@style,'padding-left')">
 						<xsl:text>P_Indent</xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
@@ -609,7 +690,9 @@
 			</xsl:when>
 			<xsl:when test="@class='footnote'">
 				<text:note text:note-class="footnote">
-					<text:note-citation text:note-class="footnote">
+					<!--<text:note-citation text:note-class="footnote">-->
+					<!--KK Gupta-->
+						<text:note-citation>
 						<xsl:value-of select="position()"/>
 						<!-- No Citation present for Footnotes -->
 					</text:note-citation>
@@ -624,6 +707,10 @@
 				<text:span>
 					<xsl:if test="contains(@style, 'text-decoration: line-through;')">
 						<xsl:attribute name="text:style-name">strikeout</xsl:attribute>
+					</xsl:if>
+					<!--KK Gupta-->
+					<xsl:if test="contains(@style, 'text-decoration: underline')">
+						<xsl:attribute name="text:style-name">underline</xsl:attribute>
 					</xsl:if>
 					<xsl:if test="@id">
 						<text:bookmark text:name="{@id}"/>
@@ -674,13 +761,32 @@
 					<xsl:apply-templates/>
 				</text:section>
 			</xsl:when>
-			<xsl:when test="contains(@class, 'textbox')">
+			<!--<xsl:when test="div[contains(@class, 'textbox')]">
 				<text:p text:style-name="Standard">
 					<draw:frame draw:style-name="textbox" text:anchor-type="paragraph" svg:width="6.268in" draw:z-index="0">
 						<draw:text-box fo:min-height="1in">
 							<text:p text:style-name="Standard">
 								<xsl:apply-templates/>
 							</text:p>
+						</draw:text-box>
+					</draw:frame>
+				</text:p>
+			</xsl:when>-->
+			<xsl:when test="contains(@class, 'textbox')">
+				<text:p text:style-name="Standard">
+					<draw:frame draw:style-name="textbox" text:anchor-type="paragraph" svg:width="6.268in" draw:z-index="0">
+						<draw:text-box fo:min-height="1in">
+								<xsl:apply-templates/>
+						</draw:text-box>
+					</draw:frame>
+				</text:p>
+			</xsl:when>
+			<!--Sidebar KK Gupta-->
+			<xsl:when test="contains(@class, 'sidebar')">
+				<text:p text:style-name="Standard">
+					<draw:frame draw:style-name="sidebar" text:anchor-type="paragraph" svg:width="6.268in" draw:z-index="0">
+						<draw:text-box fo:min-height="1in">
+								<xsl:apply-templates/>
 						</draw:text-box>
 					</draw:frame>
 				</text:p>
@@ -691,7 +797,7 @@
 				</text:p>
 			</xsl:when>
 			<xsl:when
-				test="(descendant::*)|(ancestor::*[matches(local-name(), '(blockquote|p|h[1-6])')])">
+				test="(descendant::*)|(ancestor::*[matches(local-name(), '(blockquote|p|h[1-6]|div)')])">
 				<xsl:apply-templates/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -837,7 +943,16 @@
 			<xsl:apply-templates select="caption" mode="tablecaption"/>
 		</xsl:if>
 		<table:table>	
-			<table:table-column table:number-columns-repeated="{@colcount}"/>
+			<!--<table:table-column table:number-columns-repeated="{@colcount}"/>-->
+			<!--KK Gupta-->
+			<xsl:choose>
+				<xsl:when test="@colcount">
+					<table:table-column table:number-columns-repeated="{@colcount}"/>
+				</xsl:when>
+				<xsl:otherwise>
+					<table:table-column table:number-columns-repeated="1"/>
+				</xsl:otherwise>
+			</xsl:choose>
 			<xsl:apply-templates/>
 		</table:table>
 	</xsl:template>
