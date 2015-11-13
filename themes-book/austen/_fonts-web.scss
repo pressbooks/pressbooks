@@ -1,4 +1,6 @@
-@import '_fonts', 'global-font-stack';
+@import 'fonts', '_font-stack-web';
+
+$serif-web: serif !default;
 
 $font-1: "Sorts Mill Goudy", "Times New Roman", $serif-web;
 $font-2: "Sorts Mill Goudy", $serif-web;

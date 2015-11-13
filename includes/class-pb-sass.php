@@ -210,10 +210,10 @@ class Sass {
 
 		$debug_dir = $this->pathToDebugDir();
 
-		$css_debug_file = $debug_dir . '/' . $filename . '.css';
-		$scss_debug_file = $debug_dir . '/' . $filename . '.scss';
-
+		$css_debug_file = $debug_dir . "/{$filename}.css";
 		file_put_contents( $css_debug_file, $css );
+
+		$scss_debug_file = $debug_dir . "/{$filename}.scss";
 		file_put_contents( $scss_debug_file, $scss );
 	}
 

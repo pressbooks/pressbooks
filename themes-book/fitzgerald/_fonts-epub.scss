@@ -1,4 +1,7 @@
-@import '/_fonts', 'global-font-stack';
+@import 'fonts', '_font-stack-epub';
+
+$serif-epub: serif !default;
+$sans-serif-epub: sans-serif !default;
 
 $font-1: "Times New Roman", Times, Georgia, $serif-epub;
 $font-2: "Arial Narrow", Arial, "Helvetica Neue", Helvetica, $sans-serif-epub;

@@ -1,0 +1,18 @@
+@font-face {
+  font-family: 'Noto Sans Tibetan';
+  font-style: normal;
+  font-weight: normal;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansTibetan-Regular.ttf) format('truetype');
+}
+
+// Sans-serif stack name
+
+$sans-serif-epub-bo: 'Noto Sans Tibetan';
+$sans-serif-prince-bo: 'Noto Sans Tibetan';
+$sans-serif-web-bo: 'Noto Sans Tibetan';
+
+// Serif stack name
+
+$serif-epub-bo: 'Noto Sans Tibetan';
+$serif-prince-bo: 'Noto Sans Tibetan';
+$serif-web-bo: 'Noto Sans Tibetan';

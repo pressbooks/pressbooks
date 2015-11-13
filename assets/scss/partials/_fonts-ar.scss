@@ -1,0 +1,45 @@
+// NOTO KUFI ARABIC
+// ARABIC FONT SANS
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url(themes-book/pressbooks-book/fonts/NotoKufiArabic-Regular.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Noto Kufi Arabic';
+  src: url(themes-book/pressbooks-book/fonts/NotoKufiArabic-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+// Sans-serif stack name
+
+$sans-serif-epub-ar: 'Noto Kufi Arabic';
+$sans-serif-prince-ar: 'Noto Kufi Arabic';
+$sans-serif-web-ar: 'Noto Kufi Arabic';
+
+// NOTO NASKH ARABIC
+// ARABIC FONT SERIF
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  src: url(themes-book/pressbooks-book/fonts/NotoNaskhArabic-Regular.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Noto Naskh Arabic';
+  src: url(themes-book/pressbooks-book/fonts/NotoNaskhArabic-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+// Serif stack name
+
+$serif-epub-ar: 'Noto Naskh Arabic';
+$serif-prince-ar: 'Noto Naskh Arabic';
+$serif-web-ar: 'Noto Naskh Arabic';

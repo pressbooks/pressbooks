@@ -1,0 +1,21 @@
+//SBL GREEK
+//GREEK FONTS (INCLUDING ANCIENT GREEK DIACRITICS)
+
+@font-face {
+  font-family: 'SBL Greek';
+  src: url(themes-book/pressbooks-book/fonts/SBL-grk.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+// Sans-serif stack name
+
+$sans-serif-epub-grc: 'SBL Greek';
+$sans-serif-prince-grc: 'SBL Greek';
+$sans-serif-web-grc: 'SBL Greek';
+
+// Serif stack name
+
+$serif-epub-grc: 'SBL Greek';
+$serif-prince-grc: 'SBL Greek';
+$serif-web-grc: 'SBL Greek';

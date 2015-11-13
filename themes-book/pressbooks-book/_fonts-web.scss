@@ -1,4 +1,7 @@
-@import '_fonts', 'global-font-stack';
+@import 'fonts', '_font-stack-web';
+
+$serif-web: serif !default;
+$sans-serif-web: sans-serif !default;
 
 $font-1: "Droid Serif", "Georgia", "Times New Roman", $serif-web;
 $font-2: "Cardo", "Times New Roman", Times, $serif-web;

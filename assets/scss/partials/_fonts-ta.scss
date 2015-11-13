@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Noto Sans Tamil';
+  font-style: normal;
+  font-weight: normal;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansTamil-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans Tamil';
+  font-style: normal;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansTamil-Bold.ttf) format('truetype');
+}
+
+// Sans-serif stack name
+
+$sans-serif-epub-ta: 'Noto Sans Tamil';
+$sans-serif-prince-ta: 'Noto Sans Tamil';
+$sans-serif-web-ta: 'Noto Sans Tamil';
+
+// Serif stack-name
+
+$serif-epub-ta: 'Noto Sans Tamil';
+$serif-prince-ta: 'Noto Sans Tamil';
+$serif-web-ta: 'Noto Sans Tamil';

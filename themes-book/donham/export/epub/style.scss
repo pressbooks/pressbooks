@@ -1,6 +1,4 @@
-$type: 'epub';
-
-@import 'mixins', 'epub-house-style';
+@import 'fonts-epub', 'epub-house-style';
 
 body {
 	font-family: $font-1;

@@ -1,0 +1,36 @@
+// NOTO SANS CJK JP
+// JAPANESE FONT 
+
+@font-face {
+  font-family: 'Noto Sans CJK JP';
+  font-style: normal;
+  font-weight: 200;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansCJKjp-Light.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK JP';
+  font-style: normal;
+  font-weight: 400;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansCJKjp-Regular.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK JP';
+  font-style: normal;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansCJKjp-Bold.otf) format('truetype');
+}
+
+// Sans-serif stack name
+
+$sans-serif-epub-ja: false;
+$sans-serif-prince-ja: 'Noto Sans CJK JP';
+$sans-serif-web-ja: 'Noto Sans CJK JP';
+
+// Serif stack name
+
+$serif-epub-ja: false;
+$serif-prince-ja: 'Noto Sans CJK JP';
+$serif-web-ja: 'Noto Sans CJK JP';
+

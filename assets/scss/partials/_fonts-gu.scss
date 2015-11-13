@@ -1,0 +1,50 @@
+@font-face {
+  font-family: 'Noto Sans Gujarati';
+  font-style: normal;
+  font-weight: 400;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansGujarati-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans Gujarati';
+  font-style: normal;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansGujarati-Bold.ttf) format('truetype');
+}
+
+// Sans-serif stack name
+
+$sans-serif-epub-gu: 'Noto Sans Gujarati';
+$sans-serif-prince-gu: 'Noto Sans Gujarati';
+$sans-serif-web-gu: 'Noto Sans Gujarati';
+
+//EKATRA
+// A font for the Gujarati language
+
+@font-face {
+  font-family: 'Ekatra';
+  src: url(themes-book/pressbooks-book/fonts/EkatraUnicode.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Ekatra';
+  src: url(themes-book/pressbooks-book/fonts/EkatraUnicode-NormalItalic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Ekatra';
+  src: url(themes-book/pressbooks-book/fonts/EkatraUnicode-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+// Serif stack name
+
+$serif-epub-gu: 'Ekatra';
+$serif-prince-gu: 'Ekatra';
+$serif-web-gu: 'Ekatra';
+
