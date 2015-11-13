@@ -38,7 +38,8 @@ $line-color-1: #000 !default;
 		border-bottom: 1px solid $line-color-1;
 	}
 	
-	table.no-lines tr {
+	table.no-lines tr,
+	table.no-lines td {
 		border-top: 0px;
 		border-bottom: 0px;
 	}
