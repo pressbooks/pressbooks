@@ -25,6 +25,7 @@ class Sass {
 
 		return [
 			$this->pathTPartials(),
+			$this->pathToFonts(),
 			$this->pathToUserGeneratedSass(),
 			get_stylesheet_directory(),
 		];
@@ -40,6 +41,17 @@ class Sass {
 	function pathTPartials() {
 
 		return PB_PLUGIN_DIR . 'assets/scss/partials';
+	}
+
+
+	/**
+	 * Get the path to our PB Fonts
+	 *
+	 * @return string
+	 */
+	function pathToFonts() {
+
+		return PB_PLUGIN_DIR . 'assets/scss/fonts';
 	}
 
 

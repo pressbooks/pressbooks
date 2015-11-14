@@ -3,9 +3,12 @@
 In addition to being WordPress compatible, a book theme must have the following directories and files. These files are
 used by our PDF & EPUB export modules. The files can be empty (`script.js`, for example), but must exist.
 
-We use the SCSS variant of [SASS](http://sass-lang.com) for our stylesheets, which allows us dynamically modify font stacks and other variables based on user preferences.
+We use the SCSS variant of [SASS](http://sass-lang.com) for our stylesheets, which allows us dynamically modify font
+stacks and other variables based on user preferences.
 
-	├── _mixins.scss
+	├── _fonts-epub.scss
+	├── _fonts-prince.scss
+	├── _fonts-web.scss
 	├── export
 	│   ├── epub
 	│   │   ├── images
@@ -17,39 +20,32 @@ We use the SCSS variant of [SASS](http://sass-lang.com) for our stylesheets, whi
 	│       ├── script.js
 	│       └── style.scss
 	├── style.scss
-	
-`_mixins.scss` includes SCSS font stack definitions for PDF, EPUB and web, e.g.:
+
+`_fonts-epub.scss`, `_fonts-prince.scss`, `_fonts-web.scss` include SCSS font stack definitions for EPUB, PDF and WEB.
+
+Example for `_fonts-prince.scss`:
 
 ```
-@import 'fonts', 'global-font-stack';
+@import '_font-stack-prince';
 
-@if $type == 'epub' {
-	$font-1: "Times New Roman", Times, Georgia, $serif-epub;
-	$font-2: Helvetica, Arial, $sans-serif-epub;
-} @else if $type == 'prince' {
-	$font-1: "Times New Roman", Georgia, $serif-prince;
-	$font-2: 'Lato', Helvetica, Arial, $sans-serif-prince;
-} @else if $type == 'web' {
-	$font-1: "Times New Roman", Georgia, $serif-web;
-	$font-2: Helvetica, Arial, $sans-serif-web;
-}
+$serif-prince: serif !default;
+$sans-serif-prince: sans-serif !default;
+
+$font-1: "Tinos", Georgia, $serif-prince;
+$font-2: 'Lato', Helvetica, Arial, $sans-serif-prince;
 ```
 
 Most themes have at least two font stacks. `$font-1` must be the body font, and `$font-2` must be the header font.
 
-The `@import` rules load the `fonts` mixin file which includes `font-face` declarations for all bundled fonts (found in `/assets/scss/partials/_fonts.scss`). These `font-face` declarations can be included in each format's `style.scss` file, e.g.:
+The `@import` rule loads a SCSS `_font-stack-{TYPE}` file which is dynamically generated based on the Global Typography
+theme option. The `_font-stack-{TYPE}` is built from partials found in ./pressbooks/assets/scss/fonts/*.* - These files,
+in combination with the `$serif-epub`, `$sans-serif-epub`, `$serif-prince`, `$sans-serif-prince`, `$serif-web` and
+`$sans-serif-web` variables, allows us to dynamically add support for non-Latin character sets.
+
+Each `style.scss` file must import the appropriate font stack(s). Example for ./export/prince/style.scss:
 
 ```
-@include LatoFont;
-```
-
-They also load the `global-font-stack` mixin file which is dynamically generated based on the Global Typography theme option. In combination with the `$serif-epub`, `$sans-serif-epub`, `$serif-prince`, `$sans-serif-prince`, `$serif-web` and `$sans-serif-web` variables, this allows us to dynamically add support for non-Latin character sets.
-
-Each `style.scss` file must begin with a type definition and must import `_mixins.scss`, e.g.:
-
-```
-$type: 'prince';
-@import 'mixins';
+@import 'fonts-prince';
 ```
 
 == PDF (Prince) Best Practices ==

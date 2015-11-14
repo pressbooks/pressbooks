@@ -105,7 +105,6 @@ class GlobalTypography {
 		// Auto-create SCSS files
 
 		// TODO: Use self::getThemeFontStacks() to parse if stack has $serif or $sans-serif strings
-		// TODO: Don't put @font-face in CSS when not necessary
 
 		foreach ( [ 'prince', 'epub', 'web' ] as $type ) {
 			static::_sassify( $type, $languages );
@@ -125,9 +124,22 @@ class GlobalTypography {
 		$scss = "// Global Typography \n";
 
 		foreach ( $languages as $lang ) {
-			$scss .= "@import 'fonts-{$lang}'; \n";
-			$scss .= "\$sans-serif-{$type}-{$lang}: false !default; \n";
-			$scss .= "\$serif-{$type}-{$lang}: false !default; \n";
+
+			// Find scss font template in order of priority
+			foreach ( [ "fonts-{$lang}-{$type}", "fonts-{$lang}" ] as $i ) {
+				if ( file_exists( Container::get( 'Sass' )->pathToFonts() . "/_{$i}.scss" ) ) {
+					$import = $i;
+					break;
+				}
+
+			}
+			// Import the font template we find
+			if ( isset( $import ) )
+				$scss .= "@import '{$import}'; \n";
+
+			// Add a Sass !default in-case the template doesn't contain our variable
+			$scss .= "\$sans-serif-{$type}-{$lang}: null !default; \n";
+			$scss .= "\$serif-{$type}-{$lang}: null !default; \n";
 		}
 
 		$scss .= "\$sans-serif-{$type}: ";

@@ -253,13 +253,21 @@ function load_css_from() {
 			$scss = file_get_contents( $path_to_style );
 
 			$sass = Container::get( 'Sass' );
-			$css = $sass->compile( $scss, [ $sass->pathTPartials(), $sass->pathToUserGeneratedSass(), $theme->get_stylesheet_directory() ] );
+
+			$includes = [
+					$sass->pathTPartials(),
+					$sass->pathToFonts(),
+					$sass->pathToUserGeneratedSass(),
+					$theme->get_stylesheet_directory(),
+			];
+
+			$css = $sass->compile( $scss, $includes );
 
 			$css = fix_url_paths( $css, $uri_to_style );
 		}
 	}
 
-	
+
 
 	// Send back JSON
 	header( 'Content-Type: application/json' );
