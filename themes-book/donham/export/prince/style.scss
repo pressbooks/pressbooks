@@ -1,14 +1,5 @@
 @import 'fonts-prince', 'pdf-house-style';
 
-/* FONTS
-===========	*/
-
-/* Header font */
-@include LinuxBiolinum;
-
-/* Body font */
-@include LinuxLibertine;
-
 /* Override hierarchy. See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
 h1, h2, h3, h4, h5, h6 {
 	prince-bookmark-level: 1;

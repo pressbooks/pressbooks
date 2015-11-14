@@ -4,3 +4,24 @@ $serif-prince: serif !default;
 
 $font-1: "Cardo", "Times New Roman", $serif-prince;
 $font-2: $font-1;
+
+// Theme specific fonts for Prince export:
+
+@font-face {
+  font-family: 'Cardo';
+  font-weight: bold;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/Cardob101.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cardo';
+  font-weight: normal;
+  font-style: italic;
+  src: url(themes-book/pressbooks-book/fonts/Cardoi99.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Cardo';
+  font-weight: normal;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/Cardo104s.ttf) format('truetype');
+}
