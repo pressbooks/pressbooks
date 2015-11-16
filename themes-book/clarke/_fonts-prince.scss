@@ -1,4 +1,4 @@
-@import 'fonts', '_font-stack-prince';
+@import '_font-stack-prince';
 
 $serif-prince: serif !default;
 $sans-serif-prince: sans-serif !default;
@@ -6,7 +6,4 @@ $sans-serif-prince: sans-serif !default;
 $font-1: "Tinos", Georgia, $serif-prince;
 $font-2: 'Lato', Helvetica, Arial, $sans-serif-prince;
 
-// Theme specific fonts for Prince export:
-
-@include LatoFont;
-@include TinosFont;
+@import 'LatoFont', 'TinosFont';

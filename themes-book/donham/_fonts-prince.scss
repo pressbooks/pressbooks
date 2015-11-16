@@ -1,4 +1,4 @@
-@import 'fonts', '_font-stack-prince';
+@import '_font-stack-prince';
 
 $serif-prince: serif !default;
 $sans-serif-prince: sans-serif !default;
@@ -6,7 +6,4 @@ $sans-serif-prince: sans-serif !default;
 $font-1: "Linux Libertine", $serif-prince;
 $font-2: "Linux Biolinum", $sans-serif-prince;
 
-// Theme specific fonts for Prince export:
-
-@include LinuxBiolinum;
-@include LinuxLibertine;
+@import 'LinuxBiolinum', 'LinuxLibertine';

@@ -1,11 +1,8 @@
-@import 'fonts', '_font-stack-prince';
+@import '_font-stack-prince';
 
 $serif-prince: serif !default;
 
 $font-1: "Sorts Mill Goudy", $serif-prince;
 $font-2: "Marcellus SC", $serif-prince;
 
-// Theme specific fonts for Prince export:
-
-@include SortsMillGoudyFont;
-@include MarcellusSCFont;
+@import 'SortsMillGoudyFont', 'MarcellusSCFont';

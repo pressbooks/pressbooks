@@ -1,4 +1,4 @@
-@import 'fonts', '_font-stack-prince';
+@import '_font-stack-prince';
 
 $serif-prince: serif !default;
 $sans-serif-prince: sans-serif !default;
@@ -6,5 +6,4 @@ $sans-serif-prince: sans-serif !default;
 $font-1: "Crimson Text", "Times New Roman", $serif-prince;
 $font-2: "Roboto Condensed", $sans-serif-prince;
 
-@include CrimsonTextFont;
-@include RobotoCondensedFont;
+@import 'CrimsonTextFont', 'RobotoCondensedFont';
