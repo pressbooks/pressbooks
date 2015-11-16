@@ -1,4 +1,4 @@
-@import '_font-stack-prince';
+@import 'fonts', '_font-stack-prince';
 
 $serif-prince: serif !default;
 $sans-serif-prince: sans-serif !default;
@@ -8,46 +8,5 @@ $font-2: "Linux Biolinum", $sans-serif-prince;
 
 // Theme specific fonts for Prince export:
 
-@font-face {
-  font-family: "Linux Biolinum";
-  font-weight: normal;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/LinBiolinum_Rah.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Linux Biolinum";
-  font-weight: bold;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/LinBiolinum_RBah.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Linux Biolinum";
-  font-weight: normal;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/LinBiolinum_RIah.ttf) format("truetype");
-}
-
-@font-face {
-  font-family: "Linux Libertine";
-  font-weight: bold;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/LinLibertine_RBah.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Linux Libertine";
-  font-weight: bold;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/LinLibertine_RBIah.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Linux Libertine";
-  font-weight: normal;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/LinLibertine_RIah.ttf) format("truetype");
-}
-@font-face {
-  font-family: "Linux Libertine";
-  font-weight: normal;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/LinLibertine_Rah.ttf) format("truetype");
-}
+@include LinuxBiolinum;
+@include LinuxLibertine;

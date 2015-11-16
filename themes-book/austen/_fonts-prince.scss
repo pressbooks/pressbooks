@@ -1,4 +1,4 @@
-@import '_font-stack-prince';
+@import 'fonts', '_font-stack-prince';
 
 $serif-prince: serif !default;
 
@@ -7,22 +7,5 @@ $font-2: "Marcellus SC", $serif-prince;
 
 // Theme specific fonts for Prince export:
 
-@font-face {
-  font-family: 'Sorts Mill Goudy';
-  font-weight: normal;
-  font-style: normal;
-  src: url(themes-book/pressbooks-book/fonts/SortsMillGoudy-Regular.ttf) format('truetype');
-}
-@font-face {
-  font-family: 'Sorts Mill Goudy';
-  font-weight: normal;
-  font-style: italic;
-  src: url(themes-book/pressbooks-book/fonts/SortsMillGoudy-Italic.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'Marcellus SC';
-  src: url(themes-book/pressbooks-book/fonts/MarcellusSC-Regular.ttf) format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+@include SortsMillGoudyFont;
+@include MarcellusSCFont;
