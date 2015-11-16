@@ -1,0 +1,25 @@
+// 'Libre Baskerville', @import 'LibreBaskervilleFont'
+
+//LIBRE BASKERVILLE
+//SERIF, ON THE FAT SIDE
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  src: url(themes-book/pressbooks-book/fonts/LibreBaskerville-Regular.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  src: url(themes-book/pressbooks-book/fonts/LibreBaskerville-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  src: url(themes-book/pressbooks-book/fonts/LibreBaskerville-Italic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: normal;
+}

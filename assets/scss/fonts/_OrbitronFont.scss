@@ -1,0 +1,32 @@
+// 'Orbitron', @import 'OrbitronFont'
+
+//ORBITRON
+//SANS-SERIF, DISPLAY
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url(themes-book/pressbooks-book/fonts/Orbitron-Regular.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url(themes-book/pressbooks-book/fonts/Orbitron-Medium.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url(themes-book/pressbooks-book/fonts/Orbitron-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url(themes-book/pressbooks-book/fonts/Orbitron-Black.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 900;
+}

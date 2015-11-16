@@ -1,0 +1,32 @@
+// 'Tinos', @import 'TinosFont'
+
+//TINOS
+//SERIF
+
+@font-face {
+  font-family: 'Tinos';
+  src: url(themes-book/pressbooks-book/fonts/Tinos-Regular.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Tinos';
+  src: url(themes-book/pressbooks-book/fonts/Tinos-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Tinos';
+  src: url(themes-book/pressbooks-book/fonts/Tinos-Italic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Tinos';
+  src: url(themes-book/pressbooks-book/fonts/Tinos-BoldItalic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: bold;
+}

@@ -1,0 +1,31 @@
+// 'Roboto Condensed', @import 'RobotoCondensedFont'
+
+//ROBOTO CONDENSED
+
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: normal;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: normal;
+  font-style: italic;
+  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-Italic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: 300;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-Light.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  font-weight: 300;
+  font-style: italic;
+  src: url(themes-book/pressbooks-book/fonts/RobotoCondensed-LightItalic.ttf) format("truetype");
+}

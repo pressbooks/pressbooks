@@ -1,0 +1,32 @@
+// 'Quantico', @import 'QuanticoFont'
+
+//QUANTICO
+//SERIF
+
+@font-face {
+  font-family: "Quantico";
+  font-weight: normal;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/Quantico-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Quantico";
+  font-weight: normal;
+  font-style: italic;
+  src: url(themes-book/pressbooks-book/fonts/Quantico-Italic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Quantico";
+  font-weight: bold;
+  font-style: italic;
+  src: url(themes-book/pressbooks-book/fonts/Quantico-BoldItalic.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Quantico";
+  font-weight: bold;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/Quantico-Bold.ttf) format("truetype");
+}

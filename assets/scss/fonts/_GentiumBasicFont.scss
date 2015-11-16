@@ -1,0 +1,32 @@
+// 'Gentium Basic', @import 'GentiumBasicFont'
+
+//GENTIUM BASIC
+//SERIF
+
+@font-face {
+  font-family: 'Gentium Basic';
+  src: url(themes-book/pressbooks-book/fonts/GenBasR.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Gentium Basic';
+  src: url(themes-book/pressbooks-book/fonts/GenBasI.ttf) format('truetype');
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Gentium Basic';
+  src: url(themes-book/pressbooks-book/fonts/GenBasB.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Gentium Basic';
+  src: url(themes-book/pressbooks-book/fonts/GenBasBI.ttf) format('truetype');
+  font-style: italic;
+  font-weight: bold;
+}

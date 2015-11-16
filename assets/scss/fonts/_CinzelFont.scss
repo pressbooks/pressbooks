@@ -1,0 +1,25 @@
+// 'Cinzel', @import 'CinzelFont'
+
+//CINZEL
+//SERIF
+
+@font-face {
+  font-family: "Cinzel";
+  font-weight: normal;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/Cinzel-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Cinzel";
+  font-weight: bold;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/Cinzel-Bold.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Cinzel";
+  font-weight: 600;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/Cinzel-Black.ttf) format("truetype");
+}

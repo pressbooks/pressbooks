@@ -1,0 +1,32 @@
+// 'PT Serif', @import 'PTSerifFont'
+
+//PT SERIF
+//SERIF
+
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: normal;
+  src: url(themes-book/pressbooks-book/fonts/PT_Serif-Web-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Serif';
+  font-style: normal;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/PT_Serif-Web-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: normal;
+  src: url(themes-book/pressbooks-book/fonts/PT_Serif-Web-Italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'PT Serif';
+  font-style: italic;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/PT_Serif-Web-BoldItalic.ttf) format('truetype');
+}

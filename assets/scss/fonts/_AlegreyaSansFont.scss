@@ -1,0 +1,39 @@
+// 'Alegreya Sans', @import 'AlegreyaSansFont'
+
+//ALEGREYA SANS
+//SANS-SERIF
+
+@font-face {
+  font-family: 'Alegreya Sans';
+  src: url(themes-book/pressbooks-book/fonts/AlegreyaSans-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Alegreya Sans';
+  src: url(themes-book/pressbooks-book/fonts/AlegreyaSans-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Alegreya Sans';
+  src: url(themes-book/pressbooks-book/fonts/AlegreyaSans-Italic.ttf) format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Alegreya Sans';
+  src: url(themes-book/pressbooks-book/fonts/AlegreyaSans-Light.ttf) format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Alegreya Sans';
+  src: url(themes-book/pressbooks-book/fonts/AlegreyaSans-LightItalic.ttf) format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}

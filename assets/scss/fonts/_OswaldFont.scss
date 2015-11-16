@@ -1,0 +1,26 @@
+// 'Oswald', @import 'OswaldFont'
+
+//OSWALD
+//SANS-SERIF, BLOCK
+
+@font-face {
+  font-family: 'Oswald';
+  src: url(themes-book/pressbooks-book/fonts/Oswald-Regular.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Oswald';
+  src: url(themes-book/pressbooks-book/fonts/Oswald-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 300;
+  src: url(themes-book/pressbooks-book/fonts/Oswald-Light.ttf) format('truetype');
+}
+

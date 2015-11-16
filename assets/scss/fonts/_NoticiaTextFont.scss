@@ -1,0 +1,32 @@
+// 'Noticia Text', @import 'NoticiaTextFont'
+
+//NOTICIA TEXT
+//DISPLAY, SERIF
+
+@font-face {
+  font-family: 'Noticia Text';
+  font-style: normal;
+  font-weight: 400;
+  src: url(themes-book/pressbooks-book/fonts/NoticiaText-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noticia Text';
+  font-style: normal;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/NoticiaText-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noticia Text';
+  font-style: italic;
+  font-weight: 400;
+  src: url(themes-book/pressbooks-book/fonts/NoticiaText-Italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noticia Text';
+  font-style: italic;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/NoticiaText-BoldItalic.ttf) format('truetype');
+}

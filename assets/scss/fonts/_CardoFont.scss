@@ -1,0 +1,25 @@
+// 'Cardo', @import 'CardoFont'
+
+//CARDO: A CONSERVATIVE SERIF
+//SERIF
+
+@font-face {
+  font-family: 'Cardo';
+  font-weight: bold;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/Cardob101.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Cardo';
+  font-weight: normal;
+  font-style: italic;
+  src: url(themes-book/pressbooks-book/fonts/Cardoi99.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Cardo';
+  font-weight: normal;
+  font-style: normal;
+  src: url(themes-book/pressbooks-book/fonts/Cardo104s.ttf) format('truetype');
+}

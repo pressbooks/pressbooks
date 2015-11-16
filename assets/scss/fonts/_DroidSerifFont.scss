@@ -1,0 +1,34 @@
+// 'Droid Serif', @import 'DroidSerifFont'
+
+//DROID SERIF
+//SERIF
+
+@font-face {
+  font-family: 'Droid Serif';
+  src: url(themes-book/pressbooks-book/fonts/DroidSerif.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Droid Serif';
+  src: url(themes-book/pressbooks-book/fonts/DroidSerif-Italic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Droid Serif';
+  src: url(themes-book/pressbooks-book/fonts/DroidSerif-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Droid Serif';
+  src: url(themes-book/pressbooks-book/fonts/DroidSerif-BoldItalic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: bold;
+}
+
+

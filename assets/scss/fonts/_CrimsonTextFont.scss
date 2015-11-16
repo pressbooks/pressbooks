@@ -1,0 +1,46 @@
+// 'Crimson Text', @import 'CrimsonTextFont'
+
+//CRIMSON
+//SERIF, CLASSIC
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url(themes-book/pressbooks-book/fonts/crimson-bold-webfont.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url(themes-book/pressbooks-book/fonts/crimson-bolditalic-webfont.ttf) format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url(themes-book/pressbooks-book/fonts/crimson-italic-webfont.ttf) format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url(themes-book/pressbooks-book/fonts/crimson-roman-webfont.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url(themes-book/pressbooks-book/fonts/crimson-semibold-webfont.ttf) format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Crimson Text';
+  src: url(themes-book/pressbooks-book/fonts/crimson-semibolditalic-webfont.ttf) format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}

@@ -1,0 +1,32 @@
+// 'Arvo', @import 'ArvoFont'
+
+//ARVO
+//DISPLAY, SLAB
+
+@font-face {
+  font-family: 'Arvo';
+  font-style: normal;
+  font-weight: 400;
+  src: url(themes-book/pressbooks-book/fonts/Arvo-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Arvo';
+  font-style: normal;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/Arvo-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Arvo';
+  font-style: italic;
+  font-weight: 400;
+  src: url(themes-book/pressbooks-book/fonts/Arvo-Italic.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Arvo';
+  font-style: italic;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/Arvo-BoldItalic.ttf) format('truetype');
+}
