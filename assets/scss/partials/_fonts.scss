@@ -156,13 +156,13 @@
   @font-face {
       font-family: 'Alegreya Sans';
       src: url(themes-book/pressbooks-book/fonts/AlegreyaSans-Light.ttf) format('truetype');
-      font-weight: lighter;
+      font-weight: 300;
       font-style: normal;
   }
   @font-face {
       font-family: 'Alegreya Sans';
       src: url(themes-book/pressbooks-book/fonts/AlegreyaSans-LightItalic.ttf) format('truetype');
-      font-weight: lighter;
+      font-weight: 300;
       font-style: italic;
   }
 }
@@ -181,7 +181,7 @@
   @font-face {
       font-family: 'Alegreya Sans SC';
       src: url(themes-book/pressbooks-book/fonts/AlegreyaSansSC-Light.ttf) format('truetype');
-      font-weight: lighter;
+      font-weight: 300;
       font-style: normal;
   }
   @font-face {
@@ -358,7 +358,7 @@
   @font-face {
       font-family: 'BenchNine';
       src: url(themes-book/pressbooks-book/fonts/BenchNine-Light.ttf) format('truetype');
-      font-weight: lighter;
+      font-weight: 300;
       font-style: normal;
   }
 }
@@ -600,19 +600,6 @@
 }
 
 
-//EUPHORIA SCRIPT 
-//CURSIVE
-
-@mixin EuphoriaScriptFont {
-  @font-face {
-      font-family: 'Euphoria Script';
-      src: url(themes-book/pressbooks-book/fonts/EuphoriaScript-Regular.ttf) format('truetype');
-      font-weight: normal;
-      font-style: normal;
-  }
-}
-
-
 //EXO 
 //SANS-SERIF
 
@@ -706,7 +693,7 @@
     font-family: 'Exo 2';
     font-style: italic;
     font-weight: normal;
-    src: url(themes-book/pressbooks-book/fonts/Exo2-RegularItalic.ttf) format('truetype');
+    src: url(themes-book/pressbooks-book/fonts/Exo2-Italic.ttf) format('truetype');
   }
   @font-face {
     font-family: 'Exo 2';
@@ -743,30 +730,6 @@
     font-style: italic;
     font-weight: 900;
     src: url(themes-book/pressbooks-book/fonts/Exo2-BlackItalic.ttf) format('truetype');
-  }
-}
-
-//FJALLA ONE
-//SANS-SERIF
-
-@mixin FjallaOneFont {
-  @font-face {
-    font-family: 'Fjalla One';
-    src: url(themes-book/pressbooks-book/fonts/FjallaOne-Regular.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
-  }
-}
-
-//FEDERO 
-//SANS-SERIF 
-
-@mixin FederoFont {
-  @font-face {
-    font-family: 'Federo';
-    src: url(themes-book/pressbooks-book/fonts/Federo-Regular.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
   }
 }
 
@@ -904,18 +867,6 @@
   @font-face {
     font-family: 'IM Fell French Canon SC';
     src: url(themes-book/pressbooks-book/fonts/IMFeFCsc28P.ttf) format('truetype');
-    font-style: normal;
-    font-weight: normal;
-  }
-}
-
-//JULIUSSANSONE 
-//DISPLAY
-
-@mixin JuliusSansOneFont {
-  @font-face {
-    font-family: 'Julius Sans One';
-    src: url(themes-book/pressbooks-book/fonts/JuliusSansOne-Regular.ttf) format('truetype');
     font-style: normal;
     font-weight: normal;
   }
@@ -1412,7 +1363,7 @@
     font-family: 'Open Sans Condensed';
     src: url(themes-book/pressbooks-book/fonts/OpenSans-CondLight.ttf) format('truetype');
     font-style: normal; 
-    font-weight:  lighter;
+    font-weight: 200;
   }
   @font-face {
     font-family: 'Open Sans Condensed';

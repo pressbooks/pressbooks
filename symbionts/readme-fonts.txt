@@ -14,6 +14,9 @@ Alegreya Sans is Copyright (c) Huerta Tipográfica (Juan Pablo del Peral) and is
 Alegreya Sans SC is Copyright (c) Huerta Tipográfica (Juan Pablo del Peral) and is released under the SIL Open Font License 1.1.
 @see: https://www.google.com/fonts/specimen/Alegreya+Sans+SC
 
+Alfa Slab One is Copyright (c) 2011, JM Sole (http://jmsole.cl|info@jmsole.cl) and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/fonts/specimen/Alfa+Slab+One
+
 Amarante is Copyright (c) Karolina Lach and is released under the SIL Open Font License 1.1.
 @see: https://www.google.com/fonts/specimen/Amarante
 
@@ -91,9 +94,6 @@ Griffy is Copyright (c) Neapolitan (Dave Cohen) and is released under the SIL Op
 
 Gruppo is Copyright (c) Vernon Adams and is released under the SIL Open Font License 1.1.
 @see: https://github.com/vernnobile/GruppoFont
-
-Julius Sans One is Copyright (c) Luciano Vergara and is released under the SIL Open Font License 1.1.
-@see: https://www.google.com/fonts/specimen/Julius+Sans+One
 
 IM Fell English is Copyright (c) Igino Marini and is released under the SIL Open Font License 1.1.
 @see: https://www.google.com/fonts/specimen/IM+Fell+English
