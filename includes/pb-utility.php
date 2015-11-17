@@ -393,16 +393,29 @@ function include_plugins() {
 function filter_plugins( $symbionts ) {
 	$already_active = get_option( 'active_plugins' );
 	$network_already_active = get_site_option( 'active_sitewide_plugins' );
-	
+
 	// don't include plugins already active at the site level, network level
 	if ( ! empty( $symbionts ) ) {
 		foreach ( $symbionts as $key => $val ) {
-			if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active )) {
+			if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active ) ) {
 				unset( $symbionts[$key] );
 			}
-			
 		}
 	}
+
+	// Don't include plugins we are trying to activate right now!
+	if ( isset( $_REQUEST['action'] ) ) {
+		if ( 'activate' == $_REQUEST['action'] && ! empty( $_REQUEST['plugin'] ) ) {
+			$key = (string) $_REQUEST['plugin'];
+			unset( $symbionts[$key] );
+		}
+		elseif ( 'activate-selected' == $_REQUEST['action'] && is_array( $_REQUEST['checked'] ) ) {
+			foreach ( $_REQUEST['checked'] as $key ) {
+				unset( $symbionts[$key] );
+			}
+		}
+	}
+
 	return $symbionts;
 }
 
