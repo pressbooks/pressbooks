@@ -168,6 +168,10 @@ class Sass {
 
 			$this->logException( $e );
 
+			if ( WP_DEBUG ) {
+				$this->debug( "/* {$e->getMessage()} */", $scss, 'last-thrown-exception' );
+			}
+
 			return ''; // Return empty string on error
 		}
 
