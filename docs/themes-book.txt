@@ -21,18 +21,23 @@ stacks and other variables based on user preferences.
 	│       └── style.scss
 	├── style.scss
 
-`_fonts-epub.scss`, `_fonts-prince.scss`, `_fonts-web.scss` include SCSS font stack definitions for EPUB, PDF and WEB.
 
-Example for `_fonts-prince.scss`:
+== Fonts ==
+
+`_fonts-epub.scss`, `_fonts-prince.scss`, `_fonts-web.scss` are SCSS font stack definitions for EPUB, PDF and WEB.
+
+Example code in `_fonts-prince.scss`:
 
 ```
-@import '_font-stack-prince';
+@import '_font-stack-prince'; // Dynamically generated
 
 $serif-prince: serif !default;
 $sans-serif-prince: sans-serif !default;
 
 $font-1: "Tinos", Georgia, $serif-prince;
 $font-2: 'Lato', Helvetica, Arial, $sans-serif-prince;
+
+@import 'LatoFont', 'TinosFont';
 ```
 
 Most themes have at least two font stacks. `$font-1` must be the body font, and `$font-2` must be the header font.
@@ -47,6 +52,16 @@ Each `style.scss` file must import the appropriate font stack(s). Example for ./
 ```
 @import 'fonts-prince';
 ```
+
+Font files are located in ./themes-book/pressbooks-book/fonts/
+
+The paths for all such fonts in your Custom CSS need to be as follows:
+
+@font-face {
+  // ...
+  src: url(themes-book/pressbooks-book/fonts/YourFont.ttf) format("truetype");
+}
+
 
 == PDF (Prince) Best Practices ==
 
@@ -91,6 +106,7 @@ Each `style.scss` file must import the appropriate font stack(s). Example for ./
 	 + Nook Simple Touch
 	 + Kindle Preview
 	 + $69 Kindle
+
 
 == Theme Options ==
 
@@ -168,7 +184,6 @@ Top level elements (i.e. children nodes of <body>):
  + part
  + chapter
  + back-matter
-
 
 
 == Typical structure for _front-matter_ (note: "ugc" stands for "User Generated Content") ==
