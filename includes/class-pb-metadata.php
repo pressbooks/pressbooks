@@ -85,8 +85,8 @@ class Metadata {
 
 		return get_post_meta( $meta_post->ID );
 	}
-	
-		
+
+
 	/**
 	 * Return a database ID for a given meta key.
 	 *
@@ -106,7 +106,8 @@ class Metadata {
 
 		return false;
 	}
-	
+
+
 	/**
 	 * Returns an html blob of meta elements based on what is set in 'Book Information'
 	 * 

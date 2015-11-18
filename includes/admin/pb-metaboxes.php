@@ -14,9 +14,6 @@ namespace PressBooks\Admin\Metaboxes;
  */
 function title_update( $pid, $post ) {
 
-	if ( 'metadata' != $post->post_type )
-		return; // Bail
-
 	$pb_title = get_post_meta( $pid, 'pb_title', true );
 	if ( $pb_title ) { // if the pb_title metadata value is set, update the blogname to match it
 		update_option( 'blogname', $pb_title );
@@ -42,9 +39,6 @@ function title_update( $pid, $post ) {
  * @param \WP_Post $post
  */
 function add_required_data( $pid, $post ) {
-
-	if ( 'metadata' != $post->post_type )
-		return; // Bail
 
 	$pb_author = get_post_meta( $pid, 'pb_author', true );
 	if ( ! $pb_author ) {
@@ -84,7 +78,7 @@ function add_required_data( $pid, $post ) {
  */
 function upload_cover_image( $pid, $post ) {
 
-	if ( 'metadata' != $post->post_type || @empty( $_FILES['pb_cover_image']['name'] ) )
+	if ( @empty( $_FILES['pb_cover_image']['name'] ) )
 		return; // Bail
 
 	if ( ! current_user_can_for_blog( get_current_blog_id(), 'upload_files' ) )

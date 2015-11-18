@@ -545,9 +545,9 @@ function pressbooks_theme_global_typography_callback( $args ) {
 	if ( ! $foreign_languages ) {
 		$foreign_languages = array();
 	}
-	
-	$languages = \PressBooks\GlobalTypography::getSupportedLanguages();
-	$already_supported_languages = \PressBooks\GlobalTypography::getThemeSupportedLanguages();
+
+	$languages = \PressBooks\Container::get( 'GlobalTypography' )->getSupportedLanguages();
+	$already_supported_languages = \PressBooks\Container::get( 'GlobalTypography' )->getThemeSupportedLanguages();
 	$already_supported_languages_string = '';
 	
 	$i = 1;

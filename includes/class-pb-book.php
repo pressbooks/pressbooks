@@ -343,12 +343,12 @@ class Book {
 
 		global $blog_id;
 
-		wp_cache_delete( "book-inf-$blog_id", 'pb' );
-		wp_cache_delete( "book-str-$blog_id", 'pb' );
-		wp_cache_delete( "book-cnt-$blog_id", 'pb' );
-		( new Catalog() )->deleteCacheByBookId( $blog_id ); // PHP 5.4+
+		wp_cache_delete( "book-inf-$blog_id", 'pb' ); // getBookInfo()
+		wp_cache_delete( "book-str-$blog_id", 'pb' ); // getBookStructure()
+		wp_cache_delete( "book-cnt-$blog_id", 'pb' ); // getBookContents()
+		( new Catalog() )->deleteCacheByBookId( $blog_id );
 	}
-	
+
 	/**
 	 * Returns an array of subsections in front matter, back matter, or chapters.
 	 *

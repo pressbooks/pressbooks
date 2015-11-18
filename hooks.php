@@ -20,6 +20,7 @@ require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-editor.php' );
 require( PB_PLUGIN_DIR . 'symbionts/pb-latex/pb-latex.php' );
 
 PressBooks\Utility\include_plugins();
@@ -48,8 +49,8 @@ add_filter( 'login_headertitle', '\PressBooks\Admin\Branding\login_title' );
 // Custom Metadata plugin
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_custom_copyright', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
-add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_about_unlimited', '\PressBooks\Editor::metadataManagerDefaultEditorArgs' );
+add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_custom_copyright', '\PressBooks\Editor\metadata_manager_default_editor_args' );
+add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_about_unlimited', '\PressBooks\Editor\metadata_manager_default_editor_args' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Languages

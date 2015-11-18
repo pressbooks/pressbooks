@@ -16,6 +16,7 @@ require( PB_PLUGIN_DIR . 'includes/admin/pb-laf.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-metaboxes.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-customcss.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-network-managers.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-fonts.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
@@ -97,18 +98,18 @@ add_action( 'custom_metadata_manager_init_metadata', '\PressBooks\Admin\Metaboxe
 if ( \PressBooks\Book::isBook() ) {
 	add_action( 'admin_enqueue_scripts', '\PressBooks\Admin\Metaboxes\add_metadata_styles' );
 	add_action( 'save_post', '\PressBooks\Book::consolidatePost', 10, 2 );
-	add_action( 'save_post', '\PressBooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
-	add_action( 'save_post', '\PressBooks\Admin\Metaboxes\title_update', 20, 2 );
-	add_action( 'save_post', '\PressBooks\Admin\Metaboxes\add_required_data', 30, 2 );
+	add_action( 'save_post_metadata', '\PressBooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
+	add_action( 'save_post_metadata', '\PressBooks\Admin\Metaboxes\title_update', 20, 2 );
+	add_action( 'save_post_metadata', '\PressBooks\Admin\Metaboxes\add_required_data', 30, 2 );
 	add_action( 'save_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\PressBooks\Book::deleteBookObjectCache', 1000 );
-	add_filter( 'mce_external_languages', '\PressBooks\Editor::addLanguages' );
-	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceBeforeInitInsertFormats' );
-	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceValidWordElements' );
-	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor::mceTableEditorOptions' );
-	add_filter( 'mce_external_plugins', '\PressBooks\Editor::mceButtonScripts' );
-	add_filter( 'mce_buttons_2', '\PressBooks\Editor::mceButtons');
+	add_filter( 'mce_external_languages', '\PressBooks\Editor\add_languages' );
+	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor\mce_before_init_insert_formats' );
+	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor\mce_valid_word_elements' );
+	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor\mce_table_editor_options' );
+	add_filter( 'mce_external_plugins', '\PressBooks\Editor\mce_button_scripts' );
+	add_filter( 'mce_buttons_2', '\PressBooks\Editor\mce_buttons');
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -149,22 +150,24 @@ add_action( 'load-post.php', '\PressBooks\Admin\CustomCss\redirect_css_editor' )
 // SASS
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'update_option_pressbooks_global_typography', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin' ); // TODO DUPE-C
-add_action( 'update_option_pressbooks_global_typography', '\PressBooks\GlobalTypography::updateWebBookStyleSheet' ); // TODO DUPE-B
-add_action( 'update_option_pressbooks_global_typography', '\PressBooks\Editor::updateEditorStyle' ); // TODO DUPE-A, calls updateGlobalTypographyMixin() which is redundant as we also call it two lines up, so why not set $priority instead?
+add_action( 'update_option_pressbooks_global_typography', '\PressBooks\Admin\Fonts\update_font_stacks' );
 
 if ( \PressBooks\Book::isBook() ) {
 
 	// Look & Feel
-	add_action( 'after_switch_theme', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin' ); // TODO DUPE-C
-	add_action( 'after_switch_theme', '\PressBooks\GlobalTypography::updateWebBookStyleSheet' ); // TODO - DUPE-B
-	add_action( 'after_switch_theme', '\PressBooks\Editor::updateEditorStyle' ); // TODO - DUPE-A, calls updateGlobalTypographyMixin which is redundant as we also call it two lines up, so why not set $priority instead?
+	add_action( 'after_switch_theme', '\PressBooks\Admin\Fonts\update_font_stacks' );
 
 	// Posts, Meta Boxes
-	add_action( 'save_post', '\PressBooks\GlobalTypography::updateGlobalTypographyMixin', 40, 2 ); // TODO DUPE-C
-	add_action( 'save_post', '\PressBooks\GlobalTypography::updateWebBookStyleSheet', 50, 2 ); // TODO DUPE-B
-	add_action( 'save_post', '\PressBooks\Editor::updateEditorStyle', 60, 2 ); // TODO DUPE-A, calls updateGlobalTypographyMixin() which is redundant as we also call it two lines up, so why not set $priority instead?
-	add_action( 'admin_init', '\PressBooks\Editor::addEditorStyle' );
+	add_action( 'updated_postmeta', function ( $meta_id, $object_id, $meta_key, $meta_value ) {
+		if ( 'pb_language' == $meta_key ) {
+			\PressBooks\Book::deleteBookObjectCache();
+			\PressBooks\Admin\Fonts\update_font_stacks();
+		}
+	}, 10, 4 );
+
+	// Init
+	add_action( 'admin_init', '\PressBooks\Admin\Fonts\fix_missing_font_stacks' );
+	add_action( 'admin_init', '\PressBooks\Editor\add_editor_style' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

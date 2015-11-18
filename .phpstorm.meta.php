@@ -7,9 +7,10 @@ namespace PHPSTORM_META {
 	/** @noinspection PhpUnusedLocalVariableInspection */
 	/** @noinspection PhpIllegalArrayKeyTypeInspection */
 	$STATIC_METHOD_TYPES = [
-		\PressBooks\Container::get('') => [
+		\PressBooks\Container::get( '' ) => [
 			'Sass' instanceof \PressBooks\Sass,
-		]
+			'GlobalTypography' instanceof \PressBooks\GlobalTypography,
+		],
 	];
 
 }

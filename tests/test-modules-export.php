@@ -70,19 +70,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	}
 
 
-	/**
-	 * @covers \PressBooks\Modules\Export\Export::getMixinsPath
-	 */
-	public function test_getMixinsPath() {
-
-		$path = $this->export->getMixinsPath();
-
-		$this->assertInternalType( 'string', $path );
-		$this->assertNotEmpty( $path );
-
-	}
-
-
 //	/**
 //	 * @covers \PressBooks\Modules\Export\Export::getGlobalTypographyMixinPath
 //	 */

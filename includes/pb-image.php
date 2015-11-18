@@ -223,7 +223,7 @@ function intermediate_image_sizes_advanced( array $image_sizes ) {
 function delete_attachment( $post_id ) {
 
 	$post = get_post( $post_id );
-	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost(); // PHP 5.4+
+	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost();
 
 	if ( $meta_post && $post && $post->post_parent == $meta_post->ID ) {
 
@@ -260,7 +260,7 @@ function save_attachment( $data, $post_id ) {
 		return $data; // Bail
 
 	$post = get_post( $post_id );
-	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost(); // PHP 5.4+
+	$meta_post = ( new \PressBooks\Metadata() )->getMetaPost();
 	$upload_dir = wp_upload_dir();
 	$url = untrailingslashit( $upload_dir['baseurl'] ) . "/{$data['file']}";
 

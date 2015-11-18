@@ -168,7 +168,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function get_columns() {
 
-		$profile = ( new Catalog() )->getProfile(); // PHP 5.4+
+		$profile = ( new Catalog() )->getProfile();
 
 		$columns = array(
 			'cb' => '<input type="checkbox" />', // Render a checkbox instead of text
