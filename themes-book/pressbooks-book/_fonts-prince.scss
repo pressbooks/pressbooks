@@ -5,4 +5,5 @@ $serif-prince: serif !default;
 $font-1: "Cardo", "Times New Roman", $serif-prince;
 $font-2: $font-1;
 
+@import 'mixins';
 @import 'CardoFont';

@@ -6,4 +6,6 @@ $sans-serif-prince: sans-serif !default;
 $font-1: "Crimson Text", "Times New Roman", $serif-prince;
 $font-2: "Roboto Condensed", $sans-serif-prince;
 
-@import 'CrimsonTextFont', 'RobotoCondensedFont';
+@import 'mixins';
+@import 'CrimsonTextFont';
+@import 'RobotoCondensedFont';

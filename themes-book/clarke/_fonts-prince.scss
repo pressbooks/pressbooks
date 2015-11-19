@@ -6,4 +6,6 @@ $sans-serif-prince: sans-serif !default;
 $font-1: "Tinos", Georgia, $serif-prince;
 $font-2: 'Lato', Helvetica, Arial, $sans-serif-prince;
 
-@import 'LatoFont', 'TinosFont';
+@import 'mixins';
+@import 'LatoFont';
+@import 'TinosFont';
