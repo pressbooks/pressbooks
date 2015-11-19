@@ -231,6 +231,20 @@ class GlobalTypography {
 		$scss = file_get_contents( $path_to_style );
 		$sass = Container::get( 'Sass' );
 		$css = $sass->compile( $scss );
+		$css = $this->fixWebFonts( $css );
+
+		$css_file = $sass->pathToUserGeneratedCss() . '/style.css';
+		file_put_contents( $css_file, $css );
+	}
+
+
+	/**
+	 * Fix relative/ambiguous URLs to web fonts
+	 *
+	 * @param $css
+	 * @return mixed
+	 */
+	function fixWebFonts( $css ) {
 
 		// Search for url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
@@ -248,8 +262,8 @@ class GlobalTypography {
 
 		}, $css );
 
-		$css_file = $sass->pathToUserGeneratedCss() . '/style.css';
-		file_put_contents( $css_file, $css );
+		return $css;
 	}
+
 
 }
