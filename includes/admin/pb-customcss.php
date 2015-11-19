@@ -255,9 +255,9 @@ function load_css_from() {
 			$sass = Container::get( 'Sass' );
 
 			$includes = [
+					$sass->pathToUserGeneratedSass(),
 					$sass->pathTPartials(),
 					$sass->pathToFonts(),
-					$sass->pathToUserGeneratedSass(),
 					$theme->get_stylesheet_directory(),
 			];
 

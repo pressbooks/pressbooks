@@ -24,9 +24,9 @@ class Sass {
 	function defaultIncludePaths() {
 
 		return [
+			$this->pathToUserGeneratedSass(),
 			$this->pathTPartials(),
 			$this->pathToFonts(),
-			$this->pathToUserGeneratedSass(),
 			get_stylesheet_directory(),
 		];
 
