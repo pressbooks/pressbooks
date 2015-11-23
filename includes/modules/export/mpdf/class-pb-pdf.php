@@ -41,7 +41,7 @@ class Pdf extends Export {
 	/**
 	 * Path to mPDF
 	 */
-	const PATH_TO_LIB = PB_PLUGIN_DIR . 'symbionts/mpdf/mpdf.php';
+	const PATH_TO_LIB = PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php';
 
 	/**
 	 * Fullpath to book CSS file.
@@ -140,10 +140,10 @@ class Pdf extends Export {
 		$contents = $this->getOrderedBookContents();
 
 		// set up mPDF
-		if ( ! file_exists( static::PATH_TO_LIB ) ) {
+		if ( ! $this->isInstalled() ) {
 			return false; // mPDF is not installed
 		}
-		require_once( PB_PLUGIN_DIR . 'symbionts/mpdf/mpdf.php' );
+		require_once( static::PATH_TO_LIB );
 		$this->mpdf = new \mPDF( '' );
 		$this->mpdf->SetAnchor2Bookmark( 1 );
 		$this->mpdf->ignore_invalid_utf8 = true;
@@ -823,8 +823,13 @@ class Pdf extends Export {
 	 * @return bool
 	 */
 	static function isInstalled() {
+		
+		if ( in_array(  WP_PLUGIN_DIR . '/pressbooks-mpdf/pressbooks-mpdf.php', wp_get_active_network_plugins() ) ) {
+			return true;
+		} else {
+			return false;
+		}
 
-		return file_exists( static::PATH_TO_LIB );
 	}
 
 }

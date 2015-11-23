@@ -214,22 +214,6 @@ if ( \PressBooks\Book::isBook() ) {
 		return $actions;
 	} );
 
-	// Check mpdf export paths
-	if ( \PressBooks\Modules\Export\Mpdf\Pdf::isInstalled() ) {
-		add_action( 'admin_notices', function () {
-			$paths = array(
-				PB_PLUGIN_DIR . 'symbionts/mpdf/ttfontdata',
-				PB_PLUGIN_DIR . 'symbionts/mpdf/tmp',
-				PB_PLUGIN_DIR . 'symbionts/mpdf/graph_cache',
-			);
-	
-			foreach ( $paths as $path ) {
-				if ( ! is_writable( $path ) ) {
-					$_SESSION['pb_errors'][] = sprintf( __('The path "%s" is not writable. Please check and adjust the ownership and file permissions for mpdf export to work properly.', 'pressbooks'), $path );
-				}
-			}
-		} );
-	}
 }
 
 // Hide WP update nag
