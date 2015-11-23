@@ -97,10 +97,10 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 *Part 3, Pressbooks dependencies:*
 
  * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 10r5
- * For PDF export via mPDF ensure that the following folders have write access and/or they are owned by the appropriate user.See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
-   + wp-content/plugins/pressbooks/symbionts/mpdf/ttfontdata
-   + wp-content/plugins/pressbooks/symbionts/mpdf/tmp
-   + wp-content/plugins/pressbooks/symbionts/mpdf/graph_cache
+ * For PDF export via mPDF install the [Pressbooks mPDF plugin](https://wordpress.org/plugins/pressbooks-mpdf). You will also need to ensure that the following folders have write access and/or they are owned by the appropriate user. See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
+   + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/ttfontdata
+   + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/tmp
+   + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/graph_cache
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
  * For EPUB validation install [EpubCheck](https://github.com/idpf/epubcheck) - Version 4.0
  * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
@@ -203,10 +203,13 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 = 3.1 =
 * Added a new Textboxes menu in TinyMCE which supports some new types of textboxes in addition to standard and shaded.
 * Added support for assigning classes to tables within the TinyMCE Table Editor and removed some unnecessary features from it.
+* Moved the mPDF library to an external plugin, [Pressbooks mPDF](https://wordpress.org/plugins/pressbooks-mpdf).
 * Localized strings within some of our TinyMCE plugins. More to come.
+* Improved SCSS theme structure and SCSS compilation routines.
 * Improved XSL file for ODT export.
 * Improved some TinyMCE styles.
 * Fixed an issue where activating a non-SCSS theme would cause an error.
+* Fixed an issue where loading the Search and Replace tool would cause an error (props to @rootl for the bug report).
 
 = 3.0 =
 * SASS-y themes: book themes are now built with SASS (specifically the SCSS variant) and compiled for export or web display using either the bundled scssphp compiler (https://github.com/leafo/scssphp/) or the SASS PHP extension if installed (https://github.com/sensational/sassphp). See `/docs/themes-book.txt` for details if you are developing your own themes.
