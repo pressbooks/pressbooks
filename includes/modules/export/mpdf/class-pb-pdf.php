@@ -39,11 +39,6 @@ use \PressBooks\Modules\Export\Export;
 class Pdf extends Export {
 
 	/**
-	 * Path to mPDF
-	 */
-	const PATH_TO_LIB = PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php';
-
-	/**
 	 * Fullpath to book CSS file.
 	 *
 	 * @var string
@@ -143,7 +138,7 @@ class Pdf extends Export {
 		if ( ! $this->isInstalled() ) {
 			return false; // mPDF is not installed
 		}
-		require_once( static::PATH_TO_LIB );
+		require_once( PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php' );
 		$this->mpdf = new \mPDF( '' );
 		$this->mpdf->SetAnchor2Bookmark( 1 );
 		$this->mpdf->ignore_invalid_utf8 = true;
