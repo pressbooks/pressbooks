@@ -1,11 +1,6 @@
 // Sans-serif
 
-@font-face {
-  font-family: 'Noto Sans Coptic';
-  font-style: normal;
-  font-weight: 400;
-  src: url(themes-book/pressbooks-book/fonts/NotoSansCoptic-Regular.ttf) format('truetype');
-}
+@import "NotoSansCopticFont";
 
 // Sans-serif stack name
 
@@ -18,19 +13,7 @@ $sans-serif-web-cop: 'Noto Sans Coptic';
 
 // Serif
 
-@font-face {
-  font-family: 'Antinoou';
-  src: url(themes-book/pressbooks-book/fonts/Antinoou.ttf) format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Antinoou';
-  src: url(themes-book/pressbooks-book/fonts/AntinoouItalic.ttf) format('truetype');
-  font-weight: normal;
-  font-style: italic;
-}
+@import "AntinoouFont";
 
 // Serif stack name
 
