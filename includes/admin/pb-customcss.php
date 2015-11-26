@@ -256,7 +256,7 @@ function load_css_from() {
 
 			$includes = [
 					$sass->pathToUserGeneratedSass(),
-					$sass->pathTPartials(),
+					$sass->pathToPartials(),
 					$sass->pathToFonts(),
 					$theme->get_stylesheet_directory(),
 			];

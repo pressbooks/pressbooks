@@ -220,10 +220,10 @@ function update_editor_style() {
 	$sass = Container::get( 'Sass' );
 
 	if ( $sass->isCurrentThemeCompatible() ) {
-		$scss = file_get_contents( $sass->pathTPartials() . '/_editor-with-custom-fonts.scss' );
+		$scss = file_get_contents( $sass->pathToPartials() . '/_editor-with-custom-fonts.scss' );
 	}
 	else {
-		$scss = file_get_contents( $sass->pathTPartials() . '/_editor.scss' );
+		$scss = file_get_contents( $sass->pathToPartials() . '/_editor.scss' );
 	}
 
 	$css = $sass->compile( $scss );
