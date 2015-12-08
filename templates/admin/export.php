@@ -67,7 +67,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 		if ( 'html' == $file_extension )
 				$file_class = 'xhtml';
 			elseif ( 'xml' == $file_extension && '._vanilla.xml' == $pre_suffix )
-				$file_class = 'vanillawxr';
+				$file_class = 'wxr';
 			elseif ( 'xml' == $file_extension && false == $pre_suffix )
 				$file_class = 'wxr';
 			elseif ( 'epub' == $file_extension && '._3.epub' == $pre_suffix )
