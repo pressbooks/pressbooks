@@ -3,8 +3,8 @@
 Contributors: Pressbooks <code@pressbooks.com>
 Version: 3.1
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.3.1
-Tested up to: 4.3.1
+Requires at least: 4.4
+Tested up to: 4.4
 Stable tag: 3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.3.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ * Pressbooks works with PHP 5.6.x and WordPress 4.4. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
  
 	$pb_minimum_php = '5.4';
 	
@@ -201,6 +201,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 == Changelog ==
 
 = 3.1 =
+* Requires WordPress 4.4.
 * Added a new Textboxes menu in TinyMCE which supports some new types of textboxes in addition to standard and shaded.
 * Added support for assigning classes to tables within the TinyMCE Table Editor and removed some unnecessary features from it.
 * Moved the mPDF library to an external plugin, [Pressbooks mPDF](https://wordpress.org/plugins/pressbooks-mpdf).
