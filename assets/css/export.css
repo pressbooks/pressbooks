@@ -24,7 +24,8 @@
     background-color: #fff;
     border: 1px solid #eee;
     border-width: 0 1px;
-    padding-left: 10px; }
+    padding: 10px;
+    margin-bottom: 0px; }
   .toplevel_page_pb_export .export-left h3 {
     font-weight: normal;
     margin-bottom: 0;
