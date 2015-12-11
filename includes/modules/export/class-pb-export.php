@@ -206,8 +206,8 @@ abstract class Export {
 	 * @return string
 	 */
 	function timestampedFileName( $extension, $fullpath = true ) {
-
-		$book_title_slug = sanitize_file_name( get_bloginfo( 'name' ) );
+		$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __('book', 'pressbooks');
+		$book_title_slug = sanitize_file_name( $book_title );
 		$book_title_slug = str_replace( array( '+' ), '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
 		$book_title_slug = sanitize_file_name( $book_title_slug ); // str_replace() may inadvertently create a new bad filename, sanitize again for good measure.
 
