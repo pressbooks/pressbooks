@@ -72,10 +72,15 @@ add_filter( 'admin_title', '\PressBooks\Admin\Laf\admin_title' );
 add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices' );
 
 // Network Manager routines
+
 add_action( 'network_admin_menu', '\PressBooks\Admin\NetworkManagers\add_menu' );
 add_action( 'wp_ajax_pb_update_admin_status', '\PressBooks\Admin\NetworkManagers\update_admin_status' );
-add_action( 'network_admin_menu', '\PressBooks\Admin\NetworkManagers\hide_menus' );
 add_action( 'admin_init', '\PressBooks\Admin\NetworkManagers\restrict_access' );
+add_action( 'admin_menu', '\PressBooks\Admin\NetworkManagers\hide_menus' );
+add_action( 'admin_bar_menu', '\PressBooks\Admin\NetworkManagers\hide_admin_bar_menus', 999 );
+if ( ! \PressBooks\Book::isBook() ) {
+	add_action( 'network_admin_menu', '\PressBooks\Admin\NetworkManagers\hide_network_menus' );
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Posts, Meta Boxes

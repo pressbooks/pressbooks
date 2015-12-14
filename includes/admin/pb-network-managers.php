@@ -94,6 +94,28 @@ function options() {
 /**
  *
  */
+function hide_admin_bar_menus( $wp_admin_bar ) {
+	global $wpdb;
+
+	$user = wp_get_current_user();
+
+	$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
+	if ( $restricted ) {
+		$restricted = maybe_unserialize( $restricted[0]->meta_value );
+	}
+	else {
+		$restricted = array();
+	}
+
+	if ( in_array( $user->ID, $restricted ) ) {
+		$wp_admin_bar->remove_menu( 'updates' );
+	}
+}
+
+
+/**
+ *
+ */
 function hide_menus() {
 	global $wpdb;
 
@@ -107,14 +129,37 @@ function hide_menus() {
 		$restricted = array();
 	}
 
-	if ( in_array( $user->ID, $restricted ) && ! \PressBooks\Book::isBook() ) {
+	if ( in_array( $user->ID, $restricted ) ) {
+		remove_action( 'admin_notices', 'site_admin_notice' );
+	}
+}
+
+/**
+ *
+ */
+function hide_network_menus() {
+	global $wpdb;
+
+	$user = wp_get_current_user();
+
+	$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
+	if ( $restricted ) {
+		$restricted = maybe_unserialize( $restricted[0]->meta_value );
+	}
+	else {
+		$restricted = array();
+	}
+
+	if ( in_array( $user->ID, $restricted ) ) {
 		remove_menu_page( "themes.php" );
 		remove_menu_page( "plugins.php" );
 		remove_menu_page( "settings.php" );
-		remove_menu_page( "update-core.php" );
+		remove_submenu_page( "index.php", "update-core.php" );
+		remove_submenu_page( "index.php", "upgrade.php" );
 		remove_menu_page( "admin.php?page=pb_stats" );
+		remove_action( 'network_admin_notices', 'update_nag', 3 );
+		remove_action( 'network_admin_notices', 'site_admin_notice' );
 	}
-
 }
 
 /**
@@ -146,6 +191,7 @@ function restrict_access() {
 		'plugin-(install|editor)',
 		'settings',
 		'update-core',
+		'upgrade',
 	);
 
 	$expr = '~/wp-admin/network/(' . implode( '|', $restricted_urls ) . ')\.php$~';
