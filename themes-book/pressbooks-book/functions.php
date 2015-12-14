@@ -529,7 +529,7 @@ function pressbooks_theme_copyright_license_callback( $args ) {
 	$options = get_option( 'pressbooks_theme_options_global' );
 
 	if ( ! isset( $options['copyright_license'] ) ) {
-		$options['copyright_license'] = 0;
+		$options['copyright_license'] = 1;
 	}
 
 	$html = '<input type="checkbox" id="copyright_license" name="pressbooks_theme_options_global[copyright_license]" value="1" ' . checked( 1, $options['copyright_license'], false ) . '/>';
