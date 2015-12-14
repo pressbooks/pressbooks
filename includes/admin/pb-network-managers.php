@@ -94,8 +94,10 @@ function options() {
 /**
  *
  */
-function hide_admin_bar_menus( $wp_admin_bar ) {
+function is_restricted() {
 	global $wpdb;
+
+	$val = false;
 
 	$user = wp_get_current_user();
 
@@ -106,30 +108,39 @@ function hide_admin_bar_menus( $wp_admin_bar ) {
 	else {
 		$restricted = array();
 	}
-
+	
 	if ( in_array( $user->ID, $restricted ) ) {
+		$val = true;
+	}
+	
+	return $val;
+}
+
+/**
+ *
+ */
+function hide_admin_bar_menus( $wp_admin_bar ) {
+	if ( is_restricted() ) {
 		$wp_admin_bar->remove_menu( 'updates' );
 	}
 }
 
+/**
+ *
+ */
+function admin_body_class( $classes ) {
+	if ( is_restricted() ) {
+		$classes .= ' network-admin-restricted';
+	}
+	
+    return $classes;
+}
 
 /**
  *
  */
 function hide_menus() {
-	global $wpdb;
-
-	$user = wp_get_current_user();
-
-	$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
-	if ( $restricted ) {
-		$restricted = maybe_unserialize( $restricted[0]->meta_value );
-	}
-	else {
-		$restricted = array();
-	}
-
-	if ( in_array( $user->ID, $restricted ) ) {
+	if ( is_restricted() ) {
 		remove_action( 'admin_notices', 'site_admin_notice' );
 	}
 }
@@ -138,19 +149,7 @@ function hide_menus() {
  *
  */
 function hide_network_menus() {
-	global $wpdb;
-
-	$user = wp_get_current_user();
-
-	$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
-	if ( $restricted ) {
-		$restricted = maybe_unserialize( $restricted[0]->meta_value );
-	}
-	else {
-		$restricted = array();
-	}
-
-	if ( in_array( $user->ID, $restricted ) ) {
+	if ( is_restricted() ) {
 		remove_menu_page( "themes.php" );
 		remove_menu_page( "plugins.php" );
 		remove_menu_page( "settings.php" );

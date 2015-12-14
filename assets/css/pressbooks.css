@@ -68,6 +68,10 @@
   right: 8px;
   top: 0; }
 
+/* User Screen */
+.network-admin-restricted .user-super-admin-wrap {
+  display: none; }
+
 /* Custom Metadata Manager */
 .custom-metadata-field.checkbox div, .custom-metadata-field.checkbox label {
   display: inline-block;

@@ -73,6 +73,7 @@ add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices' );
 
 // Network Manager routines
 
+add_filter( 'admin_body_class', '\PressBooks\Admin\NetworkManagers\admin_body_class' );
 add_action( 'network_admin_menu', '\PressBooks\Admin\NetworkManagers\add_menu' );
 add_action( 'wp_ajax_pb_update_admin_status', '\PressBooks\Admin\NetworkManagers\update_admin_status' );
 add_action( 'admin_init', '\PressBooks\Admin\NetworkManagers\restrict_access' );
