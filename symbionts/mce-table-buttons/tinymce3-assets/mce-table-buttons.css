@@ -1,0 +1,106 @@
+.wp_themeSkin .mceButton span.mce_table,
+.wp_themeSkin .mceButton span.mce_row_props,
+.wp_themeSkin .mceButton span.mce_cell_props,
+.wp_themeSkin .mceButton span.mce_row_before,
+.wp_themeSkin .mceButton span.mce_row_after,
+.wp_themeSkin .mceButton span.mce_delete_row,
+.wp_themeSkin .mceButton span.mce_col_before,
+.wp_themeSkin .mceButton span.mce_col_after,
+.wp_themeSkin .mceButton span.mce_delete_col,
+.wp_themeSkin .mceButton span.mce_split_cells,
+.wp_themeSkin .mceButton span.mce_merge_cells {
+	background: url('mce-table-buttons.png') 2px -16px no-repeat;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_table, .wp_themeSkin .mceButtonActive span.mce_table {
+		background-position: 2px 2px;
+	}
+
+.wp_themeSkin .mceButton span.mce_row_props {
+	background-position: -198px -16px;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_row_props, .wp_themeSkin .mceButtonActive span.mce_row_props {
+		background-position: -198px 2px;
+	}
+
+.wp_themeSkin .mceButton span.mce_cell_props {
+	background-position: -18px -16px;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_cell_props, .wp_themeSkin .mceButtonActive span.mce_cell_props {
+		background-position: -18px 2px;
+	}
+
+.wp_themeSkin .mceButton span.mce_row_before {
+	background-position: -158px -16px;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_row_before, .wp_themeSkin .mceButtonActive span.mce_row_before {
+		background-position: -158px 2px;
+	}
+
+.wp_themeSkin .mceButton span.mce_row_after {
+	background-position: -138px -16px;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_row_after, .wp_themeSkin .mceButtonActive span.mce_row_after {
+		background-position: -138px 2px;
+	}
+
+.wp_themeSkin .mceButton span.mce_delete_row {
+	background-position: -78px -16px;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_delete_row, .wp_themeSkin .mceButtonActive span.mce_delete_row {
+		background-position: -78px 2px;
+	}
+
+.wp_themeSkin .mceButton span.mce_col_before {
+	background-position: -118px -16px;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_col_before, .wp_themeSkin .mceButtonActive span.mce_col_before {
+		background-position: -118px 2px;
+	}
+
+.wp_themeSkin .mceButton span.mce_col_after {
+	background-position: -98px -16px;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_col_after, .wp_themeSkin .mceButtonActive span.mce_col_after {
+		background-position: -98px 2px;
+	}
+
+.wp_themeSkin .mceButton span.mce_delete_col {
+	background-position: -58px -16px;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_delete_col, .wp_themeSkin .mceButtonActive span.mce_delete_col {
+		background-position: -58px 2px;
+	}
+
+.wp_themeSkin .mceButton span.mce_split_cells {
+	background-position: -218px -16px;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_split_cells, .wp_themeSkin .mceButtonActive span.mce_split_cells {
+		background-position: -218px 2px;
+	}
+
+.wp_themeSkin .mceButton span.mce_merge_cells {
+	background-position: -178px -16px;
+}
+	.wp_themeSkin .mceButtonEnabled:hover span.mce_merge_cells, .wp_themeSkin .mceButtonActive span.mce_merge_cells {
+		background-position: -178px 2px;
+	}
+
+@media print,
+(-o-min-device-pixel-ratio: 5/4),
+(-webkit-min-device-pixel-ratio: 1.25),
+(min-resolution: 120dpi) {
+	.wp_themeSkin .mceButton span.mce_table,
+	.wp_themeSkin .mceButton span.mce_row_props,
+	.wp_themeSkin .mceButton span.mce_cell_props,
+	.wp_themeSkin .mceButton span.mce_row_before,
+	.wp_themeSkin .mceButton span.mce_row_after,
+	.wp_themeSkin .mceButton span.mce_delete_row,
+	.wp_themeSkin .mceButton span.mce_col_before,
+	.wp_themeSkin .mceButton span.mce_col_after,
+	.wp_themeSkin .mceButton span.mce_delete_col,
+	.wp_themeSkin .mceButton span.mce_split_cells,
+	.wp_themeSkin .mceButton span.mce_merge_cells {
+		background-image: url('mce-table-buttons-2x.png');
+		background-size: 235px 34px;
+	}
+}

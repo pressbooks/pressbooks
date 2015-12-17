@@ -1,0 +1,55 @@
+<?php
+/**
+ * SCSSPHP
+ *
+ * @copyright 2012-2015 Leaf Corcoran
+ *
+ * @license http://opensource.org/licenses/MIT MIT
+ *
+ * @link http://leafo.github.io/scssphp
+ */
+
+namespace Leafo\ScssPhp;
+
+/**
+ * SCSS block
+ *
+ * @author Anthon Pang <anthon.pang@gmail.com>
+ */
+class Block
+{
+    /**
+     * @var string
+     */
+    public $type;
+
+    /**
+     * @var \Leafo\ScssPhp\Block
+     */
+    public $parent;
+
+    /**
+     * @var integer
+     */
+    public $sourcePosition;
+
+    /**
+     * @var integer
+     */
+    public $sourceIndex;
+
+    /**
+     * @var array
+     */
+    public $selectors;
+
+    /**
+     * @var array
+     */
+    public $comments;
+
+    /**
+     * @var array
+     */
+    public $children;
+}
