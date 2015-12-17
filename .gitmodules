@@ -4,9 +4,6 @@
 [submodule "symbionts/mce-table-buttons"]
 	path = symbionts/mce-table-buttons
 	url = https://github.com/pressbooks/mce-table-buttons.git
-[submodule "symbionts/disable-comments"]
-	path = symbionts/disable-comments
-	url = https://github.com/pressbooks/disable-comments.git
 [submodule "symbionts/scssphp"]
 	path = symbionts/scssphp
 	url = https://github.com/leafo/scssphp.git
