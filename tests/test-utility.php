@@ -87,6 +87,11 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'A', $res[0]['bar'] );
 		$this->assertEquals( 'C', $res[2]['bar'] );
+		
+		$res = \PressBooks\Utility\multi_sort( $arr );
+		
+		$this->assertFalse( $res );
+		
 	}
 
 
