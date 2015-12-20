@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2015-11-25 14:30-0400\n"
+"POT-Creation-Date: 2015-12-19 21:26-0400\n"
 "PO-Revision-Date: 2015-08-08 13:43-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Pressbooks <code@pressbooks.com>\n"
@@ -944,6 +944,10 @@ msgstr ""
 
 #: includes/class-pb-sass.php:189
 msgid "SASS Error"
+msgstr ""
+
+#: includes/modules/export/class-pb-export.php:209
+msgid "book"
 msgstr ""
 
 #: includes/modules/export/class-pb-export.php:800
@@ -3259,7 +3263,15 @@ msgctxt "Droid Sans font: on or off"
 msgid "on"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:272
+#: themes-root/pressbooks-publisher/functions.php:251
+msgid "Catalog updated."
+msgstr ""
+
+#: themes-root/pressbooks-publisher/functions.php:252
+msgid "Dismiss this notice."
+msgstr ""
+
+#: themes-root/pressbooks-publisher/functions.php:274
 msgid "In Catalog"
 msgstr ""
 

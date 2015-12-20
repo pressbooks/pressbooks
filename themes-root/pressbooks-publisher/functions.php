@@ -248,6 +248,9 @@ function pressbooks_publisher_admin_scripts($hook) {
     wp_enqueue_script( 'pressbooks-publisher-admin', get_template_directory_uri() . '/js/catalog-admin.js', array('jquery'), '20150527' );
 	wp_localize_script( 'pressbooks-publisher-admin', 'PB_Publisher_Admin', array(
 		'publisherAdminNonce' => wp_create_nonce( 'pressbooks-publisher-admin' ),
+		'catalog_updated' => __( 'Catalog updated.', 'pressbooks' ),
+		'catalog_not_updated' => __( 'Sorry, but your catalog was not updated. Please try again.', 'pressbooks' ),
+		'dismiss_notice' => __( 'Dismiss this notice.', 'pressbooks' ),
 	));
 }
 
