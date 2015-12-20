@@ -338,8 +338,7 @@ function check_prince_install() {
  * @return boolean
  */
 function show_experimental_features() {
-	$result = true;
-
+	
 	// hosts where experimental features should be hidden
 	$hosts_for_hiding = array( 
 		'pressbooks.com',
@@ -350,12 +349,11 @@ function show_experimental_features() {
 	
 	foreach( $hosts_for_hiding as $host_for_hiding ) {
 		if ( $host == $host_for_hiding || strpos( $host, $host_for_hiding ) ) {
-			$result = false;
-			break;
+			return false;
 		}
 	}
 
-	return $result;
+	return true;
 }
 
 /**
