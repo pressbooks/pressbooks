@@ -29,6 +29,7 @@ class GlobalTypography {
 			'syr' => __( 'Syriac', 'pressbooks' ),
 			'ta' => __( 'Tamil', 'pressbooks' ),
 			'bo' => __( 'Tibetan', 'pressbooks' ),
+			'tr' => __( 'Turkish', 'pressbooks' ),
 		);
 	}
 
@@ -134,6 +135,9 @@ class GlobalTypography {
 				break;
 			case 'ta': // Tamil
 				$lang = 'ta';
+				break;
+			case 'tr': // Turkish
+				$lang = 'tr';
 				break;
 		}
 
