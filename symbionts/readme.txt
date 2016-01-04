@@ -19,16 +19,6 @@ Operative verb is "should," the following libs have been patched/forked by Press
 
 ------------------------------------------------------------------------------
 
-If you cloned the sourcecode from Github then the following folders are git submodules:
+If you want to use mPDF instead of Prince XML you must install the Pressbooks mPDF plugin.
 
- + custom-metadata
- + disable-comments
- + mce-table-buttons
- + scssphp
- + search-regex
-
- ------------------------------------------------------------------------------
-
-If you want to use mPDF instead of Prince XML you must manually download and install into /mpdf
-
-+ http://mpdf1.com/repos/MPDF60.zip
++ https://wordpress.org/plugins/pressbooks-mpdf
