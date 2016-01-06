@@ -44,7 +44,7 @@ class GlobalTypography {
 
 		$return_value = '';
 
-		$fullpath = get_stylesheet_directory() . "/_font-stack-{$type}.scss";
+		$fullpath = Container::get( 'Sass' )->pathToUserGeneratedSass() . "/_font-stack-{$type}.scss";
 
 		if ( is_file( $fullpath ) ) {
 			$return_value = file_get_contents( $fullpath );
