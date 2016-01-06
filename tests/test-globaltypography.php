@@ -46,7 +46,10 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 
 	/**
 	 * @covers \PressBooks\GlobalTypography::getThemeFontStacks
-	 * @covers 	\PressBooks\GlobalTypography::updateGlobalTypographyMixin
+	 *
+	 * @covers \PressBooks\GlobalTypography::updateGlobalTypographyMixin
+	 * @covers \PressBooks\GlobalTypography::_sassify
+	 * @covers \PressBooks\GlobalTypography::_getBookLanguage
 	 */
 	public function test_getThemeFontStacks() {
 
