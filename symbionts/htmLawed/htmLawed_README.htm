@@ -111,8 +111,8 @@ span.totop a, span.totop a:visited {color: #6699cc;}
 
 <div id="body">
 <br />
-<div class="comment">htmLawed_README.txt, 9 June 2015<br />
-htmLawed 1.2.beta.8, 9 June 2015<br />
+<div class="comment">htmLawed_README.txt, 30 October 2015<br />
+htmLawed 1.2.beta.9, 30 October 2015<br />
 Copyright Santosh Patnaik<br />
 Dual licensed with LGPL 3 and GPL 2+<br />
 A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/beta">http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/beta</a>&#160;</div>
@@ -1400,7 +1400,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; Optionally, for standard-compliance, htmLawed (function <span class="term">hl_tag()</span>) lower-cases standard attribute values to give, e.g., <span class="term">input type="password"</span>&#160;instead of <span class="term">input type="Password"</span>, if <span class="term">$config["lc_std_val"]</span>&#160;is <span class="term">1</span>. Attribute values matching those listed below for any of the elements listed further below (plus those for the <span class="term">type</span>&#160;attribute of <span class="term">button</span>&#160;or <span class="term">input</span>) are lower-cased:<br />
 <br />
 
-<code class="code">&#160; &#160; all, auto, baseline, bottom, button, captions, center, chapters, char, checkbox, circle, col, colgroup, color, cols, data, date, datetime, datetime-local, default, descriptions, email, file, get, groups, hidden, image, justify, left, ltr, metadata, middle, month, none, number, object, password, poly, post, preserve, radio, range, rect, ref, reset, right, row, rowgroup, rows, rtl, search, submit, subtitles, tel, text, top, url, week</code>
+<code class="code">&#160; &#160; all, auto, baseline, bottom, button, captions, center, chapters, char, checkbox, circle, col, colgroup, color, cols, data, date, datetime, datetime-local, default, descriptions, email, file, get, groups, hidden, image, justify, left, ltr, metadata, middle, month, none, number, object, password, poly, post, preserve, radio, range, rect, ref, reset, right, row, rowgroup, rows, rtl, search, submit, subtitles, tel, text, time, top, url, week</code>
 <br />
 <br />
 
@@ -1410,7 +1410,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; The following <em>empty</em>&#160;(<em>minimized</em>) attributes are always assigned lower-cased values (same as the attribute names):<br />
 <br />
 
-<code class="code">&#160; &#160; checkbox, checked, command, compact, declare, defer, default, disabled, ismap, itemscope, multiple, nohref, noresize, noshade, nowrap, open, radio, readonly, required, reversed, selected</code>
+<code class="code">&#160; &#160; checkbox, checked, command, compact, declare, defer, default, disabled, hidden, inert, ismap, itemscope, multiple, nohref, noresize, noshade, nowrap, open, radio, readonly, required, reversed, selected</code>
 <br />
 
 </div>
@@ -1422,9 +1422,10 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; * &#160;align in caption, div, h, h2, h3, h4, h5, h6, hr, img, input, legend, object, p, table - for <span class="term">img</span>&#160;with value of <span class="term">left</span>&#160;or <span class="term">right</span>, becomes, e.g., <span class="term">float&#58; left</span>; for <span class="term">div</span>&#160;and <span class="term">table</span>&#160;with value <span class="term">center</span>, becomes <span class="term">margin&#58; auto</span>; all others become, e.g., <span class="term">text-align&#58; right</span><br />
 &#160; * &#160;bgcolor in table, td, th and tr - E.g., <span class="term">bgcolor="#ffffff"</span>&#160;becomes <span class="term">background-color&#58; #ffffff</span><br />
-&#160; * &#160;border in object - E.g., <span class="term">height= "10"</span>&#160;becomes <span class="term">height&#58; 10px</span><br />
+&#160; * &#160;border in object - E.g., <span class="term">height="10"</span>&#160;becomes <span class="term">height&#58; 10px</span><br />
 &#160; * &#160;bordercolor in table, td and tr - E.g., <span class="term">bordercolor=#999999</span>&#160;becomes <span class="term">border-color&#58; #999999;</span><br />
 &#160; * &#160;compact in dl, ol and ul - <span class="term">font-size&#58; 85%</span><br />
+&#160; * &#160;cellspacing in table - <span class="term">cellspacing="10"</span>&#160;becomes <span class="term">border-spacing&#58; 10px</span><br />
 &#160; * &#160;clear in br - E.g., 'clear="all" becomes <span class="term">clear&#58; both</span><br />
 &#160; * &#160;height in td and th - E.g., <span class="term">height= "10"</span>&#160;becomes <span class="term">height&#58; 10px</span>&#160;and <span class="term">height="&#42;"</span>&#160;becomes <span class="term">height&#58; auto</span><br />
 &#160; * &#160;hspace in img and object - E.g., <span class="term">hspace="10"</span>&#160;becomes <span class="term">margin-left&#58; 10px; margin-right&#58; 10px</span><br />
@@ -1434,7 +1435,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; * &#160;nowrap in td and th - <span class="term">white-space&#58; nowrap</span><br />
 &#160; * &#160;size in hr - E.g., <span class="term">size="10"</span>&#160;becomes <span class="term">height&#58; 10px</span><br />
 &#160; * &#160;vspace in img and object - E.g., <span class="term">vspace="10"</span>&#160;becomes <span class="term">margin-top&#58; 10px; margin-bottom&#58; 10px</span><br />
-&#160; * &#160;width in hr, pre, td and th - like <span class="term">height</span><br />
+&#160; * &#160;width in hr, pre, table, td and th - like <span class="term">height</span><br />
 <br />
 &#160; Example input:<br />
 <br />
@@ -1960,9 +1961,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <a name="s5.2" id="s5.2"></a><span class="item-no">5.2</span>&#160; Valid attribute-element combinations
 </h3><span class="totop"><a href="#peak">(to top)</a></span><br style="clear: both;" />
 <br />
-&#160; Valid attribute-element combinations as per W3C specifications.<br />
-<br />
-&#160; * &#160;includes deprecated attributes (marked <span class="term">^</span>), attributes for microdata (marked <span class="term">&#42;</span>), the non-standard <span class="term">bordercolor</span>, and HTML5 attributes (marked <span class="term">~</span>)<br />
+&#160; * &#160;includes deprecated attributes (marked <span class="term">^</span>), attributes for microdata (marked <span class="term">&#42;</span>), the non-standard <span class="term">bordercolor</span>, and new-in-HTML5 attributes (marked <span class="term">~</span>)<br />
 &#160; * &#160;only non-frameset, HTML body elements<br />
 &#160; * &#160;<span class="term">name</span>&#160;for <span class="term">a</span>&#160;and <span class="term">map</span>, and <span class="term">lang</span>&#160;are invalid in XHTML 1.1<br />
 &#160; * &#160;<span class="term">target</span>&#160;is valid for <span class="term">a</span>&#160;in XHTML 1.1 and higher<br />
@@ -2069,7 +2068,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; open~ - details<br />
 &#160; optimum~ - meter<br />
 &#160; pattern~ - input<br />
-&#160; ping~ - a<br />
+&#160; ping~ - a, area<br />
 &#160; placeholder~ - input, textarea<br />
 &#160; pluginspage** - embed<br />
 &#160; pluginurl** - embed<br />
@@ -2077,6 +2076,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; pqg~ - keygen<br />
 &#160; preload~ - audio, video<br />
 &#160; prompt - isindex<br />
+&#160; pubdate~ - time<br />
 &#160; radiogroup* - command<br />
 &#160; readonly - input, textarea<br />
 &#160; required~ - input, select, textarea<br />
@@ -2099,6 +2099,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 &#160; src - audio, embed, iframe, img, input, script, source, track, video<br />
 &#160; srcdoc~ - iframe<br />
 &#160; srclang~ - track<br />
+&#160; srcset~ - img<br />
 &#160; standby - object<br />
 &#160; start - ol<br />
 &#160; step~ - input<br />
@@ -2117,7 +2118,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 <br />
 &#160; The following global attributes, including event-specific ones and attributes of ARIA and microdata specifications, are allowed in all elements:<br />
 <br />
-&#160; accesskey, aria-activedescendant, aria-atomic, aria-autocomplete, aria-busy, aria-checked, aria-controls, aria-describedby, aria-disabled, aria-dropeffect, aria-expanded, aria-flowto, aria-grabbed, aria-haspopup, aria-hidden, aria-invalid, aria-label, aria-labelledby, aria-level, aria-live, aria-multiline, aria-multiselectable, aria-orientation, aria-owns, aria-posinset, aria-pressed, aria-readonly, aria-relevant, aria-required, aria-selected, aria-setsize, aria-sort, aria-valuemax, aria-valuemin, aria-valuenow, aria-valuetext, class, contenteditable, contextmenu, dir, draggable, dropzone, hidden, id, inert, itemid, itemprop, itemref, itemscope, itemtype, lang, spellcheck, style, tabindex, title, translate, onabort, onblur, oncanplay, oncanplaythrough, onchange, onclick, oncontextmenu, oncuechange, ondblclick, ondrag, ondragend, ondragenter, ondragleave, ondragover, ondragstart, ondrop, ondurationchange, onemptied, onended, onerror, onfocus, oninput, oninvalid, onkeydown, onkeypress, onkeyup, onload, onloadeddata, onloadedmetadata, onloadstart, onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, onmousewheel, onpause, onplay, onplaying, onprogress, onratechange, onreadystatechange, onreset, onscroll, onseeked, onseeking, onselect, onshow, onstalled, onsubmit, onsuspend, ontimeupdate, onvolumechange, onwaiting, role, translate, xmlns, xml:base, xml:lang, xml:space<br />
+&#160; accesskey, aria-activedescendant, aria-atomic, aria-autocomplete, aria-busy, aria-checked, aria-controls, aria-describedby, aria-disabled, aria-dropeffect, aria-expanded, aria-flowto, aria-grabbed, aria-haspopup, aria-hidden, aria-invalid, aria-label, aria-labelledby, aria-level, aria-live, aria-multiline, aria-multiselectable, aria-orientation, aria-owns, aria-posinset, aria-pressed, aria-readonly, aria-relevant, aria-required, aria-selected, aria-setsize, aria-sort, aria-valuemax, aria-valuemin, aria-valuenow, aria-valuetext, class, contenteditable, contextmenu, dir, draggable, dropzone, hidden, id, inert, itemid, itemprop, itemref, itemscope, itemtype, lang, onabort, onabort, onautocomplete, onautocompleteerror, onblur, oncancel, oncanplay, oncanplaythrough, onchange, onclick, onclose, oncontextmenu, oncuechange, ondblclick, ondrag, ondragend, ondragenter, ondragexit, ondragleave, ondragover, ondragstart, ondrop, ondurationchange, onemptied, onended, onerror, onfocus, oninput, oninvalid, onkeydown, onkeypress, onkeyup, onload, onloadeddata, onloadedmetadata, onloadstart, onmousedown, onmouseenter, onmouseleave, onmousemove, onmouseout, onmouseover, onmouseup, onmousewheel, onpause, onplay, onplaying, onprogress, onratechange, onreset, onresize, onscroll, onseeked, onseeking, onselect, onshow, onsort, onstalled, onsubmit, onsuspend, ontimeupdate, ontoggle, onvolumechange, onwaiting, onwheel, role, spellcheck, style, tabindex, title, translate, xmlns, xml:base, xml:lang, xml:space<br />
 <br />
 &#160; Custom <em>data-*</em>&#160;attributes, where the first three characters of the value of <em>star</em>&#160;(*) after lower-casing do not equal <span class="term">xml</span>&#160;and the value of <em>star</em>&#160;does not have a colon (:) or space or equal-to (=) character, are allowed in all elements.<br />
 
@@ -2238,7 +2239,7 @@ A PHP Labware internal utility &#45; <a href="http://www.bioinformatics.org/phpl
 </div>
 </div>
 <br />
-<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 10 Jun, 2015 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
+<hr /><br /><br /><span class="subtle"><small>HTM version of <em><a href="htmLawed_README.txt">htmLawed_README.txt</a></em> generated on 02 Nov, 2015 using <a href="http://www.bioinformatics.org/phplabware/internal_utilities">rTxt2htm</a> from PHP Labware</small></span>
 </div><!-- ended div body -->
 </div><!-- ended div top -->
 </body>
