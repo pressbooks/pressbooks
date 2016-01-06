@@ -25,7 +25,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 
 		$blog_id = $this->factory->blog->create();
 		switch_to_blog( $blog_id );
-		switch_theme( 'pressbooks-book' );
+		switch_theme( 'donham' ); // Pick a theme with some built-in $supported_languages
 	}
 
 
@@ -87,6 +87,21 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 
 		$this->assertFileExists( $file );
 		$this->assertNotEmpty( file_get_contents( $file ) );
+	}
+	
+
+	/**
+	 * @covers \PressBooks\GlobalTypography::fixWebFonts
+	 */
+	public function test_fixWebFonts() {
+
+		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
+		$css = $this->gt->fixWebFonts( $css );
+		$this->assertContains( 'url(' . PB_PLUGIN_URL . 'themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf', $css );
+
+		$css = 'url(themes-book/pressbooks-book/fonts/foo.garbage)';
+		$css = $this->gt->fixWebFonts( $css );
+		$this->assertNotContains( 'url(' . PB_PLUGIN_URL . 'themes-book/pressbooks-book/fonts/foo.garbage', $css );
 	}
 
 }
