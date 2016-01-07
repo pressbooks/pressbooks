@@ -116,6 +116,8 @@ if ( \PressBooks\Book::isBook() ) {
 	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor\mce_table_editor_options' );
 	add_filter( 'mce_external_plugins', '\PressBooks\Editor\mce_button_scripts' );
 	add_filter( 'mce_buttons_2', '\PressBooks\Editor\mce_buttons');
+	add_filter( 'wp_link_query_args', '\PressBooks\Editor\customize_wp_link_query_args' );
+	add_filter( 'wp_link_query', '\PressBooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

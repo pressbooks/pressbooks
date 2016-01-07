@@ -246,4 +246,60 @@ function add_editor_style() {
 }
 
 
+/**
+ * Only show book contents post types in link insertion modal.
+ *
+ * @param array $query
+ *
+ * @return array
+ */
+function customize_wp_link_query_args( $query ) {
+
+    $query['post_type'] = array( 'part', 'chapter', 'front-matter', 'back-matter' );
+     
+    return $query;
+}
+
+/**
+ * Add anchors to link insertion modal query results.
+ *
+ * @param array $results
+ * @param array $query
+ *
+ * @return array
+ */
+function add_anchors_to_wp_link_query( $results, $query ) {
+		
+	$anchors = array();
+
+    foreach( $results as $key => $result ) {
+	    $post = get_post( $results[ $key ]['ID'] );
+	    
+	    libxml_use_internal_errors( true );
+	    
+		$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
+
+		if ( !empty( $content ) ) {
+			$doc = new \DOMDocument();
+			$doc->loadHTML( $content );
+	
+	        foreach ( $doc->getElementsByTagName('a') as $node ) {
+	            if ( $node->hasAttribute( 'id' ) ) {
+	                $anchors[] = array(
+		                'ID' => $post->ID,
+		                'title' =>  '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
+		                'permalink' => get_permalink( $post->ID ) . '#' . $node->getAttribute( 'id' ),
+		                'info' => __( 'Anchor', 'pressbooks' )
+	                );
+	            }
+	        }
+		}
+
+        //$results[ $key ]['info'] = $post->post_name;
+    }
+    
+    $results = array_merge( $results, $anchors );
+    
+    return $results;
+}
 
