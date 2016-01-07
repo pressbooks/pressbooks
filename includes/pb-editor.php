@@ -269,36 +269,48 @@ function customize_wp_link_query_args( $query ) {
  * @return array
  */
 function add_anchors_to_wp_link_query( $results, $query ) {
+		
+	$url = parse_url( $_SERVER[ 'HTTP_REFERER' ] );
+	parse_str( $url['query'], $query );
+		
+	if ( !isset( $query['post'] ) )
+		return $results;	
 	
 	$anchors = array();
 
+	$post = get_post( $query['post'] );
+	
+    libxml_use_internal_errors( true );
+    
+	$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
+
+	if ( !empty( $content ) ) {
+		$doc = new \DOMDocument();
+		$doc->loadHTML( $content );
+
+        foreach ( $doc->getElementsByTagName('a') as $node ) {
+            if ( $node->hasAttribute( 'id' ) ) {
+                $anchors[] = array(
+	                'ID' => $post->ID,
+	                'title' =>  '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
+	                'permalink' => '#' . $node->getAttribute( 'id' ),
+	                'info' => __( 'Internal Link', 'pressbooks' )
+                );
+            }
+        }
+	}
+
+	$offset = count( $results ) + 1;
+    
     foreach( $results as $key => $result ) {
 	    
-	    $post = get_post( $results[ $key ]['ID'] );
-	    
-	    libxml_use_internal_errors( true );
-	    
-		$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
-
-		if ( !empty( $content ) ) {
-			$doc = new \DOMDocument();
-			$doc->loadHTML( $content );
-	
-	        foreach ( $doc->getElementsByTagName('a') as $node ) {
-	            if ( $node->hasAttribute( 'id' ) ) {
-	                $anchors[] = array(
-		                'ID' => $post->ID,
-		                'title' =>  '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
-		                'permalink' => get_permalink( $post->ID ) . '#' . $node->getAttribute( 'id' ),
-		                'info' => __( 'Anchor', 'pressbooks' )
-	                );
-	            }
-	        }
-		}
+	    if ( $results[ $key ]['ID'] == $query['post'] ) {
+		    $offset = $key + 1;
+	    }	    
     }
     
-    $results = array_merge( $results, $anchors );
-    
+    array_splice( $results, $offset, 0, $anchors );
+        
     return $results;
 }
 
