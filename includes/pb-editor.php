@@ -269,10 +269,11 @@ function customize_wp_link_query_args( $query ) {
  * @return array
  */
 function add_anchors_to_wp_link_query( $results, $query ) {
-		
+	
 	$anchors = array();
 
     foreach( $results as $key => $result ) {
+	    
 	    $post = get_post( $results[ $key ]['ID'] );
 	    
 	    libxml_use_internal_errors( true );
@@ -294,8 +295,6 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 	            }
 	        }
 		}
-
-        //$results[ $key ]['info'] = $post->post_name;
     }
     
     $results = array_merge( $results, $anchors );
