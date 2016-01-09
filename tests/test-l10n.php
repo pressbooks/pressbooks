@@ -39,7 +39,7 @@ class L10nTest extends \WP_UnitTestCase {
 	/**
 	 * @covers \PressBooks\L10n\override_core_strings
 	 */
-	public function override_core_strings() {
+	public function test_override_core_strings() {
 
 		$text = 'My Sites';
 		$domain = 'default';
@@ -58,7 +58,7 @@ class L10nTest extends \WP_UnitTestCase {
 	public function test_set_locate() {
 
 		$this->assertTrue(
-				is_string( \PressBooks\L10n\set_locale( 'en_US' ) )
+			is_string( \PressBooks\L10n\set_locale( 'en_US' ) )
 		);
 	}
 
@@ -69,7 +69,7 @@ class L10nTest extends \WP_UnitTestCase {
 	public function test_set_root_locate() {
 
 		$this->assertTrue(
-				is_string( \PressBooks\L10n\set_root_locale( 'en_US' ) )
+			is_string( \PressBooks\L10n\set_root_locale( 'en_US' ) )
 		);
 	}
 
@@ -105,6 +105,19 @@ class L10nTest extends \WP_UnitTestCase {
 
 
 	/**
+	 * @covers \PressBooks\L10n\set_user_interface_lang
+	 */
+	function test_set_user_interface_lang() {
+
+		$user_id = $this->factory->user->create();
+
+		\PressBooks\L10n\set_user_interface_lang( $user_id );
+
+		$this->assertTrue( true );
+	}
+
+
+	/**
 	 * @covers \PressBooks\L10n\romanize
 	 */
 	public function test_romanize() {
@@ -114,6 +127,17 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertEquals( \PressBooks\L10n\romanize( 3 ), 'III' );
 		$this->assertEquals( \PressBooks\L10n\romanize( 4 ), 'IV' );
 		$this->assertEquals( \PressBooks\L10n\romanize( 1975 ), 'MCMLXXV' );
+	}
+
+
+	/**
+	 * @covers \PressBooks\L10n\use_book_locale
+	 */
+	public function test_use_book_locale() {
+
+		$this->assertTrue(
+			is_bool( \PressBooks\L10n\use_book_locale() )
+		);
 	}
 
 }
