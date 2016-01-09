@@ -3,6 +3,78 @@
 class L10nTest extends \WP_UnitTestCase {
 
 	/**
+	 * @covers \PressBooks\L10n\get_locale
+	 */
+	public function test_get_locale() {
+
+		$locale = \PressBooks\L10n\get_locale();
+
+		$this->assertTrue( is_string( $locale ) );
+	}
+
+
+	/**
+	 * @covers \PressBooks\L10n\load_plugin_textdomain
+	 */
+	public function test_load_plugin_textdomain() {
+
+		\PressBooks\L10n\load_plugin_textdomain();
+
+		$this->assertTrue( true );
+	}
+
+
+	/**
+	 * @covers \PressBooks\L10n\include_core_overrides
+	 */
+	public function test_include_core_overrides() {
+
+		$overrides = \PressBooks\L10n\include_core_overrides();
+
+		$this->assertTrue( is_array( $overrides ) );
+		$this->assertArrayHasKey( 'My Sites', $overrides );
+	}
+
+
+	/**
+	 * @covers \PressBooks\L10n\override_core_strings
+	 */
+	public function override_core_strings() {
+
+		$text = 'My Sites';
+		$domain = 'default';
+		$translations = get_translations_for_domain( $domain )->translate( $text );
+
+		$translated = \PressBooks\L10n\override_core_strings( $translations, $text, $domain );
+
+		$this->assertNotEmpty( $translated );
+		$this->assertNotEquals( $text, $translated ); // 'My Sites' should be 'My Books', 'Mes Livres', ...
+	}
+
+
+	/**
+	 * @covers \PressBooks\L10n\set_locale
+	 */
+	public function test_set_locate() {
+
+		$this->assertTrue(
+				is_string( \PressBooks\L10n\set_locale( 'en_US' ) )
+		);
+	}
+
+
+	/**
+	 * @covers \PressBooks\L10n\set_root_locale
+	 */
+	public function test_set_root_locate() {
+
+		$this->assertTrue(
+				is_string( \PressBooks\L10n\set_root_locale( 'en_US' ) )
+		);
+	}
+
+
+	/**
 	 * @covers \PressBooks\L10n\supported_languages
 	 */
 	public function test_supported_languages() {
@@ -10,6 +82,7 @@ class L10nTest extends \WP_UnitTestCase {
 		$supported_languages = \PressBooks\L10n\supported_languages();
 		$this->assertTrue( is_array( $supported_languages ) );
 	}
+
 
 	/**
 	 * @covers \PressBooks\L10n\wplang_codes
@@ -20,6 +93,7 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_array( $wplang_codes ) );
 	}
 
+
 	/**
 	 * @covers \PressBooks\L10n\get_dashboard_languages
 	 */
@@ -28,7 +102,8 @@ class L10nTest extends \WP_UnitTestCase {
 		$get_dashboard_languages = \PressBooks\L10n\get_dashboard_languages();
 		$this->assertTrue( is_array( $get_dashboard_languages ) );
 	}
-	
+
+
 	/**
 	 * @covers \PressBooks\L10n\romanize
 	 */
