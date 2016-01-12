@@ -25,7 +25,6 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 	/**
 	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::shortcodeHandler
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::footnoteContent
 	 */
 	public function test_shortcodeHandler_numbered() {
 
@@ -47,7 +46,6 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 	/**
 	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::shortcodeHandler
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::footnoteContent
 	 */
 	public function test_shortcodeHandler_notNumbered() {
 
