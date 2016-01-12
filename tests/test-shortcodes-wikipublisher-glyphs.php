@@ -1,7 +1,7 @@
 <?php
 
 
-class Shortcodes_WikipiPublisher_GlyphsTest extends \WP_UnitTestCase {
+class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 
 	/**
 	 * @var \PressBooks\Shortcodes\Wikipublisher\Glyphs
