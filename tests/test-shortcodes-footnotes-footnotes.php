@@ -41,6 +41,8 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 		$this->assertContains( '[3. Foo]</sup></a>', $content );
 
 		$this->assertContains( '#footnote-1-3', $content );
+
+		$this->assertEmpty( $this->fn->shortcodeHandler( [ ] ) );
 	}
 
 
@@ -63,5 +65,52 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 		$this->assertContains( '#footnote-999-3', $content );
 	}
+
+
+	/**
+	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::footnoteContent
+	 */
+	public function test_footnoteContent_numbered() {
+
+		global $id;
+		$id = 1;
+
+		// First, add some footnotes
+		$_ = $this->fn->shortcodeHandler( [ 'numbered' => 'yes' ], 'First.' );
+		$_ = $this->fn->shortcodeHandler( [ ], 'Second.' );
+		$_ = $this->fn->shortcodeHandler( [ ], 'Third.' );
+
+		$content = $this->fn->footnoteContent( 'Hello World' );
+
+		$this->assertContains( '<div class="footnotes">', $content );
+		$this->assertContains( 'First.', $content );
+		$this->assertContains( 'Second.', $content );
+		$this->assertContains( 'Third.', $content );
+		$this->assertContains( '</ol></div>', $content );
+	}
+
+
+	/**
+	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::footnoteContent
+	 */
+	public function test_footnoteContent_notNumbered() {
+
+		global $id;
+		$id = 999;
+
+		// First, add some footnotes
+		$_ = $this->fn->shortcodeHandler( [ 'numbered' => 'no' ], 'First.' );
+		$_ = $this->fn->shortcodeHandler( [ ], 'Second.' );
+		$_ = $this->fn->shortcodeHandler( [ ], 'Third.' );
+
+		$content = $this->fn->footnoteContent( 'Hello World' );
+
+		$this->assertContains( '<div class="footnotes">', $content );
+		$this->assertContains( 'First.', $content );
+		$this->assertContains( 'Second.', $content );
+		$this->assertContains( 'Third.', $content );
+		$this->assertContains( '</ul></div>', $content );
+	}
+
 
 }
