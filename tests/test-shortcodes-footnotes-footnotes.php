@@ -17,8 +17,8 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$this->fn = $this->getMockBuilder( '\PressBooks\Shortcodes\Footnotes\footnotes' )
-			->setMethods( null )// pass null to setMethods() to avoid mocking any method
-			->disableOriginalConstructor()// disable private constructor
+			->setMethods( null ) // pass null to setMethods() to avoid mocking any method
+			->disableOriginalConstructor() // disable private constructor
 			->getMock();
 	}
 
@@ -110,6 +110,40 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 		$this->assertContains( 'Second.', $content );
 		$this->assertContains( 'Third.', $content );
 		$this->assertContains( '</ul></div>', $content );
+	}
+
+
+	/**
+	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::myCustomQuicktags
+	 */
+	public function test_myCustomQuicktags() {
+
+		$this->fn->myCustomQuicktags();
+
+		$this->assertTrue( wp_script_is( 'my_custom_quicktags', 'queue' ) );
+	}
+
+
+	/**
+	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::registerFootnoteButtons
+	 */
+	public function test_registerFootnoteButtons() {
+
+		$buttons = $this->fn->registerFootnoteButtons( [ ] );
+
+		$this->assertNotEmpty( $buttons );
+	}
+
+
+	/**
+	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::addFootnotePlugin
+	 */
+	public function test_addFootnotePlugin() {
+
+		$val = $this->fn->addFootnotePlugin( [ ] );
+
+		$this->assertNotEmpty( $val );
+
 	}
 
 
