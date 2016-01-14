@@ -17,9 +17,20 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$this->fn = $this->getMockBuilder( '\PressBooks\Shortcodes\Footnotes\footnotes' )
-			->setMethods( null ) // pass null to setMethods() to avoid mocking any method
-			->disableOriginalConstructor() // disable private constructor
+			->setMethods( null )// pass null to setMethods() to avoid mocking any method
+			->disableOriginalConstructor()// disable private constructor
 			->getMock();
+	}
+
+
+	/**
+	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::getInstance
+	 */
+	public function test_getInstance() {
+
+		$val = $this->fn->getInstance();
+
+		$this->assertTrue( $val instanceof \PressBooks\Shortcodes\Footnotes\Footnotes );
 	}
 
 
@@ -143,6 +154,15 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 		$val = $this->fn->addFootnotePlugin( [ ] );
 
 		$this->assertNotEmpty( $val );
+	}
+
+
+	/**
+	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes
+	 */
+	public function test_convertWordFootnotes() {
+
+		// TODO: convertWordFootnotes has a die() at the end, cannot test as is
 
 	}
 
