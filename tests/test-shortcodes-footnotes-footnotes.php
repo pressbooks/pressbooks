@@ -162,8 +162,31 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 	 */
 	public function test_convertWordFootnotes() {
 
-		// TODO: convertWordFootnotes has a die() at the end, cannot test as is
+		// Fake ajax
+		if ( ! defined( 'DOING_AJAX' ) ) define( 'DOING_AJAX', true );
+		add_filter( 'wp_die_ajax_handler', '__return_false', 1, 1 ); // Override die()
+		error_reporting( error_reporting() & ~E_WARNING ); // Suppress warnings
 
+		// Test invalid permissions
+
+		ob_start();
+		\PressBooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes();
+		$buffer = ob_get_clean();
+		$this->assertContains( __( 'Invalid permissions.', 'pressbooks' ), $buffer );
+
+		// Test is json
+
+		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		wp_set_current_user( $user_id );
+		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-footnote-convert' );
+		$_POST['content'] = 'Hello world!';
+
+		ob_start();
+		\PressBooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes();
+		$buffer = ob_get_clean();
+		$this->assertJson( $buffer );
+
+		// TODO: Test regular expressions by passing Word and LibreOffice footnote HTML
 	}
 
 
