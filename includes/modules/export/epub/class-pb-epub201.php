@@ -1643,6 +1643,12 @@ class Epub201 extends Export {
 		    }
 		}
 
+		// Remove srcset attributes because responsive images aren't a thing in the EPUB world.
+		$srcsets = $xpath->query( '//img[@srcset]' );
+		foreach( $srcsets as $srcset ) {
+			$srcset->removeAttribute( "srcset" );
+		}
+
 		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
 		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
 		$html = $doc->saveXML( $doc->documentElement );
@@ -1670,7 +1676,7 @@ class Epub201 extends Export {
 	protected function scrapeAndKneadImages( \DOMDocument $doc ) {
 
 		$fullpath = $this->tmpDir . '/OEBPS/assets';
-
+		
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
 			// Fetch image, change src
