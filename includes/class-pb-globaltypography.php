@@ -232,7 +232,10 @@ class GlobalTypography {
 			return;
 		}
 
-		$scss = file_get_contents( $path_to_style );
+		// Populate $url-base variable so that links to images and other assets remain intact
+		$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
+
+		$scss .= file_get_contents( $path_to_style );
 		$sass = Container::get( 'Sass' );
 		$css = $sass->compile( $scss );
 		$css = $this->fixWebFonts( $css );
