@@ -11,6 +11,17 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
+	 * Fake ajax
+	 */
+	private function _fakeAjax() {
+
+		if ( ! defined( 'DOING_AJAX' ) ) define( 'DOING_AJAX', true );
+		add_filter( 'wp_die_ajax_handler', '__return_false', 1, 1 ); // Override die()
+		error_reporting( error_reporting() & ~E_WARNING ); // Suppress warnings
+	}
+
+
+	/**
 	 *
 	 */
 	public function setUp() {
@@ -158,14 +169,26 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
+	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::ajaxFailure
+	 */
+	public function test_ajaxFailure() {
+
+		$this->_fakeAjax();
+
+		ob_start();
+		\PressBooks\Shortcodes\Footnotes\Footnotes::ajaxFailure( 'foobar' );
+		$buffer = ob_get_clean();
+
+		$this->assertContains( 'foobar', $buffer );
+	}
+
+
+	/**
 	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes
 	 */
 	public function test_convertWordFootnotes() {
 
-		// Fake ajax
-		if ( ! defined( 'DOING_AJAX' ) ) define( 'DOING_AJAX', true );
-		add_filter( 'wp_die_ajax_handler', '__return_false', 1, 1 ); // Override die()
-		error_reporting( error_reporting() & ~E_WARNING ); // Suppress warnings
+		$this->_fakeAjax();
 
 		// Test invalid permissions
 
