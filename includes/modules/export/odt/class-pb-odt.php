@@ -126,6 +126,8 @@ class Odt extends Export {
 			$table->setAttribute( 'colcount', $columncount );
 		}
 				
+		mkdir( $metafolder );
+
 		$images = $xpath->query( '//img' );
 		$coverimages = $xpath->query( '//meta[@name="pb-cover-image"]' );
 		if ( ( $images->length > 0 ) || ( $coverimages->length > 0 ) ) {
