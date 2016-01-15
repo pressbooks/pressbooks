@@ -240,7 +240,7 @@ class Footnotes {
 
 		if ( ! headers_sent() ) header( "HTTP/1.0 500 Internal Server Error" );
 		if ( $msg ) echo "Something went wrong: \n\n $msg";
-		die();
+		wp_die();
 	}
 
 
@@ -251,6 +251,7 @@ class Footnotes {
 
 		if ( ! current_user_can( 'edit_posts' ) || ! check_ajax_referer( 'pb-footnote-convert', false, false ) ) {
 			static::ajaxFailure( __( 'Invalid permissions.', 'pressbooks' ) );
+			return;
 		}
 
 		$html = urldecode( stripslashes( $_POST['content'] ) );
@@ -331,9 +332,7 @@ class Footnotes {
 		$json = json_encode( array( 'content' => $html ) );
 		echo $json;
 
-		// @see http://codex.wordpress.org/AJAX_in_Plugins#Error_Return_Values
-		// Will append 0 to returned json string if we don't die()
-		die();
+		wp_die();
 	}
 
 }
