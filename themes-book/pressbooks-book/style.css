@@ -40,7 +40,7 @@ body {
 }
 
 body {
-  background: url("/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/bg.png") repeat 0 0 #f9f9f9;
+  background: url("images/bg.png") repeat 0 0 #f9f9f9;
   color: #1F1F1D;
   font-size: 1em;
   line-height: 1.8;
@@ -184,7 +184,7 @@ ol {
 }
 */
 blockquote {
-  background: url(/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/blockquote-open.png) no-repeat 10px 10px #f4f4f3;
+  background: url(images/blockquote-open.png) no-repeat 10px 10px #f4f4f3;
   padding: 1px 5px 5px 50px;
   margin-bottom: 20px;
 }
@@ -533,7 +533,7 @@ h1.book-title a {
 }
 
 .share li.email a {
-  background: url(/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/sprite.png) -147px -96px no-repeat;
+  background: url(images/sprite.png) -147px -96px no-repeat;
   height: 21px;
   margin: 0 0 0 17px;
   text-indent: -9999px;
@@ -548,7 +548,7 @@ h1.book-title a {
   width: 62px;
 }
 .share-btn {
-  background: url(/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/sprite.png) -150px -250px no-repeat #ffffff;
+  background: url(images/sprite.png) -150px -250px no-repeat #ffffff;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -660,7 +660,7 @@ h1.book-title a {
 .read-btn a,
 .about-btn a,
 .authors-btn a {
-  background: url(/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/sprite.png) 30px -187px no-repeat;
+  background: url(images/sprite.png) 30px -187px no-repeat;
 }
 
 .home-btn a {
@@ -712,7 +712,7 @@ h1.book-title a {
 }
 
 a.close {
-  background: url(/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/sprite.png) 0 -50px;
+  background: url(images/sprite.png) 0 -50px;
   display: block;
   float: right;
   overflow: hidden;
@@ -909,7 +909,7 @@ div.aligncenter {
 }
 
 .nav span a {
-  background: url(/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/sprite.png) 0 -573px no-repeat;
+  background: url(images/sprite.png) 0 -573px no-repeat;
   display: block;
   overflow: hidden;
   text-indent: 100%;
@@ -1267,11 +1267,11 @@ aside {
 }
 
 .entry-content ul li li {
-  list-style-image: url("/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/em-dash.png");
+  list-style-image: url("images/em-dash.png");
 }
 
 .entry-content ul li li li {
-  list-style-image: url("/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/asterisk.png");
+  list-style-image: url("images/asterisk.png");
 }
 
 ol {
@@ -1503,7 +1503,7 @@ h3.author-name {
 }
 
 .social-media-profile li a {
-  background: url(/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/sprite.png) 0 -296px no-repeat;
+  background: url(images/sprite.png) 0 -296px no-repeat;
   color: #4a4a4a;
   display: block;
   font: 1em/2em "Open Sans Condensed", Arial, Helvetica, sans-serif;
@@ -1599,7 +1599,7 @@ h3.author-name {
 	 Footer
 *****************/
 .footer {
-  background: url(/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/footer-shadow.png) 0 0 repeat-x #8d8d8d;
+  background: url(images/footer-shadow.png) 0 0 repeat-x #8d8d8d;
   color: #ffffff;
   font: 0.75em/1.5em "Open Sans Condensed", Arial, Helvetica, sans-serif;
   font-weight: bold;
@@ -1906,7 +1906,7 @@ code {
     padding: 15px 0 0 20px;
   }
   .pressbooks-logo a {
-    background: url(/wp-content/plugins/pressbooks/themes-book/pressbooks-book/images/sprite.png) -200px -50px no-repeat;
+    background: url(images/sprite.png) -200px -50px no-repeat;
     display: block;
     text-indent: -9999em;
     width: 40px;
