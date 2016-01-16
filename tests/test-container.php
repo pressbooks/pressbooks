@@ -34,7 +34,7 @@ class ContainerTest extends \WP_UnitTestCase {
 	/**
 	 * @covers \PressBooks\Container::init
 	 * @covers \PressBooks\Container::setPimple
-	 * @covers \\PressBooks\Container::getPimple
+	 * @covers \PressBooks\Container::getPimple
 	 */
 	public function test_initSetGetPimple() {
 
