@@ -47,6 +47,17 @@ class ContainerTest extends \WP_UnitTestCase {
 
 
 	/**
+	 * @covers \PressBooks\Container::getPimple
+	 */
+	public function test_getPimpleException() {
+		
+		$this->setExpectedException( '\LogicException' );
+		$p = Container::getPimple();
+	}
+
+
+
+	/**
 	 * @covers \PressBooks\Container::get
 	 * @covers \PressBooks\Container::set
 	 */
