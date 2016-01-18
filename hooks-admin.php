@@ -64,7 +64,7 @@ add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
 // Google Analytics
 add_action( 'network_admin_menu', '\PressBooks\Admin\Analytics\add_network_menu' );
 add_action( 'admin_init', '\PressBooks\Admin\Analytics\network_analytics_settings_init' );
-if ( \PressBooks\Book::isBook() && get_site_option( 'ga_mu_site_specific_allowed' ) && SUBDOMAIN_INSTALL ) {
+if ( \PressBooks\Book::isBook() && get_site_option( 'ga_mu_site_specific_allowed' ) ) {
 	add_action( 'admin_menu', '\PressBooks\Admin\Analytics\add_menu' );
 	add_action( 'admin_init', '\PressBooks\Admin\Analytics\analytics_settings_init' );
 }
