@@ -203,15 +203,13 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 = 3.1.2 =
 * Requires WordPress 4.4.1.
 * Added internal links (anchors) to the built in 'Insert/edit Link' dialog.
+* Added admin notices to indicate the success or failure of some AJAX actions which do not produce a visible result.
 * Fixed an issue with EPUB validation introduced by WordPress 4.4's implementation of the srcset attribute.
 * Fixed an issue where a dynamically-generated webBook stylesheet would be erroneously loaded.
 * Fixed an issue with image paths in Luther webBook stylesheet (props to @bdolor for the bug report).
 * Fixed an issue that caused ODT exports to fail in a particularly undignified manner.
-* Expanded test suites.
-
-= 3.1.2 =
-* Added admin notices to indicate the success or failure of some AJAX actions which do not produce a visible result.
 * Fixed an issue where PDF themes would not be imported for editing properly when using the Pressbooks Custom CSS theme.
+* Expanded test suites.
 
 = 3.1.1 =
 * Fixed an issue where custom web book themes would not be properly loaded.
