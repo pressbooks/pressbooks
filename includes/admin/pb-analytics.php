@@ -240,21 +240,17 @@ function print_script() {
 	}
 	
 	if ( $network || $book ) {
-		$prefix = ''; ?>
-			<!-- Google Analytics -->
-			<script>
-				(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-				(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-				m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-				})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			<?php if ( $network ) { ?>ga('create', '<?php echo $ga_mu_uaid_network ?>', 'auto');
-				ga('send', 'pageview');
-			<?php } if ( $book ) { ?>
-				ga('create', '<?php echo $ga_mu_uaid ?>', 'auto', 'bookTracker');
-				ga('bookTracker.send', 'pageview');
-			<?php } ?>
-			</script>
-			<!-- End Google Analytics -->
-			<?php
+		$html = "<!-- Google Analytics -->\n<script>\n(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n";
+		if ( $network ) {
+			$html .= "ga('create', '". $ga_mu_uaid_network . "', 'auto');\n";
+			$html .= "ga('send', 'pageview');\n";
+		}
+		$html .= apply_filters( 'pb_ecommerce_tracking', ''; );
+		if ( $book ) {
+			$html .= "ga('create', '". $ga_mu_uaid_network . "', 'auto', 'bookTracker');";
+			$html .= "ga('bookTracker.send', 'pageview');";
+		}
+		$html .= "</script>\n<!-- End Google Analytics -->";
 	}
+	echo $html;
 }
