@@ -61,7 +61,7 @@ add_action( 'admin_body_class', '\PressBooks\Admin\Laf\disable_customizer');
 // Hacks
 add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
 
-// Analytics
+// Google Analytics
 add_action( 'network_admin_menu', '\PressBooks\Admin\Analytics\add_network_menu' );
 add_action( 'admin_init', '\PressBooks\Admin\Analytics\network_analytics_settings_init' );
 if ( \PressBooks\Book::isBook() ) {
