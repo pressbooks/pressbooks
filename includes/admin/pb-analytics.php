@@ -203,7 +203,30 @@ function analytics_ga_mu_site_specific_allowed_sanitize( $input ) {
 function display_network_analytics_settings() { ?>
 	<div class="wrap">
 		<h2><?php _e( 'Google Analytics', 'pressbooks' ); ?></h2>
-		<form method="POST" action="options.php">
+		<?php $nonce = ( @$_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
+		if ( !empty( $_POST ) ) {
+			if ( !wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
+			    die( 'Security check' ); 
+			} else {
+				if ( @$_REQUEST['ga_mu_maindomain' ] ) {
+					update_option( 'ga_mu_maindomain', $_REQUEST['ga_mu_maindomain' ] );
+				} else {
+					delete_option( 'ga_mu_maindomain' );
+				}
+				if ( @$_REQUEST['ga_mu_uaid' ] ) {
+					update_option( 'ga_mu_uaid', $_REQUEST['ga_mu_uaid' ] );
+				} else {
+					delete_option( 'ga_mu_uaid' );
+				}
+				if ( @$_REQUEST['ga_mu_site_specific_allowed' ] ) {
+					update_option( 'ga_mu_site_specific_allowed', $_REQUEST['ga_mu_site_specific_allowed' ] );
+				} else {
+					delete_option( 'ga_mu_site_specific_allowed' );
+				} ?>
+				<div id="message" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
+			<?php }
+		} ?>
+		<form method="POST" action="">
 			<?php settings_fields( 'pb_network_analytics' );
 			do_settings_sections( 'pb_network_analytics' ); ?>
 			<?php submit_button(); ?>
