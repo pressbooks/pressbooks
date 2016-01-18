@@ -6,6 +6,38 @@ use PressBooks\Container;
 
 class Admin_FontsTest extends \WP_UnitTestCase {
 
+	/**
+	 * Create and switch to a new test book
+	 */
+	private function _book() {
+
+		$blog_id = $this->factory->blog->create();
+		switch_to_blog( $blog_id );
+		switch_theme( 'pressbooks-book' );
+	}
+
+
+	/**
+	 * Create a temporary directory, no trailing slash!
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+	private function _createTmpDir() {
+
+		$temp_file = tempnam( sys_get_temp_dir(), '' );
+		if ( file_exists( $temp_file ) ) {
+			unlink( $temp_file );
+		}
+		mkdir( $temp_file );
+		if ( ! is_dir( $temp_file ) ) {
+			throw new \Exception( 'Could not create temporary directory.' );
+
+		}
+
+		return untrailingslashit( $temp_file );
+	}
+
 
 	/**
 	 * Override
@@ -31,7 +63,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 				->getMock();
 
 			$stub->method( 'pathToUserGeneratedCss' )
-				->willReturn( untrailingslashit( sys_get_temp_dir() ) );
+				->willReturn( $this->_createTmpDir() );
 
 			$stub->method( 'pathToPartials' )
 				->willReturn( PB_PLUGIN_DIR . 'assets/scss/partials' );
@@ -66,6 +98,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 	 */
 	public function test_fix_missing_font_stacks() {
 
+		$this->_book();
 		\PressBooks\Admin\Fonts\fix_missing_font_stacks();
 		$this->assertTrue( true );
 	}
