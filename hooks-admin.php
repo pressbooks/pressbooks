@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) )
 
 require( PB_PLUGIN_DIR . 'includes/admin/pb-dashboard.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-laf.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-analytics.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-metaboxes.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-customcss.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-network-managers.php' );
