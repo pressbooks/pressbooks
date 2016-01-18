@@ -45,21 +45,6 @@ function network_analytics_settings_init() {
 		$_page
 	);
 	add_settings_field(
-		'ga_mu_maindomain',
-		__( 'Network Domain', 'pressbooks' ),
-		__NAMESPACE__ . '\analytics_ga_mu_maindomain_callback',
-		$_page,
-		$_section,
-		array(
-			__( 'Your network domain e.g. &lsquo;.pressbooks.com&rsquo;. The domain must start with a dot.', 'pressbooks' )
-		)
-	);
-	register_setting(
-		$_page,
-		'ga_mu_maindomain',
-		__NAMESPACE__ . '\analytics_ga_mu_maindomain_sanitize'
-	);
-	add_settings_field(
 		'ga_mu_uaid',
 		__( 'Google Analytics ID', 'pressbooks' ),
 		__NAMESPACE__ . '\analytics_ga_mu_uaid_callback',
@@ -130,19 +115,6 @@ function analytics_settings_section_callback() {
 	echo '<p>' . __( 'Google Analytics settings.', 'pressbooks' ) . '</p>';
 }
 
-
-/**
- * Analytics settings, ga_mu_maindomain field callback
- *
- * @param $args
- */
-function analytics_ga_mu_maindomain_callback( $args ) {
-	$ga_mu_maindomain = get_option( 'ga_mu_maindomain' );		
-	$html = '<input type="text" id="ga_mu_maindomain" name="ga_mu_maindomain" value="' . $ga_mu_maindomain . '" />';
-	$html .= '<p class="description">' . $args[0] . '</p>';
-	echo $html;
-}
-
 /**
  * Analytics settings, ga_mu_uaid field callback
  *
@@ -165,16 +137,6 @@ function analytics_ga_mu_site_specific_allowed_callback( $args ) {
 	$html = '<input type="checkbox" id="ga_mu_site_specific_allowed" name="ga_mu_site_specific_allowed" value="1"' . checked( $ga_mu_site_specific_allowed, '1', false ) . '/>';
 	$html .= '<p class="description">' . $args[0] . '</p>';
 	echo $html;
-}
-
-/**
- * Analytics settings, ga_mu_maindomain field sanitization
- *
- * @param $input
- * @return string
- */
-function analytics_ga_mu_maindomain_sanitize( $input ) {
-	return sanitize_text_field( $input );
 }
 
 /**
@@ -208,11 +170,6 @@ function display_network_analytics_settings() { ?>
 			if ( !wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
 			    die( 'Security check' ); 
 			} else {
-				if ( @$_REQUEST['ga_mu_maindomain' ] ) {
-					update_option( 'ga_mu_maindomain', $_REQUEST['ga_mu_maindomain' ] );
-				} else {
-					delete_option( 'ga_mu_maindomain' );
-				}
 				if ( @$_REQUEST['ga_mu_uaid' ] ) {
 					update_option( 'ga_mu_uaid', $_REQUEST['ga_mu_uaid' ] );
 				} else {
