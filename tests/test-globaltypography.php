@@ -2,6 +2,7 @@
 
 class GlobaltypographyTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
 
 	/**
 	 * @var \PressBooks\GlobalTypography()
@@ -15,17 +16,6 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->gt = new \PressBooks\GlobalTypography();
-	}
-
-
-	/**
-	 * Create and switch to a new test book
-	 */
-	private function _book() {
-
-		$blog_id = $this->factory->blog->create();
-		switch_to_blog( $blog_id );
-		switch_theme( 'donham' ); // Pick a theme with some built-in $supported_languages
 	}
 
 
@@ -53,7 +43,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 	 */
 	public function test_getThemeFontStacks() {
 
-		$this->_book();
+		$this->_book( 'donham' ); // Pick a theme with some built-in $supported_languages
 
 		$this->gt->updateGlobalTypographyMixin();
 		$this->assertNotEmpty( $this->gt->getThemeFontStacks( 'epub' ) );
@@ -67,7 +57,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 	 */
 	public function test_getThemeSupportedLanguages() {
 
-		$this->_book();
+		$this->_book( 'donham' ); // Pick a theme with some built-in $supported_languages
 
 		$supported_languages = $this->gt->getThemeSupportedLanguages();
 		$this->assertTrue( is_array( $supported_languages ) );
@@ -79,7 +69,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 	 */
 	public function test_updateWebBookStyleSheet() {
 
-		$this->_book();
+		$this->_book( 'donham' ); // Pick a theme with some built-in $supported_languages
 
 		$this->gt->updateWebBookStyleSheet();
 
