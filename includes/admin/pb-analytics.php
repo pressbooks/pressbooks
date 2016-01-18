@@ -11,8 +11,8 @@ namespace PressBooks\Admin\Analytics;
 function add_network_menu() {
 	add_submenu_page(
 		'settings.php',
-		__( 'Analytics', 'pressbooks' ),
-		__( 'Analytics', 'pressbooks' ),
+		__( 'Google Analytics', 'pressbooks' ),
+		__( 'Google Analytics', 'pressbooks' ),
 		'manage_network_options',
 		'pb_analytics',
 		__NAMESPACE__ . '\display_network_analytics_settings'
@@ -24,8 +24,8 @@ function add_network_menu() {
  */
 function add_menu() {
 	add_options_page(
-		__( 'Analytics', 'pressbooks' ),
-		__( 'Analytics', 'pressbooks' ),
+		__( 'Google Analytics', 'pressbooks' ),
+		__( 'Google Analytics', 'pressbooks' ),
 		'manage_options',
 		'pb_analytics',
 		__NAMESPACE__ . '\display_analytics_settings'
