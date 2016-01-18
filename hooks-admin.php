@@ -73,6 +73,8 @@ if ( \PressBooks\Book::isBook() ) {
 		add_action( 'admin_init', '\PressBooks\Admin\Analytics\analytics_settings_init' );
 	}
 }
+add_action( 'wp_head', '\PressBooks\Admin\Analytics\print_script');
+add_action( 'admin_head', '\PressBooks\Admin\Analytics\print_script');
 
 // Privacy, Ecommerce, and Export settings
 add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );
