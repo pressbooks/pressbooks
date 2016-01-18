@@ -245,7 +245,7 @@ function print_script() {
 			$html .= "ga('create', '". $ga_mu_uaid_network . "', 'auto');\n";
 			$html .= "ga('send', 'pageview');\n";
 		}
-		$html .= apply_filters( 'pb_ecommerce_tracking', ''; );
+		$html .= apply_filters( 'pb_ecommerce_tracking', '' );
 		if ( $book ) {
 			$html .= "ga('create', '". $ga_mu_uaid_network . "', 'auto', 'bookTracker');";
 			$html .= "ga('bookTracker.send', 'pageview');";
