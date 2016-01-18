@@ -74,7 +74,7 @@ function network_analytics_settings_init() {
 		'ga_mu_uaid',
 		__NAMESPACE__ . '\analytics_ga_mu_uaid_sanitize'
 	);
-	if ( SUBDOMAIN_INSTALL == true ) :
+	if ( SUBDOMAIN_INSTALL ) :
 		add_settings_field(
 			'ga_mu_site_specific_allowed',
 			__( 'Site-Specific Tracking', 'pressbooks' ),
