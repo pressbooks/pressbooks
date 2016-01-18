@@ -52,7 +52,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Admin\Fonts\update_font_stacks();
+	 * @covers \PressBooks\Admin\Fonts\update_font_stacks
 	 */
 	public function test_update_font_stacks() {
 
@@ -62,7 +62,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Admin\Fonts\fix_missing_font_stacks();
+	 * @covers \PressBooks\Admin\Fonts\fix_missing_font_stacks
 	 */
 	public function test_fix_missing_font_stacks() {
 
