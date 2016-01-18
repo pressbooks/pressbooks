@@ -66,7 +66,7 @@ add_action( 'network_admin_menu', '\PressBooks\Admin\Analytics\add_network_menu'
 add_action( 'admin_init', '\PressBooks\Admin\Analytics\network_analytics_settings_init' );
 if ( \PressBooks\Book::isBook() ) {
 	switch_to_blog( 1 );
-	$ga_mu_site_specific_allowed = get_option( 'ga_mu_site_specific_allowed' );
+	$ga_mu_site_specific_allowed = get_option( 'ga_mu_site_specific_allowed', '', false );
 	restore_current_blog();
 	if ( isset( $ga_mu_site_specific_allowed ) && $ga_mu_site_specific_allowed !== '' && $ga_mu_site_specific_allowed !== '0' ) {
 		add_action( 'admin_menu', '\PressBooks\Admin\Analytics\add_menu' );
