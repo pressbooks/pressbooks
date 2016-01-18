@@ -60,6 +60,14 @@ add_action( 'admin_body_class', '\PressBooks\Admin\Laf\disable_customizer');
 // Hacks
 add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
 
+// Google Analytics
+add_action( 'network_admin_menu', '\PressBooks\Admin\Analytics\add_network_menu' );
+add_action( 'admin_init', '\PressBooks\Admin\Analytics\network_analytics_settings_init' );
+if ( \PressBooks\Book::isBook() ) {
+	add_action( 'admin_menu', '\PressBooks\Admin\Analytics\add_menu' );
+	add_action( 'admin_init', '\PressBooks\Admin\Analytics\analytics_settings_init' );
+}
+
 // Privacy, Ecommerce, and Export settings
 add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );
 add_action( 'admin_init', '\PressBooks\Admin\Laf\ecomm_settings_init' );
