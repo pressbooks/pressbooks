@@ -62,7 +62,7 @@ add_action( 'admin_body_class', '\PressBooks\Admin\Laf\disable_customizer');
 add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
 
 // Google Analytics
-/* add_action( 'network_admin_menu', '\PressBooks\Admin\Analytics\add_network_menu' );
+add_action( 'network_admin_menu', '\PressBooks\Admin\Analytics\add_network_menu' );
 add_action( 'admin_init', '\PressBooks\Admin\Analytics\network_analytics_settings_init' );
 if ( \PressBooks\Book::isBook() ) {
 	switch_to_blog( 1 );
@@ -74,7 +74,7 @@ if ( \PressBooks\Book::isBook() ) {
 	}
 }
 add_action( 'wp_head', '\PressBooks\Admin\Analytics\print_script');
-add_action( 'admin_head', '\PressBooks\Admin\Analytics\print_script'); */
+add_action( 'admin_head', '\PressBooks\Admin\Analytics\print_script');
 
 // Privacy, Ecommerce, and Export settings
 add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );
