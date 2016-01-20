@@ -459,7 +459,7 @@ class BooksApi extends Api {
 				$book[$book_id]['book_id'] = $book_id;
 				$book[$book_id]['book_url'] = get_blogaddress_by_id( $book_id );
 				$book[$book_id]['book_meta'] = \PressBooks\Book::getBookInformation( intval( $book_id ) );
-				$book_structure = \PressBooks\Book::getBookStructure( intval( $book_id ) );
+				$book_structure = \PressBooks\Book::getBookStructure( intval( $book_id ), true );
 				$book[$book_id]['book_toc'] = $this->getToc( $book_structure, $book_id );
 			}
 		}
@@ -472,7 +472,7 @@ class BooksApi extends Api {
 			$book[$args['id']]['book_id'] = $args['id'];
 			$book[$args['id']]['book_url'] = get_blogaddress_by_id( $args['id'] );
 			$book[$args['id']]['book_meta'] = \PressBooks\Book::getBookInformation( intval( $args['id'] ) );
-			$book_structure = \PressBooks\Book::getBookStructure( intval( $args['id'] ) );
+			$book_structure = \PressBooks\Book::getBookStructure( intval( $args['id'] ), true );
 			$book[$args['id']]['book_toc'] = $this->getToc( $book_structure, $args['id'] );
 		}
 
