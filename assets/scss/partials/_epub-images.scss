@@ -43,7 +43,8 @@ div.wp-nocaption {
   page-break-inside: avoid !important;
 }
 
-/* ALIGNMENT */
+/* ALIGN CENTER, RIGHT AND LEFT IMAGES */
+/* FOR LEFT AND RIGHT, MAKE ENCLOSING DIV WIDTH=50%, AND STRETCH IMAGE TO WIDTH=100%*/
 
 .aligncenter,
 .wp-caption.aligncenter {
