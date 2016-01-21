@@ -1,13 +1,11 @@
 // SASS MIXINS -- PDF IMAGES
 
-
-
 /* ============================= 
 PDF IMAGES & CAPTIONS - STANDARD
 ================================ */
 
-
-/* CAPTIONS */
+/* CAPTIONS -  BASIC */
+/* FURTHER STYLING SHOULD BE DONE IN OTHER THEME FILES */
 
 p.wp-caption-text {
   font-size: 0.9em;
@@ -38,8 +36,7 @@ div.wp-nocaption {
   page-break-inside: avoid !important;
 }
 
-/* ALIGN CENTER, RIGHT AND LEFT IMAGES */
-/* FOR LEFT AND RIGHT, MAKE ENCLOSING DIV WIDTH=50%, AND STRETCH IMAGE TO WIDTH=100%*/
+/* ALIGN CENTER */
 
 .aligncenter,
 .wp-caption.aligncenter,
@@ -60,6 +57,8 @@ div.wp-nocaption {
   page-break-inside: avoid;
 }
  
+ /* ALIGN LEFT */ 
+ /* MAX-WIDTH IS SET TO 50% */ 
 .wp-caption.alignleft,
 .wp-nocaption.alignleft {
   max-width: 50%;
@@ -77,7 +76,9 @@ div.wp-nocaption {
   max-width: 100%; 
   page-break-inside: avoid;
 }
- 
+
+ /* ALIGN RIGHT */ 
+ /* MAX-WIDTH IS SET TO 50% */ 
 
 .wp-caption.alignright,
 .wp-nocaption.alignright {
