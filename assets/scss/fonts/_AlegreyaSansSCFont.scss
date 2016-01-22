@@ -1,0 +1,25 @@
+// 'Alegreya SC', @import 'AlegreyaSCFont'
+
+//ALEGREYA SANS SC
+//SANS-SERIF, SMALL-CAPS
+
+@font-face {
+  font-family: 'Alegreya Sans SC';
+  src: url(themes-book/pressbooks-book/fonts/AlegreyaSansSC-Medium.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Alegreya Sans SC';
+  src: url(themes-book/pressbooks-book/fonts/AlegreyaSansSC-Light.ttf) format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Alegreya Sans SC';
+  src: url(themes-book/pressbooks-book/fonts/AlegreyaSansSC-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}

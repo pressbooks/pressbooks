@@ -1,0 +1,32 @@
+// 'GFS Neohellenic', @import 'GFSNeohellenicFont'
+
+//GFSNEOHELLENIC
+//SANSSERIF, ANCIENT GREEK
+
+@font-face {
+  font-family: 'GFS Neohellenic';
+  src: url(themes-book/pressbooks-book/fonts/GFSNeohellenic.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'GFS Neohellenic';
+  src: url(themes-book/pressbooks-book/fonts/GFSNeohellenicItalic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'GFS Neohellenic';
+  src: url(themes-book/pressbooks-book/fonts/GFSNeohellenicBold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'GFS Neohellenic';
+  src: url(themes-book/pressbooks-book/fonts/GFSNeohellenicBoldItalic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: bold;
+}

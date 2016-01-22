@@ -1,0 +1,32 @@
+// 'Alegreya', @import 'AlegreyaFont'
+
+//ALEGREYA
+//SERIF
+
+@font-face {
+  font-family: 'Alegreya';
+  src: url(themes-book/pressbooks-book/fonts/Alegreya-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Alegreya';
+  src: url(themes-book/pressbooks-book/fonts/Alegreya-BoldItalic.ttf) format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Alegreya';
+  src: url(themes-book/pressbooks-book/fonts/Alegreya-Italic.ttf) format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Alegreya';
+  src: url(themes-book/pressbooks-book/fonts/Alegreya-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

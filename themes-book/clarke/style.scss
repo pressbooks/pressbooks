@@ -1,0 +1,48 @@
+@import 'mixins', 'fonts-web';
+
+body {
+  font-family: $font-1;
+  line-height: 1.5em;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* 
+	 HEADERS
+ =============== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-2;
+  font-variant: normal;
+  font-weight: bold;
+  line-height: 1.4em;
+  text-align: left;
+}
+
+h1 {
+  font-size: 1.5em;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+h3 {
+  font-size: 1.1em;
+}
+
+h2, h3, h4 {
+  font-style: normal;
+}
+
+/*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART  
+========================================================= */
+.entry-title {
+  border-top: 1px solid #666;
+  font-size: 1.4em;
+  font-weight: normal;
+  margin: 0.25em auto 1.25em;
+  padding: 15px 15px 0 0;
+  text-align: left;
+}

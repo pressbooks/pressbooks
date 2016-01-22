@@ -1,0 +1,273 @@
+/*
+This file must validate as CSS 2.01 with absolutely no errors
++ http://jigsaw.w3.org/css-validator/
++ http://idpf.org/epub/20/spec/OPS_2.0.1_draft.htm#Section3.0
+*/
+
+/* PRESSBOOKS EPUB FALL-BACK STYLESHEET FOR VARIOUS SPECIAL THINGS 
+in development
+copyright 2013-2014 Book Oven Inc. */
+
+@import 'tables', 'textboxes';
+
+/* HEADERS */
+
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6,
+h1.front-matter-title,
+h1.part-title,
+h2.chapter-title,
+h1.back-matter-title {
+	hyphens: none;
+	-webkit-hyphens: none;
+  page-break-after: avoid;
+}
+
+/* DISPLAY NONE 
+IN VARIOUS CIRCUMSTANCES 
+========================= */
+
+.display-none {
+	display: none;
+}
+
+/* this ONLY works/is declared in EPUB, ignored in MOBI & PDF */
+
+.epub-display-none,
+.not-epub {
+    display:none; 
+}
+.web-only {
+  display: none;
+}
+.pdf-only {
+  display: none;
+}
+
+/* This is used in the PDF to generate a short book title & chapter title for running headers 
+in the case that the chapter title is too long. It's spurious in the EPUB, should always be
+display: none; */
+
+.short-book-title {
+  display: none;
+}
+.short-title,
+h6.short-title {
+  display: none;
+}
+
+/* Invisible Parts are invisible */ 
+
+.part.invisible {
+	display: none;
+}
+
+/* Numberless chapters have no chapter numbers */ 
+
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
+
+/* Blank page ... this is to add a blank page in PDF ... */
+
+div.blank-page {
+  display: none;
+}
+
+/* PART NUMBER: DISPLAY NONE, NOT SURE IF WE SHOULD LEAVE THIS IN? */
+
+h3.part-number {
+  display: none;
+}
+
+/* SECTION BREAKS */
+
+div.ugc > h3.section-break {
+  text-align: center;
+  text-indent: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+div.ugc > h3.section-break-space {
+  visibility: hidden;
+  text-align: center;
+  text-indent: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+div.ugc > h3.section-break-page {
+  text-align: center;
+  text-indent: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  page-break-after: always;
+}
+
+/* PAGE-BREAKS */
+.page-break-after {
+  page-break-after: always;
+}
+
+.page-break-before {
+  page-break-before: always;
+}
+
+/* PARAGRAPH STYLING */
+
+.no-indent,
+p.no-indent,
+div.ugc p.no-indent,
+div.ugc.chapter-ugc p.no-indent,
+div.ugc > p.no-indent,
+div.chapter-ugc > p.no-indent,
+div.front-matter p.no-indent,
+div.back-matter p.no-indent,
+div.ugc p.indent.no-indent,
+div.ugc.chapter-ugc p.indent.no-indent {
+  text-indent: 0 !important;
+  margin-top: 1em !important;
+}
+
+
+body, 
+p {
+  widows: 2;
+}
+
+/* FOOTNOTES, ENDNOTES & SUPS */
+
+sup,
+sup.footnote {
+  font-size: 0.8em;
+  line-height: 1;
+}
+
+/* Footnote - internal "para" styling */
+span.fn_p {
+  display: block;
+  text-indent: 1.5em;
+}
+span.fn_blockquote {
+  display: block;
+  font-size: 0.95em;
+  margin-left: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* NO WRAP, NO HYPHENS */
+
+.nowrap, 
+span.nowrap {
+  white-space: nowrap;
+}
+
+.no-hyphens,
+span.no-hyphens,
+p.no-hyphens {
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
+/* TOC SECTIONS */ 
+
+#toc ul.sections {
+  padding-top: 0.5em !important;
+  padding-bottom: 0.5em !important;
+  margin-left: 2em !important;
+}
+
+#toc li.section {
+  font-style: italic;
+}
+
+/* TABLES */
+
+@include tables();
+
+table,
+table tr,
+table th {
+  page-break-inside: avoid !important;
+} 
+
+.no-border,
+table.no-border,
+table.no-border tbody,
+table.no-border th,
+table.no-border tr,
+table.no-border td,
+table.no-border tfoot,
+table.no-border thead {
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+} 
+
+/* TEXTBOXES */
+
+@include textboxes();
+
+/* INDEX  */
+
+.index .ugc {
+  text-align: left;
+  font-size: 0.9em;
+}
+
+div.index .ugc p,
+div.index .ugc p.indent,
+div.index .ugc p.nonindent,
+.index div + p {
+  padding-left: 1.5em !important;
+  text-indent: -1.5em !important;
+  text-align: left;
+}
+
+.index .ugc h3.section-break-space {
+  visibility: hidden;
+  text-align: center;
+  text-indent: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.index .ugc p.sub-entry {
+  padding-left: 2.5em;
+}
+
+/* DROPCAPS */ 
+
+span.firstcharacter {
+  font-weight: bold;
+  font-size: 2em;
+  line-height: 1 !important;
+  display: inline-block;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* SIDEBAR */
+
+div.sidebar {
+  width: 35%;
+  float: right;
+  margin-left: 0.75em;
+  margin-right: 0;
+  padding: 0.75em;
+  background-color: #E6E6E6; 
+  font-size: 0.8em;
+  font-style: italic;
+  text-align: left !important;
+}
+
+.clear {
+  clear: both;
+}

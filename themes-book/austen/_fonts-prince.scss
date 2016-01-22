@@ -1,0 +1,9 @@
+@import '_font-stack-prince'; // Dynamically generated
+
+$serif-prince: serif !default;
+
+$font-1: "Sorts Mill Goudy", $serif-prince;
+$font-2: "Marcellus SC", $serif-prince;
+
+@import 'SortsMillGoudyFont';
+@import 'MarcellusSCFont';

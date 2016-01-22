@@ -1,0 +1,16 @@
+== Contributors ==
+
+ * Book Oven Inc. (code@pressbooks.com)
+
+ * Arik (https://twitter.com/wastemobile)
+ * Brad Payne (https://github.com/bdolor)
+ * Nick Ciske
+ * Daisuke Muro
+ * Israel Cerfin (http://twitter.com/israelcefrin)
+ * John Rankin (http://www.wikipublisher.org)
+ * Karol Kallas
+ * Macina (https://twitter.com/MenahemMacina)
+ * Michael Giesler
+ * Ron
+ * Silvia (https://twitter.com/larusalka)
+ * Wendell Norman

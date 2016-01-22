@@ -1,0 +1,79 @@
+$edu-header-text-color: #fff !default;
+$learning-objectives-background: #F7F7F9 !default;
+$learning-objectives-header-background: #111111 !default;
+$key-takeaways-background: #EAF5EA !default;
+$key-takeaways-header-background: #3A7A33 !default;
+$exercises-background: #E3EFF6 !default;
+$exercises-header-background: #0B6396 !default;
+$examples-background: #F3E1E3 !default;
+$examples-header-background: #7A333A !default;
+
+@mixin educational-textbox() {
+	border-radius: 4px;
+	margin-bottom: 15px;
+	padding: 2% 3%;
+	margin-inside: auto;
+  	margin-outside: auto;
+  	float: none;
+	h3 {
+	    color: $edu-header-text-color;
+		margin: -2% -3% 15px;
+		padding: 15px 0;
+		text-align: center;
+	}
+}
+
+@mixin textboxes() {
+	.textbox {
+		border: 1px solid #000;
+		margin: 10px 0;
+		padding: 10px;
+		p {
+			margin-top: 0;
+		}
+		&.shaded { // Shaded
+			background-color: #eee;
+		}
+		&.learning-objectives { // Learning Objectives
+			@include educational-textbox();
+			background-color: $learning-objectives-background;
+			h3 {
+				border-top-left-radius: 4px;
+    			border-top-right-radius: 4px;
+				background-color: $learning-objectives-header-background;
+			}
+		}
+		&.key-takeaways { // Key Takeaways
+			@include educational-textbox();
+			background-color: $key-takeaways-background;
+			h3 {
+				border-top-left-radius: 4px;
+    			border-top-right-radius: 4px;
+				background-color: $key-takeaways-header-background;
+			}
+		}
+		&.exercises { // Exercises
+			@include educational-textbox();
+			background-color: $exercises-background;
+			h3 {
+				border-top-left-radius: 4px;
+    			border-top-right-radius: 4px;
+				background-color: $exercises-header-background;
+			}
+		}
+		&.examples { // Examples
+			@include educational-textbox();
+			background-color: $examples-background;
+			h3 {
+				border-top-left-radius: 4px;
+    			border-top-right-radius: 4px;
+				background-color: $examples-header-background;
+			}
+		}
+	}
+	.textbox-caption {
+		display: block;
+		font: bold 0.875em Helvetica, Arial;
+		margin: 0;
+	}
+}

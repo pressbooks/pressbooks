@@ -1,0 +1,10 @@
+@import '_font-stack-prince'; // Dynamically generated
+
+$serif-prince: serif !default;
+$sans-serif-prince: sans-serif !default;
+
+$font-1: "Crimson Text", "Times New Roman", $serif-prince;
+$font-2: "Roboto Condensed", $sans-serif-prince;
+
+@import 'CrimsonTextFont';
+@import 'RobotoCondensedFont';

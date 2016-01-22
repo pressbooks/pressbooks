@@ -1,0 +1,25 @@
+// 'Open Sans Condensed', @import 'OpenSansCondensedFont'
+
+//OPEN SANS CONDENSED
+//SANS-SERIF, CLEAN
+
+@font-face {
+  font-family: 'Open Sans Condensed';
+  src: url(themes-book/pressbooks-book/fonts/OpenSans-CondLight.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'Open Sans Condensed';
+  src: url(themes-book/pressbooks-book/fonts/OpenSans-CondBold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Open Sans Condensed';
+  font-style: italic;
+  font-weight: normal;
+  src: url(themes-book/pressbooks-book/fonts/OpenSans-CondLightItalic.ttf) format('truetype');
+}

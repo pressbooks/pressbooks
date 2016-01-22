@@ -1,0 +1,25 @@
+https://git-scm.com/docs/git-submodule
+
+When in doubt:
+
+    cd /var/www/pressbooks/wp-content/plugins/pressbooks
+    git submodule init
+    git submodule update
+
+Add a submodule:
+
+    cd /var/www/pressbooks/wp-content/plugins/pressbooks
+    git submodule add ssh://bla submodule_dir
+    git submodule init
+    git update
+
+Update submodules to latest version:
+
+    cd /var/www/pressbooks/wp-content/plugins/pressbooks
+    git submodule foreach git pull origin master
+    git commit -am "Updated submodules"
+
+
+
+
+

@@ -1,0 +1,37 @@
+/* Organize Page */
+body.chapter_page_pressbooks #publicize-panel h4 {
+  font-size: 15px;
+  font-weight: normal; }
+  body.chapter_page_pressbooks #publicize-panel h4 span {
+    font-weight: bold;
+    padding: 2px 3px;
+    margin: 15px 0 5px;
+    text-transform: uppercase; }
+  body.chapter_page_pressbooks #publicize-panel h4.private span {
+    background-color: #FFDEDD; }
+  body.chapter_page_pressbooks #publicize-panel h4.public span {
+    background-color: #E0EDC1; }
+body.chapter_page_pressbooks #publicize-panel .publicize-form label {
+  display: block; }
+  body.chapter_page_pressbooks #publicize-panel .publicize-form label:first-child {
+    margin-bottom: 10px; }
+  body.chapter_page_pressbooks #publicize-panel .publicize-form label span.active {
+    font-weight: bold; }
+body.chapter_page_pressbooks .widefat {
+  margin-top: 10px; }
+  body.chapter_page_pressbooks .widefat .delete-link {
+    color: #fc091b; }
+  body.chapter_page_pressbooks .widefat thead tr th {
+    font-weight: bold; }
+  body.chapter_page_pressbooks .widefat tbody tr td {
+    vertical-align: middle; }
+    body.chapter_page_pressbooks .widefat tbody tr td span.comment-count {
+      width: auto !important;
+      float: none; }
+  body.chapter_page_pressbooks .widefat tbody tr.ui-state-highlight {
+    background: #e9e9e9;
+    color: #333;
+    height: 1.5em;
+    line-height: 1.2em; }
+body.chapter_page_pressbooks #loader {
+  display: none; }

@@ -1,0 +1,39 @@
+// 'Open Sans', @import 'OpenSansFont'
+
+//OPEN SANS
+//SANS-SERIF, CLEAN
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url(themes-book/pressbooks-book/fonts/OpenSans-Regular.ttf) format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url(themes-book/pressbooks-book/fonts/OpenSans-Italic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url(themes-book/pressbooks-book/fonts/OpenSans-Bold.ttf) format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url(themes-book/pressbooks-book/fonts/OpenSans-Light.ttf) format('truetype');
+  font-style: normal;
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url(themes-book/pressbooks-book/fonts/OpenSans-LightItalic.ttf) format('truetype');
+  font-style: italic;
+  font-weight: 300;
+}

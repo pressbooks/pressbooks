@@ -1,0 +1,115 @@
+@import 'mixins', 'fonts-web';
+
+body {
+  font-family: $font-1;
+  line-height: 1.5em;
+}
+
+a {
+  text-decoration: none;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-2;
+  font-variant: normal;
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 1.3em;
+}
+
+h1, h2 {
+  text-align: left;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+h2, h3, h4 {
+  font-style: normal;
+}
+
+h3, h4 {
+  text-transform: uppercase;
+}
+
+/****************************************
+	TOC, Author page, Book Page
+*****************************************/
+
+#inline-toc h4 {
+  font-family: inherit;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: left;
+  text-transform: none;
+}
+
+.page-title {
+  font-weight: normal;
+}
+
+/****************************************
+	Structure
+*****************************************/
+
+/****************************************
+	Title, Subtitle, Authors & Aphorism
+*****************************************/
+.entry-title {
+  font-weight: normal;
+  text-align: left;
+  margin: 100px 0 80px;
+}
+
+.entry-title span {
+  border-bottom: 1px solid #333;
+  padding: 0 0.2em 0.3em;
+  text-align: center;
+  width: 20%;
+}
+
+.chapter_subtitle {
+  font-size: 1em;
+  font-style: italic;
+  font-weight: normal;
+  margin: -80px 0 100px;
+  line-height: 1.4em;
+}
+
+.chapter_author {
+  font-family: $font-1;
+  font-style: italic;
+  font-weight: normal;
+  margin: -70px 0 100px;
+
+}
+
+.chapter_subtitle + .chapter_author {
+  margin-top: -80px;
+}
+
+.aphorism {
+  margin-bottom: 80px;
+  margin-left: 100px;
+  margin-top: -80px;
+  padding: 0;
+  text-align: right;
+}
+
+.aphorism cite {
+  float: none;
+}
+
+/*************************
+	Footnotes & Endnote
+**************************/
+.endnotes h3 {
+  text-align: left;
+  text-indent: 0;
+  text-transform: none;
+}
+

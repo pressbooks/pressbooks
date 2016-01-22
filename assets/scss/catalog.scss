@@ -1,0 +1,80 @@
+@import 'partials/colors';
+
+.postbox {
+	h4 {
+		font-size: #{(15/13)}em;
+		font-weight: normal;
+	}
+	h5 {
+		font-size: 1.1em;
+		margin: 0;
+	}
+	p {
+		margin: 0 0 10px 28px;
+	}
+}
+
+.assistive-text {
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+}
+ 
+@font-face {
+	font-family: "catalog-page";
+	src:url("../fonts/catalog-page.eot");
+	src:url("../fonts/catalog-page.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/catalog-page.ttf") format("truetype"),
+    url("../fonts/catalog-page.svg#catalog-page") format("svg"),
+    url("../fonts/catalog-page.woff") format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+ 
+[data-icon] {
+   margin-right: 5px;
+   &:before {
+		font-family: "catalog-page";
+		font-style: normal;
+		font-weight: normal;
+		font-size: 1em; 
+		content: attr(data-icon);  
+		speak: none;
+		line-height: 2.2;
+		-webkit-font-smoothing: antialiased;
+		background-color: #ededed;
+		border-radius: 100px;
+		padding: 5px;     
+	}	
+	&.yes-icon {
+	  color: $green;
+	}
+	&.no-icon {
+		color: $red;
+	}
+}
+
+#add-by-url {
+	float: right;
+}
+
+.wp-list-table {
+	.column-status, .column-cover {
+		width: 10%;
+	}
+	.column-title {
+		width: 25%;
+	}
+	.column-cover img {
+		border: 1px solid #ddd;
+		width: 65px;
+	}
+	.column-title span.title {
+		font-size: 1.1em;
+		font-weight: bold;
+	}
+}
+
+.form-table textarea {
+	width: 500px;
+}

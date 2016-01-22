@@ -1,0 +1,460 @@
+
+/* PRESSBOOKS MOBI FALL-BACK STYLESHEET ... OVERRIDES JUST ABOUT EVERYTHING
+copyright 2013-2014 Book Oven Inc. 
+Version:  2.0 
+*/
+
+/* embedded fonts broken = ornament fonts broken, so replace them in KF8 */
+
+@media amzn-kf8 {
+   .chapter-title-wrap h2.chapter-title::before {
+      content: "";
+   }
+
+   .chapter-title-wrap h2.chapter-title::after {
+      content: "";
+   }
+  
+   #title-page h1.title::before {
+         content: "";
+   }
+   
+   #title-page h1.title::after {
+         content: "";
+   }
+}
+
+
+/* MOBI, oh how we love you mobi ... */ 
+
+/* publogo begone in mobi ... styling not working */
+
+@media amzn-mobi { 
+  
+    div.pb-publogo-wrap {
+        display: none;
+    }
+    img.pb-publogo {
+        display: none;
+    }
+    img.pb-publogo-wide {
+        display: none;
+    }
+    .wp-caption {
+      text-align: center;
+    }
+    .wp-nocaption {
+      text-align: center;
+    }
+    p.wp-caption-text {
+      font-size: 0.8em !important;
+      font-style: italic !important;
+      margin-bottom: 1em !important;
+      text-align: center !important;
+    }
+}
+
+/* toc page styling */
+
+@media amzn-mobi { 
+  
+   #toc {
+      font-style: normal;
+      font-weight: normal;
+      border: 0px;
+      text-align: left;
+   }
+   #toc h1 {
+        font-size: 1em;
+        font-style: normal;
+        font-weight: normal;    
+   }
+   span.chapter-author {
+        display: none;
+   }
+   span.chapter-subtitle {
+      display: none;
+   }
+   span.toc-chapter-title {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 1em;
+       text-align: left;
+   }
+   li.front-matter {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 0.9em;
+   }
+   li.part {
+      font-weight: bold;
+      font-size: 1.25em;
+      text-align: left;
+      margin-top: 1em;
+   }
+   li.chapter {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 1em;
+   }
+   li.back-matter {
+      font-weight: bold;
+      font-size: 0.9em;
+      text-align: left;
+      margin-top: 1em;
+   }
+   #toc a {
+      font-style: normal;
+      font-weight: normal;
+   }
+   #toc ul .front-matter,
+   #toc ul .back-matter {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 1em;
+   }
+   #toc .front-matter {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 1em;
+   }
+   #toc .back-matter {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 1em;
+   }
+   #toc .part {
+      font-weight: bold;
+      margin-top: 1em;
+   }
+   #toc li {
+       font-style: normal;
+       font-weight: normal;
+       font-size: 1em;
+   }
+}
+
+/* this ONLY works/is declared in MOBI, ignored in EPUB & PDF */
+
+@media amzn-mobi { 
+   .mobi-display-none {
+       display:none; 
+    }
+}
+/* standard styling for mobi */
+
+@media amzn-mobi { 
+
+    body {
+        font-family: serif;
+        font-style: normal;
+        font-weight: normal;
+    }
+    p,
+    .ugc p,
+    .chapter-ugc p {
+        font-family: serif;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 1em;
+        text-align: justify;
+    }
+
+    .nonindent,
+    .no-indent,
+    p.nonindent,
+    p.no-indent,
+    div.ugc p.no-indent,
+    div.ugc p.nonindent {
+        font-size: 1em;
+        text-indent: 0;
+        margin-top: 0.5em;
+        font-family: serif;
+        font-style: normal;
+        font-weight: normal;
+        text-align: justify;
+    }
+
+    .indent,
+    p.indent,
+    div.ugc p.indent {
+        font-size: 1em;
+        text-indent: 1.5em;
+        margin-top: 0em;
+        font-family: serif;
+        font-style: normal;
+        font-weight: normal;
+        text-align: justify;
+    }
+
+    .front-matter-ugc p.indent,
+    .front-matter-ugc p.nonindent,
+    .front-matter-ugc p.no-indent {
+        font-size: 1em;
+        font-family: serif;
+        font-style: normal;
+        font-weight: normal;
+        text-align: justify;
+    }
+    .back-matter-ugc p.indent,
+    .back-matter-ugc p.nonindent,
+    .back-matter-ugc p.no-indent {
+        font-size: 1em;
+        font-family: serif;
+        font-style: normal;
+        font-weight: normal;
+        text-align: justify;
+    }
+}
+
+/* headers */
+
+@media amzn-mobi { 
+
+    h1 {
+        font-weight: bold;
+        font-style: normal;
+        font-size: 1.4em;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        text-align: center;
+    }
+    h2 {
+        font-weight: bold;
+        font-style: normal;
+        font-size: 1.3em;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        text-align: center;
+    }   
+    h3 {
+        font-weight: bold;
+        font-style: normal;
+        font-size: 1.2em;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        text-align: center;
+    }
+    h4 {
+        font-weight: normal;
+        font-style: normal;
+        font-size: 1.1em;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        text-align: center;
+    }
+    h5 {
+        font-weight: bold;
+        font-style: normal;
+        font-size: 1em;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        text-align: center;
+    }
+    h6 {
+        font-weight: normal;
+        font-style: normal;
+        font-size: 0.9em;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+        text-align: center;
+    }
+}
+ 
+ /* blockquotes & textboxes */
+ @media amzn-mobi { 
+
+    div.textbox {
+      margin: 5%;
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+    }
+
+    p.bl_nonindent {
+        margin-left: 10%;
+        text-indent: 0;
+        font-size: 0.9em;
+        font-weight: normal;
+        font-style: normal;
+    }
+    p.bl_indent {
+        margin-left: 10%;
+        text-indent: 1.5em;
+        font-size: 0.9em;
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    blockquote,
+    .blockquote {
+        margin-left: 10%;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    .ugc.chapter-ugc.textbox {
+      border-top: 1px solid black;
+      margin-left: 10%;
+      padding-left: 10%;
+      margin-right: 5%;
+      margin-top: 1.5em;
+      margin-bottom: 1.5em;
+      font-size: 0.9em;
+      font-style: italic;
+    }
+
+    .ugc.chapter-ugc.textbox p.nonindent,
+    .ugc.chapter-ugc.textbox p.indent {
+        margin-left: 10%;
+        margin-right: 5%;
+        font-size: 0.9em;
+        font-style: italic;
+    }
+
+    ul, ol {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+}
+
+/* title page */ 
+
+@media amzn-mobi { 
+  
+    h1.title {
+        font-size: 2em;
+        margin-top: 2em;
+        font-weight: normal;
+        font-style: normal;
+    }
+    h2.subtitle {
+        font-size: 1em;
+        font-weight: normal;
+        font-style: normal;
+    }
+    h3.author {
+        font-weight: normal;
+        font-style: normal;
+    }
+    h4.publisher {
+        font-weight: normal;
+        font-style: normal;
+    }
+    h5.publisher-city {
+        font-weight: normal;
+        font-style: normal;
+    }
+
+}
+
+/* FRONT-MATTER STYLING 
+======================= */
+
+@media amzn-mobi { 
+  
+  #copyright-page {
+    margin: 10%;
+    font-style: normal;
+    font-family: normal;
+    text-indent: 0;
+  }
+
+  #copyright-page p {
+    font-size: 0.875em;
+    font-style: normal;
+    font-family: normal;
+    text-indent: 0;
+    margin-bottom: 0.5em;
+  }
+
+}
+
+/* chapter titles */
+
+@media amzn-mobi { 
+
+  div.chapter-title-wrap {
+      font-size: 1.5em;
+      margin-top: 0em;
+      margin-bottom: 0em;
+    }
+  
+  h1.front-matter-title {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.4em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+  h3.part-number {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.3em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+  h1.part-title {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.4em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+  h3.chapter-number {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.2em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+  h2.chapter-title {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+  }
+  h2.chapter-subtitle {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 0.9em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    text-align: center; 
+  }
+  h2.chapter-author {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 0.8em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    text-align: center; 
+  }
+  h1.back-matter-title {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 1.3em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-align: center;
+   }
+ }
+
+ /* Other styling */ 
+
+@media amzn-mobi { 
+  ul {
+    text-align: left !important;
+  }
+  ol {
+    text-align: left !important;
+  }
+  li {
+    text-align: left !important;
+  }
+}

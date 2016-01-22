@@ -1,0 +1,25 @@
+// 'Old Standard TT', @import 'OldStandardTTFont'
+
+//OLD Standard
+//DISPLAY, SERIF
+
+@font-face {
+  font-family: 'Old Standard TT';
+  font-style: normal;
+  font-weight: 400;
+  src: url(themes-book/pressbooks-book/fonts/OldStandard-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Old Standard TT';
+  font-style: normal;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/OldStandard-Bold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Old Standard TT';
+  font-style: italic;
+  font-weight: 400;
+  src: url(themes-book/pressbooks-book/fonts/OldStandard-Italic.ttf) format('truetype');
+}

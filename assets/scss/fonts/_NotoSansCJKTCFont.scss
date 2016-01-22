@@ -1,0 +1,26 @@
+// 'Noto Sans CJK TC', @import 'NotoSansCJKTCFont'
+
+
+// NOTO SANS CJK TC
+// TRADITIONAL CHINESE FONT
+
+@font-face {
+  font-family: 'Noto Sans CJK TC';
+  font-style: normal;
+  font-weight: 200;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansCJKtc-Light.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK TC';
+  font-style: normal;
+  font-weight: 400;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansCJKtc-Regular.otf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans CJK TC';
+  font-style: normal;
+  font-weight: bold;
+  src: url(themes-book/pressbooks-book/fonts/NotoSansCJKtc-Bold.otf) format('truetype');
+}

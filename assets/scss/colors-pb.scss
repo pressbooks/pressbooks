@@ -1,0 +1,129 @@
+@import 'partials/colors';
+
+$base-color:						$medium-grey;
+$icon-color:						$black;
+$highlight-color:					$lightest-grey;
+$notification-color:				$light-grey;
+$button-color:						$red;
+$text-color:						$black;
+$body-background:					$lightest-grey;
+$link:								$dark-red;
+$link-focus:						$red;
+$form-checked:						$red;
+$menu-background:					$medium-grey;
+$menu-text:							$black;
+$menu-icon:							$black;
+$menu-highlight-background:			$lightest-grey;
+$menu-highlight-text:				$red;
+$menu-highlight-icon:				$red;
+$menu-current-background:			$dark-grey;
+$menu-current-text:					$white;
+$menu-current-icon:					$white;
+$menu-submenu-background:			$white;
+$menu-submenu-text:					$black;
+$menu-submenu-background-alt:		$white;
+$menu-submenu-focus-text:			$red;
+$menu-submenu-current-text:			$black;
+$menu-bubble-background:			$light-grey;
+$menu-bubble-text:					$black;
+$menu-bubble-current-background:	$white;
+$menu-bubble-current-text:			$red;
+$menu-collapse-text:				$black;
+$menu-collapse-icon:				$black;
+$menu-collapse-focus-text:			$red;
+$menu-collapse-focus-icon:			$red;
+$adminbar-avatar-frame:				$white;
+$adminbar-input-background:			$white;
+
+@import "../../../../../wp-admin/css/colors/_admin.scss";
+
+/* Core UI */
+
+.notice-success, div.updated {
+    border-color: $green;
+}
+
+.notice-warning {
+    border-color: $orange;
+}
+
+.notice-error, div.error {
+    border-color: $bright-red;
+}
+
+.notice-info {
+    border-color: $blue;
+}
+
+.plugin-update-tr.active td, .plugins .active th.check-column {
+	border-color: $red;
+}
+
+.plugins .active td, .plugins .active th {
+	background: $pink;
+}
+
+/* Admin Menu */
+
+#adminmenu li.current:hover div.wp-menu-image:before,
+#adminmenu li.wp-menu-open:hover div.wp-menu-image:before {
+	color: $white;
+}
+
+/* Admin Bar */
+
+#wpadminbar {
+	color: $white;
+	background: $dark-red;
+	.ab-item,
+	a.ab-item,
+	&> #wp-toolbar span.ab-label,
+	&> #wp-toolbar span.noticon {
+		color: $white;
+	}
+	.ab-icon,
+	.ab-icon:before,
+	.ab-item:before,
+	.ab-item:after {
+		color: $white;
+	}
+	#wp-admin-bar-menu-toggle .ab-item {
+		background: $dark-red;
+		.ab-icon,
+		.ab-icon:before {
+			color: $white;
+		}
+		&:hover, &:active {
+			background: $white;
+			.ab-icon,
+			.ab-icon:before {
+				color: $red;
+			}
+		}
+		&[aria-expanded="true"] {
+			background: $white;
+			.ab-icon,
+			.ab-icon:before {
+				color: $dark-red;
+			}
+			&:hover, &:active {
+				.ab-icon,
+				.ab-icon:before {
+					color: $red;
+				}
+			}
+		}
+	}
+}
+
+/* Themes */
+
+.theme-browser .theme.active .theme-name,
+.theme-browser .theme.add-new-theme a:hover:after,
+.theme-browser .theme.add-new-theme a:focus:after {
+	background: $dark-red;
+}
+
+.theme-browser .theme.active .theme-actions {
+	background: transparent;
+}

@@ -1,0 +1,584 @@
+@import 'mixins', 'fonts-epub', 'epub-house-style';
+
+body {
+	font-family: $font-1;
+	line-height: 1.5em;
+}	 
+a {
+	color: #00e;
+	text-decoration: none;
+}
+
+/* 
+	 HEADERS
+ =============== */
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1.4em;
+}
+
+
+/*  DEFAULT STYLES 
+ =================== */
+p {
+	margin: 0;
+}
+p + p,
+.indent {
+	text-indent: 2em;
+	margin-top: 0;
+}
+.nonindent,
+.no-indent {
+	text-indent: 0;
+}
+
+p + ul {
+	margin-top: 10px;
+}
+hr {
+	margin: 10px auto;
+	text-align: center;
+	width: 20%;
+}
+hr.break-symbols {
+	border: none;
+	font-size: 1.1em;
+	margin-bottom: 20px;
+}
+hr.break-symbols:after {
+	display: block;
+	content: "\2725";
+	text-align: center;
+}
+table {
+	border: 1px solid #000;
+	border-width: 1px 0;
+}
+dt {
+	float: left;
+	font-weight: bold;
+	margin-right: 5px;
+	margin-bottom: 0;
+}
+dd {
+	margin-bottom: 0;
+}
+ol {
+	padding-left: 2em;	
+}
+
+ul {
+	list-style: disc;
+ 	padding-left: 30px;	
+}
+ul ul,
+ul ul ul {
+	list-style-type: none;
+}
+ul li li {
+	list-style-image: url('images/em-dash.png');
+
+}
+ul li li li {
+	list-style-image: url('images/asterisk.png');
+}
+table {
+	border-collapse: collapse;
+	margin-bottom: 30px;
+	text-align: left;
+	width:100%;
+}
+th {
+    border-bottom: 1px solid #333;
+    padding: 10px 10px 5px;
+}
+td {
+    border-top: 1px solid #333;
+    padding: 10px;
+}
+
+dl { 
+	margin-bottom: 30px;
+}
+dt {
+	color:#333;
+	font-weight: bold;
+}
+dd {
+	margin-bottom: 20px;
+}
+cite {
+	font-weight: normal;
+}
+
+div.blockquote,
+blockquote {
+	border-width: 0 4px;
+	padding: 0 5%;
+	margin-bottom: 2em;
+}
+p.bl_nonindent {
+	margin: 2em 10% 0;
+	text-indent: 0;
+}
+p.bl_indent {
+	margin: 0 10%;
+	text-indent: 1em;
+}
+.hanging-indent {
+	padding-left: 1em;
+    text-indent: -1em;
+}
+
+/* TITLE PAGE
+======================= */
+#title-page {
+    text-align: center;
+    text-transform: uppercase;
+}
+#title-page > .title {
+	font-size: 2em;
+	margin-top: 10%;
+}
+#title-page > .subtitle {
+	font-size: 1.2em;
+	margin-top: 1em;
+}
+#title-page > .author {
+	font-size: 1em;
+	font-weight: normal;
+	margin-top: 6em;	
+}
+#title-page > .publisher {
+	font-size: 0.875em;
+	font-weight: normal;
+	margin-top: 12em;
+}
+#title-page > .publisher-city {
+	text-transform: capitalize;
+	font-size: 0.875em;
+	font-weight: normal;
+	margin-top: 0;
+}
+
+/* DEDICATION
+================ */
+.dedication > div.front-matter-ugc p {
+	text-align: center;
+}
+
+/* COPYRIGHT PAGE
+=================== */
+#copyright-page > div.ugc p {
+	font-size: 0.7em;
+    text-indent: 0;
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+/*  BODY TITLES
+ ================== */
+.ugc h1, 
+.ugc h2, 
+.ugc h3, 
+.ugc h4, 
+.ugc h5, 
+.ugc h6 {
+	margin-bottom: 1em;
+	page-break-after:avoid;	
+}
+.ugc.back-matter-ugc h1,
+.ugc.part-ugc h1,
+.ugc.chapter-ugc h1,
+.ugc.front-matter-ugc h1 {
+	font-size: 1.2em;
+}
+.ugc.back-matter-ugc h2,
+.ugc.part-ugc h2,
+.ugc.chapter-ugc h2,
+.ugc.front-matter-ugc h2 {
+	font-size: 1.1em;
+	font-weight: normal;
+}
+.ugc.back-matter-ugc h3,
+.ugc.part-ugc h3,
+.ugc.chapter-ugc h3,
+.ugc.front-matter-ugc h3 {
+	font-size: 0.75em;
+	font-weight: normal;
+	margin-left: 2em;
+	text-transform: uppercase;
+}
+.ugc.back-matter-ugc h4,
+.ugc.part-ugc h4,
+.ugc.chapter-ugc h4,
+.ugc.front-matter-ugc h4 {
+	font-size: 0.75em;
+	font-weight: normal;
+	text-transform: uppercase;
+}
+.ugc.back-matter-ugc h5,
+.ugc.part-ugc h5,
+.ugc.chapter-ugc h5,
+.ugc.front-matter-ugc h5 {
+	font-size: 1em;
+	margin-left: 2em;	
+}
+.ugc h1 + p,
+.ugc h2 + p,
+.ugc h3 + p,
+.ugc h4 + p,
+.ugc h5 + p {
+	margin-top: 0;
+}
+
+/*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART  
+========================================================= */
+.display-none, .front-matter-number, .back-matter-number {
+	display: none;
+}
+.part-title {
+    font-size: 1.4em;
+    line-height: 1.6em;
+    margin: 1.2em auto;
+    padding: 15px 15px 0 0;
+}
+.chapter-number {
+	font-size: 2.4em;
+	font-weight: normal;
+    line-height: 1.2em;
+    margin: 20px 0 -0.5em;
+}
+div.chapter.numberless h3.chapter-number {
+	display: none;
+}
+.part-title {
+	font-size: 2em;
+	text-transform: uppercase;
+}
+.front-matter-number,
+.front-matter-title,
+#toc > h1 {
+    font-size: 1.7em;
+	margin:1em 0 3em;
+	text-align: center;
+}
+.part-number {
+	font-weight: normal;
+	text-align: center;
+	
+}
+div.part-title-wrap > h3.part-number:before {
+	content: "part ";
+	text-transform: uppercase;
+
+}
+.part-title {
+	text-align: center;
+}
+.chapter-title-wrap {
+    font-size: 1.1em;
+	margin:1.6em auto 2.6em auto;
+	text-align: center;
+}
+.chapter-title-wrap .chapter-number,
+.chapter-title-wrap .chapter-title {
+	display: block;
+	text-transform: uppercase;
+}
+.chapter-title-wrap .chapter-title {
+	font-weight: normal;
+}
+.chapter-title-wrap .chapter-title:after {
+	content:""; 
+  height:1px;
+  border-bottom: 1px solid #000;
+  width:25%;
+  display:block;
+  margin: 0 auto;
+  margin-top: 20px;
+  
+}
+.chapter-title-wrap > .chapter-number {
+    font-size: 1.3em;
+	font-weight: normal;
+	padding-right: 10px;
+	margin-bottom: 3em;
+}
+
+
+
+/* TABLE OF CONTENT 
+ ===================== */
+#toc {
+	font-size: 1em;
+	text-align: left;
+}
+#toc ul > .front-matter,
+#toc ul > .back-matter {
+	font-style: italic;
+}
+#toc .part,
+#toc .front-matter + .chapter {
+	margin-top: 1.3em;
+}
+#toc a {
+	border: none;
+	color: #000;
+}
+#toc ul, #toc li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#toc ul {
+	line-height: 1.2em;
+}
+#toc a:after {
+  font-style: normal;
+  text-decoration: none;
+}
+#toc .part {
+	margin: 1em 0 0.4em;
+}
+#toc .chapter {
+	margin-right: 0.75em;	
+}
+#toc span.chapter-author {
+	font-style: italic;
+}
+#toc .chapter + .back-matter {
+	margin-top: 1.3em;
+}
+#toc span.chapter-author,
+#toc span.chapter-license,
+#toc span.chapter-subtitle {
+	display: block;
+	font-style: italic;
+	margin-left: 1em;
+}
+#toc span.chapter-author,
+#toc span.chapter-license,
+#toc span.chapter-subtitle {
+	margin-bottom: 5px;
+}
+#toc span.chapter-subtitle + 
+span.chapter-author,
+#toc span.chapter-subtitle + 
+span.chapter-license,
+span.chapter-author + 
+span.chapter-license {
+	margin-top: -5px;
+	margin-bottom: 5px;
+}
+
+/* IMAGES
+================== */
+img {
+	height: auto;
+  	max-width: 100%;
+}
+.alignleft {
+	float: left;
+	margin: 1em 1em 1em 0;
+}
+.alignright {
+	float: right;
+	margin: 1em 0 1em 1em;
+}
+.aligncenter {
+	display: block;
+	margin: 1em auto;
+	text-align: center;
+}
+div.aligncenter {
+	display: block;
+	margin: 1em auto;
+	text-align: center;
+}
+img.aligncenter {
+	display: block;
+	margin: 1em auto;
+	text-align: center;
+}
+.wp-caption {
+	height: auto;
+}
+.wp-caption-text {
+	font-size: 0.875em;
+	font-style: italic;
+	margin-top: 5px;
+}
+div.wp-caption.aligncenter,
+div.wp-caption.alignleft,
+div.wp-caption.alignright,
+div.wp-caption.alignnone {
+	/* Hack for "centering" problems on Kindle, Calibre, ... */
+	width: auto !important;
+}
+
+/* SUBTITLES, CHAPTER AUTHOR & APHORIMS
+======================================== */
+h2.chapter-subtitle {
+	font-weight: normal;
+	margin-bottom: 2.8em;
+    padding-top: 0.2em;	
+	text-align: center;
+	font-style: italic;
+	text-transform: capitalize;    
+}
+h2.chapter-author {
+	font-style: normal;
+	text-align: center;
+}
+h2.chapter-subtitle,
+h2.chapter-author {
+    font-size: 1.1em;
+    font-variant: normal;
+    margin: 0em 0 3em;
+}
+
+h2.chapter-subtitle + h2.chapter-author {
+	margin-top: -2em;
+}
+.aphorism {
+	font-size: 1em;
+    font-style: italic;
+    margin: 0 0 4em 50%;
+}
+.aphorism p {
+	text-align: right;
+}
+.aphorism cite {
+    display: block;
+   	font-size: 0.875em;
+    font-style: normal;
+    font-variant: small-caps;
+    text-align: right;
+}
+.aphorism cite:before {
+	content: "–";
+}
+
+/* ASIDES, PULLQUOTES & TEXTBOXES
+================================== */  
+aside {
+	font-style: italic;
+	border-top: 1px solid #000;
+	border-bottom: 1px solid #000;
+	margin: 2em 10%;
+    padding: 10px 0;	
+	text-indent: 0;
+}
+.textbox {
+	border: 1px solid #000;
+	margin: 10px 0;
+	padding: 10px;
+}
+.textbox.shaded {
+	background-color: #eee;
+}
+.textbox p {
+	margin-top: 0;
+}
+.textbox-caption {
+	display: block;
+	font-size: 0.9em;
+	font-weight: bold;
+	margin: 0;
+}
+.pullquote {
+	border: 1px solid #000;
+	border-width: 1px 0;
+	margin: 20px auto;
+	padding: 5px 0;
+	text-align: center;
+	width: 45%;
+}
+.pullquote-left {
+	border: 1px solid #000;
+	border-width: 1px 0;
+	float: left;
+	margin: 15px 15px 15px 0;
+	padding: 5px 0;
+	text-align: center;
+	width: 45%;
+}
+.pullquote-right {
+	border: 1px solid #000;
+	border-width: 1px 0;
+	float: right;
+	margin: 15px 0 15px 15px;
+	padding: 5px 0;
+	text-align: center;
+	width: 45%;
+}  
+
+/*  FOOTNOTES & ENDNOTES
+   ======================== */     
+.footnotes {
+	display: block;	
+    font-size: 0.875em;
+    margin: 20px 10px 40px 40px;
+}
+.footnotes-wrap {
+	list-style: none;
+	display: block;
+	margin: 10px 10px 10px 40px;
+}
+.footnotes p + p {
+	text-indent: 0;
+} 
+.footnotes .footnotes-wrap p {
+	text-indent: -1em;
+}
+.footnotes p a {
+	display: block;
+	text-decoration: none;
+}
+.endnotes hr {
+	border: none;
+	margin-top: 1cm;
+}
+.endnotes h3 {
+	margin-bottom: 0;
+}
+.endnotes ol {
+	font-size: 0.75pt;
+	margin-top: 5px;
+	margin-left: 0;
+}
+.endnotes li {
+	text-indent: 2em;
+}
+.endnotes p + p {
+	text-indent: 0;
+}	
+
+/* BIBLIOGRAPHY
+ =============== */
+.bibliography p  {
+	padding-left: 1em;
+	text-indent: -1em;
+}
+
+/* INDEX
+================== */
+.index .ugc  {
+	text-align: left;
+
+}
+.index .ugc  div {
+	margin-bottom: 4em;
+}
+.index > div.back-matter-ugc  p {
+	font-size: 0.75em;
+	padding-left: 14pt;
+	text-indent: -14pt;
+	text-align: left;
+}
+.index .ugc  p.sub-entry {
+	padding-left:30px;
+}
+
+@import 'mobi-house-style';

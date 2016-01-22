@@ -1,0 +1,59 @@
+
+// TABLES MIXIN
+
+@mixin tables() {
+
+$shade-color-1: #eee !default; 
+$line-color-1: #000 !default;
+
+	table {
+		max-width: 100%;
+		margin-top: 1.5em;
+		margin-bottom: 1.5em;	
+		border-collapse: collapse;
+		text-align: left;
+		font-size: 0.9em;
+	}
+	
+	table caption {
+		font-weight: bold;
+		margin-bottom: 0.5em;
+		line-height: 1.1;
+	}
+	
+	table td,
+	table th {
+  		padding: 5px 5px;
+  		line-height: 1.1;
+  		text-align: left;
+  		vertical-align: middle;
+	}
+	
+	table p {
+		text-align: left;
+	}
+	
+	table.lines tr {
+		border-top: 1px solid $line-color-1;
+		border-bottom: 1px solid $line-color-1;
+	}
+	
+	table.no-lines tr,
+	table.no-lines td {
+		border-top: 0;
+		border-bottom: 0;
+	}
+
+	table.shaded,
+	th.shaded,
+	tr.shaded,
+	td.shaded {
+		background-color: $shade-color-1;
+	}
+
+	th.border,
+	tr.border,
+	td.border {
+		border: 1px solid $line-color-1;
+	}
+}

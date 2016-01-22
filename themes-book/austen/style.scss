@@ -1,0 +1,135 @@
+@import 'mixins', 'fonts-web';
+
+body {
+  font-family: $font-1;
+  line-height: 1.5em;
+
+}
+
+a {
+  color: #00e;
+  text-decoration: none;
+
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-2;
+  margin-top: 5px;
+  padding-bottom: 4px;
+  font-variant: normal;
+
+}
+
+h1 {
+  font-size: 1.3em;
+
+}
+
+h1, h2 {
+  text-align: left;
+  font-variant: small-caps;
+  font-weight: bold;
+  font-style: normal;
+
+}
+
+h3, h4, h5 {
+  font-style: italic;
+
+}
+
+.back-matter p {
+  font-size: 1em;
+  line-height: 1.25em;
+  text-indent: -1em;
+  text-align: justify;
+}
+
+/****************************************
+	TOC, Author page, Book Page
+*****************************************/
+
+#inline-toc h4 {
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 1em;
+  text-align: left;
+  text-transform: none;
+}
+
+#inline-toc ul {
+  margin-left: 2em;
+}
+
+/****************************************
+	Structure
+*****************************************/
+
+/****************************************
+	Title, Subtitle, Authors & Aphorism
+*****************************************/
+.entry-title {
+  margin: 100px 0;
+  text-align: center;
+  font-family: $font-3;
+  font-variant: normal;
+  text-transform: uppercase;
+}
+
+.entry-title span {
+  display: none;
+  font-size: 0.875em;
+  font-weight: normal;
+  text-transform: uppercase;
+
+}
+
+.entry-title span:after {
+  content: ".";
+  padding-right: 10px;
+}
+
+.chapter_subtitle {
+  line-height: 2em;
+  margin: -80px 0 100px 0;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: $font-3;
+  font-variant: normal;
+  font-style: italic;
+  font-size: 0.95em;
+
+}
+
+.chapter_author {
+  margin: -70px 0 100px 0;
+  text-align: center;
+
+  font-family: $font-3;
+  font-variant: normal;
+}
+
+.chapter_subtitle + .chapter_author {
+  margin-top: -80px;
+}
+
+.aphorism {
+  margin-bottom: 80px;
+  margin-left: 100px;
+  margin-top: -80px;
+  padding: 0;
+  text-align: right;
+}
+
+.aphorism cite {
+  float: none;
+}
+
+/*************************
+	Footnotes & Endnote
+**************************/
+.endnotes h3 {
+  text-align: left;
+  text-indent: 0;
+  text-transform: none;
+}

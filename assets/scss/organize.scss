@@ -1,0 +1,73 @@
+@import 'partials/colors';
+
+/* Organize Page */
+
+body.chapter_page_pressbooks {
+	#publicize-panel {
+		h4 {
+			font-size: 15px;
+			font-weight: normal;
+			span {
+				font-weight: bold;
+				padding: 2px 3px;
+				margin: 15px 0 5px;
+				text-transform: uppercase;
+			}
+			&.private {
+				span {
+					background-color: $pale-red;
+				}
+			}
+			&.public {
+				span {
+					background-color: $pale-green;
+				}
+			}
+		}
+		.publicize-form {
+			label {
+				display: block;
+				&:first-child {
+					margin-bottom: 10px;
+				}
+				span.active {
+					font-weight: bold;
+				}
+			}
+		}
+	}
+	
+	.widefat {
+		margin-top: 10px;
+		.delete-link {
+			color: $bright-red;
+		}
+		thead {
+			tr {
+				th {
+					font-weight: bold;
+				}
+			}
+		}
+		tbody {
+			tr {
+				td {
+					vertical-align: middle;
+					span.comment-count {
+						width: auto !important;
+						float: none;
+					}
+				}
+				&.ui-state-highlight {
+					background: $light-grey;
+					color: $black;
+					height: 1.5em;
+					line-height: 1.2em;
+				}
+			}
+		}
+	}
+	#loader {
+		display: none;
+	}
+}
