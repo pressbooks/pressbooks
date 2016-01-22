@@ -36,19 +36,42 @@ div.wp-nocaption {
   page-break-inside: avoid !important;
 }
 
+/* ALIGN NONE */
+
+.wp-caption.alignnone,
+.wp-nocaption.alignnone {
+  max-width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+  padding-left: 0;
+  margin-top: 1em;
+  page-break-inside: avoid;
+}
+
+.alignnone img,
+.wp-caption.alignnone img,
+.wp-nocaption.alignnone img {
+  max-width: 100%; 
+  page-break-inside: avoid;
+}
+
 /* ALIGN CENTER */
 
 .aligncenter,
 .wp-caption.aligncenter,
 .wp-nocaption.aligncenter {
+  max-width: 100%;
   text-align: center;
   width: auto;
+  margin-left: auto;
+  margin-right: auto;
   page-break-inside: avoid;
 }
 
 .wp-caption.aligncenter img,
 .wp-nocaption.aligncenter img,
 .aligncenter img {
+  max-width: 100%;
   display: inline-block;
   margin-left: auto;
   margin-right: auto;
