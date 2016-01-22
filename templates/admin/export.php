@@ -12,9 +12,11 @@ if ( ! defined( 'ABSPATH' ) )
 $max_batches = 5; // How many batches we save
 \PressBooks\Utility\truncate_exports( $max_batches );
 
-$export_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export&export=yes', 'pb-export' );
-$export_delete_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export', 'pb-delete-export' );
-$download_url_prefix = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export&download_export_file=';
+$blog_id = get_current_blog_id();
+
+$export_form_url = wp_nonce_url( get_admin_url( $blog_id, '/admin.php?page=pb_export&export=yes' ), 'pb-export' );
+$export_delete_url = wp_nonce_url( get_admin_url( $blog_id, '/admin.php?page=pb_export' ), 'pb-delete-export' );
+$download_url_prefix = get_admin_url( $blog_id, '/admin.php?page=pb_export&download_export_file=' );
 
 date_default_timezone_set( 'America/Montreal' );
 
