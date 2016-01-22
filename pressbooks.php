@@ -21,6 +21,7 @@ function _pb_session_start() {
 	if ( ! session_id() ) {
 		if ( ! headers_sent() ) {
 			ini_set( 'session.use_only_cookies', true );
+			ini_set( 'session.save_handler', 'files');
 			session_start();
 		}
 		else {
