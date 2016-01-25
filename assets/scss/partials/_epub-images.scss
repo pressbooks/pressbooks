@@ -20,7 +20,6 @@ p.wp-caption-text {
 
 img {
   height: auto;
-  width: 100%;
   max-width: 100%;
   margin: 0;
   padding-left: 0;  
@@ -44,7 +43,8 @@ div.wp-nocaption {
   page-break-inside: avoid !important;
 }
 
-/* ALIGNMENT */
+/* ALIGN CENTER, RIGHT AND LEFT IMAGES */
+/* FOR LEFT AND RIGHT, MAKE ENCLOSING DIV WIDTH=50%, AND STRETCH IMAGE TO WIDTH=100%*/
 
 .aligncenter,
 .wp-caption.aligncenter {
@@ -66,7 +66,7 @@ div.wp-nocaption {
 .alignleft,
 .wp-caption.alignleft,
 .wp-nocaption.alignleft {
-  width: 50% !important;
+  width: 50% !important; 
   max-width: 50% !important;
   margin-right: 1em !important;
   margin-left: 0 !important;
@@ -79,7 +79,7 @@ div.wp-nocaption {
 .alignleft img,
 .wp-caption.alignleft img,
 .wp-nocaption.alignleft img {
-  width: 100% !important;
+  width: 100% !important; 
   max-width: 100%;
   page-break-inside: avoid !important;
 }
@@ -87,7 +87,7 @@ div.wp-nocaption {
 .alignright,
 .wp-caption.alignright,
 .wp-nocaption.alignright {
-  width: 50% !important;
+  width: 50% !important; 
   max-width: 50% !important;
   margin-right: 0 !important;
   margin-left: 1em !important;
@@ -100,7 +100,7 @@ div.wp-nocaption {
 .alignright img,
 .wp-caption.alignright img,
 .wp-nocaption.alignright img {
-  width: 100% !important;
+  width: 100% !important; 
   max-width: 100%;
   page-break-inside: avoid !important;
 }
