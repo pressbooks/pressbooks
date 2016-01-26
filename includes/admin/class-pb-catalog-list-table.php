@@ -94,11 +94,11 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function column_status( $item ) {
 
-		$add_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
+		$add_url = sprintf( '?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
 		$add_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url ) );
 		$add_url = static::addSearchParamsToUrl( $add_url );
 
-		$remove_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'remove', $item['ID'] );
+		$remove_url = sprintf( '?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'remove', $item['ID'] );
 		$remove_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $remove_url ) );
 		$remove_url = static::addSearchParamsToUrl( $remove_url );
 
@@ -432,7 +432,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	static function addMenu() {
 
-		$url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+		$url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		$view_url = static::viewCatalogUrl(); // Verifies $_REQUEST['user_id']
 
 		$edit_url = $url . '&action=edit_profile';

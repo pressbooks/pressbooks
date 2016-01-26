@@ -563,7 +563,7 @@ abstract class Export {
 			$path = static::getExportFolder();
 			unlink( $path . $filename );
 			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
-			\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export' );
+			\PressBooks\Redirect\location( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ) );
 		}
 
 		// Export
@@ -624,7 +624,7 @@ abstract class Export {
 
 			@set_time_limit( 300 );
 
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export';
+			$redirect_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' );
 			$conversion_error = array();
 			$validation_warning = array();
 			$outputs = array();

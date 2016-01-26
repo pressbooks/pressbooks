@@ -36,7 +36,7 @@ function redirect_css_editor() {
 	if ( 'custom-css' != $post->post_type )
 		return; // Do nothing
 
-	$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/themes.php?page=pb_custom_css&slug=' . $post->post_name;
+	$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_css&slug=' . $post->post_name );
 	\PressBooks\Redirect\location( $redirect_url );
 }
 
@@ -133,7 +133,7 @@ function render_revisions_table( $custom_css, $slug, $post_id ) {
 function render_dropdown_for_slugs( $custom_css, $slug ) {
 
 	$select_id = $select_name = 'slug';
-	$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/themes.php?page=pb_custom_css&slug=';
+	$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_css&slug=' );
 	$html = '';
 
 	$html .= "

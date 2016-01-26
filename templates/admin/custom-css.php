@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) )
 // Reusables
 // -------------------------------------------------------------------------------------------------------------------
 
-$custom_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/themes.php?page=pb_custom_css&customcss=yes', 'pb-custom-css' );
+$custom_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_css&customcss=yes' ), 'pb-custom-css' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Warnings and errors
