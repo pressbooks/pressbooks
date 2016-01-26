@@ -79,7 +79,7 @@ spl_autoload_register( '_pressbooks_autoload' );
 
 if ( ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
 	add_action( 'admin_notices', function () {
-		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install at ' . WP_PLUGIN_DIR . '/pressbooks/compatibility.php' . '.', 'pressbooks' ) . '</p></div>';
+		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 	} );
 	return;
 }
