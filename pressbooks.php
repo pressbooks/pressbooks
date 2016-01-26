@@ -49,7 +49,7 @@ if ( ! defined( 'PB_PLUGIN_DIR' ) )
 	define ( 'PB_PLUGIN_DIR', __DIR__ . '/' ); // Must have trailing slash!
 
 if ( ! defined( 'PB_PLUGIN_URL' ) )
-	define ( 'PB_PLUGIN_URL', plugin_dir_url( __FILE__ ) ); // Must have trailing slash!
+	define ( 'PB_PLUGIN_URL', plugins_url( 'pressbooks/' ) ); // Must have trailing slash!
 
 // -------------------------------------------------------------------------------------------------------------------
 // Class autoloader
