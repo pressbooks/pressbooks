@@ -46,14 +46,16 @@ div.wp-nocaption {
 /* ALIGN CENTER, RIGHT AND LEFT IMAGES */
 /* FOR LEFT AND RIGHT, MAKE ENCLOSING DIV WIDTH=50%, AND STRETCH IMAGE TO WIDTH=100%*/
 
+
 .aligncenter,
-.wp-caption.aligncenter {
+.wp-caption.aligncenter,
+.wp-nocaption.aligncenter {
   text-align: center !important;
   width: auto !important;
   page-break-inside: avoid !important;
 }
-
-.wp-caption.aligncenter img,
+.wp-caption.aligncenter img, 
+.wp-nocaption.aligncenter img,
 .aligncenter img {
   display: inline-block !important;
   margin-left: auto !important;
@@ -62,7 +64,7 @@ div.wp-nocaption {
   text-align: center;
   page-break-inside: avoid !important;
 }
- 
+
 .alignleft,
 .wp-caption.alignleft,
 .wp-nocaption.alignleft {

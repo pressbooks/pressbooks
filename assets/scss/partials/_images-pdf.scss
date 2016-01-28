@@ -120,3 +120,19 @@ div.wp-nocaption {
   max-width: 100%;
   page-break-inside: avoid;
 }
+
+/* SPECIAL IMAGES */ 
+
+.publisher-logo {
+  width: 30px;
+  height: auto;
+  padding: 10px;
+}
+
+.image-wide {
+  float: top;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
