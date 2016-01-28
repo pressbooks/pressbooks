@@ -36,6 +36,11 @@ class PressBooks {
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-root' );
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
 
+		// Check for local themes-root directory 
+		if ( realpath ( WP_CONTENT_DIR . '/themes-root' ) ) :
+			register_theme_directory( WP_CONTENT_DIR . '/themes-root' );
+		endif;	
+
 		if ( is_admin() ) {
 			if ( Book::isBook() ) {
 				add_filter( 'allowed_themes', array( $this, 'allowedBookThemes' ) );
