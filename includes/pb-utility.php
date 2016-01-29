@@ -377,7 +377,7 @@ function include_plugins() {
 	// include plugins
 	if ( ! empty( $symbionts ) ) {
 		foreach ( $symbionts as $key => $val ) {
-			require_once( PB_PLUGIN_DIR . 'symbionts/' . $key);
+			require_once( WP_PLUGIN_DIR . '/pressbooks/symbionts/' . $key);
 		}
 	}
 }
