@@ -82,6 +82,7 @@ class Sass {
 
 		$wp_upload_dir = wp_upload_dir();
 		$upload_dir = $wp_upload_dir['baseurl'] . '/css';
+		$upload_dir = \PressBooks\Sanitize\maybe_https( $upload_dir );
 		return $upload_dir;
 	}
 
