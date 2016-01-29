@@ -127,7 +127,7 @@ class custom_metadata_manager {
 		define( 'CUSTOM_METADATA_MANAGER_SELECT2_VERSION', '3.2' ); // version for included select2.js
 		define( 'CUSTOM_METADATA_MANAGER_TIMEPICKER_VERSION', '1.2' ); // version for included timepicker
 		define( 'CUSTOM_METADATA_MANAGER_VERSION', '0.8-dev' );
-		define( 'CUSTOM_METADATA_MANAGER_URL' , apply_filters( 'custom_metadata_manager_url', trailingslashit( plugins_url( 'pressbooks/symbionts/custom-metadata' ) ) ) );
+		define( 'CUSTOM_METADATA_MANAGER_URL' , apply_filters( 'custom_metadata_manager_url', plugin_dir_url( __FILE__ ) ) );
 
 		$this->init_object_types();
 
