@@ -1,8 +1,8 @@
 <?php
 
-namespace Pressbooks\Import\IMSCC;
+namespace Pressbooks\Modules\Import\IMSCC;
 
-use Pressbooks\Import\Import;
+use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
 
 class IMSCC extends Import {
