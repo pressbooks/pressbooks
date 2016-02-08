@@ -17,6 +17,7 @@ require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-registration.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
@@ -204,3 +205,9 @@ remove_action( 'wp_head', 'wlwmanifest_link' );
 
 // Disable logging of Akismet debug data when WP_DEBUG_LOG is true
 add_filter( 'akismet_debug_log', '__return_false' );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Registration
+// -------------------------------------------------------------------------------------------------------------------
+
+add_filter( 'gettext', '\PressBooks\Registration\custom_signup_text', 20, 3 );
