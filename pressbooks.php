@@ -46,8 +46,8 @@ if ( ! defined( 'PB_PLUGIN_VERSION' ) )
 	define ( 'PB_PLUGIN_VERSION', '3.2.0' );
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) )
-	define ( 'PB_PLUGIN_DIR', __DIR__ . '/' ); // Must have trailing slash! 
-
+	define( 'PB_PLUGIN_DIR', is_link( dirname( __FILE__ ) ) ? readlink( dirname( __FILE__ ) ) : dirname( __FILE__ ) . '/' ); // Must have trailing slash!
+	
 if ( ! defined( 'PB_PLUGIN_URL' ) )
 	define ( 'PB_PLUGIN_URL', plugins_url( 'pressbooks/' ) ); // Must have trailing slash!
 
@@ -76,7 +76,7 @@ spl_autoload_register( '_pressbooks_autoload' );
 // -------------------------------------------------------------------------------------------------------------------
 // Check minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
-if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( WP_PLUGIN_DIR . '/pressbooks/compatibility.php' ) ) {
+if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) {
 	add_action( 'admin_notices', function () {
 		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 	} );
