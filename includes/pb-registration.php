@@ -18,6 +18,9 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
     if ( $pagenow === 'wp-signup.php' ) {
 
 	    switch ( $untranslated_text ) {
+			case 'Gimme a site!' :
+				$translated_text = __( 'Gimme a book!', 'pressbooks' );
+				break;
             case 'Site Name:' :
             case 'Site Domain:' :
             	$translated_text = __( 'Web Book Address:', 'pressbooks' );
