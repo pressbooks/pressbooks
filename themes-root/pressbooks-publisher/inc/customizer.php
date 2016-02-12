@@ -13,23 +13,23 @@
 function pressbooks_publisher_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
-
-	$wp_customize->add_section(
-		'pressbooks_publisher_intro_box',
+	
+	$wp_customize->add_section( 
+		'pressbooks_publisher_intro_box', 
 		array(
     		'title'       => __('About Us', 'pressbooks'),
 			'description' => __('Add a description of your collection or institution below.', 'pressbooks'),
 			'priority'    => 35,
-	));
-
+	)); 
+	
 	$wp_customize->add_setting(
 	    'pressbooks_publisher_intro_textbox',
 	    array(
 	        'default'           => '',
-			'sanitize_callback' => 'pressbooks_publisher_sanitize_text',
+			'sanitize_callback' => 'pressbooks_publisher_sanitize_text',	        
 	    )
 	);
-
+	
 	$wp_customize->add_control(
 	    'pressbooks_publisher_intro_textbox',
 	    array(
@@ -37,15 +37,15 @@ function pressbooks_publisher_customize_register( $wp_customize ) {
 	        'section' => 'pressbooks_publisher_intro_box',
 	        'type'    => 'textarea',
 	    )
-	);
-
+	);	
+	
 	$wp_customize->add_setting(
 	    'pressbooks_publisher_intro_text_col',
 	    array(
 	        'default' => 'one-column',
 	    )
 	);
-
+	
 	$wp_customize->add_control(
 	    'pressbooks_publisher_intro_text_col',
 	    array(
@@ -55,11 +55,11 @@ function pressbooks_publisher_customize_register( $wp_customize ) {
 	        'type'        => 'radio',
 			'choices'     => array(
 			                'one-column'   => __('One column', 'pressbooks'),
-			                'two-column' => __('Two columns', 'pressbooks'),
-			            ),
+			                'two-column' => __('Two columns', 'pressbooks'),		            
+			            ),	        
 	    )
 	);
-
+	
 }
 add_action( 'customize_register', 'pressbooks_publisher_customize_register' );
 
@@ -77,6 +77,6 @@ function pressbooks_publisher_sanitize_text( $input ) {
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
 function pressbooks_publisher_customize_preview_js() {
-	wp_enqueue_script( 'pressbooks_publisher_customizer', PB_PLUGIN_URL . 'themes-root/' . get_template() . '/js/customizer.js', array( 'customize-preview' ), '20130508', true );
+	wp_enqueue_script( 'pressbooks_publisher_customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), '20130508', true );
 }
 add_action( 'customize_preview_init', 'pressbooks_publisher_customize_preview_js' );
