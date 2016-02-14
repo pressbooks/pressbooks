@@ -36,7 +36,7 @@ Pressbooks is not for use on an existing blog. Instead it should be used with a 
 Requirements
 ------------
 
-Pressbooks works with PHP 5.6.X and WordPress 4.4.1. Lower versions are not supported.
+Pressbooks works with PHP 5.6.X and WordPress 4.4.2. Lower versions are not supported.
 
 Disclaimers
 -----------
@@ -46,4 +46,4 @@ The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 More Details
 ------------
 
-See readme.txt for installation details. If you are cloning the plugin from our GitHub repository, you will need to initiate and update submodules. See [here](http://git-scm.com/docs/git-submodule) for details.
+See readme.txt for installation details.
