@@ -33,8 +33,8 @@ class PressBooks {
 
 		// No trailing slash, otherwise we get a double slash bug
 		// @see \PressBooks\Metadata::fixDoubleSlashBug
-		register_theme_directory( PB_PLUGIN_DIR . 'themes-root' );
-		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
+		register_theme_directory( WP_PLUGIN_DIR . '/pressbooks/themes-root' );
+		register_theme_directory( WP_PLUGIN_DIR . '/pressbooks/themes-book' );
 
 		// Check for local themes-root directory 
 		if ( realpath ( WP_CONTENT_DIR . '/themes-root' ) ) :
