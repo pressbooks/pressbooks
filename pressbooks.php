@@ -46,10 +46,10 @@ if ( ! defined( 'PB_PLUGIN_VERSION' ) )
 	define ( 'PB_PLUGIN_VERSION', '3.2.0' );
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) )
-	define( 'PB_PLUGIN_DIR', ( is_link( WP_PLUGIN_DIR .  '/pressbooks' ) ? WP_PLUGIN_DIR .  '/pressbooks/' : __DIR__ . '/' ) ); // Must have trailing slash!
+	define( 'PB_PLUGIN_DIR', ( is_link( WP_PLUGIN_DIR .  '/pressbooks' ) ? trailingslashit( WP_PLUGIN_DIR .  '/pressbooks' ) : trailingslashit( __DIR__ ) ) ); // Must have trailing slash!
 	
 if ( ! defined( 'PB_PLUGIN_URL' ) )
-	define ( 'PB_PLUGIN_URL', plugins_url( 'pressbooks/' ) ); // Must have trailing slash!
+	define ( 'PB_PLUGIN_URL', trailingslashit( plugins_url( 'pressbooks' ) ) ); // Must have trailing slash!
 
 // -------------------------------------------------------------------------------------------------------------------
 // Class autoloader
