@@ -229,7 +229,7 @@ abstract class Import {
 		// --------------------------------------------------------------------------------------------------------
 		// Determine at what stage of the import we are and do something about it
 
-		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/tools.php?page=pb_import';
+		$redirect_url = get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import' );
 		$current_import = get_option( 'pressbooks_current_import' );
 
 		// Revoke
@@ -286,8 +286,7 @@ abstract class Import {
 
 			if ( $ok ) {
 				// Success! Redirect to organize page
-				$success_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pressbooks';
-				\PressBooks\Redirect\location( $success_url );
+				$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pressbooks' );
 			}
 
 		} elseif ( @$_GET['import'] && ! @empty( $_FILES['import_file']['name'] ) && @$_POST['type_of'] && check_admin_referer( 'pb-import' ) ) {
