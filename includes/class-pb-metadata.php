@@ -287,8 +287,9 @@ class Metadata {
 		if ( is_object( $response ) ) {
 			$content = $response->asXML();
 			$content = trim( str_replace( array( '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ), array( '', '', '', '' ), $content ) );
+			$content = preg_replace( "/http:\/\/i.creativecommons/iU", "https://i.creativecommons", $content );
 
-			$html = '<div class="license-attribution" xmlns:cc="http://creativecommons.org/ns#"><p xmlns:dct="http://purl.org/dc/terms/">' . rtrim( $content, "." ) . ', ' . __("except where otherwise noted.", "pressbooks") .'</p></div>';
+			$html = '<div class="license-attribution" xmlns:cc="http://creativecommons.org/ns#"><p xmlns:dct="http://purl.org/dc/terms/">' . rtrim( $content, "." ) . ', ' . __( "except where otherwise noted.", "pressbooks" ) . '</p></div>';
 		}
 
 		return html_entity_decode( $html, ENT_XHTML, 'UTF-8' );
