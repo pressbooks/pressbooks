@@ -71,6 +71,7 @@ class Book {
 
 		$expected_array = array( 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors' );
 		$expected_the_content = array( 'pb_custom_copyright', 'pb_about_unlimited' );
+		$expected_url = array( 'pb_cover_image' );
 
 		$book_information = array();
 		$meta = new Metadata();
@@ -102,7 +103,12 @@ class Book {
 			} else {
 				$val = htmlspecialchars( $val, ENT_NOQUOTES | ENT_XHTML, 'UTF-8', false );
 			}
-
+			
+			// Normalize URLs
+			if ( in_array( $key, $expected_url ) ) {
+				$val = set_url_scheme( $val );
+			}
+			
 			// Remove invisible control characters that break XML
 			$val = \PressBooks\Sanitize\remove_control_characters( $val );
 
