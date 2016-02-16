@@ -94,11 +94,11 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function column_status( $item ) {
 
-		$add_url = sprintf( '?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
+		$add_url = sprintf( get_admin_url() . 'index.php?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
 		$add_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url ) );
 		$add_url = static::addSearchParamsToUrl( $add_url );
 
-		$remove_url = sprintf( '?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'remove', $item['ID'] );
+		$remove_url = sprintf( get_admin_url() . 'index.php?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'remove', $item['ID'] );
 		$remove_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $remove_url ) );
 		$remove_url = static::addSearchParamsToUrl( $remove_url );
 
