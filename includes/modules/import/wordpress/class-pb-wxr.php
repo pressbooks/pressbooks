@@ -49,7 +49,7 @@ class Wxr extends Import {
 		$path_parts = explode( "/", $upload['file'] );
 
 		foreach ( $path_parts as $part ) {
-			if ( in_array( $part, $upload_dir ) ) {
+			if ( !in_array( $part, $upload_dir ) ) {
 				array_shift( $path_parts );
 			}
 		}

@@ -240,7 +240,7 @@ abstract class Import {
 
 		// Appends 'last part' of the path to the dynamic first part of the path ($upload_dir)
 		$upload_dir = wp_upload_dir();
-		$current_import['file'] = "/" . trailingslashit( $upload_dir ) . $current_import['final_path_segment'];
+		$current_import['file'] = trailingslashit( $upload_dir['basedir'] ) . $current_import['final_path_segment'];
 
 		if ( @$_GET['import'] && is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
