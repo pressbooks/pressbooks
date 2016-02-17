@@ -53,7 +53,7 @@ class Wxr extends Import {
 				array_shift( $path_parts );
 			}
 		}
-		$final_path_segment = implode("/", $path_parts);
+		$final_path_segment = implode( "/", $path_parts );
 
     $option['final_path_segment'] = $final_path_segment;
 		// END
