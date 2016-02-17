@@ -58,7 +58,7 @@ class Wxr extends Import {
     // $option['final_path_segment'] = $final_path_segment;
 		// END
 
-		$option['final_path_segment'] = basename($upload['file']);
+		// $option['final_path_segment'] = basename($upload['file']);
 
 		$supported_post_types = array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' );
 
