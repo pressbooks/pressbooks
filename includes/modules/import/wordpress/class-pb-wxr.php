@@ -45,18 +45,20 @@ class Wxr extends Import {
 		);
 
 		// Create the 'last part' of relative file path
-		$upload_dir = wp_upload_dir();
-		$path_parts = explode( "/", $upload['file'] );
-
-		foreach ( $path_parts as $part ) {
-			if ( !in_array( $part, $upload_dir ) ) {
-				array_shift( $path_parts );
-			}
-		}
-		$final_path_segment = implode( "/", $path_parts );
-
-    $option['final_path_segment'] = $final_path_segment;
+		// $upload_dir = wp_upload_dir();
+		// $path_parts = explode( "/", $upload['file'] );
+		//
+		// foreach ( $path_parts as $part ) {
+		// 	if ( !in_array( $part, $upload_dir ) ) {
+		// 		array_shift( $path_parts );
+		// 	}
+		// }
+		// $final_path_segment = implode( "/", $path_parts );
+		//
+    // $option['final_path_segment'] = $final_path_segment;
 		// END
+
+		$option['final_path_segment'] = basename($upload['file']);
 
 		$supported_post_types = array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' );
 
