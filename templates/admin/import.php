@@ -3,8 +3,8 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
-$import_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&import=yes' ), 'pb-import' );
-$import_revoke_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&revoke=yes' ), 'pb-revoke-import' );
+$import_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/tools.php?page=pb_import&import=yes', 'pb-import' );
+$import_revoke_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/tools.php?page=pb_import&revoke=yes', 'pb-revoke-import' );
 $current_import = get_option( 'pressbooks_current_import' );
 
 ?>

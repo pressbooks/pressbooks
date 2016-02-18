@@ -99,7 +99,7 @@ abstract class Export {
 		$fullpath = false;
 
 		if ( CustomCss::isCustomCss() ) {
-			$fullpath = CustomCss::getCustomCssFolder() . "/$type.css";
+			$fullpath = CustomCss::getCustomCssFolder() . "$type.css";
 			if ( ! is_file( $fullpath ) ) $fullpath = false;
 		}
 

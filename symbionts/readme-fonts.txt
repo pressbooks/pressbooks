@@ -134,6 +134,9 @@ Noto Kufi Arabic is Copyright (c) Google and is released under the SIL Open Font
 Noto Naskh Arabic is Copyright (c) Google and is released under the SIL Open Font License 1.1.
 @see: https://www.google.com/get/noto/
 
+Noto Sans is Copyright (c) Google and is released under the SIL Open Font License 1.1.
+@see: https://www.google.com/get/noto/
+
 Noto Sans CJK is Copyright (c) Google and is released under the SIL Open Font License 1.1.
 @see: https://www.google.com/get/noto/
 

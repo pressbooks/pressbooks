@@ -7,4 +7,3 @@ __MACOSX
 *.DS_Store
 config.codekit
 tests/logs/
-.phpstorm.meta.php

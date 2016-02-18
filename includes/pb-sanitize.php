@@ -235,9 +235,6 @@ function canonicalize_url( $url ) {
 		if ( mb_strpos( $url, '://' ) ) list( $garbage, $url ) = mb_split( '://', $url );
 		// Prepend http
 		$url = 'http://' . $url;
-		if ( preg_match( '#^http:///#', $url ) ) {
-			return ''; // This is wrong...
-		}
 	}
 
 	// protocol and domain to lowercase (but NOT the rest of the URL),

@@ -1,5 +1,7 @@
 @import 'mixins', 'fonts-web', 'tables', 'textboxes';
 
+$url-base: '' !default;
+
 /* 
   html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
   v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark
@@ -32,7 +34,7 @@ body {
 }
 
 body {
-  background: url("images/bg.png") repeat 0 0 #f9f9f9;
+  background: url($url-base+'images/bg.png') repeat 0 0 #f9f9f9;
   color: #1F1F1D;
   font-size: 1em;
   line-height: 1.8;
@@ -176,7 +178,7 @@ ol {
 }
 */
 blockquote {
-  background: url(images/blockquote-open.png) no-repeat 10px 10px #f4f4f3;
+  background: url($url-base+'images/blockquote-open.png') no-repeat 10px 10px #f4f4f3;
   padding: 1px 5px 5px 50px;
   margin-bottom: 20px;
 }
@@ -532,7 +534,7 @@ h1.book-title a {
 }
 
 .share li.email a {
-  background: url(images/sprite.png) -147px -96px no-repeat;
+  background: url($url-base+'images/sprite.png') -147px -96px no-repeat;
   height: 21px;
   margin: 0 0 0 17px;
   text-indent: -9999px;
@@ -547,7 +549,7 @@ h1.book-title a {
   width: 62px;
 }
 .share-btn {
-  background: url(images/sprite.png) -150px -250px no-repeat #ffffff;
+  background: url($url-base+'images/sprite.png') -150px -250px no-repeat #ffffff;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -659,7 +661,7 @@ h1.book-title a {
 .read-btn a,
 .about-btn a,
 .authors-btn a {
-  background: url(images/sprite.png) 30px -187px no-repeat;
+  background: url($url-base+'images/sprite.png') 30px -187px no-repeat;
 }
 
 .home-btn a {
@@ -711,7 +713,7 @@ h1.book-title a {
 }
 
 a.close {
-  background: url(images/sprite.png) 0 -50px;
+  background: url($url-base+'images/sprite.png') 0 -50px;
   display: block;
   float: right;
   overflow: hidden;
@@ -908,7 +910,7 @@ div.aligncenter {
 }
 
 .nav span a {
-  background: url(images/sprite.png) 0 -573px no-repeat;
+  background: url($url-base+'images/sprite.png') 0 -573px no-repeat;
   display: block;
   overflow: hidden;
   text-indent: 100%;
@@ -1111,11 +1113,11 @@ aside {
 }
 
 .entry-content ul li li {
-  list-style-image: url('images/em-dash.png');
+  list-style-image: url($url-base+'images/em-dash.png');
 }
 
 .entry-content ul li li li {
-  list-style-image: url('images/asterisk.png');
+  list-style-image: url($url-base+'images/asterisk.png');
 }
 
 ol {
@@ -1349,7 +1351,7 @@ h3.author-name {
 }
 
 .social-media-profile li a {
-  background: url(images/sprite.png) 0 -296px no-repeat;
+  background: url($url-base+'images/sprite.png') 0 -296px no-repeat;
   color: #4a4a4a;
   display: block;
   font: 1em/2em $font-5;
@@ -1445,7 +1447,7 @@ h3.author-name {
 	 Footer
 *****************/
 .footer {
-  background: url(images/footer-shadow.png) 0 0 repeat-x #8d8d8d;
+  background: url($url-base+'images/footer-shadow.png') 0 0 repeat-x #8d8d8d;
   color: #ffffff;
   font: 0.75em/1.5em $font-5;
   font-weight: bold;
@@ -1752,7 +1754,7 @@ code {
     padding: 15px 0 0 20px;
   }
   .pressbooks-logo a {
-    background: url(images/sprite.png) -200px -50px no-repeat;
+    background: url($url-base+'images/sprite.png') -200px -50px no-repeat;
     display: block;
     text-indent: -9999em;
     width: 40px;

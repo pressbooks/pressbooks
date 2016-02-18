@@ -1,6 +1,6 @@
 /*
-htmLawed_README.txt, 9 June 2015
-htmLawed 1.2.beta.8, 9 June 2015
+htmLawed_README.txt, 30 October 2015
+htmLawed 1.2.beta.9, 30 October 2015
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
 A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed/beta
@@ -1102,13 +1102,13 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
   Optionally, for standard-compliance, htmLawed (function 'hl_tag()') lower-cases standard attribute values to give, e.g., 'input type="password"' instead of 'input type="Password"', if '$config["lc_std_val"]' is '1'. Attribute values matching those listed below for any of the elements listed further below (plus those for the 'type' attribute of 'button' or 'input') are lower-cased:
 
-    all, auto, baseline, bottom, button, captions, center, chapters, char, checkbox, circle, col, colgroup, color, cols, data, date, datetime, datetime-local, default, descriptions, email, file, get, groups, hidden, image, justify, left, ltr, metadata, middle, month, none, number, object, password, poly, post, preserve, radio, range, rect, ref, reset, right, row, rowgroup, rows, rtl, search, submit, subtitles, tel, text, top, url, week
+    all, auto, baseline, bottom, button, captions, center, chapters, char, checkbox, circle, col, colgroup, color, cols, data, date, datetime, datetime-local, default, descriptions, email, file, get, groups, hidden, image, justify, left, ltr, metadata, middle, month, none, number, object, password, poly, post, preserve, radio, range, rect, ref, reset, right, row, rowgroup, rows, rtl, search, submit, subtitles, tel, text, time, top, url, week
 
     a, area, bdo, button, col, fieldset, form, img, input, object, ol, optgroup, option, param, script, select, table, td, textarea, tfoot, th, thead, tr, track, xml:space
 
   The following `empty` (`minimized`) attributes are always assigned lower-cased values (same as the attribute names):
 
-    checkbox, checked, command, compact, declare, defer, default, disabled, ismap, itemscope, multiple, nohref, noresize, noshade, nowrap, open, radio, readonly, required, reversed, selected
+    checkbox, checked, command, compact, declare, defer, default, disabled, hidden, inert, ismap, itemscope, multiple, nohref, noresize, noshade, nowrap, open, radio, readonly, required, reversed, selected
 
 
 .. 3.4.6  Transformation of deprecated attributes ..................o
@@ -1118,9 +1118,10 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
   *  align in caption, div, h, h2, h3, h4, h5, h6, hr, img, input, legend, object, p, table - for 'img' with value of 'left' or 'right', becomes, e.g., 'float: left'; for 'div' and 'table' with value 'center', becomes 'margin: auto'; all others become, e.g., 'text-align: right'
   *  bgcolor in table, td, th and tr - E.g., 'bgcolor="#ffffff"' becomes 'background-color: #ffffff'
-  *  border in object - E.g., 'height= "10"' becomes 'height: 10px'
+  *  border in object - E.g., 'height="10"' becomes 'height: 10px'
   *  bordercolor in table, td and tr - E.g., 'bordercolor=#999999' becomes 'border-color: #999999;'
   *  compact in dl, ol and ul - 'font-size: 85%'
+  *  cellspacing in table - 'cellspacing="10"' becomes 'border-spacing: 10px'
   *  clear in br - E.g., 'clear="all" becomes 'clear: both'
   *  height in td and th - E.g., 'height= "10"' becomes 'height: 10px' and 'height="*"' becomes 'height: auto'
   *  hspace in img and object - E.g., 'hspace="10"' becomes 'margin-left: 10px; margin-right: 10px'
@@ -1130,7 +1131,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
   *  nowrap in td and th - 'white-space: nowrap'
   *  size in hr - E.g., 'size="10"' becomes 'height: 10px'
   *  vspace in img and object - E.g., 'vspace="10"' becomes 'margin-top: 10px; margin-bottom: 10px'
-  *  width in hr, pre, td and th - like 'height'
+  *  width in hr, pre, table, td and th - like 'height'
 
   Example input:
 
@@ -1500,10 +1501,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
 -- 5.2  Valid attribute-element combinations -----------------------o
 
-
-  Valid attribute-element combinations as per W3C specifications.
-
-  *  includes deprecated attributes (marked '^'), attributes for microdata (marked '*'), the non-standard 'bordercolor', and HTML5 attributes (marked '~')
+  *  includes deprecated attributes (marked '^'), attributes for microdata (marked '*'), the non-standard 'bordercolor', and new-in-HTML5 attributes (marked '~')
   *  only non-frameset, HTML body elements
   *  'name' for 'a' and 'map', and 'lang' are invalid in XHTML 1.1
   *  'target' is valid for 'a' in XHTML 1.1 and higher
@@ -1610,7 +1608,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
   open~ - details
   optimum~ - meter
   pattern~ - input
-  ping~ - a
+  ping~ - a, area
   placeholder~ - input, textarea
   pluginspage** - embed
   pluginurl** - embed
@@ -1618,6 +1616,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
   pqg~ - keygen
   preload~ - audio, video
   prompt - isindex
+  pubdate~ - time
   radiogroup* - command
   readonly - input, textarea
   required~ - input, select, textarea
@@ -1640,6 +1639,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
   src - audio, embed, iframe, img, input, script, source, track, video
   srcdoc~ - iframe
   srclang~ - track
+  srcset~ - img
   standby - object
   start - ol
   step~ - input
@@ -1658,7 +1658,7 @@ A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/intern
 
   The following global attributes, including event-specific ones and attributes of ARIA and microdata specifications, are allowed in all elements:
 
-  accesskey, aria-activedescendant, aria-atomic, aria-autocomplete, aria-busy, aria-checked, aria-controls, aria-describedby, aria-disabled, aria-dropeffect, aria-expanded, aria-flowto, aria-grabbed, aria-haspopup, aria-hidden, aria-invalid, aria-label, aria-labelledby, aria-level, aria-live, aria-multiline, aria-multiselectable, aria-orientation, aria-owns, aria-posinset, aria-pressed, aria-readonly, aria-relevant, aria-required, aria-selected, aria-setsize, aria-sort, aria-valuemax, aria-valuemin, aria-valuenow, aria-valuetext, class, contenteditable, contextmenu, dir, draggable, dropzone, hidden, id, inert, itemid, itemprop, itemref, itemscope, itemtype, lang, spellcheck, style, tabindex, title, translate, onabort, onblur, oncanplay, oncanplaythrough, onchange, onclick, oncontextmenu, oncuechange, ondblclick, ondrag, ondragend, ondragenter, ondragleave, ondragover, ondragstart, ondrop, ondurationchange, onemptied, onended, onerror, onfocus, oninput, oninvalid, onkeydown, onkeypress, onkeyup, onload, onloadeddata, onloadedmetadata, onloadstart, onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, onmousewheel, onpause, onplay, onplaying, onprogress, onratechange, onreadystatechange, onreset, onscroll, onseeked, onseeking, onselect, onshow, onstalled, onsubmit, onsuspend, ontimeupdate, onvolumechange, onwaiting, role, translate, xmlns, xml:base, xml:lang, xml:space
+  accesskey, aria-activedescendant, aria-atomic, aria-autocomplete, aria-busy, aria-checked, aria-controls, aria-describedby, aria-disabled, aria-dropeffect, aria-expanded, aria-flowto, aria-grabbed, aria-haspopup, aria-hidden, aria-invalid, aria-label, aria-labelledby, aria-level, aria-live, aria-multiline, aria-multiselectable, aria-orientation, aria-owns, aria-posinset, aria-pressed, aria-readonly, aria-relevant, aria-required, aria-selected, aria-setsize, aria-sort, aria-valuemax, aria-valuemin, aria-valuenow, aria-valuetext, class, contenteditable, contextmenu, dir, draggable, dropzone, hidden, id, inert, itemid, itemprop, itemref, itemscope, itemtype, lang, onabort, onabort, onautocomplete, onautocompleteerror, onblur, oncancel, oncanplay, oncanplaythrough, onchange, onclick, onclose, oncontextmenu, oncuechange, ondblclick, ondrag, ondragend, ondragenter, ondragexit, ondragleave, ondragover, ondragstart, ondrop, ondurationchange, onemptied, onended, onerror, onfocus, oninput, oninvalid, onkeydown, onkeypress, onkeyup, onload, onloadeddata, onloadedmetadata, onloadstart, onmousedown, onmouseenter, onmouseleave, onmousemove, onmouseout, onmouseover, onmouseup, onmousewheel, onpause, onplay, onplaying, onprogress, onratechange, onreset, onresize, onscroll, onseeked, onseeking, onselect, onshow, onsort, onstalled, onsubmit, onsuspend, ontimeupdate, ontoggle, onvolumechange, onwaiting, onwheel, role, spellcheck, style, tabindex, title, translate, xmlns, xml:base, xml:lang, xml:space
 
   Custom `data-*` attributes, where the first three characters of the value of `star` (*) after lower-casing do not equal 'xml' and the value of `star` does not have a colon (:) or space or equal-to (=) character, are allowed in all elements.
   

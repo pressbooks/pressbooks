@@ -72,7 +72,6 @@ add_filter( 'admin_title', '\PressBooks\Admin\Laf\admin_title' );
 add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices' );
 
 // Network Manager routines
-
 add_filter( 'admin_body_class', '\PressBooks\Admin\NetworkManagers\admin_body_class' );
 add_action( 'network_admin_menu', '\PressBooks\Admin\NetworkManagers\add_menu' );
 add_action( 'wp_ajax_pb_update_admin_status', '\PressBooks\Admin\NetworkManagers\update_admin_status' );
@@ -116,6 +115,8 @@ if ( \PressBooks\Book::isBook() ) {
 	add_filter( 'tiny_mce_before_init', '\PressBooks\Editor\mce_table_editor_options' );
 	add_filter( 'mce_external_plugins', '\PressBooks\Editor\mce_button_scripts' );
 	add_filter( 'mce_buttons_2', '\PressBooks\Editor\mce_buttons');
+	add_filter( 'wp_link_query_args', '\PressBooks\Editor\customize_wp_link_query_args' );
+	add_filter( 'wp_link_query', '\PressBooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

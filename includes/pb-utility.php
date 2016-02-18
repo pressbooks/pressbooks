@@ -333,29 +333,28 @@ function check_prince_install() {
 }
 
 /**
- * Function to determine whether or not experimental features should be visible to users. Currently just hides them from *.pressbooks.com.
+ * Function to determine whether or not experimental features should be visible to users.
  * 
  * @return boolean
  */
-function show_experimental_features() {
-	$result = true;
+function show_experimental_features( $host = null ) {
+	
+	if ( ! $host )
+		$host = parse_url( network_site_url(), PHP_URL_HOST );
 
 	// hosts where experimental features should be hidden
 	$hosts_for_hiding = array( 
 		'pressbooks.com',
 		'pressbooks.pub',
 	);
-
-	$host = parse_url( network_site_url(), PHP_URL_HOST );
 	
 	foreach( $hosts_for_hiding as $host_for_hiding ) {
 		if ( $host == $host_for_hiding || strpos( $host, $host_for_hiding ) ) {
-			$result = false;
-			break;
+			return false;
 		}
 	}
 
-	return $result;
+	return true;
 }
 
 /**

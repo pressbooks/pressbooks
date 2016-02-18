@@ -61,14 +61,14 @@ function pb_enqueue_scripts() {
 		}
 		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), $deps, get_option( 'pressbooks_last_custom_css' ), 'screen' );
 		wp_enqueue_style( 'pressbooks-custom-css' );
-	} else { // Standard theme
+	} else  {
 		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
 		wp_enqueue_style( 'pressbooks' );
 		// Use default stylesheet as base (to avoid horribly broken webbook)
 		$deps = array( 'pressbooks' );		
 		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
 			$fullpath = \PressBooks\Container::get('Sass')->pathToUserGeneratedCss() . '/style.css';
-			if ( is_file( $fullpath ) ) { // Custom webbook style has been generated
+			if ( is_file( $fullpath ) && \PressBooks\Container::get('Sass')->isCurrentThemeCompatible() ) { // SASS theme & custom webbook style has been generated
 				wp_register_style( 'pressbooks-theme', \PressBooks\Container::get('Sass')->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
 				wp_enqueue_style( 'pressbooks-theme' );
 			} else { // Use the bundled stylesheet
@@ -76,11 +76,7 @@ function pb_enqueue_scripts() {
 				wp_enqueue_style( 'pressbooks-theme' );
 			}
 		}
-
-	}
-	
-	
-	
+	}	
 	
 	if (! is_front_page() ) {
 		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );

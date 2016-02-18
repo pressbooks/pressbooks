@@ -16,6 +16,8 @@ class ExportMock extends \PressBooks\Modules\Export\Export {
 
 class Modules_ExportTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
+
 	/**
 	 * @var \ExportMock
 	 */
@@ -28,16 +30,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->export = new \ExportMock();
-	}
-
-	/**
-	 * Create and switch to a new test book
-	 */
-	private function _book() {
-
-		$blog_id = $this->factory->blog->create();
-		switch_to_blog( $blog_id );
-		switch_theme( 'pressbooks-book' );
 	}
 
 

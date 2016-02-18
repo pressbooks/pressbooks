@@ -163,7 +163,7 @@ function replace_book_admin_menu() {
 		}
 	} );
 
-	// Sell
+	// Publish
 	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', __NAMESPACE__ . '\display_publish', 'dashicons-products', 16 );
 
 	// Privacy
@@ -171,7 +171,7 @@ function replace_book_admin_menu() {
 
 	// Export
 	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pb_export_settings', __NAMESPACE__ . '\display_export_settings' );
-
+	
 	// Import
 	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
@@ -649,7 +649,6 @@ function privacy_settings_init() {
 		'permissive_private_content',
 		__NAMESPACE__ . '\privacy_permissive_private_content_sanitize'
 	);
-
 }
 
 
@@ -937,7 +936,6 @@ function export_settings_init() {
 		'pressbooks_email_validation_logs',
 			__NAMESPACE__ . '\export_email_validation_logs_sanitize'
 	);
-
 }
 
 

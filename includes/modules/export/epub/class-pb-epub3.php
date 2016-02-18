@@ -207,7 +207,7 @@ class Epub3 extends Epub201 {
 		$spec .= 'object=-archive,-classid,-codebase,-codetype,-declare,-standby;';
 		$spec .= 'param=-type,-valuetype;';
 		$spec .= 't=-abbr,-axis;';
-		$spec .= 'table=-border,-cellspacing,-cellpadding,-frame,-rules,-width;';
+		$spec .= 'table=-border,-cellpadding,-frame,-rules;';
 		$spec .= 'tbody=-align,-char,-charoff,-valign;';
 		$spec .= 'td=-axis,-abbr,-align,-char,-charoff,-scope,-valign;';
 		$spec .= 'tfoot=-align,-char,-charoff,-valign;';

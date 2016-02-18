@@ -82,17 +82,17 @@ class Wxr extends Import {
 		}
 
 		$this->pbCheck( $xml );
-
+		
 		if ( $this->isPbWxr ) {
 			$xml['posts'] = $this->customNestedSort( $xml['posts'] );
 		}
-
+		
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 		$chapter_parent = $this->getChapterParent();
 		$total = 0;
 
 		libxml_use_internal_errors( true );
-
+		
 		foreach ( $xml['posts'] as $p ) {
 
 			// Skip
@@ -165,7 +165,7 @@ class Wxr extends Import {
 		}
 
 	}
-
+	
 	/**
 	 * Custom sort for the xml posts to put them in correct nested order
 	 *
@@ -175,7 +175,7 @@ class Wxr extends Import {
 	 */
 	 protected function customNestedSort( $xml ) {
 	 	 $array = array();
-
+	 	 
 	 	 //first, put them in ascending menu_order
 	 	 usort( $xml, function ( $a, $b ) {
 	 	 	return ( $a['menu_order'] - $b['menu_order'] );
@@ -188,14 +188,14 @@ class Wxr extends Import {
 				 break;
 			 }
 		 }
-
+	 	 
 	 	 //now, list all front matter
 	 	 foreach ( $xml as $p ) {
 	 	 	if ( 'front-matter' == $p['post_type'] ) {
-	 	 		$array[] = $p;
+	 	 		$array[] = $p;	
 	 	 	}
 	 	 }
-
+	 	 
 	 	 //now, list all parts, then their associated chapters
 	 	 foreach ( $xml as $p ) {
 	 	 	if ( 'part' == $p['post_type'] ) {
@@ -207,11 +207,11 @@ class Wxr extends Import {
 	 	 		}
 	 	 	}
 	 	 }
-
+	 	 
 	 	 //now, list all back matter
 	 	 foreach ( $xml as $p ) {
 	 	 	if ( 'back-matter' == $p['post_type'] ) {
-	 	 		$array[] = $p;
+	 	 		$array[] = $p;	
 	 	 	}
 	 	 }
 	 	 return $array;
@@ -370,7 +370,7 @@ class Wxr extends Import {
 
 		return '';
 	}
-
+	
 	/**
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
@@ -405,7 +405,7 @@ class Wxr extends Import {
 	 * Load remote url of image into WP using media_handle_sideload()
 	 * Will return an empty string if something went wrong.
 	 *
-	 * @param string $url
+	 * @param string $url 
 	 *
 	 * @see media_handle_sideload
 	 *

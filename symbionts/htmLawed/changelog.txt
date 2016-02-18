@@ -1,5 +1,10 @@
 htmLawed 1.2 beta change-log
 
+**** 1.2.beta.9, 30 October 2015 release ****
+
+Event-specific (event handler) attributes now total 65 and include all (and only) those that are in the W3C/HTML5 or WHATWG specifications; 'hidden' and 'inert' attribute values are now reset to empty; support for 'input' element's 'type' attribute value of 'time', for 'ping' attribute in 'area' element, for 'pubdate' attribute in 'time' element, and for 'srcset' attribute in 'img' element; attribute transformation for 'width' and 'cellspacing' of 'table'
+
+
 **** 1.2.beta.8, 9 June 2015 release ****
 
 Fix for a potential security vulnerability arising from unescaped double-quote character in single-quoted attribute value of some deprecated elements when tag transformation is enabled; 'allowfullscreen' attribute in 'iframe' element is now recognized.

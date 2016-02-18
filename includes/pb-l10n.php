@@ -303,7 +303,6 @@ function supported_languages() {
  *
  * @return array
  */
-
 function wplang_codes() {
 	
 	$languages = array(
@@ -458,7 +457,6 @@ function wplang_codes() {
  *
  * @return array
  */
-
 function get_dashboard_languages() {
 
 	$languages = array(
@@ -482,92 +480,11 @@ function get_dashboard_languages() {
  *
  * @return array
  */
-
 function set_user_interface_lang( $user_id ) {
 	$locale = get_site_option( 'WPLANG' );
     if ( $locale ) {
 	    update_user_meta( $user_id, 'user_interface_lang', $locale );
 	}
-}
-
-/**
- * Number to words.
- *
- * @param int $number
- *
- * @return string
- */
-function number_to_words( $number ) {
-
-	$words = array(
-		'zero',
-		'one',
-		'two',
-		'three',
-		'four',
-		'five',
-		'six',
-		'seven',
-		'eight',
-		'nine',
-		'ten',
-		'eleven',
-		'twelve',
-		'thirteen',
-		'fourteen',
-		'fifteen',
-		'sixteen',
-		'seventeen',
-		'eighteen',
-		'nineteen',
-		'twenty',
-		30 => 'thirty',
-		40 => 'fourty',
-		50 => 'fifty',
-		60 => 'sixty',
-		70 => 'seventy',
-		80 => 'eighty',
-		90 => 'ninety',
-		100 => 'hundred',
-		1000 => 'thousand'
-	);
-
-	$number_in_words = '';
-	if ( is_numeric( $number ) ) {
-		$number = (int) round( $number );
-		if ( $number < 0 ) {
-			$number = - $number;
-			$number_in_words = 'minus ';
-		}
-		if ( $number > 1000 ) {
-			$number_in_words = $number_in_words . number_to_words( floor( $number / 1000 ) ) . " " . $words[1000];
-			$hundreds = $number % 1000;
-			$tens = $hundreds % 100;
-			if ( $hundreds > 100 ) {
-				$number_in_words = $number_in_words . ", " . number_to_words( $hundreds );
-			} elseif ( $tens ) {
-				$number_in_words = $number_in_words . " and " . number_to_words( $tens );
-			}
-		} elseif ( $number > 100 ) {
-			$number_in_words = $number_in_words . number_to_words( floor( $number / 100 ) ) . " " . $words[100];
-			$tens = $number % 100;
-			if ( $tens ) {
-				$number_in_words = $number_in_words . " and " . number_to_words( $tens );
-			}
-		} elseif ( $number > 20 ) {
-			$number_in_words = $number_in_words . " " . $words[10 * floor( $number / 10 )];
-			$units = $number % 10;
-			if ( $units ) {
-				$number_in_words = $number_in_words . number_to_words( $units );
-			}
-		} else {
-			$number_in_words = $number_in_words . " " . $words[$number];
-		}
-
-		return trim( $number_in_words );
-	}
-
-	return 'unknown';
 }
 
 

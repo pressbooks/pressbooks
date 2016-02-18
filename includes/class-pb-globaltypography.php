@@ -29,6 +29,7 @@ class GlobalTypography {
 			'syr' => __( 'Syriac', 'pressbooks' ),
 			'ta' => __( 'Tamil', 'pressbooks' ),
 			'bo' => __( 'Tibetan', 'pressbooks' ),
+			'tr' => __( 'Turkish', 'pressbooks' ),
 		);
 	}
 
@@ -43,7 +44,7 @@ class GlobalTypography {
 
 		$return_value = '';
 
-		$fullpath = get_stylesheet_directory() . "/_font-stack-{$type}.scss";
+		$fullpath = Container::get( 'Sass' )->pathToUserGeneratedSass() . "/_font-stack-{$type}.scss";
 
 		if ( is_file( $fullpath ) ) {
 			$return_value = file_get_contents( $fullpath );
@@ -134,6 +135,9 @@ class GlobalTypography {
 				break;
 			case 'ta': // Tamil
 				$lang = 'ta';
+				break;
+			case 'tr': // Turkish
+				$lang = 'tr';
 				break;
 		}
 
@@ -228,7 +232,10 @@ class GlobalTypography {
 			return;
 		}
 
-		$scss = file_get_contents( $path_to_style );
+		// Populate $url-base variable so that links to images and other assets remain intact
+		$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
+
+		$scss .= file_get_contents( $path_to_style );
 		$sass = Container::get( 'Sass' );
 		$css = $sass->compile( $scss );
 		$css = $this->fixWebFonts( $css );

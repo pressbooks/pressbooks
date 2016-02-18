@@ -87,6 +87,11 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'A', $res[0]['bar'] );
 		$this->assertEquals( 'C', $res[2]['bar'] );
+		
+		$res = \PressBooks\Utility\multi_sort( $arr );
+		
+		$this->assertFalse( $res );
+		
 	}
 
 
@@ -181,6 +186,8 @@ class UtilityTest extends \WP_UnitTestCase {
 	public function test_show_experimental_features() {
 
 		$this->assertInternalType( 'bool', \PressBooks\Utility\show_experimental_features() );
+		$this->assertInternalType( 'bool', \PressBooks\Utility\show_experimental_features( 'http://pressbooks.com' ) );
+		
 	}
 
 
