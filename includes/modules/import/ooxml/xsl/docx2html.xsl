@@ -3279,7 +3279,7 @@
 		      </xsl:when>
 		      <xsl:when test="w:rPr/w:rStyle/@w:val = 'FootnoteReference'">
 				      <xsl:element name="a">
-          <xsl:variable name="fnanchor" select="concat('#sdfootnote', w:footnoteReference/@w:id,'anc')"/>
+          <xsl:variable name="fnanchor" select="concat('sdfootnote', w:footnoteReference/@w:id,'anc')"/>
           <xsl:attribute name="name">
             <xsl:value-of select="$fnanchor"/>
           </xsl:attribute>
@@ -3296,7 +3296,7 @@
 		      </xsl:when>
 		      <xsl:when test="w:endnoteReference">
 				      <xsl:element name="a">
-          <xsl:variable name="fnanchor" select="concat('#sdfootnote', w:endnoteReference/@w:id,'anc')"/>
+          <xsl:variable name="fnanchor" select="concat('sdfootnote', w:endnoteReference/@w:id,'anc')"/>
           <xsl:attribute name="name">
             <xsl:value-of select="$fnanchor"/>
           </xsl:attribute>
