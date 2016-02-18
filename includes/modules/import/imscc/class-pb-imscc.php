@@ -571,4 +571,32 @@ class IMSCCParser {
     return $src;
   }
 
+  /**
+   * Checks if the file extension matches its mimetype, returns a modified
+   * filename if they don't match.
+   *
+   * @param string $path_to_file
+   * @param string $filename
+   *
+   * @return string - modified filename if the extension did not match the mimetype,
+   * otherwise returns the filename that was passed to it
+   */
+  protected function properImageExtension( $path_to_file, $filename ) {
+    $mimes = array(
+        'jpg|jpeg|jpe' => 'image/jpeg',
+        'gif' => 'image/gif',
+        'png' => 'image/png',
+    );
+
+    // Attempt to determine the real file type of a file.
+    $validate = wp_check_filetype_and_ext( $path_to_file, $filename, $mimes );
+
+    // change filename to the extension that matches its mimetype
+    if ( $validate['proper_filename'] !== false ) {
+      return $validate['proper_filename'];
+    } else {
+      return $filename;
+    }
+  }
+
 }
