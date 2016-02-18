@@ -17,6 +17,7 @@ require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-registration.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
@@ -204,3 +205,14 @@ remove_action( 'wp_head', 'wlwmanifest_link' );
 
 // Disable logging of Akismet debug data when WP_DEBUG_LOG is true
 add_filter( 'akismet_debug_log', '__return_false' );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Registration
+// -------------------------------------------------------------------------------------------------------------------
+
+add_filter( 'gettext', '\PressBooks\Registration\custom_signup_text', 20, 3 );
+add_action( 'signup_extra_fields', '\PressBooks\Registration\add_password_field', 9 );
+add_filter( 'wpmu_validate_user_signup', '\PressBooks\Registration\validate_passwords' );
+add_filter( 'add_signup_meta', '\PressBooks\Registration\add_temporary_password', 99 );
+add_action( 'signup_blogform', '\PressBooks\Registration\add_hidden_password_field' );
+add_filter( 'random_password', '\PressBooks\Registration\override_password_generation' );
