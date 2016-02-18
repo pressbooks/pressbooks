@@ -3270,38 +3270,53 @@
   </xsl:template>
 
   <xsl:template name="DisplayRContent">
-    <xsl:choose>
-      <xsl:when test="ancestor::w:sdtContent/preceding-sibling::w:sdtPr[1]/w:citation">
-        <xsl:element name="cite">
-          <xsl:apply-templates select="*"/>
-        </xsl:element>
-      </xsl:when>
-      <xsl:when test="w:rPr/w:rStyle/@w:val = 'FootnoteReference'">
-        <xsl:variable name="fnanchor" select="concat('#sdfootnote', w:footnoteReference/@w:id,'anc')"/>
-        <xsl:element name="a" name="{$fnanchor}" id="{$fnanchor}">
-          <xsl:attribute name="href">
-            <xsl:value-of select="concat('#sdfootnote', w:footnoteReference/@w:id,'sym')"/>
+
+	      <xsl:choose>
+		      <xsl:when test="ancestor::w:sdtContent/preceding-sibling::w:sdtPr[1]/w:citation">
+			      <xsl:element name="cite">
+				      <xsl:apply-templates select="*"/>
+			      </xsl:element>
+		      </xsl:when>
+		      <xsl:when test="w:rPr/w:rStyle/@w:val = 'FootnoteReference'">
+				      <xsl:element name="a">
+          <xsl:variable name="fnanchor" select="concat('#sdfootnote', w:footnoteReference/@w:id,'anc')"/>
+          <xsl:attribute name="name">
+            <xsl:value-of select="$fnanchor"/>
           </xsl:attribute>
-          <xsl:element name="sup">
-            <xsl:value-of select="w:footnoteReference/@w:id"/>
-          </xsl:element>
-        </xsl:element>
-      </xsl:when>
-      <xsl:when test="w:endnoteReference">
-        <xsl:variable name="fnanchor" select="concat('#sdfootnote', w:endnoteReference/@w:id,'anc')"/>
-        <xsl:element name="a" name="{$fnanchor}" id="{$fnanchor}">
-          <xsl:attribute name="href">
-            <xsl:value-of select="concat('#sdfootnote', w:endnoteReference/@w:id,'sym')"/>
+          <xsl:attribute name="id">
+            <xsl:value-of select="$fnanchor"/>
           </xsl:attribute>
-          <xsl:element name="sup">
-            <xsl:value-of select="w:endnoteReference/@w:id"/>
-          </xsl:element>
-        </xsl:element>			      
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:apply-templates select="*"/>
-      </xsl:otherwise>
-    </xsl:choose>
+					      <xsl:attribute name="href">
+						      <xsl:value-of select="concat('#sdfootnote', w:footnoteReference/@w:id,'sym')"/>
+					      </xsl:attribute>
+					      <xsl:element name="sup">
+						      <xsl:value-of select="w:footnoteReference/@w:id"/>
+					      </xsl:element>
+				      </xsl:element>
+		      </xsl:when>
+		      <xsl:when test="w:endnoteReference">
+				      <xsl:element name="a">
+          <xsl:variable name="fnanchor" select="concat('#sdfootnote', w:endnoteReference/@w:id,'anc')"/>
+          <xsl:attribute name="name">
+            <xsl:value-of select="$fnanchor"/>
+          </xsl:attribute>
+          <xsl:attribute name="id">
+            <xsl:value-of select="$fnanchor"/>
+          </xsl:attribute>
+					      <xsl:attribute name="href">
+						      <xsl:value-of select="concat('#sdfootnote', w:endnoteReference/@w:id,'sym')"/>
+					      </xsl:attribute>
+					      <xsl:element name="sup">
+						      <xsl:value-of select="w:endnoteReference/@w:id"/>
+					      </xsl:element>
+				      </xsl:element>			      
+		      </xsl:when>
+		      
+		      <xsl:otherwise>
+			      
+			      <xsl:apply-templates select="*"/>
+		      </xsl:otherwise>
+	      </xsl:choose>
   </xsl:template>
 
   <xsl:template name="ApplyRPr.once">
