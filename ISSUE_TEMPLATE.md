@@ -2,7 +2,7 @@
 
 * [ ] Can you reproduce the behavior you wish to address with [all other plugins deactivated at the network level](http://codex.wordpress.org/Multisite_Network_Administration#Plugins)?
 * [ ] Are you running the [latest version of Pressbooks](http://wordpress.org/plugins/pressbooks/) and the [latest version of WordPress](http://codex.wordpress.org/Upgrading_WordPress)?
-* [ ] Did you [perform a cursory search](https://github.com/pressbooks/pressbooks/search?type=issues&utf8=✓) to see if your bug or enhancement is already listed?
+* [ ] Did you [perform a cursory search](https://github.com/issues?q=+is%3Aissue+repo%3Apressbooks%2Fpressbooks) to see if your bug or enhancement is already listed?
 
 ### Description
 
@@ -22,5 +22,6 @@
 
 Pressbooks: [Enter Pressbooks version here]
 WordPress: [Enter WordPress version here]
+PHP: [Enter PHP version here]
 
-You can get the version of Pressbooks from the readme.txt file in the Pressbooks plugin (usually located at `http://<yourdomain.tld>/wp-content/plugins/pressbooks/readme.txt`) and the version of WordPress from the readme.html file in the WordPress root directory (usually located at `http://<yourdomain.tld>/readme.html`).
+You can get the version of Pressbooks from the readme.txt file in the Pressbooks plugin (usually located at `http://<yourdomain.tld>/wp-content/plugins/pressbooks/readme.txt`) and the version of WordPress from the readme.html file in the WordPress root directory (usually located at `http://<yourdomain.tld>/readme.html`). You can usually get your PHP version from your web host, or by using the [`phpversion()`](http://php.net/manual/en/function.phpversion.php) function.
