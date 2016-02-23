@@ -35,9 +35,9 @@ IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
  * Pressbooks works with PHP 5.6.x and WordPress 4.4.2. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
- 
+
 	$pb_minimum_php = '5.4';
-	
+
 However, we encourage you to upgrade your environment instead as [PHP 5.4 is no longer supported](http://php.net/supported-versions.php).
 
 *Part 1, WordPress generic:*
@@ -105,7 +105,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
  * For EPUB validation install [EpubCheck](https://github.com/idpf/epubcheck) - Version 4.0
  * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
  * It is recommended that you install [sassphp](https://github.com/sensational/sassphp) for SASS compilation; however, Pressbooks includes a bundled compiler, [scssphp](https://github.com/leafo/scssphp/), and will fall back to this if sassphp is absent.
- * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl" 
+ * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl"
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
 
@@ -202,7 +202,12 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 
 = 3.2.0 =
 * Requires WordPress 4.4.2.
-* Built-in Google Analytics support at the network level (subdomain and subdirectory installs) and the book level (subdomain installs only).
+* Added Google Analytics support at the network level (subdomain and subdirectory installs) and the book level (subdomain installs only).
+* Added support for installs that use SSL (props to @bdolor for contributions).
+* Enhanced image display in exports.
+* Expanded code coverage.
+* Fixed an issue where clicking 'Show in Catalog' would not work (props to @colomet for the bug report).
+* Fixed the way the PB_PLUGIN_DIR and PB_PLUGIN_URL constants are defined to support installations of Pressbooks where plugins and themes are symlinked.
 
 = 3.1.2 =
 * Requires WordPress 4.4.1.
