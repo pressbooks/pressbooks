@@ -30,7 +30,7 @@ function pressbooks_book_info_page () {
 
 	if ( is_front_page() ) {
 		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130713', 'all' );
-		wp_enqueue_style( 'book-info-fonts', 'http://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700' );
+		wp_enqueue_style( 'book-info-fonts', 'https://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700' );
 
 		// Book info page Table of Content columns
 		wp_enqueue_script( 'columnizer',  PB_PLUGIN_URL . 'symbionts/jquery/jquery.columnizer.js', array( 'jquery' ), '1.6.0', false );
@@ -65,7 +65,7 @@ function pb_enqueue_scripts() {
 		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
 		wp_enqueue_style( 'pressbooks' );
 		// Use default stylesheet as base (to avoid horribly broken webbook)
-		$deps = array( 'pressbooks' );		
+		$deps = array( 'pressbooks' );
 		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
 			$fullpath = \PressBooks\Container::get('Sass')->pathToUserGeneratedCss() . '/style.css';
 			if ( is_file( $fullpath ) && \PressBooks\Container::get('Sass')->isCurrentThemeCompatible() ) { // SASS theme & custom webbook style has been generated
@@ -76,8 +76,8 @@ function pb_enqueue_scripts() {
 				wp_enqueue_style( 'pressbooks-theme' );
 			}
 		}
-	}	
-	
+	}
+
 	if (! is_front_page() ) {
 		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
 	}
@@ -86,7 +86,7 @@ function pb_enqueue_scripts() {
 	if ( is_single() ) {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
-	
+
 	$options = get_option( 'pressbooks_theme_options_web' );
 	if ( @$options['toc_collapse'] ) {
 		wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
@@ -425,7 +425,7 @@ function pressbooks_theme_options_global_init() {
 		$_option,
 		'pressbooks_theme_options_global_sanitize'
 	);
-	
+
 	register_setting(
 		$_page,
 		'pressbooks_enable_chapter_types',
@@ -444,7 +444,7 @@ function pressbooks_theme_options_global_init() {
 				 __( 'Include fonts to support the following languages:', 'pressbooks' )
 			)
 		);
-		
+
 		register_setting(
 			$_page,
 			'pressbooks_global_typography',
@@ -497,7 +497,7 @@ function pressbooks_theme_chapter_types_callback( $args ) {
 			update_option( 'pressbooks_chapter_types_initialized', 1 );
 		}
 	}
-	
+
 	$html = '<input type="checkbox" id="enable-chapter-types" name="pressbooks_enable_chapter_types" value="1"' . checked( 1, $enable_chapter_types, false ) . '/>';
 	$html .= '<label for="enable-chapter-types"> ' . __( 'Enable chapter types taxonomy.', 'pressbooks' ) . '</label>';
 
@@ -535,7 +535,7 @@ function pressbooks_theme_copyright_license_callback( $args ) {
 
 // Global Options Field Callback
 function pressbooks_theme_global_typography_callback( $args ) {
-	
+
 	$foreign_languages = get_option( 'pressbooks_global_typography' );
 
 	if ( ! $foreign_languages ) {
@@ -545,7 +545,7 @@ function pressbooks_theme_global_typography_callback( $args ) {
 	$languages = \PressBooks\Container::get( 'GlobalTypography' )->getSupportedLanguages();
 	$already_supported_languages = \PressBooks\Container::get( 'GlobalTypography' )->getThemeSupportedLanguages();
 	$already_supported_languages_string = '';
-	
+
 	$i = 1;
 	$c = count( $already_supported_languages );
 	foreach ( $already_supported_languages as $lang ) {
@@ -566,7 +566,7 @@ function pressbooks_theme_global_typography_callback( $args ) {
 		$html .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option>';
 	}
 	$html .= '</select>';
-	
+
 	if ( $already_supported_languages_string ) {
 		$html .= '<br /><br />' . sprintf( __( 'This theme includes built-in support for %s.', 'pressbooks' ), $already_supported_languages_string );
 	}
@@ -596,7 +596,7 @@ function pressbooks_theme_options_global_sanitize( $input ) {
 	} else {
 		$options['copyright_license'] = 1;
 	}
-	
+
 	return $options;
 }
 
@@ -616,7 +616,7 @@ function pressbooks_theme_pressbooks_global_typography_sanitize( $input ) {
  * ------------------------------------------------------------------------ */
 
 function pressbooks_theme_options_web_init() {
-	
+
 	$_page = $_option = 'pressbooks_theme_options_web';
 	$_section = 'web_options_section';
 	$defaults = array(
@@ -628,26 +628,26 @@ function pressbooks_theme_options_web_init() {
 	}
 
 	add_settings_section(
-		$_section, 
-		__( 'Web Options', 'pressbooks' ), 
-		'pressbooks_theme_options_web_callback', 
+		$_section,
+		__( 'Web Options', 'pressbooks' ),
+		'pressbooks_theme_options_web_callback',
 		$_page
 	);
 
 	add_settings_field(
-		'toc_collapse', 
-		__( 'Collapsable TOC', 'pressbooks' ), 
-		'pressbooks_theme_toc_collapse_callback', 
-		$_page, 
-		$_section, 
+		'toc_collapse',
+		__( 'Collapsable TOC', 'pressbooks' ),
+		'pressbooks_theme_toc_collapse_callback',
+		$_page,
+		$_section,
 		array(
-		    __( 'Make webbook TOC collapsable', 'pressbooks' ) 
+		    __( 'Make webbook TOC collapsable', 'pressbooks' )
 		)
 	);
-	
+
 	add_settings_field(
-		'accessibility_fontsize', 
-		__( 'Increase Font Size', 'pressbooks' ), 
+		'accessibility_fontsize',
+		__( 'Increase Font Size', 'pressbooks' ),
 		'pressbooks_theme_accessibility_fontsize_callback',
 		$_page,
 		$_section,
@@ -657,8 +657,8 @@ function pressbooks_theme_options_web_init() {
 	);
 
 	add_settings_field(
-		'social_media_buttons', 
-		__( 'Enable Social Media', 'pressbooks' ), 
+		'social_media_buttons',
+		__( 'Enable Social Media', 'pressbooks' ),
 		'pressbooks_theme_social_media_callback',
 		$_page,
 		$_section,
@@ -667,8 +667,8 @@ function pressbooks_theme_options_web_init() {
 		)
 	);
 	register_setting(
-		$_option, 
-		$_option, 
+		$_option,
+		$_option,
 		'pressbooks_theme_options_web_sanitize'
 	);
 }
@@ -681,14 +681,14 @@ function pressbooks_theme_options_web_callback() {
 // Web Options Field Callback
 function pressbooks_theme_accessibility_fontsize_callback( $args ){
 	$options = get_option( 'pressbooks_theme_options_web' );
-	
+
 	if ( ! isset( $options['accessibility_fontsize'] ) ) {
 		$options['accessibility_fontsize'] = 0;
 	}
 	$html = '<input type="checkbox" id="accessibility_fontsize" name="pressbooks_theme_options_web[accessibility_fontsize]" value="1" ' . checked( 1, $options['accessibility_fontsize'], false ) . '/>';
 	$html .= '<label for="accessibility_fontsize"> ' . $args[0] . '</label>';
-	echo $html;	
-	
+	echo $html;
+
 }
 
 // Web Options Field Callback
@@ -725,19 +725,19 @@ function pressbooks_theme_options_web_sanitize( $input ) {
 	} else {
 		$options['toc_collapse'] = 1;
 	}
-	
+
 	if ( ! isset( $input['accessibility_fontsize'] ) || $input['accessibility_fontsize'] != '1' ) {
 		$options['accessibility_fontsize'] = 0;
 	} else {
 		$options['accessibility_fontsize'] = 1;
 	}
-	
+
 	if ( ! isset( $input['social_media'] ) || $input['social_media'] != '1' ) {
 		$options['social_media'] = 0;
 	} else {
 		$options['social_media'] = 1;
-	}	
-	
+	}
+
 	return $options;
 }
 
@@ -1069,13 +1069,13 @@ function pressbooks_theme_pdf_orphans_callback( $args ) {
 
 //PDF Options Field Callback
 function pressbooks_theme_pdf_fontsize_callback( $args ) {
-	
+
 	$options = get_option( 'pressbooks_theme_options_pdf' );
-	
+
 	if ( ! isset( $options['pdf_fontsize'] ) ){
 		$options['pdf_fontsize'] = 0;
 	}
-	
+
 	$html = '<input type="checkbox" id="pdf_fontsize" name="pressbooks_theme_options_pdf[pdf_fontsize]" value="1" ' . checked( 1, $options['pdf_fontsize'], false ) . '/>';
 	$html .= '<label for="pdf_fontsize"> ' . $args[0] . '</label>';
 	echo $html;
@@ -1233,7 +1233,7 @@ function pressbooks_theme_options_mpdf_init() {
 			 __( 'Display cover image', 'pressbooks' )
 		)
 	);
-	
+
 	add_settings_field(
 		'mpdf_include_toc',
 		__( 'Table of Contents', 'pressbooks' ),
@@ -1244,7 +1244,7 @@ function pressbooks_theme_options_mpdf_init() {
 			 __( 'Display table of contents', 'pressbooks' )
 		)
 	);
-	
+
 	add_settings_field(
 		'mpdf_indent_paragraphs',
 		__( 'Indent paragraphs', 'pressbooks' ),
@@ -1255,7 +1255,7 @@ function pressbooks_theme_options_mpdf_init() {
 			 __( 'Indent paragraphs', 'pressbooks' )
 		)
 	);
-	
+
 	add_settings_field(
 		'mpdf_hyphens',
 		__( 'Hyphens', 'pressbooks' ),
@@ -1400,13 +1400,13 @@ function pressbooks_theme_mpdf_hyphens_callback( $args ) {
 }
 
 function pressbooks_theme_mpdf_fontsize_callback( $args ) {
-	
+
 	$options = get_option( 'pressbooks_theme_options_mpdf' );
-	
+
 	if ( ! isset( $options['mpdf_fontsize'] ) ){
 		$options['mpdf_fontsize'] = 0;
 	}
-	
+
 	$html = '<input type="checkbox" id="mpdf_fontsize" name="pressbooks_theme_options_mpdf[mpdf_fontsize]" value="1" ' . checked( 1, $options['mpdf_fontsize'], false ) . '/>';
 	$html .= '<label for="mpdf_fontsize"> ' . $args[0] . '</label>';
 	echo $html;
@@ -1426,11 +1426,11 @@ function pressbooks_theme_options_mpdf_sanitize ( $input ){
 		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
 		else $options[$val] = 1;
 	}
-	
-	// nothing to do, select list 
+
+	// nothing to do, select list
 	$options['mpdf_page_size'] = $input['mpdf_page_size'];
 
-	return $options;	
+	return $options;
 }
 
 /* ------------------------------------------------------------------------ *
@@ -1649,11 +1649,11 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	} else {
 		$scss .= 'p { orphans: 1; }' . "\n";
 	}
-	
+
 	if ( @$options['pdf_fontsize'] ){
 		$scss .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
 	}
-		
+
 	// --------------------------------------------------------------------
 	// Luther features we inject ourselves, (not user options, this theme not child)
 
@@ -1713,7 +1713,7 @@ function pressbooks_theme_ebook_css_override( $scss ) {
 	if ( 2 == @$options['ebook_paragraph_separation'] ) {
 		$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
 	}
-	
+
 	// --------------------------------------------------------------------
 	// Luther features we inject ourselves, (not user options, this theme not child)
 
