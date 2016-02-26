@@ -204,6 +204,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 * Requires WordPress 4.4.2.
 * Added Google Analytics support at the network level (subdomain and subdirectory installs) and the book level (subdomain installs only).
 * Added support for installs that use SSL (props to @bdolor for contributions).
+* Set timezone on export page based on root site settings (props to @chrillep for the bug report).
 * Enhanced image display in exports.
 * Expanded code coverage.
 * Fixed an issue where footnote anchors would not be properly created when importing a Word document (thanks to @crism for the report and the contribution).
