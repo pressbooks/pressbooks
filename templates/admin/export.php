@@ -16,8 +16,6 @@ $export_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.p
 $export_delete_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ), 'pb-delete-export' );
 $download_url_prefix = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export&download_export_file=' );
 
-date_default_timezone_set( 'America/Montreal' );
-
 // -------------------------------------------------------------------------------------------------------------------
 // Warnings and errors
 // -------------------------------------------------------------------------------------------------------------------
@@ -54,10 +52,10 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	foreach ( $files as $date => $exports ) {
 		// Echo files to screen
 		if ( $c == 0 ) { ?>
-		<h2><?php _e( 'Latest Export', 'pressbooks' ); ?>: <?php echo strftime( '%B %e, %Y at %l:%M %p', $date ); ?></h2>
+		<h2><?php _e( 'Latest Export', 'pressbooks' ); ?>: <?php echo strftime( '%B %e, %Y at %H:%M', $date ); ?></h2>
 		<div class="export-files latest">
 	<?php } elseif ( $c > 0 ) { ?>
-		<h3><?php _e( 'Exported', 'pressbooks' ); ?> <?php echo strftime( '%B %e, %Y at %l:%M %p', $date ); ?></h3>
+		<h3><?php _e( 'Exported', 'pressbooks' ); ?> <?php echo strftime( '%B %e, %Y at %H:%M', $date ); ?></h3>
 		<div class="export-files">
 	<?php }
 		foreach ( $exports as $file ) {
