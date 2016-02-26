@@ -516,9 +516,11 @@ class Docx extends Import {
 			foreach ( $fn_ids as $id ) {
 				if ( array_key_exists( $id, $notes ) ) {
 					$grandparent = $chapter->createElement( 'div' );
+					$grandparent->setAttribute( "id", "sdfootnote{$id}sym" );
 					$parent = $chapter->createElement( 'span' );
 					$child = $chapter->createElement( "a", $id );
 					$child->setAttribute( "href", "#sdfootnote{$id}anc" );
+					$child->setAttribute( "name", "sdfootnote{$id}sym" );
 					$text = $chapter->createTextNode( $notes[$id] );
 
 					// attach 
