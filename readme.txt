@@ -206,6 +206,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 * Added support for installs that use SSL (props to @bdolor for contributions).
 * Enhanced image display in exports.
 * Expanded code coverage.
+* Fixed an issue where footnote anchors would not be properly created when importing a Word document (thanks to @crism for the report and the contribution).
 * Fixed an issue where clicking 'Show in Catalog' would not work (props to @colomet for the bug report).
 * Fixed the way the PB_PLUGIN_DIR and PB_PLUGIN_URL constants are defined to support installations of Pressbooks where plugins and themes are symlinked.
 
@@ -425,3 +426,4 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 = 2.3.2 =
 * Cleaner print output from webbooks.
 * Ebook theme option to skip line between paragraphs is now honored in all themes.
+
