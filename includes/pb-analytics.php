@@ -47,7 +47,7 @@ function print_analytics() {
 		}
 		$html .= apply_filters( 'pb_ecommerce_tracking', '' );
 		if ( $book ) {
-			$html .= "ga('create', '". $ga_mu_uaid_network . "', 'auto', 'bookTracker');";
+			$html .= "ga('create', '". $ga_mu_uaid . "', 'auto', 'bookTracker');";
 			$html .= "ga('bookTracker.send', 'pageview');";
 		}
 		$html .= "</script>\n<!-- End Google Analytics -->";
