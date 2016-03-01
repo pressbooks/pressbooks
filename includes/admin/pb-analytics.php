@@ -203,13 +203,13 @@ function display_analytics_settings() { ?>
 			<?php submit_button(); ?>
 		</form>
 	</div>
-<?php }
-
+<?php
+}
 
 /**
- * Enqueue the script.
+ * Print the script.
  */
-function print_script() {
+function print_admin_analytics() {
 
 	switch_to_blog( 1 );
 	$ga_mu_uaid_network = get_option( 'ga_mu_uaid' );

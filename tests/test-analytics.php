@@ -31,6 +31,5 @@ class AnalyticsTest extends \WP_UnitTestCase {
 
 		$this->assertInternalType( 'int', \PressBooks\Admin\Analytics\analytics_ga_mu_site_specific_allowed_sanitize( 1 ) );
 	}
-	
 
 }

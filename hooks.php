@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) )
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'includes/admin/pb-analytics.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-branding.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-analytics.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
@@ -51,7 +51,7 @@ add_filter( 'login_headertitle', '\PressBooks\Admin\Branding\login_title' );
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics
 // -------------------------------------------------------------------------------------------------------------------
-add_action( 'wp_head', '\PressBooks\Admin\Analytics\print_script');
+add_action( 'wp_head', '\PressBooks\Analytics\print_analytics');
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin
