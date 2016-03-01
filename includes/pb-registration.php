@@ -37,7 +37,7 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
 				$translated_text = __( 'Book Language:', 'pressbooks' );
 				break;
 			case 'Allow search engines to index this site.' :
-				$translated_text = __( 'Allow search engines to index this book.', 'pressbooks' );
+				$translated_text = __( 'Would you like the web version of your book to be visible to the public?', 'pressbooks' );
 				break;
 			case 'Create Site' :
 				$translated_text = __( 'Create Book', 'pressbooks' );
@@ -54,8 +54,11 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
 			case 'If you&#8217;re not going to use a great site domain, leave it for a new user. Now have at it!' :
 				$translated_text = __( 'If you&#8217;re not going to use a great web book address, leave it for a new user. Now have at it!', 'pressbooks' );
 				break;
-
-      	}
+      case 'Congratulations! Your new site, %s, is almost ready.' :
+        $translated_text = __( 'Congratulations! Your new book, %s, is almost ready', 'pressbooks' );
+      case 'But, before you can start using your site, <strong>you must activate it</strong>.' :
+        $translated_text = __( 'But, before you can start writing your book, <strong>you must activate it</strong>.', 'pressbooks' );
+      }
     }
 
     return $translated_text;
