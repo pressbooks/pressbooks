@@ -12,7 +12,6 @@ function print_analytics() {
 
 	switch_to_blog( 1 );
 	$ga_mu_uaid_network = get_option( 'ga_mu_uaid' );
-	error_log( $ga_mu_uaid_network );
 	$ga_mu_maindomain = get_option( 'ga_mu_maindomain' );
 	$ga_mu_site_specific_allowed = get_option( 'ga_mu_site_specific_allowed' );
 	restore_current_blog();
