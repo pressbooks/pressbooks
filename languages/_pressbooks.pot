@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-03-01 16:20-0400\n"
+"POT-Creation-Date: 2016-03-03 15:37-0400\n"
 "PO-Revision-Date: 2015-08-08 13:43-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Pressbooks <code@pressbooks.com>\n"
@@ -299,7 +299,7 @@ msgid "Book Info"
 msgstr ""
 
 #: includes/admin/pb-laf.php:155 includes/admin/pb-laf.php:173
-#: templates/admin/export.php:47 templates/admin/organize.php:41
+#: templates/admin/export.php:51 templates/admin/organize.php:41
 #: templates/admin/organize.php:82 templates/admin/organize.php:158
 msgid "Export"
 msgstr ""
@@ -467,7 +467,8 @@ msgid "Cover Image"
 msgstr ""
 
 #: includes/admin/pb-metaboxes.php:154 includes/admin/pb-metaboxes.php:451
-#: templates/admin/import.php:62 templates/admin/organize.php:39
+#: includes/class-pb-sass.php:42 templates/admin/import.php:62
+#: templates/admin/organize.php:39
 #: themes-book/pressbooks-book/functions.php:1663
 #: themes-book/pressbooks-book/functions.php:1664
 #: themes-book/pressbooks-book/functions.php:1723
@@ -856,6 +857,7 @@ msgid "Authors"
 msgstr ""
 
 #: includes/class-pb-activation.php:175
+#: includes/modules/export/epub/templates/epub3/toc.php:21
 #: themes-book/pressbooks-book/functions.php:844
 #: themes-book/pressbooks-book/functions.php:1239
 #: themes-book/pressbooks-book/index.php:12
@@ -972,12 +974,17 @@ msgstr ""
 msgid "except where otherwise noted."
 msgstr ""
 
-#: includes/class-pb-sass.php:166
+#: includes/class-pb-sass.php:41 templates/admin/import.php:60
+#: templates/admin/organize.php:57
+msgid "Chapter"
+msgstr ""
+
+#: includes/class-pb-sass.php:179
 #, php-format
 msgid "There was a problem with SASS. Contact your site administrator. Error: %s"
 msgstr ""
 
-#: includes/class-pb-sass.php:190
+#: includes/class-pb-sass.php:219
 msgid "SASS Error"
 msgstr ""
 
@@ -1122,7 +1129,7 @@ msgstr ""
 msgid "Your cover image should be 625px on the shortest side."
 msgstr ""
 
-#: includes/pb-image.php:335 templates/admin/export.php:90
+#: includes/pb-image.php:335 templates/admin/export.php:94
 #: templates/admin/organize.php:87 templates/admin/organize.php:125
 #: templates/admin/organize.php:193
 msgid "Are you sure you want to delete this?"
@@ -2334,102 +2341,102 @@ msgstr ""
 msgid "Copy CSS from"
 msgstr ""
 
-#: templates/admin/export.php:31
+#: templates/admin/export.php:35
 msgid "Error: The export failed. See logs for more details."
 msgstr ""
 
-#: templates/admin/export.php:36
+#: templates/admin/export.php:40
 msgid "Warning: The export has validation errors. See logs for more details."
 msgstr ""
 
-#: templates/admin/export.php:37
+#: templates/admin/export.php:41
 msgid "Emailed to:"
 msgstr ""
 
-#: templates/admin/export.php:48
+#: templates/admin/export.php:52
 #, php-format
 msgid "You can export multiple file formats by selecting your Export Format Options below. Pressbooks saves your last %s batches of exported files."
 msgstr ""
 
-#: templates/admin/export.php:53
+#: templates/admin/export.php:57
 msgid "Export Your Book"
 msgstr ""
 
-#: templates/admin/export.php:61
+#: templates/admin/export.php:65
 msgid "Latest Export"
 msgstr ""
 
-#: templates/admin/export.php:61 templates/admin/export.php:64
+#: templates/admin/export.php:65 templates/admin/export.php:68
 #, php-format
 msgctxt "Date and time string, e.g. \"January 1, 2016 at 12:00pm"
 msgid "%s at %s"
 msgstr ""
 
-#: templates/admin/export.php:64
+#: templates/admin/export.php:68
 msgid "Exported"
 msgstr ""
 
-#: templates/admin/export.php:102
+#: templates/admin/export.php:106
 msgid "Your Export Format Options"
 msgstr ""
 
-#: templates/admin/export.php:103
+#: templates/admin/export.php:107
 msgid "Select which formats you want to export"
 msgstr ""
 
-#: templates/admin/export.php:107
+#: templates/admin/export.php:111
 msgid "Standard book formats"
 msgstr ""
 
-#: templates/admin/export.php:109
+#: templates/admin/export.php:113
 msgid "PDF (for printing)"
 msgstr ""
 
-#: templates/admin/export.php:112
+#: templates/admin/export.php:116
 msgid "PDF (mPDF)"
 msgstr ""
 
-#: templates/admin/export.php:114 templates/admin/import.php:149
+#: templates/admin/export.php:118 templates/admin/import.php:149
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
 msgstr ""
 
-#: templates/admin/export.php:115
+#: templates/admin/export.php:119
 msgid "MOBI (for Kindle)"
 msgstr ""
 
-#: templates/admin/export.php:120
+#: templates/admin/export.php:124
 msgid "EPUB 3 (Beta)"
 msgstr ""
 
-#: templates/admin/export.php:121
+#: templates/admin/export.php:125
 msgid "ICML (for InDesign)"
 msgstr ""
 
-#: templates/admin/export.php:122
+#: templates/admin/export.php:126
 msgid "XHTML"
 msgstr ""
 
-#: templates/admin/export.php:123
+#: templates/admin/export.php:127
 msgid "Pressbooks XML"
 msgstr ""
 
-#: templates/admin/export.php:124
+#: templates/admin/export.php:128
 msgid "WordPress XML"
 msgstr ""
 
-#: templates/admin/export.php:126
+#: templates/admin/export.php:130
 msgid "ODT"
 msgstr ""
 
-#: templates/admin/export.php:131
+#: templates/admin/export.php:135
 msgid "Your Theme Options"
 msgstr ""
 
-#: templates/admin/export.php:138
+#: templates/admin/export.php:142
 msgid "Change Theme"
 msgstr ""
 
-#: templates/admin/export.php:139
+#: templates/admin/export.php:143
 msgid "Options"
 msgstr ""
 
@@ -2440,10 +2447,6 @@ msgstr ""
 
 #: templates/admin/import.php:40
 msgid "Are you sure you want to abort the import?"
-msgstr ""
-
-#: templates/admin/import.php:60 templates/admin/organize.php:57
-msgid "Chapter"
 msgstr ""
 
 #: templates/admin/import.php:99
@@ -2620,7 +2623,7 @@ msgstr ""
 #: templates/pb-catalog.php:174
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
-#: themes-root/pressbooks-publisher/header.php:37
+#: themes-root/pressbooks-publisher/header.php:39
 msgid "Admin"
 msgstr ""
 
@@ -3404,7 +3407,7 @@ msgstr ""
 msgid "Sign out"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/header.php:35
+#: themes-root/pressbooks-publisher/header.php:36
 msgid "My Books"
 msgstr ""
 
