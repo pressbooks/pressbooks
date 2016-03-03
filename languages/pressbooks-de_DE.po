@@ -2,15 +2,19 @@
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
 # Imseng <dominik_imseng@hotmail.com>, 2015
+# Hugh McGuire <hugh@pressbooks.com>, 2016
+# Imseng <dominik_imseng@hotmail.com>, 2015
 # Ned Zimmerman, 2015
+# Ned Zimmerman, 2015
+# Ron, 2014
 # Thomas Dumm <t.dumm@delivros.ch>, 2015
 # Toni Devís <colomet@hotmail.com>, 2015
 # Ron, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-03-03 16:59-0400\n"
-"PO-Revision-Date: 2016-03-03 17:06-0400\n"
+"POT-Creation-Date: 2016-03-03 17:10-0400\n"
+"PO-Revision-Date: 2016-03-03 17:17-0400\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: German (http://www.transifex.com/pressbooks/pressbooks/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -946,6 +950,10 @@ msgstr "Inhalt"
 #: includes/modules/export/mpdf/class-pb-pdf.php:269
 msgid "ISBN"
 msgstr "ISBN"
+
+#: includes/modules/export/prince/class-pb-pdf.php:241
+msgid "This book was produced using Pressbooks.com, and PDF rendering was done by PrinceXML."
+msgstr "Dieses Buch wurde auf Pressbooks.com erstellt. Das PDF wurde mit PrinceXML erzeugt."
 
 #: includes/modules/export/wordpress/class-pb-wxr.php:101 includes/modules/export/xhtml/class-pb-xhtml11.php:164
 msgid "Invalid permission error"
