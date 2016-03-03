@@ -19,7 +19,7 @@ class SassTest extends \WP_UnitTestCase {
 
 
   /**
-   * @covers \PressBooks\Sass\getStringsToLocalize
+   * @covers \PressBooks\Sass::getStringsToLocalize
    */
   public function test_getStringsToLocalize() {
 
@@ -34,7 +34,7 @@ class SassTest extends \WP_UnitTestCase {
   }
 
   /**
-   * @covers \PressBooks\Sass\prependLocalizedVars
+   * @covers \PressBooks\Sass::prependLocalizedVars
    */
   public function test_prependLocalizedVars() {
 
