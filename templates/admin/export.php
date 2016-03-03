@@ -16,11 +16,15 @@ $export_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.p
 $export_delete_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ), 'pb-delete-export' );
 $download_url_prefix = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export&download_export_file=' );
 
-$timezone_string = get_blog_option( 1, 'timezone_string', 'America/Montreal' );
+$timezone_string = get_blog_option( 1, 'timezone_string' );
 $date_format = get_blog_option( 1, 'date_format', 'F j, Y' );
 $time_format = get_blog_option( 1, 'time_format', 'g:i a' );
 
-date_default_timezone_set( $timezone_string );
+if ( $timezone_string ) {
+	date_default_timezone_set( $timezone_string );
+} else {
+	date_default_timezone_set( 'America/Montreal' );
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Warnings and errors
