@@ -201,7 +201,7 @@
 					<style:style style:family="graphic" style:name="imageFrame1">
 						<style:graphic-properties fo:border="none" fo:background-color="transparent" style:wrap="none" style:horizontal-pos="center"/>
 					</style:style>
-					
+
 					<style:style style:name="pullquotebox" style:family="graphic" style:parent-style-name="imageFrame1">
 						<style:graphic-properties fo:margin-left="0.1in" fo:margin-right="0in"
 							style:run-through="foreground" style:wrap="parallel"
@@ -212,7 +212,7 @@
 							fo:border-top="0.0138in solid #000000"
 							fo:border-bottom="0.0138in solid #000000" style:shadow="none"/>
 					</style:style>
-					
+
 					<style:style style:name="pullquotebox-left" style:family="graphic" style:parent-style-name="imageFrame1">
 						<style:graphic-properties fo:margin-left="0.1in" fo:margin-right="0in"
 							style:run-through="foreground" style:wrap="parallel"
@@ -223,7 +223,7 @@
 							fo:border-top="0.0138in solid #000000"
 							fo:border-bottom="0.0138in solid #000000" style:shadow="none"/>
 					</style:style>
-					
+
 					<style:style style:name="textbox" style:family="graphic" style:parent-style-name="imageFrame1">
 						<style:graphic-properties fo:margin-left="0in" fo:margin-right="0in" fo:margin-top="0.1in" fo:margin-bottom="0in"
 							style:run-through="foreground" style:wrap="none"
@@ -234,7 +234,7 @@
 							fo:border-top="0.0138in solid #000000"
 							fo:border-bottom="0.0138in solid #000000" style:shadow="none"/>
 					</style:style>
-					
+
 					<text:list-style style:name="List1">
 						<text:list-level-style-number text:level="1"
 							text:style-name="Numbering_20_Symbols" style:num-suffix="."
@@ -319,9 +319,9 @@
 					</style:style>
 
 					<style:style style:name="blockquote" style:family="paragraph" style:parent-style-name="Standard">
-						<style:paragraph-properties fo:font-size="10pt" 
-							fo:margin-left="0.25in" fo:margin-right="0.25in" 
-							fo:margin-top="0.17in" fo:margin-bottom="0.17in" 
+						<style:paragraph-properties fo:font-size="10pt"
+							fo:margin-left="0.25in" fo:margin-right="0.25in"
+							fo:margin-top="0.17in" fo:margin-bottom="0.17in"
 							fo:text-indent="0in" style:auto-text-indent="false"/>
 					</style:style>
 
@@ -337,19 +337,19 @@
 						<style:text-properties fo:font-size="10pt" style:font-size-asian="10pt"
 							style:font-size-complex="10pt"/>
 					</style:style>
-					
+
 					<text:notes-configuration text:note-class="footnote"
 						text:citation-style-name="Footnote_20_Symbol"
 						text:citation-body-style-name="Footnote_20_anchor" style:num-format="1"
 						text:start-value="0" text:footnotes-position="page"
 						text:start-numbering-at="document"/>
-					
+
 					<style:style style:name="Footnote" style:family="paragraph" style:parent-style-name="Standard" style:class="extra">
-						<style:paragraph-properties fo:margin-left="0.499cm" fo:margin-right="0cm" fo:text-indent="-0.499cm" 
+						<style:paragraph-properties fo:margin-left="0.499cm" fo:margin-right="0cm" fo:text-indent="-0.499cm"
 							style:auto-text-indent="false" text:number-lines="false" text:line-number="0"/>
 						<style:text-properties fo:font-size="10pt" style:font-size-asian="10pt" style:font-size-complex="10pt"/>
 					</style:style>
-					
+
 				</office:styles>
 				<office:automatic-styles>
 					<style:page-layout style:name="PL0">
@@ -438,8 +438,8 @@
 		<xsl:result-document href="mimetype" method="text">
 			<xsl:text>application/vnd.oasis.opendocument.text</xsl:text>
 		</xsl:result-document>
-		
-		<xsl:result-document href="manifest.xml" method="xml">
+
+		<xsl:result-document href="META-INF/manifest.xml" method="xml">
 			<manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0">
 				<manifest:file-entry manifest:full-path="/"
 					manifest:media-type="application/vnd.oasis.opendocument.text"/>
@@ -454,7 +454,7 @@
 			</manifest:manifest>
 		</xsl:result-document>
 	</xsl:template>
-	
+
 
 
 	<xsl:template match="html">
@@ -510,13 +510,13 @@
 					<style:paragraph-properties fo:margin-top="0.166044in" fo:margin-bottom="0in" fo:text-align="start" style:justify-single-word="false"/>
 					<style:text-properties fo:font-weight="normal" fo:font-style="italic" fo:font-size="12pt" fo:font-family="Open Sans, Helvetica, GFS Neohellenic, sans-serif"/>
 				</style:style>
-				
+
 				<style:style style:name="dedication.p" style:family="paragraph" style:parent-style-name="Standard">
 					<style:paragraph-properties fo:margin-top="0.166044in" fo:margin-bottom="0in" fo:text-align="start" style:justify-single-word="false"/>
 					<style:text-properties fo:font-weight="normal" fo:font-style="italic" fo:font-size="12pt" fo:font-family="Open Sans, Helvetica, GFS Neohellenic, sans-serif"/>
 				</style:style>
-				
-				
+
+
 				<style:style style:name="No_Indent" style:family="paragraph" style:parent-style-name="Standard">
 					<style:paragraph-properties fo:margin-top="0.166044in" fo:margin-bottom="0in" fo:text-align="start" style:justify-single-word="false"/>
 					<style:text-properties fo:text-indent="0pt"/>
@@ -534,7 +534,7 @@
 					<style:paragraph-properties  fo:list-style="none" fo:margin-left="0.394in" fo:margin-top="0in" fo:line-height="0in" fo:margin-bottom="0in" fo:text-align="left" style:justify-single-word="false" fo:padding-bottom="0.19685in"/>
 					<style:text-properties fo:font-weight="normal" fo:font-style="normal" fo:font-size="12pt" fo:font-family="Noticia Text, Times, SBL Greek, serif" fo:color="#2393BD" fo:text-transform="none"/>
 				</style:style>
-				
+
 				<!--front-matter-title-wrap.h1.front-matter-title-->
 				<style:style style:name="front-matter-title-wrap.h1.front-matter-title" style:family="paragraph" style:parent-style-name="Standard">
 					<style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.083022in" fo:text-align="left" style:justify-single-word="false"/>
@@ -549,7 +549,7 @@
 					<style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0in" fo:text-align="none" style:justify-single-word="false"/>
 					<style:text-properties fo:font-weight="none" fo:font-style="none" fo:font-size="0pt" fo:text-transform="none" fo:display="none" fo:visibility="collapse"/>
 				</style:style>
-				
+
 				<!--part-title-wrap.h1.part-title-->
 				<style:style style:name="part-title-wrap.h1.part-title" style:family="paragraph" style:parent-style-name="Standard">
 					<style:paragraph-properties fo:margin-top="0in" fo:margin-bottom="0.083022in" fo:text-align="left" style:justify-single-word="false" fo:text-transform="uppercase"/>
@@ -590,7 +590,7 @@
 					<style:paragraph-properties fo:margin-top="0.083022in" fo:margin-bottom="0.083022in" fo:text-align="left" style:justify-single-word="false"/>
 					<style:text-properties fo:font-weight="normal" fo:font-style="italic" fo:font-size="12pt" fo:font-family="Open Sans, Helvetica, GFS Neohellenic, sans-serif" fo:color="#135169" fo:text-transform="none"/>
 				</style:style>
-				
+
 				<!--chapter-title-wrap.h3.chapter-number-->
 				<style:style style:name="chapter-title-wrap.h3.chapter-number" style:family="paragraph" style:parent-style-name="Standard">
 					<style:text-properties fo:color="#135169" fo:font-family="Open Sans, Helvetica, GFS Neohellenic, sans-serif" fo:text-align="left" fo:font-size="12pt" fo:font-weight="bold" fo:font-style="normal" fo:text-transform="uppercase" fo:font-variant="normal" fo:letter-spacing="1px" fo:word-spacing="2px" fo:border-bottom="0.5px #135169 solid" fo:padding-bottom="5em" fo:display="block"/>
@@ -619,8 +619,8 @@
 				<style:style style:name="title-page.h5.publisher-city" style:family="paragraph" style:parent-style-name="Standard">
 					<style:text-properties fo:color="#5DA4BF" fo:font-family="Open Sans, Helvetica, GFS Neohellenic, sans-serif" fo:text-align="left" fo:font-size="12pt" fo:font-weight="normal" fo:font-style="normal" fo:text-transform="uppercase" fo:font-variant="normal" fo:letter-spacing="1px" fo:word-spacing="2px" fo:border-bottom="3.5cm #135169 solid" fo:padding-bottom="3.5cm"/>
 				</style:style>
-				
-				
+
+
 			</office:automatic-styles>
 			<office:body>
 				<office:text text:use-soft-page-breaks="true">
@@ -662,7 +662,7 @@
 						<xsl:when test="(local-name()='h1') and (@class='front-matter-title') and parent::div[@class='front-matter-title-wrap'] and (child::*[@class='display-none'])"/>
 						<xsl:when test="(local-name()='h1') and (@class='title') and parent::div[@id='half-title-page']"/>
 						<xsl:when test="(local-name()='h6') and (parent::div[@class='ugc front-matter-ugc']) and (@class='short-title')"/>
-						
+
 					<xsl:otherwise>
 					<text:h>
 					<xsl:attribute name="text:outline-level">
@@ -675,52 +675,52 @@
 							</xsl:otherwise>
 						</xsl:choose>
 					</xsl:attribute>
-							
+
 							<!--Kumar-->
 							<xsl:choose>
-								
+
 								<xsl:when test="(local-name()='h1') and (@class='section-header') and parent::div[@class='ugc chapter-ugc']">
-									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h1.section-header</xsl:text></xsl:attribute>	
+									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h1.section-header</xsl:text></xsl:attribute>
 								</xsl:when>
 								<xsl:when test="(local-name()='h2') and (not(@class)) and parent::div[@class='ugc chapter-ugc']">
-									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h2.NoClass</xsl:text></xsl:attribute>	
+									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h2.NoClass</xsl:text></xsl:attribute>
 								</xsl:when>
 								<xsl:when test="(local-name()='h3') and (not(@class)) and parent::div[@class='ugc chapter-ugc']">
-									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h3.NoClass</xsl:text></xsl:attribute>	
+									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h3.NoClass</xsl:text></xsl:attribute>
 								</xsl:when>
 								<xsl:when test="(local-name()='h4') and (not(@class)) and parent::div[@class='ugc chapter-ugc']">
-									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h4.NoClass</xsl:text></xsl:attribute>	
+									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h4.NoClass</xsl:text></xsl:attribute>
 								</xsl:when>
 								<xsl:when test="(local-name()='h5') and (not(@class)) and parent::div[@class='ugc chapter-ugc']">
-									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h5.NoClass</xsl:text></xsl:attribute>	
+									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h5.NoClass</xsl:text></xsl:attribute>
 								</xsl:when>
 								<xsl:when test="(local-name()='h6') and (not(@class)) and parent::div[@class='ugc chapter-ugc']">
-									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h6.NoClass</xsl:text></xsl:attribute>	
+									<xsl:attribute name="text:style-name"><xsl:text>chapter-ugc.h6.NoClass</xsl:text></xsl:attribute>
 								</xsl:when>
-								
-								
-								
+
+
+
 								<xsl:when test="(local-name()='h1') and parent::div[@id='toc']">
-									<xsl:attribute name="text:style-name"><xsl:text>toc.h1</xsl:text></xsl:attribute>	
+									<xsl:attribute name="text:style-name"><xsl:text>toc.h1</xsl:text></xsl:attribute>
 								</xsl:when>
 								<xsl:when test="(local-name()='h1') and (@class='front-matter-title') and parent::div[@class='front-matter-title-wrap']">
-									<xsl:attribute name="text:style-name"><xsl:text>front-matter-title-wrap.h1.front-matter-title</xsl:text></xsl:attribute>	
+									<xsl:attribute name="text:style-name"><xsl:text>front-matter-title-wrap.h1.front-matter-title</xsl:text></xsl:attribute>
 								</xsl:when>
 								<xsl:when test="(local-name()='h2') and (parent::div[@class='ugc front-matter-ugc']) or (@class='chapter-subtitle')">
-									<xsl:attribute name="text:style-name"><xsl:text>ugc.front-matter-ugc.h2.chapter-subtitle</xsl:text></xsl:attribute>	
-								</xsl:when>							
+									<xsl:attribute name="text:style-name"><xsl:text>ugc.front-matter-ugc.h2.chapter-subtitle</xsl:text></xsl:attribute>
+								</xsl:when>
 								<xsl:when test="(local-name()='h6') and (parent::div[@class='ugc front-matter-ugc']) or (@class='short-title')">
-									<xsl:attribute name="text:style-name"><xsl:text>ugc.front-matter-ugc.h6.short-title</xsl:text></xsl:attribute>	
-								</xsl:when>							
-								
+									<xsl:attribute name="text:style-name"><xsl:text>ugc.front-matter-ugc.h6.short-title</xsl:text></xsl:attribute>
+								</xsl:when>
+
 								<xsl:when test="(local-name()='h1') and (@class='part-title') and parent::div[@class='part-title-wrap']">
-									<xsl:attribute name="text:style-name"><xsl:text>part-title-wrap.h1.part-title</xsl:text></xsl:attribute>	
+									<xsl:attribute name="text:style-name"><xsl:text>part-title-wrap.h1.part-title</xsl:text></xsl:attribute>
 								</xsl:when>
 								<xsl:when test="(local-name()='h3') and (@class='part-number') and parent::div[@class='part-title-wrap']">
 									<xsl:attribute name="text:style-name"><xsl:text>part-title-wrap.h3.part-number</xsl:text></xsl:attribute>
 									<xsl:text>PART </xsl:text>
 								</xsl:when>
-								
+
 								<xsl:when test="(local-name()='h2') and (@class='chapter-title') and parent::div[@class='chapter-title-wrap']">
 									<xsl:attribute name="text:style-name"><xsl:text>chapter-title-wrap.h2.chapter-title</xsl:text></xsl:attribute>
 								</xsl:when>
@@ -729,10 +729,10 @@
 									<xsl:text>Chapter </xsl:text>
 								</xsl:when>
 								<!--****************-->
-								
-								
-								
-								
+
+
+
+
 								<xsl:when test="(local-name()='h1') and (@class='title') and parent::div[@id='title-page']">
 									<xsl:attribute name="text:style-name"><xsl:text>title-page.h1.title</xsl:text></xsl:attribute>
 								</xsl:when>
@@ -748,7 +748,7 @@
 								<xsl:when test="(local-name()='h5') and (@class='publisher-city') and parent::div[@id='title-page']">
 									<xsl:attribute name="text:style-name"><xsl:text>title-page.h5.publisher-city</xsl:text></xsl:attribute>
 								</xsl:when>
-								
+
 							</xsl:choose>
 					<xsl:choose>
 						<xsl:when test="@id">
@@ -767,13 +767,13 @@
 				</xsl:otherwise>
 				</xsl:choose>
 	</xsl:template>
-	
+
 	<xsl:template match="p[@class='wp-caption-text']" mode="captionMode">
 		<text:span>
 			<xsl:apply-templates/>
 		</text:span>
 	</xsl:template>
-	
+
 	<xsl:template match="p[@class='wp-caption-text']">
 		<!-- Do Nothing -->
 	</xsl:template>
@@ -821,7 +821,7 @@
 						<xsl:text>dedication.p</xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
-							<xsl:text>P_Indent1</xsl:text>	
+							<xsl:text>P_Indent1</xsl:text>
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
@@ -860,7 +860,7 @@
 					<text:note-body>
 						<text:p text:style-name="Footnote">
 							<xsl:value-of select="."/>
-						</text:p>				
+						</text:p>
 					</text:note-body>
 				</text:note>
 			</xsl:when>
@@ -882,7 +882,7 @@
 					<xsl:if test="contains(@class, 'chapter-author') or contains(@class, 'chapter-subtitle')">
 						<text:line-break/>
 					</xsl:if>
-					<xsl:apply-templates/>							
+					<xsl:apply-templates/>
 				</text:span>
 			</xsl:otherwise>
 		</xsl:choose>
@@ -905,27 +905,27 @@
 			<xsl:apply-templates/>
 		</text:span>
 	</xsl:template>
-	
+
 	<xsl:template match="sup">
 		<text:span text:style-name="sup">
 			<xsl:apply-templates/>
 		</text:span>
 	</xsl:template>
-	
+
 	<xsl:template match="sub">
 		<text:span text:style-name="sub">
 			<xsl:apply-templates/>
 		</text:span>
 	</xsl:template>
-	
+
 	<xsl:template match="div">
 		<xsl:choose>
 			<xsl:when test="@id">
 				<!--KK GUPTA 30/01/2016-->
 				<xsl:if test="not(@id='half-title-page')">
 					<text:p text:style-name="P1"/>
-				</xsl:if>	
-				
+				</xsl:if>
+
 				<text:section text:name="{@id}">
 					<xsl:apply-templates/>
 				</text:section>
@@ -1020,7 +1020,7 @@
 				<!--<xsl:if test="a[starts-with(./@href, '#')] and ancestor::div[@id='toc']">
 					<xsl:attribute name="text:style-name">List-none</xsl:attribute>
 				</xsl:if>-->
-				
+
 				<xsl:choose>
 					<!--<xsl:when test="a[starts-with(., '#')] and ancestor::div[@id=toc]">-->
 					<xsl:when test="a[starts-with(./@href, '#')] and ancestor::div[@id='toc']">
@@ -1107,16 +1107,16 @@
 			<xsl:apply-templates/>
 		</text:p>
 	</xsl:template>
-	
+
 	<xsl:template match="caption">
 		<!--Do Nothing-->
 	</xsl:template>
-	
+
 	<xsl:template match="table">
 		<xsl:if test="caption">
 			<xsl:apply-templates select="caption" mode="tablecaption"/>
 		</xsl:if>
-		<table:table>	
+		<table:table>
 			<!--<table:table-column table:number-columns-repeated="{@colcount}"/>-->
 			<!--KK Gupta-->
 			<xsl:choose>
@@ -1175,7 +1175,7 @@
 							<xsl:when test="@width">
 								<xsl:choose>
 									<xsl:when test="number((@width div 96)) &gt; 6.26806">
-										<xsl:text>6.26806in</xsl:text>		
+										<xsl:text>6.26806in</xsl:text>
 									</xsl:when>
 									<xsl:otherwise>
 										<xsl:value-of select="(@width div 96)"/><xsl:text>in</xsl:text>
@@ -1192,7 +1192,7 @@
 							<xsl:when test="@height">
 								<xsl:choose>
 									<xsl:when test="number(@height div 96) &gt; 4.70139">
-										<xsl:text>4.70139in</xsl:text>		
+										<xsl:text>4.70139in</xsl:text>
 									</xsl:when>
 									<xsl:otherwise>
 										<xsl:value-of select="(@height div 96)"/><xsl:text>in</xsl:text>
@@ -1225,7 +1225,7 @@
 								<xsl:when test="@width">
 									<xsl:choose>
 										<xsl:when test="number((@width div 96)) &gt; 6.26806">
-											<xsl:text>6.26806in</xsl:text>		
+											<xsl:text>6.26806in</xsl:text>
 										</xsl:when>
 										<xsl:otherwise>
 											<xsl:value-of select="(@width div 96)"/><xsl:text>in</xsl:text>
@@ -1242,7 +1242,7 @@
 								<xsl:when test="@height">
 									<xsl:choose>
 										<xsl:when test="number(@height div 96) &gt; 4.70139">
-											<xsl:text>4.70139in</xsl:text>		
+											<xsl:text>4.70139in</xsl:text>
 										</xsl:when>
 										<xsl:otherwise>
 											<xsl:value-of select="(@height div 96)"/><xsl:text>in</xsl:text>
