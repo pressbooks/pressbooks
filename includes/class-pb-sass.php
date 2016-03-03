@@ -32,6 +32,19 @@ class Sass {
 
 	}
 
+	/**
+	 * Fetch an array of strings in (S)CSS which need to be localized
+	 *
+	 * @return array
+	 */
+	function getStringsToLocalize() {
+
+		return [
+			'chapter' => __( 'Chapter', 'pressbooks' ),
+			'part' => __( 'Part', 'pressbooks' ),
+		];
+
+	}
 
 	/**
 	 * Get the path to our PB Partials
@@ -133,6 +146,8 @@ class Sass {
 	 */
 	function compile( $scss, $includes = array() ) {
 
+		$scss = $this->prependLocalizedVars( $scss );
+
 		try {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
 
@@ -179,6 +194,26 @@ class Sass {
 		return $css;
 	}
 
+	/**
+	 * Prepend localized version of content string variables.
+	 *
+	 * @param string $scss
+	 * @return string
+	 */
+	function prependLocalizedVars( $scss ) {
+		$strings = $this->getStringsToLocalize();
+		$localizations = '';
+
+		foreach ( $strings as $var => $string ) {
+			$localizations .= "\$$var: '$string';\n";
+		}
+
+		if ( WP_DEBUG ) {
+			$this->debug( "/* Silence is golden. */", $localizations, 'localizations' );
+		}
+
+		return $localizations . $scss;
+	}
 
 	/**
 	 * Log Exceptions
