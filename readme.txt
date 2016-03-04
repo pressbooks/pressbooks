@@ -204,11 +204,14 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 * Requires WordPress 4.4.2.
 * Added Google Analytics support at the network level (subdomain and subdirectory installs) and the book level (subdomain installs only).
 * Added support for installs that use SSL (props to @bdolor for contributions).
+* Added localization support for strings (currently, "Chapter" and "Part") in book stylesheets.
+* Added localization support for the Pressbooks "freebie" notice.
 * Set timezone on export page based on root site settings (props to @chrillep for the bug report).
 * Enhanced image display in exports.
 * Expanded code coverage.
 * Fixed an issue where footnote anchors would not be properly created when importing a Word document (thanks to @crism for the report and the contribution).
 * Fixed an issue where clicking 'Show in Catalog' would not work (props to @colomet for the bug report).
+* Fixed an issue where the "My Books" button would appear in Pressbooks Publisher for logged-in users with no books.
 * Fixed the way the PB_PLUGIN_DIR and PB_PLUGIN_URL constants are defined to support installations of Pressbooks where plugins and themes are symlinked.
 
 = 3.1.2 =
@@ -427,4 +430,3 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 = 2.3.2 =
 * Cleaner print output from webbooks.
 * Ebook theme option to skip line between paragraphs is now honored in all themes.
-
