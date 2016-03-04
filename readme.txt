@@ -206,6 +206,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 * Added support for installs that use SSL (props to @bdolor for contributions).
 * Added localization support for strings (currently, "Chapter" and "Part") in book stylesheets.
 * Added localization support for the Pressbooks "freebie" notice.
+* Clarified new user and book registration text.
 * Set timezone on export page based on root site settings (props to @chrillep for the bug report).
 * Enhanced image display in exports.
 * Expanded code coverage.
