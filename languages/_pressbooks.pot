@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-03-06 19:35-0400\n"
+"POT-Creation-Date: 2016-03-06 19:47-0400\n"
 "PO-Revision-Date: 2015-08-08 13:43-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Pressbooks <code@pressbooks.com>\n"
@@ -2797,7 +2797,7 @@ msgid "and"
 msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:563
-msgid "Select languages…"
+msgid "Select languages&hellip;"
 msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:571
