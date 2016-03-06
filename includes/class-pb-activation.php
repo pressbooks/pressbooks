@@ -186,7 +186,7 @@ class Activation {
 			array(
 				'post_title' => __( 'Access Denied', 'pressbooks' ),
 				'post_name' => 'access-denied',
-				'post_content' => __( 'This book is private, and accessible only to registered users. If you have an account you can login <a href="/wp-login.php">here</a>.  You can also set up your own Pressbooks book at: <a href="http://pressbooks.com">Pressbooks.com</a>.', 'pressbooks' ),
+				'post_content' => __( 'This book is private, and accessible only to registered users. If you have an account you can login <a href="/wp-login.php">here</a>. You can also set up your own Pressbooks book at: <a href="http://pressbooks.com">Pressbooks.com</a>.', 'pressbooks' ),
 				'post_type' => 'page' ),
 			// Custom CSS
 			array(
