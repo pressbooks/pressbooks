@@ -76,3 +76,124 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
 
   return $translated_text;
 }
+
+/**
+ * Add fields to allow new users to specify a password upon registration
+ *
+ * @param object $errors
+ */
+function add_password_field( $errors ) {
+
+	if ( $errors && method_exists( $errors, 'get_error_message' ) ) {
+		$error = $errors->get_error_message( 'password_1' );
+	} else {
+		$error = false;
+	} ?>
+
+	<label for="password_1"><?php _e( 'Password', 'pressbooks' ); ?>:</label>
+	<?php if ( $error ) { ?><p class="error"><?php echo $error; ?></p><?php } ?>
+	<input name="password_1" type="password" id="password_1" value="" autocomplete="off" maxlength="20"/><br/>
+	<?php _e( 'Type in your password.', 'pressbooks' ); ?>
+
+	<label for="password_2"><?php _e( 'Confirm Password', 'pressbooks' ); ?>:</label>
+	<input name="password_2" type="password" id="password_2" value="" autocomplete="off" maxlength="20"/><br/>
+	<?php _e( 'Type in your password again.', 'pressbooks' );
+}
+
+/**
+ * Validate user submitted passwords
+ *
+ * @param array $content
+ */
+function validate_passwords( $content ) {
+
+	$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : '';
+	$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : '';
+
+	if ( isset( $_POST['stage'] ) && $_POST['stage'] == 'validate-user-signup' ) {
+
+		// No primary password entered
+		if ( trim( $password_1 ) === '' ) {
+			$content['errors']->add( 'password_1', __( 'You have to enter a password.', 'pressbooks' ) );
+			return $content;
+		}
+
+		// Passwords do not match
+		if ( $password_1 !== $password_2 ) {
+			$content['errors']->add( 'password_1', __( 'Passwords do not match.', 'pressbooks' ) );
+			return $content;
+		}
+	}
+
+	return $content;
+}
+
+/**
+ * Add password to temporary user meta
+ *
+ * @param array $meta
+ */
+
+function add_temporary_password( $meta ) {
+
+	if ( isset( $_POST['password_1'] ) ) {
+
+		// Store as base64 to avoid injections
+		$add_meta = array( 'password' => ( isset( $_POST['password_1_base64'] ) ? $_POST['password_1'] : base64_encode( $_POST['password_1'] ) ) );
+		$meta = array_merge( $add_meta, $meta );
+	}
+
+	// This should never happen.
+	return $meta;
+}
+
+/**
+ * Add hidden password field to blog registration page
+ */
+
+function add_hidden_password_field() {
+	if ( isset( $_POST['password_1'] ) ) { ?><input type="hidden" name="password_1_base64" value="1" />
+<input type="hidden" name="password_1" value="<?php echo ( isset( $_POST['password_1_base64'] ) ? $_POST['password_1'] : base64_encode( $_POST['password_1'] ) ); ?>" />
+	<?php }
+}
+
+/**
+ * Override wp_generate_password() once when we're generating our form
+ */
+
+function override_password_generation( $password ) {
+
+	global $wpdb;
+
+	// Check key in GET and then fallback to POST.
+	if ( isset($_GET['key'] ) ) {
+		$key = $_GET['key'];
+	} elseif ( isset( $_POST['key'] ) ) {
+		$key = $_POST['key'];
+	} else {
+		$key = null;
+	}
+
+	// Look for active signup
+	$signup = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE activation_key = '%s'", $key ) );
+
+	// Only override filter on wp-activate.php screen
+	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) && $key !== null && ( !( empty( $signup ) || $signup->active ) ) ) {
+		$meta = maybe_unserialize( $signup->meta );
+		if ( isset( $meta['password'] ) ) {
+
+			// Set the "random" password to our predefined one
+			$password = base64_decode( $meta['password'] );
+
+			// Remove old password from signup meta
+			unset( $meta['password'] );
+			$meta = maybe_serialize( $meta );
+			$wpdb->update( $wpdb->signups, array( 'meta' => $meta ), array( 'activation_key' => $key ), array( '%s' ), array( '%s' ) );
+			return $password;
+		} else {
+			return $password; // No password meta set = just activate user as normal with random password
+		}
+	} else {
+		return $password; // Regular usage, don't touch the password generation
+	}
+}
