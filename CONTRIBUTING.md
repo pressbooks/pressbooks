@@ -56,6 +56,7 @@ Explain the problem and include additional details to help maintainers reproduce
 Provide more context by answering these questions:
 
 * **Can you reproduce the problem with [all other plugins deactivated](http://codex.wordpress.org/Multisite_Network_Administration#Plugins)?**
+* Are you experiencing this issue with one of our built-in root or book themes, or with your own custom root or book theme?
 * **Did the problem start happening recently** (e.g. after updating to a new version of Pressbooks) or was this always a problem?
 * If the problem started happening recently, **can you reproduce the problem in an older version of Pressbooks?** What's the most recent version in which the problem doesn't happen? You can download older versions of Pressbooks on [the plugin page](https://wordpress.org/plugins/pressbooks/developers/).
 * **Can you reliably reproduce the issue?** If not, provide details about how often the problem happens and under which conditions it normally happens.
@@ -63,6 +64,7 @@ Provide more context by answering these questions:
 Include details about your configuration and environment:
 
 * **Which versions of Pressbooks and WordPress are you using?** You can get the version of Pressbooks from the readme.txt file in the Pressbooks plugin (usually located at `http://<yourdomain.tld>/wp-content/plugins/pressbooks/readme.txt`) and the version of WordPress from the readme.html file in the WordPress root directory (usually located at `http://<yourdomain.tld>/readme.html`).
+* **Which root and/or book theme(s) are you using?**
 * **What server software (e.g. Apache, Nginx) and PHP version are being used to host your Pressbooks instance**? You can usually get your PHP version from your web host, or by using the [phpversion()](http://php.net/manual/en/function.phpversion.php) function.
 
 ### Suggesting Enhancements
@@ -87,6 +89,7 @@ Enhancement suggestions are tracked as [GitHub issues](https://guides.github.com
 * **Describe the current behavior** and **explain which behavior you expected to see instead** and why.
 * **Explain why this enhancement would be useful** to most Pressbooks users and isn't something that can or should be implemented as a standalone plugin.
 * **Specify which versions of Pressbooks and WordPress you're using.** You can get the version of Pressbooks from the readme.txt file in the Pressbooks plugin (usually located at `http://<yourdomain.tld>/wp-content/plugins/pressbooks/readme.txt`) and the version of WordPress from the readme.html file in the WordPress root directory (usually located at `http://<yourdomain.tld>/readme.html`).
+* **Specify which root and/or book theme(s) you're using.**
 
 ### Your First Code Contribution
 
