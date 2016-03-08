@@ -5,7 +5,6 @@
  */
 namespace PressBooks\Admin\Dashboard;
 
-
 /**
  *  Remove unwanted network Dashboard widgets, add our news feed.
  */
@@ -17,7 +16,14 @@ function replace_network_dashboard_widgets() {
 	unset( $wp_meta_boxes['dashboard-network']['side']['core']['dashboard_primary'] );
 
 	// Add our news feed.
-	add_meta_box( 'pb_dashboard_widget_blog', __( 'Pressbooks News', 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
+	$options = get_site_option( 'pressbooks_dashboard_feed', [
+		'display_feed' => 1,
+		'url' => 'https://pressbooks.com/feed/',
+		'title' => 'Pressbooks News'
+	] );
+	if ( $options['display_feed'] == 1 ) {
+		add_meta_box( 'pb_dashboard_widget_blog', __( $options['title'], 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
+	}
 }
 
 
@@ -33,7 +39,14 @@ function replace_root_dashboard_widgets() {
 	unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary'] );
 
 	// Add our news feed.
-	add_meta_box( 'pb_dashboard_widget_blog', __( 'Pressbooks News', 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
+	$options = get_site_option( 'pressbooks_dashboard_feed', [
+		'display_feed' => 1,
+		'url' => 'https://pressbooks.com/feed/',
+		'title' => 'Pressbooks News'
+	] );
+	if ( $options['display_feed'] == 1 ) {
+		add_meta_box( 'pb_dashboard_widget_blog', __( $options['title'], 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
+	}
 }
 
 
@@ -105,9 +118,14 @@ function display_book_widget() {
  */
 function display_pressbooks_blog() {
 
+	$options = get_site_option( 'pressbooks_dashboard_feed', [
+		'display_feed' => 1,
+		'url' => 'https://pressbooks.com/feed/',
+		'title' => 'Pressbooks News'
+	] );
+
 	wp_widget_rss_output( array(
-		'url' => 'http://pressbooks.com/feed/',
-		'title' => __( 'Pressbooks News', 'pressbooks' ),
+		'url' => $options['url'],
 		'items' => 5,
 		'show_summary' => 1,
 		'show_author' => 0,
