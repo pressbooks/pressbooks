@@ -463,10 +463,8 @@ class Pdf extends Export {
 			} else {
 				$title = '<h2 class="entry-title">' . $page['post_title'] . '</h2>';
 			}
-			$content = $class
-				. $title
-				. $this->getFilteredContent( $page['post_content'] )
-				. '</div>';
+
+			$content = '';
 
 
 			$citations = \CandelaCitation::renderCitation($page['ID']);
