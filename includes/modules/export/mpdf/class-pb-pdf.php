@@ -468,6 +468,21 @@ class Pdf extends Export {
 				. $this->getFilteredContent( $page['post_content'] )
 				. '</div>';
 
+
+			$citations = \CandelaCitation::renderCitation($page['ID']);
+			if ( ! empty ($citations)){
+				$content .= $class
+					. $title
+					. $this->getFilteredContent( $page['post_content'] ) . '</div>'
+					. '<div><h6 class="bcc-box bcc-info citations">' . $citations . '</h6></div>';
+			}
+			if ( empty ($citations)){
+				$content = $class
+					. $title
+					. $this->getFilteredContent( $page['post_content'] )
+					. '</div>';
+			}
+
 			// TODO Make this hookable.
 			$this->mpdf->WriteHTML( $content );
 			return true;
