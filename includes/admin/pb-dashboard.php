@@ -67,8 +67,18 @@ function replace_dashboard_widgets() {
 	// Replace with our own
 	$book_name = get_bloginfo( 'name' );
 	add_meta_box( 'pb_dashboard_widget_book', ( $book_name ? $book_name : __( 'My Book', 'pressbooks' ) ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
-	add_meta_box( 'pb_dashboard_widget_blog', __( 'Pressbooks News', 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'high' );
 	add_meta_box( 'pb_dashboard_widget_users', __( 'Users', 'pressbooks' ), __NAMESPACE__ . '\display_users_widget', 'dashboard', 'side', 'high' );
+
+	// Add our news feed.
+	$options = get_site_option( 'pressbooks_dashboard_feed', [
+		'display_feed' => 1,
+		'url' => 'https://pressbooks.com/feed/',
+		'title' => 'Pressbooks News'
+	] );
+	if ( $options['display_feed'] == 1 ) {
+		add_meta_box( 'pb_dashboard_widget_blog', __( $options['title'], 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
+	}
+
 }
 
 
@@ -276,9 +286,9 @@ function display_feed_sanitize( $input ) {
 }
 
 function title_sanitize( $input ) {
-    return sanitize_text_field( $input );
+    return wp_kses_post( $input );
 }
 
 function url_sanitize( $input ) {
-    return sanitize_text_field( $input );
+    return wp_kses_post( $input );
 }
