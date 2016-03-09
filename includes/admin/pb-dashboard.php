@@ -16,11 +16,11 @@ function replace_network_dashboard_widgets() {
 	unset( $wp_meta_boxes['dashboard-network']['side']['core']['dashboard_primary'] );
 
 	// Add our news feed.
-	$options = get_site_option( 'pressbooks_dashboard_feed', [
+	$options = array_map( 'stripslashes_deep', get_site_option( 'pressbooks_dashboard_feed', [
 		'display_feed' => 1,
 		'url' => 'https://pressbooks.com/feed/',
 		'title' => 'Pressbooks News'
-	] );
+	] ) );
 	if ( $options['display_feed'] == 1 ) {
 		add_meta_box( 'pb_dashboard_widget_blog', __( $options['title'], 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
 	}
@@ -39,11 +39,11 @@ function replace_root_dashboard_widgets() {
 	unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary'] );
 
 	// Add our news feed.
-	$options = get_site_option( 'pressbooks_dashboard_feed', [
+	$options = array_map( 'stripslashes_deep', get_site_option( 'pressbooks_dashboard_feed', [
 		'display_feed' => 1,
 		'url' => 'https://pressbooks.com/feed/',
 		'title' => 'Pressbooks News'
-	] );
+	] ) );
 	if ( $options['display_feed'] == 1 ) {
 		add_meta_box( 'pb_dashboard_widget_blog', __( $options['title'], 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 	}
@@ -70,11 +70,11 @@ function replace_dashboard_widgets() {
 	add_meta_box( 'pb_dashboard_widget_users', __( 'Users', 'pressbooks' ), __NAMESPACE__ . '\display_users_widget', 'dashboard', 'side', 'high' );
 
 	// Add our news feed.
-	$options = get_site_option( 'pressbooks_dashboard_feed', [
+	$options = array_map( 'stripslashes_deep', get_site_option( 'pressbooks_dashboard_feed', [
 		'display_feed' => 1,
 		'url' => 'https://pressbooks.com/feed/',
 		'title' => 'Pressbooks News'
-	] );
+	] ) );
 	if ( $options['display_feed'] == 1 ) {
 		add_meta_box( 'pb_dashboard_widget_blog', __( $options['title'], 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 	}
@@ -128,11 +128,11 @@ function display_book_widget() {
  */
 function display_pressbooks_blog() {
 
-	$options = get_site_option( 'pressbooks_dashboard_feed', [
+	$options = array_map( 'stripslashes_deep', get_site_option( 'pressbooks_dashboard_feed', [
 		'display_feed' => 1,
 		'url' => 'https://pressbooks.com/feed/',
 		'title' => 'Pressbooks News'
-	] );
+	] ) );
 
 	wp_widget_rss_output( array(
 		'url' => $options['url'],
@@ -262,12 +262,12 @@ function display_feed_callback( $args ) {
 }
 
 function title_callback( $args ) {
-	$options = get_site_option( 'pressbooks_dashboard_feed', [
+	$options = array_map( 'stripslashes_deep', get_site_option( 'pressbooks_dashboard_feed', [
 		'display_feed' => 1,
 		'url' => 'https://pressbooks.com/feed/',
 		'title' => 'Pressbooks News'
-	] );
-  $html = '<input id="title" name="pressbooks_dashboard_feed[title]" type="text" value="' . stripslashes( $options['title'] ) . '" />';
+	] ) );
+  $html = '<input id="title" name="pressbooks_dashboard_feed[title]" type="text" value="' . $options['title'] . '" />';
   echo $html;
 }
 
