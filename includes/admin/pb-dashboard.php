@@ -267,7 +267,7 @@ function title_callback( $args ) {
 		'url' => 'https://pressbooks.com/feed/',
 		'title' => 'Pressbooks News'
 	] );
-  $html = '<input id="title" name="pressbooks_dashboard_feed[title]" type="text" value="' . $options['title'] . '" />';
+  $html = '<input id="title" name="pressbooks_dashboard_feed[title]" type="text" value="' . stripslashes( $options['title'] ) . '" />';
   echo $html;
 }
 
@@ -290,5 +290,5 @@ function title_sanitize( $input ) {
 }
 
 function url_sanitize( $input ) {
-    return wp_kses_post( $input );
+    return esc_url( $input );
 }
