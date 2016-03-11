@@ -58,6 +58,10 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
       case 'Welcome back, %s. By filling out the form below, you can <strong>add another site to your account</strong>. There is no limit to the number of sites you can have, so create to your heart&#8217;s content, but write responsibly!' :
         $translated_text = __( 'Welcome, %s. Fill out the form below to <strong>add a new book to your account</strong>.', 'pressbooks' );
         break;
+      case 'domain' :
+      case 'sitename' :
+        $translated_text = __( 'yourwebbookname', 'pressbooks' );
+        break;
       case 'Sites you are already a member of:' :
         $translated_text = __( 'Books you are already a member of:', 'pressbooks' );
         break;
