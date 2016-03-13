@@ -124,7 +124,7 @@ class CustomCss {
 	static function isRomanized() {
 
 		$options = get_option( 'pressbooks_theme_options_pdf' );
-		
+
 		return (bool) ( @$options['pdf_romanize_parts'] );
 	}
 
@@ -239,5 +239,21 @@ class CustomCss {
 		return $css;
 	}
 
+	/**
+	 * Determine base theme that was used for the selected Custom CSS.
+	 * @param $slug string
+	 *
+	 * @return string
+	 */
+	 static function getBaseTheme( $slug ) {
+		 $filename = static::getCustomCssFolder() . sanitize_file_name( $slug . '.css' );
+		 if ( ! file_exists( $filename ) ) {
+			 return false;
+		 }
+		 $theme = get_file_data( $filename, array( 'ThemeURI' => 'Theme URI' ) );
+		 $theme_slug = str_replace( 'http://pressbooks.com/themes/', '', $theme['ThemeURI'] );
+
+		 return $theme_slug;
+	 }
 
 }
