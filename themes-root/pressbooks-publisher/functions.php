@@ -50,7 +50,7 @@ function pressbooks_publisher_setup() {
 	add_theme_support( 'html5', array(
 		'search-form', 'comment-form', 'comment-list', 'gallery', 'caption',
 	) );
-	
+
 	/**
 	 * Load Site Logo plugin.
 	 */
@@ -61,8 +61,8 @@ function pressbooks_publisher_setup() {
 	    ),
 	    'size' => 'pressbooks-publisher-site-logo',
 	);
-	add_theme_support( 'site-logo', $args );	
-	
+	add_theme_support( 'site-logo', $args );
+
 }
 endif; // pressbooks_publisher_setup
 add_action( 'after_setup_theme', 'pressbooks_publisher_setup' );
@@ -87,12 +87,12 @@ function pressbooks_publisher_fonts_url() {
     * into your own language.
     */
 	$droid_serif = _x( 'on', 'Droid Serif font: on or off', 'pressbooks' );
-	
+
 	/* Translators: If there are characters in your language that are not
     * supported by Droid Sans, translate this to 'off'. Do not translate
     * into your own language.
     */
-	$droid_sans = _x( 'on', 'Droid Sans font: on or off', 'pressbooks' );	
+	$droid_sans = _x( 'on', 'Droid Sans font: on or off', 'pressbooks' );
 
 	if ( 'off' !== $oswald || 'off' !== $droid_serif || 'off' !== $droid_sans ) {
 		$font_families = array();
@@ -104,10 +104,10 @@ function pressbooks_publisher_fonts_url() {
 		if ( 'off' !== $droid_serif ) {
 			$font_families[] = 'Droid+Serif:400,400italic,700';
 		}
-		
+
 		if ( 'off' !== $droid_sans ) {
 			$font_families[] = 'Droid+Sans';
-		}		
+		}
 
 		$query_args = array(
 			'family' => urlencode( implode( '|', $font_families ) ),
@@ -154,10 +154,10 @@ function pressbooks_publisher_scripts() {
 	wp_enqueue_script( 'pressbooks-publisher-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20120206', true );
 
 	wp_enqueue_script( 'pressbooks-publisher-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20130115', true );
-	
+
 	wp_enqueue_script( 'pressbooks-publisher-match-height', get_template_directory_uri() . '/js/jquery.matchHeight-min.js', array('jquery'), '20150519', true );
-	
-	wp_enqueue_script( 'pressbooks-publisher-script', get_template_directory_uri() . '/js/script.js', array(), '20150519', true );	
+
+	wp_enqueue_script( 'pressbooks-publisher-script', get_template_directory_uri() . '/js/script.js', array(), '20150519', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -177,7 +177,7 @@ add_action( 'login_head', create_function('', 'echo \'<link rel="stylesheet" typ
 
 function custom_login_url( $url ) {
 	return get_bloginfo( 'url' );
-} 
+}
 
 add_filter( 'login_headerurl', 'custom_login_url' );
 
@@ -211,7 +211,7 @@ add_filter( 'show_admin_bar', function () { return false; } );
 /**
  * Hide sidebar items.
  */
- 
+
 add_action( 'admin_menu', 'pressbooks_publisher_menu', 1 );
 
 function pressbooks_publisher_menu() {
@@ -239,7 +239,7 @@ function pressbooks_publisher_menu() {
 /**
  * Catalog management for Network Admin.
  */
- 
+
 function pressbooks_publisher_admin_scripts($hook) {
     if ( 'sites.php' !== $hook ) {
         return;
@@ -259,7 +259,7 @@ add_action( 'admin_enqueue_scripts', 'pressbooks_publisher_admin_scripts' );
 function pressbooks_publisher_update_catalog() {
 	$blog_id = absint( $_POST['book_id'] );
 	$in_catalog = $_POST['in_catalog'];
-	
+
 	if ( current_user_can( 'manage_network' ) && check_ajax_referer( 'pressbooks-publisher-admin' ) ) {
 		if ( $in_catalog == 'true' ) {
 			update_blog_option( $blog_id, 'pressbooks_publisher_in_catalog', 1 );
@@ -279,7 +279,7 @@ function pressbooks_publisher_catalog_columns( $columns ) {
 add_filter( 'wpmu_blogs_columns', 'pressbooks_publisher_catalog_columns' );
 
 function pressbooks_publisher_catalog_column( $column, $blog_id ) {
-		
+
 	if ( $column == 'in_catalog' && !is_main_site( $blog_id ) ) { ?>
 		<input class="in-catalog" type="checkbox" name="in_catalog" value="1" <?php checked( get_blog_option( $blog_id, 'pressbooks_publisher_in_catalog' ), 1 ); ?> />
 	<?php }
@@ -288,3 +288,12 @@ function pressbooks_publisher_catalog_column( $column, $blog_id ) {
 
 add_action( 'manage_blogs_custom_column', 'pressbooks_publisher_catalog_column', 1, 3 );
 add_action( 'manage_sites_custom_column', 'pressbooks_publisher_catalog_column', 1, 3 );
+
+function pressbooks_normalize_site_logo_url( $html ) {
+	if ( force_ssl_admin() ) {
+		$html = preg_replace( "/http:\/\//iU", "https://", $html );
+	}
+	return $html;
+}
+
+add_filter( 'jetpack_the_site_logo', 'pressbooks_normalize_site_logo_url' );
