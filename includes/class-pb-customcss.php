@@ -251,9 +251,9 @@ class CustomCss {
 			 return false;
 		 }
 		 $theme = get_file_data( $filename, array( 'ThemeURI' => 'Theme URI' ) );
-		 $theme_slug = str_replace( 'http://pressbooks.com/themes/', '', $theme['ThemeURI'] );
+		 $theme_slug = str_replace( array( 'http://pressbooks.com/themes/', 'https://pressbooks.com/themes/'), array( '', '' ), $theme['ThemeURI'] );
 
-		 return $theme_slug;
+		 return untrailingslashit( $theme_slug );
 	 }
 
 }
