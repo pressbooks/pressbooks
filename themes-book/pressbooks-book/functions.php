@@ -112,11 +112,6 @@ function new_pressbooks_excerpt_more($more) {
 }
 add_filter('excerpt_more', 'new_pressbooks_excerpt_more');
 
-
-/* Add Custom Login Graphic TODO: Import user customized logo here if available */
-add_action('login_head', create_function('', 'echo \'<link rel="stylesheet" type="text/css" href="'. PB_PLUGIN_URL .'assets/css/colors-pb.css" media="screen" />\';'));
-
-
 /**
  * Render Previous and next buttons
  *
