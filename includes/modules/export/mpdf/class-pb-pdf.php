@@ -463,10 +463,30 @@ class Pdf extends Export {
 			} else {
 				$title = '<h2 class="entry-title">' . $page['post_title'] . '</h2>';
 			}
+<<<<<<< HEAD
 			$content = $class
 				. $title
 				. $this->getFilteredContent( $page['post_content'] )
 				. '</div>';
+=======
+
+			$content = '';
+
+
+			$citations = \CandelaCitation::renderCitation($page['ID']);
+			if ( ! empty ($citations)){
+				$content .= $class
+					. $title
+					. $this->getFilteredContent( $page['post_content'] ) . '</div>'
+					. '<div><h6 class="bcc-box bcc-info citations">' . $citations . '</h6></div>';
+			}
+			if ( empty ($citations)){
+				$content = $class
+					. $title
+					. $this->getFilteredContent( $page['post_content'] )
+					. '</div>';
+			}
+>>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
 
 			// TODO Make this hookable.
 			$this->mpdf->WriteHTML( $content );

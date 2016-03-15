@@ -1111,6 +1111,10 @@ ol {
   margin-top: 0.5em;
 }
 
+<<<<<<< HEAD
+=======
+/*oioioi*/
+>>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
 ol li::before {
   content: counter(level1) ". ";
   counter-increment: level1; }

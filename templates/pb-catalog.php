@@ -149,7 +149,11 @@ $_current_user_id = $catalog->getUserId();
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login ); _e( '\'s Catalog Page', 'pressbooks' ); ?> | Pressbooks</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo PB_PLUGIN_URL; ?>assets/css/style-catalog.css?ver=2" />
+<<<<<<< HEAD
 	<link href='<?php echo \PressBooks\Sanitize\maybe_https( 'http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
+=======
+	<link href='<?php echo \PressBooks\Sanitize\maybe_https( 'https://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
+>>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
 	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.equalizer.min.js?ver=1.2.5" type="text/javascript"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/isotope.pkgd.min.js?ver=2.1.0" type="text/javascript"></script>
@@ -223,7 +227,11 @@ $_current_user_id = $catalog->getUserId();
 						<p class="book-description"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></p>
 						<img src="<?php echo $b['cover_url']['pb_cover_medium']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" /></a>
 					</div><!-- end .book -->
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
 					<div class="book-info">
 						<h2><?php echo $b['title']; ?></h2>
 
