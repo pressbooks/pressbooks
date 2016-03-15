@@ -7,11 +7,7 @@ html {
 
 /* Links */
 a {
-<<<<<<< HEAD
-  color: #b40026; }
-=======
   color: #3375bb; }
->>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
   a:hover, a:active, a:focus {
     color: #d4002d; }
 
@@ -457,11 +453,7 @@ div#wp-responsive-toggle a:before {
 /* Admin Bar */
 #wpadminbar {
   color: #fff;
-<<<<<<< HEAD
-  background: #b40026; }
-=======
   background: #3375bb; }
->>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
   #wpadminbar .ab-item,
   #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon {
     color: #fff; }
@@ -471,11 +463,7 @@ div#wp-responsive-toggle a:before {
   #wpadminbar .ab-item:after {
     color: #fff; }
   #wpadminbar #wp-admin-bar-menu-toggle .ab-item {
-<<<<<<< HEAD
-    background: #b40026; }
-=======
     background: #3375bb; }
->>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
     #wpadminbar #wp-admin-bar-menu-toggle .ab-item .ab-icon,
     #wpadminbar #wp-admin-bar-menu-toggle .ab-item .ab-icon:before {
       color: #fff; }
@@ -489,11 +477,7 @@ div#wp-responsive-toggle a:before {
       background: #fff; }
       #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"] .ab-icon,
       #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"] .ab-icon:before {
-<<<<<<< HEAD
-        color: #b40026; }
-=======
         color: #3375bb; }
->>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
       #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"]:hover .ab-icon,
       #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"]:hover .ab-icon:before, #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"]:active .ab-icon,
       #wpadminbar #wp-admin-bar-menu-toggle .ab-item[aria-expanded="true"]:active .ab-icon:before {
@@ -503,11 +487,6 @@ div#wp-responsive-toggle a:before {
 .theme-browser .theme.active .theme-name,
 .theme-browser .theme.add-new-theme a:hover:after,
 .theme-browser .theme.add-new-theme a:focus:after {
-<<<<<<< HEAD
-  background: #b40026; }
-=======
   background: #3375bb; }
->>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
-
 .theme-browser .theme.active .theme-actions {
   background: transparent; }

@@ -8,11 +8,8 @@ Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
 Version: 1.6
 Template: pressbooks-book
 */
-<<<<<<< HEAD
-@import url("http://fonts.googleapis.com/css?family=Galdeano|Tinos:400,400italic,700,700italic");
-=======
+
 @import url("https://fonts.googleapis.com/css?family=Galdeano|Tinos:400,400italic,700,700italic");
->>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
 body {
   font-family: "Tinos", serif;
   line-height: 1.5em;

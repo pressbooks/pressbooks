@@ -72,11 +72,6 @@ class Catalog_List_Table extends \WP_List_Table {
 		$actions = array(
 			'visit' => sprintf( '<a href="%s">%s</a>', get_site_url( $blog_id ), __( 'Visit Book' ) )
 		);
-<<<<<<< HEAD
-		
-=======
-
->>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
 		// Only include admin link if user has admin rights to the book in question
 		if ( is_super_admin( $user_id ) || is_user_member_of_blog( $user_id, $blog_id ) )
 			$actions['dashboard'] = sprintf( '<a href="%s">%s</a>', get_admin_url( $blog_id ), __( 'Visit Admin', 'pressbooks' ) );
@@ -98,19 +93,12 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function column_status( $item ) {
 
-<<<<<<< HEAD
-		$add_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
-		$add_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url ) );
-		$add_url = static::addSearchParamsToUrl( $add_url );
 
-		$remove_url = sprintf( ' ?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'remove', $item['ID'] );
-=======
 		$add_url = sprintf( get_admin_url() . 'index.php?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
 		$add_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url ) );
 		$add_url = static::addSearchParamsToUrl( $add_url );
 
 		$remove_url = sprintf( get_admin_url() . 'index.php?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'remove', $item['ID'] );
->>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
 		$remove_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $remove_url ) );
 		$remove_url = static::addSearchParamsToUrl( $remove_url );
 
@@ -469,11 +457,7 @@ class Catalog_List_Table extends \WP_List_Table {
 					<p><?php _e( 'The public link to your catalog page', 'pressbooks' ); ?>: <a href="<?php echo $view_url; ?>"><?php echo $view_url; ?></a></p>
 				</div>
 			</div><!-- end .postbox -->
-<<<<<<< HEAD
-			
-=======
 
->>>>>>> 19027223a9a2820e5836373cbedb76fbbb151f38
 			<h2><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?>
 				<a href="<?php echo $edit_url; ?>" class=" page-title-action"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
 				<a href="<?php echo $view_url; ?>" class=" page-title-action"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
