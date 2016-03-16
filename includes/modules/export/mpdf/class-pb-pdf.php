@@ -32,7 +32,6 @@ namespace PressBooks\Modules\Export\Mpdf;
  *     add_filter( 'mpdf_get_header', 'my_mpdf_header', 10, 1 );
  *
  */
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 use \PressBooks\Modules\Export\Export;
 
@@ -528,7 +527,7 @@ class Pdf extends Export {
 		    'tidy' => -1,
 		);
 
-		return htmLawed( $filtered, $config );
+		return \Htmlawed::filter( $filtered, $config );
 	}
 
 	/**

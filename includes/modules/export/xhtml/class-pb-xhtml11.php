@@ -9,8 +9,6 @@ namespace PressBooks\Modules\Export\Xhtml;
 use PressBooks\Modules\Export\Export;
 use PressBooks\Sanitize;
 
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
-
 class Xhtml11 extends Export {
 
 
@@ -457,7 +455,7 @@ class Xhtml11 extends Export {
 			'tidy' => -1,
 		);
 
-		return htmLawed( $html, $config );
+		return \Htmlawed::filter( $html, $config );
 	}
 
 
@@ -618,16 +616,16 @@ class Xhtml11 extends Export {
 				$options[$requiredGlobalOption] = 0;
 			}
 		}
-		
+
 		echo '<div id="copyright-page"><div class="ugc">';
 
 		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
 			echo $this->tidy( $metadata['pb_custom_copyright'] );
-		} 
-		
+		}
+
 		if ( 1 == $options['copyright_license'] ){
 			echo $this->doCopyrightLicense( $metadata );
-		} 
+		}
 		// default, so something is displayed
 		if ( empty( $metadata['pb_custom_copyright'] ) && 0 == $options['copyright_license'] ) {
 			echo '<p>';
@@ -700,7 +698,7 @@ class Xhtml11 extends Export {
 
 		echo '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $book_contents as $type => $struct ) {
-			
+
 			if ( preg_match( '/^__/', $type ) )
 				continue; // Skip __magic keys
 
@@ -749,12 +747,12 @@ class Xhtml11 extends Export {
 
 						if ( $author )
 							echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
-						
+
 						if ( $license )
 							echo ' <span class="chapter-license">' .  $license  . '</span> ';
-												
+
 						echo '</a>';
-						
+
 						if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 							$sections = \PressBooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
@@ -765,7 +763,7 @@ class Xhtml11 extends Export {
 								echo '</ul>';
 							}
 						}
-													
+
 						echo '</li>';
 					}
 				}
@@ -806,15 +804,15 @@ class Xhtml11 extends Export {
 
 					if ( $author )
 						echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
-					
+
 					if ( $license )
 							echo ' <span class="chapter-license">' .  $license  . '</span> ';
 
 					echo '</a>';
-					
+
 					if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 						$sections = \PressBooks\Book::getSubsections( $val['ID'], true );
-						if ( $sections ) {								
+						if ( $sections ) {
 							echo '<ul class="sections">';
 							foreach ( $sections as $id => $title ) {
 								echo '<li class="section"><a href="#' . $id . '"><span class="toc-subsection-title">' . $title . '</span></a></li>';
@@ -822,7 +820,7 @@ class Xhtml11 extends Export {
 							echo '</ul>';
 						}
 					}
-					
+
 					echo '</li>';
 				}
 			}
@@ -955,7 +953,7 @@ class Xhtml11 extends Export {
 					}
 				}
 			}
-			
+
 			// Inject part content?
 			if ( $part_content ) {
 				$part_content = $this->preProcessPostContent( $part_content );

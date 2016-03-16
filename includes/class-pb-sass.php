@@ -165,9 +165,7 @@ class Sass {
 					$include_paths = implode( ':', $includes );
 					$sass->setIncludePath( $include_paths );
 					$css = $sass->compileFile( $scss_file );
-				}
-				else { // use scssphp library
-					require_once( PB_PLUGIN_DIR . 'symbionts/scssphp/scss.inc.php' );
+				} else { // use scssphp library
 					$sass = new \Leafo\ScssPhp\Compiler;
 					$sass->setImportPaths( $includes );
 					$css = $sass->compile( $scss );

@@ -6,8 +6,9 @@
 namespace PressBooks\Modules\Export\Prince;
 
 
-use \PressBooks\Modules\Export\Export;
+use PressBooks\Modules\Export\Export;
 use PressBooks\Container;
+use PrinceXMLPhp\PrinceWrapper;
 
 class Pdf extends Export {
 
@@ -88,10 +89,6 @@ class Pdf extends Export {
 			return false;
 		}
 
-		// Convert
-
-		require_once( PB_PLUGIN_DIR . 'symbionts/prince/prince.php' );
-
 		// Set logfile
 		$this->logfile = $this->createTmpFile();
 
@@ -105,7 +102,7 @@ class Pdf extends Export {
 		file_put_contents( $css_file, $css );
 
 		// Save PDF as file in exports folder
-		$prince = new \Prince( PB_PRINCE_COMMAND );
+		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
 		$prince->addStyleSheet( $css_file );

@@ -74,6 +74,15 @@ function _pressbooks_autoload( $class_name ) {
 spl_autoload_register( '_pressbooks_autoload' );
 
 // -------------------------------------------------------------------------------------------------------------------
+// Composer autoloader
+// -------------------------------------------------------------------------------------------------------------------
+if ( is_file( PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+	include( PB_PLUGIN_DIR . 'vendor/autoload.php' );
+} else {
+	die( __( 'Dependencies missing. Please run \'composer install\' from the root of the Pressbooks plugin directory.', 'pressbooks' ) );
+}
+
+// -------------------------------------------------------------------------------------------------------------------
 // Check minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
 if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) {
