@@ -182,7 +182,7 @@ jQuery(document).ready(function ($) {
 				_ajax_nonce: PB_OrganizeToken.privacyNonce
 			},
 			beforeSend: function () {
-				if (blog_public == 0) {
+				if (blog_public === 0) {
 					$('h4.publicize-alert > span').text(PB_OrganizeToken.private);
 					$('label span.public').css('font-weight', 'normal');
 					$('label span.private').css('font-weight', 'bold');
@@ -297,7 +297,7 @@ jQuery(document).ready(function ($) {
 		var id = $(this).attr('id');
 		id = id.split('_');
 		id = id[id.length - 1];
-		
+
 		if ($(this).is(':checked')) {
 			post_status = 'private';
 		} else {
@@ -385,7 +385,7 @@ jQuery(document).ready(function ($) {
 		var id = $(this).attr('id');
 		id = id.split('_');
 		id = id[id.length - 1];
-		
+
 		if ($(this).is(':checked')) {
 			post_status = 'private';
 		} else {
@@ -463,5 +463,5 @@ jQuery(document).ready(function ($) {
 			}
 		});
 	});
-	
+
 });
