@@ -86,6 +86,7 @@ add_filter( 'intermediate_image_sizes_advanced', '\PressBooks\Image\intermediate
 add_action( 'delete_attachment', '\PressBooks\Image\delete_attachment' );
 add_filter( 'wp_update_attachment_metadata', '\PressBooks\Image\save_attachment', 10, 2 );
 add_filter( 'the_content', '\PressBooks\Media\force_wrap_images', 13 ); // execute image-hack after wpautop processing
+add_filter( 'plupload_default_params', '\PressBooks\Media\force_attach_media' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Audio/Video
