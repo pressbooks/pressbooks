@@ -110,8 +110,8 @@ class Metadata {
 
 	/**
 	 * Returns an html blob of meta elements based on what is set in 'Book Information'
-	 * 
-	 * @return string 
+	 *
+	 * @return string
 	 */
 	static function getSeoMetaElements() {
 		// map items that are already captured
@@ -133,10 +133,10 @@ class Metadata {
 
 		return $html;
 	}
-	
+
 	/**
 	 * Returns an html blob of microdata elements based on what is set in 'Book Information'
-	 *  
+	 *
 	 * @return string
 	 */
 	static function getMicrodataElements() {
@@ -176,7 +176,7 @@ class Metadata {
 	/**
 	 * Takes a known string from metadata, builds a url to hit an api which returns an xml response
 	 * @see https://api.creativecommons.org/docs/readme_15.html
-	 * 
+	 *
 	 * @param string $type license type
 	 * @param string $copyright_holder of the page
 	 * @param string $src_url of the page
@@ -240,11 +240,11 @@ class Metadata {
 				break;
 
 //			case 'other':
-//				 //@TODO 
+//				 //@TODO
 //				break;
 
 			default:
-				
+
 				$key = array_keys( $expected[$type] );
 				$val = array_values( $expected[$type] );
 
@@ -259,11 +259,11 @@ class Metadata {
 				if ( 200 != $ok ) {
 					return '';
 				}
-				
+
 				// if remote call went sideways
 				if ( ! is_wp_error( $xml ) ) {
 					$xml = $xml['body'];
-					
+
 				} else {
 					// Something went wrong
 					\error_log( '\PressBooks\Metadata::getLicenseXml error: ' . $xml->get_error_message() );
@@ -277,13 +277,13 @@ class Metadata {
 
 	/**
 	 * Returns an HTML blob if given an XML object
-	 * 
+	 *
 	 * @param \SimpleXMLElement $response
 	 * @return string $html blob of copyright information
 	 */
 	static function getWebLicenseHtml( \SimpleXMLElement $response ) {
 		$html = '';
-		
+
 		if ( is_object( $response ) ) {
 			$content = $response->asXML();
 			$content = trim( str_replace( array( '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ), array( '', '', '', '' ), $content ) );

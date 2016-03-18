@@ -96,7 +96,7 @@ function upload_cover_image( $pid, $post ) {
 	if ( $width < 625 || $height < 625 ) {
 		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s x %s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
 	}
-	
+
 	$filesize = filesize( $image['file'] );
 	if ( $filesize > 2000000 ) {
 		$filesize_in_mb = \PressBooks\Utility\format_bytes( $filesize );
@@ -195,7 +195,7 @@ function add_meta_boxes() {
 		'label' => __( 'Author, file as', 'pressbooks' ),
 		'description' => __( 'This ensures that your ebook will sort properly in ebook stores, by the author\'s last name.', 'pressbooks' )
 	) );
-	
+
 	x_add_metadata_field( 'pb_contributing_authors', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Contributing Authors', 'pressbooks' ),
@@ -265,7 +265,7 @@ function add_meta_boxes() {
 		'label' => __( 'Copyright Holder', 'pressbooks' ),
 		'description' => __( 'Name of the copyright holder.', 'pressbooks' )
 	) );
-	
+
 	x_add_metadata_field( 'pb_book_license', 'metadata', array(
 	    'group' => 'copyright',
 	    'field_type' => 'select',
@@ -427,14 +427,14 @@ function add_meta_boxes() {
 		'group' => 'chapter-metadata',
 		'label' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
-	
+
 	x_add_metadata_field( 'pb_section_license', 'chapter', array(
 	    'group' => 'chapter-metadata',
 	    'field_type' => 'select',
-	    'values' => array( 
+	    'values' => array(
 		'' => '--Select--',
 		'public-domain' => 'No Rights Reserved (Public Domain)',
-		'cc-by' => 'CC BY (Attribution)', 
+		'cc-by' => 'CC BY (Attribution)',
 		'cc-by-sa' => 'CC BY-SA (Attribution ShareAlike)',
 		'cc-by-nd' => 'CC BY-ND (Attribution NoDerivatives)',
 		'cc-by-nc' => 'CC BY-NC (Attribution NonCommercial)',
@@ -499,7 +499,7 @@ function add_meta_boxes() {
 		'group' => 'front-matter-metadata',
 		'label' => __( 'Front Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
 	) );
-	
+
 	x_add_metadata_field( 'pb_section_license', 'front-matter', array(
 	    'group' => 'front-matter-metadata',
 	    'field_type' => 'select',
