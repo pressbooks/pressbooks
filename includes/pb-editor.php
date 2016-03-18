@@ -110,14 +110,111 @@ function mce_before_init_insert_formats( $init_array ) {
 			'inline' => 'span',
 			'classes' => 'pullquote-right',
 			'wrapper' => false,
-		),
+		)
 	);
+
+	$backgrounds = [
+	  'silver' => [
+	    'name' => __( 'Silver', 'pressbooks' ),
+	    'color' => 'black',
+	    'background-color' => 'silver'
+	  ],
+	  'gray' => [
+	    'name' => __( 'Gray', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'gray'
+	  ],
+	  'black' => [
+	    'name' => __( 'Black', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'black'
+	  ],
+		'red' => [
+	    'name' => __( 'Red', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'red'
+	  ],
+	  'maroon' => [
+	    'name' => __( 'Maroon', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'maroon'
+	  ],
+	  'yellow' => [
+	    'name' => __( 'Yellow', 'pressbooks' ),
+	    'color' => 'black',
+	    'background-color' => 'yellow'
+	  ],
+		'orange' => [
+	    'name' => __( 'Orange', 'pressbooks' ),
+	    'color' => 'black',
+	    'background-color' => 'orange'
+	  ],
+	  'olive' => [
+	    'name' => __( 'Olive', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'olive'
+	  ],
+	  'lime' => [
+	    'name' => __( 'Lime', 'pressbooks' ),
+	    'color' => 'black',
+	    'background-color' => 'lime'
+	  ],
+	  'green' => [
+	    'name' => __( 'Green', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'green'
+	  ],
+	  'aqua' => [
+	    'name' => __( 'Aqua', 'pressbooks' ),
+	    'color' => 'black',
+	    'background-color' => 'aqua'
+	  ],
+		'teal' => [
+	    'name' => __( 'Teal', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'teal'
+	  ],
+	  'blue' => [
+	    'name' => __( 'Blue', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'blue'
+	  ],
+	  'navy' => [
+	    'name' => __( 'Navy', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'navy'
+	  ],
+	  'fuchsia' => [
+	    'name' => __( 'Fuchsia', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'fuchsia'
+	  ],
+	  'purple' => [
+	    'name' => __( 'Purple', 'pressbooks' ),
+	    'color' => 'white',
+	    'background-color' => 'purple'
+	  ]
+	];
+
+	// Hook to customize background colors array. @see https://github.com/pressbooks/pressbooks-custom-background-colors
+	$backgrounds = apply_filters( 'pressbooks_filter_background_colors', $backgrounds );
+
+	foreach ( $backgrounds as $background ) {
+		$style_formats[] = [
+			'title' => sprintf( __( '%s Highlight', 'pressbooks' ), $background['name'] ),
+			'inline' => 'span',
+			'styles' => array(
+				'color' => $background['color'],
+				'background-color' => $background['background-color']
+			),
+			'wrapper' => false
+		];
+	}
 
 	$init_array['style_formats'] = json_encode( $style_formats );
 
 	return $init_array;
 }
-
 
 /**
  * We don't support "the kitchen sink" when using the custom metadata plugin,
@@ -256,7 +353,7 @@ function add_editor_style() {
 function customize_wp_link_query_args( $query ) {
 
     $query['post_type'] = array( 'part', 'chapter', 'front-matter', 'back-matter' );
-     
+
     return $query;
 }
 
@@ -269,19 +366,19 @@ function customize_wp_link_query_args( $query ) {
  * @return array
  */
 function add_anchors_to_wp_link_query( $results, $query ) {
-		
+
 	$url = parse_url( $_SERVER[ 'HTTP_REFERER' ] );
 	parse_str( $url['query'], $query );
-		
+
 	if ( !isset( $query['post'] ) )
-		return $results;	
-	
+		return $results;
+
 	$anchors = array();
 
 	$post = get_post( $query['post'] );
-	
+
     libxml_use_internal_errors( true );
-    
+
 	$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
 
 	if ( !empty( $content ) ) {
@@ -301,16 +398,15 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 	}
 
 	$offset = count( $results ) + 1;
-    
+
     foreach( $results as $key => $result ) {
-	    
+
 	    if ( $results[ $key ]['ID'] == $query['post'] ) {
 		    $offset = $key + 1;
-	    }	    
+	    }
     }
-    
+
     array_splice( $results, $offset, 0, $anchors );
-        
+
     return $results;
 }
-
