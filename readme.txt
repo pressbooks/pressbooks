@@ -204,6 +204,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 * Allow a user to choose their password when registering.
 * Allow a network administrator to replace the Pressbooks News dashboard feed with their own RSS feed or disable the dashboard feed entirely.
 * Fixed an issue where the "Show Title" checkbox on the "Organize" page had no effect (props to @sswettenham for the bug report).
+* Fixed an issue where uploaded media were not attached to their parent Front Matter, Chapter or Back Matter.
 
 = 3.2.0 =
 * Requires WordPress 4.4.2.
