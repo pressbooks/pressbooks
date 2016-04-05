@@ -31,9 +31,6 @@ PressBooks\Utility\include_plugins();
 // Initialize services
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'symbionts/pimple/Container.php' );
-require( PB_PLUGIN_DIR . 'symbionts/pimple/ServiceProviderInterface.php' );
-
 if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 	\PressBooks\Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
 }

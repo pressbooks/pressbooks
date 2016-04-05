@@ -10,7 +10,6 @@ namespace PressBooks\Modules\Import;
 require_once( ABSPATH . 'wp-admin/includes/image.php' );
 require_once( ABSPATH . 'wp-admin/includes/file.php' );
 require_once( ABSPATH . 'wp-admin/includes/media.php' );
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 abstract class Import {
 
@@ -207,7 +206,7 @@ abstract class Import {
 			'safe' => 1,
 		);
 
-		return htmLawed( $html, $config );
+		return \Htmlawed::filter( $html, $config );
 	}
 
 
@@ -263,12 +262,12 @@ abstract class Import {
 					$importer = new Odf\Odt();
 					$ok = $importer->import( $current_import );
 					break;
-				
+
 				case 'docx':
 					$importer = new Ooxml\Docx();
 					$ok = $importer->import( $current_import );
 					break;
-				
+
 				case 'html':
 					$importer = new Html\Xhtml();
 					$ok = $importer->import( $current_import );
@@ -325,11 +324,11 @@ abstract class Import {
 					$importer = new Odf\Odt();
 					$ok = $importer->setCurrentImportOption( $upload );
 					break;
-				
+
 				case 'docx':
 					$importer = new Ooxml\Docx();
 					$ok = $importer->setCurrentImportOption( $upload );
-					break;			
+					break;
 			}
 
 			$msg = "Tried to upload a file of type {$_POST['type_of']} and ";
@@ -343,7 +342,7 @@ abstract class Import {
 			}
 
 		} elseif ( @$_GET['import'] && @$_POST['type_of'] === 'html' && check_admin_referer( 'pb-import' ) ) {
-			
+
 			// check if it's a valid url
 			if ( false == filter_var( $_POST['import_html'], FILTER_VALIDATE_URL ) ) {
 				$_SESSION['pb_errors'][] = __( 'Your URL does not appear to be valid', 'pressbooks' );
@@ -359,7 +358,7 @@ abstract class Import {
 				$_SESSION['pb_errors'][] = $remote_head->get_error_message();
 				\PressBooks\Redirect\location( $redirect_url );
 			}
-			
+
 			// weebly.com (and likely some others) prevent HEAD requests, but allow GET requests
 			if ( 200 !== $remote_head['response']['code'] && 405 !== $remote_head['response']['code'] ) {
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ' . $remote_head['response']['code'] , 'pressbooks' );
@@ -371,7 +370,7 @@ abstract class Import {
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
 				\PressBooks\Redirect\location( $redirect_url );
 			}
-			
+
 			// GET http request
 			$body = wp_remote_get( $_POST['import_html'] );
 
@@ -388,10 +387,10 @@ abstract class Import {
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ' . $body['response']['code'] , 'pressbooks' );
 				\PressBooks\Redirect\location( $redirect_url );
 			}
-			
+
 			// add our url
 			$body['url'] = $_POST['import_html'];
-			
+
 			$importer = new Html\Xhtml();
 			$ok = $importer->setCurrentImportOption( $body );
 

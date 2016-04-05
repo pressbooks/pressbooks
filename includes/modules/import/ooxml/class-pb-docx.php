@@ -778,7 +778,7 @@ class Docx extends Import {
 		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
 		);
 
-		return htmLawed( $html, $config );
+		return \Htmlawed::filter( $html, $config );
 	}
 
 }
