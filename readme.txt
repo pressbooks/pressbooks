@@ -201,7 +201,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 == Changelog ==
 
 = 3.3.0 =
-* ICML is now an experimental export format.
+* ICML is now an experimental export format (see http://pressbooks.com/blog/discontinuing-support-for-icml-exports-on-april-12/).
 * Allow a user to choose their password when registering.
 * Allow a network administrator to replace the Pressbooks News dashboard feed with their own RSS feed or disable the dashboard feed entirely.
 * Fixed an issue where the "Show Title" checkbox on the "Organize" page had no effect (props to @sswettenham for the bug report).
