@@ -201,10 +201,12 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 == Changelog ==
 
 = 3.3.0 =
+* ICML is now an experimental export format.
 * Allow a user to choose their password when registering.
 * Allow a network administrator to replace the Pressbooks News dashboard feed with their own RSS feed or disable the dashboard feed entirely.
 * Fixed an issue where the "Show Title" checkbox on the "Organize" page had no effect (props to @sswettenham for the bug report).
 * Fixed an issue where uploaded media were not attached to their parent Front Matter, Chapter or Back Matter.
+* Internal dependencies are now managed using [Composer](https://getcomposer.org).
 
 = 3.2.0 =
 * Requires WordPress 4.4.2.
