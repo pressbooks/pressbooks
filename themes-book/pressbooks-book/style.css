@@ -155,8 +155,8 @@ dl {
   margin-bottom: 15px; }
 
 ul {
-  list-style: outside none; }
-
+  /*list-style: outside none; }*/
+}
 ul ul,
 ol ol {
   margin-left: 15px; }
@@ -1078,7 +1078,14 @@ aside {
 #content tr.odd td {
   background: #f2f7fc; }
 
-.entry-content ul, .entry-content ol {
+
+
+
+
+
+
+
+/*.entry-content ul, .entry-content ol {
   margin-left: 30px;
 }
 
@@ -1102,7 +1109,11 @@ ol {
 #content ul ol li {
   list-style-type: none;
   list-style-image: none;
-  margin-left: 0;
+  margin-left: 1em;
+}
+
+#content ol ul li {
+  margin-left: 1em;
 }
 
 #content ol ul,
@@ -1112,7 +1123,7 @@ ol {
 }
 
 /*oioioi*/
-ol li::before {
+/*ol li::before {
   content: counter(level1) ". ";
   counter-increment: level1; }
 
@@ -1132,7 +1143,26 @@ ol ol ol {
 ol li li li::before {
   list-style-position: outside;
   content: counter(level1) ". " counter(level2) ". " counter(level3) " ";
-  counter-increment: level3; }
+  counter-increment: level3; }*/
+
+#content ol,
+#content ul {
+  margin-top: 0.5em;
+  margin-left: 2.5em;
+}
+
+/*#content ol li::before {
+  content: counter(level1) ". ";
+  counter-increment: level1;
+}
+
+#content ol ol {
+  counter-reset: level2;
+}*/
+
+
+
+
 
 .entry-content fieldset {
   border: 1px solid #e7e7e7;
