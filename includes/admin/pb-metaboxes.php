@@ -246,7 +246,7 @@ function add_meta_boxes() {
 		'field_type' => 'select',
 		'values' => \PressBooks\L10n\supported_languages(),
 		'label' => __( 'Language', 'pressbooks' ),
-		'description' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' )
+		'description' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' ) . '<br />' . sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) )
 	) );
 
 	x_add_metadata_group( 'copyright', 'metadata', array(
@@ -685,7 +685,8 @@ function add_user_meta() {
 		'group' => 'profile-information',
 		'field_type' => 'select',
 		'values' => \PressBooks\L10n\get_dashboard_languages(),
-		'label' => __( 'Language', 'pressbooks' )
+		'label' => __( 'Language', 'pressbooks' ),
+		'description' => sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
 	) );
 
 }
