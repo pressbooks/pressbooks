@@ -178,7 +178,7 @@ class Footnotes {
 			} );
 
 			add_filter( 'mce_external_plugins', array( $this, 'addFootnotePlugin' ) );
-			add_filter( 'mce_buttons_2', array( $this, 'registerFootnoteButtons' ) );
+			add_filter( 'mce_buttons_3', array( $this, 'registerFootnoteButtons' ) );
 		}
 
 	}
@@ -206,10 +206,8 @@ class Footnotes {
 	 * @return array
 	 */
 	function registerFootnoteButtons( $buttons ) {
-
-		$p = array_search( 'wp_help', $buttons );
-		array_splice( $buttons, $p, 0, 'footnote' );
-		array_splice( $buttons, $p + 1, 0, 'ftnref_convert' );
+		$buttons[] = 'footnote';
+		$buttons[] = 'ftnref_convert';
 
 		return $buttons;
 	}
@@ -336,7 +334,3 @@ class Footnotes {
 	}
 
 }
-
-
-
-
