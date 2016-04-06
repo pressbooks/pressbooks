@@ -1065,11 +1065,19 @@ aside {
 
 #content tr th,
 #content thead th {
-  color: #888;
-  font-size: 12px;
+  /*color: #888;*/
+  /*font-size: 12px;*/
   font-weight: bold;
   line-height: 18px;
   padding: 9px 24px; }
+
+#content tfoot td {
+  color: #888;
+  font-size: 12px;
+  font-style: italic;
+  line-height: 18px;
+  padding: 9px 24px;
+}
 
 #content tr td {
   border-top: 1px solid #e7e7e7;
