@@ -17,7 +17,7 @@ function replace_network_dashboard_widgets() {
 	unset( $wp_meta_boxes['dashboard-network']['side']['core']['dashboard_primary'] );
 
 	// Add our news feed.
-	add_meta_box( 'pb_dashboard_widget_blog', __( 'Pressbooks News', 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
+	// add_meta_box( 'pb_dashboard_widget_blog', __( 'Pressbooks News', 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
 }
 
 
@@ -33,7 +33,7 @@ function replace_root_dashboard_widgets() {
 	unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_secondary'] );
 
 	// Add our news feed.
-	add_meta_box( 'pb_dashboard_widget_blog', __( 'Pressbooks News', 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
+	// add_meta_box( 'pb_dashboard_widget_blog', __( 'Pressbooks News', 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 }
 
 
@@ -54,7 +54,7 @@ function replace_dashboard_widgets() {
 	// Replace with our own
 	$book_name = get_bloginfo( 'name' );
 	add_meta_box( 'pb_dashboard_widget_book', ( $book_name ? $book_name : __( 'My Book', 'pressbooks' ) ), __NAMESPACE__ . '\display_book_widget', 'dashboard', 'normal', 'high' );
-	add_meta_box( 'pb_dashboard_widget_blog', __( 'Pressbooks News', 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'high' );
+	// add_meta_box( 'pb_dashboard_widget_blog', __( 'Pressbooks News', 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'high' );
 	add_meta_box( 'pb_dashboard_widget_users', __( 'Users', 'pressbooks' ), __NAMESPACE__ . '\display_users_widget', 'dashboard', 'side', 'high' );
 }
 
