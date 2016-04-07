@@ -18,7 +18,6 @@ function custom_login_logo() {
   background-size: 276px 114px;
   width: 276px;
   height: 114px;
-  margin-bottom: 0;
   }
 .login .message {
   border-left: 4px solid #0077cc; }
