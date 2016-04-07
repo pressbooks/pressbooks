@@ -119,10 +119,10 @@ img {
   height: 100%; }
 
 .catalog-sidebar {
-  background-color: #3a3a3a;
+  background-color: #077FAB;
   min-height: 100%;
   height: auto;
-  max-width: 290px;
+  /*max-width: 290px;*/
   text-align: right;
   width: 20%;
   position: absolute;
@@ -163,7 +163,7 @@ img {
 **************************************************************/
 .pressbooks-logo {
   font: 1.2em/2.6em 'Oswald',Arial,Helvetica,sans-serif;
-  margin: 0 0 3em;
+  margin: 15px 0 3em;
   padding: 0 10px 1px 15px;
   text-transform: uppercase;
   text-align: left; }
@@ -354,6 +354,7 @@ img {
 
   .pressbooks-logo {
     line-height: 1em;
+    margin-top: 0;
     margin-bottom: 0;
     padding-top: 10px; }
 
