@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-04-11 21:28-0300\n"
-"PO-Revision-Date: 2016-04-12 00:29+0000\n"
+"POT-Creation-Date: 2016-04-11 22:16-0300\n"
+"PO-Revision-Date: 2016-04-12 01:16+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: English (Canada) (http://www.transifex.com/pressbooks/pressbooks/language/en_CA/)\n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgid "Privacy Status"
 msgstr "Privacy Status"
 
 #: includes/admin/class-pb-catalog-list-table.php:177
-#: includes/class-pb-activation.php:171
+#: includes/class-pb-activation.php:172
 #: includes/modules/export/epub/class-pb-epub201.php:735
 msgid "Cover"
 msgstr "Cover"
@@ -314,7 +314,7 @@ msgstr ""
 msgid "Powered by"
 msgstr "Powered by"
 
-#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:179
+#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:180
 #: templates/admin/catalog.php:88
 msgid "About"
 msgstr "About"
@@ -905,41 +905,41 @@ msgid ""
 "be restricted to leave only sites and users visible to them."
 msgstr "Network administrators&rsquo; access to network admininistration menus can be restricted to leave only sites and users visible to them."
 
-#: includes/class-pb-activation.php:143
+#: includes/class-pb-activation.php:144
 msgid "Main Body"
 msgstr "Main Body"
 
-#: includes/class-pb-activation.php:148
+#: includes/class-pb-activation.php:149
 msgid "Introduction"
 msgstr "Introduction"
 
-#: includes/class-pb-activation.php:150
+#: includes/class-pb-activation.php:151
 msgid "This is where you can write your introduction."
 msgstr "This is where you can write your introduction."
 
-#: includes/class-pb-activation.php:154
+#: includes/class-pb-activation.php:155
 msgid "Chapter 1"
 msgstr "Chapter 1"
 
-#: includes/class-pb-activation.php:156
+#: includes/class-pb-activation.php:157
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "This is the first chapter in the main body of the text. You can change the text, rename the chapter, add new chapters, and add new parts."
 
-#: includes/class-pb-activation.php:160
+#: includes/class-pb-activation.php:161
 msgid "Appendix"
 msgstr "Appendix"
 
-#: includes/class-pb-activation.php:162
+#: includes/class-pb-activation.php:163
 msgid "This is where you can add appendices or other back matter."
 msgstr "This is where you can add appendices or other back matter."
 
-#: includes/class-pb-activation.php:167
+#: includes/class-pb-activation.php:168
 msgid "Authors"
 msgstr "Authors"
 
-#: includes/class-pb-activation.php:175
+#: includes/class-pb-activation.php:176
 #: includes/modules/export/epub/templates/epub3/toc.php:21
 #: themes-book/pressbooks-book/functions.php:839
 #: themes-book/pressbooks-book/functions.php:1234
@@ -949,18 +949,18 @@ msgstr "Authors"
 msgid "Table of Contents"
 msgstr "Table of Contents"
 
-#: includes/class-pb-activation.php:183
+#: includes/class-pb-activation.php:184
 #: themes-book/pressbooks-book/header.php:90
 #: themes-book/pressbooks-book/page-cover-top-block.php:58
 msgid "Buy"
 msgstr "Buy"
 
-#: includes/class-pb-activation.php:187
+#: includes/class-pb-activation.php:188
 #: themes-book/pressbooks-book/functions.php:146
 msgid "Access Denied"
 msgstr "Access Denied"
 
-#: includes/class-pb-activation.php:189
+#: includes/class-pb-activation.php:190
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -968,24 +968,24 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
+#: includes/class-pb-activation.php:194 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
 msgstr "Custom CSS for Ebook"
 
-#: includes/class-pb-activation.php:197 includes/class-pb-metadata.php:553
+#: includes/class-pb-activation.php:198 includes/class-pb-metadata.php:553
 msgid "Custom CSS for PDF"
 msgstr "Custom CSS for PDF"
 
-#: includes/class-pb-activation.php:201 includes/class-pb-metadata.php:557
+#: includes/class-pb-activation.php:202 includes/class-pb-metadata.php:557
 msgid "Custom CSS for Web"
 msgstr "Custom CSS for Web"
 
-#: includes/class-pb-activation.php:207
+#: includes/class-pb-activation.php:208
 msgid "Default Data"
 msgstr "Default Data"
 
 #. Description of the plugin/theme
-#: includes/class-pb-activation.php:209
+#: includes/class-pb-activation.php:210
 msgid "Simple Book Production"
 msgstr "Simple Book Production"
 
@@ -2479,46 +2479,6 @@ msgstr "Preview Replacements"
 msgid "Replace &amp; Save &raquo;"
 msgstr "Replace &amp; Save &raquo;"
 
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:19
-msgid "Add logo"
-msgstr "Add logo"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:20
-msgid "Set as logo"
-msgstr "Set as logo"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:21
-msgid "Choose logo"
-msgstr "Choose logo"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:22
-msgid "Change logo"
-msgstr "Change logo"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:23
-msgid "Remove logo"
-msgstr "Remove logo"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:24
-msgid "No logo set"
-msgstr "No logo set"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo.php:78
-msgid "Site Title, Tagline, and Logo"
-msgstr "Site Title, Tagline, and Logo"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo.php:89
-msgid "Display Header Text"
-msgstr "Display Header Text"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo.php:111
-msgid "Logo"
-msgstr "Logo"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo.php:251
-msgid "Site Logo"
-msgstr "Site Logo"
-
 #: templates/admin/catalog.php:26
 msgid "Tags For"
 msgstr "Tags For"
@@ -3623,34 +3583,34 @@ msgstr "http://pressbooks.com"
 msgid "is powered by %s"
 msgstr "is powered by %s"
 
-#: themes-root/pressbooks-publisher/functions.php:83
+#: themes-root/pressbooks-publisher/functions.php:88
 msgctxt "Oswald font: on or off"
 msgid "on"
 msgstr "on"
 
-#: themes-root/pressbooks-publisher/functions.php:89
+#: themes-root/pressbooks-publisher/functions.php:94
 msgctxt "Droid Serif font: on or off"
 msgid "on"
 msgstr "on"
 
-#: themes-root/pressbooks-publisher/functions.php:95
+#: themes-root/pressbooks-publisher/functions.php:100
 msgctxt "Droid Sans font: on or off"
 msgid "on"
 msgstr "on"
 
-#: themes-root/pressbooks-publisher/functions.php:235
+#: themes-root/pressbooks-publisher/functions.php:233
 msgid "Catalog updated."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:236
+#: themes-root/pressbooks-publisher/functions.php:234
 msgid "Sorry, but your catalog was not updated. Please try again."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:237
+#: themes-root/pressbooks-publisher/functions.php:235
 msgid "Dismiss this notice."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:259
+#: themes-root/pressbooks-publisher/functions.php:257
 msgid "In Catalog"
 msgstr "In Catalogue"
 

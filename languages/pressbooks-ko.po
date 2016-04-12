@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-04-11 21:28-0300\n"
-"PO-Revision-Date: 2016-04-12 00:29+0000\n"
+"POT-Creation-Date: 2016-04-11 22:16-0300\n"
+"PO-Revision-Date: 2016-04-12 01:16+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Korean (http://www.transifex.com/pressbooks/pressbooks/language/ko/)\n"
 "MIME-Version: 1.0\n"
@@ -71,7 +71,7 @@ msgid "Privacy Status"
 msgstr "개인 정보 보호 상태"
 
 #: includes/admin/class-pb-catalog-list-table.php:177
-#: includes/class-pb-activation.php:171
+#: includes/class-pb-activation.php:172
 #: includes/modules/export/epub/class-pb-epub201.php:735
 msgid "Cover"
 msgstr "표지"
@@ -315,7 +315,7 @@ msgstr ""
 msgid "Powered by"
 msgstr "Powered by"
 
-#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:179
+#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:180
 #: templates/admin/catalog.php:88
 msgid "About"
 msgstr "About"
@@ -906,41 +906,41 @@ msgid ""
 "be restricted to leave only sites and users visible to them."
 msgstr ""
 
-#: includes/class-pb-activation.php:143
+#: includes/class-pb-activation.php:144
 msgid "Main Body"
 msgstr "본문"
 
-#: includes/class-pb-activation.php:148
+#: includes/class-pb-activation.php:149
 msgid "Introduction"
 msgstr "소개"
 
-#: includes/class-pb-activation.php:150
+#: includes/class-pb-activation.php:151
 msgid "This is where you can write your introduction."
 msgstr "이곳에 소개를 작성해주세요."
 
-#: includes/class-pb-activation.php:154
+#: includes/class-pb-activation.php:155
 msgid "Chapter 1"
 msgstr "챕터 1"
 
-#: includes/class-pb-activation.php:156
+#: includes/class-pb-activation.php:157
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "본문의 첫 번째 챕터입니다. 텍스트를 바꾸거나, 챕터명을 수정하거나, 새로운 챕터와 새로운 파트를 추가할 수 있습니다. "
 
-#: includes/class-pb-activation.php:160
+#: includes/class-pb-activation.php:161
 msgid "Appendix"
 msgstr "부록"
 
-#: includes/class-pb-activation.php:162
+#: includes/class-pb-activation.php:163
 msgid "This is where you can add appendices or other back matter."
 msgstr "이곳에 부록을 작성해주세요."
 
-#: includes/class-pb-activation.php:167
+#: includes/class-pb-activation.php:168
 msgid "Authors"
 msgstr "저자"
 
-#: includes/class-pb-activation.php:175
+#: includes/class-pb-activation.php:176
 #: includes/modules/export/epub/templates/epub3/toc.php:21
 #: themes-book/pressbooks-book/functions.php:839
 #: themes-book/pressbooks-book/functions.php:1234
@@ -950,18 +950,18 @@ msgstr "저자"
 msgid "Table of Contents"
 msgstr "목차"
 
-#: includes/class-pb-activation.php:183
+#: includes/class-pb-activation.php:184
 #: themes-book/pressbooks-book/header.php:90
 #: themes-book/pressbooks-book/page-cover-top-block.php:58
 msgid "Buy"
 msgstr "구매하다"
 
-#: includes/class-pb-activation.php:187
+#: includes/class-pb-activation.php:188
 #: themes-book/pressbooks-book/functions.php:146
 msgid "Access Denied"
 msgstr "접근거부"
 
-#: includes/class-pb-activation.php:189
+#: includes/class-pb-activation.php:190
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -969,24 +969,24 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
+#: includes/class-pb-activation.php:194 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
 msgstr "Ebook의 사용자정의 CSS"
 
-#: includes/class-pb-activation.php:197 includes/class-pb-metadata.php:553
+#: includes/class-pb-activation.php:198 includes/class-pb-metadata.php:553
 msgid "Custom CSS for PDF"
 msgstr "PDF의 사용자정의 CSS"
 
-#: includes/class-pb-activation.php:201 includes/class-pb-metadata.php:557
+#: includes/class-pb-activation.php:202 includes/class-pb-metadata.php:557
 msgid "Custom CSS for Web"
 msgstr "Web의 사용자정의 CSS"
 
-#: includes/class-pb-activation.php:207
+#: includes/class-pb-activation.php:208
 msgid "Default Data"
 msgstr "기본값 데이터"
 
 #. Description of the plugin/theme
-#: includes/class-pb-activation.php:209
+#: includes/class-pb-activation.php:210
 msgid "Simple Book Production"
 msgstr "쉽게 도서 제작"
 
@@ -2480,46 +2480,6 @@ msgstr ""
 msgid "Replace &amp; Save &raquo;"
 msgstr ""
 
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:19
-msgid "Add logo"
-msgstr "로고 추가"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:20
-msgid "Set as logo"
-msgstr "로고 설정"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:21
-msgid "Choose logo"
-msgstr "로고 선택"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:22
-msgid "Change logo"
-msgstr "로고 변경"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:23
-msgid "Remove logo"
-msgstr "로고 제거"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo-control.php:24
-msgid "No logo set"
-msgstr "로고가 설정되지 않았습니다."
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo.php:78
-msgid "Site Title, Tagline, and Logo"
-msgstr "사이트 제목, 태그라인, 로고"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo.php:89
-msgid "Display Header Text"
-msgstr "헤더 텍스트 노출하기"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo.php:111
-msgid "Logo"
-msgstr "로고"
-
-#: symbionts/site-logo/site-logo/inc/class-site-logo.php:251
-msgid "Site Logo"
-msgstr "사이트 로고"
-
 #: templates/admin/catalog.php:26
 msgid "Tags For"
 msgstr "태그"
@@ -3623,34 +3583,34 @@ msgstr ""
 msgid "is powered by %s"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:83
+#: themes-root/pressbooks-publisher/functions.php:88
 msgctxt "Oswald font: on or off"
 msgid "on"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:89
+#: themes-root/pressbooks-publisher/functions.php:94
 msgctxt "Droid Serif font: on or off"
 msgid "on"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:95
+#: themes-root/pressbooks-publisher/functions.php:100
 msgctxt "Droid Sans font: on or off"
 msgid "on"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:235
+#: themes-root/pressbooks-publisher/functions.php:233
 msgid "Catalog updated."
 msgstr "카탈로그 업데이트"
 
-#: themes-root/pressbooks-publisher/functions.php:236
+#: themes-root/pressbooks-publisher/functions.php:234
 msgid "Sorry, but your catalog was not updated. Please try again."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:237
+#: themes-root/pressbooks-publisher/functions.php:235
 msgid "Dismiss this notice."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:259
+#: themes-root/pressbooks-publisher/functions.php:257
 msgid "In Catalog"
 msgstr "카탈로그"
 
