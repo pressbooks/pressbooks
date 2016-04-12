@@ -43,8 +43,8 @@
 			    <?php endif; ?>
 		   </div>
 
-			<?php /* Site logo*/ ?>
-			<?php if ( function_exists( 'jetpack_the_site_logo' ) ) jetpack_the_site_logo(); ?>
+			<?php /* Site logo */ ?>
+			<?php pressbooks_publisher_custom_logo(); ?>
 
 			<div class="site-branding">
 				<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>

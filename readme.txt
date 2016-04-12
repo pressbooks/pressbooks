@@ -3,8 +3,8 @@
 Contributors: Pressbooks <code@pressbooks.com>
 Version: 3.3.0-dev
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.4.2
-Tested up to: 4.4.2
+Requires at least: 4.5
+Tested up to: 4.5
 Stable tag: 3.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.4.2. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ * Pressbooks works with PHP 5.6.x and WordPress 4.5. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
 
 	$pb_minimum_php = '5.4';
 
@@ -201,7 +201,9 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 == Changelog ==
 
 = 3.3.0 =
+* Requires WordPress 4.5.
 * ICML is now an experimental export format (see http://pressbooks.com/blog/discontinuing-support-for-icml-exports-on-april-12/).
+* Added support for WordPress core's custom logo in Pressbooks Publisher.
 * Added the TinyMCE background color button.
 * Allow a user to choose their password when registering.
 * Allow a network administrator to replace the Pressbooks News dashboard feed with their own RSS feed or disable the dashboard feed entirely.

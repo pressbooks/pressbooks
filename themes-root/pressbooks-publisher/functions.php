@@ -52,16 +52,21 @@ function pressbooks_publisher_setup() {
 	) );
 
 	/**
-	 * Load Site Logo plugin.
+	 * Migrate Jetpack Site Logo to core custom logo.
 	 */
-	$args = array(
-	    'header-text' => array(
-	        'site-title',
-	        'site-description',
-	    ),
-	    'size' => 'pressbooks-publisher-site-logo',
-	);
-	add_theme_support( 'site-logo', $args );
+	
+	if ( get_option( 'site_logo' ) ) {
+		$site_logo = get_option( 'site_logo' );
+		if ( isset( $site_logo['id'] ) ) {
+			set_theme_mod( 'custom_logo', $site_logo['id'] );
+			delete_option( 'site_logo' );
+		}
+	}
+
+	/**
+	 * Enable support for custom logo.
+	 */
+	add_theme_support( 'custom-logo', array( 'size' => 'pressbooks-publisher-site-logo' ) );
 
 }
 endif; // pressbooks_publisher_setup
@@ -181,13 +186,6 @@ require get_template_directory() . '/inc/extras.php';
 require get_template_directory() . '/inc/customizer.php';
 
 /**
- * Load site-logo file
- */
-
-if ( !function_exists( 'site_logo_init' ) ) // Jetpack is not installed and activated.
-	require PB_PLUGIN_DIR . 'symbionts/site-logo/site-logo.php';
-
-/**
  * Hide the admin bar.
  */
 add_filter( 'show_admin_bar', function () { return false; } );
@@ -280,4 +278,4 @@ function pressbooks_normalize_site_logo_url( $html ) {
 	return $html;
 }
 
-add_filter( 'jetpack_the_site_logo', 'pressbooks_normalize_site_logo_url' );
+// add_filter( 'jetpack_the_site_logo', 'pressbooks_normalize_site_logo_url' );
