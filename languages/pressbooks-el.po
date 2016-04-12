@@ -1,7 +1,7 @@
 # Copyright (C) 2015 PressBooks
 # This file is distributed under the same license as the PressBooks package.
 # Translators:
-# aggelos manousopoulos <a.manousopoulos@gmail.com>, 2015
+# aggelos manousopoulos <a.manousopoulos@gmail.com>, 2015-2016
 # LaScapigliata <ditri2000@hotmail.com>, 2015
 # LaScapigliata <ditri2000@hotmail.com>, 2015
 # Toni Devís <colomet@hotmail.com>, 2015
@@ -10,9 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-03-03 16:59-0400\n"
-"PO-Revision-Date: 2016-03-03 17:06-0400\n"
-"Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
+"POT-Creation-Date: 2016-04-11 21:28-0300\n"
+"PO-Revision-Date: 2016-04-12 00:29+0000\n"
+"Last-Translator: Ned Zimmerman\n"
 "Language-Team: Greek (http://www.transifex.com/pressbooks/pressbooks/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,19 +22,26 @@ msgstr ""
 "X-Generator: Poedit 1.8.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-WPHeader: pressbooks.php\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: vendor\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-WPHeader: pressbooks.php\n"
 
 #: compatibility.php:66
 #, php-format
-msgid "Pressbooks will not work with your version of PHP. Pressbooks requires PHP version %s or greater. Please upgrade PHP if you would like to use Pressbooks."
+msgid ""
+"Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
+"version %s or greater. Please upgrade PHP if you would like to use "
+"Pressbooks."
 msgstr "To Pressbooks δεν λειτουργεί με την έκδοση της PHP που χρησιμοποιείτε. Απαιτείται έκδοση %s ή νεότερη. Παρακαλούμε αναβαθμίστε την έκδοση PHP."
 
 #: compatibility.php:76
 #, php-format
-msgid "Pressbooks will not work with your version of WordPress. Pressbooks requires a dedicated install of WordPress Multi-Site, version %s or greater. Please upgrade WordPress if you would like to use Pressbooks."
+msgid ""
+"Pressbooks will not work with your version of WordPress. Pressbooks requires"
+" a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+"upgrade WordPress if you would like to use Pressbooks."
 msgstr "To Pressbooks δεν λειτουργεί με την έκδοση του Wordpress που χρησιμοποιείτε. Απαιτείται μία πλήρης εγκατάσταση του WordPress Multi-Site, έκδοση %s ή νεότερη. Παρακαλούμε αναβαθμίστε την έκδοση του WordPress για να χρησιμοποιήσετε το Pressbooks."
 
 #: includes/admin/class-pb-catalog-list-table.php:73
@@ -45,11 +52,15 @@ msgstr "Δείτε το βιβλίο"
 msgid "Visit Admin"
 msgstr "Δείτε Διαχειριστή"
 
-#: includes/admin/class-pb-catalog-list-table.php:109 includes/admin/class-pb-catalog-list-table.php:221 includes/admin/class-pb-catalog-list-table.php:451
+#: includes/admin/class-pb-catalog-list-table.php:109
+#: includes/admin/class-pb-catalog-list-table.php:221
+#: includes/admin/class-pb-catalog-list-table.php:451
 msgid "Hide in Catalog"
 msgstr "Απόκρυψη καταλόγου"
 
-#: includes/admin/class-pb-catalog-list-table.php:114 includes/admin/class-pb-catalog-list-table.php:220 includes/admin/class-pb-catalog-list-table.php:450
+#: includes/admin/class-pb-catalog-list-table.php:114
+#: includes/admin/class-pb-catalog-list-table.php:220
+#: includes/admin/class-pb-catalog-list-table.php:450
 msgid "Show in Catalog"
 msgstr "Εμφάνιση καταλόγου"
 
@@ -61,23 +72,31 @@ msgstr "Κατάσταση καταλόγου"
 msgid "Privacy Status"
 msgstr "Κατάσταση Ιδιωτικότητας"
 
-#: includes/admin/class-pb-catalog-list-table.php:177 includes/class-pb-activation.php:171 includes/modules/export/epub/class-pb-epub201.php:736
+#: includes/admin/class-pb-catalog-list-table.php:177
+#: includes/class-pb-activation.php:171
+#: includes/modules/export/epub/class-pb-epub201.php:735
 msgid "Cover"
 msgstr "Εξώφυλλο"
 
-#: includes/admin/class-pb-catalog-list-table.php:178 templates/admin/import.php:58
+#: includes/admin/class-pb-catalog-list-table.php:178
+#: templates/admin/import.php:58
 msgid "Title"
 msgstr "Τίτλος"
 
-#: includes/admin/class-pb-catalog-list-table.php:179 includes/admin/pb-metaboxes.php:190 templates/admin/organize.php:77 templates/admin/organize.php:153 themes-book/pressbooks-book/functions.php:15
+#: includes/admin/class-pb-catalog-list-table.php:179
+#: includes/admin/pb-metaboxes.php:190 templates/admin/organize.php:77
+#: templates/admin/organize.php:153
+#: themes-book/pressbooks-book/functions.php:15
 msgid "Author"
 msgstr "Συγγραφέας"
 
-#: includes/admin/class-pb-catalog-list-table.php:183 templates/pb-catalog.php:197
+#: includes/admin/class-pb-catalog-list-table.php:183
+#: templates/pb-catalog.php:197
 msgid "Tag"
 msgstr "Ετικέτα"
 
-#: includes/admin/class-pb-catalog-list-table.php:186 templates/admin/catalog.php:34
+#: includes/admin/class-pb-catalog-list-table.php:186
+#: templates/admin/catalog.php:34
 msgid "Featured"
 msgstr "Προτεινόμενα"
 
@@ -89,11 +108,16 @@ msgstr "Ημερομηνία δημοσίευσης"
 msgid "Edit Tags"
 msgstr "Επεξεργασία ετικετών"
 
-#: includes/admin/class-pb-catalog-list-table.php:373 includes/admin/pb-laf.php:96 templates/admin/organize.php:21 templates/admin/organize.php:27 templates/admin/organize.php:80 templates/admin/organize.php:156
+#: includes/admin/class-pb-catalog-list-table.php:373
+#: includes/admin/pb-laf.php:96 templates/admin/organize.php:21
+#: templates/admin/organize.php:27 templates/admin/organize.php:80
+#: templates/admin/organize.php:156
 msgid "Private"
 msgstr "Ιδιωτικό"
 
-#: includes/admin/class-pb-catalog-list-table.php:373 includes/admin/pb-laf.php:98 templates/admin/organize.php:19 templates/admin/organize.php:24
+#: includes/admin/class-pb-catalog-list-table.php:373
+#: includes/admin/pb-laf.php:98 templates/admin/organize.php:19
+#: templates/admin/organize.php:24
 msgid "Public"
 msgstr "Δημόσιο"
 
@@ -117,7 +141,9 @@ msgstr "Μοιραστείτε τον κατάλογό σας"
 msgid "The public link to your catalog page"
 msgstr "Ο δημόσιος σύνδεσμος για την σελίδα του καταλόγου σας"
 
-#: includes/admin/class-pb-catalog-list-table.php:461 includes/admin/pb-laf.php:184 includes/admin/pb-laf.php:200 includes/admin/pb-laf.php:306
+#: includes/admin/class-pb-catalog-list-table.php:461
+#: includes/admin/pb-laf.php:184 includes/admin/pb-laf.php:200
+#: includes/admin/pb-laf.php:306
 msgid "My Catalog"
 msgstr "Ο κατάλογός μου"
 
@@ -129,7 +155,8 @@ msgstr "Επεξεργασία προφίλ"
 msgid "Visit Catalog"
 msgstr "Επισκεφθείτε τον κατάλογο"
 
-#: includes/admin/class-pb-catalog-list-table.php:469 symbionts/search-regex/view/admin/search.php:54
+#: includes/admin/class-pb-catalog-list-table.php:469
+#: symbionts/search-regex/view/admin/search.php:54
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -137,7 +164,9 @@ msgstr "Αναζήτηση"
 msgid "Add By URL"
 msgstr "Προσθέστε από URL"
 
-#: includes/admin/class-pb-catalog-list-table.php:527 includes/class-pb-catalog.php:1063 includes/class-pb-catalog.php:1111 includes/class-pb-catalog.php:1156 templates/admin/catalog.php:18
+#: includes/admin/class-pb-catalog-list-table.php:527
+#: includes/class-pb-catalog.php:1063 includes/class-pb-catalog.php:1111
+#: includes/class-pb-catalog.php:1156 templates/admin/catalog.php:18
 msgid "You do not have permission to do that."
 msgstr "Δεν έχετε την άδεια να το κάνετε αυτό."
 
@@ -145,24 +174,29 @@ msgstr "Δεν έχετε την άδεια να το κάνετε αυτό."
 msgid "The requested user does not exist."
 msgstr "Ο χρήστης που ζητήσατε δεν υπάρχει"
 
-#: includes/admin/class-pb-network-managers-list-table.php:72 includes/admin/class-pb-network-managers-list-table.php:76
+#: includes/admin/class-pb-network-managers-list-table.php:72
+#: includes/admin/class-pb-network-managers-list-table.php:76
 msgid "Restrict Access"
 msgstr "Περιορισμένη πρόσβαση"
 
-#: includes/admin/class-pb-network-managers-list-table.php:72 includes/admin/class-pb-network-managers-list-table.php:76
+#: includes/admin/class-pb-network-managers-list-table.php:72
+#: includes/admin/class-pb-network-managers-list-table.php:76
 msgid "Unrestrict Access"
 msgstr "Απεριόριστη πρόσβαση"
 
-#: includes/admin/pb-analytics.php:14 includes/admin/pb-analytics.php:15 includes/admin/pb-analytics.php:27 includes/admin/pb-analytics.php:28 includes/admin/pb-analytics.php:167 includes/admin/pb-analytics.php:199
+#: includes/admin/pb-analytics.php:14 includes/admin/pb-analytics.php:15
+#: includes/admin/pb-analytics.php:27 includes/admin/pb-analytics.php:28
+#: includes/admin/pb-analytics.php:167 includes/admin/pb-analytics.php:199
 msgid "Google Analytics"
-msgstr ""
+msgstr "Google Analytics"
 
 #: includes/admin/pb-analytics.php:49 includes/admin/pb-analytics.php:96
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Analytics ID"
 
 #: includes/admin/pb-analytics.php:54
-msgid "The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
+msgid ""
+"The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
 msgstr ""
 
 #: includes/admin/pb-analytics.php:65
@@ -170,18 +204,24 @@ msgid "Site-Specific Tracking"
 msgstr ""
 
 #: includes/admin/pb-analytics.php:70
-msgid "If enabled, the Google Analytics settings page will be visible to book administrators, allowing them to use their own Google Analytics accounts to track statistics at the book level."
+msgid ""
+"If enabled, the Google Analytics settings page will be visible to book "
+"administrators, allowing them to use their own Google Analytics accounts to "
+"track statistics at the book level."
 msgstr ""
 
 #: includes/admin/pb-analytics.php:101
-msgid "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgid ""
+"The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
+msgstr "Το Google Analytics ID για το βιβλίο σου, π.χ. &lsquo;UA-01234567-8&rsquo;."
 
 #: includes/admin/pb-analytics.php:115
 msgid "Google Analytics settings."
-msgstr ""
+msgstr "Ρυθμίσεις Google Analytics."
 
-#: includes/admin/pb-analytics.php:183 includes/class-pb-catalog.php:1090 includes/class-pb-catalog.php:1138 includes/class-pb-catalog.php:1175 includes/class-pb-catalog.php:1236
+#: includes/admin/pb-analytics.php:183 includes/class-pb-catalog.php:1090
+#: includes/class-pb-catalog.php:1138 includes/class-pb-catalog.php:1175
+#: includes/class-pb-catalog.php:1236 templates/admin/dashboard.php:28
 msgid "Settings saved."
 msgstr "Οι ρυθμίσεις αποθηκεύτηκαν."
 
@@ -191,14 +231,22 @@ msgstr "Επεξεργασία CSS"
 
 #: includes/admin/pb-customcss.php:61
 #, php-format
-msgid "Unexpected Error: There was a problem trying to query slug: %s - Please contact technical support."
+msgid ""
+"Unexpected Error: There was a problem trying to query slug: %s - Please "
+"contact technical support."
 msgstr "Απρόσμενο σφάλμα: Υπήρξε ένα πρόβλημα στο ερώτημα: %s - Παρακαλώ επικοινωνήστε με την τεχνική υποστήριξη."
 
 #: includes/admin/pb-customcss.php:114
 msgid "Last 10 CSS Revisions"
 msgstr "Οι τελευταίες 10 αναθεωρήσεις CSS "
 
-#: includes/admin/pb-customcss.php:117 includes/modules/export/epub/class-pb-epub201.php:918 includes/modules/export/epub/templates/epub201/opf.php:70 includes/modules/export/epub/templates/epub3/opf.php:83 includes/modules/export/mpdf/class-pb-pdf.php:315 includes/modules/export/xhtml/class-pb-xhtml11.php:636 themes-book/pressbooks-book/footer.php:41
+#: includes/admin/pb-customcss.php:117
+#: includes/modules/export/epub/class-pb-epub201.php:917
+#: includes/modules/export/epub/templates/epub201/opf.php:70
+#: includes/modules/export/epub/templates/epub3/opf.php:83
+#: includes/modules/export/mpdf/class-pb-pdf.php:314
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:634
+#: themes-book/pressbooks-book/footer.php:41
 msgid "by"
 msgstr "από"
 
@@ -206,39 +254,71 @@ msgstr "από"
 msgid "This will overwrite existing custom CSS. Are you sure?"
 msgstr "Αυτό θα αντικαταστήσει το υπάρχον CSS. Είστε βέβαιος;"
 
-#: includes/admin/pb-dashboard.php:20 includes/admin/pb-dashboard.php:36 includes/admin/pb-dashboard.php:57 includes/admin/pb-dashboard.php:110
-msgid "Pressbooks News"
-msgstr "Τα νέα του Pressbooks"
-
-#: includes/admin/pb-dashboard.php:56
+#: includes/admin/pb-dashboard.php:69
 msgid "My Book"
 msgstr "Το βιβλίο μου"
 
-#: includes/admin/pb-dashboard.php:58 includes/admin/pb-laf.php:347
+#: includes/admin/pb-dashboard.php:70 includes/admin/pb-laf.php:347
 msgid "Users"
 msgstr "Χρήστες"
 
-#: includes/admin/pb-dashboard.php:70 includes/pb-postype.php:115 templates/admin/import.php:59 templates/admin/organize.php:36 templates/admin/organize.php:53
+#: includes/admin/pb-dashboard.php:93 includes/pb-postype.php:115
+#: templates/admin/import.php:59 templates/admin/organize.php:36
+#: templates/admin/organize.php:53
 msgid "Front Matter"
 msgstr "Προκειμενικά στοιχεία"
 
-#: includes/admin/pb-dashboard.php:90 includes/pb-postype.php:150 templates/admin/import.php:64 templates/admin/organize.php:38 templates/admin/organize.php:61
+#: includes/admin/pb-dashboard.php:113 includes/pb-postype.php:150
+#: templates/admin/import.php:64 templates/admin/organize.php:38
+#: templates/admin/organize.php:61
 msgid "Back Matter"
 msgstr "Μετακειμενικά στοιχεία"
 
-#: includes/admin/pb-dashboard.php:99 includes/admin/pb-dashboard.php:138 templates/admin/organize.php:141 templates/admin/organize.php:207
+#: includes/admin/pb-dashboard.php:122 includes/admin/pb-dashboard.php:166
+#: templates/admin/organize.php:141 templates/admin/organize.php:207
 msgid "Add"
 msgstr "Προσθήκη"
 
-#: includes/admin/pb-dashboard.php:99 includes/admin/pb-dashboard.php:138 includes/admin/pb-laf.php:84
+#: includes/admin/pb-dashboard.php:122 includes/admin/pb-dashboard.php:166
+#: includes/admin/pb-laf.php:84
 msgid "Organize"
 msgstr "Οργάνωση"
+
+#: includes/admin/pb-dashboard.php:175 includes/admin/pb-dashboard.php:176
+#: includes/admin/pb-laf.php:335 includes/admin/pb-laf.php:386
+msgid "Dashboard"
+msgstr "Πίνακας ελέγχου"
+
+#: includes/admin/pb-dashboard.php:197
+msgid "Dashboard Feed"
+msgstr ""
+
+#: includes/admin/pb-dashboard.php:204
+msgid "Display Feed"
+msgstr ""
+
+#: includes/admin/pb-dashboard.php:209
+msgid "Display an RSS feed widget on the dashboard."
+msgstr ""
+
+#: includes/admin/pb-dashboard.php:215
+msgid "Feed Title"
+msgstr ""
+
+#: includes/admin/pb-dashboard.php:223
+msgid "Feed URL"
+msgstr ""
+
+#: includes/admin/pb-dashboard.php:249
+msgid "Adjust settings for your dashboard RSS feed widget below."
+msgstr ""
 
 #: includes/admin/pb-laf.php:17
 msgid "Powered by"
 msgstr "Υποστηρίζεται από"
 
-#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:179 templates/admin/catalog.php:88
+#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:179
+#: templates/admin/catalog.php:88
 msgid "About"
 msgstr "Σχετικα με"
 
@@ -258,11 +338,15 @@ msgstr "Επιλογές Θέματος"
 msgid "Published"
 msgstr "Εκδόθηκε"
 
-#: includes/admin/pb-laf.php:142 includes/admin/pb-metaboxes.php:26 includes/modules/import/wordpress/class-pb-wxr.php:231 templates/admin/import.php:79
+#: includes/admin/pb-laf.php:142 includes/admin/pb-metaboxes.php:26
+#: includes/modules/import/wordpress/class-pb-wxr.php:231
+#: templates/admin/import.php:79
 msgid "Book Info"
 msgstr "Πληροφορίες βιβλίου"
 
-#: includes/admin/pb-laf.php:155 includes/admin/pb-laf.php:173 templates/admin/export.php:51 templates/admin/organize.php:41 templates/admin/organize.php:82 templates/admin/organize.php:158
+#: includes/admin/pb-laf.php:155 includes/admin/pb-laf.php:173
+#: templates/admin/export.php:51 templates/admin/organize.php:41
+#: templates/admin/organize.php:82 templates/admin/organize.php:158
 msgid "Export"
 msgstr "Εξαγωγή"
 
@@ -282,11 +366,13 @@ msgstr "Ρυθμίσεις Ιδιωτικότητας"
 msgid "Privacy"
 msgstr "Ιδιωτικότητα"
 
-#: includes/admin/pb-laf.php:173 includes/admin/pb-laf.php:986 includes/admin/pb-metaboxes.php:459
+#: includes/admin/pb-laf.php:173 includes/admin/pb-laf.php:986
+#: includes/admin/pb-metaboxes.php:459
 msgid "Export Settings"
 msgstr "Ρυθμίσεις εξαγωγής"
 
-#: includes/admin/pb-laf.php:176 templates/admin/import.php:14 templates/admin/import.php:57
+#: includes/admin/pb-laf.php:176 templates/admin/import.php:14
+#: templates/admin/import.php:57
 msgid "Import"
 msgstr "Εισαγωγή"
 
@@ -309,10 +395,6 @@ msgstr "Προσθήκη νέου βιβλίου"
 #: includes/admin/pb-laf.php:328
 msgid "Network Admin"
 msgstr "Διαχειριστής δικτύου"
-
-#: includes/admin/pb-laf.php:335 includes/admin/pb-laf.php:386
-msgid "Dashboard"
-msgstr "Πίνακας ελέγχου"
 
 #: includes/admin/pb-laf.php:341
 msgid "Sites"
@@ -351,7 +433,8 @@ msgid "Public. I would like this book to be visible to everyone."
 msgstr "Δημόσιο. Θέλω αυτό το βιβλίο να είναι ορατό σε όλους."
 
 #: includes/admin/pb-laf.php:677
-msgid "Private. I would like this book to be accessible only to people I invite."
+msgid ""
+"Private. I would like this book to be accessible only to people I invite."
 msgstr "Ιδιωτικό. Θέλω αυτό το βιβλίο να είναι προσβάσιμο σε όσους προσκαλώ."
 
 #: includes/admin/pb-laf.php:700
@@ -408,13 +491,19 @@ msgstr "Ναι. Στείλε αρχεία καταγραφής logs."
 
 #: includes/admin/pb-laf.php:965
 msgid ""
-"Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and will require some effort to decipher. Unfortunately we cannot provide support for deciphering validation errors, but you could post errors on the <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">Pressbooks forum</a>, where we and other Pressbooks users can help out as time "
-"permits. ."
+"Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
+"will require some effort to decipher. Unfortunately we cannot provide "
+"support for deciphering validation errors, but you could post errors on the "
+"<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">Pressbooks "
+"forum</a>, where we and other Pressbooks users can help out as time permits."
+" ."
 msgstr "Σημείωση: η ερμηνεία των αναφορών σφαλμάτων (για EPUB, Mobi και PDF) απαιτεί τεχνικές γνώσεις. Δυστυχώς, δεν μπορούμε να παράσχουμε υποστήριξη στην αποκρυπτογράφηση των αναφορών αλλά μπορείτε να αναφέρετε τα μηνύματα στο <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">Pressbooks forum</a>, όπου εμείς ή άλλοι χρήστες ενδέχεται να σας βοηθήσουν."
 
 #: includes/admin/pb-metaboxes.php:97
 #, php-format
-msgid "Your cover image (%s x %s) is too small. It should be 625px on the shortest side."
+msgid ""
+"Your cover image (%s x %s) is too small. It should be 625px on the shortest "
+"side."
 msgstr "Η εικόνα εξωφύλλου (%s x %s) είναι πολύ μικρή. Πρέπει να είναι τουλάχιστον 625 πίξελς."
 
 #: includes/admin/pb-metaboxes.php:103
@@ -422,11 +511,18 @@ msgstr "Η εικόνα εξωφύλλου (%s x %s) είναι πολύ μικ�
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
 msgstr "Η εικόνα εξωφύλλου (%s) είναι πολύ μεγάλη. Δεν πρέπει να ξεπερνά τα 2MB."
 
-#: includes/admin/pb-metaboxes.php:118 includes/admin/pb-metaboxes.php:163 includes/class-pb-metadata.php:627 themes-book/pressbooks-book/functions.php:1228
+#: includes/admin/pb-metaboxes.php:118 includes/admin/pb-metaboxes.php:163
+#: includes/class-pb-metadata.php:627
+#: themes-book/pressbooks-book/functions.php:1223
 msgid "Cover Image"
 msgstr "Εικόνα εξωφύλλου"
 
-#: includes/admin/pb-metaboxes.php:154 includes/admin/pb-metaboxes.php:451 includes/class-pb-sass.php:44 templates/admin/import.php:62 templates/admin/organize.php:39 themes-book/pressbooks-book/functions.php:1663 themes-book/pressbooks-book/functions.php:1664 themes-book/pressbooks-book/functions.php:1723
+#: includes/admin/pb-metaboxes.php:154 includes/admin/pb-metaboxes.php:451
+#: includes/class-pb-sass.php:44 templates/admin/import.php:62
+#: templates/admin/organize.php:39
+#: themes-book/pressbooks-book/functions.php:1658
+#: themes-book/pressbooks-book/functions.php:1659
+#: themes-book/pressbooks-book/functions.php:1718
 msgid "Part"
 msgstr "Μέρος"
 
@@ -447,7 +543,9 @@ msgid "Short Title"
 msgstr "Σύντομος τίτλος"
 
 #: includes/admin/pb-metaboxes.php:180
-msgid "In case of long titles that might be truncated in running heads in the PDF export."
+msgid ""
+"In case of long titles that might be truncated in running heads in the PDF "
+"export."
 msgstr "Οι μεγάλοι τίτλοι ενδέχεται να περικοπούν στις επικεφαλίδες κατά την εξαγωγή σε PDF"
 
 #: includes/admin/pb-metaboxes.php:185
@@ -459,7 +557,9 @@ msgid "Author, file as"
 msgstr "Συγγραφέας, κατά επώνυμο"
 
 #: includes/admin/pb-metaboxes.php:196
-msgid "This ensures that your ebook will sort properly in ebook stores, by the author's last name."
+msgid ""
+"This ensures that your ebook will sort properly in ebook stores, by the "
+"author's last name."
 msgstr "Αυτό εξασφαλίζει ότι το βιβλίο σας θα ταξινομηθεί σωστά στα ηλεκτρονικά βιβλιοπωλεία, με το επώνυμο του συγγραφέα."
 
 #: includes/admin/pb-metaboxes.php:201
@@ -467,10 +567,13 @@ msgid "Contributing Authors"
 msgstr "Συνεργαζόμενοι συγγραφείς"
 
 #: includes/admin/pb-metaboxes.php:203
-msgid "This may be used when more than one person shares the responsibility for the intellectual content of a book."
+msgid ""
+"This may be used when more than one person shares the responsibility for the"
+" intellectual content of a book."
 msgstr "Αυτό ίσως είναι χρήσιμο όταν τα πνευματικά δικαιώματα ανήκουν σε περισσότερους του ενός συγγραφείς."
 
-#: includes/admin/pb-metaboxes.php:208 themes-book/pressbooks-book/functions.php:17
+#: includes/admin/pb-metaboxes.php:208
+#: themes-book/pressbooks-book/functions.php:17
 msgid "Publisher"
 msgstr "Εκδότης"
 
@@ -482,7 +585,8 @@ msgstr "Το κείμενο αυτό εμφανίζεται στη σελίδα 
 msgid "Publisher City"
 msgstr "Πόλη έκδοσης"
 
-#: includes/admin/pb-metaboxes.php:221 themes-book/pressbooks-book/functions.php:20
+#: includes/admin/pb-metaboxes.php:221
+#: themes-book/pressbooks-book/functions.php:20
 msgid "Publication Date"
 msgstr "Ημερομηνία έκδοσης"
 
@@ -494,20 +598,27 @@ msgstr "Προστίθεται στα μεταδεδομένα του βιβλί
 msgid "On-Sale Date"
 msgstr "Ημερομηνία πώλησης"
 
-#: includes/admin/pb-metaboxes.php:234 themes-book/pressbooks-book/functions.php:22
+#: includes/admin/pb-metaboxes.php:234
+#: themes-book/pressbooks-book/functions.php:22
 msgid "Ebook ISBN"
 msgstr "ISBN ψηφιακού βιβλίου"
 
 #: includes/admin/pb-metaboxes.php:235
-msgid "ISBN is the International Standard Book Number, and you'll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook."
+msgid ""
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in some online ebook stores. This is added to the "
+"metadata in your ebook."
 msgstr "Το ISBN είναι ο Διεθνής Πρότυπος Αριθμός Βιβλίου και απαιτείται ένας εάν θέλετε να πωλήσετε το βιβλίο σας σε διαδικτυακά βιβλιοπωλεία. Προστίθεται στα  μεταδεδομένα του βιβλίου σας."
 
-#: includes/admin/pb-metaboxes.php:240 themes-book/pressbooks-book/functions.php:18
+#: includes/admin/pb-metaboxes.php:240
+#: themes-book/pressbooks-book/functions.php:18
 msgid "Print ISBN"
 msgstr "Εκτύπωση ISBN"
 
 #: includes/admin/pb-metaboxes.php:241
-msgid "ISBN is the International Standard Book Number, and you'll need one if you want to sell your book in online and physical book stores."
+msgid ""
+"ISBN is the International Standard Book Number, and you'll need one if you "
+"want to sell your book in online and physical book stores."
 msgstr "Το ISBN είναι ο Διεθνής Πρότυπος Αριθμός Βιβλίου και απαιτείται ένας εάν θέλετε να πωλήσετε το βιβλίο σας σε διαδικτυακά και συμβατικά βιβλιοπωλεία. "
 
 #: includes/admin/pb-metaboxes.php:248 includes/admin/pb-metaboxes.php:688
@@ -515,10 +626,23 @@ msgid "Language"
 msgstr "Γλώσσα"
 
 #: includes/admin/pb-metaboxes.php:249
-msgid "This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the \"Contents\" header."
+msgid ""
+"This sets metadata in your ebook, making it easier to find in some stores. "
+"It also changes some system generated content for supported languages, such "
+"as the \"Contents\" header."
 msgstr "Αυτό δημιουργεί μεταδεδομένα στο ψηφιακό βιβλίο σας για ευκολότερη ανεύρευσή του σε μερικά καταστήματα. Αλλάζει επίσης το περιεχόμενο που δημιουργείται αυτόματα από το σύστημα για τις υποστηριζόμενες γλώσσες, όπως για παράδειγμα η επικεφαλίδα \"Contents\" στον πίνακα περιεχομένων."
 
-#: includes/admin/pb-metaboxes.php:253 includes/modules/export/epub/class-pb-epub201.php:916 includes/modules/export/epub/class-pb-epub201.php:934 includes/modules/export/epub/templates/epub201/opf.php:68 includes/modules/export/epub/templates/epub3/opf.php:81 includes/modules/export/mpdf/class-pb-pdf.php:309 includes/modules/export/xhtml/class-pb-xhtml11.php:634
+#: includes/admin/pb-metaboxes.php:249 includes/admin/pb-metaboxes.php:689
+msgid "Help translate Pressbooks into your language!"
+msgstr ""
+
+#: includes/admin/pb-metaboxes.php:253
+#: includes/modules/export/epub/class-pb-epub201.php:915
+#: includes/modules/export/epub/class-pb-epub201.php:933
+#: includes/modules/export/epub/templates/epub201/opf.php:68
+#: includes/modules/export/epub/templates/epub3/opf.php:81
+#: includes/modules/export/mpdf/class-pb-pdf.php:308
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:632
 #: themes-book/pressbooks-book/footer.php:39
 msgid "Copyright"
 msgstr "Copyright"
@@ -539,7 +663,8 @@ msgstr "Ιδιοκτήτης δικαιωμάτων"
 msgid "Name of the copyright holder."
 msgstr "Όνομα κατόχου των δικαιωμάτων."
 
-#: includes/admin/pb-metaboxes.php:283 themes-book/pressbooks-book/functions.php:414
+#: includes/admin/pb-metaboxes.php:283
+#: themes-book/pressbooks-book/functions.php:409
 msgid "Copyright License"
 msgstr "Άδεια δικαιωμάτων"
 
@@ -552,7 +677,10 @@ msgid "Copyright Notice"
 msgstr "Επισήμανση πνευματικών δικαιωμάτων"
 
 #: includes/admin/pb-metaboxes.php:291
-msgid "Enter a custom copyright notice, with whatever infomation you like. This will override the auto-generated copyright notice, and be inserted after the title page."
+msgid ""
+"Enter a custom copyright notice, with whatever infomation you like. This "
+"will override the auto-generated copyright notice, and be inserted after the"
+" title page."
 msgstr "Επιλέξτε τις πληροφορίες που επιθυμείτε σχετικά με τα πνευματικά δικαιώματα. Αυτό θα αντικαταστήσει το αυτόματο σημείωμα πνευματικών δικαιωμάτων και θα εμφανίζεται μετά τη σελίδα του τίτλου."
 
 #: includes/admin/pb-metaboxes.php:301
@@ -560,7 +688,9 @@ msgid "Book Tagline"
 msgstr "Ετικέτα βιβλίου"
 
 #: includes/admin/pb-metaboxes.php:302
-msgid "A very short description of your book. It should fit in a Twitter post, and encapsulate your book in the briefest sentence."
+msgid ""
+"A very short description of your book. It should fit in a Twitter post, and "
+"encapsulate your book in the briefest sentence."
 msgstr "Μία πολύ σύντομη περιγραφή του βιβλίου σας. Θα πρέπει να χωράει σε ένα post του Twitter και να συμπυκνώνει το βιβλίο σας σε μία πρόταση"
 
 #: includes/admin/pb-metaboxes.php:308
@@ -568,7 +698,8 @@ msgid "Short Description"
 msgstr "Σύντομη περιγραφή"
 
 #: includes/admin/pb-metaboxes.php:309
-msgid "A short paragraph about your book, for catalogs, reviewers etc. to quote."
+msgid ""
+"A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr "Μία μικρή παράγραφος για το βιβλίο σας, για αναφορά σε καταλόγους, για κριτικούς κλπ."
 
 #: includes/admin/pb-metaboxes.php:315
@@ -599,7 +730,10 @@ msgstr "Αριθμός σειράς"
 msgid "Editor"
 msgstr "Επιμελητής"
 
-#: includes/admin/pb-metaboxes.php:339 includes/admin/pb-metaboxes.php:345 includes/admin/pb-metaboxes.php:364 includes/admin/pb-metaboxes.php:370 includes/admin/pb-metaboxes.php:376 includes/admin/pb-metaboxes.php:382 includes/admin/pb-metaboxes.php:395
+#: includes/admin/pb-metaboxes.php:339 includes/admin/pb-metaboxes.php:345
+#: includes/admin/pb-metaboxes.php:364 includes/admin/pb-metaboxes.php:370
+#: includes/admin/pb-metaboxes.php:376 includes/admin/pb-metaboxes.php:382
+#: includes/admin/pb-metaboxes.php:395
 msgid "This is not used by Pressbooks."
 msgstr "Δεν χρησιμοποιείται από την Pressbooks"
 
@@ -612,15 +746,20 @@ msgid "Keywords"
 msgstr "Λέξεις-κλειδιά"
 
 #: includes/admin/pb-metaboxes.php:352
-msgid "These are added to your webbook cover page, and in your ebook metadata. Keywords are used by online book stores and search engines."
+msgid ""
+"These are added to your webbook cover page, and in your ebook metadata. "
+"Keywords are used by online book stores and search engines."
 msgstr "Αυτές θα προστεθούν στο εξώφυλλο του βιβλίου στη web μορφή του και στα μεταδεδομένα του ψηφιακού βιβλίου. Οι λέξεις - κλειδιά χρησιμοποιούνται από τα διαδικτυακά βιβλιοπωλεία και τις μηχανές αναζήτησης."
 
-#: includes/admin/pb-metaboxes.php:357 themes-book/pressbooks-book/functions.php:21
+#: includes/admin/pb-metaboxes.php:357
+#: themes-book/pressbooks-book/functions.php:21
 msgid "Hashtag"
 msgstr "Hashtag"
 
 #: includes/admin/pb-metaboxes.php:358
-msgid "These are added to your webbook cover page. For those of you who like Twitter."
+msgid ""
+"These are added to your webbook cover page. For those of you who like "
+"Twitter."
 msgstr "Θα προστεθούν στο εξώφυλλο του βιβλίου στη web μορφή του. Για όσους αγαπούν το Twitter. "
 
 #: includes/admin/pb-metaboxes.php:363
@@ -644,7 +783,9 @@ msgid "Bisac Subject"
 msgstr "Bisac Subject"
 
 #: includes/admin/pb-metaboxes.php:389
-msgid "BISAC subject headings help your book get properly classified in (e)book stores. This is not used by Pressbooks."
+msgid ""
+"BISAC subject headings help your book get properly classified in (e)book "
+"stores. This is not used by Pressbooks."
 msgstr "Η ταξινόμηση BISAC βοηθά το βιβλίο σας να ταξινομηθεί σωστά στα (ψηφιακά) βιβλιοπωλεία. Δεν χρησιμοποιείται από την Pressbooks."
 
 #: includes/admin/pb-metaboxes.php:394
@@ -732,7 +873,8 @@ msgid "Part Text"
 msgstr "Κείμενο μέρους"
 
 #: includes/admin/pb-metaboxes.php:567
-msgid "Appears on part page. Parts will not appear if a book has only one part."
+msgid ""
+"Appears on part page. Parts will not appear if a book has only one part."
 msgstr "Εμφανίζεται στη σελίδα του μέρους. Τα μέρη δεν εμφανίζονται εάν το βιβλίο έχει μόνο ένα μέρος."
 
 #: includes/admin/pb-metaboxes.php:571
@@ -747,11 +889,12 @@ msgstr "Απόκρυψη από τον πίνακα περιεχομένων κ�
 msgid "Extra Profile Information"
 msgstr "Πρόσθετες πληροφορίες προφίλ"
 
-#: includes/admin/pb-network-managers.php:15 includes/admin/pb-network-managers.php:16
+#: includes/admin/pb-network-managers.php:15
+#: includes/admin/pb-network-managers.php:16
 msgid "Network Managers"
 msgstr "Δίκτυο διαχειριστών"
 
-#: includes/admin/pb-network-managers.php:78
+#: includes/admin/pb-network-managers.php:78 templates/admin/dashboard.php:2
 msgid "You do not have sufficient permissions to access this page."
 msgstr "Δεν έχετε δικαίωμα πρόσβασης στη σελίδα."
 
@@ -760,7 +903,9 @@ msgid "Pressbooks Network Managers"
 msgstr "Δίκτυο διαχειριστών Pressbooks"
 
 #: includes/admin/pb-network-managers.php:88
-msgid "Network administrators&rsquo; access to network admininistration menus can be restricted to leave only sites and users visible to them."
+msgid ""
+"Network administrators&rsquo; access to network admininistration menus can "
+"be restricted to leave only sites and users visible to them."
 msgstr "Network administrators&rsquo; access to network admininistration menus can be restricted to leave only sites and users visible to them."
 
 #: includes/class-pb-activation.php:143
@@ -780,7 +925,9 @@ msgid "Chapter 1"
 msgstr "Κεφάλαιο 1"
 
 #: includes/class-pb-activation.php:156
-msgid "This is the first chapter in the main body of the text. You can change the text, rename the chapter, add new chapters, and add new parts."
+msgid ""
+"This is the first chapter in the main body of the text. You can change the "
+"text, rename the chapter, add new chapters, and add new parts."
 msgstr "Αυτό είναι το πρώτο κεφάλαιο στο κύριο μέρος του κειμένου. Μπορείτε να αλλάξετε το κείμενο, να μετονομάσετε  το κεφάλαιο, να προσθέσετε κεφάλαια και νέα μέρη."
 
 #: includes/class-pb-activation.php:160
@@ -795,21 +942,34 @@ msgstr "Η θέση όπου προσθέτετε παραρτήματα ή άλ
 msgid "Authors"
 msgstr "Συγγραφείς"
 
-#: includes/class-pb-activation.php:175 includes/modules/export/epub/templates/epub3/toc.php:21 themes-book/pressbooks-book/functions.php:844 themes-book/pressbooks-book/functions.php:1239 themes-book/pressbooks-book/index.php:12 themes-book/pressbooks-book/page-cover-third-block.php:4 themes-book/pressbooks-book/sidebar.php:16
+#: includes/class-pb-activation.php:175
+#: includes/modules/export/epub/templates/epub3/toc.php:21
+#: themes-book/pressbooks-book/functions.php:839
+#: themes-book/pressbooks-book/functions.php:1234
+#: themes-book/pressbooks-book/index.php:12
+#: themes-book/pressbooks-book/page-cover-third-block.php:4
+#: themes-book/pressbooks-book/sidebar.php:16
 msgid "Table of Contents"
 msgstr "Πίνακας Περιεχομένων"
 
-#: includes/class-pb-activation.php:183 themes-book/pressbooks-book/header.php:90 themes-book/pressbooks-book/page-cover-top-block.php:58
+#: includes/class-pb-activation.php:183
+#: themes-book/pressbooks-book/header.php:90
+#: themes-book/pressbooks-book/page-cover-top-block.php:58
 msgid "Buy"
 msgstr "Αγορά"
 
-#: includes/class-pb-activation.php:187 themes-book/pressbooks-book/functions.php:151
+#: includes/class-pb-activation.php:187
+#: themes-book/pressbooks-book/functions.php:146
 msgid "Access Denied"
 msgstr "Η πρόσβαση απαγορεύεται"
 
 #: includes/class-pb-activation.php:189
-msgid "This book is private, and accessible only to registered users. If you have an account you can login <a href=\"/wp-login.php\">here</a>.  You can also set up your own Pressbooks book at: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
-msgstr "Αυτό το βιβλίο είναι ιδιωτικό και προσβάσιμο μόνο σε εγγεγραμμένους χρήστες. Αν έχετε λογαριασμό κάνετε είσοδο <a href=\"/wp-login.php\">εδώ</a>.  Μπορείτε επίσης να δημιουργήσετε το δικό σας βιβλίο με <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
+msgid ""
+"This book is private, and accessible only to registered users. If you have "
+"an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
+"set up your own Pressbooks book at: <a "
+"href=\"http://pressbooks.com\">Pressbooks.com</a>."
+msgstr "Αυτό το βιβλίο είναι ιδιωτικό και προσβάσιμο μόνο σε εγγεγραμμένους χρήστης. Αν έχετε λογαριασμό συνδεθείτε <a href=\"/wp-login.php\">εδώ</a>. Δημιουργήστε το δικό σας βιβλίο με το Pressbooks στο: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 
 #: includes/class-pb-activation.php:193 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
@@ -894,7 +1054,7 @@ msgstr "Θιβετιανή"
 
 #: includes/class-pb-globaltypography.php:32
 msgid "Turkish"
-msgstr ""
+msgstr "Τούρκικα"
 
 #: includes/class-pb-metadata.php:239
 msgid "All Rights Reserved"
@@ -904,16 +1064,18 @@ msgstr "Τα πνευματικά δικαιώματα προστατεύοντ�
 msgid "except where otherwise noted."
 msgstr "εκτός εάν υπάρχει διαφορετική επισήμανση."
 
-#: includes/class-pb-sass.php:43 templates/admin/import.php:60 templates/admin/organize.php:57
+#: includes/class-pb-sass.php:43 templates/admin/import.php:60
+#: templates/admin/organize.php:57
 msgid "Chapter"
 msgstr "Κεφάλαιο"
 
-#: includes/class-pb-sass.php:181
+#: includes/class-pb-sass.php:179
 #, php-format
-msgid "There was a problem with SASS. Contact your site administrator. Error: %s"
+msgid ""
+"There was a problem with SASS. Contact your site administrator. Error: %s"
 msgstr "Παρουσιάστηκε πρόβλημα με τη SASS. Επικοινωνήστε με τον διαχειριστή. Σφάλμα: %s"
 
-#: includes/class-pb-sass.php:225
+#: includes/class-pb-sass.php:223
 msgid "SASS Error"
 msgstr "Σφάλμα SASS"
 
@@ -925,125 +1087,143 @@ msgstr "βιβλίο"
 msgid "File not found"
 msgstr "Το αρχείο δεν βρέθηκε"
 
-#: includes/modules/export/epub/class-pb-epub201.php:867
+#: includes/modules/export/epub/class-pb-epub201.php:866
 msgid "Title Page"
 msgstr "Τίτλος σελίδας"
 
-#: includes/modules/export/epub/class-pb-epub201.php:1129
+#: includes/modules/export/epub/class-pb-epub201.php:1128
 msgid "Make your own books using Pressbooks.com"
 msgstr "Δημιούργησε τα βιβλία σου με το Pressbooks.com"
 
-#: includes/modules/export/epub/class-pb-epub201.php:1485
+#: includes/modules/export/epub/class-pb-epub201.php:1484
 msgid "Table Of Contents"
 msgstr "Πίνακας περιεχομένων"
 
-#: includes/modules/export/epub/class-pb-epub201.php:1498 includes/modules/export/xhtml/class-pb-xhtml11.php:701
+#: includes/modules/export/epub/class-pb-epub201.php:1497
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:699
 msgid "Contents"
 msgstr "Περιεχόμενα"
 
-#: includes/modules/export/mpdf/class-pb-pdf.php:269
+#: includes/modules/export/mpdf/class-pb-pdf.php:268
 msgid "ISBN"
 msgstr "ISBN"
 
-#: includes/modules/export/wordpress/class-pb-wxr.php:101 includes/modules/export/xhtml/class-pb-xhtml11.php:164
+#: includes/modules/export/prince/class-pb-pdf.php:238
+msgid ""
+"This book was produced using Pressbooks.com, and PDF rendering was done by "
+"PrinceXML."
+msgstr "Το βιβλίο αυτό δημιουργήθηκε με Pressbooks.com και η μετατροπή σε PDF έγινε με PrinceXML."
+
+#: includes/modules/export/wordpress/class-pb-wxr.php:101
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:162
 msgid "Invalid permission error"
 msgstr "Σφάλμα μη ορθής άδειας"
 
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:310
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:308
 msgid "Notes"
 msgstr "Σημειώσεις"
 
-#: includes/modules/import/class-pb-import.php:341 includes/modules/import/class-pb-import.php:404
+#: includes/modules/import/class-pb-import.php:340
+#: includes/modules/import/class-pb-import.php:403
 #, php-format
 msgid "Your file does not appear to be a valid %s."
 msgstr "Το αρχείο φαίνεται ότι δεν είναι σωστό %s."
 
-#: includes/modules/import/class-pb-import.php:349
+#: includes/modules/import/class-pb-import.php:348
 msgid "Your URL does not appear to be valid"
 msgstr "Η διεύθυνση δεν είναι σωστή"
 
-#: includes/modules/import/class-pb-import.php:365
-msgid "The website you are attempting to reach is not returning a successful response header on a HEAD request: "
+#: includes/modules/import/class-pb-import.php:364
+msgid ""
+"The website you are attempting to reach is not returning a successful "
+"response header on a HEAD request: "
 msgstr "H ιστοσελίδα στην οποία επιχειρείτε πρόσβαση δεν επιστρέφει επιτυχές αποτέλεσμα σε αναζήτηση HEAD."
 
-#: includes/modules/import/class-pb-import.php:371
+#: includes/modules/import/class-pb-import.php:370
 msgid "The website you are attempting to reach is not returning HTML content"
 msgstr "Η ιστοσελίδα που προσπαθείτε να επισκεφθείτε δεν περιέχει HTML"
 
-#: includes/modules/import/class-pb-import.php:388
-msgid "The website you are attempting to reach is not returning a successful response on a GET request: "
+#: includes/modules/import/class-pb-import.php:387
+msgid ""
+"The website you are attempting to reach is not returning a successful "
+"response on a GET request: "
 msgstr "H ιστοσελίδα στην οποία επιχειρείτε πρόσβαση δεν επιστρέφει επιτυχές αποτέλεσμα σε αναζήτηση GET."
 
-#: includes/modules/import/epub/class-pb-epub201.php:190 includes/modules/import/wordpress/class-pb-wxr.php:140
+#: includes/modules/import/epub/class-pb-epub201.php:190
+#: includes/modules/import/wordpress/class-pb-wxr.php:140
 #, php-format
 msgid "Imported %s chapters."
 msgstr "Εισήχθησαν %s κεφάλαια."
 
-#: includes/modules/import/wordpress/class-pb-parser.php:57 includes/modules/import/wordpress/class-pb-parser.php:62
-msgid "This does not appear to be a WXR file, missing/invalid WXR version number"
+#: includes/modules/import/wordpress/class-pb-parser.php:57
+#: includes/modules/import/wordpress/class-pb-parser.php:62
+msgid ""
+"This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr "Αυτό δεν φαίνεται να είναι ένα αρχείο WXR. Ο αριθμός έκδοσης WXR λείπει ή είναι εσφαλμένος"
 
-#: includes/pb-editor.php:61
+#: includes/pb-editor.php:62
 msgid "Indent"
 msgstr "Εσοχή παραγράφου"
 
-#: includes/pb-editor.php:67
+#: includes/pb-editor.php:68
 msgid "Hanging indent"
 msgstr "\"Κρεμαστή\" παράγραφος"
 
-#: includes/pb-editor.php:73
+#: includes/pb-editor.php:74
 msgid "No indent"
 msgstr "Χωρίς εσοχή παραγράφου"
 
-#: includes/pb-editor.php:79
+#: includes/pb-editor.php:80
 msgid "Tight tracking"
 msgstr "Σφιχτό διάστημα"
 
-#: includes/pb-editor.php:85
+#: includes/pb-editor.php:86
 msgid "Very tight tracking"
 msgstr "Πολύ σφιχτό διάστημα"
 
-#: includes/pb-editor.php:91
+#: includes/pb-editor.php:92
 msgid "Loose tracking"
 msgstr "Χαλαρό διάστημα"
 
-#: includes/pb-editor.php:97
+#: includes/pb-editor.php:98
 msgid "Very loose tracking"
 msgstr "Πολύ χαλαρό διάστημα"
 
-#: includes/pb-editor.php:103
+#: includes/pb-editor.php:104
 msgid "Pullquote (left)"
 msgstr "Pullquote (αριστερά)"
 
-#: includes/pb-editor.php:109
+#: includes/pb-editor.php:110
 msgid "Pullquote (right)"
 msgstr "Pullquote (δεξιά)"
 
-#: includes/pb-editor.php:157 includes/pb-editor.php:179 includes/pb-editor.php:193 languages/tinymce.php:7
+#: includes/pb-editor.php:158 includes/pb-editor.php:180
+#: includes/pb-editor.php:194 languages/tinymce.php:7
 msgid "Standard"
 msgstr "Προκαθορισμένο"
 
-#: includes/pb-editor.php:161
+#: includes/pb-editor.php:162
 msgid "No lines"
 msgstr "Χωρίς γραμμές"
 
-#: includes/pb-editor.php:165
+#: includes/pb-editor.php:166
 msgid "Lines"
 msgstr "Γραμμές"
 
-#: includes/pb-editor.php:169 includes/pb-editor.php:187 includes/pb-editor.php:201 languages/tinymce.php:9
+#: includes/pb-editor.php:170 includes/pb-editor.php:188
+#: includes/pb-editor.php:202 languages/tinymce.php:9
 msgid "Shaded"
 msgstr "Σκιασμένη"
 
-#: includes/pb-editor.php:173 languages/tinymce.php:18
+#: includes/pb-editor.php:174 languages/tinymce.php:18
 msgid "Custom..."
 msgstr "Καθορισμός..."
 
-#: includes/pb-editor.php:183 includes/pb-editor.php:197
+#: includes/pb-editor.php:184 includes/pb-editor.php:198
 msgid "Border"
 msgstr "Πλαίσιο"
 
-#: includes/pb-editor.php:297
+#: includes/pb-editor.php:298
 msgid "Internal Link"
 msgstr ""
 
@@ -1051,11 +1231,16 @@ msgstr ""
 msgid "Your cover image should be 625px on the shortest side."
 msgstr "Η εικόνα εξωφύλλου πρέπει να είναι τουλάχιστον 625 pixels στη μικρότερη πλευρά"
 
-#: includes/pb-image.php:335 templates/admin/export.php:94 templates/admin/organize.php:87 templates/admin/organize.php:125 templates/admin/organize.php:193
+#: includes/pb-image.php:335 templates/admin/export.php:94
+#: templates/admin/organize.php:87 templates/admin/organize.php:125
+#: templates/admin/organize.php:193
 msgid "Are you sure you want to delete this?"
 msgstr "Είστε σίγουροι ότι θέλετε να το διαγράψετε αυτό; "
 
-#: includes/pb-image.php:367 symbionts/custom-metadata/custom_metadata.php:1315 templates/admin/organize.php:87 templates/admin/organize.php:125 templates/admin/organize.php:193
+#: includes/pb-image.php:367
+#: symbionts/custom-metadata/custom_metadata.php:1315
+#: templates/admin/organize.php:87 templates/admin/organize.php:125
+#: templates/admin/organize.php:193
 msgid "Delete"
 msgstr "Διαγραφή"
 
@@ -1327,11 +1512,15 @@ msgstr "Το μέρος ανανεώθηκε <a target=\"_blank\" href=\"%s\">Δ
 msgid "Part updated."
 msgstr "Το μέρος ανανεώθηκε."
 
-#: includes/pb-postype.php:239 includes/pb-postype.php:256 includes/pb-postype.php:269 includes/pb-postype.php:286 includes/pb-postype.php:303
+#: includes/pb-postype.php:239 includes/pb-postype.php:256
+#: includes/pb-postype.php:269 includes/pb-postype.php:286
+#: includes/pb-postype.php:303
 msgid "Custom field updated."
 msgstr "Το ρυθμισμένο πεδίο ανανεώθηκε."
 
-#: includes/pb-postype.php:240 includes/pb-postype.php:257 includes/pb-postype.php:270 includes/pb-postype.php:287 includes/pb-postype.php:304
+#: includes/pb-postype.php:240 includes/pb-postype.php:257
+#: includes/pb-postype.php:270 includes/pb-postype.php:287
+#: includes/pb-postype.php:304
 msgid "Custom field deleted."
 msgstr "Το ρυθμισμένο πεδίο διεγράφη."
 
@@ -1360,10 +1549,13 @@ msgstr "Το μέρος εστάλη. <a target=\"_blank\" href=\"%s\">Προε�
 
 #: includes/pb-postype.php:247
 #, php-format
-msgid "Part scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Part</a>"
+msgid ""
+"Part scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Preview Part</a>"
 msgstr "Το μέρος προγραμματίστηκε για: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Προεπισκόπηση μέρους</a>"
 
-#: includes/pb-postype.php:249 includes/pb-postype.php:279 includes/pb-postype.php:296 includes/pb-postype.php:313
+#: includes/pb-postype.php:249 includes/pb-postype.php:279
+#: includes/pb-postype.php:296 includes/pb-postype.php:313
 msgid "M j, Y @ G:i"
 msgstr "M η, Ε @ Ω:λ"
 
@@ -1372,7 +1564,8 @@ msgstr "M η, Ε @ Ω:λ"
 msgid "Part draft updated. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
 msgstr "Το προσχέδιο μέρους ενημερώθηκε. <a target=\"_blank\" href=\"%s\">Προεπισκόπηση μέρους</a>"
 
-#: includes/pb-postype.php:255 includes/pb-postype.php:258 includes/pb-postype.php:261
+#: includes/pb-postype.php:255 includes/pb-postype.php:258
+#: includes/pb-postype.php:261
 msgid "Book Information updated."
 msgstr "Οι πληροφορίες του βιβλίου ανανεώθηκαν"
 
@@ -1419,7 +1612,9 @@ msgstr "Το κεφάλαιο εστάλη. <a target=\"_blank\" href=\"%s\">Π�
 
 #: includes/pb-postype.php:277
 #, php-format
-msgid "Chapter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Chapter</a>"
+msgid ""
+"Chapter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Preview Chapter</a>"
 msgstr "Το κεφάλαιο προγραμματίστηκε για: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Προεπισκόπηση κεφαλαίου</a>"
 
 #: includes/pb-postype.php:280
@@ -1452,17 +1647,23 @@ msgstr "Το προκειμενικό στοιχείο αποθηκεύτηκε"
 
 #: includes/pb-postype.php:293
 #, php-format
-msgid "Front Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Front Matter</a>"
+msgid ""
+"Front Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Front "
+"Matter</a>"
 msgstr "Το προκειμενικό στοιχείο εστάλη.  <a target=\"_blank\" href=\"%s\">Προεπισκόπηση προκειμενικού στοιχείου</a>"
 
 #: includes/pb-postype.php:294
 #, php-format
-msgid "Front Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Front Matter</a>"
+msgid ""
+"Front Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Preview Front Matter</a>"
 msgstr "Το προκειμενικό στοιχείο προγραμματίστηκε για: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Προεπισκόπηση προκειμενικού στοιχείου</a>"
 
 #: includes/pb-postype.php:297
 #, php-format
-msgid "Front Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Front Matter</a>"
+msgid ""
+"Front Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Front "
+"Matter</a>"
 msgstr "Το προσχέδιο του προκειμενικού στοιχείου ενημερώθηκε. <a target=\"_blank\" href=\"%s\">Προεπισκόπηση προκειμενικού στοιχείου</a>"
 
 #: includes/pb-postype.php:302
@@ -1490,17 +1691,23 @@ msgstr "Το μετακειμενικό στοιχείο αποθηκεύτηκ�
 
 #: includes/pb-postype.php:310
 #, php-format
-msgid "Back Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Back Matter</a>"
+msgid ""
+"Back Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Back "
+"Matter</a>"
 msgstr "Το μετακειμενικό στοιχείο εστάλη.  <a target=\"_blank\" href=\"%s\">Προεπισκόπηση μετακειμενικού στοιχείου</a>"
 
 #: includes/pb-postype.php:311
 #, php-format
-msgid "Back Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Back Matter</a>"
+msgid ""
+"Back Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
+"href=\"%2$s\">Preview Back Matter</a>"
 msgstr "Το μετακειμενικό στοιχείο προγραμματίστηκε για: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Προεπισκόπηση μετακειμενικού στοιχείου</a>"
 
 #: includes/pb-postype.php:314
 #, php-format
-msgid "Back Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Back Matter</a>"
+msgid ""
+"Back Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Back "
+"Matter</a>"
 msgstr "Το προσχέδιο του μετακειμενικού στοιχείου ενημερώθηκε. <a target=\"_blank\" href=\"%s\">Προεπισκόπηση μετακειμενικού στοιχείου</a>"
 
 #: includes/pb-redirect.php:171
@@ -1521,57 +1728,122 @@ msgstr ""
 
 #: includes/pb-registration.php:34
 msgid "Web Book Address:"
-msgstr ""
+msgstr "Διεύθυνση βιβλίου στον Ιστό: "
 
 #: includes/pb-registration.php:37
-msgid "Must be at least 4 characters, letters and numbers only. Your web book address <strong>cannot be changed</strong>, so choose carefully!"
+msgid ""
+"Must be at least 4 characters, letters and numbers only. Your web book "
+"address <strong>cannot be changed</strong>, so choose carefully!"
 msgstr ""
 
 #: includes/pb-registration.php:40
 msgid "Book Title:"
-msgstr ""
+msgstr "Τίτλος βιβλίου: "
 
 #: includes/pb-registration.php:43
 msgid "Book Language:"
-msgstr ""
+msgstr "Γλώσσα βιβλίου: "
 
 #: includes/pb-registration.php:46
 msgid "Would you like your web book to be visible to the public?"
-msgstr ""
+msgstr "Θέλετε η ιστοσελίδα του βιβλίου να είναι ορατή στο κοινό; "
 
 #: includes/pb-registration.php:50
 msgid "Create Book"
-msgstr ""
+msgstr "Δημιουργία βιβλίου"
 
 #: includes/pb-registration.php:53
 #, php-format
 msgid "Register a %s account"
-msgstr ""
+msgstr "Εγγραφή ενός %s λογαριασμού"
 
 #: includes/pb-registration.php:56
 msgid "Create a new book"
-msgstr ""
+msgstr "Δημιουργία νέου βιβλίου"
 
 #: includes/pb-registration.php:59
 #, php-format
-msgid "Welcome, %s. Fill out the form below to <strong>add a new book to your account</strong>."
+msgid ""
+"Welcome, %s. Fill out the form below to <strong>add a new book to your "
+"account</strong>."
 msgstr ""
 
-#: includes/pb-registration.php:62
+#: includes/pb-registration.php:63
+msgid "yourwebbookname"
+msgstr ""
+
+#: includes/pb-registration.php:66
 msgid "Books you are already a member of:"
-msgstr ""
+msgstr "Βιβλία στα οποία είστε μέλος: "
 
-#: includes/pb-registration.php:65
-msgid "Your web book address must be at least 4 characters, letters and numbers only. It <strong>cannot be changed</strong>, so choose carefully!"
-msgstr ""
+#: includes/pb-registration.php:69
+msgid ""
+"Your web book address must be at least 4 characters, letters and numbers "
+"only. It <strong>cannot be changed</strong>, so choose carefully!"
+msgstr "Η διεύθυνση της ιστοσελίδας του βιβλίου σας πρέπει να είναι τουλάχιστον 4 χαρακτήρες, μόνο γράμματα ή αριθμοί. <strong>Δεν μπορεί να αλλάξει</strong>, γι' αυτό επιλέξτε προσεκτικά!"
 
-#: includes/pb-registration.php:68
+#: includes/pb-registration.php:72
 #, php-format
 msgid "Congratulations! Your new book, %s, is almost ready"
+msgstr "Συγχαρητήρια! Το νέο σας βιβλίο, %s, είναι σχεδόν έτοιμο"
+
+#: includes/pb-registration.php:75
+msgid ""
+"But, before you can start writing your book, <strong>you must activate "
+"it</strong>."
+msgstr "Αλλά, πριν αρχίσετε να γράφετε το βιβλίο σας, <strong> πρέπει να το ενεργοποιήσετε</strong>."
+
+#: includes/pb-registration.php:78
+#, php-format
+msgid ""
+"Your account has been activated. You may now <a href=\"%1$s\">log in</a> to "
+"your book using your chosen username of &#8220;%2$s&#8221;. Please check "
+"your email inbox at %3$s for your password and login instructions. If you do"
+" not receive an email, please check your junk or spam folder. If you still "
+"do not receive an email within an hour, you can <a href=\"%4$s\">reset your "
+"password</a>."
 msgstr ""
 
-#: includes/pb-registration.php:71
-msgid "But, before you can start writing your book, <strong>you must activate it</strong>."
+#: includes/pb-registration.php:81
+#, php-format
+msgid ""
+"Your book at <a href=\"%1$s\">%2$s</a> is active. You may now log in to your"
+" book using your chosen username of &#8220;%3$s&#8221;. Please check your "
+"email inbox at %4$s for your password and login instructions. If you do not "
+"receive an email, please check your junk or spam folder. If you still do not"
+" receive an email within an hour, you can <a href=\"%5$s\">reset your "
+"password</a>."
+msgstr ""
+
+#: includes/pb-registration.php:84
+#, php-format
+msgid ""
+"Your account is now activated. <a href=\"%1$s\">View your book</a> or <a "
+"href=\"%2$s\">Log in</a>"
+msgstr ""
+
+#: includes/pb-registration.php:106
+msgid "Password"
+msgstr ""
+
+#: includes/pb-registration.php:109
+msgid "Type in your password."
+msgstr ""
+
+#: includes/pb-registration.php:111
+msgid "Confirm Password"
+msgstr ""
+
+#: includes/pb-registration.php:113
+msgid "Type in your password again."
+msgstr ""
+
+#: includes/pb-registration.php:130
+msgid "You have to enter a password."
+msgstr ""
+
+#: includes/pb-registration.php:136
+msgid "Passwords do not match."
 msgstr ""
 
 #: includes/pb-taxonomy.php:17
@@ -1732,7 +2004,7 @@ msgstr "Προσθήκη ή αφαίρεση τύπου κεφαλαίων"
 msgid "Choose from the most used chapter type"
 msgstr "Επιλέξτε από τους πιο συνηθισμένους τύπους κεφαλαίων"
 
-#: includes/pb-taxonomy.php:111 themes-book/pressbooks-book/functions.php:392
+#: includes/pb-taxonomy.php:111 themes-book/pressbooks-book/functions.php:387
 msgid "Chapter Types"
 msgstr "Τύποι κεφαλαίων"
 
@@ -1744,7 +2016,8 @@ msgstr "Εισαγωγή υποσημείωσης"
 msgid "Convert MS Word Footnotes"
 msgstr "Μετατροπή υποσημειώσεων του MS Word"
 
-#: includes/shortcodes/footnotes/class-pb-footnotes.php:253 tests/test-shortcodes-footnotes-footnotes.php:188
+#: includes/shortcodes/footnotes/class-pb-footnotes.php:251
+#: tests/test-shortcodes-footnotes-footnotes.php:188
 msgid "Invalid permissions."
 msgstr "Λανθασμένη άδεια"
 
@@ -1804,7 +2077,13 @@ msgstr "Πρώτο"
 msgid "Second"
 msgstr "Δεύτερο"
 
-#: pressbooks.php:81
+#: pressbooks.php:82
+msgid ""
+"Dependencies missing. Please run 'composer install' from the root of the "
+"Pressbooks plugin directory."
+msgstr ""
+
+#: pressbooks.php:90
 msgid "Cannot find Pressbooks install."
 msgstr "Δεν βρέθηκε εγκατεστημένο το Pressbook."
 
@@ -1845,7 +2124,10 @@ msgstr "Διαγραφή αυτής της ομάδας πεδίων"
 msgid "<strong>Note:</strong> this field type cannot be multiplied"
 msgstr "<strong>Επισήμανση:</strong> αυτός ο τύπος πεδίου δεν μπορεί να πολλαπλασιαστεί."
 
-#: symbionts/custom-metadata/custom_metadata.php:1287 symbionts/custom-metadata/custom_metadata.php:1302 symbionts/custom-metadata/custom_metadata.php:1349 symbionts/custom-metadata/custom_metadata.php:1362
+#: symbionts/custom-metadata/custom_metadata.php:1287
+#: symbionts/custom-metadata/custom_metadata.php:1302
+#: symbionts/custom-metadata/custom_metadata.php:1349
+#: symbionts/custom-metadata/custom_metadata.php:1362
 #, php-format
 msgid "There are no %s to select from yet."
 msgstr "Δεν υπάρχουν %s για να επιλέξετε ακόμη."
@@ -1908,40 +2190,60 @@ msgstr "Η απενεργοποίηση των σχολίων απαιτεί έ�
 
 #: symbionts/disable-comments/disable-comments.php:261
 #, php-format
-msgid "Note: The <em>Disable Comments</em> plugin is currently active, and comments are completely disabled on: %s. Many of the settings below will not be applicable for those post types."
+msgid ""
+"Note: The <em>Disable Comments</em> plugin is currently active, and comments"
+" are completely disabled on: %s. Many of the settings below will not be "
+"applicable for those post types."
 msgstr "Σημείωση: Το πρόσθετο <em>Απενεργοποίηση Σχολίων</em> είναι ενεργό και τα σχόλια δεν επιτρέπονται στο: %s. Πολλές από τις παρακάτω ρυθμίσεις δεν θα εφαρμοστούν σε αυτό το άρθρο."
 
-#: symbionts/disable-comments/disable-comments.php:261 themes-root/pressbooks-publisher/inc/template-tags.php:108 themes-root/pressbooks-publisher/inc/template-tags.php:114
+#: symbionts/disable-comments/disable-comments.php:261
+#: themes-root/pressbooks-publisher/inc/template-tags.php:108
+#: themes-root/pressbooks-publisher/inc/template-tags.php:114
 msgid ", "
 msgstr ", "
 
 #: symbionts/disable-comments/disable-comments.php:287
 #, php-format
-msgid "The <em>Disable Comments</em> plugin is active and configured to disable comments on custom post types for Pressbooks. Visit the <a href=\"%s\">configuration page</a> to choose which post types to <b>enable</b> comments on."
+msgid ""
+"The <em>Disable Comments</em> plugin is active and configured to disable "
+"comments on custom post types for Pressbooks. Visit the <a "
+"href=\"%s\">configuration page</a> to choose which post types to "
+"<b>enable</b> comments on."
 msgstr "Το πρόσθετο <em>Απενεργοποίηση Σχολίων</em> είναι ενεργό και απαγορεύει σχόλια σε κανονικούς τύπους άρθρων για το Pressbooks. Επισκεφθείτε τη <a href=\"%s\">σελίδα διαμόρφωσης</a> για να επιλέξετε σε ποιον τύπο άρθρων <b>θα ενεργοποιηθούν</b> τα σχόλια."
 
-#: symbionts/disable-comments/disable-comments.php:298 themes-book/pressbooks-book/comments.php:40 themes-root/pressbooks-publisher/comments.php:75
+#: symbionts/disable-comments/disable-comments.php:298
+#: themes-book/pressbooks-book/comments.php:40
+#: themes-root/pressbooks-publisher/comments.php:75
 msgid "Comments are closed."
 msgstr "Τα σχόλια έχουν κλείσει."
 
-#: symbionts/disable-comments/disable-comments.php:374 symbionts/pb-latex/pb-latex-admin.php:33
+#: symbionts/disable-comments/disable-comments.php:374
+#: symbionts/pb-latex/pb-latex-admin.php:33
 msgid "Settings"
 msgstr "Ρυθμίσεις"
 
-#: symbionts/disable-comments/disable-comments.php:385 symbionts/disable-comments/disable-comments.php:429
+#: symbionts/disable-comments/disable-comments.php:385
+#: symbionts/disable-comments/disable-comments.php:429
 msgid "Disable Comments"
 msgstr "Απενεργοποιήστε τα σχόλια"
 
 #: symbionts/disable-comments/disable-comments.php:422
-msgid "If a caching/performance plugin is active, please invalidate its cache to ensure that changes are reflected immediately."
+msgid ""
+"If a caching/performance plugin is active, please invalidate its cache to "
+"ensure that changes are reflected immediately."
 msgstr "Αν μία αποθήκευση σε κρυφή μνήμη/απόδοση σύνδεσης, είναι ενεργή, παρακαλώ ακυρώστε την αποθήκευση στη κρυφή μνήμη για να βεβαιωθείτε ότι οι αλλαγές εμφανίζονται αμέσως."
 
 #: symbionts/disable-comments/disable-comments.php:423
-msgid "Options updated. Changes to the Admin Menu and Admin Bar will not appear until you leave or reload this page."
+msgid ""
+"Options updated. Changes to the Admin Menu and Admin Bar will not appear "
+"until you leave or reload this page."
 msgstr "Οι επιλογές ενημερώθηκαν. Οι αλλαγές στο Μενού Διαχειριστή και Μπάρα Διαχειριστή δεν θα εμφανιστούν ως την έξοδο από τη σελίδα ή την ανανέωσή της."
 
 #: symbionts/disable-comments/disable-comments.php:432
-msgid "It seems that a caching/performance plugin is active on this site. Please manually invalidate that plugin's cache after making any changes to the settings below."
+msgid ""
+"It seems that a caching/performance plugin is active on this site. Please "
+"manually invalidate that plugin's cache after making any changes to the "
+"settings below."
 msgstr "Φαίνεται ότι μία αποθήκευση σε κρυφή μνήμη/απόδοση σύνδεσης είναι ενεργή σε αυτή τη σελίδα. Παρακαλώ ακυρώστε χειροκίνητα ότι η αποθήκευση στην κρυφή μνήμη είναι συνδεδεμένη αφού κάνετε οποιεσδήποτε από τις παρακάτω αλλαγές."
 
 #: symbionts/disable-comments/disable-comments.php:437
@@ -1949,19 +2251,26 @@ msgid "On certain post types"
 msgstr "Σε ορισμένους τύπους άρθρου"
 
 #: symbionts/disable-comments/disable-comments.php:444
-msgid "Disabling comments will also disable trackbacks and pingbacks. All comment-related fields will also be hidden from the edit/quick-edit screens of the affected posts. These settings cannot be overridden for individual posts."
+msgid ""
+"Disabling comments will also disable trackbacks and pingbacks. All comment-"
+"related fields will also be hidden from the edit/quick-edit screens of the "
+"affected posts. These settings cannot be overridden for individual posts."
 msgstr "Η απενεργοποίηση των σχολίων θα απενεργοποιήσει επίσης τις λειτουργίες trackbacks και pingbacks. Όλα τα πεδία που σχετίζονται με τα σχόλια θα μείνουν κρυφά από τις οθόνες επεξεργασίας/γρήγορης-επεξεργασίας των επηρεασμένων αναρτήσεων."
 
 #: symbionts/disable-comments/disable-comments.php:449
 msgid "Save Changes"
 msgstr "Αποθήκευση αλλαγών"
 
-#: symbionts/pb-latex/pb-latex-admin.php:39 symbionts/pb-latex/pb-latex-admin.php:187
+#: symbionts/pb-latex/pb-latex-admin.php:39
+#: symbionts/pb-latex/pb-latex-admin.php:187
 msgid "Insufficient LaTeX-fu"
 msgstr "Ανεπαρκής LaTeX-fu"
 
-#: symbionts/pb-latex/pb-latex-admin.php:45 symbionts/pb-latex/pb-latex-admin.php:100
-msgid "PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
+#: symbionts/pb-latex/pb-latex-admin.php:45
+#: symbionts/pb-latex/pb-latex-admin.php:100
+msgid ""
+"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
+"<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 msgstr "Η PB LaTeX δεν υποστηρίζει πλέον ><code>%BG_COLOR_RGB%</code> ή <code>%FG_COLOR_RGB</code> στο προοίμιο του LaTeX.  Παρακαλούμε διαγράψτε το."
 
 #: symbionts/pb-latex/pb-latex-admin.php:63
@@ -1998,11 +2307,15 @@ msgstr "Σύνταξη"
 
 #: symbionts/pb-latex/pb-latex-admin.php:231
 #, php-format
-msgid "You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221; syntax %s OR %s<br /> to insert LaTeX into your posts."
+msgid ""
+"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
+" syntax %s OR %s<br /> to insert LaTeX into your posts."
 msgstr "Μπορείτε να χρησιμοποιήσετε είτε σύντομο κώδικα σύνταξης %s<br /> ή την &#8220;inline&#8221; σύνταξη %s OR %s<br /> για να βάλετε LaTeX στα άρθρα σας."
 
 #: symbionts/pb-latex/pb-latex-admin.php:236
-msgid "For more information, see the <a href=\"http://wordpress.org/extend/plugins/wp-latex/faq/\">FAQ</a>"
+msgid ""
+"For more information, see the <a href=\"http://wordpress.org/extend/plugins"
+"/wp-latex/faq/\">FAQ</a>"
 msgstr "Για περισσότερες πληροφορίες δείτε τις <a href=\"http://wordpress.org/extend/plugins/wp-latex/faq/\">Συχνές Ερωτήσεις</a>"
 
 #: symbionts/pb-latex/pb-latex-admin.php:243
@@ -2020,7 +2333,9 @@ msgid "Default text color"
 msgstr "Προεπιλεγμένο χρώμα κειμένου"
 
 #: symbionts/pb-latex/pb-latex-admin.php:255
-msgid "A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>"
+msgid ""
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
 msgstr "Ένα εξαψήφιο εξαδεκαδικό νούμερο όπως <code>000000</code> ή <code>ffffff</code>"
 
 #: symbionts/pb-latex/pb-latex-admin.php:260
@@ -2028,7 +2343,9 @@ msgid "Default background color"
 msgstr "Προεπιλεγμένο χρώμα φόντου"
 
 #: symbionts/pb-latex/pb-latex-admin.php:263
-msgid "A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>, or <code>transparent</code>"
+msgid ""
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>, or <code>transparent</code>"
 msgstr "Ένα εξαψήφιο εξαδεκαδικό νούμερο όπως <code>000000</code> ή <code>ffffff</code>, ή <code>διάφανο</code>"
 
 #: symbionts/pb-latex/pb-latex-admin.php:281
@@ -2043,7 +2360,8 @@ msgstr "Μη έγκυρη κανονική έκφραση"
 msgid "No search pattern"
 msgstr "Χωρίς μοτίβο αναζήτησης"
 
-#: symbionts/search-regex/models/search.php:171 symbionts/search-regex/searches/post_content.php:37
+#: symbionts/search-regex/models/search.php:171
+#: symbionts/search-regex/searches/post_content.php:37
 msgid "edit"
 msgstr "επεξεργασία"
 
@@ -2051,7 +2369,8 @@ msgstr "επεξεργασία"
 msgid "deleted"
 msgstr "διεγράφη"
 
-#: symbionts/search-regex/search-regex.php:90 symbionts/search-regex/view/admin/search.php:3
+#: symbionts/search-regex/search-regex.php:90
+#: symbionts/search-regex/view/admin/search.php:3
 msgid "Search and Replace"
 msgstr "Αναζήτηση κι αντικατάσταση"
 
@@ -2081,7 +2400,9 @@ msgstr "Βρέθηκαν %1$s αποτελεσμα(τα)"
 msgid "replaced with:"
 msgstr "αντικαταστάθηκε με:"
 
-#: symbionts/search-regex/view/admin/results.php:34 symbionts/search-regex/view/admin/results.php:35 templates/admin/custom-css.php:42
+#: symbionts/search-regex/view/admin/results.php:34
+#: symbionts/search-regex/view/admin/results.php:35
+#: templates/admin/custom-css.php:42
 msgid "Save"
 msgstr "Αποθήκευση"
 
@@ -2094,11 +2415,15 @@ msgid "Search and replace will replace ALL instances in the entire book."
 msgstr "Η εύρεση κι αντικατάσταση θα αντικαταστήσει όλες τις υποδείξεις σε όλο το βιβλιο"
 
 #: symbionts/search-regex/view/admin/search.php:5
-msgid "Replacements will only be saved if you click '<strong>Replace &amp; Save</strong>', otherwise you will ONLY get a preview of the results."
+msgid ""
+"Replacements will only be saved if you click '<strong>Replace &amp; "
+"Save</strong>', otherwise you will ONLY get a preview of the results."
 msgstr "Οι αντικαταστάσεις θα αποθηκευτούν μόνο αν κάνετε κλικ '<strong>Αντικατάσταση &amp; Αποθήκευση</strong>', διαφορετικά θα δείτε μόνο μία προεπισκόπηση των αποτελεσμάτων."
 
 #: symbionts/search-regex/view/admin/search.php:6
-msgid "Be careful replacing text. There is no revert button. However, you can revert using the Revision History, chapter by chapter."
+msgid ""
+"Be careful replacing text. There is no revert button. However, you can "
+"revert using the Revision History, chapter by chapter."
 msgstr "Προσοχή στην αντικατάσταση κειμένου. Δεν υπάρχει πλήκτρο αναίρεσης. Ωστόσο μπορείτε να αναιρέσετε με το Ιστορικό Αναθεώρησης, κεφάλαιο προς κεφάλαιο."
 
 #: symbionts/search-regex/view/admin/search.php:11
@@ -2237,6 +2562,14 @@ msgstr "Τώρα επεξεργάζεστε το CSS του"
 msgid "Copy CSS from"
 msgstr "Αντιγραφή CSS από"
 
+#: templates/admin/dashboard.php:34
+msgid "Dashboard Settings"
+msgstr ""
+
+#: templates/admin/dashboard.php:36
+msgid "Customize your Pressbooks dashboard below."
+msgstr ""
+
 #: templates/admin/export.php:35
 msgid "Error: The export failed. See logs for more details."
 msgstr "Σφάλμα: Η εξαγωγή απέτυχε. Για λεπτομέρειες δες το αρχείο καταγραφής."
@@ -2251,7 +2584,9 @@ msgstr "Ταχυδρομήθηκε σε: "
 
 #: templates/admin/export.php:52
 #, php-format
-msgid "You can export multiple file formats by selecting your Export Format Options below. Pressbooks saves your last %s batches of exported files."
+msgid ""
+"You can export multiple file formats by selecting your Export Format Options"
+" below. Pressbooks saves your last %s batches of exported files."
 msgstr "Μπορείτε να εξαγάγετε το βιβλίο σε διάφορους τύπους επιλέγοντας παρακάτω Επιλογές Τύπου Εξαγωγής. Το Pressbooks αποθηκεύει τα τελευταία %s εξαγόμενα αρχεία ή σύνολα αρχείων"
 
 #: templates/admin/export.php:57
@@ -2305,34 +2640,34 @@ msgid "EPUB 3 (Beta)"
 msgstr "EPUB 3 (Beta)"
 
 #: templates/admin/export.php:125
-msgid "ICML (for InDesign)"
-msgstr "ICML (για InDesing)"
-
-#: templates/admin/export.php:126
 msgid "XHTML"
 msgstr "XHTML"
 
 #: templates/admin/export.php:127
+msgid "ICML (for InDesign)"
+msgstr "ICML (για InDesing)"
+
+#: templates/admin/export.php:129
 msgid "Pressbooks XML"
 msgstr "Pressbooks XML"
 
-#: templates/admin/export.php:128
+#: templates/admin/export.php:130
 msgid "WordPress XML"
 msgstr "WordPress XML"
 
-#: templates/admin/export.php:130
+#: templates/admin/export.php:132
 msgid "ODT"
 msgstr "ODT"
 
-#: templates/admin/export.php:135
+#: templates/admin/export.php:137
 msgid "Your Theme Options"
 msgstr "Επιλογές Θέματος"
 
-#: templates/admin/export.php:142
+#: templates/admin/export.php:144
 msgid "Change Theme"
 msgstr "Αλλαγή Θέματος"
 
-#: templates/admin/export.php:143
+#: templates/admin/export.php:145
 msgid "Options"
 msgstr "Επιλογές"
 
@@ -2398,7 +2733,9 @@ msgid "Promote your book, set individual chapters privacy below."
 msgstr "Προωθήστε το βιβλίο σας, ορίστε ξεχωριστές ρυθμίσεις ιδιωτικότητας ανά κεφάλαιο παρακάτω."
 
 #: templates/admin/organize.php:28
-msgid "Only users you invite can see your book, regardless of individual chapter privacy settings below."
+msgid ""
+"Only users you invite can see your book, regardless of individual chapter "
+"privacy settings below."
 msgstr "Μόνο οι χρήστες που προσκαλείτε μπορούν να δουν το βιβλίο, εκτός εάν ορίζεται διαφορετικά από τις ειδικές ρυθμίσεις για κάθε κεφάλαιο παρακάτω."
 
 #: templates/admin/organize.php:37
@@ -2433,7 +2770,12 @@ msgstr "Κατάσταση"
 msgid "Show Title"
 msgstr "Δείξε τίτλο"
 
-#: templates/admin/organize.php:84 templates/admin/organize.php:125 templates/admin/organize.php:159 templates/admin/organize.php:193 themes-book/pressbooks-book/page.php:11 themes-book/pressbooks-book/single.php:5 themes-root/pressbooks-publisher/inc/template-tags.php:126 themes-root/pressbooks-publisher/template-parts/content-page.php:25
+#: templates/admin/organize.php:84 templates/admin/organize.php:125
+#: templates/admin/organize.php:159 templates/admin/organize.php:193
+#: themes-book/pressbooks-book/page.php:11
+#: themes-book/pressbooks-book/single.php:5
+#: themes-root/pressbooks-publisher/inc/template-tags.php:126
+#: themes-root/pressbooks-publisher/template-parts/content-page.php:25
 msgid "Edit"
 msgstr "Επεξεργασία"
 
@@ -2454,7 +2796,10 @@ msgid "Reordering Back Matter"
 msgstr "Ανακατάταξη μετακειμενικών στοιχείων"
 
 #: templates/admin/publish.php:11
-msgid "Once your book is finished, you can download the files and submit them to ebookstores and print-on-demand providers. And if you like, Pressbooks can print your books, and ship them right to your door."
+msgid ""
+"Once your book is finished, you can download the files and submit them to "
+"ebookstores and print-on-demand providers. And if you like, Pressbooks can "
+"print your books, and ship them right to your door."
 msgstr "Μόλις ολοκληρωθεί το βιβλίο σας, μπορείτε να κατεβάσετε τα αρχεία και να τα αποστείλετε σε ψηφιακά βιβλιοπωλεία ή παρόχους εκτύπωσης κατά παραγγελία. Εάν θέλετε, η Pressbooks μπορεί να εκτυπώσει τα βιβλία σας και να τα αποστείλει στη διεύθυνσή σας."
 
 #: templates/admin/publish.php:15
@@ -2463,12 +2808,20 @@ msgstr "Καταστήματα ψηφιακών βιβλίων"
 
 #: templates/admin/publish.php:16
 #, php-format
-msgid "Once you have downloaded your files, you can either submit them to ebookstores yourself, or use a third-party distributor. Recommended self-serve ebookstores are <a href=\"%1s\">Kindle</a>, <a href=\"%2s\">Kobo</a>, and <a href=\"%3s\">Nook</a>. Other ebook stores include Apple iBooks and Google."
+msgid ""
+"Once you have downloaded your files, you can either submit them to "
+"ebookstores yourself, or use a third-party distributor. Recommended self-"
+"serve ebookstores are <a href=\"%1s\">Kindle</a>, <a href=\"%2s\">Kobo</a>, "
+"and <a href=\"%3s\">Nook</a>. Other ebook stores include Apple iBooks and "
+"Google."
 msgstr "Αφού κατεβάσετε τα αρχεία σας, μπορείτε είτε να το αποστείλετε σε βιβλιοπωλείο μόνοι σας ή να χρησιμοποιήσετε διανομέα. Προτεινόμενα βιβλιοπωλεία <a href=\"%1s\">Kindle</a>, <a href=\"%2s\">Kobo</a>, και <a href=\"%3s\">Nook</a>. Άλλα βιβλιοπωλεία συμπεριλαμβανομένου Apple iBooks και Google."
 
 #: templates/admin/publish.php:17
 #, php-format
-msgid "If you do not wish to submit your ebooks yourself, we recommend using a third-party distribution service such as <a href=\"%1s\">IngramSpark</a>, which can also make your books available online in print."
+msgid ""
+"If you do not wish to submit your ebooks yourself, we recommend using a "
+"third-party distribution service such as <a href=\"%1s\">IngramSpark</a>, "
+"which can also make your books available online in print."
 msgstr "Εάν δεν επιθυμείτε να αποστείλετε μόνοι σας τα βιβλία σας, προτείνουμε τη χρήση υπηρεσιών διανομής όπως <a href=\"%1s\">IngramSpark</a>, που μπορεί να διαθέσει τα βιβλία σας online σε έντυπη μορφή."
 
 #: templates/admin/publish.php:19
@@ -2477,7 +2830,9 @@ msgstr "Εκτύπωση κατά παραγγελία"
 
 #: templates/admin/publish.php:20
 #, php-format
-msgid "If you wish to sell your printed books online, we recommend going through <a href=\"%1s\">IngramSpark</a> or Amazon's <a href=\"%2s\">CreateSpace</a>."
+msgid ""
+"If you wish to sell your printed books online, we recommend going through <a"
+" href=\"%1s\">IngramSpark</a> or Amazon's <a href=\"%2s\">CreateSpace</a>."
 msgstr "Εάν επιθυμείτε να πωλήσετε online τα βιβλία σας τυπωμένα προτείνουμε να χρησιμοποιήσετε την <a href=\"%1s\">IngramSpark</a> ή την <a href=\"%2s\">CreateSpace</a> της Amazon."
 
 #: templates/admin/publish.php:22
@@ -2486,7 +2841,9 @@ msgstr "Παραγγελία έντυπων βιβλίων"
 
 #: templates/admin/publish.php:23
 #, php-format
-msgid "Pressbooks can print your books and send them to you. For pricing and more details, please send an email to: <a href=\"%1s\">print@pressbooks.com</a>"
+msgid ""
+"Pressbooks can print your books and send them to you. For pricing and more "
+"details, please send an email to: <a href=\"%1s\">print@pressbooks.com</a>"
 msgstr "Η Pressbooks μπορεί να τυπώσει τα βιβλία σας και να σας τα αποστείλει. Για τιμές και λεπτομέρειες παρακαλώ στείλτε μία επιστολή στο: <a href=\"%1s\">print@pressbooks.com</a>"
 
 #: templates/admin/publish.php:27
@@ -2494,22 +2851,29 @@ msgid "Adding BUY Links to Your Pressbooks Web Book"
 msgstr "Προσθήκη συνδέσμων για αγορά στο Web βιβλίο σας"
 
 #: templates/admin/publish.php:28
-msgid "If you would like to add <strong>BUY</strong> links to your Pressbooks web book, add the links to your book at the different retailers below:"
+msgid ""
+"If you would like to add <strong>BUY</strong> links to your Pressbooks web "
+"book, add the links to your book at the different retailers below:"
 msgstr "Εάν επιθυμείτε να προσθέσετε ένα σύνδεσμο <strong>ΑΓΟΡΑ</strong> στο web βιβλίο σας προσθέστε τους συνδέσμους των διαφόρων πωλητών παρακάτω:"
 
 #: templates/pb-catalog.php:150
 msgid "'s Catalog Page"
 msgstr "'s Σελίδα Καταλόγου"
 
-#: templates/pb-catalog.php:164 themes-book/pressbooks-book/page-cover-top-block.php:8
+#: templates/pb-catalog.php:164
+#: themes-book/pressbooks-book/page-cover-top-block.php:8
 msgid "login"
 msgstr "Σύνδεση"
 
-#: templates/pb-catalog.php:166 themes-book/pressbooks-book/page-cover-top-block.php:10
+#: templates/pb-catalog.php:166
+#: themes-book/pressbooks-book/page-cover-top-block.php:10
 msgid "logout"
 msgstr "Αποσύνδεση"
 
-#: templates/pb-catalog.php:174 themes-book/pressbooks-book/page-cover-top-block.php:12 themes-book/pressbooks-book/sidebar.php:10 themes-root/pressbooks-publisher/header.php:39
+#: templates/pb-catalog.php:174
+#: themes-book/pressbooks-book/page-cover-top-block.php:12
+#: themes-book/pressbooks-book/sidebar.php:10
+#: themes-root/pressbooks-publisher/header.php:39
 msgid "Admin"
 msgstr "Διαχείριση"
 
@@ -2522,7 +2886,9 @@ msgid "filtering by"
 msgstr "Φιλτραρισμένο από"
 
 #: templates/pb-catalog.php:238
-msgid "Sorry, but no books matched your filtering criteria. Please <a class=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
+msgid ""
+"Sorry, but no books matched your filtering criteria. Please <a class"
+"=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr "Δυστυχώς δεν βρέθηκαν βιβλία που ταιριάζουν στα κριτήρια φιλτραρίσματος. Παρακαλούμε <a class=\"clear-filters\" href=\"#\">καθαρίστε τα κριτήρια</a> και προσπαθήστε ξανά."
 
 #: templates/pb-catalog.php:242
@@ -2531,17 +2897,22 @@ msgstr "Pressbooks: CMS για βιβλία."
 
 #: tests/test-registration.php:21
 msgid "Create Site"
-msgstr ""
+msgstr "Δημιουργία ιστοχώρου"
 
-#: themes-book/austen/functions.php:17 themes-book/austen/functions.php:18 themes-book/austen/functions.php:35 themes-book/clarke/functions.php:18 themes-book/donham/functions.php:18 themes-book/donham/functions.php:19 themes-book/donham/functions.php:36
+#: themes-book/austen/functions.php:17 themes-book/austen/functions.php:18
+#: themes-book/austen/functions.php:35 themes-book/clarke/functions.php:18
+#: themes-book/donham/functions.php:18 themes-book/donham/functions.php:19
+#: themes-book/donham/functions.php:36
 msgid "part"
 msgstr "μέρος"
 
 #: themes-book/pressbooks-book/comments.php:3
-msgid "This post is password protected. Enter the password to view any comments."
+msgid ""
+"This post is password protected. Enter the password to view any comments."
 msgstr "Αυτό το άρθρο είναι προστατευμένο. Εισαγάγετε κωδικό πρόσβασης για να δείτε τα σχόλια."
 
-#: themes-book/pressbooks-book/comments.php:13 themes-root/pressbooks-publisher/comments.php:29
+#: themes-book/pressbooks-book/comments.php:13
+#: themes-root/pressbooks-publisher/comments.php:29
 #, php-format
 msgctxt "comments title"
 msgid "One Response to %2$s"
@@ -2549,11 +2920,13 @@ msgid_plural "%1$s Responses to %2$s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: themes-book/pressbooks-book/comments.php:21 themes-book/pressbooks-book/comments.php:32
+#: themes-book/pressbooks-book/comments.php:21
+#: themes-book/pressbooks-book/comments.php:32
 msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
 msgstr "<span class=\"meta-nav\">&larr;</span> Παλαιότερα σχόλια"
 
-#: themes-book/pressbooks-book/comments.php:22 themes-book/pressbooks-book/comments.php:33
+#: themes-book/pressbooks-book/comments.php:22
+#: themes-book/pressbooks-book/comments.php:33
 msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
 msgstr "Νεότερα σχόλια <span class=\"meta-nav\">&rarr;</span>"
 
@@ -2589,518 +2962,539 @@ msgstr "Συνεργαζόμενος συγγραφέας"
 msgid "Keywords/Tags"
 msgstr "Λέξεις-κλειδιά/Ετικέτες"
 
-#: themes-book/pressbooks-book/functions.php:133
+#: themes-book/pressbooks-book/functions.php:128
 msgid "Previous"
 msgstr "Προηγούμενο"
 
-#: themes-book/pressbooks-book/functions.php:137
+#: themes-book/pressbooks-book/functions.php:132
 msgid "Next"
 msgstr "Επόμενο"
 
-#: themes-book/pressbooks-book/functions.php:153
-msgid "This book is private, and accessible only to registered users. If you have an account you can <a href=\""
+#: themes-book/pressbooks-book/functions.php:148
+msgid ""
+"This book is private, and accessible only to registered users. If you have "
+"an account you can <a href=\""
 msgstr "Το βιβλίο είναι ιδιωτικό και προσβάσιμο μόνο σε εγγεγραμμένους. Αν έχετε λογαριασμό μπορείτε να <a href=\""
 
-#: themes-book/pressbooks-book/functions.php:180
+#: themes-book/pressbooks-book/functions.php:175
 #, php-format
 msgid "%s on"
 msgstr "%s σε"
 
-#: themes-book/pressbooks-book/functions.php:180
+#: themes-book/pressbooks-book/functions.php:175
 #, php-format
 msgid "%1$s at %2$s"
 msgstr "%1$s σε %2$s"
 
-#: themes-book/pressbooks-book/functions.php:180 themes-book/pressbooks-book/functions.php:200
+#: themes-book/pressbooks-book/functions.php:175
+#: themes-book/pressbooks-book/functions.php:195
 msgid "(Edit)"
 msgstr "(Επεξεργασία)"
 
-#: themes-book/pressbooks-book/functions.php:183
+#: themes-book/pressbooks-book/functions.php:178
 msgid "Your comment is awaiting moderation."
 msgstr "Το σχόλιο αναμένει έγκριση"
 
-#: themes-book/pressbooks-book/functions.php:200
+#: themes-book/pressbooks-book/functions.php:195
 msgid "Pingback:"
 msgstr "Pingback:"
 
-#: themes-book/pressbooks-book/functions.php:374
+#: themes-book/pressbooks-book/functions.php:369
 msgid "Global Options"
 msgstr "Γενικές επιλογές"
 
-#: themes-book/pressbooks-book/functions.php:381
+#: themes-book/pressbooks-book/functions.php:376
 msgid "Chapter Numbers"
 msgstr "Αριθμοί κεφαλαίου"
 
-#: themes-book/pressbooks-book/functions.php:386
+#: themes-book/pressbooks-book/functions.php:381
 msgid "Display chapter numbers"
 msgstr "Εμφάνιση αριθμών κεφαλαίων"
 
-#: themes-book/pressbooks-book/functions.php:397
+#: themes-book/pressbooks-book/functions.php:392
 msgid "Enable chapter types taxonomy"
 msgstr "Ενεργοποίηση ταξινόμησης τύπων κεφαλαίου"
 
-#: themes-book/pressbooks-book/functions.php:403
+#: themes-book/pressbooks-book/functions.php:398
 msgid "Parse Sections"
 msgstr "Ανάλυση Τομέων"
 
-#: themes-book/pressbooks-book/functions.php:408
+#: themes-book/pressbooks-book/functions.php:403
 msgid "Enable a two-level TOC"
 msgstr "Ενεργοποίηση Πίνακα Περιεχομένων δύο επιπέδων"
 
-#: themes-book/pressbooks-book/functions.php:419
+#: themes-book/pressbooks-book/functions.php:414
 msgid "Display the copyright license"
 msgstr "Εμφάνιση της άδειας δικαιωμάτων"
 
-#: themes-book/pressbooks-book/functions.php:439
+#: themes-book/pressbooks-book/functions.php:434
 msgid "Global Typography"
 msgstr "Γενική Τυπογραφία"
 
-#: themes-book/pressbooks-book/functions.php:444
+#: themes-book/pressbooks-book/functions.php:439
 msgid "Include fonts to support the following languages:"
 msgstr "Ενσωμάτωση γραμματοσειρών για υποστήριξη των παρακάτω γλωσσών:"
 
-#: themes-book/pressbooks-book/functions.php:462
+#: themes-book/pressbooks-book/functions.php:457
 msgid "These options apply universally to webbook, PDF and ebook exports."
 msgstr "Αυτές οι επιλογές εφαρμόζονται στο web βιβλίο, στο PDF και στο ψηφιακό βιβλίο"
 
-#: themes-book/pressbooks-book/functions.php:502
+#: themes-book/pressbooks-book/functions.php:497
 msgid "Enable chapter types taxonomy."
 msgstr "Ενεργοποίηση ταξινόμησης τύπων κεφαλαίου."
 
-#: themes-book/pressbooks-book/functions.php:554
+#: themes-book/pressbooks-book/functions.php:549
 msgid "and"
 msgstr "και "
 
-#: themes-book/pressbooks-book/functions.php:563
-msgid "Select languages…"
-msgstr "Επιλογή γλώσσας..."
+#: themes-book/pressbooks-book/functions.php:558
+msgid "Select languages&hellip;"
+msgstr "Επιλογή γλωσσών&hellip;"
 
-#: themes-book/pressbooks-book/functions.php:571
+#: themes-book/pressbooks-book/functions.php:566
 #, php-format
 msgid "This theme includes built-in support for %s."
 msgstr "Αυτό το θέμα περιλαμβάνει ενσωματωμένη υποστήριξη για %s."
 
-#: themes-book/pressbooks-book/functions.php:632
+#: themes-book/pressbooks-book/functions.php:627
 msgid "Web Options"
 msgstr "Επιλογές web"
 
-#: themes-book/pressbooks-book/functions.php:639
+#: themes-book/pressbooks-book/functions.php:634
 msgid "Collapsable TOC"
 msgstr "Αναδιπλούμενος Πίνακας Περιεχομένων"
 
-#: themes-book/pressbooks-book/functions.php:644
+#: themes-book/pressbooks-book/functions.php:639
 msgid "Make webbook TOC collapsable"
 msgstr "Δημιουργία αναδιπλούμενου πίνακα περιεχομένων στο web βιβλίο"
 
-#: themes-book/pressbooks-book/functions.php:650 themes-book/pressbooks-book/functions.php:891 themes-book/pressbooks-book/functions.php:1272
+#: themes-book/pressbooks-book/functions.php:645
+#: themes-book/pressbooks-book/functions.php:886
+#: themes-book/pressbooks-book/functions.php:1267
 msgid "Increase Font Size"
 msgstr "Αύξηση μεγέθους γραμματοσειράς"
 
-#: themes-book/pressbooks-book/functions.php:655
-msgid "Add an option for the user to increase font size for greater accessibility"
+#: themes-book/pressbooks-book/functions.php:650
+msgid ""
+"Add an option for the user to increase font size for greater accessibility"
 msgstr "Προσθήκη επιλογής για αύξηση μεγέθους γραμματοσειράς για μεγαλύτερη προσβασιμότητα"
 
-#: themes-book/pressbooks-book/functions.php:661
+#: themes-book/pressbooks-book/functions.php:656
 msgid "Enable Social Media"
 msgstr "Ενεργοποίηση κοινωνικών δικτύων"
 
-#: themes-book/pressbooks-book/functions.php:666
-msgid "Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+."
+#: themes-book/pressbooks-book/functions.php:661
+msgid ""
+"Add buttons to cover page and each chapter so that readers may share links "
+"to your book through social media: Facebook, Twitter, Google+."
 msgstr "Προσθέστε κουμπιά στο εξώφυλλο και κάθε κεφάλαιο, ώστε οι αναγνώστες να μπορούν να κοινοποιούν συνδέσμους προς το βιβλίο μέσω: Facebook, Twitter, Google+."
 
-#: themes-book/pressbooks-book/functions.php:678
+#: themes-book/pressbooks-book/functions.php:673
 msgid "These options apply to the webbook."
 msgstr "Αυτές οι επιλογές εφαρμόζονται στο web βιβλίο."
 
-#: themes-book/pressbooks-book/functions.php:777
+#: themes-book/pressbooks-book/functions.php:772
 msgid "PDF Options"
 msgstr "Επιλογές PDF"
 
-#: themes-book/pressbooks-book/functions.php:784 themes-book/pressbooks-book/functions.php:1132
+#: themes-book/pressbooks-book/functions.php:779
+#: themes-book/pressbooks-book/functions.php:1127
 msgid "Page Size"
 msgstr "Μέγεθος σελίδας"
 
-#: themes-book/pressbooks-book/functions.php:789
+#: themes-book/pressbooks-book/functions.php:784
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
 msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
 
-#: themes-book/pressbooks-book/functions.php:790
+#: themes-book/pressbooks-book/functions.php:785
 msgid "US Trade (6&quot; &times; 9&quot;)"
 msgstr "US Trade (6&quot; &times; 9&quot;)"
 
-#: themes-book/pressbooks-book/functions.php:791
+#: themes-book/pressbooks-book/functions.php:786
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr "US Letter (8.5&quot; &times; 11&quot;)"
 
-#: themes-book/pressbooks-book/functions.php:792
+#: themes-book/pressbooks-book/functions.php:787
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
 msgstr "Διαμόρφωση (8.5&quot; &times; 9.25&quot;)"
 
-#: themes-book/pressbooks-book/functions.php:793
+#: themes-book/pressbooks-book/functions.php:788
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
 msgstr "Duodecimo (5&quot; &times; 7.75&quot;)"
 
-#: themes-book/pressbooks-book/functions.php:794
+#: themes-book/pressbooks-book/functions.php:789
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
 msgstr "Τσέπης (4.25&quot; &times; 7&quot;)"
 
-#: themes-book/pressbooks-book/functions.php:795
+#: themes-book/pressbooks-book/functions.php:790
 msgid "A4 (21cm &times; 29.7cm)"
 msgstr "A4 (21cm &times; 29.7cm)"
 
-#: themes-book/pressbooks-book/functions.php:796
+#: themes-book/pressbooks-book/functions.php:791
 msgid "A5 (14.8cm &times; 21cm)"
 msgstr "A5 (14.8cm &times; 21cm)"
 
-#: themes-book/pressbooks-book/functions.php:797
+#: themes-book/pressbooks-book/functions.php:792
 msgid "5&quot; &times; 8&quot;"
 msgstr "5&quot; &times; 8&quot;"
 
-#: themes-book/pressbooks-book/functions.php:802
+#: themes-book/pressbooks-book/functions.php:797
 msgid "Crop Marks"
 msgstr "Σημεία κοπής"
 
-#: themes-book/pressbooks-book/functions.php:807
+#: themes-book/pressbooks-book/functions.php:802
 msgid "Display crop marks"
 msgstr "Εμφάνιση σημείων κοπής"
 
-#: themes-book/pressbooks-book/functions.php:812 themes-book/pressbooks-book/functions.php:1261
+#: themes-book/pressbooks-book/functions.php:807
+#: themes-book/pressbooks-book/functions.php:1256
 msgid "Hyphens"
 msgstr "Ενωτικά"
 
-#: themes-book/pressbooks-book/functions.php:817 themes-book/pressbooks-book/functions.php:1266
+#: themes-book/pressbooks-book/functions.php:812
+#: themes-book/pressbooks-book/functions.php:1261
 msgid "Enable hyphenation"
 msgstr "Ενεργοποίηση συλλαβισμού"
 
-#: themes-book/pressbooks-book/functions.php:822 themes-book/pressbooks-book/functions.php:1463
+#: themes-book/pressbooks-book/functions.php:817
+#: themes-book/pressbooks-book/functions.php:1458
 msgid "Paragraph Separation"
 msgstr "Διαχωρισμός παραγράφων"
 
-#: themes-book/pressbooks-book/functions.php:827 themes-book/pressbooks-book/functions.php:1250 themes-book/pressbooks-book/functions.php:1255 themes-book/pressbooks-book/functions.php:1468
+#: themes-book/pressbooks-book/functions.php:822
+#: themes-book/pressbooks-book/functions.php:1245
+#: themes-book/pressbooks-book/functions.php:1250
+#: themes-book/pressbooks-book/functions.php:1463
 msgid "Indent paragraphs"
 msgstr "Προσθήκη εσοχής παραγράφου"
 
-#: themes-book/pressbooks-book/functions.php:828 themes-book/pressbooks-book/functions.php:1469
+#: themes-book/pressbooks-book/functions.php:823
+#: themes-book/pressbooks-book/functions.php:1464
 msgid "Skip lines between paragraphs"
 msgstr "Αποφυγή γραμμών μεταξύ παραγράφων"
 
-#: themes-book/pressbooks-book/functions.php:833
+#: themes-book/pressbooks-book/functions.php:828
 msgid "Blank Pages"
 msgstr "Λευκές σελίδες"
 
-#: themes-book/pressbooks-book/functions.php:838
+#: themes-book/pressbooks-book/functions.php:833
 msgid "Include blank pages (for print PDF)"
 msgstr "Να συμπεριληφθούν λευκές σελίδες (για εκτύπωση PDF)"
 
-#: themes-book/pressbooks-book/functions.php:839
+#: themes-book/pressbooks-book/functions.php:834
 msgid "Remove all blank pages (for web PDF)"
 msgstr "Να διαγράφονται οι λευκές σελίδες (για web PDF)"
 
-#: themes-book/pressbooks-book/functions.php:849 themes-book/pressbooks-book/functions.php:1244
+#: themes-book/pressbooks-book/functions.php:844
+#: themes-book/pressbooks-book/functions.php:1239
 msgid "Display table of contents"
 msgstr "Εμφάνιση πίνακα περιεχομένων"
 
-#: themes-book/pressbooks-book/functions.php:855
+#: themes-book/pressbooks-book/functions.php:850
 msgid "Romanize Part Numbers"
 msgstr "Ρωμαϊκή αρίθμηση για τα μέρη"
 
-#: themes-book/pressbooks-book/functions.php:860
+#: themes-book/pressbooks-book/functions.php:855
 msgid "Convert part numbers into Roman numerals"
 msgstr "Μετατροπή αριθμού μερών σε ρωμαϊκό"
 
-#: themes-book/pressbooks-book/functions.php:866
+#: themes-book/pressbooks-book/functions.php:861
 msgid "Footnotes Style"
 msgstr "Στιλ υποσημειώσεων"
 
-#: themes-book/pressbooks-book/functions.php:871
+#: themes-book/pressbooks-book/functions.php:866
 msgid "Regular footnotes"
 msgstr "Κανονικές υποσημειώσεις"
 
-#: themes-book/pressbooks-book/functions.php:872
+#: themes-book/pressbooks-book/functions.php:867
 msgid "Force as endnotes"
 msgstr "Μετατροπή σε σημειώσεις τέλους"
 
-#: themes-book/pressbooks-book/functions.php:877
+#: themes-book/pressbooks-book/functions.php:872
 msgid "Widows"
 msgstr "Χήρες"
 
-#: themes-book/pressbooks-book/functions.php:884
+#: themes-book/pressbooks-book/functions.php:879
 msgid "Orphans"
 msgstr "Ορφανές"
 
-#: themes-book/pressbooks-book/functions.php:896 themes-book/pressbooks-book/functions.php:1277
+#: themes-book/pressbooks-book/functions.php:891
+#: themes-book/pressbooks-book/functions.php:1272
 msgid "Increases font size and line height for greater accessibility"
 msgstr "Αύξηση μεγέθους γραμματοσειράς και βάρους γραμμής για μεγαλύτερη προσβασιμότητα"
 
-#: themes-book/pressbooks-book/functions.php:910
+#: themes-book/pressbooks-book/functions.php:905
 msgid "These options apply to PDF exports."
 msgstr "Oι επιλογές αυτές εφαρμόζονται στην εξαγωγή PDF"
 
-#: themes-book/pressbooks-book/functions.php:1125
+#: themes-book/pressbooks-book/functions.php:1120
 msgid "mPDF Options"
 msgstr "Επιλογές mPDF"
 
-#: themes-book/pressbooks-book/functions.php:1137
+#: themes-book/pressbooks-book/functions.php:1132
 msgid "A0"
 msgstr "A0"
 
-#: themes-book/pressbooks-book/functions.php:1138
+#: themes-book/pressbooks-book/functions.php:1133
 msgid "A1"
 msgstr "A1"
 
-#: themes-book/pressbooks-book/functions.php:1139
+#: themes-book/pressbooks-book/functions.php:1134
 msgid "A2"
 msgstr "A2"
 
-#: themes-book/pressbooks-book/functions.php:1140
+#: themes-book/pressbooks-book/functions.php:1135
 msgid "A3"
 msgstr "A3"
 
-#: themes-book/pressbooks-book/functions.php:1141
+#: themes-book/pressbooks-book/functions.php:1136
 msgid "A4"
 msgstr "A4"
 
-#: themes-book/pressbooks-book/functions.php:1142
+#: themes-book/pressbooks-book/functions.php:1137
 msgid "A5"
 msgstr "A5"
 
-#: themes-book/pressbooks-book/functions.php:1143
+#: themes-book/pressbooks-book/functions.php:1138
 msgid "A6"
 msgstr "A6"
 
-#: themes-book/pressbooks-book/functions.php:1144
+#: themes-book/pressbooks-book/functions.php:1139
 msgid "A7"
 msgstr "A7"
 
-#: themes-book/pressbooks-book/functions.php:1145
+#: themes-book/pressbooks-book/functions.php:1140
 msgid "A8"
 msgstr "A8"
 
-#: themes-book/pressbooks-book/functions.php:1146
+#: themes-book/pressbooks-book/functions.php:1141
 msgid "A9"
 msgstr "A9"
 
-#: themes-book/pressbooks-book/functions.php:1147
+#: themes-book/pressbooks-book/functions.php:1142
 msgid "A10"
 msgstr "A10"
 
-#: themes-book/pressbooks-book/functions.php:1148
+#: themes-book/pressbooks-book/functions.php:1143
 msgid "B0"
 msgstr "B0"
 
-#: themes-book/pressbooks-book/functions.php:1149
+#: themes-book/pressbooks-book/functions.php:1144
 msgid "B1"
 msgstr "B1"
 
-#: themes-book/pressbooks-book/functions.php:1150
+#: themes-book/pressbooks-book/functions.php:1145
 msgid "B2"
 msgstr "B2"
 
-#: themes-book/pressbooks-book/functions.php:1151
+#: themes-book/pressbooks-book/functions.php:1146
 msgid "B3"
 msgstr "B3"
 
-#: themes-book/pressbooks-book/functions.php:1152
+#: themes-book/pressbooks-book/functions.php:1147
 msgid "B4"
 msgstr "B4"
 
-#: themes-book/pressbooks-book/functions.php:1153
+#: themes-book/pressbooks-book/functions.php:1148
 msgid "B5"
 msgstr "B5"
 
-#: themes-book/pressbooks-book/functions.php:1154
+#: themes-book/pressbooks-book/functions.php:1149
 msgid "B6"
 msgstr "B6"
 
-#: themes-book/pressbooks-book/functions.php:1155
+#: themes-book/pressbooks-book/functions.php:1150
 msgid "B7"
 msgstr "B7"
 
-#: themes-book/pressbooks-book/functions.php:1156
+#: themes-book/pressbooks-book/functions.php:1151
 msgid "B8"
 msgstr "B8"
 
-#: themes-book/pressbooks-book/functions.php:1157
+#: themes-book/pressbooks-book/functions.php:1152
 msgid "B9"
 msgstr "B9"
 
-#: themes-book/pressbooks-book/functions.php:1158
+#: themes-book/pressbooks-book/functions.php:1153
 msgid "B10"
 msgstr "B10"
 
-#: themes-book/pressbooks-book/functions.php:1159
+#: themes-book/pressbooks-book/functions.php:1154
 msgid "C0"
 msgstr "C0"
 
-#: themes-book/pressbooks-book/functions.php:1160
+#: themes-book/pressbooks-book/functions.php:1155
 msgid "C1"
 msgstr "C1"
 
-#: themes-book/pressbooks-book/functions.php:1161
+#: themes-book/pressbooks-book/functions.php:1156
 msgid "C2"
 msgstr "C2"
 
-#: themes-book/pressbooks-book/functions.php:1162
+#: themes-book/pressbooks-book/functions.php:1157
 msgid "C3"
 msgstr "C3"
 
-#: themes-book/pressbooks-book/functions.php:1163
+#: themes-book/pressbooks-book/functions.php:1158
 msgid "C4"
 msgstr "C4"
 
-#: themes-book/pressbooks-book/functions.php:1164
+#: themes-book/pressbooks-book/functions.php:1159
 msgid "C5"
 msgstr "C5"
 
-#: themes-book/pressbooks-book/functions.php:1165
+#: themes-book/pressbooks-book/functions.php:1160
 msgid "C6"
 msgstr "C6"
 
-#: themes-book/pressbooks-book/functions.php:1166
+#: themes-book/pressbooks-book/functions.php:1161
 msgid "C7"
 msgstr "C7"
 
-#: themes-book/pressbooks-book/functions.php:1167
+#: themes-book/pressbooks-book/functions.php:1162
 msgid "C8"
 msgstr "C8"
 
-#: themes-book/pressbooks-book/functions.php:1168
+#: themes-book/pressbooks-book/functions.php:1163
 msgid "C9"
 msgstr "C9"
 
-#: themes-book/pressbooks-book/functions.php:1169
+#: themes-book/pressbooks-book/functions.php:1164
 msgid "C10"
 msgstr "C10"
 
-#: themes-book/pressbooks-book/functions.php:1170
+#: themes-book/pressbooks-book/functions.php:1165
 msgid "4A0"
 msgstr "4A0"
 
-#: themes-book/pressbooks-book/functions.php:1171
+#: themes-book/pressbooks-book/functions.php:1166
 msgid "2A0"
 msgstr "2A0"
 
-#: themes-book/pressbooks-book/functions.php:1172
+#: themes-book/pressbooks-book/functions.php:1167
 msgid "RA0"
 msgstr "RA0"
 
-#: themes-book/pressbooks-book/functions.php:1173
+#: themes-book/pressbooks-book/functions.php:1168
 msgid "RA1"
 msgstr "RA1"
 
-#: themes-book/pressbooks-book/functions.php:1174
+#: themes-book/pressbooks-book/functions.php:1169
 msgid "RA2"
 msgstr "RA2"
 
-#: themes-book/pressbooks-book/functions.php:1175
+#: themes-book/pressbooks-book/functions.php:1170
 msgid "RA3"
 msgstr "RA3"
 
-#: themes-book/pressbooks-book/functions.php:1176
+#: themes-book/pressbooks-book/functions.php:1171
 msgid "RA4"
 msgstr "RA4"
 
-#: themes-book/pressbooks-book/functions.php:1177
+#: themes-book/pressbooks-book/functions.php:1172
 msgid "SRA0"
 msgstr "SRA0"
 
-#: themes-book/pressbooks-book/functions.php:1178
+#: themes-book/pressbooks-book/functions.php:1173
 msgid "SRA1"
 msgstr "SRA1"
 
-#: themes-book/pressbooks-book/functions.php:1179
+#: themes-book/pressbooks-book/functions.php:1174
 msgid "SRA2"
 msgstr "SRA2"
 
-#: themes-book/pressbooks-book/functions.php:1180
+#: themes-book/pressbooks-book/functions.php:1175
 msgid "SRA3"
 msgstr "SRA3"
 
-#: themes-book/pressbooks-book/functions.php:1181
+#: themes-book/pressbooks-book/functions.php:1176
 msgid "SRA4"
 msgstr "SRA4"
 
-#: themes-book/pressbooks-book/functions.php:1182
+#: themes-book/pressbooks-book/functions.php:1177
 msgid "Letter"
 msgstr "Letter"
 
-#: themes-book/pressbooks-book/functions.php:1183
+#: themes-book/pressbooks-book/functions.php:1178
 msgid "Legal"
 msgstr "Legal"
 
-#: themes-book/pressbooks-book/functions.php:1184
+#: themes-book/pressbooks-book/functions.php:1179
 msgid "Executive"
 msgstr "Executive"
 
-#: themes-book/pressbooks-book/functions.php:1185
+#: themes-book/pressbooks-book/functions.php:1180
 msgid "Folio"
 msgstr "Folio"
 
-#: themes-book/pressbooks-book/functions.php:1186
+#: themes-book/pressbooks-book/functions.php:1181
 msgid "Demy"
 msgstr "Demy"
 
-#: themes-book/pressbooks-book/functions.php:1187
+#: themes-book/pressbooks-book/functions.php:1182
 msgid "Royal"
 msgstr "Royal"
 
-#: themes-book/pressbooks-book/functions.php:1188
+#: themes-book/pressbooks-book/functions.php:1183
 msgid "Type A paperback 111x178mm"
 msgstr "Χαρτόδετο τύπου Α 111Χ178mm"
 
-#: themes-book/pressbooks-book/functions.php:1189
+#: themes-book/pressbooks-book/functions.php:1184
 msgid "Type B paperback 128x198mm"
 msgstr "Χαρτόδετο τύπου Β 128x198mm"
 
-#: themes-book/pressbooks-book/functions.php:1195
+#: themes-book/pressbooks-book/functions.php:1190
 msgid "Left margin"
 msgstr "Αριστερό περιθώριο"
 
-#: themes-book/pressbooks-book/functions.php:1200
+#: themes-book/pressbooks-book/functions.php:1195
 msgid " Left Margin (in milimeters)"
 msgstr "Αριστερό περιθώριο (σε χιλιοστά)"
 
-#: themes-book/pressbooks-book/functions.php:1206
+#: themes-book/pressbooks-book/functions.php:1201
 msgid "Right margin"
 msgstr "Δεξί περιθώριο"
 
-#: themes-book/pressbooks-book/functions.php:1211
+#: themes-book/pressbooks-book/functions.php:1206
 msgid " Right margin (in milimeters)"
 msgstr "Δεξί περιθώριο (σε χιλιοστά)"
 
-#: themes-book/pressbooks-book/functions.php:1217
+#: themes-book/pressbooks-book/functions.php:1212
 msgid "Mirror Margins"
 msgstr "\"Καθρεφτιστά\" περιθώρια"
 
-#: themes-book/pressbooks-book/functions.php:1222
-msgid "The document will mirror the left and right margin values on odd and even pages (i.e. they become inner and outer margins)"
+#: themes-book/pressbooks-book/functions.php:1217
+msgid ""
+"The document will mirror the left and right margin values on odd and even "
+"pages (i.e. they become inner and outer margins)"
 msgstr "Το έγγραφο θα αντιγράψει τις τιμές δεξιού και αριστερού περιθωρίου στις μονές και ζυγές σελίδες (θα μετατραπούν σε εσωτερικά κι εξωτερικά περιθώρια)"
 
-#: themes-book/pressbooks-book/functions.php:1233
+#: themes-book/pressbooks-book/functions.php:1228
 msgid "Display cover image"
 msgstr "Εμφάνιση εικόνας εξωφύλλου"
 
-#: themes-book/pressbooks-book/functions.php:1292
+#: themes-book/pressbooks-book/functions.php:1287
 msgid "These options apply to mPDF exports."
 msgstr "Αυτές οι επιλογές εφαρμόζονται στην εξαγωγή mPDF."
 
-#: themes-book/pressbooks-book/functions.php:1456
+#: themes-book/pressbooks-book/functions.php:1451
 msgid "Ebook Options"
 msgstr "Επιλογές ψηφιακού βιβλίου"
 
-#: themes-book/pressbooks-book/functions.php:1475
+#: themes-book/pressbooks-book/functions.php:1470
 msgid "Compress images"
 msgstr "Συμπίεση εικόνων"
 
-#: themes-book/pressbooks-book/functions.php:1480
+#: themes-book/pressbooks-book/functions.php:1475
 msgid "Reduce image size and quality"
 msgstr "Μείωση μεγέθους και ποιότητας εικόνας "
 
-#: themes-book/pressbooks-book/functions.php:1495
+#: themes-book/pressbooks-book/functions.php:1490
 msgid "These options apply to ebook exports."
 msgstr "Οι επιλογές αυτές εφαρμόζονται στην εξαγωγή ψηφιακού βιβλίου"
 
-#: themes-book/pressbooks-book/header.php:37 themes-root/pressbooks-publisher/inc/extras.php:52
+#: themes-book/pressbooks-book/header.php:37
+#: themes-root/pressbooks-publisher/inc/extras.php:52
 #, php-format
 msgid "Page %s"
 msgstr "Σελίδα %s"
@@ -3109,7 +3503,9 @@ msgstr "Σελίδα %s"
 msgid "About The Book"
 msgstr "Σχετικά με το βιβλίο"
 
-#: themes-book/pressbooks-book/page-about.php:21 themes-book/pressbooks-book/page-buy.php:9 themes-book/pressbooks-book/page-buy.php:17
+#: themes-book/pressbooks-book/page-about.php:21
+#: themes-book/pressbooks-book/page-buy.php:9
+#: themes-book/pressbooks-book/page-buy.php:17
 msgid "It's coming!"
 msgstr "Προσεχώς!"
 
@@ -3159,7 +3555,8 @@ msgstr "Αγοράστε από εδώ:"
 msgid "Other books"
 msgstr "Άλλα βιβλία"
 
-#: themes-book/pressbooks-book/page-cover-private-block.php:2 themes-book/pressbooks-book/page-cover-top-block.php:18
+#: themes-book/pressbooks-book/page-cover-private-block.php:2
+#: themes-book/pressbooks-book/page-cover-top-block.php:18
 msgid "Make your own books on Pressbooks"
 msgstr "Δημιουργήστε τα δικά σας βιβλία στο Pressbooks"
 
@@ -3171,7 +3568,10 @@ msgstr "Περιγραφή βιβλίου"
 msgid "Read"
 msgstr "Διαβάστε το"
 
-#: themes-book/pressbooks-book/page.php:13 themes-root/pressbooks-publisher/template-parts/content-page.php:18 themes-root/pressbooks-publisher/template-parts/content-single.php:20 themes-root/pressbooks-publisher/template-parts/content.php:29
+#: themes-book/pressbooks-book/page.php:13
+#: themes-root/pressbooks-publisher/template-parts/content-page.php:18
+#: themes-root/pressbooks-publisher/template-parts/content-single.php:20
+#: themes-root/pressbooks-publisher/template-parts/content.php:29
 msgid "Pages:"
 msgstr "Σελίδες"
 
@@ -3188,7 +3588,9 @@ msgid "Oops! That page can&rsquo;t be found."
 msgstr "Δυστυχώς η σελίδα δεν βρέθηκε."
 
 #: themes-root/pressbooks-publisher/404.php:19
-msgid "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
+msgid ""
+"It looks like nothing was found at this location. Maybe try one of the links"
+" below or a search?"
 msgstr "Φαίνεται πως δεν υπάρχει τίποτα σε αυτή τη διεύθυνση. Δοκιμάστε ένα από τους παρακάτω συνδέσμους ή κάντε μία αναζήτηση."
 
 #: themes-root/pressbooks-publisher/404.php:27
@@ -3200,15 +3602,18 @@ msgstr "Περισσότερο επιλεγμένες κατηγορίες"
 msgid "Try looking in the monthly archives. %1$s"
 msgstr "Κάνετε αναζήτηση στα μηναία αρχεία. %1$s"
 
-#: themes-root/pressbooks-publisher/comments.php:38 themes-root/pressbooks-publisher/comments.php:59
+#: themes-root/pressbooks-publisher/comments.php:38
+#: themes-root/pressbooks-publisher/comments.php:59
 msgid "Comment navigation"
 msgstr "Πλοήγηση σχολίων"
 
-#: themes-root/pressbooks-publisher/comments.php:41 themes-root/pressbooks-publisher/comments.php:62
+#: themes-root/pressbooks-publisher/comments.php:41
+#: themes-root/pressbooks-publisher/comments.php:62
 msgid "Older Comments"
 msgstr "Παλαιότερα σχόλια"
 
-#: themes-root/pressbooks-publisher/comments.php:42 themes-root/pressbooks-publisher/comments.php:63
+#: themes-root/pressbooks-publisher/comments.php:42
+#: themes-root/pressbooks-publisher/comments.php:63
 msgid "Newer Comments"
 msgstr "Νεότερα σχόλια"
 
@@ -3236,19 +3641,19 @@ msgctxt "Droid Sans font: on or off"
 msgid "on"
 msgstr "σε"
 
-#: themes-root/pressbooks-publisher/functions.php:251
+#: themes-root/pressbooks-publisher/functions.php:235
 msgid "Catalog updated."
 msgstr "Ο κατάλογος ανανεώθηκε."
 
-#: themes-root/pressbooks-publisher/functions.php:252
+#: themes-root/pressbooks-publisher/functions.php:236
 msgid "Sorry, but your catalog was not updated. Please try again."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:253
+#: themes-root/pressbooks-publisher/functions.php:237
 msgid "Dismiss this notice."
 msgstr "Διαγράψτε αυτή τη σημείωση."
 
-#: themes-root/pressbooks-publisher/functions.php:275
+#: themes-root/pressbooks-publisher/functions.php:259
 msgid "In Catalog"
 msgstr "Κατάλογος"
 
@@ -3268,7 +3673,8 @@ msgstr "Αποσύνδεση"
 msgid "My Books"
 msgstr "Τα βιβλία μου"
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:20 themes-root/pressbooks-publisher/inc/customizer.php:36
+#: themes-root/pressbooks-publisher/inc/customizer.php:20
+#: themes-root/pressbooks-publisher/inc/customizer.php:36
 msgid "About Us"
 msgstr "Σχετικά με εμάς"
 
@@ -3456,7 +3862,9 @@ msgid "Read more"
 msgstr "Διαβάστε περισσότερα"
 
 #: themes-root/pressbooks-publisher/template-parts/content-catalog.php:52
-msgid "The manager of this Pressbooks network has not made any books public viewable."
+msgid ""
+"The manager of this Pressbooks network has not made any books public "
+"viewable."
 msgstr "Ο διαχειριστής αυτού του δικτύου Pressbooks δεν επιτρέπει δημόσια προβολή για κάποιο βιβλίο"
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:13
@@ -3469,11 +3877,15 @@ msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
 msgstr "Έτοιμος να δημοσιεύσετε το πρώτο σας άρθρο; <a href=\"%1$s\">Ξεκινήστε εδώ</a>."
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:23
-msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgid ""
+"Sorry, but nothing matched your search terms. Please try again with some "
+"different keywords."
 msgstr "Λυπούμαστε, δεν βρέθηκε κάτι που να ταιριάζει στα κριτήρια αναζήτησης. Παρακαλούμε προσπαθήστε με διαφορετικούς όρους αναζήτησης."
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:28
-msgid "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
+msgid ""
+"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
+"searching can help."
 msgstr "Δεν βρέθηκε αυτό που αναζητήσατε. Ίσως η αναζήτηση μπορεί να σας βοηθήσει."
 
 #: themes-root/pressbooks-publisher/template-parts/content.php:22

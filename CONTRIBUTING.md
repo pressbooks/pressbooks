@@ -8,6 +8,7 @@ The following is a set of guidelines for contributing to Pressbooks (thanks to t
 
 [How To Contribute?](#how-to-contribute)
 
+  * [Installing for Development](#installing-for-development)
   * [Reporting Bugs](#reporting-bugs)
   * [Suggesting Enhancements](#suggesting-enhancements)
   * [Your First Code Contribution](#your-first-code-contribution)
@@ -30,9 +31,24 @@ Please report unacceptable behavior to [code@pressbooks.com](mailto:code@pressbo
 
 ## How To Contribute
 
+### Installing for Development
+
+Pressbooks uses [Composer](https://getcomposer.org) for dependency management. If you are cloning this repository for local development, you will need to install dependencies as follows:
+
+1. [Install](https://getcomposer.org/doc/00-intro.md) Composer.
+2. From the Pressbooks plugin directory, e.g. `/wp-content/plugins/pressbooks`, run the Composer install command:
+
+```
+php composer.phar install
+```
+
+or
+
+```
+composer install
+```
+
 ### Reporting Bugs
-
-
 
 #### Before Submitting A Bug Report
 
