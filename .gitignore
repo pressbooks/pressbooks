@@ -8,4 +8,3 @@ __MACOSX
 config.codekit
 tests/logs/
 vendor
-components

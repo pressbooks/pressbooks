@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.3.1
+Version: 3.4-dev
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.5
 Tested up to: 4.5
@@ -199,6 +199,8 @@ TK.
 Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
+
+= 3.4 =
 
 = 3.3.1 =
 * FIXED: The custom logo feature introduced in v3.3.0 now displays logos at a more reasonable size.
