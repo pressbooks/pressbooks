@@ -201,6 +201,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 == Changelog ==
 
 = 3.3.1 =
+* FIXED: The custom logo feature introduced in v3.3.0 now displays logos at a more reasonable size.
 * FIXED: Some extraneous files were bundled in v3.3.0. They are gone now.
 * FIXED: An extra line break was introduced to the Export screen in v3.3.0. It is gone now too.
 

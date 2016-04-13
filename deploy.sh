@@ -14,8 +14,6 @@ GITPATH="$CURRENTDIR/" # this file should be in the base of your git repository
 # svn config
 SVNPATH="/tmp/$PLUGINSLUG" # path to a temp SVN repo. No trailing slash required and don't add trunk.
 SVNURL="https://plugins.svn.wordpress.org/pressbooks/" # Remote SVN repo on wordpress.org, with trailing slash
-SVNUSER="greatislander" # your svn username
-
 
 # Let's begin...
 echo ".........................................."
@@ -91,18 +89,16 @@ README.md
 echo "Changing directory to SVN, installing dependencies and committing to trunk"
 cd $SVNPATH/trunk/
 composer install
-find vendor -type d -name .git -exec rm -rf {} \;
-find vendor -name .gitignore -exec rm {} \;
 
 # Add all new files that are not set to be ignored
 svn status | grep -v "^.[ \t]*\..*" | grep "^?" | awk '{print $2}' | xargs svn add
-svn commit --username=$SVNUSER -m "$COMMITMSG"
+svn ci -m "$COMMITMSG"
 
 echo "Creating new SVN tag & committing it"
 cd $SVNPATH
 svn copy trunk/ tags/$NEWVERSION1/
 cd $SVNPATH/tags/$NEWVERSION1
-svn commit --username=$SVNUSER -m "Tagging version $NEWVERSION1"
+svn ci -m "Tagging version $NEWVERSION1"
 
 echo "Removing temporary directory $SVNPATH"
 rm -fr $SVNPATH/
