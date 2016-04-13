@@ -655,6 +655,10 @@ a.site-login-btn {
     color: #ddd;
     text-decoration: none; }
 
+.custom-logo {
+	max-width: 200px;
+}
+
 .site-description {
   font-size: 1.875em;
   margin-bottom: 25px;
