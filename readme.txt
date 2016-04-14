@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.4-dev
+Version: 3.3.2
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.5
 Tested up to: 4.5
-Stable tag: 3.3.1
+Stable tag: 3.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -200,7 +200,8 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 
 == Changelog ==
 
-= 3.4 =
+= 3.3.2 =
+* FIXED: Themes were not appearing to be network enabled due to changes introduced in https://core.trac.wordpress.org/ticket/28436.
 
 = 3.3.1 =
 * FIXED: The custom logo feature introduced in v3.3.0 now displays logos at a more reasonable size.
