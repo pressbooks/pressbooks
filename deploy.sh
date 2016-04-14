@@ -89,7 +89,8 @@ README.md
 echo "Changing directory to SVN, installing dependencies and committing to trunk"
 cd $SVNPATH/trunk/
 composer install
-rm -rf vendor/*/*/.git*
+rm -rf vendor/gridonic/princexml-php/.git*
+rm -rf vendor/vanilla/htmlawed/.git*
 
 # Add all new files that are not set to be ignored
 svn status | grep -v "^.[ \t]*\..*" | grep "^?" | awk '{print $2}' | xargs svn add
