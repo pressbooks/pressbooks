@@ -8,3 +8,5 @@ __MACOSX
 config.codekit
 tests/logs/
 vendor
+bower_components
+node_modules

@@ -13,7 +13,7 @@ namespace PressBooks\Image;
  */
 function default_cover_url() {
 
-	return PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+	return PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
 }
 
 
@@ -24,7 +24,7 @@ function default_cover_url() {
  */
 function default_cover_path() {
 
-	return PB_PLUGIN_DIR . 'assets/images/default-book-cover.jpg';
+	return PB_PLUGIN_DIR . 'assets/dist/images/default-book-cover.jpg';
 }
 
 
@@ -37,7 +37,7 @@ function default_cover_path() {
  */
 function is_default_cover( $compare ) {
 
-	$found = preg_match( '~assets/images/default-book-cover.jpg$~', $compare );
+	$found = preg_match( '~assets/dist/images/default-book-cover.jpg$~', $compare );
 
 	return ( $found ) ? true : false;
 }

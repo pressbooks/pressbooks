@@ -1,0 +1,1 @@
+jQuery(function(n){n("#"+PB_BookInfoToken.bookInfoMenuId).removeClass("wp-not-current-submenu").addClass("current")});

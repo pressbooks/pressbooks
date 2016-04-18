@@ -1,0 +1,34 @@
+{
+  "name": "pressbooks",
+  "description": "Pressbooks is an open source book publishing tool built on a WordPress multisite platform.",
+  "main": "",
+  "authors": [
+    "Book Oven Inc. <code@pressbooks.com>"
+  ],
+  "license": "GPL-2.0+",
+  "keywords": [
+    "ebooks",
+    "publishing",
+    "webbooks"
+  ],
+  "homepage": "https://github.com/pressbooks/pressbooks",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "select2": "~4.0.2"
+  },
+  "overrides": {
+    "select2": {
+      "main": [
+        "dist/js/select2.full.js",
+        "src/scss/core.scss"
+      ]
+    }
+  }
+}

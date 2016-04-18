@@ -33,20 +33,18 @@ Please report unacceptable behavior to [code@pressbooks.com](mailto:code@pressbo
 
 ### Installing for Development
 
-Pressbooks uses [Composer](https://getcomposer.org) for dependency management. If you are cloning this repository for local development, you will need to install dependencies as follows:
+Pressbooks uses [Composer](https://getcomposer.org) for dependency management and [gulp](http://gulpjs.com) for asset compilation. If you are cloning this repository for local development, you will need to install dependencies and compile assets as follows:
+
+#### Install dependencies
 
 1. [Install](https://getcomposer.org/doc/00-intro.md) Composer.
-2. From the Pressbooks plugin directory, e.g. `/wp-content/plugins/pressbooks`, run the Composer install command:
+2. From the Pressbooks plugin directory, e.g. `/wp-content/plugins/pressbooks`, run the Composer install command: `php composer.phar install` or `composer install`
 
-```
-php composer.phar install
-```
+#### Compile assets
 
-or
-
-```
-composer install
-```
+1. [Install](https://nodejs.org/) Node.js 0.12.x.
+2. Install gulp and related asset compilation tools: `npm install`
+3. From the Pressbooks plugin directory, e.g. `/wp-content/plugins/pressbooks`, run gulp to generate assets: `gulp`
 
 ### Reporting Bugs
 
