@@ -237,6 +237,9 @@ abstract class Import {
 			\PressBooks\Redirect\location( $redirect_url );
 		}
 
+		// Appends 'last part' of the path to the dynamic first part of the path ($upload_dir)
+		$upload_dir = wp_upload_dir();
+		$current_import['file'] = trailingslashit( $upload_dir['path'] ) . basename($current_import['file']);
 
 		if ( @$_GET['import'] && is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
@@ -271,6 +274,12 @@ abstract class Import {
 				case 'html':
 					$importer = new Html\Xhtml();
 					$ok = $importer->import( $current_import );
+					break;
+
+				case 'imscc':
+					$importer = new IMSCC\IMSCC();
+					$ok = $importer->import( $current_import );
+					break;
 			}
 
 			$msg = "Tried to import a file of type {$current_import['type_of']} and ";
@@ -293,6 +302,7 @@ abstract class Import {
 				'xml' => 'application/xml',
 				'odt' => 'application/vnd.oasis.opendocument.text',
 				'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+				'imscc' => 'application/zip',
 			);
 			$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
 
@@ -327,6 +337,11 @@ abstract class Import {
 
 				case 'docx':
 					$importer = new Ooxml\Docx();
+					$ok = $importer->setCurrentImportOption( $upload );
+					break;
+
+				case 'imscc':
+					$importer = new IMSCC\IMSCC();
 					$ok = $importer->setCurrentImportOption( $upload );
 					break;
 			}

@@ -15,10 +15,11 @@ function custom_login_logo() {
 <link rel="stylesheet" type="text/css" href="<?php echo PB_PLUGIN_URL; ?>assets/css/colors-pb.css" media="screen" />
 <style type="text/css">
 .login h1 a {
-  background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/PB-logo.svg);
-  background-size: 276px 40px;
+  background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/LumenBW-300x138.png);
+  background-size: 276px 114px;
   width: 276px;
-  height: 40px; }
+  height: 114px;
+  }
 .login .message {
   border-left: 4px solid #0077cc; }
 .login #backtoblog a:hover, .login #backtoblog a:active, .login #backtoblog a:focus, .login #nav a:hover, .login #nav a:active, .login #nav a:focus {

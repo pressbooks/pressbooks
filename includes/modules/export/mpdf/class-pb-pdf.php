@@ -177,8 +177,8 @@ class Pdf extends Export {
 		    'links' => true,
 		    'toc-bookmarkText' => 'toc',
 		    'toc-preHTML' => '<h1 class="toc">Contents</h1>',
-		    'toc-margin-left' => 15,
-		    'toc-margin-right' => 15,
+		    'toc-margin-left' => 17,
+		    'toc-margin-right' => 21,
 		);
 		$this->mpdf->TOCpagebreakByArray( $options );
 	}
@@ -216,8 +216,8 @@ class Pdf extends Export {
 	function addCover() {
 		$page_options = array(
 		    'suppress' => 'on',
-		    'margin-left' => 15,
-		    'margin-right' => 15,
+		    'margin-left' => 17,
+		    'margin-right' => 21,
 		);
 		$content = '<div id="half-title-page">';
 		$content .=  '<h1 class="title">' . $this->bookTitle . '</h1>';
@@ -244,8 +244,8 @@ class Pdf extends Export {
 	function addBookInfo() {
 		$page_options = array(
 		    'suppress' => 'on',
-		    'margin-left' => 15,
-		    'margin-right' => 15,
+		    'margin-left' => 17,
+		    'margin-right' => 21,
 		);
 
 		$content = '<div id="title-page">';
@@ -297,8 +297,8 @@ class Pdf extends Export {
 		$options = $this->globalOptions;
 		$page_options = array(
 		    'suppress' => 'on',
-		    'margin-left' => 15,
-		    'margin-right' => 15,
+		    'margin-left' => 17,
+		    'margin-right' => 21,
 		);
 
 		$content = '<div id="copyright-page">';
@@ -374,8 +374,8 @@ class Pdf extends Export {
 		$first_iteration = true;
 		$page_options = array(
 		    'pagenumstyle' => 'i',
-		    'margin-left' => 15,
-		    'margin-right' => 15,
+		    'margin-left' => 17,
+		    'margin-right' => 21,
 		);
 
 		foreach ( $contents as $front_matter ) {
@@ -462,11 +462,24 @@ class Pdf extends Export {
 			} else {
 				$title = '<h2 class="entry-title">' . $page['post_title'] . '</h2>';
 			}
-			$content = $class
-				. $title
-				. $this->getFilteredContent( $page['post_content'] )
-				. '</div>';
 
+			$content = '';
+
+
+			$citations = \CandelaCitation::renderCitation($page['ID']);
+			if ( ! empty ($citations)){
+				$content .= $class
+					. $title
+					. $this->getFilteredContent( $page['post_content'] ) . '</div>'
+					. '<div><h6 class="bcc-box bcc-info citations">' . $citations . '</h6></div>';
+			}
+			if ( empty ($citations)){
+				$content = $class
+					. $title
+					. $this->getFilteredContent( $page['post_content'] )
+					. '</div>';
+			}
+			
 			// TODO Make this hookable.
 			$this->mpdf->WriteHTML( $content );
 			return true;

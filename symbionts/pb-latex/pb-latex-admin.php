@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2014 Brad Payne. GPL v2, of course.
- * 
+ *
  * This plugin is forked from the original WP Latex v1.8 http://wordpress.org/plugins/wp-latex/ (c) Sidney Markowitz, Automattic, Inc.
  * It modifies the plugin to work with Pressbooks, strips unwanted features, adds others — activated at the network level
  *
@@ -185,7 +185,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 	function adminPage() {
 		if ( !current_user_can( 'manage_options' ) )
 			wp_die( __( 'Insufficient LaTeX-fu', 'pb-latex' ) );
-	
+
 		$default_wrappers = array();
 		foreach ( $this->methods as $class => $method ) {
 			if ( 'Automattic_Latex_WPCOM' == $class )
@@ -195,12 +195,12 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 			$default_wrappers[$method] = $latex_object->wrapper();
 		}
 		unset( $class, $method, $latex_object );
-		
+
 		if ( !is_array( $this->options ) )
 			$this->options = array();
 
 		$values = $this->options;
-	
+
 		$errors = array();
 		if ( $errors = $this->errors->get_error_codes() ) :
 			foreach ( $errors as $e )
@@ -214,12 +214,12 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		</ul>
 	</div>
 	<?php	endif; ?>
-	
+
 	<div class='wrap'>
 	<h2><?php _e( 'PB LaTeX Options', 'pb-latex' ); ?></h2>
-	
+
 	<?php if ( empty( $errors ) ) $this->testImage(); ?>
-	
+
 	<form action="<?php echo esc_url( remove_query_arg( 'updated' ) ); ?>" method="post">
 
 	<table class="form-table">
@@ -236,18 +236,20 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 				<p><?php _e( 'For more information, see the <a href="http://wordpress.org/extend/plugins/wp-latex/faq/">FAQ</a>' ); ?></p>
 			</td>
 		</tr>
-		
+
 		<?php endif; ?>
-		
+
 		<tr<?php if ( in_array( 'method', $errors ) ) echo ' class="form-invalid"'; ?>>
 			<th scope="row"><?php _e( 'LaTeX generation method', 'pb-latex' ); ?></th>
 			<td>
 				<ul id="pb-latex-method-switch">
 					<li><label for="pb-latex-method-wpcom"><input type="radio" name="pb_latex[method]" id="pb-latex-method-wpcom" value='Automattic_Latex_WPCOM'<?php checked( 'Automattic_Latex_WPCOM', $values['method'] ); ?> /> <?php printf( _x( '%s LaTeX server (recommended)|WordPress.com LaTeX Server (recommended)', 'pb-latex' ), '<a href="http://wordpress.com/" target="_blank">WordPress.com</a>' ); ?></label></li>
+					<li><label for="pb-latex-method-momcom"><input type="radio" name="pb_latex[method]" id="pb-latex-method-momcom" value='Automattic_Latex_MOMCOM'<?php checked( 'Automattic_Latex_MOMCOM', $values['method'] ); ?> /> <?php printf( _x( '%s MimeTeX server', 'pb-latex' ), 'MyOpenMath.com' ); ?></label></li>
+          <li><label for="pb-latex-method-katex"><input type="radio" name="pb_latex[method]" id="pb-latex-method-katex" value='katex'<?php checked( 'katex', $values['method'] ); ?> /> <?php printf( _x( 'KaTeX + MathJax in-browser', 'pb-latex' ) ); ?></label></li>
 				</ul>
 			</td>
 		</tr>
-		
+
 		<tr<?php if ( in_array( 'fg', $errors ) ) echo ' class="form-invalid"'; ?>>
 			<th scope="row"><label for="pb-latex-fg"><?php _e( 'Default text color', 'pb-latex' ); ?></label></th>
 			<td>
@@ -255,7 +257,7 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 				<?php _e( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>' ); ?>
 			</td>
 		</tr>
-		
+
 		<tr<?php if ( in_array( 'bg', $errors ) ) echo ' class="form-invalid"'; ?>>
 			<th scope="row"><label for="pb-latex-bg"><?php _e( 'Default background color', 'pb-latex' ); ?></label></th>
 			<td>
@@ -263,20 +265,10 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 				<?php _e( 'A six digit hexadecimal number like <code>000000</code> or <code>ffffff</code>, or <code>transparent</code>' ); ?>
 			</td>
 		</tr>
-		
-	<?php foreach ( $default_wrappers as $method => $default_wrapper ) : ?>
-		<tr class="pb-latex-method pb-latex-method-<?php echo $method; ?>">
-			<th></th>
-			<td>
-				<h4>Leaving the above blank will use the following default preamble.</h4>
-				<div class="pre"><code><?php echo $default_wrapper; ?></code></div>
-			</td>
-		</tr>
-	<?php endforeach; ?>
 	</tbody>
 	</table>
-	
-	
+
+
 	<p class="submit">
 		<input type="submit" class="button-primary" value="<?php echo esc_attr( __( 'Update LaTeX Options', 'pb-latex' ) ); ?>" />
 		<?php wp_nonce_field( 'pb-latex' ); ?>
@@ -285,33 +277,33 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 	</div>
 	<?php
 	}
-	
+
 	// Sets up default options
 	function addOptions() {
 		if ( is_array( $this->options ) )
 			extract( $this->options, EXTR_SKIP );
-	
+
 		global $themecolors;
-	
+
 		if ( empty($bg) )
 			$bg = isset( $themecolors['bg'] ) ? $themecolors['bg'] : 'transparent';
 		if ( empty($fg) )
 			$fg = isset( $themecolors['text'] ) ? $themecolors['text'] : '000000';
-	
+
 		if ( empty( $method ) )
 			$method = 'Automattic_Latex_WPCOM';
-	
+
 		if ( empty( $css ) )
 			$css = 'img.latex { vertical-align: middle; border: none; background: none; }';
-	
+
 		if ( empty( $latex_path ) )
 			$latex_path = trim( @exec( 'which latex' ) );
-	
+
 		$latex_path   = $latex_path   && @file_exists( $latex_path )   ? $latex_path   : false;
-	
+
 		if ( empty( $wrapper ) )
 			$wrapper = false;
-	
+
 		$this->options = compact( 'bg', 'fg', 'method', 'css', 'latex_path', 'wrapper' );
 		update_option( 'pb_latex', $this->options );
 	}
