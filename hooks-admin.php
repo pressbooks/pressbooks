@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) )
 
 require( PB_PLUGIN_DIR . 'includes/admin/pb-dashboard.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-laf.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-analytics.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-metaboxes.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-customcss.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-network-managers.php' );
@@ -59,6 +60,21 @@ add_action( 'admin_body_class', '\PressBooks\Admin\Laf\disable_customizer');
 
 // Hacks
 add_action( 'edit_form_advanced', '\PressBooks\Admin\Laf\edit_form_hacks' );
+
+// Google Analytics
+add_action( 'network_admin_menu', '\PressBooks\Admin\Analytics\add_network_menu' );
+add_action( 'admin_init', '\PressBooks\Admin\Analytics\network_analytics_settings_init' );
+if ( \PressBooks\Book::isBook() ) {
+	switch_to_blog( 1 );
+	$ga_mu_site_specific_allowed = get_option( 'ga_mu_site_specific_allowed', '', false );
+	restore_current_blog();
+	if ( isset( $ga_mu_site_specific_allowed ) && $ga_mu_site_specific_allowed !== '' && $ga_mu_site_specific_allowed !== '0' ) {
+		add_action( 'admin_menu', '\PressBooks\Admin\Analytics\add_menu' );
+		add_action( 'admin_init', '\PressBooks\Admin\Analytics\analytics_settings_init' );
+	}
+}
+add_action( 'wp_head', '\PressBooks\Admin\Analytics\print_script');
+add_action( 'admin_head', '\PressBooks\Admin\Analytics\print_script');
 
 // Privacy, Ecommerce, and Export settings
 add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );

@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.1.2
+Version: 3.2
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.4.1
 Tested up to: 4.4
-Stable tag: 3.1.2
+Stable tag: 3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -199,6 +199,9 @@ TK.
 Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
+
+= 3.2 =
+* Built-in Google Analytics support at the network level (subdomain and subdirectory installs) and the book level (subdomain installs only).
 
 = 3.1.2 =
 * Requires WordPress 4.4.1.
