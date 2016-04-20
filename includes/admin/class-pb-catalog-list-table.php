@@ -432,7 +432,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	static function addMenu() {
 
-		$url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+		$url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		$view_url = static::viewCatalogUrl(); // Verifies $_REQUEST['user_id']
 
 		$edit_url = $url . '&action=edit_profile';

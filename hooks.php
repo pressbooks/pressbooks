@@ -12,11 +12,13 @@ if ( ! defined( 'ABSPATH' ) )
 // -------------------------------------------------------------------------------------------------------------------
 
 require( PB_PLUGIN_DIR . 'includes/admin/pb-branding.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-analytics.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-registration.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
@@ -28,9 +30,6 @@ PressBooks\Utility\include_plugins();
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize services
 // -------------------------------------------------------------------------------------------------------------------
-
-require( PB_PLUGIN_DIR . 'symbionts/pimple/Container.php' );
-require( PB_PLUGIN_DIR . 'symbionts/pimple/ServiceProviderInterface.php' );
 
 if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 	\PressBooks\Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
@@ -44,6 +43,12 @@ else \PressBooks\Container::init();
 add_action( 'login_head', '\PressBooks\Admin\Branding\custom_login_logo' );
 add_filter( 'login_headerurl', '\PressBooks\Admin\Branding\login_url' );
 add_filter( 'login_headertitle', '\PressBooks\Admin\Branding\login_title' );
+
+
+// -------------------------------------------------------------------------------------------------------------------
+// Analytics
+// -------------------------------------------------------------------------------------------------------------------
+add_action( 'wp_head', '\PressBooks\Analytics\print_analytics');
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin
@@ -78,6 +83,7 @@ add_filter( 'intermediate_image_sizes_advanced', '\PressBooks\Image\intermediate
 add_action( 'delete_attachment', '\PressBooks\Image\delete_attachment' );
 add_filter( 'wp_update_attachment_metadata', '\PressBooks\Image\save_attachment', 10, 2 );
 add_filter( 'the_content', '\PressBooks\Media\force_wrap_images', 13 ); // execute image-hack after wpautop processing
+add_filter( 'plupload_default_params', '\PressBooks\Media\force_attach_media' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Audio/Video
@@ -204,3 +210,14 @@ remove_action( 'wp_head', 'wlwmanifest_link' );
 
 // Disable logging of Akismet debug data when WP_DEBUG_LOG is true
 add_filter( 'akismet_debug_log', '__return_false' );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Registration
+// -------------------------------------------------------------------------------------------------------------------
+
+add_filter( 'gettext', '\PressBooks\Registration\custom_signup_text', 20, 3 );
+add_action( 'signup_extra_fields', '\PressBooks\Registration\add_password_field', 9 );
+add_filter( 'wpmu_validate_user_signup', '\PressBooks\Registration\validate_passwords' );
+add_filter( 'add_signup_meta', '\PressBooks\Registration\add_temporary_password', 99 );
+add_action( 'signup_blogform', '\PressBooks\Registration\add_hidden_password_field' );
+add_filter( 'random_password', '\PressBooks\Registration\override_password_generation' );

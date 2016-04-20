@@ -10,7 +10,6 @@ namespace PressBooks\Modules\Export\Epub;
 use PressBooks\Sanitize;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 class Epub3 extends Epub201 {
 
@@ -28,7 +27,7 @@ class Epub3 extends Epub201 {
 	 * $var string
 	 */
 	protected $dir = __DIR__;
-	
+
 	/**
 	 * $var string
 	 */
@@ -159,7 +158,7 @@ class Epub3 extends Epub201 {
 
 		return false;
 	}
-	
+
 	/**
 	 * Tidy HTML
 	 *
@@ -221,7 +220,7 @@ class Epub3 extends Epub201 {
 		if ( ! empty( $this->fixme ) )
 			$GLOBALS['hl_Ids'] = $this->fixme;
 
-		$html = htmLawed( $html, $config, $spec );
+		$html = \Htmlawed::filter( $html, $config, $spec );
 
 		return $html;
 	}
@@ -278,7 +277,7 @@ class Epub3 extends Epub201 {
 	}
 
 	/**
-	 * Parse HTML snippet, download all found <audio>, <video> and <source> tags 
+	 * Parse HTML snippet, download all found <audio>, <video> and <source> tags
 	 * into /OEBPS/assets/, return the HTML with changed 'src' paths.
 	 *
 	 * @param \DOMDocument $doc
@@ -312,7 +311,7 @@ class Epub3 extends Epub201 {
 
 		return $doc;
 	}
-	
+
 	/**
 	 * Create OPF File.
 	 *

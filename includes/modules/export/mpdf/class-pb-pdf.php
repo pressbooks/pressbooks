@@ -32,7 +32,6 @@ namespace PressBooks\Modules\Export\Mpdf;
  *     add_filter( 'mpdf_get_header', 'my_mpdf_header', 10, 1 );
  *
  */
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 use \PressBooks\Modules\Export\Export;
 
@@ -165,7 +164,7 @@ class Pdf extends Export {
 
 	/**
 	 * Add the mpdf Table of Contents.
-	 * Note, the functionality of the TOC is limited: its behaviour varies
+	 * Note, the functionality of the TOC is limited: its behavior varies
 	 * according mirrored margin settings, and will always generate blank pages
 	 * after.
 	 * http://mpdf1.com/forum/discussion/comment/6417#Comment_6417
@@ -541,7 +540,7 @@ class Pdf extends Export {
 		    'tidy' => -1,
 		);
 
-		return htmLawed( $filtered, $config );
+		return \Htmlawed::filter( $filtered, $config );
 	}
 
 	/**

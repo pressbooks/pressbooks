@@ -18,7 +18,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 	<body>
 		<nav epub:type="toc">
-			<h1 class="title">Table of Contents</h1>
+			<h1 class="title"><?php _e( 'Table of Contents', 'pressbooks' ); ?></h1>
 			<ol epub:type="list">
 				<?php
 				// Map has a [ Part -> Chapter ] <NavPoint> hierarchy

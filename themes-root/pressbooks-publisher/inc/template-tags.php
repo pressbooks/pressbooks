@@ -264,3 +264,20 @@ function pressbooks_publisher_category_transient_flusher() {
 }
 add_action( 'edit_category', 'pressbooks_publisher_category_transient_flusher' );
 add_action( 'save_post',     'pressbooks_publisher_category_transient_flusher' );
+
+if ( ! function_exists( 'pressbooks_publisher_custom_logo' ) ) :
+/**
+ * Displays the optional custom logo.
+ *
+ * Returns early if the custom logo is not available.
+ *
+ * @since Pressbooks Publisher 2.1
+ */
+function pressbooks_publisher_custom_logo() {
+	if ( ! function_exists( 'the_custom_logo' ) ) {
+		return;
+	} else {
+		the_custom_logo();
+	}
+}
+endif;

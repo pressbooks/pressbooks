@@ -113,11 +113,6 @@ function new_pressbooks_excerpt_more($more) {
 }
 add_filter('excerpt_more', 'new_pressbooks_excerpt_more');
 
-
-/* Add Custom Login Graphic TODO: Import user customized logo here if available */
-add_action('login_head', create_function('', 'echo \'<link rel="stylesheet" type="text/css" href="'. PB_PLUGIN_URL .'assets/css/colors-pb.css" media="screen" />\';'));
-
-
 /**
  * Render Previous and next buttons
  *
@@ -561,7 +556,7 @@ function pressbooks_theme_global_typography_callback( $args ) {
 	}
 
 	$html = '<label for="global_typography"> ' . $args[0] . '</label><br /><br />';
-	$html .= '<select id="global_typography" class="select2" data-placeholder="' . __( 'Select languages…', 'pressbooks' ) . '" name="pressbooks_global_typography[]" multiple>';
+	$html .= '<select id="global_typography" class="select2" data-placeholder="' . __( 'Select languages&hellip;', 'pressbooks' ) . '" name="pressbooks_global_typography[]" multiple>';
 	foreach ( $languages as $key => $value ) {
 		$selected = ( in_array( $key, $foreign_languages ) || in_array( $key, $already_supported_languages ) ) ? ' selected' : '';
 		$html .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option>';

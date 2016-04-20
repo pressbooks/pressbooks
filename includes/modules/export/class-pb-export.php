@@ -392,8 +392,8 @@ abstract class Export {
 
 	/**
 	 * Will create an html blob of copyright information, returns empty string
-	 * if user doesn't want it displayed 
-	 * 
+	 * if user doesn't want it displayed
+	 *
 	 * @param array $metadata
 	 * @param string $title
 	 * @param int $id
@@ -419,7 +419,7 @@ abstract class Export {
 			return '';
 		}
 
-		// if no post $id given, we default to book copyright 
+		// if no post $id given, we default to book copyright
 		if ( ! empty( $id ) ) {
 			$section_license = get_post_meta( $id, 'pb_section_license', true );
 			$link = get_permalink( $id );
@@ -443,7 +443,7 @@ abstract class Export {
 
 		// Copyright license, set in order of precedence
 		if ( ! empty( $section_license ) ) {
-			// section copyright higher priority than book 
+			// section copyright higher priority than book
 			$license = $section_license;
 		} elseif ( isset( $metadata['pb_book_license'] ) ) {
 			// book is the fallback, default
@@ -563,7 +563,7 @@ abstract class Export {
 			$path = static::getExportFolder();
 			unlink( $path . $filename );
 			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
-			\PressBooks\Redirect\location( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export' );
+			\PressBooks\Redirect\location( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ) );
 		}
 
 		// Export
@@ -624,7 +624,7 @@ abstract class Export {
 
 			@set_time_limit( 300 );
 
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export';
+			$redirect_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' );
 			$conversion_error = array();
 			$validation_warning = array();
 			$outputs = array();
@@ -641,7 +641,7 @@ abstract class Export {
 						$validation_warning[$module] = $exporter->getOutputPath();
 					}
 				}
-				
+
 				// Add to outputs array
 
 				$outputs[$module] = $exporter->getOutputPath();
@@ -712,16 +712,16 @@ abstract class Export {
 
 			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
 
+			$codes = \Pressbooks\L10n\wplang_codes();
 			$book_lang = Book::getBookInformation();
 			$book_lang = @$book_lang['pb_language'];
+			$book_lang = $codes[ $book_lang ];
 
 			foreach ( $compare_with as $compare ) {
 
 				$compare = str_replace( 'pressbooks-', '', $compare );
-				list( $check_me ) = explode( '_', $compare );
 
-				// We only care about the first two letters
-				if ( strpos( $book_lang, $check_me ) === 0 ) {
+				if ( strpos( $book_lang, $compare ) === 0 ) {
 					$loc = $compare;
 					break;
 				}

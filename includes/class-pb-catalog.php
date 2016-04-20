@@ -1037,7 +1037,7 @@ class Catalog {
 	 */
 	protected static function formBulk( $action ) {
 
-		$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+		$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		$redirect_url = Admin\Catalog_List_Table::addSearchParamsToUrl( $redirect_url );
 
 		/* Sanity check */
@@ -1117,9 +1117,9 @@ class Catalog {
 
 		// Set Redirect URL
 		if ( get_current_user_id() != $user_id ) {
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog&user_id=' . $user_id;
+			$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog&user_id=' . $user_id );
 		} else {
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+			$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		}
 
 		/* Go! */
@@ -1162,9 +1162,9 @@ class Catalog {
 
 		// Set Redirect URL
 		if ( get_current_user_id() != $user_id ) {
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog&user_id=' . $user_id;
+			$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog&user_id=' . $user_id );
 		} else {
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+			$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		}
 
 		/* Go! */
@@ -1195,9 +1195,9 @@ class Catalog {
 
 		// Set Redirect URL
 		if ( get_current_user_id() != $user_id ) {
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog&user_id=' . $user_id;
+			$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog&user_id=' . $user_id );
 		} else {
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog';
+			$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		}
 
 		$url = parse_url( \PressBooks\Sanitize\canonicalize_url( $_REQUEST['add_book_by_url'] ) );

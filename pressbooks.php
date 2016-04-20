@@ -3,7 +3,7 @@
 Plugin Name: Pressbooks
 Plugin URI: http://www.pressbooks.com
 Description: Simple Book Production
-Version: 3.2
+Version: 3.3.2
 Author: BookOven Inc.
 Author URI: http://www.pressbooks.com
 Text Domain: pressbooks
@@ -43,13 +43,13 @@ add_action( 'wp_login', '_pb_session_kill' );
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! defined( 'PB_PLUGIN_VERSION' ) )
-	define ( 'PB_PLUGIN_VERSION', '3.2' );
+	define ( 'PB_PLUGIN_VERSION', '3.3.2' );
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) )
-	define ( 'PB_PLUGIN_DIR', __DIR__ . '/' ); // Must have trailing slash!
+	define( 'PB_PLUGIN_DIR', ( is_link( WP_PLUGIN_DIR .  '/pressbooks' ) ? trailingslashit( WP_PLUGIN_DIR .  '/pressbooks' ) : trailingslashit( __DIR__ ) ) ); // Must have trailing slash!
 
 if ( ! defined( 'PB_PLUGIN_URL' ) )
-	define ( 'PB_PLUGIN_URL', plugin_dir_url( __FILE__ ) ); // Must have trailing slash!
+	define ( 'PB_PLUGIN_URL', trailingslashit( plugins_url( 'pressbooks' ) ) ); // Must have trailing slash!
 
 // -------------------------------------------------------------------------------------------------------------------
 // Class autoloader
@@ -74,10 +74,18 @@ function _pressbooks_autoload( $class_name ) {
 spl_autoload_register( '_pressbooks_autoload' );
 
 // -------------------------------------------------------------------------------------------------------------------
+// Composer autoloader
+// -------------------------------------------------------------------------------------------------------------------
+if ( is_file( PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+	include( PB_PLUGIN_DIR . 'vendor/autoload.php' );
+} else {
+	die( __( 'Dependencies missing. Please run \'composer install\' from the root of the Pressbooks plugin directory.', 'pressbooks' ) );
+}
+
+// -------------------------------------------------------------------------------------------------------------------
 // Check minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
-
-if ( ! @include_once( __DIR__ . '/compatibility.php' ) ) {
+if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) {
 	add_action( 'admin_notices', function () {
 		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 	} );

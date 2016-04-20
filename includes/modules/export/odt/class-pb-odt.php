@@ -103,6 +103,7 @@ class Odt extends Export {
 		}
 		
 		$urlcontent = file_get_contents( $source );
+
 		$urlcontent = preg_replace( "/xmlns\=\"http\:\/\/www\.w3\.org\/1999\/xhtml\"/i", '', $urlcontent );
 		
 		$old_value = libxml_disable_entity_loader( true );
@@ -153,7 +154,7 @@ class Odt extends Export {
 		}
 
 		file_put_contents( $source, $doc->saveXML() );
-		
+
 		try {
 			$result = exec( PB_SAXON_COMMAND . ' -xsl:' . $xslt .' -s:' . $source .' -o:' . $content );
 		} catch ( \Exception $e ) {
@@ -162,9 +163,24 @@ class Odt extends Export {
 			$this->deleteDirectory( $mediafolder );
 			return false;
 		}
-		
-		if ( ( !file_exists( $content ) ) || ( !file_exists( $mimetype ) ) || ( !file_exists( $meta ) ) || ( !file_exists( $settings ) ) || ( !file_exists( $styles ) ) || ( !file_exists( $metafolder ) ) ) {
-			$this->logError( 'Transformation failed' );
+
+		$files = [
+			'content' => $content,
+			'mimetype' => $mimetype,
+			'meta' => $meta,
+			'settings' => $settings,
+			'styles' => $styles,
+			'metafolder' => $metafolder
+		];
+		$msg = '';
+		foreach ( $files as $key => $file ) {
+			if ( !file_exists( $file ) ) {
+				$msg .= ' [ ' . $key . ' ]';
+			}
+		}
+
+		if ( !empty( $msg ) ) {
+			$this->logError( 'Transformation failed, encountered a problem with' .  $msg );
 			unlink( $source );
 			$this->deleteDirectory( $mediafolder );
 			return false;

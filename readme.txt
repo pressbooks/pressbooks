@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.2
+Version: 3.3.2
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.4.1
-Tested up to: 4.4
-Stable tag: 3.2
+Requires at least: 4.5
+Tested up to: 4.5
+Stable tag: 3.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,10 +34,10 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.4.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
- 
+ * Pressbooks works with PHP 5.6.x and WordPress 4.5. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+
 	$pb_minimum_php = '5.4';
-	
+
 However, we encourage you to upgrade your environment instead as [PHP 5.4 is no longer supported](http://php.net/supported-versions.php).
 
 *Part 1, WordPress generic:*
@@ -105,7 +105,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
  * For EPUB validation install [EpubCheck](https://github.com/idpf/epubcheck) - Version 4.0
  * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
  * It is recommended that you install [sassphp](https://github.com/sensational/sassphp) for SASS compilation; however, Pressbooks includes a bundled compiler, [scssphp](https://github.com/leafo/scssphp/), and will fall back to this if sassphp is absent.
- * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl" 
+ * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl"
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
 
@@ -200,8 +200,39 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 
 == Changelog ==
 
-= 3.2 =
-* Built-in Google Analytics support at the network level (subdomain and subdirectory installs) and the book level (subdomain installs only).
+= 3.3.2 =
+* FIXED: Themes were not appearing to be network enabled due to changes introduced in https://core.trac.wordpress.org/ticket/28436.
+
+= 3.3.1 =
+* FIXED: The custom logo feature introduced in v3.3.0 now displays logos at a more reasonable size.
+* FIXED: Some extraneous files were bundled in v3.3.0. They are gone now.
+* FIXED: An extra line break was introduced to the Export screen in v3.3.0. It is gone now too.
+
+= 3.3.0 =
+* Requires WordPress 4.5.
+* ICML is now an experimental export format (see http://pressbooks.com/blog/discontinuing-support-for-icml-exports-on-april-12/).
+* Added support for WordPress core's custom logo in Pressbooks Publisher.
+* Added the TinyMCE background color button.
+* Allow a user to choose their password when registering.
+* Allow a network administrator to replace the Pressbooks News dashboard feed with their own RSS feed or disable the dashboard feed entirely.
+* Fixed an issue where the "Show Title" checkbox on the "Organize" page had no effect (props to @sswettenham for the bug report).
+* Fixed an issue where uploaded media were not attached to their parent Front Matter, Chapter or Back Matter.
+* Internal dependencies are now managed using [Composer](https://getcomposer.org).
+
+= 3.2.0 =
+* Requires WordPress 4.4.2.
+* Added Google Analytics support at the network level (subdomain and subdirectory installs) and the book level (subdomain installs only).
+* Added support for installs that use SSL (props to @bdolor for contributions).
+* Added localization support for strings (currently, "Chapter" and "Part") in book stylesheets.
+* Added localization support for the Pressbooks "freebie" notice.
+* Clarified new user and book registration text.
+* Set timezone on export page based on root site settings (props to @chrillep for the bug report).
+* Enhanced image display in exports.
+* Expanded code coverage.
+* Fixed an issue where footnote anchors would not be properly created when importing a Word document (thanks to @crism for the report and the contribution).
+* Fixed an issue where clicking 'Show in Catalog' would not work (props to @colomet for the bug report).
+* Fixed an issue where the "My Books" button would appear in Pressbooks Publisher for logged-in users with no books.
+* Fixed the way the PB_PLUGIN_DIR and PB_PLUGIN_URL constants are defined to support installations of Pressbooks where plugins and themes are symlinked.
 
 = 3.1.2 =
 * Requires WordPress 4.4.1.

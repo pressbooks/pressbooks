@@ -12,11 +12,19 @@ if ( ! defined( 'ABSPATH' ) )
 $max_batches = 5; // How many batches we save
 \PressBooks\Utility\truncate_exports( $max_batches );
 
-$export_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export&export=yes', 'pb-export' );
-$export_delete_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export', 'pb-delete-export' );
-$download_url_prefix = get_bloginfo( 'url' ) . '/wp-admin/admin.php?page=pb_export&download_export_file=';
+$export_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export&export=yes' ), 'pb-export' );
+$export_delete_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ), 'pb-delete-export' );
+$download_url_prefix = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export&download_export_file=' );
 
-date_default_timezone_set( 'America/Montreal' );
+$timezone_string = get_blog_option( 1, 'timezone_string' );
+$date_format = get_blog_option( 1, 'date_format', 'F j, Y' );
+$time_format = get_blog_option( 1, 'time_format', 'g:i a' );
+
+if ( $timezone_string ) {
+	date_default_timezone_set( $timezone_string );
+} else {
+	date_default_timezone_set( 'America/Montreal' );
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Warnings and errors
@@ -54,10 +62,10 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	foreach ( $files as $date => $exports ) {
 		// Echo files to screen
 		if ( $c == 0 ) { ?>
-		<h2><?php _e( 'Latest Export', 'pressbooks' ); ?>: <?php echo strftime( '%B %e, %Y at %l:%M %p', $date ); ?></h2>
+		<h2><?php _e( 'Latest Export', 'pressbooks' ); ?>: <?php printf( _x( '%s at %s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h2>
 		<div class="export-files latest">
 	<?php } elseif ( $c > 0 ) { ?>
-		<h3><?php _e( 'Exported', 'pressbooks' ); ?> <?php echo strftime( '%B %e, %Y at %l:%M %p', $date ); ?></h3>
+		<h3><?php _e( 'Exported', 'pressbooks' ); ?> <?php printf( _x( '%s at %s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h3>
 		<div class="export-files">
 	<?php }
 		foreach ( $exports as $file ) {
@@ -100,25 +108,27 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 
     <form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 	    <fieldset>
-	       <legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
-	       <?php if ( true == \PressBooks\Utility\check_prince_install() ) { ?>
-	    	<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" /><label for="pdf"> <?php _e( 'PDF (for printing)', 'pressbooks' ); ?></label><br />
-	       <?php } ;?>
-		<?php if ( \PressBooks\Modules\Export\Mpdf\Pdf::isInstalled() ) { ?>
-		<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" /><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
-		<?php } ?>
-		<input type="checkbox" id="epub" name="export_formats[epub]" value="1" /><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="mobi" name="export_formats[mobi]" value="1" /><label for="mobi"> <?php _e( 'MOBI (for Kindle)', 'pressbooks' ); ?></label>
+		    <legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
+		    <?php if ( true == \PressBooks\Utility\check_prince_install() ) { ?>
+		  	<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" /><label for="pdf"> <?php _e( 'PDF (for printing)', 'pressbooks' ); ?></label><br />
+		    <?php } ;?>
+				<?php if ( \PressBooks\Modules\Export\Mpdf\Pdf::isInstalled() ) { ?>
+				<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" /><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
+				<?php } ?>
+				<input type="checkbox" id="epub" name="export_formats[epub]" value="1" /><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
+		  	<input type="checkbox" id="mobi" name="export_formats[mobi]" value="1" /><label for="mobi"> <?php _e( 'MOBI (for Kindle)', 'pressbooks' ); ?></label>
 	    </fieldset>
-	    
+
 	    <fieldset>
 	    <legend>Exotic formats:</legend>
 		    <input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" /><label for="epub3"> <?php _e( 'EPUB 3 (Beta)', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="icml" name="export_formats[icml]" value="1" /><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" /><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
+				<?php if ( true == \PressBooks\Utility\show_experimental_features() ) { ?>
+				<input type="checkbox" id="icml" name="export_formats[icml]" value="1" /><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
+				<?php } ?>
 	    	<input type="checkbox" id="wxr" name="export_formats[wxr]" value="1" /><label for="wxr"> <?php _e( 'Pressbooks XML', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="vanillawxr" name="export_formats[vanillawxr]" value="1" /><label for="vanillawxr"> <?php _e( 'WordPress XML', 'pressbooks' ); ?></label>
-	    	<?php if ( true == \PressBooks\Utility\show_experimental_features() ) { ?><br/>
+				<?php if ( true == \PressBooks\Utility\show_experimental_features() ) { ?><br/>
 	    	<input type="checkbox" id="odt" name="export_formats[odt]" value="1" /><label for="odt"> <?php _e( 'ODT', 'pressbooks' ); ?></label>
 	    	<?php } ?>
 	    </fieldset>
@@ -134,8 +144,8 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 		<a class="button button-primary" href="<?php echo get_bloginfo( 'url' ); ?>/wp-admin/themes.php"><?php _e( 'Change Theme', 'pressbooks' ); ?></a>
 		<a class="button button-secondary" href="<?php echo get_bloginfo( 'url' ); ?>/wp-admin/themes.php?page=pressbooks_theme_options"><?php _e( 'Options', 'pressbooks' ); ?></a>
 	</div>
-</div>    
-    
+</div>
+
 </div>
 
 <div class="clear"></div>

@@ -12,6 +12,7 @@ namespace PressBooks\Admin\Branding;
  */
 function custom_login_logo() {
     ?>
+<link rel="stylesheet" type="text/css" href="<?php echo PB_PLUGIN_URL; ?>assets/css/colors-pb.css" media="screen" />
 <style type="text/css">
 .login h1 a {
   background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/LumenBW-300x138.png);

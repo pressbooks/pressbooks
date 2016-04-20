@@ -15,8 +15,8 @@ class PressBooks {
 	function __construct() {
 
 		/**
-		/* Memcached Object Cache v2.0.2 doesn't like when we loop on switch_to_blog()
-		/* We "fix" this by storing our cached items in global group 'pb'
+		 * Memcached Object Cache v2.0.2 doesn't like when we loop on switch_to_blog()
+		 * We "fix" this by storing our cached items in global group 'pb'
 		 */
 		wp_cache_add_global_groups( array( 'pb' ) );
 
@@ -36,10 +36,15 @@ class PressBooks {
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-root' );
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
 
+		// Check for local themes-root directory
+		if ( realpath ( WP_CONTENT_DIR . '/themes-root' ) ) :
+			register_theme_directory( WP_CONTENT_DIR . '/themes-root' );
+		endif;
+
 		if ( is_admin() ) {
 			if ( Book::isBook() ) {
 				add_filter( 'allowed_themes', array( $this, 'allowedBookThemes' ) );
-			} else {
+			} elseif ( ! is_network_admin() ) {
 				add_filter( 'allowed_themes', array( $this, 'allowedRootThemes' ) );
 			}
 		}

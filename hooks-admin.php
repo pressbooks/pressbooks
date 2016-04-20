@@ -32,6 +32,11 @@ add_action( 'admin_bar_menu', '\PressBooks\Admin\Laf\remove_menu_bar_new_content
 // Add contact Info
 add_filter( 'admin_footer_text', '\PressBooks\Admin\Laf\add_footer_link' );
 
+// Dashboard settings
+add_action( 'admin_init', '\Pressbooks\Admin\Dashboard\dashboard_options_init' );
+add_action( 'network_admin_menu', '\PressBooks\Admin\Dashboard\add_menu', 2 );
+add_action( 'admin_menu', '\PressBooks\Admin\Dashboard\add_menu', 1 );
+
 if ( \PressBooks\Book::isBook() ) {
 	// Aggressively replace default interface
 	add_action( 'admin_init', '\PressBooks\Admin\Laf\redirect_away_from_bad_urls' );
@@ -73,8 +78,7 @@ if ( \PressBooks\Book::isBook() ) {
 		add_action( 'admin_init', '\PressBooks\Admin\Analytics\analytics_settings_init' );
 	}
 }
-add_action( 'wp_head', '\PressBooks\Admin\Analytics\print_script');
-add_action( 'admin_head', '\PressBooks\Admin\Analytics\print_script');
+add_action( 'admin_head', '\PressBooks\Admin\Analytics\print_admin_analytics');
 
 // Privacy, Ecommerce, and Export settings
 add_action( 'admin_init', '\PressBooks\Admin\Laf\privacy_settings_init' );
@@ -89,7 +93,7 @@ add_action( 'admin_notices', '\PressBooks\Admin\Laf\admin_notices' );
 
 // Network Manager routines
 add_filter( 'admin_body_class', '\PressBooks\Admin\NetworkManagers\admin_body_class' );
-add_action( 'network_admin_menu', '\PressBooks\Admin\NetworkManagers\add_menu' );
+add_action( 'network_admin_menu', '\PressBooks\Admin\NetworkManagers\add_menu', 1 );
 add_action( 'wp_ajax_pb_update_admin_status', '\PressBooks\Admin\NetworkManagers\update_admin_status' );
 add_action( 'admin_init', '\PressBooks\Admin\NetworkManagers\restrict_access' );
 add_action( 'admin_menu', '\PressBooks\Admin\NetworkManagers\hide_menus' );
@@ -104,7 +108,7 @@ if ( ! \PressBooks\Book::isBook() ) {
 
 add_action('init', function() { // replace default title filtering with our custom one that allows certain tags
 	remove_filter('title_save_pre', 'wp_filter_kses');
-	add_filter( 'title_save_pre', 'PressBooks\Sanitize\filter_title');	
+	add_filter( 'title_save_pre', 'PressBooks\Sanitize\filter_title');
 });
 
 add_action( 'admin_menu', function () {

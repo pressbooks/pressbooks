@@ -71,6 +71,7 @@ class Book {
 
 		$expected_array = array( 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors' );
 		$expected_the_content = array( 'pb_custom_copyright', 'pb_about_unlimited' );
+		$expected_url = array( 'pb_cover_image' );
 
 		$book_information = array();
 		$meta = new Metadata();
@@ -103,17 +104,22 @@ class Book {
 				$val = htmlspecialchars( $val, ENT_NOQUOTES | ENT_XHTML, 'UTF-8', false );
 			}
 
+			// Normalize URLs
+			if ( in_array( $key, $expected_url ) ) {
+				$val = set_url_scheme( $val );
+			}
+
 			// Remove invisible control characters that break XML
 			$val = \PressBooks\Sanitize\remove_control_characters( $val );
 
 			$book_information[$key] = $val;
 		}
-		
+
 		// Return our best guess if no book information has been entered.
 		if ( empty( $book_information ) ) {
 			$book_information['pb_title'] = get_bloginfo( 'name' );
 			if ( !function_exists( 'get_user_by' ) ) {
-			    include( ABSPATH . 'wp-includes/pluggable.php' ); 
+			    include( ABSPATH . 'wp-includes/pluggable.php' );
 			}
 			$author = get_user_by( 'email', get_bloginfo( 'admin_email' ) );
 			$book_information['pb_author'] = isset( $author->display_name ) ? $author->display_name : '';
@@ -125,7 +131,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		wp_cache_set( $cache_id, $book_information, 'pb', 86400 );
-		
+
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			restore_current_blog();
 		}
@@ -278,11 +284,11 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		wp_cache_set( $cache_id, $book_structure, 'pb', 86400 );
-		
+
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			restore_current_blog();
 		}
-		
+
 		return $book_structure;
 	}
 
@@ -567,7 +573,7 @@ class Book {
 			static::deleteBookObjectCache();
 		}
 	}
-	
+
 	/**
 	 * WP_Ajax hook. Updates a post's "show title" setting (show title in exports or not)
 	 */
@@ -604,7 +610,7 @@ class Book {
 			static::deleteBookObjectCache();
 		}
 	}
-	
+
 	/**
 	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
 	 */
@@ -630,7 +636,7 @@ class Book {
 			return static::getFirst();
 
 		global $blog_id;
-		
+
 		global $post;
 
 		$current_post_id = $post->ID;

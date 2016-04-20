@@ -109,7 +109,7 @@ function set_locale( $lang ) {
 	} else {
 		// go with the book info setting
 		$metadata = \PressBooks\Book::getBookInformation();
-		
+
 		if (  '__UNSET__' == $loc && !empty( $metadata['pb_language'] ) ) {
 			$locations = \PressBooks\L10n\wplang_codes();
 			$loc = $locations[$metadata['pb_language']];
@@ -208,7 +208,7 @@ function supported_languages() {
 		'fr-lu' => 'French (Luxembourg)',
 		'fr-mc' => 'French (Monaco)',
 		'fr-ch' => 'French (Switzerland)',
-		'ka' => 'Geogian',
+		'ka' => 'Georgian',
 		'de' => 'German',
 		'de-at' => 'German (Austria)',
 		'de-li' => 'German (Liechtenstein)',
@@ -304,7 +304,7 @@ function supported_languages() {
  * @return array
  */
 function wplang_codes() {
-	
+
 	$languages = array(
 		'af' => '', // Afrikaans
 		'sq' => 'sq', // Albanian
@@ -324,7 +324,7 @@ function wplang_codes() {
 		'ar-ae' => 'ar', // Arabic (U.A.E.)
 		'ar-ye' => 'ar', // Arabic (Yemen)
 		'hy' => 'hy', // Armenian
-		'az' => 'az', 
+		'az' => 'az',
 		'eu' => 'eu',
 		'be' => '', // Belarusian
 		'bn' => '', // Bengali
@@ -447,7 +447,7 @@ function wplang_codes() {
 		'xh' => '', // Xhosa
 		'zu' => '', // Zulu
 	);
-	
+
 	return $languages;
 }
 
@@ -471,7 +471,7 @@ function get_dashboard_languages() {
 		'es_ES' =>	__( 'Spanish', 'pressbooks' ),
 		'sv_SE' =>	__( 'Swedish', 'pressbooks' ),
 	);
-	
+
 	return $languages;
 }
 

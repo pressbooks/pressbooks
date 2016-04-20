@@ -124,7 +124,7 @@ class CustomCss {
 	static function isRomanized() {
 
 		$options = get_option( 'pressbooks_theme_options_pdf' );
-		
+
 		return (bool) ( @$options['pdf_romanize_parts'] );
 	}
 
@@ -150,7 +150,7 @@ class CustomCss {
 		if ( 'yes' == @$_GET['customcss'] && isset( $_POST['my_custom_css'] ) && check_admin_referer( 'pb-custom-css' ) ) {
 
 			$slug = isset( $_POST['slug'] ) ? $_POST['slug'] : 'web';
-			$redirect_url = get_bloginfo( 'url' ) . '/wp-admin/themes.php?page=pb_custom_css&slug=' . $slug;
+			$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_css&slug=' . $slug );
 
 			if ( @$_POST['post_id_integrity'] != md5( NONCE_KEY . @$_POST['post_id'] ) ) {
 				// A hacker trying to overwrite posts?.
@@ -239,5 +239,21 @@ class CustomCss {
 		return $css;
 	}
 
+	/**
+	 * Determine base theme that was used for the selected Custom CSS.
+	 * @param $slug string
+	 *
+	 * @return string
+	 */
+	 static function getBaseTheme( $slug ) {
+		 $filename = static::getCustomCssFolder() . sanitize_file_name( $slug . '.css' );
+		 if ( ! file_exists( $filename ) ) {
+			 return false;
+		 }
+		 $theme = get_file_data( $filename, array( 'ThemeURI' => 'Theme URI' ) );
+		 $theme_slug = str_replace( array( 'http://pressbooks.com/themes/', 'https://pressbooks.com/themes/'), array( '', '' ), $theme['ThemeURI'] );
+
+		 return untrailingslashit( $theme_slug );
+	 }
 
 }

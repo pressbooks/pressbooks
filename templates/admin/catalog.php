@@ -3,7 +3,7 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
-$user_catalog_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/index.php?page=pb_catalog', 'pb-user-catalog' );
+$user_catalog_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' ), 'pb-user-catalog' );
 
 echo '<div class="wrap">';
 if ( 'edit_tags' == $_REQUEST['action'] ) :

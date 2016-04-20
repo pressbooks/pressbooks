@@ -76,7 +76,7 @@ function network_analytics_settings_init() {
 			__NAMESPACE__ . '\analytics_ga_mu_site_specific_allowed_sanitize'
 		);
 
-	endif; 
+	endif;
 }
 
 /**
@@ -105,7 +105,7 @@ function analytics_settings_init() {
 		$_page,
 		'ga_mu_uaid',
 		__NAMESPACE__ . '\analytics_ga_mu_uaid_sanitize'
-	); 
+	);
 }
 
 /**
@@ -121,7 +121,7 @@ function analytics_settings_section_callback() {
  * @param $args
  */
 function analytics_ga_mu_uaid_callback( $args ) {
-	$ga_mu_uaid = get_option( 'ga_mu_uaid' );		
+	$ga_mu_uaid = get_option( 'ga_mu_uaid' );
 	$html = '<input type="text" id="ga_mu_uaid" name="ga_mu_uaid" value="' . $ga_mu_uaid . '" />';
 	$html .= '<p class="description">' . $args[0] . '</p>';
 	echo $html;
@@ -133,7 +133,7 @@ function analytics_ga_mu_uaid_callback( $args ) {
  * @param $args
  */
 function analytics_ga_mu_site_specific_allowed_callback( $args ) {
-	$ga_mu_site_specific_allowed = get_option( 'ga_mu_site_specific_allowed' );		
+	$ga_mu_site_specific_allowed = get_option( 'ga_mu_site_specific_allowed' );
 	$html = '<input type="checkbox" id="ga_mu_site_specific_allowed" name="ga_mu_site_specific_allowed" value="1"' . checked( $ga_mu_site_specific_allowed, '1', false ) . '/>';
 	$html .= '<p class="description">' . $args[0] . '</p>';
 	echo $html;
@@ -168,7 +168,7 @@ function display_network_analytics_settings() { ?>
 		<?php $nonce = ( @$_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
 		if ( !empty( $_POST ) ) {
 			if ( !wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
-			    die( 'Security check' ); 
+			    die( 'Security check' );
 			} else {
 				if ( @$_REQUEST['ga_mu_uaid' ] ) {
 					update_option( 'ga_mu_uaid', $_REQUEST['ga_mu_uaid' ] );
@@ -190,7 +190,7 @@ function display_network_analytics_settings() { ?>
 		</form>
 	</div>
 <?php }
-	
+
 /**
  * Display Analytics settings (book)
  */
@@ -203,13 +203,13 @@ function display_analytics_settings() { ?>
 			<?php submit_button(); ?>
 		</form>
 	</div>
-<?php }
-
+<?php
+}
 
 /**
- * Enqueue the script.
+ * Print the script.
  */
-function print_script() {
+function print_admin_analytics() {
 
 	switch_to_blog( 1 );
 	$ga_mu_uaid_network = get_option( 'ga_mu_uaid' );
@@ -218,27 +218,27 @@ function print_script() {
 	restore_current_blog();
 
 	$ga_mu_uaid = get_option( 'ga_mu_uaid' );
-	
+
 	$network = false;
 	$book = false;
-	
+
 	if ( isset( $ga_mu_uaid_network ) && $ga_mu_uaid_network !== '' && $ga_mu_uaid_network !== '0') {
 		$network = true;
 	}
 	if ( isset( $ga_mu_uaid ) && $ga_mu_uaid !== '' && $ga_mu_uaid !== '0') {
 		$book = true;
 	}
-	
+
 	if ( $network && $book ) {
 		if ( $ga_mu_uaid_network == $ga_mu_uaid ) {
 			$book = false;
 		}
 	}
-	
+
 	if ( $book == true && ( !isset( $ga_mu_site_specific_allowed ) || $ga_mu_site_specific_allowed == '' || $ga_mu_site_specific_allowed == '0' ) ) {
 		$book = false;
 	}
-	
+
 	if ( $network || $book ) {
 		$html = "<!-- Google Analytics -->\n<script>\n(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n";
 		if ( $network ) {
@@ -247,7 +247,7 @@ function print_script() {
 		}
 		$html .= apply_filters( 'pb_ecommerce_tracking', '' );
 		if ( $book ) {
-			$html .= "ga('create', '". $ga_mu_uaid_network . "', 'auto', 'bookTracker');";
+			$html .= "ga('create', '". $ga_mu_uaid . "', 'auto', 'bookTracker');";
 			$html .= "ga('bookTracker.send', 'pageview');";
 		}
 		$html .= "</script>\n<!-- End Google Analytics -->";

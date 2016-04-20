@@ -3,7 +3,7 @@ Theme Name: Pressbooks Publisher
 Author: The Pressbooks Team
 Author URI: http://pressbooks.com
 Description: The default theme for the root site on Pressbooks installations.
-Version: 2.0
+Version: 2.1
 Text Domain: pressbooks-publisher
 Tags:
 */
@@ -654,6 +654,10 @@ a.site-login-btn {
   .site-title a:hover {
     color: #ddd;
     text-decoration: none; }
+
+.custom-logo {
+	max-width: 200px;
+}
 
 .site-description {
   font-size: 1.875em;

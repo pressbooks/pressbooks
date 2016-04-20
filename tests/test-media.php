@@ -83,5 +83,16 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertStringEndsWith( '</a></div>', $converted );
 	}
 
+	/**
+	 * @covers \PressBooks\Media\force_attach_media
+	 */
+	public function test_force_attach_media() {
+		global $post_ID;
+		$post_ID = '42';
+
+		$params = array();
+		$return = \PressBooks\Media\force_attach_media( $params );
+		$this->assertEquals( $return['post_id'], 42 );
+	}
 
 }

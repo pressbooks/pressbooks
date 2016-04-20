@@ -32,6 +32,19 @@ class Sass {
 
 	}
 
+	/**
+	 * Fetch an array of strings in (S)CSS which need to be localized
+	 *
+	 * @return array
+	 */
+	function getStringsToLocalize() {
+
+		return [
+			'chapter' => __( 'Chapter', 'pressbooks' ),
+			'part' => __( 'Part', 'pressbooks' ),
+		];
+
+	}
 
 	/**
 	 * Get the path to our PB Partials
@@ -82,6 +95,7 @@ class Sass {
 
 		$wp_upload_dir = wp_upload_dir();
 		$upload_dir = $wp_upload_dir['baseurl'] . '/css';
+		$upload_dir = \PressBooks\Sanitize\maybe_https( $upload_dir );
 		return $upload_dir;
 	}
 
@@ -132,6 +146,8 @@ class Sass {
 	 */
 	function compile( $scss, $includes = array() ) {
 
+		$scss = $this->prependLocalizedVars( $scss );
+
 		try {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
 
@@ -149,9 +165,7 @@ class Sass {
 					$include_paths = implode( ':', $includes );
 					$sass->setIncludePath( $include_paths );
 					$css = $sass->compileFile( $scss_file );
-				}
-				else { // use scssphp library
-					require_once( PB_PLUGIN_DIR . 'symbionts/scssphp/scss.inc.php' );
+				} else { // use scssphp library
 					$sass = new \Leafo\ScssPhp\Compiler;
 					$sass->setImportPaths( $includes );
 					$css = $sass->compile( $scss );
@@ -178,6 +192,26 @@ class Sass {
 		return $css;
 	}
 
+	/**
+	 * Prepend localized version of content string variables.
+	 *
+	 * @param string $scss
+	 * @return string
+	 */
+	function prependLocalizedVars( $scss ) {
+		$strings = $this->getStringsToLocalize();
+		$localizations = '';
+
+		foreach ( $strings as $var => $string ) {
+			$localizations .= "\$$var: '$string';\n";
+		}
+
+		if ( WP_DEBUG ) {
+			$this->debug( "/* Silence is golden. */", $localizations, 'localizations' );
+		}
+
+		return $localizations . $scss;
+	}
 
 	/**
 	 * Log Exceptions

@@ -3279,6 +3279,13 @@
 		      </xsl:when>
 		      <xsl:when test="w:rPr/w:rStyle/@w:val = 'FootnoteReference'">
 				      <xsl:element name="a">
+          <xsl:variable name="fnanchor" select="concat('sdfootnote', w:footnoteReference/@w:id,'anc')"/>
+          <xsl:attribute name="name">
+            <xsl:value-of select="$fnanchor"/>
+          </xsl:attribute>
+          <xsl:attribute name="id">
+            <xsl:value-of select="$fnanchor"/>
+          </xsl:attribute>
 					      <xsl:attribute name="href">
 						      <xsl:value-of select="concat('#sdfootnote', w:footnoteReference/@w:id,'sym')"/>
 					      </xsl:attribute>
@@ -3289,6 +3296,13 @@
 		      </xsl:when>
 		      <xsl:when test="w:endnoteReference">
 				      <xsl:element name="a">
+          <xsl:variable name="fnanchor" select="concat('sdfootnote', w:endnoteReference/@w:id,'anc')"/>
+          <xsl:attribute name="name">
+            <xsl:value-of select="$fnanchor"/>
+          </xsl:attribute>
+          <xsl:attribute name="id">
+            <xsl:value-of select="$fnanchor"/>
+          </xsl:attribute>
 					      <xsl:attribute name="href">
 						      <xsl:value-of select="concat('#sdfootnote', w:endnoteReference/@w:id,'sym')"/>
 					      </xsl:attribute>
@@ -3653,17 +3667,7 @@
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="$rStyleId='' and $styleMod=''">
-        <xsl:choose>
-          <xsl:when test="not($themeStyle='')">
-
-              <xsl:call-template name="DisplayRContent"/>
-
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:call-template name="DisplayRContent"/>
-          </xsl:otherwise>
-        </xsl:choose>
-
+        <xsl:call-template name="DisplayRContent"/>
         <xsl:if test="$pr.listSuff = $prListSuff_space">
           <xsl:text> </xsl:text>
         </xsl:if>

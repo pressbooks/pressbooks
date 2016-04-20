@@ -64,3 +64,18 @@ function force_wrap_images( $content ) {
 
 	return preg_replace( $pattern, $replacement, $content );
 }
+
+/**
+ * @param array $params
+ *
+ * @see https://core.trac.wordpress.org/browser/trunk/wp-admin/includes/media.php?rev=22846
+ *
+ * @return array
+ */
+
+function force_attach_media( $params ) {
+   global $post_ID;
+   if ( isset( $post_ID ) )
+       $params['post_id'] = (int) $post_ID;
+   return $params;
+}

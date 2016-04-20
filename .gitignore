@@ -7,3 +7,4 @@ __MACOSX
 *.DS_Store
 config.codekit
 tests/logs/
+vendor

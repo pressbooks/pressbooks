@@ -1,0 +1,138 @@
+// SASS MIXINS -- PDF IMAGES
+
+/* ============================= 
+PDF IMAGES & CAPTIONS - STANDARD
+================================ */
+
+/* CAPTIONS -  BASIC */
+/* FURTHER STYLING SHOULD BE DONE IN OTHER THEME FILES */
+
+p.wp-caption-text {
+  font-size: 0.9em;
+  padding-bottom: 0.5em;
+}
+
+/* IMAGES - GENERIC */ 
+
+img {
+  height: auto;
+  max-width: 100%;
+  margin: 0;
+  padding-left: 0;  
+  padding-right: 0;
+  display: inline-block;
+  page-break-inside: avoid;
+}
+
+/* DIV WRAPPER AROUND CAPTIONED IMAGES AND IMAGES WITH NO CAPTIONS */
+
+div.wp-caption,
+div.wp-nocaption {
+  height: auto;        
+  max-width: 100%;
+  text-align: center;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  page-break-inside: avoid !important;
+}
+
+/* ALIGN NONE */
+
+.wp-caption.alignnone,
+.wp-nocaption.alignnone {
+  max-width: 100%;
+  margin-right: 0;
+  margin-left: 0;
+  padding-left: 0;
+  margin-top: 1em;
+  page-break-inside: avoid;
+}
+
+.alignnone img,
+.wp-caption.alignnone img,
+.wp-nocaption.alignnone img {
+  max-width: 100%; 
+  page-break-inside: avoid;
+}
+
+/* ALIGN CENTER */
+
+.aligncenter,
+.wp-caption.aligncenter,
+.wp-nocaption.aligncenter {
+  max-width: 100%;
+  text-align: center;
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  page-break-inside: avoid;
+}
+
+.wp-caption.aligncenter img,
+.wp-nocaption.aligncenter img,
+.aligncenter img {
+  max-width: 100%;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  text-align: center;
+  page-break-inside: avoid;
+}
+ 
+ /* ALIGN LEFT */ 
+ /* MAX-WIDTH IS SET TO 50% */ 
+.wp-caption.alignleft,
+.wp-nocaption.alignleft {
+  max-width: 50%;
+  margin-right: 1em;
+  margin-left: 0;
+  padding-left: 0;
+  margin-top: 1em;
+  float: left;
+  page-break-inside: avoid;
+}
+
+.alignleft img,
+.wp-caption.alignleft img,
+.wp-nocaption.alignleft img {
+  max-width: 100%; 
+  page-break-inside: avoid;
+}
+
+ /* ALIGN RIGHT */ 
+ /* MAX-WIDTH IS SET TO 50% */ 
+
+.wp-caption.alignright,
+.wp-nocaption.alignright {
+  max-width: 50%;
+  margin-right: 0;
+  margin-left: 1em;
+  padding-right: 0;
+  margin-top: 1em;
+  float: right;
+  page-break-inside: avoid;
+}
+
+.alignright img,
+.wp-caption.alignright img,
+.wp-nocaption.alignright img {
+  max-width: 100%;
+  page-break-inside: avoid;
+}
+
+/* SPECIAL IMAGES */ 
+
+.publisher-logo {
+  width: 30px;
+  height: auto;
+  padding: 10px;
+}
+
+.image-wide {
+  float: top;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
