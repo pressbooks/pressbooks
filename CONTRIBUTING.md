@@ -42,9 +42,11 @@ Pressbooks uses [Composer](https://getcomposer.org) for dependency management an
 
 #### Compile assets
 
-1. [Install](https://nodejs.org/) Node.js 0.12.x.
-2. Install gulp and related asset compilation tools: `npm install`
-3. From the Pressbooks plugin directory, e.g. `/wp-content/plugins/pressbooks`, run gulp to generate assets: `gulp`
+1. Install [Node.js](https://nodejs.org/) 0.12.x and npm.
+2. Install [gulp](http://gulpjs.com) and [Bower](http://bower.io): `npm install -g gulp && npm install -g bower`
+3. Install asset compilation tools: `npm install`
+4. Install dependencies via Bower: `bower install`.
+5. From the Pressbooks plugin directory, e.g. `/wp-content/plugins/pressbooks`, run gulp to generate assets: `gulp` (or `gulp --production`)
 
 ### Reporting Bugs
 
