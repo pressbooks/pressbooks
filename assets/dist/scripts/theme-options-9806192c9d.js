@@ -1,0 +1,1 @@
+jQuery(function(e){e(".select2").select2()});

@@ -25,8 +25,8 @@ function add_menu() {
  * Enqueue css and javascript for the network manager administration page
  */
 function admin_enqueues() {
-	wp_enqueue_style( 'pb-network-managers', PB_PLUGIN_URL . 'assets/css/network-managers.css', array(), '20150617' );
-	wp_enqueue_script( 'pb-network-managers', PB_PLUGIN_URL . 'assets/js/network-managers.min.js', array( 'jquery' ), '20150617' );
+	wp_enqueue_style( 'pb-network-managers', \PressBooks\Utility\asset_path( 'styles/network-managers.css' ) );
+	wp_enqueue_script( 'pb-network-managers', \PressBooks\Utility\asset_path( 'scripts/network-managers.js' ), ['jquery'] );
 	wp_localize_script( 'pb-network-managers', 'PB_NetworkManagerToken', array(
 		'networkManagerNonce' => wp_create_nonce( 'pb-network-managers' ),
 	) );
@@ -108,11 +108,11 @@ function is_restricted() {
 	else {
 		$restricted = array();
 	}
-	
+
 	if ( in_array( $user->ID, $restricted ) ) {
 		$val = true;
 	}
-	
+
 	return $val;
 }
 
@@ -132,7 +132,7 @@ function admin_body_class( $classes ) {
 	if ( is_restricted() ) {
 		$classes .= ' network-admin-restricted';
 	}
-	
+
     return $classes;
 }
 
@@ -162,7 +162,7 @@ function hide_network_menus() {
 }
 
 /**
- * 
+ *
  */
 function restrict_access() {
 	global $wpdb;

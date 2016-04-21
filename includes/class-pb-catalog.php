@@ -149,10 +149,10 @@ class Catalog {
 		// ----------------------------------------------------------------------------
 
 		$cover_sizes = array(
-			'thumbnail' => PB_PLUGIN_URL . 'assets/images/default-book-cover-100x100.jpg',
-			'pb_cover_small' => PB_PLUGIN_URL . 'assets/images/default-book-cover-65x0.jpg',
-			'pb_cover_medium' => PB_PLUGIN_URL . 'assets/images/default-book-cover-225x0.jpg',
-			'pb_cover_large' => PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg',
+			'thumbnail' => PB_PLUGIN_URL . 'assets/dist/images/default-book-cover-100x100.jpg',
+			'pb_cover_small' => PB_PLUGIN_URL . 'assets/dist/images/default-book-cover-65x0.jpg',
+			'pb_cover_medium' => PB_PLUGIN_URL . 'assets/dist/images/default-book-cover-225x0.jpg',
+			'pb_cover_large' => PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg',
 		);
 
 		$catalog = $this->get();
@@ -168,10 +168,10 @@ class Catalog {
 				$data[$i]['deleted'] = 1;
 			} else {
 				switch_to_blog( $val['blogs_id'] );
-				
+
 				$metadata = Book::getBookInformation();
 				$meta_version = get_option( 'pressbooks_metadata_version', 0 );
-	
+
 				$data[$i]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
 				$data[$i]['users_id'] = $val['users_id'];
 				$data[$i]['blogs_id'] = $val['blogs_id'];
@@ -181,21 +181,21 @@ class Catalog {
 				$data[$i]['author'] = @$metadata['pb_author'];
 				$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
 				$data[$i]['private'] = ( 1 == get_option( 'blog_public' ) ? 0 : 1 );
-	
+
 				// About
 				if ( ! empty( $metadata['pb_about_50'] ) ) $about = $metadata['pb_about_50'];
 				elseif ( ! empty( $metadata['pb_about_140'] ) ) $about = $metadata['pb_about_140'];
 				elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) $about = $metadata['pb_about_unlimited'];
 				else $about = '';
 				$data[$i]['about'] = $about;
-	
+
 				// Cover Full
-				if ( $meta_version < 7 ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
-				elseif ( empty( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
-				elseif ( \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+				if ( $meta_version < 7 ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				elseif ( empty( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				elseif ( \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
 				else $cover = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
 				$data[$i]['cover_url']['full'] = $cover;
-	
+
 				// Cover Thumbnails
 				$cid = \PressBooks\Image\attachment_id_from_url( $cover );
 				foreach ( $cover_sizes as $size => $default ) {
@@ -206,12 +206,12 @@ class Catalog {
 						$data[$i]['cover_url'][$size] = $default;
 					}
 				}
-	
+
 				// Tags
 				for ( $j = 1; $j <= static::$maxTagsGroup; ++$j ) {
 					$data[$i]["tag_{$j}"] = $this->getTagsByBook( $val['blogs_id'], $j );
 				}
-	
+
 				$already_loaded[$val['blogs_id']] = true;
 				++$i;
 			}
@@ -247,9 +247,9 @@ class Catalog {
 			$data[$i]['about'] = $about;
 
 			// Cover Full
-			if ( $meta_version < 7 ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
-			elseif ( empty( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
-			elseif ( \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/images/default-book-cover.jpg';
+			if ( $meta_version < 7 ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+			elseif ( empty( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+			elseif ( \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
 			else $cover = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
 			$data[$i]['cover_url']['full'] = $cover;
 
@@ -1126,7 +1126,7 @@ class Catalog {
 		// Tags
 		for ( $i = 1; $i <= static::$maxTagsGroup; ++$i ) {
 			$catalog->deleteTags( $blog_id, $i );
-			$tags = $catalog::stringToTags( $_REQUEST["tags_$i"] );
+			$tags = ( isset( $_REQUEST["tags_$i"] ) ) ? $_REQUEST["tags_$i"] : array();
 			foreach ( $tags as $tag ) {
 				$catalog->saveTag( $tag, $blog_id, $i );
 			}

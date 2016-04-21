@@ -312,9 +312,9 @@ function create_tmp_file() {
 }
 
 /**
- * Lightweight check to see if the prince constant is defined and if the 
+ * Lightweight check to see if the prince constant is defined and if the
  * executable file exists
- * 
+ *
  * @return boolean
  */
 function check_prince_install() {
@@ -334,20 +334,20 @@ function check_prince_install() {
 
 /**
  * Function to determine whether or not experimental features should be visible to users.
- * 
+ *
  * @return boolean
  */
 function show_experimental_features( $host = null ) {
-	
+
 	if ( ! $host )
 		$host = parse_url( network_site_url(), PHP_URL_HOST );
 
 	// hosts where experimental features should be hidden
-	$hosts_for_hiding = array( 
+	$hosts_for_hiding = array(
 		'pressbooks.com',
 		'pressbooks.pub',
 	);
-	
+
 	foreach( $hosts_for_hiding as $host_for_hiding ) {
 		if ( $host == $host_for_hiding || strpos( $host, $host_for_hiding ) ) {
 			return false;
@@ -359,7 +359,7 @@ function show_experimental_features( $host = null ) {
 
 /**
  * Include plugins in /symbionts
- * 
+ *
  * @since 2.5.1
  */
 function include_plugins() {
@@ -384,7 +384,7 @@ function include_plugins() {
 
 /**
  * Filters out active plugins, to avoid collisions with plugins already installed.
- * 
+ *
  * @since 2.5.1
  * @param array $symbionts
  * @return array
@@ -466,14 +466,14 @@ function parse_size( $size ) {
  * format_bytes converts an byte value supplied as an integer into a string suffixed with the appropriate unit of measurement.
  * @return string
  */
-function format_bytes( $bytes, $precision = 2 ) { 
-    $units = array('B', 'KB', 'MB', 'GB', 'TB'); 
-    $bytes = max( $bytes, 0 ); 
-    $pow = floor( ( $bytes ? log( $bytes ) : 0 ) / log( 1024 ) ); 
-    $pow = min( $pow, count( $units ) - 1 ); 
-    $bytes /= (1 << (10 * $pow)); 
+function format_bytes( $bytes, $precision = 2 ) {
+    $units = array('B', 'KB', 'MB', 'GB', 'TB');
+    $bytes = max( $bytes, 0 );
+    $pow = floor( ( $bytes ? log( $bytes ) : 0 ) / log( 1024 ) );
+    $pow = min( $pow, count( $units ) - 1 );
+    $bytes /= (1 << (10 * $pow));
 
-    return round( $bytes, $precision ) . ' ' . $units[$pow]; 
+    return round( $bytes, $precision ) . ' ' . $units[$pow];
 }
 
 
@@ -530,4 +530,54 @@ function template( $path, array $vars = array() ) {
 	ob_end_clean();
 
 	return $output;
+}
+
+/**
+ * Get paths for assets
+ */
+class JsonManifest {
+  private $manifest;
+  public function __construct($manifest_path) {
+    if (file_exists($manifest_path)) {
+      $this->manifest = json_decode(file_get_contents($manifest_path), true);
+    } else {
+      $this->manifest = [];
+    }
+  }
+  public function get() {
+    return $this->manifest;
+  }
+  public function getPath($key = '', $default = null) {
+    $collection = $this->manifest;
+    if (is_null($key)) {
+      return $collection;
+    }
+    if (isset($collection[$key])) {
+      return $collection[$key];
+    }
+    foreach (explode('.', $key) as $segment) {
+      if (!isset($collection[$segment])) {
+        return $default;
+      } else {
+        $collection = $collection[$segment];
+      }
+    }
+    return $collection;
+  }
+}
+
+function asset_path($filename) {
+  $dist_path = PB_PLUGIN_URL . 'assets/dist/';
+  $directory = dirname($filename) . '/';
+  $file = basename($filename);
+  static $manifest;
+  if (empty($manifest)) {
+    $manifest_path = PB_PLUGIN_DIR . 'assets/dist/assets.json';
+    $manifest = new JsonManifest($manifest_path);
+  }
+  if (array_key_exists($file, $manifest->get())) {
+    return $dist_path . $directory . $manifest->get()[$file];
+  } else {
+    return $dist_path . $directory . $file;
+  }
 }

@@ -188,13 +188,7 @@ class Footnotes {
 	 * Quicktag buttons for text mode editor
 	 */
 	function myCustomQuicktags() {
-		wp_enqueue_script(
-			'my_custom_quicktags',
-				PB_PLUGIN_URL . 'assets/js/quicktags.min.js',
-			array( 'quicktags' )
-		);
-
-
+		wp_enqueue_script( 'my_custom_quicktags', \PressBooks\Utility\asset_path( 'scripts/quicktags.js' ), ['quicktags'] );
 	}
 
 
@@ -222,8 +216,8 @@ class Footnotes {
 	 */
 	function addFootnotePlugin( $plugin_array ) {
 
-		$plugin_array['footnote'] = PB_PLUGIN_URL . 'assets/js/footnote.min.js?ver=1.0';
-		$plugin_array['ftnref_convert'] = PB_PLUGIN_URL . 'assets/js/ftnref-convert.min.js?ver=1.0';
+		$plugin_array['footnote'] = \PressBooks\Utility\asset_path( 'scripts/footnote.js' );
+		$plugin_array['ftnref_convert'] = \PressBooks\Utility\asset_path( 'scripts/ftnref-convert.js' );
 
 		return $plugin_array;
 	}

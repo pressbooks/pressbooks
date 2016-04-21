@@ -48,7 +48,7 @@ function mce_buttons( $buttons ) {
  * Adds Javascript for buttons above.
  */
 function mce_button_scripts( $plugin_array ) {
-	$plugin_array['textboxes'] = PB_PLUGIN_URL . 'assets/js/textboxes.min.js';
+	$plugin_array['textboxes'] = \PressBooks\Utility\asset_path( 'scripts/textboxes.js' );
 	return $plugin_array;
 }
 

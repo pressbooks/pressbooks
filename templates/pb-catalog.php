@@ -22,10 +22,10 @@ use \PressBooks\Catalog as PB_Catalog;
 function _logo_url( $profile ) {
 
 	if ( empty( $profile['pb_catalog_logo'] ) )
-		return PB_PLUGIN_URL . 'assets/images/default-book-cover-100x100.jpg';
+		return PB_PLUGIN_URL . 'assets/dist/images/default-book-cover-100x100.jpg';
 
 	elseif ( PB_Image\is_default_cover( $profile['pb_catalog_logo'] ) )
-		return PB_PLUGIN_URL . 'assets/images/default-book-cover-100x100.jpg';
+		return PB_PLUGIN_URL . 'assets/dist/images/default-book-cover-100x100.jpg';
 
 	else
 		return PB_Catalog::thumbnailFromUserId( $profile['users_id'], 'thumbnail' );
@@ -148,13 +148,13 @@ $_current_user_id = $catalog->getUserId();
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login ); _e( '\'s Catalog Page', 'pressbooks' ); ?> | Pressbooks</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo PB_PLUGIN_URL; ?>assets/css/style-catalog.css?ver=2" />
+	<link rel="stylesheet" type="text/css" href="<?php echo \PressBooks\Utility\asset_path( 'styles/style-catalog.css' ); ?>" />
 	<link href='<?php echo \PressBooks\Sanitize\maybe_https( 'http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.equalizer.min.js?ver=1.2.5" type="text/javascript"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/isotope.pkgd.min.js?ver=2.1.0" type="text/javascript"></script>
-	<script src="<?php echo PB_PLUGIN_URL; ?>assets/js/small-menu.js?ver=0.0.1" type="text/javascript"></script>
-	<?php if ( function_exists( 'ga_mu_plugin_add_script_to_head' ) ) ga_mu_plugin_add_script_to_head(); ?>
+	<script src="<?php echo \PressBooks\Utility\asset_path( 'scripts/small-menu.js' ); ?>" type="text/javascript"></script>
+	<?php \PressBooks\analytics\print_analytics(); ?>
 </head>
 <body>
 
@@ -223,7 +223,7 @@ $_current_user_id = $catalog->getUserId();
 						<p class="book-description"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></p>
 						<img src="<?php echo $b['cover_url']['pb_cover_medium']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" /></a>
 					</div><!-- end .book -->
-	
+
 					<div class="book-info">
 						<h2><?php echo $b['title']; ?></h2>
 

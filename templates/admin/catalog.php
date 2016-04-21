@@ -48,9 +48,18 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 				$name = ! empty( $profile["pb_catalog_tag_{$i}_name"] ) ? $profile["pb_catalog_tag_{$i}_name"] : __( 'Tags', 'pressbooks' ) . " $i";
 				?>
 				<tr>
+
+					<pre><?php  ?></pre>
 					<th><label for="tags_<?php echo $i; ?>"> <?php echo $name; ?><br /></em></label></th>
-					<td><input id="tags_<?php echo $i; ?>" name="tags_<?php echo $i; ?>" value="<?php echo esc_textarea( $catalog::tagsToString( $catalog->getTagsByBook( $blog_id, $i ) ) ); ?>">					<p class="description"><?php _e( 'Comma delimited', 'pressbooks' ); ?>.</p>
-</td>
+					<td>
+						<select id="tags_<?php echo $i; ?>" name="tags_<?php echo $i; ?>[]" multiple style="width: 75%">
+							<?php $tags = $catalog->getTagsByBook( $blog_id, $i );
+							foreach( $catalog->getTags( $i ) as $tag ) {
+								$selected = ( in_array( $tag, $tags ) ) ? ' selected' : '';
+								echo '<option value="' . $tag['tag'] . '"' . $selected . '>' . $tag['tag'] . '</option>';
+							} ?>
+						</select>
+				</td>
 				</tr>
 			<?php } ?>
 		</table>
@@ -60,12 +69,11 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 		jQuery(function ($) {
 			<?php for ( $i = 1; $i <= $catalog::$maxTagsGroup; ++$i ) { ?>
 			$("#tags_<?php echo $i; ?>").select2({
-				tags:[<?php foreach( $catalog->getTags( $i ) as $tag ) { echo( '"' . $tag['tag'] . '", ' ); } ?>],
-				tokenSeparators: [","],
-				containerCss: { width: '50%' }
+				tags: true,
+				tokenSeparators: [","]
 			});
 			<?php } ?>
-        });
+		});
 	</script>
 <?php
 

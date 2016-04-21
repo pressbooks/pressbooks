@@ -555,7 +555,7 @@ function pressbooks_theme_global_typography_callback( $args ) {
 	}
 
 	$html = '<label for="global_typography"> ' . $args[0] . '</label><br /><br />';
-	$html .= '<select id="global_typography" class="select2" data-placeholder="' . __( 'Select languages&hellip;', 'pressbooks' ) . '" name="pressbooks_global_typography[]" multiple>';
+	$html .= '<select id="global_typography" class="select2" style="width: 75%" data-placeholder="' . __( 'Select languages&hellip;', 'pressbooks' ) . '" name="pressbooks_global_typography[]" multiple>';
 	foreach ( $languages as $key => $value ) {
 		$selected = ( in_array( $key, $foreign_languages ) || in_array( $key, $already_supported_languages ) ) ? ' selected' : '';
 		$html .= '<option value="' . $key . '" ' . $selected . '>' . $value . '</option>';
