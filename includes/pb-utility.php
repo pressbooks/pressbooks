@@ -312,23 +312,33 @@ function create_tmp_file() {
 }
 
 /**
- * Lightweight check to see if the prince constant is defined and if the
- * executable file exists
+ * Lightweight check to see if the Prince executable is installed.
  *
  * @return boolean
  */
 function check_prince_install() {
+	$result = false;
 
 	// @see wp-config.php
 	if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
 		define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 	}
-	// check if the file exists, assume that's enough
-	if ( ! file_exists( PB_PRINCE_COMMAND ) ) {
-		$result = false;
-	} else {
-		$result = true;
+
+	$process = proc_open( PB_PRINCE_COMMAND . ' --version', array(
+		0 => array( "pipe", "r" ),
+		1 => array( "pipe", "w" ),
+		2 => array( "pipe", "w" )
+	), $pipes );
+
+	if ( is_resource( $process ) ) {
+		$stdout = stream_get_contents( $pipes[1] );
+		fclose( $pipes[1] );
+		proc_close( $process );
+		if ( strpos( $stdout, "Prince") === 0) { // TODO: confirm that minimum version is installed.
+			$result = true;
+		}
 	}
+
 	return $result;
 }
 
@@ -413,6 +423,11 @@ function filter_plugins( $symbionts ) {
 				unset( $symbionts[$key] );
 			}
 		}
+	}
+
+	// Don't include plugins that are incompatible with PHP >= 7.0 if that's what we are running.
+	if ( version_compare( phpversion(), '7.0', '>=' ) == true ) {
+		unset( $symbionts['search-regex/search-regex.php'] );
 	}
 
 	return $symbionts;
