@@ -53,11 +53,11 @@ class Odt extends Export {
 		// Some defaults
 		if ( strtoupper( substr( PHP_OS, 0, 3 ) ) === 'WIN' ) {
 			if ( ! defined( 'PB_SAXON_COMMAND' ) )
-			define( 'PB_SAXON_COMMAND', 'java -jar ' . PB_PLUGIN_DIR . 'symbionts/saxonhe/saxon9he.jar' );
+			define( 'PB_SAXON_COMMAND', 'java -jar ' . PB_PLUGIN_DIR . 'vendor/pressbooks/saxon-he/saxon9he.jar' );
 
 		} else {
 			if ( ! defined( 'PB_SAXON_COMMAND' ) )
-			define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar ' . PB_PLUGIN_DIR . 'symbionts/saxonhe/saxon9he.jar' );
+			define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar ' . PB_PLUGIN_DIR . 'vendor/pressbooks/saxon-he/saxon9he.jar' );
 		}
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
@@ -74,19 +74,19 @@ class Odt extends Export {
 	function convert() {
 
 		// Set logfile
-		
+
 		$this->logfile = $this->createTmpFile();
 
 		// Set filename
-		
+
 		$filename = $this->timestampedFileName( '.odt' );
 		$this->outputPath = $filename;
 
 		// Save ODT as file in exports folder
-	
+
 		$contentPath	= pathinfo($filename);
 		$source			= $contentPath['dirname'] . '/source.xhtml';
-		
+
 		file_put_contents( $source, $this->queryXhtml() );
 
 		$xslt			= PB_PLUGIN_DIR . 'includes/modules/export/odt/xhtml2odt.xsl';
@@ -97,21 +97,21 @@ class Odt extends Export {
 		$settings 		= $contentPath['dirname'] . "/settings.xml";
 		$styles 		= $contentPath['dirname'] . "/styles.xml";
 		$mediafolder	= $contentPath['dirname'] . '/media/';
-		
+
 		if ( is_dir( $mediafolder ) ) {
 			$this->deleteDirectory( $mediafolder );
 		}
-		
+
 		$urlcontent = file_get_contents( $source );
 
 		$urlcontent = preg_replace( "/xmlns\=\"http\:\/\/www\.w3\.org\/1999\/xhtml\"/i", '', $urlcontent );
-		
+
 		$old_value = libxml_disable_entity_loader( true );
 		$doc = new \DOMDocument();
 		$doc->loadXML( $urlcontent, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
 		libxml_disable_entity_loader( $old_value );
 		$xpath = new \DOMXPath( $doc );
-		
+
 		$tables = $xpath->query( '//table' );
 
 		foreach ( $tables as $table ) {
@@ -126,7 +126,7 @@ class Odt extends Export {
 			}
 			$table->setAttribute( 'colcount', $columncount );
 		}
-				
+
 		mkdir( $metafolder );
 
 		$images = $xpath->query( '//img' );
@@ -134,7 +134,7 @@ class Odt extends Export {
 		if ( ( $images->length > 0 ) || ( $coverimages->length > 0 ) ) {
 			mkdir($mediafolder);
 		}
-		
+
 		foreach ( $images as $image ) {
 			$src = $image->getAttribute('src');
  			$image_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
@@ -143,7 +143,7 @@ class Odt extends Export {
 				$image->setAttribute( 'src', $image_filename );
 			}
 		}
-		
+
 		foreach ( $coverimages as $coverimage ) {
 			$src = $coverimage->getAttribute('content');
  			$cover_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
@@ -185,22 +185,22 @@ class Odt extends Export {
 			$this->deleteDirectory( $mediafolder );
 			return false;
 		}
-		
+
 		$zip = new \PclZip( $filename );
-		
+
 		if ( $images->length > 0 ) {
 			$list = $zip->add( $mimetype . ',' . $content . ',' . $meta . ',' . $settings . ',' . $styles . ',' . $mediafolder . ',' . $metafolder, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_PATH, $contentPath['dirname'] . '/' );
 		} else {
 			$list = $zip->add( $mimetype . ',' . $content . ',' . $meta . ',' . $settings . ',' . $styles . ',' . $metafolder, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_PATH, $contentPath['dirname'] . '/' );
 		}
-		
+
 		if ( $list == 0 ) {
 			$this->logError( $zip->errorInfo( true ) );
 			unlink( $source );
 			$this->deleteDirectory( $mediafolder );
 			return false;
 		}
-				
+
 		unlink( $source );
 		unlink( $mimetype );
 		unlink( $content );
@@ -209,14 +209,14 @@ class Odt extends Export {
 		unlink( $styles );
 		unlink( $metafolder . '/manifest.xml' );
 		rmdir( $metafolder);
-		
+
 		$this->deleteDirectory( $mediafolder );
-		
+
 		return true;
 	}
 
 	/* Recursive Directory Deletion for media folder */
-	
+
 	public static function deleteDirectory( $dirpath ) {
 		if ( !is_dir( $dirpath ) ) {
 			throw new \InvalidArgumentException( "$dirpath must be a directory." );
@@ -336,7 +336,7 @@ class Odt extends Export {
 			$already_done[$url] = '';
 			return '';
 		}
-		
+
 		// Basename without query string
 		$filename = explode( '?', basename( $url ) );
 

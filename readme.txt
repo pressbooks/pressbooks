@@ -201,6 +201,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 == Changelog ==
 
 = 3.4 =
+* FEATURE: OpenDocument (beta) is now available as an export format.
 * ENHANCED: Plugin assets are now managed using Bower and compiled using gulp. Your Pressbooks dashboard will now load more efficiently (thanks to the @rootswp team for their development of this workflow).
 
 = 3.3.2 =

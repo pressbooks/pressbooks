@@ -27,6 +27,10 @@
     {
       "type": "vcs",
       "url": "https://github.com/pressbooks/PrinceXMLPhp"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/pressbooks/saxon-he"
     }
   ],
   "require": {
@@ -35,7 +39,8 @@
     "leafo/scssphp": "0.6.*",
     "pimple/pimple": "~3.0",
     "vanilla/htmlawed": "dev-master",
-    "gridonic/princexml-php": "dev-master"
+    "gridonic/princexml-php": "dev-master",
+    "pressbooks/saxon-he": "dev-master"
   },
   "require-dev": {
   },
