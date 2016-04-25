@@ -1,4 +1,4 @@
-== Book Themes ==
+# Book Themes
 
 In addition to being WordPress compatible, a book theme must have the following directories and files. These files are
 used by our PDF & EPUB export modules. The files can be empty (`script.js`, for example), but must exist.
@@ -22,7 +22,7 @@ stacks and other variables based on user preferences.
 	├── style.scss
 
 
-== Fonts ==
+## Fonts
 
 `_fonts-epub.scss`, `_fonts-prince.scss`, `_fonts-web.scss` are SCSS font stack definitions for EPUB, PDF and WEB.
 
@@ -53,21 +53,23 @@ Each `style.scss` file must import the appropriate font stack(s). Example for ./
 @import 'fonts-prince';
 ```
 
-Font files are located in ./themes-book/pressbooks-book/fonts/
+Font files are located in `./themes-book/pressbooks-book/fonts/`
 
 The paths for all such fonts in your Custom CSS need to be as follows:
 
+```
 @font-face {
   // ...
   src: url(themes-book/pressbooks-book/fonts/YourFont.ttf) format("truetype");
 }
+```
 
 
-== PDF (Prince) Best Practices ==
+## PDF (Prince) Best Practices
 
 1. Use CSS and JavaScript as outlined in the [Prince user guide](http://www.princexml.com/doc/).
 
-== Ebook Best Practices ==
+## Ebook Best Practices
 
 1. CSS must validate as CSS 2.01 with absolutely **no** errors. See:
 
@@ -108,7 +110,7 @@ The paths for all such fonts in your Custom CSS need to be as follows:
 	 + $69 Kindle
 
 
-== Theme Options ==
+## Theme Options
 
 Certain style elements can be overridden by the user under My Books → __YOUR_BOOK__ → Appearance → Theme Options.
 
@@ -132,6 +134,7 @@ readers. As older hardware is deprecated we expect this situation to improve.
 
 Examples:
 
+```
 	function pressbooks_theme_pdf_css_override( $css ) {
 		return $css; // string
 	}
@@ -151,7 +154,7 @@ Examples:
 	  return $hacks; // array of options passed back to the export module
 	}
 	add_filter( 'pb_epub_hacks', 'pressbooks_theme_ebook_hacks' );
-
+```
 
 More functions available to book designers. See: pressbooks/functions.php
 
@@ -166,7 +169,7 @@ More functions available to book designers. See: pressbooks/functions.php
  + `pb_get_chapter_number( $post_name )`
  + `pb_thumbify( $thumb, $path )`
 
-== The HTML ==
+### The HTML
 
 Top level elements (i.e. children nodes of <body>):
 
@@ -186,9 +189,10 @@ Top level elements (i.e. children nodes of <body>):
  + back-matter
 
 
-== Typical structure for _front-matter_ (note: "ugc" stands for "User Generated Content") ==
+### Typical structure for _front-matter_ (note: "ugc" stands for "User Generated Content")
 
-	<div class="front-matter subclass" id="post_name">
+```
+<div class="front-matter subclass" id="post_name">
 	  <div class="front-matter-title-wrap">
 	    <h3 class="front-matter-number">123</h3>
 	    <h1 class="front-matter-title">Title</h1>
@@ -202,18 +206,22 @@ Top level elements (i.e. children nodes of <body>):
 	  </div>
 	  <div class="endnotes"><!-- h3, ol --></div>
 	</div>
+```
 
-== Typical structure for _part_ ==
+### Typical structure for _part_
 
+```
 	<div class="part" id="post_name">
 	  <div class="part-title-wrap">
 	    <h3 class="part-number">123</h3>
 	    <h1 class="part-title">Title</h1>
 	  </div>
 	</div>
+```
 
-== Typical structure for _chapter_ ==
+### Typical structure for _chapter_
 
+```
 	<div class="chapter" id="post_name">
 	  <div class="chapter-title-wrap">
 	    <h3 class="chapter-number">123</h3>
@@ -228,10 +236,12 @@ Top level elements (i.e. children nodes of <body>):
 	  </div>
 	  <div class="endnotes"><!-- h3, ol--></div>
 	</div>
+```
 
-== Typical structure for _back-matter_ ==
+### Typical structure for _back-matter_
 
-	<div class="back-matter subclass" id="post_name">
+```
+<div class="back-matter subclass" id="post_name">
 	  <div class="back-matter-title-wrap">
 	    <h3 class="back-matter-number">123</h3>
 	    <h1 class="back-matter-title">Title</h1>
@@ -241,3 +251,4 @@ Top level elements (i.e. children nodes of <body>):
 	  </div>
 	  <div class="endnotes"><!-- h3, ol --></div>
 	</div>
+```
