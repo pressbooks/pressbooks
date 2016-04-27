@@ -986,7 +986,7 @@ class Xhtml11 extends Export {
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $chapter['post_content'];
-
+				$append_content = apply_filters( 'pb_append_html_to_export_page', '', $id );
 				$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
@@ -1024,6 +1024,7 @@ class Xhtml11 extends Export {
 					$n,
 					Sanitize\decode( $title ),
 					$content,
+					$append_content,
 					$this->doEndnotes( $id ) ) . "\n";
 
 				if ( $subclass !== 'numberless' ) ++$j;

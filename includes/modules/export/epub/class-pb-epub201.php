@@ -1164,6 +1164,7 @@ class Epub201 extends Export {
 			'post_title' => '',
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
+			'append_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
 			'lang' => $this->lang,
 		);
@@ -1202,7 +1203,7 @@ class Epub201 extends Export {
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
 				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
-
+				$append_content = $this->kneadHtml( apply_filters( 'pb_append_html_to_export_page', '', $id ), 'chapter' );
 				$short_title = false; // Ie. running header title is not used in EPUB
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
@@ -1242,6 +1243,7 @@ class Epub201 extends Export {
 					( $this->numbered ? $n : '' ),
 					Sanitize\decode( $title ),
 					$content,
+					$var['append_content'] = $append_content,
 					'' );
 
 				$file_id = 'chapter-' . sprintf( "%03s", $j );
