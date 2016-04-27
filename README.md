@@ -38,7 +38,7 @@ Unless you are installing Pressbooks for development, you should use the version
 Requirements
 ------------
 
-Pressbooks works with PHP 5.6.X and WordPress 4.5. Lower versions are not supported.
+Pressbooks works with PHP 5.6.X and WordPress 4.5.1. Lower versions are not supported.
 
 Disclaimers
 -----------

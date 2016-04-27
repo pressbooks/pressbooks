@@ -437,11 +437,6 @@ function filter_plugins( $symbionts ) {
 		}
 	}
 
-	// Don't include plugins that are incompatible with PHP >= 7.0 if that's what we are running.
-	if ( version_compare( phpversion(), '7.0', '>=' ) == true ) {
-		unset( $symbionts['search-regex/search-regex.php'] );
-	}
-
 	return $symbionts;
 }
 

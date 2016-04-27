@@ -3,8 +3,8 @@
 Contributors: Pressbooks <code@pressbooks.com>
 Version: 3.4-dev
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.5
-Tested up to: 4.5
+Requires at least: 4.5.1
+Tested up to: 4.5.1
 Stable tag: 3.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.5. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ * Pressbooks works with PHP 5.6.x and WordPress 4.5.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
 
 	$pb_minimum_php = '5.4';
 
@@ -201,6 +201,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 == Changelog ==
 
 = 3.4 =
+* Requires WordPress 4.5.1.
 * FEATURE: OpenDocument (beta) is now available as an export format.
 * ENHANCED: Plugin assets are now managed using Bower and compiled using gulp. Your Pressbooks dashboard will now load more efficiently (thanks to the @rootswp team for their development of this workflow).
 * ENHANCED: `check_prince_install()` now tries to run `prince --version` instead of looking for the executable file.
