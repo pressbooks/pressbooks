@@ -1767,3 +1767,14 @@ function pressbooks_theme_ebook_hacks( $hacks ) {
 	return $hacks;
 }
 add_filter( 'pb_epub_hacks', 'pressbooks_theme_ebook_hacks' );
+
+function pressbooks_theme_add_metadata(){
+	if ( is_front_page() ) {
+		echo pb_get_seo_meta_elements();
+		echo pb_get_microdata_elements();
+	} else {
+		echo pb_get_microdata_elements();
+	}
+}
+
+add_action( 'wp_head', 'pressbooks_theme_add_metadata' );

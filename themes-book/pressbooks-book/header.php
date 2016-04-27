@@ -13,14 +13,7 @@
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<?php
-if ( is_front_page() ) {
-	echo pb_get_seo_meta_elements();
-	echo pb_get_microdata_elements();
-} else {
-	echo pb_get_microdata_elements();
-}
-?>
+
 <link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 <title><?php
 	global $page, $paged;
