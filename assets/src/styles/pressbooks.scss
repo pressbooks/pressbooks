@@ -22,7 +22,7 @@
 		font: 14px/1 "PBFont" !important;
 		-webkit-font-smoothing: antialiased;
 		background: none;
-		content: '\e600' !important;	
+		content: '\e600' !important;
 	}
 	#wp-admin-bar-site-name>.ab-item:before {
 		-webkit-font-smoothing: antialiased;
@@ -69,6 +69,10 @@
 	}
 }
 
+.post-type-metadata #wp-admin-bar-view {
+	display: none;
+}
+
 /* Contextual Help */
 
 #contextual-help-link-wrap {
@@ -77,7 +81,7 @@
 
 /* Dashboard Widgets */
 
-#dashboard-widgets { 
+#dashboard-widgets {
 	#pb_dashboard_widget_book {
 		h4 {
 			font-weight: bold;
