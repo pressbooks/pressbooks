@@ -8,7 +8,7 @@ Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
 Version: 1.6
 */
 @import url("https://fonts.googleapis.com/css?family=Cardo:400,400italic,700|Oswald|Droid+Serif:400,700,400italic,700italic|Open+Sans+Condensed:300,300italic&subset=latin,cyrillic,greek,cyrillic-ext,greek-ext");
-/* 
+/*
   html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
   v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark
   html5doctor.com/html-5-reset-stylesheet/
@@ -871,7 +871,7 @@ div.aligncenter {
   font-style: normal;
   font-variant: small-caps; }
 
-/* TEXTBOXES & PULLQUOTES 
+/* TEXTBOXES & PULLQUOTES
 ===============*/
 .textbox {
   border: 1px solid #000;
@@ -1602,7 +1602,7 @@ code {
 
 /*
  * Media queries for responsive design
- * These follow after primary styles so they will successfully override. 
+ * These follow after primary styles so they will successfully override.
  */
 @media screen and (max-width: 1024px) {
   /* Style adjustments for portrait mode goes here */
@@ -2035,5 +2035,3 @@ body > div#debug {
 * html div#wrap {
   height: 100%;
   overflow: auto; }
-
-/*# sourceMappingURL=style.css.map */

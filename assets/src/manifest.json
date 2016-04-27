@@ -108,6 +108,11 @@
         "scripts/small-menu.js"
       ]
     },
+    "catalog.js": {
+      "files": [
+        "scripts/catalog.js"
+      ]
+    },
     "textboxes.js": {
       "files": [
         "scripts/textboxes.js"
@@ -120,6 +125,27 @@
     },
     "select2.js": {
       "bower": ["select2"]
+    },
+    "matchheight.js": {
+      "bower": ["matchHeight"]
+    },
+    "blockui.js": {
+      "bower": ["blockUI"]
+    },
+    "isotope.js": {
+      "bower": ["isotope"]
+    },
+    "sticky.js": {
+      "bower": ["jquery-sticky"]
+    },
+    "columnizer.js": {
+      "bower": ["jquery.columnizer"]
+    },
+    "sidr.js": {
+      "bower": ["sidr"]
+    },
+    "js-cookie.js": {
+      "bower": ["js-cookie"]
     }
   },
   "paths": {

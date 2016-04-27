@@ -21,7 +21,7 @@ jQuery(function ($) {
     /* Remember User Checkboxes */
     $('#pb-export-form').find('input').each(function () {
         var name = $(this).attr('name');
-        var val = $.cookie('pb_' + name);
+        var val = Cookies.get('pb_' + name);
         var v;
         // Defaults
         if (typeof val === 'undefined') {
@@ -48,7 +48,7 @@ jQuery(function ($) {
             $(this).prop('checked', v);
         }
     }).change(function () {
-        $.cookie('pb_' + $(this).attr('name'), $(this).prop('checked'), {
+      Cookies.set('pb_' + $(this).attr('name'), $(this).prop('checked'), {
             path: '/',
             expires: 365
         });

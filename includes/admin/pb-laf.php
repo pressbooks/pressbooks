@@ -538,9 +538,9 @@ function init_css_js() {
 	} );
 
 	// Enqueue later, on-the-fly, using action: admin_print_scripts-
-	wp_register_script( 'jquery-blockui', PB_PLUGIN_URL . 'symbionts/jquery/jquery.blockUI.js', array( 'jquery', 'jquery-ui-core' ), '2.64' );
-	wp_register_script( 'jquery-cookie', PB_PLUGIN_URL . 'symbionts/jquery/jquery.cookie.min.js', array( 'jquery' ), '1.4.1' );
-	wp_register_script( 'pb-export', \PressBooks\Utility\asset_path( 'scripts/export.js' ), ['jquery', 'jquery-cookie'] );
+	wp_register_script( 'jquery-blockui', \PressBooks\Utility\asset_path( 'scripts/blockui.js' ), [ 'jquery', 'jquery-ui-core' ] );
+	wp_register_script( 'js-cookie', \PressBooks\Utility\asset_path( 'scripts/js-cookie.js' ), [ 'jquery' ] );
+	wp_register_script( 'pb-export', \PressBooks\Utility\asset_path( 'scripts/export.js' ), ['jquery', 'js-cookie'] );
 	wp_register_script( 'pb-organize', \PressBooks\Utility\asset_path( 'scripts/organize.js' ), ['jquery', 'jquery-ui-core', 'jquery-blockui'] );
 	wp_register_script( 'pb-metadata', \PressBooks\Utility\asset_path( 'scripts/book-information.js' ), ['jquery'] );
 	wp_register_script( 'pb-import', \PressBooks\Utility\asset_path( 'scripts/import.js' ), ['jquery'] );
