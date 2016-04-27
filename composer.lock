@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e00c7f457580927e1a711a2509cc54fe",
-    "content-hash": "19f7eb7092a5bf58492c12c8e552783c",
+    "hash": "bbf4555940b1f90dc9961d9ff2a9b786",
+    "content-hash": "1377c89393b09e514c485dc0807bd79c",
     "packages": [
         {
             "name": "composer/installers",
@@ -282,6 +282,22 @@
                 "issues": "https://github.com/pressbooks/saxon-he/issues"
             },
             "time": "2016-04-25 16:54:30"
+        },
+        {
+            "name": "pressbooks/search-regex",
+            "version": "1.4.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/search-regex/",
+                "reference": "tags/v1.4.16"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/pressbooks/search-regex/archive/v1.4.16.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
         },
         {
             "name": "vanilla/htmlawed",
