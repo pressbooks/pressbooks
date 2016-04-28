@@ -19,6 +19,7 @@
     "issues": "https://github.com/pressbooks/pressbooks/issues",
     "docs": "https://github.com/pressbooks/pressbooks/wiki"
   },
+  "minimum-stability": "dev",
   "repositories": [
     {
       "type": "vcs",
