@@ -36,18 +36,115 @@
       "type": "package",
       "package": {
         "name": "pressbooks/search-regex",
-          "version": "1.4.16",
-          "dist": {
-            "url": "https://github.com/pressbooks/search-regex/archive/v1.4.16.zip",
-            "type": "zip"
-          },
-          "source": {
-            "url": "https://github.com/pressbooks/search-regex/",
-            "type": "git",
-            "reference": "tags/v1.4.16"
-          }
+        "version": "1.4.16",
+        "dist": {
+          "url": "https://github.com/pressbooks/search-regex/archive/v1.4.16.zip",
+          "type": "zip"
+        },
+        "source": {
+          "url": "https://github.com/pressbooks/search-regex/",
+          "type": "git",
+          "reference": "tags/v1.4.16"
+        }
       }
-  }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "pressbooks/custom-metadata",
+        "version": "0.8.1-dev",
+        "dist": {
+          "url": "https://github.com/pressbooks/custom-metadata/archive/v0.8.1-dev.zip",
+          "type": "zip"
+        },
+        "source": {
+          "url": "https://github.com/pressbooks/custom-metadata/",
+          "type": "git",
+          "reference": "tags/v0.8.1-dev"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "pressbooks/disable-comments",
+        "version": "v1.0.0",
+        "dist": {
+          "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.0.zip",
+          "type": "zip"
+        },
+        "source": {
+          "url": "https://github.com/pressbooks/disable-comments/",
+          "type": "git",
+          "reference": "tags/v1.0.0"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "pressbooks/mce-anchor-button",
+        "version": "v1.0.1",
+        "dist": {
+          "url": "https://github.com/pressbooks/mce-anchor-button/archive/v1.0.1.zip",
+          "type": "zip"
+        },
+        "source": {
+          "url": "https://github.com/pressbooks/mce-anchor-button/",
+          "type": "git",
+          "reference": "tags/v1.0.1"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "pressbooks/mce-table-buttons",
+        "version": "3.2.0",
+        "dist": {
+          "url": "https://github.com/pressbooks/mce-table-buttons/archive/v3.2.0.zip",
+          "type": "zip"
+        },
+        "source": {
+          "url": "https://github.com/pressbooks/mce-table-buttons/",
+          "type": "git",
+          "reference": "tags/v3.2.0"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "pressbooks/mce-superscript-subscript-buttons",
+        "version": "1.0.0",
+        "dist": {
+          "url": "https://github.com/pressbooks/mce-superscript-subscript-buttons/archive/v1.0.0.zip",
+          "type": "zip"
+        },
+        "source": {
+          "url": "https://github.com/pressbooks/mce-superscript-subscript-buttons/",
+          "type": "git",
+          "reference": "tags/v1.0.0"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "pressbooks/pressbooks-latex",
+        "version": "1.0.0",
+        "dist": {
+          "url": "https://github.com/pressbooks/pressbooks-latex/archive/v1.0.0.zip",
+          "type": "zip"
+        },
+        "source": {
+          "url": "https://github.com/pressbooks/pressbooks-latex/",
+          "type": "git",
+          "reference": "tags/v1.0.0"
+        }
+      }
+    }
+
   ],
   "require": {
     "php": ">=5.6.0",
@@ -57,7 +154,13 @@
     "vanilla/htmlawed": "dev-master",
     "gridonic/princexml-php": "dev-master",
     "pressbooks/saxon-he": "dev-master",
-    "pressbooks/search-regex": "1.4.16"
+    "pressbooks/search-regex": "1.4.16",
+    "pressbooks/custom-metadata": "0.8.1-dev",
+    "pressbooks/disable-comments": "1.0.0",
+    "pressbooks/mce-anchor-button": "1.0.1",
+    "pressbooks/mce-table-buttons": "3.2.0",
+    "pressbooks/mce-superscript-subscript-buttons": "1.0.0",
+    "pressbooks/pressbooks-latex": "1.0.0"
   },
   "require-dev": {
   },

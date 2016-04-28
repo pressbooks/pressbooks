@@ -23,7 +23,7 @@ require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-editor.php' );
-require( PB_PLUGIN_DIR . 'symbionts/pb-latex/pb-latex.php' );
+require( PB_PLUGIN_DIR . 'vendor/pressbooks/pressbooks-latex/pb-latex.php' );
 
 PressBooks\Utility\include_plugins();
 

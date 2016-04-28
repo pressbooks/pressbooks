@@ -375,6 +375,7 @@ function show_experimental_features( $host = null ) {
 function include_plugins() {
 	$symbionts = array(
 	    'custom-metadata/custom_metadata.php' => 1,
+			'search-regex/search-regex.php' => 1,
 	    'disable-comments/disable-comments.php' => 1,
 	    'mce-anchor-button/mce-anchor-button.php' => 1,
 	    'mce-table-buttons/mce_table_buttons.php' => 1,
@@ -386,18 +387,6 @@ function include_plugins() {
 	// Include plugins
 	if ( ! empty( $symbionts ) ) {
 		foreach ( $symbionts as $key => $val ) {
-			require_once( PB_PLUGIN_DIR . 'symbionts/' . $key);
-		}
-	}
-
-	$vendor = array(
-		'search-regex/search-regex.php' => 1
-	);
-
-	$vendor = filter_plugins( $vendor );
-
-	if ( ! empty( $vendor ) ) {
-		foreach ( $vendor as $key => $val ) {
 			require_once( PB_PLUGIN_DIR . 'vendor/pressbooks/' . $key);
 		}
 	}

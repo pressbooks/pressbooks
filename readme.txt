@@ -200,10 +200,11 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 
 == Changelog ==
 
-= 3.4 =
+= 3.4.0 =
 * Requires WordPress 4.5.1.
 * FEATURE: OpenDocument (beta) is now available as an export format.
 * ENHANCED: Plugin assets are now managed using Bower and compiled using gulp. Your Pressbooks dashboard will now load more efficiently (thanks to the @rootswp team for their development of this workflow).
+* ENHANCED: All symbionts except for that weird ICML one are now managed using Composer.
 * ENHANCED: `check_prince_install()` now tries to run `prince --version` instead of looking for the executable file.
 * FIXED: The Tweet button had stopped working, so we replaced our previous sharing script with @ellisonleao's excellent [sharer.js](https://github.com/ellisonleao/sharer.js/).
 * FIXED: Our fork of @johngodley's Search Regex plugin has been updated for PHP 7.0 compatibility (props to @r66r for the bug report).

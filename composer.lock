@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "67da725fd3e1a44655334e894550211f",
-    "content-hash": "1377c89393b09e514c485dc0807bd79c",
+    "hash": "5cceaa3f3f935b8e95ac0c5bc8ba735e",
+    "content-hash": "6e8d038c58c84c1917b36c0a0c4eeaed",
     "packages": [
         {
             "name": "composer/installers",
@@ -253,6 +253,103 @@
             "time": "2015-09-11 15:10:35"
         },
         {
+            "name": "pressbooks/custom-metadata",
+            "version": "0.8.1-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/custom-metadata/",
+                "reference": "tags/v0.8.1-dev"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/pressbooks/custom-metadata/archive/v0.8.1-dev.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library",
+            "time": "2016-04-28 02:50:35"
+        },
+        {
+            "name": "pressbooks/disable-comments",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/disable-comments/",
+                "reference": "tags/v1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
+        {
+            "name": "pressbooks/mce-anchor-button",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/mce-anchor-button/",
+                "reference": "tags/v1.0.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/pressbooks/mce-anchor-button/archive/v1.0.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
+        {
+            "name": "pressbooks/mce-superscript-subscript-buttons",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/mce-superscript-subscript-buttons/",
+                "reference": "tags/v1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/pressbooks/mce-superscript-subscript-buttons/archive/v1.0.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
+        {
+            "name": "pressbooks/mce-table-buttons",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/mce-table-buttons/",
+                "reference": "tags/v3.2.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/pressbooks/mce-table-buttons/archive/v3.2.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
+        {
+            "name": "pressbooks/pressbooks-latex",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/pressbooks-latex/",
+                "reference": "tags/v1.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/pressbooks/pressbooks-latex/archive/v1.0.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
+        {
             "name": "pressbooks/saxon-he",
             "version": "dev-master",
             "source": {
@@ -352,7 +449,8 @@
     "stability-flags": {
         "vanilla/htmlawed": 20,
         "gridonic/princexml-php": 20,
-        "pressbooks/saxon-he": 20
+        "pressbooks/saxon-he": 20,
+        "pressbooks/custom-metadata": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

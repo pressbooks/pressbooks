@@ -1,9 +1,10 @@
 ------------------------------------------------------------------------------
-About symbionts
+About Symbionts
 ------------------------------------------------------------------------------
 
 Symbionts are 3rd party open source vendors that may or may not be licensed
-under the GPLv2.
+under the GPLv2. Nearly all of these are now managed via Composer and thus are
+no longer found here, but rather in the /vendor directory.
 
 These additional libraries have their own licensing requirements and, as such,
 should not be directly modified by Pressbooks developers.
