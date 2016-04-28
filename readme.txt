@@ -5,7 +5,7 @@ Version: 3.4.0
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.5.1
 Tested up to: 4.5.1
-Stable tag: 3.3.2
+Stable tag: 3.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
