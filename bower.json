@@ -28,7 +28,8 @@
     "jquery.columnizer": "^1.6.2",
     "sidr": "^2.2.1",
     "js-cookie": "^2.1.1",
-    "matchHeight": "jquery-match-height#^0.7.0"
+    "matchHeight": "jquery-match-height#^0.7.0",
+    "sharer.js": "^0.2.15"
   },
   "overrides": {
     "select2": {

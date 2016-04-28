@@ -146,6 +146,9 @@
     },
     "js-cookie.js": {
       "bower": ["js-cookie"]
+    },
+    "sharer.js": {
+      "bower": ["sharer.js"]
     }
   },
   "paths": {

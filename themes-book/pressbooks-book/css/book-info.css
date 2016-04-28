@@ -1,4 +1,4 @@
-/************************************************************** 
+/**************************************************************
 * General styles
 **************************************************************/
 .clearfix:after {
@@ -13,16 +13,16 @@
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
 
 /* Paul Irish's box model http://paulirish.com/2012/box-sizing-border-box-ftw/ */
-* { 
-	-moz-box-sizing: border-box; 
-	-webkit-box-sizing: border-box; 
-	box-sizing: border-box; 
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body.home {
 	background: #fdfdfd;
 }
-/************************************************************** 
+/**************************************************************
 * Cover Page/ Book info page
 **************************************************************/
 .book-info-container {
@@ -34,17 +34,17 @@ body.home {
 	text-decoration: none;
 }
 .book-info-container h1,
-.book-info-container h2, 
-.book-info-container h3, 
+.book-info-container h2,
+.book-info-container h3,
 .book-info-container h4,
 .book-info-container h5 {
 	color: #fff;
 	font-family: 'Oswald', sans-serif;
 	font-style: normal;
 	font-variant: normal;
-	font-weight: normal;	
+	font-weight: normal;
 	margin-bottom: 20px;
-	text-align: left;	
+	text-align: left;
 }
 .book-info-container h1 {
 	font-size: 2.25em;
@@ -57,7 +57,7 @@ body.home {
 	font-size: 1.25em; /* 20/16 */
 }
 .book-info-container h4 {
-	font-size: 1.125em; /* 18/16 */ 
+	font-size: 1.125em; /* 18/16 */
 }
 .book-info-container h4 a {
 	font-weight: normal;
@@ -80,13 +80,13 @@ body.home {
 .book-info-container blockquote p + p {
 	margin-top: 0;
 	padding-top: 0;
-    padding-left: 40px;	
-} 
+    padding-left: 40px;
+}
 .book-info-container blockquote:before {
 	display: block;
 	float: left;
 	font-size: 100px; /* let's make it a big quote! */
-	content: "\201C"; 
+	content: "\201C";
 }
 .book-info-container ul, .book-info-container ol {
     list-style: disc outside none;
@@ -132,7 +132,7 @@ body.home {
 	font-style: normal;
 	font-weight: lighter;
 	margin-top: 5px;
-    margin-bottom: 15px;	
+    margin-bottom: 15px;
 	text-align: center;
 }
 .book-cover {
@@ -168,7 +168,7 @@ body.home {
 .call-to-action {
 	margin: 40px auto 0;
 	max-width: 285px;
-    text-align: center;	
+    text-align: center;
 }
 .btn {
 	box-shadow: 0 2px 2px rgba(0,0,0,0.1);
@@ -253,9 +253,9 @@ a:active.btn.black {
 .read-icon {
 	background: url(../images/sprite-book-info.png) -400px -198px no-repeat;
 	display: inline-block;
-	margin-right: 10px;	
+	margin-right: 10px;
 	width: 16px;
-	height: 16px;	
+	height: 16px;
 }
 .right-block {
 	 height: auto;
@@ -268,7 +268,7 @@ a:active.btn.black {
 	display: block;
 	margin: 0 auto;
 	max-width: 350px;
-	text-align: center;	
+	text-align: center;
 }
 .pressbooks-brand span {
 	display: none;
@@ -278,7 +278,7 @@ a:active.btn.black {
 	box-shadow: 0 10px 7px #aeaeae;
 	border: 0;
 	max-width: 100%;
-    padding: 0px;	
+    padding: 0px;
 }
 .second-block-wrap,
 .home .push {
@@ -310,7 +310,7 @@ a:active.btn.black {
 	font: 0.75em 'Oswald',sans-serif;
 	padding: 4px 10px;
 	text-transform: uppercase;
-	text-align: center;	
+	text-align: center;
 }
 .log-wrap a:hover {
 	background-color: #8D8D8D;
@@ -320,7 +320,7 @@ a:active.btn.black {
 	font-size: 1.1em;
 	font-style: normal;
 	font-variant: normal;
-	font-weight: bold;	
+	font-weight: bold;
 	margin-bottom: 10px;
 	margin-top: 1.2em;
 }
@@ -332,7 +332,7 @@ a:active.btn.black {
 }
 .description-book-info a {
 	color: #fff;
-	border-bottom: 1px dotted #fff;	
+	border-bottom: 1px dotted #fff;
 }
 .description-book-info a:hover {
 	background-color: #fff;
@@ -401,7 +401,7 @@ a.button-black:active {
 }
 .third-block a {
 	color: #333;
-	font-weight: lighter;	
+	font-weight: lighter;
 }
 .book-info-container ul.table-of-content  {
 	font-size: 0.875em;
@@ -418,7 +418,7 @@ a.button-black:active {
 .table-of-content ul {
 	margin-left: 10px;
 	list-style: none;
-	padding-left: 0;	
+	padding-left: 0;
 }
 .table-of-content .front-matter,
 .table-of-content .back-matter {
@@ -430,101 +430,66 @@ a.button-black:active {
 	min-height: 100px;
 }
 
-/************************************************************** 
-* Sharrre buttons
+/**************************************************************
+* Share buttons
 **************************************************************/
 #share{
-	font-family: 'Oswald', Arial, Helvetica, sans-serif;	
+	font-family: 'Oswald', Arial, Helvetica, sans-serif;
 }
-.sharrre{
-	margin:55px 0 0 50px;
-	float:left;
-}
-.sharrre .box a:hover{
-	text-decoration:none;
-}
-.sharrre .count {
-	color:#525b67;
-	display:block;
-	font-size:14px;
-	line-height:30px;
-	height:30px;
-	position:relative;
-	text-align:center;
-	width: 90px;
-	-webkit-border-radius:4px;
-	-moz-border-radius:4px;
-	border-radius:4px;
-	background: #fbfbfb;		
-}
-.sharrre .count:before, .sharrre .count:after {
-	content:'';
-	display:block;
-	position:absolute;
-	left:49%;
-	width:0;
-	height:0;
-}
-.sharrre .count:before {
-	border:solid 7px transparent;
-	border-top-color:#b2c6cc;
-	margin-left:-7px;
-	bottom: -14px;
-}
-.sharrre .count:after {
-	border:solid 6px transparent;
-	margin-left:-6px;
-	bottom:-12px;
-	border-top-color:#fbfbfb;
-}
-.sharrre .share {
-	color:#FFFFFF;
-	display:block;
-	font-size:14px;
-	height:30px;
-	line-height:32px;
-	margin-top:9px;
-	padding:0;
-	text-align:center;
-	text-decoration:none;
-	width: 90px;
-	-webkit-border-radius:4px;
-	-moz-border-radius:4px;
-	border-radius:4px;
-	border-bottom: none;	 
-}
-.sharrre a:hover.share {
+
+.sharer {
 	color: #fff;
+	display: block;
+	float: left;
+	font-size: 14px;
+	height: 30px;
+	line-height: 32px;
+	margin: 55px 0 0 50px;
+	padding: 0;
+	text-align: center;
+	text-decoration: none;
+	width: 90px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	border: 0;
+	cursor: pointer;
+	-moz-appearance: none;
+	-webkit-appearance: none;
 }
-#twitter .share {
+
+.sharer:before {
+	background-repeat: no-repeat;
+	content: "";
+  display: block;
+  height: 30px;
+  line-height: 0;
+  position: absolute;
+  width: 25px;
+}
+
+#twitter.sharer {
 	background-color: #00acee;
-    padding-left: 15px; 	
+  padding-left: 15px;
 }
-#twitter .share:before {
-	background: url(../images/twitter-icon.png) 0 9px no-repeat;
-	content: "";
-    display: block;
-    height: 30px;
-    line-height: 0;    
-    position: absolute;
-    width: 25px;	
+
+#twitter.sharer:before {
+	background-image: url(../images/twitter-icon.png);
+	background-position: 0 9px;
 }
-#facebook .share { 
+
+#facebook.sharer {
 	background-color: #34609d;
-    padding-left: 10px; 	
+  padding-left: 10px;
 }
-#facebook .share:before {
-	background: url(../images/facebook-icon.png) 7px 7px no-repeat;
-	content: "";
-    display: block;
-    height: 30px;
-    line-height: 0;    
-    position: absolute;
-    width: 25px;	
+#facebook.sharer:before {
+	background-image: url(../images/facebook-icon.png);
+	background-position: 7px 7px;
 }
-#googleplus .share {
-	background-color: #c73719;	
+#googleplus.sharer {
+	background-color: #c73719;
 }
+
 .private-block {
 	margin: auto;
 	padding-top: 15%;
@@ -541,7 +506,7 @@ a.button-black:active {
 	.log-wrap a {
 		display: block;
 		margin-bottom: 3px;
-	}	
+	}
 }
 @media screen and (max-width: 990px) {
 	.right-block {
@@ -569,23 +534,23 @@ a.button-black:active {
 		overflow: hidden;
 		width: auto;
 	}
-	.second-block-wrap, 
-	.third-block-wrap, 
+	.second-block-wrap,
+	.third-block-wrap,
 	.fourth-block-wrap {
 		padding: 1em 0;
 	}
 	#share {
 	    margin: 30px auto;
 		overflow: hidden;
-		width: 350px;	
+		width: 350px;
 	}
-	.sharrre {
+	.sharer {
 		margin: 0 20px;
 	}
-	.sharrre:first-child {
+	.sharer:first-child {
 		margin-left: 0;
 	}
-	.sharrre:last-child {
+	.sharer:last-child {
 		margin-right: 0;
 	}
 	.third-block {
@@ -608,12 +573,12 @@ a.button-black:active {
 		max-width: 75%;
 		width: auto;
 	}
-	.second-block-wrap, 
-	.third-block-wrap, 
+	.second-block-wrap,
+	.third-block-wrap,
 	.fourth-block-wrap {
 		padding: 1em 0;
 	}
-}	
+}
 @media screen and (max-width: 620px) {
 	.book-info,
 	.description-book-info,
@@ -632,26 +597,26 @@ a.button-black:active {
 		min-height: 75px;
 		width: 100%;
 	}
-	.right-block:after, 
-	.right-block:before { 
-		top: 100%; border: solid transparent; 
-		content: " "; height: 0; width: 0; 
-		position: absolute; 
-		pointer-events: none; 
-	} 
-	.right-block:after { 
-		border-color: rgba(65, 64, 66, 0); 
-		border-top-color: #414042; 
-		border-width: 20px; 
-		left: 50%; 
-		margin-left: -20px; 
-	} 
-	.right-block:before { 
-		border-color: rgba(229, 231, 232, 0); 
-		border-top-color: #E5E7E8; 
-		border-width: 27px; 
-		left: 50%; 
-		margin-left: -27px; 
+	.right-block:after,
+	.right-block:before {
+		top: 100%; border: solid transparent;
+		content: " "; height: 0; width: 0;
+		position: absolute;
+		pointer-events: none;
+	}
+	.right-block:after {
+		border-color: rgba(65, 64, 66, 0);
+		border-top-color: #414042;
+		border-width: 20px;
+		left: 50%;
+		margin-left: -20px;
+	}
+	.right-block:before {
+		border-color: rgba(229, 231, 232, 0);
+		border-top-color: #E5E7E8;
+		border-width: 27px;
+		left: 50%;
+		margin-left: -27px;
 	}
 	.pressbooks-brand {
 		display: block;
@@ -663,7 +628,7 @@ a.button-black:active {
 	.pressbooks-brand span {
 		color: #fff;
 		display: block;
-		font: 1.2em/1.3 'Oswald', sans-serif;		
+		font: 1.2em/1.3 'Oswald', sans-serif;
 		padding: 30px 0 12px 10px;
 		text-align: center;
 	}
@@ -681,7 +646,7 @@ a.button-black:active {
 	}
 	.book-info-container blockquote {
 		width: 100%;
-	}	
+	}
 }
 @media screen and (max-width: 390px) {
 	.btn.red {
@@ -704,5 +669,3 @@ a.button-black:active {
 		text-align: center;
 	}
 }
-
-
