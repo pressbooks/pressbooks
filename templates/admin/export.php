@@ -55,7 +55,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 
 <div class="export-left">
 	<p><input id="pb-export-button" type="button" class="button button-hero button-primary generate" value="<?php esc_attr_e( 'Export Your Book', 'pressbooks' ); ?>" /></p>
-	<p id="loader"><img src="<?php echo PB_PLUGIN_URL; ?>assets/images/loader.gif" alt="Exporting..." width="128" height="15" /></p>
+	<p id="loader"><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Exporting..." width="128" height="15" /></p>
 	<?php
 	$c = 0; // start counter
 	$files = \PressBooks\Utility\group_exports();

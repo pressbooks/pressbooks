@@ -15,7 +15,7 @@ function custom_login_logo() {
 <link rel="stylesheet" type="text/css" href="<?php echo \PressBooks\Utility\asset_path( 'styles/colors-pb.css' ); ?>" media="screen" />
 <style type="text/css">
 .login h1 a {
-  background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/PB-logo.svg);
+  background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/dist/images/PB-logo.svg);
   background-size: 276px 40px;
   width: 276px;
   height: 40px; }
@@ -25,7 +25,7 @@ function custom_login_logo() {
   color: #d4002d; }
 
 .no-svg .login h1 a {
-  background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/images/PB-logo.png); }
+  background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/dist/images/PB-logo.png); }
 </style>
 <?php }
 
