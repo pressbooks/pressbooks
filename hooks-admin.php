@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) )
 
 require( PB_PLUGIN_DIR . 'includes/admin/pb-dashboard.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-laf.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-plugins.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-analytics.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-metaboxes.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-customcss.php' );
@@ -44,6 +45,7 @@ if ( \PressBooks\Book::isBook() ) {
 	add_action( 'wp_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\PressBooks\Admin\Laf\customize_register', 1000 );
+	add_filter( 'all_plugins', '\PressBooks\Admin\Plugins\filter_plugins' );
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\PressBooks\Admin\Laf\fix_root_admin_menu', 1 );
@@ -51,6 +53,9 @@ if ( \PressBooks\Book::isBook() ) {
 
 if ( is_network_admin() ) {
 	add_action( 'wp_network_dashboard_setup', '\PressBooks\Admin\Dashboard\replace_network_dashboard_widgets' );
+	add_action( 'install_plugins_tabs', '\PressBooks\Admin\Plugins\filter_install_plugins_tabs' );
+	add_action( 'install_plugins_pressbooks', '\PressBooks\Admin\Plugins\install_plugins' );
+	add_filter( 'install_plugins_table_api_args_pressbooks', '\PressBooks\Admin\Plugins\install_plugins_table_api_args_pressbooks');
 }
 
 if ( true == is_main_site() ) {

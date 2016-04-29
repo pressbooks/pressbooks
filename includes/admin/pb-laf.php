@@ -76,7 +76,6 @@ function replace_book_admin_menu() {
 	remove_submenu_page( "tools.php", "import.php" );
 	remove_submenu_page( "tools.php", "export.php" );
 	remove_submenu_page( "tools.php", "ms-delete-site.php" );
-	remove_menu_page( "plugins.php" );
 
 	remove_submenu_page( "edit.php?post_type=chapter", "edit.php?post_type=chapter" );
 
@@ -586,7 +585,6 @@ function redirect_away_from_bad_urls() {
 		'nav-menus',
 		'options-(discussion|media|permalink|reading|writing)',
 		'plugin-(install|editor)',
-		'plugins',
 		'theme-editor',
 		'update-core',
 		'widgets',
