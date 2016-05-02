@@ -35,22 +35,6 @@
     {
       "type": "package",
       "package": {
-        "name": "pressbooks/search-regex",
-        "version": "1.4.16",
-        "dist": {
-          "url": "https://github.com/pressbooks/search-regex/archive/v1.4.16.zip",
-          "type": "zip"
-        },
-        "source": {
-          "url": "https://github.com/pressbooks/search-regex/",
-          "type": "git",
-          "reference": "tags/v1.4.16"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
         "name": "pressbooks/custom-metadata",
         "version": "0.8.1-dev",
         "dist": {
@@ -154,7 +138,6 @@
     "vanilla/htmlawed": "dev-master",
     "gridonic/princexml-php": "dev-master",
     "pressbooks/saxon-he": "dev-master",
-    "pressbooks/search-regex": "1.4.16",
     "pressbooks/custom-metadata": "0.8.1-dev",
     "pressbooks/disable-comments": "1.0.0",
     "pressbooks/mce-anchor-button": "1.0.1",

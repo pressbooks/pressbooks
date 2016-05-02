@@ -16,7 +16,6 @@ Operative verb is "should," the following libs have been patched/forked by Press
 * custom-metadata (https://github.com/pressbooks/custom-metadata)
 * disable-comments (https://github.com/pressbooks/disable-comments)
 * mce-table-buttons (https://github.com/pressbooks/mce-table-buttons)
-* search-regex (https://github.com/pressbooks/search-regex)
 
 ------------------------------------------------------------------------------
 
