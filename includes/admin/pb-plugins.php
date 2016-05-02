@@ -15,9 +15,11 @@ namespace PressBooks\Admin\Plugins;
  */
 
 function filter_plugins( $plugins ) {
-	foreach ( $plugins as $slug => $value ) {
-		if ( false === strpos( $slug, 'pressbooks-' ) )
-			unset( $plugins[$slug] );
+	if ( ! is_super_admin() ) {
+		foreach ( $plugins as $slug => $value ) {
+			if ( false === strpos( $slug, 'pressbooks-' ) )
+				unset( $plugins[$slug] );
+		}
 	}
 
 	return $plugins;
