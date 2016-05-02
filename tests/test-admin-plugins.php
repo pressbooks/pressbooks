@@ -5,7 +5,7 @@ require_once( PB_PLUGIN_DIR . 'includes/admin/pb-plugins.php' );
 class Admin_PluginsTest extends \WP_UnitTestCase {
 
 	/**
-	 * @covers \PressBooks\Admin\Plugins\filter_plugins
+	 * @covers \Pressbooks\Admin\Plugins\filter_plugins
 	 */
 	public function test_filter_plugins() {
 		$plugins = array(
@@ -31,25 +31,25 @@ class Admin_PluginsTest extends \WP_UnitTestCase {
 				'AuthorName' => 'Brad Payne'
 			)
 		);
-		$filtered_plugins = \PressBooks\Admin\Plugins\filter_plugins( $plugins );
+		$filtered_plugins = \Pressbooks\Admin\Plugins\filter_plugins( $plugins );
 		$this->assertArrayHasKey('pressbooks-textbook/pressbooks-textbook.php', $filtered_plugins);
 	}
 
 	/**
-	 * @covers \PressBooks\Admin\Plugins\filter_install_plugins_tabs
+	 * @covers \Pressbooks\Admin\Plugins\filter_install_plugins_tabs
 	 */
 	public function test_filter_install_plugins_tabs() {
 		$tabs = array();
-		$tabs = \PressBooks\Admin\Plugins\filter_install_plugins_tabs( $tabs );
+		$tabs = \Pressbooks\Admin\Plugins\filter_install_plugins_tabs( $tabs );
 		$this->assertArrayHasKey('pressbooks', $tabs);
 	}
 
 	/**
-	 * @covers \PressBooks\Admin\Plugins\install_plugins_table_api_args_pressbooks
+	 * @covers \Pressbooks\Admin\Plugins\install_plugins_table_api_args_pressbooks
 	 */
 	public function test_install_plugins_table_api_args_pressbooks() {
 		$args = array();
-		$args = \PressBooks\Admin\Plugins\install_plugins_table_api_args_pressbooks( $args );
+		$args = \Pressbooks\Admin\Plugins\install_plugins_table_api_args_pressbooks( $args );
 		$this->assertEquals('pressbooks', $args['tag']);
 	}
 

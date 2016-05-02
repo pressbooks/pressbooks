@@ -5,10 +5,12 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Admin\Plugins;
+namespace Pressbooks\Admin\Plugins;
 
 /**
  * Hide plugins that aren't prefixed with `pressbooks-` (only applies to books).
+ * To show all plugins to all users, place the following in a plugin that loads before Pressbooks:
+ * `remove_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );`
  *
  * @param array $plugins
  * @return array $plugins
