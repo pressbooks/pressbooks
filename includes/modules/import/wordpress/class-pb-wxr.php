@@ -3,11 +3,11 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Modules\Import\WordPress;
+namespace Pressbooks\Modules\Import\WordPress;
 
 
-use PressBooks\Modules\Import\Import;
-use PressBooks\Book;
+use Pressbooks\Modules\Import\Import;
+use Pressbooks\Book;
 
 class Wxr extends Import {
 
@@ -225,7 +225,7 @@ class Wxr extends Import {
 	 */
 	protected function bookInfoPid() {
 
-		$post = ( new \PressBooks\Metadata() )->getMetaPost();
+		$post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		if ( empty( $post->ID ) ) {
 			$new_post = array(
 				'post_title' => __( 'Book Info', 'pressbooks' ),
@@ -245,7 +245,7 @@ class Wxr extends Import {
 	 * Insert a new post
 	 *
 	 * @param string $post_type Post Type
-	 * @param array $p Single Item Returned From \PressBooks\Modules\Import\WordPress\Parser::parse
+	 * @param array $p Single Item Returned From \Pressbooks\Modules\Import\WordPress\Parser::parse
 	 * @param string $html
 	 * @param int $chapter_parent
 	 *
@@ -279,7 +279,7 @@ class Wxr extends Import {
 	 *
 	 * @param int $pid Post ID
 	 * @param string $post_type Post Type
-	 * @param array $p Single Item Returned From \PressBooks\Modules\Import\WordPress\Parser::parse
+	 * @param array $p Single Item Returned From \Pressbooks\Modules\Import\WordPress\Parser::parse
 	 */
 	protected function importPbPostMeta($pid, $post_type, $p) {
 
@@ -307,10 +307,10 @@ class Wxr extends Import {
 	}
 
 	/**
-	 * @see \PressBooks\Admin\Metaboxes\add_meta_boxes
+	 * @see \Pressbooks\Admin\Metaboxes\add_meta_boxes
 	 *
 	 * @param int $pid Post ID
-	 * @param array $p Single Item Returned From \PressBooks\Modules\Import\WordPress\Parser::parse
+	 * @param array $p Single Item Returned From \Pressbooks\Modules\Import\WordPress\Parser::parse
 	 */
 	protected function importMetaBoxes( $pid, $p ) {
 
@@ -446,12 +446,12 @@ class Wxr extends Import {
 			return '';
 		}
 
-		if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 
 			try { // changing the file name so that extension matches the mime type
 				$filename = $this->properImageExtension( $tmp_name, $filename );
 
-				if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
 			} catch ( \Exception $exc ) {

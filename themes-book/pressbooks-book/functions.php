@@ -33,11 +33,11 @@ function pressbooks_book_info_page () {
 		wp_enqueue_style( 'book-info-fonts', 'https://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700' );
 
 		// Book info page Table of Content columns
-		wp_enqueue_script( 'columnizer',  \PressBooks\Utility\asset_path( 'scripts/columnizer.js' ), [ 'jquery' ] );
+		wp_enqueue_script( 'columnizer',  \Pressbooks\Utility\asset_path( 'scripts/columnizer.js' ), [ 'jquery' ] );
 		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '20130819', false );
 
 		// Sharer.js
-		wp_enqueue_script( 'sharer', \PressBooks\Utility\asset_path( 'scripts/sharer.js' ) );
+		wp_enqueue_script( 'sharer', \Pressbooks\Utility\asset_path( 'scripts/sharer.js' ) );
 	}
 }
 add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
@@ -63,9 +63,9 @@ function pb_enqueue_scripts() {
 		// Use default stylesheet as base (to avoid horribly broken webbook)
 		$deps = array( 'pressbooks' );
 		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
-			$fullpath = \PressBooks\Container::get('Sass')->pathToUserGeneratedCss() . '/style.css';
-			if ( is_file( $fullpath ) && \PressBooks\Container::get('Sass')->isCurrentThemeCompatible() ) { // SASS theme & custom webbook style has been generated
-				wp_register_style( 'pressbooks-theme', \PressBooks\Container::get('Sass')->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
+			$fullpath = \Pressbooks\Container::get('Sass')->pathToUserGeneratedCss() . '/style.css';
+			if ( is_file( $fullpath ) && \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible() ) { // SASS theme & custom webbook style has been generated
+				wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get('Sass')->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
 				wp_enqueue_style( 'pressbooks-theme' );
 			} else { // Use the bundled stylesheet
 				wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', $deps, null, 'screen, print' );
@@ -202,7 +202,7 @@ endif;
 function pressbooks_copyright_license() {
 
 	$option = get_option( 'pressbooks_theme_options_global' );
-	$book_meta = \PressBooks\Book::getBookInformation();
+	$book_meta = \Pressbooks\Book::getBookInformation();
 
 	// if they don't want to see it, return
 	// at minimum we need book copyright information set
@@ -259,7 +259,7 @@ function pressbooks_copyright_license() {
 	if ( false === $transient || true == $changed ) {
 
 		// get xml response from API
-		$response = \PressBooks\Metadata::getLicenseXml( $license, $copyright_holder, $link, $title, $lang );
+		$response = \Pressbooks\Metadata::getLicenseXml( $license, $copyright_holder, $link, $title, $lang );
 
 		try {
 			// convert to object
@@ -270,7 +270,7 @@ function pressbooks_copyright_license() {
 				throw new \Exception( 'Creative Commons license API not returning expected results at Pressbooks\Metadata::getLicenseXml' );
 			} else {
 				// process the response, return html
-				$html = \PressBooks\Metadata::getWebLicenseHtml( $result->html );
+				$html = \Pressbooks\Metadata::getWebLicenseHtml( $result->html );
 			}
 		} catch ( \Exception $e ) {
 			error_log( $e->getMessage() );
@@ -308,10 +308,10 @@ function pressbooks_theme_options_display() { ?>
 		<h2 class="nav-tab-wrapper">
 		<a href="?page=pressbooks_theme_options&tab=global_options" class="nav-tab <?php echo $active_tab == 'global_options' ? 'nav-tab-active' : ''; ?>">Global Options</a>
 		<a href="?page=pressbooks_theme_options&tab=web_options" class="nav-tab <?php echo $active_tab == 'web_options' ? 'nav-tab-active' : ''; ?>">Web Options</a>
-		<?php if( true == \PressBooks\Utility\check_prince_install() ){ ?>
+		<?php if( true == \Pressbooks\Utility\check_prince_install() ){ ?>
 		<a href="?page=pressbooks_theme_options&tab=pdf_options" class="nav-tab <?php echo $active_tab == 'pdf_options' ? 'nav-tab-active' : ''; ?>">PDF Options</a>
 		<?php } ;?>
-		<?php if ( true == \PressBooks\Modules\Export\Mpdf\Pdf::isInstalled() ) { ?>
+		<?php if ( true == \Pressbooks\Modules\Export\Mpdf\Pdf::isInstalled() ) { ?>
 		<a href="?page=pressbooks_theme_options&tab=mpdf_options" class="nav-tab <?php echo $active_tab == 'mpdf_options' ? 'nav-tab-active' : ''; ?>">mPDF Options</a>
 		<?php } ?>
 		<a href="?page=pressbooks_theme_options&tab=ebook_options" class="nav-tab <?php echo $active_tab == 'ebook_options' ? 'nav-tab-active' : ''; ?>">Ebook Options</a>
@@ -533,8 +533,8 @@ function pressbooks_theme_global_typography_callback( $args ) {
 		$foreign_languages = array();
 	}
 
-	$languages = \PressBooks\Container::get( 'GlobalTypography' )->getSupportedLanguages();
-	$already_supported_languages = \PressBooks\Container::get( 'GlobalTypography' )->getThemeSupportedLanguages();
+	$languages = \Pressbooks\Container::get( 'GlobalTypography' )->getSupportedLanguages();
+	$already_supported_languages = \Pressbooks\Container::get( 'GlobalTypography' )->getThemeSupportedLanguages();
 	$already_supported_languages_string = '';
 
 	$i = 1;
@@ -738,7 +738,7 @@ add_action( 'admin_init', 'pressbooks_theme_options_web_init' );
  * PDF Options Tab
  * ------------------------------------------------------------------------ */
 
-use PressBooks\CustomCss;
+use Pressbooks\CustomCss;
 
 // PDF Options Registration
 function pressbooks_theme_options_pdf_init() {

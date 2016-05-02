@@ -5,7 +5,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Utility;
+namespace Pressbooks\Utility;
 
 
 /**
@@ -42,7 +42,7 @@ function group_exports( $dir = null ) {
 	$ignored = array( '.', '..', '.svn', '.git', '.htaccess' );
 
 	if ( ! $dir ) {
-		$dir = \PressBooks\Modules\Export\Export::getExportFolder();
+		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
 	}
 	else {
 		$dir = rtrim( $dir, '/' ) . '/';
@@ -83,7 +83,7 @@ function group_exports( $dir = null ) {
 function truncate_exports( $max, $dir = null ) {
 
 	if ( ! $dir ) {
-		$dir = \PressBooks\Modules\Export\Export::getExportFolder();
+		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
 	}
 	else {
 		$dir = rtrim( $dir, '/' ) . '/';

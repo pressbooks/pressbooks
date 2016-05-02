@@ -4,7 +4,7 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Modules\Import;
+namespace Pressbooks\Modules\Import;
 
 
 require_once( ABSPATH . 'wp-admin/includes/image.php' );
@@ -76,7 +76,7 @@ abstract class Import {
 			unlink( $current_import['file'] );
 		}
 
-		\PressBooks\Book::deleteBookObjectCache();
+		\Pressbooks\Book::deleteBookObjectCache();
 		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 
 		return delete_option( 'pressbooks_current_import' );
@@ -234,7 +234,7 @@ abstract class Import {
 		// Revoke
 		if ( @$_GET['revoke'] && check_admin_referer( 'pb-revoke-import' ) ) {
 			self::revokeCurrentImport();
-			\PressBooks\Redirect\location( $redirect_url );
+			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
 
@@ -280,7 +280,7 @@ abstract class Import {
 			if ( $ok ) {
 				// Success! Redirect to organize page
 				$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pressbooks' );
-				\PressBooks\Redirect\location( $success_url );
+				\Pressbooks\Redirect\location( $success_url );
 			}
 
 		} elseif ( @$_GET['import'] && ! @empty( $_FILES['import_file']['name'] ) && @$_POST['type_of'] && check_admin_referer( 'pb-import' ) ) {
@@ -304,7 +304,7 @@ abstract class Import {
 			if ( ! empty( $upload['error'] ) ) {
 				// Error, redirect back to form
 				$_SESSION['pb_notices'][] = $upload['error'];
-				\PressBooks\Redirect\location( $redirect_url );
+				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
 			$ok = false;
@@ -346,7 +346,7 @@ abstract class Import {
 			// check if it's a valid url
 			if ( false == filter_var( $_POST['import_html'], FILTER_VALIDATE_URL ) ) {
 				$_SESSION['pb_errors'][] = __( 'Your URL does not appear to be valid', 'pressbooks' );
-				\PressBooks\Redirect\location( $redirect_url );
+				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
 			// HEAD request, check for a valid response from server
@@ -354,21 +354,21 @@ abstract class Import {
 
 			// Something failed
 			if ( is_wp_error( $remote_head ) ) {
-				error_log( '\PressBooks\Modules\Import::formSubmit html import error, wp_remote_head()' . $remote_head->get_error_message() );
+				error_log( '\Pressbooks\Modules\Import::formSubmit html import error, wp_remote_head()' . $remote_head->get_error_message() );
 				$_SESSION['pb_errors'][] = $remote_head->get_error_message();
-				\PressBooks\Redirect\location( $redirect_url );
+				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
 			// weebly.com (and likely some others) prevent HEAD requests, but allow GET requests
 			if ( 200 !== $remote_head['response']['code'] && 405 !== $remote_head['response']['code'] ) {
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ' . $remote_head['response']['code'] , 'pressbooks' );
-				\PressBooks\Redirect\location( $redirect_url );
+				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
 			// ensure the media type is HTML (not JSON, or something we can't deal with)
 			if ( false === strpos( $remote_head['headers']['content-type'], 'text/html' ) && false === strpos( $remote_head['headers']['content-type'], 'application/xhtml+xml')) {
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
-				\PressBooks\Redirect\location( $redirect_url );
+				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
 			// GET http request
@@ -377,15 +377,15 @@ abstract class Import {
 			// check for wp error
 			if ( is_wp_error( $body ) ) {
 				$error_message = $body->get_error_message();
-				error_log( '\PressBooks\Modules\Import::formSubmit error, import_html' . $error_message );
+				error_log( '\Pressbooks\Modules\Import::formSubmit error, import_html' . $error_message );
 				$_SESSION['pb_errors'][] = $error_message;
-				\PressBooks\Redirect\location( $redirect_url );
+				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
 			// check for a successful response code on GET request
 			if ( 200 !== $body['response']['code'] ){
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ' . $body['response']['code'] , 'pressbooks' );
-				\PressBooks\Redirect\location( $redirect_url );
+				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
 			// add our url
@@ -404,7 +404,7 @@ abstract class Import {
 			}
 		}
 		// Default, back to form
-		\PressBooks\Redirect\location( $redirect_url );
+		\Pressbooks\Redirect\location( $redirect_url );
 	}
 
 
@@ -458,7 +458,7 @@ abstract class Import {
 
 		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
 
-		\PressBooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
+		\Pressbooks\Utility\email_error_log( self::$logsEmail, $subject, $message );
 	}
 
 

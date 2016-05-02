@@ -5,14 +5,14 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Admin\Branding;
+namespace Pressbooks\Admin\Branding;
 
 /**
  * Add Custom Login Graphic
  */
 function custom_login_logo() {
     ?>
-<link rel="stylesheet" type="text/css" href="<?php echo \PressBooks\Utility\asset_path( 'styles/colors-pb.css' ); ?>" media="screen" />
+<link rel="stylesheet" type="text/css" href="<?php echo \Pressbooks\Utility\asset_path( 'styles/colors-pb.css' ); ?>" media="screen" />
 <style type="text/css">
 .login h1 a {
   background-image: url(<?php echo PB_PLUGIN_URL; ?>assets/dist/images/PB-logo.svg);

@@ -3,7 +3,7 @@
  * @author   Pressbooks <code@pressbooks.com>
  * @license  GPLv2 (or any later version)
  */
-namespace PressBooks\Shortcodes\Footnotes;
+namespace Pressbooks\Shortcodes\Footnotes;
 
 
 class Footnotes {
@@ -96,7 +96,7 @@ class Footnotes {
 		$num = count( $footnotes );
 		$numlabel = "$id-$num";
 
-		$retval = '<a class="footnote" title="' . \PressBooks\Sanitize\sanitize_xml_attribute( wp_strip_all_tags( $content ) ) . '" id="return-footnote-' . $numlabel . '" href="#footnote-' . $numlabel . '"><sup class="footnote">[';
+		$retval = '<a class="footnote" title="' . \Pressbooks\Sanitize\sanitize_xml_attribute( wp_strip_all_tags( $content ) ) . '" id="return-footnote-' . $numlabel . '" href="#footnote-' . $numlabel . '"><sup class="footnote">[';
 
 		if ( $this->numbered[$id] ) {
 			$retval .= $num;
@@ -188,7 +188,7 @@ class Footnotes {
 	 * Quicktag buttons for text mode editor
 	 */
 	function myCustomQuicktags() {
-		wp_enqueue_script( 'my_custom_quicktags', \PressBooks\Utility\asset_path( 'scripts/quicktags.js' ), ['quicktags'] );
+		wp_enqueue_script( 'my_custom_quicktags', \Pressbooks\Utility\asset_path( 'scripts/quicktags.js' ), ['quicktags'] );
 	}
 
 
@@ -216,8 +216,8 @@ class Footnotes {
 	 */
 	function addFootnotePlugin( $plugin_array ) {
 
-		$plugin_array['footnote'] = \PressBooks\Utility\asset_path( 'scripts/footnote.js' );
-		$plugin_array['ftnref_convert'] = \PressBooks\Utility\asset_path( 'scripts/ftnref-convert.js' );
+		$plugin_array['footnote'] = \Pressbooks\Utility\asset_path( 'scripts/footnote.js' );
+		$plugin_array['ftnref_convert'] = \Pressbooks\Utility\asset_path( 'scripts/ftnref-convert.js' );
 
 		return $plugin_array;
 	}
@@ -301,7 +301,7 @@ class Footnotes {
 					'i' => array(),
 					'strong' => array(),
 				) );
-				$tmp = \PressBooks\Sanitize\remove_control_characters( $tmp );
+				$tmp = \Pressbooks\Sanitize\remove_control_characters( $tmp );
 				$tmp = trim( preg_replace( '/\s+/', ' ', $tmp ) ); // Normalize white spaces
 
 				$find[] = str_replace( '__REPLACE_ME__', preg_quote( $footnote[2] ), $replacers[$i] );

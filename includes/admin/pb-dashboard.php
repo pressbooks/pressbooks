@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Admin\Dashboard;
+namespace Pressbooks\Admin\Dashboard;
 
 /**
  *  Remove unwanted network Dashboard widgets, add our news feed.
@@ -87,7 +87,7 @@ function replace_dashboard_widgets() {
  */
 function display_book_widget() {
 
-	$book_structure = \PressBooks\Book::getBookStructure();
+	$book_structure = \Pressbooks\Book::getBookStructure();
 
 	// front-matter
 	echo "<ul><li><h4>" . __( 'Front Matter', 'pressbooks' ) . "</h4></li><ul>";

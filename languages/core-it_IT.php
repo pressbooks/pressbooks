@@ -17,7 +17,7 @@ $overrides = array(
 	'Create a New Site' => 'Crea un nuovo libro',
 );
 
-if ( \PressBooks\Book::isBook() ) {
+if ( \Pressbooks\Book::isBook() ) {
 	$overrides['Visit Site'] = 'Vedi libro';
 	$overrides['Edit Site'] = 'Modifica libro';
 }

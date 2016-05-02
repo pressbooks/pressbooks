@@ -9,7 +9,7 @@
  * @author   Pressbooks <code@pressbooks.com>
  * @license  GPLv2 (or any later version)
  */
-namespace PressBooks\Shortcodes\Wikipublisher;
+namespace Pressbooks\Shortcodes\Wikipublisher;
 
 
 class Glyphs {

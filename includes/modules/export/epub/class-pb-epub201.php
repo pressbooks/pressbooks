@@ -3,12 +3,12 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Modules\Export\Epub;
+namespace Pressbooks\Modules\Export\Epub;
 
 
-use PressBooks\Modules\Export\Export;
-use PressBooks\Container;
-use PressBooks\Sanitize;
+use Pressbooks\Modules\Export\Export;
+use Pressbooks\Container;
+use Pressbooks\Sanitize;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
 
@@ -231,8 +231,8 @@ class Epub201 extends Export {
 
 		// Convert
 
-		$metadata = \PressBooks\Book::getBookInformation();
-		$book_contents = $this->preProcessBookContents( \PressBooks\Book::getBookContents() );
+		$metadata = \Pressbooks\Book::getBookInformation();
+		$book_contents = $this->preProcessBookContents( \Pressbooks\Book::getBookContents() );
 
 		// Set two letter language code
 		if ( isset( $metadata['pb_language'] ) ) {
@@ -450,7 +450,7 @@ class Epub201 extends Export {
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
 			'deny_attribute' => 'itemscope,itemtype,itemref,itemprop',
-			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
+			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 			'tidy' => -1,
 			'comment' => 1,
 		);
@@ -702,10 +702,10 @@ class Epub201 extends Export {
 
 		// Resize Image
 
-		if ( ! empty( $metadata['pb_cover_image'] ) && ! \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
-			$source_path = \PressBooks\Utility\get_media_path( $metadata['pb_cover_image'] );
+		if ( ! empty( $metadata['pb_cover_image'] ) && ! \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
+			$source_path = \Pressbooks\Utility\get_media_path( $metadata['pb_cover_image'] );
 		} else {
-			$source_path = \PressBooks\Image\default_cover_path();
+			$source_path = \Pressbooks\Image\default_cover_path();
 		}
 		$dest_image = sanitize_file_name( basename( $source_path ) );
 		$dest_image = Sanitize\force_ascii( $dest_image );
@@ -782,7 +782,7 @@ class Epub201 extends Export {
 					continue; // Skip
 
 				$id = $front_matter['ID'];
-				$subclass = \PressBooks\Taxonomy\front_matter_type( $id );
+				$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
 
 				if ( $compare != $subclass )
 					continue; //Skip
@@ -835,7 +835,7 @@ class Epub201 extends Export {
 				continue; // Skip
 
 			$id = $front_matter['ID'];
-			$subclass = \PressBooks\Taxonomy\front_matter_type( $id );
+			$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
 
 			if ( 'title-page' != $subclass )
 				continue; // Skip
@@ -981,7 +981,7 @@ class Epub201 extends Export {
 					continue; // Skip
 
 				$id = $front_matter['ID'];
-				$subclass = \PressBooks\Taxonomy\front_matter_type( $id );
+				$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
 
 				if ( $compare != $subclass )
 					continue; //Skip
@@ -1047,7 +1047,7 @@ class Epub201 extends Export {
 				continue; // Skip
 
 			$id = $front_matter['ID'];
-			$subclass = \PressBooks\Taxonomy\front_matter_type( $id );
+			$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
 
 			if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass )
 				continue; // Skip
@@ -1063,11 +1063,11 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
-				$sections = \PressBooks\Book::getSubsections( $id );
+			if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+				$sections = \Pressbooks\Book::getSubsections( $id );
 
 				if ( $sections ) {
-					$content = \PressBooks\Book::tagSubsections( $content, $id );
+					$content = \Pressbooks\Book::tagSubsections( $content, $id );
 				}
 			}
 
@@ -1198,7 +1198,7 @@ class Epub201 extends Export {
 
 				$chapter_printf_changed = '';
 				$id = $chapter['ID'];
-				$subclass = \PressBooks\Taxonomy\chapter_type( $id );
+				$subclass = \Pressbooks\Taxonomy\chapter_type( $id );
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
 				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
@@ -1207,11 +1207,11 @@ class Epub201 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
-					$sections = \PressBooks\Book::getSubsections( $id );
+				if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+					$sections = \Pressbooks\Book::getSubsections( $id );
 
 					if ( $sections ) {
-						$content = \PressBooks\Book::tagSubsections( $content, $id );
+						$content = \Pressbooks\Book::tagSubsections( $content, $id );
 					}
 				}
 
@@ -1272,7 +1272,7 @@ class Epub201 extends Export {
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
 					$invisibility,
 					$slug,
-					( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
+					( $this->numbered ? ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) : '' ),
 					Sanitize\decode( $part['post_title'] ),
 					$part_content );
 
@@ -1303,7 +1303,7 @@ class Epub201 extends Export {
 						( $part_printf_changed ? $part_printf_changed : $part_printf ),
 						$invisibility,
 						$slug,
-						( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
+						( $this->numbered ? ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) : '' ),
 						Sanitize\decode( $part['post_title'] ),
 						$part_content );
 
@@ -1334,7 +1334,7 @@ class Epub201 extends Export {
 							( $part_printf_changed ? $part_printf_changed : $part_printf ),
 							$invisibility,
 							$slug,
-							( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
+							( $this->numbered ? ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) : '' ),
 							Sanitize\decode( $part['post_title'] ),
 							$part_content );
 
@@ -1395,7 +1395,7 @@ class Epub201 extends Export {
 				continue; // Skip
 
 			$id = $back_matter['ID'];
-			$subclass = \PressBooks\Taxonomy\back_matter_type( $id );
+			$subclass = \Pressbooks\Taxonomy\back_matter_type( $id );
 			$slug = $back_matter['post_name'];
 			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $back_matter['post_title'] : '' );
 			$content = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
@@ -1404,11 +1404,11 @@ class Epub201 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
-				$sections = \PressBooks\Book::getSubsections( $id );
+			if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+				$sections = \Pressbooks\Book::getSubsections( $id );
 
 				if ( $sections ) {
-					$content = \PressBooks\Book::tagSubsections( $content, $id );
+					$content = \Pressbooks\Book::tagSubsections( $content, $id );
 				}
 			}
 
@@ -1506,7 +1506,7 @@ class Epub201 extends Export {
 			$title = Sanitize\strip_br( $v['post_title'] );
 			if ( preg_match( '/^front-matter-/', $k ) ) {
 				$class = 'front-matter ';
-				$class .= \PressBooks\Taxonomy\front_matter_type( $v['ID'] );
+				$class .= \Pressbooks\Taxonomy\front_matter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
@@ -1516,17 +1516,17 @@ class Epub201 extends Export {
 					$class .= ' display-none';
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
 				$class = 'chapter';
-				$class .= \PressBooks\Taxonomy\chapter_type( $v['ID'] );
+				$class .= \Pressbooks\Taxonomy\chapter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
-				if ( $this->numbered && \PressBooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) {
+				if ( $this->numbered && \Pressbooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) {
 					$title = " $i. " . $title;
 				}
-				if ( \PressBooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) ++$i;
+				if ( \Pressbooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) ++$i;
 			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
 				$class = 'back-matter ';
-				$class .= \PressBooks\Taxonomy\back_matter_type( $v['ID'] );
+				$class .= \Pressbooks\Taxonomy\back_matter_type( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
@@ -1547,8 +1547,8 @@ class Epub201 extends Export {
 
 			$html .= "</a>";
 
-			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
-				$sections = \PressBooks\Book::getSubsections( $v['ID'] );
+			if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+				$sections = \Pressbooks\Book::getSubsections( $v['ID'] );
 				if ( $sections ) {
 					$html .= '<ul class="sections">';
 					foreach ( $sections as $id => $title ) {
@@ -1734,10 +1734,10 @@ class Epub201 extends Export {
 			$filename = Sanitize\force_ascii( $filename );
 		}
 
-		$tmp_file = \PressBooks\Utility\create_tmp_file();
+		$tmp_file = \Pressbooks\Utility\create_tmp_file();
 		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
-		if ( ! \PressBooks\Image\is_valid_image( $tmp_file, $filename ) ) {
+		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$this->fetchedImageCache[$url] = '';
 			return ''; // Not an image
 		}
@@ -1745,7 +1745,7 @@ class Epub201 extends Export {
 		if ( $this->compressImages ) {
 			$format = explode( '.', $filename );
 			$format = strtolower( end( $format ) ); // Extension
-			\PressBooks\Image\resize_down( $format, $tmp_file );
+			\Pressbooks\Image\resize_down( $format, $tmp_file );
 		}
 
 		// Check for duplicates, save accordingly
@@ -1792,7 +1792,7 @@ class Epub201 extends Export {
 		$filename = sanitize_file_name( urldecode( $filename ) );
 		$filename = Sanitize\force_ascii( $filename );
 
-		$tmp_file = \PressBooks\Utility\create_tmp_file();
+		$tmp_file = \Pressbooks\Utility\create_tmp_file();
 		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		// TODO: Validate that this is actually a font
@@ -1861,7 +1861,7 @@ class Epub201 extends Export {
 
 			// Canonicalize, fix typos, remove garbage
 			if ( '#' != @$current_url[0] ) {
-				$url->setAttribute( 'href', \PressBooks\Sanitize\canonicalize_url( $current_url ) );
+				$url->setAttribute( 'href', \Pressbooks\Sanitize\canonicalize_url( $current_url ) );
 			}
 
 		}
@@ -1949,7 +1949,7 @@ class Epub201 extends Export {
 		if ( ! $last_part )
 			return false;
 
-		$lookup = \PressBooks\Book::getBookStructure();
+		$lookup = \Pressbooks\Book::getBookStructure();
 		$lookup = $lookup['__export_lookup'];
 
 		if ( ! isset( $lookup[$last_part] ) )

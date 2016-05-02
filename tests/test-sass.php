@@ -4,7 +4,7 @@ class SassTest extends \WP_UnitTestCase {
 
 
   /**
-	 * @var \PressBooks\Sass()
+	 * @var \Pressbooks\Sass()
 	 */
 	protected $sass;
 
@@ -14,12 +14,12 @@ class SassTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->sass = new \PressBooks\Sass();
+		$this->sass = new \Pressbooks\Sass();
 	}
 
 
   /**
-   * @covers \PressBooks\Sass::getStringsToLocalize
+   * @covers \Pressbooks\Sass::getStringsToLocalize
    */
   public function test_getStringsToLocalize() {
 
@@ -34,7 +34,7 @@ class SassTest extends \WP_UnitTestCase {
   }
 
   /**
-   * @covers \PressBooks\Sass::prependLocalizedVars
+   * @covers \Pressbooks\Sass::prependLocalizedVars
    */
   public function test_prependLocalizedVars() {
 

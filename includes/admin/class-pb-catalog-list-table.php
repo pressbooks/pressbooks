@@ -3,9 +3,9 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Admin;
+namespace Pressbooks\Admin;
 
-use \PressBooks\Catalog;
+use \Pressbooks\Catalog;
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
 	require( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
@@ -245,9 +245,9 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc'; // If no order, default to asc
 		if ( isset( $_REQUEST['orderby'] ) && isset( $valid_cols[$_REQUEST['orderby']] ) ) {
-			$data = \PressBooks\Utility\multi_sort( $data, "{$_REQUEST['orderby']}:$order" );
+			$data = \Pressbooks\Utility\multi_sort( $data, "{$_REQUEST['orderby']}:$order" );
 		} else {
-			$data = \PressBooks\Utility\multi_sort( $data, 'status:desc', 'title:asc' ); // Default
+			$data = \Pressbooks\Utility\multi_sort( $data, 'status:desc', 'title:asc' ); // Default
 		}
 
 		// Pagination

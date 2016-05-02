@@ -7,7 +7,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks;
+namespace Pressbooks;
 
 
 class Book {
@@ -110,7 +110,7 @@ class Book {
 			}
 
 			// Remove invisible control characters that break XML
-			$val = \PressBooks\Sanitize\remove_control_characters( $val );
+			$val = \Pressbooks\Sanitize\remove_control_characters( $val );
 
 			$book_information[$key] = $val;
 		}
@@ -123,7 +123,7 @@ class Book {
 			}
 			$author = get_user_by( 'email', get_bloginfo( 'admin_email' ) );
 			$book_information['pb_author'] = isset( $author->display_name ) ? $author->display_name : '';
-			$book_information['pb_cover_image'] = \PressBooks\Image\default_cover_url();
+			$book_information['pb_cover_image'] = \Pressbooks\Image\default_cover_url();
 		}
 
 		// -----------------------------------------------------------------------------

@@ -4,7 +4,7 @@
 class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 
 	/**
-	 * @var \PressBooks\Shortcodes\Wikipublisher\Glyphs
+	 * @var \Pressbooks\Shortcodes\Wikipublisher\Glyphs
 	 */
 	protected $glyphs;
 
@@ -15,7 +15,7 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->glyphs = $this->getMockBuilder( '\PressBooks\Shortcodes\Wikipublisher\Glyphs' )
+		$this->glyphs = $this->getMockBuilder( '\Pressbooks\Shortcodes\Wikipublisher\Glyphs' )
 			->setMethods( null )// pass null to setMethods() to avoid mocking any method
 			->disableOriginalConstructor()// disable private constructor
 			->getMock();
@@ -23,8 +23,8 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
-	 * @covers \PressBooks\Shortcodes\Wikipublisher\Glyphs::greek
+	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
+	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::greek
 	 */
 	public function test_lang_shortcode_grk() {
 
@@ -47,8 +47,8 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
-	 * @covers \PressBooks\Shortcodes\Wikipublisher\Glyphs::hebrew
+	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
+	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::hebrew
 	 */
 	public function test_lang_shortcode_he() {
 
@@ -63,7 +63,7 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
+	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
 	 */
 	public function test_lang_shortcode_bad() {
 

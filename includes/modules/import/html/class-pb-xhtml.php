@@ -5,10 +5,10 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Modules\Import\Html;
+namespace Pressbooks\Modules\Import\Html;
 
-use PressBooks\Modules\Import\Import;
-use PressBooks\Book;
+use Pressbooks\Modules\Import\Import;
+use Pressbooks\Book;
 
 class Xhtml extends Import {
 
@@ -386,12 +386,12 @@ class Xhtml extends Import {
 			return '';
 		}
 
-		if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 
 			try { // changing the file name so that extension matches the mime type
 				$filename = $this->properImageExtension( $tmp_name, $filename );
 
-				if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
 			} catch ( \Exception $exc ) {
@@ -460,7 +460,7 @@ class Xhtml extends Import {
 		    'safe' => 1,
 		    'valid_xhtml' => 1,
 		    'no_deprecated_attr' => 2,
-		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
+		    'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
 		return \Htmlawed::filter( $html, $config );

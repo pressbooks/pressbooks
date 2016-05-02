@@ -5,7 +5,7 @@
  * @license GPLv2 (or any later version))
  */
 
-namespace PressBooks\Modules\Export\Mpdf;
+namespace Pressbooks\Modules\Export\Mpdf;
 
 /**
  * Available filters
@@ -33,7 +33,7 @@ namespace PressBooks\Modules\Export\Mpdf;
  *
  */
 
-use \PressBooks\Modules\Export\Export;
+use \Pressbooks\Modules\Export\Export;
 
 class Pdf extends Export {
 
@@ -118,7 +118,7 @@ class Pdf extends Export {
 		$this->globalOptions = get_option( 'pressbooks_theme_options_global' );
 		$this->bookTitle = get_bloginfo( 'name' );
 		$this->exportStylePath = $this->getExportStylePath( 'mpdf' );
-		$this->bookMeta = \PressBooks\Book::getBookInformation();
+		$this->bookMeta = \Pressbooks\Book::getBookInformation();
 		$this->numbered = ( 1 == $this->globalOptions['chapter_numbers'] ) ? true : false;
 	}
 
@@ -356,7 +356,7 @@ class Pdf extends Export {
 				return;
 			}
 
-			if ( $type == \PressBooks\Taxonomy\front_matter_type( $page['ID'] ) ) {
+			if ( $type == \Pressbooks\Taxonomy\front_matter_type( $page['ID'] ) ) {
 				$page['mpdf_omit_toc'] = true;
 				$this->addPage( $page, $page_options, false, false );
 			}
@@ -380,7 +380,7 @@ class Pdf extends Export {
 
 		foreach ( $contents as $front_matter ) {
 			// safety
-			$type = \PressBooks\Taxonomy\front_matter_type( $front_matter['ID'] );
+			$type = \Pressbooks\Taxonomy\front_matter_type( $front_matter['ID'] );
 			if ( 'dedication' == $type || 'epigraph' == $type || 'title-page' == $type || 'before-title' == $type )
 					continue; // Skip
 
@@ -486,7 +486,7 @@ class Pdf extends Export {
 		// allow override
 		$entry = apply_filters( 'mpdf_get_toc_entry', $page );
 		// sanitize
-		$entry = \PressBooks\Sanitize\filter_title( $entry );
+		$entry = \Pressbooks\Sanitize\filter_title( $entry );
 
 		return $entry;
 	}
@@ -523,7 +523,7 @@ class Pdf extends Export {
 		    'valid_xhtml' => 1,
 		    'no_deprecated_attr' => 2,
 		    'unique_ids' => 'fixme-',
-		    'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
+		    'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		    'tidy' => -1,
 		);
 
@@ -562,7 +562,7 @@ class Pdf extends Export {
 		// override
 		$footer = apply_filters( 'mpdf_get_footer', $content );
 		// sanitize
-		$footer = \PressBooks\Sanitize\filter_title( $footer );
+		$footer = \Pressbooks\Sanitize\filter_title( $footer );
 
 		return $footer;
 	}
@@ -585,13 +585,13 @@ class Pdf extends Export {
 		// override
 		$header = apply_filters( 'mpdf_get_header', $content );
 		//sanitize
-		$header = \PressBooks\Sanitize\filter_title( $header );
+		$header = \Pressbooks\Sanitize\filter_title( $header );
 
 		return $header;
 	}
 
 	/**
-	 * Restructures \PressBooks\Book::getBookContents() into a format more useful
+	 * Restructures \Pressbooks\Book::getBookContents() into a format more useful
 	 * for direct iteration, and tracks a nesting level for Bookmark and ToC
 	 * entries.
 	 *
@@ -599,7 +599,7 @@ class Pdf extends Export {
 	 */
 	function getOrderedBookContents() {
 
-		$book_contents = \PressBooks\Book::getBookContents();
+		$book_contents = \Pressbooks\Book::getBookContents();
 
 		$ordered = array();
 
@@ -630,8 +630,8 @@ class Pdf extends Export {
 								$chapter['mpdf_level'] = $part['mpdf_level'] + 1;
 								$ordered[] = $chapter;
 
-								if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
-									$sections = \PressBooks\Book::getSubsections( $chapter['ID'] );
+								if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+									$sections = \Pressbooks\Book::getSubsections( $chapter['ID'] );
 									if ( $sections ) {
 										foreach ( $sections as $section ) {
 											$section['mpdf_level'] = $part['mpdf_level'] + 2;
@@ -652,8 +652,8 @@ class Pdf extends Export {
 						$item['mpdf_level'] = 1;
 						$ordered[] = $item;
 
-						if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
-							$sections = \PressBooks\Book::getSubsections( $item['ID'] );
+						if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+							$sections = \Pressbooks\Book::getSubsections( $item['ID'] );
 							if ( $sections ) {
 								foreach ( $sections as $section ) {
 									$section['mpdf_level'] = 2;

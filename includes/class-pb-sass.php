@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks;
+namespace Pressbooks;
 
 
 class Sass {
@@ -95,7 +95,7 @@ class Sass {
 
 		$wp_upload_dir = wp_upload_dir();
 		$upload_dir = $wp_upload_dir['baseurl'] . '/css';
-		$upload_dir = \PressBooks\Sanitize\maybe_https( $upload_dir );
+		$upload_dir = \Pressbooks\Sanitize\maybe_https( $upload_dir );
 		return $upload_dir;
 	}
 
@@ -241,7 +241,7 @@ class Sass {
 
 		$message = print_r( array_merge( $info ), true );
 
-		\PressBooks\Utility\email_error_log(
+		\Pressbooks\Utility\email_error_log(
 			$this->errorsEmail,
 			$subject,
 			$message

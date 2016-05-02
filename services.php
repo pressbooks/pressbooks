@@ -5,11 +5,11 @@
 $c = new \Pimple\Container();
 
 $c['Sass'] = function () {
-	return new \PressBooks\Sass();
+	return new \Pressbooks\Sass();
 };
 
 $c['GlobalTypography'] = function() {
-	return new \PressBooks\GlobalTypography();
+	return new \Pressbooks\GlobalTypography();
 };
 
 return $c;

@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks;
+namespace Pressbooks;
 
 
 class CustomCss {
@@ -51,8 +51,8 @@ class CustomCss {
 	/**
 	 * Returns the latest "custom-css" post
 	 *
-	 * @see \PressBooks\Activation::wpmuActivate
-	 * @see \PressBooks\Metadata::upgradeCustomCss
+	 * @see \Pressbooks\Activation::wpmuActivate
+	 * @see \Pressbooks\Metadata::upgradeCustomCss
 	 *
 	 * @param string $slug post_name
 	 *
@@ -96,7 +96,7 @@ class CustomCss {
 	 */
 	static function getCustomCssFolder() {
 
-		$path = \PressBooks\Utility\get_media_prefix() . 'custom-css/';
+		$path = \Pressbooks\Utility\get_media_prefix() . 'custom-css/';
 		if ( ! file_exists( $path ) ) {
 			mkdir( $path, 0775, true );
 		}
@@ -154,8 +154,8 @@ class CustomCss {
 
 			if ( @$_POST['post_id_integrity'] != md5( NONCE_KEY . @$_POST['post_id'] ) ) {
 				// A hacker trying to overwrite posts?.
-				error_log( '\PressBooks\CustomCss::formSubmit error: unexpected value for post_id_integrity' );
-				\PressBooks\Redirect\location( $redirect_url . '&customcss_error=true' );
+				error_log( '\Pressbooks\CustomCss::formSubmit error: unexpected value for post_id_integrity' );
+				\Pressbooks\Redirect\location( $redirect_url . '&customcss_error=true' );
 			}
 
 			// Write to database
@@ -167,8 +167,8 @@ class CustomCss {
 
 			if ( is_wp_error( $response ) ) {
 				// Something went wrong?
-				error_log( '\PressBooks\CustomCss::formSubmit error, wp_update_post(): ' . $response->get_error_message() );
-				\PressBooks\Redirect\location( $redirect_url . '&customcss_error=true' );
+				error_log( '\Pressbooks\CustomCss::formSubmit error, wp_update_post(): ' . $response->get_error_message() );
+				\Pressbooks\Redirect\location( $redirect_url . '&customcss_error=true' );
 			}
 
 			// Write to file
@@ -180,7 +180,7 @@ class CustomCss {
 			update_option( 'pressbooks_last_custom_css', time() );
 
 			// Ok!
-			\PressBooks\Redirect\location( $redirect_url );
+			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
 	}

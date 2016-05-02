@@ -6,7 +6,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
-	 * @var \PressBooks\Shortcodes\Footnotes\Footnotes
+	 * @var \Pressbooks\Shortcodes\Footnotes\Footnotes
 	 */
 	protected $fn;
 
@@ -17,7 +17,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->fn = $this->getMockBuilder( '\PressBooks\Shortcodes\Footnotes\footnotes' )
+		$this->fn = $this->getMockBuilder( '\Pressbooks\Shortcodes\Footnotes\footnotes' )
 			->setMethods( null )// pass null to setMethods() to avoid mocking any method
 			->disableOriginalConstructor()// disable private constructor
 			->getMock();
@@ -25,18 +25,18 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::getInstance
+	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::getInstance
 	 */
 	public function test_getInstance() {
 
 		$val = $this->fn->getInstance();
 
-		$this->assertTrue( $val instanceof \PressBooks\Shortcodes\Footnotes\Footnotes );
+		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Footnotes\Footnotes );
 	}
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::shortcodeHandler
+	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::shortcodeHandler
 	 */
 	public function test_shortcodeHandler_numbered() {
 
@@ -59,7 +59,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::shortcodeHandler
+	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::shortcodeHandler
 	 */
 	public function test_shortcodeHandler_notNumbered() {
 
@@ -80,7 +80,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::footnoteContent
+	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::footnoteContent
 	 */
 	public function test_footnoteContent_numbered() {
 
@@ -103,7 +103,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::footnoteContent
+	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::footnoteContent
 	 */
 	public function test_footnoteContent_notNumbered() {
 
@@ -126,7 +126,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::myCustomQuicktags
+	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::myCustomQuicktags
 	 */
 	public function test_myCustomQuicktags() {
 
@@ -137,7 +137,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::registerFootnoteButtons
+	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::registerFootnoteButtons
 	 */
 	public function test_registerFootnoteButtons() {
 
@@ -148,7 +148,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::addFootnotePlugin
+	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::addFootnotePlugin
 	 */
 	public function test_addFootnotePlugin() {
 
@@ -159,14 +159,14 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::ajaxFailure
+	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::ajaxFailure
 	 */
 	public function test_ajaxFailure() {
 
 		$this->_fakeAjax();
 
 		ob_start();
-		\PressBooks\Shortcodes\Footnotes\Footnotes::ajaxFailure( 'foobar' );
+		\Pressbooks\Shortcodes\Footnotes\Footnotes::ajaxFailure( 'foobar' );
 		$buffer = ob_get_clean();
 
 		$this->assertContains( 'foobar', $buffer );
@@ -174,7 +174,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes
+	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes
 	 */
 	public function test_convertWordFootnotes() {
 
@@ -183,7 +183,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 		// Test invalid permissions
 
 		ob_start();
-		\PressBooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes();
+		\Pressbooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes();
 		$buffer = ob_get_clean();
 		$this->assertContains( __( 'Invalid permissions.', 'pressbooks' ), $buffer );
 
@@ -195,7 +195,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 		$_POST['content'] = 'Hello world!';
 
 		ob_start();
-		\PressBooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes();
+		\Pressbooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes();
 		$buffer = ob_get_clean();
 		$this->assertJson( $buffer );
 

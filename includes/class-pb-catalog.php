@@ -6,7 +6,7 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks;
+namespace Pressbooks;
 
 
 class Catalog {
@@ -192,12 +192,12 @@ class Catalog {
 				// Cover Full
 				if ( $meta_version < 7 ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
 				elseif ( empty( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-				elseif ( \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-				else $cover = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
+				elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				else $cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
 				$data[$i]['cover_url']['full'] = $cover;
 
 				// Cover Thumbnails
-				$cid = \PressBooks\Image\attachment_id_from_url( $cover );
+				$cid = \Pressbooks\Image\attachment_id_from_url( $cover );
 				foreach ( $cover_sizes as $size => $default ) {
 					$cid_thumb = wp_get_attachment_image_src( $cid, $size );
 					if ( $cid_thumb ) {
@@ -249,12 +249,12 @@ class Catalog {
 			// Cover Full
 			if ( $meta_version < 7 ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
 			elseif ( empty( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-			elseif ( \PressBooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-			else $cover = \PressBooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
+			elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+			else $cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
 			$data[$i]['cover_url']['full'] = $cover;
 
 			// Cover Thumbnails
-			$cid = \PressBooks\Image\attachment_id_from_url( $cover );
+			$cid = \Pressbooks\Image\attachment_id_from_url( $cover );
 			foreach ( $cover_sizes as $size => $default ) {
 				$cid_thumb = wp_get_attachment_image_src( $cid, $size );
 				if ( $cid_thumb ) {
@@ -656,7 +656,7 @@ class Catalog {
 				continue; // Skip, dev should use uploadLogo() instead
 
 			if ( 'pb_catalog_url' == $key && $val )
-				$val = \PressBooks\Sanitize\canonicalize_url( $val );
+				$val = \Pressbooks\Sanitize\canonicalize_url( $val );
 
 			if ( '%d' == $this->profileMetaKeys[$key] ) {
 				$val = (int) $val;
@@ -700,7 +700,7 @@ class Catalog {
 
 		// Delete old images
 		foreach ( $old as $old_url ) {
-			$old_id = \PressBooks\Image\attachment_id_from_url( $old_url );
+			$old_id = \Pressbooks\Image\attachment_id_from_url( $old_url );
 			if ( $old_id ) wp_delete_attachment( $old_id, true );
 		}
 
@@ -846,7 +846,7 @@ class Catalog {
 	 */
 	static function tagsToString( array $tags ) {
 
-		$tags = \PressBooks\Utility\multi_sort( $tags, 'tag:asc' );
+		$tags = \Pressbooks\Utility\multi_sort( $tags, 'tag:asc' );
 
 		$str = '';
 		foreach ( $tags as $tag ) {
@@ -871,7 +871,7 @@ class Catalog {
 		$book = get_active_blog_for_user( $user_id );
 		if ( $book ) {
 			switch_to_blog( $book->blog_id );
-			$image_url = \PressBooks\Image\thumbnail_from_url( $image_url, $size );
+			$image_url = \Pressbooks\Image\thumbnail_from_url( $image_url, $size );
 			restore_current_blog();
 		}
 
@@ -1012,10 +1012,10 @@ class Catalog {
 			switch_to_blog( $book->blog_id );
 
 			// Delete old images
-			$old_id = \PressBooks\Image\attachment_id_from_url( $image_url );
+			$old_id = \Pressbooks\Image\attachment_id_from_url( $image_url );
 			if ( $old_id ) wp_delete_attachment( $old_id, true );
 
-			update_user_meta( $user_id, 'pb_catalog_logo', \PressBooks\Image\default_cover_url() );
+			update_user_meta( $user_id, 'pb_catalog_logo', \Pressbooks\Image\default_cover_url() );
 
 			restore_current_blog();
 		}
@@ -1053,7 +1053,7 @@ class Catalog {
 			if ( ! empty( $_REQUEST['user_id'] ) ) {
 				$redirect_url .= '&user_id=' . $_REQUEST['user_id'];
 			}
-			\PressBooks\Redirect\location( $redirect_url );
+			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
 		// Make an educated guess as to who's catalog we are editing
@@ -1090,7 +1090,7 @@ class Catalog {
 		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
 
 		// Redirect back to form
-		\PressBooks\Redirect\location( $redirect_url );
+		\Pressbooks\Redirect\location( $redirect_url );
 	}
 
 
@@ -1138,7 +1138,7 @@ class Catalog {
 		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
 
 		// Redirect back to form
-		\PressBooks\Redirect\location( $redirect_url );
+		\Pressbooks\Redirect\location( $redirect_url );
 	}
 
 
@@ -1175,7 +1175,7 @@ class Catalog {
 		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
 
 		// Redirect back to form
-		\PressBooks\Redirect\location( $redirect_url );
+		\Pressbooks\Redirect\location( $redirect_url );
 	}
 
 
@@ -1196,12 +1196,12 @@ class Catalog {
 			$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		}
 
-		$url = parse_url( \PressBooks\Sanitize\canonicalize_url( $_REQUEST['add_book_by_url'] ) );
+		$url = parse_url( \Pressbooks\Sanitize\canonicalize_url( $_REQUEST['add_book_by_url'] ) );
 		$main = parse_url( network_site_url() );
 
 		if ( strpos( $url['host'], $main['host'] ) === false ) {
 			$_SESSION['pb_errors'][] = __( 'Invalid URL.', 'pressbooks' );
-			\PressBooks\Redirect\location( $redirect_url );
+			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
 		if ( $url['host'] == $main['host'] ) {
@@ -1221,12 +1221,12 @@ class Catalog {
 		$book_id = get_id_from_blogname( $slug );
 		if ( ! $book_id ) {
 			$_SESSION['pb_errors'][] = __( 'No book found.', 'pressbooks' );
-			\PressBooks\Redirect\location( $redirect_url );
+			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
 //		if ( ! get_blog_option( $book_id, 'blog_public' ) ) {
 //			$_SESSION['pb_errors'][] = __( 'Book is not public', 'pressbooks' );
-//			\PressBooks\Redirect\location( $redirect_url );
+//			\Pressbooks\Redirect\location( $redirect_url );
 //		}
 
 		$catalog->saveBook( $book_id, array() );
@@ -1236,7 +1236,7 @@ class Catalog {
 		$_SESSION['pb_notices'][] = __( 'Settings saved.' );
 
 		// Redirect back to form
-		\PressBooks\Redirect\location( $redirect_url );
+		\Pressbooks\Redirect\location( $redirect_url );
 	}
 
 

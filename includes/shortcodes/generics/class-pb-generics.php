@@ -3,7 +3,7 @@
  * @author   Pressbooks <code@pressbooks.com>
  * @license  GPLv2 (or any later version)
  */
-namespace PressBooks\Shortcodes\Generics;
+namespace Pressbooks\Shortcodes\Generics;
 
 class Generics {
 

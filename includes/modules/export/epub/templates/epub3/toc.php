@@ -1,6 +1,6 @@
 <?php
 
-// @see: \PressBooks\Modules\Export\Export loadTemplate()
+// @see: \Pressbooks\Modules\Export\Export loadTemplate()
 
 if ( ! defined( 'ABSPATH' ) )
 	exit;
@@ -31,7 +31,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 					}
 
 					if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) !== 'on' ) {
-						$text = strip_tags( \PressBooks\Sanitize\decode( $v['post_title'] ) );
+						$text = strip_tags( \Pressbooks\Sanitize\decode( $v['post_title'] ) );
 						if ( ! $text ) $text = ' ';
 
 						if ( preg_match( '/^part-/', $k ) ) {

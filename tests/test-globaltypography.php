@@ -5,7 +5,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
-	 * @var \PressBooks\GlobalTypography()
+	 * @var \Pressbooks\GlobalTypography()
 	 */
 	protected $gt;
 
@@ -15,12 +15,12 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->gt = new \PressBooks\GlobalTypography();
+		$this->gt = new \Pressbooks\GlobalTypography();
 	}
 
 
 	/**
-	 * @covers \PressBooks\GlobalTypography::getSupportedLanguages
+	 * @covers \Pressbooks\GlobalTypography::getSupportedLanguages
 	 */
 	public function test_getSupportedLanguages() {
 
@@ -35,11 +35,11 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\GlobalTypography::getThemeFontStacks
+	 * @covers \Pressbooks\GlobalTypography::getThemeFontStacks
 	 *
-	 * @covers \PressBooks\GlobalTypography::updateGlobalTypographyMixin
-	 * @covers \PressBooks\GlobalTypography::_sassify
-	 * @covers \PressBooks\GlobalTypography::_getBookLanguage
+	 * @covers \Pressbooks\GlobalTypography::updateGlobalTypographyMixin
+	 * @covers \Pressbooks\GlobalTypography::_sassify
+	 * @covers \Pressbooks\GlobalTypography::_getBookLanguage
 	 */
 	public function test_getThemeFontStacks() {
 
@@ -53,7 +53,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\GlobalTypography::getThemeSupportedLanguages
+	 * @covers \Pressbooks\GlobalTypography::getThemeSupportedLanguages
 	 */
 	public function test_getThemeSupportedLanguages() {
 
@@ -65,7 +65,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\GlobalTypography::updateWebBookStyleSheet
+	 * @covers \Pressbooks\GlobalTypography::updateWebBookStyleSheet
 	 */
 	public function test_updateWebBookStyleSheet() {
 
@@ -81,7 +81,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 	
 
 	/**
-	 * @covers \PressBooks\GlobalTypography::fixWebFonts
+	 * @covers \Pressbooks\GlobalTypography::fixWebFonts
 	 */
 	public function test_fixWebFonts() {
 

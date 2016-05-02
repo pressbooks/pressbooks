@@ -3,11 +3,11 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version))
  */
-namespace PressBooks\Modules\Export\Prince;
+namespace Pressbooks\Modules\Export\Prince;
 
 
-use PressBooks\Modules\Export\Export;
-use PressBooks\Container;
+use Pressbooks\Modules\Export\Export;
+use Pressbooks\Container;
 use PrinceXMLPhp\PrinceWrapper;
 
 class Pdf extends Export {

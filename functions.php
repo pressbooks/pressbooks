@@ -8,62 +8,62 @@
 
 
 /**
- * Shortcut to \PressBooks\Book::get( 'prev' );
+ * Shortcut to \Pressbooks\Book::get( 'prev' );
  *
  * @return string URL of previous post
  */
 function pb_get_prev() {
 
-	return \PressBooks\Book::get( 'prev' );
+	return \Pressbooks\Book::get( 'prev' );
 }
 
 
 /**
- * Shortcut to \PressBooks\Book::get( 'next' );
+ * Shortcut to \Pressbooks\Book::get( 'next' );
  *
  * @return string URL of next post
  */
 function pb_get_next() {
 
-	return \PressBooks\Book::get( 'next' );
+	return \Pressbooks\Book::get( 'next' );
 }
 
 
 /**
- * Shortcut to \PressBooks\Book::get( 'first' );
+ * Shortcut to \Pressbooks\Book::get( 'first' );
  *
  * @return string URL of first post
  */
 function pb_get_first() {
 
-	return \PressBooks\Book::get( 'first' );
+	return \Pressbooks\Book::get( 'first' );
 }
 
 
 /**
- * Shortcut to \PressBooks\Book::getBookInformation();
+ * Shortcut to \Pressbooks\Book::getBookInformation();
  *
  * @return array
  */
 function pb_get_book_information() {
 
-	return \PressBooks\Book::getBookInformation();
+	return \Pressbooks\Book::getBookInformation();
 }
 
 
 /**
- * Shortcut to \PressBooks\Book::getBookStructure();
+ * Shortcut to \Pressbooks\Book::getBookStructure();
  *
  * @return array
  */
 function pb_get_book_structure() {
 
-	return \PressBooks\Book::getBookStructure();
+	return \Pressbooks\Book::getBookStructure();
 }
 
 
 /**
- * Shortcut to \PressBooks\Sanitize\decode();
+ * Shortcut to \Pressbooks\Sanitize\decode();
  *
  * @param $val
  *
@@ -71,11 +71,11 @@ function pb_get_book_structure() {
  */
 function pb_decode( $val ) {
 
-	return \PressBooks\Sanitize\decode( $val );
+	return \Pressbooks\Sanitize\decode( $val );
 }
 
 /**
- * Shortcut to \PressBooks\Sanitize\strip_br();
+ * Shortcut to \Pressbooks\Sanitize\strip_br();
  *
  * @param $val
  *
@@ -83,55 +83,55 @@ function pb_decode( $val ) {
  */
 function pb_strip_br( $val ) {
 
-	return \PressBooks\Sanitize\strip_br( $val );
+	return \Pressbooks\Sanitize\strip_br( $val );
 }
 
 
 /**
- * Shortcut to \PressBooks\CustomCss::isCustomCss();
+ * Shortcut to \Pressbooks\CustomCss::isCustomCss();
  *
  * @return bool
  */
 function pb_is_custom_theme() {
 
-	return \PressBooks\CustomCss::isCustomCss();
+	return \Pressbooks\CustomCss::isCustomCss();
 }
 
 /**
- * Shortcut to \PressBooks\Modules\Export::isScss();
+ * Shortcut to \Pressbooks\Modules\Export::isScss();
  *
  * @return bool
  */
 function pb_is_scss() {
 
-	return \PressBooks\Container::get('Sass')->isCurrentThemeCompatible();
+	return \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible();
 }
 
 
 /**
- * Shortcut to \PressBooks\Metadata::getSeoMetaElements();
+ * Shortcut to \Pressbooks\Metadata::getSeoMetaElements();
  * 
  * @return string
  */
 function pb_get_seo_meta_elements() {
 
-	return \PressBooks\Metadata::getSeoMetaElements();
+	return \Pressbooks\Metadata::getSeoMetaElements();
 }
 
 /**
- * Shortcut to \PressBooks\Metadata::getMicrodataElements();
+ * Shortcut to \Pressbooks\Metadata::getMicrodataElements();
  * 
  * @return string
  */
 function pb_get_microdata_elements() {
 
-	return \PressBooks\Metadata::getMicrodataElements();
+	return \Pressbooks\Metadata::getMicrodataElements();
 }
 
 /**
  * Get url to the custom stylesheet for web.
  *
- * @see: \PressBooks\CustomCss
+ * @see: \Pressbooks\CustomCss
  * @return string
  */
 function pb_get_custom_stylesheet_url() {
@@ -150,7 +150,7 @@ function pb_get_custom_stylesheet_url() {
 /**
  * Check if custom stylesheet for web already imports pressbooks-book/style.css
  *
- * @see: \PressBooks\CustomCss
+ * @see: \Pressbooks\CustomCss
  * @return bool
  */
 function pb_custom_stylesheet_imports_base() {
@@ -189,7 +189,7 @@ function pb_get_chapter_number( $post_name ) {
 	if ( ! @$options['chapter_numbers'] )
 		return 0;
 
-	$lookup = \PressBooks\Book::getBookStructure();
+	$lookup = \Pressbooks\Book::getBookStructure();
 	$lookup = $lookup['__export_lookup'];
 
 	if ( 'chapter' != @$lookup[$post_name] )
@@ -224,13 +224,13 @@ function pb_get_section_type( $post ) {
 	$type = $post->post_type;
 	switch ($type) {
     case 'chapter':
-        $type = \PressBooks\Taxonomy\chapter_type( $post->ID );
+        $type = \Pressbooks\Taxonomy\chapter_type( $post->ID );
         break;
     case 'front-matter':
-        $type = \PressBooks\Taxonomy\front_matter_type( $post->ID );
+        $type = \Pressbooks\Taxonomy\front_matter_type( $post->ID );
         break;
     case 'back-matter':
-        $type = \PressBooks\Taxonomy\back_matter_type( $post->ID );
+        $type = \Pressbooks\Taxonomy\back_matter_type( $post->ID );
         break;
 	}
 	
@@ -245,7 +245,7 @@ function pb_get_section_type( $post ) {
  * @return array
  */
 function pb_get_sections( $id ) {
-	return \PressBooks\Book::getSubsections( $id );
+	return \Pressbooks\Book::getSubsections( $id );
 }
 
 /**
@@ -254,7 +254,7 @@ function pb_get_sections( $id ) {
  * @return boolean
  */
 function pb_should_parse_sections() {
-	return \PressBooks\Modules\Export\Export::isParsingSections();
+	return \Pressbooks\Modules\Export\Export::isParsingSections();
 }
 
 /**
@@ -265,7 +265,7 @@ function pb_should_parse_sections() {
  * @return string
  */
 function pb_tag_sections( $content, $id ) {
-	return \PressBooks\Book::tagSubsections( $content, $id );
+	return \Pressbooks\Book::tagSubsections( $content, $id );
 }
 
 /**
@@ -278,5 +278,5 @@ function pb_tag_sections( $content, $id ) {
  */
 function pb_thumbify( $thumb, $path ) {
 
-	return \PressBooks\Image\thumbify( $thumb, $path );
+	return \Pressbooks\Image\thumbify( $thumb, $path );
 }

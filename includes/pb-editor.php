@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Editor;
+namespace Pressbooks\Editor;
 
 
-use PressBooks\Container;
+use Pressbooks\Container;
 
 /**
  * Ensure that Word formatting that we like doesn't get filtered out.
@@ -48,7 +48,7 @@ function mce_buttons( $buttons ) {
  * Adds Javascript for buttons above.
  */
 function mce_button_scripts( $plugin_array ) {
-	$plugin_array['textboxes'] = \PressBooks\Utility\asset_path( 'scripts/textboxes.js' );
+	$plugin_array['textboxes'] = \Pressbooks\Utility\asset_path( 'scripts/textboxes.js' );
 	return $plugin_array;
 }
 

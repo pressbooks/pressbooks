@@ -7,10 +7,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks;
+namespace Pressbooks;
 
 
-use PressBooks\Sanitize;
+use Pressbooks\Sanitize;
 
 
 class Metadata {
@@ -266,7 +266,7 @@ class Metadata {
 
 				} else {
 					// Something went wrong
-					\error_log( '\PressBooks\Metadata::getLicenseXml error: ' . $xml->get_error_message() );
+					\error_log( '\Pressbooks\Metadata::getLicenseXml error: ' . $xml->get_error_message() );
 				}
 
 				break;
@@ -328,7 +328,7 @@ class Metadata {
 			$this->resetLandingPage();
 		}
 		if ( $version < 10 ) {
-			\PressBooks\Taxonomy\insert_terms();
+			\Pressbooks\Taxonomy\insert_terms();
 			flush_rewrite_rules( false );
 		}
 	}
@@ -537,7 +537,7 @@ class Metadata {
 	/**
 	 * Upgrade Custom CSS types.
 	 *
-	 * @see \PressBooks\Activation::wpmuActivate
+	 * @see \Pressbooks\Activation::wpmuActivate
 	 */
 	function upgradeCustomCss() {
 
@@ -576,7 +576,7 @@ class Metadata {
 	/**
 	 * Fix a double slash bug by reactivating theme with new settings.
 	 *
-	 * @see \PressBooks\PressBooks::registerThemeDirectories
+	 * @see \Pressbooks\Pressbooks::registerThemeDirectories
 	 */
 	function fixDoubleSlashBug() {
 
@@ -599,7 +599,7 @@ class Metadata {
 		if ( $post ) {
 			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
 			if ( preg_match( '~assets/dist/images/default-book-cover\.png$~', $pb_cover_image ) ) {
-				update_post_meta( $post->ID, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
+				update_post_meta( $post->ID, 'pb_cover_image', \Pressbooks\Image\default_cover_url() );
 				Book::deleteBookObjectCache();
 			}
 		}
@@ -617,7 +617,7 @@ class Metadata {
 			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
 			if ( $pb_cover_image && ! preg_match( '~assets/dist/images/default-book-cover\.jpg$~', $pb_cover_image ) ) {
 
-				$path = \PressBooks\Utility\get_media_path( $pb_cover_image );
+				$path = \Pressbooks\Utility\get_media_path( $pb_cover_image );
 				$type = wp_check_filetype( $path );
 				$type = $type['type'];
 
