@@ -25,81 +25,81 @@ require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-editor.php' );
 require( PB_PLUGIN_DIR . 'vendor/pressbooks/pressbooks-latex/pb-latex.php' );
 
-PressBooks\Utility\include_plugins();
+Pressbooks\Utility\include_plugins();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize services
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
-	\PressBooks\Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
+	\Pressbooks\Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
 }
-else \PressBooks\Container::init();
+else \Pressbooks\Container::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Login screen branding
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'login_head', '\PressBooks\Admin\Branding\custom_login_logo' );
-add_filter( 'login_headerurl', '\PressBooks\Admin\Branding\login_url' );
-add_filter( 'login_headertitle', '\PressBooks\Admin\Branding\login_title' );
+add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_login_logo' );
+add_filter( 'login_headerurl', '\Pressbooks\Admin\Branding\login_url' );
+add_filter( 'login_headertitle', '\Pressbooks\Admin\Branding\login_title' );
 
 
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics
 // -------------------------------------------------------------------------------------------------------------------
-add_action( 'wp_head', '\PressBooks\Analytics\print_analytics');
+add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics');
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_custom_copyright', '\PressBooks\Editor\metadata_manager_default_editor_args' );
-add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_about_unlimited', '\PressBooks\Editor\metadata_manager_default_editor_args' );
+add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_custom_copyright', '\Pressbooks\Editor\metadata_manager_default_editor_args' );
+add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_about_unlimited', '\Pressbooks\Editor\metadata_manager_default_editor_args' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Languages
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', '\PressBooks\L10n\load_plugin_textdomain' );
-add_filter( 'gettext', '\PressBooks\L10n\override_core_strings', 10, 3 );
+add_action( 'init', '\Pressbooks\L10n\load_plugin_textdomain' );
+add_filter( 'gettext', '\Pressbooks\L10n\override_core_strings', 10, 3 );
 
-if ( \PressBooks\Book::isBook() && \PressBooks\l10n\use_book_locale() ) {
-	add_filter( 'locale', '\PressBooks\Modules\Export\Export::setLocale' );
-} elseif ( \PressBooks\Book::isBook() ) {
-	add_filter( 'locale', '\PressBooks\L10n\set_locale' );
-} elseif ( ! \PressBooks\Book::isBook() ) {
-	add_filter( 'locale', '\PressBooks\L10n\set_root_locale' );
+if ( \Pressbooks\Book::isBook() && \Pressbooks\l10n\use_book_locale() ) {
+	add_filter( 'locale', '\Pressbooks\Modules\Export\Export::setLocale' );
+} elseif ( \Pressbooks\Book::isBook() ) {
+	add_filter( 'locale', '\Pressbooks\L10n\set_locale' );
+} elseif ( ! \Pressbooks\Book::isBook() ) {
+	add_filter( 'locale', '\Pressbooks\L10n\set_root_locale' );
 }
-add_action( 'user_register', '\PressBooks\L10n\set_user_interface_lang', 10, 1 );
+add_action( 'user_register', '\Pressbooks\L10n\set_user_interface_lang', 10, 1 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Images
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', '\PressBooks\Image\fix_intermediate_image_size_options' );
-add_filter( 'intermediate_image_sizes', '\PressBooks\Image\intermediate_image_sizes' );
-add_filter( 'intermediate_image_sizes_advanced', '\PressBooks\Image\intermediate_image_sizes_advanced' );
-add_action( 'delete_attachment', '\PressBooks\Image\delete_attachment' );
-add_filter( 'wp_update_attachment_metadata', '\PressBooks\Image\save_attachment', 10, 2 );
-add_filter( 'the_content', '\PressBooks\Media\force_wrap_images', 13 ); // execute image-hack after wpautop processing
-add_filter( 'plupload_default_params', '\PressBooks\Media\force_attach_media' );
+add_action( 'init', '\Pressbooks\Image\fix_intermediate_image_size_options' );
+add_filter( 'intermediate_image_sizes', '\Pressbooks\Image\intermediate_image_sizes' );
+add_filter( 'intermediate_image_sizes_advanced', '\Pressbooks\Image\intermediate_image_sizes_advanced' );
+add_action( 'delete_attachment', '\Pressbooks\Image\delete_attachment' );
+add_filter( 'wp_update_attachment_metadata', '\Pressbooks\Image\save_attachment', 10, 2 );
+add_filter( 'the_content', '\Pressbooks\Media\force_wrap_images', 13 ); // execute image-hack after wpautop processing
+add_filter( 'plupload_default_params', '\Pressbooks\Media\force_attach_media' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Audio/Video
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter('upload_mimes', '\PressBooks\Media\add_mime_types');
+add_filter('upload_mimes', '\Pressbooks\Media\add_mime_types');
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', '\PressBooks\PostType\register_post_types' );
-add_action( 'post_updated_messages', '\PressBooks\PostType\post_type_messages' );
-add_action( 'init', '\PressBooks\Taxonomy\register_taxonomies' );
-if ( \PressBooks\Book::isBook() ) {
-	add_filter( 'request', '\PressBooks\PostType\add_post_types_rss' );
+add_action( 'init', '\Pressbooks\PostType\register_post_types' );
+add_action( 'post_updated_messages', '\Pressbooks\PostType\post_type_messages' );
+add_action( 'init', '\Pressbooks\Taxonomy\register_taxonomies' );
+if ( \Pressbooks\Book::isBook() ) {
+	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -121,30 +121,30 @@ if ( is_admin() === false ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'wpmu_new_blog', function ( $b, $u ) {
-	$activate = new \PressBooks\Activation();
+	$activate = new \Pressbooks\Activation();
 	$activate->wpmuNewBlog( $b, $u );
 }, 9, 2 );
 
 // Force PB colors
-add_action( 'wp_login', '\PressBooks\Activation::forcePbColors', 10, 2 );
-add_action( 'profile_update', '\PressBooks\Activation::forcePbColors' );
-add_action( 'user_register', '\PressBooks\Activation::forcePbColors' );
+add_action( 'wp_login', '\Pressbooks\Activation::forcePbColors', 10, 2 );
+add_action( 'profile_update', '\Pressbooks\Activation::forcePbColors' );
+add_action( 'user_register', '\Pressbooks\Activation::forcePbColors' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Redirects
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_format', 1 );
-add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_catalog', 1 );
-add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_api', 1 );
-add_filter( 'login_redirect', '\PressBooks\Redirect\login', 10, 3 );
+add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_format', 1 );
+add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
+add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_api', 1 );
+add_filter( 'login_redirect', '\Pressbooks\Redirect\login', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Sitemap
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'init', '\PressBooks\Redirect\rewrite_rules_for_sitemap', 1 );
-add_action( 'do_robotstxt', '\PressBooks\Utility\add_sitemap_to_robots_txt' );
+add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_sitemap', 1 );
+add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Shortcodes
@@ -153,21 +153,21 @@ add_action( 'do_robotstxt', '\PressBooks\Utility\add_sitemap_to_robots_txt' );
 remove_filter( 'the_content', 'wpautop' );
 add_filter( 'the_content', 'wpautop' , 12); // execute wpautop after shortcode processing
 
-$_ = \PressBooks\Shortcodes\Footnotes\Footnotes::getInstance();
-$_ = \PressBooks\Shortcodes\Generics\Generics::getInstance();
-$_ = \PressBooks\Shortcodes\WikiPublisher\Glyphs::getInstance();
+$_ = \Pressbooks\Shortcodes\Footnotes\Footnotes::getInstance();
+$_ = \Pressbooks\Shortcodes\Generics\Generics::getInstance();
+$_ = \Pressbooks\Shortcodes\WikiPublisher\Glyphs::getInstance();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Upgrade Book Metadata
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( \PressBooks\Book::isBook() ) {
+if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'init', function () {
 		$meta_version = get_option( 'pressbooks_metadata_version', 0 );
-		if ( $meta_version < \PressBooks\Metadata::$currentVersion ) {
-			$metadata = new \PressBooks\Metadata();
+		if ( $meta_version < \Pressbooks\Metadata::$currentVersion ) {
+			$metadata = new \Pressbooks\Metadata();
 			$metadata->upgrade( $meta_version );
-			update_option( 'pressbooks_metadata_version', \PressBooks\Metadata::$currentVersion );
+			update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::$currentVersion );
 		}
 	}, 1000 );
 }
@@ -178,10 +178,10 @@ if ( \PressBooks\Book::isBook() ) {
 
 add_action( 'init', function () {
 	$catalog_version = get_site_option( 'pressbooks_catalog_version', 0 );
-	if ( $catalog_version < \PressBooks\Catalog::$currentVersion ) {
-		$metadata = new \PressBooks\Catalog();
+	if ( $catalog_version < \Pressbooks\Catalog::$currentVersion ) {
+		$metadata = new \Pressbooks\Catalog();
 		$metadata->upgrade( $catalog_version );
-		update_site_option( 'pressbooks_catalog_version', \PressBooks\Catalog::$currentVersion );
+		update_site_option( 'pressbooks_catalog_version', \Pressbooks\Catalog::$currentVersion );
 	}
 }, 1000 );
 
@@ -192,7 +192,7 @@ add_action( 'init', function () {
 if ( ! empty( $GLOBALS['PB_SECRET_SAUCE']['FORCE_FLUSH'] ) ) {
 	add_action( 'init', function () { flush_rewrite_rules( false ); }, 9999 );
 } else {
-	add_action( 'init', '\PressBooks\Redirect\flusher', 9999 );
+	add_action( 'init', '\Pressbooks\Redirect\flusher', 9999 );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -215,9 +215,9 @@ add_filter( 'akismet_debug_log', '__return_false' );
 // Registration
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter( 'gettext', '\PressBooks\Registration\custom_signup_text', 20, 3 );
-add_action( 'signup_extra_fields', '\PressBooks\Registration\add_password_field', 9 );
-add_filter( 'wpmu_validate_user_signup', '\PressBooks\Registration\validate_passwords' );
-add_filter( 'add_signup_meta', '\PressBooks\Registration\add_temporary_password', 99 );
-add_action( 'signup_blogform', '\PressBooks\Registration\add_hidden_password_field' );
-add_filter( 'random_password', '\PressBooks\Registration\override_password_generation' );
+add_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text', 20, 3 );
+add_action( 'signup_extra_fields', '\Pressbooks\Registration\add_password_field', 9 );
+add_filter( 'wpmu_validate_user_signup', '\Pressbooks\Registration\validate_passwords' );
+add_filter( 'add_signup_meta', '\Pressbooks\Registration\add_temporary_password', 99 );
+add_action( 'signup_blogform', '\Pressbooks\Registration\add_hidden_password_field' );
+add_filter( 'random_password', '\Pressbooks\Registration\override_password_generation' );

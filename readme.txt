@@ -351,7 +351,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 * Requires WordPress 4.2.4.
 * Added Disable Comments (migrated from Pressbooks Textbook, props to @bdolor and the plugin's creators).
 * Added a warning message when users upload a cover image above the recommended size.
-* Optimized \PressBooks\Book::getBookStructure() so as to only fetch export status during export routines (props to @bracken).
+* Optimized \Pressbooks\Book::getBookStructure() so as to only fetch export status during export routines (props to @bracken).
 * Fixed a conflict with Jetpack (props to @programmieraffe for the bug report).
 * Fixed an issue where chapters were being number in mPDF TOCs regardless of user preference (props to @bdolor for the fix and to @sswettenham for the bug report).
 * Fixed an issue where sections would be parsed unnecessarily in webbooks (props to @bracken).

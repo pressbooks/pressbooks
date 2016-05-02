@@ -6,9 +6,9 @@ namespace PHPSTORM_META {
 	/** @noinspection PhpUnusedLocalVariableInspection */
 	/** @noinspection PhpIllegalArrayKeyTypeInspection */
 	$STATIC_METHOD_TYPES = [
-		\PressBooks\Container::get( '' ) => [
-			'Sass' instanceof \PressBooks\Sass,
-			'GlobalTypography' instanceof \PressBooks\GlobalTypography,
+		\Pressbooks\Container::get( '' ) => [
+			'Sass' instanceof \Pressbooks\Sass,
+			'GlobalTypography' instanceof \Pressbooks\GlobalTypography,
 		],
 	];
 }

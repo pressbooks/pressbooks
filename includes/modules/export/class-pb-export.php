@@ -3,13 +3,13 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Modules\Export;
+namespace Pressbooks\Modules\Export;
 
 
-use PressBooks\Book;
-use PressBooks\CustomCss;
-use PressBooks\Container;
-use PressBooks\Metadata;
+use Pressbooks\Book;
+use Pressbooks\CustomCss;
+use Pressbooks\Container;
+use Pressbooks\Metadata;
 
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
@@ -182,7 +182,7 @@ abstract class Export {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
 
-		\PressBooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
+		\Pressbooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
 	}
 
 
@@ -193,7 +193,7 @@ abstract class Export {
 	 */
 	function createTmpFile() {
 
-		return \PressBooks\Utility\create_tmp_file();
+		return \Pressbooks\Utility\create_tmp_file();
 	}
 
 
@@ -295,7 +295,7 @@ abstract class Export {
 			$id = uniqid( "$id-" );
 		}
 
-		return \PressBooks\Sanitize\sanitize_xml_id( $id );
+		return \Pressbooks\Sanitize\sanitize_xml_id( $id );
 	}
 
 
@@ -481,7 +481,7 @@ abstract class Export {
 	 */
 	protected function loadTemplate( $path, array $vars = array() ) {
 
-		return \PressBooks\Utility\template($path, $vars);
+		return \Pressbooks\Utility\template($path, $vars);
 	}
 
 
@@ -517,7 +517,7 @@ abstract class Export {
 	 */
 	static function getExportFolder() {
 
-		$path = \PressBooks\Utility\get_media_prefix() . 'exports/';
+		$path = \Pressbooks\Utility\get_media_prefix() . 'exports/';
 		if ( ! file_exists( $path ) ) {
 			mkdir( $path, 0775, true );
 		}
@@ -549,7 +549,7 @@ abstract class Export {
 		putenv( 'LC_CTYPE=en_US.UTF-8' );
 
 		// Override some WP behaviours when exporting
-		\PressBooks\Sanitize\fix_audio_shortcode();
+		\Pressbooks\Sanitize\fix_audio_shortcode();
 
 		// Download
 		if ( ! empty( $_GET['download_export_file'] ) ) {
@@ -563,7 +563,7 @@ abstract class Export {
 			$path = static::getExportFolder();
 			unlink( $path . $filename );
 			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
-			\PressBooks\Redirect\location( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ) );
+			\Pressbooks\Redirect\location( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ) );
 		}
 
 		// Export
@@ -576,37 +576,37 @@ abstract class Export {
 			$modules = array();
 
 			if ( isset( $x['pdf'] ) ) {
-				$modules[] = '\PressBooks\Modules\Export\Prince\Pdf';
+				$modules[] = '\Pressbooks\Modules\Export\Prince\Pdf';
 			}
 			if ( isset( $x['mpdf'] ) ) {
-				$modules[] = '\PressBooks\Modules\Export\Mpdf\Pdf';
+				$modules[] = '\Pressbooks\Modules\Export\Mpdf\Pdf';
 			}
 			if ( isset( $x['epub'] ) ) {
-				$modules[] = '\PressBooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
+				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 			}
 			if ( isset( $x['epub3'] ) ) {
-				$modules[] = '\PressBooks\Modules\Export\Epub\Epub3'; // Must be set before MOBI
+				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3'; // Must be set before MOBI
 			}
 			if ( isset( $x['mobi'] ) ) {
 				if  ( !isset( $x['epub'] ) ) { // Make sure Epub source file is generated
-					$modules[] = '\PressBooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
+					$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 				}
-				$modules[] = '\PressBooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB
+				$modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB
 			}
 			if ( isset( $x['icml'] ) ) {
-				$modules[] = '\PressBooks\Modules\Export\InDesign\Icml';
+				$modules[] = '\Pressbooks\Modules\Export\InDesign\Icml';
 			}
 			if ( isset( $x['xhtml'] ) ) {
-				$modules[] = '\PressBooks\Modules\Export\Xhtml\Xhtml11';
+				$modules[] = '\Pressbooks\Modules\Export\Xhtml\Xhtml11';
 			}
 			if ( isset( $x['wxr'] ) ) {
-				$modules[] = '\PressBooks\Modules\Export\WordPress\Wxr';
+				$modules[] = '\Pressbooks\Modules\Export\WordPress\Wxr';
 			}
 			if ( isset ( $x['vanillawxr'] ) ){
-				$modules[] = '\PressBooks\Modules\Export\WordPress\VanillaWxr';
+				$modules[] = '\Pressbooks\Modules\Export\WordPress\VanillaWxr';
 			}
 			if ( isset ( $x['odt'] ) ){
-				$modules[] = '\PressBooks\Modules\Export\Odt\Odt';
+				$modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -615,7 +615,7 @@ abstract class Export {
 			$last_export = get_option( 'pressbooks_last_export' );
 			$within_range = time() - $last_export;
 			if ( $within_range > ( 60 * 60 ) ) {
-				\PressBooks\Book::deleteBookObjectCache();
+				\Pressbooks\Book::deleteBookObjectCache();
 				update_option( 'pressbooks_last_export', time() );
 			}
 
@@ -631,7 +631,7 @@ abstract class Export {
 
 			foreach ( $modules as $module ) {
 
-				/** @var \PressBooks\Modules\Export\Export $exporter */
+				/** @var \Pressbooks\Modules\Export\Export $exporter */
 				$exporter = new $module( array() );
 
 				if ( ! $exporter->convert() ) {
@@ -656,7 +656,7 @@ abstract class Export {
 			// MOBI cleanup
 
 			if ( isset( $x['mobi'] ) && !isset( $x['epub'] ) ) {
-				unlink( $outputs['\PressBooks\Modules\Export\Epub\Epub201'] );
+				unlink( $outputs['\Pressbooks\Modules\Export\Epub\Epub201'] );
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -664,19 +664,19 @@ abstract class Export {
 
 			if ( empty( $conversion_error ) && empty( $validation_warning ) ) {
 				// Ok!
-				\PressBooks\Redirect\location( $redirect_url );
+				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
 			// --------------------------------------------------------------------------------------------------------
 			// Error exceptions
 
-			if ( isset( $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'] ) ) {
+			if ( isset( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] ) ) {
 
 				// The PDF is garbage and we don't want the user to have it.
 				// Delete file. Report error instead of warning.
-				unlink( $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'] );
-				$conversion_error['\PressBooks\Modules\Export\Prince\Pdf'] = $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'];
-				unset ( $validation_warning['\PressBooks\Modules\Export\Prince\Pdf'] );
+				unlink( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
+				$conversion_error['\Pressbooks\Modules\Export\Prince\Pdf'] = $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'];
+				unset ( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -684,12 +684,12 @@ abstract class Export {
 
 			if ( count( $conversion_error ) ) {
 				// Conversion error
-				\PressBooks\Redirect\location( $redirect_url . '&export_error=true' );
+				\Pressbooks\Redirect\location( $redirect_url . '&export_error=true' );
 			}
 
 			if ( count( $validation_warning ) ) {
 				// Validation warning
-				\PressBooks\Redirect\location( $redirect_url . '&export_warning=true' );
+				\Pressbooks\Redirect\location( $redirect_url . '&export_warning=true' );
 			}
 		}
 

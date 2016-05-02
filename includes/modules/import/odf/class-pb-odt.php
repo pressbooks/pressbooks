@@ -5,11 +5,11 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Modules\Import\Odf;
+namespace Pressbooks\Modules\Import\Odf;
 
 
-use PressBooks\Modules\Import\Import;
-use PressBooks\Book;
+use Pressbooks\Modules\Import\Import;
+use Pressbooks\Book;
 
 class Odt extends Import {
 
@@ -230,12 +230,12 @@ class Odt extends Import {
 		$tmp_name = $this->createTmpFile();
 		file_put_contents( $tmp_name, $image_content );
 
-		if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 
 			try { // changing the file name so that extension matches the mime type
 				$filename = $this->properImageExtension( $tmp_name, $filename );
 
-				if ( ! \PressBooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
 			} catch ( \Exception $exc ) {
@@ -273,7 +273,7 @@ class Odt extends Import {
 			'no_deprecated_attr' => 2,
 			'elements' => '* -span',
 			'deny_attribute' => 'id, style',
-			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
+			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
 		return \Htmlawed::filter( $html, $config );

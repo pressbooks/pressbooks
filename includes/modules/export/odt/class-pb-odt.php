@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version))
  */
-namespace PressBooks\Modules\Export\Odt;
+namespace Pressbooks\Modules\Export\Odt;
 
 
-use \PressBooks\Modules\Export\Export;
+use \Pressbooks\Modules\Export\Export;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
 
@@ -350,13 +350,13 @@ class Odt extends Export {
 		} else {
 			$filename = array_shift( $filename );
 			$filename = sanitize_file_name( urldecode( $filename ) );
-			$filename = \PressBooks\Sanitize\force_ascii( $filename );
+			$filename = \Pressbooks\Sanitize\force_ascii( $filename );
 		}
 
-		$tmp_file = \PressBooks\Utility\create_tmp_file();
+		$tmp_file = \Pressbooks\Utility\create_tmp_file();
 		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
-		if ( ! \PressBooks\Image\is_valid_image( $tmp_file, $filename ) ) {
+		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$already_done[$url] = '';
 			return ''; // Not an image
 		}
@@ -364,7 +364,7 @@ class Odt extends Export {
 		if ( $this->compressImages ) {
 			$format = explode( '.', $filename );
 			$format = strtolower( end( $format ) ); // Extension
-			\PressBooks\Image\resize_down( $format, $tmp_file );
+			\Pressbooks\Image\resize_down( $format, $tmp_file );
 		}
 
 		// Check for duplicates, save accordingly

@@ -1,6 +1,6 @@
 <?php
 
-namespace PressBooks;
+namespace Pressbooks;
 
 /**
  * Cheap wrapper around \Pimple\Container() so that we can use

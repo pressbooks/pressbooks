@@ -1,5 +1,5 @@
-# Copyright (C) 2015 PressBooks
-# This file is distributed under the same license as the PressBooks package.
+# Copyright (C) 2015 Pressbooks
+# This file is distributed under the same license as the Pressbooks package.
 # Translators:
 # taskforsome <taskforsome@gmail.com>, 2014
 # taskforsome <taskforsome@gmail.com>, 2014
@@ -40,7 +40,7 @@ msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multi-Site, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr "PressBooks no funciona con esta versión de WordPress. PressBooks requiere una instalación nueva de WordPress Multi-Site, versión %s o más reciente. Por favor, para utilizar PressBooks actualice WordPress."
+msgstr "Pressbooks no funciona con esta versión de WordPress. Pressbooks requiere una instalación nueva de WordPress Multi-Site, versión %s o más reciente. Por favor, para utilizar Pressbooks actualice WordPress."
 
 #: includes/admin/class-pb-catalog-list-table.php:73
 msgid "Visit Book"

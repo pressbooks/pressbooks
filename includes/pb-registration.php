@@ -5,7 +5,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Registration;
+namespace Pressbooks\Registration;
 
 /**
  * Customize text on the user/book registration page

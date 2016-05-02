@@ -5,7 +5,7 @@ class CustomCssTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
-	 * @var \PressBooks\CustomCss()
+	 * @var \Pressbooks\CustomCss()
 	 */
 	protected $cc;
 
@@ -14,7 +14,7 @@ class CustomCssTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->cc = new \PressBooks\CustomCss();
+		$this->cc = new \Pressbooks\CustomCss();
 	}
 
   /**

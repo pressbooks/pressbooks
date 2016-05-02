@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Admin\Metaboxes;
+namespace Pressbooks\Admin\Metaboxes;
 
 
 /**
@@ -55,7 +55,7 @@ function add_required_data( $pid, $post ) {
 	if ( ! $pb_language ) {
 		// if the pb_language metadata value is not set, set it to the network default
 		$locale = get_site_option( 'WPLANG' );
-		$locale = array_search( $locale, \PressBooks\L10n\wplang_codes() );
+		$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes() );
 		if ( ! $locale ) {
 		    $locale = 'en';
 		}
@@ -65,7 +65,7 @@ function add_required_data( $pid, $post ) {
 	$pb_cover_image = get_post_meta( $pid, 'pb_cover_image', true );
 	if ( ! $pb_cover_image ) {
 		// if the pb_cover_image metadata value is not set, set it to the default image
-		update_post_meta( $pid, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
+		update_post_meta( $pid, 'pb_cover_image', \Pressbooks\Image\default_cover_url() );
 	}
 }
 
@@ -99,7 +99,7 @@ function upload_cover_image( $pid, $post ) {
 
 	$filesize = filesize( $image['file'] );
 	if ( $filesize > 2000000 ) {
-		$filesize_in_mb = \PressBooks\Utility\format_bytes( $filesize );
+		$filesize_in_mb = \Pressbooks\Utility\format_bytes( $filesize );
 		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s) is too big. It should be no more than 2MB.', 'pressbooks' ), $filesize_in_mb );
 	}
 
@@ -108,7 +108,7 @@ function upload_cover_image( $pid, $post ) {
 
 	// Delete old images
 	foreach ( $old as $old_url ) {
-		$old_id = \PressBooks\Image\attachment_id_from_url( $old_url );
+		$old_id = \Pressbooks\Image\attachment_id_from_url( $old_url );
 		if ( $old_id ) wp_delete_attachment( $old_id, true );
 	}
 
@@ -135,9 +135,9 @@ function add_metadata_styles( $hook ) {
 	if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 		$post_type = get_post_type();
 		if ( 'metadata' == $post_type ) {
-			wp_enqueue_style( 'metadata', \PressBooks\Utility\asset_path( 'styles/metadata.css' ) );
+			wp_enqueue_style( 'metadata', \Pressbooks\Utility\asset_path( 'styles/metadata.css' ) );
 		} elseif ( 'part' == $post_type ) {
-			wp_enqueue_style( 'part', \PressBooks\Utility\asset_path( 'styles/part.css' ) );
+			wp_enqueue_style( 'part', \Pressbooks\Utility\asset_path( 'styles/part.css' ) );
 			add_filter( 'page_attributes_dropdown_pages_args', function () { return array( 'post_type' => '__GARBAGE__' ); } ); // Hide this dropdown by querying for garbage
 		}
 	}
@@ -160,7 +160,7 @@ function add_meta_boxes() {
 
 	// Custom Image Upload
 
-	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\PressBooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
+	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\Pressbooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
 
 	// Book Metadata
 
@@ -244,7 +244,7 @@ function add_meta_boxes() {
 	x_add_metadata_field( 'pb_language', 'metadata', array(
 		'group' => 'general-book-information',
 		'field_type' => 'select',
-		'values' => \PressBooks\L10n\supported_languages(),
+		'values' => \Pressbooks\L10n\supported_languages(),
 		'label' => __( 'Language', 'pressbooks' ),
 		'description' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' ) . '<br />' . sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) )
 	) );
@@ -627,11 +627,11 @@ function delete_cover_image() {
 		$pid = $_POST['pid'];
 
 		// Delete old images
-		$old_id = \PressBooks\Image\attachment_id_from_url( $image_url );
+		$old_id = \Pressbooks\Image\attachment_id_from_url( $image_url );
 		if ( $old_id ) wp_delete_attachment( $old_id, true );
 
-		update_post_meta( $pid, 'pb_cover_image', \PressBooks\Image\default_cover_url() );
-		\PressBooks\Book::deleteBookObjectCache();
+		update_post_meta( $pid, 'pb_cover_image', \Pressbooks\Image\default_cover_url() );
+		\Pressbooks\Book::deleteBookObjectCache();
 	}
 
 	// @see http://codex.wordpress.org/AJAX_in_Plugins#Error_Return_Values
@@ -684,7 +684,7 @@ function add_user_meta() {
 	x_add_metadata_field( 'user_interface_lang', 'user', array(
 		'group' => 'profile-information',
 		'field_type' => 'select',
-		'values' => \PressBooks\L10n\get_dashboard_languages(),
+		'values' => \Pressbooks\L10n\get_dashboard_languages(),
 		'label' => __( 'Language', 'pressbooks' ),
 		'description' => sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
 	) );

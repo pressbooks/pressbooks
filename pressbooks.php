@@ -57,7 +57,7 @@ if ( ! defined( 'PB_PLUGIN_URL' ) )
 
 function _pressbooks_autoload( $class_name ) {
 
-	$prefix = 'PressBooks\\';
+	$prefix = 'Pressbooks\\';
 	$len = strlen( $prefix );
 	if ( strncasecmp( $prefix, $class_name, $len ) !== 0 ) {
 		// Ignore classes not in our namespace
@@ -100,7 +100,7 @@ elseif ( ! pb_meets_minimum_requirements() ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 register_activation_hook( __FILE__, function () {
-	$activate = new \PressBooks\Activation();
+	$activate = new \Pressbooks\Activation();
 	$activate->registerActivationHook();
 } );
 
@@ -108,7 +108,7 @@ register_activation_hook( __FILE__, function () {
 // Initialize
 // -------------------------------------------------------------------------------------------------------------------
 
-$GLOBALS['pressbooks'] = new \PressBooks\PressBooks();
+$GLOBALS['pressbooks'] = new \Pressbooks\Pressbooks();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Hooks
@@ -132,7 +132,7 @@ require( PB_PLUGIN_DIR . 'functions.php' );
 
 if ( ! function_exists( 'wp_mail' ) && isset( $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_API_KEY'] ) && isset( $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_SENDER_ADDRESS'] ) ) {
 	function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
-		return \PressBooks\Utility\wp_mail( $to, $subject, $message, $headers, $attachments );
+		return \Pressbooks\Utility\wp_mail( $to, $subject, $message, $headers, $attachments );
 	}
 }
 

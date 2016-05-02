@@ -3,8 +3,8 @@
 if ( ! defined( 'ABSPATH' ) )
 	exit;
 
-use \PressBooks\Image as PB_Image;
-use \PressBooks\Catalog as PB_Catalog;
+use \Pressbooks\Image as PB_Image;
+use \Pressbooks\Catalog as PB_Catalog;
 
 // TODO: Move logic out of the template
 
@@ -78,7 +78,7 @@ function _books( PB_Catalog $catalog ) {
 		$books[$key]['cover_height'] = _cover_height( $val['cover_url']['pb_cover_medium'] );
 	}
 
-	return \PressBooks\Utility\multi_sort( $books, 'featured:desc', 'title:asc' );
+	return \Pressbooks\Utility\multi_sort( $books, 'featured:desc', 'title:asc' );
 }
 
 /**
@@ -148,14 +148,14 @@ $_current_user_id = $catalog->getUserId();
 	<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login ); _e( '\'s Catalog Page', 'pressbooks' ); ?> | Pressbooks</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo \PressBooks\Utility\asset_path( 'styles/style-catalog.css' ); ?>" />
-	<link href='<?php echo \PressBooks\Sanitize\maybe_https( 'http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="<?php echo \Pressbooks\Utility\asset_path( 'styles/style-catalog.css' ); ?>" />
+	<link href='<?php echo \Pressbooks\Sanitize\maybe_https( 'http://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
-	<script src="<?php echo \PressBooks\Utility\asset_path( 'scripts/matchheight.js' ); ?>" type="text/javascript"></script>
-	<script src="<?php echo \PressBooks\Utility\asset_path( 'scripts/isotope.js' ); ?>" type="text/javascript"></script>
-	<script src="<?php echo \PressBooks\Utility\asset_path( 'scripts/small-menu.js' ); ?>" type="text/javascript"></script>
-	<script src="<?php echo \PressBooks\Utility\asset_path( 'scripts/catalog.js' ); ?>" type="text/javascript"></script>
-	<?php \PressBooks\analytics\print_analytics(); ?>
+	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/matchheight.js' ); ?>" type="text/javascript"></script>
+	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/isotope.js' ); ?>" type="text/javascript"></script>
+	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/small-menu.js' ); ?>" type="text/javascript"></script>
+	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/catalog.js' ); ?>" type="text/javascript"></script>
+	<?php \Pressbooks\analytics\print_analytics(); ?>
 </head>
 <body>
 

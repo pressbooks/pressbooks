@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Admin\NetworkManagers;
+namespace Pressbooks\Admin\NetworkManagers;
 
 
 /**
@@ -25,8 +25,8 @@ function add_menu() {
  * Enqueue css and javascript for the network manager administration page
  */
 function admin_enqueues() {
-	wp_enqueue_style( 'pb-network-managers', \PressBooks\Utility\asset_path( 'styles/network-managers.css' ) );
-	wp_enqueue_script( 'pb-network-managers', \PressBooks\Utility\asset_path( 'scripts/network-managers.js' ), ['jquery'] );
+	wp_enqueue_style( 'pb-network-managers', \Pressbooks\Utility\asset_path( 'styles/network-managers.css' ) );
+	wp_enqueue_script( 'pb-network-managers', \Pressbooks\Utility\asset_path( 'scripts/network-managers.js' ), ['jquery'] );
 	wp_localize_script( 'pb-network-managers', 'PB_NetworkManagerToken', array(
 		'networkManagerNonce' => wp_create_nonce( 'pb-network-managers' ),
 	) );
@@ -78,7 +78,7 @@ function options() {
 		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 	}
 
-	$superadmins = new \PressBooks\Admin\Network_Managers_List_Table();
+	$superadmins = new \Pressbooks\Admin\Network_Managers_List_Table();
 	$superadmins->prepare_items(); ?>
 	<div class="wrap">
 
@@ -195,7 +195,7 @@ function restrict_access() {
 
 	$expr = '~/wp-admin/network/(' . implode( '|', $restricted_urls ) . ')\.php$~';
 	if ( in_array( $user->ID, $restricted ) && preg_match( $expr, $check_against_url ) ) {
-		\PressBooks\Redirect\location( $redirect_url );
+		\Pressbooks\Redirect\location( $redirect_url );
 	}
 
 }

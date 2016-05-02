@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Redirect;
+namespace Pressbooks\Redirect;
 
 
 /**
@@ -81,7 +81,7 @@ function flusher() {
 
 	$pull_the_lever = false;
 
-	// @see \PressBooks\PostType\register_post_types
+	// @see \Pressbooks\PostType\register_post_types
 	$set = get_option( 'pressbooks_flushed_post_type' );
 	if ( ! $set ) {
 		$pull_the_lever = true;
@@ -109,7 +109,7 @@ function flusher() {
 		update_option( 'pressbooks_flushed_sitemap', true );
 	}
 
-	// @see \PressBooks\VIP\Upgrade\rewrite_rules_for_upgrade()
+	// @see \Pressbooks\VIP\Upgrade\rewrite_rules_for_upgrade()
 	$set = get_option( 'pressbooks-vip_flushed_upgrade' );
 	if ( ! $set ) {
 		$pull_the_lever = true;
@@ -155,7 +155,7 @@ function do_format() {
 	if ( 'xhtml' == $format ) {
 
 		$args = array();
-		$foo = new \PressBooks\Modules\Export\Xhtml\Xhtml11( $args );
+		$foo = new \Pressbooks\Modules\Export\Xhtml\Xhtml11( $args );
 		$foo->transform();
 		exit;
 	}
@@ -163,7 +163,7 @@ function do_format() {
 	if ( 'wxr' == $format ) {
 
 		$args = array();
-		$foo = new \PressBooks\Modules\Export\WordPress\Wxr( $args );
+		$foo = new \Pressbooks\Modules\Export\WordPress\Wxr( $args );
 		$foo->transform();
 		exit;
 	}
@@ -207,7 +207,7 @@ function do_catalog() {
 		wp_die( $msg, '', $args );
 	}
 
-	\PressBooks\Catalog::loadTemplate( $user->ID );
+	\Pressbooks\Catalog::loadTemplate( $user->ID );
 	exit;
 }
 
@@ -219,7 +219,7 @@ function do_catalog() {
  */
 function rewrite_rules_for_sitemap() {
 
-	add_feed( 'sitemap.xml', '\PressBooks\Utility\do_sitemap' );
+	add_feed( 'sitemap.xml', '\Pressbooks\Utility\do_sitemap' );
 }
 
 /**
@@ -242,13 +242,13 @@ function do_api() {
 
 	// Support only GET requests for now
 	if ( 'GET' !== $_SERVER['REQUEST_METHOD'] ) {
-		\PressBooks\Modules\Api_v1\Api::apiErrors( 'method' );
+		\Pressbooks\Modules\Api_v1\Api::apiErrors( 'method' );
 	}
 
 	// Deal with the rest of the URL
 	$nouns = get_query_var( 'api' );
 	if ( '' === trim( $nouns, '/' ) || empty( $nouns ) ) {
-		\PressBooks\Modules\Api_v1\Api::apiErrors( 'resource' );
+		\Pressbooks\Modules\Api_v1\Api::apiErrors( 'resource' );
 	}
 
 	// parse url, at minimum we need `v1` and `books`
@@ -265,7 +265,7 @@ function do_api() {
 	$variations = array();
 
 	if ( 'v1' !== $version ) {
-		\PressBooks\Modules\Api_v1\Api::apiErrors( 'version' );
+		\Pressbooks\Modules\Api_v1\Api::apiErrors( 'version' );
 	}
 
 	// Filter user input
@@ -309,7 +309,7 @@ function do_api() {
 	switch ( $resource ) {
 		case 'books':
 			try {
-				new \PressBooks\Modules\Api_v1\Books\BooksApi( $books_id, $variations );
+				new \Pressbooks\Modules\Api_v1\Books\BooksApi( $books_id, $variations );
 			} catch ( \Exception $e ) {
 				echo $e->getMessage();
 			}
@@ -318,7 +318,7 @@ function do_api() {
 			require( PB_PLUGIN_DIR . 'includes/modules/api_v1/docs/api-documentation.php');
 			break;
 		default:
-			\PressBooks\Modules\Api_v1\Api::apiErrors( 'resource' );
+			\Pressbooks\Modules\Api_v1\Api::apiErrors( 'resource' );
 			break;
 	}
 

@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\L10n;
+namespace Pressbooks\L10n;
 
 
 /**
@@ -108,10 +108,10 @@ function set_locale( $lang ) {
 		$loc = get_site_option( 'WPLANG' );
 	} else {
 		// go with the book info setting
-		$metadata = \PressBooks\Book::getBookInformation();
+		$metadata = \Pressbooks\Book::getBookInformation();
 
 		if (  '__UNSET__' == $loc && !empty( $metadata['pb_language'] ) ) {
-			$locations = \PressBooks\L10n\wplang_codes();
+			$locations = \Pressbooks\L10n\wplang_codes();
 			$loc = $locations[$metadata['pb_language']];
 		}
 	}
@@ -522,7 +522,7 @@ function romanize( $integer ) {
  */
 function use_book_locale() {
 
-	if ( \PressBooks\Modules\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
+	if ( \Pressbooks\Modules\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
 		return true;
 	}
 

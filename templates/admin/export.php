@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) )
 // -------------------------------------------------------------------------------------------------------------------
 
 $max_batches = 5; // How many batches we save
-\PressBooks\Utility\truncate_exports( $max_batches );
+\Pressbooks\Utility\truncate_exports( $max_batches );
 
 $export_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export&export=yes' ), 'pb-export' );
 $export_delete_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ), 'pb-delete-export' );
@@ -58,7 +58,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	<p id="loader"><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Exporting..." width="128" height="15" /></p>
 	<?php
 	$c = 0; // start counter
-	$files = \PressBooks\Utility\group_exports();
+	$files = \Pressbooks\Utility\group_exports();
 	foreach ( $files as $date => $exports ) {
 		// Echo files to screen
 		if ( $c == 0 ) { ?>
@@ -109,10 +109,10 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
     <form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 	    <fieldset>
 		    <legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
-		    <?php if ( true == \PressBooks\Utility\check_prince_install() ) { ?>
+		    <?php if ( true == \Pressbooks\Utility\check_prince_install() ) { ?>
 		  	<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" /><label for="pdf"> <?php _e( 'PDF (for printing)', 'pressbooks' ); ?></label><br />
 		    <?php } ;?>
-				<?php if ( \PressBooks\Modules\Export\Mpdf\Pdf::isInstalled() ) { ?>
+				<?php if ( \Pressbooks\Modules\Export\Mpdf\Pdf::isInstalled() ) { ?>
 				<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" /><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
 				<?php } ?>
 				<input type="checkbox" id="epub" name="export_formats[epub]" value="1" /><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
@@ -123,7 +123,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    <legend>Exotic formats:</legend>
 		    <input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" /><label for="epub3"> <?php _e( 'EPUB 3 (beta)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" /><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
-				<?php if ( true == \PressBooks\Utility\show_experimental_features() ) { ?>
+				<?php if ( true == \Pressbooks\Utility\show_experimental_features() ) { ?>
 				<input type="checkbox" id="icml" name="export_formats[icml]" value="1" /><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
 				<?php } ?>
 				<input type="checkbox" id="odt" name="export_formats[odt]" value="1" /><label for="odt"> <?php _e( 'OpenDocument (beta)', 'pressbooks' ); ?></label>

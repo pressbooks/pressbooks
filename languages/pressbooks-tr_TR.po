@@ -1,5 +1,5 @@
-# Copyright (C) 2015 PressBooks
-# This file is distributed under the same license as the PressBooks package.
+# Copyright (C) 2015 Pressbooks
+# This file is distributed under the same license as the Pressbooks package.
 # Translators:
 # ayse tekbas <ayse.tekbas@gmail.com>, 2016
 msgid ""

@@ -2,7 +2,7 @@
 
 require_once( PB_PLUGIN_DIR . 'includes/admin/pb-fonts.php' );
 
-use PressBooks\Container;
+use Pressbooks\Container;
 
 class Admin_FontsTest extends \WP_UnitTestCase {
 
@@ -18,7 +18,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 		// Replace GlobalTypography service with mock
 		Container::set( 'GlobalTypography', function () {
 
-			$stub = $this->getMockBuilder( '\PressBooks\GlobalTypography' )
+			$stub = $this->getMockBuilder( '\Pressbooks\GlobalTypography' )
 				->getMock();
 
 			return $stub;
@@ -28,7 +28,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 		// Replace Sass service with mock
 		Container::set( 'Sass', function () {
 
-			$stub = $this->getMockBuilder( '\PressBooks\Sass' )
+			$stub = $this->getMockBuilder( '\Pressbooks\Sass' )
 				->getMock();
 
 			$stub->method( 'pathToUserGeneratedCss' )
@@ -53,22 +53,22 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Admin\Fonts\update_font_stacks
+	 * @covers \Pressbooks\Admin\Fonts\update_font_stacks
 	 */
 	public function test_update_font_stacks() {
 
-		\PressBooks\Admin\Fonts\update_font_stacks();
+		\Pressbooks\Admin\Fonts\update_font_stacks();
 		$this->assertTrue( true );
 	}
 
 
 	/**
-	 * @covers \PressBooks\Admin\Fonts\fix_missing_font_stacks
+	 * @covers \Pressbooks\Admin\Fonts\fix_missing_font_stacks
 	 */
 	public function test_fix_missing_font_stacks() {
 
 		$this->_book();
-		\PressBooks\Admin\Fonts\fix_missing_font_stacks();
+		\Pressbooks\Admin\Fonts\fix_missing_font_stacks();
 		$this->assertTrue( true );
 	}
 

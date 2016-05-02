@@ -3,13 +3,13 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Media;
+namespace Pressbooks\Media;
 
 /**
  * Filter to alter the list of acceptable file extensions
  *
  * @see \get_allowed_mime_types
- * @see \PressBooks\Modules\Export\Epub3
+ * @see \Pressbooks\Modules\Export\Epub3
  *
  * @param array $existing_mimes
  *

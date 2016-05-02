@@ -5,9 +5,9 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Modules\Api_v1\Books;
+namespace Pressbooks\Modules\Api_v1\Books;
 
-use PressBooks\Modules\Api_v1\Api;
+use Pressbooks\Modules\Api_v1\Api;
 
 /**
  * Processes public information about collections of books and individual books
@@ -458,8 +458,8 @@ class BooksApi extends Api {
 				@$book[$book_id];
 				$book[$book_id]['book_id'] = $book_id;
 				$book[$book_id]['book_url'] = get_blogaddress_by_id( $book_id );
-				$book[$book_id]['book_meta'] = \PressBooks\Book::getBookInformation( intval( $book_id ) );
-				$book_structure = \PressBooks\Book::getBookStructure( intval( $book_id ) );
+				$book[$book_id]['book_meta'] = \Pressbooks\Book::getBookInformation( intval( $book_id ) );
+				$book_structure = \Pressbooks\Book::getBookStructure( intval( $book_id ) );
 				$book[$book_id]['book_toc'] = $this->getToc( $book_structure, $book_id );
 			}
 		}
@@ -471,8 +471,8 @@ class BooksApi extends Api {
 			}
 			$book[$args['id']]['book_id'] = $args['id'];
 			$book[$args['id']]['book_url'] = get_blogaddress_by_id( $args['id'] );
-			$book[$args['id']]['book_meta'] = \PressBooks\Book::getBookInformation( intval( $args['id'] ) );
-			$book_structure = \PressBooks\Book::getBookStructure( intval( $args['id'] ) );
+			$book[$args['id']]['book_meta'] = \Pressbooks\Book::getBookInformation( intval( $args['id'] ) );
+			$book_structure = \Pressbooks\Book::getBookStructure( intval( $args['id'] ) );
 			$book[$args['id']]['book_toc'] = $this->getToc( $book_structure, $args['id'] );
 		}
 

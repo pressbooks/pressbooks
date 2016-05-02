@@ -5,9 +5,9 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Modules\Export\Epub;
+namespace Pressbooks\Modules\Export\Epub;
 
-use PressBooks\Sanitize;
+use Pressbooks\Sanitize;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
 
@@ -187,7 +187,7 @@ class Epub3 extends Epub201 {
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
-			'hook' => '\PressBooks\Sanitize\html5_to_epub3',
+			'hook' => '\Pressbooks\Sanitize\html5_to_epub3',
 			'tidy' => - 1,
 			'make_tag_strict' => 2,
 			'comment' => 1,
@@ -255,10 +255,10 @@ class Epub3 extends Epub201 {
 		$filename = sanitize_file_name( urldecode( $filename ) );
 		$filename = Sanitize\force_ascii( $filename );
 
-		$tmp_file = \PressBooks\Utility\create_tmp_file();
+		$tmp_file = \Pressbooks\Utility\create_tmp_file();
 		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
-		if ( ! \PressBooks\Media\is_valid_media( $tmp_file, $filename ) ) {
+		if ( ! \Pressbooks\Media\is_valid_media( $tmp_file, $filename ) ) {
 			$this->fetchedMediaCache[$url] = '';
 			return ''; // Not a valid media type
 		}

@@ -5,7 +5,7 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace PressBooks\Modules\Api_v1;
+namespace Pressbooks\Modules\Api_v1;
 
 /**
  *  Abstract class provides common functionality for all resource requests
@@ -108,7 +108,7 @@ abstract class Api {
 	 */
 	protected function renderJson( $data ) {
 		if ( ! is_array( $data ) ) {
-			throw new \Exception( 'Data variable passed to \PressBooks\Modules\Api_v1\Api\renderJson is not an array' );
+			throw new \Exception( 'Data variable passed to \Pressbooks\Modules\Api_v1\Api\renderJson is not an array' );
 		}
 
 		wp_send_json_success( $data );
@@ -126,7 +126,7 @@ abstract class Api {
 	 */
 	protected function renderXml( $data ) {
 		if ( ! is_array( $data ) ) {
-			throw new \Exception( 'Data variable passed to \PressBooks\Modules\Api_v1\Api\renderXml is not an array' );
+			throw new \Exception( 'Data variable passed to \Pressbooks\Modules\Api_v1\Api\renderXml is not an array' );
 		}
 
 		// creating object of SimpleXMLElement

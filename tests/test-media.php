@@ -3,14 +3,14 @@
 class MediaTest extends \WP_UnitTestCase {
 
 	/**
-	 * @covers \PressBooks\Media\add_mime_types
+	 * @covers \Pressbooks\Media\add_mime_types
 	 */
 	public function test_add_mime_types() {
 
 		$supportedFileExtensions = [ 'mp4', 'webm', 'ogv', 'ogg', 'mp3', 'aac', 'vorbis' ];
 		$jitMimes = [ 'foobar' => 'foo/bar' ];
 
-		$mimes = \PressBooks\Media\add_mime_types( $jitMimes );
+		$mimes = \Pressbooks\Media\add_mime_types( $jitMimes );
 
 		$this->assertArrayHasKey( 'foobar', $mimes );
 		$this->assertEquals( 'foo/bar', $mimes['foobar'] );
@@ -24,7 +24,7 @@ class MediaTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Media\is_valid_media
+	 * @covers \Pressbooks\Media\is_valid_media
 	 */
 	public function test_is_valid_media() {
 
@@ -39,7 +39,7 @@ class MediaTest extends \WP_UnitTestCase {
 		];
 
 		foreach ( $goodFiles as $file ) {
-			$this->assertTrue( \PressBooks\Media\is_valid_media( '__UNUSED__', $file ) );
+			$this->assertTrue( \Pressbooks\Media\is_valid_media( '__UNUSED__', $file ) );
 		}
 
 		$badFiles = [
@@ -52,13 +52,13 @@ class MediaTest extends \WP_UnitTestCase {
 		];
 
 		foreach ( $badFiles as $file ) {
-			$this->assertFalse( \PressBooks\Media\is_valid_media( '__UNUSED__', $file ) );
+			$this->assertFalse( \Pressbooks\Media\is_valid_media( '__UNUSED__', $file ) );
 		}
 	}
 
 
 	/**
-	 * @covers \PressBooks\Media\force_wrap_images
+	 * @covers \Pressbooks\Media\force_wrap_images
 	 *
 	 * @see https://github.com/pressbooks/pressbooks/issues/263
 	 */
@@ -66,32 +66,32 @@ class MediaTest extends \WP_UnitTestCase {
 
 		// WordPress markup for images with captions wraps the image (and caption) in a .wp-caption div, generating something like the following: (We *don't* want to change this)
 		$case = '<div id="attachment_295" style="width: 2394px" class="wp-caption aligncenter"><img class="size-full wp-image-295" src="http://standardtest.pressbooks.com/files/2015/10/Denison-big.jpg" alt="...." width="2384" height="2984" /> <p class="wp-caption-text">A caption about the things captions are about.</p> </div>';
-		$converted = \PressBooks\Media\force_wrap_images( $case );
+		$converted = \Pressbooks\Media\force_wrap_images( $case );
 		$this->assertStringStartsNotWith( '<div class="wp-nocaption ', $converted );
 		$this->assertStringEndsWith( 'about.</p> </div>', $converted );
 
 		// WordPress does not wrap images without captions in a similar way, so we get the following in the case of an image (with no link): (We *do* want to change this)
 		$case = '<p><img class="aligncenter size-full wp-image-294" src="http://standardtest.pressbooks.com/files/2015/10/Denison-small.jpg" alt="Denison-small" width="191" height="240" /></p>';
-		$converted = \PressBooks\Media\force_wrap_images( $case );
+		$converted = \Pressbooks\Media\force_wrap_images( $case );
 		$this->assertStringStartsWith( '<div class="wp-nocaption aligncenter size-full wp-image-294"><img ', $converted );
 		$this->assertStringEndsWith( ' /></div>', $converted );
 
 		// WordPress generates this in the case of an image with a link: (We *do* want to change this)
 		$case = '<p><a href="http://imagelink.com/image.jpg"><img class="aligncenter wp-image-294 size-full" src="http://standardtest.pressbooks.com/files/2015/10/Denison-small.jpg" alt="Denison-small" width="191" height="240" /></a></p>';
-		$converted = \PressBooks\Media\force_wrap_images( $case );
+		$converted = \Pressbooks\Media\force_wrap_images( $case );
 		$this->assertStringStartsWith( '<div class="wp-nocaption aligncenter wp-image-294 size-full"><a ', $converted );
 		$this->assertStringEndsWith( '</a></div>', $converted );
 	}
 
 	/**
-	 * @covers \PressBooks\Media\force_attach_media
+	 * @covers \Pressbooks\Media\force_attach_media
 	 */
 	public function test_force_attach_media() {
 		global $post_ID;
 		$post_ID = '42';
 
 		$params = array();
-		$return = \PressBooks\Media\force_attach_media( $params );
+		$return = \Pressbooks\Media\force_attach_media( $params );
 		$this->assertEquals( $return['post_id'], 42 );
 	}
 

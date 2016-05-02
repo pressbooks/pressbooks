@@ -3,12 +3,12 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Admin\CustomCss;
+namespace Pressbooks\Admin\CustomCss;
 
 
-use PressBooks\Book;
-use PressBooks\Container;
-use PressBooks\CustomCss;
+use Pressbooks\Book;
+use Pressbooks\Container;
+use Pressbooks\CustomCss;
 
 /**
  * Add Edit CSS menu.
@@ -37,7 +37,7 @@ function redirect_css_editor() {
 		return; // Do nothing
 
 	$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_css&slug=' . $post->post_name );
-	\PressBooks\Redirect\location( $redirect_url );
+	\Pressbooks\Redirect\location( $redirect_url );
 }
 
 
@@ -89,7 +89,7 @@ function load_custom_css_template( $vars ) {
 /**
  * Render table for revisions.
  *
- * @param \PressBooks\CustomCss $custom_css
+ * @param \Pressbooks\CustomCss $custom_css
  * @param string $slug
  * @param int $post_id
  *
@@ -125,7 +125,7 @@ function render_revisions_table( $custom_css, $slug, $post_id ) {
 /**
  * Render dropdown and JavaScript for slugs.
  *
- * @param \PressBooks\CustomCss $custom_css
+ * @param \Pressbooks\CustomCss $custom_css
  * @param string $slug
  *
  * @return string
@@ -163,7 +163,7 @@ function render_dropdown_for_slugs( $custom_css, $slug ) {
 /**
  * Render dropdown and JavaScript for CSS copy.
  *
- * @param \PressBooks\CustomCss $custom_css
+ * @param \Pressbooks\CustomCss $custom_css
  * @param string $slug
  *
  * @return string

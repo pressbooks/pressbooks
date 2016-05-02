@@ -18,7 +18,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 		wp_die( __( 'You do not have permission to do that.', 'pressbooks' ) );
 	}
 
-	$catalog = new \PressBooks\Catalog( $user_id );
+	$catalog = new \Pressbooks\Catalog( $user_id );
 	$book = $catalog->getBook( $blog_id );
 	$profile = $catalog->getProfile();
 
@@ -81,7 +81,7 @@ else:
 
 	// TODO: Move logic out of the template
 
-	$catalog = new \PressBooks\Catalog();
+	$catalog = new \Pressbooks\Catalog();
 	$user_id = $catalog->getUserId();
 	$p = $catalog->getProfile();
 
@@ -111,7 +111,7 @@ else:
 			<?php } ?>
 			<tr>
 				<th><label for="pb_catalog_logo"><?php _e( 'Logo Or Image', 'pressbooks' ); ?></label></th>
-				<td><?php \PressBooks\Image\catalog_logo_box( $user_id ); ?></td>
+				<td><?php \Pressbooks\Image\catalog_logo_box( $user_id ); ?></td>
 			</tr>
 		</table>
 		<?php submit_button(); ?>

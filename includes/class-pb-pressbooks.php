@@ -3,11 +3,11 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks;
+namespace Pressbooks;
 
 
 
-class PressBooks {
+class Pressbooks {
 
 	/**
 	 * Constructor.
@@ -32,7 +32,7 @@ class PressBooks {
 	function registerThemeDirectories() {
 
 		// No trailing slash, otherwise we get a double slash bug
-		// @see \PressBooks\Metadata::fixDoubleSlashBug
+		// @see \Pressbooks\Metadata::fixDoubleSlashBug
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-root' );
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
 

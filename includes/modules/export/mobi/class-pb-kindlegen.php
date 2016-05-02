@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Modules\Export\Mobi;
+namespace Pressbooks\Modules\Export\Mobi;
 
 
-use PressBooks\Modules\Export\Export;
+use Pressbooks\Modules\Export\Export;
 
 class Kindlegen extends Export {
 
@@ -41,7 +41,7 @@ class Kindlegen extends Export {
 
 		$input_folder = static::getExportFolder();
 		$input_path = false;
-		$files = \PressBooks\Utility\scandir_by_date( $input_folder );
+		$files = \Pressbooks\Utility\scandir_by_date( $input_folder );
 		foreach ( $files as $file ) {
 			if ( preg_match( '/\.epub/i', $file ) ) {
 				$input_path = $input_folder . $file;

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) )
 
 global $user_ID;
 $statuses = get_post_statuses();
-$book_structure = \PressBooks\Book::getBookStructure();
+$book_structure = \Pressbooks\Book::getBookStructure();
 $book_is_public = ( 1 == get_option( 'blog_public' ) );
 ?>
 

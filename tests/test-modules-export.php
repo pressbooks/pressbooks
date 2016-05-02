@@ -1,10 +1,10 @@
 <?php
 
 
-class ExportMock extends \PressBooks\Modules\Export\Export {
+class ExportMock extends \Pressbooks\Modules\Export\Export {
 
 	function convert() {
-		$this->outputPath = \PressBooks\Utility\create_tmp_file();
+		$this->outputPath = \Pressbooks\Utility\create_tmp_file();
 		return true;
 	}
 
@@ -34,7 +34,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Modules\Export\Export::getExportStylePath
+	 * @covers \Pressbooks\Modules\Export\Export::getExportStylePath
 	 */
 	public function test_getExportStylePath() {
 
@@ -63,7 +63,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 //	/**
-//	 * @covers \PressBooks\Modules\Export\Export::getGlobalTypographyMixinPath
+//	 * @covers \Pressbooks\Modules\Export\Export::getGlobalTypographyMixinPath
 //	 */
 //	public function test_getGlobalTypographyMixinPath() {
 //		// TODO: Testing this as-is triggers updateGlobalTypographyMixin, generates _mixins.css, generates _global-font-stack.scss... Code needs to be decoupled?
@@ -72,7 +72,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Modules\Export\Export::getExportScriptPath
+	 * @covers \Pressbooks\Modules\Export\Export::getExportScriptPath
 	 */
 	public function test_getExportScriptPath() {
 
@@ -112,7 +112,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Modules\Export\Export::isParsingSections
+	 * @covers \Pressbooks\Modules\Export\Export::isParsingSections
 	 */
 	public function test_isParsingSections() {
 
@@ -122,7 +122,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 //	/**
-//	 * @covers \PressBooks\Modules\Export\Export::logError
+//	 * @covers \Pressbooks\Modules\Export\Export::logError
 //	 */
 //	public function test_logError() {
 //		// TODO: Testing this as-is would send emails, writes to error log... Need to be refactored.
@@ -131,7 +131,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Modules\Export\Export::createTmpFile
+	 * @covers \Pressbooks\Modules\Export\Export::createTmpFile
 	 */
 	public function test_createTmpFile() {
 
@@ -144,7 +144,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Modules\Export\Export::timestampedFileName
+	 * @covers \Pressbooks\Modules\Export\Export::timestampedFileName
 	 */
 	public function test_timestampedFileName() {
 
@@ -164,8 +164,8 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Modules\Export\Export::nonce
-	 * @covers \PressBooks\Modules\Export\Export::verifyNonce
+	 * @covers \Pressbooks\Modules\Export\Export::nonce
+	 * @covers \Pressbooks\Modules\Export\Export::verifyNonce
 	 */
 	public function test_nonce_AND_verifyNonce() {
 
@@ -191,7 +191,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Modules\Export\Export::mimeType
+	 * @covers \Pressbooks\Modules\Export\Export::mimeType
 	 */
 	function test_mimeType() {
 
@@ -202,7 +202,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Modules\Export\Export::getExportFolder
+	 * @covers \Pressbooks\Modules\Export\Export::getExportFolder
 	 */
 	function test_getExportFolder() {
 

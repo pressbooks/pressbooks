@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Admin\Fonts;
+namespace Pressbooks\Admin\Fonts;
 
 
-use PressBooks\Container;
+use Pressbooks\Container;
 
 /**
  * Compile Sass for everything that has to do with dynamically generated font stacks
@@ -15,7 +15,7 @@ function update_font_stacks() {
 
 	Container::get( 'GlobalTypography' )->updateGlobalTypographyMixin();
 	Container::get( 'GlobalTypography' )->updateWebBookStyleSheet();
-	\PressBooks\Editor\update_editor_style();
+	\Pressbooks\Editor\update_editor_style();
 }
 
 
@@ -35,6 +35,6 @@ function fix_missing_font_stacks() {
 	}
 
 	if ( ! is_file( $sass->pathToUserGeneratedCss() . '/editor.css' ) ) {
-		\PressBooks\Editor\update_editor_style();
+		\Pressbooks\Editor\update_editor_style();
 	}
 }

@@ -1,6 +1,6 @@
 <?php
 
-use PressBooks\Container;
+use Pressbooks\Container;
 
 class FakePimpleContainer extends \Pimple\Container {
 }
@@ -32,9 +32,9 @@ class ContainerTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Container::init
-	 * @covers \PressBooks\Container::setPimple
-	 * @covers \PressBooks\Container::getPimple
+	 * @covers \Pressbooks\Container::init
+	 * @covers \Pressbooks\Container::setPimple
+	 * @covers \Pressbooks\Container::getPimple
 	 */
 	public function test_initSetGetPimple() {
 
@@ -47,7 +47,7 @@ class ContainerTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Container::getPimple
+	 * @covers \Pressbooks\Container::getPimple
 	 */
 	public function test_getPimpleException() {
 		
@@ -58,8 +58,8 @@ class ContainerTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Container::get
-	 * @covers \PressBooks\Container::set
+	 * @covers \Pressbooks\Container::get
+	 * @covers \Pressbooks\Container::set
 	 */
 	public function test_getSet() {
 
@@ -84,7 +84,7 @@ class ContainerTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Container::get
+	 * @covers \Pressbooks\Container::get
 	 */
 	public function test_getException() {
 
@@ -94,7 +94,7 @@ class ContainerTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \PressBooks\Container::set
+	 * @covers \Pressbooks\Container::set
 	 */
 	public function test_setException() {
 

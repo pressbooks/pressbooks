@@ -7,7 +7,7 @@ Write real Classes or Namespaced functions.
 [PHP Namespaces](http://php.net/manual/en/language.namespaces.php) have been available since 2009. Namespaces are not
 a new concept. We use them.
 
-Our namespace is: `\PressBooks\`
+Our namespace is: `\Pressbooks\`
 
 For example:
 

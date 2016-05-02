@@ -3,10 +3,10 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks\Modules\Export\InDesign;
+namespace Pressbooks\Modules\Export\InDesign;
 
 
-use PressBooks\Modules\Export\Export;
+use Pressbooks\Modules\Export\Export;
 
 class Icml extends Export {
 
@@ -33,8 +33,8 @@ class Icml extends Export {
 		// Create ICML
 
 		$vars = array(
-			'meta' => \PressBooks\Book::getBookInformation(),
-			'book_contents' => $this->preProcessBookContents( \PressBooks\Book::getBookContents() ),
+			'meta' => \Pressbooks\Book::getBookInformation(),
+			'book_contents' => $this->preProcessBookContents( \Pressbooks\Book::getBookContents() ),
 		);
 
 		$cc_copyright = strip_tags( $this->doCopyrightLicense( $vars['meta'] ) );
@@ -151,7 +151,7 @@ class Icml extends Export {
 					$book_contents[$type][$i]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
 				}
 				if ( isset( $val['post_title'] ) ) {
-					$book_contents[$type][$i]['post_title'] = \PressBooks\Sanitize\sanitize_xml_attribute( $val['post_title'] );
+					$book_contents[$type][$i]['post_title'] = \Pressbooks\Sanitize\sanitize_xml_attribute( $val['post_title'] );
 				}
 				if ( isset( $val['post_name'] ) ) {
 					$book_contents[$type][$i]['post_name'] = $this->preProcessPostName( $val['post_name'] );
@@ -167,7 +167,7 @@ class Icml extends Export {
 							$book_contents[$type][$i]['chapters'][$j]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
 						}
 						if ( isset( $val2['post_title'] ) ) {
-							$book_contents[$type][$i]['chapters'][$j]['post_title'] = \PressBooks\Sanitize\sanitize_xml_attribute( $val2['post_title'] );
+							$book_contents[$type][$i]['chapters'][$j]['post_title'] = \Pressbooks\Sanitize\sanitize_xml_attribute( $val2['post_title'] );
 						}
 						if ( isset( $val2['post_name'] ) ) {
 							$book_contents[$type][$i]['chapters'][$j]['post_name'] = $this->preProcessPostName( $val2['post_name'] );
@@ -212,7 +212,7 @@ class Icml extends Export {
 		$config = array(
 			'valid_xhtml' => 1,
 			'unique_ids' => 'fixme-',
-			'hook' => '\PressBooks\Sanitize\html5_to_xhtml11',
+			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 			'tidy' => -1,
 		);
 

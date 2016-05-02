@@ -6,7 +6,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace PressBooks;
+namespace Pressbooks;
 
 
 class Activation {
@@ -89,7 +89,7 @@ class Activation {
 		}
 
 		// Set current metadata version to skip redundant upgrade routines
-		update_option( 'pressbooks_metadata_version', \PressBooks\Metadata::$currentVersion );
+		update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::$currentVersion );
 		flush_rewrite_rules( false );
 
 		do_action( 'pressbooks_new_blog' );
@@ -97,8 +97,8 @@ class Activation {
 		restore_current_blog();
 
 		if ( is_user_logged_in() ) {
-			( new \PressBooks\Catalog() )->deleteCache();
-			\PressBooks\Redirect\location( get_admin_url( $this->blog_id ) );
+			( new \Pressbooks\Catalog() )->deleteCache();
+			\Pressbooks\Redirect\location( get_admin_url( $this->blog_id ) );
 		}
 
 	}
@@ -136,7 +136,7 @@ class Activation {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
-		\PressBooks\Taxonomy\insert_terms();
+		\Pressbooks\Taxonomy\insert_terms();
 
 		$posts = array(
 			// Parts, Chapters, Front-Matter, Back-Matter
