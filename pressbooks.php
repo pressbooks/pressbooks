@@ -59,7 +59,7 @@ function _pressbooks_autoload( $class_name ) {
 
 	$prefix = 'PressBooks\\';
 	$len = strlen( $prefix );
-	if ( strncmp( $prefix, $class_name, $len ) !== 0 ) {
+	if ( strncasecmp( $prefix, $class_name, $len ) !== 0 ) {
 		// Ignore classes not in our namespace
 		return;
 	}
