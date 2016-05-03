@@ -379,6 +379,7 @@ function include_plugins() {
 	    'mce-anchor-button/mce-anchor-button.php' => 1,
 	    'mce-table-buttons/mce_table_buttons.php' => 1,
 	    'mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php' => 1,
+	    'rest-api/plugin.php' => 1,
 	);
 
 	$symbionts = filter_plugins( $symbionts );

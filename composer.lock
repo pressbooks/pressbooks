@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3011c5770c641b12482608ad02b389e7",
-    "content-hash": "06167ef914e7949eb8772386a450daa7",
+    "hash": "cb7c1ed8b77e64c333a0358507a78f35",
+    "content-hash": "5124f527769113630da1b6d598934afb",
     "packages": [
         {
             "name": "composer/installers",
@@ -350,6 +350,22 @@
             "type": "library"
         },
         {
+            "name": "pressbooks/rest-api",
+            "version": "2.0-beta13",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WP-API/WP-API",
+                "reference": "tags/2.0-beta13"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/WP-API/WP-API/archive/2.0-beta13.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "type": "library"
+        },
+        {
             "name": "pressbooks/saxon-he",
             "version": "dev-master",
             "source": {
@@ -434,7 +450,8 @@
         "vanilla/htmlawed": 20,
         "gridonic/princexml-php": 20,
         "pressbooks/saxon-he": 20,
-        "pressbooks/custom-metadata": 20
+        "pressbooks/custom-metadata": 20,
+        "pressbooks/rest-api": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,
