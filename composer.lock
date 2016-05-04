@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1937fb26021b2d6a5e5a0a8a3aeaeefc",
-    "content-hash": "d645752c73c3b3950a154d1cd53a70db",
+    "hash": "d159d46e10f91c8b9e9c68cbbdb9b762",
+    "content-hash": "6c576a95880da12f48a81dd0deb0ee94",
     "packages": [
         {
             "name": "composer/installers",
@@ -351,19 +351,34 @@
         },
         {
             "name": "pressbooks/pressbooks-search-and-replace",
-            "version": "1.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pressbooks/pressbooks-search-and-replace/",
-                "reference": "tags/v1.0.0"
+                "url": "https://github.com/pressbooks/pressbooks-search-and-replace.git",
+                "reference": "392a6a07f4fbbef8c73748f72397543a1d0c416e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/pressbooks/pressbooks-search-and-replace/archive/v1.0.0.zip",
-                "reference": null,
-                "shasum": null
+                "url": "https://api.github.com/repos/pressbooks/pressbooks-search-and-replace/zipball/392a6a07f4fbbef8c73748f72397543a1d0c416e",
+                "reference": "392a6a07f4fbbef8c73748f72397543a1d0c416e",
+                "shasum": ""
             },
-            "type": "library"
+            "type": "library",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Book Oven Inc.",
+                    "email": "code@presssbooks.com"
+                }
+            ],
+            "description": "Full content search and replace for Pressbooks books.",
+            "support": {
+                "source": "https://github.com/pressbooks/pressbooks-search-and-replace/tree/dev",
+                "issues": "https://github.com/pressbooks/pressbooks-search-and-replace/issues"
+            },
+            "time": "2016-05-04 20:33:06"
         },
         {
             "name": "pressbooks/rest-api",
@@ -467,6 +482,7 @@
         "gridonic/princexml-php": 20,
         "pressbooks/saxon-he": 20,
         "pressbooks/custom-metadata": 20,
+        "pressbooks/pressbooks-search-and-replace": 20,
         "pressbooks/rest-api": 10
     },
     "prefer-stable": false,
