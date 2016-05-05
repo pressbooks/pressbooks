@@ -52,6 +52,11 @@
         "styles/pressbooks.scss"
       ]
     },
+    "search-and-replace.css": {
+      "files": [
+        "styles/search-and-replace.scss"
+      ]
+    },
     "style-catalog.css": {
       "files": [
         "styles/style-catalog.scss"
@@ -106,6 +111,11 @@
     "small-menu.js": {
       "files": [
         "scripts/small-menu.js"
+      ]
+    },
+    "search-and-replace.js": {
+      "files": [
+        "scripts/search-and-replace.js"
       ]
     },
     "catalog.js": {

@@ -33,10 +33,6 @@
       "url": "https://github.com/pressbooks/saxon-he"
     },
     {
-      "type": "vcs",
-      "url": "https://github.com/pressbooks/pressbooks-search-and-replace"
-    },
-    {
       "type": "package",
       "package": {
         "name": "pressbooks/custom-metadata",
@@ -164,7 +160,6 @@
     "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/mce-superscript-subscript-buttons": "1.0.0",
     "pressbooks/pressbooks-latex": "1.0.0",
-    "pressbooks/pressbooks-search-and-replace": "dev-master",
     "pressbooks/rest-api": "2.0-beta13"
   },
   "require-dev": {

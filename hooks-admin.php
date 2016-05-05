@@ -40,6 +40,7 @@ add_action( 'admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 1 );
 
 if ( \Pressbooks\Book::isBook() ) {
 	// Aggressively replace default interface
+	add_action( 'init', array( '\Pressbooks\Modules\SearchAndReplace\SearchAndReplace', 'init' ) );
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
