@@ -598,7 +598,7 @@ class Metadata {
 
 		if ( $post ) {
 			$pb_cover_image = get_post_meta( $post->ID, 'pb_cover_image', true );
-			if ( preg_match( '~assets/dist/images/default-book-cover\.png$~', $pb_cover_image ) ) {
+			if ( preg_match( '~assets/images/default-book-cover\.png$~', $pb_cover_image ) ) {
 				update_post_meta( $post->ID, 'pb_cover_image', \Pressbooks\Image\default_cover_url() );
 				Book::deleteBookObjectCache();
 			}
