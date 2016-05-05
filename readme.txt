@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.4.0
+Version: 3.5.0
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.5.1
 Tested up to: 4.5.1
-Stable tag: 3.4.0
+Stable tag: 3.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -199,6 +199,14 @@ TK.
 Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
+
+= 3.5.0 =
+* FEATURE: Search and Replace functionality has been rebuilt and more closely integrated with Pressbooks core.
+* FEATURE: Pressbooks plugins (specifications forthcoming) can now be activated at the book level by book administrators.
+* FIXED: Some image asset paths were updated.
+* FIXED: Default mPDF options were updated.
+* UNDER THE HOOD: Pressbooks now bundles the WordPress API feature plugin (more to come on this front).
+* UNDER THE HOOD: Our namespace is now \Pressbooks.
 
 = 3.4.0 =
 * Requires WordPress 4.5.1.
