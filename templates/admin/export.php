@@ -126,7 +126,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 				<?php if ( true == \Pressbooks\Utility\show_experimental_features() ) { ?>
 				<input type="checkbox" id="icml" name="export_formats[icml]" value="1" /><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
 				<?php } ?>
-				<input type="checkbox" id="odt" name="export_formats[odt]" value="1" /><label for="odt"> <?php _e( 'OpenDocument (beta)', 'pressbooks' ); ?></label>
+				<input type="checkbox" id="odt" name="export_formats[odt]" value="1" /><label for="odt"> <?php _e( 'OpenDocument (beta)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="wxr" name="export_formats[wxr]" value="1" /><label for="wxr"> <?php _e( 'Pressbooks XML', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="vanillawxr" name="export_formats[vanillawxr]" value="1" /><label for="vanillawxr"> <?php _e( 'WordPress XML', 'pressbooks' ); ?></label>
 	    </fieldset>
