@@ -179,15 +179,14 @@ $_current_user_id = $catalog->getUserId();
 		</div> <!-- end .log-wrap -->
 	<div id="catalog-sidebar" class="catalog-sidebar">
 		<h2 class="pressbooks-logo">
-			<a href="<?php echo network_site_url(); ?>">
+			<a target="_blank" href="http://lumenlearning.com">
 				<img width="100px" src="<?php echo get_stylesheet_directory_uri() . '/images/LumenOnDark-200x92.png'; ?>"/>
 			</a>
 		</h2>
-		<!-- <p class="tag-menu assistive-text">Menu</p> -->
 		<p class="tag-menu assistive-text"></p>
 		<div class="sidebar-inner-wrap">
-			<a href="<?php echo _base_url(); ?>">
-			<img class="catalog-logo" src="<?php echo _logo_url( $profile ); ?>" alt="catalog-logo" width="100" height="99" />
+			<a target="_blank" href="<?php echo $profile['pb_catalog_url']; ?>">
+				<img class="catalog-logo" src="<?php echo _logo_url( $profile ); ?>" alt="catalog-logo" width="100" height="99" />
 			</a>
 			<p class="about-blurb"><?php
 				if ( ! empty( $profile['pb_catalog_about'] ) )
