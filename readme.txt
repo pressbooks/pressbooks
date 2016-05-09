@@ -203,6 +203,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 = 3.5.1 =
 * Requires WordPress 4.5.2.
 * **Fixed:** Resolved a formatting issue on the Export page (props to @bdolor).
+* **Under the Hood:** Added anchor, superscript and subscript buttons to core MCE routines (eliminating dependencies).
 
 = 3.5.0 =
 * FEATURE: Search and Replace functionality has been rebuilt and more closely integrated with Pressbooks core.
