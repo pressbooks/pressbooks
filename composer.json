@@ -20,6 +20,7 @@
     "issues": "https://github.com/pressbooks/pressbooks/issues",
     "docs": "https://github.com/pressbooks/pressbooks/wiki"
   },
+  "minimum-stability": "dev",
   "repositories": [
     {
       "type": "vcs",
@@ -127,7 +128,8 @@
     "pressbooks/disable-comments": "1.0.0",
     "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/pressbooks-latex": "1.0.0",
-    "pressbooks/rest-api": "2.0-beta13"
+    "pressbooks/rest-api": "2.0-beta13",
+    "scriptotek/marc": "^0.1.0"
   },
   "require-dev": {
   },
