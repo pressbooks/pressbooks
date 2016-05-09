@@ -122,3 +122,15 @@
 		margin: 0 1px 0 0;
 	}
 }
+
+// Dashicons
+
+i.mce-i-icon {
+  padding: 0 2px 0 0;
+  margin-left: -2px;
+  font: 400 20px/1 dashicons;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  vertical-align: top;
+  speak: none;
+}

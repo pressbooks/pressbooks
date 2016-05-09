@@ -3,7 +3,7 @@
 		init: function (ed, url) {
 			ed.addButton('ftnref_convert', {
 				title: PB_FootnotesToken.ftnref_title,
-				image: url + '/../images/ftnref.png',
+				icon: 'icon dashicons-screenoptions',
 				onclick: function () {
 
 					jQuery.ajax({
