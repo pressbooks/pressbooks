@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cb7c1ed8b77e64c333a0358507a78f35",
-    "content-hash": "5124f527769113630da1b6d598934afb",
+    "hash": "394a8056cc8558a7c80176699c9e9caf",
+    "content-hash": "2d1b07ddbbe6596118f49202e3d01c51",
     "packages": [
         {
             "name": "composer/installers",
@@ -280,38 +280,6 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.0.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
-            "name": "pressbooks/mce-anchor-button",
-            "version": "v1.0.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/mce-anchor-button/",
-                "reference": "tags/v1.0.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/mce-anchor-button/archive/v1.0.1.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
-            "name": "pressbooks/mce-superscript-subscript-buttons",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/mce-superscript-subscript-buttons/",
-                "reference": "tags/v1.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/mce-superscript-subscript-buttons/archive/v1.0.0.zip",
                 "reference": null,
                 "shasum": null
             },

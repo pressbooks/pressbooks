@@ -68,6 +68,11 @@
       ],
       "bower": ["select2"]
     },
+    "anchor.js": {
+      "files": [
+        "scripts/anchor.js"
+      ]
+    },
     "book-information.js": {
       "files": [
         "scripts/book-information.js"

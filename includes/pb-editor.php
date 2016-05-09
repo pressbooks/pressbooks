@@ -30,9 +30,9 @@ function add_languages( $array ) {
 }
 
 /**
- * Adds style select dropdown and textbox buttons to MCE buttons array.
+ * Adds style select dropdown, textbox and background color buttons to the MCE buttons array.
  */
-function mce_buttons( $buttons ) {
+function mce_buttons_2( $buttons ) {
 
 	$p = array_search( 'formatselect', $buttons );
 	array_splice( $buttons, $p + 1, 0, 'styleselect' );
@@ -43,12 +43,21 @@ function mce_buttons( $buttons ) {
 	return $buttons;
 }
 
+/**
+ * Adds anchor, superscript and subscript buttons to the MCE buttons array.
+ */
+function mce_buttons_3( $buttons ) {
+	array_push( $buttons, 'anchor', 'superscript', 'subscript' );
+	return $buttons;
+}
+
 
 /**
  * Adds Javascript for buttons above.
  */
 function mce_button_scripts( $plugin_array ) {
 	$plugin_array['textboxes'] = \Pressbooks\Utility\asset_path( 'scripts/textboxes.js' );
+	$plugin_array['anchor'] = \Pressbooks\Utility\asset_path( 'scripts/anchor.js' );
 	return $plugin_array;
 }
 
