@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.5.1
+Version: 3.5.2
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.5.2
 Tested up to: 4.5.2
-Stable tag: 3.5.1
+Stable tag: 3.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -199,6 +199,12 @@ TK.
 Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
+
+= 3.5.2 =
+* **Feature:** Login screen logo and color scheme can now be changed via filters (see https://github.com/pressbooks/pressbooks/commit/d09a104bfbbe3ad00a108004d0375ad1f7057ae0).
+* **Enhancement:** Google Fonts are now requested over https under all circumstances.
+* **Fix:** Imports will no longer fail in certain environments (props to @monkecheese for the bug fix).
+* **Fix:** Subsection titles are now properly sanitized for XHTML output.
 
 = 3.5.1 =
 * Requires WordPress 4.5.2.
