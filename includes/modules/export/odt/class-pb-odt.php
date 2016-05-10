@@ -164,7 +164,9 @@ class Odt extends Export {
 		} catch ( \Exception $e ) {
 			$this->logError( $e->getMessage() );
 			unlink( $source );
-			$this->deleteDirectory( $mediafolder );
+			if ( is_dir( $mediafolder ) ) {
+				$this->deleteDirectory( $mediafolder );
+			}
 			return false;
 		}
 
@@ -186,7 +188,9 @@ class Odt extends Export {
 		if ( !empty( $msg ) ) {
 			$this->logError( 'Transformation failed, encountered a problem with' .  $msg );
 			unlink( $source );
-			$this->deleteDirectory( $mediafolder );
+			if ( is_dir( $mediafolder ) ) {
+				$this->deleteDirectory( $mediafolder );
+			}
 			return false;
 		}
 
@@ -201,7 +205,9 @@ class Odt extends Export {
 		if ( $list == 0 ) {
 			$this->logError( $zip->errorInfo( true ) );
 			unlink( $source );
-			$this->deleteDirectory( $mediafolder );
+			if ( is_dir( $mediafolder ) ) {
+				$this->deleteDirectory( $mediafolder );
+			}
 			return false;
 		}
 
@@ -214,7 +220,9 @@ class Odt extends Export {
 		unlink( $metafolder . '/manifest.xml' );
 		rmdir( $metafolder);
 
-		$this->deleteDirectory( $mediafolder );
+		if ( is_dir( $mediafolder ) ) {
+			$this->deleteDirectory( $mediafolder );
+		}
 
 		return true;
 	}
