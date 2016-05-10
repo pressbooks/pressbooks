@@ -54,15 +54,15 @@
       "type": "package",
       "package": {
         "name": "pressbooks/disable-comments",
-        "version": "v1.0.0",
+        "version": "v1.0.1",
         "dist": {
-          "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.0.zip",
+          "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.1.zip",
           "type": "zip"
         },
         "source": {
           "url": "https://github.com/pressbooks/disable-comments/",
           "type": "git",
-          "reference": "tags/v1.0.0"
+          "reference": "tags/v1.0.1"
         }
       }
     },
@@ -125,7 +125,7 @@
     "gridonic/princexml-php": "dev-master",
     "pressbooks/saxon-he": "dev-master",
     "pressbooks/custom-metadata": "0.8.1-dev",
-    "pressbooks/disable-comments": "1.0.0",
+    "pressbooks/disable-comments": "1.0.1",
     "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/pressbooks-latex": "1.0.0",
     "pressbooks/rest-api": "2.0-beta13",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "48231d897b5463c9e5becbcfc1817c5c",
-    "content-hash": "63de50d2d2f8e7f70f4618bcad2b22e5",
+    "hash": "10a8699c1f15d7d9ae3414b8c939b6d0",
+    "content-hash": "f0204d49bfe0e86d002e988a19ac5c67",
     "packages": [
         {
             "name": "ck/file_marc_reference",
@@ -468,15 +468,15 @@
         },
         {
             "name": "pressbooks/disable-comments",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/disable-comments/",
-                "reference": "tags/v1.0.0"
+                "reference": "tags/v1.0.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.0.zip",
+                "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.1.zip",
                 "reference": null,
                 "shasum": null
             },

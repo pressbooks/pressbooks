@@ -203,6 +203,7 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 = 3.5.2 =
 * **Feature:** Login screen logo and color scheme can now be changed via filters (see https://github.com/pressbooks/pressbooks/commit/d09a104bfbbe3ad00a108004d0375ad1f7057ae0).
 * **Enhancement:** Google Fonts are now requested over https under all circumstances.
+* **Enhancement:** Added some functionality to the Disable Comments plugin (props to @bdolor).
 * **Fix:** Imports will no longer fail in certain environments (props to @monkecheese for the bug fix).
 * **Fix:** Subsection titles are now properly sanitized for XHTML output.
 
