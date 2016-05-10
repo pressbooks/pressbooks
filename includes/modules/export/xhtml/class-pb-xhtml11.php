@@ -187,7 +187,6 @@ class Xhtml11 extends Export {
 		echo "<head>\n";
 		echo '<meta content="text/html; charset=UTF-8" http-equiv="content-type" />' . "\n";
 		echo '<meta http-equiv="Content-Language" content="' . $this->lang . '" />' . "\n";
-		echo '<base href="' . trailingslashit( site_url( '', 'http' ) ) . '" />' . "\n";
 
 
 		$this->echoMetaData( $book_contents, $metadata );
