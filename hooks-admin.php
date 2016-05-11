@@ -47,6 +47,9 @@ if ( \Pressbooks\Book::isBook() ) {
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
 	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );
+	// Disable theme customizer
+	add_action( 'admin_body_class', '\Pressbooks\Admin\Laf\disable_customizer');
+
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\fix_root_admin_menu', 1 );
@@ -65,9 +68,6 @@ if ( true == is_main_site() ) {
 
 // Javascript, Css
 add_action( 'admin_init', '\Pressbooks\Admin\Laf\init_css_js' );
-
-// Disable theme customizer
-add_action( 'admin_body_class', '\Pressbooks\Admin\Laf\disable_customizer');
 
 // Hacks
 add_action( 'edit_form_advanced', '\Pressbooks\Admin\Laf\edit_form_hacks' );
