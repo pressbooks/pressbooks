@@ -1,0 +1,200 @@
+//=============================
+//RUNNING HEADS CENTER 
+//=============================
+
+// ------------------------------
+//|    lhead     |    rhead     |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|       #      |       #      |
+//------------------------------
+
+/* Blank Head and Foot Defaults
+note: use mixin 'blankheadandfoot' where needed */
+
+@import 'global-partials/global-page-structure/global-page-structure-blanks'; 
+@import 'global-partials/global-page-structure/global-page-structure-mixins'; 
+
+
+/* RUNNING HEAD CENTER: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @include blankheadandfoot;
+  @bottom {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+    text-align: center;
+  }
+}
+@page front-matter:left {
+
+  @top {
+    content: $FrontMatterRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+    text-align: center;
+  }
+}
+@page front-matter:right {
+  @top {
+    content: $FrontMatterRunningContentRight;
+    @include runningheadright;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @include blankheadandfoot;
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+
+@page introduction:left {
+  @top {
+    content: $IntroductionRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+@page introduction:right {
+  @top {
+    content: $IntroductionRunningContentRight;
+    @include runningheadright;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+
+/*  RUNNING HEADS CENTER: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @include blankheadandfoot;
+}
+@page part:left {
+  @top {
+    content: $PartRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-algin: center;
+  }
+}
+@page part:right {
+  @top {
+    content: $PartRunningContentRight;
+    @include runningheadright;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @include blankheadandfoot;
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+@page chapter:left {
+  @top {
+    content: $ChapterRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+@page chapter:right {
+  @top {
+    content: $ChapterRunningContentRight;
+    @include runningheadright;
+    text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @include blankheadandfoot;
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+@page back-matter:left {
+  @top {
+     content: $BackMatterRunningContentLeft;
+     @include runningheadleft;
+     text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+@page back-matter:right {
+  @top {
+     content: $BackMatterRunningContentRight;
+     @include runningheadright;
+     text-align: center;
+  }
+  @bottom {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: center;
+  }
+}
+

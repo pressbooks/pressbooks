@@ -1,0 +1,61 @@
+// BACK MATTER PAGES - GLOBAL
+
+/* BACK MATTER SHOULD NEVER HAVE A NUMBER */
+
+h3.back-matter-number {
+  display: none;
+  visibility: hidden;
+}
+
+/* BACK MATTER STYLING */ 
+
+.back-matter-title-wrap {
+  margin-top: $section-title-margin-top;  
+  margin-bottom: $section-title-margin-bottom;
+}
+h1.back-matter-title {
+  font-family: $font-2;
+  font-size: $section-title-font-size;
+  font-style: $section-title-font-style;
+  font-weight: $section-title-font-weight; 
+  text-transform: $section-title-text-transform;
+  display: block;
+  margin-top: $section-title-margin-top;  
+  hyphens: none;
+  -webkit-hyphens: none; 
+  margin-bottom: 0.5em;
+  padding-bottom: 1.5em;
+}
+
+/* BIBLIOGRAPHY
+ =============== */
+
+.bibliography p  {
+  font-size: 0.9em;
+  padding-left: 2em;
+  text-indent: -2em;
+}
+
+/* INDEX 
+================== */
+.index .ugc  {
+  column-count: 2;
+  column-gap: 2.5em;
+}
+.index .ugc  div {
+  margin-bottom: 4em;
+}
+.index p,
+div.index .ugc p,
+div.index .ugc p.indent,
+div.index .ugc p.nonindent,
+.index div + p {
+  font-size: 0.9em;
+  padding-left: 2em;
+  text-indent: -2em;
+  text-align: left;
+}
+
+.index .ugc  p.sub-entry {
+  padding-left: 4em;
+}

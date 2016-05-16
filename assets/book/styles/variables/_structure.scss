@@ -1,0 +1,85 @@
+// VARS - GLOBAL PAGE STRUCTURE
+
+//RUNNING HEADS & FEET
+
+$front-matter-page-number-font-size: 0.8em !default;
+$front-matter-page-number-font-style: normal !default;
+$front-matter-page-number-font-weight: normal !default;
+$front-matter-page-number-text-transform: none !default;
+
+$page-number-font-size: 0.9em !default;
+$page-number-font-style: normal !default;
+$page-number-font-weight: normal !default;
+$page-number-text-transform: none !default;
+
+$runninghead-left-font-size: 0.7em !default;
+$runninghead-left-font-style: normal !default;
+$runninghead-left-font-weight: normal !default;
+$runninghead-left-text-transform: uppercase !default;
+
+$runninghead-right-font-size: 0.7em !default;
+$runninghead-right-font-style: normal !default;
+$runninghead-right-font-weight: normal !default;
+$runninghead-right-text-transform: uppercase !default;
+
+$runningfoot-left-font-size: 0.7em !default;
+$runningfoot-left-font-style: normal !default;
+$runningfoot-left-font-weight: normal !default;
+$runningfoot-left-text-transform: uppercase !default;
+
+$runningfoot-right-font-size: 0.7em !default;
+$runningfoot-right-font-style: normal !default;
+$runningfoot-right-font-weight: normal !default;
+$runningfoot-right-text-transform: uppercase !default;
+
+//RUNNING HEAD & FEET CONTENT
+//string-options are:
+//- book-title
+//- book-subtitle
+//- book-author
+//- book-publisher
+//- book-publisher-city
+//- part-number
+//- part-title
+//- chapter-number
+//- section-title (note this is: frontmatter/chapter/backmatter title OR short-chapter-title if such a thing exists)
+//- chapter-author
+//- chapter-subtitle
+
+$FrontMatterRunningContentLeft: string(book-title) !default;
+$FrontMatterRunningContentRight: string(section-title) !default;
+$IntroductionRunningContentLeft: string(book-title) !default;
+$IntroductionRunningContentRight: string(section-title) !default;
+$PartRunningContentLeft: string(book-title) !default;
+$PartRunningContentRight: string(section-title) !default;
+$ChapterRunningContentLeft: string(book-title) !default;
+$ChapterRunningContentRight: string(section-title) !default;
+$BackMatterRunningContentLeft: string(book-title) !default;
+$BackMatterRunningContentRight: string(section-title) !default;
+
+/* CROP MARKS (none | crop | cross) */
+
+$page-cropmarks: none !default;
+
+/* PAGE SIZE (in, cm) */
+
+$page-width: 6in !default;
+$page-height: 9in !default;
+
+/* PAGE MARGINS (in, cm, %, px etc) */
+
+$page-margin-left-top: 2cm !default;
+$page-margin-left-right: 2cm !default;
+$page-margin-left-bottom: 2cm !default;
+$page-margin-left-left: 2cm !default;
+
+$page-margin-right-top: 2cm !default;
+$page-margin-right-right: 2cm !default;
+$page-margin-right-bottom: 2cm !default;
+$page-margin-right-left: 2cm !default;
+
+/* RECTO VERSO OPENINGS (right | auto)... */
+
+$recto-verso-standard-opening: right !default;
+$recto-verso-first-section-opening: right !default;
+$recto-verso-next-sections-opening: auto !default;

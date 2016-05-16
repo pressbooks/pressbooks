@@ -1,0 +1,119 @@
+//PARAGRPAHS - GLOBAL 
+
+/* PARAGRAPH STYLING */ 
+p { 
+  text-align: $para-align;
+  margin-bottom: 0;
+  widows: $widows;
+  orphans: $orphans;
+}
+
+p + p,
+p.indent {
+  text-indent: $para-indent;
+  margin-top: $para-margin-top;
+}
+
+.no-indent,
+p.no-indent,
+div.ugc p.no-indent,
+div.ugc.chapter-ugc p.no-indent,
+div.ugc > p.no-indent,
+div.chapter-ugc > p.no-indent,
+div.front-matter p.no-indent,
+div.back-matter p.no-indent,
+div.ugc p.indent.no-indent,
+div.ugc.chapter-ugc p.indent.no-indent {
+  text-indent: 0 !important;
+  margin-top: 1em !important;
+}
+
+p,
+p.indent,
+p.nonindent,
+p.no-indent {
+  margin-bottom: 0;
+}
+
+/* HYPHENATION */
+
+body,
+.front-matter,
+.chapter,
+.back-matter,
+p,
+p.indent,
+p.no-indent {
+   hyphens: $para-hyphenation; 
+   hyphenate-before: 3;
+   hyphenate-after: 3;
+   hyphenate-lines: 2;
+}
+
+/* when paras follow a floated image, make sure para indents work as expected */
+/* NOTE: this should only happen when para separators = indent. */
+.wp-caption.alignleft + p,
+.wp-nocaption.alignleft + p,
+.wp-caption.alignright + p,
+.wp-nocaption.alignright + p,
+.float-top + p,
+.float-bottom + p,
+.pullquote + p,
+.pullquote-right + p,
+.pullquote-left + p,
+.pullquote-outside + p,
+.sidebar + p {
+  margin-top: $para-margin-top;
+  text-indent: $para-indent;
+}
+
+#copyright-page .ugc p,
+#copyright-page p,
+.dedication p,
+.epigraph p {
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
+
+/* Hanging Indents */
+.hanging-indent,
+p.hanging-indent {
+  padding-left: 1em;
+  text-indent: -1em;
+}
+
+@mixin ParaTracking {
+/* PDF tracking -- only applies to PDF/Prince outputs */ 
+
+.tight,
+p.tight {
+  letter-spacing: -0.25px;
+  word-spacing: -0.075em;
+}
+
+.very-tight,
+p.very-tight {
+  letter-spacing: -0.5px;
+  word-spacing: -0.09em;
+}
+
+.loose,
+p.loose {
+  letter-spacing: 0.25px;
+  word-spacing: 0.075em;
+}
+
+.very-loose,
+p.very-loose {
+  letter-spacing: 0.5px;
+  word-spacing: 0.09em;
+}
+}
+
+@if type == 'prince' {
+  @include ParaTracking;
+}
+
+
+

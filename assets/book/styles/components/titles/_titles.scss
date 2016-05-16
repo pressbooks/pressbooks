@@ -1,0 +1,140 @@
+//TITLE PAGES - GLOBAL
+
+/* TITLE PAGE STYLING */ 
+
+/* HALFTITLE PAGE */
+
+#half-title-page > h1.title {
+  font-family: $font-2;
+  font-size: $title-half-title-font-size;
+  font-weight: $title-half-title-font-weight;
+  font-style: $title-half-title-font-style;
+  text-transform: $title-half-title-text-transform;
+  margin-top: $section-title-margin-top;
+  hyphens: none;
+  -webkit-hyphens: none; 
+}
+
+/* TITLE PAGE */
+
+h1.title { 
+  font-family: $font-2;
+  font-size: $title-title-font-size;
+  font-weight: $title-title-font-weight;
+  font-style: $title-title-font-style;
+  text-transform: $title-title-text-transform;
+  margin-top: $section-title-margin-top;
+  hyphens: none;
+  -webkit-hyphens: none; 
+}
+
+h2.subtitle {
+  font-family: $font-3;
+  font-size: $title-subtitle-font-size;
+  font-weight: $title-subtitle-font-weight;
+  font-style: $title-subtitle-font-style;
+  text-transform: $title-subtitle-text-transform; 
+  hyphens: none;
+  -webkit-hyphens: none; 
+}
+
+h3.author {
+  font-family: $font-2;
+  font-size: $title-author-font-size;
+  font-weight: $title-author-font-weight;
+  font-style: $title-author-font-style;
+  text-transform: $title-author-text-transform; 
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  margin-top: 2cm;
+  hyphens: none;
+  -webkit-hyphens: none; 
+}
+
+h4.publisher {
+  font-family: $font-3;
+  font-size: $title-publisher-font-size;
+  font-weight: $title-publisher-font-weight;
+  font-style: $title-publisher-font-style;
+  text-transform: $title-publisher-text-transform; 
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  line-height: 1;
+  float: bottom;
+  display: block;
+  margin-bottom: 0.5em;
+  hyphens: none;
+  -webkit-hyphens: none; 
+}
+
+h5.publisher-city {
+  font-family: $font-3;
+  line-height: 1;
+  font-size: $title-publisher-font-size;
+  font-weight: $title-publisher-font-weight;
+  font-style: $title-publisher-font-style;
+  text-transform: $title-publisher-text-transform; 
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  float: bottom;
+  margin-top: 0;
+  hyphens: none;
+  -webkit-hyphens: none; 
+}
+
+/* TITLE PAGE LOGO STYLING */
+
+img.pb-publogo {
+  width: 35px;
+  height: auto;
+  margin-left: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  display: block;
+  float: none;
+}
+img.pb-publogo-wide {
+  width: 140px;
+  height: auto;
+  margin-left: 0;
+  margin-right: auto;
+  margin-bottom: 0;
+  display: block;
+}
+
+// USE MIXINS + CONDITIONALS TO DEFINE VARIATIONS BETWEEN 
+// EPUB, PDF AND WEB 
+
+@mixin titles-PDF {
+
+  h3.author { margin-top: 2cm; }
+
+  #title-page > div.pb-publogo-wrap {
+    position: fixed;
+    bottom: 1.85cm;
+    width: 90%;
+    margin: 0 0 0 -45%;
+    left: 50%;
+  }
+
+  #title-page > .subtitle,
+  #title-page > div.logo,
+  #title-page > .author,
+  #title-page > .publisher,
+  #title-page > .publisher-city { bookmark-level: none; }
+
+}
+
+@mixin titles-EPUB {
+  h1.title { font-size: 1.5em; }
+  #half-title-page { display: none; }
+  h3.author { margin-top: 2em; }
+}
+
+// CONDITIONAL CALLS CORRECT MIXIN DEPENDING ON OUTPUT TYPE
+
+@if $type == 'epub' {
+    @include titles-EPUB;
+} @else if $type == 'prince' {
+    @include titles-PDF;
+}

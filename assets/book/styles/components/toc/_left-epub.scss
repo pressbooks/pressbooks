@@ -1,0 +1,103 @@
+// GLOBAL EPUB TOC - LEFT
+
+@import '../../partials/toc/mixins';
+
+  /* EPUB TABLE OF CONTENTS new
+======================= */
+
+#toc {
+  margin: 5%;
+}
+
+#toc h1 {
+  margin-bottom: 2em;
+  display: block;
+  padding-bottom: 1.5em;
+}
+#toc ul {
+  line-height: 1.2;
+}
+#toc ul, #toc li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#toc li {
+  margin-bottom: 0.25em;
+}
+#toc ul .front-matter,
+#toc ul .back-matter {
+  margin-bottom: 0.25em;
+}
+
+#toc a {
+  border: none;
+  color: inherit;
+}
+#toc a:after {
+  font-style: normal;
+  text-decoration: none;
+}
+
+/* TOC FRONT-MATTER/BACKMATTER */
+
+#toc .front-matter {
+  @include tocfrontmattertitle;
+}
+
+#toc li.front-matter.introduction span.toc-chapter-title {
+  font-style: normal;
+}
+
+#toc .back-matter {
+  @include tocbackmattertitle;
+}
+
+#toc .front-matter + .part,
+#toc .front-matter + .chapter,
+#toc .chapter + .back-matter,
+#toc .part + .backmatter {
+  margin-top: 1.3em;
+}
+
+/* TOC PARTS */
+
+#toc .part .toc-chapter-title {
+  @include tocparttitle;
+  font-size: 1.2em;
+  margin: 1.3em 0 1.3em;
+  text-align: left;
+}
+
+/* TOC CHAPTER STYLING  */
+#toc span.toc-chapter-title {
+  @include tocchaptertitle;
+  margin-top: 0.5em;
+  display: block;
+}
+#toc span.chapter-author{
+  @include tocchapterauthor;
+  display: block;
+  padding-left: 2em;
+  margin-bottom: 0.3em;
+}
+#toc span.chapter-subtitle {
+  @include tocchaptersubtitle;
+  display: block;
+  padding-left: 2em;
+  margin-bottom: 0.3em;
+}
+#toc span.chapter-subtitle +
+span.chapter-author {
+  margin-top: -0.5em;
+  margin-bottom: 0.5em;
+}
+
+#toc ul.sections {
+  padding-top: 0.5em !important;
+  padding-bottom: 0.5em !important;
+  margin-left: 2em !important;
+  font-size: 0.9em;
+}
+
+#toc li.section { font-style: italic; }

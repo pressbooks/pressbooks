@@ -1,0 +1,45 @@
+//VARS - SPECIAL ELEMENTS GLOBAL
+
+//first-character (dropcaps)
+
+$first-character-font-size: 3em !default;
+$first-character-font-style: normal !default;
+$first-character-font-weight: bold !default;
+
+//footnotes
+
+$pdf-footnote-font-size: 0.8em !default;
+$epub-footnote-font-size: 0.9em !default;
+$footnote-font-style: normal !default;
+$footnote-font-weight: normal !default;
+
+//pullquotes
+
+$pullquote-font-size: 1.25em !default;
+$pullquote-font-style: normal !default;
+$pullquote-font-weight: bold !default;
+$pullquote-text-transform: none !default;
+
+// textbox colors 
+
+$edu-header-text-color: #fff !default;
+$learning-objectives-background: #F7F7F9 !default;
+$learning-objectives-header-background: #111111 !default;
+$key-takeaways-background: #EAF5EA !default;
+$key-takeaways-header-background: #3A7A33 !default;
+$exercises-background: #E3EFF6 !default;
+$exercises-header-background: #0B6396 !default;
+$examples-background: #F3E1E3 !default;
+$examples-header-background: #7A333A !default;
+
+//textbox
+
+$textbox-font-size: 0.9em !default;
+$textbox-font-style: normal !default;
+$textbox-font-weight: normal !default;
+
+//sidebar
+
+$sidebar-font-size: 0.9em !default;
+$sidebar-font-style: italic !default;
+$sidebar-font-weight: normal !default;

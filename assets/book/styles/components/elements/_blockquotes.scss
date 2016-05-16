@@ -1,0 +1,13 @@
+//BLOCKQUOTES - GLOBAL
+
+/* BLOCKQUOTES */ 
+
+div.blockquote,
+blockquote {
+  font-family: $font-1;
+  font-size: $blockquote-font-size;
+  font-style: $blockquote-font-style;
+  font-weight: $blockquote-font-weight;
+  line-height: $blockquote-line-height;
+  margin: $blockquote-margin;
+}

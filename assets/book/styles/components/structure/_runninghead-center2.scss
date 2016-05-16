@@ -1,0 +1,134 @@
+//=============================
+//RUNNING HEADS CENTER2 
+//=============================
+
+// ------------------------------
+//|  # . lhead   |   rhead . #  |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//------------------------------
+
+/* Blank Head and Foot Defaults
+note: use mixin 'blankheadandfoot' where needed */
+
+@import 'global-partials/global-page-structure/global-page-structure-blanks';
+@import 'global-partials/global-page-structure/global-page-structure-mixins';  
+
+
+
+/* RUNNING HEAD CENTER2: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @include blankheadandfoot;
+ 
+}
+@page front-matter:left {
+
+  @top {
+    content: counter(page, lower-roman) "\A0\A0•\A0\A0" $FrontMatterRunningContentLeft  ;
+    @include runningheadleft;
+    text-align: center;
+  }
+}
+@page front-matter:right {
+  @top {
+    content: $FrontMatterRunningContentRight "\A0\A0•\A0\A0" counter(page, lower-roman);
+    @include runningheadright;
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER2: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @include blankheadandfoot;
+}
+
+@page introduction:left {
+  @top {
+    content: counter(page) "\A0\A0•\A0\A0" $IntroductionRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+}
+@page introduction:right {
+  @top {
+    content:  $IntroductionRunningContentRight "\A0\A0•\A0\A0" counter(page);
+    @include runningheadright;
+    text-align: center;
+  }
+}
+
+/*  RUNNING HEADS CENTER2: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @include blankheadandfoot;
+}
+@page part:left {
+  @top {
+    content: counter(page) "\A0\A0•\A0\A0" $PartRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+}
+@page part:right {
+  @top {
+    content: $PartRunningContentRight "\A0\A0•\A0\A0" counter(page);;
+    @include runningheadright;
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER2: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @include blankheadandfoot;
+}
+@page chapter:left {
+  @top {
+    content: counter(page) "\A0\A0•\A0\A0" $ChapterRunningContentLeft;
+    @include runningheadleft;
+    text-align: center;
+  }
+
+}
+@page chapter:right {
+  @top {
+    content: $ChapterRunningContentRight "\A0\A0•\A0\A0" counter(page);
+    @include runningheadright;
+    text-align: center;
+  }
+}
+
+/* RUNNING HEADS CENTER2: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @include blankheadandfoot;
+}
+@page back-matter:left {
+  @top {
+     content: counter(page) "\A0\A0•\A0\A0" $BackMatterRunningContentLeft;
+     @include runningheadleft;
+     text-align: center;
+  }
+}
+@page back-matter:right {
+  @top {
+     content: $BackMatterRunningContentRight "\A0\A0•\A0\A0" counter(page);
+     @include runningheadright;
+     text-align: center;
+  }
+
+}
+

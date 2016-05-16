@@ -1,0 +1,39 @@
+//COLUMNS - GLOBAL
+
+/* COLUMN STYLING */
+//NOTE: VAR DEFAULTS ARE DEFINED IN 'global-paragrpahs' 
+
+.twocolumn {
+  text-align: $para-align;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 1em;
+  line-height: 1.2;
+  column-count: 2;
+  column-gap: 1.5em;
+  column-fill: balance !important;
+}
+.twocolumn p,
+.twocolumn p + p {
+  line-height: 1.2;
+  text-align: $para-align;
+  text-indent: $para-indent;
+  margin-top: $para-margin-top;
+}
+.threecolumn {
+  text-align: left;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 0.9em;
+  line-height: 1.2;
+  column-count: 3;
+  column-gap: 1em;
+  column-fill: balance !important;
+}
+.threecolumn p,
+.threecolumn p + p {
+  line-height: 1.2;
+  text-align: left;
+  text-indent: $para-indent;
+  margin-top: $para-margin-top;
+}

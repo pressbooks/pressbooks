@@ -1,0 +1,238 @@
+//========================
+//RUNNING FOOT OUTSIDE2 
+//========================
+
+
+// ------------------------------
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//| # | lfoot    |    rfoot | # |
+//------------------------------
+
+/* Blank Head and Foot Defaults
+note: use mixin 'blankheadandfoot' where needed */
+
+@import 'global-partials/global-page-structure/global-page-structure-blanks'; 
+@import 'global-partials/global-page-structure/global-page-structure-mixins'; 
+
+/* RUNNING FOOT OUTSIDE2: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page front-matter:left {
+  @bottom-left {
+    content: $FrontMatterRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page, lower-roman) "\A0\A0|\A0\A0";
+    @include frontmatterpagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page front-matter:right {
+  @bottom-right {
+    content: $FrontMatterRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0|\A0\A0" counter(page, lower-roman) ;
+    @include frontmatterpagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE2: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page introduction:left {
+  @bottom-left {
+    content: $IntroductionRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0|\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page introduction:right {
+  @bottom-right {
+    content: $IntroductionRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0|\A0\A0" counter(page) ;
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE2: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page part:left {
+  @bottom-left {
+    content: $PartRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0|\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page part:right {
+  @bottom-right {
+    content: $PartRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0|\A0\A0" counter(page) ;
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE2: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page chapter:left {
+  @bottom-left {
+    content: $ChapterRunningContentLeft;
+    @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0|\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page chapter:right {
+  @bottom-right {
+    content: $ChapterRunningContentRight;
+    @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0|\A0\A0" counter(page) ;
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+
+/* RUNNING FOOT OUTSIDE2: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
+  }
+}
+@page back-matter:left {
+  @bottom-left {
+     content: $BackMatterRunningContentLeft;
+     @include runningheadleft;
+  }
+  @bottom-left-corner {
+    content: counter(page) "\A0\A0|\A0\A0";
+    @include pagenumber;    
+    margin-left: -1cm;
+  }
+}
+@page back-matter:right {
+  @bottom-right {
+     content: $BackMatterRunningContentRight;
+     @include runningheadright;
+  }
+  @bottom-right-corner {
+    content: "\A0\A0|\A0\A0" counter(page);
+    @include pagenumber;    
+    margin-right: -1cm;
+  }
+}
+

@@ -1,0 +1,90 @@
+//FRONTMATTER PAGES - GLOBAL
+
+
+/* FRONT MATTER FORMATTING */
+
+/* FRONT MATTER SHOULD NEVER HAVE A CHAPTER NUMBER */
+
+h3.front-matter-number, 
+h3.front-matter-number.dedication {
+  display: none;
+  visibility: hidden;
+}
+ 
+/* BEFORE TITLE PAGE CONTENT */
+
+.before-title .front-matter-title-wrap {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+
+/* DIV WRAPPER AROUND FRONT MATTER TITLE*/
+
+.front-matter-title-wrap {
+  margin-top: $section-title-margin-top;  
+  margin-bottom: $section-title-margin-bottom;
+}
+
+
+/* FRONT-MATTER TITLE */
+
+h1.front-matter-title,
+#toc h1 {
+  font-family: $font-2;
+  font-size: $section-title-font-size;
+  font-weight: $section-title-font-weight; 
+  font-style: $section-title-font-style; 
+  text-transform: $section-title-text-transform;
+  display: block;
+  margin-top: $section-title-margin-top; 
+  hyphens: none;
+  -webkit-hyphens: none; 
+}
+
+/* OTHER SPECIAL FRONT-MATTER STYLING */ 
+
+/* COPYRIGHT */
+
+#copyright-page > .ugc {
+  margin-top: $section-title-margin-top;
+}
+
+#copyright-page .ugc p {
+  font-family: $font-1;
+  font-size: 0.8em;
+  font-weight: normal; 
+  font-style: normal; 
+  line-height: 1.2em;
+  text-indent: 0 !important;
+  margin-bottom: 1em;
+}
+
+
+/*   DEDICATION  */
+
+div.dedication {
+  margin-right: 10%;
+  margin-left: 10%;
+}
+.dedication p {
+  font-family: $font-1;
+  font-size: 1em;
+  font-weight: normal; 
+  font-style: italic; 
+  margin-bottom: 1em;
+}
+
+/*   EPIGRAPH */
+
+div.epigraph {
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.epigraph p {
+  font-family: $font-1;
+  font-size: 1em;
+  font-weight: normal; 
+  font-style: italic; 
+  margin-bottom: 1em;
+}

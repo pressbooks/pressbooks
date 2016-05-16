@@ -1,0 +1,37 @@
+//RECTO-VERSO - GLOBAL
+//governs how pages open
+
+
+/* PAGE SETTINGS: RECTO / VERSO CHAPTER OPENINGS */
+
+#half-title-page {
+  page-break-before: $recto-verso-standard-opening; 
+}
+#title-page { 
+  page-break-before: $recto-verso-standard-opening; 
+}
+div.front-matter {
+  page-break-before: $recto-verso-first-section-opening; 
+}
+div.front-matter + div.front-matter {
+  page-break-before: $recto-verso-next-sections-opening;
+}
+div.front-matter.introduction {
+  page-break-before: $recto-verso-first-section-opening !important; 
+ } 
+div.chapter {
+  page-break-before: $recto-verso-first-section-opening; 
+}
+div.chapter + div.chapter {
+  page-break-before: $recto-verso-next-sections-opening;
+}
+div.part {
+  page-break-before: $recto-verso-standard-opening; 
+} 
+div.back-matter {
+  page-break-before: $recto-verso-first-section-opening; 
+}
+div.back-matter + div.back-matter {
+  page-break-before: $recto-verso-next-sections-opening;
+}
+

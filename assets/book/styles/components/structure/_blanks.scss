@@ -1,0 +1,64 @@
+//BLANK HEADERS AND FOOTERS - GLOBAL
+
+/* BLANK HEADER AND FOOTER */
+
+@mixin blankheadandfoot {
+   @top {
+       content: "";
+    }
+    @top-right {
+       content: "";
+    }
+    @top-right-corner {
+      content: "";
+    }
+    @top-left {
+       content: "";
+    }
+    @top-left-corner {
+      content: "";
+    }
+    @bottom {
+       content: "";
+    }
+    @bottom-right {
+       content: "";
+    }
+    @bottom-right-corner {
+       content: "";
+    }
+    @bottom-left {
+       content: "";
+    }
+    @bottom-left-corner {
+       content: "";
+    }
+}
+
+@page before-title {@include blankheadandfoot;}
+
+@page halftitle-page {@include blankheadandfoot;}
+
+@page title-page {@include blankheadandfoot;}
+
+@page epigraph {@include blankheadandfoot;}
+
+@page dedication {@include blankheadandfoot;}
+
+@page copyright-page {@include blankheadandfoot;}
+
+@page toc {@include blankheadandfoot;}
+
+@page front-matter:blank {@include blankheadandfoot;}
+
+@page introduction:blank {@include blankheadandfoot;}
+
+@page part:blank {@include blankheadandfoot;}
+
+@page chapter:blank {@include blankheadandfoot;}
+
+@page back-matter:blank {@include blankheadandfoot;}
+
+@page:blank {@include blankheadandfoot;}
+
+@page blank-page {@include blankheadandfoot;}

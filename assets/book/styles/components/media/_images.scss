@@ -1,0 +1,7 @@
+@if $type == 'epub' {
+  @import 'images-epub';
+} @else if $type == 'prince' {
+  @import 'images-prince';
+} @else if $type == 'web' {
+  @import 'images-web';
+}

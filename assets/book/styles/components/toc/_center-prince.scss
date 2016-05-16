@@ -1,0 +1,145 @@
+//TocCenter
+
+ /* STANDARD TOC STYLING */
+
+@import 'toc-prince';
+
+/* TOC general page structure */
+
+  @page toc {
+    @include blankheadandfoot;
+  }
+  #toc {
+    counter-reset: part;
+    page-break-before: right;
+    font-size: 0.9em;
+    margin-left: 0.5cm;
+    margin-right: 0.5cm;
+  }
+
+ /* TOC Header */
+
+  #toc h1 {
+    text-align: center !important;
+
+  }
+
+/* TOC general styling */
+
+  #toc a {
+    border: none;
+    color: inherit;
+  }
+  #toc ul, #toc li {
+    list-style: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+  }
+  #toc ul {
+    counter-reset: chapter;
+    line-height: 1;
+  }
+  #toc li {
+    position: relative;
+  }
+
+ /* TOC FRONT-MATTER/BACK-MATTER & Margins */
+
+  #toc li.front-matter {
+    margin-top: 0.3em;
+    text-align: center;
+  }
+  #toc li.back-matter {
+    margin-top: 0.3em;
+    text-align: center;
+  }
+  #toc li.chapter + li.back-matter {
+    margin-top: 2em;
+  }
+  #toc li.part + li.back-matter {
+    margin-top: 1.5em;
+  }
+  #toc .front-matter span.toc-chapter-title {
+    @include tocfrontmattertitle;
+    text-align: center;
+  }
+  #toc .introduction span.toc-chapter-title {
+    @include tocfrontmattertitle;
+    text-align: center;
+  }
+
+  #toc .back-matter span.toc-chapter-title {
+    @include tocbackmattertitle;
+    text-align: center;
+  }
+
+  /* TOC PART STYLE */
+
+  #toc .part {
+    @include tocparttitle;
+    text-align: center;
+    page-break-after: avoid;
+    margin-top: 2em;
+    margin-bottom: 1.5em;
+  }
+  #toc .part a::before {
+    content: "Part " counter(part, upper-roman)".\A0";
+    display: block;
+    text-align: center;
+    counter-increment: part;
+    page-break-after: avoid;
+  }
+  #toc .part a::after {
+    content:'' ;
+  }
+
+  /* CHAPTER NUMBERS */
+
+  #toc .chapter a::before {
+    @include tocchapternumber;
+    content: counter(chapter) ".\A0\A0\A0";
+    counter-increment: chapter;
+    display: inline;
+    page-break-after: avoid;
+  }
+
+  /* TOC CHAPTER STYLING */
+
+  #toc .chapter {
+    margin-top: 0.75em;
+  }
+  #toc span.toc-chapter-title {
+    @include tocchaptertitle;
+    text-align: center;
+    display: inline-block;
+    page-break-after: avoid;
+  }
+  #toc span.chapter-author,
+  #toc span.chapter-subtitle {
+    display: none;
+    text-align: center;
+  }
+  #toc span.chapter-subtitle {
+    @include tocchaptersubtitle;
+  }
+  #toc span.chapter-author {
+    @include tocchapterauthor;
+  }
+
+  /* PAGE NUMBERS */
+
+  #toc .front-matter a::after {
+    content: "\A0\A0\A0"  target-counter(attr(href), page, lower-roman);
+  }
+  #toc .introduction a::after {
+    content: "\A0\A0\A0"  target-counter(attr(href), page);
+  }
+  #toc a::after {
+    @include tocpagenumber;
+    content: "\A0\A0\A0" target-counter(attr(href), page);
+    text-decoration: none;
+    display: inline;
+  }

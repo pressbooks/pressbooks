@@ -1,0 +1,64 @@
+// CONTENT SETTINGS - GLOBAL
+
+/* SETTING THE CONTENT (TITLE PAGES) */ 
+
+#title-page > .title {
+  string-set: book-title content();
+}
+#title-page > .short-book-title,
+.short-book-title {
+    string-set: book-title content();
+    visibility: hidden;
+}
+#title-page > .subtitle {
+  string-set: book-subtitle content();  
+}
+#title-page > .author {
+  string-set: book-author content();
+}
+#title-page > .publisher {
+  string-set: book-publisher content();
+}
+#title-page > .publisher-city {
+	string-set: book-publisher-city content();
+}
+
+/* PART & CHAPTER STRINGS */
+
+.part-title-wrap h3.part-number {
+	string-set: part-number content();
+}
+.part-title-wrap h1.part-title {
+	string-set: part-title content();
+}
+h3.chapter-number {
+    string-set: chapter-number content();
+}
+/* chapter title */
+div.front-matter .front-matter-title-wrap > h1:first-of-type, 
+div.chapter .chapter-title-wrap > h2:first-of-type,
+div.back-matter .back-matter-title-wrap > h1:first-of-type  {
+  string-set: section-title content();
+}
+
+/* "short title override" ... this sets short chapter title content (for running header) but does not display it.
+it can cause problems with spacing of things, so be careful to design around it */
+
+div.front-matter > div.ugc h6.short-title:first-of-type,
+div.chapter > div.ugc h6.short-title:first-of-type,
+div.back-matter > div.ugc h6.short-title:first-of-type {
+  string-set: section-title content() !important; /* override running header */
+  visibility: hidden; /* display:none breaks string-set: */
+  font-size: 0;
+  height: 0;
+}
+
+div.ugc h2.chapter-author {
+	string-set: chapter-author content();
+}
+div.ugc h2.chapter-subtitle {
+	string-set: chapter-subtitle content();
+}
+
+
+

@@ -1,0 +1,82 @@
+//SEPARATORS - GLOBAL
+
+/* SEPARATORS */ 
+
+/* PAGE-BREAKS */
+.page-break-after, 
+.pdf-page-break-after {
+  page-break-after: always;
+}
+
+.page-break-before,
+.pdf-page-break-before {
+  page-break-before: always;
+}
+
+.page-break-inside,
+.pdf-page-break-inside {
+  page-break-inside: auto !important;
+}
+
+/* SEPARATORS */
+
+hr {
+  margin: 10px auto;
+  text-align: center;
+  width: 20%;
+}
+
+hr.break-symbols {
+  border: none;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+hr.break-symbols::after {
+  display: block;
+  content: "\066D";
+  font-size: 18pt;
+  text-align: center;
+}
+
+div.ugc h3.section-break,
+.section-break {
+  text-align: center;
+  text-indent: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+div.ugc h3.section-break-space,
+.section-break-space {
+   visibility: hidden;
+   margin-top: 1em;
+   line-height: 1em;
+   margin-bottom: 0em;
+}
+
+div.ugc h3.section-break-page,
+.section-break-page {
+  text-align: center;
+  text-indent: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  page-break-after: always;
+}
+
+div.ugc h3.section-break-page-invisible,
+.section-break-page-invisible {
+  visibility: hidden;
+  text-align: center;
+  text-indent: 0;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  page-break-after: always;
+}
+
+div.blank-page {
+  page-break-before: always;
+  visibility: hidden;
+  font-size: 0;
+}
+

@@ -1,0 +1,25 @@
+//FLOATS - GLOBAL
+
+.clear {
+  clear: both;
+}
+
+@mixin SpecialFloats {
+/* SPECIAL FLOATS */ 
+.float-top {
+  float: top;
+}
+.float-bottom {
+  float: bottom;
+}
+.float-none {
+  float: none;
+}
+.clear {
+  clear: both;
+}
+}
+
+@if $type == 'prince' {
+	@include SpecialFloats;
+}

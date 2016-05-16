@@ -1,0 +1,111 @@
+//TEXTBOXES - GLOBAL
+
+/* TEXTBOX STYLING */
+
+@mixin educational-textbox() {
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 2% 3%;
+  margin-inside: auto;
+    margin-outside: auto;
+    float: none;
+  h3 {
+    color: $edu-header-text-color;
+    margin: -2% -3% 15px;
+    padding: 15px 0;
+    text-align: center;
+  }
+}
+
+@mixin textboxes() {
+  .textbox {
+    border-width: 1px;
+    border-style: solid;
+    margin: 10px 0;
+    padding: 10px;
+    p {
+      margin-top: 0;
+    }
+    &.learning-objectives { // Learning Objectives
+      @include educational-textbox();
+      background-color: $learning-objectives-background;
+      h3 {
+        border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+        background-color: $learning-objectives-header-background;
+      }
+    }
+    &.key-takeaways { // Key Takeaways
+      @include educational-textbox();
+      background-color: $key-takeaways-background;
+      h3 {
+        border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+        background-color: $key-takeaways-header-background;
+      }
+    }
+    &.exercises { // Exercises
+      @include educational-textbox();
+      background-color: $exercises-background;
+      h3 {
+        border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+        background-color: $exercises-header-background;
+      }
+    }
+    &.examples { // Examples
+      @include educational-textbox();
+      background-color: $examples-background;
+      h3 {
+        border-top-left-radius: 4px;
+          border-top-right-radius: 4px;
+        background-color: $examples-header-background;
+      }
+    }
+  }
+  .textbox-caption {
+    display: block;
+    font: bold 0.875em Helvetica, Arial;
+    margin: 0;
+  }
+}
+
+div.textbox {
+  border-radius: 0px;
+  font-size: $textbox-font-size;
+  font-style: $textbox-font-style;
+  font-weight: $textbox-font-weight;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 10%;
+}
+
+.textbox p, 
+.textbox2 p {
+  margin-bottom: 0.5em;
+  text-indent: 0;
+}
+
+/* SIDEBARS */
+
+div.sidebar {
+  width: 35%;
+  float: right;
+  margin-top: 0.5em;
+  margin-left: 1em;
+  margin-right: 0;
+  padding: 1em;
+  font-size: $sidebar-font-size;
+  font-style: $sidebar-font-style;
+  font-weight: $sidebar-font-weight;
+  text-align: $sidebar-align;
+}
+div.sidebar p,
+div.sidebar p + p {
+  text-align: left;
+}
+
+
+

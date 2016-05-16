@@ -1,0 +1,75 @@
+@@ -1,79 +0,0 @@
+//ALIGNMENT - GLOBAL
+
+/* BLOCKQUOTES */
+
+blockquote {text-align: $blockquote-align;}
+
+/* BODY HEADER ALIGNMENT */
+
+h1 {text-align: $h1-align;}
+h2 {text-align: $h2-align;}
+h3 {text-align: $h3-align;}
+h4 {text-align: $h4-align;}
+h5 {text-align: $h5-align;}
+h6 {text-align: $h6-align;}
+
+
+/* TABLE ALIGNMENT */
+table {text-align: $table-align;}
+table p {text-align: $table-align;}
+
+/* IMAGE CAPTIONS ALIGNMENT */
+
+p.wp-caption-text {text-align: $image-caption-text-align;}
+
+/* INDEX ALIGNMENT */
+.index .ugc,
+.index .ugc p { text-align: $index-align; }
+
+/* TITLE PAGE(S) ALIGNMENT */
+
+#half-title-page > h1.title {text-align: $half-title-align;}
+
+#title-page > .title {text-align: $title-title-align;}
+
+#title-page > .subtitle {text-align: $title-subtitle-align;}
+
+#title-page > .author {text-align: $title-author-align;}
+
+#title-page > .publisher {text-align: $title-publisher-align;}
+
+#title-page > .publisher-city {text-align: $title-publisher-city-align;}
+
+/* FRONT MATTER TITLE ALIGNMENT */
+
+h1.front-matter-title {text-align: $front-matter-title-align;}
+
+#copyright-page .ugc p {text-align: $copyright-p-align;}
+
+.dedication p {text-align: $dedication-p-align;}
+
+.epigraph p {text-align: $epigraph-p-align;}
+
+/* PART TITLE ALIGNMENT */
+
+h3.part-number {text-align: $part-number-align;}
+
+h1.part-title {text-align: $part-number-align;}
+
+/* CHAPTER TITLE ALIGNMENT */
+
+.chapter-title-wrap ,
+h3.chapter-number {text-align: $chapter-number-align;}
+
+h2.chapter-title {text-align: $chapter-title-align;}
+
+h2.chapter-subtitle {text-align: $chapter-subtitle-align;}
+
+h2.chapter-author {text-align: $chapter-author-align;}
+
+.aphorism {text-align: $aphorism-align;}
+
+/* BACK MATTER TITLE ALIGNMENT */
+
+h1.back-matter-title {text-align: $back-matter-title-align;}

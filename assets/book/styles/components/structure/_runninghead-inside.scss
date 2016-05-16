@@ -1,0 +1,179 @@
+//========================
+// RUNNING HEAD INSIDE
+//========================
+
+// ------------------------------
+//| #       lhead|rhead        #|
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//------------------------------
+
+/* Blank Head and Foot Defaults
+note: use mixin 'blankheadandfoot' where needed */
+
+@import 'global-partials/global-page-structure/global-page-structure-blanks'; 
+@import 'global-partials/global-page-structure/global-page-structure-mixins'; 
+
+/* RUNNING HEAD INSIDE: 
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page front-matter:first {
+  @include blankheadandfoot;
+}
+@page front-matter:left {
+
+  @top-right {
+    content: $FrontMatterRunningContentLeft;
+    @include runningheadleft;
+    text-align: right;
+  }
+  @top-left {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+    text-align: left;
+  }
+}
+@page front-matter:right {
+  @top-left {
+    content: $FrontMatterRunningContentRight;
+    @include runningheadright;
+    text-align: left;
+  }
+  @top-right {
+    content: counter(page, lower-roman);
+    @include frontmatterpagenumber;    
+    text-align: right;
+  }
+}
+
+/* RUNNING HEADS INSIDE: 
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page introduction:first {
+  @include blankheadandfoot;
+}
+
+@page introduction:left {
+  @top-right {
+    content: $IntroductionRunningContentLeft;
+    @include runningheadleft;
+    text-align: right;
+  }
+  @top-left {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: left;
+  }
+}
+@page introduction:right {
+  @top-left {
+    content: $IntroductionRunningContentRight;
+    @include runningheadright;
+    text-align: left;
+  }
+  @top-right {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: right;
+  }
+}
+
+/*  RUNNING HEADS INSIDE: 
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page part:first {
+  @include blankheadandfoot;
+}
+@page part:left {
+  @top-right {
+    content: $PartRunningContentLeft;
+    @include runningheadleft;
+    text-align: left;
+  }
+  @top-left {
+    content: counter(page);
+    @include pagenumber;    
+    text-algin: left;
+  }
+}
+@page part:right {
+  @top-left {
+    content: $PartRunningContentRight;
+    @include runningheadright;
+    text-align: left;
+  }
+  @top-right {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: right;
+  }
+}
+
+/* RUNNING HEADS INSIDE: 
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+@page chapter:first {
+  @include blankheadandfoot;
+}
+@page chapter:left {
+  @top-right {
+    content: $ChapterRunningContentLeft;
+    @include runningheadleft;
+    text-align: right;
+  }
+  @top-left {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: left;
+  }
+}
+@page chapter:right {
+  @top-left {
+    content: $ChapterRunningContentRight;
+    @include runningheadright;
+    text-align: left;
+  }
+  @top-right {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: right;
+  }
+}
+
+/* RUNNING HEADS INSIDE: 
+BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+@page back-matter:first {
+  @include blankheadandfoot;
+}
+@page back-matter:left {
+  @top-right {
+     content: $BackMatterRunningContentLeft;
+     @include runningheadleft;
+     text-align: right;
+  }
+  @top-left {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: left;
+  }
+}
+@page back-matter:right {
+  @top-left {
+     content: $BackMatterRunningContentRight;
+     @include runningheadright;
+     text-align: left;
+  }
+  @top-right {
+    content: counter(page);
+    @include pagenumber;    
+    text-align: right;
+  }
+}
+

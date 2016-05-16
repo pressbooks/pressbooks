@@ -1,0 +1,34 @@
+//LISTS - GLOBAL
+
+/* STANDARD LIST STYLING */ 
+
+ol {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 2em;
+}
+
+ul {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 2em;
+}
+ul li + li {
+  margin-top: 0.5em;
+}
+
+/* LIST STYLES */
+
+ol.upper-alpha { list-style-type: upper-alpha; }
+ol.lower-alpha { list-style-type: lower-alpha; }
+ol.upper-roman { list-style-type: upper-roman; }
+ol.lower-roman { list-style-type: lower-roman; }
+
+/* STANDARD DEFINITION LIST STYLING */
+
+dt {
+  font-weight: bold;
+  display: block;
+}
+dt, dd { margin: 0; }
+dd { font-style: italic; }

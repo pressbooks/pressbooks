@@ -1,0 +1,62 @@
+//VARS - ALIGNMENT - GLOBAL
+
+
+//BLOCKQUOTES
+$blockquote-align: justify !default;
+
+//BODY HEADERS ALIGNMENT
+$h1-align: center !default;
+$h2-align: center !default;
+$h3-align: center !default;
+$h4-align: center !default;
+$h5-align: left !default;
+$h6-align: left !default;
+
+//TABLE ALIGNMENT
+$table-align: left !default;
+
+//PARAS
+@if $type == 'epub' {
+    $para-align: initial !default;
+} @else if $type == 'prince' {
+    $para-align: justify !default;
+} @else if $type == 'web' {
+    $para-align: initial !default;
+}
+
+//INDEX ALIGNMENT
+$index-align: left !default;
+
+//PULLQUOTES
+$pullquote-align: center !default;
+
+//SIDEBAR
+$sidebar-align: left !default;
+
+//CAPTIONS
+$image-caption-text-align: left !default;
+
+//TITLE PAGE
+$half-title-align: center !default;
+$title-title-align: center !default;
+$title-subtitle-align: center !default;
+$title-author-align: center !default;
+$title-publisher-align: center !default;
+$title-publisher-city-align: center !default;
+
+//SECTION TITLE ALIGNMENT
+$front-matter-title-align: center !default;
+$copyright-p-align: left !default;
+$dedication-p-align: center !default;
+$epigraph-p-align: center !default;
+
+$part-number-align: center !default;
+$part-title-align: center !default;
+
+$chapter-number-align: center !default;
+$chapter-title-align: center !default;
+$chapter-subtitle-align: center !default;
+$chapter-author-align: center !default;
+$aphorism-align: left !default;
+
+$back-matter-title-align: center !default;

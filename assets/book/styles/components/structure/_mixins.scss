@@ -1,0 +1,68 @@
+//PAGE STRUCTURE MIXINS - GLOBAL
+
+//RUNNING HEADS AND FEET
+
+@mixin frontmatterpagenumber {  
+  font-family: $font-2;
+  color: $pagenumbercolor;
+  font-size: $front-matter-page-number-font-size;
+  font-style: $front-matter-page-number-font-style;
+  font-weight: $front-matter-page-number-font-weight;
+  text-transform: $front-matter-page-number-text-transform;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+
+@mixin pagenumber {  
+  font-family: $font-2;
+  color: $pagenumbercolor;
+  font-size: $page-number-font-size;
+  font-style: $page-number-font-style;
+  font-weight: $page-number-font-weight;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+@mixin runningheadleft {  
+  color: $runningheadfeetcolor;
+  font-family: $font-3;
+  font-size: $runninghead-left-font-size;
+  font-style: $runninghead-left-font-style;
+  font-weight: $runninghead-left-font-weight;
+  text-transform: $runninghead-left-text-transform;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+@mixin runningheadright {  
+  color: $runningheadfeetcolor;
+  font-family: $font-3;
+  font-size: $runningfoot-left-font-size;
+  font-style: $runningfoot-left-font-style;
+  font-weight: $runningfoot-left-font-weight;
+  text-transform: $runningfoot-left-text-transform;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+@mixin runningfootleft {  
+  color: $runningheadfeetcolor;
+  font-family: $font-2;
+  font-size: $runningfoot-left-font-size;
+  font-style: $runningfoot-left-font-style;
+  font-weight: $runningfoot-left-font-weight;
+  text-transform: $runningfoot-left-text-transform;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+@mixin runningfootright {  
+  color: $runningheadfeetcolor;
+  font-family: $font-2;
+  font-size: $runningfoot-right-font-size;
+  font-style: $runningfoot-right-font-style;
+  font-weight: $runningfoot-right-font-weight;
+  text-transform: $runningfoot-right-text-transform;
+  hyphens: none;
+  -webkit-hyphens: none;
+}

@@ -1,0 +1,171 @@
+//VARS 
+//GLOBAL PAGE OPENINGS
+
+//in this file: 
+//--chapter number display
+//--margins
+//--font-sizes
+//--font-styles
+//--font-weights
+//--text-transforms
+
+//chapter number display 
+
+$chapter-number-display: inline-block !default;
+
+//Margins
+
+@if $type == 'epub' {
+    $section-title-margin-top: 2em !default;
+    $section-title-margin-bottom: 2em !default;
+    $chapter-number-margin-top: 1em !default;
+} @else if $type == 'prince' {
+    $section-title-margin-top: 2cm !default;
+    $section-title-margin-bottom: 2cm !default;
+    $chapter-number-margin-top: 0 !default;
+} @else if $type == 'web' {
+    $section-title-margin-top: 2em !default;
+    $section-title-margin-bottom: 2em !default;
+    $chapter-number-margin-top: 0 !default;
+}
+
+//*
+//FONT SIZES
+
+@if $type == 'epub' {
+    $title-half-title-font-size: 1.5em !default;
+    $title-title-font-size: 1.5em !default;
+    $title-subtitle-font-size: 1em !default;
+    $title-author-font-size: 1em !default;
+    $title-publisher-font-size: 0.9em !default;
+    $title-publisher-font-size: 0.9em !default;
+
+    $part-number-font-size: 1em !default;  
+    $part-title-font-size: 1.5em !default;
+
+    $chapter-number-font-size: 1em !default;
+    $section-title-font-size: 1.5em !default;
+    $section-subtitle-font-size: 1em !default;
+    $section-author-font-size: 1em !default;
+} 
+
+@else if $type == 'prince' {
+//prince font sizes - title opening
+    $title-half-title-font-size: 1.5em !default;
+    $title-title-font-size: 2em !default;
+    $title-subtitle-font-size: 1.5em !default;
+    $title-author-font-size: 1em !default;
+    $title-publisher-font-size: 0.9em !default;
+    $title-publisher-font-size: 0.9em !default;
+
+//prince font sizes - section opening
+    $part-number-font-size: 1.5em !default;  
+    $part-title-font-size: 2.5em !default;
+
+//prince font sizes - section opening
+    $chapter-number-font-size: 1.5em !default;
+    $section-title-font-size: 2em !default;
+    $section-subtitle-font-size: 1em !default;
+    $section-author-font-size: 1em !default;
+} 
+
+@else if $type == 'web' {
+//web font sizes - title opening  
+    $title-half-title-font-size: 1.5em !default;
+    $title-title-font-size: 2em !default;
+    $title-subtitle-font-size: 1em !default;
+    $title-author-font-size: 1.5em !default;
+    $title-publisher-font-size: 1em !default;
+    $title-publisher-font-size: 1em !default;
+
+//web font sizes - part opening
+    $part-number-font-size: 1.5em !default;  
+    $part-title-font-size: 3em !default;
+
+//web font sizes - section opening
+    $chapter-number-font-size: 1.5em !default;
+    $section-title-font-size: 2em !default;
+    $section-subtitle-font-size: 1em !default;
+    $section-author-font-size: 1em !default;
+}
+
+//*
+//FONT STYLES
+//Font styles - title opening
+
+$title-half-title-font-style: normal !default;
+$title-title-font-style: normal !default;
+$title-subtitle-font-style: italic !default;
+$title-author-font-style: normal !default;
+$title-publisher-font-style: normal !default;
+$title-publisher-font-style: normal !default;
+
+//Font styles - part opening
+
+$part-number-font-style: normal !default;
+$part-title-font-style: normal !default;
+
+//Font styles - section opening
+
+$chapter-number-font-style: normal !default;
+$section-title-font-style: normal !default;
+$section-subtitle-font-style: normal !default;
+$section-author-font-style: normal !default;
+
+//*
+//FONT WEIGHTS
+//Font weights - title opening
+
+$title-half-title-font-weight: normal !default;
+$title-title-font-weight: normal !default;
+$title-subtitle-font-weight: normal !default;
+$title-author-font-weight: normal !default;
+$title-publisher-font-weight: normal !default;
+$title-publisher-font-weight: normal !default;
+
+//Font weights - part opening
+
+$part-number-font-weight: normal !default;
+$part-title-font-weight: normal !default;
+
+//Font weights - section opening
+
+$chapter-number-font-weight: normal !default;
+$section-title-font-weight: normal !default;
+$section-subtitle-font-weight: normal !default;
+$section-author-font-weight: normal !default;
+
+
+//* 
+//TEXT-TRANSFORM 
+//Text-transform - title opening
+
+$title-half-title-text-transform: none !default;
+$title-title-text-transform: none !default;
+$title-subtitle-text-transform: none !default;
+$title-author-text-transform: uppercase !default;
+$title-publisher-text-transform: uppercase !default;
+$title-publisher-text-transform: uppercase !default;
+
+//Text-transform - part opening
+
+$part-number-text-transform: none !default;
+$part-title-text-transform: uppercase !default;
+
+//Text-transform - section opening
+
+$chapter-number-text-transform: none !default;
+$section-title-text-transform: none !default;
+$section-subtitle-text-transform: none !default;
+$section-author-text-transform: uppercase !default;
+
+
+
+
+
+
+
+
+
+
+

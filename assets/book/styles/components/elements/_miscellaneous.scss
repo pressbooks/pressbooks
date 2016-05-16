@@ -1,0 +1,19 @@
+//MISC ELEMENTS - GLOBAL
+
+/* MISCELLANEOUS HTML ELEMENT SYTLING */ 
+
+cite {
+  font-size: $cite-font-size;
+  font-style: $cite-font-style;
+  font-weight: $cite-font-weight;
+  text-transform: $cite-text-transform;
+  font-variant: $cite-font-variant;
+}
+code,
+pre { font-family: monospace; }
+sup, sub {
+  font-size: 0.8em; 
+  line-height: 0.5;
+}
+
+

@@ -3,3 +3,5 @@ linters:
     order: recess
   PlaceholderInExtend:
     enabled: false
+  IdSelector:
+    enabled: false

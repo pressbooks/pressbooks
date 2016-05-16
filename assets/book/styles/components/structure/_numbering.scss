@@ -1,0 +1,91 @@
+//NUMBERING - GLOBAL
+
+
+/*  PAGE GROUPINGS */
+
+div.front-matter.before-title {
+  page: before-title;
+  prince-page-group: start;
+}
+div#half-title-page {
+  page: halftitle-page;
+  prince-page-group: start;
+}
+div#title-page {
+  page: title-page;
+  prince-page-group: start;
+}
+#toc {
+  page: toc;
+  prince-page-group: start;
+}
+div.front-matter {
+  page: front-matter;
+  prince-page-group: start;
+}
+div#copyright-page {
+  page: copyright-page;
+  prince-page-group: start;
+}
+div.front-matter.dedication {
+  page: dedication;
+  prince-page-group: start;
+}
+div.front-matter.epigraph {
+  page: epigraph;
+  prince-page-group: start;
+}
+div.front-matter.introduction {
+  page: introduction;
+  prince-page-group: start;
+}
+div.chapter {
+  page: chapter;
+  prince-page-group: start;
+}
+/*div.chapter.type-1 {
+  page: type-1;
+  prince-page-group: start;
+}
+div.chapter.type-2 {
+  page: type-2;
+  prince-page-group: start;
+}
+div.chapter.type-3 {
+  page: type-3;
+  prince-page-group: start;
+}
+div.chapter.type-4 {
+  page: type-4;
+  prince-page-group: start;
+}
+div.chapter.type-5 {
+  page: type-5;
+  prince-page-group: start;
+}*/
+div.back-matter {
+  page: back-matter;
+  prince-page-group: start;
+}
+div.part {
+  page: part;
+  prince-page-group: start;
+}
+div.blank-page {
+  page: blank-page;
+  prince-page-group: start;
+}
+
+
+/* PAGE 1: COUNTER RESET */ 
+
+div.front-matter.introduction {
+  counter-reset: page 1 !important;
+}
+div.part.introduction {
+  counter-reset: page 1 !important;
+}
+div.chapter.introduction {
+  counter-reset: page 1 !important;
+}
+

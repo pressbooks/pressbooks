@@ -1,0 +1,74 @@
+
+// TABLES MIXIN
+
+/* TABLE STYLING */ 
+
+@mixin tables() {
+
+	table {
+		max-width: 100%;
+		margin-top: 1.5em;
+		margin-bottom: 1.5em;	
+		border-collapse: collapse;
+		font-size: $table-font-size;
+		overflow-x: scroll;
+	}
+	
+	table caption {
+		font-weight: bold;
+		margin-bottom: 0.5em;
+		line-height: 1.1;
+	}
+	
+	table td,
+	table th {
+  		padding: 5px 5px;
+  		line-height: 1.1;
+  		text-align: left;
+  		vertical-align: middle;
+	}
+	
+	table.lines tr {
+		border-top: 1px solid $line-color-1;
+		border-bottom: 1px solid $line-color-1;
+	}
+	
+	table.no-lines tr,
+	table.no-lines td {
+		border-top: 0;
+		border-bottom: 0;
+	}
+
+	table.shaded,
+	th.shaded,
+	tr.shaded,
+	td.shaded {
+		background-color: $shade-color-1;
+	}
+
+	th.border,
+	tr.border,
+	td.border {
+		border: 1px solid $line-color-1;
+	}
+
+table,
+table tr,
+table th {
+  page-break-inside: avoid !important;
+} 
+
+.no-border,
+table.no-border,
+table.no-border tbody,
+table.no-border th,
+table.no-border tr,
+table.no-border td,
+table.no-border tfoot,
+table.no-border thead {
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+} 
+}

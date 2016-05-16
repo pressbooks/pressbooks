@@ -1,0 +1,53 @@
+//PULLQUOTES AND ASIDES - GLOBAL
+
+/* DEFAULT PULLQUOTE, ASIDES, SIDEBAR STYLING  */
+
+/* HTML5 TAG ASIDE, AND DIV.ASIDE CONVERSION FOR OLD EREADERS */
+
+div.aside,
+aside {
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+  margin: 2em 10%;
+  padding: 10px 0;
+  text-indent: 0;
+}
+
+/* PULLQUTOE STYLING */ 
+
+.pullquote,
+.pullquote-left,
+.pullquote-right,
+.pullquote-outside,
+.pullquote-inside {
+  font-family: $font-3;
+  text-align: $pullquote-align;
+  font-size: $pullquote-font-size;
+  font-style: $pullquote-font-style;
+  font-weight: $pullquote-font-weight;
+  line-height: 1.2;  
+  text-indent: 0;
+  hyphens: none;
+  -webkit-hyphens: none;
+}
+.pullquote {
+  width: 50%;
+  margin: 0 auto 1.2em;
+}
+.pullquote-left {
+  float: left;
+  width: 45%;
+  margin: 1em;
+}
+.pullquote-right {
+  float: right;
+  width: 45%;
+  margin: 1em;
+  border-top: none;
+  border-bottom: none;
+}
+.pullquote-outside {
+  float: outside;
+  width: 50%;
+  margin: 1em 0 1em;
+}

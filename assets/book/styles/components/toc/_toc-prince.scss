@@ -1,0 +1,53 @@
+//GLOBAL TOC STYLING
+/* GLOBAL TOC THINGS */ 
+
+#toc .chapter.numberless a::before {
+  content:'' ;
+  counter-increment: none;
+  margin-right: 0;
+  left: 0;
+  width: 0;
+}
+#toc .part.invisible {
+  display: none;
+}
+#toc li {
+  page-break-inside: avoid;
+}
+#toc .part {
+  page-break-after: avoid;
+}
+#toc .chapter .section a::before {
+  content:'';
+  counter-increment: none;
+}
+
+/* AVOID ADDING A SUB-LEVEL HEADING ENTRY IN PDF-READING SOFTWARE TOC */ 
+
+h3.front-matter-number, 
+h3.part-number, 
+h3.chapter-number, 
+h3.back-matter-number {
+  bookmark-level: none;
+}
+
+/* TOC SECTIONS */
+
+ul.sections {
+  padding-top: 0.5em !important;
+}
+li.section {
+  font-style: italic;
+  margin-top: 0.75em;
+  left: -1cm;
+  right: -1cm;
+  position: fixed;
+}
+li.section a::after {
+ margin-right: -1cm;
+}
+
+
+
+
+
