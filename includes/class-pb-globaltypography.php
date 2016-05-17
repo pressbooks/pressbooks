@@ -230,18 +230,33 @@ class GlobalTypography {
 	 */
 	function updateWebBookStyleSheet() {
 
-		// Look for themes-book/{CURRENT_BOOK_THEME}/style.scss
-		$path_to_style = realpath( get_stylesheet_directory() . '/style.scss' );
-		if ( ! $path_to_style ) {
+		$sass = Container::get( 'Sass' );
+
+		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
+			$path_to_style = realpath( get_stylesheet_directory() . '/style.scss' );
+			// Populate $url-base variable so that links to images and other assets remain intact
+			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
+
+			$scss .= file_get_contents( $path_to_style );
+			$css = $sass->compile( $scss, [
+				$sass->pathToUserGeneratedSass(),
+				$sass->pathToPartials(),
+				$sass->pathToFonts(),
+				get_stylesheet_directory(),
+			] );
+
+		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$path_to_style = realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' );
+
+			// Populate $url-base variable so that links to images and other assets remain intact
+			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
+
+			$scss .= file_get_contents( $path_to_style );
+			$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
+		} else {
 			return;
 		}
 
-		// Populate $url-base variable so that links to images and other assets remain intact
-		$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
-
-		$scss .= file_get_contents( $path_to_style );
-		$sass = Container::get( 'Sass' );
-		$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
 		$css = $this->fixWebFonts( $css );
 
 		$css_file = $sass->pathToUserGeneratedCss() . '/style.css';

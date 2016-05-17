@@ -188,7 +188,6 @@ class Pdf extends Export {
 			$css = $sass->compile( $scss, [
 				$sass->pathToUserGeneratedSass(),
 				$sass->pathToPartials(),
-				$sass->pathToGlobals(),
 				$sass->pathToFonts(),
 				get_stylesheet_directory(),
 			] );

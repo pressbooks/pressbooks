@@ -231,13 +231,24 @@ function update_editor_style() {
 
 	if ( $sass->isCurrentThemeCompatible( 1 ) ) {
 		$scss = file_get_contents( $sass->pathToPartials() . '/_editor-with-custom-fonts.scss' );
+		$css = $sass->compile( $scss, [
+			$sass->pathToUserGeneratedSass(),
+			$sass->pathToPartials(),
+			$sass->pathToFonts(),
+			get_stylesheet_directory(),
+		] );
 	}	elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
 		$scss = file_get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
+		$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
 	} else {
 		$scss = file_get_contents( $sass->pathToPartials() . '_editor.scss' );
+		$css = $sass->compile( $scss, [
+			$sass->pathToUserGeneratedSass(),
+			$sass->pathToPartials(),
+			$sass->pathToFonts(),
+			get_stylesheet_directory(),
+		] );
 	}
-
-	$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
 
 	$css = Container::get( 'GlobalTypography' )->fixWebFonts( $css );
 

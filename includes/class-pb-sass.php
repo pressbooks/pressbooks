@@ -288,11 +288,14 @@ class Sass {
 		$types = array(
 				'prince',
 				'epub',
+				'web'
 		);
 
 		foreach ( $types as $type ) {
-			if ( $version == 1 ) {
+			if ( $version == 1 && $type !== 'web' ) {
 				$path = get_stylesheet_directory() . "/export/$type/style.scss";
+			} elseif ( $version == 1 && $type == 'web' ) {
+				$path = get_stylesheet_directory() . "/style.scss";
 			}
 
 			if ( $version == 2 ) {
