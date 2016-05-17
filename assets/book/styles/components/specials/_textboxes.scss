@@ -1,111 +1,107 @@
-//TEXTBOXES - GLOBAL
+// Textboxes
 
-/* TEXTBOX STYLING */
+.textbox {
+  padding: $textbox-padding-top $textbox-padding-right $textbox-padding-bottom $textbox-padding-left;
+  margin: $textbox-margin-top $textbox-margin-right $textbox-margin-bottom $textbox-margin-left;
+  font-size: $textbox-font-size;
+  font-style: $textbox-font-style;
+  font-weight: $textbox-font-weight;
+  line-height: $textbox-line-height;
+  border-color: $textbox-border-color;
+  border-style: $textbox-border-style;
+  border-width: $textbox-border-width;
+  border-radius: $textbox-border-radius;
+
+  p {
+    margin-top: 0;
+    margin-bottom: .5em;
+    text-indent: 0;
+  }
+
+  .textbox-caption {
+    display: block;
+    margin: 0;
+    font-family: $textbox-caption-font-family;
+    font-size: $textbox-caption-font-size;
+    font-style: $textbox-caption-font-style;
+    font-weight: $textbox-caption-font-weight;
+  }
+
+  &.shaded {
+    background-color: $textbox-shaded-background-color;
+  }
+}
 
 @mixin educational-textbox() {
   border-radius: 4px;
   margin-bottom: 15px;
   padding: 2% 3%;
-  margin-inside: auto;
-    margin-outside: auto;
-    float: none;
+  float: none;
+
   h3 {
-    color: $edu-header-text-color;
-    margin: -2% -3% 15px;
     padding: 15px 0;
+    margin: -2% -3% 15px;
+    color: $edu-header-text-color;
     text-align: center;
   }
 }
 
-@mixin textboxes() {
-  .textbox {
-    border-width: 1px;
-    border-style: solid;
-    margin: 10px 0;
-    padding: 10px;
-    p {
-      margin-top: 0;
-    }
-    &.learning-objectives { // Learning Objectives
-      @include educational-textbox();
-      background-color: $learning-objectives-background;
-      h3 {
-        border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
-        background-color: $learning-objectives-header-background;
-      }
-    }
-    &.key-takeaways { // Key Takeaways
-      @include educational-textbox();
-      background-color: $key-takeaways-background;
-      h3 {
-        border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
-        background-color: $key-takeaways-header-background;
-      }
-    }
-    &.exercises { // Exercises
-      @include educational-textbox();
-      background-color: $exercises-background;
-      h3 {
-        border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
-        background-color: $exercises-header-background;
-      }
-    }
-    &.examples { // Examples
-      @include educational-textbox();
-      background-color: $examples-background;
-      h3 {
-        border-top-left-radius: 4px;
-          border-top-right-radius: 4px;
-        background-color: $examples-header-background;
-      }
-    }
-  }
-  .textbox-caption {
-    display: block;
-    font: bold 0.875em Helvetica, Arial;
-    margin: 0;
+.learning-objectives {
+  @include educational-textbox();
+  background-color: $learning-objectives-background;
+
+  h3 {
+    background-color: $learning-objectives-header-background;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
   }
 }
 
-div.textbox {
-  border-radius: 0px;
-  font-size: $textbox-font-size;
-  font-style: $textbox-font-style;
-  font-weight: $textbox-font-weight;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-left: 0;
-  margin-right: 0;
-  padding: 10%;
+.key-takeaways {
+  @include educational-textbox();
+  background-color: $key-takeaways-background;
+
+  h3 {
+    background-color: $key-takeaways-header-background;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+  }
 }
 
-.textbox p, 
-.textbox2 p {
-  margin-bottom: 0.5em;
-  text-indent: 0;
+.exercises {
+  @include educational-textbox();
+  background-color: $exercises-background;
+
+  h3 {
+    background-color: $exercises-header-background;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+  }
 }
 
-/* SIDEBARS */
+.examples { // Examples
+  @include educational-textbox();
+  background-color: $examples-background;
 
-div.sidebar {
-  width: 35%;
-  float: right;
-  margin-top: 0.5em;
-  margin-left: 1em;
-  margin-right: 0;
-  padding: 1em;
-  font-size: $sidebar-font-size;
-  font-style: $sidebar-font-style;
-  font-weight: $sidebar-font-weight;
-  text-align: $sidebar-align;
-}
-div.sidebar p,
-div.sidebar p + p {
-  text-align: left;
+  h3 {
+    background-color: $examples-header-background;
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+  }
 }
 
+.bcc-box {
+  @extend .textbox;
+}
 
+.bcc-highlight {
+  @extend .learning-objectives;
+}
 
+.bcc-success {
+  @extend .key-takeaways;
+}
+
+.bcc-info {
+  @extend .exercises;
+}

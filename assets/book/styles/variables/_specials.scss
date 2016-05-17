@@ -1,45 +1,63 @@
-//VARS - SPECIAL ELEMENTS GLOBAL
+// Specials
 
-//first-character (dropcaps)
+// Dropcaps
 
 $first-character-font-size: 3em !default;
 $first-character-font-style: normal !default;
 $first-character-font-weight: bold !default;
 
-//footnotes
+// Footnotes
 
-$pdf-footnote-font-size: 0.8em !default;
-$epub-footnote-font-size: 0.9em !default;
+$pdf-footnote-font-size: .8em !default;
+$epub-footnote-font-size: .9em !default;
 $footnote-font-style: normal !default;
 $footnote-font-weight: normal !default;
 
-//pullquotes
+// Pullquotes
 
 $pullquote-font-size: 1.25em !default;
 $pullquote-font-style: normal !default;
 $pullquote-font-weight: bold !default;
 $pullquote-text-transform: none !default;
 
-// textbox colors 
+// Textboxes
 
-$edu-header-text-color: #fff !default;
-$learning-objectives-background: #F7F7F9 !default;
-$learning-objectives-header-background: #111111 !default;
-$key-takeaways-background: #EAF5EA !default;
-$key-takeaways-header-background: #3A7A33 !default;
-$exercises-background: #E3EFF6 !default;
-$exercises-header-background: #0B6396 !default;
-$examples-background: #F3E1E3 !default;
-$examples-header-background: #7A333A !default;
-
-//textbox
-
-$textbox-font-size: 0.9em !default;
+$textbox-font-size: .9em !default;
 $textbox-font-style: normal !default;
 $textbox-font-weight: normal !default;
+$textbox-line-height: 1.2em;
+$textbox-padding-top: 10px !default;
+$textbox-padding-right: 10px !default;
+$textbox-padding-bottom: 10px !default;
+$textbox-padding-left: 10px !default;
+$textbox-margin-top: 10px !default;
+$textbox-margin-right: 0 !default;
+$textbox-margin-bottom: 10px !default;
+$textbox-margin-left: 0 !default;
+$textbox-border-style: solid !default;
+$textbox-border-color: #000 !default;
+$textbox-border-width: 1px !default;
+$textbox-border-radius: 0 !default;
+$textbox-shaded-background-color: #eee !default;
+$textbox-caption-font-family: $font-2 !default;
+$textbox-caption-font-size: .875em !default;
+$textbox-caption-font-style: normal !default;
+$textbox-caption-font-weight: bold !default;
 
-//sidebar
+// Educational Textboxes
 
-$sidebar-font-size: 0.9em !default;
+$edu-header-text-color: #fff !default;
+$learning-objectives-background: #f7f7f9 !default;
+$learning-objectives-header-background: #111 !default;
+$key-takeaways-background: #eaf5ea !default;
+$key-takeaways-header-background: #3a7a33 !default;
+$exercises-background: #e3eff6 !default;
+$exercises-header-background: #0b6396 !default;
+$examples-background: #f3e1e3 !default;
+$examples-header-background: #7a333a !default;
+
+// Sidebars
+
+$sidebar-font-size: .9em !default;
 $sidebar-font-style: italic !default;
 $sidebar-font-weight: normal !default;

@@ -1,19 +1,18 @@
-//PULLQUOTES AND ASIDES - GLOBAL
+// Pullquotes & Asides
 
-/* DEFAULT PULLQUOTE, ASIDES, SIDEBAR STYLING  */
+// Asides: HTML5 <aside> tag div.aside conversion for old e-readers
 
-/* HTML5 TAG ASIDE, AND DIV.ASIDE CONVERSION FOR OLD EREADERS */
-
-div.aside,
+.aside,
 aside {
+  padding: 10px 0;
+  margin: 2em 10%;
+  line-height: 1.2em;
+  text-indent: 0;
   border-top: 1px solid;
   border-bottom: 1px solid;
-  margin: 2em 10%;
-  padding: 10px 0;
-  text-indent: 0;
 }
 
-/* PULLQUTOE STYLING */ 
+// Pullquotes
 
 .pullquote,
 .pullquote-left,
@@ -21,33 +20,57 @@ aside {
 .pullquote-outside,
 .pullquote-inside {
   font-family: $font-3;
-  text-align: $pullquote-align;
   font-size: $pullquote-font-size;
   font-style: $pullquote-font-style;
   font-weight: $pullquote-font-weight;
-  line-height: 1.2;  
-  text-indent: 0;
-  hyphens: none;
   -webkit-hyphens: none;
+  hyphens: none;
+  line-height: 1.2em;
+  text-align: $pullquote-align;
+  text-indent: 0;
 }
+
 .pullquote {
   width: 50%;
   margin: 0 auto 1.2em;
 }
+
 .pullquote-left {
   float: left;
   width: 45%;
   margin: 1em;
 }
+
 .pullquote-right {
   float: right;
   width: 45%;
   margin: 1em;
-  border-top: none;
-  border-bottom: none;
+  border-top: 0;
+  border-bottom: 0;
 }
+
 .pullquote-outside {
   float: outside;
   width: 50%;
-  margin: 1em 0 1em;
+  margin: 1em 0;
+}
+
+// Sidebars
+
+.sidebar {
+  float: right;
+  width: 35%;
+  padding: 1em;
+  margin-top: .5em;
+  margin-right: 0;
+  margin-left: 1em;
+  font-size: $sidebar-font-size;
+  font-style: $sidebar-font-style;
+  font-weight: $sidebar-font-weight;
+  text-align: $sidebar-align;
+}
+
+.sidebar p,
+.sidebar p + p {
+  text-align: left;
 }

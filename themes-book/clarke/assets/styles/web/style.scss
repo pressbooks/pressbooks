@@ -1,4 +1,4 @@
-@import 'mixins', 'fonts-web';
+@import 'fonts';
 
 body {
   font-family: $font-1;
@@ -9,7 +9,7 @@ a {
   text-decoration: none;
 }
 
-/* 
+/*
 	 HEADERS
  =============== */
 h1, h2, h3, h4, h5, h6 {
@@ -36,7 +36,7 @@ h2, h3, h4 {
   font-style: normal;
 }
 
-/*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART  
+/*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART
 ========================================================= */
 .entry-title {
   border-top: 1px solid #666;

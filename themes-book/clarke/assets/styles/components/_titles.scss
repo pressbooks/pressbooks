@@ -1,0 +1,17 @@
+// Titles
+
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/titles';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/titles/titles';
+@import 'components/titles/parts';
+@import 'components/titles/front-matter';
+@import 'components/titles/chapters';
+@import 'components/titles/back-matter';
+
+.bibliography p {
+  padding-left: 14pt;
+  font-size: 9pt;
+  text-indent: -14pt;
+}

@@ -1,107 +1,113 @@
-//FOOTNOTES AND ENDNOTES - GLOBAL
+// Footnotes & Endnotes
 
-/* DEFAULT FOOTNOTE STYING  */
+// Prince footnotes
+@mixin prince-footnotes {
 
-@mixin PDFFootnotes {
-/* FOOTNOTE PAGE STYLING FOR PRINCE */
-
-@page {
+  @page {
     @footnotes {
-    padding-top: 1em;
+      padding-top: 1em;
+    }
+  }
+
+  // Reset counter at the beginning of a new section
+
+  .front-matter,
+  .part,
+  .chapter,
+  .introduction,
+  .back-matter,
+  .front-matter-title-wrap,
+  .chapter-title-wrap,
+  .back-matter-title-wrap {
+    counter-reset: footnote !important;
+  }
+
+  // Styling for Prince footnotes
+
+  .footnote {
+    display: prince-footnote;
+    margin-left: 0;
+    font-size: $pdf-footnote-font-size;
+    line-height: 1.15em;
+    text-align: left;
+    text-indent: 0;
+    counter-increment: footnote;
+    footnote-style-position: outside;
+  }
+
+  p {
+    prince-footnote-policy: keep-with-line;
+  }
+
+}
+
+@mixin epub-footnotes {
+  .footnotes {
+    font-size: $epub-footnote-font-size;
   }
 }
 
-/* MAKE SURE THAT FOOTNOTES AND ENDNOTES RESTART THE COUNTER AT THE
-BEGINNING OF A CHAPTER ETC.*/ 
-
-div.front-matter,
-div.part,
-div.chapter,
-div.chapter.introduction,
-div.back-matter,
-div.front-matter-title-wrap,
-div.chapter-title-wrap, 
-div.back-matter-title-wrap {
-  counter-reset: footnote !important;
-}
-
-/* STYLING FOR THE FOOTNOTES
-USING DISPLAY: PRINCE-FOOTNOTE;  */ 
-
-.footnote {
-font-size: $pdf-footnote-font-size;
-display: prince-footnote;
-counter-increment: footnote;
-footnote-style-position: outside;
-margin-left: 0;
-line-height: 1.15;
-text-indent: 0;
-text-align: left;
-}
-
-p { prince-footnote-policy: keep-with-line; }
-
-}
-
-@mixin EPUBFootnotes {
-  .footnotes { font-size: $epub-footnote-font-size ; }
-}
-
 @if $type == 'prince' {
-  @include PDFFootnotes;
+  @include prince-footnotes;
 } @else if $type == 'epub' {
-  @include EPUBFootnotes;
+  @include epub-footnotes;
 }
 
-/* P TAGS & BLOCKQUOTES GET EATEN IN OUR FOOTNOTE FUNCTION,
-SO USERS SHOULD WRAP NEW PARAS & BLOCKQUOTES IN A SPAN, PER BELOW */
+// Our footnote function eats <p> & <blockquote> tags, so users should wrap new
+// paragraphs & blockquotes in a span, as per below
 
-span.fn_p {
+span.fn_p { // TODO: Test without element
   display: block;
   text-indent: $para-indent;
 }
-span.fn_blockquote {
+
+span.fn_blockquote { // TODO: Test without element
   display: block;
-  font-size: 0.95em;
+  margin-top: .5em; // TODO: Clarify margins
+  margin-bottom: .5em;
   margin-left: 1.5em;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  font-size: .95em;
 }
 
-/* ENDNOTE AND FOOTNOTE NUMBER MARKER, IN THE BODY TEXT */
+// Footnote & Endnote number markers (in body text)
 
 sup,
-sup.endnote,
-sup.footnote { 
-  font-size: 0.8em;
-  line-height: 0.5;
+.endnote,
+.footnote {
+  font-size: .8em;
+  line-height: .5em;
   vertical-align: top;
 }
 
-/* ENDNOTE STYLING */ 
+// Endnotes
 
 .endnotes {
-  line-height: 1.1;
   margin-left: 1.5em;
-}
-.endnotes h3 {
-  margin-bottom: 1em;
-  padding-bottom: 1em;
-  margin-left: -1.5em;
-}
-.endnotes hr {
-  border: none;
-  margin-top: 1cm;
-}
-.endnotes ol {
-  font-size: 0.85em;
-  margin-top: 5px;
-  margin-left: 0;
-  list-style-position: outside;
-}
-.endnotes li {
-   margin-top: 5px;
-}
-.endnotes p + p {
-  text-indent: 0;
+  line-height: 1.1em;
+
+  h3 {
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    margin-left: -1.5em;
+  }
+
+  hr {
+    margin-top: 1cm;
+    border: 0;
+  }
+
+  ol {
+    margin-top: 5px;
+    margin-left: 0;
+    font-size: .85em;
+    list-style-position: outside;
+  }
+
+  li {
+    margin-top: 5px;
+  }
+
+  p + p {
+    text-indent: 0;
+  }
 }
