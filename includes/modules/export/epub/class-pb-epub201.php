@@ -624,10 +624,17 @@ class Epub201 extends Export {
 		// Append overrides
 		$scss .= "\n" . $this->cssOverrides;
 
-		if ( $sass->isCurrentThemeCompatible() ) {
-			$css = $sass->compile( $scss );
-		}
-		else {
+		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
+			$css = $sass->compile( $scss, [
+				$sass->pathToUserGeneratedSass(),
+				$sass->pathToPartials(),
+				$sass->pathToGlobals(),
+				$sass->pathToFonts(),
+				get_stylesheet_directory(),
+			] );
+		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'epub' ) );
+		} else {
 			$css = static::injectHouseStyles( $scss );
 		}
 

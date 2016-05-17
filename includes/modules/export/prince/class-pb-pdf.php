@@ -184,10 +184,17 @@ class Pdf extends Export {
 		$scss .= "\n";
 		$scss .= $this->cssOverrides;
 
-		if ( $sass->isCurrentThemeCompatible() ) {
-			$css = $sass->compile( $scss );
-		}
-		else {
+		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
+			$css = $sass->compile( $scss, [
+				$sass->pathToUserGeneratedSass(),
+				$sass->pathToPartials(),
+				$sass->pathToGlobals(),
+				$sass->pathToFonts(),
+				get_stylesheet_directory(),
+			] );
+		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'prince' ) );
+		} else {
 			$css = static::injectHouseStyles( $scss );
 		}
 

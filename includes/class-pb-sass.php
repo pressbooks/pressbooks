@@ -20,14 +20,16 @@ class Sass {
 
 	/**
 	 * Get default include paths
+	 *
+	 * @param string $type
 	 */
-	function defaultIncludePaths() {
+	function defaultIncludePaths( $type ) {
 
 		return [
 			$this->pathToUserGeneratedSass(),
-			$this->pathToPartials(),
+			$this->pathToGlobals(),
 			$this->pathToFonts(),
-			get_stylesheet_directory(),
+			get_stylesheet_directory() . "/assets/styles/$type/",
 		];
 
 	}
@@ -54,6 +56,16 @@ class Sass {
 	function pathToPartials() {
 
 		return PB_PLUGIN_DIR . 'assets/scss/partials';
+	}
+
+	/**
+	 * Get the path to our PB Partials
+	 *
+	 * @return string
+	 */
+	function pathToGlobals() {
+
+		return PB_PLUGIN_DIR . 'assets/book/styles';
 	}
 
 
@@ -269,11 +281,13 @@ class Sass {
 
 
 	/**
-	 * Is the current theme's stylesheet SCSS compatible?
+	 * Are the current theme's stylesheets SCSS compatible?
+	 *
+	 * @param int $version
 	 *
 	 * @return bool
 	 */
-	function isCurrentThemeCompatible() {
+	function isCurrentThemeCompatible( $version = 1 ) {
 
 		$types = array(
 				'prince',
@@ -281,7 +295,15 @@ class Sass {
 		);
 
 		foreach ( $types as $type ) {
-			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
+			if ( $version == 1 ) {
+				$path = get_stylesheet_directory() . "/export/$type/style.scss";
+			}
+
+			if ( $version == 2 ) {
+				$path = get_stylesheet_directory() . "/assets/styles/$type/style.scss";
+			}
+
+			$fullpath = realpath( $path );
 			if ( ! is_file( $fullpath ) ) {
 				return false;
 			}
