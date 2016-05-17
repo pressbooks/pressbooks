@@ -1,8 +1,13 @@
 // Elements
 
-$body-font-size: 9pt !default;
+$body-font-size: 12pt !default;
+$body-line-height: 1.6em !default;
+$hx-line-height: 1.4em !default;
+$blockquote-font-size: .8em !default;
+$blockquote-line-height: 1.5em !default;
 $widows: 3 !default;
 $orphans: 3 !default;
+$para-indent: 2em !default;
 
 // Override variables above this line, using the !default flag to allow further overrides.
 @import 'variables/elements';
@@ -24,5 +29,15 @@ h3,
 h4,
 h5,
 h6 {
-	prince-bookmark-level: 1;
+  font-weight: normal;
+  prince-bookmark-level: 1;
+}
+
+blockquote {
+  font-family: $font-2;
+}
+
+dt {
+  float: left;
+  margin-right: 5px;
 }
