@@ -241,7 +241,7 @@ class GlobalTypography {
 
 		$scss .= file_get_contents( $path_to_style );
 		$sass = Container::get( 'Sass' );
-		$css = $sass->compile( $scss );
+		$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
 		$css = $this->fixWebFonts( $css );
 
 		$css_file = $sass->pathToUserGeneratedCss() . '/style.css';

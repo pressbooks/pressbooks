@@ -104,13 +104,21 @@ function pb_is_custom_theme() {
  */
 function pb_is_scss() {
 
-	return \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible();
+	if ( \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 1 ) ) {
+		return true;
+	}
+
+	if ( \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 2 ) ) {
+		return true;
+	}
+
+	return false;
 }
 
 
 /**
  * Shortcut to \Pressbooks\Metadata::getSeoMetaElements();
- * 
+ *
  * @return string
  */
 function pb_get_seo_meta_elements() {
@@ -120,7 +128,7 @@ function pb_get_seo_meta_elements() {
 
 /**
  * Shortcut to \Pressbooks\Metadata::getMicrodataElements();
- * 
+ *
  * @return string
  */
 function pb_get_microdata_elements() {
@@ -208,7 +216,7 @@ function pb_get_chapter_number( $post_name ) {
 			if ( $key == $post_name ) break;
 		}
 	}
-	
+
 	if ( $type == 'numberless' ) $i = 0;
 	return $i;
 }
@@ -233,7 +241,7 @@ function pb_get_section_type( $post ) {
         $type = \Pressbooks\Taxonomy\back_matter_type( $post->ID );
         break;
 	}
-	
+
 	return $type;
 }
 

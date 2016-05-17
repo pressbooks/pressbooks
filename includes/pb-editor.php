@@ -229,14 +229,15 @@ function update_editor_style() {
 
 	$sass = Container::get( 'Sass' );
 
-	if ( $sass->isCurrentThemeCompatible() ) {
+	if ( $sass->isCurrentThemeCompatible( 1 ) ) {
 		$scss = file_get_contents( $sass->pathToPartials() . '/_editor-with-custom-fonts.scss' );
-	}
-	else {
-		$scss = file_get_contents( $sass->pathToPartials() . '/_editor.scss' );
+	}	elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		$scss = file_get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
+	} else {
+		$scss = file_get_contents( $sass->pathToPartials() . '_editor.scss' );
 	}
 
-	$css = $sass->compile( $scss );
+	$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
 
 	$css = Container::get( 'GlobalTypography' )->fixWebFonts( $css );
 

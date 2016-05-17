@@ -163,10 +163,6 @@ class Sass {
 		try {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
 
-			if ( empty( $includes ) ) {
-				$includes = $this->defaultIncludePaths();
-			}
-
 			if ( $scss !== '' ) {
 				if ( extension_loaded( 'sass' ) ) { // use sassphp extension
 					$scss_file = array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[mt_rand()] = tmpfile() ) ) );
