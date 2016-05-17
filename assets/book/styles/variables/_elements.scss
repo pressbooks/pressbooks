@@ -1,75 +1,77 @@
 // VARS - HTML ELEMENTS - GLOBAL
 
-//a links
+// Links
+$link-text-decoration: none !default;
 
-//body
-
+// Body
 @if $type == 'epub' {
-    $body-font-size: medium !default;
+  $body-font-size: medium !default;
 } @else if $type == 'prince' {
-    $body-font-size: 11pt !default;
+  $body-font-size: 11pt !default;
 }  @else if $type == 'web' {
   $body-font-size: medium !default;
 }
-
 $body-font-style: normal !default;
 $body-font-weight: normal !default;
-$body-line-height: 1.4 !default;
+$body-line-height: 1.4em !default;
 
-//blockquote
-
-$blockquote-font-size: 0.9em !default;
+// Blockquotes
+$blockquote-font-size: .9em !default;
 $blockquote-font-style: normal !default;
 $blockquote-font-weight: normal !default;
 $blockquote-line-height: 1.2 !default;
 $blockquote-margin: 1em !default;
 
-//body headings
+// Headings (all)
+$hx-margin-top: 1.5em !default;
+$hx-margin-bottom: 1em !default;
+$hx-line-height: 1.5em !default;
 
+// Heading 1
 $h1-font-size: 1em !default;
 $h1-font-style: normal !default;
 $h1-font-weight: bold !default;
 $h1-text-transform: uppercase !default;
 
+// Heading 2
 $h2-font-size: 1em !default;
 $h2-font-style: normal !default;
 $h2-font-weight: normal !default;
 $h2-text-transform: uppercase !default;
 
+// Heading 3
 $h3-font-size: 1em !default;
 $h3-font-style: normal !default;
 $h3-font-weight: bold !default;
 $h3-text-transform: none !default;
 
-$h3-font-size: 1em !default;
-$h3-font-style: normal !default;
-$h3-font-weight: normal !default;
-$h3-text-transform: none !default;
-
+// Heading 4
 $h4-font-size: 1em !default;
 $h4-font-style: normal !default;
 $h4-font-weight: bold !default;
 $h4-text-transform: none !default;
 
+// Heading 5
 $h5-font-size: 1em !default;
 $h5-font-style: italic !default;
 $h5-font-weight: normal !default;
 $h5-text-transform: none !default;
 
+// Heading 6
 $h6-font-size: 1em !default;
 $h6-font-style: normal !default;
 $h6-font-weight: normal !default;
 $h6-text-transform: none !default;
 
-//cite
+// Cite
 
-$cite-font-size: 0.9em !default;
+$cite-font-size: .9em !default;
 $cite-font-style: normal !default;
 $cite-font-weight: normal !default;
 $cite-text-transform: uppercase !default;
 $cite-font-variant: small-caps !default;
 
-//paragraphs
+// Paragraphs
 
 $widows: 2 !default;
 $orphans: 1 !default;
@@ -78,5 +80,6 @@ $para-hyphenation: auto !default;
 $para-indent: 1em !default;
 $para-margin-top: 0 !default;
 
-//tables
-$table-font-size: 0.9em !default;
+// Tables
+
+$table-font-size: .9em !default;

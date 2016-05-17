@@ -1,5 +1,5 @@
-//A (LINKS) - GLOBAL
+// Links
 
-/* A - LINKS */ 
-
-a { text-decoration: none; }
+a {
+  text-decoration: $link-text-decoration;
+}

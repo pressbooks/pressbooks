@@ -1,17 +1,17 @@
-//PARAGRPAHS - GLOBAL 
+//PARAGRPAHS - GLOBAL
 
-/* PARAGRAPH STYLING */ 
-p { 
-  text-align: $para-align;
+/* PARAGRAPH STYLING */
+p {
   margin-bottom: 0;
+  text-align: $para-align;
   widows: $widows;
   orphans: $orphans;
 }
 
 p + p,
-p.indent {
-  text-indent: $para-indent;
+.indent {
   margin-top: $para-margin-top;
+  text-indent: $para-indent;
 }
 
 .no-indent,
@@ -24,14 +24,14 @@ div.front-matter p.no-indent,
 div.back-matter p.no-indent,
 div.ugc p.indent.no-indent,
 div.ugc.chapter-ugc p.indent.no-indent {
-  text-indent: 0 !important;
   margin-top: 1em !important;
+  text-indent: 0 !important;
 }
 
 p,
-p.indent,
-p.nonindent,
-p.no-indent {
+.indent,
+.nonindent,
+.no-indent {
   margin-bottom: 0;
 }
 
@@ -44,10 +44,10 @@ body,
 p,
 p.indent,
 p.no-indent {
-   hyphens: $para-hyphenation; 
-   hyphenate-before: 3;
-   hyphenate-after: 3;
-   hyphenate-lines: 2;
+  hyphens: $para-hyphenation;
+  hyphenate-before: 3;
+  hyphenate-after: 3;
+  hyphenate-lines: 2;
 }
 
 /* when paras follow a floated image, make sure para indents work as expected */
@@ -84,7 +84,7 @@ p.hanging-indent {
 }
 
 @mixin ParaTracking {
-/* PDF tracking -- only applies to PDF/Prince outputs */ 
+/* PDF tracking -- only applies to PDF/Prince outputs */
 
 .tight,
 p.tight {
@@ -114,6 +114,3 @@ p.very-loose {
 @if type == 'prince' {
   @include ParaTracking;
 }
-
-
-
