@@ -67,9 +67,11 @@ class GlobalTypography {
 			$languages[] = $book_lang;
 		}
 
-		$languages = array_unique(
-			array_merge( $languages, $this->getThemeSupportedLanguages() )
-		);
+		if ( is_array( $this->getThemeSupportedLanguages() ) ) {
+			$languages = array_unique(
+				array_merge( $languages, $this->getThemeSupportedLanguages() )
+			);
+		}
 
 		// Auto-create SCSS files
 
@@ -152,7 +154,7 @@ class GlobalTypography {
 	 */
 	function getThemeSupportedLanguages() {
 
-		$return_value = array();
+		$return_value = false;
 
 		$fullpath = get_stylesheet_directory() . '/theme-information.php';
 
@@ -163,6 +165,8 @@ class GlobalTypography {
 			if ( isset( $supported_languages ) && ! empty( $supported_languages ) ) {
 				$return_value = $supported_languages;
 			}
+		} else {
+			$return_value = get_theme_support( 'pressbooks_global_typography' );
 		}
 
 		return $return_value;
