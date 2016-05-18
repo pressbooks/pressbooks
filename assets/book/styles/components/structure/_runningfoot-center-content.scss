@@ -1,0 +1,98 @@
+//===================================
+// Running Foot Center (Content)
+//===================================
+
+// Displays user-defined content in the center of the running foot.
+
+// -------------------------------
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |    lfoot     |     rfoot    |
+// -------------------------------
+
+@import 'mixins';
+
+// Front Matter
+
+@page front-matter:left {
+  @bottom {
+    content: $front-matter-running-content-left;
+    @include runningfoot-left;
+  }
+}
+
+@page front-matter:right {
+  @bottom {
+    content: $front-matter-running-content-right;
+    @include runningfoot-right;
+  }
+}
+
+// Introduction
+
+@page introduction:left {
+  @bottom {
+    content: $introduction-running-content-left;
+    @include runningfoot-left;
+  }
+}
+
+@page introduction:right {
+  @bottom {
+    content: $introduction-running-content-right;
+    @include runningfoot-right;
+  }
+}
+
+// Parts
+
+@page part:left {
+  @bottom {
+    content: $part-running-content-left;
+    @include runningfoot-left;
+  }
+}
+@page part:right {
+  @bottom {
+    content: $part-running-content-right;
+    @include runningfoot-right;
+  }
+}
+
+// Chapters
+
+@page chapter:left {
+  @bottom {
+    content: $chapter-running-content-left;
+    @include runningfoot-left;
+  }
+}
+
+@page chapter:right {
+  @bottom {
+    content: $chapter-running-content-right;
+    @include runningfoot-right;
+  }
+}
+
+// Back Matter
+
+@page back-matter:left {
+  @bottom {
+    content: $back-matter-running-content-left;
+    @include runningfoot-left;
+  }
+}
+
+@page back-matter:right {
+  @bottom {
+    content: $back-matter-running-content-right;
+    @include runningfoot-right;
+  }
+}
