@@ -21,6 +21,10 @@
 
 // Front Matter
 
+@page front-matter:first {
+  @include blank-foot;
+}
+
 @page front-matter:left {
   @bottom-left {
     content: $front-matter-running-content-left;
@@ -48,6 +52,10 @@
 }
 
 // Introduction
+
+@page introduction:first {
+  @include blank-foot;
+}
 
 @page introduction:left {
   @bottom-left {
@@ -77,6 +85,10 @@
 
 // Parts
 
+@page part:first {
+  @include blank-foot;
+}
+
 @page part:left {
   @bottom-left {
     content: $part-running-content-left;
@@ -105,6 +117,10 @@
 
 // Chapters
 
+@page chapter:first {
+  @include blank-foot;
+}
+
 @page chapter:left {
   @bottom-left {
     content: $chapter-running-content-left;
@@ -132,6 +148,10 @@
 }
 
 // Back Matter
+
+@page back-matter:first {
+  @include blank-foot;
+}
 
 @page back-matter:left {
   @bottom-left {
