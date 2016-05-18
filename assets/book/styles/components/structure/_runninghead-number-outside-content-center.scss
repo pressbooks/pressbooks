@@ -16,11 +16,11 @@
 /* Blank Head and Foot Defaults
 note: use mixin 'blank-head-and-foot' where needed */
 
-@import 'blanks'; 
-@import 'global-partials/lobal-page-structure/global-page-structure-mixins'; 
+@import 'blank';
+@import 'mixins';
 
 
-/* RUNNING HEAD CENTER3: 
+/* RUNNING HEAD CENTER3:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
   @page front-matter:first {
@@ -29,7 +29,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   @page front-matter:left {
     @top-left-corner {
       @include front-matter-page-number;
-      content: counter(page, lower-roman) "\A0\A0\A0\A0"; 
+      content: counter(page, lower-roman) "\A0\A0\A0\A0";
     }
     @top {
       content: $front-matter-running-content-left;
@@ -48,7 +48,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
       text-align: center;
     }
   }
-  /* RUNNING HEADS CENTER3: 
+  /* RUNNING HEADS CENTER3:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
   @page introduction:first {
@@ -72,13 +72,13 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
       content: "\A0\A0\A0\A0" counter(page);
     }
     @top {
-      content:  $introduction-running-content-right; 
+      content:  $introduction-running-content-right;
       @include runninghead-right;
       text-align: center;
     }
   }
 
-/*  RUNNING HEADS CENTER3: 
+/*  RUNNING HEADS CENTER3:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
   @page part:first {
@@ -88,7 +88,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
     @top-left-corner{
       @include page-number;
       content: counter(page) "\A0\A0\A0\A0";
-    }  
+    }
     @top {
       content: $part-running-content-left;
       @include runninghead-left;
@@ -109,7 +109,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 
 
-/* RUNNING HEADS CENTER3: 
+/* RUNNING HEADS CENTER3:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
   @page chapter:first {
@@ -118,7 +118,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   @page chapter:left {
     @top-left-corner {
       @include page-number;
-      content: counter(page) "\A0\A0\A0\A0"; 
+      content: counter(page) "\A0\A0\A0\A0";
     }
     @top {
       content: $chapter-running-content-left;
@@ -138,7 +138,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
     }
   }
 
-  /* RUNNING HEADS CENTER3: 
+  /* RUNNING HEADS CENTER3:
   BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
   @page back-matter:first {
@@ -165,5 +165,4 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
        @include runninghead-right;
        text-align: center;
     }
-  }  
-
+  }

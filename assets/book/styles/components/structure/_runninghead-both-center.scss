@@ -1,5 +1,5 @@
 //=============================
-//RUNNING HEADS CENTER2 
+//RUNNING HEADS CENTER2
 //=============================
 
 // ------------------------------
@@ -17,22 +17,22 @@
 /* Blank Head and Foot Defaults
 note: use mixin 'blank-head-and-foot' where needed */
 
-@import 'blanks';
-@import 'mixins';  
+@import 'blank';
+@import 'mixins';
 
 
 
-/* RUNNING HEAD CENTER2: 
+/* RUNNING HEAD CENTER2:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page front-matter:first {
   @include blank-head-and-foot;
- 
+
 }
 @page front-matter:left {
 
   @top {
-    content: counter(page, lower-roman) "\A0\A0•\A0\A0" $front-matter-running-content-left ;
+    content: counter(page, lower-roman) "\A0\A0•\A0\A0" $front-matter-running-content-left;
     @include runninghead-left;
     text-align: center;
   }
@@ -45,7 +45,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
 }
 
-/* RUNNING HEADS CENTER2: 
+/* RUNNING HEADS CENTER2:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page introduction:first {
@@ -67,7 +67,7 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
 }
 
-/*  RUNNING HEADS CENTER2: 
+/*  RUNNING HEADS CENTER2:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
@@ -88,7 +88,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
 }
 
-/* RUNNING HEADS CENTER2: 
+/* RUNNING HEADS CENTER2:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page chapter:first {
@@ -110,7 +110,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
 }
 
-/* RUNNING HEADS CENTER2: 
+/* RUNNING HEADS CENTER2:
 BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page back-matter:first {
@@ -131,4 +131,3 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
 
 }
-

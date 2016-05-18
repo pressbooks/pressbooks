@@ -1,9 +1,7 @@
-//=============================
-//RUNNING HEADS CENTER 
-//=============================
+// RUNNING HEAD OUTSIDE - GLOBAL
 
 // ------------------------------
-//|    lhead     |    rhead     |
+//| lhead        |         rhead|
 //|              |              |
 //|              |              |
 //|              |              |
@@ -11,190 +9,203 @@
 //|              |              |
 //|              |              |
 //|              |              |
-//|       #      |       #      |
+//| #            |            # |
 //------------------------------
 
 /* Blank Head and Foot Defaults
 note: use mixin 'blank-head-and-foot' where needed */
 
-@import 'blanks'; 
-@import 'mixins'; 
+@import 'blank'; 
+@import 'mixins';
 
-
-/* RUNNING HEAD CENTER: 
+/* RUNNING HEAD OUTSIDE:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page front-matter:first {
-  @include blank-head-and-foot;
-  @bottom {
-    content: counter(page, lower-roman);
-    @include front-matter-page-number;    
-    text-align: center;
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
   }
 }
 @page front-matter:left {
-
-  @top {
+  @top-left {
     content: $front-matter-running-content-left;
     @include runninghead-left;
-    text-align: center;
   }
-  @bottom {
+  @bottom-left {
     content: counter(page, lower-roman);
-    @include front-matter-page-number;    
-    text-align: center;
+    @include front-matter-page-number;
   }
 }
 @page front-matter:right {
-  @top {
+  @top-right {
     content: $front-matter-running-content-right;
     @include runninghead-right;
-    text-align: center;
   }
-  @bottom {
+  @bottom-right {
     content: counter(page, lower-roman);
-    @include front-matter-page-number;    
-    text-align: center;
+    @include front-matter-page-number;
   }
 }
 
-/* RUNNING HEADS CENTER: 
+/* RUNNING HEAD OUTSIDE:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page introduction:first {
-  @include blank-head-and-foot;
-  @bottom {
-    content: counter(page);
-    @include page-number;    
-    text-align: center;
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
   }
 }
-
 @page introduction:left {
-  @top {
+  @top-left {
     content: $introduction-running-content-left;
     @include runninghead-left;
-    text-align: center;
   }
-  @bottom {
+  @bottom-left {
     content: counter(page);
-    @include page-number;    
-    text-align: center;
+    @include page-number;
+
   }
 }
 @page introduction:right {
-  @top {
+  @top-right {
     content: $introduction-running-content-right;
     @include runninghead-right;
-    text-align: center;
   }
-  @bottom {
+  @bottom-right {
     content: counter(page);
-    @include page-number;    
-    text-align: center;
+    @include page-number;
   }
 }
 
-/*  RUNNING HEADS CENTER: 
+/* RUNNING HEAD OUTSIDE:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
   @include blank-head-and-foot;
 }
 @page part:left {
-  @top {
+  @top-left {
     content: $part-running-content-left;
     @include runninghead-left;
-    text-align: center;
   }
-  @bottom {
+  @bottom-left {
     content: counter(page);
-    @include page-number;    
-    text-algin: center;
+    @include page-number;
   }
 }
 @page part:right {
-  @top {
+  @top-right {
     content: $part-running-content-right;
     @include runninghead-right;
-    text-align: center;
   }
-  @bottom {
+  @bottom-right {
     content: counter(page);
-    @include page-number;    
-    text-align: center;
+    @include page-number;
   }
 }
 
-/* RUNNING HEADS CENTER: 
+/* RUNNING HEAD OUTSIDE:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page chapter:first {
-  @include blank-head-and-foot;
-  @bottom {
-    content: counter(page);
-    @include page-number;    
-    text-align: center;
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
   }
 }
 @page chapter:left {
-  @top {
+  @top-left {
     content: $chapter-running-content-left;
     @include runninghead-left;
-    text-align: center;
   }
-  @bottom {
+  @bottom-left {
     content: counter(page);
-    @include page-number;    
-    text-align: center;
+    @include page-number;
   }
 }
 @page chapter:right {
-  @top {
+  @top-right {
     content: $chapter-running-content-right;
     @include runninghead-right;
-    text-align: center;
   }
-  @bottom {
+  @bottom-right {
     content: counter(page);
-    @include page-number;    
-    text-align: center;
+    @include page-number;
   }
 }
 
-/* RUNNING HEADS CENTER: 
+/* RUNNING HEAD OUTSIDE:
 BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page back-matter:first {
-  @include blank-head-and-foot;
-  @bottom {
-    content: counter(page);
-    @include page-number;    
-    text-align: center;
+  @top {
+    content: "";
+  }
+  @top-right {
+    content: "";
+  }
+  @top-right-corner {
+    content: "";
+  }
+  @top-left {
+    content: "";
+  }
+  @top-left-corner {
+    content: "";
   }
 }
 @page back-matter:left {
-  @top {
+  @top-left {
      content: $back-matter-running-content-left;
      @include runninghead-left;
-     text-align: center;
   }
-  @bottom {
+  @bottom-left {
     content: counter(page);
-    @include page-number;    
-    text-align: center;
+    @include page-number;
   }
 }
 @page back-matter:right {
-  @top {
+  @top-right {
      content: $back-matter-running-content-right;
      @include runninghead-right;
-     text-align: center;
   }
-  @bottom {
+  @bottom-right {
     content: counter(page);
-    @include page-number;    
-    text-align: center;
+    @include page-number;
   }
 }
-

@@ -11,4 +11,5 @@ $page-margin-right-right: 1.5cm !default;
 @import 'components/structure/recto-verso';
 @import 'components/structure/numbering';
 @import 'components/structure/content-strings';
-@import 'components/structure/runninghead-outside2';
+@import 'components/structure/runninghead-both-outside';
+@import 'components/structure/runningfoot-number-center-first';
