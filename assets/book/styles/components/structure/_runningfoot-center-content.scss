@@ -24,6 +24,7 @@
   @bottom {
     content: $front-matter-running-content-left;
     @include runningfoot-left;
+    text-align: center;
   }
 }
 
@@ -31,6 +32,7 @@
   @bottom {
     content: $front-matter-running-content-right;
     @include runningfoot-right;
+    text-align: center;
   }
 }
 
@@ -40,6 +42,7 @@
   @bottom {
     content: $introduction-running-content-left;
     @include runningfoot-left;
+    text-align: center;
   }
 }
 
@@ -47,6 +50,7 @@
   @bottom {
     content: $introduction-running-content-right;
     @include runningfoot-right;
+    text-align: center;
   }
 }
 
@@ -56,12 +60,14 @@
   @bottom {
     content: $part-running-content-left;
     @include runningfoot-left;
+    text-align: center;
   }
 }
 @page part:right {
   @bottom {
     content: $part-running-content-right;
     @include runningfoot-right;
+    text-align: center;
   }
 }
 
@@ -71,6 +77,7 @@
   @bottom {
     content: $chapter-running-content-left;
     @include runningfoot-left;
+    text-align: center;
   }
 }
 
@@ -78,6 +85,7 @@
   @bottom {
     content: $chapter-running-content-right;
     @include runningfoot-right;
+    text-align: center;
   }
 }
 
@@ -87,6 +95,7 @@
   @bottom {
     content: $back-matter-running-content-left;
     @include runningfoot-left;
+    text-align: center;
   }
 }
 
@@ -94,5 +103,6 @@
   @bottom {
     content: $back-matter-running-content-right;
     @include runningfoot-right;
+    text-align: center;
   }
 }

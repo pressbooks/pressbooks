@@ -25,6 +25,7 @@
   @bottom {
     content: counter(page, lower-roman) $runningfoot-separator $front-matter-running-content-left;
     @include runningfoot-left;
+    text-align: center;
   }
 }
 
@@ -32,6 +33,7 @@
   @bottom {
     content: $front-matter-running-content-right $runningfoot-separator counter(page, lower-roman);
     @include runningfoot-right;
+    text-align: center;
   }
 }
 
@@ -41,6 +43,7 @@
   @bottom {
     content: counter(page) $runningfoot-separator $introduction-running-content-left;
     @include runningfoot-left;
+    text-align: center;
   }
 }
 
@@ -48,6 +51,7 @@
   @bottom {
     content: $introduction-running-content-right $runningfoot-separator counter(page);
     @include runningfoot-right;
+    text-align: center;
   }
 }
 
@@ -57,6 +61,7 @@
   @bottom {
     content: counter(page) $runningfoot-separator $part-running-content-left;
     @include runningfoot-left;
+    text-align: center;
   }
 }
 
@@ -64,6 +69,7 @@
   @bottom {
     content: $part-running-content-right $runningfoot-separator counter(page);
     @include runningfoot-right;
+    text-align: center;
   }
 }
 
@@ -73,6 +79,7 @@
   @bottom {
     content: counter(page) $runningfoot-separator $chapter-running-content-left;
     @include runningfoot-left;
+    text-align: center;
   }
 }
 
@@ -80,6 +87,7 @@
   @bottom {
     content: $chapter-running-content-right $runningfoot-separator counter(page);
     @include runningfoot-right;
+    text-align: center;
   }
 }
 
@@ -89,6 +97,7 @@
   @bottom {
     content: counter(page) $runningfoot-separator $back-matter-running-content-left;
     @include runningfoot-left;
+    text-align: center;
   }
 }
 
@@ -96,5 +105,6 @@
   @bottom {
     content: $back-matter-running-content-right $runningfoot-separator counter(page);
     @include runningfoot-right;
+    text-align: center;
   }
 }
