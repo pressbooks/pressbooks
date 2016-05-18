@@ -1,13 +1,15 @@
-// GLOBAL PAGE - GENERAL SETTINGS
+//========================
+// Page Settings
+//========================
 
-//SIZE & CROPMARKS
+// Size & Cropmarks
 
 @page {
   marks: $page-cropmarks;
   size: $page-width $page-height;
 }
 
-//PAGE MARGINS 
+// Margins
 
 @page:left {
   margin-top: $page-margin-left-top;
