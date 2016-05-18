@@ -108,7 +108,7 @@
 @mixin tocbackmatterauthor {
   @include tocfrontmatterauthor;
 }
-@mixin tocpagenumber {
+@mixin tocpage-number {
   color: $toc-page-number-color;
   font-family: $font-1;
   font-size: $toc-page-number-font-size; 
@@ -118,7 +118,7 @@
   hyphens: none;
   -webkit-hyphens: none;
 }
-@mixin tocfrontmatterpagenumber {
+@mixin tocfront-matter-page-number {
   color: $toc-front-matter-page-number-color;
   font-family: $font-1;
   font-size: $toc-front-matter-page-number-font-size; 

@@ -17,7 +17,7 @@
 //------------------------------
 
 /* Blank Head and Foot Defaults
-note: use mixin 'blankheadandfoot' where needed */
+note: use mixin 'blank-head-and-foot' where needed */
 
 @import 'blanks'; 
 @import 'mixins'; 
@@ -45,22 +45,22 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 }
 @page front-matter:left {
   @top-left {
-    content: $FrontMatterRunningContentLeft;
-    @include runningheadleft;
+    content: $front-matter-running-content-left;
+    @include runninghead-left;
   }
   @top-left-corner {
     content: counter(page, lower-roman) "\A0\A0\A0\A0";
-    @include frontmatterpagenumber;    
+    @include front-matter-page-number;    
   }
 }
 @page front-matter:right {
   @top-right {
-    content: $FrontMatterRunningContentRight;
-    @include frontmatterpagenumber;
+    content: $front-matter-running-content-right;
+    @include front-matter-page-number;
   }
   @top-right-corner {
     content: "\A0\A0\A0\A0" counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include front-matter-page-number;    
   }
 }
 
@@ -86,23 +86,23 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 }
 @page introduction:left {
   @top-left {
-    content: $IntroductionRunningContentLeft;
-    @include runningheadleft;
+    content: $introduction-running-content-left;
+    @include runninghead-left;
   }
   @top-left-corner {
     content: counter(page) "\A0\A0\A0\A0";
-    @include pagenumber;    
+    @include page-number;    
 
   }
 }
 @page introduction:right {
   @top-right {
-    content: $IntroductionRunningContentRight;
-    @include runningheadright;
+    content: $introduction-running-content-right;
+    @include runninghead-right;
   }
   @top-right-corner {
     content: "\A0\A0\A0\A0" counter(page);
-    @include pagenumber;   
+    @include page-number;   
   }
 }
 
@@ -110,26 +110,26 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
-  @include blankheadandfoot;
+  @include blank-head-and-foot;
 }
 @page part:left {
   @top-left {
-    content: $PartRunningContentLeft;
-    @include runningheadleft;
+    content: $part-running-content-left;
+    @include runninghead-left;
   }
   @top-left-corner {
     content: counter(page) "\A0\A0\A0\A0";
-    @include pagenumber;    
+    @include page-number;    
   }
 }
 @page part:right {
   @top-right {
-    content: $PartRunningContentRight;
-    @include runningheadright;
+    content: $part-running-content-right;
+    @include runninghead-right;
   }
   @top-right {
     content: "\A0\A0\A0\A0" counter(page);
-    @include pagenumber;    
+    @include page-number;    
   }
 }
 
@@ -155,22 +155,22 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 }
 @page chapter:left {
   @top-left {
-    content: $ChapterRunningContentLeft;
-    @include runningheadleft;
+    content: $chapter-running-content-left;
+    @include runninghead-left;
   }
   @top-left-corner {
     content: counter(page) "\A0\A0\A0\A0";
-    @include pagenumber;    
+    @include page-number;    
   }
 }
 @page chapter:right {
   @top-right {
-    content: $ChapterRunningContentRight;
-    @include runningheadright;
+    content: $chapter-running-content-right;
+    @include runninghead-right;
   }
   @top-right-corner {
     content: "\A0\A0\A0\A0" counter(page);
-    @include pagenumber;    
+    @include page-number;    
   }
 }
 
@@ -196,22 +196,22 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 }
 @page back-matter:left {
   @top-left {
-     content: $BackMatterRunningContentLeft;
-     @include runningheadleft;
+     content: $back-matter-running-content-left;
+     @include runninghead-left;
   }
   @top-left-corner {
     content: counter(page) "\A0\A0\A0\A0";
-    @include pagenumber;  
+    @include page-number;  
   }
 }
 @page back-matter:right {
   @top-right {
-     content: $BackMatterRunningContentRight;
-     @include runningheadright;
+     content: $back-matter-running-content-right;
+     @include runninghead-right;
   }
   @top-right-corner {
     content: "\A0\A0\A0\A0" counter(page);
-    @include pagenumber;  
+    @include page-number;  
   }
 }
 

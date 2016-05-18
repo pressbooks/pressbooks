@@ -12,22 +12,23 @@ $page-number-font-style: normal !default;
 $page-number-font-weight: normal !default;
 $page-number-text-transform: none !default;
 
-$runninghead-left-font-size: 0.7em !default;
+$runninghead-left-font-size: .7em !default;
 $runninghead-left-font-style: normal !default;
 $runninghead-left-font-weight: normal !default;
 $runninghead-left-text-transform: uppercase !default;
 
-$runninghead-right-font-size: 0.7em !default;
+$runninghead-right-font-size: .7em !default;
 $runninghead-right-font-style: normal !default;
 $runninghead-right-font-weight: normal !default;
 $runninghead-right-text-transform: uppercase !default;
 
-$runningfoot-left-font-size: 0.7em !default;
+$runningfoot-separator: '\A0\A0|\A0\A0' !default;
+$runningfoot-left-font-size: .7em !default;
 $runningfoot-left-font-style: normal !default;
 $runningfoot-left-font-weight: normal !default;
 $runningfoot-left-text-transform: uppercase !default;
 
-$runningfoot-right-font-size: 0.7em !default;
+$runningfoot-right-font-size: .7em !default;
 $runningfoot-right-font-style: normal !default;
 $runningfoot-right-font-weight: normal !default;
 $runningfoot-right-text-transform: uppercase !default;
@@ -46,16 +47,16 @@ $runningfoot-right-text-transform: uppercase !default;
 //- chapter-author
 //- chapter-subtitle
 
-$FrontMatterRunningContentLeft: string(book-title) !default;
-$FrontMatterRunningContentRight: string(section-title) !default;
-$IntroductionRunningContentLeft: string(book-title) !default;
-$IntroductionRunningContentRight: string(section-title) !default;
-$PartRunningContentLeft: string(book-title) !default;
-$PartRunningContentRight: string(section-title) !default;
-$ChapterRunningContentLeft: string(book-title) !default;
-$ChapterRunningContentRight: string(section-title) !default;
-$BackMatterRunningContentLeft: string(book-title) !default;
-$BackMatterRunningContentRight: string(section-title) !default;
+$front-matter-running-content-left: string(book-title) !default;
+$front-matter-running-content-right: string(section-title) !default;
+$introduction-running-content-left: string(book-title) !default;
+$introduction-running-content-right: string(section-title) !default;
+$part-running-content-left: string(book-title) !default;
+$part-running-content-right: string(section-title) !default;
+$chapter-running-content-left: string(book-title) !default;
+$chapter-running-content-right: string(section-title) !default;
+$back-matter-running-content-left: string(book-title) !default;
+$back-matter-running-content-right: string(section-title) !default;
 
 /* CROP MARKS (none | crop | cross) */
 

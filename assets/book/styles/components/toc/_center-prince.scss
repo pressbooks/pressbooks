@@ -7,7 +7,7 @@
 /* TOC general page structure */
 
   @page toc {
-    @include blankheadandfoot;
+    @include blank-head-and-foot;
   }
   #toc {
     counter-reset: part;
@@ -93,7 +93,7 @@
     page-break-after: avoid;
   }
   #toc .part a::after {
-    content:'' ;
+    content:'';
   }
 
   /* CHAPTER NUMBERS */
@@ -138,7 +138,7 @@
     content: "\A0\A0\A0"  target-counter(attr(href), page);
   }
   #toc a::after {
-    @include tocpagenumber;
+    @include tocpage-number;
     content: "\A0\A0\A0" target-counter(attr(href), page);
     text-decoration: none;
     display: inline;

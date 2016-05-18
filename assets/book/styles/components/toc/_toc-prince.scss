@@ -2,7 +2,7 @@
 /* GLOBAL TOC THINGS */ 
 
 #toc .chapter.numberless a::before {
-  content:'' ;
+  content:'';
   counter-increment: none;
   margin-right: 0;
   left: 0;

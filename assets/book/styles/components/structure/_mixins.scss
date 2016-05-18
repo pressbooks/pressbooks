@@ -2,9 +2,9 @@
 
 //RUNNING HEADS AND FEET
 
-@mixin frontmatterpagenumber {  
+  @mixin front-matter-page-number {
   font-family: $font-2;
-  color: $pagenumbercolor;
+  color: $page-number-color;
   font-size: $front-matter-page-number-font-size;
   font-style: $front-matter-page-number-font-style;
   font-weight: $front-matter-page-number-font-weight;
@@ -13,16 +13,16 @@
   -webkit-hyphens: none;
 }
 
-@mixin pagenumber {  
+@mixin page-number {
   font-family: $font-2;
-  color: $pagenumbercolor;
+  color: $page-number-color;
   font-size: $page-number-font-size;
   font-style: $page-number-font-style;
   font-weight: $page-number-font-weight;
   hyphens: none;
   -webkit-hyphens: none;
 }
-@mixin runningheadleft {  
+@mixin runninghead-left {
   color: $runningheadfeetcolor;
   font-family: $font-3;
   font-size: $runninghead-left-font-size;
@@ -34,7 +34,7 @@
   hyphens: none;
   -webkit-hyphens: none;
 }
-@mixin runningheadright {  
+@mixin runninghead-right {
   color: $runningheadfeetcolor;
   font-family: $font-3;
   font-size: $runningfoot-left-font-size;
@@ -46,7 +46,7 @@
   hyphens: none;
   -webkit-hyphens: none;
 }
-@mixin runningfootleft {  
+@mixin runningfoot-left {
   color: $runningheadfeetcolor;
   font-family: $font-2;
   font-size: $runningfoot-left-font-size;
@@ -56,7 +56,7 @@
   hyphens: none;
   -webkit-hyphens: none;
 }
-@mixin runningfootright {  
+@mixin runningfoot-right {
   color: $runningheadfeetcolor;
   font-family: $font-2;
   font-size: $runningfoot-right-font-size;

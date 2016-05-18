@@ -99,7 +99,7 @@
     counter-increment: part;
   }
   #toc .part a::after {
-    content:'' ;
+    content:'';
   }
 
   /* TOC CHAPTER STYLING */
@@ -157,7 +157,7 @@
 /* TOC PAGE NUMBERS */
 
   #toc a::after {
-    @include tocpagenumber;
+    @include tocpage-number;
     content: target-counter(attr(href), page);
     vertical-align: top;
     position: absolute;
@@ -168,7 +168,7 @@
   }
 
   #toc .front-matter a::after {
-    @include tocfrontmatterpagenumber;
+    @include tocfront-matter-page-number;
     content: leader(" ") target-counter(attr(href), page, lower-roman);
   }
   #toc .introduction a::after {

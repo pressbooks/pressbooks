@@ -15,7 +15,7 @@
 //------------------------------
 
 /* Blank Head and Foot Defaults
-note: use mixin 'blankheadandfoot' where needed */
+note: use mixin 'blank-head-and-foot' where needed */
 
 @import 'blanks'; 
 @import 'mixins'; 
@@ -25,35 +25,35 @@ note: use mixin 'blankheadandfoot' where needed */
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page front-matter:first {
-  @include blankheadandfoot;
+  @include blank-head-and-foot;
   @bottom {
     content: counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include front-matter-page-number;    
     text-align: center;
   }
 }
 @page front-matter:left {
 
   @top {
-    content: $FrontMatterRunningContentLeft;
-    @include runningheadleft;
+    content: $front-matter-running-content-left;
+    @include runninghead-left;
     text-align: center;
   }
   @bottom {
     content: counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include front-matter-page-number;    
     text-align: center;
   }
 }
 @page front-matter:right {
   @top {
-    content: $FrontMatterRunningContentRight;
-    @include runningheadright;
+    content: $front-matter-running-content-right;
+    @include runninghead-right;
     text-align: center;
   }
   @bottom {
     content: counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include front-matter-page-number;    
     text-align: center;
   }
 }
@@ -62,35 +62,35 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page introduction:first {
-  @include blankheadandfoot;
+  @include blank-head-and-foot;
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-align: center;
   }
 }
 
 @page introduction:left {
   @top {
-    content: $IntroductionRunningContentLeft;
-    @include runningheadleft;
+    content: $introduction-running-content-left;
+    @include runninghead-left;
     text-align: center;
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-align: center;
   }
 }
 @page introduction:right {
   @top {
-    content: $IntroductionRunningContentRight;
-    @include runningheadright;
+    content: $introduction-running-content-right;
+    @include runninghead-right;
     text-align: center;
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-align: center;
   }
 }
@@ -99,29 +99,29 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
-  @include blankheadandfoot;
+  @include blank-head-and-foot;
 }
 @page part:left {
   @top {
-    content: $PartRunningContentLeft;
-    @include runningheadleft;
+    content: $part-running-content-left;
+    @include runninghead-left;
     text-align: center;
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-algin: center;
   }
 }
 @page part:right {
   @top {
-    content: $PartRunningContentRight;
-    @include runningheadright;
+    content: $part-running-content-right;
+    @include runninghead-right;
     text-align: center;
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-align: center;
   }
 }
@@ -130,34 +130,34 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page chapter:first {
-  @include blankheadandfoot;
+  @include blank-head-and-foot;
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-align: center;
   }
 }
 @page chapter:left {
   @top {
-    content: $ChapterRunningContentLeft;
-    @include runningheadleft;
+    content: $chapter-running-content-left;
+    @include runninghead-left;
     text-align: center;
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-align: center;
   }
 }
 @page chapter:right {
   @top {
-    content: $ChapterRunningContentRight;
-    @include runningheadright;
+    content: $chapter-running-content-right;
+    @include runninghead-right;
     text-align: center;
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-align: center;
   }
 }
@@ -166,34 +166,34 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page back-matter:first {
-  @include blankheadandfoot;
+  @include blank-head-and-foot;
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-align: center;
   }
 }
 @page back-matter:left {
   @top {
-     content: $BackMatterRunningContentLeft;
-     @include runningheadleft;
+     content: $back-matter-running-content-left;
+     @include runninghead-left;
      text-align: center;
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-align: center;
   }
 }
 @page back-matter:right {
   @top {
-     content: $BackMatterRunningContentRight;
-     @include runningheadright;
+     content: $back-matter-running-content-right;
+     @include runninghead-right;
      text-align: center;
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include page-number;    
     text-align: center;
   }
 }

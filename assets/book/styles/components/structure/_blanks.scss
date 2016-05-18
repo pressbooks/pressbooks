@@ -1,64 +1,108 @@
-//BLANK HEADERS AND FOOTERS - GLOBAL
+//========================
+// Blank Headers & Footers
+//========================
 
-/* BLANK HEADER AND FOOTER */
+// Blank Head
 
-@mixin blankheadandfoot {
-   @top {
-       content: "";
-    }
-    @top-right {
-       content: "";
-    }
-    @top-right-corner {
-      content: "";
-    }
-    @top-left {
-       content: "";
-    }
-    @top-left-corner {
-      content: "";
-    }
-    @bottom {
-       content: "";
-    }
-    @bottom-right {
-       content: "";
-    }
-    @bottom-right-corner {
-       content: "";
-    }
-    @bottom-left {
-       content: "";
-    }
-    @bottom-left-corner {
-       content: "";
-    }
+@mixin blank-head {
+  @top {
+    content: '';
+  }
+  @top-right {
+    content: '';
+  }
+  @top-right-corner {
+    content: '';
+  }
+  @top-left {
+    content: '';
+  }
+  @top-left-corner {
+    content: '';
+  }
 }
 
-@page before-title {@include blankheadandfoot;}
+// Blank Foot
 
-@page halftitle-page {@include blankheadandfoot;}
+@mixin blank-foot {
+  @bottom {
+    content: '';
+  }
+  @bottom-right {
+    content: '';
+  }
+  @bottom-right-corner {
+    content: '';
+  }
+  @bottom-left {
+    content: '';
+  }
+  @bottom-left-corner {
+    content: '';
+  }
+}
 
-@page title-page {@include blankheadandfoot;}
+// Blank Head & Foot
 
-@page epigraph {@include blankheadandfoot;}
+@mixin blank-head-and-foot {
+  @include blank-head;
+  @include blank-foot;
+}
 
-@page dedication {@include blankheadandfoot;}
+// Applications of the above
 
-@page copyright-page {@include blankheadandfoot;}
+@page before-title {
+  @include blank-head-and-foot;
+}
 
-@page toc {@include blankheadandfoot;}
+@page halftitle-page {
+  @include blank-head-and-foot;
+}
 
-@page front-matter:blank {@include blankheadandfoot;}
+@page title-page {
+  @include blank-head-and-foot;
+}
 
-@page introduction:blank {@include blankheadandfoot;}
+@page epigraph {
+  @include blank-head-and-foot;
+}
 
-@page part:blank {@include blankheadandfoot;}
+@page dedication {
+  @include blank-head-and-foot;
+}
 
-@page chapter:blank {@include blankheadandfoot;}
+@page copyright-page {
+  @include blank-head-and-foot;
+}
 
-@page back-matter:blank {@include blankheadandfoot;}
+@page toc {
+  @include blank-head-and-foot;
+}
 
-@page:blank {@include blankheadandfoot;}
+@page front-matter:blank {
+  @include blank-head-and-foot;
+}
 
-@page blank-page {@include blankheadandfoot;}
+@page introduction:blank {
+  @include blank-head-and-foot;
+}
+
+@page part:blank {
+  @include blank-head-and-foot;
+}
+
+@page chapter:blank {
+  @include blank-head-and-foot;
+}
+
+@page back-matter:blank {
+  @include blank-head-and-foot;
+}
+
+@page:blank {
+  @include blank-head-and-foot;
+}
+
+@page blank-page {
+  @include blank-head-and-foot;
+}
