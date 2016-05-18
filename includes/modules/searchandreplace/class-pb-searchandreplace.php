@@ -41,11 +41,11 @@ class SearchAndReplace {
   }
 
   function admin_menu() {
-    if ( current_user_can( 'manage_network' ) ) {
+    if ( current_user_can( 'administrator' ) ) {
 			add_management_page(
         __( 'Search & Replace', 'pressbooks' ),
         __( 'Search & Replace', 'pressbooks' ),
-        'manage_network',
+        'administrator',
         'pressbooks-search-and-replace',
         array( &$this, 'admin_screen' )
       );
@@ -86,7 +86,7 @@ class SearchAndReplace {
         $searcher = new $source;
 
         // Make sure no one sneaks in with a replace
-        if ( ! current_user_can( 'manage_network' ) ) {
+        if ( ! current_user_can( 'administrator' ) ) {
             unset( $_POST['replace'] );
             unset( $_POST['replace_and_save'] );
             $_POST['search'] = 'search';
