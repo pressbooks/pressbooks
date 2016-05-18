@@ -1,133 +1,130 @@
-//=============================
-//RUNNING HEADS CENTER2
-//=============================
+//=================================
+// Running Head Center (Both)
+//=================================
 
-// ------------------------------
-//|  # . lhead   |   rhead . #  |
-//|              |              |
-//|              |              |
-//|              |              |
-//|              |              |
-//|              |              |
-//|              |              |
-//|              |              |
-//|              |              |
-//------------------------------
+// Displays the page number, a separator (defaults to ' | '), and user-defined
+// content in the center of the running head.
 
-/* Blank Head and Foot Defaults
-note: use mixin 'blank-head-and-foot' where needed */
+// -------------------------------
+// |   # | lhead  |  rhead | #   |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// -------------------------------
 
-@import 'blank';
-@import 'mixins';
+@import 'mixins', 'blank';
 
-
-
-/* RUNNING HEAD CENTER2:
-FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+// Front Matter
 
 @page front-matter:first {
-  @include blank-head-and-foot;
-
+  @include blank-head;
 }
-@page front-matter:left {
 
+@page front-matter:left {
   @top {
-    content: counter(page, lower-roman) "\A0\A0•\A0\A0" $front-matter-running-content-left;
+    content: counter(page, lower-roman) $runninghead-separator $front-matter-running-content-left;
     @include runninghead-left;
     text-align: center;
   }
 }
+
 @page front-matter:right {
   @top {
-    content: $front-matter-running-content-right "\A0\A0•\A0\A0" counter(page, lower-roman);
+    content: $front-matter-running-content-right $runninghead-separator counter(page, lower-roman);
     @include runninghead-right;
     text-align: center;
   }
 }
 
-/* RUNNING HEADS CENTER2:
-INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+// Introduction
 
 @page introduction:first {
-  @include blank-head-and-foot;
+  @include blank-head;
 }
 
 @page introduction:left {
   @top {
-    content: counter(page) "\A0\A0•\A0\A0" $introduction-running-content-left;
+    content: counter(page) $runninghead-separator $introduction-running-content-left;
     @include runninghead-left;
     text-align: center;
   }
 }
+
 @page introduction:right {
   @top {
-    content:  $introduction-running-content-right "\A0\A0•\A0\A0" counter(page);
+    content: $introduction-running-content-right $runninghead-separator counter(page);
     @include runninghead-right;
     text-align: center;
   }
 }
 
-/*  RUNNING HEADS CENTER2:
-PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+// Parts
 
 @page part:first {
-  @include blank-head-and-foot;
+  @include blank-head;
 }
+
 @page part:left {
   @top {
-    content: counter(page) "\A0\A0•\A0\A0" $part-running-content-left;
+    content: counter(page) $runninghead-separator $part-running-content-left;
     @include runninghead-left;
     text-align: center;
   }
 }
+
 @page part:right {
   @top {
-    content: $part-running-content-right "\A0\A0•\A0\A0" counter(page);;
+    content: $part-running-content-right $runninghead-separator counter(page);
     @include runninghead-right;
     text-align: center;
   }
 }
 
-/* RUNNING HEADS CENTER2:
-CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+// Chapters
 
 @page chapter:first {
-  @include blank-head-and-foot;
+  @include blank-head;
 }
+
 @page chapter:left {
   @top {
-    content: counter(page) "\A0\A0•\A0\A0" $chapter-running-content-left;
+    content: counter(page) $runninghead-separator $chapter-running-content-left;
     @include runninghead-left;
     text-align: center;
   }
-
 }
+
 @page chapter:right {
   @top {
-    content: $chapter-running-content-right "\A0\A0•\A0\A0" counter(page);
+    content: $chapter-running-content-right $runninghead-separator counter(page);
     @include runninghead-right;
     text-align: center;
   }
 }
 
-/* RUNNING HEADS CENTER2:
-BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+// Back Matter
 
 @page back-matter:first {
-  @include blank-head-and-foot;
+  @include blank-head;
 }
+
 @page back-matter:left {
   @top {
-     content: counter(page) "\A0\A0•\A0\A0" $back-matter-running-content-left;
-     @include runninghead-left;
-     text-align: center;
+    content: counter(page) $runninghead-separator $back-matter-running-content-left;
+    @include runninghead-left;
+    text-align: center;
   }
 }
+
 @page back-matter:right {
   @top {
-     content: $back-matter-running-content-right "\A0\A0•\A0\A0" counter(page);
-     @include runninghead-right;
-     text-align: center;
+    content: $back-matter-running-content-right $runninghead-separator counter(page);
+    @include runninghead-right;
+    text-align: center;
   }
-
 }
