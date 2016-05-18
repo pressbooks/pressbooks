@@ -1,8 +1,10 @@
-//PAGE STRUCTURE MIXINS - GLOBAL
+//========================
+// Page Structure Mixins
+//========================
 
-//RUNNING HEADS AND FEET
+// Page Numbers
 
-  @mixin front-matter-page-number {
+@mixin front-matter-page-number {
   font-family: $font-2;
   color: $page-number-color;
   font-size: $front-matter-page-number-font-size;
@@ -10,7 +12,6 @@
   font-weight: $front-matter-page-number-font-weight;
   text-transform: $front-matter-page-number-text-transform;
   hyphens: none;
-  -webkit-hyphens: none;
 }
 
 @mixin page-number {
@@ -20,49 +21,56 @@
   font-style: $page-number-font-style;
   font-weight: $page-number-font-weight;
   hyphens: none;
-  -webkit-hyphens: none;
 }
+
+// Running Heads
+
 @mixin runninghead-left {
-  color: $runningheadfeetcolor;
+  color: $runninghead-color;
   font-family: $font-3;
   font-size: $runninghead-left-font-size;
   font-style: $runninghead-left-font-style;
   font-weight: $runninghead-left-font-weight;
   text-transform: $runninghead-left-text-transform;
-  letter-spacing: 1px;
-  word-spacing: 2px;
+  letter-spacing: $runninghead-left-letter-spacing;
+  word-spacing: $runninghead-left-word-spacing;
   hyphens: none;
-  -webkit-hyphens: none;
 }
+
 @mixin runninghead-right {
-  color: $runningheadfeetcolor;
+  color: $runninghead-color;
   font-family: $font-3;
-  font-size: $runningfoot-left-font-size;
-  font-style: $runningfoot-left-font-style;
-  font-weight: $runningfoot-left-font-weight;
-  text-transform: $runningfoot-left-text-transform;
-  letter-spacing: 1px;
-  word-spacing: 2px;
+  font-size: $runninghead-right-font-size;
+  font-style: $runninghead-right-font-style;
+  font-weight: $runninghead-right-font-weight;
+  text-transform: $runninghead-right-text-transform;
+  letter-spacing: $runninghead-right-letter-spacing;
+  word-spacing: $runninghead-right-word-spacing;
   hyphens: none;
-  -webkit-hyphens: none;
 }
+
+// Running Feet
+
 @mixin runningfoot-left {
-  color: $runningheadfeetcolor;
+  color: $runningfoot-color;
   font-family: $font-2;
   font-size: $runningfoot-left-font-size;
   font-style: $runningfoot-left-font-style;
   font-weight: $runningfoot-left-font-weight;
   text-transform: $runningfoot-left-text-transform;
+  letter-spacing: $runningfoot-left-letter-spacing;
+  word-spacing: $runningfoot-left-word-spacing;
   hyphens: none;
-  -webkit-hyphens: none;
 }
+
 @mixin runningfoot-right {
-  color: $runningheadfeetcolor;
+  color: $runningfoot-color;
   font-family: $font-2;
   font-size: $runningfoot-right-font-size;
   font-style: $runningfoot-right-font-style;
   font-weight: $runningfoot-right-font-weight;
   text-transform: $runningfoot-right-text-transform;
+  letter-spacing: $runningfoot-right-letter-spacing;
+  word-spacing: $runningfoot-right-word-spacing;
   hyphens: none;
-  -webkit-hyphens: none;
 }
