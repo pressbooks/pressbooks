@@ -76,7 +76,7 @@ class SearchAndReplace {
         $orderby = 'desc';
     }
 
-    $limit  = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 10;
+    $limit  = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 0;
 
     $offset = 0;
 
