@@ -2,130 +2,100 @@
 //                               Images (EPUB)                                //
 //============================================================================//
 
+// TODO
 
-/* ===============
-IMAGES & CAPTIONS
-================= */
-
-
-/* CAPTIONS */
-
-p.wp-caption-text {
+.wp-caption-text {
+  padding-bottom: $image-caption-padding-bottom;
+  font-family: $image-caption-font-family;
   font-size: $image-caption-font-size;
   font-style: $image-caption-font-style;
   font-weight: $image-caption-font-weight;
-  text-transform: $image-caption-text-transform;
-  padding-bottom: 0.5em;
   hyphens: none;
-  -webkit-hyphens: none;
+  line-height: $image-caption-line-height;
+  text-transform: $image-caption-text-transform;
 }
-
-/* IMAGES - GENERIC */
 
 img {
-  height: auto;
-  max-width: 100%;
-  margin: 0;
-  padding-left: 0;
-  padding-right: 0;
   display: inline-block;
-  page-break-inside: avoid !important;
-}
-
-/* DIV WRAPPER AROUND CAPTIONED IMAGES AND IMAGES WITH NO CAPTIONS */
-
-div.wp-caption,
-div.wp-nocaption {
   height: auto;
-  width: 80% !important;
-  max-width: 80% !important;
-  margin-left: 10%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  page-break-inside: avoid;
+}
+
+// Wrapper for captioned and uncaptioned images
+.wp-caption,
+.wp-nocaption {
+  width: 80%;
+  height: auto;
+  margin-top: 1em;
   margin-right: 10%;
-  text-align: center;
-  margin-top: 1em;
   margin-bottom: 1em;
-  page-break-inside: avoid !important;
-}
-
-/* ALIGN CENTER, RIGHT AND LEFT IMAGES */
-/* FOR LEFT AND RIGHT, MAKE ENCLOSING DIV WIDTH=50%, AND STRETCH IMAGE TO WIDTH=100%*/
-
-
-.aligncenter,
-.wp-caption.aligncenter,
-.wp-nocaption.aligncenter {
-  text-align: center !important;
-  width: auto !important;
-  page-break-inside: avoid !important;
-}
-.wp-caption.aligncenter img,
-.wp-nocaption.aligncenter img,
-.aligncenter img {
-  display: inline-block !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  width: auto !important;
+  margin-left: 10%;
   text-align: center;
-  page-break-inside: avoid !important;
+  page-break-inside: avoid;
+
+  // Align (Center)
+  &.aligncenter {
+    width: auto;
+    text-align: center;
+    page-break-inside: avoid;
+
+    img {
+      width: auto;
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+    }
+  }
+
+  // Align (Left) – width is 50%
+  &.alignleft {
+    float: left;
+    width: 50%;
+    padding-left: 0;
+    margin-top: 1em;
+    margin-right: 1em;
+    margin-left: 0;
+    page-break-inside: avoid;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  // Align (Right) – width is 50%
+  &.alignright {
+    float: right;
+    width: 50%;
+    padding-left: 0;
+    margin-top: 1em;
+    margin-right: 0;
+    margin-left: 1em;
+    page-break-inside: avoid;
+
+    img {
+      width: 100%;
+    }
+  }
 }
 
-.alignleft,
-.wp-caption.alignleft,
-.wp-nocaption.alignleft {
-  width: 50% !important;
-  max-width: 50% !important;
-  margin-right: 1em !important;
-  margin-left: 0 !important;
-  padding-left: 0 !important;
-  margin-top: 1em;
-  float: left;
-  page-break-inside: avoid !important;
-}
-
-.alignleft img,
-.wp-caption.alignleft img,
-.wp-nocaption.alignleft img {
-  width: 100% !important;
-  max-width: 100%;
-  page-break-inside: avoid !important;
-}
-
-.alignright,
-.wp-caption.alignright,
-.wp-nocaption.alignright {
-  width: 50% !important;
-  max-width: 50% !important;
-  margin-right: 0 !important;
-  margin-left: 1em !important;
-  padding-right: 0 !important;
-  margin-top: 1em;
-  float: right;
-  page-break-inside: avoid !important;
-}
-
-.alignright img,
-.wp-caption.alignright img,
-.wp-nocaption.alignright img {
-  width: 100% !important;
-  max-width: 100%;
-  page-break-inside: avoid !important;
-}
-
-/* CSS FOR MOBI */
+// Mobi
 
 @media amzn-kf8 {
-  div.wp-caption,
-  div.wp-nocaption {
-    height: auto !important;
-    width: auto !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center !important;
-    page-break-inside: avoid !important;
-}
-  div.wp-caption img,
-  div.wp-nocaption img {
+  .wp-caption,
+  .wp-nocaption {
     width: auto;
-    page-break-inside: avoid !important;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    page-break-inside: avoid;
+
+    img {
+      width: auto;
+      page-break-inside: avoid;
+    }
   }
 }
