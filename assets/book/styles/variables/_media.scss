@@ -9,13 +9,8 @@ $image-caption-font-style: normal !default;
 $image-caption-font-weight: normal !default;
 $image-caption-line-height: 1.2em !default;
 $image-caption-text-transform: none !default;
-@if $type == 'epub' { // TODO
-  $image-wrapper-margin-top: 1em !default;
-  $image-wrapper-margin-bottom: 1em !default;
-} @else if $type == 'prince' {
-  $image-wrapper-margin-top: .5em !default;
-  $image-wrapper-margin-bottom: .5em !default;
-}
+$image-wrapper-margin-top: .5em !default;
+$image-wrapper-margin-bottom: .5em !default;
 $image-alignleft-margin-right: 1em !default;
 $image-alignright-margin-left: 1em !default;
 $prince-image-resolution: 300dpi !default;
