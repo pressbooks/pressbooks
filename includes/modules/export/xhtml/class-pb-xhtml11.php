@@ -594,7 +594,7 @@ class Xhtml11 extends Export {
 		} else {
 			printf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			printf( '<h2 class="subtitle">%s</h2>', @$metadata['pb_subtitle'] );
-			printf( '<div class="logo"></div>' );
+			printf( '<div class="logo"></div>' ); // TODO: Support custom publisher logo.
 			printf( '<h3 class="author">%s</h3>', @$metadata['pb_author'] );
 			printf( '<h4 class="contributing-authors">%s</h4>', @$metadata['pb_contributing_authors'] );
 			printf( '<h4 class="publisher">%s</h4>', @$metadata['pb_publisher'] );

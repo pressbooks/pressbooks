@@ -7,4 +7,4 @@ linters:
     enabled: false
   PropertySpelling:
       enabled: true
-      extra_properties: ['prince-page-group', 'prince-footnote-policy', 'prince-image-resultion']
+      extra_properties: ['prince-page-group', 'prince-footnote-policy', 'prince-image-resolution']

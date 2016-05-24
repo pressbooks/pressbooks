@@ -3,12 +3,13 @@
 //============================================================================//
 
 .wp-caption-text {
-  padding-bottom: .5em;
+  padding-bottom: $image-caption-padding-bottom;
+  font-family: $image-caption-font-family;
   font-size: $image-caption-font-size;
   font-style: $image-caption-font-style;
   font-weight: $image-caption-font-weight;
   hyphens: none;
-  line-height: 1.2em;
+  line-height: $image-caption-line-height;
   text-transform: $image-caption-text-transform;
 }
 
@@ -17,6 +18,7 @@
     display: inline-block;
     height: auto;
     max-width: 100%;
+    padding: 0;
     margin: 0;
   }
 
@@ -25,8 +27,8 @@
   .wp-nocaption {
     height: auto;
     max-width: 100%;
-    margin-top: .5em;
-    margin-bottom: .5em;
+    margin-top: $image-wrapper-margin-top;
+    margin-bottom: $image-wrapper-margin-bottom;
     text-align: center;
   }
 
@@ -34,7 +36,6 @@
   .alignnone {
     max-width: 100%;
     padding-left: 0;
-    margin-top: 1em;
     margin-right: 0;
     margin-left: 0;
   }
@@ -59,8 +60,7 @@
   .alignleft {
     float: left;
     max-width: 50%;
-    margin-top: 0;
-    margin-right: 2em;
+    margin-right: $image-alignleft-margin-right;
     margin-left: 0;
   }
 
@@ -69,8 +69,7 @@
     float: right;
     max-width: 50%;
     padding-right: 0;
-    margin-top: 0;
     margin-right: 0;
-    margin-left: 2em;
+    margin-left: $image-alignright-margin-left;
   }
 }

@@ -858,7 +858,7 @@ class Epub201 extends Export {
 		} else {
 			$html .= sprintf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			$html .= sprintf( '<h2 class="subtitle">%s</h2>', @$metadata['pb_subtitle'] );
-			$html .= sprintf( '<div class="logo"></div>' );
+			$html .= sprintf( '<div class="logo"></div>' ); // TODO: Support custom publisher logo.
 			$html .= sprintf( '<h3 class="author">%s</h3>', @$metadata['pb_author'] );
 			$html .= sprintf( '<h4 class="author">%s</h4>', @$metadata['pb_contributing_authors'] );
 			$html .= sprintf( '<h4 class="publisher">%s</h4>', @$metadata['pb_publisher'] );
