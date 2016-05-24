@@ -1,28 +1,30 @@
-// IMAGES - GLOBAL
+//============================================================================//
+//                              Images (Prince)                               //
+//============================================================================//
 
-/* IMAGES & CAPTIONS - STANDARD */ 
+/* IMAGES & CAPTIONS - STANDARD */
 
 /* CAPTIONS -  BASIC */
 /* FURTHER STYLING SHOULD BE DONE IN OTHER THEME FILES */
 
 p.wp-caption-text {
   font-family: $font-1;
-  font-size: $image-caption-font-size; 
-  font-style: $image-caption-font-style; 
-  font-weight: $image-caption-font-weight; 
-  text-transform: $image-caption-text-transform; 
+  font-size: $image-caption-font-size;
+  font-style: $image-caption-font-style;
+  font-weight: $image-caption-font-weight;
+  text-transform: $image-caption-text-transform;
   padding-bottom: 0.5em;
   hyphens: none;
   -webkit-hyphens: none;
 }
 
-/* IMAGES - GENERIC */ 
+/* IMAGES - GENERIC */
 
 img {
   height: auto;
   max-width: 100%;
   margin: 0;
-  padding-left: 0;  
+  padding-left: 0;
   padding-right: 0;
   prince-image-resolution: $prince-image-resolution;
   display: inline-block;
@@ -33,7 +35,7 @@ img {
 
 div.wp-caption,
 div.wp-nocaption {
-  height: auto;        
+  height: auto;
   max-width: 100%;
   text-align: center;
   margin-top: 0.5em;
@@ -56,7 +58,7 @@ div.wp-nocaption {
 .alignnone img,
 .wp-caption.alignnone img,
 .wp-nocaption.alignnone img {
-  max-width: 100%; 
+  max-width: 100%;
   page-break-inside: avoid;
 }
 
@@ -84,9 +86,9 @@ div.wp-nocaption {
   text-align: center;
   page-break-inside: avoid;
 }
- 
- /* ALIGN LEFT */ 
- /* MAX-WIDTH IS SET TO 50% */ 
+
+ /* ALIGN LEFT */
+ /* MAX-WIDTH IS SET TO 50% */
 .wp-caption.alignleft,
 .wp-nocaption.alignleft {
   max-width: 50%;
@@ -101,12 +103,12 @@ div.wp-nocaption {
 .alignleft img,
 .wp-caption.alignleft img,
 .wp-nocaption.alignleft img {
-  max-width: 100%; 
+  max-width: 100%;
   page-break-inside: avoid;
 }
 
- /* ALIGN RIGHT */ 
- /* MAX-WIDTH IS SET TO 50% */ 
+ /* ALIGN RIGHT */
+ /* MAX-WIDTH IS SET TO 50% */
 
 .wp-caption.alignright,
 .wp-nocaption.alignright {
@@ -126,7 +128,7 @@ div.wp-nocaption {
   page-break-inside: avoid;
 }
 
-/* SPECIAL IMAGES */ 
+/* SPECIAL IMAGES */
 
 .publisher-logo {
   width: 30px;
@@ -164,15 +166,11 @@ div.wp-nocaption {
   page-break-after: always;
 }
 
-/* PUBLISHER LOGO (FOR TITLE PAGE) 
+/* PUBLISHER LOGO (FOR TITLE PAGE)
 ================================== */
- 
+
 img.logo {
   width: 35px;
   margin-top: 1em;
   margin-bottom: 1em;
 }
-
-
-
-
