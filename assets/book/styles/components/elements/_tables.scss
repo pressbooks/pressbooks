@@ -4,8 +4,8 @@
 
 table {
   max-width: 100%;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
+  margin-top: $table-margin-top;
+  margin-bottom: $table-margin-bottom;
   overflow-x: scroll;
   font-size: $table-font-size;
   text-align: $table-align;
@@ -16,9 +16,9 @@ table {
 	}
 
   caption {
-    margin-bottom: .5em;
-    font-weight: bold;
-    line-height: 1.1em;
+    margin-bottom: $table-caption-margin-bottom;
+    font-weight: $table-caption-font-weight;
+    line-height: $table-caption-line-height;
 	}
 }
 
@@ -28,17 +28,29 @@ th {
   page-break-inside: avoid;
 }
 
-td,
 th {
-  padding: 5px;
-  line-height: 1.1em;
-  text-align: left;
+  padding-top: $table-th-padding-top;
+  padding-right: $table-th-padding-right;
+  padding-bottom: $table-th-padding-bottom;
+  padding-left: $table-th-padding-left;
+  line-height: $table-th-line-height;
+  text-align: $table-th-align;
+  vertical-align: middle;
+}
+
+td {
+  padding-top: $table-td-padding-top;
+  padding-right: $table-td-padding-right;
+  padding-bottom: $table-td-padding-bottom;
+  padding-left: $table-td-padding-left;
+  line-height: $table-td-line-height;
+  text-align: $table-td-align;
   vertical-align: middle;
 }
 
 .lines tr {
-  border-top: 1px solid $line-color-1;
-  border-bottom: 1px solid $line-color-1;
+  border-top: $table-border-width solid $line-color-1;
+  border-bottom: $table-border-width solid $line-color-1;
 }
 
 .no-lines tr,
@@ -52,7 +64,7 @@ th {
 }
 
 .border {
-  border: 1px solid $line-color-1;
+  border: $table-border-width solid $line-color-1;
 }
 
 .no-border,

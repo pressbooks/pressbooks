@@ -40,18 +40,21 @@ dl {
   // TODO
 }
 
-dt,
-dd {
-  margin: 0;
-}
-
 dt {
   display: block;
+  margin-top: $dt-margin-top;
+  margin-right: $dt-margin-right;
+  margin-bottom: $dt-margin-bottom;
+  margin-left: $dt-margin-left;
   font-style: $dt-font-style;
   font-weight: $dt-font-weight;
 }
 
 dd {
+  margin-top: $dd-margin-top;
+  margin-right: $dd-margin-right;
+  margin-bottom: $dd-margin-bottom;
+  margin-left: $dd-margin-left;
   font-style: $dd-font-style;
   font-weight: $dd-font-weight;
 }

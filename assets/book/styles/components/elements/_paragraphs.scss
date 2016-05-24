@@ -3,7 +3,7 @@
 //============================================================================//
 
 p {
-  margin-bottom: 0;
+  margin-bottom: $para-margin-bottom;
   text-align: $para-align;
   widows: $widows;
   orphans: $orphans;
@@ -16,7 +16,7 @@ p + p,
 }
 
 .no-indent {
-  margin-top: 1em;
+  margin-top: $para-no-indent-margin-top;
   text-indent: 0;
 }
 
@@ -24,10 +24,10 @@ p + p,
 
 body,
 p {
-  hyphens: $para-hyphenation;
-  hyphenate-before: 3;
-  hyphenate-after: 3;
-  hyphenate-lines: 2;
+  hyphens: $para-hyphens;
+  hyphenate-before: $para-hyphenate-before;
+  hyphenate-after: $para-hyphenate-after;
+  hyphenate-lines: $para-hyphenate-lines;
 }
 
 #copyright-page p,
@@ -56,29 +56,29 @@ p {
 
 // Hanging Indents
 .hanging-indent {
-  padding-left: 1em;
-  text-indent: -1em;
+  padding-left: $para-hanging-indent-padding-left;
+  text-indent: $para-hanging-indent-text-indent;
 }
 
 @mixin paragraph-tracking {
   .tight {
-    letter-spacing: -.25px;
-    word-spacing: -.075em;
+    letter-spacing: $para-tight-letter-spacing;
+    word-spacing: $para-tight-word-spacing;
   }
 
   .very-tight {
-    letter-spacing: -.5px;
-    word-spacing: -.09em;
+    letter-spacing: $para-very-tight-letter-spacing;
+    word-spacing: $para-very-tight-word-spacing;
   }
 
   .loose {
-    letter-spacing: .25px;
-    word-spacing: .075em;
+    letter-spacing: $para-loose-letter-spacing;
+    word-spacing: $para-loose-word-spacing;
   }
 
   .very-loose {
-    letter-spacing: .5px;
-    word-spacing: .09em;
+    letter-spacing: $para-very-loose-letter-spacing;
+    word-spacing: $para-very-loose-word-spacing;
   }
 }
 
