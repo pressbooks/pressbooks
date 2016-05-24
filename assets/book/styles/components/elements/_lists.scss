@@ -1,29 +1,42 @@
 // Lists
 
 ol {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-left: 2em;
+  margin-top: $ol-margin-top;
+  margin-bottom: $ol-margin-bottom;
+  margin-left: $ol-margin-left;
 }
 
 ul {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  margin-left: 2em;
-
-  li + li {
-    margin-top: .5em;
-  }
+  margin-top: $ul-margin-top;
+  margin-bottom: $ul-margin-bottom;
+  margin-left: $ul-margin-left;
 }
 
-// List Styles
+li + li {
+  margin-top: $li-li-margin-top;
+}
 
-.upper-alpha { list-style-type: upper-alpha; }
-.lower-alpha { list-style-type: lower-alpha; }
-.upper-roman { list-style-type: upper-roman; }
-.lower-roman { list-style-type: lower-roman; }
+.upper-alpha {
+  list-style-type: upper-alpha;
+}
+
+.lower-alpha {
+  list-style-type: lower-alpha;
+}
+
+.upper-roman {
+  list-style-type: upper-roman;
+}
+
+.lower-roman {
+  list-style-type: lower-roman;
+}
 
 // Definition Lists
+
+dl {
+  // TODO
+}
 
 dt,
 dd {
@@ -32,9 +45,11 @@ dd {
 
 dt {
   display: block;
-  font-weight: bold;
+  font-style: $dt-font-style;
+  font-weight: $dt-font-weight;
 }
 
 dd {
-  font-style: italic;
+  font-style: $dd-font-style;
+  font-weight: $dd-font-weight;
 }

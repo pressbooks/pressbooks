@@ -1,29 +1,5 @@
 //VARS - ALIGNMENT - GLOBAL
 
-
-//BLOCKQUOTES
-$blockquote-align: justify !default;
-
-//BODY HEADERS ALIGNMENT
-$h1-align: center !default;
-$h2-align: center !default;
-$h3-align: center !default;
-$h4-align: center !default;
-$h5-align: left !default;
-$h6-align: left !default;
-
-//TABLE ALIGNMENT
-$table-align: left !default;
-
-//PARAS
-@if $type == 'epub' {
-    $para-align: initial !default;
-} @else if $type == 'prince' {
-    $para-align: justify !default;
-} @else if $type == 'web' {
-    $para-align: initial !default;
-}
-
 //INDEX ALIGNMENT
 $index-align: left !default;
 

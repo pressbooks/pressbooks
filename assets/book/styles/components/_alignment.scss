@@ -1,23 +1,5 @@
 //ALIGNMENT - GLOBAL
 
-/* BLOCKQUOTES */
-
-blockquote {text-align: $blockquote-align;}
-
-/* BODY HEADER ALIGNMENT */
-
-h1 {text-align: $h1-align;}
-h2 {text-align: $h2-align;}
-h3 {text-align: $h3-align;}
-h4 {text-align: $h4-align;}
-h5 {text-align: $h5-align;}
-h6 {text-align: $h6-align;}
-
-
-/* TABLE ALIGNMENT */
-table {text-align: $table-align;}
-table p {text-align: $table-align;}
-
 /* IMAGE CAPTIONS ALIGNMENT */
 
 p.wp-caption-text {text-align: $image-caption-text-align;}

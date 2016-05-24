@@ -1,7 +1,6 @@
-//MISC ELEMENTS - GLOBAL
+// Miscellaneous Elements
 
-/* MISCELLANEOUS HTML ELEMENT SYTLING */ 
-
+// Cite
 cite {
   font-size: $cite-font-size;
   font-style: $cite-font-style;
@@ -9,11 +8,16 @@ cite {
   text-transform: $cite-text-transform;
   font-variant: $cite-font-variant;
 }
+
+// Code & Pre
 code,
-pre { font-family: monospace; }
-sup, sub {
-  font-size: 0.8em; 
-  line-height: 0.5;
+pre {
+  font-family: monospace;
 }
 
-
+// Superscript & Subscript
+sup,
+sub {
+  font-size: $sup-sub-font-size;
+  line-height: $sup-sub-line-height;
+}
