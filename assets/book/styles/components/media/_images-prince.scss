@@ -32,50 +32,44 @@ img {
   margin-bottom: $image-wrapper-margin-bottom;
   text-align: center;
   page-break-inside: avoid;
-}
 
-// Align (None)
-.alignnone {
-  max-width: 100%;
-  padding-left: 0;
-  margin-right: 0;
-  margin-left: 0;
-  page-break-inside: avoid;
-}
+  // Align (None)
+  &.alignnone {
+    padding-left: 0;
+    margin-right: 0;
+    margin-left: 0;
+  }
 
-// Align (Center)
-.aligncenter {
-  width: auto;
-  max-width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  text-align: center;
-  page-break-inside: avoid;
-
-  img {
+  // Align (Center)
+  &.aligncenter {
     width: auto;
     margin-right: auto;
     margin-left: auto;
+    text-align: center;
+
+    img {
+      width: auto;
+      margin-right: auto;
+      margin-left: auto;
+    }
   }
-}
 
-// Align (Left) – max-width is 50%
-.alignleft {
-  float: left;
-  max-width: 50%;
-  margin-right: $image-alignleft-margin-right;
-  margin-left: 0;
-  page-break-inside: avoid;
-}
+  // Align (Left) – max-width is 50%
+  &.alignleft {
+    float: left;
+    max-width: 50%;
+    margin-right: $image-alignleft-margin-right;
+    margin-left: 0;
+  }
 
-// Align (Right) – max-width is 50%
-.alignright {
-  float: right;
-  max-width: 50%;
-  padding-right: 0;
-  margin-right: 0;
-  margin-left: $image-alignright-margin-left;
-  page-break-inside: avoid;
+  // Align (Right) – max-width is 50%
+  &.alignright {
+    float: right;
+    max-width: 50%;
+    padding-right: 0;
+    margin-right: 0;
+    margin-left: $image-alignright-margin-left;
+  }
 }
 
 // Custom logo on title Page

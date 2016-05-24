@@ -24,7 +24,6 @@ $para-indent: 2em !default;
 @import 'components/elements/miscellaneous';
 @import 'components/elements/paragraphs';
 @import 'components/elements/tables';
-@include tables();
 
 h1,
 h2,
