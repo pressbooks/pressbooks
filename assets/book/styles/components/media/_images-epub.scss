@@ -27,9 +27,9 @@ img {
 .wp-nocaption {
   width: 80%;
   height: auto;
-  margin-top: 1em; // TODO
+  margin-top: $image-wrapper-margin-top;
   margin-right: 10%;
-  margin-bottom: 1em; // TODO
+  margin-bottom: $image-wrapper-margin-bottom;
   margin-left: 10%;
   text-align: center;
   page-break-inside: avoid;
@@ -53,7 +53,7 @@ img {
     float: left;
     width: 50%;
     padding-left: 0;
-    margin-right: 1em; // TODO
+    margin-right: $image-alignleft-margin-right;
     margin-left: 0;
     page-break-inside: avoid;
 
@@ -68,7 +68,7 @@ img {
     width: 50%;
     padding-left: 0;
     margin-right: 0;
-    margin-left: 1em;
+    margin-left: $image-alignright-margin-left;
     page-break-inside: avoid;
 
     img {
