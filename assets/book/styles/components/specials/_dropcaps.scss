@@ -1,13 +1,12 @@
-//DROPCAP - GLOBAL
+//============================================================================//
+//                                   Dropcaps                                 //
+//============================================================================//
 
-/* DROPCAPS */ 
-
-.firstcharacter,
+.firstcharacter, // TODO: standardize
 .first-character {
-  font-family: $font-2;
+  font-family: $first-character-font-family;
   font-size: $first-character-font-size;
   font-style: $first-character-font-style;
   font-weight: $first-character-font-weight;
-  line-height: 0.7;
+  line-height: $first-character-line-height;
 }
-

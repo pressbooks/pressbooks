@@ -12,9 +12,11 @@ $column-threecolumn-column-gap: 1em !default;
 $column-threecolumn-font-size: .9em !default;
 
 // Dropcaps
+$first-character-font-family: $font-2 !default;
 $first-character-font-size: 3em !default;
 $first-character-font-style: normal !default;
 $first-character-font-weight: bold !default;
+$first-character-line-height: .7em !default;
 
 // Footnotes
 $pdf-footnote-font-size: .8em !default;
