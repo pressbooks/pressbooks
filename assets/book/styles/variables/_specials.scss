@@ -1,27 +1,34 @@
-// Specials
+//============================================================================//
+//                           Variables | Headings                             //
+//============================================================================//
+
+// Columns
+$column-margin-top: 1em !default;
+$column-margin-bottom: 1em !default;
+$column-line-height: 1.2em !default;
+$column-twocolumn-column-gap: 1.5em !default;
+$column-twocolumn-font-size: 1em !default;
+$column-threecolumn-column-gap: 1em !default;
+$column-threecolumn-font-size: .9em !default;
 
 // Dropcaps
-
 $first-character-font-size: 3em !default;
 $first-character-font-style: normal !default;
 $first-character-font-weight: bold !default;
 
 // Footnotes
-
 $pdf-footnote-font-size: .8em !default;
 $epub-footnote-font-size: .9em !default;
 $footnote-font-style: normal !default;
 $footnote-font-weight: normal !default;
 
 // Pullquotes
-
 $pullquote-font-size: 1.25em !default;
 $pullquote-font-style: normal !default;
 $pullquote-font-weight: bold !default;
 $pullquote-text-transform: none !default;
 
 // Textboxes
-
 $textbox-font-size: .9em !default;
 $textbox-font-style: normal !default;
 $textbox-font-weight: normal !default;
@@ -45,7 +52,6 @@ $textbox-caption-font-style: normal !default;
 $textbox-caption-font-weight: bold !default;
 
 // Educational Textboxes
-
 $edu-header-text-color: #fff !default;
 $learning-objectives-background: #f7f7f9 !default;
 $learning-objectives-header-background: #111 !default;
@@ -57,7 +63,6 @@ $examples-background: #f3e1e3 !default;
 $examples-header-background: #7a333a !default;
 
 // Sidebars
-
 $sidebar-font-size: .9em !default;
 $sidebar-font-style: italic !default;
 $sidebar-font-weight: normal !default;
