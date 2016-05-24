@@ -2,8 +2,6 @@
 //                               Images (EPUB)                                //
 //============================================================================//
 
-// TODO
-
 .wp-caption-text {
   padding-bottom: $image-caption-padding-bottom;
   font-family: $image-caption-font-family;
@@ -29,9 +27,9 @@ img {
 .wp-nocaption {
   width: 80%;
   height: auto;
-  margin-top: 1em;
+  margin-top: 1em; // TODO
   margin-right: 10%;
-  margin-bottom: 1em;
+  margin-bottom: 1em; // TODO
   margin-left: 10%;
   text-align: center;
   page-break-inside: avoid;
@@ -55,8 +53,7 @@ img {
     float: left;
     width: 50%;
     padding-left: 0;
-    margin-top: 1em;
-    margin-right: 1em;
+    margin-right: 1em; // TODO
     margin-left: 0;
     page-break-inside: avoid;
 
@@ -70,7 +67,6 @@ img {
     float: right;
     width: 50%;
     padding-left: 0;
-    margin-top: 1em;
     margin-right: 0;
     margin-left: 1em;
     page-break-inside: avoid;
