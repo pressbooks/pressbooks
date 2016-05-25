@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cb7c1ed8b77e64c333a0358507a78f35",
-    "content-hash": "5124f527769113630da1b6d598934afb",
+    "hash": "ed4c84fccc183b2c758106bfd618bd6b",
+    "content-hash": "ba083cdc80c74356a2271c9613a0c6aa",
     "packages": [
         {
             "name": "composer/installers",
@@ -351,15 +351,15 @@
         },
         {
             "name": "pressbooks/rest-api",
-            "version": "2.0-beta13",
+            "version": "2.0-beta13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WP-API/WP-API",
-                "reference": "tags/2.0-beta13"
+                "reference": "tags/2.0-beta13.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/WP-API/WP-API/archive/2.0-beta13.zip",
+                "url": "https://github.com/WP-API/WP-API/archive/2.0-beta13.1.zip",
                 "reference": null,
                 "shasum": null
             },
