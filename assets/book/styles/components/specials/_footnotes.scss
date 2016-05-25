@@ -1,16 +1,17 @@
-// Footnotes & Endnotes
+//============================================================================//
+//                            Footnotes & Endnotes                            //
+//============================================================================//
 
 // Prince footnotes
 @mixin prince-footnotes {
 
   @page {
     @footnotes {
-      padding-top: 1em;
+      padding-top: $footnote-padding-top;
     }
   }
 
   // Reset counter at the beginning of a new section
-
   .front-matter,
   .part,
   .chapter,
@@ -19,16 +20,14 @@
   .front-matter-title-wrap,
   .chapter-title-wrap,
   .back-matter-title-wrap {
-    counter-reset: footnote !important;
+    counter-reset: footnote;
   }
-
-  // Styling for Prince footnotes
 
   .footnote {
     display: prince-footnote;
     margin-left: 0;
-    font-size: $pdf-footnote-font-size;
-    line-height: 1.15em;
+    font-size: $footnote-font-size;
+    line-height: $footnote-line-height;
     text-align: left;
     text-indent: 0;
     counter-increment: footnote;
@@ -43,7 +42,7 @@
 
 @mixin epub-footnotes {
   .footnotes {
-    font-size: $epub-footnote-font-size;
+    font-size: $footnote-font-size;
   }
 }
 
@@ -56,55 +55,54 @@
 // Our footnote function eats <p> & <blockquote> tags, so users should wrap new
 // paragraphs & blockquotes in a span, as per below
 
-span.fn_p { // TODO: Test without element
+.fn-p { // TODO
   display: block;
   text-indent: $para-indent;
 }
 
-span.fn_blockquote { // TODO: Test without element
+.fn-blockquote { // TODO
   display: block;
-  margin-top: .5em; // TODO: Clarify margins
-  margin-bottom: .5em;
-  margin-left: 1.5em;
-  font-size: .95em;
+  margin-top: $footnote-blockquote-margin-top;
+  margin-bottom: $footnote-blockquote-margin-bottom;
+  margin-left: $footnote-blockquote-margin-left;
+  font-size: $footnote-blockquote-font-size;
 }
 
 // Footnote & Endnote number markers (in body text)
 
-sup,
 .endnote,
 .footnote {
-  font-size: .8em;
-  line-height: .5em;
+  font-size: $footnote-number-marker-font-size;
+  line-height: $footnote-number-marker-line-height;
   vertical-align: top;
 }
 
 // Endnotes
 
 .endnotes {
-  margin-left: 1.5em;
-  line-height: 1.1em;
+  margin-left: $endnote-margin-left;
+  line-height: $endnote-line-height;
 
   h3 {
-    padding-bottom: 1em;
-    margin-bottom: 1em;
-    margin-left: -1.5em;
+    padding-bottom: $endnote-header-padding-bottom;
+    margin-bottom: $endnote-header-margin-bottom;
+    margin-left: $endnote-header-margin-left;
   }
 
   hr {
-    margin-top: 1cm;
-    border: 0;
+    margin-top: $endnote-hr-margin-top;
+    border: $endnote-hr-border;
   }
 
   ol {
-    margin-top: 5px;
-    margin-left: 0;
-    font-size: .85em;
+    margin-top: $endnote-ol-margin-top;
+    margin-left: $endnote-ol-margin-left;
+    font-size: $endnote-ol-font-size;
     list-style-position: outside;
   }
 
   li {
-    margin-top: 5px;
+    margin-top: $endnote-li-margin-top;
   }
 
   p + p {

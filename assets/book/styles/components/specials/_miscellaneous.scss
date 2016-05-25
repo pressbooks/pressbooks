@@ -1,81 +1,73 @@
-//SPECIAL MISC  - GLOBAL
+//============================================================================//
+//                               Miscellaneous                                //
+//============================================================================//
 
-/* MISC SPECIAL ELEMENTS */
-
-/* NO HYPHENS */
-
-.no-hyphens,
-span.no-hyphens,
-p.no-hyphens {
+// No Hyphens
+.no-hyphens {
   hyphens: none;
-  -webkit-hyphens: none; 
 }
 
 
-/* NO WRAP */
-
-.nowrap, 
-span.nowrap {
+// No Wrap
+.nowrap {
   white-space: nowrap;
 }
-/* DISPLAY NONE */
 
+// Display None
 .display-none {
   display: none;
 }
 
-/* This allows you to define content that will:
-a) only display in EPUB, PDF or WEB
-and
-b) specifically NOT display in EPUB, PDF, or WEB */ 
+// Format-specific content
+@mixin epub-display-none {
+  .epub-display-none,
+  .not-epub {
+    display: none;
+  }
 
-@mixin EPUBDisplayNone {
+  .web-only {
+    display: none;
+  }
 
-.epub-display-none, 
-.not-epub {
-  display: none; 
-}
-.web-only {
-  display: none;
-}
-.pdf-only {
-  display: none;
-}
+  .pdf-only {
+    display: none;
+  }
 }
 
-@mixin PDFDisplayNone {
+@mixin pdf-display-none {
+  .pdf-display-none,
+  .not-pdf {
+    display: none;
+  }
 
-.pdf-display-none, 
-.not-pdf {
-  display: none; 
-}
-.web-only {
-  display: none;
-}
-.epub-only {
-  display: none;
-}
+  .web-only {
+    display: none;
+  }
+
+  .epub-only {
+    display: none;
+  }
 }
 
-@mixin WEBDisplayNone {
+@mixin web-display-none {
+  .web-display-none,
+  .not-web {
+    display: none;
+  }
 
-.web-display-none, 
-.web-epub {
-  display: none; 
-}
-.epub-only {
-  display: none;
-}
-.pdf-only {
-  display: none;
-}
+  .epub-only {
+    display: none;
+  }
+
+  .pdf-only {
+    display: none;
+  }
 }
 
 @if type == 'epub' {
-	@include EPUBDisplayNone;
+	@include epub-display-none;
 } @else if type == 'prince' {
-	@include PDFDisplayNone;
-}
-@else if type == 'web' {
-	@include WEBDisplayNone;
+	@include pdf-display-none;
+} @else if type == 'web' {
+	@include web-display-none;
 }

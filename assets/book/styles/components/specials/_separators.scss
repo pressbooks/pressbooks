@@ -1,9 +1,9 @@
-//SEPARATORS - GLOBAL
+//============================================================================//
+//                                  Separators                                //
+//============================================================================//
 
-/* SEPARATORS */ 
-
-/* PAGE-BREAKS */
-.page-break-after, 
+// Page Breaks
+.page-break-after,
 .pdf-page-break-after {
   page-break-after: always;
 }
@@ -15,68 +15,63 @@
 
 .page-break-inside,
 .pdf-page-break-inside {
-  page-break-inside: auto !important;
+  page-break-inside: auto;
 }
 
-/* SEPARATORS */
-
+// Separators
 hr {
-  margin: 10px auto;
+  width: $hr-width;
+  margin: $hr-margin-top auto $hr-margin-bottom;
   text-align: center;
-  width: 20%;
+
+  &.break-symbols {
+    margin-bottom: $hr-break-symbols-margin-bottom;
+    border: 0;
+
+    &::after {
+      display: block;
+      font-size: $hr-break-symbols-font-size;
+      text-align: center;
+      content: $hr-break-symbols-content;
+    }
+  }
 }
 
-hr.break-symbols {
-  border: none;
-  font-size: 1.1em;
-  margin-bottom: 20px;
-}
-
-hr.break-symbols::after {
-  display: block;
-  content: "\066D";
-  font-size: 18pt;
-  text-align: center;
-}
-
-div.ugc h3.section-break,
+// Section Breaks
 .section-break {
+  margin-top: $section-break-margin-top;
+  margin-bottom: $section-break-margin-bottom;
   text-align: center;
   text-indent: 0;
-  margin-top: 1em;
-  margin-bottom: 1em;
 }
 
-div.ugc h3.section-break-space,
 .section-break-space {
-   visibility: hidden;
-   margin-top: 1em;
-   line-height: 1em;
-   margin-bottom: 0em;
+  margin-top: $section-break-space-margin-top;
+  margin-bottom: $section-break-space-margin-bottom;
+  line-height: $section-break-space-line-height;
+  visibility: hidden;
 }
 
-div.ugc h3.section-break-page,
 .section-break-page {
+  margin-top: $section-break-page-margin-top;
+  margin-bottom: $section-break-page-margin-bottom;
   text-align: center;
   text-indent: 0;
-  margin-top: 1em;
-  margin-bottom: 1em;
   page-break-after: always;
 }
 
-div.ugc h3.section-break-page-invisible,
 .section-break-page-invisible {
-  visibility: hidden;
+  margin-top: $section-break-page-invisible-margin-top;
+  margin-bottom: $section-break-page-invisible-margin-bottom;
   text-align: center;
   text-indent: 0;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  visibility: hidden;
   page-break-after: always;
 }
 
-div.blank-page {
-  page-break-before: always;
-  visibility: hidden;
+// Blank Pages
+.blank-page {
   font-size: 0;
+  visibility: hidden;
+  page-break-before: always;
 }
-
