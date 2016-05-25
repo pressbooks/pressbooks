@@ -5,7 +5,7 @@
 // Page Numbers
 
 @mixin front-matter-page-number {
-  font-family: $font-2;
+  font-family: $font-2; // TODO
   color: $page-number-color;
   font-size: $front-matter-page-number-font-size;
   font-style: $front-matter-page-number-font-style;
@@ -15,7 +15,7 @@
 }
 
 @mixin page-number {
-  font-family: $font-2;
+  font-family: $font-2; // TODO
   color: $page-number-color;
   font-size: $page-number-font-size;
   font-style: $page-number-font-style;
@@ -27,7 +27,7 @@
 
 @mixin runninghead-left {
   color: $runninghead-color;
-  font-family: $font-3;
+  font-family: $font-3; // TODO
   font-size: $runninghead-left-font-size;
   font-style: $runninghead-left-font-style;
   font-weight: $runninghead-left-font-weight;
@@ -39,7 +39,7 @@
 
 @mixin runninghead-right {
   color: $runninghead-color;
-  font-family: $font-3;
+  font-family: $font-3; // TODO
   font-size: $runninghead-right-font-size;
   font-style: $runninghead-right-font-style;
   font-weight: $runninghead-right-font-weight;
@@ -53,7 +53,7 @@
 
 @mixin runningfoot-left {
   color: $runningfoot-color;
-  font-family: $font-2;
+  font-family: $font-2; // TODO
   font-size: $runningfoot-left-font-size;
   font-style: $runningfoot-left-font-style;
   font-weight: $runningfoot-left-font-weight;
@@ -65,7 +65,7 @@
 
 @mixin runningfoot-right {
   color: $runningfoot-color;
-  font-family: $font-2;
+  font-family: $font-2; // TODO
   font-size: $runningfoot-right-font-size;
   font-style: $runningfoot-right-font-style;
   font-weight: $runningfoot-right-font-weight;

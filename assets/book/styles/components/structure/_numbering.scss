@@ -70,5 +70,5 @@
 // Page 1 Counter Reset
 
 .introduction {
-  counter-reset: page 1 !important; // TODO Confirm that !important is required
+  counter-reset: page 1;
 }
