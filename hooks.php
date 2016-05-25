@@ -40,6 +40,7 @@ else \Pressbooks\Container::init();
 // Login screen branding
 // -------------------------------------------------------------------------------------------------------------------
 
+add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_color_scheme' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_login_logo' );
 add_filter( 'login_headerurl', '\Pressbooks\Admin\Branding\login_url' );
 add_filter( 'login_headertitle', '\Pressbooks\Admin\Branding\login_title' );

@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.5.0
+Version: 3.5.2
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.5.1
-Tested up to: 4.5.1
-Stable tag: 3.5.0
+Requires at least: 4.5.2
+Tested up to: 4.5.2
+Stable tag: 3.5.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.5.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ * Pressbooks works with PHP 5.6.x and WordPress 4.5.2. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
 
 	$pb_minimum_php = '5.4';
 
@@ -199,6 +199,18 @@ TK.
 Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
+
+= 3.5.2 =
+* **Feature:** Login screen logo and color scheme can now be changed via filters (see https://github.com/pressbooks/pressbooks/commit/d09a104bfbbe3ad00a108004d0375ad1f7057ae0).
+* **Enhancement:** Google Fonts are now requested over https under all circumstances.
+* **Enhancement:** Added some functionality to the Disable Comments plugin (props to @bdolor).
+* **Fix:** Imports will no longer fail in certain environments (props to @monkecheese for the bug fix).
+* **Fix:** Subsection titles are now properly sanitized for XHTML output.
+
+= 3.5.1 =
+* Requires WordPress 4.5.2.
+* **Fixed:** Resolved a formatting issue on the Export page (props to @bdolor).
+* **Under the Hood:** Added anchor, superscript and subscript buttons to core MCE routines (eliminating dependencies).
 
 = 3.5.0 =
 * FEATURE: Search and Replace functionality has been rebuilt and more closely integrated with Pressbooks core.

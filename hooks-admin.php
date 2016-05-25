@@ -47,6 +47,9 @@ if ( \Pressbooks\Book::isBook() ) {
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
 	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );
+	// Disable theme customizer
+	add_action( 'admin_body_class', '\Pressbooks\Admin\Laf\disable_customizer');
+
 } else {
 	// Fix extraneous menus
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\fix_root_admin_menu', 1 );
@@ -65,9 +68,6 @@ if ( true == is_main_site() ) {
 
 // Javascript, Css
 add_action( 'admin_init', '\Pressbooks\Admin\Laf\init_css_js' );
-
-// Disable theme customizer
-add_action( 'admin_body_class', '\Pressbooks\Admin\Laf\disable_customizer');
 
 // Hacks
 add_action( 'edit_form_advanced', '\Pressbooks\Admin\Laf\edit_form_hacks' );
@@ -140,7 +140,8 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_filter( 'tiny_mce_before_init', '\Pressbooks\Editor\mce_valid_word_elements' );
 	add_filter( 'tiny_mce_before_init', '\Pressbooks\Editor\mce_table_editor_options' );
 	add_filter( 'mce_external_plugins', '\Pressbooks\Editor\mce_button_scripts' );
-	add_filter( 'mce_buttons_2', '\Pressbooks\Editor\mce_buttons');
+	add_filter( 'mce_buttons_2', '\Pressbooks\Editor\mce_buttons_2');
+	add_filter( 'mce_buttons_3', '\Pressbooks\Editor\mce_buttons_3', 11);
 	add_filter( 'wp_link_query_args', '\Pressbooks\Editor\customize_wp_link_query_args' );
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 }

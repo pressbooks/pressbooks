@@ -1,7 +1,7 @@
 {
   "name": "pressbooks/pressbooks",
   "license": "GPL-2.0+",
-  "version": "3.5.0", 
+  "version": "3.5.2",
   "type" : "wordpress-plugin",
   "description": "Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, MOBI, web, and a variety of XML flavours, using a theming/templating system, driven by CSS.",
   "homepage": "https://github.com/pressbooks/pressbooks",
@@ -20,6 +20,7 @@
     "issues": "https://github.com/pressbooks/pressbooks/issues",
     "docs": "https://github.com/pressbooks/pressbooks/wiki"
   },
+  "minimum-stability": "dev",
   "repositories": [
     {
       "type": "vcs",
@@ -53,29 +54,13 @@
       "type": "package",
       "package": {
         "name": "pressbooks/disable-comments",
-        "version": "v1.0.0",
+        "version": "v1.0.1",
         "dist": {
-          "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.0.zip",
+          "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.1.zip",
           "type": "zip"
         },
         "source": {
           "url": "https://github.com/pressbooks/disable-comments/",
-          "type": "git",
-          "reference": "tags/v1.0.0"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "pressbooks/mce-anchor-button",
-        "version": "v1.0.1",
-        "dist": {
-          "url": "https://github.com/pressbooks/mce-anchor-button/archive/v1.0.1.zip",
-          "type": "zip"
-        },
-        "source": {
-          "url": "https://github.com/pressbooks/mce-anchor-button/",
           "type": "git",
           "reference": "tags/v1.0.1"
         }
@@ -94,22 +79,6 @@
           "url": "https://github.com/pressbooks/mce-table-buttons/",
           "type": "git",
           "reference": "tags/v3.2.0"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "pressbooks/mce-superscript-subscript-buttons",
-        "version": "1.0.0",
-        "dist": {
-          "url": "https://github.com/pressbooks/mce-superscript-subscript-buttons/archive/v1.0.0.zip",
-          "type": "zip"
-        },
-        "source": {
-          "url": "https://github.com/pressbooks/mce-superscript-subscript-buttons/",
-          "type": "git",
-          "reference": "tags/v1.0.0"
         }
       }
     },
@@ -156,12 +125,11 @@
     "gridonic/princexml-php": "dev-master",
     "pressbooks/saxon-he": "dev-master",
     "pressbooks/custom-metadata": "0.8.1-dev",
-    "pressbooks/disable-comments": "1.0.0",
-    "pressbooks/mce-anchor-button": "1.0.1",
+    "pressbooks/disable-comments": "1.0.1",
     "pressbooks/mce-table-buttons": "3.2.0",
-    "pressbooks/mce-superscript-subscript-buttons": "1.0.0",
     "pressbooks/pressbooks-latex": "1.0.0",
-    "pressbooks/rest-api": "2.0-beta13.1"
+    "pressbooks/rest-api": "2.0-beta13.1",
+    "scriptotek/marc": "^0.1.0"
   },
   "require-dev": {
   },

@@ -376,9 +376,7 @@ function include_plugins() {
 	$symbionts = array(
 	    'custom-metadata/custom_metadata.php' => 1,
 	    'disable-comments/disable-comments.php' => 1,
-	    'mce-anchor-button/mce-anchor-button.php' => 1,
 	    'mce-table-buttons/mce_table_buttons.php' => 1,
-	    'mce-superscript-subscript-buttons/mce-superscript-subscript-buttons.php' => 1,
 	    'rest-api/plugin.php' => 1,
 	);
 

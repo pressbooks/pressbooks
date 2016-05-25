@@ -10,3 +10,4 @@ tests/logs/
 vendor
 bower_components
 node_modules
+deploy.sh
