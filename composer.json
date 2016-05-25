@@ -102,19 +102,18 @@
       "type": "package",
       "package": {
         "name": "pressbooks/rest-api",
-        "version": "2.0-beta13",
+        "version": "2.0-beta13.1",
         "dist": {
-          "url": "https://github.com/WP-API/WP-API/archive/2.0-beta13.zip",
+          "url": "https://github.com/WP-API/WP-API/archive/2.0-beta13.1.zip",
           "type": "zip"
         },
         "source": {
           "url": "https://github.com/WP-API/WP-API",
           "type": "git",
-          "reference": "tags/2.0-beta13"
+          "reference": "tags/2.0-beta13.1"
         }
       }
     }
-
   ],
   "require": {
     "php": ">=5.6.0",
@@ -128,7 +127,7 @@
     "pressbooks/disable-comments": "1.0.1",
     "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/pressbooks-latex": "1.0.0",
-    "pressbooks/rest-api": "2.0-beta13",
+    "pressbooks/rest-api": "2.0-beta13.1",
     "scriptotek/marc": "^0.1.0"
   },
   "require-dev": {

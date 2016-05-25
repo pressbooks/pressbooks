@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "10a8699c1f15d7d9ae3414b8c939b6d0",
-    "content-hash": "f0204d49bfe0e86d002e988a19ac5c67",
+    "hash": "2f1e9a665309c3b84df01cfe94f44839",
+    "content-hash": "49463021cacb42dc60185a8cb9b7c547",
     "packages": [
         {
             "name": "ck/file_marc_reference",
@@ -107,12 +107,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "21a8c06dd5fe0a22b776797cc552e51d17d7e7dd"
+                "reference": "2db1f3ce7bcf0d294811f5f0214e24d2878a57da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/21a8c06dd5fe0a22b776797cc552e51d17d7e7dd",
-                "reference": "21a8c06dd5fe0a22b776797cc552e51d17d7e7dd",
+                "url": "https://api.github.com/repos/composer/installers/zipball/2db1f3ce7bcf0d294811f5f0214e24d2878a57da",
+                "reference": "2db1f3ce7bcf0d294811f5f0214e24d2878a57da",
                 "shasum": ""
             },
             "require": {
@@ -200,7 +200,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-04-24 13:17:36"
+            "time": "2016-05-19 16:58:29"
         },
         {
             "name": "gridonic/princexml-php",
@@ -516,15 +516,15 @@
         },
         {
             "name": "pressbooks/rest-api",
-            "version": "2.0-beta13",
+            "version": "2.0-beta13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WP-API/WP-API",
-                "reference": "tags/2.0-beta13"
+                "reference": "tags/2.0-beta13.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/WP-API/WP-API/archive/2.0-beta13.zip",
+                "url": "https://github.com/WP-API/WP-API/archive/2.0-beta13.1.zip",
                 "reference": null,
                 "shasum": null
             },
