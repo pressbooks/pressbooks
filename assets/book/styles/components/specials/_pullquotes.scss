@@ -24,11 +24,8 @@ aside,
 
 // Pullquotes
 
-.pullquote,
 .pullquote-left,
-.pullquote-right,
-.pullquote-outside,
-.pullquote-inside {
+.pullquote-right {
   font-family: $pullquote-font-family;
   font-size: $pullquote-font-size;
   font-style: $pullquote-font-style;
@@ -39,45 +36,24 @@ aside,
   text-indent: 0;
 }
 
-.pullquote { // TODO
-  width: $pullquote-width;
-  margin-top: $pullquote-margin-top;
-  margin-right: auto;
-  margin-bottom: $pullquote-margin-bottom;
-  margin-left: auto;
-}
-
 .pullquote-left {
   float: left;
   width: $pullquote-left-width;
-  margin-top: $pullquote-left-margin-top;
+  margin-top: $pullquote-margin-top;
   margin-right: $pullquote-left-margin-right;
-  margin-bottom: $pullquote-left-margin-bottom;
+  margin-bottom: $pullquote-margin-bottom;
   margin-left: $pullquote-left-margin-left;
 }
 
 .pullquote-right {
   float: right;
   width: $pullquote-right-width;
-  margin-top: $pullquote-right-margin-top;
+  margin-top: $pullquote-margin-top;
   margin-right: $pullquote-right-margin-right;
-  margin-bottom: $pullquote-right-margin-bottom;
+  margin-bottom: $pullquote-margin-bottom;
   margin-left: $pullquote-right-margin-left;
   border-top: 0;
   border-bottom: 0;
-}
-
-.pullquote-outside { // TODO
-  float: outside;
-  width: $pullquote-outside-width;
-  margin-top: $pullquote-outside-margin-top;
-  margin-right: $pullquote-outside-margin-right;
-  margin-bottom: $pullquote-outside-margin-bottom;
-  margin-left: $pullquote-outside-margin-left;
-}
-
-.pullquote-inside {
-  // TODO
 }
 
 // Sidebars

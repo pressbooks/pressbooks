@@ -55,17 +55,25 @@
 // Our footnote function eats <p> & <blockquote> tags, so users should wrap new
 // paragraphs & blockquotes in a span, as per below
 
-.fn-p { // TODO
+.fn-p {
   display: block;
   text-indent: $para-indent;
 }
 
-.fn-blockquote { // TODO
+.fn_p { // Deprecated; only included for backwards-compatibility.
+  @extend .fn-p;
+}
+
+.fn-blockquote {
   display: block;
   margin-top: $footnote-blockquote-margin-top;
   margin-bottom: $footnote-blockquote-margin-bottom;
   margin-left: $footnote-blockquote-margin-left;
   font-size: $footnote-blockquote-font-size;
+}
+
+.fn_blockquote { // Deprecated; only included for backwards-compatibility.
+  @extend .fn-blockquote;
 }
 
 // Footnote & Endnote number markers (in body text)
