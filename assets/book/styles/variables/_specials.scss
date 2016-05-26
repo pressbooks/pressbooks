@@ -21,7 +21,7 @@ $first-character-line-height: .7em !default;
 // Footnotes
 $footnote-padding-top: 1em !default;
 @if $type == 'prince' {
-  $footnote-font-size: .8em !default;
+  $footnote-font-size: 8pt !default; //can this be $body-font-size*0.8 ?
 } @else if $type == 'epub' {
   $footnote-font-size: .9em !default;
 }
