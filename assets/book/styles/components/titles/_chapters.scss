@@ -1,103 +1,91 @@
-//CHAPTER PAGE OPENING - GLOBAL
-
-
-/* DIV WRAPPER AROUND CHAPTER NUMBER + TITLE (BUT NOT AUTHOR, SUBTITLE ETC) */
+//============================================================================//
+//                                   Chapter                                  //
+//============================================================================//
 
 .chapter-title-wrap {
-  margin-top: $section-title-margin-top;  
-  margin-bottom: $section-title-margin-bottom;
+  margin-top: $section-title-block-margin-top;
+  margin-bottom: $section-title-block-margin-bottom;
+
+  .chapter-number {
+    display: $chapter-number-display;
+    margin-top: $chapter-number-margin-top;
+    margin-bottom: $chapter-number-margin-bottom;
+    font-family: $chapter-number-font-family;
+    font-size: $chapter-number-font-size;
+    font-style: $chapter-number-font-style;
+    font-weight: $chapter-number-font-weight;
+    line-height: $chapter-number-line-height;
+    text-align: $chapter-number-align;
+    text-transform: $chapter-number-text-transform;
+  }
+
+  .chapter-title {
+    display: block;
+    margin-top: $section-title-margin-top;
+    font-family: $section-title-font-family;
+    font-size: $section-title-font-size;
+    font-style: $section-title-font-style;
+    font-weight: $section-title-font-weight;
+    hyphens: none;
+    text-align: $chapter-title-align;
+    text-transform: $section-title-text-transform;
+  }
 }
 
-/* CHAPTER NUMBER */ 
-
-h3.chapter-number {
-  font-family: $font-3;
-  font-size: $chapter-number-font-size; 
-  font-style: $chapter-number-font-style;
-  font-weight: $chapter-number-font-weight; 
-  text-transform: $chapter-number-text-transform;
-  width: 15%;
-  padding-bottom: 1em;
-  line-height: 1;
-  margin-top: $chapter-number-margin-top;
-  display: $chapter-number-display;
-}
-
-/* NUMBERLESS CHAPTERS HAVE NO CHAPTER NUMBERS!! */
-
-div.chapter.numberless h3.chapter-number {
-  display: none;
-}
-
-/* CHAPTER TITLE */ 
-
-h2.chapter-title {
-  font-family: $font-2;
-  font-size: $section-title-font-size;
-  font-style: $section-title-font-style;
-  font-weight: $section-title-font-weight;
-  text-transform: $section-title-text-transform;
+// Subtitle (outside .chapter-title-wrap)
+.chapter-subtitle {
   display: block;
-  margin-bottom: 0.5em; 
-  padding-bottom: 1.5em;
-  margin-top: $section-title-margin-top; 
-  hyphens: none;
-  -webkit-hyphens: none; 
-}
-
-
-/* CHAPTER SUBTITLE (NOTE: IT IS NOT WRAPPED IN THE CHAPTER-TITLE-WRAP DIV) */
-
-h2.chapter-subtitle {
+  padding-top: $section-subtitle-padding-top;
+  margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
+  margin-bottom: $section-title-block-margin-bottom;
   font-family: $font-2;
   font-size: $section-subtitle-font-size;
   font-style: $section-subtitle-font-style;
   font-weight: $section-subtitle-font-weight;
-  text-transform: $section-subtitle-text-transform;
-  margin-left: 0;
-  margin-right: 0;
-  display: block;
-  column-span: all;
-  margin: -1.5cm 0 3em;
-  padding-top: 0.2em;  
   hyphens: none;
-  -webkit-hyphens: none; 
+  text-align: $chapter-subtitle-align;
+  text-transform: $section-subtitle-text-transform;
+  column-span: all;
 }
 
-
-/* CHAPTER AUTHOR (NOTE: IT IS NOT WRAPPED IN THE CHAPTER-TITLE-WRAP DIV) */
-
-h2.chapter-author {
+// Author (outside .chapter-title-wrap)
+.chapter-author {
+  display: block;
+  margin-bottom: $section-title-block-margin-bottom;
   font-family: $font-1;
   font-size: $section-author-font-size;
   font-style: $section-author-font-style;
   font-weight: $section-author-font-weight;
-  text-transform: $section-author-text-transform;
-  margin-left: 0;
-  display: block;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin-bottom: 1.5cm;
   hyphens: none;
-  -webkit-hyphens: none; 
-}
-h2.chapter-subtitle + h2.chapter-author {
-  margin-top: -1cm;
-}
-h2.chapter-title + h2.chapter-author {
-  margin-top: -2cm;
+  text-align: $chapter-author-align;
+  text-transform: $section-author-text-transform;
 }
 
-/* CHAPTER APHORISM (NOTE: IT IS NOT WRAPPED IN THE CHAPTER-TITLE-WRAP DIV) */
+.chapter-subtitle + .chapter-author {
+  margin-top: $section-subtitle-margin-bottom - $section-title-block-margin-bottom;
+}
 
+.chapter-title-wrap + .chapter-author {
+  margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
+}
+
+// Aphorism (outside .chapter-title-wrap)
 .aphorism {
+  margin-bottom: 2em;
+  text-align: $aphorism-align;
   text-indent: 0;
-  margin-bottom: 2em; 
-}
-.aphorism cite {
+
+  cite {
     display: block;
-    font-size: 0.8em;  
+    font-size: .8em;
+
+    &::before {
+      content: '–';
+    }
+  }
 }
-.aphorism cite::before {
-  content: "–";
+
+// Numberless Chapters
+.numberless .chapter-number {
+  display: none;
 }

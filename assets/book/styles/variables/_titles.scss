@@ -1,7 +1,7 @@
-//VARS 
+//VARS
 //GLOBAL PAGE OPENINGS
 
-//in this file: 
+//in this file:
 //--chapter number display
 //--margins
 //--font-sizes
@@ -9,28 +9,44 @@
 //--font-weights
 //--text-transforms
 
-//chapter number display 
-
+// Chapter Number Display
 $chapter-number-display: inline-block !default;
 
-//Margins
-
+// Margins + Padding
 @if $type == 'epub' {
-    $section-title-margin-top: 2em !default;
-    $section-title-margin-bottom: 2em !default;
-    $chapter-number-margin-top: 1em !default;
+  $section-title-block-margin-top: 3em !default;
+  $section-title-block-margin-bottom: 2em !default;
+  $section-title-padding-bottom: 1.5em !default;
+  $section-title-margin-top: 2em !default;
+  $section-title-margin-bottom: 2em !default;
+  $chapter-number-margin-top: 1em !default;
+  $chapter-number-margin-bottom: 1em !default;
+  $section-subtitle-padding-top: 0 !default;
+  $section-subtitle-margin-bottom: .2em !default;
 } @else if $type == 'prince' {
-    $section-title-margin-top: 2cm !default;
-    $section-title-margin-bottom: 2cm !default;
+    $section-title-block-margin-top: 3cm !default;
+    $section-title-block-margin-bottom: 2cm !default;
+    $section-title-padding-bottom: 1.5em !default;
+    $section-title-margin-top: 0 !default;
+    $section-title-margin-bottom: 1.5cm !default;
     $chapter-number-margin-top: 0 !default;
+    $chapter-number-margin-bottom: .5cm !default;
+    $section-subtitle-padding-top: 0 !default;
+    $section-subtitle-margin-bottom: .2cm !default;
 } @else if $type == 'web' {
+    $section-title-padding-bottom: 1.5em !default;
     $section-title-margin-top: 2em !default;
     $section-title-margin-bottom: 2em !default;
     $chapter-number-margin-top: 0 !default;
 }
 
+$section-title-font-family: $font-2 !default;
+
 //*
 //FONT SIZES
+
+$chapter-number-font-family: $font-3 !default;
+$chapter-number-line-height: 1em !default;
 
 @if $type == 'epub' {
     $title-half-title-font-size: 1.5em !default;
@@ -40,16 +56,14 @@ $chapter-number-display: inline-block !default;
     $title-publisher-font-size: 0.9em !default;
     $title-publisher-font-size: 0.9em !default;
 
-    $part-number-font-size: 1em !default;  
+    $part-number-font-size: 1em !default;
     $part-title-font-size: 1.5em !default;
 
     $chapter-number-font-size: 1em !default;
     $section-title-font-size: 1.5em !default;
     $section-subtitle-font-size: 1em !default;
     $section-author-font-size: 1em !default;
-} 
-
-@else if $type == 'prince' {
+} @else if $type == 'prince' {
 //prince font sizes - title opening
     $title-half-title-font-size: 1.5em !default;
     $title-title-font-size: 2em !default;
@@ -59,7 +73,7 @@ $chapter-number-display: inline-block !default;
     $title-publisher-font-size: 0.9em !default;
 
 //prince font sizes - section opening
-    $part-number-font-size: 1.5em !default;  
+    $part-number-font-size: 1.5em !default;
     $part-title-font-size: 2.5em !default;
 
 //prince font sizes - section opening
@@ -67,10 +81,8 @@ $chapter-number-display: inline-block !default;
     $section-title-font-size: 2em !default;
     $section-subtitle-font-size: 1em !default;
     $section-author-font-size: 1em !default;
-} 
-
-@else if $type == 'web' {
-//web font sizes - title opening  
+} @else if $type == 'web' {
+//web font sizes - title opening
     $title-half-title-font-size: 1.5em !default;
     $title-title-font-size: 2em !default;
     $title-subtitle-font-size: 1em !default;
@@ -79,7 +91,7 @@ $chapter-number-display: inline-block !default;
     $title-publisher-font-size: 1em !default;
 
 //web font sizes - part opening
-    $part-number-font-size: 1.5em !default;  
+    $part-number-font-size: 1.5em !default;
     $part-title-font-size: 3em !default;
 
 //web font sizes - section opening
@@ -136,8 +148,8 @@ $section-subtitle-font-weight: normal !default;
 $section-author-font-weight: normal !default;
 
 
-//* 
-//TEXT-TRANSFORM 
+//*
+//TEXT-TRANSFORM
 //Text-transform - title opening
 
 $title-half-title-text-transform: none !default;
@@ -160,12 +172,27 @@ $section-subtitle-text-transform: none !default;
 $section-author-text-transform: uppercase !default;
 
 
+//TITLE PAGE
+$half-title-align: center !default;
+$title-title-align: center !default;
+$title-subtitle-align: center !default;
+$title-author-align: center !default;
+$title-publisher-align: center !default;
+$title-publisher-city-align: center !default;
 
+//SECTION TITLE ALIGNMENT
+$front-matter-title-align: center !default;
+$copyright-p-align: left !default;
+$dedication-p-align: center !default;
+$epigraph-p-align: center !default;
 
+$part-number-align: center !default;
+$part-title-align: center !default;
 
+$chapter-number-align: center !default;
+$chapter-title-align: center !default;
+$chapter-subtitle-align: center !default;
+$chapter-author-align: center !default;
+$aphorism-align: left !default;
 
-
-
-
-
-
+$back-matter-title-align: center !default;

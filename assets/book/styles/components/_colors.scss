@@ -47,10 +47,9 @@ h3.part-number {color: $part-number-color;}
 h1.part-title {color: $part-title-color;}
 
 /* CHAPTER TITLE COLOR */
-.chapter-title-wrap ,
-h3.chapter-number {
+.chapter-number {
   color: $chapter-number-color;
-  border-bottom-color: $chapter-number-color;
+  border-bottom-color: $chapter-number-border-bottom-color;
 }
 h2.chapter-title {color: $chapter-title-color;}
 h2.chapter-subtitle {color: $chapter-subtitle-color;}

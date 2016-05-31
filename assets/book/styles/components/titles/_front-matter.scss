@@ -5,12 +5,12 @@
 
 /* FRONT MATTER SHOULD NEVER HAVE A CHAPTER NUMBER */
 
-h3.front-matter-number, 
+h3.front-matter-number,
 h3.front-matter-number.dedication {
   display: none;
   visibility: hidden;
 }
- 
+
 /* BEFORE TITLE PAGE CONTENT */
 
 .before-title .front-matter-title-wrap {
@@ -21,7 +21,7 @@ h3.front-matter-number.dedication {
 /* DIV WRAPPER AROUND FRONT MATTER TITLE*/
 
 .front-matter-title-wrap {
-  margin-top: $section-title-margin-top;  
+  margin-top: $section-title-margin-top;
   margin-bottom: $section-title-margin-bottom;
 }
 
@@ -32,16 +32,17 @@ h1.front-matter-title,
 #toc h1 {
   font-family: $font-2;
   font-size: $section-title-font-size;
-  font-weight: $section-title-font-weight; 
-  font-style: $section-title-font-style; 
+  font-weight: $section-title-font-weight;
+  font-style: $section-title-font-style;
+  text-align: $front-matter-title-align;
   text-transform: $section-title-text-transform;
   display: block;
-  margin-top: $section-title-margin-top; 
+  margin-top: $section-title-margin-top;
   hyphens: none;
-  -webkit-hyphens: none; 
+  -webkit-hyphens: none;
 }
 
-/* OTHER SPECIAL FRONT-MATTER STYLING */ 
+/* OTHER SPECIAL FRONT-MATTER STYLING */
 
 /* COPYRIGHT */
 
@@ -52,9 +53,10 @@ h1.front-matter-title,
 #copyright-page .ugc p {
   font-family: $font-1;
   font-size: 0.8em;
-  font-weight: normal; 
-  font-style: normal; 
+  font-weight: normal;
+  font-style: normal;
   line-height: 1.2em;
+  text-align: $copyright-p-align;
   text-indent: 0 !important;
   margin-bottom: 1em;
 }
@@ -69,9 +71,10 @@ div.dedication {
 .dedication p {
   font-family: $font-1;
   font-size: 1em;
-  font-weight: normal; 
-  font-style: italic; 
+  font-weight: normal;
+  font-style: italic;
   margin-bottom: 1em;
+  text-align: $dedication-p-align;
 }
 
 /*   EPIGRAPH */
@@ -82,9 +85,10 @@ div.epigraph {
 }
 
 .epigraph p {
+  margin-bottom: 1em;
   font-family: $font-1;
   font-size: 1em;
-  font-weight: normal; 
-  font-style: italic; 
-  margin-bottom: 1em;
+  font-weight: normal;
+  font-style: italic;
+  text-align: $epigraph-p-align;
 }

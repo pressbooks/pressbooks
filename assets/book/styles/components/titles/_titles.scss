@@ -1,6 +1,6 @@
 //TITLE PAGES - GLOBAL
 
-/* TITLE PAGE STYLING */ 
+/* TITLE PAGE STYLING */
 
 /* HALFTITLE PAGE */
 
@@ -9,23 +9,25 @@
   font-size: $title-half-title-font-size;
   font-weight: $title-half-title-font-weight;
   font-style: $title-half-title-font-style;
+  text-align: $half-title-align;
   text-transform: $title-half-title-text-transform;
   margin-top: $section-title-margin-top;
   hyphens: none;
-  -webkit-hyphens: none; 
+  -webkit-hyphens: none;
 }
 
 /* TITLE PAGE */
 
-h1.title { 
+h1.title {
   font-family: $font-2;
   font-size: $title-title-font-size;
   font-weight: $title-title-font-weight;
   font-style: $title-title-font-style;
+  text-align: $title-title-align;
   text-transform: $title-title-text-transform;
   margin-top: $section-title-margin-top;
   hyphens: none;
-  -webkit-hyphens: none; 
+  -webkit-hyphens: none;
 }
 
 h2.subtitle {
@@ -33,9 +35,10 @@ h2.subtitle {
   font-size: $title-subtitle-font-size;
   font-weight: $title-subtitle-font-weight;
   font-style: $title-subtitle-font-style;
-  text-transform: $title-subtitle-text-transform; 
+  text-align: $title-subtitle-align;
+  text-transform: $title-subtitle-text-transform;
   hyphens: none;
-  -webkit-hyphens: none; 
+  -webkit-hyphens: none;
 }
 
 h3.author {
@@ -43,12 +46,13 @@ h3.author {
   font-size: $title-author-font-size;
   font-weight: $title-author-font-weight;
   font-style: $title-author-font-style;
-  text-transform: $title-author-text-transform; 
+  text-align: $title-author-align;
+  text-transform: $title-author-text-transform;
   letter-spacing: 1px;
   word-spacing: 2px;
   margin-top: 2cm;
   hyphens: none;
-  -webkit-hyphens: none; 
+  -webkit-hyphens: none;
 }
 
 h4.publisher {
@@ -56,7 +60,8 @@ h4.publisher {
   font-size: $title-publisher-font-size;
   font-weight: $title-publisher-font-weight;
   font-style: $title-publisher-font-style;
-  text-transform: $title-publisher-text-transform; 
+  text-align: $title-publisher-align;
+  text-transform: $title-publisher-text-transform;
   letter-spacing: 1px;
   word-spacing: 2px;
   line-height: 1;
@@ -64,7 +69,7 @@ h4.publisher {
   display: block;
   margin-bottom: 0.5em;
   hyphens: none;
-  -webkit-hyphens: none; 
+  -webkit-hyphens: none;
 }
 
 h5.publisher-city {
@@ -73,13 +78,14 @@ h5.publisher-city {
   font-size: $title-publisher-font-size;
   font-weight: $title-publisher-font-weight;
   font-style: $title-publisher-font-style;
-  text-transform: $title-publisher-text-transform; 
+  text-align: $title-publisher-city-align;
+  text-transform: $title-publisher-text-transform;
   letter-spacing: 1px;
   word-spacing: 2px;
   float: bottom;
   margin-top: 0;
   hyphens: none;
-  -webkit-hyphens: none; 
+  -webkit-hyphens: none;
 }
 
 /* TITLE PAGE LOGO STYLING */
@@ -102,8 +108,8 @@ img.pb-publogo-wide {
   display: block;
 }
 
-// USE MIXINS + CONDITIONALS TO DEFINE VARIATIONS BETWEEN 
-// EPUB, PDF AND WEB 
+// USE MIXINS + CONDITIONALS TO DEFINE VARIATIONS BETWEEN
+// EPUB, PDF AND WEB
 
 @mixin titles-PDF {
 

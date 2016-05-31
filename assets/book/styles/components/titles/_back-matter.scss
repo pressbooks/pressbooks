@@ -1,61 +1,59 @@
-// BACK MATTER PAGES - GLOBAL
+//============================================================================//
+//                                Back Matter                                 //
+//============================================================================//
 
-/* BACK MATTER SHOULD NEVER HAVE A NUMBER */
-
-h3.back-matter-number {
+.back-matter-number {
   display: none;
   visibility: hidden;
 }
 
-/* BACK MATTER STYLING */ 
-
 .back-matter-title-wrap {
-  margin-top: $section-title-margin-top;  
+  margin-top: $section-title-margin-top;
   margin-bottom: $section-title-margin-bottom;
 }
-h1.back-matter-title {
-  font-family: $font-2;
+
+.back-matter-title {
+  display: block;
+  padding-bottom: $section-title-padding-bottom;
+  margin-top: $section-title-margin-top;
+  margin-bottom: .5em;
+  font-family: $section-title-font-family;
   font-size: $section-title-font-size;
   font-style: $section-title-font-style;
-  font-weight: $section-title-font-weight; 
-  text-transform: $section-title-text-transform;
-  display: block;
-  margin-top: $section-title-margin-top;  
+  font-weight: $section-title-font-weight;
   hyphens: none;
-  -webkit-hyphens: none; 
-  margin-bottom: 0.5em;
-  padding-bottom: 1.5em;
+  text-align: $back-matter-title-align;
+  text-transform: $section-title-text-transform;
 }
 
-/* BIBLIOGRAPHY
- =============== */
+// Bibliography
 
-.bibliography p  {
-  font-size: 0.9em;
+.bibliography p {
   padding-left: 2em;
+  font-size: .9em;
   text-indent: -2em;
 }
 
-/* INDEX 
-================== */
-.index .ugc  {
+// Index
+
+.index .ugc {
   column-count: 2;
   column-gap: 2.5em;
 }
-.index .ugc  div {
+
+.index div {
   margin-bottom: 4em;
 }
+
 .index p,
-div.index .ugc p,
-div.index .ugc p.indent,
-div.index .ugc p.nonindent,
-.index div + p {
-  font-size: 0.9em;
+.index .indent,
+.index .no-indent {
   padding-left: 2em;
-  text-indent: -2em;
+  font-size: .9em;
   text-align: left;
+  text-indent: -2em;
 }
 
-.index .ugc  p.sub-entry {
+.index .sub-entry {
   padding-left: 4em;
 }
