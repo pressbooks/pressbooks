@@ -31,6 +31,7 @@ $chapter-number-display: inline-block !default;
 
 // Margins + Padding
 @if $type == 'epub' {
+  $title-author-margin-top: 2em !default;
   $section-title-block-margin-top: 3em !default;
   $section-title-block-margin-bottom: 2em !default;
   $section-title-margin-bottom: 2em !default;
@@ -40,6 +41,7 @@ $chapter-number-display: inline-block !default;
   $section-subtitle-margin-bottom: .5em !default;
   $section-author-margin-bottom: .5em !default;
 } @else if $type == 'prince' {
+  $title-author-margin-top: 2cm !default;
   $section-title-block-margin-top: 3cm !default;
   $section-title-block-margin-bottom: 2cm !default;
   $section-title-margin-bottom: 1.5cm !default;
