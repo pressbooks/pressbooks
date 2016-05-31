@@ -8,6 +8,7 @@
 
   .chapter-number {
     display: $chapter-number-display;
+    margin-top: 0;
     margin-bottom: $chapter-number-margin-bottom;
     font-family: $chapter-number-font-family;
     font-size: $chapter-number-font-size;
@@ -20,6 +21,8 @@
 
   .chapter-title {
     display: block;
+    margin-top: 0;
+    margin-bottom: 0;
     font-family: $section-title-font-family;
     font-size: $section-title-font-size;
     font-style: $section-title-font-style;
@@ -35,7 +38,7 @@ h2.chapter-subtitle {
   display: block;
   margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
   margin-bottom: $section-title-block-margin-bottom;
-  font-family: $font-2; // TODO
+  font-family: $section-subtitle-font-family;
   font-size: $section-subtitle-font-size;
   font-style: $section-subtitle-font-style;
   font-weight: $section-subtitle-font-weight;
@@ -49,7 +52,7 @@ h2.chapter-subtitle {
 h2.chapter-author {
   display: block;
   margin-bottom: $section-title-block-margin-bottom;
-  font-family: $font-1; // TODO
+  font-family: $section-author-font-family;
   font-size: $section-author-font-size;
   font-style: $section-author-font-style;
   font-weight: $section-author-font-weight;
@@ -74,7 +77,7 @@ blockquote.aphorism {
 
   cite {
     display: block;
-    font-size: .8em; // TODO
+    font-size: $aphorism-cite-font-size;
 
     &::before {
       content: '–';

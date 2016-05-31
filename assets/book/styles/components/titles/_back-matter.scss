@@ -13,7 +13,8 @@
 
   .back-matter-title {
     display: block;
-    margin-bottom: .5em; // TODO
+    margin-top: 0;
+    margin-bottom: 0;
     font-family: $section-title-font-family;
     font-size: $section-title-font-size;
     font-style: $section-title-font-style;
@@ -25,14 +26,14 @@
 }
 
 // Bibliography
-.bibliography p {
+div.bibliography p {
   padding-left: 2em; // TODO
   font-size: .9em; // TODO
   text-indent: -2em; // TODO
 }
 
 // Index
-.index {
+div.index {
   .ugc {
     column-count: 2; // TODO
     column-gap: 2.5em; // TODO
