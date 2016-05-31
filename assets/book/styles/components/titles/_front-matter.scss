@@ -1,94 +1,78 @@
-//FRONTMATTER PAGES - GLOBAL
-
-
-/* FRONT MATTER FORMATTING */
-
-/* FRONT MATTER SHOULD NEVER HAVE A CHAPTER NUMBER */
-
-h3.front-matter-number,
-h3.front-matter-number.dedication {
-  display: none;
-  visibility: hidden;
-}
-
-/* BEFORE TITLE PAGE CONTENT */
+//============================================================================//
+//                                  Chapters                                  //
+//============================================================================//
 
 .before-title .front-matter-title-wrap {
   margin-top: 0;
-  margin-bottom: 0.5em;
+  margin-bottom: .5em;
 }
-
-/* DIV WRAPPER AROUND FRONT MATTER TITLE*/
 
 .front-matter-title-wrap {
-  margin-top: $section-title-margin-top;
-  margin-bottom: $section-title-margin-bottom;
+  margin-top: $section-title-block-margin-top;
+  margin-bottom: $section-title-block-margin-bottom;
+
+  .front-matter-number {
+    display: none;
+    visibility: hidden;
+  }
+
+  .front-matter-title {
+    display: block;
+    font-family: $font-2; // TODO
+    font-size: $section-title-font-size;
+    font-style: $section-title-font-style;
+    font-weight: $section-title-font-weight;
+    hyphens: none;
+    text-align: $front-matter-title-align;
+    text-transform: $section-title-text-transform;
+  }
+}
+
+// Copyright Page
+#copyright-page {
+  .ugc {
+    margin-top: $section-title-block-margin-top;
+
+    p {
+      margin-bottom: 1em; // TODO
+      font-family: $font-1; // TODO
+      font-size: .8em; // TODO
+      font-style: normal; // TODO
+      font-weight: normal; // TODO
+      line-height: 1.2em; // TODO
+      text-align: $copyright-p-align;
+      text-indent: 0;
+    }
+  }
 }
 
 
-/* FRONT-MATTER TITLE */
+// Dedication
+.dedication {
+  margin-right: 10%; // TODO
+  margin-left: 10%; // TODO
 
-h1.front-matter-title,
-#toc h1 {
-  font-family: $font-2;
-  font-size: $section-title-font-size;
-  font-weight: $section-title-font-weight;
-  font-style: $section-title-font-style;
-  text-align: $front-matter-title-align;
-  text-transform: $section-title-text-transform;
-  display: block;
-  margin-top: $section-title-margin-top;
-  hyphens: none;
-  -webkit-hyphens: none;
+  p {
+    margin-bottom: 1em; // TODO
+    font-family: $font-1; // TODO
+    font-size: 1em; // TODO
+    font-style: italic; // TODO
+    font-weight: normal; // TODO
+    text-align: $dedication-p-align;
+  }
 }
 
-/* OTHER SPECIAL FRONT-MATTER STYLING */
+// Epigraph
+.epigraph {
+  margin-right: 10%; // TODO
+  margin-left: 10%; // TODO
 
-/* COPYRIGHT */
-
-#copyright-page > .ugc {
-  margin-top: $section-title-margin-top;
-}
-
-#copyright-page .ugc p {
-  font-family: $font-1;
-  font-size: 0.8em;
-  font-weight: normal;
-  font-style: normal;
-  line-height: 1.2em;
-  text-align: $copyright-p-align;
-  text-indent: 0 !important;
-  margin-bottom: 1em;
-}
-
-
-/*   DEDICATION  */
-
-div.dedication {
-  margin-right: 10%;
-  margin-left: 10%;
-}
-.dedication p {
-  font-family: $font-1;
-  font-size: 1em;
-  font-weight: normal;
-  font-style: italic;
-  margin-bottom: 1em;
-  text-align: $dedication-p-align;
-}
-
-/*   EPIGRAPH */
-
-div.epigraph {
-  margin-right: 10%;
-  margin-left: 10%;
-}
-
-.epigraph p {
-  margin-bottom: 1em;
-  font-family: $font-1;
-  font-size: 1em;
-  font-weight: normal;
-  font-style: italic;
-  text-align: $epigraph-p-align;
+  p {
+    margin-bottom: 1em; // TODO
+    font-family: $font-1; // TODO
+    font-size: 1em; // TODO
+    font-style: italic; // TODO
+    font-weight: normal; // TODO
+    text-align: $epigraph-p-align;
+  }
 }

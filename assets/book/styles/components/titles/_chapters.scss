@@ -1,5 +1,5 @@
 //============================================================================//
-//                                   Chapter                                  //
+//                                  Chapters                                  //
 //============================================================================//
 
 .chapter-title-wrap {
@@ -8,7 +8,6 @@
 
   .chapter-number {
     display: $chapter-number-display;
-    margin-top: $chapter-number-margin-top;
     margin-bottom: $chapter-number-margin-bottom;
     font-family: $chapter-number-font-family;
     font-size: $chapter-number-font-size;
@@ -21,7 +20,6 @@
 
   .chapter-title {
     display: block;
-    margin-top: $section-title-margin-top;
     font-family: $section-title-font-family;
     font-size: $section-title-font-size;
     font-style: $section-title-font-style;
@@ -33,57 +31,69 @@
 }
 
 // Subtitle (outside .chapter-title-wrap)
-.chapter-subtitle {
+h2.chapter-subtitle {
   display: block;
-  padding-top: $section-subtitle-padding-top;
   margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
   margin-bottom: $section-title-block-margin-bottom;
-  font-family: $font-2;
+  font-family: $font-2; // TODO
   font-size: $section-subtitle-font-size;
   font-style: $section-subtitle-font-style;
   font-weight: $section-subtitle-font-weight;
   hyphens: none;
-  text-align: $chapter-subtitle-align;
+  text-align: $section-subtitle-align;
   text-transform: $section-subtitle-text-transform;
   column-span: all;
 }
 
 // Author (outside .chapter-title-wrap)
-.chapter-author {
+h2.chapter-author {
   display: block;
   margin-bottom: $section-title-block-margin-bottom;
-  font-family: $font-1;
+  font-family: $font-1; // TODO
   font-size: $section-author-font-size;
   font-style: $section-author-font-style;
   font-weight: $section-author-font-weight;
   hyphens: none;
-  text-align: $chapter-author-align;
+  text-align: $section-author-align;
   text-transform: $section-author-text-transform;
 }
 
-.chapter-subtitle + .chapter-author {
+h2.chapter-subtitle + h2.chapter-author {
   margin-top: $section-subtitle-margin-bottom - $section-title-block-margin-bottom;
 }
 
-.chapter-title-wrap + .chapter-author {
+h2.chapter-title-wrap + h2.chapter-author {
   margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
 }
 
 // Aphorism (outside .chapter-title-wrap)
-.aphorism {
-  margin-bottom: 2em;
+blockquote.aphorism {
+  margin-bottom: $section-title-block-margin-bottom;
   text-align: $aphorism-align;
   text-indent: 0;
 
   cite {
     display: block;
-    font-size: .8em;
+    font-size: .8em; // TODO
 
     &::before {
       content: '–';
     }
   }
 }
+
+h2.chapter-author + blockquote.aphorism {
+  margin-top: $section-author-margin-bottom - $section-title-block-margin-bottom;
+}
+
+h2.chapter-subtitle + blockquote.aphorism {
+  margin-top: $section-subtitle-margin-bottom - $section-title-block-margin-bottom;
+}
+
+.chapter-title-wrap + blockquote.aphorism {
+  margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
+}
+
 
 // Numberless Chapters
 .numberless .chapter-number {

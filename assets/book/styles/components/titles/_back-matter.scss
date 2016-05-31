@@ -2,58 +2,56 @@
 //                                Back Matter                                 //
 //============================================================================//
 
-.back-matter-number {
-  display: none;
-  visibility: hidden;
-}
-
 .back-matter-title-wrap {
-  margin-top: $section-title-margin-top;
-  margin-bottom: $section-title-margin-bottom;
-}
+  margin-top: $section-title-block-margin-top;
+  margin-bottom: $section-title-block-margin-bottom;
 
-.back-matter-title {
-  display: block;
-  padding-bottom: $section-title-padding-bottom;
-  margin-top: $section-title-margin-top;
-  margin-bottom: .5em;
-  font-family: $section-title-font-family;
-  font-size: $section-title-font-size;
-  font-style: $section-title-font-style;
-  font-weight: $section-title-font-weight;
-  hyphens: none;
-  text-align: $back-matter-title-align;
-  text-transform: $section-title-text-transform;
+  .back-matter-number {
+    display: none;
+    visibility: hidden;
+  }
+
+  .back-matter-title {
+    display: block;
+    margin-bottom: .5em; // TODO
+    font-family: $section-title-font-family;
+    font-size: $section-title-font-size;
+    font-style: $section-title-font-style;
+    font-weight: $section-title-font-weight;
+    hyphens: none;
+    text-align: $back-matter-title-align;
+    text-transform: $section-title-text-transform;
+  }
 }
 
 // Bibliography
-
 .bibliography p {
-  padding-left: 2em;
-  font-size: .9em;
-  text-indent: -2em;
+  padding-left: 2em; // TODO
+  font-size: .9em; // TODO
+  text-indent: -2em; // TODO
 }
 
 // Index
+.index {
+  .ugc {
+    column-count: 2; // TODO
+    column-gap: 2.5em; // TODO
+  }
 
-.index .ugc {
-  column-count: 2;
-  column-gap: 2.5em;
-}
+  div {
+    margin-bottom: 4em; // TODO
+  }
 
-.index div {
-  margin-bottom: 4em;
-}
+  p,
+  .indent,
+  .no-indent {
+    padding-left: 2em; // TODO
+    font-size: .9em; // TODO
+    text-align: left;
+    text-indent: -2em; // TODO
+  }
 
-.index p,
-.index .indent,
-.index .no-indent {
-  padding-left: 2em;
-  font-size: .9em;
-  text-align: left;
-  text-indent: -2em;
-}
-
-.index .sub-entry {
-  padding-left: 4em;
+  .sub-entry {
+    padding-left: 4em; // TODO
+  }
 }

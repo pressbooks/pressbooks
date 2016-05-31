@@ -12,7 +12,7 @@
   page-break-before: $recto-verso-standard-opening;
 }
 
-.front-matter {
+div.front-matter {
   page-break-before: $recto-verso-first-section-opening;
 
   &.introduction {
@@ -24,22 +24,22 @@
   }
 }
 
-.part {
+div.part {
   page-break-before: $recto-verso-standard-opening;
 }
 
-.chapter {
+div.chapter {
   page-break-before: $recto-verso-first-section-opening;
 
-  + .chapter {
+  + div.chapter {
     page-break-before: $recto-verso-section-opening;
   }
 }
 
-.back-matter {
+div.back-matter {
   page-break-before: $recto-verso-first-section-opening;
 
-  + .back-matter {
+  + div.back-matter {
     page-break-before: $recto-verso-section-opening;
   }
 }

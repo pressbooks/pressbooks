@@ -22,7 +22,7 @@
   prince-page-group: start;
 }
 
-.front-matter {
+div.front-matter {
   page: front-matter;
   prince-page-group: start;
 
@@ -47,28 +47,28 @@
   }
 }
 
-.part {
+div.part {
   page: part;
   prince-page-group: start;
 }
 
-.chapter {
+div.chapter {
   page: chapter;
   prince-page-group: start;
 }
 
-.back-matter {
+div.back-matter {
   page: back-matter;
   prince-page-group: start;
 }
 
-.blank-page {
+div.blank-page {
   page: blank-page;
   prince-page-group: start;
 }
 
 // Page 1 Counter Reset
 
-.introduction {
+div.introduction {
   counter-reset: page 1;
 }

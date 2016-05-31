@@ -1,13 +1,30 @@
-//VARS
-//GLOBAL PAGE OPENINGS
+//============================================================================//
+//                            Variables | Titles                              //
+//============================================================================//
 
-//in this file:
-//--chapter number display
-//--margins
-//--font-sizes
-//--font-styles
-//--font-weights
-//--text-transforms
+// $section-title-block margins control the vertical spacing of the section
+// title, subtitle, author and aphorism with respect to the top of the page and
+// the start of the section content.
+
+// $part-number-margin-bottom and $chapter-number-margin-bottom determine the
+// spacing between the part or chapter number and the part or chapter title.
+
+// $section-title-margin-bottom determines the spacing between the section title
+// and subsequent section title elements such as subtitle, author and aphorism.
+
+// ---------------- ---
+// |              |  | $section-title-block-margin-top
+// |              |  |
+// |      ##      | ---
+// |   xxxxxxxx   | ---
+// |              |  | $section-title-block-margin-bottom
+// |  xxxxxxxxxxx | ---
+// | xxxxxxxxxxxx |
+// | xxxxxxxxxxxx |
+// | xxxxxxxxxxxx |
+// | xxxxxxxxxxxx |
+// ----------------
+
 
 // Chapter Number Display
 $chapter-number-display: inline-block !default;
@@ -16,28 +33,29 @@ $chapter-number-display: inline-block !default;
 @if $type == 'epub' {
   $section-title-block-margin-top: 3em !default;
   $section-title-block-margin-bottom: 2em !default;
-  $section-title-padding-bottom: 1.5em !default;
-  $section-title-margin-top: 2em !default;
   $section-title-margin-bottom: 2em !default;
-  $chapter-number-margin-top: 1em !default;
   $chapter-number-margin-bottom: 1em !default;
-  $section-subtitle-padding-top: 0 !default;
+  $part-number-margin-bottom: 1em !default;
   $section-subtitle-margin-bottom: .2em !default;
+  $section-subtitle-margin-bottom: .5em !default;
+  $section-author-margin-bottom: .5em !default;
 } @else if $type == 'prince' {
-    $section-title-block-margin-top: 3cm !default;
-    $section-title-block-margin-bottom: 2cm !default;
-    $section-title-padding-bottom: 1.5em !default;
-    $section-title-margin-top: 0 !default;
-    $section-title-margin-bottom: 1.5cm !default;
-    $chapter-number-margin-top: 0 !default;
-    $chapter-number-margin-bottom: .5cm !default;
-    $section-subtitle-padding-top: 0 !default;
-    $section-subtitle-margin-bottom: .2cm !default;
+  $section-title-block-margin-top: 3cm !default;
+  $section-title-block-margin-bottom: 2cm !default;
+  $section-title-margin-bottom: 1.5cm !default;
+  $chapter-number-margin-bottom: .5cm !default;
+  $part-number-margin-bottom: .5cm !default;
+  $section-subtitle-margin-bottom: .2cm !default;
+  $section-author-margin-bottom: .2cm !default;
 } @else if $type == 'web' {
-    $section-title-padding-bottom: 1.5em !default;
-    $section-title-margin-top: 2em !default;
-    $section-title-margin-bottom: 2em !default;
-    $chapter-number-margin-top: 0 !default;
+  $section-title-block-margin-top: 3em !default;
+  $section-title-block-margin-bottom: 2em !default;
+  $section-title-margin-bottom: 2em !default;
+  $chapter-number-margin-bottom: 1em !default;
+  $part-number-margin-bottom: 1em !default;
+  $section-subtitle-margin-bottom: .2em !default;
+  $section-subtitle-margin-bottom: .5em !default;
+  $section-author-margin-bottom: .5em !default;
 }
 
 $section-title-font-family: $font-2 !default;
@@ -53,8 +71,8 @@ $chapter-number-line-height: 1em !default;
     $title-title-font-size: 1.5em !default;
     $title-subtitle-font-size: 1em !default;
     $title-author-font-size: 1em !default;
-    $title-publisher-font-size: 0.9em !default;
-    $title-publisher-font-size: 0.9em !default;
+    $title-publisher-font-size: .9em !default;
+    $title-publisher-font-size: .9em !default;
 
     $part-number-font-size: 1em !default;
     $part-title-font-size: 1.5em !default;
@@ -69,8 +87,8 @@ $chapter-number-line-height: 1em !default;
     $title-title-font-size: 2em !default;
     $title-subtitle-font-size: 1.5em !default;
     $title-author-font-size: 1em !default;
-    $title-publisher-font-size: 0.9em !default;
-    $title-publisher-font-size: 0.9em !default;
+    $title-publisher-font-size: .9em !default;
+    $title-publisher-font-size: .9em !default;
 
 //prince font sizes - section opening
     $part-number-font-size: 1.5em !default;
@@ -191,8 +209,8 @@ $part-title-align: center !default;
 
 $chapter-number-align: center !default;
 $chapter-title-align: center !default;
-$chapter-subtitle-align: center !default;
-$chapter-author-align: center !default;
+$section-subtitle-align: center !default;
+$section-author-align: center !default;
 $aphorism-align: left !default;
 
 $back-matter-title-align: center !default;
