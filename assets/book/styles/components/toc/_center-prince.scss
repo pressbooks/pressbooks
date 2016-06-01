@@ -1,45 +1,37 @@
+// TODO
+
 @import 'mixins', 'toc-prince';
 
 #toc {
-  margin-right: .5cm;
-  margin-left: .5cm;
-  font-size: .9em;
-  page-break-before: right;
-  counter-reset: part;
+  margin-right: $toc-center-margin-right;
+  margin-left: $toc-center-margin-left;
 
   h1 {
     text-align: center;
   }
 
-  a {
-    color: inherit;
-    border: 0;
-  }
-
   a::after {
-    @include tocpage-number;
     display: inline;
-    text-decoration: none;
     content: '\A0\A0\A0' target-counter(attr(href), page);
   }
 
-  ul,
+  ul {
+    padding: 0;
+    margin: 0;
+    line-height: $toc-base-line-height;
+    text-align: center;
+    list-style: none;
+    counter-reset: chapter;
+  }
+
   li {
+    position: relative;
     padding-right: 0;
     padding-left: 0;
     margin-right: 0;
     margin-left: 0;
     text-align: center;
     list-style: none;
-  }
-
-  ul {
-    line-height: 1em;
-    counter-reset: chapter;
-  }
-
-  li {
-    position: relative;
   }
 
   li.front-matter {

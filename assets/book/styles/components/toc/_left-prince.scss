@@ -128,4 +128,11 @@
     counter-increment: chapter;
   }
 
+  li.section {
+    left: -1 * $toc-left-margin-left;
+  }
+
+  li.section a::after {
+    margin-right: -1 * $toc-left-margin-left;
+  }
 }

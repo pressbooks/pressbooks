@@ -27,7 +27,7 @@
   }
 
   ul {
-    line-height: 1.2em;
+    line-height: $toc-base-line-height;
   }
 
   li {
@@ -55,13 +55,12 @@
   .front-matter + .chapter,
   .chapter + .back-matter,
   .part + .back-matter {
-    margin-top: 1.3em;
+    margin-top: $toc-block-margin-top;
   }
 
   .part .toc-chapter-title {
     @include toc-part-title;
-    margin: 1.3em 0;
-    font-size: 1.2em;
+    margin-top: $toc-block-margin-top;
     text-align: left;
   }
 

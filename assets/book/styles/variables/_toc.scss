@@ -38,7 +38,11 @@ $toc-part-number-font-style: normal !default;
 $toc-part-number-font-weight: normal !default;
 $toc-part-number-text-transform: none !default;
 
-$toc-part-title-font-size: 1em !default;
+@if $type == 'prince' {
+  $toc-part-title-font-size: 1em !default;
+} @else if $type == 'epub' {
+  $toc-part-title-font-size: 1.2em !default;
+}
 $toc-part-title-font-style: normal !default;
 $toc-part-title-font-weight: normal !default;
 $toc-part-title-text-transform: none !default;
