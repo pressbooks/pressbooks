@@ -3,6 +3,9 @@
 @import 'mixins', 'toc-prince';
 
 #toc {
+
+  // General
+
   margin-right: $toc-center-margin-right;
   margin-left: $toc-center-margin-left;
 
@@ -16,52 +19,15 @@
   }
 
   ul {
-    padding: 0;
     margin: 0;
-    line-height: $toc-base-line-height;
     text-align: center;
-    list-style: none;
-    counter-reset: chapter;
   }
 
   li {
-    position: relative;
-    padding-right: 0;
-    padding-left: 0;
-    margin-right: 0;
-    margin-left: 0;
-    text-align: center;
-    list-style: none;
-  }
-
-  .front-matter,
-  .back-matter {
-    margin-top: $toc-section-margin-top;
-  }
-
-  .front-matter + .chapter,
-  .front-matter + .part,
-  .part + .chapter,
-  .part + .back-matter,
-  .chapter + .part,
-  .chapter + .back-matter {
-    margin-top: $toc-block-margin-top;
-  }
-
-  .front-matter .toc-chapter-title {
-    @include toc-front-matter-title;
     text-align: center;
   }
 
-  .introduction .toc-chapter-title {
-    @include toc-front-matter-title;
-    text-align: center;
-  }
-
-  .back-matter .toc-chapter-title {
-    @include toc-back-matter-title;
-    text-align: center;
-  }
+  // Parts
 
   .part {
     @include toc-part-title;
@@ -81,9 +47,27 @@
     content: '';
   }
 
-  .chapter {
-    margin-top: $toc-chapter-margin-top;
+  // Front Matter
+
+  .front-matter .toc-chapter-title {
+    @include toc-front-matter-title;
+    text-align: center;
   }
+
+  .introduction .toc-chapter-title {
+    @include toc-front-matter-title;
+    text-align: center;
+  }
+
+  .front-matter a::after {
+    content: '\A0\A0\A0' target-counter(attr(href), page, lower-roman);
+  }
+
+  .introduction a::after {
+    content: '\A0\A0\A0' target-counter(attr(href), page);
+  }
+
+  // Chapters
 
   .chapter a::before {
     @include toc-chapter-number;
@@ -100,8 +84,8 @@
     page-break-after: avoid;
   }
 
-  .chapter-author,
-  .chapter-subtitle {
+  .chapter-subtitle,
+  .chapter-author {
     display: none;
     text-align: center;
   }
@@ -114,11 +98,11 @@
     @include toc-chapter-author;
   }
 
-  .front-matter a::after {
-    content: '\A0\A0\A0' target-counter(attr(href), page, lower-roman);
+  // Back Matter
+
+  .back-matter .toc-chapter-title {
+    @include toc-back-matter-title;
+    text-align: center;
   }
 
-  .introduction a::after {
-    content: '\A0\A0\A0' target-counter(attr(href), page);
-  }
 }
