@@ -6,7 +6,7 @@
   font-style: $title-half-title-font-style;
   font-weight: $title-half-title-font-weight;
   hyphens: none;
-  text-align: $half-title-align;
+  text-align: $title-half-title-align;
   text-transform: $title-half-title-text-transform;
 }
 
@@ -65,15 +65,15 @@ h5.publisher-city {
   float: bottom;
   margin-top: 0;
   font-family: $title-publisher-city-font-family;
-  font-size: $title-publisher-font-size;
-  font-style: $title-publisher-font-style;
-  font-weight: $title-publisher-font-weight;
+  font-size: $title-publisher-city-font-size;
+  font-style: $title-publisher-city-font-style;
+  font-weight: $title-publisher-city-font-weight;
   hyphens: none;
   line-height: $title-publisher-city-line-height;
   letter-spacing: $title-publisher-city-letter-spacing;
   word-spacing: $title-publisher-city-word-spacing;
   text-align: $title-publisher-city-align;
-  text-transform: $title-publisher-text-transform;
+  text-transform: $title-publisher-city-text-transform;
 }
 
 // Prince and EPUB-specific disply rules
