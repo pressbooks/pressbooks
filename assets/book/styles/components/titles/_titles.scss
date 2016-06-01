@@ -1,7 +1,7 @@
 // Half Title Page
 #half-title-page > h1.title {
   margin-top: $section-title-block-margin-top;
-  font-family: $font-2; // TODO
+  font-family: $title-half-title-font-family;
   font-size: $title-half-title-font-size;
   font-style: $title-half-title-font-style;
   font-weight: $title-half-title-font-weight;
@@ -13,7 +13,7 @@
 // Title Page
 h1.title {
   margin-top: $section-title-block-margin-top;
-  font-family: $font-2; // TODO
+  font-family: $title-title-font-family;
   font-size: $title-title-font-size;
   font-style: $title-title-font-style;
   font-weight: $title-title-font-weight;
@@ -23,7 +23,7 @@ h1.title {
 }
 
 h2.subtitle {
-  font-family: $font-3; // TODO
+  font-family: $title-subtitle-font-family;
   font-size: $title-subtitle-font-size;
   font-style: $title-subtitle-font-style;
   font-weight: $title-subtitle-font-weight;
@@ -33,14 +33,14 @@ h2.subtitle {
 }
 
 h3.author {
-  margin-top: $title-author-margin-top; // TODO
-  font-family: $font-2; // TODO
+  margin-top: $title-author-margin-top;
+  font-family: $title-author-font-family;
   font-size: $title-author-font-size;
   font-style: $title-author-font-style;
   font-weight: $title-author-font-weight;
   hyphens: none;
-  letter-spacing: 1px; // TODO
-  word-spacing: 2px; // TODO
+  letter-spacing: $title-author-letter-spacing;
+  word-spacing: $title-author-word-spacing;
   text-align: $title-author-align;
   text-transform: $title-author-text-transform;
 }
@@ -48,30 +48,30 @@ h3.author {
 h4.publisher {
   display: block;
   float: bottom;
-  margin-bottom: .5em; // TODO
-  font-family: $font-3; // TODO
+  margin-bottom: $title-publisher-margin-bottom;
+  font-family: $title-publisher-font-family;
   font-size: $title-publisher-font-size;
   font-style: $title-publisher-font-style;
   font-weight: $title-publisher-font-weight;
   hyphens: none;
-  line-height: 1em; // TODO
-  letter-spacing: 1px; // TODO
-  word-spacing: 2px; // TODO
+  line-height: $title-publisher-line-height;
+  letter-spacing: $title-publisher-letter-spacing;
+  word-spacing: $title-publisher-word-spacing;
   text-align: $title-publisher-align;
   text-transform: $title-publisher-text-transform;
 }
 
 h5.publisher-city {
   float: bottom;
-  margin-top: 0; // TODO
-  font-family: $font-3; // TODO
+  margin-top: 0;
+  font-family: $title-publisher-city-font-family;
   font-size: $title-publisher-font-size;
   font-style: $title-publisher-font-style;
   font-weight: $title-publisher-font-weight;
   hyphens: none;
-  line-height: 1em; // TODO
-  letter-spacing: 1px; // TODO
-  word-spacing: 2px; // TODO
+  line-height: $title-publisher-city-line-height;
+  letter-spacing: $title-publisher-city-letter-spacing;
+  word-spacing: $title-publisher-city-word-spacing;
   text-align: $title-publisher-city-align;
   text-transform: $title-publisher-text-transform;
 }
