@@ -1,103 +1,103 @@
-// GLOBAL EPUB TOC - LEFT
-
 @import 'mixins';
-
-  /* EPUB TABLE OF CONTENTS new
-======================= */
 
 #toc {
   margin: 5%;
-}
 
-#toc h1 {
-  margin-bottom: 2em;
-  display: block;
-  padding-bottom: 1.5em;
-}
-#toc ul {
-  line-height: 1.2;
-}
-#toc ul, #toc li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#toc li {
-  margin-bottom: 0.25em;
-}
-#toc ul .front-matter,
-#toc ul .back-matter {
-  margin-bottom: 0.25em;
-}
+  h1 {
+    display: block;
+    padding-bottom: 1.5em;
+    margin-bottom: 2em;
+  }
 
-#toc a {
-  border: none;
-  color: inherit;
-}
-#toc a:after {
-  font-style: normal;
-  text-decoration: none;
-}
+  a {
+    color: inherit;
+    border: 0;
+  }
 
-/* TOC FRONT-MATTER/BACKMATTER */
+  a::after {
+    font-style: normal;
+    text-decoration: none;
+  }
 
-#toc .front-matter {
-  @include tocfrontmattertitle;
-}
+  ul,
+  li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
 
-#toc li.front-matter.introduction span.toc-chapter-title {
-  font-style: normal;
-}
+  ul {
+    line-height: 1.2em;
+  }
 
-#toc .back-matter {
-  @include tocbackmattertitle;
-}
+  li {
+    margin-bottom: .25em;
+  }
 
-#toc .front-matter + .part,
-#toc .front-matter + .chapter,
-#toc .chapter + .back-matter,
-#toc .part + .backmatter {
-  margin-top: 1.3em;
-}
+  .front-matter,
+  .back-matter {
+    margin-bottom: .25em;
+  }
 
-/* TOC PARTS */
+  .front-matter {
+    @include toc-front-matter-title;
+  }
 
-#toc .part .toc-chapter-title {
-  @include tocparttitle;
-  font-size: 1.2em;
-  margin: 1.3em 0 1.3em;
-  text-align: left;
-}
+  .front-matter.introduction .toc-chapter-title {
+    font-style: normal;
+  }
 
-/* TOC CHAPTER STYLING  */
-#toc span.toc-chapter-title {
-  @include tocchaptertitle;
-  margin-top: 0.5em;
-  display: block;
-}
-#toc span.chapter-author{
-  @include tocchapterauthor;
-  display: block;
-  padding-left: 2em;
-  margin-bottom: 0.3em;
-}
-#toc span.chapter-subtitle {
-  @include tocchaptersubtitle;
-  display: block;
-  padding-left: 2em;
-  margin-bottom: 0.3em;
-}
-#toc span.chapter-subtitle +
-span.chapter-author {
-  margin-top: -0.5em;
-  margin-bottom: 0.5em;
-}
+  .back-matter {
+    @include toc-back-matter-title;
+  }
 
-#toc ul.sections {
-  padding-top: 0.5em !important;
-  padding-bottom: 0.5em !important;
-  margin-left: 2em !important;
-  font-size: 0.9em;
-}
+  .front-matter + .part,
+  .front-matter + .chapter,
+  .chapter + .back-matter,
+  .part + .back-matter {
+    margin-top: 1.3em;
+  }
 
-#toc li.section { font-style: italic; }
+  .part .toc-chapter-title {
+    @include toc-part-title;
+    margin: 1.3em 0;
+    font-size: 1.2em;
+    text-align: left;
+  }
+
+  .toc-chapter-title {
+    @include toc-chapter-title;
+    display: block;
+    margin-top: .5em;
+  }
+
+  .chapter-author {
+    @include toc-chapter-author;
+    display: block;
+    padding-left: 2em;
+    margin-bottom: .3em;
+  }
+
+  .chapter-subtitle {
+    @include toc-chapter-subtitle;
+    display: block;
+    padding-left: 2em;
+    margin-bottom: .3em;
+  }
+
+  .chapter-subtitle + .chapter-author {
+    margin-top: -.5em;
+    margin-bottom: .5em;
+  }
+
+  ul.sections {
+    padding-top: .5em;
+    padding-bottom: .5em;
+    margin-left: 2em;
+    font-size: .9em;
+  }
+
+  .section {
+    font-style: italic;
+  }
+}

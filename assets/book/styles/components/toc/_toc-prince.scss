@@ -1,53 +1,52 @@
-//GLOBAL TOC STYLING
-/* GLOBAL TOC THINGS */ 
-
-#toc .chapter.numberless a::before {
-  content:'';
-  counter-increment: none;
-  margin-right: 0;
-  left: 0;
-  width: 0;
-}
-#toc .part.invisible {
-  display: none;
-}
-#toc li {
-  page-break-inside: avoid;
-}
-#toc .part {
-  page-break-after: avoid;
-}
-#toc .chapter .section a::before {
-  content:'';
-  counter-increment: none;
+@page toc {
+  @include blank-head-and-foot;
 }
 
-/* AVOID ADDING A SUB-LEVEL HEADING ENTRY IN PDF-READING SOFTWARE TOC */ 
+#toc {
+  .chapter.numberless a::before {
+    left: 0;
+    width: 0;
+    margin-right: 0;
+    content: '';
+    counter-increment: none;
+  }
 
-h3.front-matter-number, 
-h3.part-number, 
-h3.chapter-number, 
-h3.back-matter-number {
-  bookmark-level: none;
+  .part.invisible {
+    display: none;
+  }
+
+  li {
+    page-break-inside: avoid;
+  }
+
+  .part {
+    page-break-after: avoid;
+  }
+
+  h3.front-matter-number,
+  h3.part-number,
+  h3.chapter-number,
+  h3.back-matter-number {
+    bookmark-level: none;
+  }
+
+  ul.sections {
+    padding-top: .5em;
+  }
+
+  li.section {
+    right: -1cm;
+    left: -1cm;
+    margin-top: .75em;
+    font-style: italic;
+  }
+
+  li.section a::before {
+    content: '';
+    counter-increment: none;
+  }
+
+  li.section a::after {
+    margin-right: -1cm;
+  }
 }
-
-/* TOC SECTIONS */
-
-ul.sections {
-  padding-top: 0.5em !important;
-}
-li.section {
-  font-style: italic;
-  margin-top: 0.75em;
-  left: -1cm;
-  right: -1cm;
-  position: fixed;
-}
-li.section a::after {
- margin-right: -1cm;
-}
-
-
-
-
-
