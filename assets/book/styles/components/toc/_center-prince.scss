@@ -34,22 +34,18 @@
     list-style: none;
   }
 
-  li.front-matter {
-    margin-top: .3em;
-    text-align: center;
+  .front-matter,
+  .back-matter {
+    margin-top: $toc-section-margin-top;
   }
 
-  li.back-matter {
-    margin-top: .3em;
-    text-align: center;
-  }
-
-  li.chapter + li.back-matter {
-    margin-top: 2em;
-  }
-
-  li.part + li.back-matter {
-    margin-top: 1.5em;
+  .front-matter + .chapter,
+  .front-matter + .part,
+  .part + .chapter,
+  .part + .back-matter,
+  .chapter + .part,
+  .chapter + .back-matter {
+    margin-top: $toc-block-margin-top;
   }
 
   .front-matter .toc-chapter-title {
@@ -69,8 +65,6 @@
 
   .part {
     @include toc-part-title;
-    margin-top: 2em;
-    margin-bottom: 1.5em;
     text-align: center;
     page-break-after: avoid;
   }
@@ -78,7 +72,7 @@
   .part a::before {
     display: block;
     text-align: center;
-    content: 'Part ' counter(part, upper-roman)'.\A0'; // TODO
+    content: $part '\A0' counter(part, upper-roman)'.\A0';
     counter-increment: part;
     page-break-after: avoid;
   }
@@ -88,7 +82,7 @@
   }
 
   .chapter {
-    margin-top: .75em;
+    margin-top: $toc-chapter-margin-top;
   }
 
   .chapter a::before {
@@ -101,7 +95,7 @@
 
   .toc-chapter-title {
     @include toc-chapter-title;
-    display: inline-block;
+    display: inline;
     text-align: center;
     page-break-after: avoid;
   }

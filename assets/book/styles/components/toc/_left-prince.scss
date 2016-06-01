@@ -69,7 +69,7 @@
   .part a::before {
     @include toc-part-number;
     text-align: left;
-    content: 'Part ' counter(part, upper-roman) '.\A0'; // TODO
+    content: $part '\A0' counter(part, upper-roman)'.\A0';
     counter-increment: part;
   }
 

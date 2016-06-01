@@ -22,7 +22,7 @@
 
     &::before {
       text-transform: $part-number-prefix-text-transform;
-      content: $part + ' ';
+      content: $part + '\A0';
     }
   }
 
