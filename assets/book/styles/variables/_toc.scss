@@ -2,6 +2,22 @@
 //                              Variables | TOC                               //
 //============================================================================//
 
+$toc-left-margin-left: 1cm !default;
+$toc-left-page-number-top: .2em !default;
+$toc-left-chapter-number-width: 2em !default;
+$toc-left-chapter-number-margin-right: .5em !default;
+
+$toc-center-margin-right: .5cm !default;
+$toc-center-margin-left: .5cm !default;
+
+$toc-block-margin-top: 1.5em !default;
+$toc-section-margin-top: .5em !default;
+$toc-chapter-margin-top: .3em !default;
+$toc-title-width: 80% !default;
+$toc-sub-width: 75% !default;
+
+$toc-base-line-height: 1.2em !default;
+
 $toc-front-matter-title-font-size: .9em !default;
 $toc-front-matter-title-font-style: normal !default;
 $toc-front-matter-title-font-weight: normal !default;
@@ -51,8 +67,14 @@ $toc-page-number-font-size: 1em !default;
 $toc-page-number-font-style: normal !default;
 $toc-page-number-font-weight: normal !default;
 $toc-page-number-text-transform: none !default;
+$toc-page-number-text-decoration: none !default;
 
 $toc-front-matter-page-number-font-size: .9em !default;
 $toc-front-matter-page-number-font-style: normal !default;
 $toc-front-matter-page-number-font-weight: normal !default;
 $toc-front-matter-page-number-text-transform: none !default;
+
+$toc-section-title-font-size: 1em !default;
+$toc-section-title-font-style: italic !default;
+$toc-section-title-font-weight: normal !default;
+$toc-section-title-text-transform: none !default;

@@ -3,6 +3,19 @@
 }
 
 #toc {
+  counter-reset: part;
+  page-break-before: right;
+
+
+  a {
+    color: inherit;
+    border: 0;
+  }
+
+  a::after {
+    @include toc-page-number;
+  }
+
   .chapter.numberless a::before {
     left: 0;
     width: 0;
@@ -35,10 +48,11 @@
   }
 
   li.section {
-    right: -1cm;
     left: -1cm;
-    margin-top: .75em;
-    font-style: italic;
+    margin-top: .5em;
+    font-size: $toc-section-title-font-size;
+    font-style: $toc-section-title-font-style;
+    font-weight: $toc-section-title-font-weight;
   }
 
   li.section a::before {
