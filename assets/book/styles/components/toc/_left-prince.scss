@@ -127,4 +127,9 @@
   .section a::after {
     margin-right: -1 * $toc-left-margin-left;
   }
+
+  .section a::before {
+    display: none;
+  }
+
 }

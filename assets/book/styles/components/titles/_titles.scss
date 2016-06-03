@@ -6,6 +6,8 @@
   font-style: $title-half-title-font-style;
   font-weight: $title-half-title-font-weight;
   hyphens: none;
+  letter-spacing: $title-half-title-letter-spacing;
+  word-spacing: $title-half-title-word-spacing;
   text-align: $title-half-title-align;
   text-transform: $title-half-title-text-transform;
 }
@@ -18,6 +20,8 @@ h1.title {
   font-style: $title-title-font-style;
   font-weight: $title-title-font-weight;
   hyphens: none;
+  letter-spacing: $title-title-letter-spacing;
+  word-spacing: $title-title-word-spacing;
   text-align: $title-title-align;
   text-transform: $title-title-text-transform;
 }
@@ -28,6 +32,8 @@ h2.subtitle {
   font-style: $title-subtitle-font-style;
   font-weight: $title-subtitle-font-weight;
   hyphens: none;
+  letter-spacing: $title-subtitle-letter-spacing;
+  word-spacing: $title-subtitle-word-spacing;
   text-align: $title-subtitle-align;
   text-transform: $title-subtitle-text-transform;
 }
