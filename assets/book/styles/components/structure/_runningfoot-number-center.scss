@@ -20,10 +20,6 @@
 
 // Front Matter
 
-@page front-matter:first {
-  @include blank-foot;
-}
-
 @page front-matter:left {
   @bottom {
     content: counter(page, lower-roman);
@@ -41,10 +37,6 @@
 }
 
 // Introduction
-
-@page introduction:first {
-  @include blank-foot;
-}
 
 @page introduction:left {
   @bottom {
@@ -85,10 +77,6 @@
 
 // Chapters
 
-@page chapter:first {
-  @include blank-foot;
-}
-
 @page chapter:left {
   @bottom {
     content: counter(page);
@@ -106,10 +94,6 @@
 }
 
 // Back Matter
-
-@page back-matter:first {
-  @include blank-foot;
-}
 
 @page back-matter:left {
   @bottom {
