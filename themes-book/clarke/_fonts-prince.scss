@@ -1,0 +1,10 @@
+@import '_font-stack-prince'; // Dynamically generated
+
+$serif-prince: serif !default;
+$sans-serif-prince: sans-serif !default;
+
+$font-1: "Tinos", Georgia, $serif-prince;
+$font-2: 'Lato', Helvetica, Arial, $sans-serif-prince;
+
+@import 'LatoFont';
+@import 'TinosFont';

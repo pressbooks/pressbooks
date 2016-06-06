@@ -1,15 +1,16 @@
+@import 'mixins', 'fonts-epub',  'epub-house-style';
 
 body {
 	font-family: $font-1;
 	line-height: 1.5em;
-}
+}	 
 a {
 	color: #9A3D4B;
 	text-decoration: none;
 }
 
 /*
-   DEFAULT STYLES
+   DEFAULT STYLES 
  =================== */
 p {
 	margin: 0;
@@ -26,31 +27,31 @@ p + p,
 p + ul {
 	margin-top: 10px;
 }
-hr.break-symbols {
-	border: medium none;
-	margin: 0 0 20px;
-	padding: 20px 0;
-	text-align: center;
-}
-hr.break-symbols:after {
-	content: "\273D\A\273D\A\273D";
-	display: block;
-	font-size: 0.9em;
-	line-height: 0.8em;
-}
-hr.break-blank {
-	border: medium none;
-	margin: 0 0 20px;
-	padding: 20px 0;
-	text-align: center;
+hr.break-symbols { 
+	border: medium none; 
+	margin: 0 0 20px; 
+	padding: 20px 0; 
+	text-align: center; 
+} 
+hr.break-symbols:after { 
+	content: "\273D\A\273D\A\273D"; 
+	display: block; 
+	font-size: 0.9em; 
+	line-height: 0.8em; 
+} 
+hr.break-blank { 
+	border: medium none; 
+	margin: 0 0 20px; 
+	padding: 20px 0; 
+	text-align: center; 
 }
 ol {
-	padding-left: 2em;
+	padding-left: 2em;	
 }
 
 ul {
 	list-style: disc;
- 	padding-left: 30px;
+ 	padding-left: 30px;	
 }
 ul ul,
 ul ul ul {
@@ -78,7 +79,7 @@ td {
     padding: 10px;
 }
 
-dl {
+dl { 
 	margin-bottom: 30px;
 }
 dt {
@@ -92,12 +93,16 @@ div.blockquote,
 .blockquote {
 	border-width: 0 4px;
 	font-size: 0.8em;
+	line-height: 1.5em;
 	font-family: $font-2;
 	padding: 0 15px;
 }
+.hanging-indent {
+	padding-left: 1em;
+    text-indent: -1em;
+}
 
-
-/*
+/* 
 	 HEADERS
  =============== */
 h1, h2, h3, h4, h5, h6 {
@@ -143,7 +148,7 @@ h3 {
     margin-bottom: 0.5em;
 }
 
-/*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART
+/*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART  
 ========================================================= */
 .display-none, .front-matter-number, .back-matter-number {
 	display: none;
@@ -154,9 +159,9 @@ h3 {
 .chapter-title-wrap,
 .back-matter-title-wrap {
 	border-top: 1px solid #000;
-	font-weight: normal;
-	margin-bottom: 1.5cm;
-	text-align: left;
+	font-weight: normal;	
+	margin-bottom: 1.5cm;		
+	text-align: left;	
 }
 .front-matter-title,
 .chapter-title,
@@ -182,16 +187,16 @@ div.chapter.numberless h3.chapter-number {
 }
 /*  BODY TITLES
 ===================	*/
-.ugc h1,
-.ugc h2,
-.ugc h3,
-.ugc h4,
-.ugc h5,
+.ugc h1, 
+.ugc h2, 
+.ugc h3, 
+.ugc h4, 
+.ugc h5, 
 .ugc h6 {
-	page-break-after:avoid;
+	page-break-after:avoid;	
 }
 
-/* TABLE OF CONTENT
+/* TABLE OF CONTENT 
  ===================== */
 #toc ul {
 	list-style: none;
@@ -229,11 +234,11 @@ div.chapter.numberless h3.chapter-number {
 #toc span.chapter-subtitle {
 	margin-bottom: 5px;
 }
-#toc span.chapter-subtitle +
+#toc span.chapter-subtitle + 
 span.chapter-author,
-#toc span.chapter-subtitle +
+#toc span.chapter-subtitle + 
 span.chapter-license,
-span.chapter-author +
+span.chapter-author + 
 span.chapter-license {
 	margin-top: -5px;
 	margin-bottom: 5px;
@@ -243,7 +248,7 @@ span.chapter-license {
 ================== */
 img {
 	height: auto;
-    max-width: 100%;
+    max-width: 100%;	
 }
 .alignleft {
 	float: left;
@@ -271,7 +276,7 @@ img.aligncenter {
 .wp-caption {
 	height: auto;
     max-width: 100%;
-   	margin: 1em 0;
+   	margin: 1em 0; 	
 }
 .wp-caption-text {
 	font-size: 0.875em;
@@ -381,7 +386,7 @@ blockquote.aphorism {
 /* FOOTNOTES & ENDNOTES
 ======================== */
 .footnotes {
-	display: block;
+	display: block;	
     font-size: 0.875em;
     margin: 20px 10px 40px 40px;
 }
@@ -392,7 +397,7 @@ blockquote.aphorism {
 }
 .footnotes p + p {
 	text-indent: 0;
-}
+} 
 .footnotes .footnotes-wrap p {
 	text-indent: -1em;
 }
@@ -415,7 +420,7 @@ sup.footnote, sup.endnote {
 	font-size: 1.2em;
 	font-style: normal;
 	font-weight: bold;
-	text-align: center;
+	text-align: center;	
 }
 .endnotes ol {
 	font-size: 0.7em;
@@ -457,3 +462,4 @@ sup.footnote, sup.endnote {
 }
 
 @import 'mobi-house-style';
+  
