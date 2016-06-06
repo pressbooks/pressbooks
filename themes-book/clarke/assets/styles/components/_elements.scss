@@ -1,5 +1,24 @@
 // Elements
 
+$body-font-size: 12pt !default;
+$body-line-height: 1.2em !default;
+$para-indent: 2em !default;
+$widows: 3 !default;
+$orphans: 3 !default;
+$hx-line-height: 1.4em !default;
+$h1-font-family: $font-2 !default;
+$h1-font-weight: normal !default;
+$h2-font-family: $font-2 !default;
+$h2-font-weight: normal !default;
+$h3-font-family: $font-2 !default;
+$h3-font-weight: normal !default;
+$h4-font-family: $font-2 !default;
+$h4-font-weight: normal !default;
+$h5-font-family: $font-2 !default;
+$h5-font-weight: normal !default;
+$h6-font-family: $font-2 !default;
+$h6-font-weight: normal !default;
+
 // Override variables above this line, using the !default flag to allow further overrides.
 @import 'variables/elements';
 
