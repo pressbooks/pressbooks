@@ -1,0 +1,105 @@
+//===================================
+// Running Foot First Page Outside (Page Number)
+//===================================
+
+// Displays the page number on the outside edge of the running foot on the first
+// page.
+
+// -------------------------------
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// | #            |            # |
+// -------------------------------
+
+@import 'mixins', 'blank';
+
+// Front Matter
+
+@page front-matter:first {
+  @bottom-left {
+    content: counter(page, lower-roman);
+    @include front-matter-page-number;
+  }
+}
+
+@page front-matter:left {
+  @include blank-foot;
+}
+
+@page front-matter:right {
+  @include blank-foot;
+}
+
+// Introduction
+
+@page introduction:first {
+  @bottom-left {
+    content: counter(page);
+    @include page-number;
+  }
+}
+
+@page introduction:left {
+  @include blank-foot;
+}
+
+@page introduction:right {
+  @include blank-foot;
+}
+
+// Parts
+
+@page part:first {
+  @bottom-left {
+    content: counter(page);
+    @include page-number;
+  }
+}
+
+@page part:left {
+  @include blank-foot;
+}
+
+@page part:right {
+  @include blank-foot;
+}
+
+// Chapters
+
+@page chapter:first {
+  @bottom-left {
+    content: counter(page);
+    @include page-number;
+  }
+}
+
+@page chapter:left {
+  @include blank-foot;
+}
+
+@page chapter:right {
+  @include blank-foot;
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @bottom-left {
+    content: counter(page);
+    @include page-number;
+  }
+}
+
+@page back-matter:left {
+  @include blank-foot;
+}
+
+@page back-matter:right {
+  @include blank-foot;
+}

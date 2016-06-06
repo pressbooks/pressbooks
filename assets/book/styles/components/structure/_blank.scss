@@ -1,0 +1,108 @@
+//========================
+// Blank Headers & Footers
+//========================
+
+// Blank Head
+
+@mixin blank-head {
+  @top {
+    content: '';
+  }
+  @top-right {
+    content: '';
+  }
+  @top-right-corner {
+    content: '';
+  }
+  @top-left {
+    content: '';
+  }
+  @top-left-corner {
+    content: '';
+  }
+}
+
+// Blank Foot
+
+@mixin blank-foot {
+  @bottom {
+    content: '';
+  }
+  @bottom-right {
+    content: '';
+  }
+  @bottom-right-corner {
+    content: '';
+  }
+  @bottom-left {
+    content: '';
+  }
+  @bottom-left-corner {
+    content: '';
+  }
+}
+
+// Blank Head & Foot
+
+@mixin blank-head-and-foot {
+  @include blank-head;
+  @include blank-foot;
+}
+
+// Applications of the above
+
+@page before-title {
+  @include blank-head-and-foot;
+}
+
+@page halftitle-page {
+  @include blank-head-and-foot;
+}
+
+@page title-page {
+  @include blank-head-and-foot;
+}
+
+@page epigraph {
+  @include blank-head-and-foot;
+}
+
+@page dedication {
+  @include blank-head-and-foot;
+}
+
+@page copyright-page {
+  @include blank-head-and-foot;
+}
+
+@page toc {
+  @include blank-head-and-foot;
+}
+
+@page front-matter:blank {
+  @include blank-head-and-foot;
+}
+
+@page introduction:blank {
+  @include blank-head-and-foot;
+}
+
+@page part:blank {
+  @include blank-head-and-foot;
+}
+
+@page chapter:blank {
+  @include blank-head-and-foot;
+}
+
+@page back-matter:blank {
+  @include blank-head-and-foot;
+}
+
+@page:blank {
+  @include blank-head-and-foot;
+}
+
+@page blank-page {
+  @include blank-head-and-foot;
+}

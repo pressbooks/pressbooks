@@ -302,7 +302,7 @@ if ( ! function_exists( 'pressbooks_theme_options_display' ) ) :
 function pressbooks_theme_options_display() { ?>
 	<div class="wrap">
 		<div id="icon-themes" class="icon32"></div>
-		<h2><?php echo wp_get_theme(); ?> Theme Options</h2>
+		<h2><?php echo wp_get_theme(); ?> <?php _e('Theme Options', 'pressbooks'); ?></h2>
 		<?php settings_errors(); ?>
 		<?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'global_options'; ?>
 		<h2 class="nav-tab-wrapper">
@@ -534,7 +534,13 @@ function pressbooks_theme_global_typography_callback( $args ) {
 	}
 
 	$languages = \Pressbooks\Container::get( 'GlobalTypography' )->getSupportedLanguages();
+
 	$already_supported_languages = \Pressbooks\Container::get( 'GlobalTypography' )->getThemeSupportedLanguages();
+
+	if ( $already_supported_languages == false ) {
+		$already_supported_languages = [];
+	}
+
 	$already_supported_languages_string = '';
 
 	$i = 1;

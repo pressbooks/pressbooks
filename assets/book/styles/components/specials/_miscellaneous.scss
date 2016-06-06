@@ -1,0 +1,73 @@
+//============================================================================//
+//                               Miscellaneous                                //
+//============================================================================//
+
+// No Hyphens
+.no-hyphens {
+  hyphens: none;
+}
+
+
+// No Wrap
+.nowrap {
+  white-space: nowrap;
+}
+
+// Display None
+.display-none {
+  display: none;
+}
+
+// Format-specific content
+@mixin epub-display-none {
+  .epub-display-none,
+  .not-epub {
+    display: none;
+  }
+
+  .web-only {
+    display: none;
+  }
+
+  .pdf-only {
+    display: none;
+  }
+}
+
+@mixin pdf-display-none {
+  .pdf-display-none,
+  .not-pdf {
+    display: none;
+  }
+
+  .web-only {
+    display: none;
+  }
+
+  .epub-only {
+    display: none;
+  }
+}
+
+@mixin web-display-none {
+  .web-display-none,
+  .not-web {
+    display: none;
+  }
+
+  .epub-only {
+    display: none;
+  }
+
+  .pdf-only {
+    display: none;
+  }
+}
+
+@if type == 'epub' {
+	@include epub-display-none;
+} @else if type == 'prince' {
+	@include pdf-display-none;
+} @else if type == 'web' {
+	@include web-display-none;
+}

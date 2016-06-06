@@ -1,0 +1,118 @@
+//============================================================================//
+//                                   Textboxes                                //
+//============================================================================//
+
+.textbox {
+  padding: $textbox-padding-top $textbox-padding-right $textbox-padding-bottom $textbox-padding-left;
+  margin: $textbox-margin-top $textbox-margin-right $textbox-margin-bottom $textbox-margin-left;
+  font-size: $textbox-font-size;
+  font-style: $textbox-font-style;
+  font-weight: $textbox-font-weight;
+  line-height: $textbox-line-height;
+  border-color: $textbox-border-color;
+  border-style: $textbox-border-style;
+  border-width: $textbox-border-width;
+  border-radius: $textbox-border-radius;
+
+  p {
+    margin-top: $textbox-para-margin-top;
+    margin-bottom: $textbox-para-margin-bottom;
+    text-indent: 0;
+  }
+
+  .textbox-caption {
+    display: block;
+    margin: 0;
+    font-family: $textbox-caption-font-family;
+    font-size: $textbox-caption-font-size;
+    font-style: $textbox-caption-font-style;
+    font-weight: $textbox-caption-font-weight;
+  }
+
+  &.shaded {
+    background-color: $textbox-shaded-background-color;
+  }
+}
+
+@mixin educational-textbox() {
+  float: none;
+  padding-top: $edu-textbox-padding-top;
+  padding-right: $edu-textbox-padding-right;
+  padding-bottom: $edu-textbox-padding-bottom;
+  padding-left: $edu-textbox-padding-left;
+  margin-bottom: $edu-textbox-margin-bottom;
+  border-radius: $edu-textbox-border-radius;
+
+  h3 {
+    padding-top: $edu-header-padding-top;
+    padding-right: $edu-header-padding-right;
+    padding-bottom: $edu-header-padding-bottom;
+    padding-left: $edu-header-padding-left;
+    margin-top: $edu-header-margin-top;
+    margin-right: $edu-header-margin-right;
+    margin-bottom: $edu-header-margin-bottom;
+    margin-left: $edu-header-margin-left;
+    color: $edu-header-text-color;
+    text-align: center;
+  }
+}
+
+.learning-objectives {
+  @include educational-textbox();
+  background-color: $learning-objectives-background;
+
+  h3 {
+    background-color: $learning-objectives-header-background;
+    border-top-right-radius: $edu-textbox-border-radius;
+    border-top-left-radius: $edu-textbox-border-radius;
+  }
+}
+
+.key-takeaways {
+  @include educational-textbox();
+  background-color: $key-takeaways-background;
+
+  h3 {
+    background-color: $key-takeaways-header-background;
+    border-top-right-radius: $edu-textbox-border-radius;
+    border-top-left-radius: $edu-textbox-border-radius;
+  }
+}
+
+.exercises {
+  @include educational-textbox();
+  background-color: $exercises-background;
+
+  h3 {
+    background-color: $exercises-header-background;
+    border-top-right-radius: $edu-textbox-border-radius;
+    border-top-left-radius: $edu-textbox-border-radius;
+  }
+}
+
+.examples {
+  @include educational-textbox();
+  background-color: $examples-background;
+
+  h3 {
+    background-color: $examples-header-background;
+    border-top-right-radius: $edu-textbox-border-radius;
+    border-top-left-radius: $edu-textbox-border-radius;
+  }
+}
+
+.bcc-box {
+  @extend .textbox;
+}
+
+.bcc-highlight {
+  @extend .learning-objectives;
+}
+
+.bcc-success {
+  @extend .key-takeaways;
+}
+
+.bcc-info {
+  @extend .exercises;
+}

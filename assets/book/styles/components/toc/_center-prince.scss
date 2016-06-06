@@ -1,0 +1,108 @@
+// TODO
+
+@import 'mixins', 'toc-prince';
+
+#toc {
+
+  // General
+
+  margin-right: $toc-center-margin-right;
+  margin-left: $toc-center-margin-left;
+
+  h1 {
+    text-align: center;
+  }
+
+  a::after {
+    display: inline;
+    content: '\A0\A0\A0' target-counter(attr(href), page);
+  }
+
+  ul {
+    margin: 0;
+    text-align: center;
+  }
+
+  li {
+    text-align: center;
+  }
+
+  // Parts
+
+  .part {
+    @include toc-part-title;
+    text-align: center;
+    page-break-after: avoid;
+  }
+
+  .part a::before {
+    display: block;
+    text-align: center;
+    content: $part '\A0' counter(part, upper-roman)'.\A0';
+    counter-increment: part;
+    page-break-after: avoid;
+  }
+
+  .part a::after {
+    content: '';
+  }
+
+  // Front Matter
+
+  .front-matter .toc-chapter-title {
+    @include toc-front-matter-title;
+    text-align: center;
+  }
+
+  .introduction .toc-chapter-title {
+    @include toc-front-matter-title;
+    text-align: center;
+  }
+
+  .front-matter a::after {
+    content: '\A0\A0\A0' target-counter(attr(href), page, lower-roman);
+  }
+
+  .introduction a::after {
+    content: '\A0\A0\A0' target-counter(attr(href), page);
+  }
+
+  // Chapters
+
+  .chapter a::before {
+    @include toc-chapter-number;
+    display: inline;
+    content: counter(chapter) '.\A0\A0\A0';
+    counter-increment: chapter;
+    page-break-after: avoid;
+  }
+
+  .toc-chapter-title {
+    @include toc-chapter-title;
+    display: inline;
+    text-align: center;
+    page-break-after: avoid;
+  }
+
+  .chapter-subtitle,
+  .chapter-author {
+    display: none;
+    text-align: center;
+  }
+
+  .chapter-subtitle {
+    @include toc-chapter-subtitle;
+  }
+
+  .chapter-author {
+    @include toc-chapter-author;
+  }
+
+  // Back Matter
+
+  .back-matter .toc-chapter-title {
+    @include toc-back-matter-title;
+    text-align: center;
+  }
+
+}

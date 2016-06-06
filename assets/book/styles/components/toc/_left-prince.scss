@@ -1,0 +1,135 @@
+@import 'mixins', 'toc-prince';
+
+#toc {
+
+  // General
+
+  h1 {
+    text-align: left;
+  }
+
+  a {
+    margin-left: 0;
+  }
+
+  a::after {
+    position: absolute;
+    top: $toc-left-page-number-top;
+    right: 0;
+    line-height: $toc-base-line-height;
+    vertical-align: top;
+    content: target-counter(attr(href), page);
+  }
+
+  ul {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: $toc-left-margin-left;
+    text-align: left;
+  }
+
+  li {
+    text-align: left;
+  }
+
+  // Parts
+
+  .part {
+    @include toc-part-title;
+    width: $toc-title-width;
+    page-break-after: avoid;
+  }
+
+  .part a::before {
+    @include toc-part-number;
+    text-align: left;
+    content: $part '\A0' counter(part, upper-roman)'.\A0';
+    counter-increment: part;
+  }
+
+  .part a::after {
+    content: '';
+  }
+
+  // Front Matter
+
+  .front-matter .toc-chapter-title {
+    @include toc-front-matter-title;
+    position: relative;
+    display: block;
+  }
+
+  .front-matter a::after {
+    @include toc-front-matter-page-number;
+    content: leader(' ') target-counter(attr(href), page, lower-roman);
+  }
+
+  .introduction a::after {
+    content: leader(' ') target-counter(attr(href), page);
+  }
+
+  // Chapters
+
+  .chapter a::before {
+    @include toc-chapter-number;
+    position: relative;
+    left: -1 * $toc-left-chapter-number-width + $toc-left-chapter-number-margin-right;
+    display: inline-block;
+    width: $toc-left-chapter-number-width;
+    margin-right: -1 * $toc-left-chapter-number-width;
+    line-height: $toc-base-line-height;
+    text-align: right;
+    vertical-align: top;
+    content: counter(chapter) '. ';
+    counter-increment: chapter;
+  }
+
+  .toc-chapter-title {
+    @include toc-chapter-title;
+    position: relative;
+    top: 0;
+    display: inline-block;
+    width: $toc-title-width;
+    text-indent: 0;
+    vertical-align: top;
+  }
+
+  .chapter-subtitle,
+  .chapter-author {
+    display: inline-block;
+    width: $toc-sub-width;
+    text-indent: 0;
+  }
+
+  .chapter-subtitle {
+    @include toc-chapter-subtitle;
+  }
+
+  .chapter-author {
+    @include toc-chapter-author;
+  }
+
+  // Back Matter
+
+  .back-matter .toc-chapter-title {
+    @include toc-back-matter-title;
+    position: relative;
+    display: block;
+  }
+
+  // Subsections (Multilevel TOC)
+
+  .section {
+    left: -1 * $toc-left-margin-left;
+  }
+
+  .section a::after {
+    margin-right: -1 * $toc-left-margin-left;
+  }
+
+  .section a::before {
+    display: none;
+  }
+
+}

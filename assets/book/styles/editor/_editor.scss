@@ -1,0 +1,98 @@
+$type: 'web';
+
+@import 'fonts';
+@import '../components/colors';
+@import '../components/elements';
+@import '../components/specials';
+@import '../components/media';
+@import '../components/titles';
+@import '../components/structure';
+@import '../components/toc';
+@import 'fonts';
+
+@if variable-exists(font-1) {
+  body#tinymce.wp-editor {
+    font-family: $font-1;
+  }
+}
+
+@if variable-exists(font-2) {
+  body#tinymce.wp-editor {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: $font-2;
+    }
+  }
+}
+
+body#tinymce.wp-editor {
+  table { min-width: 50%; }
+
+  .indent {
+    margin-top: 0;
+    text-indent: 2em;
+  }
+
+  .no-indent {
+    text-indent: 0;
+  }
+
+  .hanging-indent {
+    padding-left: 1em;
+    text-indent: -1em;
+  }
+
+  .textbox {
+    &.learning-objectives,
+    &.key-takeaways,
+    &.exercises,
+    &.examples {
+      width: auto;
+    }
+  }
+
+  .pullquote {
+    width: 45%;
+    padding: 5px 0;
+    margin: 20px auto;
+    text-align: center;
+    border: 1px solid #000;
+    border-width: 1px 0;
+
+    &.pullquote-left {
+      float: left;
+      padding: 5px 0;
+      margin: .8em 15px .8em 0;
+    }
+
+    &.pullquote-right {
+      float: right;
+      padding: 5px 0;
+      margin: .8em 0 .8em 15px;
+    }
+  }
+
+  hr.break-symbols {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    border: 0;
+
+    &::after {
+      display: block;
+      font-size: 18pt;
+      text-align: center;
+      content: '\066D';
+    }
+  }
+
+  img,
+  .wp-caption,
+  .wp-nocaption {
+    height: auto;
+    max-width: 100%;
+  }
+}

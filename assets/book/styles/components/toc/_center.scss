@@ -1,0 +1,7 @@
+@if $type == 'epub' {
+  // TODO
+} @else if $type == 'prince' {
+  @import 'center-prince';
+} @else if $type == 'web' {
+  // TODO
+}

@@ -1,0 +1,128 @@
+//===================================
+// Running Foot Center (Content)
+//===================================
+
+// Displays user-defined content in the center of the running foot.
+
+// -------------------------------
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |    lfoot     |     rfoot    |
+// -------------------------------
+
+@import 'mixins', 'blank';
+
+// Front Matter
+
+@page front-matter:first {
+  @include blank-foot;
+}
+
+@page front-matter:left {
+  @bottom {
+    content: $front-matter-running-content-left;
+    @include runningfoot-left;
+    text-align: center;
+  }
+}
+
+@page front-matter:right {
+  @bottom {
+    content: $front-matter-running-content-right;
+    @include runningfoot-right;
+    text-align: center;
+  }
+}
+
+// Introduction
+
+@page introduction:first {
+  @include blank-foot;
+}
+
+@page introduction:left {
+  @bottom {
+    content: $introduction-running-content-left;
+    @include runningfoot-left;
+    text-align: center;
+  }
+}
+
+@page introduction:right {
+  @bottom {
+    content: $introduction-running-content-right;
+    @include runningfoot-right;
+    text-align: center;
+  }
+}
+
+// Parts
+
+@page part:first {
+  @include blank-foot;
+}
+
+@page part:left {
+  @bottom {
+    content: $part-running-content-left;
+    @include runningfoot-left;
+    text-align: center;
+  }
+}
+@page part:right {
+  @bottom {
+    content: $part-running-content-right;
+    @include runningfoot-right;
+    text-align: center;
+  }
+}
+
+// Chapters
+
+@page chapter:first {
+  @include blank-foot;
+}
+
+@page chapter:left {
+  @bottom {
+    content: $chapter-running-content-left;
+    @include runningfoot-left;
+    text-align: center;
+  }
+}
+
+@page chapter:right {
+  @bottom {
+    content: $chapter-running-content-right;
+    @include runningfoot-right;
+    text-align: center;
+  }
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @include blank-foot;
+}
+
+@page back-matter:left {
+  @bottom {
+    content: $back-matter-running-content-left;
+    @include runningfoot-left;
+    text-align: center;
+  }
+}
+
+@page back-matter:right {
+  @bottom {
+    content: $back-matter-running-content-right;
+    @include runningfoot-right;
+    text-align: center;
+  }
+}

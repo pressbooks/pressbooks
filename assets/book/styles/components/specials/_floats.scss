@@ -1,0 +1,29 @@
+//============================================================================//
+//                                   Floats                                   //
+//============================================================================//
+
+.clear {
+  clear: both;
+}
+
+@mixin special-floats {
+  .float-top {
+    float: top;
+  }
+
+  .float-bottom {
+    float: bottom;
+  }
+
+  .float-none {
+    float: none;
+  }
+
+  .clear {
+    clear: both;
+  }
+}
+
+@if $type == 'prince' {
+	@include special-floats;
+}

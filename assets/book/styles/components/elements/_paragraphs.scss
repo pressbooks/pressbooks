@@ -1,0 +1,87 @@
+//============================================================================//
+//                                 Paragraphs                                 //
+//============================================================================//
+
+p {
+  margin-bottom: $para-margin-bottom;
+  text-align: $para-align;
+  widows: $widows;
+  orphans: $orphans;
+}
+
+p + p,
+.indent {
+  margin-top: $para-margin-top;
+  text-indent: $para-indent;
+}
+
+.no-indent {
+  margin-top: $para-no-indent-margin-top;
+  text-indent: 0;
+}
+
+// Hyphenation
+
+body,
+p {
+  hyphens: $para-hyphens;
+  hyphenate-before: $para-hyphenate-before;
+  hyphenate-after: $para-hyphenate-after;
+  hyphenate-lines: $para-hyphenate-lines;
+}
+
+#copyright-page p,
+.dedication p,
+.epigraph p {
+  hyphens: none;
+}
+
+// When paragraphs follow a floated element, make sure indents work as expected.
+// NOTE: this should only happen when paragraph separators = indent.
+
+.wp-caption.alignleft + p,
+.wp-nocaption.alignleft + p,
+.wp-caption.alignright + p,
+.wp-nocaption.alignright + p,
+.float-top + p,
+.float-bottom + p,
+.pullquote + p,
+.pullquote-right + p,
+.pullquote-left + p,
+.pullquote-outside + p,
+.sidebar + p {
+  margin-top: $para-margin-top;
+  text-indent: $para-indent;
+}
+
+// Hanging Indents
+.hanging-indent {
+  padding-left: $para-hanging-indent-padding-left;
+  text-indent: $para-hanging-indent-text-indent;
+}
+
+@mixin paragraph-tracking {
+  .tight {
+    letter-spacing: $para-tight-letter-spacing;
+    word-spacing: $para-tight-word-spacing;
+  }
+
+  .very-tight {
+    letter-spacing: $para-very-tight-letter-spacing;
+    word-spacing: $para-very-tight-word-spacing;
+  }
+
+  .loose {
+    letter-spacing: $para-loose-letter-spacing;
+    word-spacing: $para-loose-word-spacing;
+  }
+
+  .very-loose {
+    letter-spacing: $para-very-loose-letter-spacing;
+    word-spacing: $para-very-loose-word-spacing;
+  }
+}
+
+@if type == 'prince' {
+  @include paragraph-tracking;
+}

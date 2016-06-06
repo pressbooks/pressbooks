@@ -1,0 +1,17 @@
+//============================================================================//
+//                                Blockquotes                                 //
+//============================================================================//
+
+.blockquote,
+blockquote {
+  margin-top: $blockquote-margin-top;
+  margin-right: $blockquote-margin-right;
+  margin-bottom: $blockquote-margin-bottom;
+  margin-left: $blockquote-margin-left;
+  font-family: $blockquote-font-family;
+  font-size: $blockquote-font-size;
+  font-style: $blockquote-font-style;
+  font-weight: $blockquote-font-weight;
+  line-height: $blockquote-line-height;
+  text-align: $blockquote-align;
+}

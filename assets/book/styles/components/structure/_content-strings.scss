@@ -1,0 +1,77 @@
+//========================
+// Content String Settings
+//========================
+
+// Title Page
+
+#title-page > {
+  .title {
+    string-set: book-title content();
+  }
+
+  .short-book-title,
+  .short-book-title {
+    visibility: hidden;
+    string-set: book-title content();
+  }
+
+  .subtitle {
+    string-set: book-subtitle content();
+  }
+
+  .author {
+    string-set: book-author content();
+  }
+
+  .publisher {
+    string-set: book-publisher content();
+  }
+
+  .publisher-city {
+    string-set: book-publisher-city content();
+  }
+}
+
+// Parts
+
+.part-title-wrap {
+  .part-number {
+    string-set: part-number content();
+  }
+
+  .part-title {
+    string-set: part-title content();
+  }
+}
+
+// Sections (Front Matter, Chapters, Back Matter)
+
+.chapter-number {
+  string-set: chapter-number content();
+}
+
+.front-matter .front-matter-title-wrap > h1,
+.chapter .chapter-title-wrap > h2,
+.back-matter .back-matter-title-wrap > h1 {
+  string-set: section-title content();
+}
+
+// If the 'short-title' property is available, this will override the section
+// title for use in the running head.
+
+.front-matter > .ugc .short-title,
+.chapter > .ugc .short-title,
+.back-matter > .ugc .short-title {
+  width: 0;
+  height: 0;
+  visibility: hidden; // display: none causes issues with string-set
+  string-set: section-title content();
+}
+
+.ugc .chapter-author {
+  string-set: chapter-author content();
+}
+
+.ugc .chapter-subtitle {
+  string-set: chapter-subtitle content();
+}

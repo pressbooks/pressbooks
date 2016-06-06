@@ -1,0 +1,25 @@
+//============================================================================//
+//                               Miscellaneous                                //
+//============================================================================//
+
+// Cite
+cite {
+  font-size: $cite-font-size;
+  font-style: $cite-font-style;
+  font-weight: $cite-font-weight;
+  text-transform: $cite-text-transform;
+  font-variant: $cite-font-variant;
+}
+
+// Code & Pre
+code,
+pre {
+  font-family: $code-font-family;
+}
+
+// Superscript & Subscript
+sup,
+sub {
+  font-size: $sup-sub-font-size;
+  line-height: $sup-sub-line-height;
+}
