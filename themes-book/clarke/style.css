@@ -1,56 +1,12 @@
 /*
 Theme Name: Clarke
-Theme URI: http://pressbooks.com/themes/clarke
+Theme URI: https://pressbooks.com/themes/clarke
 Description: Named after Arthur C. Clarke, this is a simple book theme, with some light modern touches. Good for fiction and non-fiction. Body font is Times New Roman; headers Helvetica.
 Author: Pressbooks (Book Oven Inc.)
-Author URI: http://pressbooks.com
-Copyright 2011-2015 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
-Version: 1.6
+Author URI: https://pressbooks.com
+Copyright 2011-2016 Book Oven Inc. (Pressbooks.com) code@pressbooks.com
+Version: 2.0-dev
 Template: pressbooks-book
 */
-body {
-  font-family: "Times New Roman", Georgia, serif;
-  line-height: 1.5em;
-}
 
-a {
-  text-decoration: none;
-}
-
-/* 
-	 HEADERS
- =============== */
-h1, h2, h3, h4, h5, h6 {
-  font-family: Helvetica, Arial, sans-serif;
-  font-variant: normal;
-  font-weight: bold;
-  line-height: 1.4em;
-  text-align: left;
-}
-
-h1 {
-  font-size: 1.5em;
-}
-
-h2 {
-  font-size: 1.2em;
-}
-
-h3 {
-  font-size: 1.1em;
-}
-
-h2, h3, h4 {
-  font-style: normal;
-}
-
-/*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART  
-========================================================= */
-.entry-title {
-  border-top: 1px solid #666;
-  font-size: 1.4em;
-  font-weight: normal;
-  margin: 0.25em auto 1.25em;
-  padding: 15px 15px 0 0;
-  text-align: left;
-}
+/* This doesn't do anything. */

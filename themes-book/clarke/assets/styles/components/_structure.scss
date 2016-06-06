@@ -1,0 +1,13 @@
+// Structure
+
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/structure';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/structure/general';
+@import 'components/structure/recto-verso';
+@import 'components/structure/numbering';
+@import 'components/structure/content-strings';
+@import 'components/structure/runninghead-content-center';
+@import 'components/structure/runningfoot-number-center';
+@import 'components/structure/index';
