@@ -241,7 +241,7 @@ function update_editor_style() {
 		$scss = file_get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
 		$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
 	} else {
-		$scss = file_get_contents( $sass->pathToPartials() . '_editor.scss' );
+		$scss = file_get_contents( $sass->pathToPartials() . '/_editor.scss' );
 		$css = $sass->compile( $scss, [
 			$sass->pathToUserGeneratedSass(),
 			$sass->pathToPartials(),
