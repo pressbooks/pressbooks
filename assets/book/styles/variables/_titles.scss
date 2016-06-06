@@ -91,6 +91,16 @@ $title-author-word-spacing: 2px !default;
 $title-author-align: center !default;
 $title-author-text-transform: uppercase !default;
 
+// Publisher Logo
+
+$title-publisher-logo-display: block !default;
+$title-publisher-logo-width: 20% !default;
+$title-publisher-logo-padding-top: .75em !default;
+$title-publisher-logo-padding-bottom: .75em !default;
+$title-publisher-logo-margin-right: auto !default;
+$title-publisher-logo-margin-left: auto !default;
+$title-publisher-logo-text-align: center !default;
+
 // Publisher
 $title-publisher-font-family: $font-3 !default;
 $title-publisher-font-style: normal !default;

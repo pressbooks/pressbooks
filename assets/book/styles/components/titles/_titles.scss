@@ -51,6 +51,17 @@ h3.author {
   text-transform: $title-author-text-transform;
 }
 
+div.publisher-logo {
+  display: $title-publisher-logo-display;
+  width: $title-publisher-logo-width;
+  height: auto;
+  padding-top: $title-publisher-logo-padding-top;
+  padding-bottom: $title-publisher-logo-padding-bottom;
+  margin-right: $title-publisher-logo-margin-right;
+  margin-left: $title-publisher-logo-margin-left;
+  text-align: $title-publisher-logo-text-align;
+}
+
 h4.publisher {
   display: block;
   float: bottom;

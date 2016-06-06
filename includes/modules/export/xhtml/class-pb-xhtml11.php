@@ -593,9 +593,11 @@ class Xhtml11 extends Export {
 		} else {
 			printf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			printf( '<h2 class="subtitle">%s</h2>', @$metadata['pb_subtitle'] );
-			printf( '<div class="logo"></div>' ); // TODO: Support custom publisher logo.
 			printf( '<h3 class="author">%s</h3>', @$metadata['pb_author'] );
 			printf( '<h4 class="contributing-authors">%s</h4>', @$metadata['pb_contributing_authors'] );
+			if ( current_theme_supports('pressbooks_publisher_logo') ) {
+				printf( '<div class="publisher-logo"><img src="%s" /></div>',  get_theme_support('pressbooks_publisher_logo')[0]['logo_uri']); // TODO: Support custom publisher logo.
+			}
 			printf( '<h4 class="publisher">%s</h4>', @$metadata['pb_publisher'] );
 			printf( '<h5 class="publisher-city">%s</h5>', @$metadata['pb_publisher_city'] );
 		}
