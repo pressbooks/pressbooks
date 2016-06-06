@@ -1,7 +1,6 @@
 $type: 'web';
 
 @import 'fonts';
-@import '../components/alignment';
 @import '../components/colors';
 @import '../components/elements';
 @import '../components/specials';
@@ -19,68 +18,81 @@ $type: 'web';
 
 @if variable-exists(font-2) {
   body#tinymce.wp-editor {
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       font-family: $font-2;
     }
   }
 }
 
 body#tinymce.wp-editor {
-	table {
-		min-width: 50%; }
-	.indent {
-		text-indent: 2em;
-		margin-top: 0;
-	}
-	.nonindent,
-	.no-indent {
-		text-indent: 0;
-	}
-	.hanging-indent {
-		padding-left: 1em;
-	    	text-indent: -1em;
-	}
-	@include tables();
-	@include textboxes();
-	.textbox {
-		&.learning-objectives, &.key-takeaways, &.exercises, &.examples {
-			width: auto;
-		}
-	}
-	.pullquote {
-		border: 1px solid #000;
-		border-width: 1px 0;
-		margin: 20px auto;
-		padding: 5px 0;
-		text-align: center;
-		width: 45%;
-		&.pullquote-left {
-			float: left;
-			margin: 0.8em 15px 0.8em 0;
-			padding: 5px 0;
-		}
-		&.pullquote-right {
-			float: right;
-			margin: 0.8em 0 0.8em 15px;
-			padding: 5px 0;
-		}
-	}
-	hr.break-symbols {
-		border: none;
-		font-size: 1.1em;
-	    margin-bottom: 20px;
-	    &:after {
-			display: block;
-			content: "\066D";
-			font-size: 18pt;
-			text-align: center;
-	    }
-	}
+  table { min-width: 50%; }
 
-	img,
-	.wp-caption,
-	.wp-nocaption {
-		max-width: 100%;
-		height: auto;
-	}
+  .indent {
+    margin-top: 0;
+    text-indent: 2em;
+  }
+
+  .no-indent {
+    text-indent: 0;
+  }
+
+  .hanging-indent {
+    padding-left: 1em;
+    text-indent: -1em;
+  }
+
+  .textbox {
+    &.learning-objectives,
+    &.key-takeaways,
+    &.exercises,
+    &.examples {
+      width: auto;
+    }
+  }
+
+  .pullquote {
+    width: 45%;
+    padding: 5px 0;
+    margin: 20px auto;
+    text-align: center;
+    border: 1px solid $black;
+    border-width: 1px 0;
+
+    &.pullquote-left {
+      float: left;
+      padding: 5px 0;
+      margin: .8em 15px .8em 0;
+    }
+
+    &.pullquote-right {
+      float: right;
+      padding: 5px 0;
+      margin: .8em 0 .8em 15px;
+    }
+  }
+
+  hr.break-symbols {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    border: 0;
+
+    &::after {
+      display: block;
+      font-size: 18pt;
+      text-align: center;
+      content: '\066D';
+    }
+  }
+
+  img,
+  .wp-caption,
+  .wp-nocaption {
+    height: auto;
+    max-width: 100%;
+  }
 }
