@@ -27,6 +27,7 @@ h1.title {
 }
 
 h2.subtitle {
+  margin-top: $title-subtitle-margin-top;
   font-family: $title-subtitle-font-family;
   font-size: $title-subtitle-font-size;
   font-style: $title-subtitle-font-style;

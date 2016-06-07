@@ -1,5 +1,33 @@
 // Titles
 
+$title-half-title-align: left !default;
+$title-title-align: left !default;
+$title-subtitle-align: left !default;
+$title-subtitle-font-style: normal !default;
+$title-author-align: left !default;
+$title-author-text-transform: none !default;
+$title-publisher-align: left !default;
+$title-publisher-city-align: left !default;
+
+$section-title-text-transform: none !default;
+
+@if $type == 'epub' {
+
+} @else if $type == 'prince' {
+  $title-half-title-font-size: 21pt !default;
+  $title-title-font-size: 21pt !default;
+  $title-subtitle-margin-top: 1cm !default;
+  $title-subtitle-font-size: 16pt !default;
+  $title-author-margin-top: 1cm !default;
+  $title-author-font-size: 13pt !default;
+  $title-publisher-font-size: 10pt !default;
+  $title-publisher-city-font-size: 10pt !default;
+  $before-title-title-block-margin-top: 1.5cm !default;
+  $section-title-block-margin-top: 6cm !default;
+  $copyright-margin-bottom: .5em !default;
+  $copyright-font-size: 9pt !default;
+} @else if $type == 'web' {
+}
 // Override variables above this line, using the !default flag to allow further overrides.
 @import 'variables/titles';
 
@@ -9,3 +37,8 @@
 @import 'components/titles/front-matter';
 @import 'components/titles/chapters';
 @import 'components/titles/back-matter';
+
+.before-title .front-matter-title-wrap .front-matter-number,
+.before-title .front-matter-title-wrap .front-matter-title {
+  display: none;
+}

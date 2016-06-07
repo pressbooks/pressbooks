@@ -33,8 +33,10 @@
 
 // Copyright Page
 #copyright-page {
+  page-break-before: always;
+
   .ugc {
-    margin-top: $section-title-block-margin-top;
+    float: $copyright-float;
 
     p {
       margin-bottom: $copyright-margin-bottom;

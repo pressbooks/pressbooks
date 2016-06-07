@@ -91,27 +91,15 @@
 
 @page part:left {
   @bottom-left {
-    content: $part-running-content-left;
+    content: counter(page) $runningfoot-separator $part-running-content-left;
     @include runningfoot-left;
-  }
-
-  @bottom-left-corner {
-    content: counter(page) $runningfoot-separator;
-    @include page-number;
-    margin-left: -1cm;
   }
 }
 
 @page part:right {
   @bottom-right {
-    content: $part-running-content-right;
+    content: $part-running-content-right $runningfoot-separator counter(page);
     @include runningfoot-right;
-  }
-
-  @bottom-right-corner {
-    content: $runningfoot-separator counter(page);
-    @include page-number;
-    margin-right: -1cm;
   }
 }
 
@@ -123,27 +111,15 @@
 
 @page chapter:left {
   @bottom-left {
-    content: $chapter-running-content-left;
+    content: counter(page) $runningfoot-separator $chapter-running-content-left;
     @include runningfoot-left;
-  }
-
-  @bottom-left-corner {
-    content: counter(page) $runningfoot-separator;
-    @include page-number;
-    margin-left: -1cm;
   }
 }
 
 @page chapter:right {
   @bottom-right {
-    content: $chapter-running-content-right;
+    content: $chapter-running-content-right $runningfoot-separator counter(page);
     @include runningfoot-right;
-  }
-
-  @bottom-right-corner {
-    content: $runningfoot-separator counter(page);
-    @include page-number;
-    margin-right: -1cm;
   }
 }
 
@@ -155,26 +131,14 @@
 
 @page back-matter:left {
   @bottom-left {
-    content: $back-matter-running-content-left;
+    content: counter(page) $runningfoot-separator $back-matter-running-content-left;
     @include runningfoot-left;
-  }
-
-  @bottom-left-corner {
-    content: counter(page) $runningfoot-separator;
-    @include page-number;
-    margin-left: -1cm;
   }
 }
 
 @page back-matter:right {
   @bottom-right {
-    content: $back-matter-running-content-right;
+    content: $back-matter-running-content-right $runningfoot-separator counter(page);
     @include runningfoot-right;
-  }
-
-  @bottom-right-corner {
-    content: $runningfoot-separator counter(page);
-    @include page-number;
-    margin-right: -1cm;
   }
 }

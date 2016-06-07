@@ -27,24 +27,14 @@
 
 @page front-matter:left {
   @top-left {
-    content: $front-matter-running-content-left;
+    content: counter(page, lower-roman) $runninghead-separator $front-matter-running-content-left;
     @include runninghead-left;
-  }
-
-  @top-left-corner {
-    content: counter(page, lower-roman) $runninghead-separator;
-    @include front-matter-page-number;
   }
 }
 
 @page front-matter:right {
   @top-right {
-    content: $front-matter-running-content-right;
-    @include front-matter-page-number;
-  }
-
-  @top-right-corner {
-    content: $runninghead-separator counter(page, lower-roman);
+    content: $front-matter-running-content-right $runninghead-separator counter(page, lower-roman);
     @include front-matter-page-number;
   }
 }
@@ -57,26 +47,15 @@
 
 @page introduction:left {
   @top-left {
-    content: $introduction-running-content-left;
+    content: counter(page) $runninghead-separator $introduction-running-content-left;
     @include runninghead-left;
-  }
-
-  @top-left-corner {
-    content: counter(page) $runninghead-separator;
-    @include page-number;
-
   }
 }
 
 @page introduction:right {
   @top-right {
-    content: $introduction-running-content-right;
+    content: $introduction-running-content-right $runninghead-separator counter(page);
     @include runninghead-right;
-  }
-
-  @top-right-corner {
-    content: $runninghead-separator counter(page);
-    @include page-number;
   }
 }
 
@@ -88,25 +67,15 @@
 
 @page part:left {
   @top-left {
-    content: $part-running-content-left;
+    content: counter(page) $runninghead-separator $part-running-content-left;
     @include runninghead-left;
-  }
-
-  @top-left-corner {
-    content: counter(page) $runninghead-separator;
-    @include page-number;
   }
 }
 
 @page part:right {
   @top-right {
-    content: $part-running-content-right;
+    content: $part-running-content-right $runninghead-separator counter(page);
     @include runninghead-right;
-  }
-
-  @top-right {
-    content: $runninghead-separator counter(page);
-    @include page-number;
   }
 }
 
@@ -118,25 +87,15 @@
 
 @page chapter:left {
   @top-left {
-    content: $chapter-running-content-left;
+    content: counter(page) $runninghead-separator $chapter-running-content-left;
     @include runninghead-left;
-  }
-
-  @top-left-corner {
-    content: counter(page) $runninghead-separator;
-    @include page-number;
   }
 }
 
 @page chapter:right {
   @top-right {
-    content: $chapter-running-content-right;
+    content: $chapter-running-content-right $runninghead-separator counter(page);
     @include runninghead-right;
-  }
-
-  @top-right-corner {
-    content: $runninghead-separator counter(page);
-    @include page-number;
   }
 }
 
@@ -148,24 +107,14 @@
 
 @page back-matter:left {
   @top-left {
-    content: $back-matter-running-content-left;
+    content: counter(page) $runninghead-separator $back-matter-running-content-left;
     @include runninghead-left;
-  }
-
-  @top-left-corner {
-    content: counter(page) $runninghead-separator;
-    @include page-number;
   }
 }
 
 @page back-matter:right {
   @top-right {
-    content: $back-matter-running-content-right;
+    content: $back-matter-running-content-right $runninghead-separator counter(page);
     @include runninghead-right;
-  }
-
-  @top-right-corner {
-    content: $runninghead-separator counter(page);
-    @include page-number;
   }
 }
