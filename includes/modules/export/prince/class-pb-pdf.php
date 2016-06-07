@@ -106,7 +106,9 @@ class Pdf extends Export {
 		$prince->setHTML( true );
 		$prince->setCompress( true );
 		$prince->addStyleSheet( $css_file );
-		$prince->addScript( $this->exportScriptPath );
+		if ( $this->exportScriptPath ) {
+			$prince->addScript( $this->exportScriptPath );
+		}
 		$prince->setLog( $this->logfile );
 		$retval = $prince->convert_file_to_file( $this->url, $this->outputPath, $msg );
 
