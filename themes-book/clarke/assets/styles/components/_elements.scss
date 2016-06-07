@@ -31,6 +31,7 @@ $h5-text-transform: none !default;
 $h6-font-family: $font-2 !default;
 $h6-font-weight: normal !default;
 $h6-text-transform: none !default;
+$cite-text-transform: none !default;
 
 // Override variables above this line, using the !default flag to allow further overrides.
 @import 'variables/elements';
