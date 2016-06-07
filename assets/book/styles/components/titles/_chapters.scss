@@ -72,6 +72,9 @@ h2.chapter-title-wrap + h2.chapter-author {
 // Aphorism (outside .chapter-title-wrap)
 blockquote.aphorism {
   margin-bottom: $section-title-block-margin-bottom;
+  font-family: $body-font-family;
+  font-size: $body-font-size;
+  line-height: $body-line-height;
   text-align: $aphorism-align;
   text-indent: 0;
 

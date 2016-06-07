@@ -8,13 +8,24 @@ $title-author-align: left !default;
 $title-author-text-transform: none !default;
 $title-publisher-align: left !default;
 $title-publisher-city-align: left !default;
-
+$section-title-font-weight: normal !default;
 $section-title-text-transform: none !default;
+$part-number-align: left !default;
+$part-title-font-weight: normal !default;
+$part-title-align: left !default;
+$part-title-text-transform: none !default;
+$chapter-number-font-weight: normal !default;
+$chapter-title-align: left !default;
+$section-subtitle-align: left !default;
+$section-author-align: left !default;
+$section-author-text-transform: none !default;
+$aphorism-align: center !default;
 
 @if $type == 'epub' {
 
 } @else if $type == 'prince' {
   $title-half-title-font-size: 21pt !default;
+  $title-title-block-margin-top: 6cm !default;
   $title-title-font-size: 21pt !default;
   $title-subtitle-margin-top: 1cm !default;
   $title-subtitle-font-size: 16pt !default;
@@ -23,7 +34,19 @@ $section-title-text-transform: none !default;
   $title-publisher-font-size: 10pt !default;
   $title-publisher-city-font-size: 10pt !default;
   $before-title-title-block-margin-top: 1.5cm !default;
-  $section-title-block-margin-top: 6cm !default;
+  $part-number-font-size: 16pt !default;
+  $part-title-font-size: 21pt !default;
+  $section-title-block-margin-top: 0 !default;
+  $section-title-block-margin-bottom: 2cm !default;
+  $section-title-margin-bottom: .125cm !default;
+  $section-title-font-size: 16pt !default;
+  $section-subtitle-margin-bottom: .125cm !default;
+  $section-subtitle-font-size: 13pt !default;
+  $chapter-number-font-size: 16pt !default;
+  $chapter-number-margin-bottom: .125em !default;
+  $section-author-margin-bottom: .625cm !default;
+  $section-author-font-size: 10pt !default;
+  $aphorism-cite-font-size: .875em !default;
   $copyright-margin-bottom: .5em !default;
   $copyright-font-size: 9pt !default;
 } @else if $type == 'web' {
@@ -41,4 +64,40 @@ $section-title-text-transform: none !default;
 .before-title .front-matter-title-wrap .front-matter-number,
 .before-title .front-matter-title-wrap .front-matter-title {
   display: none;
+}
+
+.part-number::before {
+  content: '' !important;
+}
+
+.part-title-wrap,
+.front-matter-title-wrap,
+.chapter-title-wrap,
+.back-matter-title-wrap {
+  border-top: 1px solid #000;
+
+  .part-number,
+  .chapter-number,
+  .chapter-title {
+    margin-top: .5cm;
+  }
+}
+
+.dedication .front-matter-title-wrap,
+.disclaimer .front-matter-title-wrap,
+.epigraph .front-matter-title-wrap,
+.before-title .front-matter-title-wrap {
+  border-top: 0;
+}
+
+.aphorism {
+  width: 70%;
+  margin-right: auto;
+  margin-left: auto;
+  font-style: italic;
+
+  cite {
+    text-align: right;
+    font-variant: small-caps;
+  }
 }

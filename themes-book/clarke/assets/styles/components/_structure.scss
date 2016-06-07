@@ -29,6 +29,8 @@ $runningfoot-right-font-family: $font-2 !default;
 $runningfoot-right-font-size: .75em !default;
 $runningfoot-right-letter-spacing: normal !default;
 
+$recto-verso-section-opening: right !default;
+
 // Override variables above this line, using the !default flag to allow further overrides.
 @import 'variables/structure';
 
