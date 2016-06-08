@@ -127,38 +127,6 @@ $title-publisher-city-word-spacing: 2px !default;
 $title-publisher-city-align: center !default;
 $title-publisher-city-text-transform: uppercase !default;
 
-// --- PARTS --- //
-@if $type == 'epub' {
-  $part-number-margin-bottom: 1em !default;
-  $part-number-font-size: 1em !default;
-  $part-title-font-size: 1.5em !default;
-} @else if $type == 'prince' {
-  $part-number-margin-bottom: .5cm !default;
-  $part-number-font-size: 1.5em !default;
-  $part-title-font-size: 2.5em !default;
-} @else if $type == 'web' {
-  $part-number-margin-bottom: 1em !default;
-  $part-number-font-size: 1.5em !default;
-  $part-title-font-size: 3em !default;
-}
-
-// Part Number
-$part-number-font-family: $font-3 !default;
-$part-number-font-style: normal !default;
-$part-number-font-weight: normal !default;
-$part-number-letter-spacing: 1px !default;
-$part-number-word-spacing: 2px !default;
-$part-number-align: center !default;
-$part-number-text-transform: none !default;
-$part-number-prefix-text-transform: uppercase !default; // The text before the part number, e.g. 'Part '
-
-// Part Title
-$part-title-font-family: $font-2 !default;
-$part-title-font-style: normal !default;
-$part-title-font-weight: normal !default;
-$part-title-align: center !default;
-$part-title-text-transform: uppercase !default;
-
 // --- SECTIONS (GENERIC) --- //
 @if $type == 'epub' {
   $section-title-block-margin-top: 3em !default;
@@ -213,6 +181,41 @@ $section-author-text-transform: uppercase !default;
 $aphorism-align: left !default;
 $aphorism-cite-font-size: .8em !default;
 
+// --- PARTS --- //
+$part-title-block-margin-top: $section-title-block-margin-top !default;
+$part-title-block-margin-bottom: $section-title-block-margin-bottom !default;
+
+@if $type == 'epub' {
+  $part-number-margin-bottom: 1em !default;
+  $part-number-font-size: 1em !default;
+  $part-title-font-size: 1.5em !default;
+} @else if $type == 'prince' {
+  $part-number-margin-bottom: .5cm !default;
+  $part-number-font-size: 1.5em !default;
+  $part-title-font-size: 2.5em !default;
+} @else if $type == 'web' {
+  $part-number-margin-bottom: 1em !default;
+  $part-number-font-size: 1.5em !default;
+  $part-title-font-size: 3em !default;
+}
+
+// Part Number
+$part-number-font-family: $font-3 !default;
+$part-number-font-style: normal !default;
+$part-number-font-weight: normal !default;
+$part-number-letter-spacing: 1px !default;
+$part-number-word-spacing: 2px !default;
+$part-number-align: center !default;
+$part-number-text-transform: none !default;
+$part-number-prefix-text-transform: uppercase !default; // The text before the part number, e.g. 'Part '
+
+// Part Title
+$part-title-font-family: $font-2 !default;
+$part-title-font-style: normal !default;
+$part-title-font-weight: normal !default;
+$part-title-align: center !default;
+$part-title-text-transform: uppercase !default;
+
 // --- FRONT MATTER --- //
 
 // Front Matter Title
@@ -257,6 +260,9 @@ $epigraph-line-height: normal !default;
 $epigraph-align: center !default;
 
 // --- CHAPTERS --- //
+$chapter-title-block-margin-top: $section-title-block-margin-top !default;
+$chapter-title-block-margin-bottom: $section-title-block-margin-bottom !default;
+
 @if $type == 'epub' {
   $chapter-number-margin-bottom: 1em !default;
   $chapter-number-font-size: 1em !default;
@@ -283,4 +289,6 @@ $chapter-number-text-transform: none !default;
 $chapter-title-align: center !default;
 
 // --- BACK MATTER --- //
+$back-matter-title-block-margin-top: $section-title-block-margin-top !default;
+$back-matter-title-block-margin-bottom: $section-title-block-margin-bottom !default;
 $back-matter-title-align: center !default;
