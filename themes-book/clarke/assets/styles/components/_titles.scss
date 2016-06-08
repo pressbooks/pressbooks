@@ -16,10 +16,28 @@ $part-title-align: left !default;
 $part-title-text-transform: none !default;
 $chapter-number-font-weight: normal !default;
 $chapter-title-align: left !default;
+$front-matter-title-align: left !default;
 $section-subtitle-align: left !default;
 $section-author-align: left !default;
 $section-author-text-transform: none !default;
 $aphorism-align: center !default;
+$dedication-font-family: $font-1 !default;
+$dedication-font-style: italic !default;
+$dedication-align: center !default;
+$epigraph-align: left !default;
+$epigraph-margin-right: 0 !default;
+$epigraph-margin-left: 0 !default;
+$epigraph-margin-bottom: 0 !default;
+$epigraph-font-style: normal !default;
+
+$bibliography-font-size: .75em !default;
+$bibliography-padding-left: 1em !default;
+$bibliography-text-indent: -1em !default;
+
+$index-para-font-size: .75em !default;
+$index-para-padding-left: 1em !default;
+$index-para-indent: -1em !default;
+$index-sub-entry-padding-left: 2em;
 
 @if $type == 'epub' {
 

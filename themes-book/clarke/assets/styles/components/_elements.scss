@@ -32,7 +32,9 @@ $h5-text-transform: none !default;
 $h6-font-family: $font-2 !default;
 $h6-font-weight: normal !default;
 $h6-text-transform: none !default;
+$cite-font-style: italic;
 $cite-text-transform: none !default;
+$cite-font-variant: normal !default;
 
 // Override variables above this line, using the !default flag to allow further overrides.
 @import 'variables/elements';
@@ -46,3 +48,41 @@ $cite-text-transform: none !default;
 @import 'components/elements/miscellaneous';
 @import 'components/elements/paragraphs';
 @import 'components/elements/tables';
+
+ul ul,
+ul ul ul {
+  list-style-type: none;
+}
+
+@if $type == 'epub' {
+  ul li li {
+    list-style-image: url('../../images/epub/em-dash.png');
+  }
+} @else if $type == 'prince' {
+  ul li li {
+    list-style-image: none;
+  }
+
+  ul li li::before {
+    content: '\2013\00A0\00A0';
+  }
+}
+
+@if $type == 'epub' {
+  ul li li li {
+    list-style-image: url('../../images/epub/asterisk.png');
+  }
+} @else if $type == 'prince' {
+  ul li li li {
+    list-style-image: none;
+  }
+
+  ul li li li::before {
+    content: '\002A\00A0\00A0\00A0\00A0';
+    font-size: .5em;
+  }
+}
+
+ol {
+  @extend ol.legal;
+}

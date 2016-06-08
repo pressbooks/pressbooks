@@ -5,3 +5,24 @@
 
 // Add custom SCSS below these imports and includes.
 @import 'components/toc/left';
+
+// TOC
+@page toc:left {
+  @bottom {
+    content: counter(page, lower-roman);
+    @include front-matter-page-number;
+    text-align: center;
+  }
+}
+
+@page toc:right {
+  @bottom {
+    content: counter(page, lower-roman);
+    @include front-matter-page-number;
+    text-align: center;
+  }
+}
+
+@page toc:blank {
+  @include blank-foot;
+}
