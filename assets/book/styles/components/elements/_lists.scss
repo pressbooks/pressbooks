@@ -18,21 +18,24 @@ li + li {
   margin-top: $li-li-margin-top;
 }
 
-.upper-alpha {
+ol.upper-alpha {
   list-style-type: upper-alpha;
 }
 
-.lower-alpha {
+ol.lower-alpha {
   list-style-type: lower-alpha;
 }
 
-.upper-roman {
+ol.upper-roman {
   list-style-type: upper-roman;
 }
 
-.lower-roman {
+ol.lower-roman {
   list-style-type: lower-roman;
 }
+
+@import 'lists-ordered-harvard';
+@import 'lists-ordered-legal';
 
 // Definition Lists
 

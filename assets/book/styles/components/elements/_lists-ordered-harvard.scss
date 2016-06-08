@@ -1,0 +1,71 @@
+ol.harvard {
+  list-style-type: upper-roman;
+}
+
+ol.harvard ol {
+  list-style-type: upper-alpha;
+}
+
+ol.harvard ol ol {
+  list-style-type: decimal;
+}
+
+ol.harvard ol ol ol {
+  list-style-type: none;
+  counter-reset: level-4;
+
+  li::before {
+    content: counter(level-4, lower-alpha) ') ';
+    counter-increment: level-4;
+  }
+}
+
+ol.harvard ol ol ol ol {
+  list-style-type: none;
+  counter-reset: level-5;
+
+  li::before {
+    content: '(' counter(level-5, decimal) ') ';
+    counter-increment: level-5;
+  }
+}
+
+ol.harvard ol ol ol ol ol {
+  list-style-type: none;
+  counter-reset: level-6;
+
+  li::before {
+    content: '(' counter(level-6, lower-alpha) ') ';
+    counter-increment: level-6;
+  }
+}
+
+ol.harvard ol ol ol ol ol ol {
+  list-style-type: none;
+  counter-reset: level-7;
+
+  li::before {
+    content: counter(level-7, lower-roman) ') ';
+    counter-increment: level-7;
+  }
+}
+
+ol.harvard ol ol ol ol ol ol ol {
+  list-style-type: none;
+  counter-reset: level-8;
+
+  li::before {
+    content: '(' counter(level-8, decimal) ') ';
+    counter-increment: level-8;
+  }
+}
+
+ol.harvard ol ol ol ol ol ol ol ol {
+  list-style-type: none;
+  counter-reset: level-9;
+
+  li::before {
+    content: '(' counter(level-9, lower-alpha) ') ';
+    counter-increment: level-9;
+  }
+}

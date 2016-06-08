@@ -25,6 +25,60 @@
 // | xxxxxxxxxxxx |
 // ----------------
 
+// --- SECTIONS (GENERIC) --- //
+@if $type == 'epub' {
+  $section-title-block-margin-top: 3em !default;
+  $section-title-block-margin-bottom: 2em !default;
+  $section-title-margin-bottom: 2em !default;
+  $section-title-font-size: 1.5em !default;
+  $section-subtitle-margin-bottom: .5em !default;
+  $section-subtitle-font-size: 1em !default;
+  $section-author-margin-bottom: .5em !default;
+  $section-author-font-size: 1em !default;
+} @else if $type == 'prince' {
+  $section-title-block-margin-top: 3cm !default;
+  $section-title-block-margin-bottom: 2cm !default;
+  $section-title-margin-bottom: 1.5cm !default;
+  $section-title-font-size: 2em !default;
+  $section-subtitle-margin-bottom: .2cm !default;
+  $section-subtitle-font-size: 1em !default;
+  $section-author-margin-bottom: .2cm !default;
+  $section-author-font-size: 1em !default;
+} @else if $type == 'web' {
+  $section-title-block-margin-top: 3em !default;
+  $section-title-block-margin-bottom: 2em !default;
+  $section-title-margin-bottom: 2em !default;
+  $section-title-font-size: 2em !default;
+  $section-subtitle-margin-bottom: .5em !default;
+  $section-subtitle-font-size: 1em !default;
+  $section-author-margin-bottom: .5em !default;
+  $section-author-font-size: 1em !default;
+}
+
+// Section Title
+$section-title-font-family: $font-2 !default;
+$section-title-font-style: normal !default;
+$section-title-font-weight: normal !default;
+$section-title-text-transform: none !default;
+
+// Section Subtitle
+$section-subtitle-font-family: $font-2 !default;
+$section-subtitle-font-style: normal !default;
+$section-subtitle-font-weight: normal !default;
+$section-subtitle-align: center !default;
+$section-subtitle-text-transform: none !default;
+
+// Section Author
+$section-author-font-family: $font-2 !default;
+$section-author-font-style: normal !default;
+$section-author-font-weight: normal !default;
+$section-author-align: center !default;
+$section-author-text-transform: uppercase !default;
+
+// Aphorism
+$aphorism-align: left !default;
+$aphorism-cite-font-size: .8em !default;
+
 // --- TITLE PAGE --- //
 @if $type == 'epub' {
   $title-half-title-font-size: 1.5em !default;
@@ -126,60 +180,6 @@ $title-publisher-city-letter-spacing: 1px !default;
 $title-publisher-city-word-spacing: 2px !default;
 $title-publisher-city-align: center !default;
 $title-publisher-city-text-transform: uppercase !default;
-
-// --- SECTIONS (GENERIC) --- //
-@if $type == 'epub' {
-  $section-title-block-margin-top: 3em !default;
-  $section-title-block-margin-bottom: 2em !default;
-  $section-title-margin-bottom: 2em !default;
-  $section-title-font-size: 1.5em !default;
-  $section-subtitle-margin-bottom: .5em !default;
-  $section-subtitle-font-size: 1em !default;
-  $section-author-margin-bottom: .5em !default;
-  $section-author-font-size: 1em !default;
-} @else if $type == 'prince' {
-  $section-title-block-margin-top: 3cm !default;
-  $section-title-block-margin-bottom: 2cm !default;
-  $section-title-margin-bottom: 1.5cm !default;
-  $section-title-font-size: 2em !default;
-  $section-subtitle-margin-bottom: .2cm !default;
-  $section-subtitle-font-size: 1em !default;
-  $section-author-margin-bottom: .2cm !default;
-  $section-author-font-size: 1em !default;
-} @else if $type == 'web' {
-  $section-title-block-margin-top: 3em !default;
-  $section-title-block-margin-bottom: 2em !default;
-  $section-title-margin-bottom: 2em !default;
-  $section-title-font-size: 2em !default;
-  $section-subtitle-margin-bottom: .5em !default;
-  $section-subtitle-font-size: 1em !default;
-  $section-author-margin-bottom: .5em !default;
-  $section-author-font-size: 1em !default;
-}
-
-// Section Title
-$section-title-font-family: $font-2 !default;
-$section-title-font-style: normal !default;
-$section-title-font-weight: normal !default;
-$section-title-text-transform: none !default;
-
-// Section Subtitle
-$section-subtitle-font-family: $font-2 !default;
-$section-subtitle-font-style: normal !default;
-$section-subtitle-font-weight: normal !default;
-$section-subtitle-align: center !default;
-$section-subtitle-text-transform: none !default;
-
-// Section Author
-$section-author-font-family: $font-2 !default;
-$section-author-font-style: normal !default;
-$section-author-font-weight: normal !default;
-$section-author-align: center !default;
-$section-author-text-transform: uppercase !default;
-
-// Aphorism
-$aphorism-align: left !default;
-$aphorism-cite-font-size: .8em !default;
 
 // --- PARTS --- //
 $part-title-block-margin-top: $section-title-block-margin-top !default;

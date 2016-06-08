@@ -1,0 +1,9 @@
+ol.legal,
+ol.legal ol {
+  list-style-type: none;
+  counter-reset: legal-list;
+  li::before {
+    content: counters(legal-list, '.') '. ';
+    counter-increment: legal-list;
+  }
+}
