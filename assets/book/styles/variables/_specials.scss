@@ -20,14 +20,16 @@ $first-character-line-height: .7em !default;
 
 // Footnotes
 $footnote-padding-top: 1em !default;
+$footnote-padding-left: 0 !default;
 @if $type == 'prince' {
-  $footnote-font-size: 8pt !default; //can this be $body-font-size*0.8 ?
+  $footnote-font-size: .8em !default;
 } @else if $type == 'epub' {
   $footnote-font-size: .9em !default;
 }
 $footnote-font-style: normal !default;
 $footnote-font-weight: normal !default;
 $footnote-line-height: 1.15em !default;
+$footnote-indent: 0 !default;
 $footnote-blockquote-margin-top: .5em !default;
 $footnote-blockquote-margin-bottom: .5em !default;
 $footnote-blockquote-margin-left: 1.5em !default;
@@ -41,26 +43,28 @@ $endnote-line-height: 1.1em !default;
 $endnote-header-padding-bottom: 1em !default;
 $endnote-header-margin-bottom: 1em !default;
 $endnote-header-margin-left: -1.5em !default;
-$endnote-hr-margin-top: 1cm !default;
+$endnote-hr-margin-top: 2em !default;
 $endnote-hr-border: 0 !default;
-$endnote-ol-margin-top: 5px !default;
+$endnote-ol-margin-top: .4em !default;
 $endnote-ol-margin-left: 0 !default;
 $endnote-ol-font-size: .85em !default;
-$endnote-li-margin-top: 5px !default;
+$endnote-li-padding-left: 0 !default;
+$endnote-li-margin-top: .4em !default;
+$endnote-li-indent: 0 !default;
 
 // Asides
-$aside-padding-top: 10px !default;
+$aside-padding-top: .9em !default;
 $aside-padding-right: 0 !default;
-$aside-padding-bottom: 10px !default;
+$aside-padding-bottom: .9em !default;
 $aside-padding-left: 0 !default;
 $aside-margin-top: 2em !default;
 $aside-margin-right: 10% !default;
 $aside-margin-bottom: 2em !default;
 $aside-margin-left: 10% !default;
 $aside-line-height: 1.2em !default;
-$aside-border-top: 1px solid !default;
+$aside-border-top: 1px solid !default; // TODO
 $aside-border-right: 0 !default;
-$aside-border-bottom: 1px solid !default;
+$aside-border-bottom: 1px solid !default; // TODO
 $aside-border-left: 0 !default;
 
 // Pullquotes
@@ -96,9 +100,9 @@ $sidebar-align: left !default;
 
 // Separators
 $hr-width: 20% !default;
-$hr-margin-top: 10px !default;
-$hr-margin-bottom: 10px !default;
-$hr-break-symbols-margin-bottom: 20px !default;
+$hr-margin-top: .9em !default;
+$hr-margin-bottom: .9em !default;
+$hr-break-symbols-margin-bottom: 1.66em !default;
 $hr-break-symbols-font-size: 1.1em !default;
 $hr-break-symbols-content: '\066D' !default;
 $section-break-margin-top: 1em !default;
@@ -116,17 +120,17 @@ $textbox-font-size: .9em !default;
 $textbox-font-style: normal !default;
 $textbox-font-weight: normal !default;
 $textbox-line-height: 1.2em;
-$textbox-padding-top: 10px !default;
-$textbox-padding-right: 10px !default;
-$textbox-padding-bottom: 10px !default;
-$textbox-padding-left: 10px !default;
-$textbox-margin-top: 10px !default;
+$textbox-padding-top: .9em !default;
+$textbox-padding-right: .9em !default;
+$textbox-padding-bottom: .9em !default;
+$textbox-padding-left: .9em !default;
+$textbox-margin-top: .9em !default;
 $textbox-margin-right: 0 !default;
-$textbox-margin-bottom: 10px !default;
+$textbox-margin-bottom: .9em !default;
 $textbox-margin-left: 0 !default;
 $textbox-border-style: solid !default;
 $textbox-border-color: #000 !default;
-$textbox-border-width: 1px !default;
+$textbox-border-width: .05em !default; // TODO
 $textbox-border-radius: 0 !default;
 $textbox-shaded-background-color: #eee !default;
 $textbox-para-margin-top: 0 !default;
@@ -137,20 +141,20 @@ $textbox-caption-font-style: normal !default;
 $textbox-caption-font-weight: bold !default;
 
 // Educational Textboxes
-$edu-textbox-border-radius: 4px !default;
-$edu-textbox-padding-top: 2% !default;
-$edu-textbox-padding-right: 3% !default;
-$edu-textbox-padding-bottom: 2% !default;
-$edu-textbox-padding-left: 3% !default;
-$edu-textbox-margin-bottom: 15px !default;
-$edu-header-padding-top: 15px !default;
+$edu-textbox-border-radius: .35em !default;
+$edu-textbox-padding-top: 1em !default;
+$edu-textbox-padding-right: 1em !default;
+$edu-textbox-padding-bottom: 1em !default;
+$edu-textbox-padding-left: 1em !default;
+$edu-textbox-margin-bottom: 1.35em !default;
+$edu-header-padding-top: 1.35em !default;
 $edu-header-padding-right: 0 !default;
-$edu-header-padding-bottom: 15px !default;
+$edu-header-padding-bottom: 1.35em !default;
 $edu-header-padding-left: 0 !default;
-$edu-header-margin-top: -2% !default;
-$edu-header-margin-right: -3% !default;
-$edu-header-margin-bottom: 15px !default;
-$edu-header-margin-left: -3% !default;
+$edu-header-margin-top: -1.2em !default;
+$edu-header-margin-right: -1.2em !default;
+$edu-header-margin-bottom: 1.35em !default;
+$edu-header-margin-left: -1.2em !default;
 $edu-header-text-color: #fff !default;
 $learning-objectives-background: #f7f7f9 !default;
 $learning-objectives-header-background: #111 !default;

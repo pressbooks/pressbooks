@@ -25,13 +25,23 @@
 
   .footnote {
     display: prince-footnote;
+    padding-left: $footnote-padding-left;
     margin-left: 0;
     font-size: $footnote-font-size;
     line-height: $footnote-line-height;
     text-align: left;
-    text-indent: 0;
+    text-indent: $footnote-indent;
     counter-increment: footnote;
     footnote-style-position: outside;
+  }
+
+  // Footnote & Endnote number markers (in body text)
+
+  .endnote::footnote-call,
+  .footnote::footnote-call {
+    font-size: $footnote-number-marker-font-size;
+    line-height: $footnote-number-marker-line-height;
+    vertical-align: top;
   }
 
   p {
@@ -41,6 +51,15 @@
 }
 
 @mixin epub-footnotes {
+  // Footnote & Endnote number markers (in body text)
+
+  .endnote,
+  .footnote {
+    font-size: $footnote-number-marker-font-size;
+    line-height: $footnote-number-marker-line-height;
+    vertical-align: top;
+  }
+
   .footnotes {
     font-size: $footnote-font-size;
   }
@@ -76,15 +95,6 @@
   @extend .fn-blockquote;
 }
 
-// Footnote & Endnote number markers (in body text)
-
-.endnote,
-.footnote {
-  font-size: $footnote-number-marker-font-size;
-  line-height: $footnote-number-marker-line-height;
-  vertical-align: top;
-}
-
 // Endnotes
 
 .endnotes {
@@ -110,7 +120,9 @@
   }
 
   li {
+    padding-left: $endnote-li-padding-left;
     margin-top: $endnote-li-margin-top;
+    text-indent: $endnote-li-indent;
   }
 
   p + p {

@@ -24,31 +24,31 @@ $aphorism-align: center !default;
 @if $type == 'epub' {
 
 } @else if $type == 'prince' {
-  $title-half-title-font-size: 21pt !default;
+  $title-half-title-font-size: 1.75em !default;
   $title-title-block-margin-top: 6cm !default;
-  $title-title-font-size: 21pt !default;
+  $title-title-font-size: 1.75em !default;
   $title-subtitle-margin-top: 1cm !default;
-  $title-subtitle-font-size: 16pt !default;
+  $title-subtitle-font-size: 1.33em !default;
   $title-author-margin-top: 1cm !default;
-  $title-author-font-size: 13pt !default;
-  $title-publisher-font-size: 10pt !default;
-  $title-publisher-city-font-size: 10pt !default;
+  $title-author-font-size: 1.0833em !default;
+  $title-publisher-font-size: .83em !default;
+  $title-publisher-city-font-size: .83em !default;
   $before-title-title-block-margin-top: 1.5cm !default;
-  $part-number-font-size: 16pt !default;
-  $part-title-font-size: 21pt !default;
+  $part-number-font-size: 1.33em !default;
+  $part-title-font-size: 1.75em !default;
   $section-title-block-margin-top: 0 !default;
   $section-title-block-margin-bottom: 2cm !default;
   $section-title-margin-bottom: .125cm !default;
-  $section-title-font-size: 16pt !default;
+  $section-title-font-size: 1.33em !default;
   $section-subtitle-margin-bottom: .125cm !default;
-  $section-subtitle-font-size: 13pt !default;
-  $chapter-number-font-size: 16pt !default;
+  $section-subtitle-font-size: 1.0833em !default;
+  $chapter-number-font-size: 1.33em !default;
   $chapter-number-margin-bottom: .125em !default;
   $section-author-margin-bottom: .625cm !default;
-  $section-author-font-size: 10pt !default;
+  $section-author-font-size: .833em !default;
   $aphorism-cite-font-size: .875em !default;
   $copyright-margin-bottom: .5em !default;
-  $copyright-font-size: 9pt !default;
+  $copyright-font-size: .75em !default;
 } @else if $type == 'web' {
 }
 // Override variables above this line, using the !default flag to allow further overrides.

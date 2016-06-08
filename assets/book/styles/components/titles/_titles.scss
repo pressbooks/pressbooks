@@ -98,8 +98,8 @@ h5.publisher-city {
 @mixin titles-prince {
   #title-page {
     > .subtitle,
-    > .logo,
     > .author,
+    > .publisher-logo,
     > .publisher,
     > .publisher-city {
       bookmark-level: none;
