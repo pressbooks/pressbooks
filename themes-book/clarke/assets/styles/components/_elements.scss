@@ -1,7 +1,12 @@
 // Elements
 
-$body-font-size: 12pt !default;
-$body-line-height: 1.2em !default;
+@if $type == 'prince' {
+  $body-font-size: 12pt !default;
+  $body-line-height: 1.2em !default;
+} @else if $type == 'epub' {
+  $body-font-size: medium !default;
+  $body-line-height: 1.4em !default;
+}
 $para-indent: 2em !default;
 $widows: 3 !default;
 $orphans: 3 !default;
