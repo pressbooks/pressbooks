@@ -20,7 +20,7 @@ img {
   max-width: 100%;
   padding: 0;
   margin: 0;
-  page-break-inside: avoid;
+  page-break-inside: avoid !important;
 }
 
 // Wrapper for captioned and uncaptioned images
@@ -33,13 +33,13 @@ img {
   margin-bottom: $image-wrapper-margin-bottom;
   margin-left: 10%;
   text-align: center;
-  page-break-inside: avoid;
+  page-break-inside: avoid !important;
 
   // Align (Center)
   &.aligncenter {
     width: auto;
     text-align: center;
-    page-break-inside: avoid;
+    page-break-inside: avoid !important;
 
     img {
       width: auto;
@@ -56,7 +56,7 @@ img {
     padding-left: 0;
     margin-right: $image-alignleft-margin-right;
     margin-left: 0;
-    page-break-inside: avoid;
+    page-break-inside: avoid !important;
 
     img {
       width: 100%;
@@ -70,7 +70,7 @@ img {
     padding-left: 0;
     margin-right: 0;
     margin-left: $image-alignright-margin-left;
-    page-break-inside: avoid;
+    page-break-inside: avoid !important;
 
     img {
       width: 100%;
@@ -88,11 +88,11 @@ img {
     margin-right: auto;
     margin-left: auto;
     text-align: center;
-    page-break-inside: avoid;
+    page-break-inside: avoid !important;
 
     img {
       width: auto;
-      page-break-inside: avoid;
+      page-break-inside: avoid !important;
     }
   }
 }
