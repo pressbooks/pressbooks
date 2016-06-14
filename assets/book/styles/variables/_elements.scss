@@ -88,13 +88,13 @@ $para-hyphens: auto !default;
 $para-hyphenate-before: 3 !default;
 $para-hyphenate-after: 3 !default;
 $para-hyphenate-lines: 2 !default;
-$para-tight-letter-spacing: -.25px !default;
+$para-tight-letter-spacing: -.25px !default; // TODO
 $para-tight-word-spacing: -.075em !default;
-$para-very-tight-letter-spacing: -.5px !default;
+$para-very-tight-letter-spacing: -.5px !default; // TODO
 $para-very-tight-word-spacing: -.09em !default;
-$para-loose-letter-spacing: .25px !default;
+$para-loose-letter-spacing: .25px !default; // TODO
 $para-loose-word-spacing: .075em !default;
-$para-very-loose-letter-spacing: .5px !default;
+$para-very-loose-letter-spacing: .5px !default; // TODO
 $para-very-loose-word-spacing: .09em !default;
 
 // Blockquotes
@@ -140,19 +140,19 @@ $table-align: left !default;
 $table-caption-margin-bottom: .5em !default;
 $table-caption-font-weight: bold !default;
 $table-caption-line-height: 1.1em !default;
-$table-th-padding-top: 5px !default;
-$table-th-padding-right: 5px !default;
-$table-th-padding-bottom: 5px !default;
-$table-th-padding-left: 5px !default;
+$table-th-padding-top: .45em !default;
+$table-th-padding-right: .45em !default;
+$table-th-padding-bottom: .45em !default;
+$table-th-padding-left: .45em !default;
 $table-th-line-height: 1.1em !default;
 $table-th-align: left !default;
-$table-td-padding-top: 5px !default;
-$table-td-padding-right: 5px !default;
-$table-td-padding-bottom: 5px !default;
-$table-td-padding-left: 5px !default;
+$table-td-padding-top: .45em !default;
+$table-td-padding-right: .45em !default;
+$table-td-padding-bottom: .45em !default;
+$table-td-padding-left: .45em !default;
 $table-td-line-height: 1.1em !default;
 $table-td-align: left !default;
-$table-border-width: 1px !default;
+$table-border-width: 1px !default; // TODO
 
 // Cite
 $cite-font-size: .9em !default;

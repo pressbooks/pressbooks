@@ -3,8 +3,8 @@
 //============================================================================//
 
 .chapter-title-wrap {
-  margin-top: $section-title-block-margin-top;
-  margin-bottom: $section-title-block-margin-bottom;
+  margin-top: $chapter-title-block-margin-top;
+  margin-bottom: $chapter-title-block-margin-bottom;
 
   .chapter-number {
     display: $chapter-number-display;
@@ -36,8 +36,13 @@
 // Subtitle (outside .chapter-title-wrap)
 h2.chapter-subtitle {
   display: block;
-  margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
-  margin-bottom: $section-title-block-margin-bottom;
+  @if $type == 'prince' {
+    margin-top: $section-title-margin-bottom - $chapter-title-block-margin-bottom;
+    margin-bottom: $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+    margin-bottom: $section-subtitle-margin-bottom;
+  }
   font-family: $section-subtitle-font-family;
   font-size: $section-subtitle-font-size;
   font-style: $section-subtitle-font-style;
@@ -51,7 +56,11 @@ h2.chapter-subtitle {
 // Author (outside .chapter-title-wrap)
 h2.chapter-author {
   display: block;
-  margin-bottom: $section-title-block-margin-bottom;
+  @if $type == 'prince' {
+    margin-bottom: $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-bottom: $section-author-margin-bottom;
+  }
   font-family: $section-author-font-family;
   font-size: $section-author-font-size;
   font-style: $section-author-font-style;
@@ -62,16 +71,29 @@ h2.chapter-author {
 }
 
 h2.chapter-subtitle + h2.chapter-author {
-  margin-top: $section-subtitle-margin-bottom - $section-title-block-margin-bottom;
+  @if $type == 'prince' {
+    margin-top: $section-subtitle-margin-bottom - $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
 }
 
-h2.chapter-title-wrap + h2.chapter-author {
-  margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
+h2.chapter-title-wrap + h2.chapter-author,
+h2.chapter-author:first-child {
+  @if $type == 'prince' {
+    margin-top: $section-title-margin-bottom - $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
 }
 
 // Aphorism (outside .chapter-title-wrap)
-blockquote.aphorism {
-  margin-bottom: $section-title-block-margin-bottom;
+blockquote.aphorism,
+.aphorism {
+  margin-bottom: $chapter-title-block-margin-bottom;
+  font-family: $body-font-family;
+  font-size: $body-font-size;
+  line-height: $body-line-height;
   text-align: $aphorism-align;
   text-indent: 0;
 
@@ -85,18 +107,32 @@ blockquote.aphorism {
   }
 }
 
-h2.chapter-author + blockquote.aphorism {
-  margin-top: $section-author-margin-bottom - $section-title-block-margin-bottom;
+h2.chapter-author + blockquote.aphorism,
+h2.chapter-author + .aphorism {
+  @if $type == 'prince' {
+    margin-top: $section-author-margin-bottom - $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
 }
 
-h2.chapter-subtitle + blockquote.aphorism {
-  margin-top: $section-subtitle-margin-bottom - $section-title-block-margin-bottom;
+h2.chapter-subtitle + blockquote.aphorism,
+h2.chapter-subtitle + .aphorism {
+  @if $type == 'prince' {
+    margin-top: $section-subtitle-margin-bottom - $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
 }
 
-.chapter-title-wrap + blockquote.aphorism {
-  margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
+.chapter-title-wrap + blockquote.aphorism,
+.aphorism:first-child {
+  @if $type == 'prince' {
+    margin-top: $section-title-margin-bottom - $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
 }
-
 
 // Numberless Chapters
 .numberless .chapter-number {

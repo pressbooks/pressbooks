@@ -3,8 +3,8 @@
 //============================================================================//
 
 .back-matter-title-wrap {
-  margin-top: $section-title-block-margin-top;
-  margin-bottom: $section-title-block-margin-bottom;
+  margin-top: $back-matter-title-block-margin-top;
+  margin-bottom: $back-matter-title-block-margin-bottom;
 
   .back-matter-number {
     display: none;
@@ -27,32 +27,32 @@
 
 // Bibliography
 div.bibliography p {
-  padding-left: 2em; // TODO
-  font-size: .9em; // TODO
-  text-indent: -2em; // TODO
+  padding-left: $bibliography-padding-left;
+  font-size: $bibliography-font-size;
+  text-indent: $bibliography-text-indent;
 }
 
 // Index
 div.index {
   .ugc {
-    column-count: 2; // TODO
-    column-gap: 2.5em; // TODO
+    column-count: $index-column-count;
+    column-gap: $index-column-gap;
   }
 
   div {
-    margin-bottom: 4em; // TODO
+    margin-bottom: $index-margin-bottom;
   }
 
   p,
   .indent,
   .no-indent {
-    padding-left: 2em; // TODO
-    font-size: .9em; // TODO
-    text-align: left;
-    text-indent: -2em; // TODO
+    padding-left: $index-para-padding-left;
+    font-size: $index-para-font-size;
+    text-align: $index-para-align;
+    text-indent: $index-para-indent;
   }
 
   .sub-entry {
-    padding-left: 4em; // TODO
+    padding-left: $index-sub-entry-padding-left;
   }
 }

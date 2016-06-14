@@ -1,0 +1,12 @@
+// Media
+
+$image-caption-font-size: .875em !default;
+$image-caption-font-style: italic !default;
+
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/media';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/media/images';
+@import 'components/media/audio';
+@import 'components/media/video';

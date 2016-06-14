@@ -1,0 +1,13 @@
+// Colors
+
+$color-1: initial !default; // Body & standard element text.
+$color-2: initial !default; // Highlight for titles, some headings etc.
+$color-3: initial !default; // Alternate highlight (defaults to $color-1).
+$color-4: initial !default; // Shading.
+$color-5: initial !default; // Alternate shading.
+
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/colors';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/colors';

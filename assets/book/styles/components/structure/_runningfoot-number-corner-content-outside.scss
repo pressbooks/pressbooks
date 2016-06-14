@@ -1,20 +1,20 @@
 //=================================
-// Running Foot Outside (Both)
+// Running Foot Number Corner Content Outside
 //=================================
 
-// Displays the page number, a separator (defaults to ' | '), and user-defined
-// content on the outside edge of the running foot.
+// Displays the page number and a separator (defaults to ' | ') in the outer
+// corner of the running head and and user-defined content on the outside edge
+// of the running foot.
 
 // -------------------------------
-// |              |              |
-// |              |              |
-// |              |              |
-// |              |              |
-// |              |              |
-// |              |              |
-// |              |              |
-// |              |              |
-// | # | lfoot    |    rfoot | # |
+// |     '        |        '     |
+// |     '        |        '     |
+// |     '        |        '     |
+// |     '        |        '     |
+// |     '        |        '     |
+// |     '        |        '     |
+// |     '        |        '     |
+// | # | ' lhead  |  rhead ' | # |
 // -------------------------------
 
 @import 'mixins', 'blank';
@@ -34,7 +34,6 @@
   @bottom-left-corner {
     content: counter(page, lower-roman) $runningfoot-separator;
     @include front-matter-page-number;
-    margin-left: -1cm;
   }
 }
 
@@ -47,7 +46,6 @@
   @bottom-right-corner {
     content: $runningfoot-separator counter(page, lower-roman);
     @include front-matter-page-number;
-    margin-right: -1cm;
   }
 }
 
@@ -66,7 +64,6 @@
   @bottom-left-corner {
     content: counter(page) $runningfoot-separator;
     @include page-number;
-    margin-left: -1cm;
   }
 }
 
@@ -79,7 +76,6 @@
   @bottom-right-corner {
     content: $runningfoot-separator counter(page);
     @include page-number;
-    margin-right: -1cm;
   }
 }
 
@@ -91,15 +87,25 @@
 
 @page part:left {
   @bottom-left {
-    content: counter(page) $runningfoot-separator $part-running-content-left;
+    content: $part-running-content-left;
     @include runningfoot-left;
+  }
+
+  @bottom-left-corner {
+    content: counter(page) $runningfoot-separator;
+    @include page-number;
   }
 }
 
 @page part:right {
   @bottom-right {
-    content: $part-running-content-right $runningfoot-separator counter(page);
+    content: $part-running-content-right;
     @include runningfoot-right;
+  }
+
+  @bottom-right-corner {
+    content: $runningfoot-separator counter(page);
+    @include page-number;
   }
 }
 
@@ -111,15 +117,25 @@
 
 @page chapter:left {
   @bottom-left {
-    content: counter(page) $runningfoot-separator $chapter-running-content-left;
+    content: $chapter-running-content-left;
     @include runningfoot-left;
+  }
+
+  @bottom-left-corner {
+    content: counter(page) $runningfoot-separator;
+    @include page-number;
   }
 }
 
 @page chapter:right {
   @bottom-right {
-    content: $chapter-running-content-right $runningfoot-separator counter(page);
+    content: $chapter-running-content-right;
     @include runningfoot-right;
+  }
+
+  @bottom-right-corner {
+    content: $runningfoot-separator counter(page);
+    @include page-number;
   }
 }
 
@@ -131,14 +147,24 @@
 
 @page back-matter:left {
   @bottom-left {
-    content: counter(page) $runningfoot-separator $back-matter-running-content-left;
+    content: $back-matter-running-content-left;
     @include runningfoot-left;
+  }
+
+  @bottom-left-corner {
+    content: counter(page) $runningfoot-separator;
+    @include page-number;
   }
 }
 
 @page back-matter:right {
   @bottom-right {
-    content: $back-matter-running-content-right $runningfoot-separator counter(page);
+    content: $back-matter-running-content-right;
     @include runningfoot-right;
+  }
+
+  @bottom-right-corner {
+    content: $runningfoot-separator counter(page);
+    @include page-number;
   }
 }

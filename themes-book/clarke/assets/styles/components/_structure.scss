@@ -1,0 +1,56 @@
+// Structure
+
+$page-width: 6in !default;
+$page-height: 9in !default;
+
+$page-margin-left-top: 2cm !default;
+$page-margin-left-right: 2cm !default;
+$page-margin-left-bottom: 2cm !default;
+$page-margin-left-left: 1.5cm !default;
+
+$page-margin-right-top: 2cm !default;
+$page-margin-right-right: 1.5cm !default;
+$page-margin-right-bottom: 2cm !default;
+$page-margin-right-left: 2cm !default;
+
+$runninghead-separator: '\A0\A0' !default;
+$runninghead-left-font-family: $font-2 !default;
+$runninghead-left-font-size: .75em !default;
+$runninghead-left-text-transform: none !default;
+$runninghead-left-letter-spacing: normal !default;
+$runninghead-right-font-family: $font-2 !default;
+$runninghead-right-font-size: .75em !default;
+$runninghead-right-text-transform: none !default;
+$runninghead-right-letter-spacing: normal !default;
+$runningfoot-left-font-family: $font-2 !default;
+$runningfoot-left-font-size: .75em !default;
+$runningfoot-left-letter-spacing: normal !default;
+$runningfoot-right-font-family: $font-2 !default;
+$runningfoot-right-font-size: .75em !default;
+$runningfoot-right-letter-spacing: normal !default;
+
+$recto-verso-section-opening: right !default;
+
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/structure';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/structure/general';
+@import 'components/structure/recto-verso';
+@import 'components/structure/numbering';
+@import 'components/structure/content-strings';
+@import 'components/structure/runninghead-both-outside';
+@import 'components/structure/runningfoot-number-center-first';
+@import 'components/structure/index';
+
+@page dedication {
+  @include blank-foot;
+}
+
+@page epigraph {
+  @include blank-foot;
+}
+
+@page before-title {
+  @include blank-foot;
+}

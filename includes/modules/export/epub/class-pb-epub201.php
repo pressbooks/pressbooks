@@ -656,6 +656,18 @@ class Epub201 extends Export {
 				}
 
 			}
+			elseif ( preg_match( '#^../../images/epub/#', $url ) && substr_count( $url, '/' ) == 4 ) {
+
+				// Look for "^../../images/epub/"
+				// Count 4 slashes so that we explicitly select the path to the new assets directory
+
+				$my_image = realpath( "$scss_dir/$url" );
+				if ( $my_image ) {
+					copy( $my_image, "$path_to_epub_assets/$filename" );
+					return "url(assets/$filename)";
+				}
+
+			}
 			elseif ( preg_match( '#^https?://#i', $url ) && preg_match( '/(' . $this->supportedImageExtensions . ')$/i', $url ) ) {
 
 				// Look for images via http(s), pull them in locally
