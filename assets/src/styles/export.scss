@@ -19,7 +19,7 @@
 		font-weight: bold;
 		margin-bottom: 10px;
 	}
-	
+
 	label {
 		margin-right: 25px;
 		span {
@@ -27,7 +27,7 @@
 			font-weight: bold;
 		}
 	}
-	
+
 	.postbox {
 		.inside {
 			margin-bottom: 0;
@@ -44,11 +44,10 @@
 		}
 
 	}
-	.export-left {
-		float: left;
-		margin-right: 3%;
-		width: 47%;
-		h2 {
+	.export-control {
+    width: 100%;
+
+    h2 {
 			background-color: #fff;
 			border: 1px solid #eee;
 			border-width: 0 1px;
@@ -230,26 +229,23 @@
 							@include hidpi {
 								background-image: url(../images/odt-96.png);
 							}
-						}				
-					}					
+						}
+					}
 				}
 			}
 		}
 	}
-	
-	.export-right {
-		width: 40%;
-		float: left;
-		form {
+
+	.export-config {
+    width: 100%;
+    clear: both;
+			form {
 			background: none;
 			margin-bottom: 0;
 			padding: 0 0 20px;
 			width: auto;
 			clear: both;
-			fieldset, p {
-				float: left;
-				width: 50%;
-			}
+
 			fieldset {
 				margin-bottom: 15px;
 			}
@@ -262,9 +258,10 @@
 			margin-bottom: 0;
 		}
 		.theme {
+      width: 100%;
 			margin-top: 13px;
 			cursor: pointer;
-			float: left;
+			//float: left;
 			position: relative;
 			border: 1px solid #dedede;
 			width: 325px;
@@ -356,4 +353,25 @@
 			}
 		}
 	}
+}
+
+@media (min-width: 783px) {
+  .toplevel_page_pb_export {
+    .export-control {
+      float: left;
+      width: 47%;
+      margin-right: 3%;
+    }
+
+    .export-config {
+      float: right;
+      width: 50%;
+
+      fieldset,
+      p {
+				float: left;
+        width: 40%;
+			}
+    }
+  }
 }
