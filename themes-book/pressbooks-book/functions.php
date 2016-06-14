@@ -65,7 +65,6 @@ function pb_enqueue_scripts() {
 		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
 		wp_enqueue_style( 'pressbooks' );
 		// Use default stylesheet as base (to avoid horribly broken webbook)
-
 		$deps = array( 'pressbooks' );
 		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
 			$fullpath = \PressBooks\Container::get('Sass')->pathToUserGeneratedCss() . '/style.css';
@@ -629,7 +628,6 @@ function pressbooks_theme_options_web_init() {
 	}
 
 	add_settings_section(
-
 		$_section,
 		__( 'Web Options', 'pressbooks' ),
 		'pressbooks_theme_options_web_callback',
@@ -659,7 +657,6 @@ function pressbooks_theme_options_web_init() {
 	);
 
 	add_settings_field(
-
 		'social_media_buttons',
 		__( 'Enable Social Media', 'pressbooks' ),
 		'pressbooks_theme_social_media_callback',
@@ -684,12 +681,14 @@ function pressbooks_theme_options_web_callback() {
 // Web Options Field Callback
 function pressbooks_theme_accessibility_fontsize_callback( $args ){
 	$options = get_option( 'pressbooks_theme_options_web' );
+
 	if ( ! isset( $options['accessibility_fontsize'] ) ) {
 		$options['accessibility_fontsize'] = 0;
 	}
 	$html = '<input type="checkbox" id="accessibility_fontsize" name="pressbooks_theme_options_web[accessibility_fontsize]" value="1" ' . checked( 1, $options['accessibility_fontsize'], false ) . '/>';
 	$html .= '<label for="accessibility_fontsize"> ' . $args[0] . '</label>';
 	echo $html;
+
 }
 
 // Web Options Field Callback
@@ -1076,6 +1075,7 @@ function pressbooks_theme_pdf_fontsize_callback( $args ) {
 	if ( ! isset( $options['pdf_fontsize'] ) ){
 		$options['pdf_fontsize'] = 0;
 	}
+
 	$html = '<input type="checkbox" id="pdf_fontsize" name="pressbooks_theme_options_pdf[pdf_fontsize]" value="1" ' . checked( 1, $options['pdf_fontsize'], false ) . '/>';
 	$html .= '<label for="pdf_fontsize"> ' . $args[0] . '</label>';
 	echo $html;
@@ -1233,6 +1233,7 @@ function pressbooks_theme_options_mpdf_init() {
 			 __( 'Display cover image', 'pressbooks' )
 		)
 	);
+
 	add_settings_field(
 		'mpdf_include_toc',
 		__( 'Table of Contents', 'pressbooks' ),
@@ -1243,6 +1244,7 @@ function pressbooks_theme_options_mpdf_init() {
 			 __( 'Display table of contents', 'pressbooks' )
 		)
 	);
+
 	add_settings_field(
 		'mpdf_indent_paragraphs',
 		__( 'Indent paragraphs', 'pressbooks' ),
@@ -1253,6 +1255,7 @@ function pressbooks_theme_options_mpdf_init() {
 			 __( 'Indent paragraphs', 'pressbooks' )
 		)
 	);
+
 	add_settings_field(
 		'mpdf_hyphens',
 		__( 'Hyphens', 'pressbooks' ),
@@ -1710,6 +1713,7 @@ function pressbooks_theme_ebook_css_override( $scss ) {
 	if ( 2 == @$options['ebook_paragraph_separation'] ) {
 		$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
 	}
+
 	// --------------------------------------------------------------------
 	// Luther features we inject ourselves, (not user options, this theme not child)
 

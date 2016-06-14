@@ -53,9 +53,9 @@ class Pdf extends Export {
 	protected $options;
 
 	/**
-	 * Global theme options, set by the user
-	 *
-	 * @var array
+	 * Global theme options, set by the user 
+	 * 
+	 * @var array 
 	 */
 	protected $globalOptions;
 
@@ -68,28 +68,28 @@ class Pdf extends Export {
 
 	/**
 	 * mPDF uses a lot of memory, this the recommended minimum
-	 *
+	 * 
 	 * @see http://mpdf1.com/manual/index.php?tid=408
-	 * @var int
+	 * @var int 
 	 */
 	protected $memoryNeeded = 128;
 
 	/**
 	 * Holds the title of the book being published
-	 * @var string
+	 * @var string 
 	 */
 	protected $bookTitle;
 
 	/**
 	 * Book Metadata
-	 *
-	 * @var array
+	 * 
+	 * @var array 
 	 */
 	protected $bookMeta;
 
 	/**
 	 * Number the chapters
-	 *
+	 * 
 	 * @var boolean
 	 */
 	protected $numbered = false;
@@ -97,7 +97,7 @@ class Pdf extends Export {
 	/**
 	 * Parses the html as styles and stylesheets only
 	 * @see http://mpdf1.com/manual/index.php?tid=121
-	 *
+	 * 
 	 */
 	const MODE_CSS = 1;
 
@@ -149,7 +149,7 @@ class Pdf extends Export {
 
 		$this->setCss();
 
-		// all precontent page_options are suppressed and omitted from the TOC
+		// all precontent page_options are suppressed and omitted from the TOC 
 		$this->addPreContent( $contents );
 
 		// all front matter page numbers are romanized
@@ -169,7 +169,7 @@ class Pdf extends Export {
 	 * according mirrored margin settings, and will always generate blank pages
 	 * after.
 	 * http://mpdf1.com/forum/discussion/comment/6417#Comment_6417
-	 *
+	 * 
 	 */
 	function addToc() {
 
@@ -186,7 +186,7 @@ class Pdf extends Export {
 
 	/**
 	 * Add all specially handled content.
-	 *
+	 * 
 	 * @param array $contents - the book
 	 */
 	function addPreContent( $contents ) {
@@ -196,7 +196,7 @@ class Pdf extends Export {
 		if ( 1 == $this->options['mpdf_include_cover'] ) {
 			$this->addCover();
 		}
-		// Title (user generated)
+		// Title (user generated) 
 		$this->addFrontMatterByType( 'title-page', $contents );
 		// Title page
 		$this->addBookInfo();
@@ -240,7 +240,7 @@ class Pdf extends Export {
 
 	/**
 	 * Add book information page, otherwise known as title page
-	 *
+	 * 
 	 */
 	function addBookInfo() {
 		$page_options = array(
@@ -292,7 +292,7 @@ class Pdf extends Export {
 
 	/**
 	 * Copyright information on a separate page
-	 *
+	 * 
 	 */
 	function addCopyright() {
 		$options = $this->globalOptions;
@@ -342,7 +342,7 @@ class Pdf extends Export {
 
 	/**
 	 * Add front matter of a specific/special type
-	 *
+	 * 
 	 * @param string $type - special content placed ahead of everything else
 	 * @param array $contents - book contents
 	 */
@@ -365,9 +365,9 @@ class Pdf extends Export {
 	}
 
 	/**
-	 * Adds front matter, resets the page numbering on the first loop,
+	 * Adds front matter, resets the page numbering on the first loop, 
 	 * romanizes the numeric style
-	 *
+	 * 
 	 * @param array $contents
 	 */
 	function addFrontMatter( array $contents ) {
@@ -385,11 +385,11 @@ class Pdf extends Export {
 			if ( 'dedication' == $type || 'epigraph' == $type || 'title-page' == $type || 'before-title' == $type )
 					continue; // Skip
 
-
+				
 			// only reset the page number on first iteration
 			( true == $first_iteration ) ? $page_options['resetpagenum'] = 1 : $page_options['resetpagenum'] = 0;
 
-			// assumes the array of book contents is in order
+			// assumes the array of book contents is in order 
 			if ( 'front-matter' != $front_matter['post_type'] ) {
 				return;
 			}
@@ -424,7 +424,7 @@ class Pdf extends Export {
 
 	/**
 	 * Add a page to the pdf
-	 *
+	 * 
 	 * @param array $page - the content
 	 * @param array $page_options - numbering reset, style, suppress adding to TOC
 	 * @param boolean $display_footer turn on/off footer display
@@ -480,7 +480,7 @@ class Pdf extends Export {
 					. $this->getFilteredContent( $page['post_content'] )
 					. '</div>';
 			}
-			
+
 			// TODO Make this hookable.
 			$this->mpdf->WriteHTML( $content );
 			return true;
@@ -491,7 +491,7 @@ class Pdf extends Export {
 
 	/**
 	 * Return the Table of Contents entry for this page.
-	 *
+	 * 
 	 * @param string $page
 	 * @return string
 	 */
@@ -508,7 +508,7 @@ class Pdf extends Export {
 	/**
 	 * Return the PDF bookmark entry for this page
 	 * should be unique, using static variable for cheap cache
-	 *
+	 * 
 	 * @staticvar int $id - to avoid collisions with identical page titles
 	 * @param array $page
 	 * @return string
@@ -522,8 +522,8 @@ class Pdf extends Export {
 	}
 
 	/**
-	 * Cleans up html
-	 *
+	 * Cleans up html 
+	 * 
 	 * @param string $content
 	 * @return string
 	 */
@@ -547,7 +547,7 @@ class Pdf extends Export {
 	/**
 	 * This function prevents mPDF from completely aborting the export routine, or replacing each non-breaking space with a '?'
 	 * if ignore_invalid_utf8 is true. Important to leave this in.
-	 *
+	 *  
 	 * @param string $html
 	 * @return string
 	 */
@@ -608,7 +608,7 @@ class Pdf extends Export {
 	 * Restructures \PressBooks\Book::getBookContents() into a format more useful
 	 * for direct iteration, and tracks a nesting level for Bookmark and ToC
 	 * entries.
-	 *
+	 * 
 	 * @return array
 	 */
 	function getOrderedBookContents() {
@@ -684,10 +684,10 @@ class Pdf extends Export {
 	}
 
 	/**
-	 * Get current child and parent theme css files. Child themes only have one parent
-	 * theme, and 99% of the time this is 'Luther' or /pressbooks-book/ whose stylesheet is
+	 * Get current child and parent theme css files. Child themes only have one parent 
+	 * theme, and 99% of the time this is 'Luther' or /pressbooks-book/ whose stylesheet is 
 	 * named 'style.css'
-	 *
+	 * 
 	 * @param object $theme
 	 * @return string $css
 	 */
@@ -725,7 +725,7 @@ class Pdf extends Export {
 
 	/**
 	 * Helper function to omit unwanted stylesheets in the output
-	 *
+	 * 
 	 * @param array $styles
 	 * @return array $sytles
 	 */
@@ -748,7 +748,7 @@ class Pdf extends Export {
 	 */
 	function setCss() {
 		$css = '';
-
+		
 		// check for child theme export file
 		$cssfile = $this->getExportStylePath( 'mpdf' );
 
@@ -766,7 +766,7 @@ class Pdf extends Export {
 			$theme = wp_get_theme();
 			$css = $this->getThemeCss( $theme );
 		}
-
+		
 		// Theme options override
 		$css .= apply_filters( 'pb_mpdf_css_override', $css ) . "\n";
 
@@ -831,7 +831,7 @@ class Pdf extends Export {
 	 * @return bool
 	 */
 	static function isInstalled() {
-
+		
 		if ( in_array(  WP_PLUGIN_DIR . '/pressbooks-mpdf/pressbooks-mpdf.php', wp_get_active_network_plugins() ) ) {
 			return true;
 		} else {

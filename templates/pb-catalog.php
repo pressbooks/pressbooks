@@ -149,7 +149,6 @@ $_current_user_id = $catalog->getUserId();
 	<link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login ); _e( '\'s Catalog Page', 'pressbooks' ); ?> | Pressbooks</title>
 	<link rel="stylesheet" type="text/css" href="<?php echo PB_PLUGIN_URL; ?>assets/css/style-catalog.css?ver=2" />
-
 	<link href='<?php echo \PressBooks\Sanitize\maybe_https( 'https://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' ); ?>' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
 	<script src="<?php echo PB_PLUGIN_URL; ?>symbionts/jquery/jquery.equalizer.min.js?ver=1.2.5" type="text/javascript"></script>
@@ -186,7 +185,7 @@ $_current_user_id = $catalog->getUserId();
 		<p class="tag-menu assistive-text"></p>
 		<div class="sidebar-inner-wrap">
 			<a target="_blank" href="<?php echo $profile['pb_catalog_url']; ?>">
-				<img class="catalog-logo" src="<?php echo _logo_url( $profile ); ?>" alt="catalog-logo" width="100" height="99" />
+			<img class="catalog-logo" src="<?php echo _logo_url( $profile ); ?>" alt="catalog-logo" width="100" height="99" />
 			</a>
 			<p class="about-blurb"><?php
 				if ( ! empty( $profile['pb_catalog_about'] ) )
@@ -226,6 +225,7 @@ $_current_user_id = $catalog->getUserId();
 						<p class="book-description"><?php echo wp_trim_words( strip_tags( pb_decode( $b['about'] ) ), 50, '...' ); ?><span class="book-link">&rarr;</span></p>
 						<img src="<?php echo $b['cover_url']['pb_cover_medium']; ?>" alt="book-cover" width="225" height="<?php echo $b['cover_height']; ?>" /></a>
 					</div><!-- end .book -->
+
 					<div class="book-info">
 						<h2><?php echo $b['title']; ?></h2>
 

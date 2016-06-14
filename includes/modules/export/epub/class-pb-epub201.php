@@ -132,18 +132,18 @@ class Epub201 extends Export {
 	 */
 	protected $compressImages = false;
 
-	
+
 	/**
 	 * @var string
 	 */
 	protected $filext = 'html';
-	
-	
+
+
 	/**
 	 * $var string
 	 */
 	protected $dir = __DIR__;
-	
+
 	/**
 	 * $var string
 	 */
@@ -176,8 +176,8 @@ class Epub201 extends Export {
 	 * @var string
 	 */
 	protected $extraCss = null;
-	
-	
+
+
 	/**
 	 * @param array $args
 	 */
@@ -190,7 +190,7 @@ class Epub201 extends Export {
 
 		$this->tmpDir = $this->createTmpDir();
 		$this->exportStylePath = $this->getExportStylePath( 'epub' );
-		
+
 		$this->themeOptionsOverrides();
 
 		// HtmLawed: id values not allowed in input
@@ -906,7 +906,7 @@ class Epub201 extends Export {
 		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
 			$html .= $this->kneadHtml( $this->tidy( $metadata['pb_custom_copyright'] ), 'custom' );
 		}
-		
+
 		if ( 1 == $options['copyright_license'] ){
 			$html .= $this->kneadHtml( $this->tidy( $this->doCopyrightLicense( $metadata ) ), 'custom' );
 		}
@@ -1066,7 +1066,7 @@ class Epub201 extends Export {
 
 			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
-				
+
 				if ( $sections ) {
 					$content = \PressBooks\Book::tagSubsections( $content, $id );
 				}
@@ -1165,6 +1165,7 @@ class Epub201 extends Export {
 			'post_title' => '',
 			'stylesheet' => $this->stylesheet,
 			'post_content' => '',
+			'append_content' => '',
 			'isbn' => @$metadata['pb_ebook_isbn'],
 			'lang' => $this->lang,
 		);
@@ -1203,14 +1204,14 @@ class Epub201 extends Export {
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
 				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
-
+				$append_content = $this->kneadHtml( apply_filters( 'pb_append_html_to_export_page', '', $id ), 'chapter' );
 				$short_title = false; // Ie. running header title is not used in EPUB
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
 				if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 					$sections = \PressBooks\Book::getSubsections( $id );
-					
+
 					if ( $sections ) {
 						$content = \PressBooks\Book::tagSubsections( $content, $id );
 					}
@@ -1243,6 +1244,7 @@ class Epub201 extends Export {
 					( $this->numbered ? $n : '' ),
 					Sanitize\decode( $title ),
 					$content,
+					$var['append_content'] = $append_content,
 					'' );
 
 				$file_id = 'chapter-' . sprintf( "%03s", $j );
@@ -1291,10 +1293,10 @@ class Epub201 extends Export {
 						'post_title' => $part['post_title'],
 						'filename' => $filename,
 					) ) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
-				
+
 				++$i;
 				if ( $invisibility !== 'invisible' ) ++$p;
-				
+
 			} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
 				if ( $has_chapters ) { // has chapter
 					$slug = $part['post_name'];
@@ -1307,14 +1309,14 @@ class Epub201 extends Export {
 						( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
 						Sanitize\decode( $part['post_title'] ),
 						$part_content );
-	
+
 					$file_id = 'part-' . sprintf( "%03s", $i );
 					$filename = "{$file_id}-{$slug}.{$this->filext}";
-	
+
 					file_put_contents(
 						$this->tmpDir . "/OEBPS/$filename",
 						$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
-	
+
 					// Insert into correct pos
 					$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
 						$file_id => array(
@@ -1322,7 +1324,7 @@ class Epub201 extends Export {
 							'post_title' => $part['post_title'],
 							'filename' => $filename,
 						) ) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
-					
+
 					++$i;
 					if ( $invisibility !== 'invisible' ) ++$p;
 
@@ -1338,14 +1340,14 @@ class Epub201 extends Export {
 							( $this->numbered ? ( $this->romanizePartNumbers ? \PressBooks\L10n\romanize( $m ) : $m ) : '' ),
 							Sanitize\decode( $part['post_title'] ),
 							$part_content );
-		
+
 						$file_id = 'part-' . sprintf( "%03s", $i );
 						$filename = "{$file_id}-{$slug}.{$this->filext}";
-		
+
 						file_put_contents(
 							$this->tmpDir . "/OEBPS/$filename",
 							$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
-		
+
 						// Insert into correct pos
 						$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
 							$file_id => array(
@@ -1407,12 +1409,12 @@ class Epub201 extends Export {
 
 			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $id );
-				
+
 				if ( $sections ) {
 					$content = \PressBooks\Book::tagSubsections( $content, $id );
 				}
 			}
-			
+
 			if ( $author ) {
 				$content = '<h2 class="chapter-author">' . Sanitize\decode( $author ) . '</h2>' . $content;
 			}
@@ -1542,12 +1544,12 @@ class Epub201 extends Export {
 
 			if ( $author )
 				$html .= ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
-			
+
 			if ( $license )
 				$html .= ' <span class="chapter-license">' .  $license  . '</span> ';
-							
+
 			$html .= "</a>";
-			
+
 			if ( \PressBooks\Modules\Export\Export::isParsingSections() == true ) {
 				$sections = \PressBooks\Book::getSubsections( $v['ID'] );
 				if ( $sections ) {
@@ -1558,7 +1560,7 @@ class Epub201 extends Export {
 					$html .= '</ul>';
 				}
 			}
-			
+
 			$html .= "</li>\n";
 			++$li_count;
 
@@ -1625,7 +1627,6 @@ class Epub201 extends Export {
 		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $utf8_hack . $html );
-
 		// Download images, change to relative paths
 		$doc = $this->scrapeAndKneadImages( $doc );
 
@@ -1676,7 +1677,7 @@ class Epub201 extends Export {
 	protected function scrapeAndKneadImages( \DOMDocument $doc ) {
 
 		$fullpath = $this->tmpDir . '/OEBPS/assets';
-		
+
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
 			// Fetch image, change src
@@ -1718,7 +1719,7 @@ class Epub201 extends Export {
 			$this->fetchedImageCache[$url] = '';
 			return '';
 		}
-		
+
 		// Basename without query string
 		$filename = explode( '?', basename( $url ) );
 
@@ -2008,7 +2009,7 @@ class Epub201 extends Export {
 		$vars['manifest_assets'] = $this->buildManifestAssetsHtml();
 
 		$vars['do_copyright_license'] = strip_tags( $this->doCopyrightLicense( $metadata ) ) ;
-		
+
 		// Put contents
 		file_put_contents(
 			$this->tmpDir . "/book.opf",

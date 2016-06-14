@@ -177,9 +177,18 @@ img {
 .about-blurb {
   color: #fff; }
 
+.about-blurb a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline; }
+
+.about-blurb a:hover {
+  color: #65cef5;
+}
+
 .link-more {
-  display: block;
-  margin-bottom: 30px; }
+display: block;
+margin-bottom: 30px; }
 
 .catalog-sidebar h3 {
   border-bottom: 1px solid #fff;

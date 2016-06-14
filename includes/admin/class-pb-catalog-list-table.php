@@ -72,6 +72,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		$actions = array(
 			'visit' => sprintf( '<a href="%s">%s</a>', get_site_url( $blog_id ), __( 'Visit Book' ) )
 		);
+
 		// Only include admin link if user has admin rights to the book in question
 		if ( is_super_admin( $user_id ) || is_user_member_of_blog( $user_id, $blog_id ) )
 			$actions['dashboard'] = sprintf( '<a href="%s">%s</a>', get_admin_url( $blog_id ), __( 'Visit Admin', 'pressbooks' ) );
@@ -92,7 +93,6 @@ class Catalog_List_Table extends \WP_List_Table {
 	 * @return string Text to be placed inside the column <td>
 	 */
 	function column_status( $item ) {
-
 
 		$add_url = sprintf( get_admin_url() . 'index.php?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
 		$add_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url ) );
