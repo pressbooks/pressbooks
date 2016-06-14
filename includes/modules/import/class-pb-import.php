@@ -148,6 +148,11 @@ abstract class Import {
 	protected function determinePostType( $id ) {
 
 		$supported_types = array( 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' );
+
+		if ( has_filter( 'custom_post_types' ) ) {
+			$supported_types = apply_filters( 'custom_post_types', $supported_types );
+		}
+
 		$default = 'chapter';
 
 		if ( ! @is_array( $_POST['chapters'] ) )

@@ -7,6 +7,10 @@ $import_form_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/tools.php?pa
 $import_revoke_url = wp_nonce_url( get_bloginfo( 'url' ) . '/wp-admin/tools.php?page=pb_import&revoke=yes', 'pb-revoke-import' );
 $current_import = get_option( 'pressbooks_current_import' );
 
+if ( has_filter( 'custom_post_types' ) ) {
+	$custom_post_types = apply_filters( 'custom_post_types', array() );
+}
+
 ?>
 <div class="wrap">
 
@@ -62,6 +66,9 @@ $current_import = get_option( 'pressbooks_current_import' );
 				<th style="width:10%;"><?php _e( 'Part', 'pressbooks' ); ?></th>
 				<?php } ?>
 				<th style="width:10%;"><?php _e( 'Back Matter', 'pressbooks' ); ?></th>
+				<?php if ( has_filter( 'custom_post_types' ) ) { ?>
+				<th style="width:10%;"><?php _e( 'Other', 'pressbooks' ); ?></th>
+				<?php } ?>
 			</tr>
 			</thead>
 			<tbody>
@@ -86,6 +93,9 @@ $current_import = get_option( 'pressbooks_current_import' );
 						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='part' <?php checked(isset( $current_import['post_types'][$key] ) && 'part' == $current_import['post_types'][$key]);?>></td>
 						<?php } ?>
 						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='back-matter' <?php checked(isset( $current_import['post_types'][$key] ) && 'back-matter' == $current_import['post_types'][$key]);?>></td>
+						<?php if ( has_filter( 'custom_post_types' ) ) { ?>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='<?php echo $current_import["post_types"][$key] ?>' <?php checked(isset( $current_import['post_types'][$key] ) && in_array($current_import['post_types'][$key], $custom_post_types));?>></td>
+						<?php } ?>
 					<?php } ?>
 				</tr>
 				<?php
