@@ -6,6 +6,8 @@
 } @else if $type == 'epub' {
   $body-font-size: medium !default;
   $body-line-height: 1.4em !default;
+} @else if $type == 'web' {
+  $body-font-size: medium !default;
 }
 $para-indent: 2em !default;
 $widows: 3 !default;

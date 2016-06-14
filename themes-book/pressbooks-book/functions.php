@@ -64,9 +64,12 @@ function pb_enqueue_scripts() {
 		$deps = array( 'pressbooks' );
 		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
 			$fullpath = \Pressbooks\Container::get('Sass')->pathToUserGeneratedCss() . '/style.css';
-			if ( is_file( $fullpath ) && \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible() ) { // SASS theme & custom webbook style has been generated
+			if ( is_file( $fullpath ) && \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 1 ) ) { // SASS theme & custom webbook style has been generated
 				wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get('Sass')->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
 				wp_enqueue_style( 'pressbooks-theme' );
+			} elseif ( is_file( $fullpath ) && \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 2 ) ) { // SASS theme & custom webbook style has been generated
+					wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get('Sass')->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
+					wp_enqueue_style( 'pressbooks-theme' );
 			} else { // Use the bundled stylesheet
 				wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', $deps, null, 'screen, print' );
 				wp_enqueue_style( 'pressbooks-theme' );
