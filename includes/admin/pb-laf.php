@@ -242,7 +242,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 	$wp_admin_bar->add_menu( array(
 		'id' => 'wp-logo',
 		'title' => '<span class="ab-icon"></span>',
-		'href' => ( 'http://pressbooks.com/about' ),
+		'href' => ( 'https://pressbooks.com/about' ),
 		'meta' => array(
 			'title' => __( 'About Pressbooks', 'pressbooks' ),
 		),
@@ -254,7 +254,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 			'parent' => 'wp-logo',
 			'id' => 'about',
 			'title' => __( 'About Pressbooks', 'pressbooks' ),
-			'href' => 'http://pressbooks.com/about',
+			'href' => 'https://pressbooks.com/about',
 		) );
 	}
 
@@ -263,15 +263,15 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 		'parent' => 'wp-logo-external',
 		'id' => 'wporg',
 		'title' => __( 'Pressbooks.com', 'pressbooks' ),
-		'href' => 'http://pressbooks.com',
+		'href' => 'https://pressbooks.com',
 	) );
 
 	// Add forums link
 	$wp_admin_bar->add_menu( array(
 		'parent' => 'wp-logo-external',
 		'id' => 'support-forums',
-		'title' => __( 'Support Forums', 'pressbooks' ),
-		'href' => 'http://forum.pressbooks.com',
+		'title' => __( 'Help', 'pressbooks' ),
+		'href' => 'https://pressbooks.com/help',
 	) );
 
 	// Add feedback link
@@ -279,7 +279,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 		'parent' => 'wp-logo-external',
 		'id' => 'contact',
 		'title' => __( 'Contact', 'pressbooks' ),
-		'href' => 'http://pressbooks.com/contact',
+		'href' => 'https://pressbooks.com/contact',
 	) );
 }
 
