@@ -44,12 +44,7 @@ class Wxr extends Import {
 			'allow_parts' => true
 		);
 
-		$supported_post_types = array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' );
-
-		// check for additional post types and add them to the list of supported post types
-		if ( has_filter( 'custom_post_types' ) ) {
-			$supported_post_types = apply_filters( 'custom_post_types', $supported_post_types );
-		}
+		$supported_post_types = apply_filters( 'pb_import_custom_post_types', array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
 
 		if ( $this->isPbWxr ) {
 			//put the posts in correct part / menu_order order
@@ -91,38 +86,27 @@ class Wxr extends Import {
 		if ( $this->isPbWxr ) {
 			$xml['posts'] = $this->customNestedSort( $xml['posts'] );
 		}
-		
+
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 		$chapter_parent = $this->getChapterParent();
 		$total = 0;
-		$taxonomies = array();
+		$taxonomies = apply_filters( 'pb_import_custom_taxonomies', array( 'front-matter-type', 'chapter-type', 'back-matter-type' ) );
 
-		if ( has_filter( 'custom_post_types' ) ) {
-			$custom_post_types = apply_filters( 'custom_post_types', array() );
-		} else {
-			$custom_post_types = array();
-		}
-
-		// import custom taxonomies...
-		if ( has_filter( 'custom_taxonomies' ) ) {
-			$taxonomies = apply_filters( 'custom_taxonomies', $taxonomies );
-		}
+		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 
 		// set custom terms...
-		if ( has_filter( 'custom_terms' ) ) {
-			$terms = apply_filters( 'custom_terms', $xml['terms'] );
+		$terms = apply_filters( 'pb_import_custom_terms', $xml['terms'] );
 
-			// and import them.
-			foreach ( $terms as $t ) {
-				if ( in_array( $t['term_taxonomy'], $taxonomies ) ) {
-					wp_insert_term(
-						$t['slug'],
-						$t['term_taxonomy'],
-						array(
-							'description' => $t['term_description']
-						)
-					);
-				}
+		// and import them.
+		foreach ( $terms as $t ) {
+			if ( in_array( $t['term_taxonomy'], $taxonomies ) ) {
+				wp_insert_term(
+					$t['slug'],
+					$t['term_taxonomy'],
+					array(
+						'description' => $t['term_description']
+					)
+				);
 			}
 		}
 
@@ -267,13 +251,11 @@ class Wxr extends Import {
 	 	 }
 
 		 // Remaining custom post types
-		 if ( has_filter( 'custom_post_types' ) ) {
-			 $custom_post_types = apply_filters( 'custom_post_types', array() );
+		 $custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 
-			 foreach ( $xml as $p ) {
-				 if ( in_array( $p['post_type'], $custom_post_types ) ) {
-					 $array[] = $p;
-				 }
+		 foreach ( $xml as $p ) {
+			 if ( in_array( $p['post_type'], $custom_post_types ) ) {
+				 $array[] = $p;
 			 }
 		 }
 
@@ -316,11 +298,7 @@ class Wxr extends Import {
 	 */
 	protected function insertNewPost( $post_type, $p, $html, $chapter_parent ) {
 
-		if ( has_filter( 'custom_post_types' ) ) {
-			$custom_post_types = apply_filters( 'custom_post_types', array() );
-		} else {
-			$custom_post_types = array();
-		}
+		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 
 		$new_post = array(
 			'post_title' => wp_strip_all_tags( $p['post_title'] ),
