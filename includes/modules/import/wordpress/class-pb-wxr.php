@@ -97,14 +97,16 @@ class Wxr extends Import {
 		// set custom terms...
 		$terms = apply_filters( 'pb_import_custom_terms', $xml['terms'] );
 
-		// and import them.
+		// and import them if they don't already exist.
 		foreach ( $terms as $t ) {
-			if ( in_array( $t['term_taxonomy'], $taxonomies ) ) {
+			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
+			if ( $term === null || $term === 0 ) {
 				wp_insert_term(
-					$t['slug'],
+					$t['term_name'],
 					$t['term_taxonomy'],
 					array(
-						'description' => $t['term_description']
+						'description' => $t['term_description'],
+						'slug' => $t['slug']
 					)
 				);
 			}
