@@ -6,6 +6,7 @@ if ( ! defined( 'ABSPATH' ) )
 $import_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&import=yes' ), 'pb-import' );
 $import_revoke_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&revoke=yes' ), 'pb-revoke-import' );
 $current_import = get_option( 'pressbooks_current_import' );
+$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 
 ?>
 <div class="wrap">
@@ -62,6 +63,9 @@ $current_import = get_option( 'pressbooks_current_import' );
 				<th style="width:10%;"><?php _e( 'Part', 'pressbooks' ); ?></th>
 				<?php } ?>
 				<th style="width:10%;"><?php _e( 'Back Matter', 'pressbooks' ); ?></th>
+				<?php if ( has_filter( 'pb_import_custom_post_types' ) ) { ?>
+				<th style="width:10%;"><?php _e( 'Other', 'pressbooks' ); ?></th>
+				<?php } ?>
 			</tr>
 			</thead>
 			<tbody>
@@ -86,6 +90,9 @@ $current_import = get_option( 'pressbooks_current_import' );
 						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='part' <?php checked(isset( $current_import['post_types'][$key] ) && 'part' == $current_import['post_types'][$key]);?>></td>
 						<?php } ?>
 						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='back-matter' <?php checked(isset( $current_import['post_types'][$key] ) && 'back-matter' == $current_import['post_types'][$key]);?>></td>
+						<?php if ( has_filter( 'pb_import_custom_post_types' ) ) { ?>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='<?php echo $current_import["post_types"][$key] ?>' <?php checked(isset( $current_import['post_types'][$key] ) && in_array($current_import['post_types'][$key], $custom_post_types));?>></td>
+						<?php } ?>
 					<?php } ?>
 				</tr>
 				<?php
@@ -110,11 +117,11 @@ $current_import = get_option( 'pressbooks_current_import' );
 		<script type="text/javascript">
 			jQuery(function ($) {
 				$('#pb-www').hide();
-				
+
 				$( ".pb-html-target").change(
 					function(){
 						var val = $('.pb-html-target').val();
-						
+
 							if (val == 'html') {
 							$('#pb-file').hide();
 							$('#pb-www').show();
@@ -123,11 +130,11 @@ $current_import = get_option( 'pressbooks_current_import' );
 							$('#pb-www').hide();
 							// clear http value at input elem
 							$('.widefat').val('');
-							
-						}	
-					
+
+						}
+
 					});
-				
+
 			});
 			</script>
 		<p>
