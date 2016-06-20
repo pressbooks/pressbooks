@@ -21,6 +21,18 @@ class Xhtml extends Import {
 
 		// fetch the remote content
 		$html = wp_remote_get( $current_import['file'] );
+
+		// Something failed
+		if ( is_wp_error( $html ) ) {
+			$redirect_url = get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import' );
+			error_log( '\PressBooks\Import\Html import error, wp_remote_get() ' . $html->get_error_message() );
+			$_SESSION['pb_errors'][] = $html->get_error_message();
+
+			$this->revokeCurrentImport();
+			\Pressbooks\Redirect\location( $redirect_url );
+
+		}
+
 		$url = parse_url( $current_import['file'] );
 		// get parent directory (with forward slash e.g. /parent)
 		$path = dirname( $url['path'] );
