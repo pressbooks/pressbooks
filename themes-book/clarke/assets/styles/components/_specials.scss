@@ -1,0 +1,25 @@
+// Special Elements
+
+@if $type == 'prince' {
+  $footnote-font-size: .75em !default;
+}
+$footnote-padding-left: 1em !default;
+$footnote-line-height: 1.4em !default;
+$footnote-indent: -1em !default;
+$endnote-header-margin-bottom: 0 !default;
+$endnote-li-padding-left: 1em !default;
+$endnote-li-indent: -1em !default;
+$hr-break-symbols-font-size: 1.5em !default;
+
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/specials';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/specials/columns';
+@import 'components/specials/dropcaps';
+@import 'components/specials/floats';
+@import 'components/specials/footnotes';
+@import 'components/specials/miscellaneous';
+@import 'components/specials/pullquotes';
+@import 'components/specials/separators';
+@import 'components/specials/textboxes';

@@ -1,0 +1,130 @@
+//=================================
+// Running Head Center (Both)
+//=================================
+
+// Displays the page number, a separator (defaults to ' | '), and user-defined
+// content in the center of the running head.
+
+// -------------------------------
+// |   # | lhead  |  rhead | #   |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// -------------------------------
+
+@import 'mixins', 'blank';
+
+// Front Matter
+
+@page front-matter:first {
+  @include blank-head;
+}
+
+@page front-matter:left {
+  @top {
+    content: counter(page, lower-roman) $runninghead-separator $front-matter-running-content-left;
+    @include runninghead-left;
+    text-align: center;
+  }
+}
+
+@page front-matter:right {
+  @top {
+    content: $front-matter-running-content-right $runninghead-separator counter(page, lower-roman);
+    @include runninghead-right;
+    text-align: center;
+  }
+}
+
+// Introduction
+
+@page introduction:first {
+  @include blank-head;
+}
+
+@page introduction:left {
+  @top {
+    content: counter(page) $runninghead-separator $introduction-running-content-left;
+    @include runninghead-left;
+    text-align: center;
+  }
+}
+
+@page introduction:right {
+  @top {
+    content: $introduction-running-content-right $runninghead-separator counter(page);
+    @include runninghead-right;
+    text-align: center;
+  }
+}
+
+// Parts
+
+@page part:first {
+  @include blank-head;
+}
+
+@page part:left {
+  @top {
+    content: counter(page) $runninghead-separator $part-running-content-left;
+    @include runninghead-left;
+    text-align: center;
+  }
+}
+
+@page part:right {
+  @top {
+    content: $part-running-content-right $runninghead-separator counter(page);
+    @include runninghead-right;
+    text-align: center;
+  }
+}
+
+// Chapters
+
+@page chapter:first {
+  @include blank-head;
+}
+
+@page chapter:left {
+  @top {
+    content: counter(page) $runninghead-separator $chapter-running-content-left;
+    @include runninghead-left;
+    text-align: center;
+  }
+}
+
+@page chapter:right {
+  @top {
+    content: $chapter-running-content-right $runninghead-separator counter(page);
+    @include runninghead-right;
+    text-align: center;
+  }
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @include blank-head;
+}
+
+@page back-matter:left {
+  @top {
+    content: counter(page) $runninghead-separator $back-matter-running-content-left;
+    @include runninghead-left;
+    text-align: center;
+  }
+}
+
+@page back-matter:right {
+  @top {
+    content: $back-matter-running-content-right $runninghead-separator counter(page);
+    @include runninghead-right;
+    text-align: center;
+  }
+}

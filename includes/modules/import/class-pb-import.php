@@ -146,7 +146,8 @@ abstract class Import {
 	 */
 	protected function determinePostType( $id ) {
 
-		$supported_types = array( 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' );
+		$supported_types = apply_filters( 'pb_import_custom_post_types', array( 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
+
 		$default = 'chapter';
 
 		if ( ! @is_array( $_POST['chapters'] ) )
@@ -237,10 +238,13 @@ abstract class Import {
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
-		// Appends 'last part' of the path to the dynamic first part of the path ($upload_dir)
-		$upload_dir = wp_upload_dir();
-		$current_import['file'] = trailingslashit( $upload_dir['path'] ) . basename( $current_import['file'] );
-
+		// only html import uses a url, not a file path
+		if ( 0 !== strcmp( $current_import['type_of'], 'html' ) ) {
+			// Appends 'last part' of the path to the dynamic first part of the path ($upload_dir)
+			$upload_dir             = wp_upload_dir();
+			$current_import['file'] = trailingslashit( $upload_dir['path'] ) . basename( $current_import['file'] );
+		}
+		
 		if ( @$_GET['import'] && is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
 			// --------------------------------------------------------------------------------------------------------

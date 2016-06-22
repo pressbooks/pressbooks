@@ -1,0 +1,112 @@
+//===================================
+// Running Foot Center (Page Number)
+//===================================
+
+// Displays the page number in the center of the running foot.
+
+// -------------------------------
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |      #       |       #      |
+// -------------------------------
+
+@import 'mixins', 'blank';
+
+// Front Matter
+
+@page front-matter:left {
+  @bottom {
+    content: counter(page, lower-roman);
+    @include front-matter-page-number;
+    text-align: center;
+  }
+}
+
+@page front-matter:right {
+  @bottom {
+    content: counter(page, lower-roman);
+    @include front-matter-page-number;
+    text-align: center;
+  }
+}
+
+// Introduction
+
+@page introduction:left {
+  @bottom {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+@page introduction:right {
+  @bottom {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+// Parts
+
+@page part:first {
+  @include blank-foot;
+}
+
+@page part:left {
+  @bottom {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+@page part:right {
+  @bottom {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+// Chapters
+
+@page chapter:left {
+  @bottom {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+@page chapter:right {
+  @bottom {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+// Back Matter
+
+@page back-matter:left {
+  @bottom {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+@page back-matter:right {
+  @bottom {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}

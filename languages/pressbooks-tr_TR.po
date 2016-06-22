@@ -2,11 +2,12 @@
 # This file is distributed under the same license as the Pressbooks package.
 # Translators:
 # ayse tekbas <ayse.tekbas@gmail.com>, 2016
+# Toni Devís <colomet@hotmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-05-05 11:56-0300\n"
-"PO-Revision-Date: 2016-05-05 15:00+0000\n"
+"POT-Creation-Date: 2016-06-22 14:26-0300\n"
+"PO-Revision-Date: 2016-06-22 17:27+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +30,7 @@ msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr ""
+msgstr "Pressbooks sizin PHP versiyonunuz ile çalışmayacaktır. Pressbook %s PHP versiyonu yada yükseğini gerektirir. Pressbook'u kullanmak istiyorsanız lütfen PHP' yi güncelleyiniz."
 
 #: compatibility.php:76
 #, php-format
@@ -37,7 +38,7 @@ msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multi-Site, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
+msgstr "Pressbooks sizin Wordpress vesiyonunuz ile çalışmayacaktır. Pressbook doğrudan yüklenmiş WordPress Multi-Site ister, versiyon %s yada yükseği. Pressbook'u kullanmak istiyorsanız lütfen WordPress'i güncelleyiniz."
 
 #: includes/admin/class-pb-catalog-list-table.php:73
 msgid "Visit Book"
@@ -69,12 +70,12 @@ msgstr "Gizlilik Durumu"
 
 #: includes/admin/class-pb-catalog-list-table.php:177
 #: includes/class-pb-activation.php:172
-#: includes/modules/export/epub/class-pb-epub201.php:735
+#: includes/modules/export/epub/class-pb-epub201.php:753
 msgid "Cover"
 msgstr "Kapak"
 
 #: includes/admin/class-pb-catalog-list-table.php:178
-#: templates/admin/import.php:58
+#: templates/admin/import.php:59
 msgid "Title"
 msgstr "Başlık"
 
@@ -88,12 +89,12 @@ msgstr "Yazar"
 #: includes/admin/class-pb-catalog-list-table.php:183
 #: templates/pb-catalog.php:198
 msgid "Tag"
-msgstr ""
+msgstr "Etiket"
 
 #: includes/admin/class-pb-catalog-list-table.php:186
 #: templates/admin/catalog.php:34
 msgid "Featured"
-msgstr ""
+msgstr "Özellikli"
 
 #: includes/admin/class-pb-catalog-list-table.php:187
 msgid "Pub Date"
@@ -101,7 +102,7 @@ msgstr "Yayım tarihi"
 
 #: includes/admin/class-pb-catalog-list-table.php:333
 msgid "Edit Tags"
-msgstr ""
+msgstr "Etiketleri düzenle"
 
 #: includes/admin/class-pb-catalog-list-table.php:373
 #: includes/admin/pb-laf.php:95 templates/admin/organize.php:21
@@ -183,36 +184,36 @@ msgstr "Ulaşım sınırlamasını kaldır"
 #: includes/admin/pb-analytics.php:27 includes/admin/pb-analytics.php:28
 #: includes/admin/pb-analytics.php:167 includes/admin/pb-analytics.php:199
 msgid "Google Analytics"
-msgstr ""
+msgstr "Google Tahlili"
 
 #: includes/admin/pb-analytics.php:49 includes/admin/pb-analytics.php:96
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Tahlil Kimliği"
 
 #: includes/admin/pb-analytics.php:54
 msgid ""
 "The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "Ağınız için Google Tahlil Kimliğiniz, örneğin &lsquo;UA-01234567-8&rsquo;."
 
 #: includes/admin/pb-analytics.php:65
 msgid "Site-Specific Tracking"
-msgstr ""
+msgstr "Siteye özgü izleme"
 
 #: includes/admin/pb-analytics.php:70
 msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
+msgstr "Eğer devreye sokulmuş ise, Google Tahlil ayarlar sayfası kitap yöneticilerine görünür olacaktır, ve kendi Google Tahlil hesaplarını kullanarak kitap seviyelerindeki istatistikleri takip etmelerine olanak sağlayacaktır."
 
 #: includes/admin/pb-analytics.php:101
 msgid ""
 "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "Kitabınız için Google Tahlil Kimliğiniz, örneğin &lsquo;UA-01234567-8&rsquo;."
 
 #: includes/admin/pb-analytics.php:115
 msgid "Google Analytics settings."
-msgstr ""
+msgstr "Google Tahlil ayarları"
 
 #: includes/admin/pb-analytics.php:183 includes/class-pb-catalog.php:1090
 #: includes/class-pb-catalog.php:1138 includes/class-pb-catalog.php:1175
@@ -222,32 +223,32 @@ msgstr "Ayarlar kaydedildi."
 
 #: includes/admin/pb-customcss.php:19 templates/admin/custom-css.php:27
 msgid "Edit CSS"
-msgstr ""
+msgstr "CSS'i düzenle"
 
 #: includes/admin/pb-customcss.php:61
 #, php-format
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
+msgstr "Beklenmedik hata: Slag: %s sorgulanırken bir hata oluştu - Lütfen teknik servis ile iletişime geçiniz."
 
 #: includes/admin/pb-customcss.php:114
 msgid "Last 10 CSS Revisions"
-msgstr ""
+msgstr "Son 10 CSS düzenlemeleri"
 
 #: includes/admin/pb-customcss.php:117
-#: includes/modules/export/epub/class-pb-epub201.php:917
+#: includes/modules/export/epub/class-pb-epub201.php:937
 #: includes/modules/export/epub/templates/epub201/opf.php:70
 #: includes/modules/export/epub/templates/epub3/opf.php:83
 #: includes/modules/export/mpdf/class-pb-pdf.php:314
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:634
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:635
 #: themes-book/pressbooks-book/footer.php:41
 msgid "by"
-msgstr ""
+msgstr "-den, -dan"
 
 #: includes/admin/pb-customcss.php:184
 msgid "This will overwrite existing custom CSS. Are you sure?"
-msgstr ""
+msgstr "Bu bulunan özel CSS'in üzerine yazılacak. Emin misiniz?"
 
 #: includes/admin/pb-dashboard.php:69
 msgid "My Book"
@@ -259,14 +260,14 @@ msgstr "Kullanıcılar"
 
 #: includes/admin/pb-dashboard.php:93
 #: includes/modules/searchandreplace/types/class-pb-content.php:44
-#: includes/pb-postype.php:115 templates/admin/import.php:59
+#: includes/pb-postype.php:115 templates/admin/import.php:60
 #: templates/admin/organize.php:36 templates/admin/organize.php:53
 msgid "Front Matter"
 msgstr ""
 
 #: includes/admin/pb-dashboard.php:113
 #: includes/modules/searchandreplace/types/class-pb-content.php:47
-#: includes/pb-postype.php:150 templates/admin/import.php:64
+#: includes/pb-postype.php:150 templates/admin/import.php:65
 #: templates/admin/organize.php:38 templates/admin/organize.php:61
 msgid "Back Matter"
 msgstr ""
@@ -288,46 +289,46 @@ msgstr "Kontrol paneli"
 
 #: includes/admin/pb-dashboard.php:197
 msgid "Dashboard Feed"
-msgstr ""
+msgstr "Pano yayını"
 
 #: includes/admin/pb-dashboard.php:204
 msgid "Display Feed"
-msgstr ""
+msgstr "Görüntü yayını"
 
 #: includes/admin/pb-dashboard.php:209
 msgid "Display an RSS feed widget on the dashboard."
-msgstr ""
+msgstr "Panoda bir RSS widget görüntüsü yayınla"
 
 #: includes/admin/pb-dashboard.php:215
 msgid "Feed Title"
-msgstr ""
+msgstr "Yayın başlığı"
 
 #: includes/admin/pb-dashboard.php:223
 msgid "Feed URL"
-msgstr ""
+msgstr "URL yayınla"
 
 #: includes/admin/pb-dashboard.php:249
 msgid "Adjust settings for your dashboard RSS feed widget below."
-msgstr ""
+msgstr "Aşşağıdaki pano RSS yayın widget'ın için ayarları ayarla"
 
 #: includes/admin/pb-laf.php:17
 msgid "Powered by"
-msgstr ""
+msgstr "-tarafından desteklenmektedir"
 
 #: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:180
 #: templates/admin/catalog.php:96
 msgid "About"
 msgstr "Hakkında"
 
-#: includes/admin/pb-laf.php:19
+#: includes/admin/pb-laf.php:19 includes/admin/pb-laf.php:273
 msgid "Help"
 msgstr "Yardım"
 
 #: includes/admin/pb-laf.php:20 includes/admin/pb-laf.php:281
 msgid "Contact"
-msgstr ""
+msgstr "Temas kurmak"
 
-#: includes/admin/pb-laf.php:72
+#: includes/admin/pb-laf.php:72 themes-book/pressbooks-book/functions.php:308
 msgid "Theme Options"
 msgstr "Tema Seçenekleri"
 
@@ -336,20 +337,20 @@ msgid "Published"
 msgstr "Yayımlandı"
 
 #: includes/admin/pb-laf.php:141 includes/admin/pb-metaboxes.php:26
-#: includes/modules/import/wordpress/class-pb-wxr.php:231
-#: templates/admin/import.php:79
+#: includes/modules/import/wordpress/class-pb-wxr.php:278
+#: templates/admin/import.php:83
 msgid "Book Info"
 msgstr "Kitap bilgisi"
 
 #: includes/admin/pb-laf.php:154 includes/admin/pb-laf.php:172
-#: templates/admin/export.php:51 templates/admin/organize.php:41
+#: templates/admin/export.php:57 templates/admin/organize.php:41
 #: templates/admin/organize.php:82 templates/admin/organize.php:158
 msgid "Export"
 msgstr "İhraç et"
 
 #: includes/admin/pb-laf.php:160
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
-msgstr ""
+msgstr "MOBI ihracı için EPUB gereklidir. Yeniden etkinleştirmek ister misiniz?"
 
 #: includes/admin/pb-laf.php:166 templates/admin/publish.php:10
 msgid "Publish"
@@ -368,8 +369,8 @@ msgstr "Gizlilik"
 msgid "Export Settings"
 msgstr "İhraç ayarları"
 
-#: includes/admin/pb-laf.php:175 templates/admin/import.php:14
-#: templates/admin/import.php:57
+#: includes/admin/pb-laf.php:175 templates/admin/import.php:15
+#: templates/admin/import.php:58
 msgid "Import"
 msgstr "İthal et"
 
@@ -380,10 +381,6 @@ msgstr "Pressbooks hakkında"
 #: includes/admin/pb-laf.php:265
 msgid "Pressbooks.com"
 msgstr "Pressbooks.com"
-
-#: includes/admin/pb-laf.php:273
-msgid "Support Forums"
-msgstr "Destek forumları"
 
 #: includes/admin/pb-laf.php:312
 msgid "Add A New Book"
@@ -411,7 +408,7 @@ msgstr "Desteklenmeyen yazı tipi"
 
 #: includes/admin/pb-laf.php:597
 msgid "You do not have sufficient permissions to access that URL."
-msgstr ""
+msgstr "Bu URL'ye erişmek için gerekli izinlere sahip değilsiniz."
 
 #: includes/admin/pb-laf.php:619
 msgid "Book Visibility"
@@ -440,11 +437,11 @@ msgstr ""
 
 #: includes/admin/pb-laf.php:692
 msgid "Only logged in editors and administrators."
-msgstr ""
+msgstr "Sadece giriş yapmış editörler ve yöneticiler."
 
 #: includes/admin/pb-laf.php:694
 msgid "All logged in users including subscribers."
-msgstr ""
+msgstr "Bütün giriş yapmış kullanıcılar takipçiler de dahil."
 
 #: includes/admin/pb-laf.php:752
 msgid "Amazon URL"
@@ -472,7 +469,7 @@ msgstr "Diğer Servislerin URL'si"
 
 #: includes/admin/pb-laf.php:918
 msgid "Email me validation error reports on export."
-msgstr ""
+msgstr "İhtaçdaki doğrulama hata raporlarını bana email gönder."
 
 #: includes/admin/pb-laf.php:935
 msgid "Export settings"
@@ -480,7 +477,7 @@ msgstr "Ayarları ihraç et"
 
 #: includes/admin/pb-laf.php:949
 msgid "No. Ignore validation errors."
-msgstr ""
+msgstr "Hayır. Doğrulama hatalarını boşer."
 
 #: includes/admin/pb-laf.php:953
 msgid "Yes. Send the logs."
@@ -494,32 +491,29 @@ msgid ""
 "<a href=\"http://forum.pressbooks.com/\" target=\"_blank\">Pressbooks "
 "forum</a>, where we and other Pressbooks users can help out as time permits."
 " ."
-msgstr ""
+msgstr "Not: tekniksel doğrulama hatası raporu (EPUB, Mobi, vePDF için) çözümleme için zaman gerekiyor. Ne yazık ki doğrulama hataları için çözümleme desteği sağlayamıyoruz, fakat hataları diğer Pressbook kullanıcılarının ve bizim yardım edebileceğimiz bu adrese yollayabilirsiniz <a href=\"http://forum.pressbooks.com/\" target=\"_blank\">Pressbooks forum</a>"
 
 #: includes/admin/pb-metaboxes.php:97
 #, php-format
 msgid ""
 "Your cover image (%s x %s) is too small. It should be 625px on the shortest "
 "side."
-msgstr ""
+msgstr "Kapak görüntün (%s x %s) çok küçük. En kısa kenarda 625px olmalı."
 
 #: includes/admin/pb-metaboxes.php:103
 #, php-format
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
-msgstr ""
+msgstr "Kapak görüntün (%s) çok büyük. 2MB'dan büyük olmamalı."
 
 #: includes/admin/pb-metaboxes.php:118 includes/admin/pb-metaboxes.php:163
 #: includes/class-pb-metadata.php:627
-#: themes-book/pressbooks-book/functions.php:1224
+#: themes-book/pressbooks-book/functions.php:1233
 msgid "Cover Image"
 msgstr "Kapak resmi"
 
 #: includes/admin/pb-metaboxes.php:154 includes/admin/pb-metaboxes.php:451
-#: includes/class-pb-sass.php:44 templates/admin/import.php:62
+#: includes/class-pb-sass.php:46 templates/admin/import.php:63
 #: templates/admin/organize.php:39
-#: themes-book/pressbooks-book/functions.php:1659
-#: themes-book/pressbooks-book/functions.php:1660
-#: themes-book/pressbooks-book/functions.php:1719
 msgid "Part"
 msgstr "Kısım"
 
@@ -543,7 +537,7 @@ msgstr "Kısa Başlık"
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
+msgstr "PDF ihracında uzun başlıkların kesilebilmesi durumunda"
 
 #: includes/admin/pb-metaboxes.php:185
 msgid "Subtitle"
@@ -551,13 +545,13 @@ msgstr "Alt Başlık"
 
 #: includes/admin/pb-metaboxes.php:195
 msgid "Author, file as"
-msgstr ""
+msgstr "Yazar, dosyala"
 
 #: includes/admin/pb-metaboxes.php:196
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
-msgstr ""
+msgstr "Bu ebook mağazalarında senin ebook'larının düzgün bir şekilde sıralanacağını garantiliyor, yazarın soy ismine göre."
 
 #: includes/admin/pb-metaboxes.php:201
 msgid "Contributing Authors"
@@ -567,7 +561,7 @@ msgstr "Katkı sağlayan Yazarlar"
 msgid ""
 "This may be used when more than one person shares the responsibility for the"
 " intellectual content of a book."
-msgstr ""
+msgstr "Birden çok kişi bir kitabın entellektüel düşüncesinin sorumluluğunu paylaştığında bu kullanılabilir."
 
 #: includes/admin/pb-metaboxes.php:208
 #: themes-book/pressbooks-book/functions.php:17
@@ -576,7 +570,7 @@ msgstr "Yayınevi"
 
 #: includes/admin/pb-metaboxes.php:209 includes/admin/pb-metaboxes.php:215
 msgid "This text appears on the title page of your book."
-msgstr ""
+msgstr "Bu yazı kitabının baş sayfasında görünüyor."
 
 #: includes/admin/pb-metaboxes.php:214
 msgid "Publisher City"
@@ -589,11 +583,11 @@ msgstr "Yayımlanma Tarihi"
 
 #: includes/admin/pb-metaboxes.php:222 includes/admin/pb-metaboxes.php:229
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "Bu ebook'unda metaveriye eklendi."
 
 #: includes/admin/pb-metaboxes.php:228
 msgid "On-Sale Date"
-msgstr ""
+msgstr "Satış tarihi"
 
 #: includes/admin/pb-metaboxes.php:234
 #: themes-book/pressbooks-book/functions.php:22
@@ -605,7 +599,7 @@ msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr ""
+msgstr "ISBN Uluslararası Standart Kitap Numarası'dır ve eğer internet üzerinden ebook mağazalarında kitaplarını satmak istiyorsan buna ihtiyacın var. Bu ebook'unda metaveriye eklenir."
 
 #: includes/admin/pb-metaboxes.php:240
 #: themes-book/pressbooks-book/functions.php:18
@@ -616,7 +610,7 @@ msgstr "Baskı ISBN"
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
-msgstr ""
+msgstr "ISBN Uluslararası Standart Kitap Numarası'dır ve eğer internet üzerinden veya kitapçılardan kitaplarını satmak istersen buna ihtiyacın var."
 
 #: includes/admin/pb-metaboxes.php:248 includes/admin/pb-metaboxes.php:688
 msgid "Language"
@@ -627,19 +621,19 @@ msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
-msgstr ""
+msgstr "Bu ebook'unda metaveri belirler ve mağazalarda bulunmasını kolaylaştırır.Ayrıca desteklenen diller için bazı sistemce üretilen içeriği değiştirir. ''İçerikler'' başlığı gibi. "
 
 #: includes/admin/pb-metaboxes.php:249 includes/admin/pb-metaboxes.php:689
 msgid "Help translate Pressbooks into your language!"
-msgstr ""
+msgstr "Pressbook'ları kendi diline çevirmeye yardım et!"
 
 #: includes/admin/pb-metaboxes.php:253
-#: includes/modules/export/epub/class-pb-epub201.php:915
-#: includes/modules/export/epub/class-pb-epub201.php:933
+#: includes/modules/export/epub/class-pb-epub201.php:935
+#: includes/modules/export/epub/class-pb-epub201.php:953
 #: includes/modules/export/epub/templates/epub201/opf.php:68
 #: includes/modules/export/epub/templates/epub3/opf.php:81
 #: includes/modules/export/mpdf/class-pb-pdf.php:308
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:632
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:633
 #: themes-book/pressbooks-book/footer.php:39
 msgid "Copyright"
 msgstr "Telif Hakkı"
@@ -650,7 +644,7 @@ msgstr "Telif Hakkı Yılı"
 
 #: includes/admin/pb-metaboxes.php:260
 msgid "Year that the book is/was published."
-msgstr ""
+msgstr "Kıtabın yayınlandığı tarihi gir."
 
 #: includes/admin/pb-metaboxes.php:265
 msgid "Copyright Holder"
@@ -658,37 +652,37 @@ msgstr "Telif Hakkı Sahibi"
 
 #: includes/admin/pb-metaboxes.php:266
 msgid "Name of the copyright holder."
-msgstr ""
+msgstr "Telif hakkı sahibinin adı."
 
 #: includes/admin/pb-metaboxes.php:283
-#: themes-book/pressbooks-book/functions.php:405
+#: themes-book/pressbooks-book/functions.php:408
 msgid "Copyright License"
 msgstr "Telif Hakkı Lisansı"
 
 #: includes/admin/pb-metaboxes.php:284
 msgid "You can select various licenses including Creative Commons."
-msgstr ""
+msgstr "Çok çeşitli lisanslar seçebilirsin Creative Commons'da dahil."
 
 #: includes/admin/pb-metaboxes.php:290
 msgid "Copyright Notice"
-msgstr ""
+msgstr "Telif hakkı bildirimi"
 
 #: includes/admin/pb-metaboxes.php:291
 msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
 "will override the auto-generated copyright notice, and be inserted after the"
 " title page."
-msgstr ""
+msgstr "İsteğince bir telif hakkı bildirisi gir, istediğin bilgileri. Bu sistemin otomatik olarak verdiği telif hakkı bildirisinin üzerine yazılacak, ve baş sayfadan sonra ki sayfaya yerleştirilecek."
 
 #: includes/admin/pb-metaboxes.php:301
 msgid "Book Tagline"
-msgstr ""
+msgstr "Kitap sloganı"
 
 #: includes/admin/pb-metaboxes.php:302
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
+msgstr "Kitabının çok kısa bir tanımı. Twitter gönderisine sığacak kadar, ve en kısa cümlede kitabını kapsamalı."
 
 #: includes/admin/pb-metaboxes.php:308
 msgid "Short Description"
@@ -697,7 +691,7 @@ msgstr "Kısa Tanım"
 #: includes/admin/pb-metaboxes.php:309
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
+msgstr "Kitabın hakkında kısa bir paragraf, kataloglar, eleştirmenler ve benzerleri için kısa alıntı."
 
 #: includes/admin/pb-metaboxes.php:315
 msgid "Long Description"
@@ -705,23 +699,23 @@ msgstr "Uzun Tanım"
 
 #: includes/admin/pb-metaboxes.php:316
 msgid "The full description of your book."
-msgstr ""
+msgstr "Kitabının uzun bir tanımı."
 
 #: includes/admin/pb-metaboxes.php:320
 msgid "Additional Catalog Information"
-msgstr ""
+msgstr "Ek künye bilgileri"
 
 #: includes/admin/pb-metaboxes.php:326
 msgid "Series Title"
-msgstr ""
+msgstr "Dizi başlığı"
 
 #: includes/admin/pb-metaboxes.php:327 includes/admin/pb-metaboxes.php:333
 msgid "Add if your book is part of a series. This is not used by Pressbooks."
-msgstr ""
+msgstr "Eğer kitabınız bir dizinin parçası ise ekleyiniz. Bu Pressbook tarafından kullanılmıyor."
 
 #: includes/admin/pb-metaboxes.php:332
 msgid "Series Number"
-msgstr ""
+msgstr "Seri numarası"
 
 #: includes/admin/pb-metaboxes.php:338
 msgid "Editor"
@@ -732,7 +726,7 @@ msgstr "Editör"
 #: includes/admin/pb-metaboxes.php:376 includes/admin/pb-metaboxes.php:382
 #: includes/admin/pb-metaboxes.php:395
 msgid "This is not used by Pressbooks."
-msgstr ""
+msgstr "Bu Pressbook tarafından kullanılmıyor."
 
 #: includes/admin/pb-metaboxes.php:344
 msgid "Translator"
@@ -746,18 +740,18 @@ msgstr "Anahtar Kelimeler"
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr ""
+msgstr "Bunlar webbook kapak sayfanıza ve ebook metaverinize eklendi. Anahtar kelimeler çevrimiçi kitap mağazaları ve arama motorları tarafından kullanılır."
 
 #: includes/admin/pb-metaboxes.php:357
 #: themes-book/pressbooks-book/functions.php:21
 msgid "Hashtag"
-msgstr ""
+msgstr "Etiket"
 
 #: includes/admin/pb-metaboxes.php:358
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr ""
+msgstr "Bunlar webbook kapak sayfanıza eklendi. Sizin gibi Twitter'ı sevenler için."
 
 #: includes/admin/pb-metaboxes.php:363
 msgid "List Price (Print)"
@@ -777,53 +771,53 @@ msgstr "Liste Fiyatı (Web)"
 
 #: includes/admin/pb-metaboxes.php:387
 msgid "Bisac Subject"
-msgstr ""
+msgstr "Bisac konusu"
 
 #: includes/admin/pb-metaboxes.php:389
 msgid ""
 "BISAC subject headings help your book get properly classified in (e)book "
 "stores. This is not used by Pressbooks."
-msgstr ""
+msgstr "BISAC konu başlıkları (e)book mağazalarında kitabınızın düzgün bir şekilde sınıflandırılmasına yardımcı olur. Bu Pressbook tarafından kullanılmaz."
 
 #: includes/admin/pb-metaboxes.php:394
 msgid "Bisac Regional Theme"
-msgstr ""
+msgstr "Bisac bölgesel tema"
 
 #: includes/admin/pb-metaboxes.php:405
 msgid "Catalog Order"
-msgstr ""
+msgstr "Katalog düzeni"
 
 #: includes/admin/pb-metaboxes.php:413
 msgid "Chapter Metadata"
-msgstr ""
+msgstr "Metaveri bölümü"
 
 #: includes/admin/pb-metaboxes.php:418
 msgid "Chapter Short Title (appears in the PDF running header)"
-msgstr ""
+msgstr "Kısa başlık bölümü (PDF üzerinde çalışan başlıklarda görünür)"
 
 #: includes/admin/pb-metaboxes.php:423
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
+msgstr "Altbaşlık bölümü (Web/ebook/PDF formatında görünür)"
 
 #: includes/admin/pb-metaboxes.php:428
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
-msgstr ""
+msgstr "Yazar bölümü (Web/ebook/pdf formatında görünür)"
 
 #: includes/admin/pb-metaboxes.php:445
 msgid "Chapter Copyright License (overrides book license on this page)"
-msgstr ""
+msgstr "Telif hakkı lisansı bölümü (bu sayfada kitap lisansı üzerine yazılır)"
 
 #: includes/admin/pb-metaboxes.php:467
 msgid "Include in exports"
-msgstr ""
+msgstr "İhracat dahil"
 
 #: includes/admin/pb-metaboxes.php:473
 msgid "Show title in exports"
-msgstr ""
+msgstr "İhracatlarda başlık göster"
 
 #: includes/admin/pb-metaboxes.php:479
 msgid "Set as ebook start-point"
-msgstr ""
+msgstr "Ebook'u başlangıç noktası olarak ayarla"
 
 #: includes/admin/pb-metaboxes.php:485
 msgid "Front Matter Metadata"
@@ -868,24 +862,24 @@ msgstr ""
 #: includes/admin/pb-metaboxes.php:560
 #: includes/modules/searchandreplace/types/class-pb-part.php:77
 msgid "Part Text"
-msgstr ""
+msgstr "bölüm metini"
 
 #: includes/admin/pb-metaboxes.php:567
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
+msgstr "Bölüm sayfasında görünecektir. Eğer kitap sadece bir bölüme sahipse bölümler görünmeyecektir."
 
 #: includes/admin/pb-metaboxes.php:571
 msgid "Part Visibility"
-msgstr ""
+msgstr "Bölüm görünürlüğü"
 
 #: includes/admin/pb-metaboxes.php:580
 msgid "Hide from table of contents and part numbering."
-msgstr ""
+msgstr "Bölüm numaralamasından ve içerik tablosundan gizle"
 
 #: includes/admin/pb-metaboxes.php:681
 msgid "Extra Profile Information"
-msgstr ""
+msgstr "Fazladan profil bilgisi"
 
 #: includes/admin/pb-network-managers.php:15
 #: includes/admin/pb-network-managers.php:16
@@ -894,7 +888,7 @@ msgstr "Ağ Yöneticileri"
 
 #: includes/admin/pb-network-managers.php:78 templates/admin/dashboard.php:2
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
+msgstr "Bu sayfaya erişebilmek için gerekli yetkilere sahip değilsiniz."
 
 #: includes/admin/pb-network-managers.php:86
 msgid "Pressbooks Network Managers"
@@ -909,15 +903,15 @@ msgstr ""
 #. Plugin Name of the plugin/theme
 #: includes/admin/pb-plugins.php:38
 msgid "Pressbooks"
-msgstr ""
+msgstr "Pressbook"
 
 #: includes/admin/pb-plugins.php:73
 msgid "These plugins extend the functionality of Pressbooks."
-msgstr ""
+msgstr "Bu eklentiler Pressbook'un işlevselliğini genişletiyor."
 
 #: includes/class-pb-activation.php:144
 msgid "Main Body"
-msgstr ""
+msgstr "Ana gövde"
 
 #: includes/class-pb-activation.php:149
 msgid "Introduction"
@@ -925,7 +919,7 @@ msgstr "Giriş"
 
 #: includes/class-pb-activation.php:151
 msgid "This is where you can write your introduction."
-msgstr ""
+msgstr "Girişini burada yazabilirsin."
 
 #: includes/class-pb-activation.php:155
 msgid "Chapter 1"
@@ -935,11 +929,11 @@ msgstr "1. Bölüm"
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
+msgstr "Metinin ana gövdesindeki ilk bölüm bu. Metini değiştirebilir, bölümü yeniden adlandırabilir, yeni bölümler ekleyebilir, ve yeni parçalar ekleyebilirsin."
 
 #: includes/class-pb-activation.php:161
 msgid "Appendix"
-msgstr ""
+msgstr "Ek bölüm"
 
 #: includes/class-pb-activation.php:163
 msgid "This is where you can add appendices or other back matter."
@@ -951,8 +945,8 @@ msgstr "Yazarlar"
 
 #: includes/class-pb-activation.php:176
 #: includes/modules/export/epub/templates/epub3/toc.php:21
-#: themes-book/pressbooks-book/functions.php:835
-#: themes-book/pressbooks-book/functions.php:1235
+#: themes-book/pressbooks-book/functions.php:844
+#: themes-book/pressbooks-book/functions.php:1244
 #: themes-book/pressbooks-book/index.php:12
 #: themes-book/pressbooks-book/page-cover-third-block.php:4
 #: themes-book/pressbooks-book/sidebar.php:16
@@ -966,7 +960,7 @@ msgid "Buy"
 msgstr "Satın al"
 
 #: includes/class-pb-activation.php:188
-#: themes-book/pressbooks-book/functions.php:142
+#: themes-book/pressbooks-book/functions.php:145
 msgid "Access Denied"
 msgstr "Ulaşım engellendi"
 
@@ -976,32 +970,32 @@ msgid ""
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
 "set up your own Pressbooks book at: <a "
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
-msgstr ""
+msgstr "Bu kitap özel, ve sadece üye olan kişiler ulaşabilir. Eğer üyeliğiniz varsa buradan giriş yapabilirsiniz <a href=\"/wp-login.php\">here</a>. Ayrıca bu adresten kendinize ait Pressbook'unuzu oluşturabilirsiniz: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 
 #: includes/class-pb-activation.php:194 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
-msgstr ""
+msgstr "Ebook için isteğe uyarlanmış CSS"
 
 #: includes/class-pb-activation.php:198 includes/class-pb-metadata.php:553
 msgid "Custom CSS for PDF"
-msgstr ""
+msgstr "PDF için isteğe uyarlanmış CSS"
 
 #: includes/class-pb-activation.php:202 includes/class-pb-metadata.php:557
 msgid "Custom CSS for Web"
-msgstr ""
+msgstr "Web için isteğe uyarlanmış CSS"
 
 #: includes/class-pb-activation.php:208
 msgid "Default Data"
-msgstr ""
+msgstr "Varsayılan veri"
 
 #. Description of the plugin/theme
 #: includes/class-pb-activation.php:210
 msgid "Simple Book Production"
-msgstr ""
+msgstr "Basit kitap üretimi"
 
 #: includes/class-pb-catalog.php:710
 msgid "Catalog Logo"
-msgstr ""
+msgstr "Katalog logosu"
 
 #: includes/class-pb-catalog.php:1203
 msgid "Invalid URL."
@@ -1061,146 +1055,146 @@ msgstr "Tibetçe"
 
 #: includes/class-pb-globaltypography.php:32
 msgid "Turkish"
-msgstr ""
+msgstr "Türkçe"
 
 #: includes/class-pb-metadata.php:239
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "Tüm hakları gizli"
 
 #: includes/class-pb-metadata.php:292
 msgid "except where otherwise noted."
-msgstr ""
+msgstr "Aksi belirtilmediği durumlarda"
 
-#: includes/class-pb-sass.php:43
+#: includes/class-pb-sass.php:45
 #: includes/modules/searchandreplace/types/class-pb-content.php:41
-#: templates/admin/import.php:60 templates/admin/organize.php:57
+#: templates/admin/import.php:61 templates/admin/organize.php:57
 msgid "Chapter"
-msgstr ""
+msgstr "Bölüm"
 
-#: includes/class-pb-sass.php:179
+#: includes/class-pb-sass.php:187
 #, php-format
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %s"
-msgstr ""
+msgstr "SASS ile ilgili bir sorun oluştu. Site yöneticisi ile iletişime geç. Hata: %s"
 
-#: includes/class-pb-sass.php:223
+#: includes/class-pb-sass.php:231
 msgid "SASS Error"
-msgstr ""
+msgstr "SASS Hatası"
 
-#: includes/modules/export/class-pb-export.php:209
+#: includes/modules/export/class-pb-export.php:215
 msgid "book"
-msgstr ""
+msgstr "Kitap"
 
-#: includes/modules/export/class-pb-export.php:800
+#: includes/modules/export/class-pb-export.php:806
 msgid "File not found"
-msgstr ""
+msgstr "Dosya bulunamadı"
 
-#: includes/modules/export/epub/class-pb-epub201.php:866
+#: includes/modules/export/epub/class-pb-epub201.php:886
 msgid "Title Page"
-msgstr ""
+msgstr "Giriş sayfası"
 
-#: includes/modules/export/epub/class-pb-epub201.php:1128
+#: includes/modules/export/epub/class-pb-epub201.php:1150
 msgid "Make your own books using Pressbooks.com"
-msgstr ""
+msgstr "Pressbooks.com u kullanarak kendi kitaplarını yap"
 
-#: includes/modules/export/epub/class-pb-epub201.php:1484
+#: includes/modules/export/epub/class-pb-epub201.php:1510
 msgid "Table Of Contents"
-msgstr ""
+msgstr "İçindekiler tablosu"
 
-#: includes/modules/export/epub/class-pb-epub201.php:1497
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:699
+#: includes/modules/export/epub/class-pb-epub201.php:1523
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:700
 msgid "Contents"
-msgstr ""
+msgstr "İçindekiler"
 
 #: includes/modules/export/mpdf/class-pb-pdf.php:268
 msgid "ISBN"
-msgstr ""
+msgstr "Uluslararası Standart Kitap Numarası"
 
-#: includes/modules/export/prince/class-pb-pdf.php:238
+#: includes/modules/export/prince/class-pb-pdf.php:250
 msgid ""
 "This book was produced using Pressbooks.com, and PDF rendering was done by "
 "PrinceXML."
-msgstr ""
+msgstr "Bu kitap Pressbooks.com u kullanarak üretilmiştir, ve PDF çevirisi PrinceXML tarafından yapılmıştır."
 
 #: includes/modules/export/wordpress/class-pb-wxr.php:101
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:162
 msgid "Invalid permission error"
-msgstr ""
+msgstr "Geçersiz yetki hatası"
 
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:308
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:307
 msgid "Notes"
-msgstr ""
+msgstr "Notlar"
 
-#: includes/modules/import/class-pb-import.php:340
-#: includes/modules/import/class-pb-import.php:403
+#: includes/modules/import/class-pb-import.php:347
+#: includes/modules/import/class-pb-import.php:410
 #, php-format
 msgid "Your file does not appear to be a valid %s."
-msgstr ""
+msgstr "Dosyanız geçerli değil %s"
 
-#: includes/modules/import/class-pb-import.php:348
+#: includes/modules/import/class-pb-import.php:355
 msgid "Your URL does not appear to be valid"
-msgstr ""
+msgstr "URL niz geçerli değil"
 
-#: includes/modules/import/class-pb-import.php:364
+#: includes/modules/import/class-pb-import.php:371
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response header on a HEAD request: "
-msgstr ""
+msgstr "Girmek istediğiniz siteden başarılı yanıt alınamıyor"
 
-#: includes/modules/import/class-pb-import.php:370
+#: includes/modules/import/class-pb-import.php:377
 msgid "The website you are attempting to reach is not returning HTML content"
-msgstr ""
+msgstr "Girmeye çalıştığınız site HTML içeriği geri göndermiyor"
 
-#: includes/modules/import/class-pb-import.php:387
+#: includes/modules/import/class-pb-import.php:394
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response on a GET request: "
 msgstr ""
 
 #: includes/modules/import/epub/class-pb-epub201.php:190
-#: includes/modules/import/wordpress/class-pb-wxr.php:140
+#: includes/modules/import/wordpress/class-pb-wxr.php:177
 #, php-format
 msgid "Imported %s chapters."
-msgstr ""
+msgstr "İthal %s bölüm"
 
 #: includes/modules/import/wordpress/class-pb-parser.php:57
 #: includes/modules/import/wordpress/class-pb-parser.php:62
 msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
-msgstr ""
+msgstr "Bu WXR dosyası değil, kayıp yada geçersiz WXR versiyon numarası"
 
 #: includes/modules/searchandreplace/class-pb-search.php:41
 msgid "No search pattern."
-msgstr ""
+msgstr "Arama modeli yok"
 
 #: includes/modules/searchandreplace/class-pb-searchandreplace.php:39
 msgid ""
 "Once you’ve pressed ‘Replace & Save’ there is no going back! Have you "
 "checked ‘Preview Replacements’ to make sure this will do what you want it to"
 " do?"
-msgstr ""
+msgstr "'Değiştir & Kaydet' e bastıktan sonra artık geri dönüş yok! İstediğiniz gibi olduğundan emin olmak için 'Değişiklikleri gözden geçir' i kontrol ettiniz mi?"
 
 #: includes/modules/searchandreplace/class-pb-searchandreplace.php:46
 #: includes/modules/searchandreplace/class-pb-searchandreplace.php:47
 #: templates/admin/search.php:3
 msgid "Search & Replace"
-msgstr ""
+msgstr "Araştırma & Değiştirme"
 
 #: includes/modules/searchandreplace/class-pb-searchandreplace.php:110
 #, php-format
 msgid "%d occurrence replaced."
 msgid_plural "%d occurrences replaced."
-msgstr[0] ""
+msgstr[0] "%d oluşum değiştirildi."
 
 #: includes/modules/searchandreplace/types/class-pb-content.php:32
 #: includes/modules/searchandreplace/types/class-pb-part.php:41
 msgid "view"
-msgstr ""
+msgstr "Görünüm"
 
 #: includes/modules/searchandreplace/types/class-pb-content.php:34
 #: includes/modules/searchandreplace/types/class-pb-part.php:43
 msgid "edit"
-msgstr ""
+msgstr "düzenlemek"
 
 #: includes/modules/searchandreplace/types/class-pb-content.php:50
 #, php-format
@@ -1209,181 +1203,181 @@ msgstr ""
 
 #: includes/modules/searchandreplace/types/class-pb-content.php:69
 msgid "Content Text"
-msgstr ""
+msgstr "İçerik metini"
 
 #: includes/modules/searchandreplace/types/class-pb-part.php:48
 #, php-format
 msgid "Part ID #%d: %s"
 msgstr ""
 
-#: includes/pb-editor.php:62
+#: includes/pb-editor.php:71
 msgid "Indent"
 msgstr ""
 
-#: includes/pb-editor.php:68
+#: includes/pb-editor.php:77
 msgid "Hanging indent"
 msgstr ""
 
-#: includes/pb-editor.php:74
+#: includes/pb-editor.php:83
 msgid "No indent"
 msgstr ""
 
-#: includes/pb-editor.php:80
+#: includes/pb-editor.php:89
 msgid "Tight tracking"
 msgstr ""
 
-#: includes/pb-editor.php:86
+#: includes/pb-editor.php:95
 msgid "Very tight tracking"
 msgstr ""
 
-#: includes/pb-editor.php:92
+#: includes/pb-editor.php:101
 msgid "Loose tracking"
 msgstr ""
 
-#: includes/pb-editor.php:98
+#: includes/pb-editor.php:107
 msgid "Very loose tracking"
 msgstr ""
 
-#: includes/pb-editor.php:104
+#: includes/pb-editor.php:113
 msgid "Pullquote (left)"
 msgstr ""
 
-#: includes/pb-editor.php:110
+#: includes/pb-editor.php:119
 msgid "Pullquote (right)"
 msgstr ""
 
-#: includes/pb-editor.php:158 includes/pb-editor.php:180
-#: includes/pb-editor.php:194 languages/tinymce.php:7
+#: includes/pb-editor.php:167 includes/pb-editor.php:189
+#: includes/pb-editor.php:203 languages/tinymce.php:7
 msgid "Standard"
-msgstr ""
+msgstr "Standart"
 
-#: includes/pb-editor.php:162
+#: includes/pb-editor.php:171
 msgid "No lines"
-msgstr ""
+msgstr "satırız"
 
-#: includes/pb-editor.php:166
+#: includes/pb-editor.php:175
 msgid "Lines"
-msgstr ""
+msgstr "Satırlı"
 
-#: includes/pb-editor.php:170 includes/pb-editor.php:188
-#: includes/pb-editor.php:202 languages/tinymce.php:9
+#: includes/pb-editor.php:179 includes/pb-editor.php:197
+#: includes/pb-editor.php:211 languages/tinymce.php:9
 msgid "Shaded"
-msgstr ""
+msgstr "Gölgeli"
 
-#: includes/pb-editor.php:174 languages/tinymce.php:18
+#: includes/pb-editor.php:183 languages/tinymce.php:18
 msgid "Custom..."
-msgstr ""
+msgstr "İsteğe uyarlanmış"
 
-#: includes/pb-editor.php:184 includes/pb-editor.php:198
+#: includes/pb-editor.php:193 includes/pb-editor.php:207
 msgid "Border"
-msgstr ""
+msgstr "Sınır"
 
-#: includes/pb-editor.php:298
+#: includes/pb-editor.php:319
 msgid "Internal Link"
-msgstr ""
+msgstr "İç bağlantı"
 
 #: includes/pb-image.php:295
 msgid "Your cover image should be 625px on the shortest side."
-msgstr ""
+msgstr "Kapak görüntün en kısa kenarda 625px olmalı."
 
-#: includes/pb-image.php:335 templates/admin/export.php:94
+#: includes/pb-image.php:335 templates/admin/export.php:144
 #: templates/admin/organize.php:87 templates/admin/organize.php:125
 #: templates/admin/organize.php:193
 msgid "Are you sure you want to delete this?"
-msgstr ""
+msgstr "Bunu silmek istediğinizden emin misiniz?"
 
 #: includes/pb-image.php:367 templates/admin/organize.php:87
 #: templates/admin/organize.php:125 templates/admin/organize.php:193
 msgid "Delete"
-msgstr ""
+msgstr "Sil"
 
 #: includes/pb-l10n.php:463
 msgid "English (United States)"
-msgstr ""
+msgstr "İngilizce (Birleşmiş Devletler)"
 
 #: includes/pb-l10n.php:464
 msgid "Chinese (Taiwan)"
-msgstr ""
+msgstr "Çince (Taywan)"
 
 #: includes/pb-l10n.php:465
 msgid "Estonian"
-msgstr ""
+msgstr "Estonya dili"
 
 #: includes/pb-l10n.php:466
 msgid "French (France)"
-msgstr ""
+msgstr "Fransıca (Fransa)"
 
 #: includes/pb-l10n.php:467
 msgid "German"
-msgstr ""
+msgstr "Almanca"
 
 #: includes/pb-l10n.php:468
 msgid "Italian"
-msgstr ""
+msgstr "İtalyanca"
 
 #: includes/pb-l10n.php:470
 msgid "Portuguese (Brazil)"
-msgstr ""
+msgstr "Portekizce (Brezilya)"
 
 #: includes/pb-l10n.php:471
 msgid "Spanish"
-msgstr ""
+msgstr "İspanyolca"
 
 #: includes/pb-l10n.php:472
 msgid "Swedish"
-msgstr ""
+msgstr "İsveççe"
 
 #: includes/pb-postype.php:35
 msgctxt "post type general name"
 msgid "Chapters"
-msgstr ""
+msgstr "Bölümler"
 
 #: includes/pb-postype.php:36
 msgctxt "post type singular name"
 msgid "Chapter"
-msgstr ""
+msgstr "Bölüm"
 
 #: includes/pb-postype.php:37
 msgctxt "book"
 msgid "Add New Chapter"
-msgstr ""
+msgstr "Yeni bölüm ekle"
 
 #: includes/pb-postype.php:38
 msgid "Add New Chapter"
-msgstr ""
+msgstr "Yeni bölüm ekle"
 
 #: includes/pb-postype.php:39
 msgid "Edit Chapter"
-msgstr ""
+msgstr "Bölümü düzenle"
 
 #: includes/pb-postype.php:40
 msgid "New Chapter"
-msgstr ""
+msgstr "Yeni bölüm"
 
 #: includes/pb-postype.php:41
 msgid "View Chapter"
-msgstr ""
+msgstr "Bölümü görüntüle"
 
 #: includes/pb-postype.php:42
 msgid "Search Chapters"
-msgstr ""
+msgstr "Bölümleri ara"
 
 #: includes/pb-postype.php:43
 msgid "No chapters found"
-msgstr ""
+msgstr "Bölüm bulunamadı"
 
 #: includes/pb-postype.php:44
 msgid "No chapters found in Trash"
-msgstr ""
+msgstr "Çöp tenekesinde hiç bölüm bulunamadı"
 
 #: includes/pb-postype.php:46
 msgid "Text"
-msgstr ""
+msgstr "Metin"
 
 #: includes/pb-postype.php:71
 msgctxt "post type general name"
 msgid "Parts"
-msgstr ""
+msgstr "Parçalar"
 
 #: includes/pb-postype.php:72
 msgctxt "post type singular name"
@@ -1393,39 +1387,39 @@ msgstr "Kısım"
 #: includes/pb-postype.php:73
 msgctxt "book"
 msgid "Add Part"
-msgstr ""
+msgstr "Parça ekle"
 
 #: includes/pb-postype.php:74
 msgid "Add New Part"
-msgstr ""
+msgstr "Yeni parça ekle"
 
 #: includes/pb-postype.php:75
 msgid "Edit Part"
-msgstr ""
+msgstr "Parçayı düzenle"
 
 #: includes/pb-postype.php:76
 msgid "New Part"
-msgstr ""
+msgstr "Yeni parça"
 
 #: includes/pb-postype.php:77
 msgid "View Part"
-msgstr ""
+msgstr "Parçayı görüntüle"
 
 #: includes/pb-postype.php:78
 msgid "Search Parts"
-msgstr ""
+msgstr "Parçaları ara"
 
 #: includes/pb-postype.php:79
 msgid "No parts found"
-msgstr ""
+msgstr "Hiç parça bulunamadı"
 
 #: includes/pb-postype.php:80
 msgid "No parts found in Trash"
-msgstr ""
+msgstr "Çöp tenekesinde hiç parça bulunamadı"
 
 #: includes/pb-postype.php:82
 msgid "Parts"
-msgstr ""
+msgstr "Parçalar"
 
 #: includes/pb-postype.php:104
 msgctxt "post type general name"
@@ -1516,96 +1510,96 @@ msgstr ""
 #: includes/pb-postype.php:174
 msgctxt "post type general name"
 msgid "Book Information"
-msgstr ""
+msgstr "Kitap bilgisi"
 
 #: includes/pb-postype.php:175
 msgctxt "post type singular name"
 msgid "Book Information"
-msgstr ""
+msgstr "Kitap bilgisi"
 
 #: includes/pb-postype.php:176
 msgctxt "book"
 msgid "Add New Book Information"
-msgstr ""
+msgstr "Yeni kitap bilgisi ekle"
 
 #: includes/pb-postype.php:177 includes/pb-postype.php:178
 msgid "Edit Book Information"
-msgstr ""
+msgstr "Kitap bilgisini düzenle"
 
 #: includes/pb-postype.php:179
 msgid "New Book Information"
-msgstr ""
+msgstr "Yeni kitap bilgisi"
 
 #: includes/pb-postype.php:180
 msgid "View Book Information"
-msgstr ""
+msgstr "Kitap bilgisini görüntüle"
 
 #: includes/pb-postype.php:181
 msgid "Search Book Information"
-msgstr ""
+msgstr "Kitap bilgisi araştır"
 
 #: includes/pb-postype.php:182
 msgid "No book information found"
-msgstr ""
+msgstr "Kitap bilgisi bulunamadı"
 
 #: includes/pb-postype.php:183
 msgid "No book information found in Trash"
-msgstr ""
+msgstr "Çöp tenekesinde kitap bilgisi bulunamadı"
 
 #: includes/pb-postype.php:185
 msgid "Book Information"
-msgstr ""
+msgstr "Kitap bilgisi"
 
 #: includes/pb-postype.php:238
 #, php-format
 msgid "Part updated. <a target=\"_blank\" href=\"%s\">View Part</a>"
-msgstr ""
+msgstr "Parça güncellendi. <a target=\"_blank\" href=\"%s\">View Part</a>"
 
 #: includes/pb-postype.php:238 includes/pb-postype.php:241
 msgid "Part updated."
-msgstr ""
+msgstr "Parça güncellendi."
 
 #: includes/pb-postype.php:239 includes/pb-postype.php:256
 #: includes/pb-postype.php:269 includes/pb-postype.php:286
 #: includes/pb-postype.php:303
 msgid "Custom field updated."
-msgstr ""
+msgstr "Özel alan güncellendi."
 
 #: includes/pb-postype.php:240 includes/pb-postype.php:257
 #: includes/pb-postype.php:270 includes/pb-postype.php:287
 #: includes/pb-postype.php:304
 msgid "Custom field deleted."
-msgstr ""
+msgstr "Özel alan silindi."
 
 #: includes/pb-postype.php:243
 #, php-format
 msgid "Part restored to revision from %s"
-msgstr ""
+msgstr "Parça %s dan restore edilip gözden geçirildi."
 
 #: includes/pb-postype.php:244
 #, php-format
 msgid "Part published. <a target=\"_blank\" href=\"%s\">View Part</a>"
-msgstr ""
+msgstr "Parça yayımlandı. <a target=\"_blank\" href=\"%s\">View Part</a>"
 
 #: includes/pb-postype.php:244
 msgid "Part published."
-msgstr ""
+msgstr "Parça yayımlandı."
 
 #: includes/pb-postype.php:245
 msgid "Part saved."
-msgstr ""
+msgstr "Parça kaydedildi"
 
 #: includes/pb-postype.php:246
 #, php-format
 msgid "Part submitted. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
-msgstr ""
+msgstr "Parça gönderildi. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
 
 #: includes/pb-postype.php:247
 #, php-format
 msgid ""
 "Part scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Part</a>"
-msgstr ""
+msgstr "Parça programlandı: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Part</a>"
 
 #: includes/pb-postype.php:249 includes/pb-postype.php:279
 #: includes/pb-postype.php:296 includes/pb-postype.php:313
@@ -1615,65 +1609,65 @@ msgstr ""
 #: includes/pb-postype.php:250
 #, php-format
 msgid "Part draft updated. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
-msgstr ""
+msgstr "Parça taslağı güncellendi. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
 
 #: includes/pb-postype.php:255 includes/pb-postype.php:258
 #: includes/pb-postype.php:261
 msgid "Book Information updated."
-msgstr ""
+msgstr "Kitap bilgisi güncellendi."
 
 #: includes/pb-postype.php:260
 #, php-format
 msgid "Book Information restored to revision from %s"
-msgstr ""
+msgstr "Kitap bilgisi %s dan restore edilip gözden geçirildi."
 
 #: includes/pb-postype.php:262
 msgid "Book Information saved."
-msgstr ""
+msgstr "Kitap bilgisi kaydedildi."
 
 #: includes/pb-postype.php:263
 msgid "Book Information submitted."
-msgstr ""
+msgstr "Kitap bilgisi gönderildi."
 
 #: includes/pb-postype.php:268
 #, php-format
 msgid "Chapter updated. <a target=\"_blank\" href=\"%s\">View Chapter</a>"
-msgstr ""
+msgstr "Bölüm güncellendi. <a target=\"_blank\" href=\"%s\">View Chapter</a>"
 
 #: includes/pb-postype.php:271
 msgid "Chapter updated."
-msgstr ""
+msgstr "Bölüm güncellendi."
 
 #: includes/pb-postype.php:273
 #, php-format
 msgid "Chapter restored to revision from %s"
-msgstr ""
+msgstr "Bölüm %s dan restore edilip gözden geçirildi."
 
 #: includes/pb-postype.php:274
 #, php-format
 msgid "Chapter published. <a href=\"%s\">View Chapter</a>"
-msgstr ""
+msgstr "Bölüm yayımlandı. <a href=\"%s\">View Chapter</a>"
 
 #: includes/pb-postype.php:275
 msgid "Chapter saved."
-msgstr ""
+msgstr "Bölüm kaydedildi."
 
 #: includes/pb-postype.php:276
 #, php-format
 msgid "Chapter submitted. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
-msgstr ""
+msgstr "Bölüm gönderildi. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
 
 #: includes/pb-postype.php:277
 #, php-format
 msgid ""
 "Chapter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Chapter</a>"
-msgstr ""
+msgstr "Bölüm programlandı: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview Chapter</a>"
 
 #: includes/pb-postype.php:280
 #, php-format
 msgid "Chapter draft updated. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
-msgstr ""
+msgstr "Bölüm taslağı güncellendi. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
 
 #: includes/pb-postype.php:285
 #, php-format
@@ -1765,86 +1759,86 @@ msgstr ""
 
 #: includes/pb-redirect.php:171
 msgid "Error: Unknown export format."
-msgstr ""
+msgstr "Hata: Bilinmeyen ihraç biçimi."
 
 #: includes/pb-redirect.php:205
 msgid "No catalog was found for user"
-msgstr ""
+msgstr "Kullanıcı için katalog bulunamadı."
 
 #: includes/pb-registration.php:27
 msgid "Register my book now"
-msgstr ""
+msgstr "Kitabımı şimdi kaydet."
 
 #: includes/pb-registration.php:30
 msgid "Register my book later"
-msgstr ""
+msgstr "Kitabımı sonra kaydet."
 
 #: includes/pb-registration.php:34
 msgid "Web Book Address:"
-msgstr ""
+msgstr "Web Book adresi:"
 
 #: includes/pb-registration.php:37
 msgid ""
 "Must be at least 4 characters, letters and numbers only. Your web book "
 "address <strong>cannot be changed</strong>, so choose carefully!"
-msgstr ""
+msgstr "En az 4 harf, sadece numaralar ve harfler. Webbook adresiniz <strong>değiştirilemez</strong>, bu yüzden dikkatli bir şekilde seçiniz!"
 
 #: includes/pb-registration.php:40
 msgid "Book Title:"
-msgstr ""
+msgstr "Kitap başlığı:"
 
 #: includes/pb-registration.php:43
 msgid "Book Language:"
-msgstr ""
+msgstr "Kitap dili:"
 
 #: includes/pb-registration.php:46
 msgid "Would you like your web book to be visible to the public?"
-msgstr ""
+msgstr "Web book'unuzun halka açık olmasını ister misiniz?"
 
 #: includes/pb-registration.php:50
 msgid "Create Book"
-msgstr ""
+msgstr "Kitap yarat."
 
 #: includes/pb-registration.php:53
 #, php-format
 msgid "Register a %s account"
-msgstr ""
+msgstr "%s üyelik kayıt et."
 
 #: includes/pb-registration.php:56
 msgid "Create a new book"
-msgstr ""
+msgstr "Yeni bir kitap yarat"
 
 #: includes/pb-registration.php:59
 #, php-format
 msgid ""
 "Welcome, %s. Fill out the form below to <strong>add a new book to your "
 "account</strong>."
-msgstr ""
+msgstr "Hoşgeldiniz, %s. Hesabınıza yeni bir kitap eklemek için <strong>aşşağıdaki formu doldurunuz</strong>."
 
 #: includes/pb-registration.php:63
 msgid "yourwebbookname"
-msgstr ""
+msgstr "Web book isminiz."
 
 #: includes/pb-registration.php:66
 msgid "Books you are already a member of:"
-msgstr ""
+msgstr "Üyesi olduğunuz kitaplar."
 
 #: includes/pb-registration.php:69
 msgid ""
 "Your web book address must be at least 4 characters, letters and numbers "
 "only. It <strong>cannot be changed</strong>, so choose carefully!"
-msgstr ""
+msgstr "En az 4 harf, sadece numaralar ve harfler. Webbook adresiniz <strong>değiştirilemez</strong>, bu yüzden dikkatli bir şekilde seçiniz!"
 
 #: includes/pb-registration.php:72
 #, php-format
 msgid "Congratulations! Your new book, %s, is almost ready"
-msgstr ""
+msgstr "Tebrikler! Yeni kitabınız, %s, neredeyse hazır."
 
 #: includes/pb-registration.php:75
 msgid ""
 "But, before you can start writing your book, <strong>you must activate "
 "it</strong>."
-msgstr ""
+msgstr "Fakat, kitabınızı yazmaya başlamadan önce, <strong>aktif etmelisiniz</strong>."
 
 #: includes/pb-registration.php:78
 #, php-format
@@ -1855,7 +1849,7 @@ msgid ""
 " not receive an email, please check your junk or spam folder. If you still "
 "do not receive an email within an hour, you can <a href=\"%4$s\">reset your "
 "password</a>."
-msgstr ""
+msgstr "Hesabınız aktive edildi. Şimdi kullanıcı adınızı &#8220;%2$s&#8221; kullanarak kitabınıza <a href=\"%1$s\">giriş yapabilirsiniz</a>. Lütfen email hesabınızı şifreniz ve giriş talimatları için kontrol ediniz %3$s. Eğer email gelmediyse lütfen önemsiz klasörünü kontrol ediniz. Eğer emaili bir saat içinde hala almadıysanız, şifrenizi değiştirebilirsiniz <a href=\"%4$s\"> </a>."
 
 #: includes/pb-registration.php:81
 #, php-format
@@ -1866,38 +1860,38 @@ msgid ""
 "receive an email, please check your junk or spam folder. If you still do not"
 " receive an email within an hour, you can <a href=\"%5$s\">reset your "
 "password</a>."
-msgstr ""
+msgstr "<a href=\"%1$s\">%2$s</a> 'daki kitabınız aktif. &#8220;%3$s&#8221; isimli kullanıcı adınızı seçerek kitabınıza giriş yapabilirsiniz. Lütfen %4$s 'da emailinizi şifreniz ve giriş talimatları için kontrol ediniz. Eğer email gelmediyse lütfen önemsiz klasörünü kontrol ediniz. Eğer emaili bir ssaat içinde hala almadıysanız, şifrenizi değiştirebilirsiniz. <a href=\"%5$s\"> </a>."
 
 #: includes/pb-registration.php:84
 #, php-format
 msgid ""
 "Your account is now activated. <a href=\"%1$s\">View your book</a> or <a "
 "href=\"%2$s\">Log in</a>"
-msgstr ""
+msgstr "Hesabınız şuan aktif. <a href=\"%1$s\">Kitabınızı inceleyin</a> veya <a href=\"%2$s\">giriş yapın</a>"
 
 #: includes/pb-registration.php:106
 msgid "Password"
-msgstr ""
+msgstr "Şifre"
 
 #: includes/pb-registration.php:109
 msgid "Type in your password."
-msgstr ""
+msgstr "Şifrenizi yazınız."
 
 #: includes/pb-registration.php:111
 msgid "Confirm Password"
-msgstr ""
+msgstr "Şifreyi doğrulayın."
 
 #: includes/pb-registration.php:113
 msgid "Type in your password again."
-msgstr ""
+msgstr "Şifrenizi tekrar girin."
 
 #: includes/pb-registration.php:130
 msgid "You have to enter a password."
-msgstr ""
+msgstr "Şifre girmek zorundasınız."
 
 #: includes/pb-registration.php:136
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Şifreler eşleşmiyor."
 
 #: includes/pb-taxonomy.php:17
 msgctxt "taxonomy general name"
@@ -2010,60 +2004,60 @@ msgstr ""
 #: includes/pb-taxonomy.php:97
 msgctxt "taxonomy general name"
 msgid "Chapter Types"
-msgstr ""
+msgstr "Bölüm tipleri"
 
 #: includes/pb-taxonomy.php:98
 msgctxt "taxonomy singular name"
 msgid "Chapter Type"
-msgstr ""
+msgstr "Bölüm tipi"
 
 #: includes/pb-taxonomy.php:99
 msgid "Search Chapter Types"
-msgstr ""
+msgstr "Bölüm tipleri ara."
 
 #: includes/pb-taxonomy.php:100
 msgid "Popular Chapter Types"
-msgstr ""
+msgstr "Popüler bölüm tipleri"
 
 #: includes/pb-taxonomy.php:101
 msgid "All Chapter Types"
-msgstr ""
+msgstr "Tüm bölüm tipleri."
 
 #: includes/pb-taxonomy.php:104
 msgid "Edit Chapter Type"
-msgstr ""
+msgstr "Bölüm tipini düzenle."
 
 #: includes/pb-taxonomy.php:105
 msgid "Update Chapter Type"
-msgstr ""
+msgstr "Bölüm tipini güncelle."
 
 #: includes/pb-taxonomy.php:106
 msgid "Add New Chapter Type"
-msgstr ""
+msgstr "Yeni bölüm ekle."
 
 #: includes/pb-taxonomy.php:107
 msgid "New Chapter Type Name"
-msgstr ""
+msgstr "Yeni bölüm tipi adı"
 
 #: includes/pb-taxonomy.php:108
 msgid "Separate chapter types with commas"
-msgstr ""
+msgstr "Bölüö tiplerini virgül ile ayır."
 
 #: includes/pb-taxonomy.php:109
 msgid "Add or remove chapter type"
-msgstr ""
+msgstr "Bölüm tipi ekle veya kaldır."
 
 #: includes/pb-taxonomy.php:110
 msgid "Choose from the most used chapter type"
-msgstr ""
+msgstr "En çok kullanılan bölüm tipinden seç."
 
-#: includes/pb-taxonomy.php:111 themes-book/pressbooks-book/functions.php:383
+#: includes/pb-taxonomy.php:111 themes-book/pressbooks-book/functions.php:386
 msgid "Chapter Types"
-msgstr ""
+msgstr "Bölüm tipleri."
 
 #: includes/shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
-msgstr ""
+msgstr "Dipnot ekle."
 
 #: includes/shortcodes/footnotes/class-pb-footnotes.php:176
 msgid "Convert MS Word Footnotes"
@@ -2072,85 +2066,85 @@ msgstr ""
 #: includes/shortcodes/footnotes/class-pb-footnotes.php:245
 #: tests/test-shortcodes-footnotes-footnotes.php:188
 msgid "Invalid permissions."
-msgstr ""
+msgstr "Geçersiz izin."
 
 #: languages/tinymce.php:4
 msgid "Class"
-msgstr ""
+msgstr "Sınıf"
 
 #: languages/tinymce.php:5
 msgid "Textboxes"
-msgstr ""
+msgstr "Metin kutuları."
 
 #: languages/tinymce.php:6
 msgid "Custom Textbox"
-msgstr ""
+msgstr "Özel metin kutusu"
 
 #: languages/tinymce.php:8
 msgid "Type your textbox content here."
-msgstr ""
+msgstr "Metin kutusu içeriğini buraya yazın"
 
 #: languages/tinymce.php:10
 msgid "Learning Objectives"
-msgstr ""
+msgstr "Öğrenme hedefleri"
 
 #: languages/tinymce.php:11
 msgid "Type your learning objectives here."
-msgstr ""
+msgstr "Öğrenme hedeflerinizi buraya yazın."
 
 #: languages/tinymce.php:12
 msgid "Key Takeaways"
-msgstr ""
+msgstr "Anahtar çıkarımlar."
 
 #: languages/tinymce.php:13
 msgid "Type your key takeaways here."
-msgstr ""
+msgstr "Anahtar çıkarımlarınızı buraya yazın."
 
 #: languages/tinymce.php:14
 msgid "Exercises"
-msgstr ""
+msgstr "Egzersizler"
 
 #: languages/tinymce.php:15
 msgid "Type your exercises here."
-msgstr ""
+msgstr "Egzersizlerinizi buraya yazın."
 
 #: languages/tinymce.php:16
 msgid "Examples"
-msgstr ""
+msgstr "Örnekler"
 
 #: languages/tinymce.php:17
 msgid "Type your examples here."
-msgstr ""
+msgstr "Örnekleriniziburaya yazın"
 
 #: languages/tinymce.php:19
 msgid "First"
-msgstr ""
+msgstr "Birinci"
 
 #: languages/tinymce.php:20
 msgid "Second"
-msgstr ""
+msgstr "İkinci"
 
 #: pressbooks.php:82
 msgid ""
 "Dependencies missing. Please run 'composer install' from the root of the "
 "Pressbooks plugin directory."
-msgstr ""
+msgstr "Bağıl dosyalar kayıp. Lütfen Pressbook eklenti dizininden 'composer install' ı çalıştırın."
 
 #: pressbooks.php:90
 msgid "Cannot find Pressbooks install."
-msgstr ""
+msgstr "Pressbook kurulumu bulunamıyor."
 
 #: templates/admin/catalog.php:26
 msgid "Tags For"
-msgstr ""
+msgstr "-için etiketler"
 
 #: templates/admin/catalog.php:48
 msgid "Tags"
-msgstr ""
+msgstr "etiket"
 
 #: templates/admin/catalog.php:89
 msgid "My Catalog Profile"
-msgstr ""
+msgstr "Katalog profilim."
 
 #: templates/admin/catalog.php:100
 msgid "URL"
@@ -2158,7 +2152,7 @@ msgstr "URL"
 
 #: templates/admin/catalog.php:104
 msgid "Tags Name"
-msgstr ""
+msgstr "Etiket isimler"
 
 #: templates/admin/catalog.php:113
 msgid "Logo Or Image"
@@ -2166,199 +2160,215 @@ msgstr "Logo veya Resim"
 
 #: templates/admin/custom-css.php:20
 msgid "Error: Something went wrong. See logs for more details."
-msgstr ""
+msgstr "Hata: Birşeyler yanlış gitti. Daha fazla ayrıntı için sistem günlüklere bakın."
 
 #: templates/admin/custom-css.php:36
 msgid "You are currently editing CSS for"
-msgstr ""
+msgstr "-için şuan CSS düzenliyorsun."
 
 #: templates/admin/custom-css.php:37
 msgid "Copy CSS from"
-msgstr ""
+msgstr "-den CSS kopyalamak"
 
 #: templates/admin/custom-css.php:42
 msgid "Save"
-msgstr ""
+msgstr "Kaydetmek"
 
 #: templates/admin/dashboard.php:34
 msgid "Dashboard Settings"
-msgstr ""
+msgstr "Gösterge paneli ayarları"
 
 #: templates/admin/dashboard.php:36
 msgid "Customize your Pressbooks dashboard below."
-msgstr ""
-
-#: templates/admin/export.php:35
-msgid "Error: The export failed. See logs for more details."
-msgstr ""
-
-#: templates/admin/export.php:40
-msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
+msgstr "Aşşağıdaki Pressbook gösterge panelini özelleştirin."
 
 #: templates/admin/export.php:41
-msgid "Emailed to:"
-msgstr ""
+msgid "Error: The export failed. See logs for more details."
+msgstr "Hata: İhraç başarısız oldu. Detaylar için sistem günlüklerine bakın."
 
-#: templates/admin/export.php:52
+#: templates/admin/export.php:46
+msgid "Warning: The export has validation errors. See logs for more details."
+msgstr "Uyarı: İhraç doğrulama hatası ile karşılaştı. Detaylar "
+
+#: templates/admin/export.php:47
+msgid "Emailed to:"
+msgstr "-a, -e email yollandı"
+
+#: templates/admin/export.php:58
 #, php-format
 msgid ""
 "You can export multiple file formats by selecting your Export Format Options"
 " below. Pressbooks saves your last %s batches of exported files."
+msgstr "Aşşağıdaki İhraç Formatı Seçeneklerini seçerek birden fazla dosya formatı ihraç edebilirsin. Pressbook İhraç edilen dosyaların %s ini kaydeder."
+
+#: templates/admin/export.php:63
+msgid "Your Export Format Options"
+msgstr "İhraç düzen seçenekleri"
+
+#: templates/admin/export.php:64
+msgid "Select which formats you want to export"
+msgstr "Hangi formatları ihraç etmek istediğini seç"
+
+#: templates/admin/export.php:68
+msgid "Standard book formats"
+msgstr "Standart kitap formatları"
+
+#: templates/admin/export.php:70
+msgid "PDF (for printing)"
+msgstr "PDF (baskı için)"
+
+#: templates/admin/export.php:73
+msgid "PDF (mPDF)"
+msgstr "PDF (mPDF)"
+
+#: templates/admin/export.php:75 templates/admin/import.php:156
+msgid "EPUB (for Nook, iBooks, Kobo etc.)"
+msgstr "EPUB (Nook, iBooks, Kobo vs. için)"
+
+#: templates/admin/export.php:76
+msgid "MOBI (for Kindle)"
+msgstr "MOBI (Kindle için)"
+
+#: templates/admin/export.php:80
+msgid "Exotic formats"
 msgstr ""
 
-#: templates/admin/export.php:57
+#: templates/admin/export.php:81
+msgid "EPUB 3 (beta)"
+msgstr ""
+
+#: templates/admin/export.php:82
+msgid "XHTML"
+msgstr "XHTML"
+
+#: templates/admin/export.php:84
+msgid "ICML (for InDesign)"
+msgstr "ICML (InDesign için)"
+
+#: templates/admin/export.php:86
+msgid "OpenDocument (beta)"
+msgstr ""
+
+#: templates/admin/export.php:87
+msgid "Pressbooks XML"
+msgstr "Pressbooks XML"
+
+#: templates/admin/export.php:88
+msgid "WordPress XML"
+msgstr "WordPress XML"
+
+#: templates/admin/export.php:92
+msgid "Your Theme Options"
+msgstr "Tema Seçenekleriniz"
+
+#: templates/admin/export.php:99
+msgid "Change Theme"
+msgstr "Temayı değiştirin"
+
+#: templates/admin/export.php:100
+msgid "Options"
+msgstr "Seçenekler"
+
+#: templates/admin/export.php:107
 msgid "Export Your Book"
 msgstr "Kitabını ihraç et"
 
-#: templates/admin/export.php:65
+#: templates/admin/export.php:115
 msgid "Latest Export"
 msgstr "En son ihraç edilen"
 
-#: templates/admin/export.php:65 templates/admin/export.php:68
+#: templates/admin/export.php:115 templates/admin/export.php:118
 #, php-format
 msgctxt "Date and time string, e.g. \"January 1, 2016 at 12:00pm"
 msgid "%s at %s"
 msgstr ""
 
-#: templates/admin/export.php:68
+#: templates/admin/export.php:118
 msgid "Exported"
 msgstr "İhraç edildi"
 
-#: templates/admin/export.php:106
-msgid "Your Export Format Options"
-msgstr "İhraç düzen seçenekleri"
-
-#: templates/admin/export.php:107
-msgid "Select which formats you want to export"
+#: templates/admin/export.php:156
+msgid "Are you sure you want to delete ALL your current exports?"
 msgstr ""
 
-#: templates/admin/export.php:111
-msgid "Standard book formats"
+#: templates/admin/export.php:156
+msgid "Delete All Exports"
 msgstr ""
 
-#: templates/admin/export.php:113
-msgid "PDF (for printing)"
-msgstr "PDF (baskı için)"
-
-#: templates/admin/export.php:116
-msgid "PDF (mPDF)"
-msgstr "PDF (mPDF)"
-
-#: templates/admin/export.php:118 templates/admin/import.php:149
-msgid "EPUB (for Nook, iBooks, Kobo etc.)"
-msgstr "EPUB (Nook, iBooks, Kobo vs. için)"
-
-#: templates/admin/export.php:119
-msgid "MOBI (for Kindle)"
-msgstr "MOBI (Kindle için)"
-
-#: templates/admin/export.php:124
-msgid "EPUB 3 (beta)"
-msgstr ""
-
-#: templates/admin/export.php:125
-msgid "XHTML"
-msgstr "XHTML"
-
-#: templates/admin/export.php:127
-msgid "ICML (for InDesign)"
-msgstr "ICML (InDesign için)"
-
-#: templates/admin/export.php:129
-msgid "OpenDocument (beta)"
-msgstr ""
-
-#: templates/admin/export.php:130
-msgid "Pressbooks XML"
-msgstr "Pressbooks XML"
-
-#: templates/admin/export.php:131
-msgid "WordPress XML"
-msgstr "WordPress XML"
-
-#: templates/admin/export.php:135
-msgid "Your Theme Options"
-msgstr "Tema Seçenekleriniz"
-
-#: templates/admin/export.php:142
-msgid "Change Theme"
-msgstr "Temayı değiştirin"
-
-#: templates/admin/export.php:143
-msgid "Options"
-msgstr ""
-
-#: templates/admin/import.php:20
+#: templates/admin/import.php:21
 #, php-format
 msgid "Import in progress: %s"
-msgstr ""
+msgstr "İhraç devam ediyor: %s"
 
-#: templates/admin/import.php:40
+#: templates/admin/import.php:41
 msgid "Are you sure you want to abort the import?"
+msgstr "İhracı iptal etmek istediğinden emin misin?"
+
+#: templates/admin/import.php:67
+msgid "Other"
 msgstr ""
 
-#: templates/admin/import.php:99
+#: templates/admin/import.php:106
 msgid "Start"
-msgstr ""
+msgstr "Başlangıç"
 
-#: templates/admin/import.php:101
+#: templates/admin/import.php:108
 msgid "Cancel"
-msgstr ""
+msgstr "İptal"
 
-#: templates/admin/import.php:134
+#: templates/admin/import.php:141
 msgid "Supported file extensions:"
-msgstr ""
+msgstr "Desteklenen dosya uzantıları:"
 
-#: templates/admin/import.php:135
+#: templates/admin/import.php:142
 msgid "Maximum file size:"
-msgstr ""
+msgstr "Maksimum dosya boyutu:"
 
-#: templates/admin/import.php:144
+#: templates/admin/import.php:151
 msgid "Type of file"
-msgstr ""
+msgstr "Dosya tipi"
 
-#: templates/admin/import.php:148
+#: templates/admin/import.php:155
 msgid "WXR (WordPress eXtended RSS)"
 msgstr ""
 
-#: templates/admin/import.php:150
+#: templates/admin/import.php:157
 msgid "ODT (word processing file format of OpenDocument)"
 msgstr ""
 
-#: templates/admin/import.php:151
+#: templates/admin/import.php:158
 msgid "DOCX (word processing file format of Microsoft)"
 msgstr ""
 
-#: templates/admin/import.php:152
+#: templates/admin/import.php:159
 msgid "HTML (scrape content from a URL)"
 msgstr ""
 
-#: templates/admin/import.php:158
+#: templates/admin/import.php:165
 msgid "File"
-msgstr ""
+msgstr "Dosya"
 
-#: templates/admin/import.php:171
+#: templates/admin/import.php:178
 msgid "Upload file"
-msgstr ""
+msgstr "Dosya yüklemek"
 
 #: templates/admin/organize.php:19 templates/admin/organize.php:21
 msgid "This book's global privacy is set to"
-msgstr ""
+msgstr "Bu kitabın küresel gizliliği -e ayarlandı"
 
 #: templates/admin/organize.php:25
 msgid "Promote your book, set individual chapters privacy below."
-msgstr ""
+msgstr "Kitabını terfi ettir, aşağıdaki bireysel gizlilik bölümlerini ayarla."
 
 #: templates/admin/organize.php:28
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "privacy settings below."
-msgstr ""
+msgstr "Sadece senin davet ettiğin kullanıcılar kitabını görebilir, aşağıdaki bireysel gizlilik kuralları her ne olursa olsun."
 
 #: templates/admin/organize.php:37
 msgid "Chapters"
-msgstr ""
+msgstr "Bölümler"
 
 #: templates/admin/organize.php:42
 msgid "Add Front Matter"
@@ -2370,23 +2380,23 @@ msgstr ""
 
 #: templates/admin/organize.php:44
 msgid "Add Chapter"
-msgstr ""
+msgstr "Bölüm ekle"
 
 #: templates/admin/organize.php:45 templates/admin/organize.php:147
 msgid "Add Part"
-msgstr ""
+msgstr "Parça ekle"
 
 #: templates/admin/organize.php:78 templates/admin/organize.php:154
 msgid "Comments"
-msgstr ""
+msgstr "Yorumlar"
 
 #: templates/admin/organize.php:79 templates/admin/organize.php:155
 msgid "Status"
-msgstr ""
+msgstr "Durum"
 
 #: templates/admin/organize.php:81 templates/admin/organize.php:157
 msgid "Show Title"
-msgstr ""
+msgstr "Başlığı göster"
 
 #: templates/admin/organize.php:84 templates/admin/organize.php:125
 #: templates/admin/organize.php:159 templates/admin/organize.php:193
@@ -2395,15 +2405,15 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:126
 #: themes-root/pressbooks-publisher/template-parts/content-page.php:25
 msgid "Edit"
-msgstr ""
+msgstr "Düzenle"
 
 #: templates/admin/organize.php:102 templates/admin/organize.php:170
 msgid "Ebook start point"
-msgstr ""
+msgstr "Ebook başlangıç noktası"
 
 #: templates/admin/organize.php:218
 msgid "Reordering Chapters"
-msgstr ""
+msgstr "Bölümleri yeniden sıraya koy"
 
 #: templates/admin/organize.php:223
 msgid "Reordering Front Matter"
@@ -2418,7 +2428,7 @@ msgid ""
 "Once your book is finished, you can download the files and submit them to "
 "ebookstores and print-on-demand providers. And if you like, Pressbooks can "
 "print your books, and ship them right to your door."
-msgstr ""
+msgstr "Kitabınız bittiğinde, onları indirebilir ve ebook mağazalarına gönderebilirsiniz ve talep üzerine baskı yaptırabilirsiniz. Eğer isterseniz, Pressbooks kitaplarınızı basıp kapınıza kadar gönderebilir."
 
 #: templates/admin/publish.php:15
 msgid "Ebook Stores"
@@ -2432,7 +2442,7 @@ msgid ""
 "serve ebookstores are <a href=\"%1s\">Kindle</a>, <a href=\"%2s\">Kobo</a>, "
 "and <a href=\"%3s\">Nook</a>. Other ebook stores include Apple iBooks and "
 "Google."
-msgstr ""
+msgstr "Kitabınızı indirdiğinizde, isterseniz ebook mağazalarına kendiniz koyabilir, yada üçüncü parti bir distribütör kullanabilirsiniz. Önerilen kendi yükleyebileceğiniz ebook mağazaları  <a href=\"%1s\">Kindle</a>, <a href=\"%2s\">Kobo</a>, and <a href=\"%3s\">Nook</a>. Diğer ebook mağazaları ise Apple iBooks ve Google."
 
 #: templates/admin/publish.php:17
 #, php-format
@@ -2440,52 +2450,52 @@ msgid ""
 "If you do not wish to submit your ebooks yourself, we recommend using a "
 "third-party distribution service such as <a href=\"%1s\">IngramSpark</a>, "
 "which can also make your books available online in print."
-msgstr ""
+msgstr "Eğer ebook larınızı kendiniz yüklemek istemezseniz, üçüncü parti bir distribütör kullanmanızı öneririz <a href=\"%1s\">IngramSpark</a> gibi, ayrıca kitaplarınızın çevrimiçi basımına olanak sağlar."
 
 #: templates/admin/publish.php:19
 msgid "Print-on-Demand"
-msgstr ""
+msgstr "Talep üzerine baskı"
 
 #: templates/admin/publish.php:20
 #, php-format
 msgid ""
 "If you wish to sell your printed books online, we recommend going through <a"
 " href=\"%1s\">IngramSpark</a> or Amazon's <a href=\"%2s\">CreateSpace</a>."
-msgstr ""
+msgstr "Eğer basılmış kitaplarınızı çevrimiçi satmayı düşünüyorsanız, size şunları öneriyoruz <a href=\"%1s\">IngramSpark</a> or Amazon's <a href=\"%2s\">CreateSpace</a>."
 
 #: templates/admin/publish.php:22
 msgid "Ordering Printed Books"
-msgstr ""
+msgstr "Basılmış kitap sipariş etmek"
 
 #: templates/admin/publish.php:23
 #, php-format
 msgid ""
 "Pressbooks can print your books and send them to you. For pricing and more "
 "details, please send an email to: <a href=\"%1s\">print@pressbooks.com</a>"
-msgstr ""
+msgstr "Pressbooks kitaplarınızı basabilir ve size yollayabilir. Fiyatlar ve daha fazla detay için, lütfen bu adrese email gönderiniz: <a href=\"%1s\">print@pressbooks.com</a>"
 
 #: templates/admin/publish.php:27
 msgid "Adding BUY Links to Your Pressbooks Web Book"
-msgstr ""
+msgstr "Pressbook web kitabına satın alma linkleri ekle"
 
 #: templates/admin/publish.php:28
 msgid ""
 "If you would like to add <strong>BUY</strong> links to your Pressbooks web "
 "book, add the links to your book at the different retailers below:"
-msgstr ""
+msgstr "Eğer Pressbooks web kitabına satın alma linki eklemek istersen <strong>Satın al</strong> linkleri kitabında aşağıdaki farklı bayilere ekle."
 
 #: templates/admin/results.php:3
 msgid "Results"
-msgstr ""
+msgstr "sonuçlar"
 
 #: templates/admin/results.php:5
 #, php-format
 msgid "%1$s result(s) found."
-msgstr ""
+msgstr "%1$s sonuç(lar) bulundu."
 
 #: templates/admin/results.php:20
 msgid "There are no results."
-msgstr ""
+msgstr "Sonuç yok."
 
 #: templates/admin/search.php:4
 msgid ""
@@ -2503,31 +2513,31 @@ msgstr ""
 
 #: templates/admin/search.php:9
 msgid "Search Within"
-msgstr ""
+msgstr "içerisinde aramak"
 
 #: templates/admin/search.php:32
 msgid "Result Order"
-msgstr ""
+msgstr "Sonuç düzeni"
 
 #: templates/admin/search.php:36
 msgid "Ascending"
-msgstr ""
+msgstr "Artan sırada"
 
 #: templates/admin/search.php:37
 msgid "Descending"
-msgstr ""
+msgstr "Alçalan sırada"
 
 #: templates/admin/search.php:42
 msgid "Search For"
-msgstr ""
+msgstr "Aramak"
 
 #: templates/admin/search.php:48
 msgid "Replace With"
-msgstr ""
+msgstr "İle değiştir"
 
 #: templates/admin/search.php:59
 msgid "Preview Replacements"
-msgstr ""
+msgstr "Değiştirmeleri önizle"
 
 #: templates/admin/search.php:60
 msgid "Replace &amp; Save"
@@ -2535,58 +2545,57 @@ msgstr ""
 
 #: templates/pb-catalog.php:150
 msgid "'s Catalog Page"
-msgstr ""
+msgstr "-in, -ın katalog sayfası"
 
 #: templates/pb-catalog.php:165
 #: themes-book/pressbooks-book/page-cover-top-block.php:8
 msgid "login"
-msgstr ""
+msgstr "giriş yap"
 
 #: templates/pb-catalog.php:167
 #: themes-book/pressbooks-book/page-cover-top-block.php:10
 msgid "logout"
-msgstr ""
+msgstr "çıkış yap"
 
 #: templates/pb-catalog.php:175
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
 #: themes-root/pressbooks-publisher/header.php:39
 msgid "Admin"
-msgstr ""
+msgstr "Yönetici"
 
 #: templates/pb-catalog.php:214
 msgid "Catalog"
-msgstr ""
+msgstr "Katalog"
 
 #: templates/pb-catalog.php:214
 msgid "filtering by"
-msgstr ""
+msgstr "Süzgeç"
 
 #: templates/pb-catalog.php:239
 msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a class"
 "=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
-msgstr ""
+msgstr "Üzgünüz, fakat hiçbir kitap sizin süzgeç kriterlerinize uymuyor. Lütfen <a class=\"clear-filters\" href=\"#\">süzgeçi temizleyin</a> ve tekrar deneyiniz."
 
 #: templates/pb-catalog.php:243
 msgid "Pressbooks: the CMS for Books."
-msgstr ""
+msgstr "Pressbooks: Kitaplar için CMS."
 
 #: tests/test-registration.php:21
 msgid "Create Site"
-msgstr ""
+msgstr "Site oluştur"
 
 #: themes-book/austen/functions.php:17 themes-book/austen/functions.php:18
-#: themes-book/austen/functions.php:35 themes-book/clarke/functions.php:18
-#: themes-book/donham/functions.php:18 themes-book/donham/functions.php:19
-#: themes-book/donham/functions.php:36
+#: themes-book/austen/functions.php:35 themes-book/donham/functions.php:18
+#: themes-book/donham/functions.php:19 themes-book/donham/functions.php:36
 msgid "part"
-msgstr ""
+msgstr "parça"
 
 #: themes-book/pressbooks-book/comments.php:3
 msgid ""
 "This post is password protected. Enter the password to view any comments."
-msgstr ""
+msgstr "Bu günderi şiflerenmiştir. Dökümanları görmebilmek için şifreyi girin."
 
 #: themes-book/pressbooks-book/comments.php:13
 #: themes-root/pressbooks-publisher/comments.php:29
@@ -2599,688 +2608,688 @@ msgstr[0] ""
 #: themes-book/pressbooks-book/comments.php:21
 #: themes-book/pressbooks-book/comments.php:32
 msgid "<span class=\"meta-nav\">&larr;</span> Older Comments"
-msgstr ""
+msgstr "<span class=\"meta-nav\">&larr;</span> Eski yorumlar"
 
 #: themes-book/pressbooks-book/comments.php:22
 #: themes-book/pressbooks-book/comments.php:33
 msgid "Newer Comments <span class=\"meta-nav\">&rarr;</span>"
-msgstr ""
+msgstr "Yeni Yorumlar <span class=\"meta-nav\">&rarr;</span>"
 
 #: themes-book/pressbooks-book/comments.php:40
 #: themes-root/pressbooks-publisher/comments.php:75
 msgid "Comments are closed."
-msgstr ""
+msgstr "Yorumlara kapalı"
 
 #: themes-book/pressbooks-book/comments.php:48
 msgid "Submit"
-msgstr ""
+msgstr "Göndermek"
 
 #: themes-book/pressbooks-book/content-social-footer.php:4
 msgid "I wanted to share this post with you from"
-msgstr ""
+msgstr "Bu gönderiyi sizinle paylaşmak istedim"
 
 #: themes-book/pressbooks-book/content-social-footer.php:5
 msgid "Email to a friend"
-msgstr ""
+msgstr "Arkadaşa email"
 
 #: themes-book/pressbooks-book/content-social-footer.php:5
 msgid "Share via Email"
-msgstr ""
+msgstr "Email ile paylaş"
 
 #: themes-book/pressbooks-book/footer.php:24
 msgid "Book Name"
-msgstr ""
+msgstr "Kitap isimi"
 
 #: themes-book/pressbooks-book/footer.php:51
 msgid "Pressbooks.com: Simple Book Production"
-msgstr ""
+msgstr "Pressbooks.com: Basit kitap üretimi"
 
 #: themes-book/pressbooks-book/functions.php:16
 msgid "Contributing Author"
-msgstr ""
+msgstr "Yardımcı yazar"
 
 #: themes-book/pressbooks-book/functions.php:19
 msgid "Keywords/Tags"
-msgstr ""
+msgstr "Anahtar Kelimeler/Etiketler"
 
-#: themes-book/pressbooks-book/functions.php:124
+#: themes-book/pressbooks-book/functions.php:127
 msgid "Previous"
-msgstr ""
+msgstr "Önceki"
 
-#: themes-book/pressbooks-book/functions.php:128
+#: themes-book/pressbooks-book/functions.php:131
 msgid "Next"
-msgstr ""
+msgstr "Sonraki"
 
-#: themes-book/pressbooks-book/functions.php:144
+#: themes-book/pressbooks-book/functions.php:147
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can <a href=\""
-msgstr ""
+msgstr "Bu kitap özel, ve sadece kayıtlı öğeler giriş yapabilir. Eğer hesabın varsa girebilirsin <a href=\""
 
-#: themes-book/pressbooks-book/functions.php:171
+#: themes-book/pressbooks-book/functions.php:174
 #, php-format
 msgid "%s on"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:171
+#: themes-book/pressbooks-book/functions.php:174
 #, php-format
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:171
-#: themes-book/pressbooks-book/functions.php:191
-msgid "(Edit)"
-msgstr ""
-
 #: themes-book/pressbooks-book/functions.php:174
-msgid "Your comment is awaiting moderation."
-msgstr ""
+#: themes-book/pressbooks-book/functions.php:194
+msgid "(Edit)"
+msgstr "(Düzenle)"
 
-#: themes-book/pressbooks-book/functions.php:191
+#: themes-book/pressbooks-book/functions.php:177
+msgid "Your comment is awaiting moderation."
+msgstr "Yorumunuz onay bekliyor."
+
+#: themes-book/pressbooks-book/functions.php:194
 msgid "Pingback:"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:365
+#: themes-book/pressbooks-book/functions.php:368
 msgid "Global Options"
-msgstr ""
+msgstr "Küresel seçenekler"
 
-#: themes-book/pressbooks-book/functions.php:372
+#: themes-book/pressbooks-book/functions.php:375
 msgid "Chapter Numbers"
-msgstr ""
+msgstr "Bölüm numaraları"
 
-#: themes-book/pressbooks-book/functions.php:377
+#: themes-book/pressbooks-book/functions.php:380
 msgid "Display chapter numbers"
-msgstr ""
+msgstr "Bölüm numaralarını göster"
 
-#: themes-book/pressbooks-book/functions.php:388
+#: themes-book/pressbooks-book/functions.php:391
 msgid "Enable chapter types taxonomy"
-msgstr ""
+msgstr "Bölüm tipi sınıflandırmasına olanak ver."
 
-#: themes-book/pressbooks-book/functions.php:394
+#: themes-book/pressbooks-book/functions.php:397
 msgid "Parse Sections"
-msgstr ""
+msgstr "Kısımlara ayır"
 
-#: themes-book/pressbooks-book/functions.php:399
+#: themes-book/pressbooks-book/functions.php:402
 msgid "Enable a two-level TOC"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:410
+#: themes-book/pressbooks-book/functions.php:413
 msgid "Display the copyright license"
-msgstr ""
+msgstr "Telif hakkı lisansını göster"
 
-#: themes-book/pressbooks-book/functions.php:430
+#: themes-book/pressbooks-book/functions.php:433
 msgid "Global Typography"
-msgstr ""
+msgstr "Küresel Tipografi"
 
-#: themes-book/pressbooks-book/functions.php:435
+#: themes-book/pressbooks-book/functions.php:438
 msgid "Include fonts to support the following languages:"
-msgstr ""
+msgstr "aşağıdaki diller desteklemek için yazı tipi dahil et:"
 
-#: themes-book/pressbooks-book/functions.php:453
+#: themes-book/pressbooks-book/functions.php:456
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
+msgstr "Bu seçenekler webbook,PDF ve ebook ihracatlarına küresel olarak uygulanır."
 
-#: themes-book/pressbooks-book/functions.php:493
+#: themes-book/pressbooks-book/functions.php:496
 msgid "Enable chapter types taxonomy."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:545
-msgid "and"
-msgstr ""
+msgstr "Bölüm tiği sınıflandırmasına olanak ver."
 
 #: themes-book/pressbooks-book/functions.php:554
+msgid "and"
+msgstr "ve"
+
+#: themes-book/pressbooks-book/functions.php:563
 msgid "Select languages&hellip;"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:562
+#: themes-book/pressbooks-book/functions.php:571
 #, php-format
 msgid "This theme includes built-in support for %s."
-msgstr ""
+msgstr "Bu tema %s ler için yerleşik destek içerir."
 
-#: themes-book/pressbooks-book/functions.php:623
+#: themes-book/pressbooks-book/functions.php:632
 msgid "Web Options"
-msgstr ""
+msgstr "Ağ seçenekleri"
 
-#: themes-book/pressbooks-book/functions.php:630
+#: themes-book/pressbooks-book/functions.php:639
 msgid "Collapsable TOC"
-msgstr ""
+msgstr "Katlanabilir TOC"
 
-#: themes-book/pressbooks-book/functions.php:635
+#: themes-book/pressbooks-book/functions.php:644
 msgid "Make webbook TOC collapsable"
-msgstr ""
+msgstr "Webbook TOC'u katlanabilir yap"
 
-#: themes-book/pressbooks-book/functions.php:641
-#: themes-book/pressbooks-book/functions.php:882
-#: themes-book/pressbooks-book/functions.php:1268
+#: themes-book/pressbooks-book/functions.php:650
+#: themes-book/pressbooks-book/functions.php:891
+#: themes-book/pressbooks-book/functions.php:1277
 msgid "Increase Font Size"
-msgstr ""
+msgstr "Yazı tipi boyutunu büyüt"
 
-#: themes-book/pressbooks-book/functions.php:646
+#: themes-book/pressbooks-book/functions.php:655
 msgid ""
 "Add an option for the user to increase font size for greater accessibility"
-msgstr ""
+msgstr "Kullanıcılar için daha büyük yazı tipi boyutlarına erişim seçeneği ekle."
 
-#: themes-book/pressbooks-book/functions.php:652
+#: themes-book/pressbooks-book/functions.php:661
 msgid "Enable Social Media"
-msgstr ""
+msgstr "Sosyal medyaya olanak ver"
 
-#: themes-book/pressbooks-book/functions.php:657
+#: themes-book/pressbooks-book/functions.php:666
 msgid ""
 "Add buttons to cover page and each chapter so that readers may share links "
 "to your book through social media: Facebook, Twitter, Google+."
-msgstr ""
+msgstr "Kapak sayfasına ve her bölüme butonlar koy böylelikle okuyucular sosyal medyada kitabınla alakalı linkler paylaşabilirler: Facebook, Twitter, Google+."
 
-#: themes-book/pressbooks-book/functions.php:669
+#: themes-book/pressbooks-book/functions.php:678
 msgid "These options apply to the webbook."
-msgstr ""
+msgstr "Bu seçenekler Webbook için geçerli."
 
-#: themes-book/pressbooks-book/functions.php:768
+#: themes-book/pressbooks-book/functions.php:777
 msgid "PDF Options"
-msgstr ""
+msgstr "PDF seçenekleri"
 
-#: themes-book/pressbooks-book/functions.php:775
-#: themes-book/pressbooks-book/functions.php:1128
+#: themes-book/pressbooks-book/functions.php:784
+#: themes-book/pressbooks-book/functions.php:1137
 msgid "Page Size"
-msgstr ""
+msgstr "Sayfa boyutu"
 
-#: themes-book/pressbooks-book/functions.php:780
+#: themes-book/pressbooks-book/functions.php:789
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:781
+#: themes-book/pressbooks-book/functions.php:790
 msgid "US Trade (6&quot; &times; 9&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:782
+#: themes-book/pressbooks-book/functions.php:791
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:783
+#: themes-book/pressbooks-book/functions.php:792
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:784
+#: themes-book/pressbooks-book/functions.php:793
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:785
+#: themes-book/pressbooks-book/functions.php:794
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:786
+#: themes-book/pressbooks-book/functions.php:795
 msgid "A4 (21cm &times; 29.7cm)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:787
+#: themes-book/pressbooks-book/functions.php:796
 msgid "A5 (14.8cm &times; 21cm)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:788
+#: themes-book/pressbooks-book/functions.php:797
 msgid "5&quot; &times; 8&quot;"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:793
+#: themes-book/pressbooks-book/functions.php:802
 msgid "Crop Marks"
-msgstr ""
+msgstr "Kırpma işaretleri"
 
-#: themes-book/pressbooks-book/functions.php:798
+#: themes-book/pressbooks-book/functions.php:807
 msgid "Display crop marks"
-msgstr ""
+msgstr "Kırpma işaretlerini göster"
 
-#: themes-book/pressbooks-book/functions.php:803
-#: themes-book/pressbooks-book/functions.php:1257
+#: themes-book/pressbooks-book/functions.php:812
+#: themes-book/pressbooks-book/functions.php:1266
 msgid "Hyphens"
-msgstr ""
+msgstr "kısa çizgi"
 
-#: themes-book/pressbooks-book/functions.php:808
-#: themes-book/pressbooks-book/functions.php:1262
+#: themes-book/pressbooks-book/functions.php:817
+#: themes-book/pressbooks-book/functions.php:1271
 msgid "Enable hyphenation"
-msgstr ""
+msgstr "Hecelemeye olanak ver."
 
-#: themes-book/pressbooks-book/functions.php:813
-#: themes-book/pressbooks-book/functions.php:1459
+#: themes-book/pressbooks-book/functions.php:822
+#: themes-book/pressbooks-book/functions.php:1468
 msgid "Paragraph Separation"
-msgstr ""
+msgstr "Paragraf ayırma"
 
-#: themes-book/pressbooks-book/functions.php:818
-#: themes-book/pressbooks-book/functions.php:1246
-#: themes-book/pressbooks-book/functions.php:1251
-#: themes-book/pressbooks-book/functions.php:1464
+#: themes-book/pressbooks-book/functions.php:827
+#: themes-book/pressbooks-book/functions.php:1255
+#: themes-book/pressbooks-book/functions.php:1260
+#: themes-book/pressbooks-book/functions.php:1473
 msgid "Indent paragraphs"
-msgstr ""
+msgstr "Paragraf Girintileri"
 
-#: themes-book/pressbooks-book/functions.php:819
-#: themes-book/pressbooks-book/functions.php:1465
+#: themes-book/pressbooks-book/functions.php:828
+#: themes-book/pressbooks-book/functions.php:1474
 msgid "Skip lines between paragraphs"
-msgstr ""
+msgstr "Paragraflar arası geçiş çizgileri"
 
-#: themes-book/pressbooks-book/functions.php:824
+#: themes-book/pressbooks-book/functions.php:833
 msgid "Blank Pages"
-msgstr ""
+msgstr "Boş sayfalar"
 
-#: themes-book/pressbooks-book/functions.php:829
+#: themes-book/pressbooks-book/functions.php:838
 msgid "Include blank pages (for print PDF)"
-msgstr ""
+msgstr "Boş sayfaları içer (PDF baskısı için)"
 
-#: themes-book/pressbooks-book/functions.php:830
+#: themes-book/pressbooks-book/functions.php:839
 msgid "Remove all blank pages (for web PDF)"
-msgstr ""
+msgstr "Bütün boş sayfaları sil (Ağ PDF'si için)"
 
-#: themes-book/pressbooks-book/functions.php:840
-#: themes-book/pressbooks-book/functions.php:1240
+#: themes-book/pressbooks-book/functions.php:849
+#: themes-book/pressbooks-book/functions.php:1249
 msgid "Display table of contents"
-msgstr ""
+msgstr "İçerik tablosunu göster"
 
-#: themes-book/pressbooks-book/functions.php:846
+#: themes-book/pressbooks-book/functions.php:855
 msgid "Romanize Part Numbers"
-msgstr ""
+msgstr "Parça numaralarını romanlaştır"
 
-#: themes-book/pressbooks-book/functions.php:851
+#: themes-book/pressbooks-book/functions.php:860
 msgid "Convert part numbers into Roman numerals"
-msgstr ""
+msgstr "Parça numaralarını Roman numarasına çevir"
 
-#: themes-book/pressbooks-book/functions.php:857
+#: themes-book/pressbooks-book/functions.php:866
 msgid "Footnotes Style"
-msgstr ""
+msgstr "Dipnot stili"
 
-#: themes-book/pressbooks-book/functions.php:862
+#: themes-book/pressbooks-book/functions.php:871
 msgid "Regular footnotes"
-msgstr ""
+msgstr "düzenli dipnot"
 
-#: themes-book/pressbooks-book/functions.php:863
+#: themes-book/pressbooks-book/functions.php:872
 msgid "Force as endnotes"
-msgstr ""
+msgstr "Son not olarak zorla"
 
-#: themes-book/pressbooks-book/functions.php:868
+#: themes-book/pressbooks-book/functions.php:877
 msgid "Widows"
-msgstr ""
+msgstr "Windows"
 
-#: themes-book/pressbooks-book/functions.php:875
+#: themes-book/pressbooks-book/functions.php:884
 msgid "Orphans"
-msgstr ""
+msgstr "Artık satır"
 
-#: themes-book/pressbooks-book/functions.php:887
-#: themes-book/pressbooks-book/functions.php:1273
+#: themes-book/pressbooks-book/functions.php:896
+#: themes-book/pressbooks-book/functions.php:1282
 msgid "Increases font size and line height for greater accessibility"
-msgstr ""
+msgstr "Tam erişim için yazı tiği boyutunu ve çizgi yüksekliğini artır."
 
-#: themes-book/pressbooks-book/functions.php:901
+#: themes-book/pressbooks-book/functions.php:910
 msgid "These options apply to PDF exports."
-msgstr ""
+msgstr "Bu seçenekler PDF ihraçları için geçerlidir."
 
-#: themes-book/pressbooks-book/functions.php:1121
+#: themes-book/pressbooks-book/functions.php:1130
 msgid "mPDF Options"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1133
-msgid "A0"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1134
-msgid "A1"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1135
-msgid "A2"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1136
-msgid "A3"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1137
-msgid "A4"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1138
-msgid "A5"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1139
-msgid "A6"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1140
-msgid "A7"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1141
-msgid "A8"
-msgstr ""
+msgstr "mPDF Ayarları"
 
 #: themes-book/pressbooks-book/functions.php:1142
-msgid "A9"
-msgstr ""
+msgid "A0"
+msgstr "A0"
 
 #: themes-book/pressbooks-book/functions.php:1143
-msgid "A10"
-msgstr ""
+msgid "A1"
+msgstr "A1"
 
 #: themes-book/pressbooks-book/functions.php:1144
-msgid "B0"
-msgstr ""
+msgid "A2"
+msgstr "A2"
 
 #: themes-book/pressbooks-book/functions.php:1145
-msgid "B1"
-msgstr ""
+msgid "A3"
+msgstr "A3"
 
 #: themes-book/pressbooks-book/functions.php:1146
-msgid "B2"
-msgstr ""
+msgid "A4"
+msgstr "A4"
 
 #: themes-book/pressbooks-book/functions.php:1147
-msgid "B3"
-msgstr ""
+msgid "A5"
+msgstr "A5"
 
 #: themes-book/pressbooks-book/functions.php:1148
-msgid "B4"
-msgstr ""
+msgid "A6"
+msgstr "A6"
 
 #: themes-book/pressbooks-book/functions.php:1149
-msgid "B5"
-msgstr ""
+msgid "A7"
+msgstr "A7"
 
 #: themes-book/pressbooks-book/functions.php:1150
-msgid "B6"
-msgstr ""
+msgid "A8"
+msgstr "A8"
 
 #: themes-book/pressbooks-book/functions.php:1151
-msgid "B7"
-msgstr ""
+msgid "A9"
+msgstr "A9"
 
 #: themes-book/pressbooks-book/functions.php:1152
-msgid "B8"
-msgstr ""
+msgid "A10"
+msgstr "A10"
 
 #: themes-book/pressbooks-book/functions.php:1153
-msgid "B9"
-msgstr ""
+msgid "B0"
+msgstr "B0"
 
 #: themes-book/pressbooks-book/functions.php:1154
-msgid "B10"
-msgstr ""
+msgid "B1"
+msgstr "B1"
 
 #: themes-book/pressbooks-book/functions.php:1155
-msgid "C0"
-msgstr ""
+msgid "B2"
+msgstr "B2"
 
 #: themes-book/pressbooks-book/functions.php:1156
-msgid "C1"
-msgstr ""
+msgid "B3"
+msgstr "B3"
 
 #: themes-book/pressbooks-book/functions.php:1157
-msgid "C2"
-msgstr ""
+msgid "B4"
+msgstr "B4"
 
 #: themes-book/pressbooks-book/functions.php:1158
-msgid "C3"
-msgstr ""
+msgid "B5"
+msgstr "B5"
 
 #: themes-book/pressbooks-book/functions.php:1159
-msgid "C4"
-msgstr ""
+msgid "B6"
+msgstr "B6"
 
 #: themes-book/pressbooks-book/functions.php:1160
-msgid "C5"
-msgstr ""
+msgid "B7"
+msgstr "B7"
 
 #: themes-book/pressbooks-book/functions.php:1161
-msgid "C6"
-msgstr ""
+msgid "B8"
+msgstr "B8"
 
 #: themes-book/pressbooks-book/functions.php:1162
-msgid "C7"
-msgstr ""
+msgid "B9"
+msgstr "B9"
 
 #: themes-book/pressbooks-book/functions.php:1163
-msgid "C8"
-msgstr ""
+msgid "B10"
+msgstr "B10"
 
 #: themes-book/pressbooks-book/functions.php:1164
-msgid "C9"
-msgstr ""
+msgid "C0"
+msgstr "C0"
 
 #: themes-book/pressbooks-book/functions.php:1165
-msgid "C10"
-msgstr ""
+msgid "C1"
+msgstr "C1"
 
 #: themes-book/pressbooks-book/functions.php:1166
-msgid "4A0"
-msgstr ""
+msgid "C2"
+msgstr "C2"
 
 #: themes-book/pressbooks-book/functions.php:1167
-msgid "2A0"
-msgstr ""
+msgid "C3"
+msgstr "C3"
 
 #: themes-book/pressbooks-book/functions.php:1168
-msgid "RA0"
-msgstr ""
+msgid "C4"
+msgstr "C4"
 
 #: themes-book/pressbooks-book/functions.php:1169
-msgid "RA1"
-msgstr ""
+msgid "C5"
+msgstr "C5"
 
 #: themes-book/pressbooks-book/functions.php:1170
-msgid "RA2"
-msgstr ""
+msgid "C6"
+msgstr "C6"
 
 #: themes-book/pressbooks-book/functions.php:1171
-msgid "RA3"
-msgstr ""
+msgid "C7"
+msgstr "C7"
 
 #: themes-book/pressbooks-book/functions.php:1172
-msgid "RA4"
-msgstr ""
+msgid "C8"
+msgstr "C8"
 
 #: themes-book/pressbooks-book/functions.php:1173
-msgid "SRA0"
-msgstr ""
+msgid "C9"
+msgstr "C9"
 
 #: themes-book/pressbooks-book/functions.php:1174
-msgid "SRA1"
-msgstr ""
+msgid "C10"
+msgstr "C10"
 
 #: themes-book/pressbooks-book/functions.php:1175
-msgid "SRA2"
-msgstr ""
+msgid "4A0"
+msgstr "4A0"
 
 #: themes-book/pressbooks-book/functions.php:1176
-msgid "SRA3"
-msgstr ""
+msgid "2A0"
+msgstr "2A0"
 
 #: themes-book/pressbooks-book/functions.php:1177
-msgid "SRA4"
-msgstr ""
+msgid "RA0"
+msgstr "RA0"
 
 #: themes-book/pressbooks-book/functions.php:1178
-msgid "Letter"
-msgstr ""
+msgid "RA1"
+msgstr "RA1"
 
 #: themes-book/pressbooks-book/functions.php:1179
-msgid "Legal"
-msgstr ""
+msgid "RA2"
+msgstr "RA2"
 
 #: themes-book/pressbooks-book/functions.php:1180
-msgid "Executive"
-msgstr ""
+msgid "RA3"
+msgstr "RA3"
 
 #: themes-book/pressbooks-book/functions.php:1181
-msgid "Folio"
-msgstr ""
+msgid "RA4"
+msgstr "RA4"
 
 #: themes-book/pressbooks-book/functions.php:1182
-msgid "Demy"
-msgstr ""
+msgid "SRA0"
+msgstr "SRA0"
 
 #: themes-book/pressbooks-book/functions.php:1183
+msgid "SRA1"
+msgstr "SRA1"
+
+#: themes-book/pressbooks-book/functions.php:1184
+msgid "SRA2"
+msgstr "SRA2"
+
+#: themes-book/pressbooks-book/functions.php:1185
+msgid "SRA3"
+msgstr "SRA3"
+
+#: themes-book/pressbooks-book/functions.php:1186
+msgid "SRA4"
+msgstr "SRA4"
+
+#: themes-book/pressbooks-book/functions.php:1187
+msgid "Letter"
+msgstr "harf"
+
+#: themes-book/pressbooks-book/functions.php:1188
+msgid "Legal"
+msgstr "Legal"
+
+#: themes-book/pressbooks-book/functions.php:1189
+msgid "Executive"
+msgstr "Yönetici"
+
+#: themes-book/pressbooks-book/functions.php:1190
+msgid "Folio"
+msgstr "klasör"
+
+#: themes-book/pressbooks-book/functions.php:1191
+msgid "Demy"
+msgstr "demi boy kağıt"
+
+#: themes-book/pressbooks-book/functions.php:1192
 msgid "Royal"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1184
+#: themes-book/pressbooks-book/functions.php:1193
 msgid "Type A paperback 111x178mm"
-msgstr ""
+msgstr "A tip ciltsiz 111x178mm"
 
-#: themes-book/pressbooks-book/functions.php:1185
+#: themes-book/pressbooks-book/functions.php:1194
 msgid "Type B paperback 128x198mm"
-msgstr ""
+msgstr "B tip ciltsiz 128x198mm"
 
-#: themes-book/pressbooks-book/functions.php:1191
+#: themes-book/pressbooks-book/functions.php:1200
 msgid "Left margin"
-msgstr ""
+msgstr "Sol kenar boşluğu"
 
-#: themes-book/pressbooks-book/functions.php:1196
+#: themes-book/pressbooks-book/functions.php:1205
 msgid " Left Margin (in milimeters)"
-msgstr ""
+msgstr "Sol kenar boşluğu (milimetrik)"
 
-#: themes-book/pressbooks-book/functions.php:1202
+#: themes-book/pressbooks-book/functions.php:1211
 msgid "Right margin"
-msgstr ""
+msgstr "Sağ kenar boşluğu"
 
-#: themes-book/pressbooks-book/functions.php:1207
+#: themes-book/pressbooks-book/functions.php:1216
 msgid " Right margin (in milimeters)"
-msgstr ""
+msgstr "Sağ kenar boşluğu (milimetrik)"
 
-#: themes-book/pressbooks-book/functions.php:1213
+#: themes-book/pressbooks-book/functions.php:1222
 msgid "Mirror Margins"
-msgstr ""
+msgstr "Karşılıklı kenar boşlukları"
 
-#: themes-book/pressbooks-book/functions.php:1218
+#: themes-book/pressbooks-book/functions.php:1227
 msgid ""
 "The document will mirror the left and right margin values on odd and even "
 "pages (i.e. they become inner and outer margins)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1229
+#: themes-book/pressbooks-book/functions.php:1238
 msgid "Display cover image"
-msgstr ""
+msgstr "Ekran kapak resmi"
 
-#: themes-book/pressbooks-book/functions.php:1288
+#: themes-book/pressbooks-book/functions.php:1297
 msgid "These options apply to mPDF exports."
-msgstr ""
+msgstr "Bu seçenekler mPDF ihracatları için geçerli."
 
-#: themes-book/pressbooks-book/functions.php:1452
+#: themes-book/pressbooks-book/functions.php:1461
 msgid "Ebook Options"
-msgstr ""
+msgstr "Ebook seçenekleri"
 
-#: themes-book/pressbooks-book/functions.php:1471
+#: themes-book/pressbooks-book/functions.php:1480
 msgid "Compress images"
-msgstr ""
+msgstr "Görüntüleri sıkıştır"
 
-#: themes-book/pressbooks-book/functions.php:1476
+#: themes-book/pressbooks-book/functions.php:1485
 msgid "Reduce image size and quality"
-msgstr ""
+msgstr "Resim boyutunu ve kalitesini düşür"
 
-#: themes-book/pressbooks-book/functions.php:1491
+#: themes-book/pressbooks-book/functions.php:1500
 msgid "These options apply to ebook exports."
-msgstr ""
+msgstr "Bu seçenekler ebook ihracatı için geçerli"
 
 #: themes-book/pressbooks-book/header.php:30
 #: themes-root/pressbooks-publisher/inc/extras.php:52
 #, php-format
 msgid "Page %s"
-msgstr ""
+msgstr "Sayfa %s"
 
 #: themes-book/pressbooks-book/page-about.php:5
 msgid "About The Book"
-msgstr ""
+msgstr "Kitap hakkında"
 
 #: themes-book/pressbooks-book/page-about.php:21
 #: themes-book/pressbooks-book/page-buy.php:9
 #: themes-book/pressbooks-book/page-buy.php:17
 msgid "It's coming!"
-msgstr ""
+msgstr "Geliyor!"
 
 #: themes-book/pressbooks-book/page-buy.php:4
 msgid "Buy the Book"
-msgstr ""
+msgstr "Kitabı satın al"
 
 #: themes-book/pressbooks-book/page-buy.php:19
 #, php-format
 msgid "You can buy <a href=\"%1$s\">%2$s</a> by following any of the links below:"
-msgstr ""
+msgstr "Aşağıdaki linklerden herhangi birini izleyerek satın alabilirsin: <a href=\"%1$s\">%2$s</a>"
 
 #: themes-book/pressbooks-book/page-buy.php:23
 #, php-format
 msgid "Purchase on  <a href=\"%1$s\">amazon.com</a>"
-msgstr ""
+msgstr "Satın al <a href=\"%1$s\">amazon.com</a>"
 
 #: themes-book/pressbooks-book/page-buy.php:27
 #, php-format
 msgid "Purchase on  <a href=\"%1$s\">oreilly.com</a>"
-msgstr ""
+msgstr "Satın al <a href=\"%1$s\">oreilly.com</a>"
 
 #: themes-book/pressbooks-book/page-buy.php:31
 #, php-format
 msgid "Purchase on  <a href=\"%1$s\">barnesandnoble.com</a>"
-msgstr ""
+msgstr "Satın al <a href=\"%1$s\">barnesandnoble.com</a>"
 
 #: themes-book/pressbooks-book/page-buy.php:35
 #, php-format
 msgid "Purchase on  <a href=\"%1$s\">kobobooks.com</a>"
-msgstr ""
+msgstr "Satın al <a href=\"%1$s\">kobobooks.com</a>"
 
 #: themes-book/pressbooks-book/page-buy.php:39
 #, php-format
 msgid "Purchase on  <a href=\"%1$s\">apple.com</a>"
-msgstr ""
+msgstr "Satın al <a href=\"%1$s\">apple.com</a>"
 
 #: themes-book/pressbooks-book/page-buy.php:43
 msgid "Elsewhere"
-msgstr ""
+msgstr "Başka yerde"
 
 #: themes-book/pressbooks-book/page-buy.php:43
 msgid "Purchase here:"
-msgstr ""
+msgstr "Buradan satın al:"
 
 #: themes-book/pressbooks-book/page-cover-fourth-block.php:19
 msgid "Other books"
-msgstr ""
+msgstr "Diğer kitaplar"
 
 #: themes-book/pressbooks-book/page-cover-private-block.php:2
 #: themes-book/pressbooks-book/page-cover-top-block.php:18
 msgid "Make your own books on Pressbooks"
-msgstr ""
+msgstr "Pressbooks da kendi kitaplarını yap"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:5
 msgid "Book Description"
-msgstr ""
+msgstr "Kitap açıklaması"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:16
 #: themes-book/pressbooks-book/page-cover-second-block.php:17
 #: themes-book/pressbooks-book/page-cover-second-block.php:18
 msgid "Check out this great book on Pressbooks."
-msgstr ""
+msgstr "Pressbooks daki şu harika kitaba bak."
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:16
 msgid "Tweet"
-msgstr ""
+msgstr "Tweet"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:17
 msgid "Like"
-msgstr ""
+msgstr "Beğeni"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:18
 msgid "+1"
-msgstr ""
+msgstr "+1"
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:54
 msgid "Read"
-msgstr ""
+msgstr "Oku"
 
 #: themes-book/pressbooks-book/page.php:13
 #: themes-root/pressbooks-publisher/template-parts/content-page.php:18
 #: themes-root/pressbooks-publisher/template-parts/content-single.php:20
 #: themes-root/pressbooks-publisher/template-parts/content.php:29
 msgid "Pages:"
-msgstr ""
+msgstr "Sayfalar:"
 
 #: themes-book/pressbooks-book/sidebar.php:13
 msgid "Home"
-msgstr ""
+msgstr "Anasayfa"
 
 #: themes-book/pressbooks-book/sidebar.php:23
 msgid "Close"
-msgstr ""
+msgstr "Kapat"
 
 #: themes-root/pressbooks-publisher/404.php:15
 msgid "Oops! That page can&rsquo;t be found."
@@ -3290,16 +3299,16 @@ msgstr ""
 msgid ""
 "It looks like nothing was found at this location. Maybe try one of the links"
 " below or a search?"
-msgstr ""
+msgstr "Burada hiçbirşey bulunmamış gibi gözüküyor. Belkide aşağıdaki linklerden birini denemelisin yada arama yapmalısın."
 
 #: themes-root/pressbooks-publisher/404.php:27
 msgid "Most Used Categories"
-msgstr ""
+msgstr "En çok kullanılan kategoriler"
 
 #: themes-root/pressbooks-publisher/404.php:44
 #, php-format
 msgid "Try looking in the monthly archives. %1$s"
-msgstr ""
+msgstr "Aylık arşivlere bakmayı dene. %1$s"
 
 #: themes-root/pressbooks-publisher/comments.php:38
 #: themes-root/pressbooks-publisher/comments.php:59
@@ -3309,93 +3318,93 @@ msgstr ""
 #: themes-root/pressbooks-publisher/comments.php:41
 #: themes-root/pressbooks-publisher/comments.php:62
 msgid "Older Comments"
-msgstr ""
+msgstr "Eski yorumlar"
 
 #: themes-root/pressbooks-publisher/comments.php:42
 #: themes-root/pressbooks-publisher/comments.php:63
 msgid "Newer Comments"
-msgstr ""
+msgstr "Yeni yorumlar"
 
 #: themes-root/pressbooks-publisher/footer.php:15
 msgid "http://pressbooks.com"
-msgstr ""
+msgstr "http://pressbooks.com"
 
 #: themes-root/pressbooks-publisher/footer.php:15
 #, php-format
 msgid "is powered by %s"
-msgstr ""
+msgstr "%s tarafından desteklenmektedir."
 
 #: themes-root/pressbooks-publisher/functions.php:88
 msgctxt "Oswald font: on or off"
 msgid "on"
-msgstr ""
+msgstr "etkin"
 
 #: themes-root/pressbooks-publisher/functions.php:94
 msgctxt "Droid Serif font: on or off"
 msgid "on"
-msgstr ""
+msgstr "açık"
 
 #: themes-root/pressbooks-publisher/functions.php:100
 msgctxt "Droid Sans font: on or off"
 msgid "on"
-msgstr ""
+msgstr "çevrimiçi"
 
 #: themes-root/pressbooks-publisher/functions.php:233
 msgid "Catalog updated."
-msgstr ""
+msgstr "Katalog güncellendi"
 
 #: themes-root/pressbooks-publisher/functions.php:234
 msgid "Sorry, but your catalog was not updated. Please try again."
-msgstr ""
+msgstr "Üzgünüz, fakat kataloğunuz güncel değildi. Lütfen tekrar deneyin."
 
 #: themes-root/pressbooks-publisher/functions.php:235
 msgid "Dismiss this notice."
-msgstr ""
+msgstr "Bu notu artık anımsatma"
 
 #: themes-root/pressbooks-publisher/functions.php:257
 msgid "In Catalog"
-msgstr ""
+msgstr "Katalogda"
 
 #: themes-root/pressbooks-publisher/header.php:22
 msgid "Skip to content"
-msgstr ""
+msgstr "İçeriği geç"
 
 #: themes-root/pressbooks-publisher/header.php:32
 msgid "Sign in"
-msgstr ""
+msgstr "Giriş yap"
 
 #: themes-root/pressbooks-publisher/header.php:34
 msgid "Sign out"
-msgstr ""
+msgstr "Çıkış yap"
 
 #: themes-root/pressbooks-publisher/header.php:36
 msgid "My Books"
-msgstr ""
+msgstr "Kitaplarım"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:20
 #: themes-root/pressbooks-publisher/inc/customizer.php:36
 msgid "About Us"
-msgstr ""
+msgstr "Hakkımızda"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:21
 msgid "Add a description of your collection or institution below."
-msgstr ""
+msgstr "Aşağıya koleksiyon ve kuruluşunla ilgili açıklama ekle."
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:52
 msgid "Columns"
-msgstr ""
+msgstr "Sütun"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:53
 msgid "Display your intro text in one or two columns."
-msgstr ""
+msgstr "Girişini bir yada iki sütunda sergile"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:57
 msgid "One column"
-msgstr ""
+msgstr "bir kolon"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:58
 msgid "Two columns"
-msgstr ""
+msgstr "iki kolon"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:23
 msgid "Posts navigation"
@@ -3403,11 +3412,11 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:27
 msgid "Older posts"
-msgstr ""
+msgstr "Eski gönderiler"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:31
 msgid "Newer posts"
-msgstr ""
+msgstr "Yeni gönderiler"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:56
 msgid "Post navigation"
@@ -3417,18 +3426,18 @@ msgstr ""
 #, php-format
 msgctxt "post date"
 msgid "Posted on %s"
-msgstr ""
+msgstr "%s 'a gönderildi"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:91
 #, php-format
 msgctxt "post author"
 msgid "by %s"
-msgstr ""
+msgstr "%s tarafından"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:108
 #: themes-root/pressbooks-publisher/inc/template-tags.php:114
 msgid ", "
-msgstr ""
+msgstr ","
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:110
 #, php-format
@@ -3438,153 +3447,153 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:116
 #, php-format
 msgid "Tagged %1$s"
-msgstr ""
+msgstr "%1$s Etiketlendi"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:122
 msgid "Leave a comment"
-msgstr ""
+msgstr "Yorum bırak"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:122
 msgid "1 Comment"
-msgstr ""
+msgstr "1 yorum"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:122
 msgid "% Comments"
-msgstr ""
+msgstr "% Yorum"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:143
 #, php-format
 msgid "Category: %s"
-msgstr ""
+msgstr "Kategori: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:145
 #, php-format
 msgid "Tag: %s"
-msgstr ""
+msgstr "Etiket: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:147
 #, php-format
 msgid "Author: %s"
-msgstr ""
+msgstr "Yazar: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:149
 #, php-format
 msgid "Year: %s"
-msgstr ""
+msgstr "Yıl: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:149
 msgctxt "yearly archives date format"
 msgid "Y"
-msgstr ""
+msgstr "Y"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:151
 #, php-format
 msgid "Month: %s"
-msgstr ""
+msgstr "AY: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:151
 msgctxt "monthly archives date format"
 msgid "F Y"
-msgstr ""
+msgstr "F Y"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:153
 #, php-format
 msgid "Day: %s"
-msgstr ""
+msgstr "Gün: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:153
 msgctxt "daily archives date format"
 msgid "F j, Y"
-msgstr ""
+msgstr "F j, Y"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:156
 msgctxt "post format archive title"
 msgid "Asides"
-msgstr ""
+msgstr "Bir yana"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:158
 msgctxt "post format archive title"
 msgid "Galleries"
-msgstr ""
+msgstr "Galeriler"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:160
 msgctxt "post format archive title"
 msgid "Images"
-msgstr ""
+msgstr "Resimler"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:162
 msgctxt "post format archive title"
 msgid "Videos"
-msgstr ""
+msgstr "Videolar"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:164
 msgctxt "post format archive title"
 msgid "Quotes"
-msgstr ""
+msgstr "Tırnak işareti"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:166
 msgctxt "post format archive title"
 msgid "Links"
-msgstr ""
+msgstr "Bağlantı"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:168
 msgctxt "post format archive title"
 msgid "Statuses"
-msgstr ""
+msgstr "Durumlar"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:170
 msgctxt "post format archive title"
 msgid "Audio"
-msgstr ""
+msgstr "Ses"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:172
 msgctxt "post format archive title"
 msgid "Chats"
-msgstr ""
+msgstr "Sohbetler"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:175
 #, php-format
 msgid "Archives: %s"
-msgstr ""
+msgstr "Arşivler: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:179
 #, php-format
 msgid "%1$s: %2$s"
-msgstr ""
+msgstr "%1$s: %2$s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:181
 msgid "Archives"
-msgstr ""
+msgstr "Arşivler"
 
 #: themes-root/pressbooks-publisher/search.php:16
 #, php-format
 msgid "Search Results for: %s"
-msgstr ""
+msgstr "Sonuçlar için arama: %s"
 
 #: themes-root/pressbooks-publisher/template-parts/content-catalog.php:38
 msgid "Read more"
-msgstr ""
+msgstr "Daha fazla oku"
 
 #: themes-root/pressbooks-publisher/template-parts/content-catalog.php:52
 msgid ""
 "The manager of this Pressbooks network has not made any books public "
 "viewable."
-msgstr ""
+msgstr "Pressbooks ağ yöneticisi hiçbir kitabı  genel görülebilir yapmadı."
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:13
 msgid "Nothing Found"
-msgstr ""
+msgstr "Hiçbirşey bulunamadı."
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:19
 #, php-format
 msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr ""
+msgstr "İlk gönderini yayınlamaya hazır mısın? <a href=\"%1$s\">Buradan başla</a>."
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:23
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
-msgstr ""
+msgstr "Üzgünüz, ama hiçbirşey arama terimlerinizle eşleşmedi. Lütfen farklı anahtar kelimeler ile tekrar deneyiniz."
 
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:28
 msgid ""
@@ -3595,13 +3604,13 @@ msgstr ""
 #: themes-root/pressbooks-publisher/template-parts/content.php:22
 #, php-format
 msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
-msgstr ""
+msgstr "Okumaya devam et %s <span class=\"meta-nav\">&rarr;</span>"
 
 #. Plugin URI of the plugin/theme
 #. Author URI of the plugin/theme
 msgid "http://www.pressbooks.com"
-msgstr ""
+msgstr "http://www.pressbooks.com"
 
 #. Author of the plugin/theme
 msgid "BookOven Inc."
-msgstr ""
+msgstr "BookOven Inc."

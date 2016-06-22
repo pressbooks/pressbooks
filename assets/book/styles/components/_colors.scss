@@ -1,0 +1,79 @@
+//============================================================================//
+//                                    Colors                                  //
+//============================================================================//
+
+/* COLORS */
+/* STANDARD TEXT COLORS */
+
+a {color: $link-color;}
+body {color: $body-color;}
+blockquote {color: $blockquote-color;}
+
+/* BODY HEADER COLOR */
+h1 {color: $h1-color;}
+h2 {color: $h2-color;}
+h3 {color: $h3-color;}
+h4 {color: $h4-color;}
+h5 {color: $h5-color;}
+h6 {color: $h6-color;}
+
+/* TABLE COLOR */
+table {color: $table-color;}
+table p {color: $table-para-color;}
+
+/* IMAGE CAPTIONS COLOR */
+p.wp-caption-text {color: $image-caption-text-color;}
+
+/* INDEX COLOR */
+.index .ugc,
+.index .ugc p {color: $index-para-color;}
+
+/* TITLE PAGE(S) COLOR */
+#half-title-page > h1.title {color: $half-title-title-color;}
+#title-page > .title {color: $title-page-title-color;}
+#title-page > .subtitle {color: $title-page-subtitle-color;}
+#title-page > .author {color: $title-page-author-color;}
+#title-page > .publisher {color: $title-page-publisher-color;}
+#title-page > .publisher-city {color: $title-page-publisher-city-color;}
+
+/* FRONT MATTER COLOR */
+h1.front-matter-title {color: $front-matter-title-color;}
+#copyright-page .ugc p {color: $copyright-para-color;}
+.dedication p {color: $dedication-para-color;}
+.epigraph p {color: $epigraph-para-color;}
+
+/* PART TITLE COLOR */
+h3.part-number {color: $part-number-color;}
+h1.part-title {color: $part-title-color;}
+
+/* CHAPTER TITLE COLOR */
+.chapter-number {
+  color: $chapter-number-color;
+  border-bottom-color: $chapter-number-border-bottom-color;
+}
+h2.chapter-title {color: $chapter-title-color;}
+h2.chapter-subtitle {color: $chapter-subtitle-color;}
+h2.chapter-author {color: $chapter-author-color;}
+.aphorism {color: $chapter-aphorism-color;}
+
+/* BACK MATTER TITLE COLOR */
+h1.back-matter-title {color: $back-matter-title-color;}
+
+/* DROPCAPS COLOR */
+.firstcharacter,
+.first-character {color: $first-character-color;}
+
+/* PULLQUOTES COLOR*/
+.pullquote,
+.pullquote-left,
+.pullquote-right,
+.pullquote-outside,
+.pullquote-inside {color: $pullquote-color;}
+
+/* SIDEBARS, TEXTBOXES COLOR */
+div.sidebar {background-color: $sidebar-color;}
+div.textbox {border-color: $textbox-border-color;}
+.textbox.shaded {background-color: $shaded-color;}
+
+/* SHADED COLOR */
+.shaded {background-color: $shaded-color;}

@@ -1,0 +1,118 @@
+//===================================
+// Running Foot Outside (Page Number)
+//===================================
+
+// Displays the page number on the outside edge of the running foot.
+
+// -------------------------------
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// | #            |            # |
+// -------------------------------
+
+@import 'mixins', 'blank';
+
+// Front Matter
+
+@page front-matter:first {
+  @include blank-foot;
+}
+
+@page front-matter:left {
+  @bottom-left {
+    content: counter(page, lower-roman);
+    @include front-matter-page-number;
+  }
+}
+
+@page front-matter:right {
+  @bottom-right {
+    content: counter(page, lower-roman);
+    @include front-matter-page-number;
+  }
+}
+
+// Introduction
+
+@page introduction:first {
+  @include blank-foot;
+}
+
+@page introduction:left {
+  @bottom-left {
+    content: counter(page);
+    @include page-number;
+  }
+}
+
+@page introduction:right {
+  @bottom-right {
+    content: counter(page);
+    @include page-number;
+  }
+}
+
+// Parts
+
+@page part:first {
+  @include blank-foot;
+}
+
+@page part:left {
+  @bottom-left {
+    content: counter(page);
+    @include page-number;
+  }
+}
+@page part:right {
+  @bottom-right {
+    content: counter(page);
+    @include page-number;
+  }
+}
+
+// Chapters
+
+@page chapter:first {
+  @include blank-foot;
+}
+
+@page chapter:left {
+  @bottom-left {
+    content: counter(page);
+    @include page-number;
+  }
+}
+
+@page chapter:right {
+  @bottom-right {
+    content: counter(page);
+    @include page-number;
+  }
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @include blank-foot;
+}
+
+@page back-matter:left {
+  @bottom-left {
+    content: counter(page);
+    @include page-number;
+  }
+}
+
+@page back-matter:right {
+  @bottom-right {
+    content: counter(page);
+    @include page-number;
+  }
+}

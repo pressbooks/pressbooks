@@ -1,0 +1,172 @@
+//============================================================================//
+//                             Variables || Elements                          //
+//============================================================================//
+
+// Body
+@if $type == 'epub' {
+  $body-font-size: medium !default;
+} @else if $type == 'prince' {
+  $body-font-size: 11pt !default;
+}  @else if $type == 'web' {
+  $body-font-size: medium !default;
+}
+$body-font-family: $font-1 !default;
+$body-font-style: normal !default;
+$body-font-weight: normal !default;
+$body-line-height: 1.4em !default;
+
+// Headings
+$hx-margin-top: 1.5em !default;
+$hx-margin-bottom: 1em !default;
+$hx-line-height: 1.5em !default;
+
+// Heading 1
+$h1-font-family: $font-3 !default;
+$h1-font-size: 1em !default;
+$h1-font-style: normal !default;
+$h1-font-weight: bold !default;
+$h1-text-transform: uppercase !default;
+$h1-align: center !default;
+
+// Heading 2
+$h2-font-family: $font-3 !default;
+$h2-font-size: 1em !default;
+$h2-font-style: normal !default;
+$h2-font-weight: normal !default;
+$h2-text-transform: uppercase !default;
+$h2-align: center !default;
+
+// Heading 3
+$h3-font-family: $font-3 !default;
+$h3-font-size: 1em !default;
+$h3-font-style: normal !default;
+$h3-font-weight: bold !default;
+$h3-text-transform: none !default;
+$h3-align: center !default;
+
+// Heading 4
+$h4-font-family: $font-3 !default;
+$h4-font-size: 1em !default;
+$h4-font-style: normal !default;
+$h4-font-weight: bold !default;
+$h4-text-transform: none !default;
+$h4-align: center !default;
+
+// Heading 5
+$h5-font-family: $font-3 !default;
+$h5-font-size: 1em !default;
+$h5-font-style: italic !default;
+$h5-font-weight: normal !default;
+$h5-text-transform: none !default;
+$h5-align: left !default;
+
+// Heading 6
+$h6-font-family: $font-3 !default;
+$h6-font-size: 1em !default;
+$h6-font-style: normal !default;
+$h6-font-weight: normal !default;
+$h6-text-transform: none !default;
+$h6-align: left !default;
+
+// Paragraphs
+$para-indent: 1em !default;
+$para-hanging-indent-padding-left: 1em !default;
+$para-hanging-indent-text-indent: -1em !default;
+$para-margin-top: 0 !default;
+$para-margin-bottom: 0 !default;
+$para-no-indent-margin-top: 1em !default;
+@if $type == 'epub' {
+    $para-align: initial !default;
+} @else if $type == 'prince' {
+    $para-align: justify !default;
+} @else if $type == 'web' {
+    $para-align: initial !default;
+}
+$widows: 2 !default;
+$orphans: 1 !default;
+$para-hyphens: auto !default;
+$para-hyphenate-before: 3 !default;
+$para-hyphenate-after: 3 !default;
+$para-hyphenate-lines: 2 !default;
+$para-tight-letter-spacing: -.25px !default; // TODO
+$para-tight-word-spacing: -.075em !default;
+$para-very-tight-letter-spacing: -.5px !default; // TODO
+$para-very-tight-word-spacing: -.09em !default;
+$para-loose-letter-spacing: .25px !default; // TODO
+$para-loose-word-spacing: .075em !default;
+$para-very-loose-letter-spacing: .5px !default; // TODO
+$para-very-loose-word-spacing: .09em !default;
+
+// Blockquotes
+$blockquote-font-family: $font-1 !default;
+$blockquote-font-size: .9em !default;
+$blockquote-font-style: normal !default;
+$blockquote-font-weight: normal !default;
+$blockquote-line-height: 1.2em !default;
+$blockquote-margin-top: 1em !default;
+$blockquote-margin-right: 1em !default;
+$blockquote-margin-bottom: 1em !default;
+$blockquote-margin-left: 1em !default;
+$blockquote-align: justify !default;
+
+// Lists
+$ol-margin-top: 1em !default;
+$ol-margin-bottom: 1em !default;
+$ol-margin-left: 2em !default;
+$ul-margin-top: 1em !default;
+$ul-margin-bottom: 1em !default;
+$ul-margin-left: 2em !default;
+$li-li-margin-top: .5em !default;
+
+// Definition Lists
+$dt-margin-top: 0 !default;
+$dt-margin-right: 0 !default;
+$dt-margin-bottom: 0 !default;
+$dt-margin-left: 0 !default;
+$dt-font-style: normal !default;
+$dt-font-weight: bold !default;
+$dd-margin-top: 0 !default;
+$dd-margin-right: 0 !default;
+$dd-margin-bottom: 0 !default;
+$dd-margin-left: 0 !default;
+$dd-font-style: italic !default;
+$dd-font-weight: normal !default;
+
+// Tables
+$table-margin-top: 1.5em !default;
+$table-margin-bottom: 1.5em !default;
+$table-font-size: .9em !default;
+$table-align: left !default;
+$table-caption-margin-bottom: .5em !default;
+$table-caption-font-weight: bold !default;
+$table-caption-line-height: 1.1em !default;
+$table-th-padding-top: .45em !default;
+$table-th-padding-right: .45em !default;
+$table-th-padding-bottom: .45em !default;
+$table-th-padding-left: .45em !default;
+$table-th-line-height: 1.1em !default;
+$table-th-align: left !default;
+$table-td-padding-top: .45em !default;
+$table-td-padding-right: .45em !default;
+$table-td-padding-bottom: .45em !default;
+$table-td-padding-left: .45em !default;
+$table-td-line-height: 1.1em !default;
+$table-td-align: left !default;
+$table-border-width: 1px !default; // TODO
+
+// Cite
+$cite-font-size: .9em !default;
+$cite-font-style: normal !default;
+$cite-font-weight: normal !default;
+$cite-text-transform: uppercase !default;
+$cite-font-variant: small-caps !default;
+
+// Code & Pre
+$code-font-family: monospace !default;
+
+// Superscript & Subscript
+$sup-sub-font-size: .8em !default;
+$sup-sub-line-height: .5em !default;
+
+// Links
+$link-text-decoration: none !default;

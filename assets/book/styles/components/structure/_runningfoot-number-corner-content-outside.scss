@@ -1,0 +1,170 @@
+//=================================
+// Running Foot Number Corner Content Outside
+//=================================
+
+// Displays the page number and a separator (defaults to ' | ') in the outer
+// corner of the running head and and user-defined content on the outside edge
+// of the running foot.
+
+// -------------------------------
+// |     '        |        '     |
+// |     '        |        '     |
+// |     '        |        '     |
+// |     '        |        '     |
+// |     '        |        '     |
+// |     '        |        '     |
+// |     '        |        '     |
+// | # | ' lhead  |  rhead ' | # |
+// -------------------------------
+
+@import 'mixins', 'blank';
+
+// Front Matter
+
+@page front-matter:first {
+  @include blank-foot;
+}
+
+@page front-matter:left {
+  @bottom-left {
+    content: $front-matter-running-content-left;
+    @include runningfoot-left;
+  }
+
+  @bottom-left-corner {
+    content: counter(page, lower-roman) $runningfoot-separator;
+    @include front-matter-page-number;
+  }
+}
+
+@page front-matter:right {
+  @bottom-right {
+    content: $front-matter-running-content-right;
+    @include runningfoot-right;
+  }
+
+  @bottom-right-corner {
+    content: $runningfoot-separator counter(page, lower-roman);
+    @include front-matter-page-number;
+  }
+}
+
+// Introduction
+
+@page introduction:first {
+  @include blank-foot;
+}
+
+@page introduction:left {
+  @bottom-left {
+    content: $introduction-running-content-left;
+    @include runningfoot-left;
+  }
+
+  @bottom-left-corner {
+    content: counter(page) $runningfoot-separator;
+    @include page-number;
+  }
+}
+
+@page introduction:right {
+  @bottom-right {
+    content: $introduction-running-content-right;
+    @include runningfoot-right;
+  }
+
+  @bottom-right-corner {
+    content: $runningfoot-separator counter(page);
+    @include page-number;
+  }
+}
+
+// Parts
+
+@page part:first {
+  @include blank-foot;
+}
+
+@page part:left {
+  @bottom-left {
+    content: $part-running-content-left;
+    @include runningfoot-left;
+  }
+
+  @bottom-left-corner {
+    content: counter(page) $runningfoot-separator;
+    @include page-number;
+  }
+}
+
+@page part:right {
+  @bottom-right {
+    content: $part-running-content-right;
+    @include runningfoot-right;
+  }
+
+  @bottom-right-corner {
+    content: $runningfoot-separator counter(page);
+    @include page-number;
+  }
+}
+
+// Chapters
+
+@page chapter:first {
+  @include blank-foot;
+}
+
+@page chapter:left {
+  @bottom-left {
+    content: $chapter-running-content-left;
+    @include runningfoot-left;
+  }
+
+  @bottom-left-corner {
+    content: counter(page) $runningfoot-separator;
+    @include page-number;
+  }
+}
+
+@page chapter:right {
+  @bottom-right {
+    content: $chapter-running-content-right;
+    @include runningfoot-right;
+  }
+
+  @bottom-right-corner {
+    content: $runningfoot-separator counter(page);
+    @include page-number;
+  }
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @include blank-foot;
+}
+
+@page back-matter:left {
+  @bottom-left {
+    content: $back-matter-running-content-left;
+    @include runningfoot-left;
+  }
+
+  @bottom-left-corner {
+    content: counter(page) $runningfoot-separator;
+    @include page-number;
+  }
+}
+
+@page back-matter:right {
+  @bottom-right {
+    content: $back-matter-running-content-right;
+    @include runningfoot-right;
+  }
+
+  @bottom-right-corner {
+    content: $runningfoot-separator counter(page);
+    @include page-number;
+  }
+}

@@ -242,7 +242,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 	$wp_admin_bar->add_menu( array(
 		'id' => 'wp-logo',
 		'title' => '<span class="ab-icon"></span>',
-		'href' => ( 'http://pressbooks.com/about' ),
+		'href' => ( 'https://pressbooks.com/about' ),
 		'meta' => array(
 			'title' => __( 'About Pressbooks', 'pressbooks' ),
 		),

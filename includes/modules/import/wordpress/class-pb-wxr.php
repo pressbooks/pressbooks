@@ -44,7 +44,7 @@ class Wxr extends Import {
 			'allow_parts' => true
 		);
 
-		$supported_post_types = array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' );
+		$supported_post_types = apply_filters( 'pb_import_custom_post_types', array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
 
 		if ( $this->isPbWxr ) {
 			//put the posts in correct part / menu_order order
@@ -82,17 +82,38 @@ class Wxr extends Import {
 		}
 
 		$this->pbCheck( $xml );
-		
+
 		if ( $this->isPbWxr ) {
 			$xml['posts'] = $this->customNestedSort( $xml['posts'] );
 		}
-		
+
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 		$chapter_parent = $this->getChapterParent();
 		$total = 0;
+		$taxonomies = apply_filters( 'pb_import_custom_taxonomies', array( 'front-matter-type', 'chapter-type', 'back-matter-type' ) );
+
+		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
+
+		// set custom terms...
+		$terms = apply_filters( 'pb_import_custom_terms', $xml['terms'] );
+
+		// and import them if they don't already exist.
+		foreach ( $terms as $t ) {
+			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
+			if ( $term === null || $term === 0 ) {
+				wp_insert_term(
+					$t['term_name'],
+					$t['term_taxonomy'],
+					array(
+						'description' => $t['term_description'],
+						'slug' => $t['slug']
+					)
+				);
+			}
+		}
 
 		libxml_use_internal_errors( true );
-		
+
 		foreach ( $xml['posts'] as $p ) {
 
 			// Skip
@@ -122,6 +143,22 @@ class Wxr extends Import {
 				$pid = $this->insertNewPost( $post_type, $p, $html, $chapter_parent );
 				if ( 'part' == $post_type ) {
 					$chapter_parent = $pid;
+				}
+			}
+
+			// if this is a custom post type,
+			// and it has terms associated with it...
+			if ( ( in_array( $post_type, $custom_post_types ) && $p['terms'] == true ) ) {
+				// associate post with terms.
+				foreach ( $p['terms'] as $t ) {
+					if ( in_array( $t['domain'], $taxonomies ) ) {
+						wp_set_object_terms(
+							$pid,
+							$t['slug'],
+							$t['domain'],
+							true
+						);
+					}
 				}
 			}
 
@@ -165,7 +202,7 @@ class Wxr extends Import {
 		}
 
 	}
-	
+
 	/**
 	 * Custom sort for the xml posts to put them in correct nested order
 	 *
@@ -175,7 +212,7 @@ class Wxr extends Import {
 	 */
 	 protected function customNestedSort( $xml ) {
 	 	 $array = array();
-	 	 
+
 	 	 //first, put them in ascending menu_order
 	 	 usort( $xml, function ( $a, $b ) {
 	 	 	return ( $a['menu_order'] - $b['menu_order'] );
@@ -188,14 +225,14 @@ class Wxr extends Import {
 				 break;
 			 }
 		 }
-	 	 
+
 	 	 //now, list all front matter
 	 	 foreach ( $xml as $p ) {
 	 	 	if ( 'front-matter' == $p['post_type'] ) {
-	 	 		$array[] = $p;	
+	 	 		$array[] = $p;
 	 	 	}
 	 	 }
-	 	 
+
 	 	 //now, list all parts, then their associated chapters
 	 	 foreach ( $xml as $p ) {
 	 	 	if ( 'part' == $p['post_type'] ) {
@@ -207,13 +244,23 @@ class Wxr extends Import {
 	 	 		}
 	 	 	}
 	 	 }
-	 	 
+
 	 	 //now, list all back matter
 	 	 foreach ( $xml as $p ) {
 	 	 	if ( 'back-matter' == $p['post_type'] ) {
-	 	 		$array[] = $p;	
+	 	 		$array[] = $p;
 	 	 	}
 	 	 }
+
+		 // Remaining custom post types
+		 $custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
+
+		 foreach ( $xml as $p ) {
+			 if ( in_array( $p['post_type'], $custom_post_types ) ) {
+				 $array[] = $p;
+			 }
+		 }
+
 	 	 return $array;
 	 }
 
@@ -253,10 +300,12 @@ class Wxr extends Import {
 	 */
 	protected function insertNewPost( $post_type, $p, $html, $chapter_parent ) {
 
+		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
+
 		$new_post = array(
 			'post_title' => wp_strip_all_tags( $p['post_title'] ),
 			'post_type' => $post_type,
-			'post_status' => ( 'part' == $post_type ) ? 'publish' : 'draft',
+			'post_status' => ( 'part' == $post_type || in_array( $post_type, $custom_post_types ) ) ? 'publish' : 'draft',
 		);
 
 		if ( 'part' != $post_type ) {
@@ -370,7 +419,7 @@ class Wxr extends Import {
 
 		return '';
 	}
-	
+
 	/**
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
@@ -405,7 +454,7 @@ class Wxr extends Import {
 	 * Load remote url of image into WP using media_handle_sideload()
 	 * Will return an empty string if something went wrong.
 	 *
-	 * @param string $url 
+	 * @param string $url
 	 *
 	 * @see media_handle_sideload
 	 *

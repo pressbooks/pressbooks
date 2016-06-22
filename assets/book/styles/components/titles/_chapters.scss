@@ -1,0 +1,140 @@
+//============================================================================//
+//                                  Chapters                                  //
+//============================================================================//
+
+.chapter-title-wrap {
+  margin-top: $chapter-title-block-margin-top;
+  margin-bottom: $chapter-title-block-margin-bottom;
+
+  .chapter-number {
+    display: $chapter-number-display;
+    margin-top: 0;
+    margin-bottom: $chapter-number-margin-bottom;
+    font-family: $chapter-number-font-family;
+    font-size: $chapter-number-font-size;
+    font-style: $chapter-number-font-style;
+    font-weight: $chapter-number-font-weight;
+    line-height: $chapter-number-line-height;
+    text-align: $chapter-number-align;
+    text-transform: $chapter-number-text-transform;
+  }
+
+  .chapter-title {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: $section-title-font-family;
+    font-size: $section-title-font-size;
+    font-style: $section-title-font-style;
+    font-weight: $section-title-font-weight;
+    hyphens: none;
+    text-align: $chapter-title-align;
+    text-transform: $section-title-text-transform;
+  }
+}
+
+// Subtitle (outside .chapter-title-wrap)
+h2.chapter-subtitle {
+  display: block;
+  @if $type == 'prince' {
+    margin-top: $section-title-margin-bottom - $chapter-title-block-margin-bottom;
+    margin-bottom: $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+    margin-bottom: $section-subtitle-margin-bottom;
+  }
+  font-family: $section-subtitle-font-family;
+  font-size: $section-subtitle-font-size;
+  font-style: $section-subtitle-font-style;
+  font-weight: $section-subtitle-font-weight;
+  hyphens: none;
+  text-align: $section-subtitle-align;
+  text-transform: $section-subtitle-text-transform;
+  column-span: all;
+}
+
+// Author (outside .chapter-title-wrap)
+h2.chapter-author {
+  display: block;
+  @if $type == 'prince' {
+    margin-bottom: $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-bottom: $section-author-margin-bottom;
+  }
+  font-family: $section-author-font-family;
+  font-size: $section-author-font-size;
+  font-style: $section-author-font-style;
+  font-weight: $section-author-font-weight;
+  hyphens: none;
+  text-align: $section-author-align;
+  text-transform: $section-author-text-transform;
+}
+
+h2.chapter-subtitle + h2.chapter-author {
+  @if $type == 'prince' {
+    margin-top: $section-subtitle-margin-bottom - $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
+}
+
+h2.chapter-title-wrap + h2.chapter-author,
+h2.chapter-author:first-child {
+  @if $type == 'prince' {
+    margin-top: $section-title-margin-bottom - $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
+}
+
+// Aphorism (outside .chapter-title-wrap)
+blockquote.aphorism,
+.aphorism {
+  margin-bottom: $chapter-title-block-margin-bottom;
+  font-family: $body-font-family;
+  font-size: $body-font-size;
+  line-height: $body-line-height;
+  text-align: $aphorism-align;
+  text-indent: 0;
+
+  cite {
+    display: block;
+    font-size: $aphorism-cite-font-size;
+
+    &::before {
+      content: '–';
+    }
+  }
+}
+
+h2.chapter-author + blockquote.aphorism,
+h2.chapter-author + .aphorism {
+  @if $type == 'prince' {
+    margin-top: $section-author-margin-bottom - $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
+}
+
+h2.chapter-subtitle + blockquote.aphorism,
+h2.chapter-subtitle + .aphorism {
+  @if $type == 'prince' {
+    margin-top: $section-subtitle-margin-bottom - $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
+}
+
+.chapter-title-wrap + blockquote.aphorism,
+.aphorism:first-child {
+  @if $type == 'prince' {
+    margin-top: $section-title-margin-bottom - $chapter-title-block-margin-bottom;
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
+}
+
+// Numberless Chapters
+.numberless .chapter-number {
+  display: none;
+}

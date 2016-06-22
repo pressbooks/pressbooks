@@ -1,0 +1,98 @@
+//============================================================================//
+//                               Images (EPUB)                                //
+//============================================================================//
+
+.wp-caption-text {
+  padding-bottom: $image-caption-padding-bottom;
+  font-family: $image-caption-font-family;
+  font-size: $image-caption-font-size;
+  font-style: $image-caption-font-style;
+  font-weight: $image-caption-font-weight;
+  hyphens: none;
+  line-height: $image-caption-line-height;
+  text-align: $image-caption-text-align;
+  text-transform: $image-caption-text-transform;
+}
+
+img {
+  display: inline-block;
+  height: auto;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+  page-break-inside: avoid !important;
+}
+
+// Wrapper for captioned and uncaptioned images
+.wp-caption,
+.wp-nocaption {
+  width: 80%;
+  height: auto;
+  margin-top: $image-wrapper-margin-top;
+  margin-right: 10%;
+  margin-bottom: $image-wrapper-margin-bottom;
+  margin-left: 10%;
+  text-align: center;
+  page-break-inside: avoid !important;
+
+  // Align (Center)
+  &.aligncenter {
+    width: auto;
+    text-align: center;
+    page-break-inside: avoid !important;
+
+    img {
+      width: auto;
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+    }
+  }
+
+  // Align (Left) – width is 50%
+  &.alignleft {
+    float: left;
+    width: 50%;
+    padding-left: 0;
+    margin-right: $image-alignleft-margin-right;
+    margin-left: 0;
+    page-break-inside: avoid !important;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  // Align (Right) – width is 50%
+  &.alignright {
+    float: right;
+    width: 50%;
+    padding-left: 0;
+    margin-right: 0;
+    margin-left: $image-alignright-margin-left;
+    page-break-inside: avoid !important;
+
+    img {
+      width: 100%;
+    }
+  }
+}
+
+// Mobi
+
+@media amzn-kf8 {
+  .wp-caption,
+  .wp-nocaption {
+    width: auto;
+    height: auto;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    page-break-inside: avoid !important;
+
+    img {
+      width: auto;
+      page-break-inside: avoid !important;
+    }
+  }
+}

@@ -1,0 +1,131 @@
+//============================================================================//
+//                            Footnotes & Endnotes                            //
+//============================================================================//
+
+// Prince footnotes
+@mixin prince-footnotes {
+
+  @page {
+    @footnotes {
+      padding-top: $footnote-padding-top;
+    }
+  }
+
+  // Reset counter at the beginning of a new section
+  .front-matter,
+  .part,
+  .chapter,
+  .introduction,
+  .back-matter,
+  .front-matter-title-wrap,
+  .chapter-title-wrap,
+  .back-matter-title-wrap {
+    counter-reset: footnote;
+  }
+
+  .footnote {
+    display: prince-footnote;
+    padding-left: $footnote-padding-left;
+    margin-left: 0;
+    font-size: $footnote-font-size;
+    line-height: $footnote-line-height;
+    text-align: left;
+    text-indent: $footnote-indent;
+    counter-increment: footnote;
+    footnote-style-position: outside;
+  }
+
+  // Footnote & Endnote number markers (in body text)
+
+  .endnote::footnote-call,
+  .footnote::footnote-call {
+    font-size: $footnote-number-marker-font-size;
+    line-height: $footnote-number-marker-line-height;
+    vertical-align: top;
+  }
+
+  p {
+    prince-footnote-policy: keep-with-line;
+  }
+
+}
+
+@mixin epub-footnotes {
+  // Footnote & Endnote number markers (in body text)
+
+  .endnote,
+  .footnote {
+    font-size: $footnote-number-marker-font-size;
+    line-height: $footnote-number-marker-line-height;
+    vertical-align: top;
+  }
+
+  .footnotes {
+    font-size: $footnote-font-size;
+  }
+}
+
+@if $type == 'prince' {
+  @include prince-footnotes;
+} @else if $type == 'epub' {
+  @include epub-footnotes;
+}
+
+// Our footnote function eats <p> & <blockquote> tags, so users should wrap new
+// paragraphs & blockquotes in a span, as per below
+
+.fn-p {
+  display: block;
+  text-indent: $para-indent;
+}
+
+.fn_p { // Deprecated; only included for backwards-compatibility.
+  @extend .fn-p;
+}
+
+.fn-blockquote {
+  display: block;
+  margin-top: $footnote-blockquote-margin-top;
+  margin-bottom: $footnote-blockquote-margin-bottom;
+  margin-left: $footnote-blockquote-margin-left;
+  font-size: $footnote-blockquote-font-size;
+}
+
+.fn_blockquote { // Deprecated; only included for backwards-compatibility.
+  @extend .fn-blockquote;
+}
+
+// Endnotes
+
+.endnotes {
+  margin-left: $endnote-margin-left;
+  line-height: $endnote-line-height;
+
+  h3 {
+    padding-bottom: $endnote-header-padding-bottom;
+    margin-bottom: $endnote-header-margin-bottom;
+    margin-left: $endnote-header-margin-left;
+  }
+
+  hr {
+    margin-top: $endnote-hr-margin-top;
+    border: $endnote-hr-border;
+  }
+
+  ol {
+    margin-top: $endnote-ol-margin-top;
+    margin-left: $endnote-ol-margin-left;
+    font-size: $endnote-ol-font-size;
+    list-style-position: outside;
+  }
+
+  li {
+    padding-left: $endnote-li-padding-left;
+    margin-top: $endnote-li-margin-top;
+    text-indent: $endnote-li-indent;
+  }
+
+  p + p {
+    text-indent: 0;
+  }
+}

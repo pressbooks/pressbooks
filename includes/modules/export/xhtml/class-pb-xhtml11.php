@@ -187,7 +187,6 @@ class Xhtml11 extends Export {
 		echo "<head>\n";
 		echo '<meta content="text/html; charset=UTF-8" http-equiv="content-type" />' . "\n";
 		echo '<meta http-equiv="Content-Language" content="' . $this->lang . '" />' . "\n";
-		echo '<base href="' . trailingslashit( site_url( '', 'http' ) ) . '" />' . "\n";
 
 
 		$this->echoMetaData( $book_contents, $metadata );
@@ -594,9 +593,11 @@ class Xhtml11 extends Export {
 		} else {
 			printf( '<h1 class="title">%s</h1>', get_bloginfo( 'name' ) );
 			printf( '<h2 class="subtitle">%s</h2>', @$metadata['pb_subtitle'] );
-			printf( '<div class="logo"></div>' );
 			printf( '<h3 class="author">%s</h3>', @$metadata['pb_author'] );
 			printf( '<h4 class="contributing-authors">%s</h4>', @$metadata['pb_contributing_authors'] );
+			if ( current_theme_supports('pressbooks_publisher_logo') ) {
+				printf( '<div class="publisher-logo"><img src="%s" /></div>',  get_theme_support('pressbooks_publisher_logo')[0]['logo_uri']); // TODO: Support custom publisher logo.
+			}
 			printf( '<h4 class="publisher">%s</h4>', @$metadata['pb_publisher'] );
 			printf( '<h5 class="publisher-city">%s</h5>', @$metadata['pb_publisher_city'] );
 		}
@@ -860,7 +861,7 @@ class Xhtml11 extends Export {
 			$slug = $front_matter['post_name'];
 			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 			$content = $front_matter['post_content'];
-
+			$append_front_matter_content = apply_filters( 'pb_append_front_matter_content', '', $id );
 			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
@@ -890,6 +891,7 @@ class Xhtml11 extends Export {
 				$i,
 				Sanitize\decode( $title ),
 				$content,
+				$append_front_matter_content,
 				$this->doEndnotes( $id ) );
 
 			echo "\n";
@@ -986,7 +988,7 @@ class Xhtml11 extends Export {
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $chapter['post_content'];
-
+				$append_chapter_content = apply_filters( 'pb_append_chapter_content', '', $id );
 				$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
@@ -1024,6 +1026,7 @@ class Xhtml11 extends Export {
 					$n,
 					Sanitize\decode( $title ),
 					$content,
+					$append_chapter_content,
 					$this->doEndnotes( $id ) ) . "\n";
 
 				if ( $subclass !== 'numberless' ) ++$j;
@@ -1080,7 +1083,7 @@ class Xhtml11 extends Export {
 			$slug = $back_matter['post_name'];
 			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $back_matter['post_title'] : '<span class="display-none">' . $back_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 			$content = $back_matter['post_content'];
-
+			$append_back_matter_content = apply_filters( 'pb_append_back_matter_content', '', $id );
 			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
@@ -1110,6 +1113,7 @@ class Xhtml11 extends Export {
 				$i,
 				Sanitize\decode( $title ),
 				$content,
+				$append_back_matter_content,
 				$this->doEndnotes( $id ) );
 
 			echo "\n";

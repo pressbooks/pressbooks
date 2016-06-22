@@ -1,0 +1,120 @@
+// Half Title Page
+#half-title-page > h1.title {
+  margin-top: $title-title-block-margin-top;
+  font-family: $title-half-title-font-family;
+  font-size: $title-half-title-font-size;
+  font-style: $title-half-title-font-style;
+  font-weight: $title-half-title-font-weight;
+  hyphens: none;
+  letter-spacing: $title-half-title-letter-spacing;
+  word-spacing: $title-half-title-word-spacing;
+  text-align: $title-half-title-align;
+  text-transform: $title-half-title-text-transform;
+}
+
+// Title Page
+h1.title {
+  margin-top: $title-title-block-margin-top;
+  font-family: $title-title-font-family;
+  font-size: $title-title-font-size;
+  font-style: $title-title-font-style;
+  font-weight: $title-title-font-weight;
+  hyphens: none;
+  letter-spacing: $title-title-letter-spacing;
+  word-spacing: $title-title-word-spacing;
+  text-align: $title-title-align;
+  text-transform: $title-title-text-transform;
+}
+
+h2.subtitle {
+  margin-top: $title-subtitle-margin-top;
+  font-family: $title-subtitle-font-family;
+  font-size: $title-subtitle-font-size;
+  font-style: $title-subtitle-font-style;
+  font-weight: $title-subtitle-font-weight;
+  hyphens: none;
+  letter-spacing: $title-subtitle-letter-spacing;
+  word-spacing: $title-subtitle-word-spacing;
+  text-align: $title-subtitle-align;
+  text-transform: $title-subtitle-text-transform;
+}
+
+h3.author {
+  margin-top: $title-author-margin-top;
+  font-family: $title-author-font-family;
+  font-size: $title-author-font-size;
+  font-style: $title-author-font-style;
+  font-weight: $title-author-font-weight;
+  hyphens: none;
+  letter-spacing: $title-author-letter-spacing;
+  word-spacing: $title-author-word-spacing;
+  text-align: $title-author-align;
+  text-transform: $title-author-text-transform;
+}
+
+div.publisher-logo {
+  display: $title-publisher-logo-display;
+  width: $title-publisher-logo-width;
+  height: auto;
+  padding-top: $title-publisher-logo-padding-top;
+  padding-bottom: $title-publisher-logo-padding-bottom;
+  margin-right: $title-publisher-logo-margin-right;
+  margin-left: $title-publisher-logo-margin-left;
+  text-align: $title-publisher-logo-text-align;
+}
+
+h4.publisher {
+  display: block;
+  float: bottom;
+  margin-bottom: $title-publisher-margin-bottom;
+  font-family: $title-publisher-font-family;
+  font-size: $title-publisher-font-size;
+  font-style: $title-publisher-font-style;
+  font-weight: $title-publisher-font-weight;
+  hyphens: none;
+  line-height: $title-publisher-line-height;
+  letter-spacing: $title-publisher-letter-spacing;
+  word-spacing: $title-publisher-word-spacing;
+  text-align: $title-publisher-align;
+  text-transform: $title-publisher-text-transform;
+}
+
+h5.publisher-city {
+  float: bottom;
+  margin-top: 0;
+  font-family: $title-publisher-city-font-family;
+  font-size: $title-publisher-city-font-size;
+  font-style: $title-publisher-city-font-style;
+  font-weight: $title-publisher-city-font-weight;
+  hyphens: none;
+  line-height: $title-publisher-city-line-height;
+  letter-spacing: $title-publisher-city-letter-spacing;
+  word-spacing: $title-publisher-city-word-spacing;
+  text-align: $title-publisher-city-align;
+  text-transform: $title-publisher-city-text-transform;
+}
+
+// Prince and EPUB-specific disply rules
+@mixin titles-prince {
+  #title-page {
+    > .subtitle,
+    > .author,
+    > .publisher-logo,
+    > .publisher,
+    > .publisher-city {
+      bookmark-level: none;
+    }
+  }
+}
+
+@mixin titles-epub {
+  #half-title-page {
+    display: none;
+  }
+}
+
+@if $type == 'prince' {
+  @include titles-prince;
+} @else if $type == 'epub' {
+  @include titles-epub;
+}

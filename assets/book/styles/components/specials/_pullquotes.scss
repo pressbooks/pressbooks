@@ -1,0 +1,79 @@
+//============================================================================//
+//                       Pullquotes, Asides & Sidebars                        //
+//============================================================================//
+
+// Asides: HTML5 <aside> tag; div.aside conversion for old e-readers
+
+aside,
+.aside {
+  padding-top: $aside-padding-top;
+  padding-right: $aside-padding-right;
+  padding-bottom: $aside-padding-bottom;
+  padding-left: $aside-padding-left;
+  margin-top: $aside-margin-top;
+  margin-right: $aside-margin-right;
+  margin-bottom: $aside-margin-bottom;
+  margin-left: $aside-margin-left;
+  line-height: $aside-line-height;
+  text-indent: 0;
+  border-top: $aside-border-top;
+  border-right: $aside-border-right;
+  border-bottom: $aside-border-bottom;
+  border-left: $aside-border-left;
+}
+
+// Pullquotes
+
+.pullquote-left,
+.pullquote-right {
+  font-family: $pullquote-font-family;
+  font-size: $pullquote-font-size;
+  font-style: $pullquote-font-style;
+  font-weight: $pullquote-font-weight;
+  hyphens: none;
+  line-height: $pullquote-line-height;
+  text-align: $pullquote-align;
+  text-indent: 0;
+}
+
+.pullquote-left {
+  float: left;
+  width: $pullquote-left-width;
+  margin-top: $pullquote-margin-top;
+  margin-right: $pullquote-left-margin-right;
+  margin-bottom: $pullquote-margin-bottom;
+  margin-left: $pullquote-left-margin-left;
+}
+
+.pullquote-right {
+  float: right;
+  width: $pullquote-right-width;
+  margin-top: $pullquote-margin-top;
+  margin-right: $pullquote-right-margin-right;
+  margin-bottom: $pullquote-margin-bottom;
+  margin-left: $pullquote-right-margin-left;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+// Sidebars
+.sidebar {
+  float: right;
+  width: $sidebar-width;
+  padding-top: $sidebar-padding-top;
+  padding-right: $sidebar-padding-right;
+  padding-bottom: $sidebar-padding-bottom;
+  padding-left: $sidebar-padding-left;
+  margin-top: $sidebar-margin-top;
+  margin-right: $sidebar-margin-right;
+  margin-left: $sidebar-margin-left;
+  font-size: $sidebar-font-size;
+  font-style: $sidebar-font-style;
+  font-weight: $sidebar-font-weight;
+  text-align: $sidebar-align;
+}
+
+.sidebar p,
+.sidebar p + p {
+  text-align: left;
+}

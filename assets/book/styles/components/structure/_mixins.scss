@@ -1,0 +1,76 @@
+//========================
+// Page Structure Mixins
+//========================
+
+// Page Numbers
+
+@mixin front-matter-page-number {
+  font-family: $front-matter-page-number-font-family;
+  color: $page-number-color;
+  font-size: $front-matter-page-number-font-size;
+  font-style: $front-matter-page-number-font-style;
+  font-weight: $front-matter-page-number-font-weight;
+  text-transform: $front-matter-page-number-text-transform;
+  hyphens: none;
+}
+
+@mixin page-number {
+  font-family: $page-number-font-family;
+  color: $page-number-color;
+  font-size: $page-number-font-size;
+  font-style: $page-number-font-style;
+  font-weight: $page-number-font-weight;
+  hyphens: none;
+}
+
+// Running Heads
+
+@mixin runninghead-left {
+  color: $runninghead-color;
+  font-family: $runninghead-left-font-family;
+  font-size: $runninghead-left-font-size;
+  font-style: $runninghead-left-font-style;
+  font-weight: $runninghead-left-font-weight;
+  text-transform: $runninghead-left-text-transform;
+  letter-spacing: $runninghead-left-letter-spacing;
+  word-spacing: $runninghead-left-word-spacing;
+  hyphens: none;
+}
+
+@mixin runninghead-right {
+  color: $runninghead-color;
+  font-family: $runninghead-right-font-family;
+  font-size: $runninghead-right-font-size;
+  font-style: $runninghead-right-font-style;
+  font-weight: $runninghead-right-font-weight;
+  text-transform: $runninghead-right-text-transform;
+  letter-spacing: $runninghead-right-letter-spacing;
+  word-spacing: $runninghead-right-word-spacing;
+  hyphens: none;
+}
+
+// Running Feet
+
+@mixin runningfoot-left {
+  color: $runningfoot-color;
+  font-family: $runningfoot-left-font-family;
+  font-size: $runningfoot-left-font-size;
+  font-style: $runningfoot-left-font-style;
+  font-weight: $runningfoot-left-font-weight;
+  text-transform: $runningfoot-left-text-transform;
+  letter-spacing: $runningfoot-left-letter-spacing;
+  word-spacing: $runningfoot-left-word-spacing;
+  hyphens: none;
+}
+
+@mixin runningfoot-right {
+  color: $runningfoot-color;
+  font-family: $runningfoot-right-font-family;
+  font-size: $runningfoot-right-font-size;
+  font-style: $runningfoot-right-font-style;
+  font-weight: $runningfoot-right-font-weight;
+  text-transform: $runningfoot-right-text-transform;
+  letter-spacing: $runningfoot-right-letter-spacing;
+  word-spacing: $runningfoot-right-word-spacing;
+  hyphens: none;
+}

@@ -1,0 +1,120 @@
+//=================================
+// Running Foot Outside (Both)
+//=================================
+
+// Displays the page number, a separator (defaults to ' | '), and user-defined
+// content on the outside edge of the running head.
+
+// -------------------------------
+// | # | lhead    |    rhead | # |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// -------------------------------
+
+@import 'blank', 'mixins';
+
+// Front Matter
+
+@page front-matter:first {
+  @include blank-head;
+}
+
+@page front-matter:left {
+  @top-left {
+    content: counter(page, lower-roman) $runninghead-separator $front-matter-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page front-matter:right {
+  @top-right {
+    content: $front-matter-running-content-right $runninghead-separator counter(page, lower-roman);
+    @include front-matter-page-number;
+  }
+}
+
+// Introduction
+
+@page introduction:first {
+  @include blank-head;
+}
+
+@page introduction:left {
+  @top-left {
+    content: counter(page) $runninghead-separator $introduction-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page introduction:right {
+  @top-right {
+    content: $introduction-running-content-right $runninghead-separator counter(page);
+    @include runninghead-right;
+  }
+}
+
+// Parts
+
+@page part:first {
+  @include blank-head;
+}
+
+@page part:left {
+  @top-left {
+    content: counter(page) $runninghead-separator $part-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page part:right {
+  @top-right {
+    content: $part-running-content-right $runninghead-separator counter(page);
+    @include runninghead-right;
+  }
+}
+
+// Chapters
+
+@page chapter:first {
+  @include blank-head;
+}
+
+@page chapter:left {
+  @top-left {
+    content: counter(page) $runninghead-separator $chapter-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page chapter:right {
+  @top-right {
+    content: $chapter-running-content-right $runninghead-separator counter(page);
+    @include runninghead-right;
+  }
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @include blank-head;
+}
+
+@page back-matter:left {
+  @top-left {
+    content: counter(page) $runninghead-separator $back-matter-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page back-matter:right {
+  @top-right {
+    content: $back-matter-running-content-right $runninghead-separator counter(page);
+    @include runninghead-right;
+  }
+}

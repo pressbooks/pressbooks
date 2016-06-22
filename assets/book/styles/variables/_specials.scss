@@ -1,0 +1,166 @@
+//============================================================================//
+//                           Variables | Headings                             //
+//============================================================================//
+
+// Columns
+$column-margin-top: 1em !default;
+$column-margin-bottom: 1em !default;
+$column-line-height: 1.2em !default;
+$column-twocolumn-column-gap: 1.5em !default;
+$column-twocolumn-font-size: 1em !default;
+$column-threecolumn-column-gap: 1em !default;
+$column-threecolumn-font-size: .9em !default;
+
+// Dropcaps
+$first-character-font-family: $font-2 !default;
+$first-character-font-size: 3em !default;
+$first-character-font-style: normal !default;
+$first-character-font-weight: bold !default;
+$first-character-line-height: .7em !default;
+
+// Footnotes
+$footnote-padding-top: 1em !default;
+$footnote-padding-left: 0 !default;
+@if $type == 'prince' {
+  $footnote-font-size: .8em !default;
+} @else if $type == 'epub' {
+  $footnote-font-size: .9em !default;
+}
+$footnote-font-style: normal !default;
+$footnote-font-weight: normal !default;
+$footnote-line-height: 1.15em !default;
+$footnote-indent: 0 !default;
+$footnote-blockquote-margin-top: .5em !default;
+$footnote-blockquote-margin-bottom: .5em !default;
+$footnote-blockquote-margin-left: 1.5em !default;
+$footnote-blockquote-font-size: .95em !default;
+$footnote-number-marker-font-size: $sup-sub-font-size !default;
+$footnote-number-marker-line-height: $sup-sub-line-height !default;
+
+// Endnotes
+$endnote-margin-left: 1.5em !default;
+$endnote-line-height: 1.1em !default;
+$endnote-header-padding-bottom: 1em !default;
+$endnote-header-margin-bottom: 1em !default;
+$endnote-header-margin-left: -1.5em !default;
+$endnote-hr-margin-top: 2em !default;
+$endnote-hr-border: 0 !default;
+$endnote-ol-margin-top: .4em !default;
+$endnote-ol-margin-left: 0 !default;
+$endnote-ol-font-size: .85em !default;
+$endnote-li-padding-left: 0 !default;
+$endnote-li-margin-top: .4em !default;
+$endnote-li-indent: 0 !default;
+
+// Asides
+$aside-padding-top: .9em !default;
+$aside-padding-right: 0 !default;
+$aside-padding-bottom: .9em !default;
+$aside-padding-left: 0 !default;
+$aside-margin-top: 2em !default;
+$aside-margin-right: 10% !default;
+$aside-margin-bottom: 2em !default;
+$aside-margin-left: 10% !default;
+$aside-line-height: 1.2em !default;
+$aside-border-top: 1px solid !default; // TODO
+$aside-border-right: 0 !default;
+$aside-border-bottom: 1px solid !default; // TODO
+$aside-border-left: 0 !default;
+
+// Pullquotes
+$pullquote-font-family: $font-3 !default;
+$pullquote-font-size: 1.25em !default;
+$pullquote-font-style: normal !default;
+$pullquote-font-weight: bold !default;
+$pullquote-line-height: 1.2em !default;
+$pullquote-text-transform: none !default;
+$pullquote-align: center !default;
+$pullquote-margin-top: 1em !default;
+$pullquote-margin-bottom: 1em !default;
+$pullquote-left-width: 45% !default;
+$pullquote-left-margin-right: 1em !default;
+$pullquote-left-margin-left: 1em !default;
+$pullquote-right-width: 45% !default;
+$pullquote-right-margin-right: 1em !default;
+$pullquote-right-margin-left: 1em !default;
+
+// Sidebars
+$sidebar-width: 35% !default;
+$sidebar-padding-top: 1em !default;
+$sidebar-padding-right: 1em !default;
+$sidebar-padding-bottom: 1em !default;
+$sidebar-padding-left: 1em !default;
+$sidebar-margin-top: .5em !default;
+$sidebar-margin-right: 0 !default;
+$sidebar-margin-left: 1em !default;
+$sidebar-font-size: .9em !default;
+$sidebar-font-style: italic !default;
+$sidebar-font-weight: normal !default;
+$sidebar-align: left !default;
+
+// Separators
+$hr-width: 20% !default;
+$hr-margin-top: .9em !default;
+$hr-margin-bottom: .9em !default;
+$hr-break-symbols-margin-bottom: 1.66em !default;
+$hr-break-symbols-font-size: 1.1em !default;
+$hr-break-symbols-content: '\066D' !default;
+$section-break-margin-top: 1em !default;
+$section-break-margin-bottom: 1em !default;
+$section-break-space-margin-top: 1em !default;
+$section-break-space-margin-bottom: 0 !default;
+$section-break-space-line-height: 1em !default;
+$section-break-page-margin-top: 1em !default;
+$section-break-page-margin-bottom: 1em !default;
+$section-break-page-invisible-margin-top: 1em !default;
+$section-break-page-invisible-margin-bottom: 1em !default;
+
+// Textboxes
+$textbox-font-size: .9em !default;
+$textbox-font-style: normal !default;
+$textbox-font-weight: normal !default;
+$textbox-line-height: 1.2em;
+$textbox-padding-top: .9em !default;
+$textbox-padding-right: .9em !default;
+$textbox-padding-bottom: .9em !default;
+$textbox-padding-left: .9em !default;
+$textbox-margin-top: .9em !default;
+$textbox-margin-right: 0 !default;
+$textbox-margin-bottom: .9em !default;
+$textbox-margin-left: 0 !default;
+$textbox-border-style: solid !default;
+$textbox-border-color: #000 !default;
+$textbox-border-width: .05em !default; // TODO
+$textbox-border-radius: 0 !default;
+$textbox-shaded-background-color: #eee !default;
+$textbox-para-margin-top: 0 !default;
+$textbox-para-margin-bottom: .5em !default;
+$textbox-caption-font-family: $font-2 !default;
+$textbox-caption-font-size: .875em !default;
+$textbox-caption-font-style: normal !default;
+$textbox-caption-font-weight: bold !default;
+
+// Educational Textboxes
+$edu-textbox-border-radius: .35em !default;
+$edu-textbox-padding-top: 1em !default;
+$edu-textbox-padding-right: 1em !default;
+$edu-textbox-padding-bottom: 1em !default;
+$edu-textbox-padding-left: 1em !default;
+$edu-textbox-margin-bottom: 1.35em !default;
+$edu-header-padding-top: 1.35em !default;
+$edu-header-padding-right: 0 !default;
+$edu-header-padding-bottom: 1.35em !default;
+$edu-header-padding-left: 0 !default;
+$edu-header-margin-top: -1.2em !default;
+$edu-header-margin-right: -1.2em !default;
+$edu-header-margin-bottom: 1.35em !default;
+$edu-header-margin-left: -1.2em !default;
+$edu-header-text-color: #fff !default;
+$learning-objectives-background: #f7f7f9 !default;
+$learning-objectives-header-background: #111 !default;
+$key-takeaways-background: #eaf5ea !default;
+$key-takeaways-header-background: #3a7a33 !default;
+$exercises-background: #e3eff6 !default;
+$exercises-header-background: #0b6396 !default;
+$examples-background: #f3e1e3 !default;
+$examples-header-background: #7a333a !default;

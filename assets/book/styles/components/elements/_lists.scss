@@ -1,0 +1,61 @@
+//============================================================================//
+//                                   Lists                                    //
+//============================================================================//
+
+ol {
+  margin-top: $ol-margin-top;
+  margin-bottom: $ol-margin-bottom;
+  margin-left: $ol-margin-left;
+}
+
+ul {
+  margin-top: $ul-margin-top;
+  margin-bottom: $ul-margin-bottom;
+  margin-left: $ul-margin-left;
+}
+
+li + li {
+  margin-top: $li-li-margin-top;
+}
+
+ol.upper-alpha {
+  list-style-type: upper-alpha;
+}
+
+ol.lower-alpha {
+  list-style-type: lower-alpha;
+}
+
+ol.upper-roman {
+  list-style-type: upper-roman;
+}
+
+ol.lower-roman {
+  list-style-type: lower-roman;
+}
+
+@import 'lists-ordered-harvard';
+@import 'lists-ordered-legal';
+
+// Definition Lists
+
+dl {
+  dt {
+    display: block;
+    margin-top: $dt-margin-top;
+    margin-right: $dt-margin-right;
+    margin-bottom: $dt-margin-bottom;
+    margin-left: $dt-margin-left;
+    font-style: $dt-font-style;
+    font-weight: $dt-font-weight;
+  }
+
+  dd {
+    margin-top: $dd-margin-top;
+    margin-right: $dd-margin-right;
+    margin-bottom: $dd-margin-bottom;
+    margin-left: $dd-margin-left;
+    font-style: $dd-font-style;
+    font-weight: $dd-font-weight;
+  }
+}

@@ -1,0 +1,102 @@
+@import 'mixins';
+
+#toc {
+  margin: 5%;
+
+  h1 {
+    display: block;
+    padding-bottom: 1.5em;
+    margin-bottom: 2em;
+  }
+
+  a {
+    color: inherit;
+    border: 0;
+  }
+
+  a::after {
+    font-style: normal;
+    text-decoration: none;
+  }
+
+  ul,
+  li {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  ul {
+    line-height: $toc-base-line-height;
+  }
+
+  li {
+    margin-bottom: .25em;
+  }
+
+  .front-matter,
+  .back-matter {
+    margin-bottom: .25em;
+  }
+
+  .front-matter {
+    @include toc-front-matter-title;
+  }
+
+  .front-matter.introduction .toc-chapter-title {
+    font-style: normal;
+  }
+
+  .back-matter {
+    @include toc-back-matter-title;
+  }
+
+  .front-matter + .part,
+  .front-matter + .chapter,
+  .chapter + .back-matter,
+  .part + .back-matter {
+    margin-top: $toc-block-margin-top;
+  }
+
+  .part .toc-chapter-title {
+    @include toc-part-title;
+    margin-top: $toc-block-margin-top;
+    text-align: left;
+  }
+
+  .toc-chapter-title {
+    @include toc-chapter-title;
+    display: block;
+    margin-top: .5em;
+  }
+
+  .chapter-author {
+    @include toc-chapter-author;
+    display: block;
+    padding-left: 2em;
+    margin-bottom: .3em;
+  }
+
+  .chapter-subtitle {
+    @include toc-chapter-subtitle;
+    display: block;
+    padding-left: 2em;
+    margin-bottom: .3em;
+  }
+
+  .chapter-subtitle + .chapter-author {
+    margin-top: -.5em;
+    margin-bottom: .5em;
+  }
+
+  ul.sections {
+    padding-top: .5em;
+    padding-bottom: .5em;
+    margin-left: 2em;
+    font-size: .9em;
+  }
+
+  .section {
+    font-style: italic;
+  }
+}

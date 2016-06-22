@@ -1,0 +1,74 @@
+//============================================================================//
+//                                Images (Web)                                //
+//============================================================================//
+
+.wp-caption-text {
+  padding-bottom: $image-caption-padding-bottom;
+  font-family: $image-caption-font-family;
+  font-size: $image-caption-font-size;
+  font-style: $image-caption-font-style;
+  font-weight: $image-caption-font-weight;
+  hyphens: none;
+  line-height: $image-caption-line-height;
+  text-align: $image-caption-text-align;
+  text-transform: $image-caption-text-transform;
+}
+
+#content {
+  img {
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  // Wrapper for captioned and uncaptioned images
+  .wp-caption,
+  .wp-nocaption {
+    height: auto;
+    max-width: 100%;
+    margin-top: $image-wrapper-margin-top;
+    margin-bottom: $image-wrapper-margin-bottom;
+    text-align: center;
+
+    // Align (None)
+    &.alignnone {
+      padding-left: 0;
+      margin-right: 0;
+      margin-left: 0;
+    }
+
+    // Align (Center)
+    &.aligncenter {
+      width: auto;
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+
+      img {
+        width: auto;
+        margin-right: auto;
+        margin-left: auto;
+      }
+    }
+
+    // Align (Left) – max-width is 50%
+    &.alignleft {
+      float: left;
+      max-width: 50%;
+      padding-left: 0;
+      margin-right: $image-alignleft-margin-right;
+      margin-left: 0;
+    }
+
+    // Align (Right) – max-width is 50%
+    &.alignright {
+      float: right;
+      max-width: 50%;
+      padding-right: 0;
+      margin-right: 0;
+      margin-left: $image-alignright-margin-left;
+    }
+  }
+}

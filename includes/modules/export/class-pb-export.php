@@ -104,8 +104,10 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get('Sass')->isCurrentThemeCompatible() ) {
+			if ( Container::get('Sass')->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
+			} elseif ( Container::get('Sass')->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
+				$fullpath = realpath( get_stylesheet_directory() . "/assets/styles/$type/style.scss" );
 			} else {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
 			}
@@ -132,7 +134,11 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
+			if ( Container::get('Sass')->isCurrentThemeCompatible( 2 ) ) { // Check for v2 themes
+				$fullpath = realpath( get_stylesheet_directory() . "/assets/scripts/$type/script.js" );
+			} else {
+				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
+			}
 			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && $type == 'prince' ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script-romanize.js" );
 			}

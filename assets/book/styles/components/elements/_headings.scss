@@ -1,0 +1,82 @@
+//============================================================================//
+//                                 Headings                                   //
+//============================================================================//
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: $hx-margin-top;
+  margin-bottom: $hx-margin-bottom;
+  hyphens: none;
+  line-height: $hx-line-height;
+  page-break-after: avoid;
+}
+
+// This means that your PDF TOC won't list your subheadings, but in case of
+// 2-level TOC, `div.ugc h1` should be excluded.
+
+.ugc h1,
+.ugc h2,
+.ugc h3,
+.ugc h4,
+.ugc h5,
+.ugc h6 {
+  bookmark-level: none;
+}
+
+h1 {
+  font-family: $h1-font-family;
+  font-size: $h1-font-size;
+  font-style: $h1-font-style;
+  font-weight: $h1-font-weight;
+  text-align: $h1-align;
+  text-transform: $h1-text-transform;
+}
+
+h2 {
+  font-family: $h2-font-family;
+  font-size: $h2-font-size;
+  font-style: $h2-font-style;
+  font-weight: $h2-font-weight;
+  text-align: $h2-align;
+  text-transform: $h2-text-transform;
+}
+
+h3 {
+  font-family: $h3-font-family;
+  font-size: $h3-font-size;
+  font-style: $h3-font-style;
+  font-weight: $h3-font-weight;
+  text-align: $h3-align;
+  text-transform: $h3-text-transform;
+}
+
+h4 {
+  font-family: $h4-font-family;
+  font-size: $h4-font-size;
+  font-style: $h4-font-style;
+  font-weight: $h4-font-weight;
+  text-align: $h4-align;
+  text-transform: $h4-text-transform;
+}
+
+h5 {
+  font-family: $h5-font-family;
+  font-size: $h5-font-size;
+  font-style: $h5-font-style;
+  font-weight: $h5-font-weight;
+  text-align: $h5-align;
+  text-transform: $h5-text-transform;
+}
+
+h6 {
+  font-family: $h6-font-family;
+  font-size: $h6-font-size;
+  font-style: $h6-font-style;
+  font-weight: $h6-font-weight;
+  text-align: $h6-align;
+  text-transform: $h6-text-transform;
+}

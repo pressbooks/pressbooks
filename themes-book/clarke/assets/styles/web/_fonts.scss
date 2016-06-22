@@ -1,0 +1,8 @@
+@import 'font-stack-web'; // Dynamically generated
+
+$serif-web: serif !default;
+$sans-serif-web: sans-serif !default;
+
+$font-1: 'Times New Roman', Georgia, $serif-web;
+$font-2: Helvetica, Arial, $sans-serif-web;
+$font-3: $font-2;

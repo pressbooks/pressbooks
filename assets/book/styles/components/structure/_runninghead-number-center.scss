@@ -1,0 +1,128 @@
+//===================================
+// Running Head Center (Page Number)
+//===================================
+
+// Displays the page number in the center of the running head.
+
+// -------------------------------
+// |      #       |       #      |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// -------------------------------
+
+@import 'mixins', 'blank';
+
+// Front Matter
+
+@page front-matter:first {
+  @include blank-head;
+}
+
+@page front-matter:left {
+  @top {
+    content: counter(page, lower-roman);
+    @include front-matter-page-number;
+    text-align: center;
+  }
+}
+
+@page front-matter:right {
+  @top {
+    content: counter(page, lower-roman);
+    @include front-matter-page-number;
+    text-align: center;
+  }
+}
+
+// Introduction
+
+@page introduction:first {
+  @include blank-head;
+}
+
+@page introduction:left {
+  @top {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+@page introduction:right {
+  @top {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+// Parts
+
+@page part:first {
+  @include blank-head;
+}
+
+@page part:left {
+  @top {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+@page part:right {
+  @top {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+// Chapters
+
+@page chapter:first {
+  @include blank-head;
+}
+
+@page chapter:left {
+  @top {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+@page chapter:right {
+  @top {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @include blank-head;
+}
+
+@page back-matter:left {
+  @top {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}
+
+@page back-matter:right {
+  @top {
+    content: counter(page);
+    @include page-number;
+    text-align: center;
+  }
+}

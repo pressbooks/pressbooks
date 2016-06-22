@@ -1,0 +1,168 @@
+//=============================
+//RUNNING HEADS CENTER3
+//=============================
+// ------------------------------
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//|              |              |
+//------------------------------
+
+/* Blank Head and Foot Defaults
+note: use mixin 'blank-head-and-foot' where needed */
+
+@import 'blank';
+@import 'mixins';
+
+
+/* RUNNING HEAD CENTER3:
+FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+  @page front-matter:first {
+    @include blank-head-and-foot;
+  }
+  @page front-matter:left {
+    @top-left-corner {
+      @include front-matter-page-number;
+      content: counter(page, lower-roman) "\A0\A0\A0\A0";
+    }
+    @top {
+      content: $front-matter-running-content-left;
+      @include runninghead-left;
+      text-align: center;
+    }
+  }
+  @page front-matter:right {
+    @top-right-corner {
+      @include front-matter-page-number;
+      content: "\A0\A0\A0\A0" counter(page, lower-roman);
+    }
+    @top {
+      content: $front-matter-running-content-right;
+      @include runninghead-right;
+      text-align: center;
+    }
+  }
+  /* RUNNING HEADS CENTER3:
+INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+  @page introduction:first {
+    @include blank-head-and-foot;
+  }
+
+  @page introduction:left {
+    @top-left-corner {
+      @include page-number;
+      content: counter(page) "\A0\A0\A0\A0";
+    }
+    @top {
+      content: $introduction-running-content-left;
+      @include runninghead-left;
+      text-align: center;
+    }
+  }
+  @page introduction:right {
+    @top-right-corner {
+      @include page-number;
+      content: "\A0\A0\A0\A0" counter(page);
+    }
+    @top {
+      content:  $introduction-running-content-right;
+      @include runninghead-right;
+      text-align: center;
+    }
+  }
+
+/*  RUNNING HEADS CENTER3:
+PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+  @page part:first {
+    @include blank-head-and-foot;
+  }
+  @page part:left {
+    @top-left-corner{
+      @include page-number;
+      content: counter(page) "\A0\A0\A0\A0";
+    }
+    @top {
+      content: $part-running-content-left;
+      @include runninghead-left;
+      text-align: center;
+    }
+  }
+  @page part:right {
+    @top-right-corner {
+      @include page-number;
+      content: "\A0\A0\A0\A0" counter(page);
+    }
+    @top {
+      content: $part-running-content-right;
+      @include runninghead-right;
+      text-align: center;
+    }
+  }
+
+
+
+/* RUNNING HEADS CENTER3:
+CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
+
+  @page chapter:first {
+    @include blank-head-and-foot;
+  }
+  @page chapter:left {
+    @top-left-corner {
+      @include page-number;
+      content: counter(page) "\A0\A0\A0\A0";
+    }
+    @top {
+      content: $chapter-running-content-left;
+      @include runninghead-left;
+      text-align: center;
+    }
+  }
+  @page chapter:right {
+    @top-right-corner {
+      @include page-number;
+      content:  "\A0\A0\A0\A0" counter(page);
+    }
+    @top {
+      content: $chapter-running-content-right;
+      @include runninghead-right;
+      text-align: center;
+    }
+  }
+
+  /* RUNNING HEADS CENTER3:
+  BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
+
+  @page back-matter:first {
+    @include blank-head-and-foot;
+  }
+  @page back-matter:left {
+    @top-left-corner {
+      @include page-number;
+      content: counter(page) "\A0\A0\A0\A0";
+    }
+    @top {
+       content: $back-matter-running-content-left;
+       @include runninghead-left;
+       text-align: center;
+    }
+  }
+  @page back-matter:right {
+    @top-right-corner {
+      @include page-number;
+      content:  "\A0\A0\A0\A0" counter(page);
+    }
+    @top {
+       content: $back-matter-running-content-right;
+       @include runninghead-right;
+       text-align: center;
+    }
+  }

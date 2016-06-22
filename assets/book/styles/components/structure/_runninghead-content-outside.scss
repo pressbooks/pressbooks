@@ -1,0 +1,118 @@
+//===================================
+// Running Head Outside (Content)
+//===================================
+
+// Displays user-defined content on the outside edge of the running head.
+
+// -------------------------------
+// | lhead        |        rhead |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// -------------------------------
+
+@import 'mixins', 'blank';
+
+// Front Matter
+
+@page front-matter:first {
+  @include blank-head;
+}
+
+@page front-matter:left {
+  @top-left {
+    content: $front-matter-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page front-matter:right {
+  @top-right {
+    content: $front-matter-running-content-right;
+    @include runninghead-right;
+  }
+}
+
+// Introduction
+
+@page introduction:first {
+  @include blank-head;
+}
+
+@page introduction:left {
+  @top-left {
+    content: $introduction-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page introduction:right {
+  @top-right {
+    content: $introduction-running-content-right;
+    @include runninghead-right;
+  }
+}
+
+// Parts
+
+@page part:first {
+  @include blank-head;
+}
+
+@page part:left {
+  @top-left {
+    content: $part-running-content-left;
+    @include runninghead-left;
+  }
+}
+@page part:right {
+  @top-right {
+    content: $part-running-content-right;
+    @include runninghead-right;
+  }
+}
+
+// Chapters
+
+@page chapter:first {
+  @include blank-head;
+}
+
+@page chapter:left {
+  @top-left {
+    content: $chapter-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page chapter:right {
+  @top-right {
+    content: $chapter-running-content-right;
+    @include runninghead-right;
+  }
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @include blank-head;
+}
+
+@page back-matter:left {
+  @top-left {
+    content: $back-matter-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page back-matter:right {
+  @top-right {
+    content: $back-matter-running-content-right;
+    @include runninghead-right;
+  }
+}

@@ -1,0 +1,81 @@
+//============================================================================//
+//                                  Tables                                    //
+//============================================================================//
+
+table {
+  max-width: 100%;
+  margin-top: $table-margin-top;
+  margin-bottom: $table-margin-bottom;
+  overflow-x: scroll;
+  font-size: $table-font-size;
+  text-align: $table-align;
+  border-collapse: collapse;
+
+  p {
+    text-align: $table-align;
+	}
+
+  caption {
+    margin-bottom: $table-caption-margin-bottom;
+    font-weight: $table-caption-font-weight;
+    line-height: $table-caption-line-height;
+	}
+}
+
+table,
+tr,
+th {
+  page-break-inside: avoid;
+}
+
+th {
+  padding-top: $table-th-padding-top;
+  padding-right: $table-th-padding-right;
+  padding-bottom: $table-th-padding-bottom;
+  padding-left: $table-th-padding-left;
+  line-height: $table-th-line-height;
+  text-align: $table-th-align;
+  vertical-align: middle;
+}
+
+td {
+  padding-top: $table-td-padding-top;
+  padding-right: $table-td-padding-right;
+  padding-bottom: $table-td-padding-bottom;
+  padding-left: $table-td-padding-left;
+  line-height: $table-td-line-height;
+  text-align: $table-td-align;
+  vertical-align: middle;
+}
+
+.lines tr {
+  border-top: $table-border-width solid $line-color-1;
+  border-bottom: $table-border-width solid $line-color-1;
+}
+
+.no-lines tr,
+.no-lines td {
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.shaded {
+  background-color: $shade-color-1;
+}
+
+.border {
+  border: $table-border-width solid $line-color-1;
+}
+
+.no-border,
+.no-border tbody,
+.no-border th,
+.no-border tr,
+.no-border td,
+.no-border tfoot,
+.no-border thead {
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 0;
+}

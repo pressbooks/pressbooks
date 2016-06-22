@@ -1,0 +1,45 @@
+//============================================================================//
+//                                Recto-Verso                                 //
+//============================================================================//
+
+// Governs how pages open.
+
+#half-title-page {
+  page-break-before: $recto-verso-standard-opening;
+}
+
+#title-page {
+  page-break-before: $recto-verso-standard-opening;
+}
+
+div.front-matter {
+  page-break-before: $recto-verso-first-section-opening;
+
+  &.introduction {
+    page-break-before: $recto-verso-first-section-opening;
+  }
+
+  + .front-matter {
+    page-break-before: $recto-verso-section-opening;
+  }
+}
+
+div.part {
+  page-break-before: $recto-verso-standard-opening;
+}
+
+div.chapter {
+  page-break-before: $recto-verso-first-section-opening;
+
+  + div.chapter {
+    page-break-before: $recto-verso-section-opening;
+  }
+}
+
+div.back-matter {
+  page-break-before: $recto-verso-first-section-opening;
+
+  + div.back-matter {
+    page-break-before: $recto-verso-section-opening;
+  }
+}

@@ -1,0 +1,89 @@
+//=================================
+// Blank Running Head
+//=================================
+
+// Ensures that the running head is blank throughout.
+
+// -------------------------------
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// -------------------------------
+
+@import 'blank';
+
+// Front Matter
+
+@page front-matter:first {
+  @include blank-head;
+}
+
+@page front-matter:left {
+  @include blank-head;
+}
+
+@page front-matter:right {
+  @include blank-head;
+}
+
+// Introduction
+
+@page introduction:first {
+  @include blank-head;
+}
+
+@page introduction:left {
+  @include blank-head;
+}
+
+@page introduction:right {
+  @include blank-head;
+}
+
+// Parts
+
+@page part:first {
+  @include blank-head;
+}
+
+@page part:left {
+  @include blank-head;
+}
+
+@page part:right {
+  @include blank-head;
+}
+
+// Chapters
+
+@page chapter:first {
+  @include blank-head;
+}
+
+@page chapter:left {
+  @include blank-head;
+}
+
+@page chapter:right {
+  @include blank-head;
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @include blank-head;
+}
+
+@page back-matter:left {
+  @include blank-head;
+}
+
+@page back-matter:right {
+  @include blank-head;
+}

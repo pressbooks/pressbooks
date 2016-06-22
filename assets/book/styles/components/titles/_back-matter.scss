@@ -1,0 +1,58 @@
+//============================================================================//
+//                                Back Matter                                 //
+//============================================================================//
+
+.back-matter-title-wrap {
+  margin-top: $back-matter-title-block-margin-top;
+  margin-bottom: $back-matter-title-block-margin-bottom;
+
+  .back-matter-number {
+    display: none;
+    visibility: hidden;
+  }
+
+  .back-matter-title {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: $section-title-font-family;
+    font-size: $section-title-font-size;
+    font-style: $section-title-font-style;
+    font-weight: $section-title-font-weight;
+    hyphens: none;
+    text-align: $back-matter-title-align;
+    text-transform: $section-title-text-transform;
+  }
+}
+
+// Bibliography
+div.bibliography p {
+  padding-left: $bibliography-padding-left;
+  font-size: $bibliography-font-size;
+  text-indent: $bibliography-text-indent;
+}
+
+// Index
+div.index {
+  .ugc {
+    column-count: $index-column-count;
+    column-gap: $index-column-gap;
+  }
+
+  div {
+    margin-bottom: $index-margin-bottom;
+  }
+
+  p,
+  .indent,
+  .no-indent {
+    padding-left: $index-para-padding-left;
+    font-size: $index-para-font-size;
+    text-align: $index-para-align;
+    text-indent: $index-para-indent;
+  }
+
+  .sub-entry {
+    padding-left: $index-sub-entry-padding-left;
+  }
+}

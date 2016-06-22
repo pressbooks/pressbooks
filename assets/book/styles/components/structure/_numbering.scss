@@ -1,0 +1,74 @@
+//============================================================================//
+//                              Page Numbering                                //
+//============================================================================//
+
+#half-title-page {
+  page: halftitle-page;
+  prince-page-group: start;
+}
+
+#title-page {
+  page: title-page;
+  prince-page-group: start;
+}
+
+#copyright-page {
+  page: copyright-page;
+  prince-page-group: start;
+}
+
+#toc {
+  page: toc;
+  prince-page-group: start;
+}
+
+div.front-matter {
+  page: front-matter;
+  prince-page-group: start;
+
+  &.before-title {
+    page: before-title;
+    prince-page-group: start;
+  }
+
+  &.dedication {
+    page: dedication;
+    prince-page-group: start;
+  }
+
+  &.epigraph {
+    page: epigraph;
+    prince-page-group: start;
+  }
+
+  &.introduction {
+    page: introduction;
+    prince-page-group: start;
+  }
+}
+
+div.part {
+  page: part;
+  prince-page-group: start;
+}
+
+div.chapter {
+  page: chapter;
+  prince-page-group: start;
+}
+
+div.back-matter {
+  page: back-matter;
+  prince-page-group: start;
+}
+
+div.blank-page {
+  page: blank-page;
+  prince-page-group: start;
+}
+
+// Page 1 Counter Reset
+
+div.introduction {
+  counter-reset: page 1;
+}

@@ -10,8 +10,8 @@ h1, h2, h3, h4, h5, h6 {
   size:6in 9in;
   margin: 2cm;
   font-size: 0.9em;
-  orphans:3; 
-  widows:3;  
+  orphans:3;
+  widows:3;
 }
 
 @page :left {
@@ -58,7 +58,7 @@ h1, h2, h3, h4, h5, h6 {
   }
    @bottom {
 	content: counter(page, lower-roman);
-	font-family: $font-1;	
+	font-family: $font-1;
 	vertical-align: center;
   }
 }
@@ -91,7 +91,7 @@ h1, h2, h3, h4, h5, h6 {
   @top-left {
 	font-family: $font-1;
 	content: counter(page) "\A0\A0\A0" string(book-title);
-	vertical-align: left;	
+	vertical-align: left;
   }
 }
 @page introduction:right {
@@ -111,10 +111,10 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: $font-1;	
+	font-family: $font-1;
 	vertical-align: center;
   }
-  
+
 }
 @page introduction:blank {
 
@@ -155,7 +155,7 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
 	content: counter(page);
-	font-family: $font-1;	
+	font-family: $font-1;
 	vertical-align: center;
   }
 }
@@ -198,7 +198,7 @@ h1, h2, h3, h4, h5, h6 {
   @bottom
   {
 	content: counter(page);
-	font-family: $font-1;	
+	font-family: $font-1;
 	vertical-align: center;
   }
 }
@@ -249,15 +249,15 @@ div.back-matter {
 div.part {
 	background-repeat: no-repeat;
 	background-position: bottom center;
-    margin-top: 2.5cm;	
+    margin-top: 2.5cm;
 	padding-bottom: 0.25em;
-	padding: part;	
+	padding: part;
 }
 
 div.part.invisible {
 	display: none;
 }
- 
+
 body {
 	font-size: 10pt;
 	line-height: 1.1;
@@ -337,7 +337,7 @@ ul li li li::before {
 	font-size: 0.5em;
 	margin-right: 5px;
 }
-ol { 
+ol {
     list-style-type: none;
      counter-reset: level1;
 }
@@ -348,7 +348,7 @@ ol li::before {
 ol ol {
 	list-style-type: none;
     counter-reset: level2;
-}   
+}
 ol li li::before {
 	content: counter(level1) "." counter(level2) " ";
 	counter-increment: level2;
@@ -384,7 +384,7 @@ cite {
 
 /* TITLE PAGE
 ================ */
-#title-page { 
+#title-page {
     page-break-before: right;
     height: 100%;
 }
@@ -395,7 +395,7 @@ cite {
 #title-page > .publisher,
 #title-page > .publisher-city {
 	bookmark-level: none;
-}	
+}
 #title-page > .title {
 	font-size: 2.5em;
 	margin-top: 2cm;
@@ -420,7 +420,7 @@ cite {
 #title-page > .author {
 	font-size: 1.5em;
 	margin-top: 1.5cm;
-	text-transform: uppercase;	
+	text-transform: uppercase;
 }
 
 #title-page > .publisher {
@@ -457,7 +457,7 @@ cite {
 	font-style: italic;
 	text-align: center;
 }
-/*   TITLES 
+/*   TITLES
 ===================	*/
 h3.front-matter-number, h3.part-number, h3.chapter-number, h3.back-matter-number {
 	bookmark-level: none;
@@ -509,7 +509,7 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 	font-size: 0;
 	height: 0;
 }
-div.front-matter .front-matter-title-wrap > h1:first-of-type, 
+div.front-matter .front-matter-title-wrap > h1:first-of-type,
 div.chapter .chapter-title-wrap > h2:first-of-type,
 div.back-matter .back-matter-title-wrap > h1:first-of-type  {
 	font-size: 1.5em;
@@ -521,7 +521,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc > h1:first-of-type {
 	font-size: 1.5em;
 	margin-top: 2cm;
-	margin-bottom: 2.5cm;	
+	margin-bottom: 2.5cm;
 }
 
 
@@ -560,14 +560,14 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	margin: .6cm 0 .4em;
 	text-align: center;
 	font-weight: bold;
-	page-break-after: avoid;	
+	page-break-after: avoid;
 }
 #toc .part.invisible {
 	display: none;
 }
 #toc {
 	page-break-before: right;
-	counter-reset: part; 
+	counter-reset: part;
 	font-size: 1em;
 }
 #toc ul {
@@ -575,8 +575,8 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	line-height: 1.2em;
 }
 #toc .part a::before {
-	content: "Part "counter(part, upper-roman) ". ";
-	counter-increment: part; 
+	content: $part" "counter(part, upper-roman) ". ";
+	counter-increment: part;
 }
 #toc .chapter a,
 #toc .front-matter a,
@@ -585,8 +585,8 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 }
 #toc .chapter a::before {
 	content: counter(chapter) ". ";
-	counter-increment: chapter; 
-	margin-right: 0.7em;	
+	counter-increment: chapter;
+	margin-right: 0.7em;
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -601,7 +601,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc .chapter.numberless a::before {
 	content:'' ;
 	counter-increment: none;
-	margin-right: 0;	
+	margin-right: 0;
 }
 #toc .part a::after {
 	content:'' ;
@@ -619,18 +619,18 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 }
 #toc span.toc-chapter-title {
 	display: inline-block;
-	width: 80%;	
+	width: 80%;
 }
 #toc span.chapter-author,
 #toc span.chapter-license,
 #toc span.chapter-subtitle {
 	margin-bottom: 5px;
 }
-#toc span.chapter-subtitle + 
-span.chapter-author, 
+#toc span.chapter-subtitle +
+span.chapter-author,
 span.chapter-author +
-span.chapter-license, 
-#toc span.chapter-subtitle + 
+span.chapter-license,
+#toc span.chapter-subtitle +
 span.chapter-license {
 	margin-bottom: 5px;
 	position: relative;
@@ -682,7 +682,7 @@ h3.part-number, h3.chapter-number {
 }
 
 h3.part-number::before {
-	content: "Part ";
+	content: $part" ";
 }
 h3.chapter-number {
 	margin-bottom: 3em;
@@ -698,7 +698,7 @@ div.chapter.numberless h3.chapter-number {
 }
 .aphorism cite {
     display: block;
-   	font-size: 0.875em; 
+   	font-size: 0.875em;
     font-style: normal;
     font-variant: small-caps;
     text-align: right;
@@ -792,7 +792,7 @@ div.ugc h2.chapter-author {
 }
 div.ugc h2.chapter-subtitle {
 	margin-bottom: 2.8em;
-    padding-top: 0.5em;	
+    padding-top: 0.5em;
 }
 div.ugc h2.chapter-author {
 	font-size: 0.9em;
@@ -865,7 +865,7 @@ img.aligncenter {
 	font-size: 0.875em;
 	font-style: italic;
 	margin-top: 5px;
-	text-align: left;	
+	text-align: left;
 }
 
 /* BLOCKQUOTES
@@ -893,7 +893,7 @@ p.bl_indent {
 	text-indent: -14pt;
 }
 
-/* INDEX 
+/* INDEX
 ================== */
 .index .ugc  {
 	column-count: 2;
@@ -918,4 +918,3 @@ div.license-attribution > p:first-of-type {
 	text-align:center;
 	font-size: 0.75em;
 }
-

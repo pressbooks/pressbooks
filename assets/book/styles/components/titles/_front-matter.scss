@@ -1,0 +1,84 @@
+//============================================================================//
+//                                Front Matter                                //
+//============================================================================//
+
+.front-matter-title-wrap {
+  margin-top: $front-matter-title-block-margin-top;
+  margin-bottom: $front-matter-title-block-margin-bottom;
+
+  .front-matter-number {
+    display: none;
+    visibility: hidden;
+  }
+
+  .front-matter-title {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: $section-title-font-family;
+    font-size: $section-title-font-size;
+    font-style: $section-title-font-style;
+    font-weight: $section-title-font-weight;
+    hyphens: none;
+    text-align: $front-matter-title-align;
+    text-transform: $section-title-text-transform;
+  }
+}
+
+// Before Title
+.before-title .front-matter-title-wrap {
+  margin-top: $before-title-title-block-margin-top;
+  margin-bottom: $before-title-title-block-margin-bottom;
+}
+
+// Copyright Page
+#copyright-page {
+  page-break-before: always;
+
+  .ugc {
+    float: $copyright-float;
+
+    p {
+      margin-bottom: $copyright-margin-bottom;
+      font-family: $copyright-font-family;
+      font-size: $copyright-font-size;
+      font-style: $copyright-font-style;
+      font-weight: $copyright-font-weight;
+      line-height: $copyright-line-height;
+      text-align: $copyright-align;
+      text-indent: 0;
+    }
+  }
+}
+
+// Dedication
+div.dedication {
+  margin-right: $dedication-margin-right;
+  margin-left: $dedication-margin-left;
+
+  p {
+    margin-bottom: $dedication-margin-bottom;
+    font-family: $dedication-font-family;
+    font-size: $dedication-font-size;
+    font-style: $dedication-font-style;
+    font-weight: $dedication-font-weight;
+    line-height: $dedication-line-height;
+    text-align: $dedication-align;
+  }
+}
+
+// Epigraph
+div.epigraph {
+  margin-right: $epigraph-margin-right;
+  margin-left: $epigraph-margin-left;
+
+  p {
+    margin-bottom: $epigraph-margin-bottom;
+    font-family: $epigraph-font-family;
+    font-size: $epigraph-font-size;
+    font-style: $epigraph-font-style;
+    font-weight: $epigraph-font-weight;
+    line-height: $epigraph-line-height;
+    text-align: $epigraph-align;
+  }
+}

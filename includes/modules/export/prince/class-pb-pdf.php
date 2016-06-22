@@ -106,7 +106,9 @@ class Pdf extends Export {
 		$prince->setHTML( true );
 		$prince->setCompress( true );
 		$prince->addStyleSheet( $css_file );
-		$prince->addScript( $this->exportScriptPath );
+		if ( $this->exportScriptPath ) {
+			$prince->addScript( $this->exportScriptPath );
+		}
 		$prince->setLog( $this->logfile );
 		$retval = $prince->convert_file_to_file( $this->url, $this->outputPath, $msg );
 
@@ -180,14 +182,24 @@ class Pdf extends Export {
 		$sass = Container::get( 'Sass' );
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 
-		$scss = file_get_contents( $this->exportStylePath );
-		$scss .= "\n";
-		$scss .= $this->cssOverrides;
-
-		if ( $sass->isCurrentThemeCompatible() ) {
-			$css = $sass->compile( $scss );
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			// Prepend override variables (see: http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variable_defaults_)
+			$scss = $this->cssOverrides . "\n" . file_get_contents( $this->exportStylePath );
+		} else {
+			$scss = file_get_contents( $this->exportStylePath ) . "\n". $this->cssOverrides;
+			// Append override rules.
 		}
-		else {
+
+		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
+			$css = $sass->compile( $scss, [
+				$sass->pathToUserGeneratedSass(),
+				$sass->pathToPartials(),
+				$sass->pathToFonts(),
+				get_stylesheet_directory(),
+			] );
+		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'prince' ) );
+		} else {
 			$css = static::injectHouseStyles( $scss );
 		}
 
