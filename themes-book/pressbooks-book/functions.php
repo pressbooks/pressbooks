@@ -1754,10 +1754,15 @@ function pressbooks_theme_ebook_css_override( $scss ) {
 	// --------------------------------------------------------------------
 	// Global Options
 
+	$sass = \Pressbooks\Container::get( 'Sass' );
 	$options = get_option( 'pressbooks_theme_options_global' );
 
 	if ( ! @$options['chapter_numbers'] ) {
-		$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$chapter-number-display: none; \n";
+		} else {
+			$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -1767,16 +1772,12 @@ function pressbooks_theme_ebook_css_override( $scss ) {
 
 	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines
 	if ( 2 == @$options['ebook_paragraph_separation'] ) {
-		$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
-	}
-
-	// --------------------------------------------------------------------
-	// Luther features we inject ourselves, (not user options, this theme not child)
-
-	$theme = strtolower( '' . wp_get_theme() );
-	if ( 'luther' == $theme ) {
-		// Translate "Part" to whatever language this book is in
-		$scss .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$para-margin-top: 1em; \n";
+			$scss .= "\$para-indent: 0; \n";
+		} else {
+			$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
+		}
 	}
 
 	return $scss;

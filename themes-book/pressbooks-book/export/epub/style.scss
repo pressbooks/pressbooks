@@ -9,14 +9,14 @@ a {
 	text-decoration: none;
 }
 
-/* 
+/*
 	 HEADERS
  =============== */
 h1, h2, h3, h4, h5, h6 {
 	text-align: center;
 }
 
-/*  DEFAULT STYLES 
+/*  DEFAULT STYLES
  =================== */
 p {
 	margin: 0;
@@ -102,9 +102,9 @@ p.bl_indent {
 /* TITLE PAGE
 ================ */
 #title-page > .title {
-	font-size: 2.2em;	
+	font-size: 2.2em;
 	margin-top: 1em;
-  line-height: 1em;		
+  line-height: 1em;
 	text-transform: uppercase;
 }
 #title-page > .subtitle {
@@ -153,7 +153,7 @@ div.license-attribution {
 	margin-bottom: 1em;
 }
 
-/*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART  
+/*  TITLES for FRONT-MATTER, BACK_MATTER, CHAPTER & PART
 ========================================================= */
 div.part {
 	background-repeat: no-repeat;
@@ -172,7 +172,7 @@ div.part.invisible {
 	text-transform: uppercase;
 }
 div.part-title-wrap > h3.part-number:before {
-	content: "Part ";
+	content: $part" ";
 }
 .chapter-number {
 	margin-bottom: 3em;
@@ -192,14 +192,14 @@ div.chapter.numberless h3.chapter-number {
 
 /*  BODY TITLES
 ===================	*/
-.ugc h1, 
-.ugc h2, 
-.ugc h3, 
-.ugc h4, 
-.ugc h5, 
+.ugc h1,
+.ugc h2,
+.ugc h3,
+.ugc h4,
+.ugc h5,
 .ugc h6 {
 	margin-bottom: 0.5em;
-	page-break-after:avoid;	
+	page-break-after:avoid;
 }
 .ugc h1,
 .ugc h2,
@@ -296,11 +296,11 @@ div.chapter.numberless h3.chapter-number {
 #toc span.chapter-subtitle {
 	margin-bottom: 0.5em;
 }
-#toc span.chapter-subtitle + 
+#toc span.chapter-subtitle +
 span.chapter-author,
-#toc span.chapter-subtitle + 
+#toc span.chapter-subtitle +
 span.chapter-license,
-span.chapter-author + 
+span.chapter-author +
 span.chapter-license {
 	margin-top: -0.5em;
 	margin-bottom: 0.5em;
@@ -405,7 +405,7 @@ blockquote.aphorism p {
 /* FOOTNOTES & ENDNOTES
 ======================== */
 .footnotes {
-	display: block;	
+	display: block;
   font-size: 0.875em;
   margin: 2em 1em 3em 3em;
 }
@@ -416,7 +416,7 @@ blockquote.aphorism p {
 }
 .footnotes p + p {
 	text-indent: 0;
-} 
+}
 .footnotes .footnotes-wrap p {
 	text-indent: -1em;
 }
@@ -424,7 +424,7 @@ blockquote.aphorism p {
 	display: block;
 	text-decoration: none;
 }
-sup.footnote, 
+sup.footnote,
 sup.endnote {
 	line-height: 1em;
 	vertical-align: top;
@@ -440,7 +440,7 @@ sup.endnote {
 	font-size: 1.2em;
 	font-style: normal;
 	font-weight: bold;
-	text-align: center;	
+	text-align: center;
 }
 .endnotes ol {
 	font-size: 0.7em;
@@ -481,7 +481,7 @@ sup.endnote {
 }
 
 
-/* =============== 
+/* ===============
 IMAGES & CAPTIONS
 ================= */
 
@@ -496,4 +496,3 @@ p.wp-caption-text {
 }
 
 @import 'epub-images' , 'epub-house-style' , 'mobi-house-style';
-
