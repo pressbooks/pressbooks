@@ -1560,6 +1560,7 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	// --------------------------------------------------------------------
 	// Global Options
 
+	$sass = \Pressbooks\Container::get( 'Sass' );
 	$options = get_option( 'pressbooks_theme_options_global' );
 
 	// Display chapter numbers? true (default) / false
@@ -1676,7 +1677,11 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 
 	// Display TOC? true (default) / false
 	if ( ! @$options['pdf_toc'] ) {
-		$scss .= "#toc { display: none; } \n"; // TODO
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$toc-display: none; \n";
+		} else {
+			$scss .= "#toc { display: none; } \n";
+		}
 	}
 
 	// Widows
@@ -1705,19 +1710,14 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 		}
 	}
 
-	// a11y Font Size
+	// a11y Font Size (TODO: make this better)
 	if ( @$options['pdf_fontsize'] ){
-		$scss .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n"; // TODO
-	}
-
-	// --------------------------------------------------------------------
-	// Luther features we inject ourselves, (not user options, this theme not child)
-
-	$theme = strtolower( '' . wp_get_theme() );
-	if ( 'luther' == $theme ) {
-		// Translate "Part" to whatever language this book is in
-		$scss .= '#toc .part a::before { content: "' . __( 'Part', 'pressbooks' ) . ' "counter(part, upper-roman) ". "; }' . "\n";
-		$scss .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$body-font-size: 1.3em; \n";
+			$scss .= "\$body-line-height: 1.3; \n";
+		} else {
+			$scss .= 'body { font-size: 1.3em; line-height: 1.3; }' . "\n";
+		}
 	}
 
 	return $scss;
