@@ -3,6 +3,7 @@
 }
 
 #toc {
+  display: $toc-display;
   counter-reset: part;
   page-break-before: right;
 

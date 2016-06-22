@@ -1560,11 +1560,16 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	// --------------------------------------------------------------------
 	// Global Options
 
+	$sass = \Pressbooks\Container::get( 'Sass' );
 	$options = get_option( 'pressbooks_theme_options_global' );
 
 	// Display chapter numbers? true (default) / false
 	if ( ! @$options['chapter_numbers'] ) {
-		$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$chapter-number-display: none; \n";
+		} else {
+			$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -1587,86 +1592,132 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 
 	switch ( @$options['pdf_page_size'] ) {
 		case 1:
-			$scss .= "@page { size: 5.5in 8.5in; } \n";
+			$width = '5.5in';
+			$height = '8.5in';
 			break;
 		case 2:
-			$scss .= "@page { size: 6in 9in; } \n";
+			$width = '6in';
+			$height = '9in';
 			break;
 		case 3:
-			$scss .= "@page { size: 8.5in 11in; } \n";
+			$width = '8.5in';
+			$height = '11in';
 			break;
 		case 4:
-			$scss .= "@page { size: 8.5in 9.25in } \n";
+			$width = '8.5in';
+			$height = '9.25in';
 			break;
 		case 5:
-			$scss .= "@page { size: 5in 7.75in } \n";
+			$width = '5in';
+			$height = '7.75in';
 			break;
 		case 6:
-			$scss .= "@page { size: 4.25in 7in } \n";
+			$width = '4.25in';
+			$height = '7in';
 			break;
 		case 7:
-			$scss .= "@page { size: 21cm 29.7cm } \n";
+			$width = '21cm';
+			$height = '29.7cm';
 			break;
 		case 8:
-			$scss .= "@page { size: 14.8cm 21cm; } \n";
+			$width = '14.8cm';
+			$height = '21cm';
 			break;
 		case 9:
-			$scss .= "@page { size: 5in 8in; } \n";
+			$width = '5in';
+			$height = '8in';
 			break;
+	}
+
+	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		$scss .= "\$page-width: $width; \n";
+		$scss .= "\$page-height: $height; \n";
+	} else {
+		$scss .= "@page { size: $width $height; } \n";
 	}
 
 	// Display crop marks? true / false (default)
 	if ( @$options['pdf_crop_marks'] ) {
-		$scss .= "@page { marks: crop } \n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$page-cropmarks: crop; \n";
+		} else {
+			$scss .= "@page { marks: crop } \n";
+		}
 	}
 
 	// Hyphens?
 	if ( @$options['pdf_hyphens'] ) {
-		$scss .= 'p { hyphens: auto; ';
-		// To debug use `hyphens: prince-expand-all;` (then every hyphenation point will be shown with a dot)
-		// $scss .= "hyphens: prince-expand-all; ";
-		$scss .= "} \n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$para-hyphens: auto; \n"; // TODO
+		} else {
+			$scss .= "p { hyphens: auto; } \n";
+		}
 	}
 
 	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines
 	if ( 2 == @$options['pdf_paragraph_separation'] ) {
-		$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$para-margin-top: 1em; \n";
+			$scss .= "\$para-indent: 0; \n";
+		} else {
+			$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+		}
 	}
 
 	// Include blank pages? 1 = Yes (default), 2 = No
 	if ( 2 == @$options['pdf_blankpages'] ) {
-		$scss .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: auto; } \n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$recto-verso-standard-opening: auto; \n";
+			$scss .= "\$recto-verso-first-section-opening: auto; \n";
+			$scss .= "\$recto-verso-section-opening: auto; \n";
+		} else {
+			$scss .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: auto; } \n";
+		}
 	}
 
 	// Display TOC? true (default) / false
 	if ( ! @$options['pdf_toc'] ) {
-		$scss .= "#toc { display: none; } \n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$toc-display: none; \n";
+		} else {
+			$scss .= "#toc { display: none; } \n";
+		}
 	}
 
-	// Widows & Orphans
+	// Widows
 	if ( @$options['widows'] ) {
-		$scss .= 'p { widows: ' . $options['widows'] . '; }' . "\n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$widows: " . $options['widows'] . "; \n";
+		} else {
+			$scss .= 'p { widows: ' . $options['widows'] . '; }' . "\n";
+		}
 	} else {
-		$scss .= 'p { widows: 2; }' . "\n";
+		if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= 'p { widows: 2; }' . "\n";
+		}
 	}
+
+	// Orphans
 	if ( @$options['orphans'] ) {
-		$scss .= 'p { orphans: ' . $options['orphans'] . '; }' . "\n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$orphans: " . $options['orphans'] . "; \n";
+		} else {
+			$scss .= 'p { orphans: ' . $options['orphans'] . '; }' . "\n";
+		}
 	} else {
-		$scss .= 'p { orphans: 1; }' . "\n";
+		if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= 'p { orphans: 1; }' . "\n";
+		}
 	}
 
+	// a11y Font Size (TODO: make this better)
 	if ( @$options['pdf_fontsize'] ){
-		$scss .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
-	}
-
-	// --------------------------------------------------------------------
-	// Luther features we inject ourselves, (not user options, this theme not child)
-
-	$theme = strtolower( '' . wp_get_theme() );
-	if ( 'luther' == $theme ) {
-		// Translate "Part" to whatever language this book is in
-		$scss .= '#toc .part a::before { content: "' . __( 'Part', 'pressbooks' ) . ' "counter(part, upper-roman) ". "; }' . "\n";
-		$scss .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$body-font-size: 1.3em; \n";
+			$scss .= "\$body-line-height: 1.3; \n";
+		} else {
+			$scss .= 'body { font-size: 1.3em; line-height: 1.3; }' . "\n";
+		}
 	}
 
 	return $scss;
@@ -1703,10 +1754,15 @@ function pressbooks_theme_ebook_css_override( $scss ) {
 	// --------------------------------------------------------------------
 	// Global Options
 
+	$sass = \Pressbooks\Container::get( 'Sass' );
 	$options = get_option( 'pressbooks_theme_options_global' );
 
 	if ( ! @$options['chapter_numbers'] ) {
-		$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$chapter-number-display: none; \n";
+		} else {
+			$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -1716,16 +1772,12 @@ function pressbooks_theme_ebook_css_override( $scss ) {
 
 	// Indent paragraphs? 1 = Indent (default), 2 = Skip Lines
 	if ( 2 == @$options['ebook_paragraph_separation'] ) {
-		$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
-	}
-
-	// --------------------------------------------------------------------
-	// Luther features we inject ourselves, (not user options, this theme not child)
-
-	$theme = strtolower( '' . wp_get_theme() );
-	if ( 'luther' == $theme ) {
-		// Translate "Part" to whatever language this book is in
-		$scss .= 'div.part-title-wrap > h3.part-number:before { content: "' . __( 'Part', 'pressbooks' ) . ' "; }' . "\n";
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$para-margin-top: 1em; \n";
+			$scss .= "\$para-indent: 0; \n";
+		} else {
+			$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
+		}
 	}
 
 	return $scss;
