@@ -7,7 +7,7 @@
  * Plugin Name: WP LaTeX for Pressbooks
  * Description:  Converts inline latex code into PNG images that are displayed in your PressBooks blog posts.  Use either [latex]e^{\i \pi} + 1 = 0[/latex] or $latex e^{\i \pi} + 1 = 0$ or $$ e^{\i \pi} + 1 = 0 $$ syntax.
  * Version: 1.0.0
- * Author: Brad Payne 
+ * Author: Brad Payne
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
@@ -28,6 +28,7 @@ class PBLatex {
 	    'Automattic_Latex_WPCOM' => 'wpcom',
 	    'Automattic_Latex_MOMCOM' => 'momcom',
 	    'katex' => 'katex',
+			'mathjax' => 'mathjax'
 	);
 
 	function init() {
@@ -40,11 +41,15 @@ class PBLatex {
 		add_filter( 'the_content', array( &$this, 'inlineToShortcode' ), 8 );
 		if ( $this->options['method'] == 'katex' ) {
 			wp_enqueue_script( 'jquery' );
-			wp_enqueue_script( 'pb_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_HTMLorMML.js&delayStartupUntil=configured' );
+			wp_enqueue_script( 'pb_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
 			wp_enqueue_script( 'pb_asciimathteximg', plugins_url( 'ASCIIMathTeXImg.js', __FILE__ ) );
-			wp_enqueue_script( 'pb_katex', plugins_url( 'katex.min.js', __FILE__ ) );
-			wp_enqueue_style( 'pb_katex_css', plugins_url( 'katex.min.css', __FILE__ ) );
+			wp_enqueue_script( 'pb_katex', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js' );
+			wp_enqueue_style( 'pb_katex_css', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css' );
 			wp_enqueue_script( 'pb_katex_autorender', plugins_url( 'auto-render.js', __FILE__ ), array( 'pb_katex' , 'pb_mathjax' , 'jquery') );
+			add_shortcode( 'latex', array( &$this, 'katexshortCode' ) );
+		} elseif ( $this->options['method'] == 'mathjax') {
+			wp_enqueue_script( 'jquery' );
+			wp_enqueue_script( 'pb_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
 			add_shortcode( 'latex', array( &$this, 'katexshortCode' ) );
 		} else {
 			add_shortcode( 'latex', array( &$this, 'shortCode' ) );
@@ -61,7 +66,7 @@ class PBLatex {
 <script type="text/x-mathjax-config">
    MathJax.Hub.Config({
     skipStartupTypeset: true,
-    TeX: { extensions: ["cancel.js"] }
+    TeX: { extensions: ["cancel.js", "mhchem.js"] }
   });
 </script>
 <script type="text/javascript">
@@ -69,6 +74,18 @@ class PBLatex {
 </script>
 <?php
 
+		} elseif ( $this->options['method'] == 'mathjax' ) {
+?>
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    TeX: { extensions: ["cancel.js", "mhchem.js"] },
+		tex2jax: {inlineMath: [['[latex]','[/latex]']] }
+  });
+</script>
+<script type="text/javascript">
+   MathJax.Hub.Configured();
+</script>
+<?php
 		}
 		if ( !$this->options['css'] )
 			return;
