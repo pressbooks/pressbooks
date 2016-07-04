@@ -215,7 +215,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 	$postmark_headers = array(
 		'Accept' => 'application/json',
 		'Content-Type' => 'application/json',
-		'X-Postmark-Server-Token' => $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_API_KEY'],
+		'X-Postmark-Server-Token' => POSTMARK_API_KEY,
 	);
 
 	// Send Email
@@ -230,7 +230,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 
 		$email = array();
 		$email['To'] = $recipient;
-		$email['From'] = $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_SENDER_ADDRESS'];
+		$email['From'] = POSTMARK_SENDER_ADDRESS;
 		$email['Subject'] = $subject;
 		$email['TextBody'] = $message;
 

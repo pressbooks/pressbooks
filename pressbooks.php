@@ -130,7 +130,7 @@ require( PB_PLUGIN_DIR . 'functions.php' );
 // Override wp_mail()
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! function_exists( 'wp_mail' ) && isset( $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_API_KEY'] ) && isset( $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_SENDER_ADDRESS'] ) ) {
+if ( ! function_exists( 'wp_mail' ) && defined( 'POSTMARK_API_KEY' ) && defined( 'POSTMARK_SENDER_ADDRESS' ) ) {
 	function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
 		return \Pressbooks\Utility\wp_mail( $to, $subject, $message, $headers, $attachments );
 	}
