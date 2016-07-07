@@ -285,6 +285,16 @@ function pb_tag_sections( $content, $id ) {
  * @return string
  */
 function pb_thumbify( $thumb, $path ) {
-
-	return \Pressbooks\Image\thumbify( $thumb, $path );
+	return \PressBooks\Image\thumbify( $thumb, $path );
 }
+
+/**
+ * Load color picker script in admin area
+ *
+ * @param $hook
+ */
+function pb_color_picker_assets( $hook ) {
+  wp_enqueue_style( 'wp-color-picker' );
+  wp_enqueue_script( 'color-pick', plugins_url( 'assets/js/color-pick.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+}
+add_action( 'admin_enqueue_scripts', 'pb_color_picker_assets' );
