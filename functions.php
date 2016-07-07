@@ -110,7 +110,7 @@ function pb_is_scss() {
 
 /**
  * Shortcut to \PressBooks\Metadata::getSeoMetaElements();
- * 
+ *
  * @return string
  */
 function pb_get_seo_meta_elements() {
@@ -120,7 +120,7 @@ function pb_get_seo_meta_elements() {
 
 /**
  * Shortcut to \PressBooks\Metadata::getMicrodataElements();
- * 
+ *
  * @return string
  */
 function pb_get_microdata_elements() {
@@ -208,7 +208,7 @@ function pb_get_chapter_number( $post_name ) {
 			if ( $key == $post_name ) break;
 		}
 	}
-	
+
 	if ( $type == 'numberless' ) $i = 0;
 	return $i;
 }
@@ -233,7 +233,7 @@ function pb_get_section_type( $post ) {
         $type = \PressBooks\Taxonomy\back_matter_type( $post->ID );
         break;
 	}
-	
+
 	return $type;
 }
 
@@ -280,3 +280,14 @@ function pb_thumbify( $thumb, $path ) {
 
 	return \PressBooks\Image\thumbify( $thumb, $path );
 }
+
+/**
+ * Load color picker script in admin area
+ *
+ * @param $hook
+ */
+function pb_color_picker_assets( $hook ) {
+  wp_enqueue_style( 'wp-color-picker' );
+  wp_enqueue_script( 'color-pick', plugins_url( 'assets/js/color-pick.js', __FILE__ ), array( 'wp-color-picker' ), false, true );
+}
+add_action( 'admin_enqueue_scripts', 'pb_color_picker_assets' );

@@ -102,6 +102,9 @@ else:
 				</tr>
 			<?php } ?>
 			<tr>
+				<th><label for="pb_catalog_color"><?php _e( 'Sidebar Color', 'pressbooks' ); ?></label></th>
+				<td><input type="text" name="pb_catalog_color" id="pb_catalog_color" class="pb_catalog_color" value="<?php echo esc_attr( $p['pb_catalog_color'] ) ?>" /></td>
+			<tr>
 				<th><label for="pb_catalog_logo"><?php _e( 'Logo Or Image', 'pressbooks' ); ?></label></th>
 				<td><?php \PressBooks\Image\catalog_logo_box( $user_id ); ?></td>
 			</tr>

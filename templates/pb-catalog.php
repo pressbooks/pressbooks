@@ -176,7 +176,11 @@ $_current_user_id = $catalog->getUserId();
 				?>
 			<?php endif; ?>
 		</div> <!-- end .log-wrap -->
-	<div id="catalog-sidebar" class="catalog-sidebar">
+	<?php if ( ! empty( $profile['pb_catalog_color'] ) ) : ?>
+		<div id="catalog-sidebar" class="catalog-sidebar" style="background-color:<?php echo $profile['pb_catalog_color']; ?>">
+	<?php else : ?>
+		<div id="catalog-sidebar" class="catalog-sidebar">
+	<?php endif ?>
 		<h2 class="pressbooks-logo">
 			<a target="_blank" href="http://lumenlearning.com">
 				<img width="100px" src="<?php echo get_stylesheet_directory_uri() . '/images/LumenOnDark-200x92.png'; ?>"/>

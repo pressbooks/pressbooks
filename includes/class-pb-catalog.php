@@ -67,6 +67,7 @@ class Catalog {
 		'pb_catalog_about' => '%s',
 		'pb_catalog_logo' => '%s',
 		'pb_catalog_url' => '%s',
+		'pb_catalog_color' => '%s',
 		// Tags added in constructor (Ie. pb_catalog_tag_1_name, pb_catalog_tag_2_name, ...)
 	);
 
