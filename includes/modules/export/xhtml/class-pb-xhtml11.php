@@ -839,7 +839,7 @@ class Xhtml11 extends Export {
 
 		$front_matter_printf = '<div class="front-matter %s" id="%s">';
 		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s%s';
 		$front_matter_printf .= '</div>';
 
 		$s = 1;
@@ -926,7 +926,7 @@ class Xhtml11 extends Export {
 
 		$chapter_printf = '<div class="chapter %s" id="%s">';
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%s</h3><h2 class="chapter-title">%s</h2></div>';
-		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s';
+		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s%s';
 		$chapter_printf .= '</div>';
 
 		$s = $i = $j = 1;
@@ -1070,7 +1070,7 @@ class Xhtml11 extends Export {
 
 		$back_matter_printf = '<div class="back-matter %s" id="%s">';
 		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%s</h3><h1 class="back-matter-title">%s</h1></div>';
-		$back_matter_printf .= '<div class="ugc back-matter-ugc">%s</div>%s';
+		$back_matter_printf .= '<div class="ugc back-matter-ugc">%s</div>%s%s';
 		$back_matter_printf .= '</div>';
 
 		$i = $s = 1;
