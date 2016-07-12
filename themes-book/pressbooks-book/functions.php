@@ -382,55 +382,21 @@ function pressbooks_theme_options_global_init() {
 	);
 
 	add_settings_field(
-		'pressbooks_enable_chapter_types',
-		__( 'Chapter Types', 'pressbooks' ),
-		'pressbooks_theme_chapter_types_callback',
-		$_page,
-		$_section,
-		array(
-			 __( 'Enable chapter types taxonomy', 'pressbooks' )
-		)
-	);
-
-	add_settings_field(
 		'parse_sections',
-		__( 'Parse Sections', 'pressbooks' ),
+		__( 'Two-Level TOC', 'pressbooks' ),
 		'pressbooks_theme_parse_sections_callback',
 		$_page,
 		$_section,
 		array(
-			 __( 'Enable a two-level TOC', 'pressbooks' )
+			 __( 'Enable two-level table of contents (displays headings under chapter titles)', 'pressbooks' )
 		)
-	);
-
-	add_settings_field(
-		'copyright_license',
-		__( 'Copyright License', 'pressbooks' ),
-		'pressbooks_theme_copyright_license_callback',
-		$_page,
-		$_section,
-		array(
-			 __( 'Display the copyright license', 'pressbooks' )
-		)
-	);
-
-	register_setting(
-		$_page,
-		$_option,
-		'pressbooks_theme_options_global_sanitize'
-	);
-
-	register_setting(
-		$_page,
-		'pressbooks_enable_chapter_types',
-		'pressbooks_theme_chapter_types_sanitize'
 	);
 
 	if ( pb_is_scss() == true ) { // we can only enable foreign language typography for themes that use SCSS
 
 		add_settings_field(
 			'pressbooks_global_typography',
-			__( 'Global Typography', 'pressbooks' ),
+			__( 'Language Support', 'pressbooks' ),
 			'pressbooks_theme_global_typography_callback',
 			$_page,
 			$_section,
@@ -446,6 +412,40 @@ function pressbooks_theme_options_global_init() {
 		);
 
 	}
+
+	add_settings_field(
+		'copyright_license',
+		__( 'Copyright License', 'pressbooks' ),
+		'pressbooks_theme_copyright_license_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Display the selected copyright license', 'pressbooks' )
+		)
+	);
+
+	add_settings_field(
+		'pressbooks_enable_chapter_types',
+		__( 'Chapter Types', 'pressbooks' ),
+		'pressbooks_theme_chapter_types_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Enable chapter types taxonomy', 'pressbooks' )
+		)
+	);
+
+	register_setting(
+		$_page,
+		$_option,
+		'pressbooks_theme_options_global_sanitize'
+	);
+
+	register_setting(
+		$_page,
+		'pressbooks_enable_chapter_types',
+		'pressbooks_theme_chapter_types_sanitize'
+	);
 
 }
 add_action('admin_init', 'pressbooks_theme_options_global_init');
@@ -493,7 +493,7 @@ function pressbooks_theme_chapter_types_callback( $args ) {
 	}
 
 	$html = '<input type="checkbox" id="enable-chapter-types" name="pressbooks_enable_chapter_types" value="1"' . checked( 1, $enable_chapter_types, false ) . '/>';
-	$html .= '<label for="enable-chapter-types"> ' . __( 'Enable chapter types taxonomy.', 'pressbooks' ) . '</label>';
+	$html .= '<label for="enable-chapter-types"> ' . $args[0] . '</label>';
 
 	echo $html;
 }
@@ -663,7 +663,7 @@ function pressbooks_theme_options_web_init() {
 		$_page,
 		$_section,
 		array(
-		    __('Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+.', 'pressbooks' )
+		    __('Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+', 'pressbooks' )
 		)
 	);
 	register_setting(

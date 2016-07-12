@@ -102,13 +102,9 @@ function pb_is_custom_theme() {
  *
  * @return bool
  */
-function pb_is_scss() {
+function pb_is_scss( $version = 1 ) {
 
-	if ( \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 1 ) ) {
-		return true;
-	}
-
-	if ( \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 2 ) ) {
+	if ( \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( $version ) ) {
 		return true;
 	}
 
