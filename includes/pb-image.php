@@ -402,8 +402,23 @@ function resize_down( $format, $fullpath, $MAX_W = 1024, $MAX_H = 1024 ) {
 
 	$func = 'imagecreatefrom' . $format;
 	$src = $func( $fullpath );
-	if ( ! $src )
-		throw new \Exception( 'Invalid image format' );
+
+	// try again, but ignore warnings for jpeg only
+	if ( ! $src && 0 === strcmp( 'jpeg', $format ) ) {
+		ini_set( 'gd.jpeg_ignore_warning', 1 );
+		$src = '@' . $func( $fullpath );
+	}
+
+	// try again, but replace with placeholder image
+	if ( ! $src ) {
+		$src        = imagecreatetruecolor( 150, 100 );
+		$bkgd_color = imagecolorallocate( $src, 255, 255, 255 );
+		$font_color = imagecolorallocate( $src, 0, 0, 0 );
+
+		imagefilledrectangle( $src, 0, 0, 150, 100, $bkgd_color );
+		imagestring( $src, 3, 5, 5, 'Error loading image', $font_color );
+
+	}
 
 	list( $orig_w, $orig_h ) = getimagesize( $fullpath );
 	$ratio = $orig_w * 1.0 / $orig_h;
