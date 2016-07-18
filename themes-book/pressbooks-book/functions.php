@@ -87,10 +87,8 @@ function pb_enqueue_scripts() {
 	}
 
 	$options = get_option( 'pressbooks_theme_options_web' );
-	if ( @$options['toc_collapse'] ) {
-		wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
-		wp_enqueue_style( 'dashicons' );
-	}
+	wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
+	wp_enqueue_style( 'dashicons' );
 	if ( @$options['accessibility_fontsize'] ) {
 		wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
 		wp_register_style( 'pressbooks-accessibility-toolbar', get_template_directory_uri() . '/css/a11y.css', array(), null, 'screen' );
@@ -620,7 +618,6 @@ function pressbooks_theme_options_web_init() {
 	$_page = $_option = 'pressbooks_theme_options_web';
 	$_section = 'web_options_section';
 	$defaults = array(
-	    'toc_collapse' => 0,
 	);
 
 	if ( false == get_option( $_option ) ) {
@@ -632,17 +629,6 @@ function pressbooks_theme_options_web_init() {
 		__( 'Web Options', 'pressbooks' ),
 		'pressbooks_theme_options_web_callback',
 		$_page
-	);
-
-	add_settings_field(
-		'toc_collapse',
-		__( 'Collapsable TOC', 'pressbooks' ),
-		'pressbooks_theme_toc_collapse_callback',
-		$_page,
-		$_section,
-		array(
-		    __( 'Make webbook TOC collapsable', 'pressbooks' )
-		)
 	);
 
 	add_settings_field(
@@ -692,18 +678,6 @@ function pressbooks_theme_accessibility_fontsize_callback( $args ){
 }
 
 // Web Options Field Callback
-function pressbooks_theme_toc_collapse_callback( $args ) {
-	$options = get_option( 'pressbooks_theme_options_web' );
-
-	if ( ! isset( $options['toc_collapse'] ) ) {
-		$options['toc_collapse'] = 0;
-	}
-	$html = '<input type="checkbox" id="toc_collapse" name="pressbooks_theme_options_web[toc_collapse]" value="1" ' . checked( 1, $options['toc_collapse'], false ) . '/>';
-	$html .= '<label for="toc_collapse"> ' . $args[0] . '</label>';
-	echo $html;
-}
-
-// Web Options Field Callback
 function pressbooks_theme_social_media_callback( $args ) {
 	$options = get_option( 'pressbooks_theme_options_web' );
 
@@ -719,12 +693,6 @@ function pressbooks_theme_social_media_callback( $args ) {
 function pressbooks_theme_options_web_sanitize( $input ) {
 
 	$options = get_option( 'pressbooks_theme_options_web' );
-
-	if ( ! isset( $input['toc_collapse'] ) || $input['toc_collapse'] != '1' ) {
-		$options['toc_collapse'] = 0;
-	} else {
-		$options['toc_collapse'] = 1;
-	}
 
 	if ( ! isset( $input['accessibility_fontsize'] ) || $input['accessibility_fontsize'] != '1' ) {
 		$options['accessibility_fontsize'] = 0;
