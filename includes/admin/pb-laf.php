@@ -265,7 +265,7 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 		'title' => __( 'Pressbooks.com', 'pressbooks' ),
 		'href' => 'https://pressbooks.com',
 	) );
-	
+
 	// Add forums link
 	$wp_admin_bar->add_menu( array(
 		'parent' => 'wp-logo-external',
@@ -471,7 +471,7 @@ function transform_category_selection_box() {
 	} elseif ( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == ( $base . '/wp-admin/post-new.php?post_type=back-matter' ) ) {
 		$term = get_term_by( 'slug', 'miscellaneous', 'back-matter-type' );
 	} elseif ( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == ( $base . '/wp-admin/post-new.php?post_type=chapter' ) ) {
-		$term = get_term_by( 'slug', 'type-1', 'chapter-type' );
+		$term = get_term_by( 'slug', 'standard', 'chapter-type' );
 	}
 
 	?>

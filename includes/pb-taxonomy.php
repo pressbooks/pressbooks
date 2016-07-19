@@ -244,5 +244,5 @@ function chapter_type( $id ) {
 		}
 	}
 
-	return 'type-1';
+	return 'standard';
 }
