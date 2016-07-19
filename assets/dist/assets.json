@@ -4,10 +4,11 @@
   "book-information.js": "book-information-caf8826ef1.js",
   "catalog.css": "catalog-633f51cb48.css",
   "catalog.js": "catalog-df07a4db64.js",
+  "color-picker.js": "color-picker-bd29b6a7ae.js",
   "colors-pb.css": "colors-pb-9d65bcf9b8.css",
   "columnizer.js": "columnizer-7587834c5a.js",
   "custom-css.css": "custom-css-6bbe722767.css",
-  "export.css": "export-0d74d54403.css",
+  "export.css": "export-959bc7c04f.css",
   "export.js": "export-e19db42449.js",
   "footnote.js": "footnote-ec5500f442.js",
   "ftnref-convert.js": "ftnref-convert-28e6ae4fe6.js",
@@ -33,5 +34,5 @@
   "sticky.js": "sticky-d04d806849.js",
   "style-catalog.css": "style-catalog-a40b19cf46.css",
   "textboxes.js": "textboxes-b3ef1ebdee.js",
-  "theme-options.js": "theme-options-9806192c9d.js"
+  "theme-options.js": "theme-options-81edf78773.js"
 }

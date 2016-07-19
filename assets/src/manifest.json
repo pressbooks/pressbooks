@@ -78,6 +78,11 @@
         "scripts/book-information.js"
       ]
     },
+    "color-picker.js": {
+      "files": [
+        "scripts/color-picker.js"
+      ]
+    },
     "export.js": {
       "files": [
         "scripts/export.js"

@@ -721,24 +721,55 @@ function pressbooks_theme_options_pdf_init() {
 		);
 	}
 
+	$pagesizes = array(
+		 __( 'Digest (5.5&quot; &times; 8.5&quot;)', 'pressbooks' ),
+		 __( 'US Trade (6&quot; &times; 9&quot;)', 'pressbooks' ),
+		 __( 'US Letter (8.5&quot; &times; 11&quot;)', 'pressbooks' ),
+		 __( 'Custom (8.5&quot; &times; 9.25&quot;)', 'pressbooks' ),
+		 __( 'Duodecimo (5&quot; &times; 7.75&quot;)', 'pressbooks' ),
+		 __( 'Pocket (4.25&quot; &times; 7&quot;)', 'pressbooks' ),
+		 __( 'A4 (21cm &times; 29.7cm)', 'pressbooks' ),
+		 __( 'A5 (14.8cm &times; 21cm)', 'pressbooks' ),
+		 __( '5&quot; &times; 8&quot;', 'pressbooks' ),
+	);
+
+	if ( pb_is_scss( 2 ) ) {
+		$pagesizes[] = __( 'Custom…', 'pressbooks' );
+	}
+
 	add_settings_field(
 		'pdf_page_size',
 		__( 'Page Size', 'pressbooks' ),
 		'pressbooks_theme_pdf_page_size_callback',
 		$_page,
 		$_section,
-		array(
-			 __( 'Digest (5.5&quot; &times; 8.5&quot;)', 'pressbooks' ),
-			 __( 'US Trade (6&quot; &times; 9&quot;)', 'pressbooks' ),
-			 __( 'US Letter (8.5&quot; &times; 11&quot;)', 'pressbooks' ),
-			 __( 'Custom (8.5&quot; &times; 9.25&quot;)', 'pressbooks' ),
-			 __( 'Duodecimo (5&quot; &times; 7.75&quot;)', 'pressbooks' ),
-			 __( 'Pocket (4.25&quot; &times; 7&quot;)', 'pressbooks' ),
-			 __( 'A4 (21cm &times; 29.7cm)', 'pressbooks' ),
-			 __( 'A5 (14.8cm &times; 21cm)', 'pressbooks' ),
-			 __( '5&quot; &times; 8&quot;', 'pressbooks' ),
-		)
+		$pagesizes
 	);
+
+	if ( pb_is_scss( 2 ) ) {
+		add_settings_field(
+			'pdf_page_width',
+			__( 'Page Width', 'pressbooks' ),
+			'pressbooks_theme_pdf_page_width_callback',
+			$_page,
+			$_section,
+			array(
+				__( 'Page width must be expressed in CSS-compatible units, e.g. &lsquo;5.5in&rsquo;.')
+			)
+		);
+
+		add_settings_field(
+			'pdf_page_height',
+			__( 'Page Height', 'pressbooks' ),
+			'pressbooks_theme_pdf_page_height_callback',
+			$_page,
+			$_section,
+			array(
+				__( 'Page height must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo;.')
+			)
+		);
+	}
+
 	add_settings_field(
 		'pdf_crop_marks',
 		__( 'Crop Marks', 'pressbooks' ),
@@ -828,16 +859,20 @@ function pressbooks_theme_options_pdf_init() {
 		$_page,
 		$_section
 	);
-	add_settings_field(
-		'pdf_fontsize',
-		__( 'Increase Font Size', 'pressbooks' ),
-		'pressbooks_theme_pdf_fontsize_callback',
-		$_page,
-		$_section,
-		array(
-		    __('Increases font size and line height for greater accessibility', 'pressbooks' )
-		)
-	);
+
+	if ( ! pb_is_scss( 2 ) ) {
+	 	add_settings_field(
+			'pdf_fontsize',
+			__( 'Increase Font Size', 'pressbooks' ),
+			'pressbooks_theme_pdf_fontsize_callback',
+			$_page,
+			$_section,
+			array(
+			    __('Increases font size and line height for greater accessibility', 'pressbooks' )
+			)
+		);
+	}
+
 	register_setting(
 		$_option,
 		$_option,
@@ -861,7 +896,7 @@ function pressbooks_theme_pdf_body_font_size_callback( $args ) {
 		$options['pdf_body_font_size'] = 11;
 	}
 
-	$html = '<input type="text" id="body-font-size" name="pressbooks_theme_options_pdf[pdf_body_font_size]" value="' . $options['pdf_body_font_size'] . '" size="3" /> pt';
+	$html = '<input type="text" id="pdf_body_font_size" name="pressbooks_theme_options_pdf[pdf_body_font_size]" value="' . $options['pdf_body_font_size'] . '" size="3" /> pt';
 	$html .= '<p class="description">' . $args[0] . '</p>';
 	echo $html;
 }
@@ -875,7 +910,7 @@ function pressbooks_theme_pdf_body_line_height_callback( $args ) {
 		$options['pdf_body_line_height'] = 1.4;
 	}
 
-	$html = '<input type="text" id="body-line-height" name="pressbooks_theme_options_pdf[pdf_body_line_height]" value="' . $options['pdf_body_line_height'] . '" size="3" /> em';
+	$html = '<input type="text" id="pdf_body_line_height" name="pressbooks_theme_options_pdf[pdf_body_line_height]" value="' . $options['pdf_body_line_height'] . '" size="3" /> em';
 	echo $html;
 }
 
@@ -893,6 +928,35 @@ function pressbooks_theme_pdf_page_size_callback( $args ) {
 		$html .= "<option value='" . ( $key + 1 ) . "' " . selected( $key + 1, $options['pdf_page_size'], false ) . ">$val</option>";
 	}
 	$html .= '<select>';
+	echo $html;
+}
+
+// PDF Options Field Callback
+function pressbooks_theme_pdf_page_width_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+
+	if ( ! isset( $options['pdf_page_width'] ) ) {
+		$options['pdf_page_width'] = '5.5in';
+	}
+
+	$html = '<input type="text" id="pdf_page_width" name="pressbooks_theme_options_pdf[pdf_page_width]" value="' . $options['pdf_page_width'] . '" size="4" />';
+	$html .= '<p class="description">' . $args[0] . '</p>';
+	echo $html;
+}
+
+
+// PDF Options Field Callback
+function pressbooks_theme_pdf_page_height_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+
+	if ( ! isset( $options['pdf_page_height'] ) ) {
+		$options['pdf_page_height'] = '8.5in';
+	}
+
+	$html = '<input type="text" id="pdf_page_height" name="pressbooks_theme_options_pdf[pdf_page_height]" value="' . $options['pdf_page_height'] . '" size="4" />';
+	$html .= '<p class="description">' . $args[0] . '</p>';
 	echo $html;
 }
 
@@ -1058,8 +1122,8 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 		'pdf_body_line_height' => 1.4
 	);
 
-	// Absint
-	foreach ( array( 'pdf_body_font_size', 'pdf_body_line_height', 'pdf_page_size', 'pdf_paragraph_separation', 'pdf_blankpages', 'pdf_footnotes_style', 'widows', 'orphans' ) as $val ) {
+	// Validate integer
+	foreach ( array( 'pdf_body_font_size', 'pdf_page_size', 'pdf_paragraph_separation', 'pdf_blankpages', 'pdf_footnotes_style', 'widows', 'orphans' ) as $val ) {
 		if ( isset( $defaults[$val] ) && $input[$val] == $defaults[$val] ) { // Don't save defaults for SCSS v2 values
 			unset( $options[$val] );
 		} else {
@@ -1067,9 +1131,17 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 		}
 	}
 
-	// Float
+	foreach ( array( 'pdf_body_font_size' ) as $val ) {
+		if ( isset( $defaults[$val] ) && $input[$val] == $defaults[$val] || empty( $input[$val] ) ) { // Don't save defaults for SCSS v2 values
+			unset( $options[$val] );
+		} else {
+			$options[$val] = absint( $input[$val] );
+		}
+	}
+
+	// Validate float
 	foreach ( array( 'pdf_body_line_height' ) as $val ) {
-		if ( isset( $defaults[$val] ) && $input[$val] == $defaults[$val] ) { // Don't save defaults for SCSS v2 values
+		if ( isset( $defaults[$val] ) && $input[$val] == $defaults[$val] || empty( $input[$val] ) ) { // Don't save defaults for SCSS v2 values
 			unset( $options[$val] );
 		} else {
 			$options[$val] = filter_var( $input[$val], FILTER_VALIDATE_FLOAT );
@@ -1708,12 +1780,9 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 		}
 	}
 
-	// a11y Font Size (TODO: make this better)
+	// a11y Font Size
 	if ( @$options['pdf_fontsize'] ){
-		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			$scss .= "\$body-font-size: 1.3em; \n";
-			$scss .= "\$body-line-height: 1.3; \n";
-		} else {
+		if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= 'body { font-size: 1.3em; line-height: 1.3; }' . "\n";
 		}
 	}

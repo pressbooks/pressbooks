@@ -517,7 +517,9 @@ function init_css_js() {
 	wp_enqueue_style( 'pressbooks-admin', \Pressbooks\Utility\asset_path( 'styles/pressbooks.css' ) );
 
 	if ( 'pb_catalog' == esc_attr( @$_REQUEST['page'] ) ) {
+		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_style( 'pressbooks-catalog', \Pressbooks\Utility\asset_path( 'styles/catalog.css' ) );
+		wp_enqueue_script( 'color-picker', \Pressbooks\Utility\asset_path( 'scripts/color-picker.js' ), ['wp-color-picker'] );
 		wp_enqueue_script( 'select2-js', \Pressbooks\Utility\asset_path( 'scripts/select2.js' ), ['jquery'] );
 	}
 

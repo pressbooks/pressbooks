@@ -1,0 +1,1 @@
+!function(o){o(function(){o(".pb_catalog_color").wpColorPicker()})}(jQuery);
