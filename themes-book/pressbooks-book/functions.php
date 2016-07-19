@@ -390,7 +390,7 @@ function pressbooks_theme_options_global_init() {
 		)
 	);
 
-	if ( pb_is_scss() == true ) { // we can only enable foreign language typography for themes that use SCSS
+	if ( pb_is_scss( 1 ) == true || pb_is_scss( 2 ) == true ) { // we can only enable foreign language typography for themes that use SCSS
 
 		add_settings_field(
 			'pressbooks_global_typography',
@@ -675,7 +675,8 @@ function pressbooks_theme_options_pdf_init() {
 	$_page = $_option = 'pressbooks_theme_options_pdf';
 	$_section = 'pdf_options_section';
 	$defaults = array(
-		'pdf_page_size' => 1,
+		'pdf_page_width' => '5.5in',
+		'pdf_page_height' => '8.5in',
 		'pdf_paragraph_separation' => 1,
 		'pdf_blankpages' => 1,
 		'pdf_toc' => 1,
@@ -731,11 +732,8 @@ function pressbooks_theme_options_pdf_init() {
 		 __( 'A4 (21cm &times; 29.7cm)', 'pressbooks' ),
 		 __( 'A5 (14.8cm &times; 21cm)', 'pressbooks' ),
 		 __( '5&quot; &times; 8&quot;', 'pressbooks' ),
+		 __( 'Custom…', 'pressbooks' )
 	);
-
-	if ( pb_is_scss( 2 ) ) {
-		$pagesizes[] = __( 'Custom…', 'pressbooks' );
-	}
 
 	add_settings_field(
 		'pdf_page_size',
@@ -746,29 +744,27 @@ function pressbooks_theme_options_pdf_init() {
 		$pagesizes
 	);
 
-	if ( pb_is_scss( 2 ) ) {
-		add_settings_field(
-			'pdf_page_width',
-			__( 'Page Width', 'pressbooks' ),
-			'pressbooks_theme_pdf_page_width_callback',
-			$_page,
-			$_section,
-			array(
-				__( 'Page width must be expressed in CSS-compatible units, e.g. &lsquo;5.5in&rsquo;.')
-			)
-		);
+	add_settings_field(
+		'pdf_page_width',
+		__( 'Page Width', 'pressbooks' ),
+		'pressbooks_theme_pdf_page_width_callback',
+		$_page,
+		$_section,
+		array(
+			__( 'Page width must be expressed in CSS-compatible units, e.g. &lsquo;5.5in&rsquo;.')
+		)
+	);
 
-		add_settings_field(
-			'pdf_page_height',
-			__( 'Page Height', 'pressbooks' ),
-			'pressbooks_theme_pdf_page_height_callback',
-			$_page,
-			$_section,
-			array(
-				__( 'Page height must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo;.')
-			)
-		);
-	}
+	add_settings_field(
+		'pdf_page_height',
+		__( 'Page Height', 'pressbooks' ),
+		'pressbooks_theme_pdf_page_height_callback',
+		$_page,
+		$_section,
+		array(
+			__( 'Page height must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo;.')
+		)
+	);
 
 	add_settings_field(
 		'pdf_crop_marks',
