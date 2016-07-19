@@ -89,10 +89,6 @@ function register_taxonomies() {
 
 	/* Chapter Type */
 
-	
-	$enable_chapter_types = get_blog_option( get_current_blog_id(), 'pressbooks_enable_chapter_types' );
-	$show_ui = ( $enable_chapter_types == 1 ) ? true : false;
-
 	$labels = array(
 		'name' => _x( 'Chapter Types', 'taxonomy general name' ),
 		'singular_name' => _x( 'Chapter Type', 'taxonomy singular name' ),
@@ -123,7 +119,7 @@ function register_taxonomies() {
 				'delete_terms' => 'manage_sites',
 				'assign_terms' => 'edit_posts' ),
 			'labels' => $labels,
-			'show_ui' => $show_ui,
+			'show_ui' => true,
 			'query_var' => true,
 			'rewrite' => array( 'slug' => 'chapter-type' ),
 		)
@@ -186,14 +182,8 @@ function insert_terms() {
 	wp_insert_term( 'Suggested Reading', 'back-matter-type', array( 'slug' => 'suggested-reading' ) );
 
 	// Chapter
-	wp_insert_term( 'Type 1', 'chapter-type', array( 'slug' => 'type-1' ) );
-	wp_insert_term( 'Type 2', 'chapter-type', array( 'slug' => 'type-2' ) );
-	wp_insert_term( 'Type 3', 'chapter-type', array( 'slug' => 'type-3' ) );
-	wp_insert_term( 'Type 4', 'chapter-type', array( 'slug' => 'type-4' ) );
-	wp_insert_term( 'Type 5', 'chapter-type', array( 'slug' => 'type-5' ) );
+	wp_insert_term( 'Standard', 'chapter-type', array( 'slug' => 'type-1' ) );
 	wp_insert_term( 'Numberless', 'chapter-type', array( 'slug' => 'numberless' ) );
-	update_option( 'pressbooks_chapter_types_initialized', 1 );
-
 }
 
 
@@ -245,10 +235,6 @@ function back_matter_type( $id ) {
  * @return string
  */
 function chapter_type( $id ) {
-
-	$enable_chapter_types = get_blog_option( get_current_blog_id(), 'pressbooks_enable_chapter_types' );
-	if ( !$enable_chapter_types == 1 )
-		return 'type-1'; // set chapter type to default if chapter types are disabled
 
 	$terms = get_the_terms( $id, 'chapter-type' );
 	if ( $terms && ! is_wp_error( $terms ) ) {
