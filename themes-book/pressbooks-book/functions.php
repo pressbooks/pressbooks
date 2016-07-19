@@ -699,6 +699,28 @@ function pressbooks_theme_options_pdf_init() {
 		$_page
 	);
 
+	if ( pb_is_scss( 2 ) ) {
+		add_settings_field(
+			'pdf_body_font_size',
+			__( 'Body Font Size', 'pressbooks' ),
+			'pressbooks_theme_pdf_body_font_size_callback',
+			$_page,
+			$_section,
+			array(
+				__( 'Heading sizes are proportional to the body font size and will also be affected by this setting.', 'pressbooks' )
+			)
+		);
+
+		add_settings_field(
+			'pdf_body_line_height',
+			__( 'Body Line Height', 'pressbooks' ),
+			'pressbooks_theme_pdf_body_line_height_callback',
+			$_page,
+			$_section,
+			array()
+		);
+	}
+
 	add_settings_field(
 		'pdf_page_size',
 		__( 'Page Size', 'pressbooks' ),
@@ -789,7 +811,7 @@ function pressbooks_theme_options_pdf_init() {
 		$_section,
 		array(
 			 __( 'Regular footnotes', 'pressbooks' ),
-			 __( 'Force as endnotes', 'pressbooks' )
+			 __( 'Display as chapter endnotes', 'pressbooks' )
 		)
 	);
 	add_settings_field(
@@ -830,6 +852,32 @@ function pressbooks_theme_options_pdf_callback() {
 	echo '<p>' . __( 'These options apply to PDF exports.', 'pressbooks' ) . '</p>';
 }
 
+// PDF Options Field Callback
+function pressbooks_theme_pdf_body_font_size_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+
+	if ( ! isset( $options['pdf_body_font_size'] ) ) {
+		$options['pdf_body_font_size'] = 11;
+	}
+
+	$html = '<input type="text" id="body-font-size" name="pressbooks_theme_options_pdf[pdf_body_font_size]" value="' . $options['pdf_body_font_size'] . '" size="3" /> pt';
+	$html .= '<p class="description">' . $args[0] . '</p>';
+	echo $html;
+}
+
+// PDF Options Field Callback
+function pressbooks_theme_pdf_body_line_height_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+
+	if ( ! isset( $options['pdf_body_line_height'] ) ) {
+		$options['pdf_body_line_height'] = 1.4;
+	}
+
+	$html = '<input type="text" id="body-line-height" name="pressbooks_theme_options_pdf[pdf_body_line_height]" value="' . $options['pdf_body_line_height'] . '" size="3" /> em';
+	echo $html;
+}
 
 // PDF Options Field Callback
 function pressbooks_theme_pdf_page_size_callback( $args ) {
@@ -1005,10 +1053,27 @@ function pressbooks_theme_pdf_fontsize_callback( $args ) {
 function pressbooks_theme_options_pdf_sanitize( $input ) {
 
 	$options = get_option( 'pressbooks_theme_options_pdf' );
+	$defaults = array(
+		'pdf_body_font_size' => 11,
+		'pdf_body_line_height' => 1.4
+	);
 
 	// Absint
-	foreach ( array( 'pdf_page_size', 'pdf_paragraph_separation', 'pdf_blankpages', 'pdf_footnotes_style', 'widows', 'orphans' ) as $val ) {
-		$options[$val] = absint( $input[$val] );
+	foreach ( array( 'pdf_body_font_size', 'pdf_body_line_height', 'pdf_page_size', 'pdf_paragraph_separation', 'pdf_blankpages', 'pdf_footnotes_style', 'widows', 'orphans' ) as $val ) {
+		if ( isset( $defaults[$val] ) && $input[$val] == $defaults[$val] ) { // Don't save defaults for SCSS v2 values
+			unset( $options[$val] );
+		} else {
+			$options[$val] = absint( $input[$val] );
+		}
+	}
+
+	// Float
+	foreach ( array( 'pdf_body_line_height' ) as $val ) {
+		if ( isset( $defaults[$val] ) && $input[$val] == $defaults[$val] ) { // Don't save defaults for SCSS v2 values
+			unset( $options[$val] );
+		} else {
+			$options[$val] = filter_var( $input[$val], FILTER_VALIDATE_FLOAT );
+		}
 	}
 
 	// Checkmarks
@@ -1017,6 +1082,7 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 		else $options[$val] = 1;
 	}
 
+	error_log( print_r( $options, true ) );
 	return $options;
 }
 
@@ -1496,6 +1562,19 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	// PDF Options
 
 	$options = get_option( 'pressbooks_theme_options_pdf' );
+
+	// Change body font size
+	if ( $sass->isCurrentThemeCompatible( 2 ) && @$options['pdf_body_font_size'] ) {
+		$fontsize = $options['pdf_body_font_size'] . 'pt';
+		$scss .= "\$body-font-size: $fontsize; \n";
+	}
+
+	// Change body line height
+	if ( $sass->isCurrentThemeCompatible( 2 ) && @$options['pdf_body_line_height'] ) {
+		$lineheight = $options['pdf_body_line_height'] . 'em';
+		$scss .= "\$body-line-height: $lineheight; \n";
+	}
+
 
 	/*
 	Page sizes:
