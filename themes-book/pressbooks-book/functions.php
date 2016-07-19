@@ -675,8 +675,6 @@ function pressbooks_theme_options_pdf_init() {
 	$_page = $_option = 'pressbooks_theme_options_pdf';
 	$_section = 'pdf_options_section';
 	$defaults = array(
-		'pdf_page_width' => '5.5in',
-		'pdf_page_height' => '8.5in',
 		'pdf_paragraph_separation' => 1,
 		'pdf_blankpages' => 1,
 		'pdf_toc' => 1,
@@ -767,16 +765,6 @@ function pressbooks_theme_options_pdf_init() {
 	);
 
 	add_settings_field(
-		'pdf_crop_marks',
-		__( 'Crop Marks', 'pressbooks' ),
-		'pressbooks_theme_pdf_crop_marks_callback',
-		$_page,
-		$_section,
-		array(
-			 __( 'Display crop marks', 'pressbooks' )
-		)
-	);
-	add_settings_field(
 		'pdf_hyphens',
 		__( 'Hyphens', 'pressbooks' ),
 		'pressbooks_theme_pdf_hyphens_callback',
@@ -786,6 +774,7 @@ function pressbooks_theme_options_pdf_init() {
 			 __( 'Enable hyphenation', 'pressbooks' )
 		)
 	);
+
 	add_settings_field(
 		'pdf_paragraph_separation',
 		__( 'Paragraph Separation', 'pressbooks' ),
@@ -797,6 +786,7 @@ function pressbooks_theme_options_pdf_init() {
 			 __( 'Skip lines between paragraphs', 'pressbooks' )
 		)
 	);
+
 	add_settings_field(
 		'pdf_blankpages',
 		__( 'Blank Pages', 'pressbooks' ),
@@ -808,6 +798,7 @@ function pressbooks_theme_options_pdf_init() {
 			 __( 'Remove all blank pages (for web PDF)', 'pressbooks' )
 		)
 	);
+
 	add_settings_field(
 		'pdf_toc',
 		__( 'Table of Contents', 'pressbooks' ),
@@ -818,6 +809,30 @@ function pressbooks_theme_options_pdf_init() {
 			 __( 'Display table of contents', 'pressbooks' )
 		)
 	);
+
+	add_settings_field(
+		'pdf_image_resolution',
+		__( 'Image resolution', 'pressbooks' ),
+		'pressbooks_theme_pdf_image_resolution_callback',
+		$_page,
+		$_section,
+		array(
+			'300dpi' => __( 'High (300 DPI)', 'pressbooks' ),
+			'72dpi' => __( 'Low (72 DPI)', 'pressbooks' )
+		)
+	);
+
+	add_settings_field(
+		'pdf_crop_marks',
+		__( 'Crop Marks', 'pressbooks' ),
+		'pressbooks_theme_pdf_crop_marks_callback',
+		$_page,
+		$_section,
+		array(
+			 __( 'Display crop marks', 'pressbooks' )
+		)
+	);
+
 	if ( CustomCss::isCustomCss() ) {
 		add_settings_field(
 			'pdf_romanize_parts',
@@ -830,6 +845,7 @@ function pressbooks_theme_options_pdf_init() {
 			)
 		);
 	}
+
 	add_settings_field(
 		'pdf_footnotes_style',
 		__( 'Footnotes Style', 'pressbooks' ),
@@ -997,6 +1013,22 @@ function pressbooks_theme_pdf_paragraph_separation_callback( $args ) {
 	echo $html;
 }
 
+// PDF Options Field Callback
+function pressbooks_theme_pdf_image_resolution_callback( $args ) {
+
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+
+	if ( ! isset( $options['pdf_image_resolution'] ) ) {
+		$options['pdf_image_resolution'] = '300dpi';
+	}
+
+	$html = '<input type="radio" id="include" name="pressbooks_theme_options_pdf[pdf_image_resolution]" value="300dpi"' . checked( '300dpi', $options['pdf_image_resolution'], false ) . '/> ';
+	$html .= '<label for="include">' . $args['300dpi'] . '</label><br />';
+	$html .= '<input type="radio" id="remove" name="pressbooks_theme_options_pdf[pdf_image_resolution]" value="72dpi"' . checked( '72dpi', $options['pdf_image_resolution'], false ) . '/> ';
+	$html .= '<label for="remove">' . $args['72dpi'] . '</label>';
+	echo $html;
+}
+
 
 // PDF Options Field Callback
 function pressbooks_theme_pdf_blankpages_callback( $args ) {
@@ -1141,12 +1173,17 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 		'pdf_body_font_size' => 11,
 		'pdf_body_line_height' => 1.4,
 		'pdf_page_width' => '5.5in',
-		'pdf_page_height' => '8.5in'
+		'pdf_page_height' => '8.5in',
+		'pdf_image_resolution' => '300dpi'
 	);
 
-	// Sanitize page sizes
-	foreach ( array( 'pdf_page_width', 'pdf_page_height' )  as $val ) {
-		$options[$val] = sanitize_text_field( $input[$val] );
+	// Sanitize basic text
+	foreach ( array( 'pdf_page_width', 'pdf_page_height', 'pdf_image_resolution' )  as $val ) {
+		if ( isset( $defaults[$val] ) && $input[$val] == $defaults[$val] ) { // Don't save defaults for SCSS v2 values
+			unset( $options[$val] );
+		} else {
+			$options[$val] = sanitize_text_field( $input[$val] );
+		}
 	}
 
 	// Validate integer
@@ -1745,6 +1782,18 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 		$scss .= "\$page-height: $height; \n";
 	} else {
 		$scss .= "@page { size: $width $height; } \n";
+	}
+
+	// Image resolution
+	if ( isset( $options['pdf_image_resolution'] ) ) {
+		$resolution = $options['pdf_image_resolution'];
+	} else {
+		$resolution = '300dpi';
+	}
+	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		$scss .= "\$prince-image-resolution: $resolution; \n";
+	} else {
+		$scss .= "img { prince-image-resolution: $resolution; } \n";
 	}
 
 	// Display crop marks? true / false (default)
