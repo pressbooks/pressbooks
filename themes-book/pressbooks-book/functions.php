@@ -920,7 +920,31 @@ function pressbooks_theme_pdf_page_size_callback( $args ) {
 	$options = get_option( 'pressbooks_theme_options_pdf' );
 
 	if ( ! isset( $options['pdf_page_size'] ) ) {
-		$options['pdf_page_size'] = 1;
+		if ( isset( $options['pdf_page_width'] ) && isset( $options['pdf_page_height'] ) ) {
+			if ( $options['pdf_page_width'] == '5.5in' && $options['pdf_page_height'] == '8.5in' ) {
+				$options['pdf_page_size'] = 1;
+			} elseif ( $options['pdf_page_width'] == '6in' && $options['pdf_page_height'] == '9in' ) {
+				$options['pdf_page_size'] = 2;
+			} elseif ( $options['pdf_page_width'] == '8.5in' && $options['pdf_page_height'] == '11in' ) {
+				$options['pdf_page_size'] = 3;
+			} elseif ( $options['pdf_page_width'] == '8.5in' && $options['pdf_page_height'] == '9.25in' ) {
+				$options['pdf_page_size'] = 4;
+			} elseif ( $options['pdf_page_width'] == '5in' && $options['pdf_page_height'] == '7.75in' ) {
+				$options['pdf_page_size'] = 5;
+			} elseif ( $options['pdf_page_width'] == '4.25in' && $options['pdf_page_height'] == '7in' ) {
+				$options['pdf_page_size'] = 6;
+			} elseif ( $options['pdf_page_width'] == '21cm' && $options['pdf_page_height'] == '29.7cm' ) {
+				$options['pdf_page_size'] = 7;
+			} elseif ( $options['pdf_page_width'] == '14.8cm' && $options['pdf_page_height'] == '21cm' ) {
+				$options['pdf_page_size'] = 8;
+			} elseif ( $options['pdf_page_width'] == '5in' && $options['pdf_page_height'] == '8in' ) {
+				$options['pdf_page_size'] = 9;
+			} else {
+				$options['pdf_page_size'] = 10;
+			}
+		} else {
+			$options['pdf_page_size'] = 1;
+		}
 	}
 
 	$html = "<select name='pressbooks_theme_options_pdf[pdf_page_size]' id='pdf_page_size' >";
@@ -1119,11 +1143,18 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 	$options = get_option( 'pressbooks_theme_options_pdf' );
 	$defaults = array(
 		'pdf_body_font_size' => 11,
-		'pdf_body_line_height' => 1.4
+		'pdf_body_line_height' => 1.4,
+		'pdf_page_width' => '5.5in',
+		'pdf_page_height' => '8.5in'
 	);
 
+	// Sanitize page sizes
+	foreach ( array( 'pdf_page_width', 'pdf_page_height' )  as $val ) {
+		$options[$val] = sanitize_text_field( $input[$val] );
+	}
+
 	// Validate integer
-	foreach ( array( 'pdf_body_font_size', 'pdf_page_size', 'pdf_paragraph_separation', 'pdf_blankpages', 'pdf_footnotes_style', 'widows', 'orphans' ) as $val ) {
+	foreach ( array( 'pdf_body_font_size', 'pdf_paragraph_separation', 'pdf_blankpages', 'pdf_footnotes_style', 'widows', 'orphans' ) as $val ) {
 		if ( isset( $defaults[$val] ) && $input[$val] == $defaults[$val] ) { // Don't save defaults for SCSS v2 values
 			unset( $options[$val] );
 		} else {
@@ -1153,6 +1184,8 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 		if ( ! isset( $input[$val] ) || $input[$val] != '1' ) $options[$val] = 0;
 		else $options[$val] = 1;
 	}
+
+	unset( $options['pdf_page_size'] );
 
 	return $options;
 }
@@ -1660,43 +1693,55 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	9 = 5in x 8in
 	*/
 
-	switch ( @$options['pdf_page_size'] ) {
-		case 1:
-			$width = '5.5in';
-			$height = '8.5in';
-			break;
-		case 2:
-			$width = '6in';
-			$height = '9in';
-			break;
-		case 3:
-			$width = '8.5in';
-			$height = '11in';
-			break;
-		case 4:
-			$width = '8.5in';
-			$height = '9.25in';
-			break;
-		case 5:
-			$width = '5in';
-			$height = '7.75in';
-			break;
-		case 6:
-			$width = '4.25in';
-			$height = '7in';
-			break;
-		case 7:
-			$width = '21cm';
-			$height = '29.7cm';
-			break;
-		case 8:
-			$width = '14.8cm';
-			$height = '21cm';
-			break;
-		case 9:
-			$width = '5in';
-			$height = '8in';
-			break;
+	if ( isset( $options['pdf_page_size'] ) ) {
+		switch ( $options['pdf_page_size'] ) {
+			case 1:
+				$width = '5.5in';
+				$height = '8.5in';
+				break;
+			case 2:
+				$width = '6in';
+				$height = '9in';
+				break;
+			case 3:
+				$width = '8.5in';
+				$height = '11in';
+				break;
+			case 4:
+				$width = '8.5in';
+				$height = '9.25in';
+				break;
+			case 5:
+				$width = '5in';
+				$height = '7.75in';
+				break;
+			case 6:
+				$width = '4.25in';
+				$height = '7in';
+				break;
+			case 7:
+				$width = '21cm';
+				$height = '29.7cm';
+				break;
+			case 8:
+				$width = '14.8cm';
+				$height = '21cm';
+				break;
+			case 9:
+				$width = '5in';
+				$height = '8in';
+				break;
+		}
+		$options['pdf_page_width'] = $width;
+		$options['pdf_page_height'] = $height;
+		unset( $options['pdf_page_size'] );
+		update_option( 'pressbooks_theme_options_pdf', $options );
+	} elseif ( isset( $options['pdf_page_width'] ) && isset( $options['pdf_page_height'] ) ) {
+		$width = $options['pdf_page_width'];
+		$height = $options['pdf_page_height'];
+	} else {
+		$width = '5.5in';
+		$height = '8.5in';
 	}
 
 	if ( $sass->isCurrentThemeCompatible( 2 ) ) {

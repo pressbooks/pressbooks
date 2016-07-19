@@ -4,7 +4,9 @@ jQuery(function ($) {
 	$('.select2').select2();
 
 	$(document).ready(function(){
-		$("#pdf_page_width, #pdf_page_height").parent().parent().hide();
+		if ( $("#pdf_page_size").val() !== '10' ) {
+			$("#pdf_page_width, #pdf_page_height").parent().parent().hide();
+		}
 		$("#pdf_page_size").change(function(){
 			var size = $("#pdf_page_size").val();
 			switch ( size ) {
