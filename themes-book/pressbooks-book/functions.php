@@ -1082,7 +1082,6 @@ function pressbooks_theme_options_pdf_sanitize( $input ) {
 		else $options[$val] = 1;
 	}
 
-	error_log( print_r( $options, true ) );
 	return $options;
 }
 
