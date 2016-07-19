@@ -182,7 +182,7 @@ function insert_terms() {
 	wp_insert_term( 'Suggested Reading', 'back-matter-type', array( 'slug' => 'suggested-reading' ) );
 
 	// Chapter
-	wp_insert_term( 'Standard', 'chapter-type', array( 'slug' => 'type-1' ) );
+	wp_insert_term( 'Standard', 'chapter-type', array( 'slug' => 'standard' ) );
 	wp_insert_term( 'Numberless', 'chapter-type', array( 'slug' => 'numberless' ) );
 }
 
