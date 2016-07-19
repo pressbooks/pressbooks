@@ -239,7 +239,11 @@ function chapter_type( $id ) {
 	$terms = get_the_terms( $id, 'chapter-type' );
 	if ( $terms && ! is_wp_error( $terms ) ) {
 		foreach ( $terms as $term ) {
-			return $term->slug;
+			if ( $term->slug == 'type-1' ) {
+				return 'standard';
+			} else {
+				return $term->slug;
+			}
 			break;
 		}
 	}

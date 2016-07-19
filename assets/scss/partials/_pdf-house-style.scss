@@ -71,12 +71,9 @@ div.chapter {
   page: chapter;
   prince-page-group: start;
 }
-div.chapter.type-1 {
+div.chapter.standard {
   page: chapter;
   prince-page-group: start;
-}
-div.chapter.standard {
-  @extend div.chapter.type-1;
 }
 div.back-matter {
   page: back-matter;
