@@ -228,13 +228,13 @@ function pb_get_section_type( $post ) {
 	$type = $post->post_type;
 	switch ($type) {
     case 'chapter':
-        $type = \Pressbooks\Taxonomy\chapter_type( $post->ID );
+        $type = \Pressbooks\Taxonomy::getChapterType( $post->ID );
         break;
     case 'front-matter':
-        $type = \Pressbooks\Taxonomy\front_matter_type( $post->ID );
+        $type = \Pressbooks\Taxonomy::getFrontMatterType( $post->ID );
         break;
     case 'back-matter':
-        $type = \Pressbooks\Taxonomy\back_matter_type( $post->ID );
+        $type = \Pressbooks\Taxonomy::getBackMatterType( $post->ID );
         break;
 	}
 

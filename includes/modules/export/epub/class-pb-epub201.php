@@ -800,7 +800,7 @@ class Epub201 extends Export {
 					continue; // Skip
 
 				$id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
 
 				if ( $compare != $subclass )
 					continue; //Skip
@@ -853,7 +853,7 @@ class Epub201 extends Export {
 				continue; // Skip
 
 			$id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
 
 			if ( 'title-page' != $subclass )
 				continue; // Skip
@@ -1001,7 +1001,7 @@ class Epub201 extends Export {
 					continue; // Skip
 
 				$id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
 
 				if ( $compare != $subclass )
 					continue; //Skip
@@ -1068,7 +1068,7 @@ class Epub201 extends Export {
 				continue; // Skip
 
 			$id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
 
 			if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass )
 				continue; // Skip
@@ -1221,7 +1221,7 @@ class Epub201 extends Export {
 
 				$chapter_printf_changed = '';
 				$id = $chapter['ID'];
-				$subclass = \Pressbooks\Taxonomy\chapter_type( $id );
+				$subclass = \Pressbooks\Taxonomy::getChapterType( $id );
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
 				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
@@ -1420,7 +1420,7 @@ class Epub201 extends Export {
 				continue; // Skip
 
 			$id = $back_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy\back_matter_type( $id );
+			$subclass = \Pressbooks\Taxonomy::getBackMatterType( $id );
 			$slug = $back_matter['post_name'];
 			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $back_matter['post_title'] : '' );
 			$content = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
@@ -1532,7 +1532,7 @@ class Epub201 extends Export {
 			$title = Sanitize\strip_br( $v['post_title'] );
 			if ( preg_match( '/^front-matter-/', $k ) ) {
 				$class = 'front-matter ';
-				$class .= \Pressbooks\Taxonomy\front_matter_type( $v['ID'] );
+				$class .= \Pressbooks\Taxonomy::getFrontMatterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
@@ -1542,17 +1542,17 @@ class Epub201 extends Export {
 					$class .= ' display-none';
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
 				$class = 'chapter';
-				$class .= \Pressbooks\Taxonomy\chapter_type( $v['ID'] );
+				$class .= \Pressbooks\Taxonomy::getChapterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
-				if ( $this->numbered && \Pressbooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) {
+				if ( $this->numbered && \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) {
 					$title = " $i. " . $title;
 				}
-				if ( \Pressbooks\Taxonomy\chapter_type( $v['ID'] ) !== 'numberless' ) ++$i;
+				if ( \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) ++$i;
 			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
 				$class = 'back-matter ';
-				$class .= \Pressbooks\Taxonomy\back_matter_type( $v['ID'] );
+				$class .= \Pressbooks\Taxonomy::getBackMatterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
 				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';

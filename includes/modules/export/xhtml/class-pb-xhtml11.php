@@ -523,7 +523,7 @@ class Xhtml11 extends Export {
 					continue; // Skip
 
 				$id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
 
 				if ( $compare != $subclass )
 					continue; //Skip
@@ -576,7 +576,7 @@ class Xhtml11 extends Export {
 				continue; // Skip
 
 			$id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
 
 			if ( 'title-page' != $subclass )
 				continue; // Skip
@@ -659,7 +659,7 @@ class Xhtml11 extends Export {
 					continue; // Skip
 
 				$id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
 
 				if ( $compare != $subclass )
 					continue; //Skip
@@ -734,7 +734,7 @@ class Xhtml11 extends Export {
 						if ( ! $chapter['export'] )
 							continue;
 
-						$subclass = \Pressbooks\Taxonomy\chapter_type( $chapter['ID'] );
+						$subclass = \Pressbooks\Taxonomy::getChapterType( $chapter['ID'] );
 						$slug = $chapter['post_name'];
 						$title = Sanitize\strip_br( $chapter['post_title'] );
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
@@ -782,7 +782,7 @@ class Xhtml11 extends Export {
 					$title = Sanitize\strip_br( $val['post_title'] );
 
 					if ( 'front-matter' == $type ) {
-						$subclass = \Pressbooks\Taxonomy\front_matter_type( $val['ID'] );
+						$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $val['ID'] );
 						if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass ) {
 							continue; // Skip
 						} else {
@@ -792,7 +792,7 @@ class Xhtml11 extends Export {
 							$license = ( $options['copyright_license'] ) ? get_post_meta( $val['ID'], 'pb_section_license', true ) : '';
 						}
 					} elseif ( 'back-matter' == $type ) {
-						$typetype = $type . ' ' . \Pressbooks\Taxonomy\back_matter_type( $val['ID'] );
+						$typetype = $type . ' ' . \Pressbooks\Taxonomy::getBackMatterType( $val['ID'] );
 						$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
 						$license = ( $options['copyright_license'] ) ? get_post_meta( $val['ID'], 'pb_section_license', true ) : '';
@@ -850,7 +850,7 @@ class Xhtml11 extends Export {
 				continue; // Skip
 
 			$id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
 
 			if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass )
 				continue; // Skip
@@ -984,7 +984,7 @@ class Xhtml11 extends Export {
 
 				$chapter_printf_changed = '';
 				$id = $chapter['ID'];
-				$subclass = \Pressbooks\Taxonomy\chapter_type( $id );
+				$subclass = \Pressbooks\Taxonomy::getChapterType( $id );
 				$slug = $chapter['post_name'];
 				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $chapter['post_content'];
@@ -1079,7 +1079,7 @@ class Xhtml11 extends Export {
 			if ( ! $back_matter['export'] ) continue;
 
 			$id = $back_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy\back_matter_type( $id );
+			$subclass = \Pressbooks\Taxonomy::getBackMatterType( $id );
 			$slug = $back_matter['post_name'];
 			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $back_matter['post_title'] : '<span class="display-none">' . $back_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 			$content = $back_matter['post_content'];

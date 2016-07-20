@@ -356,7 +356,7 @@ class Pdf extends Export {
 				return;
 			}
 
-			if ( $type == \Pressbooks\Taxonomy\front_matter_type( $page['ID'] ) ) {
+			if ( $type == \Pressbooks\Taxonomy::getFrontMatterType( $page['ID'] ) ) {
 				$page['mpdf_omit_toc'] = true;
 				$this->addPage( $page, $page_options, false, false );
 			}
@@ -380,7 +380,7 @@ class Pdf extends Export {
 
 		foreach ( $contents as $front_matter ) {
 			// safety
-			$type = \Pressbooks\Taxonomy\front_matter_type( $front_matter['ID'] );
+			$type = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter['ID'] );
 			if ( 'dedication' == $type || 'epigraph' == $type || 'title-page' == $type || 'before-title' == $type )
 					continue; // Skip
 

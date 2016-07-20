@@ -136,7 +136,7 @@ class Activation {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
-		\Pressbooks\Taxonomy\insert_terms();
+		\Pressbooks\Taxonomy::insertTerms();
 
 		$posts = array(
 			// Parts, Chapters, Front-Matter, Back-Matter

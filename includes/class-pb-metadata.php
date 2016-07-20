@@ -2,7 +2,7 @@
 /**
  * This class has two purposes:
  *  + Handle the custom metadata post, i.e. "Book Information". There should only be one metadata post per book.
- *  + Perform upgrades on individual books as Pressbooks evolves
+ *  + Perform upgrades on individual books as Pressbooks evolves.
  *
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
@@ -328,7 +328,7 @@ class Metadata {
 			$this->resetLandingPage();
 		}
 		if ( $version < 10 ) {
-			\Pressbooks\Taxonomy\insert_terms();
+			\Pressbooks\Taxonomy::insertTerms();
 			flush_rewrite_rules( false );
 		}
 	}
