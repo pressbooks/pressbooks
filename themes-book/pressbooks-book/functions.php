@@ -617,7 +617,7 @@ function pressbooks_theme_options_web_sanitize( $input ) {
 
 	$options = get_option( 'pressbooks_theme_options_web' );
 
-	if ( ! isset( $input['social_media'] ) || $input['social_media'] != '1' ) {
+	if ( ! isset( $input['social_media'] ) || $input['social_media'] !== '1' ) {
 		$options['social_media'] = 0;
 	} else {
 		$options['social_media'] = 1;
