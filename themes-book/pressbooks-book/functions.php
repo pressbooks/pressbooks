@@ -86,15 +86,10 @@ function pb_enqueue_scripts() {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
 
-	$options = get_option( 'pressbooks_theme_options_web' );
 	wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
 	wp_enqueue_style( 'dashicons' );
-	if ( @$options['accessibility_fontsize'] ) {
-		wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
-		wp_register_style( 'pressbooks-accessibility-toolbar', get_template_directory_uri() . '/css/a11y.css', array(), null, 'screen' );
-		wp_enqueue_style( 'pressbooks-accessibility-toolbar' );
-		wp_enqueue_style( 'dashicons' );
-	}
+	wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
+	wp_enqueue_style( 'pressbooks-accessibility-toolbar', get_template_directory_uri() . '/css/a11y.css', array( 'dashicons' ), null, 'screen' );
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 
@@ -584,17 +579,6 @@ function pressbooks_theme_options_web_init() {
 	);
 
 	add_settings_field(
-		'accessibility_fontsize',
-		__( 'Increase Font Size', 'pressbooks' ),
-		'pressbooks_theme_accessibility_fontsize_callback',
-		$_page,
-		$_section,
-		array(
-		    __('Add an option for the user to increase font size for greater accessibility', 'pressbooks' )
-		)
-	);
-
-	add_settings_field(
 		'social_media_buttons',
 		__( 'Enable Social Media', 'pressbooks' ),
 		'pressbooks_theme_social_media_callback',
@@ -617,19 +601,6 @@ function pressbooks_theme_options_web_callback() {
 }
 
 // Web Options Field Callback
-function pressbooks_theme_accessibility_fontsize_callback( $args ){
-	$options = get_option( 'pressbooks_theme_options_web' );
-
-	if ( ! isset( $options['accessibility_fontsize'] ) ) {
-		$options['accessibility_fontsize'] = 0;
-	}
-	$html = '<input type="checkbox" id="accessibility_fontsize" name="pressbooks_theme_options_web[accessibility_fontsize]" value="1" ' . checked( 1, $options['accessibility_fontsize'], false ) . '/>';
-	$html .= '<label for="accessibility_fontsize"> ' . $args[0] . '</label>';
-	echo $html;
-
-}
-
-// Web Options Field Callback
 function pressbooks_theme_social_media_callback( $args ) {
 	$options = get_option( 'pressbooks_theme_options_web' );
 
@@ -645,12 +616,6 @@ function pressbooks_theme_social_media_callback( $args ) {
 function pressbooks_theme_options_web_sanitize( $input ) {
 
 	$options = get_option( 'pressbooks_theme_options_web' );
-
-	if ( ! isset( $input['accessibility_fontsize'] ) || $input['accessibility_fontsize'] != '1' ) {
-		$options['accessibility_fontsize'] = 0;
-	} else {
-		$options['accessibility_fontsize'] = 1;
-	}
 
 	if ( ! isset( $input['social_media'] ) || $input['social_media'] != '1' ) {
 		$options['social_media'] = 0;
