@@ -260,7 +260,7 @@ class Pdf extends Export {
 		$hacks = apply_filters( 'pb_pdf_hacks', $hacks );
 
 		// Append endnotes to URL?
-		if ( 2 == @$hacks['pdf_footnotes_style'] ) {
+		if ( $hacks['pdf_footnotes_style'] == 'endnotes' ) {
 			$this->url .= '&endnotes=true';
 		}
 

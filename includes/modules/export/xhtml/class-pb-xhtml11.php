@@ -754,7 +754,7 @@ class Xhtml11 extends Export {
 
 						echo '</a>';
 
-						if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+						if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 							$sections = \Pressbooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								echo '<ul class="sections">';
@@ -811,7 +811,7 @@ class Xhtml11 extends Export {
 
 					echo '</a>';
 
-					if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+					if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 						$sections = \Pressbooks\Book::getSubsections( $val['ID'], true );
 						if ( $sections ) {
 							echo '<ul class="sections">';
@@ -866,7 +866,7 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 				$sections = \Pressbooks\Book::getSubsections( $id );
 				if ( $sections ) {
 					$content = \Pressbooks\Book::tagSubsections( $content, $id );
@@ -993,7 +993,7 @@ class Xhtml11 extends Export {
 				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-				if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+				if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 					$sections = \Pressbooks\Book::getSubsections( $id );
 					if ( $sections ) {
 						$content = \Pressbooks\Book::tagSubsections( $content, $id );
@@ -1088,7 +1088,7 @@ class Xhtml11 extends Export {
 			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
 			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
 
-			if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 				$sections = \Pressbooks\Book::getSubsections( $id );
 				if ( $sections ) {
 					$content = \Pressbooks\Book::tagSubsections( $content, $id );

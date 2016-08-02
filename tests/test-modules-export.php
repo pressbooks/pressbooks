@@ -112,11 +112,11 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \Pressbooks\Modules\Export\Export::isParsingSections
+	 * @covers \Pressbooks\Modules\Export\Export::isParsingSubsections
 	 */
-	public function test_isParsingSections() {
+	public function test_isParsingSubsections() {
 
-		$val = $this->export->isParsingSections();
+		$val = $this->export->isParsingSubsections();
 		$this->assertInternalType( 'bool', $val );
 	}
 

@@ -36,8 +36,8 @@
 							}
 						} ?>
 						<li class="front-matter <?php echo pb_get_section_type( get_post($fm['ID']) ) ?>"><a href="<?php echo get_permalink($fm['ID']); ?>"><?php echo pb_strip_br( $fm['post_title'] );?></a>
-              <?php if ( pb_should_parse_sections() ){
-                $sections = pb_get_sections( $fm['ID'] );
+              <?php if ( pb_should_parse_subsections() ){
+                $sections = pb_get_subsections( $fm['ID'] );
                 if ($sections){
                   $s = 1; ?>
                   <ul class="sections">
@@ -69,8 +69,8 @@
 								}
 							} ?>
 							<li class="chapter <?php echo pb_get_section_type( get_post($chapter['ID']) ) ?>"><a href="<?php echo get_permalink($chapter['ID']); ?>"><?php echo pb_strip_br( $chapter['post_title'] ); ?></a>
-                <?php if ( pb_should_parse_sections() ){
-                  $sections = pb_get_sections( $chapter['ID'] );
+                <?php if ( pb_should_parse_subsections() ){
+                  $sections = pb_get_subsections( $chapter['ID'] );
                   if ($sections){
                     $s = 1; ?>
                     <ul class="sections">
@@ -98,8 +98,8 @@
 							}
 						} ?>
 						<li class="back-matter <?php echo pb_get_section_type( get_post($bm['ID']) ) ?>"><a href="<?php echo get_permalink($bm['ID']); ?>"><?php echo pb_strip_br( $bm['post_title'] );?></a>
-              <?php if ( pb_should_parse_sections() ){
-                $sections = pb_get_sections( $bm['ID'] );
+              <?php if ( pb_should_parse_subsections() ){
+                $sections = pb_get_subsections( $bm['ID'] );
                 if ($sections){
                   $s = 1; ?>
                   <ul class="sections">

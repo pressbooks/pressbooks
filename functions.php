@@ -248,8 +248,19 @@ function pb_get_section_type( $post ) {
  *
  * @return array
  */
-function pb_get_sections( $id ) {
+function pb_get_subsections( $id ) {
 	return \Pressbooks\Book::getSubsections( $id );
+}
+
+/**
+ * Alias for pb_get_subsections.
+ *
+ * @param $id
+ *
+ * @return array
+ */
+function pb_get_sections( $id ) {
+	return pb_get_subsections( $id );
 }
 
 /**
@@ -257,8 +268,17 @@ function pb_get_sections( $id ) {
  *
  * @return boolean
  */
+function pb_should_parse_subsections() {
+	return \Pressbooks\Modules\Export\Export::isParsingSubsections();
+}
+
+/**
+ * Alias for pb_should_parse_subsections.
+ *
+ * @return boolean
+ */
 function pb_should_parse_sections() {
-	return \Pressbooks\Modules\Export\Export::isParsingSections();
+	return pb_should_parse_subsections();
 }
 
 /**
@@ -268,8 +288,19 @@ function pb_should_parse_sections() {
  *
  * @return string
  */
-function pb_tag_sections( $content, $id ) {
+function pb_tag_subsections( $content, $id ) {
 	return \Pressbooks\Book::tagSubsections( $content, $id );
+}
+
+/**
+ * Alias for pb_tag_subsections.
+ *
+ * @param $content string
+ *
+ * @return string
+ */
+function pb_tag_sections( $content, $id ) {
+	return pb_tag_subsections( $content, $id );
 }
 
 /**

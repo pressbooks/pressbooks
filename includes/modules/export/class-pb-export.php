@@ -153,13 +153,12 @@ abstract class Export {
 	 *
 	 * @return bool
 	 */
-	static function isParsingSections() {
+	static function isParsingSubsections() {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 
-		return (bool) ( @$options['parse_sections'] );
+		return (bool) ( @$options['parse_subsections'] );
 	}
-
 
 	/**
 	 * Log errors using wp_mail() and error_log(), include useful WordPress info.
