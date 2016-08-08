@@ -8,84 +8,141 @@ namespace Pressbooks;
 
 abstract class Options {
 
+
+	/**
+	 * Configure the options page or tab using the settings API
+	 */
 	abstract function init();
 
+
+	/**
+	 * Render the options page or tab
+	 */
 	abstract function display();
 
+	/**
+	 * Get the slug for this options page or tab
+	 *
+	 * @return string $slug
+	 */
 	abstract protected function getSlug();
 
+	/**
+	 * Get the localized title of this options page or tab
+	 *
+	 * @return string $title
+	 */
 	abstract protected function getTitle();
 
+	/**
+	 * Returns an array of default values for this set of options
+	 *
+	 * @return array $defaults
+	 */
 	abstract static function getDefaults();
 
+	/**
+	 * Returns an array of options which return booleans
+	 *
+	 * @return array $options
+	 */
 	abstract static function getBooleanOptions();
 
+	/**
+	 * Returns an array of options which return strings
+	 *
+	 * @return array $options
+	 */
 	abstract static function getStringOptions();
 
+	/**
+	 * Returns an array of options which return integers
+	 *
+	 * @return array $options
+	 */
 	abstract static function getIntegerOptions();
 
+	/**
+	 * Returns an array of options which return floats
+	 *
+	 * @return array $options
+	 */
 	abstract static function getFloatOptions();
 
+	/**
+	 * Returns an array of options which return predefined values (e.g. selects)
+	 *
+	 * @return array $options
+	 */
 	abstract static function getPredefinedOptions();
 
+	/**
+   * Sanitize various options (bool, string, integer, float)
+   *
+   * @param array $input
+	 * @return array $options
+   */
 	function sanitize( $input ) {
+		$options = array();
+
 		if ( !is_array( $input ) ) {
 			$input = array();
 		}
 
 		foreach ( $this->booleans as $key ) {
 			if ( ! isset( $input[ $key ] ) || $input[ $key ] !== '1' ) {
-				$this->options[$key] = 0;
+				$options[$key] = 0;
 			} else {
-				$this->options[$key] = 1;
+				$options[$key] = 1;
 			}
 		}
 
 		foreach ( $this->strings as $key ) {
 			if ( empty( $input[ $key ] ) ) {
-				unset( $this->options[ $key ] );
+				unset( $options[ $key ] );
 			} else {
-				$this->options[ $key ] = sanitize_text_field( $input[ $key ] );
+				$options[ $key ] = sanitize_text_field( $input[ $key ] );
 			}
 		}
 
 		foreach ( $this->integers as $key ) {
 			if ( empty( $input[ $key ] ) ) {
-				unset( $this->options[ $key ] );
+				unset( $options[ $key ] );
 			} else {
-				$this->options[ $key ] = absint( $input[ $key ] );
+				$options[ $key ] = absint( $input[ $key ] );
 			}
 		}
 
 		foreach ( $this->floats as $key ) {
 			if ( empty( $input[ $key ] ) ) {
-				unset( $this->options[ $key ] );
+				unset( $options[ $key ] );
 			} else {
-				$this->options[ $key ] = filter_var( $input[ $key ], FILTER_VALIDATE_FLOAT );
+				$options[ $key ] = filter_var( $input[ $key ], FILTER_VALIDATE_FLOAT );
 			}
 		}
 
 		foreach ( $this->predefined as $key ) {
 			if ( empty( $input[ $key ] ) ) {
-				unset( $this->options[ $key ] );
+				unset( $options[ $key ] );
 			} else {
-				$this->options[ $key ] = $input[ $key ];
+				$options[ $key ] = $input[ $key ];
 			}
 		}
 
-		return $this->options;
+		return $options;
 	}
 
 	/**
-   * Render a form field.
+   * Render an input.
    *
    * @param string $id
    * @param string $name
 	 * @param string $option
    * @param string $value
 	 * @param string $description
-   * @param string $type
 	 * @param string $append
+	 * @param string $type
+	 * @param string $size
    */
   protected function renderField($id, $name, $option, $value = '', $description = '', $append = '', $type = 'text', $size = '3') { ?>
   	<input id="<?= $id; ?>" name="<?= $name; ?>[<?= $option; ?>]" type="<?= $type; ?>" value="<?= $value; ?>" size="<?= $size; ?>" /><?php if ( $append ) : ?> <?= $append; ?><?php endif; ?>
@@ -93,7 +150,7 @@ abstract class Options {
   <?php }
 
 	/**
-   * Render a form checkbox.
+   * Render a checkbox.
    *
    * @param string $id
    * @param string $name
@@ -101,14 +158,13 @@ abstract class Options {
    * @param string $value
 	 * @param string $description
    */
-
 	protected function renderCheckbox($id, $name, $option, $value = '', $description) { ?>
 		<input id="<?= $id; ?>" name="<?= $name; ?>[<?= $option; ?>]" type="checkbox" value="1" <?= checked( 1, $value, false ); ?>/>
 		<label for="<?= $id; ?>"><?= $description; ?></label>
   <?php }
 
 	/**
-   * Render a form checkbox.
+   * Render radio buttons.
    *
    * @param string $id
    * @param string $name
@@ -116,7 +172,6 @@ abstract class Options {
    * @param string $value
 	 * @param string $args
    */
-
 	protected function renderRadioButtons($id, $name, $option, $value = '', $args) {
 		foreach ( $args as $key => $label ) { ?>
 			<label for="<?= $id . '_' . $key; ?>">
@@ -125,11 +180,21 @@ abstract class Options {
 		<?php }
 	}
 
-	protected function renderSelect($id, $name, $option, $value = '', $args, $multiple) { ?>
-		<select name='<?= $name; ?>[<?= $option; ?>]' id='<?= $id; ?>' >";
+	/**
+   * Render a select element.
+   *
+   * @param string $id
+   * @param string $name
+	 * @param string $option
+   * @param string $value
+	 * @param string $args
+	 * @param boolean $multiple
+   */
+	protected function renderSelect($id, $name, $option, $value = '', $args, $multiple = false) { ?>
+		<select name='<?= $name; ?>[<?= $option; ?>]' id='<?= $id; ?>'<?php if ( $multiple ) : ?>multiple<?php endif; ?>>
 		<?php foreach ( $args as $key => $label ) { ?>
 			<option value='<?= $key; ?>' <?php selected( $key, $value ); ?>><?= $label; ?></option>
 		<?php } ?>
-		<select>
+		</select>
 	<?php }
 }

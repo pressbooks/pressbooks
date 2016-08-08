@@ -31,10 +31,6 @@ class ThemeOptions {
 				if ( WP_DEBUG ) {
 					error_log( 'Upgraded ' . $slug . ' options from version ' . $version .' --> ' . $tab::$currentVersion );
 				}
-			} else {
-				if ( WP_DEBUG ) {
-					error_log( 'No upgrade needed for ' . $slug . ' options (already at version ' . $tab::$currentVersion . ').' );
-				}
 			}
 		}
 	}
