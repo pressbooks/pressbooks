@@ -6,6 +6,7 @@
 namespace Pressbooks\Modules\ThemeOptions;
 
 class WebOptions extends \Pressbooks\Options {
+
 	/**
 	 * The value for option: pressbooks_theme_options_web_version
 	 *
@@ -49,6 +50,9 @@ class WebOptions extends \Pressbooks\Options {
  		}
  	}
 
+	/**
+	 * Configure the web options tab using the settings API.
+	 */
 	function init() {
 		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
 		$_section = $this->getSlug() . '_options_section';
@@ -82,22 +86,27 @@ class WebOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Render the web options tab.
+	 */
 	function display() {
 		echo '<p>' . __( 'These options apply to the webbook.', 'pressbooks' ) . '</p>';
 	}
 
 	/**
-	 * Upgrade options.
+	 * Upgrade the web options.
 	 *
 	 * @param int $version
 	 */
 	function upgrade( $version ) {
 		if ( $version < 1 ) {
-			// Remove defaults from database, change some values
 			$this->doInitialUpgrade();
 		}
 	}
 
+	/**
+	 * Remove deprecated keys from web options.
+	 */
 	function doInitialUpgrade() {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
@@ -115,42 +124,86 @@ class WebOptions extends \Pressbooks\Options {
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
 
+	/**
+	 * Render the social_media checkbox.
+	 * @param array $args
+	 */
 	function renderSocialMediaField( $args ) {
 		$this->renderCheckbox( 'social_media', 'pressbooks_theme_options_' . $this->getSlug(), 'social_media', @$this->options['social_media'], $args[0] );
 	}
 
+	/**
+	 * Get the slug for the web options tab.
+	 *
+	 * @return string $slug
+	 */
 	protected function getSlug() {
   	return 'web';
   }
 
+	/**
+	 * Get the localized title of the web options tab.
+	 *
+	 * @return string $title
+	 */
   protected function getTitle() {
   	return __('Web Options', 'pressbooks');
   }
 
+	/**
+	 * Get an array of default values for the web options tab.
+	 *
+	 * @return array $defaults
+	 */
 	static function getDefaults() {
 		return array(
 			'social_media' => 1
 		);
 	}
 
+	/**
+	 * Get an array of options which return booleans.
+	 *
+	 * @return array $options
+	 */
 	static function getBooleanOptions() {
 		return array(
 			'social_media'
 		);
 	}
 
+	/**
+	 * Get an array of options which return strings.
+	 *
+	 * @return array $options
+	 */
 	static function getStringOptions() {
 		return array();
 	}
 
+	/**
+	 * Get an array of options which return integers.
+	 *
+	 * @return array $options
+	 */
 	static function getIntegerOptions() {
 		return array();
 	}
 
+	/**
+	 * Get an array of options which return floats.
+	 *
+	 * @return array $options
+	 */
 	static function getFloatOptions() {
 		return array();
 	}
 
+	/**
+	 * Get an array of options which return predefined values.
+	 *
+	 * @return array $options
+	 */
 	static function getPredefinedOptions() {
 		return array();
 	}

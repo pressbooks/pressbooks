@@ -8,76 +8,74 @@ namespace Pressbooks;
 
 abstract class Options {
 
-
 	/**
-	 * Configure the options page or tab using the settings API
+	 * Configure the options page or tab using the settings API.
 	 */
 	abstract function init();
 
-
 	/**
-	 * Render the options page or tab
+	 * Render the options page or tab.
 	 */
 	abstract function display();
 
 	/**
-	 * Get the slug for this options page or tab
+	 * Get the slug for this options page or tab.
 	 *
 	 * @return string $slug
 	 */
 	abstract protected function getSlug();
 
 	/**
-	 * Get the localized title of this options page or tab
+	 * Get the localized title of this options page or tab.
 	 *
 	 * @return string $title
 	 */
 	abstract protected function getTitle();
 
 	/**
-	 * Returns an array of default values for this set of options
+	 * Get an array of default values for this set of options
 	 *
 	 * @return array $defaults
 	 */
 	abstract static function getDefaults();
 
 	/**
-	 * Returns an array of options which return booleans
+	 * Get an array of options which return booleans.
 	 *
 	 * @return array $options
 	 */
 	abstract static function getBooleanOptions();
 
 	/**
-	 * Returns an array of options which return strings
+	 * Get an array of options which return strings.
 	 *
 	 * @return array $options
 	 */
 	abstract static function getStringOptions();
 
 	/**
-	 * Returns an array of options which return integers
+	 * Get an array of options which return integers.
 	 *
 	 * @return array $options
 	 */
 	abstract static function getIntegerOptions();
 
 	/**
-	 * Returns an array of options which return floats
+	 * Get an array of options which return floats.
 	 *
 	 * @return array $options
 	 */
 	abstract static function getFloatOptions();
 
 	/**
-	 * Returns an array of options which return predefined values (e.g. selects)
+	 * Get an array of options which return predefined values (e.g. selects)
 	 *
 	 * @return array $options
 	 */
 	abstract static function getPredefinedOptions();
 
 	/**
-   * Sanitize various options (bool, string, integer, float)
+   * Sanitize various options (boolean, string, integer, float).
    *
    * @param array $input
 	 * @return array $options
