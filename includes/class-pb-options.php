@@ -19,6 +19,13 @@ abstract class Options {
 	abstract function display();
 
 	/**
+	* Upgrade handler for the options page or tab.
+	 *
+	 * @param int $version
+	 */
+	abstract function upgrade( $version );
+
+	/**
 	 * Get the slug for this options page or tab.
 	 *
 	 * @return string $slug

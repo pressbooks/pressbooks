@@ -7,12 +7,26 @@ namespace Pressbooks\Modules\ThemeOptions;
 
 class ThemeOptions {
 
+	/**
+	 * The registered theme options tabs.
+	 *
+	 * @see loadTabs()
+	 * @var array
+	 */
 	private $tabs;
 
+	/**
+	 * Constructor.
+	 *
+	 * @param array $tabs
+	 */
 	function __construct(array $tabs) {
 		$this->tabs = $tabs;
 	}
 
+	/**
+	 * Register the settings on each tab, run upgrade() if needed.
+	 */
 	function loadTabs() {
 		foreach ( glob( PB_PLUGIN_DIR . 'includes/modules/themeoptions/sections/*.php') as $file ) {
 			include_once( $file );
@@ -35,6 +49,9 @@ class ThemeOptions {
 		}
 	}
 
+	/**
+	 * Render the theme options page and load the appropriate tab.
+	 */
 	static function display() { ?>
 		<div class="wrap">
 			<h1><?php echo wp_get_theme(); ?> <?php _e('Theme Options', 'pressbooks'); ?></h1>
@@ -53,11 +70,18 @@ class ThemeOptions {
 		</div>
 	<?php }
 
+	/**
+	 * Instantiate the class and add loadTabs() to the admin_init hook.
+	 */
 	static function init() {
 		$self = new self( \Pressbooks\Modules\ThemeOptions\ThemeOptions::getTabs() );
 		add_action('admin_init', array($self, 'loadTabs'));
 	}
 
+	/**
+	 * Returns a filtered array of tabs that we should be loading.
+	 * @returns array
+	 */
 	static function getTabs() {
 		$tabs = array(
 			'global' => __( 'Global Options', 'pressbooks' ),

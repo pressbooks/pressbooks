@@ -44,7 +44,7 @@ class WebOptions extends \Pressbooks\Options {
 		$this->predefined = $this->getPredefinedOptions();
 
  		foreach ( $this->defaults as $key => $value ) {
- 			if ( !isset ( $this->options[ $key ] ) && !in_array( $key, $this->booleans ) ) {
+ 			if ( !isset ( $this->options[ $key ] ) ) {
  				$this->options[ $key ] = $value;
  			}
  		}
@@ -94,7 +94,7 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Upgrade the web options.
+	 * Upgrade handler for web options.
 	 *
 	 * @param int $version
 	 */

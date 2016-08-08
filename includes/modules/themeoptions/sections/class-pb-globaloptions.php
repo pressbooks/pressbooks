@@ -46,12 +46,15 @@ class GlobalOptions extends \Pressbooks\Options {
 		$this->predefined = $this->getPredefinedOptions();
 
  		foreach ( $this->defaults as $key => $value ) {
- 			if ( !isset ( $this->options[ $key ] ) && !in_array( $key, $this->booleans ) ) {
+ 			if ( !isset ( $this->options[ $key ] ) ) {
  				$this->options[ $key ] = $value;
  			}
  		}
  	}
 
+	/**
+	 * Configure the global options tab using the settings API.
+	 */
 	function init() {
 		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
 		$_section = $this->getSlug() . '_options_section';
@@ -128,10 +131,16 @@ class GlobalOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Render the global options tab.
+	 */
 	function display() {
 		echo '<p>' . __( 'These options apply universally to webbook, PDF and ebook exports.', 'pressbooks' ) . '</p>';
 	}
 
+	/**
+	 * Sanitize the languages (just returns the array or an empty array, as these are predefined values).
+	 */
 	function sanitizeLanguages( $input ) {
 		if ( !is_array( $input ) ) {
 			$input = array();
@@ -140,17 +149,19 @@ class GlobalOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Upgrade options.
+	 * Upgrade handler for global options.
 	 *
 	 * @param int $version
 	 */
 	function upgrade( $version ) {
 		if ( $version < 1 ) {
-			// Remove deprecated keys from the database
 			$this->doInitialUpgrade();
 		}
 	}
 
+	/**
+	 * Remove deprecated keys from global options, clarify two-level TOC key name.
+	 */
 	function doInitialUpgrade() {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
@@ -171,14 +182,26 @@ class GlobalOptions extends \Pressbooks\Options {
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
 
+	/**
+	 * Render the chapter_numbers checkbox.
+	 * @param array $args
+	 */
 	function renderChapterNumbersField( $args ) {
 		$this->renderCheckbox( 'chapter_numbers', 'pressbooks_theme_options_' . $this->getSlug(), 'chapter_numbers', $this->options['chapter_numbers'], $args[0] );
 	}
 
+	/**
+	 * Render the parse_subsections checkbox.
+	 * @param array $args
+	 */
 	function renderTwoLevelTOCField( $args ) {
 		$this->renderCheckbox( 'parse_subsections', 'pressbooks_theme_options_' . $this->getSlug(), 'parse_subsections', $this->options['parse_subsections'], $args[0] );
 	}
 
+	/**
+	 * Render the pressbooks_global_typography select.
+	 * @param array $args
+	 */
 	function renderLanguagesField( $args ) {
 		$foreign_languages = get_option( 'pressbooks_global_typography' );
 
@@ -224,18 +247,37 @@ class GlobalOptions extends \Pressbooks\Options {
 		echo $html;
 	}
 
+	/**
+	 * Render the copyright_license checkbox.
+	 * @param array $args
+	 */
 	function renderCopyrightLicenseField( $args ) {
 		$this->renderCheckbox( 'copyright_license', 'pressbooks_theme_options_' . $this->getSlug(), 'copyright_license', $this->options['copyright_license'], $args[0] );
 	}
 
+	/**
+	 * Get the slug for the global options tab.
+	 *
+	 * @return string $slug
+	 */
 	protected function getSlug() {
   	return 'global';
   }
 
+	/**
+	 * Get the localized title of the global options tab.
+	 *
+	 * @return string $title
+	 */
   protected function getTitle() {
   	return __('Global Options', 'pressbooks');
   }
 
+	/**
+	 * Get an array of default values for the global options tab.
+	 *
+	 * @return array $defaults
+	 */
 	static function getDefaults() {
 		return array(
 			'chapter_numbers' => 1,
@@ -244,6 +286,11 @@ class GlobalOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Get an array of options which return booleans.
+	 *
+	 * @return array $options
+	 */
 	static function getBooleanOptions() {
 		return array(
 			'chapter_numbers',
@@ -252,18 +299,38 @@ class GlobalOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Get an array of options which return strings.
+	 *
+	 * @return array $options
+	 */
 	static function getStringOptions() {
 		return array();
 	}
 
+	/**
+	 * Get an array of options which return integers.
+	 *
+	 * @return array $options
+	 */
 	static function getIntegerOptions() {
 		return array();
 	}
 
+	/**
+	 * Get an array of options which return floats.
+	 *
+	 * @return array $options
+	 */
 	static function getFloatOptions() {
 		return array();
 	}
 
+	/**
+	 * Get an array of options which return predefined values.
+	 *
+	 * @return array $options
+	 */
 	static function getPredefinedOptions() {
 		return array();
 	}

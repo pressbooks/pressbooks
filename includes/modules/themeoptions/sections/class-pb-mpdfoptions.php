@@ -9,6 +9,7 @@ use Pressbooks\Container;
 use Pressbooks\CustomCss;
 
 class mPDFOptions extends \Pressbooks\Options {
+
 	/**
 	 * The value for option: pressbooks_theme_options_mpdf_version
 	 *
@@ -46,12 +47,15 @@ class mPDFOptions extends \Pressbooks\Options {
 		$this->predefined = $this->getPredefinedOptions();
 
  		foreach ( $this->defaults as $key => $value ) {
- 			if ( !isset ( $this->options[ $key ] ) && !in_array( $key, $this->booleans ) ) {
+ 			if ( !isset ( $this->options[ $key ] ) ) {
  				$this->options[ $key ] = $value;
  			}
  		}
  	}
 
+	/**
+	 * Configure the mPDF options tab using the settings API.
+	 */
 	function init() {
 		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
 		$_section = $this->getSlug() . '_options_section';
@@ -225,63 +229,115 @@ class mPDFOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Render the mPDF options tab.
+	 */
 	function display() {
 		echo '<p>' . __( 'These options apply to mPDF exports.', 'pressbooks' ) . '</p>';
 	}
 
 	/**
-	 * Upgrade options.
+	 * Upgrade handler for mPDF options (none at present).
 	 *
 	 * @param int $version
 	 */
-	function upgrade( $version ) {
-		// No upgrade needed.
-	}
+	function upgrade( $version ) {}
 
+	/**
+	 * Render the mpdf_page_size input.
+	 * @param array $args
+	 */
 	function renderPageSizeField( $args ) {
 		$this->renderSelect('mpdf_page_size',  'pressbooks_theme_options_' . $this->getSlug(), 'mpdf_page_size', $this->options['mpdf_page_size'], $args, false);
 	}
 
+	/**
+	 * Render the mpdf_margin_left input.
+	 * @param array $args
+	 */
 	function renderLeftMarginField( $args ) {
 		$this->renderField('mpdf_margin_left', 'pressbooks_theme_options_' . $this->getSlug(), 'mpdf_margin_left', $this->options['mpdf_margin_left'], $args[0]);
 	}
 
+	/**
+	 * Render the mpdf_margin_right input.
+	 * @param array $args
+	 */
 	function renderRightMarginField( $args ) {
 		$this->renderField( 'mpdf_margin_right', 'pressbooks_theme_options_' . $this->getSlug(), 'mpdf_margin_right', $this->options['mpdf_margin_right'], $args[0] );
 	}
 
+	/**
+	 * Render the mpdf_mirror_margins checkbox.
+	 * @param array $args
+	 */
 	function renderMirrorMarginsField( $args ) {
 		$this->renderCheckbox( 'mpdf_mirror_margins', 'pressbooks_theme_options_' . $this->getSlug(), 'mpdf_mirror_margins', $this->options['mpdf_mirror_margins'], $args[0] );
 	}
 
+	/**
+	 * Render the mpdf_include_cover checkbox.
+	 * @param array $args
+	 */
 	function renderCoverImageField( $args ) {
 		$this->renderCheckbox( 'mpdf_include_cover', 'pressbooks_theme_options_' . $this->getSlug(), 'mpdf_include_cover', $this->options['mpdf_include_cover'], $args[0] );
 	}
 
+	/**
+	 * Render the mpdf_include_toc checkbox.
+	 * @param array $args
+	 */
 	function renderTOCField( $args ) {
 		$this->renderCheckbox( 'mpdf_include_toc', 'pressbooks_theme_options_' . $this->getSlug(), 'mpdf_include_toc', $this->options['mpdf_include_toc'], $args[0] );
 	}
 
+	/**
+	 * Render the mpdf_indent_paragraphs checkbox.
+	 * @param array $args
+	 */
 	function renderIndentParagraphsField( $args ) {
 		$this->renderCheckbox( 'mpdf_indent_paragraphs', 'pressbooks_theme_options_' . $this->getSlug(), 'mpdf_indent_paragraphs', $this->options['mpdf_indent_paragraphs'], $args[0] );
 	}
 
+	/**
+	 * Render the mpdf_hyphens checkbox.
+	 * @param array $args
+	 */
 	function renderHyphensField( $args ) {
 		$this->renderCheckbox( 'mpdf_hyphens', 'pressbooks_theme_options_' . $this->getSlug(), 'mpdf_hyphens', $this->options['mpdf_hyphens'], $args[0] );
 	}
 
+	/**
+	 * Render the mpdf_fontsize checkbox.
+	 * @param array $args
+	 */
 	function renderFontSizeField( $args ) {
 		$this->renderCheckbox( 'mpdf_fontsize', 'pressbooks_theme_options_' . $this->getSlug(), 'mpdf_fontsize', $this->options['mpdf_fontsize'], $args[0] );
 	}
 
+	/**
+	 * Get the slug for the mPDF options tab.
+	 *
+	 * @return string $slug
+	 */
 	protected function getSlug() {
   	return 'mpdf';
   }
 
+	/**
+	 * Get the localized title of the mPDF options tab.
+	 *
+	 * @return string $title
+	 */
   protected function getTitle() {
   	return __('mPDF Options', 'pressbooks');
   }
 
+	/**
+	 * Get an array of default values for the mPDF options tab.
+	 *
+	 * @return array $defaults
+	 */
 	static function getDefaults() {
 		return array(
 			'mpdf_page_size' => 'Letter',
@@ -295,6 +351,11 @@ class mPDFOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Get an array of options which return booleans.
+	 *
+	 * @return array $options
+	 */
 	static function getBooleanOptions() {
 		return array(
 			'mpdf_mirror_margins',
@@ -306,11 +367,21 @@ class mPDFOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Get an array of options which return strings.
+	 *
+	 * @return array $options
+	 */
 	static function getStringOptions() {
 		return array(
 		);
 	}
 
+	/**
+	 * Get an array of options which return integers.
+	 *
+	 * @return array $options
+	 */
 	static function getIntegerOptions() {
 		return array(
 			'mpdf_left_margin',
@@ -318,11 +389,21 @@ class mPDFOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Get an array of options which return floats.
+	 *
+	 * @return array $options
+	 */
 	static function getFloatOptions() {
 		return array(
 		);
 	}
 
+	/**
+	 * Get an array of options which return predefined values.
+	 *
+	 * @return array $options
+	 */
 	static function getPredefinedOptions() {
 		return array(
 			'mpdf_page_size'

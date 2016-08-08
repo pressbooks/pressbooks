@@ -9,6 +9,7 @@ use Pressbooks\Container;
 use Pressbooks\CustomCss;
 
 class PDFOptions extends \Pressbooks\Options {
+
 	/**
 	 * The value for option: pressbooks_theme_options_pdf_version
 	 *
@@ -46,12 +47,15 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->predefined = $this->getPredefinedOptions();
 
  		foreach ( $this->defaults as $key => $value ) {
- 			if ( !isset ( $this->options[ $key ] ) && !in_array( $key, $this->booleans ) ) {
+ 			if ( !isset ( $this->options[ $key ] ) ) {
  				$this->options[ $key ] = $value;
  			}
  		}
  	}
 
+	/**
+	 * Configure the PDF options tab using the settings API.
+	 */
 	function init() {
 		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
 		$_section = $this->getSlug() . '_options_section';
@@ -263,27 +267,33 @@ class PDFOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Render the PDF options tab.
+	 */
 	function display() {
 		echo '<p>' . __( 'These options apply to PDF exports.', 'pressbooks' ) . '</p>';
 	}
 
 	/**
-	 * Upgrade options.
+	 * Upgrade handler for PDF options.
 	 *
 	 * @param int $version
 	 */
 	function upgrade( $version ) {
 		if ( $version < 1 ) {
-			// Remove defaults from database, change some values
 			$this->doInitialUpgrade();
 		}
 	}
 
+	/**
+	 * Substitute human-readable values, add new defaults, replace pdf_page_size
+	 * with pdf_page_width and pdf_page_height.
+	 */
 	function doInitialUpgrade() {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 
-		// Substitute human-readable values
+		// Replace pdf_page_size with pdf_page_width and pdf_page_height
 		if ( isset( $options['pdf_page_size'] ) ) {
 			switch( $options['pdf_page_size'] ) {
 				case 1:
@@ -329,6 +339,7 @@ class PDFOptions extends \Pressbooks\Options {
 			unset( $options['pdf_page_size'] );
 		}
 
+		// Substitute human-readable values
 		if ( !isset( $options['pdf_paragraph_separation'] ) || $options['pdf_paragraph_separation'] == '1' ) {
 			$options['pdf_paragraph_separation'] = 'indent';
 		} elseif ( $options['pdf_paragraph_separation'] == '2' ) {
@@ -347,6 +358,7 @@ class PDFOptions extends \Pressbooks\Options {
 			$options['pdf_footnotes_style'] = 'endnotes';
 		}
 
+		// Add missing defaults.
 		foreach ( $this->defaults as $key => $value ) {
 			if ( !isset( $options[ $key ] ) ) {
 				$options[ $key ] = $value;
@@ -356,10 +368,18 @@ class PDFOptions extends \Pressbooks\Options {
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
 
+	/**
+	 * Render the pdf_body_font_size input.
+	 * @param array $args
+	 */
 	function renderBodyFontSizeField( $args ) {
 		$this->renderField('pdf_body_font_size', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_body_font_size', @$this->options['pdf_body_font_size'], $args[0], $args[1], 'text', '3');
 	}
 
+	/**
+	 * Render the pdf_body_line_height input.
+	 * @param array $args
+	 */
 	function renderBodyLineHightField( $args ) {
 		if ( ! isset( $this->options['pdf_body_line_height'] ) ) {
 			$this->options['pdf_body_line_height'] = $this->defaults['pdf_body_line_height'];
@@ -367,6 +387,10 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderField('pdf_body_line_height', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_body_line_height', @$this->options['pdf_body_line_height'], $args[0], $args[1], 'text', '3');
 	}
 
+	/**
+	 * Render the pdf_page_size select.
+	 * @param array $args
+	 */
 	function renderPageSizeField( $args ) {
 		if ( ! isset( $this->options['pdf_page_size'] ) ) {
 			if ( isset( $this->options['pdf_page_width'] ) && isset( $this->options['pdf_page_height'] ) ) {
@@ -404,66 +428,133 @@ class PDFOptions extends \Pressbooks\Options {
 		echo $html;
 	}
 
+	/**
+	 * Render the pdf_page_width input.
+	 * @param array $args
+	 */
 	function renderPageWidthField( $args ) {
 		$this->renderField('pdf_page_width', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_width', @$this->options['pdf_page_width'], $args[0], '', 'text', '3');
 	}
 
+	/**
+	 * Render the pdf_page_height input.
+	 * @param array $args
+	 */
 	function renderPageHeightField( $args ) {
 		$this->renderField('pdf_page_height', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_height', @$this->options['pdf_page_height'], $args[0], '', 'text', '3');
 	}
 
+	/**
+	 * Render the pdf_hyphens checkbox.
+	 * @param array $args
+	 */
 	function renderHyphenationField( $args ) {
 		$this->renderCheckbox( 'pdf_hyphens', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_hyphens', @$this->options['pdf_hyphens'], $args[0] );
 	}
 
+	/**
+	 * Render the pdf_paragraph_separation radio buttons.
+	 * @param array $args
+	 */
 	function renderParagraphSeparationField( $args ) {
 		$this->renderRadioButtons( 'pdf_paragraph_separation', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_paragraph_separation', @$this->options['pdf_paragraph_separation'], $args);
 	}
 
+	/**
+	 * Render the pdf_blankpages radio buttons.
+	 * @param array $args
+	 */
 	function renderBlankPagesField( $args ) {
 		$this->renderRadioButtons( 'pdf_blankpages', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_blankpages', @$this->options['pdf_blankpages'], $args);
 	}
 
+	/**
+	 * Render the pdf_toc checkbox.
+	 * @param array $args
+	 */
 	function renderTOCField( $args ) {
 		$this->renderCheckbox( 'pdf_toc', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_toc', @$this->options['pdf_toc'], $args[0] );
 	}
 
+	/**
+	 * Render the pdf_image_resolution radio buttons.
+	 * @param array $args
+	 */
 	function renderImageResolutionField( $args ) {
 		$this->renderRadioButtons( 'pdf_image_resolution', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_image_resolution', @$this->options['pdf_image_resolution'], $args);
 	}
 
+	/**
+	 * Render the pdf_crop_marks checkbox.
+	 * @param array $args
+ 	*/
 	function renderCropMarksField( $args ) {
 		$this->renderCheckbox( 'pdf_crop_marks', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_crop_marks', @$this->options['pdf_crop_marks'], $args[0] );
 	}
 
+	/**
+	 * Render the pdf_romanize_parts checkbox.
+	 * @param array $args
+	 */
 	function renderRomanizePartsField( $args ) {
 		$this->renderCheckbox( 'pdf_romanize_parts', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_romanize_parts', @$this->options['pdf_romanize_parts'], $args[0] );
 	}
 
+	/**
+	 * Render the pdf_footnotes_style radio buttons.
+	 * @param array $args
+	 */
 	function renderFootnoteStyleField( $args ) {
 		$this->renderRadioButtons( 'pdf_footnotes_style', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_footnotes_style', @$this->options['pdf_footnotes_style'], $args);
 	}
 
+	/**
+	 * Render the widows input.
+	 * @param array $args
+	 */
 	function renderWidowsField( $args ) {
 		$this->renderField('widows', 'pressbooks_theme_options_' . $this->getSlug(), 'widows', @$this->options['widows']);
 	}
 
+	/**
+	 * Render the orphans input.
+	 * @param array $args
+	 */
 	function renderOrphansField( $args ) {
 		$this->renderField('orphans', 'pressbooks_theme_options_' . $this->getSlug(), 'orphans', @$this->options['orphans']);
 	}
 
+	/**
+	 * Render the pdf_fontsize checkbox.
+	 * @param array $args
+	 */
 	function renderFontSizeField( $args ) {
 		$this->renderCheckbox( 'pdf_fontsize', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_fontsize', @$this->options['pdf_fontsize'], $args[0] );
 	}
 
+	/**
+	 * Get the slug for the PDF options tab.
+	 *
+	 * @return string $slug
+	 */
 	protected function getSlug() {
   	return 'pdf';
   }
 
+	/**
+	 * Get the localized title of the PDF options tab.
+	 *
+	 * @return string $title
+	 */
   protected function getTitle() {
   	return __('PDF Options', 'pressbooks');
   }
 
+	/**
+	 * Get an array of default values for the PDF options tab.
+	 *
+	 * @return array $defaults
+	 */
 	static function getDefaults() {
 		return array(
 			'pdf_body_font_size' => '11',
@@ -484,6 +575,11 @@ class PDFOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Get an array of options which return booleans.
+	 *
+	 * @return array $options
+	 */
 	static function getBooleanOptions() {
 		return array(
 			'pdf_hyphens',
@@ -494,6 +590,11 @@ class PDFOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Get an array of options which return strings.
+	 *
+	 * @return array $options
+	 */
 	static function getStringOptions() {
 		return array(
 			'pdf_page_width',
@@ -501,6 +602,11 @@ class PDFOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Get an array of options which return integers.
+	 *
+	 * @return array $options
+	 */
 	static function getIntegerOptions() {
 		return array(
 			'pdf_body_font_size',
@@ -509,12 +615,22 @@ class PDFOptions extends \Pressbooks\Options {
 		);
 	}
 
+	/**
+	 * Get an array of options which return floats.
+	 *
+	 * @return array $options
+	 */
 	static function getFloatOptions() {
 		return array(
 			'pdf_body_line_height'
 		);
 	}
 
+	/**
+	 * Get an array of options which return predefined values.
+	 *
+	 * @return array $options
+	 */
 	static function getPredefinedOptions() {
 		return array(
 			'pdf_paragraph_separation',
