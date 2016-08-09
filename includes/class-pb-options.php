@@ -180,6 +180,7 @@ abstract class Options {
 	 * @param bool $custom
    */
 	protected function renderRadioButtons($id, $name, $option, $value = '', $args, $custom = false) {
+		$is_custom = false;
 		if ( !array_key_exists( $value, $args ) ) {
 			$is_custom = true;
 		}
@@ -224,6 +225,7 @@ abstract class Options {
 	 * @param boolean $multiple
 	 */
 	protected function renderCustomSelect($id, $name, $value = '', $args, $multiple = false) {
+		$is_custom = false;
 		if ( !array_key_exists( $value, $args ) ) {
 			$is_custom = true;
 		} ?>
