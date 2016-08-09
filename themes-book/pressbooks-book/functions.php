@@ -286,6 +286,34 @@ function pressbooks_copyright_license() {
 	return $html;
 }
 
+function replace_running_content_tags( $input ) {
+	return str_replace(
+		array(
+			'%book_title%',
+			'%book_subtitle%',
+			'%book_author%',
+			'%part_number%',
+			'%part_title%',
+			'%section_title%',
+			'%section_author%',
+			'%section_subtitle%',
+			'%blank%'
+		),
+		array(
+			'string(book-title)',
+			'string(book-subtitle)',
+			'string(book-author)',
+			'string(part-number)',
+			'string(part-title)',
+			'string(section-title)',
+			'string(chapter-author)',
+			'string(chapter-subtitle)',
+			''
+		),
+		$input
+	);
+}
+
 /* ------------------------------------------------------------------------ *
  * Hooks, Actions and Filters
  * ------------------------------------------------------------------------ */
@@ -440,6 +468,30 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 		if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= 'p { orphans: 1; }' . "\n";
 		}
+	}
+
+	// Running Content
+	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		$front_matter_running_content_left = ( isset( $options['running_content_front_matter_left'] ) ) ? replace_running_content_tags( $options['running_content_front_matter_left'] ) : 'string(book-title)';
+		$front_matter_running_content_right = ( isset( $options['running_content_front_matter_right'] ) ) ? replace_running_content_tags( $options['running_content_front_matter_right'] ) : 'string(section-title)';
+		$introduction_running_content_left = ( isset( $options['running_content_introduction_left'] ) ) ? replace_running_content_tags( $options['running_content_introduction_left'] ) : 'string(book-title)';
+		$introduction_running_content_right = ( isset( $options['running_content_introduction_right'] ) ) ? replace_running_content_tags( $options['running_content_introduction_right'] ) : 'string(section-title)';
+		$part_running_content_left = ( isset( $options['running_content_part_left'] ) ) ? replace_running_content_tags( $options['running_content_part_left'] ) : 'string(book-title)';
+		$part_running_content_right = ( isset( $options['running_content_part_right'] ) ) ? replace_running_content_tags( $options['running_content_part_right'] ) : 'string(part-title)';
+		$chapter_running_content_left = ( isset( $options['running_content_chapter_left'] ) ) ? replace_running_content_tags( $options['running_content_chapter_left'] ) : 'string(book-title)';
+		$chapter_running_content_right = ( isset( $options['running_content_chapter_right'] ) ) ? replace_running_content_tags( $options['running_content_chapter_right'] ) : 'string(section-title)';
+		$back_matter_running_content_left = ( isset( $options['running_content_back_matter_left'] ) ) ? replace_running_content_tags( $options['running_content_back_matter_left'] ) : 'string(book-title)';
+		$back_matter_running_content_right = ( isset( $options['running_content_back_matter_right'] ) ) ? replace_running_content_tags( $options['running_content_back_matter_right'] ) : 'string(section-title)';
+		$scss .= "\$front-matter-running-content-left: $front_matter_running_content_left; \n";
+		$scss .= "\$front-matter-running-content-left: $front_matter_running_content_right; \n";
+		$scss .= "\$introduction-running-content-left: $introduction_running_content_left; \n";
+		$scss .= "\$introduction-running-content-left: $introduction_running_content_right; \n";
+		$scss .= "\$part-running-content-left: $part_running_content_left; \n";
+		$scss .= "\$part-running-content-right: $part_running_content_right; \n";
+		$scss .= "\$chapter-running-content-left: $chapter_running_content_left; \n";
+		$scss .= "\$chapter-running-content-right: $chapter_running_content_right; \n";
+		$scss .= "\$back-matter-running-content-left: $back_matter_running_content_left; \n";
+		$scss .= "\$back-matter-running-content-right: $back_matter_running_content_right; \n";
 	}
 
 	// a11y Font Size

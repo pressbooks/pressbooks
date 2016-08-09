@@ -1,11 +1,11 @@
 @import 'partials/colors';
 
-$height: 8.5cm;
-$width: 5.5cm;
-$top: .79cm;
-$bottom: .79cm;
-$outside: .79cm;
-$inside: .79cm;
+$height: 17em;
+$width: 11em;
+$top: 1.58em;
+$bottom: 1.58em;
+$outside: 1.58em;
+$inside: 1.58em;
 
 .margin-diagram {
   .pages {
@@ -113,4 +113,8 @@ $inside: .79cm;
       background: $blue;
     }
   }
+}
+
+input#running_content_left {
+  margin-top: .5em;
 }

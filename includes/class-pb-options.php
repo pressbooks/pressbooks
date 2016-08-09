@@ -148,9 +148,10 @@ abstract class Options {
 	 * @param string $append
 	 * @param string $type
 	 * @param string $size
+	 * @param bool $disabled
    */
-  protected function renderField($id, $name, $option, $value = '', $description = '', $append = '', $type = 'text', $size = '3') { ?>
-  	<input id="<?= $id; ?>" name="<?= $name; ?>[<?= $option; ?>]" type="<?= $type; ?>" value="<?= $value; ?>" size="<?= $size; ?>" /><?php if ( $append ) : ?> <?= $append; ?><?php endif; ?>
+  protected function renderField($id, $name, $option, $value = '', $description = '', $append = '', $type = 'text', $class = 'regular-text', $disabled = false) { ?>
+  	<input id="<?= $id; ?>" class="<?= $class; ?>" name="<?= $name; ?>[<?= $option; ?>]" type="<?= $type; ?>" value="<?= $value; ?>" <?php if ( $disabled ) : ?> disabled<?php endif; ?>/><?php if ( $append ) : ?> <?= $append; ?><?php endif; ?>
 		<?php if ( $description ) : ?><p class="description"><?= $description; ?><?php endif; ?>
   <?php }
 
@@ -176,11 +177,21 @@ abstract class Options {
 	 * @param string $option
    * @param string $value
 	 * @param string $args
+	 * @param bool $custom
    */
-	protected function renderRadioButtons($id, $name, $option, $value = '', $args) {
+	protected function renderRadioButtons($id, $name, $option, $value = '', $args, $custom = false) {
+		if ( !array_key_exists( $value, $args ) ) {
+			$is_custom = true;
+		}
 		foreach ( $args as $key => $label ) { ?>
-			<label for="<?= $id . '_' . $key; ?>">
-				<input type="radio" id="<?= $id . '_' . $key; ?>" name="<?= $name; ?>[<?= $option; ?>]" value="<?= $key; ?>" <?php checked( $key, $value ); ?>/><?= $label; ?>
+			<label for="<?= $id . '_' . sanitize_key( $key ); ?>">
+				<input type="radio" id="<?= $id . '_' . sanitize_key( $key ); ?>" name="<?= $name; ?>[<?= $option; ?>]" value="<?= $key; ?>" <?php if ( $custom && $is_custom ) {
+					if ( $key == '' ) {
+						echo('checked');
+					}
+				} else {
+					checked( $key, $value );
+				} ?>/><?= $label; ?>
 			</label><br />
 		<?php }
 	}
@@ -201,5 +212,25 @@ abstract class Options {
 			<option value='<?= $key; ?>' <?php selected( $key, $value ); ?>><?= $label; ?></option>
 		<?php } ?>
 		</select>
+	<?php }
+
+	/**
+	 * Render a custom select element.
+	 *
+	 * @param string $id
+	 * @param string $name
+	 * @param string $value
+	 * @param string $args
+	 * @param boolean $multiple
+	 */
+	protected function renderCustomSelect($id, $name, $value = '', $args, $multiple = false) {
+		if ( !array_key_exists( $value, $args ) ) {
+			$is_custom = true;
+		} ?>
+		<select name='<?= $name; ?>' id='<?= $id; ?>'>
+		<?php foreach ( $args as $key => $label ) { ?>
+			<option value='<?= $key; ?>' <?php if ( $key == '' && $is_custom ) { echo 'selected'; } else { selected( $key, $value ); } ?>><?= $label; ?></option>
+		<?php } ?>
+		</select><br />
 	<?php }
 }
