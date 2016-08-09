@@ -28,10 +28,6 @@ class ThemeOptions {
 	 * Register the settings on each tab, run upgrade() if needed.
 	 */
 	function loadTabs() {
-		foreach ( glob( PB_PLUGIN_DIR . 'includes/modules/themeoptions/sections/*.php') as $file ) {
-			include_once( $file );
-		}
-
 		foreach ( $this->tabs as $slug => $tab ) {
 			$subclass = '\Pressbooks\Modules\ThemeOptions\\' . ucfirst( $slug ) . 'Options';
 			$option = get_option( 'pressbooks_theme_options_' . $slug, $subclass::getDefaults() );
