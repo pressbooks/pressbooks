@@ -68,6 +68,11 @@
       ],
       "bower": ["select2"]
     },
+    "theme-options.css": {
+      "files": [
+        "styles/theme-options.scss"
+      ]
+    },
     "anchor.js": {
       "files": [
         "scripts/anchor.js"

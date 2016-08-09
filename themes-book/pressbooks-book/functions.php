@@ -335,6 +335,23 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 		$scss .= "@page { size: $width $height; } \n";
 	}
 
+	// Margins
+	$outside = $options['pdf_page_margin_outside'];
+	$inside = $options['pdf_page_margin_inside'];
+	$top = $options['pdf_page_margin_top'];
+	$bottom = $options['pdf_page_margin_bottom'];
+
+	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		$scss .= "\$page-margin-left-top: $top; \n";
+		$scss .= "\$page-margin-left-right: $inside; \n";
+		$scss .= "\$page-margin-left-bottom: $bottom; \n";
+		$scss .= "\$page-margin-left-left: $outside; \n";
+		$scss .= "\$page-margin-right-top: $top; \n";
+		$scss .= "\$page-margin-right-right: $outside; \n";
+		$scss .= "\$page-margin-right-bottom: $bottom; \n";
+		$scss .= "\$page-margin-right-left: $inside; \n";
+	}
+
 	// Image resolution
 	if ( isset( $options['pdf_image_resolution'] ) ) {
 		$resolution = $options['pdf_image_resolution'];

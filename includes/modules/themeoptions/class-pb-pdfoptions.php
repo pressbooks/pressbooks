@@ -124,7 +124,7 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			array(
-				__( 'Page width must be expressed in CSS-compatible units, e.g. &lsquo;5.5in&rsquo;.')
+				__( 'Page width must be expressed in CSS-compatible units, e.g. &lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;.')
 			)
 		);
 
@@ -135,9 +135,66 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			array(
-				__( 'Page height must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo;.')
+				__( 'Page height must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;.')
 			)
 		);
+
+		if ( \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 2 ) ) {
+			add_settings_field(
+				'pdf_page_margins',
+				__( 'Margins', 'pressbooks' ),
+				array( $this, 'renderMarginsField' ),
+				$_page,
+				$_section,
+				array(
+					__( 'Customize your book&rsquo;s margins using the fields below.', 'pressbooks' )
+				)
+			);
+
+			add_settings_field(
+				'pdf_page_margin_outside',
+				__( 'Outside Margin', 'pressbooks' ),
+				array( $this, 'renderOutsideMarginField' ),
+				$_page,
+				$_section,
+				array(
+					__( 'Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;.', 'pressbooks' )
+				)
+			);
+
+			add_settings_field(
+				'pdf_page_margin_inside',
+				__( 'Inside Margin', 'pressbooks' ),
+				array( $this, 'renderInsideMarginField' ),
+				$_page,
+				$_section,
+				array(
+					__( 'Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;.', 'pressbooks' )
+				)
+			);
+
+			add_settings_field(
+				'pdf_page_margin_top',
+				__( 'Top Margin', 'pressbooks' ),
+				array( $this, 'renderTopMarginField' ),
+				$_page,
+				$_section,
+				array(
+					__( 'Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;.', 'pressbooks' )
+				)
+			);
+
+			add_settings_field(
+				'pdf_page_margin_bottom',
+				__( 'Bottom Margin', 'pressbooks' ),
+				array( $this, 'renderBottomMarginField' ),
+				$_page,
+				$_section,
+				array(
+					__( 'Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;.', 'pressbooks' )
+				)
+			);
+		}
 
 		add_settings_field(
 			'pdf_hyphens',
@@ -445,6 +502,70 @@ class PDFOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the margins diagram.
+	 * @param array $args
+	 */
+	function renderMarginsField( $args ) { ?>
+		<div class="margin-diagram">
+			<p class="description"><?= $args[0]; ?></p>
+			<div class="pages">
+				<div class="page left">
+					<div class="margin outside"></div>
+					<div class="margin top"></div>
+					<div class="margin inside"></div>
+					<div class="margin bottom"></div>
+				</div>
+				<div class="page right">
+					<div class="margin inside"></div>
+					<div class="margin top"></div>
+					<div class="margin outside"></div>
+					<div class="margin bottom"></div>
+				</div>
+			</div>
+			<div class="legend">
+				<ul>
+					<li class="outside"><span class="color"></span> <?php _e( 'Outside Margin', 'pressbooks' ); ?></li>
+					<li class="inside"><span class="color"></span> <?php _e( 'Inside Margin', 'pressbooks' ); ?></li>
+					<li class="top"><span class="color"></span> <?php _e( 'Top Margin', 'pressbooks' ); ?></li>
+					<li class="bottom"><span class="color"></span> <?php _e( 'Bottom Margin', 'pressbooks' ); ?></li>
+				</ul>
+			</div>
+		</div>
+	<?php }
+
+	/**
+	 * Render the pdf_page_margin_outside input.
+	 * @param array $args
+	 */
+	function renderOutsideMarginField( $args ) { ?>
+		<?php $this->renderField('pdf_page_margin_outside', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_margin_outside', @$this->options['pdf_page_margin_outside'], $args[0], '', 'text', '3');
+	}
+
+	/**
+	 * Render the pdf_page_margin_inside input.
+	 * @param array $args
+	 */
+	function renderInsideMarginField( $args ) {
+		$this->renderField('pdf_page_margin_inside', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_margin_inside', @$this->options['pdf_page_margin_inside'], $args[0], '', 'text', '3');
+	}
+
+	/**
+	 * Render the pdf_page_margin_top input.
+	 * @param array $args
+	 */
+	function renderTopMarginField( $args ) {
+		$this->renderField('pdf_page_margin_top', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_margin_top', @$this->options['pdf_page_margin_top'], $args[0], '', 'text', '3');
+	}
+
+	/**
+	 * Render the pdf_page_margin_bottom input.
+	 * @param array $args
+	 */
+	function renderBottomMarginField( $args ) {
+		$this->renderField('pdf_page_margin_bottom', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_margin_bottom', @$this->options['pdf_page_margin_bottom'], $args[0], '', 'text', '3');
+	}
+
+	/**
 	 * Render the pdf_hyphens checkbox.
 	 * @param array $args
 	 */
@@ -561,6 +682,10 @@ class PDFOptions extends \Pressbooks\Options {
 			'pdf_body_line_height' => '1.4',
 			'pdf_page_width' => '5.5in',
 			'pdf_page_height' => '8.5in',
+			'pdf_page_margin_outside' => '2cm',
+			'pdf_page_margin_inside' => '2cm',
+			'pdf_page_margin_top' => '2cm',
+			'pdf_page_margin_bottom' => '2cm',
 			'pdf_hyphens' => 0,
 			'pdf_paragraph_separation' => 'indent',
 			'pdf_blankpages' => 'include',
@@ -598,7 +723,11 @@ class PDFOptions extends \Pressbooks\Options {
 	static function getStringOptions() {
 		return array(
 			'pdf_page_width',
-			'pdf_page_height'
+			'pdf_page_height',
+			'pdf_page_margin_outside',
+			'pdf_page_margin_inside',
+			'pdf_page_margin_top',
+			'pdf_page_margin_bottom'
 		);
 	}
 
