@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-06-22 14:26-0300\n"
-"PO-Revision-Date: 2016-06-22 17:27+0000\n"
+"POT-Creation-Date: 2016-08-09 17:00-0300\n"
+"PO-Revision-Date: 2016-08-09 20:02+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/pressbooks/pressbooks/language/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgid "Author"
 msgstr "Auteur"
 
 #: includes/admin/class-pb-catalog-list-table.php:183
-#: templates/pb-catalog.php:198
+#: templates/pb-catalog.php:202
 msgid "Tag"
 msgstr "Tag"
 
@@ -139,7 +139,7 @@ msgstr "De openbare link naar uw catalogus pagina"
 
 #: includes/admin/class-pb-catalog-list-table.php:461
 #: includes/admin/pb-laf.php:183 includes/admin/pb-laf.php:199
-#: includes/admin/pb-laf.php:305
+#: includes/admin/pb-laf.php:306
 msgid "My Catalog"
 msgstr "Mijn Catalogus"
 
@@ -161,8 +161,8 @@ msgid "Add By URL"
 msgstr "Toevoegen via URL"
 
 #: includes/admin/class-pb-catalog-list-table.php:527
-#: includes/class-pb-catalog.php:1063 includes/class-pb-catalog.php:1111
-#: includes/class-pb-catalog.php:1156 templates/admin/catalog.php:18
+#: includes/class-pb-catalog.php:1064 includes/class-pb-catalog.php:1112
+#: includes/class-pb-catalog.php:1157 templates/admin/catalog.php:18
 msgid "You do not have permission to do that."
 msgstr "U hebt geen toestemming om dat te doen."
 
@@ -215,9 +215,9 @@ msgstr ""
 msgid "Google Analytics settings."
 msgstr ""
 
-#: includes/admin/pb-analytics.php:183 includes/class-pb-catalog.php:1090
-#: includes/class-pb-catalog.php:1138 includes/class-pb-catalog.php:1175
-#: includes/class-pb-catalog.php:1236 templates/admin/dashboard.php:28
+#: includes/admin/pb-analytics.php:183 includes/class-pb-catalog.php:1091
+#: includes/class-pb-catalog.php:1139 includes/class-pb-catalog.php:1176
+#: includes/class-pb-catalog.php:1237 templates/admin/dashboard.php:28
 msgid "Settings saved."
 msgstr "Instellingen opgeslagen."
 
@@ -254,7 +254,7 @@ msgstr "Dit zal de bestaande aangepaste CSS vervangen. Bent u zeker?"
 msgid "My Book"
 msgstr "Mijn boek"
 
-#: includes/admin/pb-dashboard.php:70 includes/admin/pb-laf.php:346
+#: includes/admin/pb-dashboard.php:70 includes/admin/pb-laf.php:347
 msgid "Users"
 msgstr "Gebruikers"
 
@@ -283,7 +283,7 @@ msgid "Organize"
 msgstr "Ordenen"
 
 #: includes/admin/pb-dashboard.php:175 includes/admin/pb-dashboard.php:176
-#: includes/admin/pb-laf.php:334 includes/admin/pb-laf.php:385
+#: includes/admin/pb-laf.php:335 includes/admin/pb-laf.php:386
 msgid "Dashboard"
 msgstr "Dashboard"
 
@@ -328,7 +328,7 @@ msgstr "Help"
 msgid "Contact"
 msgstr "Contact"
 
-#: includes/admin/pb-laf.php:72 themes-book/pressbooks-book/functions.php:308
+#: includes/admin/pb-laf.php:72 themes-book/pressbooks-book/functions.php:301
 msgid "Theme Options"
 msgstr "Thema Opties"
 
@@ -356,7 +356,7 @@ msgstr "EPUB is vereist om als MOBI te exporteren. Wilt u het terug inschakelen?
 msgid "Publish"
 msgstr "Publiceren"
 
-#: includes/admin/pb-laf.php:169 includes/admin/pb-laf.php:724
+#: includes/admin/pb-laf.php:169 includes/admin/pb-laf.php:727
 msgid "Privacy Settings"
 msgstr "Privacy-instellingen"
 
@@ -364,7 +364,7 @@ msgstr "Privacy-instellingen"
 msgid "Privacy"
 msgstr "Privacy"
 
-#: includes/admin/pb-laf.php:172 includes/admin/pb-laf.php:975
+#: includes/admin/pb-laf.php:172 includes/admin/pb-laf.php:978
 #: includes/admin/pb-metaboxes.php:459
 msgid "Export Settings"
 msgstr "Export-instellingen"
@@ -382,108 +382,108 @@ msgstr "Over Pressbooks"
 msgid "Pressbooks.com"
 msgstr "Pressbooks.com"
 
-#: includes/admin/pb-laf.php:312
+#: includes/admin/pb-laf.php:313
 msgid "Add A New Book"
 msgstr "Een Nieuw Boek Toevoegen"
 
-#: includes/admin/pb-laf.php:327
+#: includes/admin/pb-laf.php:328
 msgid "Network Admin"
 msgstr "Netwerk Beheer"
 
-#: includes/admin/pb-laf.php:340
+#: includes/admin/pb-laf.php:341
 msgid "Sites"
 msgstr "Pagina's"
 
-#: includes/admin/pb-laf.php:352
+#: includes/admin/pb-laf.php:353
 msgid "Visit Network"
 msgstr "Bezoek Netwerk"
 
-#: includes/admin/pb-laf.php:397
+#: includes/admin/pb-laf.php:398
 msgid "Visit Site"
 msgstr "Bezoek Pagina"
 
-#: includes/admin/pb-laf.php:572
+#: includes/admin/pb-laf.php:575
 msgid "Unsupported post type."
 msgstr "Niet ondersteunde berichttype"
 
-#: includes/admin/pb-laf.php:597
+#: includes/admin/pb-laf.php:600
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "U hebt onvoldoende toestemming voor de toegang tot die URL."
 
-#: includes/admin/pb-laf.php:619
+#: includes/admin/pb-laf.php:622
 msgid "Book Visibility"
 msgstr "Zichtbaarheid Boek "
 
-#: includes/admin/pb-laf.php:626
+#: includes/admin/pb-laf.php:629
 msgid "Private Content"
 msgstr "Privé-inhoud"
 
-#: includes/admin/pb-laf.php:648
+#: includes/admin/pb-laf.php:651
 msgid "Privacy settings"
 msgstr "Privacy-instellingen"
 
-#: includes/admin/pb-laf.php:662
+#: includes/admin/pb-laf.php:665
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Openbaar. Ik zou dit boek graag zichtbaar maken voor iedereen."
 
-#: includes/admin/pb-laf.php:666
+#: includes/admin/pb-laf.php:669
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privé. Ik zou dit broek graag enkel zichtbaar maken voor de mensen die ik uitgenodigd heb."
 
-#: includes/admin/pb-laf.php:689
+#: includes/admin/pb-laf.php:692
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "Wie kan het voorwerk, de hoofdstukken en het nawerk die privé zijn zien?"
 
-#: includes/admin/pb-laf.php:692
+#: includes/admin/pb-laf.php:695
 msgid "Only logged in editors and administrators."
 msgstr "Enkel ingelogde redacteurs en beheerders."
 
-#: includes/admin/pb-laf.php:694
+#: includes/admin/pb-laf.php:697
 msgid "All logged in users including subscribers."
 msgstr "Alle ingelogde gebruikers, inclusief abonnees."
 
-#: includes/admin/pb-laf.php:752
+#: includes/admin/pb-laf.php:755
 msgid "Amazon URL"
 msgstr "Amazon URL"
 
-#: includes/admin/pb-laf.php:759
+#: includes/admin/pb-laf.php:762
 msgid "O'Reilly URL"
 msgstr "O'Reilly URL"
 
-#: includes/admin/pb-laf.php:766
+#: includes/admin/pb-laf.php:769
 msgid "Barnes and Noble URL"
 msgstr "Barnes and Noble URL"
 
-#: includes/admin/pb-laf.php:773
+#: includes/admin/pb-laf.php:776
 msgid "Kobo URL"
 msgstr "Kobo URL"
 
-#: includes/admin/pb-laf.php:780
+#: includes/admin/pb-laf.php:783
 msgid "iBooks URL"
 msgstr "iBooks URL"
 
-#: includes/admin/pb-laf.php:787
+#: includes/admin/pb-laf.php:790
 msgid "Other Service URL"
 msgstr "Andere Dienst URL"
 
-#: includes/admin/pb-laf.php:918
+#: includes/admin/pb-laf.php:921
 msgid "Email me validation error reports on export."
 msgstr "Verzend mij de verslagen over de validering van fouten over export via email."
 
-#: includes/admin/pb-laf.php:935
+#: includes/admin/pb-laf.php:938
 msgid "Export settings"
 msgstr "Exportinstellingen"
 
-#: includes/admin/pb-laf.php:949
+#: includes/admin/pb-laf.php:952
 msgid "No. Ignore validation errors."
 msgstr "Neen. Negeer validatie van fouten."
 
-#: includes/admin/pb-laf.php:953
+#: includes/admin/pb-laf.php:956
 msgid "Yes. Send the logs."
 msgstr "Ja. Verzend de logbestanden."
 
-#: includes/admin/pb-laf.php:954
+#: includes/admin/pb-laf.php:957
 msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
@@ -507,7 +507,7 @@ msgstr "Uw omslagafbeelding (%s) is te groot. Het mag niet groter zijn dan 2MB."
 
 #: includes/admin/pb-metaboxes.php:118 includes/admin/pb-metaboxes.php:163
 #: includes/class-pb-metadata.php:627
-#: themes-book/pressbooks-book/functions.php:1233
+#: themes-book/pressbooks-book/functions.php:1321
 msgid "Cover Image"
 msgstr "Omslagafbeelding"
 
@@ -655,7 +655,7 @@ msgid "Name of the copyright holder."
 msgstr "Naam van de auteursrechthebbende."
 
 #: includes/admin/pb-metaboxes.php:283
-#: themes-book/pressbooks-book/functions.php:408
+#: themes-book/pressbooks-book/functions.php:411
 msgid "Copyright License"
 msgstr "Licentie voor gebruik van auteursrechten"
 
@@ -945,8 +945,8 @@ msgstr "Auteurs"
 
 #: includes/class-pb-activation.php:176
 #: includes/modules/export/epub/templates/epub3/toc.php:21
-#: themes-book/pressbooks-book/functions.php:844
-#: themes-book/pressbooks-book/functions.php:1244
+#: themes-book/pressbooks-book/functions.php:769
+#: themes-book/pressbooks-book/functions.php:1332
 #: themes-book/pressbooks-book/index.php:12
 #: themes-book/pressbooks-book/page-cover-third-block.php:4
 #: themes-book/pressbooks-book/sidebar.php:16
@@ -960,7 +960,7 @@ msgid "Buy"
 msgstr "Koop"
 
 #: includes/class-pb-activation.php:188
-#: themes-book/pressbooks-book/functions.php:145
+#: themes-book/pressbooks-book/functions.php:138
 msgid "Access Denied"
 msgstr "Toegang geweigerd"
 
@@ -993,15 +993,15 @@ msgstr "Standaarddata"
 msgid "Simple Book Production"
 msgstr "Eenvoudige Boekaanmaak"
 
-#: includes/class-pb-catalog.php:710
+#: includes/class-pb-catalog.php:711
 msgid "Catalog Logo"
 msgstr "Cataloguslogo"
 
-#: includes/class-pb-catalog.php:1203
+#: includes/class-pb-catalog.php:1204
 msgid "Invalid URL."
 msgstr "Ongeldige URL."
 
-#: includes/class-pb-catalog.php:1223
+#: includes/class-pb-catalog.php:1224
 msgid "No book found."
 msgstr "Geen boek gevonden."
 
@@ -1080,6 +1080,168 @@ msgstr "Er was een probleem met SASS. Contacteer de beheerder van uw site. Fout:
 #: includes/class-pb-sass.php:231
 msgid "SASS Error"
 msgstr "SASS Fout"
+
+#: includes/class-pb-taxonomy.php:32
+msgctxt "taxonomy general name"
+msgid "Front Matter Types"
+msgstr "Types van voorwerk"
+
+#: includes/class-pb-taxonomy.php:33
+msgctxt "taxonomy singular name"
+msgid "Front Matter Type"
+msgstr "Type van voorwerk"
+
+#: includes/class-pb-taxonomy.php:34
+msgid "Search Front Matter Types"
+msgstr "Types van voorwerk zoeken"
+
+#: includes/class-pb-taxonomy.php:35
+msgid "Popular Front Matter Types"
+msgstr "Populaire types van voorwerk"
+
+#: includes/class-pb-taxonomy.php:36
+msgid "All Front Matter Types"
+msgstr "Alle types van voorwerk"
+
+#: includes/class-pb-taxonomy.php:39
+msgid "Edit Front Matter Type"
+msgstr "Types van voorwerk bewerken"
+
+#: includes/class-pb-taxonomy.php:40
+msgid "Update Front Matter Type"
+msgstr "Types van  voorwerk updaten"
+
+#: includes/class-pb-taxonomy.php:41
+msgid "Add New Front Matter Type"
+msgstr "Types van voorwerk teovoegen"
+
+#: includes/class-pb-taxonomy.php:42
+msgid "New Front Matter Type Name"
+msgstr "Nieuwe naam voor type van voorwerk"
+
+#: includes/class-pb-taxonomy.php:43
+msgid "Separate front matter types with commas"
+msgstr "Types van voorwerk scheiden door komma's"
+
+#: includes/class-pb-taxonomy.php:44
+msgid "Add or remove front matter type"
+msgstr "Type van voorwerk toevoegen of verwijderen"
+
+#: includes/class-pb-taxonomy.php:45
+msgid "Choose from the most used front matter type"
+msgstr "Uit de meest gebruikte types van voorwerk kiezen"
+
+#: includes/class-pb-taxonomy.php:46
+msgid "Front Matter Types"
+msgstr "Types van voorwerk"
+
+#: includes/class-pb-taxonomy.php:70
+msgctxt "taxonomy general name"
+msgid "Back Matter Types"
+msgstr "Types van nawerk"
+
+#: includes/class-pb-taxonomy.php:71
+msgctxt "taxonomy singular name"
+msgid "Back Matter Type"
+msgstr "Type van nawerk"
+
+#: includes/class-pb-taxonomy.php:72
+msgid "Search Back Matter Types"
+msgstr "Types van nawerk zoeken"
+
+#: includes/class-pb-taxonomy.php:73
+msgid "Popular Back Matter Types"
+msgstr "Populaire types van nawerk"
+
+#: includes/class-pb-taxonomy.php:74
+msgid "All Back Matter Types"
+msgstr "Alle types van nawerk"
+
+#: includes/class-pb-taxonomy.php:77
+msgid "Edit Back Matter Type"
+msgstr "Types van nawerk bewerken"
+
+#: includes/class-pb-taxonomy.php:78
+msgid "Update Back Matter Type"
+msgstr "Types van nawerk updaten"
+
+#: includes/class-pb-taxonomy.php:79
+msgid "Add New Back Matter Type"
+msgstr "Nieuwe types van nawerk toevoegen"
+
+#: includes/class-pb-taxonomy.php:80
+msgid "New Back Matter Type Name"
+msgstr "Nieuwe naam voor type van nawerk"
+
+#: includes/class-pb-taxonomy.php:81
+msgid "Separate back matter types with commas"
+msgstr "Types van nawerk scheiden door komma's"
+
+#: includes/class-pb-taxonomy.php:82
+msgid "Add or remove back matter type"
+msgstr "Type van nawerk toevoegen of verwijderen"
+
+#: includes/class-pb-taxonomy.php:83
+msgid "Choose from the most used back matter type"
+msgstr "Uit de meest gebruikte types van nawerk kiezen"
+
+#: includes/class-pb-taxonomy.php:84
+msgid "Back Matter Types"
+msgstr "Types van nawerk"
+
+#: includes/class-pb-taxonomy.php:108
+msgctxt "taxonomy general name"
+msgid "Chapter Types"
+msgstr "Types van hoofdstuk"
+
+#: includes/class-pb-taxonomy.php:109
+msgctxt "taxonomy singular name"
+msgid "Chapter Type"
+msgstr "Type van hoofdstuk"
+
+#: includes/class-pb-taxonomy.php:110
+msgid "Search Chapter Types"
+msgstr "Types van hoofdstuk zoeken"
+
+#: includes/class-pb-taxonomy.php:111
+msgid "Popular Chapter Types"
+msgstr "Populaire types van hoofdstuk"
+
+#: includes/class-pb-taxonomy.php:112
+msgid "All Chapter Types"
+msgstr "Alle types van hoofdstuk"
+
+#: includes/class-pb-taxonomy.php:115
+msgid "Edit Chapter Type"
+msgstr "Type van hoofdstuk bewerken"
+
+#: includes/class-pb-taxonomy.php:116
+msgid "Update Chapter Type"
+msgstr "Type van hoofdstuk updaten"
+
+#: includes/class-pb-taxonomy.php:117
+msgid "Add New Chapter Type"
+msgstr "Nieuwe type van hoofdstuk toevoegen"
+
+#: includes/class-pb-taxonomy.php:118
+msgid "New Chapter Type Name"
+msgstr "Nieuwe naam voor type van hoofdstuk"
+
+#: includes/class-pb-taxonomy.php:119
+msgid "Separate chapter types with commas"
+msgstr "Types van hoofdstuk scheiden door komma's"
+
+#: includes/class-pb-taxonomy.php:120
+msgid "Add or remove chapter type"
+msgstr "Type van hoofdstuk toevoegen of verwijderen"
+
+#: includes/class-pb-taxonomy.php:121
+msgid "Choose from the most used chapter type"
+msgstr "Uit de meest gebruikte types van hoofdstuk kiezen"
+
+#: includes/class-pb-taxonomy.php:122
+msgid "Chapter Types"
+msgstr "Types van hoofdstuk"
 
 #: includes/modules/export/class-pb-export.php:215
 msgid "book"
@@ -1278,8 +1440,13 @@ msgid "Internal Link"
 msgstr ""
 
 #: includes/pb-image.php:295
-msgid "Your cover image should be 625px on the shortest side."
-msgstr "Uw omslagafbeelding moet 625px zijn aan de kortste zijde."
+msgid ""
+"Cover Image should be 1:1.5 aspect ratio. Recommended dimensions are 2500px "
+"× 3750px, maximum size is 2MB.<br />NOTE: This cover will be included in "
+"your ebook files but not your PDF export. Read more <a "
+"href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-"
+"cover/\">here</a>."
+msgstr ""
 
 #: includes/pb-image.php:335 templates/admin/export.php:144
 #: templates/admin/organize.php:87 templates/admin/organize.php:125
@@ -1894,168 +2061,6 @@ msgstr ""
 msgid "Passwords do not match."
 msgstr ""
 
-#: includes/pb-taxonomy.php:17
-msgctxt "taxonomy general name"
-msgid "Front Matter Types"
-msgstr "Types van voorwerk"
-
-#: includes/pb-taxonomy.php:18
-msgctxt "taxonomy singular name"
-msgid "Front Matter Type"
-msgstr "Type van voorwerk"
-
-#: includes/pb-taxonomy.php:19
-msgid "Search Front Matter Types"
-msgstr "Types van voorwerk zoeken"
-
-#: includes/pb-taxonomy.php:20
-msgid "Popular Front Matter Types"
-msgstr "Populaire types van voorwerk"
-
-#: includes/pb-taxonomy.php:21
-msgid "All Front Matter Types"
-msgstr "Alle types van voorwerk"
-
-#: includes/pb-taxonomy.php:24
-msgid "Edit Front Matter Type"
-msgstr "Types van voorwerk bewerken"
-
-#: includes/pb-taxonomy.php:25
-msgid "Update Front Matter Type"
-msgstr "Types van  voorwerk updaten"
-
-#: includes/pb-taxonomy.php:26
-msgid "Add New Front Matter Type"
-msgstr "Types van voorwerk teovoegen"
-
-#: includes/pb-taxonomy.php:27
-msgid "New Front Matter Type Name"
-msgstr "Nieuwe naam voor type van voorwerk"
-
-#: includes/pb-taxonomy.php:28
-msgid "Separate front matter types with commas"
-msgstr "Types van voorwerk scheiden door komma's"
-
-#: includes/pb-taxonomy.php:29
-msgid "Add or remove front matter type"
-msgstr "Type van voorwerk toevoegen of verwijderen"
-
-#: includes/pb-taxonomy.php:30
-msgid "Choose from the most used front matter type"
-msgstr "Uit de meest gebruikte types van voorwerk kiezen"
-
-#: includes/pb-taxonomy.php:31
-msgid "Front Matter Types"
-msgstr "Types van voorwerk"
-
-#: includes/pb-taxonomy.php:55
-msgctxt "taxonomy general name"
-msgid "Back Matter Types"
-msgstr "Types van nawerk"
-
-#: includes/pb-taxonomy.php:56
-msgctxt "taxonomy singular name"
-msgid "Back Matter Type"
-msgstr "Type van nawerk"
-
-#: includes/pb-taxonomy.php:57
-msgid "Search Back Matter Types"
-msgstr "Types van nawerk zoeken"
-
-#: includes/pb-taxonomy.php:58
-msgid "Popular Back Matter Types"
-msgstr "Populaire types van nawerk"
-
-#: includes/pb-taxonomy.php:59
-msgid "All Back Matter Types"
-msgstr "Alle types van nawerk"
-
-#: includes/pb-taxonomy.php:62
-msgid "Edit Back Matter Type"
-msgstr "Types van nawerk bewerken"
-
-#: includes/pb-taxonomy.php:63
-msgid "Update Back Matter Type"
-msgstr "Types van nawerk updaten"
-
-#: includes/pb-taxonomy.php:64
-msgid "Add New Back Matter Type"
-msgstr "Nieuwe types van nawerk toevoegen"
-
-#: includes/pb-taxonomy.php:65
-msgid "New Back Matter Type Name"
-msgstr "Nieuwe naam voor type van nawerk"
-
-#: includes/pb-taxonomy.php:66
-msgid "Separate back matter types with commas"
-msgstr "Types van nawerk scheiden door komma's"
-
-#: includes/pb-taxonomy.php:67
-msgid "Add or remove back matter type"
-msgstr "Type van nawerk toevoegen of verwijderen"
-
-#: includes/pb-taxonomy.php:68
-msgid "Choose from the most used back matter type"
-msgstr "Uit de meest gebruikte types van nawerk kiezen"
-
-#: includes/pb-taxonomy.php:69
-msgid "Back Matter Types"
-msgstr "Types van nawerk"
-
-#: includes/pb-taxonomy.php:97
-msgctxt "taxonomy general name"
-msgid "Chapter Types"
-msgstr "Types van hoofdstuk"
-
-#: includes/pb-taxonomy.php:98
-msgctxt "taxonomy singular name"
-msgid "Chapter Type"
-msgstr "Type van hoofdstuk"
-
-#: includes/pb-taxonomy.php:99
-msgid "Search Chapter Types"
-msgstr "Types van hoofdstuk zoeken"
-
-#: includes/pb-taxonomy.php:100
-msgid "Popular Chapter Types"
-msgstr "Populaire types van hoofdstuk"
-
-#: includes/pb-taxonomy.php:101
-msgid "All Chapter Types"
-msgstr "Alle types van hoofdstuk"
-
-#: includes/pb-taxonomy.php:104
-msgid "Edit Chapter Type"
-msgstr "Type van hoofdstuk bewerken"
-
-#: includes/pb-taxonomy.php:105
-msgid "Update Chapter Type"
-msgstr "Type van hoofdstuk updaten"
-
-#: includes/pb-taxonomy.php:106
-msgid "Add New Chapter Type"
-msgstr "Nieuwe type van hoofdstuk toevoegen"
-
-#: includes/pb-taxonomy.php:107
-msgid "New Chapter Type Name"
-msgstr "Nieuwe naam voor type van hoofdstuk"
-
-#: includes/pb-taxonomy.php:108
-msgid "Separate chapter types with commas"
-msgstr "Types van hoofdstuk scheiden door komma's"
-
-#: includes/pb-taxonomy.php:109
-msgid "Add or remove chapter type"
-msgstr "Type van hoofdstuk toevoegen of verwijderen"
-
-#: includes/pb-taxonomy.php:110
-msgid "Choose from the most used chapter type"
-msgstr "Uit de meest gebruikte types van hoofdstuk kiezen"
-
-#: includes/pb-taxonomy.php:111 themes-book/pressbooks-book/functions.php:386
-msgid "Chapter Types"
-msgstr "Types van hoofdstuk"
-
 #: includes/shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
 msgstr "Voetnoot invoegen"
@@ -2156,6 +2161,10 @@ msgid "Tags Name"
 msgstr "Naam van tags"
 
 #: templates/admin/catalog.php:113
+msgid "Sidebar Color"
+msgstr ""
+
+#: templates/admin/catalog.php:116
 msgid "Logo Or Image"
 msgstr "Logo of afbeelding"
 
@@ -2565,21 +2574,21 @@ msgstr ""
 msgid "Admin"
 msgstr ""
 
-#: templates/pb-catalog.php:214
+#: templates/pb-catalog.php:218
 msgid "Catalog"
 msgstr ""
 
-#: templates/pb-catalog.php:214
+#: templates/pb-catalog.php:218
 msgid "filtering by"
 msgstr ""
 
-#: templates/pb-catalog.php:239
+#: templates/pb-catalog.php:243
 msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a class"
 "=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr ""
 
-#: templates/pb-catalog.php:243
+#: templates/pb-catalog.php:247
 msgid "Pressbooks: the CMS for Books."
 msgstr ""
 
@@ -2654,534 +2663,563 @@ msgstr ""
 msgid "Keywords/Tags"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:127
+#: themes-book/pressbooks-book/functions.php:120
 msgid "Previous"
 msgstr "Vorige"
 
-#: themes-book/pressbooks-book/functions.php:131
+#: themes-book/pressbooks-book/functions.php:124
 msgid "Next"
 msgstr "Volgende"
 
-#: themes-book/pressbooks-book/functions.php:147
+#: themes-book/pressbooks-book/functions.php:140
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can <a href=\""
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:174
+#: themes-book/pressbooks-book/functions.php:167
 #, php-format
 msgid "%s on"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:174
+#: themes-book/pressbooks-book/functions.php:167
 #, php-format
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:174
-#: themes-book/pressbooks-book/functions.php:194
+#: themes-book/pressbooks-book/functions.php:167
+#: themes-book/pressbooks-book/functions.php:187
 msgid "(Edit)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:177
+#: themes-book/pressbooks-book/functions.php:170
 msgid "Your comment is awaiting moderation."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:194
+#: themes-book/pressbooks-book/functions.php:187
 msgid "Pingback:"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:368
+#: themes-book/pressbooks-book/functions.php:361
 msgid "Global Options"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:375
+#: themes-book/pressbooks-book/functions.php:368
 msgid "Chapter Numbers"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:380
+#: themes-book/pressbooks-book/functions.php:373
 msgid "Display chapter numbers"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:391
-msgid "Enable chapter types taxonomy"
+#: themes-book/pressbooks-book/functions.php:379
+msgid "Two-Level TOC"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:384
+msgid ""
+"Enable two-level table of contents (displays headings under chapter titles)"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:392
+msgid "Language Support"
 msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:397
-msgid "Parse Sections"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:402
-msgid "Enable a two-level TOC"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:413
-msgid "Display the copyright license"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:433
-msgid "Global Typography"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:438
 msgid "Include fonts to support the following languages:"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:456
+#: themes-book/pressbooks-book/functions.php:416
+msgid "Display the selected copyright license"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:432
 msgid "These options apply universally to webbook, PDF and ebook exports."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:496
-msgid "Enable chapter types taxonomy."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:554
+#: themes-book/pressbooks-book/functions.php:503
 msgid "and"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:563
+#: themes-book/pressbooks-book/functions.php:512
 msgid "Select languages&hellip;"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:571
+#: themes-book/pressbooks-book/functions.php:520
 #, php-format
 msgid "This theme includes built-in support for %s."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:632
+#: themes-book/pressbooks-book/functions.php:576
 msgid "Web Options"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:639
-msgid "Collapsable TOC"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:644
-msgid "Make webbook TOC collapsable"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:650
-#: themes-book/pressbooks-book/functions.php:891
-#: themes-book/pressbooks-book/functions.php:1277
-msgid "Increase Font Size"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:655
-msgid ""
-"Add an option for the user to increase font size for greater accessibility"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:661
+#: themes-book/pressbooks-book/functions.php:583
 msgid "Enable Social Media"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:666
+#: themes-book/pressbooks-book/functions.php:588
 msgid ""
 "Add buttons to cover page and each chapter so that readers may share links "
-"to your book through social media: Facebook, Twitter, Google+."
+"to your book through social media: Facebook, Twitter, Google+"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:678
+#: themes-book/pressbooks-book/functions.php:600
 msgid "These options apply to the webbook."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:777
+#: themes-book/pressbooks-book/functions.php:661
 msgid "PDF Options"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:784
-#: themes-book/pressbooks-book/functions.php:1137
-msgid "Page Size"
+#: themes-book/pressbooks-book/functions.php:669
+msgid "Body Font Size"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:789
+#: themes-book/pressbooks-book/functions.php:674
+msgid ""
+"Heading sizes are proportional to the body font size and will also be "
+"affected by this setting."
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:680
+msgid "Body Line Height"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:689
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:790
+#: themes-book/pressbooks-book/functions.php:690
 msgid "US Trade (6&quot; &times; 9&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:791
+#: themes-book/pressbooks-book/functions.php:691
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:792
+#: themes-book/pressbooks-book/functions.php:692
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:793
+#: themes-book/pressbooks-book/functions.php:693
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:794
+#: themes-book/pressbooks-book/functions.php:694
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:795
+#: themes-book/pressbooks-book/functions.php:695
 msgid "A4 (21cm &times; 29.7cm)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:796
+#: themes-book/pressbooks-book/functions.php:696
 msgid "A5 (14.8cm &times; 21cm)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:797
+#: themes-book/pressbooks-book/functions.php:697
 msgid "5&quot; &times; 8&quot;"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:802
-msgid "Crop Marks"
+#: themes-book/pressbooks-book/functions.php:698
+msgid "Custom…"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:807
-msgid "Display crop marks"
+#: themes-book/pressbooks-book/functions.php:703
+#: themes-book/pressbooks-book/functions.php:1225
+msgid "Page Size"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:812
-#: themes-book/pressbooks-book/functions.php:1266
+#: themes-book/pressbooks-book/functions.php:712
+msgid "Page Width"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:717
+msgid ""
+"Page width must be expressed in CSS-compatible units, e.g. "
+"&lsquo;5.5in&rsquo;."
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:723
+msgid "Page Height"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:728
+msgid ""
+"Page height must be expressed in CSS-compatible units, e.g. "
+"&lsquo;8.5in&rsquo;."
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:734
+#: themes-book/pressbooks-book/functions.php:1354
 msgid "Hyphens"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:817
-#: themes-book/pressbooks-book/functions.php:1271
+#: themes-book/pressbooks-book/functions.php:739
+#: themes-book/pressbooks-book/functions.php:1359
 msgid "Enable hyphenation"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:822
-#: themes-book/pressbooks-book/functions.php:1468
+#: themes-book/pressbooks-book/functions.php:745
+#: themes-book/pressbooks-book/functions.php:1556
 msgid "Paragraph Separation"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:827
-#: themes-book/pressbooks-book/functions.php:1255
-#: themes-book/pressbooks-book/functions.php:1260
-#: themes-book/pressbooks-book/functions.php:1473
+#: themes-book/pressbooks-book/functions.php:750
+#: themes-book/pressbooks-book/functions.php:1343
+#: themes-book/pressbooks-book/functions.php:1348
+#: themes-book/pressbooks-book/functions.php:1561
 msgid "Indent paragraphs"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:828
-#: themes-book/pressbooks-book/functions.php:1474
+#: themes-book/pressbooks-book/functions.php:751
+#: themes-book/pressbooks-book/functions.php:1562
 msgid "Skip lines between paragraphs"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:833
+#: themes-book/pressbooks-book/functions.php:757
 msgid "Blank Pages"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:838
+#: themes-book/pressbooks-book/functions.php:762
 msgid "Include blank pages (for print PDF)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:839
+#: themes-book/pressbooks-book/functions.php:763
 msgid "Remove all blank pages (for web PDF)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:849
-#: themes-book/pressbooks-book/functions.php:1249
+#: themes-book/pressbooks-book/functions.php:774
+#: themes-book/pressbooks-book/functions.php:1337
 msgid "Display table of contents"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:855
+#: themes-book/pressbooks-book/functions.php:780
+msgid "Image resolution"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:785
+msgid "High (300 DPI)"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:786
+msgid "Low (72 DPI)"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:792
+msgid "Crop Marks"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:797
+msgid "Display crop marks"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:804
 msgid "Romanize Part Numbers"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:860
+#: themes-book/pressbooks-book/functions.php:809
 msgid "Convert part numbers into Roman numerals"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:866
+#: themes-book/pressbooks-book/functions.php:816
 msgid "Footnotes Style"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:871
+#: themes-book/pressbooks-book/functions.php:821
 msgid "Regular footnotes"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:872
-msgid "Force as endnotes"
+#: themes-book/pressbooks-book/functions.php:822
+msgid "Display as chapter endnotes"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:877
+#: themes-book/pressbooks-book/functions.php:827
 msgid "Widows"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:884
+#: themes-book/pressbooks-book/functions.php:834
 msgid "Orphans"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:896
-#: themes-book/pressbooks-book/functions.php:1282
+#: themes-book/pressbooks-book/functions.php:843
+#: themes-book/pressbooks-book/functions.php:1365
+msgid "Increase Font Size"
+msgstr ""
+
+#: themes-book/pressbooks-book/functions.php:848
+#: themes-book/pressbooks-book/functions.php:1370
 msgid "Increases font size and line height for greater accessibility"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:910
+#: themes-book/pressbooks-book/functions.php:864
 msgid "These options apply to PDF exports."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1130
+#: themes-book/pressbooks-book/functions.php:1218
 msgid "mPDF Options"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1142
+#: themes-book/pressbooks-book/functions.php:1230
 msgid "A0"
 msgstr "A0"
 
-#: themes-book/pressbooks-book/functions.php:1143
+#: themes-book/pressbooks-book/functions.php:1231
 msgid "A1"
 msgstr "A1"
 
-#: themes-book/pressbooks-book/functions.php:1144
+#: themes-book/pressbooks-book/functions.php:1232
 msgid "A2"
 msgstr "A2"
 
-#: themes-book/pressbooks-book/functions.php:1145
+#: themes-book/pressbooks-book/functions.php:1233
 msgid "A3"
 msgstr "A3"
 
-#: themes-book/pressbooks-book/functions.php:1146
+#: themes-book/pressbooks-book/functions.php:1234
 msgid "A4"
 msgstr "A4"
 
-#: themes-book/pressbooks-book/functions.php:1147
+#: themes-book/pressbooks-book/functions.php:1235
 msgid "A5"
 msgstr "A5"
 
-#: themes-book/pressbooks-book/functions.php:1148
+#: themes-book/pressbooks-book/functions.php:1236
 msgid "A6"
 msgstr "A6"
 
-#: themes-book/pressbooks-book/functions.php:1149
+#: themes-book/pressbooks-book/functions.php:1237
 msgid "A7"
 msgstr "A7"
 
-#: themes-book/pressbooks-book/functions.php:1150
+#: themes-book/pressbooks-book/functions.php:1238
 msgid "A8"
 msgstr "A8"
 
-#: themes-book/pressbooks-book/functions.php:1151
+#: themes-book/pressbooks-book/functions.php:1239
 msgid "A9"
 msgstr "A9"
 
-#: themes-book/pressbooks-book/functions.php:1152
+#: themes-book/pressbooks-book/functions.php:1240
 msgid "A10"
 msgstr "A10"
 
-#: themes-book/pressbooks-book/functions.php:1153
+#: themes-book/pressbooks-book/functions.php:1241
 msgid "B0"
 msgstr "B0"
 
-#: themes-book/pressbooks-book/functions.php:1154
+#: themes-book/pressbooks-book/functions.php:1242
 msgid "B1"
 msgstr "B1"
 
-#: themes-book/pressbooks-book/functions.php:1155
+#: themes-book/pressbooks-book/functions.php:1243
 msgid "B2"
 msgstr "B2"
 
-#: themes-book/pressbooks-book/functions.php:1156
+#: themes-book/pressbooks-book/functions.php:1244
 msgid "B3"
 msgstr "B3"
 
-#: themes-book/pressbooks-book/functions.php:1157
+#: themes-book/pressbooks-book/functions.php:1245
 msgid "B4"
 msgstr "B4"
 
-#: themes-book/pressbooks-book/functions.php:1158
+#: themes-book/pressbooks-book/functions.php:1246
 msgid "B5"
 msgstr "B5"
 
-#: themes-book/pressbooks-book/functions.php:1159
+#: themes-book/pressbooks-book/functions.php:1247
 msgid "B6"
 msgstr "B6"
 
-#: themes-book/pressbooks-book/functions.php:1160
+#: themes-book/pressbooks-book/functions.php:1248
 msgid "B7"
 msgstr "B7"
 
-#: themes-book/pressbooks-book/functions.php:1161
+#: themes-book/pressbooks-book/functions.php:1249
 msgid "B8"
 msgstr "B8"
 
-#: themes-book/pressbooks-book/functions.php:1162
+#: themes-book/pressbooks-book/functions.php:1250
 msgid "B9"
 msgstr "B9"
 
-#: themes-book/pressbooks-book/functions.php:1163
+#: themes-book/pressbooks-book/functions.php:1251
 msgid "B10"
 msgstr "B10"
 
-#: themes-book/pressbooks-book/functions.php:1164
+#: themes-book/pressbooks-book/functions.php:1252
 msgid "C0"
 msgstr "C0"
 
-#: themes-book/pressbooks-book/functions.php:1165
+#: themes-book/pressbooks-book/functions.php:1253
 msgid "C1"
 msgstr "C1"
 
-#: themes-book/pressbooks-book/functions.php:1166
+#: themes-book/pressbooks-book/functions.php:1254
 msgid "C2"
 msgstr "C2"
 
-#: themes-book/pressbooks-book/functions.php:1167
+#: themes-book/pressbooks-book/functions.php:1255
 msgid "C3"
 msgstr "C3"
 
-#: themes-book/pressbooks-book/functions.php:1168
+#: themes-book/pressbooks-book/functions.php:1256
 msgid "C4"
 msgstr "C4"
 
-#: themes-book/pressbooks-book/functions.php:1169
+#: themes-book/pressbooks-book/functions.php:1257
 msgid "C5"
 msgstr "C5"
 
-#: themes-book/pressbooks-book/functions.php:1170
+#: themes-book/pressbooks-book/functions.php:1258
 msgid "C6"
 msgstr "C6"
 
-#: themes-book/pressbooks-book/functions.php:1171
+#: themes-book/pressbooks-book/functions.php:1259
 msgid "C7"
 msgstr "C7"
 
-#: themes-book/pressbooks-book/functions.php:1172
+#: themes-book/pressbooks-book/functions.php:1260
 msgid "C8"
 msgstr "C8"
 
-#: themes-book/pressbooks-book/functions.php:1173
+#: themes-book/pressbooks-book/functions.php:1261
 msgid "C9"
 msgstr "C9"
 
-#: themes-book/pressbooks-book/functions.php:1174
+#: themes-book/pressbooks-book/functions.php:1262
 msgid "C10"
 msgstr "C10"
 
-#: themes-book/pressbooks-book/functions.php:1175
+#: themes-book/pressbooks-book/functions.php:1263
 msgid "4A0"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1176
+#: themes-book/pressbooks-book/functions.php:1264
 msgid "2A0"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1177
+#: themes-book/pressbooks-book/functions.php:1265
 msgid "RA0"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1178
+#: themes-book/pressbooks-book/functions.php:1266
 msgid "RA1"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1179
+#: themes-book/pressbooks-book/functions.php:1267
 msgid "RA2"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1180
+#: themes-book/pressbooks-book/functions.php:1268
 msgid "RA3"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1181
+#: themes-book/pressbooks-book/functions.php:1269
 msgid "RA4"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1182
+#: themes-book/pressbooks-book/functions.php:1270
 msgid "SRA0"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1183
+#: themes-book/pressbooks-book/functions.php:1271
 msgid "SRA1"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1184
+#: themes-book/pressbooks-book/functions.php:1272
 msgid "SRA2"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1185
+#: themes-book/pressbooks-book/functions.php:1273
 msgid "SRA3"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1186
+#: themes-book/pressbooks-book/functions.php:1274
 msgid "SRA4"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1187
+#: themes-book/pressbooks-book/functions.php:1275
 msgid "Letter"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1188
+#: themes-book/pressbooks-book/functions.php:1276
 msgid "Legal"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1189
+#: themes-book/pressbooks-book/functions.php:1277
 msgid "Executive"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1190
+#: themes-book/pressbooks-book/functions.php:1278
 msgid "Folio"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1191
+#: themes-book/pressbooks-book/functions.php:1279
 msgid "Demy"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1192
+#: themes-book/pressbooks-book/functions.php:1280
 msgid "Royal"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1193
+#: themes-book/pressbooks-book/functions.php:1281
 msgid "Type A paperback 111x178mm"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1194
+#: themes-book/pressbooks-book/functions.php:1282
 msgid "Type B paperback 128x198mm"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1200
+#: themes-book/pressbooks-book/functions.php:1288
 msgid "Left margin"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1205
+#: themes-book/pressbooks-book/functions.php:1293
 msgid " Left Margin (in milimeters)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1211
+#: themes-book/pressbooks-book/functions.php:1299
 msgid "Right margin"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1216
+#: themes-book/pressbooks-book/functions.php:1304
 msgid " Right margin (in milimeters)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1222
+#: themes-book/pressbooks-book/functions.php:1310
 msgid "Mirror Margins"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1227
+#: themes-book/pressbooks-book/functions.php:1315
 msgid ""
 "The document will mirror the left and right margin values on odd and even "
 "pages (i.e. they become inner and outer margins)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1238
+#: themes-book/pressbooks-book/functions.php:1326
 msgid "Display cover image"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1297
+#: themes-book/pressbooks-book/functions.php:1385
 msgid "These options apply to mPDF exports."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1461
+#: themes-book/pressbooks-book/functions.php:1549
 msgid "Ebook Options"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1480
+#: themes-book/pressbooks-book/functions.php:1568
 msgid "Compress images"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1485
+#: themes-book/pressbooks-book/functions.php:1573
 msgid "Reduce image size and quality"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:1500
+#: themes-book/pressbooks-book/functions.php:1588
 msgid "These options apply to ebook exports."
 msgstr ""
 
