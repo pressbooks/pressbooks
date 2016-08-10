@@ -1,0 +1,120 @@
+@import 'partials/colors';
+
+$height: 17em;
+$width: 11em;
+$top: 1.58em;
+$bottom: 1.58em;
+$outside: 1.58em;
+$inside: 1.58em;
+
+.margin-diagram {
+  .pages {
+    margin-top: 1em;
+    clear: both;
+  }
+
+  .page {
+    position: relative;
+    display: inline-block;
+    width: $width;
+    height: $height;
+    background: $white;
+    border: solid 1px $black;
+
+    .margin {
+      position: absolute;
+
+      &.outside {
+        top: $top;
+        width: $outside;
+        height: $height - ($top + $bottom);
+        background: $red;
+      }
+
+      &.inside {
+        top: $top;
+        width: $inside;
+        height: $height - ($top + $bottom);
+        background: $orange;
+      }
+
+      &.top {
+        width: $width - ($inside + $outside);
+        height: $top;
+        background: $green;
+      }
+
+      &.bottom {
+        width: $width - ($inside + $outside);
+        height: $bottom;
+        background: $blue;
+      }
+
+      &.top {
+        top: 0;
+      }
+
+      &.bottom {
+        bottom: 0;
+      }
+    }
+
+    &.left {
+      .margin.outside {
+        left: 0;
+      }
+
+      .margin.inside {
+        right: 0;
+      }
+
+      .margin.top,
+      .margin.bottom {
+        left: $outside;
+      }
+    }
+
+    &.right {
+      .margin.inside {
+        left: 0;
+      }
+
+      .margin.outside {
+        right: 0;
+      }
+
+      .margin.top,
+      .margin.bottom {
+        left: $inside;
+      }
+    }
+  }
+
+  .legend {
+    .color {
+      display: inline-block;
+      width: .8em;
+      height: .8em;
+    }
+
+    .outside .color {
+      background: $red;
+    }
+
+    .inside .color {
+      background: $orange;
+    }
+
+    .top .color {
+      background: $green;
+    }
+
+    .bottom .color {
+      background: $blue;
+    }
+  }
+}
+
+input#running_content_left {
+  margin-top: .5em;
+}

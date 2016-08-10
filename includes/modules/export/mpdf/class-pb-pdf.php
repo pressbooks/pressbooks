@@ -630,7 +630,7 @@ class Pdf extends Export {
 								$chapter['mpdf_level'] = $part['mpdf_level'] + 1;
 								$ordered[] = $chapter;
 
-								if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+								if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 									$sections = \Pressbooks\Book::getSubsections( $chapter['ID'] );
 									if ( $sections ) {
 										foreach ( $sections as $section ) {
@@ -652,7 +652,7 @@ class Pdf extends Export {
 						$item['mpdf_level'] = 1;
 						$ordered[] = $item;
 
-						if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+						if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 							$sections = \Pressbooks\Book::getSubsections( $item['ID'] );
 							if ( $sections ) {
 								foreach ( $sections as $section ) {

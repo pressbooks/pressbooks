@@ -69,7 +69,7 @@ function replace_book_admin_menu() {
 	remove_menu_page( "edit.php?post_type=metadata" );
 	remove_menu_page( "link-manager.php" );
 	remove_menu_page( "edit.php?post_type=page" );
-	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', 'pressbooks_theme_options_display' );
+	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'display' ) ); // TODO
 
 
 	remove_submenu_page( "tools.php", "tools.php" );
@@ -525,6 +525,7 @@ function init_css_js() {
 
 	if ( 'pressbooks_theme_options'  == esc_attr( @$_REQUEST['page'] ) ) {
 		wp_enqueue_style( 'select2', \Pressbooks\Utility\asset_path( 'styles/select2.css' ) );
+		wp_enqueue_style( 'theme-options', \Pressbooks\Utility\asset_path( 'styles/theme-options.css' ) );
 		wp_enqueue_script( 'select2-js', \Pressbooks\Utility\asset_path( 'scripts/select2.js' ), [ 'jquery' ] );
 		wp_enqueue_script( 'theme-options-js', \Pressbooks\Utility\asset_path( 'scripts/theme-options.js' ), [ 'jquery' ] );
 	}
