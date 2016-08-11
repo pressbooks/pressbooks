@@ -105,6 +105,9 @@ class Pdf extends Export {
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
+		if ( WP_ENV == 'development' ) {
+			$prince->setInsecure( true );
+		}
 		$prince->addStyleSheet( $css_file );
 		if ( $this->exportScriptPath ) {
 			$prince->addScript( $this->exportScriptPath );
