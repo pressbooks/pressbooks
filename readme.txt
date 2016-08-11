@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.6.0
+Version: 3.6.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.5.3
 Tested up to: 4.5.3
-Stable tag: 3.6.0
+Stable tag: 3.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.5.2. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ * Pressbooks works with PHP 5.6.x and WordPress 4.5.3. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
 
 	$pb_minimum_php = '5.4';
 
@@ -200,7 +200,11 @@ Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of 
 
 == Changelog ==
 
-= 3.6 =
+= 3.6.1 =
+* **Fix:** An issue where footnotes would not display in endnote mode has been resolved.
+* **Fix:** An SCSS error in Luther has been resolved (props to @bearkrust for the bug report).
+
+= 3.6.0 =
 * Requires WordPress 4.5.3.
 * **Feature:** Structural SCSS and supports are in place for the new book theme model (see http://pressbooks.org/core/2016/05/16/rethinking-book-themes/).
 * **Feature:** Clarke 2.0 has been rebuilt on the new book theme model (see https://pressbooks.com/themes/clarke).
