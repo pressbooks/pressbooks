@@ -575,7 +575,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 	line-height: 1.2em;
 }
 #toc .part a::before {
-	content: $part" "counter(part, upper-roman) ". ";
+	content: $part " " counter(part, upper-roman) ". ";
 	counter-increment: part;
 }
 #toc .chapter a,
@@ -682,7 +682,7 @@ h3.part-number, h3.chapter-number {
 }
 
 h3.part-number::before {
-	content: $part" ";
+	content: $part " ";
 }
 h3.chapter-number {
 	margin-bottom: 3em;
