@@ -239,27 +239,38 @@ function load_css_from() {
 
 		// TODO: SCSS is optional, what if the user wants to copy from an old theme that has not yet been covnerted? This file won't exist?
 
-		if ( 'web' == $slug ) {
-			$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.scss' );
-			$uri_to_style = $theme->get_stylesheet_directory_uri();
-		} else {
-			$path_to_style = realpath( $theme->get_stylesheet_directory() . "/export/$slug/style.scss" );
-			$uri_to_style = false; // We don't want a URI for EPUB or Prince exports
-		}
+		$sass = Container::get( 'Sass' );
 
+		if ( $sass->isCurrentThemeCompatible( 1, $theme ) ) {
+			if ( 'web' == $slug ) {
+				$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.scss' );
+				$uri_to_style = $theme->get_stylesheet_directory_uri();
+			} else {
+				$path_to_style = realpath( $theme->get_stylesheet_directory() . "/export/$slug/style.scss" );
+				$uri_to_style = false; // We don't want a URI for EPUB or Prince exports
+			}
+		} elseif ( $sass->isCurrentThemeCompatible( 2, $theme ) ) {
+			$path_to_style = realpath( $theme->get_stylesheet_directory() . "/assets/styles/$slug/style.scss" );
+			$uri_to_style = false; // We don't want a URI for EPUB or Prince exports
+			if ( 'web' == $slug ) {
+				$uri_to_style = $theme->get_stylesheet_directory_uri();
+			}
+		}
 
 		if ( $path_to_style ) {
 
 			$scss = file_get_contents( $path_to_style );
 
-			$sass = Container::get( 'Sass' );
-
-			$includes = [
-					$sass->pathToUserGeneratedSass(),
-					$sass->pathToPartials(),
-					$sass->pathToFonts(),
-					$theme->get_stylesheet_directory(),
-			];
+			if ( $sass->isCurrentThemeCompatible( 1, $theme ) ) {
+				$includes = [
+						$sass->pathToUserGeneratedSass(),
+						$sass->pathToPartials(),
+						$sass->pathToFonts(),
+						$theme->get_stylesheet_directory(),
+				];
+			} elseif ( $sass->isCurrentThemeCompatible( 2, $theme ) ) {
+				$includes = $sass->defaultIncludePaths( $slug, $theme );
+			}
 
 			$css = $sass->compile( $scss, $includes );
 
@@ -304,7 +315,7 @@ function fix_url_paths( $css, $style_uri ) {
 		if ( preg_match( '#^https?://#i', $url ) ) {
 			return $matches[0]; // No change
 		}
-		
+
 		if ( $style_uri ) {
 			return "url($style_uri/$url)";
 		} else {

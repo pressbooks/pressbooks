@@ -23,13 +23,16 @@ class Sass {
 	 *
 	 * @param string $type
 	 */
-	function defaultIncludePaths( $type ) {
+	function defaultIncludePaths( $type, $theme = null ) {
+		if ( $theme == null ) {
+			$theme = wp_get_theme();
+		}
 
 		return [
 			$this->pathToUserGeneratedSass(),
 			$this->pathToGlobals(),
 			$this->pathToFonts(),
-			get_stylesheet_directory() . "/assets/styles/$type/",
+			$theme->get_stylesheet_directory() . "/assets/styles/$type/",
 		];
 
 	}
@@ -283,7 +286,10 @@ class Sass {
 	 *
 	 * @return bool
 	 */
-	function isCurrentThemeCompatible( $version = 1 ) {
+	function isCurrentThemeCompatible( $version = 1, $theme = null ) {
+		if ( $theme == null ) {
+			$theme = wp_get_theme();
+		}
 
 		$types = array(
 				'prince',
@@ -293,13 +299,13 @@ class Sass {
 
 		foreach ( $types as $type ) {
 			if ( $version == 1 && $type !== 'web' ) {
-				$path = get_stylesheet_directory() . "/export/$type/style.scss";
+				$path = $theme->get_stylesheet_directory() . "/export/$type/style.scss";
 			} elseif ( $version == 1 && $type == 'web' ) {
-				$path = get_stylesheet_directory() . "/style.scss";
+				$path = $theme->get_stylesheet_directory() . "/style.scss";
 			}
 
 			if ( $version == 2 ) {
-				$path = get_stylesheet_directory() . "/assets/styles/$type/style.scss";
+				$path = $theme->get_stylesheet_directory() . "/assets/styles/$type/style.scss";
 			}
 
 			$fullpath = realpath( $path );

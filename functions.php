@@ -98,7 +98,7 @@ function pb_is_custom_theme() {
 }
 
 /**
- * Shortcut to \Pressbooks\Modules\Export::isScss();
+ * Shortcut to \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( $version );
  *
  * @return bool
  */
