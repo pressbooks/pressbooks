@@ -95,7 +95,8 @@ abstract class Options {
 		}
 
 		foreach ( $this->booleans as $key ) {
-			if ( ! isset( $input[ $key ] ) || $input[ $key ] !== 1 ) {
+			error_log( $input[$key] );
+			if ( ! isset( $input[ $key ] ) || $input[ $key ] != 1 ) {
 				$options[$key] = 0;
 			} else {
 				$options[$key] = 1;
