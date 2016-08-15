@@ -287,6 +287,9 @@ function pressbooks_copyright_license() {
 }
 
 function replace_running_content_tags( $input ) {
+	$input = '"' . $input . '"';
+	error_log( $input );
+
 	return str_replace(
 		array(
 			'%book_title%',
@@ -300,14 +303,14 @@ function replace_running_content_tags( $input ) {
 			'%blank%'
 		),
 		array(
-			'string(book-title)',
-			'string(book-subtitle)',
-			'string(book-author)',
-			'string(part-number)',
-			'string(part-title)',
-			'string(section-title)',
-			'string(chapter-author)',
-			'string(chapter-subtitle)',
+			'" string(book-title) "',
+			'" string(book-subtitle) "',
+			'" string(book-author) "',
+			'" string(part-number) "',
+			'" string(part-title) "',
+			'" string(section-title) "',
+			'" string(chapter-author) "',
+			'" string(chapter-subtitle) "',
 			''
 		),
 		$input
