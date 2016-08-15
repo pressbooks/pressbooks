@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-08-09 17:00-0300\n"
-"PO-Revision-Date: 2016-08-09 20:02+0000\n"
+"POT-Creation-Date: 2016-08-15 13:33-0300\n"
+"PO-Revision-Date: 2016-08-15 16:34+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Galician (http://www.transifex.com/pressbooks/pressbooks/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -328,7 +328,8 @@ msgstr "Axuda"
 msgid "Contact"
 msgstr "Contacto"
 
-#: includes/admin/pb-laf.php:72 themes-book/pressbooks-book/functions.php:301
+#: includes/admin/pb-laf.php:72
+#: includes/modules/themeoptions/class-pb-themeoptions.php:53
 msgid "Theme Options"
 msgstr "Opcións de tema"
 
@@ -356,7 +357,7 @@ msgstr "Cómpre o formato EPUB para exportar a MOBI. Queres volver activalo?"
 msgid "Publish"
 msgstr ""
 
-#: includes/admin/pb-laf.php:169 includes/admin/pb-laf.php:727
+#: includes/admin/pb-laf.php:169 includes/admin/pb-laf.php:728
 msgid "Privacy Settings"
 msgstr "Axustes de privacidade"
 
@@ -364,7 +365,7 @@ msgstr "Axustes de privacidade"
 msgid "Privacy"
 msgstr "Privacidade"
 
-#: includes/admin/pb-laf.php:172 includes/admin/pb-laf.php:978
+#: includes/admin/pb-laf.php:172 includes/admin/pb-laf.php:979
 #: includes/admin/pb-metaboxes.php:459
 msgid "Export Settings"
 msgstr ""
@@ -402,88 +403,88 @@ msgstr "Visitar a rede"
 msgid "Visit Site"
 msgstr "Visitar sitio web"
 
-#: includes/admin/pb-laf.php:575
+#: includes/admin/pb-laf.php:576
 msgid "Unsupported post type."
 msgstr "Tipo de entrada non admitida."
 
-#: includes/admin/pb-laf.php:600
+#: includes/admin/pb-laf.php:601
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "Non tes suficientes permisos para acceder a este URL."
 
-#: includes/admin/pb-laf.php:622
+#: includes/admin/pb-laf.php:623
 msgid "Book Visibility"
 msgstr ""
 
-#: includes/admin/pb-laf.php:629
+#: includes/admin/pb-laf.php:630
 msgid "Private Content"
 msgstr ""
 
-#: includes/admin/pb-laf.php:651
+#: includes/admin/pb-laf.php:652
 msgid "Privacy settings"
 msgstr ""
 
-#: includes/admin/pb-laf.php:665
+#: includes/admin/pb-laf.php:666
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Público. Quero que este libro estea visible para todo o mundo."
 
-#: includes/admin/pb-laf.php:669
+#: includes/admin/pb-laf.php:670
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privado. Quero que este libro estea accesible só para aquelas persoas que convide."
 
-#: includes/admin/pb-laf.php:692
+#: includes/admin/pb-laf.php:693
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: includes/admin/pb-laf.php:695
+#: includes/admin/pb-laf.php:696
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: includes/admin/pb-laf.php:697
+#: includes/admin/pb-laf.php:698
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: includes/admin/pb-laf.php:755
+#: includes/admin/pb-laf.php:756
 msgid "Amazon URL"
 msgstr "URL de Amazon"
 
-#: includes/admin/pb-laf.php:762
+#: includes/admin/pb-laf.php:763
 msgid "O'Reilly URL"
 msgstr ""
 
-#: includes/admin/pb-laf.php:769
+#: includes/admin/pb-laf.php:770
 msgid "Barnes and Noble URL"
 msgstr "URL de Barnes and Noble"
 
-#: includes/admin/pb-laf.php:776
+#: includes/admin/pb-laf.php:777
 msgid "Kobo URL"
 msgstr "URL de Kobo"
 
-#: includes/admin/pb-laf.php:783
+#: includes/admin/pb-laf.php:784
 msgid "iBooks URL"
 msgstr "URL de iBooks"
 
-#: includes/admin/pb-laf.php:790
+#: includes/admin/pb-laf.php:791
 msgid "Other Service URL"
 msgstr "Outro servizo de URL"
 
-#: includes/admin/pb-laf.php:921
+#: includes/admin/pb-laf.php:922
 msgid "Email me validation error reports on export."
 msgstr "Enviar por correo electrónico os informes de erro ao validar a exportación."
 
-#: includes/admin/pb-laf.php:938
+#: includes/admin/pb-laf.php:939
 msgid "Export settings"
 msgstr ""
 
-#: includes/admin/pb-laf.php:952
+#: includes/admin/pb-laf.php:953
 msgid "No. Ignore validation errors."
 msgstr "Non. Ignorar os erros de validación."
 
-#: includes/admin/pb-laf.php:956
+#: includes/admin/pb-laf.php:957
 msgid "Yes. Send the logs."
 msgstr "Si. Enviarme os informes."
 
-#: includes/admin/pb-laf.php:957
+#: includes/admin/pb-laf.php:958
 msgid ""
 "Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and "
 "will require some effort to decipher. Unfortunately we cannot provide "
@@ -507,12 +508,12 @@ msgstr ""
 
 #: includes/admin/pb-metaboxes.php:118 includes/admin/pb-metaboxes.php:163
 #: includes/class-pb-metadata.php:627
-#: themes-book/pressbooks-book/functions.php:1321
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:172
 msgid "Cover Image"
 msgstr "Imaxe da portada"
 
 #: includes/admin/pb-metaboxes.php:154 includes/admin/pb-metaboxes.php:451
-#: includes/class-pb-sass.php:46 templates/admin/import.php:63
+#: includes/class-pb-sass.php:49 templates/admin/import.php:63
 #: templates/admin/organize.php:39
 msgid "Part"
 msgstr "Parte"
@@ -655,7 +656,7 @@ msgid "Name of the copyright holder."
 msgstr ""
 
 #: includes/admin/pb-metaboxes.php:283
-#: themes-book/pressbooks-book/functions.php:411
+#: includes/modules/themeoptions/class-pb-globaloptions.php:118
 msgid "Copyright License"
 msgstr ""
 
@@ -945,8 +946,8 @@ msgstr "Autores"
 
 #: includes/class-pb-activation.php:176
 #: includes/modules/export/epub/templates/epub3/toc.php:21
-#: themes-book/pressbooks-book/functions.php:769
-#: themes-book/pressbooks-book/functions.php:1332
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:183
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:236
 #: themes-book/pressbooks-book/index.php:12
 #: themes-book/pressbooks-book/page-cover-third-block.php:4
 #: themes-book/pressbooks-book/sidebar.php:16
@@ -1065,19 +1066,19 @@ msgstr ""
 msgid "except where otherwise noted."
 msgstr ""
 
-#: includes/class-pb-sass.php:45
+#: includes/class-pb-sass.php:48
 #: includes/modules/searchandreplace/types/class-pb-content.php:41
 #: templates/admin/import.php:61 templates/admin/organize.php:57
 msgid "Chapter"
 msgstr "Capítulo"
 
-#: includes/class-pb-sass.php:187
+#: includes/class-pb-sass.php:190
 #, php-format
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %s"
 msgstr ""
 
-#: includes/class-pb-sass.php:231
+#: includes/class-pb-sass.php:234
 msgid "SASS Error"
 msgstr ""
 
@@ -1243,11 +1244,11 @@ msgstr ""
 msgid "Chapter Types"
 msgstr ""
 
-#: includes/modules/export/class-pb-export.php:215
+#: includes/modules/export/class-pb-export.php:214
 msgid "book"
 msgstr ""
 
-#: includes/modules/export/class-pb-export.php:806
+#: includes/modules/export/class-pb-export.php:805
 msgid "File not found"
 msgstr "Ficheiro non atopado"
 
@@ -1272,7 +1273,7 @@ msgstr "Contidos"
 msgid "ISBN"
 msgstr ""
 
-#: includes/modules/export/prince/class-pb-pdf.php:250
+#: includes/modules/export/prince/class-pb-pdf.php:253
 msgid ""
 "This book was produced using Pressbooks.com, and PDF rendering was done by "
 "PrinceXML."
@@ -1371,6 +1372,757 @@ msgstr ""
 #: includes/modules/searchandreplace/types/class-pb-part.php:48
 #, php-format
 msgid "Part ID #%d: %s"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-ebookoptions.php:73
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:212
+msgid "Paragraph Separation"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-ebookoptions.php:78
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:194
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:199
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:217
+msgid "Indent paragraphs"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-ebookoptions.php:79
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:218
+msgid "Skip lines between paragraphs"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-ebookoptions.php:85
+msgid "Compress Images"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-ebookoptions.php:90
+msgid "Reduce image size and quality"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-ebookoptions.php:105
+msgid "These options apply to ebook exports."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-ebookoptions.php:166
+#: includes/modules/themeoptions/class-pb-themeoptions.php:87
+msgid "Ebook Options"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:75
+msgid "Chapter Numbers"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:80
+msgid "Display chapter numbers"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:86
+msgid "Two-Level TOC"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:91
+msgid ""
+"Enable two-level table of contents (displays headings under chapter titles)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:99
+msgid "Language Support"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:104
+msgid "Include fonts to support the following languages:"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:123
+msgid "Display the selected copyright license"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:138
+msgid "These options apply universally to webbook, PDF and ebook exports."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:227
+msgid "and"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:236
+msgid "Select languages&hellip;"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:244
+#, php-format
+msgid "This theme includes built-in support for %s."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-globaloptions.php:273
+#: includes/modules/themeoptions/class-pb-themeoptions.php:83
+msgid "Global Options"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:76
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:102
+msgid "Page Size"
+msgstr "Tamaño da páxina"
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:81
+msgid "A0"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:82
+msgid "A1"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:83
+msgid "A2"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:84
+msgid "A3"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:85
+msgid "A4"
+msgstr "A4"
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:86
+msgid "A5"
+msgstr "A5"
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:87
+msgid "A6"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:88
+msgid "A7"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:89
+msgid "A8"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:90
+msgid "A9"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:91
+msgid "A10"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:92
+msgid "B0"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:93
+msgid "B1"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:94
+msgid "B2"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:95
+msgid "B3"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:96
+msgid "B4"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:97
+msgid "B5"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:98
+msgid "B6"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:99
+msgid "B7"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:100
+msgid "B8"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:101
+msgid "B9"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:102
+msgid "B10"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:103
+msgid "C0"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:104
+msgid "C1"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:105
+msgid "C2"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:106
+msgid "C3"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:107
+msgid "C4"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:108
+msgid "C5"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:109
+msgid "C6"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:110
+msgid "C7"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:111
+msgid "C8"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:112
+msgid "C9"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:113
+msgid "C10"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:114
+msgid "4A0"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:115
+msgid "2A0"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:116
+msgid "RA0"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:117
+msgid "RA1"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:118
+msgid "RA2"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:119
+msgid "RA3"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:120
+msgid "RA4"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:121
+msgid "SRA0"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:122
+msgid "SRA1"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:123
+msgid "SRA2"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:124
+msgid "SRA3"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:125
+msgid "SRA4"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:126
+msgid "Letter"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:127
+msgid "Legal"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:128
+msgid "Executive"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:129
+msgid "Folio"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:130
+msgid "Demy"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:131
+msgid "Royal"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:132
+msgid "Type A paperback 111x178mm"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:133
+msgid "Type B paperback 128x198mm"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:139
+msgid "Left margin"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:144
+msgid "Left Margin (in millimetres)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:150
+msgid "Right margin"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:155
+msgid " Right margin (in milimeters)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:161
+msgid "Mirror Margins"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:166
+msgid ""
+"The document will mirror the left and right margin values on odd and even "
+"pages (i.e. they become inner and outer margins)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:177
+msgid "Display cover image"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:188
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:241
+msgid "Display table of contents"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:205
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:201
+msgid "Hyphens"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:210
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:206
+msgid "Enable hyphenation"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:216
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:507
+msgid "Increase Font Size"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:221
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:512
+msgid "Increases font size and line height for greater accessibility"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:236
+msgid "These options apply to mPDF exports."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-mpdfoptions.php:333
+#: includes/modules/themeoptions/class-pb-themeoptions.php:86
+msgid "mPDF Options"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:77
+msgid "Body Font Size"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:82
+msgid ""
+"Heading sizes are proportional to the body font size and will also be "
+"affected by this setting."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:89
+msgid "Body Line Height"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:107
+msgid "Digest (5.5&quot; &times; 8.5&quot;)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:108
+msgid "US Trade (6&quot; &times; 9&quot;)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:109
+msgid "US Letter (8.5&quot; &times; 11&quot;)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:110
+msgid "Custom (8.5&quot; &times; 9.25&quot;)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:111
+msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:112
+msgid "Pocket (4.25&quot; &times; 7&quot;)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:113
+msgid "A4 (21cm &times; 29.7cm)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:114
+msgid "A5 (14.8cm &times; 21cm)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:115
+msgid "5&quot; &times; 8&quot;"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:116
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:335
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:353
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:371
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:389
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:406
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:423
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:443
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:463
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:481
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:499
+msgid "Custom…"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:122
+msgid "Page Width"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:127
+msgid ""
+"Page width must be expressed in CSS-compatible units, e.g. "
+"&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:133
+msgid "Page Height"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:138
+msgid ""
+"Page height must be expressed in CSS-compatible units, e.g. "
+"&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:145
+msgid "Margins"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:150
+msgid "Customize your book&rsquo;s margins using the fields below."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:156
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:724
+msgid "Outside Margin"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:161
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:172
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:183
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:194
+msgid ""
+"Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
+"or &lsquo;10cm&rsquo;."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:167
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:725
+msgid "Inside Margin"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:178
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:726
+msgid "Top Margin"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:189
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:727
+msgid "Bottom Margin"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:224
+msgid "Blank Pages"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:229
+msgid "Include blank pages (for print PDF)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:230
+msgid "Remove all blank pages (for web PDF)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:247
+msgid "Image resolution"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:252
+msgid "High (300 DPI)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:253
+msgid "Low (72 DPI)"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:259
+msgid "Crop Marks"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:264
+msgid "Display crop marks"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:271
+msgid "Romanize Part Numbers"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:276
+msgid "Convert part numbers into Roman numerals"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:283
+msgid "Footnote Style"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:288
+msgid "Regular footnotes"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:289
+msgid "Display as chapter endnotes"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:295
+msgid "Widows"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:303
+msgid "Orphans"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:312
+msgid "Running Heads & Feet"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:317
+msgid ""
+"Running content appears in either running heads or running feet (at the top "
+"or bottom of the page) depending on your theme."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:323
+msgid "Front Matter Left Page Running Content"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:328
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:346
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:364
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:382
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:400
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:417
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:434
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:454
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:474
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:492
+msgid "Book Title"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:329
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:347
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:365
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:383
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:401
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:418
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:435
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:455
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:475
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:493
+msgid "Book Subtitle"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:330
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:348
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:366
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:384
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:402
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:419
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:436
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:456
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:476
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:494
+msgid "Book Author"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:331
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:349
+msgid "Front Matter Title"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:332
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:350
+msgid "Front Matter Author"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:333
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:351
+msgid "Front Matter Subtitle"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:334
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:352
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:370
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:388
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:405
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:422
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:442
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:462
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:480
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:498
+msgid "Blank"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:341
+msgid "Front Matter Right Page Running Content"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:359
+msgid "Introduction Left Page Running Content"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:367
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:385
+msgid "Introduction Title"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:368
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:386
+msgid "Introduction Author"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:369
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:387
+msgid "Introduction Subtitle"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:377
+msgid "Introduction Right Page Running Content"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:395
+msgid "Part Left Page Running Content"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:403
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:420
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:437
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:457
+msgid "Part Number"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:404
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:421
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:438
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:458
+msgid "Part Title"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:412
+msgid "Part Right Page Running Content"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:429
+msgid "Chapter Left Page Running Content"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:439
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:459
+msgid "Chapter Title"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:440
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:460
+msgid "Chapter Author"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:441
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:461
+msgid "Chapter Subtitle"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:449
+msgid "Chapter Right Page Running Content"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:469
+msgid "Back Matter Left Page Running Content"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:477
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:495
+msgid "Back Matter Title"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:478
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:496
+msgid "Back Matter Author"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:479
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:497
+msgid "Back Matter Subtitle"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:487
+msgid "Back Matter Right Page Running Content"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:528
+msgid "These options apply to PDF exports."
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-pdfoptions.php:966
+#: includes/modules/themeoptions/class-pb-themeoptions.php:85
+msgid "PDF Options"
+msgstr "Opcións do PDF"
+
+#: includes/modules/themeoptions/class-pb-themeoptions.php:84
+#: includes/modules/themeoptions/class-pb-weboptions.php:150
+msgid "Web Options"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-weboptions.php:73
+msgid "Enable Social Media"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-weboptions.php:78
+msgid ""
+"Add buttons to cover page and each chapter so that readers may share links "
+"to your book through social media: Facebook, Twitter, Google+"
+msgstr ""
+
+#: includes/modules/themeoptions/class-pb-weboptions.php:93
+msgid "These options apply to the webbook."
 msgstr ""
 
 #: includes/pb-editor.php:71
@@ -2698,529 +3450,6 @@ msgstr ""
 
 #: themes-book/pressbooks-book/functions.php:187
 msgid "Pingback:"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:361
-msgid "Global Options"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:368
-msgid "Chapter Numbers"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:373
-msgid "Display chapter numbers"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:379
-msgid "Two-Level TOC"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:384
-msgid ""
-"Enable two-level table of contents (displays headings under chapter titles)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:392
-msgid "Language Support"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:397
-msgid "Include fonts to support the following languages:"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:416
-msgid "Display the selected copyright license"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:432
-msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:503
-msgid "and"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:512
-msgid "Select languages&hellip;"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:520
-#, php-format
-msgid "This theme includes built-in support for %s."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:576
-msgid "Web Options"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:583
-msgid "Enable Social Media"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:588
-msgid ""
-"Add buttons to cover page and each chapter so that readers may share links "
-"to your book through social media: Facebook, Twitter, Google+"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:600
-msgid "These options apply to the webbook."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:661
-msgid "PDF Options"
-msgstr "Opcións do PDF"
-
-#: themes-book/pressbooks-book/functions.php:669
-msgid "Body Font Size"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:674
-msgid ""
-"Heading sizes are proportional to the body font size and will also be "
-"affected by this setting."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:680
-msgid "Body Line Height"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:689
-msgid "Digest (5.5&quot; &times; 8.5&quot;)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:690
-msgid "US Trade (6&quot; &times; 9&quot;)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:691
-msgid "US Letter (8.5&quot; &times; 11&quot;)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:692
-msgid "Custom (8.5&quot; &times; 9.25&quot;)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:693
-msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:694
-msgid "Pocket (4.25&quot; &times; 7&quot;)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:695
-msgid "A4 (21cm &times; 29.7cm)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:696
-msgid "A5 (14.8cm &times; 21cm)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:697
-msgid "5&quot; &times; 8&quot;"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:698
-msgid "Custom…"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:703
-#: themes-book/pressbooks-book/functions.php:1225
-msgid "Page Size"
-msgstr "Tamaño da páxina"
-
-#: themes-book/pressbooks-book/functions.php:712
-msgid "Page Width"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:717
-msgid ""
-"Page width must be expressed in CSS-compatible units, e.g. "
-"&lsquo;5.5in&rsquo;."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:723
-msgid "Page Height"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:728
-msgid ""
-"Page height must be expressed in CSS-compatible units, e.g. "
-"&lsquo;8.5in&rsquo;."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:734
-#: themes-book/pressbooks-book/functions.php:1354
-msgid "Hyphens"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:739
-#: themes-book/pressbooks-book/functions.php:1359
-msgid "Enable hyphenation"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:745
-#: themes-book/pressbooks-book/functions.php:1556
-msgid "Paragraph Separation"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:750
-#: themes-book/pressbooks-book/functions.php:1343
-#: themes-book/pressbooks-book/functions.php:1348
-#: themes-book/pressbooks-book/functions.php:1561
-msgid "Indent paragraphs"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:751
-#: themes-book/pressbooks-book/functions.php:1562
-msgid "Skip lines between paragraphs"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:757
-msgid "Blank Pages"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:762
-msgid "Include blank pages (for print PDF)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:763
-msgid "Remove all blank pages (for web PDF)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:774
-#: themes-book/pressbooks-book/functions.php:1337
-msgid "Display table of contents"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:780
-msgid "Image resolution"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:785
-msgid "High (300 DPI)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:786
-msgid "Low (72 DPI)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:792
-msgid "Crop Marks"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:797
-msgid "Display crop marks"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:804
-msgid "Romanize Part Numbers"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:809
-msgid "Convert part numbers into Roman numerals"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:816
-msgid "Footnotes Style"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:821
-msgid "Regular footnotes"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:822
-msgid "Display as chapter endnotes"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:827
-msgid "Widows"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:834
-msgid "Orphans"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:843
-#: themes-book/pressbooks-book/functions.php:1365
-msgid "Increase Font Size"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:848
-#: themes-book/pressbooks-book/functions.php:1370
-msgid "Increases font size and line height for greater accessibility"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:864
-msgid "These options apply to PDF exports."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1218
-msgid "mPDF Options"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1230
-msgid "A0"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1231
-msgid "A1"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1232
-msgid "A2"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1233
-msgid "A3"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1234
-msgid "A4"
-msgstr "A4"
-
-#: themes-book/pressbooks-book/functions.php:1235
-msgid "A5"
-msgstr "A5"
-
-#: themes-book/pressbooks-book/functions.php:1236
-msgid "A6"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1237
-msgid "A7"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1238
-msgid "A8"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1239
-msgid "A9"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1240
-msgid "A10"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1241
-msgid "B0"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1242
-msgid "B1"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1243
-msgid "B2"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1244
-msgid "B3"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1245
-msgid "B4"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1246
-msgid "B5"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1247
-msgid "B6"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1248
-msgid "B7"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1249
-msgid "B8"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1250
-msgid "B9"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1251
-msgid "B10"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1252
-msgid "C0"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1253
-msgid "C1"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1254
-msgid "C2"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1255
-msgid "C3"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1256
-msgid "C4"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1257
-msgid "C5"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1258
-msgid "C6"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1259
-msgid "C7"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1260
-msgid "C8"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1261
-msgid "C9"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1262
-msgid "C10"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1263
-msgid "4A0"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1264
-msgid "2A0"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1265
-msgid "RA0"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1266
-msgid "RA1"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1267
-msgid "RA2"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1268
-msgid "RA3"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1269
-msgid "RA4"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1270
-msgid "SRA0"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1271
-msgid "SRA1"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1272
-msgid "SRA2"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1273
-msgid "SRA3"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1274
-msgid "SRA4"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1275
-msgid "Letter"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1276
-msgid "Legal"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1277
-msgid "Executive"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1278
-msgid "Folio"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1279
-msgid "Demy"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1280
-msgid "Royal"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1281
-msgid "Type A paperback 111x178mm"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1282
-msgid "Type B paperback 128x198mm"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1288
-msgid "Left margin"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1293
-msgid " Left Margin (in milimeters)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1299
-msgid "Right margin"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1304
-msgid " Right margin (in milimeters)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1310
-msgid "Mirror Margins"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1315
-msgid ""
-"The document will mirror the left and right margin values on odd and even "
-"pages (i.e. they become inner and outer margins)"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1326
-msgid "Display cover image"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1385
-msgid "These options apply to mPDF exports."
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1549
-msgid "Ebook Options"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1568
-msgid "Compress images"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1573
-msgid "Reduce image size and quality"
-msgstr ""
-
-#: themes-book/pressbooks-book/functions.php:1588
-msgid "These options apply to ebook exports."
 msgstr ""
 
 #: themes-book/pressbooks-book/header.php:30
