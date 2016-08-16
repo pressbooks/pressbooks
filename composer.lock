@@ -962,12 +962,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "b31e4be7fba5e75bce5aedcf942ac9345de75b38"
+                "reference": "718e28901a768e35dfa4efd674d6edc3824d3374"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/b31e4be7fba5e75bce5aedcf942ac9345de75b38",
-                "reference": "b31e4be7fba5e75bce5aedcf942ac9345de75b38",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/718e28901a768e35dfa4efd674d6edc3824d3374",
+                "reference": "718e28901a768e35dfa4efd674d6edc3824d3374",
                 "shasum": ""
             },
             "require": {
@@ -991,7 +991,7 @@
                 "source": "https://github.com/pressbooks/pb-cli/tree/dev",
                 "issues": "https://github.com/pressbooks/pb-cli/issues"
             },
-            "time": "2016-08-16 16:59:47"
+            "time": "2016-08-16 17:09:25"
         },
         {
             "name": "pressbooks/pressbooks-latex",
