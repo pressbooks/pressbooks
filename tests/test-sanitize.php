@@ -41,7 +41,7 @@ class SanitizeTest extends \WP_UnitTestCase {
 
 		// Verify that style attribute is empty.
 		$var = wp_audio_shortcode( array( 'src' => 'http://foo/audio.mp3' ) );
-		$this->assertContains( 'style=""', $var );
+		$this->assertFalse( strpos( $var, 'style=' ) );
 	}
 
 
