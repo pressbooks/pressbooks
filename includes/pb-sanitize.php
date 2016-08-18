@@ -77,7 +77,7 @@ function html5_to_epub3( $html, $config = array(), $spec = array() ) {
 function fix_audio_shortcode() {
 
 	add_filter( 'wp_audio_shortcode', function ( $html, $atts, $audio, $post_id, $library ) {
-		$html = str_replace( 'width: 100%; visibility: hidden;', '', $html );
+		$html = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', "$1", $html );
 		return $html;
 	}, 10, 5 );
 
@@ -193,7 +193,7 @@ function strip_br( $slug ) {
 
 	$slug = preg_replace( '/&lt;br\W*?\/&gt;/', ' ', $slug );
 	$slug = preg_replace('/<br\W*?\/>/', ' ', $slug);
-	
+
 	return $slug;
 }
 
@@ -228,7 +228,7 @@ function canonicalize_url( $url ) {
 
 	if ( preg_match( '#^mailto:#i', $url ) )
 		return filter_var( $url, FILTER_SANITIZE_URL );
-	
+
 	// Add http:// if it's missing
 	if ( ! preg_match( '#^https?://#i', $url ) ) {
 		// Remove ftp://, gopher://, fake://, etc
