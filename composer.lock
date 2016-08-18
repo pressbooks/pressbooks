@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2f1e9a665309c3b84df01cfe94f44839",
-    "content-hash": "49463021cacb42dc60185a8cb9b7c547",
+    "hash": "41ebbf87487a9861d6e61daf98204689",
+    "content-hash": "3a1e1d7dca1de77467ef4d193e29bc5a",
     "packages": [
         {
             "name": "ck/file_marc_reference",
@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/MARCspec/File_MARC_Reference.git",
-                "reference": "ab200a9cdbf6e5b9fdbfe61cb5ad4adf8b446804"
+                "reference": "d2241abec7af43511384dcc5c7a522b11e2fccc4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MARCspec/File_MARC_Reference/zipball/ab200a9cdbf6e5b9fdbfe61cb5ad4adf8b446804",
-                "reference": "ab200a9cdbf6e5b9fdbfe61cb5ad4adf8b446804",
+                "url": "https://api.github.com/repos/MARCspec/File_MARC_Reference/zipball/d2241abec7af43511384dcc5c7a522b11e2fccc4",
+                "reference": "d2241abec7af43511384dcc5c7a522b11e2fccc4",
                 "shasum": ""
             },
             "require": {
@@ -53,21 +53,21 @@
                 "MARC 21",
                 "MARCspec"
             ],
-            "time": "2016-02-10 05:38:05"
+            "time": "2016-06-07 04:35:54"
         },
         {
             "name": "ck/php-marcspec",
-            "version": "v1.7.1",
+            "version": "v1.7.2",
             "target-dir": "CK/MARCspec",
             "source": {
                 "type": "git",
                 "url": "https://github.com/MARCspec/php-marc-spec.git",
-                "reference": "d775426e1bdd61cba7f9835c90e29443f1587f8e"
+                "reference": "23d47fdadf376288452158d5dd3543227f2162b8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MARCspec/php-marc-spec/zipball/d775426e1bdd61cba7f9835c90e29443f1587f8e",
-                "reference": "d775426e1bdd61cba7f9835c90e29443f1587f8e",
+                "url": "https://api.github.com/repos/MARCspec/php-marc-spec/zipball/23d47fdadf376288452158d5dd3543227f2162b8",
+                "reference": "23d47fdadf376288452158d5dd3543227f2162b8",
                 "shasum": ""
             },
             "require": {
@@ -99,20 +99,20 @@
                 "MARC 21",
                 "MARCspec"
             ],
-            "time": "2016-02-10 06:08:39"
+            "time": "2016-07-13 08:28:55"
         },
         {
             "name": "composer/installers",
-            "version": "dev-master",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "2db1f3ce7bcf0d294811f5f0214e24d2878a57da"
+                "reference": "a3595c5272a6f247228abb20076ed27321e4aae9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/2db1f3ce7bcf0d294811f5f0214e24d2878a57da",
-                "reference": "2db1f3ce7bcf0d294811f5f0214e24d2878a57da",
+                "url": "https://api.github.com/repos/composer/installers/zipball/a3595c5272a6f247228abb20076ed27321e4aae9",
+                "reference": "a3595c5272a6f247228abb20076ed27321e4aae9",
                 "shasum": ""
             },
             "require": {
@@ -175,6 +175,7 @@
                 "dokuwiki",
                 "drupal",
                 "elgg",
+                "expressionengine",
                 "fuelphp",
                 "grav",
                 "installer",
@@ -200,7 +201,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-05-19 16:58:29"
+            "time": "2016-07-05 06:18:20"
         },
         {
             "name": "gridonic/princexml-php",
@@ -250,16 +251,16 @@
         },
         {
             "name": "leafo/scssphp",
-            "version": "v0.6.3",
+            "version": "v0.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafo/scssphp.git",
-                "reference": "a27edad3d16635a222d7204706572e24c338aa17"
+                "reference": "0649d38dfef6808be1a89040a3312e8bda0b3aed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/scssphp/zipball/a27edad3d16635a222d7204706572e24c338aa17",
-                "reference": "a27edad3d16635a222d7204706572e24c338aa17",
+                "url": "https://api.github.com/repos/leafo/scssphp/zipball/0649d38dfef6808be1a89040a3312e8bda0b3aed",
+                "reference": "0649d38dfef6808be1a89040a3312e8bda0b3aed",
                 "shasum": ""
             },
             "require": {
@@ -299,7 +300,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2016-01-15 02:50:06"
+            "time": "2016-06-20 15:25:08"
         },
         {
             "name": "pear/file_marc",
@@ -460,7 +461,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/pressbooks/custom-metadata/archive/v0.8.1-dev.zip",
-                "reference": null,
+                "reference": "tags/v0.8.1-dev",
                 "shasum": null
             },
             "type": "library",
@@ -477,7 +478,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.1.zip",
-                "reference": null,
+                "reference": "tags/v1.0.1",
                 "shasum": null
             },
             "type": "library"
@@ -493,7 +494,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/pressbooks/mce-table-buttons/archive/v3.2.0.zip",
-                "reference": null,
+                "reference": "tags/v3.2.0",
                 "shasum": null
             },
             "type": "library"
@@ -509,7 +510,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/pressbooks/pressbooks-latex/archive/v1.0.0.zip",
-                "reference": null,
+                "reference": "tags/v1.0.0",
                 "shasum": null
             },
             "type": "library"
@@ -525,7 +526,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/WP-API/WP-API/archive/2.0-beta13.1.zip",
-                "reference": null,
+                "reference": "tags/2.0-beta13.1",
                 "shasum": null
             },
             "type": "library"
