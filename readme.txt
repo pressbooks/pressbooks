@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.6.1
+Version: 3.6.2
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.5.3
-Tested up to: 4.5.3
-Stable tag: 3.6.1
+Requires at least: 4.6
+Tested up to: 4.6
+Stable tag: 3.6.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.5.3. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ * Pressbooks works with PHP 5.6.x and WordPress 4.6. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
 
 	$pb_minimum_php = '5.4';
 
@@ -199,6 +199,10 @@ TK.
 Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
+
+= 3.6.2 =
+* Requires WordPress 4.6.
+* **Fix:** Replaced deprecated wp_get_sites() function with get_sites() (props to @bdolor for the bug report).
 
 = 3.6.1 =
 * **Fix:** An issue where footnotes would not display in endnote mode has been resolved.
