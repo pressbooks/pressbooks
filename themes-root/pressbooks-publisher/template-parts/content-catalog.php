@@ -7,18 +7,18 @@
 <?php $books = get_sites( array( 'public' => true ) );
 $c = 0;
 foreach ( $books as $book )	:
-if ( get_blog_option( $book['blog_id'], 'pressbooks_publisher_in_catalog' ) ) :
+if ( get_blog_option( $book->blog_id, 'pressbooks_publisher_in_catalog' ) ) :
 	$c++;
-	switch_to_blog( $book['blog_id'] );
+	switch_to_blog( $book->blog_id );
 	$metadata = pb_get_book_information();
 	restore_current_blog(); ?>
 
-	<article id="post-<?php echo $book['blog_id']; ?>" <?php post_class('catalog-book'); ?>>
+	<article id="post-<?php echo $book->blog_id; ?>" <?php post_class('catalog-book'); ?>>
 
-		<a href="//<?php echo $book['domain'] . $book['path']; ?>" title="<?php echo $metadata['pb_title']; ?>"><img src="<?php echo $metadata['pb_cover_image']; ?>" width="500" height="650" alt="<?php echo $metadata['pb_title']; ?>" /></a>
+		<a href="//<?php echo $book->domain . $book->path; ?>" title="<?php echo $metadata['pb_title']; ?>"><img src="<?php echo $metadata['pb_cover_image']; ?>" width="500" height="650" alt="<?php echo $metadata['pb_title']; ?>" /></a>
 
 		<header class="entry-header">
-			<h2 class="entry-title"><a href="//<?php echo $book['domain'] . $book['path']; ?>" title="<?php echo $metadata['pb_title']; ?>"><?php echo $metadata['pb_title']; ?></a></h2>
+			<h2 class="entry-title"><a href="//<?php echo $book->domain . $book->path; ?>" title="<?php echo $metadata['pb_title']; ?>"><?php echo $metadata['pb_title']; ?></a></h2>
 
 			<p class="entry-author"><?php echo $metadata['pb_author']; ?></p>
 		</header><!-- .entry-header -->
@@ -35,7 +35,7 @@ if ( get_blog_option( $book['blog_id'], 'pressbooks_publisher_in_catalog' ) ) :
 		<footer class="entry-footer">
 
 			<div class="button-wrap">
-				<a href="//<?php echo $book['domain'] . $book['path']; ?>" class="more-btn"><?php _e('Read more', 'pressbooks'); ?></a>
+				<a href="//<?php echo $book->domain . $book->path; ?>" class="more-btn"><?php _e('Read more', 'pressbooks'); ?></a>
 			</div>
 
 			<?php if ( isset( $metadata['pb_keywords_tags'] ) ) : ?>
