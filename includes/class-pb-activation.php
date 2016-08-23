@@ -86,6 +86,7 @@ class Activation {
 				if ( empty( $v ) ) delete_option( $k );
 				else update_option( $k, $v );
 			} );
+			wp_cache_flush();
 		}
 
 		// Set current metadata version to skip redundant upgrade routines
