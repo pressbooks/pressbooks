@@ -37,93 +37,125 @@ $adminbar-input-background:			$white;
 
 @import 'partials/tmp/admin';
 
-/* Core UI */
+// Core UI
 
-.notice-success, div.updated {
-    border-color: $green;
+.notice-success,
+div.updated {
+  border-color: $green;
 }
 
 .notice-warning {
-    border-color: $orange;
+  border-color: $orange;
 }
 
-.notice-error, div.error {
-    border-color: $bright-red;
+.notice-error,
+div.error {
+  border-color: $bright-red;
 }
 
 .notice-info {
-    border-color: $blue;
+  border-color: $blue;
 }
 
-.plugin-update-tr.active td, .plugins .active th.check-column {
-	border-color: $red;
+.plugin-update-tr.active td,
+.plugins .active th.check-column {
+  border-color: $red;
 }
 
-.plugins .active td, .plugins .active th {
-	background: $pink;
+.plugins .active td,
+.plugins .active th {
+  background: $pink;
 }
 
-/* Admin Menu */
+// Admin Menu
 
-#adminmenu li.current:hover div.wp-menu-image:before,
-#adminmenu li.wp-menu-open:hover div.wp-menu-image:before {
-	color: $white;
+#adminmenu li.current:hover div.wp-menu-image::before,
+#adminmenu li.wp-menu-open:hover div.wp-menu-image::before {
+  color: $white;
 }
 
-/* Admin Bar */
+// Admin Bar
 
 #wpadminbar {
-	color: $white;
-	background: $dark-red;
-	.ab-item,
+  color: $white;
+  background: $dark-red;
+
+  .ab-item,
 	a.ab-item,
 	&> #wp-toolbar span.ab-label,
 	&> #wp-toolbar span.noticon {
-		color: $white;
+    color: $white;
+  }
+
+  .ab-icon,
+	.ab-icon::before,
+	.ab-item::before,
+	.ab-item::after {
+    color: $white;
 	}
-	.ab-icon,
-	.ab-icon:before,
-	.ab-item:before,
-	.ab-item:after {
-		color: $white;
-	}
-	#wp-admin-bar-menu-toggle .ab-item {
-		background: $dark-red;
-		.ab-icon,
+
+  #wp-admin-bar-menu-toggle .ab-item {
+    background: $dark-red;
+    .ab-icon,
 		.ab-icon:before {
-			color: $white;
+      color: $white;
 		}
-		&:hover, &:active {
-			background: $white;
-			.ab-icon,
+
+    &:hover,
+    &:active {
+      background: $white;
+      .ab-icon,
 			.ab-icon:before {
-				color: $red;
+        color: $red;
 			}
 		}
-		&[aria-expanded="true"] {
-			background: $white;
-			.ab-icon,
+
+    &[aria-expanded="true"] {
+      background: $white;
+      .ab-icon,
 			.ab-icon:before {
-				color: $dark-red;
+        color: $dark-red;
 			}
-			&:hover, &:active {
-				.ab-icon,
-				.ab-icon:before {
-					color: $red;
+
+      &:hover,
+      &:active {
+        .ab-icon,
+				.ab-icon::before {
+          color: $red;
 				}
 			}
 		}
 	}
 }
 
-/* Themes */
+// Themes
 
 .theme-browser .theme.active .theme-name,
-.theme-browser .theme.add-new-theme a:hover:after,
-.theme-browser .theme.add-new-theme a:focus:after {
-	background: $dark-red;
+.theme-browser .theme.add-new-theme a:hover::after,
+.theme-browser .theme.add-new-theme a:focus::after {
+  background: $dark-red;
 }
 
 .theme-browser .theme.active .theme-actions {
-	background: transparent;
+  background: transparent;
+}
+
+// Page Title Actions
+
+.wrap .add-new-h2,
+.wrap .add-new-h2:active,
+.wrap .page-title-action,
+.wrap .page-title-action:active {
+  color: $link;
+}
+
+.wrap .add-new-h2:hover,
+.wrap .page-title-action:hover {
+  color: $white;
+  background-color: $link-focus;
+  border-color: $link;
+}
+
+.page-title-action:focus {
+  color: $link-focus;
 }
