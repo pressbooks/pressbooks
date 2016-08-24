@@ -36,7 +36,7 @@ class SearchAndReplace {
 
   function get_l10n() {
       return [
-          'warning_text' => __( 'Once you’ve pressed ‘Replace & Save’ there is no going back! Have you checked ‘Preview Replacements’ to make sure this will do what you want it to do?', 'pressbooks' )
+          'warning_text' => __( 'Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this will do what you want it to do?', 'pressbooks' )
       ];
   }
 

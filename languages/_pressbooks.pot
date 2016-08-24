@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-08-15 13:33-0300\n"
+"POT-Creation-Date: 2016-08-24 10:45-0400\n"
 "PO-Revision-Date: 2015-08-08 13:43-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Pressbooks <code@pressbooks.com>\n"
@@ -59,7 +59,7 @@ msgid "Privacy Status"
 msgstr ""
 
 #: includes/admin/class-pb-catalog-list-table.php:177
-#: includes/class-pb-activation.php:172
+#: includes/class-pb-activation.php:173
 #: includes/modules/export/epub/class-pb-epub201.php:753
 msgid "Cover"
 msgstr ""
@@ -298,7 +298,7 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:180
+#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:181
 #: templates/admin/catalog.php:96
 msgid "About"
 msgstr ""
@@ -855,39 +855,39 @@ msgstr ""
 msgid "These plugins extend the functionality of Pressbooks."
 msgstr ""
 
-#: includes/class-pb-activation.php:144
+#: includes/class-pb-activation.php:145
 msgid "Main Body"
 msgstr ""
 
-#: includes/class-pb-activation.php:149
+#: includes/class-pb-activation.php:150
 msgid "Introduction"
 msgstr ""
 
-#: includes/class-pb-activation.php:151
+#: includes/class-pb-activation.php:152
 msgid "This is where you can write your introduction."
 msgstr ""
 
-#: includes/class-pb-activation.php:155
+#: includes/class-pb-activation.php:156
 msgid "Chapter 1"
 msgstr ""
 
-#: includes/class-pb-activation.php:157
+#: includes/class-pb-activation.php:158
 msgid "This is the first chapter in the main body of the text. You can change the text, rename the chapter, add new chapters, and add new parts."
 msgstr ""
 
-#: includes/class-pb-activation.php:161
+#: includes/class-pb-activation.php:162
 msgid "Appendix"
 msgstr ""
 
-#: includes/class-pb-activation.php:163
+#: includes/class-pb-activation.php:164
 msgid "This is where you can add appendices or other back matter."
 msgstr ""
 
-#: includes/class-pb-activation.php:168
+#: includes/class-pb-activation.php:169
 msgid "Authors"
 msgstr ""
 
-#: includes/class-pb-activation.php:176
+#: includes/class-pb-activation.php:177
 #: includes/modules/export/epub/templates/epub3/toc.php:21
 #: includes/modules/themeoptions/class-pb-mpdfoptions.php:183
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:236
@@ -897,39 +897,39 @@ msgstr ""
 msgid "Table of Contents"
 msgstr ""
 
-#: includes/class-pb-activation.php:184
+#: includes/class-pb-activation.php:185
 #: themes-book/pressbooks-book/header.php:83
 #: themes-book/pressbooks-book/page-cover-top-block.php:58
 msgid "Buy"
 msgstr ""
 
-#: includes/class-pb-activation.php:188
+#: includes/class-pb-activation.php:189
 #: themes-book/pressbooks-book/functions.php:138
 msgid "Access Denied"
 msgstr ""
 
-#: includes/class-pb-activation.php:190
+#: includes/class-pb-activation.php:191
 msgid "This book is private, and accessible only to registered users. If you have an account you can login <a href=\"/wp-login.php\">here</a>. You can also set up your own Pressbooks book at: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: includes/class-pb-activation.php:194 includes/class-pb-metadata.php:549
+#: includes/class-pb-activation.php:195 includes/class-pb-metadata.php:549
 msgid "Custom CSS for Ebook"
 msgstr ""
 
-#: includes/class-pb-activation.php:198 includes/class-pb-metadata.php:553
+#: includes/class-pb-activation.php:199 includes/class-pb-metadata.php:553
 msgid "Custom CSS for PDF"
 msgstr ""
 
-#: includes/class-pb-activation.php:202 includes/class-pb-metadata.php:557
+#: includes/class-pb-activation.php:203 includes/class-pb-metadata.php:557
 msgid "Custom CSS for Web"
 msgstr ""
 
-#: includes/class-pb-activation.php:208
+#: includes/class-pb-activation.php:209
 msgid "Default Data"
 msgstr ""
 
 #. Description of the plugin/theme
-#: includes/class-pb-activation.php:210
+#: includes/class-pb-activation.php:211
 msgid "Simple Book Production"
 msgstr ""
 
@@ -1262,7 +1262,7 @@ msgid "No search pattern."
 msgstr ""
 
 #: includes/modules/searchandreplace/class-pb-searchandreplace.php:39
-msgid "Once you’ve pressed ‘Replace & Save’ there is no going back! Have you checked ‘Preview Replacements’ to make sure this will do what you want it to do?"
+msgid "Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this will do what you want it to do?"
 msgstr ""
 
 #: includes/modules/searchandreplace/class-pb-searchandreplace.php:46
@@ -3107,7 +3107,7 @@ msgid "There are no results."
 msgstr ""
 
 #: templates/admin/search.php:4
-msgid "Search & Replace will find and replace ALL instances of the search pattern in your entire book. Replacements will only be saved if you click ‘<strong>Replace &amp; Save</strong>’."
+msgid "Search & Replace will find and replace ALL instances of the search pattern in your entire book. Replacements will only be saved if you click &lsquo;<strong>Replace &amp; Save</strong>&rsquo;."
 msgstr ""
 
 #: templates/admin/search.php:5
