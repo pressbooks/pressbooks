@@ -113,7 +113,7 @@ class PDFOptions extends \Pressbooks\Options {
 				 __( 'A4 (21cm &times; 29.7cm)', 'pressbooks' ),
 				 __( 'A5 (14.8cm &times; 21cm)', 'pressbooks' ),
 				 __( '5&quot; &times; 8&quot;', 'pressbooks' ),
-				 __( 'Custom…', 'pressbooks' )
+				 __( 'Custom&hellip;', 'pressbooks' )
 			)
 		);
 
@@ -332,7 +332,7 @@ class PDFOptions extends \Pressbooks\Options {
 					'%section_author%' => __('Front Matter Author', 'pressbooks'),
 					'%section_subtitle%' => __('Front Matter Subtitle', 'pressbooks'),
 					'%blank%' => __('Blank', 'pressbooks'),
-					'' => __('Custom…', 'pressbooks')
+					'' => __('Custom&hellip;', 'pressbooks')
 				)
 			);
 
@@ -350,7 +350,7 @@ class PDFOptions extends \Pressbooks\Options {
 					'%section_author%' => __('Front Matter Author', 'pressbooks'),
 					'%section_subtitle%' => __('Front Matter Subtitle', 'pressbooks'),
 					'%blank%' => __('Blank', 'pressbooks'),
-					'' => __('Custom…', 'pressbooks')
+					'' => __('Custom&hellip;', 'pressbooks')
 				)
 			);
 
@@ -368,7 +368,7 @@ class PDFOptions extends \Pressbooks\Options {
 					'%section_author%' => __('Introduction Author', 'pressbooks'),
 					'%section_subtitle%' => __('Introduction Subtitle', 'pressbooks'),
 					'%blank%' => __('Blank', 'pressbooks'),
-					'' => __('Custom…', 'pressbooks')
+					'' => __('Custom&hellip;', 'pressbooks')
 				)
 			);
 
@@ -386,7 +386,7 @@ class PDFOptions extends \Pressbooks\Options {
 					'%section_author%' => __('Introduction Author', 'pressbooks'),
 					'%section_subtitle%' => __('Introduction Subtitle', 'pressbooks'),
 					'%blank%' => __('Blank', 'pressbooks'),
-					'' => __('Custom…', 'pressbooks')
+					'' => __('Custom&hellip;', 'pressbooks')
 				)
 			);
 
@@ -403,7 +403,7 @@ class PDFOptions extends \Pressbooks\Options {
 					'%part_number%' => __('Part Number', 'pressbooks'),
 					'%part_title%' => __('Part Title', 'pressbooks'),
 					'%blank%' => __('Blank', 'pressbooks'),
-					'' => __('Custom…', 'pressbooks')
+					'' => __('Custom&hellip;', 'pressbooks')
 				)
 			);
 
@@ -420,7 +420,7 @@ class PDFOptions extends \Pressbooks\Options {
 					'%part_number%' => __('Part Number', 'pressbooks'),
 					'%part_title%' => __('Part Title', 'pressbooks'),
 					'%blank%' => __('Blank', 'pressbooks'),
-					'' => __('Custom…', 'pressbooks')
+					'' => __('Custom&hellip;', 'pressbooks')
 				)
 			);
 
@@ -440,7 +440,7 @@ class PDFOptions extends \Pressbooks\Options {
 					'%section_author%' => __('Chapter Author', 'pressbooks'),
 					'%section_subtitle%' => __('Chapter Subtitle', 'pressbooks'),
 					'%blank%' => __('Blank', 'pressbooks'),
-					'' => __('Custom…', 'pressbooks')
+					'' => __('Custom&hellip;', 'pressbooks')
 				)
 			);
 
@@ -460,7 +460,7 @@ class PDFOptions extends \Pressbooks\Options {
 					'%section_author%' => __('Chapter Author', 'pressbooks'),
 					'%section_subtitle%' => __('Chapter Subtitle', 'pressbooks'),
 					'%blank%' => __('Blank', 'pressbooks'),
-					'' => __('Custom…', 'pressbooks')
+					'' => __('Custom&hellip;', 'pressbooks')
 				)
 			);
 
@@ -478,7 +478,7 @@ class PDFOptions extends \Pressbooks\Options {
 					'%section_author%' => __('Back Matter Author', 'pressbooks'),
 					'%section_subtitle%' => __('Back Matter Subtitle', 'pressbooks'),
 					'%blank%' => __('Blank', 'pressbooks'),
-					'' => __('Custom…', 'pressbooks')
+					'' => __('Custom&hellip;', 'pressbooks')
 				)
 			);
 
@@ -496,7 +496,7 @@ class PDFOptions extends \Pressbooks\Options {
 					'%section_author%' => __('Back Matter Author', 'pressbooks'),
 					'%section_subtitle%' => __('Back Matter Subtitle', 'pressbooks'),
 					'%blank%' => __('Blank', 'pressbooks'),
-					'' => __('Custom…', 'pressbooks')
+					'' => __('Custom&hellip;', 'pressbooks')
 				)
 			);
 		}
