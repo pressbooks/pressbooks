@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.6.3
+Version: 3.7.0
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6
 Tested up to: 4.6
-Stable tag: 3.6.3
+Stable tag: 3.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -199,6 +199,19 @@ TK.
 Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
 
 == Changelog ==
+
+= 3.7.0 =
+* **Feature:** Introduced `\Pressbooks\Options` class and rebuilt theme options using on this class.
+* **Feature:** Introduced `\Pressbooks\Taxonomy` class and rebuilt front matter, chapter and back matter types using this class.
+* **Feature:** Added support for custom base font size, line height, page margins, image resolution and running content in SCSS v2 themes for PDF.
+* **Feature:** Enabled webbook collapsible TOC by default (as needed).
+* **Feature:** Enabled webbook font size control by default.
+* **Feature:** Added custom sidebar color for catalog (props to @monkecheese).
+* **Enhancement:** Prince will now ignore self-signed certificates in a development environment.
+* **Fix:** Fixed an admin style inconsistency introduced with WordPress 4.6.
+* **Fix:** Fixed an error where SCSS v2 themes could not be imported into the Custom CSS editor.
+* **Fix:** Added user feedback to allow recovery from JPEG errors (props to @bdolor).
+* **Fix:** Added a call to `wp_flush_cache()` to fix an error during book creation.
 
 = 3.6.3 =
 * **Fix:** Fixed an error caused by the change to get_sites().
