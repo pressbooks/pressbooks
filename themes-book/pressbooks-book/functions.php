@@ -498,7 +498,7 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	}
 
 	// a11y Font Size
-	if ( isset( $options['pdf_fontsize'] ) ) {
+	if ( @$options['pdf_fontsize'] ) {
 		if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= 'body { font-size: 1.3em; line-height: 1.3; }' . "\n";
 		}
