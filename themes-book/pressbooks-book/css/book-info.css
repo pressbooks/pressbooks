@@ -258,11 +258,14 @@ a:active.btn.black {
 	height: 16px;
 }
 .right-block {
-	 height: auto;
-    float: right;
-    max-width: 350px;
-    width: 36.5%;
-    position: relative;
+	height: auto;
+  float: right;
+  max-width: 350px;
+  width: 36.5%;
+  position: relative;
+}
+.right-block .spacer {
+		height: 65px;
 }
 .pressbooks-brand {
 	display: block;

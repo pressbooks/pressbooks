@@ -15,7 +15,7 @@
 	    <?php endif; ?>
 	</div>
 	<div class="right-block">
-		<?php do_action('pb_cover_branding'); ?>
+		<?php do_action( 'pb_cover_promo' ); ?>
 	</div>
 
 			<div class="book-info">

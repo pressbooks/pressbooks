@@ -628,8 +628,12 @@ function pressbooks_theme_add_metadata(){
 
 add_action( 'wp_head', 'pressbooks_theme_add_metadata' );
 
-function pressbooks_cover_branding() { ?>
+function pressbooks_cover_promo() { ?>
+	<?php if ( !defined( 'PB_HIDE_COVER_PROMO' ) || PB_HIDE_COVER_PROMO == false ) : ?>
 	<a href="https://pressbooks.com" class="pressbooks-brand"><img src="<?php bloginfo('template_url'); ?>/images/pressbooks-branding-2x.png" alt="pressbooks-branding" width="186" height="123" /> <span><?php _e('Make your own books on Pressbooks', 'pressbooks'); ?></span></a>
-<?php }
+	<?php else : ?>
+	<div class="spacer"></div>
+	<?php endif;
+}
 
-add_action( 'pb_cover_branding', 'pressbooks_cover_branding' );
+add_action( 'pb_cover_promo', 'pressbooks_cover_promo' );
