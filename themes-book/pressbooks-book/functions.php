@@ -627,3 +627,9 @@ function pressbooks_theme_add_metadata(){
 }
 
 add_action( 'wp_head', 'pressbooks_theme_add_metadata' );
+
+function pressbooks_cover_branding() { ?>
+	<a href="https://pressbooks.com" class="pressbooks-brand"><img src="<?php bloginfo('template_url'); ?>/images/pressbooks-branding-2x.png" alt="pressbooks-branding" width="186" height="123" /> <span><?php _e('Make your own books on Pressbooks', 'pressbooks'); ?></span></a>
+<?php }
+
+add_action( 'pb_cover_branding', 'pressbooks_cover_branding' );
