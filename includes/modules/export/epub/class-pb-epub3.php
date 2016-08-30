@@ -243,9 +243,27 @@ class Epub3 extends Epub201 {
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
-			// TODO: handle $response->get_error_message();
-			$this->fetchedMediaCache[$url] = '';
-			return '';
+			try {
+				// protocol relative urls handed to wp_remote_get will fail
+				// try adding a protocol
+				$protocol_relative = wp_parse_url( $url );
+				if ( ! isset( $protocol_relative['scheme'] ) ) {
+					if ( true === is_ssl() ) {
+						$url = 'https:' . $url;
+					} else {
+						$url = 'http:' . $url;
+					}
+				}
+				$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
+				if ( is_wp_error( $response ) ) {
+					throw new \Exception( 'Bad URL: ' . $url );
+				}
+			} catch ( \Exception $exc ) {
+				$this->fetchedImageCache[ $url ] = '';
+				error_log( '\PressBooks\Export\Epub3\fetchAndSaveUniqueMedia wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
+
+				return '';
+			}
 		}
 
 		// Basename without query string

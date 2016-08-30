@@ -1739,9 +1739,28 @@ class Epub201 extends Export {
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
-			// TODO: handle $response->get_error_message();
-			$this->fetchedImageCache[$url] = '';
-			return '';
+			try {
+				// protocol relative urls handed to wp_remote_get will fail
+				// try adding a protocol
+				$protocol_relative = wp_parse_url( $url );
+				if ( ! isset( $protocol_relative['scheme'] ) ) {
+					if ( true === is_ssl() ) {
+						$url = 'https:' . $url;
+					} else {
+						$url = 'http:' . $url;
+					}
+				}
+				$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
+				if ( is_wp_error( $response ) ) {
+					throw new \Exception( 'Bad URL: ' . $url );
+				}
+			} catch ( \Exception $exc ) {
+				$this->fetchedImageCache[ $url ] = '';
+				error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage wp_error on wp_remote_get() - ' . $response->get_error_message() . ' - ' . $exc->getMessage() );
+
+				return '';
+			}
+
 		}
 
 		// Basename without query string
@@ -1765,6 +1784,7 @@ class Epub201 extends Export {
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
 			$this->fetchedImageCache[$url] = '';
+			error_log( '\PressBooks\Export\Epub201\fetchAndSaveUniqueImage is_valid_image, not a valid image ' );
 			return ''; // Not an image
 		}
 
