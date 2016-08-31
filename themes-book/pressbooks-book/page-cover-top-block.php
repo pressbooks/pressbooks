@@ -62,7 +62,55 @@
 					</div> <!-- end .call-to-action -->
 				</div><!--  end .call-to-action-wrap -->
 
+				<?php
+					$files = \PBT\Utility\latest_exports();
+					$option = get_option( 'pressbooks_export_options', array( 'share_latest_export_files' => 0 ) );
+					if ( ! empty( $files ) && ( true == $option['share_latest_export_files'] ) ) { ?>
+						<div class="downloads">
+							<h4><?php _e( 'Download in the following formats:', 'pressbooks' ); ?></h4>
+							<?php foreach ( $files as $key => $value ) :
+								$filename = preg_replace( '/(-\d{10})(.*)/ui', "$1", $value );
+								$file_extension = substr( strrchr( $key, '.' ), 1 );
 
+								switch ( $file_extension ) {
+									case 'html':
+										$file_class = 'xhtml';
+										break;
+									case 'xml':
+										$pre_suffix = strcmp( $key, '._vanilla.xml' );
+										$file_class = ( 0 === $pre_suffix) ? 'vanillawxr' : 'wxr';
+										break;
+									case 'epub':
+										$pre_suffix = strcmp( $key, '._3.epub' );
+										$file_class = ( 0 === $pre_suffix ) ? 'epub3' : 'epub';
+										break;
+									case 'pdf':
+										$pre_suffix = strcmp( $key, '._oss.pdf' );
+										$file_class = ( 0 === $pre_suffix ) ? 'mpdf' : 'pdf';
+										break;
+									default:
+										$file_class = $file_extension;
+										break;
+								}
+								// rewrite rule
+								$url = "open/download?filename={$filename}&type={$file_class}";
+								// for Google Analytics (classic), change to:
+								// $tracking = "_gaq.push(['_trackEvent','exportFiles','Downloads','{$file_class}']);";
+								// for Google Analytics (universal), change to:
+								// $tracking = "ga('send','event','exportFiles','Downloads','{$file_class}');";
+								// Piwik Analytics event tracking _paq.push('trackEvent', category, action, name)
+								$tracking = "_paq.push(['trackEvent','exportFiles','Downloads','{$file_class}']);";
+							?>
+								<link itemprop="bookFormat" href="http://schema.org/EBook">
+									<a rel="nofollow" onclick="<?= $tracking; ?>" itemprop="offers" itemscope itemtype="http://schema.org/Offer" href="<?= $url; ?>">
+										<span class="export-file-icon small <?= $file_class; ?>" title="<?= esc_attr( $filename ); ?>"></span>
+										<meta itemprop="price" content="$0.00">
+										<link itemprop="availability" href="http://schema.org/InStock">
+									</a>
+							<?php endforeach; ?>
+						</div>
+					<?php }
+				?>
 
 
 	</section> <!-- end .top-block -->

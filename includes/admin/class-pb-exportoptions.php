@@ -129,6 +129,8 @@ class ExportOptions extends \Pressbooks\Options {
 		$options['share_latest_export_files'] = $pbt_redistribute_settings['latest_files_public'];
 
 		update_option( $_option, $options );
+		delete_option( 'pressbooks_email_validation_logs' );
+		delete_option( 'pbt_redistribute_settings' );
 	}
 
 	/**
