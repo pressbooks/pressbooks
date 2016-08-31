@@ -522,11 +522,16 @@ class PDFOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the PDF options tab.
+	 * Display the PDF options tab description.
 	 */
 	function display() {
 		echo '<p>' . __( 'These options apply to PDF exports.', 'pressbooks' ) . '</p>';
 	}
+
+	/**
+	 * Render the PDF options tab form (NOT USED).
+	 */
+	function render() {}
 
 	/**
 	 * Upgrade handler for PDF options.

@@ -87,11 +87,16 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the web options tab.
+	 * Display the web options tab description.
 	 */
 	function display() {
 		echo '<p>' . __( 'These options apply to the webbook.', 'pressbooks' ) . '</p>';
 	}
+
+	/**
+	 * Render the web options tab form (NOT USED).
+	 */
+	function render() {}
 
 	/**
 	 * Upgrade handler for web options.

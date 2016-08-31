@@ -69,7 +69,7 @@ function replace_book_admin_menu() {
 	remove_menu_page( "edit.php?post_type=metadata" );
 	remove_menu_page( "link-manager.php" );
 	remove_menu_page( "edit.php?post_type=page" );
-	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'display' ) ); // TODO
+	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'render' ) ); // TODO
 
 
 	remove_submenu_page( "tools.php", "tools.php" );
@@ -169,7 +169,23 @@ function replace_book_admin_menu() {
 	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'pb_privacy_settings', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Export
-	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pb_export_settings', __NAMESPACE__ . '\display_export_settings' );
+	require dirname( __FILE__ ) . '/class-pb-exportoptions.php';
+	$subclass = '\Pressbooks\Admin\ExportOptions';
+	$option = get_option( 'pressbooks_export_options', $subclass::getDefaults() );
+	$page = new $subclass( $option );
+	$page->init();
+	wp_cache_delete( 'pressbooks_export_options_version', 'options' );
+	$version = get_option( 'pressbooks_export_options_version', 0 );
+	if ( $version < $page::$currentVersion ) {
+		$page->upgrade( $version );
+		update_option( 'pressbooks_export_options_version', $page::$currentVersion, false );
+		if ( WP_DEBUG ) {
+			error_log( 'Upgraded ' . 'pressbooks_export_options' . ' from version ' . $version .' --> ' . $page::$currentVersion );
+		}
+	}
+
+
+	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pressbooks_export_options', array($page, 'render') );
 
 	// Import
 	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
@@ -901,92 +917,6 @@ function display_publish() {
 
 	require( PB_PLUGIN_DIR . 'templates/admin/publish.php' );
 }
-
-
-/* ------------------------------------------------------------------------ *
- * Export Settings
- * ------------------------------------------------------------------------ */
-
-/**
- * Export settings initialization
- */
-function export_settings_init() {
-	add_settings_section(
-		'export_settings_section',
-		'',
-			__NAMESPACE__ . '\export_settings_section_callback',
-		'export_settings'
-	);
-	add_settings_field(
-		'email_validation_logs',
-		__( 'Email me validation error reports on export.', 'pressbooks' ),
-			__NAMESPACE__ . '\export_email_validation_logs_callback',
-		'export_settings',
-		'export_settings_section'
-	);
-	register_setting(
-		'export_settings',
-		'pressbooks_email_validation_logs',
-			__NAMESPACE__ . '\export_email_validation_logs_sanitize'
-	);
-}
-
-
-/**
- * Export settings section callback
- */
-function export_settings_section_callback() {
-	echo '<p>' . __( 'Export settings', 'pressbooks' ) . '.</p>';
-}
-
-
-/**
- *  Export settings, email_validation_logs field callback
- *
- * @param $args
- */
-function export_email_validation_logs_callback( $args ) {
-	$email_validation_logs = get_option( 'pressbooks_email_validation_logs' );
-	$html = '<input type="radio" id="yes-validation-logs" name="pressbooks_email_validation_logs" value="0" ';
-	if ( ! $email_validation_logs ) $html .= 'checked="checked" ';
-	$html .= '/>';
-	$html .= '<label for="yes-validation-logs"> ' . __( 'No. Ignore validation errors.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="no-validation-logs" name="pressbooks_email_validation_logs" value="1" ';
-	if ( $email_validation_logs ) $html .= 'checked="checked" ';
-	$html .= '/>';
-	$html .= '<label for="no-validation-logs"> ' . __( 'Yes. Send the logs.', 'pressbooks' ) . '</label>';
-	$html .= '<br /><br /><em> ' . __( 'Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and will require some effort to decipher. Unfortunately we cannot provide support for deciphering validation errors, but you could post errors on the <a href="http://forum.pressbooks.com/" target="_blank">Pressbooks forum</a>, where we and other Pressbooks users can help out as time permits. .', 'pressbooks' ) . '</em>';
-
-	echo $html;
-}
-
-/**
- * Export settings, email_validation_logs field sanitization
- *
- * @param $input
- * @return string
- */
-function export_email_validation_logs_sanitize( $input ) {
-	return absint( $input );
-}
-
-
-/**
- * Display Export settings
- */
-function display_export_settings() { ?>
-<div class="wrap">
-	<h2><?php _e( 'Export Settings', 'pressbooks' ); ?></h2>
-	<form method="post" action="options.php">
-		<?php settings_fields( 'export_settings' );
-		do_settings_sections( 'export_settings' ); ?>
-		<?php submit_button(); ?>
-	</form>
-</div>
-
-<?php
-}
-
 
 /* ------------------------------------------------------------------------ *
  * Misc

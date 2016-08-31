@@ -14,9 +14,14 @@ abstract class Options {
 	abstract function init();
 
 	/**
-	 * Render the options page or tab.
+	 * Display the options page or tab description.
 	 */
 	abstract function display();
+
+	/**
+	 * Render the options page or tab.
+	 */
+	abstract function render();
 
 	/**
 	* Upgrade handler for the options page or tab.

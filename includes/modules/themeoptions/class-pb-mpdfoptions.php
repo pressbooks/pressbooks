@@ -230,11 +230,16 @@ class mPDFOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the mPDF options tab.
+	 * Display the mPDF options tab description.
 	 */
 	function display() {
 		echo '<p>' . __( 'These options apply to mPDF exports.', 'pressbooks' ) . '</p>';
 	}
+
+	/**
+	 * Render the mPDF options tab form (NOT USED).
+	 */
+	function render() {}
 
 	/**
 	 * Upgrade handler for mPDF options (none at present).

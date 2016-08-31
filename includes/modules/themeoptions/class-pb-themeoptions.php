@@ -48,7 +48,7 @@ class ThemeOptions {
 	/**
 	 * Render the theme options page and load the appropriate tab.
 	 */
-	static function display() { ?>
+	static function render() { ?>
 		<div class="wrap">
 			<h1><?php echo wp_get_theme(); ?> <?php _e('Theme Options', 'pressbooks'); ?></h1>
 			<?php settings_errors(); ?>
