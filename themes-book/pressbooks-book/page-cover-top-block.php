@@ -64,21 +64,27 @@
 
 				<?php
 					$files = \Pressbooks\Utility\latest_exports();
+					$site_option = get_site_option( 'pressbooks_export_options', array( 'allow_redistribution' => 0 ) );
 					$option = get_option( 'pressbooks_export_options', array( 'share_latest_export_files' => 0 ) );
-					if ( ! empty( $files ) && ( true == $option['share_latest_export_files'] ) ) { ?>
+					if ( ! empty( $files ) && ( true == $site_option['allow_redistribution'] ) && ( true == $option['share_latest_export_files'] ) ) { ?>
 						<div class="downloads">
 							<h4><?php _e( 'Download in the following formats:', 'pressbooks' ); ?></h4>
 							<?php foreach ( $files as $filetype => $filename ) :
 								$filename = preg_replace( '/(-\d{10})(.*)/ui', "$1", $filename );
 
-								// rewrite rule
-								$url = "open/download?filename={$filename}&type={$filetype}";
-								// for Google Analytics (classic), change to:
-								// $tracking = "_gaq.push(['_trackEvent','exportFiles','Downloads','{$file_class}']);";
-								// for Google Analytics (universal), change to:
-								// $tracking = "ga('send','event','exportFiles','Downloads','{$file_class}');";
-								// Piwik Analytics event tracking _paq.push('trackEvent', category, action, name)
-								$tracking = "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
+								// Rewrite rule
+								$url = home_url( "/open/download?filename={$filename}&type={$filetype}" );
+
+								// Tracking event defaults to Google Analytics (Universal).
+								// Filter like so (for Piwik):
+								// add_filter('pressbooks_download_tracking_code', function( $tracking, $filetype ) {
+								//  return "_paq.push(['trackEvent','exportFiles','Downloads','{$filetype}']);";
+								// }, 10, 2);
+								// Or for Google Analytics (Classic):
+								// add_filter('pressbooks_download_tracking_code', function( $tracking, $filetype ) {
+								//  return "_gaq.push(['_trackEvent','exportFiles','Downloads','{$file_class}']);";
+								// }, 10, 2);
+								$tracking = apply_filters( 'pressbooks_download_tracking_code', "ga('send','event','exportFiles','Downloads','{$filetype}');", $filetype );
 							?>
 								<link itemprop="bookFormat" href="http://schema.org/EBook">
 									<a rel="nofollow" onclick="<?= $tracking; ?>" itemprop="offers" itemscope itemtype="http://schema.org/Offer" href="<?= $url; ?>">

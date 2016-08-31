@@ -198,6 +198,23 @@ function replace_book_admin_menu() {
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
 }
 
+function network_admin_menu() {
+	require dirname( __FILE__ ) . '/class-pb-network-exportoptions.php';
+	$subclass = '\Pressbooks\Admin\Network\ExportOptions';
+	$option = get_site_option( 'pressbooks_export_options', $subclass::getDefaults(), false );
+	$page = new $subclass( $option );
+	$page->init();
+	$version = get_site_option( 'pressbooks_export_options_version', 0, false );
+	if ( $version < $page::$currentVersion ) {
+		$page->upgrade( $version );
+		update_site_option( 'pressbooks_export_options_version', $page::$currentVersion, false );
+		if ( WP_DEBUG ) {
+			error_log( 'Upgraded network ' . 'pressbooks_export_options' . ' from version ' . $version .' --> ' . $page::$currentVersion );
+		}
+	}
+
+	add_submenu_page( 'settings.php', __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_network', 'pressbooks_export_options', array($page, 'render') );
+}
 
 /**
  * Fix extraneous menus on WordPress Admin sidebar

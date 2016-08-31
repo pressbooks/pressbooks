@@ -88,6 +88,7 @@ if ( \Pressbooks\Book::isBook() ) {
 add_action( 'admin_head', '\Pressbooks\Admin\Analytics\print_admin_analytics');
 
 // Privacy, Ecommerce, and Export settings
+add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\network_admin_menu' );
 add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
 add_action( 'admin_init', '\Pressbooks\Admin\Laf\ecomm_settings_init' );
 

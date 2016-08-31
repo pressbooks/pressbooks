@@ -3,11 +3,11 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace Pressbooks\Admin;
+namespace Pressbooks\Admin\Network;
 
 class ExportOptions extends \Pressbooks\Options {
 	/**
-	 * The value for option: pressbooks_export_options_version
+	 * The value for option: pressbooks_network_export_options_version
 	 *
 	 * @see upgrade()
 	 * @var int
@@ -50,7 +50,7 @@ class ExportOptions extends \Pressbooks\Options {
  	}
 
 	/**
-	 * Configure the export options page using the settings API.
+	 * Configure the network export options page using the settings API.
 	 */
 	function init() {
 		$_page = $_option = $this->getSlug();
@@ -64,30 +64,15 @@ class ExportOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
-			'email_validation_logs',
-			__( 'Email Validation Logs', 'pressbooks' ),
-			array( $this, 'renderEmailValidationLogsField' ),
+			'allow_redistribution',
+			__( 'Allow Redistribution', 'pressbooks' ),
+			array( $this, 'renderAllowRedistributionField' ),
 			$_page,
 			$_section,
 			array(
-				'0' => __( 'No. Ignore validation errors.', 'pressbooks' ),
-				'1' => __( 'Yes.', 'pressbooks' ) . ' ' . __( 'Email me validation error logs on export.', 'pressbooks' )
+				__( 'Allow book administrators to enable redistribution of export files.', 'pressbooks' ),
 			)
 		);
-
-		if ( get_site_option( 'pressbooks_export_options' )['allow_redistribution'] ) {
-			add_settings_field(
-				'share_latest_export_files',
-				__( 'Share Latest Export Files', 'pressbooks' ),
-				array( $this, 'renderShareLatestExportFilesField' ),
-				$_page,
-				$_section,
-				array(
-					'1' => __( 'Yes. I would like the latest export files to be available on the homepage for free, to everyone.', 'pressbooks' ),
-					'0' => __( 'No. I would like the latest export files to only be available to administrators.', 'pressbooks' )
-				)
-			);
-		}
 
 		register_setting(
 			$_page,
@@ -97,16 +82,35 @@ class ExportOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Display the export options page description.
+	 * Display the network export options page description.
 	 */
 	function display() {
 		echo '<p>' . __( 'Export settings.', 'pressbooks' ) . '</p>';
 	}
 
-	function render() { ?>
+	function render() {
+		$_option = $this->getSlug();
+		?>
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
-			<form method="post" action="options.php">
+			<?php $nonce = ( @$_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
+			if ( !empty( $_POST ) ) {
+				if ( !wp_verify_nonce( $nonce, $_option . '-options' ) ) {
+				    die( 'Security check' );
+				} else {
+					error_log( print_r( $_REQUEST, true ) );
+					if ( @$_REQUEST[ $_option ]['allow_redistribution'] ) {
+						$options['allow_redistribution'] = 1;
+					} else {
+						$options['allow_redistribution'] = 0;
+					}
+					error_log( print_r( $options, true ) );
+					update_site_option( $_option, $options );
+					?>
+					<div id="message" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
+				<?php }
+			} ?>
+			<form method="post" action="">
 				<?php settings_fields( $this->getSlug() );
 				do_settings_sections( $this->getSlug() );
 				submit_button(); ?>
@@ -116,43 +120,21 @@ class ExportOptions extends \Pressbooks\Options {
 
 	function upgrade( $version ) {
 		if ( $version < 1 ) {
-			$this->doInitialUpgrade();
+			// Nothing doing.
 		}
 	}
 
-	function doInitialUpgrade() {
-		$_option = $this->getSlug();
-		$options = array();
-
-		$email_validation_logs = get_option('pressbooks_email_validation_logs', 0);
-		$pbt_redistribute_settings = get_option('pbt_redistribute_settings', array( 'latest_files_public' => 0 ) );
-
-		$options['email_validation_logs'] = $email_validation_logs;
-		$options['share_latest_export_files'] = $pbt_redistribute_settings['latest_files_public'];
-
-		update_option( $_option, $options );
-		delete_option( 'pressbooks_email_validation_logs' );
-		delete_option( 'pbt_redistribute_settings' );
-	}
-
 	/**
 	 * Render the pdf_paragraph_separation radio buttons.
 	 * @param array $args
 	 */
-	function renderEmailValidationLogsField( $args ) {
-		$this->renderRadioButtons( 'email_validation_logs', $this->getSlug(), 'email_validation_logs', @$this->options['email_validation_logs'], $args);
+	function renderAllowRedistributionField( $args ) {
+		$options = get_site_option( $this->getSlug() );
+		$this->renderCheckbox( 'allow_redistribution', $this->getSlug(), 'allow_redistribution', @$options['allow_redistribution'], $args[0]);
 	}
 
 	/**
-	 * Render the pdf_paragraph_separation radio buttons.
-	 * @param array $args
-	 */
-	function renderShareLatestExportFilesField( $args ) {
-		$this->renderRadioButtons( 'share_latest_export_files', $this->getSlug(), 'share_latest_export_files', @$this->options['share_latest_export_files'], $args);
-	}
-
-	/**
-	 * Get the slug for the export options page.
+	 * Get the slug for the network export options page.
 	 *
 	 * @return string $slug
 	 */
@@ -161,7 +143,7 @@ class ExportOptions extends \Pressbooks\Options {
   }
 
 	/**
-	 * Get the localized title of the export options page.
+	 * Get the localized title of the network export options tab.
 	 *
 	 * @return string $title
 	 */
@@ -170,14 +152,13 @@ class ExportOptions extends \Pressbooks\Options {
   }
 
 	/**
-	 * Get an array of default values for the export options page.
+	 * Get an array of default values for the network export options page.
 	 *
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
 		return array(
-			'email_validation_logs' => 0,
-			'share_latest_export_files' => 0
+			'allow_redistribution' => 0
 		);
 	}
 
@@ -188,8 +169,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 */
 	static function getBooleanOptions() {
 		return array(
-			'email_validation_logs',
-			'share_latest_export_files'
+			'allow_redistribution'
 		);
 	}
 
