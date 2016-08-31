@@ -184,7 +184,6 @@ function replace_book_admin_menu() {
 		}
 	}
 
-
 	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pressbooks_export_options', array($page, 'render') );
 
 	// Import

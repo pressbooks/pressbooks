@@ -147,6 +147,52 @@ function get_media_path( $guid ) {
 	}
 }
 
+/**
+ * Scan the export directory, return latest of each file type
+ *
+ * @return array
+ */
+function latest_exports() {
+	$filetypes = array(
+	    'epub3' => '._3.epub',
+	    'epub' => '.epub',
+	    'pdf' => '.pdf',
+	    'mobi' => '.mobi',
+	    'icml' => '.icml',
+	    'xhtml' => '.html',
+	    'wxr' => '.xml',
+	    'vanillawxr' => '._vanilla.xml',
+	    'mpdf' => '._oss.pdf',
+	    'odf' => '.odt',
+	);
+
+	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+
+	$files = array();
+
+	// group by extension, sort by date newest first
+	foreach ( \Pressbooks\Utility\scandir_by_date( $dir ) as $file ) {
+		// only interested in the part of filename starting with the timestamp
+		preg_match( '/-\d{10,11}(.*)/', $file, $matches );
+
+		// grab the first captured parenthisized subpattern
+		$ext = $matches[1];
+
+		$files[$ext][] = $file;
+	}
+
+	// get only one of the latest of each type
+	$latest = array();
+
+	foreach ( $filetypes as $type => $ext ) {
+		if ( array_key_exists( $ext, $files ) ) {
+			$latest[$type] = $files[$ext][0];
+		}
+	}
+	// @TODO filter these results against user prefs
+
+	return $latest;
+}
 
 /**
  * Array multisort function for sorting on multiple fields like in SQL, e.g: 'ORDER BY field1, field2'
