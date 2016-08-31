@@ -20,12 +20,16 @@
 
 			<div class="book-info">
 				<!-- Book Title -->
-				<h1><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
+				<h1 class="entry-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 
 
 				<?php if ( ! empty( $metadata['pb_author'] ) ): ?>
-			     	<p class="book-author"><?php echo $metadata['pb_author']; ?></p>
+				<p class="book-author vcard author"><span class="fn"><?php echo $metadata['pb_author']; ?></span></p>
 			     	<span class="stroke"></span>
+				<?php endif; ?>
+				
+				<?php if ( ! empty( $metadata['pb_contributing_authors'] ) ): ?>
+					<p class="book-author"><?= $metadata['pb_contributing_authors']; ?> </p>
 		     	<?php endif; ?>
 
 
