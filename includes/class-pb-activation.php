@@ -25,9 +25,6 @@ class Activation {
 	 * @var array The set of default WP options to set up on activation
 	 */
 	private $opts = array(
-		'template' => 'pressbooks-book',
-		'stylesheet' => 'pressbooks-book',
-		'current_theme' => 'pressbooks-book',
 		'show_on_front' => 'page',
 		'rewrite_rules' => ''
 	);
