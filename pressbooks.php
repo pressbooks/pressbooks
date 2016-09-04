@@ -51,6 +51,9 @@ if ( ! defined( 'PB_PLUGIN_DIR' ) )
 if ( ! defined( 'PB_PLUGIN_URL' ) )
 	define ( 'PB_PLUGIN_URL', trailingslashit( plugins_url( 'pressbooks' ) ) ); // Must have trailing slash!
 
+if ( ! defined( 'WP_DEFAULT_THEME' ) )
+	define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
+
 // -------------------------------------------------------------------------------------------------------------------
 // Class autoloader
 // -------------------------------------------------------------------------------------------------------------------
