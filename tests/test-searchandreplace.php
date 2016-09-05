@@ -18,7 +18,7 @@ class SearchResultTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \Pressbooks\Modules\SearchAndReplace\Result->single_line
+	 * @covers \Pressbooks\Modules\SearchAndReplace\Result::single_line
 	 */
 	public function test_single_line() {
 		$this->result->search_plain = "line\rbreak";
