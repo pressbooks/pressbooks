@@ -18,7 +18,9 @@ function get_locale() {
 	static $locale = null;
 
 	if ( empty ( $locale ) ) {
+		// @codeCoverageIgnoreStart
 		$locale = \get_locale();
+		// @codeCoverageIgnoreEnd
 	}
 
 	return $locale;
