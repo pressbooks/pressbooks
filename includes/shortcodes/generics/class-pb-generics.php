@@ -8,6 +8,11 @@ namespace Pressbooks\Shortcodes\Generics;
 class Generics {
 
 	/**
+	 * @var Generics - Static property to hold our singleton instance
+	 */
+	static $instance = false;
+
+	/**
 	 * @array Protected array of generic shortcodes as a key => value pair,
 	 * where the key is the shortcode and the value is either a string (the tag)
 	 * or an array of two strings (tag and class, respectively).
@@ -21,6 +26,8 @@ class Generics {
 		'strong'		=> 'strong',
 		'textbox'		=> array('div', 'textbox'),
 	);
+
+	function __construct() {}
 
 	function buildGeneric( $atts, $content, $shortcode ) {
 		$tag = $this->generics[$shortcode];
@@ -45,12 +52,15 @@ class Generics {
 	/**
 	 * Adds shortcodes based on $self->generics.
 	 */
-	static function init() {
-		$self = new self();
+	static function getInstance() {
+		if ( ! self::$instance )
+			self::$instance = new self;
 
-		foreach ( $self->generics as $shortcode => $tag ) {
-			add_shortcode( $shortcode, array( $self, 'buildGeneric' ) );
+		foreach ( self::$instance->generics as $shortcode => $tag ) {
+			add_shortcode( $shortcode, array( self::$instance, 'buildGeneric' ) );
 		}
+
+		return self::$instance;
 	}
 
 
