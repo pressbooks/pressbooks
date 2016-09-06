@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "684baafef80392308ab06efb7a26dbfe",
-    "content-hash": "7805142d2c2d9f896ddc8e9cef60b0de",
+    "hash": "1fd5a9af2f6788143a22055fb4c8baae",
+    "content-hash": "fa064bc964f7edb0a45a9154b50f1350",
     "packages": [
         {
             "name": "ck/file_marc_reference",
@@ -13,21 +13,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/MARCspec/File_MARC_Reference.git",
-                "reference": "d2241abec7af43511384dcc5c7a522b11e2fccc4"
+                "reference": "ea40c224be8603c707dcde8443b40f47e5afc2d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MARCspec/File_MARC_Reference/zipball/d2241abec7af43511384dcc5c7a522b11e2fccc4",
-                "reference": "d2241abec7af43511384dcc5c7a522b11e2fccc4",
+                "url": "https://api.github.com/repos/MARCspec/File_MARC_Reference/zipball/ea40c224be8603c707dcde8443b40f47e5afc2d0",
+                "reference": "ea40c224be8603c707dcde8443b40f47e5afc2d0",
                 "shasum": ""
             },
             "require": {
                 "ck/php-marcspec": "^1.0",
-                "pear/file_marc": "^1.1",
+                "pear/file_marc": "@dev",
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "pear/file_marc": "^1.1",
                 "phpunit/phpunit": "^4.8",
                 "satooshi/php-coveralls": "^1.0"
             },
@@ -50,10 +49,11 @@
             ],
             "description": "MARCspec adapter for File_MARC",
             "keywords": [
+                "File_MARC",
                 "MARC 21",
                 "MARCspec"
             ],
-            "time": "2016-06-07 04:35:54"
+            "time": "2016-09-06 05:45:23"
         },
         {
             "name": "ck/php-marcspec",
@@ -103,16 +103,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.1.0",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "a3595c5272a6f247228abb20076ed27321e4aae9"
+                "reference": "d78064c68299743e0161004f2de3a0204e33b804"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/a3595c5272a6f247228abb20076ed27321e4aae9",
-                "reference": "a3595c5272a6f247228abb20076ed27321e4aae9",
+                "url": "https://api.github.com/repos/composer/installers/zipball/d78064c68299743e0161004f2de3a0204e33b804",
+                "reference": "d78064c68299743e0161004f2de3a0204e33b804",
                 "shasum": ""
             },
             "require": {
@@ -159,6 +159,7 @@
                 "MODX Evo",
                 "Mautic",
                 "OXID",
+                "Plentymarkets",
                 "RadPHP",
                 "SMF",
                 "Thelia",
@@ -166,9 +167,11 @@
                 "agl",
                 "aimeos",
                 "annotatecms",
+                "attogram",
                 "bitrix",
                 "cakephp",
                 "chef",
+                "cockpit",
                 "codeigniter",
                 "concrete5",
                 "croogo",
@@ -192,29 +195,31 @@
                 "piwik",
                 "ppi",
                 "puppet",
+                "reindex",
                 "roundcube",
                 "shopware",
                 "silverstripe",
                 "symfony",
                 "typo3",
                 "wordpress",
+                "yawik",
                 "zend",
                 "zikula"
             ],
-            "time": "2016-07-05 06:18:20"
+            "time": "2016-08-13 20:53:52"
         },
         {
             "name": "gridonic/princexml-php",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/pressbooks/PrinceXMLPhp.git",
-                "reference": "6756ca64ab2f9b7b56c7921e2265f1090e14b442"
+                "url": "https://github.com/gridonic/PrinceXMLPhp.git",
+                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/PrinceXMLPhp/zipball/6756ca64ab2f9b7b56c7921e2265f1090e14b442",
-                "reference": "6756ca64ab2f9b7b56c7921e2265f1090e14b442",
+                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
                 "shasum": ""
             },
             "require": {
@@ -226,6 +231,7 @@
                     "PrinceXMLPhp": "src"
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -244,10 +250,7 @@
                 "princexml",
                 "xml"
             ],
-            "support": {
-                "source": "https://github.com/pressbooks/PrinceXMLPhp/tree/master"
-            },
-            "time": "2016-04-04 22:32:28"
+            "time": "2016-09-06 17:46:32"
         },
         {
             "name": "leafo/scssphp",
@@ -304,16 +307,16 @@
         },
         {
             "name": "pear/file_marc",
-            "version": "1.1.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/File_MARC.git",
-                "reference": "2797b06da94391798d3878a7c939577924ca6848"
+                "reference": "c12120b711cc583e92bc7106b079e698719fbe89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/File_MARC/zipball/2797b06da94391798d3878a7c939577924ca6848",
-                "reference": "2797b06da94391798d3878a7c939577924ca6848",
+                "url": "https://api.github.com/repos/pear/File_MARC/zipball/c12120b711cc583e92bc7106b079e698719fbe89",
+                "reference": "c12120b711cc583e92bc7106b079e698719fbe89",
                 "shasum": ""
             },
             "require": {
@@ -347,7 +350,7 @@
                 }
             ],
             "description": "Supports the MAchine Readable Cataloging (MARC) file format documented at http://loc.gov/marc/",
-            "time": "2015-09-01 14:56:47"
+            "time": "2016-08-31 03:36:11"
         },
         {
             "name": "pear/pear_exception",
@@ -658,8 +661,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "vanilla/htmlawed": 20,
         "gridonic/princexml-php": 20,
+        "vanilla/htmlawed": 20,
         "pressbooks/saxon-he": 20,
         "pressbooks/custom-metadata": 20
     },

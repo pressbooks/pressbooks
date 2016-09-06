@@ -28,10 +28,6 @@
     },
     {
       "type": "vcs",
-      "url": "https://github.com/pressbooks/PrinceXMLPhp"
-    },
-    {
-      "type": "vcs",
       "url": "https://github.com/pressbooks/saxon-he"
     },
     {
@@ -118,17 +114,17 @@
   "require": {
     "php": ">=5.6.0",
     "composer/installers": "~1.0",
+    "gridonic/princexml-php": "dev-master",
     "leafo/scssphp": "0.6.*",
     "pimple/pimple": "~3.0",
+    "scriptotek/marc": "^0.1.0",
     "vanilla/htmlawed": "dev-master",
-    "gridonic/princexml-php": "dev-master",
     "pressbooks/saxon-he": "dev-master",
     "pressbooks/custom-metadata": "0.8.1-dev",
     "pressbooks/disable-comments": "1.0.1",
     "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/pressbooks-latex": "1.0.0",
-    "pressbooks/rest-api": "2.0-beta13.1",
-    "scriptotek/marc": "^0.1.0"
+    "pressbooks/rest-api": "2.0-beta13.1"
   },
   "require-dev": {
   },
