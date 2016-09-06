@@ -353,11 +353,9 @@ function get_locale() {
 	// Cheap cache
 	static $locale = null;
 
-	// @codeCoverageIgnoreStart
 	if ( empty ( $locale ) ) {
 		$locale = \get_locale();
 	}
-	// @codeCoverageIgnoreEnd
 
 	return $locale;
 }
@@ -403,7 +401,6 @@ function override_core_strings( $translated, $original, $domain ) {
  * For performance reasons this function will include the file only once.
  *
  * @return array
- * @codeCoverageIgnore
  */
 function include_core_overrides() {
 
@@ -430,7 +427,6 @@ function include_core_overrides() {
  * @param string $lang
  *
  * @return string
- * @codeCoverageIgnore
  */
 function set_locale( $lang ) {
 
@@ -524,7 +520,6 @@ function romanize( $integer ) {
  * Use the book locale to load POT translations?
  *
  * @return bool
- * @codeCoverageIgnore
  */
 function use_book_locale() {
 

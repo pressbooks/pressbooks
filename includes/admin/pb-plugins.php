@@ -65,8 +65,6 @@ function install_plugins_table_api_args_pressbooks( $args ) {
 
 /**
  * Output header text and display table for the 'Pressbooks' tab of the plugin installer.
- *
- * @codeCoverageIgnore
  */
 function install_plugins() {
 	global $wp_list_table;

@@ -56,7 +56,6 @@ class GlobalTypography {
 
 	/**
 	 * Update and save the SCSS mixin which assigns the $global-typography variable.
-	 * @codeCoverageIgnore
 	 */
 	function updateGlobalTypographyMixin() {
 
@@ -87,7 +86,6 @@ class GlobalTypography {
 
 	/**
 	 * @return string
-	 * @codeCoverageIgnore
 	 */
 	protected function _getBookLanguage() {
 
@@ -153,7 +151,6 @@ class GlobalTypography {
 	 * Get the current theme's supported languages.
 	 *
 	 * @return array
-	 * @codeCoverageIgnore
 	 */
 	function getThemeSupportedLanguages() {
 
