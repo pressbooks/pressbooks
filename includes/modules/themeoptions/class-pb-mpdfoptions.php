@@ -339,7 +339,7 @@ class mPDFOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return array(
+		return apply_filters( 'pressbooks_theme_options_mpdf_defaults', array(
 			'mpdf_page_size' => 'Letter',
 			'mpdf_include_cover' => 1,
 			'mpdf_indent_paragraphs' => 0,
@@ -348,7 +348,17 @@ class mPDFOptions extends \Pressbooks\Options {
 			'mpdf_margin_left' => 15,
 			'mpdf_margin_right' => 30,
 			'mpdf_hyphens' => 0
-		);
+		) );
+	}
+
+	/**
+	 * Filter the array of default values for the mPDF options tab.
+	 *
+	 * @param array $defaults
+	 * @return array $defaults
+	 */
+	static function filterDefaults( $defaults ) {
+		return $defaults;
 	}
 
 	/**

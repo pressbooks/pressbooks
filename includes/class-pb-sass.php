@@ -225,6 +225,21 @@ class Sass {
 	}
 
 	/**
+	 * Parse an SCSS file into an array of variables.
+	 *
+	 * @param string $scss
+	 * @return array
+	 */
+	function parseVariables( $scss ) {
+		preg_match_all( '/\$(.*?):(.*?);/', $scss, $matches );
+		$output = array_combine( $matches[1], $matches[2] );
+		$output = array_map( function( $val ) {
+			return ltrim( str_replace( ' !default', '', $val ) );
+		}, $output );
+		return $output;
+	}
+
+	/**
 	 * Log Exceptions
 	 *
 	 * @param \Exception $e

@@ -279,11 +279,21 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return array(
+		return apply_filters( 'pressbooks_theme_options_global_defaults', array(
 			'chapter_numbers' => 1,
 			'parse_subsections' => 0,
 			'copyright_license' => 0
-		);
+		) );
+	}
+
+	/**
+	 * Filter the array of default values for the Global options tab.
+	 *
+	 * @param array $defaults
+	 * @return array $defaults
+	 */
+	static function filterDefaults( $defaults ) {
+		return $defaults;
 	}
 
 	/**

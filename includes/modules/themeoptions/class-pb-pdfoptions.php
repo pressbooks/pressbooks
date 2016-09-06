@@ -972,7 +972,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return array(
+		return apply_filters( 'pressbooks_theme_options_pdf_defaults', array(
 			'pdf_body_font_size' => '11',
 			'pdf_body_line_height' => '1.4',
 			'pdf_page_width' => '5.5in',
@@ -1002,7 +1002,17 @@ class PDFOptions extends \Pressbooks\Options {
 			'running_content_back_matter_left' => '%book_title%',
 			'running_content_back_matter_right' => '%section_title%',
 			'pdf_fontsize' => 0,
-		);
+		) );
+	}
+
+	/**
+	 * Filter the array of default values for the PDF options tab.
+	 *
+	 * @param array $defaults
+	 * @return array $defaults
+	 */
+	static function filterDefaults( $defaults ) {
+		return $defaults;
 	}
 
 	/**

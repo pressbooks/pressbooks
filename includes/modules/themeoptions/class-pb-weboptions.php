@@ -156,9 +156,19 @@ class WebOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return array(
+		return apply_filters( 'pressbooks_theme_options_web_defaults', array(
 			'social_media' => 1
-		);
+		) );
+	}
+
+	/**
+	 * Filter the array of default values for the web options tab.
+	 *
+	 * @param array $defaults
+	 * @return array $defaults
+	 */
+	static function filterDefaults( $defaults ) {
+		return $defaults;
 	}
 
 	/**

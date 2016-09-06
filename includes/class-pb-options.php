@@ -47,6 +47,14 @@ abstract class Options {
 	abstract static function getDefaults();
 
 	/**
+	 * Filter the array of default values for this set of options
+	 *
+	 * @param array $defaults
+	 * @return array $defaults
+	 */
+	abstract static function filterDefaults( $defaults );
+
+	/**
 	 * Get an array of options which return booleans.
 	 *
 	 * @return array $options

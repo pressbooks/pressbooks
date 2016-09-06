@@ -172,10 +172,20 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return array(
+		return apply_filters( 'pressbooks_theme_options_ebook_defaults', array(
 			'ebook_paragraph_separation' => 'indent',
 			'ebook_compress_images' => 0
-		);
+		) );
+	}
+
+	/**
+	 * Filter the array of default values for the Ebook options tab.
+	 *
+	 * @param array $defaults
+	 * @return array $defaults
+	 */
+	static function filterDefaults( $defaults ) {
+		return $defaults;
 	}
 
 	/**

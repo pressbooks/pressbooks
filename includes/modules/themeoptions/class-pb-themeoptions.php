@@ -30,6 +30,7 @@ class ThemeOptions {
 	function loadTabs() {
 		foreach ( $this->tabs as $slug => $tab ) {
 			$subclass = '\Pressbooks\Modules\ThemeOptions\\' . ucfirst( $slug ) . 'Options';
+			add_filter( 'pressbooks_theme_options_' . $slug . '_defaults', array( $subclass, 'filterDefaults' ), 10, 1 );
 			$option = get_option( 'pressbooks_theme_options_' . $slug, $subclass::getDefaults() );
 			$tab = new $subclass( $option );
 			$tab->init();
