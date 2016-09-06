@@ -403,6 +403,7 @@ function override_core_strings( $translated, $original, $domain ) {
  * For performance reasons this function will include the file only once.
  *
  * @return array
+ * @codeCoverageIgnore
  */
 function include_core_overrides() {
 
@@ -429,6 +430,7 @@ function include_core_overrides() {
  * @param string $lang
  *
  * @return string
+ * @codeCoverageIgnore
  */
 function set_locale( $lang ) {
 
@@ -522,13 +524,12 @@ function romanize( $integer ) {
  * Use the book locale to load POT translations?
  *
  * @return bool
+ * @codeCoverageIgnore
  */
 function use_book_locale() {
 
 	if ( \Pressbooks\Modules\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
-		// @codeCoverageIgnoreStart
 		return true;
-		// @codeCoverageIgnoreEnd
 	}
 
 	$uri = $_SERVER['REQUEST_URI'];
