@@ -17,7 +17,7 @@ class Generics {
 	 * where the key is the shortcode and the value is either a string (the tag)
 	 * or an array of two strings (tag and class, respectively).
 	 */
-	protected $generics = array(
+	protected $shortcodes = array(
 		'blockquote' 	=> 'blockquote',
 		'bold' 			=> 'strong',
 		'code'			=> 'code',
@@ -29,8 +29,8 @@ class Generics {
 
 	function __construct() {}
 
-	function buildGeneric( $atts, $content, $shortcode ) {
-		$tag = $this->generics[$shortcode];
+	function shortcodeHandler( $atts, $content = '', $shortcode ) {
+		$tag = $this->shortcodes[$shortcode];
 
 		if ( ! $content ) { return ''; }
 		$class = '';
@@ -56,8 +56,8 @@ class Generics {
 		if ( ! self::$instance )
 			self::$instance = new self;
 
-		foreach ( self::$instance->generics as $shortcode => $tag ) {
-			add_shortcode( $shortcode, array( self::$instance, 'buildGeneric' ) );
+		foreach ( self::$instance->shortcodes as $shortcode => $tag ) {
+			add_shortcode( $shortcode, array( self::$instance, 'shortcodeHandler' ) );
 		}
 
 		return self::$instance;
