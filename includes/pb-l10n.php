@@ -17,11 +17,11 @@ function get_locale() {
 	// Cheap cache
 	static $locale = null;
 
+	// @codeCoverageIgnoreStart
 	if ( empty ( $locale ) ) {
-		// @codeCoverageIgnoreStart
 		$locale = \get_locale();
-		// @codeCoverageIgnoreEnd
 	}
+	// @codeCoverageIgnoreEnd
 
 	return $locale;
 }
