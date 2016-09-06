@@ -5,143 +5,6 @@
  */
 namespace Pressbooks\L10n;
 
-
-/**
- * Override get_locale
- * For performance reasons, we only want functions in this namespace to call WP get_locale once.
- *
- * @return string
- */
-function get_locale() {
-
-	// Cheap cache
-	static $locale = null;
-
-	// @codeCoverageIgnoreStart
-	if ( empty ( $locale ) ) {
-		$locale = \get_locale();
-	}
-	// @codeCoverageIgnoreEnd
-
-	return $locale;
-}
-
-/**
- * When multiple mo-files are loaded for the same domain, the first found translation will be used. To allow for easier
- * customization we load from the WordPress languages directory by default then fallback on our own, if any.
- */
-function load_plugin_textdomain() {
-	$locale = apply_filters( 'plugin_locale', get_locale(), 'pressbooks' );
-	load_textdomain( 'pressbooks', WP_LANG_DIR . '/pressbooks/pressbooks-' . $locale . '.mo' );
-	\load_plugin_textdomain( 'pressbooks', false, 'pressbooks/languages' );
-}
-
-
-/**
- * Change core WordPress strings.
- *
- * @param $translated
- * @param $original
- * @param $domain
- *
- * @return mixed
- */
-function override_core_strings( $translated, $original, $domain ) {
-
-	// var_dump( array( $translated, $original, $domain) );
-
-	$overrides = include_core_overrides();
-
-	if ( isset( $overrides[$original] ) ) {
-		$translations = get_translations_for_domain( $domain );
-		$translated = $translations->translate( $overrides[$original] );
-	}
-
-	return $translated;
-}
-
-/**
- * Include the core WordPress override file.
- * Looks for ./languages/core-en_US.php, where "en_US" is defined by get_locale()
- * Expects $overrides array.
- * For performance reasons this function will include the file only once.
- *
- * @return array
- */
-function include_core_overrides() {
-
-	// Cheap cache
-	static $_overrides = array();
-
-	$locale = apply_filters( 'plugin_locale', get_locale(), 'pressbooks' );
-	$filename = PB_PLUGIN_DIR . "languages/core-" . $locale . ".php";
-
-	if ( ! isset( $_overrides[$locale] ) ) {
-		$_overrides[$locale] = array();
-		if ( file_exists( $filename ) ) {
-			$_overrides[$locale] = include( $filename );
-		}
-	}
-
-	return $_overrides[$locale];
-}
-
-
-/**
- * Hook for add_filter('locale ', ...), change the user interface language
- *
- * @param string $lang
- *
- * @return string
- */
-function set_locale( $lang ) {
-
-	// Cheap cache
-	static $loc = '__UNSET__';
-
-	if ( is_admin() ) { // go with the user setting
-		// get_current_user_id uses wp_get_current_user which may not be available the first time(s) get_locale is called
-		if ( '__UNSET__' == $loc && function_exists( 'wp_get_current_user' ) ) {
-			$loc = get_user_option( 'user_interface_lang' );
-		}
-
-	} elseif ( @$GLOBALS['pagenow'] == 'wp-signup.php' ) {
-		// use global setting
-		$loc = get_site_option( 'WPLANG' );
-	} else {
-		// go with the book info setting
-		$metadata = \Pressbooks\Book::getBookInformation();
-
-		if (  '__UNSET__' == $loc && !empty( $metadata['pb_language'] ) ) {
-			$locations = \Pressbooks\L10n\wplang_codes();
-			$loc = $locations[$metadata['pb_language']];
-		}
-	}
-
-	// Return
-	if ( '__UNSET__' == $loc ) {
-		return $lang;
-	} else {
-		return ( $loc ? $loc : $lang );
-	}
-
-}
-
-/**
- * Hook for add_filter('locale ', ...), change the user interface language
- *
- * @param string $lang
- *
- * @return string
- */
-function set_root_locale( $lang ) {
-
-	$loc = get_site_option( 'WPLANG' );
-	return $loc;
-
-}
-
-
 /**
  * KindleGen is based on Mobipocket Creator and apparently supports only the following language codes.
  * This populates the language dropdown on the Book Info page.
@@ -453,6 +316,7 @@ function wplang_codes() {
 	return $languages;
 }
 
+
 /**
  * The fully-translated and installed languages for the Pressbooks dashboard.
  * Populates the language selector on the User Profile.
@@ -476,6 +340,143 @@ function get_dashboard_languages() {
 
 	return $languages;
 }
+
+
+/**
+ * Override get_locale
+ * For performance reasons, we only want functions in this namespace to call WP get_locale once.
+ *
+ * @return string
+ */
+function get_locale() {
+
+	// Cheap cache
+	static $locale = null;
+
+	// @codeCoverageIgnoreStart
+	if ( empty ( $locale ) ) {
+		$locale = \get_locale();
+	}
+	// @codeCoverageIgnoreEnd
+
+	return $locale;
+}
+
+/**
+ * When multiple mo-files are loaded for the same domain, the first found translation will be used. To allow for easier
+ * customization we load from the WordPress languages directory by default then fallback on our own, if any.
+ */
+function load_plugin_textdomain() {
+	$locale = apply_filters( 'plugin_locale', get_locale(), 'pressbooks' );
+	load_textdomain( 'pressbooks', WP_LANG_DIR . '/pressbooks/pressbooks-' . $locale . '.mo' );
+	\load_plugin_textdomain( 'pressbooks', false, 'pressbooks/languages' );
+}
+
+
+/**
+ * Change core WordPress strings.
+ *
+ * @param $translated
+ * @param $original
+ * @param $domain
+ *
+ * @return mixed
+ */
+function override_core_strings( $translated, $original, $domain ) {
+
+	// var_dump( array( $translated, $original, $domain) );
+
+	$overrides = include_core_overrides();
+
+	if ( isset( $overrides[$original] ) ) {
+		$translations = get_translations_for_domain( $domain );
+		$translated = $translations->translate( $overrides[$original] );
+	}
+
+	return $translated;
+}
+
+/**
+ * Include the core WordPress override file.
+ * Looks for ./languages/core-en_US.php, where "en_US" is defined by get_locale()
+ * Expects $overrides array.
+ * For performance reasons this function will include the file only once.
+ *
+ * @return array
+ */
+function include_core_overrides() {
+
+	// Cheap cache
+	static $_overrides = array();
+
+	$locale = apply_filters( 'plugin_locale', get_locale(), 'pressbooks' );
+	$filename = PB_PLUGIN_DIR . "languages/core-" . $locale . ".php";
+
+	if ( ! isset( $_overrides[$locale] ) ) {
+		$_overrides[$locale] = array();
+		if ( file_exists( $filename ) ) {
+			$_overrides[$locale] = include( $filename );
+		}
+	}
+
+	return $_overrides[$locale];
+}
+
+
+/**
+ * Hook for add_filter('locale ', ...), change the user interface language
+ *
+ * @param string $lang
+ *
+ * @return string
+ */
+function set_locale( $lang ) {
+
+	// Cheap cache
+	static $loc = '__UNSET__';
+
+	if ( is_admin() ) { // go with the user setting
+		// get_current_user_id uses wp_get_current_user which may not be available the first time(s) get_locale is called
+		if ( '__UNSET__' == $loc && function_exists( 'wp_get_current_user' ) ) {
+			$loc = get_user_option( 'user_interface_lang' );
+		}
+
+	} elseif ( @$GLOBALS['pagenow'] == 'wp-signup.php' ) {
+		// use global setting
+		$loc = get_site_option( 'WPLANG' );
+	} else {
+		// go with the book info setting
+		$metadata = \Pressbooks\Book::getBookInformation();
+
+		if (  '__UNSET__' == $loc && !empty( $metadata['pb_language'] ) ) {
+			$locations = \Pressbooks\L10n\wplang_codes();
+			$loc = $locations[$metadata['pb_language']];
+		}
+	}
+
+	// Return
+	if ( '__UNSET__' == $loc ) {
+		return $lang;
+	} else {
+		return ( $loc ? $loc : $lang );
+	}
+
+}
+
+/**
+ * Hook for add_filter('locale ', ...), change the user interface language
+ *
+ * @param string $lang
+ *
+ * @return string
+ */
+function set_root_locale( $lang ) {
+
+	$loc = get_site_option( 'WPLANG' );
+	return $loc;
+
+}
+
 
 /**
  * Sets the interface language for new users to the site's language.
@@ -525,7 +526,9 @@ function romanize( $integer ) {
 function use_book_locale() {
 
 	if ( \Pressbooks\Modules\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
+		// @codeCoverageIgnoreStart
 		return true;
+		// @codeCoverageIgnoreEnd
 	}
 
 	$uri = $_SERVER['REQUEST_URI'];
