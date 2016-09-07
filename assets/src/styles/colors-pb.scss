@@ -96,6 +96,7 @@ div.error {
 
   #wp-admin-bar-menu-toggle .ab-item {
     background: $dark-red;
+
     .ab-icon,
 		.ab-icon:before {
       color: $white;
@@ -104,6 +105,7 @@ div.error {
     &:hover,
     &:active {
       background: $white;
+
       .ab-icon,
 			.ab-icon:before {
         color: $red;
@@ -126,6 +128,13 @@ div.error {
 			}
 		}
 	}
+
+  &.mobile {
+    .quicklinks .ab-icon:before,
+    .quicklinks .ab-item:before {
+      color: $white;
+    }
+  }
 }
 
 // Themes
