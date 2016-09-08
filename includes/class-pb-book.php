@@ -37,7 +37,12 @@ class Book {
 		// Currently, the main site is considered a "blog/landing page" whereas everything else is considered a "book".
 		// We might improve this in the future.
 
-		$is_book = ( is_main_site() === false );
+		if ( is_main_site() ) {
+			$is_book = false;
+		}
+		else {
+			$is_book = (bool) get_option( 'pressbooks_is_book' );
+		}
 
 		return $is_book;
 	}
