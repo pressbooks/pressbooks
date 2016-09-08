@@ -27,7 +27,7 @@
 				<p class="book-author vcard author"><span class="fn"><?php echo $metadata['pb_author']; ?></span></p>
 			     	<span class="stroke"></span>
 				<?php endif; ?>
-				
+
 				<?php if ( ! empty( $metadata['pb_contributing_authors'] ) ): ?>
 					<p class="book-author"><?= $metadata['pb_contributing_authors']; ?> </p>
 		     	<?php endif; ?>
@@ -67,6 +67,12 @@
 				</div><!--  end .call-to-action-wrap -->
 
 				<?php
+				 /**
+					* @author Brad Payne <brad@bradpayne.ca>
+					* @copyright 2014 Brad Payne
+					* @since 3.8.0
+					*/
+
 					$files = \Pressbooks\Utility\latest_exports();
 					$site_option = get_site_option( 'pressbooks_export_options', array( 'allow_redistribution' => 0 ) );
 					$option = get_option( 'pressbooks_export_options', array( 'share_latest_export_files' => 0 ) );
