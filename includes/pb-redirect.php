@@ -125,7 +125,7 @@ function flusher() {
 	$set = get_option( 'pressbooks_flushed_open' );
 	if ( ! $set ) {
 		$pull_the_lever = true;
-		update_option( 'presbooks_flushed_open', true );
+		update_option( 'pressbooks_flushed_open', true );
 	}
 
 	if ( $pull_the_lever ) {
@@ -334,6 +334,9 @@ function do_api() {
 /**
  * Add a rewrite rule for the keyword "open"
  *
+ * @author Brad Payne <brad@bradpayne.ca>
+ * @copyright 2014 Brad Payne
+ * @since 3.8.0
  * @see flusher()
  */
 function rewrite_rules_for_open() {
@@ -343,7 +346,11 @@ function rewrite_rules_for_open() {
 }
 
 /**
- * Display book in a custom format.
+ * Handle URL request for download of a publicly available file.
+ *
+ * @author Brad Payne <brad@bradpayne.ca>
+ * @copyright 2014 Brad Payne
+ * @since 3.8.0
  */
 function do_open() {
 
@@ -388,6 +395,14 @@ function do_open() {
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
 }
 
+
+/**
+ * Handle download of a publicly available file.
+ *
+ * @author Brad Payne <brad@bradpayne.ca>
+ * @copyright 2014 Brad Payne
+ * @since 3.8.0
+ */
 function download_open_export_file( $filename ) {
 
 	$filepath = \Pressbooks\Modules\Export\Export::getExportFolder() . $filename;

@@ -150,6 +150,9 @@ function get_media_path( $guid ) {
 /**
  * Scan the export directory, return latest of each file type
  *
+ * @author Brad Payne <brad@bradpayne.ca>
+ * @copyright 2014 Brad Payne
+ * @since 3.8.0
  * @return array
  */
 function latest_exports() {
