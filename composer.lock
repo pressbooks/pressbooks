@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d1b69d37447cf8c1d28a1338b17b6bbe",
-    "content-hash": "b93138778e47745e76877c15c1afb5b2",
+    "hash": "aab6d75d0066cba5fd0031fcf64c4070",
+    "content-hash": "1eb0b0f5f8f73f275ad8deb64f83b36d",
     "packages": [
         {
             "name": "composer/installers",
@@ -213,16 +213,16 @@
         },
         {
             "name": "pimple/pimple",
-            "version": "v3.0.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Pimple.git",
-                "reference": "a30f7d6e57565a2e1a316e1baf2a483f788b258a"
+                "reference": "44515c40a4c4effc53c1e6c0e7158f711473dc98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/a30f7d6e57565a2e1a316e1baf2a483f788b258a",
-                "reference": "a30f7d6e57565a2e1a316e1baf2a483f788b258a",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/44515c40a4c4effc53c1e6c0e7158f711473dc98",
+                "reference": "44515c40a4c4effc53c1e6c0e7158f711473dc98",
                 "shasum": ""
             },
             "require": {
@@ -255,7 +255,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2015-09-11 15:10:35"
+            "time": "2016-09-10 19:36:25"
         },
         {
             "name": "pressbooks/custom-metadata",
@@ -276,16 +276,16 @@
         },
         {
             "name": "pressbooks/disable-comments",
-            "version": "v1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/disable-comments/",
-                "reference": "tags/v1.0.1"
+                "reference": "tags/v1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.1.zip",
-                "reference": "tags/v1.0.1",
+                "url": "https://github.com/pressbooks/disable-comments/archive/v1.1.zip",
+                "reference": "tags/v1.1",
                 "shasum": null
             },
             "type": "library"
