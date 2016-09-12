@@ -110,6 +110,7 @@ class Pdf extends Export {
 			$prince->setInsecure( true );
 		}
 		if ( $this->pdfProfile ) {
+			error_log( $this->pdfProfile );
 			$prince->setOptions( "--pdf-profile='" . $this->pdfProfile . "'" );
 		}
 		$prince->addStyleSheet( $css_file );
