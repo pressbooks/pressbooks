@@ -179,11 +179,9 @@ class Pdf extends Export {
 	}
 
 	protected function getPdfProfile() {
-		$options = get_option( 'pressbooks_theme_options_pdf' );
-		if ( isset( $options['pdf_profile'] ) ) {
-			return $options['pdf_profile'];
+		if ( defined( 'PB_PDF_PROFILE' ) ) {
+			return PB_PDF_PROFILE;
 		}
-		// return 'PDF/X-3:2003';
 		return null;
 	}
 
