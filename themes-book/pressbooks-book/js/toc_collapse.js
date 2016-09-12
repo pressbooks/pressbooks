@@ -1,7 +1,7 @@
 jQuery(function($) {
 	var $toc = $("#toc");
 	var $tocbutton = $(".toc-btn");
-	if ( $toc.length < 0 && $tocbutton.length < 0 && ( $(window).height() - ( $tocbutton.offset().top + $tocbutton.height() + $toc.height() ) ) < 0 ) {
+	if ( $toc.length > 0 && $tocbutton.length > 0 && ( $(window).height() - ( $tocbutton.offset().top + $tocbutton.height() + $toc.height() ) ) < 0 ) {
 		$("#toc > ul").find("li h4:not(:has(a)):not(:empty)").on('click', function() {
 				jQuery(this).parent().next().slideToggle(100);
 				var dashicon = $(this).find(".dashicons");
