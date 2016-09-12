@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "076738735a74e509490605a903f0414d",
-    "content-hash": "012cb29f653ea0b949169c0d1d39a6b7",
+    "hash": "e13a83ba63e7ac8d553fce04881d1305",
+    "content-hash": "56e995ec7b5f7c76cebaa8e1bcc424d6",
     "packages": [
         {
             "name": "composer/installers",
@@ -291,22 +291,6 @@
             "type": "library"
         },
         {
-            "name": "pressbooks/htmlawed",
-            "version": "1.2-beta11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/htmlawed/",
-                "reference": "tags/v1.2-beta11"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/htmlawed/archive/v1.2-beta11.zip",
-                "reference": "tags/v1.2-beta11",
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
             "name": "pressbooks/mce-table-buttons",
             "version": "3.2.0",
             "source": {
@@ -365,6 +349,52 @@
             ],
             "description": "Provides implementations of XSLT 2.0, XQuery 3.1, and XPath 3.1 at the basic level of conformance defined by W3C.",
             "time": "2016-09-12 18:32:26"
+        },
+        {
+            "name": "vanilla/htmlawed",
+            "version": "v1.2.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/htmlawed.git",
+                "reference": "7c717dc95b62a69d8c6757ea61410d080891496b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pressbooks/htmlawed/zipball/7c717dc95b62a69d8c6757ea61410d080891496b",
+                "reference": "7c717dc95b62a69d8c6757ea61410d080891496b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "tburry/pquery": "~1.0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/Htmlawed.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Htmlawed\\Test\\": "tests"
+                }
+            },
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Todd Burry",
+                    "email": "todd@vanillaforums.com"
+                }
+            ],
+            "description": "A composer wrapper for the htmLawed library to purify & filter HTML. Tested with PHPUnit and PhantomJS!",
+            "support": {
+                "source": "https://github.com/pressbooks/htmlawed/tree/v1.2.4"
+            },
+            "time": "2016-01-18 19:42:40"
         },
         {
             "name": "wp-api/wp-api",

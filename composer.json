@@ -23,20 +23,8 @@
   "minimum-stability": "dev",
   "repositories": [
     {
-      "type": "package",
-      "package": {
-        "name": "pressbooks/htmlawed",
-        "version": "1.2-beta11",
-        "dist": {
-          "url": "https://github.com/pressbooks/htmlawed/archive/v1.2-beta11.zip",
-          "type": "zip"
-        },
-        "source": {
-          "url": "https://github.com/pressbooks/htmlawed/",
-          "type": "git",
-          "reference": "tags/v1.2-beta11"
-        }
-      }
+      "type": "vcs",
+      "url": "https://github.com/pressbooks/htmlawed"
     },
     {
       "type": "package",
@@ -109,7 +97,7 @@
     "gridonic/princexml-php": "dev-master",
     "pimple/pimple": "^3.0",
     "leafo/scssphp": "^0.6.6",
-    "pressbooks/htmlawed": "^1.2",
+    "vanilla/htmlawed": "dev-master",
     "pressbooks/saxon-he": "^9.6",
     "pressbooks/custom-metadata": "0.8.1-dev",
     "pressbooks/disable-comments": "1.1",
