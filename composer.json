@@ -26,15 +26,15 @@
       "type": "package",
       "package": {
         "name": "pressbooks/htmlawed",
-        "version": "1.2",
+        "version": "1.2-beta11",
         "dist": {
-          "url": "https://github.com/pressbooks/htmlawed/archive/master.zip",
+          "url": "https://github.com/pressbooks/htmlawed/archive/v1.2-beta11.zip",
           "type": "zip"
         },
         "source": {
           "url": "https://github.com/pressbooks/htmlawed/",
           "type": "git",
-          "reference": "tree/master"
+          "reference": "tags/v1.2-beta11"
         }
       }
     },

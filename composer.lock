@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "aab6d75d0066cba5fd0031fcf64c4070",
-    "content-hash": "1eb0b0f5f8f73f275ad8deb64f83b36d",
+    "hash": "076738735a74e509490605a903f0414d",
+    "content-hash": "012cb29f653ea0b949169c0d1d39a6b7",
     "packages": [
         {
             "name": "composer/installers",
@@ -292,16 +292,16 @@
         },
         {
             "name": "pressbooks/htmlawed",
-            "version": "1.2",
+            "version": "1.2-beta11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/htmlawed/",
-                "reference": "tree/master"
+                "reference": "tags/v1.2-beta11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/pressbooks/htmlawed/archive/master.zip",
-                "reference": "tree/master",
+                "url": "https://github.com/pressbooks/htmlawed/archive/v1.2-beta11.zip",
+                "reference": "tags/v1.2-beta11",
                 "shasum": null
             },
             "type": "library"
