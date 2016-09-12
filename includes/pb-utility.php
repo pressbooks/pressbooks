@@ -201,8 +201,8 @@ function multi_sort() {
  * @param string|array $headers Optional. Additional headers.
  * @param string|array $attachments Optional. Files to attach.
  *
- * @global $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_API_KEY']
- * @global $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_SENDER_ADDRESS']
+ * @const POSTMARK_API_KEY
+ * @const POSTMARK_SENDER_ADDRESS
  *
  * @return bool Whether the email contents were sent successfully.
  */
