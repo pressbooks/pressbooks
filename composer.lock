@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e13a83ba63e7ac8d553fce04881d1305",
-    "content-hash": "56e995ec7b5f7c76cebaa8e1bcc424d6",
+    "hash": "6b07803b63282aa90b534282403d2035",
+    "content-hash": "6a98e81d0853f6ea714df344495b78ce",
     "packages": [
         {
             "name": "composer/installers",
@@ -352,16 +352,16 @@
         },
         {
             "name": "vanilla/htmlawed",
-            "version": "v1.2.4",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/htmlawed.git",
-                "reference": "7c717dc95b62a69d8c6757ea61410d080891496b"
+                "reference": "d85098979b7633b00460fec75e527842fa3a258e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/htmlawed/zipball/7c717dc95b62a69d8c6757ea61410d080891496b",
-                "reference": "7c717dc95b62a69d8c6757ea61410d080891496b",
+                "url": "https://api.github.com/repos/pressbooks/htmlawed/zipball/d85098979b7633b00460fec75e527842fa3a258e",
+                "reference": "d85098979b7633b00460fec75e527842fa3a258e",
                 "shasum": ""
             },
             "require": {
@@ -392,9 +392,9 @@
             ],
             "description": "A composer wrapper for the htmLawed library to purify & filter HTML. Tested with PHPUnit and PhantomJS!",
             "support": {
-                "source": "https://github.com/pressbooks/htmlawed/tree/v1.2.4"
+                "source": "https://github.com/pressbooks/htmlawed/tree/v1.2-beta11"
             },
-            "time": "2016-01-18 19:42:40"
+            "time": "2016-04-04 21:36:17"
         },
         {
             "name": "wp-api/wp-api",
@@ -441,6 +441,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "gridonic/princexml-php": 20,
+        "vanilla/htmlawed": 20,
         "pressbooks/custom-metadata": 20
     },
     "prefer-stable": false,
