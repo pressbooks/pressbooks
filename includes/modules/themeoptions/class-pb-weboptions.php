@@ -142,7 +142,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	protected function getSlug() {
+	static function getSlug() {
   	return 'web';
   }
 
@@ -151,7 +151,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-  protected function getTitle() {
+  static function getTitle() {
   	return __('Web Options', 'pressbooks');
   }
 
