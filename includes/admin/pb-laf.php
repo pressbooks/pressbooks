@@ -166,7 +166,7 @@ function replace_book_admin_menu() {
 	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', __NAMESPACE__ . '\display_publish', 'dashicons-products', 16 );
 
 	// Privacy
-	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'pb_privacy_settings', __NAMESPACE__ . '\display_privacy_settings' );
+	add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Export
 	require dirname( __FILE__ ) . '/class-pb-exportoptions.php';
@@ -199,21 +199,21 @@ function replace_book_admin_menu() {
 }
 
 function network_admin_menu() {
-	require dirname( __FILE__ ) . '/class-pb-network-exportoptions.php';
-	$subclass = '\Pressbooks\Admin\Network\ExportOptions';
-	$option = get_site_option( 'pressbooks_export_options', $subclass::getDefaults(), false );
+	require dirname( __FILE__ ) . '/class-pb-network-sharingandprivacyoptions.php';
+	$subclass = '\Pressbooks\Admin\Network\SharingAndPrivacyOptions';
+	$option = get_site_option( 'pressbooks_sharingandprivacy_options', $subclass::getDefaults(), false );
 	$page = new $subclass( $option );
 	$page->init();
-	$version = get_site_option( 'pressbooks_export_options_version', 0, false );
+	$version = get_site_option( 'pressbooks_sharingandprivacy_options_version', 0, false );
 	if ( $version < $page::$currentVersion ) {
 		$page->upgrade( $version );
-		update_site_option( 'pressbooks_export_options_version', $page::$currentVersion, false );
+		update_site_option( 'pressbooks_sharingandprivacy_options_version', $page::$currentVersion, false );
 		if ( WP_DEBUG ) {
-			error_log( 'Upgraded network ' . 'pressbooks_export_options' . ' from version ' . $version .' --> ' . $page::$currentVersion );
+			error_log( 'Upgraded network ' . 'pressbooks_sharingandprivacy_options' . ' from version ' . $version .' --> ' . $page::$currentVersion );
 		}
 	}
 
-	add_submenu_page( 'settings.php', __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_network', 'pressbooks_export_options', array($page, 'render') );
+	add_submenu_page( 'settings.php', __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_network', 'pressbooks_export_options', array($page, 'render') );
 }
 
 /**
@@ -664,6 +664,15 @@ function privacy_settings_init() {
 		'privacy_settings',
 		'privacy_settings_section'
 	);
+	if ( get_site_option( 'pressbooks_sharingandprivacy_options' )['allow_redistribution'] ) {
+		add_settings_field(
+			'latest_files_public',
+			__( 'Share Latest Export Files', 'pressbooks' ),
+			__NAMESPACE__ . '\privacy_latest_files_public_callback',
+			'privacy_settings',
+			'privacy_settings_section'
+		);
+	}
 	register_setting(
 		'privacy_settings',
 		'blog_public',
@@ -674,6 +683,12 @@ function privacy_settings_init() {
 		'permissive_private_content',
 		__NAMESPACE__ . '\privacy_permissive_private_content_sanitize'
 	);
+	register_setting(
+		'privacy_settings',
+		'pbt_redistribute_settings',
+		__NAMESPACE__ . '\privacy_pbt_redistribute_settings_sanitize'
+	);
+
 }
 
 
@@ -681,7 +696,7 @@ function privacy_settings_init() {
  * Privacy settings section callback
  */
 function privacy_settings_section_callback() {
-	echo '<p>' . __( 'Privacy settings', 'pressbooks' ) . '.</p>'; // TK
+	echo '<p>' . __( 'Sharing and Privacy settings', 'pressbooks' ) . '.</p>'; // TK
 }
 
 
@@ -731,6 +746,23 @@ function privacy_permissive_private_content_callback( $args ) {
 	</fieldgroup>
 <?php }
 
+/**
+ * Sharing settings, latest_files_public field callback
+ *
+ * @param $args
+ */
+function privacy_latest_files_public_callback( $args ) {
+	$blog_public = get_option( 'pbt_redistribute_settings' );
+	$html = '<input type="radio" id="latest_files_public" name="pbt_redistribute_settings[latest_files_public]" value="1" ';
+	if ( $blog_public['latest_files_public'] ) $html .= 'checked="checked" ';
+	$html .= '/>';
+	$html .= '<label for="latest_files_public"> ' . __( 'Yes. I would like the latest export files to be available on the homepage for free, to everyone.', 'pressbooks' ) . '</label><br />';
+	$html .= '<input type="radio" id="latest_files_private" name="pbt_redistribute_settings[latest_files_public]" value="0" ';
+	if ( ! $blog_public['latest_files_public'] ) $html .= 'checked="checked" ';
+	$html .= '/>';
+	$html .= '<label for="latest_files_private"> ' . __( 'No. I would like the latest export files to only be available to administrators.', 'pressbooks' ) . '</label>';
+	echo $html;
+}
 
 /**
  * Privacy settings, blog_public field sanitization
@@ -753,11 +785,23 @@ function privacy_permissive_private_content_sanitize( $input ) {
 }
 
 /**
+ * Privacy settings, private_chapters field sanitization
+ *
+ * @param $input
+ * @return string
+ */
+function privacy_pbt_redistribute_settings_sanitize( $input ) {
+	$output['latest_files_public'] = absint( $input['latest_files_public'] );
+	error_log( print_r( $output, true ));
+	return $output;
+}
+
+/**
  * Display Privacy settings
  */
 function display_privacy_settings() { ?>
 <div class="wrap">
-	<h2><?php _e( 'Privacy Settings', 'pressbooks' ); ?></h2>
+	<h2><?php _e( 'Sharing and Privacy Settings', 'pressbooks' ); ?></h2>
 	<form method="post" action="options.php">
 		<?php settings_fields( 'privacy_settings' );
 		do_settings_sections( 'privacy_settings' ); ?>

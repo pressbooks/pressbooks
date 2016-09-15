@@ -5,9 +5,9 @@
  */
 namespace Pressbooks\Admin\Network;
 
-class ExportOptions extends \Pressbooks\Options {
+class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	/**
-	 * The value for option: pressbooks_network_export_options_version
+	 * The value for option: pressbooks_network_sharingandprivacy_options_version
 	 *
 	 * @see upgrade()
 	 * @var int
@@ -15,14 +15,14 @@ class ExportOptions extends \Pressbooks\Options {
 	static $currentVersion = 1;
 
 	/**
-   * Export options.
+   * Sharing and Privacy options.
    *
    * @var array
    */
 	public $options;
 
 	/**
-   * Export defaults.
+   * Sharing and Privacy defaults.
    *
    * @var array
    */
@@ -82,10 +82,10 @@ class ExportOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Display the network export options page description.
+	 * Display the network sharing and privacy options page description.
 	 */
 	function display() {
-		echo '<p>' . __( 'Export settings.', 'pressbooks' ) . '</p>';
+		echo '<p>' . __( 'Sharing and Privacy settings.', 'pressbooks' ) . '</p>';
 	}
 
 	function render() {
@@ -125,7 +125,7 @@ class ExportOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the pdf_paragraph_separation radio buttons.
+	 * Render the allow_redistribution radio buttons.
 	 * @param array $args
 	 */
 	function renderAllowRedistributionField( $args ) {
@@ -139,7 +139,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 * @return string $slug
 	 */
 	protected function getSlug() {
-  	return 'pressbooks_export_options';
+  	return 'pressbooks_sharingandprivacy_options';
   }
 
 	/**
@@ -148,7 +148,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 * @return string $title
 	 */
   protected function getTitle() {
-  	return __('Export Settings', 'pressbooks');
+  	return __('Sharing and Privacy Settings', 'pressbooks');
   }
 
 	/**

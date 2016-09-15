@@ -75,20 +75,6 @@ class ExportOptions extends \Pressbooks\Options {
 			)
 		);
 
-		if ( get_site_option( 'pressbooks_export_options' )['allow_redistribution'] ) {
-			add_settings_field(
-				'share_latest_export_files',
-				__( 'Share Latest Export Files', 'pressbooks' ),
-				array( $this, 'renderShareLatestExportFilesField' ),
-				$_page,
-				$_section,
-				array(
-					'1' => __( 'Yes. I would like the latest export files to be available on the homepage for free, to everyone.', 'pressbooks' ),
-					'0' => __( 'No. I would like the latest export files to only be available to administrators.', 'pressbooks' )
-				)
-			);
-		}
-
 		register_setting(
 			$_page,
 			$_option,
@@ -125,30 +111,19 @@ class ExportOptions extends \Pressbooks\Options {
 		$options = array();
 
 		$email_validation_logs = get_option('pressbooks_email_validation_logs', 0);
-		$pbt_redistribute_settings = get_option('pbt_redistribute_settings', array( 'latest_files_public' => 0 ) );
 
 		$options['email_validation_logs'] = $email_validation_logs;
-		$options['share_latest_export_files'] = $pbt_redistribute_settings['latest_files_public'];
 
 		update_option( $_option, $options );
 		delete_option( 'pressbooks_email_validation_logs' );
-		delete_option( 'pbt_redistribute_settings' );
 	}
 
 	/**
-	 * Render the pdf_paragraph_separation radio buttons.
+	 * Render the email_validation_logs radio buttons.
 	 * @param array $args
 	 */
 	function renderEmailValidationLogsField( $args ) {
 		$this->renderRadioButtons( 'email_validation_logs', $this->getSlug(), 'email_validation_logs', @$this->options['email_validation_logs'], $args);
-	}
-
-	/**
-	 * Render the pdf_paragraph_separation radio buttons.
-	 * @param array $args
-	 */
-	function renderShareLatestExportFilesField( $args ) {
-		$this->renderRadioButtons( 'share_latest_export_files', $this->getSlug(), 'share_latest_export_files', @$this->options['share_latest_export_files'], $args);
 	}
 
 	/**
@@ -177,7 +152,6 @@ class ExportOptions extends \Pressbooks\Options {
 	static function getDefaults() {
 		return array(
 			'email_validation_logs' => 0,
-			'share_latest_export_files' => 0
 		);
 	}
 
@@ -189,7 +163,6 @@ class ExportOptions extends \Pressbooks\Options {
 	static function getBooleanOptions() {
 		return array(
 			'email_validation_logs',
-			'share_latest_export_files'
 		);
 	}
 

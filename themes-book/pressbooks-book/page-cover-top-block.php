@@ -75,8 +75,8 @@
 
 					$files = \Pressbooks\Utility\latest_exports();
 					$site_option = get_site_option( 'pressbooks_export_options', array( 'allow_redistribution' => 0 ) );
-					$option = get_option( 'pressbooks_export_options', array( 'share_latest_export_files' => 0 ) );
-					if ( ! empty( $files ) && ( true == $site_option['allow_redistribution'] ) && ( true == $option['share_latest_export_files'] ) ) { ?>
+					$option = get_option( 'pbt_redistribute_settings', array( 'latest_files_public' => 0 ) );
+					if ( ! empty( $files ) && ( true == $site_option['allow_redistribution'] ) && ( true == $option['latest_files_public'] ) ) { ?>
 						<div class="downloads">
 							<h4><?php _e( 'Download in the following formats:', 'pressbooks' ); ?></h4>
 							<?php foreach ( $files as $filetype => $filename ) :
