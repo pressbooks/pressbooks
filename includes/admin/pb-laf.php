@@ -792,7 +792,6 @@ function privacy_permissive_private_content_sanitize( $input ) {
  */
 function privacy_pbt_redistribute_settings_sanitize( $input ) {
 	$output['latest_files_public'] = absint( $input['latest_files_public'] );
-	error_log( print_r( $output, true ));
 	return $output;
 }
 

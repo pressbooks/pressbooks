@@ -98,13 +98,11 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 				if ( !wp_verify_nonce( $nonce, $_option . '-options' ) ) {
 				    die( 'Security check' );
 				} else {
-					error_log( print_r( $_REQUEST, true ) );
 					if ( @$_REQUEST[ $_option ]['allow_redistribution'] ) {
 						$options['allow_redistribution'] = 1;
 					} else {
 						$options['allow_redistribution'] = 0;
 					}
-					error_log( print_r( $options, true ) );
 					update_site_option( $_option, $options );
 					?>
 					<div id="message" class="updated notice is-dismissible"><p><strong><?php _e( 'Settings saved.', 'pressbooks' ); ?></strong></div>
