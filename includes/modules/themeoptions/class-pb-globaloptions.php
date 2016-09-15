@@ -132,11 +132,16 @@ class GlobalOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the global options tab.
+	 * Display the global options tab description.
 	 */
 	function display() {
 		echo '<p>' . __( 'These options apply universally to webbook, PDF and ebook exports.', 'pressbooks' ) . '</p>';
 	}
+
+	/**
+	 * Render the PDF options tab form (NOT USED).
+	 */
+	function render() {}
 
 	/**
 	 * Sanitize the languages (just returns the array or an empty array, as these are predefined values).

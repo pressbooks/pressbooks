@@ -170,6 +170,22 @@ body.home {
 	max-width: 285px;
     text-align: center;
 }
+.downloads {
+    float: right;
+    max-width: 350px;
+    width: 36.5%;
+    margin-top: 20px;
+    text-align: center;
+}
+.downloads h4 {
+    text-align: center;
+    color: #1f1f1d;
+    border-bottom-color: #000000;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    padding-bottom: 10px;
+    width: 100%;
+}
 .btn {
 	box-shadow: 0 2px 2px rgba(0,0,0,0.1);
 	border-radius: 4px;
@@ -524,6 +540,18 @@ a.button-black:active {
 	.call-to-action-wrap {
 		width: 100%;
 	}
+	.downloads {
+		float: none;
+		margin-bottom: 2em;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 2em;
+		max-width: 80%;
+		overflow-x: hidden;
+		overflow-y: hidden;
+		width: auto;
+	}
+
 	.book-cover {
 		float: none;
 		margin: 30px auto 0;
@@ -576,6 +604,15 @@ a.button-black:active {
 		max-width: 75%;
 		width: auto;
 	}
+	.downloads {
+			margin-bottom: 0;
+			margin-left: auto;
+			margin-right: auto;
+			margin-top: 10px;
+			max-width: 75%;
+			width: auto;
+	}
+
 	.second-block-wrap,
 	.third-block-wrap,
 	.fourth-block-wrap {
@@ -587,6 +624,9 @@ a.button-black:active {
 	.description-book-info,
 	.author-book-info,
 	.third-block {
+		max-width: 95%;
+	}
+	.downloads {
 		max-width: 95%;
 	}
 }
@@ -670,5 +710,90 @@ a.button-black:active {
 	#facebook .share {
 		padding-left: 0;
 		text-align: center;
+	}
+}
+
+
+span.export-file-icon {
+    width: 36px;
+    height: 36px;
+    background-size: 36px 36px;
+		background-repeat: no-repeat;
+		background-position: center;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+span.small.epub {
+    background-image: url(../../../assets/dist/images/epub-36.png);
+}
+
+span.small.epub3 {
+    background-image: url(../../../assets/dist/images/epub3-36.png);
+}
+
+span.small.icml {
+    background-image: url(../../../assets/dist/images/icml-36.png);
+}
+
+span.small.mobi {
+    background-image: url(../../../assets/dist/images/mobi-36.png);
+}
+
+span.small.pdf, span.small.mpdf {
+    background-image: url(../../../assets/dist/images/pdf-36.png);
+}
+
+span.small.wxr {
+	background-image: url(../../../assets/dist/images/wxr-36.png);
+}
+
+span.small.vanillawxr {
+    background-image: url(../../../assets/dist/images/vanillawxr-36.png);
+}
+
+span.small.xhtml {
+    background-image: url(../../../assets/dist/images/xhtml-36.png);
+}
+
+span.small.odt {
+    background-image: url(../../../assets/dist/images/odt-36.png);
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio:1.3), only screen and (-webkit-min-device-pixel-ratio:1.3020833333333333), only screen and (min--moz-device-pixel-ratio:1.3), only screen and (min-resolution:1.3dppx), only screen and (min-resolution:125dpi) {
+	span.small.epub {
+	    background-image: url(../../../assets/dist/images/epub-72.png);
+	}
+
+	span.small.epub3 {
+	    background-image: url(../../../assets/dist/images/epub3-72.png);
+	}
+
+	span.small.icml {
+	    background-image: url(../../../assets/dist/images/icml-72.png);
+	}
+
+	span.small.mobi {
+	    background-image: url(../../../assets/dist/images/mobi-72.png);
+	}
+
+	span.small.pdf, span.small.mpdf {
+	    background-image: url(../../../assets/dist/images/pdf-72.png);
+	}
+
+	span.small.wxr {
+		background-image: url(../../../assets/dist/images/wxr-72.png);
+	}
+
+	span.small.vanillawxr {
+	    background-image: url(../../../assets/dist/images/vanillawxr-72.png);
+	}
+
+	span.small.xhtml {
+	    background-image: url(../../../assets/dist/images/xhtml-72.png);
+	}
+
+	span.small.odt {
+	    background-image: url(../../../assets/dist/images/odt-72.png);
 	}
 }
