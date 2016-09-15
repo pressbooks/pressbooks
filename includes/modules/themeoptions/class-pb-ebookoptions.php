@@ -99,11 +99,16 @@ class EbookOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the Ebook options tab.
+	 * Display the Ebook options tab description.
 	 */
 	function display() {
 		echo '<p>' . __( 'These options apply to ebook exports.', 'pressbooks' ) . '</p>';
 	}
+
+	/**
+	 * Render the Ebook options tab form (NOT USED).
+	 */
+	function render() {}
 
 	/**
 	 * Upgrade handler for Ebook options.

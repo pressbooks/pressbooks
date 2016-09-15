@@ -3,12 +3,11 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace Pressbooks\Modules\ThemeOptions;
+namespace Pressbooks\Admin;
 
-class WebOptions extends \Pressbooks\Options {
-
+class ExportOptions extends \Pressbooks\Options {
 	/**
-	 * The value for option: pressbooks_theme_options_web_version
+	 * The value for option: pressbooks_export_options_version
 	 *
 	 * @see upgrade()
 	 * @var int
@@ -16,14 +15,14 @@ class WebOptions extends \Pressbooks\Options {
 	static $currentVersion = 1;
 
 	/**
-   * Web theme options.
+   * Export options.
    *
    * @var array
    */
 	public $options;
 
 	/**
-   * Web theme defaults.
+   * Export defaults.
    *
    * @var array
    */
@@ -51,31 +50,28 @@ class WebOptions extends \Pressbooks\Options {
  	}
 
 	/**
-	 * Configure the web options tab using the settings API.
+	 * Configure the export options page using the settings API.
 	 */
 	function init() {
-		$_page = $_option = 'pressbooks_theme_options_' . $this->getSlug();
-		$_section = $this->getSlug() . '_options_section';
-
-		if ( false == get_option( $_option ) ) {
-			add_option( $_option, $this->defaults );
-		}
+		$_page = $_option = $this->getSlug();
+		$_section = $this->getSlug() . '_section';
 
 		add_settings_section(
 			$_section,
-			$this->getTitle(),
+			'',
 			array( $this, 'display' ),
 			$_page
 		);
 
 		add_settings_field(
-			'social_media',
-			__( 'Enable Social Media', 'pressbooks' ),
-			array( $this, 'renderSocialMediaField' ),
+			'email_validation_logs',
+			__( 'Email Validation Logs', 'pressbooks' ),
+			array( $this, 'renderEmailValidationLogsField' ),
 			$_page,
 			$_section,
 			array(
-				__('Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+', 'pressbooks' )
+				'0' => __( 'No. Ignore validation errors.', 'pressbooks' ),
+				'1' => __( 'Yes.', 'pressbooks' ) . ' ' . __( 'Email me validation error logs on export.', 'pressbooks' )
 			)
 		);
 
@@ -87,93 +83,76 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Display the web options tab description.
+	 * Display the export options page description.
 	 */
 	function display() {
-		echo '<p>' . __( 'These options apply to the webbook.', 'pressbooks' ) . '</p>';
+		echo '<p>' . __( 'Export settings.', 'pressbooks' ) . '</p>';
 	}
 
-	/**
-	 * Render the web options tab form (NOT USED).
-	 */
-	function render() {}
+	function render() { ?>
+		<div class="wrap">
+			<h1><?php echo $this->getTitle(); ?></h1>
+			<form method="post" action="options.php">
+				<?php settings_fields( $this->getSlug() );
+				do_settings_sections( $this->getSlug() );
+				submit_button(); ?>
+			</form>
+		</div> <?php
+	}
 
-	/**
-	 * Upgrade handler for web options.
-	 *
-	 * @param int $version
-	 */
 	function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
 		}
 	}
 
-	/**
-	 * Remove deprecated keys from web options.
-	 */
 	function doInitialUpgrade() {
 		$_option = $this->getSlug();
-		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
-		$deprecated = array(
-			'toc_collapse',
-			'accessibility_fontsize'
-		);
+		$options = array();
 
-		foreach ( $options as $key => $value ) {
-			if ( in_array( $key, $deprecated ) ) {
-				unset( $options[ $key ] );
-			}
-		}
+		$email_validation_logs = get_option('pressbooks_email_validation_logs', 0);
 
-		update_option( 'pressbooks_theme_options_' . $_option, $options );
+		$options['email_validation_logs'] = $email_validation_logs;
+
+		update_option( $_option, $options );
+		delete_option( 'pressbooks_email_validation_logs' );
 	}
 
 	/**
-	 * Render the social_media checkbox.
+	 * Render the email_validation_logs radio buttons.
 	 * @param array $args
 	 */
-	function renderSocialMediaField( $args ) {
-		$this->renderCheckbox( 'social_media', 'pressbooks_theme_options_' . $this->getSlug(), 'social_media', @$this->options['social_media'], $args[0] );
+	function renderEmailValidationLogsField( $args ) {
+		$this->renderRadioButtons( 'email_validation_logs', $this->getSlug(), 'email_validation_logs', @$this->options['email_validation_logs'], $args);
 	}
 
 	/**
-	 * Get the slug for the web options tab.
+	 * Get the slug for the export options page.
 	 *
 	 * @return string $slug
 	 */
 	protected function getSlug() {
-  	return 'web';
+  	return 'pressbooks_export_options';
   }
 
 	/**
-	 * Get the localized title of the web options tab.
+	 * Get the localized title of the export options page.
 	 *
 	 * @return string $title
 	 */
   protected function getTitle() {
-  	return __('Web Options', 'pressbooks');
+  	return __('Export Settings', 'pressbooks');
   }
 
 	/**
-	 * Get an array of default values for the web options tab.
+	 * Get an array of default values for the export options page.
 	 *
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return apply_filters( 'pressbooks_theme_options_web_defaults', array(
-			'social_media' => 1
-		) );
-	}
-
-	/**
-	 * Filter the array of default values for the web options tab.
-	 *
-	 * @param array $defaults
-	 * @return array $defaults
-	 */
-	static function filterDefaults( $defaults ) {
-		return $defaults;
+		return array(
+			'email_validation_logs' => 0,
+		);
 	}
 
 	/**
@@ -183,7 +162,7 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getBooleanOptions() {
 		return array(
-			'social_media'
+			'email_validation_logs',
 		);
 	}
 

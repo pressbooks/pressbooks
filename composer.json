@@ -27,14 +27,6 @@
       "url": "https://github.com/pressbooks/htmlawed"
     },
     {
-      "type": "vcs",
-      "url": "https://github.com/pressbooks/PrinceXMLPhp"
-    },
-    {
-      "type": "vcs",
-      "url": "https://github.com/pressbooks/saxon-he"
-    },
-    {
       "type": "package",
       "package": {
         "name": "pressbooks/custom-metadata",
@@ -54,15 +46,15 @@
       "type": "package",
       "package": {
         "name": "pressbooks/disable-comments",
-        "version": "v1.0.1",
+        "version": "1.1",
         "dist": {
-          "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.1.zip",
+          "url": "https://github.com/pressbooks/disable-comments/archive/v1.1.zip",
           "type": "zip"
         },
         "source": {
           "url": "https://github.com/pressbooks/disable-comments/",
           "type": "git",
-          "reference": "tags/v1.0.1"
+          "reference": "tags/v1.1"
         }
       }
     },
@@ -97,38 +89,21 @@
           "reference": "tags/v1.0.0"
         }
       }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "pressbooks/rest-api",
-        "version": "2.0-beta13.1",
-        "dist": {
-          "url": "https://github.com/WP-API/WP-API/archive/2.0-beta13.1.zip",
-          "type": "zip"
-        },
-        "source": {
-          "url": "https://github.com/WP-API/WP-API",
-          "type": "git",
-          "reference": "tags/2.0-beta13.1"
-        }
-      }
     }
   ],
   "require": {
     "php": ">=5.6.0",
     "composer/installers": "~1.0",
-    "leafo/scssphp": "0.6.*",
-    "pimple/pimple": "~3.0",
-    "vanilla/htmlawed": "dev-master",
     "gridonic/princexml-php": "dev-master",
-    "pressbooks/saxon-he": "dev-master",
+    "pimple/pimple": "^3.0",
+    "leafo/scssphp": "^0.6.6",
+    "vanilla/htmlawed": "dev-master",
+    "pressbooks/saxon-he": "^9.6",
     "pressbooks/custom-metadata": "0.8.1-dev",
-    "pressbooks/disable-comments": "1.0.1",
+    "pressbooks/disable-comments": "1.1",
     "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/pressbooks-latex": "1.0.0",
-    "pressbooks/rest-api": "2.0-beta13.1",
-    "scriptotek/marc": "^0.1.0"
+    "wp-api/wp-api": "2.0-beta13.1"
   },
   "require-dev": {
   },
@@ -147,6 +122,11 @@
       "phpunit.xml",
       "tests"
     ]
+  },
+  "extra": {
+    "installer-paths": {
+      "vendor/wp-api/wp-api": ["wp-api/wp-api"]
+    }
   },
   "scripts": {
     "test": [

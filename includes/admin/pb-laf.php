@@ -69,7 +69,7 @@ function replace_book_admin_menu() {
 	remove_menu_page( "edit.php?post_type=metadata" );
 	remove_menu_page( "link-manager.php" );
 	remove_menu_page( "edit.php?post_type=page" );
-	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'display' ) ); // TODO
+	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'render' ) ); // TODO
 
 
 	remove_submenu_page( "tools.php", "tools.php" );
@@ -166,10 +166,25 @@ function replace_book_admin_menu() {
 	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', __NAMESPACE__ . '\display_publish', 'dashicons-products', 16 );
 
 	// Privacy
-	add_options_page( __( 'Privacy Settings', 'pressbooks' ), __( 'Privacy', 'pressbooks' ), 'manage_options', 'pb_privacy_settings', __NAMESPACE__ . '\display_privacy_settings' );
+	add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
 
 	// Export
-	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pb_export_settings', __NAMESPACE__ . '\display_export_settings' );
+	require dirname( __FILE__ ) . '/class-pb-exportoptions.php';
+	$subclass = '\Pressbooks\Admin\ExportOptions';
+	$option = get_option( 'pressbooks_export_options', $subclass::getDefaults() );
+	$page = new $subclass( $option );
+	$page->init();
+	wp_cache_delete( 'pressbooks_export_options_version', 'options' );
+	$version = get_option( 'pressbooks_export_options_version', 0 );
+	if ( $version < $page::$currentVersion ) {
+		$page->upgrade( $version );
+		update_option( 'pressbooks_export_options_version', $page::$currentVersion, false );
+		if ( WP_DEBUG ) {
+			error_log( 'Upgraded ' . 'pressbooks_export_options' . ' from version ' . $version .' --> ' . $page::$currentVersion );
+		}
+	}
+
+	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pressbooks_export_options', array($page, 'render') );
 
 	// Import
 	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
@@ -183,6 +198,23 @@ function replace_book_admin_menu() {
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
 }
 
+function network_admin_menu() {
+	require dirname( __FILE__ ) . '/class-pb-network-sharingandprivacyoptions.php';
+	$subclass = '\Pressbooks\Admin\Network\SharingAndPrivacyOptions';
+	$option = get_site_option( 'pressbooks_sharingandprivacy_options', $subclass::getDefaults(), false );
+	$page = new $subclass( $option );
+	$page->init();
+	$version = get_site_option( 'pressbooks_sharingandprivacy_options_version', 0, false );
+	if ( $version < $page::$currentVersion ) {
+		$page->upgrade( $version );
+		update_site_option( 'pressbooks_sharingandprivacy_options_version', $page::$currentVersion, false );
+		if ( WP_DEBUG ) {
+			error_log( 'Upgraded network ' . 'pressbooks_sharingandprivacy_options' . ' from version ' . $version .' --> ' . $page::$currentVersion );
+		}
+	}
+
+	add_submenu_page( 'settings.php', __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_network', 'pressbooks_export_options', array($page, 'render') );
+}
 
 /**
  * Fix extraneous menus on WordPress Admin sidebar
@@ -632,6 +664,15 @@ function privacy_settings_init() {
 		'privacy_settings',
 		'privacy_settings_section'
 	);
+	if ( get_site_option( 'pressbooks_sharingandprivacy_options' )['allow_redistribution'] ) {
+		add_settings_field(
+			'latest_files_public',
+			__( 'Share Latest Export Files', 'pressbooks' ),
+			__NAMESPACE__ . '\privacy_latest_files_public_callback',
+			'privacy_settings',
+			'privacy_settings_section'
+		);
+	}
 	register_setting(
 		'privacy_settings',
 		'blog_public',
@@ -642,6 +683,12 @@ function privacy_settings_init() {
 		'permissive_private_content',
 		__NAMESPACE__ . '\privacy_permissive_private_content_sanitize'
 	);
+	register_setting(
+		'privacy_settings',
+		'pbt_redistribute_settings',
+		__NAMESPACE__ . '\privacy_pbt_redistribute_settings_sanitize'
+	);
+
 }
 
 
@@ -649,7 +696,7 @@ function privacy_settings_init() {
  * Privacy settings section callback
  */
 function privacy_settings_section_callback() {
-	echo '<p>' . __( 'Privacy settings', 'pressbooks' ) . '.</p>'; // TK
+	echo '<p>' . __( 'Sharing and Privacy settings', 'pressbooks' ) . '.</p>'; // TK
 }
 
 
@@ -699,6 +746,23 @@ function privacy_permissive_private_content_callback( $args ) {
 	</fieldgroup>
 <?php }
 
+/**
+ * Sharing settings, latest_files_public field callback
+ *
+ * @param $args
+ */
+function privacy_latest_files_public_callback( $args ) {
+	$blog_public = get_option( 'pbt_redistribute_settings' );
+	$html = '<input type="radio" id="latest_files_public" name="pbt_redistribute_settings[latest_files_public]" value="1" ';
+	if ( $blog_public['latest_files_public'] ) $html .= 'checked="checked" ';
+	$html .= '/>';
+	$html .= '<label for="latest_files_public"> ' . __( 'Yes. I would like the latest export files to be available on the homepage for free, to everyone.', 'pressbooks' ) . '</label><br />';
+	$html .= '<input type="radio" id="latest_files_private" name="pbt_redistribute_settings[latest_files_public]" value="0" ';
+	if ( ! $blog_public['latest_files_public'] ) $html .= 'checked="checked" ';
+	$html .= '/>';
+	$html .= '<label for="latest_files_private"> ' . __( 'No. I would like the latest export files to only be available to administrators.', 'pressbooks' ) . '</label>';
+	echo $html;
+}
 
 /**
  * Privacy settings, blog_public field sanitization
@@ -721,11 +785,23 @@ function privacy_permissive_private_content_sanitize( $input ) {
 }
 
 /**
+ * Privacy settings, private_chapters field sanitization
+ *
+ * @param $input
+ * @return string
+ */
+function privacy_pbt_redistribute_settings_sanitize( $input ) {
+	$output['latest_files_public'] = absint( $input['latest_files_public'] );
+	error_log( print_r( $output, true ));
+	return $output;
+}
+
+/**
  * Display Privacy settings
  */
 function display_privacy_settings() { ?>
 <div class="wrap">
-	<h2><?php _e( 'Privacy Settings', 'pressbooks' ); ?></h2>
+	<h2><?php _e( 'Sharing and Privacy Settings', 'pressbooks' ); ?></h2>
 	<form method="post" action="options.php">
 		<?php settings_fields( 'privacy_settings' );
 		do_settings_sections( 'privacy_settings' ); ?>
@@ -901,92 +977,6 @@ function display_publish() {
 
 	require( PB_PLUGIN_DIR . 'templates/admin/publish.php' );
 }
-
-
-/* ------------------------------------------------------------------------ *
- * Export Settings
- * ------------------------------------------------------------------------ */
-
-/**
- * Export settings initialization
- */
-function export_settings_init() {
-	add_settings_section(
-		'export_settings_section',
-		'',
-			__NAMESPACE__ . '\export_settings_section_callback',
-		'export_settings'
-	);
-	add_settings_field(
-		'email_validation_logs',
-		__( 'Email me validation error reports on export.', 'pressbooks' ),
-			__NAMESPACE__ . '\export_email_validation_logs_callback',
-		'export_settings',
-		'export_settings_section'
-	);
-	register_setting(
-		'export_settings',
-		'pressbooks_email_validation_logs',
-			__NAMESPACE__ . '\export_email_validation_logs_sanitize'
-	);
-}
-
-
-/**
- * Export settings section callback
- */
-function export_settings_section_callback() {
-	echo '<p>' . __( 'Export settings', 'pressbooks' ) . '.</p>';
-}
-
-
-/**
- *  Export settings, email_validation_logs field callback
- *
- * @param $args
- */
-function export_email_validation_logs_callback( $args ) {
-	$email_validation_logs = get_option( 'pressbooks_email_validation_logs' );
-	$html = '<input type="radio" id="yes-validation-logs" name="pressbooks_email_validation_logs" value="0" ';
-	if ( ! $email_validation_logs ) $html .= 'checked="checked" ';
-	$html .= '/>';
-	$html .= '<label for="yes-validation-logs"> ' . __( 'No. Ignore validation errors.', 'pressbooks' ) . '</label><br />';
-	$html .= '<input type="radio" id="no-validation-logs" name="pressbooks_email_validation_logs" value="1" ';
-	if ( $email_validation_logs ) $html .= 'checked="checked" ';
-	$html .= '/>';
-	$html .= '<label for="no-validation-logs"> ' . __( 'Yes. Send the logs.', 'pressbooks' ) . '</label>';
-	$html .= '<br /><br /><em> ' . __( 'Note: validation error reports (for EPUB, Mobi, and PDF) are technical, and will require some effort to decipher. Unfortunately we cannot provide support for deciphering validation errors, but you could post errors on the <a href="http://forum.pressbooks.com/" target="_blank">Pressbooks forum</a>, where we and other Pressbooks users can help out as time permits. .', 'pressbooks' ) . '</em>';
-
-	echo $html;
-}
-
-/**
- * Export settings, email_validation_logs field sanitization
- *
- * @param $input
- * @return string
- */
-function export_email_validation_logs_sanitize( $input ) {
-	return absint( $input );
-}
-
-
-/**
- * Display Export settings
- */
-function display_export_settings() { ?>
-<div class="wrap">
-	<h2><?php _e( 'Export Settings', 'pressbooks' ); ?></h2>
-	<form method="post" action="options.php">
-		<?php settings_fields( 'export_settings' );
-		do_settings_sections( 'export_settings' ); ?>
-		<?php submit_button(); ?>
-	</form>
-</div>
-
-<?php
-}
-
 
 /* ------------------------------------------------------------------------ *
  * Misc
