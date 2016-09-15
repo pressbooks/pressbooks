@@ -213,7 +213,7 @@ function network_admin_menu() {
 		}
 	}
 
-	add_submenu_page( 'settings.php', __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_network', 'pressbooks_export_options', array($page, 'render') );
+	add_submenu_page( 'settings.php', __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_network', 'pressbooks_sharingandprivacy_options', array($page, 'render') );
 }
 
 /**
