@@ -1,0 +1,52 @@
+.screen-reader-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0; }
+
+.searchform {
+  float: right;
+  margin-right: 30px; }
+
+.search-results {
+  margin: 0; }
+  .search-results h2 {
+    font-weight: bold; }
+  .search-results .more-tag {
+    color: #870d0d; }
+
+.posts-navigation {
+  background: transparent;
+  box-shadow: none; }
+  .posts-navigation .nav-previous {
+    position: absolute;
+    top: 45%;
+    left: 0; }
+    .posts-navigation .nav-previous a {
+      display: block;
+      width: 42px;
+      height: 43px;
+      overflow: hidden;
+      text-indent: 100%;
+      white-space: nowrap;
+      background: url("../images/sprite.png") 0 -573px no-repeat; }
+      .posts-navigation .nav-previous a:hover {
+        background-position: -56px -573px; }
+  .posts-navigation .nav-next {
+    position: absolute;
+    top: 45%;
+    right: 0; }
+    .posts-navigation .nav-next a {
+      display: block;
+      width: 42px;
+      height: 43px;
+      overflow: hidden;
+      text-indent: 100%;
+      white-space: nowrap;
+      background: url("../images/sprite.png") 0 -506px no-repeat; }
+      .posts-navigation .nav-next a:hover {
+        background-position: -56px -506px; }

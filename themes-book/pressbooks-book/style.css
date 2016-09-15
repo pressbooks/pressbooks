@@ -429,16 +429,6 @@ h1.book-title a {
   text-decoration: none;
   text-transform: none; }
 
-.screen-reader-text {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0; }
-
 /**************
      Sub-Nav
 ***************/
@@ -453,10 +443,6 @@ h1.book-title a {
   padding: 10px 0 5px;
   position: relative;
   z-index: 1; }
-
-.searchform {
-  float: right;
-  margin-right: 30px; }
 
 .author-wrap {
   margin: 0 auto;
@@ -792,10 +778,6 @@ div.aligncenter {
   clear: both;
   margin-top: 40px; }
 
-.posts-navigation {
-  background: transparent;
-  box-shadow: none; }
-
 .nav {
   left: 50%;
   margin-left: -350px;
@@ -806,17 +788,17 @@ div.aligncenter {
 .ie8 .nav {
   top: 65%; }
 
-.nav span.previous, .nav-previous {
+.nav span.previous {
   position: absolute;
   top: 45%;
   left: 0; }
 
-.nav span.next, .nav-next {
+.nav span.next {
   position: absolute;
   top: 45%;
   right: 0; }
 
-.nav span a, .nav-previous a, .nav-next a {
+.nav span a {
   background: url("images/sprite.png") 0 -573px no-repeat;
   display: block;
   overflow: hidden;
@@ -828,10 +810,10 @@ div.aligncenter {
 .nav span.next a, .nav-next a {
   background-position: 0 -506px; }
 
-.nav span a:hover, .nav-previous a:hover {
+.nav span a:hover {
   background-position: -56px -573px; }
 
-.nav span.next a:hover, .nav-next a:hover {
+.nav span.next a:hover {
   background-position: -56px -506px; }
 
 /* TITILE, SUB-TITLE, AUTHOR AND APHORIS
@@ -2032,13 +2014,6 @@ code {
     height: auto !important;
     min-height: 100px;
     margin: 0 auto; } }
-/* Search Results */
-.search-results {
-  margin: 0; }
-  .search-results h2 {
-    font-weight: bold; }
-  .search-results .more-tag {
-    color: #870d0d; }
 
 /* =Debug Stuff (PL)
 -------------------------------------------------------------- */
