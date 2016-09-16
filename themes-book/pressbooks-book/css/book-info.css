@@ -176,6 +176,7 @@ body.home {
     width: 36.5%;
     margin-top: 20px;
     text-align: center;
+    clear: right;
 }
 .downloads h4 {
     text-align: center;
