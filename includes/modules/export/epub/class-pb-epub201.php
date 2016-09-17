@@ -1960,7 +1960,7 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Try to determine if a URL is pointing to internal content.
+	 * Try to determine if a URL is pointing to internal content. TODO: Refactor, for the love of all that is holy.
 	 *
 	 * @param $url
 	 * @param string $type front-matter, part, chapter, back-matter, ...
@@ -1976,8 +1976,19 @@ class Epub201 extends Export {
 		$url = trim( $url );
 		$url = rtrim( $url, '/' );
 
+		$domain = parse_url( $url );
+		$domain = @$domain['host'];
+
+		if ( $domain ) {
+			$domain2 = parse_url( wp_guess_url() );
+			if ( $domain != @$domain2['host'] ) {
+				return false; // If there as a domain name and it =/= ours, bail.
+			}
+		}
+
 		$last_part = explode( '/', $url );
 		$last_pos = count( $last_part ) - 1;
+		$posttype = @$last_part[ $last_pos - 1 ];
 		$anchor = '';
 
 		// Look for #anchors
@@ -1996,30 +2007,29 @@ class Epub201 extends Export {
 			return false;
 
 		$lookup = \Pressbooks\Book::getBookStructure();
-		$lookup = $lookup['__export_lookup'];
-
-		if ( ! isset( $lookup[$last_part] ) )
+		if ( $posttype !== 'part' && !isset( $lookup['__export_lookup'][$last_part] ) ) {
 			return false;
+		} elseif ( $posttype !== 'part' && isset( $lookup['__export_lookup'][$last_part] ) ) {
+			// Handle front/back matter and chapters
+			$new_type = $lookup['__export_lookup'][$last_part];
+			$new_pos = 0;
+			foreach ( $lookup['__export_lookup'] as $p => $t ) {
+				if ( $t == $new_type ) ++$new_pos;
+				if ( $p == $last_part ) break;
+			}
+			$new_url = "$new_type-" . sprintf( "%03s", $new_pos ) . "-$last_part.{$this->filext}";
 
-		$domain = parse_url( $url );
-		$domain = @$domain['host'];
-
-		if ( $domain ) {
-			$domain2 = parse_url( wp_guess_url() );
-			if ( $domain != @$domain2['host'] ) {
-				return false;
+			if ( $anchor )
+				$new_url .= $anchor;
+		} elseif ( $posttype == 'part' && !isset( $lookup['__export_lookup'][$last_part] ) ) {
+			// Handle parts
+			$new_type = 'part';
+			foreach ( $lookup['part'] as $key => $part ) {
+				if ( $part['post_name'] == $last_part ) {
+					$new_url = 'part-' . sprintf( "%03s", $key ) . "-$last_part.{$this->filext}";
+				}
 			}
 		}
-
-		// Seems legit...
-
-		$new_type = $lookup[$last_part];
-		$new_pos = 0;
-		foreach ( $lookup as $p => $t ) {
-			if ( $t == $new_type ) ++$new_pos;
-			if ( $p == $last_part ) break;
-		}
-		$new_url = "$new_type-" . sprintf( "%03s", $new_pos ) . "-$last_part.{$this->filext}";
 
 		if ( $anchor )
 			$new_url .= $anchor;
