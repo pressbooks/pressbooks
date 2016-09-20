@@ -2026,7 +2026,7 @@ class Epub201 extends Export {
 			$new_type = 'part';
 			foreach ( $lookup['part'] as $key => $part ) {
 				if ( $part['post_name'] == $last_part ) {
-					$new_url = 'part-' . sprintf( "%03s", $key ) . "-$last_part.{$this->filext}";
+					$new_url = 'part-' . sprintf( "%03s", $key + 1 ) . "-$last_part.{$this->filext}";
 				}
 			}
 		}
