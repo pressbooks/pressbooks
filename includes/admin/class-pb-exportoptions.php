@@ -201,4 +201,14 @@ class ExportOptions extends \Pressbooks\Options {
 	static function getPredefinedOptions() {
 		return array();
 	}
+
+	/**
+	 * Filter the array of default values for this set of options
+	 *
+	 * @param array $defaults
+	 * @return array $defaults
+	 */
+	static function filterDefaults( $defaults ) {
+		return $defaults;
+	}
 }
