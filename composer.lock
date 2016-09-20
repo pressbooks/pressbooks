@@ -4,103 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1fd5a9af2f6788143a22055fb4c8baae",
-    "content-hash": "fa064bc964f7edb0a45a9154b50f1350",
+    "hash": "6b07803b63282aa90b534282403d2035",
+    "content-hash": "6a98e81d0853f6ea714df344495b78ce",
     "packages": [
-        {
-            "name": "ck/file_marc_reference",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/MARCspec/File_MARC_Reference.git",
-                "reference": "ea40c224be8603c707dcde8443b40f47e5afc2d0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/MARCspec/File_MARC_Reference/zipball/ea40c224be8603c707dcde8443b40f47e5afc2d0",
-                "reference": "ea40c224be8603c707dcde8443b40f47e5afc2d0",
-                "shasum": ""
-            },
-            "require": {
-                "ck/php-marcspec": "^1.0",
-                "pear/file_marc": "@dev",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8",
-                "satooshi/php-coveralls": "^1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Carsten Klee",
-                    "homepage": "http://collidoscope.de",
-                    "role": "Developer"
-                }
-            ],
-            "description": "MARCspec adapter for File_MARC",
-            "keywords": [
-                "File_MARC",
-                "MARC 21",
-                "MARCspec"
-            ],
-            "time": "2016-09-06 05:45:23"
-        },
-        {
-            "name": "ck/php-marcspec",
-            "version": "v1.7.2",
-            "target-dir": "CK/MARCspec",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/MARCspec/php-marc-spec.git",
-                "reference": "23d47fdadf376288452158d5dd3543227f2162b8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/MARCspec/php-marc-spec/zipball/23d47fdadf376288452158d5dd3543227f2162b8",
-                "reference": "23d47fdadf376288452158d5dd3543227f2162b8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "ck/marcspec-test-suite": "@dev",
-                "phpunit/phpunit": "^4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "CK\\MARCspec": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Carsten Klee",
-                    "homepage": "http://collidoscope.de",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP based MARCspec parser and validator",
-            "keywords": [
-                "MARC 21",
-                "MARCspec"
-            ],
-            "time": "2016-07-13 08:28:55"
-        },
         {
             "name": "composer/installers",
             "version": "v1.2.0",
@@ -254,16 +160,16 @@
         },
         {
             "name": "leafo/scssphp",
-            "version": "v0.6.5",
+            "version": "v0.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/leafo/scssphp.git",
-                "reference": "0649d38dfef6808be1a89040a3312e8bda0b3aed"
+                "reference": "6fdfe19d2b13a3f12ba0792227f0718809ce4e4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/leafo/scssphp/zipball/0649d38dfef6808be1a89040a3312e8bda0b3aed",
-                "reference": "0649d38dfef6808be1a89040a3312e8bda0b3aed",
+                "url": "https://api.github.com/repos/leafo/scssphp/zipball/6fdfe19d2b13a3f12ba0792227f0718809ce4e4d",
+                "reference": "6fdfe19d2b13a3f12ba0792227f0718809ce4e4d",
                 "shasum": ""
             },
             "require": {
@@ -303,109 +209,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2016-06-20 15:25:08"
-        },
-        {
-            "name": "pear/file_marc",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/File_MARC.git",
-                "reference": "c12120b711cc583e92bc7106b079e698719fbe89"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/File_MARC/zipball/c12120b711cc583e92bc7106b079e698719fbe89",
-                "reference": "c12120b711cc583e92bc7106b079e698719fbe89",
-                "shasum": ""
-            },
-            "require": {
-                "pear/pear_exception": "1.*"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
-            "suggest": {
-                "pear/validate_ispn": "Install optionally via your project's composer.json"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "File": "./"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "./"
-            ],
-            "license": [
-                "LGPL-2.1"
-            ],
-            "authors": [
-                {
-                    "name": "Dan Scott",
-                    "email": "dbs@php.net",
-                    "homepage": "https://coffeecode.net",
-                    "role": "Lead"
-                }
-            ],
-            "description": "Supports the MAchine Readable Cataloging (MARC) file format documented at http://loc.gov/marc/",
-            "time": "2016-08-31 03:36:11"
-        },
-        {
-            "name": "pear/pear_exception",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/PEAR_Exception.git",
-                "reference": "8c18719fdae000b690e3912be401c76e406dd13b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/PEAR_Exception/zipball/8c18719fdae000b690e3912be401c76e406dd13b",
-                "reference": "8c18719fdae000b690e3912be401c76e406dd13b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=4.4.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "*"
-            },
-            "type": "class",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "PEAR": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "."
-            ],
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Helgi Thormar",
-                    "email": "dufuz@php.net"
-                },
-                {
-                    "name": "Greg Beaver",
-                    "email": "cellog@php.net"
-                }
-            ],
-            "description": "The PEAR Exception base class.",
-            "homepage": "https://github.com/pear/PEAR_Exception",
-            "keywords": [
-                "exception"
-            ],
-            "time": "2015-02-10 20:07:52"
+            "time": "2016-09-11 01:34:11"
         },
         {
             "name": "pimple/pimple",
@@ -413,12 +217,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/silexphp/Pimple.git",
-                "reference": "64e0f8320639b434baa073a40dd1e037e3286555"
+                "reference": "44515c40a4c4effc53c1e6c0e7158f711473dc98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/64e0f8320639b434baa073a40dd1e037e3286555",
-                "reference": "64e0f8320639b434baa073a40dd1e037e3286555",
+                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/44515c40a4c4effc53c1e6c0e7158f711473dc98",
+                "reference": "44515c40a4c4effc53c1e6c0e7158f711473dc98",
                 "shasum": ""
             },
             "require": {
@@ -451,7 +255,7 @@
                 "container",
                 "dependency injection"
             ],
-            "time": "2015-09-11 15:11:22"
+            "time": "2016-09-10 19:36:25"
         },
         {
             "name": "pressbooks/custom-metadata",
@@ -472,16 +276,16 @@
         },
         {
             "name": "pressbooks/disable-comments",
-            "version": "v1.0.1",
+            "version": "1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/disable-comments/",
-                "reference": "tags/v1.0.1"
+                "reference": "tags/v1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/pressbooks/disable-comments/archive/v1.0.1.zip",
-                "reference": "tags/v1.0.1",
+                "url": "https://github.com/pressbooks/disable-comments/archive/v1.1.zip",
+                "reference": "tags/v1.1",
                 "shasum": null
             },
             "type": "library"
@@ -519,36 +323,21 @@
             "type": "library"
         },
         {
-            "name": "pressbooks/rest-api",
-            "version": "2.0-beta13.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/WP-API/WP-API",
-                "reference": "tags/2.0-beta13.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/WP-API/WP-API/archive/2.0-beta13.1.zip",
-                "reference": "tags/2.0-beta13.1",
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
             "name": "pressbooks/saxon-he",
-            "version": "dev-master",
+            "version": "9.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/saxon-he.git",
-                "reference": "4c2588b1fa74fc2d64c019d6cf9cabcbdc610845"
+                "reference": "bfa82b98023fac1b01f62c64a9b865a0e4b97dfd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/saxon-he/zipball/4c2588b1fa74fc2d64c019d6cf9cabcbdc610845",
-                "reference": "4c2588b1fa74fc2d64c019d6cf9cabcbdc610845",
+                "url": "https://api.github.com/repos/pressbooks/saxon-he/zipball/bfa82b98023fac1b01f62c64a9b865a0e4b97dfd",
+                "reference": "bfa82b98023fac1b01f62c64a9b865a0e4b97dfd",
                 "shasum": ""
             },
             "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MPL-2.0"
             ],
@@ -559,56 +348,7 @@
                 }
             ],
             "description": "Provides implementations of XSLT 2.0, XQuery 3.1, and XPath 3.1 at the basic level of conformance defined by W3C.",
-            "support": {
-                "source": "https://github.com/pressbooks/saxon-he/tree/master",
-                "issues": "https://github.com/pressbooks/saxon-he/issues"
-            },
-            "time": "2016-04-25 16:54:30"
-        },
-        {
-            "name": "scriptotek/marc",
-            "version": "v0.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/scriptotek/php-marc.git",
-                "reference": "b2bc2e30938485fa03dba8a479ebdd9362f20dcf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/scriptotek/php-marc/zipball/b2bc2e30938485fa03dba8a479ebdd9362f20dcf",
-                "reference": "b2bc2e30938485fa03dba8a479ebdd9362f20dcf",
-                "shasum": ""
-            },
-            "require": {
-                "ck/file_marc_reference": "dev-master",
-                "pear/file_marc": "*",
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "3.7.*",
-                "satooshi/php-coveralls": "~0.6"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Scriptotek\\Marc\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GNU-LGPL"
-            ],
-            "authors": [
-                {
-                    "name": "Dan Michael O. Heggø",
-                    "email": "d.m.heggo@ub.uio.no"
-                }
-            ],
-            "description": "Simple interface to parsing MARC records using File_MARC",
-            "keywords": [
-                "marc"
-            ],
-            "time": "2015-08-25 21:41:41"
+            "time": "2016-09-12 18:32:26"
         },
         {
             "name": "vanilla/htmlawed",
@@ -652,9 +392,48 @@
             ],
             "description": "A composer wrapper for the htmLawed library to purify & filter HTML. Tested with PHPUnit and PhantomJS!",
             "support": {
-                "source": "https://github.com/pressbooks/htmlawed/tree/master"
+                "source": "https://github.com/pressbooks/htmlawed/tree/v1.2-beta11"
             },
             "time": "2016-04-04 21:36:17"
+        },
+        {
+            "name": "wp-api/wp-api",
+            "version": "2.0-beta13.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/WP-API/WP-API.git",
+                "reference": "739e7f5cb842dceb5cd06bed4ffd612aecf63387"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/WP-API/WP-API/zipball/739e7f5cb842dceb5cd06bed4ffd612aecf63387",
+                "reference": "739e7f5cb842dceb5cd06bed4ffd612aecf63387",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "2.3.4",
+                "wp-coding-standards/wpcs": "0.6.0"
+            },
+            "type": "wordpress-plugin",
+            "extra": {
+                "installer-name": "json-rest-api"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL2+"
+            ],
+            "authors": [
+                {
+                    "name": "WP-API Team",
+                    "homepage": "http://wp-api.org/"
+                }
+            ],
+            "description": "Access your WordPress site's data through an easy-to-use HTTP REST API.",
+            "homepage": "http://wp-api.org/",
+            "time": "2016-05-25 12:24:10"
         }
     ],
     "packages-dev": [],
@@ -663,7 +442,6 @@
     "stability-flags": {
         "gridonic/princexml-php": 20,
         "vanilla/htmlawed": 20,
-        "pressbooks/saxon-he": 20,
         "pressbooks/custom-metadata": 20
     },
     "prefer-stable": false,

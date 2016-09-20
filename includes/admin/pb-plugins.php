@@ -18,7 +18,11 @@ namespace Pressbooks\Admin\Plugins;
 
 function filter_plugins( $plugins ) {
 	if ( ! is_super_admin() ) {
-		$approved = [ 'hypothesis/hypothesis.php' ];
+		$slugs = [ 'hypothesis' ];
+		$approved = [];
+		foreach ( $slugs as $slug ) {
+			$approved[] = $slug . '/' . $slug . '.php';
+		}
 		foreach ( $plugins as $slug => $value ) {
 			if ( false === strpos( $slug, 'pressbooks-' ) && ! in_array( $slug, $approved ) )
 				unset( $plugins[$slug] );
@@ -65,8 +69,6 @@ function install_plugins_table_api_args_pressbooks( $args ) {
 
 /**
  * Output header text and display table for the 'Pressbooks' tab of the plugin installer.
- *
- * @codeCoverageIgnore
  */
 function install_plugins() {
 	global $wp_list_table;

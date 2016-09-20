@@ -64,6 +64,7 @@ class Pdf extends Export {
 
 		$this->exportStylePath = $this->getExportStylePath( 'prince' );
 		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
+		$this->pdfProfile = $this->getPdfProfile();
 
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
@@ -105,8 +106,11 @@ class Pdf extends Export {
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
-		if ( WP_ENV == 'development' ) {
+		if ( defined( 'WP_ENV' ) && WP_ENV == 'development' ) {
 			$prince->setInsecure( true );
+		}
+		if ( $this->pdfProfile ) {
+			$prince->setOptions( "--pdf-profile='" . $this->pdfProfile . "'" );
 		}
 		$prince->addStyleSheet( $css_file );
 		if ( $this->exportScriptPath ) {
@@ -174,6 +178,12 @@ class Pdf extends Export {
 		return ( strpos( $mime, 'application/pdf' ) !== false );
 	}
 
+	protected function getPdfProfile() {
+		if ( defined( 'PB_PDF_PROFILE' ) ) {
+			return PB_PDF_PROFILE;
+		}
+		return null;
+	}
 
 	/**
 	 * Return kneaded CSS string

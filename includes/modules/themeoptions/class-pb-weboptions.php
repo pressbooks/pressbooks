@@ -87,11 +87,16 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the web options tab.
+	 * Display the web options tab description.
 	 */
 	function display() {
 		echo '<p>' . __( 'These options apply to the webbook.', 'pressbooks' ) . '</p>';
 	}
+
+	/**
+	 * Render the web options tab form (NOT USED).
+	 */
+	function render() {}
 
 	/**
 	 * Upgrade handler for web options.
@@ -137,7 +142,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	protected function getSlug() {
+	static function getSlug() {
   	return 'web';
   }
 
@@ -146,7 +151,7 @@ class WebOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-  protected function getTitle() {
+  static function getTitle() {
   	return __('Web Options', 'pressbooks');
   }
 

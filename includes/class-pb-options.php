@@ -14,9 +14,14 @@ abstract class Options {
 	abstract function init();
 
 	/**
-	 * Render the options page or tab.
+	 * Display the options page or tab description.
 	 */
 	abstract function display();
+
+	/**
+	 * Render the options page or tab.
+	 */
+	abstract function render();
 
 	/**
 	* Upgrade handler for the options page or tab.
@@ -30,14 +35,14 @@ abstract class Options {
 	 *
 	 * @return string $slug
 	 */
-	abstract protected function getSlug();
+	abstract static function getSlug();
 
 	/**
 	 * Get the localized title of this options page or tab.
 	 *
 	 * @return string $title
 	 */
-	abstract protected function getTitle();
+	abstract static function getTitle();
 
 	/**
 	 * Get an array of default values for this set of options

@@ -147,6 +147,55 @@ function get_media_path( $guid ) {
 	}
 }
 
+/**
+ * Scan the export directory, return latest of each file type
+ *
+ * @author Brad Payne <brad@bradpayne.ca>
+ * @copyright 2014 Brad Payne
+ * @since 3.8.0
+ * @return array
+ */
+function latest_exports() {
+	$filetypes = array(
+	    'epub3' => '._3.epub',
+	    'epub' => '.epub',
+	    'pdf' => '.pdf',
+	    'mobi' => '.mobi',
+	    'icml' => '.icml',
+	    'xhtml' => '.html',
+	    'wxr' => '.xml',
+	    'vanillawxr' => '._vanilla.xml',
+	    'mpdf' => '._oss.pdf',
+	    'odf' => '.odt',
+	);
+
+	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+
+	$files = array();
+
+	// group by extension, sort by date newest first
+	foreach ( \Pressbooks\Utility\scandir_by_date( $dir ) as $file ) {
+		// only interested in the part of filename starting with the timestamp
+		preg_match( '/-\d{10,11}(.*)/', $file, $matches );
+
+		// grab the first captured parenthisized subpattern
+		$ext = $matches[1];
+
+		$files[$ext][] = $file;
+	}
+
+	// get only one of the latest of each type
+	$latest = array();
+
+	foreach ( $filetypes as $type => $ext ) {
+		if ( array_key_exists( $ext, $files ) ) {
+			$latest[$type] = $files[$ext][0];
+		}
+	}
+	// @TODO filter these results against user prefs
+
+	return $latest;
+}
 
 /**
  * Array multisort function for sorting on multiple fields like in SQL, e.g: 'ORDER BY field1, field2'
@@ -201,8 +250,8 @@ function multi_sort() {
  * @param string|array $headers Optional. Additional headers.
  * @param string|array $attachments Optional. Files to attach.
  *
- * @global $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_API_KEY']
- * @global $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_SENDER_ADDRESS']
+ * @const POSTMARK_API_KEY
+ * @const POSTMARK_SENDER_ADDRESS
  *
  * @return bool Whether the email contents were sent successfully.
  */
@@ -376,8 +425,7 @@ function include_plugins() {
 	$symbionts = array(
 	    'custom-metadata/custom_metadata.php' => 1,
 	    'disable-comments/disable-comments.php' => 1,
-	    'mce-table-buttons/mce_table_buttons.php' => 1,
-	    'rest-api/plugin.php' => 1,
+	    'mce-table-buttons/mce_table_buttons.php' => 1
 	);
 
 	$symbionts = filter_plugins( $symbionts );

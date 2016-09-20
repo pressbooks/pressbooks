@@ -807,7 +807,7 @@ div.aligncenter {
   height: 43px;
   white-space: nowrap; }
 
-.nav span.next a {
+.nav span.next a, .nav-next a {
   background-position: 0 -506px; }
 
 .nav span a:hover {
@@ -2014,6 +2014,7 @@ code {
     height: auto !important;
     min-height: 100px;
     margin: 0 auto; } }
+
 /* =Debug Stuff (PL)
 -------------------------------------------------------------- */
 div#debug {

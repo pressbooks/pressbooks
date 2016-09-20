@@ -36,6 +36,8 @@ class Pressbooks {
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-root' );
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
 
+		do_action('pressbooks_register_theme_directory');
+
 		// Check for local themes-root directory
 		if ( realpath ( WP_CONTENT_DIR . '/themes-root' ) ) :
 			register_theme_directory( WP_CONTENT_DIR . '/themes-root' );

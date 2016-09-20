@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ --> 
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7 ]> <html <?php language_attributes(); ?> class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html <?php language_attributes(); ?> class="no-js ie7"> <![endif]-->
 <!--[if IE 8 ]>    <html <?php language_attributes(); ?> class="no-js ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html <?php language_attributes(); ?> class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--><html <?php language_attributes(); ?> class="no-js"> <!--<![endif]-->
+<!--[if (gt IE 9)|!(IE)]> <html <?php language_attributes(); ?> class="no-js"> <![endif]-->
 <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="https://html5shim.googlecode.com/svn/trunk/html5.js">
@@ -53,58 +53,59 @@ if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media
 <?php get_template_part( 'content', 'accessibility-toolbar' ); ?>
 
 	 <?php if (is_front_page()):?>
-	 
+
 	 	<!-- home page wrap -->
-	 	<span itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor 
+	 	<span itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor
 		      image inLanguage keywords publisher">
-		      
+
 	 		<div class="book-info-container">
-	 
-		<?php else: ?>  	 
-		<span itemscope itemtype="http://schema.org/WebPage" itemref="about copyrightHolder copyrightYear inLanguage publisher">		
+
+		<?php else: ?>
+		<span itemscope itemtype="http://schema.org/WebPage" itemref="about copyrightHolder copyrightYear inLanguage publisher">
 		<div class="nav-container">
 				<nav>
-			
+
 			 		<!-- Book Title -->
 				    <h1 class="book-title"><a href="<?php echo home_url( '/' ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
-			    
-			   
-			    
+
+
+
 					    <div class="sub-nav-left">
 							<!-- Logo -->
 							<h2 class="pressbooks-logo"><a href="<?php echo PATH_CURRENT_SITE; ?>"><?php echo get_site_option('site_name'); ?></a></h2>
 					    </div> <!-- end .sub-nav-left -->
-			    
+
 			    <div class="sub-nav-right">
-			    
+
 					    <?php if ( @array_filter( get_option( 'pressbooks_ecommerce_links' ) ) ) : ?>
 					    <!-- Buy -->
 					    <div class="buy">
 							<a href="<?php echo get_option('home'); ?>/buy" class="button-red"><?php _e('Buy', 'pressbooks'); ?></a>
 						</div>
-						<?php endif; ?>	
-						
-						<?php get_template_part( 'content', 'social-header' ); ?> 
-				
+						<?php endif; ?>
+
+						<?php get_template_part( 'content', 'social-header' ); ?>
+
 				</div> <!-- end .sub-nav-right -->
 			</nav>
-			      
-			  <div class="sub-nav">       
-			     <!-- Author Name -->   
-			    <div class="author-wrap"> 
+
+			  <div class="sub-nav">
+					<?php get_search_form(); ?>
+			    <!-- Author Name -->
+			    <div class="author-wrap">
 			    	<?php $metadata = pb_get_book_information(); ?>
 					<?php if ( ! empty( $metadata['pb_author'] ) ): ?>
 			     	<h3><?php echo $metadata['pb_author']; ?></h3>
 		     		<?php endif; ?>
 			     </div> <!-- end .author-name -->
-		     
-			  </div><!-- end sub-nav -->  
-			    
-				 
+
+			  </div><!-- end sub-nav -->
+
+
 		</div> <!-- end .nav-container -->
 
-	<div class="wrapper"><!-- for sitting footer at the bottom of the page -->	    
-			<div id="wrap">	    
+	<div class="wrapper"><!-- for sitting footer at the bottom of the page -->
+			<div id="wrap">
 				<div id="content">
 
-	 <?php endif; ?>	
+	 <?php endif; ?>

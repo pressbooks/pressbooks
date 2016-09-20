@@ -135,9 +135,14 @@ class L10nTest extends \WP_UnitTestCase {
 	 */
 	public function test_use_book_locale() {
 
-		$this->assertTrue(
-			is_bool( \Pressbooks\L10n\use_book_locale() )
-		);
+		$this->assertFalse( \Pressbooks\L10n\use_book_locale() );
+
+		$timestamp = time();
+		$md5 = md5( $timestamp );
+		$_SERVER['REQUEST_URI'] = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
+
+		$this->assertTrue( \Pressbooks\L10n\use_book_locale() );
+
 	}
 
 }
