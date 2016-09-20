@@ -18,7 +18,11 @@ namespace Pressbooks\Admin\Plugins;
 
 function filter_plugins( $plugins ) {
 	if ( ! is_super_admin() ) {
-		$approved = [ 'hypothesis/hypothesis.php' ];
+		$slugs = [ 'hypothesis' ];
+		$approved = [];
+		foreach ( $slugs as $slug ) {
+			$approved[] = $slug . '/' . $slug . '.php';
+		}
 		foreach ( $plugins as $slug => $value ) {
 			if ( false === strpos( $slug, 'pressbooks-' ) && ! in_array( $slug, $approved ) )
 				unset( $plugins[$slug] );
