@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04831b76bba8a7f400795f7d9546fd66",
-    "content-hash": "4814884a5841118acb98cb8751061683",
+    "hash": "c96de2c68cbeb39745b5617afce5d0a1",
+    "content-hash": "7c2fe055827d58db89791694e298ac72",
     "packages": [
         {
             "name": "composer/installers",
@@ -440,7 +440,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "gridonic/princexml-php": 20,
         "vanilla/htmlawed": 20,
         "pressbooks/custom-metadata": 20
     },
