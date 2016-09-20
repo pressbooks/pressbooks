@@ -9,6 +9,7 @@ Author URI: http://www.pressbooks.com
 Text Domain: pressbooks
 License: GPLv2
 GitHub Plugin URI: https://github.com/pressbooks/pressbooks
+Release Asset: true
 */
 
 if ( ! defined( 'ABSPATH' ) )
