@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.7.1
+Version: 3.8.0
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.6
-Tested up to: 4.6
-Stable tag: 3.7.1
+Requires at least: 4.6.1
+Tested up to: 4.6.1
+Stable tag: 3.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,7 +96,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 
 *Part 3, Pressbooks dependencies:*
 
- * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 10r5
+ * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 10r7
  * For PDF export via mPDF install the [Pressbooks mPDF plugin](https://wordpress.org/plugins/pressbooks-mpdf). You will also need to ensure that the following folders have write access and/or they are owned by the appropriate user. See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
    + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/ttfontdata
    + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/tmp
@@ -196,9 +196,27 @@ TK.
 
 == Upgrade Notice ==
 
-Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
+Please note Pressbooks 3.8.0 will be our last release on WordPress.org. Future updates will be delivered via GitHub [releases](https://github.com/pressbooks/pressbooks/releases).
 
 == Changelog ==
+
+= 3.8.0 =
+* **Feature:** The redistribution option from [Pressbooks Textbook](https://github.com/BCcampus/pressbooks-textbook/), which allows a book administrator to share the latest export files of their book on the webbook cover page, has been migrated into Pressbooks and can be found under (Network) Settings -> Sharing and Privacy. Many thanks to @bdolor for developing this feature (and fixing a display bug in our implementation of it).
+* **Feature:** Luther and all child themes now support searching within webbooks.
+* **Feature:** The Pressbooks.com promotion on book covers can now be hidden using the `PB_HIDE_COVER_PROMO` constant.
+* **Enhancement:** [Hypothesis](https://wordpress.org/plugins/hypothesis/) has been added to the supported plugins list, and the supported plugins list is now built more intelligently.
+* **Enhancement:** The hard-coded default theme for new books has been replaced by the following logic: 1. Use `PB_BOOK_THEME` (if set); 2. Use `WP_DEFAULT_THEME` (if set); 3. Use Luther.
+* **Enhancement:** Added the `pressbooks_register_theme_directory` action to support the registration of custom theme directores by third-party developers (props to @bdolor).
+* **Enhancement:** Added support for testing PrinceXML's built-in [PDF profile](http://www.princexml.com/doc/properties/prince-pdf-profile/) support by setting the `PB_PDF_PROFILE` constant to the desired profile.
+* **Enhancement:** Refactored generic shortcodes to allow testing and test were written for them.
+* **Enhancement:** Switched from internal fork to dev-master of gridonic/princexmlphp and switched to versioned copy of pressbooks/saxonhe.
+* **Enhancement:** The `\Pressbooks\Modules\ThemeOptions` class now supports the registration of custom tags by third-party developers.
+* **Fix:** Removed a leftover conditional check for the `accessibility_fontsize` option in webbooks (props to @bdolor for the bug report).
+* **Fix:** Internal links to parts now work in XHTML, PDF and EPUB exports.
+* **Fix:** Fixed some faulty logic in the TOC collapse Javascript (props to @bdolor).
+* **Fix:** Fixed some incorrect color values in the mobile admin bar.
+* **Fix:** Fixed a misplaced comment in the conditional check for IE 9 in Pressbooks Book (props to @chrillep).
+* **Fix:** Fixed a bug where protocol-relative images would not be exported properly in EPUB (props to @bdolor).
 
 = 3.7.1 =
 * **Fix:** Fixed a bug where increased font size would be applied to all PDF exports.
