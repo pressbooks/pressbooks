@@ -196,7 +196,7 @@ TK.
 
 == Upgrade Notice ==
 
-Please note Pressbooks 3.8.0 will be our last release on WordPress.org. Future updates will be delivered via GitHub [releases](https://github.com/pressbooks/pressbooks/releases).
+Please note that Pressbooks 3.8.0 will be our last release on WordPress.org. Future updates will be delivered via GitHub [releases](https://github.com/pressbooks/pressbooks/releases). To facilitate this process, you can install the [GitHub Updater](https://github.com/afragen/github-updater) plugin.
 
 == Changelog ==
 
