@@ -136,7 +136,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	protected function getSlug() {
+	static function getSlug() {
   	return 'pressbooks_sharingandprivacy_options';
   }
 
@@ -145,7 +145,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-  protected function getTitle() {
+  static function getTitle() {
   	return __('Sharing and Privacy Settings', 'pressbooks');
   }
 

@@ -958,7 +958,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $slug
 	 */
-	protected function getSlug() {
+	static function getSlug() {
   	return 'pdf';
   }
 
@@ -967,7 +967,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 *
 	 * @return string $title
 	 */
-  protected function getTitle() {
+  static function getTitle() {
   	return __('PDF Options', 'pressbooks');
   }
 

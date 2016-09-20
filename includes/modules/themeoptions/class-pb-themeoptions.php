@@ -28,8 +28,7 @@ class ThemeOptions {
 	 * Register the settings on each tab, run upgrade() if needed.
 	 */
 	function loadTabs() {
-		foreach ( $this->tabs as $slug => $tab ) {
-			$subclass = '\Pressbooks\Modules\ThemeOptions\\' . ucfirst( $slug ) . 'Options';
+		foreach ( $this->tabs as $slug => $subclass ) {
 			add_filter( 'pressbooks_theme_options_' . $slug . '_defaults', array( $subclass, 'filterDefaults' ), 10, 1 );
 			$option = get_option( 'pressbooks_theme_options_' . $slug, $subclass::getDefaults() );
 			$tab = new $subclass( $option );
@@ -55,8 +54,8 @@ class ThemeOptions {
 			<?php settings_errors(); ?>
 			<?php $active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'global'; ?>
 			<h2 class="nav-tab-wrapper">
-				<?php foreach ( \Pressbooks\Modules\ThemeOptions\ThemeOptions::getTabs() as $slug => $tab ) { ?>
-					<a href="<?= admin_url('/themes.php'); ?>?page=pressbooks_theme_options&tab=<?= $slug; ?>" class="nav-tab <?= $active_tab == $slug ? 'nav-tab-active' : ''; ?>"><?= $tab ?></a>
+				<?php foreach ( \Pressbooks\Modules\ThemeOptions\ThemeOptions::getTabs() as $slug => $subclass ) { ?>
+					<a href="<?= admin_url('/themes.php'); ?>?page=pressbooks_theme_options&tab=<?= $slug; ?>" class="nav-tab <?= $active_tab == $slug ? 'nav-tab-active' : ''; ?>"><?= $subclass::getTitle() ?></a>
 				<?php } ?>
 			</h2>
 			<form method="post" action="options.php">
@@ -81,11 +80,11 @@ class ThemeOptions {
 	 */
 	static function getTabs() {
 		$tabs = array(
-			'global' => __( 'Global Options', 'pressbooks' ),
-			'web' => __( 'Web Options', 'pressbooks' ),
-			'pdf' => __( 'PDF Options', 'pressbooks' ),
-			'mpdf' => __( 'mPDF Options', 'pressbooks' ),
-			'ebook' => __( 'Ebook Options', 'pressbooks' )
+			'global' => '\Pressbooks\Modules\ThemeOptions\GlobalOptions',
+			'web' => '\Pressbooks\Modules\ThemeOptions\WebOptions',
+			'pdf' => '\Pressbooks\Modules\ThemeOptions\PDFOptions',
+			'mpdf' => '\Pressbooks\Modules\ThemeOptions\mPDFOptions',
+			'ebook' => '\Pressbooks\Modules\ThemeOptions\EbookOptions'
 		);
 
 		if ( ! \Pressbooks\Utility\check_prince_install() ) {

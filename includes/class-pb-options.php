@@ -35,14 +35,14 @@ abstract class Options {
 	 *
 	 * @return string $slug
 	 */
-	abstract protected function getSlug();
+	abstract static function getSlug();
 
 	/**
 	 * Get the localized title of this options page or tab.
 	 *
 	 * @return string $title
 	 */
-	abstract protected function getTitle();
+	abstract static function getTitle();
 
 	/**
 	 * Get an array of default values for this set of options
