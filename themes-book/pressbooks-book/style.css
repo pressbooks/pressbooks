@@ -989,6 +989,58 @@ div.aligncenter {
   text-align: center;
   width: 45%; }
 
+/*
+|--------------------------------------------------------------------------
+| Tab Overrides
+|--------------------------------------------------------------------------
+|
+| base http://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css
+|
+|
+*/
+.ui-widget {
+  font-family: inherit;
+  font-size: inherit; }
+
+.ui-widget-content {
+  border: none;
+  background: inherit;
+  color: inherit; }
+
+.ui-widget.ui-widget-content {
+  border: none; }
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+html .ui-button.ui-state-disabled:hover,
+html .ui-button.ui-state-disabled:active {
+  border: none;
+  font-weight: lighter;
+  color: #333333; }
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+  background-color: #ffffff;
+  color: #333333;
+  border-top: solid 2px #b40026; }
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+  color: #333333; }
+
+.ui-widget-header {
+  background: #ffffff;
+  border: none; }
+
+.ui-tabs, .ui-tabs-panel, .ui-tabs-nav {
+  padding: 0; }
+
+.ui-tabs .ui-tabs-nav {
+  margin: 0 47px; }
+
+.ui-widget-content a {
+  color: #870d0d; }
+
 /********************
 	  Content
 *********************/

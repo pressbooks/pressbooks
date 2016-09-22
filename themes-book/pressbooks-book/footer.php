@@ -7,6 +7,12 @@
 
 	<?php get_sidebar(); ?>
 
+	<?php
+	//if ( 1 === get_option( 'pressbooks_tabs' ) ) {
+		get_template_part( 'tabs', 'end' );
+	//}
+	?>
+
 	</div><!-- #wrap -->
 	<div class="push"></div>
 	

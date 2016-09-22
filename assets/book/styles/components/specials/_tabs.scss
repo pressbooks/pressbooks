@@ -1,0 +1,64 @@
+/*
+|--------------------------------------------------------------------------
+| Tab Overrides
+|--------------------------------------------------------------------------
+|
+| base http://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css
+|
+|
+*/
+
+.ui-widget {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.ui-widget-content {
+  border: none;
+  background: inherit;
+  color: inherit;
+}
+
+.ui-widget.ui-widget-content {
+  border: none;
+}
+
+.ui-state-default,
+.ui-widget-content .ui-state-default,
+.ui-widget-header .ui-state-default,
+.ui-button,
+  /* We use html here because we need a greater specificity to make sure disabled
+  works properly when clicked or hovered */
+html .ui-button.ui-state-disabled:hover,
+html .ui-button.ui-state-disabled:active {
+  border: none;
+  font-weight: lighter;
+  color: $color-black-mineshaft;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+  background-color: $color-white;
+  color: $color-black-mineshaft;
+  border-top: solid 2px $color-monza;
+}
+
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
+  color: $color-black-mineshaft;
+}
+
+.ui-widget-header {
+  background: $color-white;
+  border: none;
+}
+
+.ui-tabs, .ui-tabs-panel, .ui-tabs-nav {
+  padding: 0;
+}
+
+.ui-tabs .ui-tabs-nav {
+  margin: 0 47px;
+}
+
+.ui-widget-content a {
+  color: $color-red-tamarillo;
+}
