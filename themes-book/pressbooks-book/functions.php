@@ -84,9 +84,8 @@ function pb_enqueue_scripts() {
 
 	if ( is_single() ) {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
-		wp_enqueue_style( 'jquery-ui', '//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css', array( 'jquery' ), null , 'screen, print' );
-		wp_enqueue_script( 'jquery-ui-tabs', '/wp-includes/js/jquery/ui/jquery.ui.tabs.min.js', array( 'jquery' ), null, false );
-		wp_enqueue_script( 'pb-tabs', '/js/tabs.js', array( 'jquery' ), null, false );
+		wp_enqueue_script( 'pb-tabs', get_template_directory_uri() . '/js/tabs.js', array( 'jquery' ), null, false );
+		wp_enqueue_script( 'jquery-ui-tabs' );
 	}
 
 	wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );

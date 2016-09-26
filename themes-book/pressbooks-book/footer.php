@@ -9,7 +9,7 @@
 
 	<?php
 	//if ( 1 === get_option( 'pressbooks_tabs' ) ) {
-		get_template_part( 'tabs', 'end' );
+		get_template_part( 'tabs', 'footer' );
 	//}
 	?>
 

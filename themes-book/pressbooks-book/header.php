@@ -105,11 +105,6 @@ if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media
 
 	<div class="wrapper"><!-- for sitting footer at the bottom of the page -->	    
 			<div id="wrap">
-				<?php
-				//if ( 1 === get_option( 'pressbooks_tabs') ) {
-					get_template_part( 'tabs', 'start' );
-				//}
-				?>
 				<div id="content">
 
 	 <?php endif; ?>	

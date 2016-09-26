@@ -998,6 +998,9 @@ div.aligncenter {
 |
 |
 */
+#tabs{
+  margin: 4rem 6rem 6rem;
+}
 .ui-widget {
   font-family: inherit;
   font-size: inherit; }
@@ -1023,7 +1026,7 @@ html .ui-button.ui-state-disabled:active {
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
   background-color: #ffffff;
   color: #333333;
-  border-top: solid 2px #b40026; }
+  border-top: solid 1px #b40026; }
 
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
   color: #333333; }
@@ -1037,6 +1040,10 @@ html .ui-button.ui-state-disabled:active {
 
 .ui-tabs .ui-tabs-nav {
   margin: 0 47px; }
+
+.ui-tabs .ui-tabs-nav {
+  border-bottom: solid 1px #b40026;
+}
 
 .ui-widget-content a {
   color: #870d0d; }

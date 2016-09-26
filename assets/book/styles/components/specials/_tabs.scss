@@ -8,6 +8,9 @@
 |
 */
 
+#tabs{
+  margin: 4rem 6rem 6rem;
+}
 .ui-widget {
   font-family: inherit;
   font-size: inherit;
@@ -39,7 +42,7 @@ html .ui-button.ui-state-disabled:active {
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
   background-color: $color-white;
   color: $color-black-mineshaft;
-  border-top: solid 2px $color-monza;
+  border-top: solid 1px $color-monza;
 }
 
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
@@ -56,7 +59,7 @@ html .ui-button.ui-state-disabled:active {
 }
 
 .ui-tabs .ui-tabs-nav {
-  margin: 0 47px;
+  border-bottom: solid 1px #b40026;
 }
 
 .ui-widget-content a {
