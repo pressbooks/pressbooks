@@ -412,11 +412,24 @@ class Xhtml11 extends Export {
 		$content = apply_filters( 'the_content', $content );
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
+		$content = $this->switchLaTexFormat( $content );
 		$content = $this->tidy( $content );
 
 		return $content;
 	}
 
+	/**
+	 * Replace links to QuickLaTex PNG files with links to the corresponding SVG files.
+	 *
+	 * @param string $content The section content.
+	 *
+	 * @returns string
+	 */
+	protected function switchLaTexFormat( $content ) {
+		$content = preg_replace( '/(quicklatex.com-[a-f0-9]{32}_l3.)(png)/i', '$1svg', $content );
+
+		return $content;
+	}
 
 	/**
 	 * @param string $content
