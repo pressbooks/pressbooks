@@ -22,7 +22,6 @@ require( PB_PLUGIN_DIR . 'includes/pb-registration.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-editor.php' );
-require( PB_PLUGIN_DIR . 'vendor/pressbooks/pressbooks-latex/pb-latex.php' );
 
 Pressbooks\Utility\include_plugins();
 

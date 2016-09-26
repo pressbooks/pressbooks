@@ -425,7 +425,8 @@ function include_plugins() {
 	$symbionts = array(
 	    'custom-metadata/custom_metadata.php' => 1,
 	    'disable-comments/disable-comments.php' => 1,
-	    'mce-table-buttons/mce_table_buttons.php' => 1
+	    'mce-table-buttons/mce_table_buttons.php' => 1,
+			'pressbooks-latex/pb-latex.php' => 1,
 	);
 
 	$symbionts = filter_plugins( $symbionts );
@@ -443,17 +444,17 @@ function include_plugins() {
  * Filters out active plugins, to avoid collisions with plugins already installed.
  *
  * @since 2.5.1
- * @param array $symbionts
+ * @param array $symbionts An array of plugins, key/values paired like so: 'pressbooks/pressbooks.php' => 1
  * @return array
  */
 function filter_plugins( $symbionts ) {
 	$already_active = get_option( 'active_plugins' );
 	$network_already_active = get_site_option( 'active_sitewide_plugins' );
 
-	// don't include plugins already active at the site level, network level
+	// Don't include plugins already active at the site level or network level.
 	if ( ! empty( $symbionts ) ) {
 		foreach ( $symbionts as $key => $val ) {
-			if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active ) ) {
+			if ( in_array( $key, $already_active, true ) || array_key_exists( $key, $network_already_active ) ) {
 				unset( $symbionts[$key] );
 			}
 		}
@@ -470,6 +471,11 @@ function filter_plugins( $symbionts ) {
 				unset( $symbionts[$key] );
 			}
 		}
+	}
+
+	// Don't include Pressbooks LaTeX if QuickLaTeX is active.
+	if ( in_array( 'wp-quicklatex', $already_active, true ) || array_key_exists( 'wp-quicklatex/wp-quicklatex.php', $network_already_active ) ) {
+		unset( $symbionts['pressbooks-latex/pb-latex.php'] );
 	}
 
 	return $symbionts;
