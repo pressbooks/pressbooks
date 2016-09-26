@@ -417,7 +417,7 @@ function show_experimental_features( $host = null ) {
 }
 
 /**
- * Include plugins in /symbionts
+ * Include plugins in /vendor
  *
  * @since 2.5.1
  */
