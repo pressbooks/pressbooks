@@ -1021,12 +1021,22 @@ html .ui-button.ui-state-disabled:hover,
 html .ui-button.ui-state-disabled:active {
   border: none;
   font-weight: lighter;
-  color: #333333; }
+  color: #333333;
+}
+
+.ui-state-default .ui-tabs-anchor span:before{
+  content: "\f140"; /* down arrow */
+}
+
+.ui-tabs-active .ui-tabs-anchor span:before{
+  content: "\f142"; /* up arrow */
+}
 
 .ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
   background-color: #ffffff;
   color: #333333;
-  border-top: solid 1px #b40026; }
+  border-top: solid 1px #b40026;
+}
 
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
   color: #333333; }
@@ -1036,13 +1046,12 @@ html .ui-button.ui-state-disabled:active {
   border: none; }
 
 .ui-tabs, .ui-tabs-panel, .ui-tabs-nav {
-  padding: 0; }
-
-.ui-tabs .ui-tabs-nav {
-  margin: 0 47px; }
+  padding: 0px;
+}
 
 .ui-tabs .ui-tabs-nav {
   border-bottom: solid 1px #b40026;
+  padding: 0em 0.2em 0px 0px;
 }
 
 .ui-widget-content a {
