@@ -8,9 +8,10 @@
 	<?php get_sidebar(); ?>
 
 	<?php
-	//if ( 1 === get_option( 'pressbooks_tabs' ) ) {
+	$tabs = get_option( 'tabbed_content' );
+	if ( 1 === $tabs['revision_history'] || 1 === $tabs['book_info'] ) {
 		get_template_part( 'tabs', 'footer' );
-	//}
+	}
 	?>
 
 	</div><!-- #wrap -->

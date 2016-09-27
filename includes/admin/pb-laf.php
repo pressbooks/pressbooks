@@ -673,6 +673,13 @@ function privacy_settings_init() {
 			'privacy_settings_section'
 		);
 	}
+	add_settings_field(
+		'tabbed_content',
+		__( 'Tabbed Content', 'pressbooks' ),
+		__NAMESPACE__ . '\privacy_tabbed_content_callback',
+		'privacy_settings',
+		'privacy_settings_section'
+	);
 	register_setting(
 		'privacy_settings',
 		'blog_public',
@@ -687,6 +694,11 @@ function privacy_settings_init() {
 		'privacy_settings',
 		'pbt_redistribute_settings',
 		__NAMESPACE__ . '\privacy_pbt_redistribute_settings_sanitize'
+	);
+	register_setting(
+		'privacy_settings',
+		'tabbed_content',
+		__NAMESPACE__ . '\privacy_tabbed_content_settings_sanitize'
 	);
 
 }
@@ -747,6 +759,28 @@ function privacy_permissive_private_content_callback( $args ) {
 <?php }
 
 /**
+ * Privacy settings, tabbed_content callback
+ *
+ * @param $args
+ */
+function privacy_tabbed_content_callback( $args ) {
+	$tabbed_content = get_option( 'tabbed_content' );
+
+	// revision history
+	$html = '<input type="checkbox" id="revision_history" name="tabbed_content[revision_history]" value="1" ';
+	if ( $tabbed_content['revision_history'] ) $html .= 'checked="checked" ';
+	$html .= '/>';
+	$html .= '<label for="revision_history"> ' . __( 'Share revision history for each chapter with everyone.', 'pressbooks' ) . '</label><br />';
+
+	// book info
+	$html .= '<input type="checkbox" id="book_info" name="tabbed_content[book_info]" value="1" ';
+	if ( $tabbed_content['book_info'] ) $html .= 'checked="checked" ';
+	$html .= '/>';
+	$html .= '<label for="book_info"> ' . __( 'Share book information for each chapter with everyone.', 'pressbooks' ) . '</label>';
+	echo $html;
+}
+
+/**
  * Sharing settings, latest_files_public field callback
  *
  * @param $args
@@ -792,6 +826,21 @@ function privacy_permissive_private_content_sanitize( $input ) {
  */
 function privacy_pbt_redistribute_settings_sanitize( $input ) {
 	$output['latest_files_public'] = absint( $input['latest_files_public'] );
+	return $output;
+}
+
+/**
+ * Privacy Settings for tabbed content
+ *
+ * @param $input
+ * @return mixed
+ */
+function privacy_tabbed_content_settings_sanitize( $input ) {
+
+	foreach ( $input as $k => $v ) {
+		$output[ $k ] = absint( $v );
+	}
+
 	return $output;
 }
 
