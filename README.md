@@ -48,4 +48,4 @@ The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 More Details
 ------------
 
-See readme.txt for installation details.
+See [readme.txt](https://github.com/pressbooks/pressbooks/blob/dev/readme.txt) for installation details.
