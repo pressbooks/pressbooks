@@ -33,7 +33,7 @@ Installing the Plugin
 
 Pressbooks is not for use on an existing blog. Instead it should be used with a fresh, multisite WordPress install.
 
-Unless you are installing Pressbooks for development, you should use the version from the [WordPress Plugin Directory](https://wordpress.org/plugins/pressbooks) rather than this version. If you need to install Pressbooks for development, please see the ["Contributing"](CONTRIBUTING.md) guide.
+To install Pressbooks on your site, download the [latest release](https://github.com/pressbooks/pressbooks/releases/latest). If you need to install Pressbooks for development, please see the ["Contributing"](CONTRIBUTING.md) guide.
 
 Requirements
 ------------
