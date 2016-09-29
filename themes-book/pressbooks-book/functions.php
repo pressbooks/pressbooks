@@ -315,8 +315,8 @@ function pressbooks_post_revision_display( $post ) {
 
 	// could be empty
 	if ( empty( $revisions && true === $enabled ) ) {
-		$html .=
-			'<p>' . __( 'There are no revisions for this chapter', 'pressbooks' ) . '</p>';
+		$html .= '<p>' . __( 'There are no revisions for this chapter', 'pressbooks' ) . '</p>';
+		return $html;
 	}
 
 	$html .= '<table class="table"><thead>
@@ -337,7 +337,7 @@ function pressbooks_post_revision_display( $post ) {
 		$html .= "<td><a href=' " . get_permalink() . "?rev={$revision->ID}'>{$revision->ID}</a></td>";
 		$html .= "<td>{$revision->post_date_gmt}</td>";
 		$html .= "<td></td>";
-		$html .= "<td>" . get_the_author_meta( 'nicename', $post->ID ) . "</td>";
+		$html .= "<td>" . get_the_author_meta( 'nicename', $revision->post_author ) . "</td>";
 		$html .= "</tr>";
 	}
 
