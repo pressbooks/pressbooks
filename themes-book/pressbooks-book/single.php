@@ -10,7 +10,7 @@
 					if ( 'chapter' == get_post_type( $post->ID ) ) {
 						$part_title = get_post_field( 'post_title', $post->post_parent );
 						if ( ! is_wp_error( $part_title ) ) {
-							echo "<small class='alignright'>" . $part_title . "</small>";
+							echo "<div class='parts-title'><small>" . $part_title . "</small></div>";
 						}
 					}
 				}
@@ -21,15 +21,15 @@
 				?></h2>
 					<?php pb_get_links(); ?>
 				<div id="post-<?php the_ID(); ?>" <?php post_class( pb_get_section_type( $post ) ); ?>>
-					
+
 					<div class="entry-content">
 					  <?php if ($subtitle = get_post_meta($post->ID, 'pb_subtitle', true)): ?>
-					    <h2 class="chapter_subtitle"><?php echo $subtitle; ?></h2> 
+					    <h2 class="chapter_subtitle"><?php echo $subtitle; ?></h2>
 				    <?php endif;?>
 				    <?php if ($chap_author = get_post_meta($post->ID, 'pb_section_author', true)): ?>
 				       <h2 class="chapter_author"><?php echo $chap_author; ?></h2>
 			      <?php endif; ?>
-									
+
 					<?php if ( get_post_type( $post->ID ) !== 'part' ) {
 						if ( pb_should_parse_subsections() ) {
 							$content = pb_tag_subsections( apply_filters( 'the_content', get_the_content() ), $post->ID );
@@ -45,15 +45,15 @@
 					</div><!-- .entry-content -->
 				</div><!-- #post-## -->
 
-			
+
 				</div><!-- #content -->
-			
+
 				<?php
 				if ( 1 === @$web_options['social_media'] || !isset( $web_options['social_media'] ) ) {
-					get_template_part( 'content', 'social-footer' ); 
+					get_template_part( 'content', 'social-footer' );
 				}
-				?> 
-			
+				?>
+
 				<?php comments_template( '', true ); ?>
 <?php else: ?>
 <?php pb_private(); ?>
