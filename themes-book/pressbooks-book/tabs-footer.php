@@ -10,7 +10,9 @@
 	</div>
 
 	<div id="tabs-2">
-		<p>some other content</p>
+		<?php
+		echo pressbooks_post_revision_display($post);
+		?>
 	</div>
 
 </div>

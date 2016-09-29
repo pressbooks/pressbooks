@@ -289,6 +289,64 @@ function pressbooks_copyright_license() {
 	return $html;
 }
 
+/**
+ *
+ * @param $post_id
+ */
+function pressbooks_post_revision_display( $post ) {
+	$html    = '<h4>Revision History</h4>';
+	$args    = array(
+		'order'         => 'DESC',
+		'orderby'       => 'date ID',
+		'check_enabled' => false,
+	);
+	$enabled = wp_revisions_enabled( $post );
+
+	if ( false === $enabled ) {
+		$html .= '<p>' . __( 'Revisions are not enabled', 'pressbooks' ) . '</p>';
+
+		// these are not the revisions you're looking for
+		return $html;
+	}
+
+	// wp_get_post_revisions returns an empty array
+	// if there are no revisions
+	$revisions = wp_get_post_revisions( $post->ID, $args );
+
+	// could be empty
+	if ( empty( $revisions && true === $enabled ) ) {
+		$html .=
+			'<p>' . __( 'There are no revisions for this chapter', 'pressbooks' ) . '</p>';
+	}
+
+	$html .= '<table class="table"><thead>
+    <tr>
+      <th scope="col">Revision</th>
+      <th scope="col">Date/Time</th>
+      <th scope="col">Changes</th>
+      <th scope="col">Publisher</th>
+    </tr>
+  </thead>';
+	foreach ( $revisions as $revision ) {
+		// skip autosave revisions
+		if ( true === wp_is_post_autosave( $revision ) ) {
+			continue;
+		}
+
+		$html .= "<tbody><tr>";
+		$html .= "<td><a href=' " . get_permalink() . "?rev={$revision->ID}'>{$revision->ID}</a></td>";
+		$html .= "<td>{$revision->post_date_gmt}</td>";
+		$html .= "<td></td>";
+		$html .= "<td>" . get_the_author_meta( 'nicename', $post->ID ) . "</td>";
+		$html .= "</tr>";
+	}
+
+	$html .= "</table>";
+
+	return $html;
+
+}
+
 function replace_running_content_tags( $input ) {
 	$input = '"' . $input . '"';
 	error_log( $input );

@@ -35,7 +35,14 @@
 
 			
 				</div><!-- #content -->
-			
+
+				<?php
+				$tabs = get_option( 'tabbed_content' );
+				if ( 1 === $tabs['revision_history'] || 1 === $tabs['book_info'] ) {
+					get_template_part( 'tabs', 'footer' );
+				}
+				?>
+
 				<?php 
 				$social_media = get_option( 'pressbooks_theme_options_web' );
 				if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media'] ) ) {
