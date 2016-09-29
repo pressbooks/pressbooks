@@ -3,6 +3,18 @@
 <?php if (get_option('blog_public') == '1' || (get_option('blog_public') == '0' && current_user_can_for_blog($blog_id, 'read'))): ?>
 
 				<?php edit_post_link( __( 'Edit', 'pressbooks' ), '<span class="edit-link">', '</span>' ); ?>
+				<?php
+				// add part title to chapters
+				$web_options = get_option( 'pressbooks_theme_options_web' );
+				if ( 1 === $web_options['parts_title'] ) {
+					if ( 'chapter' == get_post_type( $post->ID ) ) {
+						$part_title = get_post_field( 'post_title', $post->post_parent );
+						if ( ! is_wp_error( $part_title ) ) {
+							echo "<small class='alignright'>" . $part_title . "</small>";
+						}
+					}
+				}
+				?>
 			<h2 class="entry-title"><?php
 				if ( $chapter_number = pb_get_chapter_number( $post->post_name ) ) echo "<span>$chapter_number</span>  ";
 				the_title();
@@ -36,9 +48,8 @@
 			
 				</div><!-- #content -->
 			
-				<?php 
-				$social_media = get_option( 'pressbooks_theme_options_web' );
-				if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media'] ) ) {
+				<?php
+				if ( 1 === @$web_options['social_media'] || !isset( $web_options['social_media'] ) ) {
 					get_template_part( 'content', 'social-footer' ); 
 				}
 				?> 
