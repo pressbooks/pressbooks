@@ -260,6 +260,17 @@ hr.break-blank {
   padding-left: 1em;
   text-indent: -1em; }
 
+dl.dl-horizontal dt{
+  float: left;
+  text-align: right;
+  clear: left;
+  width: 150px;
+  font-weight: bold;
+}
+
+dl.dl-horizontal dd{
+  margin-left: 170px;
+}
 /********************
 	Structure
 *********************/

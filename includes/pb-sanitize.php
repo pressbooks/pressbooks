@@ -265,3 +265,50 @@ function maybe_https( $url ) {
 		return preg_replace( '/^http:/', 'https:', $url );
 	}
 }
+
+/**
+ * Converts a_string_with_underscores to
+ * A String With Underscores
+ *
+ * @param string $string A string with underscores to be converted
+ * @param string $exclude exclude first or last word from results
+ * @return string
+ */
+function explode_on_underscores( $string, $exclude = '' ) {
+	$result   = '';
+	$expected = array(
+		'first',
+		'last',
+	);
+
+	// not a string, force it
+	if ( ! is_string( $string ) ) {
+		$string = strval( $string );
+	}
+
+	// no underscore present, return original string
+	$parts = explode( '_', strtolower( $string ) );
+	if ( false === $parts ) {
+		return $string;
+	}
+
+	// exclude the first or the last element
+	if ( in_array( $exclude, $expected ) ) {
+		if ( 0 === strcasecmp( 'first', $exclude ) && count( $parts ) >= 2 ) {
+			array_shift( $parts );
+		}
+		if ( 0 === strcasecmp( 'last', $exclude ) && count( $parts ) >= 2 ) {
+			array_pop( $parts );
+		}
+	}
+
+	foreach ( $parts as $part ) {
+		$result .= ucfirst( $part ) . ' ';
+	}
+
+	// rm trailing space
+	rtrim( $result, ' ' );
+
+	return $result;
+
+}
