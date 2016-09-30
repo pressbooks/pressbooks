@@ -6,11 +6,11 @@
 				<?php
 				// add part title to chapters
 				$web_options = get_option( 'pressbooks_theme_options_web' );
-				if ( 1 === $web_options['parts_title'] ) {
+				if ( 1 === $web_options['part_title'] ) {
 					if ( 'chapter' == get_post_type( $post->ID ) ) {
 						$part_title = get_post_field( 'post_title', $post->post_parent );
 						if ( ! is_wp_error( $part_title ) ) {
-							echo "<div class='parts-title'><small>" . $part_title . "</small></div>";
+							echo "<div class='part-title'><small>" . $part_title . "</small></div>";
 						}
 					}
 				}
