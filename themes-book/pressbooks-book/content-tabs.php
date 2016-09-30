@@ -7,7 +7,7 @@ if ( isset( $tabs ) && in_array( 1, array_values( $tabs ) ) ) {
 	$labels .= '<ul>';
 
 	foreach( $tabs as $key=>$tab ){
-		$title = \Pressbooks\Sanitize\explode_on_underscores( $key );
+		$title = \Pressbooks\Sanitize\explode_on_underscores( $key, 'first' );
 		$method = 'pressbooks_tabs_' . $key;
 		$labels .= "<li><a href='#tabs-{$i}'>{$title} <span class='dashicons'></span></a></li>";
 		$panels .= "<div id='tabs-{$i}'>";

@@ -363,7 +363,7 @@ function pressbooks_tabs_revision_history( $post ) {
  * @return string
  */
 function pressbooks_tabs_book_info() {
-	$html      = '';
+	$html    = '<h4>Book Information</h4>';
 	$book_meta = \Pressbooks\Book::getBookInformation();
 	$expected  = array(
 		'pb_title',
