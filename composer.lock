@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c96de2c68cbeb39745b5617afce5d0a1",
-    "content-hash": "7c2fe055827d58db89791694e298ac72",
+    "hash": "35eea3cbf013b3c1e88a04a36dc390d0",
+    "content-hash": "221a582507c61dd38f26cc5cd5a15d5b",
     "packages": [
         {
             "name": "composer/installers",
@@ -398,16 +398,16 @@
         },
         {
             "name": "wp-api/wp-api",
-            "version": "2.0-beta13.1",
+            "version": "2.0-beta14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WP-API/WP-API.git",
-                "reference": "739e7f5cb842dceb5cd06bed4ffd612aecf63387"
+                "reference": "d9bf7b41c9c86db9fdab5eae08d32a67a776a056"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WP-API/WP-API/zipball/739e7f5cb842dceb5cd06bed4ffd612aecf63387",
-                "reference": "739e7f5cb842dceb5cd06bed4ffd612aecf63387",
+                "url": "https://api.github.com/repos/WP-API/WP-API/zipball/d9bf7b41c9c86db9fdab5eae08d32a67a776a056",
+                "reference": "d9bf7b41c9c86db9fdab5eae08d32a67a776a056",
                 "shasum": ""
             },
             "require": {
@@ -419,7 +419,7 @@
             },
             "type": "wordpress-plugin",
             "extra": {
-                "installer-name": "json-rest-api"
+                "installer-name": "rest-api"
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -433,7 +433,7 @@
             ],
             "description": "Access your WordPress site's data through an easy-to-use HTTP REST API.",
             "homepage": "http://wp-api.org/",
-            "time": "2016-05-25 12:24:10"
+            "time": "2016-10-01 17:05:53"
         }
     ],
     "packages-dev": [],

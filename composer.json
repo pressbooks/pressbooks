@@ -103,7 +103,7 @@
     "pressbooks/disable-comments": "1.1",
     "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/pressbooks-latex": "1.0.0",
-    "wp-api/wp-api": "2.0-beta13.1"
+    "wp-api/wp-api": "2.0-beta14"
   },
   "require-dev": {
   },
