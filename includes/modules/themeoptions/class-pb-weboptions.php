@@ -79,6 +79,17 @@ class WebOptions extends \Pressbooks\Options {
 			)
 		);
 
+		add_settings_field(
+			'part_title',
+			__( 'Display Part Title', 'pressbooks' ),
+			array( $this, 'renderPartTitle' ),
+			$_page,
+			$_section,
+			array(
+				__('Display the Part title on each chapter', 'pressbooks' )
+			)
+		);
+
 		register_setting(
 			$_page,
 			$_option,
@@ -138,6 +149,14 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the social_media checkbox.
+	 * @param array $args
+	 */
+	function renderPartTitle( $args ) {
+		$this->renderCheckbox( 'part_title', 'pressbooks_theme_options_' . $this->getSlug(), 'part_title', @$this->options['part_title'], $args[0] );
+	}
+
+	/**
 	 * Get the slug for the web options tab.
 	 *
 	 * @return string $slug
@@ -162,7 +181,8 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getDefaults() {
 		return apply_filters( 'pressbooks_theme_options_web_defaults', array(
-			'social_media' => 1
+			'social_media' => 1,
+			'part_title' => 0
 		) );
 	}
 
@@ -183,7 +203,8 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getBooleanOptions() {
 		return array(
-			'social_media'
+			'social_media',
+			'part_title'
 		);
 	}
 
