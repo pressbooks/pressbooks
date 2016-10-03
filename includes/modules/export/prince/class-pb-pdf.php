@@ -195,13 +195,7 @@ class Pdf extends Export {
 		$sass = Container::get( 'Sass' );
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 
-		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			// Prepend override variables (see: http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variable_defaults_)
-			$scss = $this->cssOverrides . "\n" . file_get_contents( $this->exportStylePath );
-		} else {
-			$scss = file_get_contents( $this->exportStylePath ) . "\n". $this->cssOverrides;
-			// Append override rules.
-		}
+		$scss = $sass->applyOverrides( file_get_contents( $this->exportStylePath ), $this->cssOverrides );
 
 		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
 			$css = $sass->compile( $scss, [

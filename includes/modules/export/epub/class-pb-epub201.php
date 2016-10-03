@@ -625,13 +625,7 @@ class Epub201 extends Export {
 			$scss .= "\n" . $this->loadTemplate( $this->extraCss );
 		}
 
-		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			// Prepend override variables (see: http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variable_defaults_)
-			$scss = $this->cssOverrides . "\n" . $scss;
-		} else {
-			// Append overrides
-			$scss .= "\n" . $this->cssOverrides;
-		}
+		$scss = $sass->applyOverrides( $scss, $this->cssOverrides );
 
 		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
 			$css = $sass->compile( $scss, [

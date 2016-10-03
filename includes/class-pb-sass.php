@@ -332,5 +332,24 @@ class Sass {
 		return true;
 	}
 
+	/**
+	 * Prepend or append SCSS overrides depending on which version of the theme architecture is in use.
+	 *
+	 * @param string $scss The theme SCSS.
+	 * @param string $overrides The SCSS overrides.
+	 *
+	 * @return string
+	 */
+	function applyOverrides( $scss, $overrides ) {
+		if ( $this->isCurrentThemeCompatible( 2 ) ) {
+			// Prepend override variables (see: http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variable_defaults_).
+			$scss = $overrides . "\n" . $scss;
+		} else {
+			// Append overrides.
+			$scss .= "\n" . $overrides;
+		}
+
+		return $scss;
+	}
 
 }

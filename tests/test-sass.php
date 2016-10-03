@@ -63,4 +63,11 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertEquals( $vars['font-size'], '14pt' );
 	}
 
+	/**
+	 * @covers \Pressbooks\Sass::applyOverrides
+	 */
+	public function test_applyOverrides() {
+		$result = $this->sass->applyOverrides( '// SCSS.', '// Override.' );
+		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
+	}
 }
