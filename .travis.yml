@@ -25,6 +25,6 @@ before_script:
 - phpenv rehash
 script:
 - "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover ./tests/logs/clover.xml"
-- $PHPCS_DIR/scripts/phpcs --standard=$(if [ -e ruleset.xml ]; then echo ruleset.xml; else echo WordPress; fi) $(find . -name '*.php')
+- $PHPCS_DIR/scripts/phpcs --standard=WordPress --extensions=php --ignore=tests/*
 after_script:
 - php vendor/bin/coveralls -v
