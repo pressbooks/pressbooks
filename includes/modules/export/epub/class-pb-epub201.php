@@ -1,8 +1,12 @@
 <?php
 /**
+ * EPUB Export class.
+ *
+ * @package Pressbooks
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Modules\Export\Epub;
 
 
@@ -621,8 +625,13 @@ class Epub201 extends Export {
 			$scss .= "\n" . $this->loadTemplate( $this->extraCss );
 		}
 
-		// Append overrides
-		$scss .= "\n" . $this->cssOverrides;
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			// Prepend override variables (see: http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variable_defaults_)
+			$scss = $this->cssOverrides . "\n" . $scss;
+		} else {
+			// Append overrides
+			$scss .= "\n" . $this->cssOverrides;
+		}
 
 		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
 			$css = $sass->compile( $scss, [
