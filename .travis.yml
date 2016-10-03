@@ -13,7 +13,7 @@ php:
 env:
 - WP_VERSION=latest WP_MULTISITE=1
 before_install:
-- composer require phpunit/phpunit:4.8.* satooshi/php-coveralls:dev-master
+- composer require phpunit/phpunit:4.8.*
 - composer install --dev
 before_script:
 - export PHPCS_DIR=/tmp/phpcs
@@ -24,10 +24,7 @@ before_script:
 - $PHPCS_DIR/scripts/phpcs --config-set installed_paths $SNIFFS_DIR
 - phpenv rehash
 script:
-- "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover ./tests/logs/clover.xml"
-- cp ./tests/logs/clover.xml coverage.xml
+- "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml"
 # - $PHPCS_DIR/scripts/phpcs -p --standard=WordPress --extensions=php --ignore=tests/*
-after_script:
-- php vendor/bin/coveralls -v
 after_success:
 - bash <(curl -s https://codecov.io/bash)
