@@ -244,11 +244,11 @@ class OptionsTest extends \WP_UnitTestCase {
 
 		// Test predefined.
 		$input = array(
-			'options_predefined' => 'European Swallow',
+			'option_predefined' => 'European Swallow',
 		);
 		$result = $this->options->sanitize( $input );
-		$this->assertArrayHasKey( 'options_predefined', $result );
-		$this->assertEquals( $result['options_predefined'], 'European Swallow' );
+		$this->assertArrayHasKey( 'option_predefined', $result );
+		$this->assertEquals( $result['option_predefined'], 'European Swallow' );
 	}
 
 }
