@@ -25,6 +25,9 @@ before_script:
 - phpenv rehash
 script:
 - "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover ./tests/logs/clover.xml"
-- $PHPCS_DIR/scripts/phpcs --standard=WordPress --extensions=php --ignore=tests/*
+- cp ./tests/logs/clover.xml coverage.xml
+- $PHPCS_DIR/scripts/phpcs -p --standard=WordPress --extensions=php --ignore=tests/*
 after_script:
 - php vendor/bin/coveralls -v
+after_success:
+- bash <(curl -s https://codecov.io/bash)
