@@ -16,17 +16,16 @@ before_install:
 - composer require phpunit/phpunit:4.8.* satooshi/php-coveralls:dev-master
 - composer install --dev
 before_script:
-- export PHPCS_DIR=/tmp/phpcs
 - export SNIFFS_DIR=/tmp/sniffs
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-- git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR
+- pear install PHP_CodeSniffer
 - git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $SNIFFS_DIR
-- $PHPCS_DIR/scripts/phpcs --config-set installed_paths $SNIFFS_DIR
+- phpcs --config-set installed_paths $SNIFFS_DIR
 - phpenv rehash
 script:
 - "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover ./tests/logs/clover.xml"
 - cp ./tests/logs/clover.xml coverage.xml
-- $PHPCS_DIR/scripts/phpcs -p --standard=WordPress --extensions=php --ignore=tests/*
+- phpcs -p --standard=WordPress --extensions=php --ignore=tests/*
 after_script:
 - php vendor/bin/coveralls -v
 after_success:
