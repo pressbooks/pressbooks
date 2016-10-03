@@ -35,7 +35,11 @@
 
 			
 				</div><!-- #content -->
-			
+
+				<?php
+					get_template_part( 'content', 'tabs' );
+				?>
+
 				<?php 
 				$social_media = get_option( 'pressbooks_theme_options_web' );
 				if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media'] ) ) {

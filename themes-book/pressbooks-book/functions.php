@@ -85,6 +85,8 @@ function pb_enqueue_scripts() {
 
 	if ( is_single() ) {
 		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
+		wp_enqueue_script( 'pb-tabs', get_template_directory_uri() . '/js/tabs.js', array( 'jquery' ), null, false );
+		wp_enqueue_script( 'jquery-ui-tabs' );
 	}
 
 	wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
@@ -283,6 +285,114 @@ function pressbooks_copyright_license() {
 	} else {
 		$html = $transient[$license] ;
 	}
+
+	return $html;
+}
+
+/**
+ * Displays a table of revisions made
+ * for a particular post
+ *
+ * @param $post_id
+ */
+function pressbooks_tabs_revision_history( $post ) {
+	$html    = '<h4>Revision History</h4>';
+	$args    = array(
+		'order'         => 'DESC',
+		'orderby'       => 'date ID',
+		'check_enabled' => false,
+	);
+	$enabled = wp_revisions_enabled( $post );
+	$limit   = ( defined( WP_POST_REVISIONS ) ? WP_POST_REVISIONS : 25 );
+	$i       = 0;
+
+
+	if ( false === $enabled ) {
+		$html .= '<p>' . __( 'Revisions are not enabled', 'pressbooks' ) . '</p>';
+
+		// these are not the revisions you're looking for
+		return $html;
+	}
+
+	// wp_get_post_revisions returns an empty array
+	// if there are no revisions
+	$revisions = wp_get_post_revisions( $post->ID, $args );
+
+	// could be empty
+	if ( empty( $revisions && true === $enabled ) ) {
+		$html .= '<p>' . __( 'There are currently no revisions', 'pressbooks' ) . '</p>';
+
+		return $html;
+	}
+
+	$html .= '<table class="table"><thead>
+    <tr>
+      <th scope="col">Revision</th>
+      <th scope="col">Date/Time</th>
+      <th scope="col">Publisher</th>
+    </tr>
+  </thead>';
+
+	foreach ( $revisions as $revision ) {
+		// skip autosave revisions
+		if ( true === wp_is_post_autosave( $revision ) ) {
+			continue;
+		}
+
+		$html .= "<tbody><tr>";
+		$html .= "<td>{$revision->ID}</td>";
+		$html .= "<td>{$revision->post_date_gmt}</td>";
+		$html .= "<td>" . get_the_author_meta( 'nicename', $revision->post_author ) . "</td>";
+		$html .= "</tr>";
+
+		$i ++;
+		if ( $limit === $i ) {
+			break;
+		}
+	}
+
+	$html .= "</table>";
+
+	return $html;
+
+}
+
+/**
+ * Displays some book information
+ *
+ * @return string
+ */
+function pressbooks_tabs_book_info() {
+	$html    = '<h4>Book Information</h4>';
+	$book_meta = \Pressbooks\Book::getBookInformation();
+	$expected  = array(
+		'pb_title',
+		'pb_author',
+		'pb_short_title',
+		'pb_subtitle',
+		'pb_contributing_authors',
+		'pb_publisher',
+		'pb_publisher_city',
+		'pb_copyright_year',
+		'pb_copyright_holder',
+		'pb_book_licence',
+		'pb_keywords_tags',
+		'pb_bisac_subject'
+	);
+
+	$html .= '<dl class="dl-horizontal">';
+
+	foreach ( $book_meta as $key => $val ) {
+		// skip stuff we don't want
+		if ( ! in_array( $key, $expected ) ) {
+			continue;
+		}
+		$title = \PressBooks\Sanitize\explode_on_underscores( $key, 'first' );
+		$html .= "<dt>{$title}</dt>";
+		$html .= "<dd>{$val}</dd>";
+	}
+
+	$html .= '</dl>';
 
 	return $html;
 }

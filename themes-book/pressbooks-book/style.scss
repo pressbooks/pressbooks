@@ -1,4 +1,4 @@
-@import 'mixins', 'fonts-web', 'tables', 'textboxes';
+@import 'mixins', 'fonts-web', 'tables', 'textboxes', 'tabs';
 
 $url-base: '' !default;
 
@@ -291,6 +291,18 @@ hr.break-blank {
 .hanging-indent {
   padding-left: 1em;
   text-indent: -1em;
+}
+
+dl.dl-horizontal dt{
+  float: left;
+  text-align: right;
+  clear: left;
+  width: 150px;
+  font-weight: bold;
+}
+
+dl.dl-horizontal dd{
+  margin-left: 170px;
 }
 
 /********************
@@ -1095,7 +1107,7 @@ aside {
   padding: 9px 24px;
 }
 
-#content tr td {
+#tabs tr td, #content tr td {
   border-top: 1px solid #e7e7e7;
   padding: 6px 24px;
 }
