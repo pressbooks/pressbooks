@@ -709,7 +709,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	function renderMarginsField( $args ) { ?>
 		<div class="margin-diagram">
-			<p class="description"><?= $args[0]; ?></p>
+			<p class="description"><?php echo $args[0]; ?></p>
 			<div class="pages">
 				<div class="page left">
 					<div class="margin outside"></div>
@@ -733,6 +733,7 @@ class PDFOptions extends \Pressbooks\Options {
 				</ul>
 			</div>
 		</div>
+		<p><strong><?php _e( 'IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm on any side can cause your file to be rejected.', 'pressbooks' ); ?></strong></p>
 	<?php }
 
 	/**
@@ -852,7 +853,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentField( $args ) { ?>
-		<p class="description"><?= $args[0]; ?></p>
+		<p class="description"><?php echo $args[0]; ?></p>
 	<?php }
 
 	/**
