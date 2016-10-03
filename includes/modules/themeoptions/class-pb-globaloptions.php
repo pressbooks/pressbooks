@@ -181,8 +181,11 @@ class GlobalOptions extends \Pressbooks\Options {
 		}
 
 		// Change two-level TOC key to 'parse_subsections'.
-		$options['parse_subsections'] = $options['parse_sections'];
-		unset($options['parse_sections']);
+		if ( isset( $options['parse_sections'] ) ) {
+			$options['parse_subsections'] = $options['parse_sections'];
+		}
+
+		unset( $options['parse_sections'] );
 
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
