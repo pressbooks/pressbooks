@@ -99,6 +99,9 @@ class Pdf extends Export {
 		$filename = $this->timestampedFileName( '.pdf' );
 		$this->outputPath = $filename;
 
+		// Fonts
+		Container::get( 'GlobalTypography' )->getFonts();
+
 		// CSS File
 		$css = $this->kneadCss();
 		$css_file = $this->createTmpFile();
