@@ -106,6 +106,8 @@
     "wp-api/wp-api": "2.0-beta14"
   },
   "require-dev": {
+    "squizlabs/php_codesniffer": "^2.7",
+    "wp-coding-standards/wpcs": "~0.10"
   },
   "autoload": {
   },
