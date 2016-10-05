@@ -1,4 +1,4 @@
-== Contributors ==
+# Contributors
 
  * Book Oven Inc. (code@pressbooks.com)
 

@@ -13,18 +13,10 @@ php:
 env:
 - WP_VERSION=latest WP_MULTISITE=1
 before_install:
-- composer require phpunit/phpunit:4.8.*
 - composer install --dev
 before_script:
-- export PHPCS_DIR=/tmp/phpcs
-- export SNIFFS_DIR=/tmp/sniffs
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-- git clone -b master --depth 1 https://github.com/squizlabs/PHP_CodeSniffer.git $PHPCS_DIR
-- git clone -b master --depth 1 https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git $SNIFFS_DIR
-- $PHPCS_DIR/scripts/phpcs --config-set installed_paths $SNIFFS_DIR
-- phpenv rehash
 script:
-- "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml"
-# - $PHPCS_DIR/scripts/phpcs -p --standard=WordPress --extensions=php --ignore=tests/*
+- composer test
 after_success:
 - bash <(curl -s https://codecov.io/bash)

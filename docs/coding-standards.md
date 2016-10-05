@@ -1,4 +1,4 @@
-== PHP Coding Standards ==
+# Coding Standards
 
 Write accurate [PHPDoc](http://en.wikipedia.org/wiki/PHPDoc) styled code comments.
 
@@ -22,17 +22,23 @@ Rules of thumb:
 
  * `getFooBar()` is when you are getting something associated with an object -- it implies the set is already defined.
  * `loadFooBar()` is when you are loading from an external source, like a file or a database.
- * `isFooBar()` or hasFooBar() is when a method returns a boolean value.
+ * `isFooBar()` or `hasFooBar()` is when a method returns a boolean value.
  * `createFooBar()` is when a method creates new files or assets.
 
 Don't write `public function foo()`, just write `function foo()`. Public is implied.
-Order of methods in a class: magic, public, protected, private, static.
+Order of methods in a class: `magic`, `public`, `protected`, `private`, `static`.
 
-Prefix WP Post meta keys with 'pb_'
-Prefix WP User meta keys with 'pb_'
-Prefix WP Option names with 'pressbooks_'
+Prefix WP Post meta keys with `pb_`.
+Prefix WP User meta keys with `pb_`.
+Prefix WP Option names with `pressbooks_`.
 
-Files under `themes-book/` and `themes-root/` are exempt from the above rules, but should still make an effort to follow
-them.
+Files under `themes-book/` and `themes-root/` are exempt from the above rules, but should still make an effort to follow them.
 
-For everything else not mentioned we try to respect the [WordPress coding standards](http://make.wordpress.org/core/handbook/coding-standards/php/).
+For everything else not mentioned we respect the [WordPress coding standards](http://make.wordpress.org/core/handbook/coding-standards/php/).
+
+## Validating with PHP Code Sniffer
+
+From the Pressbooks plugin directory:
+
+1. `composer install --dev`
+2. `vendor/bin/phpcs --standard=phpcs.xml --extensions=php .`
