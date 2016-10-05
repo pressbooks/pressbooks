@@ -65,6 +65,7 @@ class Pdf extends Export {
 		$this->exportStylePath = $this->getExportStylePath( 'prince' );
 		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
 		$this->pdfProfile = $this->getPdfProfile();
+		$this->pdfOutputIntent = $this->getPdfOutputIntent();
 
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
@@ -109,8 +110,8 @@ class Pdf extends Export {
 		if ( defined( 'WP_ENV' ) && WP_ENV == 'development' ) {
 			$prince->setInsecure( true );
 		}
-		if ( $this->pdfProfile ) {
-			$prince->setOptions( "--pdf-profile='" . $this->pdfProfile . "'" );
+		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
+			$prince->setOptions( '--pdf-profile=' . $this->pdfProfile . ' --pdf-output-intent=' . $this->pdfOutputIntent );
 		}
 		$prince->addStyleSheet( $css_file );
 		if ( $this->exportScriptPath ) {
@@ -181,6 +182,13 @@ class Pdf extends Export {
 	protected function getPdfProfile() {
 		if ( defined( 'PB_PDF_PROFILE' ) ) {
 			return PB_PDF_PROFILE;
+		}
+		return null;
+	}
+
+	protected function getPdfOutputIntent() {
+		if ( defined( 'PB_PDF_OUTPUT_INTENT' ) ) {
+			return PB_PDF_OUTPUT_INTENT;
 		}
 		return null;
 	}
