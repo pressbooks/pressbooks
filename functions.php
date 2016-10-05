@@ -104,7 +104,7 @@ function pb_is_custom_theme() {
  */
 function pb_is_scss( $version = 1 ) {
 
-	if ( \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( $version ) ) {
+	if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( $version ) ) {
 		return true;
 	}
 
@@ -147,7 +147,7 @@ function pb_get_custom_stylesheet_url() {
 	} elseif ( is_file( WP_CONTENT_DIR . "/uploads/sites/{$current_blog_id}/custom-css/web.css" ) ) {
 		return WP_CONTENT_URL . "/uploads/sites/{$current_blog_id}/custom-css/web.css";
 	} else {
-		return PB_PLUGIN_URL . "themes-book/pressbooks-custom-css/style.css";
+		return PB_PLUGIN_URL . 'themes-book/pressbooks-custom-css/style.css';
 	}
 }
 
@@ -190,14 +190,16 @@ function pb_custom_stylesheet_imports_base() {
 function pb_get_chapter_number( $post_name ) {
 
 	$options = get_option( 'pressbooks_theme_options_global' );
-	if ( ! @$options['chapter_numbers'] )
+	if ( ! @$options['chapter_numbers'] ) {
 		return 0;
+	}
 
 	$lookup = \Pressbooks\Book::getBookStructure();
 	$lookup = $lookup['__export_lookup'];
 
-	if ( 'chapter' != @$lookup[$post_name] )
+	if ( 'chapter' != @$lookup[ $post_name ] ) {
 		return 0;
+	}
 
 	$i = 0;
 	foreach ( $lookup as $key => $val ) {
@@ -205,15 +207,18 @@ function pb_get_chapter_number( $post_name ) {
 			$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => 'publish', 'numberposts' => 1 ) );
 			if ( isset( $chapter[0] ) ) {
 				$type = pb_get_section_type( $chapter[0] );
-				if ( $type !== 'numberless' ) ++$i;
+				if ( $type !== 'numberless' ) { ++$i;
+				}
 			} else {
 				return 0;
 			}
-			if ( $key == $post_name ) break;
+			if ( $key == $post_name ) { break;
+			}
 		}
 	}
 
-	if ( $type == 'numberless' ) $i = 0;
+	if ( $type == 'numberless' ) { $i = 0;
+	}
 	return $i;
 }
 
@@ -226,16 +231,16 @@ function pb_get_chapter_number( $post_name ) {
  */
 function pb_get_section_type( $post ) {
 	$type = $post->post_type;
-	switch ($type) {
-    case 'chapter':
-        $type = \Pressbooks\Taxonomy::getChapterType( $post->ID );
-        break;
-    case 'front-matter':
-        $type = \Pressbooks\Taxonomy::getFrontMatterType( $post->ID );
-        break;
-    case 'back-matter':
-        $type = \Pressbooks\Taxonomy::getBackMatterType( $post->ID );
-        break;
+	switch ( $type ) {
+		case 'chapter':
+			$type = \Pressbooks\Taxonomy::getChapterType( $post->ID );
+		break;
+		case 'front-matter':
+			$type = \Pressbooks\Taxonomy::getFrontMatterType( $post->ID );
+		break;
+		case 'back-matter':
+			$type = \Pressbooks\Taxonomy::getBackMatterType( $post->ID );
+		break;
 	}
 
 	return $type;
