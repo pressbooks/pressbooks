@@ -81,14 +81,17 @@ class Epub201 extends Import {
 			// Get attributes
 			$id = $title = $type = $href = '';
 			foreach ( $item->attributes() as $key => $val ) {
-				if ( 'id' == $key ) $id = (string) $val;
-				elseif ( 'media-type' == $key ) $type = (string) $val;
-				elseif ( 'href' == $key && 'OEBPS/copyright.html' == $val ) $this->pbCheck( $val );
-				if ( 'href' == $key ) $href = $val;
+				if ( 'id' == $key ) { $id = (string) $val;
+				} elseif ( 'media-type' == $key ) { $type = (string) $val;
+				} elseif ( 'href' == $key && 'OEBPS/copyright.html' == $val ) { $this->pbCheck( $val );
+				}
+				if ( 'href' == $key ) { $href = $val;
+				}
 			}
 
 			// Skip
-			if ( 'application/xhtml+xml' != $type ) continue;
+			if ( 'application/xhtml+xml' != $type ) { continue;
+			}
 
 			// Set
 			// Extract title from file
@@ -96,8 +99,8 @@ class Epub201 extends Import {
 			$matches = array();
 			preg_match( '/(?:<title[^>]*>)(.+)<\/title>/isU', $html, $matches );
 			$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : $id );
-			
-			$option['chapters'][$id] = $title;
+
+			$option['chapters'][ $id ] = $title;
 		}
 
 		return update_option( 'pressbooks_current_import', $option );
@@ -127,7 +130,7 @@ class Epub201 extends Import {
 		// Done
 		return $this->revokeCurrentImport();
 	}
-	
+
 
 	/**
 	 * Parse OPF metadata nodes
@@ -146,7 +149,6 @@ class Epub201 extends Import {
 			} elseif ( 'contributor' == $key && ! empty( $val ) ) {
 				$this->authors .= trim( $val ) . ', ';
 			}
-
 		}
 
 		// Get rid of trailing comma
@@ -169,8 +171,8 @@ class Epub201 extends Import {
 			// Get attributes
 			$id = $href = '';
 			foreach ( $item->attributes() as $key => $val ) {
-				if ( 'id' == $key ) $id = (string) $val;
-				elseif ( 'href' == $key ) {
+				if ( 'id' == $key ) { $id = (string) $val;
+				} elseif ( 'href' == $key ) {
 					if ( 'OEBPS/copyright.html' == $val ) {
 						$this->pbCheck( $val );
 					}
@@ -179,8 +181,10 @@ class Epub201 extends Import {
 			}
 
 			// Skip
-			if ( ! $this->flaggedForImport( $id ) ) continue;
-			if ( ! isset( $match_ids[$id] ) ) continue;
+			if ( ! $this->flaggedForImport( $id ) ) { continue;
+			}
+			if ( ! isset( $match_ids[ $id ] ) ) { continue;
+			}
 
 			// Insert
 			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent );
@@ -221,7 +225,7 @@ class Epub201 extends Import {
 
 		$result = $this->zip->open( $fullpath );
 		if ( $result !== true ) {
-			throw new \Exception ( 'Opening epub file failed' );
+			throw new \Exception( 'Opening epub file failed' );
 		}
 
 		/* Safety dance */
@@ -236,7 +240,7 @@ class Epub201 extends Import {
 
 		$ok = $this->getZipContent( 'META-INF/container.xml' );
 		if ( ! $ok ) {
-			throw new \Exception ( 'Bad or corrupted META-INF/container.xml' );
+			throw new \Exception( 'Bad or corrupted META-INF/container.xml' );
 		}
 
 	}
@@ -268,7 +272,7 @@ class Epub201 extends Import {
 		}
 
 		// if it is xml, then instantiate and return a simplexml object
-		return new \SimpleXMLElement ( $content );
+		return new \SimpleXMLElement( $content );
 	}
 
 
@@ -328,7 +332,7 @@ class Epub201 extends Import {
 			'no_deprecated_attr' => 2,
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
-		
+
 		return \Htmlawed::filter( $html, $config );
 	}
 
@@ -372,20 +376,20 @@ class Epub201 extends Import {
 
 	/**
 	 * Cleans imported html of unwanted tags
-	 * 
+	 *
 	 * @param string $html
 	 * @return string
 	 */
 	protected function regexSearchReplace( $html ) {
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$result = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
+		$result = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
 
 		if ( true == $this->isPbEpub ) {
-			// Remove PB created div id (on EPUB201 Export) that will generate a princexml error on re-export 
+			// Remove PB created div id (on EPUB201 Export) that will generate a princexml error on re-export
 			// @see createPartsAndChapters() in export/epub/class-pb-epub201.php
 			$result = preg_replace( '/(?:<div class="chapter+(.*)" id="(.*)">)/isU', '<div>', $result );
-			// Remove PB generated content that is superfluous in a WP/PB environment 
+			// Remove PB generated content that is superfluous in a WP/PB environment
 			// @see createPartsAndChapters() in export/epub/class-pb-epub201.php
 			$result = preg_replace( '/(?:<div class="chapter-title-wrap"[^>]*>)(.*)<\/div>/isU', '', $result );
 			// Remove PB generated author content to avoid duplicate content, (it's already copied to metadata as pb_section_author )
@@ -409,14 +413,14 @@ class Epub201 extends Import {
 	 */
 	protected function pbCheck( $copyrightFile ) {
 		$result = $this->getZipContent( $copyrightFile );
-		
+
 		foreach ( $result->body->div->div->p as $node ) {
 
 			if ( strpos( $node->a['href'][0], 'pressbooks.com', 0 ) ) {
 				$this->isPbEpub = true;
 			}
 		}
-		// applies to PB generated EPUBs with PB_SECRET_SAUCE 
+		// applies to PB generated EPUBs with PB_SECRET_SAUCE
 		// @see createCopyright() in export/epub/class-pb-epub201.php
 		if ( 'copyright-page' == $result->body->div[0]->attributes()->id[0] && 'ugc' == $result->body->div->div->attributes()->class[0] ) {
 			$this->isPbEpub = true;
@@ -472,8 +476,8 @@ class Epub201 extends Import {
 
 		// Cheap cache
 		static $already_done = array();
-		if ( isset( $already_done[$img_location] ) ) {
-			return $already_done[$img_location];
+		if ( isset( $already_done[ $img_location ] ) ) {
+			return $already_done[ $img_location ];
 		}
 
 		/* Process */
@@ -486,10 +490,10 @@ class Epub201 extends Import {
 
 		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
 			// Unsupported image type
-			$already_done[$img_location] = '';
+			$already_done[ $img_location ] = '';
 			return '';
 		}
-	
+
 		$image_content = $this->getZipContent( "$dir/$url", false );
 		if ( ! $image_content ) {
 			// Could not find image?
@@ -497,13 +501,14 @@ class Epub201 extends Import {
 				$trimUrl = ltrim( $url, './' );
 				$image_content = $this->getZipContent( $this->basedir . $trimUrl, false );
 
-				if ( ! $image_content ) throw new \Exception( 'Could not import images from EPUB' );
+				if ( ! $image_content ) { throw new \Exception( 'Could not import images from EPUB' );
+				}
 			} catch ( \Exception $e ) {
-				$already_done[$img_location] = '';
+				$already_done[ $img_location ] = '';
 				return '';
 			}
 		}
-		
+
 		$tmp_name = $this->createTmpFile();
 		file_put_contents( $tmp_name, $image_content );
 
@@ -517,15 +522,16 @@ class Epub201 extends Import {
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, Don't import
-				$already_done[$img_location] = '';
+				$already_done[ $img_location ] = '';
 				return '';
 			}
 		}
 
 		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
 		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) $src = ''; // Change false to empty string
-		$already_done[$img_location] = $src;
+		if ( ! $src ) { $src = ''; // Change false to empty string
+		}
+		$already_done[ $img_location ] = $src;
 
 		return $src;
 	}

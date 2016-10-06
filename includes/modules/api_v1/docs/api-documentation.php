@@ -1,5 +1,6 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) { exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +20,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<!-- Optional theme -->
 		<style>
 			/*
- * Base structure
- */
+	* Base structure
+	*/
 
 			/* Move down content because we have a fixed navbar that is 50px tall */
 			body {

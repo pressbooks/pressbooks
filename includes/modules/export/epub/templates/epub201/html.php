@@ -2,8 +2,9 @@
 
 // @see: \Pressbooks\Modules\Export\Export loadTemplate()
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
@@ -14,7 +15,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
 	<meta name="EPB-UUID" content="<?php echo $isbn; ?>" />
 
-	<?php if ( ! empty( $stylesheet ) ): ?><link rel="stylesheet" href="<?php echo $stylesheet; ?>" type="text/css" /><?php endif; ?>
+	<?php if ( ! empty( $stylesheet ) ) :  ?><link rel="stylesheet" href="<?php echo $stylesheet; ?>" type="text/css" /><?php endif; ?>
 
 </head>
 <body>

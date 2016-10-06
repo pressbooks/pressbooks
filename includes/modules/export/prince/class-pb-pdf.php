@@ -59,8 +59,9 @@ class Pdf extends Export {
 
 		// Some defaults
 
-		if ( ! defined( 'PB_PRINCE_COMMAND' ) )
+		if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
 			define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
+		}
 
 		$this->exportStylePath = $this->getExportStylePath( 'prince' );
 		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
@@ -241,7 +242,7 @@ class Pdf extends Export {
 		}, $css );
 
 		if ( WP_DEBUG ) {
-			Container::get('Sass')->debug( $css, $scss, 'prince' );
+			Container::get( 'Sass' )->debug( $css, $scss, 'prince' );
 		}
 
 		return $css;

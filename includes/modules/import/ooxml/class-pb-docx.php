@@ -27,7 +27,7 @@ class Docx extends Import {
 	 * @var string
 	 */
 	protected $authors;
-	
+
 	/**
 	 * @var array
 	 */
@@ -37,9 +37,9 @@ class Docx extends Import {
 	 *  @var array
 	 */
 	protected $en = array();
-	
+
 	/**
-	 * @var array 
+	 * @var array
 	 */
 	protected $ln = array();
 
@@ -49,9 +49,9 @@ class Docx extends Import {
 	const FOOTNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes';
 	const ENDNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/endnotes';
 	const HYPERLINK_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
-	
+
 	/**
-	 * 
+	 *
 	 */
 	function __construct() {
 
@@ -59,7 +59,7 @@ class Docx extends Import {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param array $current_import
 	 * @return boolean
 	 */
@@ -72,35 +72,35 @@ class Docx extends Import {
 		// get the paths to content
 		$doc_path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
 		$meta_path = $this->getTargetPath( self::METADATA_SCHEMA );
-		
+
 		// get the content
 		$xml = $this->getZipContent( $doc_path );
 		$meta = $this->getZipContent( $meta_path );
-		
+
 		// get all Footnote IDs from document
 		$fn_ids = $this->getIDs( $xml );
 		// get all Endnote IDs from document
-		$en_ids = $this->getIDs($xml, 'endnoteReference');
+		$en_ids = $this->getIDs( $xml, 'endnoteReference' );
 		// get all Hyperlink IDs from the document
-		$ln_ids = $this->getIDs($xml, 'hyperlink', 'r:id');
-		
-		// process the footnote ids 
+		$ln_ids = $this->getIDs( $xml, 'hyperlink', 'r:id' );
+
+		// process the footnote ids
 		if ( $fn_ids ) {
 			// pass the IDs and get the content
 			$this->fn = $this->getRelationshipPart( $fn_ids );
 		}
-	
+
 		// process the endnote ids
 		if ( $en_ids ) {
 			$this->en = $this->getRelationshipPart( $en_ids, 'endnotes' );
 		}
-		
+
 		// process the hyperlink ids
-		if ( $ln_ids ){
-			$this->ln = $this->getRelationshipPart ( $ln_ids, 'hyperlink' );
+		if ( $ln_ids ) {
+			$this->ln = $this->getRelationshipPart( $ln_ids, 'hyperlink' );
 		}
-		
-		// introduce a stylesheet 
+
+		// introduce a stylesheet
 		$proc = new \XSLTProcessor();
 		$xsl = new \DOMDocument();
 		$xsl->load( __DIR__ . '/xsl/docx2html.xsl' );
@@ -114,7 +114,8 @@ class Docx extends Import {
 
 		foreach ( $current_import['chapters'] as $id => $chapter_title ) {
 			// do nothing it has been omitted
-			if ( ! $this->flaggedForImport( $id ) ) continue;
+			if ( ! $this->flaggedForImport( $id ) ) { continue;
+			}
 
 			$html = $this->parseContent( $dom_doc, $chapter_title );
 			$this->kneadAndInsert( $html, $chapter_title, $this->determinePostType( $id ), $chapter_parent );
@@ -132,7 +133,7 @@ class Docx extends Import {
 	 * @return array
 	 */
 	protected function getIDs( \DOMDocument $dom_doc, $tag = 'footnoteReference', $attr = 'w:id' ) {
-		$fn_ids = array ();
+		$fn_ids = array();
 		$doc_elem = $dom_doc->documentElement;
 
 		$tags_fn_ref = $doc_elem->getElementsByTagName( $tag );
@@ -159,7 +160,7 @@ class Docx extends Import {
 	 * @throws \Exception if there is discrepancy between the number of footnotes in document.xml and footnotes.xml
 	 */
 	protected function getRelationshipPart( array $ids, $tag = 'footnotes' ) {
-		$footnotes = array ();
+		$footnotes = array();
 		$tag_name = rtrim( $tag, 's' );
 
 		// get the path for the footnotes
@@ -195,7 +196,6 @@ class Docx extends Import {
 		// grab all the footnotes
 		$text_tags = $doc_elem->getElementsByTagName( $tag_name );
 
-
 		// TODO
 		// could be more sophisticated
 		if ( $text_tags->length != $limit + 2 ) {
@@ -203,9 +203,9 @@ class Docx extends Import {
 		}
 
 		// get all the footnote ids
-		// +2 to the domlist skips over two default nodes that don't contain end/footnotes 
+		// +2 to the domlist skips over two default nodes that don't contain end/footnotes
 		for ( $i = 0; $i < $limit; $i ++  ) {
-			$footnotes[$ids[$i]] = $text_tags->item( $i + 2 )->nodeValue;
+			$footnotes[ $ids[ $i ] ] = $text_tags->item( $i + 2 )->nodeValue;
 		}
 
 		return $footnotes;
@@ -226,7 +226,7 @@ class Docx extends Import {
 
 		$title = wp_strip_all_tags( $title );
 
-		$new_post = array (
+		$new_post = array(
 		    'post_title' => $title,
 		    'post_content' => $body,
 		    'post_type' => $post_type,
@@ -242,7 +242,7 @@ class Docx extends Import {
 		update_post_meta( $pid, 'pb_show_title', 'on' );
 		update_post_meta( $pid, 'pb_export', 'on' );
 
-		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder		
+		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 	}
 
 	/**
@@ -309,9 +309,9 @@ class Docx extends Import {
 	protected function fetchAndSaveUniqueImage( $img_id ) {
 
 		// Cheap cache
-		static $already_done = array ( );
-		if ( isset( $already_done[$img_id] ) ) {
-			return $already_done[$img_id];
+		static $already_done = array();
+		if ( isset( $already_done[ $img_id ] ) ) {
+			return $already_done[ $img_id ];
 		}
 
 		/* Process */
@@ -326,7 +326,7 @@ class Docx extends Import {
 
 		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
 			// Unsupported image type
-			$already_done[$img_id] = '';
+			$already_done[ $img_id ] = '';
 
 			return '';
 		}
@@ -344,7 +344,7 @@ class Docx extends Import {
 				}
 			} catch ( \Exception $exc ) {
 				$this->log( $exc->getMessage() );
-				$already_done[$img_location] = '';
+				$already_done[ $img_location ] = '';
 
 				return '';
 			}
@@ -363,16 +363,17 @@ class Docx extends Import {
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, Don't import
-				$already_done[$img_location] = '';
+				$already_done[ $img_location ] = '';
 
 				return '';
 			}
 		}
 
-		$pid = media_handle_sideload( array ( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
+		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
 		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) $src = ''; // Change false to empty string
-		$already_done[$img_location] = $src;
+		if ( ! $src ) { $src = ''; // Change false to empty string
+		}
+		$already_done[ $img_location ] = $src;
 
 		return $src;
 	}
@@ -400,8 +401,9 @@ class Docx extends Import {
 			}
 		}
 
-		if ( $chapter_node )
+		if ( $chapter_node ) {
 				$chapter_title = strtolower( preg_replace( '/\s+/', '-', $chapter_node->nodeValue ) );
+		}
 
 		// iterate through
 		return $this->getChapter( $node_list, $index, $chapter_title );
@@ -419,7 +421,8 @@ class Docx extends Import {
 	 */
 	protected function getChapter( \DOMNodeList $dom_list, $index, $chapter_title ) {
 
-		if ( '' == $chapter_title ) $chapter_title = 'unknown';
+		if ( '' == $chapter_title ) { $chapter_title = 'unknown';
+		}
 		$chapter = new \DOMDocument( '1.0', 'UTF-8' );
 
 		// create a new node element
@@ -429,7 +432,7 @@ class Docx extends Import {
 		$chapter->appendChild( $root );
 
 		// Start at the beginning if no h1 tags are found.
-		// In other words...bring in the whole document. 
+		// In other words...bring in the whole document.
 		( '__UNKNOWN__' == $chapter_title ) ? $i = 0 : $i = $index;
 
 		do {
@@ -450,7 +453,7 @@ class Docx extends Import {
 		if ( $h1 && $this->tag == $h1->nodeName && 'div' == $h1->parentNode->nodeName ) {
 			$chapter->documentElement->removeChild( $h1 );
 		}
-		
+
 		// hyperlinks
 		$chapter = $this->addHyperlinks( $chapter );
 
@@ -460,7 +463,7 @@ class Docx extends Import {
 		$result = $chapter->saveHTML( $chapter->documentElement );
 
 		// appendChild brings over the namespace which is superfluous on every html element
-		// the string below is from the xslt file 
+		// the string below is from the xslt file
 		// @see includes/modules/import/ooxml/xsl/docx2html.xsl
 		$result = preg_replace( '/xmlns="http:\/\/www.w3.org\/1999\/xhtml"/', '', $result );
 
@@ -469,7 +472,7 @@ class Docx extends Import {
 
 	/**
 	 * adds external hyperlinks, if they are present in a chapter
-	 * 
+	 *
 	 * @param \DOMDocument $chapter
 	 * @return \DOMDocument
 	 */
@@ -482,7 +485,7 @@ class Docx extends Import {
 					$ln_id = $link->getAttribute( 'class' );
 
 					if ( array_key_exists( $ln_id, $this->ln ) ) {
-						$link->setAttribute( 'href', $this->ln[$ln_id] );
+						$link->setAttribute( 'href', $this->ln[ $ln_id ] );
 					}
 				}
 			}
@@ -501,7 +504,7 @@ class Docx extends Import {
 		$fn = $chapter->getElementsByTagName( 'sup' );
 
 		if ( $fn->length > 0 ) {
-			$fn_ids = array ();
+			$fn_ids = array();
 			foreach ( $fn as $int ) {
 				if ( is_numeric( $int->nodeValue ) ) { // TODO should be a stronger test for footnotes
 					$fn_ids[] = $int->nodeValue;
@@ -510,20 +513,22 @@ class Docx extends Import {
 			// append
 			// TODO either/or is not sufficient, needs to be built to cover
 			// a use case where both are present.
-			if ( ! empty( $this->fn ) ) $notes = $this->fn;
-			if ( ! empty( $this->en ) ) $notes = $this->en;
+			if ( ! empty( $this->fn ) ) { $notes = $this->fn;
+			}
+			if ( ! empty( $this->en ) ) { $notes = $this->en;
+			}
 
 			foreach ( $fn_ids as $id ) {
 				if ( array_key_exists( $id, $notes ) ) {
 					$grandparent = $chapter->createElement( 'div' );
-					$grandparent->setAttribute( "id", "sdfootnote{$id}sym" );
+					$grandparent->setAttribute( 'id', "sdfootnote{$id}sym" );
 					$parent = $chapter->createElement( 'span' );
-					$child = $chapter->createElement( "a", $id );
-					$child->setAttribute( "href", "#sdfootnote{$id}anc" );
-					$child->setAttribute( "name", "sdfootnote{$id}sym" );
-					$text = $chapter->createTextNode( $notes[$id] );
+					$child = $chapter->createElement( 'a', $id );
+					$child->setAttribute( 'href', "#sdfootnote{$id}anc" );
+					$child->setAttribute( 'name', "sdfootnote{$id}sym" );
+					$text = $chapter->createTextNode( $notes[ $id ] );
 
-					// attach 
+					// attach
 					$grandparent->appendChild( $parent );
 					$parent->appendChild( $child );
 					$parent->appendChild( $text );
@@ -576,16 +581,17 @@ class Docx extends Import {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param \DomDocument $meta
 	 */
 	protected function parseMetaData( \DomDocument $meta ) {
 		$nodeList = $meta->getElementsByTagName( 'creator' );
-		if ( $nodeList->item( 0 ) ) $this->authors = $nodeList->item( 0 )->nodeValue;
+		if ( $nodeList->item( 0 ) ) { $this->authors = $nodeList->item( 0 )->nodeValue;
+		}
 	}
 
 	/**
-	 * 
+	 *
 	 * @param array $upload
 	 * @return boolean
 	 */
@@ -596,31 +602,31 @@ class Docx extends Import {
 			return false;
 		}
 
-		$option = array (
+		$option = array(
 		    'file' => $upload['file'],
 		    'file_type' => $upload['type'],
 		    'type_of' => 'docx',
-		    'chapters' => array ( ),
+		    'chapters' => array(),
 		);
 
 		$option['chapters'] = $this->getFuzzyChapterTitles();
 
 		return update_option( 'pressbooks_current_import', $option );
 	}
-	
+
 	/**
 	 * Returns an array of available chapters, or 'unknown' if none
 	 *
 	 * @return array Chapter titles
 	 */
 	protected function getFuzzyChapterTitles() {
-		$chapters = array ( );
+		$chapters = array();
 
 		// get the path to the content and the content
 		$doc_path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
 		$xml = $this->getZipContent( $doc_path );
 
-		// introduce a stylesheet 
+		// introduce a stylesheet
 		$proc = new \XSLTProcessor();
 		$xsl = new \DOMDocument();
 		$xsl->load( __DIR__ . '/xsl/docx2html.xsl' );
@@ -674,7 +680,7 @@ class Docx extends Import {
 
 	/**
 	 * Give it a schema, get back a path(s) that points to a resource
-	 * 
+	 *
 	 * @param string $schema
 	 * @param string $id
 	 * @return string
@@ -682,8 +688,8 @@ class Docx extends Import {
 	protected function getTargetPath( $schema, $id = '' ) {
 		$path = '';
 
-		// The subfolder name "_rels", the file extension ".rels" are 
-		// reserved names in an OPC package 
+		// The subfolder name "_rels", the file extension ".rels" are
+		// reserved names in an OPC package
 		if ( empty( $id ) ) {
 			$path_to_rel_doc = '_rels/.rels';
 		} else {
@@ -695,7 +701,7 @@ class Docx extends Import {
 		);
 
 		foreach ( $relations->Relationship as $rel ) {
-			if ( $rel["Type"] == $schema ) {
+			if ( $rel['Type'] == $schema ) {
 				switch ( $id ) {
 					// must be cast as a string to avoid returning SimpleXml Object.
 					case 'footnotes':
@@ -705,7 +711,7 @@ class Docx extends Import {
 						$path = 'word/' . ( string ) $rel['Target'];
 						break;
 					case 'hyperlink':
-						$path["{$rel['Id']}"] = ( string ) $rel['Target'];
+						$path[ "{$rel['Id']}" ] = ( string ) $rel['Target'];
 						break;
 					default:
 						$path = ( string ) $rel['Target'];
@@ -733,10 +739,10 @@ class Docx extends Import {
 		if ( $index === false ) {
 			return false;
 		}
-		
+
 		// returns the contents using its index
 		$content = $this->zip->getFromIndex( $index );
-		
+
 		// if it's not xml, return
 		if ( ! $as_xml ) {
 			return $content;
@@ -754,7 +760,7 @@ class Docx extends Import {
 		$xml = new \DOMDocument();
 		$xml->loadXML( $content, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
 		libxml_disable_entity_loader( $old_value );
-		
+
 		return $xml;
 	}
 
@@ -770,7 +776,7 @@ class Docx extends Import {
 		// Reduce the vulnerability for scripting attacks
 		// Make XHTML 1.1 strict using htmlLawed
 
-		$config = array (
+		$config = array(
 		    'safe' => 1,
 		    'valid_xhtml' => 1,
 		    'no_deprecated_attr' => 2,
@@ -783,4 +789,4 @@ class Docx extends Import {
 
 }
 
-?>
+

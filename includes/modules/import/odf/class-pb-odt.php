@@ -56,7 +56,7 @@ class Odt extends Import {
 		$xml = $this->getZipContent( 'content.xml' );
 		$meta = $this->getZipContent( 'meta.xml' );
 
-		// introduce a stylesheet 
+		// introduce a stylesheet
 		$proc = new \XSLTProcessor();
 		$xsl = new \DOMDocument();
 		$xsl->load( __DIR__ . '/xsl/odt2html.xsl' );
@@ -70,7 +70,8 @@ class Odt extends Import {
 
 		foreach ( $current_import['chapters'] as $id => $chapter_title ) {
 			// do nothing it has been omitted
-			if ( ! $this->flaggedForImport( $id ) ) continue;
+			if ( ! $this->flaggedForImport( $id ) ) { continue;
+			}
 
 			$html = $this->parseContent( $dom_doc, $chapter_title );
 			$this->kneadAndInsert( $html, $chapter_title, $this->determinePostType( $id ), $chapter_parent );
@@ -89,8 +90,9 @@ class Odt extends Import {
 	protected function parseMetaData( \DOMDocument $meta ) {
 
 		$nodeList = $meta->getElementsByTagName( 'creator' );
-		if ( $nodeList->item( 0 ) )
+		if ( $nodeList->item( 0 ) ) {
 			$this->authors = $nodeList->item( 0 )->nodeValue;
+		}
 	}
 
 
@@ -125,7 +127,7 @@ class Odt extends Import {
 		update_post_meta( $pid, 'pb_show_title', 'on' );
 		update_post_meta( $pid, 'pb_export', 'on' );
 
-		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder		
+		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 	}
 
 
@@ -201,8 +203,8 @@ class Odt extends Import {
 
 		// Cheap cache
 		static $already_done = array();
-		if ( isset( $already_done[$img_location] ) ) {
-			return $already_done[$img_location];
+		if ( isset( $already_done[ $img_location ] ) ) {
+			return $already_done[ $img_location ];
 		}
 
 		/* Process */
@@ -215,14 +217,14 @@ class Odt extends Import {
 
 		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
 			// Unsupported image type
-			$already_done[$img_location] = '';
+			$already_done[ $img_location ] = '';
 
 			return '';
 		}
 
 		$image_content = $this->getZipContent( $img_location, false );
 		if ( ! $image_content ) {
-			$already_done[$img_location] = '';
+			$already_done[ $img_location ] = '';
 
 			return '';
 		}
@@ -240,7 +242,7 @@ class Odt extends Import {
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, Don't import
-				$already_done[$img_location] = '';
+				$already_done[ $img_location ] = '';
 
 				return '';
 			}
@@ -248,8 +250,9 @@ class Odt extends Import {
 
 		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
 		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) $src = ''; // Change false to empty string
-		$already_done[$img_location] = $src;
+		if ( ! $src ) { $src = ''; // Change false to empty string
+		}
+		$already_done[ $img_location ] = $src;
 
 		return $src;
 	}
@@ -384,7 +387,8 @@ class Odt extends Import {
 	 */
 	protected function getChapter( \DOMNodeList $dom_list, $index, $chapter_title ) {
 
-		if ( '' == $chapter_title ) $chapter_title = 'unknown';
+		if ( '' == $chapter_title ) { $chapter_title = 'unknown';
+		}
 		$chapter = new \DOMDocument( '1.0', 'UTF-8' );
 
 		// create a new node element
@@ -394,7 +398,7 @@ class Odt extends Import {
 		$chapter->appendChild( $root );
 
 		// Start at the beginning if no h1 tags are found.
-		// In other words...bring in the whole document. 
+		// In other words...bring in the whole document.
 		( '__UNKNOWN__' == $chapter_title ) ? $i = 0 : $i = $index;
 
 		do {
@@ -420,7 +424,7 @@ class Odt extends Import {
 		$result = $chapter->saveHTML( $chapter->documentElement );
 
 		// appendChild brings over the namespace which is superfluous on every html element
-		// the string below is from the xslt file 
+		// the string below is from the xslt file
 		// @see includes/modules/import/odf/xsl/odt2html.xsl
 		$result = preg_replace( '/xmlns="http:\/\/www.w3.org\/1999\/xhtml"/', '', $result );
 
@@ -454,8 +458,9 @@ class Odt extends Import {
 			}
 		}
 
-		if ( $chapter_node )
+		if ( $chapter_node ) {
 			$chapter_title = strtolower( preg_replace( '/\s+/', '-', $chapter_node->nodeValue ) );
+		}
 
 		// iterate through
 		return $this->getChapter( $node_list, $index, $chapter_title );
@@ -473,7 +478,7 @@ class Odt extends Import {
 
 		$xml = $this->getZipContent( 'content.xml' );
 
-		// introduce a stylesheet 
+		// introduce a stylesheet
 		$proc = new \XSLTProcessor();
 		$xsl = new \DOMDocument();
 		$xsl->load( __DIR__ . '/xsl/odt2html.xsl' );
@@ -539,7 +544,7 @@ class Odt extends Import {
 		$xml = new \DOMDocument();
 		$xml->loadXML( $content, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
 		libxml_disable_entity_loader( $old_value );
-		
+
 		return $xml;
 	}
 

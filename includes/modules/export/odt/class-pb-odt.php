@@ -52,12 +52,13 @@ class Odt extends Export {
 
 		// Some defaults
 		if ( strtoupper( substr( PHP_OS, 0, 3 ) ) === 'WIN' ) {
-			if ( ! defined( 'PB_SAXON_COMMAND' ) )
-			define( 'PB_SAXON_COMMAND', 'java -jar ' . PB_PLUGIN_DIR . 'vendor/pressbooks/saxon-he/saxon9he.jar' );
-
+			if ( ! defined( 'PB_SAXON_COMMAND' ) ) {
+				define( 'PB_SAXON_COMMAND', 'java -jar ' . PB_PLUGIN_DIR . 'vendor/pressbooks/saxon-he/saxon9he.jar' );
+			}
 		} else {
-			if ( ! defined( 'PB_SAXON_COMMAND' ) )
-			define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar ' . PB_PLUGIN_DIR . 'vendor/pressbooks/saxon-he/saxon9he.jar' );
+			if ( ! defined( 'PB_SAXON_COMMAND' ) ) {
+				define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar ' . PB_PLUGIN_DIR . 'vendor/pressbooks/saxon-he/saxon9he.jar' );
+			}
 		}
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
@@ -84,18 +85,18 @@ class Odt extends Export {
 
 		// Save ODT as file in exports folder
 
-		$contentPath	= pathinfo($filename);
+		$contentPath	= pathinfo( $filename );
 		$source			= $contentPath['dirname'] . '/source.xhtml';
 
 		file_put_contents( $source, $this->queryXhtml() );
 
 		$xslt			= PB_PLUGIN_DIR . 'includes/modules/export/odt/xhtml2odt.xsl';
 		$content		= $contentPath['dirname'] . '/content.xml';
-		$mimetype		= $contentPath['dirname'] . "/mimetype";
-		$metafolder		= $contentPath['dirname'] . "/META-INF";
-		$meta 			= $contentPath['dirname'] ."/meta.xml";
-		$settings 		= $contentPath['dirname'] . "/settings.xml";
-		$styles 		= $contentPath['dirname'] . "/styles.xml";
+		$mimetype		= $contentPath['dirname'] . '/mimetype';
+		$metafolder		= $contentPath['dirname'] . '/META-INF';
+		$meta 			= $contentPath['dirname'] . '/meta.xml';
+		$settings 		= $contentPath['dirname'] . '/settings.xml';
+		$styles 		= $contentPath['dirname'] . '/styles.xml';
 		$mediafolder	= $contentPath['dirname'] . '/media/';
 
 		if ( is_dir( $mediafolder ) ) {
@@ -104,7 +105,7 @@ class Odt extends Export {
 
 		$urlcontent = file_get_contents( $source );
 
-		$urlcontent = preg_replace( "/xmlns\=\"http\:\/\/www\.w3\.org\/1999\/xhtml\"/i", '', $urlcontent );
+		$urlcontent = preg_replace( '/xmlns\="http\:\/\/www\.w3\.org\/1999\/xhtml"/i', '', $urlcontent );
 
 		$old_value = libxml_disable_entity_loader( true );
 		$doc = new \DOMDocument();
@@ -127,21 +128,20 @@ class Odt extends Export {
 			$table->setAttribute( 'colcount', $columncount );
 		}
 
-		if ( !file_exists( $metafolder ) ) {
+		if ( ! file_exists( $metafolder ) ) {
 			mkdir( $metafolder );
 		}
 
 		$images = $xpath->query( '//img' );
 		$coverimages = $xpath->query( '//meta[@name="pb-cover-image"]' );
 		if ( ( $images->length > 0 ) || ( $coverimages->length > 0 ) ) {
-			if ( !file_exists( $mediafolder ) ) {
+			if ( ! file_exists( $mediafolder ) ) {
 				mkdir( $mediafolder );
 			}
 		}
-
 		foreach ( $images as $image ) {
-			$src = $image->getAttribute('src');
- 			$image_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
+			$src = $image->getAttribute( 'src' );
+				$image_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
 			if ( $image_filename ) {
 				// Replace with new image
 				$image->setAttribute( 'src', $image_filename );
@@ -149,8 +149,8 @@ class Odt extends Export {
 		}
 
 		foreach ( $coverimages as $coverimage ) {
-			$src = $coverimage->getAttribute('content');
- 			$cover_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
+			$src = $coverimage->getAttribute( 'content' );
+				$cover_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
 			if ( $cover_filename ) {
 				// Replace with new image
 				$coverimage->setAttribute( 'src', $cover_filename );
@@ -160,7 +160,7 @@ class Odt extends Export {
 		file_put_contents( $source, $doc->saveXML() );
 
 		try {
-			$result = exec( PB_SAXON_COMMAND . ' -xsl:' . $xslt .' -s:' . $source .' -o:' . $content );
+			$result = exec( PB_SAXON_COMMAND . ' -xsl:' . $xslt . ' -s:' . $source . ' -o:' . $content );
 		} catch ( \Exception $e ) {
 			$this->logError( $e->getMessage() );
 			unlink( $source );
@@ -176,17 +176,17 @@ class Odt extends Export {
 			'meta' => $meta,
 			'settings' => $settings,
 			'styles' => $styles,
-			'metafolder' => $metafolder
+			'metafolder' => $metafolder,
 		];
 		$msg = '';
 		foreach ( $files as $key => $file ) {
-			if ( !file_exists( $file ) ) {
+			if ( ! file_exists( $file ) ) {
 				$msg .= ' [ ' . $key . ' ]';
 			}
 		}
 
-		if ( !empty( $msg ) ) {
-			$this->logError( 'Transformation failed, encountered a problem with' .  $msg );
+		if ( ! empty( $msg ) ) {
+			$this->logError( 'Transformation failed, encountered a problem with' . $msg );
 			unlink( $source );
 			if ( is_dir( $mediafolder ) ) {
 				$this->deleteDirectory( $mediafolder );
@@ -218,7 +218,7 @@ class Odt extends Export {
 		unlink( $settings );
 		unlink( $styles );
 		unlink( $metafolder . '/manifest.xml' );
-		rmdir( $metafolder);
+		rmdir( $metafolder );
 
 		if ( is_dir( $mediafolder ) ) {
 			$this->deleteDirectory( $mediafolder );
@@ -230,7 +230,7 @@ class Odt extends Export {
 	/* Recursive Directory Deletion for media folder */
 
 	public static function deleteDirectory( $dirpath ) {
-		if ( !is_dir( $dirpath ) ) {
+		if ( ! is_dir( $dirpath ) ) {
 			throw new \InvalidArgumentException( "$dirpath must be a directory." );
 		}
 		if ( substr( $dirpath, strlen( $dirpath ) - 1, 1 ) != '/' ) {
@@ -336,8 +336,8 @@ class Odt extends Export {
 
 		// Cheap cache
 		static $already_done = array();
-		if ( isset( $already_done[$url] ) ) {
-			return $already_done[$url];
+		if ( isset( $already_done[ $url ] ) ) {
+			return $already_done[ $url ];
 		}
 
 		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
@@ -345,7 +345,7 @@ class Odt extends Export {
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
 			// TODO: handle $response->get_error_message();
-			$already_done[$url] = '';
+			$already_done[ $url ] = '';
 			return '';
 		}
 
@@ -358,7 +358,7 @@ class Odt extends Export {
 			// content-type = 'image/png'
 			$type = explode( '/', $response['headers']['content-type'] );
 			$type = array_pop( $type );
-			$filename = $filename . "." . $type;
+			$filename = $filename . '.' . $type;
 		} else {
 			$filename = array_shift( $filename );
 			$filename = sanitize_file_name( urldecode( $filename ) );
@@ -369,7 +369,7 @@ class Odt extends Export {
 		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_file, $filename ) ) {
-			$already_done[$url] = '';
+			$already_done[ $url ] = '';
 			return ''; // Not an image
 		}
 
@@ -387,7 +387,7 @@ class Odt extends Export {
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
 
-		$already_done[$url] = $filename;
+		$already_done[ $url ] = $filename;
 		return $filename;
 	}
 

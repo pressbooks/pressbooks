@@ -90,7 +90,7 @@ abstract class Import {
 	 */
 	function createTmpFile() {
 
-		return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[mt_rand()] = tmpfile() ) ) );
+		return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ) ) );
 	}
 
 
@@ -127,13 +127,15 @@ abstract class Import {
 	 */
 	protected function flaggedForImport( $id ) {
 
-		if ( ! @is_array( $_POST['chapters'] ) )
+		if ( ! @is_array( $_POST['chapters'] ) ) {
 			return false;
+		}
 
-		if ( ! @isset( $_POST['chapters'][$id]['import'] ) )
+		if ( ! @isset( $_POST['chapters'][ $id ]['import'] ) ) {
 			return false;
+		}
 
-		return ( 1 == $_POST['chapters'][$id]['import'] ? true : false );
+		return ( 1 == $_POST['chapters'][ $id ]['import'] ? true : false );
 	}
 
 
@@ -150,16 +152,19 @@ abstract class Import {
 
 		$default = 'chapter';
 
-		if ( ! @is_array( $_POST['chapters'] ) )
+		if ( ! @is_array( $_POST['chapters'] ) ) {
 			return $default;
+		}
 
-		if ( ! @isset( $_POST['chapters'][$id]['type'] ) )
+		if ( ! @isset( $_POST['chapters'][ $id ]['type'] ) ) {
 			return $default;
+		}
 
-		if ( ! in_array( $_POST['chapters'][$id]['type'], $supported_types ) )
+		if ( ! in_array( $_POST['chapters'][ $id ]['type'], $supported_types ) ) {
 			return $default;
+		}
 
-		return $_POST['chapters'][$id]['type'];
+		return $_POST['chapters'][ $id ]['type'];
 	}
 
 
@@ -244,7 +249,7 @@ abstract class Import {
 			$upload_dir             = wp_upload_dir();
 			$current_import['file'] = trailingslashit( $upload_dir['path'] ) . basename( $current_import['file'] );
 		}
-		
+
 		if ( @$_GET['import'] && is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
 			// --------------------------------------------------------------------------------------------------------
@@ -289,7 +294,6 @@ abstract class Import {
 				$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pressbooks' );
 				\Pressbooks\Redirect\location( $success_url );
 			}
-
 		} elseif ( @$_GET['import'] && ! @empty( $_FILES['import_file']['name'] ) && @$_POST['type_of'] && check_admin_referer( 'pb-import' ) ) {
 
 			// --------------------------------------------------------------------------------------------------------
@@ -303,8 +307,9 @@ abstract class Import {
 			);
 			$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
 
-			if ( ! function_exists( 'wp_handle_upload' ) )
+			if ( ! function_exists( 'wp_handle_upload' ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			}
 
 			$upload = wp_handle_upload( $_FILES['import_file'], $overrides );
 
@@ -345,9 +350,8 @@ abstract class Import {
 			if ( ! $ok ) {
 				// Not ok?
 				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
-				unlink ( $upload['file'] );
+				unlink( $upload['file'] );
 			}
-
 		} elseif ( @$_GET['import'] && @$_POST['type_of'] === 'html' && check_admin_referer( 'pb-import' ) ) {
 
 			// check if it's a valid url
@@ -373,7 +377,7 @@ abstract class Import {
 			}
 
 			// ensure the media type is HTML (not JSON, or something we can't deal with)
-			if ( false === strpos( $remote_head['headers']['content-type'], 'text/html' ) && false === strpos( $remote_head['headers']['content-type'], 'application/xhtml+xml')) {
+			if ( false === strpos( $remote_head['headers']['content-type'], 'text/html' ) && false === strpos( $remote_head['headers']['content-type'], 'application/xhtml+xml' ) ) {
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
@@ -390,7 +394,7 @@ abstract class Import {
 			}
 
 			// check for a successful response code on GET request
-			if ( 200 !== $body['response']['code'] ){
+			if ( 200 !== $body['response']['code'] ) {
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ' . $body['response']['code'] , 'pressbooks' );
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
@@ -426,7 +430,7 @@ abstract class Import {
 			return false;
 		}
 
-		if ( ! empty ( $_POST ) ) {
+		if ( ! empty( $_POST ) ) {
 			return true;
 		}
 

@@ -41,7 +41,7 @@ class Wxr extends Import {
 			'type_of' => 'wxr',
 			'chapters' => array(),
 			'post_types' => array(),
-			'allow_parts' => true
+			'allow_parts' => true,
 		);
 
 		$supported_post_types = apply_filters( 'pb_import_custom_post_types', array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
@@ -54,13 +54,16 @@ class Wxr extends Import {
 		foreach ( $xml['posts'] as $p ) {
 
 			// Skip
-			if ( ! in_array( $p['post_type'], $supported_post_types ) ) continue;
-			if ( empty( $p['post_content'] ) && ! in_array( $p['post_type'], array( 'part', 'metadata' ) ) ) continue;
-			if ( '<!-- Here be dragons.-->' == $p['post_content'] ) continue;
+			if ( ! in_array( $p['post_type'], $supported_post_types ) ) { continue;
+			}
+			if ( empty( $p['post_content'] ) && ! in_array( $p['post_type'], array( 'part', 'metadata' ) ) ) { continue;
+			}
+			if ( '<!-- Here be dragons.-->' == $p['post_content'] ) { continue;
+			}
 
 			// Set
-			$option['chapters'][$p['post_id']] = $p['post_title'];
-			$option['post_types'][$p['post_id']] = $p['post_type'];
+			$option['chapters'][ $p['post_id'] ] = $p['post_title'];
+			$option['post_types'][ $p['post_id'] ] = $p['post_type'];
 		}
 
 		return update_option( 'pressbooks_current_import', $option );
@@ -106,7 +109,7 @@ class Wxr extends Import {
 					$t['term_taxonomy'],
 					array(
 						'description' => $t['term_description'],
-						'slug' => $t['slug']
+						'slug' => $t['slug'],
 					)
 				);
 			}
@@ -117,8 +120,10 @@ class Wxr extends Import {
 		foreach ( $xml['posts'] as $p ) {
 
 			// Skip
-			if ( ! $this->flaggedForImport( $p['post_id'] ) ) continue;
-			if ( ! isset( $match_ids[$p['post_id']] ) ) continue;
+			if ( ! $this->flaggedForImport( $p['post_id'] ) ) { continue;
+			}
+			if ( ! isset( $match_ids[ $p['post_id'] ] ) ) { continue;
+			}
 
 			// Insert
 			$post_type = $this->determinePostType( $p['post_id'] );
@@ -138,8 +143,7 @@ class Wxr extends Import {
 
 			if ( 'metadata' == $post_type ) {
 				$pid = $this->bookInfoPid();
-			}
-			else {
+			} else {
 				$pid = $this->insertNewPost( $post_type, $p, $html, $chapter_parent );
 				if ( 'part' == $post_type ) {
 					$chapter_parent = $pid;
@@ -189,11 +193,12 @@ class Wxr extends Import {
 
 		foreach ( $xml['posts'] as $p ) {
 
-			if ( 'part' == $p['post_type'] ) $pt = 1;
-			elseif ( 'chapter' == $p['post_type'] ) $ch = 1;
-			elseif ( 'front-matter' == $p['post_type'] ) $fm = 1;
-			elseif ( 'back-matter' == $p['post_type'] ) $bm = 1;
-			elseif ( 'metadata' == $p['post_type'] ) $meta = 1;
+			if ( 'part' == $p['post_type'] ) { $pt = 1;
+			} elseif ( 'chapter' == $p['post_type'] ) { $ch = 1;
+			} elseif ( 'front-matter' == $p['post_type'] ) { $fm = 1;
+			} elseif ( 'back-matter' == $p['post_type'] ) { $bm = 1;
+			} elseif ( 'metadata' == $p['post_type'] ) { $meta = 1;
+			}
 
 			if ( $pt + $ch + $fm + $bm + $meta >= 2 ) {
 				$this->isPbWxr = true;
@@ -210,59 +215,59 @@ class Wxr extends Import {
 	 *
 	 * @return array sorted $xml
 	 */
-	 protected function customNestedSort( $xml ) {
-	 	 $array = array();
+	protected function customNestedSort( $xml ) {
+		$array = array();
 
-	 	 //first, put them in ascending menu_order
-	 	 usort( $xml, function ( $a, $b ) {
+		//first, put them in ascending menu_order
+		usort( $xml, function ( $a, $b ) {
 	 	 	return ( $a['menu_order'] - $b['menu_order'] );
-	 	 });
+		});
 
-		 // Start with book info
-		 foreach ( $xml as $p ) {
-			 if ( 'metadata' == $p['post_type'] ) {
+		// Start with book info
+		foreach ( $xml as $p ) {
+			if ( 'metadata' == $p['post_type'] ) {
+				$array[] = $p;
+				break;
+			}
+		}
+
+		//now, list all front matter
+		foreach ( $xml as $p ) {
+			if ( 'front-matter' == $p['post_type'] ) {
 				 $array[] = $p;
-				 break;
-			 }
-		 }
+			}
+		}
 
-	 	 //now, list all front matter
-	 	 foreach ( $xml as $p ) {
-	 	 	if ( 'front-matter' == $p['post_type'] ) {
-	 	 		$array[] = $p;
-	 	 	}
-	 	 }
-
-	 	 //now, list all parts, then their associated chapters
-	 	 foreach ( $xml as $p ) {
-	 	 	if ( 'part' == $p['post_type'] ) {
-	 	 		$array[] = $p;
-	 	 		foreach ( $xml as $psub ) {
-	 	 			if ( 'chapter' == $psub['post_type'] && $psub['post_parent'] == $p['post_id'] ) {
-	 	 				$array[] = $psub;
-	 	 			}
-	 	 		}
-	 	 	}
-	 	 }
-
-	 	 //now, list all back matter
-	 	 foreach ( $xml as $p ) {
-	 	 	if ( 'back-matter' == $p['post_type'] ) {
-	 	 		$array[] = $p;
-	 	 	}
-	 	 }
-
-		 // Remaining custom post types
-		 $custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
-
-		 foreach ( $xml as $p ) {
-			 if ( in_array( $p['post_type'], $custom_post_types ) ) {
+		//now, list all parts, then their associated chapters
+		foreach ( $xml as $p ) {
+			if ( 'part' == $p['post_type'] ) {
 				 $array[] = $p;
-			 }
-		 }
+				foreach ( $xml as $psub ) {
+					if ( 'chapter' == $psub['post_type'] && $psub['post_parent'] == $p['post_id'] ) {
+						$array[] = $psub;
+					}
+				}
+			}
+		}
 
-	 	 return $array;
-	 }
+		//now, list all back matter
+		foreach ( $xml as $p ) {
+			if ( 'back-matter' == $p['post_type'] ) {
+				 $array[] = $p;
+			}
+		}
+
+		// Remaining custom post types
+		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
+
+		foreach ( $xml as $p ) {
+			if ( in_array( $p['post_type'], $custom_post_types ) ) {
+				$array[] = $p;
+			}
+		}
+
+		return $array;
+	}
 
 
 	/**
@@ -280,8 +285,7 @@ class Wxr extends Import {
 				'post_status' => 'publish',
 			);
 			$pid = wp_insert_post( add_magic_quotes( $new_post ) );
-		}
-		else {
+		} else {
 			$pid = $post->ID;
 		}
 
@@ -330,18 +334,16 @@ class Wxr extends Import {
 	 * @param string $post_type Post Type
 	 * @param array $p Single Item Returned From \Pressbooks\Modules\Import\WordPress\Parser::parse
 	 */
-	protected function importPbPostMeta($pid, $post_type, $p) {
+	protected function importPbPostMeta( $pid, $post_type, $p ) {
 
 		if ( 'metadata' == $post_type ) {
 			$this->importMetaBoxes( $pid, $p );
-		}
-		elseif ( 'part' == $post_type ) {
+		} elseif ( 'part' == $post_type ) {
 			$part_content = $this->searchForMetaValue( 'pb_part_content', $p['postmeta'] );
 			if ( $part_content ) {
 				update_post_meta( $pid, 'pb_part_content', $part_content );
 			}
-		}
-		else {
+		} else {
 			$meta_to_update = apply_filters( 'pb_import_metakeys', array( 'pb_section_author', 'pb_section_license', 'pb_short_title', 'pb_subtitle' ) );
 			foreach ( $meta_to_update as $meta_key ) {
 				$meta_val = $this->searchForMetaValue( $meta_key, $p['postmeta'] );
@@ -385,8 +387,7 @@ class Wxr extends Import {
 				if ( isset( $multiple[ $meta['key'] ] ) ) {
 					// Multi value
 					add_post_meta( $pid, $meta['key'], $meta['value'] );
-				}
-				else {
+				} else {
 					// Single value
 					if ( ! add_post_meta( $pid, $meta['key'], $meta['value'], true ) ) {
 						update_post_meta( $pid, $meta['key'], $meta['value'] );
@@ -469,9 +470,9 @@ class Wxr extends Import {
 		$remote_img_location = $url;
 
 		// Cheap cache
-		static $already_done = array ( );
-		if ( isset( $already_done[$remote_img_location] ) ) {
-			return $already_done[$remote_img_location];
+		static $already_done = array();
+		if ( isset( $already_done[ $remote_img_location ] ) ) {
+			return $already_done[ $remote_img_location ];
 		}
 
 		/* Process */
@@ -484,14 +485,14 @@ class Wxr extends Import {
 
 		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
 			// Unsupported image type
-			$already_done[$remote_img_location] = '';
+			$already_done[ $remote_img_location ] = '';
 			return '';
 		}
 
 		$tmp_name = download_url( $remote_img_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$already_done[$remote_img_location] = '';
+			$already_done[ $remote_img_location ] = '';
 			return '';
 		}
 
@@ -505,16 +506,17 @@ class Wxr extends Import {
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, don't import
-				$already_done[$remote_img_location] = '';
+				$already_done[ $remote_img_location ] = '';
 				unlink( $tmp_name );
 				return '';
 			}
 		}
 
-		$pid = media_handle_sideload( array ( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
+		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
 		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) $src = ''; // Change false to empty string
-		$already_done[$remote_img_location] = $src;
+		if ( ! $src ) { $src = ''; // Change false to empty string
+		}
+		$already_done[ $remote_img_location ] = $src;
 		@unlink( $tmp_name );
 
 		return $src;

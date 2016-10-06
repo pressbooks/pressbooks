@@ -2,8 +2,9 @@
 
 // @see: \Pressbooks\Modules\Export\Export loadTemplate()
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
@@ -53,12 +54,12 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			echo 'Authored by: ' . get_bloginfo( 'url' );
 		}
 		echo '</dc:creator>' . "\n";
-		
+
 		// Contributing authors
-		if ( ! empty( $meta['pb_contributing_authors'] ) ){
+		if ( ! empty( $meta['pb_contributing_authors'] ) ) {
 			$contributors = explode( ',', $meta['pb_contributing_authors'] );
-			
-			foreach ( $contributors as $contributor ){
+
+			foreach ( $contributors as $contributor ) {
 				echo '<dc:contributor>' . trim( $contributor ) . '</dc:contributor>' . "\n";
 			}
 			unset( $meta['pb_contributing_authors'] );
@@ -79,9 +80,12 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		if ( ! empty( $meta['pb_copyright_year'] ) || ! empty( $meta['pb_copyright_holder'] ) ) {
 			echo '<dc:rights>';
 			echo _( 'Copyright' ) . ' &#169; ';
-			if ( ! empty( $meta['pb_copyright_year'] ) ) echo $meta['pb_copyright_year'] . ' ';
-			if ( ! empty( $meta['pb_copyright_holder'] ) ) echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
-			if ( ! empty( $do_copyright_license ) ) echo '. ' . $do_copyright_license;
+			if ( ! empty( $meta['pb_copyright_year'] ) ) { echo $meta['pb_copyright_year'] . ' ';
+			}
+			if ( ! empty( $meta['pb_copyright_holder'] ) ) { echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
+			}
+			if ( ! empty( $do_copyright_license ) ) { echo '. ' . $do_copyright_license;
+			}
 			echo "</dc:rights>\n";
 		}
 		unset( $meta['pb_copyright_year'], $meta['pb_copyright_holder'] );
@@ -127,7 +131,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		?>
 		<item id="toc" properties="nav" href="toc.xhtml" media-type="application/xhtml+xml"/>
 		<item id="ncx" href="toc.ncx" media-type="application/x-dtbncx+xml" />
-		<?php if ( ! empty( $stylesheet ) ): ?>
+		<?php if ( ! empty( $stylesheet ) ) :  ?>
 		<item id="stylesheet" href="OEBPS/<?php echo $stylesheet; ?>"  media-type="text/css" />
 		<?php endif; ?>
 	</manifest>
@@ -164,13 +168,13 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		if ( $start_key === false ) {
 			$keys = array_keys( $manifest );
 			$position = array_search( 'table-of-contents', $keys );
-			if ( isset( $keys[$position + 1] ) ) {
-				$start_key = $keys[$position + 1];
+			if ( isset( $keys[ $position + 1 ] ) ) {
+				$start_key = $keys[ $position + 1 ];
 			}
 		}
 
 		if ( $start_key !== false ) {
-			printf( '<reference type="text" title="start" href="OEBPS/%s" />', $manifest[$start_key]['filename'] );
+			printf( '<reference type="text" title="start" href="OEBPS/%s" />', $manifest[ $start_key ]['filename'] );
 			echo "\n";
 		}
 
