@@ -43,7 +43,7 @@ function register_post_types() {
 		'not_found' => __( 'No chapters found', 'pressbooks' ),
 		'not_found_in_trash' => __( 'No chapters found in Trash', 'pressbooks' ),
 		'parent_item_colon' => '',
-		'menu_name' => __( 'Text', 'pressbooks' )
+		'menu_name' => __( 'Text', 'pressbooks' ),
 
 	);
 	$args = array(
@@ -64,7 +64,6 @@ function register_post_types() {
 	);
 	register_post_type( 'chapter', $args );
 
-
 	/* Parts */
 
 	$labels = array(
@@ -79,7 +78,7 @@ function register_post_types() {
 		'not_found' => __( 'No parts found', 'pressbooks' ),
 		'not_found_in_trash' => __( 'No parts found in Trash', 'pressbooks' ),
 		'parent_item_colon' => '',
-		'menu_name' => __( 'Parts', 'pressbooks' )
+		'menu_name' => __( 'Parts', 'pressbooks' ),
 
 	);
 	$args = array(
@@ -94,7 +93,7 @@ function register_post_types() {
 		'capability_type' => 'post',
 		'has_archive' => true,
 		'hierarchical' => true,
-		'supports' => array( 'title', 'page-attributes' )
+		'supports' => array( 'title', 'page-attributes' ),
 	);
 	register_post_type( 'part', $args );
 
@@ -112,7 +111,7 @@ function register_post_types() {
 		'not_found' => __( 'No front matter found', 'pressbooks' ),
 		'not_found_in_trash' => __( 'No front matter found in Trash', 'pressbooks' ),
 		'parent_item_colon' => '',
-		'menu_name' => __( 'Front Matter', 'pressbooks' )
+		'menu_name' => __( 'Front Matter', 'pressbooks' ),
 
 	);
 	$args = array(
@@ -128,10 +127,9 @@ function register_post_types() {
 		'has_archive' => true,
 		'hierarchical' => true,
 		'supports' => array( 'title', 'editor', 'author', 'comments', 'revisions' ),
-		'taxonomies' => array( 'front-matter-type' )
+		'taxonomies' => array( 'front-matter-type' ),
 	);
 	register_post_type( 'front-matter', $args );
-
 
 	/* Back Matter */
 
@@ -147,7 +145,7 @@ function register_post_types() {
 		'not_found' => __( 'No back matter found', 'pressbooks' ),
 		'not_found_in_trash' => __( 'No back matter found in Trash', 'pressbooks' ),
 		'parent_item_colon' => '',
-		'menu_name' => __( 'Back Matter', 'pressbooks' )
+		'menu_name' => __( 'Back Matter', 'pressbooks' ),
 
 	);
 	$args = array(
@@ -163,10 +161,9 @@ function register_post_types() {
 		'has_archive' => true,
 		'hierarchical' => true,
 		'supports' => array( 'title', 'editor', 'author', 'comments', 'revisions' ),
-		'taxonomies' => array( 'back-matter-type' )
+		'taxonomies' => array( 'back-matter-type' ),
 	);
 	register_post_type( 'back-matter', $args );
-
 
 	/* Book Information (Ie. Metadata) */
 
@@ -182,7 +179,7 @@ function register_post_types() {
 		'not_found' => __( 'No book information found', 'pressbooks' ),
 		'not_found_in_trash' => __( 'No book information found in Trash', 'pressbooks' ),
 		'parent_item_colon' => '',
-		'menu_name' => __( 'Book Information', 'pressbooks' )
+		'menu_name' => __( 'Book Information', 'pressbooks' ),
 
 	);
 	$args = array(
@@ -200,7 +197,6 @@ function register_post_types() {
 		'supports' => array( '' ),
 	);
 	register_post_type( 'metadata', $args );
-
 
 	/* Custom CSS */
 
@@ -220,8 +216,8 @@ function register_post_types() {
 			'edit_posts' => 'edit_theme_options',
 			'edit_others_posts' => 'edit_theme_options',
 			'publish_posts' => 'edit_theme_options',
-			'read_private_posts' => 'read'
-		)
+			'read_private_posts' => 'read',
+		),
 	);
 	register_post_type( 'custom-css', $args );
 }
@@ -231,87 +227,85 @@ function post_type_messages( $messages ) {
 
 	$permalink = get_permalink( $post );
 
-	
-
 	$messages['part'] = array(
 		0 => '', // Unused. Messages start at index 1.
-		1 => ( get_post_meta( $post->ID, 'pb_part_content' ) ? sprintf( __('Part updated. <a target="_blank" href="%s">View Part</a>', 'pressbooks'), esc_url( $permalink ) ) : __('Part updated.', 'pressbooks') ),
-		2 => __('Custom field updated.', 'pressbooks'),
-		3 => __('Custom field deleted.', 'pressbooks'),
-		4 => __('Part updated.', 'pressbooks'),
+		1 => ( get_post_meta( $post->ID, 'pb_part_content' ) ? sprintf( __( 'Part updated. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part updated.', 'pressbooks' ) ),
+		2 => __( 'Custom field updated.', 'pressbooks' ),
+		3 => __( 'Custom field deleted.', 'pressbooks' ),
+		4 => __( 'Part updated.', 'pressbooks' ),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf( __('Part restored to revision from %s', 'pressbooks'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		6 => ( get_post_meta( $post->ID, 'pb_part_content' ) ? sprintf( __('Part published. <a target="_blank" href="%s">View Part</a>', 'pressbooks'), esc_url( $permalink ) ) : __('Part published.', 'pressbooks') ),
-		7 => __('Part saved.', 'pressbooks'),
-		8 => sprintf( __('Part submitted. <a target="_blank" href="%s">Preview Part</a>', 'pressbooks'), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
-		9 => sprintf( __('Part scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Part</a>', 'pressbooks'),
-		// translators: Publish box date format, see http://php.net/date
+		5 => isset( $_GET['revision'] ) ? sprintf( __( 'Part restored to revision from %s', 'pressbooks' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6 => ( get_post_meta( $post->ID, 'pb_part_content' ) ? sprintf( __( 'Part published. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part published.', 'pressbooks' ) ),
+		7 => __( 'Part saved.', 'pressbooks' ),
+		8 => sprintf( __( 'Part submitted. <a target="_blank" href="%s">Preview Part</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
+		9 => sprintf( __( 'Part scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Part</a>', 'pressbooks' ),
+			// translators: Publish box date format, see http://php.net/date
 		date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink ) ),
-		10 => sprintf( __('Part draft updated. <a target="_blank" href="%s">Preview Part</a>', 'pressbooks'), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
+		10 => sprintf( __( 'Part draft updated. <a target="_blank" href="%s">Preview Part</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 	);
 
 	$messages['metadata'] = array(
 		0 => '', // Unused. Messages start at index 1.
-		1 => __('Book Information updated.', 'pressbooks'),
-		2 => __('Custom field updated.', 'pressbooks'),
-		3 => __('Custom field deleted.', 'pressbooks'),
-		4 => __('Book Information updated.', 'pressbooks'),
+		1 => __( 'Book Information updated.', 'pressbooks' ),
+		2 => __( 'Custom field updated.', 'pressbooks' ),
+		3 => __( 'Custom field deleted.', 'pressbooks' ),
+		4 => __( 'Book Information updated.', 'pressbooks' ),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf( __('Book Information restored to revision from %s', 'pressbooks'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		6 => __('Book Information updated.', 'pressbooks'),
-		7 => __('Book Information saved.', 'pressbooks'),
-		8 => __('Book Information submitted.', 'pressbooks'),
+		5 => isset( $_GET['revision'] ) ? sprintf( __( 'Book Information restored to revision from %s', 'pressbooks' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6 => __( 'Book Information updated.', 'pressbooks' ),
+		7 => __( 'Book Information saved.', 'pressbooks' ),
+		8 => __( 'Book Information submitted.', 'pressbooks' ),
 	);
 
 	$messages['chapter'] = array(
 		0 => '', // Unused. Messages start at index 1.
-		1 => sprintf( __('Chapter updated. <a target="_blank" href="%s">View Chapter</a>', 'pressbooks'), esc_url( $permalink ) ),
-		2 => __('Custom field updated.', 'pressbooks'),
-		3 => __('Custom field deleted.', 'pressbooks'),
-		4 => __('Chapter updated.', 'pressbooks'),
+		1 => sprintf( __( 'Chapter updated. <a target="_blank" href="%s">View Chapter</a>', 'pressbooks' ), esc_url( $permalink ) ),
+		2 => __( 'Custom field updated.', 'pressbooks' ),
+		3 => __( 'Custom field deleted.', 'pressbooks' ),
+		4 => __( 'Chapter updated.', 'pressbooks' ),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf( __('Chapter restored to revision from %s', 'pressbooks'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		6 => sprintf( __('Chapter published. <a href="%s">View Chapter</a>', 'pressbooks'), esc_url( $permalink ) ),
-		7 => __('Chapter saved.', 'pressbooks'),
-		8 => sprintf( __('Chapter submitted. <a target="_blank" href="%s">Preview Chapter</a>', 'pressbooks'), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
-		9 => sprintf( __('Chapter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Chapter</a>', 'pressbooks'),
-		// translators: Publish box date format, see http://php.net/date
+		5 => isset( $_GET['revision'] ) ? sprintf( __( 'Chapter restored to revision from %s', 'pressbooks' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6 => sprintf( __( 'Chapter published. <a href="%s">View Chapter</a>', 'pressbooks' ), esc_url( $permalink ) ),
+		7 => __( 'Chapter saved.', 'pressbooks' ),
+		8 => sprintf( __( 'Chapter submitted. <a target="_blank" href="%s">Preview Chapter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
+		9 => sprintf( __( 'Chapter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Chapter</a>', 'pressbooks' ),
+			// translators: Publish box date format, see http://php.net/date
 		date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink ) ),
-		10 => sprintf( __('Chapter draft updated. <a target="_blank" href="%s">Preview Chapter</a>', 'pressbooks'), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
+		10 => sprintf( __( 'Chapter draft updated. <a target="_blank" href="%s">Preview Chapter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 	);
 
 	$messages['front-matter'] = array(
 		0 => '', // Unused. Messages start at index 1.
-		1 => sprintf( __('Front Matter updated. <a target="_blank" href="%s">View Front Matter</a>', 'pressbooks'), esc_url( $permalink ) ),
-		2 => __('Custom field updated.', 'pressbooks'),
-		3 => __('Custom field deleted.', 'pressbooks'),
-		4 => __('Front Matter updated.', 'pressbooks'),
+		1 => sprintf( __( 'Front Matter updated. <a target="_blank" href="%s">View Front Matter</a>', 'pressbooks' ), esc_url( $permalink ) ),
+		2 => __( 'Custom field updated.', 'pressbooks' ),
+		3 => __( 'Custom field deleted.', 'pressbooks' ),
+		4 => __( 'Front Matter updated.', 'pressbooks' ),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf( __('Front Matter restored to revision from %s', 'pressbooks'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		6 => sprintf( __('Front Matter published. <a href="%s">View Front Matter</a>', 'pressbooks'), esc_url( $permalink ) ),
-		7 => __('Front Matter saved.', 'pressbooks'),
-		8 => sprintf( __('Front Matter submitted. <a target="_blank" href="%s">Preview Front Matter</a>', 'pressbooks'), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
-		9 => sprintf( __('Front Matter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Front Matter</a>', 'pressbooks'),
-		// translators: Publish box date format, see http://php.net/date
+		5 => isset( $_GET['revision'] ) ? sprintf( __( 'Front Matter restored to revision from %s', 'pressbooks' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6 => sprintf( __( 'Front Matter published. <a href="%s">View Front Matter</a>', 'pressbooks' ), esc_url( $permalink ) ),
+		7 => __( 'Front Matter saved.', 'pressbooks' ),
+		8 => sprintf( __( 'Front Matter submitted. <a target="_blank" href="%s">Preview Front Matter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
+		9 => sprintf( __( 'Front Matter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Front Matter</a>', 'pressbooks' ),
+			// translators: Publish box date format, see http://php.net/date
 		date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink ) ),
-		10 => sprintf( __('Front Matter draft updated. <a target="_blank" href="%s">Preview Front Matter</a>', 'pressbooks'), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
+		10 => sprintf( __( 'Front Matter draft updated. <a target="_blank" href="%s">Preview Front Matter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 	);
 
 	$messages['back-matter'] = array(
 		0 => '', // Unused. Messages start at index 1.
-		1 => sprintf( __('Back Matter updated. <a target="_blank" href="%s">View Back Matter</a>', 'pressbooks'), esc_url( $permalink ) ),
-		2 => __('Custom field updated.', 'pressbooks'),
-		3 => __('Custom field deleted.', 'pressbooks'),
-		4 => __('Back Matter updated.', 'pressbooks'),
+		1 => sprintf( __( 'Back Matter updated. <a target="_blank" href="%s">View Back Matter</a>', 'pressbooks' ), esc_url( $permalink ) ),
+		2 => __( 'Custom field updated.', 'pressbooks' ),
+		3 => __( 'Custom field deleted.', 'pressbooks' ),
+		4 => __( 'Back Matter updated.', 'pressbooks' ),
 		/* translators: %s: date and time of the revision */
-		5 => isset($_GET['revision']) ? sprintf( __('Back Matter restored to revision from %s', 'pressbooks'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		6 => sprintf( __('Back Matter published. <a href="%s">View Back Matter</a>', 'pressbooks'), esc_url( $permalink ) ),
-		7 => __('Back Matter saved.', 'pressbooks'),
-		8 => sprintf( __('Back Matter submitted. <a target="_blank" href="%s">Preview Back Matter</a>', 'pressbooks'), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
-		9 => sprintf( __('Back Matter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Back Matter</a>', 'pressbooks'),
-		// translators: Publish box date format, see http://php.net/date
+		5 => isset( $_GET['revision'] ) ? sprintf( __( 'Back Matter restored to revision from %s', 'pressbooks' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+		6 => sprintf( __( 'Back Matter published. <a href="%s">View Back Matter</a>', 'pressbooks' ), esc_url( $permalink ) ),
+		7 => __( 'Back Matter saved.', 'pressbooks' ),
+		8 => sprintf( __( 'Back Matter submitted. <a target="_blank" href="%s">Preview Back Matter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
+		9 => sprintf( __( 'Back Matter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Back Matter</a>', 'pressbooks' ),
+			// translators: Publish box date format, see http://php.net/date
 		date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink ) ),
-		10 => sprintf( __('Back Matter draft updated. <a target="_blank" href="%s">Preview Back Matter</a>', 'pressbooks'), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
+		10 => sprintf( __( 'Back Matter draft updated. <a target="_blank" href="%s">Preview Back Matter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 	);
 
 	return $messages;
@@ -319,9 +313,9 @@ function post_type_messages( $messages ) {
 
 /**
  * Add custom post types to RSS feed
- * 
- * @param array $args 
- * 
+ *
+ * @param array $args
+ *
  * @return array $args
  */
 function add_post_types_rss( $args ) {

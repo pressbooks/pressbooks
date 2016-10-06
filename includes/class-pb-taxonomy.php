@@ -53,10 +53,12 @@ class Taxonomy {
 			array(
 				'hierarchical' => true,
 				// only super-admins can change front matter terms
-				'capabilities' => array( 'manage_terms' => 'manage_sites',
+				'capabilities' => array(
+					'manage_terms' => 'manage_sites',
 					'edit_terms' => 'manage_sites',
 					'delete_terms' => 'manage_sites',
-					'assign_terms' => 'edit_posts' ),
+					'assign_terms' => 'edit_posts',
+				),
 				'labels' => $labels,
 				'show_ui' => true,
 				'query_var' => true,
@@ -91,10 +93,12 @@ class Taxonomy {
 			array(
 				'hierarchical' => true,
 				// only super-admins can change back matter terms
-				'capabilities' => array( 'manage_terms' => 'manage_sites',
+				'capabilities' => array(
+					'manage_terms' => 'manage_sites',
 					'edit_terms' => 'manage_sites',
 					'delete_terms' => 'manage_sites',
-					'assign_terms' => 'edit_posts' ),
+					'assign_terms' => 'edit_posts',
+				),
 				'labels' => $labels,
 				'show_ui' => true,
 				'query_var' => true,
@@ -129,10 +133,12 @@ class Taxonomy {
 			array(
 				'hierarchical' => true,
 				// only super-admins can change chapter terms
-				'capabilities' => array( 'manage_terms' => 'manage_sites',
+				'capabilities' => array(
+					'manage_terms' => 'manage_sites',
 					'edit_terms' => 'manage_sites',
 					'delete_terms' => 'manage_sites',
-					'assign_terms' => 'edit_posts' ),
+					'assign_terms' => 'edit_posts',
+				),
 				'labels' => $labels,
 				'show_ui' => true,
 				'query_var' => true,
@@ -292,19 +298,24 @@ class Taxonomy {
 		$type_4 = get_term_by( 'slug', 'type-4', 'chapter-type' );
 		$type_5 = get_term_by( 'slug', 'type-5', 'chapter-type' );
 
-		if ( $type_1 )
-			wp_update_term($type_1->term_id, 'chapter-type', array( 'name' => 'Standard', 'slug' => 'standard' ));
+		if ( $type_1 ) {
+			wp_update_term( $type_1->term_id, 'chapter-type', array( 'name' => 'Standard', 'slug' => 'standard' ) );
+		}
 
-		if ( $type_2 )
-			wp_delete_term($type_2->term_id, 'chapter-type');
+		if ( $type_2 ) {
+			wp_delete_term( $type_2->term_id, 'chapter-type' );
+		}
 
-		if ( $type_3 )
-			wp_delete_term($type_3->term_id, 'chapter-type');
+		if ( $type_3 ) {
+			wp_delete_term( $type_3->term_id, 'chapter-type' );
+		}
 
-		if ( $type_4 )
-			wp_delete_term($type_4->term_id, 'chapter-type');
+		if ( $type_4 ) {
+			wp_delete_term( $type_4->term_id, 'chapter-type' );
+		}
 
-		if ( $type_5 )
-			wp_delete_term($type_5->term_id, 'chapter-type');
+		if ( $type_5 ) {
+			wp_delete_term( $type_5->term_id, 'chapter-type' );
+		}
 	}
 }

@@ -18,76 +18,75 @@ namespace Pressbooks\Registration;
 
 function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
 
-  global $pagenow;
+	global $pagenow;
 
-  if ( $pagenow === 'wp-signup.php' ) {
+	if ( $pagenow === 'wp-signup.php' ) {
 
-    switch ( $untranslated_text ) {
-      case 'Gimme a site!' :
-        $translated_text = __( 'Register my book now', 'pressbooks' );
-        break;
-        case 'Just a username, please.' :
-          $translated_text = __( 'Register my book later', 'pressbooks' );
-          break;
-      case 'Site Name:' :
-      case 'Site Domain:' :
-      	$translated_text = __( 'Web Book Address:', 'pressbooks' );
-        break;
-      case 'Must be at least 4 characters, letters and numbers only. It cannot be changed, so choose carefully!' :
-        $translated_text = __( 'Must be at least 4 characters, letters and numbers only. Your web book address <strong>cannot be changed</strong>, so choose carefully!', 'pressbooks' );
-        break;
-      case 'Site Title:' :
-      	$translated_text = __( 'Book Title:', 'pressbooks' );
-        break;
-      case 'Site Language:' :
-        $translated_text = __( 'Book Language:', 'pressbooks' );
-        break;
-      case 'Allow search engines to index this site.' :
-        $translated_text = __( 'Would you like your web book to be visible to the public?', 'pressbooks' );
-        break;
-      case 'Create Site' :
-      case 'Signup' :
-        $translated_text = __( 'Create Book', 'pressbooks' );
-        break;
-      case 'Get your own %s account in seconds' :
-        $translated_text = __( 'Register a %s account', 'pressbooks' );
-        break;
-      case 'Get <em>another</em> %s site in seconds' :
-        $translated_text = __( 'Create a new book', 'pressbooks' );
-        break;
-      case 'Welcome back, %s. By filling out the form below, you can <strong>add another site to your account</strong>. There is no limit to the number of sites you can have, so create to your heart&#8217;s content, but write responsibly!' :
-        $translated_text = __( 'Welcome, %s. Fill out the form below to <strong>add a new book to your account</strong>.', 'pressbooks' );
-        break;
-      case 'domain' :
-      case 'sitename' :
-        $translated_text = __( 'yourwebbookname', 'pressbooks' );
-        break;
-      case 'Sites you are already a member of:' :
-        $translated_text = __( 'Books you are already a member of:', 'pressbooks' );
-        break;
-      case 'If you&#8217;re not going to use a great site domain, leave it for a new user. Now have at it!' :
-        $translated_text = __( 'Your web book address must be at least 4 characters, letters and numbers only. It <strong>cannot be changed</strong>, so choose carefully!', 'pressbooks' );
-        break;
-      case 'Congratulations! Your new site, %s, is almost ready.' :
-        $translated_text = __( 'Congratulations! Your new book, %s, is almost ready', 'pressbooks' );
-        break;
-      case 'But, before you can start using your site, <strong>you must activate it</strong>.' :
-        $translated_text = __( 'But, before you can start writing your book, <strong>you must activate it</strong>.', 'pressbooks' );
-        break;
-      case 'Your account has been activated. You may now <a href="%1$s">log in</a> to the site using your chosen username of &#8220;%2$s&#8221;. Please check your email inbox at %3$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href="%4$s">reset your password</a>.' :
-        $translated_text = __( 'Your account has been activated. You may now <a href="%1$s">log in</a> to your book using your chosen username of &#8220;%2$s&#8221;. Please check your email inbox at %3$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href="%4$s">reset your password</a>.', 'pressbooks' );
-        break;
-      case 'Your site at <a href="%1$s">%2$s</a> is active. You may now log in to your site using your chosen username of &#8220;%3$s&#8221;. Please check your email inbox at %4$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href="%5$s">reset your password</a>.' :
-        $translated_text = __( 'Your book at <a href="%1$s">%2$s</a> is active. You may now log in to your book using your chosen username of &#8220;%3$s&#8221;. Please check your email inbox at %4$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href="%5$s">reset your password</a>.', 'pressbooks' );
-        break;
-      case 'Your account is now activated. <a href="%1$s">View your site</a> or <a href="%2$s">Log in</a>' :
-        $translated_text = __( 'Your account is now activated. <a href="%1$s">View your book</a> or <a href="%2$s">Log in</a>', 'pressbooks' );
-        break;
-    }
+		switch ( $untranslated_text ) {
+			case 'Gimme a site!' :
+				$translated_text = __( 'Register my book now', 'pressbooks' );
+			  break;
+			case 'Just a username, please.' :
+				$translated_text = __( 'Register my book later', 'pressbooks' );
+				break;
+			case 'Site Name:' :
+			case 'Site Domain:' :
+				$translated_text = __( 'Web Book Address:', 'pressbooks' );
+			  break;
+			case 'Must be at least 4 characters, letters and numbers only. It cannot be changed, so choose carefully!' :
+				$translated_text = __( 'Must be at least 4 characters, letters and numbers only. Your web book address <strong>cannot be changed</strong>, so choose carefully!', 'pressbooks' );
+			  break;
+			case 'Site Title:' :
+				$translated_text = __( 'Book Title:', 'pressbooks' );
+			  break;
+			case 'Site Language:' :
+				$translated_text = __( 'Book Language:', 'pressbooks' );
+			  break;
+			case 'Allow search engines to index this site.' :
+				$translated_text = __( 'Would you like your web book to be visible to the public?', 'pressbooks' );
+			  break;
+			case 'Create Site' :
+			case 'Signup' :
+				$translated_text = __( 'Create Book', 'pressbooks' );
+			  break;
+			case 'Get your own %s account in seconds' :
+				$translated_text = __( 'Register a %s account', 'pressbooks' );
+			  break;
+			case 'Get <em>another</em> %s site in seconds' :
+				$translated_text = __( 'Create a new book', 'pressbooks' );
+			  break;
+			case 'Welcome back, %s. By filling out the form below, you can <strong>add another site to your account</strong>. There is no limit to the number of sites you can have, so create to your heart&#8217;s content, but write responsibly!' :
+				$translated_text = __( 'Welcome, %s. Fill out the form below to <strong>add a new book to your account</strong>.', 'pressbooks' );
+			  break;
+			case 'domain' :
+			case 'sitename' :
+				$translated_text = __( 'yourwebbookname', 'pressbooks' );
+			  break;
+			case 'Sites you are already a member of:' :
+				$translated_text = __( 'Books you are already a member of:', 'pressbooks' );
+			  break;
+			case 'If you&#8217;re not going to use a great site domain, leave it for a new user. Now have at it!' :
+				$translated_text = __( 'Your web book address must be at least 4 characters, letters and numbers only. It <strong>cannot be changed</strong>, so choose carefully!', 'pressbooks' );
+			  break;
+			case 'Congratulations! Your new site, %s, is almost ready.' :
+				$translated_text = __( 'Congratulations! Your new book, %s, is almost ready', 'pressbooks' );
+			  break;
+			case 'But, before you can start using your site, <strong>you must activate it</strong>.' :
+				$translated_text = __( 'But, before you can start writing your book, <strong>you must activate it</strong>.', 'pressbooks' );
+			  break;
+			case 'Your account has been activated. You may now <a href="%1$s">log in</a> to the site using your chosen username of &#8220;%2$s&#8221;. Please check your email inbox at %3$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href="%4$s">reset your password</a>.' :
+				$translated_text = __( 'Your account has been activated. You may now <a href="%1$s">log in</a> to your book using your chosen username of &#8220;%2$s&#8221;. Please check your email inbox at %3$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href="%4$s">reset your password</a>.', 'pressbooks' );
+			  break;
+			case 'Your site at <a href="%1$s">%2$s</a> is active. You may now log in to your site using your chosen username of &#8220;%3$s&#8221;. Please check your email inbox at %4$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href="%5$s">reset your password</a>.' :
+				$translated_text = __( 'Your book at <a href="%1$s">%2$s</a> is active. You may now log in to your book using your chosen username of &#8220;%3$s&#8221;. Please check your email inbox at %4$s for your password and login instructions. If you do not receive an email, please check your junk or spam folder. If you still do not receive an email within an hour, you can <a href="%5$s">reset your password</a>.', 'pressbooks' );
+			  break;
+			case 'Your account is now activated. <a href="%1$s">View your site</a> or <a href="%2$s">Log in</a>' :
+				$translated_text = __( 'Your account is now activated. <a href="%1$s">View your book</a> or <a href="%2$s">Log in</a>', 'pressbooks' );
+			  break;
+		}
+	}
 
-  }
-
-  return $translated_text;
+	return $translated_text;
 }
 
 /**
@@ -179,7 +178,7 @@ function override_password_generation( $password ) {
 	global $wpdb;
 
 	// Check key in GET and then fallback to POST.
-	if ( isset($_GET['key'] ) ) {
+	if ( isset( $_GET['key'] ) ) {
 		$key = $_GET['key'];
 	} elseif ( isset( $_POST['key'] ) ) {
 		$key = $_POST['key'];
@@ -191,7 +190,7 @@ function override_password_generation( $password ) {
 	$signup = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE activation_key = '%s'", $key ) );
 
 	// Only override filter on wp-activate.php screen
-	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) && $key !== null && ( !( empty( $signup ) || $signup->active ) ) ) {
+	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) && $key !== null && ( ! ( empty( $signup ) || $signup->active ) ) ) {
 		$meta = maybe_unserialize( $signup->meta );
 		if ( isset( $meta['password'] ) ) {
 

@@ -69,8 +69,7 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 	$type = @exif_imagetype( $file );
 	if ( IMAGETYPE_JPEG == $type || IMAGETYPE_GIF == $type || IMAGETYPE_PNG == $type ) {
 		return true;
-	}
-	else {
+	} else {
 		return false;
 	}
 }
@@ -153,8 +152,9 @@ function thumbnail_from_url( $url, $size ) {
 	$id = attachment_id_from_url( $url );
 	$image_thumb = wp_get_attachment_image_src( $id, $size );
 
-	if ( $image_thumb ) return $image_thumb[0]; // URL
-	else return $url; // Couldn't find anything, return original
+	if ( $image_thumb ) { return $image_thumb[0]; // URL
+	} else { return $url; // Couldn't find anything, return original
+	}
 }
 
 
@@ -193,9 +193,12 @@ function fix_intermediate_image_size_options() {
 	$our_sizes = intermediate_image_sizes();
 
 	foreach ( $our_sizes as $key => $val ) {
-		add_filter( "pre_option_{$key}_size_w", function () use ( $val ) { return $val['width']; } );
-		add_filter( "pre_option_{$key}_size_h", function () use ( $val ) { return $val['height']; } );
-		add_filter( "pre_option_{$key}_crop", function () use ( $val ) { return $val['crop']; } );
+		add_filter( "pre_option_{$key}_size_w", function () use ( $val ) { return $val['width'];
+		} );
+		add_filter( "pre_option_{$key}_size_h", function () use ( $val ) { return $val['height'];
+		} );
+		add_filter( "pre_option_{$key}_crop", function () use ( $val ) { return $val['crop'];
+		} );
 	}
 }
 
@@ -256,8 +259,9 @@ function delete_attachment( $post_id ) {
  */
 function save_attachment( $data, $post_id ) {
 
-	if ( empty( $data['file'] ) )
+	if ( empty( $data['file'] ) ) {
 		return $data; // Bail
+	}
 
 	$post = get_post( $post_id );
 	$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
@@ -371,7 +375,7 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 				<p><img id="cover_image_preview" src="<?php echo \Pressbooks\Image\default_cover_url(); ?>" style="width:auto;height:100px;" alt="cover_image" /></p>
 				<p><input type="file" name="<?php echo $form_id; ?>" value="<?php echo $image_url; ?>" id="<?php echo $form_id; ?>" /></p>
 			<?php } ?>
-			<?php if ($description): ?><span class="description"><?php echo $description; ?></span><?php endif; ?>
+			<?php if ( $description ) :  ?><span class="description"><?php echo $description; ?></span><?php endif; ?>
 		</div>
 	</div>
 <?php
@@ -390,7 +394,8 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
  */
 function resize_down( $format, $fullpath, $MAX_W = 1024, $MAX_H = 1024 ) {
 
-	if ( $format == 'jpg' ) $format = 'jpeg'; // fix stupid mistake
+	if ( $format == 'jpg' ) { $format = 'jpeg'; // fix stupid mistake
+	}
 	if ( ! ( $format == 'jpeg' || $format == 'gif' || $format == 'png' ) ) {
 		throw new \Exception( 'Invalid image format' );
 	}
@@ -459,11 +464,11 @@ function fudge_factor( $format, $fullpath ) {
 		// Jpeg
 		$fudge = 1.65; // This is a guestimate, your mileage may very
 		$memoryNeeded = round( ( $size[0] * $size[1] * $size['bits'] * $size['channels'] / 8 + pow( 2, 16 ) ) * $fudge );
-	}
-	else {
+	} else {
 		// Not Sure
 		$memoryNeeded = $size[0] * $size[1];
-		if ( isset( $size['bits'] ) ) $memoryNeeded = $memoryNeeded * $size['bits'];
+		if ( isset( $size['bits'] ) ) { $memoryNeeded = $memoryNeeded * $size['bits'];
+		}
 		$memoryNeeded = round( $memoryNeeded );
 	}
 

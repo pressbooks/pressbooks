@@ -80,8 +80,9 @@ class Book {
 		foreach ( $data as $key => $val ) {
 
 			// Skip anything not prefixed with pb_
-			if ( ! preg_match( '/^pb_/', $key ) )
+			if ( ! preg_match( '/^pb_/', $key ) ) {
 				continue;
+			}
 
 			// We only care about strings
 			if ( is_array( $val ) ) {
@@ -94,8 +95,9 @@ class Book {
 			}
 
 			// Skip empty values
-			if ( ! trim( $val ) )
+			if ( ! trim( $val ) ) {
 				continue;
+			}
 
 			if ( false !== in_array( $key, $expected_the_content ) ) {
 				$val = wptexturize( $val );
@@ -112,13 +114,13 @@ class Book {
 			// Remove invisible control characters that break XML
 			$val = \Pressbooks\Sanitize\remove_control_characters( $val );
 
-			$book_information[$key] = $val;
+			$book_information[ $key ] = $val;
 		}
 
 		// Return our best guess if no book information has been entered.
 		if ( empty( $book_information ) ) {
 			$book_information['pb_title'] = get_bloginfo( 'name' );
-			if ( !function_exists( 'get_user_by' ) ) {
+			if ( ! function_exists( 'get_user_by' ) ) {
 			    include( ABSPATH . 'wp-includes/pluggable.php' );
 			}
 			$author = get_user_by( 'email', get_bloginfo( 'admin_email' ) );
@@ -154,7 +156,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 		// Is cached?
 		// -----------------------------------------------------------------------------
-		if ( ! empty( $id ) && is_int( $id ) ){
+		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
 			switch_to_blog( $id );
 		} else {
@@ -183,7 +185,7 @@ class Book {
 
 		foreach ( $custom_types as $type ) {
 
-			$book_structure[$type] = array();
+			$book_structure[ $type ] = array();
 
 			$args = array(
 				'post_type' => $type,
@@ -201,7 +203,7 @@ class Book {
 
 				$post_name = static::fixSlug( $post->post_name );
 
-				$book_structure[$type][] = array(
+				$book_structure[ $type ][] = array(
 					'ID' => $post->ID,
 					'post_title' => $post->post_title,
 					'post_name' => $post_name,
@@ -213,7 +215,6 @@ class Book {
 					'post_parent' => $post->post_parent,
 				);
 			}
-
 		}
 
 		// -----------------------------------------------------------------------------
@@ -221,14 +222,14 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		foreach ( $book_structure['part'] as $i => $part ) {
-			$book_structure['part'][$i]['chapters'] = array();
+			$book_structure['part'][ $i ]['chapters'] = array();
 		}
 
 		foreach ( $book_structure['chapter'] as $i => $chapter ) {
 			foreach ( $book_structure['part'] as $j => $part ) {
 				if ( $part['ID'] == $chapter['post_parent'] ) {
-					$book_structure['part'][$j]['chapters'][] = $chapter;
-					unset( $book_structure['chapter'][$i] );
+					$book_structure['part'][ $j ]['chapters'][] = $chapter;
+					unset( $book_structure['chapter'][ $i ] );
 					continue 2;
 				}
 			}
@@ -251,21 +252,22 @@ class Book {
 		$book_structure['__export_lookup'] = array();
 
 		foreach ( $custom_types as $type ) {
-			foreach ( $book_structure[$type] as $i => $struct ) {
-				unset( $book_structure[$type][$i]['post_parent'] );
+			foreach ( $book_structure[ $type ] as $i => $struct ) {
+				unset( $book_structure[ $type ][ $i ]['post_parent'] );
 				if ( $type != 'part' ) {
-					$book_structure['__order'][$struct['ID']] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
+					$book_structure['__order'][ $struct['ID'] ] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
 					if ( $struct['export'] ) {
-						$book_structure['__export_lookup'][$struct['post_name']] = $type;
+						$book_structure['__export_lookup'][ $struct['post_name'] ] = $type;
 					}
 				} else {
 					foreach ( $struct['chapters'] as $j => $chapter ) {
-						unset( $book_structure[$type][$i]['chapters'][$j]['post_parent'] );
-						if ( get_post_meta( $struct['ID'], 'pb_part_content', true ) && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' )
-							$book_structure['__order'][$struct['ID']] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
-						$book_structure['__order'][$chapter['ID']] = array( 'export' => $chapter['export'], 'post_status' => $chapter['post_status'] );
+						unset( $book_structure[ $type ][ $i ]['chapters'][ $j ]['post_parent'] );
+						if ( get_post_meta( $struct['ID'], 'pb_part_content', true ) && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' ) {
+							$book_structure['__order'][ $struct['ID'] ] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
+						}
+						$book_structure['__order'][ $chapter['ID'] ] = array( 'export' => $chapter['export'], 'post_status' => $chapter['post_status'] );
 						if ( $chapter['export'] ) {
-							$book_structure['__export_lookup'][$chapter['post_name']] = 'chapter';
+							$book_structure['__export_lookup'][ $chapter['post_name'] ] = 'chapter';
 						}
 					}
 				}
@@ -315,19 +317,20 @@ class Book {
 
 		foreach ( $book_contents as $type => $struct ) {
 
-			if ( preg_match( '/^__/', $type ) )
+			if ( preg_match( '/^__/', $type ) ) {
 				continue; // Skip __magic keys
+			}
 
 			if ( 'part' == $type ) {
 				foreach ( $struct as $i => $part ) {
-					$book_contents[$type][$i] = $part + get_post( $part['ID'], ARRAY_A );
+					$book_contents[ $type ][ $i ] = $part + get_post( $part['ID'], ARRAY_A );
 					foreach ( $part['chapters'] as $j => $chapter ) {
-						$book_contents[$type][$i]['chapters'][$j] = $chapter + get_post( $chapter['ID'], ARRAY_A );
+						$book_contents[ $type ][ $i ]['chapters'][ $j ] = $chapter + get_post( $chapter['ID'], ARRAY_A );
 					}
 				}
 			} else {
 				foreach ( $struct as $i => $val ) {
-					$book_contents[$type][$i] = $val + get_post( $val['ID'], ARRAY_A );
+					$book_contents[ $type ][ $i ] = $val + get_post( $val['ID'], ARRAY_A );
 				}
 			}
 		}
@@ -371,13 +374,14 @@ class Book {
 		$s = 1;
 		$content = mb_convert_encoding( apply_filters( 'the_content', $parent->post_content ), 'HTML-ENTITIES', 'UTF-8' );
 
-		if ( empty( $content ) )
+		if ( empty( $content ) ) {
 			return false;
+		}
 
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
-		$sections = $doc->getElementsByTagName('h1');
-		foreach( $sections as $section ) {
+		$sections = $doc->getElementsByTagName( 'h1' );
+		foreach ( $sections as $section ) {
 			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
 			$s++;
 		}
@@ -385,8 +389,9 @@ class Book {
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
-		if ( empty( $output ) )
+		if ( empty( $output ) ) {
 			return false;
+		}
 
 		return $output;
 	}
@@ -408,20 +413,21 @@ class Book {
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 		$content = str_replace( array( '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ), array( '', '', '', '' ), $content );
 
-		if ( empty( $content ) )
+		if ( empty( $content ) ) {
 			return false;
+		}
 
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
-		$sections = $doc->getElementsByTagName('h1');
+		$sections = $doc->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 		    $section->setAttribute( 'id', $type . '-' . $id . '-section-' . $s++ );
 		    $section->setAttribute( 'class', 'section-header' );
 		}
 		$xpath = new \DOMXPath( $doc );
-		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
+		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 		    foreach ( $nodes as $node ) {
-		        $node->appendChild( new \DOMText('') );
+		        $node->appendChild( new \DOMText( '' ) );
 		    }
 		}
 		$html = $doc->saveXML( $doc->documentElement );
@@ -429,7 +435,7 @@ class Book {
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
-		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
+		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
 	}
 
 	/**
@@ -625,8 +631,9 @@ class Book {
 	 */
 	static function get( $what = 'next' ) {
 
-		if ( 'first' == $what )
+		if ( 'first' == $what ) {
 			return static::getFirst();
+		}
 
 		global $blog_id;
 
@@ -652,7 +659,7 @@ class Book {
 		// Get next/previous
 		$what( $pos );
 		while ( $post_id = current( $pos ) ) {
-			if ( $order[$post_id]['post_status'] == 'publish' ) {
+			if ( $order[ $post_id ]['post_status'] == 'publish' ) {
 				break;
 			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
 				break;
@@ -682,7 +689,7 @@ class Book {
 
 		reset( $pos );
 		while ( $first_id = current( $pos ) ) {
-			if ( $order[$first_id]['post_status'] == 'publish' ) {
+			if ( $order[ $first_id ]['post_status'] == 'publish' ) {
 				break;
 			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
 				break;
@@ -708,8 +715,9 @@ class Book {
 	 */
 	static function consolidatePost( $pid, $post ) {
 
-		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) )
+		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) ) {
 			return false;
+		}
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -757,8 +765,9 @@ class Book {
 	 */
 	static function deletePost( $pid ) {
 
-		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) )
+		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) ) {
 			return false;
+		}
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -825,23 +834,24 @@ class Book {
 			$old_post_name = uniqid( 'slug-' );
 		}
 
-		if ( isset( static::$fixDupeSlugs[$old_post_name] ) ) {
-			$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[$old_post_name];
+		if ( isset( static::$fixDupeSlugs[ $old_post_name ] ) ) {
+			$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[ $old_post_name ];
 			$i = 0;
-			while ( isset( static::$fixDupeSlugs[$new_post_name] ) ) {
-				++static::$fixDupeSlugs[$new_post_name];
-				++static::$fixDupeSlugs[$old_post_name];
-				$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[$old_post_name];
-				if ( $i > 999 ) break; // Safety
+			while ( isset( static::$fixDupeSlugs[ $new_post_name ] ) ) {
+				++static::$fixDupeSlugs[ $new_post_name ];
+				++static::$fixDupeSlugs[ $old_post_name ];
+				$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[ $old_post_name ];
+				if ( $i > 999 ) { break; // Safety
+				}
 				++$i;
 			}
 			$post_name = $new_post_name;
-			static::$fixDupeSlugs[$new_post_name] = 1;
-			++static::$fixDupeSlugs[$old_post_name];
+			static::$fixDupeSlugs[ $new_post_name ] = 1;
+			++static::$fixDupeSlugs[ $old_post_name ];
 		} else {
 
 			$post_name = $old_post_name;
-			static::$fixDupeSlugs[$old_post_name] = 1;
+			static::$fixDupeSlugs[ $old_post_name ] = 1;
 		}
 
 		return $post_name;

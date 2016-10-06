@@ -192,11 +192,11 @@ class GlobalTypography {
 					$import = $i;
 					break;
 				}
-
 			}
 			// Import the font template we find
-			if ( isset( $import ) )
+			if ( isset( $import ) ) {
 				$scss .= "@import '{$import}'; \n";
+			}
 
 			// Add a Sass !default in-case the template doesn't contain our variable
 			$scss .= "\$sans-serif-{$type}-{$lang}: null !default; \n";
@@ -281,7 +281,7 @@ class GlobalTypography {
 
 			// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
 			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				return "url(" . PB_PLUGIN_URL . "themes-book/pressbooks-book/fonts/$filename)";
+				return 'url(' . PB_PLUGIN_URL . "themes-book/pressbooks-book/fonts/$filename)";
 			}
 
 			return $matches[0]; // No change

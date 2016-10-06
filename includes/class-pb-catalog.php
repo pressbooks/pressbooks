@@ -87,7 +87,7 @@ class Catalog {
 
 		// Tags
 		for ( $i = 1; $i <= static::$maxTagsGroup; ++$i ) {
-			$this->profileMetaKeys["pb_catalog_tag_{$i}_name"] = '%s';
+			$this->profileMetaKeys[ "pb_catalog_tag_{$i}_name" ] = '%s';
 		}
 
 		// User
@@ -162,58 +162,60 @@ class Catalog {
 		$already_loaded = array();
 
 		foreach ( $catalog as $val ) {
-			if ( !get_blog_details( $val['blogs_id'] ) ) {
-				$data[$i]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
-				$data[$i]['users_id'] = $val['users_id'];
-				$data[$i]['blogs_id'] = $val['blogs_id'];
-				$data[$i]['deleted'] = 1;
+			if ( ! get_blog_details( $val['blogs_id'] ) ) {
+				$data[ $i ]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
+				$data[ $i ]['users_id'] = $val['users_id'];
+				$data[ $i ]['blogs_id'] = $val['blogs_id'];
+				$data[ $i ]['deleted'] = 1;
 			} else {
 				switch_to_blog( $val['blogs_id'] );
 
 				$metadata = Book::getBookInformation();
 				$meta_version = get_option( 'pressbooks_metadata_version', 0 );
 
-				$data[$i]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
-				$data[$i]['users_id'] = $val['users_id'];
-				$data[$i]['blogs_id'] = $val['blogs_id'];
-				$data[$i]['featured'] = $val['featured'];
-				$data[$i]['deleted'] = 0;
-				$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
-				$data[$i]['author'] = @$metadata['pb_author'];
-				$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
-				$data[$i]['private'] = ( 1 == get_option( 'blog_public' ) ? 0 : 1 );
+				$data[ $i ]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
+				$data[ $i ]['users_id'] = $val['users_id'];
+				$data[ $i ]['blogs_id'] = $val['blogs_id'];
+				$data[ $i ]['featured'] = $val['featured'];
+				$data[ $i ]['deleted'] = 0;
+				$data[ $i ]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
+				$data[ $i ]['author'] = @$metadata['pb_author'];
+				$data[ $i ]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
+				$data[ $i ]['private'] = ( 1 == get_option( 'blog_public' ) ? 0 : 1 );
 
 				// About
-				if ( ! empty( $metadata['pb_about_50'] ) ) $about = $metadata['pb_about_50'];
-				elseif ( ! empty( $metadata['pb_about_140'] ) ) $about = $metadata['pb_about_140'];
-				elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) $about = $metadata['pb_about_unlimited'];
-				else $about = '';
-				$data[$i]['about'] = $about;
+				if ( ! empty( $metadata['pb_about_50'] ) ) { $about = $metadata['pb_about_50'];
+				} elseif ( ! empty( $metadata['pb_about_140'] ) ) { $about = $metadata['pb_about_140'];
+				} elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) { $about = $metadata['pb_about_unlimited'];
+				} else { $about = '';
+				}
+				$data[ $i ]['about'] = $about;
 
 				// Cover Full
-				if ( $meta_version < 7 ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-				elseif ( empty( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-				elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-				else $cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
-				$data[$i]['cover_url']['full'] = $cover;
+				if ( $meta_version < 7 ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				} elseif ( empty( $metadata['pb_cover_image'] ) ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				} elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				} else { $cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
+				}
+				$data[ $i ]['cover_url']['full'] = $cover;
 
 				// Cover Thumbnails
 				$cid = \Pressbooks\Image\attachment_id_from_url( $cover );
 				foreach ( $cover_sizes as $size => $default ) {
 					$cid_thumb = wp_get_attachment_image_src( $cid, $size );
 					if ( $cid_thumb ) {
-						$data[$i]['cover_url'][$size] = $cid_thumb[0];
+						$data[ $i ]['cover_url'][ $size ] = $cid_thumb[0];
 					} else {
-						$data[$i]['cover_url'][$size] = $default;
+						$data[ $i ]['cover_url'][ $size ] = $default;
 					}
 				}
 
 				// Tags
 				for ( $j = 1; $j <= static::$maxTagsGroup; ++$j ) {
-					$data[$i]["tag_{$j}"] = $this->getTagsByBook( $val['blogs_id'], $j );
+					$data[ $i ][ "tag_{$j}" ] = $this->getTagsByBook( $val['blogs_id'], $j );
 				}
 
-				$already_loaded[$val['blogs_id']] = true;
+				$already_loaded[ $val['blogs_id'] ] = true;
 				++$i;
 			}
 		}
@@ -222,52 +224,56 @@ class Catalog {
 		foreach ( $userblogs as $book ) {
 
 			// Skip
-			if ( is_main_site( $book->userblog_id ) ) continue;
-			if ( isset( $already_loaded[$book->userblog_id] ) ) continue;
+			if ( is_main_site( $book->userblog_id ) ) { continue;
+			}
+			if ( isset( $already_loaded[ $book->userblog_id ] ) ) { continue;
+			}
 
 			switch_to_blog( $book->userblog_id );
 
 			$metadata = Book::getBookInformation();
 			$meta_version = get_option( 'pressbooks_metadata_version', 0 );
 
-			$data[$i]['ID'] = "{$this->userId}:{$book->userblog_id}";
-			$data[$i]['users_id'] = $this->userId;
-			$data[$i]['blogs_id'] = $book->userblog_id;
-			$data[$i]['featured'] = 0;
-			$data[$i]['deleted'] = 1;
-			$data[$i]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
-			$data[$i]['author'] = @$metadata['pb_author'];
-			$data[$i]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
-			$data[$i]['private'] = ( 1 == get_option( 'blog_public' ) ? 0 : 1 );
+			$data[ $i ]['ID'] = "{$this->userId}:{$book->userblog_id}";
+			$data[ $i ]['users_id'] = $this->userId;
+			$data[ $i ]['blogs_id'] = $book->userblog_id;
+			$data[ $i ]['featured'] = 0;
+			$data[ $i ]['deleted'] = 1;
+			$data[ $i ]['title'] = ! empty( $metadata['pb_title'] ) ? $metadata['pb_title'] : get_bloginfo( 'name' );
+			$data[ $i ]['author'] = @$metadata['pb_author'];
+			$data[ $i ]['pub_date'] = ! empty( $metadata['pb_publication_date'] ) ? date( 'Y-m-d', (int) $metadata['pb_publication_date'] ) : '';
+			$data[ $i ]['private'] = ( 1 == get_option( 'blog_public' ) ? 0 : 1 );
 
 			// About
-			if ( ! empty( $metadata['pb_about_50'] ) ) $about = $metadata['pb_about_50'];
-			elseif ( ! empty( $metadata['pb_about_140'] ) ) $about = $metadata['pb_about_140'];
-			elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) $about = $metadata['pb_about_unlimited'];
-			else $about = '';
-			$data[$i]['about'] = $about;
+			if ( ! empty( $metadata['pb_about_50'] ) ) { $about = $metadata['pb_about_50'];
+			} elseif ( ! empty( $metadata['pb_about_140'] ) ) { $about = $metadata['pb_about_140'];
+			} elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) { $about = $metadata['pb_about_unlimited'];
+			} else { $about = '';
+			}
+			$data[ $i ]['about'] = $about;
 
 			// Cover Full
-			if ( $meta_version < 7 ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-			elseif ( empty( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-			elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-			else $cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
-			$data[$i]['cover_url']['full'] = $cover;
+			if ( $meta_version < 7 ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+			} elseif ( empty( $metadata['pb_cover_image'] ) ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+			} elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+			} else { $cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
+			}
+			$data[ $i ]['cover_url']['full'] = $cover;
 
 			// Cover Thumbnails
 			$cid = \Pressbooks\Image\attachment_id_from_url( $cover );
 			foreach ( $cover_sizes as $size => $default ) {
 				$cid_thumb = wp_get_attachment_image_src( $cid, $size );
 				if ( $cid_thumb ) {
-					$data[$i]['cover_url'][$size] = $cid_thumb[0];
+					$data[ $i ]['cover_url'][ $size ] = $cid_thumb[0];
 				} else {
-					$data[$i]['cover_url'][$size] = $default;
+					$data[ $i ]['cover_url'][ $size ] = $default;
 				}
 			}
 
 			// Tags
 			for ( $j = 1; $j <= static::$maxTagsGroup; ++$j ) {
-				$data[$i]["tag_{$j}"] = $this->getTagsByBook( $book->userblog_id, $j );
+				$data[ $i ][ "tag_{$j}" ] = $this->getTagsByBook( $book->userblog_id, $j );
 			}
 
 			++$i;
@@ -395,9 +401,9 @@ class Catalog {
 		$format = array( 'users_id' => $this->dbColumns['users_id'], 'blogs_id' => $this->dbColumns['blogs_id'], 'deleted' => $this->dbColumns['deleted'] );
 
 		foreach ( $item as $key => $val ) {
-			if ( isset( $this->dbColumns[$key] ) ) {
-				$data[$key] = $val;
-				$format[$key] = $this->dbColumns[$key];
+			if ( isset( $this->dbColumns[ $key ] ) ) {
+				$data[ $key ] = $val;
+				$format[ $key ] = $this->dbColumns[ $key ];
 			}
 		}
 
@@ -413,19 +419,21 @@ class Catalog {
 
 		foreach ( $format as $key => $val ) {
 			$sql .= $val . ', ';
-			$args[] = $data[$key];
+			$args[] = $data[ $key ];
 		}
 		$sql = rtrim( $sql, ', ' ) . ' ) ON DUPLICATE KEY UPDATE ';
 
 		$i = 0;
 		foreach ( $data as $key => $val ) {
-			if ( 'users_id' == $key || 'blogs_id' == $key ) continue;
+			if ( 'users_id' == $key || 'blogs_id' == $key ) { continue;
+			}
 			$sql .= "`$key` = {$format[$key]}, ";
 			$args[] = $val;
 			++$i;
 		}
 		$sql = rtrim( $sql, ', ' );
-		if ( ! $i ) $sql .= ' users_id = users_id '; // Do nothing
+		if ( ! $i ) { $sql .= ' users_id = users_id '; // Do nothing
+		}
 
 		$sql = $wpdb->prepare( $sql, $args );
 
@@ -472,7 +480,8 @@ class Catalog {
  				INNER JOIN {$this->dbTable} ON {$this->dbTable}.users_id = {$this->dbLinkTable}.users_id AND {$this->dbTable}.blogs_id = {$this->dbLinkTable}.blogs_id
  				WHERE {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.users_id = %d ";
 
-		if ( true !== $show_hidden_tags ) $sql .= "AND {$this->dbTable}.deleted = 0 ";
+		if ( true !== $show_hidden_tags ) { $sql .= "AND {$this->dbTable}.deleted = 0 ";
+		}
 		$sql .= "ORDER BY {$this->dbTagsTable}.tag ASC ";
 
 		$sql = $wpdb->prepare( $sql, $tag_group, $this->userId );
@@ -569,8 +578,9 @@ class Catalog {
 		$sql = $wpdb->prepare( $sql, $tag );
 		$tag_id = $wpdb->get_var( $sql );
 
-		if ( ! $tag_id )
+		if ( ! $tag_id ) {
 			return false;
+		}
 
 		if ( $for_real && is_super_admin() ) {
 
@@ -634,7 +644,7 @@ class Catalog {
 
 		$profile['users_id'] = $this->userId;
 		foreach ( $this->profileMetaKeys as $key => $type ) {
-			$profile[$key] = get_user_meta( $this->userId, $key, true );
+			$profile[ $key ] = get_user_meta( $this->userId, $key, true );
 		}
 
 		return $profile;
@@ -653,15 +663,17 @@ class Catalog {
 
 		foreach ( $item as $key => $val ) {
 
-			if ( 'pb_catalog_logo' == $key )
+			if ( 'pb_catalog_logo' == $key ) {
 				continue; // Skip, dev should use uploadLogo() instead
+			}
 
-			if ( 'pb_catalog_url' == $key && $val )
+			if ( 'pb_catalog_url' == $key && $val ) {
 				$val = \Pressbooks\Sanitize\canonicalize_url( $val );
+			}
 
-			if ( '%d' == $this->profileMetaKeys[$key] ) {
+			if ( '%d' == $this->profileMetaKeys[ $key ] ) {
 				$val = (int) $val;
-			} elseif ( '%f' == $this->profileMetaKeys[$key] ) {
+			} elseif ( '%f' == $this->profileMetaKeys[ $key ] ) {
 				$val = (float) $val;
 			} else {
 				$val = (string) $val;
@@ -677,8 +689,9 @@ class Catalog {
 	 */
 	function uploadLogo( $meta_key ) {
 
-		if ( @empty( $_FILES[$meta_key]['name'] ) )
+		if ( @empty( $_FILES[ $meta_key ]['name'] ) ) {
 			return; // Bail
+		}
 
 		$book = get_active_blog_for_user( $this->userId );
 		if ( ! current_user_can_for_blog( $book->blog_id, 'upload_files' ) ) {
@@ -689,7 +702,7 @@ class Catalog {
 
 		$allowed_file_types = array( 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' );
 		$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
-		$image = wp_handle_upload( $_FILES[$meta_key], $overrides );
+		$image = wp_handle_upload( $_FILES[ $meta_key ], $overrides );
 
 		if ( ! empty( $image['error'] ) ) {
 			restore_current_blog();
@@ -702,7 +715,8 @@ class Catalog {
 		// Delete old images
 		foreach ( $old as $old_url ) {
 			$old_id = \Pressbooks\Image\attachment_id_from_url( $old_url );
-			if ( $old_id ) wp_delete_attachment( $old_id, true );
+			if ( $old_id ) { wp_delete_attachment( $old_id, true );
+			}
 		}
 
 		// Insert new image, create thumbnails
@@ -831,7 +845,8 @@ class Catalog {
 			$val = mb_split( '\W', $val ); // Split on negated \w
 			$val = implode( ' ', $val ); // Put back together with spaces
 			$val = trim( $val );
-			if ( ! $val ) unset( $tags[$key] );
+			if ( ! $val ) { unset( $tags[ $key ] );
+			}
 		}
 
 		return $tags;
@@ -986,12 +1001,12 @@ class Catalog {
 	 */
 	static function isCurrentAction( $action ) {
 
-		if ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] )
+		if ( isset( $_REQUEST['action'] ) && - 1 != $_REQUEST['action'] ) {
 			$compare = $_REQUEST['action'];
-		else if ( isset( $_REQUEST['action2'] ) && - 1 != $_REQUEST['action2'] )
+		} else if ( isset( $_REQUEST['action2'] ) && - 1 != $_REQUEST['action2'] ) {
 			$compare = $_REQUEST['action2'];
-		else
-			return false;
+		} else { return false;
+		}
 
 		return ( $action == $compare );
 	}
@@ -1014,7 +1029,8 @@ class Catalog {
 
 			// Delete old images
 			$old_id = \Pressbooks\Image\attachment_id_from_url( $image_url );
-			if ( $old_id ) wp_delete_attachment( $old_id, true );
+			if ( $old_id ) { wp_delete_attachment( $old_id, true );
+			}
 
 			update_user_meta( $user_id, 'pb_catalog_logo', \Pressbooks\Image\default_cover_url() );
 
@@ -1060,7 +1076,7 @@ class Catalog {
 		// Make an educated guess as to who's catalog we are editing
 		list( $user_id, $_ ) = explode( ':', $books[0] );
 
-		if (  ! $user_id || ! current_user_can( 'edit_user', $user_id ) ) {
+		if ( ! $user_id || ! current_user_can( 'edit_user', $user_id ) ) {
 			wp_die( __( 'You do not have permission to do that.', 'pressbooks' ) );
 		}
 
@@ -1103,8 +1119,10 @@ class Catalog {
 		check_admin_referer( 'pb-user-catalog' );
 
 		list( $user_id, $blog_id ) = explode( ':', @$_REQUEST['ID'] );
-		if ( ! empty( $_REQUEST['user_id'] ) ) $user_id = $_REQUEST['user_id'];
-		if ( ! empty( $_REQUEST['blog_id'] ) ) $blog_id = $_REQUEST['blog_id'];
+		if ( ! empty( $_REQUEST['user_id'] ) ) { $user_id = $_REQUEST['user_id'];
+		}
+		if ( ! empty( $_REQUEST['blog_id'] ) ) { $blog_id = $_REQUEST['blog_id'];
+		}
 		$user_id = absint( $user_id );
 		$blog_id = absint( $blog_id );
 
@@ -1127,7 +1145,7 @@ class Catalog {
 		// Tags
 		for ( $i = 1; $i <= static::$maxTagsGroup; ++$i ) {
 			$catalog->deleteTags( $blog_id, $i );
-			$tags = ( isset( $_REQUEST["tags_$i"] ) ) ? $_REQUEST["tags_$i"] : array();
+			$tags = ( isset( $_REQUEST[ "tags_$i" ] ) ) ? $_REQUEST[ "tags_$i" ] : array();
 			foreach ( $tags as $tag ) {
 				$catalog->saveTag( $tag, $blog_id, $i );
 			}
@@ -1225,10 +1243,10 @@ class Catalog {
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
-//		if ( ! get_blog_option( $book_id, 'blog_public' ) ) {
-//			$_SESSION['pb_errors'][] = __( 'Book is not public', 'pressbooks' );
-//			\Pressbooks\Redirect\location( $redirect_url );
-//		}
+		//      if ( ! get_blog_option( $book_id, 'blog_public' ) ) {
+		//          $_SESSION['pb_errors'][] = __( 'Book is not public', 'pressbooks' );
+		//          \Pressbooks\Redirect\location( $redirect_url );
+		//      }
 
 		$catalog->saveBook( $book_id, array() );
 		$catalog->deleteCache();

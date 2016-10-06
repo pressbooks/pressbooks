@@ -74,8 +74,9 @@ function force_wrap_images( $content ) {
  */
 
 function force_attach_media( $params ) {
-   global $post_ID;
-   if ( isset( $post_ID ) )
-       $params['post_id'] = (int) $post_ID;
-   return $params;
+	global $post_ID;
+	if ( isset( $post_ID ) ) {
+		$params['post_id'] = (int) $post_ID;
+	}
+	return $params;
 }

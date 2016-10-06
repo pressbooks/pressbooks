@@ -26,7 +26,7 @@ class Activation {
 	 */
 	private $opts = array(
 		'show_on_front' => 'page',
-		'rewrite_rules' => ''
+		'rewrite_rules' => '',
 	);
 
 
@@ -80,8 +80,9 @@ class Activation {
 		if ( ! $this->isBookSetup() ) {
 			$this->wpmuActivate();
 			array_walk( $this->opts, function ( $v, $k ) {
-				if ( empty( $v ) ) delete_option( $k );
-				else update_option( $k, $v );
+				if ( empty( $v ) ) { delete_option( $k );
+				} else { update_option( $k, $v );
+				}
 			} );
 			wp_cache_flush();
 		}
@@ -113,10 +114,18 @@ class Activation {
 		$act = get_option( 'pb_activated' );
 		$pof = get_option( 'page_on_front' );
 		$pop = get_option( 'page_for_posts' );
-		if ( empty( $act ) ) return false;
-		if ( ( get_option( 'template' ) != 'pressbooks-book' ) || ( get_option( 'stylesheet' ) != 'pressbooks-book' ) ) return false;
-		if ( ( get_option( 'show_on_front' ) != 'page' ) || ( ( ! is_int( $pof ) ) || ( ! get_post( $pof ) ) ) || ( ( ! is_int( $pop ) ) || ( ! get_post( $pop ) ) ) ) return false;
-		if ( ( count( get_all_category_ids() ) < 3 ) || ( wp_count_posts()->publish < 3 ) || ( wp_count_posts( 'page' )->publish < 3 ) ) return false;
+		if ( empty( $act ) ) {
+			return false;
+		}
+		if ( ( get_option( 'template' ) != 'pressbooks-book' ) || ( get_option( 'stylesheet' ) != 'pressbooks-book' ) ) {
+			return false;
+		}
+		if ( ( get_option( 'show_on_front' ) != 'page' ) || ( ( ! is_int( $pof ) ) || ( ! get_post( $pof ) ) ) || ( ( ! is_int( $pop ) ) || ( ! get_post( $pop ) ) ) ) {
+			return false;
+		}
+		if ( ( count( get_all_category_ids() ) < 3 ) || ( wp_count_posts()->publish < 3 ) || ( wp_count_posts( 'page' )->publish < 3 ) ) {
+			return false;
+		}
 
 		return true;
 	}
@@ -142,67 +151,80 @@ class Activation {
 				'post_title' => __( 'Main Body', 'pressbooks' ),
 				'post_name' => 'main-body',
 				'post_type' => 'part',
-				'menu_order' => 1 ),
+				'menu_order' => 1,
+			),
 			array(
 				'post_title' => __( 'Introduction', 'pressbooks' ),
 				'post_name' => 'introduction',
 				'post_content' => __( 'This is where you can write your introduction.', 'pressbooks' ),
 				'post_type' => 'front-matter',
-				'menu_order' => 1 ),
+				'menu_order' => 1,
+			),
 			array(
 				'post_title' => __( 'Chapter 1', 'pressbooks' ),
 				'post_name' => 'chapter-1',
 				'post_content' => __( 'This is the first chapter in the main body of the text. You can change the text, rename the chapter, add new chapters, and add new parts.', 'pressbooks' ),
 				'post_type' => 'chapter',
-				'menu_order' => 1 ),
+				'menu_order' => 1,
+			),
 			array(
 				'post_title' => __( 'Appendix', 'pressbooks' ),
 				'post_name' => 'appendix',
 				'post_content' => __( 'This is where you can add appendices or other back matter.', 'pressbooks' ),
 				'post_type' => 'back-matter',
-				'menu_order' => 1 ),
+				'menu_order' => 1,
+			),
 			// Pages
 			array(
 				'post_title' => __( 'Authors', 'pressbooks' ),
 				'post_name' => 'authors',
-				'post_type' => 'page' ),
+				'post_type' => 'page',
+			),
 			array(
 				'post_title' => __( 'Cover', 'pressbooks' ),
 				'post_name' => 'cover',
-				'post_type' => 'page' ),
+				'post_type' => 'page',
+			),
 			array(
 				'post_title' => __( 'Table of Contents', 'pressbooks' ),
 				'post_name' => 'table-of-contents',
-				'post_type' => 'page' ),
+				'post_type' => 'page',
+			),
 			array(
 				'post_title' => __( 'About', 'pressbooks' ),
 				'post_name' => 'about',
-				'post_type' => 'page' ),
+				'post_type' => 'page',
+			),
 			array(
 				'post_title' => __( 'Buy', 'pressbooks' ),
 				'post_name' => 'buy',
-				'post_type' => 'page' ),
+				'post_type' => 'page',
+			),
 			array(
 				'post_title' => __( 'Access Denied', 'pressbooks' ),
 				'post_name' => 'access-denied',
 				'post_content' => __( 'This book is private, and accessible only to registered users. If you have an account you can login <a href="/wp-login.php">here</a>. You can also set up your own Pressbooks book at: <a href="http://pressbooks.com">Pressbooks.com</a>.', 'pressbooks' ),
-				'post_type' => 'page' ),
+				'post_type' => 'page',
+			),
 			// Custom CSS
 			array(
 				'post_title' => __( 'Custom CSS for Ebook', 'pressbooks' ),
 				'post_name' => 'epub',
-				'post_type' => 'custom-css' ),
+				'post_type' => 'custom-css',
+			),
 			array(
 				'post_title' => __( 'Custom CSS for PDF', 'pressbooks' ),
 				'post_name' => 'prince',
-				'post_type' => 'custom-css' ),
+				'post_type' => 'custom-css',
+			),
 			array(
 				'post_title' => __( 'Custom CSS for Web', 'pressbooks' ),
 				'post_name' => 'web',
-				'post_type' => 'custom-css' ),
+				'post_type' => 'custom-css',
+			),
 		);
 
-		$post = array( 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id, );
+		$post = array( 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id );
 		$page = array( 'post_status' => 'publish', 'comment_status' => 'closed', 'ping_status' => 'closed', 'post_content' => '<!-- Here be dragons.-->', 'post_author' => $this->user_id, 'tags_input' => __( 'Default Data', 'pressbooks' ) );
 
 		update_option( 'blogdescription', __( 'Simple Book Production', 'pressbooks' ) );
@@ -261,12 +283,15 @@ class Activation {
 		wp_set_object_terms( $chapter1, 'standard', 'chapter-type' );
 
 		// Remove content generated by wp_install_defaults
-		if ( ! wp_delete_post( 1, true ) )
+		if ( ! wp_delete_post( 1, true ) ) {
 			return;
-		if ( ! wp_delete_post( 2, true ) )
+		}
+		if ( ! wp_delete_post( 2, true ) ) {
 			return;
-		if ( ! wp_delete_comment( 1, true ) )
+		}
+		if ( ! wp_delete_comment( 1, true ) ) {
 			return;
+		}
 
 		$this->opts['pb_activated'] = time();
 		refresh_blog_details( $this->blog_id );

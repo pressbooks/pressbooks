@@ -326,16 +326,16 @@ function wplang_codes() {
 function get_dashboard_languages() {
 
 	$languages = array(
-		'en_US' =>	__( 'English (United States)', 'pressbooks' ),
-		'zh_TW' =>	__( 'Chinese (Taiwan)', 'pressbooks' ),
-		'et' =>		__( 'Estonian', 'pressbooks' ),
-		'fr_FR' =>	__( 'French (France)', 'pressbooks' ),
-		'de_DE' =>	__( 'German', 'pressbooks' ),
-		'it_IT' =>	__( 'Italian', 'pressbooks' ),
-		'ja' =>		__( 'Japanese', 'pressbooks' ),
-		'pt_BR' =>	__( 'Portuguese (Brazil)', 'pressbooks' ),
-		'es_ES' =>	__( 'Spanish', 'pressbooks' ),
-		'sv_SE' =>	__( 'Swedish', 'pressbooks' ),
+		'en_US' => __( 'English (United States)', 'pressbooks' ),
+		'zh_TW' => __( 'Chinese (Taiwan)', 'pressbooks' ),
+		'et' => __( 'Estonian', 'pressbooks' ),
+		'fr_FR' => __( 'French (France)', 'pressbooks' ),
+		'de_DE' => __( 'German', 'pressbooks' ),
+		'it_IT' => __( 'Italian', 'pressbooks' ),
+		'ja' => __( 'Japanese', 'pressbooks' ),
+		'pt_BR' => __( 'Portuguese (Brazil)', 'pressbooks' ),
+		'es_ES' => __( 'Spanish', 'pressbooks' ),
+		'sv_SE' => __( 'Swedish', 'pressbooks' ),
 	);
 
 	return $languages;
@@ -353,7 +353,7 @@ function get_locale() {
 	// Cheap cache
 	static $locale = null;
 
-	if ( empty ( $locale ) ) {
+	if ( empty( $locale ) ) {
 		$locale = \get_locale();
 	}
 
@@ -386,9 +386,9 @@ function override_core_strings( $translated, $original, $domain ) {
 
 	$overrides = include_core_overrides();
 
-	if ( isset( $overrides[$original] ) ) {
+	if ( isset( $overrides[ $original ] ) ) {
 		$translations = get_translations_for_domain( $domain );
-		$translated = $translations->translate( $overrides[$original] );
+		$translated = $translations->translate( $overrides[ $original ] );
 	}
 
 	return $translated;
@@ -408,16 +408,16 @@ function include_core_overrides() {
 	static $_overrides = array();
 
 	$locale = apply_filters( 'plugin_locale', get_locale(), 'pressbooks' );
-	$filename = PB_PLUGIN_DIR . "languages/core-" . $locale . ".php";
+	$filename = PB_PLUGIN_DIR . 'languages/core-' . $locale . '.php';
 
-	if ( ! isset( $_overrides[$locale] ) ) {
-		$_overrides[$locale] = array();
+	if ( ! isset( $_overrides[ $locale ] ) ) {
+		$_overrides[ $locale ] = array();
 		if ( file_exists( $filename ) ) {
-			$_overrides[$locale] = include( $filename );
+			$_overrides[ $locale ] = include( $filename );
 		}
 	}
 
-	return $_overrides[$locale];
+	return $_overrides[ $locale ];
 }
 
 
@@ -438,7 +438,6 @@ function set_locale( $lang ) {
 		if ( '__UNSET__' == $loc && function_exists( 'wp_get_current_user' ) ) {
 			$loc = get_user_option( 'user_interface_lang' );
 		}
-
 	} elseif ( @$GLOBALS['pagenow'] == 'wp-signup.php' ) {
 		// use global setting
 		$loc = get_site_option( 'WPLANG' );
@@ -446,9 +445,9 @@ function set_locale( $lang ) {
 		// go with the book info setting
 		$metadata = \Pressbooks\Book::getBookInformation();
 
-		if (  '__UNSET__' == $loc && !empty( $metadata['pb_language'] ) ) {
+		if (  '__UNSET__' == $loc && ! empty( $metadata['pb_language'] ) ) {
 			$locations = \Pressbooks\L10n\wplang_codes();
-			$loc = $locations[$metadata['pb_language']];
+			$loc = $locations[ $metadata['pb_language'] ];
 		}
 	}
 
@@ -483,7 +482,7 @@ function set_root_locale( $lang ) {
  */
 function set_user_interface_lang( $user_id ) {
 	$locale = get_site_option( 'WPLANG' );
-    if ( $locale ) {
+	if ( $locale ) {
 	    update_user_meta( $user_id, 'user_interface_lang', $locale );
 	}
 }
