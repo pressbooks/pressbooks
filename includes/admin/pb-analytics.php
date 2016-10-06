@@ -162,21 +162,22 @@ function analytics_ga_mu_site_specific_allowed_sanitize( $input ) {
 /**
  * Display Analytics settings (network)
  */
-function display_network_analytics_settings() { ?>
+function display_network_analytics_settings() {
+	?>
 	<div class="wrap">
 		<h2><?php _e( 'Google Analytics', 'pressbooks' ); ?></h2>
 		<?php $nonce = ( @$_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
-		if ( !empty( $_POST ) ) {
-			if ( !wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
+		if ( ! empty( $_POST ) ) {
+			if ( ! wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
 			    die( 'Security check' );
 			} else {
-				if ( @$_REQUEST['ga_mu_uaid' ] ) {
-					update_option( 'ga_mu_uaid', $_REQUEST['ga_mu_uaid' ] );
+				if ( @$_REQUEST['ga_mu_uaid'] ) {
+					update_option( 'ga_mu_uaid', $_REQUEST['ga_mu_uaid'] );
 				} else {
 					delete_option( 'ga_mu_uaid' );
 				}
-				if ( @$_REQUEST['ga_mu_site_specific_allowed' ] ) {
-					update_option( 'ga_mu_site_specific_allowed', $_REQUEST['ga_mu_site_specific_allowed' ] );
+				if ( @$_REQUEST['ga_mu_site_specific_allowed'] ) {
+					update_option( 'ga_mu_site_specific_allowed', $_REQUEST['ga_mu_site_specific_allowed'] );
 				} else {
 					delete_option( 'ga_mu_site_specific_allowed' );
 				} ?>
@@ -194,7 +195,8 @@ function display_network_analytics_settings() { ?>
 /**
  * Display Analytics settings (book)
  */
-function display_analytics_settings() { ?>
+function display_analytics_settings() {
+	?>
 	<div class="wrap">
 		<h2><?php _e( 'Google Analytics', 'pressbooks' ); ?></h2>
 		<form method="POST" action="options.php">
@@ -222,10 +224,10 @@ function print_admin_analytics() {
 	$network = false;
 	$book = false;
 
-	if ( isset( $ga_mu_uaid_network ) && $ga_mu_uaid_network !== '' && $ga_mu_uaid_network !== '0') {
+	if ( isset( $ga_mu_uaid_network ) && $ga_mu_uaid_network !== '' && $ga_mu_uaid_network !== '0' ) {
 		$network = true;
 	}
-	if ( isset( $ga_mu_uaid ) && $ga_mu_uaid !== '' && $ga_mu_uaid !== '0') {
+	if ( isset( $ga_mu_uaid ) && $ga_mu_uaid !== '' && $ga_mu_uaid !== '0' ) {
 		$book = true;
 	}
 
@@ -235,19 +237,19 @@ function print_admin_analytics() {
 		}
 	}
 
-	if ( $book == true && ( !isset( $ga_mu_site_specific_allowed ) || $ga_mu_site_specific_allowed == '' || $ga_mu_site_specific_allowed == '0' ) ) {
+	if ( $book == true && ( ! isset( $ga_mu_site_specific_allowed ) || $ga_mu_site_specific_allowed == '' || $ga_mu_site_specific_allowed == '0' ) ) {
 		$book = false;
 	}
 
 	if ( $network || $book ) {
 		$html = "<!-- Google Analytics -->\n<script>\n(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n";
 		if ( $network ) {
-			$html .= "ga('create', '". $ga_mu_uaid_network . "', 'auto');\n";
+			$html .= "ga('create', '" . $ga_mu_uaid_network . "', 'auto');\n";
 			$html .= "ga('send', 'pageview');\n";
 		}
 		$html .= apply_filters( 'pb_ecommerce_tracking', '' );
 		if ( $book ) {
-			$html .= "ga('create', '". $ga_mu_uaid . "', 'auto', 'bookTracker');";
+			$html .= "ga('create', '" . $ga_mu_uaid . "', 'auto', 'bookTracker');";
 			$html .= "ga('bookTracker.send', 'pageview');";
 		}
 		$html .= "</script>\n<!-- End Google Analytics -->";

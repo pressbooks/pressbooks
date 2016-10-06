@@ -24,7 +24,7 @@ function custom_color_scheme() {
  * returns a string containing a style tag comparable to the one below.
  */
 function custom_login_logo() {
- $html = '<style type="text/css">
+	$html = '<style type="text/css">
 	.login h1 a {
   	background-image: url(' . \Pressbooks\Utility\asset_path( 'images/PB-logo.svg' ) . ');
   	background-size: 276px 40px;
@@ -45,12 +45,12 @@ function custom_login_logo() {
  * Changing the login page URL
  */
 function login_url() {
-    return home_url(); // changes the url link from wordpress.org to your blog or website's url
+	return home_url(); // changes the url link from wordpress.org to your blog or website's url
 }
 
 /**
  * Changing the login page URL hover text
  */
 function login_title() {
-    return get_bloginfo( 'title' ); // changing the title from "Powered by WordPress" to whatever you wish
+	return get_bloginfo( 'title' ); // changing the title from "Powered by WordPress" to whatever you wish
 }

@@ -15,26 +15,26 @@ class ExportOptions extends \Pressbooks\Options {
 	static $currentVersion = 1;
 
 	/**
-   * Export options.
-   *
-   * @var array
-   */
+	* Export options.
+	*
+	* @var array
+	*/
 	public $options;
 
 	/**
-   * Export defaults.
-   *
-   * @var array
-   */
+	* Export defaults.
+	*
+	* @var array
+	*/
 	public $defaults;
 
 	/**
-   * Constructor.
-   *
-   * @param array $options
-   */
-	function __construct(array $options) {
- 		$this->options = $options;
+	* Constructor.
+	*
+	* @param array $options
+	*/
+	function __construct( array $options ) {
+			$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 		$this->strings = $this->getStringOptions();
@@ -42,12 +42,12 @@ class ExportOptions extends \Pressbooks\Options {
 		$this->floats = $this->getFloatOptions();
 		$this->predefined = $this->getPredefinedOptions();
 
- 		foreach ( $this->defaults as $key => $value ) {
- 			if ( !isset ( $this->options[ $key ] ) ) {
- 				$this->options[ $key ] = $value;
- 			}
- 		}
- 	}
+		foreach ( $this->defaults as $key => $value ) {
+			if ( ! isset( $this->options[ $key ] ) ) {
+				$this->options[ $key ] = $value;
+			}
+		}
+	}
 
 	/**
 	 * Configure the export options page using the settings API.
@@ -71,7 +71,7 @@ class ExportOptions extends \Pressbooks\Options {
 			$_section,
 			array(
 				'0' => __( 'No. Ignore validation errors.', 'pressbooks' ),
-				'1' => __( 'Yes.', 'pressbooks' ) . ' ' . __( 'Email me validation error logs on export.', 'pressbooks' )
+				'1' => __( 'Yes.', 'pressbooks' ) . ' ' . __( 'Email me validation error logs on export.', 'pressbooks' ),
 			)
 		);
 
@@ -89,7 +89,8 @@ class ExportOptions extends \Pressbooks\Options {
 		echo '<p>' . __( 'Export settings.', 'pressbooks' ) . '</p>';
 	}
 
-	function render() { ?>
+	function render() {
+	?>
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
 			<form method="post" action="options.php">
@@ -110,7 +111,7 @@ class ExportOptions extends \Pressbooks\Options {
 		$_option = $this->getSlug();
 		$options = array();
 
-		$email_validation_logs = get_option('pressbooks_email_validation_logs', 0);
+		$email_validation_logs = get_option( 'pressbooks_email_validation_logs', 0 );
 
 		$options['email_validation_logs'] = $email_validation_logs;
 
@@ -123,7 +124,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderEmailValidationLogsField( $args ) {
-		$this->renderRadioButtons( 'email_validation_logs', $this->getSlug(), 'email_validation_logs', @$this->options['email_validation_logs'], $args);
+		$this->renderRadioButtons( 'email_validation_logs', $this->getSlug(), 'email_validation_logs', @$this->options['email_validation_logs'], $args );
 	}
 
 	/**
@@ -132,17 +133,17 @@ class ExportOptions extends \Pressbooks\Options {
 	 * @return string $slug
 	 */
 	static function getSlug() {
-  	return 'pressbooks_export_options';
-  }
+		return 'pressbooks_export_options';
+	}
 
 	/**
 	 * Get the localized title of the export options page.
 	 *
 	 * @return string $title
 	 */
-  static function getTitle() {
-  	return __('Export Settings', 'pressbooks');
-  }
+	static function getTitle() {
+		return __( 'Export Settings', 'pressbooks' );
+	}
 
 	/**
 	 * Get an array of default values for the export options page.

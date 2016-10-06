@@ -55,7 +55,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			return $this->renderTagColumn( $item, $column_name );
 		}
 
-		return esc_html( $item[$column_name] );
+		return esc_html( $item[ $column_name ] );
 	}
 
 
@@ -70,12 +70,13 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		// Build row actions
 		$actions = array(
-			'visit' => sprintf( '<a href="%s">%s</a>', get_site_url( $blog_id ), __( 'Visit Book' ) )
+			'visit' => sprintf( '<a href="%s">%s</a>', get_site_url( $blog_id ), __( 'Visit Book' ) ),
 		);
-		
+
 		// Only include admin link if user has admin rights to the book in question
-		if ( is_super_admin( $user_id ) || is_user_member_of_blog( $user_id, $blog_id ) )
+		if ( is_super_admin( $user_id ) || is_user_member_of_blog( $user_id, $blog_id ) ) {
 			$actions['dashboard'] = sprintf( '<a href="%s">%s</a>', get_admin_url( $blog_id ), __( 'Visit Admin', 'pressbooks' ) );
+		}
 
 		// Return the title contents
 		return sprintf( '<span class="title">%1$s</span> %2$s',
@@ -180,7 +181,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		);
 
 		for ( $i = 1; $i <= Catalog::$maxTagsGroup; ++$i ) {
-			$columns["tag_{$i}"] = ! empty( $profile["pb_catalog_tag_{$i}_name"] ) ? $profile["pb_catalog_tag_{$i}_name"] : __( 'Tag', 'pressbooks' ) . " $i";
+			$columns[ "tag_{$i}" ] = ! empty( $profile[ "pb_catalog_tag_{$i}_name" ] ) ? $profile[ "pb_catalog_tag_{$i}_name" ] : __( 'Tag', 'pressbooks' ) . " $i";
 		}
 
 		$columns['featured'] = __( 'Featured', 'pressbooks' );
@@ -244,7 +245,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		$valid_cols = $this->get_sortable_columns();
 
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc'; // If no order, default to asc
-		if ( isset( $_REQUEST['orderby'] ) && isset( $valid_cols[$_REQUEST['orderby']] ) ) {
+		if ( isset( $_REQUEST['orderby'] ) && isset( $valid_cols[ $_REQUEST['orderby'] ] ) ) {
 			$data = \Pressbooks\Utility\multi_sort( $data, "{$_REQUEST['orderby']}:$order" );
 		} else {
 			$data = \Pressbooks\Utility\multi_sort( $data, 'status:desc', 'title:asc' ); // Default
@@ -261,7 +262,6 @@ class Catalog_List_Table extends \WP_List_Table {
 		 */
 		$data = array_slice( $data, ( ( $current_page - 1 ) * $per_page ), $per_page );
 
-
 		/* REQUIRED. Now we can add our *sorted* data to the items property, where
 		 * it can be used by the rest of the class.
 		 */
@@ -272,7 +272,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		$args = array(
 			'total_items' => $total_items, // WE have to calculate the total number of items
 			'per_page' => $per_page, // WE have to determine how many items to show on a page
-			'total_pages' => ceil( $total_items / $per_page ) // WE have to calculate the total number of pages
+			'total_pages' => ceil( $total_items / $per_page ),// WE have to calculate the total number of pages
 		);
 		$this->set_pagination_args( $args );
 
@@ -286,14 +286,17 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	function print_column_headers( $with_id = true ) {
 
-		if ( empty( $_GET['s'] ) && ! empty( $_POST['s'] ) )
+		if ( empty( $_GET['s'] ) && ! empty( $_POST['s'] ) ) {
 			$_SERVER['REQUEST_URI'] = esc_url( add_query_arg( 's', $_POST['s'] ) );
+		}
 
-		if ( empty( $_GET['orderby'] ) && ! empty( $_POST['orderby'] ) )
+		if ( empty( $_GET['orderby'] ) && ! empty( $_POST['orderby'] ) ) {
 			$_GET['orderby'] = $_POST['orderby'];
+		}
 
-		if ( empty( $_GET['order'] ) && ! empty( $_POST['order'] ) )
+		if ( empty( $_GET['order'] ) && ! empty( $_POST['order'] ) ) {
 			$_GET['order'] = $_POST['order'];
+		}
 
 		parent::print_column_headers( $with_id );
 	}
@@ -324,9 +327,10 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	protected function renderTagColumn( $item, $column_name ) {
 
-		$html = Catalog::tagsToString( $item[$column_name] );
+		$html = Catalog::tagsToString( $item[ $column_name ] );
 
-		if ( ! $html ) $html = '<span style="color:silver">n/a</span>';
+		if ( ! $html ) { $html = '<span style="color:silver">n/a</span>';
+		}
 
 		// Build row actions
 		$actions = array(
@@ -369,9 +373,9 @@ class Catalog_List_Table extends \WP_List_Table {
 		$data = $catalog_obj->getAggregate();
 
 		foreach ( $data as $key => $val ) {
-			$data[$key]['status'] = ( 1 == $val['deleted'] ) ? 0 : 1;
-			$data[$key]['privacy'] = ( 1 == $val['private'] ? __( 'Private', 'pressbooks' ) : __( 'Public', 'pressbooks' ) );
-			$data[$key]['cover'] = $val['cover_url']['pb_cover_small'];
+			$data[ $key ]['status'] = ( 1 == $val['deleted'] ) ? 0 : 1;
+			$data[ $key ]['privacy'] = ( 1 == $val['private'] ? __( 'Private', 'pressbooks' ) : __( 'Public', 'pressbooks' ) );
+			$data[ $key ]['cover'] = $val['cover_url']['pb_cover_small'];
 		}
 
 		return $this->searchFilter( $data );
@@ -416,8 +420,9 @@ class Catalog_List_Table extends \WP_List_Table {
 		foreach ( $data as $key => $val ) {
 			if ( is_array( $val ) ) {
 				$found = $this->atLeastOneKeyword( $keyword, $val );
-				if ( $found ) return true;
-				else continue;
+				if ( $found ) { return true;
+				} else { continue;
+				}
 			} elseif ( false !== stripos( $val, $keyword ) ) {
 				return true;
 			}
@@ -436,8 +441,9 @@ class Catalog_List_Table extends \WP_List_Table {
 		$view_url = static::viewCatalogUrl(); // Verifies $_REQUEST['user_id']
 
 		$edit_url = $url . '&action=edit_profile';
-		if ( isset( $_REQUEST['user_id'] ) )
+		if ( isset( $_REQUEST['user_id'] ) ) {
 			$edit_url .= '&user_id=' . $_REQUEST['user_id'];
+		}
 
 		$list_table = new static();
 		$list_table->prepare_items();
@@ -446,7 +452,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			<div class="postbox">
 				<div class="inside">
 					<h4><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h4>
-					<h5><span data-icon="a" class="show-hide-icon"></span><?php _e('Show/Hide books', 'pressbooks'); ?></h5>
+					<h5><span data-icon="a" class="show-hide-icon"></span><?php _e( 'Show/Hide books', 'pressbooks' ); ?></h5>
 					<p><?php _e( sprintf( 'To display a book in your catalog choose "%s" under Catalog Status. ', '<strong>' . __( 'Show in Catalog', 'pressbooks' ) . '</strong>' ), 'pressbooks' ); ?><br>
 					<?php _e( sprintf( 'To hide a book in your catalog choose "%s" under Catalog Status.', '<strong>' . __( 'Hide in Catalog', 'pressbooks' ) . '</strong>' ), 'pressbooks' ); ?></p>
 
@@ -498,17 +504,21 @@ class Catalog_List_Table extends \WP_List_Table {
 	 */
 	static function addSearchParamsToUrl( $url ) {
 
-		if ( ! empty( $_REQUEST['s'] ) )
+		if ( ! empty( $_REQUEST['s'] ) ) {
 			$url = esc_url( add_query_arg( 's', $_REQUEST['s'], $url ) );
+		}
 
-		if ( ! empty( $_REQUEST['orderby'] ) )
+		if ( ! empty( $_REQUEST['orderby'] ) ) {
 			$url = esc_url( add_query_arg( 'orderby', $_REQUEST['orderby'], $url ) );
+		}
 
-		if ( ! empty( $_REQUEST['order'] ) )
+		if ( ! empty( $_REQUEST['order'] ) ) {
 			$url = esc_url( add_query_arg( 'order', $_REQUEST['order'], $url ) );
+		}
 
-		if ( ! empty( $_REQUEST['paged'] ) )
+		if ( ! empty( $_REQUEST['paged'] ) ) {
 			$url = esc_url( add_query_arg( 'paged', $_REQUEST['paged'], $url ) );
+		}
 
 		return $url;
 	}
@@ -523,12 +533,14 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		if ( isset( $_REQUEST['user_id'] ) ) {
 
-			if ( false == current_user_can( 'edit_user', (int) $_REQUEST['user_id'] ) )
+			if ( false == current_user_can( 'edit_user', (int) $_REQUEST['user_id'] ) ) {
 				wp_die( __( 'You do not have permission to do that.' ) );
+			}
 
 			$u = get_userdata( (int) $_REQUEST['user_id'] );
-			if ( false == $u )
+			if ( false == $u ) {
 				wp_die( __( 'The requested user does not exist.' ) );
+			}
 
 			$user_login = get_userdata( (int) $_REQUEST['user_id'] )->user_login;
 		} else {

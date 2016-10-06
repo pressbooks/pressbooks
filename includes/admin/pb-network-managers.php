@@ -26,7 +26,7 @@ function add_menu() {
  */
 function admin_enqueues() {
 	wp_enqueue_style( 'pb-network-managers', \Pressbooks\Utility\asset_path( 'styles/network-managers.css' ) );
-	wp_enqueue_script( 'pb-network-managers', \Pressbooks\Utility\asset_path( 'scripts/network-managers.js' ), ['jquery'] );
+	wp_enqueue_script( 'pb-network-managers', \Pressbooks\Utility\asset_path( 'scripts/network-managers.js' ), [ 'jquery' ] );
 	wp_localize_script( 'pb-network-managers', 'PB_NetworkManagerToken', array(
 		'networkManagerNonce' => wp_create_nonce( 'pb-network-managers' ),
 	) );
@@ -42,8 +42,7 @@ function update_admin_status() {
 		$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
 		if ( $restricted ) {
 			$restricted = maybe_unserialize( $restricted[0]->meta_value );
-		}
-		else {
+		} else {
 			$restricted = array();
 		}
 
@@ -53,17 +52,15 @@ function update_admin_status() {
 			if ( ! in_array( $id, $restricted ) ) {
 				$restricted[] = $id;
 			}
-		}
-		elseif ( 0 === absint( $_POST['status'] ) ) {
+		} elseif ( 0 === absint( $_POST['status'] ) ) {
 			if ( ( $key = array_search( $id, $restricted ) ) !== false ) {
-				unset( $restricted[$key] );
+				unset( $restricted[ $key ] );
 			}
 		}
 
 		if ( is_array( $restricted ) && ! empty( $restricted ) ) {
 			update_site_option( 'pressbooks_network_managers', $restricted );
-		}
-		else {
+		} else {
 			delete_site_option( 'pressbooks_network_managers' );
 		}
 	}
@@ -104,8 +101,7 @@ function is_restricted() {
 	$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
 	if ( $restricted ) {
 		$restricted = maybe_unserialize( $restricted[0]->meta_value );
-	}
-	else {
+	} else {
 		$restricted = array();
 	}
 
@@ -133,7 +129,7 @@ function admin_body_class( $classes ) {
 		$classes .= ' network-admin-restricted';
 	}
 
-    return $classes;
+	return $classes;
 }
 
 /**
@@ -150,12 +146,12 @@ function hide_menus() {
  */
 function hide_network_menus() {
 	if ( is_restricted() ) {
-		remove_menu_page( "themes.php" );
-		remove_menu_page( "plugins.php" );
-		remove_menu_page( "settings.php" );
-		remove_submenu_page( "index.php", "update-core.php" );
-		remove_submenu_page( "index.php", "upgrade.php" );
-		remove_menu_page( "admin.php?page=pb_stats" );
+		remove_menu_page( 'themes.php' );
+		remove_menu_page( 'plugins.php' );
+		remove_menu_page( 'settings.php' );
+		remove_submenu_page( 'index.php', 'update-core.php' );
+		remove_submenu_page( 'index.php', 'upgrade.php' );
+		remove_menu_page( 'admin.php?page=pb_stats' );
 		remove_action( 'network_admin_notices', 'update_nag', 3 );
 		remove_action( 'network_admin_notices', 'site_admin_notice' );
 	}
@@ -172,8 +168,7 @@ function restrict_access() {
 	$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
 	if ( $restricted ) {
 		$restricted = maybe_unserialize( $restricted[0]->meta_value );
-	}
-	else {
+	} else {
 		$restricted = array();
 	}
 
