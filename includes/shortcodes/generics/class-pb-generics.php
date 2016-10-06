@@ -24,25 +24,25 @@ class Generics {
 		'em' 			=> 'em',
 		'italics' 		=> 'em',
 		'strong'		=> 'strong',
-		'textbox'		=> array('div', 'textbox'),
+		'textbox'		=> array( 'div', 'textbox' ),
 	);
 
 	function __construct() {}
 
 	function shortcodeHandler( $atts, $content = '', $shortcode ) {
-		$tag = $this->shortcodes[$shortcode];
+		$tag = $this->shortcodes[ $shortcode ];
 
 		if ( ! $content ) { return ''; }
 		$class = '';
-		if ( is_array( $tag )  || ( is_array( $atts ) && array_key_exists('class', $atts) ) ) {
+		if ( is_array( $tag )  || ( is_array( $atts ) && array_key_exists( 'class', $atts ) ) ) {
 								$classnames = array();
-								if( is_array( $tag ) ) {
-										$classnames[] = $tag[1];
-										$tag = $tag[0];
-								}
-								if( is_array( $atts ) && array_key_exists('class', $atts) ) {
-										$classnames[] = $atts['class'];
-								}
+			if ( is_array( $tag ) ) {
+				$classnames[] = $tag[1];
+				$tag = $tag[0];
+			}
+			if ( is_array( $atts ) && array_key_exists( 'class', $atts ) ) {
+				$classnames[] = $atts['class'];
+			}
 			$class = ' class="' . implode( ' ', $classnames ) . '"';
 		}
 		$content = wpautop( trim( $content ) );
@@ -53,8 +53,9 @@ class Generics {
 	 * Adds shortcodes based on $self->generics.
 	 */
 	static function getInstance() {
-		if ( ! self::$instance )
+		if ( ! self::$instance ) {
 			self::$instance = new self;
+		}
 
 		foreach ( self::$instance->shortcodes as $shortcode => $tag ) {
 			add_shortcode( $shortcode, array( self::$instance, 'shortcodeHandler' ) );
