@@ -1,7 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 $user_catalog_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' ), 'pb-user-catalog' );
 
@@ -23,7 +24,8 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 	$profile = $catalog->getProfile();
 
 	?>
-	<h2><?php _e( 'Tags For', 'pressbooks' ); echo ' ' . get_blog_option( $blog_id, 'blogname' ); ?></h2>
+	<h2><?php _e( 'Tags For', 'pressbooks' );
+	echo ' ' . get_blog_option( $blog_id, 'blogname' ); ?></h2>
 
 	<form method="post" action="<?php echo $user_catalog_form_url; ?>" >
 		<input type="hidden" name="action" value="edit_tags" />
@@ -45,7 +47,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 			<!-- Tags -->
 			<?php for ( $i = 1; $i <= $catalog::$maxTagsGroup; ++$i ) { ?>
 				<?php
-				$name = ! empty( $profile["pb_catalog_tag_{$i}_name"] ) ? $profile["pb_catalog_tag_{$i}_name"] : __( 'Tags', 'pressbooks' ) . " $i";
+				$name = ! empty( $profile[ "pb_catalog_tag_{$i}_name" ] ) ? $profile[ "pb_catalog_tag_{$i}_name" ] : __( 'Tags', 'pressbooks' ) . " $i";
 				?>
 				<tr>
 
@@ -54,7 +56,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 					<td>
 						<select id="tags_<?php echo $i; ?>" name="tags_<?php echo $i; ?>[]" multiple style="width: 75%">
 							<?php $tags = $catalog->getTagsByBook( $blog_id, $i );
-							foreach( $catalog->getTags( $i ) as $tag ) {
+							foreach ( $catalog->getTags( $i ) as $tag ) {
 								$selected = ( in_array( $tag, $tags ) ) ? ' selected' : '';
 								echo '<option value="' . $tag['tag'] . '"' . $selected . '>' . $tag['tag'] . '</option>';
 							} ?>
@@ -77,7 +79,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 	</script>
 <?php
 
-else:
+else :
 
 	// TODO: Move logic out of the template
 
@@ -105,7 +107,7 @@ else:
 				<tr>
 					<th><label for="pb_catalog_tag_<?php echo $i; ?>_name"><?php echo $name; ?></label></th>
 					<td>
-						<input type="text" name="pb_catalog_tag_<?php echo $i; ?>_name" id="pb_catalog_tag_<?php echo $i; ?>_name" value="<?php echo esc_attr( $p["pb_catalog_tag_{$i}_name"] ) ?>" class="regular-text" />
+						<input type="text" name="pb_catalog_tag_<?php echo $i; ?>_name" id="pb_catalog_tag_<?php echo $i; ?>_name" value="<?php echo esc_attr( $p[ "pb_catalog_tag_{$i}_name" ] ) ?>" class="regular-text" />
 					</td>
 				</tr>
 			<?php } ?>

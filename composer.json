@@ -133,7 +133,9 @@
   },
   "scripts": {
     "test": [
-      "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml"
+      "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml",
+      "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+      "vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
     ]
   }
 }
