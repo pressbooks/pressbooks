@@ -482,9 +482,8 @@ class BooksApi extends Api {
 
 		if ( false === $transient ) {
 			global $wpdb;
-			$table_name = $wpdb->prefix . 'blogs';
 
-			$result = $wpdb->get_col( $wpdb->prepare( "SELECT blog_id FROM $table_name WHERE public = %d", '1' ) );
+			$result = $wpdb->get_col( $wpdb->prepare( 'SELECT blog_id FROM %s WHERE public = %d', $wpdb->prefix . 'blogs', '1' ) );
 
 			// blog id = 1 is not a book
 			if ( ! empty( $result ) && 1 == $result[0] ) {

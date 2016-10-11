@@ -411,7 +411,7 @@ class Glyphs {
 			"''" => '&rsquo;',
 		);
 
-		$r = ( $lang == 'grc' ) ? str_replace( array_keys( $polytonics ), array_values( $polytonics ), $text ) : str_replace( array_keys( $monotonics ), array_values( $monotonics ), $text );
+		$r = ( 'grc' == $lang ) ? str_replace( array_keys( $polytonics ), array_values( $polytonics ), $text ) : str_replace( array_keys( $monotonics ), array_values( $monotonics ), $text );
 
 		return str_replace( array_keys( $gr_alphabet ), array_values( $gr_alphabet ), $r );
 	}

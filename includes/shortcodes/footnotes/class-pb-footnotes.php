@@ -84,7 +84,7 @@ class Footnotes {
 
 		if ( ! isset( $this->footnotes[ $id ] ) ) {
 			$this->footnotes[ $id ] = array();
-			if ( $a['numbered'] == 'no' ) {
+			if ( 'no' == $a['numbered'] ) {
 				$this->numbered[ $id ] = false;
 			} else {
 				$this->numbered[ $id ] = true;
