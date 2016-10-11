@@ -85,7 +85,9 @@ function display_custom_css() {
  */
 function load_custom_css_template( $vars ) {
 
+	// @codingStandardsIgnoreStart
 	extract( $vars );
+	// @codingStandardsIgnoreEnd
 	require( PB_PLUGIN_DIR . 'templates/admin/custom-css.php' );
 }
 
@@ -154,9 +156,13 @@ function render_dropdown_for_slugs( $custom_css, $slug ) {
 	$html .= '<select id="' . $select_id . '" name="' . $select_name . '">';
 	foreach ( $custom_css->supported as $key => $val ) {
 		$html .= '<option value="' . $key . '"';
-		if ( $key == $slug ) { $html .= ' selected="selected"';
+		if ( $key == $slug ) {
+			$html .= ' selected="selected"';
 		}
-		$html .= '>' . __( $val, 'pressbooks' ) . '</option>';
+		if ( 'Web' == $val ) {
+			$val = __( 'Web', 'pressbooks' );
+		}
+		$html .= '>' . $val . '</option>';
 	}
 	$html .= '</select>';
 

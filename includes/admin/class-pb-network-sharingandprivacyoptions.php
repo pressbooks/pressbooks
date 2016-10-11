@@ -117,9 +117,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	function upgrade( $version ) {
-		if ( $version < 1 ) {
-			// Nothing doing.
-		}
+		// Nothing doing.
 	}
 
 	/**

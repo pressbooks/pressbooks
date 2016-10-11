@@ -19,10 +19,10 @@ function replace_network_dashboard_widgets() {
 	$options = array_map( 'stripslashes_deep', get_site_option( 'pressbooks_dashboard_feed', [
 		'display_feed' => 1,
 		'url' => 'https://pressbooks.com/feed/',
-		'title' => 'Pressbooks News',
+		'title' => __( 'Pressbooks News', 'pressbooks' ),
 	] ) );
-	if ( $options['display_feed'] == 1 ) {
-		add_meta_box( 'pb_dashboard_widget_blog', __( $options['title'], 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
+	if ( 1 == $options['display_feed'] ) {
+		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard-network', 'side', 'low' );
 	}
 }
 
@@ -42,10 +42,10 @@ function replace_root_dashboard_widgets() {
 	$options = array_map( 'stripslashes_deep', get_site_option( 'pressbooks_dashboard_feed', [
 		'display_feed' => 1,
 		'url' => 'https://pressbooks.com/feed/',
-		'title' => 'Pressbooks News',
+		'title' => __( 'Pressbooks News', 'pressbooks' ),
 	] ) );
-	if ( $options['display_feed'] == 1 ) {
-		add_meta_box( 'pb_dashboard_widget_blog', __( $options['title'], 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
+	if ( 1 == $options['display_feed'] ) {
+		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 	}
 }
 
@@ -73,10 +73,10 @@ function replace_dashboard_widgets() {
 	$options = array_map( 'stripslashes_deep', get_site_option( 'pressbooks_dashboard_feed', [
 		'display_feed' => 1,
 		'url' => 'https://pressbooks.com/feed/',
-		'title' => 'Pressbooks News',
+		'title' => __( 'Pressbooks News', 'pressbooks' ),
 	] ) );
-	if ( $options['display_feed'] == 1 ) {
-		add_meta_box( 'pb_dashboard_widget_blog', __( $options['title'], 'pressbooks' ), __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
+	if ( 1 == $options['display_feed'] ) {
+		add_meta_box( 'pb_dashboard_widget_blog', $options['title'], __NAMESPACE__ . '\display_pressbooks_blog', 'dashboard', 'side', 'low' );
 	}
 
 }
@@ -152,8 +152,7 @@ function display_users_widget() {
 	/** @var $wpdb \wpdb */
 	global $wpdb;
 
-	$sql = "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = %s ";
-	$users = $wpdb->get_results( $wpdb->prepare( $sql, $wpdb->get_blog_prefix( get_current_blog_id() ) . 'capabilities' ) );
+	$users = $wpdb->get_results( $wpdb->prepare( "SELECT user_id, meta_value FROM {$wpdb->usermeta} WHERE meta_key = %s ", $wpdb->get_blog_prefix( get_current_blog_id() ) . 'capabilities' ) );
 
 	echo '<table>';
 	foreach ( $users as $user ) {

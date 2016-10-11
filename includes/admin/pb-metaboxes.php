@@ -135,7 +135,7 @@ function upload_cover_image( $pid, $post ) {
  */
 function add_metadata_styles( $hook ) {
 
-	if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+	if ( 'post-new.php' == $hook || 'post.php' == $hook ) {
 		$post_type = get_post_type();
 		if ( 'metadata' == $post_type ) {
 			wp_enqueue_style( 'metadata', \Pressbooks\Utility\asset_path( 'styles/metadata.css' ) );
@@ -652,7 +652,7 @@ function delete_cover_image() {
  * @param \WP_Post $post
  */
 function part_save_box( $post ) {
-	if ( $post->post_status == 'publish' ) { ?>
+	if ( 'publish' == $post->post_status ) { ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="Update" />
 		<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="Save" />
 	<?php } else { ?>
@@ -668,7 +668,7 @@ function part_save_box( $post ) {
  * @param \WP_Post $post
  */
 function metadata_save_box( $post ) {
-	if ( $post->post_status == 'publish' ) { ?>
+	if ( 'publish' == $post->post_status ) { ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="Update" />
 		<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="Save" />
 	<?php } else { ?>

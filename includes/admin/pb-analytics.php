@@ -224,10 +224,10 @@ function print_admin_analytics() {
 	$network = false;
 	$book = false;
 
-	if ( isset( $ga_mu_uaid_network ) && $ga_mu_uaid_network !== '' && $ga_mu_uaid_network !== '0' ) {
+	if ( isset( $ga_mu_uaid_network ) && '' !== $ga_mu_uaid_network && '0' !== $ga_mu_uaid_network ) {
 		$network = true;
 	}
-	if ( isset( $ga_mu_uaid ) && $ga_mu_uaid !== '' && $ga_mu_uaid !== '0' ) {
+	if ( isset( $ga_mu_uaid ) && '' !== $ga_mu_uaid && '0' !== $ga_mu_uaid ) {
 		$book = true;
 	}
 
@@ -237,7 +237,7 @@ function print_admin_analytics() {
 		}
 	}
 
-	if ( $book == true && ( ! isset( $ga_mu_site_specific_allowed ) || $ga_mu_site_specific_allowed == '' || $ga_mu_site_specific_allowed == '0' ) ) {
+	if ( true == $book && ( ! isset( $ga_mu_site_specific_allowed ) || '' == $ga_mu_site_specific_allowed || '0' == $ga_mu_site_specific_allowed ) ) {
 		$book = false;
 	}
 

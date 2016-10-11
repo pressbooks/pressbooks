@@ -13,7 +13,9 @@ namespace Pressbooks\Admin\Branding;
  * that returns a string containing a link tag for your own admin color scheme.
  */
 function custom_color_scheme() {
+	// @codingStandardsIgnoreStart
 	$html = '<link rel="stylesheet" type="text/css" href="' . \Pressbooks\Utility\asset_path( 'styles/colors-pb.css' ) . '" media="screen" />';
+	// @codingStandardsIgnoreEnd
 	$html = apply_filters( 'pressbooks_login_color_scheme', $html );
 	echo $html;
 }

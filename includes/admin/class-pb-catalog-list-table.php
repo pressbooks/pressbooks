@@ -285,6 +285,11 @@ class Catalog_List_Table extends \WP_List_Table {
 	 * @param bool $with_id
 	 */
 	function print_column_headers( $with_id = true ) {
+		if ( isset( $_POST['pb_catalog_search'] ) ) {
+			if ( ! wp_verify_nonce( esc_attr( $_POST['pb_catalog_search'] ), 'pb_catalog_search' ) ) {
+				die( 'Security check.' );
+			}
+		}
 
 		if ( empty( $_GET['s'] ) && ! empty( $_POST['s'] ) ) {
 			$_SERVER['REQUEST_URI'] = esc_url( add_query_arg( 's', $_POST['s'] ) );
@@ -453,23 +458,24 @@ class Catalog_List_Table extends \WP_List_Table {
 				<div class="inside">
 					<h4><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h4>
 					<h5><span data-icon="a" class="show-hide-icon"></span><?php _e( 'Show/Hide books', 'pressbooks' ); ?></h5>
-					<p><?php _e( sprintf( 'To display a book in your catalog choose "%s" under Catalog Status. ', '<strong>' . __( 'Show in Catalog', 'pressbooks' ) . '</strong>' ), 'pressbooks' ); ?><br>
-					<?php _e( sprintf( 'To hide a book in your catalog choose "%s" under Catalog Status.', '<strong>' . __( 'Hide in Catalog', 'pressbooks' ) . '</strong>' ), 'pressbooks' ); ?></p>
+					<p><?php printf( __( 'To display a book in your catalog choose "%s" under Catalog Status. ', 'pressbooks' ), '<strong>' . __( 'Show in Catalog', 'pressbooks' ) . '</strong>' ); ?><br>
+					<?php printf( __( 'To hide a book in your catalog choose "%s" under Catalog Status.', 'pressbooks' ), '<strong>' . __( 'Hide in Catalog', 'pressbooks' ) . '</strong>' ); ?></p>
 
 					<h5><span data-icon="g" class="sort-icon"></span><?php _e( 'Catalog sorting', 'pressbooks' ); ?></h5>
-					<p><?php _e( sprintf( 'To add sorting ability, add your Tag names to your <a href="%s">Catalog Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to each individual book.', $edit_url ), 'pressbooks' ); ?></p>
+					<p><?php printf( __( 'To add sorting ability, add your Tag names to your <a href="%s">Catalog Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to each individual book.', 'pressbooks' ), $edit_url ); ?></p>
 
 					<h5><span data-icon="f" class="share-icon"></span><?php _e( 'Share your catalog', 'pressbooks' ); ?></h5>
 					<p><?php _e( 'The public link to your catalog page', 'pressbooks' ); ?>: <a href="<?php echo $view_url; ?>"><?php echo $view_url; ?></a></p>
 				</div>
 			</div><!-- end .postbox -->
-			
+
 			<h2><?php echo isset( $_REQUEST['user_id'] ) ? ucfirst( get_userdata( absint( $_REQUEST['user_id'] ) )->user_login ) : __( 'My Catalog', 'pressbooks' ); ?>
 				<a href="<?php echo $edit_url; ?>" class=" page-title-action"><?php _e( 'Edit Profile', 'pressbooks' ); ?></a>
 				<a href="<?php echo $view_url; ?>" class=" page-title-action"><?php _e( 'Visit Catalog', 'pressbooks' ); ?></a>
 			</h2>
 
-			<form id="books-search" method="get" action="<?php echo $url; ?>" >
+			<form id="books-search" method="get" action="<?php echo $url; ?>">
+				<?php wp_nonce_field( 'pb_catalog_search', 'pb_catalog_search', false ); ?>
 				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>" />
 				<?php if ( @$_REQUEST['user_id'] ) : ?><input type="hidden" name="user_id" value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
 				<?php $list_table->search_box( __( 'Search', 'pressbooks' ), 'search_id' ); ?>

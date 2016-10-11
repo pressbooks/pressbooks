@@ -138,7 +138,7 @@ function replace_book_admin_menu() {
 	}
 	$page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'edit_posts', $book_info_url, '', 'dashicons-info', 12 );
 	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
-		if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+		if ( 'post-new.php' == $hook || 'post.php' == $hook ) {
 			if ( 'metadata' == get_post_type() ) {
 				wp_enqueue_script( 'pb-metadata' );
 				wp_localize_script( 'pb-metadata', 'PB_BookInfoToken', array(
@@ -178,7 +178,7 @@ function replace_book_admin_menu() {
 		$page->upgrade( $version );
 		update_option( 'pressbooks_export_options_version', $page::$currentVersion, false );
 		if ( WP_DEBUG ) {
-			error_log( 'Upgraded ' . 'pressbooks_export_options' . ' from version ' . $version . ' --> ' . $page::$currentVersion );
+			error_log( 'Upgraded pressbooks_export_options from version ' . $version . ' --> ' . $page::$currentVersion );
 		}
 	}
 
@@ -207,7 +207,7 @@ function network_admin_menu() {
 		$page->upgrade( $version );
 		update_site_option( 'pressbooks_sharingandprivacy_options_version', $page::$currentVersion, false );
 		if ( WP_DEBUG ) {
-			error_log( 'Upgraded network ' . 'pressbooks_sharingandprivacy_options' . ' from version ' . $version . ' --> ' . $page::$currentVersion );
+			error_log( 'Upgraded network pressbooks_sharingandprivacy_options from version ' . $version . ' --> ' . $page::$currentVersion );
 		}
 	}
 
@@ -497,11 +497,11 @@ function transform_category_selection_box() {
 
 	$base = get_bloginfo( 'url' );
 
-	if ( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == ( $base . '/wp-admin/post-new.php?post_type=front-matter' ) ) {
+	if ( ( $base . '/wp-admin/post-new.php?post_type=front-matter' ) == 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) {
 		$term = get_term_by( 'slug', 'miscellaneous', 'front-matter-type' );
-	} elseif ( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == ( $base . '/wp-admin/post-new.php?post_type=back-matter' ) ) {
+	} elseif ( ( $base . '/wp-admin/post-new.php?post_type=back-matter' ) == 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) {
 		$term = get_term_by( 'slug', 'miscellaneous', 'back-matter-type' );
-	} elseif ( 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] == ( $base . '/wp-admin/post-new.php?post_type=chapter' ) ) {
+	} elseif ( ( $base . '/wp-admin/post-new.php?post_type=chapter' ) == 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ) {
 		$term = get_term_by( 'slug', 'standard', 'chapter-type' );
 	}
 
@@ -536,9 +536,11 @@ function disable_customizer() {
  */
 function init_css_js() {
 
+	// @codingStandardsIgnoreStart
 	// This is to work around JavaScript dependency errors
 	global $concatenate_scripts;
 	$concatenate_scripts = false;
+	// @codingStandardsIgnoreEnd
 
 	// Note: Will auto-register a dependency $handle named 'colors'
 	wp_admin_css_color( 'pb_colors', 'Pressbooks', \Pressbooks\Utility\asset_path( 'styles/colors-pb.css' ), apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );
@@ -730,7 +732,7 @@ function privacy_permissive_private_content_callback( $args ) {
 	$subscriber = get_role( 'subscriber' );
 	$contributor = get_role( 'contributor' );
 	$author = get_role( 'author' );
-	if ( $permissive_private_content == 1 ) { // If permissive private content is set to true, adjust capabilities
+	if ( 1 == $permissive_private_content ) { // If permissive private content is set to true, adjust capabilities
 		$subscriber->add_cap( 'read_private_posts' );
 		$contributor->add_cap( 'read_private_posts' );
 		$author->add_cap( 'read_private_posts' );

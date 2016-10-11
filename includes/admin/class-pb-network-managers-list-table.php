@@ -67,7 +67,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 		$current_user = wp_get_current_user();
 
 	    if ( absint( $item['ID'] ) !== absint( $current_user->ID ) ) { // Don't let users restrict themselves
-	        if ( $item['restricted'] == 1 ) {
+	        if ( 1 == $item['restricted'] ) {
 		        $actions = array(
 		            'unrestrict'	=> '<a data-restrict="0" data-restrict-text="' . __( 'Restrict Access', 'pressbooks' ) . '" data-unrestrict-text="' . __( 'Unrestrict Access', 'pressbooks' ) . '">' . __( 'Unrestrict Access', 'pressbooks' ) . '</a>',
 		        );
@@ -127,7 +127,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 */
 	function single_row( $item ) {
 		$class = '';
-		if ( $item['restricted'] == 1 ) {
+		if ( 1 == $item['restricted'] ) {
 			$class = 'restricted';
 		}
 		echo "<tr id='" . $item['ID'] . "' class='$class'>";
@@ -195,7 +195,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 		    $orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'user_login';
 		    $order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc';
 		    $result = strcmp( $a[ $orderby ], $b[ $orderby ] );
-		    return ( $order === 'asc' ) ? $result : -$result;
+		    return ( 'asc' === $order ) ? $result : -$result;
 		});
 
 		$this->items = $data; // Return our data
