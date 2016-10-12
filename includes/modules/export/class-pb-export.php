@@ -141,7 +141,7 @@ abstract class Export {
 			} else {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
 			}
-			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && $type == 'prince' ) {
+			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' == $type ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script-romanize.js" );
 			}
 		}
@@ -349,7 +349,7 @@ abstract class Export {
 			$darr[] = $dcur;
 			if ( $d = opendir( $dcur ) ) {
 				while ( $f = readdir( $d ) ) {
-					if ( $f == '.' || $f == '..' ) { continue;
+					if ( '.' == $f || '..' == $f ) { continue;
 					}
 					$f = $dcur . '/' . $f;
 					if ( is_dir( $f ) ) { $dscan[] = $f;
@@ -762,6 +762,10 @@ abstract class Export {
 			return false;
 		}
 
+		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-export' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-delete-export' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-delete-all-exports' ) ) {
+			die( 'Security check.' );
+		}
+
 		if ( ! empty( $_POST ) ) {
 			return true;
 		}
@@ -824,9 +828,12 @@ abstract class Export {
 		header( 'Content-Length: ' . filesize( $filepath ) );
 		@ob_clean();
 		flush();
+		// @codingStandardsIgnoreStart
 		while ( @ob_end_flush() ) {
 			// Fix out-of-memory problem
-		}		readfile( $filepath );
+		}
+		// @codingStandardsIgnoreEnd
+		readfile( $filepath );
 
 		exit;
 	}

@@ -79,7 +79,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		// Copyright
 		if ( ! empty( $meta['pb_copyright_year'] ) || ! empty( $meta['pb_copyright_holder'] ) ) {
 			echo '<dc:rights>';
-			echo _( 'Copyright' ) . ' &#169; ';
+			echo __( 'Copyright', 'pressbooks' ) . ' &#169; ';
 			if ( ! empty( $meta['pb_copyright_year'] ) ) { echo $meta['pb_copyright_year'] . ' ';
 			}
 			if ( ! empty( $meta['pb_copyright_holder'] ) ) { echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
@@ -165,7 +165,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		}
 
 		// If nothing was found, set « the first page after the table of contents » as start point
-		if ( $start_key === false ) {
+		if ( false === $start_key ) {
 			$keys = array_keys( $manifest );
 			$position = array_search( 'table-of-contents', $keys );
 			if ( isset( $keys[ $position + 1 ] ) ) {
@@ -173,7 +173,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			}
 		}
 
-		if ( $start_key !== false ) {
+		if ( false !== $start_key ) {
 			printf( '<reference type="text" title="start" href="OEBPS/%s" />', $manifest[ $start_key ]['filename'] );
 			echo "\n";
 		}

@@ -498,7 +498,7 @@ class Epub201 extends Export {
 		// Open Publication Structure 2.0.1
 		// mimetype must be uncompressed, unencrypted, and the first file in the ZIP archive
 		$list = $zip->create( $this->tmpDir . '/mimetype', PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_ALL_PATH );
-		if ( $list == 0 ) {
+		if ( 0 == $list ) {
 			return false;
 		}
 
@@ -512,7 +512,7 @@ class Epub201 extends Export {
 		}
 
 		$list = $zip->add( $files, '', $this->tmpDir );
-		if ( $list == 0 ) {
+		if ( 0 == $list ) {
 			return false;
 		}
 
@@ -1265,7 +1265,7 @@ class Epub201 extends Export {
 					$this->hasIntroduction = true;
 				}
 
-				$n = ( $subclass == 'numberless' ) ? '' : $c;
+				$n = ( 'numberless' == $subclass ) ? '' : $c;
 				$vars['post_title'] = $chapter['post_title'];
 				$vars['post_content'] = sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
@@ -1294,13 +1294,13 @@ class Epub201 extends Export {
 
 				$j++;
 
-				if ( $subclass !== 'numberless' ) { ++$c;
+				if ( 'numberless' !== $subclass ) { ++$c;
 				}
 			}
 
 			if ( count( $book_contents['part'] ) == 1 && $part_content ) { // only part, has content
 				$slug = $part['post_name'];
-				$m = ( $invisibility == 'invisible' ) ? '' : $p;
+				$m = ( 'invisible' == $invisibility ) ? '' : $p;
 				$vars['post_title'] = $part['post_title'];
 				$vars['post_content'] = sprintf(
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
@@ -1324,15 +1324,15 @@ class Epub201 extends Export {
 						'post_title' => $part['post_title'],
 						'filename' => $filename,
 					),
-				) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );,
+				) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 				++$i;
-				if ( $invisibility !== 'invisible' ) { ++$p;
+				if ( 'invisible' !== $invisibility ) { ++$p;
 				}
 			} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
 				if ( $has_chapters ) { // has chapter
 					$slug = $part['post_name'];
-					$m = ( $invisibility == 'invisible' ) ? '' : $p;
+					$m = ( 'invisible' == $invisibility ) ? '' : $p;
 					$vars['post_title'] = $part['post_title'];
 					$vars['post_content'] = sprintf(
 						( $part_printf_changed ? $part_printf_changed : $part_printf ),
@@ -1356,15 +1356,15 @@ class Epub201 extends Export {
 							'post_title' => $part['post_title'],
 							'filename' => $filename,
 						),
-					) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );,
+					) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 					++$i;
-					if ( $invisibility !== 'invisible' ) { ++$p;
+					if ( 'invisible' !== $invisibility ) { ++$p;
 					}
 				} else { // no chapter
 					if ( $part_content ) { // has content
 						$slug = $part['post_name'];
-						$m = ( $invisibility == 'invisible' ) ? '' : $p;
+						$m = ( 'invisible' == $invisibility ) ? '' : $p;
 						$vars['post_title'] = $part['post_title'];
 						$vars['post_content'] = sprintf(
 							( $part_printf_changed ? $part_printf_changed : $part_printf ),
@@ -1388,10 +1388,10 @@ class Epub201 extends Export {
 								'post_title' => $part['post_title'],
 								'filename' => $filename,
 							),
-						) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );,
+						) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 						++$i;
-						if ( $invisibility !== 'invisible' ) { ++$p;
+						if ( 'invisible' !== $invisibility ) { ++$p;
 						}
 					}
 				}
@@ -1527,7 +1527,7 @@ class Epub201 extends Export {
 				'post_title' => $vars['post_title'],
 				'filename' => $filename,
 			),
-		) + array_slice( $this->manifest, $array_pos + 1, count( $this->manifest ) - 1, true );,
+		) + array_slice( $this->manifest, $array_pos + 1, count( $this->manifest ) - 1, true );
 
 		// HTML
 
@@ -2001,7 +2001,7 @@ class Epub201 extends Export {
 
 		if ( $domain ) {
 			$domain2 = parse_url( wp_guess_url() );
-			if ( $domain != @$domain2['host'] ) {
+			if ( @$domain2['host'] != $domain ) {
 				return false; // If there as a domain name and it =/= ours, bail.
 			}
 		}
@@ -2028,9 +2028,9 @@ class Epub201 extends Export {
 		}
 
 		$lookup = \Pressbooks\Book::getBookStructure();
-		if ( $posttype !== 'part' && ! isset( $lookup['__export_lookup'][ $last_part ] ) ) {
+		if ( 'part' !== $posttype && ! isset( $lookup['__export_lookup'][ $last_part ] ) ) {
 			return false;
-		} elseif ( $posttype !== 'part' && isset( $lookup['__export_lookup'][ $last_part ] ) ) {
+		} elseif ( 'part' !== $posttype && isset( $lookup['__export_lookup'][ $last_part ] ) ) {
 			// Handle front/back matter and chapters
 			$new_type = $lookup['__export_lookup'][ $last_part ];
 			$new_pos = 0;
@@ -2045,7 +2045,7 @@ class Epub201 extends Export {
 			if ( $anchor ) {
 				$new_url .= $anchor;
 			}
-		} elseif ( $posttype == 'part' && ! isset( $lookup['__export_lookup'][ $last_part ] ) ) {
+		} elseif ( 'part' == $posttype && ! isset( $lookup['__export_lookup'][ $last_part ] ) ) {
 			// Handle parts
 			$new_type = 'part';
 			foreach ( $lookup['part'] as $key => $part ) {

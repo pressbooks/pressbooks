@@ -974,7 +974,7 @@ class Xhtml11 extends Export {
 			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
 
 			// Inject introduction class?
-			if ( $invisibility !== 'invisible' ) { // visible
+			if ( 'invisible' !== $invisibility ) { // visible
 				if ( count( $book_contents['part'] ) == 1 ) { // only part
 					if ( $part_content ) { // has content
 						if ( ! $this->hasIntroduction ) {
@@ -1000,7 +1000,7 @@ class Xhtml11 extends Export {
 				}
 			}
 
-			$m = ( $invisibility == 'invisible' ) ? '' : $i;
+			$m = ( 'invisible' == $invisibility ) ? '' : $i;
 			$my_part = sprintf(
 				( $part_printf_changed ? $part_printf_changed : $part_printf ),
 				$invisibility,
@@ -1053,7 +1053,7 @@ class Xhtml11 extends Export {
 					$this->hasIntroduction = true;
 				}
 
-				$n = ( $subclass == 'numberless' ) ? '' : $j;
+				$n = ( 'numberless' == $subclass ) ? '' : $j;
 				$my_chapters .= sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
 					$subclass,
@@ -1064,13 +1064,14 @@ class Xhtml11 extends Export {
 					$append_chapter_content,
 				$this->doEndnotes( $id ) ) . "\n";
 
-				if ( $subclass !== 'numberless' ) { ++$j;
+				if ( 'numberless' !== $subclass ) {
+					++$j;
 				}
 			}
 
 			// Echo with parts?
 
-			if ( $invisibility !== 'invisible' ) { // visible
+			if ( 'invisible' !== $invisibility ) { // visible
 				if ( count( $book_contents['part'] ) == 1 ) { // only part
 					if ( $part_content ) { // has content
 						echo $my_part; // show
@@ -1092,8 +1093,9 @@ class Xhtml11 extends Export {
 					}
 				}
 				++$i;
-			} elseif ( $invisibility == 'invisible' ) { // invisible
-				if ( $my_chapters ) { echo $my_chapters;
+			} elseif ( 'invisible' == $invisibility ) { // invisible
+				if ( $my_chapters ) {
+					echo $my_chapters;
 				}
 			}
 		}

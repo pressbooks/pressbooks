@@ -351,11 +351,11 @@ class Pdf extends Export {
 
 		foreach ( $contents as $index => $page ) {
 			// If we hit non front-matter post types we won't see anymore front-matter
-			if ( $page['post_type'] != 'front-matter' ) {
+			if ( 'front-matter' != $page['post_type'] ) {
 				return;
 			}
 
-			if ( $type == \Pressbooks\Taxonomy::getFrontMatterType( $page['ID'] ) ) {
+			if ( \Pressbooks\Taxonomy::getFrontMatterType( $page['ID'] ) == $type ) {
 				$page['mpdf_omit_toc'] = true;
 				$this->addPage( $page, $page_options, false, false );
 			}

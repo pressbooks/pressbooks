@@ -236,7 +236,7 @@ class Epub3 extends Epub201 {
 				}
 			}
 		} catch ( \Exception $e ) {
-			// Do nothing
+			error_log( $e );
 		}
 
 		return false;
@@ -509,7 +509,7 @@ class Epub3 extends Epub201 {
 		$replace = '/templates/epub3/';
 
 		$pos = strpos( $path, $search );
-		if ( $pos !== false ) {
+		if ( false !== $pos ) {
 			$newPath = substr_replace( $path, $replace, $pos, strlen( $search ) );
 			if ( file_exists( $newPath ) ) {
 				$path = $newPath;

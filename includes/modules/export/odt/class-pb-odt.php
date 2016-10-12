@@ -202,7 +202,7 @@ class Odt extends Export {
 			$list = $zip->add( $mimetype . ',' . $content . ',' . $meta . ',' . $settings . ',' . $styles . ',' . $metafolder, PCLZIP_OPT_NO_COMPRESSION, PCLZIP_OPT_REMOVE_PATH, $contentPath['dirname'] . '/' );
 		}
 
-		if ( $list == 0 ) {
+		if ( 0 == $list ) {
 			$this->logError( $zip->errorInfo( true ) );
 			unlink( $source );
 			if ( is_dir( $mediafolder ) ) {
