@@ -389,6 +389,7 @@ class Epub201 extends Export {
 			foreach ( $struct as $i => $val ) {
 
 				if ( isset( $val['post_content'] ) ) {
+					// @codingStandardsIgnoreLine
 					$id = $val['ID'];
 					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
 				}
@@ -405,6 +406,7 @@ class Epub201 extends Export {
 					foreach ( $book_contents[ $type ][ $i ]['chapters'] as $j => $val2 ) {
 
 						if ( isset( $val2['post_content'] ) ) {
+							// @codingStandardsIgnoreLine
 							$id = $val2['ID'];
 							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
 						}
@@ -419,6 +421,7 @@ class Epub201 extends Export {
 			}
 		}
 
+		// @codingStandardsIgnoreLine
 		$id = $old_id;
 		return $book_contents;
 	}
@@ -797,15 +800,15 @@ class Epub201 extends Export {
 					continue; // Skip
 				}
 
-				$id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
+				$front_matter_id = $front_matter['ID'];
+				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
 
 				if ( $compare != $subclass ) {
 					continue; //Skip
 				}
 
 				$slug = $front_matter['post_name'];
-				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
+				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
 				$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter', $i );
 
 				$vars['post_title'] = $front_matter['post_title'];
@@ -852,8 +855,8 @@ class Epub201 extends Export {
 				continue; // Skip
 			}
 
-			$id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
+			$front_matter_id = $front_matter['ID'];
+			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
 
 			if ( 'title-page' != $subclass ) {
 				continue; // Skip
@@ -1003,15 +1006,15 @@ class Epub201 extends Export {
 					continue; // Skip
 				}
 
-				$id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
+				$front_matter_id = $front_matter['ID'];
+				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
 
 				if ( $compare != $subclass ) {
 					continue; //Skip
 				}
 
 				$slug = $front_matter['post_name'];
-				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
+				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
 				$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter', $i );
 
 				$vars['post_title'] = $front_matter['post_title'];
@@ -1073,8 +1076,8 @@ class Epub201 extends Export {
 				continue; // Skip
 			}
 
-			$id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $id );
+			$front_matter_id = $front_matter['ID'];
+			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
 
 			if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass ) {
 				continue; // Skip
@@ -1085,18 +1088,18 @@ class Epub201 extends Export {
 			}
 
 			$slug = $front_matter['post_name'];
-			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
+			$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '' );
 			$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter', $i );
-			$append_front_matter_content = $this->kneadHtml( apply_filters( 'pb_append_front_matter_content', '', $id ), 'front-matter' );
-			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
-			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
-			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
+			$append_front_matter_content = $this->kneadHtml( apply_filters( 'pb_append_front_matter_content', '', $front_matter_id ), 'front-matter' );
+			$short_title = trim( get_post_meta( $front_matter_id, 'pb_short_title', true ) );
+			$subtitle = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
+			$author = trim( get_post_meta( $front_matter_id, 'pb_section_author', true ) );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
-				$sections = \Pressbooks\Book::getSubsections( $id );
+				$sections = \Pressbooks\Book::getSubsections( $front_matter_id );
 
 				if ( $sections ) {
-					$content = \Pressbooks\Book::tagSubsections( $content, $id );
+					$content = \Pressbooks\Book::tagSubsections( $content, $front_matter_id );
 				}
 			}
 
@@ -1229,21 +1232,21 @@ class Epub201 extends Export {
 				}
 
 				$chapter_printf_changed = '';
-				$id = $chapter['ID'];
-				$subclass = \Pressbooks\Taxonomy::getChapterType( $id );
+				$chapter_id = $chapter['ID'];
+				$subclass = \Pressbooks\Taxonomy::getChapterType( $chapter_id );
 				$slug = $chapter['post_name'];
-				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
+				$title = ( get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '' );
 				$content = $this->kneadHtml( $chapter['post_content'], 'chapter', $j );
-				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $id ), 'chapter' );
+				$append_chapter_content = $this->kneadHtml( apply_filters( 'pb_append_chapter_content', '', $chapter_id ), 'chapter' );
 				$short_title = false; // Ie. running header title is not used in EPUB
-				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
+				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
+				$author = trim( get_post_meta( $chapter_id, 'pb_section_author', true ) );
 
 				if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
-					$sections = \Pressbooks\Book::getSubsections( $id );
+					$sections = \Pressbooks\Book::getSubsections( $chapter_id );
 
 					if ( $sections ) {
-						$content = \Pressbooks\Book::tagSubsections( $content, $id );
+						$content = \Pressbooks\Book::tagSubsections( $content, $chapter_id );
 					}
 				}
 
@@ -1432,21 +1435,21 @@ class Epub201 extends Export {
 				continue; // Skip
 			}
 
-			$id = $back_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy::getBackMatterType( $id );
+			$back_matter_id = $back_matter['ID'];
+			$subclass = \Pressbooks\Taxonomy::getBackMatterType( $back_matter_id );
 			$slug = $back_matter['post_name'];
-			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $back_matter['post_title'] : '' );
+			$title = ( get_post_meta( $back_matter_id, 'pb_show_title', true ) ? $back_matter['post_title'] : '' );
 			$content = $this->kneadHtml( $back_matter['post_content'], 'back-matter', $i );
-			$append_back_matter_content = $this->kneadHtml( apply_filters( 'pb_append_back_matter_content', '', $id ), 'back-matter' );
-			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
-			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
-			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
+			$append_back_matter_content = $this->kneadHtml( apply_filters( 'pb_append_back_matter_content', '', $back_matter_id ), 'back-matter' );
+			$short_title = trim( get_post_meta( $back_matter_id, 'pb_short_title', true ) );
+			$subtitle = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
+			$author = trim( get_post_meta( $back_matter_id, 'pb_section_author', true ) );
 
 			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
-				$sections = \Pressbooks\Book::getSubsections( $id );
+				$sections = \Pressbooks\Book::getSubsections( $back_matter_id );
 
 				if ( $sections ) {
-					$content = \Pressbooks\Book::tagSubsections( $content, $id );
+					$content = \Pressbooks\Book::tagSubsections( $content, $back_matter_id );
 				}
 			}
 
