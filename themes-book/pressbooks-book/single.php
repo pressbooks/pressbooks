@@ -6,7 +6,7 @@
 				<?php
 				// add part title to chapters
 				$web_options = get_option( 'pressbooks_theme_options_web' );
-				if ( 1 === $web_options['part_title'] ) {
+				if ( isset( $web_options['part_title'] ) && '1' == $web_options['part_title'] ) {
 					if ( 'chapter' == get_post_type( $post->ID ) ) {
 						$part_title = get_post_field( 'post_title', $post->post_parent );
 						if ( ! is_wp_error( $part_title ) ) {
@@ -23,7 +23,7 @@
 				<div id="post-<?php the_ID(); ?>" <?php post_class( pb_get_section_type( $post ) ); ?>>
 
 					<div class="entry-content">
-					  <?php if ($subtitle = get_post_meta($post->ID, 'pb_subtitle', true)): ?>
+					  <?php if ( $subtitle = get_post_meta( $post->ID, 'pb_subtitle', true ) ) : ?>
 					    <h2 class="chapter_subtitle"><?php echo $subtitle; ?></h2>
 				    <?php endif;?>
 				    <?php if ($chap_author = get_post_meta($post->ID, 'pb_section_author', true)): ?>
