@@ -8,7 +8,7 @@ namespace Pressbooks\Modules\ThemeOptions;
 use Pressbooks\Container;
 use Pressbooks\CustomCss;
 
-class mPDFOptions extends \Pressbooks\Options {
+class MPDFOptions extends \Pressbooks\Options {
 
 	/**
 	 * The value for option: pressbooks_theme_options_mpdf_version

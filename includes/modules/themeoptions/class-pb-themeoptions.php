@@ -86,7 +86,7 @@ class ThemeOptions {
 			'global' => '\Pressbooks\Modules\ThemeOptions\GlobalOptions',
 			'web' => '\Pressbooks\Modules\ThemeOptions\WebOptions',
 			'pdf' => '\Pressbooks\Modules\ThemeOptions\PDFOptions',
-			'mpdf' => '\Pressbooks\Modules\ThemeOptions\mPDFOptions',
+			'mpdf' => '\Pressbooks\Modules\ThemeOptions\MPDFOptions',
 			'ebook' => '\Pressbooks\Modules\ThemeOptions\EbookOptions',
 		);
 

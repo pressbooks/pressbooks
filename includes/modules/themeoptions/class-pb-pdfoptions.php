@@ -599,21 +599,21 @@ class PDFOptions extends \Pressbooks\Options {
 		}
 
 		// Substitute human-readable values
-		if ( ! isset( $options['pdf_paragraph_separation'] ) || $options['pdf_paragraph_separation'] == '1' ) {
+		if ( ! isset( $options['pdf_paragraph_separation'] ) || '1' == $options['pdf_paragraph_separation'] ) {
 			$options['pdf_paragraph_separation'] = 'indent';
-		} elseif ( $options['pdf_paragraph_separation'] == '2' ) {
+		} elseif ( '2' == $options['pdf_paragraph_separation'] ) {
 			$options['pdf_paragraph_separation'] = 'skiplines';
 		}
 
-		if ( ! isset( $options['pdf_blankpages'] ) || $options['pdf_blankpages'] == '1' ) {
+		if ( ! isset( $options['pdf_blankpages'] ) || '1' == $options['pdf_blankpages'] ) {
 			$options['pdf_blankpages'] = 'include';
-		} elseif ( $options['pdf_blankpages'] == '2' ) {
+		} elseif ( '2' == $options['pdf_blankpages'] ) {
 			$options['pdf_blankpages'] = 'remove';
 		}
 
-		if ( ! isset( $options['pdf_footnotes_style'] ) || $options['pdf_footnotes_style'] == '1' ) {
+		if ( ! isset( $options['pdf_footnotes_style'] ) || '1' == $options['pdf_footnotes_style'] ) {
 			$options['pdf_footnotes_style'] = 'footnotes';
-		} elseif ( $options['pdf_footnotes_style'] == '2' ) {
+		} elseif ( '2' == $options['pdf_footnotes_style'] ) {
 			$options['pdf_footnotes_style'] = 'endnotes';
 		}
 
@@ -653,23 +653,23 @@ class PDFOptions extends \Pressbooks\Options {
 	function renderPageSizeField( $args ) {
 		if ( ! isset( $this->options['pdf_page_size'] ) ) {
 			if ( isset( $this->options['pdf_page_width'] ) && isset( $this->options['pdf_page_height'] ) ) {
-				if ( $this->options['pdf_page_width'] == '5.5in' && $this->options['pdf_page_height'] == '8.5in' ) {
+				if ( '5.5in' == $this->options['pdf_page_width'] && '8.5in' == $this->options['pdf_page_height'] ) {
 					$this->options['pdf_page_size'] = 1;
-				} elseif ( $this->options['pdf_page_width'] == '6in' && $this->options['pdf_page_height'] == '9in' ) {
+				} elseif ( '6in' == $this->options['pdf_page_width'] && '9in' == $this->options['pdf_page_height'] ) {
 					$this->options['pdf_page_size'] = 2;
-				} elseif ( $this->options['pdf_page_width'] == '8.5in' && $this->options['pdf_page_height'] == '11in' ) {
+				} elseif ( '8.5in' == $this->options['pdf_page_width'] && '11in' == $this->options['pdf_page_height'] ) {
 					$this->options['pdf_page_size'] = 3;
-				} elseif ( $this->options['pdf_page_width'] == '8.5in' && $this->options['pdf_page_height'] == '9.25in' ) {
+				} elseif ( '8.5in' == $this->options['pdf_page_width'] && '9.25in' == $this->options['pdf_page_height'] ) {
 					$this->options['pdf_page_size'] = 4;
-				} elseif ( $this->options['pdf_page_width'] == '5in' && $this->options['pdf_page_height'] == '7.75in' ) {
+				} elseif ( '5in' == $this->options['pdf_page_width'] && '7.75in' == $this->options['pdf_page_height'] ) {
 					$this->options['pdf_page_size'] = 5;
-				} elseif ( $this->options['pdf_page_width'] == '4.25in' && $this->options['pdf_page_height'] == '7in' ) {
+				} elseif ( '4.25in' == $this->options['pdf_page_width'] && '7in' == $this->options['pdf_page_height'] ) {
 					$this->options['pdf_page_size'] = 6;
-				} elseif ( $this->options['pdf_page_width'] == '21cm' && $this->options['pdf_page_height'] == '29.7cm' ) {
+				} elseif ( '21cm' == $this->options['pdf_page_width'] && '29.7cm' == $this->options['pdf_page_height'] ) {
 					$this->options['pdf_page_size'] = 7;
-				} elseif ( $this->options['pdf_page_width'] == '14.8cm' && $this->options['pdf_page_height'] == '21cm' ) {
+				} elseif ( '14.8cm' == $this->options['pdf_page_width'] && '21cm' == $this->options['pdf_page_height'] ) {
 					$this->options['pdf_page_size'] = 8;
-				} elseif ( $this->options['pdf_page_width'] == '5in' && $this->options['pdf_page_height'] == '8in' ) {
+				} elseif ( '5in' == $this->options['pdf_page_width'] && '8in' == $this->options['pdf_page_height'] ) {
 					$this->options['pdf_page_size'] = 9;
 				} else {
 					$this->options['pdf_page_size'] = 10;

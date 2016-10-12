@@ -221,7 +221,7 @@ class GlobalOptions extends \Pressbooks\Options {
 
 		$already_supported_languages = \Pressbooks\Container::get( 'GlobalTypography' )->getThemeSupportedLanguages();
 
-		if ( $already_supported_languages == false ) {
+		if ( false == $already_supported_languages ) {
 			$already_supported_languages = [];
 		}
 

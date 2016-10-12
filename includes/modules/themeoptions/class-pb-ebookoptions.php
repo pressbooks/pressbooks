@@ -128,9 +128,9 @@ class EbookOptions extends \Pressbooks\Options {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 
-		if ( ! isset( $options['ebook_paragraph_separation'] ) || $options['ebook_paragraph_separation'] == '1' ) {
+		if ( ! isset( $options['ebook_paragraph_separation'] ) || '1' == $options['ebook_paragraph_separation'] ) {
 			$options['ebook_paragraph_separation'] = 'indent';
-		} elseif ( $options['ebook_paragraph_separation'] == '2' ) {
+		} elseif ( '2' == $options['ebook_paragraph_separation'] ) {
 			$options['ebook_paragraph_separation'] = 'skiplines';
 		}
 
