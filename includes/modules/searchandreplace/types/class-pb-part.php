@@ -9,20 +9,71 @@ namespace Pressbooks\Modules\SearchAndReplace\Types;
 class Part extends \Pressbooks\Modules\SearchAndReplace\Search {
 	function find( $pattern, $limit, $offset, $orderby ) {
 		global $wpdb;
-		$sql = "SELECT {$wpdb->postmeta}.meta_id AS meta_id,
-            {$wpdb->postmeta}.meta_value AS meta_value,
-            {$wpdb->postmeta}.post_id AS post_id,
-            {$wpdb->posts}.post_title AS title
-            FROM {$wpdb->postmeta}
-            LEFT JOIN {$wpdb->posts}
-            ON {$wpdb->postmeta}.post_id = {$wpdb->posts}.ID
-            WHERE {$wpdb->postmeta}.meta_key = 'pb_part_content'
-            ORDER BY meta_value $orderby";
-		if ( $limit > 0 ) {
-			$sql .= $wpdb->prepare( ' LIMIT %d,%d', $offset, $limit );
-		}
 		$results = array();
-		$metas = $wpdb->get_results( $sql );
+		if ( $limit > 0 ) {
+			if ( 'asc' == $orderby ) {
+				$metas = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT $wpdb->postmeta.meta_id AS meta_id,
+						$wpdb->postmeta.meta_value AS meta_value,
+						$wpdb->postmeta.post_id AS post_id,
+						$wpdb->posts.post_title AS title
+						FROM $wpdb->postmeta
+						LEFT JOIN $wpdb->posts
+						ON $wpdb->postmeta.post_id = $wpdb->posts.ID
+						WHERE $wpdb->postmeta.meta_key = 'pb_part_content'
+						ORDER BY meta_value ASC
+						LIMIT %d,%d",
+						$offset,
+						$limit
+					)
+				);
+			} else {
+				$metas = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT $wpdb->postmeta.meta_id AS meta_id,
+						$wpdb->postmeta.meta_value AS meta_value,
+						$wpdb->postmeta.post_id AS post_id,
+						$wpdb->posts.post_title AS title
+						FROM $wpdb->postmeta
+						LEFT JOIN $wpdb->posts
+						ON $wpdb->postmeta.post_id = $wpdb->posts.ID
+						WHERE $wpdb->postmeta.meta_key = 'pb_part_content'
+						ORDER BY meta_value DESC
+						LIMIT %d,%d",
+						$offset,
+						$limit
+					)
+				);
+			}
+		} else {
+			if ( 'asc' == $orderby ) {
+				$metas = $wpdb->get_results(
+					"SELECT $wpdb->postmeta.meta_id AS meta_id,
+					$wpdb->postmeta.meta_value AS meta_value,
+					$wpdb->postmeta.post_id AS post_id,
+					$wpdb->posts.post_title AS title
+					FROM $wpdb->postmeta
+					LEFT JOIN $wpdb->posts
+					ON $wpdb->postmeta.post_id = {$wpdb->posts}.ID
+					WHERE $wpdb->postmeta.meta_key = 'pb_part_content'
+					ORDER BY meta_value ASC"
+				);
+			} else {
+				$metas = $wpdb->get_results(
+					"SELECT $wpdb->postmeta.meta_id AS meta_id,
+					$wpdb->postmeta.meta_value AS meta_value,
+					$wpdb->postmeta.post_id AS post_id,
+					$wpdb->posts.post_title AS title
+					FROM $wpdb->postmeta
+					LEFT JOIN $wpdb->posts
+					ON $wpdb->postmeta.post_id = {$wpdb->posts}.ID
+					WHERE $wpdb->postmeta.meta_key = 'pb_part_content'
+					ORDER BY meta_value DESC"
+				);
+			}
+		}
+
 		if ( count( $metas ) > 0 ) {
 			foreach ( $metas as $meta ) {
 				if ( ( $matches = $this->matches( $pattern, $meta->meta_value, $meta->meta_id )) !== false ) {

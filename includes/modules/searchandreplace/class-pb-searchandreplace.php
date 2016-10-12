@@ -72,7 +72,7 @@ class SearchAndReplace {
 		$replace_pattern = str_replace( "\'", "'", $replace_pattern );
 		$orderby = 'asc';
 
-		if ( isset( $_POST['orderby'] ) && $_POST['orderby'] === 'desc' ) {
+		if ( isset( $_POST['orderby'] ) && 'desc' === $_POST['orderby'] ) {
 			$orderby = 'desc';
 		}
 

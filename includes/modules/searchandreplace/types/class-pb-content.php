@@ -9,12 +9,54 @@ namespace Pressbooks\Modules\SearchAndReplace\Types;
 class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 	function find( $pattern, $limit, $offset, $orderby ) {
 		global $wpdb;
-		$sql = "SELECT ID, post_content, post_title FROM {$wpdb->posts} WHERE post_status != 'inherit' AND post_type IN ('chapter','front-matter','back-matter') ORDER BY ID " . $orderby;
-		if ( $limit > 0 ) {
-			$sql .= $wpdb->prepare( ' LIMIT %d,%d', $offset, $limit );
-		}
 		$results = array();
-		$posts   = $wpdb->get_results( $sql );
+		if ( $limit > 0 ) {
+			if ( 'asc' == $orderby ) {
+				$posts = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT ID, post_content, post_title
+						FROM $wpdb->posts
+						WHERE post_status != 'inherit'
+						AND post_type IN ('chapter','front-matter','back-matter')
+						ORDER BY ID ASC
+						LIMIT %d,%d",
+						$offset,
+						$limit
+					)
+				);
+			} else {
+				$posts = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT ID, post_content, post_title
+						FROM $wpdb->posts
+						WHERE post_status != 'inherit'
+						AND post_type IN ('chapter','front-matter','back-matter')
+						ORDER BY ID DESC
+						LIMIT %d,%d",
+						$offset,
+						$limit
+					)
+				);
+			}
+		} else {
+			if ( 'asc' == $orderby ) {
+				$posts = $wpdb->get_results(
+					"SELECT ID, post_content, post_title
+					FROM $wpdb->posts
+					WHERE post_status != 'inherit'
+					AND post_type IN ('chapter','front-matter','back-matter')
+					ORDER BY ID ASC"
+				);
+			} else {
+				$posts = $wpdb->get_results(
+					"SELECT ID, post_content, post_title
+					FROM $wpdb->posts
+					WHERE post_status != 'inherit'
+					AND post_type IN ('chapter','front-matter','back-matter')
+					ORDER BY ID DESC"
+				);
+			}
+		}
 		if ( count( $posts ) > 0 ) {
 			foreach ( $posts as $post ) {
 				if ( ( $matches = $this->matches( $pattern, $post->post_content, $post->ID ) ) ) {

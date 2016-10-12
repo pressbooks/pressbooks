@@ -21,7 +21,7 @@ class Search {
 	function search_and_replace( $search, $replace, $limit, $offset, $orderby, $save = false ) {
 		$this->replace = $replace;
 		$results = $this->search_for_pattern( $search, $limit, $offset, $orderby );
-		if ( $results !== false && $save ) {
+		if ( false !== $results && $save ) {
 			$this->replace( $results );
 		}
 		return $results;
@@ -100,7 +100,7 @@ class Search {
 				$right = rtrim( substr( $content, $found[1] + strlen( $found[0] ), $end ), " \t," );
 				$result->left = $start;
 				$result->left_length = strlen( $found[0] ) + ( $found[1] - $start) + $end;
-				if ( $start != 0 ) {
+				if ( 0 != $start ) {
 					$result->search = '&hellip;';
 				}
 				$result->search .= esc_html( $left );
@@ -116,7 +116,7 @@ class Search {
 					// Produce preview
 					$rep = preg_replace( $pattern, $this->replace, $found[0] );
 					$result->replace_string = $rep;
-					if ( $start != 0 ) {
+					if ( 0 != $start ) {
 						$result->replace = '&hellip;';
 					}
 					$result->replace .= esc_html( $left );
