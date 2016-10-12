@@ -762,10 +762,7 @@ abstract class Export {
 			return false;
 		}
 
-		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-export' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-delete-export' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-delete-all-exports' ) ) {
-			die( 'Security check.' );
-		}
-
+		// @codingStandardsIgnoreLine
 		if ( ! empty( $_POST ) ) {
 			return true;
 		}

@@ -126,18 +126,17 @@ abstract class Import {
 	 * @return bool
 	 */
 	protected function flaggedForImport( $id ) {
-		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-import' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-revoke-import' ) ) {
-			die( 'Security check.' );
-		}
-
+		// @codingStandardsIgnoreLine
 		if ( ! @is_array( $_POST['chapters'] ) ) {
 			return false;
 		}
 
+		// @codingStandardsIgnoreLine
 		if ( ! @isset( $_POST['chapters'][ $id ]['import'] ) ) {
 			return false;
 		}
 
+		// @codingStandardsIgnoreLine
 		return ( 1 == $_POST['chapters'][ $id ]['import'] ? true : false );
 	}
 
@@ -150,26 +149,26 @@ abstract class Import {
 	 * @return string
 	 */
 	protected function determinePostType( $id ) {
-		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-import' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-revoke-import' ) ) {
-			die( 'Security check.' );
-		}
-
 		$supported_types = apply_filters( 'pb_import_custom_post_types', array( 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
 
 		$default = 'chapter';
 
+		// @codingStandardsIgnoreLine
 		if ( ! @is_array( $_POST['chapters'] ) ) {
 			return $default;
 		}
 
+		// @codingStandardsIgnoreLine
 		if ( ! @isset( $_POST['chapters'][ $id ]['type'] ) ) {
 			return $default;
 		}
 
+		// @codingStandardsIgnoreLine
 		if ( ! in_array( $_POST['chapters'][ $id ]['type'], $supported_types ) ) {
 			return $default;
 		}
 
+		// @codingStandardsIgnoreLine
 		return $_POST['chapters'][ $id ]['type'];
 	}
 
@@ -431,14 +430,11 @@ abstract class Import {
 	 * @return bool
 	 */
 	static function isFormSubmission() {
-		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-import' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-revoke-import' ) ) {
-			die( 'Security check.' );
-		}
-
 		if ( 'pb_import' != @$_REQUEST['page'] ) {
 			return false;
 		}
 
+		// @codingStandardsIgnoreLine
 		if ( ! empty( $_POST ) ) {
 			return true;
 		}
