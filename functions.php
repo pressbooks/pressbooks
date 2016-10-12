@@ -207,7 +207,7 @@ function pb_get_chapter_number( $post_name ) {
 			$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => 'publish', 'numberposts' => 1 ) );
 			if ( isset( $chapter[0] ) ) {
 				$type = pb_get_section_type( $chapter[0] );
-				if ( $type !== 'numberless' ) { ++$i;
+				if ( 'numberless' !== $type ) { ++$i;
 				}
 			} else {
 				return 0;
@@ -217,7 +217,7 @@ function pb_get_chapter_number( $post_name ) {
 		}
 	}
 
-	if ( $type == 'numberless' ) { $i = 0;
+	if ( 'numberless' == $type ) { $i = 0;
 	}
 	return $i;
 }

@@ -81,7 +81,7 @@ if ( \Pressbooks\Book::isBook() ) {
 	switch_to_blog( 1 );
 	$ga_mu_site_specific_allowed = get_option( 'ga_mu_site_specific_allowed', '', false );
 	restore_current_blog();
-	if ( isset( $ga_mu_site_specific_allowed ) && $ga_mu_site_specific_allowed !== '' && $ga_mu_site_specific_allowed !== '0' ) {
+	if ( isset( $ga_mu_site_specific_allowed ) && '' !== $ga_mu_site_specific_allowed && '0' !== $ga_mu_site_specific_allowed ) {
 		add_action( 'admin_menu', '\Pressbooks\Admin\Analytics\add_menu' );
 		add_action( 'admin_init', '\Pressbooks\Admin\Analytics\analytics_settings_init' );
 	}
