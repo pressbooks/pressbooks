@@ -33,7 +33,7 @@ class Parser {
 		$dom->recover = true; // Try to parse non-well formed documents
 		$success = $dom->loadXML( file_get_contents( $file ) );
 		foreach ( $dom->childNodes as $child ) {
-			if ( $child->nodeType === XML_DOCUMENT_TYPE_NODE ) {
+			if ( XML_DOCUMENT_TYPE_NODE === $child->nodeType ) {
 				// Invalid XML: Detected use of disallowed DOCTYPE
 				$success = false;
 				break;

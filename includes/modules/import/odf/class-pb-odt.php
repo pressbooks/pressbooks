@@ -322,7 +322,7 @@ class Odt extends Import {
 
 		$result = $this->zip->open( $fullpath );
 
-		if ( $result !== true ) {
+		if ( true !== $result ) {
 			throw new \Exception( 'Opening odt file failed' );
 		}
 
@@ -344,7 +344,7 @@ class Odt extends Import {
 	 */
 	protected function findTheNode( \DOMNode $node, $chapter_name ) {
 
-		if ( $node->nodeType !== XML_ELEMENT_NODE ) {
+		if ( XML_ELEMENT_NODE !== $node->nodeType  ) {
 			return '';
 		}
 
@@ -411,7 +411,7 @@ class Odt extends Import {
 			// DOMNodeList can be made up of DOMElement(s)
 			// *and* DOMText(s) which do not have the property ->tagName
 
-		} while ( $this->tag != @$dom_list->item( $i )->tagName && $i < $dom_list->length );
+		} while ( @$dom_list->item( $i )->tagName != $this->tag && $i < $dom_list->length );
 
 		// h1 tag will not be needed in the body of the html
 		$h1 = $chapter->getElementsByTagName( $this->tag )->item( 0 );
@@ -451,7 +451,7 @@ class Odt extends Import {
 		for ( $i = 0; $i < $node_list->length; $i ++ ) {
 
 			$chapter_node = $this->findTheNode( $node_list->item( $i ), $chapter_title );
-			if ( $chapter_node != '' ) {
+			if ( '' != $chapter_node ) {
 				// assumes h1 is going to be first child of parent 'html'
 				$index = $i;
 				break;
@@ -520,7 +520,7 @@ class Odt extends Import {
 		// Locates an entry using its name
 		$index = $this->zip->locateName( $file );
 
-		if ( $index === false ) {
+		if ( false === $index ) {
 			return false;
 		}
 

@@ -394,7 +394,7 @@ class Docx extends Import {
 		for ( $i = 0; $i < $node_list->length; $i ++  ) {
 
 			$chapter_node = $this->findTheNode( $node_list->item( $i ), $chapter_title );
-			if ( $chapter_node != '' ) {
+			if ( '' != $chapter_node ) {
 				// assumes h1 is going to be first child of parent 'html'
 				$index = $i;
 				break;
@@ -444,7 +444,7 @@ class Docx extends Import {
 			// This is problematic
 			// DOMNodeList can be made up of DOMElement(s)
 			// *and* DOMText(s) which do not have the property ->tagName
-		} while ( $this->tag != @$dom_list->item( $i )->tagName && $i < $dom_list->length );
+		} while ( @$dom_list->item( $i )->tagName != $this->tag && $i < $dom_list->length );
 
 		// h1 tag will not be needed in the body of the html
 		$h1 = $chapter->getElementsByTagName( $this->tag )->item( 0 );
@@ -550,7 +550,7 @@ class Docx extends Import {
 	 */
 	protected function findTheNode( \DOMNode $node, $chapter_name ) {
 
-		if ( $node->nodeType !== XML_ELEMENT_NODE ) {
+		if ( XML_ELEMENT_NODE !== $node->nodeType ) {
 			return '';
 		}
 
@@ -665,7 +665,7 @@ class Docx extends Import {
 
 		$result = $this->zip->open( $fullpath );
 
-		if ( $result !== true ) {
+		if ( true !== $result ) {
 			throw new \Exception( 'Opening docx file failed' );
 		}
 		// check if a document.xml exists
@@ -736,7 +736,7 @@ class Docx extends Import {
 		// Locates an entry using its name
 		$index = $this->zip->locateName( $file );
 
-		if ( $index === false ) {
+		if ( false === $index ) {
 			return false;
 		}
 
@@ -788,5 +788,3 @@ class Docx extends Import {
 	}
 
 }
-
-

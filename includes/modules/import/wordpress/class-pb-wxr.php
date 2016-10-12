@@ -103,7 +103,7 @@ class Wxr extends Import {
 		// and import them if they don't already exist.
 		foreach ( $terms as $t ) {
 			$term = term_exists( $t['term_name'], $t['term_taxonomy'] );
-			if ( $term === null || $term === 0 ) {
+			if ( null === $term || 0 === $term ) {
 				wp_insert_term(
 					$t['term_name'],
 					$t['term_taxonomy'],
@@ -152,7 +152,7 @@ class Wxr extends Import {
 
 			// if this is a custom post type,
 			// and it has terms associated with it...
-			if ( ( in_array( $post_type, $custom_post_types ) && $p['terms'] == true ) ) {
+			if ( ( in_array( $post_type, $custom_post_types ) && true == $p['terms'] ) ) {
 				// associate post with terms.
 				foreach ( $p['terms'] as $t ) {
 					if ( in_array( $t['domain'], $taxonomies ) ) {

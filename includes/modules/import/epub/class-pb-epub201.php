@@ -224,7 +224,7 @@ class Epub201 extends Import {
 	protected function setCurrentZip( $fullpath ) {
 
 		$result = $this->zip->open( $fullpath );
-		if ( $result !== true ) {
+		if ( true !== $result ) {
 			throw new \Exception( 'Opening epub file failed' );
 		}
 
@@ -259,7 +259,7 @@ class Epub201 extends Import {
 		// Locates an entry using its name
 		$index = $this->zip->locateName( urldecode( $file ) );
 
-		if ( $index === false ) {
+		if ( false === $index ) {
 			return '';
 		}
 

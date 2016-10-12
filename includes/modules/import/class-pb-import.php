@@ -126,6 +126,9 @@ abstract class Import {
 	 * @return bool
 	 */
 	protected function flaggedForImport( $id ) {
+		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-import' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-revoke-import' ) ) {
+			die( 'Security check.' );
+		}
 
 		if ( ! @is_array( $_POST['chapters'] ) ) {
 			return false;
@@ -147,6 +150,9 @@ abstract class Import {
 	 * @return string
 	 */
 	protected function determinePostType( $id ) {
+		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-import' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-revoke-import' ) ) {
+			die( 'Security check.' );
+		}
 
 		$supported_types = apply_filters( 'pb_import_custom_post_types', array( 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
 
@@ -189,7 +195,7 @@ abstract class Import {
 		$validate = wp_check_filetype_and_ext( $path_to_file, $filename, $mimes );
 
 		// change filename to the extension that matches its mimetype
-		if ( $validate['proper_filename'] !== false ) {
+		if ( false !== $validate['proper_filename'] ) {
 			return $validate['proper_filename'];
 		} else {
 			return $filename;
@@ -352,7 +358,7 @@ abstract class Import {
 				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
 				unlink( $upload['file'] );
 			}
-		} elseif ( @$_GET['import'] && @$_POST['type_of'] === 'html' && check_admin_referer( 'pb-import' ) ) {
+		} elseif ( @$_GET['import'] && 'html' === @$_POST['type_of'] && check_admin_referer( 'pb-import' ) ) {
 
 			// check if it's a valid url
 			if ( false == filter_var( $_POST['import_html'], FILTER_VALIDATE_URL ) ) {
@@ -372,7 +378,7 @@ abstract class Import {
 
 			// weebly.com (and likely some others) prevent HEAD requests, but allow GET requests
 			if ( 200 !== $remote_head['response']['code'] && 405 !== $remote_head['response']['code'] ) {
-				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ' . $remote_head['response']['code'] , 'pressbooks' );
+				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ' , 'pressbooks' ) . $remote_head['response']['code'];
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
@@ -395,7 +401,7 @@ abstract class Import {
 
 			// check for a successful response code on GET request
 			if ( 200 !== $body['response']['code'] ) {
-				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ' . $body['response']['code'] , 'pressbooks' );
+				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ' , 'pressbooks' ) . $body['response']['code'];
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
@@ -425,6 +431,9 @@ abstract class Import {
 	 * @return bool
 	 */
 	static function isFormSubmission() {
+		if ( ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-import' ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'pb-revoke-import' ) ) {
+			die( 'Security check.' );
+		}
 
 		if ( 'pb_import' != @$_REQUEST['page'] ) {
 			return false;

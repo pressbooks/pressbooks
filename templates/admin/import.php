@@ -12,8 +12,7 @@ $custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 ?>
 <div class="wrap">
 
-	<div id="icon-themes" class="icon32"></div>
-	<h2><?php _e( 'Import', 'pressbooks' ); ?></h2>
+	<h1><?php _e( 'Import', 'pressbooks' ); ?></h1>
 
 	<?php if ( is_array( $current_import ) && isset( $current_import['file'] ) ) { ?>
 
