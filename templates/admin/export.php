@@ -112,7 +112,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	$files = \Pressbooks\Utility\group_exports();
 	foreach ( $files as $date => $exports ) {
 		// Echo files to screen
-		if ( $c == 0 ) { ?>
+		if ( 0 == $c ) { ?>
 		<h2><?php _e( 'Latest Export', 'pressbooks' ); ?>: <?php printf( _x( '%1$s at %1$s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h2>
 		<div class="export-files latest">
 	<?php } elseif ( $c > 0 ) { ?>
@@ -139,7 +139,7 @@ foreach ( $exports as $file ) {
 		<input type="hidden" name="filename" value="<?php echo $file; ?>" />
 		<input type="hidden" name="delete_export_file" value="true" />
 		<div class="export-file-container">
-	<a class="export-file" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( $c == 0 ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
+	<a class="export-file" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( 0 == $c ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
 	<div class="file-actions">
 		<a href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="dashicons dashicons-download"></span></a>
 		<button class="delete" type="submit" name="submit" src="" value="Delete" onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><span class="dashicons dashicons-trash"></span></button>

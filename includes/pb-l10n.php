@@ -408,12 +408,13 @@ function include_core_overrides() {
 	static $_overrides = array();
 
 	$locale = apply_filters( 'plugin_locale', get_locale(), 'pressbooks' );
-	$filename = PB_PLUGIN_DIR . 'languages/core-' . $locale . '.php';
+	$filename = 'core-' . strtolower( str_replace( '_', '-', $locale ) ) . '.php';
+	$filepath = PB_PLUGIN_DIR . 'languages/' . $filename;
 
 	if ( ! isset( $_overrides[ $locale ] ) ) {
 		$_overrides[ $locale ] = array();
-		if ( file_exists( $filename ) ) {
-			$_overrides[ $locale ] = include( $filename );
+		if ( file_exists( $filepath ) ) {
+			$_overrides[ $locale ] = include( $filepath );
 		}
 	}
 

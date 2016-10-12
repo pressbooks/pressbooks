@@ -151,13 +151,15 @@ $_current_user_id = $catalog->getUserId();
 	<link rel="shortcut icon" href="<?php bloginfo( 'stylesheet_directory' ); ?>/favicon.ico" />
 	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login );
 	_e( '\'s Catalog Page', 'pressbooks' ); ?> | Pressbooks</title>
-	<link rel="stylesheet" type="text/css" href="<?php echo \Pressbooks\Utility\asset_path( 'styles/style-catalog.css' ); ?>" />
+ 	<?php // @codingStandardsIgnoreStart ?>
+ 	<link rel="stylesheet" type="text/css" href="<?php echo \Pressbooks\Utility\asset_path( 'styles/style-catalog.css' ); ?>" />
 	<link href='https://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
 	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/matchheight.js' ); ?>" type="text/javascript"></script>
 	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/isotope.js' ); ?>" type="text/javascript"></script>
 	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/small-menu.js' ); ?>" type="text/javascript"></script>
 	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/catalog.js' ); ?>" type="text/javascript"></script>
+	<?php // @codingStandardsIgnoreEnd ?>
 	<?php \Pressbooks\analytics\print_analytics(); ?>
 </head>
 <body>
@@ -208,7 +210,7 @@ $_current_user_id = $catalog->getUserId();
 					<?php
 					foreach ( $tags as $val ) {
 						echo "<li class=\"filter-group-{$i}\" data-filter=\".{$val['id']}\">";
-						echo "{$val['tag']}</li>" . "\n";
+						echo "{$val['tag']}</li>\n";
 					}
 					?>
 				</ul>

@@ -12,7 +12,7 @@ if ( ! empty( $_POST ) ) {
 			'url' => 'https://pressbooks.com/feed/',
 			'title' => 'Pressbooks News',
 		] );
-		if ( @$_REQUEST['pressbooks_dashboard_feed']['display_feed'] == 1 ) {
+		if ( 1 == @$_REQUEST['pressbooks_dashboard_feed']['display_feed'] ) {
 			$options['display_feed'] = '1';
 		} else {
 			$options['display_feed'] = '0';
