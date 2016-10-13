@@ -536,11 +536,10 @@ function disable_customizer() {
  */
 function init_css_js() {
 
-	// @codingStandardsIgnoreStart
 	// This is to work around JavaScript dependency errors
 	global $concatenate_scripts;
+	// @codingStandardsIgnoreLine
 	$concatenate_scripts = false;
-	// @codingStandardsIgnoreEnd
 
 	// Note: Will auto-register a dependency $handle named 'colors'
 	wp_admin_css_color( 'pb_colors', 'Pressbooks', \Pressbooks\Utility\asset_path( 'styles/colors-pb.css' ), apply_filters( 'pressbooks_admin_colors', array( '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ) ) );

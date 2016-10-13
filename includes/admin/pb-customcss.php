@@ -85,9 +85,8 @@ function display_custom_css() {
  */
 function load_custom_css_template( $vars ) {
 
-	// @codingStandardsIgnoreStart
+	// @codingStandardsIgnoreLine
 	extract( $vars );
-	// @codingStandardsIgnoreEnd
 	require( PB_PLUGIN_DIR . 'templates/admin/custom-css.php' );
 }
 

@@ -15,9 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit;
 		<title>Pressbooks v1 RESTful API Documentation</title>
 
 		<!-- Latest compiled and minified CSS -->
-		<?php // @codingStandardsIgnoreStart ?>
+		<?php // @codingStandardsIgnoreLine ?>
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-		<?php // @codingStandardsIgnoreEnd ?>
 		<!-- Optional theme -->
 		<style>
 			/*

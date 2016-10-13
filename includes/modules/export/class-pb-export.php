@@ -825,11 +825,10 @@ abstract class Export {
 		header( 'Content-Length: ' . filesize( $filepath ) );
 		@ob_clean();
 		flush();
-		// @codingStandardsIgnoreStart
+		// @codingStandardsIgnoreLine
 		while ( @ob_end_flush() ) {
 			// Fix out-of-memory problem
 		}
-		// @codingStandardsIgnoreEnd
 		readfile( $filepath );
 
 		exit;
