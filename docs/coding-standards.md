@@ -41,4 +41,4 @@ For everything else not mentioned we respect the [WordPress coding standards](ht
 From the Pressbooks plugin directory:
 
 1. `composer install --dev`
-2. `vendor/bin/phpcs --standard=phpcs.xml --extensions=php .`
+2. `composer standards`
