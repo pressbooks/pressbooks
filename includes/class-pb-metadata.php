@@ -100,7 +100,7 @@ class Metadata {
 		/** @var \wpdb $wpdb */
 		global $wpdb;
 		$mid = $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s LIMIT 1 ", $post_id, $meta_key ) );
-		if ( $mid != '' ) {
+		if ( '' != $mid ) {
 			return absint( $mid );
 		}
 
@@ -564,10 +564,9 @@ class Metadata {
 		);
 
 		$post = array( 'post_status' => 'publish', 'post_author' => wp_get_current_user()->ID );
-		$query = "SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ";
 
 		foreach ( $posts as $item ) {
-			$exists = $wpdb->get_var( $wpdb->prepare( $query, array( $item['post_title'], $item['post_type'], $item['post_name'] ) ) );
+			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ", array( $item['post_title'], $item['post_type'], $item['post_name'] ) ) );
 			if ( empty( $exists ) ) {
 				$data = array_merge( $item, $post );
 				wp_insert_post( $data );
@@ -652,14 +651,12 @@ class Metadata {
 
 		update_option( 'show_on_front', 'page' );
 
-		$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'cover' AND post_type = 'page' AND post_status = 'publish' ";
-		$id = $wpdb->get_var( $sql );
+		$id = $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'cover' AND post_type = 'page' AND post_status = 'publish' " );
 		if ( $id ) {
 			update_option( 'page_on_front', $id );
 		}
 
-		$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'table-of-contents' AND post_type = 'page' AND post_status = 'publish' ";
-		$id = $wpdb->get_var( $sql );
+		$id = $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'table-of-contents' AND post_type = 'page' AND post_status = 'publish' " );
 		if ( $id ) {
 			update_option( 'page_for_posts', $id );
 		}

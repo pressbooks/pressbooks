@@ -20,8 +20,7 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
 
 	global $pagenow;
 
-	if ( $pagenow === 'wp-signup.php' ) {
-
+	if ( 'wp-signup.php' === $pagenow ) {
 		switch ( $untranslated_text ) {
 			case 'Gimme a site!' :
 				$translated_text = __( 'Register my book now', 'pressbooks' );
@@ -118,11 +117,14 @@ function add_password_field( $errors ) {
  * @param array $content
  */
 function validate_passwords( $content ) {
+	if ( ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
+		wp_die( __( 'Please try again.', 'pressbooks' ) );
+	}
 
 	$password_1 = isset( $_POST['password_1'] ) ? $_POST['password_1'] : '';
 	$password_2 = isset( $_POST['password_2'] ) ? $_POST['password_2'] : '';
 
-	if ( isset( $_POST['stage'] ) && $_POST['stage'] == 'validate-user-signup' ) {
+	if ( isset( $_POST['stage'] ) && 'validate-user-signup' == $_POST['stage'] ) {
 
 		// No primary password entered
 		if ( trim( $password_1 ) === '' ) {
@@ -147,6 +149,9 @@ function validate_passwords( $content ) {
  */
 
 function add_temporary_password( $meta ) {
+	if ( ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
+		wp_die( __( 'Please try again.', 'pressbooks' ) );
+	}
 
 	if ( isset( $_POST['password_1'] ) ) {
 
@@ -164,8 +169,11 @@ function add_temporary_password( $meta ) {
  */
 
 function add_hidden_password_field() {
+	if ( ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
+		wp_die( __( 'Please try again.', 'pressbooks' ) );
+	}
 	if ( isset( $_POST['password_1'] ) ) { ?><input type="hidden" name="password_1_base64" value="1" />
-<input type="hidden" name="password_1" value="<?php echo ( isset( $_POST['password_1_base64'] ) ? $_POST['password_1'] : base64_encode( $_POST['password_1'] ) ); ?>" />
+	<input type="hidden" name="password_1" value="<?php echo ( isset( $_POST['password_1_base64'] ) ? $_POST['password_1'] : base64_encode( $_POST['password_1'] ) ); ?>" />
 	<?php }
 }
 
@@ -174,6 +182,9 @@ function add_hidden_password_field() {
  */
 
 function override_password_generation( $password ) {
+	if ( ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
+		wp_die( __( 'Please try again.', 'pressbooks' ) );
+	}
 
 	global $wpdb;
 
@@ -190,7 +201,7 @@ function override_password_generation( $password ) {
 	$signup = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->signups WHERE activation_key = '%s'", $key ) );
 
 	// Only override filter on wp-activate.php screen
-	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) && $key !== null && ( ! ( empty( $signup ) || $signup->active ) ) ) {
+	if ( strpos( $_SERVER['PHP_SELF'], 'wp-activate.php' ) && null !== $key && ( ! ( empty( $signup ) || $signup->active ) ) ) {
 		$meta = maybe_unserialize( $signup->meta );
 		if ( isset( $meta['password'] ) ) {
 

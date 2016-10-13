@@ -423,6 +423,7 @@ function download_open_export_file( $filename ) {
 	header( 'Content-Length: ' . filesize( $filepath ) );
 	@ob_clean();
 	flush();
+	// @codingStandardsIgnoreLine
 	while ( @ob_end_flush() ) {
 		// Fix out-of-memory problem
 	}	readfile( $filepath );

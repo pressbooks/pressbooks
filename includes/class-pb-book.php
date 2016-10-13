@@ -54,6 +54,7 @@ class Book {
 		// Is cached?
 		// -----------------------------------------------------------------------------
 		if ( ! empty( $id ) && is_int( $id ) ) {
+			// @codingStandardsIgnoreLine
 			$blog_id = $id;
 			switch_to_blog( $blog_id );
 		} else {
@@ -157,6 +158,7 @@ class Book {
 		// Is cached?
 		// -----------------------------------------------------------------------------
 		if ( ! empty( $id ) && is_int( $id ) ) {
+			// @codingStandardsIgnoreLine
 			$blog_id = $id;
 			switch_to_blog( $id );
 		} else {
@@ -254,7 +256,7 @@ class Book {
 		foreach ( $custom_types as $type ) {
 			foreach ( $book_structure[ $type ] as $i => $struct ) {
 				unset( $book_structure[ $type ][ $i ]['post_parent'] );
-				if ( $type != 'part' ) {
+				if ( 'part' != $type ) {
 					$book_structure['__order'][ $struct['ID'] ] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
 					if ( $struct['export'] ) {
 						$book_structure['__export_lookup'][ $struct['post_name'] ] = $type;
@@ -466,7 +468,7 @@ class Book {
 
 				if ( is_array( $newPartOrder ) ) {
 					foreach ( $newPartOrder as $key => $values ) {
-						if ( $key == 'chapter' ) {
+						if ( 'chapter' == $key ) {
 							foreach ( $values as $position => $id ) {
 								$position += 1; // array is 0-indexed, but we want it to start from 1
 								$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
@@ -480,7 +482,7 @@ class Book {
 			// always update the order of the part this chapter was originally in
 			if ( is_array( $oldPartOrder ) ) {
 				foreach ( $oldPartOrder as $key => $values ) {
-					if ( $key == 'chapter' ) {
+					if ( 'chapter' == $key ) {
 						foreach ( $values as $position => $id ) {
 							$position += 1; // array is 0-indexed, but we want it to start from 1
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
@@ -512,7 +514,7 @@ class Book {
 
 			if ( is_array( $frontMatterOrder ) ) {
 				foreach ( $frontMatterOrder as $key => $values ) {
-					if ( $key == 'front-matter' ) {
+					if ( 'front-matter' == $key ) {
 						foreach ( $values as $position => $id ) {
 							$position += 1;
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
@@ -540,7 +542,7 @@ class Book {
 
 			if ( is_array( $backMatterOrder ) ) {
 				foreach ( $backMatterOrder as $key => $values ) {
-					if ( $key == 'back-matter' ) {
+					if ( 'back-matter' == $key ) {
 						foreach ( $values as $position => $id ) {
 							$position += 1;
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
@@ -559,15 +561,15 @@ class Book {
 	 */
 	static function updateExportOptions() {
 
-		$valid_meta_keys = array(
-			'pb_export',
-		);
-
-		$post_id = absint( $_POST['post_id'] );
-		$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
-		$meta_value = ( $_POST['chapter_export'] ) ? 'on' : 0;
-
 		if ( current_user_can( 'edit_post', $post_id ) && $meta_key && check_ajax_referer( 'pb-update-book-export' ) ) {
+			$valid_meta_keys = array(
+				'pb_export',
+			);
+
+			$post_id = absint( $_POST['post_id'] );
+			$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
+			$meta_value = ( $_POST['chapter_export'] ) ? 'on' : 0;
+
 			update_post_meta( $post_id, $meta_key, $meta_value );
 			static::deleteBookObjectCache();
 		}
@@ -578,15 +580,15 @@ class Book {
 	 */
 	static function updateShowTitleOptions() {
 
-		$valid_meta_keys = array(
-			'pb_show_title',
-		);
-
-		$post_id = absint( $_POST['post_id'] );
-		$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
-		$meta_value = ( $_POST['chapter_show_title'] ) ? 'on' : 0;
-
 		if ( current_user_can( 'edit_post', $post_id ) && $meta_key && check_ajax_referer( 'pb-update-book-show-title' ) ) {
+			$valid_meta_keys = array(
+				'pb_show_title',
+			);
+
+			$post_id = absint( $_POST['post_id'] );
+			$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
+			$meta_value = ( $_POST['chapter_show_title'] ) ? 'on' : 0;
+
 			update_post_meta( $post_id, $meta_key, $meta_value );
 			static::deleteBookObjectCache();
 		}
@@ -597,14 +599,14 @@ class Book {
 	 */
 	static function updatePrivacyOptions() {
 
-		$post_id = absint( $_POST['post_id'] );
-		$post_status = $_POST['post_status'];
-
-		$my_post = array();
-		$my_post['ID'] = $post_id;
-		$my_post['post_status'] = $post_status;
-
 		if ( current_user_can( 'edit_post', $post_id ) && check_ajax_referer( 'pb-update-book-privacy' ) ) {
+			$post_id = absint( $_POST['post_id'] );
+			$post_status = $_POST['post_status'];
+
+			$my_post = array();
+			$my_post['ID'] = $post_id;
+			$my_post['post_status'] = $post_status;
+
 			wp_update_post( $my_post );
 			static::deleteBookObjectCache();
 		}
@@ -644,7 +646,7 @@ class Book {
 		$order = $book_structure['__order'];
 		$pos = array_keys( $order );
 
-		$what = ( $what == 'next' ? 'next' : 'prev' );
+		$what = ( 'next' == $what ? 'next' : 'prev' );
 
 		// Move internal pointer to correct position
 		reset( $pos );
@@ -659,7 +661,7 @@ class Book {
 		// Get next/previous
 		$what( $pos );
 		while ( $post_id = current( $pos ) ) {
-			if ( $order[ $post_id ]['post_status'] == 'publish' ) {
+			if ( 'publish' == $order[ $post_id ]['post_status'] ) {
 				break;
 			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
 				break;
@@ -689,7 +691,7 @@ class Book {
 
 		reset( $pos );
 		while ( $first_id = current( $pos ) ) {
-			if ( $order[ $first_id ]['post_status'] == 'publish' ) {
+			if ( 'publish' == $order[ $first_id ]['post_status'] ) {
 				break;
 			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
 				break;
@@ -725,17 +727,29 @@ class Book {
 
 		// if this is a new post, set its order
 		if ( empty( $post->menu_order ) ) {
-
-			$query = "SELECT max({$wpdb->posts}.menu_order) + 1
-					FROM {$wpdb->posts}
-				   WHERE {$wpdb->posts}.post_type = '{$post->post_type}'
-				 AND NOT {$wpdb->posts}.post_status = 'trash' ";
-
 			if ( 'chapter' == $post->post_type ) {
-				$query .= " AND {$wpdb->posts}.post_parent = {$post->post_parent} ";
+				$new = $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT max({$wpdb->posts}.menu_order) + 1
+						FROM {$wpdb->posts}
+						WHERE {$wpdb->posts}.post_type = %s
+						AND NOT {$wpdb->posts}.post_status = 'trash'
+						AND {$wpdb->posts}.post_parent = %s ",
+						$post->post_type,
+						$post->post_parent
+					)
+				);
+			} else {
+				$new = $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT max({$wpdb->posts}.menu_order) + 1
+						FROM {$wpdb->posts}
+						WHERE {$wpdb->posts}.post_type = %s
+						AND NOT {$wpdb->posts}.post_status = 'trash' ",
+						$post->post_type
+					)
+				);
 			}
-
-			$new = $wpdb->get_var( $query );
 
 			if ( empty( $new ) ) {
 				$new = 1;
@@ -743,11 +757,15 @@ class Book {
 				$new = absint( $new );
 			}
 
-			$query = "UPDATE {$wpdb->posts}
-					 SET {$wpdb->posts}.menu_order = {$new}
-				   WHERE {$wpdb->posts}.ID = {$post->ID} ";
-
-			$success = $wpdb->query( $query );
+			$success = $wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->posts}
+					SET {$wpdb->posts}.menu_order = %d
+					WHERE {$wpdb->posts}.ID = %d ",
+					$new,
+					$post->ID
+				)
+			);
 			clean_post_cache( $post );
 
 		}
@@ -775,40 +793,68 @@ class Book {
 		// remove chapter/part/front matter
 		// decrement order of everything with a higher order, and if chapter, only within that part
 
-		$post = get_post( $pid );
-		$order = $post->menu_order;
-		$type = $post->post_type;
-		$parent = $post->post_parent;
+		$post_to_delete = get_post( $pid );
+		$order = $post_to_delete->menu_order;
+		$type = $post_to_delete->post_type;
+		$parent = $post_to_delete->post_parent;
 
 		$query = "UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > {$order} AND post_type = '{$type}' ";
 
 		if ( 'chapter' == $type ) {
-			$query .= " AND post_parent = {$parent} ";
+			$success = $wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > %d AND post_type = %s AND post_parent = %d ",
+					$order,
+					$type,
+					$parent
+				)
+			);
+		} else {
+			$success = $wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > %d AND post_type = %s ",
+					$order,
+					$type
+				)
+			);
 		}
 
-		$success = $wpdb->query( $query );
-		clean_post_cache( $post );
+		clean_post_cache( $post_to_delete );
 
 		if ( 'part' == $type ) {
 
 			// We're setting two things here - the new post_parent (to the first part)
 			// And the new menu order for the chapters that were in the part being deleted.
 
-			$new_parent_id = $wpdb->get_var( "SELECT ID
-										 FROM {$wpdb->posts}
-										WHERE post_type = 'part'
-										  AND post_status = 'publish'
-										  AND NOT ID = {$pid}
-									 ORDER BY menu_order
-										LIMIT 1 " );
+			$new_parent_id = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT ID FROM {$wpdb->posts} WHERE post_type = 'part' AND post_status = 'publish' AND NOT ID = %d ORDER BY menu_order LIMIT 1 ",
+					$pid
+				)
+			);
 
 			if ( $new_parent_id ) {
-				$existing_numposts = $wpdb->get_var( "SELECT COUNT(1) AS numposts FROM {$wpdb->posts} WHERE post_type = 'chapter' AND post_parent = {$new_parent_id} " );
-				$query = "UPDATE {$wpdb->posts} SET post_parent = {$new_parent_id}, menu_order = menu_order + {$existing_numposts} WHERE post_parent = {$pid} AND post_type = 'chapter' ";
-				$success = $wpdb->query( $query );
+				$existing_numposts = $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT COUNT(1) AS numposts FROM {$wpdb->posts} WHERE post_type = 'chapter' AND post_parent = %d ",
+						$new_parent_id
+					)
+				);
+				$success = $wpdb->query(
+					$wpdb->prepare(
+						"UPDATE {$wpdb->posts} SET post_parent = %d, menu_order = menu_order + %d WHERE post_parent = %d AND post_type = 'chapter' ",
+						$new_parent_id,
+						$existing_numposts,
+						$pid
+					)
+				);
 			} else {
-				$query = "UPDATE {$wpdb->posts} SET post_status = 'trash' WHERE post_parent = {$pid} AND post_type = 'chapter' ";
-				$success = $wpdb->query( $query );
+				$success = $wpdb->query(
+					$wpdb->prepare(
+						"UPDATE {$wpdb->posts} SET post_status = 'trash' WHERE post_parent = %d AND post_type = 'chapter' ",
+						$pid
+					)
+				);
 			}
 
 			wp_cache_flush();

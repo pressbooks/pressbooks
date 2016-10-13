@@ -388,6 +388,7 @@ function override_core_strings( $translated, $original, $domain ) {
 
 	if ( isset( $overrides[ $original ] ) ) {
 		$translations = get_translations_for_domain( $domain );
+		// @codingStandardsIgnoreLine
 		$translated = $translations->translate( $overrides[ $original ] );
 	}
 
@@ -439,7 +440,7 @@ function set_locale( $lang ) {
 		if ( '__UNSET__' == $loc && function_exists( 'wp_get_current_user' ) ) {
 			$loc = get_user_option( 'user_interface_lang' );
 		}
-	} elseif ( @$GLOBALS['pagenow'] == 'wp-signup.php' ) {
+	} elseif ( 'wp-signup.php' == @$GLOBALS['pagenow'] ) {
 		// use global setting
 		$loc = get_site_option( 'WPLANG' );
 	} else {
@@ -523,6 +524,7 @@ function romanize( $integer ) {
  */
 function use_book_locale() {
 
+	// @codingStandardsIgnoreLine
 	if ( \Pressbooks\Modules\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
 		return true;
 	}

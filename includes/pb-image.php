@@ -56,7 +56,7 @@ function is_valid_image( $file, $filename, $is_stream = false ) {
 
 	$format = explode( '.', $filename );
 	$format = strtolower( end( $format ) ); // Extension
-	if ( ! ( $format == 'jpg' || $format == 'jpeg' || $format == 'gif' || $format == 'png' ) ) {
+	if ( ! ( 'jpg' == $format || 'jpeg' == $format || 'gif' == $format || 'png' == $format ) ) {
 		return false;
 	}
 
@@ -127,12 +127,13 @@ function attachment_id_from_url( $url ) {
 	$url = strip_baseurl( $url );
 
 	// Get the attachment ID from the modified attachment URL
-	$sql = "SELECT ID FROM {$wpdb->posts}
+	$id = $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT ID FROM {$wpdb->posts}
 			INNER JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
-			WHERE {$wpdb->posts}.post_type = 'attachment' AND {$wpdb->postmeta}.meta_key = '_wp_attached_file' AND {$wpdb->postmeta}.meta_value = '%s' ";
-
-	$sql = $wpdb->prepare( $sql, $url );
-	$id = $wpdb->get_var( $sql );
+			WHERE {$wpdb->posts}.post_type = 'attachment' AND {$wpdb->postmeta}.meta_key = '_wp_attached_file' AND {$wpdb->postmeta}.meta_value = '%s' ", $url
+		)
+	);
 
 	return absint( $id );
 }
@@ -243,9 +244,13 @@ function delete_attachment( $post_id ) {
 
 		$url = strip_baseurl( wp_get_attachment_url( $post->ID ) );
 
-		$sql = "SELECT umeta_id FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key = 'pb_catalog_logo' AND meta_value REGEXP %s ";
-		$sql = $wpdb->prepare( $sql, $post->post_author, "{$url}$" ); // End of string regex for URL
-		$id = $wpdb->get_var( $sql );
+		$id = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT umeta_id FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key = 'pb_catalog_logo' AND meta_value REGEXP %s ",
+				$post->post_author,
+				"{$url}$" // End of string regex for URL
+			)
+		);
 
 		if ( $id ) {
 			update_user_meta( $post->post_author, 'pb_catalog_logo', \Pressbooks\Image\default_cover_url() );
@@ -394,9 +399,10 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
  */
 function resize_down( $format, $fullpath, $MAX_W = 1024, $MAX_H = 1024 ) {
 
-	if ( $format == 'jpg' ) { $format = 'jpeg'; // fix stupid mistake
+	if ( 'jpg' == $format ) {
+		$format = 'jpeg'; // fix stupid mistake
 	}
-	if ( ! ( $format == 'jpeg' || $format == 'gif' || $format == 'png' ) ) {
+	if ( ! ( 'jpeg' == $format || 'gif' == $format || 'png' == $format ) ) {
 		throw new \Exception( 'Invalid image format' );
 	}
 
@@ -460,7 +466,7 @@ function fudge_factor( $format, $fullpath ) {
 		return;
 	}
 
-	if ( $format == 'jpeg' ) {
+	if ( 'jpeg' == $format ) {
 		// Jpeg
 		$fudge = 1.65; // This is a guestimate, your mileage may very
 		$memoryNeeded = round( ( $size[0] * $size[1] * $size['bits'] * $size['channels'] / 8 + pow( 2, 16 ) ) * $fudge );

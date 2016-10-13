@@ -233,13 +233,12 @@ class Activation {
 		$intro = 0;
 		$appendix = 0;
 		$chapter1 = 0;
-		$query = "SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ";
 
 		foreach ( $posts as $item ) {
 
-			$exists = $wpdb->get_var( $wpdb->prepare( $query, array( $item['post_title'], $item['post_type'], $item['post_name'] ) ) );
+			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ", array( $item['post_title'], $item['post_type'], $item['post_name'] ) ) );
 			if ( empty( $exists ) ) {
-				if ( $item['post_type'] == 'page' ) {
+				if ( 'page' == $item['post_type'] ) {
 					$data = array_merge( $item, $page );
 				} else {
 					$data = array_merge( $item, $post );
@@ -256,17 +255,17 @@ class Activation {
 							break;
 					}
 
-					if ( $item['post_type'] == 'part' ) {
+					if ( 'part' == $item['post_type'] ) {
 						$parent_part = $newpost;
-					} elseif ( $item['post_type'] == 'chapter' ) {
+					} elseif ( 'chapter' == $item['post_type'] ) {
 						$my_post = array();
 						$my_post['ID'] = $newpost;
 						$my_post['post_parent'] = $parent_part;
 						wp_update_post( $my_post );
 						$chapter1 = $newpost;
-					} elseif ( $item['post_type'] == 'front-matter' ) {
+					} elseif ( 'front-matter' == $item['post_type'] ) {
 						$intro = $newpost;
-					} elseif ( $item['post_type'] == 'back-matter' ) {
+					} elseif ( 'back-matter' == $item['post_type'] ) {
 						$appendix = $newpost;
 					}
 				} else {

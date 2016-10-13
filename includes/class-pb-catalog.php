@@ -6,6 +6,8 @@
  * @license GPLv2 (or any later version)
  */
 
+// @codingStandardsIgnoreStart
+
 namespace Pressbooks;
 
 
@@ -1260,3 +1262,5 @@ class Catalog {
 
 
 }
+
+// @codingStandardsIgnoreEnd

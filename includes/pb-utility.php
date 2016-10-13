@@ -218,17 +218,17 @@ function multi_sort() {
 	$array = $array[0];
 	// sort with an anonymous function using args
 	usort( $array, function ( $a, $b ) use ( $args ) {
-		$orderBy = 'asc';
+		$orderby = 'asc';
 		$i = 0;
 		$c = count( $args );
 		$cmp = 0;
-		while ( $cmp == 0 && $i < $c ) {
-			@list( $arg, $orderBy ) = explode( ':', $args[ $i ] );
-			$orderBy = strtolower( $orderBy ) == 'desc' ? 'desc' : 'asc';
+		while ( 0 == $cmp && $i < $c ) {
+			@list( $arg, $orderby ) = explode( ':', $args[ $i ] );
+			$orderby = strtolower( $orderby ) == 'desc' ? 'desc' : 'asc';
 			$cmp = strcmp( $a[ $arg ], $b[ $arg ] );
 			$i ++;
 		}
-		if ( $orderBy == 'desc' ) {
+		if ( 'desc' == $orderby ) {
 			return - $cmp; // Negate the value
 		} else {
 			return $cmp; // As is
@@ -584,6 +584,7 @@ function template( $path, array $vars = array() ) {
 	}
 
 	ob_start();
+	// @codingStandardsIgnoreLine
 	extract( $vars );
 	include( $path );
 	$output = ob_get_contents();

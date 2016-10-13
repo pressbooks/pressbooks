@@ -258,7 +258,7 @@ class Taxonomy {
 		$terms = get_the_terms( $id, 'chapter-type' );
 		if ( $terms && ! is_wp_error( $terms ) ) {
 			foreach ( $terms as $term ) {
-				if ( $term->slug == 'type-1' ) {
+				if ( 'type-1' == $term->slug ) {
 					return 'standard';
 				} else {
 					return $term->slug;

@@ -108,7 +108,7 @@ abstract class Options {
 		}
 
 		foreach ( $this->booleans as $key ) {
-			if ( ! isset( $input[ $key ] ) || @$input[ $key ] != 1 ) {
+			if ( ! isset( $input[ $key ] ) || 1 != @$input[ $key ] ) {
 				$options[ $key ] = 0;
 			} else {
 				$options[ $key ] = 1;
@@ -214,7 +214,7 @@ abstract class Options {
 ?>" name="<?php echo $name;
 ?>[<?php echo $option;
 ?>]" value="<?php echo $key; ?>" <?php if ( $custom && $is_custom ) {
-	if ( $key == '' ) {
+	if ( '' == $key ) {
 		echo('checked');
 	}
 } else {
@@ -260,12 +260,14 @@ abstract class Options {
 		if ( ! array_key_exists( $value, $args ) ) {
 			$is_custom = true;
 		} ?>
-		<select name='<?php echo $name;
-?>' id='<?php echo $id; ?>'>
+		<select name='<?php echo $name; ?>' id='<?php echo $id; ?>'>
 		<?php foreach ( $args as $key => $label ) { ?>
-			<option value='<?php echo $key; ?>' <?php if ( $key == '' && $is_custom ) { echo 'selected';
-} else { selected( $key, $value );
-} ?>><?php echo $label; ?></option>
+			<option value='<?php echo $key; ?>' <?php
+			if ( '' == $key && $is_custom ) {
+				echo 'selected';
+			} else {
+				selected( $key, $value );
+			} ?>><?php echo $label; ?></option>
 		<?php } ?>
 		</select><br />
 	<?php }

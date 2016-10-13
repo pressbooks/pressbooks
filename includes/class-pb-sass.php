@@ -25,7 +25,7 @@ class Sass {
 	 */
 	function defaultIncludePaths( $type, $theme = null ) {
 
-		if ( $theme == null ) {
+		if ( null == $theme ) {
 			$theme = wp_get_theme();
 		}
 
@@ -167,7 +167,7 @@ class Sass {
 		try {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
 
-			if ( $scss !== '' ) {
+			if ( '' !== $scss ) {
 				if ( extension_loaded( 'sass' ) ) { // use sassphp extension
 					$scss_file = array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ) ) );
 					rename( $scss_file, $scss_file .= '.scss' );
@@ -302,7 +302,7 @@ class Sass {
 	 */
 	function isCurrentThemeCompatible( $version = 1, $theme = null ) {
 
-		if ( $theme == null ) {
+		if ( null == $theme ) {
 			$theme = wp_get_theme();
 		}
 
@@ -313,13 +313,13 @@ class Sass {
 
 		);
 		foreach ( $types as $type ) {
-			if ( $version == 1 && $type !== 'web' ) {
+			if ( 1 == $version && 'web' !== $type ) {
 				$path = $theme->get_stylesheet_directory() . "/export/$type/style.scss";
-			} elseif ( $version == 1 && $type == 'web' ) {
+			} elseif ( 1 == $version && 'web' == $type ) {
 				$path = $theme->get_stylesheet_directory() . '/style.scss';
 			}
 
-			if ( $version == 2 ) {
+			if ( 2 == $version ) {
 				$path = $theme->get_stylesheet_directory() . "/assets/styles/$type/style.scss";
 			}
 

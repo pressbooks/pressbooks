@@ -151,7 +151,7 @@ class CustomCss {
 			$slug = isset( $_POST['slug'] ) ? $_POST['slug'] : 'web';
 			$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_css&slug=' . $slug );
 
-			if ( @$_POST['post_id_integrity'] != md5( NONCE_KEY . @$_POST['post_id'] ) ) {
+			if ( md5( NONCE_KEY . @$_POST['post_id'] ) != @$_POST['post_id_integrity'] ) {
 				// A hacker trying to overwrite posts?.
 				error_log( '\Pressbooks\CustomCss::formSubmit error: unexpected value for post_id_integrity' );
 				\Pressbooks\Redirect\location( $redirect_url . '&customcss_error=true' );
@@ -196,6 +196,7 @@ class CustomCss {
 			return false;
 		}
 
+		// @codingStandardsIgnoreLine
 		if ( ! empty( $_POST ) ) {
 			return true;
 		}
