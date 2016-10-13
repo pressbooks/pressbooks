@@ -117,7 +117,7 @@ function add_password_field( $errors ) {
  * @param array $content
  */
 function validate_passwords( $content ) {
-	if ( ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
+	if ( isset( $_POST['_signup_form'] ) && ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
 		wp_die( __( 'Please try again.', 'pressbooks' ) );
 	}
 
@@ -149,7 +149,7 @@ function validate_passwords( $content ) {
  */
 
 function add_temporary_password( $meta ) {
-	if ( ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
+	if ( isset( $_POST['_signup_form'] ) && ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
 		wp_die( __( 'Please try again.', 'pressbooks' ) );
 	}
 
@@ -169,7 +169,7 @@ function add_temporary_password( $meta ) {
  */
 
 function add_hidden_password_field() {
-	if ( ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
+	if ( isset( $_POST['_signup_form'] ) && ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
 		wp_die( __( 'Please try again.', 'pressbooks' ) );
 	}
 	if ( isset( $_POST['password_1'] ) ) { ?><input type="hidden" name="password_1_base64" value="1" />
@@ -182,7 +182,7 @@ function add_hidden_password_field() {
  */
 
 function override_password_generation( $password ) {
-	if ( ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
+	if ( isset( $_POST['_signup_form'] ) && ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
 		wp_die( __( 'Please try again.', 'pressbooks' ) );
 	}
 
