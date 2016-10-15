@@ -59,7 +59,7 @@ function add_required_data( $pid, $post ) {
 		if ( ! $locale ) {
 		    $locale = 'en';
 		}
- 		update_post_meta( $pid, 'pb_language', $locale );
+			update_post_meta( $pid, 'pb_language', $locale );
 	}
 
 	$pb_cover_image = get_post_meta( $pid, 'pb_cover_image', true );
@@ -78,11 +78,13 @@ function add_required_data( $pid, $post ) {
  */
 function upload_cover_image( $pid, $post ) {
 
-	if ( @empty( $_FILES['pb_cover_image']['name'] ) )
+	if ( @empty( $_FILES['pb_cover_image']['name'] ) ) {
 		return; // Bail
+	}
 
-	if ( ! current_user_can_for_blog( get_current_blog_id(), 'upload_files' ) )
+	if ( ! current_user_can_for_blog( get_current_blog_id(), 'upload_files' ) ) {
 		return; // Bail
+	}
 
 	$allowed_file_types = array( 'jpg' => 'image/jpeg', 'jpeg' => 'image/jpeg', 'gif' => 'image/gif', 'png' => 'image/png' );
 	$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
@@ -94,7 +96,7 @@ function upload_cover_image( $pid, $post ) {
 
 	list( $width, $height ) = getimagesize( $image['file'] );
 	if ( $width < 625 || $height < 625 ) {
-		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%s x %s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
+		$_SESSION['pb_notices'][] = sprintf( __( 'Your cover image (%1$s x %1$s) is too small. It should be 625px on the shortest side.', 'pressbooks' ), $width, $height );
 	}
 
 	$filesize = filesize( $image['file'] );
@@ -109,7 +111,8 @@ function upload_cover_image( $pid, $post ) {
 	// Delete old images
 	foreach ( $old as $old_url ) {
 		$old_id = \Pressbooks\Image\attachment_id_from_url( $old_url );
-		if ( $old_id ) wp_delete_attachment( $old_id, true );
+		if ( $old_id ) { wp_delete_attachment( $old_id, true );
+		}
 	}
 
 	// Insert new image, create thumbnails
@@ -132,13 +135,14 @@ function upload_cover_image( $pid, $post ) {
  */
 function add_metadata_styles( $hook ) {
 
-	if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+	if ( 'post-new.php' == $hook || 'post.php' == $hook ) {
 		$post_type = get_post_type();
 		if ( 'metadata' == $post_type ) {
 			wp_enqueue_style( 'metadata', \Pressbooks\Utility\asset_path( 'styles/metadata.css' ) );
 		} elseif ( 'part' == $post_type ) {
 			wp_enqueue_style( 'part', \Pressbooks\Utility\asset_path( 'styles/part.css' ) );
-			add_filter( 'page_attributes_dropdown_pages_args', function () { return array( 'post_type' => '__GARBAGE__' ); } ); // Hide this dropdown by querying for garbage
+			add_filter( 'page_attributes_dropdown_pages_args', function () { return array( 'post_type' => '__GARBAGE__' );
+			} ); // Hide this dropdown by querying for garbage
 		}
 	}
 }
@@ -171,13 +175,13 @@ function add_meta_boxes() {
 
 	x_add_metadata_field( 'pb_title', 'metadata', array(
 		'group' => 'general-book-information',
-		'label' => 'Title'
+		'label' => 'Title',
 	) );
 
 	x_add_metadata_field( 'pb_short_title', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Short Title', 'pressbooks' ),
-		'description' => __( 'In case of long titles that might be truncated in running heads in the PDF export.', 'pressbooks' )
+		'description' => __( 'In case of long titles that might be truncated in running heads in the PDF export.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_subtitle', 'metadata', array(
@@ -187,58 +191,58 @@ function add_meta_boxes() {
 
 	x_add_metadata_field( 'pb_author', 'metadata', array(
 		'group' => 'general-book-information',
-		'label' => __( 'Author', 'pressbooks' )
+		'label' => __( 'Author', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_author_file_as', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Author, file as', 'pressbooks' ),
-		'description' => __( 'This ensures that your ebook will sort properly in ebook stores, by the author\'s last name.', 'pressbooks' )
+		'description' => __( 'This ensures that your ebook will sort properly in ebook stores, by the author\'s last name.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_contributing_authors', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Contributing Authors', 'pressbooks' ),
 		'multiple' => true,
-		'description' => __( 'This may be used when more than one person shares the responsibility for the intellectual content of a book.', 'pressbooks' )
+		'description' => __( 'This may be used when more than one person shares the responsibility for the intellectual content of a book.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_publisher', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Publisher', 'pressbooks' ),
-		'description' => __( 'This text appears on the title page of your book.', 'pressbooks' )
+		'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_publisher_city', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Publisher City', 'pressbooks' ),
-		'description' => __( 'This text appears on the title page of your book.', 'pressbooks' )
+		'description' => __( 'This text appears on the title page of your book.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_publication_date', 'metadata', array(
 		'field_type' => 'datepicker',
 		'group' => 'general-book-information',
 		'label' => __( 'Publication Date', 'pressbooks' ),
-		'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' )
+		'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_onsale_date', 'metadata', array(
 		'field_type' => 'datepicker',
 		'group' => 'general-book-information',
 		'label' => __( 'On-Sale Date', 'pressbooks' ),
-		'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' )
+		'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_ebook_isbn', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Ebook ISBN', 'pressbooks' ),
-		'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook.', 'pressbooks' )
+		'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in some online ebook stores. This is added to the metadata in your ebook.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_print_isbn', 'metadata', array(
 		'group' => 'general-book-information',
 		'label' => __( 'Print ISBN', 'pressbooks' ),
-		'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in online and physical book stores.', 'pressbooks' )
+		'description' => __( 'ISBN is the International Standard Book Number, and you\'ll need one if you want to sell your book in online and physical book stores.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_language', 'metadata', array(
@@ -246,24 +250,24 @@ function add_meta_boxes() {
 		'field_type' => 'select',
 		'values' => \Pressbooks\L10n\supported_languages(),
 		'label' => __( 'Language', 'pressbooks' ),
-		'description' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' ) . '<br />' . sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) )
+		'description' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' ) . '<br />' . sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
 	) );
 
 	x_add_metadata_group( 'copyright', 'metadata', array(
 		'label' => __( 'Copyright', 'pressbooks' ),
-		'priority' => 'low'
+		'priority' => 'low',
 	) );
 
 	x_add_metadata_field( 'pb_copyright_year', 'metadata', array(
 		'group' => 'copyright',
 		'label' => __( 'Copyright Year', 'pressbooks' ),
-		'description' => __( 'Year that the book is/was published.', 'pressbooks' )
+		'description' => __( 'Year that the book is/was published.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_copyright_holder', 'metadata', array(
 		'group' => 'copyright',
 		'label' => __( 'Copyright Holder', 'pressbooks' ),
-		'description' => __( 'Name of the copyright holder.', 'pressbooks' )
+		'description' => __( 'Name of the copyright holder.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_book_license', 'metadata', array(
@@ -281,128 +285,128 @@ function add_meta_boxes() {
 		'all-rights-reserved' => 'All Rights Reserved',
 	    ),
 	    'label' => __( 'Copyright License', 'pressbooks' ),
-	    'description' => __( 'You can select various licenses including Creative Commons.', 'pressbooks' )
+	    'description' => __( 'You can select various licenses including Creative Commons.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_custom_copyright', 'metadata', array(
 		'field_type' => 'wysiwyg',
 		'group' => 'copyright',
 		'label' => __( 'Copyright Notice', 'pressbooks' ),
-		'description' => __( 'Enter a custom copyright notice, with whatever infomation you like. This will override the auto-generated copyright notice, and be inserted after the title page.', 'pressbooks' )
+		'description' => __( 'Enter a custom copyright notice, with whatever infomation you like. This will override the auto-generated copyright notice, and be inserted after the title page.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_group( 'about-the-book', 'metadata', array(
 		'label' => 'About the Book',
-		'priority' => 'low'
+		'priority' => 'low',
 	) );
 
 	x_add_metadata_field( 'pb_about_140', 'metadata', array(
 		'group' => 'about-the-book',
 		'label' => __( 'Book Tagline', 'pressbooks' ),
-		'description' => __( 'A very short description of your book. It should fit in a Twitter post, and encapsulate your book in the briefest sentence.', 'pressbooks' )
+		'description' => __( 'A very short description of your book. It should fit in a Twitter post, and encapsulate your book in the briefest sentence.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_about_50', 'metadata', array(
 		'field_type' => 'textarea',
 		'group' => 'about-the-book',
 		'label' => __( 'Short Description', 'pressbooks' ),
-		'description' => __( 'A short paragraph about your book, for catalogs, reviewers etc. to quote.', 'pressbooks' )
+		'description' => __( 'A short paragraph about your book, for catalogs, reviewers etc. to quote.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_about_unlimited', 'metadata', array(
 		'field_type' => 'wysiwyg',
 		'group' => 'about-the-book',
 		'label' => __( 'Long Description', 'pressbooks' ),
-		'description' => __( 'The full description of your book.', 'pressbooks' )
+		'description' => __( 'The full description of your book.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_group( 'additional-catalogue-information', 'metadata', array(
 		'label' => __( 'Additional Catalog Information', 'pressbooks' ),
-		'priority' => 'low'
+		'priority' => 'low',
 	) );
 
 	x_add_metadata_field( 'pb_series_title', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Series Title', 'pressbooks' ),
-		'description' => __( 'Add if your book is part of a series. This is not used by Pressbooks.', 'pressbooks' )
+		'description' => __( 'Add if your book is part of a series. This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_series_number', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Series Number', 'pressbooks' ),
-		'description' => __( 'Add if your book is part of a series. This is not used by Pressbooks.', 'pressbooks' )
+		'description' => __( 'Add if your book is part of a series. This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_editor', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Editor', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' )
+		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_translator', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Translator', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' )
+		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_keywords_tags', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Keywords', 'pressbooks' ),
 		'multiple' => true,
-		'description' => __( 'These are added to your webbook cover page, and in your ebook metadata. Keywords are used by online book stores and search engines.', 'pressbooks' )
+		'description' => __( 'These are added to your webbook cover page, and in your ebook metadata. Keywords are used by online book stores and search engines.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_hashtag', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Hashtag', 'pressbooks' ),
-		'description' => __( 'These are added to your webbook cover page. For those of you who like Twitter.', 'pressbooks' )
+		'description' => __( 'These are added to your webbook cover page. For those of you who like Twitter.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_list_price_print', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (Print)', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' )
+		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_list_price_pdf', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (PDF)', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' )
+		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_list_price_epub', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (ebook)', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' )
+		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_list_price_web', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (Web)', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' )
+		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_bisac_subject', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Bisac Subject', 'pressbooks' ),
 		'multiple' => true,
-		'description' => __( 'BISAC subject headings help your book get properly classified in (e)book stores. This is not used by Pressbooks.', 'pressbooks' )
+		'description' => __( 'BISAC subject headings help your book get properly classified in (e)book stores. This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_bisac_regional_theme', 'metadata', array(
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Bisac Regional Theme', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' )
+		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
 	// Only display Catalog Order metadata field if site is running a root theme other than Pressbooks Root.
 
-	switch_to_blog(1);
+	switch_to_blog( 1 );
 	$root_theme = wp_get_theme();
 	if ( 'pressbooks-root' !== $root_theme->Template ) {
 		x_add_metadata_field( 'pb_catalogue_order', 'metadata', array(
 			'group' => 'additional-catalogue-information',
-			'label' => __( 'Catalog Order', 'pressbooks' )
+			'label' => __( 'Catalog Order', 'pressbooks' ),
 		) );
 	}
 	restore_current_blog();
@@ -410,22 +414,22 @@ function add_meta_boxes() {
 	// Chapter Metadata
 
 	x_add_metadata_group( 'chapter-metadata', 'chapter', array(
-		'label' => __( 'Chapter Metadata', 'pressbooks' )
+		'label' => __( 'Chapter Metadata', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_short_title', 'chapter', array(
 		'group' => 'chapter-metadata',
-		'label' => __( 'Chapter Short Title (appears in the PDF running header)', 'pressbooks' )
+		'label' => __( 'Chapter Short Title (appears in the PDF running header)', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_subtitle', 'chapter', array(
 		'group' => 'chapter-metadata',
-		'label' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' )
+		'label' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_section_author', 'chapter', array(
 		'group' => 'chapter-metadata',
-		'label' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
+		'label' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_section_license', 'chapter', array(
@@ -450,7 +454,7 @@ function add_meta_boxes() {
 	x_add_metadata_group( 'chapter-parent', 'chapter', array(
 		'label' => __( 'Part', 'pressbooks' ),
 		'context' => 'side',
-		'priority' => 'high'
+		'priority' => 'high',
 	) );
 
 	// Export
@@ -458,46 +462,46 @@ function add_meta_boxes() {
 	x_add_metadata_group( 'export', array( 'chapter', 'front-matter', 'back-matter' ), array(
 		'label' => __( 'Export Settings', 'pressbooks' ),
 		'context' => 'side',
-		'priority' => 'high'
+		'priority' => 'high',
 	) );
 
 	x_add_metadata_field( 'pb_export', array( 'chapter', 'front-matter', 'back-matter' ), array(
 		'group' => 'export',
 		'field_type' => 'checkbox',
-		'label' => __( 'Include in exports', 'pressbooks' )
+		'label' => __( 'Include in exports', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_show_title', array( 'chapter', 'front-matter', 'back-matter' ), array(
 		'group' => 'export',
 		'field_type' => 'checkbox',
-		'label' => __( 'Show title in exports', 'pressbooks' )
+		'label' => __( 'Show title in exports', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_ebook_start', array( 'chapter', 'front-matter', 'back-matter' ), array(
 		'group' => 'export',
 		'field_type' => 'checkbox',
-		'label' => __( 'Set as ebook start-point', 'pressbooks')
+		'label' => __( 'Set as ebook start-point', 'pressbooks' ),
 	) );
 
 	// Front Matter Metadata
 
 	x_add_metadata_group( 'front-matter-metadata', 'front-matter', array(
-		'label' => __( 'Front Matter Metadata', 'pressbooks' )
+		'label' => __( 'Front Matter Metadata', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_short_title', 'front-matter', array(
 		'group' => 'front-matter-metadata',
-		'label' => __( 'Front Matter Short Title (appears in the PDF running header)', 'pressbooks' )
+		'label' => __( 'Front Matter Short Title (appears in the PDF running header)', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_subtitle', 'front-matter', array(
 		'group' => 'front-matter-metadata',
-		'label' => __( 'Front Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' )
+		'label' => __( 'Front Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_section_author', 'front-matter', array(
 		'group' => 'front-matter-metadata',
-		'label' => __( 'Front Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
+		'label' => __( 'Front Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_section_license', 'front-matter', array(
@@ -520,22 +524,22 @@ function add_meta_boxes() {
 	// Back Matter Metadata
 
 	x_add_metadata_group( 'back-matter-metadata', 'back-matter', array(
-		'label' => __( 'Back Matter Metadata', 'pressbooks' )
+		'label' => __( 'Back Matter Metadata', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_short_title', 'back-matter', array(
 		'group' => 'back-matter-metadata',
-		'label' => __( 'Back Matter Short Title (appears in the PDF running header)', 'pressbooks' )
+		'label' => __( 'Back Matter Short Title (appears in the PDF running header)', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_subtitle', 'back-matter', array(
 		'group' => 'back-matter-metadata',
-		'label' => __( 'Back Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' )
+		'label' => __( 'Back Matter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_section_author', 'back-matter', array(
 		'group' => 'back-matter-metadata',
-		'label' => __( 'Back Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' )
+		'label' => __( 'Back Matter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_section_license', 'back-matter', array(
@@ -557,14 +561,14 @@ function add_meta_boxes() {
 	// Part Metadata
 
 	x_add_metadata_group( 'part-metadata-text', 'part', array(
-		'label' => __( 'Part Text', 'pressbooks' )
+		'label' => __( 'Part Text', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_part_content', 'part', array(
 		'field_type' => 'wysiwyg',
 		'group' => 'part-metadata-text',
 		'label' => '',
-		'description' => __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' )
+		'description' => __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_group( 'part-metadata-visibility', 'part', array(
@@ -577,7 +581,7 @@ function add_meta_boxes() {
 		'field_type' => 'checkbox',
 		'group' => 'part-metadata-visibility',
 		'label' => 'Invisible',
-		'description' => __( 'Hide from table of contents and part numbering.', 'pressbooks' )
+		'description' => __( 'Hide from table of contents and part numbering.', 'pressbooks' ),
 	) );
 }
 
@@ -589,8 +593,9 @@ function add_meta_boxes() {
  */
 function override_parent_id( $post ) {
 
-	if ( 'chapter' != $post->post_type )
+	if ( 'chapter' != $post->post_type ) {
 		return; // Do nothing
+	}
 
 	if ( $post->post_parent ) {
 		$selected = $post->post_parent;
@@ -606,7 +611,7 @@ function override_parent_id( $post ) {
 			'selected' => $selected,
 			'name' => 'parent_id',
 			'sort_column' => 'menu_order',
-			'echo' => 0
+			'echo' => 0,
 		)
 	);
 
@@ -628,7 +633,8 @@ function delete_cover_image() {
 
 		// Delete old images
 		$old_id = \Pressbooks\Image\attachment_id_from_url( $image_url );
-		if ( $old_id ) wp_delete_attachment( $old_id, true );
+		if ( $old_id ) { wp_delete_attachment( $old_id, true );
+		}
 
 		update_post_meta( $pid, 'pb_cover_image', \Pressbooks\Image\default_cover_url() );
 		\Pressbooks\Book::deleteBookObjectCache();
@@ -646,7 +652,7 @@ function delete_cover_image() {
  * @param \WP_Post $post
  */
 function part_save_box( $post ) {
-	if ( $post->post_status == 'publish' ) { ?>
+	if ( 'publish' == $post->post_status ) { ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="Update" />
 		<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="Save" />
 	<?php } else { ?>
@@ -662,7 +668,7 @@ function part_save_box( $post ) {
  * @param \WP_Post $post
  */
 function metadata_save_box( $post ) {
-	if ( $post->post_status == 'publish' ) { ?>
+	if ( 'publish' == $post->post_status ) { ?>
 		<input name="original_publish" type="hidden" id="original_publish" value="Update" />
 		<input name="save" type="submit" class="button button-primary button-large" id="publish" accesskey="p" value="Save" />
 	<?php } else { ?>
@@ -678,7 +684,7 @@ function metadata_save_box( $post ) {
 function add_user_meta() {
 
 	x_add_metadata_group( 'profile-information', 'user', array(
-		'label' => __( 'Extra Profile Information', 'pressbooks' )
+		'label' => __( 'Extra Profile Information', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'user_interface_lang', 'user', array(

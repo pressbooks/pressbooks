@@ -15,26 +15,26 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	static $currentVersion = 1;
 
 	/**
-   * Sharing and Privacy options.
-   *
-   * @var array
-   */
+	* Sharing and Privacy options.
+	*
+	* @var array
+	*/
 	public $options;
 
 	/**
-   * Sharing and Privacy defaults.
-   *
-   * @var array
-   */
+	* Sharing and Privacy defaults.
+	*
+	* @var array
+	*/
 	public $defaults;
 
 	/**
-   * Constructor.
-   *
-   * @param array $options
-   */
-	function __construct(array $options) {
- 		$this->options = $options;
+	* Constructor.
+	*
+	* @param array $options
+	*/
+	function __construct( array $options ) {
+			$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 		$this->strings = $this->getStringOptions();
@@ -42,12 +42,12 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		$this->floats = $this->getFloatOptions();
 		$this->predefined = $this->getPredefinedOptions();
 
- 		foreach ( $this->defaults as $key => $value ) {
- 			if ( !isset ( $this->options[ $key ] ) ) {
- 				$this->options[ $key ] = $value;
- 			}
- 		}
- 	}
+		foreach ( $this->defaults as $key => $value ) {
+			if ( ! isset( $this->options[ $key ] ) ) {
+				$this->options[ $key ] = $value;
+			}
+		}
+	}
 
 	/**
 	 * Configure the network export options page using the settings API.
@@ -94,8 +94,8 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
 			<?php $nonce = ( @$_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
-			if ( !empty( $_POST ) ) {
-				if ( !wp_verify_nonce( $nonce, $_option . '-options' ) ) {
+			if ( ! empty( $_POST ) ) {
+				if ( ! wp_verify_nonce( $nonce, $_option . '-options' ) ) {
 				    die( 'Security check' );
 				} else {
 					if ( @$_REQUEST[ $_option ]['allow_redistribution'] ) {
@@ -117,9 +117,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	function upgrade( $version ) {
-		if ( $version < 1 ) {
-			// Nothing doing.
-		}
+		// Nothing doing.
 	}
 
 	/**
@@ -128,7 +126,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 */
 	function renderAllowRedistributionField( $args ) {
 		$options = get_site_option( $this->getSlug() );
-		$this->renderCheckbox( 'allow_redistribution', $this->getSlug(), 'allow_redistribution', @$options['allow_redistribution'], $args[0]);
+		$this->renderCheckbox( 'allow_redistribution', $this->getSlug(), 'allow_redistribution', @$options['allow_redistribution'], $args[0] );
 	}
 
 	/**
@@ -137,17 +135,17 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @return string $slug
 	 */
 	static function getSlug() {
-  	return 'pressbooks_sharingandprivacy_options';
-  }
+		return 'pressbooks_sharingandprivacy_options';
+	}
 
 	/**
 	 * Get the localized title of the network export options tab.
 	 *
 	 * @return string $title
 	 */
-  static function getTitle() {
-  	return __('Sharing and Privacy Settings', 'pressbooks');
-  }
+	static function getTitle() {
+		return __( 'Sharing and Privacy Settings', 'pressbooks' );
+	}
 
 	/**
 	 * Get an array of default values for the network export options page.
@@ -156,7 +154,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 */
 	static function getDefaults() {
 		return array(
-			'allow_redistribution' => 0
+			'allow_redistribution' => 0,
 		);
 	}
 
@@ -206,7 +204,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	static function getPredefinedOptions() {
 		return array();
 	}
-	
+
 	/**
 	 * Filter the array of default values for this set of options
 	 *

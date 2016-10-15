@@ -130,7 +130,7 @@ abstract class Api {
 		}
 
 		// creating object of SimpleXMLElement
-		$xml = new \SimpleXMLElement( "<?xml version=\"1.0\" encoding=\"utf-8\"?><xml></xml>" );
+		$xml = new \SimpleXMLElement( '<?xml version="1.0" encoding="utf-8"?><xml></xml>' );
 
 		// function call to convert array to xml
 		$xml = $this->arrayToXml( $data, $xml );
@@ -156,13 +156,11 @@ abstract class Api {
 				if ( ! is_numeric( $key ) ) {
 					$subnode = $xml->addChild( "$key" );
 					$this->arrayToXml( $value, $subnode );
-				}
-				else {
+				} else {
 					$subnode = $xml->addChild( "item$key" );
 					$this->arrayToXml( $value, $subnode );
 				}
-			}
-			else {
+			} else {
 				$xml->addChild( "$key", htmlspecialchars( "$value" ) );
 			}
 		}

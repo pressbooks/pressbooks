@@ -52,8 +52,9 @@ class Footnotes {
 	 * @return Footnotes
 	 */
 	public static function getInstance() {
-		if ( ! self::$instance )
+		if ( ! self::$instance ) {
 			self::$instance = new self;
+		}
 
 		return self::$instance;
 	}
@@ -74,38 +75,37 @@ class Footnotes {
 		$a = shortcode_atts( array(
 			'numbered' => 'yes',
 			'symbol' => '*',
-			'suptext' => ' '
+			'suptext' => ' ',
 		), $atts );
-
 
 		if ( ! $content ) {
 			return '';
 		}
 
-		if ( ! isset( $this->footnotes[$id] ) ) {
-			$this->footnotes[$id] = array();
-			if ( $a['numbered'] == 'no' ) {
-				$this->numbered[$id] = false;
+		if ( ! isset( $this->footnotes[ $id ] ) ) {
+			$this->footnotes[ $id ] = array();
+			if ( 'no' == $a['numbered'] ) {
+				$this->numbered[ $id ] = false;
 			} else {
-				$this->numbered[$id] = true;
+				$this->numbered[ $id ] = true;
 			}
 		}
 
-		$this->footnotes[$id][] = $content;
-		$footnotes = $this->footnotes[$id];
+		$this->footnotes[ $id ][] = $content;
+		$footnotes = $this->footnotes[ $id ];
 		$num = count( $footnotes );
 		$numlabel = "$id-$num";
 
 		$retval = '<a class="footnote" title="' . \Pressbooks\Sanitize\sanitize_xml_attribute( wp_strip_all_tags( $content ) ) . '" id="return-footnote-' . $numlabel . '" href="#footnote-' . $numlabel . '"><sup class="footnote">[';
 
-		if ( $this->numbered[$id] ) {
+		if ( $this->numbered[ $id ] ) {
 			$retval .= $num;
 		} else {
 			$retval .= $a['symbol'];
 		}
 
 		if ( trim( $a['suptext'] ) ) {
-			if ( $this->numbered[$id] ) {
+			if ( $this->numbered[ $id ] ) {
 				$retval .= '. ';
 			}
 
@@ -128,13 +128,13 @@ class Footnotes {
 
 		global $id;
 
-		if ( ! empty( $this->footnotes ) && isset( $this->footnotes[$id] ) ) {
-			$footnotes = $this->footnotes[$id];
+		if ( ! empty( $this->footnotes ) && isset( $this->footnotes[ $id ] ) ) {
+			$footnotes = $this->footnotes[ $id ];
 		} else {
 			return $content;
 		}
 
-		if ( $this->numbered[$id] ) {
+		if ( $this->numbered[ $id ] ) {
 			$content .= '<hr /><div class="footnotes"><ol>';
 		} else {
 			$content .= '<hr /><div class="footnotes"><ul>';
@@ -146,13 +146,13 @@ class Footnotes {
 			$content .= '<li id="footnote-' . $numlabel . '">' . make_clickable( $footnote ) . ' <a href="#return-footnote-' . $numlabel . '" class="return-footnote">&crarr;</a></li>';
 		}
 
-		if ( $this->numbered[$id] ) {
+		if ( $this->numbered[ $id ] ) {
 			$content .= '</ol></div>';
 		} else {
 			$content .= '</ul></div>';
 		}
 
-		unset( $this->footnotes[$id] ); // Done, reset
+		unset( $this->footnotes[ $id ] ); // Done, reset
 
 		return $content;
 	}
@@ -188,7 +188,7 @@ class Footnotes {
 	 * Quicktag buttons for text mode editor
 	 */
 	function myCustomQuicktags() {
-		wp_enqueue_script( 'my_custom_quicktags', \Pressbooks\Utility\asset_path( 'scripts/quicktags.js' ), ['quicktags'] );
+		wp_enqueue_script( 'my_custom_quicktags', \Pressbooks\Utility\asset_path( 'scripts/quicktags.js' ), [ 'quicktags' ] );
 	}
 
 
@@ -230,8 +230,10 @@ class Footnotes {
 	 */
 	static function ajaxFailure( $msg = '' ) {
 
-		if ( ! headers_sent() ) header( "HTTP/1.0 500 Internal Server Error" );
-		if ( $msg ) echo "Something went wrong: \n\n $msg";
+		if ( ! headers_sent() ) { header( 'HTTP/1.0 500 Internal Server Error' );
+		}
+		if ( $msg ) { echo "Something went wrong: \n\n $msg";
+		}
 		wp_die();
 	}
 
@@ -304,7 +306,7 @@ class Footnotes {
 				$tmp = \Pressbooks\Sanitize\remove_control_characters( $tmp );
 				$tmp = trim( preg_replace( '/\s+/', ' ', $tmp ) ); // Normalize white spaces
 
-				$find[] = str_replace( '__REPLACE_ME__', preg_quote( $footnote[2] ), $replacers[$i] );
+				$find[] = str_replace( '__REPLACE_ME__', preg_quote( $footnote[2] ), $replacers[ $i ] );
 				$replace[] = '[footnote]' . $tmp . '[/footnote]';
 			}
 

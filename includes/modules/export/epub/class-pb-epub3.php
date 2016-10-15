@@ -46,10 +46,48 @@ class Epub3 extends Epub201 {
 	 * @var array
 	 */
 	protected $MathMLTags = array(
-		'math', 'maction', 'maligngroup', 'malignmark', 'menclose', 'merror', 'mfenced', 'mfrac', 'mglyph', 'mi', 'mlabeledtr',
-		'mlongdiv', 'mmultiscripts', 'mn', 'mo', 'mover', 'mpadded', 'mphantom', 'mroot', 'mrow', 'ms', 'mscarries', 'mscarry',
-		'msgroup', 'msline', 'mspace', 'msqrt', 'msrow', 'mstack', 'mstyle', 'msub', 'msup', 'msubsup', 'mtable', 'mtd',
-		'mtext', 'mtr', 'munder', 'munderover', 'semantics', 'annotation', 'annotation-xml'
+		'math',
+	'maction',
+	'maligngroup',
+	'malignmark',
+	'menclose',
+	'merror',
+	'mfenced',
+	'mfrac',
+	'mglyph',
+	'mi',
+	'mlabeledtr',
+		'mlongdiv',
+	'mmultiscripts',
+	'mn',
+	'mo',
+	'mover',
+	'mpadded',
+	'mphantom',
+	'mroot',
+	'mrow',
+	'ms',
+	'mscarries',
+	'mscarry',
+		'msgroup',
+	'msline',
+	'mspace',
+	'msqrt',
+	'msrow',
+	'mstack',
+	'mstyle',
+	'msub',
+	'msup',
+	'msubsup',
+	'mtable',
+	'mtd',
+		'mtext',
+	'mtr',
+	'munder',
+	'munderover',
+	'semantics',
+	'annotation',
+	'annotation-xml',
 	);
 
 	/**
@@ -58,13 +96,59 @@ class Epub3 extends Epub201 {
 	 * @var array
 	 */
 	protected $javaScriptEvents = array(
-		'onabort', 'onblur', 'oncanplay', 'oncanplaythrough', 'onchange', 'onclick', 'oncontextmenu', 'ondblclick',
-		'ondrag', 'ondragend', 'ondragenter', 'ondragleave', 'ondragover', 'ondragstart', 'ondrop', 'ondurationchange',
-		'onemptied', 'onended', 'onerror', 'onfocus', 'oninput', 'oninvalid', 'onkeydown', 'onkeypress', 'onkeyup',
-		'onload', 'onloadeddata', 'onloadedmetadata', 'onloadstart', 'onmousedown', 'onmousemove', 'onmouseout',
-		'onmouseover', 'onmouseup', 'onmousewheel', 'onpause', 'onplay', 'onplaying', 'onprogress', 'onratechange',
-		'onreadystatechange', 'onreset', 'onscroll', 'onseeked', 'onseeking', 'onselect', 'onshow', 'onstalled',
-		'onsubmit', 'onsuspend', 'ontimeupdate', 'onvolumechange', 'onwaiting',
+		'onabort',
+	'onblur',
+	'oncanplay',
+	'oncanplaythrough',
+	'onchange',
+	'onclick',
+	'oncontextmenu',
+	'ondblclick',
+		'ondrag',
+	'ondragend',
+	'ondragenter',
+	'ondragleave',
+	'ondragover',
+	'ondragstart',
+	'ondrop',
+	'ondurationchange',
+		'onemptied',
+	'onended',
+	'onerror',
+	'onfocus',
+	'oninput',
+	'oninvalid',
+	'onkeydown',
+	'onkeypress',
+	'onkeyup',
+		'onload',
+	'onloadeddata',
+	'onloadedmetadata',
+	'onloadstart',
+	'onmousedown',
+	'onmousemove',
+	'onmouseout',
+		'onmouseover',
+	'onmouseup',
+	'onmousewheel',
+	'onpause',
+	'onplay',
+	'onplaying',
+	'onprogress',
+	'onratechange',
+		'onreadystatechange',
+	'onreset',
+	'onscroll',
+	'onseeked',
+	'onseeking',
+	'onselect',
+	'onshow',
+	'onstalled',
+		'onsubmit',
+	'onsuspend',
+	'ontimeupdate',
+	'onvolumechange',
+	'onwaiting',
 	);
 
 	/**
@@ -105,7 +189,6 @@ class Epub3 extends Epub201 {
 		}
 
 		// TODO: Check for remote resources
-
 
 		return $properties;
 	}
@@ -153,7 +236,7 @@ class Epub3 extends Epub201 {
 				}
 			}
 		} catch ( \Exception $e ) {
-			// Do nothing
+			error_log( $e );
 		}
 
 		return false;
@@ -217,8 +300,9 @@ class Epub3 extends Epub201 {
 
 		// Reset on each htmLawed invocation
 		unset( $GLOBALS['hl_Ids'] );
-		if ( ! empty( $this->fixme ) )
+		if ( ! empty( $this->fixme ) ) {
 			$GLOBALS['hl_Ids'] = $this->fixme;
+		}
 
 		$html = \Htmlawed::filter( $html, $config, $spec );
 
@@ -235,8 +319,8 @@ class Epub3 extends Epub201 {
 	 */
 	protected function fetchAndSaveUniqueMedia( $url, $fullpath ) {
 
-		if ( isset( $this->fetchedMediaCache[$url] ) ) {
-			return $this->fetchedMediaCache[$url];
+		if ( isset( $this->fetchedMediaCache[ $url ] ) ) {
+			return $this->fetchedMediaCache[ $url ];
 		}
 
 		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
@@ -277,20 +361,19 @@ class Epub3 extends Epub201 {
 		file_put_contents( $tmp_file, wp_remote_retrieve_body( $response ) );
 
 		if ( ! \Pressbooks\Media\is_valid_media( $tmp_file, $filename ) ) {
-			$this->fetchedMediaCache[$url] = '';
+			$this->fetchedMediaCache[ $url ] = '';
 			return ''; // Not a valid media type
 		}
 
 		// Check for duplicates, save accordingly
 		if ( ! file_exists( "$fullpath/$filename" ) ) {
 			copy( $tmp_file, "$fullpath/$filename" );
-		}
-		elseif ( md5( file_get_contents( $tmp_file ) ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
+		} elseif ( md5( file_get_contents( $tmp_file ) ) != md5( file_get_contents( "$fullpath/$filename" ) ) ) {
 			$filename = wp_unique_filename( $fullpath, $filename );
 			copy( $tmp_file, "$fullpath/$filename" );
 		}
 
-		$this->fetchedMediaCache[$url] = $filename;
+		$this->fetchedMediaCache[ $url ] = $filename;
 		return $filename;
 	}
 
@@ -344,7 +427,7 @@ class Epub3 extends Epub201 {
 			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEPBS() ?' );
 		}
 
-		$vars = array (
+		$vars = array(
 		    'meta' => $metadata,
 		    'manifest' => $this->manifest,
 		    'stylesheet' => $this->stylesheet,
@@ -359,7 +442,7 @@ class Epub3 extends Epub201 {
 		//
 		$html = '';
 		foreach ( $this->manifest as $k => $v ) {
-			$properties = $this->getProperties( $this->tmpDir . "/OEBPS/" . $v['filename'] );
+			$properties = $this->getProperties( $this->tmpDir . '/OEBPS/' . $v['filename'] );
 
 			array_key_exists( 'mathml', $properties ) ? $mathml = 'properties="mathml" ' : $mathml = '';
 			array_key_exists( 'scripted', $properties ) ? $scripted = 'properties="scripted" ' : $scripted = '';
@@ -370,7 +453,7 @@ class Epub3 extends Epub201 {
 
 		// Put contents
 		file_put_contents(
-			$this->tmpDir . "/book.opf",
+			$this->tmpDir . '/book.opf',
 			$this->loadTemplate( $this->dir . '/templates/epub3/opf.php', $vars )
 		);
 	}
@@ -398,13 +481,13 @@ class Epub3 extends Epub201 {
 		);
 
 		file_put_contents(
-			$this->tmpDir . "/toc.xhtml",
+			$this->tmpDir . '/toc.xhtml',
 			$this->loadTemplate( $this->dir . '/templates/epub3/toc.php', $vars )
 		);
 
 		// For backwards compatibility
 		file_put_contents(
-			$this->tmpDir . "/toc.ncx",
+			$this->tmpDir . '/toc.ncx',
 			$this->loadTemplate( $this->dir . '/templates/epub201/ncx.php', $vars )
 		);
 	}
@@ -426,7 +509,7 @@ class Epub3 extends Epub201 {
 		$replace = '/templates/epub3/';
 
 		$pos = strpos( $path, $search );
-		if ( $pos !== false ) {
+		if ( false !== $pos ) {
 			$newPath = substr_replace( $path, $replace, $pos, strlen( $search ) );
 			if ( file_exists( $newPath ) ) {
 				$path = $newPath;

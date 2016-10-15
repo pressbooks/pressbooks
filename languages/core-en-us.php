@@ -13,13 +13,14 @@ $overrides = array(
 	// 'Howdy, %1$s' => 'Greetings, %1$s!',
 	// Add some more strings here...
 
-	'My Sites' => 'Meine Bücher',
-	'Create a New Site' => 'Erstellen Sie ein neues Buch',
+	'My Sites' => 'My Books',
+	'Create a New Site' => 'Create a New Book',
 );
 
 if ( \Pressbooks\Book::isBook() ) {
-	$overrides['Visit Site'] = 'Besuchen Buch';
-	$overrides['Edit Site'] = 'Bearbeiten Book';
+	$overrides['Visit Site'] = 'Visit Book';
+	$overrides['Edit Site'] = 'Edit Book';
+	$overrides['You have used your space quota. Please delete files before uploading.'] = 'Sorry, you have used all of your storage quota. Want more space? Please upgrade your book.';
 }
 
 return $overrides;

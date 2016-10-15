@@ -13,13 +13,14 @@ $overrides = array(
 	// 'Howdy, %1$s' => 'Greetings, %1$s!',
 	// Add some more strings here...
 
-	'My Sites' => '我的書籍',
-	'Create a New Site' => '創建一個新的書',
-);
+	'My Sites' => 'Mina Böcker',
+	'Create a New Site' => 'Skapa en ny bok',
+	);
 
 if ( \Pressbooks\Book::isBook() ) {
-	$overrides['Visit Site'] = '訪問書';
-	$overrides['Edit Site'] = '編輯書';
+	$overrides['Visit Site'] = 'Besök Bok';
+	$overrides['Edit Site'] = 'Visa Bok';
+	$overrides['Du har använt din utrymmeskvot. Vänligen ta bort filer innan du lägger upp.'] = 'Tyvärr, du har använt alla dina lagringskvoten. Vill du ha mer utrymme? Uppgradera din bok.';
 }
 
 return $overrides;

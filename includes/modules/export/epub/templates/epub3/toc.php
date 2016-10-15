@@ -2,8 +2,9 @@
 
 // @see: \Pressbooks\Modules\Export\Export loadTemplate()
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
@@ -13,7 +14,8 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 	<head>
 		<meta http-equiv="default-style" content="text/html; charset=utf-8"/>
 		<title><?php bloginfo( 'name' ); ?> </title>
-		<?php if ( ! empty( $stylesheet ) ): ?><link rel="stylesheet" href="<?php echo $stylesheet; ?>" type="text/css" /><?php endif; ?>
+		<?php // @codingStandardsIgnoreLine
+		if ( ! empty( $stylesheet ) ) :  ?><link rel="stylesheet" href="<?php echo $stylesheet; ?>" type="text/css" /><?php endif; ?>
 	</head>
 
 	<body>
@@ -32,7 +34,8 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 
 					if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) !== 'on' ) {
 						$text = strip_tags( \Pressbooks\Sanitize\decode( $v['post_title'] ) );
-						if ( ! $text ) $text = ' ';
+						if ( ! $text ) { $text = ' ';
+						}
 
 						if ( preg_match( '/^part-/', $k ) ) {
 							echo '<li><a href="OEBPS/' . $v['filename'] . '">' . $text . '</a>' . "\n";

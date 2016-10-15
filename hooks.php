@@ -4,8 +4,9 @@
  * @license GPLv2 (or any later version)
  */
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Includes
@@ -31,8 +32,8 @@ Pressbooks\Utility\include_plugins();
 
 if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 	\Pressbooks\Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
+} else { \Pressbooks\Container::init();
 }
-else \Pressbooks\Container::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Login screen branding
@@ -47,7 +48,7 @@ add_filter( 'login_headertitle', '\Pressbooks\Admin\Branding\login_title' );
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics
 // -------------------------------------------------------------------------------------------------------------------
-add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics');
+add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin
@@ -88,7 +89,7 @@ add_filter( 'plupload_default_params', '\Pressbooks\Media\force_attach_media' );
 // Audio/Video
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter('upload_mimes', '\Pressbooks\Media\add_mime_types');
+add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies
@@ -151,7 +152,7 @@ add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
 // -------------------------------------------------------------------------------------------------------------------
 
 remove_filter( 'the_content', 'wpautop' );
-add_filter( 'the_content', 'wpautop' , 12); // execute wpautop after shortcode processing
+add_filter( 'the_content', 'wpautop' , 12 ); // execute wpautop after shortcode processing
 
 $_ = \Pressbooks\Shortcodes\Footnotes\Footnotes::getInstance();
 $_ = \Pressbooks\Shortcodes\Generics\Generics::getInstance();
@@ -204,7 +205,8 @@ add_action( 'init', function () {
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! empty( $GLOBALS['PB_SECRET_SAUCE']['FORCE_FLUSH'] ) ) {
-	add_action( 'init', function () { flush_rewrite_rules( false ); }, 9999 );
+	add_action( 'init', function () { flush_rewrite_rules( false );
+	}, 9999 );
 } else {
 	add_action( 'init', '\Pressbooks\Redirect\flusher', 9999 );
 }

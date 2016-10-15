@@ -237,7 +237,7 @@ function update_editor_style() {
 			$sass->pathToFonts(),
 			get_stylesheet_directory(),
 		] );
-	}	elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
+	} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
 		$scss = file_get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
 		$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
 	} else {
@@ -277,9 +277,9 @@ function add_editor_style() {
  */
 function customize_wp_link_query_args( $query ) {
 
-    $query['post_type'] = array( 'part', 'chapter', 'front-matter', 'back-matter' );
+	$query['post_type'] = array( 'part', 'chapter', 'front-matter', 'back-matter' );
 
-    return $query;
+	return $query;
 }
 
 /**
@@ -292,46 +292,47 @@ function customize_wp_link_query_args( $query ) {
  */
 function add_anchors_to_wp_link_query( $results, $query ) {
 
-	$url = parse_url( $_SERVER[ 'HTTP_REFERER' ] );
+	$url = parse_url( $_SERVER['HTTP_REFERER'] );
 	parse_str( $url['query'], $query );
 
-	if ( !isset( $query['post'] ) )
+	if ( ! isset( $query['post'] ) ) {
 		return $results;
+	}
 
 	$anchors = array();
 
 	$post = get_post( $query['post'] );
 
-    libxml_use_internal_errors( true );
+	libxml_use_internal_errors( true );
 
 	$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
 
-	if ( !empty( $content ) ) {
+	if ( ! empty( $content ) ) {
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
 
-        foreach ( $doc->getElementsByTagName('a') as $node ) {
-            if ( $node->hasAttribute( 'id' ) ) {
-                $anchors[] = array(
+		foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
+			if ( $node->hasAttribute( 'id' ) ) {
+				$anchors[] = array(
 	                'ID' => $post->ID,
-	                'title' =>  '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
+	                'title' => '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
 	                'permalink' => '#' . $node->getAttribute( 'id' ),
-	                'info' => __( 'Internal Link', 'pressbooks' )
-                );
-            }
-        }
+	                'info' => __( 'Internal Link', 'pressbooks' ),
+				);
+			}
+		}
 	}
 
 	$offset = count( $results ) + 1;
 
-    foreach( $results as $key => $result ) {
+	foreach ( $results as $key => $result ) {
 
 	    if ( $results[ $key ]['ID'] == $query['post'] ) {
 		    $offset = $key + 1;
 	    }
-    }
+	}
 
-    array_splice( $results, $offset, 0, $anchors );
+	array_splice( $results, $offset, 0, $anchors );
 
-    return $results;
+	return $results;
 }

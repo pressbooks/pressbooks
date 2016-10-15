@@ -18,26 +18,26 @@ class GlobalOptions extends \Pressbooks\Options {
 	static $currentVersion = 1;
 
 	/**
-   * Global theme options.
-   *
-   * @var array
-   */
+	* Global theme options.
+	*
+	* @var array
+	*/
 	public $options;
 
 	/**
-   * Global theme defaults.
-   *
-   * @var array
-   */
+	* Global theme defaults.
+	*
+	* @var array
+	*/
 	public $defaults;
 
 	/**
-   * Constructor.
-   *
-   * @param array $options
-   */
-	function __construct(array $options) {
- 		$this->options = $options;
+	* Constructor.
+	*
+	* @param array $options
+	*/
+	function __construct( array $options ) {
+			$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 		$this->strings = $this->getStringOptions();
@@ -45,12 +45,12 @@ class GlobalOptions extends \Pressbooks\Options {
 		$this->floats = $this->getFloatOptions();
 		$this->predefined = $this->getPredefinedOptions();
 
- 		foreach ( $this->defaults as $key => $value ) {
- 			if ( !isset ( $this->options[ $key ] ) ) {
- 				$this->options[ $key ] = $value;
- 			}
- 		}
- 	}
+		foreach ( $this->defaults as $key => $value ) {
+			if ( ! isset( $this->options[ $key ] ) ) {
+				$this->options[ $key ] = $value;
+			}
+		}
+	}
 
 	/**
 	 * Configure the global options tab using the settings API.
@@ -92,7 +92,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			)
 		);
 
-		if ( \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 1 ) == true || \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 2 ) == true ) { // we can only enable foreign language typography for themes that use SCSS
+		if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) == true || \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) == true ) { // we can only enable foreign language typography for themes that use SCSS
 
 			add_settings_field(
 				'pressbooks_global_typography',
@@ -147,7 +147,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * Sanitize the languages (just returns the array or an empty array, as these are predefined values).
 	 */
 	function sanitizeLanguages( $input ) {
-		if ( !is_array( $input ) ) {
+		if ( ! is_array( $input ) ) {
 			$input = array();
 		}
 		return $input;
@@ -221,7 +221,7 @@ class GlobalOptions extends \Pressbooks\Options {
 
 		$already_supported_languages = \Pressbooks\Container::get( 'GlobalTypography' )->getThemeSupportedLanguages();
 
-		if ( $already_supported_languages == false ) {
+		if ( false == $already_supported_languages ) {
 			$already_supported_languages = [];
 		}
 
@@ -269,17 +269,17 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @return string $slug
 	 */
 	static function getSlug() {
-  	return 'global';
-  }
+		return 'global';
+	}
 
 	/**
 	 * Get the localized title of the global options tab.
 	 *
 	 * @return string $title
 	 */
-  static function getTitle() {
-  	return __('Global Options', 'pressbooks');
-  }
+	static function getTitle() {
+		return __( 'Global Options', 'pressbooks' );
+	}
 
 	/**
 	 * Get an array of default values for the global options tab.
@@ -290,7 +290,7 @@ class GlobalOptions extends \Pressbooks\Options {
 		return apply_filters( 'pressbooks_theme_options_global_defaults', array(
 			'chapter_numbers' => 1,
 			'parse_subsections' => 0,
-			'copyright_license' => 0
+			'copyright_license' => 0,
 		) );
 	}
 
@@ -313,7 +313,7 @@ class GlobalOptions extends \Pressbooks\Options {
 		return array(
 			'chapter_numbers',
 			'parse_subsections',
-			'copyright_license'
+			'copyright_license',
 		);
 	}
 

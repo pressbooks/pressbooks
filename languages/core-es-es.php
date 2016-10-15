@@ -13,13 +13,13 @@ $overrides = array(
 	// 'Howdy, %1$s' => 'Greetings, %1$s!',
 	// Add some more strings here...
 
-	'My Sites' => 'Meus livros',
-	'Create a New Site' => 'Criar um novo livro',
+	'My Sites' => 'Mis libros',
+	'Create a New Site' => 'Crear un nuevo libro',
 );
 
 if ( \Pressbooks\Book::isBook() ) {
-	$overrides['Visit Site'] = 'Visitar Livro';
-	$overrides['Edit Site'] = 'Editar Livro';
+	$overrides['Visit Site'] = 'Visita libro';
+	$overrides['Edit Site'] = 'Editar libro';
 }
 
 return $overrides;

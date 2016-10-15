@@ -4,8 +4,9 @@
  * @license GPLv2 (or any later version)
  */
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Includes
@@ -49,7 +50,7 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
 	add_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );
 	// Disable theme customizer
-	add_action( 'admin_body_class', '\Pressbooks\Admin\Laf\disable_customizer');
+	add_action( 'admin_body_class', '\Pressbooks\Admin\Laf\disable_customizer' );
 
 } else {
 	// Fix extraneous menus
@@ -60,7 +61,7 @@ if ( is_network_admin() ) {
 	add_action( 'wp_network_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_network_dashboard_widgets' );
 	add_action( 'install_plugins_tabs', '\Pressbooks\Admin\Plugins\filter_install_plugins_tabs' );
 	add_action( 'install_plugins_pressbooks', '\Pressbooks\Admin\Plugins\install_plugins' );
-	add_filter( 'install_plugins_table_api_args_pressbooks', '\Pressbooks\Admin\Plugins\install_plugins_table_api_args_pressbooks');
+	add_filter( 'install_plugins_table_api_args_pressbooks', '\Pressbooks\Admin\Plugins\install_plugins_table_api_args_pressbooks' );
 }
 
 if ( true == is_main_site() ) {
@@ -80,12 +81,12 @@ if ( \Pressbooks\Book::isBook() ) {
 	switch_to_blog( 1 );
 	$ga_mu_site_specific_allowed = get_option( 'ga_mu_site_specific_allowed', '', false );
 	restore_current_blog();
-	if ( isset( $ga_mu_site_specific_allowed ) && $ga_mu_site_specific_allowed !== '' && $ga_mu_site_specific_allowed !== '0' ) {
+	if ( isset( $ga_mu_site_specific_allowed ) && '' !== $ga_mu_site_specific_allowed && '0' !== $ga_mu_site_specific_allowed ) {
 		add_action( 'admin_menu', '\Pressbooks\Admin\Analytics\add_menu' );
 		add_action( 'admin_init', '\Pressbooks\Admin\Analytics\analytics_settings_init' );
 	}
 }
-add_action( 'admin_head', '\Pressbooks\Admin\Analytics\print_admin_analytics');
+add_action( 'admin_head', '\Pressbooks\Admin\Analytics\print_admin_analytics' );
 
 // Privacy, Ecommerce, and Export settings
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\network_admin_menu' );
@@ -114,8 +115,8 @@ if ( ! \Pressbooks\Book::isBook() ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action('init', function() { // replace default title filtering with our custom one that allows certain tags
-	remove_filter('title_save_pre', 'wp_filter_kses');
-	add_filter( 'title_save_pre', 'Pressbooks\Sanitize\filter_title');
+	remove_filter( 'title_save_pre', 'wp_filter_kses' );
+	add_filter( 'title_save_pre', 'Pressbooks\Sanitize\filter_title' );
 });
 
 add_action( 'admin_menu', function () {
@@ -141,8 +142,8 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_filter( 'tiny_mce_before_init', '\Pressbooks\Editor\mce_valid_word_elements' );
 	add_filter( 'tiny_mce_before_init', '\Pressbooks\Editor\mce_table_editor_options' );
 	add_filter( 'mce_external_plugins', '\Pressbooks\Editor\mce_button_scripts' );
-	add_filter( 'mce_buttons_2', '\Pressbooks\Editor\mce_buttons_2');
-	add_filter( 'mce_buttons_3', '\Pressbooks\Editor\mce_buttons_3', 11);
+	add_filter( 'mce_buttons_2', '\Pressbooks\Editor\mce_buttons_2' );
+	add_filter( 'mce_buttons_3', '\Pressbooks\Editor\mce_buttons_3', 11 );
 	add_filter( 'wp_link_query_args', '\Pressbooks\Editor\customize_wp_link_query_args' );
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 }
@@ -231,8 +232,9 @@ if ( \Pressbooks\Book::isBook() ) {
 
 	// Fix for "are you sure you want to leave page" message when editing a part
 	add_action( 'admin_enqueue_scripts', function () {
-		if ( 'part' == get_post_type() )
+		if ( 'part' == get_post_type() ) {
 			wp_dequeue_script( 'autosave' );
+		}
 	} );
 
 	// Hide welcome screen
@@ -245,7 +247,7 @@ if ( \Pressbooks\Book::isBook() ) {
 
 	// Disable live preview
 	add_filter( 'theme_action_links', function ( $actions ) {
-		unset ( $actions['preview'] );
+		unset( $actions['preview'] );
 		return $actions;
 	} );
 

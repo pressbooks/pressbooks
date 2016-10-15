@@ -22,9 +22,37 @@ namespace Pressbooks\Sanitize;
 function html5_to_xhtml11( $html, $config = array(), $spec = array() ) {
 
 	$html5 = array(
-		'article', 'aside', 'audio', 'bdi', 'canvas', 'command', 'data', 'datalist', 'details', 'embed', 'figcaption',
-		'figure', 'footer', 'header', 'hgroup', 'keygen', 'mark', 'meter', 'nav', 'output', 'progress', 'rp', 'rt',
-		'ruby', 'section', 'source', 'summary', 'time', 'track', 'video', 'wbr',
+		'article',
+	'aside',
+	'audio',
+	'bdi',
+	'canvas',
+	'command',
+	'data',
+	'datalist',
+	'details',
+	'embed',
+	'figcaption',
+		'figure',
+	'footer',
+	'header',
+	'hgroup',
+	'keygen',
+	'mark',
+	'meter',
+	'nav',
+	'output',
+	'progress',
+	'rp',
+	'rt',
+		'ruby',
+	'section',
+	'source',
+	'summary',
+	'time',
+	'track',
+	'video',
+	'wbr',
 	);
 
 	$search_open = $replace_open = $search_closed = $replace_closed = array();
@@ -77,7 +105,7 @@ function html5_to_epub3( $html, $config = array(), $spec = array() ) {
 function fix_audio_shortcode() {
 
 	add_filter( 'wp_audio_shortcode', function ( $html, $atts, $audio, $post_id, $library ) {
-		$html = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', "$1", $html );
+		$html = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', '$1', $html );
 		return $html;
 	}, 10, 5 );
 
@@ -124,7 +152,7 @@ function sanitize_xml_id( $slug ) {
 	$slug = trim( $slug );
 	$slug = html_entity_decode( $slug, ENT_COMPAT | ENT_XHTML, 'UTF-8' );
 	$slug = remove_accents( $slug );
-	$slug = preg_replace( "([^a-zA-Z0-9-])", '', $slug );
+	$slug = preg_replace( '([^a-zA-Z0-9-])', '', $slug );
 
 	if ( empty( $slug ) ) {
 		$slug = uniqid( 'slug-' );
@@ -192,7 +220,7 @@ function decode( $slug ) {
 function strip_br( $slug ) {
 
 	$slug = preg_replace( '/&lt;br\W*?\/&gt;/', ' ', $slug );
-	$slug = preg_replace('/<br\W*?\/>/', ' ', $slug);
+	$slug = preg_replace( '/<br\W*?\/>/', ' ', $slug );
 
 	return $slug;
 }
@@ -209,7 +237,7 @@ function filter_title( $title ) {
 		'br' => array(),
 		'span' => array( 'class' => array() ),
 		'em' => array(),
-		'strong' => array()
+		'strong' => array(),
 	);
 	return wp_kses( $title, $allowed );
 }
@@ -226,13 +254,15 @@ function canonicalize_url( $url ) {
 	// remove trailing slash
 	$url = rtrim( trim( $url ), '/' );
 
-	if ( preg_match( '#^mailto:#i', $url ) )
+	if ( preg_match( '#^mailto:#i', $url ) ) {
 		return filter_var( $url, FILTER_SANITIZE_URL );
+	}
 
 	// Add http:// if it's missing
 	if ( ! preg_match( '#^https?://#i', $url ) ) {
 		// Remove ftp://, gopher://, fake://, etc
-		if ( mb_strpos( $url, '://' ) ) list( $garbage, $url ) = mb_split( '://', $url );
+		if ( mb_strpos( $url, '://' ) ) { list( $garbage, $url ) = mb_split( '://', $url );
+		}
 		// Prepend http
 		$url = 'http://' . $url;
 	}

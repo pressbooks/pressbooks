@@ -18,7 +18,7 @@ class VanillaWxr extends Wxr {
 		if ( ! $output ) {
 			return false;
 		}
-		
+
 		// use error handling to fetch error information as needed
 		libxml_use_internal_errors( true );
 
@@ -26,7 +26,7 @@ class VanillaWxr extends Wxr {
 		$dom->preserveWhiteSpace = false;
 		$dom->recover = true; // Try to parse non-well formed documents
 		$success = $dom->loadXML( $output, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
-		
+
 		// replace custom post_type
 		// attempting to import custom post types such as 'chapter',
 		// 'part', 'front-matter', 'back-matter' fails in a vanilla WP installation
@@ -67,10 +67,10 @@ class VanillaWxr extends Wxr {
 		for ( $i = 0; $i < $length; $i ++ ) {
 			$this->deleteNode( $term->item( 0 ) );
 		}
-		
+
 		//clean up whitespace
 		$dom->formatOutput = true;
-		
+
 		// replace category domain, and nicename attributes
 		// easier to manipulate the value of attributes with SimpleXML
 		$xml = simplexml_import_dom( $dom );
@@ -106,7 +106,7 @@ class VanillaWxr extends Wxr {
 
 		// convert back to xml string
 		$output = $xml->asXML();
-		
+
 		// save wxr as file in exports folder
 		$filename = $this->timestampedFileName( '._vanilla.xml' );
 		file_put_contents( $filename, $output );
@@ -117,7 +117,7 @@ class VanillaWxr extends Wxr {
 
 	/**
 	 * deletes a node and all of its children
-	 * 
+	 *
 	 * @param \DOMNode $node
 	 */
 	private function deleteNode( $node ) {
@@ -128,7 +128,7 @@ class VanillaWxr extends Wxr {
 
 	/**
 	 * recursive function to delete all children of a node
-	 * 
+	 *
 	 * @param \DOMNode $node
 	 */
 	private function deleteChildren( $node ) {

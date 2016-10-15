@@ -1,7 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 /* Outputs the content for the Export page for a book */
 
@@ -55,7 +56,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 
 <div id="icon-pressbooks-export" class="icon32"></div>
 <h2><?php _e( 'Export', 'pressbooks' ); ?> &ldquo;<?php bloginfo( 'name' ); ?>&rdquo;</h2>
-<p><?php printf( __( 'You can export multiple file formats by selecting your Export Format Options below. Pressbooks saves your last %s batches of exported files.', 'pressbooks' ), $max_batches  );?></p>
+<p><?php printf( __( 'You can export multiple file formats by selecting your Export Format Options below. Pressbooks saves your last %s batches of exported files.', 'pressbooks' ), $max_batches );?></p>
 
 <div class="export-page">
 
@@ -63,7 +64,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	<h3><?php _e( 'Your Export Format Options', 'pressbooks' ); ?></h3>
 	<p><?php _e( 'Select which formats you want to export', 'pressbooks' ); ?>.</p>
 
-    <form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
+	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 	    <fieldset>
 		    <legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
 		    <?php if ( true == \Pressbooks\Utility\check_prince_install() ) { ?>
@@ -87,9 +88,9 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	    	<input type="checkbox" id="wxr" name="export_formats[wxr]" value="1" /><label for="wxr"> <?php _e( 'Pressbooks XML', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="vanillawxr" name="export_formats[vanillawxr]" value="1" /><label for="vanillawxr"> <?php _e( 'WordPress XML', 'pressbooks' ); ?></label>
 	    </fieldset>
-    </form>
-    <div class="clear"></div>
-    <h3><?php _e( 'Your Theme Options', 'pressbooks' ); ?></h3>
+	</form>
+	<div class="clear"></div>
+	<h3><?php _e( 'Your Theme Options', 'pressbooks' ); ?></h3>
 	<div class="theme">
 		<div class="theme-screenshot">
 			<img src="<?php echo get_stylesheet_directory_uri(); ?>/screenshot.png" alt="">
@@ -111,49 +112,49 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	$files = \Pressbooks\Utility\group_exports();
 	foreach ( $files as $date => $exports ) {
 		// Echo files to screen
-		if ( $c == 0 ) { ?>
-		<h2><?php _e( 'Latest Export', 'pressbooks' ); ?>: <?php printf( _x( '%s at %s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h2>
+		if ( 0 == $c ) { ?>
+		<h2><?php _e( 'Latest Export', 'pressbooks' ); ?>: <?php printf( _x( '%1$s at %1$s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h2>
 		<div class="export-files latest">
 	<?php } elseif ( $c > 0 ) { ?>
-		<h3><?php _e( 'Exported', 'pressbooks' ); ?> <?php printf( _x( '%s at %s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h3>
+		<h3><?php _e( 'Exported', 'pressbooks' ); ?> <?php printf( _x( '%1$s at %1$s', 'Date and time string, e.g. "January 1, 2016 at 12:00pm', 'pressbooks' ), date( $date_format, $date ), date( $time_format, $date ) ); ?></h3>
 		<div class="export-files">
 	<?php }
-		foreach ( $exports as $file ) {
-			$file_extension = substr( strrchr( $file, '.' ), 1 );
-			$pre_suffix = (false == strstr( $file, '._3.epub' )) ? strstr( $file, '._vanilla.xml') : strstr( $file, '._3.epub' );
+foreach ( $exports as $file ) {
+	$file_extension = substr( strrchr( $file, '.' ), 1 );
+	$pre_suffix = (false == strstr( $file, '._3.epub' )) ? strstr( $file, '._vanilla.xml' ) : strstr( $file, '._3.epub' );
 
-		if ( 'html' == $file_extension )
-				$file_class = 'xhtml';
-			elseif ( 'xml' == $file_extension && '._vanilla.xml' == $pre_suffix )
-				$file_class = 'vanillawxr';
-			elseif ( 'xml' == $file_extension && false == $pre_suffix )
-				$file_class = 'wxr';
-			elseif ( 'epub' == $file_extension && '._3.epub' == $pre_suffix )
-				$file_class = 'epub3';
-		else
-				$file_class = $file_extension;
+	if ( 'html' == $file_extension ) {
+		$file_class = 'xhtml';
+	} elseif ( 'xml' == $file_extension && '._vanilla.xml' == $pre_suffix ) {
+		$file_class = 'vanillawxr';
+	} elseif ( 'xml' == $file_extension && false == $pre_suffix ) {
+		$file_class = 'wxr';
+	} elseif ( 'epub' == $file_extension && '._3.epub' == $pre_suffix ) {
+		$file_class = 'epub3';
+	} else { $file_class = $file_extension;
+	}
 
-			 ?>
-			<form class="export-file" action="<?php echo $export_delete_url; ?>" method="post">
-				<input type="hidden" name="filename" value="<?php echo $file; ?>" />
-				<input type="hidden" name="delete_export_file" value="true" />
-				<div class="export-file-container">
-					<a class="export-file" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( $c == 0 ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
-					<div class="file-actions">
-						<a href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="dashicons dashicons-download"></span></a>
-						<button class="delete" type="submit" name="submit" src="" value="Delete" onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><span class="dashicons dashicons-trash"></span></button>
-					</div>
-				</div>
-			</form>
+?>
+	<form class="export-file" action="<?php echo $export_delete_url; ?>" method="post">
+		<input type="hidden" name="filename" value="<?php echo $file; ?>" />
+		<input type="hidden" name="delete_export_file" value="true" />
+		<div class="export-file-container">
+	<a class="export-file" href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="export-file-icon <?php echo ( 0 == $c ? 'large' : 'small' ); ?> <?php echo $file_class; ?>" title="<?php echo esc_attr( $file ); ?>"></span></a>
+	<div class="file-actions">
+		<a href="<?php echo ( $download_url_prefix . $file ); ?>"><span class="dashicons dashicons-download"></span></a>
+		<button class="delete" type="submit" name="submit" src="" value="Delete" onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><span class="dashicons dashicons-trash"></span></button>
+	</div>
+		</div>
+	</form>
 	<?php } ?>
 	</div>
 	<?php
 		++$c;
 	} ?>
-	<?php if ( !empty( $files ) && current_user_can('manage_network' ) ) : ?>
+	<?php if ( ! empty( $files ) && current_user_can( 'manage_network' ) ) : ?>
 	<form class="delete-all" action="<?php echo $export_delete_all_url; ?>" method="post">
 		<input type="hidden" name="delete_all_exports" value="true" />
-		<button class="button" type="submit" name="submit" src="" value="Delete All Exports" onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete ALL your current exports?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e('Delete All Exports', 'pressbooks'); ?></button>
+		<button class="button" type="submit" name="submit" src="" value="Delete All Exports" onclick="if ( !confirm('<?php esc_attr_e( 'Are you sure you want to delete ALL your current exports?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete All Exports', 'pressbooks' ); ?></button>
 	</form>
 	<?php endif; ?>
 </div> <!-- .export-control -->

@@ -106,9 +106,9 @@
     "wp-api/wp-api": "2.0-beta14"
   },
   "require-dev": {
-    "phpunit/phpunit": "^5.5",
-    "squizlabs/php_codesniffer": "^2.7",
-    "wp-coding-standards/wpcs": "~0.10"
+    "phpunit/phpunit": "5.5",
+    "squizlabs/php_codesniffer": "2.7",
+    "wp-coding-standards/wpcs": "0.10"
   },
   "autoload": {
   },
@@ -133,7 +133,13 @@
   },
   "scripts": {
     "test": [
-      "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml"
+      "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml",
+      "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+      "vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
+    ],
+    "standards": [
+      "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+      "vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
     ]
   }
 }
