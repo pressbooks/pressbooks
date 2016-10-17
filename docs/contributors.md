@@ -1,16 +1,30 @@
 # Contributors
 
- * Book Oven Inc. (code@pressbooks.com)
+ * Book Oven Inc. ([code@pressbooks.com](mailto:code@pressbooks.com))
 
- * Arik Chao ([@wastemobile](https://github.com/wastemobile))
- * Brad Payne ([@bdolor](https://github.com/bdolor))
- * Nick Ciske ([@nciske](https://github.com/nciske))
- * Daisuke Muro ([@dicekmuro](https://github.com/dicekmuro))
+ * India Amos ([@indiamos](https://github.com/indiamos))
+ * Bryan Borgeson ([@monkecheese](https://github.com/monkecheese))
  * Israel Cerfin ([@israelcefrin](https://github.com/israelcefrin))
- * John Rankin ([http://www.wikipublisher.org)
- * Karol Kallas
- * Macina (https://twitter.com/MenahemMacina)
- * Michael Giesler
- * Ron
- * Silvia (https://twitter.com/larusalka)
+ * [@changemachine](https://github.com/changemachine)
+ * Arik Chao ([@wastemobile](https://github.com/wastemobile))
+ * Nick Ciske ([@nciske](https://github.com/nciske))
+ * Kelly de Vries ([@kdv24](https://github.com/kdv24))
+ * Antonio Devís ([@colomet](https://github.com/colomet))
+ * Silvia Flórez ([@larusalka](https://twitter.com/larusalka))
+ * Joe Flowers ([@jflowers45](https://github.com/jflowers45))
+ * Michael Giesler ([@MichaelGiesler](https://github.com/MichaelGiesler))
+ * Jeff Graham ([@jgraham909](https://github.com/jgraham909)
+ * [@julienCXX](https://github.com/julienCXX)
+ * Karol Kallas ([@KarolKallas](https://github.com/KarolKallas))
+ * [@liladude](https://github.com/liladude)
+ * David Lippman ([@drlippman](https://github.com/drlippman))
+ * Menahem Macina ([@MenahemMacina](https://github.com/MenahemMacina))
+ * Bracken Mosbacker ([@bracken](https://github.com/bracken))
+ * Daisuke Muro ([@dicekmuro](https://github.com/dicekmuro))
  * Wendell Norman
+ * Brad Payne ([@bdolor](https://github.com/bdolor))
+ * John Rankin ([WikiPublisher](http://www.wikipublisher.org))
+ * Ron
+ * [@unit29868](https://github.com/unit29868)
+ * Christian Widlund ([@chrillep](https://github.com/chrillep))
+ * Ashlee Zhang ([@BakingSoda](https://github.com/BakingSoda))
