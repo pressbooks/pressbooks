@@ -8,8 +8,6 @@ Write real Classes or Namespaced functions.
 
 Our namespace is: `\Pressbooks\`
 
-For example:
-
  * If your Class isn't an Object like `\WP_User`, `\WP_Dependencies`, `\WP_Query` etc., write a library of functions.
  * If your Class is a bunch of Static methods and nothing else, write a library of functions.
  * Afraid of function name collisions? See [Namespaces](https://secure.php.net/manual/en/language.namespaces.php).

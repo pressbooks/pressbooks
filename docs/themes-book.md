@@ -1,10 +1,8 @@
 # Book Themes
 
-In addition to being WordPress compatible, a book theme must have the following directories and files. These files are
-used by our PDF & EPUB export modules. The files can be empty (`script.js`, for example), but must exist.
+In addition to being WordPress compatible, a book theme must have the following directories and files. These files are used by our PDF & EPUB export modules. The files can be empty (`script.js`, for example), but must exist.
 
-We use the SCSS variant of [SASS](http://sass-lang.com) for our stylesheets, which allows us dynamically modify font
-stacks and other variables based on user preferences.
+We use the SCSS variant of [SASS](http://sass-lang.com) for our stylesheets, which allows us dynamically modify font stacks and other variables based on user preferences.
 
 	├── _fonts-epub.scss
 	├── _fonts-prince.scss
@@ -42,12 +40,11 @@ $font-2: 'Lato', Helvetica, Arial, $sans-serif-prince;
 
 Most themes have at least two font stacks. `$font-1` must be the body font, and `$font-2` must be the header font.
 
-The `@import` rule loads a SCSS `_font-stack-{TYPE}` file which is dynamically generated based on the Global Typography
-theme option. The `_font-stack-{TYPE}` is built from partials found in ./pressbooks/assets/scss/fonts/*.* - These files,
-in combination with the `$serif-epub`, `$sans-serif-epub`, `$serif-prince`, `$sans-serif-prince`, `$serif-web` and
-`$sans-serif-web` variables, allows us to dynamically add support for non-Latin character sets.
+The `@import` rule loads a SCSS `_font-stack-{TYPE}` file which is dynamically generated based on the Global Typography theme option. The `_font-stack-{TYPE}` is built from partials found in `./pressbooks/assets/scss/fonts/*.*`
 
-Each `style.scss` file must import the appropriate font stack(s). Example for ./export/prince/style.scss:
+These files, in combination with the `$serif-epub`, `$sans-serif-epub`, `$serif-prince`, `$sans-serif-prince`, `$serif-web` and `$sans-serif-web` variables, allow us to dynamically add support for non-Latin character sets.
+
+Each `style.scss` file must import the appropriate font stack(s). Example for `./export/prince/style.scss`:
 
 ```
 @import 'fonts-prince';
@@ -63,7 +60,6 @@ The paths for all such fonts in your Custom CSS need to be as follows:
   src: url(themes-book/pressbooks-book/fonts/YourFont.ttf) format("truetype");
 }
 ```
-
 
 ## PDF (Prince) Best Practices
 
@@ -149,7 +145,7 @@ Examples:
 	  return $hacks; // array of options passed back to the export module
 	}
 	add_filter( 'pb_pdf_hacks', 'pressbooks_theme_pdf_hacks' );
-	
+
 	function pressbooks_theme_ebook_hacks( $hacks ) {
 	  return $hacks; // array of options passed back to the export module
 	}
