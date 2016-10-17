@@ -1221,7 +1221,7 @@ class Epub201 extends Export {
 			// Inject part content?
 			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
 			if ( $part_content ) {
-				$part_content = $this->kneadHtml( $this->preProcessPostContent( $part_content ), 'custom' );
+				$part_content = $this->kneadHtml( $this->preProcessPostContent( $part_content ), 'custom', $p );
 				$part_printf_changed = str_replace( '</h1></div>%s</div>', '</h1></div><div class="ugc part-ugc">%s</div></div>', $part_printf );
 			}
 
@@ -1991,7 +1991,6 @@ class Epub201 extends Export {
 	 * @return bool|string
 	 */
 	protected function fuzzyHrefMatch( $url, $type, $pos ) {
-
 		if ( ! $pos ) {
 			return false;
 		}
@@ -2005,7 +2004,7 @@ class Epub201 extends Export {
 		if ( $domain ) {
 			$domain2 = parse_url( wp_guess_url() );
 			if ( @$domain2['host'] != $domain ) {
-				return false; // If there as a domain name and it =/= ours, bail.
+				return false; // If there is a domain name and it =/= ours, bail.
 			}
 		}
 
