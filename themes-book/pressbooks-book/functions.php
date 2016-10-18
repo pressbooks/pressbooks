@@ -336,7 +336,6 @@ function pressbooks_copyright_license() {
 
 function replace_running_content_tags( $input ) {
 	$input = '"' . $input . '"';
-	error_log( $input );
 
 	return str_replace(
 		array(
