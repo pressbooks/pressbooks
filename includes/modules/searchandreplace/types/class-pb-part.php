@@ -115,6 +115,7 @@ class Part extends \Pressbooks\Modules\SearchAndReplace\Search {
 					$lastid = $result->id;
 				}
 			}
+			wp_cache_flush();
 		}
 	}
 

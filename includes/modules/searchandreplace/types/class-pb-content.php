@@ -97,12 +97,9 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 		return $post->post_content;
 	}
 	function replace_content( $id, $content ) {
-		wp_update_post(
-			array(
-			    'ID' => $id,
-				'post_content' => $content,
-			)
-		);
+		global $wpdb;
+		$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_content=%s WHERE ID=%d", $content, $id ) );
+		wp_cache_flush();
 	}
 
 	function name() {
