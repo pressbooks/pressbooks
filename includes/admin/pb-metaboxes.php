@@ -38,23 +38,6 @@ function add_required_data( $pid, $post ) {
 			update_post_meta( $pid, 'pb_author', $name );
 		}
 	}
-
-	$pb_language = get_post_meta( $pid, 'pb_language', true );
-	if ( ! $pb_language ) {
-		// if the pb_language metadata value is not set, set it to the network default
-		$locale = get_site_option( 'WPLANG' );
-		$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes() );
-		if ( ! $locale ) {
-		    $locale = 'en';
-		}
-			update_post_meta( $pid, 'pb_language', $locale );
-	}
-
-	$pb_cover_image = get_post_meta( $pid, 'pb_cover_image', true );
-	if ( ! $pb_cover_image ) {
-		// if the pb_cover_image metadata value is not set, set it to the default image
-		update_post_meta( $pid, 'pb_cover_image', \Pressbooks\Image\default_cover_url() );
-	}
 }
 
 

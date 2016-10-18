@@ -11,3 +11,4 @@ vendor
 bower_components
 node_modules
 deploy.sh
+coverage.xml
