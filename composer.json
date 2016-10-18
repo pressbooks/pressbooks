@@ -92,11 +92,11 @@
     }
   ],
   "require": {
-    "php": ">=5.6.0",
-    "composer/installers": "~1.0",
-    "gridonic/princexml-php": "*",
-    "pimple/pimple": "^3.0",
-    "leafo/scssphp": "^0.6.6",
+    "php": ">=5.6.0@stable",
+    "composer/installers": "~1.0@stable",
+    "gridonic/princexml-php": "*@stable",
+    "pimple/pimple": "^3.0@stable",
+    "leafo/scssphp": "^0.6.6@stable",
     "vanilla/htmlawed": "dev-master",
     "pressbooks/saxon-he": "^9.6",
     "pressbooks/custom-metadata": "0.8.1-dev",
@@ -106,9 +106,9 @@
     "wp-api/wp-api": "2.0-beta14"
   },
   "require-dev": {
-    "phpunit/phpunit": "5.5",
-    "squizlabs/php_codesniffer": "2.7",
-    "wp-coding-standards/wpcs": "0.10"
+    "phpunit/phpunit": "~5.5@stable",
+    "squizlabs/php_codesniffer": "^2.7@stable",
+    "wp-coding-standards/wpcs": "^0.10@stable"
   },
   "autoload": {
   },
