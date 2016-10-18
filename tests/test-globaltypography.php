@@ -33,6 +33,15 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'he', $result );
 	}
 
+	/**
+	 * @covers \Pressbooks\GlobalTypography::_getRequiredLanguages
+	 */
+	public function test_getRequiredLanguages() {
+
+		$result = $this->gt->_getRequiredLanguages();
+
+		$this->assertTrue( is_array( $result ) );
+	}
 
 	/**
 	 * @covers \Pressbooks\GlobalTypography::getThemeFontStacks
@@ -78,7 +87,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 		$this->assertFileExists( $file );
 		$this->assertNotEmpty( file_get_contents( $file ) );
 	}
-	
+
 
 	/**
 	 * @covers \Pressbooks\GlobalTypography::fixWebFonts
@@ -94,4 +103,13 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 		$this->assertNotContains( 'url(' . PB_PLUGIN_URL . 'themes-book/pressbooks-book/fonts/foo.garbage', $css );
 	}
 
+	/**
+	 * @covers \Pressbooks\GlobalTypography::getFonts
+	 */
+	public function test_getFonts() {
+		$result = $this->gt->getFonts( array( 'ko' ) );
+		$this->assertTrue( $result );
+		$this->assertFileExists( PB_PLUGIN_DIR . 'themes-book/pressbooks-book/fonts/NotoSansCJKkr-Regular.otf' );
+		$this->assertFileExists( PB_PLUGIN_DIR . 'themes-book/pressbooks-book/fonts/NotoSansCJKkr-Bold.otf' );
+	}
 }

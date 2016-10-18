@@ -302,8 +302,10 @@ class GlobalTypography {
 	 * Check for absent font files and download if necessary.
 	 */
 
-	function getFonts() {
-		$languages = $this->_getRequiredLanguages();
+	function getFonts( $languages = null ) {
+		if ( ! $languages ) {
+			$languages = $this->_getRequiredLanguages();
+		}
 		$baseurl = 'https://github.com/googlei18n/noto-cjk/raw/master/';
 		$basepath = PB_PLUGIN_DIR . 'themes-book/pressbooks-book/fonts/';
 
