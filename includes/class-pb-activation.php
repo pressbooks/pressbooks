@@ -222,6 +222,11 @@ class Activation {
 				'post_name' => 'web',
 				'post_type' => 'custom-css',
 			),
+			array(
+				'post_title' => __( 'Book Information', 'pressbooks' ),
+				'post_name' => 'book-information',
+				'post_type' => 'metadata',
+			)
 		);
 
 		$post = array( 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id );
@@ -267,6 +272,20 @@ class Activation {
 						$intro = $newpost;
 					} elseif ( 'back-matter' == $item['post_type'] ) {
 						$appendix = $newpost;
+					} elseif ( 'metadata' == $item['post_type'] ) {
+						$metadata_id = $newpost;
+						$user_info = get_userdata( get_current_user_id() );
+						$name = $user_info->display_name;
+						$locale = get_site_option( 'WPLANG' );
+						if ( ! $locale ) {
+							$locale = 'en';
+						} else {
+							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes() );
+						}
+						update_post_meta( $metadata_id, 'pb_author', $name );
+						update_post_meta( $metadata_id, 'pb_title', get_option( 'blogname' ) );
+						update_post_meta( $metadata_id, 'pb_language', $locale );
+						update_post_meta( $pid, 'pb_cover_image', \Pressbooks\Image\default_cover_url() );
 					}
 				} else {
 					trigger_error( $newpost->get_error_message(), E_USER_ERROR );

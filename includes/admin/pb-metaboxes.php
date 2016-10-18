@@ -12,23 +12,11 @@ namespace Pressbooks\Admin\Metaboxes;
  * @param int $pid
  * @param \WP_Post $post
  */
-function title_update( $pid, $post ) {
-
-	$pb_title = get_post_meta( $pid, 'pb_title', true );
-	if ( $pb_title ) { // if the pb_title metadata value is set, update the blogname to match it
-		update_option( 'blogname', $pb_title );
-	} else { // if the pb_title metadata value is not set, update it to match the blogname
-		$pb_title = get_option( 'blogname' );
-		update_post_meta( $pid, 'pb_title', $pb_title );
-	}
-
-	// Change post_title from "Auto Draft" to something useful
-	$post_title = __( 'Book Info', 'pressbooks' );
-	if ( $post_title != $post->post_title ) {
-		wp_update_post( array(
-			'ID' => $pid,
-			'post_title' => $post_title,
-		) );
+function title_update( $meta_id, $post_id, $meta_key, $meta_value ) {
+	if ( 'pb_title' != $meta_key ) {
+		return false;
+	} else {
+		update_option( 'blogname', $meta_value );
 	}
 }
 
