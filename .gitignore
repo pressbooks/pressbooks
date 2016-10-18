@@ -12,3 +12,4 @@ bower_components
 node_modules
 deploy.sh
 coverage.xml
+themes-book/pressbooks-book/fonts/NotoSansCJK*

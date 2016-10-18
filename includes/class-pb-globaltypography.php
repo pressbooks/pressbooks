@@ -53,14 +53,10 @@ class GlobalTypography {
 		return $return_value;
 	}
 
-
 	/**
-	 * Update and save the SCSS mixin which assigns the $global-typography variable.
+	 * Get required languages for this book, excluding those supported by the theme.
 	 */
-	function updateGlobalTypographyMixin() {
-
-		// Get languages
-
+	function _getRequiredLanguages() {
 		$languages = get_option( 'pressbooks_global_typography', array() );
 
 		if ( $book_lang = $this->_getBookLanguage() ) {
@@ -73,6 +69,16 @@ class GlobalTypography {
 			);
 		}
 
+		return $languages;
+	}
+
+	/**
+	 * Update and save the SCSS mixin which assigns the $global-typography variable.
+	 */
+	function updateGlobalTypographyMixin() {
+
+		$languages = $this->_getRequiredLanguages();
+
 		// Auto-create SCSS files
 
 		// TODO: Use self::getThemeFontStacks() to parse if stack has $serif or $sans-serif strings
@@ -80,6 +86,8 @@ class GlobalTypography {
 		foreach ( [ 'prince', 'epub', 'web' ] as $type ) {
 			$this->_sassify( $type, $languages );
 		}
+
+		$this->getFonts( $languages );
 
 	}
 
@@ -145,7 +153,6 @@ class GlobalTypography {
 
 		return $lang;
 	}
-
 
 	/**
 	 * Get the current theme's supported languages.
@@ -291,5 +298,60 @@ class GlobalTypography {
 		return $css;
 	}
 
+	/**
+	 * Check for absent font files and download if necessary.
+	 */
 
+	function getFonts( $languages = null ) {
+		if ( ! $languages ) {
+			$languages = $this->_getRequiredLanguages();
+		}
+		$baseurl = 'https://github.com/googlei18n/noto-cjk/raw/master/';
+		$basepath = PB_PLUGIN_DIR . 'themes-book/pressbooks-book/fonts/';
+
+		// List fonts
+		$fontpacks = array(
+			'ja' => array(
+				'NotoSansCJKjp-Light.otf',
+				'NotoSansCJKjp-Regular.otf',
+				'NotoSansCJKjp-Bold.otf',
+			),
+			'ko' => array(
+				'NotoSansCJKkr-Regular.otf',
+				'NotoSansCJKkr-Bold.otf',
+			),
+			'zh_HANS' => array(
+				'NotoSansCJKsc-Regular.otf',
+				'NotoSansCJKsc-Bold.otf',
+			),
+			'zh_HANT' => array(
+				'NotoSansCJKtc-Light.otf',
+				'NotoSansCJKtc-Regular.otf',
+				'NotoSansCJKtc-Bold.otf',
+			),
+		);
+
+		$language_names = $this->getSupportedLanguages();
+
+		foreach ( $fontpacks as $language => $fonts ) {
+			if ( in_array( $language, $languages ) ) {
+				foreach ( $fonts as $font ) {
+					if ( ! file_exists( $basepath . $font ) ) {
+						if ( ! function_exists( 'download_url' ) ) {
+							require_once( ABSPATH . 'wp-admin/includes/file.php' );
+						}
+						$result = download_url( $baseurl . $font );
+						if ( is_wp_error( $result ) ) {
+							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $baseurl . $font . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
+							return false;
+						} else {
+							rename( $result, $basepath . $font );
+						}
+					}
+				}
+			}
+		}
+
+		return true;
+	}
 }
