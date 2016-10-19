@@ -26,15 +26,18 @@ function add_menu() {
 function redirect_css_editor() {
 
 	$post_id = absint( @$_REQUEST['post'] );
-	if ( ! $post_id )
+	if ( ! $post_id ) {
 		return; // Do nothing
+	}
 
 	$post = get_post( $post_id );
-	if ( ! $post )
+	if ( ! $post ) {
 		return; // Do nothing
+	}
 
-	if ( 'custom-css' != $post->post_type )
+	if ( 'custom-css' != $post->post_type ) {
 		return; // Do nothing
+	}
 
 	$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_css&slug=' . $post->post_name );
 	\Pressbooks\Redirect\location( $redirect_url );
@@ -49,7 +52,8 @@ function display_custom_css() {
 	$custom_css = new CustomCss();
 
 	$slug = isset( $_GET['slug'] ) ? $_GET['slug'] : get_transient( 'pb-last-custom-css-slug' );
-	if ( ! $slug ) $slug = 'web';
+	if ( ! $slug ) { $slug = 'web';
+	}
 
 	$supported = array_keys( $custom_css->supported );
 	if ( ! in_array( $slug, $supported ) ) {
@@ -81,6 +85,7 @@ function display_custom_css() {
  */
 function load_custom_css_template( $vars ) {
 
+	// @codingStandardsIgnoreLine
 	extract( $vars );
 	require( PB_PLUGIN_DIR . 'templates/admin/custom-css.php' );
 }
@@ -103,12 +108,11 @@ function render_revisions_table( $custom_css, $slug, $post_id ) {
 		'post_status' => 'inherit',
 		'post_parent' => $post_id,
 		'orderby' => 'date',
-		'order' => 'DESC'
+		'order' => 'DESC',
 	);
 
 	$q = new \WP_Query();
 	$results = $q->query( $args );
-
 
 	$html = '<table class="widefat fixed" cellspacing="0">';
 	$html .= '<thead><th>' . __( 'Last 10 CSS Revisions', 'pressbooks' ) . " <em>({$custom_css->supported[$slug]})</em> </th></thead><tbody>";
@@ -151,8 +155,13 @@ function render_dropdown_for_slugs( $custom_css, $slug ) {
 	$html .= '<select id="' . $select_id . '" name="' . $select_name . '">';
 	foreach ( $custom_css->supported as $key => $val ) {
 		$html .= '<option value="' . $key . '"';
-		if ( $key == $slug ) $html .= ' selected="selected"';
-		$html .= '>' . __( $val, 'pressbooks' ) . '</option>';
+		if ( $key == $slug ) {
+			$html .= ' selected="selected"';
+		}
+		if ( 'Web' == $val ) {
+			$val = __( 'Web', 'pressbooks' );
+		}
+		$html .= '>' . $val . '</option>';
 	}
 	$html .= '</select>';
 
@@ -210,7 +219,8 @@ function render_dropdown_for_css_copy( $custom_css, $slug ) {
 	$html .= '<select id="' . $select_id . '" name="' . $select_name . '">';
 	$html .= '<option value="">---</option>';
 	foreach ( $themes as $key => $theme ) {
-		if ( 'pressbooks-custom-css' == $key ) continue; // Skip
+		if ( 'pressbooks-custom-css' == $key ) { continue; // Skip
+		}
 		$html .= '<option value="' . "{$key}__{$slug}" . '"'; // Explode on __
 		$html .= '>' . $theme->name . '</option>';
 	}
@@ -226,15 +236,16 @@ function render_dropdown_for_css_copy( $custom_css, $slug ) {
 function load_css_from() {
 
 	check_ajax_referer( 'pb-load-css-from' );
-	if ( false == current_user_can( 'edit_theme_options' ) ) die( - 1 );
+	if ( false == current_user_can( 'edit_theme_options' ) ) { die( - 1 );
+	}
 
 	$css = '';
 	$themes = wp_get_themes( array( 'allowed' => true ) );
 	list( $theme, $slug ) = explode( '__', @$_POST['slug'] );
 
-	if ( isset( $themes[$theme] ) ) {
+	if ( isset( $themes[ $theme ] ) ) {
 
-		$theme = $themes[$theme]; // Get theme object
+		$theme = $themes[ $theme ]; // Get theme object
 		/** @var $theme \WP_Theme */
 
 		// TODO: SCSS is optional, what if the user wants to copy from an old theme that has not yet been covnerted? This file won't exist?
@@ -278,8 +289,6 @@ function load_css_from() {
 		}
 	}
 
-
-
 	// Send back JSON
 	header( 'Content-Type: application/json' );
 	$json = json_encode( array( 'content' => $css ) );
@@ -321,7 +330,6 @@ function fix_url_paths( $css, $style_uri ) {
 		} else {
 			return "url($url)";
 		}
-
 	}, $css );
 
 	return $css;

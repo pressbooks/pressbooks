@@ -3,7 +3,7 @@
 Plugin Name: Pressbooks
 Plugin URI: http://www.pressbooks.com
 Description: Simple Book Production
-Version: 3.8.1
+Version: 3.9.0
 Author: BookOven Inc.
 Author URI: http://www.pressbooks.com
 Text Domain: pressbooks
@@ -12,8 +12,9 @@ GitHub Plugin URI: https://github.com/pressbooks/pressbooks
 Release Asset: true
 */
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	return;
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Turn on $_SESSION
@@ -24,8 +25,7 @@ function _pb_session_start() {
 		if ( ! headers_sent() ) {
 			ini_set( 'session.use_only_cookies', true );
 			session_start();
-		}
-		else {
+		} else {
 			error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
 		}
 	}
@@ -44,14 +44,17 @@ add_action( 'wp_login', '_pb_session_kill' );
 // Setup some defaults
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! defined( 'PB_PLUGIN_VERSION' ) )
-	define ( 'PB_PLUGIN_VERSION', '3.8.1' );
+if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
+	define( 'PB_PLUGIN_VERSION', '3.9.0' );
+}
 
-if ( ! defined( 'PB_PLUGIN_DIR' ) )
-	define( 'PB_PLUGIN_DIR', ( is_link( WP_PLUGIN_DIR .  '/pressbooks' ) ? trailingslashit( WP_PLUGIN_DIR .  '/pressbooks' ) : trailingslashit( __DIR__ ) ) ); // Must have trailing slash!
+if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
+	define( 'PB_PLUGIN_DIR', ( is_link( WP_PLUGIN_DIR . '/pressbooks' ) ? trailingslashit( WP_PLUGIN_DIR . '/pressbooks' ) : trailingslashit( __DIR__ ) ) ); // Must have trailing slash!
+}
 
-if ( ! defined( 'PB_PLUGIN_URL' ) )
-	define ( 'PB_PLUGIN_URL', trailingslashit( plugins_url( 'pressbooks' ) ) ); // Must have trailing slash!
+if ( ! defined( 'PB_PLUGIN_URL' ) ) {
+	define( 'PB_PLUGIN_URL', trailingslashit( plugins_url( 'pressbooks' ) ) ); // Must have trailing slash!
+}
 
 if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
 	if ( defined( 'PB_BOOK_THEME' ) ) {
@@ -100,8 +103,7 @@ if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB
 		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 	} );
 	return;
-}
-elseif ( ! pb_meets_minimum_requirements() ) {
+} elseif ( ! pb_meets_minimum_requirements() ) {
 	return;
 }
 

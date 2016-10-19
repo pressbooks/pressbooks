@@ -16,26 +16,26 @@ class WebOptions extends \Pressbooks\Options {
 	static $currentVersion = 1;
 
 	/**
-   * Web theme options.
-   *
-   * @var array
-   */
+	* Web theme options.
+	*
+	* @var array
+	*/
 	public $options;
 
 	/**
-   * Web theme defaults.
-   *
-   * @var array
-   */
+	* Web theme defaults.
+	*
+	* @var array
+	*/
 	public $defaults;
 
 	/**
-   * Constructor.
-   *
-   * @param array $options
-   */
-	function __construct(array $options) {
- 		$this->options = $options;
+	* Constructor.
+	*
+	* @param array $options
+	*/
+	function __construct( array $options ) {
+			$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 		$this->strings = $this->getStringOptions();
@@ -43,12 +43,12 @@ class WebOptions extends \Pressbooks\Options {
 		$this->floats = $this->getFloatOptions();
 		$this->predefined = $this->getPredefinedOptions();
 
- 		foreach ( $this->defaults as $key => $value ) {
- 			if ( !isset ( $this->options[ $key ] ) ) {
- 				$this->options[ $key ] = $value;
- 			}
- 		}
- 	}
+		foreach ( $this->defaults as $key => $value ) {
+			if ( ! isset( $this->options[ $key ] ) ) {
+				$this->options[ $key ] = $value;
+			}
+		}
+	}
 
 	/**
 	 * Configure the web options tab using the settings API.
@@ -75,7 +75,18 @@ class WebOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			array(
-				__('Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+', 'pressbooks' )
+				__( 'Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+', 'pressbooks' )
+			)
+		);
+
+		add_settings_field(
+			'part_title',
+			__( 'Display Part Title', 'pressbooks' ),
+			array( $this, 'renderPartTitle' ),
+			$_page,
+			$_section,
+			array(
+				__( 'Display the Part title on each chapter', 'pressbooks' )
 			)
 		);
 
@@ -117,7 +128,7 @@ class WebOptions extends \Pressbooks\Options {
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 		$deprecated = array(
 			'toc_collapse',
-			'accessibility_fontsize'
+			'accessibility_fontsize',
 		);
 
 		foreach ( $options as $key => $value ) {
@@ -138,22 +149,30 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the social_media checkbox.
+	 * @param array $args
+	 */
+	function renderPartTitle( $args ) {
+		$this->renderCheckbox( 'part_title', 'pressbooks_theme_options_' . $this->getSlug(), 'part_title', @$this->options['part_title'], $args[0] );
+	}
+
+	/**
 	 * Get the slug for the web options tab.
 	 *
 	 * @return string $slug
 	 */
 	static function getSlug() {
-  	return 'web';
-  }
+		return 'web';
+	}
 
 	/**
 	 * Get the localized title of the web options tab.
 	 *
 	 * @return string $title
 	 */
-  static function getTitle() {
-  	return __('Web Options', 'pressbooks');
-  }
+	static function getTitle() {
+		return __( 'Web Options', 'pressbooks' );
+	}
 
 	/**
 	 * Get an array of default values for the web options tab.
@@ -161,9 +180,20 @@ class WebOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return array(
-			'social_media' => 1
-		);
+		return apply_filters( 'pressbooks_theme_options_web_defaults', array(
+			'social_media' => 1,
+			'part_title' => 0,
+		) );
+	}
+
+	/**
+	 * Filter the array of default values for the web options tab.
+	 *
+	 * @param array $defaults
+	 * @return array $defaults
+	 */
+	static function filterDefaults( $defaults ) {
+		return $defaults;
 	}
 
 	/**
@@ -173,7 +203,8 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getBooleanOptions() {
 		return array(
-			'social_media'
+			'social_media',
+			'part_title',
 		);
 	}
 

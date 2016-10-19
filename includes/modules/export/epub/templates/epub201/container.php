@@ -2,8 +2,9 @@
 
 // @see: \Pressbooks\Modules\Export\Export loadTemplate()
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>

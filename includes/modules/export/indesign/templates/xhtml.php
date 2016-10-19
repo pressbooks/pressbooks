@@ -2,10 +2,11 @@
 
 // @see: \Pressbooks\Modules\Export\Export loadTemplate()
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
-echo '<?xml version="1.0" encoding="utf-8" ?>' ."\n";
+echo '<?xml version="1.0" encoding="utf-8" ?>' . "\n";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
@@ -46,9 +47,12 @@ echo '<?xml version="1.0" encoding="utf-8" ?>' ."\n";
 	<?php if ( isset( $meta['pb_copyright_year'] ) || isset( $meta['pb_copyright_holder'] )  ) { ?>
 		<p class="copyright_notice"><strong>Copyright</strong>:
 			<?php
-			if ( ! empty( $meta['pb_copyright_year'] ) ) echo $meta['pb_copyright_year'] . ' ';
-			if ( ! empty( $meta['pb_copyright_holder'] ) ) echo ' by ' . $meta['pb_copyright_holder'] . '. ';
-			if ( ! empty( $do_copyright_license ) ) echo $do_copyright_license . '. ';
+			if ( ! empty( $meta['pb_copyright_year'] ) ) { echo $meta['pb_copyright_year'] . ' ';
+			}
+			if ( ! empty( $meta['pb_copyright_holder'] ) ) { echo ' by ' . $meta['pb_copyright_holder'] . '. ';
+			}
+			if ( ! empty( $do_copyright_license ) ) { echo $do_copyright_license . '. ';
+			}
 			?>
 		</p>
 	<?php } ?>
@@ -70,8 +74,9 @@ if ( isset( $meta['pb_about_unlimited'] ) ) {
 // Front Matter
 foreach ( $book_contents['front-matter'] as $fm ) {
 
-	if ( ! $fm['export'] )
+	if ( ! $fm['export'] ) {
 		continue; // Skip
+	}
 
 	printf( '<div class="page" title="%s">', $fm['post_title'] );
 	printf( '<h3>%s</h3>', $fm['post_title'] );
@@ -81,13 +86,15 @@ foreach ( $book_contents['front-matter'] as $fm ) {
 // Parts, Chapters
 foreach ( $book_contents['part'] as $part ) {
 
-	if ( count( $book_contents['part'] ) > 1 )
+	if ( count( $book_contents['part'] ) > 1 ) {
 		printf( '<h2>%s</h2>', $part['post_title'] );
+	}
 
 	foreach ( $part['chapters'] as $chapter ) {
 
-		if ( ! $chapter['export'] )
+		if ( ! $chapter['export'] ) {
 			continue; // Skip
+		}
 
 		printf( '<div class="page" title="%s">', $chapter['post_title'] );
 		printf( '<h3>%s</h3>', $chapter['post_title'] );

@@ -1,9 +1,9 @@
 $white: #fff;
 $shadow: rgba(0, 0, 0, .1);
-$pale-green: #e9ffe9;
-$green: #afa;
-$pale-red: #ffe9e9;
-$red: #faa;
+$fall-green: #e9ffe9;
+$verdun-green: #afa;
+$pippin: #ffe9e9;
+$monza: #faa;
 $grey: #eee;
 
 .form-table.search-form {
@@ -67,12 +67,12 @@ $grey: #eee;
 
     del {
       font-weight: normal;
-      background-color: $red;
+      background-color: $monza;
     }
 
     ins {
       font-weight: normal;
-      background-color: $green;
+      background-color: $verdun-green;
     }
 
     .content {
@@ -82,12 +82,12 @@ $grey: #eee;
 
     .original {
       float: left;
-      background-color: $pale-red;
+      background-color: $pippin;
     }
 
     .replacement {
       float: right;
-      background-color: $pale-green;
+      background-color: $fall-green;
     }
   }
 }

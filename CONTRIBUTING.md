@@ -52,8 +52,8 @@ Pressbooks uses [Composer](https://getcomposer.org) for dependency management an
 
 #### Before Submitting A Bug Report
 
-* **Check the [debugging guide](https://github.com/pressbooks/pressbooks/wiki/debugging).** You might be able to find the cause of the problem and fix things yourself. Most importantly, check if you can reproduce the problem [in the latest version of Pressbooks](http://wordpress.org/plugins/pressbooks/) running on the [latest version of WordPress](http://codex.wordpress.org/Upgrading_WordPress) and if the problem happens with [all other plugins deactivated at the network level](http://codex.wordpress.org/Multisite_Network_Administration#Plugins).
-* **Check the [FAQs on the wiki](https://github.com/pressbooks/pressbooks/wiki/FAQ)** for a list of common questions and problems.
+* **Check the [debugging guide](https://pressbooks.org/debugging).** You might be able to find the cause of the problem and fix things yourself. Most importantly, check if you can reproduce the problem [in the latest version of Pressbooks](http://github.com/pressbooks/pressbooks/releases/latest/) running on the [latest version of WordPress](http://codex.wordpress.org/Upgrading_WordPress) and if the problem happens with [all other plugins deactivated at the network level](http://codex.wordpress.org/Multisite_Network_Administration#Plugins).
+* **Check the [FAQs on the wiki](https://pressbooks.org/faq)** for a list of common questions and problems.
 * **Perform a [cursory search](https://github.com/issues?q=+is%3Aissue+repo%3Apressbooks%2Fpressbooks)** to see if the problem has already been reported. If it has, add a comment to the existing issue instead of opening a new one.
 
 #### How Do I Submit A (Good) Bug Report?
@@ -74,7 +74,7 @@ Provide more context by answering these questions:
 * **Can you reproduce the problem with [all other plugins deactivated](http://codex.wordpress.org/Multisite_Network_Administration#Plugins)?**
 * Are you experiencing this issue with one of our built-in root or book themes, or with your own custom root or book theme?
 * **Did the problem start happening recently** (e.g. after updating to a new version of Pressbooks) or was this always a problem?
-* If the problem started happening recently, **can you reproduce the problem in an older version of Pressbooks?** What's the most recent version in which the problem doesn't happen? You can download older versions of Pressbooks on [the plugin page](https://wordpress.org/plugins/pressbooks/developers/).
+* If the problem started happening recently, **can you reproduce the problem in an older version of Pressbooks?** What's the most recent version in which the problem doesn't happen? You can download older versions of Pressbooks on [the releases page](https://github.com/pressbooks/pressbooks/releases/).
 * **Can you reliably reproduce the issue?** If not, provide details about how often the problem happens and under which conditions it normally happens.
 
 Include details about your configuration and environment:
@@ -122,7 +122,7 @@ Both issue lists are sorted by total number of comments. While not perfect, numb
 * Please follow our [Code Styleguide](#code-styleguide) in writing your new code.
 * Please document your new code as stipulated in our [Documentation Styleguide](#documentation-styleguide).
 
-**NB:** We are making an effort to expand [unit testing](https://github.com/pressbooks/pressbooks/wiki/Unit-Testing) in Pressbooks. As such, we ask that any pull requests that add new functions include corresponding tests for those functions. If you submit a pull request which does not do this, you *will* be asked to revise the pull requests to add tests.
+**NB:** We are making an effort to expand [unit testing](https://pressbooks.org/unit-testing) in Pressbooks. As such, we ask that any pull requests that add new functions include corresponding tests for those functions. If you submit a pull request which does not do this, you *will* be asked to revise the pull requests to add tests.
 
 ## Styleguides
 
@@ -162,6 +162,7 @@ Please open an issue on `pressbooks/pressbooks` if you have suggestions for new 
 | --- | --- | --- |
 | `enhancement` | [search][search-pressbooks-repo-label-enhancement] | Feature requests. |
 | `bug` | [search][search-pressbooks-repo-label-bug] | Confirmed bugs or reports that are very likely to be bugs. |
+| `a11y` | [search][search-pressbooks-repo-label-a11y] | Accessibility-related bug reports or feature requests. |
 | `priority` | [search][search-pressbooks-repo-label-priority] | Issues which the Pressbooks team has identified as priorities. |
 | `question` | [search][search-pressbooks-repo-label-question] | Questions more than bug reports or feature requests (e.g. how do I do X). |
 | `feedback` | [search][search-pressbooks-repo-label-feedback] | General feedback more than bug reports or feature requests. |
@@ -186,6 +187,7 @@ Please open an issue on `pressbooks/pressbooks` if you have suggestions for new 
 
 [search-pressbooks-repo-label-enhancement]: https://github.com/issues?q=is%3Aopen+is%3Aissue+repo%3Apressbooks%2Fpressbooks+label%3Aenhancement
 [search-pressbooks-repo-label-bug]: https://github.com/issues?q=is%3Aopen+is%3Aissue+repo%3Apressbooks%2Fpressbooks+label%3Abug
+[search-pressbooks-repo-label-a11y]: https://github.com/issues?q=is%3Aopen+is%3Aissue+repo%3Apressbooks%2Fpressbooks+label%3Aa11y
 [search-pressbooks-repo-label-question]: https://github.com/issues?q=is%3Aopen+is%3Aissue+repo%3Apressbooks%2Fpressbooks+label%3Aquestion
 [search-pressbooks-repo-label-priority]: https://github.com/issues?q=is%3Aopen+is%3Aissue+repo%3Apressbooks%2Fpressbooks+label%3Apriority
 [search-pressbooks-repo-label-feedback]: https://github.com/issues?q=is%3Aopen+is%3Aissue+repo%3Apressbooks%2Fpressbooks+label%3Afeedback

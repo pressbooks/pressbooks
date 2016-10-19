@@ -1,5 +1,6 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) { exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,13 +15,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		<title>Pressbooks v1 RESTful API Documentation</title>
 
 		<!-- Latest compiled and minified CSS -->
+		<?php // @codingStandardsIgnoreLine ?>
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
 		<!-- Optional theme -->
 		<style>
 			/*
- * Base structure
- */
+	* Base structure
+	*/
 
 			/* Move down content because we have a fixed navbar that is 50px tall */
 			body {
@@ -45,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 			.navbar-inverse .navbar-brand{
 				color: #fff;
 			}
-			
+
 			.nav>li.active>a:hover{
 				background-color:#b40026;
 			}
@@ -110,8 +111,10 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		</style>
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
+			<?php // @codingStandardsIgnoreStart ?>
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+			<?php // @codingStandardsIgnoreEnd ?>
 		<![endif]-->
 	</head>
 
@@ -142,7 +145,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 					<h1 class="page-header">API Documentation</h1>
 
 					<h2 class="sub-header" id="overview">Overview</h2>
-					<ul>	
+					<ul>
 						<li>Endpoint is <code>/api/v1/</code></li>
 						<li>Unless otherwise specified, the default format of the response is <code>application/json</code>.</li>
 						<li>Only <b>public</b> book information is returned in a response, including only books and posts that are marked as public/published.</li>
@@ -258,7 +261,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 }
 }</pre></code>
 									</td>
-								</tr>							
+								</tr>
 							</tbody>
 						</table>
 					</div>
@@ -299,13 +302,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 									<td>limit of 5<br>
 										partial string match<br>
 										<code>/books?authors=brad,jack</code> searches for <b>book</b> authors within a collection, specified at <code>"pb_author"</code><br>
-										<code>/books/{book_id}?authors=brad,jack</code> searches for <b>chapter</b> authors within a book, specified at <code>"post_authors"</code></td> 
-								</tr>								
+										<code>/books/{book_id}?authors=brad,jack</code> searches for <b>chapter</b> authors within a book, specified at <code>"post_authors"</code></td>
+								</tr>
 								<tr id="licenses">
 									<td class="text-info">licenses</td>
 									<td>string</td>
 									<td>
-									cc-by<br> 
+									cc-by<br>
 									cc-by-sa<br>
 									cc-by-nc<br>
 									cc-by-nc-sa<br>
@@ -316,7 +319,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 										exact string match<br>
 										<code>/books?licenses=cc-by,cc-by-sa</code> searches for <b>book</b> licenses within a collection, specified at <code>"pb_book_license"</code><br>
 										<code>/books/{book_id}?authors=brad,jack</code> searches for <b>chapter</b> licenses within a book, specified at <code>"post_license"</code></td>
-								</tr>								
+								</tr>
 								<tr id="keywords">
 									<td class="text-info">keywords</td>
 									<td>string</td>
@@ -324,7 +327,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 									<td>limit of 5<br>
 									partial string match<br>
 									<code>/books?keywords=value1,value2</code> searches against values found in <code>"pb_keywords_tags"</code></td>
-								</tr>								
+								</tr>
 								<tr id="limit">
 									<td class="text-info">limit</td>
 									<td>integer</td>
@@ -332,7 +335,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 									<td>0 = unlimited results<br>
 										positive integer returns results starting from the beginning<br>
 									negative integer returns results starting from the end</td>
-								</tr>								
+								</tr>
 								<tr id="offset">
 									<td class="text-info">offset</td>
 									<td>integer</td>
@@ -371,12 +374,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	"documentation":"\/api\/v1\/docs"
 	}
 }</pre></code></p>
-					
-					
+
+
 				</div>
 			</div>
 		</div>
 		<!-- Placed at the end of the document so the pages load faster -->
+		<?php // @codingStandardsIgnoreStart ?>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script>
 		$(document).ready(function () {
@@ -394,5 +398,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 		</script>
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+		<?php // @codingStandardsIgnoreEnd ?>
 	</body>
 </html>

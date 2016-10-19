@@ -24,8 +24,9 @@ class Kindlegen extends Export {
 
 		// Some defaults
 
-		if ( ! defined( 'PB_KINDLEGEN_COMMAND' ) )
+		if ( ! defined( 'PB_KINDLEGEN_COMMAND' ) ) {
 			define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
+		}
 
 	}
 
@@ -55,7 +56,6 @@ class Kindlegen extends Export {
 			return false;
 		}
 
-
 		// Convert
 
 		$filename = $this->timestampedFileName( '.mobi' );
@@ -66,7 +66,6 @@ class Kindlegen extends Export {
 		$output = array();
 		$return_var = 0;
 		exec( $command, $output, $return_var );
-
 
 		// Check build results
 

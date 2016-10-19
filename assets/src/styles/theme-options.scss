@@ -19,7 +19,7 @@ $inside: 1.58em;
     width: $width;
     height: $height;
     background: $white;
-    border: solid 1px $black;
+    border: solid 1px $mine-shaft;
 
     .margin {
       position: absolute;
@@ -28,26 +28,26 @@ $inside: 1.58em;
         top: $top;
         width: $outside;
         height: $height - ($top + $bottom);
-        background: $red;
+        background: $monza;
       }
 
       &.inside {
         top: $top;
         width: $inside;
         height: $height - ($top + $bottom);
-        background: $orange;
+        background: $selective-yellow;
       }
 
       &.top {
         width: $width - ($inside + $outside);
         height: $top;
-        background: $green;
+        background: $verdun-green;
       }
 
       &.bottom {
         width: $width - ($inside + $outside);
         height: $bottom;
-        background: $blue;
+        background: $lochmara;
       }
 
       &.top {
@@ -98,19 +98,19 @@ $inside: 1.58em;
     }
 
     .outside .color {
-      background: $red;
+      background: $monza;
     }
 
     .inside .color {
-      background: $orange;
+      background: $selective-yellow;
     }
 
     .top .color {
-      background: $green;
+      background: $verdun-green;
     }
 
     .bottom .color {
-      background: $blue;
+      background: $lochmara;
     }
   }
 }

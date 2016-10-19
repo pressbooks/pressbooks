@@ -1,7 +1,7 @@
 {
   "name": "pressbooks/pressbooks",
   "license": "GPL-2.0+",
-  "version": "3.8.1",
+  "version": "3.9.0",
   "type" : "wordpress-plugin",
   "description": "Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, MOBI, web, and a variety of XML flavours, using a theming/templating system, driven by CSS.",
   "homepage": "https://github.com/pressbooks/pressbooks",
@@ -92,20 +92,23 @@
     }
   ],
   "require": {
-    "php": ">=5.6.0",
-    "composer/installers": "~1.0",
-    "gridonic/princexml-php": "*",
-    "pimple/pimple": "^3.0",
-    "leafo/scssphp": "^0.6.6",
+    "php": ">=5.6.0@stable",
+    "composer/installers": "~1.0@stable",
+    "gridonic/princexml-php": "*@stable",
+    "pimple/pimple": "^3.0@stable",
+    "leafo/scssphp": "^0.6.6@stable",
     "vanilla/htmlawed": "dev-master",
     "pressbooks/saxon-he": "^9.6",
     "pressbooks/custom-metadata": "0.8.1-dev",
     "pressbooks/disable-comments": "1.1",
     "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/pressbooks-latex": "1.0.0",
-    "wp-api/wp-api": "2.0-beta13.1"
+    "wp-api/wp-api": "2.0-beta14"
   },
   "require-dev": {
+    "phpunit/phpunit": "~5.5@stable",
+    "squizlabs/php_codesniffer": "^2.7@stable",
+    "wp-coding-standards/wpcs": "^0.10@stable"
   },
   "autoload": {
   },
@@ -130,7 +133,13 @@
   },
   "scripts": {
     "test": [
-      "vendor/bin/phpunit"
+      "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml",
+      "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+      "vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
+    ],
+    "standards": [
+      "vendor/bin/phpcs --config-set installed_paths vendor/wp-coding-standards/wpcs",
+      "vendor/bin/phpcs --standard=phpcs.xml --extensions=php ."
     ]
   }
 }
