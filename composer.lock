@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a5d17d8993aa8f699af084ea3cad4209",
-    "content-hash": "f7348264c743f6a16393197dfa57b83a",
+    "hash": "fe04a56347e62cee695d024a8e42a3df",
+    "content-hash": "605b335230b7eb0c71d4a20125eab6c1",
     "packages": [
         {
             "name": "composer/installers",
@@ -305,6 +305,47 @@
                 "shasum": null
             },
             "type": "library"
+        },
+        {
+            "name": "pressbooks/pb-api",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pressbooks/pb-api.git",
+                "reference": "47a7cd15bfce8f71b5551fd99fd6c535cadcdfee"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pressbooks/pb-api/zipball/47a7cd15bfce8f71b5551fd99fd6c535cadcdfee",
+                "reference": "47a7cd15bfce8f71b5551fd99fd6c535cadcdfee",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.5",
+                "squizlabs/php_codesniffer": "^2.7",
+                "wp-coding-standards/wpcs": "^0.10"
+            },
+            "type": "wordpress-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Book Oven Inc.",
+                    "email": "code@pressbooks.com",
+                    "homepage": "https://pressbooks.com"
+                }
+            ],
+            "description": "This plugin provides a JSON-based REST API for Pressbooks, an open source book publishing tool built on the WordPress multisite platform.",
+            "homepage": "https://github.com/pressbooks/pressbooks",
+            "keywords": [
+                "ebooks publishing webbooks"
+            ],
+            "time": "2016-10-19 18:43:02"
         },
         {
             "name": "pressbooks/pressbooks-latex",
