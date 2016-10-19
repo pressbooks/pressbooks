@@ -321,7 +321,7 @@ function do_api() {
 			}
 			break;
 		case 'docs':
-			require( PB_PLUGIN_DIR . 'includes/modules/api_v1/docs/api-documentation.php' );
+			require( PB_PLUGIN_DIR . 'vendor/pressbooks/pb-api/includes/modules/api_v1/docs/api-documentation.php' );
 			break;
 		default:
 			\Pressbooks\Modules\Api_v1\Api::apiErrors( 'resource' );
