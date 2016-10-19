@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Pressbooks
-Plugin URI: http://www.pressbooks.com
+Plugin URI: https://pressbooks.com
 Description: Simple Book Production
 Version: 3.9.0
-Author: BookOven Inc.
-Author URI: http://www.pressbooks.com
+Author: Book Oven Inc.
+Author URI: https://pressbooks.com
 Text Domain: pressbooks
 License: GPLv2
 GitHub Plugin URI: https://github.com/pressbooks/pressbooks
