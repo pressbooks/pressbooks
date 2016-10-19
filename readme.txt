@@ -206,6 +206,7 @@ Please note that Pressbooks 3.8.0 will be our last release on WordPress.org. Fut
 * **Feature:** Added a recompile routine for webbook stylesheets to allow more straightforward development (only enabled when `WP_ENV` is defined and set to `development`).
 * **Enhancement:** Applied our [coding standards](https://github.com/pressbooks/pressbooks/blob/master/docs/coding-standards.md) across the board and added PHP_CodeSniffer to our CI routines.
 * **Enhancement:** Added some unit tests.
+* **Enhancement:** Moved the Pressbooks API to /vendor.
 * **Enhancement:** Changed some colour variables for clarity.
 * **Enhancement:** Added initial support for SVG LaTeX images in PDF exports (requires [QuickLaTex](https://wordpress.org/plugins/wp-quicklatex/)).
 * **Enhancement:** Added some scaffolding to allow option defaults to be filtered in pages built using the new options class.
