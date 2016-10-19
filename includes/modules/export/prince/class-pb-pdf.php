@@ -233,6 +233,11 @@ class Pdf extends Export {
 				if ( $my_asset ) {
 					return 'url(' . PB_PLUGIN_DIR . $url . ')';
 				}
+			} elseif ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+				$my_asset = realpath( WP_CONTENT_DIR . '/' . $url );
+				if ( $my_asset ) {
+					return 'url(' . WP_CONTENT_DIR . '/' . $url . ')';
+				}
 			} elseif ( ! preg_match( '#^https?://#i', $url ) ) {
 				$my_asset = realpath( "$scss_dir/$url" );
 				if ( $my_asset ) {

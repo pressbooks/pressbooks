@@ -288,7 +288,12 @@ class GlobalTypography {
 
 			// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
 			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				return 'url(' . PB_PLUGIN_URL . "themes-book/pressbooks-book/fonts/$filename)";
+				return 'url(' . PB_PLUGIN_URL . $url . ')';
+			}
+
+			// Look for uploads/assets/fonts/*.otf (or .woff, or .ttf), update URL
+			if ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+				return 'url(' . WP_CONTENT_URL . '/' . $url . ')';
 			}
 
 			return $matches[0]; // No change
@@ -307,7 +312,10 @@ class GlobalTypography {
 			$languages = $this->_getRequiredLanguages();
 		}
 		$baseurl = 'https://github.com/googlei18n/noto-cjk/raw/master/';
-		$basepath = PB_PLUGIN_DIR . 'themes-book/pressbooks-book/fonts/';
+		$basepath = WP_CONTENT_DIR . '/uploads/assets/fonts/';
+		if ( ! is_dir( $basepath ) ) {
+			mkdir( $basepath, 0755, true );
+		}
 
 		// List fonts
 		$fontpacks = array(

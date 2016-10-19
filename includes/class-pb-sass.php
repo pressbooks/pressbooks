@@ -31,10 +31,9 @@ class Sass {
 
 		return [
 			$this->pathToUserGeneratedSass(),
-		$this->pathToGlobals(),
-		$this->pathToFonts(),
-		$theme->get_stylesheet_directory() . "/assets/styles/$type/",
-
+			$this->pathToGlobals(),
+			$this->pathToFonts(),
+			$theme->get_stylesheet_directory() . "/assets/styles/$type/",
 		];
 	}
 

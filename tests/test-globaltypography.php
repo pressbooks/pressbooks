@@ -109,7 +109,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 	public function test_getFonts() {
 		$result = $this->gt->getFonts( array( 'ko' ) );
 		$this->assertTrue( $result );
-		$this->assertFileExists( PB_PLUGIN_DIR . 'themes-book/pressbooks-book/fonts/NotoSansCJKkr-Regular.otf' );
-		$this->assertFileExists( PB_PLUGIN_DIR . 'themes-book/pressbooks-book/fonts/NotoSansCJKkr-Bold.otf' );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansCJKkr-Regular.otf' );
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/assets/fonts/NotoSansCJKkr-Bold.otf' );
 	}
 }
