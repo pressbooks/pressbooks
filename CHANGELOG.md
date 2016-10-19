@@ -1,3 +1,19 @@
+### 3.9.0
+* **Feature:** Added a web theme option to display the title of the current part in the webbook (props to @bdolor).
+* **Feature:** Noto CJK fonts (required for Chinese, Japanese and Korean PDF output) are now downloaded only when needed from within Pressbooks, reducing the overall size of the Pressbooks download.
+* **Feature:** Added a recompile routine for webbook stylesheets to allow more straightforward development (only enabled when `WP_ENV` is defined and set to `development`).
+* **Enhancement:** Applied our [coding standards](https://github.com/pressbooks/pressbooks/blob/master/docs/coding-standards.md) across the board and added PHP_CodeSniffer to our CI routines.
+* **Enhancement:** Added some unit tests.
+* **Enhancement:** Changed some colour variables for clarity.
+* **Enhancement:** Added initial support for SVG LaTeX images in PDF exports (requires [QuickLaTex](https://wordpress.org/plugins/wp-quicklatex/)).
+* **Enhancement:** Added some scaffolding to allow option defaults to be filtered in pages built using the new options class.
+* **Enhancement:** The book information post is now created when a book is registered.
+* **Fix:** Added missing methods which were triggering fatal errors in the Export Options page (props to @bdolor).
+* **Fix:** Fixed in issue which prevented the Ebook paragraph separation theme option from being applied in Clarke.
+* **Fix:** Fixed an issue where internal links from within part content were broken in EPUB.
+* **Fix:** Fixed an issue where backslashes would be erroneously stripped when replacements were applied in the Search and Replace utility (props to @rootl for the bug report).
+* **Fix:** Fixed an issue where the book title would not be updated on the first save.
+
 ### 3.8.1
 * **Fix:** Internal links are now _actually_ fixed in EPUB exports.
 
@@ -9,7 +25,7 @@
 * **Enhancement:** The hard-coded default theme for new books has been replaced by the following logic: 1. Use `PB_BOOK_THEME` (if set); 2. Use `WP_DEFAULT_THEME` (if set); 3. Use Luther.
 * **Enhancement:** Added the `pressbooks_register_theme_directory` action to support the registration of custom theme directores by third-party developers (props to @bdolor).
 * **Enhancement:** Added support for testing PrinceXML's built-in [PDF profile](http://www.princexml.com/doc/properties/prince-pdf-profile/) support by setting the `PB_PDF_PROFILE` constant to the desired profile.
-* **Enhancement:** Refactored generic shortcodes to allow testing and test were written for them.
+* **Enhancement:** Refactored generic shortcodes to allow testing and tests were written for them.
 * **Enhancement:** Switched from internal fork to dev-master of gridonic/princexmlphp and switched to versioned copy of pressbooks/saxonhe.
 * **Enhancement:** The `\Pressbooks\Modules\ThemeOptions` class now supports the registration of custom tags by third-party developers.
 * **Fix:** Removed a leftover conditional check for the `accessibility_fontsize` option in webbooks (props to @bdolor for the bug report).

@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.8.1
+Version: 3.9.0
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Stable tag: 3.8.1
+Version: 3.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.6. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ * Pressbooks works with PHP 5.6.x and WordPress 4.6.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
 
 	$pb_minimum_php = '5.4';
 
@@ -199,6 +199,22 @@ TK.
 Please note that Pressbooks 3.8.0 will be our last release on WordPress.org. Future updates will be delivered via GitHub [releases](https://github.com/pressbooks/pressbooks/releases). To facilitate this process, you can install the [GitHub Updater](https://github.com/afragen/github-updater) plugin.
 
 == Changelog ==
+
+= 3.9.0 =
+* **Feature:** Added a web theme option to display the title of the current part in the webbook (props to @bdolor).
+* **Feature:** Noto CJK fonts (required for Chinese, Japanese and Korean PDF output) are now downloaded only when needed from within Pressbooks, reducing the overall size of the Pressbooks download.
+* **Feature:** Added a recompile routine for webbook stylesheets to allow more straightforward development (only enabled when `WP_ENV` is defined and set to `development`).
+* **Enhancement:** Applied our [coding standards](https://github.com/pressbooks/pressbooks/blob/master/docs/coding-standards.md) across the board and added PHP_CodeSniffer to our CI routines.
+* **Enhancement:** Added some unit tests.
+* **Enhancement:** Changed some colour variables for clarity.
+* **Enhancement:** Added initial support for SVG LaTeX images in PDF exports (requires [QuickLaTex](https://wordpress.org/plugins/wp-quicklatex/)).
+* **Enhancement:** Added some scaffolding to allow option defaults to be filtered in pages built using the new options class.
+* **Enhancement:** The book information post is now created when a book is registered.
+* **Fix:** Added missing methods which were triggering fatal errors in the Export Options page (props to @bdolor).
+* **Fix:** Fixed in issue which prevented the Ebook paragraph separation theme option from being applied in Clarke.
+* **Fix:** Fixed an issue where internal links from within part content were broken in EPUB.
+* **Fix:** Fixed an issue where backslashes would be erroneously stripped when replacements were applied in the Search and Replace utility (props to @rootl for the bug report).
+* **Fix:** Fixed an issue where the book title would not be updated on the first save.
 
 = 3.8.1 =
 * **Fix:** Internal links are now _actually_ fixed in EPUB exports.
