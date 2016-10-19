@@ -421,7 +421,7 @@ function show_experimental_features( $host = null ) {
  * @since 2.5.1
  */
 function include_plugins() {
-	$symbionts = array(
+	$plugins = array(
 	    'custom-metadata/custom_metadata.php' => 1,
 	    'disable-comments/disable-comments.php' => 1,
 	    'mce-table-buttons/mce_table_buttons.php' => 1,
@@ -429,11 +429,11 @@ function include_plugins() {
 			'pb-api/pb-api.php' => 1,
 	);
 
-	$symbionts = filter_plugins( $symbionts );
+	$plugins = filter_plugins( $plugins );
 
 	// Include plugins
-	if ( ! empty( $symbionts ) ) {
-		foreach ( $symbionts as $key => $val ) {
+	if ( ! empty( $plugins ) ) {
+		foreach ( $plugins as $key => $val ) {
 			require_once( PB_PLUGIN_DIR . 'vendor/pressbooks/' . $key );
 		}
 	}
@@ -444,18 +444,18 @@ function include_plugins() {
  * Filters out active plugins, to avoid collisions with plugins already installed.
  *
  * @since 2.5.1
- * @param array $symbionts An array of plugins, key/values paired like so: 'pressbooks/pressbooks.php' => 1
+ * @param array $plugins An array of plugins, key/values paired like so: 'pressbooks/pressbooks.php' => 1
  * @return array
  */
-function filter_plugins( $symbionts ) {
+function filter_plugins( $plugins ) {
 	$already_active = get_option( 'active_plugins' );
 	$network_already_active = get_site_option( 'active_sitewide_plugins' );
 
 	// Don't include plugins already active at the site level or network level.
-	if ( ! empty( $symbionts ) ) {
-		foreach ( $symbionts as $key => $val ) {
+	if ( ! empty( $plugins ) ) {
+		foreach ( $plugins as $key => $val ) {
 			if ( in_array( $key, $already_active, true ) || array_key_exists( $key, $network_already_active ) ) {
-				unset( $symbionts[ $key ] );
+				unset( $plugins[ $key ] );
 			}
 		}
 	}
@@ -464,20 +464,20 @@ function filter_plugins( $symbionts ) {
 	if ( isset( $_REQUEST['action'] ) ) {
 		if ( 'activate' == $_REQUEST['action'] && ! empty( $_REQUEST['plugin'] ) ) {
 			$key = (string) $_REQUEST['plugin'];
-			unset( $symbionts[ $key ] );
+			unset( $plugins[ $key ] );
 		} elseif ( 'activate-selected' == $_REQUEST['action'] && is_array( $_REQUEST['checked'] ) ) {
 			foreach ( $_REQUEST['checked'] as $key ) {
-				unset( $symbionts[ $key ] );
+				unset( $plugins[ $key ] );
 			}
 		}
 	}
 
 	// Don't include Pressbooks LaTeX if QuickLaTeX is active.
 	if ( in_array( 'wp-quicklatex', $already_active, true ) || array_key_exists( 'wp-quicklatex/wp-quicklatex.php', $network_already_active ) ) {
-		unset( $symbionts['pressbooks-latex/pb-latex.php'] );
+		unset( $plugins['pressbooks-latex/pb-latex.php'] );
 	}
 
-	return $symbionts;
+	return $plugins;
 }
 
 
