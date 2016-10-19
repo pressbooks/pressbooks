@@ -94,7 +94,7 @@
   "require": {
     "php": ">=5.6.0@stable",
     "composer/installers": "~1.0@stable",
-    "gridonic/princexml-php": "*@stable",
+    "gridonic/princexml-php": "dev-master#ebacd18",
     "pimple/pimple": "^3.0@stable",
     "leafo/scssphp": "^0.6.6@stable",
     "vanilla/htmlawed": "dev-master",

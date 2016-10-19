@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7a7abaacfe4d053f6341967e0f6f59e5",
-    "content-hash": "02099ecab0da7e4fe6d350629e445ba7",
+    "hash": "a5d17d8993aa8f699af084ea3cad4209",
+    "content-hash": "f7348264c743f6a16393197dfa57b83a",
     "packages": [
         {
             "name": "composer/installers",
@@ -116,16 +116,16 @@
         },
         {
             "name": "gridonic/princexml-php",
-            "version": "v1.1.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gridonic/PrinceXMLPhp.git",
-                "reference": "23def3ef0499200dd4500b50b6165bf5172e7460"
+                "reference": "ebacd18"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/23def3ef0499200dd4500b50b6165bf5172e7460",
-                "reference": "23def3ef0499200dd4500b50b6165bf5172e7460",
+                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/ebacd18",
+                "reference": "ebacd18",
                 "shasum": ""
             },
             "require": {
@@ -156,7 +156,7 @@
                 "princexml",
                 "xml"
             ],
-            "time": "2014-07-22 12:32:03"
+            "time": "2016-09-06 17:46:32"
         },
         {
             "name": "leafo/scssphp",
@@ -1865,7 +1865,7 @@
     "stability-flags": {
         "php": 0,
         "composer/installers": 0,
-        "gridonic/princexml-php": 0,
+        "gridonic/princexml-php": 20,
         "pimple/pimple": 0,
         "leafo/scssphp": 0,
         "vanilla/htmlawed": 20,
