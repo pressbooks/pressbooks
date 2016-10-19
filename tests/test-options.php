@@ -251,49 +251,4 @@ class OptionsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['option_predef'], 'European Swallow' );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Options::getBooleanOptions
-	 */
-	function test_getBooleanOptions() {
-		$result = $this->options->getBooleanOptions();
-		$this->assertTrue( is_array( $result ) );
-		$this->assertEquals( $result[0], 'option_bool' );
-	}
-
-	/**
-	 * @covers \Pressbooks\Options::getStringOptions
-	 */
-	function test_getStringOptions() {
-		$result = $this->options->getStringOptions();
-		$this->assertTrue( is_array( $result ) );
-		$this->assertEquals( $result[0], 'option_string' );
-	}
-
-	/**
-	 * @covers \Pressbooks\Options::getIntegerOptions
-	 */
-	function test_getIntegerOptions() {
-		$result = $this->options->getIntegerOptions();
-		$this->assertTrue( is_array( $result ) );
-		$this->assertEquals( $result[0], 'option_int' );
-	}
-
-	/**
-	 * @covers \Pressbooks\Options::getFloatOptions
-	 */
-	function test_getFloatOptions() {
-		$result = $this->options->getFloatOptions();
-		$this->assertTrue( is_array( $result ) );
-		$this->assertEquals( $result[0], 'option_float' );
-	}
-
-	/**
-	 * @covers \Pressbooks\Options::getPredefinedOptions
-	 */
-	function test_getPredefinedOptions() {
-		$result = $this->options->getPredefinedOptions();
-		$this->assertTrue( is_array( $result ) );
-		$this->assertEquals( $result[0], 'option_predef' );
-	}
 }
