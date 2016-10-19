@@ -725,7 +725,7 @@ abstract class Export {
 
 			$codes = \Pressbooks\L10n\wplang_codes();
 			$book_lang = Book::getBookInformation();
-			$book_lang = @$book_lang['pb_language'];
+			$book_lang = ( isset( $book_lang['pb_language'] ) ) ? $book_lang['pb_language'] : 'en';
 			$book_lang = $codes[ $book_lang ];
 
 			foreach ( $compare_with as $compare ) {
