@@ -391,4 +391,13 @@ class Odt extends Export {
 		return $filename;
 	}
 
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		return false;
+	}
+
 }

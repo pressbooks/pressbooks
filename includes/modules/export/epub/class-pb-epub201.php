@@ -2167,5 +2167,13 @@ class Epub201 extends Export {
 		);
 	}
 
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		return false;
+	}
 
 }
