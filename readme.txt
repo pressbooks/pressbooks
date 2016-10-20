@@ -201,7 +201,7 @@ Please note that Pressbooks 3.8.0 will be our last release on WordPress.org. Fut
 == Changelog ==
 
 = 3.9.1 =
-* **Enhancement:** Fixed an issue where the htmLawed and PrinceXMLPHP dependencies were not being loaded properly.
+* **Fix:** Fixed an issue where the htmLawed and PrinceXMLPHP dependencies were not being loaded properly.
 
 = 3.9.0 =
 * **Feature:** Added a web theme option to display the title of the current part in the webbook (props to @bdolor).
