@@ -1,7 +1,7 @@
 {
   "name": "pressbooks/pressbooks",
   "license": "GPL-2.0+",
-  "version": "3.9.0",
+  "version": "3.9.1",
   "type" : "wordpress-plugin",
   "description": "Pressbooks is an open source book publishing tool built on a WordPress multisite platform. Pressbooks outputs books in multiple formats, including PDF, EPUB, MOBI, web, and a variety of XML flavours, using a theming/templating system, driven by CSS.",
   "homepage": "https://github.com/pressbooks/pressbooks",
@@ -29,7 +29,7 @@
   "require": {
     "php": ">=5.6.0",
     "composer/installers": "~1.0",
-    "gridonic/princexml-php": "dev-master#ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+    "pressbooks/princexml-php": "1.2",
     "pimple/pimple": "^3.0",
     "leafo/scssphp": "^0.6.6",
     "pressbooks/htmlawed": "1.2-beta11",
