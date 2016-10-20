@@ -173,7 +173,7 @@ wp core install --url="http://domain.com" --title="Pressbooks" --admin_user="use
 wp core multisite-convert --title="Pressbooks"
 wp plugin delete hello
 wp plugin update-all
-wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.0/pressbooks-v3.9.0.zip --activate-network
+wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.1/pressbooks-v3.9.1.zip --activate-network
 wp theme list
 wp theme enable pressbooks-book --network
 wp theme enable clarke --network

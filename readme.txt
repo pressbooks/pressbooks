@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.0
+Version: 3.9.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Version: 3.9.0
+Version: 3.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -199,6 +199,9 @@ TK.
 Please note that Pressbooks 3.8.0 will be our last release on WordPress.org. Future updates will be delivered via GitHub [releases](https://github.com/pressbooks/pressbooks/releases). To facilitate this process, you can install the [GitHub Updater](https://github.com/afragen/github-updater) plugin.
 
 == Changelog ==
+
+= 3.9.1 =
+* **Fix:** Fixed an issue where the htmLawed and PrinceXMLPHP dependencies were not being loaded properly.
 
 = 3.9.0 =
 * **Feature:** Added a web theme option to display the title of the current part in the webbook (props to @bdolor).
