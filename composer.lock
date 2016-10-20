@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cb112da655d077043370827f14be0b0f",
-    "content-hash": "61cd6eb2525fc14c3908af6ef96e9af5",
+    "hash": "7639154549f45bc49d2d8908719fc3c0",
+    "content-hash": "cbc76f27984229fe327b35d1f9001570",
     "packages": [
         {
             "name": "composer/installers",
@@ -354,15 +354,10 @@
         {
             "name": "pressbooks/princexml-php",
             "version": "1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/gridonic/PrinceXMLPhp/",
-                "reference": "commit/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc"
-            },
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/gridonic/PrinceXMLPhp/archive/master.zip",
-                "reference": "commit/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+                "reference": null,
                 "shasum": null
             },
             "require": {
