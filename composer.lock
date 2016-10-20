@@ -357,7 +357,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/gridonic/PrinceXMLPhp/archive/master.zip",
-                "reference": "commit/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+                "reference": null,
                 "shasum": null
             },
             "require": {
