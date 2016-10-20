@@ -1,3 +1,6 @@
+### 3.9.1
+* **Fix:** Fixed an issue where the htmLawed dependency was not being loaded properly.
+
 ### 3.9.0
 * **Feature:** Added a web theme option to display the title of the current part in the webbook (props to @bdolor).
 * **Feature:** Noto CJK fonts (required for Chinese, Japanese and Korean PDF output) are now downloaded only when needed from within Pressbooks, reducing the overall size of the Pressbooks download.

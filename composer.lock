@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e7b25baf3ae192e3fd894c1d84f1c781",
-    "content-hash": "d675c336302ec5845eabc358fc35d512",
+    "hash": "cb112da655d077043370827f14be0b0f",
+    "content-hash": "61cd6eb2525fc14c3908af6ef96e9af5",
     "packages": [
         {
             "name": "composer/installers",
@@ -113,50 +113,6 @@
                 "zikula"
             ],
             "time": "2016-08-13 20:53:52"
-        },
-        {
-            "name": "gridonic/princexml-php",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/gridonic/PrinceXMLPhp.git",
-                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
-                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PrinceXMLPhp": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gridonic",
-                    "homepage": "http://gridonic.ch"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/gridonic/PrinceXMLPhp/contributors"
-                }
-            ],
-            "description": "PrinceXML PHP5 wrapper converted to follow the PSR-0 standard.",
-            "keywords": [
-                "princexml",
-                "xml"
-            ],
-            "time": "2016-09-06 17:46:32"
         },
         {
             "name": "leafo/scssphp",
@@ -304,7 +260,23 @@
                 "reference": "tags/v1.2-beta11",
                 "shasum": null
             },
-            "type": "library"
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "tburry/pquery": "~1.0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/Htmlawed.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Htmlawed\\Test\\": "tests"
+                }
+            }
         },
         {
             "name": "pressbooks/mce-table-buttons",
@@ -378,6 +350,30 @@
                 "shasum": null
             },
             "type": "library"
+        },
+        {
+            "name": "pressbooks/princexml-php",
+            "version": "1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gridonic/PrinceXMLPhp/",
+                "reference": "commit/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://github.com/gridonic/PrinceXMLPhp/archive/master.zip",
+                "reference": "commit/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+                "shasum": null
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PrinceXMLPhp": "src"
+                }
+            }
         },
         {
             "name": "pressbooks/saxon-he",
@@ -1867,7 +1863,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "gridonic/princexml-php": 20,
         "pressbooks/htmlawed": 10,
         "pressbooks/custom-metadata": 20,
         "wp-api/wp-api": 10
