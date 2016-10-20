@@ -21,8 +21,9 @@ function scandir_by_date( $dir ) {
 
 	$files = array();
 	foreach ( scandir( $dir ) as $file ) {
-		if ( in_array( $file, $ignored ) ) continue;
-		$files[$file] = filemtime( $dir . '/' . $file );
+		if ( in_array( $file, $ignored ) ) { continue;
+		}
+		$files[ $file ] = filemtime( $dir . '/' . $file );
 	}
 	arsort( $files );
 	$files = array_keys( $files );
@@ -43,15 +44,15 @@ function group_exports( $dir = null ) {
 
 	if ( ! $dir ) {
 		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
-	}
-	else {
+	} else {
 		$dir = rtrim( $dir, '/' ) . '/';
 	}
 
 	$files = array();
 	foreach ( scandir( $dir ) as $file ) {
-		if ( in_array( $file, $ignored ) ) continue;
-		$files[$file] = filemtime( $dir . $file );
+		if ( in_array( $file, $ignored ) ) { continue;
+		}
+		$files[ $file ] = filemtime( $dir . $file );
 	}
 	arsort( $files );
 
@@ -66,7 +67,7 @@ function group_exports( $dir = null ) {
 		if ( $pos - $timestamp > $interval ) {
 			$pos = $timestamp;
 		}
-		$output[$pos][] = $file;
+		$output[ $pos ][] = $file;
 	}
 
 	return $output;
@@ -84,8 +85,7 @@ function truncate_exports( $max, $dir = null ) {
 
 	if ( ! $dir ) {
 		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
-	}
-	else {
+	} else {
 		$dir = rtrim( $dir, '/' ) . '/';
 	}
 
@@ -99,8 +99,6 @@ function truncate_exports( $max, $dir = null ) {
 				$export = realpath( $dir . $export );
 
 				WP_Filesystem();
-
-
 
 				unlink( $export );
 			}
@@ -181,7 +179,7 @@ function latest_exports() {
 		// grab the first captured parenthisized subpattern
 		$ext = $matches[1];
 
-		$files[$ext][] = $file;
+		$files[ $ext ][] = $file;
 	}
 
 	// get only one of the latest of each type
@@ -189,7 +187,7 @@ function latest_exports() {
 
 	foreach ( $filetypes as $type => $ext ) {
 		if ( array_key_exists( $ext, $files ) ) {
-			$latest[$type] = $files[$ext][0];
+			$latest[ $type ] = $files[ $ext ][0];
 		}
 	}
 	// @TODO filter these results against user prefs
@@ -220,17 +218,17 @@ function multi_sort() {
 	$array = $array[0];
 	// sort with an anonymous function using args
 	usort( $array, function ( $a, $b ) use ( $args ) {
-		$orderBy = 'asc';
+		$orderby = 'asc';
 		$i = 0;
 		$c = count( $args );
 		$cmp = 0;
-		while ( $cmp == 0 && $i < $c ) {
-			@list( $arg, $orderBy ) = explode( ':', $args[$i] );
-			$orderBy = strtolower( $orderBy ) == 'desc' ? 'desc' : 'asc';
-			$cmp = strcmp( $a[$arg], $b[$arg] );
+		while ( 0 == $cmp && $i < $c ) {
+			@list( $arg, $orderby ) = explode( ':', $args[ $i ] );
+			$orderby = strtolower( $orderby ) == 'desc' ? 'desc' : 'asc';
+			$cmp = strcmp( $a[ $arg ], $b[ $arg ] );
 			$i ++;
 		}
-		if ( $orderBy == 'desc' ) {
+		if ( 'desc' == $orderby ) {
 			return - $cmp; // Negate the value
 		} else {
 			return $cmp; // As is
@@ -308,7 +306,7 @@ function pm_send_mail( array $headers, array $email ) {
 
 	$args = array(
 		'headers' => $headers,
-		'body' => json_encode( $email )
+		'body' => json_encode( $email ),
 	);
 
 	$response = wp_remote_post( $postmark_endpoint, $args );
@@ -357,7 +355,7 @@ function do_sitemap() {
  */
 function create_tmp_file() {
 
-	return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[mt_rand()] = tmpfile() ) ) );
+	return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ) ) );
 }
 
 /**
@@ -374,16 +372,16 @@ function check_prince_install() {
 	}
 
 	$process = proc_open( PB_PRINCE_COMMAND . ' --version', array(
-		0 => array( "pipe", "r" ),
-		1 => array( "pipe", "w" ),
-		2 => array( "pipe", "w" )
+		0 => array( 'pipe', 'r' ),
+		1 => array( 'pipe', 'w' ),
+		2 => array( 'pipe', 'w' ),
 	), $pipes );
 
 	if ( is_resource( $process ) ) {
 		$stdout = stream_get_contents( $pipes[1] );
 		fclose( $pipes[1] );
 		proc_close( $process );
-		if ( strpos( $stdout, "Prince") === 0) { // TODO: confirm that minimum version is installed.
+		if ( strpos( $stdout, 'Prince' ) === 0 ) { // TODO: confirm that minimum version is installed.
 			$result = true;
 		}
 	}
@@ -398,8 +396,9 @@ function check_prince_install() {
  */
 function show_experimental_features( $host = null ) {
 
-	if ( ! $host )
+	if ( ! $host ) {
 		$host = parse_url( network_site_url(), PHP_URL_HOST );
+	}
 
 	// hosts where experimental features should be hidden
 	$hosts_for_hiding = array(
@@ -407,7 +406,7 @@ function show_experimental_features( $host = null ) {
 		'pressbooks.pub',
 	);
 
-	foreach( $hosts_for_hiding as $host_for_hiding ) {
+	foreach ( $hosts_for_hiding as $host_for_hiding ) {
 		if ( $host == $host_for_hiding || strpos( $host, $host_for_hiding ) ) {
 			return false;
 		}
@@ -417,23 +416,25 @@ function show_experimental_features( $host = null ) {
 }
 
 /**
- * Include plugins in /symbionts
+ * Include plugins in /vendor
  *
  * @since 2.5.1
  */
 function include_plugins() {
-	$symbionts = array(
+	$plugins = array(
 	    'custom-metadata/custom_metadata.php' => 1,
 	    'disable-comments/disable-comments.php' => 1,
-	    'mce-table-buttons/mce_table_buttons.php' => 1
+	    'mce-table-buttons/mce_table_buttons.php' => 1,
+			'pressbooks-latex/pb-latex.php' => 1,
+			'pb-api/pb-api.php' => 1,
 	);
 
-	$symbionts = filter_plugins( $symbionts );
+	$plugins = filter_plugins( $plugins );
 
 	// Include plugins
-	if ( ! empty( $symbionts ) ) {
-		foreach ( $symbionts as $key => $val ) {
-			require_once( PB_PLUGIN_DIR . 'vendor/pressbooks/' . $key);
+	if ( ! empty( $plugins ) ) {
+		foreach ( $plugins as $key => $val ) {
+			require_once( PB_PLUGIN_DIR . 'vendor/pressbooks/' . $key );
 		}
 	}
 
@@ -443,18 +444,18 @@ function include_plugins() {
  * Filters out active plugins, to avoid collisions with plugins already installed.
  *
  * @since 2.5.1
- * @param array $symbionts
+ * @param array $plugins An array of plugins, key/values paired like so: 'pressbooks/pressbooks.php' => 1
  * @return array
  */
-function filter_plugins( $symbionts ) {
+function filter_plugins( $plugins ) {
 	$already_active = get_option( 'active_plugins' );
 	$network_already_active = get_site_option( 'active_sitewide_plugins' );
 
-	// don't include plugins already active at the site level, network level
-	if ( ! empty( $symbionts ) ) {
-		foreach ( $symbionts as $key => $val ) {
-			if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active ) ) {
-				unset( $symbionts[$key] );
+	// Don't include plugins already active at the site level or network level.
+	if ( ! empty( $plugins ) ) {
+		foreach ( $plugins as $key => $val ) {
+			if ( in_array( $key, $already_active, true ) || array_key_exists( $key, $network_already_active ) ) {
+				unset( $plugins[ $key ] );
 			}
 		}
 	}
@@ -463,16 +464,20 @@ function filter_plugins( $symbionts ) {
 	if ( isset( $_REQUEST['action'] ) ) {
 		if ( 'activate' == $_REQUEST['action'] && ! empty( $_REQUEST['plugin'] ) ) {
 			$key = (string) $_REQUEST['plugin'];
-			unset( $symbionts[$key] );
-		}
-		elseif ( 'activate-selected' == $_REQUEST['action'] && is_array( $_REQUEST['checked'] ) ) {
+			unset( $plugins[ $key ] );
+		} elseif ( 'activate-selected' == $_REQUEST['action'] && is_array( $_REQUEST['checked'] ) ) {
 			foreach ( $_REQUEST['checked'] as $key ) {
-				unset( $symbionts[$key] );
+				unset( $plugins[ $key ] );
 			}
 		}
 	}
 
-	return $symbionts;
+	// Don't include Pressbooks LaTeX if QuickLaTeX is active.
+	if ( in_array( 'wp-quicklatex', $already_active, true ) || array_key_exists( 'wp-quicklatex/wp-quicklatex.php', $network_already_active ) ) {
+		unset( $plugins['pressbooks-latex/pb-latex.php'] );
+	}
+
+	return $plugins;
 }
 
 
@@ -513,8 +518,7 @@ function parse_size( $size ) {
 	$size = preg_replace( '/[^0-9\.]/', '', $size ); // Remove the non-numeric characters from the size.
 	if ( $unit ) { // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
 		return round( $size * pow( 1024, stripos( 'bkmgtpezy', $unit[0] ) ) );
-	}
-	else {
+	} else {
 		return round( $size );
 	}
 }
@@ -524,13 +528,13 @@ function parse_size( $size ) {
  * @return string
  */
 function format_bytes( $bytes, $precision = 2 ) {
-    $units = array('B', 'KB', 'MB', 'GB', 'TB');
-    $bytes = max( $bytes, 0 );
-    $pow = floor( ( $bytes ? log( $bytes ) : 0 ) / log( 1024 ) );
-    $pow = min( $pow, count( $units ) - 1 );
-    $bytes /= (1 << (10 * $pow));
+	$units = array( 'B', 'KB', 'MB', 'GB', 'TB' );
+	$bytes = max( $bytes, 0 );
+	$pow = floor( ( $bytes ? log( $bytes ) : 0 ) / log( 1024 ) );
+	$pow = min( $pow, count( $units ) - 1 );
+	$bytes /= (1 << (10 * $pow));
 
-    return round( $bytes, $precision ) . ' ' . $units[$pow];
+	return round( $bytes, $precision ) . ' ' . $units[ $pow ];
 }
 
 
@@ -581,6 +585,7 @@ function template( $path, array $vars = array() ) {
 	}
 
 	ob_start();
+	// @codingStandardsIgnoreLine
 	extract( $vars );
 	include( $path );
 	$output = ob_get_contents();
@@ -593,48 +598,48 @@ function template( $path, array $vars = array() ) {
  * Get paths for assets
  */
 class JsonManifest {
-  private $manifest;
-  public function __construct($manifest_path) {
-    if (file_exists($manifest_path)) {
-      $this->manifest = json_decode(file_get_contents($manifest_path), true);
-    } else {
-      $this->manifest = [];
-    }
-  }
-  public function get() {
-    return $this->manifest;
-  }
-  public function getPath($key = '', $default = null) {
-    $collection = $this->manifest;
-    if (is_null($key)) {
-      return $collection;
-    }
-    if (isset($collection[$key])) {
-      return $collection[$key];
-    }
-    foreach (explode('.', $key) as $segment) {
-      if (!isset($collection[$segment])) {
-        return $default;
-      } else {
-        $collection = $collection[$segment];
-      }
-    }
-    return $collection;
-  }
+	private $manifest;
+	public function __construct( $manifest_path ) {
+		if ( file_exists( $manifest_path ) ) {
+			$this->manifest = json_decode( file_get_contents( $manifest_path ), true );
+		} else {
+			$this->manifest = [];
+		}
+	}
+	public function get() {
+		return $this->manifest;
+	}
+	public function getPath( $key = '', $default = null ) {
+		$collection = $this->manifest;
+		if ( is_null( $key ) ) {
+			return $collection;
+		}
+		if ( isset( $collection[ $key ] ) ) {
+			return $collection[ $key ];
+		}
+		foreach ( explode( '.', $key ) as $segment ) {
+			if ( ! isset( $collection[ $segment ] ) ) {
+				return $default;
+			} else {
+				$collection = $collection[ $segment ];
+			}
+		}
+		return $collection;
+	}
 }
 
-function asset_path($filename) {
-  $dist_path = PB_PLUGIN_URL . 'assets/dist/';
-  $directory = dirname($filename) . '/';
-  $file = basename($filename);
-  static $manifest;
-  if (empty($manifest)) {
-    $manifest_path = PB_PLUGIN_DIR . 'assets/dist/assets.json';
-    $manifest = new JsonManifest($manifest_path);
-  }
-  if (array_key_exists($file, $manifest->get())) {
-    return $dist_path . $directory . $manifest->get()[$file];
-  } else {
-    return $dist_path . $directory . $file;
-  }
+function asset_path( $filename ) {
+	$dist_path = PB_PLUGIN_URL . 'assets/dist/';
+	$directory = dirname( $filename ) . '/';
+	$file = basename( $filename );
+	static $manifest;
+	if ( empty( $manifest ) ) {
+		$manifest_path = PB_PLUGIN_DIR . 'assets/dist/assets.json';
+		$manifest = new JsonManifest( $manifest_path );
+	}
+	if ( array_key_exists( $file, $manifest->get() ) ) {
+		return $dist_path . $directory . $manifest->get()[ $file ];
+	} else {
+		return $dist_path . $directory . $file;
+	}
 }

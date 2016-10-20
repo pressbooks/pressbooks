@@ -1,23 +1,30 @@
 language: php
-branches:
-  only:
-  - dev
+
 notifications:
   email:
     on_success: never
     on_failure: change
   slack:
     secure: rU9lNAFWwyC9dEWcg9KTx6DoBdXOEM1iCkUIWFnzQoz3QYnZ2yidBhnzEMeGbEVkOqqOaTQUtB6q93WsOwTP7tgooWlWD4F7X64uoD/Ze4/q4lqfpP0wREQvakbb1+cv//LAbzDDvmKkkMF+UFNfzDKDMGCGaQGPhfMxYH0Dtu5fo1ZLg1G0pM5FvV04qfsazHFK3zhgMOru292Z0njpFygsuqHqUP3G1yyA9cXYDCmNQUYTnqFl79b6HXGbMhZApisloqn7aetSFqIg/vx0fhY8MKQ1aD/4YvdMoaKnaW/LZdcXM/pHjKaOtitsWaNPefRx9c+8gguR4RHLjTBlBgGF0P0D0wSuz1X2oHrK69s7NhLxw+uc1AUmlNpMmROS1zJFsNBkiOpcVxvl92KRgHBtEo2vEQWv+aDyKPh01hjLsdgxlH6hVZj45zHwEam/mjnXRBD9MO9JX+cVl+XsE+7+jyq93sbnHq8HUqcddZqehanqG5TQirll7f6Rnkt0H8jpM57khm5t86gnBEAHfy7cX/oAZxIs5WM8uNLA/y4PGPPZ9ft6vOhrx18ALuaMO87sul6tnmO9F2qefd3FS4wToVNQyoj8w6aAOK4nqLdj0NFKFZYyPwpwm2G/cQ5P9K/37y/kJ0Z1TGbwn6+q0siRYqaBeon9qOvg2k49n7A=
+
+branches:
+  only:
+  - dev
+
 php:
-- 5.6
+  - 5.6
+
 env:
-- WP_VERSION=latest WP_MULTISITE=1
+  - WP_VERSION=latest WP_MULTISITE=1
+
 before_install:
-- composer require phpunit/phpunit:4.8.* satooshi/php-coveralls:dev-master
-- composer install --dev
+  - composer install
+
 before_script:
-- bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+  - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+
 script:
-- "./vendor/bin/phpunit --configuration phpunit.xml --coverage-clover ./tests/logs/clover.xml"
-after_script:
-- php vendor/bin/coveralls -v
+  - composer test
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

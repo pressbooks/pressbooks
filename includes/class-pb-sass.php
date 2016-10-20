@@ -24,7 +24,8 @@ class Sass {
 	 * @param string $type
 	 */
 	function defaultIncludePaths( $type, $theme = null ) {
-		if ( $theme == null ) {
+
+		if ( null == $theme ) {
 			$theme = wp_get_theme();
 		}
 
@@ -34,7 +35,6 @@ class Sass {
 			$this->pathToFonts(),
 			$theme->get_stylesheet_directory() . "/assets/styles/$type/",
 		];
-
 	}
 
 	/**
@@ -166,9 +166,9 @@ class Sass {
 		try {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
 
-			if ( $scss !== '' ) {
+			if ( '' !== $scss ) {
 				if ( extension_loaded( 'sass' ) ) { // use sassphp extension
-					$scss_file = array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[mt_rand()] = tmpfile() ) ) );
+					$scss_file = array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ) ) );
 					rename( $scss_file, $scss_file .= '.scss' );
 					register_shutdown_function( create_function( '', "unlink('{$scss_file}');" ) );
 					file_put_contents( $scss_file, $scss );
@@ -182,13 +182,11 @@ class Sass {
 					$css = $sass->compile( $scss );
 				}
 			}
-
-		}
-		catch ( \Exception $e ) {
+		} catch ( \Exception $e ) {
 
 			$_SESSION['pb_errors'][] = sprintf(
-					__( 'There was a problem with SASS. Contact your site administrator. Error: %s', 'pressbooks' ),
-					$e->getMessage()
+				__( 'There was a problem with SASS. Contact your site administrator. Error: %s', 'pressbooks' ),
+				$e->getMessage()
 			);
 
 			$this->logException( $e );
@@ -218,12 +216,27 @@ class Sass {
 		}
 
 		if ( WP_DEBUG ) {
-			$this->debug( "/* Silence is golden. */", $localizations, 'localizations' );
+			$this->debug( '/* Silence is golden. */', $localizations, 'localizations' );
 		}
 
 		return $localizations . $scss;
 	}
 
+	/**
+	 * Parse an SCSS file into an array of variables.
+	 *
+	 * @param string $scss
+	 * @return array
+	 */
+	function parseVariables( $scss ) {
+
+		preg_match_all( '/\$(.*?):(.*?);/', $scss, $matches );
+		$output = array_combine( $matches[1], $matches[2] );
+		$output = array_map( function( $val ) {
+			return ltrim( str_replace( ' !default', '', $val ) );
+		}, $output );
+		return $output;
+	}
 	/**
 	 * Log Exceptions
 	 *
@@ -287,24 +300,25 @@ class Sass {
 	 * @return bool
 	 */
 	function isCurrentThemeCompatible( $version = 1, $theme = null ) {
-		if ( $theme == null ) {
+
+		if ( null == $theme ) {
 			$theme = wp_get_theme();
 		}
 
 		$types = array(
 				'prince',
 				'epub',
-				'web'
-		);
+				'web',
 
+		);
 		foreach ( $types as $type ) {
-			if ( $version == 1 && $type !== 'web' ) {
+			if ( 1 == $version && 'web' !== $type ) {
 				$path = $theme->get_stylesheet_directory() . "/export/$type/style.scss";
-			} elseif ( $version == 1 && $type == 'web' ) {
-				$path = $theme->get_stylesheet_directory() . "/style.scss";
+			} elseif ( 1 == $version && 'web' == $type ) {
+				$path = $theme->get_stylesheet_directory() . '/style.scss';
 			}
 
-			if ( $version == 2 ) {
+			if ( 2 == $version ) {
 				$path = $theme->get_stylesheet_directory() . "/assets/styles/$type/style.scss";
 			}
 
@@ -313,9 +327,27 @@ class Sass {
 				return false;
 			}
 		}
-
-		return true;
+				return true;
 	}
 
+	/**
+	 * Prepend or append SCSS overrides depending on which version of the theme architecture is in use.
+	 *
+	 * @param string $scss The theme SCSS.
+	 * @param string $overrides The SCSS overrides.
+	 *
+	 * @return string
+	 */
+	function applyOverrides( $scss, $overrides ) {
 
+		if ( $this->isCurrentThemeCompatible( 2 ) ) {
+			// Prepend override variables (see: http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variable_defaults_).
+			$scss = $overrides . "\n" . $scss;
+		} else {
+			// Append overrides.
+			$scss .= "\n" . $overrides;
+		}
+
+		return $scss;
+	}
 }

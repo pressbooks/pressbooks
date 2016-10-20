@@ -79,7 +79,6 @@ class CustomCss {
 		$q = new \WP_Query();
 		$results = $q->query( $args );
 
-
 		if ( empty( $results ) ) {
 			return false;
 		}
@@ -152,7 +151,7 @@ class CustomCss {
 			$slug = isset( $_POST['slug'] ) ? $_POST['slug'] : 'web';
 			$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_css&slug=' . $slug );
 
-			if ( @$_POST['post_id_integrity'] != md5( NONCE_KEY . @$_POST['post_id'] ) ) {
+			if ( md5( NONCE_KEY . @$_POST['post_id'] ) != @$_POST['post_id_integrity'] ) {
 				// A hacker trying to overwrite posts?.
 				error_log( '\Pressbooks\CustomCss::formSubmit error: unexpected value for post_id_integrity' );
 				\Pressbooks\Redirect\location( $redirect_url . '&customcss_error=true' );
@@ -197,6 +196,7 @@ class CustomCss {
 			return false;
 		}
 
+		// @codingStandardsIgnoreLine
 		if ( ! empty( $_POST ) ) {
 			return true;
 		}
@@ -223,16 +223,18 @@ class CustomCss {
 
 		$css = preg_replace( '/\\\\([0-9a-fA-F]{2,4})/', '\\\\\\\\$1', $prev = $css );
 
-		if ( $css != $prev )
+		if ( $css != $prev ) {
 			$warnings[] = 'preg_replace() double escaped unicode escape sequences';
+		}
 
 		$css = str_replace( '<=', '&lt;=', $css ); // Some people put weird stuff in their CSS, KSES tends to be greedy
 		$css = wp_kses_split( $prev = $css, array(), array() );
 		$css = str_replace( '&gt;', '>', $css ); // kses replaces lone '>' with &gt;
 		$css = strip_tags( $css );
 
-		if ( $css != $prev )
+		if ( $css != $prev ) {
 			$warnings[] = 'kses() and strip_tags() do not match';
+		}
 
 		// TODO: Something with $warnings[]
 
@@ -245,15 +247,15 @@ class CustomCss {
 	 *
 	 * @return string
 	 */
-	 static function getBaseTheme( $slug ) {
-		 $filename = static::getCustomCssFolder() . sanitize_file_name( $slug . '.css' );
-		 if ( ! file_exists( $filename ) ) {
-			 return false;
-		 }
-		 $theme = get_file_data( $filename, array( 'ThemeURI' => 'Theme URI' ) );
-		 $theme_slug = str_replace( array( 'http://pressbooks.com/themes/', 'https://pressbooks.com/themes/'), array( '', '' ), $theme['ThemeURI'] );
+	static function getBaseTheme( $slug ) {
+		$filename = static::getCustomCssFolder() . sanitize_file_name( $slug . '.css' );
+		if ( ! file_exists( $filename ) ) {
+			return false;
+		}
+		$theme = get_file_data( $filename, array( 'ThemeURI' => 'Theme URI' ) );
+		$theme_slug = str_replace( array( 'http://pressbooks.com/themes/', 'https://pressbooks.com/themes/' ), array( '', '' ), $theme['ThemeURI'] );
 
-		 return untrailingslashit( $theme_slug );
-	 }
+		return untrailingslashit( $theme_slug );
+	}
 
 }

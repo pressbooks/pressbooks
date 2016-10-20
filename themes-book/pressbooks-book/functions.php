@@ -64,13 +64,13 @@ function pb_enqueue_scripts() {
 		// Use default stylesheet as base (to avoid horribly broken webbook)
 		$deps = array( 'pressbooks' );
 		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
-			$fullpath = \Pressbooks\Container::get('Sass')->pathToUserGeneratedCss() . '/style.css';
-			if ( is_file( $fullpath ) && \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 1 ) ) { // SASS theme & custom webbook style has been generated
-				wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get('Sass')->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
+			$fullpath = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
+			if ( is_file( $fullpath ) && \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // SASS theme & custom webbook style has been generated
+				wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
 				wp_enqueue_style( 'pressbooks-theme' );
-			} elseif ( is_file( $fullpath ) && \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 2 ) ) { // SASS theme & custom webbook style has been generated
-					wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get('Sass')->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
-					wp_enqueue_style( 'pressbooks-theme' );
+			} elseif ( is_file( $fullpath ) && \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // SASS theme & custom webbook style has been generated
+				wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
+				wp_enqueue_style( 'pressbooks-theme' );
 			} else { // Use the bundled stylesheet
 				wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', $deps, null, 'screen, print' );
 				wp_enqueue_style( 'pressbooks-theme' );
@@ -94,6 +94,53 @@ function pb_enqueue_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 
+/**
+ * Update web book stylesheet.
+ */
+
+function pressbooks_update_webbook_stylesheet() {
+	if ( false == \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) && false == \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+		return false;
+	}
+
+	if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) {
+		$inputs = array(
+			get_stylesheet_directory() . '/_fonts-web.scss',
+			get_stylesheet_directory() . '/_mixins.scss',
+			get_stylesheet_directory() . '/style.scss',
+		);
+	} elseif ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+		$inputs = array(
+			get_stylesheet_directory() . '/assets/styles/web/_fonts.scss',
+			get_stylesheet_directory() . '/assets/styles/web/style.scss',
+		);
+		foreach ( glob( get_stylesheet_directory() . '/assets/styles/components/*.scss' ) as $import ) {
+			$inputs[] = realpath( $import );
+		}
+	}
+
+	$output = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
+
+	$recompile = false;
+
+	foreach ( $inputs as $input ) {
+		if ( filemtime( $input ) > filemtime( $output ) ) {
+			$recompile = true;
+			break;
+		}
+	}
+
+	if ( true == $recompile ) {
+		error_log( 'Updating web book stylesheet.' );
+		\Pressbooks\Container::get( 'GlobalTypography' )->updateWebBookStyleSheet();
+	} else {
+		error_log( 'No update needed.' );
+	}
+}
+
+if ( defined( 'WP_ENV' ) && 'development' == WP_ENV ) {
+	add_action( 'template_redirect', 'pressbooks_update_webbook_stylesheet' );
+}
 
 /* ------------------------------------------------------------------------ *
  * Replaces the excerpt "more" text by a link
@@ -289,7 +336,6 @@ function pressbooks_copyright_license() {
 
 function replace_running_content_tags( $input ) {
 	$input = '"' . $input . '"';
-	error_log( $input );
 
 	return str_replace(
 		array(

@@ -1,7 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 /* Outputs the content of the Organize page for a book */
 
@@ -21,10 +22,10 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 				<h4 class="publicize-alert private"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Private', 'pressbooks' ); ?></span></h4>
 				<?php } ?>
 				<div class="publicize-form">
-					<label for="blog-public"><input type="radio" <?php if ( $book_is_public ) echo 'checked="checked"'; ?> value="1" name="blog_public" id="blog-public"><span class="public<?php if ( $book_is_public ) echo ' active'; ?>"><?php _e( 'Public', 'pressbooks' ); ?></span> &mdash;
+					<label for="blog-public"><input type="radio" <?php if ( $book_is_public ) { echo 'checked="checked"';} ?> value="1" name="blog_public" id="blog-public"><span class="public<?php if ( $book_is_public ) { echo ' active';} ?>"><?php _e( 'Public', 'pressbooks' ); ?></span> &mdash;
 						<?php _e( 'Promote your book, set individual chapters privacy below.', 'pressbooks' ); ?>
 					</label>
-					<label for="blog-private"><input type="radio" <?php if ( ! $book_is_public ) echo 'checked="checked"'; ?> value="0" name="blog_public" id="blog-private"><span class="private<?php if ( ! $book_is_public ) echo ' active'; ?>"><?php _e( 'Private', 'pressbooks' ); ?></span> &mdash;
+					<label for="blog-private"><input type="radio" <?php if ( ! $book_is_public ) { echo 'checked="checked"';} ?> value="0" name="blog_public" id="blog-private"><span class="private<?php if ( ! $book_is_public ) { echo ' active';} ?>"><?php _e( 'Private', 'pressbooks' ); ?></span> &mdash;
 						<?php _e( 'Only users you invite can see your book, regardless of individual chapter privacy settings below.', 'pressbooks' ); ?>
 					</label>
 				</div>
@@ -47,7 +48,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 	</h2>
 	
 	<?php // Iterate through types and output nice tables for each one.
-	
+
 	$types = array(
 		'front-matter' => array(
 			'name' => __( 'Front Matter', 'pressbooks' ),
@@ -62,7 +63,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 			'abbreviation' => 'bm',
 		),
 	);
-	
+
 	foreach ( $types as $type_slug => $type ) :
 		$type_name = $type['name'];
 		$type_abbr = $type['abbreviation'];
@@ -82,7 +83,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 					        <th><?php _e( 'Export', 'pressbooks' ); ?></th>
 					        <th>
 						        <a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a>
-								<?php if ( count( $book_structure['part'] ) > 1 ): // Don't allow deletion of last remaining part. Bad things happen. ?>
+								<?php if ( count( $book_structure['part'] ) > 1 ) : // Don't allow deletion of last remaining part. Bad things happen. ?>
 									<span class="sep"> &mdash; </span>
 									<a class="delete-link" href="<?php echo get_delete_post_link( $part['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
 								<?php endif; ?>
@@ -93,7 +94,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 					<?php if ( count( $part['chapters'] ) > 0 ) : ?>
 				    
 				    <tbody id="the-list">
-					<?php foreach ( $part['chapters'] as $content ): ?>
+					<?php foreach ( $part['chapters'] as $content ) : ?>
 					    <tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
 					        <td class="title column-title">
 					            <strong><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
@@ -138,7 +139,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 					        <th>&nbsp;</th>
 					        <th>&nbsp;</th>
 					        <th>
-					            <a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug . '&startparent=' . $part['ID'] ); ?>" class="button"><?php _e( 'Add', 'pressbooks'); ?> <?php echo $type_name; ?></a>
+					            <a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug . '&startparent=' . $part['ID'] ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $type_name; ?></a>
 					        </th>
 					    </tr>
 				    </tfoot>
@@ -161,7 +162,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 		    </thead>
 		
 		    <tbody id="the-list">
-			<?php foreach ( $book_structure[ $type_slug ] as $content ): ?>
+			<?php foreach ( $book_structure[ $type_slug ] as $content ) : ?>
 			    <tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
 			        <td class="title column-title">
 			            <strong><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
@@ -204,7 +205,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 			        <th>&nbsp;</th>
 			        <th>&nbsp;</th>
 			        <th>&nbsp;</th>
-			        <th><a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug ); ?>" class="button"><?php _e( 'Add', 'pressbooks'); ?> <?php echo $type_name; ?></a>
+			        <th><a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $type_name; ?></a>
 			        </th>
 			    </tr>
 		    </tfoot>
@@ -214,16 +215,16 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 </div>
 
 <div id="loader" class="chapter">
-    <p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
-    <h3 id="loadermsg"><?php _e( 'Reordering Chapters', 'pressbooks' ); ?>&hellip;</h3>
+	<p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
+	<h3 id="loadermsg"><?php _e( 'Reordering Chapters', 'pressbooks' ); ?>&hellip;</h3>
 </div>
 
 <div id="loader" class="fm">
-    <p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
-    <h3 id="loadermsg"><?php _e( 'Reordering Front Matter', 'pressbooks' ); ?>&hellip;</h3>
+	<p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
+	<h3 id="loadermsg"><?php _e( 'Reordering Front Matter', 'pressbooks' ); ?>&hellip;</h3>
 </div>
 
 <div id="loader" class="bm">
-    <p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
-    <h3 id="loadermsg"><?php _e( 'Reordering Back Matter', 'pressbooks' ); ?>&hellip;</h3>
+	<p><img src="<?php echo PB_PLUGIN_URL; ?>assets/dist/images/loader.gif" alt="Loader" id="loaderimg" /></p>
+	<h3 id="loadermsg"><?php _e( 'Reordering Back Matter', 'pressbooks' ); ?>&hellip;</h3>
 </div>

@@ -15,12 +15,12 @@ body.chapter_page_pressbooks {
 			}
 			&.private {
 				span {
-					background-color: $pale-red;
+					background-color: $pippin;
 				}
 			}
 			&.public {
 				span {
-					background-color: $pale-green;
+					background-color: $fall-green;
 				}
 			}
 		}
@@ -40,7 +40,7 @@ body.chapter_page_pressbooks {
 	.widefat {
 		margin-top: 10px;
 		.delete-link {
-			color: $bright-red;
+			color: $torch-red;
 		}
 		thead {
 			tr {
@@ -59,8 +59,8 @@ body.chapter_page_pressbooks {
 					}
 				}
 				&.ui-state-highlight {
-					background: $light-grey;
-					color: $black;
+					background: $mercury;
+					color: $mine-shaft;
 					height: 1.5em;
 					line-height: 1.2em;
 				}

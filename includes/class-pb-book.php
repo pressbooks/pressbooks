@@ -54,6 +54,7 @@ class Book {
 		// Is cached?
 		// -----------------------------------------------------------------------------
 		if ( ! empty( $id ) && is_int( $id ) ) {
+			// @codingStandardsIgnoreLine
 			$blog_id = $id;
 			switch_to_blog( $blog_id );
 		} else {
@@ -80,8 +81,9 @@ class Book {
 		foreach ( $data as $key => $val ) {
 
 			// Skip anything not prefixed with pb_
-			if ( ! preg_match( '/^pb_/', $key ) )
+			if ( ! preg_match( '/^pb_/', $key ) ) {
 				continue;
+			}
 
 			// We only care about strings
 			if ( is_array( $val ) ) {
@@ -94,8 +96,9 @@ class Book {
 			}
 
 			// Skip empty values
-			if ( ! trim( $val ) )
+			if ( ! trim( $val ) ) {
 				continue;
+			}
 
 			if ( false !== in_array( $key, $expected_the_content ) ) {
 				$val = wptexturize( $val );
@@ -112,13 +115,13 @@ class Book {
 			// Remove invisible control characters that break XML
 			$val = \Pressbooks\Sanitize\remove_control_characters( $val );
 
-			$book_information[$key] = $val;
+			$book_information[ $key ] = $val;
 		}
 
 		// Return our best guess if no book information has been entered.
 		if ( empty( $book_information ) ) {
 			$book_information['pb_title'] = get_bloginfo( 'name' );
-			if ( !function_exists( 'get_user_by' ) ) {
+			if ( ! function_exists( 'get_user_by' ) ) {
 			    include( ABSPATH . 'wp-includes/pluggable.php' );
 			}
 			$author = get_user_by( 'email', get_bloginfo( 'admin_email' ) );
@@ -154,7 +157,8 @@ class Book {
 		// -----------------------------------------------------------------------------
 		// Is cached?
 		// -----------------------------------------------------------------------------
-		if ( ! empty( $id ) && is_int( $id ) ){
+		if ( ! empty( $id ) && is_int( $id ) ) {
+			// @codingStandardsIgnoreLine
 			$blog_id = $id;
 			switch_to_blog( $id );
 		} else {
@@ -183,7 +187,7 @@ class Book {
 
 		foreach ( $custom_types as $type ) {
 
-			$book_structure[$type] = array();
+			$book_structure[ $type ] = array();
 
 			$args = array(
 				'post_type' => $type,
@@ -201,7 +205,7 @@ class Book {
 
 				$post_name = static::fixSlug( $post->post_name );
 
-				$book_structure[$type][] = array(
+				$book_structure[ $type ][] = array(
 					'ID' => $post->ID,
 					'post_title' => $post->post_title,
 					'post_name' => $post_name,
@@ -213,7 +217,6 @@ class Book {
 					'post_parent' => $post->post_parent,
 				);
 			}
-
 		}
 
 		// -----------------------------------------------------------------------------
@@ -221,14 +224,14 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		foreach ( $book_structure['part'] as $i => $part ) {
-			$book_structure['part'][$i]['chapters'] = array();
+			$book_structure['part'][ $i ]['chapters'] = array();
 		}
 
 		foreach ( $book_structure['chapter'] as $i => $chapter ) {
 			foreach ( $book_structure['part'] as $j => $part ) {
 				if ( $part['ID'] == $chapter['post_parent'] ) {
-					$book_structure['part'][$j]['chapters'][] = $chapter;
-					unset( $book_structure['chapter'][$i] );
+					$book_structure['part'][ $j ]['chapters'][] = $chapter;
+					unset( $book_structure['chapter'][ $i ] );
 					continue 2;
 				}
 			}
@@ -251,21 +254,22 @@ class Book {
 		$book_structure['__export_lookup'] = array();
 
 		foreach ( $custom_types as $type ) {
-			foreach ( $book_structure[$type] as $i => $struct ) {
-				unset( $book_structure[$type][$i]['post_parent'] );
-				if ( $type != 'part' ) {
-					$book_structure['__order'][$struct['ID']] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
+			foreach ( $book_structure[ $type ] as $i => $struct ) {
+				unset( $book_structure[ $type ][ $i ]['post_parent'] );
+				if ( 'part' != $type ) {
+					$book_structure['__order'][ $struct['ID'] ] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
 					if ( $struct['export'] ) {
-						$book_structure['__export_lookup'][$struct['post_name']] = $type;
+						$book_structure['__export_lookup'][ $struct['post_name'] ] = $type;
 					}
 				} else {
 					foreach ( $struct['chapters'] as $j => $chapter ) {
-						unset( $book_structure[$type][$i]['chapters'][$j]['post_parent'] );
-						if ( get_post_meta( $struct['ID'], 'pb_part_content', true ) && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' )
-							$book_structure['__order'][$struct['ID']] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
-						$book_structure['__order'][$chapter['ID']] = array( 'export' => $chapter['export'], 'post_status' => $chapter['post_status'] );
+						unset( $book_structure[ $type ][ $i ]['chapters'][ $j ]['post_parent'] );
+						if ( get_post_meta( $struct['ID'], 'pb_part_content', true ) && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' ) {
+							$book_structure['__order'][ $struct['ID'] ] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
+						}
+						$book_structure['__order'][ $chapter['ID'] ] = array( 'export' => $chapter['export'], 'post_status' => $chapter['post_status'] );
 						if ( $chapter['export'] ) {
-							$book_structure['__export_lookup'][$chapter['post_name']] = 'chapter';
+							$book_structure['__export_lookup'][ $chapter['post_name'] ] = 'chapter';
 						}
 					}
 				}
@@ -315,19 +319,20 @@ class Book {
 
 		foreach ( $book_contents as $type => $struct ) {
 
-			if ( preg_match( '/^__/', $type ) )
+			if ( preg_match( '/^__/', $type ) ) {
 				continue; // Skip __magic keys
+			}
 
 			if ( 'part' == $type ) {
 				foreach ( $struct as $i => $part ) {
-					$book_contents[$type][$i] = $part + get_post( $part['ID'], ARRAY_A );
+					$book_contents[ $type ][ $i ] = $part + get_post( $part['ID'], ARRAY_A );
 					foreach ( $part['chapters'] as $j => $chapter ) {
-						$book_contents[$type][$i]['chapters'][$j] = $chapter + get_post( $chapter['ID'], ARRAY_A );
+						$book_contents[ $type ][ $i ]['chapters'][ $j ] = $chapter + get_post( $chapter['ID'], ARRAY_A );
 					}
 				}
 			} else {
 				foreach ( $struct as $i => $val ) {
-					$book_contents[$type][$i] = $val + get_post( $val['ID'], ARRAY_A );
+					$book_contents[ $type ][ $i ] = $val + get_post( $val['ID'], ARRAY_A );
 				}
 			}
 		}
@@ -371,13 +376,14 @@ class Book {
 		$s = 1;
 		$content = mb_convert_encoding( apply_filters( 'the_content', $parent->post_content ), 'HTML-ENTITIES', 'UTF-8' );
 
-		if ( empty( $content ) )
+		if ( empty( $content ) ) {
 			return false;
+		}
 
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
-		$sections = $doc->getElementsByTagName('h1');
-		foreach( $sections as $section ) {
+		$sections = $doc->getElementsByTagName( 'h1' );
+		foreach ( $sections as $section ) {
 			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
 			$s++;
 		}
@@ -385,8 +391,9 @@ class Book {
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
-		if ( empty( $output ) )
+		if ( empty( $output ) ) {
 			return false;
+		}
 
 		return $output;
 	}
@@ -408,20 +415,21 @@ class Book {
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 		$content = str_replace( array( '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ), array( '', '', '', '' ), $content );
 
-		if ( empty( $content ) )
+		if ( empty( $content ) ) {
 			return false;
+		}
 
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
-		$sections = $doc->getElementsByTagName('h1');
+		$sections = $doc->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 		    $section->setAttribute( 'id', $type . '-' . $id . '-section-' . $s++ );
 		    $section->setAttribute( 'class', 'section-header' );
 		}
 		$xpath = new \DOMXPath( $doc );
-		while( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
+		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 		    foreach ( $nodes as $node ) {
-		        $node->appendChild( new \DOMText('') );
+		        $node->appendChild( new \DOMText( '' ) );
 		    }
 		}
 		$html = $doc->saveXML( $doc->documentElement );
@@ -429,7 +437,7 @@ class Book {
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
-		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array ( '<html>', '</html>', '<body>', '</body>' ), array ( '', '', '', '' ), $html ) );
+		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( array( '<html>', '</html>', '<body>', '</body>' ), array( '', '', '', '' ), $html ) );
 	}
 
 	/**
@@ -460,7 +468,7 @@ class Book {
 
 				if ( is_array( $newPartOrder ) ) {
 					foreach ( $newPartOrder as $key => $values ) {
-						if ( $key == 'chapter' ) {
+						if ( 'chapter' == $key ) {
 							foreach ( $values as $position => $id ) {
 								$position += 1; // array is 0-indexed, but we want it to start from 1
 								$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
@@ -474,7 +482,7 @@ class Book {
 			// always update the order of the part this chapter was originally in
 			if ( is_array( $oldPartOrder ) ) {
 				foreach ( $oldPartOrder as $key => $values ) {
-					if ( $key == 'chapter' ) {
+					if ( 'chapter' == $key ) {
 						foreach ( $values as $position => $id ) {
 							$position += 1; // array is 0-indexed, but we want it to start from 1
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
@@ -506,7 +514,7 @@ class Book {
 
 			if ( is_array( $frontMatterOrder ) ) {
 				foreach ( $frontMatterOrder as $key => $values ) {
-					if ( $key == 'front-matter' ) {
+					if ( 'front-matter' == $key ) {
 						foreach ( $values as $position => $id ) {
 							$position += 1;
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
@@ -534,7 +542,7 @@ class Book {
 
 			if ( is_array( $backMatterOrder ) ) {
 				foreach ( $backMatterOrder as $key => $values ) {
-					if ( $key == 'back-matter' ) {
+					if ( 'back-matter' == $key ) {
 						foreach ( $values as $position => $id ) {
 							$position += 1;
 							$wpdb->update( $wpdb->posts, array( 'menu_order' => $position ), array( 'ID' => $id ) );
@@ -553,15 +561,15 @@ class Book {
 	 */
 	static function updateExportOptions() {
 
-		$valid_meta_keys = array(
-			'pb_export',
-		);
-
-		$post_id = absint( $_POST['post_id'] );
-		$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
-		$meta_value = ( $_POST['chapter_export'] ) ? 'on' : 0;
-
 		if ( current_user_can( 'edit_post', $post_id ) && $meta_key && check_ajax_referer( 'pb-update-book-export' ) ) {
+			$valid_meta_keys = array(
+				'pb_export',
+			);
+
+			$post_id = absint( $_POST['post_id'] );
+			$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
+			$meta_value = ( $_POST['chapter_export'] ) ? 'on' : 0;
+
 			update_post_meta( $post_id, $meta_key, $meta_value );
 			static::deleteBookObjectCache();
 		}
@@ -572,15 +580,15 @@ class Book {
 	 */
 	static function updateShowTitleOptions() {
 
-		$valid_meta_keys = array(
-			'pb_show_title',
-		);
-
-		$post_id = absint( $_POST['post_id'] );
-		$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
-		$meta_value = ( $_POST['chapter_show_title'] ) ? 'on' : 0;
-
 		if ( current_user_can( 'edit_post', $post_id ) && $meta_key && check_ajax_referer( 'pb-update-book-show-title' ) ) {
+			$valid_meta_keys = array(
+				'pb_show_title',
+			);
+
+			$post_id = absint( $_POST['post_id'] );
+			$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
+			$meta_value = ( $_POST['chapter_show_title'] ) ? 'on' : 0;
+
 			update_post_meta( $post_id, $meta_key, $meta_value );
 			static::deleteBookObjectCache();
 		}
@@ -591,14 +599,14 @@ class Book {
 	 */
 	static function updatePrivacyOptions() {
 
-		$post_id = absint( $_POST['post_id'] );
-		$post_status = $_POST['post_status'];
-
-		$my_post = array();
-		$my_post['ID'] = $post_id;
-		$my_post['post_status'] = $post_status;
-
 		if ( current_user_can( 'edit_post', $post_id ) && check_ajax_referer( 'pb-update-book-privacy' ) ) {
+			$post_id = absint( $_POST['post_id'] );
+			$post_status = $_POST['post_status'];
+
+			$my_post = array();
+			$my_post['ID'] = $post_id;
+			$my_post['post_status'] = $post_status;
+
 			wp_update_post( $my_post );
 			static::deleteBookObjectCache();
 		}
@@ -625,8 +633,9 @@ class Book {
 	 */
 	static function get( $what = 'next' ) {
 
-		if ( 'first' == $what )
+		if ( 'first' == $what ) {
 			return static::getFirst();
+		}
 
 		global $blog_id;
 
@@ -637,7 +646,7 @@ class Book {
 		$order = $book_structure['__order'];
 		$pos = array_keys( $order );
 
-		$what = ( $what == 'next' ? 'next' : 'prev' );
+		$what = ( 'next' == $what ? 'next' : 'prev' );
 
 		// Move internal pointer to correct position
 		reset( $pos );
@@ -652,7 +661,7 @@ class Book {
 		// Get next/previous
 		$what( $pos );
 		while ( $post_id = current( $pos ) ) {
-			if ( $order[$post_id]['post_status'] == 'publish' ) {
+			if ( 'publish' == $order[ $post_id ]['post_status'] ) {
 				break;
 			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
 				break;
@@ -682,7 +691,7 @@ class Book {
 
 		reset( $pos );
 		while ( $first_id = current( $pos ) ) {
-			if ( $order[$first_id]['post_status'] == 'publish' ) {
+			if ( 'publish' == $order[ $first_id ]['post_status'] ) {
 				break;
 			} elseif ( current_user_can_for_blog( $blog_id, 'read_private_posts' ) ) {
 				break;
@@ -708,8 +717,9 @@ class Book {
 	 */
 	static function consolidatePost( $pid, $post ) {
 
-		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) )
+		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) ) {
 			return false;
+		}
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -717,17 +727,29 @@ class Book {
 
 		// if this is a new post, set its order
 		if ( empty( $post->menu_order ) ) {
-
-			$query = "SELECT max({$wpdb->posts}.menu_order) + 1
-					FROM {$wpdb->posts}
-				   WHERE {$wpdb->posts}.post_type = '{$post->post_type}'
-				 AND NOT {$wpdb->posts}.post_status = 'trash' ";
-
 			if ( 'chapter' == $post->post_type ) {
-				$query .= " AND {$wpdb->posts}.post_parent = {$post->post_parent} ";
+				$new = $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT max({$wpdb->posts}.menu_order) + 1
+						FROM {$wpdb->posts}
+						WHERE {$wpdb->posts}.post_type = %s
+						AND NOT {$wpdb->posts}.post_status = 'trash'
+						AND {$wpdb->posts}.post_parent = %s ",
+						$post->post_type,
+						$post->post_parent
+					)
+				);
+			} else {
+				$new = $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT max({$wpdb->posts}.menu_order) + 1
+						FROM {$wpdb->posts}
+						WHERE {$wpdb->posts}.post_type = %s
+						AND NOT {$wpdb->posts}.post_status = 'trash' ",
+						$post->post_type
+					)
+				);
 			}
-
-			$new = $wpdb->get_var( $query );
 
 			if ( empty( $new ) ) {
 				$new = 1;
@@ -735,11 +757,15 @@ class Book {
 				$new = absint( $new );
 			}
 
-			$query = "UPDATE {$wpdb->posts}
-					 SET {$wpdb->posts}.menu_order = {$new}
-				   WHERE {$wpdb->posts}.ID = {$post->ID} ";
-
-			$success = $wpdb->query( $query );
+			$success = $wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->posts}
+					SET {$wpdb->posts}.menu_order = %d
+					WHERE {$wpdb->posts}.ID = %d ",
+					$new,
+					$post->ID
+				)
+			);
 			clean_post_cache( $post );
 
 		}
@@ -757,8 +783,9 @@ class Book {
 	 */
 	static function deletePost( $pid ) {
 
-		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) )
+		if ( false == Book::isBook() || wp_is_post_revision( $pid ) || 'auto-draft' == get_post_status( $pid ) ) {
 			return false;
+		}
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -766,40 +793,68 @@ class Book {
 		// remove chapter/part/front matter
 		// decrement order of everything with a higher order, and if chapter, only within that part
 
-		$post = get_post( $pid );
-		$order = $post->menu_order;
-		$type = $post->post_type;
-		$parent = $post->post_parent;
+		$post_to_delete = get_post( $pid );
+		$order = $post_to_delete->menu_order;
+		$type = $post_to_delete->post_type;
+		$parent = $post_to_delete->post_parent;
 
 		$query = "UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > {$order} AND post_type = '{$type}' ";
 
 		if ( 'chapter' == $type ) {
-			$query .= " AND post_parent = {$parent} ";
+			$success = $wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > %d AND post_type = %s AND post_parent = %d ",
+					$order,
+					$type,
+					$parent
+				)
+			);
+		} else {
+			$success = $wpdb->query(
+				$wpdb->prepare(
+					"UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > %d AND post_type = %s ",
+					$order,
+					$type
+				)
+			);
 		}
 
-		$success = $wpdb->query( $query );
-		clean_post_cache( $post );
+		clean_post_cache( $post_to_delete );
 
 		if ( 'part' == $type ) {
 
 			// We're setting two things here - the new post_parent (to the first part)
 			// And the new menu order for the chapters that were in the part being deleted.
 
-			$new_parent_id = $wpdb->get_var( "SELECT ID
-										 FROM {$wpdb->posts}
-										WHERE post_type = 'part'
-										  AND post_status = 'publish'
-										  AND NOT ID = {$pid}
-									 ORDER BY menu_order
-										LIMIT 1 " );
+			$new_parent_id = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT ID FROM {$wpdb->posts} WHERE post_type = 'part' AND post_status = 'publish' AND NOT ID = %d ORDER BY menu_order LIMIT 1 ",
+					$pid
+				)
+			);
 
 			if ( $new_parent_id ) {
-				$existing_numposts = $wpdb->get_var( "SELECT COUNT(1) AS numposts FROM {$wpdb->posts} WHERE post_type = 'chapter' AND post_parent = {$new_parent_id} " );
-				$query = "UPDATE {$wpdb->posts} SET post_parent = {$new_parent_id}, menu_order = menu_order + {$existing_numposts} WHERE post_parent = {$pid} AND post_type = 'chapter' ";
-				$success = $wpdb->query( $query );
+				$existing_numposts = $wpdb->get_var(
+					$wpdb->prepare(
+						"SELECT COUNT(1) AS numposts FROM {$wpdb->posts} WHERE post_type = 'chapter' AND post_parent = %d ",
+						$new_parent_id
+					)
+				);
+				$success = $wpdb->query(
+					$wpdb->prepare(
+						"UPDATE {$wpdb->posts} SET post_parent = %d, menu_order = menu_order + %d WHERE post_parent = %d AND post_type = 'chapter' ",
+						$new_parent_id,
+						$existing_numposts,
+						$pid
+					)
+				);
 			} else {
-				$query = "UPDATE {$wpdb->posts} SET post_status = 'trash' WHERE post_parent = {$pid} AND post_type = 'chapter' ";
-				$success = $wpdb->query( $query );
+				$success = $wpdb->query(
+					$wpdb->prepare(
+						"UPDATE {$wpdb->posts} SET post_status = 'trash' WHERE post_parent = %d AND post_type = 'chapter' ",
+						$pid
+					)
+				);
 			}
 
 			wp_cache_flush();
@@ -825,23 +880,24 @@ class Book {
 			$old_post_name = uniqid( 'slug-' );
 		}
 
-		if ( isset( static::$fixDupeSlugs[$old_post_name] ) ) {
-			$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[$old_post_name];
+		if ( isset( static::$fixDupeSlugs[ $old_post_name ] ) ) {
+			$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[ $old_post_name ];
 			$i = 0;
-			while ( isset( static::$fixDupeSlugs[$new_post_name] ) ) {
-				++static::$fixDupeSlugs[$new_post_name];
-				++static::$fixDupeSlugs[$old_post_name];
-				$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[$old_post_name];
-				if ( $i > 999 ) break; // Safety
+			while ( isset( static::$fixDupeSlugs[ $new_post_name ] ) ) {
+				++static::$fixDupeSlugs[ $new_post_name ];
+				++static::$fixDupeSlugs[ $old_post_name ];
+				$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[ $old_post_name ];
+				if ( $i > 999 ) { break; // Safety
+				}
 				++$i;
 			}
 			$post_name = $new_post_name;
-			static::$fixDupeSlugs[$new_post_name] = 1;
-			++static::$fixDupeSlugs[$old_post_name];
+			static::$fixDupeSlugs[ $new_post_name ] = 1;
+			++static::$fixDupeSlugs[ $old_post_name ];
 		} else {
 
 			$post_name = $old_post_name;
-			static::$fixDupeSlugs[$old_post_name] = 1;
+			static::$fixDupeSlugs[ $old_post_name ] = 1;
 		}
 
 		return $post_name;

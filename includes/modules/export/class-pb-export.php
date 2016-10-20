@@ -100,13 +100,14 @@ abstract class Export {
 
 		if ( CustomCss::isCustomCss() ) {
 			$fullpath = CustomCss::getCustomCssFolder() . "$type.css";
-			if ( ! is_file( $fullpath ) ) $fullpath = false;
+			if ( ! is_file( $fullpath ) ) { $fullpath = false;
+			}
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get('Sass')->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
+			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
-			} elseif ( Container::get('Sass')->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
+			} elseif ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
 				$fullpath = realpath( get_stylesheet_directory() . "/assets/styles/$type/style.scss" );
 			} else {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
@@ -130,16 +131,17 @@ abstract class Export {
 
 		if ( CustomCss::isCustomCss() ) {
 			$fullpath = CustomCss::getCustomCssFolder() . "/$type.js";
-			if ( ! is_file( $fullpath ) ) $fullpath = false;
+			if ( ! is_file( $fullpath ) ) { $fullpath = false;
+			}
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get('Sass')->isCurrentThemeCompatible( 2 ) ) { // Check for v2 themes
+			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 themes
 				$fullpath = realpath( get_stylesheet_directory() . "/assets/scripts/$type/script.js" );
 			} else {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
 			}
-			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && $type == 'prince' ) {
+			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' == $type ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script-romanize.js" );
 			}
 		}
@@ -211,7 +213,7 @@ abstract class Export {
 	 * @return string
 	 */
 	function timestampedFileName( $extension, $fullpath = true ) {
-		$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __('book', 'pressbooks');
+		$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __( 'book', 'pressbooks' );
 		$book_title_slug = sanitize_file_name( $book_title );
 		$book_title_slug = str_replace( array( '+' ), '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
 		$book_title_slug = sanitize_file_name( $book_title_slug ); // str_replace() may inadvertently create a new bad filename, sanitize again for good measure.
@@ -336,8 +338,9 @@ abstract class Export {
 	 */
 	protected function obliterateDir( $dirname, $only_empty = false ) {
 
-		if ( ! is_dir( $dirname ) )
+		if ( ! is_dir( $dirname ) ) {
 			return false;
+		}
 
 		$dscan = array( realpath( $dirname ) );
 		$darr = array();
@@ -346,17 +349,20 @@ abstract class Export {
 			$darr[] = $dcur;
 			if ( $d = opendir( $dcur ) ) {
 				while ( $f = readdir( $d ) ) {
-					if ( $f == '.' || $f == '..' ) continue;
+					if ( '.' == $f || '..' == $f ) { continue;
+					}
 					$f = $dcur . '/' . $f;
-					if ( is_dir( $f ) ) $dscan[] = $f;
-					else unlink( $f );
+					if ( is_dir( $f ) ) { $dscan[] = $f;
+					} else { unlink( $f );
+					}
 				}
 				closedir( $d );
 			}
 		}
 		$i_until = ( $only_empty ) ? 1 : 0;
 		for ( $i = count( $darr ) - 1; $i >= $i_until; $i -- ) {
-			if ( ! rmdir( $darr[$i] ) ) trigger_error( "Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING );
+			if ( ! rmdir( $darr[ $i ] ) ) { trigger_error( "Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING );
+			}
 		}
 
 		return ( ( $only_empty ) ? ( count( scandir( $dirname ) ) <= 2 ) : ( ! is_dir( $dirname ) ) );
@@ -410,8 +416,8 @@ abstract class Export {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 		foreach ( array( 'copyright_license' ) as $requiredGlobalOption ) {
-			if ( ! isset ( $options[$requiredGlobalOption] ) ) {
-				$options[$requiredGlobalOption] = 0;
+			if ( ! isset( $options[ $requiredGlobalOption ] ) ) {
+				$options[ $requiredGlobalOption ] = 0;
 			}
 		}
 
@@ -486,7 +492,7 @@ abstract class Export {
 	 */
 	protected function loadTemplate( $path, array $vars = array() ) {
 
-		return \Pressbooks\Utility\template($path, $vars);
+		return \Pressbooks\Utility\template( $path, $vars );
 	}
 
 
@@ -506,7 +512,7 @@ abstract class Export {
 		} elseif ( function_exists( 'mime_content_type' ) ) {
 			$mime = @mime_content_type( $file ); // Suppress deprecated message
 		} else {
-			exec( "file -i -b " . escapeshellarg( $file ), $output );
+			exec( 'file -i -b ' . escapeshellarg( $file ), $output );
 			$mime = $output[0];
 		}
 
@@ -593,7 +599,7 @@ abstract class Export {
 				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3'; // Must be set before MOBI
 			}
 			if ( isset( $x['mobi'] ) ) {
-				if  ( !isset( $x['epub'] ) ) { // Make sure Epub source file is generated
+				if ( ! isset( $x['epub'] ) ) { // Make sure Epub source file is generated
 					$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 				}
 				$modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB
@@ -607,10 +613,10 @@ abstract class Export {
 			if ( isset( $x['wxr'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\WordPress\Wxr';
 			}
-			if ( isset ( $x['vanillawxr'] ) ){
+			if ( isset( $x['vanillawxr'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\WordPress\VanillaWxr';
 			}
-			if ( isset ( $x['odt'] ) ){
+			if ( isset( $x['odt'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
 			}
 
@@ -640,16 +646,16 @@ abstract class Export {
 				$exporter = new $module( array() );
 
 				if ( ! $exporter->convert() ) {
-					$conversion_error[$module] = $exporter->getOutputPath();
+					$conversion_error[ $module ] = $exporter->getOutputPath();
 				} else {
 					if ( ! $exporter->validate() ) {
-						$validation_warning[$module] = $exporter->getOutputPath();
+						$validation_warning[ $module ] = $exporter->getOutputPath();
 					}
 				}
 
 				// Add to outputs array
 
-				$outputs[$module] = $exporter->getOutputPath();
+				$outputs[ $module ] = $exporter->getOutputPath();
 
 				// Stats hook
 				do_action( 'pressbooks_track_export', substr( strrchr( $module, '\\' ), 1 ) );
@@ -660,7 +666,7 @@ abstract class Export {
 			// --------------------------------------------------------------------------------------------------------
 			// MOBI cleanup
 
-			if ( isset( $x['mobi'] ) && !isset( $x['epub'] ) ) {
+			if ( isset( $x['mobi'] ) && ! isset( $x['epub'] ) ) {
 				unlink( $outputs['\Pressbooks\Modules\Export\Epub\Epub201'] );
 			}
 
@@ -681,7 +687,7 @@ abstract class Export {
 				// Delete file. Report error instead of warning.
 				unlink( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
 				$conversion_error['\Pressbooks\Modules\Export\Prince\Pdf'] = $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'];
-				unset ( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
+				unset( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -719,7 +725,7 @@ abstract class Export {
 
 			$codes = \Pressbooks\L10n\wplang_codes();
 			$book_lang = Book::getBookInformation();
-			$book_lang = @$book_lang['pb_language'];
+			$book_lang = ( isset( $book_lang['pb_language'] ) ) ? $book_lang['pb_language'] : 'en';
 			$book_lang = $codes[ $book_lang ];
 
 			foreach ( $compare_with as $compare ) {
@@ -732,7 +738,8 @@ abstract class Export {
 				}
 			}
 
-			if ( '__UNSET__' == $loc ) $loc = 'en_US'; // No match found, default to english
+			if ( '__UNSET__' == $loc ) { $loc = 'en_US'; // No match found, default to english
+			}
 		}
 
 		// Return
@@ -755,6 +762,7 @@ abstract class Export {
 			return false;
 		}
 
+		// @codingStandardsIgnoreLine
 		if ( ! empty( $_POST ) ) {
 			return true;
 		}
@@ -817,7 +825,10 @@ abstract class Export {
 		header( 'Content-Length: ' . filesize( $filepath ) );
 		@ob_clean();
 		flush();
-		while ( @ob_end_flush() ); // Fix out-of-memory problem
+		// @codingStandardsIgnoreLine
+		while ( @ob_end_flush() ) {
+			// Fix out-of-memory problem
+		}
 		readfile( $filepath );
 
 		exit;

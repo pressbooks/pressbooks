@@ -280,7 +280,7 @@ function do_api() {
 		$args = array(
 		    'titles' => array(
 			'filter' => FILTER_SANITIZE_STRING,
-			'flags' => FILTER_FLAG_STRIP_HIGH
+			'flags' => FILTER_FLAG_STRIP_HIGH,
 		    ),
 		    'offset' => FILTER_SANITIZE_NUMBER_INT,
 		    'limit' => FILTER_SANITIZE_NUMBER_INT,
@@ -288,19 +288,19 @@ function do_api() {
 		    'xml' => FILTER_SANITIZE_NUMBER_INT,
 		    'subjects' => array(
 			'filter' => FILTER_SANITIZE_STRING,
-			'flags' => FILTER_FLAG_STRIP_LOW
+			'flags' => FILTER_FLAG_STRIP_LOW,
 		    ),
 		    'authors' => array(
 			'filter' => FILTER_SANITIZE_STRING,
-			'flags' => FILTER_FLAG_STRIP_LOW
+			'flags' => FILTER_FLAG_STRIP_LOW,
 		    ),
 		    'licenses' => array(
 			'filter' => FILTER_SANITIZE_STRING,
-			'flags' => FILTER_FLAG_STRIP_HIGH
+			'flags' => FILTER_FLAG_STRIP_HIGH,
 		    ),
 		    'keywords' => array(
 			'filter' => FILTER_SANITIZE_STRING,
-			'flags' => FILTER_FLAG_STRIP_LOW
+			'flags' => FILTER_FLAG_STRIP_LOW,
 		    ),
 		);
 
@@ -321,7 +321,7 @@ function do_api() {
 			}
 			break;
 		case 'docs':
-			require( PB_PLUGIN_DIR . 'includes/modules/api_v1/docs/api-documentation.php');
+			require( PB_PLUGIN_DIR . 'vendor/pressbooks/pb-api/includes/modules/api_v1/docs/api-documentation.php' );
 			break;
 		default:
 			\Pressbooks\Modules\Api_v1\Api::apiErrors( 'resource' );
@@ -423,8 +423,10 @@ function download_open_export_file( $filename ) {
 	header( 'Content-Length: ' . filesize( $filepath ) );
 	@ob_clean();
 	flush();
-	while ( @ob_end_flush() ); // Fix out-of-memory problem
-	readfile( $filepath );
+	// @codingStandardsIgnoreLine
+	while ( @ob_end_flush() ) {
+		// Fix out-of-memory problem
+	}	readfile( $filepath );
 
 	exit;
 }

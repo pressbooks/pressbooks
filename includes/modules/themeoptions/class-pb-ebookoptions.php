@@ -16,26 +16,26 @@ class EbookOptions extends \Pressbooks\Options {
 	static $currentVersion = 1;
 
 	/**
-   * Web theme options.
-   *
-   * @var array
-   */
+	* Web theme options.
+	*
+	* @var array
+	*/
 	public $options;
 
 	/**
-   * Web theme defaults.
-   *
-   * @var array
-   */
+	* Web theme defaults.
+	*
+	* @var array
+	*/
 	public $defaults;
 
 	/**
-   * Constructor.
-   *
-   * @param array $options
-   */
-	function __construct(array $options) {
- 		$this->options = $options;
+	* Constructor.
+	*
+	* @param array $options
+	*/
+	function __construct( array $options ) {
+			$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 		$this->strings = $this->getStringOptions();
@@ -43,12 +43,12 @@ class EbookOptions extends \Pressbooks\Options {
 		$this->floats = $this->getFloatOptions();
 		$this->predefined = $this->getPredefinedOptions();
 
- 		foreach ( $this->defaults as $key => $value ) {
- 			if ( !isset ( $this->options[ $key ] ) ) {
- 				$this->options[ $key ] = $value;
- 			}
- 		}
- 	}
+		foreach ( $this->defaults as $key => $value ) {
+			if ( ! isset( $this->options[ $key ] ) ) {
+				$this->options[ $key ] = $value;
+			}
+		}
+	}
 
 	/**
 	 * Configure the ebook options tab using the settings API.
@@ -76,7 +76,7 @@ class EbookOptions extends \Pressbooks\Options {
 			$_section,
 			array(
 				'indent' => __( 'Indent paragraphs', 'pressbooks' ),
-				'skiplines' => __( 'Skip lines between paragraphs', 'pressbooks' )
+				'skiplines' => __( 'Skip lines between paragraphs', 'pressbooks' ),
 			)
 		);
 
@@ -128,9 +128,9 @@ class EbookOptions extends \Pressbooks\Options {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 
-		if ( !isset( $options['ebook_paragraph_separation'] ) || $options['ebook_paragraph_separation'] == '1' ) {
+		if ( ! isset( $options['ebook_paragraph_separation'] ) || '1' == $options['ebook_paragraph_separation'] ) {
 			$options['ebook_paragraph_separation'] = 'indent';
-		} elseif ( $options['ebook_paragraph_separation'] == '2' ) {
+		} elseif ( '2' == $options['ebook_paragraph_separation'] ) {
 			$options['ebook_paragraph_separation'] = 'skiplines';
 		}
 
@@ -142,7 +142,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderParagraphSeparationField( $args ) {
-		$this->renderRadioButtons( 'ebook_paragraph_separation', 'pressbooks_theme_options_' . $this->getSlug(), 'ebook_paragraph_separation', @$this->options['ebook_paragraph_separation'], $args);
+		$this->renderRadioButtons( 'ebook_paragraph_separation', 'pressbooks_theme_options_' . $this->getSlug(), 'ebook_paragraph_separation', @$this->options['ebook_paragraph_separation'], $args );
 	}
 
 	/**
@@ -159,8 +159,8 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @return string $slug
 	 */
 	static function getSlug() {
-  	return 'ebook';
-  }
+		return 'ebook';
+	}
 
 	/**
 	 * Get the localized title of the Ebook options tab.
@@ -168,8 +168,8 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @return string $title
 	 */
 	static function getTitle() {
-  	return __('Ebook Options', 'pressbooks');
-  }
+		return __( 'Ebook Options', 'pressbooks' );
+	}
 
 	/**
 	 * Get an array of default values for the Ebook options tab.
@@ -177,10 +177,20 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return array(
+		return apply_filters( 'pressbooks_theme_options_ebook_defaults', array(
 			'ebook_paragraph_separation' => 'indent',
-			'ebook_compress_images' => 0
-		);
+			'ebook_compress_images' => 0,
+		) );
+	}
+
+	/**
+	 * Filter the array of default values for the Ebook options tab.
+	 *
+	 * @param array $defaults
+	 * @return array $defaults
+	 */
+	static function filterDefaults( $defaults ) {
+		return $defaults;
 	}
 
 	/**
