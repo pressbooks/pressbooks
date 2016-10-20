@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "3ba0258664229effee518db0591065ff",
-    "content-hash": "056e1c1c5a7028572d7cd8daa2e8625b",
+    "hash": "e7b25baf3ae192e3fd894c1d84f1c781",
+    "content-hash": "d675c336302ec5845eabc358fc35d512",
     "packages": [
         {
             "name": "composer/installers",
@@ -116,16 +116,16 @@
         },
         {
             "name": "gridonic/princexml-php",
-            "version": "v1.1.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gridonic/PrinceXMLPhp.git",
-                "reference": "23def3ef0499200dd4500b50b6165bf5172e7460"
+                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/23def3ef0499200dd4500b50b6165bf5172e7460",
-                "reference": "23def3ef0499200dd4500b50b6165bf5172e7460",
+                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
                 "shasum": ""
             },
             "require": {
@@ -156,7 +156,7 @@
                 "princexml",
                 "xml"
             ],
-            "time": "2014-07-22 12:32:03"
+            "time": "2016-09-06 17:46:32"
         },
         {
             "name": "leafo/scssphp",
@@ -1867,6 +1867,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "gridonic/princexml-php": 20,
         "pressbooks/htmlawed": 10,
         "pressbooks/custom-metadata": 20,
         "wp-api/wp-api": 10
