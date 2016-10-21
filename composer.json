@@ -29,17 +29,17 @@
   "require": {
     "php": ">=5.6.0",
     "composer/installers": "~1.0",
-    "pressbooks/princexml-php": "1.2",
+    "gridonic/princexml-php": "^1.2",
     "pimple/pimple": "^3.0",
     "leafo/scssphp": "^0.6.6",
-    "pressbooks/htmlawed": "1.2-beta11",
+    "pressbooks/pb-api": "^1.0",
     "pressbooks/saxon-he": "^9.6",
+    "pressbooks/htmlawed": "1.2-beta11",
     "pressbooks/custom-metadata": "0.8.1-dev",
     "pressbooks/disable-comments": "1.1",
     "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/pressbooks-latex": "1.0.0",
-    "wp-api/wp-api": "^2.0-beta14",
-    "pressbooks/pb-api": "^1.0"
+    "wp-api/wp-api": "^2.0-beta15"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.5",

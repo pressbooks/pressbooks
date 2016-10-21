@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7639154549f45bc49d2d8908719fc3c0",
-    "content-hash": "cbc76f27984229fe327b35d1f9001570",
+    "hash": "7dc04a89b62046e914a6e20f880a5db4",
+    "content-hash": "1736765ac20912583c021b10b3965f6f",
     "packages": [
         {
             "name": "composer/installers",
@@ -113,6 +113,50 @@
                 "zikula"
             ],
             "time": "2016-08-13 20:53:52"
+        },
+        {
+            "name": "gridonic/princexml-php",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gridonic/PrinceXMLPhp.git",
+                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PrinceXMLPhp": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gridonic",
+                    "homepage": "http://gridonic.ch"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/gridonic/PrinceXMLPhp/contributors"
+                }
+            ],
+            "description": "PrinceXML PHP5 wrapper converted to follow the PSR-0 standard.",
+            "keywords": [
+                "princexml",
+                "xml"
+            ],
+            "time": "2016-09-06 17:46:32"
         },
         {
             "name": "leafo/scssphp",
@@ -350,25 +394,6 @@
                 "shasum": null
             },
             "type": "library"
-        },
-        {
-            "name": "pressbooks/princexml-php",
-            "version": "1.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/gridonic/PrinceXMLPhp/archive/master.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PrinceXMLPhp": "src"
-                }
-            }
         },
         {
             "name": "pressbooks/saxon-he",
