@@ -39,7 +39,6 @@ function mce_buttons_2( $buttons ) {
 	$p = array_search( 'styleselect', $buttons );
 	array_splice( $buttons, $p + 1, 0, 'textboxes' );
 	array_splice( $buttons, 6, 0, 'backcolor' );
-
 	return $buttons;
 }
 
@@ -47,6 +46,7 @@ function mce_buttons_2( $buttons ) {
  * Adds anchor, superscript and subscript buttons to the MCE buttons array.
  */
 function mce_buttons_3( $buttons ) {
+	array_unshift( $buttons, 'table' );
 	array_push( $buttons, 'anchor', 'superscript', 'subscript' );
 	return $buttons;
 }
@@ -58,6 +58,7 @@ function mce_buttons_3( $buttons ) {
 function mce_button_scripts( $plugin_array ) {
 	$plugin_array['textboxes'] = \Pressbooks\Utility\asset_path( 'scripts/textboxes.js' );
 	$plugin_array['anchor'] = \Pressbooks\Utility\asset_path( 'scripts/anchor.js' );
+	$plugin_array['table'] = \Pressbooks\Utility\asset_path( 'scripts/table.js' );
 	return $plugin_array;
 }
 
@@ -179,10 +180,6 @@ function mce_table_editor_options( $settings ) {
 			'title' => __( 'Shaded', 'pressbooks' ),
 			'value' => 'shaded',
 		),
-		array(
-			'title' => __( 'Custom...', 'pressbooks' ),
-			'value' => 'custom',
-		),
 	);
 	$cell_classes = array(
 		array(
@@ -218,6 +215,7 @@ function mce_table_editor_options( $settings ) {
 	$settings['table_cell_class_list'] = json_encode( $cell_classes );
 	$settings['table_row_advtab'] = false;
 	$settings['table_row_class_list'] = json_encode( $row_classes );
+	$settings['table_appearance_options'] = false;
 	return $settings;
 }
 
