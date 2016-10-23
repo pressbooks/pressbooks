@@ -36,9 +36,9 @@
     "pressbooks/saxon-he": "^9.6",
     "pressbooks/htmlawed": "1.2-beta11",
     "pressbooks/custom-metadata": "0.8.1-dev",
-    "pressbooks/disable-comments": "1.1",
     "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/pressbooks-latex": "1.0.0",
+    "solarissmoke/disable-comments-mu": "^1.1",
     "wp-api/wp-api": "^2.0-beta15"
   },
   "require-dev": {
@@ -64,8 +64,9 @@
   },
   "extra": {
     "installer-paths": {
-      "vendor/wp-api/wp-api": ["wp-api/wp-api"],
-      "vendor/pressbooks/pb-api": ["pressbooks/pb-api"]
+      "vendor/pressbooks/pb-api": ["pressbooks/pb-api"],
+      "vendor/solarissmoke/disable-comments-mu": ["solarissmoke/disable-comments-mu"],
+      "vendor/wp-api/wp-api": ["wp-api/wp-api"]
     }
   },
   "scripts": {

@@ -14,7 +14,6 @@ should not be directly modified by Pressbooks developers.
 Operative verb is "should," the following libs have been patched/forked by Pressbooks:
 
 * custom-metadata (https://github.com/pressbooks/custom-metadata)
-* disable-comments (https://github.com/pressbooks/disable-comments)
 * mce-table-buttons (https://github.com/pressbooks/mce-table-buttons)
 
 ------------------------------------------------------------------------------

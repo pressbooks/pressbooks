@@ -423,7 +423,6 @@ function show_experimental_features( $host = null ) {
 function include_plugins() {
 	$plugins = array(
 	    'custom-metadata/custom_metadata.php' => 1,
-	    'disable-comments/disable-comments.php' => 1,
 	    'mce-table-buttons/mce_table_buttons.php' => 1,
 			'pressbooks-latex/pb-latex.php' => 1,
 			'pb-api/pb-api.php' => 1,
@@ -438,8 +437,12 @@ function include_plugins() {
 		}
 	}
 
-}
+	// Disable comments
+	if ( '1' == get_option( 'pressbooks_disable_comments' ) ) {
+		require_once( PB_PLUGIN_DIR . 'vendor/solarissmoke/disable-comments-mu/disable-comments-mu.php' );
+	}
 
+}
 /**
  * Filters out active plugins, to avoid collisions with plugins already installed.
  *
