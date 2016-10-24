@@ -2173,6 +2173,10 @@ class Epub201 extends Export {
 	 * @return bool
 	 */
 	static function hasDependencies() {
+		if ( false !== \Pressbooks\Utility\check_epubcheck_install() ) {
+			return true;
+		}
+
 		return false;
 	}
 

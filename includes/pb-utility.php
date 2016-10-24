@@ -359,6 +359,31 @@ function create_tmp_file() {
 }
 
 /**
+ * Lightweight check to see if the Epubcheck executable is installed and up to date.
+ *
+ * @return boolean
+ */
+function check_epubcheck_install() {
+	if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) { // @see wp-config.php
+		define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+	}
+
+	$output = array();
+	$return_val = 0;
+	exec( PB_EPUBCHECK_COMMAND . ' -h 2>&1', $output, $return_val );
+
+	if ( false == strpos( $output[0], 'command not found' ) ) { // Command found.
+		$output = explode( 'EpubCheck v', $output[0] );
+		$version = $output[1];
+		if ( version_compare( $version, '4.0.0' ) >= 0 ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
  * Lightweight check to see if the Kindlegen executable is installed and up to date.
  *
  * @return boolean

@@ -397,7 +397,7 @@ class Odt extends Export {
 	 * @return bool
 	 */
 	static function hasDependencies() {
-		return false;
+		return true;
 	}
 
 }

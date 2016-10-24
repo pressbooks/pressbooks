@@ -111,7 +111,7 @@ class Kindlegen extends Export {
 	 * @return bool
 	 */
 	static function hasDependencies() {
-		if ( false !== \Pressbooks\Utility\check_kindlegen_install() ) {
+		if ( false !== \Pressbooks\Utility\check_epubcheck_install() && false !== \Pressbooks\Utility\check_kindlegen_install() ) {
 			return true;
 		}
 

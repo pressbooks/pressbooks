@@ -37,13 +37,61 @@ if ( $timezone_string ) {
 // Warnings and errors
 // -------------------------------------------------------------------------------------------------------------------
 
+$dependency_errors = array();
+
+if ( false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
+	$prince = false;
+	$dependency_errors['pdf'] = 'PDF';
+} else {
+	$prince = true;
+}
+
+if ( false == \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
+	$epub = false;
+	$dependency_errors['epub'] = 'EPUB';
+} else {
+	$epub = true;
+}
+
+if ( false == \Pressbooks\Modules\Export\Mobi\Kindlegen::hasDependencies() ) {
+	$mobi = false;
+	$dependency_errors['mobi'] = 'MOBI';
+} else {
+	$mobi = true;
+}
+
+if ( false == \Pressbooks\Modules\Export\Xhtml\Xhtml11::hasDependencies() ) {
+	$xhtml = false;
+	$dependency_errors['xhtml'] = 'XHTML';
+} else {
+	$xhtml = true;
+}
+
+if ( false == \Pressbooks\Modules\Export\InDesign\Icml::hasDependencies() ) {
+	$icml = false;
+	$dependency_errors['icml'] = 'ICML';
+} else {
+	$icml = true;
+}
+
+if ( false == \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
+	$odt = false;
+	$dependency_errors['odt'] = 'OpenDocument';
+} else {
+	$odt = true;
+}
+
+foreach ( $dependency_errors as $key => $format ) {
+	printf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Some dependencies for %s export could not be found. Please verify that you have completed the <a href="%s">installation instructions</a>.', 'pressbooks' ), $format, 'https://pressbooks.org/installation' ) );
+}
+
 if ( ! empty( $_GET['export_error'] ) ) {
 	// Conversion failed
-	printf( '<div class="error">%s</div>', __( 'Error: The export failed. See logs for more details.', 'pressbooks' ) );
+	printf( '<div class="error"><p>%s</p></div>', __( 'Error: The export failed. See logs for more details.', 'pressbooks' ) );
 }
 if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_validation_logs' ) || is_super_admin() ) ) {
 	// Validation warnings
-	printf( '<div class="error">%s %s</div>',
+	printf( '<div class="error"><p>%s</p><p>%s</p></div>',
 		__( 'Warning: The export has validation errors. See logs for more details.', 'pressbooks' ),
 		get_option( 'pressbooks_email_validation_logs' ) ? __( 'Emailed to:', 'pressbooks' ) . ' ' . wp_get_current_user()->user_email : ''
 	);
@@ -67,23 +115,23 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 	    <fieldset>
 				<legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
-	  		<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php if ( false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) { ?>disabled <?php } ?>/><label for="pdf"> <?php _e( 'PDF (for print)', 'pressbooks' ); ?></label><br />
-				<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php if ( false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) { ?>disabled <?php } ?>/><label for="pdf"> <?php _e( 'PDF (for digital)', 'pressbooks' ); ?></label><br />
+	  		<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="pdf"> <?php _e( 'PDF (for print)', 'pressbooks' ); ?></label><br />
+				<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="pdf"> <?php _e( 'PDF (for digital)', 'pressbooks' ); ?></label><br />
 				<?php if ( true == \Pressbooks\Modules\Export\Mpdf\Pdf::hasDependencies() ) { ?>
 					<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" /><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
 				<?php } ?>
-				<input type="checkbox" id="epub" name="export_formats[epub]" value="1" <?php if ( false == \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) { ?>disabled <?php } ?>/><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
-		  	<input type="checkbox" id="mobi" name="export_formats[mobi]" value="1" <?php if ( false == \Pressbooks\Modules\Export\Mobi\Kindlegen::hasDependencies() ) { ?>disabled <?php } ?>/><label for="mobi"> <?php _e( 'MOBI (for Kindle)', 'pressbooks' ); ?></label>
+				<input type="checkbox" id="epub" name="export_formats[epub]" value="1" <?php if ( false == $epub ) { ?>disabled <?php } ?>/><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
+		  	<input type="checkbox" id="mobi" name="export_formats[mobi]" value="1" <?php if ( false == $mobi ) { ?>disabled <?php } ?>/><label for="mobi"> <?php _e( 'MOBI (for Kindle)', 'pressbooks' ); ?></label>
 	    </fieldset>
 
 	    <fieldset>
 	    <legend><?php _e( 'Exotic formats', 'pressbooks' ); ?>:</legend>
-		    <input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php if ( false == \Pressbooks\Modules\Export\Epub\Epub3::hasDependencies() ) { ?>disabled <?php } ?>/><label for="epub3"> <?php _e( 'EPUB 3 (beta)', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" <?php if ( false == \Pressbooks\Modules\Export\Xhtml\Xhtml11::hasDependencies() ) { ?>disabled <?php } ?>/><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
+		    <input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php if ( false == $epub ) { ?>disabled <?php } ?>/><label for="epub3"> <?php _e( 'EPUB 3 (beta)', 'pressbooks' ); ?></label><br />
+	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" <?php if ( false == $xhtml ) { ?>disabled <?php } ?>/><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
 				<?php if ( true == \Pressbooks\Utility\show_experimental_features() ) { ?>
-				<input type="checkbox" id="icml" name="export_formats[icml]" value="1" <?php if ( false == \Pressbooks\Modules\Export\InDesign\Icml::hasDependencies() ) { ?>disabled <?php } ?>/><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
+				<input type="checkbox" id="icml" name="export_formats[icml]" value="1" <?php if ( false == $icml ) { ?>disabled <?php } ?>/><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
 				<?php } ?>
-				<input type="checkbox" id="odt" name="export_formats[odt]" value="1" <?php if ( false == \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) { ?>disabled <?php } ?>/><label for="odt"> <?php _e( 'OpenDocument (beta)', 'pressbooks' ); ?></label><br />
+				<input type="checkbox" id="odt" name="export_formats[odt]" value="1" <?php if ( false == $odt ) { ?>disabled <?php } ?>/><label for="odt"> <?php _e( 'OpenDocument (beta)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="wxr" name="export_formats[wxr]" value="1" /><label for="wxr"> <?php _e( 'Pressbooks XML', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="vanillawxr" name="export_formats[vanillawxr]" value="1" /><label for="vanillawxr"> <?php _e( 'WordPress XML', 'pressbooks' ); ?></label>
 	    </fieldset>
