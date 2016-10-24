@@ -23,8 +23,8 @@ class PrintPdf extends Pdf {
 
 		$this->exportStylePath = $this->getExportStylePath( 'prince' );
 		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
-		$this->pdfProfile = $this->getPdfProfile();
-		$this->pdfOutputIntent = $this->getPdfOutputIntent();
+		$this->pdfProfile = 'PDF/X-1a';
+		$this->pdfOutputIntent = '/usr/lib/prince/icc/USWebCoatedSWOP.icc';
 
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
@@ -87,16 +87,5 @@ class PrintPdf extends Pdf {
 		}
 
 		return $retval;
-	}
-
-	protected function getPdfProfile() {
-		return 'PDF/X-1a';
-	}
-
-	protected function getPdfOutputIntent() {
-		if ( defined( 'PB_PDF_OUTPUT_INTENT' ) ) {
-			return PB_PDF_OUTPUT_INTENT;
-		}
-		return '/usr/lib/prince/icc/USWebCoatedSWOP.icc';
 	}
 }
