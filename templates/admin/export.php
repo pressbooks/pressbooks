@@ -115,7 +115,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 	    <fieldset>
 				<legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
-	  		<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="pdf"> <?php _e( 'PDF (for print)', 'pressbooks' ); ?></label><br />
+	  		<input type="checkbox" id="print_pdf" name="export_formats[print_pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="print_pdf"> <?php _e( 'PDF (for print)', 'pressbooks' ); ?></label><br />
 				<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="pdf"> <?php _e( 'PDF (for digital)', 'pressbooks' ); ?></label><br />
 				<?php if ( true == \Pressbooks\Modules\Export\Mpdf\Pdf::hasDependencies() ) { ?>
 					<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" /><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
@@ -178,7 +178,8 @@ foreach ( $exports as $file ) {
 		$file_class = 'wxr';
 	} elseif ( 'epub' == $file_extension && '._3.epub' == $pre_suffix ) {
 		$file_class = 'epub3';
-	} else { $file_class = $file_extension;
+	} else {
+		$file_class = $file_extension;
 	}
 
 ?>
