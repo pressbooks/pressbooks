@@ -47,7 +47,7 @@ function mce_buttons_2( $buttons ) {
  */
 function mce_buttons_3( $buttons ) {
 	array_unshift( $buttons, 'table' );
-	array_push( $buttons, 'anchor', 'superscript', 'subscript' );
+	array_push( $buttons, 'apply_class', 'anchor', 'superscript', 'subscript' );
 	return $buttons;
 }
 
@@ -56,6 +56,7 @@ function mce_buttons_3( $buttons ) {
  * Adds Javascript for buttons above.
  */
 function mce_button_scripts( $plugin_array ) {
+	$plugin_array['apply_class'] = \Pressbooks\Utility\asset_path( 'scripts/applyclass.js' );
 	$plugin_array['textboxes'] = \Pressbooks\Utility\asset_path( 'scripts/textboxes.js' );
 	$plugin_array['anchor'] = \Pressbooks\Utility\asset_path( 'scripts/anchor.js' );
 	$plugin_array['table'] = \Pressbooks\Utility\asset_path( 'scripts/table.js' );
