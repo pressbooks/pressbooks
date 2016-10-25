@@ -168,7 +168,19 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	<?php }
 foreach ( $exports as $file ) {
 	$file_extension = substr( strrchr( $file, '.' ), 1 );
-	$pre_suffix = (false == strstr( $file, '._3.epub' )) ? strstr( $file, '._vanilla.xml' ) : strstr( $file, '._3.epub' );
+	switch ( $file_extension ) {
+		case 'epub':
+			$pre_suffix = strstr( $file, '._3.epub' );
+			break;
+		case 'pdf':
+			$pre_suffix = strstr( $file, '._print.pdf' );
+			break;
+		case 'xml':
+			$pre_suffix = strstr( $file, '._vanilla.xml' );
+			break;
+		default:
+			$pre_suffix = false;
+	}
 	if ( 'html' == $file_extension ) {
 		$file_class = 'xhtml';
 	} elseif ( 'xml' == $file_extension && '._vanilla.xml' == $pre_suffix ) {

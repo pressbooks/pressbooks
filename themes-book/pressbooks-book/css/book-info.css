@@ -745,6 +745,10 @@ span.small.pdf, span.small.mpdf {
     background-image: url(../../../assets/dist/images/pdf-36.png);
 }
 
+span.small.print-pdf {
+    background-image: url(../../../assets/dist/images/print-pdf-36.png);
+}
+
 span.small.wxr {
 	background-image: url(../../../assets/dist/images/wxr-36.png);
 }
@@ -780,6 +784,10 @@ span.small.odt {
 
 	span.small.pdf, span.small.mpdf {
 	    background-image: url(../../../assets/dist/images/pdf-72.png);
+	}
+
+	span.small.print-pdf {
+	    background-image: url(../../../assets/dist/images/print-pdf-72.png);
 	}
 
 	span.small.wxr {
