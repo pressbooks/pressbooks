@@ -665,6 +665,13 @@ function privacy_settings_init() {
 		'privacy_settings',
 		'privacy_settings_section'
 	);
+	add_settings_field(
+		'disable_comments',
+		__( 'Disable Comments', 'pressbooks' ),
+		__NAMESPACE__ . '\privacy_disable_comments_callback',
+		'privacy_settings',
+		'privacy_settings_section'
+	);
 	if ( get_site_option( 'pressbooks_sharingandprivacy_options' )['allow_redistribution'] ) {
 		add_settings_field(
 			'latest_files_public',
@@ -683,6 +690,11 @@ function privacy_settings_init() {
 		'privacy_settings',
 		'permissive_private_content',
 		__NAMESPACE__ . '\privacy_permissive_private_content_sanitize'
+	);
+	register_setting(
+		'privacy_settings',
+		'pressbooks_sharingandprivacy_options',
+		__NAMESPACE__ . '\privacy_disable_comments_sanitize'
 	);
 	register_setting(
 		'privacy_settings',
@@ -722,7 +734,7 @@ function privacy_blog_public_callback( $args ) {
 }
 
 /**
- * Privacy settings, blog_public field callback
+ * Privacy settings, permissive_private_content field callback
  *
  * @param $args
  */
@@ -748,6 +760,28 @@ function privacy_permissive_private_content_callback( $args ) {
 		<label for="permissive-private-content"><?php _e( 'All logged in users including subscribers.', 'pressbooks' ); ?></label>
 	</fieldgroup>
 <?php }
+
+/**
+ * Privacy settings, disable_comments field callback
+ *
+ * @param $args
+ */
+function privacy_disable_comments_callback( $args ) {
+	$options = get_option( 'pressbooks_sharingandprivacy_options', array( 'disable_comments' => 1 ) );
+	$html = '<input type="radio" id="disable-comments" name="pressbooks_sharingandprivacy_options[disable_comments]" value="1" ';
+	if ( $options['disable_comments'] ) {
+		$html .= 'checked="checked" ';
+	}
+	$html .= '/>';
+	$html .= '<label for="disable-comments"> ' . __( 'Yes. I want to automatically disable comments, trackbacks and pingbacks on all front matter, chapters and back matter.', 'pressbooks' ) . '</label><br />';
+	$html .= '<input type="radio" id="enable-comments" name="pressbooks_sharingandprivacy_options[disable_comments]" value="0" ';
+	if ( ! $options['disable_comments'] ) {
+		$html .= 'checked="checked" ';
+	}
+	$html .= '/>';
+	$html .= '<label for="enable-comments"> ' . __( 'No. I want to leave comments, trackbacks and pingbacks enabled on all front matter, chapters and back matter unless I disable them manually.', 'pressbooks' ) . '</label>';
+	echo $html;
+}
 
 /**
  * Sharing settings, latest_files_public field callback
@@ -790,7 +824,18 @@ function privacy_permissive_private_content_sanitize( $input ) {
 }
 
 /**
- * Privacy settings, private_chapters field sanitization
+ * Privacy settings, disable_comments field sanitization
+ *
+ * @param $input
+ * @return string
+ */
+function privacy_disable_comments_sanitize( $input ) {
+	$output['disable_comments'] = absint( $input['disable_comments'] );
+	return $output;
+}
+
+/**
+ * Privacy settings, pbt_redistribute_settings field sanitization
  *
  * @param $input
  * @return string

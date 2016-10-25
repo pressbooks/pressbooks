@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7405e27efff2f7d3fbb04ebd17096b49",
-    "content-hash": "882f6d0784708aa3268127bb7a79b38f",
+    "hash": "abfba8ce3f53f9f1e99c5187fa6f7048",
+    "content-hash": "ae386267961844a192e862bd1f1aabda",
     "packages": [
         {
             "name": "composer/installers",
@@ -258,22 +258,6 @@
             "time": "2015-09-11 15:10:35"
         },
         {
-            "name": "pressbooks/disable-comments",
-            "version": "1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/disable-comments/",
-                "reference": "tags/v1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/disable-comments/archive/v1.1.zip",
-                "reference": "tags/v1.1",
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
             "name": "pressbooks/pb-api",
             "version": "1.0.0",
             "source": {
@@ -341,6 +325,44 @@
             ],
             "description": "Provides implementations of XSLT 2.0, XQuery 3.1, and XPath 3.1 at the basic level of conformance defined by W3C.",
             "time": "2016-09-12 18:32:26"
+        },
+        {
+            "name": "solarissmoke/disable-comments-mu",
+            "version": "v1.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/solarissmoke/disable-comments-mu.git",
+                "reference": "ad6c86ea25c95e1616357f27a631df987e36c41f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/solarissmoke/disable-comments-mu/zipball/ad6c86ea25c95e1616357f27a631df987e36c41f",
+                "reference": "ad6c86ea25c95e1616357f27a631df987e36c41f",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "php": ">=5.2.4"
+            },
+            "type": "wordpress-muplugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Samir Shah",
+                    "email": "samir@rayofsolaris.net",
+                    "homepage": "https://github.com/solarissmoke"
+                }
+            ],
+            "description": "This is the must-use version of the Disable Comments WordPress plugin. Copy the contents of this directory into your mu-plugins directory in order to disable comments on the entire site/network, without any configuration. You should delete all existing comments from the WordPress database before activating this plugin. If you want to be able to configure the plugin's behaviour, then use the normal version.",
+            "homepage": "https://github.com/solarissmoke/disable-comments-mu",
+            "keywords": [
+                "comments",
+                "wordpress"
+            ],
+            "time": "2016-04-29 02:48:08"
         }
     ],
     "packages-dev": [
