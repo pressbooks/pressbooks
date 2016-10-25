@@ -438,7 +438,8 @@ function include_plugins() {
 	}
 
 	// Disable comments
-	if ( '1' == get_option( 'pressbooks_disable_comments' ) ) {
+
+	if ( true == disable_comments() ) {
 		require_once( PB_PLUGIN_DIR . 'vendor/solarissmoke/disable-comments-mu/disable-comments-mu.php' );
 	}
 
@@ -483,6 +484,31 @@ function filter_plugins( $plugins ) {
 	return $plugins;
 }
 
+/**
+ * Check if we should disable comments.
+ *
+ * @return bool
+ */
+function disable_comments() {
+	$old_option = get_option( 'disable_comments_options' );
+	$new_option = get_option( 'pressbooks_sharingandprivacy_options', array( 'disable_comments' => 1 ) );
+
+	if ( false == $old_option ) {
+		$retval = absint( $new_option['disable_comments'] );
+	} elseif ( is_array( $old_option['disabled_post_types'] ) && in_array( 'chapter', $old_option['disabled_post_types'] ) && in_array( 'front-matter', $old_option['disabled_post_types'] ) && in_array( 'front-matter', $old_option['disabled_post_types'] ) ) {
+		$retval = true;
+		$new_option['disable_comments'] = 1;
+		update_option( 'pressbooks_sharingandprivacy_options', $new_option );
+		delete_option( 'disable_comments_options' );
+	} else {
+		$retval = false;
+		$new_option['disable_comments'] = 0;
+		update_option( 'pressbooks_sharingandprivacy_options', $new_option );
+		delete_option( 'disable_comments_options' );
+	}
+
+	return $retval;
+}
 
 /**
  * Function to return a string representing max import size by comparing values of upload_max_filesize, post_max_size
