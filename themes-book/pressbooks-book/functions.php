@@ -441,7 +441,7 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
 		$scss .= "\$prince-image-resolution: $resolution !default; \n";
 	} else {
-		$scss .= "img { prince-image-resolution: $resolution !default; } \n";
+		$scss .= "img { prince-image-resolution: $resolution; } \n";
 	}
 
 	// Display crop marks? true / false (default)
