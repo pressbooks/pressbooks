@@ -398,9 +398,8 @@ function check_kindlegen_install() {
 	$return_val = 0;
 	exec( PB_KINDLEGEN_COMMAND . ' 2>&1', $output, $return_val );
 
-	$output = $output[2];
-	if ( false !== strpos( $output, 'kindlegen' ) ) { // Command found.
-		$output = explode( ' V', $output );
+	if ( isset( $output[2] ) && false !== strpos( $output[2], 'kindlegen' ) ) { // Command found.
+		$output = explode( ' V', $output[2] );
 		$output = explode( ' build', $output[1] );
 		$version = $output[0];
 		if ( version_compare( $version, '2.9' ) >= 0 ) {
