@@ -702,7 +702,6 @@ abstract class Export {
 				unset( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] );
 			}
 
-
 			// --------------------------------------------------------------------------------------------------------
 			// Errors :(
 
