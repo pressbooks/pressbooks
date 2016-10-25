@@ -37,7 +37,6 @@
     "pressbooks/htmlawed": "1.2-beta11",
     "pressbooks/custom-metadata": "0.8.1-dev",
     "pressbooks/disable-comments": "1.1",
-    "pressbooks/mce-table-buttons": "3.2.0",
     "pressbooks/pressbooks-latex": "1.0.0",
     "wp-api/wp-api": "^2.0-beta15"
   },

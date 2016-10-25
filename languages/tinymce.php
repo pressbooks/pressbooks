@@ -1,6 +1,6 @@
 <?php # -*- coding: utf-8 -*-
 
-$strings = 'tinyMCE.addI18n( "' . _WP_Editors::$mce_locale . '.strings", { 
+$strings = 'tinyMCE.addI18n( "' . _WP_Editors::$mce_locale . '.strings", {
     classtitle: "' . esc_js( __( 'Class', 'pressbooks' ) ) . '",
     textboxes: "' . esc_js( __( 'Textboxes', 'pressbooks' ) ) . '",
     customtextbox: "' . esc_js( __( 'Custom Textbox', 'pressbooks' ) ) . '",
@@ -18,4 +18,5 @@ $strings = 'tinyMCE.addI18n( "' . _WP_Editors::$mce_locale . '.strings", {
     customellipses: "' . esc_js( __( 'Custom...', 'pressbooks' ) ) . '",
     first: "' . esc_js( __( 'First', 'pressbooks' ) ) . '",
     second: "' . esc_js( __( 'Second', 'pressbooks' ) ) . '",
+		applyclass: "' . esc_js( __( 'Apply Class', 'pressbooks' ) ) . '"
 } )';

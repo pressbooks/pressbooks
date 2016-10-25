@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7dc04a89b62046e914a6e20f880a5db4",
-    "content-hash": "1736765ac20912583c021b10b3965f6f",
+    "hash": "12daa85d5051f86b1c840fbbc4a14cde",
+    "content-hash": "f49ad62a49b86ea1120061b3de3818fb",
     "packages": [
         {
             "name": "composer/installers",
@@ -321,22 +321,6 @@
                     "Htmlawed\\Test\\": "tests"
                 }
             }
-        },
-        {
-            "name": "pressbooks/mce-table-buttons",
-            "version": "3.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/mce-table-buttons/",
-                "reference": "tags/v3.2.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/mce-table-buttons/archive/v3.2.0.zip",
-                "reference": "tags/v3.2.0",
-                "shasum": null
-            },
-            "type": "library"
         },
         {
             "name": "pressbooks/pb-api",

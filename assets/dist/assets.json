@@ -1,5 +1,6 @@
 {
   "anchor.js": "anchor-bd0b0f68e4.js",
+  "applyclass.js": "applyclass-ef4a134bb0.js",
   "blockui.js": "blockui-9b92a7d82d.js",
   "book-information.js": "book-information-caf8826ef1.js",
   "catalog.css": "catalog-633f51cb48.css",
@@ -33,6 +34,7 @@
   "small-menu.js": "small-menu-51c6c2673c.js",
   "sticky.js": "sticky-042711bce9.js",
   "style-catalog.css": "style-catalog-a40b19cf46.css",
+  "table.js": "table-a685a42ea6.js",
   "textboxes.js": "textboxes-b3ef1ebdee.js",
   "theme-options.css": "theme-options-fd34b45cc4.css",
   "theme-options.js": "theme-options-e274d8b377.js"
