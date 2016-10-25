@@ -589,6 +589,9 @@ abstract class Export {
 			if ( isset( $x['pdf'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Prince\Pdf';
 			}
+			if ( isset( $x['print_pdf'] ) ) {
+				$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
+			}
 			if ( isset( $x['mpdf'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Mpdf\Pdf';
 			}

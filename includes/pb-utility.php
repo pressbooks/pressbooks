@@ -359,34 +359,107 @@ function create_tmp_file() {
 }
 
 /**
- * Lightweight check to see if the Prince executable is installed.
+ * Lightweight check to see if the Epubcheck executable is installed and up to date.
+ *
+ * @return boolean
+ */
+function check_epubcheck_install() {
+	if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) { // @see wp-config.php
+		define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+	}
+
+	$output = array();
+	$return_val = 0;
+	exec( PB_EPUBCHECK_COMMAND . ' -h 2>&1', $output, $return_val );
+
+	$output = $output[0];
+	if ( false !== strpos( $output, 'EpubCheck' ) ) { // Command found.
+		$output = explode( 'EpubCheck v', $output );
+		$version = $output[1];
+		if ( version_compare( $version, '4.0.0' ) >= 0 ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Lightweight check to see if the Kindlegen executable is installed and up to date.
+ *
+ * @return boolean
+ */
+function check_kindlegen_install() {
+	if ( ! defined( 'PB_KINDLEGEN_COMMAND' ) ) { // @see wp-config.php
+		define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
+	}
+
+	$output = array();
+	$return_val = 0;
+	exec( PB_KINDLEGEN_COMMAND . ' 2>&1', $output, $return_val );
+
+	if ( isset( $output[2] ) && false !== strpos( $output[2], 'kindlegen' ) ) { // Command found.
+		$output = explode( ' V', $output[2] );
+		$output = explode( ' build', $output[1] );
+		$version = $output[0];
+		if ( version_compare( $version, '2.9' ) >= 0 ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Lightweight check to see if the Prince executable is installed and up to date.
  *
  * @return boolean
  */
 function check_prince_install() {
-	$result = false;
-
-	// @see wp-config.php
-	if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
+	if ( ! defined( 'PB_PRINCE_COMMAND' ) ) { // @see wp-config.php
 		define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 	}
 
-	$process = proc_open( PB_PRINCE_COMMAND . ' --version', array(
-		0 => array( 'pipe', 'r' ),
-		1 => array( 'pipe', 'w' ),
-		2 => array( 'pipe', 'w' ),
-	), $pipes );
+	$output = array();
+	$return_val = 0;
+	exec( PB_PRINCE_COMMAND . ' --version 2>&1', $output, $return_val );
 
-	if ( is_resource( $process ) ) {
-		$stdout = stream_get_contents( $pipes[1] );
-		fclose( $pipes[1] );
-		proc_close( $process );
-		if ( strpos( $stdout, 'Prince' ) === 0 ) { // TODO: confirm that minimum version is installed.
-			$result = true;
+	$output = $output[0];
+	if ( false !== strpos( $output, 'Prince' ) ) { // Command found.
+		$output = explode( 'Prince ', $output );
+		$version = $output[1];
+		if ( version_compare( $version, '20160929' ) >= 0 ) {
+			return true;
 		}
 	}
 
-	return $result;
+	return false;
+}
+
+/**
+ * Lightweight check to see if the xmllint executable is installed and up to date.
+ *
+ * @return boolean
+ */
+function check_xmllint_install() {
+	if ( ! defined( 'PB_XMLLINT_COMMAND' ) ) { // @see wp-config.php
+		define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+	}
+
+	$output = array();
+	$return_val = 0;
+	exec( PB_XMLLINT_COMMAND . ' --version 2>&1', $output, $return_val );
+
+	$output = $output[0];
+	if ( false !== strpos( $output, 'libxml' ) ) { // Command found.
+		$output = explode( PB_XMLLINT_COMMAND . ': using libxml version ', $output );
+		$version = $output[1];
+		if ( version_compare( $version, '20800' ) >= 0 ) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 /**

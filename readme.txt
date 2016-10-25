@@ -96,7 +96,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 
 *Part 3, Pressbooks dependencies:*
 
- * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 10r7
+ * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 20160929
  * For PDF export via mPDF install the [Pressbooks mPDF plugin](https://wordpress.org/plugins/pressbooks-mpdf). You will also need to ensure that the following folders have write access and/or they are owned by the appropriate user. See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
    + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/ttfontdata
    + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/tmp

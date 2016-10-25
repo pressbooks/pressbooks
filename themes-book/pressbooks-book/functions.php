@@ -370,6 +370,8 @@ function replace_running_content_tags( $input ) {
 
 function pressbooks_theme_pdf_css_override( $scss ) {
 
+	$scss .= "/* Theme Options */\n";
+
 	// --------------------------------------------------------------------
 	// Global Options
 
@@ -437,7 +439,7 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 		$resolution = '300dpi';
 	}
 	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
-		$scss .= "\$prince-image-resolution: $resolution; \n";
+		$scss .= "\$prince-image-resolution: $resolution !default; \n";
 	} else {
 		$scss .= "img { prince-image-resolution: $resolution; } \n";
 	}

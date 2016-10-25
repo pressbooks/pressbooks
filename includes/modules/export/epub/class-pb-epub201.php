@@ -2167,5 +2167,17 @@ class Epub201 extends Export {
 		);
 	}
 
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		if ( false !== \Pressbooks\Utility\check_epubcheck_install() ) {
+			return true;
+		}
+
+		return false;
+	}
 
 }

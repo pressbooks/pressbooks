@@ -10,7 +10,6 @@ use Pressbooks\Modules\Export\Export;
 
 class Kindlegen extends Export {
 
-
 	/**
 	 * @var bool
 	 */
@@ -106,5 +105,17 @@ class Kindlegen extends Export {
 		return ( ! $this->hasWarnings );
 	}
 
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		if ( false !== \Pressbooks\Utility\check_epubcheck_install() && false !== \Pressbooks\Utility\check_kindlegen_install() ) {
+			return true;
+		}
+
+		return false;
+	}
 
 }

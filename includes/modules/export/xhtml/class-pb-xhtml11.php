@@ -1191,4 +1191,17 @@ class Xhtml11 extends Export {
 		return false;
 	}
 
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		if ( true == \Pressbooks\Utility\check_xmllint_install() ) {
+			return true;
+		}
+
+		return false;
+	}
+
 }

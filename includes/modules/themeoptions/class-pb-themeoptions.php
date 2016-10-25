@@ -90,11 +90,11 @@ class ThemeOptions {
 			'ebook' => '\Pressbooks\Modules\ThemeOptions\EbookOptions',
 		);
 
-		if ( ! \Pressbooks\Utility\check_prince_install() ) {
-			unset( $tabs['mpdf'] );
+		if ( ! \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
+			unset( $tabs['pdf'] );
 		}
 
-		if ( ! \Pressbooks\Modules\Export\Mpdf\Pdf::isInstalled() ) {
+		if ( ! \Pressbooks\Modules\Export\Mpdf\Pdf::hasDependencies() ) {
 			unset( $tabs['mpdf'] );
 		}
 

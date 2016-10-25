@@ -47,6 +47,9 @@ jQuery(function ($) {
             }
             $(this).prop('checked', v);
         }
+				if ( $(this).attr('disabled') ) {
+					$(this).prop('checked', false);
+				}
     }).change(function () {
       Cookies.set('pb_' + $(this).attr('name'), $(this).prop('checked'), {
             path: '/',
