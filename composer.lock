@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "53fbb8395fd97766304458f37d0ae429",
-    "content-hash": "d52e074b4ff82a49996cc8567587ae96",
+    "hash": "7405e27efff2f7d3fbb04ebd17096b49",
+    "content-hash": "882f6d0784708aa3268127bb7a79b38f",
     "packages": [
         {
             "name": "composer/installers",
@@ -272,38 +272,6 @@
                 "shasum": null
             },
             "type": "library"
-        },
-        {
-            "name": "pressbooks/htmlawed",
-            "version": "1.2-beta11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/htmlawed/",
-                "reference": "tags/v1.2-beta11"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/htmlawed/archive/v1.2-beta11.zip",
-                "reference": "tags/v1.2-beta11",
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "tburry/pquery": "~1.0.1"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/Htmlawed.php"
-                ]
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Htmlawed\\Test\\": "tests"
-                }
-            }
         },
         {
             "name": "pressbooks/pb-api",
@@ -1794,9 +1762,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "pressbooks/htmlawed": 10
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

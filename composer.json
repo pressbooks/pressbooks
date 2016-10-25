@@ -34,7 +34,6 @@
     "leafo/scssphp": "^0.6.6",
     "pressbooks/pb-api": "^1.0",
     "pressbooks/saxon-he": "^9.6",
-    "pressbooks/htmlawed": "1.2-beta11",
     "pressbooks/disable-comments": "1.1"
   },
   "require-dev": {

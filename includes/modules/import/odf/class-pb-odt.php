@@ -11,6 +11,8 @@ namespace Pressbooks\Modules\Import\Odf;
 use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
 
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 class Odt extends Import {
 
 	/**
@@ -279,7 +281,7 @@ class Odt extends Import {
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
-		return \Htmlawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
 
