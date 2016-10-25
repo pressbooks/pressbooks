@@ -97,9 +97,9 @@ class PrintPdf extends Pdf {
 		$sass = \Pressbooks\Container::get( 'Sass' );
 
 		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			$extra = "// Print Settings\n\$prince-image-resolution: 300dpi; \n";
+			$extra = "/* Print Overrides */\n\$prince-image-resolution: 300dpi; \n";
 		} else {
-			$extra = "// Print Settings\nimg { prince-image-resolution: 300dpi; } \n";
+			$extra = "/* Print Overrides */\nimg { prince-image-resolution: 300dpi; } \n";
 		}
 
 		$scss = '';

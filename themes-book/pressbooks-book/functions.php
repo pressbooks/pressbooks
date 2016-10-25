@@ -370,7 +370,7 @@ function replace_running_content_tags( $input ) {
 
 function pressbooks_theme_pdf_css_override( $scss ) {
 
-	$scss .= "// Theme Options\n";
+	$scss .= "/* Theme Options */\n";
 
 	// --------------------------------------------------------------------
 	// Global Options
