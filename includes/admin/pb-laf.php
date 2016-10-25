@@ -665,13 +665,6 @@ function privacy_settings_init() {
 		'privacy_settings',
 		'privacy_settings_section'
 	);
-	add_settings_field(
-		'disable_comments',
-		__( 'Disable Comments', 'pressbooks' ),
-		__NAMESPACE__ . '\privacy_disable_comments_callback',
-		'privacy_settings',
-		'privacy_settings_section'
-	);
 	if ( get_site_option( 'pressbooks_sharingandprivacy_options' )['allow_redistribution'] ) {
 		add_settings_field(
 			'latest_files_public',
@@ -690,11 +683,6 @@ function privacy_settings_init() {
 		'privacy_settings',
 		'permissive_private_content',
 		__NAMESPACE__ . '\privacy_permissive_private_content_sanitize'
-	);
-	register_setting(
-		'privacy_settings',
-		'disable_comments',
-		__NAMESPACE__ . '\privacy_disable_comments_sanitize'
 	);
 	register_setting(
 		'privacy_settings',
@@ -798,16 +786,6 @@ function privacy_blog_public_sanitize( $input ) {
  * @return string
  */
 function privacy_permissive_private_content_sanitize( $input ) {
-	return absint( $input );
-}
-
-/**
- * Privacy settings, disable_comments field sanitization
- *
- * @param $input
- * @return string
- */
-function privacy_disable_comments_sanitize( $input ) {
 	return absint( $input );
 }
 
