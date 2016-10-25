@@ -158,6 +158,7 @@ function latest_exports() {
 	    'epub3' => '._3.epub',
 	    'epub' => '.epub',
 	    'pdf' => '.pdf',
+			'print-pdf' => '._print.pdf',
 	    'mobi' => '.mobi',
 	    'icml' => '.icml',
 	    'xhtml' => '.html',

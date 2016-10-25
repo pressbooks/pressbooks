@@ -693,6 +693,16 @@ abstract class Export {
 				unset( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
 			}
 
+			if ( isset( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] ) ) {
+
+				// The PDF is garbage and we don't want the user to have it.
+				// Delete file. Report error instead of warning.
+				unlink( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] );
+				$conversion_error['\Pressbooks\Modules\Export\Prince\PrintPdf'] = $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'];
+				unset( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] );
+			}
+
+
 			// --------------------------------------------------------------------------------------------------------
 			// Errors :(
 

@@ -54,7 +54,7 @@ class PrintPdf extends Pdf {
 		$this->logfile = $this->createTmpFile();
 
 		// Set filename
-		$filename = $this->timestampedFileName( '.print.pdf' );
+		$filename = $this->timestampedFileName( '._print.pdf' );
 		$this->outputPath = $filename;
 
 		// Fonts
