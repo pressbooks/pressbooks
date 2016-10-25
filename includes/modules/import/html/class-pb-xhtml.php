@@ -10,8 +10,6 @@ namespace Pressbooks\Modules\Import\Html;
 use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
 
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
-
 class Xhtml extends Import {
 
 	/**

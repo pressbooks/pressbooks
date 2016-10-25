@@ -11,8 +11,6 @@ namespace Pressbooks\Modules\Import\Odf;
 use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
 
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
-
 class Odt extends Import {
 
 	/**
