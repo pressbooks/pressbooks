@@ -261,7 +261,6 @@
       width: 100%;
 			margin-top: 13px;
 			cursor: pointer;
-			//float: left;
 			position: relative;
 			border: 1px solid #dedede;
 			width: 325px;
@@ -367,11 +366,24 @@
       float: right;
       width: 50%;
 
+      label {
+        margin-right: 0;
+      }
+
       fieldset,
       p {
 				float: left;
-        width: 40%;
 			}
+
+      fieldset.standard {
+        width: 50%;
+        margin-right: 10px;
+      }
+
+      fieldset.exotic {
+        width: 35%;
+        margin-right: 0;
+      }
     }
   }
 }

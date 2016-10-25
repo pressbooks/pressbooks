@@ -87,11 +87,11 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertEquals( 'A', $res[0]['bar'] );
 		$this->assertEquals( 'C', $res[2]['bar'] );
-		
+
 		$res = \Pressbooks\Utility\multi_sort( $arr );
-		
+
 		$this->assertFalse( $res );
-		
+
 	}
 
 
@@ -179,6 +179,32 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( defined( 'PB_PRINCE_COMMAND' ) );
 	}
 
+	/**
+	 * @covers \Pressbooks\Utility\check_epubcheck_install
+	 */
+	public function test_check_epubcheck_install() {
+
+		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_epubcheck_install() );
+		$this->assertTrue( defined( 'PB_EPUBCHECK_COMMAND' ) );
+	}
+
+	/**
+	 * @covers \Pressbooks\Utility\check_kindlegen_install
+	 */
+	public function test_check_kindlegen_install() {
+
+		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_kindlegen_install() );
+		$this->assertTrue( defined( 'PB_KINDLEGEN_COMMAND' ) );
+	}
+
+	/**
+	 * @covers \Pressbooks\Utility\check_xmllint_install
+	 */
+	public function test_check_xmllint_install() {
+
+		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_xmllint_install() );
+		$this->assertTrue( defined( 'PB_XMLLINT_COMMAND' ) );
+	}
 
 	/**
 	 * @covers \Pressbooks\Utility\show_experimental_features
@@ -187,7 +213,7 @@ class UtilityTest extends \WP_UnitTestCase {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\show_experimental_features() );
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\show_experimental_features( 'http://pressbooks.com' ) );
-		
+
 	}
 
 

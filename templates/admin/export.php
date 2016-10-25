@@ -113,10 +113,10 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 	<p><?php _e( 'Select which formats you want to export', 'pressbooks' ); ?>.</p>
 
 	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
-	    <fieldset>
+	    <fieldset class="standard">
 				<legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
 	  		<input type="checkbox" id="print_pdf" name="export_formats[print_pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="print_pdf"> <?php _e( 'PDF (for print)', 'pressbooks' ); ?></label><br />
-				<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="pdf"> <?php _e( 'PDF (for digital)', 'pressbooks' ); ?></label><br />
+				<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="pdf"> <?php _e( 'PDF (for digital distribution)', 'pressbooks' ); ?></label><br />
 				<?php if ( true == \Pressbooks\Modules\Export\Mpdf\Pdf::hasDependencies() ) { ?>
 					<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" /><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
 				<?php } ?>
@@ -124,7 +124,7 @@ if ( ! empty( $_GET['export_warning'] ) && ( get_option( 'pressbooks_email_valid
 		  	<input type="checkbox" id="mobi" name="export_formats[mobi]" value="1" <?php if ( false == $mobi ) { ?>disabled <?php } ?>/><label for="mobi"> <?php _e( 'MOBI (for Kindle)', 'pressbooks' ); ?></label>
 	    </fieldset>
 
-	    <fieldset>
+	    <fieldset class="exotic">
 	    <legend><?php _e( 'Exotic formats', 'pressbooks' ); ?>:</legend>
 		    <input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php if ( false == $epub ) { ?>disabled <?php } ?>/><label for="epub3"> <?php _e( 'EPUB 3 (beta)', 'pressbooks' ); ?></label><br />
 	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" <?php if ( false == $xhtml ) { ?>disabled <?php } ?>/><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />

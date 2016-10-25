@@ -373,7 +373,7 @@ function check_epubcheck_install() {
 	exec( PB_EPUBCHECK_COMMAND . ' -h 2>&1', $output, $return_val );
 
 	$output = $output[0];
-	if ( strpos( $output, 'EpubCheck' ) ) { // Command found.
+	if ( false !== strpos( $output, 'EpubCheck' ) ) { // Command found.
 		$output = explode( 'EpubCheck v', $output );
 		$version = $output[1];
 		if ( version_compare( $version, '4.0.0' ) >= 0 ) {
@@ -399,7 +399,7 @@ function check_kindlegen_install() {
 	exec( PB_KINDLEGEN_COMMAND . ' 2>&1', $output, $return_val );
 
 	$output = $output[2];
-	if ( strpos( $output, 'kindlegen' ) ) { // Command found.
+	if ( false !== strpos( $output, 'kindlegen' ) ) { // Command found.
 		$output = explode( ' V', $output );
 		$output = explode( ' build', $output[1] );
 		$version = $output[0];
@@ -426,7 +426,7 @@ function check_prince_install() {
 	exec( PB_PRINCE_COMMAND . ' --version 2>&1', $output, $return_val );
 
 	$output = $output[0];
-	if ( strpos( $output, 'Prince' ) ) { // Command found.
+	if ( false !== strpos( $output, 'Prince' ) ) { // Command found.
 		$output = explode( 'Prince ', $output );
 		$version = $output[1];
 		if ( version_compare( $version, '20160929' ) >= 0 ) {
@@ -452,7 +452,7 @@ function check_xmllint_install() {
 	exec( PB_XMLLINT_COMMAND . ' --version 2>&1', $output, $return_val );
 
 	$output = $output[0];
-	if ( strpos( $output, 'libxml' ) ) { // Command found.
+	if ( false !== strpos( $output, 'libxml' ) ) { // Command found.
 		$output = explode( PB_XMLLINT_COMMAND . ': using libxml version ', $output );
 		$version = $output[1];
 		if ( version_compare( $version, '20800' ) >= 0 ) {
