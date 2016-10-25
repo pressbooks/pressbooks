@@ -185,7 +185,7 @@ abstract class Export {
 
 		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
 
-		if ( @$current_user->user_email && get_option( 'pressbooks_email_validation_logs' ) ) {
+		if ( @$current_user->user_email && get_option( 'pressbooks_export_options' )['email_validation_logs'] ) {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
 
