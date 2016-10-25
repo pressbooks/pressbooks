@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "12daa85d5051f86b1c840fbbc4a14cde",
-    "content-hash": "f49ad62a49b86ea1120061b3de3818fb",
+    "hash": "53fbb8395fd97766304458f37d0ae429",
+    "content-hash": "d52e074b4ff82a49996cc8567587ae96",
     "packages": [
         {
             "name": "composer/installers",
@@ -258,23 +258,6 @@
             "time": "2015-09-11 15:10:35"
         },
         {
-            "name": "pressbooks/custom-metadata",
-            "version": "0.8.1-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/custom-metadata/",
-                "reference": "tags/v0.8.1-dev"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/custom-metadata/archive/v0.8.1-dev.zip",
-                "reference": "tags/v0.8.1-dev",
-                "shasum": null
-            },
-            "type": "library",
-            "time": "2016-04-28 02:50:35"
-        },
-        {
             "name": "pressbooks/disable-comments",
             "version": "1.1",
             "source": {
@@ -364,22 +347,6 @@
             "time": "2016-10-19 18:43:02"
         },
         {
-            "name": "pressbooks/pressbooks-latex",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/pressbooks-latex/",
-                "reference": "tags/v1.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/pressbooks-latex/archive/v1.0.0.zip",
-                "reference": "tags/v1.0.0",
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
             "name": "pressbooks/saxon-he",
             "version": "9.6.0",
             "source": {
@@ -406,45 +373,6 @@
             ],
             "description": "Provides implementations of XSLT 2.0, XQuery 3.1, and XPath 3.1 at the basic level of conformance defined by W3C.",
             "time": "2016-09-12 18:32:26"
-        },
-        {
-            "name": "wp-api/wp-api",
-            "version": "2.0-beta15",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/WP-API/WP-API.git",
-                "reference": "a674b60acd8ef6109cdd83ce6036c037d97c233f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/WP-API/WP-API/zipball/a674b60acd8ef6109cdd83ce6036c037d97c233f",
-                "reference": "a674b60acd8ef6109cdd83ce6036c037d97c233f",
-                "shasum": ""
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "require-dev": {
-                "squizlabs/php_codesniffer": "2.3.4",
-                "wp-coding-standards/wpcs": "0.6.0"
-            },
-            "type": "wordpress-plugin",
-            "extra": {
-                "installer-name": "rest-api"
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL2+"
-            ],
-            "authors": [
-                {
-                    "name": "WP-API Team",
-                    "homepage": "http://wp-api.org/"
-                }
-            ],
-            "description": "Access your WordPress site's data through an easy-to-use HTTP REST API.",
-            "homepage": "http://wp-api.org/",
-            "time": "2016-10-08 03:50:28"
         }
     ],
     "packages-dev": [
@@ -1867,9 +1795,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "pressbooks/htmlawed": 10,
-        "pressbooks/custom-metadata": 20,
-        "wp-api/wp-api": 10
+        "pressbooks/htmlawed": 10
     },
     "prefer-stable": false,
     "prefer-lowest": false,

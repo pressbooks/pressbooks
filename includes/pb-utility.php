@@ -496,21 +496,30 @@ function show_experimental_features( $host = null ) {
  */
 function include_plugins() {
 	$plugins = array(
-	    'custom-metadata/custom_metadata.php' => 1,
 	    'disable-comments/disable-comments.php' => 1,
-			'pressbooks-latex/pb-latex.php' => 1,
 			'pb-api/pb-api.php' => 1,
 	);
 
 	$plugins = filter_plugins( $plugins );
 
-	// Include plugins
 	if ( ! empty( $plugins ) ) {
 		foreach ( $plugins as $key => $val ) {
 			require_once( PB_PLUGIN_DIR . 'vendor/pressbooks/' . $key );
 		}
 	}
 
+	$symbionts = array(
+		'custom-metadata/custom_metadata.php' => 1,
+		'pressbooks-latex/pb-latex.php' => 1,
+	);
+
+	$symbionts = filter_plugins( $symbionts );
+
+	if ( ! empty( $symbionts ) ) {
+		foreach ( $symbionts as $key => $val ) {
+			require_once( PB_PLUGIN_DIR . 'symbionts/' . $key );
+		}
+	}
 }
 
 /**
