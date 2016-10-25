@@ -11,6 +11,8 @@
 
 	<!-- Exclude tests -->
 	<exclude-pattern>tests/</exclude-pattern>
+	<!-- Exclude symbionts -->
+	<exclude-pattern>symbionts/</exclude-pattern>
 	<!-- Exclude vendor -->
 	<exclude-pattern>vendor/</exclude-pattern>
 	<!-- Exclude themes-* -->
