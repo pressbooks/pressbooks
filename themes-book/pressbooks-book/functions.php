@@ -686,3 +686,19 @@ function pressbooks_cover_promo() { ?>
 }
 
 add_action( 'pb_cover_promo', 'pressbooks_cover_promo' );
+
+function theme_delta() {
+	$delta = array(
+	  'austen' => 'pressbooks-austenclassic',
+	  'clarke' => 'pressbooks-clarke',
+	  'donham' => 'pressbooks-donham',
+	  'fitzgerald' => 'pressbooks-fitzgerald',
+	);
+
+	$current_theme = get_stylesheet();
+	if ( array_key_exists( $current_theme, $delta ) ) {
+		switch_theme( $delta[ $current_theme ] );
+	}
+}
+
+add_action( 'init', 'theme_delta' );
