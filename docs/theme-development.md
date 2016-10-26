@@ -1,5 +1,7 @@
 # Theme Development
 
+_Follow along with these steps at the [pressbooks/pressbooks-demo](https://github.com/pressbooks/pressbooks-demo) repository._
+
 ## 1. Getting Started
 
 _Reference Commit: [15875fb](https://github.com/pressbooks/pressbooks-demo/commit/15875fb8c7d4ea8a026190c60e48ae4b4971cef3)_
