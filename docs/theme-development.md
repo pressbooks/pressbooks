@@ -40,6 +40,14 @@ The resulting theme will have the following structure and contents:
 	├── functions.php
 	├── style.css
 
+Note that [`style.css`](https://github.com/pressbooks/pressbooks-demo/blob/15875fb8c7d4ea8a026190c60e48ae4b4971cef3/style.css) is not used except to provide Pressbooks with [theme file header](https://codex.wordpress.org/File_Header#Theme_File_Header_Example) information. Your web theme stylesheet is compiled when your theme is activated or theme options that affect it are changed. For easier development, you can add the following line to `wp-config.php`:
+
+```
+define('WP_ENV', 'development');
+```
+
+This will turn on the development compiler introduced in Pressbooks 3.9.0, which triggers a recompile of your web theme stylesheet if the source files have been modified since it was last compiled when you visit any page in your webbook ([see here](https://github.com/pressbooks/pressbooks/blob/master/themes-book/pressbooks-book/functions.php#L101-L143)).
+
 ## 2. Overriding Defaults
 
 _Reference Commit: [53619ba](https://github.com/pressbooks/pressbooks-demo/commit/53619ba787069fd46853ac66fd697ed11a21443d)_
