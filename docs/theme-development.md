@@ -46,7 +46,7 @@ Note that [`style.css`](https://github.com/pressbooks/pressbooks-demo/blob/15875
 define('WP_ENV', 'development');
 ```
 
-This will turn on the development compiler introduced in Pressbooks 3.9.0, which triggers a recompile of your web theme stylesheet if the source files have been modified since it was last compiled when you visit any page in your webbook ([see here](https://github.com/pressbooks/pressbooks/blob/master/themes-book/pressbooks-book/functions.php#L101-L143)).
+This will turn on the development compiler introduced in Pressbooks 3.9.0, which triggers a recompile of your web theme stylesheet if the source files have been modified since it was last compiled when you visit any page in your webbook ([see here](https://github.com/pressbooks/pressbooks/blob/v3.9.0/themes-book/pressbooks-book/functions.php#L97-L143)).
 
 ## 2. Overriding Defaults
 
