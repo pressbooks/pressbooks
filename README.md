@@ -1,7 +1,6 @@
-Pressbooks
-==========
+# [Pressbooks](https://pressbooks.org/)
 
-[![Build Status](https://travis-ci.org/pressbooks/pressbooks.svg?branch=dev)](https://travis-ci.org/pressbooks/pressbooks) [![Coverage Status](https://coveralls.io/repos/pressbooks/pressbooks/badge.svg?branch=dev&service=github)](https://coveralls.io/github/pressbooks/pressbooks?branch=dev)
+[![Build Status](https://travis-ci.org/pressbooks/pressbooks.svg?branch=dev)](https://travis-ci.org/pressbooks/pressbooks) [![Code Coverage](https://codecov.io/gh/pressbooks/pressbooks/branch/dev/graph/badge.svg)](https://codecov.io/gh/pressbooks/pressbooks) [![Current Release](https://img.shields.io/github/release/pressbooks/pressbooks.svg)](https://github.com/pressbooks/pressbooks/releases/latest/) [![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
 
 [Pressbooks](http://pressbooks.com) is a book content management system which exports in multiple formats: ebooks, webbooks, print-ready [PDF][], and various XML flavours. [Pressbooks](http://pressbooks.com) is built on top of [WordPress Multisite](http://codex.wordpress.org/Glossary#Multisite), and makes significant changes to:
   * admin interface (customized for books and other structured documents, such as magazines, journals, reports, etc.);
@@ -33,12 +32,12 @@ Installing the Plugin
 
 Pressbooks is not for use on an existing blog. Instead it should be used with a fresh, multisite WordPress install.
 
-Unless you are installing Pressbooks for development, you should use the version from the [WordPress Plugin Directory](https://wordpress.org/plugins/pressbooks) rather than this version. If you need to install Pressbooks for development, please see the ["Contributing"](CONTRIBUTING.md) guide.
+To install Pressbooks on your site, download the [latest release](https://github.com/pressbooks/pressbooks/releases/latest). If you need to install Pressbooks for development, please see the ["Contributing"](CONTRIBUTING.md) guide.
 
 Requirements
 ------------
 
-Pressbooks works with PHP 5.6.X and WordPress 4.5.1. Lower versions are not supported.
+Pressbooks works with PHP 5.6.X and WordPress 4.6.1. Lower versions are not supported.
 
 Disclaimers
 -----------
@@ -48,4 +47,4 @@ The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 More Details
 ------------
 
-See readme.txt for installation details.
+See [readme.txt](https://github.com/pressbooks/pressbooks/blob/dev/readme.txt) for installation details.

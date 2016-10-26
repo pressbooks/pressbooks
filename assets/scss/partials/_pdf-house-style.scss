@@ -1,5 +1,5 @@
 
-/* PRESSBOOKS PDF FALL-BACK STYLESHEET FOR VARIOUS SPECIAL THINGS 
+/* PRESSBOOKS PDF FALL-BACK STYLESHEET FOR VARIOUS SPECIAL THINGS
 in development
 copyright 2013-2015 Book Oven Inc. */
 
@@ -12,7 +12,7 @@ copyright 2013-2015 Book Oven Inc. */
 /* DROPCAPS - (NOTE: WRAP FIRST CHAR IN A SPAN) */
 
 
-/* Override hierarchy. 
+/* Override hierarchy.
 See: http://www.princexml.com/doc/8.1/pdf-bookmarks */
 h1, h2, h3, h4, h5, h6 {
   prince-bookmark-level: 1;
@@ -24,8 +24,8 @@ div.ugc h1, div.ugc h2, div.ugc h3, div.ugc h4, div.ugc h5, div.ugc h6 {
 }
 
 
-/* DEFAULT PAGE GROUPINGS & associated style  
-note: should all page groupings be put here? probably. 
+/* DEFAULT PAGE GROUPINGS & associated style
+note: should all page groupings be put here? probably.
 ===================================================== */
 
 
@@ -71,7 +71,7 @@ div.chapter {
   page: chapter;
   prince-page-group: start;
 }
-div.chapter.type-1 {
+div.chapter.standard {
   page: chapter;
   prince-page-group: start;
 }
@@ -219,7 +219,7 @@ div.blank-page {
        content: "";
     }
 }
-@page dedication {  
+@page dedication {
     @top {
        content: "";
     }
@@ -283,7 +283,7 @@ div.blank-page {
        content: "";
     }
 }
-@page toc {  
+@page toc {
     @top {
        content: "";
     }
@@ -542,10 +542,10 @@ div.blank-page {
 
 
 /* ALWAYS START ON RIGHT HAND PAGE */
- 
+
 div.front-matter.introduction {
   page-break-before: right !important;
- } 
+ }
 #half-title-page {
   page-break-before: right;
 }
@@ -556,8 +556,8 @@ div.front-matter.introduction {
   page-break-before: right;
 }
 
-/* DEFAULT STRING-SETS ... 
-enable you to call system-wide content using: 
+/* DEFAULT STRING-SETS ...
+enable you to call system-wide content using:
 --
 content: string(arbitrary-string-set-name);
 
@@ -581,7 +581,7 @@ content: string(arbitrary-string-set-name);
 }
 
 #title-page > .subtitle {
-  string-set: book-subtitle content();  
+  string-set: book-subtitle content();
 }
 
 #title-page > .author {
@@ -615,7 +615,7 @@ div.chapter.numberless h3.chapter-number {
 }
 
 /* chapter title */
-div.front-matter .front-matter-title-wrap > h1:first-of-type, 
+div.front-matter .front-matter-title-wrap > h1:first-of-type,
 div.chapter .chapter-title-wrap > h2:first-of-type,
 div.back-matter .back-matter-title-wrap > h1:first-of-type  {
   string-set: section-title content();
@@ -664,7 +664,7 @@ p.no-indent {
    hyphenate-after: 3;
    hyphenate-lines: 2;
    widows: 2;
-   orphans: 1; 
+   orphans: 1;
 }
 
 p.no-indent {
@@ -737,7 +737,7 @@ div.blank-page {
 /* ENDNOTES */
 sup,
 sup.endnote,
-sup.footnote { 
+sup.footnote {
   font-size: 0.8em;
   line-height: 0.5em;
 }
@@ -817,7 +817,7 @@ ol.upper-alpha {
   border: 1px solid;
   border-width: 1px 0;
   float: left;
-  hyphens: none;  
+  hyphens: none;
   margin: 15px 15px 15px 0;
   padding: 5px 0;
   text-align: center;
@@ -827,7 +827,7 @@ ol.upper-alpha {
   border: 1px solid #000;
   border-width: 1px 0;
   float: right;
-  hyphens: none;  
+  hyphens: none;
   margin: 15px 0 15px 15px;
   padding: 5px 0;
   text-align: center;
@@ -847,7 +847,7 @@ ol.upper-alpha {
 }
 /* TOC
  =============== */
- 
+
 #toc .chapter.numberless a::before {
 	content:'' ;
 	counter-increment: none;
@@ -908,7 +908,7 @@ div.part.invisible {
   text-indent: -14pt;
 }
 
-/* INDEX 
+/* INDEX
 ================== */
 .index .ugc  {
   column-count: 2;
@@ -965,7 +965,7 @@ p.very-loose {
 }
 
 /* PAGE-BREAKS */
-.page-break-after, 
+.page-break-after,
 .pdf-page-break-after {
   page-break-after: always;
 }
@@ -1000,13 +1000,13 @@ p.no-hyphens {
 
 /* NO WRAP */
 
-.nowrap, 
+.nowrap,
 span.nowrap {
   white-space: nowrap;
 }
 
-/* DISPLAY NONE 
-IN VARIOUS CIRCUMSTANCES 
+/* DISPLAY NONE
+IN VARIOUS CIRCUMSTANCES
 ========================= */
 
 .display-none {
@@ -1015,9 +1015,9 @@ IN VARIOUS CIRCUMSTANCES
 
 /* this ONLY works/is declared in PDF, ignored in MOBI & EPUB */
 
-.pdf-display-none, 
+.pdf-display-none,
 .not-pdf {
-  display: none; 
+  display: none;
 }
 .web-only {
   display: none;
@@ -1026,9 +1026,9 @@ IN VARIOUS CIRCUMSTANCES
   display: none;
 }
 
-/* PUBLISHER LOGO (FOR TITLE PAGE) 
+/* PUBLISHER LOGO (FOR TITLE PAGE)
 ================================== */
- 
+
 img.logo {
   width: 35px;
   margin-top: 1em;
@@ -1043,12 +1043,12 @@ div.chapter,
 div.chapter.introduction,
 div.back-matter,
 div.front-matter-title-wrap,
-div.chapter-title-wrap, 
+div.chapter-title-wrap,
 div.back-matter-title-wrap {
   counter-reset: footnote !important;
 }
 
-/* PAGE 1: COUNTER RESET */ 
+/* PAGE 1: COUNTER RESET */
 
 div.front-matter.introduction {
   counter-reset: page 1 !important;
@@ -1060,7 +1060,7 @@ div.chapter.introduction {
   counter-reset: page 1 !important;
 }
 
-/* FLOATS */ 
+/* FLOATS */
 
 .float-top {
   float: top;
@@ -1106,7 +1106,7 @@ table,
 table tr,
 table th {
   page-break-inside: avoid !important;
-} 
+}
 
 .no-border,
 table.no-border,
@@ -1120,7 +1120,7 @@ table.no-border thead {
   border-right: none;
   border-bottom: none;
   border-left: none;
-} 
+}
 
 /* SHADING ETC */
 
@@ -1168,7 +1168,7 @@ div.sidebar {
   margin-left: 0.75em;
   margin-right: 0;
   padding: 0.75em;
-  background-color: #E6E6E6; 
+  background-color: #E6E6E6;
   font-size: 0.8em;
   font-style: italic;
   text-align: left;

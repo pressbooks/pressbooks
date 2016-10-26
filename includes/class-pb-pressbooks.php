@@ -36,8 +36,10 @@ class Pressbooks {
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-root' );
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
 
+		do_action( 'pressbooks_register_theme_directory' );
+
 		// Check for local themes-root directory
-		if ( realpath ( WP_CONTENT_DIR . '/themes-root' ) ) :
+		if ( realpath( WP_CONTENT_DIR . '/themes-root' ) ) :
 			register_theme_directory( WP_CONTENT_DIR . '/themes-root' );
 		endif;
 
@@ -78,7 +80,7 @@ class Pressbooks {
 		$compare = search_theme_directories();
 		foreach ( $compare as $key => $val ) {
 			if ( ! in_array( $key, $exceptions ) && untrailingslashit( $val['theme_root'] ) != PB_PLUGIN_DIR . 'themes-book' ) {
-				unset ( $themes[$key] );
+				unset( $themes[ $key ] );
 			}
 		}
 
@@ -113,7 +115,7 @@ class Pressbooks {
 		$compare = search_theme_directories();
 		foreach ( $compare as $key => $val ) {
 			if ( ! in_array( $key, $exceptions ) && untrailingslashit( $val['theme_root'] ) != PB_PLUGIN_DIR . 'themes-root' ) {
-				unset ( $themes[$key] );
+				unset( $themes[ $key ] );
 			}
 		}
 

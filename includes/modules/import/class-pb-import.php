@@ -10,6 +10,7 @@ namespace Pressbooks\Modules\Import;
 require_once( ABSPATH . 'wp-admin/includes/image.php' );
 require_once( ABSPATH . 'wp-admin/includes/file.php' );
 require_once( ABSPATH . 'wp-admin/includes/media.php' );
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 abstract class Import {
 
@@ -90,7 +91,7 @@ abstract class Import {
 	 */
 	function createTmpFile() {
 
-		return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[mt_rand()] = tmpfile() ) ) );
+		return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ) ) );
 	}
 
 
@@ -126,14 +127,18 @@ abstract class Import {
 	 * @return bool
 	 */
 	protected function flaggedForImport( $id ) {
-
-		if ( ! @is_array( $_POST['chapters'] ) )
+		// @codingStandardsIgnoreLine
+		if ( ! @is_array( $_POST['chapters'] ) ) {
 			return false;
+		}
 
-		if ( ! @isset( $_POST['chapters'][$id]['import'] ) )
+		// @codingStandardsIgnoreLine
+		if ( ! @isset( $_POST['chapters'][ $id ]['import'] ) ) {
 			return false;
+		}
 
-		return ( 1 == $_POST['chapters'][$id]['import'] ? true : false );
+		// @codingStandardsIgnoreLine
+		return ( 1 == $_POST['chapters'][ $id ]['import'] ? true : false );
 	}
 
 
@@ -145,20 +150,27 @@ abstract class Import {
 	 * @return string
 	 */
 	protected function determinePostType( $id ) {
+		$supported_types = apply_filters( 'pb_import_custom_post_types', array( 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
 
-		$supported_types = array( 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' );
 		$default = 'chapter';
 
-		if ( ! @is_array( $_POST['chapters'] ) )
+		// @codingStandardsIgnoreLine
+		if ( ! @is_array( $_POST['chapters'] ) ) {
 			return $default;
+		}
 
-		if ( ! @isset( $_POST['chapters'][$id]['type'] ) )
+		// @codingStandardsIgnoreLine
+		if ( ! @isset( $_POST['chapters'][ $id ]['type'] ) ) {
 			return $default;
+		}
 
-		if ( ! in_array( $_POST['chapters'][$id]['type'], $supported_types ) )
+		// @codingStandardsIgnoreLine
+		if ( ! in_array( $_POST['chapters'][ $id ]['type'], $supported_types ) ) {
 			return $default;
+		}
 
-		return $_POST['chapters'][$id]['type'];
+		// @codingStandardsIgnoreLine
+		return $_POST['chapters'][ $id ]['type'];
 	}
 
 
@@ -183,7 +195,7 @@ abstract class Import {
 		$validate = wp_check_filetype_and_ext( $path_to_file, $filename, $mimes );
 
 		// change filename to the extension that matches its mimetype
-		if ( $validate['proper_filename'] !== false ) {
+		if ( false !== $validate['proper_filename'] ) {
 			return $validate['proper_filename'];
 		} else {
 			return $filename;
@@ -206,7 +218,7 @@ abstract class Import {
 			'safe' => 1,
 		);
 
-		return \Htmlawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
 
@@ -237,9 +249,12 @@ abstract class Import {
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
-		// Appends 'last part' of the path to the dynamic first part of the path ($upload_dir)
-		$upload_dir = wp_upload_dir();
-		$current_import['file'] = trailingslashit( $upload_dir['path'] ) . basename( $current_import['file'] );
+		// only html import uses a url, not a file path
+		if ( 0 !== strcmp( $current_import['type_of'], 'html' ) ) {
+			// Appends 'last part' of the path to the dynamic first part of the path ($upload_dir)
+			$upload_dir             = wp_upload_dir();
+			$current_import['file'] = trailingslashit( $upload_dir['path'] ) . basename( $current_import['file'] );
+		}
 
 		if ( @$_GET['import'] && is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
@@ -285,7 +300,6 @@ abstract class Import {
 				$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pressbooks' );
 				\Pressbooks\Redirect\location( $success_url );
 			}
-
 		} elseif ( @$_GET['import'] && ! @empty( $_FILES['import_file']['name'] ) && @$_POST['type_of'] && check_admin_referer( 'pb-import' ) ) {
 
 			// --------------------------------------------------------------------------------------------------------
@@ -299,8 +313,9 @@ abstract class Import {
 			);
 			$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
 
-			if ( ! function_exists( 'wp_handle_upload' ) )
+			if ( ! function_exists( 'wp_handle_upload' ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			}
 
 			$upload = wp_handle_upload( $_FILES['import_file'], $overrides );
 
@@ -341,10 +356,9 @@ abstract class Import {
 			if ( ! $ok ) {
 				// Not ok?
 				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
-				unlink ( $upload['file'] );
+				unlink( $upload['file'] );
 			}
-
-		} elseif ( @$_GET['import'] && @$_POST['type_of'] === 'html' && check_admin_referer( 'pb-import' ) ) {
+		} elseif ( @$_GET['import'] && 'html' === @$_POST['type_of'] && check_admin_referer( 'pb-import' ) ) {
 
 			// check if it's a valid url
 			if ( false == filter_var( $_POST['import_html'], FILTER_VALIDATE_URL ) ) {
@@ -364,12 +378,12 @@ abstract class Import {
 
 			// weebly.com (and likely some others) prevent HEAD requests, but allow GET requests
 			if ( 200 !== $remote_head['response']['code'] && 405 !== $remote_head['response']['code'] ) {
-				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ' . $remote_head['response']['code'] , 'pressbooks' );
+				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ' , 'pressbooks' ) . $remote_head['response']['code'];
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
 			// ensure the media type is HTML (not JSON, or something we can't deal with)
-			if ( false === strpos( $remote_head['headers']['content-type'], 'text/html' ) && false === strpos( $remote_head['headers']['content-type'], 'application/xhtml+xml')) {
+			if ( false === strpos( $remote_head['headers']['content-type'], 'text/html' ) && false === strpos( $remote_head['headers']['content-type'], 'application/xhtml+xml' ) ) {
 				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
@@ -386,8 +400,8 @@ abstract class Import {
 			}
 
 			// check for a successful response code on GET request
-			if ( 200 !== $body['response']['code'] ){
-				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ' . $body['response']['code'] , 'pressbooks' );
+			if ( 200 !== $body['response']['code'] ) {
+				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ' , 'pressbooks' ) . $body['response']['code'];
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
@@ -417,12 +431,12 @@ abstract class Import {
 	 * @return bool
 	 */
 	static function isFormSubmission() {
-
 		if ( 'pb_import' != @$_REQUEST['page'] ) {
 			return false;
 		}
 
-		if ( ! empty ( $_POST ) ) {
+		// @codingStandardsIgnoreLine
+		if ( ! empty( $_POST ) ) {
 			return true;
 		}
 

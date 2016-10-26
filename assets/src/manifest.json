@@ -68,6 +68,11 @@
       ],
       "bower": ["select2"]
     },
+    "theme-options.css": {
+      "files": [
+        "styles/theme-options.scss"
+      ]
+    },
     "anchor.js": {
       "files": [
         "scripts/anchor.js"
@@ -76,6 +81,11 @@
     "book-information.js": {
       "files": [
         "scripts/book-information.js"
+      ]
+    },
+    "color-picker.js": {
+      "files": [
+        "scripts/color-picker.js"
       ]
     },
     "export.js": {
@@ -123,6 +133,11 @@
         "scripts/search-and-replace.js"
       ]
     },
+    "applyclass.js": {
+      "files": [
+        "scripts/applyclass.js"
+      ]
+    },
     "catalog.js": {
       "files": [
         "scripts/catalog.js"
@@ -164,6 +179,11 @@
     },
     "sharer.js": {
       "bower": ["sharer.js"]
+    },
+    "table.js": {
+      "files": [
+        "../../bower_components/tinymce/plugins/table/plugin.js"
+      ]
     }
   },
   "paths": {

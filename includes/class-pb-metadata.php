@@ -2,7 +2,7 @@
 /**
  * This class has two purposes:
  *  + Handle the custom metadata post, i.e. "Book Information". There should only be one metadata post per book.
- *  + Perform upgrades on individual books as Pressbooks evolves
+ *  + Perform upgrades on individual books as Pressbooks evolves.
  *
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
@@ -100,7 +100,7 @@ class Metadata {
 		/** @var \wpdb $wpdb */
 		global $wpdb;
 		$mid = $wpdb->get_var( $wpdb->prepare( "SELECT meta_id FROM $wpdb->postmeta WHERE post_id = %d AND meta_key = %s LIMIT 1 ", $post_id, $meta_key ) );
-		if ( $mid != '' ) {
+		if ( '' != $mid ) {
 			return absint( $mid );
 		}
 
@@ -119,7 +119,7 @@ class Metadata {
 		    'author' => 'pb_author',
 		    'description' => 'pb_about_50',
 		    'keywords' => 'pb_keywords_tags',
-		    'publisher' => 'pb_publisher'
+		    'publisher' => 'pb_publisher',
 		);
 		$html = "<meta name='application-name' content='Pressbooks'>\n";
 		$metadata = Book::getBookInformation();
@@ -127,7 +127,7 @@ class Metadata {
 		// create meta elements
 		foreach ( $meta_mapping as $name => $content ) {
 			if ( array_key_exists( $content, $metadata ) ) {
-				$html .= "<meta name='" . $name . "' content='" . $metadata[$content] . "'>\n";
+				$html .= "<meta name='" . $name . "' content='" . $metadata[ $content ] . "'>\n";
 			}
 		}
 
@@ -163,9 +163,9 @@ class Metadata {
 		foreach ( $micro_mapping as $itemprop => $content ) {
 			if ( array_key_exists( $content, $metadata ) ) {
 				if ( 'pb_publication_date' == $content ) {
-					$content = date( 'Y-m-d', (int) $metadata[$content] );
+					$content = date( 'Y-m-d', (int) $metadata[ $content ] );
 				} else {
-					$content = $metadata[$content];
+					$content = $metadata[ $content ];
 				}
 				$html .= "<meta itemprop='" . $itemprop . "' content='" . $content . "' id='" . $itemprop . "'>\n";
 			}
@@ -223,7 +223,7 @@ class Metadata {
 			'derivatives' => 'n',
 		    ),
 		    'all-rights-reserved' => array(),
-//		    'other' => array(),
+		//          'other' => array(),
 		);
 
 		// nothing meaningful to hit the api with, so bail
@@ -234,23 +234,23 @@ class Metadata {
 		switch ( $type ) {
 			// api doesn't have an 'all-rights-reserved' endpoint, so manual build necessary
 			case 'all-rights-reserved':
-				$xml = "<result><html>"
-					. "<span property='dct:title'>" . Sanitize\sanitize_xml_attribute( $title ) . "</span> &#169; "
-					. Sanitize\sanitize_xml_attribute( $copyright_holder ) . '. ' . __( 'All Rights Reserved', 'pressbooks' ) . ".</html></result>";
+				$xml = '<result><html>'
+					. "<span property='dct:title'>" . Sanitize\sanitize_xml_attribute( $title ) . '</span> &#169; '
+					. Sanitize\sanitize_xml_attribute( $copyright_holder ) . '. ' . __( 'All Rights Reserved', 'pressbooks' ) . '.</html></result>';
 				break;
 
-//			case 'other':
-//				 //@TODO
-//				break;
+			//          case 'other':
+			//               //@TODO
+			//              break;
 
 			default:
 
-				$key = array_keys( $expected[$type] );
-				$val = array_values( $expected[$type] );
+				$key = array_keys( $expected[ $type ] );
+				$val = array_values( $expected[ $type ] );
 
 				// build the url
-				$url = $endpoint . $key[0] . "/" . $val[0] . "/get?" . $key[1] . "=" . $val[1] . "&" . $key[2] . "=" . $val[2] .
-					"&creator=" . urlencode( $copyright_holder ) . "&attribution_url=" . urlencode( $src_url ) . "&title=" . urlencode( $title ) . "&locale=" . $lang ;
+				$url = $endpoint . $key[0] . '/' . $val[0] . '/get?' . $key[1] . '=' . $val[1] . '&' . $key[2] . '=' . $val[2] .
+					'&creator=' . urlencode( $copyright_holder ) . '&attribution_url=' . urlencode( $src_url ) . '&title=' . urlencode( $title ) . '&locale=' . $lang ;
 
 				$xml = wp_remote_get( $url );
 				$ok = wp_remote_retrieve_response_code( $xml );
@@ -287,9 +287,9 @@ class Metadata {
 		if ( is_object( $response ) ) {
 			$content = $response->asXML();
 			$content = trim( str_replace( array( '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ), array( '', '', '', '' ), $content ) );
-			$content = preg_replace( "/http:\/\/i.creativecommons/iU", "https://i.creativecommons", $content );
+			$content = preg_replace( '/http:\/\/i.creativecommons/iU', 'https://i.creativecommons', $content );
 
-			$html = '<div class="license-attribution" xmlns:cc="http://creativecommons.org/ns#"><p xmlns:dct="http://purl.org/dc/terms/">' . rtrim( $content, "." ) . ', ' . __( "except where otherwise noted.", "pressbooks" ) . '</p></div>';
+			$html = '<div class="license-attribution" xmlns:cc="http://creativecommons.org/ns#"><p xmlns:dct="http://purl.org/dc/terms/">' . rtrim( $content, '.' ) . ', ' . __( 'except where otherwise noted.', 'pressbooks' ) . '</p></div>';
 		}
 
 		return html_entity_decode( $html, ENT_XHTML, 'UTF-8' );
@@ -328,7 +328,7 @@ class Metadata {
 			$this->resetLandingPage();
 		}
 		if ( $version < 10 ) {
-			\Pressbooks\Taxonomy\insert_terms();
+			\Pressbooks\Taxonomy::insertTerms();
 			flush_rewrite_rules( false );
 		}
 	}
@@ -345,9 +345,9 @@ class Metadata {
 
 		if ( $options ) {
 			foreach ( $options as $meta_key => $meta_value ) {
-				$new_meta_key = @$compare[$meta_key];
+				$new_meta_key = @$compare[ $meta_key ];
 				if ( $new_meta_key ) {
-					$new_options[$new_meta_key] = $meta_value;
+					$new_options[ $new_meta_key ] = $meta_value;
 				}
 			}
 		}
@@ -365,18 +365,19 @@ class Metadata {
 		// Metadata
 
 		$meta_post = $this->getMetaPost();
-		if ( ! $meta_post )
+		if ( ! $meta_post ) {
 			return; // Do nothing
+		}
 
 		$metadata = $this->getMetaPostMetadata();
 		$compare = $this->getDeprecatedComparisonTable( 'metadata' );
 
 		foreach ( $metadata as $meta_key => $meta_value ) {
-			$new_meta_key = @$compare[$meta_key];
+			$new_meta_key = @$compare[ $meta_key ];
 			if ( $new_meta_key ) {
 				$meta_id = $this->getMidByKey( $meta_post->ID, $meta_key );
 				if ( $meta_id ) {
-					if ( isset( $this->upgradeCheckboxes[$meta_key] ) ) {
+					if ( isset( $this->upgradeCheckboxes[ $meta_key ] ) ) {
 						$meta_value = 'on';
 					} elseif ( is_array( $meta_value ) ) {
 						$meta_value = array_values( $meta_value );
@@ -413,11 +414,11 @@ class Metadata {
 			$compare = $this->getDeprecatedComparisonTable( get_post_type( $post_id ) );
 
 			foreach ( $meta as $meta_key => $meta_value ) {
-				$new_meta_key = @$compare[$meta_key];
+				$new_meta_key = @$compare[ $meta_key ];
 				if ( $new_meta_key ) {
 					$meta_id = $this->getMidByKey( $post_id, $meta_key );
 					if ( $meta_id ) {
-						if ( isset( $this->upgradeCheckboxes[$meta_key] ) ) {
+						if ( isset( $this->upgradeCheckboxes[ $meta_key ] ) ) {
 							$meta_value = 'on';
 						} elseif ( is_array( $meta_value ) ) {
 							$meta_value = array_values( $meta_value );
@@ -451,7 +452,7 @@ class Metadata {
 				'subtitle' => 'pb_subtitle',
 				'chap_author' => 'pb_section_author',
 				'chapter-export' => 'pb_export',
-				'show-title' => 'pb_show_title'
+				'show-title' => 'pb_show_title',
 			);
 
 		} elseif ( 'front-matter' == $table ) {
@@ -462,7 +463,7 @@ class Metadata {
 				'subtitle' => 'pb_subtitle',
 				'chap_author' => 'pb_section_author',
 				'front-matter-export' => 'pb_export',
-				'show-title' => 'pb_show_title'
+				'show-title' => 'pb_show_title',
 			);
 
 		} elseif ( 'back-matter' == $table ) {
@@ -470,7 +471,7 @@ class Metadata {
 			// Back Matter
 			$metadata = array(
 				'back-matter-export' => 'pb_export',
-				'show-title' => 'pb_show_title'
+				'show-title' => 'pb_show_title',
 			);
 
 		} elseif ( 'ecommerce' == $table ) {
@@ -548,22 +549,24 @@ class Metadata {
 			array(
 				'post_title' => __( 'Custom CSS for Ebook', 'pressbooks' ),
 				'post_name' => 'epub',
-				'post_type' => 'custom-css' ),
+				'post_type' => 'custom-css',
+			),
 			array(
 				'post_title' => __( 'Custom CSS for PDF', 'pressbooks' ),
 				'post_name' => 'prince',
-				'post_type' => 'custom-css' ),
+				'post_type' => 'custom-css',
+			),
 			array(
 				'post_title' => __( 'Custom CSS for Web', 'pressbooks' ),
 				'post_name' => 'web',
-				'post_type' => 'custom-css' ),
+				'post_type' => 'custom-css',
+			),
 		);
 
 		$post = array( 'post_status' => 'publish', 'post_author' => wp_get_current_user()->ID );
-		$query = "SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ";
 
 		foreach ( $posts as $item ) {
-			$exists = $wpdb->get_var( $wpdb->prepare( $query, array( $item['post_title'], $item['post_type'], $item['post_name'] ) ) );
+			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ", array( $item['post_title'], $item['post_type'], $item['post_name'] ) ) );
 			if ( empty( $exists ) ) {
 				$data = array_merge( $item, $post );
 				wp_insert_post( $data );
@@ -626,7 +629,7 @@ class Metadata {
 					'post_mime_type' => $type,
 					'post_title' => __( 'Cover Image', 'pressbooks' ),
 					'post_content' => '',
-					'post_status' => 'inherit'
+					'post_status' => 'inherit',
 				);
 
 				include_once( ABSPATH . 'wp-admin/includes/image.php' );
@@ -648,14 +651,12 @@ class Metadata {
 
 		update_option( 'show_on_front', 'page' );
 
-		$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'cover' AND post_type = 'page' AND post_status = 'publish' ";
-		$id = $wpdb->get_var( $sql );
+		$id = $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'cover' AND post_type = 'page' AND post_status = 'publish' " );
 		if ( $id ) {
 			update_option( 'page_on_front', $id );
 		}
 
-		$sql = "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'table-of-contents' AND post_type = 'page' AND post_status = 'publish' ";
-		$id = $wpdb->get_var( $sql );
+		$id = $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} WHERE post_name = 'table-of-contents' AND post_type = 'page' AND post_status = 'publish' " );
 		if ( $id ) {
 			update_option( 'page_for_posts', $id );
 		}

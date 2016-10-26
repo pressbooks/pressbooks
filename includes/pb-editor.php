@@ -39,7 +39,6 @@ function mce_buttons_2( $buttons ) {
 	$p = array_search( 'styleselect', $buttons );
 	array_splice( $buttons, $p + 1, 0, 'textboxes' );
 	array_splice( $buttons, 6, 0, 'backcolor' );
-
 	return $buttons;
 }
 
@@ -47,7 +46,8 @@ function mce_buttons_2( $buttons ) {
  * Adds anchor, superscript and subscript buttons to the MCE buttons array.
  */
 function mce_buttons_3( $buttons ) {
-	array_push( $buttons, 'anchor', 'superscript', 'subscript' );
+	array_unshift( $buttons, 'table' );
+	array_push( $buttons, 'apply_class', 'anchor', 'superscript', 'subscript' );
 	return $buttons;
 }
 
@@ -56,8 +56,10 @@ function mce_buttons_3( $buttons ) {
  * Adds Javascript for buttons above.
  */
 function mce_button_scripts( $plugin_array ) {
+	$plugin_array['apply_class'] = \Pressbooks\Utility\asset_path( 'scripts/applyclass.js' );
 	$plugin_array['textboxes'] = \Pressbooks\Utility\asset_path( 'scripts/textboxes.js' );
 	$plugin_array['anchor'] = \Pressbooks\Utility\asset_path( 'scripts/anchor.js' );
+	$plugin_array['table'] = \Pressbooks\Utility\asset_path( 'scripts/table.js' );
 	return $plugin_array;
 }
 
@@ -179,10 +181,6 @@ function mce_table_editor_options( $settings ) {
 			'title' => __( 'Shaded', 'pressbooks' ),
 			'value' => 'shaded',
 		),
-		array(
-			'title' => __( 'Custom...', 'pressbooks' ),
-			'value' => 'custom',
-		),
 	);
 	$cell_classes = array(
 		array(
@@ -218,6 +216,7 @@ function mce_table_editor_options( $settings ) {
 	$settings['table_cell_class_list'] = json_encode( $cell_classes );
 	$settings['table_row_advtab'] = false;
 	$settings['table_row_class_list'] = json_encode( $row_classes );
+	$settings['table_appearance_options'] = false;
 	return $settings;
 }
 
@@ -237,7 +236,7 @@ function update_editor_style() {
 			$sass->pathToFonts(),
 			get_stylesheet_directory(),
 		] );
-	}	elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
+	} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
 		$scss = file_get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
 		$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
 	} else {
@@ -277,9 +276,9 @@ function add_editor_style() {
  */
 function customize_wp_link_query_args( $query ) {
 
-    $query['post_type'] = array( 'part', 'chapter', 'front-matter', 'back-matter' );
+	$query['post_type'] = array( 'part', 'chapter', 'front-matter', 'back-matter' );
 
-    return $query;
+	return $query;
 }
 
 /**
@@ -292,46 +291,47 @@ function customize_wp_link_query_args( $query ) {
  */
 function add_anchors_to_wp_link_query( $results, $query ) {
 
-	$url = parse_url( $_SERVER[ 'HTTP_REFERER' ] );
+	$url = parse_url( $_SERVER['HTTP_REFERER'] );
 	parse_str( $url['query'], $query );
 
-	if ( !isset( $query['post'] ) )
+	if ( ! isset( $query['post'] ) ) {
 		return $results;
+	}
 
 	$anchors = array();
 
 	$post = get_post( $query['post'] );
 
-    libxml_use_internal_errors( true );
+	libxml_use_internal_errors( true );
 
 	$content = mb_convert_encoding( apply_filters( 'the_content', $post->post_content ), 'HTML-ENTITIES', 'UTF-8' );
 
-	if ( !empty( $content ) ) {
+	if ( ! empty( $content ) ) {
 		$doc = new \DOMDocument();
 		$doc->loadHTML( $content );
 
-        foreach ( $doc->getElementsByTagName('a') as $node ) {
-            if ( $node->hasAttribute( 'id' ) ) {
-                $anchors[] = array(
+		foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
+			if ( $node->hasAttribute( 'id' ) ) {
+				$anchors[] = array(
 	                'ID' => $post->ID,
-	                'title' =>  '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
+	                'title' => '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
 	                'permalink' => '#' . $node->getAttribute( 'id' ),
-	                'info' => __( 'Internal Link', 'pressbooks' )
-                );
-            }
-        }
+	                'info' => __( 'Internal Link', 'pressbooks' ),
+				);
+			}
+		}
 	}
 
 	$offset = count( $results ) + 1;
 
-    foreach( $results as $key => $result ) {
+	foreach ( $results as $key => $result ) {
 
 	    if ( $results[ $key ]['ID'] == $query['post'] ) {
 		    $offset = $key + 1;
 	    }
-    }
+	}
 
-    array_splice( $results, $offset, 0, $anchors );
+	array_splice( $results, $offset, 0, $anchors );
 
-    return $results;
+	return $results;
 }

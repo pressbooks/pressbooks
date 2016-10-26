@@ -1,7 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 /* Outputs the content of the Edit CSS page */
 

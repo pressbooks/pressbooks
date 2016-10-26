@@ -10,7 +10,6 @@ use Pressbooks\Modules\Export\Export;
 
 class Kindlegen extends Export {
 
-
 	/**
 	 * @var bool
 	 */
@@ -24,8 +23,9 @@ class Kindlegen extends Export {
 
 		// Some defaults
 
-		if ( ! defined( 'PB_KINDLEGEN_COMMAND' ) )
+		if ( ! defined( 'PB_KINDLEGEN_COMMAND' ) ) {
 			define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
+		}
 
 	}
 
@@ -55,7 +55,6 @@ class Kindlegen extends Export {
 			return false;
 		}
 
-
 		// Convert
 
 		$filename = $this->timestampedFileName( '.mobi' );
@@ -66,7 +65,6 @@ class Kindlegen extends Export {
 		$output = array();
 		$return_var = 0;
 		exec( $command, $output, $return_var );
-
 
 		// Check build results
 
@@ -107,5 +105,17 @@ class Kindlegen extends Export {
 		return ( ! $this->hasWarnings );
 	}
 
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		if ( false !== \Pressbooks\Utility\check_epubcheck_install() && false !== \Pressbooks\Utility\check_kindlegen_install() ) {
+			return true;
+		}
+
+		return false;
+	}
 
 }

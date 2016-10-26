@@ -59,11 +59,14 @@ class Pdf extends Export {
 
 		// Some defaults
 
-		if ( ! defined( 'PB_PRINCE_COMMAND' ) )
+		if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
 			define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
+		}
 
 		$this->exportStylePath = $this->getExportStylePath( 'prince' );
 		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
+		$this->pdfProfile = $this->getPdfProfile();
+		$this->pdfOutputIntent = $this->getPdfOutputIntent();
 
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
@@ -96,6 +99,9 @@ class Pdf extends Export {
 		$filename = $this->timestampedFileName( '.pdf' );
 		$this->outputPath = $filename;
 
+		// Fonts
+		Container::get( 'GlobalTypography' )->getFonts();
+
 		// CSS File
 		$css = $this->kneadCss();
 		$css_file = $this->createTmpFile();
@@ -105,6 +111,12 @@ class Pdf extends Export {
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
+		if ( defined( 'WP_ENV' ) && WP_ENV == 'development' ) {
+			$prince->setInsecure( true );
+		}
+		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
+			$prince->setOptions( '--pdf-profile=' . $this->pdfProfile . ' --pdf-output-intent=' . $this->pdfOutputIntent );
+		}
 		$prince->addStyleSheet( $css_file );
 		if ( $this->exportScriptPath ) {
 			$prince->addScript( $this->exportScriptPath );
@@ -120,7 +132,6 @@ class Pdf extends Export {
 
 		return $retval;
 	}
-
 
 	/**
 	 * Check the sanity of $this->outputPath
@@ -171,6 +182,19 @@ class Pdf extends Export {
 		return ( strpos( $mime, 'application/pdf' ) !== false );
 	}
 
+	protected function getPdfProfile() {
+		if ( defined( 'PB_PDF_PROFILE' ) ) {
+			return PB_PDF_PROFILE;
+		}
+		return null;
+	}
+
+	protected function getPdfOutputIntent() {
+		if ( defined( 'PB_PDF_OUTPUT_INTENT' ) ) {
+			return PB_PDF_OUTPUT_INTENT;
+		}
+		return null;
+	}
 
 	/**
 	 * Return kneaded CSS string
@@ -182,13 +206,7 @@ class Pdf extends Export {
 		$sass = Container::get( 'Sass' );
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 
-		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			// Prepend override variables (see: http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variable_defaults_)
-			$scss = $this->cssOverrides . "\n" . file_get_contents( $this->exportStylePath );
-		} else {
-			$scss = file_get_contents( $this->exportStylePath ) . "\n". $this->cssOverrides;
-			// Append override rules.
-		}
+		$scss = $sass->applyOverrides( file_get_contents( $this->exportStylePath ), $this->cssOverrides );
 
 		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
 			$css = $sass->compile( $scss, [
@@ -214,6 +232,11 @@ class Pdf extends Export {
 				if ( $my_asset ) {
 					return 'url(' . PB_PLUGIN_DIR . $url . ')';
 				}
+			} elseif ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+				$my_asset = realpath( WP_CONTENT_DIR . '/' . $url );
+				if ( $my_asset ) {
+					return 'url(' . WP_CONTENT_DIR . '/' . $url . ')';
+				}
 			} elseif ( ! preg_match( '#^https?://#i', $url ) ) {
 				$my_asset = realpath( "$scss_dir/$url" );
 				if ( $my_asset ) {
@@ -226,7 +249,7 @@ class Pdf extends Export {
 		}, $css );
 
 		if ( WP_DEBUG ) {
-			Container::get('Sass')->debug( $css, $scss, 'prince' );
+			Container::get( 'Sass' )->debug( $css, $scss, 'prince' );
 		}
 
 		return $css;
@@ -260,11 +283,23 @@ class Pdf extends Export {
 		$hacks = apply_filters( 'pb_pdf_hacks', $hacks );
 
 		// Append endnotes to URL?
-		if ( 2 == @$hacks['pdf_footnotes_style'] ) {
+		if ( 'endnotes' == $hacks['pdf_footnotes_style'] ) {
 			$this->url .= '&endnotes=true';
 		}
 
 	}
 
 
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		if ( false !== \Pressbooks\Utility\check_prince_install() && false !== \Pressbooks\Utility\check_xmllint_install() ) {
+			return true;
+		}
+
+		return false;
+	}
 }

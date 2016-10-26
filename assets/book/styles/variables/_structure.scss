@@ -69,7 +69,7 @@ $front-matter-running-content-right: string(section-title) !default;
 $introduction-running-content-left: string(book-title) !default;
 $introduction-running-content-right: string(section-title) !default;
 $part-running-content-left: string(book-title) !default;
-$part-running-content-right: string(section-title) !default;
+$part-running-content-right: string(part-title) !default;
 $chapter-running-content-left: string(book-title) !default;
 $chapter-running-content-right: string(section-title) !default;
 $back-matter-running-content-left: string(book-title) !default;
@@ -81,8 +81,8 @@ $page-cropmarks: none !default;
 
 // Page Size (in | cm)
 
-$page-width: 6in !default;
-$page-height: 9in !default;
+$page-width: 5.5in !default;
+$page-height: 8.5in !default;
 
 // Page Margins (in | cm | % | px | &c)
 

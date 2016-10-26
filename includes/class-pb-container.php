@@ -21,8 +21,7 @@ class Container {
 	static function init( $pimple = null ) {
 		if ( null === $pimple ) {
 			static::$pimple = require( __DIR__ . '/../services.php' );
-		}
-		else {
+		} else {
 			static::$pimple = $pimple;
 		}
 	}
@@ -37,7 +36,7 @@ class Container {
 			throw new \LogicException( '\Pimple\Container not set, call init() or setPimple() before using get().' );
 		}
 
-		return static::$pimple[$var];
+		return static::$pimple[ $var ];
 	}
 
 
@@ -52,13 +51,11 @@ class Container {
 		}
 
 		if ( 'factory' == $type ) {
-			static::$pimple[$key] = static::$pimple->factory( $val );
-		}
-		elseif ( 'protect' == $type ) {
-			static::$pimple[$key] = static::$pimple->protect( $val );
-		}
-		else {
-			static::$pimple[$key] = $val;
+			static::$pimple[ $key ] = static::$pimple->factory( $val );
+		} elseif ( 'protect' == $type ) {
+			static::$pimple[ $key ] = static::$pimple->protect( $val );
+		} else {
+			static::$pimple[ $key ] = $val;
 		}
 	}
 

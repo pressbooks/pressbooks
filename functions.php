@@ -98,17 +98,13 @@ function pb_is_custom_theme() {
 }
 
 /**
- * Shortcut to \Pressbooks\Modules\Export::isScss();
+ * Shortcut to \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( $version );
  *
  * @return bool
  */
-function pb_is_scss() {
+function pb_is_scss( $version = 1 ) {
 
-	if ( \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 1 ) ) {
-		return true;
-	}
-
-	if ( \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( 2 ) ) {
+	if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( $version ) ) {
 		return true;
 	}
 
@@ -151,7 +147,7 @@ function pb_get_custom_stylesheet_url() {
 	} elseif ( is_file( WP_CONTENT_DIR . "/uploads/sites/{$current_blog_id}/custom-css/web.css" ) ) {
 		return WP_CONTENT_URL . "/uploads/sites/{$current_blog_id}/custom-css/web.css";
 	} else {
-		return PB_PLUGIN_URL . "themes-book/pressbooks-custom-css/style.css";
+		return PB_PLUGIN_URL . 'themes-book/pressbooks-custom-css/style.css';
 	}
 }
 
@@ -194,14 +190,16 @@ function pb_custom_stylesheet_imports_base() {
 function pb_get_chapter_number( $post_name ) {
 
 	$options = get_option( 'pressbooks_theme_options_global' );
-	if ( ! @$options['chapter_numbers'] )
+	if ( ! @$options['chapter_numbers'] ) {
 		return 0;
+	}
 
 	$lookup = \Pressbooks\Book::getBookStructure();
 	$lookup = $lookup['__export_lookup'];
 
-	if ( 'chapter' != @$lookup[$post_name] )
+	if ( 'chapter' != @$lookup[ $post_name ] ) {
 		return 0;
+	}
 
 	$i = 0;
 	foreach ( $lookup as $key => $val ) {
@@ -209,15 +207,18 @@ function pb_get_chapter_number( $post_name ) {
 			$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => 'publish', 'numberposts' => 1 ) );
 			if ( isset( $chapter[0] ) ) {
 				$type = pb_get_section_type( $chapter[0] );
-				if ( $type !== 'numberless' ) ++$i;
+				if ( 'numberless' !== $type ) { ++$i;
+				}
 			} else {
 				return 0;
 			}
-			if ( $key == $post_name ) break;
+			if ( $key == $post_name ) { break;
+			}
 		}
 	}
 
-	if ( $type == 'numberless' ) $i = 0;
+	if ( 'numberless' == $type ) { $i = 0;
+	}
 	return $i;
 }
 
@@ -230,16 +231,16 @@ function pb_get_chapter_number( $post_name ) {
  */
 function pb_get_section_type( $post ) {
 	$type = $post->post_type;
-	switch ($type) {
-    case 'chapter':
-        $type = \Pressbooks\Taxonomy\chapter_type( $post->ID );
-        break;
-    case 'front-matter':
-        $type = \Pressbooks\Taxonomy\front_matter_type( $post->ID );
-        break;
-    case 'back-matter':
-        $type = \Pressbooks\Taxonomy\back_matter_type( $post->ID );
-        break;
+	switch ( $type ) {
+		case 'chapter':
+			$type = \Pressbooks\Taxonomy::getChapterType( $post->ID );
+		break;
+		case 'front-matter':
+			$type = \Pressbooks\Taxonomy::getFrontMatterType( $post->ID );
+		break;
+		case 'back-matter':
+			$type = \Pressbooks\Taxonomy::getBackMatterType( $post->ID );
+		break;
 	}
 
 	return $type;
@@ -252,8 +253,19 @@ function pb_get_section_type( $post ) {
  *
  * @return array
  */
-function pb_get_sections( $id ) {
+function pb_get_subsections( $id ) {
 	return \Pressbooks\Book::getSubsections( $id );
+}
+
+/**
+ * Alias for pb_get_subsections.
+ *
+ * @param $id
+ *
+ * @return array
+ */
+function pb_get_sections( $id ) {
+	return pb_get_subsections( $id );
 }
 
 /**
@@ -261,8 +273,17 @@ function pb_get_sections( $id ) {
  *
  * @return boolean
  */
+function pb_should_parse_subsections() {
+	return \Pressbooks\Modules\Export\Export::isParsingSubsections();
+}
+
+/**
+ * Alias for pb_should_parse_subsections.
+ *
+ * @return boolean
+ */
 function pb_should_parse_sections() {
-	return \Pressbooks\Modules\Export\Export::isParsingSections();
+	return pb_should_parse_subsections();
 }
 
 /**
@@ -272,8 +293,19 @@ function pb_should_parse_sections() {
  *
  * @return string
  */
-function pb_tag_sections( $content, $id ) {
+function pb_tag_subsections( $content, $id ) {
 	return \Pressbooks\Book::tagSubsections( $content, $id );
+}
+
+/**
+ * Alias for pb_tag_subsections.
+ *
+ * @param $content string
+ *
+ * @return string
+ */
+function pb_tag_sections( $content, $id ) {
+	return pb_tag_subsections( $content, $id );
 }
 
 /**
@@ -285,6 +317,5 @@ function pb_tag_sections( $content, $id ) {
  * @return string
  */
 function pb_thumbify( $thumb, $path ) {
-
-	return \Pressbooks\Image\thumbify( $thumb, $path );
+	return \PressBooks\Image\thumbify( $thumb, $path );
 }

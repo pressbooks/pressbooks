@@ -2,7 +2,7 @@
 
 $url-base: '' !default;
 
-/* 
+/*
   html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
   v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark
   html5doctor.com/html-5-reset-stylesheet/
@@ -919,7 +919,7 @@ div.aligncenter {
   white-space: nowrap;
 }
 
-.nav span.next a {
+.nav span.next a, .nav-next a {
   background-position: 0 -506px;
 }
 
@@ -931,8 +931,10 @@ div.aligncenter {
   background-position: -56px -506px;
 }
 
-/* TITILE, SUB-TITLE, AUTHOR AND APHORIS
+/* TITLE, SUB-TITLE, AUTHOR AND APHORIS
 ==========================================*/
+.part-title {
+  text-align: right; }
 
 .entry-title {
   font-size: 1.6em;
@@ -996,7 +998,7 @@ div.aligncenter {
   font-variant: small-caps;
 }
 
-/* TEXTBOXES & PULLQUOTES 
+/* TEXTBOXES & PULLQUOTES
 ===============*/
 
 @include textboxes();
@@ -1728,7 +1730,7 @@ code {
 
 /*
  * Media queries for responsive design
- * These follow after primary styles so they will successfully override. 
+ * These follow after primary styles so they will successfully override.
  */
 @media screen and (max-width: 1024px) {
   /* Style adjustments for portrait mode goes here */

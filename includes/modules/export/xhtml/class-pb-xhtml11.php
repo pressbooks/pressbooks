@@ -9,6 +9,8 @@ namespace Pressbooks\Modules\Export\Xhtml;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 class Xhtml11 extends Export {
 
 
@@ -71,8 +73,9 @@ class Xhtml11 extends Export {
 
 		// Some defaults
 
-		if ( ! defined( 'PB_XMLLINT_COMMAND' ) )
+		if ( ! defined( 'PB_XMLLINT_COMMAND' ) ) {
 			define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+		}
 
 		$defaults = array(
 			'endnotes' => false,
@@ -85,15 +88,17 @@ class Xhtml11 extends Export {
 		$this->url = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
 
 		// Append endnotes to URL?
-		if ( $r['endnotes'] )
+		if ( $r['endnotes'] ) {
 			$this->url .= '&endnotes=true';
+		}
 
 		// HtmLawed: id values not allowed in input
 		foreach ( $this->reservedIds as $val ) {
-			$fixme[$val] = 1;
+			$fixme[ $val ] = 1;
 		}
-		if ( isset( $fixme ) )
+		if ( isset( $fixme ) ) {
 			$GLOBALS['hl_Ids'] = $fixme;
+		}
 	}
 
 
@@ -170,7 +175,6 @@ class Xhtml11 extends Export {
 			add_shortcode( 'footnote', array( $this, 'footnoteShortcode' ) );
 		}
 
-
 		// ------------------------------------------------------------------------------------------------------------
 		// XHTML, Start!
 
@@ -187,7 +191,6 @@ class Xhtml11 extends Export {
 		echo "<head>\n";
 		echo '<meta content="text/html; charset=UTF-8" http-equiv="content-type" />' . "\n";
 		echo '<meta http-equiv="Content-Language" content="' . $this->lang . '" />' . "\n";
-
 
 		$this->echoMetaData( $book_contents, $metadata );
 
@@ -282,9 +285,9 @@ class Xhtml11 extends Export {
 			return '';
 		}
 
-		$this->endnotes[$id][] = trim( $content );
+		$this->endnotes[ $id ][] = trim( $content );
 
-		return '<sup class="endnote">' . count( $this->endnotes[$id] ) . '</sup>';
+		return '<sup class="endnote">' . count( $this->endnotes[ $id ] ) . '</sup>';
 	}
 
 
@@ -299,14 +302,15 @@ class Xhtml11 extends Export {
 	 */
 	function doEndnotes( $id ) {
 
-		if ( ! isset( $this->endnotes[$id] ) || ! count( $this->endnotes[$id] ) )
+		if ( ! isset( $this->endnotes[ $id ] ) || ! count( $this->endnotes[ $id ] ) ) {
 			return '';
+		}
 
 		$e = '<div class="endnotes">';
 		$e .= '<hr />';
 		$e .= '<h3>' . __( 'Notes', 'pressbooks' ) . '</h3>';
 		$e .= '<ol>';
-		foreach ( $this->endnotes[$id] as $endnote ) {
+		foreach ( $this->endnotes[ $id ] as $endnote ) {
 			$e .= "<li><span>$endnote</span></li>";
 		}
 		$e .= '</ol></div>';
@@ -360,43 +364,46 @@ class Xhtml11 extends Export {
 		// Do root level structures first.
 		foreach ( $book_contents as $type => $struct ) {
 
-			if ( preg_match( '/^__/', $type ) )
+			if ( preg_match( '/^__/', $type ) ) {
 				continue; // Skip __magic keys
+			}
 
 			foreach ( $struct as $i => $val ) {
 
 				if ( isset( $val['post_content'] ) ) {
+					// @codingStandardsIgnoreLine
 					$id = $val['ID'];
-					$book_contents[$type][$i]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
+					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
 				}
 				if ( isset( $val['post_title'] ) ) {
-					$book_contents[$type][$i]['post_title'] = Sanitize\sanitize_xml_attribute( $val['post_title'] );
+					$book_contents[ $type ][ $i ]['post_title'] = Sanitize\sanitize_xml_attribute( $val['post_title'] );
 				}
 				if ( isset( $val['post_name'] ) ) {
-					$book_contents[$type][$i]['post_name'] = $this->preProcessPostName( $val['post_name'] );
+					$book_contents[ $type ][ $i ]['post_name'] = $this->preProcessPostName( $val['post_name'] );
 				}
 
 				if ( 'part' == $type ) {
 
 					// Do chapters, which are embedded in part structure
-					foreach ( $book_contents[$type][$i]['chapters'] as $j => $val2 ) {
+					foreach ( $book_contents[ $type ][ $i ]['chapters'] as $j => $val2 ) {
 
 						if ( isset( $val2['post_content'] ) ) {
+							// @codingStandardsIgnoreLine
 							$id = $val2['ID'];
-							$book_contents[$type][$i]['chapters'][$j]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
 						}
 						if ( isset( $val2['post_title'] ) ) {
-							$book_contents[$type][$i]['chapters'][$j]['post_title'] = Sanitize\sanitize_xml_attribute( $val2['post_title'] );
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_title'] = Sanitize\sanitize_xml_attribute( $val2['post_title'] );
 						}
 						if ( isset( $val2['post_name'] ) ) {
-							$book_contents[$type][$i]['chapters'][$j]['post_name'] = $this->preProcessPostName( $val2['post_name'] );
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_name'] = $this->preProcessPostName( $val2['post_name'] );
 						}
-
 					}
 				}
 			}
 		}
 
+		// @codingStandardsIgnoreLine
 		$id = $old_id;
 		return $book_contents;
 	}
@@ -412,11 +419,24 @@ class Xhtml11 extends Export {
 		$content = apply_filters( 'the_content', $content );
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
+		$content = $this->switchLaTexFormat( $content );
 		$content = $this->tidy( $content );
 
 		return $content;
 	}
 
+	/**
+	 * Replace links to QuickLaTex PNG files with links to the corresponding SVG files.
+	 *
+	 * @param string $content The section content.
+	 *
+	 * @returns string
+	 */
+	protected function switchLaTexFormat( $content ) {
+		$content = preg_replace( '/(quicklatex.com-[a-f0-9]{32}_l3.)(png)/i', '$1svg', $content );
+
+		return $content;
+	}
 
 	/**
 	 * @param string $content
@@ -425,12 +445,12 @@ class Xhtml11 extends Export {
 	 */
 	protected function fixInternalLinks( $content ) {
 		// takes care of PB subdirectory installations of PB
-		$content = preg_replace( "/href\=\"\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)([\/]?)(\#[a-z0-9\-]*)\"/", "href=\"$5\"", $content );
-		$content = preg_replace( "/href\=\"\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)([\/]?)\"/", "href=\"#$3\"", $content );
+		$content = preg_replace( '/href\="\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)(\#[a-z0-9\-]*)"/', 'href="$5"', $content );
+		$content = preg_replace( '/href\="\/([a-z0-9]*)\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)"/', 'href="#$3"', $content );
 
 		// takes care of PB subdomain installations of PB
-		$content = preg_replace( "/href\=\"\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)([\/]?)(\#[a-z0-9\-]*)\"/", "href=\"$4\"", $content );
-		$output = preg_replace( "/href\=\"\/(front\-matter|chapter|back\-matter)\/([a-z0-9\-]*)([\/]?)\"/", "href=\"#$2\"", $content );
+		$content = preg_replace( '/href\="\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)(\#[a-z0-9\-]*)"/', 'href="$4"', $content );
+		$output = preg_replace( '/href\="\/(front\-matter|chapter|back\-matter|part)\/([a-z0-9\-]*)([\/]?)"/', 'href="#$2"', $content );
 
 		return $output;
 	}
@@ -454,7 +474,7 @@ class Xhtml11 extends Export {
 			'tidy' => -1,
 		);
 
-		return \Htmlawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
 
@@ -519,17 +539,19 @@ class Xhtml11 extends Export {
 		foreach ( array( 'before-title' ) as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
 
-				if ( ! $front_matter['export'] )
+				if ( ! $front_matter['export'] ) {
 					continue; // Skip
+				}
 
-				$id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+				$front_matter_id = $front_matter['ID'];
+				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
 
-				if ( $compare != $subclass )
+				if ( $compare != $subclass ) {
 					continue; //Skip
+				}
 
 				$slug = $front_matter['post_name'];
-				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $front_matter['post_content'];
 
 				printf( $front_matter_printf,
@@ -538,7 +560,7 @@ class Xhtml11 extends Export {
 					$i,
 					Sanitize\decode( $title ),
 					$content,
-					$this->doEndnotes( $id ) );
+				$this->doEndnotes( $front_matter_id ) );
 
 				echo "\n";
 				++$i;
@@ -572,14 +594,16 @@ class Xhtml11 extends Export {
 		$content = '';
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
 
-			if ( ! $front_matter['export'] )
+			if ( ! $front_matter['export'] ) {
 				continue; // Skip
+			}
 
-			$id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+			$front_matter_id = $front_matter['ID'];
+			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
 
-			if ( 'title-page' != $subclass )
+			if ( 'title-page' != $subclass ) {
 				continue; // Skip
+			}
 
 			$content = $front_matter['post_content'];
 			break;
@@ -595,8 +619,8 @@ class Xhtml11 extends Export {
 			printf( '<h2 class="subtitle">%s</h2>', @$metadata['pb_subtitle'] );
 			printf( '<h3 class="author">%s</h3>', @$metadata['pb_author'] );
 			printf( '<h4 class="contributing-authors">%s</h4>', @$metadata['pb_contributing_authors'] );
-			if ( current_theme_supports('pressbooks_publisher_logo') ) {
-				printf( '<div class="publisher-logo"><img src="%s" /></div>',  get_theme_support('pressbooks_publisher_logo')[0]['logo_uri']); // TODO: Support custom publisher logo.
+			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
+				printf( '<div class="publisher-logo"><img src="%s" /></div>',  get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
 			}
 			printf( '<h4 class="publisher">%s</h4>', @$metadata['pb_publisher'] );
 			printf( '<h5 class="publisher-city">%s</h5>', @$metadata['pb_publisher_city'] );
@@ -613,8 +637,8 @@ class Xhtml11 extends Export {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 		foreach ( array( 'copyright_license' ) as $requiredGlobalOption ) {
-			if ( ! isset ( $options[$requiredGlobalOption] ) ) {
-				$options[$requiredGlobalOption] = 0;
+			if ( ! isset( $options[ $requiredGlobalOption ] ) ) {
+				$options[ $requiredGlobalOption ] = 0;
 			}
 		}
 
@@ -624,7 +648,7 @@ class Xhtml11 extends Export {
 			echo $this->tidy( $metadata['pb_custom_copyright'] );
 		}
 
-		if ( 1 == $options['copyright_license'] ){
+		if ( 1 == $options['copyright_license'] ) {
 			echo $this->doCopyrightLicense( $metadata );
 		}
 		// default, so something is displayed
@@ -632,7 +656,8 @@ class Xhtml11 extends Export {
 			echo '<p>';
 			echo get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
 			echo ( ! empty( $metadata['pb_copyright_year'] ) ) ? $metadata['pb_copyright_year'] : date( 'Y' );
-			if ( ! empty( $metadata['pb_copyright_holder'] ) ) echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
+			if ( ! empty( $metadata['pb_copyright_holder'] ) ) { echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
+			}
 			echo '</p>';
 		}
 
@@ -655,17 +680,19 @@ class Xhtml11 extends Export {
 		foreach ( array( 'dedication', 'epigraph' ) as $compare ) {
 			foreach ( $book_contents['front-matter'] as $front_matter ) {
 
-				if ( ! $front_matter['export'] )
+				if ( ! $front_matter['export'] ) {
 					continue; // Skip
+				}
 
-				$id = $front_matter['ID'];
-				$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+				$front_matter_id = $front_matter['ID'];
+				$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
 
-				if ( $compare != $subclass )
+				if ( $compare != $subclass ) {
 					continue; //Skip
+				}
 
 				$slug = $front_matter['post_name'];
-				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $front_matter['post_content'];
 
 				printf( $front_matter_printf,
@@ -674,7 +701,7 @@ class Xhtml11 extends Export {
 					$i,
 					Sanitize\decode( $title ),
 					$content,
-					$this->doEndnotes( $id ) );
+				$this->doEndnotes( $front_matter_id ) );
 
 				echo "\n";
 				++$i;
@@ -692,16 +719,17 @@ class Xhtml11 extends Export {
 
 		$options = get_option( 'pressbooks_theme_options_global' );
 		foreach ( array( 'copyright_license' ) as $requiredGlobalOption ) {
-			if ( ! isset ( $options[$requiredGlobalOption] ) ) {
-				$options[$requiredGlobalOption] = 0;
+			if ( ! isset( $options[ $requiredGlobalOption ] ) ) {
+				$options[ $requiredGlobalOption ] = 0;
 			}
 		}
 
 		echo '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $book_contents as $type => $struct ) {
 
-			if ( preg_match( '/^__/', $type ) )
+			if ( preg_match( '/^__/', $type ) ) {
 				continue; // Skip __magic keys
+			}
 
 			if ( 'part' == $type ) {
 				foreach ( $struct as $part ) {
@@ -731,10 +759,11 @@ class Xhtml11 extends Export {
 					}
 					foreach ( $part['chapters'] as $j => $chapter ) {
 
-						if ( ! $chapter['export'] )
+						if ( ! $chapter['export'] ) {
 							continue;
+						}
 
-						$subclass = \Pressbooks\Taxonomy\chapter_type( $chapter['ID'] );
+						$subclass = \Pressbooks\Taxonomy::getChapterType( $chapter['ID'] );
 						$slug = $chapter['post_name'];
 						$title = Sanitize\strip_br( $chapter['post_title'] );
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
@@ -743,18 +772,21 @@ class Xhtml11 extends Export {
 
 						printf( '<li class="chapter %s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $subclass, $slug, Sanitize\decode( $title ) );
 
-						if ( $subtitle )
+						if ( $subtitle ) {
 							echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
+						}
 
-						if ( $author )
+						if ( $author ) {
 							echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
+						}
 
-						if ( $license )
-							echo ' <span class="chapter-license">' .  $license  . '</span> ';
+						if ( $license ) {
+							echo ' <span class="chapter-license">' . $license . '</span> ';
+						}
 
 						echo '</a>';
 
-						if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+						if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 							$sections = \Pressbooks\Book::getSubsections( $chapter['ID'] );
 							if ( $sections ) {
 								echo '<ul class="sections">';
@@ -771,8 +803,9 @@ class Xhtml11 extends Export {
 			} else {
 				foreach ( $struct as $val ) {
 
-					if ( ! $val['export'] )
+					if ( ! $val['export'] ) {
 						continue;
+					}
 
 					$typetype = '';
 					$subtitle = '';
@@ -782,7 +815,7 @@ class Xhtml11 extends Export {
 					$title = Sanitize\strip_br( $val['post_title'] );
 
 					if ( 'front-matter' == $type ) {
-						$subclass = \Pressbooks\Taxonomy\front_matter_type( $val['ID'] );
+						$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $val['ID'] );
 						if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass ) {
 							continue; // Skip
 						} else {
@@ -792,7 +825,7 @@ class Xhtml11 extends Export {
 							$license = ( $options['copyright_license'] ) ? get_post_meta( $val['ID'], 'pb_section_license', true ) : '';
 						}
 					} elseif ( 'back-matter' == $type ) {
-						$typetype = $type . ' ' . \Pressbooks\Taxonomy\back_matter_type( $val['ID'] );
+						$typetype = $type . ' ' . \Pressbooks\Taxonomy::getBackMatterType( $val['ID'] );
 						$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
 						$license = ( $options['copyright_license'] ) ? get_post_meta( $val['ID'], 'pb_section_license', true ) : '';
@@ -800,18 +833,21 @@ class Xhtml11 extends Export {
 
 					printf( '<li class="%s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $typetype, $slug, Sanitize\decode( $title ) );
 
-					if ( $subtitle )
+					if ( $subtitle ) {
 						echo ' <span class="chapter-subtitle">' . Sanitize\decode( $subtitle ) . '</span>';
+					}
 
-					if ( $author )
+					if ( $author ) {
 						echo ' <span class="chapter-author">' . Sanitize\decode( $author ) . '</span>';
+					}
 
-					if ( $license )
-							echo ' <span class="chapter-license">' .  $license  . '</span> ';
+					if ( $license ) {
+							echo ' <span class="chapter-license">' . $license . '</span> ';
+					}
 
 					echo '</a>';
 
-					if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+					if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 						$sections = \Pressbooks\Book::getSubsections( $val['ID'], true );
 						if ( $sections ) {
 							echo '<ul class="sections">';
@@ -839,37 +875,40 @@ class Xhtml11 extends Export {
 
 		$front_matter_printf = '<div class="front-matter %s" id="%s">';
 		$front_matter_printf .= '<div class="front-matter-title-wrap"><h3 class="front-matter-number">%s</h3><h1 class="front-matter-title">%s</h1></div>';
-		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s';
+		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s%s';
 		$front_matter_printf .= '</div>';
 
 		$s = 1;
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
 
-			if ( ! $front_matter['export'] )
+			if ( ! $front_matter['export'] ) {
 				continue; // Skip
+			}
 
-			$id = $front_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy\front_matter_type( $id );
+			$front_matter_id = $front_matter['ID'];
+			$subclass = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter_id );
 
-			if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass )
+			if ( 'dedication' == $subclass || 'epigraph' == $subclass || 'title-page' == $subclass || 'before-title' == $subclass ) {
 				continue; // Skip
+			}
 
-			if ( 'introduction' == $subclass )
+			if ( 'introduction' == $subclass ) {
 				$this->hasIntroduction = true;
+			}
 
 			$slug = $front_matter['post_name'];
-			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+			$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 			$content = $front_matter['post_content'];
+			$append_front_matter_content = apply_filters( 'pb_append_front_matter_content', '', $front_matter_id );
+			$short_title = trim( get_post_meta( $front_matter_id, 'pb_short_title', true ) );
+			$subtitle = trim( get_post_meta( $front_matter_id, 'pb_subtitle', true ) );
+			$author = trim( get_post_meta( $front_matter_id, 'pb_section_author', true ) );
 
-			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
-			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
-			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
-
-			if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
-				$sections = \Pressbooks\Book::getSubsections( $id );
+			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
+				$sections = \Pressbooks\Book::getSubsections( $front_matter_id );
 				if ( $sections ) {
-					$content = \Pressbooks\Book::tagSubsections( $content, $id );
+					$content = \Pressbooks\Book::tagSubsections( $content, $front_matter_id );
 				}
 			}
 
@@ -891,7 +930,8 @@ class Xhtml11 extends Export {
 				$i,
 				Sanitize\decode( $title ),
 				$content,
-				$this->doEndnotes( $id ) );
+				$append_front_matter_content,
+			$this->doEndnotes( $front_matter_id ) );
 
 			echo "\n";
 			++$i;
@@ -925,7 +965,7 @@ class Xhtml11 extends Export {
 
 		$chapter_printf = '<div class="chapter %s" id="%s">';
 		$chapter_printf .= '<div class="chapter-title-wrap"><h3 class="chapter-number">%s</h3><h2 class="chapter-title">%s</h2></div>';
-		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s';
+		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s%s';
 		$chapter_printf .= '</div>';
 
 		$s = $i = $j = 1;
@@ -939,7 +979,7 @@ class Xhtml11 extends Export {
 			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
 
 			// Inject introduction class?
-			if ( $invisibility !== 'invisible' ) { // visible
+			if ( 'invisible' !== $invisibility ) { // visible
 				if ( count( $book_contents['part'] ) == 1 ) { // only part
 					if ( $part_content ) { // has content
 						if ( ! $this->hasIntroduction ) {
@@ -959,43 +999,44 @@ class Xhtml11 extends Export {
 			if ( $part_content ) {
 				$part_content = $this->preProcessPostContent( $part_content );
 				if ( $part_printf_changed ) {
-					$part_printf_changed = str_replace( '</h1></div>%s</div>', "</h1></div><div class=\"ugc part-ugc\">%s</div></div>", $part_printf_changed );
+					$part_printf_changed = str_replace( '</h1></div>%s</div>', '</h1></div><div class="ugc part-ugc">%s</div></div>', $part_printf_changed );
 				} else {
-					$part_printf_changed = str_replace( '</h1></div>%s</div>', "</h1></div><div class=\"ugc part-ugc\">%s</div></div>", $part_printf );
+					$part_printf_changed = str_replace( '</h1></div>%s</div>', '</h1></div><div class="ugc part-ugc">%s</div></div>', $part_printf );
 				}
 			}
 
-			$m = ( $invisibility == 'invisible' ) ? '' : $i;
+			$m = ( 'invisible' == $invisibility ) ? '' : $i;
 			$my_part = sprintf(
 				( $part_printf_changed ? $part_printf_changed : $part_printf ),
 				$invisibility,
 				$slug,
 				$m,
 				Sanitize\decode( $title ),
-				$part_content ) . "\n";
+			$part_content ) . "\n";
 
 			$my_chapters = '';
 
 			foreach ( $part['chapters'] as $chapter ) {
 
-				if ( ! $chapter['export'] )
+				if ( ! $chapter['export'] ) {
 					continue; // Skip
+				}
 
 				$chapter_printf_changed = '';
-				$id = $chapter['ID'];
-				$subclass = \Pressbooks\Taxonomy\chapter_type( $id );
+				$chapter_id = $chapter['ID'];
+				$subclass = \Pressbooks\Taxonomy::getChapterType( $chapter_id );
 				$slug = $chapter['post_name'];
-				$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+				$title = ( get_post_meta( $chapter_id, 'pb_show_title', true ) ? $chapter['post_title'] : '<span class="display-none">' . $chapter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $chapter['post_content'];
+				$append_chapter_content = apply_filters( 'pb_append_chapter_content', '', $chapter_id );
+				$short_title = trim( get_post_meta( $chapter_id, 'pb_short_title', true ) );
+				$subtitle = trim( get_post_meta( $chapter_id, 'pb_subtitle', true ) );
+				$author = trim( get_post_meta( $chapter_id, 'pb_section_author', true ) );
 
-				$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
-				$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
-				$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
-
-				if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
-					$sections = \Pressbooks\Book::getSubsections( $id );
+				if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
+					$sections = \Pressbooks\Book::getSubsections( $chapter_id );
 					if ( $sections ) {
-						$content = \Pressbooks\Book::tagSubsections( $content, $id );
+						$content = \Pressbooks\Book::tagSubsections( $content, $chapter_id );
 					}
 				}
 
@@ -1017,7 +1058,7 @@ class Xhtml11 extends Export {
 					$this->hasIntroduction = true;
 				}
 
-				$n = ( $subclass == 'numberless' ) ? '' : $j;
+				$n = ( 'numberless' == $subclass ) ? '' : $j;
 				$my_chapters .= sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
 					$subclass,
@@ -1025,36 +1066,43 @@ class Xhtml11 extends Export {
 					$n,
 					Sanitize\decode( $title ),
 					$content,
-					$this->doEndnotes( $id ) ) . "\n";
+					$append_chapter_content,
+				$this->doEndnotes( $chapter_id ) ) . "\n";
 
-				if ( $subclass !== 'numberless' ) ++$j;
+				if ( 'numberless' !== $subclass ) {
+					++$j;
+				}
 			}
 
 			// Echo with parts?
 
-			if ( $invisibility !== 'invisible' ) { // visible
+			if ( 'invisible' !== $invisibility ) { // visible
 				if ( count( $book_contents['part'] ) == 1 ) { // only part
 					if ( $part_content ) { // has content
 						echo $my_part; // show
-						if ( $my_chapters )
+						if ( $my_chapters ) {
 							echo $my_chapters;
+						}
 					} else { // no content
-						if ( $my_chapters )
+						if ( $my_chapters ) {
 							echo $my_chapters;
+						}
 					}
 				} elseif ( count( $book_contents['part'] ) > 1 ) { // multiple parts
 					if ( $my_chapters ) { // has chapter
 						echo $my_part . $my_chapters; // show
 					} else { // no chapter
-						if ( $part_content ) // has content
+						if ( $part_content ) { // has content
 							echo $my_part; // show
+						}
 					}
 				}
 				++$i;
-			} elseif ( $invisibility == 'invisible' ) { // invisible
-				if ( $my_chapters ) echo $my_chapters;
+			} elseif ( 'invisible' == $invisibility ) { // invisible
+				if ( $my_chapters ) {
+					echo $my_chapters;
+				}
 			}
-
 		}
 
 	}
@@ -1068,28 +1116,29 @@ class Xhtml11 extends Export {
 
 		$back_matter_printf = '<div class="back-matter %s" id="%s">';
 		$back_matter_printf .= '<div class="back-matter-title-wrap"><h3 class="back-matter-number">%s</h3><h1 class="back-matter-title">%s</h1></div>';
-		$back_matter_printf .= '<div class="ugc back-matter-ugc">%s</div>%s';
+		$back_matter_printf .= '<div class="ugc back-matter-ugc">%s</div>%s%s';
 		$back_matter_printf .= '</div>';
 
 		$i = $s = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
 
-			if ( ! $back_matter['export'] ) continue;
+			if ( ! $back_matter['export'] ) { continue;
+			}
 
-			$id = $back_matter['ID'];
-			$subclass = \Pressbooks\Taxonomy\back_matter_type( $id );
+			$back_matter_id = $back_matter['ID'];
+			$subclass = \Pressbooks\Taxonomy::getBackMatterType( $back_matter_id );
 			$slug = $back_matter['post_name'];
-			$title = ( get_post_meta( $id, 'pb_show_title', true ) ? $back_matter['post_title'] : '<span class="display-none">' . $back_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
+			$title = ( get_post_meta( $back_matter_id, 'pb_show_title', true ) ? $back_matter['post_title'] : '<span class="display-none">' . $back_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 			$content = $back_matter['post_content'];
+			$append_back_matter_content = apply_filters( 'pb_append_back_matter_content', '', $back_matter_id );
+			$short_title = trim( get_post_meta( $back_matter_id, 'pb_short_title', true ) );
+			$subtitle = trim( get_post_meta( $back_matter_id, 'pb_subtitle', true ) );
+			$author = trim( get_post_meta( $back_matter_id, 'pb_section_author', true ) );
 
-			$short_title = trim( get_post_meta( $id, 'pb_short_title', true ) );
-			$subtitle = trim( get_post_meta( $id, 'pb_subtitle', true ) );
-			$author = trim( get_post_meta( $id, 'pb_section_author', true ) );
-
-			if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
-				$sections = \Pressbooks\Book::getSubsections( $id );
+			if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
+				$sections = \Pressbooks\Book::getSubsections( $back_matter_id );
 				if ( $sections ) {
-					$content = \Pressbooks\Book::tagSubsections( $content, $id );
+					$content = \Pressbooks\Book::tagSubsections( $content, $back_matter_id );
 				}
 			}
 
@@ -1111,7 +1160,8 @@ class Xhtml11 extends Export {
 				$i,
 				Sanitize\decode( $title ),
 				$content,
-				$this->doEndnotes( $id ) );
+				$append_back_matter_content,
+			$this->doEndnotes( $back_matter_id ) );
 
 			echo "\n";
 			++$i;
@@ -1132,11 +1182,25 @@ class Xhtml11 extends Export {
 		foreach ( $chapters as $key => $val ) {
 			if ( is_array( $val ) ) {
 				$found = $this->atLeastOneExport( $val );
-				if ( $found ) return true;
-				else continue;
+				if ( $found ) { return true;
+				} else { continue;
+				}
 			} elseif ( 'export' == (string) $key && $val ) {
 				return true;
 			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		if ( true == \Pressbooks\Utility\check_xmllint_install() ) {
+			return true;
 		}
 
 		return false;

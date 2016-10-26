@@ -4,8 +4,9 @@
  * @license GPLv2 (or any later version)
  */
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Includes
@@ -20,10 +21,8 @@ require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-registration.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-taxonomy.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-editor.php' );
-require( PB_PLUGIN_DIR . 'vendor/pressbooks/pressbooks-latex/pb-latex.php' );
 
 Pressbooks\Utility\include_plugins();
 
@@ -33,8 +32,8 @@ Pressbooks\Utility\include_plugins();
 
 if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 	\Pressbooks\Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
+} else { \Pressbooks\Container::init();
 }
-else \Pressbooks\Container::init();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Login screen branding
@@ -49,7 +48,7 @@ add_filter( 'login_headertitle', '\Pressbooks\Admin\Branding\login_title' );
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics
 // -------------------------------------------------------------------------------------------------------------------
-add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics');
+add_action( 'wp_head', '\Pressbooks\Analytics\print_analytics' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Metadata plugin
@@ -90,7 +89,7 @@ add_filter( 'plupload_default_params', '\Pressbooks\Media\force_attach_media' );
 // Audio/Video
 // -------------------------------------------------------------------------------------------------------------------
 
-add_filter('upload_mimes', '\Pressbooks\Media\add_mime_types');
+add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Custom Post Types and Taxonomies
@@ -98,7 +97,7 @@ add_filter('upload_mimes', '\Pressbooks\Media\add_mime_types');
 
 add_action( 'init', '\Pressbooks\PostType\register_post_types' );
 add_action( 'post_updated_messages', '\Pressbooks\PostType\post_type_messages' );
-add_action( 'init', '\Pressbooks\Taxonomy\register_taxonomies' );
+add_action( 'init', '\Pressbooks\Taxonomy::registerTaxonomies' );
 if ( \Pressbooks\Book::isBook() ) {
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
 }
@@ -138,6 +137,7 @@ add_action( 'user_register', '\Pressbooks\Activation::forcePbColors' );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_format', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_api', 1 );
+add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );
 add_filter( 'login_redirect', '\Pressbooks\Redirect\login', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -152,7 +152,7 @@ add_action( 'do_robotstxt', '\Pressbooks\Utility\add_sitemap_to_robots_txt' );
 // -------------------------------------------------------------------------------------------------------------------
 
 remove_filter( 'the_content', 'wpautop' );
-add_filter( 'the_content', 'wpautop' , 12); // execute wpautop after shortcode processing
+add_filter( 'the_content', 'wpautop' , 12 ); // execute wpautop after shortcode processing
 
 $_ = \Pressbooks\Shortcodes\Footnotes\Footnotes::getInstance();
 $_ = \Pressbooks\Shortcodes\Generics\Generics::getInstance();
@@ -169,6 +169,20 @@ if ( \Pressbooks\Book::isBook() ) {
 			$metadata = new \Pressbooks\Metadata();
 			$metadata->upgrade( $meta_version );
 			update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::$currentVersion );
+		}
+	}, 1000 );
+}
+
+// -------------------------------------------------------------------------------------------------------------------
+// Upgrade Taxonomies
+// -------------------------------------------------------------------------------------------------------------------
+if ( \Pressbooks\Book::isBook() ) {
+	add_action( 'init', function () {
+		$taxonomy_version = get_option( 'pressbooks_taxonomy_version', 0 );
+		if ( $taxonomy_version < \Pressbooks\Taxonomy::$currentVersion ) {
+			$taxonomy = new \Pressbooks\Taxonomy();
+			$taxonomy->upgrade( $taxonomy_version );
+			update_option( 'pressbooks_taxonomy_version', \Pressbooks\Metadata::$currentVersion );
 		}
 	}, 1000 );
 }
@@ -191,7 +205,8 @@ add_action( 'init', function () {
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! empty( $GLOBALS['PB_SECRET_SAUCE']['FORCE_FLUSH'] ) ) {
-	add_action( 'init', function () { flush_rewrite_rules( false ); }, 9999 );
+	add_action( 'init', function () { flush_rewrite_rules( false );
+	}, 9999 );
 } else {
 	add_action( 'init', '\Pressbooks\Redirect\flusher', 9999 );
 }

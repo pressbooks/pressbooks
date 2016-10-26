@@ -4,6 +4,15 @@ class Admin_BrandingTest extends \WP_UnitTestCase {
 
 
 	/**
+	 * @covers \Pressbooks\Admin\Branding\custom_color_scheme
+	 */
+	public function test_custom_color_scheme() {
+
+		$this->expectOutputRegex( '/<link rel="stylesheet" type="text\/css" href="\S*" media="screen" \/>/' );
+		\Pressbooks\Admin\Branding\custom_color_scheme();
+	}
+
+	/**
 	 * @covers \Pressbooks\Admin\Branding\custom_login_logo
 	 */
 	public function test_custom_login_logo() {

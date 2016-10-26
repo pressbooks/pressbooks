@@ -1,23 +1,24 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 $import_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&import=yes' ), 'pb-import' );
 $import_revoke_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&revoke=yes' ), 'pb-revoke-import' );
 $current_import = get_option( 'pressbooks_current_import' );
+$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 
 ?>
 <div class="wrap">
 
-	<div id="icon-themes" class="icon32"></div>
-	<h2><?php _e( 'Import', 'pressbooks' ); ?></h2>
+	<h1><?php _e( 'Import', 'pressbooks' ); ?></h1>
 
 	<?php if ( is_array( $current_import ) && isset( $current_import['file'] ) ) { ?>
 
 	<!-- Import in progress -->
 
-		<p><?php printf( __('Import in progress: %s', 'pressbooks') , basename( $current_import['file'] ) ); ?></p>
+		<p><?php printf( __( 'Import in progress: %s', 'pressbooks' ) , basename( $current_import['file'] ) ); ?></p>
 
 		<script type="text/javascript">
 		// <![CDATA[
@@ -37,11 +38,11 @@ $current_import = get_option( 'pressbooks_current_import' );
 			});
 			// Abort import
 			$('#abort_button').bind('click', function () {
-				if (!confirm('<?php esc_attr_e('Are you sure you want to abort the import?', 'pressbooks'); ?>')) {
+				if (!confirm('<?php esc_attr_e( 'Are you sure you want to abort the import?', 'pressbooks' ); ?>')) {
 					return false;
 				}
 				else {
-					window.location.href = "<?php echo htmlspecialchars_decode($import_revoke_url); ?>";
+					window.location.href = "<?php echo htmlspecialchars_decode( $import_revoke_url ); ?>";
 					return false;
 				}
 			});
@@ -58,10 +59,13 @@ $current_import = get_option( 'pressbooks_current_import' );
 				<th><?php _e( 'Title', 'pressbooks' ); ?></th>
 				<th style="width:10%;"><?php _e( 'Front Matter', 'pressbooks' ); ?></th>
 				<th style="width:10%;"><?php _e( 'Chapter', 'pressbooks' ); ?></th>
-				<?php if ( !empty( $current_import['allow_parts'] ) ) {?>
+				<?php if ( ! empty( $current_import['allow_parts'] ) ) {?>
 				<th style="width:10%;"><?php _e( 'Part', 'pressbooks' ); ?></th>
 				<?php } ?>
 				<th style="width:10%;"><?php _e( 'Back Matter', 'pressbooks' ); ?></th>
+				<?php if ( has_filter( 'pb_import_custom_post_types' ) ) { ?>
+				<th style="width:10%;"><?php _e( 'Other', 'pressbooks' ); ?></th>
+				<?php } ?>
 			</tr>
 			</thead>
 			<tbody>
@@ -73,19 +77,22 @@ $current_import = get_option( 'pressbooks_current_import' );
 			$i = 1;
 			foreach ( $current_import['chapters'] as $key => $chapter ) {
 				?>
-				<tr <?php if ( $i % 2 ) echo 'class="alt"'; ?> >
+				<tr <?php if ( $i % 2 ) { echo 'class="alt"';} ?> >
 					<td><input type='checkbox' id='selective_import_<?php echo $i; ?>' name='chapters[<?php echo $key; ?>][import]' value='1'></td>
 					<?php if ( isset( $current_import['post_types'][ $key ] ) && 'metadata' == $current_import['post_types'][ $key ] ) { ?>
 						<td><label for="selective_import_<?php echo $i; ?>"><em>(<?php echo __( 'Book Info', 'pressbooks' ); ?>)</em></label></td>
 						<td colspan="<?php echo $colspan; ?>"><input type="hidden" name='chapters[<?php echo $key; ?>][type]' value="metadata" /></td>
 					<?php } else { ?>
 						<td><label for="selective_import_<?php echo $i; ?>"><?php echo $chapter; ?></label></td>
-						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='front-matter' <?php checked(isset( $current_import['post_types'][$key] ) && 'front-matter' == $current_import['post_types'][$key]);?>></td>
-						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='chapter' <?php checked(!isset( $current_import['post_types'][$key] ) || 'chapter' == $current_import['post_types'][$key]);?>></td>
-						<?php if ( !empty( $current_import['allow_parts'] ) ) {?>
-						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='part' <?php checked(isset( $current_import['post_types'][$key] ) && 'part' == $current_import['post_types'][$key]);?>></td>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='front-matter' <?php checked( isset( $current_import['post_types'][ $key ] ) && 'front-matter' == $current_import['post_types'][ $key ] );?>></td>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='chapter' <?php checked( ! isset( $current_import['post_types'][ $key ] ) || 'chapter' == $current_import['post_types'][ $key ] );?>></td>
+						<?php if ( ! empty( $current_import['allow_parts'] ) ) {?>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='part' <?php checked( isset( $current_import['post_types'][ $key ] ) && 'part' == $current_import['post_types'][ $key ] );?>></td>
 						<?php } ?>
-						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='back-matter' <?php checked(isset( $current_import['post_types'][$key] ) && 'back-matter' == $current_import['post_types'][$key]);?>></td>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='back-matter' <?php checked( isset( $current_import['post_types'][ $key ] ) && 'back-matter' == $current_import['post_types'][ $key ] );?>></td>
+						<?php if ( has_filter( 'pb_import_custom_post_types' ) ) { ?>
+						<td><input type='radio' name='chapters[<?php echo $key; ?>][type]' value='<?php echo $current_import['post_types'][ $key ] ?>' <?php checked( isset( $current_import['post_types'][ $key ] ) && in_array( $current_import['post_types'][ $key ], $custom_post_types ) );?>></td>
+						<?php } ?>
 					<?php } ?>
 				</tr>
 				<?php
@@ -97,7 +104,7 @@ $current_import = get_option( 'pressbooks_current_import' );
 
 		<p><?php
 			submit_button( __( 'Start', 'pressbooks' ), 'primary', 'submit', false );
-			echo " &nbsp; "; // Space
+			echo ' &nbsp; '; // Space
 			submit_button( __( 'Cancel', 'pressbooks' ), 'delete', 'abort_button', false );
 		?></p>
 
@@ -110,11 +117,11 @@ $current_import = get_option( 'pressbooks_current_import' );
 		<script type="text/javascript">
 			jQuery(function ($) {
 				$('#pb-www').hide();
-				
+
 				$( ".pb-html-target").change(
 					function(){
 						var val = $('.pb-html-target').val();
-						
+
 							if (val == 'html') {
 							$('#pb-file').hide();
 							$('#pb-www').show();
@@ -123,16 +130,17 @@ $current_import = get_option( 'pressbooks_current_import' );
 							$('#pb-www').hide();
 							// clear http value at input elem
 							$('.widefat').val('');
-							
-						}	
-					
+
+						}
+
 					});
-				
+
 			});
 			</script>
 		<p>
 			<?php _e( 'Supported file extensions:', 'pressbooks' ); ?> XML, EPUB, ODT, DOCX, HTML <br />
-			<?php _e( 'Maximum file size:', 'pressbooks' ); echo ' ' . \Pressbooks\Utility\file_upload_max_size(); ?>
+			<?php _e( 'Maximum file size:', 'pressbooks' );
+			echo ' ' . \Pressbooks\Utility\file_upload_max_size(); ?>
 		</p>
 
 		<form id="pb-import-form" action="<?php echo $import_form_url ?>" enctype="multipart/form-data" method="post">

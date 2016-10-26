@@ -1,17 +1,20 @@
 <?php
 /*
 Plugin Name: Pressbooks
-Plugin URI: http://www.pressbooks.com
+Plugin URI: https://pressbooks.com
 Description: Simple Book Production
-Version: 3.5.2
-Author: BookOven Inc.
-Author URI: http://www.pressbooks.com
+Version: 3.9.1
+Author: Book Oven Inc.
+Author URI: https://pressbooks.com
 Text Domain: pressbooks
 License: GPLv2
+GitHub Plugin URI: https://github.com/pressbooks/pressbooks
+Release Asset: true
 */
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	return;
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Turn on $_SESSION
@@ -22,8 +25,7 @@ function _pb_session_start() {
 		if ( ! headers_sent() ) {
 			ini_set( 'session.use_only_cookies', true );
 			session_start();
-		}
-		else {
+		} else {
 			error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
 		}
 	}
@@ -42,14 +44,25 @@ add_action( 'wp_login', '_pb_session_kill' );
 // Setup some defaults
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! defined( 'PB_PLUGIN_VERSION' ) )
-	define ( 'PB_PLUGIN_VERSION', '3.5.2' );
+if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
+	define( 'PB_PLUGIN_VERSION', '3.9.1' );
+}
 
-if ( ! defined( 'PB_PLUGIN_DIR' ) )
-	define( 'PB_PLUGIN_DIR', ( is_link( WP_PLUGIN_DIR .  '/pressbooks' ) ? trailingslashit( WP_PLUGIN_DIR .  '/pressbooks' ) : trailingslashit( __DIR__ ) ) ); // Must have trailing slash!
+if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
+	define( 'PB_PLUGIN_DIR', ( is_link( WP_PLUGIN_DIR . '/pressbooks' ) ? trailingslashit( WP_PLUGIN_DIR . '/pressbooks' ) : trailingslashit( __DIR__ ) ) ); // Must have trailing slash!
+}
 
-if ( ! defined( 'PB_PLUGIN_URL' ) )
-	define ( 'PB_PLUGIN_URL', trailingslashit( plugins_url( 'pressbooks' ) ) ); // Must have trailing slash!
+if ( ! defined( 'PB_PLUGIN_URL' ) ) {
+	define( 'PB_PLUGIN_URL', trailingslashit( plugins_url( 'pressbooks' ) ) ); // Must have trailing slash!
+}
+
+if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
+	if ( defined( 'PB_BOOK_THEME' ) ) {
+		define( 'WP_DEFAULT_THEME', PB_BOOK_THEME );
+	} else {
+		define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
+	}
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Class autoloader
@@ -90,8 +103,7 @@ if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB
 		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 	} );
 	return;
-}
-elseif ( ! pb_meets_minimum_requirements() ) {
+} elseif ( ! pb_meets_minimum_requirements() ) {
 	return;
 }
 
@@ -130,7 +142,7 @@ require( PB_PLUGIN_DIR . 'functions.php' );
 // Override wp_mail()
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( ! function_exists( 'wp_mail' ) && isset( $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_API_KEY'] ) && isset( $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_SENDER_ADDRESS'] ) ) {
+if ( ! function_exists( 'wp_mail' ) && defined( 'POSTMARK_API_KEY' ) && defined( 'POSTMARK_SENDER_ADDRESS' ) ) {
 	function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
 		return \Pressbooks\Utility\wp_mail( $to, $subject, $message, $headers, $attachments );
 	}

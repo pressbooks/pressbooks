@@ -13,7 +13,7 @@ use Pressbooks\Book;
 class Xhtml extends Import {
 
 	/**
-	 * 
+	 *
 	 * @param array $current_import
 	 * @return bool
 	 */
@@ -21,12 +21,24 @@ class Xhtml extends Import {
 
 		// fetch the remote content
 		$html = wp_remote_get( $current_import['file'] );
+
+		// Something failed
+		if ( is_wp_error( $html ) ) {
+			$redirect_url = get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import' );
+			error_log( '\PressBooks\Import\Html import error, wp_remote_get() ' . $html->get_error_message() );
+			$_SESSION['pb_errors'][] = $html->get_error_message();
+
+			$this->revokeCurrentImport();
+			\Pressbooks\Redirect\location( $redirect_url );
+
+		}
+
 		$url = parse_url( $current_import['file'] );
 		// get parent directory (with forward slash e.g. /parent)
 		$path = dirname( $url['path'] );
 
 		$domain = $url['scheme'] . '://' . $url['host'] . $path;
-		
+
 		// get id (there will be only one)
 		$id = array_keys( $current_import['chapters'] );
 
@@ -87,25 +99,25 @@ class Xhtml extends Import {
 		}
 
 		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
-		
-		if( ! empty( $author )){
+
+		if ( ! empty( $author ) ) {
 			update_post_meta( $pid, 'pb_section_author', $author );
 		}
-		
-		if( ! empty( $license ) ){
+
+		if ( ! empty( $license ) ) {
 			update_post_meta( $pid, 'pb_section_license', $license );
 		}
 
 		update_post_meta( $pid, 'pb_show_title', 'on' );
 		update_post_meta( $pid, 'pb_export', 'on' );
 
-		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder		
+		Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
 	}
-	
+
 	/**
-	 * Expects a URL string with Creative Commons domain similar in form to: 
+	 * Expects a URL string with Creative Commons domain similar in form to:
 	 * http://creativecommons.org/licenses/by-sa/4.0/
-	 * 
+	 *
 	 * @param string $url
 	 * @return string license meta value
 	 */
@@ -135,7 +147,7 @@ class Xhtml extends Import {
 	/**
 	 * Looks for  div class created by the license module in PB, returns
 	 * author and license information.
-	 * 
+	 *
 	 * @param string $html
 	 * @return array $meta
 	 */
@@ -165,9 +177,9 @@ class Xhtml extends Import {
 	}
 
 	/**
-	 * Looks for meta data in the <head> section of an HTML document. 
+	 * Looks for meta data in the <head> section of an HTML document.
 	 * Priority is given to PB generated meta data.
-	 * 
+	 *
 	 * @param string $html
 	 * @return array $authors
 	 */
@@ -198,7 +210,7 @@ class Xhtml extends Import {
 
 	/**
 	 * Cherry pick likely content areas, then cull known, unwanted content areas
-	 * 
+	 *
 	 * @param string $html
 	 * @return string $html
 	 */
@@ -216,11 +228,11 @@ class Xhtml extends Import {
 		// general content area, greedy
 		preg_match( '/(?:<div id="content"[^>]*>)(.*)<\/div>/is', $html, $matches );
 		$html = ( ! empty( $matches[1] )) ? $matches[1] : $html;
-		
+
 		// specific PB content area, greedy
 		preg_match( '/(?:<div class="entry-content"[^>]*>)(.*)<\/div>/is', $html, $matches );
 		$html = ( ! empty( $matches[1] )) ? $matches[1] : $html;
-		
+
 		/* cull */
 		// get rid of script tags, ungreedy
 		$result = preg_replace( '/(?:<script[^>]*>)(.*)<\/script>/isU', '', $html );
@@ -229,9 +241,9 @@ class Xhtml extends Import {
 		// get rid of html5 nav content, ungreedy
 		$result = preg_replace( '/(?:<nav[^>]*>)(.*)<\/nav>/isU', '', $result );
 		// get rid of PB nav, next/previous
-		$result = preg_replace(  '/(?:<div class="nav"[^>]*>)(.*)<\/div>/isU', '', $result );
+		$result = preg_replace( '/(?:<div class="nav"[^>]*>)(.*)<\/div>/isU', '', $result );
 		// get rid of PB share buttons
-		$result = preg_replace(  '/(?:<div class="share-wrap-single"[^>]*>)(.*)<\/div>/isU', '', $result );
+		$result = preg_replace( '/(?:<div class="share-wrap-single"[^>]*>)(.*)<\/div>/isU', '', $result );
 		// get rid of html5 footer content, ungreedy
 		$result = preg_replace( '/(?:<footer[^>]*>)(.*)<\/footer>/isU', '', $result );
 		// get rid of sidebar content, greedy
@@ -260,7 +272,7 @@ class Xhtml extends Import {
 		$doc = new \DOMDocument();
 
 		$doc->loadHTML( $utf8_hack . $html );
-		
+
 		// Download images, change relative paths to absolute
 		$doc = $this->scrapeAndKneadImages( $doc, $domain );
 
@@ -273,11 +285,11 @@ class Xhtml extends Import {
 
 		return $html;
 	}
-	
+
 	/**
-	 * Extracts section/book author and section/book license if they exist. 
+	 * Extracts section/book author and section/book license if they exist.
 	 * Focus is given to CreativeCommons license information genereted by PB
-	 * 
+	 *
 	 * @param \DOMDocument $doc
 	 * @return array $meta
 	 */
@@ -348,7 +360,7 @@ class Xhtml extends Import {
 	 *
 	 * @see media_handle_sideload
 	 *
-	 * @return string $src 
+	 * @return string $src
 	 * @throws \Exception
 	 */
 	protected function fetchAndSaveUniqueImage( $url ) {
@@ -361,8 +373,8 @@ class Xhtml extends Import {
 
 		// Cheap cache
 		static $already_done = array();
-		if ( isset( $already_done[$remote_img_location] ) ) {
-			return $already_done[$remote_img_location];
+		if ( isset( $already_done[ $remote_img_location ] ) ) {
+			return $already_done[ $remote_img_location ];
 		}
 
 		/* Process */
@@ -375,14 +387,14 @@ class Xhtml extends Import {
 
 		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
 			// Unsupported image type
-			$already_done[$remote_img_location] = '';
+			$already_done[ $remote_img_location ] = '';
 			return '';
 		}
 
 		$tmp_name = download_url( $remote_img_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
-			$already_done[$remote_img_location] = '';
+			$already_done[ $remote_img_location ] = '';
 			return '';
 		}
 
@@ -396,7 +408,7 @@ class Xhtml extends Import {
 				}
 			} catch ( \Exception $exc ) {
 				// Garbage, don't import
-				$already_done[$remote_img_location] = '';
+				$already_done[ $remote_img_location ] = '';
 				unlink( $tmp_name );
 				return '';
 			}
@@ -404,15 +416,16 @@ class Xhtml extends Import {
 
 		$pid = media_handle_sideload( array( 'name' => $filename, 'tmp_name' => $tmp_name ), 0 );
 		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) $src = ''; // Change false to empty string
-		$already_done[$remote_img_location] = $src;
+		if ( ! $src ) { $src = ''; // Change false to empty string
+		}
+		$already_done[ $remote_img_location ] = $src;
 		@unlink( $tmp_name );
 
 		return $src;
 	}
 
 	/**
-	 * 
+	 *
 	 * @param array $upload
 	 * @return bool
 	 */
@@ -436,7 +449,7 @@ class Xhtml extends Import {
 		    'chapters' => array(),
 		);
 
-		// there will be only one chapter 
+		// there will be only one chapter
 		$option['chapters'][1] = $title;
 
 		return update_option( 'pressbooks_current_import', $option );
@@ -463,7 +476,7 @@ class Xhtml extends Import {
 		    'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
-		return \Htmlawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
 }

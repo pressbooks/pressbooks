@@ -35,6 +35,8 @@ namespace Pressbooks\Modules\Export\Mpdf;
 
 use \Pressbooks\Modules\Export\Export;
 
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 class Pdf extends Export {
 
 	/**
@@ -134,7 +136,7 @@ class Pdf extends Export {
 		$contents = $this->getOrderedBookContents();
 
 		// set up mPDF
-		if ( ! $this->isInstalled() ) {
+		if ( ! $this->hasDependencies() ) {
 			return false; // mPDF is not installed
 		}
 		require_once( PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php' );
@@ -220,8 +222,8 @@ class Pdf extends Export {
 		    'margin-right' => 15,
 		);
 		$content = '<div id="half-title-page">';
-		$content .=  '<h1 class="title">' . $this->bookTitle . '</h1>';
-		$content .=  '</div>' . "\n";
+		$content .= '<h1 class="title">' . $this->bookTitle . '</h1>';
+		$content .= '</div>' . "\n";
 
 		if ( ! empty( $this->bookMeta['pb_cover_image'] ) ) {
 			$content .= '<div style="text-align:center;"><img src="' . $this->bookMeta['pb_cover_image'] . '" alt="book-cover" title="' . bloginfo( 'name' ) . ' book cover" /></div>';
@@ -262,7 +264,6 @@ class Pdf extends Export {
 		if ( isset( $this->bookMeta['pb_contributing_authors'] ) ) {
 			$content .= '<h4 class="contributing-authors">' . $this->bookMeta['pb_contributing_authors'] . '</h4>';
 		}
-
 
 		if ( isset( $this->bookMeta['pb_print_isbn'] ) ) {
 			$content .= '<p class="isbn"><strong>' . __( 'ISBN', 'pressbooks' ) . '</strong>: ' . $this->bookMeta['pb_print_isbn'] . '</p>';
@@ -352,11 +353,11 @@ class Pdf extends Export {
 
 		foreach ( $contents as $index => $page ) {
 			// If we hit non front-matter post types we won't see anymore front-matter
-			if ( $page['post_type'] != 'front-matter' ) {
+			if ( 'front-matter' != $page['post_type'] ) {
 				return;
 			}
 
-			if ( $type == \Pressbooks\Taxonomy\front_matter_type( $page['ID'] ) ) {
+			if ( \Pressbooks\Taxonomy::getFrontMatterType( $page['ID'] ) == $type ) {
 				$page['mpdf_omit_toc'] = true;
 				$this->addPage( $page, $page_options, false, false );
 			}
@@ -380,10 +381,10 @@ class Pdf extends Export {
 
 		foreach ( $contents as $front_matter ) {
 			// safety
-			$type = \Pressbooks\Taxonomy\front_matter_type( $front_matter['ID'] );
-			if ( 'dedication' == $type || 'epigraph' == $type || 'title-page' == $type || 'before-title' == $type )
+			$type = \Pressbooks\Taxonomy::getFrontMatterType( $front_matter['ID'] );
+			if ( 'dedication' == $type || 'epigraph' == $type || 'title-page' == $type || 'before-title' == $type ) {
 					continue; // Skip
-
+			}
 
 			// only reset the page number on first iteration
 			( true == $first_iteration ) ? $page_options['resetpagenum'] = 1 : $page_options['resetpagenum'] = 0;
@@ -407,7 +408,8 @@ class Pdf extends Export {
 		$page_options = array();
 		foreach ( $contents as $page ) {
 
-			if ( 'front-matter' == $page['post_type'] ) continue; //skip all front-matter
+			if ( 'front-matter' == $page['post_type'] ) { continue; //skip all front-matter
+			}
 
 			if ( true == $first_iteration ) {
 				$page_options['pagenumstyle'] = 1;
@@ -527,7 +529,7 @@ class Pdf extends Export {
 		    'tidy' => -1,
 		);
 
-		return \Htmlawed::filter( $filtered, $config );
+		return htmLawed( $filtered, $config );
 	}
 
 	/**
@@ -630,7 +632,7 @@ class Pdf extends Export {
 								$chapter['mpdf_level'] = $part['mpdf_level'] + 1;
 								$ordered[] = $chapter;
 
-								if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+								if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 									$sections = \Pressbooks\Book::getSubsections( $chapter['ID'] );
 									if ( $sections ) {
 										foreach ( $sections as $section ) {
@@ -652,7 +654,7 @@ class Pdf extends Export {
 						$item['mpdf_level'] = 1;
 						$ordered[] = $item;
 
-						if ( \Pressbooks\Modules\Export\Export::isParsingSections() == true ) {
+						if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() == true ) {
 							$sections = \Pressbooks\Book::getSubsections( $item['ID'] );
 							if ( $sections ) {
 								foreach ( $sections as $section ) {
@@ -723,7 +725,7 @@ class Pdf extends Export {
 
 		foreach ( $unwanted as $key ) {
 			if ( array_key_exists( $key, $styles ) ) {
-				unset( $styles[$key] );
+				unset( $styles[ $key ] );
 			}
 		}
 		return $styles;
@@ -740,7 +742,7 @@ class Pdf extends Export {
 
 		// if empty, try the parent theme export directory
 		if ( empty( $cssfile ) ) {
-			$cssfile = realpath( get_template_directory() . "/export/mpdf/style.css" );
+			$cssfile = realpath( get_template_directory() . '/export/mpdf/style.css' );
 		}
 
 		if ( is_string( $cssfile ) && ! empty( $cssfile ) ) {
@@ -812,18 +814,16 @@ class Pdf extends Export {
 
 
 	/**
-	 * Is mPDF installed?
+	 * Dependency check.
 	 *
 	 * @return bool
 	 */
-	static function isInstalled() {
-
-		if ( in_array(  WP_PLUGIN_DIR . '/pressbooks-mpdf/pressbooks-mpdf.php', wp_get_active_network_plugins() ) ) {
+	static function hasDependencies() {
+		if ( in_array( WP_PLUGIN_DIR . '/pressbooks-mpdf/pressbooks-mpdf.php', wp_get_active_network_plugins() ) ) {
 			return true;
-		} else {
-			return false;
 		}
 
+		return false;
 	}
 
 }

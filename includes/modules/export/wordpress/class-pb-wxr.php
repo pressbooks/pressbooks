@@ -35,7 +35,6 @@ class Wxr extends Export {
 
 		// Some defaults
 
-
 		// Set the access protected "format/wxr" URL with a valid timestamp and NONCE
 		$timestamp = time();
 		$md5 = $this->nonce( $timestamp );

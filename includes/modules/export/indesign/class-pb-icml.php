@@ -8,6 +8,8 @@ namespace Pressbooks\Modules\Export\InDesign;
 
 use Pressbooks\Modules\Export\Export;
 
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 class Icml extends Export {
 
 
@@ -18,8 +20,9 @@ class Icml extends Export {
 
 		// Some defaults
 
-		if ( ! defined( 'PB_XMLLINT_COMMAND' ) )
+		if ( ! defined( 'PB_XMLLINT_COMMAND' ) ) {
 			define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+		}
 	}
 
 
@@ -141,43 +144,46 @@ class Icml extends Export {
 		// Do root level structures first.
 		foreach ( $book_contents as $type => $struct ) {
 
-			if ( preg_match( '/^__/', $type ) )
+			if ( preg_match( '/^__/', $type ) ) {
 				continue; // Skip __magic keys
+			}
 
 			foreach ( $struct as $i => $val ) {
 
 				if ( isset( $val['post_content'] ) ) {
+					// @codingStandardsIgnoreLine
 					$id = $val['ID'];
-					$book_contents[$type][$i]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
+					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
 				}
 				if ( isset( $val['post_title'] ) ) {
-					$book_contents[$type][$i]['post_title'] = \Pressbooks\Sanitize\sanitize_xml_attribute( $val['post_title'] );
+					$book_contents[ $type ][ $i ]['post_title'] = \Pressbooks\Sanitize\sanitize_xml_attribute( $val['post_title'] );
 				}
 				if ( isset( $val['post_name'] ) ) {
-					$book_contents[$type][$i]['post_name'] = $this->preProcessPostName( $val['post_name'] );
+					$book_contents[ $type ][ $i ]['post_name'] = $this->preProcessPostName( $val['post_name'] );
 				}
 
 				if ( 'part' == $type ) {
 
 					// Do chapters, which are embedded in part structure
-					foreach ( $book_contents[$type][$i]['chapters'] as $j => $val2 ) {
+					foreach ( $book_contents[ $type ][ $i ]['chapters'] as $j => $val2 ) {
 
 						if ( isset( $val2['post_content'] ) ) {
+							// @codingStandardsIgnoreLine
 							$id = $val2['ID'];
-							$book_contents[$type][$i]['chapters'][$j]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
 						}
 						if ( isset( $val2['post_title'] ) ) {
-							$book_contents[$type][$i]['chapters'][$j]['post_title'] = \Pressbooks\Sanitize\sanitize_xml_attribute( $val2['post_title'] );
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_title'] = \Pressbooks\Sanitize\sanitize_xml_attribute( $val2['post_title'] );
 						}
 						if ( isset( $val2['post_name'] ) ) {
-							$book_contents[$type][$i]['chapters'][$j]['post_name'] = $this->preProcessPostName( $val2['post_name'] );
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_name'] = $this->preProcessPostName( $val2['post_name'] );
 						}
-
 					}
 				}
 			}
 		}
 
+		// @codingStandardsIgnoreLine
 		$id = $old_id;
 		return $book_contents;
 	}
@@ -216,8 +222,20 @@ class Icml extends Export {
 			'tidy' => -1,
 		);
 
-		return \Htmlawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
+	/**
+	* Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		if ( true == \Pressbooks\Utility\check_xmllint_install() ) {
+			return true;
+		}
+
+		return false;
+	}
 
 }

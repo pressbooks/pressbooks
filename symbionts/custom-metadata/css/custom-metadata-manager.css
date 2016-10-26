@@ -1,0 +1,232 @@
+/* group descriptions */
+.custom-metadata-group-description {
+	margin: 15px 0;
+}
+
+/* general fields */
+.custom-metadata-field {
+	margin-bottom: 15px
+}
+.inside > .custom-metadata-field:first-child {
+	margin-top: 20px
+}
+.custom-metadata-field > label {
+	display: block;
+	font-size: 13px;
+	line-height: 18px;
+	font-weight: bold;
+	margin: 5px 0;
+}
+.custom-metadata-field .description {
+	display: block;
+	font-size: 11px;
+	margin-top: 3px;
+}
+.custom-metadata-field > div > label {
+	display: block;
+	margin: 5px 0;
+}
+.custom-metadata-field .error {
+	color: red;
+	font-style: italic;
+}
+.custom-metadata-field .del-multiple {
+	color: red;
+}
+.custom-metadata-field input ~ .del-multiple {
+	margin-left: 5px;
+}
+
+/* text fields */
+.custom-metadata-field input[type="text"],
+.custom-metadata-field input[type="url"],
+.custom-metadata-field input[type="password"],
+.custom-metadata-field input[type="email"] {
+	width: 65%;
+	margin: 3px 0;
+}
+
+/* number fields */
+.custom-metadata-field input[type="number"] {
+	width: 65px;
+}
+
+/* radio fields */
+.custom-metadata-field > div > label > input[type="radio"] {
+	margin-right: 5px;
+}
+
+/* checkbox fields */
+.custom-metadata-field.checkbox {
+	background: transparent;
+}
+
+.custom-metadata-field input[type="checkbox"] {
+	margin-right: 5px;
+}
+
+/* upload & link fields */
+.custom-metadata-field input.upload_field,
+.custom-metadata-field input.link_field {
+	width: 60%;
+}
+
+.custom-metadata-field.upload input[type="button"],
+.custom-metadata-field.link input[type="button"] {
+	margin-left: 10px;
+}
+
+/* datepicker fields */
+.custom-metadata-field.datepicker input {
+	width: 200px
+}
+
+/* timepicker fields */
+.ui-timepicker-div .ui-widget-header {
+	margin-bottom: 8px;
+}
+.ui-timepicker-div dl {
+	text-align: left;
+}
+.ui-timepicker-div dl dt {
+	height: 25px; margin-bottom: -25px;
+}
+.ui-timepicker-div dl dd {
+	margin: 0 10px 10px 65px;
+}
+.ui-timepicker-div td {
+	font-size: 90%;
+}
+.ui-tpicker-grid-label {
+	background: none; border: none; margin: 0; padding: 0;
+}
+.ui-timepicker-rtl{
+	direction: rtl;
+}
+.ui-timepicker-rtl dl {
+	text-align: right;
+}
+.ui-timepicker-rtl dl dd {
+	margin: 0 65px 10px 10px;
+}
+
+/* textarea fields */
+.custom-metadata-field textarea {
+	width: 99%;
+	height: 4em;
+	margin-top: 5px;
+}
+.custom-metadata-field textarea[readonly="readonly"] {
+	background-color: #eee;
+}
+
+/* wysiwyg fields */
+.custom-metadata-field.wysiwyg > label,
+.user-metadata-group .custom-metadata-field.wysiwyg > label {
+	display: block;
+	width: 100%;
+	float: none;
+}
+.custom-metadata-field.wysiwyg .wp-editor-container {
+	background: #fff
+}
+
+
+/* user fields */
+.user-metadata-group .custom-metadata-field > label {
+	color: #222;
+	display: block;
+	text-align: left;
+	vertical-align: top;
+	width: 200px;
+	font-size: 13px;
+	line-height: 24px;
+	float: left;
+}
+.user-metadata-group .custom-metadata-field input[type=text],
+.user-metadata-group .custom-metadata-field input[type=url],
+.user-metadata-group .custom-metadata-field input[type=password],
+.user-metadata-group .custom-metadata-field input[type=email] {
+	width: 25em;
+}
+.user-metadata-group .custom-metadata-field textarea {
+	width: 25em;
+}
+.user-metadata-group .custom-metadata-field .description {
+	margin-left: 200px;
+}
+
+/* select2 fields */
+.custom-metadata-field select {
+	min-width: 200px;
+	max-width: 400px;
+}
+.custom-metadata-field select[multiple],
+.custom-metadata-field .custom-metadata-select2 {
+	width: 400px;
+}
+#wpbody-content {
+	overflow: visible !important; /* otherwise the chosen selector gets cut off at the bottom */
+}
+
+/* multifields */
+.custom-metadata-multifield {
+	padding-top: 5px;
+}
+#poststuff .custom-metadata-multifield h2 {
+	margin: 0;
+}
+.custom-metadata-multifield-grouping {
+	border-top: 1px dashed #ccc;
+	padding: 5px 0;
+	margin: 2px;
+	position: relative;
+}
+.custom-metadata-multifield-grouping .custom-metadata-field {
+	float: left;
+	width: auto;
+	margin-left: 20px;
+}
+.custom-metadata-multifield-grouping .custom-metadata-field:first-child {
+	margin-left: 0;
+}
+.custom-metadata-multifield-grouping .custom-metadata-field input[type="text"],
+.custom-metadata-multifield-grouping .custom-metadata-field input[type="url"],
+.custom-metadata-multifield-grouping .custom-metadata-field input[type="password"],
+.custom-metadata-multifield-grouping .custom-metadata-field input[type="email"] {
+	width: 150px;
+}
+
+.custom-metadata-multifield-clone,
+.custom-metadata-multifield-delete {
+	position: absolute;
+	display: block;
+	top: 50%;
+	right: 25px;
+	padding: 0 3px 4px;
+	font-size: 35px;
+	line-height: 20px;
+	text-decoration: none;
+	border: 1px solid;
+	border-radius: 50%;
+}
+.custom-metadata-multifield-clone {
+	margin-top: -17px;
+	color: green;
+	border-color: green;
+}
+.custom-metadata-multifield-delete ~ .custom-metadata-multifield-clone {
+	margin-top: -35px;
+}
+.custom-metadata-multifield-delete {
+	margin-top: 17px;
+	padding: 1px 6px 4px;
+	color: red;
+	border-color: red;
+}
+.custom-metadata-multifield-clone:hover,
+.custom-metadata-multifield-clone:active,
+.custom-metadata-multifield-delete:hover,
+.custom-metadata-multifield-delete:active {
+	border-color: #d54e21;
+}

@@ -1,129 +1,170 @@
 @import 'partials/colors';
 
-$base-color:						$medium-grey;
-$icon-color:						$black;
-$highlight-color:					$lightest-grey;
-$notification-color:				$light-grey;
-$button-color:						$red;
-$text-color:						$black;
-$body-background:					$lightest-grey;
-$link:								$dark-red;
-$link-focus:						$red;
-$form-checked:						$red;
-$menu-background:					$medium-grey;
-$menu-text:							$black;
-$menu-icon:							$black;
-$menu-highlight-background:			$lightest-grey;
-$menu-highlight-text:				$red;
-$menu-highlight-icon:				$red;
-$menu-current-background:			$dark-grey;
+$base-color:						$alto;
+$icon-color:						$mine-shaft;
+$highlight-color:					$gallery;
+$notification-color:				$mercury;
+$button-color:						$monza;
+$text-color:						$mine-shaft;
+$body-background:					$gallery;
+$link:								darken($monza, 5%);
+$link-focus:						$monza;
+$form-checked:						$monza;
+$menu-background:					$alto;
+$menu-text:							$mine-shaft;
+$menu-icon:							$mine-shaft;
+$menu-highlight-background:			$gallery;
+$menu-highlight-text:				$monza;
+$menu-highlight-icon:				$monza;
+$menu-current-background:			$boulder;
 $menu-current-text:					$white;
 $menu-current-icon:					$white;
 $menu-submenu-background:			$white;
-$menu-submenu-text:					$black;
+$menu-submenu-text:					$mine-shaft;
 $menu-submenu-background-alt:		$white;
-$menu-submenu-focus-text:			$red;
-$menu-submenu-current-text:			$black;
-$menu-bubble-background:			$light-grey;
-$menu-bubble-text:					$black;
+$menu-submenu-focus-text:			$monza;
+$menu-submenu-current-text:			$mine-shaft;
+$menu-bubble-background:			$mercury;
+$menu-bubble-text:					$mine-shaft;
 $menu-bubble-current-background:	$white;
-$menu-bubble-current-text:			$red;
-$menu-collapse-text:				$black;
-$menu-collapse-icon:				$black;
-$menu-collapse-focus-text:			$red;
-$menu-collapse-focus-icon:			$red;
+$menu-bubble-current-text:			$monza;
+$menu-collapse-text:				$mine-shaft;
+$menu-collapse-icon:				$mine-shaft;
+$menu-collapse-focus-text:			$monza;
+$menu-collapse-focus-icon:			$monza;
 $adminbar-avatar-frame:				$white;
 $adminbar-input-background:			$white;
 
 @import 'partials/tmp/admin';
 
-/* Core UI */
+// Core UI
 
-.notice-success, div.updated {
-    border-color: $green;
+.notice-success,
+div.updated {
+  border-color: $verdun-green;
 }
 
 .notice-warning {
-    border-color: $orange;
+  border-color: $selective-yellow;
 }
 
-.notice-error, div.error {
-    border-color: $bright-red;
+.notice-error,
+div.error {
+  border-color: $torch-red;
 }
 
 .notice-info {
-    border-color: $blue;
+  border-color: $lochmara;
 }
 
-.plugin-update-tr.active td, .plugins .active th.check-column {
-	border-color: $red;
+.plugin-update-tr.active td,
+.plugins .active th.check-column {
+  border-color: $monza;
 }
 
-.plugins .active td, .plugins .active th {
-	background: $pink;
+.plugins .active td,
+.plugins .active th {
+  background: $chablis;
 }
 
-/* Admin Menu */
+// Admin Menu
 
-#adminmenu li.current:hover div.wp-menu-image:before,
-#adminmenu li.wp-menu-open:hover div.wp-menu-image:before {
-	color: $white;
+#adminmenu li.current:hover div.wp-menu-image::before,
+#adminmenu li.wp-menu-open:hover div.wp-menu-image::before {
+  color: $white;
 }
 
-/* Admin Bar */
+// Admin Bar
 
 #wpadminbar {
-	color: $white;
-	background: $dark-red;
-	.ab-item,
+  color: $white;
+  background: darken($monza, 5%);
+
+  .ab-item,
 	a.ab-item,
 	&> #wp-toolbar span.ab-label,
 	&> #wp-toolbar span.noticon {
-		color: $white;
+    color: $white;
+  }
+
+  .ab-icon,
+	.ab-icon::before,
+	.ab-item::before,
+	.ab-item::after {
+    color: $white;
 	}
-	.ab-icon,
-	.ab-icon:before,
-	.ab-item:before,
-	.ab-item:after {
-		color: $white;
-	}
-	#wp-admin-bar-menu-toggle .ab-item {
-		background: $dark-red;
-		.ab-icon,
+
+  #wp-admin-bar-menu-toggle .ab-item {
+    background: darken($monza, 5%);
+
+    .ab-icon,
 		.ab-icon:before {
-			color: $white;
+      color: $white;
 		}
-		&:hover, &:active {
-			background: $white;
-			.ab-icon,
+
+    &:hover,
+    &:active {
+      background: $white;
+
+      .ab-icon,
 			.ab-icon:before {
-				color: $red;
+        color: $monza;
 			}
 		}
-		&[aria-expanded="true"] {
-			background: $white;
-			.ab-icon,
+
+    &[aria-expanded="true"] {
+      background: $white;
+      .ab-icon,
 			.ab-icon:before {
-				color: $dark-red;
+        color: darken($monza, 5%);
 			}
-			&:hover, &:active {
-				.ab-icon,
-				.ab-icon:before {
-					color: $red;
+
+      &:hover,
+      &:active {
+        .ab-icon,
+				.ab-icon::before {
+          color: $monza;
 				}
 			}
 		}
 	}
+
+  &.mobile {
+    .quicklinks .ab-icon:before,
+    .quicklinks .ab-item:before {
+      color: $white;
+    }
+  }
 }
 
-/* Themes */
+// Themes
 
 .theme-browser .theme.active .theme-name,
-.theme-browser .theme.add-new-theme a:hover:after,
-.theme-browser .theme.add-new-theme a:focus:after {
-	background: $dark-red;
+.theme-browser .theme.add-new-theme a:hover::after,
+.theme-browser .theme.add-new-theme a:focus::after {
+  background: darken($monza, 5%);
 }
 
 .theme-browser .theme.active .theme-actions {
-	background: transparent;
+  background: transparent;
+}
+
+// Page Title Actions
+
+.wrap .add-new-h2,
+.wrap .add-new-h2:active,
+.wrap .page-title-action,
+.wrap .page-title-action:active {
+  color: $link;
+}
+
+.wrap .add-new-h2:hover,
+.wrap .page-title-action:hover {
+  color: $white;
+  background-color: $link-focus;
+  border-color: $link;
+}
+
+.page-title-action:focus {
+  color: $link-focus;
 }

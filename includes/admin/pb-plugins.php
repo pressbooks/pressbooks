@@ -18,9 +18,15 @@ namespace Pressbooks\Admin\Plugins;
 
 function filter_plugins( $plugins ) {
 	if ( ! is_super_admin() ) {
+		$slugs = [ 'hypothesis' ];
+		$approved = [];
+		foreach ( $slugs as $slug ) {
+			$approved[] = $slug . '/' . $slug . '.php';
+		}
 		foreach ( $plugins as $slug => $value ) {
-			if ( false === strpos( $slug, 'pressbooks-' ) )
-				unset( $plugins[$slug] );
+			if ( false === strpos( $slug, 'pressbooks-' ) && ! in_array( $slug, $approved ) ) {
+				unset( $plugins[ $slug ] );
+			}
 		}
 	}
 
@@ -53,10 +59,10 @@ function install_plugins_table_api_args_pressbooks( $args ) {
 		'fields' => array(
 			'last_updated' => true,
 			'icons' => true,
-			'active_installs' => true
+			'active_installs' => true,
 		),
 		'locale' => get_locale(),
-		'tag' => 'pressbooks'
+		'tag' => 'pressbooks',
 	);
 
 	return $args;
@@ -64,8 +70,6 @@ function install_plugins_table_api_args_pressbooks( $args ) {
 
 /**
  * Output header text and display table for the 'Pressbooks' tab of the plugin installer.
- *
- * @codeCoverageIgnore
  */
 function install_plugins() {
 	global $wp_list_table;

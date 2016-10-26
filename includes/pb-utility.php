@@ -21,8 +21,9 @@ function scandir_by_date( $dir ) {
 
 	$files = array();
 	foreach ( scandir( $dir ) as $file ) {
-		if ( in_array( $file, $ignored ) ) continue;
-		$files[$file] = filemtime( $dir . '/' . $file );
+		if ( in_array( $file, $ignored ) ) { continue;
+		}
+		$files[ $file ] = filemtime( $dir . '/' . $file );
 	}
 	arsort( $files );
 	$files = array_keys( $files );
@@ -43,15 +44,15 @@ function group_exports( $dir = null ) {
 
 	if ( ! $dir ) {
 		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
-	}
-	else {
+	} else {
 		$dir = rtrim( $dir, '/' ) . '/';
 	}
 
 	$files = array();
 	foreach ( scandir( $dir ) as $file ) {
-		if ( in_array( $file, $ignored ) ) continue;
-		$files[$file] = filemtime( $dir . $file );
+		if ( in_array( $file, $ignored ) ) { continue;
+		}
+		$files[ $file ] = filemtime( $dir . $file );
 	}
 	arsort( $files );
 
@@ -66,7 +67,7 @@ function group_exports( $dir = null ) {
 		if ( $pos - $timestamp > $interval ) {
 			$pos = $timestamp;
 		}
-		$output[$pos][] = $file;
+		$output[ $pos ][] = $file;
 	}
 
 	return $output;
@@ -84,8 +85,7 @@ function truncate_exports( $max, $dir = null ) {
 
 	if ( ! $dir ) {
 		$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
-	}
-	else {
+	} else {
 		$dir = rtrim( $dir, '/' ) . '/';
 	}
 
@@ -99,8 +99,6 @@ function truncate_exports( $max, $dir = null ) {
 				$export = realpath( $dir . $export );
 
 				WP_Filesystem();
-
-
 
 				unlink( $export );
 			}
@@ -147,6 +145,56 @@ function get_media_path( $guid ) {
 	}
 }
 
+/**
+ * Scan the export directory, return latest of each file type
+ *
+ * @author Brad Payne <brad@bradpayne.ca>
+ * @copyright 2014 Brad Payne
+ * @since 3.8.0
+ * @return array
+ */
+function latest_exports() {
+	$filetypes = array(
+	    'epub3' => '._3.epub',
+	    'epub' => '.epub',
+	    'pdf' => '.pdf',
+			'print-pdf' => '._print.pdf',
+	    'mobi' => '.mobi',
+	    'icml' => '.icml',
+	    'xhtml' => '.html',
+	    'wxr' => '.xml',
+	    'vanillawxr' => '._vanilla.xml',
+	    'mpdf' => '._oss.pdf',
+	    'odf' => '.odt',
+	);
+
+	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
+
+	$files = array();
+
+	// group by extension, sort by date newest first
+	foreach ( \Pressbooks\Utility\scandir_by_date( $dir ) as $file ) {
+		// only interested in the part of filename starting with the timestamp
+		preg_match( '/-\d{10,11}(.*)/', $file, $matches );
+
+		// grab the first captured parenthisized subpattern
+		$ext = $matches[1];
+
+		$files[ $ext ][] = $file;
+	}
+
+	// get only one of the latest of each type
+	$latest = array();
+
+	foreach ( $filetypes as $type => $ext ) {
+		if ( array_key_exists( $ext, $files ) ) {
+			$latest[ $type ] = $files[ $ext ][0];
+		}
+	}
+	// @TODO filter these results against user prefs
+
+	return $latest;
+}
 
 /**
  * Array multisort function for sorting on multiple fields like in SQL, e.g: 'ORDER BY field1, field2'
@@ -171,17 +219,17 @@ function multi_sort() {
 	$array = $array[0];
 	// sort with an anonymous function using args
 	usort( $array, function ( $a, $b ) use ( $args ) {
-		$orderBy = 'asc';
+		$orderby = 'asc';
 		$i = 0;
 		$c = count( $args );
 		$cmp = 0;
-		while ( $cmp == 0 && $i < $c ) {
-			@list( $arg, $orderBy ) = explode( ':', $args[$i] );
-			$orderBy = strtolower( $orderBy ) == 'desc' ? 'desc' : 'asc';
-			$cmp = strcmp( $a[$arg], $b[$arg] );
+		while ( 0 == $cmp && $i < $c ) {
+			@list( $arg, $orderby ) = explode( ':', $args[ $i ] );
+			$orderby = strtolower( $orderby ) == 'desc' ? 'desc' : 'asc';
+			$cmp = strcmp( $a[ $arg ], $b[ $arg ] );
 			$i ++;
 		}
-		if ( $orderBy == 'desc' ) {
+		if ( 'desc' == $orderby ) {
 			return - $cmp; // Negate the value
 		} else {
 			return $cmp; // As is
@@ -201,8 +249,8 @@ function multi_sort() {
  * @param string|array $headers Optional. Additional headers.
  * @param string|array $attachments Optional. Files to attach.
  *
- * @global $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_API_KEY']
- * @global $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_SENDER_ADDRESS']
+ * @const POSTMARK_API_KEY
+ * @const POSTMARK_SENDER_ADDRESS
  *
  * @return bool Whether the email contents were sent successfully.
  */
@@ -215,7 +263,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 	$postmark_headers = array(
 		'Accept' => 'application/json',
 		'Content-Type' => 'application/json',
-		'X-Postmark-Server-Token' => $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_API_KEY'],
+		'X-Postmark-Server-Token' => POSTMARK_API_KEY,
 	);
 
 	// Send Email
@@ -230,7 +278,7 @@ function wp_mail( $to, $subject, $message, $headers = '', $attachments = array()
 
 		$email = array();
 		$email['To'] = $recipient;
-		$email['From'] = $GLOBALS['PB_SECRET_SAUCE']['POSTMARK_SENDER_ADDRESS'];
+		$email['From'] = POSTMARK_SENDER_ADDRESS;
 		$email['Subject'] = $subject;
 		$email['TextBody'] = $message;
 
@@ -259,7 +307,7 @@ function pm_send_mail( array $headers, array $email ) {
 
 	$args = array(
 		'headers' => $headers,
-		'body' => json_encode( $email )
+		'body' => json_encode( $email ),
 	);
 
 	$response = wp_remote_post( $postmark_endpoint, $args );
@@ -308,38 +356,111 @@ function do_sitemap() {
  */
 function create_tmp_file() {
 
-	return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[mt_rand()] = tmpfile() ) ) );
+	return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ) ) );
 }
 
 /**
- * Lightweight check to see if the Prince executable is installed.
+ * Lightweight check to see if the Epubcheck executable is installed and up to date.
+ *
+ * @return boolean
+ */
+function check_epubcheck_install() {
+	if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) { // @see wp-config.php
+		define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+	}
+
+	$output = array();
+	$return_val = 0;
+	exec( PB_EPUBCHECK_COMMAND . ' -h 2>&1', $output, $return_val );
+
+	$output = $output[0];
+	if ( false !== strpos( $output, 'EpubCheck' ) ) { // Command found.
+		$output = explode( 'EpubCheck v', $output );
+		$version = $output[1];
+		if ( version_compare( $version, '4.0.0' ) >= 0 ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Lightweight check to see if the Kindlegen executable is installed and up to date.
+ *
+ * @return boolean
+ */
+function check_kindlegen_install() {
+	if ( ! defined( 'PB_KINDLEGEN_COMMAND' ) ) { // @see wp-config.php
+		define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
+	}
+
+	$output = array();
+	$return_val = 0;
+	exec( PB_KINDLEGEN_COMMAND . ' 2>&1', $output, $return_val );
+
+	if ( isset( $output[2] ) && false !== strpos( $output[2], 'kindlegen' ) ) { // Command found.
+		$output = explode( ' V', $output[2] );
+		$output = explode( ' build', $output[1] );
+		$version = $output[0];
+		if ( version_compare( $version, '2.9' ) >= 0 ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Lightweight check to see if the Prince executable is installed and up to date.
  *
  * @return boolean
  */
 function check_prince_install() {
-	$result = false;
-
-	// @see wp-config.php
-	if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
+	if ( ! defined( 'PB_PRINCE_COMMAND' ) ) { // @see wp-config.php
 		define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 	}
 
-	$process = proc_open( PB_PRINCE_COMMAND . ' --version', array(
-		0 => array( "pipe", "r" ),
-		1 => array( "pipe", "w" ),
-		2 => array( "pipe", "w" )
-	), $pipes );
+	$output = array();
+	$return_val = 0;
+	exec( PB_PRINCE_COMMAND . ' --version 2>&1', $output, $return_val );
 
-	if ( is_resource( $process ) ) {
-		$stdout = stream_get_contents( $pipes[1] );
-		fclose( $pipes[1] );
-		proc_close( $process );
-		if ( strpos( $stdout, "Prince") === 0) { // TODO: confirm that minimum version is installed.
-			$result = true;
+	$output = $output[0];
+	if ( false !== strpos( $output, 'Prince' ) ) { // Command found.
+		$output = explode( 'Prince ', $output );
+		$version = $output[1];
+		if ( version_compare( $version, '20160929' ) >= 0 ) {
+			return true;
 		}
 	}
 
-	return $result;
+	return false;
+}
+
+/**
+ * Lightweight check to see if the xmllint executable is installed and up to date.
+ *
+ * @return boolean
+ */
+function check_xmllint_install() {
+	if ( ! defined( 'PB_XMLLINT_COMMAND' ) ) { // @see wp-config.php
+		define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+	}
+
+	$output = array();
+	$return_val = 0;
+	exec( PB_XMLLINT_COMMAND . ' --version 2>&1', $output, $return_val );
+
+	$output = $output[0];
+	if ( false !== strpos( $output, 'libxml' ) ) { // Command found.
+		$output = explode( PB_XMLLINT_COMMAND . ': using libxml version ', $output );
+		$version = $output[1];
+		if ( version_compare( $version, '20800' ) >= 0 ) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 /**
@@ -349,8 +470,9 @@ function check_prince_install() {
  */
 function show_experimental_features( $host = null ) {
 
-	if ( ! $host )
+	if ( ! $host ) {
 		$host = parse_url( network_site_url(), PHP_URL_HOST );
+	}
 
 	// hosts where experimental features should be hidden
 	$hosts_for_hiding = array(
@@ -358,7 +480,7 @@ function show_experimental_features( $host = null ) {
 		'pressbooks.pub',
 	);
 
-	foreach( $hosts_for_hiding as $host_for_hiding ) {
+	foreach ( $hosts_for_hiding as $host_for_hiding ) {
 		if ( $host == $host_for_hiding || strpos( $host, $host_for_hiding ) ) {
 			return false;
 		}
@@ -368,45 +490,58 @@ function show_experimental_features( $host = null ) {
 }
 
 /**
- * Include plugins in /symbionts
+ * Include plugins in /vendor
  *
  * @since 2.5.1
  */
 function include_plugins() {
+	$plugins = array(
+			'pb-api/pb-api.php' => 1,
+	);
+
+	$plugins = filter_plugins( $plugins );
+
+	if ( ! empty( $plugins ) ) {
+		foreach ( $plugins as $key => $val ) {
+			require_once( PB_PLUGIN_DIR . 'vendor/pressbooks/' . $key );
+		}
+	}
+
 	$symbionts = array(
-	    'custom-metadata/custom_metadata.php' => 1,
-	    'disable-comments/disable-comments.php' => 1,
-	    'mce-table-buttons/mce_table_buttons.php' => 1,
-	    'rest-api/plugin.php' => 1,
+		'custom-metadata/custom_metadata.php' => 1,
+		'pressbooks-latex/pb-latex.php' => 1,
 	);
 
 	$symbionts = filter_plugins( $symbionts );
 
-	// Include plugins
 	if ( ! empty( $symbionts ) ) {
 		foreach ( $symbionts as $key => $val ) {
-			require_once( PB_PLUGIN_DIR . 'vendor/pressbooks/' . $key);
+			require_once( PB_PLUGIN_DIR . 'symbionts/' . $key );
 		}
 	}
 
+	// Disable comments
+	if ( true == disable_comments() ) {
+		require_once( PB_PLUGIN_DIR . 'vendor/solarissmoke/disable-comments-mu/disable-comments-mu.php' );
+	}
 }
 
 /**
  * Filters out active plugins, to avoid collisions with plugins already installed.
  *
  * @since 2.5.1
- * @param array $symbionts
+ * @param array $plugins An array of plugins, key/values paired like so: 'pressbooks/pressbooks.php' => 1
  * @return array
  */
-function filter_plugins( $symbionts ) {
+function filter_plugins( $plugins ) {
 	$already_active = get_option( 'active_plugins' );
 	$network_already_active = get_site_option( 'active_sitewide_plugins' );
 
-	// don't include plugins already active at the site level, network level
-	if ( ! empty( $symbionts ) ) {
-		foreach ( $symbionts as $key => $val ) {
-			if ( in_array( $key, $already_active ) || array_key_exists( $key, $network_already_active ) ) {
-				unset( $symbionts[$key] );
+	// Don't include plugins already active at the site level or network level.
+	if ( ! empty( $plugins ) ) {
+		foreach ( $plugins as $key => $val ) {
+			if ( in_array( $key, $already_active, true ) || array_key_exists( $key, $network_already_active ) ) {
+				unset( $plugins[ $key ] );
 			}
 		}
 	}
@@ -415,18 +550,47 @@ function filter_plugins( $symbionts ) {
 	if ( isset( $_REQUEST['action'] ) ) {
 		if ( 'activate' == $_REQUEST['action'] && ! empty( $_REQUEST['plugin'] ) ) {
 			$key = (string) $_REQUEST['plugin'];
-			unset( $symbionts[$key] );
-		}
-		elseif ( 'activate-selected' == $_REQUEST['action'] && is_array( $_REQUEST['checked'] ) ) {
+			unset( $plugins[ $key ] );
+		} elseif ( 'activate-selected' == $_REQUEST['action'] && is_array( $_REQUEST['checked'] ) ) {
 			foreach ( $_REQUEST['checked'] as $key ) {
-				unset( $symbionts[$key] );
+				unset( $plugins[ $key ] );
 			}
 		}
 	}
 
-	return $symbionts;
+	// Don't include Pressbooks LaTeX if QuickLaTeX is active.
+	if ( in_array( 'wp-quicklatex', $already_active, true ) || array_key_exists( 'wp-quicklatex/wp-quicklatex.php', $network_already_active ) ) {
+		unset( $plugins['pressbooks-latex/pb-latex.php'] );
+	}
+
+	return $plugins;
 }
 
+/**
+ * Check if we should disable comments.
+ *
+ * @return bool
+ */
+function disable_comments() {
+	$old_option = get_option( 'disable_comments_options' );
+	$new_option = get_option( 'pressbooks_sharingandprivacy_options', array( 'disable_comments' => 1 ) );
+
+	if ( false == $old_option ) {
+		$retval = absint( $new_option['disable_comments'] );
+	} elseif ( is_array( $old_option['disabled_post_types'] ) && in_array( 'chapter', $old_option['disabled_post_types'] ) && in_array( 'front-matter', $old_option['disabled_post_types'] ) && in_array( 'front-matter', $old_option['disabled_post_types'] ) ) {
+		$retval = true;
+		$new_option['disable_comments'] = 1;
+		update_option( 'pressbooks_sharingandprivacy_options', $new_option );
+		delete_option( 'disable_comments_options' );
+	} else {
+		$retval = false;
+		$new_option['disable_comments'] = 0;
+		update_option( 'pressbooks_sharingandprivacy_options', $new_option );
+		delete_option( 'disable_comments_options' );
+	}
+
+	return $retval;
+}
 
 /**
  * Function to return a string representing max import size by comparing values of upload_max_filesize, post_max_size
@@ -465,8 +629,7 @@ function parse_size( $size ) {
 	$size = preg_replace( '/[^0-9\.]/', '', $size ); // Remove the non-numeric characters from the size.
 	if ( $unit ) { // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
 		return round( $size * pow( 1024, stripos( 'bkmgtpezy', $unit[0] ) ) );
-	}
-	else {
+	} else {
 		return round( $size );
 	}
 }
@@ -476,13 +639,13 @@ function parse_size( $size ) {
  * @return string
  */
 function format_bytes( $bytes, $precision = 2 ) {
-    $units = array('B', 'KB', 'MB', 'GB', 'TB');
-    $bytes = max( $bytes, 0 );
-    $pow = floor( ( $bytes ? log( $bytes ) : 0 ) / log( 1024 ) );
-    $pow = min( $pow, count( $units ) - 1 );
-    $bytes /= (1 << (10 * $pow));
+	$units = array( 'B', 'KB', 'MB', 'GB', 'TB' );
+	$bytes = max( $bytes, 0 );
+	$pow = floor( ( $bytes ? log( $bytes ) : 0 ) / log( 1024 ) );
+	$pow = min( $pow, count( $units ) - 1 );
+	$bytes /= (1 << (10 * $pow));
 
-    return round( $bytes, $precision ) . ' ' . $units[$pow];
+	return round( $bytes, $precision ) . ' ' . $units[ $pow ];
 }
 
 
@@ -533,6 +696,7 @@ function template( $path, array $vars = array() ) {
 	}
 
 	ob_start();
+	// @codingStandardsIgnoreLine
 	extract( $vars );
 	include( $path );
 	$output = ob_get_contents();
@@ -545,48 +709,48 @@ function template( $path, array $vars = array() ) {
  * Get paths for assets
  */
 class JsonManifest {
-  private $manifest;
-  public function __construct($manifest_path) {
-    if (file_exists($manifest_path)) {
-      $this->manifest = json_decode(file_get_contents($manifest_path), true);
-    } else {
-      $this->manifest = [];
-    }
-  }
-  public function get() {
-    return $this->manifest;
-  }
-  public function getPath($key = '', $default = null) {
-    $collection = $this->manifest;
-    if (is_null($key)) {
-      return $collection;
-    }
-    if (isset($collection[$key])) {
-      return $collection[$key];
-    }
-    foreach (explode('.', $key) as $segment) {
-      if (!isset($collection[$segment])) {
-        return $default;
-      } else {
-        $collection = $collection[$segment];
-      }
-    }
-    return $collection;
-  }
+	private $manifest;
+	public function __construct( $manifest_path ) {
+		if ( file_exists( $manifest_path ) ) {
+			$this->manifest = json_decode( file_get_contents( $manifest_path ), true );
+		} else {
+			$this->manifest = [];
+		}
+	}
+	public function get() {
+		return $this->manifest;
+	}
+	public function getPath( $key = '', $default = null ) {
+		$collection = $this->manifest;
+		if ( is_null( $key ) ) {
+			return $collection;
+		}
+		if ( isset( $collection[ $key ] ) ) {
+			return $collection[ $key ];
+		}
+		foreach ( explode( '.', $key ) as $segment ) {
+			if ( ! isset( $collection[ $segment ] ) ) {
+				return $default;
+			} else {
+				$collection = $collection[ $segment ];
+			}
+		}
+		return $collection;
+	}
 }
 
-function asset_path($filename) {
-  $dist_path = PB_PLUGIN_URL . 'assets/dist/';
-  $directory = dirname($filename) . '/';
-  $file = basename($filename);
-  static $manifest;
-  if (empty($manifest)) {
-    $manifest_path = PB_PLUGIN_DIR . 'assets/dist/assets.json';
-    $manifest = new JsonManifest($manifest_path);
-  }
-  if (array_key_exists($file, $manifest->get())) {
-    return $dist_path . $directory . $manifest->get()[$file];
-  } else {
-    return $dist_path . $directory . $file;
-  }
+function asset_path( $filename ) {
+	$dist_path = PB_PLUGIN_URL . 'assets/dist/';
+	$directory = dirname( $filename ) . '/';
+	$file = basename( $filename );
+	static $manifest;
+	if ( empty( $manifest ) ) {
+		$manifest_path = PB_PLUGIN_DIR . 'assets/dist/assets.json';
+		$manifest = new JsonManifest( $manifest_path );
+	}
+	if ( array_key_exists( $file, $manifest->get() ) ) {
+		return $dist_path . $directory . $manifest->get()[ $file ];
+	} else {
+		return $dist_path . $directory . $file;
+	}
 }

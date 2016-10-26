@@ -32,7 +32,7 @@
 		.inside {
 			margin-bottom: 0;
 			.fully-upgraded {
-				color: $green;
+				color: $verdun-green;
 			}
 		}
 	}
@@ -139,6 +139,12 @@
 								background-image: url(../images/mobi-72.png);
 							}
 						}
+            &.print-pdf {
+							background-image: url('../images/print-pdf-36.png');
+							@include hidpi {
+								background-image: url('../images/print-pdf-72.png');
+							}
+						}
 						&.pdf {
 							background-image: url(../images/pdf-36.png);
 							@include hidpi {
@@ -151,10 +157,10 @@
 								background-image: url(../images/wxr-72.png);
 							}
 						}
-						&.wxr {
-							background-image: url(../images/wxr-36.png);
+						&.vanillawxr {
+							background-image: url(../images/vanillawxr-36.png);
 							@include hidpi {
-								background-image: url(../images/wxr-72.png);
+								background-image: url(../images/vanillawxr-72.png);
 							}
 						}
 						&.xhtml {
@@ -200,6 +206,12 @@
 								background-image: url(../images/mobi-96.png);
 							}
 						}
+            &.print-pdf {
+							background-image: url('../images/print-pdf-48.png');
+							@include hidpi {
+								background-image: url('../images/print-pdf-96.png');
+							}
+						}
 						&.pdf {
 							background-image: url(../images/pdf-48.png);
 							@include hidpi {
@@ -212,10 +224,10 @@
 								background-image: url(../images/wxr-96.png);
 							}
 						}
-						&.wxr {
-							background-image: url(../images/wxr-48.png);
+						&.vanillawxr {
+							background-image: url(../images/vanillawxr-48.png);
 							@include hidpi {
-								background-image: url(../images/wxr-96.png);
+								background-image: url(../images/vanillawxr-96.png);
 							}
 						}
 						&.xhtml {
@@ -261,7 +273,6 @@
       width: 100%;
 			margin-top: 13px;
 			cursor: pointer;
-			//float: left;
 			position: relative;
 			border: 1px solid #dedede;
 			width: 325px;
@@ -367,11 +378,24 @@
       float: right;
       width: 50%;
 
+      label {
+        margin-right: 0;
+      }
+
       fieldset,
       p {
 				float: left;
-        width: 40%;
 			}
+
+      fieldset.standard {
+        width: 50%;
+        margin-right: 10px;
+      }
+
+      fieldset.exotic {
+        width: 35%;
+        margin-right: 0;
+      }
     }
   }
 }

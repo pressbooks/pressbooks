@@ -807,7 +807,7 @@ div.aligncenter {
   height: 43px;
   white-space: nowrap; }
 
-.nav span.next a {
+.nav span.next a, .nav-next a {
   background-position: 0 -506px; }
 
 .nav span a:hover {
@@ -816,8 +816,11 @@ div.aligncenter {
 .nav span.next a:hover {
   background-position: -56px -506px; }
 
-/* TITILE, SUB-TITLE, AUTHOR AND APHORIS
+/* TITLE, SUB-TITLE, AUTHOR AND APHORIS
 ==========================================*/
+.part-title {
+  text-align: right; }
+
 .entry-title {
   font-size: 1.6em;
   font-style: normal;
@@ -2014,6 +2017,7 @@ code {
     height: auto !important;
     min-height: 100px;
     margin: 0 auto; } }
+
 /* =Debug Stuff (PL)
 -------------------------------------------------------------- */
 div#debug {

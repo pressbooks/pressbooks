@@ -1,0 +1,120 @@
+@import 'partials/colors';
+
+$height: 17em;
+$width: 11em;
+$top: 1.58em;
+$bottom: 1.58em;
+$outside: 1.58em;
+$inside: 1.58em;
+
+.margin-diagram {
+  .pages {
+    margin-top: 1em;
+    clear: both;
+  }
+
+  .page {
+    position: relative;
+    display: inline-block;
+    width: $width;
+    height: $height;
+    background: $white;
+    border: solid 1px $mine-shaft;
+
+    .margin {
+      position: absolute;
+
+      &.outside {
+        top: $top;
+        width: $outside;
+        height: $height - ($top + $bottom);
+        background: $monza;
+      }
+
+      &.inside {
+        top: $top;
+        width: $inside;
+        height: $height - ($top + $bottom);
+        background: $selective-yellow;
+      }
+
+      &.top {
+        width: $width - ($inside + $outside);
+        height: $top;
+        background: $verdun-green;
+      }
+
+      &.bottom {
+        width: $width - ($inside + $outside);
+        height: $bottom;
+        background: $lochmara;
+      }
+
+      &.top {
+        top: 0;
+      }
+
+      &.bottom {
+        bottom: 0;
+      }
+    }
+
+    &.left {
+      .margin.outside {
+        left: 0;
+      }
+
+      .margin.inside {
+        right: 0;
+      }
+
+      .margin.top,
+      .margin.bottom {
+        left: $outside;
+      }
+    }
+
+    &.right {
+      .margin.inside {
+        left: 0;
+      }
+
+      .margin.outside {
+        right: 0;
+      }
+
+      .margin.top,
+      .margin.bottom {
+        left: $inside;
+      }
+    }
+  }
+
+  .legend {
+    .color {
+      display: inline-block;
+      width: .8em;
+      height: .8em;
+    }
+
+    .outside .color {
+      background: $monza;
+    }
+
+    .inside .color {
+      background: $selective-yellow;
+    }
+
+    .top .color {
+      background: $verdun-green;
+    }
+
+    .bottom .color {
+      background: $lochmara;
+    }
+  }
+}
+
+input#running_content_left {
+  margin-top: .5em;
+}

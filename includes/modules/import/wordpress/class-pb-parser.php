@@ -33,7 +33,7 @@ class Parser {
 		$dom->recover = true; // Try to parse non-well formed documents
 		$success = $dom->loadXML( file_get_contents( $file ) );
 		foreach ( $dom->childNodes as $child ) {
-			if ( $child->nodeType === XML_DOCUMENT_TYPE_NODE ) {
+			if ( XML_DOCUMENT_TYPE_NODE === $child->nodeType ) {
 				// Invalid XML: Detected use of disallowed DOCTYPE
 				$success = false;
 				break;
@@ -49,19 +49,20 @@ class Parser {
 		unset( $dom );
 
 		// halt if loading produces an error
-		if ( ! $xml )
+		if ( ! $xml ) {
 			throw new \Exception( print_r( libxml_get_errors(), true ) );
+		}
 
 		$wxr_version = $xml->xpath( '/rss/channel/wp:wxr_version' );
-		if ( ! $wxr_version )
+		if ( ! $wxr_version ) {
 			throw new \Exception( __( 'This does not appear to be a WXR file, missing/invalid WXR version number', 'pressbooks' ) );
+		}
 
 		$wxr_version = (string) trim( $wxr_version[0] );
 		// confirm that we are dealing with the correct file format
-		if ( ! preg_match( '/^\d+\.\d+$/', $wxr_version ) )
+		if ( ! preg_match( '/^\d+\.\d+$/', $wxr_version ) ) {
 			throw new \Exception( __( 'This does not appear to be a WXR file, missing/invalid WXR version number', 'pressbooks' ) );
-
-
+		}
 
 		// ------------------------------------------------------------------------------------------------------------
 		// Ladies and gentlemen, start your parsing
@@ -71,22 +72,24 @@ class Parser {
 		$base_url = (string) trim( $base_url[0] );
 
 		$namespaces = $xml->getDocNamespaces();
-		if ( ! isset( $namespaces['wp'] ) )
+		if ( ! isset( $namespaces['wp'] ) ) {
 			$namespaces['wp'] = 'http://wordpress.org/export/1.1/';
-		if ( ! isset( $namespaces['excerpt'] ) )
+		}
+		if ( ! isset( $namespaces['excerpt'] ) ) {
 			$namespaces['excerpt'] = 'http://wordpress.org/export/1.1/excerpt/';
+		}
 
 		// grab authors
 		foreach ( $xml->xpath( '/rss/channel/wp:author' ) as $author_arr ) {
 			$a = $author_arr->children( $namespaces['wp'] );
 			$login = (string) $a->author_login;
-			$authors[$login] = array(
+			$authors[ $login ] = array(
 				'author_id' => (int) $a->author_id,
 				'author_login' => $login,
 				'author_email' => (string) $a->author_email,
 				'author_display_name' => (string) $a->author_display_name,
 				'author_first_name' => (string) $a->author_first_name,
-				'author_last_name' => (string) $a->author_last_name
+				'author_last_name' => (string) $a->author_last_name,
 			);
 		}
 
@@ -98,7 +101,7 @@ class Parser {
 				'category_nicename' => (string) $t->category_nicename,
 				'category_parent' => (string) $t->category_parent,
 				'cat_name' => (string) $t->cat_name,
-				'category_description' => (string) $t->category_description
+				'category_description' => (string) $t->category_description,
 			);
 		}
 
@@ -108,7 +111,7 @@ class Parser {
 				'term_id' => (int) $t->term_id,
 				'tag_slug' => (string) $t->tag_slug,
 				'tag_name' => (string) $t->tag_name,
-				'tag_description' => (string) $t->tag_description
+				'tag_description' => (string) $t->tag_description,
 			);
 		}
 
@@ -120,7 +123,7 @@ class Parser {
 				'slug' => (string) $t->term_slug,
 				'term_parent' => (string) $t->term_parent,
 				'term_name' => (string) $t->term_name,
-				'term_description' => (string) $t->term_description
+				'term_description' => (string) $t->term_description,
 			);
 		}
 
@@ -154,23 +157,25 @@ class Parser {
 			$post['post_password'] = (string) $wp->post_password;
 			$post['is_sticky'] = (int) $wp->is_sticky;
 
-			if ( isset( $wp->attachment_url ) )
+			if ( isset( $wp->attachment_url ) ) {
 				$post['attachment_url'] = (string) $wp->attachment_url;
+			}
 
 			foreach ( $item->category as $c ) {
 				$att = $c->attributes();
-				if ( isset( $att['nicename'] ) )
+				if ( isset( $att['nicename'] ) ) {
 					$post['terms'][] = array(
 						'name' => (string) $c,
 						'slug' => (string) $att['nicename'],
-						'domain' => (string) $att['domain']
+						'domain' => (string) $att['domain'],
 					);
+				}
 			}
 
 			foreach ( $wp->postmeta as $meta ) {
 				$post['postmeta'][] = array(
 					'key' => (string) $meta->meta_key,
-					'value' => (string) $meta->meta_value
+					'value' => (string) $meta->meta_value,
 				);
 			}
 
@@ -180,7 +185,7 @@ class Parser {
 					foreach ( $comment->commentmeta as $m ) {
 						$meta[] = array(
 							'key' => (string) $m->meta_key,
-							'value' => (string) $m->meta_value
+							'value' => (string) $m->meta_value,
 						);
 					}
 				}
@@ -212,7 +217,7 @@ class Parser {
 			'tags' => $tags,
 			'terms' => $terms,
 			'base_url' => $base_url,
-			'version' => $wxr_version
+			'version' => $wxr_version,
 		);
 	}
 

@@ -14,4 +14,4 @@ linters:
     extra_properties: ['prince-page-group', 'prince-footnote-policy', 'prince-image-resolution', 'footnote-style-position']
   NestingDepth:
     enabled: true
-    max_depth: 4
+    max_depth: 5

@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.5.2
+Version: 3.9.1
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.5.2
-Tested up to: 4.5.2
-Stable tag: 3.5.2
+Requires at least: 4.6.1
+Tested up to: 4.6.1
+Version: 3.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.5.2. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ * Pressbooks works with PHP 5.6.x and WordPress 4.6.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
 
 	$pb_minimum_php = '5.4';
 
@@ -96,7 +96,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 
 *Part 3, Pressbooks dependencies:*
 
- * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 10r5
+ * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 20160929
  * For PDF export via mPDF install the [Pressbooks mPDF plugin](https://wordpress.org/plugins/pressbooks-mpdf). You will also need to ensure that the following folders have write access and/or they are owned by the appropriate user. See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
    + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/ttfontdata
    + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/tmp
@@ -196,9 +196,92 @@ TK.
 
 == Upgrade Notice ==
 
-Pressbooks 3.0 adds support for book themes built with SASS, dynamic support of non-Latin character sets in any theme, and the EPUB 3 standard. Please note that Pressbooks 3.0 requires PHP 5.6.
+Please note that Pressbooks 3.8.0 will be our last release on WordPress.org. Future updates will be delivered via GitHub [releases](https://github.com/pressbooks/pressbooks/releases). To facilitate this process, you can install the [GitHub Updater](https://github.com/afragen/github-updater) plugin.
 
 == Changelog ==
+
+= 3.9.1 =
+* **Fix:** Fixed an issue where the htmLawed and PrinceXMLPHP dependencies were not being loaded properly.
+
+= 3.9.0 =
+* **Feature:** Added a web theme option to display the title of the current part in the webbook (props to @bdolor).
+* **Feature:** Noto CJK fonts (required for Chinese, Japanese and Korean PDF output) are now downloaded only when needed from within Pressbooks, reducing the overall size of the Pressbooks download.
+* **Feature:** Added a recompile routine for webbook stylesheets to allow more straightforward development (only enabled when `WP_ENV` is defined and set to `development`).
+* **Enhancement:** Applied our [coding standards](https://github.com/pressbooks/pressbooks/blob/master/docs/coding-standards.md) across the board and added PHP_CodeSniffer to our CI routines.
+* **Enhancement:** Added some unit tests.
+* **Enhancement:** Moved the Pressbooks API to /vendor.
+* **Enhancement:** Changed some colour variables for clarity.
+* **Enhancement:** Added initial support for SVG LaTeX images in PDF exports (requires [QuickLaTex](https://wordpress.org/plugins/wp-quicklatex/)).
+* **Enhancement:** Added some scaffolding to allow option defaults to be filtered in pages built using the new options class.
+* **Enhancement:** The book information post is now created when a book is registered.
+* **Fix:** Added missing methods which were triggering fatal errors in the Export Options page (props to @bdolor).
+* **Fix:** Fixed in issue which prevented the Ebook paragraph separation theme option from being applied in Clarke.
+* **Fix:** Fixed an issue where internal links from within part content were broken in EPUB.
+* **Fix:** Fixed an issue where backslashes would be erroneously stripped when replacements were applied in the Search and Replace utility (props to @rootl for the bug report).
+* **Fix:** Fixed an issue where the book title would not be updated on the first save.
+
+= 3.8.1 =
+* **Fix:** Internal links are now _actually_ fixed in EPUB exports.
+
+= 3.8.0 =
+* **Feature:** The redistribution option from [Pressbooks Textbook](https://github.com/BCcampus/pressbooks-textbook/), which allows a book administrator to share the latest export files of their book on the webbook cover page, has been migrated into Pressbooks and can be found under (Network) Settings -> Sharing and Privacy. Many thanks to @bdolor for developing this feature (and fixing a display bug in our implementation of it).
+* **Feature:** Luther and all child themes now support searching within webbooks.
+* **Feature:** The Pressbooks.com promotion on book covers can now be hidden using the `PB_HIDE_COVER_PROMO` constant.
+* **Enhancement:** [Hypothesis](https://wordpress.org/plugins/hypothesis/) has been added to the supported plugins list, and the supported plugins list is now built more intelligently.
+* **Enhancement:** The hard-coded default theme for new books has been replaced by the following logic: 1. Use `PB_BOOK_THEME` (if set); 2. Use `WP_DEFAULT_THEME` (if set); 3. Use Luther.
+* **Enhancement:** Added the `pressbooks_register_theme_directory` action to support the registration of custom theme directores by third-party developers (props to @bdolor).
+* **Enhancement:** Added support for testing PrinceXML's built-in [PDF profile](http://www.princexml.com/doc/properties/prince-pdf-profile/) support by setting the `PB_PDF_PROFILE` constant to the desired profile.
+* **Enhancement:** Refactored generic shortcodes to allow testing and test were written for them.
+* **Enhancement:** Switched from internal fork to dev-master of gridonic/princexmlphp and switched to versioned copy of pressbooks/saxonhe.
+* **Enhancement:** The `\Pressbooks\Modules\ThemeOptions` class now supports the registration of custom tags by third-party developers.
+* **Fix:** Removed a leftover conditional check for the `accessibility_fontsize` option in webbooks (props to @bdolor for the bug report).
+* **Fix:** Internal links to parts now work in XHTML, PDF and EPUB exports.
+* **Fix:** Fixed some faulty logic in the TOC collapse Javascript (props to @bdolor).
+* **Fix:** Fixed some incorrect color values in the mobile admin bar.
+* **Fix:** Fixed a misplaced comment in the conditional check for IE 9 in Pressbooks Book (props to @chrillep).
+* **Fix:** Fixed a bug where protocol-relative images would not be exported properly in EPUB (props to @bdolor).
+
+= 3.7.1 =
+* **Fix:** Fixed a bug where increased font size would be applied to all PDF exports.
+
+= 3.7.0 =
+* **Feature:** Introduced `\Pressbooks\Options` class and rebuilt theme options using on this class.
+* **Feature:** Introduced `\Pressbooks\Taxonomy` class and rebuilt front matter, chapter and back matter types using this class.
+* **Feature:** Added support for custom base font size, line height, page margins, image resolution and running content in SCSS v2 themes for PDF.
+* **Feature:** Enabled webbook collapsible TOC by default (as needed).
+* **Feature:** Enabled webbook font size control by default.
+* **Feature:** Added custom sidebar color for catalog (props to @monkecheese).
+* **Enhancement:** Prince will now ignore self-signed certificates in a development environment.
+* **Fix:** Fixed an admin style inconsistency introduced with WordPress 4.6.
+* **Fix:** Fixed an error where SCSS v2 themes could not be imported into the Custom CSS editor.
+* **Fix:** Added user feedback to allow recovery from JPEG errors (props to @bdolor).
+* **Fix:** Added a call to `wp_flush_cache()` to fix an error during book creation.
+
+= 3.6.3 =
+* **Fix:** Fixed an error caused by the change to get_sites().
+
+= 3.6.2 =
+* Requires WordPress 4.6.
+* **Fix:** Replaced deprecated wp_get_sites() function with get_sites() (props to @bdolor for the bug report).
+
+= 3.6.1 =
+* **Fix:** An issue where footnotes would not display in endnote mode has been resolved.
+* **Fix:** An SCSS error in Luther has been resolved (props to @bearkrust for the bug report).
+
+= 3.6.0 =
+* Requires WordPress 4.5.3.
+* **Feature:** Structural SCSS and supports are in place for the new book theme model (see http://pressbooks.org/core/2016/05/16/rethinking-book-themes/).
+* **Feature:** Clarke 2.0 has been rebuilt on the new book theme model (see https://pressbooks.com/themes/clarke).
+* **Feature:** Themes built on the new book theme model can display publisher logos on the title page via `add_theme_support( 'pressbooks_publisher_logo', [ 'logo_uri' => $logo_uri ] )`.
+* **Feature:** Themes built on the new book theme model define support for global typography using `add_theme_support( 'pressbooks_global_typography', [ $language_codes ] )`.
+* **Feature:** Custom post types, built-in taxonomies and custom taxonomies can now be imported from a Pressbooks or WordPress XML file using the filters `pb_import_custom_post_types` and `pb_import_custom_taxonomies` (props to @monkecheese).
+* **Feature:** Filter hooks have been added which allow content to be appended to front matter, chapters and back matter via `pb_append_front_matter_content`, `pb_append_chapter_content` and `pb_append_back_matter_content` (props to @monkecheese).
+* **Feature:** Network administrators can now clear all of a book's exports (this is useful for testing).
+* **Enhancement:** The Export page is now responsive.
+* **Enhancement:** `script.js` is no longer required for Prince exports (if the the file is not there it will no longer trigger an error).
+* **Enhancement:** The `<base href="">` tag has been removed from XHTML outputs, which should make these files more functional in some cases (props to @bdolor).
+* **Fix:** Search and Replace is now accessible to book administrators, not just network administrators.
+* **Fix:** The broken Forum link in the Pressbooks menu has been replaced with a link to our Help page.
 
 = 3.5.2 =
 * **Feature:** Login screen logo and color scheme can now be changed via filters (see https://github.com/pressbooks/pressbooks/commit/d09a104bfbbe3ad00a108004d0375ad1f7057ae0).
