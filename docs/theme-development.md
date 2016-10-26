@@ -68,7 +68,7 @@ Contains rules for custom elements (columns, footnotes, pullquotes, dropcaps, et
 
 ### _structure.scss
 
-Contains rules for document and page and structure (only included in [PrinceXML](https://pressbooks.com/prince/) PDF -- page dimensions, margins, recto-verso, running content et cetera).
+Contains rules for document and page and structure (only included in [PrinceXML](https://pressbooks.com/prince/) PDF — page dimensions, margins, recto-verso, running content et cetera).
 
 ### _titles.scss
 
@@ -78,7 +78,7 @@ Contains rules for book, front matter, part, chapter and back matter titles.
 
 Contains rules for the book's table of contents.
 
-Let's take a look at `assets/styles/components/_elements.scss`:
+Let's take a look at [`assets/styles/components/_elements.scss`](https://github.com/pressbooks/pressbooks-demo/blob/15875fb8c7d4ea8a026190c60e48ae4b4971cef3/assets/styles/components/_elements.scss):
 
 ```
 // Elements
@@ -130,7 +130,7 @@ $blockquote-margin-left: 1em !default;
 $blockquote-align: justify !default;
 ```
 
-You will notice that all these values are set with the SCSS [`!default` flag](https://robots.thoughtbot.com/sass-default). Essentially, the `!default` flag tells the SCSS compiler to use this value **unless** another value has already been assigned to the variable. Going back to your new theme's `assets/styles/components/_elements.scss`, file, you could change it as follows:
+You will notice that all these values are set with the SCSS [`!default` flag](https://robots.thoughtbot.com/sass-default). Essentially, the `!default` flag tells the SCSS compiler to use this value **unless** another value has already been assigned to the variable. Going back to your new theme's [`assets/styles/components/_elements.scss`](https://github.com/pressbooks/pressbooks-demo/blob/15875fb8c7d4ea8a026190c60e48ae4b4971cef3/assets/styles/components/_elements.scss), file, you could change it as follows:
 
 ```
 // Elements
@@ -175,7 +175,7 @@ The reason you should use the `!default` flag on your variable definitions is so
 
 _Reference Commit: [550648b](https://github.com/pressbooks/pressbooks-demo/commit/550648bf3c6ea947a5670ce083b8078535d39fb5)_
 
-Now that you've overridden a variable, try adding your own custom rule. Perhaps your book needs a special type of blockquote that is centered on the page. You can add it by inserting the following rule below the `@import` rules in `assets/styles/components/_elements.scss`:
+Now that you've overridden a variable, try adding your own custom rule. Perhaps your book needs a special type of blockquote that is centered on the page. You can add it by inserting the following rule below the `@import` rules in [`assets/styles/components/_elements.scss`](https://github.com/pressbooks/pressbooks-demo/blob/550648bf3c6ea947a5670ce083b8078535d39fb5/assets/styles/components/_elements.scss):
 
 ```
 blockquote.centered,
@@ -185,7 +185,7 @@ blockquote.centered,
 }
 ```
 
-Now our full `assets/styles/components/_elements.scss` file looks like this:
+Now our full [`assets/styles/components/_elements.scss`](https://github.com/pressbooks/pressbooks-demo/blob/550648bf3c6ea947a5670ce083b8078535d39fb5/assets/styles/components/_elements.scss) file looks like this:
 
 ```
 // Elements
@@ -218,7 +218,7 @@ And when you export your book, Pressbooks will compile your new rule after the d
 
 _Reference Commit: [4eb0159](https://github.com/pressbooks/pressbooks-demo/commit/4eb01592c38830127f8392ecfaf4afb7de491260)_
 
-Sometimes you need to set a variable differently depending on which format you are using. Perhaps you want to left-align your blockquotes for EPUB and web, but you want to justify them for PDF. This is easy to accomplish using an SCSS if-statement with the `$type` variable. Add another variable override to the top of `assets/styles/components/_elements.scss` as follows:
+Sometimes you need to set a variable differently depending on which format you are using. Perhaps you want to left-align your blockquotes for EPUB and web, but you want to justify them for PDF. This is easy to accomplish using an SCSS if-statement with the `$type` variable. Add another variable override to the top of [`assets/styles/components/_elements.scss`](https://github.com/pressbooks/pressbooks-demo/blob/4eb01592c38830127f8392ecfaf4afb7de491260/assets/styles/components/_elements.scss) as follows:
 
 ```
 @if $type == 'epub' {
@@ -230,7 +230,7 @@ Sometimes you need to set a variable differently depending on which format you a
 }
 ```
 
-All the component files you are working on are imported into the different outputs' `style.scss` files. For example, your book theme's stylesheet for Prince PDF, `assets/styles/prince/style.scss`, looks like this:
+All the component files you are working on are imported into the different outputs' `style.scss` files. For example, your book theme's stylesheet for Prince PDF, [`assets/styles/prince/style.scss`](https://github.com/pressbooks/pressbooks-demo/blob/4eb01592c38830127f8392ecfaf4afb7de491260/assets/styles/prince/style.scss), looks like this:
 
 ```
 $type: 'prince';
