@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-10-18 19:02-0300\n"
-"PO-Revision-Date: 2016-10-18 22:02+0000\n"
+"POT-Creation-Date: 2016-10-26 12:18-0300\n"
+"PO-Revision-Date: 2016-10-26 15:20+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Estonian (http://www.transifex.com/pressbooks/pressbooks/language/et/)\n"
 "MIME-Version: 1.0\n"
@@ -68,7 +68,7 @@ msgstr ""
 
 #: includes/admin/class-pb-catalog-list-table.php:178
 #: includes/class-pb-activation.php:184
-#: includes/modules/export/epub/class-pb-epub201.php:753
+#: includes/modules/export/epub/class-pb-epub201.php:754
 msgid "Cover"
 msgstr "Kaas"
 
@@ -242,7 +242,7 @@ msgstr ""
 
 #: includes/admin/class-pb-network-sharingandprivacyoptions.php:147
 #: includes/admin/pb-laf.php:167 includes/admin/pb-laf.php:214
-#: includes/admin/pb-laf.php:809
+#: includes/admin/pb-laf.php:854
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
@@ -297,11 +297,11 @@ msgid "Last 10 CSS Revisions"
 msgstr "Viimased 10 CSS'i muudatust"
 
 #: includes/admin/pb-customcss.php:121
-#: includes/modules/export/epub/class-pb-epub201.php:941
+#: includes/modules/export/epub/class-pb-epub201.php:942
 #: includes/modules/export/epub/templates/epub201/opf.php:72
 #: includes/modules/export/epub/templates/epub3/opf.php:85
-#: includes/modules/export/mpdf/class-pb-pdf.php:313
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:657
+#: includes/modules/export/mpdf/class-pb-pdf.php:315
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:659
 #: themes-book/pressbooks-book/footer.php:41
 msgid "by"
 msgstr "tegid"
@@ -413,7 +413,7 @@ msgid "Book Info"
 msgstr "Teave raamatu kohta"
 
 #: includes/admin/pb-laf.php:152 includes/admin/pb-laf.php:185
-#: templates/admin/export.php:58 templates/admin/organize.php:42
+#: templates/admin/export.php:107 templates/admin/organize.php:42
 #: templates/admin/organize.php:83 templates/admin/organize.php:159
 msgid "Export"
 msgstr "Eksportimine"
@@ -479,68 +479,84 @@ msgstr ""
 msgid "Private Content"
 msgstr ""
 
-#: includes/admin/pb-laf.php:671
+#: includes/admin/pb-laf.php:670
+msgid "Disable Comments"
+msgstr ""
+
+#: includes/admin/pb-laf.php:678
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: includes/admin/pb-laf.php:700
+#: includes/admin/pb-laf.php:712
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: includes/admin/pb-laf.php:715
+#: includes/admin/pb-laf.php:727
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Avalik. Raamat on nähtav kõigile."
 
-#: includes/admin/pb-laf.php:720
+#: includes/admin/pb-laf.php:732
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Ligipääs on piiratud. Raamatut näevad ainult kutsutud inimesed."
 
-#: includes/admin/pb-laf.php:743
+#: includes/admin/pb-laf.php:755
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: includes/admin/pb-laf.php:746
+#: includes/admin/pb-laf.php:758
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: includes/admin/pb-laf.php:748
+#: includes/admin/pb-laf.php:760
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: includes/admin/pb-laf.php:763
+#: includes/admin/pb-laf.php:776
+msgid ""
+"Yes. I want to automatically disable comments, trackbacks and pingbacks on "
+"all front matter, chapters and back matter."
+msgstr ""
+
+#: includes/admin/pb-laf.php:782
+msgid ""
+"No. I want to leave comments, trackbacks and pingbacks enabled on all front "
+"matter, chapters and back matter unless I disable them manually."
+msgstr ""
+
+#: includes/admin/pb-laf.php:797
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: includes/admin/pb-laf.php:768
+#: includes/admin/pb-laf.php:802
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr ""
 
-#: includes/admin/pb-laf.php:837
+#: includes/admin/pb-laf.php:882
 msgid "Amazon URL"
 msgstr "Amazon'i URL"
 
-#: includes/admin/pb-laf.php:844
+#: includes/admin/pb-laf.php:889
 msgid "O'Reilly URL"
 msgstr ""
 
-#: includes/admin/pb-laf.php:851
+#: includes/admin/pb-laf.php:896
 msgid "Barnes and Noble URL"
 msgstr "Barnes and Noble'i URL"
 
-#: includes/admin/pb-laf.php:858
+#: includes/admin/pb-laf.php:903
 msgid "Kobo URL"
 msgstr "Kobo URL"
 
-#: includes/admin/pb-laf.php:865
+#: includes/admin/pb-laf.php:910
 msgid "iBooks URL"
 msgstr "iBooks'i URL"
 
-#: includes/admin/pb-laf.php:872
+#: includes/admin/pb-laf.php:917
 msgid "Other Service URL"
 msgstr "Muu teenuse võrguaadress"
 
@@ -563,7 +579,7 @@ msgid "Cover Image"
 msgstr ""
 
 #: includes/admin/pb-metaboxes.php:129 includes/admin/pb-metaboxes.php:426
-#: includes/class-pb-sass.php:50 templates/admin/import.php:63
+#: includes/class-pb-sass.php:49 templates/admin/import.php:63
 #: templates/admin/organize.php:40
 msgid "Part"
 msgstr "Raamatu osa"
@@ -679,12 +695,12 @@ msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
 #: includes/admin/pb-metaboxes.php:228
-#: includes/modules/export/epub/class-pb-epub201.php:939
-#: includes/modules/export/epub/class-pb-epub201.php:958
+#: includes/modules/export/epub/class-pb-epub201.php:940
+#: includes/modules/export/epub/class-pb-epub201.php:959
 #: includes/modules/export/epub/templates/epub201/opf.php:69
 #: includes/modules/export/epub/templates/epub3/opf.php:82
-#: includes/modules/export/mpdf/class-pb-pdf.php:307
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:655
+#: includes/modules/export/mpdf/class-pb-pdf.php:309
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:657
 #: themes-book/pressbooks-book/footer.php:39
 msgid "Copyright"
 msgstr "Autoriõigus"
@@ -1112,7 +1128,7 @@ msgstr ""
 msgid "Turkish"
 msgstr ""
 
-#: includes/class-pb-globaltypography.php:345
+#: includes/class-pb-globaltypography.php:364
 #, php-format
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
@@ -1125,19 +1141,19 @@ msgstr ""
 msgid "except where otherwise noted."
 msgstr ""
 
-#: includes/class-pb-sass.php:49
+#: includes/class-pb-sass.php:48
 #: includes/modules/searchandreplace/types/class-pb-content.php:83
 #: templates/admin/import.php:61 templates/admin/organize.php:58
 msgid "Chapter"
 msgstr ""
 
-#: includes/class-pb-sass.php:189
+#: includes/class-pb-sass.php:188
 #, php-format
 msgid ""
 "There was a problem with SASS. Contact your site administrator. Error: %s"
 msgstr ""
 
-#: includes/class-pb-sass.php:248
+#: includes/class-pb-sass.php:247
 msgid "SASS Error"
 msgstr ""
 
@@ -1307,68 +1323,69 @@ msgstr ""
 msgid "book"
 msgstr ""
 
-#: includes/modules/export/class-pb-export.php:813
+#: includes/modules/export/class-pb-export.php:825
 #: includes/pb-redirect.php:411
 msgid "File not found"
 msgstr "Faili ei leitud"
 
-#: includes/modules/export/epub/class-pb-epub201.php:890
+#: includes/modules/export/epub/class-pb-epub201.php:891
 msgid "Title Page"
 msgstr "Tiitelleht"
 
-#: includes/modules/export/epub/class-pb-epub201.php:1161
+#: includes/modules/export/epub/class-pb-epub201.php:1162
 msgid "Make your own books using Pressbooks.com"
 msgstr ""
 
-#: includes/modules/export/epub/class-pb-epub201.php:1525
+#: includes/modules/export/epub/class-pb-epub201.php:1526
 msgid "Table Of Contents"
 msgstr "Sisukord"
 
-#: includes/modules/export/epub/class-pb-epub201.php:1539
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:725
+#: includes/modules/export/epub/class-pb-epub201.php:1540
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:727
 msgid "Contents"
 msgstr "Sisu"
 
-#: includes/modules/export/mpdf/class-pb-pdf.php:267
+#: includes/modules/export/mpdf/class-pb-pdf.php:269
 msgid "ISBN"
 msgstr ""
 
-#: includes/modules/export/prince/class-pb-pdf.php:269
+#: includes/modules/export/prince/class-pb-pdf.php:273
+#: includes/modules/export/prince/class-pb-printpdf.php:113
 msgid ""
 "This book was produced using Pressbooks.com, and PDF rendering was done by "
 "PrinceXML."
 msgstr ""
 
 #: includes/modules/export/wordpress/class-pb-wxr.php:100
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:165
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:167
 msgid "Invalid permission error"
 msgstr "Luba on vigane"
 
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:309
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:311
 msgid "Notes"
 msgstr "Märkused"
 
-#: includes/modules/import/class-pb-import.php:357
-#: includes/modules/import/class-pb-import.php:419
+#: includes/modules/import/class-pb-import.php:358
+#: includes/modules/import/class-pb-import.php:420
 #, php-format
 msgid "Your file does not appear to be a valid %s."
 msgstr ""
 
-#: includes/modules/import/class-pb-import.php:364
+#: includes/modules/import/class-pb-import.php:365
 msgid "Your URL does not appear to be valid"
 msgstr ""
 
-#: includes/modules/import/class-pb-import.php:380
+#: includes/modules/import/class-pb-import.php:381
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response header on a HEAD request: "
 msgstr ""
 
-#: includes/modules/import/class-pb-import.php:386
+#: includes/modules/import/class-pb-import.php:387
 msgid "The website you are attempting to reach is not returning HTML content"
 msgstr ""
 
-#: includes/modules/import/class-pb-import.php:403
+#: includes/modules/import/class-pb-import.php:404
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response on a GET request: "
@@ -2194,69 +2211,65 @@ msgstr ""
 msgid "Web Options"
 msgstr ""
 
-#: includes/pb-editor.php:71
+#: includes/pb-editor.php:73
 msgid "Indent"
 msgstr ""
 
-#: includes/pb-editor.php:77
+#: includes/pb-editor.php:79
 msgid "Hanging indent"
 msgstr ""
 
-#: includes/pb-editor.php:83
+#: includes/pb-editor.php:85
 msgid "No indent"
 msgstr ""
 
-#: includes/pb-editor.php:89
+#: includes/pb-editor.php:91
 msgid "Tight tracking"
 msgstr ""
 
-#: includes/pb-editor.php:95
+#: includes/pb-editor.php:97
 msgid "Very tight tracking"
 msgstr ""
 
-#: includes/pb-editor.php:101
+#: includes/pb-editor.php:103
 msgid "Loose tracking"
 msgstr ""
 
-#: includes/pb-editor.php:107
+#: includes/pb-editor.php:109
 msgid "Very loose tracking"
 msgstr ""
 
-#: includes/pb-editor.php:113
+#: includes/pb-editor.php:115
 msgid "Pullquote (left)"
 msgstr ""
 
-#: includes/pb-editor.php:119
+#: includes/pb-editor.php:121
 msgid "Pullquote (right)"
 msgstr ""
 
-#: includes/pb-editor.php:167 includes/pb-editor.php:189
-#: includes/pb-editor.php:203 languages/tinymce.php:7
+#: includes/pb-editor.php:169 includes/pb-editor.php:187
+#: includes/pb-editor.php:201 languages/tinymce.php:7
 msgid "Standard"
 msgstr ""
 
-#: includes/pb-editor.php:171
+#: includes/pb-editor.php:173
 msgid "No lines"
 msgstr ""
 
-#: includes/pb-editor.php:175
+#: includes/pb-editor.php:177
 msgid "Lines"
 msgstr ""
 
-#: includes/pb-editor.php:179 includes/pb-editor.php:197
-#: includes/pb-editor.php:211 languages/tinymce.php:9
+#: includes/pb-editor.php:181 includes/pb-editor.php:195
+#: includes/pb-editor.php:209 languages/tinymce.php:9
 msgid "Shaded"
 msgstr ""
 
-#: includes/pb-editor.php:183 languages/tinymce.php:18
-msgid "Custom..."
-msgstr ""
-
-#: includes/pb-editor.php:193 includes/pb-editor.php:207
+#: includes/pb-editor.php:191 includes/pb-editor.php:205
 msgid "Border"
 msgstr ""
 
-#: includes/pb-editor.php:320
+#: includes/pb-editor.php:319
 msgid "Internal Link"
 msgstr ""
 
@@ -2269,14 +2282,16 @@ msgid ""
 "cover/\">here</a>."
 msgstr ""
 
-#: includes/pb-image.php:344 templates/admin/export.php:145
+#: includes/pb-image.php:344 templates/admin/export.php:207
 #: templates/admin/organize.php:88 templates/admin/organize.php:126
 #: templates/admin/organize.php:194
 msgid "Are you sure you want to delete this?"
 msgstr "Kas soovite kindlasti selle kustutada?"
 
-#: includes/pb-image.php:376 templates/admin/organize.php:88
-#: templates/admin/organize.php:126 templates/admin/organize.php:194
+#: includes/pb-image.php:376
+#: symbionts/custom-metadata/custom_metadata.php:1315
+#: templates/admin/organize.php:88 templates/admin/organize.php:126
+#: templates/admin/organize.php:194
 msgid "Delete"
 msgstr "Kustutada"
 
@@ -2944,12 +2959,20 @@ msgstr ""
 msgid "Type your examples here."
 msgstr ""
 
+#: languages/tinymce.php:18
+msgid "Custom..."
+msgstr ""
+
 #: languages/tinymce.php:19
 msgid "First"
 msgstr ""
 
 #: languages/tinymce.php:20
 msgid "Second"
+msgstr ""
+
+#: languages/tinymce.php:21
+msgid "Apply Class"
 msgstr ""
 
 #: pressbooks.php:95
@@ -2960,6 +2983,197 @@ msgstr ""
 
 #: pressbooks.php:103
 msgid "Cannot find Pressbooks install."
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:282
+msgid "Choose a file"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:283
+msgid "Select this file"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:284
+msgid "Clear"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:285
+msgid "Select"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:509
+#, php-format
+msgid "<strong>%1$s:</strong> %2$s"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:600
+msgid "Uh oh, something went wrong!"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:1135
+msgid "duplicate this set of fields"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:1138
+msgid "remove this set of fields"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:1170
+msgid "<strong>Note:</strong> this field type cannot be multiplied"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:1287
+#: symbionts/custom-metadata/custom_metadata.php:1302
+#: symbionts/custom-metadata/custom_metadata.php:1349
+#: symbionts/custom-metadata/custom_metadata.php:1362
+#, php-format
+msgid "There are no %s to select from yet."
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata.php:1379
+msgid "+ Add New"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:32
+msgctxt "post type general name"
+msgid "Tests"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:33
+msgctxt "post type singular name"
+msgid "Test"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:34
+msgctxt "Test"
+msgid "Add New"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:35
+msgid "Add New Test"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:36
+msgid "Edit Test"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:37
+msgid "New Test"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:38
+msgid "All Tests"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:39
+msgid "View Test"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:40
+msgid "Search Tests"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:41
+msgid "No Tests found"
+msgstr ""
+
+#: symbionts/custom-metadata/custom_metadata_examples.php:42
+msgid "No Tests found in Trash"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:33
+msgid "Settings"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:39
+#: symbionts/pressbooks-latex/pb-latex-admin.php:187
+msgid "Insufficient LaTeX-fu"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:45
+#: symbionts/pressbooks-latex/pb-latex-admin.php:100
+msgid ""
+"PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
+"<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:63
+msgid "Invalid LaTeX generation method"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:72
+msgid "Invalid text color"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:83
+msgid "Invalid background color"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:105
+msgid "<code>latex</code> path not found."
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:134
+msgid "Test Image"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:136
+msgid "If you can see a big integral, all is well."
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:219
+msgid "PB LaTeX Options"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:229
+msgid "Syntax"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:231
+#, php-format
+msgid ""
+"You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
+" syntax %s OR %s<br /> to insert LaTeX into your posts."
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:236
+msgid ""
+"For more information, see the <a href=\"http://wordpress.org/extend/plugins"
+"/wp-latex/faq/\">FAQ</a>"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:243
+msgid "LaTeX generation method"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:246
+#, php-format
+msgctxt "pb-latex"
+msgid "%s LaTeX server (recommended)|WordPress.com LaTeX Server (recommended)"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:252
+msgid "Default text color"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:255
+msgid ""
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:260
+msgid "Default background color"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:263
+msgid ""
+"A six digit hexadecimal number like <code>000000</code> or "
+"<code>ffffff</code>, or <code>transparent</code>"
+msgstr ""
+
+#: symbionts/pressbooks-latex/pb-latex-admin.php:281
+msgid "Update LaTeX Options"
 msgstr ""
 
 #: templates/admin/catalog.php:27
@@ -3014,116 +3228,127 @@ msgstr ""
 msgid "Customize your Pressbooks dashboard below."
 msgstr ""
 
-#: templates/admin/export.php:42
+#: templates/admin/export.php:85
+#, php-format
+msgid ""
+"Some dependencies for %1$s export could not be found. Please verify that you"
+" have completed the <a href=\"%2$s\">installation instructions</a>."
+msgstr ""
+
+#: templates/admin/export.php:90
 msgid "Error: The export failed. See logs for more details."
 msgstr "Viga: eksportimine nurjus. Põhjused on kirjas logifailis."
 
-#: templates/admin/export.php:47
+#: templates/admin/export.php:96
 msgid "Warning: The export has validation errors. See logs for more details."
 msgstr "Hoiatus: eksportimisel ilmnesid vead õigsuskontrollis. Täpsema teabe leiab logifailist."
 
-#: templates/admin/export.php:48
+#: templates/admin/export.php:97
 msgid "Emailed to:"
 msgstr "Saadetud e-kirjaga:"
 
-#: templates/admin/export.php:59
+#: templates/admin/export.php:108
 #, php-format
 msgid ""
 "You can export multiple file formats by selecting your Export Format Options"
 " below. Pressbooks saves your last %s batches of exported files."
 msgstr ""
 
-#: templates/admin/export.php:64
+#: templates/admin/export.php:113
 msgid "Your Export Format Options"
 msgstr "Vorminguvalikud eksportimiseks"
 
-#: templates/admin/export.php:65
+#: templates/admin/export.php:114
 msgid "Select which formats you want to export"
 msgstr "Valige sobiv vorming"
 
-#: templates/admin/export.php:69
+#: templates/admin/export.php:118
 msgid "Standard book formats"
 msgstr "Enimlevinud raamatuvormingud"
 
-#: templates/admin/export.php:71
-msgid "PDF (for printing)"
-msgstr "PDF (trükkimiseks)"
+#: templates/admin/export.php:119
+msgid "PDF (for print)"
+msgstr ""
 
-#: templates/admin/export.php:74
+#: templates/admin/export.php:120
+msgid "PDF (for digital distribution)"
+msgstr ""
+
+#: templates/admin/export.php:122
 msgid "PDF (mPDF)"
 msgstr ""
 
-#: templates/admin/export.php:76 templates/admin/import.php:157
+#: templates/admin/export.php:124 templates/admin/import.php:157
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
 msgstr "EPUB (e-lugerite - Nook, iBooks, Kobo jne - tarbeks)"
 
-#: templates/admin/export.php:77
+#: templates/admin/export.php:125
 msgid "MOBI (for Kindle)"
 msgstr "MOBI (Kindle'i e-lugeri tarbeks)"
 
-#: templates/admin/export.php:81
+#: templates/admin/export.php:129
 msgid "Exotic formats"
 msgstr ""
 
-#: templates/admin/export.php:82
+#: templates/admin/export.php:130
 msgid "EPUB 3 (beta)"
 msgstr ""
 
-#: templates/admin/export.php:83
+#: templates/admin/export.php:131
 msgid "XHTML"
 msgstr "XHTML"
 
-#: templates/admin/export.php:85
+#: templates/admin/export.php:133
 msgid "ICML (for InDesign)"
 msgstr "ICML (küljendusprogrammi InDesign tarbeks)"
 
-#: templates/admin/export.php:87
+#: templates/admin/export.php:135
 msgid "OpenDocument (beta)"
 msgstr ""
 
-#: templates/admin/export.php:88
+#: templates/admin/export.php:136
 msgid "Pressbooks XML"
 msgstr ""
 
-#: templates/admin/export.php:89
+#: templates/admin/export.php:137
 msgid "WordPress XML"
 msgstr "WordPress XML"
 
-#: templates/admin/export.php:93
+#: templates/admin/export.php:141
 msgid "Your Theme Options"
 msgstr ""
 
-#: templates/admin/export.php:100
+#: templates/admin/export.php:148
 msgid "Change Theme"
 msgstr "Muuda kujundust"
 
-#: templates/admin/export.php:101
+#: templates/admin/export.php:149
 msgid "Options"
 msgstr ""
 
-#: templates/admin/export.php:108
+#: templates/admin/export.php:156
 msgid "Export Your Book"
 msgstr "Raamatu eksportimine "
 
-#: templates/admin/export.php:116
+#: templates/admin/export.php:164
 msgid "Latest Export"
 msgstr "Viimane eksport"
 
-#: templates/admin/export.php:116 templates/admin/export.php:119
+#: templates/admin/export.php:164 templates/admin/export.php:167
 #, php-format
 msgctxt "Date and time string, e.g. \"January 1, 2016 at 12:00pm"
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: templates/admin/export.php:119
+#: templates/admin/export.php:167
 msgid "Exported"
 msgstr "Eksporditud"
 
-#: templates/admin/export.php:157
+#: templates/admin/export.php:219
 msgid "Are you sure you want to delete ALL your current exports?"
 msgstr ""
 
-#: templates/admin/export.php:157
+#: templates/admin/export.php:219
 msgid "Delete All Exports"
 msgstr ""
 
@@ -3543,7 +3768,7 @@ msgstr "Teie kommentaar ootab läbivaatamist."
 msgid "Pingback:"
 msgstr "Pingback:"
 
-#: themes-book/pressbooks-book/functions.php:680
+#: themes-book/pressbooks-book/functions.php:682
 #: themes-book/pressbooks-book/page-cover-private-block.php:2
 msgid "Make your own books on Pressbooks"
 msgstr ""
@@ -3963,9 +4188,9 @@ msgstr ""
 
 #. Plugin URI of the plugin/theme
 #. Author URI of the plugin/theme
-msgid "http://www.pressbooks.com"
+msgid "https://pressbooks.com"
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "BookOven Inc."
+msgid "Book Oven Inc."
 msgstr ""
