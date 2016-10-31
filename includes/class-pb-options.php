@@ -60,41 +60,6 @@ abstract class Options {
 	abstract static function filterDefaults( $defaults );
 
 	/**
-	 * Get an array of options which return booleans.
-	 *
-	 * @return array $options
-	 */
-	abstract static function getBooleanOptions();
-
-	/**
-	 * Get an array of options which return strings.
-	 *
-	 * @return array $options
-	 */
-	abstract static function getStringOptions();
-
-	/**
-	 * Get an array of options which return integers.
-	 *
-	 * @return array $options
-	 */
-	abstract static function getIntegerOptions();
-
-	/**
-	 * Get an array of options which return floats.
-	 *
-	 * @return array $options
-	 */
-	abstract static function getFloatOptions();
-
-	/**
-	 * Get an array of options which return predefined values (e.g. selects)
-	 *
-	 * @return array $options
-	 */
-	abstract static function getPredefinedOptions();
-
-	/**
 	* Sanitize various options (boolean, string, integer, float).
 	*
 	* @param array $input
@@ -107,43 +72,68 @@ abstract class Options {
 			$input = array();
 		}
 
-		foreach ( $this->booleans as $key ) {
-			if ( ! isset( $input[ $key ] ) || 1 != @$input[ $key ] ) {
-				$options[ $key ] = 0;
-			} else {
-				$options[ $key ] = 1;
+		if ( property_exists( $this, 'booleans' ) ) {
+			foreach ( $this->booleans as $key ) {
+				if ( ! isset( $input[ $key ] ) || 1 != @$input[ $key ] ) {
+					$options[ $key ] = 0;
+				} else {
+					$options[ $key ] = 1;
+				}
 			}
 		}
 
-		foreach ( $this->strings as $key ) {
-			if ( empty( $input[ $key ] ) ) {
-				unset( $options[ $key ] );
-			} else {
-				$options[ $key ] = sanitize_text_field( $input[ $key ] );
+		if ( property_exists( $this, 'strings' ) ) {
+			foreach ( $this->strings as $key ) {
+				if ( empty( $input[ $key ] ) ) {
+					unset( $options[ $key ] );
+				} else {
+					$options[ $key ] = sanitize_text_field( $input[ $key ] );
+				}
 			}
 		}
 
-		foreach ( $this->integers as $key ) {
-			if ( empty( $input[ $key ] ) ) {
-				unset( $options[ $key ] );
-			} else {
-				$options[ $key ] = absint( $input[ $key ] );
+		if ( property_exists( $this, 'urls' ) ) {
+			foreach ( $this->urls as $key ) {
+				if ( empty( $input[ $key ] ) ) {
+					unset( $options[ $key ] );
+				} else {
+					$value = trim( strip_tags( stripslashes( $input[ $key ] ) ) );
+					if ( $value ) {
+						$options[ $key ] = \Pressbooks\Sanitize\canonicalize_url( $value );
+					} else {
+						unset( $options[ $key ] );
+					}
+				}
 			}
 		}
 
-		foreach ( $this->floats as $key ) {
-			if ( empty( $input[ $key ] ) ) {
-				unset( $options[ $key ] );
-			} else {
-				$options[ $key ] = filter_var( $input[ $key ], FILTER_VALIDATE_FLOAT );
+		if ( property_exists( $this, 'integers' ) ) {
+			foreach ( $this->integers as $key ) {
+				if ( empty( $input[ $key ] ) ) {
+					unset( $options[ $key ] );
+				} else {
+					$options[ $key ] = absint( $input[ $key ] );
+				}
 			}
 		}
 
-		foreach ( $this->predefined as $key ) {
-			if ( empty( $input[ $key ] ) ) {
-				unset( $options[ $key ] );
-			} else {
-				$options[ $key ] = $input[ $key ];
+		if ( property_exists( $this, 'floats' ) ) {
+			foreach ( $this->floats as $key ) {
+				if ( empty( $input[ $key ] ) ) {
+					unset( $options[ $key ] );
+				} else {
+					$options[ $key ] = filter_var( $input[ $key ], FILTER_VALIDATE_FLOAT );
+				}
+			}
+		}
+
+		if ( property_exists( $this, 'predefined' ) ) {
+			foreach ( $this->predefined as $key ) {
+				if ( empty( $input[ $key ] ) ) {
+					unset( $options[ $key ] );
+				} else {
+					$options[ $key ] = $input[ $key ];
+				}
 			}
 		}
 

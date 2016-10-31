@@ -41,9 +41,7 @@ class MPDFOptions extends \Pressbooks\Options {
 			$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
-		$this->strings = $this->getStringOptions();
 		$this->integers = $this->getIntegerOptions();
-		$this->floats = $this->getFloatOptions();
 		$this->predefined = $this->getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
@@ -383,15 +381,6 @@ class MPDFOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Get an array of options which return strings.
-	 *
-	 * @return array $options
-	 */
-	static function getStringOptions() {
-		return array();
-	}
-
-	/**
 	 * Get an array of options which return integers.
 	 *
 	 * @return array $options
@@ -401,15 +390,6 @@ class MPDFOptions extends \Pressbooks\Options {
 			'mpdf_left_margin',
 			'mpdf_right_margin',
 		);
-	}
-
-	/**
-	 * Get an array of options which return floats.
-	 *
-	 * @return array $options
-	 */
-	static function getFloatOptions() {
-		return array();
 	}
 
 	/**
