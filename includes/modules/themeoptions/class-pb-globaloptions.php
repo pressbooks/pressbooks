@@ -40,10 +40,6 @@ class GlobalOptions extends \Pressbooks\Options {
 			$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
-		$this->strings = $this->getStringOptions();
-		$this->integers = $this->getIntegerOptions();
-		$this->floats = $this->getFloatOptions();
-		$this->predefined = $this->getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -315,33 +311,6 @@ class GlobalOptions extends \Pressbooks\Options {
 			'parse_subsections',
 			'copyright_license',
 		);
-	}
-
-	/**
-	 * Get an array of options which return strings.
-	 *
-	 * @return array $options
-	 */
-	static function getStringOptions() {
-		return array();
-	}
-
-	/**
-	 * Get an array of options which return integers.
-	 *
-	 * @return array $options
-	 */
-	static function getIntegerOptions() {
-		return array();
-	}
-
-	/**
-	 * Get an array of options which return floats.
-	 *
-	 * @return array $options
-	 */
-	static function getFloatOptions() {
-		return array();
 	}
 
 	/**
