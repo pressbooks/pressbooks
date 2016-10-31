@@ -207,6 +207,7 @@ Please note that Pressbooks 3.9.2 now requires [PrinceXML 20160929](http://www.p
 * **Feature:** Simplified the Disable Comments feature, which can now be found under Sharing & Privacy settings.
 * **Enhancement:** Added version-based dependency checks for all Pressbooks dependencies.
 * **Enhancement:** Updated the TinyMCE Table Editor plugin to the latest version.
+* **Enhancement:** Custom styles, table classes, row classes and cell classes are now filterable.
 * **Enhancement:** Pressbooks is now installable via [Packagist](https://packagist.org/packages/pressbooks/pressbooks).
 * **Fix:** Fixed an issue where email validation logs would not be sent.
 

@@ -125,6 +125,8 @@ function mce_before_init_insert_formats( $init_array ) {
 		),
 	);
 
+	$style_formats = apply_filters( 'pressbooks_editor_custom_styles', $style_formats );
+
 	$init_array['style_formats'] = json_encode( $style_formats );
 
 	return $init_array;
@@ -210,6 +212,11 @@ function mce_table_editor_options( $settings ) {
 			'value' => 'shaded',
 		),
 	);
+
+	$table_classes = apply_filters( 'pressbooks_editor_table_classes', $table_classes );
+	$cell_classes = apply_filters( 'pressbooks_editor_cell_classes', $cell_classes );
+	$row_classes = apply_filters( 'pressbooks_editor_row_classes', $row_classes );
+
 	$settings['table_advtab'] = false;
 	$settings['table_class_list'] = json_encode( $table_classes );
 	$settings['table_cell_advtab'] = false;
