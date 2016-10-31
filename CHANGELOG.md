@@ -1,3 +1,6 @@
+### 3.9.2.1
+* **Fix:** Fixed an issue where user actions on the Organize page would fail to update certain properties.
+
 ### 3.9.2
 * **NOTE:** Pressbooks 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
 * **Feature:** Added an export format for print-ready PDF, compatible with the [CreateSpace PDF Submission Specification](https://www.createspace.com/ServicesWorkflow/ResourceDownload.do?id=1583) (**Requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later**).
