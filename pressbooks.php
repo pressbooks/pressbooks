@@ -87,12 +87,14 @@ function _pressbooks_autoload( $class_name ) {
 spl_autoload_register( '_pressbooks_autoload' );
 
 // -------------------------------------------------------------------------------------------------------------------
-// Composer autoloader
+// Composer autoloader (if needed)
 // -------------------------------------------------------------------------------------------------------------------
-if ( is_file( PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
-	include( PB_PLUGIN_DIR . 'vendor/autoload.php' );
+if ( file_exists( $composer = PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
+	require_once( $composer );
 } else {
-	die( __( 'Dependencies missing. Please run \'composer install\' from the root of the Pressbooks plugin directory.', 'pressbooks' ) );
+	if ( ! class_exists( '\Pimple\Container' ) ) {
+		die( sprintf( __( 'Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href="%1$s">Composer autoload file</a> is being required, or use the <a href="%2$s">latest release</a> instead.', 'pressbooks' ), 'https://getcomposer.org/doc/01-basic-usage.md#autoloading', 'https://github.com/pressbooks/pressbooks/releases/latest/' ) );
+	}
 }
 
 // -------------------------------------------------------------------------------------------------------------------

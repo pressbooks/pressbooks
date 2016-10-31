@@ -497,7 +497,6 @@ function show_experimental_features( $host = null ) {
 function include_plugins() {
 	$plugins = array(
 		'custom-metadata/custom_metadata.php' => 1,
-		'pb-api/pb-api.php' => 1,
 		'pressbooks-latex/pb-latex.php' => 1,
 	);
 
