@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "abfba8ce3f53f9f1e99c5187fa6f7048",
-    "content-hash": "ae386267961844a192e862bd1f1aabda",
+    "hash": "b5ca4c2680597e58fe31362505182a59",
+    "content-hash": "75189632508b6b9f9cd41a14407ba06d",
     "packages": [
         {
             "name": "composer/installers",
@@ -113,256 +113,6 @@
                 "zikula"
             ],
             "time": "2016-08-13 20:53:52"
-        },
-        {
-            "name": "gridonic/princexml-php",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/gridonic/PrinceXMLPhp.git",
-                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
-                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PrinceXMLPhp": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Gridonic",
-                    "homepage": "http://gridonic.ch"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/gridonic/PrinceXMLPhp/contributors"
-                }
-            ],
-            "description": "PrinceXML PHP5 wrapper converted to follow the PSR-0 standard.",
-            "keywords": [
-                "princexml",
-                "xml"
-            ],
-            "time": "2016-09-06 17:46:32"
-        },
-        {
-            "name": "leafo/scssphp",
-            "version": "v0.6.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/leafo/scssphp.git",
-                "reference": "6fdfe19d2b13a3f12ba0792227f0718809ce4e4d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/leafo/scssphp/zipball/6fdfe19d2b13a3f12ba0792227f0718809ce4e4d",
-                "reference": "6fdfe19d2b13a3f12ba0792227f0718809ce4e4d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "kherge/box": "~2.5",
-                "phpunit/phpunit": "~3.7",
-                "squizlabs/php_codesniffer": "~2.5"
-            },
-            "bin": [
-                "bin/pscss"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Leafo\\ScssPhp\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Leaf Corcoran",
-                    "email": "leafot@gmail.com",
-                    "homepage": "http://leafo.net"
-                }
-            ],
-            "description": "scssphp is a compiler for SCSS written in PHP.",
-            "homepage": "http://leafo.github.io/scssphp/",
-            "keywords": [
-                "css",
-                "less",
-                "sass",
-                "scss",
-                "stylesheet"
-            ],
-            "time": "2016-09-11 01:34:11"
-        },
-        {
-            "name": "pimple/pimple",
-            "version": "v3.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/silexphp/Pimple.git",
-                "reference": "a30f7d6e57565a2e1a316e1baf2a483f788b258a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/silexphp/Pimple/zipball/a30f7d6e57565a2e1a316e1baf2a483f788b258a",
-                "reference": "a30f7d6e57565a2e1a316e1baf2a483f788b258a",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Pimple": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                }
-            ],
-            "description": "Pimple, a simple Dependency Injection Container",
-            "homepage": "http://pimple.sensiolabs.org",
-            "keywords": [
-                "container",
-                "dependency injection"
-            ],
-            "time": "2015-09-11 15:10:35"
-        },
-        {
-            "name": "pressbooks/pb-api",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/pb-api.git",
-                "reference": "47a7cd15bfce8f71b5551fd99fd6c535cadcdfee"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-api/zipball/47a7cd15bfce8f71b5551fd99fd6c535cadcdfee",
-                "reference": "47a7cd15bfce8f71b5551fd99fd6c535cadcdfee",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.5",
-                "squizlabs/php_codesniffer": "^2.7",
-                "wp-coding-standards/wpcs": "^0.10"
-            },
-            "type": "wordpress-plugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Book Oven Inc.",
-                    "email": "code@pressbooks.com",
-                    "homepage": "https://pressbooks.com"
-                }
-            ],
-            "description": "This plugin provides a JSON-based REST API for Pressbooks, an open source book publishing tool built on the WordPress multisite platform.",
-            "homepage": "https://github.com/pressbooks/pressbooks",
-            "keywords": [
-                "ebooks publishing webbooks"
-            ],
-            "time": "2016-10-19 18:43:02"
-        },
-        {
-            "name": "pressbooks/saxon-he",
-            "version": "9.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/saxon-he.git",
-                "reference": "bfa82b98023fac1b01f62c64a9b865a0e4b97dfd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/saxon-he/zipball/bfa82b98023fac1b01f62c64a9b865a0e4b97dfd",
-                "reference": "bfa82b98023fac1b01f62c64a9b865a0e4b97dfd",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Saxonica",
-                    "email": "mike@saxonica.com"
-                }
-            ],
-            "description": "Provides implementations of XSLT 2.0, XQuery 3.1, and XPath 3.1 at the basic level of conformance defined by W3C.",
-            "time": "2016-09-12 18:32:26"
-        },
-        {
-            "name": "solarissmoke/disable-comments-mu",
-            "version": "v1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/solarissmoke/disable-comments-mu.git",
-                "reference": "ad6c86ea25c95e1616357f27a631df987e36c41f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/solarissmoke/disable-comments-mu/zipball/ad6c86ea25c95e1616357f27a631df987e36c41f",
-                "reference": "ad6c86ea25c95e1616357f27a631df987e36c41f",
-                "shasum": ""
-            },
-            "require": {
-                "composer/installers": "~1.0",
-                "php": ">=5.2.4"
-            },
-            "type": "wordpress-muplugin",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Samir Shah",
-                    "email": "samir@rayofsolaris.net",
-                    "homepage": "https://github.com/solarissmoke"
-                }
-            ],
-            "description": "This is the must-use version of the Disable Comments WordPress plugin. Copy the contents of this directory into your mu-plugins directory in order to disable comments on the entire site/network, without any configuration. You should delete all existing comments from the WordPress database before activating this plugin. If you want to be able to configure the plugin's behaviour, then use the normal version.",
-            "homepage": "https://github.com/solarissmoke/disable-comments-mu",
-            "keywords": [
-                "comments",
-                "wordpress"
-            ],
-            "time": "2016-04-29 02:48:08"
         }
     ],
     "packages-dev": [
@@ -422,16 +172,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.5.4",
+            "version": "1.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "ea74994a3dc7f8d2f65a06009348f2d63c81e61f"
+                "reference": "399c1f9781e222f6eb6cc238796f5200d1b7f108"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/ea74994a3dc7f8d2f65a06009348f2d63c81e61f",
-                "reference": "ea74994a3dc7f8d2f65a06009348f2d63c81e61f",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/399c1f9781e222f6eb6cc238796f5200d1b7f108",
+                "reference": "399c1f9781e222f6eb6cc238796f5200d1b7f108",
                 "shasum": ""
             },
             "require": {
@@ -460,7 +210,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2016-09-16 13:37:59"
+            "time": "2016-10-31 17:19:45"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -1648,16 +1398,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "368b9738d4033c8b93454cb0dbd45d305135a6d3"
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/368b9738d4033c8b93454cb0dbd45d305135a6d3",
-                "reference": "368b9738d4033c8b93454cb0dbd45d305135a6d3",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/7ff51b06c6c3d5cc6686df69004a42c69df09e27",
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27",
                 "shasum": ""
             },
             "require": {
@@ -1693,7 +1443,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-25 08:27:07"
+            "time": "2016-10-24 18:41:13"
         },
         {
             "name": "webmozart/assert",

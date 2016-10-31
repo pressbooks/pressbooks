@@ -1,0 +1,17 @@
+linters:
+  PropertySortOrder:
+    order: recess
+  PlaceholderInExtend:
+    enabled: false
+  IdSelector:
+    enabled: false
+  MergeableSelector:
+    enabled: false
+  QualifyingElement:
+    enabled: false
+  PropertySpelling:
+    enabled: true
+    extra_properties: ['prince-page-group', 'prince-footnote-policy', 'prince-image-resolution', 'footnote-style-position']
+  NestingDepth:
+    enabled: true
+    max_depth: 5

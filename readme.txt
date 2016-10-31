@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.2
+Version: 3.9.2.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Version: 3.9.2
+Version: 3.9.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -196,9 +196,13 @@ TK.
 
 == Upgrade Notice ==
 
-Please note that Pressbooks 3.9.2 now requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
+Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
 
 == Changelog ==
+
+= 3.9.2.1 =
+* **NOTE:** Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
+* **Fix:** Fixed an issue where user actions on the Organize page would fail to update certain properties.
 
 = 3.9.2 =
 * **NOTE:** Pressbooks 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.

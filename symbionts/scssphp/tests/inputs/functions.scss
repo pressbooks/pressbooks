@@ -1,0 +1,168 @@
+
+@function hello($x) {
+    @return $x + 4;
+}
+
+@function add($a, $b) {
+    @return $a + $b;
+}
+
+div {
+    color: hello(10px);
+    sum: add(11, 12);
+}
+
+// make sure values are being reduced before being passed up to previous scope
+
+@function one($a, $b) {
+    @return $a $b;
+}
+
+@function two($a, $b) {
+    @return $a#{$a} $b;
+}
+
+@function three($a, $b: default) {
+    @return "hello #{$a} and #{$b}"
+}
+
+@function all($a...) {
+    @return "hello #{$a}"
+}
+
+div {
+    hello: one(10, 55);
+    hello: two(10, 55);
+    hello: three(10, 55);
+}
+
+
+@function hello_world() {
+    @return 1000;
+}
+
+del {
+    color: hello-world();
+}
+
+div {
+    $args: foo bar;
+    hello: three($args...);
+    hello: three(bar...);
+    hello: all(Alice, Bob, Tom);
+}
+
+@function stringConcatCompassStyle($start,$last)
+{
+    // Compass still uses it like this
+    @return #{$start}-#{$last};
+}
+
+.foo
+{   
+    test2: stringConcatCompassStyle(-moz,art);
+}
+
+@mixin content_test {
+    span {
+        $color: green;
+        @content;
+    }
+}
+
+@function func_test($c) {
+    @return $c + 1;
+}
+
+div {
+    @include content_test {
+        height: func_test(2px);
+    }
+}
+
+@function test ($a, $b: $a/2) {
+    @return $b;
+}
+
+div {
+  width: test(4);
+}
+
+@function test($args...){
+    @return type-of($args); // should return arglist, but returns list
+}
+
+p{
+    color: test("a", "s", "d", "f");
+}
+
+@function test-function() {
+  $str: 'test-function';
+  @return $str;
+}
+
+@mixin test-mixin {
+  $str: 'test-mixin';
+  display: $str;
+  $new-bp: test-function();
+  display: $str;
+}
+
+$str: 'global';
+.test{
+  display: $str;
+  @include test-mixin;
+  display: $str;
+}
+
+.test-inspect {
+  n: inspect(null);
+  b1: inspect(true);
+  b2: inspect(false);
+  n1: inspect(0);
+  s1: inspect('');
+  s2: inspect('hello');
+  l1: inspect(1 2);
+  l2: inspect((3 4));
+  l3: inspect((5,6));
+  l4: inspect((a: 1, b: 2));
+  l5: inspect($value: (a: 1, b: 2));
+}
+
+@function contains($list, $values...) {
+  @each $value in $values {
+    @if type-of(index($list, $value)) != "number" {
+      @return false;
+    }
+  }
+
+  @return true;
+}
+
+@function mapping($items) {
+  $src: ();
+  $map: (
+          one:   1px 1px,
+          two:   2px 2px,
+  );
+
+  @each $key, $values in $map {
+    @if contains($items, $key) {
+      $value1: nth($values, 1);
+      $value2: nth($values, 2);
+
+      $src: append($src, $value1 $value2, space);
+    }
+  }
+
+  @return $src;
+}
+
+@mixin test() {
+  padding: mapping(one two);
+}
+
+div {
+  margin: mapping(one two);
+  @include test();
+}

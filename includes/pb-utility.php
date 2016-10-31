@@ -496,33 +496,22 @@ function show_experimental_features( $host = null ) {
  */
 function include_plugins() {
 	$plugins = array(
-			'pb-api/pb-api.php' => 1,
+		'custom-metadata/custom_metadata.php' => 1,
+		'pb-api/pb-api.php' => 1,
+		'pressbooks-latex/pb-latex.php' => 1,
 	);
 
 	$plugins = filter_plugins( $plugins );
 
 	if ( ! empty( $plugins ) ) {
 		foreach ( $plugins as $key => $val ) {
-			require_once( PB_PLUGIN_DIR . 'vendor/pressbooks/' . $key );
-		}
-	}
-
-	$symbionts = array(
-		'custom-metadata/custom_metadata.php' => 1,
-		'pressbooks-latex/pb-latex.php' => 1,
-	);
-
-	$symbionts = filter_plugins( $symbionts );
-
-	if ( ! empty( $symbionts ) ) {
-		foreach ( $symbionts as $key => $val ) {
 			require_once( PB_PLUGIN_DIR . 'symbionts/' . $key );
 		}
 	}
 
 	// Disable comments
 	if ( true == disable_comments() ) {
-		require_once( PB_PLUGIN_DIR . 'vendor/solarissmoke/disable-comments-mu/disable-comments-mu.php' );
+		require_once( PB_PLUGIN_DIR . 'symbionts/disable-comments-mu/disable-comments-mu.php' );
 	}
 }
 
