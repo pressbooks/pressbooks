@@ -1,0 +1,377 @@
+
+error, other {
+  border: 1px #f00;
+  background-color: #fdd;
+}
+
+pre, span {
+    seriousError {
+        @extend error;
+        font-size: 20px;
+    }
+}
+
+hello {
+    @extend other;
+    color: green;
+    div {
+        margin: 10px;
+    }
+}
+
+.cool {
+    color: red;
+}
+
+.blue {
+    color: purple;
+}
+
+.me {
+    @extend .cool, .blue;
+}
+
+.hoverlink { @extend a:hover }
+a:hover { text-decoration: underline }
+
+
+// partial matching and selector merging:
+
+div.hello.world.hmm {
+    color: blue;
+}
+
+pre, code  {
+    .okay.span {
+        @extend .hello;
+    }
+}
+
+// multiple matches per selector
+.xxxxx .xxxxx .xxxxx {
+    color: green;
+}
+
+code {
+    @extend .xxxxx;
+    color: red;
+}
+
+
+// chained 
+
+.alpha {
+    color: red;
+}
+
+.beta {
+    @extend .alpha;
+    color: white;
+}
+
+.gama {
+    @extend .beta;
+    color: blue;
+}
+
+// merging selector sequences
+
+#admin .tabbar a {font-weight: bold}
+#demo .overview .fakelink {@extend a}
+
+a1 b1 c1 d1 { color: red; }
+x1 y1 z1 w1 { @extend a1; }
+
+a2 b2 c2 d2 { color: red; }
+x2 y2 z2 w2 { @extend b2; }
+
+
+a3 b3 c3 d3 { color: red; }
+x3 y3 z3 w3 { @extend c3; }
+
+
+a4 b4 c4 d4 { color: red; }
+x4 y4 z4 w4 { @extend d4; }
+
+// removing common prefix
+
+#butt .yeah .okay { font-weight: bold }
+#butt .umm .sure { @extend .okay }
+
+a9 b9 s9 t9 v9 { color: red; }
+
+a9 b9 x9 y9 z9 {
+    @extend v9;
+}
+
+// extends & media
+
+@media print {
+    horse {
+        color: blue;
+    }
+}
+
+man {
+    color: red;
+    @extend horse;
+}
+
+
+// result == match
+
+wassup {
+    color: blue;
+    @extend wassup;
+}
+
+.foo {
+    .wassup {
+        @extend .wassup;
+        color: blue;
+    }
+}
+
+// multi-extend
+
+#something {
+    color: red;
+}
+
+.x {
+    @extend #something;
+}
+
+.y {
+    @extend #something;
+}
+
+// twitter-sass-bootstrap infinite loop
+
+.nav-tabs {
+  &.nav-justified {
+    @extend .nav-justified;
+  }
+}
+.nav-justified {
+  text-align: justify;
+}
+
+// multi-extend with nesting
+
+.btn:hover,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  color: red;
+}
+.edit .actions {
+  button {
+    float: right;
+    @extend .btn;
+  }
+}  
+.edit {
+  .new {
+   .actions {
+      padding: 0;
+   }
+   .actions button {
+      @extend .btn;
+   }
+ }
+}
+
+.z {color: red;}
+.parent .self.z {
+    @extend .z;
+}
+
+#content {
+
+        .social-login {
+            display: block;
+            float: right;
+            margin-right: 15px;
+            width: 250px;
+
+                .facebook {
+                    display: block;
+                    width: 255px;
+                    height: 42px;
+                    background: transparent url('images/login-btns.png') no-repeat;
+                    background-position: 0 0;
+
+                    &:hover {
+                        background-position: 0 -43px;
+                        }
+
+                    &:focus, &:active {
+                        background-position: 0 -86px;
+                        }
+                }
+
+                .twitter {
+
+                    @extend .facebook;
+                    background-position: 0 -129px;
+
+                    &:hover {
+                        background-position: 0 -172px;
+                    }
+
+                    &:active, &:focus {
+                        background-position: 0 -215px;
+                    }
+                }
+
+        }
+}
+
+body{
+  .to-extend{
+    color: red;
+  }
+  .test{
+    @extend .to-extend;
+  }
+}
+
+.navbar {
+  .navbar-brand {
+    font-weight: bold;
+    text-shadow: none;
+    color: #fff;
+    
+    &:hover {
+      @extend .navbar-brand;
+    }
+  }
+}
+
+.foo{
+   &__bar#test{background:red;}
+}
+input{@extend .foo__bar#test;}
+
+.selector1 {
+    color: blue;
+}
+
+.selector2 {
+    background: #ccc;
+}
+
+$var: ".selector1, .selector2";
+
+.master-class {
+    // interpolation of the variable is needed since we have a selector in $var
+    @extend #{$var};
+}
+
+// scss
+.main {
+  .block__element {
+    font-size: 14px;
+
+    &--modifier {
+      @extend .block__element;
+      font-weight: bold;
+    }
+  }
+}
+
+a.important {
+  @extend .notice !optional;
+}
+
+$color-base: white;
+
+%pagination-bullet {
+    width: 6px;
+    height: 6px;
+    margin-left: 5px;
+    &:first-child {
+        margin-left: 0;
+    }
+    &.is-active {
+        background-color: $color-base;
+    }
+}
+
+.pagination {
+    &-bullet {
+       @extend %pagination-bullet;
+    }
+}
+
+@mixin nested-foo() {
+    .in-nested-foo {
+        @content;
+    }
+}
+
+.parent-nested-foo-include {
+    @include nested-foo() {
+        .child-nested-foo-include {
+            color: green;
+        }
+    }
+}
+
+.beard + .mustache {
+    @extend .child-nested-foo-include;
+}
+
+// Shared direct relationship combinator.
+.btn-group-lg > .btn {
+  @extend .btn-lg;
+}
+.btn-group > .btn-lg {
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+// Reverse rules with direct relationship combinators.
+.fp-content-center form + div {
+    @extend .form-group;
+    padding-left: 0;
+}
+.form-inline + .a {
+    .form-group > b {
+      margin-bottom: 0;
+    }
+}
+
+// Decorated tags cannot be extended by tags of another type.
+canvas {
+    color: yellow;
+}
+.popup {
+    color: red;
+}
+div.popup {
+    color: blue;
+}
+.before span.popup .after {
+    color: green;
+}
+input {
+    @extend .popup;
+}
+img.bar {
+    @extend .popup;
+}
+object {
+    @extend canvas;
+}
+embed.bar {
+    @extend canvas;
+}
+.prepend {
+    input.foo,
+    div.foo {
+        @extend .popup
+    }
+}

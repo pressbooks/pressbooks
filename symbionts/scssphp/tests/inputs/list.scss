@@ -1,0 +1,35 @@
+$list: (black);
+$list: join($list, white, comma);
+
+div {
+  padding: join(10px 20px, 30px 40px);
+  margin: join((0, 10px), (10px, 10px), space);
+  background: linear-gradient($list);
+}
+
+$list: ();
+$list: join($list, (red, blue), comma);
+
+p {
+  background: linear-gradient($list);
+}
+
+div {
+x: index(1px solid red, solid);
+y: index(1px solid red, dashed);
+z: index((width: 10px, height: 20px), (height 20px));
+}
+
+$list: set-nth($list: 10px 20px 30px, $n: 2, $value: -20px);
+div {
+    a: nth($list, 1);
+   b: nth($list, 2);
+  c: nth($list, 3);
+ d: nth($list, -1);
+}
+
+div {
+x:list-separator(1px 2px 3px);
+y:list-separator(1px, 2px, 3px);
+z:list-separator('foo');
+}
