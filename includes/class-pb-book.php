@@ -448,7 +448,6 @@ class Book {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
-
 		$id = absint( $_POST['id'] );
 		if ( current_user_can( 'edit_post', $id ) && check_ajax_referer( 'pb-update-book-order' ) ) {
 
@@ -560,18 +559,20 @@ class Book {
 	 * WP_Ajax hook. Updates a post's "export" setting (export post into book or not)
 	 */
 	static function updateExportOptions() {
-
-		if ( current_user_can( 'edit_post', $post_id ) && $meta_key && check_ajax_referer( 'pb-update-book-export' ) ) {
-			$valid_meta_keys = array(
-				'pb_export',
-			);
-
+		if ( check_ajax_referer( 'pb-update-book-export' ) ) {
 			$post_id = absint( $_POST['post_id'] );
-			$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
-			$meta_value = ( $_POST['chapter_export'] ) ? 'on' : 0;
+			if ( current_user_can( 'edit_post', $post_id ) ) {
+				$valid_meta_keys = array(
+					'pb_export',
+				);
 
-			update_post_meta( $post_id, $meta_key, $meta_value );
-			static::deleteBookObjectCache();
+				$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
+				if ( $meta_key ) {
+					$meta_value = ( $_POST['chapter_export'] ) ? 'on' : 0;
+					update_post_meta( $post_id, $meta_key, $meta_value );
+					static::deleteBookObjectCache();
+				}
+			}
 		}
 	}
 
@@ -579,18 +580,20 @@ class Book {
 	 * WP_Ajax hook. Updates a post's "show title" setting (show title in exports or not)
 	 */
 	static function updateShowTitleOptions() {
-
-		if ( current_user_can( 'edit_post', $post_id ) && $meta_key && check_ajax_referer( 'pb-update-book-show-title' ) ) {
-			$valid_meta_keys = array(
-				'pb_show_title',
-			);
-
+		if ( check_ajax_referer( 'pb-update-book-show-title' ) ) {
 			$post_id = absint( $_POST['post_id'] );
-			$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
-			$meta_value = ( $_POST['chapter_show_title'] ) ? 'on' : 0;
+			if ( current_user_can( 'edit_post', $post_id ) ) {
+				$valid_meta_keys = array(
+					'pb_show_title',
+				);
 
-			update_post_meta( $post_id, $meta_key, $meta_value );
-			static::deleteBookObjectCache();
+				$meta_key = in_array( $_POST['type'], $valid_meta_keys ) ? $_POST['type'] : false;
+				if ( $meta_key ) {
+					$meta_value = ( $_POST['chapter_show_title'] ) ? 'on' : 0;
+					update_post_meta( $post_id, $meta_key, $meta_value );
+					static::deleteBookObjectCache();
+				}
+			}
 		}
 	}
 
@@ -598,17 +601,18 @@ class Book {
 	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
 	 */
 	static function updatePrivacyOptions() {
-
-		if ( current_user_can( 'edit_post', $post_id ) && check_ajax_referer( 'pb-update-book-privacy' ) ) {
+		if ( check_ajax_referer( 'pb-update-book-privacy' ) ) {
 			$post_id = absint( $_POST['post_id'] );
-			$post_status = $_POST['post_status'];
+			if ( current_user_can( 'edit_post', $post_id ) ) {
+				$post_status = $_POST['post_status'];
 
-			$my_post = array();
-			$my_post['ID'] = $post_id;
-			$my_post['post_status'] = $post_status;
+				$my_post = array();
+				$my_post['ID'] = $post_id;
+				$my_post['post_status'] = $post_status;
 
-			wp_update_post( $my_post );
-			static::deleteBookObjectCache();
+				wp_update_post( $my_post );
+				static::deleteBookObjectCache();
+			}
 		}
 	}
 
@@ -616,11 +620,12 @@ class Book {
 	 * WP_Ajax hook. Updates a post's privacy setting (whether the post is published or privately published)
 	 */
 	static function updateGlobalPrivacyOptions() {
+		if ( check_ajax_referer( 'pb-update-book-privacy' ) ) {
+			$blog_public = absint( $_POST['blog_public'] );
 
-		$blog_public = absint( $_POST['blog_public'] );
-
-		if ( current_user_can( 'manage_options' ) && check_ajax_referer( 'pb-update-book-privacy' ) ) {
-			update_option( 'blog_public', $blog_public );
+			if ( current_user_can( 'manage_options' ) ) {
+				update_option( 'blog_public', $blog_public );
+			}
 		}
 	}
 
