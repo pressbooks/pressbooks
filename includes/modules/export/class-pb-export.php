@@ -184,8 +184,8 @@ abstract class Export {
 		);
 
 		$message = print_r( array_merge( $info, $more_info ), true ) . $message;
-
-		if ( @$current_user->user_email && get_option( 'pressbooks_email_validation_logs' ) ) {
+		$exportoptions = get_option( 'pressbooks_export_options' );
+		if ( @$current_user->user_email && isset( $exportoptions['email_validation_logs'] ) ) {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
 
@@ -589,6 +589,9 @@ abstract class Export {
 			if ( isset( $x['pdf'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Prince\Pdf';
 			}
+			if ( isset( $x['print_pdf'] ) ) {
+				$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
+			}
 			if ( isset( $x['mpdf'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Mpdf\Pdf';
 			}
@@ -688,6 +691,15 @@ abstract class Export {
 				unlink( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
 				$conversion_error['\Pressbooks\Modules\Export\Prince\Pdf'] = $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'];
 				unset( $validation_warning['\Pressbooks\Modules\Export\Prince\Pdf'] );
+			}
+
+			if ( isset( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] ) ) {
+
+				// The PDF is garbage and we don't want the user to have it.
+				// Delete file. Report error instead of warning.
+				unlink( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] );
+				$conversion_error['\Pressbooks\Modules\Export\Prince\PrintPdf'] = $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'];
+				unset( $validation_warning['\Pressbooks\Modules\Export\Prince\PrintPdf'] );
 			}
 
 			// --------------------------------------------------------------------------------------------------------

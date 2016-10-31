@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.1
+Version: 3.9.2
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Version: 3.9.1
+Version: 3.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -96,7 +96,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 
 *Part 3, Pressbooks dependencies:*
 
- * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 10r7
+ * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 20160929
  * For PDF export via mPDF install the [Pressbooks mPDF plugin](https://wordpress.org/plugins/pressbooks-mpdf). You will also need to ensure that the following folders have write access and/or they are owned by the appropriate user. See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
    + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/ttfontdata
    + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/tmp
@@ -196,9 +196,20 @@ TK.
 
 == Upgrade Notice ==
 
-Please note that Pressbooks 3.8.0 will be our last release on WordPress.org. Future updates will be delivered via GitHub [releases](https://github.com/pressbooks/pressbooks/releases). To facilitate this process, you can install the [GitHub Updater](https://github.com/afragen/github-updater) plugin.
+Please note that Pressbooks 3.9.2 now requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
 
 == Changelog ==
+
+= 3.9.2 =
+* **NOTE:** Pressbooks 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
+* **Feature:** Added an export format for print-ready PDF, compatible with the [CreateSpace PDF Submission Specification](https://www.createspace.com/ServicesWorkflow/ResourceDownload.do?id=1583) (**Requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later**).
+* **Feature:** Added a button to the editor which lets you assign a custom class to any element.
+* **Feature:** Simplified the Disable Comments feature, which can now be found under Sharing & Privacy settings.
+* **Enhancement:** Added version-based dependency checks for all Pressbooks dependencies.
+* **Enhancement:** Updated the TinyMCE Table Editor plugin to the latest version.
+* **Enhancement:** Custom styles, table classes, row classes and cell classes are now filterable.
+* **Enhancement:** Pressbooks is now installable via [Packagist](https://packagist.org/packages/pressbooks/pressbooks).
+* **Fix:** Fixed an issue where email validation logs would not be sent.
 
 = 3.9.1 =
 * **Fix:** Fixed an issue where the htmLawed and PrinceXMLPHP dependencies were not being loaded properly.

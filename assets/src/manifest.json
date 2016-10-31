@@ -133,6 +133,11 @@
         "scripts/search-and-replace.js"
       ]
     },
+    "applyclass.js": {
+      "files": [
+        "scripts/applyclass.js"
+      ]
+    },
     "catalog.js": {
       "files": [
         "scripts/catalog.js"
@@ -174,6 +179,11 @@
     },
     "sharer.js": {
       "bower": ["sharer.js"]
+    },
+    "table.js": {
+      "files": [
+        "../../bower_components/tinymce/plugins/table/plugin.js"
+      ]
     }
   },
   "paths": {

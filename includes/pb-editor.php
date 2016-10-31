@@ -39,7 +39,6 @@ function mce_buttons_2( $buttons ) {
 	$p = array_search( 'styleselect', $buttons );
 	array_splice( $buttons, $p + 1, 0, 'textboxes' );
 	array_splice( $buttons, 6, 0, 'backcolor' );
-
 	return $buttons;
 }
 
@@ -47,7 +46,8 @@ function mce_buttons_2( $buttons ) {
  * Adds anchor, superscript and subscript buttons to the MCE buttons array.
  */
 function mce_buttons_3( $buttons ) {
-	array_push( $buttons, 'anchor', 'superscript', 'subscript' );
+	array_unshift( $buttons, 'table' );
+	array_push( $buttons, 'apply_class', 'anchor', 'superscript', 'subscript' );
 	return $buttons;
 }
 
@@ -56,8 +56,10 @@ function mce_buttons_3( $buttons ) {
  * Adds Javascript for buttons above.
  */
 function mce_button_scripts( $plugin_array ) {
+	$plugin_array['apply_class'] = \Pressbooks\Utility\asset_path( 'scripts/applyclass.js' );
 	$plugin_array['textboxes'] = \Pressbooks\Utility\asset_path( 'scripts/textboxes.js' );
 	$plugin_array['anchor'] = \Pressbooks\Utility\asset_path( 'scripts/anchor.js' );
+	$plugin_array['table'] = \Pressbooks\Utility\asset_path( 'scripts/table.js' );
 	return $plugin_array;
 }
 
@@ -123,6 +125,8 @@ function mce_before_init_insert_formats( $init_array ) {
 		),
 	);
 
+	$style_formats = apply_filters( 'pressbooks_editor_custom_styles', $style_formats );
+
 	$init_array['style_formats'] = json_encode( $style_formats );
 
 	return $init_array;
@@ -179,10 +183,6 @@ function mce_table_editor_options( $settings ) {
 			'title' => __( 'Shaded', 'pressbooks' ),
 			'value' => 'shaded',
 		),
-		array(
-			'title' => __( 'Custom...', 'pressbooks' ),
-			'value' => 'custom',
-		),
 	);
 	$cell_classes = array(
 		array(
@@ -212,12 +212,18 @@ function mce_table_editor_options( $settings ) {
 			'value' => 'shaded',
 		),
 	);
+
+	$table_classes = apply_filters( 'pressbooks_editor_table_classes', $table_classes );
+	$cell_classes = apply_filters( 'pressbooks_editor_cell_classes', $cell_classes );
+	$row_classes = apply_filters( 'pressbooks_editor_row_classes', $row_classes );
+
 	$settings['table_advtab'] = false;
 	$settings['table_class_list'] = json_encode( $table_classes );
 	$settings['table_cell_advtab'] = false;
 	$settings['table_cell_class_list'] = json_encode( $cell_classes );
 	$settings['table_row_advtab'] = false;
 	$settings['table_row_class_list'] = json_encode( $row_classes );
+	$settings['table_appearance_options'] = false;
 	return $settings;
 }
 

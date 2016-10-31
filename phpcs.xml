@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="Pressbooks">
-  <description>PRessbooks Coding Standards</description>
+  <description>Pressbooks Coding Standards</description>
 
   <!-- Show colors in console -->
   <arg value="-colors"/>
@@ -11,6 +11,8 @@
 
 	<!-- Exclude tests -->
 	<exclude-pattern>tests/</exclude-pattern>
+	<!-- Exclude symbionts -->
+	<exclude-pattern>symbionts/</exclude-pattern>
 	<!-- Exclude vendor -->
 	<exclude-pattern>vendor/</exclude-pattern>
 	<!-- Exclude themes-* -->

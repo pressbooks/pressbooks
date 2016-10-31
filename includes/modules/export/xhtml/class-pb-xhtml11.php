@@ -9,6 +9,8 @@ namespace Pressbooks\Modules\Export\Xhtml;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 class Xhtml11 extends Export {
 
 
@@ -472,7 +474,7 @@ class Xhtml11 extends Export {
 			'tidy' => -1,
 		);
 
-		return \Htmlawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
 
@@ -1186,6 +1188,19 @@ class Xhtml11 extends Export {
 			} elseif ( 'export' == (string) $key && $val ) {
 				return true;
 			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		if ( true == \Pressbooks\Utility\check_xmllint_install() ) {
+			return true;
 		}
 
 		return false;

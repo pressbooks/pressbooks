@@ -15,6 +15,7 @@ use Pressbooks\Container;
 use Pressbooks\Sanitize;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 class Epub201 extends Export {
 
@@ -469,7 +470,7 @@ class Epub201 extends Export {
 			$GLOBALS['hl_Ids'] = $this->fixme;
 		}
 
-		return \Htmlawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
 
@@ -2167,5 +2168,17 @@ class Epub201 extends Export {
 		);
 	}
 
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		if ( false !== \Pressbooks\Utility\check_epubcheck_install() ) {
+			return true;
+		}
+
+		return false;
+	}
 
 }

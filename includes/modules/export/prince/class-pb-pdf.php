@@ -133,7 +133,6 @@ class Pdf extends Export {
 		return $retval;
 	}
 
-
 	/**
 	 * Check the sanity of $this->outputPath
 	 *
@@ -291,4 +290,16 @@ class Pdf extends Export {
 	}
 
 
+	/**
+	 * Dependency check.
+	 *
+	 * @return bool
+	 */
+	static function hasDependencies() {
+		if ( false !== \Pressbooks\Utility\check_prince_install() && false !== \Pressbooks\Utility\check_xmllint_install() ) {
+			return true;
+		}
+
+		return false;
+	}
 }

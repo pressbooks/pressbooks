@@ -311,7 +311,6 @@ class GlobalTypography {
 		if ( ! $languages ) {
 			$languages = $this->_getRequiredLanguages();
 		}
-		$baseurl = 'https://github.com/googlei18n/noto-cjk/raw/master/';
 		$basepath = WP_CONTENT_DIR . '/uploads/assets/fonts/';
 		if ( ! is_dir( $basepath ) ) {
 			mkdir( $basepath, 0755, true );
@@ -320,35 +319,47 @@ class GlobalTypography {
 		// List fonts
 		$fontpacks = array(
 			'ja' => array(
-				'NotoSansCJKjp-Light.otf',
-				'NotoSansCJKjp-Regular.otf',
-				'NotoSansCJKjp-Bold.otf',
+				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
+				'files' => array(
+					'NotoSansCJKjp-Light.otf',
+					'NotoSansCJKjp-Regular.otf',
+					'NotoSansCJKjp-Bold.otf',
+				),
 			),
 			'ko' => array(
-				'NotoSansCJKkr-Regular.otf',
-				'NotoSansCJKkr-Bold.otf',
+				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
+				'files' => array(
+					'NotoSansCJKkr-Regular.otf',
+					'NotoSansCJKkr-Bold.otf',
+				),
 			),
 			'zh_HANS' => array(
-				'NotoSansCJKsc-Regular.otf',
-				'NotoSansCJKsc-Bold.otf',
+				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
+				'files' => array(
+					'NotoSansCJKsc-Regular.otf',
+					'NotoSansCJKsc-Bold.otf',
+				),
 			),
 			'zh_HANT' => array(
-				'NotoSansCJKtc-Light.otf',
-				'NotoSansCJKtc-Regular.otf',
-				'NotoSansCJKtc-Bold.otf',
+				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
+				'files' => array(
+					'NotoSansCJKtc-Light.otf',
+					'NotoSansCJKtc-Regular.otf',
+					'NotoSansCJKtc-Bold.otf',
+				),
 			),
 		);
 
 		$language_names = $this->getSupportedLanguages();
 
-		foreach ( $fontpacks as $language => $fonts ) {
+		foreach ( $fontpacks as $language => $val ) {
 			if ( in_array( $language, $languages ) ) {
-				foreach ( $fonts as $font ) {
+				foreach ( $val['files'] as $font ) {
 					if ( ! file_exists( $basepath . $font ) ) {
 						if ( ! function_exists( 'download_url' ) ) {
 							require_once( ABSPATH . 'wp-admin/includes/file.php' );
 						}
-						$result = download_url( $baseurl . $font );
+						$result = download_url( $val['baseurl'] . $font );
 						if ( is_wp_error( $result ) ) {
 							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $baseurl . $font . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
 							return false;

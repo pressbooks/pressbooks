@@ -35,6 +35,8 @@ namespace Pressbooks\Modules\Export\Mpdf;
 
 use \Pressbooks\Modules\Export\Export;
 
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 class Pdf extends Export {
 
 	/**
@@ -134,7 +136,7 @@ class Pdf extends Export {
 		$contents = $this->getOrderedBookContents();
 
 		// set up mPDF
-		if ( ! $this->isInstalled() ) {
+		if ( ! $this->hasDependencies() ) {
 			return false; // mPDF is not installed
 		}
 		require_once( PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php' );
@@ -527,7 +529,7 @@ class Pdf extends Export {
 		    'tidy' => -1,
 		);
 
-		return \Htmlawed::filter( $filtered, $config );
+		return htmLawed( $filtered, $config );
 	}
 
 	/**
@@ -812,18 +814,16 @@ class Pdf extends Export {
 
 
 	/**
-	 * Is mPDF installed?
+	 * Dependency check.
 	 *
 	 * @return bool
 	 */
-	static function isInstalled() {
-
+	static function hasDependencies() {
 		if ( in_array( WP_PLUGIN_DIR . '/pressbooks-mpdf/pressbooks-mpdf.php', wp_get_active_network_plugins() ) ) {
 			return true;
-		} else {
-			return false;
 		}
 
+		return false;
 	}
 
 }

@@ -29,7 +29,8 @@
     "sidr": "^2.2.1",
     "js-cookie": "^2.1.1",
     "matchHeight": "jquery-match-height#^0.7.0",
-    "sharer.js": "^0.2.15"
+    "sharer.js": "^0.2.15",
+    "tinymce": "^4.4.3"
   },
   "overrides": {
     "select2": {

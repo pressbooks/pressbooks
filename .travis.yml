@@ -12,6 +12,7 @@ branches:
   - dev
 
 php:
+  - 7.0
   - 5.6
 
 env:

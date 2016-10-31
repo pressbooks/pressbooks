@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7639154549f45bc49d2d8908719fc3c0",
-    "content-hash": "cbc76f27984229fe327b35d1f9001570",
+    "hash": "abfba8ce3f53f9f1e99c5187fa6f7048",
+    "content-hash": "ae386267961844a192e862bd1f1aabda",
     "packages": [
         {
             "name": "composer/installers",
@@ -115,6 +115,50 @@
             "time": "2016-08-13 20:53:52"
         },
         {
+            "name": "gridonic/princexml-php",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gridonic/PrinceXMLPhp.git",
+                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PrinceXMLPhp": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gridonic",
+                    "homepage": "http://gridonic.ch"
+                },
+                {
+                    "name": "Contributors",
+                    "homepage": "https://github.com/gridonic/PrinceXMLPhp/contributors"
+                }
+            ],
+            "description": "PrinceXML PHP5 wrapper converted to follow the PSR-0 standard.",
+            "keywords": [
+                "princexml",
+                "xml"
+            ],
+            "time": "2016-09-06 17:46:32"
+        },
+        {
             "name": "leafo/scssphp",
             "version": "v0.6.6",
             "source": {
@@ -214,87 +258,6 @@
             "time": "2015-09-11 15:10:35"
         },
         {
-            "name": "pressbooks/custom-metadata",
-            "version": "0.8.1-dev",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/custom-metadata/",
-                "reference": "tags/v0.8.1-dev"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/custom-metadata/archive/v0.8.1-dev.zip",
-                "reference": "tags/v0.8.1-dev",
-                "shasum": null
-            },
-            "type": "library",
-            "time": "2016-04-28 02:50:35"
-        },
-        {
-            "name": "pressbooks/disable-comments",
-            "version": "1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/disable-comments/",
-                "reference": "tags/v1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/disable-comments/archive/v1.1.zip",
-                "reference": "tags/v1.1",
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
-            "name": "pressbooks/htmlawed",
-            "version": "1.2-beta11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/htmlawed/",
-                "reference": "tags/v1.2-beta11"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/htmlawed/archive/v1.2-beta11.zip",
-                "reference": "tags/v1.2-beta11",
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "tburry/pquery": "~1.0.1"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/Htmlawed.php"
-                ]
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Htmlawed\\Test\\": "tests"
-                }
-            }
-        },
-        {
-            "name": "pressbooks/mce-table-buttons",
-            "version": "3.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/mce-table-buttons/",
-                "reference": "tags/v3.2.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/mce-table-buttons/archive/v3.2.0.zip",
-                "reference": "tags/v3.2.0",
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
             "name": "pressbooks/pb-api",
             "version": "1.0.0",
             "source": {
@@ -336,41 +299,6 @@
             "time": "2016-10-19 18:43:02"
         },
         {
-            "name": "pressbooks/pressbooks-latex",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/pressbooks-latex/",
-                "reference": "tags/v1.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/pressbooks/pressbooks-latex/archive/v1.0.0.zip",
-                "reference": "tags/v1.0.0",
-                "shasum": null
-            },
-            "type": "library"
-        },
-        {
-            "name": "pressbooks/princexml-php",
-            "version": "1.2",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/gridonic/PrinceXMLPhp/archive/master.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "PrinceXMLPhp": "src"
-                }
-            }
-        },
-        {
             "name": "pressbooks/saxon-he",
             "version": "9.6.0",
             "source": {
@@ -399,43 +327,42 @@
             "time": "2016-09-12 18:32:26"
         },
         {
-            "name": "wp-api/wp-api",
-            "version": "2.0-beta15",
+            "name": "solarissmoke/disable-comments-mu",
+            "version": "v1.1.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/WP-API/WP-API.git",
-                "reference": "a674b60acd8ef6109cdd83ce6036c037d97c233f"
+                "url": "https://github.com/solarissmoke/disable-comments-mu.git",
+                "reference": "ad6c86ea25c95e1616357f27a631df987e36c41f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WP-API/WP-API/zipball/a674b60acd8ef6109cdd83ce6036c037d97c233f",
-                "reference": "a674b60acd8ef6109cdd83ce6036c037d97c233f",
+                "url": "https://api.github.com/repos/solarissmoke/disable-comments-mu/zipball/ad6c86ea25c95e1616357f27a631df987e36c41f",
+                "reference": "ad6c86ea25c95e1616357f27a631df987e36c41f",
                 "shasum": ""
             },
             "require": {
-                "composer/installers": "~1.0"
+                "composer/installers": "~1.0",
+                "php": ">=5.2.4"
             },
-            "require-dev": {
-                "squizlabs/php_codesniffer": "2.3.4",
-                "wp-coding-standards/wpcs": "0.6.0"
-            },
-            "type": "wordpress-plugin",
-            "extra": {
-                "installer-name": "rest-api"
-            },
+            "type": "wordpress-muplugin",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL2+"
+                "GPL-2.0"
             ],
             "authors": [
                 {
-                    "name": "WP-API Team",
-                    "homepage": "http://wp-api.org/"
+                    "name": "Samir Shah",
+                    "email": "samir@rayofsolaris.net",
+                    "homepage": "https://github.com/solarissmoke"
                 }
             ],
-            "description": "Access your WordPress site's data through an easy-to-use HTTP REST API.",
-            "homepage": "http://wp-api.org/",
-            "time": "2016-10-08 03:50:28"
+            "description": "This is the must-use version of the Disable Comments WordPress plugin. Copy the contents of this directory into your mu-plugins directory in order to disable comments on the entire site/network, without any configuration. You should delete all existing comments from the WordPress database before activating this plugin. If you want to be able to configure the plugin's behaviour, then use the normal version.",
+            "homepage": "https://github.com/solarissmoke/disable-comments-mu",
+            "keywords": [
+                "comments",
+                "wordpress"
+            ],
+            "time": "2016-04-29 02:48:08"
         }
     ],
     "packages-dev": [
@@ -989,16 +916,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.6.1",
+            "version": "5.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "60c32c5b5e79c2248001efa2560f831da11cc2d7"
+                "reference": "cd13b23ac5a519a4708e00736c26ee0bb28b2e01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/60c32c5b5e79c2248001efa2560f831da11cc2d7",
-                "reference": "60c32c5b5e79c2248001efa2560f831da11cc2d7",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/cd13b23ac5a519a4708e00736c26ee0bb28b2e01",
+                "reference": "cd13b23ac5a519a4708e00736c26ee0bb28b2e01",
                 "shasum": ""
             },
             "require": {
@@ -1067,7 +994,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-10-07 13:03:26"
+            "time": "2016-10-25 07:40:25"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1857,11 +1784,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "pressbooks/htmlawed": 10,
-        "pressbooks/custom-metadata": 20,
-        "wp-api/wp-api": 10
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -166,14 +166,14 @@ wp core config --dbname="dbname" --dbuser="dbuser" --dbpass="dbpass" --extra-php
 define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
 define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
-define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck-3.0.1/epubcheck-3.0.1.jar' );
+define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
 define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
 PHP
 wp core install --url="http://domain.com" --title="Pressbooks" --admin_user="username" --admin_password="password" --admin_email="user@domain.com"
 wp core multisite-convert --title="Pressbooks"
 wp plugin delete hello
 wp plugin update-all
-wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.1/pressbooks-v3.9.1.zip --activate-network
+wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.2/pressbooks-v3.9.2.zip --activate-network
 wp theme list
 wp theme enable pressbooks-book --network
 wp theme enable clarke --network

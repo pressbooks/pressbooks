@@ -370,6 +370,8 @@ function replace_running_content_tags( $input ) {
 
 function pressbooks_theme_pdf_css_override( $scss ) {
 
+	$scss .= "/* Theme Options */\n";
+
 	// --------------------------------------------------------------------
 	// Global Options
 
@@ -414,10 +416,10 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	}
 
 	// Margins
-	$outside = $options['pdf_page_margin_outside'];
-	$inside = $options['pdf_page_margin_inside'];
-	$top = $options['pdf_page_margin_top'];
-	$bottom = $options['pdf_page_margin_bottom'];
+	$outside = ( isset( $options['pdf_page_margin_outside'] ) ) ? $options['pdf_page_margin_outside'] : '2cm';
+	$inside = ( isset( $options['pdf_page_margin_inside'] ) ) ? $options['pdf_page_margin_inside'] : '2cm';
+	$top = ( isset( $options['pdf_page_margin_top'] ) ) ? $options['pdf_page_margin_top'] : '2cm';
+	$bottom = ( isset( $options['pdf_page_margin_bottom'] ) ) ? $options['pdf_page_margin_bottom'] : '2cm';
 
 	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
 		$scss .= "\$page-margin-left-top: $top; \n";
@@ -437,7 +439,7 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 		$resolution = '300dpi';
 	}
 	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
-		$scss .= "\$prince-image-resolution: $resolution; \n";
+		$scss .= "\$prince-image-resolution: $resolution !default; \n";
 	} else {
 		$scss .= "img { prince-image-resolution: $resolution; } \n";
 	}

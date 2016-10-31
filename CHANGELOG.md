@@ -1,3 +1,14 @@
+### 3.9.2
+* **NOTE:** Pressbooks 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
+* **Feature:** Added an export format for print-ready PDF, compatible with the [CreateSpace PDF Submission Specification](https://www.createspace.com/ServicesWorkflow/ResourceDownload.do?id=1583) (**Requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later**).
+* **Feature:** Added a button to the editor which lets you assign a custom class to any element.
+* **Feature:** Simplified the Disable Comments feature, which can now be found under Sharing & Privacy settings.
+* **Enhancement:** Added version-based dependency checks for all Pressbooks dependencies.
+* **Enhancement:** Updated the TinyMCE Table Editor plugin to the latest version.
+* **Enhancement:** Custom styles, table classes, row classes and cell classes are now filterable.
+* **Enhancement:** Pressbooks is now installable via [Packagist](https://packagist.org/packages/pressbooks/pressbooks).
+* **Fix:** Fixed an issue where email validation logs would not be sent.
+
 ### 3.9.1
 * **Fix:** Fixed an issue where the htmLawed and PrinceXMLPHP dependencies were not being loaded properly.
 
