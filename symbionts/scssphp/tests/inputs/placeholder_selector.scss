@@ -1,0 +1,28 @@
+#context a%extreme span {
+    color: blue;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.notice, .error { @extend %extreme; }
+
+.hidden %placeholder {
+    margin: 0;
+}
+
+p {
+    @extend #context;
+    padding: 2em;
+}
+
+div { @extend .hidden; }
+
+$layout-namespace: 'test';
+
+%#{$layout-namespace}layout {
+  color: red;
+}
+
+.layout {
+  @extend %#{$layout-namespace}layout;
+}

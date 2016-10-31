@@ -1,0 +1,1000 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>Prince PHP class</title>
+<style type="text/css">
+
+body {
+    font: medium/150% Arial, sans-serif
+}
+
+.page {
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto
+}
+
+h2 {
+    font-size: 120%
+}
+
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<h1>Prince PHP class</h1>
+
+<p>
+The prince.php file defines a class called Prince that contains methods that
+can be called to convert XML and HTML documents into PDF.
+</p>
+
+<p>
+Note that the Prince class is written for PHP 5, and requires modification to work with PHP 4.
+</p>
+
+<h2>Constructor</h2>
+
+<p>
+When instantiating the Prince class, pass in the full path of the Prince
+executable to the constructor as a string argument.
+For example, on Linux or MacOS X:
+</p>
+<pre>
+$prince = new Prince('/usr/local/bin/prince');
+</pre>
+<p>
+On Windows, be sure to specify the path to the <code>prince.exe</code> file
+located within the <code>Engine\bin</code> subfolder of the Prince
+installation.
+</p>
+
+<h2>Conversion methods</h2>
+<ul>
+<li><a href="#convert_file"><code>convert_file</code></a></li>
+<li><a href="#convert_file_to_file"><code>convert_file_to_file</code></a></li>
+<li><a href="#convert_multiple_files"><code>convert_multiple_files</code></a></li>
+<li><a href="#convert_string_to_file"><code>convert_string_to_file</code></a></li>
+<li><a href="#convert_file_to_passthru"><code>convert_file_to_passthru</code></a></li>
+<li><a href="#convert_multiple_files_to_passthru"><code>convert_multiple_files_to_passthru</code></a></li>
+<li><a href="#convert_string_to_passthru"><code>convert_string_to_passthru</code></a></li>
+</ul>
+
+<h2>Configuration methods</h2>
+<ul>
+<li><a href="#addstylesheet"><code>addStyleSheet</code></a></li>
+<li><a href="#clearstylesheets"><code>clearStyleSheets</code></a></li>
+<li><a href="#addscript"><code>addScript</code></a></li>
+<li><a href="#clearscripts"><code>clearScripts</code></a></li>
+<li><a href="#addfileattachment"><code>addFileAttachment</code></a></li>
+<li><a href="#clearfileattachments"><code>clearFileAttachments</code></a></li>
+<li><a href="#setlicensefile"><code>setLicenseFile</code></a></li>
+<li><a href="#setlicensekey"><code>setLicenseKey</code></a></li>
+<li><a href="#setinputtype"><code>setInputType</code></a></li>
+<li><a href="#sethtml"><code>setHTML</code></a></li>
+<li><a href="#setjavascript"><code>setJavaScript</code></a></li>
+<li><a href="#setlog"><code>setLog</code></a></li>
+<li><a href="#setbaseurl"><code>setBaseURL</code></a></li>
+<li><a href="#setxinclude"><code>setXInclude</code></a></li>
+<li><a href="#sethttpuser"><code>setHttpUser</code></a></li>
+<li><a href="#sethttppassword"><code>setHttpPassword</code></a></li>
+<li><a href="#sethttpproxy"><code>setHttpProxy</code></a></li>
+<li><a href="#sethttptimeout"><code>setHttpTimeout</code></a></li>
+<li><a href="#setinsecure"><code>setInsecure</code></a></li>
+<li><a href="#setfileroot"><code>setFileRoot</code></a></li>
+<li><a href="#setembedfonts"><code>setEmbedFonts</code></a></li>
+<li><a href="#setsubsetfonts"><code>setSubsetFonts</code></a></li>
+<li><a href="#setnoartificialfonts"><code>setNoArtificialFonts</code></a></li>
+<li><a href="#setauthmethod"><code>setAuthMethod</code></a></li>
+<li><a href="#setauthuser"><code>setAuthUser</code></a></li>
+<li><a href="#setauthpassword"><code>setAuthPassword</code></a></li>
+<li><a href="#setauthserver"><code>setAuthServer</code></a></li>
+<li><a href="#setauthscheme"><code>setAuthScheme</code></a></li>
+<li><a href="#setnoauthpreemptive"><code>setNoAuthPreemptive</code></a></li>
+<li><a href="#setpagesize"><code>setPageSize</code></a></li>
+<li><a href="#setpagemargin"><code>setPageMargin</code></a></li>
+<li><a href="#setcompress"><code>setCompress</code></a></li>
+<li><a href="#setpdftitle"><code>setPDFTitle</code></a></li>
+<li><a href="#setpdfsubject"><code>setPDFSubject</code></a></li>
+<li><a href="#setpdfauthor"><code>setPDFAuthor</code></a></li>
+<li><a href="#setpdfkeywords"><code>setPDFKeywords</code></a></li>
+<li><a href="#setpdfcreator"><code>setPDFCreator</code></a></li>
+<li><a href="#setencrypt"><code>setEncrypt</code></a></li>
+<li><a href="#setencryptinfo"><code>setEncryptInfo</code></a></li>
+<li><a href="#setoptions"><code>setOptions</code></a></li>
+</ul>
+
+<hr/>
+
+<a name="convert_file">
+
+<pre>
+public function convert_file($xmlPath, &amp;$msgs = array())
+</pre>
+
+<p>
+Convert an XML or HTML file to a PDF file.
+The name of the output PDF file will be the same as the name of the
+input file but with an extension of ".pdf".
+Returns true if a PDF file was generated successfully.
+</p>
+
+<dl>
+<dt><code>xmlPath</code></dt>
+<dd>The filename of the input XML or HTML document.</dd>
+<dt><code>msgs</code></dt>
+<dd>An optional array in which to return error and warning messages. Each
+message is returned as an array of three strings: the message code
+(<code>'err'</code>, <code>'wrn'</code> or <code>'inf'</code>), the message
+location (eg. a filename) and the message text.</dd>
+<dt><code>returns</code></dt>
+<dd>True if a PDF file was generated successfully, false otherwise.</dd>
+</dl>
+
+<hr>
+
+<a name="convert_file_to_file">
+
+<pre>
+public function convert_file_to_file($xmlPath, $pdfPath, &amp;$msgs = array())
+</pre>
+
+<p>
+Convert an XML or HTML file to a PDF file.
+Returns true if a PDF file was generated successfully.
+</p>
+
+<dl>
+<dt><code>xmlPath</code></dt>
+<dd>The filename of the input XML or HTML document.</dd>
+<dt><code>pdfPath</code></dt>
+<dd>The filename of the output PDF file.</dd>
+<dt><code>msgs</code></dt>
+<dd>An optional array in which to return error and warning messages. Each
+message is returned as an array of three strings: the message code
+(<code>'err'</code>, <code>'wrn'</code> or <code>'inf'</code>), the message
+location (eg. a filename) and the message text.</dd>
+<dt><code>returns</code></dt>
+<dd>True if a PDF file was generated successfully, false otherwise.</dd>
+</dl>
+
+<hr>
+
+<a name="convert_multiple_files">
+
+<pre>
+public function convert_multiple_files($xmlPaths, $pdfPath, &amp;$msgs = array())
+</pre>
+
+<p>
+Convert multiple XML or HTML files to a PDF file.
+Returns true if a PDF file was generated successfully.
+</p>
+
+<dl>
+<dt><code>xmlPaths</code></dt>
+<dd>An array of the input XML or HTML documents.</dd>
+<dt><code>pdfPath</code></dt>
+<dd>The filename of the output PDF file.</dd>
+<dt><code>msgs</code></dt>
+<dd>An optional array in which to return error and warning messages. Each
+message is returned as an array of three strings: the message code
+(<code>'err'</code>, <code>'wrn'</code> or <code>'inf'</code>), the message
+location (eg. a filename) and the message text.</dd>
+<dt><code>returns</code></dt>
+<dd>True if a PDF file was generated successfully, false otherwise.</dd>
+</dl>
+
+<hr>
+
+<a name="convert_string_to_file">
+
+<pre>
+public function convert_string_to_file($xmlString, $pdfPath, &amp;$msgs = array())
+</pre>
+
+<p>
+Convert an XML or HTML string to a PDF file.
+Returns true if a PDF file was generated successfully.
+</p>
+
+<dl>
+<dt><code>xmlString</code></dt>
+<dd>A string containing an XML or HTML document.</dd>
+<dt><code>pdfPath</code></dt>
+<dd>The filename of the output PDF file.</dd>
+<dt><code>msgs</code></dt>
+<dd>An optional array in which to return error and warning messages. Each
+message is returned as an array of three strings: the message code
+(<code>'err'</code>, <code>'wrn'</code> or <code>'inf'</code>), the message
+location (eg. a filename) and the message text.</dd>
+<dt><code>returns</code></dt>
+<dd>True if a PDF file was generated successfully, false otherwise.</dd>
+</dl>
+
+<hr>
+
+<a name="convert_file_to_passthru">
+
+<pre>
+public function convert_file_to_passthru($xmlPath, &amp;$msgs = array())
+</pre>
+
+<p>
+Convert an XML or HTML file to a PDF file, which will be passed
+through to the output buffer of the current PHP page.
+Returns true if a PDF file was generated successfully.
+</p>
+
+<dl>
+<dt><code>xmlPath</code></dt>
+<dd>The filename of the input XML or HTML document.</dd>
+<dt><code>msgs</code></dt>
+<dd>An optional array in which to return error and warning messages. Each
+message is returned as an array of three strings: the message code
+(<code>'err'</code>, <code>'wrn'</code> or <code>'inf'</code>), the message
+location (eg. a filename) and the message text.</dd>
+<dt><code>returns</code></dt>
+<dd>True if a PDF file was generated successfully, false otherwise.</dd>
+</dl>
+
+<p>
+Note that to have the browser correctly display the PDF output, the following
+two lines will be needed before the convert method is called:
+</p>
+<pre>
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="foo.pdf"');
+</pre>
+<p>
+You may also specify <code>attachment</code> for the Content-Disposition
+header instead of <code>inline</code>, so that the browser will prompt the
+user to save the PDF file instead of displaying it.
+</p>
+
+<hr>
+
+<a name="convert_multiple_files_to_passthru">
+
+<pre>
+public function convert_multiple_files_to_passthru($xmlPaths, &amp;$msgs = array())
+</pre>
+
+<p>
+Convert multiple XML or HTML files to a PDF file, which will be passed
+through to the output buffer of the current PHP page.
+Returns true if a PDF file was generated successfully.
+</p>
+
+<dl>
+<dt><code>xmlPaths</code></dt>
+<dd>An array of the input XML or HTML documents.</dd>
+<dt><code>msgs</code></dt>
+<dd>An optional array in which to return error and warning messages. Each
+message is returned as an array of three strings: the message code
+(<code>'err'</code>, <code>'wrn'</code> or <code>'inf'</code>), the message
+location (eg. a filename) and the message text.</dd>
+<dt><code>returns</code></dt>
+<dd>True if a PDF file was generated successfully, false otherwise.</dd>
+</dl>
+
+<p>
+Note that to have the browser correctly display the PDF output, the following
+two lines will be needed before the convert method is called:
+</p>
+<pre>
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="foo.pdf"');
+</pre>
+<p>
+You may also specify <code>attachment</code> for the Content-Disposition
+header instead of <code>inline</code>, so that the browser will prompt the
+user to save the PDF file instead of displaying it.
+</p>
+
+<hr>
+
+<a name="convert_string_to_passthru">
+
+<pre>
+public function convert_string_to_passthru($xmlString, &amp;$msgs = array())
+</pre>
+
+<p>
+Convert an XML or HTML string to a PDF file, which will be passed
+through to the output buffer of the current PHP page.
+Returns true if a PDF file was generated successfully.
+</p>
+
+<dl>
+<dt><code>xmlString</code></dt>
+<dd>A string containing an XML or HTML document.</dd>
+<dt><code>msgs</code></dt>
+<dd>An optional array in which to return error and warning messages. Each
+message is returned as an array of three strings: the message code
+(<code>'err'</code>, <code>'wrn'</code> or <code>'inf'</code>), the message
+location (eg. a filename) and the message text.</dd>
+<dt><code>returns</code></dt>
+<dd>True if a PDF file was generated successfully, false otherwise.</dd>
+</dl>
+
+<p>
+Note that to have the browser correctly display the PDF output, the following
+two lines will be needed before the convert method is called:
+</p>
+<pre>
+header('Content-Type: application/pdf');
+header('Content-Disposition: inline; filename="foo.pdf"');
+</pre>
+<p>
+You may also specify <code>attachment</code> for the Content-Disposition
+header instead of <code>inline</code>, so that the browser will prompt the
+user to save the PDF file instead of displaying it.
+</p>
+
+<hr>
+
+<a name="addstylesheet">
+
+<pre>
+public function addStyleSheet($cssPath)
+</pre>
+
+<p>
+Add a CSS style sheet that will be applied to each input document.
+The <code>addStyleSheet</code> function can be called more than once to add
+multiple style sheets. This function can called before calling a convert
+function.
+</p>
+
+<dl>
+<dt><code>cssPath</code></dt>
+<dd>The filename of the CSS style sheet to apply.</dd>
+</dl>
+
+<hr>
+
+<a name="clearstylesheets">
+
+<pre>
+public function clearStyleSheets()
+</pre>
+
+<p>
+Clear all of the CSS style sheets accumulated by calling
+<code>addStyleSheet</code>.
+</p>
+
+<hr>
+
+<a name="addscript">
+
+<pre>
+public function addScript($jsPath)
+</pre>
+
+<p>
+Add a JavaScript script that will be run before conversion.
+The <code>addScript</code> function can be called more than once to add
+multiple scripts. This function can be called before calling a convert
+function.
+</p>
+
+<dl>
+<dt><code>jsPath</code></dt>
+<dd>The filename of the script to run.</dd>
+</dl>
+
+<hr>
+
+<a name="clearscripts">
+
+<pre>
+public function clearScripts()
+</pre>
+
+<p>
+Clear all of the scripts accumulated by calling
+<code>addScript</code>.
+</p>
+
+<hr>
+
+<a name="addfileattachment">
+
+<pre>
+public function addFileAttachment($filePath)
+</pre>
+
+<p>
+Add a file attachment that will be attached to the PDF file.
+The<code>addFileAttachment</code> can be called more
+than once to add multiple file attachments.
+</p>
+
+<dl>
+<dt><code>filePath</code></dt>
+<dd>The filename of the file attachment.</dd>
+</dl>
+
+<hr>
+
+<a name="clearfileattachments">
+
+<pre>
+public function clearFileAttachments()
+</pre>
+
+<p>
+Clear all of the file attachments accumulated by calling
+<code>addFileAttachment</code>.
+</p>
+
+<hr>
+
+<a name="setlicensefile">
+
+<pre>
+public function setLicenseFile($file)
+</pre>
+
+<p>
+Specify the license file.
+</p>
+
+<dl>
+<dt><code>file</code></dt>
+<dd>The filename of the license file.</dd>
+</dl>
+
+<hr>
+
+<a name="setlicensekey">
+
+<pre>
+public function  setLicenseKey($key)
+</pre>
+
+<p>
+Specify the license key.
+</p>
+
+<dl>
+<dt><code>key</code></dt>
+<dd>The license key.</dd>
+</dl>
+
+<hr>
+
+<a name="setinputtype">
+
+<pre>
+public function setInputType($inputType)
+</pre>
+
+<p>
+Specify the input type of the document.
+</P>
+
+<dl>
+<dt><code>inputType</code></dt>
+<dd>Can take a value of : "xml", "html" or "auto".</dd>
+</dl>
+
+<hr>
+
+<a name="sethtml">
+
+<pre>
+public function setHTML($html)
+</pre>
+
+<p>
+Specify whether documents should be parsed as HTML or XML/XHTML.
+</p>
+
+<dl>
+<dt><code>html</code></dt>
+<dd>True if all documents should be treated as HTML.</dd>
+</dl>
+
+<hr>
+
+<a name="setjavascript">
+
+<pre>
+public function setJavaScript($js)
+</pre>
+
+<p>
+Specify whether JavaScript found in documents should be run.
+</p>
+
+<dl>
+<dt><code>js</code></dt>
+<dd>True if document scripts should be run.</dd>
+</dl>
+
+<hr>
+
+<a name="setlog">
+
+<pre>
+public function setLog($logFile)
+</pre>
+
+<p>
+Specify a file that Prince should use to log error/warning messages.
+</p>
+
+<dl>
+<dt><code>logFile</code></dt>
+<dd>The filename that Prince should use to log error/warning messages, or ''
+to disable logging.</dd>
+</dl>
+
+<hr>
+
+<a name="setbaseurl">
+
+<pre>
+public function setBaseURL($baseURL)
+</pre>
+
+<p>
+Specify the base URL of the input document.
+</p>
+
+<dl>
+<dt><code>baseURL</code></dt>
+<dd>The base URL or path of the input document, or ''.</dd>
+</dl>
+
+<hr>
+
+<a name="setxinclude">
+
+<pre>
+public function setXInclude($xinclude)
+</pre>
+
+<p>
+Specify whether XML Inclusions (XInclude) processing should be applied
+to input documents. XInclude processing will be performed by default
+unless explicitly disabled.
+</p>
+
+<dl>
+<dt><code>xinclude</code></dt>
+<dd>False to disable XInclude processing.</dd>
+</dl>
+
+<hr>
+
+<a name="sethttpuser">
+
+<pre>
+public function setHttpUser($user)
+</pre>
+
+<p>
+Specify a username to use when fetching remote resources over HTTP.
+</p>
+
+<dl>
+<dt><code>user</code></dt>
+<dd>The username to use for basic HTTP authentication.</dd>
+</dl>
+
+<hr>
+
+<a name="sethttppassword">
+
+<pre>
+public function setHttpPassword($password)
+</pre>
+
+<p>
+Specify a password to use when fetching remote resources over HTTP.
+</p>
+
+<dl>
+<dt><code>password</code></dt>
+<dd>The password to use for basic HTTP authentication.</dd>
+</dl>
+
+<hr>
+
+<a name="sethttpproxy">
+
+<pre>
+public function setHttpProxy($proxy)
+</pre>
+
+<p>
+Specify the URL for the HTTP proxy server, if needed.
+</p>
+
+<dl>
+<dt><code>proxy</code></dt>
+<dd>The URL for the HTTP proxy server.</dd>
+</dl>
+
+<hr>
+
+<a name="sethttptimeout">
+
+<pre>
+public function setHttpTimeout($timeout)
+</pre>
+
+<p>
+Specify the timeout for HTTP requests.
+</p>
+
+<dl>
+<dt><code>timeout</code></dt>
+<dd>The HTTP timeout in seconds.</dd>
+</dl>
+
+<hr>
+
+<a name="setinsecure">
+
+<pre>
+public function setInsecure($insecure)
+</pre>
+
+<p>
+Specify whether to disable SSL verification.
+</p>
+
+<dl>
+<dt><code>insecure</code></dt>
+<dd>If set to true, SSL verification is disabled. (not recommended)</dd>
+</d>
+
+<hr>
+
+<a name="setfileroot">
+
+<pre>
+public function setFileRoot($fileRoot)
+</pre>
+
+<p>
+Specify the root directory for absolute filenames. This can be used
+when converting a local file that uses absolute paths to refer to web
+resources. For example, /images/logo.jpg can be rewritten 
+to /usr/share/images/logo.jpg by specifying "/usr/share" as the root.
+</p>
+
+<dl>
+<dt><code>fileRoot</code></dt>
+<dd>The path to prepend to absolute filenames.</dd>
+</d>
+
+<hr>
+
+<a name="setembedfonts">
+
+<pre>
+public function setEmbedFonts($embedFonts)
+</pre>
+
+<p>
+Specify whether fonts should be embedded in the output PDF file. Fonts
+will be embedded by default unless explicitly disabled.
+</p>
+
+<dl>
+<dt><code>embedFonts</code></dt>
+<dd>False to disable PDF font embedding.</dd>
+</dl>
+
+<hr>
+
+<a name="setsubsetfonts">
+
+<pre>
+public function setSubsetFonts($subsetFonts)
+</pre>
+
+<p>
+Specify whether embedded fonts should be subset in the output PDF file. Fonts
+will be subset by default unless explicitly disabled.
+</p>
+<dl>
+<dt><code>subsetFonts</code></dt>
+<dd>False to disable PDF font subsetting.</dd>
+</dl>
+
+<hr>
+
+<a name="setnoartificialfonts">
+
+<pre>
+public function setNoArtificialFonts($noArtificialFonts)
+</pre>
+
+<p>
+Specify whether artificial bold/italic fonts should be generated if
+necessary. Artificial fonts are enabled by default.
+</p>
+<dl>
+<dt><code>noArtificialFonts</code></dt>
+<dd>True to disable artificial bold/italic fonts.</dd>
+</dl>
+
+<hr>
+
+<a name="setauthmethod">
+
+<pre>
+public function setAuthMethod($authMethod)
+</pre>
+
+<p>
+Specify HTTP authentication methods. (basic, digest, ntlm, negotiate)
+</p>
+<dl>
+<dt><code>authMethod</code></dt>
+<dd>The authentication method to use.</dd>
+</dl>
+
+<hr>
+
+<a name="setauthuser">
+
+<pre>
+public function setAuthUser($authUser)
+</pre>
+
+<p>
+Specify username for HTTP authentication.
+</p>
+<dl>
+<dt><code>authUser</code></dt>
+<dd>The authentication username to use.</dd>
+</dl>
+
+<hr>
+
+<a name="setauthpassword">
+
+<pre>
+public function setAuthPassword($authPassword)
+</pre>
+
+<p>
+Specify password for HTTP authentication.
+</p>
+<dl>
+<dt><code>authPassword</code></dt>
+<dd>The authentication password to use.</dd>
+</dl>
+
+<hr>
+
+<a name="setauthserver">
+
+<pre>
+public function setAuthServer($authServer)
+</pre>
+
+<p>
+Only send USER:PASS to this server.
+</p>
+<dl>
+<dt><code>authServer</code></dt>
+<dd>The server to send USER:PASS.</dd>
+</dl>
+
+<hr>
+
+<a name="setauthscheme">
+
+<pre>
+public function setAuthScheme($authScheme)
+</pre>
+
+<p>
+Only send USER:PASS for this scheme. (HTTP, HTTPS)
+</p>
+<dl>
+<dt><code>authScheme</code></dt>
+<dd>The scheme to use for authentication.</dd>
+</dl>
+
+<hr>
+
+<a name="setnoauthpreemptive">
+
+<pre>
+public function setNoAuthPreemptive($noAuthPreemptive)
+</pre>
+
+<p>
+Do not authenticate with named servers until asked.
+</p>
+<dl>
+<dt><code>noAuthPreemptive</code></dt>
+<dd>True to disable authentication preemptive.</dd>
+</dl>
+
+<hr>
+
+<a name="setpagesize">
+
+<pre>
+public function setPageSize($pageSize)
+</pre>
+
+<p>
+Specify the page size (eg. A4).
+</p>
+<dl>
+<dt><code>pageSize</code></dt>
+<dd>The page size to use.</dd>
+</dl>
+
+<hr>
+
+<a name="setpagemargin">
+
+<pre>
+public function setPageMargin($pageMargin)
+</pre>
+
+<p>
+Specify the page margin (eg. 20mm).
+</p>
+<dl>
+<dt><code>pageMargin</code></dt>
+<dd>The page magin to use.</dd>
+</dl>
+
+<hr>
+
+<a name="setcompress">
+
+<pre>
+public function setCompress($compress)
+</pre>
+
+<p>
+Specify whether compression should be applied to the output PDF file.
+Compression will be applied by default unless explicitly disabled.
+</p>
+
+<dl>
+<dt><code>compress</code></dt>
+<dd>False to disable PDF compression.</dd>
+</dl>
+
+<hr>
+
+<a name="setpdftitle">
+
+<pre>
+public function setPDFTitle($pdfTitle)
+</pre>
+<p>Specify the document title for PDF metadata.</p>
+
+<hr>
+
+<a name="setpdfsubject">
+
+<pre>
+public function setPDFSubject($pdfSubject)
+</pre>
+<p>Specify the document subject for PDF metadata.</p>
+
+<hr>
+
+<a name="setpdfauthor">
+
+<pre>
+public function setPDFAuthor($pdfAuthor)
+</pre>
+<p>Specify the document author for PDF metadata.</p>
+
+<hr>
+
+<a name="setpdfkeywords">
+
+<pre>
+public function setPDFKeywords($pdfKeywords)
+</pre>
+<p>Specify the document keywords for PDF metadata.</p>
+
+<hr>
+
+<a name="setpdfcreator">
+
+<pre>
+public function setPDFCreator($pdfCreator)
+</pre>
+<p>Specify the document creator for PDF metadata.</p>
+
+<hr>
+
+<a name="setencrypt">
+
+<pre>
+public function setEncrypt($encrypt)
+</pre>
+
+<p>
+Specify whether encryption should be applied to the output PDF file.
+Encryption will not be applied by default unless explicitly enabled.
+</p>
+
+<dl>
+<dt><code>encrypt</code></dt>
+<dd>True to enable PDF encryption.</dd>
+</dl>
+
+<hr>
+
+<a name="setencryptinfo">
+
+<pre>
+public function setEncryptInfo($keyBits, $userPassword, $ownerPassword,
+    $disallowPrint = false, $disallowModify = false,
+    $disallowCopy = false, $disallowAnnotate = false)
+</pre>
+
+<p>
+Set the parameters used for PDF encryption. Calling this method will
+also enable encryption, equivalent to calling
+<code>setEncrypt(true)</code>. It should be called before calling a convert
+method for encryption information to be applied.
+</p>
+
+<dl>
+<dt><code>keyBits</code></dt>
+<dd>The size of the encryption key in bits (must be 40 or 128).</dd>
+<dt><code>userPassword</code>
+<dd>The user password for the PDF file (may be empty).</dd>
+<dt><code>ownerPassword</code></dt>
+<dd>The owner password for the PDF file (may be empty).</dd>
+<dt><code>disallowPrint</code></dt>
+<dd>True to disallow printing of the PDF file.</dd>
+<dt><code>disallowModify</code></dt>
+<dd>True to disallow modification of the PDF file.</dd>
+<dt><code>disallowCopy</code></dt>
+<dd>True to disallow copying from the PDF file.</dd>
+<dt><code>disallowAnnotate</code></dt>
+<dd>True to disallow annotation of the PDF file.</dd>
+</dl>
+
+<hr>
+
+<a name="setoptions">
+
+<pre>
+public function setOptions($options)
+</pre>
+
+<p>
+Set other options.
+</p>
+<dl>
+<dt><code>options</code></dt>
+<dd>Other options to set.</dd>
+</dl>
+
+<hr>
+
+<p>
+Copyright &#xA9; 2005-2013 YesLogic Pty. Ltd.
+</p>
+
+</div>
+
+</body>
+</html>
+

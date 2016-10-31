@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset name="Pressbooks">
+  <description>PRessbooks Coding Standards</description>
+
+  <!-- Show colors in console -->
+  <arg value="-colors"/>
+	<!-- Do not print warnings -->
+  <arg value="n"/>
+  <!-- Show sniff codes in all reports -->
+  <arg value="s"/>
+
+	<!-- Exclude tests -->
+	<exclude-pattern>tests/</exclude-pattern>
+	<!-- Exclude vendor -->
+	<exclude-pattern>vendor/</exclude-pattern>
+	<!-- Exclude themes-* -->
+	<exclude-pattern>themes-*/</exclude-pattern>
+
+	<!-- Dem's da rules -->
+	<rule ref="WordPress-Core">
+		<!-- Ignore method name validation for compatibility with class method. -->
+		<exclude name="WordPress.NamingConventions.ValidFunctionName"/>
+		<!-- Ignore variable name validation for compatibility with class variables. -->
+		<exclude name="WordPress.NamingConventions.ValidVariableName"/>
+	</rule>
+	<rule ref="WordPress-Extra">
+		<exclude name="WordPress.XSS.EscapeOutput" />
+	</rule>
+</ruleset>
