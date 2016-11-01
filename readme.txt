@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.2.1
+Version: 3.9.3
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Version: 3.9.2.1
+Version: 3.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -203,7 +203,7 @@ Once WP-CLI is installed on your server, the following shell commands executed i
 	    wp core multisite-convert --title="Pressbooks"
 	    wp plugin delete hello
 	    wp plugin update-all
-	    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.2.1/pressbooks-v3.9.2.1.zip --activate-network
+	    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.3/pressbooks-v3.9.3.zip --activate-network
 	    wp theme list
 	    wp theme enable pressbooks-book --network
 	    wp theme enable clarke --network
@@ -230,9 +230,20 @@ TK.
 
 == Upgrade Notice ==
 
+As of Pressbooks >= 3.9.3, [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support.
+
 Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
 
 == Changelog ==
+
+### 3.9.3
+* **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](https://pressbooks.org/installation)).
+* **Feature:** The copy on the publish page can now be replaced by adding a filter to the `pressbooks_publish_page` filter hook.
+* **Feature:** If registration is enabled, a 'Register' button now appears on the front page of the Pressbooks Publisher theme.
+* **Enhancement:** A URL sanitization routine has been added to the `\Pressbooks\Options` class.
+* **Enhancement:** The methods of `\Pressbooks\Options` which list the options of various types (bool, string, float, etc.) are now optional, and the sanitize function now checks for each type before trying to sanitize it.
+* **Enhancement:** The publish page has been refactored using the `\Pressbooks\Options` class.
+* **Fix:** Unwanted validation warning emails will no longer be sent.
 
 = 3.9.2.1 =
 * **NOTE:** Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.

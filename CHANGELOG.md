@@ -1,4 +1,14 @@
+### 3.9.3
+* **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](https://pressbooks.org/installation)).
+* **Feature:** The copy on the publish page can now be replaced by adding a filter to the `pressbooks_publish_page` filter hook.
+* **Feature:** If registration is enabled, a 'Register' button now appears on the front page of the Pressbooks Publisher theme.
+* **Enhancement:** A URL sanitization routine has been added to the `\Pressbooks\Options` class.
+* **Enhancement:** The methods of `\Pressbooks\Options` which list the options of various types (bool, string, float, etc.) are now optional, and the sanitize function now checks for each type before trying to sanitize it.
+* **Enhancement:** The publish page has been refactored using the `\Pressbooks\Options` class.
+* **Fix:** Unwanted validation warning emails will no longer be sent.
+
 ### 3.9.2.1
+* **NOTE:** Pressbooks 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
 * **Fix:** Fixed an issue where user actions on the Organize page would fail to update certain properties.
 
 ### 3.9.2
