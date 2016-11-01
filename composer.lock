@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5f2ec76c717ba8c6ae47f85b810780eb",
-    "content-hash": "f99a0795704fa572f8062e9e2862f8ab",
+    "hash": "946975b006141e2fb815e51c28f7d2ca",
+    "content-hash": "3c66a979b22a21c5de4b2c6454ad4242",
     "packages": [
         {
             "name": "composer/installers",
@@ -302,34 +302,6 @@
                 "ebooks publishing webbooks"
             ],
             "time": "2016-10-31 20:32:55"
-        },
-        {
-            "name": "pressbooks/saxon-he",
-            "version": "9.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pressbooks/saxon-he.git",
-                "reference": "bfa82b98023fac1b01f62c64a9b865a0e4b97dfd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/saxon-he/zipball/bfa82b98023fac1b01f62c64a9b865a0e4b97dfd",
-                "reference": "bfa82b98023fac1b01f62c64a9b865a0e4b97dfd",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Saxonica",
-                    "email": "mike@saxonica.com"
-                }
-            ],
-            "description": "Provides implementations of XSLT 2.0, XQuery 3.1, and XPath 3.1 at the basic level of conformance defined by W3C.",
-            "time": "2016-09-12 18:32:26"
         }
     ],
     "packages-dev": [
@@ -639,16 +611,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "5f3f7e736d6319d5f1fc402aff8b026da26709a3"
+                "reference": "6cba06ff75a1a63a71033e1a01b89056f3af1e8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/5f3f7e736d6319d5f1fc402aff8b026da26709a3",
-                "reference": "5f3f7e736d6319d5f1fc402aff8b026da26709a3",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6cba06ff75a1a63a71033e1a01b89056f3af1e8d",
+                "reference": "6cba06ff75a1a63a71033e1a01b89056f3af1e8d",
                 "shasum": ""
             },
             "require": {
@@ -698,7 +670,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-07-26 14:39:29"
+            "time": "2016-11-01 05:06:24"
         },
         {
             "name": "phpunit/php-file-iterator",

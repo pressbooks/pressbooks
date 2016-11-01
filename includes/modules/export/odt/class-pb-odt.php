@@ -51,15 +51,10 @@ class Odt extends Export {
 	function __construct( array $args ) {
 
 		// Some defaults
-		if ( strtoupper( substr( PHP_OS, 0, 3 ) ) === 'WIN' ) {
-			if ( ! defined( 'PB_SAXON_COMMAND' ) ) {
-				define( 'PB_SAXON_COMMAND', 'java -jar ' . PB_PLUGIN_DIR . 'vendor/pressbooks/saxon-he/saxon9he.jar' );
-			}
-		} else {
-			if ( ! defined( 'PB_SAXON_COMMAND' ) ) {
-				define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar ' . PB_PLUGIN_DIR . 'vendor/pressbooks/saxon-he/saxon9he.jar' );
-			}
+		if ( ! defined( 'PB_SAXON_COMMAND' ) ) {
+			define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
 		}
+
 		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
 		$timestamp = time();
 		$md5 = $this->nonce( $timestamp );
