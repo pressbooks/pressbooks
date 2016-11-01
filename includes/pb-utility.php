@@ -464,6 +464,32 @@ function check_xmllint_install() {
 }
 
 /**
+ * Lightweight check to see if the Saxon-HE executable is installed and up to date.
+ *
+ * @return boolean
+ */
+function check_saxonhe_install() {
+	if ( ! defined( 'PB_SAXON_COMMAND' ) ) { // @see wp-config.php
+		define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
+	}
+
+	$output = array();
+	$return_val = 0;
+	exec( PB_SAXON_COMMAND . ' -? 2>&1', $output, $return_val );
+
+	$output = $output[0];
+	if ( false !== strpos( $output, 'Saxon-HE ' ) ) { // Command found.
+		$output = explode( 'Saxon-HE ', $output );
+		$version = explode( 'J from Saxonica', $output[1] )[0];
+		if ( version_compare( $version, '9.7.0-10' ) >= 0 ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
  * Function to determine whether or not experimental features should be visible to users.
  *
  * @return boolean

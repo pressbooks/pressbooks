@@ -392,7 +392,11 @@ class Odt extends Export {
 	 * @return bool
 	 */
 	static function hasDependencies() {
-		return true;
+		if ( false !== \Pressbooks\Utility\check_saxonhe_install() ) {
+			return true;
+		}
+
+		return false;
 	}
 
 }
