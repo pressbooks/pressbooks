@@ -115,6 +115,7 @@ Once installed, define the following wp-config.php variables. The defaults are:
 	define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
 	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
 	define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+  define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
 
 
 Example config files for a dev site hosted at http://localhost/~dac514/textopress/
@@ -154,6 +155,7 @@ Example config files for a dev site hosted at http://localhost/~dac514/textopres
 	define( 'PB_KINDLEGEN_COMMAND', '/home/dac514/bin/kindlegen' );
 	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /home/dac514/bin/epubcheck-4.0/epubcheck-4.0.jar' );
 	define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+  define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /home/dac514/bin/saxon-he/saxon-he.jar' );
 
 	/**
 	 * Optional definitions
@@ -180,6 +182,38 @@ Example config files for a dev site hosted at http://localhost/~dac514/textopres
 	RewriteRule  ^[_0-9a-zA-Z-]+/(wp-(content|admin|includes).*) $1 [L]
 	RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.php)$ $1 [L]
 	RewriteRule . index.php [L]
+
+*Installation (WP-CLI)*
+
+First, get [WP-CLI](https://wp-cli.org/).
+
+Once WP-CLI is installed on your server, the following shell commands executed in the site root will download and install a fresh version of Pressbooks. Obviously you need to put in the correct information for your server and install on lines 2 and 10, and enter the correct paths to `WP_PRINCE_COMMAND`, `PB_KINDLEGEN_COMMAND`, `PB_EPUBCHECK_COMMAND` and `PB_XMLLINT_COMMAND` where indicated.
+
+	    wp core download
+	    wp core config --dbname="dbname" --dbuser="dbuser" --dbpass="dbpass" --extra-php <<PHP
+	    /* Pressbooks */
+	    define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
+	    define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
+	    define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
+	    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+	    define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+	    define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
+	    PHP
+	    wp core install --url="http://domain.com" --title="Pressbooks" --admin_user="username" --admin_password="password" --admin_email="user@domain.com"
+	    wp core multisite-convert --title="Pressbooks"
+	    wp plugin delete hello
+	    wp plugin update-all
+	    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.2.1/pressbooks-v3.9.2.1.zip --activate-network
+	    wp theme list
+	    wp theme enable pressbooks-book --network
+	    wp theme enable clarke --network
+	    wp theme enable donham --network
+	    wp theme enable fitzgerald --network
+	    wp theme enable austen --network
+	    wp theme enable pressbooks-custom-css --network
+
+
+Note that this does not install the required libraries for export. See above (Part 3, Pressbooks dependencies).
 
 == Frequently Asked Questions ==
 
