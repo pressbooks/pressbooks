@@ -161,7 +161,22 @@ function replace_book_admin_menu() {
 	} );
 
 	// Publish
-	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', __NAMESPACE__ . '\display_publish', 'dashicons-products', 16 );
+	require dirname( __FILE__ ) . '/class-pb-publishoptions.php';
+	$subclass = '\Pressbooks\Admin\PublishOptions';
+	$option = get_option( 'pressbooks_ecommerce_links', $subclass::getDefaults() );
+	$page = new $subclass( $option );
+	$page->init();
+	wp_cache_delete( 'pressbooks_ecommerce_links_version', 'options' );
+	$version = get_option( 'pressbooks_ecommerce_links_version', 0 );
+	if ( $version < $page::$currentVersion ) {
+		$page->upgrade( $version );
+		update_option( 'pressbooks_ecommerce_links_version', $page::$currentVersion, false );
+		if ( WP_DEBUG ) {
+			error_log( 'Upgraded pressbooks_ecommerce_links from version ' . $version . ' --> ' . $page::$currentVersion );
+		}
+	}
+
+	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', array( $page, 'render' ), 'dashicons-products', 16 );
 
 	// Privacy
 	add_options_page( __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_options', 'pressbooks_sharingandprivacy_options', __NAMESPACE__ . '\display_privacy_settings' );
@@ -860,171 +875,6 @@ function display_privacy_settings() {
 </div>
 
 <?php
-}
-
-/* ------------------------------------------------------------------------ *
- * Ecommerce
- * ------------------------------------------------------------------------ */
-
-
-/**
- * Ecommerce settings initialization
- */
-function ecomm_settings_init() {
-	add_settings_section(
-		'ecomm_settings_section',
-		'',
-		'',
-		'ecomm_settings'
-	);
-	add_settings_field(
-		'amazon',
-		__( 'Amazon URL', 'pressbooks' ),
-		__NAMESPACE__ . '\ecomm_amazon_callback',
-		'ecomm_settings',
-		'ecomm_settings_section'
-	);
-	add_settings_field(
-		'oreilly',
-		__( 'O\'Reilly URL', 'pressbooks' ),
-		__NAMESPACE__ . '\ecomm_oreilly_callback',
-		'ecomm_settings',
-		'ecomm_settings_section'
-	);
-	add_settings_field(
-		'barnesandnoble',
-		__( 'Barnes and Noble URL', 'pressbooks' ),
-		__NAMESPACE__ . '\ecomm_barnesandnoble_callback',
-		'ecomm_settings',
-		'ecomm_settings_section'
-	);
-	add_settings_field(
-		'kobo',
-		__( 'Kobo URL', 'pressbooks' ),
-		__NAMESPACE__ . '\ecomm_kobo_callback',
-		'ecomm_settings',
-		'ecomm_settings_section'
-	);
-	add_settings_field(
-		'ibooks',
-		__( 'iBooks URL', 'pressbooks' ),
-		__NAMESPACE__ . '\ecomm_ibooks_callback',
-		'ecomm_settings',
-		'ecomm_settings_section'
-	);
-	add_settings_field(
-		'otherservice',
-		__( 'Other Service URL', 'pressbooks' ),
-		__NAMESPACE__ . '\ecomm_otherservice_callback',
-		'ecomm_settings',
-		'ecomm_settings_section'
-	);
-	register_setting(
-		'ecomm_settings',
-		'pressbooks_ecommerce_links',
-		__NAMESPACE__ . '\ecomm_links_sanitize'
-	);
-}
-
-/**
- * Ecommerce settings, Amazon field callback
- *
- * @param $args
- */
-function ecomm_amazon_callback( $args ) {
-	$options = get_option( 'pressbooks_ecommerce_links' );
-	$html = '<input type="text" id="amazon" name="pressbooks_ecommerce_links[amazon]" class="regular-text" value="' . sanitize_text_field( @$options['amazon'] ) . '" />';
-	echo $html;
-}
-
-
-/**
- * Ecommerce settings, Oreilly field callback
- *
- * @param $args
- */
-function ecomm_oreilly_callback( $args ) {
-	$options = get_option( 'pressbooks_ecommerce_links' );
-	$html = '<input type="text" id="oreilly" name="pressbooks_ecommerce_links[oreilly]" class="regular-text" value="' . sanitize_text_field( @$options['oreilly'] ) . '" />';
-	echo $html;
-}
-
-
-/**
- * Ecommerce settings, Barns & Noble field callback
- *
- * @param $args
- */
-function ecomm_barnesandnoble_callback( $args ) {
-	$options = get_option( 'pressbooks_ecommerce_links' );
-	$html = '<input type="text" id="barnesandnoble" name="pressbooks_ecommerce_links[barnesandnoble]" class="regular-text" value="' . sanitize_text_field( @$options['barnesandnoble'] ) . '" />';
-	echo $html;
-}
-
-
-/**
- * Ecommerce settings, Kobo field callback
- *
- * @param $args
- */
-function ecomm_kobo_callback( $args ) {
-	$options = get_option( 'pressbooks_ecommerce_links' );
-	$html = '<input type="text" id="kobo" name="pressbooks_ecommerce_links[kobo]" class="regular-text" value="' . sanitize_text_field( @$options['kobo'] ) . '" />';
-	echo $html;
-}
-
-
-/**
- * Ecommerce settings, iBooks field callback
- *
- * @param $args
- */
-function ecomm_ibooks_callback( $args ) {
-	$options = get_option( 'pressbooks_ecommerce_links' );
-	$html = '<input type="text" id="ibooks" name="pressbooks_ecommerce_links[ibooks]" class="regular-text" value="' . sanitize_text_field( @$options['ibooks'] ) . '" />';
-	echo $html;
-}
-
-
-/**
- * Ecommerce settings, Other Service field callback
- *
- * @param $args
- */
-function ecomm_otherservice_callback( $args ) {
-	$options = get_option( 'pressbooks_ecommerce_links' );
-	$html = '<input type="text" id="otherservice" name="pressbooks_ecommerce_links[otherservice]" class="regular-text" value="' . sanitize_text_field( @$options['otherservice'] ) . '" />';
-	echo $html;
-}
-
-
-/**
- * Ecommerce settings, input sanitization
- *
- * @param array $input
- * @return array
- */
-function ecomm_links_sanitize( $input ) {
-	$options = get_option( 'pressbooks_ecommerce_links' );
-	foreach ( $input as $key => $value ) {
-		$value = trim( strip_tags( stripslashes( $value ) ) );
-		if ( $value ) {
-			$options[ $key ] = \Pressbooks\Sanitize\canonicalize_url( $value );
-		} else {
-			$options[ $key ] = null;
-		}
-	}
-
-	return $options;
-}
-
-
-/**
- * Display Publish
- */
-function display_publish() {
-
-	require( PB_PLUGIN_DIR . 'templates/admin/publish.php' );
 }
 
 /* ------------------------------------------------------------------------ *

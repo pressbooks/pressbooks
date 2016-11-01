@@ -30,6 +30,9 @@
 			   <?php if (! is_single()): ?>
 			    	<?php if (!is_user_logged_in()): ?>
 						<a href="<?php echo wp_login_url( get_option('home') ); ?>" class="site-login-btn"><?php _e('Sign in', 'pressbooks'); ?></a>
+						<?php if ( get_option('users_can_register') ) { ?>
+							<a class="site-login-btn" href="<?php echo esc_url( wp_registration_url() ); ?>"><?php _e('Register'); ?></a>
+						<?php } ?>
 			   	 	<?php else: ?>
 						<a href="<?php echo  wp_logout_url(); ?>" class="site-login-btn"><?php _e('Sign out', 'pressbooks'); ?></a>
 						<?php $user_info = get_userdata( get_current_user_id() ); if ( $user_info->primary_blog ) : ?>

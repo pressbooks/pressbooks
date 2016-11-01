@@ -1,18 +1,19 @@
 # Copyright (C) 2015 Pressbooks
 # This file is distributed under the same license as the Pressbooks package.
 # Translators:
+# Lasha Kokilashvili <lasha.kokilashvili@gmail.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
 "POT-Creation-Date: 2016-11-01 13:13-0300\n"
 "PO-Revision-Date: 2016-11-01 16:13+0000\n"
 "Last-Translator: Ned Zimmerman\n"
-"Language-Team: German (Switzerland) (http://www.transifex.com/pressbooks/pressbooks/language/de_CH/)\n"
+"Language-Team: Georgian (http://www.transifex.com/pressbooks/pressbooks/language/ka/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de_CH\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ka\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.8.6\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
@@ -28,7 +29,7 @@ msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr ""
+msgstr "თქვენს სისტემურ გარემოში არსებულ PHP -ის ვერსია Pressbook -ის სისტემურ მოთხოვნებს არ შეესაბამება. აუცილებელია PHP -ის %s ან უფრო მაღალ ვერსია. გთხოვთ, განაახლოთ იგი."
 
 #: compatibility.php:68
 #, php-format
@@ -36,92 +37,92 @@ msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multi-Site, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
+msgstr "თქვენს სისტემურ გარემოში არსებულ WordPress -ის ვერსია Pressbook -ის სისტემურ მოთხოვნებს არ შეესაბამება. აუცილებელია WordPress Multi-Site %s ვერსიის ან უფრო მაღალის არსებობა. გთხოვთ, განაახლოთ თქვენი WordPress -ის ვერსია."
 
 #: includes/admin/class-pb-catalog-list-table.php:73
 msgid "Visit Book"
-msgstr ""
+msgstr "წიგნის ნახვა"
 
 #: includes/admin/class-pb-catalog-list-table.php:78
 msgid "Visit Admin"
-msgstr ""
+msgstr "ადმინის გვერდი"
 
 #: includes/admin/class-pb-catalog-list-table.php:110
 #: includes/admin/class-pb-catalog-list-table.php:222
 #: includes/admin/class-pb-catalog-list-table.php:462
 msgid "Hide in Catalog"
-msgstr ""
+msgstr "კატალოგში დაფარვა"
 
 #: includes/admin/class-pb-catalog-list-table.php:115
 #: includes/admin/class-pb-catalog-list-table.php:221
 #: includes/admin/class-pb-catalog-list-table.php:461
 msgid "Show in Catalog"
-msgstr ""
+msgstr "კატალოგში გამოჩენა"
 
 #: includes/admin/class-pb-catalog-list-table.php:176
 msgid "Catalog Status"
-msgstr ""
+msgstr "კატალოგის სტატუსი"
 
 #: includes/admin/class-pb-catalog-list-table.php:177
 msgid "Privacy Status"
-msgstr ""
+msgstr "პრივატულობის სტატუსი"
 
 #: includes/admin/class-pb-catalog-list-table.php:178
 #: includes/class-pb-activation.php:184
 #: includes/modules/export/epub/class-pb-epub201.php:754
 msgid "Cover"
-msgstr ""
+msgstr "წიგნის ყდა"
 
 #: includes/admin/class-pb-catalog-list-table.php:179
 #: templates/admin/import.php:59
 msgid "Title"
-msgstr ""
+msgstr "სათაური"
 
 #: includes/admin/class-pb-catalog-list-table.php:180
 #: includes/admin/pb-metaboxes.php:165 templates/admin/organize.php:78
 #: templates/admin/organize.php:154
 #: themes-book/pressbooks-book/functions.php:15
 msgid "Author"
-msgstr ""
+msgstr "ავტორი"
 
 #: includes/admin/class-pb-catalog-list-table.php:184
 #: templates/pb-catalog.php:208
 msgid "Tag"
-msgstr ""
+msgstr "ტეგი"
 
 #: includes/admin/class-pb-catalog-list-table.php:187
 #: templates/admin/catalog.php:36
 msgid "Featured"
-msgstr ""
+msgstr "რჩეული"
 
 #: includes/admin/class-pb-catalog-list-table.php:188
 msgid "Pub Date"
-msgstr ""
+msgstr "გამოქვეყნების თარიღი"
 
 #: includes/admin/class-pb-catalog-list-table.php:342
 msgid "Edit Tags"
-msgstr ""
+msgstr "ტეგების რედაქტირება"
 
 #: includes/admin/class-pb-catalog-list-table.php:382
 #: includes/admin/pb-laf.php:94 templates/admin/organize.php:22
 #: templates/admin/organize.php:28 templates/admin/organize.php:81
 #: templates/admin/organize.php:157
 msgid "Private"
-msgstr ""
+msgstr "კერძო"
 
 #: includes/admin/class-pb-catalog-list-table.php:382
 #: includes/admin/pb-laf.php:96 templates/admin/organize.php:20
 #: templates/admin/organize.php:25
 msgid "Public"
-msgstr ""
+msgstr "საჯარო"
 
 #: includes/admin/class-pb-catalog-list-table.php:459
 msgid "Organize your public Catalog page."
-msgstr ""
+msgstr "კატალოგის საჯარო გვერდის ორგანიზება"
 
 #: includes/admin/class-pb-catalog-list-table.php:460
 msgid "Show/Hide books"
-msgstr ""
+msgstr "წიგნების გამოჩენა/დაფარვა "
 
 #: includes/admin/class-pb-catalog-list-table.php:461
 #, php-format
@@ -135,7 +136,7 @@ msgstr ""
 
 #: includes/admin/class-pb-catalog-list-table.php:464
 msgid "Catalog sorting"
-msgstr ""
+msgstr "კატალოგის დახარისხება"
 
 #: includes/admin/class-pb-catalog-list-table.php:465
 #, php-format
@@ -147,44 +148,44 @@ msgstr ""
 
 #: includes/admin/class-pb-catalog-list-table.php:467
 msgid "Share your catalog"
-msgstr ""
+msgstr "კატალოგის გაზიარება"
 
 #: includes/admin/class-pb-catalog-list-table.php:468
 msgid "The public link to your catalog page"
-msgstr ""
+msgstr "კატალოგის გვერდზე ვებ-ბმული "
 
 #: includes/admin/class-pb-catalog-list-table.php:472
 #: includes/admin/pb-laf.php:211 includes/admin/pb-laf.php:244
 #: includes/admin/pb-laf.php:353
 msgid "My Catalog"
-msgstr ""
+msgstr "ჩემი კატალოგი"
 
 #: includes/admin/class-pb-catalog-list-table.php:473
 msgid "Edit Profile"
-msgstr ""
+msgstr "პროფაილის რედაქტირება"
 
 #: includes/admin/class-pb-catalog-list-table.php:474
 msgid "Visit Catalog"
-msgstr ""
+msgstr "კატალოგის ნახვა"
 
 #: includes/admin/class-pb-catalog-list-table.php:481
 #: templates/admin/search.php:59
 msgid "Search"
-msgstr ""
+msgstr "ძებნა"
 
 #: includes/admin/class-pb-catalog-list-table.php:490
 msgid "Add By URL"
-msgstr ""
+msgstr "დაამეტეთ URL -თი"
 
 #: includes/admin/class-pb-catalog-list-table.php:543
 #: includes/class-pb-catalog.php:1082 includes/class-pb-catalog.php:1132
 #: includes/class-pb-catalog.php:1177 templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
-msgstr ""
+msgstr "ვენ არ გაგაჩნიათ ავტორიზაცია ამ ოპერაციის შესასრულებელად."
 
 #: includes/admin/class-pb-catalog-list-table.php:548
 msgid "The requested user does not exist."
-msgstr ""
+msgstr "მომხმარებელი არ არსებობს."
 
 #: includes/admin/class-pb-exportoptions.php:64
 msgid "Email Validation Logs"
@@ -209,17 +210,17 @@ msgstr ""
 #: includes/admin/class-pb-exportoptions.php:141 includes/admin/pb-laf.php:200
 #: includes/admin/pb-metaboxes.php:434
 msgid "Export Settings"
-msgstr ""
+msgstr "ექსპორტირების პარამეტრები"
 
 #: includes/admin/class-pb-network-managers-list-table.php:72
 #: includes/admin/class-pb-network-managers-list-table.php:76
 msgid "Restrict Access"
-msgstr ""
+msgstr "წვდომის შეზღუდვა"
 
 #: includes/admin/class-pb-network-managers-list-table.php:72
 #: includes/admin/class-pb-network-managers-list-table.php:76
 msgid "Unrestrict Access"
-msgstr ""
+msgstr "შეუზღუდავი წვდომა"
 
 #: includes/admin/class-pb-network-sharingandprivacyoptions.php:64
 msgid "Allow Redistribution"
@@ -238,7 +239,7 @@ msgstr ""
 #: includes/class-pb-catalog.php:1159 includes/class-pb-catalog.php:1196
 #: includes/class-pb-catalog.php:1257 templates/admin/dashboard.php:28
 msgid "Settings saved."
-msgstr ""
+msgstr "პარამეტრები შენახულია"
 
 #: includes/admin/class-pb-network-sharingandprivacyoptions.php:143
 #: includes/admin/pb-laf.php:182 includes/admin/pb-laf.php:229
@@ -335,57 +336,57 @@ msgstr ""
 #: includes/admin/class-pb-publishoptions.php:230
 #: includes/admin/pb-laf.php:179
 msgid "Publish"
-msgstr ""
+msgstr "გამოქვეყნება"
 
 #: includes/admin/pb-analytics.php:14 includes/admin/pb-analytics.php:15
 #: includes/admin/pb-analytics.php:27 includes/admin/pb-analytics.php:28
 #: includes/admin/pb-analytics.php:168 includes/admin/pb-analytics.php:201
 msgid "Google Analytics"
-msgstr ""
+msgstr "Google Analytics"
 
 #: includes/admin/pb-analytics.php:49 includes/admin/pb-analytics.php:96
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Analytics ID"
 
 #: includes/admin/pb-analytics.php:54
 msgid ""
 "The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
 
 #: includes/admin/pb-analytics.php:65
 msgid "Site-Specific Tracking"
-msgstr ""
+msgstr "საიტის სპეციფიკური Tracking"
 
 #: includes/admin/pb-analytics.php:70
 msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
+msgstr "If enabled, the Google Analytics settings page will be visible to book administrators, allowing them to use their own Google Analytics accounts to track statistics at the book level."
 
 #: includes/admin/pb-analytics.php:101
 msgid ""
 "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
 
 #: includes/admin/pb-analytics.php:115
 msgid "Google Analytics settings."
-msgstr ""
+msgstr "Google Analytics settings."
 
 #: includes/admin/pb-customcss.php:19 templates/admin/custom-css.php:28
 msgid "Edit CSS"
-msgstr ""
+msgstr "CSS -რედაქტირება"
 
 #: includes/admin/pb-customcss.php:65
 #, php-format
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
+msgstr "გაუთვალისწინებელი შეცდომა: თქვენს მოთხოვნაზე: %s მოულოდნელი პრობლემა წარმოიქმნა  - გთხოვთ დაუკავშირდეთ ტექნიკურ პერსონალს."
 
 #: includes/admin/pb-customcss.php:118
 msgid "Last 10 CSS Revisions"
-msgstr ""
+msgstr "Last 10 CSS Revisions"
 
 #: includes/admin/pb-customcss.php:121
 #: includes/modules/export/epub/class-pb-epub201.php:942
@@ -395,7 +396,7 @@ msgstr ""
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:659
 #: themes-book/pressbooks-book/footer.php:41
 msgid "by"
-msgstr ""
+msgstr "მიერ"
 
 #: includes/admin/pb-customcss.php:162
 msgid "Web"
@@ -403,7 +404,7 @@ msgstr ""
 
 #: includes/admin/pb-customcss.php:193
 msgid "This will overwrite existing custom CSS. Are you sure?"
-msgstr ""
+msgstr "This will overwrite existing custom CSS. Are you sure?"
 
 #: includes/admin/pb-dashboard.php:22 includes/admin/pb-dashboard.php:45
 #: includes/admin/pb-dashboard.php:76
@@ -412,106 +413,106 @@ msgstr ""
 
 #: includes/admin/pb-dashboard.php:69
 msgid "My Book"
-msgstr ""
+msgstr "ჩემი წიგნი"
 
 #: includes/admin/pb-dashboard.php:70 includes/admin/pb-laf.php:393
 msgid "Users"
-msgstr ""
+msgstr "მომხმარებლები"
 
 #: includes/admin/pb-dashboard.php:93
 #: includes/modules/searchandreplace/types/class-pb-content.php:86
 #: includes/pb-postype.php:114 templates/admin/import.php:60
 #: templates/admin/organize.php:37 templates/admin/organize.php:54
 msgid "Front Matter"
-msgstr ""
+msgstr "თავფურცელი"
 
 #: includes/admin/pb-dashboard.php:113
 #: includes/modules/searchandreplace/types/class-pb-content.php:89
 #: includes/pb-postype.php:148 templates/admin/import.php:65
 #: templates/admin/organize.php:39 templates/admin/organize.php:62
 msgid "Back Matter"
-msgstr ""
+msgstr "ბოლო ფურცელი"
 
 #: includes/admin/pb-dashboard.php:122 includes/admin/pb-dashboard.php:165
 #: templates/admin/organize.php:142 templates/admin/organize.php:208
 msgid "Add"
-msgstr ""
+msgstr "დამატება"
 
 #: includes/admin/pb-dashboard.php:122 includes/admin/pb-dashboard.php:165
 #: includes/admin/pb-laf.php:82
 msgid "Organize"
-msgstr ""
+msgstr "ორგანიზება"
 
 #: includes/admin/pb-dashboard.php:174 includes/admin/pb-dashboard.php:175
 #: includes/admin/pb-laf.php:381 includes/admin/pb-laf.php:432
 msgid "Dashboard"
-msgstr ""
+msgstr "Dashboard"
 
 #: includes/admin/pb-dashboard.php:196
 msgid "Dashboard Feed"
-msgstr ""
+msgstr "Dashboard Feed"
 
 #: includes/admin/pb-dashboard.php:203
 msgid "Display Feed"
-msgstr ""
+msgstr "Display Feed"
 
 #: includes/admin/pb-dashboard.php:208
 msgid "Display an RSS feed widget on the dashboard."
-msgstr ""
+msgstr "Display an RSS feed widget on the dashboard."
 
 #: includes/admin/pb-dashboard.php:214
 msgid "Feed Title"
-msgstr ""
+msgstr "Feed -ი სათაური"
 
 #: includes/admin/pb-dashboard.php:222
 msgid "Feed URL"
-msgstr ""
+msgstr "Feed -ის URL ვებმული"
 
 #: includes/admin/pb-dashboard.php:249
 msgid "Adjust settings for your dashboard RSS feed widget below."
-msgstr ""
+msgstr "Adjust settings for your dashboard RSS feed widget below."
 
 #: includes/admin/pb-laf.php:17
 msgid "Powered by"
-msgstr ""
+msgstr "შექმნილია სისტემით"
 
 #: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:194
 #: templates/admin/catalog.php:98
 msgid "About"
-msgstr ""
+msgstr "შესახებ"
 
 #: includes/admin/pb-laf.php:19 includes/admin/pb-laf.php:318
 msgid "Help"
-msgstr ""
+msgstr "დახმარება"
 
 #: includes/admin/pb-laf.php:20 includes/admin/pb-laf.php:326
 msgid "Contact"
-msgstr ""
+msgstr "კონტაქტი"
 
 #: includes/admin/pb-laf.php:72
 #: includes/modules/themeoptions/class-pb-themeoptions.php:54
 msgid "Theme Options"
-msgstr ""
+msgstr "თემის ოფციები"
 
 #: includes/admin/pb-laf.php:95
 msgid "Published"
-msgstr ""
+msgstr "გამოქვეყნებული"
 
 #: includes/admin/pb-laf.php:139
 #: includes/modules/import/wordpress/class-pb-wxr.php:283
 #: templates/admin/import.php:83
 msgid "Book Info"
-msgstr ""
+msgstr "წიგნის შესახებ"
 
 #: includes/admin/pb-laf.php:152 includes/admin/pb-laf.php:200
 #: templates/admin/export.php:107 templates/admin/organize.php:42
 #: templates/admin/organize.php:83 templates/admin/organize.php:159
 msgid "Export"
-msgstr ""
+msgstr "ექსპორტირება"
 
 #: includes/admin/pb-laf.php:158
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
-msgstr ""
+msgstr "EPUB is required for MOBI export. Would you like to reenable it?"
 
 #: includes/admin/pb-laf.php:182 includes/admin/pb-laf.php:229
 msgid "Sharing &amp; Privacy"
@@ -520,51 +521,51 @@ msgstr ""
 #: includes/admin/pb-laf.php:203 templates/admin/import.php:15
 #: templates/admin/import.php:58
 msgid "Import"
-msgstr ""
+msgstr "იმპორტირება"
 
 #: includes/admin/pb-laf.php:292 includes/admin/pb-laf.php:301
 msgid "About Pressbooks"
-msgstr ""
+msgstr "Pressbooks -ის შესახებ"
 
 #: includes/admin/pb-laf.php:310
 msgid "Pressbooks.com"
-msgstr ""
+msgstr "Pressbooks.com"
 
 #: includes/admin/pb-laf.php:360
 msgid "Add A New Book"
-msgstr ""
+msgstr "წიგნის დამატება"
 
 #: includes/admin/pb-laf.php:374
 msgid "Network Admin"
-msgstr ""
+msgstr "ქსელის ადმინი"
 
 #: includes/admin/pb-laf.php:387
 msgid "Sites"
-msgstr ""
+msgstr "საიტები"
 
 #: includes/admin/pb-laf.php:399
 msgid "Visit Network"
-msgstr ""
+msgstr "ქსელის ნახვა"
 
 #: includes/admin/pb-laf.php:444
 msgid "Visit Site"
-msgstr ""
+msgstr "საიტის ნახვა"
 
 #: includes/admin/pb-laf.php:624
 msgid "Unsupported post type."
-msgstr ""
+msgstr "პოსტი ტიპი არ არის მხარდაჭერილი."
 
 #: includes/admin/pb-laf.php:649
 msgid "You do not have sufficient permissions to access that URL."
-msgstr ""
+msgstr "ამ ვებ-ბმულის სანსახავად თქვენ არ გაგაჩნიათ საკმარისი ავოტორიზაცია."
 
 #: includes/admin/pb-laf.php:671
 msgid "Book Visibility"
-msgstr ""
+msgstr "წიგნის ხილვადობა"
 
 #: includes/admin/pb-laf.php:678
 msgid "Private Content"
-msgstr ""
+msgstr "პრივატული შინაარსი"
 
 #: includes/admin/pb-laf.php:685
 msgid "Disable Comments"
@@ -580,24 +581,24 @@ msgstr ""
 
 #: includes/admin/pb-laf.php:742
 msgid "Public. I would like this book to be visible to everyone."
-msgstr ""
+msgstr "Public. I would like this book to be visible to everyone."
 
 #: includes/admin/pb-laf.php:747
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr ""
+msgstr "Private. I would like this book to be accessible only to people I invite."
 
 #: includes/admin/pb-laf.php:770
 msgid "Who can see private front matter, chapters and back matter?"
-msgstr ""
+msgstr "Who can see private front matter, chapters and back matter?"
 
 #: includes/admin/pb-laf.php:773
 msgid "Only logged in editors and administrators."
-msgstr ""
+msgstr "Only logged in editors and administrators."
 
 #: includes/admin/pb-laf.php:775
 msgid "All logged in users including subscribers."
-msgstr ""
+msgstr "All logged in users including subscribers."
 
 #: includes/admin/pb-laf.php:791
 msgid ""
@@ -633,35 +634,35 @@ msgstr ""
 #: includes/admin/pb-metaboxes.php:76
 #, php-format
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
-msgstr ""
+msgstr "თქვენი წიგნის ყდის სურათის ზომა (%s) დასაშვებ 2MB-ს აღემატება."
 
 #: includes/admin/pb-metaboxes.php:92 includes/admin/pb-metaboxes.php:138
 #: includes/class-pb-metadata.php:630
 #: includes/modules/themeoptions/class-pb-mpdfoptions.php:170
 msgid "Cover Image"
-msgstr ""
+msgstr "ყდის სურათი"
 
 #: includes/admin/pb-metaboxes.php:129 includes/admin/pb-metaboxes.php:426
 #: includes/class-pb-sass.php:49 templates/admin/import.php:63
 #: templates/admin/organize.php:40
 msgid "Part"
-msgstr ""
+msgstr "ნაწილი"
 
 #: includes/admin/pb-metaboxes.php:133
 msgid "Save Part"
-msgstr ""
+msgstr "ნაწილის შენახვა"
 
 #: includes/admin/pb-metaboxes.php:134
 msgid "Save Book Information"
-msgstr ""
+msgstr "წიგნის შესახებ ინფორმაციის შენახვა"
 
 #: includes/admin/pb-metaboxes.php:143
 msgid "General Book Information"
-msgstr ""
+msgstr "ზოგადი ინფორმაცია წიგნის შესახებ"
 
 #: includes/admin/pb-metaboxes.php:154
 msgid "Short Title"
-msgstr ""
+msgstr "მოკლე სათაური"
 
 #: includes/admin/pb-metaboxes.php:155
 msgid ""
@@ -1125,7 +1126,7 @@ msgstr ""
 #. Description of the plugin/theme
 #: includes/class-pb-activation.php:235
 msgid "Simple Book Production"
-msgstr ""
+msgstr "წიგნის მარტივად გამოცემა"
 
 #: includes/class-pb-catalog.php:727
 msgid "Catalog Logo"
@@ -1488,7 +1489,6 @@ msgstr ""
 msgid "%d occurrence replaced."
 msgid_plural "%d occurrences replaced."
 msgstr[0] ""
-msgstr[1] ""
 
 #: includes/modules/searchandreplace/types/class-pb-content.php:74
 #: includes/modules/searchandreplace/types/class-pb-part.php:92
@@ -2830,7 +2830,7 @@ msgstr ""
 
 #: includes/pb-registration.php:26
 msgid "Register my book now"
-msgstr ""
+msgstr "ჩემი კატალოგის პროფილი"
 
 #: includes/pb-registration.php:29
 msgid "Register my book later"
@@ -3640,7 +3640,7 @@ msgstr ""
 #: themes-book/pressbooks-book/sidebar.php:10
 #: themes-root/pressbooks-publisher/header.php:42
 msgid "Admin"
-msgstr ""
+msgstr "ადმინი"
 
 #: templates/pb-catalog.php:224
 msgid "Catalog"
@@ -3690,7 +3690,6 @@ msgctxt "comments title"
 msgid "One Response to %2$s"
 msgid_plural "%1$s Responses to %2$s"
 msgstr[0] ""
-msgstr[1] ""
 
 #: themes-book/pressbooks-book/comments.php:21
 #: themes-book/pressbooks-book/comments.php:32
@@ -3709,7 +3708,7 @@ msgstr ""
 #: themes-book/pressbooks-book/content-none.php:2
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:13
 msgid "Nothing Found"
-msgstr ""
+msgstr "ვერაფერი მოიძებნა"
 
 #: themes-book/pressbooks-book/content-none.php:3
 #: themes-root/pressbooks-publisher/template-parts/content-none.php:23
@@ -3848,11 +3847,11 @@ msgstr ""
 
 #: themes-book/pressbooks-book/page-cover-fourth-block.php:19
 msgid "Other books"
-msgstr ""
+msgstr "სხვა წიგნები"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:5
 msgid "Book Description"
-msgstr ""
+msgstr "წიგნის აღწერა"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:16
 #: themes-book/pressbooks-book/page-cover-second-block.php:17
@@ -3891,7 +3890,7 @@ msgstr ""
 #: themes-root/pressbooks-publisher/search.php:16
 #, php-format
 msgid "Search Results for: %s"
-msgstr ""
+msgstr "%s ძებნის შედეგი:"
 
 #: themes-book/pressbooks-book/sidebar.php:13
 msgid "Home"
@@ -3937,7 +3936,7 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/footer.php:15
 msgid "http://pressbooks.com"
-msgstr ""
+msgstr "http://pressbooks.com"
 
 #: themes-root/pressbooks-publisher/footer.php:15
 #, php-format
@@ -3961,27 +3960,27 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/functions.php:233
 msgid "Catalog updated."
-msgstr ""
+msgstr "კატალოგი განახლებულია"
 
 #: themes-root/pressbooks-publisher/functions.php:234
 msgid "Sorry, but your catalog was not updated. Please try again."
-msgstr ""
+msgstr "თქვენი კატალოგის განახლება არ მოხერხდა. კიდევ ცადეთ."
 
 #: themes-root/pressbooks-publisher/functions.php:235
 msgid "Dismiss this notice."
-msgstr ""
+msgstr "უგულვებელყავით ეს შეტყობინება"
 
 #: themes-root/pressbooks-publisher/functions.php:257
 msgid "In Catalog"
-msgstr ""
+msgstr "კატალოგში"
 
 #: themes-root/pressbooks-publisher/header.php:22
 msgid "Skip to content"
-msgstr ""
+msgstr "შინაარსზე გადასვლა"
 
 #: themes-root/pressbooks-publisher/header.php:32
 msgid "Sign in"
-msgstr ""
+msgstr "შესვლა"
 
 #: themes-root/pressbooks-publisher/header.php:34
 msgid "Register"
@@ -3989,16 +3988,16 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/header.php:37
 msgid "Sign out"
-msgstr ""
+msgstr "გამოსვლა"
 
 #: themes-root/pressbooks-publisher/header.php:39
 msgid "My Books"
-msgstr ""
+msgstr "ჩემი წიგნები"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:20
 #: themes-root/pressbooks-publisher/inc/customizer.php:36
 msgid "About Us"
-msgstr ""
+msgstr "ჩვენს შესახებ"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:21
 msgid "Add a description of your collection or institution below."
@@ -4010,15 +4009,15 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:53
 msgid "Display your intro text in one or two columns."
-msgstr ""
+msgstr "Display your intro text in one or two columns."
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:57
 msgid "One column"
-msgstr ""
+msgstr "One column"
 
 #: themes-root/pressbooks-publisher/inc/customizer.php:58
 msgid "Two columns"
-msgstr ""
+msgstr "Two columns"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:23
 msgid "Posts navigation"
@@ -4061,29 +4060,29 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:116
 #, php-format
 msgid "Tagged %1$s"
-msgstr ""
+msgstr "დატაგული %1$s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:122
 msgid "Leave a comment"
-msgstr ""
+msgstr "დატოვეთ კომენტარი"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:122
 msgid "1 Comment"
-msgstr ""
+msgstr "1 კომენტარი"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:122
 msgid "% Comments"
-msgstr ""
+msgstr "% კომენტარი"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:143
 #, php-format
 msgid "Category: %s"
-msgstr ""
+msgstr "კატეგორიები: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:145
 #, php-format
 msgid "Tag: %s"
-msgstr ""
+msgstr "ტეგები: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:147
 #, php-format
@@ -4103,7 +4102,7 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:151
 #, php-format
 msgid "Month: %s"
-msgstr ""
+msgstr "თვეები: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:151
 msgctxt "monthly archives date format"
@@ -4113,7 +4112,7 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:153
 #, php-format
 msgid "Day: %s"
-msgstr ""
+msgstr "დღეები: %s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:153
 msgctxt "daily archives date format"
@@ -4128,60 +4127,60 @@ msgstr ""
 #: themes-root/pressbooks-publisher/inc/template-tags.php:158
 msgctxt "post format archive title"
 msgid "Galleries"
-msgstr ""
+msgstr "გალერეები"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:160
 msgctxt "post format archive title"
 msgid "Images"
-msgstr ""
+msgstr "სურათები"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:162
 msgctxt "post format archive title"
 msgid "Videos"
-msgstr ""
+msgstr "ვიდეოები"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:164
 msgctxt "post format archive title"
 msgid "Quotes"
-msgstr ""
+msgstr "ციტირებები"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:166
 msgctxt "post format archive title"
 msgid "Links"
-msgstr ""
+msgstr "ბმულები"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:168
 msgctxt "post format archive title"
 msgid "Statuses"
-msgstr ""
+msgstr "სტატუსები"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:170
 msgctxt "post format archive title"
 msgid "Audio"
-msgstr ""
+msgstr "აუდიო"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:172
 msgctxt "post format archive title"
 msgid "Chats"
-msgstr ""
+msgstr "ჩათი"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:175
 #, php-format
 msgid "Archives: %s"
-msgstr ""
+msgstr "არქივები: %s "
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:179
 #, php-format
 msgid "%1$s: %2$s"
-msgstr ""
+msgstr "%1$s: %2$s"
 
 #: themes-root/pressbooks-publisher/inc/template-tags.php:181
 msgid "Archives"
-msgstr ""
+msgstr "არქივი"
 
 #: themes-root/pressbooks-publisher/template-parts/content-catalog.php:38
 msgid "Read more"
-msgstr ""
+msgstr "მეტის წაკითხვა"
 
 #: themes-root/pressbooks-publisher/template-parts/content-catalog.php:52
 msgid ""

@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.2.1
+Version: 3.9.3
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Version: 3.9.2.1
+Version: 3.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -115,6 +115,7 @@ Once installed, define the following wp-config.php variables. The defaults are:
 	define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
 	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
 	define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+  define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
 
 
 Example config files for a dev site hosted at http://localhost/~dac514/textopress/
@@ -154,6 +155,7 @@ Example config files for a dev site hosted at http://localhost/~dac514/textopres
 	define( 'PB_KINDLEGEN_COMMAND', '/home/dac514/bin/kindlegen' );
 	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /home/dac514/bin/epubcheck-4.0/epubcheck-4.0.jar' );
 	define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+  define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /home/dac514/bin/saxon-he/saxon-he.jar' );
 
 	/**
 	 * Optional definitions
@@ -181,6 +183,38 @@ Example config files for a dev site hosted at http://localhost/~dac514/textopres
 	RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.php)$ $1 [L]
 	RewriteRule . index.php [L]
 
+*Installation (WP-CLI)*
+
+First, get [WP-CLI](https://wp-cli.org/).
+
+Once WP-CLI is installed on your server, the following shell commands executed in the site root will download and install a fresh version of Pressbooks. Obviously you need to put in the correct information for your server and install on lines 2 and 10, and enter the correct paths to `WP_PRINCE_COMMAND`, `PB_KINDLEGEN_COMMAND`, `PB_EPUBCHECK_COMMAND` and `PB_XMLLINT_COMMAND` where indicated.
+
+	    wp core download
+	    wp core config --dbname="dbname" --dbuser="dbuser" --dbpass="dbpass" --extra-php <<PHP
+	    /* Pressbooks */
+	    define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
+	    define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
+	    define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
+	    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+	    define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+	    define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
+	    PHP
+	    wp core install --url="http://domain.com" --title="Pressbooks" --admin_user="username" --admin_password="password" --admin_email="user@domain.com"
+	    wp core multisite-convert --title="Pressbooks"
+	    wp plugin delete hello
+	    wp plugin update-all
+	    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.3/pressbooks-v3.9.3.zip --activate-network
+	    wp theme list
+	    wp theme enable pressbooks-book --network
+	    wp theme enable clarke --network
+	    wp theme enable donham --network
+	    wp theme enable fitzgerald --network
+	    wp theme enable austen --network
+	    wp theme enable pressbooks-custom-css --network
+
+
+Note that this does not install the required libraries for export. See above (Part 3, Pressbooks dependencies).
+
 == Frequently Asked Questions ==
 
 TK.
@@ -196,9 +230,20 @@ TK.
 
 == Upgrade Notice ==
 
+As of Pressbooks >= 3.9.3, [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support.
+
 Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
 
 == Changelog ==
+
+### 3.9.3
+* **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](https://pressbooks.org/installation)).
+* **Feature:** The copy on the publish page can now be replaced by adding a filter to the `pressbooks_publish_page` filter hook.
+* **Feature:** If registration is enabled, a 'Register' button now appears on the front page of the Pressbooks Publisher theme.
+* **Enhancement:** A URL sanitization routine has been added to the `\Pressbooks\Options` class.
+* **Enhancement:** The methods of `\Pressbooks\Options` which list the options of various types (bool, string, float, etc.) are now optional, and the sanitize function now checks for each type before trying to sanitize it.
+* **Enhancement:** The publish page has been refactored using the `\Pressbooks\Options` class.
+* **Fix:** Unwanted validation warning emails will no longer be sent.
 
 = 3.9.2.1 =
 * **NOTE:** Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.

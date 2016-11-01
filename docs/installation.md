@@ -1,8 +1,6 @@
-# Installation
-
 ## Download
 
-Download the [latest release][1] of Pressbooks from our [releases page][2].
+Download the [latest release][1] of Pressbooks from our [releases page][2].
 
 ## Installation (Manual)
 
@@ -67,7 +65,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 
 *Part 3, Pressbooks dependencies:*
 
-*   For PDF export install [Prince][6] (note: this is not free software) - Version 10r7
+*   For PDF export install [Prince][6] (note: this is not free software) - Version 20160929
 *   For PDF export via mPDF install the [Pressbooks mPDF plugin][7]. You will also need to ensure that the following folders have write access and/or they are owned by the appropriate user. See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
     *   `wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/ttfontdata`
     *   `wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/tmp`
@@ -75,7 +73,8 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 *   For MOBI export install [KindleGen][8] - Version 2.9
 *   For EPUB validation install [EpubCheck][9] - Version 4.0
 *   For XML validation install [xmllint][10] - Version 20800
-*   It is recommended that you install [sassphp][11] for SASS compilation; however, Pressbooks includes a bundled compiler, [scssphp][12], and will fall back to this if sassphp is absent.
+*   For ODT export install [Saxon-HE][11] - Version 9.7.0-10
+*   It is recommended that you install [sassphp][12] for SASS compilation; however, Pressbooks includes a bundled compiler, [scssphp][13], and will fall back to this if sassphp is absent.
 *   Certain Linux installations do not ship with the php5-xsl library enabled by default. If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like `apt-get install php5-xsl`
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
@@ -86,6 +85,7 @@ Once installed, define the following `wp-config.php` variables. The defaults are
     define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
     define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
     define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+    define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
 
 
 Example config files for a dev site hosted at http://localhost/~dac514/textopress/
@@ -125,6 +125,7 @@ Example config files for a dev site hosted at http://localhost/~dac514/textopres
     define( 'PB_KINDLEGEN_COMMAND', '/home/dac514/bin/kindlegen' );
     define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /home/dac514/bin/epubcheck-4.0/epubcheck-4.0.jar' );
     define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+    define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar home/dac514/bin/saxon-he/saxon-he.jar' );
 
     /**
      * Optional definitions
@@ -155,33 +156,33 @@ Example config files for a dev site hosted at http://localhost/~dac514/textopres
 
 ## Installation (WP-CLI)
 
-First, get [WP-CLI][13].
+First, get [WP-CLI][14].
 
 Once WP-CLI is installed on your server, the following shell commands executed in the site root will download and install a fresh version of Pressbooks. Obviously you need to put in the correct information for your server and install on lines 2 and 10, and enter the correct paths to `WP_PRINCE_COMMAND`, `PB_KINDLEGEN_COMMAND`, `PB_EPUBCHECK_COMMAND` and `PB_XMLLINT_COMMAND` where indicated.
 
-```
-wp core download
-wp core config --dbname="dbname" --dbuser="dbuser" --dbpass="dbpass" --extra-php <<PHP
-/* Pressbooks */
-define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
-define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
-define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
-define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
-define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
-PHP
-wp core install --url="http://domain.com" --title="Pressbooks" --admin_user="username" --admin_password="password" --admin_email="user@domain.com"
-wp core multisite-convert --title="Pressbooks"
-wp plugin delete hello
-wp plugin update-all
-wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.2/pressbooks-v3.9.2.zip --activate-network
-wp theme list
-wp theme enable pressbooks-book --network
-wp theme enable clarke --network
-wp theme enable donham --network
-wp theme enable fitzgerald --network
-wp theme enable austen --network
-wp theme enable pressbooks-custom-css --network
-```
+    wp core download
+    wp core config --dbname="dbname" --dbuser="dbuser" --dbpass="dbpass" --extra-php <<PHP
+    /* Pressbooks */
+    define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
+    define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
+    define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
+    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+    define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+    define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
+    PHP
+    wp core install --url="http://domain.com" --title="Pressbooks" --admin_user="username" --admin_password="password" --admin_email="user@domain.com"
+    wp core multisite-convert --title="Pressbooks"
+    wp plugin delete hello
+    wp plugin update-all
+    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.3/pressbooks-v3.9.3.zip --activate-network
+    wp theme list
+    wp theme enable pressbooks-book --network
+    wp theme enable clarke --network
+    wp theme enable donham --network
+    wp theme enable fitzgerald --network
+    wp theme enable austen --network
+    wp theme enable pressbooks-custom-css --network
+
 
 Note that this does not install the required libraries for export. See above (Part 3, Pressbooks dependencies).
 
@@ -195,6 +196,7 @@ Note that this does not install the required libraries for export. See above (Pa
  [8]: http://www.amazon.com/gp/feature.html?docId=1000765211
  [9]: https://github.com/idpf/epubcheck
  [10]: http://xmlsoft.org/xmllint.html
- [11]: https://github.com/sensational/sassphp
- [12]: https://github.com/leafo/scssphp/
- [13]: https://wp-cli.org/
+ [11]: https://sourceforge.net/projects/saxon/files/Saxon-HE/
+ [12]: https://github.com/sensational/sassphp
+ [13]: https://github.com/leafo/scssphp/
+ [14]: https://wp-cli.org/
