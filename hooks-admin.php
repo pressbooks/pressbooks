@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 require( PB_PLUGIN_DIR . 'includes/admin/pb-dashboard.php' );
+require( PB_PLUGIN_DIR . 'includes/admin/pb-diagnostics.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-laf.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-plugins.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-analytics.php' );
@@ -45,6 +46,7 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'init', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ) );
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
+	add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
