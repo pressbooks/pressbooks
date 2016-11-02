@@ -13,10 +13,12 @@ namespace Pressbooks\Admin\Laf;
 function add_footer_link() {
 
 	printf(
-		'<p id="footer-left" class="alignleft"><span id="footer-thankyou">%s <a href="http://pressbooks.com">Pressbooks</a></span> &bull; <a href="http://pressbooks.com/about">%s</a> &bull; <a href="http://pressbooks.com/help">%s</a> &bull; <a href="http://pressbooks.com/contact">%s</a></p>',
+		'<p id="footer-left" class="alignleft"><span id="footer-thankyou">%s <a href="http://pressbooks.com">Pressbooks</a></span> &bull; <a href="http://pressbooks.com/about">%s</a> &bull; <a href="http://pressbooks.com/help">%s</a> &bull; <a href="%s">%s</a> &bull; <a href="http://pressbooks.com/contact">%s</a></p>',
 		__( 'Powered by', 'pressbooks' ),
 		__( 'About', 'pressbooks' ),
 		__( 'Help', 'pressbooks' ),
+		admin_url( 'options.php?page=pressbooks_diagnostics' ),
+		__( 'Diagnostics', 'pressbooks' ),
 		__( 'Contact', 'pressbooks' )
 	);
 
