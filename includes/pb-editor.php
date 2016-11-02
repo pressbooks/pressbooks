@@ -129,6 +129,8 @@ function mce_before_init_insert_formats( $init_array ) {
 
 	$init_array['style_formats'] = json_encode( $style_formats );
 
+	$init_array['table_toolbar'] = false;
+
 	return $init_array;
 }
 
