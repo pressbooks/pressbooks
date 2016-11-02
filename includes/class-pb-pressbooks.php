@@ -62,25 +62,32 @@ class Pressbooks {
 	 * @return array
 	 */
 	function allowedBookThemes( $themes ) {
-
-		$exceptions = array();
-
-		if ( defined( 'PB_BOOK_THEME' ) ) {
-			$exceptions[] = PB_BOOK_THEME;
-		}
-
 		if ( isset( $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] ) ) {
 			if ( is_array( $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] ) ) {
-				$exceptions = array_merge( $exceptions, $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] );
+				$whitelist = $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'];
 			} else {
-				$exceptions[] = $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'];
+				$whitelist = array( $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] );
 			}
+		} else {
+			$whitelist = array();
 		}
 
+		$blacklist = apply_filters( 'pressbooks_disallowed_book_themes', array() );
+
 		$compare = search_theme_directories();
+
 		foreach ( $compare as $key => $val ) {
-			if ( ! in_array( $key, $exceptions ) && untrailingslashit( $val['theme_root'] ) != PB_PLUGIN_DIR . 'themes-book' ) {
-				unset( $themes[ $key ] );
+			if ( ! empty( $whitelist ) ) {
+				// Hide themes which are not whitelisted
+				if ( untrailingslashit( $val['theme_root'] ) != PB_PLUGIN_DIR . 'themes-book' && ( ! in_array( $key, $whitelist ) && PB_BOOK_THEME != $key ) ) {
+					unset( $themes[ $key ] );
+				}
+			} elseif ( ! empty( $blacklist ) ) {
+				$theme = wp_get_theme( str_replace( 'style.css', '', $val['theme_file'] ), $val['theme_root'] );
+				// Hide themes which are not book themes and book themes which are blacklisted
+				if ( ( 'pressbooks-book/style.css' != $val['theme_file'] && 'pressbooks-book' != $theme->get( 'Template' ) ) || in_array( $key, $blacklist ) ) {
+					unset( $themes[ $key ] );
+				}
 			}
 		}
 
@@ -97,25 +104,32 @@ class Pressbooks {
 	 * @return array
 	 */
 	function allowedRootThemes( $themes ) {
-
-		$exceptions = array( 'pressbooks-root' );
-
-		if ( defined( 'PB_ROOT_THEME' ) ) {
-			$exceptions[] = PB_ROOT_THEME;
-		}
-
 		if ( isset( $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] ) ) {
 			if ( is_array( $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] ) ) {
-				$exceptions = array_merge( $exceptions, $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] );
+				$whitelist = $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'];
 			} else {
-				$exceptions[] = $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'];
+				$whitelist = array( $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] );
 			}
+		} else {
+			$whitelist = array();
 		}
 
+		$blacklist = apply_filters( 'pressbooks_disallowed_book_themes', array() );
+
 		$compare = search_theme_directories();
+
 		foreach ( $compare as $key => $val ) {
-			if ( ! in_array( $key, $exceptions ) && untrailingslashit( $val['theme_root'] ) != PB_PLUGIN_DIR . 'themes-root' ) {
-				unset( $themes[ $key ] );
+			if ( ! empty( $whitelist ) ) {
+				// Hide themes which are not whitelisted
+				if ( untrailingslashit( $val['theme_root'] ) != PB_PLUGIN_DIR . 'themes-root' && ( ! in_array( $key, $whitelist ) && PB_ROOT_THEME != $key ) ) {
+					unset( $themes[ $key ] );
+				}
+			} elseif ( ! empty( $blacklist ) ) {
+				$theme = wp_get_theme( str_replace( 'style.css', '', $val['theme_file'] ), $val['theme_root'] );
+				// Hide book themes and themes which are blacklisted
+				if ( 'pressbooks-book/style.css' == $val['theme_file'] || 'pressbooks-book' == $theme->get( 'Template' ) || in_array( $key, $blacklist ) ) {
+					unset( $themes[ $key ] );
+				}
 			}
 		}
 
