@@ -7,6 +7,10 @@ namespace Pressbooks\Admin\Diagnostics;
 
 require_once( PB_PLUGIN_DIR . 'symbionts/browser.php' );
 
+/**
+ * Add the diagnostics menu (with parent page set to null)
+ */
+
 function add_menu() {
 	$page = add_submenu_page(
 		null,
@@ -18,6 +22,9 @@ function add_menu() {
 	);
 }
 
+/**
+ * Render the diagnostics page (adapted from https://github.com/WordImpress/Give/blob/master/includes/admin/system-info.php)
+ */
 function render_page() {
 	global $wpdb;
 	$browser = new \Browser; ?>
@@ -112,8 +119,6 @@ if ( function_exists( 'curl_init' ) && function_exists( 'curl_version' ) ) {
 $output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
 $output .= 'sass: ' . ( extension_loaded( 'sass' ) ? 'Installed' : 'Not Installed' ) . "\n";
 $output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
-echo $output; ?>
-
-		</textarea>
+echo $output; ?></textarea>
 </div>
 <?php }
