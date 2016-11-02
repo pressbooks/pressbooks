@@ -13,7 +13,7 @@ require_once( PB_PLUGIN_DIR . 'symbionts/browser.php' );
 
 function add_menu() {
 	$page = add_submenu_page(
-		null,
+		'options.php',
 		__( 'Diagnostics', 'pressbooks' ),
 		__( 'Diagnostics', 'pressbooks' ),
 		'manage_options',
@@ -35,7 +35,7 @@ function render_page() {
 <?php $output = "### System Information\n\n";
 $output .= "#### Book Info\n\n";
 $output .= 'Book ID: ' . get_current_blog_id() . "\n";
-$output .= 'Book URL: ' . get_bloginfo( 'url' ) . "\n";
+$output .= 'Book URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n";
 $output .= 'Book Privacy: ' . ( get_bloginfo( 'blog_public' ) ? 'Public' : 'Private' ) . "\n\n";
 $output .= "#### Browser\n\n";
 $output .= 'Platform: ' . str_replace( 'mac', 'Mac', $browser->getPlatform() ) . "\n";
@@ -43,6 +43,8 @@ $output .= 'Browser Name: ' . $browser->getBrowser() . "\n";
 $output .= 'Browser Version: ' . $browser->getVersion() . "\n";
 $output .= 'User Agent String: ' . $browser->getUserAgent() . "\n\n";
 $output .= '#### WordPress Configuration' . "\n\n";
+$output .= 'Network URL: ' . network_home_url() . "\n";
+$output .= 'Network Type: ' . ( is_subdomain_install() ? 'Subdomain' : 'Subdirectory' ) . "\n";
 $output .= 'Version: ' . get_bloginfo( 'version' ) . "\n";
 $output .= 'Language: ' . ( defined( 'WPLANG' ) && WPLANG ? WPLANG : 'en_US' ) . "\n";
 $output .= 'WP_ENV: ' . ( defined( 'WP_ENV' ) ? WP_ENV : 'Not set' ) . "\n";
