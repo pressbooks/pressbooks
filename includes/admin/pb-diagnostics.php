@@ -9,11 +9,11 @@ require_once( PB_PLUGIN_DIR . 'symbionts/browser.php' );
 
 function add_menu() {
 	$page = add_submenu_page(
-		'options-general.php',
+		null,
 		__( 'Diagnostics', 'pressbooks' ),
 		__( 'Diagnostics', 'pressbooks' ),
 		'manage_options',
-		'pb_diagnostics',
+		'pressbooks_diagnostics',
 		__NAMESPACE__ . '\render_page'
 	);
 }
@@ -109,6 +109,9 @@ if ( function_exists( 'curl_init' ) && function_exists( 'curl_version' ) ) {
 	$curl_values = curl_version();
 	$output .= 'cURL Version: ' . $curl_values['version'] . "\n";
 }
+$output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
+$output .= 'sass: ' . ( extension_loaded( 'sass' ) ? 'Installed' : 'Not Installed' ) . "\n";
+$output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
 echo $output; ?>
 
 		</textarea>
