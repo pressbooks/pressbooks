@@ -4,6 +4,7 @@
  * @license GPLv2 (or any later version)
  */
 namespace Pressbooks\PostType;
+use phpDocumentor\Reflection\Types\This;
 
 
 /**
@@ -337,4 +338,23 @@ function add_post_types_rss( $args ) {
 		}
 	}
 	return $args;
+}
+
+/**
+ * Add Hypothesis support for Pressbooks custom post types
+ * @see https://github.com/hypothesis/wp-hypothesis/blob/master/hypothesis.php#L63-L68
+ *
+ * @param array $posttypes Default Hypothesis post types.
+ *
+ * @return array
+ */
+function add_posttypes_to_hypothesis( $posttypes ) {
+	$posttypes = array(
+		'part' => __( 'parts', 'pressbooks' ),
+		'chapter' => __( 'chapters', 'pressbooks' ),
+		'front-matter' => __( 'front matter', 'pressbooks' ),
+		'back-matter' => __( 'back matter', 'pressbooks' ),
+	);
+
+	return $posttypes;
 }
