@@ -1,3 +1,8 @@
+### 3.9.4
+* **Feature:** Pressbooks + Hypothesis: Version 4.8 of the [Hypothesis](https://hypothes.is) WordPress plugin now supports custom post types, and Pressbooks 3.9.4 adds Hypothesis support to all of ours (parts, chapters, front and back matter).
+* **Feature:** Having a problem with Pressbooks? We've added a diagnostics page which is accessible from the 'Diagnostics' link in the footer of every dashboard screen. If you need to report a bug, copy your system configuration info from your Diagnostics page to help us help you resolve the issue more efficiently.
+* **Fix:** Fixed a visual glitch by hiding the TinyMCE table editor's inline toolbar.
+
 ### 3.9.3
 * **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](https://pressbooks.org/installation)).
 * **Feature:** The copy on the publish page can now be replaced by adding a filter to the `pressbooks_publish_page` filter hook.
