@@ -4,8 +4,6 @@
  * @license GPLv2 (or any later version)
  */
 namespace Pressbooks\PostType;
-use phpDocumentor\Reflection\Types\This;
-
 
 /**
  * List our post_types
