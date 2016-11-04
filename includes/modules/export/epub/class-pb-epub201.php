@@ -2178,7 +2178,7 @@ class Epub201 extends Export {
 			return true;
 		}
 
-		return apply_filters('pb_epub_has_dependencies', false);
+		return false;
 	}
 
 }
