@@ -382,7 +382,7 @@ function check_epubcheck_install() {
 		}
 	}
 
-	return false;
+	return apply_filters( 'pb_epub_has_dependencies', false );
 }
 
 /**
