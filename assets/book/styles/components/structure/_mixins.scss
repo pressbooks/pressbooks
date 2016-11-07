@@ -32,22 +32,22 @@
 @mixin runningfoot-padding {
   @page {
     @bottom {
-      padding-bottom: $runninghead-padding-bottom;
+      padding-bottom: $runningfoot-padding-bottom;
     }
     @bottom-left-corner {
-      padding-bottom: $runninghead-padding-bottom;
+      padding-bottom: $runningfoot-padding-bottom;
     }
     @bottom-left {
-      padding-bottom: $runninghead-padding-bottom;
+      padding-bottom: $runningfoot-padding-bottom;
     }
     @bottom-center {
-      padding-bottom: $runninghead-padding-bottom;
+      padding-bottom: $runningfoot-padding-bottom;
     }
     @bottom-right {
-      padding-bottom: $runninghead-padding-bottom;
+      padding-bottom: $runningfoot-padding-bottom;
     }
     @bottom-right-corner {
-      padding-bottom: $runninghead-padding-bottom;
+      padding-bottom: $runningfoot-padding-bottom;
     }
   }
 }
