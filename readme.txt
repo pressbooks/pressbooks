@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.3
+Version: 3.9.4
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Version: 3.9.3
+Version: 3.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,7 +67,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 
  5. Navigate to: Themes → Installed Themes.
 
- 6. Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "Austen", "Pressbooks Publisher One", and any other
+ 6. Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "Austen", "Pressbooks Publisher", and any other
     Pressbooks theme you want to use.
 
  7. Navigate to: Settings → Network Settings.
@@ -80,17 +80,17 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
     + Both sites and user accounts can be registered. (use this setting if you intend on offering a publishing-platform
       open to the public, such as Pressbooks.com)
 
- 9. Navigate to: My Books → __YOUR_SITE__ → Dashboard
+ 9. Navigate to: My Catalog → __YOUR_SITE__ → Dashboard
 
- 10. Navigate to: Appearance. Activate "Pressbooks Publisher One"
+ 10. Navigate to: Appearance. Activate "Pressbooks Publisher"
 
- 11. Navigate to: My Books → Network Admin → Sites
+ 11. Navigate to: My Catalog → Network Admin → Sites
 
  12. Add a new site (this will be your first book).
 
- 13. Navigate to: My Books → __YOUR_FIRST_BOOK__
+ 13. Navigate to: My Catalog → __YOUR_FIRST_BOOK__
 
- 14. Navigate to: Book Information. Make sure to fill out Title, Author and Publication Date.
+ 14. Navigate to: Book Info. Make sure to fill out Title, Author and Publication Date.
 
  15. Navigate to: Text → Organize. Make sure some content is selected for export.
 
@@ -236,7 +236,14 @@ Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.pr
 
 == Changelog ==
 
-### 3.9.3
+= 3.9.4 =
+* **Feature:** Pressbooks + Hypothesis: Version 4.8 of the [Hypothesis](https://hypothes.is) WordPress plugin now supports custom post types, and Pressbooks 3.9.4 adds Hypothesis support to all of ours (parts, chapters, front and back matter).
+* **Feature:** Having a problem with Pressbooks? We've added a diagnostics page which is accessible from the 'Diagnostics' link in the footer of every dashboard screen. If you need to report a bug, copy your system configuration info from your Diagnostics page to help us help you resolve the issue more efficiently.
+* **Enhancement:** `check_epubcheck_install` can now be overridden using the `pb_epub_has_dependencies` hook for use cases where EPUB validation is not required (props to @monkecheese for the PR).
+* **Enhancement:** Some adjustments were made to the PDF output stylesheets for running headers and footers.
+* **Fix:** Fixed a visual glitch by hiding the TinyMCE table editor's inline toolbar.
+
+= 3.9.3 =
 * **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](https://pressbooks.org/installation)).
 * **Feature:** The copy on the publish page can now be replaced by adding a filter to the `pressbooks_publish_page` filter hook.
 * **Feature:** If registration is enabled, a 'Register' button now appears on the front page of the Pressbooks Publisher theme.

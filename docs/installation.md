@@ -49,17 +49,17 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
     *   Logged in users may register new sites. (if you are a publisher using Pressbooks as a production tool, this is the best setting: it allows network administrators to add new users, who can then create books/sites. However, registration is not available to the public.)
     *   Both sites and user accounts can be registered. (use this setting if you intend on offering a publishing-platform open to the public, such as Pressbooks.com)
 
-9.  Navigate to: My Books → **YOUR_SITE** → Dashboard
+9.  Navigate to: My Catalog → **YOUR_SITE** → Dashboard
 
-10. Navigate to: Appearance. Activate "Pressbooks Publisher One"
+10. Navigate to: Appearance. Activate "Pressbooks Publisher"
 
-11. Navigate to: My Books → Network Admin → Sites
+11. Navigate to: My Catalog → Network Admin → Sites
 
 12. Add a new site (this will be your first book).
 
-13. Navigate to: My Books → **YOUR_FIRST_BOOK**
+13. Navigate to: My Catalog → **YOUR_FIRST_BOOK**
 
-14. Navigate to: Book Information. Make sure to fill out Title, Author and Publication Date.
+14. Navigate to: Book Info. Make sure to fill out Title, Author and Publication Date.
 
 15. Navigate to: Text → Organize. Make sure some content is selected for export.
 
