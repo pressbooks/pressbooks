@@ -18,6 +18,8 @@
 
 @import 'mixins', 'blank';
 
+@include runningfoot-padding;
+
 // Front Matter
 
 @page front-matter:first {

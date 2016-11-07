@@ -2,6 +2,36 @@
 // Page Structure Mixins
 //========================
 
+// Running Head Padding
+
+@mixin runninghead-padding {
+  @page {
+    @top,
+    @top-left-corner,
+    @top-left,
+    @top-center,
+    @top-right
+    @top-right-corner {
+      padding-top: $runninghead-padding-top;
+    }
+  }
+}
+
+// Running Foot Padding
+
+@mixin runningfoot-padding {
+  @page {
+    @bottom,
+    @bottom-left-corner,
+    @bottom-left,
+    @bottom-center,
+    @bottom-right
+    @bottom-right-corner {
+      padding-bottom: $runningfoot-padding-bottom;
+    }
+  }
+}
+
 // Page Numbers
 
 @mixin front-matter-page-number {

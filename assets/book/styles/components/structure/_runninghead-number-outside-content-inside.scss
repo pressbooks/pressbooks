@@ -17,8 +17,10 @@
 /* Blank Head and Foot Defaults
 note: use mixin 'blank-head-and-foot' where needed */
 
-@import 'blank'; 
+@import 'blank';
 @import 'mixins';
+
+@include runninghead-padding;
 
 /* RUNNING HEAD INSIDE:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */

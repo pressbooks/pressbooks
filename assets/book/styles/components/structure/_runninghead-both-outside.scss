@@ -19,6 +19,8 @@
 
 @import 'blank', 'mixins';
 
+@include runninghead-padding;
+
 // Front Matter
 
 @page front-matter:first {
