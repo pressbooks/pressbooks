@@ -6,11 +6,21 @@
 
 @mixin runninghead-padding {
   @page {
-    @top,
-    @top-left-corner,
-    @top-left,
-    @top-center,
-    @top-right
+    @top {
+      padding-top: $runninghead-padding-top;
+    }
+    @top-left-corner {
+      padding-top: $runninghead-padding-top;
+    }
+    @top-left {
+      padding-top: $runninghead-padding-top;
+    }
+    @top-center {
+      padding-top: $runninghead-padding-top;
+    }
+    @top-right {
+      padding-top: $runninghead-padding-top;
+    }
     @top-right-corner {
       padding-top: $runninghead-padding-top;
     }
@@ -21,13 +31,23 @@
 
 @mixin runningfoot-padding {
   @page {
-    @bottom,
-    @bottom-left-corner,
-    @bottom-left,
-    @bottom-center,
-    @bottom-right
+    @bottom {
+      padding-bottom: $runninghead-padding-bottom;
+    }
+    @bottom-left-corner {
+      padding-bottom: $runninghead-padding-bottom;
+    }
+    @bottom-left {
+      padding-bottom: $runninghead-padding-bottom;
+    }
+    @bottom-center {
+      padding-bottom: $runninghead-padding-bottom;
+    }
+    @bottom-right {
+      padding-bottom: $runninghead-padding-bottom;
+    }
     @bottom-right-corner {
-      padding-bottom: $runningfoot-padding-bottom;
+      padding-bottom: $runninghead-padding-bottom;
     }
   }
 }

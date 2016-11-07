@@ -23,22 +23,42 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @page {
-  @top,
-  @top-left-corner,
-  @top-left,
-  @top-center,
-  @top-right
+  @top {
+    padding-top: .4in;
+  }
+  @top-left-corner {
+    padding-top: .4in;
+  }
+  @top-left {
+    padding-top: .4in;
+  }
+  @top-center {
+    padding-top: .4in;
+  }
+  @top-right {
+    padding-top: .4in;
+  }
   @top-right-corner {
     padding-top: .4in;
   }
 }
 
 @page {
-  @bottom,
-  @bottom-left-corner,
-  @bottom-left,
-  @bottom-center,
-  @bottom-right
+  @bottom {
+    padding-bottom: .4in;
+  }
+  @bottom-left-corner {
+    padding-bottom: .4in;
+  }
+  @bottom-left {
+    padding-bottom: .4in;
+  }
+  @bottom-center {
+    padding-bottom: .4in;
+  }
+  @bottom-right {
+    padding-bottom: .4in;
+  }
   @bottom-right-corner {
     padding-bottom: .4in;
   }
