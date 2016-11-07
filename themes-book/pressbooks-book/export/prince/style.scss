@@ -22,6 +22,28 @@ h1, h2, h3, h4, h5, h6 {
   margin-right: 1.5cm;
 }
 
+@page {
+  @top,
+  @top-left-corner,
+  @top-left,
+  @top-center,
+  @top-right
+  @top-right-corner {
+    padding-top: .4in;
+  }
+}
+
+@page {
+  @bottom,
+  @bottom-left-corner,
+  @bottom-left,
+  @bottom-center,
+  @bottom-right
+  @bottom-right-corner {
+    padding-bottom: .4in;
+  }
+}
+
 /* TOC */
 @page toc {
   @bottom {
