@@ -39,7 +39,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 
 5.  Navigate to: Themes → Installed Themes.
 
-6.  Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "Austen", "Pressbooks Publisher One", and any other Pressbooks theme you want to use.
+6.  Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "Austen", "Pressbooks Publisher", and any other Pressbooks theme you want to use.
 
 7.  Navigate to: Settings → Network Settings.
 
