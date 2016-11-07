@@ -101,7 +101,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   @top-left {
     content: counter(page);
     @include page-number;
-    text-algin: left;
+    text-align: left;
   }
 }
 @page part:right {
