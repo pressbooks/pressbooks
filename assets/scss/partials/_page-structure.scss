@@ -39,14 +39,14 @@
        content: "";
     }
 }
- 
+
 //========================
 //RUNNING HEAD OUTSIDE
 //========================
 
 @mixin RunningHeadOutside {
 
-/* RUNNING HEAD OUTSIDE: 
+/* RUNNING HEAD OUTSIDE:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page front-matter:first {
@@ -73,7 +73,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-left {
     content: counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
   }
 }
 @page front-matter:right {
@@ -83,11 +83,11 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-right {
     content: counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
   }
 }
 
-/* RUNNING HEAD OUTSIDE: 
+/* RUNNING HEAD OUTSIDE:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page introduction:first {
@@ -114,7 +114,7 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-left {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
 
   }
 }
@@ -125,11 +125,11 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-right {
     content: counter(page);
-    @include pagenumber;   
+    @include pagenumber;
   }
 }
 
-/* RUNNING HEAD OUTSIDE: 
+/* RUNNING HEAD OUTSIDE:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
@@ -142,7 +142,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-left {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
   }
 }
 @page part:right {
@@ -152,11 +152,11 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-right {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
   }
 }
 
-/* RUNNING HEAD OUTSIDE: 
+/* RUNNING HEAD OUTSIDE:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page chapter:first {
@@ -183,7 +183,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-left {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
   }
 }
 @page chapter:right {
@@ -193,11 +193,11 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-right {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
   }
 }
 
-/* RUNNING HEAD OUTSIDE: 
+/* RUNNING HEAD OUTSIDE:
 BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page back-matter:first {
@@ -224,7 +224,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-left {
     content: counter(page);
-    @include pagenumber;  
+    @include pagenumber;
   }
 }
 @page back-matter:right {
@@ -234,7 +234,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-right {
     content: counter(page);
-    @include pagenumber;  
+    @include pagenumber;
   }
 }
 }
@@ -245,7 +245,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @mixin RunningHeadOutside2 {
 
-/* RUNNING HEAD OUTSIDE2: 
+/* RUNNING HEAD OUTSIDE2:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page front-matter:first {
@@ -272,7 +272,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-left-corner {
     content: counter(page, lower-roman) "\A0\A0\A0\A0";
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
   }
 }
 @page front-matter:right {
@@ -282,11 +282,11 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-right-corner {
     content: "\A0\A0\A0\A0" counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
   }
 }
 
-/* RUNNING HEAD OUTSIDE2: 
+/* RUNNING HEAD OUTSIDE2:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page introduction:first {
@@ -313,7 +313,7 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @top-left-corner {
     content: counter(page) "\A0\A0\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
 
   }
 }
@@ -324,11 +324,11 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @top-right-corner {
     content: "\A0\A0\A0\A0" counter(page);
-    @include pagenumber;   
+    @include pagenumber;
   }
 }
 
-/* RUNNING HEAD OUTSIDE2: 
+/* RUNNING HEAD OUTSIDE2:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
@@ -341,7 +341,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-left-corner {
     content: counter(page) "\A0\A0\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
   }
 }
 @page part:right {
@@ -351,11 +351,11 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-right {
     content: "\A0\A0\A0\A0" counter(page);
-    @include pagenumber;    
+    @include pagenumber;
   }
 }
 
-/* RUNNING HEAD OUTSIDE2: 
+/* RUNNING HEAD OUTSIDE2:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page chapter:first {
@@ -382,7 +382,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-left-corner {
     content: counter(page) "\A0\A0\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
   }
 }
 @page chapter:right {
@@ -392,11 +392,11 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-right-corner {
     content: "\A0\A0\A0\A0" counter(page);
-    @include pagenumber;    
+    @include pagenumber;
   }
 }
 
-/* RUNNING HEAD OUTSIDE2: 
+/* RUNNING HEAD OUTSIDE2:
 BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page back-matter:first {
@@ -423,7 +423,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @top-left-corner {
     content: counter(page) "\A0\A0\A0\A0";
-    @include pagenumber;  
+    @include pagenumber;
   }
 }
 @page back-matter:right {
@@ -433,7 +433,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @top-right-corner {
     content: "\A0\A0\A0\A0" counter(page);
-    @include pagenumber;  
+    @include pagenumber;
   }
 }
 }
@@ -446,7 +446,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @mixin RunningHeadInside {
 
-/* RUNNING HEAD INSIDE: 
+/* RUNNING HEAD INSIDE:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page front-matter:first {
@@ -461,7 +461,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-left {
     content: counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
     text-align: left;
   }
 }
@@ -473,12 +473,12 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-right {
     content: counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
     text-align: right;
   }
 }
 
-/* RUNNING HEADS INSIDE: 
+/* RUNNING HEADS INSIDE:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page introduction:first {
@@ -493,7 +493,7 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @top-left {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: left;
   }
 }
@@ -505,12 +505,12 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @top-right {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: right;
   }
 }
 
-/*  RUNNING HEADS INSIDE: 
+/*  RUNNING HEADS INSIDE:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
@@ -524,8 +524,8 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-left {
     content: counter(page);
-    @include pagenumber;    
-    text-algin: left;
+    @include pagenumber;
+    text-align: left;
   }
 }
 @page part:right {
@@ -536,12 +536,12 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-right {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: right;
   }
 }
 
-/* RUNNING HEADS INSIDE: 
+/* RUNNING HEADS INSIDE:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page chapter:first {
@@ -555,7 +555,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-left {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: left;
   }
 }
@@ -567,12 +567,12 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @top-right {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: right;
   }
 }
 
-/* RUNNING HEADS INSIDE: 
+/* RUNNING HEADS INSIDE:
 BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page back-matter:first {
@@ -586,7 +586,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @top-left {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: left;
   }
 }
@@ -598,26 +598,26 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @top-right {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: right;
   }
 }
 }
 
 //=============================
-//RUNNING HEADS CENTER 
+//RUNNING HEADS CENTER
 //=============================
 
 @mixin RunningHeadCenter {
 
-/* RUNNING HEAD CENTER: 
+/* RUNNING HEAD CENTER:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page front-matter:first {
   @include blankheadandfoot;
   @bottom {
     content: counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
     text-align: center;
   }
 }
@@ -630,7 +630,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom {
     content: counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
     text-align: center;
   }
 }
@@ -642,19 +642,19 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom {
     content: counter(page, lower-roman);
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
     text-align: center;
   }
 }
 
-/* RUNNING HEADS CENTER: 
+/* RUNNING HEADS CENTER:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page introduction:first {
   @include blankheadandfoot;
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: center;
   }
 }
@@ -667,7 +667,7 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: center;
   }
 }
@@ -679,12 +679,12 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: center;
   }
 }
 
-/*  RUNNING HEADS CENTER: 
+/*  RUNNING HEADS CENTER:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
@@ -698,8 +698,8 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
-    text-algin: center;
+    @include pagenumber;
+    text-align: center;
   }
 }
 @page part:right {
@@ -710,19 +710,19 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: center;
   }
 }
 
-/* RUNNING HEADS CENTER: 
+/* RUNNING HEADS CENTER:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page chapter:first {
   @include blankheadandfoot;
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: center;
   }
 }
@@ -734,7 +734,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: center;
   }
 }
@@ -746,19 +746,19 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: center;
   }
 }
 
-/* RUNNING HEADS CENTER: 
+/* RUNNING HEADS CENTER:
 BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page back-matter:first {
   @include blankheadandfoot;
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: center;
   }
 }
@@ -770,7 +770,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: center;
   }
 }
@@ -782,24 +782,24 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom {
     content: counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     text-align: center;
   }
 }
 }
 
 //=============================
-//RUNNING HEADS CENTER2 
+//RUNNING HEADS CENTER2
 //=============================
 
 @mixin RunningHeadCenter2 {
 
-/* RUNNING HEAD CENTER2: 
+/* RUNNING HEAD CENTER2:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page front-matter:first {
   @include blankheadandfoot;
- 
+
 }
 @page front-matter:left {
 
@@ -817,7 +817,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
 }
 
-/* RUNNING HEADS CENTER2: 
+/* RUNNING HEADS CENTER2:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page introduction:first {
@@ -839,7 +839,7 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
 }
 
-/*  RUNNING HEADS CENTER2: 
+/*  RUNNING HEADS CENTER2:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
@@ -860,7 +860,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
 }
 
-/* RUNNING HEADS CENTER2: 
+/* RUNNING HEADS CENTER2:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page chapter:first {
@@ -882,7 +882,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
 }
 
-/* RUNNING HEADS CENTER2: 
+/* RUNNING HEADS CENTER2:
 BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page back-matter:first {
@@ -907,12 +907,12 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 
 //========================
-//RUNNING FOOT OUTSIDE 
+//RUNNING FOOT OUTSIDE
 //========================
 
 @mixin RunningFootOutside {
 
-/* RUNNING FOOT OUTSIDE: 
+/* RUNNING FOOT OUTSIDE:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page front-matter:first {
@@ -939,7 +939,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-left-corner {
     content: counter(page, lower-roman) "\A0\A0";
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
     margin-left: -1cm;
   }
 }
@@ -950,12 +950,12 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-right-corner {
     content: "\A0\A0" counter(page, lower-roman) ;
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
     margin-right: -1cm;
   }
 }
 
-/* RUNNING FOOT OUTSIDE: 
+/* RUNNING FOOT OUTSIDE:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page introduction:first {
@@ -982,7 +982,7 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-left-corner {
     content: counter(page) "\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
     margin-left: -1cm;
   }
 }
@@ -993,12 +993,12 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-right-corner {
     content: "\A0\A0" counter(page) ;
-    @include pagenumber;    
+    @include pagenumber;
     margin-right: -1cm;
   }
 }
 
-/* RUNNING FOOT OUTSIDE: 
+/* RUNNING FOOT OUTSIDE:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
@@ -1025,7 +1025,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-left-corner {
     content: counter(page) "\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
     margin-left: -1cm;
   }
 }
@@ -1036,12 +1036,12 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-right-corner {
     content: "\A0\A0" counter(page) ;
-    @include pagenumber;    
+    @include pagenumber;
     margin-right: -1cm;
   }
 }
 
-/* RUNNING FOOT OUTSIDE: 
+/* RUNNING FOOT OUTSIDE:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page chapter:first {
@@ -1068,7 +1068,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-left-corner {
     content: counter(page) "\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
     margin-left: -1cm;
   }
 }
@@ -1079,12 +1079,12 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-right-corner {
     content: "\A0\A0" counter(page) ;
-    @include pagenumber;    
+    @include pagenumber;
     margin-right: -1cm;
   }
 }
 
-/* RUNNING FOOT OUTSIDE: 
+/* RUNNING FOOT OUTSIDE:
 BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page back-matter:first {
@@ -1111,7 +1111,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-left-corner {
     content: counter(page) "\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
     margin-left: -1cm;
   }
 }
@@ -1122,19 +1122,19 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-right-corner {
     content: "\A0\A0" counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     margin-right: -1cm;
   }
 }
 }
 
 //========================
-//RUNNING FOOT OUTSIDE2 
+//RUNNING FOOT OUTSIDE2
 //========================
 
 @mixin RunningFootOutside2 {
 
-/* RUNNING FOOT OUTSIDE2: 
+/* RUNNING FOOT OUTSIDE2:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page front-matter:first {
@@ -1161,7 +1161,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-left-corner {
     content: counter(page, lower-roman) "\A0\A0|\A0\A0";
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
     margin-left: -1cm;
   }
 }
@@ -1172,12 +1172,12 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-right-corner {
     content: "\A0\A0|\A0\A0" counter(page, lower-roman) ;
-    @include frontmatterpagenumber;    
+    @include frontmatterpagenumber;
     margin-right: -1cm;
   }
 }
 
-/* RUNNING FOOT OUTSIDE2: 
+/* RUNNING FOOT OUTSIDE2:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page introduction:first {
@@ -1204,7 +1204,7 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-left-corner {
     content: counter(page) "\A0\A0|\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
     margin-left: -1cm;
   }
 }
@@ -1215,12 +1215,12 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-right-corner {
     content: "\A0\A0|\A0\A0" counter(page) ;
-    @include pagenumber;    
+    @include pagenumber;
     margin-right: -1cm;
   }
 }
 
-/* RUNNING FOOT OUTSIDE2: 
+/* RUNNING FOOT OUTSIDE2:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page part:first {
@@ -1247,7 +1247,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-left-corner {
     content: counter(page) "\A0\A0|\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
     margin-left: -1cm;
   }
 }
@@ -1258,12 +1258,12 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-right-corner {
     content: "\A0\A0|\A0\A0" counter(page) ;
-    @include pagenumber;    
+    @include pagenumber;
     margin-right: -1cm;
   }
 }
 
-/* RUNNING FOOT OUTSIDE2: 
+/* RUNNING FOOT OUTSIDE2:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 @page chapter:first {
@@ -1290,7 +1290,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-left-corner {
     content: counter(page) "\A0\A0|\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
     margin-left: -1cm;
   }
 }
@@ -1301,12 +1301,12 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   }
   @bottom-right-corner {
     content: "\A0\A0|\A0\A0" counter(page) ;
-    @include pagenumber;    
+    @include pagenumber;
     margin-right: -1cm;
   }
 }
 
-/* RUNNING FOOT OUTSIDE2: 
+/* RUNNING FOOT OUTSIDE2:
 BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @page back-matter:first {
@@ -1333,7 +1333,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-left-corner {
     content: counter(page) "\A0\A0|\A0\A0";
-    @include pagenumber;    
+    @include pagenumber;
     margin-left: -1cm;
   }
 }
@@ -1344,7 +1344,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
   }
   @bottom-right-corner {
     content: "\A0\A0|\A0\A0" counter(page);
-    @include pagenumber;    
+    @include pagenumber;
     margin-right: -1cm;
   }
 }
@@ -1357,7 +1357,7 @@ BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
 @mixin RunningHeadCenter3 {
 
-/* RUNNING HEAD CENTER3: 
+/* RUNNING HEAD CENTER3:
 FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
   @page front-matter:first {
@@ -1366,7 +1366,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   @page front-matter:left {
     @top-left-corner {
       @include frontmatterpagenumber;
-      content: counter(page, lower-roman) "\A0\A0\A0\A0"; 
+      content: counter(page, lower-roman) "\A0\A0\A0\A0";
     }
     @top {
       content: $FrontMatterRunningContentLeft;
@@ -1385,7 +1385,7 @@ FRONT-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
       text-align: center;
     }
   }
-  /* RUNNING HEADS CENTER3: 
+  /* RUNNING HEADS CENTER3:
 INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
   @page introduction:first {
@@ -1409,13 +1409,13 @@ INTRODUCTION PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
       content: "\A0\A0\A0\A0" counter(page);
     }
     @top {
-      content:  $IntroductionRunningContentRight; 
+      content:  $IntroductionRunningContentRight;
       @include runningheadright;
       text-align: center;
     }
   }
 
-/*  RUNNING HEADS CENTER3: 
+/*  RUNNING HEADS CENTER3:
 PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
   @page part:first {
@@ -1425,7 +1425,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
     @top-left-corner{
       @include pagenumber;
       content: counter(page) "\A0\A0\A0\A0";
-    }  
+    }
     @top {
       content: $PartRunningContentLeft;
       @include runningheadleft;
@@ -1446,7 +1446,7 @@ PART PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
 
 
-/* RUNNING HEADS CENTER3: 
+/* RUNNING HEADS CENTER3:
 CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
 
   @page chapter:first {
@@ -1455,7 +1455,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
   @page chapter:left {
     @top-left-corner {
       @include pagenumber;
-      content: counter(page) "\A0\A0\A0\A0"; 
+      content: counter(page) "\A0\A0\A0\A0";
     }
     @top {
       content: $ChapterRunningContentLeft;
@@ -1475,7 +1475,7 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
     }
   }
 
-  /* RUNNING HEADS CENTER3: 
+  /* RUNNING HEADS CENTER3:
   BACK-MATTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS */
 
   @page back-matter:first {
@@ -1502,8 +1502,6 @@ CHAPTER PAGES: RUNNING HEADS/FEET/PAGE NUMBERS; */
        @include runningheadright;
        text-align: center;
     }
-  }  
+  }
 
 }
-
-
