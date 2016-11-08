@@ -900,6 +900,8 @@ function admin_notices() {
 		foreach ( $_SESSION['pb_errors'] as $msg ) {
 			echo '<div class="error"><p>' . $msg . '</p></div>';
 		}
+		// Destroy
+		unset( $_SESSION['pb_errors'] );
 	}
 
 	if ( ! empty( $_SESSION['pb_notices'] ) ) {
@@ -911,9 +913,7 @@ function admin_notices() {
 		foreach ( $_SESSION['pb_notices'] as $msg ) {
 			echo '<div class="updated"><p>' . $msg . '</p></div>';
 		}
+		// Destroy
+		unset( $_SESSION['pb_notices'] );
 	}
-
-	// Destroy
-	unset( $_SESSION['pb_errors'] );
-	unset( $_SESSION['pb_notices'] );
 }
