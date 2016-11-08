@@ -5,7 +5,7 @@
  */
 namespace Pressbooks\Admin\Diagnostics;
 
-require_once( PB_PLUGIN_DIR . 'symbionts/browser.php' );
+require_once( PB_PLUGIN_DIR . 'symbionts/Browser.php' );
 
 /**
  * Add the diagnostics menu (with parent page set to null)
