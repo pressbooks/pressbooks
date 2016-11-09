@@ -11,9 +11,19 @@
 	</div><!-- #content -->
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="site-info">
-		Copyright &copy; <?php echo date('Y'); ?> <?php bloginfo('name');?> <a href="<?php echo esc_url( __( 'http://pressbooks.com', 'pressbooks' ) ); ?>"><?php printf( esc_html__( 'is powered by %s', 'pressbooks' ), 'Pressbooks.com' ); ?></a>
-		</div><!-- .site-info -->
+		<?php $contentinfo = sprintf(
+			'%s &copy; %d | %s %s <a href="%s">%s</a>',
+			__( 'Copyright', 'pressbooks' ),
+			date( 'Y' ),
+			get_bloginfo( 'name' ),
+			__( 'is powered by', 'pressbooks' ),
+			esc_url( 'https://pressbooks.com' ),
+			'Pressbooks'
+		);
+		printf(
+			'<div class="site-info">%s</div> <!-- .site-info -->',
+			apply_filters( 'pressbooks_publisher_content_info', $contentinfo )
+		); ?>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 
