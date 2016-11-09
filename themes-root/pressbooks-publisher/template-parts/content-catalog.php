@@ -48,6 +48,9 @@ if ( get_blog_option( $book->blog_id, 'pressbooks_publisher_in_catalog' ) ) :
 
 <?php endif;
 endforeach;
-if ( $c == 0 ) : ?>
-<p class="center"><?php _e( 'The manager of this Pressbooks network has not made any books public viewable.', 'pressbooks' ); ?></p>
-<?php endif;
+if ( 0 == $c ) {
+	printf(
+		'<p class="center">%s</p>',
+		apply_filters( 'pressbooks_publisher_empty_catalog', __( 'The manager of this Pressbooks network has not made any books public viewable.', 'pressbooks' ) )
+	);
+}
