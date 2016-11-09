@@ -24,6 +24,7 @@ function _pb_session_start() {
 	if ( ! session_id() ) {
 		if ( ! headers_sent() ) {
 			ini_set( 'session.use_only_cookies', true );
+			apply_filters( 'pressbooks_session_configuration', false );
 			session_start();
 		} else {
 			error_log( 'There was a problem with _pb_session_start(), headers already sent!' );
