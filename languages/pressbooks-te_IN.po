@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-11-07 17:54-0400\n"
-"PO-Revision-Date: 2016-11-07 21:54+0000\n"
+"POT-Creation-Date: 2016-11-09 13:43-0400\n"
+"PO-Revision-Date: 2016-11-09 17:44+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Telugu (India) (http://www.transifex.com/pressbooks/pressbooks/language/te_IN/)\n"
 "MIME-Version: 1.0\n"
@@ -780,6 +780,7 @@ msgstr ""
 #: includes/modules/export/mpdf/class-pb-pdf.php:309
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:657
 #: themes-book/pressbooks-book/footer.php:39
+#: themes-root/pressbooks-publisher/footer.php:16
 msgid "Copyright"
 msgstr ""
 
@@ -3966,13 +3967,8 @@ msgstr ""
 msgid "Newer Comments"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/footer.php:15
-msgid "http://pressbooks.com"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/footer.php:15
-#, php-format
-msgid "is powered by %s"
+#: themes-root/pressbooks-publisher/footer.php:19
+msgid "is powered by"
 msgstr ""
 
 #: themes-root/pressbooks-publisher/functions.php:88
@@ -4214,7 +4210,7 @@ msgstr ""
 msgid "Read more"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/template-parts/content-catalog.php:52
+#: themes-root/pressbooks-publisher/template-parts/content-catalog.php:54
 msgid ""
 "The manager of this Pressbooks network has not made any books public "
 "viewable."
