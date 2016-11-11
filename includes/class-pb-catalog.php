@@ -202,7 +202,7 @@ class Catalog {
 				$data[ $i ]['cover_url']['full'] = $cover;
 
 				// Cover Thumbnails
-				$cid = \Pressbooks\Image\attachment_id_from_url( $cover );
+				$cid = \Pressbooks\Image\attachment_id_from_url( $metadata['pb_cover_image'] );
 				foreach ( $cover_sizes as $size => $default ) {
 					$cid_thumb = wp_get_attachment_image_src( $cid, $size );
 					if ( $cid_thumb ) {
@@ -263,7 +263,7 @@ class Catalog {
 			$data[ $i ]['cover_url']['full'] = $cover;
 
 			// Cover Thumbnails
-			$cid = \Pressbooks\Image\attachment_id_from_url( $cover );
+			$cid = \Pressbooks\Image\attachment_id_from_url( $metadata['pb_cover_image'] );
 			foreach ( $cover_sizes as $size => $default ) {
 				$cid_thumb = wp_get_attachment_image_src( $cid, $size );
 				if ( $cid_thumb ) {
