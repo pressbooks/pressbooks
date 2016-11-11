@@ -879,7 +879,7 @@ class Xhtml11 extends Export {
 
 		echo '</div>';
 	}
-	
+
 
 	/**
 	 * @param array $book_contents
