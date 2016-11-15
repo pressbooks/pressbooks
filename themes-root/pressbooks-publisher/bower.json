@@ -1,0 +1,20 @@
+{
+  "name": "sage",
+  "homepage": "https://roots.io/sage/",
+  "authors": [
+    "Ben Word <ben@benword.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "bootstrap-sass": "3.3.6",
+    "matchHeight": "jquery-match-height#^0.7.0"
+  },
+  "overrides": {
+    "bootstrap-sass": {
+      "main": [
+        "./assets/stylesheets/_bootstrap.scss"
+      ]
+    }
+  }
+}
