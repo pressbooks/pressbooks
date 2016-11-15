@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-11-09 13:43-0400\n"
+"POT-Creation-Date: 2016-11-15 13:57-0400\n"
 "PO-Revision-Date: 2015-08-08 13:43-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Pressbooks <code@pressbooks.com>\n"
@@ -355,7 +355,7 @@ msgstr ""
 #: includes/modules/export/epub/templates/epub201/opf.php:72
 #: includes/modules/export/epub/templates/epub3/opf.php:85
 #: includes/modules/export/mpdf/class-pb-pdf.php:315
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:659
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:660
 #: themes-book/pressbooks-book/footer.php:41
 msgid "by"
 msgstr ""
@@ -714,7 +714,7 @@ msgstr ""
 #: includes/modules/export/epub/templates/epub201/opf.php:69
 #: includes/modules/export/epub/templates/epub3/opf.php:82
 #: includes/modules/export/mpdf/class-pb-pdf.php:309
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:657
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:658
 #: themes-book/pressbooks-book/footer.php:39
 #: themes-root/pressbooks-publisher/footer.php:16
 msgid "Copyright"
@@ -1333,7 +1333,7 @@ msgid "Table Of Contents"
 msgstr ""
 
 #: includes/modules/export/epub/class-pb-epub201.php:1540
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:727
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:728
 msgid "Contents"
 msgstr ""
 
@@ -1351,7 +1351,7 @@ msgstr ""
 msgid "Invalid permission error"
 msgstr ""
 
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:311
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:312
 msgid "Notes"
 msgstr ""
 
@@ -2912,12 +2912,12 @@ msgstr ""
 msgid "Apply Class"
 msgstr ""
 
-#: pressbooks.php:96
+#: pressbooks.php:97
 #, php-format
 msgid "Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:105
+#: pressbooks.php:106
 msgid "Cannot find Pressbooks install."
 msgstr ""
 

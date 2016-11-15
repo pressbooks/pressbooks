@@ -1,3 +1,9 @@
+### 3.9.4.2
+* **Feature:** It is now possibled to modify the default session configuration via the `pressbooks_session_configuration` filter hook (props to @monkecheese).
+* **Feature:** The `pb_append_chapter_content` is now available in the mPDF exporter (props to @monkecheese).
+* **Enhancement:** The `generator` meta property has been added to XHTML exports.
+* **Fix:** A bug which resulted in anchors being added to internal links twice in EPUB exports has been resolved.
+
 ### 3.9.4.1
 * **Feature:** The copyright string in the Pressbooks Publisher theme footer can now be customized via the `pressbooks_publisher_content_info` filter.
 * **Feature:** The text that is displayed when there are no books in a Pressbooks Publisher catalog can now be customized via the `pressbooks_publisher_empty_catalog` filter.

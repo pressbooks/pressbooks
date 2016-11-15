@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.4.1
+Version: 3.9.4.2
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Version: 3.9.4.1
+Version: 3.9.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -235,6 +235,12 @@ As of Pressbooks >= 3.9.3, [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/
 Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
 
 == Changelog ==
+
+= 3.9.4.2 =
+* **Feature:** It is now possibled to modify the default session configuration via the `pressbooks_session_configuration` filter hook (props to @monkecheese).
+* **Feature:** The `pb_append_chapter_content` is now available in the mPDF exporter (props to @monkecheese).
+* **Enhancement:** The `generator` meta property has been added to XHTML exports.
+* **Fix:** A bug which resulted in anchors being added to internal links twice in EPUB exports has been resolved.
 
 = 3.9.4.1 =
 * **Feature:** The copyright string in the Pressbooks Publisher theme footer can now be customized via the `pressbooks_publisher_content_info` filter.
