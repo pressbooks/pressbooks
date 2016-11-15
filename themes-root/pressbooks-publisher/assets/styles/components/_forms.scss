@@ -1,0 +1,21 @@
+[type='text'],
+[type='email'],
+[type='password'] {
+  @extend .form-control;
+}
+
+.mu_register {
+  form {
+    p {
+      margin-top: 1em;
+    }
+  }
+
+  label {
+    @extend .control-label;
+
+    &:not(.checkbox) {
+      margin: 1em 0 10px;
+    }
+  }
+}
