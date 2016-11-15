@@ -12,9 +12,7 @@
 
 	<footer class="content-info">
 		<?php $contentinfo = sprintf(
-			'%s &copy; %d<span class="sep"> | %s <a href="%s">%s</a>',
-			__( 'Copyright', 'pressbooks' ),
-			date( 'Y' ),
+			'%s <a href="%s">%s</a>',
 			__( 'Powered by', 'pressbooks' ),
 			esc_url( 'https://pressbooks.com' ),
 			'Pressbooks'

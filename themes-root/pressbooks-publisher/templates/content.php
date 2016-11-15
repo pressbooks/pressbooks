@@ -1,53 +1,43 @@
 <div class="page-content col-xs-12 col-md-8 col-md-offset-2">
+	<div class="catalog row">
 	<?php $books = new WP_Site_Query( array( 'public' => '1' ) );
-	$c = 0;
-	foreach ( $books->sites as $book ):
-		echo $book->blog_id . '<br />';
-		if ( get_blog_option( $book->blog_id, 'pressbooks_publisher_in_catalog' ) ) :
-		$c++;
-		switch_to_blog( $book->blog_id );
-		$metadata = pb_get_book_information();
-		restore_current_blog(); ?>
+	foreach ( $books->sites as $book ) {
+		if ( get_blog_option( $book->blog_id, 'pressbooks_publisher_in_catalog' ) ) {
+			switch_to_blog( $book->blog_id );
+			$metadata = pb_get_book_information();
+			restore_current_blog(); ?>
 
-		<article id="post-<?php echo $book->blog_id; ?>" <?php post_class('catalog-book'); ?>>
+		<div id="book-<?php echo $book->blog_id; ?>" class="book">
 
 			<a href="//<?php echo $book->domain . $book->path; ?>" title="<?php echo $metadata['pb_title']; ?>"><img src="<?php echo $metadata['pb_cover_image']; ?>" width="500" height="650" alt="<?php echo $metadata['pb_title']; ?>" /></a>
 
-			<header class="entry-header">
-				<h2 class="entry-title"><a href="//<?php echo $book->domain . $book->path; ?>" title="<?php echo $metadata['pb_title']; ?>"><?php echo $metadata['pb_title']; ?></a></h2>
+			<header class="header">
+				<h2 class="title"><a href="//<?php echo $book->domain . $book->path; ?>" title="<?php echo $metadata['pb_title']; ?>"><?php echo $metadata['pb_title']; ?></a></h2>
+				<p class="author"><?php echo $metadata['pb_author']; ?></p>
+			</header><!-- .header -->
 
-				<p class="entry-author"><?php echo $metadata['pb_author']; ?></p>
-			</header><!-- .entry-header -->
-
-			<div class="entry-content">
+			<div class="excerpt">
 				<?php if ( isset( $metadata['pb_about_50'] ) ) : ?>
 				<p><?php $about = pb_decode( $metadata['pb_about_50'] );
-				if ( strlen( $about ) > 140){
-					$about =  substr( $about, 0, 140 ) . '...';
+				if ( strlen( $about ) > 140 ) {
+					$about = substr( $about, 0, 140 ) . '&hellip;';
 				} echo $about; ?></p>
 				<?php endif; ?>
-			</div><!-- .entry-content -->
+			</div><!-- .excerpt -->
 
-			<footer class="entry-footer">
+			<footer class="footer">
 
 				<div class="button-wrap">
-					<a href="//<?php echo $book->domain . $book->path; ?>" class="more-btn"><?php _e('Read more', 'pressbooks'); ?></a>
+					<a href="//<?php echo $book->domain . $book->path; ?>" class="btn btn-primary"><?php _e( 'Read More', 'pressbooks' ); ?></a>
 				</div>
 
-				<?php if ( isset( $metadata['pb_keywords_tags'] ) ) : ?>
-				<span class="book-tag"><?php echo $metadata['pb_keywords_tags']; ?></span>
-				<?php endif; ?>
+				<?php if ( isset( $metadata['pb_keywords_tags'] ) ) { ?>
+					<span class="tag"><?php echo $metadata['pb_keywords_tags']; ?></span>
+				<?php } ?>
 
-			</footer><!-- .entry-footer -->
-		</article><!-- #post-## -->
-
-
-	<?php endif;
-	endforeach;
-	if ( 0 == $c ) {
-		printf(
-			'<p class="center">%s</p>',
-			apply_filters( 'pressbooks_publisher_empty_catalog', __( 'The manager of this Pressbooks network has not made any books public viewable.', 'pressbooks' ) )
-		);
-	}
-?></div>
+			</footer><!-- .footer -->
+		</div><!-- #book-## -->
+	<?php }
+	} ?>
+	</div>
+</div>

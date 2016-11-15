@@ -22,11 +22,6 @@
         "scripts/customizer.js"
       ]
     },
-    "navigation.js": {
-      "files": [
-        "scripts/navigation.js"
-      ]
-    },
     "skip-link-focus-fix.js": {
       "files": [
         "scripts/skip-link-focus-fix.js"

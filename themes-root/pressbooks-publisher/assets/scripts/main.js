@@ -1,7 +1,7 @@
 (function($) {
 
-    $('.site-main').each(function() {
-        $(this).children('.catalog-book').matchHeight();
+    $('.catalog').each(function() {
+        $(this).children('.book').matchHeight();
     });
 
 
