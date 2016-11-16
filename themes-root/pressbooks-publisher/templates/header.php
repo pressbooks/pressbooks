@@ -7,7 +7,7 @@
 			<?php }
 			$user_info = get_userdata( get_current_user_id() );
 			if ( $user_info->primary_blog ) { ?>
-				<a href="<?php $user_info = get_userdata( get_current_user_id() ); ?><? echo get_blogaddress_by_id( $user_info->primary_blog ); ?>wp-admin/index.php?page=pb_catalog" class="btn btn-primary btn-sm"><?php _e( 'My Books', 'pressbooks' ); ?></a>
+				<a href="<?php echo get_blogaddress_by_id( $user_info->primary_blog ); ?>wp-admin/index.php?page=pb_catalog" class="btn btn-primary btn-sm"><?php _e( 'My Books', 'pressbooks' ); ?></a>
 			<?php } ?>
 			<a href="<?php echo wp_logout_url(); ?>" class="btn btn-primary btn-sm"><?php _e( 'Sign Out', 'pressbooks' ); ?></a>
 		<?php } ?>
@@ -28,7 +28,7 @@
 			<div class="login-block">
 			<?php if ( class_exists( '\PressbooksOAuth\OAuth' ) ) {
 				do_action( 'pressbooks_oauth_connect' );
-			}	else { ?>
+				}	else { ?>
 				<a href="<?php echo wp_login_url( get_option( 'home' ) ); ?>" class="button"><?php _e( 'Sign In', 'pressbooks' ); ?></a>
 				<?php if ( get_option( 'users_can_register' ) ) { ?>
 					<a class="button" href="<?php echo esc_url( wp_registration_url() ); ?>"><?php _e( 'Register' ); ?></a>
