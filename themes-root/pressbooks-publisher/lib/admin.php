@@ -41,8 +41,9 @@ add_filter( 'wpmu_blogs_columns', 'pressbooks_publisher_catalog_columns' );
 
 function pressbooks_publisher_catalog_column( $column, $blog_id ) {
 
-	if ( $column == 'in_catalog' && !is_main_site( $blog_id ) ) { ?>
-		<input class="in-catalog" type="checkbox" name="in_catalog" value="1" <?php checked( get_blog_option( $blog_id, 'pressbooks_publisher_in_catalog' ), 1 ); ?> />
+	if ( 'in_catalog' == $column && ! is_main_site( $blog_id ) ) { ?>
+		<input class="in-catalog" type="checkbox" name="in_catalog" value="1" <?php checked( get_blog_option( $blog_id, 'pressbooks_publisher_in_catalog' ), 1 ); ?> <?php
+		if ( ! get_blog_option( $blog_id, 'blog_public' ) ) { ?>disabled="disabled" title="<?php _e( 'This book is private, so you can&rsquo;t display it in your catalog.', 'pressbooks' ); ?>"<?php } ?> />
 	<?php }
 
 }
