@@ -455,7 +455,7 @@ function check_xmllint_install() {
 	if ( false !== strpos( $output, 'libxml' ) ) { // Command found.
 		$output = explode( PB_XMLLINT_COMMAND . ': using libxml version ', $output );
 		$version = $output[1];
-		if ( version_compare( $version, '20800' ) >= 0 ) {
+		if ( version_compare( $version, '20706' ) >= 0 ) {
 			return true;
 		}
 	}
