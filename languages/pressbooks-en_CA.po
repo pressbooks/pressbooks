@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-11-09 13:43-0400\n"
-"PO-Revision-Date: 2016-11-09 17:44+0000\n"
+"POT-Creation-Date: 2016-11-15 22:43-0400\n"
+"PO-Revision-Date: 2016-11-16 02:43+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: English (Canada) (http://www.transifex.com/pressbooks/pressbooks/language/en_CA/)\n"
 "MIME-Version: 1.0\n"
@@ -395,7 +395,7 @@ msgstr "Last 10 CSS Revisions"
 #: includes/modules/export/epub/templates/epub201/opf.php:72
 #: includes/modules/export/epub/templates/epub3/opf.php:85
 #: includes/modules/export/mpdf/class-pb-pdf.php:315
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:659
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:660
 #: themes-book/pressbooks-book/footer.php:41
 msgid "by"
 msgstr "by"
@@ -490,6 +490,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/pb-laf.php:17
+#: themes-root/pressbooks-publisher/templates/footer.php:16
 msgid "Powered by"
 msgstr "Powered by"
 
@@ -781,9 +782,8 @@ msgstr ""
 #: includes/modules/export/epub/templates/epub201/opf.php:69
 #: includes/modules/export/epub/templates/epub3/opf.php:82
 #: includes/modules/export/mpdf/class-pb-pdf.php:309
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:657
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:658
 #: themes-book/pressbooks-book/footer.php:39
-#: themes-root/pressbooks-publisher/footer.php:16
 msgid "Copyright"
 msgstr "Copyright"
 
@@ -1423,7 +1423,7 @@ msgid "Table Of Contents"
 msgstr "Table Of Contents"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1540
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:727
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:728
 msgid "Contents"
 msgstr "Contents"
 
@@ -1443,7 +1443,7 @@ msgstr ""
 msgid "Invalid permission error"
 msgstr "Invalid permission error"
 
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:311
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:312
 msgid "Notes"
 msgstr "Notes"
 
@@ -3073,7 +3073,7 @@ msgstr ""
 msgid "Apply Class"
 msgstr ""
 
-#: pressbooks.php:96
+#: pressbooks.php:97
 #, php-format
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
@@ -3081,7 +3081,7 @@ msgid ""
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:105
+#: pressbooks.php:106
 msgid "Cannot find Pressbooks install."
 msgstr ""
 
@@ -3184,7 +3184,6 @@ msgstr ""
 #: symbionts/disable-comments-mu/disable-comments-mu.php:95
 #: symbionts/disable-comments-mu/disable-comments-mu.php:121
 #: themes-book/pressbooks-book/comments.php:40
-#: themes-root/pressbooks-publisher/comments.php:75
 msgid "Comments are closed."
 msgstr "Comments are closed."
 
@@ -3576,8 +3575,6 @@ msgstr ""
 #: templates/admin/organize.php:160 templates/admin/organize.php:194
 #: themes-book/pressbooks-book/page.php:11
 #: themes-book/pressbooks-book/single.php:5
-#: themes-root/pressbooks-publisher/inc/template-tags.php:126
-#: themes-root/pressbooks-publisher/template-parts/content-page.php:25
 msgid "Edit"
 msgstr "Edit"
 
@@ -3673,7 +3670,7 @@ msgstr "logout"
 #: templates/pb-catalog.php:180
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
-#: themes-root/pressbooks-publisher/header.php:42
+#: themes-root/pressbooks-publisher/templates/header.php:6
 msgid "Admin"
 msgstr "Admin"
 
@@ -3719,7 +3716,6 @@ msgid ""
 msgstr "This post is password protected. Enter the password to view any comments."
 
 #: themes-book/pressbooks-book/comments.php:13
-#: themes-root/pressbooks-publisher/comments.php:29
 #, php-format
 msgctxt "comments title"
 msgid "One Response to %2$s"
@@ -3742,12 +3738,10 @@ msgid "Submit"
 msgstr "Submit"
 
 #: themes-book/pressbooks-book/content-none.php:2
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:13
 msgid "Nothing Found"
 msgstr "Nothing Found"
 
 #: themes-book/pressbooks-book/content-none.php:3
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:23
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
@@ -3824,7 +3818,6 @@ msgid "Make your own books on Pressbooks"
 msgstr "Make your own books on Pressbooks"
 
 #: themes-book/pressbooks-book/header.php:30
-#: themes-root/pressbooks-publisher/inc/extras.php:52
 #, php-format
 msgid "Page %s"
 msgstr "Page %s"
@@ -3916,14 +3909,10 @@ msgid "Download in the following formats:"
 msgstr ""
 
 #: themes-book/pressbooks-book/page.php:13
-#: themes-root/pressbooks-publisher/template-parts/content-page.php:18
-#: themes-root/pressbooks-publisher/template-parts/content-single.php:20
-#: themes-root/pressbooks-publisher/template-parts/content.php:29
 msgid "Pages:"
 msgstr "Pages:"
 
 #: themes-book/pressbooks-book/search.php:5
-#: themes-root/pressbooks-publisher/search.php:16
 #, php-format
 msgid "Search Results for: %s"
 msgstr "Search Results for: %s"
@@ -3936,304 +3925,104 @@ msgstr "Home"
 msgid "Close"
 msgstr "Close"
 
-#: themes-root/pressbooks-publisher/404.php:15
-msgid "Oops! That page can&rsquo;t be found."
-msgstr "Oops! That page can&rsquo;t be found."
-
-#: themes-root/pressbooks-publisher/404.php:19
-msgid ""
-"It looks like nothing was found at this location. Maybe try one of the links"
-" below or a search?"
-msgstr "It looks like nothing was found at this location. Maybe try one of the links below or a search?"
-
-#: themes-root/pressbooks-publisher/404.php:27
-msgid "Most Used Categories"
-msgstr "Most Used Categories"
-
-#: themes-root/pressbooks-publisher/404.php:44
-#, php-format
-msgid "Try looking in the monthly archives. %1$s"
-msgstr "Try looking in the monthly archives. %1$s"
-
-#: themes-root/pressbooks-publisher/comments.php:38
-#: themes-root/pressbooks-publisher/comments.php:59
-msgid "Comment navigation"
-msgstr "Comment navigation"
-
-#: themes-root/pressbooks-publisher/comments.php:41
-#: themes-root/pressbooks-publisher/comments.php:62
-msgid "Older Comments"
-msgstr "Older Comments"
-
-#: themes-root/pressbooks-publisher/comments.php:42
-#: themes-root/pressbooks-publisher/comments.php:63
-msgid "Newer Comments"
-msgstr "Newer Comments"
-
-#: themes-root/pressbooks-publisher/footer.php:19
-msgid "is powered by"
+#: themes-root/pressbooks-publisher/404.php:4
+msgid "Sorry, but this page does not exist."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:88
-msgctxt "Oswald font: on or off"
-msgid "on"
-msgstr "on"
+#: themes-root/pressbooks-publisher/base.php:14
+#: themes-root/pressbooks-publisher/header-wp-signup.php:14
+msgid ""
+"You are using an <strong>outdated</strong> browser. Please <a "
+"href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your "
+"experience."
+msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:94
-msgctxt "Droid Serif font: on or off"
-msgid "on"
-msgstr "on"
+#: themes-root/pressbooks-publisher/functions.php:24
+#, php-format
+msgid "Error locating %s for inclusion"
+msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:100
-msgctxt "Droid Sans font: on or off"
-msgid "on"
-msgstr "on"
-
-#: themes-root/pressbooks-publisher/functions.php:233
+#: themes-root/pressbooks-publisher/lib/admin.php:12
 msgid "Catalog updated."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:234
+#: themes-root/pressbooks-publisher/lib/admin.php:13
 msgid "Sorry, but your catalog was not updated. Please try again."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:235
+#: themes-root/pressbooks-publisher/lib/admin.php:14
 msgid "Dismiss this notice."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:257
+#: themes-root/pressbooks-publisher/lib/admin.php:36
 msgid "In Catalog"
 msgstr "In Catalogue"
 
-#: themes-root/pressbooks-publisher/header.php:22
-msgid "Skip to content"
-msgstr "Skip to content"
-
-#: themes-root/pressbooks-publisher/header.php:32
-msgid "Sign in"
-msgstr "Sign in"
-
-#: themes-root/pressbooks-publisher/header.php:34
-msgid "Register"
+#: themes-root/pressbooks-publisher/lib/admin.php:46
+msgid "This book is private, so you can&rsquo;t display it in your catalog."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/header.php:37
-msgid "Sign out"
-msgstr "Sign out"
-
-#: themes-root/pressbooks-publisher/header.php:39
-msgid "My Books"
-msgstr "My Books"
-
-#: themes-root/pressbooks-publisher/inc/customizer.php:20
-#: themes-root/pressbooks-publisher/inc/customizer.php:36
+#: themes-root/pressbooks-publisher/lib/customizer.php:16
+#: themes-root/pressbooks-publisher/lib/customizer.php:33
 msgid "About Us"
 msgstr "About Us"
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:21
+#: themes-root/pressbooks-publisher/lib/customizer.php:17
 msgid "Add a description of your collection or institution below."
 msgstr "Add a description of your collection or institution below."
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:52
+#: themes-root/pressbooks-publisher/lib/customizer.php:49
 msgid "Columns"
 msgstr "Columns"
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:53
+#: themes-root/pressbooks-publisher/lib/customizer.php:50
 msgid "Display your intro text in one or two columns."
 msgstr "Display your intro text in one or two columns."
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:57
+#: themes-root/pressbooks-publisher/lib/customizer.php:54
 msgid "One column"
 msgstr "One column"
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:58
+#: themes-root/pressbooks-publisher/lib/customizer.php:55
 msgid "Two columns"
 msgstr "Two columns"
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:23
-msgid "Posts navigation"
-msgstr "Posts navigation"
+#: themes-root/pressbooks-publisher/lib/extras.php:26
+msgid "Continued"
+msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:27
-msgid "Older posts"
-msgstr "Older posts"
+#: themes-root/pressbooks-publisher/lib/titles.php:13
+msgid "Latest Posts"
+msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:31
-msgid "Newer posts"
-msgstr "Newer posts"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:56
-msgid "Post navigation"
-msgstr "Post navigation"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:86
+#: themes-root/pressbooks-publisher/lib/titles.php:18
 #, php-format
-msgctxt "post date"
-msgid "Posted on %s"
-msgstr "Posted on %s"
+msgid "Search Results for %s"
+msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:91
-#, php-format
-msgctxt "post author"
-msgid "by %s"
-msgstr "by %s"
+#: themes-root/pressbooks-publisher/lib/titles.php:20
+msgid "Not Found"
+msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:108
-#: themes-root/pressbooks-publisher/inc/template-tags.php:114
-msgid ", "
-msgstr ", "
+#: themes-root/pressbooks-publisher/templates/content.php:31
+msgid "Read More"
+msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:110
-#, php-format
-msgid "Posted in %1$s"
-msgstr "Posted in %1$s"
+#: themes-root/pressbooks-publisher/templates/header.php:10
+msgid "My Books"
+msgstr "My Books"
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:116
-#, php-format
-msgid "Tagged %1$s"
-msgstr "Tagged %1$s"
+#: themes-root/pressbooks-publisher/templates/header.php:12
+msgid "Sign Out"
+msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:122
-msgid "Leave a comment"
-msgstr "Leave a comment"
+#: themes-root/pressbooks-publisher/templates/header.php:32
+msgid "Sign In"
+msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:122
-msgid "1 Comment"
-msgstr "1 Comment"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:122
-msgid "% Comments"
-msgstr "% Comments"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:143
-#, php-format
-msgid "Category: %s"
-msgstr "Category: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:145
-#, php-format
-msgid "Tag: %s"
-msgstr "Tag: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:147
-#, php-format
-msgid "Author: %s"
-msgstr "Author: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:149
-#, php-format
-msgid "Year: %s"
-msgstr "Year: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:149
-msgctxt "yearly archives date format"
-msgid "Y"
-msgstr "Y"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:151
-#, php-format
-msgid "Month: %s"
-msgstr "Month: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:151
-msgctxt "monthly archives date format"
-msgid "F Y"
-msgstr "F Y"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:153
-#, php-format
-msgid "Day: %s"
-msgstr "Day: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:153
-msgctxt "daily archives date format"
-msgid "F j, Y"
-msgstr "F j, Y"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:156
-msgctxt "post format archive title"
-msgid "Asides"
-msgstr "Asides"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:158
-msgctxt "post format archive title"
-msgid "Galleries"
-msgstr "Galleries"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:160
-msgctxt "post format archive title"
-msgid "Images"
-msgstr "Images"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:162
-msgctxt "post format archive title"
-msgid "Videos"
-msgstr "Videos"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:164
-msgctxt "post format archive title"
-msgid "Quotes"
-msgstr "Quotes"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:166
-msgctxt "post format archive title"
-msgid "Links"
-msgstr "Links"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:168
-msgctxt "post format archive title"
-msgid "Statuses"
-msgstr "Statuses"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:170
-msgctxt "post format archive title"
-msgid "Audio"
-msgstr "Audio"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:172
-msgctxt "post format archive title"
-msgid "Chats"
-msgstr "Chats"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:175
-#, php-format
-msgid "Archives: %s"
-msgstr "Archives: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:179
-#, php-format
-msgid "%1$s: %2$s"
-msgstr "%1$s: %2$s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:181
-msgid "Archives"
-msgstr "Archives"
-
-#: themes-root/pressbooks-publisher/template-parts/content-catalog.php:38
-msgid "Read more"
-msgstr "Read more"
-
-#: themes-root/pressbooks-publisher/template-parts/content-catalog.php:54
-msgid ""
-"The manager of this Pressbooks network has not made any books public "
-"viewable."
-msgstr "The manager of this Pressbooks network has not made any books public viewable."
-
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:19
-#, php-format
-msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:28
-msgid ""
-"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
-"searching can help."
-msgstr "It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help."
-
-#: themes-root/pressbooks-publisher/template-parts/content.php:22
-#, php-format
-msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
-msgstr "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
+#: themes-root/pressbooks-publisher/templates/header.php:34
+msgid "Register"
+msgstr ""
 
 #. Plugin URI of the plugin/theme
 #. Author URI of the plugin/theme

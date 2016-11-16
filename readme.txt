@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.4.2
+Version: 3.9.5
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Version: 3.9.4.2
+Version: 3.9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -103,7 +103,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
    + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/graph_cache
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
  * For EPUB validation install [EpubCheck](https://github.com/idpf/epubcheck) - Version 4.0
- * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20800
+ * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20706
  * It is recommended that you install [sassphp](https://github.com/sensational/sassphp) for SASS compilation; however, Pressbooks includes a bundled compiler, [scssphp](https://github.com/leafo/scssphp/), and will fall back to this if sassphp is absent.
  * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl"
 
@@ -235,6 +235,10 @@ As of Pressbooks >= 3.9.3, [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/
 Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
 
 == Changelog ==
+
+= 3.9.5 =
+* **Enhancement:** The Pressbooks Publisher theme has been streamlined and refreshed.
+* **Fix:** The version requirement for xmllint has been downgraded to 20706 to maintain RHEL 6 compatibility (props to @bdolor for the PR).
 
 = 3.9.4.2 =
 * **Feature:** It is now possibled to modify the default session configuration via the `pressbooks_session_configuration` filter hook (props to @monkecheese).

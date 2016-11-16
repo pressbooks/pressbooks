@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-11-09 13:43-0400\n"
-"PO-Revision-Date: 2016-11-09 17:44+0000\n"
+"POT-Creation-Date: 2016-11-15 22:43-0400\n"
+"PO-Revision-Date: 2016-11-16 02:43+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Turkish (Turkey) (http://www.transifex.com/pressbooks/pressbooks/language/tr_TR/)\n"
 "MIME-Version: 1.0\n"
@@ -394,7 +394,7 @@ msgstr "Son 10 CSS düzenlemeleri"
 #: includes/modules/export/epub/templates/epub201/opf.php:72
 #: includes/modules/export/epub/templates/epub3/opf.php:85
 #: includes/modules/export/mpdf/class-pb-pdf.php:315
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:659
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:660
 #: themes-book/pressbooks-book/footer.php:41
 msgid "by"
 msgstr "-den, -dan"
@@ -489,6 +489,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/pb-laf.php:17
+#: themes-root/pressbooks-publisher/templates/footer.php:16
 msgid "Powered by"
 msgstr "-tarafından desteklenmektedir"
 
@@ -780,9 +781,8 @@ msgstr "Pressbook'ların kendi diline çevrilmesine yardım et!"
 #: includes/modules/export/epub/templates/epub201/opf.php:69
 #: includes/modules/export/epub/templates/epub3/opf.php:82
 #: includes/modules/export/mpdf/class-pb-pdf.php:309
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:657
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:658
 #: themes-book/pressbooks-book/footer.php:39
-#: themes-root/pressbooks-publisher/footer.php:16
 msgid "Copyright"
 msgstr "Telif Hakkı"
 
@@ -1422,7 +1422,7 @@ msgid "Table Of Contents"
 msgstr "İçindekiler tablosu"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1540
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:727
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:728
 msgid "Contents"
 msgstr "İçindekiler"
 
@@ -1442,7 +1442,7 @@ msgstr "Bu kitap Pressbooks.com u kullanarak üretilmiştir, ve PDF çevirisi Pr
 msgid "Invalid permission error"
 msgstr "Geçersiz yetki hatası"
 
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:311
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:312
 msgid "Notes"
 msgstr "Notlar"
 
@@ -3071,7 +3071,7 @@ msgstr "İkinci"
 msgid "Apply Class"
 msgstr ""
 
-#: pressbooks.php:96
+#: pressbooks.php:97
 #, php-format
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
@@ -3079,7 +3079,7 @@ msgid ""
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:105
+#: pressbooks.php:106
 msgid "Cannot find Pressbooks install."
 msgstr "Pressbook kurulumu bulunamıyor."
 
@@ -3182,7 +3182,6 @@ msgstr ""
 #: symbionts/disable-comments-mu/disable-comments-mu.php:95
 #: symbionts/disable-comments-mu/disable-comments-mu.php:121
 #: themes-book/pressbooks-book/comments.php:40
-#: themes-root/pressbooks-publisher/comments.php:75
 msgid "Comments are closed."
 msgstr "Yorumlara kapalı"
 
@@ -3574,8 +3573,6 @@ msgstr "Başlığı göster"
 #: templates/admin/organize.php:160 templates/admin/organize.php:194
 #: themes-book/pressbooks-book/page.php:11
 #: themes-book/pressbooks-book/single.php:5
-#: themes-root/pressbooks-publisher/inc/template-tags.php:126
-#: themes-root/pressbooks-publisher/template-parts/content-page.php:25
 msgid "Edit"
 msgstr "Düzenle"
 
@@ -3671,7 +3668,7 @@ msgstr "çıkış yap"
 #: templates/pb-catalog.php:180
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
-#: themes-root/pressbooks-publisher/header.php:42
+#: themes-root/pressbooks-publisher/templates/header.php:6
 msgid "Admin"
 msgstr "Yönetici"
 
@@ -3717,7 +3714,6 @@ msgid ""
 msgstr "Bu günderi şiflerenmiştir. Dökümanları görmebilmek için şifreyi girin."
 
 #: themes-book/pressbooks-book/comments.php:13
-#: themes-root/pressbooks-publisher/comments.php:29
 #, php-format
 msgctxt "comments title"
 msgid "One Response to %2$s"
@@ -3739,12 +3735,10 @@ msgid "Submit"
 msgstr "Göndermek"
 
 #: themes-book/pressbooks-book/content-none.php:2
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:13
 msgid "Nothing Found"
 msgstr "Hiçbirşey bulunamadı."
 
 #: themes-book/pressbooks-book/content-none.php:3
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:23
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
@@ -3821,7 +3815,6 @@ msgid "Make your own books on Pressbooks"
 msgstr "Pressbooks da kendi kitaplarını yap"
 
 #: themes-book/pressbooks-book/header.php:30
-#: themes-root/pressbooks-publisher/inc/extras.php:52
 #, php-format
 msgid "Page %s"
 msgstr "Sayfa %s"
@@ -3913,14 +3906,10 @@ msgid "Download in the following formats:"
 msgstr ""
 
 #: themes-book/pressbooks-book/page.php:13
-#: themes-root/pressbooks-publisher/template-parts/content-page.php:18
-#: themes-root/pressbooks-publisher/template-parts/content-single.php:20
-#: themes-root/pressbooks-publisher/template-parts/content.php:29
 msgid "Pages:"
 msgstr "Sayfalar:"
 
 #: themes-book/pressbooks-book/search.php:5
-#: themes-root/pressbooks-publisher/search.php:16
 #, php-format
 msgid "Search Results for: %s"
 msgstr "Sonuçlar için arama: %s"
@@ -3933,304 +3922,104 @@ msgstr "Anasayfa"
 msgid "Close"
 msgstr "Kapat"
 
-#: themes-root/pressbooks-publisher/404.php:15
-msgid "Oops! That page can&rsquo;t be found."
+#: themes-root/pressbooks-publisher/404.php:4
+msgid "Sorry, but this page does not exist."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/404.php:19
+#: themes-root/pressbooks-publisher/base.php:14
+#: themes-root/pressbooks-publisher/header-wp-signup.php:14
 msgid ""
-"It looks like nothing was found at this location. Maybe try one of the links"
-" below or a search?"
-msgstr "Burada hiçbirşey bulunmamış gibi gözüküyor. Belkide aşağıdaki linklerden birini denemelisin yada arama yapmalısın."
+"You are using an <strong>outdated</strong> browser. Please <a "
+"href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your "
+"experience."
+msgstr ""
 
-#: themes-root/pressbooks-publisher/404.php:27
-msgid "Most Used Categories"
-msgstr "En çok kullanılan kategoriler"
-
-#: themes-root/pressbooks-publisher/404.php:44
+#: themes-root/pressbooks-publisher/functions.php:24
 #, php-format
-msgid "Try looking in the monthly archives. %1$s"
-msgstr "Aylık arşivlere bakmayı dene. %1$s"
-
-#: themes-root/pressbooks-publisher/comments.php:38
-#: themes-root/pressbooks-publisher/comments.php:59
-msgid "Comment navigation"
+msgid "Error locating %s for inclusion"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/comments.php:41
-#: themes-root/pressbooks-publisher/comments.php:62
-msgid "Older Comments"
-msgstr "Eski yorumlar"
-
-#: themes-root/pressbooks-publisher/comments.php:42
-#: themes-root/pressbooks-publisher/comments.php:63
-msgid "Newer Comments"
-msgstr "Yeni yorumlar"
-
-#: themes-root/pressbooks-publisher/footer.php:19
-msgid "is powered by"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/functions.php:88
-msgctxt "Oswald font: on or off"
-msgid "on"
-msgstr "etkin"
-
-#: themes-root/pressbooks-publisher/functions.php:94
-msgctxt "Droid Serif font: on or off"
-msgid "on"
-msgstr "açık"
-
-#: themes-root/pressbooks-publisher/functions.php:100
-msgctxt "Droid Sans font: on or off"
-msgid "on"
-msgstr "çevrimiçi"
-
-#: themes-root/pressbooks-publisher/functions.php:233
+#: themes-root/pressbooks-publisher/lib/admin.php:12
 msgid "Catalog updated."
 msgstr "Katalog güncellendi"
 
-#: themes-root/pressbooks-publisher/functions.php:234
+#: themes-root/pressbooks-publisher/lib/admin.php:13
 msgid "Sorry, but your catalog was not updated. Please try again."
 msgstr "Üzgünüz, fakat kataloğunuz güncel değildi. Lütfen tekrar deneyin."
 
-#: themes-root/pressbooks-publisher/functions.php:235
+#: themes-root/pressbooks-publisher/lib/admin.php:14
 msgid "Dismiss this notice."
 msgstr "Bu notu artık anımsatma"
 
-#: themes-root/pressbooks-publisher/functions.php:257
+#: themes-root/pressbooks-publisher/lib/admin.php:36
 msgid "In Catalog"
 msgstr "Katalogda"
 
-#: themes-root/pressbooks-publisher/header.php:22
-msgid "Skip to content"
-msgstr "İçeriği geç"
-
-#: themes-root/pressbooks-publisher/header.php:32
-msgid "Sign in"
-msgstr "Giriş yap"
-
-#: themes-root/pressbooks-publisher/header.php:34
-msgid "Register"
+#: themes-root/pressbooks-publisher/lib/admin.php:46
+msgid "This book is private, so you can&rsquo;t display it in your catalog."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/header.php:37
-msgid "Sign out"
-msgstr "Çıkış yap"
-
-#: themes-root/pressbooks-publisher/header.php:39
-msgid "My Books"
-msgstr "Kitaplarım"
-
-#: themes-root/pressbooks-publisher/inc/customizer.php:20
-#: themes-root/pressbooks-publisher/inc/customizer.php:36
+#: themes-root/pressbooks-publisher/lib/customizer.php:16
+#: themes-root/pressbooks-publisher/lib/customizer.php:33
 msgid "About Us"
 msgstr "Hakkımızda"
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:21
+#: themes-root/pressbooks-publisher/lib/customizer.php:17
 msgid "Add a description of your collection or institution below."
 msgstr "Aşağıya koleksiyon ve kuruluşunla ilgili açıklama ekle."
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:52
+#: themes-root/pressbooks-publisher/lib/customizer.php:49
 msgid "Columns"
 msgstr "Sütun"
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:53
+#: themes-root/pressbooks-publisher/lib/customizer.php:50
 msgid "Display your intro text in one or two columns."
 msgstr "Girişini bir yada iki sütunda sergile"
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:57
+#: themes-root/pressbooks-publisher/lib/customizer.php:54
 msgid "One column"
 msgstr "bir kolon"
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:58
+#: themes-root/pressbooks-publisher/lib/customizer.php:55
 msgid "Two columns"
 msgstr "iki kolon"
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:23
-msgid "Posts navigation"
+#: themes-root/pressbooks-publisher/lib/extras.php:26
+msgid "Continued"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:27
-msgid "Older posts"
-msgstr "Eski gönderiler"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:31
-msgid "Newer posts"
-msgstr "Yeni gönderiler"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:56
-msgid "Post navigation"
+#: themes-root/pressbooks-publisher/lib/titles.php:13
+msgid "Latest Posts"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:86
+#: themes-root/pressbooks-publisher/lib/titles.php:18
 #, php-format
-msgctxt "post date"
-msgid "Posted on %s"
-msgstr "%s 'a gönderildi"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:91
-#, php-format
-msgctxt "post author"
-msgid "by %s"
-msgstr "%s tarafından"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:108
-#: themes-root/pressbooks-publisher/inc/template-tags.php:114
-msgid ", "
-msgstr ","
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:110
-#, php-format
-msgid "Posted in %1$s"
-msgstr "%1$s Gönderildi"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:116
-#, php-format
-msgid "Tagged %1$s"
-msgstr "%1$s Etiketlendi"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:122
-msgid "Leave a comment"
-msgstr "Yorum bırak"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:122
-msgid "1 Comment"
-msgstr "1 yorum"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:122
-msgid "% Comments"
-msgstr "% Yorum"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:143
-#, php-format
-msgid "Category: %s"
-msgstr "Kategori: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:145
-#, php-format
-msgid "Tag: %s"
-msgstr "Etiket: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:147
-#, php-format
-msgid "Author: %s"
-msgstr "Yazar: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:149
-#, php-format
-msgid "Year: %s"
-msgstr "Yıl: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:149
-msgctxt "yearly archives date format"
-msgid "Y"
-msgstr "Y"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:151
-#, php-format
-msgid "Month: %s"
-msgstr "AY: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:151
-msgctxt "monthly archives date format"
-msgid "F Y"
-msgstr "F Y"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:153
-#, php-format
-msgid "Day: %s"
-msgstr "Gün: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:153
-msgctxt "daily archives date format"
-msgid "F j, Y"
-msgstr "F j, Y"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:156
-msgctxt "post format archive title"
-msgid "Asides"
-msgstr "Bir yana"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:158
-msgctxt "post format archive title"
-msgid "Galleries"
-msgstr "Galeriler"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:160
-msgctxt "post format archive title"
-msgid "Images"
-msgstr "Resimler"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:162
-msgctxt "post format archive title"
-msgid "Videos"
-msgstr "Videolar"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:164
-msgctxt "post format archive title"
-msgid "Quotes"
-msgstr "Tırnak işareti"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:166
-msgctxt "post format archive title"
-msgid "Links"
-msgstr "Bağlantı"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:168
-msgctxt "post format archive title"
-msgid "Statuses"
-msgstr "Durumlar"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:170
-msgctxt "post format archive title"
-msgid "Audio"
-msgstr "Ses"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:172
-msgctxt "post format archive title"
-msgid "Chats"
-msgstr "Sohbetler"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:175
-#, php-format
-msgid "Archives: %s"
-msgstr "Arşivler: %s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:179
-#, php-format
-msgid "%1$s: %2$s"
-msgstr "%1$s: %2$s"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:181
-msgid "Archives"
-msgstr "Arşivler"
-
-#: themes-root/pressbooks-publisher/template-parts/content-catalog.php:38
-msgid "Read more"
-msgstr "Daha fazla oku"
-
-#: themes-root/pressbooks-publisher/template-parts/content-catalog.php:54
-msgid ""
-"The manager of this Pressbooks network has not made any books public "
-"viewable."
-msgstr "Pressbooks ağ yöneticisi hiçbir kitabı  genel görülebilir yapmadı."
-
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:19
-#, php-format
-msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr "İlk gönderini yayınlamaya hazır mısın? <a href=\"%1$s\">Buradan başla</a>."
-
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:28
-msgid ""
-"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
-"searching can help."
+msgid "Search Results for %s"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/template-parts/content.php:22
-#, php-format
-msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
-msgstr "Okumaya devam et %s <span class=\"meta-nav\">&rarr;</span>"
+#: themes-root/pressbooks-publisher/lib/titles.php:20
+msgid "Not Found"
+msgstr ""
+
+#: themes-root/pressbooks-publisher/templates/content.php:31
+msgid "Read More"
+msgstr ""
+
+#: themes-root/pressbooks-publisher/templates/header.php:10
+msgid "My Books"
+msgstr "Kitaplarım"
+
+#: themes-root/pressbooks-publisher/templates/header.php:12
+msgid "Sign Out"
+msgstr ""
+
+#: themes-root/pressbooks-publisher/templates/header.php:32
+msgid "Sign In"
+msgstr ""
+
+#: themes-root/pressbooks-publisher/templates/header.php:34
+msgid "Register"
+msgstr ""
 
 #. Plugin URI of the plugin/theme
 #. Author URI of the plugin/theme

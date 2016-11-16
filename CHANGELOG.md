@@ -1,3 +1,7 @@
+### 3.9.5
+* **Enhancement:** The Pressbooks Publisher theme has been streamlined and refreshed.
+* **Fix:** The version requirement for xmllint has been downgraded to 20706 to maintain RHEL 6 compatibility (props to @bdolor for the PR).
+
 ### 3.9.4.2
 * **Feature:** It is now possibled to modify the default session configuration via the `pressbooks_session_configuration` filter hook (props to @monkecheese).
 * **Feature:** The `pb_append_chapter_content` is now available in the mPDF exporter (props to @monkecheese).
