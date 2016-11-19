@@ -202,7 +202,20 @@ class Catalog {
 				$data[ $i ]['cover_url']['full'] = $cover;
 
 				// Cover Thumbnails
-				$cid = \Pressbooks\Image\attachment_id_from_url( $cover );
+				/**
+				 * Exposes $cover variable to be changed as-needed for cover images.
+				 *
+				 * Some users store their images on an outside server, which can result
+				 * in cover images not displaying correctly. This gives users the option
+				 * of altering $cover to point to the correct path to the cover image.
+				 *
+				 * @since 3.9.5.1
+				 *
+				 * @param string $cover The url to cover image.
+				 * @param string $metadata['pb_cover_image'] The original url to the
+				 *		cover image.
+				 */
+				$cid = \Pressbooks\Image\attachment_id_from_url( apply_filters( 'pb_cover_image', $cover, $metadata['pb_cover_image'] ) );
 				foreach ( $cover_sizes as $size => $default ) {
 					$cid_thumb = wp_get_attachment_image_src( $cid, $size );
 					if ( $cid_thumb ) {
@@ -263,7 +276,8 @@ class Catalog {
 			$data[ $i ]['cover_url']['full'] = $cover;
 
 			// Cover Thumbnails
-			$cid = \Pressbooks\Image\attachment_id_from_url( $cover );
+			/** This filter is documented in pressbooks/includes/class-pb-catalog.php */
+			$cid = \Pressbooks\Image\attachment_id_from_url( apply_filters( 'pb_cover_image', $cover, $metadata['pb_cover_image'] ) );
 			foreach ( $cover_sizes as $size => $default ) {
 				$cid_thumb = wp_get_attachment_image_src( $cid, $size );
 				if ( $cid_thumb ) {
