@@ -1,4 +1,8 @@
-# Coding Standards
+---
+layout: page
+title: Coding Standards
+permalink: /coding-standards/
+---
 
 Write accurate [PHPDoc](http://en.wikipedia.org/wiki/PHPDoc) styled code comments.
 
@@ -12,7 +16,7 @@ Our namespace is: `\Pressbooks\`
  * If your Class is a bunch of Static methods and nothing else, write a library of functions.
  * Afraid of function name collisions? See [Namespaces](https://secure.php.net/manual/en/language.namespaces.php).
 
-Functions are `written_like_this()`.  
+Functions are `written_like_this()`.
 Class methods are `writtenLikeThis()`.
 
 Rules of thumb:
@@ -31,8 +35,8 @@ Order of methods in a class:
 4. `private`
 5. `static`
 
-Prefix WP Post meta keys with `pb_`.  
-Prefix WP User meta keys with `pb_`.  
+Prefix WP Post meta keys with `pb_`.
+Prefix WP User meta keys with `pb_`.
 Prefix WP Option names with `pressbooks_`.
 
 Files under `themes-book/` and `themes-root/` are exempt from the above rules, but should still make an effort to follow them.

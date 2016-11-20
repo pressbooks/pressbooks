@@ -1,4 +1,8 @@
-# Contributors
+---
+layout: page
+title: Contributors
+permalink: /contributors/
+---
 
  Pressbooks was created by the team at Book Oven Inc. ([code@pressbooks.com](mailto:code@pressbooks.com)), with contributions from:
 
