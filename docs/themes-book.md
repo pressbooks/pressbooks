@@ -1,4 +1,8 @@
-# Book Themes
+---
+layout: page
+title: Book Themes
+permalink: /book-themes/
+---
 
 In addition to being WordPress compatible, a book theme must have the following directories and files. These files are used by our PDF & EPUB export modules. The files can be empty (`script.js`, for example), but must exist.
 

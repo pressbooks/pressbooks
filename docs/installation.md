@@ -1,3 +1,9 @@
+---
+layout: page
+title: Installation
+permalink: /installation/
+---
+
 ## Download
 
 Download the [latest release][1] of Pressbooks from our [releases page][2].

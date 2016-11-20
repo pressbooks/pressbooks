@@ -1,4 +1,8 @@
-# Development Workflow
+---
+layout: page
+title: Development Workflow
+permalink: /development-workflow/
+---
 
 These are our branches:
 
