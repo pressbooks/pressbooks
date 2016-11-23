@@ -36,12 +36,15 @@ class Pressbooks {
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-root' );
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
 
+		/**
+		 * Register additional theme directories.
+		 *
+		 * Additional theme directories (e.g. those within another plugin, or custom
+		 * subdirectories of wp-content) may be registered via this action hook.
+		 *
+		 * @since 3.8.0
+		 */
 		do_action( 'pressbooks_register_theme_directory' );
-
-		// Check for local themes-root directory
-		if ( realpath( WP_CONTENT_DIR . '/themes-root' ) ) :
-			register_theme_directory( WP_CONTENT_DIR . '/themes-root' );
-		endif;
 
 		if ( is_admin() ) {
 			if ( Book::isBook() ) {
@@ -54,85 +57,53 @@ class Pressbooks {
 
 
 	/**
-	 * Used by add_filter( 'allowed_themes' ) Will hide any theme not in ./themes-book/* with exceptions
-	 * for the PB_BOOK_THEME constant, and $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'][]
+	 * Used by add_filter( 'allowed_themes' ). Will hide any non-book themes.
 	 *
 	 * @param array $themes
 	 *
 	 * @return array
 	 */
 	function allowedBookThemes( $themes ) {
-		if ( isset( $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] ) ) {
-			if ( is_array( $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] ) ) {
-				$whitelist = $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'];
-			} else {
-				$whitelist = array( $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] );
-			}
-		} else {
-			$whitelist = array();
-		}
-
-		$blacklist = apply_filters( 'pressbooks_disallowed_book_themes', array() );
+		error_log( print_r( $themes, true ) );
 
 		$compare = search_theme_directories();
 
 		foreach ( $compare as $key => $val ) {
-			if ( ! empty( $whitelist ) ) {
-				// Hide themes which are not whitelisted
-				if ( untrailingslashit( $val['theme_root'] ) != PB_PLUGIN_DIR . 'themes-book' && ( ! in_array( $key, $whitelist ) && PB_BOOK_THEME != $key ) ) {
-					unset( $themes[ $key ] );
-				}
-			} elseif ( ! empty( $blacklist ) ) {
-				$theme = wp_get_theme( str_replace( 'style.css', '', $val['theme_file'] ), $val['theme_root'] );
-				// Hide themes which are not book themes and book themes which are blacklisted
-				if ( ( 'pressbooks-book/style.css' != $val['theme_file'] && 'pressbooks-book' != $theme->get( 'Template' ) ) || in_array( $key, $blacklist ) ) {
-					unset( $themes[ $key ] );
-				}
+			$stylesheet = str_replace( 'style.css', '', $val['theme_file'] );
+			$theme = wp_get_theme( $stylesheet, $val['theme_root'] );
+			// Hide any available non-book themes, as identified by checking to see if they are either pressbooks-book or a child theme of pressbooks-book.
+			if ( 'pressbooks-book/style.css' != $val['theme_file'] && 'pressbooks-book' != $theme->get( 'Template' ) ) {
+				unset( $themes[ $key ] );
 			}
 		}
+
+		error_log( print_r( $themes, true ) );
 
 		return $themes;
 	}
 
 
 	/**
-	 * Used by add_filter( 'allowed_themes' ) Will hide any theme not in ./themes-root/* with exceptions
-	 * for 'pressbooks-root', the PB_ROOT_THEME constant, and $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'][]
+	 * Used by add_filter( 'allowed_themes' ). Will hide any book themes.
 	 *
 	 * @param array $themes
 	 *
 	 * @return array
 	 */
 	function allowedRootThemes( $themes ) {
-		if ( isset( $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] ) ) {
-			if ( is_array( $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] ) ) {
-				$whitelist = $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'];
-			} else {
-				$whitelist = array( $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] );
-			}
-		} else {
-			$whitelist = array();
-		}
-
-		$blacklist = apply_filters( 'pressbooks_disallowed_book_themes', array() );
-
+		error_log( print_r( $themes, true ) );
 		$compare = search_theme_directories();
 
 		foreach ( $compare as $key => $val ) {
-			if ( ! empty( $whitelist ) ) {
-				// Hide themes which are not whitelisted
-				if ( untrailingslashit( $val['theme_root'] ) != PB_PLUGIN_DIR . 'themes-root' && ( ! in_array( $key, $whitelist ) && PB_ROOT_THEME != $key ) ) {
-					unset( $themes[ $key ] );
-				}
-			} elseif ( ! empty( $blacklist ) ) {
-				$theme = wp_get_theme( str_replace( 'style.css', '', $val['theme_file'] ), $val['theme_root'] );
-				// Hide book themes and themes which are blacklisted
-				if ( 'pressbooks-book/style.css' == $val['theme_file'] || 'pressbooks-book' == $theme->get( 'Template' ) || in_array( $key, $blacklist ) ) {
-					unset( $themes[ $key ] );
-				}
+			$stylesheet = str_replace( 'style.css', '', $val['theme_file'] );
+			$theme = wp_get_theme( $stylesheet, $val['theme_root'] );
+			// Hide any available book themes, as identified by checking to see if they are either pressbooks-book or a child theme of pressbooks-book.
+			if ( 'pressbooks-book/style.css' == $val['theme_file'] || 'pressbooks-book' == $theme->get( 'Template' ) ) {
+				unset( $themes[ $key ] );
 			}
 		}
 
+		error_log( print_r( $themes, true ) );
 		return $themes;
 	}
 
