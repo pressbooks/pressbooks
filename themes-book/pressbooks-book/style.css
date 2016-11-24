@@ -41,7 +41,7 @@ body {
   background: url("images/bg.png") repeat 0 0 #f9f9f9;
   color: #1F1F1D;
   font-size: 1em;
-  line-height: 1;
+  line-height: 1.8;
   font-family: "Droid Serif", "Georgia", "Times New Roman", serif;
   margin: 0;
   text-align: left; }
@@ -1213,6 +1213,7 @@ ol li li li::before {
 
 .share-single li {
   float: left;
+  line-height: 1;
   margin: 0 10px 0 0;
   padding: 5px 5px 5px 17px; }
 
