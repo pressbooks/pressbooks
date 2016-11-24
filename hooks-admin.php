@@ -93,7 +93,7 @@ add_action( 'admin_head', '\Pressbooks\Admin\Analytics\print_admin_analytics' );
 // Privacy settings
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Laf\network_admin_menu' );
 if ( ! is_network_admin() ) {
- add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
+	add_action( 'admin_init', '\Pressbooks\Admin\Laf\privacy_settings_init' );
 }
 
 //  Replaces 'WordPress' with 'Pressbooks' in titles of admin pages.
