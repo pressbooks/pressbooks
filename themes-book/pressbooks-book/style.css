@@ -1213,6 +1213,7 @@ ol li li li::before {
 
 .share-single li {
   float: left;
+  line-height: 1;
   margin: 0 10px 0 0;
   padding: 5px 5px 5px 17px; }
 
