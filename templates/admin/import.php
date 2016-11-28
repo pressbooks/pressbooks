@@ -9,6 +9,21 @@ $import_revoke_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools
 $current_import = get_option( 'pressbooks_current_import' );
 $custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 
+/**
+ * Allows users to append import options to the select field.
+ *
+ * @since 3.9.6
+ *
+ * @param array The list of current import options in select field.
+ */
+$import_option_types = apply_filters( 'pb_select_import_type', array(
+	'wxr' => __( 'WXR (WordPress eXtended RSS)' ),
+	'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)' ),
+	'odt' => __( 'ODT (word processing file format of OpenDocument)' ),
+	'docx' => __( 'DOCX (word processing file format of Microsoft)' ),
+	'html' => __( 'HTML (scrape content from a URL)' ),
+) );
+
 ?>
 <div class="wrap">
 
@@ -153,12 +168,9 @@ $custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 					</th>
 					<td>
 						<select id="type_of" name="type_of" class="pb-html-target">
-							<option value="wxr"><?php _e( 'WXR (WordPress eXtended RSS)', 'pressbooks' ); ?></option>
-							<option value="epub"><?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></option>
-							<option value="odt"><?php _e( 'ODT (word processing file format of OpenDocument)', 'pressbooks' ); ?></option>
-							<option value="docx"><?php _e( 'DOCX (word processing file format of Microsoft)', 'pressbooks' ); ?></option>
-							<option value="html"><?php _e( 'HTML (scrape content from a URL)', 'pressbooks' ); ?></option>
-							<option value="imscc"><?php _e( 'IMS-CC (Common Cartridge)', 'pressbooks' ); ?></option>
+							<?php foreach ( $import_option_types as $option => $label ) { ?>
+								<option value="<?php echo $option; ?>"><?php echo $label; ?></option>
+							<?php } ?>
 						</select>
 					</td>
 				</tr>
