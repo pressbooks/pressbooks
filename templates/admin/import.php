@@ -158,6 +158,7 @@ $custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 							<option value="odt"><?php _e( 'ODT (word processing file format of OpenDocument)', 'pressbooks' ); ?></option>
 							<option value="docx"><?php _e( 'DOCX (word processing file format of Microsoft)', 'pressbooks' ); ?></option>
 							<option value="html"><?php _e( 'HTML (scrape content from a URL)', 'pressbooks' ); ?></option>
+							<option value="imscc"><?php _e( 'IMS-CC (Common Cartridge)', 'pressbooks' ); ?></option>
 						</select>
 					</td>
 				</tr>
