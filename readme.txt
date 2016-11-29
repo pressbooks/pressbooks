@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.5
+Version: 3.9.5.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.6.1
 Tested up to: 4.6.1
-Version: 3.9.5
+Version: 3.9.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -235,6 +235,12 @@ As of Pressbooks >= 3.9.3, [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/
 Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
 
 == Changelog ==
+
+= 3.9.5.1 =
+* **Enhancement:** Added [`pb_cover_image`](https://github.com/pressbooks/pressbooks/pull/540/) filter to improve support for networks which host uploaded content on a third-party server (props to @monkecheese).
+* **Fix:** Fixed a discrepancy in the line height of PrinceXML PDF exports of books using Cardo as the body font which resulted from an invalid descender value.
+* **Fix:** Fixed an issue where the Network Sharing & Privacy page would not update the associated site option value.
+* **Fix:** Fixed the vertical alignment of the Facebook share button in the webbook theme (props to @colomet).
 
 = 3.9.5 =
 * **Enhancement:** The Pressbooks Publisher theme has been streamlined and refreshed.

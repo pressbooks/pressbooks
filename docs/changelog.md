@@ -1,3 +1,15 @@
+---
+layout: page
+title: Changelog
+permalink: /changelog/
+---
+
+### 3.9.5.1
+* **Enhancement:** Added [`pb_cover_image`](https://github.com/pressbooks/pressbooks/pull/540/) filter to improve support for networks which host uploaded content on a third-party server (props to @monkecheese).
+* **Fix:** Fixed a discrepancy in the line height of PrinceXML PDF exports of books using Cardo as the body font which resulted from an invalid descender value.
+* **Fix:** Fixed an issue where the Network Sharing & Privacy page would not update the associated site option value.
+* **Fix:** Fixed the vertical alignment of the Facebook share button in the webbook theme (props to @colomet).
+
 ### 3.9.5
 * **Enhancement:** The Pressbooks Publisher theme has been streamlined and refreshed.
 * **Fix:** The version requirement for xmllint has been downgraded to 20706 to maintain RHEL 6 compatibility (props to @bdolor for the PR).
