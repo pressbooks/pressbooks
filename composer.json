@@ -16,8 +16,9 @@
   ],
   "support": {
     "email": "code@pressbooks.com",
-    "issues": "https://github.com/pressbooks/pressbooks/issues",
-    "docs": "https://github.com/pressbooks/pressbooks/wiki"
+    "issues": "https://github.com/pressbooks/pressbooks/issues/",
+    "docs": "https://pressbooks.github.io/pressbooks/",
+    "source": "https://github.com/pressbooks/pressbooks/"
   },
   "require": {
     "php": ">=5.6.0",
