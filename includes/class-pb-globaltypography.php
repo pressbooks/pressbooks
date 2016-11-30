@@ -20,6 +20,7 @@ class GlobalTypography {
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
+			'hi' => __( 'Hindi', 'pressbooks' ),
 			'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
 			'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
 			'cop' => __( 'Coptic', 'pressbooks' ),
@@ -124,6 +125,9 @@ class GlobalTypography {
 				break;
 			case 'he': // Biblical Hebrew
 				$lang = 'he';
+				break;
+			case 'hi': // Biblical Hebrew
+				$lang = 'hi';
 				break;
 			case 'zh': // Chinese (Simplified)
 			case 'zh-cn':
@@ -318,6 +322,15 @@ class GlobalTypography {
 
 		// List fonts
 		$fontpacks = array(
+			'hi' => array(
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
+				'files' => array(
+					'NotoSansDevanagari-Regular.ttf',
+					'NotoSansDevanagari-Bold.ttf',
+					'NotoSerifDevanagari-Bold.ttf',
+					'NotoSerifDevanagari-Regular.ttf',
+				),
+			),
 			'ja' => array(
 				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
 				'files' => array(
