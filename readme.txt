@@ -343,7 +343,7 @@ Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.pr
 * **Fix:** Fixed an admin style inconsistency introduced with WordPress 4.6.
 * **Fix:** Fixed an error where SCSS v2 themes could not be imported into the Custom CSS editor.
 * **Fix:** Added user feedback to allow recovery from JPEG errors (props to @bdolor).
-* **Fix:** Added a call to `wp_flush_cache()` to fix an error during book creation.
+* **Fix:** Added a call to `wp_cache_flush()` to fix an error during book creation.
 
 = 3.6.3 =
 * **Fix:** Fixed an error caused by the change to get_sites().
