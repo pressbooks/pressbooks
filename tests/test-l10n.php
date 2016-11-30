@@ -93,30 +93,6 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_array( $wplang_codes ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\L10n\get_dashboard_languages
-	 */
-	public function test_get_dashboard_languages() {
-
-		$get_dashboard_languages = \Pressbooks\L10n\get_dashboard_languages();
-		$this->assertTrue( is_array( $get_dashboard_languages ) );
-	}
-
-
-	/**
-	 * @covers \Pressbooks\L10n\set_user_interface_lang
-	 */
-	function test_set_user_interface_lang() {
-
-		$user_id = $this->factory->user->create();
-
-		\Pressbooks\L10n\set_user_interface_lang( $user_id );
-
-		$this->assertTrue( true );
-	}
-
-
 	/**
 	 * @covers \Pressbooks\L10n\romanize
 	 */
