@@ -137,6 +137,7 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\add_required_data', 20, 2 );
 	add_action( 'updated_post_meta', '\Pressbooks\Admin\Metaboxes\title_update', 10, 4 );
+	add_action( 'updated_post_meta', '\Pressbooks\L10n\install_book_locale', 10, 4 );
 	add_action( 'save_post', '\Pressbooks\Book::deleteBookObjectCache', 1000 );
 	add_action( 'wp_trash_post', '\Pressbooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\Pressbooks\Book::deleteBookObjectCache', 1000 );

@@ -107,6 +107,31 @@ class L10nTest extends \WP_UnitTestCase {
 
 
 	/**
+	 * @covers \Pressbooks\L10n\install_book_locale
+	 */
+	public function test_install_book_locale() {
+
+		// Test for incorrect meta_key
+		$output = \Pressbooks\L10n\install_book_locale( 1, 1, 'pb_author', 'Some Guy' );
+		$this->assertEquals( $output, false );
+
+		// Test for default or installed language
+		$output = \Pressbooks\L10n\install_book_locale( 1, 1, 'pb_language', 'en_US' );
+		$this->assertEquals( $output, false );
+
+		// Test for language requiring install
+		$output = \Pressbooks\L10n\install_book_locale( 1, 1, 'pb_language', 'fr_FR' );
+		$this->assertEquals( $output, 'fr_FR' );
+	}
+
+	/**
+	 * @covers \Pressbooks\L10n\update_user_locale
+	 */
+	public function test_update_user_locale() {
+		// TODO
+	}
+
+	/**
 	 * @covers \Pressbooks\L10n\use_book_locale
 	 */
 	public function test_use_book_locale() {
