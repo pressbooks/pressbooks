@@ -318,31 +318,6 @@ function wplang_codes() {
 
 
 /**
- * The fully-translated and installed languages for the Pressbooks dashboard.
- * Populates the language selector on the User Profile.
- *
- * @return array
- */
-function get_dashboard_languages() {
-
-	$languages = array(
-		'en_US' => __( 'English (United States)', 'pressbooks' ),
-		'zh_TW' => __( 'Chinese (Taiwan)', 'pressbooks' ),
-		'et' => __( 'Estonian', 'pressbooks' ),
-		'fr_FR' => __( 'French (France)', 'pressbooks' ),
-		'de_DE' => __( 'German', 'pressbooks' ),
-		'it_IT' => __( 'Italian', 'pressbooks' ),
-		'ja' => __( 'Japanese', 'pressbooks' ),
-		'pt_BR' => __( 'Portuguese (Brazil)', 'pressbooks' ),
-		'es_ES' => __( 'Spanish', 'pressbooks' ),
-		'sv_SE' => __( 'Swedish', 'pressbooks' ),
-	);
-
-	return $languages;
-}
-
-
-/**
  * Override get_locale
  * For performance reasons, we only want functions in this namespace to call WP get_locale once.
  *
@@ -435,18 +410,22 @@ function set_locale( $lang ) {
 	// Cheap cache
 	static $loc = '__UNSET__';
 
-	if ( is_admin() ) { // go with the user setting
-		// get_current_user_id uses wp_get_current_user which may not be available the first time(s) get_locale is called
-		if ( '__UNSET__' == $loc && function_exists( 'wp_get_current_user' ) ) {
-			$loc = get_user_option( 'user_interface_lang' );
+	// Book information
+	$metadata = \Pressbooks\Book::getBookInformation();
+
+	if ( is_admin() ) {
+		// If user locale isn't set, use the book information value.
+		if ( function_exists( 'wp_get_current_user' ) && ! get_user_option( 'locale' ) ) {
+			if (  '__UNSET__' == $loc && ! empty( $metadata['pb_language'] ) ) {
+				$locations = \Pressbooks\L10n\wplang_codes();
+				$loc = $locations[ $metadata['pb_language'] ];
+			}
 		}
 	} elseif ( 'wp-signup.php' == @$GLOBALS['pagenow'] ) {
-		// use global setting
+		// If we're on the registration page, use the global setting.
 		$loc = get_site_option( 'WPLANG' );
 	} else {
-		// go with the book info setting
-		$metadata = \Pressbooks\Book::getBookInformation();
-
+		// Use the book information value.
 		if (  '__UNSET__' == $loc && ! empty( $metadata['pb_language'] ) ) {
 			$locations = \Pressbooks\L10n\wplang_codes();
 			$loc = $locations[ $metadata['pb_language'] ];
@@ -474,19 +453,6 @@ function set_root_locale( $lang ) {
 	$loc = get_site_option( 'WPLANG' );
 	return $loc;
 
-}
-
-
-/**
- * Sets the interface language for new users to the site's language.
- *
- * @return array
- */
-function set_user_interface_lang( $user_id ) {
-	$locale = get_site_option( 'WPLANG' );
-	if ( $locale ) {
-	    update_user_meta( $user_id, 'user_interface_lang', $locale );
-	}
 }
 
 
