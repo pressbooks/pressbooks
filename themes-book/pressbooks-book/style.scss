@@ -305,7 +305,7 @@ hr.break-blank {
 #wrap {
   margin: 0 auto 60px;
   position: relative;
-  width: 768px; /* 940px */
+  width: 940px;
   z-index: 20;
 }
 
@@ -606,10 +606,7 @@ h1.book-title a {
   top: 20px;
   right: 0;
   text-align: center;
-  width: 74px;
-  margin-right: 0; /* fix issue with wrap */
-	 }
-}
+  width: 74px; }
 
 .ie7 #sidebar {
   z-index: 11;
