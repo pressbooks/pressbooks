@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-11-15 22:43-0400\n"
+"POT-Creation-Date: 2016-11-29 14:05-0400\n"
 "PO-Revision-Date: 2015-08-08 13:43-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Pressbooks <code@pressbooks.com>\n"
@@ -166,8 +166,8 @@ msgid "Add By URL"
 msgstr ""
 
 #: includes/admin/class-pb-catalog-list-table.php:543
-#: includes/class-pb-catalog.php:1082 includes/class-pb-catalog.php:1132
-#: includes/class-pb-catalog.php:1177 templates/admin/catalog.php:19
+#: includes/class-pb-catalog.php:1096 includes/class-pb-catalog.php:1146
+#: includes/class-pb-catalog.php:1191 templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
 msgstr ""
 
@@ -223,15 +223,15 @@ msgid "Sharing and Privacy settings."
 msgstr ""
 
 #: includes/admin/class-pb-network-sharingandprivacyoptions.php:104
-#: includes/admin/pb-analytics.php:184 includes/class-pb-catalog.php:1109
-#: includes/class-pb-catalog.php:1159 includes/class-pb-catalog.php:1196
-#: includes/class-pb-catalog.php:1257 templates/admin/dashboard.php:28
+#: includes/admin/pb-analytics.php:184 includes/class-pb-catalog.php:1123
+#: includes/class-pb-catalog.php:1173 includes/class-pb-catalog.php:1210
+#: includes/class-pb-catalog.php:1271 templates/admin/dashboard.php:28
 msgid "Settings saved."
 msgstr ""
 
 #: includes/admin/class-pb-network-sharingandprivacyoptions.php:143
 #: includes/admin/pb-laf.php:184 includes/admin/pb-laf.php:231
-#: includes/admin/pb-laf.php:871
+#: includes/admin/pb-laf.php:872
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
@@ -547,47 +547,47 @@ msgstr ""
 msgid "Disable Comments"
 msgstr ""
 
-#: includes/admin/pb-laf.php:695
+#: includes/admin/pb-laf.php:696
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: includes/admin/pb-laf.php:729
+#: includes/admin/pb-laf.php:730
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: includes/admin/pb-laf.php:744
+#: includes/admin/pb-laf.php:745
 msgid "Public. I would like this book to be visible to everyone."
 msgstr ""
 
-#: includes/admin/pb-laf.php:749
+#: includes/admin/pb-laf.php:750
 msgid "Private. I would like this book to be accessible only to people I invite."
 msgstr ""
 
-#: includes/admin/pb-laf.php:772
+#: includes/admin/pb-laf.php:773
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: includes/admin/pb-laf.php:775
+#: includes/admin/pb-laf.php:776
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: includes/admin/pb-laf.php:777
+#: includes/admin/pb-laf.php:778
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: includes/admin/pb-laf.php:793
+#: includes/admin/pb-laf.php:794
 msgid "Yes. I want to automatically disable comments, trackbacks and pingbacks on all front matter, chapters and back matter."
 msgstr ""
 
-#: includes/admin/pb-laf.php:799
+#: includes/admin/pb-laf.php:800
 msgid "No. I want to leave comments, trackbacks and pingbacks enabled on all front matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: includes/admin/pb-laf.php:814
+#: includes/admin/pb-laf.php:815
 msgid "Yes. I would like the latest export files to be available on the homepage for free, to everyone."
 msgstr ""
 
-#: includes/admin/pb-laf.php:819
+#: includes/admin/pb-laf.php:820
 msgid "No. I would like the latest export files to only be available to administrators."
 msgstr ""
 
@@ -1058,15 +1058,15 @@ msgstr ""
 msgid "Simple Book Production"
 msgstr ""
 
-#: includes/class-pb-catalog.php:727
+#: includes/class-pb-catalog.php:741
 msgid "Catalog Logo"
 msgstr ""
 
-#: includes/class-pb-catalog.php:1224
+#: includes/class-pb-catalog.php:1238
 msgid "Invalid URL."
 msgstr ""
 
-#: includes/class-pb-catalog.php:1244
+#: includes/class-pb-catalog.php:1258
 msgid "No book found."
 msgstr ""
 
