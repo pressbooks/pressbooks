@@ -188,6 +188,7 @@ $_current_user_id = $catalog->getUserId();
 		<div id="catalog-sidebar" class="catalog-sidebar">
 	<?php endif ?>
 		<h2 class="pressbooks-logo">
+			
 			<a href="<?php echo network_site_url(); ?>">Pressbooks</a>
 		</h2>
 		<p class="tag-menu assistive-text">Menu</p>
@@ -215,6 +216,13 @@ $_current_user_id = $catalog->getUserId();
 					?>
 				</ul>
 			<?php endfor; ?>
+		<!-- Website url -->
+		<h3> 	<?php if ( ! empty( $profile['pb_catalog_url'] ) ) { ?>
+			<a href="<?php echo esc_attr( $profile['pb_catalog_url'], '', 'http'  ) ;?>"target="_blank"
+				id="pb_catalog_url"><?php _e( 'Website', 'pressbooks' ); ?></a>
+		  	<?php  }?>   </h3>
+			
+		<!-- end Website url -->
 		</div><!-- end .sidebar-inner-wra -->
 
 	</div><!-- end catalog-sidebar -->
