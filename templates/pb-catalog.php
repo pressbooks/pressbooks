@@ -188,7 +188,6 @@ $_current_user_id = $catalog->getUserId();
 		<div id="catalog-sidebar" class="catalog-sidebar">
 	<?php endif ?>
 		<h2 class="pressbooks-logo">
-			
 			<a href="<?php echo network_site_url(); ?>">Pressbooks</a>
 		</h2>
 		<p class="tag-menu assistive-text">Menu</p>
