@@ -9,7 +9,6 @@
  */
 namespace Pressbooks;
 
-
 class Book {
 
 	/**
@@ -46,6 +45,7 @@ class Book {
 	/**
 	 * Returns book information in a useful, string only, format. Data is converted to HTML.
 	 *
+	 * @param int $id The book ID.
 	 * @return array
 	 */
 	static function getBookInformation( $id = '' ) {
