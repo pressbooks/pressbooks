@@ -118,10 +118,6 @@ class L10nTest extends \WP_UnitTestCase {
 		// Test for default or installed language
 		$output = \Pressbooks\L10n\install_book_locale( 1, 1, 'pb_language', 'en-us' );
 		$this->assertEquals( $output, false );
-
-		// Test for language requiring install
-		$output = \Pressbooks\L10n\install_book_locale( 1, 1, 'pb_language', 'fr' );
-		$this->assertEquals( $output, 'fr_FR' );
 	}
 
 	/**
