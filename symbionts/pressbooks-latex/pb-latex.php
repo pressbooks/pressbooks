@@ -3,11 +3,11 @@
  * @author    Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  * @copyright 2014 Brad Payne
- * 
+ *
  * Plugin Name: WP LaTeX for Pressbooks
  * Description:  Converts inline latex code into PNG images that are displayed in your Pressbooks blog posts.  Use either [latex]e^{\i \pi} + 1 = 0[/latex] or $latex e^{\i \pi} + 1 = 0$ or $$ e^{\i \pi} + 1 = 0 $$ syntax.
  * Version: 1.0.0
- * Author: Brad Payne 
+ * Author: Brad Payne
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
@@ -25,7 +25,10 @@ class PBLatex {
 
 	var $options;
 	var $methods = array(
-	    'Automattic_Latex_WPCOM' => 'wpcom',
+		'Automattic_Latex_WPCOM' => 'wpcom',
+		'Automattic_Latex_MOMCOM' => 'momcom',
+		'katex' => 'katex',
+		'mathjax' => 'mathjax',
 	);
 
 	function init() {
@@ -36,14 +39,57 @@ class PBLatex {
 		add_action( 'wp_head', array( &$this, 'wpHead' ) );
 
 		add_filter( 'the_content', array( &$this, 'inlineToShortcode' ), 8 );
-		add_shortcode( 'latex', array( &$this, 'shortCode' ) );
+		if ( $this->options['method'] == 'katex' ) {
+			wp_enqueue_script( 'jquery' );
+			wp_enqueue_script( 'pb_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
+			wp_enqueue_script( 'pb_asciimathteximg', plugins_url( 'ASCIIMathTeXImg.js', __FILE__ ) );
+			wp_enqueue_script( 'pb_katex', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js' );
+			wp_enqueue_style( 'pb_katex_css', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css' );
+			wp_enqueue_script( 'pb_katex_autorender', plugins_url( 'auto-render.js', __FILE__ ), array( 'pb_katex' , 'pb_mathjax' , 'jquery') );
+			add_shortcode( 'latex', array( &$this, 'katexshortCode' ) );
+		} elseif ( $this->options['method'] == 'mathjax') {
+			wp_enqueue_script( 'jquery' );
+			wp_enqueue_script( 'pb_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
+			add_shortcode( 'latex', array( &$this, 'katexshortCode' ) );
+		} else {
+			add_shortcode( 'latex', array( &$this, 'shortCode' ) );
+		}
 		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
 			$excluded_shortcodes[] = 'pb-latex';
 			return $excluded_shortcodes;
 		} );
 	}
 
-	function wpHead() {
+	function wpHead() {		if ( $this->options['method'] == 'katex' ) {
+?>
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    skipStartupTypeset: true,
+    TeX: { extensions: ["cancel.js", "mhchem.js"] }
+  });
+</script>
+<script type="text/javascript">
+   MathJax.Hub.Configured();
+</script>
+<?php
+
+		} elseif ( $this->options['method'] == 'mathjax' ) {
+?>
+<script type="text/x-mathjax-config">
+   MathJax.Hub.Config({
+    TeX: { extensions: ["cancel.js", "mhchem.js"] },
+		tex2jax: {inlineMath: [['[latex]','[/latex]']] }
+  });
+</script>
+<script type="text/javascript">
+   MathJax.Hub.Configured();
+</script>
+<?php
+		}
+		if ( !$this->options['css'] )
+			return;
+?>
+<style type="text/css">
 		if ( !$this->options['css'] )
 			return;
 ?>
@@ -77,6 +123,17 @@ class PBLatex {
 		$alt = esc_attr( is_wp_error( $latex_object->error ) ? $latex_object->error->get_error_message() . ": $latex_object->latex" : $latex_object->latex  );
 
 		return "<img src='$url' alt='$alt' title='$alt' class='latex' />";
+	}
+
+	//shortcode handling for katex output. Just clean up messy entities
+	function katexshortCode( $_atts, $latex ) {
+		$latex = preg_replace( array( '#<br\s*/?>#i', '#</?p>#i' ), ' ', $latex );
+
+		$latex = str_replace(
+			array( '&quot;', '&#8220;', '&#8221;', '&#039;', '&#8125;', '&#8127;', '&#8217;', '&#038;', '&amp;', "\n", "\r", "\xa0", '&#8211;' ), array( '"', '``', "''", "'", "'", "'", "'", '&', '&', ' ', ' ', ' ', '-' ), $latex
+		);
+
+		return "[latex]".$latex."[/latex]";
 	}
 
 	function sanitizeColor( $color ) {
