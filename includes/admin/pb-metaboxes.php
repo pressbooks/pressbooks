@@ -648,23 +648,3 @@ function metadata_save_box( $post ) {
 		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p" />
 	<?php }
 }
-
-
-/**
- * Adds some custom fields to user profiles
- */
-function add_user_meta() {
-
-	x_add_metadata_group( 'profile-information', 'user', array(
-		'label' => __( 'Extra Profile Information', 'pressbooks' ),
-	) );
-
-	x_add_metadata_field( 'user_interface_lang', 'user', array(
-		'group' => 'profile-information',
-		'field_type' => 'select',
-		'values' => \Pressbooks\L10n\get_dashboard_languages(),
-		'label' => __( 'Language', 'pressbooks' ),
-		'description' => sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
-	) );
-
-}

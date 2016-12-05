@@ -137,6 +137,7 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\upload_cover_image', 10, 2 );
 	add_action( 'save_post_metadata', '\Pressbooks\Admin\Metaboxes\add_required_data', 20, 2 );
 	add_action( 'updated_post_meta', '\Pressbooks\Admin\Metaboxes\title_update', 10, 4 );
+	add_action( 'updated_post_meta', '\Pressbooks\L10n\install_book_locale', 10, 4 );
 	add_action( 'save_post', '\Pressbooks\Book::deleteBookObjectCache', 1000 );
 	add_action( 'wp_trash_post', '\Pressbooks\Book::deletePost' );
 	add_action( 'wp_trash_post', '\Pressbooks\Book::deleteBookObjectCache', 1000 );
@@ -150,12 +151,6 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_filter( 'wp_link_query_args', '\Pressbooks\Editor\customize_wp_link_query_args' );
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
 }
-
-// -------------------------------------------------------------------------------------------------------------------
-// Custom user profile
-// -------------------------------------------------------------------------------------------------------------------
-
-add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_user_meta' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Ajax
