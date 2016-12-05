@@ -878,7 +878,7 @@ class Catalog {
 	 */
 	static function tagsToString( array $tags ) {
 
-		$tags = \Pressbooks\Utility\multi_sort( $tags, 'tag:asc' );
+		$tags = wp_list_sort( $tags, 'tag', 'asc' );
 
 		$str = '';
 		foreach ( $tags as $tag ) {
