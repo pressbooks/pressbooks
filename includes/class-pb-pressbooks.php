@@ -64,7 +64,6 @@ class Pressbooks {
 	 * @return array
 	 */
 	function allowedBookThemes( $themes ) {
-		error_log( print_r( $themes, true ) );
 
 		$compare = search_theme_directories();
 
@@ -76,8 +75,6 @@ class Pressbooks {
 				unset( $themes[ $key ] );
 			}
 		}
-
-		error_log( print_r( $themes, true ) );
 
 		return $themes;
 	}
@@ -91,7 +88,6 @@ class Pressbooks {
 	 * @return array
 	 */
 	function allowedRootThemes( $themes ) {
-		error_log( print_r( $themes, true ) );
 		$compare = search_theme_directories();
 
 		foreach ( $compare as $key => $val ) {
@@ -103,7 +99,6 @@ class Pressbooks {
 			}
 		}
 
-		error_log( print_r( $themes, true ) );
 		return $themes;
 	}
 
