@@ -44,6 +44,9 @@ class Activation {
 	 */
 	function registerActivationHook() {
 
+		// Apply Pressbooks color scheme
+		update_user_option( get_current_user_id(), 'admin_color', 'pb_colors', true );
+
 		// Prevent overwriting customizations if Pressbooks has been disabled
 		if ( ! get_site_option( 'pressbooks-activated' ) ) {
 

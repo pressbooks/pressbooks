@@ -192,7 +192,7 @@ $_current_user_id = $catalog->getUserId();
 		</h2>
 		<p class="tag-menu assistive-text">Menu</p>
 		<div class="sidebar-inner-wrap">
-			<a href="<?php echo _base_url(); ?>">
+			<a href="<?php echo ( $profile['pb_catalog_url'] ) ? $profile['pb_catalog_url'] : _base_url(); ?>">
 			<img class="catalog-logo" src="<?php echo _logo_url( $profile ); ?>" alt="catalog-logo" width="100" height="99" />
 			</a>
 			<p class="about-blurb"><?php

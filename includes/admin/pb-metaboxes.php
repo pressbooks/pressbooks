@@ -17,6 +17,7 @@ function title_update( $meta_id, $post_id, $meta_key, $meta_value ) {
 		return false;
 	} else {
 		update_option( 'blogname', $meta_value );
+		\wp_cache_flush();
 	}
 }
 

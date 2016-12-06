@@ -17,7 +17,7 @@ require( PB_PLUGIN_DIR . 'includes/pb-analytics.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-postype.php' );
+require( PB_PLUGIN_DIR . 'includes/pb-posttype.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-registration.php' );
 require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
@@ -100,6 +100,7 @@ add_action( 'post_updated_messages', '\Pressbooks\PostType\post_type_messages' )
 add_action( 'init', '\Pressbooks\Taxonomy::registerTaxonomies' );
 if ( \Pressbooks\Book::isBook() ) {
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
+	add_filter( 'hypothesis_supported_posttypes', '\Pressbooks\PostType\add_posttypes_to_hypothesis' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

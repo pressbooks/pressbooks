@@ -34,7 +34,9 @@
     "wiredep": "^2.2.2"
   },
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "build:production": "gulp --production",
+    "sassdoc": "sassdoc -c sassdoc.yml assets/book/styles"
   },
   "repository": {
     "type": "git",

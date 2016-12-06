@@ -2044,10 +2044,6 @@ class Epub201 extends Export {
 				}
 			}
 			$new_url = "$new_type-" . sprintf( '%03s', $new_pos ) . "-$last_part.{$this->filext}";
-
-			if ( $anchor ) {
-				$new_url .= $anchor;
-			}
 		} elseif ( 'part' == $posttype && ! isset( $lookup['__export_lookup'][ $last_part ] ) ) {
 			// Handle parts
 			$new_type = 'part';

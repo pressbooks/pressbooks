@@ -382,7 +382,7 @@ function check_epubcheck_install() {
 		}
 	}
 
-	return false;
+	return apply_filters( 'pb_epub_has_dependencies', false );
 }
 
 /**
@@ -429,7 +429,7 @@ function check_prince_install() {
 	if ( false !== strpos( $output, 'Prince' ) ) { // Command found.
 		$output = explode( 'Prince ', $output );
 		$version = $output[1];
-		if ( version_compare( $version, '20160929' ) >= 0 ) {
+		if ( version_compare( $version, '11' ) >= 0 ) {
 			return true;
 		}
 	}
@@ -455,7 +455,7 @@ function check_xmllint_install() {
 	if ( false !== strpos( $output, 'libxml' ) ) { // Command found.
 		$output = explode( PB_XMLLINT_COMMAND . ': using libxml version ', $output );
 		$version = $output[1];
-		if ( version_compare( $version, '20800' ) >= 0 ) {
+		if ( version_compare( $version, '20706' ) >= 0 ) {
 			return true;
 		}
 	}
@@ -586,6 +586,15 @@ function filter_plugins( $plugins ) {
  * @return bool
  */
 function disable_comments() {
+	if ( ! \Pressbooks\Book::isBook() ) {
+		/**
+		 * Allows comments to be enabled on the root blog by adding a function to this filter that returns false.
+		 *
+		 * @since 3.9.6
+		 */
+		return apply_filters( 'pb_disable_root_comments', true );
+	}
+
 	$old_option = get_option( 'disable_comments_options' );
 	$new_option = get_option( 'pressbooks_sharingandprivacy_options', array( 'disable_comments' => 1 ) );
 

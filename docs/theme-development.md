@@ -1,4 +1,8 @@
-# Theme Development
+---
+layout: page
+title: Theme Development
+permalink: /theme-development/
+---
 
 _Follow along with these steps at the [pressbooks/pressbooks-demo](https://github.com/pressbooks/pressbooks-demo) repository._
 

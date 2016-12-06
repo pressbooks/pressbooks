@@ -52,8 +52,9 @@
     margin-right: $edu-header-margin-right;
     margin-bottom: $edu-header-margin-bottom;
     margin-left: $edu-header-margin-left;
+    font-size: $edu-header-font-size;
     color: $edu-header-text-color;
-    text-align: center;
+    text-align: $edu-header-text-align;
   }
 }
 

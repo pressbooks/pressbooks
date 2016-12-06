@@ -1,4 +1,8 @@
-# Debugging
+---
+layout: page
+title: Debugging
+permalink: /debugging/
+---
 
 A few things you can try:
 

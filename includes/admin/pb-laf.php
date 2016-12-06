@@ -689,7 +689,8 @@ function privacy_settings_init() {
 		'privacy_settings',
 		'privacy_settings_section'
 	);
-	if ( get_site_option( 'pressbooks_sharingandprivacy_options' )['allow_redistribution'] ) {
+	$sharingandprivacy = get_site_option( 'pressbooks_sharingandprivacy_options' );
+	if ( isset( $sharingandprivacy['allow_redistribution'] ) && 1 == $sharingandprivacy['allow_redistribution'] ) {
 		add_settings_field(
 			'latest_files_public',
 			__( 'Share Latest Export Files', 'pressbooks' ),
@@ -900,6 +901,8 @@ function admin_notices() {
 		foreach ( $_SESSION['pb_errors'] as $msg ) {
 			echo '<div class="error"><p>' . $msg . '</p></div>';
 		}
+		// Destroy
+		unset( $_SESSION['pb_errors'] );
 	}
 
 	if ( ! empty( $_SESSION['pb_notices'] ) ) {
@@ -911,9 +914,7 @@ function admin_notices() {
 		foreach ( $_SESSION['pb_notices'] as $msg ) {
 			echo '<div class="updated"><p>' . $msg . '</p></div>';
 		}
+		// Destroy
+		unset( $_SESSION['pb_notices'] );
 	}
-
-	// Destroy
-	unset( $_SESSION['pb_errors'] );
-	unset( $_SESSION['pb_notices'] );
 }

@@ -1,3 +1,9 @@
+---
+layout: page
+title: Installation
+permalink: /installation/
+---
+
 ## Download
 
 Download the [latest release][1] of Pressbooks from our [releases page][2].
@@ -39,7 +45,7 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 
 5.  Navigate to: Themes → Installed Themes.
 
-6.  Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "Austen", "Pressbooks Publisher One", and any other Pressbooks theme you want to use.
+6.  Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "Austen", "Pressbooks Publisher", and any other Pressbooks theme you want to use.
 
 7.  Navigate to: Settings → Network Settings.
 
@@ -49,23 +55,23 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
     *   Logged in users may register new sites. (if you are a publisher using Pressbooks as a production tool, this is the best setting: it allows network administrators to add new users, who can then create books/sites. However, registration is not available to the public.)
     *   Both sites and user accounts can be registered. (use this setting if you intend on offering a publishing-platform open to the public, such as Pressbooks.com)
 
-9.  Navigate to: My Books → **YOUR_SITE** → Dashboard
+9.  Navigate to: My Catalog → **YOUR_SITE** → Dashboard
 
-10. Navigate to: Appearance. Activate "Pressbooks Publisher One"
+10. Navigate to: Appearance. Activate "Pressbooks Publisher"
 
-11. Navigate to: My Books → Network Admin → Sites
+11. Navigate to: My Catalog → Network Admin → Sites
 
 12. Add a new site (this will be your first book).
 
-13. Navigate to: My Books → **YOUR_FIRST_BOOK**
+13. Navigate to: My Catalog → **YOUR_FIRST_BOOK**
 
-14. Navigate to: Book Information. Make sure to fill out Title, Author and Publication Date.
+14. Navigate to: Book Info. Make sure to fill out Title, Author and Publication Date.
 
 15. Navigate to: Text → Organize. Make sure some content is selected for export.
 
 *Part 3, Pressbooks dependencies:*
 
-*   For PDF export install [Prince][6] (note: this is not free software) - Version 20160929
+*   For PDF export install [Prince][6] (note: this is not free software) - Version 11
 *   For PDF export via mPDF install the [Pressbooks mPDF plugin][7]. You will also need to ensure that the following folders have write access and/or they are owned by the appropriate user. See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
     *   `wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/ttfontdata`
     *   `wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/tmp`
@@ -174,7 +180,7 @@ Once WP-CLI is installed on your server, the following shell commands executed i
     wp core multisite-convert --title="Pressbooks"
     wp plugin delete hello
     wp plugin update-all
-    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.3/pressbooks-v3.9.3.zip --activate-network
+    wp plugin install https://pressbooks.org/latest/ --activate-network
     wp theme list
     wp theme enable pressbooks-book --network
     wp theme enable clarke --network

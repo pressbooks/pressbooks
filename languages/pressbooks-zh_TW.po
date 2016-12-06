@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-11-01 13:13-0300\n"
-"PO-Revision-Date: 2016-11-01 16:13+0000\n"
+"POT-Creation-Date: 2016-11-15 22:43-0400\n"
+"PO-Revision-Date: 2016-11-16 02:43+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Chinese (Taiwan) (http://www.transifex.com/pressbooks/pressbooks/language/zh_TW/)\n"
 "MIME-Version: 1.0\n"
@@ -103,14 +103,14 @@ msgid "Edit Tags"
 msgstr ""
 
 #: includes/admin/class-pb-catalog-list-table.php:382
-#: includes/admin/pb-laf.php:94 templates/admin/organize.php:22
+#: includes/admin/pb-laf.php:96 templates/admin/organize.php:22
 #: templates/admin/organize.php:28 templates/admin/organize.php:81
 #: templates/admin/organize.php:157
 msgid "Private"
 msgstr ""
 
 #: includes/admin/class-pb-catalog-list-table.php:382
-#: includes/admin/pb-laf.php:96 templates/admin/organize.php:20
+#: includes/admin/pb-laf.php:98 templates/admin/organize.php:20
 #: templates/admin/organize.php:25
 msgid "Public"
 msgstr ""
@@ -154,8 +154,8 @@ msgid "The public link to your catalog page"
 msgstr ""
 
 #: includes/admin/class-pb-catalog-list-table.php:472
-#: includes/admin/pb-laf.php:211 includes/admin/pb-laf.php:244
-#: includes/admin/pb-laf.php:353
+#: includes/admin/pb-laf.php:213 includes/admin/pb-laf.php:246
+#: includes/admin/pb-laf.php:355
 msgid "My Catalog"
 msgstr ""
 
@@ -206,7 +206,7 @@ msgstr ""
 msgid "Export settings."
 msgstr ""
 
-#: includes/admin/class-pb-exportoptions.php:141 includes/admin/pb-laf.php:200
+#: includes/admin/class-pb-exportoptions.php:141 includes/admin/pb-laf.php:202
 #: includes/admin/pb-metaboxes.php:434
 msgid "Export Settings"
 msgstr "製書設定"
@@ -241,8 +241,8 @@ msgid "Settings saved."
 msgstr ""
 
 #: includes/admin/class-pb-network-sharingandprivacyoptions.php:143
-#: includes/admin/pb-laf.php:182 includes/admin/pb-laf.php:229
-#: includes/admin/pb-laf.php:869
+#: includes/admin/pb-laf.php:184 includes/admin/pb-laf.php:231
+#: includes/admin/pb-laf.php:871
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
@@ -333,7 +333,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin/class-pb-publishoptions.php:230
-#: includes/admin/pb-laf.php:179
+#: includes/admin/pb-laf.php:181
 msgid "Publish"
 msgstr ""
 
@@ -392,7 +392,7 @@ msgstr ""
 #: includes/modules/export/epub/templates/epub201/opf.php:72
 #: includes/modules/export/epub/templates/epub3/opf.php:85
 #: includes/modules/export/mpdf/class-pb-pdf.php:315
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:659
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:660
 #: themes-book/pressbooks-book/footer.php:41
 msgid "by"
 msgstr "由"
@@ -414,20 +414,20 @@ msgstr ""
 msgid "My Book"
 msgstr ""
 
-#: includes/admin/pb-dashboard.php:70 includes/admin/pb-laf.php:393
+#: includes/admin/pb-dashboard.php:70 includes/admin/pb-laf.php:395
 msgid "Users"
 msgstr "用戶"
 
 #: includes/admin/pb-dashboard.php:93
 #: includes/modules/searchandreplace/types/class-pb-content.php:86
-#: includes/pb-postype.php:114 templates/admin/import.php:60
+#: includes/pb-posttype.php:113 templates/admin/import.php:60
 #: templates/admin/organize.php:37 templates/admin/organize.php:54
 msgid "Front Matter"
 msgstr "書前資訊"
 
 #: includes/admin/pb-dashboard.php:113
 #: includes/modules/searchandreplace/types/class-pb-content.php:89
-#: includes/pb-postype.php:148 templates/admin/import.php:65
+#: includes/pb-posttype.php:147 templates/admin/import.php:65
 #: templates/admin/organize.php:39 templates/admin/organize.php:62
 msgid "Back Matter"
 msgstr "書後資訊"
@@ -438,12 +438,12 @@ msgid "Add"
 msgstr "添加"
 
 #: includes/admin/pb-dashboard.php:122 includes/admin/pb-dashboard.php:165
-#: includes/admin/pb-laf.php:82
+#: includes/admin/pb-laf.php:84
 msgid "Organize"
 msgstr "組織內文"
 
 #: includes/admin/pb-dashboard.php:174 includes/admin/pb-dashboard.php:175
-#: includes/admin/pb-laf.php:381 includes/admin/pb-laf.php:432
+#: includes/admin/pb-laf.php:383 includes/admin/pb-laf.php:434
 msgid "Dashboard"
 msgstr "控制台"
 
@@ -471,7 +471,23 @@ msgstr ""
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr ""
 
+#: includes/admin/pb-diagnostics.php:17 includes/admin/pb-diagnostics.php:18
+#: includes/admin/pb-diagnostics.php:32 includes/admin/pb-laf.php:21
+msgid "Diagnostics"
+msgstr ""
+
+#: includes/admin/pb-diagnostics.php:33
+msgid "Please submit this information with any bug reports."
+msgstr ""
+
+#: includes/admin/pb-diagnostics.php:34
+msgid ""
+"To copy the system info, click below then press Ctrl + C (PC) or Cmd + C "
+"(Mac)."
+msgstr ""
+
 #: includes/admin/pb-laf.php:17
+#: themes-root/pressbooks-publisher/templates/footer.php:16
 msgid "Powered by"
 msgstr "Powered by"
 
@@ -480,144 +496,144 @@ msgstr "Powered by"
 msgid "About"
 msgstr "關於"
 
-#: includes/admin/pb-laf.php:19 includes/admin/pb-laf.php:318
+#: includes/admin/pb-laf.php:19 includes/admin/pb-laf.php:320
 msgid "Help"
 msgstr "幫助"
 
-#: includes/admin/pb-laf.php:20 includes/admin/pb-laf.php:326
+#: includes/admin/pb-laf.php:22 includes/admin/pb-laf.php:328
 msgid "Contact"
 msgstr "聯繫"
 
-#: includes/admin/pb-laf.php:72
+#: includes/admin/pb-laf.php:74
 #: includes/modules/themeoptions/class-pb-themeoptions.php:54
 msgid "Theme Options"
 msgstr "佈景主題選項"
 
-#: includes/admin/pb-laf.php:95
+#: includes/admin/pb-laf.php:97
 msgid "Published"
 msgstr ""
 
-#: includes/admin/pb-laf.php:139
+#: includes/admin/pb-laf.php:141
 #: includes/modules/import/wordpress/class-pb-wxr.php:283
 #: templates/admin/import.php:83
 msgid "Book Info"
 msgstr "書籍資訊"
 
-#: includes/admin/pb-laf.php:152 includes/admin/pb-laf.php:200
+#: includes/admin/pb-laf.php:154 includes/admin/pb-laf.php:202
 #: templates/admin/export.php:107 templates/admin/organize.php:42
 #: templates/admin/organize.php:83 templates/admin/organize.php:159
 msgid "Export"
 msgstr "製書"
 
-#: includes/admin/pb-laf.php:158
+#: includes/admin/pb-laf.php:160
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr "製作 MOBI 之前需要先製成 EPUB，現在要啟動它嗎？"
 
-#: includes/admin/pb-laf.php:182 includes/admin/pb-laf.php:229
+#: includes/admin/pb-laf.php:184 includes/admin/pb-laf.php:231
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: includes/admin/pb-laf.php:203 templates/admin/import.php:15
+#: includes/admin/pb-laf.php:205 templates/admin/import.php:15
 #: templates/admin/import.php:58
 msgid "Import"
 msgstr ""
 
-#: includes/admin/pb-laf.php:292 includes/admin/pb-laf.php:301
+#: includes/admin/pb-laf.php:294 includes/admin/pb-laf.php:303
 msgid "About Pressbooks"
 msgstr ""
 
-#: includes/admin/pb-laf.php:310
+#: includes/admin/pb-laf.php:312
 msgid "Pressbooks.com"
 msgstr ""
 
-#: includes/admin/pb-laf.php:360
+#: includes/admin/pb-laf.php:362
 msgid "Add A New Book"
 msgstr ""
 
-#: includes/admin/pb-laf.php:374
+#: includes/admin/pb-laf.php:376
 msgid "Network Admin"
 msgstr "出版基地管理"
 
-#: includes/admin/pb-laf.php:387
+#: includes/admin/pb-laf.php:389
 msgid "Sites"
 msgstr "書籍"
 
-#: includes/admin/pb-laf.php:399
+#: includes/admin/pb-laf.php:401
 msgid "Visit Network"
 msgstr "造訪出版基地"
 
-#: includes/admin/pb-laf.php:444
+#: includes/admin/pb-laf.php:446
 msgid "Visit Site"
 msgstr "造訪書籍"
 
-#: includes/admin/pb-laf.php:624
+#: includes/admin/pb-laf.php:626
 msgid "Unsupported post type."
 msgstr ""
 
-#: includes/admin/pb-laf.php:649
+#: includes/admin/pb-laf.php:651
 msgid "You do not have sufficient permissions to access that URL."
 msgstr ""
 
-#: includes/admin/pb-laf.php:671
+#: includes/admin/pb-laf.php:673
 msgid "Book Visibility"
 msgstr ""
 
-#: includes/admin/pb-laf.php:678
+#: includes/admin/pb-laf.php:680
 msgid "Private Content"
 msgstr ""
 
-#: includes/admin/pb-laf.php:685
+#: includes/admin/pb-laf.php:687
 msgid "Disable Comments"
 msgstr ""
 
-#: includes/admin/pb-laf.php:693
+#: includes/admin/pb-laf.php:695
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: includes/admin/pb-laf.php:727
+#: includes/admin/pb-laf.php:729
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: includes/admin/pb-laf.php:742
+#: includes/admin/pb-laf.php:744
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "公開，我希望讓每個人都能閱讀這本書。"
 
-#: includes/admin/pb-laf.php:747
+#: includes/admin/pb-laf.php:749
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "私密，只有我邀請的讀者才能閱讀此書。"
 
-#: includes/admin/pb-laf.php:770
+#: includes/admin/pb-laf.php:772
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: includes/admin/pb-laf.php:773
+#: includes/admin/pb-laf.php:775
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: includes/admin/pb-laf.php:775
+#: includes/admin/pb-laf.php:777
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: includes/admin/pb-laf.php:791
+#: includes/admin/pb-laf.php:793
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: includes/admin/pb-laf.php:797
+#: includes/admin/pb-laf.php:799
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: includes/admin/pb-laf.php:812
+#: includes/admin/pb-laf.php:814
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: includes/admin/pb-laf.php:817
+#: includes/admin/pb-laf.php:819
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
@@ -763,7 +779,7 @@ msgstr ""
 #: includes/modules/export/epub/templates/epub201/opf.php:69
 #: includes/modules/export/epub/templates/epub3/opf.php:82
 #: includes/modules/export/mpdf/class-pb-pdf.php:309
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:657
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:658
 #: themes-book/pressbooks-book/footer.php:39
 msgid "Copyright"
 msgstr "版權"
@@ -1114,7 +1130,7 @@ msgstr ""
 msgid "Custom CSS for Web"
 msgstr ""
 
-#: includes/class-pb-activation.php:226 includes/pb-postype.php:182
+#: includes/class-pb-activation.php:226 includes/pb-posttype.php:181
 msgid "Book Information"
 msgstr "書籍基本資料"
 
@@ -1404,7 +1420,7 @@ msgid "Table Of Contents"
 msgstr "目錄"
 
 #: includes/modules/export/epub/class-pb-epub201.php:1540
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:727
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:728
 msgid "Contents"
 msgstr "內容"
 
@@ -1424,7 +1440,7 @@ msgstr ""
 msgid "Invalid permission error"
 msgstr "權限錯誤"
 
-#: includes/modules/export/xhtml/class-pb-xhtml11.php:311
+#: includes/modules/export/xhtml/class-pb-xhtml11.php:312
 msgid "Notes"
 msgstr "記事"
 
@@ -2309,29 +2325,29 @@ msgstr ""
 msgid "Pullquote (right)"
 msgstr ""
 
-#: includes/pb-editor.php:171 includes/pb-editor.php:189
-#: includes/pb-editor.php:203 languages/tinymce.php:7
+#: includes/pb-editor.php:173 includes/pb-editor.php:191
+#: includes/pb-editor.php:205 languages/tinymce.php:7
 msgid "Standard"
 msgstr ""
 
-#: includes/pb-editor.php:175
+#: includes/pb-editor.php:177
 msgid "No lines"
 msgstr ""
 
-#: includes/pb-editor.php:179
+#: includes/pb-editor.php:181
 msgid "Lines"
 msgstr ""
 
-#: includes/pb-editor.php:183 includes/pb-editor.php:197
-#: includes/pb-editor.php:211 languages/tinymce.php:9
+#: includes/pb-editor.php:185 includes/pb-editor.php:199
+#: includes/pb-editor.php:213 languages/tinymce.php:9
 msgid "Shaded"
 msgstr ""
 
-#: includes/pb-editor.php:193 includes/pb-editor.php:207
+#: includes/pb-editor.php:195 includes/pb-editor.php:209
 msgid "Border"
 msgstr ""
 
-#: includes/pb-editor.php:326
+#: includes/pb-editor.php:328
 msgid "Internal Link"
 msgstr ""
 
@@ -2393,430 +2409,446 @@ msgstr ""
 msgid "Swedish"
 msgstr ""
 
-#: includes/pb-postype.php:35
+#: includes/pb-posttype.php:34
 msgctxt "post type general name"
 msgid "Chapters"
 msgstr "章節"
 
-#: includes/pb-postype.php:36
+#: includes/pb-posttype.php:35
 msgctxt "post type singular name"
 msgid "Chapter"
 msgstr "章節"
 
-#: includes/pb-postype.php:37
+#: includes/pb-posttype.php:36
 msgctxt "book"
 msgid "Add New Chapter"
 msgstr "添加新章節 [ book ]"
 
-#: includes/pb-postype.php:38
+#: includes/pb-posttype.php:37
 msgid "Add New Chapter"
 msgstr "添加新章節"
 
-#: includes/pb-postype.php:39
+#: includes/pb-posttype.php:38
 msgid "Edit Chapter"
 msgstr "編輯章節"
 
-#: includes/pb-postype.php:40
+#: includes/pb-posttype.php:39
 msgid "New Chapter"
 msgstr "新章節"
 
-#: includes/pb-postype.php:41
+#: includes/pb-posttype.php:40
 msgid "View Chapter"
 msgstr "瀏覽章節"
 
-#: includes/pb-postype.php:42
+#: includes/pb-posttype.php:41
 msgid "Search Chapters"
 msgstr "搜尋章節"
 
-#: includes/pb-postype.php:43
+#: includes/pb-posttype.php:42
 msgid "No chapters found"
 msgstr "找不到章節"
 
-#: includes/pb-postype.php:44
+#: includes/pb-posttype.php:43
 msgid "No chapters found in Trash"
 msgstr "回收桶內找不到章節"
 
-#: includes/pb-postype.php:46
+#: includes/pb-posttype.php:45
 msgid "Text"
 msgstr "文字"
 
-#: includes/pb-postype.php:70
+#: includes/pb-posttype.php:69
 msgctxt "post type general name"
 msgid "Parts"
 msgstr "篇"
 
-#: includes/pb-postype.php:71
+#: includes/pb-posttype.php:70
 msgctxt "post type singular name"
 msgid "Part"
 msgstr "篇"
 
-#: includes/pb-postype.php:72
+#: includes/pb-posttype.php:71
 msgctxt "book"
 msgid "Add Part"
 msgstr "添加書篇 [ book ]"
 
-#: includes/pb-postype.php:73
+#: includes/pb-posttype.php:72
 msgid "Add New Part"
 msgstr "添加書篇"
 
-#: includes/pb-postype.php:74
+#: includes/pb-posttype.php:73
 msgid "Edit Part"
 msgstr "編輯書篇"
 
-#: includes/pb-postype.php:75
+#: includes/pb-posttype.php:74
 msgid "New Part"
 msgstr "新篇"
 
-#: includes/pb-postype.php:76
+#: includes/pb-posttype.php:75
 msgid "View Part"
 msgstr "瀏覽書篇"
 
-#: includes/pb-postype.php:77
+#: includes/pb-posttype.php:76
 msgid "Search Parts"
 msgstr "搜尋書篇"
 
-#: includes/pb-postype.php:78
+#: includes/pb-posttype.php:77
 msgid "No parts found"
 msgstr "找不到書篇"
 
-#: includes/pb-postype.php:79
+#: includes/pb-posttype.php:78
 msgid "No parts found in Trash"
 msgstr "回收桶內找不到書篇"
 
-#: includes/pb-postype.php:81
+#: includes/pb-posttype.php:80
 msgid "Parts"
 msgstr "書篇"
 
-#: includes/pb-postype.php:103
+#: includes/pb-posttype.php:102
 msgctxt "post type general name"
 msgid "Front Matter"
 msgstr "書前資訊"
 
-#: includes/pb-postype.php:104
+#: includes/pb-posttype.php:103
 msgctxt "post type singular name"
 msgid "Front Matter"
 msgstr "書前資訊"
 
-#: includes/pb-postype.php:105
+#: includes/pb-posttype.php:104
 msgctxt "book"
 msgid "Add New Front Matter"
 msgstr "添加新的書前資訊 [ book ]"
 
-#: includes/pb-postype.php:106
+#: includes/pb-posttype.php:105
 msgid "Add New Front Matter"
 msgstr "添加新的書前資訊"
 
-#: includes/pb-postype.php:107
+#: includes/pb-posttype.php:106
 msgid "Edit Front Matter"
 msgstr "編輯書前資訊"
 
-#: includes/pb-postype.php:108
+#: includes/pb-posttype.php:107
 msgid "New Front Matter"
 msgstr "新的書前資訊"
 
-#: includes/pb-postype.php:109
+#: includes/pb-posttype.php:108
 msgid "View Front Matter"
 msgstr "瀏覽書前資訊"
 
-#: includes/pb-postype.php:110
+#: includes/pb-posttype.php:109
 msgid "Search Front Matter"
 msgstr "搜尋書前資訊"
 
-#: includes/pb-postype.php:111
+#: includes/pb-posttype.php:110
 msgid "No front matter found"
 msgstr "找不到書前資訊"
 
-#: includes/pb-postype.php:112
+#: includes/pb-posttype.php:111
 msgid "No front matter found in Trash"
 msgstr "回收桶內沒有書前資訊"
 
-#: includes/pb-postype.php:137
+#: includes/pb-posttype.php:136
 msgctxt "post type general name"
 msgid "Back Matter"
 msgstr "書後資訊 [ post type general name ]"
 
-#: includes/pb-postype.php:138
+#: includes/pb-posttype.php:137
 msgctxt "post type singular name"
 msgid "Back Matter"
 msgstr "書後資訊 [ post type general name ]"
 
-#: includes/pb-postype.php:139
+#: includes/pb-posttype.php:138
 msgctxt "book"
 msgid "Add New Back Matter"
 msgstr "添加新的書後資訊 [ book ]"
 
-#: includes/pb-postype.php:140
+#: includes/pb-posttype.php:139
 msgid "Add New Back Matter"
 msgstr "添加新的書後資訊"
 
-#: includes/pb-postype.php:141
+#: includes/pb-posttype.php:140
 msgid "Edit Back Matter"
 msgstr "編輯書後資訊"
 
-#: includes/pb-postype.php:142
+#: includes/pb-posttype.php:141
 msgid "New Back Matter"
 msgstr "新的書後資訊"
 
-#: includes/pb-postype.php:143
+#: includes/pb-posttype.php:142
 msgid "View Back Matter"
 msgstr "瀏覽書後資訊"
 
-#: includes/pb-postype.php:144
+#: includes/pb-posttype.php:143
 msgid "Search Back Matter"
 msgstr "搜尋書後資訊"
 
-#: includes/pb-postype.php:145
+#: includes/pb-posttype.php:144
 msgid "No back matter found"
 msgstr "找不到書後資訊"
 
-#: includes/pb-postype.php:146
+#: includes/pb-posttype.php:145
 msgid "No back matter found in Trash"
 msgstr "回收桶內找不到書後資訊"
 
-#: includes/pb-postype.php:171
+#: includes/pb-posttype.php:170
 msgctxt "post type general name"
 msgid "Book Information"
 msgstr "書籍基本資料"
 
-#: includes/pb-postype.php:172
+#: includes/pb-posttype.php:171
 msgctxt "post type singular name"
 msgid "Book Information"
 msgstr "書籍基本資料"
 
-#: includes/pb-postype.php:173
+#: includes/pb-posttype.php:172
 msgctxt "book"
 msgid "Add New Book Information"
 msgstr "添加新的書籍基本資料 [ book ]"
 
-#: includes/pb-postype.php:174 includes/pb-postype.php:175
+#: includes/pb-posttype.php:173 includes/pb-posttype.php:174
 msgid "Edit Book Information"
 msgstr "編輯書籍基本資料"
 
-#: includes/pb-postype.php:176
+#: includes/pb-posttype.php:175
 msgid "New Book Information"
 msgstr "新的書籍基本資料"
 
-#: includes/pb-postype.php:177
+#: includes/pb-posttype.php:176
 msgid "View Book Information"
 msgstr "瀏覽書籍基本資料"
 
-#: includes/pb-postype.php:178
+#: includes/pb-posttype.php:177
 msgid "Search Book Information"
 msgstr "搜尋書籍基本資料"
 
-#: includes/pb-postype.php:179
+#: includes/pb-posttype.php:178
 msgid "No book information found"
 msgstr "找不到書籍基本資料"
 
-#: includes/pb-postype.php:180
+#: includes/pb-posttype.php:179
 msgid "No book information found in Trash"
 msgstr "回收桶內沒有書籍基本資料"
 
-#: includes/pb-postype.php:232
+#: includes/pb-posttype.php:231
 #, php-format
 msgid "Part updated. <a target=\"_blank\" href=\"%s\">View Part</a>"
 msgstr ""
 
-#: includes/pb-postype.php:232 includes/pb-postype.php:235
+#: includes/pb-posttype.php:231 includes/pb-posttype.php:234
 msgid "Part updated."
 msgstr ""
 
-#: includes/pb-postype.php:233 includes/pb-postype.php:250
-#: includes/pb-postype.php:263 includes/pb-postype.php:280
-#: includes/pb-postype.php:297
+#: includes/pb-posttype.php:232 includes/pb-posttype.php:249
+#: includes/pb-posttype.php:262 includes/pb-posttype.php:279
+#: includes/pb-posttype.php:296
 msgid "Custom field updated."
 msgstr ""
 
-#: includes/pb-postype.php:234 includes/pb-postype.php:251
-#: includes/pb-postype.php:264 includes/pb-postype.php:281
-#: includes/pb-postype.php:298
+#: includes/pb-posttype.php:233 includes/pb-posttype.php:250
+#: includes/pb-posttype.php:263 includes/pb-posttype.php:280
+#: includes/pb-posttype.php:297
 msgid "Custom field deleted."
 msgstr ""
 
-#: includes/pb-postype.php:237
+#: includes/pb-posttype.php:236
 #, php-format
 msgid "Part restored to revision from %s"
 msgstr ""
 
-#: includes/pb-postype.php:238
+#: includes/pb-posttype.php:237
 #, php-format
 msgid "Part published. <a target=\"_blank\" href=\"%s\">View Part</a>"
 msgstr ""
 
-#: includes/pb-postype.php:238
+#: includes/pb-posttype.php:237
 msgid "Part published."
 msgstr ""
 
-#: includes/pb-postype.php:239
+#: includes/pb-posttype.php:238
 msgid "Part saved."
 msgstr ""
 
-#: includes/pb-postype.php:240
+#: includes/pb-posttype.php:239
 #, php-format
 msgid "Part submitted. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
 msgstr ""
 
-#: includes/pb-postype.php:241
+#: includes/pb-posttype.php:240
 #, php-format
 msgid ""
 "Part scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Part</a>"
 msgstr ""
 
-#: includes/pb-postype.php:243 includes/pb-postype.php:273
-#: includes/pb-postype.php:290 includes/pb-postype.php:307
+#: includes/pb-posttype.php:242 includes/pb-posttype.php:272
+#: includes/pb-posttype.php:289 includes/pb-posttype.php:306
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: includes/pb-postype.php:244
+#: includes/pb-posttype.php:243
 #, php-format
 msgid "Part draft updated. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
 msgstr ""
 
-#: includes/pb-postype.php:249 includes/pb-postype.php:252
-#: includes/pb-postype.php:255
+#: includes/pb-posttype.php:248 includes/pb-posttype.php:251
+#: includes/pb-posttype.php:254
 msgid "Book Information updated."
 msgstr ""
 
-#: includes/pb-postype.php:254
+#: includes/pb-posttype.php:253
 #, php-format
 msgid "Book Information restored to revision from %s"
 msgstr ""
 
-#: includes/pb-postype.php:256
+#: includes/pb-posttype.php:255
 msgid "Book Information saved."
 msgstr ""
 
-#: includes/pb-postype.php:257
+#: includes/pb-posttype.php:256
 msgid "Book Information submitted."
 msgstr ""
 
-#: includes/pb-postype.php:262
+#: includes/pb-posttype.php:261
 #, php-format
 msgid "Chapter updated. <a target=\"_blank\" href=\"%s\">View Chapter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:265
+#: includes/pb-posttype.php:264
 msgid "Chapter updated."
 msgstr ""
 
-#: includes/pb-postype.php:267
+#: includes/pb-posttype.php:266
 #, php-format
 msgid "Chapter restored to revision from %s"
 msgstr ""
 
-#: includes/pb-postype.php:268
+#: includes/pb-posttype.php:267
 #, php-format
 msgid "Chapter published. <a href=\"%s\">View Chapter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:269
+#: includes/pb-posttype.php:268
 msgid "Chapter saved."
 msgstr ""
 
-#: includes/pb-postype.php:270
+#: includes/pb-posttype.php:269
 #, php-format
 msgid "Chapter submitted. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:271
+#: includes/pb-posttype.php:270
 #, php-format
 msgid ""
 "Chapter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Chapter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:274
+#: includes/pb-posttype.php:273
 #, php-format
 msgid "Chapter draft updated. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:279
+#: includes/pb-posttype.php:278
 #, php-format
 msgid "Front Matter updated. <a target=\"_blank\" href=\"%s\">View Front Matter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:282
+#: includes/pb-posttype.php:281
 msgid "Front Matter updated."
 msgstr ""
 
-#: includes/pb-postype.php:284
+#: includes/pb-posttype.php:283
 #, php-format
 msgid "Front Matter restored to revision from %s"
 msgstr ""
 
-#: includes/pb-postype.php:285
+#: includes/pb-posttype.php:284
 #, php-format
 msgid "Front Matter published. <a href=\"%s\">View Front Matter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:286
+#: includes/pb-posttype.php:285
 msgid "Front Matter saved."
 msgstr ""
 
-#: includes/pb-postype.php:287
+#: includes/pb-posttype.php:286
 #, php-format
 msgid ""
 "Front Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Front "
 "Matter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:288
+#: includes/pb-posttype.php:287
 #, php-format
 msgid ""
 "Front Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Front Matter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:291
+#: includes/pb-posttype.php:290
 #, php-format
 msgid ""
 "Front Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Front "
 "Matter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:296
+#: includes/pb-posttype.php:295
 #, php-format
 msgid "Back Matter updated. <a target=\"_blank\" href=\"%s\">View Back Matter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:299
+#: includes/pb-posttype.php:298
 msgid "Back Matter updated."
 msgstr ""
 
-#: includes/pb-postype.php:301
+#: includes/pb-posttype.php:300
 #, php-format
 msgid "Back Matter restored to revision from %s"
 msgstr ""
 
-#: includes/pb-postype.php:302
+#: includes/pb-posttype.php:301
 #, php-format
 msgid "Back Matter published. <a href=\"%s\">View Back Matter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:303
+#: includes/pb-posttype.php:302
 msgid "Back Matter saved."
 msgstr ""
 
-#: includes/pb-postype.php:304
+#: includes/pb-posttype.php:303
 #, php-format
 msgid ""
 "Back Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Back "
 "Matter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:305
+#: includes/pb-posttype.php:304
 #, php-format
 msgid ""
 "Back Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Back Matter</a>"
 msgstr ""
 
-#: includes/pb-postype.php:308
+#: includes/pb-posttype.php:307
 #, php-format
 msgid ""
 "Back Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Back "
 "Matter</a>"
+msgstr ""
+
+#: includes/pb-posttype.php:351
+msgid "parts"
+msgstr ""
+
+#: includes/pb-posttype.php:352
+msgid "chapters"
+msgstr ""
+
+#: includes/pb-posttype.php:353
+msgid "front matter"
+msgstr ""
+
+#: includes/pb-posttype.php:354
+msgid "back matter"
 msgstr ""
 
 #: includes/pb-redirect.php:177 includes/pb-redirect.php:395
@@ -3037,7 +3069,7 @@ msgstr ""
 msgid "Apply Class"
 msgstr ""
 
-#: pressbooks.php:96
+#: pressbooks.php:97
 #, php-format
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
@@ -3045,7 +3077,7 @@ msgid ""
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:105
+#: pressbooks.php:106
 msgid "Cannot find Pressbooks install."
 msgstr ""
 
@@ -3148,7 +3180,6 @@ msgstr ""
 #: symbionts/disable-comments-mu/disable-comments-mu.php:95
 #: symbionts/disable-comments-mu/disable-comments-mu.php:121
 #: themes-book/pressbooks-book/comments.php:40
-#: themes-root/pressbooks-publisher/comments.php:75
 msgid "Comments are closed."
 msgstr "迴響功能已關閉"
 
@@ -3540,8 +3571,6 @@ msgstr ""
 #: templates/admin/organize.php:160 templates/admin/organize.php:194
 #: themes-book/pressbooks-book/page.php:11
 #: themes-book/pressbooks-book/single.php:5
-#: themes-root/pressbooks-publisher/inc/template-tags.php:126
-#: themes-root/pressbooks-publisher/template-parts/content-page.php:25
 msgid "Edit"
 msgstr "編輯"
 
@@ -3637,7 +3666,7 @@ msgstr ""
 #: templates/pb-catalog.php:180
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
-#: themes-root/pressbooks-publisher/header.php:42
+#: themes-root/pressbooks-publisher/templates/header.php:6
 msgid "Admin"
 msgstr "管理"
 
@@ -3683,7 +3712,6 @@ msgid ""
 msgstr "此篇文章受密碼保護，觀看迴響前請輸入密碼。"
 
 #: themes-book/pressbooks-book/comments.php:13
-#: themes-root/pressbooks-publisher/comments.php:29
 #, php-format
 msgctxt "comments title"
 msgid "One Response to %2$s"
@@ -3705,12 +3733,10 @@ msgid "Submit"
 msgstr "送出"
 
 #: themes-book/pressbooks-book/content-none.php:2
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:13
 msgid "Nothing Found"
 msgstr ""
 
 #: themes-book/pressbooks-book/content-none.php:3
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:23
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
@@ -3787,7 +3813,6 @@ msgid "Make your own books on Pressbooks"
 msgstr ""
 
 #: themes-book/pressbooks-book/header.php:30
-#: themes-root/pressbooks-publisher/inc/extras.php:52
 #, php-format
 msgid "Page %s"
 msgstr "第 %s 頁"
@@ -3879,14 +3904,10 @@ msgid "Download in the following formats:"
 msgstr ""
 
 #: themes-book/pressbooks-book/page.php:13
-#: themes-root/pressbooks-publisher/template-parts/content-page.php:18
-#: themes-root/pressbooks-publisher/template-parts/content-single.php:20
-#: themes-root/pressbooks-publisher/template-parts/content.php:29
 msgid "Pages:"
 msgstr "頁："
 
 #: themes-book/pressbooks-book/search.php:5
-#: themes-root/pressbooks-publisher/search.php:16
 #, php-format
 msgid "Search Results for: %s"
 msgstr ""
@@ -3899,308 +3920,103 @@ msgstr "首頁"
 msgid "Close"
 msgstr "關閉"
 
-#: themes-root/pressbooks-publisher/404.php:15
-msgid "Oops! That page can&rsquo;t be found."
+#: themes-root/pressbooks-publisher/404.php:4
+msgid "Sorry, but this page does not exist."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/404.php:19
+#: themes-root/pressbooks-publisher/base.php:14
+#: themes-root/pressbooks-publisher/header-wp-signup.php:14
 msgid ""
-"It looks like nothing was found at this location. Maybe try one of the links"
-" below or a search?"
+"You are using an <strong>outdated</strong> browser. Please <a "
+"href=\"http://browsehappy.com/\">upgrade your browser</a> to improve your "
+"experience."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/404.php:27
-msgid "Most Used Categories"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/404.php:44
+#: themes-root/pressbooks-publisher/functions.php:24
 #, php-format
-msgid "Try looking in the monthly archives. %1$s"
+msgid "Error locating %s for inclusion"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/comments.php:38
-#: themes-root/pressbooks-publisher/comments.php:59
-msgid "Comment navigation"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/comments.php:41
-#: themes-root/pressbooks-publisher/comments.php:62
-msgid "Older Comments"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/comments.php:42
-#: themes-root/pressbooks-publisher/comments.php:63
-msgid "Newer Comments"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/footer.php:15
-msgid "http://pressbooks.com"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/footer.php:15
-#, php-format
-msgid "is powered by %s"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/functions.php:88
-msgctxt "Oswald font: on or off"
-msgid "on"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/functions.php:94
-msgctxt "Droid Serif font: on or off"
-msgid "on"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/functions.php:100
-msgctxt "Droid Sans font: on or off"
-msgid "on"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/functions.php:233
+#: themes-root/pressbooks-publisher/lib/admin.php:12
 msgid "Catalog updated."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:234
+#: themes-root/pressbooks-publisher/lib/admin.php:13
 msgid "Sorry, but your catalog was not updated. Please try again."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:235
+#: themes-root/pressbooks-publisher/lib/admin.php:14
 msgid "Dismiss this notice."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/functions.php:257
+#: themes-root/pressbooks-publisher/lib/admin.php:36
 msgid "In Catalog"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/header.php:22
-msgid "Skip to content"
+#: themes-root/pressbooks-publisher/lib/admin.php:46
+msgid "This book is private, so you can&rsquo;t display it in your catalog."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/header.php:32
-msgid "Sign in"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/header.php:34
-msgid "Register"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/header.php:37
-msgid "Sign out"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/header.php:39
-msgid "My Books"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/customizer.php:20
-#: themes-root/pressbooks-publisher/inc/customizer.php:36
+#: themes-root/pressbooks-publisher/lib/customizer.php:16
+#: themes-root/pressbooks-publisher/lib/customizer.php:33
 msgid "About Us"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:21
+#: themes-root/pressbooks-publisher/lib/customizer.php:17
 msgid "Add a description of your collection or institution below."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:52
+#: themes-root/pressbooks-publisher/lib/customizer.php:49
 msgid "Columns"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:53
+#: themes-root/pressbooks-publisher/lib/customizer.php:50
 msgid "Display your intro text in one or two columns."
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:57
+#: themes-root/pressbooks-publisher/lib/customizer.php:54
 msgid "One column"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/customizer.php:58
+#: themes-root/pressbooks-publisher/lib/customizer.php:55
 msgid "Two columns"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:23
-msgid "Posts navigation"
+#: themes-root/pressbooks-publisher/lib/extras.php:26
+msgid "Continued"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:27
-msgid "Older posts"
+#: themes-root/pressbooks-publisher/lib/titles.php:13
+msgid "Latest Posts"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:31
-msgid "Newer posts"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:56
-msgid "Post navigation"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:86
+#: themes-root/pressbooks-publisher/lib/titles.php:18
 #, php-format
-msgctxt "post date"
-msgid "Posted on %s"
+msgid "Search Results for %s"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:91
-#, php-format
-msgctxt "post author"
-msgid "by %s"
+#: themes-root/pressbooks-publisher/lib/titles.php:20
+msgid "Not Found"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:108
-#: themes-root/pressbooks-publisher/inc/template-tags.php:114
-msgid ", "
+#: themes-root/pressbooks-publisher/templates/content.php:31
+msgid "Read More"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:110
-#, php-format
-msgid "Posted in %1$s"
+#: themes-root/pressbooks-publisher/templates/header.php:10
+msgid "My Books"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:116
-#, php-format
-msgid "Tagged %1$s"
+#: themes-root/pressbooks-publisher/templates/header.php:12
+msgid "Sign Out"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:122
-msgid "Leave a comment"
-msgstr "留下迴響"
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:122
-msgid "1 Comment"
+#: themes-root/pressbooks-publisher/templates/header.php:32
+msgid "Sign In"
 msgstr ""
 
-#: themes-root/pressbooks-publisher/inc/template-tags.php:122
-msgid "% Comments"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:143
-#, php-format
-msgid "Category: %s"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:145
-#, php-format
-msgid "Tag: %s"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:147
-#, php-format
-msgid "Author: %s"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:149
-#, php-format
-msgid "Year: %s"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:149
-msgctxt "yearly archives date format"
-msgid "Y"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:151
-#, php-format
-msgid "Month: %s"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:151
-msgctxt "monthly archives date format"
-msgid "F Y"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:153
-#, php-format
-msgid "Day: %s"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:153
-msgctxt "daily archives date format"
-msgid "F j, Y"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:156
-msgctxt "post format archive title"
-msgid "Asides"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:158
-msgctxt "post format archive title"
-msgid "Galleries"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:160
-msgctxt "post format archive title"
-msgid "Images"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:162
-msgctxt "post format archive title"
-msgid "Videos"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:164
-msgctxt "post format archive title"
-msgid "Quotes"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:166
-msgctxt "post format archive title"
-msgid "Links"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:168
-msgctxt "post format archive title"
-msgid "Statuses"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:170
-msgctxt "post format archive title"
-msgid "Audio"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:172
-msgctxt "post format archive title"
-msgid "Chats"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:175
-#, php-format
-msgid "Archives: %s"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:179
-#, php-format
-msgid "%1$s: %2$s"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/inc/template-tags.php:181
-msgid "Archives"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/template-parts/content-catalog.php:38
-msgid "Read more"
-msgstr ""
-
-#: themes-root/pressbooks-publisher/template-parts/content-catalog.php:52
-msgid ""
-"The manager of this Pressbooks network has not made any books public "
-"viewable."
-msgstr ""
-
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:19
-#, php-format
-msgid "Ready to publish your first post? <a href=\"%1$s\">Get started here</a>."
-msgstr ""
-
-#: themes-root/pressbooks-publisher/template-parts/content-none.php:28
-msgid ""
-"It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps "
-"searching can help."
-msgstr ""
-
-#: themes-root/pressbooks-publisher/template-parts/content.php:22
-#, php-format
-msgid "Continue reading %s <span class=\"meta-nav\">&rarr;</span>"
+#: themes-root/pressbooks-publisher/templates/header.php:34
+msgid "Register"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
