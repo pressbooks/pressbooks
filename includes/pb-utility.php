@@ -586,6 +586,15 @@ function filter_plugins( $plugins ) {
  * @return bool
  */
 function disable_comments() {
+	if ( ! \Pressbooks\Book::isBook() ) {
+		/**
+		 * Allows comments to be enabled on the root blog by adding a function to this filter that returns false.
+		 *
+		 * @since 3.9.6
+		 */
+		return apply_filters( 'pb_disable_root_comments', true );
+	}
+
 	$old_option = get_option( 'disable_comments_options' );
 	$new_option = get_option( 'pressbooks_sharingandprivacy_options', array( 'disable_comments' => 1 ) );
 
