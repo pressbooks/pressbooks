@@ -429,7 +429,7 @@ function check_prince_install() {
 	if ( false !== strpos( $output, 'Prince' ) ) { // Command found.
 		$output = explode( 'Prince ', $output );
 		$version = $output[1];
-		if ( version_compare( $version, '20160929' ) >= 0 ) {
+		if ( version_compare( $version, '11' ) >= 0 ) {
 			return true;
 		}
 	}
