@@ -1,11 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.5.1
+Version: 3.9.6
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.6.1
-Tested up to: 4.6.1
-Version: 3.9.5.1
+Requires at least: 4.7
+Tested up to: 4.7
+Version: 3.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.6.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+ * Pressbooks works with PHP 5.6.x and WordPress 4.7. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
 
 	$pb_minimum_php = '5.4';
 
@@ -203,7 +203,7 @@ Once WP-CLI is installed on your server, the following shell commands executed i
 	    wp core multisite-convert --title="Pressbooks"
 	    wp plugin delete hello
 	    wp plugin update-all
-      wp plugin install https://pressbooks.org/latest/ --activate-network
+      wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.5.1/pressbooks-v3.9.5.1.zip --activate-network
 	    wp theme list
 	    wp theme enable pressbooks-book --network
 	    wp theme enable clarke --network
@@ -230,11 +230,28 @@ TK.
 
 == Upgrade Notice ==
 
-As of Pressbooks >= 3.9.3, [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support.
-
-Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
+Pressbooks now requires [WordPress 4.7 "Vaughan"](https://wordpress.org/news/2016/12/vaughan/).
+Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+
+= 3.9.6 =
+**NOTICE:** Pressbooks now requires [WordPress 4.7 "Vaughan"](https://wordpress.org/news/2016/12/vaughan/).
+**NOTICE:** Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
+
+* **Feature:** If you select a language on the book information page and the WordPress language pack for that language is available but not installed, Pressbooks will try to install it for you (and politely inform you if it can't).
+* **Feature:** Added Hindi language support using [Noto Sans Devanagari](https://www.google.com/get/noto/#sans-deva) and [Noto Serif Devanagari](https://www.google.com/get/noto/#serif-deva).
+* **Enhancement:** The whitelist-based theme filtering behaviour of Pressbooks =< 3.9.5.1 has been removed; all book themes are now available for use in all books (if network enabled), and all non-book themes are now available for use on the root blog (if network enabled). If you wish to restrict theme availability further, you can do so by adding additional filters to the `allowed_themes` filter hook.
+* **Enhancement:** Added filter and action hooks to support the addition of import modules via third-party plugins (props to @monkecheese, see [4d7ca64](https://github.com/pressbooks/pressbooks/commit/4d7ca649ec3b6c05c40e1c5bb8f92beb1de5ea30)).
+* **Enhancement:** Added the `pb_disable_root_comments` filter hook for control over comment display on the root blog (defaults to `true` -- disable comments -- as Pressbooks Publisher does not support comments).
+* **Enhancement:** Added a link from the user's catalog logo or profile image to their profile URL, if set.
+* **Enhancement:** Added variables for textbox header font size and text alignment to book theme partials.
+* **Enhancement:** Removed our custom `user_interface_lang` setting in favour of WordPress 4.7's user locale.
+* **Enhancement:** Removed `\Pressbooks\utility\multi_sort()` in favour of WordPress 4.7's shiny new `wp_list_sort()`.
+* **Enhancement:** Removed our last remaining use of `get_blog_details`, which will be deprecated in a forthcoming WordPress release.
+* **Fix:** Fixed an issue which prevented the Pressbooks admin color scheme from being applied upon manual plugin activation.
+* **Fix:** Fixed an issue which prevented the book name from properly updating under some circumstances.
+* **Fix:** Fixed some styles on the registration screen in the Pressbooks Publisher theme (now at v3.0.1).
 
 = 3.9.5.1 =
 * **Enhancement:** Added [`pb_cover_image`](https://github.com/pressbooks/pressbooks/pull/540/) filter to improve support for networks which host uploaded content on a third-party server (props to @monkecheese).
@@ -266,7 +283,7 @@ Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.pr
 * **Fix:** Fixed a visual glitch by hiding the TinyMCE table editor's inline toolbar.
 
 = 3.9.3 =
-* **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](https://pressbooks.org/installation)).
+* **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](https://pressbooks.github.io/pressbooks/installation)).
 * **Feature:** The copy on the publish page can now be replaced by adding a filter to the `pressbooks_publish_page` filter hook.
 * **Feature:** If registration is enabled, a 'Register' button now appears on the front page of the Pressbooks Publisher theme.
 * **Enhancement:** A URL sanitization routine has been added to the `\Pressbooks\Options` class.

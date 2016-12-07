@@ -34,7 +34,7 @@ function pb_meets_minimum_requirements() {
 	// WordPress Version -- override at your own risk!
 	global $pb_minimum_wp;
 	if ( empty( $pb_minimum_wp ) ) {
-		$pb_minimum_wp = '4.6.1';
+		$pb_minimum_wp = '4.7';
 	}
 
 	if ( ! is_multisite() || ! version_compare( get_bloginfo( 'version' ), $pb_minimum_wp, '>=' ) ) {
@@ -65,7 +65,7 @@ function _pb_minimum_wp() {
 	global $pb_minimum_wp;
 	echo '<div id="message" class="error fade"><p>';
 	printf(
-		esc_attr__( 'Pressbooks will not work with your version of WordPress. Pressbooks requires a dedicated install of WordPress Multi-Site, version %s or greater. Please upgrade WordPress if you would like to use Pressbooks.', 'pressbooks' ),
+		esc_attr__( 'Pressbooks will not work with your version of WordPress. Pressbooks requires a dedicated install of WordPress Multisite, version %s or greater. Please upgrade WordPress if you would like to use Pressbooks.', 'pressbooks' ),
 		esc_attr( $pb_minimum_wp )
 	);
 	echo '</p></div>';
