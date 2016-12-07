@@ -1,7 +1,7 @@
 
 /* PRESSBOOKS MOBI FALL-BACK STYLESHEET ... OVERRIDES JUST ABOUT EVERYTHING
-copyright 2013-2014 Book Oven Inc. 
-Version:  2.0 
+copyright 2013-2014 Book Oven Inc.
+Version:  2.0
 */
 
 /* embedded fonts broken = ornament fonts broken, so replace them in KF8 */
@@ -14,23 +14,23 @@ Version:  2.0
    .chapter-title-wrap h2.chapter-title::after {
       content: "";
    }
-  
+
    #title-page h1.title::before {
          content: "";
    }
-   
+
    #title-page h1.title::after {
          content: "";
    }
 }
 
 
-/* MOBI, oh how we love you mobi ... */ 
+/* MOBI, oh how we love you mobi ... */
 
 /* publogo begone in mobi ... styling not working */
 
-@media amzn-mobi { 
-  
+@media amzn-mobi {
+
     div.pb-publogo-wrap {
         display: none;
     }
@@ -56,8 +56,8 @@ Version:  2.0
 
 /* toc page styling */
 
-@media amzn-mobi { 
-  
+@media amzn-mobi {
+
    #toc {
       font-style: normal;
       font-weight: normal;
@@ -67,7 +67,7 @@ Version:  2.0
    #toc h1 {
         font-size: 1em;
         font-style: normal;
-        font-weight: normal;    
+        font-weight: normal;
    }
    span.chapter-author {
         display: none;
@@ -136,20 +136,21 @@ Version:  2.0
 
 /* this ONLY works/is declared in MOBI, ignored in EPUB & PDF */
 
-@media amzn-mobi { 
+@media amzn-mobi {
    .mobi-display-none {
-       display:none; 
+       display:none;
     }
 }
 /* standard styling for mobi */
 
-@media amzn-mobi { 
+@media amzn-mobi {
 
     body {
         font-family: serif;
         font-style: normal;
         font-weight: normal;
     }
+
     p,
     .ugc p,
     .chapter-ugc p {
@@ -209,7 +210,7 @@ Version:  2.0
 
 /* headers */
 
-@media amzn-mobi { 
+@media amzn-mobi {
 
     h1 {
         font-weight: bold;
@@ -226,7 +227,7 @@ Version:  2.0
         margin-top: 0.5em;
         margin-bottom: 0.5em;
         text-align: center;
-    }   
+    }
     h3 {
         font-weight: bold;
         font-style: normal;
@@ -260,9 +261,9 @@ Version:  2.0
         text-align: center;
     }
 }
- 
+
  /* blockquotes & textboxes */
- @media amzn-mobi { 
+ @media amzn-mobi {
 
     div.textbox {
       margin: 5%;
@@ -317,10 +318,10 @@ Version:  2.0
     }
 }
 
-/* title page */ 
+/* title page */
 
-@media amzn-mobi { 
-  
+@media amzn-mobi {
+
     h1.title {
         font-size: 2em;
         margin-top: 2em;
@@ -347,11 +348,11 @@ Version:  2.0
 
 }
 
-/* FRONT-MATTER STYLING 
+/* FRONT-MATTER STYLING
 ======================= */
 
-@media amzn-mobi { 
-  
+@media amzn-mobi {
+
   #copyright-page {
     margin: 10%;
     font-style: normal;
@@ -371,14 +372,14 @@ Version:  2.0
 
 /* chapter titles */
 
-@media amzn-mobi { 
+@media amzn-mobi {
 
   div.chapter-title-wrap {
       font-size: 1.5em;
       margin-top: 0em;
       margin-bottom: 0em;
     }
-  
+
   h1.front-matter-title {
     font-weight: normal;
     font-style: normal;
@@ -425,7 +426,7 @@ Version:  2.0
     font-size: 0.9em;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
-    text-align: center; 
+    text-align: center;
   }
   h2.chapter-author {
     font-weight: normal;
@@ -433,7 +434,7 @@ Version:  2.0
     font-size: 0.8em;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
-    text-align: center; 
+    text-align: center;
   }
   h1.back-matter-title {
     font-weight: normal;
@@ -445,9 +446,9 @@ Version:  2.0
    }
  }
 
- /* Other styling */ 
+ /* Other styling */
 
-@media amzn-mobi { 
+@media amzn-mobi {
   ul {
     text-align: left !important;
   }
