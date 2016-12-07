@@ -80,7 +80,10 @@ function _books( PB_Catalog $catalog ) {
 		$books[ $key ]['cover_height'] = _cover_height( $val['cover_url']['pb_cover_medium'] );
 	}
 
-	return \Pressbooks\Utility\multi_sort( $books, 'featured:desc', 'title:asc' );
+	return wp_list_sort( $books, array(
+		'featured' => 'desc',
+		'title' => 'asc',
+	) );
 }
 
 /**

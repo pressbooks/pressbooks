@@ -67,34 +67,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 
-	/**
-	 * @covers \Pressbooks\Utility\multi_sort
-	 */
-	public function test_multi_sort() {
-
-		$arr = [
-			[ 'foo' => 1, 'bar' => 'A' ],
-			[ 'foo' => 3, 'bar' => 'C' ],
-			[ 'foo' => 2, 'bar' => 'B' ],
-		];
-
-		$res = \Pressbooks\Utility\multi_sort( $arr, 'foo:desc' );
-
-		$this->assertEquals( '3', $res[0]['foo'] );
-		$this->assertEquals( '1', $res[2]['foo'] );
-
-		$res = \Pressbooks\Utility\multi_sort( $arr, 'bar:asc', 'foo:desc' );
-
-		$this->assertEquals( 'A', $res[0]['bar'] );
-		$this->assertEquals( 'C', $res[2]['bar'] );
-
-		$res = \Pressbooks\Utility\multi_sort( $arr );
-
-		$this->assertFalse( $res );
-
-	}
-
-
 //	/**
 //	 * @covers \Pressbooks\Utility\wp_mail
 //	 */

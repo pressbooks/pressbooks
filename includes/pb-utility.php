@@ -197,50 +197,6 @@ function latest_exports() {
 }
 
 /**
- * Array multisort function for sorting on multiple fields like in SQL, e.g: 'ORDER BY field1, field2'
- *
- * Supports optional ASC or DESC parameter by using : delimiter, example:
- *   multiSort($array, 'foo:asc', 'bar:desc', ...);
- *
- * @param array $array
- * @param string $a, $b, $c ...
- *
- * @return array
- */
-function multi_sort() {
-	//get args of the function
-	$args = func_get_args();
-	$c = count( $args );
-	if ( $c < 2 ) {
-		return false;
-	}
-	// get the array to sort
-	$array = array_splice( $args, 0, 1 );
-	$array = $array[0];
-	// sort with an anonymous function using args
-	usort( $array, function ( $a, $b ) use ( $args ) {
-		$orderby = 'asc';
-		$i = 0;
-		$c = count( $args );
-		$cmp = 0;
-		while ( 0 == $cmp && $i < $c ) {
-			@list( $arg, $orderby ) = explode( ':', $args[ $i ] );
-			$orderby = strtolower( $orderby ) == 'desc' ? 'desc' : 'asc';
-			$cmp = strcmp( $a[ $arg ], $b[ $arg ] );
-			$i ++;
-		}
-		if ( 'desc' == $orderby ) {
-			return - $cmp; // Negate the value
-		} else {
-			return $cmp; // As is
-		}
-	} );
-
-	return $array;
-}
-
-
-/**
  * Override \wp_mail() to always use Postmark API
  *
  * @param string|array $to Array or comma-separated list of email addresses to send message.

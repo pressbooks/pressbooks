@@ -62,6 +62,7 @@ add_filter( 'custom_metadata_manager_wysiwyg_args_field_pb_about_unlimited', '\P
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', '\Pressbooks\L10n\load_plugin_textdomain' );
+add_action( 'admin_init', '\Pressbooks\L10n\update_user_locale' );
 add_filter( 'gettext', '\Pressbooks\L10n\override_core_strings', 10, 3 );
 
 if ( \Pressbooks\Book::isBook() && \Pressbooks\l10n\use_book_locale() ) {
@@ -71,7 +72,6 @@ if ( \Pressbooks\Book::isBook() && \Pressbooks\l10n\use_book_locale() ) {
 } elseif ( ! \Pressbooks\Book::isBook() ) {
 	add_filter( 'locale', '\Pressbooks\L10n\set_root_locale' );
 }
-add_action( 'user_register', '\Pressbooks\L10n\set_user_interface_lang', 10, 1 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Images

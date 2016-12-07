@@ -164,7 +164,7 @@ class Catalog {
 		$already_loaded = array();
 
 		foreach ( $catalog as $val ) {
-			if ( ! get_blog_details( $val['blogs_id'] ) ) {
+			if ( ! get_site( $val['blogs_id'] ) ) {
 				$data[ $i ]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
 				$data[ $i ]['users_id'] = $val['users_id'];
 				$data[ $i ]['blogs_id'] = $val['blogs_id'];
@@ -878,7 +878,7 @@ class Catalog {
 	 */
 	static function tagsToString( array $tags ) {
 
-		$tags = \Pressbooks\Utility\multi_sort( $tags, 'tag:asc' );
+		$tags = wp_list_sort( $tags, 'tag', 'asc' );
 
 		$str = '';
 		foreach ( $tags as $tag ) {

@@ -246,9 +246,12 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc'; // If no order, default to asc
 		if ( isset( $_REQUEST['orderby'] ) && isset( $valid_cols[ $_REQUEST['orderby'] ] ) ) {
-			$data = \Pressbooks\Utility\multi_sort( $data, "{$_REQUEST['orderby']}:$order" );
+			$data = wp_list_sort( $data, $_REQUEST['orderby'], $order );
 		} else {
-			$data = \Pressbooks\Utility\multi_sort( $data, 'status:desc', 'title:asc' ); // Default
+			$data = wp_list_sort( $data, array(
+				'status' => 'desc',
+				'title' => 'asc',
+			) ); // Default
 		}
 
 		// Pagination
