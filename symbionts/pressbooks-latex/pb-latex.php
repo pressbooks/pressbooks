@@ -24,74 +24,71 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class PBLatex {
 
 	var $options;
-	var $methods = array(
-		'Automattic_Latex_WPCOM' => 'wpcom',
-		'Automattic_Latex_MOMCOM' => 'momcom',
-		'katex' => 'katex',
-		'mathjax' => 'mathjax',
-	);
+	var $methods;
 
 	function init() {
 		$this->options = get_option( 'pb_latex' );
+
+		/**
+		 * Append latex render methods to the list of default methods.
+		 *
+		 * @since 3.9.7
+		 *
+		 * @param array The list of default latex renderers.
+		 */
+		$this->methods = apply_filters( 'pb_latex_renderers', array(
+			'Automattic_Latex_WPCOM' => 'wpcom',
+		) );
 
 		@define( 'AUTOMATTIC_LATEX_LATEX_PATH', $this->options['latex_path'] );
 
 		add_action( 'wp_head', array( &$this, 'wpHead' ) );
 
 		add_filter( 'the_content', array( &$this, 'inlineToShortcode' ), 8 );
-		if ( $this->options['method'] == 'katex' ) {
-			wp_enqueue_script( 'jquery' );
-			wp_enqueue_script( 'pb_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
-			wp_enqueue_script( 'pb_asciimathteximg', plugins_url( 'ASCIIMathTeXImg.js', __FILE__ ) );
-			wp_enqueue_script( 'pb_katex', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.js' );
-			wp_enqueue_style( 'pb_katex_css', 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.6.0/katex.min.css' );
-			wp_enqueue_script( 'pb_katex_autorender', plugins_url( 'auto-render.js', __FILE__ ), array( 'pb_katex' , 'pb_mathjax' , 'jquery') );
-			add_shortcode( 'latex', array( &$this, 'katexshortCode' ) );
-		} elseif ( $this->options['method'] == 'mathjax') {
-			wp_enqueue_script( 'jquery' );
-			wp_enqueue_script( 'pb_mathjax', 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML.js&delayStartupUntil=configured' );
-			add_shortcode( 'latex', array( &$this, 'katexshortCode' ) );
+
+		/**
+		 * Add additional style/script/shortcode dependencies for a given latex renderer.
+		 * Ex:
+		 * if ( 'katex' == $method ) {
+		 *   wp_enqueue_script( 'pb_katex', 'path/to/katex.js' );
+		 *   add_shortcode( 'katex', 'katexShortCode' );
+		 * }
+		 *
+		 * @since 3.9.7
+		 *
+		 * @param string The method.
+		 */
+		if ( has_action( 'pb_enqueue_latex_scripts' ) ) {
+			do_action( 'pb_enqueue_latex_scripts', $this->options['method'] );
 		} else {
 			add_shortcode( 'latex', array( &$this, 'shortCode' ) );
 		}
+
 		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
 			$excluded_shortcodes[] = 'pb-latex';
 			return $excluded_shortcodes;
 		} );
 	}
 
-	function wpHead() {		if ( $this->options['method'] == 'katex' ) {
-?>
-<script type="text/x-mathjax-config">
-   MathJax.Hub.Config({
-    skipStartupTypeset: true,
-    TeX: { extensions: ["cancel.js", "mhchem.js"] }
-  });
-</script>
-<script type="text/javascript">
-   MathJax.Hub.Configured();
-</script>
-<?php
+	function wpHead() {
+		/**
+		 * Add config scripts to the head of the page.
+		 * Ex:
+		 *
+		 * if ( 'mathjax' == $method ) {
+		 *   echo '<script type="text/javascript">
+		 *     MathJax.Hub.Configured();
+		 *   </script>';
+		 * }
+		 *
+		 * @since 3.9.7
+		 *
+		 * @param string The method.
+		 */
+		apply_filters( 'pb_add_latex_config_scripts', $this->options['method'] );
 
-		} elseif ( $this->options['method'] == 'mathjax' ) {
-?>
-<script type="text/x-mathjax-config">
-   MathJax.Hub.Config({
-    TeX: { extensions: ["cancel.js", "mhchem.js"] },
-		tex2jax: {inlineMath: [['[latex]','[/latex]']] }
-  });
-</script>
-<script type="text/javascript">
-   MathJax.Hub.Configured();
-</script>
-<?php
-		}
 		if ( !$this->options['css'] )
-			return;
-?>
-<style type="text/css">
-		if ( !$this->options['css'] )
-			return;
+		return;
 ?>
 <style type="text/css">
 /* <![CDATA[ */
@@ -123,17 +120,6 @@ class PBLatex {
 		$alt = esc_attr( is_wp_error( $latex_object->error ) ? $latex_object->error->get_error_message() . ": $latex_object->latex" : $latex_object->latex  );
 
 		return "<img src='$url' alt='$alt' title='$alt' class='latex' />";
-	}
-
-	//shortcode handling for katex output. Just clean up messy entities
-	function katexshortCode( $_atts, $latex ) {
-		$latex = preg_replace( array( '#<br\s*/?>#i', '#</?p>#i' ), ' ', $latex );
-
-		$latex = str_replace(
-			array( '&quot;', '&#8220;', '&#8221;', '&#039;', '&#8125;', '&#8127;', '&#8217;', '&#038;', '&amp;', "\n", "\r", "\xa0", '&#8211;' ), array( '"', '``', "''", "'", "'", "'", "'", '&', '&', ' ', ' ', ' ', '-' ), $latex
-		);
-
-		return "[latex]".$latex."[/latex]";
 	}
 
 	function sanitizeColor( $color ) {

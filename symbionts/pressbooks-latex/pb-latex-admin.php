@@ -186,11 +186,32 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		if ( !current_user_can( 'manage_options' ) )
 			wp_die( __( 'Insufficient LaTeX-fu', 'pb-latex' ) );
 
+		/**
+		 * Add custom latex renderer options to the radio input options.
+		 *
+		 * @since 3.9.7
+		 *
+		 * @param array Base list of latex renderers.
+		 */
+		$latex_renderers = apply_filters( 'pb_add_latex_renderer_option', array(
+			'Automattic_Latex_WPCOM' => __( 'WordPress.com LaTeX Server (recommended)', 'pb-latex' ),
+		) );
+
 		$default_wrappers = array();
 		foreach ( $this->methods as $class => $method ) {
-			if ( 'Automattic_Latex_WPCOM' == $class )
-				continue;
-			require_once( dirname( __FILE__ ) . "/automattic-latex-$method.php" );
+			if ( 'Automattic_Latex_WPCOM' == $class ) {
+				require_once( dirname( __FILE__ ) . "/automattic-latex-wpcom.php" );
+			} else {
+				/**
+				 * Require custom latex class file.
+				 * Ex: require_once( __DIR__ . '/custom_latex.php' );
+				 *
+				 * @since 3.9.7
+				 *
+				 * @param string The name of the class to be used.
+				 */
+				apply_filters( 'pb_require_latex', $class );
+			}
 			$latex_object = new $class( '\LaTeX' );
 			$default_wrappers[$method] = $latex_object->wrapper();
 		}
@@ -243,10 +264,9 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 			<th scope="row"><?php _e( 'LaTeX generation method', 'pb-latex' ); ?></th>
 			<td>
 				<ul id="pb-latex-method-switch">
-					<li><label for="pb-latex-method-wpcom"><input type="radio" name="pb_latex[method]" id="pb-latex-method-wpcom" value='Automattic_Latex_WPCOM'<?php checked( 'Automattic_Latex_WPCOM', $values['method'] ); ?> /> <?php printf( _x( '%s LaTeX server (recommended)|WordPress.com LaTeX Server (recommended)', 'pb-latex' ), '<a href="http://wordpress.com/" target="_blank">WordPress.com</a>' ); ?></label></li>
-					<li><label for="pb-latex-method-momcom"><input type="radio" name="pb_latex[method]" id="pb-latex-method-momcom" value='Automattic_Latex_MOMCOM'<?php checked( 'Automattic_Latex_MOMCOM', $values['method'] ); ?> /> <?php printf( _x( '%s MimeTeX server', 'pb-latex' ), 'MyOpenMath.com' ); ?></label></li>
-					<li><label for="pb-latex-method-katex"><input type="radio" name="pb_latex[method]" id="pb-latex-method-katex" value='katex'<?php checked( 'katex', $values['method'] ); ?> /> <?php printf( _x( 'KaTeX + MathJax in-browser', 'pb-latex' ) ); ?></label></li>
-					<li><label for="pb-latex-method-mathjax"><input type="radio" name="pb_latex[method]" id="pb-latex-method-mathjax" value='mathjax'<?php checked( 'mathjax', $values['method'] ); ?> /> <?php printf( _x( 'MathJax in-browser', 'pb-latex' ) ); ?></label></li>
+					<?php foreach ( $latex_renderers as $renderer => $label ) { ?>
+						<li><label for="pb-latex-method-<?php echo $renderer; ?>"><input type="radio" name="pb_latex[method]" id="pb-latex-method-<?php echo $renderer; ?>" value=<?php echo $renderer; ?><?php checked( $renderer, $values['method'] ); ?> /> <?php echo $label; ?></label></li>
+					<?php } ?>
 				</ul>
 			</td>
 		</tr>
