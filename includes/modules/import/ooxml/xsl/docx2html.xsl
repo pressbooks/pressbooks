@@ -3399,10 +3399,12 @@
 
       <xsl:choose>
         <xsl:when test="w:highlight">
-          background-color:<xsl:call-template name="ConvColor">
+          <xsl:text>background-color:</xsl:text>
+          <xsl:call-template name="ConvColor">
             <xsl:with-param name="value" select="w:hightlight[1]/@w:val"/>          
           </xsl:call-template>         
-          <xsl:value-of select="value"/>;         
+          <xsl:value-of select="value"/>
+          <xsl:text>;</xsl:text>
         </xsl:when>
         <xsl:otherwise>
           <xsl:for-each select="w:shd[1]">
@@ -3588,6 +3590,7 @@
     <xsl:param name="runStyleName"/>
 
     <xsl:variable name="rStyleId" select="string(w:rPr/w:rStyle/@w:val)"/>
+    <xsl:variable name="rLanguageId" select="string(w:rPr/w:lang/@w:val)"/>
 
     <xsl:variable name="prsR.updated">
 
@@ -3633,6 +3636,9 @@
       </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="styleMod">
+      <xsl:for-each select="$nsStyles[@w:styleId=$rStyleId]">
+        <xsl:call-template name="RecursiveApplyRPr.class"/>
+      </xsl:for-each>
       <xsl:call-template name="ApplyRPr.class"/>
 
       <xsl:variable name="numId" select="w:numPr/w:numId/@w:val" />
@@ -3673,45 +3679,143 @@
         </xsl:if>
       </xsl:when>
       <xsl:otherwise>
-
-	      <xsl:choose>
-		      <xsl:when test="contains($styleMod, 'vertical-align:super')">
-			      <small>
-				      <xsl:element name='sup'>
-				      <xsl:call-template name="DisplayRContent"/>
-				      </xsl:element>
-			      </small>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'vertical-align:sub')">
-			      <small>
-				      <xsl:element name='sub'>
-					      <xsl:call-template name="DisplayRContent"/>
-				      </xsl:element>
-			      </small>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'font-weight:bold')">
-			      <b>
-				      <xsl:call-template name="DisplayRContent"/>  
-			      </b>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'font-style:italic')">
-			      <i>
-				      <xsl:call-template name="DisplayRContent"/>
-			      </i>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'text-decoration:underline')">
-			      <span style="text-decoration: underline;">
-				      <xsl:call-template name="DisplayRContent"/>
-			      </span>
-		      </xsl:when>
-		      <xsl:otherwise>
-			      <xsl:call-template name="DisplayRContent"/>
-		      </xsl:otherwise>
-	      </xsl:choose>
-
-        
+	<xsl:call-template name="StyleRContent">
+          <xsl:with-param name="rLanguageId" select="$rLanguageId"/>
+          <xsl:with-param name="rStyleId" select="$rStyleId"/>
+          <xsl:with-param name="styleMod" select="$styleMod"/>
+	</xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="StyleRContent">
+    <xsl:param name="rLanguageId" select="''"/>
+    <xsl:param name="rStyleId" select="''"/>
+    <xsl:param name="styleMod" select="''"/>
+    <xsl:variable name="action">
+      <!-- @TODO: This makes assumptions about Word’s built-in style
+           names, and will exacerbate bug #298. -->
+      <xsl:choose>
+        <xsl:when test="$rStyleId = 'Book Title'">
+          <xsl:value-of select="'cite italic'"/>
+        </xsl:when>
+        <xsl:when test="$rStyleId = 'Emphasis'">
+          <xsl:value-of select="'em italic'"/>
+        </xsl:when>
+        <xsl:when test="$rStyleId = 'Strong'">
+          <xsl:value-of select="'strong bold'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'vertical-align:super')">
+          <xsl:value-of select="'sup sup'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'vertical-align:sub')">
+          <xsl:value-of select="'sub sub'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'font-weight:bold')">
+          <xsl:value-of select="'strong bold'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'font-style:italic')">
+          <xsl:value-of select="'em italic'"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="'span '"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="wrapper" select="substring-before($action, ' ')"/>
+    <xsl:variable name="styleChange" select="substring-after($action, ' ')"/>
+    <xsl:variable name="nextStyleMod">
+      <xsl:choose>
+        <xsl:when test="$styleChange = 'bold'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'font-weight:bold;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-weight:bold;'),substring-after($styleMod, 'font-weight:bold;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'font-weight:bold')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-weight:bold'),substring-after($styleMod, 'font-weight:bold')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:when test="$styleChange = 'italic'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'font-style:italic;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-style:italic;'),substring-after($styleMod, 'font-style:italic;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'font-style:italic')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-style:italic'),substring-after($styleMod, 'font-style:italic')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:when test="$styleChange = 'sub'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'vertical-align:sub;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:sub;'),substring-after($styleMod, 'vertical-align:sub;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'vertical-align:sub;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:sub'),substring-after($styleMod, 'vertical-align:sub')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:when test="$styleChange = 'sup'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'vertical-align:super;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:super;'),substring-after($styleMod, 'vertical-align:super;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'vertical-align:super')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:super'),substring-after($styleMod, 'vertical-align:super')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="normalize-space($styleMod)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:element name="{$wrapper}">
+      <xsl:if test="$rStyleId != ''">
+        <xsl:attribute name="class">
+          <xsl:text>import-</xsl:text>
+          <xsl:value-of select="translate($rStyleId, ' ', '')"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="$rLanguageId != ''">
+        <xsl:attribute name="lang">
+          <xsl:value-of select="$rLanguageId"/>
+        </xsl:attribute>
+        <xsl:attribute name="xml:lang">
+          <xsl:value-of select="$rLanguageId"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="$nextStyleMod != '' and $wrapper != 'span'">
+          <xsl:call-template name="StyleRContent">
+            <xsl:with-param name="rLanguageId" select="''"/>
+            <xsl:with-param name="rStyleId" select="''"/>
+            <xsl:with-param name="styleMod" select="$nextStyleMod"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:if test="$nextStyleMod != ''">
+            <xsl:attribute name="style">
+              <xsl:value-of select="$nextStyleMod"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:call-template name="DisplayRContent"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="w:r">
@@ -4482,9 +4586,15 @@
 						    <xsl:with-param name="pr.bdrBetween" select="$bdrBetween"/>
 					    </xsl:call-template>
 				    </xsl:variable>
+				    <xsl:if test="$pStyleId and $pStyleId != ''">
+					    <xsl:attribute name="class">
+						    <xsl:text>import-</xsl:text>
+						    <xsl:value-of select="translate($pStyleId, ' ', '')"/>
+					    </xsl:attribute>
+				    </xsl:if>
 				    <xsl:if test="not($styleMod='')">
 					    <xsl:attribute name="style">
-						    <xsl:value-of select="$styleMod"/>
+						    <xsl:value-of select="normalize-space($styleMod)"/>
 					    </xsl:attribute>
 				    </xsl:if>
 
@@ -5903,8 +6013,7 @@
     <xsl:value-of select="$charStyleSuffix"/>
     <xsl:text>{</xsl:text>
     <xsl:call-template name="MakeRStyleCore"/>
-    <xsl:text>} 
-   </xsl:text>
+    <xsl:text>}&#xa;</xsl:text>
   </xsl:template>
 
   <xsl:template name="MakeRStyleCore">
@@ -5926,11 +6035,9 @@
     <xsl:text>.</xsl:text>
     <xsl:value-of select="@w:styleId"/>
     <xsl:value-of select="$paraStyleSuffix"/>
-    <xsl:text>{
-   </xsl:text>
+    <xsl:text>{&#xa;   </xsl:text>
     <xsl:call-template name="MakePStyleCore"/>
-    <xsl:text>} 
-   </xsl:text>
+    <xsl:text>}&#xa;</xsl:text>
 
     <xsl:call-template name="MakeRStyle"/>
   </xsl:template>
