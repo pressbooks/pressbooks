@@ -684,6 +684,31 @@ function template( $path, array $vars = array() ) {
 	return $output;
 }
 
+function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [] ) {
+	$completed = false;
+
+	if ( $attempts >= $retry ) {
+		$completed = true;
+	}
+
+	if ( $completed ) { return $response;
+	}
+
+	$attempts++;
+
+	$response = wp_remote_get( $url, $args );
+
+	$retryResponseCodes = apply_filters( 'pressbooks_remote_get_retry_response_codes', [ 400 ] );
+
+	if ( ! is_array( $response ) || ! in_array( $response['response']['code'], $retryResponseCodes ) ) {
+		return $response;
+	}
+
+	$sleep = apply_filters( 'pressbooks_remote_get_retry_wait_time', 1000 );
+	usleep( $sleep );
+	return remote_get_retry( $url, $args, $retry, $attempts, $response );
+}
+
 /**
  * Get paths for assets
  */

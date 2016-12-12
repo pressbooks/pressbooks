@@ -1757,7 +1757,7 @@ class Epub201 extends Export {
 			return $this->fetchedImageCache[ $url ];
 		}
 
-		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
+		$response = \Pressbooks\Utility\remote_get_retry( $url, array( 'timeout' => $this->timeout ) );
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {
