@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-11-15 22:43-0400\n"
-"PO-Revision-Date: 2016-11-16 02:43+0000\n"
+"POT-Creation-Date: 2016-12-12 15:24-0400\n"
+"PO-Revision-Date: 2016-12-12 19:24+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Korean (http://www.transifex.com/pressbooks/pressbooks/language/ko/)\n"
 "MIME-Version: 1.0\n"
@@ -38,9 +38,9 @@ msgstr "Pressbooks 이 당신의 PHP 버전에서는 작동하지 않습니다. 
 #, php-format
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
-" a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+" a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr "Pressbooks 이 당신의 워드프레스 버전에서는 작동하지 않습니다. Pressbooks 전용 워드프레스 멀티사이트, 버전 %s 또는 상위버전의 설치가 필요합니다. Pressbooks 을 사용하고 싶다면 워드프레스를 업그레이드 해주세요."
+msgstr ""
 
 #: includes/admin/class-pb-catalog-list-table.php:73
 msgid "Visit Book"
@@ -52,13 +52,13 @@ msgstr "관리자 화면으로 가기"
 
 #: includes/admin/class-pb-catalog-list-table.php:110
 #: includes/admin/class-pb-catalog-list-table.php:222
-#: includes/admin/class-pb-catalog-list-table.php:462
+#: includes/admin/class-pb-catalog-list-table.php:465
 msgid "Hide in Catalog"
 msgstr "카탈로그에서 숨김"
 
 #: includes/admin/class-pb-catalog-list-table.php:115
 #: includes/admin/class-pb-catalog-list-table.php:221
-#: includes/admin/class-pb-catalog-list-table.php:461
+#: includes/admin/class-pb-catalog-list-table.php:464
 msgid "Show in Catalog"
 msgstr "카탈로그에서 보이기"
 
@@ -71,25 +71,25 @@ msgid "Privacy Status"
 msgstr "개인 정보 보호 상태"
 
 #: includes/admin/class-pb-catalog-list-table.php:178
-#: includes/class-pb-activation.php:184
+#: includes/class-pb-activation.php:187
 #: includes/modules/export/epub/class-pb-epub201.php:754
 msgid "Cover"
 msgstr "표지"
 
 #: includes/admin/class-pb-catalog-list-table.php:179
-#: templates/admin/import.php:59
+#: templates/admin/import.php:74
 msgid "Title"
 msgstr "제목"
 
 #: includes/admin/class-pb-catalog-list-table.php:180
-#: includes/admin/pb-metaboxes.php:165 templates/admin/organize.php:78
+#: includes/admin/pb-metaboxes.php:166 templates/admin/organize.php:78
 #: templates/admin/organize.php:154
 #: themes-book/pressbooks-book/functions.php:15
 msgid "Author"
 msgstr "저자"
 
 #: includes/admin/class-pb-catalog-list-table.php:184
-#: templates/pb-catalog.php:208
+#: templates/pb-catalog.php:211
 msgid "Tag"
 msgstr "태그"
 
@@ -102,46 +102,46 @@ msgstr "특성이미지"
 msgid "Pub Date"
 msgstr "출간일"
 
-#: includes/admin/class-pb-catalog-list-table.php:342
+#: includes/admin/class-pb-catalog-list-table.php:345
 msgid "Edit Tags"
 msgstr "태그 편집"
 
-#: includes/admin/class-pb-catalog-list-table.php:382
+#: includes/admin/class-pb-catalog-list-table.php:385
 #: includes/admin/pb-laf.php:96 templates/admin/organize.php:22
 #: templates/admin/organize.php:28 templates/admin/organize.php:81
 #: templates/admin/organize.php:157
 msgid "Private"
 msgstr "비공개"
 
-#: includes/admin/class-pb-catalog-list-table.php:382
+#: includes/admin/class-pb-catalog-list-table.php:385
 #: includes/admin/pb-laf.php:98 templates/admin/organize.php:20
 #: templates/admin/organize.php:25
 msgid "Public"
 msgstr "공개"
 
-#: includes/admin/class-pb-catalog-list-table.php:459
+#: includes/admin/class-pb-catalog-list-table.php:462
 msgid "Organize your public Catalog page."
 msgstr "공개 카탈로그 페이지 구성"
 
-#: includes/admin/class-pb-catalog-list-table.php:460
+#: includes/admin/class-pb-catalog-list-table.php:463
 msgid "Show/Hide books"
 msgstr "책 보이기/숨기기"
 
-#: includes/admin/class-pb-catalog-list-table.php:461
+#: includes/admin/class-pb-catalog-list-table.php:464
 #, php-format
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr ""
 
-#: includes/admin/class-pb-catalog-list-table.php:462
+#: includes/admin/class-pb-catalog-list-table.php:465
 #, php-format
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr ""
 
-#: includes/admin/class-pb-catalog-list-table.php:464
+#: includes/admin/class-pb-catalog-list-table.php:467
 msgid "Catalog sorting"
 msgstr "카탈로그 정렬"
 
-#: includes/admin/class-pb-catalog-list-table.php:465
+#: includes/admin/class-pb-catalog-list-table.php:468
 #, php-format
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
@@ -149,44 +149,44 @@ msgid ""
 " each individual book."
 msgstr ""
 
-#: includes/admin/class-pb-catalog-list-table.php:467
+#: includes/admin/class-pb-catalog-list-table.php:470
 msgid "Share your catalog"
 msgstr "카탈로그 공유"
 
-#: includes/admin/class-pb-catalog-list-table.php:468
+#: includes/admin/class-pb-catalog-list-table.php:471
 msgid "The public link to your catalog page"
 msgstr "카탈로그 페이지에 대한 공개 링크"
 
-#: includes/admin/class-pb-catalog-list-table.php:472
+#: includes/admin/class-pb-catalog-list-table.php:475
 #: includes/admin/pb-laf.php:213 includes/admin/pb-laf.php:246
 #: includes/admin/pb-laf.php:355
 msgid "My Catalog"
 msgstr "내 카탈로그"
 
-#: includes/admin/class-pb-catalog-list-table.php:473
+#: includes/admin/class-pb-catalog-list-table.php:476
 msgid "Edit Profile"
 msgstr "프로필 편집"
 
-#: includes/admin/class-pb-catalog-list-table.php:474
+#: includes/admin/class-pb-catalog-list-table.php:477
 msgid "Visit Catalog"
 msgstr "카탈로그 보기"
 
-#: includes/admin/class-pb-catalog-list-table.php:481
+#: includes/admin/class-pb-catalog-list-table.php:484
 #: templates/admin/search.php:59
 msgid "Search"
 msgstr "검색"
 
-#: includes/admin/class-pb-catalog-list-table.php:490
+#: includes/admin/class-pb-catalog-list-table.php:493
 msgid "Add By URL"
 msgstr "URL로 추가"
 
-#: includes/admin/class-pb-catalog-list-table.php:543
-#: includes/class-pb-catalog.php:1082 includes/class-pb-catalog.php:1132
-#: includes/class-pb-catalog.php:1177 templates/admin/catalog.php:19
+#: includes/admin/class-pb-catalog-list-table.php:546
+#: includes/class-pb-catalog.php:1096 includes/class-pb-catalog.php:1146
+#: includes/class-pb-catalog.php:1191 templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
 msgstr "작업에 대한 권한이 충분하지 않습니다."
 
-#: includes/admin/class-pb-catalog-list-table.php:548
+#: includes/admin/class-pb-catalog-list-table.php:551
 msgid "The requested user does not exist."
 msgstr "요청한 사용자가 존재하지 않습니다."
 
@@ -211,7 +211,7 @@ msgid "Export settings."
 msgstr ""
 
 #: includes/admin/class-pb-exportoptions.php:141 includes/admin/pb-laf.php:202
-#: includes/admin/pb-metaboxes.php:434
+#: includes/admin/pb-metaboxes.php:435
 msgid "Export Settings"
 msgstr "내보내기 설정"
 
@@ -238,15 +238,15 @@ msgid "Sharing and Privacy settings."
 msgstr ""
 
 #: includes/admin/class-pb-network-sharingandprivacyoptions.php:104
-#: includes/admin/pb-analytics.php:184 includes/class-pb-catalog.php:1109
-#: includes/class-pb-catalog.php:1159 includes/class-pb-catalog.php:1196
-#: includes/class-pb-catalog.php:1257 templates/admin/dashboard.php:28
+#: includes/admin/pb-analytics.php:184 includes/class-pb-catalog.php:1123
+#: includes/class-pb-catalog.php:1173 includes/class-pb-catalog.php:1210
+#: includes/class-pb-catalog.php:1271 templates/admin/dashboard.php:28
 msgid "Settings saved."
 msgstr "설정 저장됨."
 
 #: includes/admin/class-pb-network-sharingandprivacyoptions.php:143
 #: includes/admin/pb-laf.php:184 includes/admin/pb-laf.php:231
-#: includes/admin/pb-laf.php:871
+#: includes/admin/pb-laf.php:872
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
@@ -424,14 +424,14 @@ msgstr "사용자"
 
 #: includes/admin/pb-dashboard.php:93
 #: includes/modules/searchandreplace/types/class-pb-content.php:86
-#: includes/pb-posttype.php:113 templates/admin/import.php:60
+#: includes/pb-posttype.php:113 templates/admin/import.php:75
 #: templates/admin/organize.php:37 templates/admin/organize.php:54
 msgid "Front Matter"
 msgstr "머리말"
 
 #: includes/admin/pb-dashboard.php:113
 #: includes/modules/searchandreplace/types/class-pb-content.php:89
-#: includes/pb-posttype.php:147 templates/admin/import.php:65
+#: includes/pb-posttype.php:147 templates/admin/import.php:80
 #: templates/admin/organize.php:39 templates/admin/organize.php:62
 msgid "Back Matter"
 msgstr "부록"
@@ -495,7 +495,7 @@ msgstr ""
 msgid "Powered by"
 msgstr "Powered by"
 
-#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:194
+#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:197
 #: templates/admin/catalog.php:98
 msgid "About"
 msgstr "About"
@@ -519,7 +519,7 @@ msgstr "발행됨"
 
 #: includes/admin/pb-laf.php:141
 #: includes/modules/import/wordpress/class-pb-wxr.php:283
-#: templates/admin/import.php:83
+#: templates/admin/import.php:98
 msgid "Book Info"
 msgstr "도서 정보"
 
@@ -537,8 +537,8 @@ msgstr ""
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: includes/admin/pb-laf.php:205 templates/admin/import.php:15
-#: templates/admin/import.php:58
+#: includes/admin/pb-laf.php:205 templates/admin/import.php:30
+#: templates/admin/import.php:73
 msgid "Import"
 msgstr "가져오기"
 
@@ -590,194 +590,194 @@ msgstr "비공개 내용"
 msgid "Disable Comments"
 msgstr ""
 
-#: includes/admin/pb-laf.php:695
+#: includes/admin/pb-laf.php:696
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: includes/admin/pb-laf.php:729
+#: includes/admin/pb-laf.php:730
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: includes/admin/pb-laf.php:744
+#: includes/admin/pb-laf.php:745
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "공개. 이 책을 모든 사용자가 볼 수 있기를 원합니다."
 
-#: includes/admin/pb-laf.php:749
+#: includes/admin/pb-laf.php:750
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "비공개. 이 책을 내가 초대한 사용자만 볼 수 있기를 원합니다."
 
-#: includes/admin/pb-laf.php:772
+#: includes/admin/pb-laf.php:773
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "비공개인 머리말, 챕터, 부록을 누가 볼 수 있습니까?"
 
-#: includes/admin/pb-laf.php:775
+#: includes/admin/pb-laf.php:776
 msgid "Only logged in editors and administrators."
 msgstr "편집자와 관리자로만 로그인"
 
-#: includes/admin/pb-laf.php:777
+#: includes/admin/pb-laf.php:778
 msgid "All logged in users including subscribers."
 msgstr "구독자를 포함한 모든 사용자 로그인"
 
-#: includes/admin/pb-laf.php:793
+#: includes/admin/pb-laf.php:794
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: includes/admin/pb-laf.php:799
+#: includes/admin/pb-laf.php:800
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: includes/admin/pb-laf.php:814
+#: includes/admin/pb-laf.php:815
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: includes/admin/pb-laf.php:819
+#: includes/admin/pb-laf.php:820
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:70
+#: includes/admin/pb-metaboxes.php:71
 #, php-format
 msgid ""
 "Your cover image (%1$s x %1$s) is too small. It should be 625px on the "
 "shortest side."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:76
+#: includes/admin/pb-metaboxes.php:77
 #, php-format
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
 msgstr "표지 이미지 (%s) 가 너무 큽니다.  파일 크기를 2MB 이하로 해주세요."
 
-#: includes/admin/pb-metaboxes.php:92 includes/admin/pb-metaboxes.php:138
+#: includes/admin/pb-metaboxes.php:93 includes/admin/pb-metaboxes.php:139
 #: includes/class-pb-metadata.php:630
 #: includes/modules/themeoptions/class-pb-mpdfoptions.php:170
 msgid "Cover Image"
 msgstr "표지 이미지"
 
-#: includes/admin/pb-metaboxes.php:129 includes/admin/pb-metaboxes.php:426
-#: includes/class-pb-sass.php:49 templates/admin/import.php:63
+#: includes/admin/pb-metaboxes.php:130 includes/admin/pb-metaboxes.php:427
+#: includes/class-pb-sass.php:49 templates/admin/import.php:78
 #: templates/admin/organize.php:40
 msgid "Part"
 msgstr "파트"
 
-#: includes/admin/pb-metaboxes.php:133
+#: includes/admin/pb-metaboxes.php:134
 msgid "Save Part"
 msgstr "파트 저장하기"
 
-#: includes/admin/pb-metaboxes.php:134
+#: includes/admin/pb-metaboxes.php:135
 msgid "Save Book Information"
 msgstr "도서 정보 저장"
 
-#: includes/admin/pb-metaboxes.php:143
+#: includes/admin/pb-metaboxes.php:144
 msgid "General Book Information"
 msgstr "일반 도서 정보"
 
-#: includes/admin/pb-metaboxes.php:154
+#: includes/admin/pb-metaboxes.php:155
 msgid "Short Title"
 msgstr "짧은 제목"
 
-#: includes/admin/pb-metaboxes.php:155
+#: includes/admin/pb-metaboxes.php:156
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
 msgstr "긴 제목의 경우, PDF로 내보내기 하면서 잘릴 수도 있습니다. "
 
-#: includes/admin/pb-metaboxes.php:160
+#: includes/admin/pb-metaboxes.php:161
 msgid "Subtitle"
 msgstr "부제"
 
-#: includes/admin/pb-metaboxes.php:170
+#: includes/admin/pb-metaboxes.php:171
 msgid "Author, file as"
 msgstr "Author, file as"
 
-#: includes/admin/pb-metaboxes.php:171
+#: includes/admin/pb-metaboxes.php:172
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
 msgstr "전자책 스토어에서 저자의 성Last name을 기준으로 적절하게 분류될 것입니다."
 
-#: includes/admin/pb-metaboxes.php:176
+#: includes/admin/pb-metaboxes.php:177
 msgid "Contributing Authors"
 msgstr "공저"
 
-#: includes/admin/pb-metaboxes.php:178
+#: includes/admin/pb-metaboxes.php:179
 msgid ""
 "This may be used when more than one person shares the responsibility for the"
 " intellectual content of a book."
 msgstr "두 명 이상 책의 저술 내용에 대한 책임을 공유하는 경우에 사용될 수 있습니다."
 
-#: includes/admin/pb-metaboxes.php:183
+#: includes/admin/pb-metaboxes.php:184
 #: themes-book/pressbooks-book/functions.php:17
 msgid "Publisher"
 msgstr "출판사"
 
-#: includes/admin/pb-metaboxes.php:184 includes/admin/pb-metaboxes.php:190
+#: includes/admin/pb-metaboxes.php:185 includes/admin/pb-metaboxes.php:191
 msgid "This text appears on the title page of your book."
 msgstr "책의 제목페이지에 표시됩니다."
 
-#: includes/admin/pb-metaboxes.php:189
+#: includes/admin/pb-metaboxes.php:190
 msgid "Publisher City"
 msgstr "발행도시"
 
-#: includes/admin/pb-metaboxes.php:196
+#: includes/admin/pb-metaboxes.php:197
 #: themes-book/pressbooks-book/functions.php:20
 msgid "Publication Date"
 msgstr "발행일"
 
-#: includes/admin/pb-metaboxes.php:197 includes/admin/pb-metaboxes.php:204
+#: includes/admin/pb-metaboxes.php:198 includes/admin/pb-metaboxes.php:205
 msgid "This is added to the metadata in your ebook."
 msgstr "Ebook의 메타데이터에 추가됩니다. "
 
-#: includes/admin/pb-metaboxes.php:203
+#: includes/admin/pb-metaboxes.php:204
 msgid "On-Sale Date"
 msgstr "판매일"
 
-#: includes/admin/pb-metaboxes.php:209
+#: includes/admin/pb-metaboxes.php:210
 #: themes-book/pressbooks-book/functions.php:22
 msgid "Ebook ISBN"
 msgstr "Ebook ISBN"
 
-#: includes/admin/pb-metaboxes.php:210
+#: includes/admin/pb-metaboxes.php:211
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:215
+#: includes/admin/pb-metaboxes.php:216
 #: themes-book/pressbooks-book/functions.php:18
 msgid "Print ISBN"
 msgstr "Print ISBN"
 
-#: includes/admin/pb-metaboxes.php:216
+#: includes/admin/pb-metaboxes.php:217
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:223 includes/admin/pb-metaboxes.php:665
+#: includes/admin/pb-metaboxes.php:224
 msgid "Language"
 msgstr "언어"
 
-#: includes/admin/pb-metaboxes.php:224
+#: includes/admin/pb-metaboxes.php:225
 msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:224 includes/admin/pb-metaboxes.php:666
+#: includes/admin/pb-metaboxes.php:225
 msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:228
+#: includes/admin/pb-metaboxes.php:229
 #: includes/modules/export/epub/class-pb-epub201.php:940
 #: includes/modules/export/epub/class-pb-epub201.php:959
 #: includes/modules/export/epub/templates/epub201/opf.php:69
@@ -788,248 +788,244 @@ msgstr ""
 msgid "Copyright"
 msgstr "저작권"
 
-#: includes/admin/pb-metaboxes.php:234
+#: includes/admin/pb-metaboxes.php:235
 msgid "Copyright Year"
 msgstr "저작년도"
 
-#: includes/admin/pb-metaboxes.php:235
+#: includes/admin/pb-metaboxes.php:236
 msgid "Year that the book is/was published."
 msgstr "도서 발행 연도"
 
-#: includes/admin/pb-metaboxes.php:240
+#: includes/admin/pb-metaboxes.php:241
 msgid "Copyright Holder"
 msgstr "저작권자"
 
-#: includes/admin/pb-metaboxes.php:241
+#: includes/admin/pb-metaboxes.php:242
 msgid "Name of the copyright holder."
 msgstr "저작권자 성명"
 
-#: includes/admin/pb-metaboxes.php:258
+#: includes/admin/pb-metaboxes.php:259
 #: includes/modules/themeoptions/class-pb-globaloptions.php:114
 msgid "Copyright License"
 msgstr "저작권"
 
-#: includes/admin/pb-metaboxes.php:259
+#: includes/admin/pb-metaboxes.php:260
 msgid "You can select various licenses including Creative Commons."
 msgstr "크리에이티브 커먼즈를 포함한 다양한 라이센스를 선택할 수 있습니다. "
 
-#: includes/admin/pb-metaboxes.php:265
+#: includes/admin/pb-metaboxes.php:266
 msgid "Copyright Notice"
 msgstr "저작권 관련 공지사항"
 
-#: includes/admin/pb-metaboxes.php:266
+#: includes/admin/pb-metaboxes.php:267
 msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
 "will override the auto-generated copyright notice, and be inserted after the"
 " title page."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:276
+#: includes/admin/pb-metaboxes.php:277
 msgid "Book Tagline"
 msgstr "책의 슬로건"
 
-#: includes/admin/pb-metaboxes.php:277
+#: includes/admin/pb-metaboxes.php:278
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
 msgstr "당신의 아주 짧게 책을 묘사해주세요. 트위터 게시글에 적합하고, 가장 간결한 문장으로 당신의 책을 요약해주세요."
 
-#: includes/admin/pb-metaboxes.php:283
+#: includes/admin/pb-metaboxes.php:284
 msgid "Short Description"
 msgstr "간략하게 서술"
 
-#: includes/admin/pb-metaboxes.php:284
+#: includes/admin/pb-metaboxes.php:285
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr "카탈로그 및 리뷰어들이 인용할 수 있도록 당신의 책에 대해 짧게 소개해주세요. "
 
-#: includes/admin/pb-metaboxes.php:290
+#: includes/admin/pb-metaboxes.php:291
 msgid "Long Description"
 msgstr "길게 서술"
 
-#: includes/admin/pb-metaboxes.php:291
+#: includes/admin/pb-metaboxes.php:292
 msgid "The full description of your book."
 msgstr "책의 전체에 대한 설명입니다."
 
-#: includes/admin/pb-metaboxes.php:295
+#: includes/admin/pb-metaboxes.php:296
 msgid "Additional Catalog Information"
 msgstr "추가적인 카탈로그 정보"
 
-#: includes/admin/pb-metaboxes.php:301
+#: includes/admin/pb-metaboxes.php:302
 msgid "Series Title"
 msgstr "시리즈 타이틀"
 
-#: includes/admin/pb-metaboxes.php:302 includes/admin/pb-metaboxes.php:308
+#: includes/admin/pb-metaboxes.php:303 includes/admin/pb-metaboxes.php:309
 msgid "Add if your book is part of a series. This is not used by Pressbooks."
 msgstr "만약 책의 시리즈 부분을 추가하고 싶다면, Pressbooks 에서는 사용되지 않습니다."
 
-#: includes/admin/pb-metaboxes.php:307
+#: includes/admin/pb-metaboxes.php:308
 msgid "Series Number"
 msgstr "시리즈 번호"
 
-#: includes/admin/pb-metaboxes.php:313
+#: includes/admin/pb-metaboxes.php:314
 msgid "Editor"
 msgstr "편집자"
 
-#: includes/admin/pb-metaboxes.php:314 includes/admin/pb-metaboxes.php:320
-#: includes/admin/pb-metaboxes.php:339 includes/admin/pb-metaboxes.php:345
-#: includes/admin/pb-metaboxes.php:351 includes/admin/pb-metaboxes.php:357
-#: includes/admin/pb-metaboxes.php:370
+#: includes/admin/pb-metaboxes.php:315 includes/admin/pb-metaboxes.php:321
+#: includes/admin/pb-metaboxes.php:340 includes/admin/pb-metaboxes.php:346
+#: includes/admin/pb-metaboxes.php:352 includes/admin/pb-metaboxes.php:358
+#: includes/admin/pb-metaboxes.php:371
 msgid "This is not used by Pressbooks."
 msgstr "Pressbooks 에서는 사용되지 않습니다."
 
-#: includes/admin/pb-metaboxes.php:319
+#: includes/admin/pb-metaboxes.php:320
 msgid "Translator"
 msgstr "역자"
 
-#: includes/admin/pb-metaboxes.php:325
+#: includes/admin/pb-metaboxes.php:326
 msgid "Keywords"
 msgstr "키워드"
 
-#: includes/admin/pb-metaboxes.php:327
+#: includes/admin/pb-metaboxes.php:328
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:332
+#: includes/admin/pb-metaboxes.php:333
 #: themes-book/pressbooks-book/functions.php:21
 msgid "Hashtag"
 msgstr "해쉬태그"
 
-#: includes/admin/pb-metaboxes.php:333
+#: includes/admin/pb-metaboxes.php:334
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:338
+#: includes/admin/pb-metaboxes.php:339
 msgid "List Price (Print)"
 msgstr "정가(종이책)"
 
-#: includes/admin/pb-metaboxes.php:344
+#: includes/admin/pb-metaboxes.php:345
 msgid "List Price (PDF)"
 msgstr "정가(PDF)"
 
-#: includes/admin/pb-metaboxes.php:350
+#: includes/admin/pb-metaboxes.php:351
 msgid "List Price (ebook)"
 msgstr "정가(ebook)"
 
-#: includes/admin/pb-metaboxes.php:356
+#: includes/admin/pb-metaboxes.php:357
 msgid "List Price (Web)"
 msgstr "정가(Web)"
 
-#: includes/admin/pb-metaboxes.php:362
+#: includes/admin/pb-metaboxes.php:363
 msgid "Bisac Subject"
 msgstr "도서분류법 Bisac Subject"
 
-#: includes/admin/pb-metaboxes.php:364
+#: includes/admin/pb-metaboxes.php:365
 msgid ""
 "BISAC subject headings help your book get properly classified in (e)book "
 "stores. This is not used by Pressbooks."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:369
+#: includes/admin/pb-metaboxes.php:370
 msgid "Bisac Regional Theme"
 msgstr "Bisac 지역적 테마"
 
-#: includes/admin/pb-metaboxes.php:380
+#: includes/admin/pb-metaboxes.php:381
 msgid "Catalog Order"
 msgstr "카탈로그 순서"
 
-#: includes/admin/pb-metaboxes.php:388
+#: includes/admin/pb-metaboxes.php:389
 msgid "Chapter Metadata"
 msgstr "챕터 메타데이터"
 
-#: includes/admin/pb-metaboxes.php:393
+#: includes/admin/pb-metaboxes.php:394
 msgid "Chapter Short Title (appears in the PDF running header)"
 msgstr "챕터 짧은 제목 (PDF 헤더에 표시됩니다.)"
 
-#: includes/admin/pb-metaboxes.php:398
+#: includes/admin/pb-metaboxes.php:399
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr "챕터 부제 (WEB/ebook/PDF에 표시됩니다.)"
 
-#: includes/admin/pb-metaboxes.php:403
+#: includes/admin/pb-metaboxes.php:404
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
 msgstr "챕터 저자 (WEB/ebook/PDF에 표시됩니다.)"
 
-#: includes/admin/pb-metaboxes.php:420
+#: includes/admin/pb-metaboxes.php:421
 msgid "Chapter Copyright License (overrides book license on this page)"
 msgstr "챕터 저작권 (overrides book license on this page)"
 
-#: includes/admin/pb-metaboxes.php:442
+#: includes/admin/pb-metaboxes.php:443
 msgid "Include in exports"
 msgstr "내보내기 포함"
 
-#: includes/admin/pb-metaboxes.php:448
+#: includes/admin/pb-metaboxes.php:449
 msgid "Show title in exports"
 msgstr "내보내기에 제목 보이기"
 
-#: includes/admin/pb-metaboxes.php:454
+#: includes/admin/pb-metaboxes.php:455
 msgid "Set as ebook start-point"
 msgstr "ebook의 시작 지점으로 설정"
 
-#: includes/admin/pb-metaboxes.php:460
+#: includes/admin/pb-metaboxes.php:461
 msgid "Front Matter Metadata"
 msgstr "머리말 메타데이터"
 
-#: includes/admin/pb-metaboxes.php:465
+#: includes/admin/pb-metaboxes.php:466
 msgid "Front Matter Short Title (appears in the PDF running header)"
 msgstr "머리말 짧은 타이틀 (PDF 헤더에 표시됩니다.)"
 
-#: includes/admin/pb-metaboxes.php:470
+#: includes/admin/pb-metaboxes.php:471
 msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr "머리말 부제 (WEB/ebook/PDF에 표시됩니다.)"
 
-#: includes/admin/pb-metaboxes.php:475
+#: includes/admin/pb-metaboxes.php:476
 msgid "Front Matter Author (appears in Web/ebook/PDF output)"
 msgstr "머리말 저자 (WEB/ebook/PDF에 표시됩니다.)"
 
-#: includes/admin/pb-metaboxes.php:492
+#: includes/admin/pb-metaboxes.php:493
 msgid "Front Matter Copyright License (overrides book license on this page)"
 msgstr "머리말 저작권 (overrides book license on this page)"
 
-#: includes/admin/pb-metaboxes.php:498
+#: includes/admin/pb-metaboxes.php:499
 msgid "Back Matter Metadata"
 msgstr "부록 메타데이터"
 
-#: includes/admin/pb-metaboxes.php:503
+#: includes/admin/pb-metaboxes.php:504
 msgid "Back Matter Short Title (appears in the PDF running header)"
 msgstr "부록 짧은 타이틀 (PDF 헤더에 표시됩니다.)"
 
-#: includes/admin/pb-metaboxes.php:508
+#: includes/admin/pb-metaboxes.php:509
 msgid "Back Matter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr "부록 부제 (WEB/ebook/PDF에 표시됩니다.)"
 
-#: includes/admin/pb-metaboxes.php:513
+#: includes/admin/pb-metaboxes.php:514
 msgid "Back Matter Author (appears in Web/ebook/PDF output)"
 msgstr "부록 저자 (WEB/ebook/PDF에 표시됩니다.)"
 
-#: includes/admin/pb-metaboxes.php:530
+#: includes/admin/pb-metaboxes.php:531
 msgid "Back Matter Copyright License (overrides book license on this page)"
 msgstr "부록 저작권 (overrides book license on this page)"
 
-#: includes/admin/pb-metaboxes.php:535
+#: includes/admin/pb-metaboxes.php:536
 #: includes/modules/searchandreplace/types/class-pb-part.php:127
 msgid "Part Text"
 msgstr "파트 텍스트"
 
-#: includes/admin/pb-metaboxes.php:542
+#: includes/admin/pb-metaboxes.php:543
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
 msgstr "파트 페이지에 표시됩니다. 만약 하나의 파트만 있다면, 표시되지 않습니다."
 
-#: includes/admin/pb-metaboxes.php:546
+#: includes/admin/pb-metaboxes.php:547
 msgid "Part Visibility"
 msgstr "파트 가시성"
 
-#: includes/admin/pb-metaboxes.php:555
+#: includes/admin/pb-metaboxes.php:556
 msgid "Hide from table of contents and part numbering."
 msgstr "목차와 파트번호를 숨김"
-
-#: includes/admin/pb-metaboxes.php:658
-msgid "Extra Profile Information"
-msgstr "추가 프로필 정보"
 
 #: includes/admin/pb-network-managers.php:15
 #: includes/admin/pb-network-managers.php:16
@@ -1059,41 +1055,41 @@ msgstr ""
 msgid "These plugins extend the functionality of Pressbooks."
 msgstr ""
 
-#: includes/class-pb-activation.php:151
+#: includes/class-pb-activation.php:154
 msgid "Main Body"
 msgstr "본문"
 
-#: includes/class-pb-activation.php:157
+#: includes/class-pb-activation.php:160
 msgid "Introduction"
 msgstr "소개"
 
-#: includes/class-pb-activation.php:159
+#: includes/class-pb-activation.php:162
 msgid "This is where you can write your introduction."
 msgstr "이곳에 소개를 작성해주세요."
 
-#: includes/class-pb-activation.php:164
+#: includes/class-pb-activation.php:167
 msgid "Chapter 1"
 msgstr "챕터 1"
 
-#: includes/class-pb-activation.php:166
+#: includes/class-pb-activation.php:169
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "본문의 첫 번째 챕터입니다. 텍스트를 바꾸거나, 챕터명을 수정하거나, 새로운 챕터와 새로운 파트를 추가할 수 있습니다. "
 
-#: includes/class-pb-activation.php:171
+#: includes/class-pb-activation.php:174
 msgid "Appendix"
 msgstr "부록"
 
-#: includes/class-pb-activation.php:173
+#: includes/class-pb-activation.php:176
 msgid "This is where you can add appendices or other back matter."
 msgstr "이곳에 부록을 작성해주세요."
 
-#: includes/class-pb-activation.php:179
+#: includes/class-pb-activation.php:182
 msgid "Authors"
 msgstr "저자"
 
-#: includes/class-pb-activation.php:189
+#: includes/class-pb-activation.php:192
 #: includes/modules/export/epub/templates/epub3/toc.php:23
 #: includes/modules/themeoptions/class-pb-mpdfoptions.php:181
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:236
@@ -1103,18 +1099,18 @@ msgstr "저자"
 msgid "Table of Contents"
 msgstr "목차"
 
-#: includes/class-pb-activation.php:199
+#: includes/class-pb-activation.php:202
 #: themes-book/pressbooks-book/header.php:83
 #: themes-book/pressbooks-book/page-cover-top-block.php:62
 msgid "Buy"
 msgstr "구매하다"
 
-#: includes/class-pb-activation.php:204
+#: includes/class-pb-activation.php:207
 #: themes-book/pressbooks-book/functions.php:186
 msgid "Access Denied"
 msgstr "접근거부"
 
-#: includes/class-pb-activation.php:206
+#: includes/class-pb-activation.php:209
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -1122,40 +1118,40 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: includes/class-pb-activation.php:211 includes/class-pb-metadata.php:550
+#: includes/class-pb-activation.php:214 includes/class-pb-metadata.php:550
 msgid "Custom CSS for Ebook"
 msgstr "Ebook의 사용자정의 CSS"
 
-#: includes/class-pb-activation.php:216 includes/class-pb-metadata.php:555
+#: includes/class-pb-activation.php:219 includes/class-pb-metadata.php:555
 msgid "Custom CSS for PDF"
 msgstr "PDF의 사용자정의 CSS"
 
-#: includes/class-pb-activation.php:221 includes/class-pb-metadata.php:560
+#: includes/class-pb-activation.php:224 includes/class-pb-metadata.php:560
 msgid "Custom CSS for Web"
 msgstr "Web의 사용자정의 CSS"
 
-#: includes/class-pb-activation.php:226 includes/pb-posttype.php:181
+#: includes/class-pb-activation.php:229 includes/pb-posttype.php:181
 msgid "Book Information"
 msgstr "도서 정보"
 
-#: includes/class-pb-activation.php:233
+#: includes/class-pb-activation.php:236
 msgid "Default Data"
 msgstr "기본값 데이터"
 
 #. Description of the plugin/theme
-#: includes/class-pb-activation.php:235
+#: includes/class-pb-activation.php:238
 msgid "Simple Book Production"
 msgstr "쉽게 도서 제작"
 
-#: includes/class-pb-catalog.php:727
+#: includes/class-pb-catalog.php:741
 msgid "Catalog Logo"
 msgstr "카탈로그 로고"
 
-#: includes/class-pb-catalog.php:1224
+#: includes/class-pb-catalog.php:1238
 msgid "Invalid URL."
 msgstr "유효하지 않은 URL"
 
-#: includes/class-pb-catalog.php:1244
+#: includes/class-pb-catalog.php:1258
 msgid "No book found."
 msgstr "책을 찾을 수 없습니다."
 
@@ -1172,46 +1168,50 @@ msgid "Biblical Hebrew"
 msgstr "히브리어"
 
 #: includes/class-pb-globaltypography.php:23
+msgid "Hindi"
+msgstr ""
+
+#: includes/class-pb-globaltypography.php:24
 msgid "Chinese (Simplified)"
 msgstr "중국어(간체)"
 
-#: includes/class-pb-globaltypography.php:24
+#: includes/class-pb-globaltypography.php:25
 msgid "Chinese (Traditional)"
 msgstr "중국어(번체)"
 
-#: includes/class-pb-globaltypography.php:25
+#: includes/class-pb-globaltypography.php:26
 msgid "Coptic"
 msgstr "콥트어"
 
-#: includes/class-pb-globaltypography.php:26
+#: includes/class-pb-globaltypography.php:27
 msgid "Gujarati"
 msgstr "구자라트어"
 
-#: includes/class-pb-globaltypography.php:27 includes/pb-l10n.php:335
+#: includes/class-pb-globaltypography.php:28
 msgid "Japanese"
 msgstr "일본어"
 
-#: includes/class-pb-globaltypography.php:28
+#: includes/class-pb-globaltypography.php:29
 msgid "Korean"
 msgstr "ㄴ국어"
 
-#: includes/class-pb-globaltypography.php:29
+#: includes/class-pb-globaltypography.php:30
 msgid "Syriac"
 msgstr "시리아어"
 
-#: includes/class-pb-globaltypography.php:30
+#: includes/class-pb-globaltypography.php:31
 msgid "Tamil"
 msgstr "타밀어"
 
-#: includes/class-pb-globaltypography.php:31
+#: includes/class-pb-globaltypography.php:32
 msgid "Tibetan"
 msgstr "티베트어"
 
-#: includes/class-pb-globaltypography.php:32
+#: includes/class-pb-globaltypography.php:33
 msgid "Turkish"
 msgstr ""
 
-#: includes/class-pb-globaltypography.php:364
+#: includes/class-pb-globaltypography.php:377
 #, php-format
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
@@ -1226,7 +1226,7 @@ msgstr "별도로 언급된 경우를 제외하고."
 
 #: includes/class-pb-sass.php:48
 #: includes/modules/searchandreplace/types/class-pb-content.php:83
-#: templates/admin/import.php:61 templates/admin/organize.php:58
+#: templates/admin/import.php:76 templates/admin/organize.php:58
 msgid "Chapter"
 msgstr "챕터"
 
@@ -1448,27 +1448,27 @@ msgstr "잘못된 권한 오류"
 msgid "Notes"
 msgstr "주의"
 
-#: includes/modules/import/class-pb-import.php:358
-#: includes/modules/import/class-pb-import.php:420
+#: includes/modules/import/class-pb-import.php:383
+#: includes/modules/import/class-pb-import.php:445
 #, php-format
 msgid "Your file does not appear to be a valid %s."
 msgstr "파일이 올바른 %s 로 표시되지 않습니다."
 
-#: includes/modules/import/class-pb-import.php:365
+#: includes/modules/import/class-pb-import.php:390
 msgid "Your URL does not appear to be valid"
 msgstr "URL이 올바른 %s 로 표시되지 않습니다."
 
-#: includes/modules/import/class-pb-import.php:381
+#: includes/modules/import/class-pb-import.php:406
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response header on a HEAD request: "
 msgstr ""
 
-#: includes/modules/import/class-pb-import.php:387
+#: includes/modules/import/class-pb-import.php:412
 msgid "The website you are attempting to reach is not returning HTML content"
 msgstr ""
 
-#: includes/modules/import/class-pb-import.php:404
+#: includes/modules/import/class-pb-import.php:429
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response on a GET request: "
@@ -2293,65 +2293,65 @@ msgstr "이 옵션은 웹북webbook에 적용됩니다."
 msgid "Web Options"
 msgstr "웹Web 옵션"
 
-#: includes/pb-editor.php:73
+#: includes/pb-editor.php:77
 msgid "Indent"
 msgstr "들여쓰기"
 
-#: includes/pb-editor.php:79
+#: includes/pb-editor.php:83
 msgid "Hanging indent"
 msgstr "내어쓰기"
 
-#: includes/pb-editor.php:85
+#: includes/pb-editor.php:89
 msgid "No indent"
 msgstr "들여쓰기 없애기"
 
-#: includes/pb-editor.php:91
+#: includes/pb-editor.php:95
 msgid "Tight tracking"
 msgstr "자간 좁게"
 
-#: includes/pb-editor.php:97
+#: includes/pb-editor.php:101
 msgid "Very tight tracking"
 msgstr "자간 매우 좁게"
 
-#: includes/pb-editor.php:103
+#: includes/pb-editor.php:107
 msgid "Loose tracking"
 msgstr "자간 넓게"
 
-#: includes/pb-editor.php:109
+#: includes/pb-editor.php:113
 msgid "Very loose tracking"
 msgstr "자간 매우 넓게"
 
-#: includes/pb-editor.php:115
+#: includes/pb-editor.php:119
 msgid "Pullquote (left)"
 msgstr "인용구(좌측)"
 
-#: includes/pb-editor.php:121
+#: includes/pb-editor.php:125
 msgid "Pullquote (right)"
 msgstr "인용구(우측)"
 
-#: includes/pb-editor.php:173 includes/pb-editor.php:191
-#: includes/pb-editor.php:205 languages/tinymce.php:7
+#: includes/pb-editor.php:177 includes/pb-editor.php:195
+#: includes/pb-editor.php:209 languages/tinymce.php:7
 msgid "Standard"
 msgstr "일반상자"
 
-#: includes/pb-editor.php:177
+#: includes/pb-editor.php:181
 msgid "No lines"
 msgstr "선 없애기"
 
-#: includes/pb-editor.php:181
+#: includes/pb-editor.php:185
 msgid "Lines"
 msgstr "선"
 
-#: includes/pb-editor.php:185 includes/pb-editor.php:199
-#: includes/pb-editor.php:213 languages/tinymce.php:9
+#: includes/pb-editor.php:189 includes/pb-editor.php:203
+#: includes/pb-editor.php:217 languages/tinymce.php:9
 msgid "Shaded"
 msgstr "음영상자"
 
-#: includes/pb-editor.php:195 includes/pb-editor.php:209
+#: includes/pb-editor.php:199 includes/pb-editor.php:213
 msgid "Border"
 msgstr "경계선"
 
-#: includes/pb-editor.php:328
+#: includes/pb-editor.php:332
 msgid "Internal Link"
 msgstr ""
 
@@ -2377,41 +2377,12 @@ msgstr "삭제해도 괜찮습니까?"
 msgid "Delete"
 msgstr "삭제"
 
-#: includes/pb-l10n.php:329
-msgid "English (United States)"
-msgstr "영어 (United States)"
-
-#: includes/pb-l10n.php:330
-msgid "Chinese (Taiwan)"
-msgstr "중국어(타이완)"
-
-#: includes/pb-l10n.php:331
-msgid "Estonian"
-msgstr "에스토니아어"
-
-#: includes/pb-l10n.php:332
-msgid "French (France)"
-msgstr "불어(프랑스)"
-
-#: includes/pb-l10n.php:333
-msgid "German"
-msgstr "독일어"
-
-#: includes/pb-l10n.php:334
-msgid "Italian"
-msgstr "이태리어"
-
-#: includes/pb-l10n.php:336
-msgid "Portuguese (Brazil)"
-msgstr "포르투갈어(브라질)"
-
-#: includes/pb-l10n.php:337
-msgid "Spanish"
-msgstr "스페인어"
-
-#: includes/pb-l10n.php:338
-msgid "Swedish"
-msgstr "스웨덴어"
+#: includes/pb-l10n.php:482 includes/pb-l10n.php:505
+#, php-format
+msgid ""
+"Please contact your system administrator if you would like them to install "
+"extended %s language support for the Pressbooks interface."
+msgstr ""
 
 #: includes/pb-posttype.php:34
 msgctxt "post type general name"
@@ -3073,7 +3044,7 @@ msgstr "두 번째"
 msgid "Apply Class"
 msgstr ""
 
-#: pressbooks.php:97
+#: pressbooks.php:101
 #, php-format
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
@@ -3081,7 +3052,7 @@ msgid ""
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:106
+#: pressbooks.php:110
 msgid "Cannot find Pressbooks install."
 msgstr "Pressbooks 설치를 찾을 수 없습니다."
 
@@ -3394,7 +3365,7 @@ msgstr ""
 msgid "PDF (mPDF)"
 msgstr "PDF (mPDF)"
 
-#: templates/admin/export.php:124 templates/admin/import.php:157
+#: templates/admin/export.php:124 templates/admin/import.php:21
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
 msgstr "EPUB (for Nook, iBooks, Kobo etc.)"
 
@@ -3468,60 +3439,60 @@ msgstr ""
 msgid "Delete All Exports"
 msgstr ""
 
-#: templates/admin/import.php:21
+#: templates/admin/import.php:20
+msgid "WXR (WordPress eXtended RSS)"
+msgstr "WXR (WordPress eXtended RSS)"
+
+#: templates/admin/import.php:22
+msgid "ODT (word processing file format of OpenDocument)"
+msgstr "ODT (word processing file format of OpenDocument)"
+
+#: templates/admin/import.php:23
+msgid "DOCX (word processing file format of Microsoft)"
+msgstr "DOCX (word processing file format of Microsoft)"
+
+#: templates/admin/import.php:24
+msgid "HTML (scrape content from a URL)"
+msgstr "HTML (scrape content from a URL)"
+
+#: templates/admin/import.php:36
 #, php-format
 msgid "Import in progress: %s"
 msgstr ""
 
-#: templates/admin/import.php:41
+#: templates/admin/import.php:56
 msgid "Are you sure you want to abort the import?"
 msgstr ""
 
-#: templates/admin/import.php:67
+#: templates/admin/import.php:82
 msgid "Other"
 msgstr ""
 
-#: templates/admin/import.php:106
+#: templates/admin/import.php:121
 msgid "Start"
 msgstr "시작하기"
 
-#: templates/admin/import.php:108
+#: templates/admin/import.php:123
 msgid "Cancel"
 msgstr "취소하기"
 
-#: templates/admin/import.php:141
+#: templates/admin/import.php:156
 msgid "Supported file extensions:"
 msgstr ""
 
-#: templates/admin/import.php:142
+#: templates/admin/import.php:157
 msgid "Maximum file size:"
 msgstr "최대 파일 사이즈:"
 
-#: templates/admin/import.php:152
+#: templates/admin/import.php:167
 msgid "Type of file"
 msgstr "파일 유형"
 
-#: templates/admin/import.php:156
-msgid "WXR (WordPress eXtended RSS)"
-msgstr "WXR (WordPress eXtended RSS)"
-
-#: templates/admin/import.php:158
-msgid "ODT (word processing file format of OpenDocument)"
-msgstr "ODT (word processing file format of OpenDocument)"
-
-#: templates/admin/import.php:159
-msgid "DOCX (word processing file format of Microsoft)"
-msgstr "DOCX (word processing file format of Microsoft)"
-
-#: templates/admin/import.php:160
-msgid "HTML (scrape content from a URL)"
-msgstr "HTML (scrape content from a URL)"
-
-#: templates/admin/import.php:166
+#: templates/admin/import.php:179
 msgid "File"
 msgstr "파일"
 
-#: templates/admin/import.php:179
+#: templates/admin/import.php:192
 msgid "Upload file"
 msgstr "파일 업로드"
 
@@ -3653,42 +3624,42 @@ msgstr ""
 msgid "Replace &amp; Save"
 msgstr ""
 
-#: templates/pb-catalog.php:153
+#: templates/pb-catalog.php:156
 msgid "'s Catalog Page"
 msgstr "의 카탈로그 페이지"
 
-#: templates/pb-catalog.php:170
+#: templates/pb-catalog.php:173
 #: themes-book/pressbooks-book/page-cover-top-block.php:8
 msgid "login"
 msgstr "로그인"
 
-#: templates/pb-catalog.php:172
+#: templates/pb-catalog.php:175
 #: themes-book/pressbooks-book/page-cover-top-block.php:10
 msgid "logout"
 msgstr "로그아웃"
 
-#: templates/pb-catalog.php:180
+#: templates/pb-catalog.php:183
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
 #: themes-root/pressbooks-publisher/templates/header.php:6
 msgid "Admin"
 msgstr "관리자"
 
-#: templates/pb-catalog.php:224
+#: templates/pb-catalog.php:227
 msgid "Catalog"
 msgstr "카탈로그"
 
-#: templates/pb-catalog.php:224
+#: templates/pb-catalog.php:227
 msgid "filtering by"
 msgstr "필터링"
 
-#: templates/pb-catalog.php:249
+#: templates/pb-catalog.php:252
 msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a class"
 "=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr ""
 
-#: templates/pb-catalog.php:253
+#: templates/pb-catalog.php:256
 msgid "Pressbooks: the CMS for Books."
 msgstr "Pressbooks: the CMS for Books."
 

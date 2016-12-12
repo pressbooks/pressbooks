@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2016-11-15 22:43-0400\n"
-"PO-Revision-Date: 2016-11-16 02:43+0000\n"
+"POT-Creation-Date: 2016-12-12 15:24-0400\n"
+"PO-Revision-Date: 2016-12-12 19:24+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Galician (http://www.transifex.com/pressbooks/pressbooks/language/gl/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr ""
 #, php-format
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
-" a dedicated install of WordPress Multi-Site, version %s or greater. Please "
+" a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
 msgstr ""
 
@@ -50,13 +50,13 @@ msgstr ""
 
 #: includes/admin/class-pb-catalog-list-table.php:110
 #: includes/admin/class-pb-catalog-list-table.php:222
-#: includes/admin/class-pb-catalog-list-table.php:462
+#: includes/admin/class-pb-catalog-list-table.php:465
 msgid "Hide in Catalog"
 msgstr "Agochar no catálogo"
 
 #: includes/admin/class-pb-catalog-list-table.php:115
 #: includes/admin/class-pb-catalog-list-table.php:221
-#: includes/admin/class-pb-catalog-list-table.php:461
+#: includes/admin/class-pb-catalog-list-table.php:464
 msgid "Show in Catalog"
 msgstr "Mostrar no catálogo"
 
@@ -69,25 +69,25 @@ msgid "Privacy Status"
 msgstr "Estado da privacidade"
 
 #: includes/admin/class-pb-catalog-list-table.php:178
-#: includes/class-pb-activation.php:184
+#: includes/class-pb-activation.php:187
 #: includes/modules/export/epub/class-pb-epub201.php:754
 msgid "Cover"
 msgstr "Portada"
 
 #: includes/admin/class-pb-catalog-list-table.php:179
-#: templates/admin/import.php:59
+#: templates/admin/import.php:74
 msgid "Title"
 msgstr "Título"
 
 #: includes/admin/class-pb-catalog-list-table.php:180
-#: includes/admin/pb-metaboxes.php:165 templates/admin/organize.php:78
+#: includes/admin/pb-metaboxes.php:166 templates/admin/organize.php:78
 #: templates/admin/organize.php:154
 #: themes-book/pressbooks-book/functions.php:15
 msgid "Author"
 msgstr "Autor/a"
 
 #: includes/admin/class-pb-catalog-list-table.php:184
-#: templates/pb-catalog.php:208
+#: templates/pb-catalog.php:211
 msgid "Tag"
 msgstr "Etiqueta"
 
@@ -100,46 +100,46 @@ msgstr "Destacado"
 msgid "Pub Date"
 msgstr "Data de publicación"
 
-#: includes/admin/class-pb-catalog-list-table.php:342
+#: includes/admin/class-pb-catalog-list-table.php:345
 msgid "Edit Tags"
 msgstr "Editar etiquetas"
 
-#: includes/admin/class-pb-catalog-list-table.php:382
+#: includes/admin/class-pb-catalog-list-table.php:385
 #: includes/admin/pb-laf.php:96 templates/admin/organize.php:22
 #: templates/admin/organize.php:28 templates/admin/organize.php:81
 #: templates/admin/organize.php:157
 msgid "Private"
 msgstr "Privado"
 
-#: includes/admin/class-pb-catalog-list-table.php:382
+#: includes/admin/class-pb-catalog-list-table.php:385
 #: includes/admin/pb-laf.php:98 templates/admin/organize.php:20
 #: templates/admin/organize.php:25
 msgid "Public"
 msgstr "Público"
 
-#: includes/admin/class-pb-catalog-list-table.php:459
+#: includes/admin/class-pb-catalog-list-table.php:462
 msgid "Organize your public Catalog page."
 msgstr "Organiza a páxina do teu catálogo público."
 
-#: includes/admin/class-pb-catalog-list-table.php:460
+#: includes/admin/class-pb-catalog-list-table.php:463
 msgid "Show/Hide books"
 msgstr "Mostrar/agochar libros"
 
-#: includes/admin/class-pb-catalog-list-table.php:461
+#: includes/admin/class-pb-catalog-list-table.php:464
 #, php-format
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
 msgstr ""
 
-#: includes/admin/class-pb-catalog-list-table.php:462
+#: includes/admin/class-pb-catalog-list-table.php:465
 #, php-format
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
 msgstr ""
 
-#: includes/admin/class-pb-catalog-list-table.php:464
+#: includes/admin/class-pb-catalog-list-table.php:467
 msgid "Catalog sorting"
 msgstr "Ordenar o catálogo"
 
-#: includes/admin/class-pb-catalog-list-table.php:465
+#: includes/admin/class-pb-catalog-list-table.php:468
 #, php-format
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
@@ -147,44 +147,44 @@ msgid ""
 " each individual book."
 msgstr ""
 
-#: includes/admin/class-pb-catalog-list-table.php:467
+#: includes/admin/class-pb-catalog-list-table.php:470
 msgid "Share your catalog"
 msgstr "Compartir o teu catálogo"
 
-#: includes/admin/class-pb-catalog-list-table.php:468
+#: includes/admin/class-pb-catalog-list-table.php:471
 msgid "The public link to your catalog page"
 msgstr "A ligazón pública á páxina do teu catálogo"
 
-#: includes/admin/class-pb-catalog-list-table.php:472
+#: includes/admin/class-pb-catalog-list-table.php:475
 #: includes/admin/pb-laf.php:213 includes/admin/pb-laf.php:246
 #: includes/admin/pb-laf.php:355
 msgid "My Catalog"
 msgstr "O meu catálogo"
 
-#: includes/admin/class-pb-catalog-list-table.php:473
+#: includes/admin/class-pb-catalog-list-table.php:476
 msgid "Edit Profile"
 msgstr "Editar perfil"
 
-#: includes/admin/class-pb-catalog-list-table.php:474
+#: includes/admin/class-pb-catalog-list-table.php:477
 msgid "Visit Catalog"
 msgstr "Visitar catálogo"
 
-#: includes/admin/class-pb-catalog-list-table.php:481
+#: includes/admin/class-pb-catalog-list-table.php:484
 #: templates/admin/search.php:59
 msgid "Search"
 msgstr "Procurar"
 
-#: includes/admin/class-pb-catalog-list-table.php:490
+#: includes/admin/class-pb-catalog-list-table.php:493
 msgid "Add By URL"
 msgstr "Engadir por URL"
 
-#: includes/admin/class-pb-catalog-list-table.php:543
-#: includes/class-pb-catalog.php:1082 includes/class-pb-catalog.php:1132
-#: includes/class-pb-catalog.php:1177 templates/admin/catalog.php:19
+#: includes/admin/class-pb-catalog-list-table.php:546
+#: includes/class-pb-catalog.php:1096 includes/class-pb-catalog.php:1146
+#: includes/class-pb-catalog.php:1191 templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
 msgstr "Non tes permisos para facer isto."
 
-#: includes/admin/class-pb-catalog-list-table.php:548
+#: includes/admin/class-pb-catalog-list-table.php:551
 msgid "The requested user does not exist."
 msgstr "O usuario solicitado non existe."
 
@@ -209,7 +209,7 @@ msgid "Export settings."
 msgstr ""
 
 #: includes/admin/class-pb-exportoptions.php:141 includes/admin/pb-laf.php:202
-#: includes/admin/pb-metaboxes.php:434
+#: includes/admin/pb-metaboxes.php:435
 msgid "Export Settings"
 msgstr ""
 
@@ -236,15 +236,15 @@ msgid "Sharing and Privacy settings."
 msgstr ""
 
 #: includes/admin/class-pb-network-sharingandprivacyoptions.php:104
-#: includes/admin/pb-analytics.php:184 includes/class-pb-catalog.php:1109
-#: includes/class-pb-catalog.php:1159 includes/class-pb-catalog.php:1196
-#: includes/class-pb-catalog.php:1257 templates/admin/dashboard.php:28
+#: includes/admin/pb-analytics.php:184 includes/class-pb-catalog.php:1123
+#: includes/class-pb-catalog.php:1173 includes/class-pb-catalog.php:1210
+#: includes/class-pb-catalog.php:1271 templates/admin/dashboard.php:28
 msgid "Settings saved."
 msgstr "Axustes gardados."
 
 #: includes/admin/class-pb-network-sharingandprivacyoptions.php:143
 #: includes/admin/pb-laf.php:184 includes/admin/pb-laf.php:231
-#: includes/admin/pb-laf.php:871
+#: includes/admin/pb-laf.php:872
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
@@ -422,14 +422,14 @@ msgstr "Usuarios"
 
 #: includes/admin/pb-dashboard.php:93
 #: includes/modules/searchandreplace/types/class-pb-content.php:86
-#: includes/pb-posttype.php:113 templates/admin/import.php:60
+#: includes/pb-posttype.php:113 templates/admin/import.php:75
 #: templates/admin/organize.php:37 templates/admin/organize.php:54
 msgid "Front Matter"
 msgstr ""
 
 #: includes/admin/pb-dashboard.php:113
 #: includes/modules/searchandreplace/types/class-pb-content.php:89
-#: includes/pb-posttype.php:147 templates/admin/import.php:65
+#: includes/pb-posttype.php:147 templates/admin/import.php:80
 #: templates/admin/organize.php:39 templates/admin/organize.php:62
 msgid "Back Matter"
 msgstr ""
@@ -493,7 +493,7 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:194
+#: includes/admin/pb-laf.php:18 includes/class-pb-activation.php:197
 #: templates/admin/catalog.php:98
 msgid "About"
 msgstr "Acerca de"
@@ -517,7 +517,7 @@ msgstr "Publicado"
 
 #: includes/admin/pb-laf.php:141
 #: includes/modules/import/wordpress/class-pb-wxr.php:283
-#: templates/admin/import.php:83
+#: templates/admin/import.php:98
 msgid "Book Info"
 msgstr "Información do libro"
 
@@ -535,8 +535,8 @@ msgstr "Cómpre o formato EPUB para exportar a MOBI. Queres volver activalo?"
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: includes/admin/pb-laf.php:205 templates/admin/import.php:15
-#: templates/admin/import.php:58
+#: includes/admin/pb-laf.php:205 templates/admin/import.php:30
+#: templates/admin/import.php:73
 msgid "Import"
 msgstr "Importar"
 
@@ -588,194 +588,194 @@ msgstr ""
 msgid "Disable Comments"
 msgstr ""
 
-#: includes/admin/pb-laf.php:695
+#: includes/admin/pb-laf.php:696
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: includes/admin/pb-laf.php:729
+#: includes/admin/pb-laf.php:730
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: includes/admin/pb-laf.php:744
+#: includes/admin/pb-laf.php:745
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "Público. Quero que este libro estea visible para todo o mundo."
 
-#: includes/admin/pb-laf.php:749
+#: includes/admin/pb-laf.php:750
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "Privado. Quero que este libro estea accesible só para aquelas persoas que convide."
 
-#: includes/admin/pb-laf.php:772
+#: includes/admin/pb-laf.php:773
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: includes/admin/pb-laf.php:775
+#: includes/admin/pb-laf.php:776
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: includes/admin/pb-laf.php:777
+#: includes/admin/pb-laf.php:778
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: includes/admin/pb-laf.php:793
+#: includes/admin/pb-laf.php:794
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: includes/admin/pb-laf.php:799
+#: includes/admin/pb-laf.php:800
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: includes/admin/pb-laf.php:814
+#: includes/admin/pb-laf.php:815
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: includes/admin/pb-laf.php:819
+#: includes/admin/pb-laf.php:820
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:70
+#: includes/admin/pb-metaboxes.php:71
 #, php-format
 msgid ""
 "Your cover image (%1$s x %1$s) is too small. It should be 625px on the "
 "shortest side."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:76
+#: includes/admin/pb-metaboxes.php:77
 #, php-format
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:92 includes/admin/pb-metaboxes.php:138
+#: includes/admin/pb-metaboxes.php:93 includes/admin/pb-metaboxes.php:139
 #: includes/class-pb-metadata.php:630
 #: includes/modules/themeoptions/class-pb-mpdfoptions.php:170
 msgid "Cover Image"
 msgstr "Imaxe da portada"
 
-#: includes/admin/pb-metaboxes.php:129 includes/admin/pb-metaboxes.php:426
-#: includes/class-pb-sass.php:49 templates/admin/import.php:63
+#: includes/admin/pb-metaboxes.php:130 includes/admin/pb-metaboxes.php:427
+#: includes/class-pb-sass.php:49 templates/admin/import.php:78
 #: templates/admin/organize.php:40
 msgid "Part"
 msgstr "Parte"
 
-#: includes/admin/pb-metaboxes.php:133
+#: includes/admin/pb-metaboxes.php:134
 msgid "Save Part"
 msgstr "Gardar parte"
 
-#: includes/admin/pb-metaboxes.php:134
+#: includes/admin/pb-metaboxes.php:135
 msgid "Save Book Information"
 msgstr "Gardar a información do libro"
 
-#: includes/admin/pb-metaboxes.php:143
+#: includes/admin/pb-metaboxes.php:144
 msgid "General Book Information"
 msgstr "Información xeral do libro"
 
-#: includes/admin/pb-metaboxes.php:154
+#: includes/admin/pb-metaboxes.php:155
 msgid "Short Title"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:155
+#: includes/admin/pb-metaboxes.php:156
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
 msgstr "En caso de títulos longos, estes poden verse truncados ao exportar a PDF."
 
-#: includes/admin/pb-metaboxes.php:160
+#: includes/admin/pb-metaboxes.php:161
 msgid "Subtitle"
 msgstr "Subtítulo"
 
-#: includes/admin/pb-metaboxes.php:170
+#: includes/admin/pb-metaboxes.php:171
 msgid "Author, file as"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:171
+#: includes/admin/pb-metaboxes.php:172
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
 msgstr "Isto asegura que o teu libro será clasificado correctamente nas tendas, segundo o apelido do autor ou autora."
 
-#: includes/admin/pb-metaboxes.php:176
+#: includes/admin/pb-metaboxes.php:177
 msgid "Contributing Authors"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:178
+#: includes/admin/pb-metaboxes.php:179
 msgid ""
 "This may be used when more than one person shares the responsibility for the"
 " intellectual content of a book."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:183
+#: includes/admin/pb-metaboxes.php:184
 #: themes-book/pressbooks-book/functions.php:17
 msgid "Publisher"
 msgstr "Editorial"
 
-#: includes/admin/pb-metaboxes.php:184 includes/admin/pb-metaboxes.php:190
+#: includes/admin/pb-metaboxes.php:185 includes/admin/pb-metaboxes.php:191
 msgid "This text appears on the title page of your book."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:189
+#: includes/admin/pb-metaboxes.php:190
 msgid "Publisher City"
 msgstr "Lugar de edición"
 
-#: includes/admin/pb-metaboxes.php:196
+#: includes/admin/pb-metaboxes.php:197
 #: themes-book/pressbooks-book/functions.php:20
 msgid "Publication Date"
 msgstr "Data de publicación"
 
-#: includes/admin/pb-metaboxes.php:197 includes/admin/pb-metaboxes.php:204
+#: includes/admin/pb-metaboxes.php:198 includes/admin/pb-metaboxes.php:205
 msgid "This is added to the metadata in your ebook."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:203
+#: includes/admin/pb-metaboxes.php:204
 msgid "On-Sale Date"
 msgstr "Data de inicio da comercialización"
 
-#: includes/admin/pb-metaboxes.php:209
+#: includes/admin/pb-metaboxes.php:210
 #: themes-book/pressbooks-book/functions.php:22
 msgid "Ebook ISBN"
 msgstr "ISBN"
 
-#: includes/admin/pb-metaboxes.php:210
+#: includes/admin/pb-metaboxes.php:211
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:215
+#: includes/admin/pb-metaboxes.php:216
 #: themes-book/pressbooks-book/functions.php:18
 msgid "Print ISBN"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:216
+#: includes/admin/pb-metaboxes.php:217
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in online and physical book stores."
 msgstr "O ISBN é o número internacional normalizado para libros e precisaralo se queres comezar a vender o teu libro tanto nas tendas en liña como nas físicas."
 
-#: includes/admin/pb-metaboxes.php:223 includes/admin/pb-metaboxes.php:665
+#: includes/admin/pb-metaboxes.php:224
 msgid "Language"
 msgstr "Idioma"
 
-#: includes/admin/pb-metaboxes.php:224
+#: includes/admin/pb-metaboxes.php:225
 msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:224 includes/admin/pb-metaboxes.php:666
+#: includes/admin/pb-metaboxes.php:225
 msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:228
+#: includes/admin/pb-metaboxes.php:229
 #: includes/modules/export/epub/class-pb-epub201.php:940
 #: includes/modules/export/epub/class-pb-epub201.php:959
 #: includes/modules/export/epub/templates/epub201/opf.php:69
@@ -786,247 +786,243 @@ msgstr ""
 msgid "Copyright"
 msgstr "Copyright"
 
-#: includes/admin/pb-metaboxes.php:234
+#: includes/admin/pb-metaboxes.php:235
 msgid "Copyright Year"
 msgstr "Ano do copyright"
 
-#: includes/admin/pb-metaboxes.php:235
+#: includes/admin/pb-metaboxes.php:236
 msgid "Year that the book is/was published."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:240
+#: includes/admin/pb-metaboxes.php:241
 msgid "Copyright Holder"
 msgstr "Titular dos dereitos"
 
-#: includes/admin/pb-metaboxes.php:241
+#: includes/admin/pb-metaboxes.php:242
 msgid "Name of the copyright holder."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:258
+#: includes/admin/pb-metaboxes.php:259
 #: includes/modules/themeoptions/class-pb-globaloptions.php:114
 msgid "Copyright License"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:259
+#: includes/admin/pb-metaboxes.php:260
 msgid "You can select various licenses including Creative Commons."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:265
+#: includes/admin/pb-metaboxes.php:266
 msgid "Copyright Notice"
 msgstr "Nota dos dereitos"
 
-#: includes/admin/pb-metaboxes.php:266
+#: includes/admin/pb-metaboxes.php:267
 msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
 "will override the auto-generated copyright notice, and be inserted after the"
 " title page."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:276
+#: includes/admin/pb-metaboxes.php:277
 msgid "Book Tagline"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:277
+#: includes/admin/pb-metaboxes.php:278
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
 msgstr "Unha descrición moi breve do teu libro. O ideal é que colla nun chío e resuma o teu libro nunha única frase."
 
-#: includes/admin/pb-metaboxes.php:283
+#: includes/admin/pb-metaboxes.php:284
 msgid "Short Description"
 msgstr "Breve descrición"
 
-#: includes/admin/pb-metaboxes.php:284
+#: includes/admin/pb-metaboxes.php:285
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:290
+#: includes/admin/pb-metaboxes.php:291
 msgid "Long Description"
 msgstr "Descrición longa"
 
-#: includes/admin/pb-metaboxes.php:291
+#: includes/admin/pb-metaboxes.php:292
 msgid "The full description of your book."
 msgstr "A descrición completa do teu libro."
 
-#: includes/admin/pb-metaboxes.php:295
+#: includes/admin/pb-metaboxes.php:296
 msgid "Additional Catalog Information"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:301
+#: includes/admin/pb-metaboxes.php:302
 msgid "Series Title"
 msgstr "Título da serie"
 
-#: includes/admin/pb-metaboxes.php:302 includes/admin/pb-metaboxes.php:308
+#: includes/admin/pb-metaboxes.php:303 includes/admin/pb-metaboxes.php:309
 msgid "Add if your book is part of a series. This is not used by Pressbooks."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:307
+#: includes/admin/pb-metaboxes.php:308
 msgid "Series Number"
 msgstr "Número da serie"
 
-#: includes/admin/pb-metaboxes.php:313
+#: includes/admin/pb-metaboxes.php:314
 msgid "Editor"
 msgstr "Editor"
 
-#: includes/admin/pb-metaboxes.php:314 includes/admin/pb-metaboxes.php:320
-#: includes/admin/pb-metaboxes.php:339 includes/admin/pb-metaboxes.php:345
-#: includes/admin/pb-metaboxes.php:351 includes/admin/pb-metaboxes.php:357
-#: includes/admin/pb-metaboxes.php:370
+#: includes/admin/pb-metaboxes.php:315 includes/admin/pb-metaboxes.php:321
+#: includes/admin/pb-metaboxes.php:340 includes/admin/pb-metaboxes.php:346
+#: includes/admin/pb-metaboxes.php:352 includes/admin/pb-metaboxes.php:358
+#: includes/admin/pb-metaboxes.php:371
 msgid "This is not used by Pressbooks."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:319
+#: includes/admin/pb-metaboxes.php:320
 msgid "Translator"
 msgstr "Tradutor/a"
 
-#: includes/admin/pb-metaboxes.php:325
+#: includes/admin/pb-metaboxes.php:326
 msgid "Keywords"
 msgstr "Palabras chave"
 
-#: includes/admin/pb-metaboxes.php:327
+#: includes/admin/pb-metaboxes.php:328
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:332
+#: includes/admin/pb-metaboxes.php:333
 #: themes-book/pressbooks-book/functions.php:21
 msgid "Hashtag"
 msgstr "Hashtag"
 
-#: includes/admin/pb-metaboxes.php:333
+#: includes/admin/pb-metaboxes.php:334
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:338
+#: includes/admin/pb-metaboxes.php:339
 msgid "List Price (Print)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:344
+#: includes/admin/pb-metaboxes.php:345
 msgid "List Price (PDF)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:350
+#: includes/admin/pb-metaboxes.php:351
 msgid "List Price (ebook)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:356
+#: includes/admin/pb-metaboxes.php:357
 msgid "List Price (Web)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:362
+#: includes/admin/pb-metaboxes.php:363
 msgid "Bisac Subject"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:364
+#: includes/admin/pb-metaboxes.php:365
 msgid ""
 "BISAC subject headings help your book get properly classified in (e)book "
 "stores. This is not used by Pressbooks."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:369
+#: includes/admin/pb-metaboxes.php:370
 msgid "Bisac Regional Theme"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:380
+#: includes/admin/pb-metaboxes.php:381
 msgid "Catalog Order"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:388
+#: includes/admin/pb-metaboxes.php:389
 msgid "Chapter Metadata"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:393
+#: includes/admin/pb-metaboxes.php:394
 msgid "Chapter Short Title (appears in the PDF running header)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:398
+#: includes/admin/pb-metaboxes.php:399
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:403
+#: includes/admin/pb-metaboxes.php:404
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:420
+#: includes/admin/pb-metaboxes.php:421
 msgid "Chapter Copyright License (overrides book license on this page)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:442
+#: includes/admin/pb-metaboxes.php:443
 msgid "Include in exports"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:448
+#: includes/admin/pb-metaboxes.php:449
 msgid "Show title in exports"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:454
+#: includes/admin/pb-metaboxes.php:455
 msgid "Set as ebook start-point"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:460
+#: includes/admin/pb-metaboxes.php:461
 msgid "Front Matter Metadata"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:465
+#: includes/admin/pb-metaboxes.php:466
 msgid "Front Matter Short Title (appears in the PDF running header)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:470
+#: includes/admin/pb-metaboxes.php:471
 msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:475
+#: includes/admin/pb-metaboxes.php:476
 msgid "Front Matter Author (appears in Web/ebook/PDF output)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:492
+#: includes/admin/pb-metaboxes.php:493
 msgid "Front Matter Copyright License (overrides book license on this page)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:498
+#: includes/admin/pb-metaboxes.php:499
 msgid "Back Matter Metadata"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:503
+#: includes/admin/pb-metaboxes.php:504
 msgid "Back Matter Short Title (appears in the PDF running header)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:508
+#: includes/admin/pb-metaboxes.php:509
 msgid "Back Matter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:513
+#: includes/admin/pb-metaboxes.php:514
 msgid "Back Matter Author (appears in Web/ebook/PDF output)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:530
+#: includes/admin/pb-metaboxes.php:531
 msgid "Back Matter Copyright License (overrides book license on this page)"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:535
+#: includes/admin/pb-metaboxes.php:536
 #: includes/modules/searchandreplace/types/class-pb-part.php:127
 msgid "Part Text"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:542
+#: includes/admin/pb-metaboxes.php:543
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:546
+#: includes/admin/pb-metaboxes.php:547
 msgid "Part Visibility"
 msgstr ""
 
-#: includes/admin/pb-metaboxes.php:555
+#: includes/admin/pb-metaboxes.php:556
 msgid "Hide from table of contents and part numbering."
-msgstr ""
-
-#: includes/admin/pb-metaboxes.php:658
-msgid "Extra Profile Information"
 msgstr ""
 
 #: includes/admin/pb-network-managers.php:15
@@ -1057,41 +1053,41 @@ msgstr ""
 msgid "These plugins extend the functionality of Pressbooks."
 msgstr ""
 
-#: includes/class-pb-activation.php:151
+#: includes/class-pb-activation.php:154
 msgid "Main Body"
 msgstr ""
 
-#: includes/class-pb-activation.php:157
+#: includes/class-pb-activation.php:160
 msgid "Introduction"
 msgstr "Introdución"
 
-#: includes/class-pb-activation.php:159
+#: includes/class-pb-activation.php:162
 msgid "This is where you can write your introduction."
 msgstr "Aquí é onde podes escribir a túa introdución."
 
-#: includes/class-pb-activation.php:164
+#: includes/class-pb-activation.php:167
 msgid "Chapter 1"
 msgstr "Capítulo 1"
 
-#: includes/class-pb-activation.php:166
+#: includes/class-pb-activation.php:169
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr ""
 
-#: includes/class-pb-activation.php:171
+#: includes/class-pb-activation.php:174
 msgid "Appendix"
 msgstr "Apéndice"
 
-#: includes/class-pb-activation.php:173
+#: includes/class-pb-activation.php:176
 msgid "This is where you can add appendices or other back matter."
 msgstr ""
 
-#: includes/class-pb-activation.php:179
+#: includes/class-pb-activation.php:182
 msgid "Authors"
 msgstr "Autores"
 
-#: includes/class-pb-activation.php:189
+#: includes/class-pb-activation.php:192
 #: includes/modules/export/epub/templates/epub3/toc.php:23
 #: includes/modules/themeoptions/class-pb-mpdfoptions.php:181
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:236
@@ -1101,18 +1097,18 @@ msgstr "Autores"
 msgid "Table of Contents"
 msgstr "Índice"
 
-#: includes/class-pb-activation.php:199
+#: includes/class-pb-activation.php:202
 #: themes-book/pressbooks-book/header.php:83
 #: themes-book/pressbooks-book/page-cover-top-block.php:62
 msgid "Buy"
 msgstr "Mercar"
 
-#: includes/class-pb-activation.php:204
+#: includes/class-pb-activation.php:207
 #: themes-book/pressbooks-book/functions.php:186
 msgid "Access Denied"
 msgstr "Acceso denegado"
 
-#: includes/class-pb-activation.php:206
+#: includes/class-pb-activation.php:209
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -1120,40 +1116,40 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: includes/class-pb-activation.php:211 includes/class-pb-metadata.php:550
+#: includes/class-pb-activation.php:214 includes/class-pb-metadata.php:550
 msgid "Custom CSS for Ebook"
 msgstr "Personalizar CSS para o libro"
 
-#: includes/class-pb-activation.php:216 includes/class-pb-metadata.php:555
+#: includes/class-pb-activation.php:219 includes/class-pb-metadata.php:555
 msgid "Custom CSS for PDF"
 msgstr "Personalizar CSS para o PDF"
 
-#: includes/class-pb-activation.php:221 includes/class-pb-metadata.php:560
+#: includes/class-pb-activation.php:224 includes/class-pb-metadata.php:560
 msgid "Custom CSS for Web"
 msgstr "Personalizar CSS para a web"
 
-#: includes/class-pb-activation.php:226 includes/pb-posttype.php:181
+#: includes/class-pb-activation.php:229 includes/pb-posttype.php:181
 msgid "Book Information"
 msgstr "Información do libro"
 
-#: includes/class-pb-activation.php:233
+#: includes/class-pb-activation.php:236
 msgid "Default Data"
 msgstr ""
 
 #. Description of the plugin/theme
-#: includes/class-pb-activation.php:235
+#: includes/class-pb-activation.php:238
 msgid "Simple Book Production"
 msgstr ""
 
-#: includes/class-pb-catalog.php:727
+#: includes/class-pb-catalog.php:741
 msgid "Catalog Logo"
 msgstr ""
 
-#: includes/class-pb-catalog.php:1224
+#: includes/class-pb-catalog.php:1238
 msgid "Invalid URL."
 msgstr ""
 
-#: includes/class-pb-catalog.php:1244
+#: includes/class-pb-catalog.php:1258
 msgid "No book found."
 msgstr ""
 
@@ -1170,46 +1166,50 @@ msgid "Biblical Hebrew"
 msgstr ""
 
 #: includes/class-pb-globaltypography.php:23
-msgid "Chinese (Simplified)"
+msgid "Hindi"
 msgstr ""
 
 #: includes/class-pb-globaltypography.php:24
-msgid "Chinese (Traditional)"
+msgid "Chinese (Simplified)"
 msgstr ""
 
 #: includes/class-pb-globaltypography.php:25
-msgid "Coptic"
+msgid "Chinese (Traditional)"
 msgstr ""
 
 #: includes/class-pb-globaltypography.php:26
+msgid "Coptic"
+msgstr ""
+
+#: includes/class-pb-globaltypography.php:27
 msgid "Gujarati"
 msgstr ""
 
-#: includes/class-pb-globaltypography.php:27 includes/pb-l10n.php:335
+#: includes/class-pb-globaltypography.php:28
 msgid "Japanese"
 msgstr "Xaponés"
 
-#: includes/class-pb-globaltypography.php:28
+#: includes/class-pb-globaltypography.php:29
 msgid "Korean"
 msgstr ""
 
-#: includes/class-pb-globaltypography.php:29
+#: includes/class-pb-globaltypography.php:30
 msgid "Syriac"
 msgstr ""
 
-#: includes/class-pb-globaltypography.php:30
+#: includes/class-pb-globaltypography.php:31
 msgid "Tamil"
 msgstr ""
 
-#: includes/class-pb-globaltypography.php:31
+#: includes/class-pb-globaltypography.php:32
 msgid "Tibetan"
 msgstr ""
 
-#: includes/class-pb-globaltypography.php:32
+#: includes/class-pb-globaltypography.php:33
 msgid "Turkish"
 msgstr ""
 
-#: includes/class-pb-globaltypography.php:364
+#: includes/class-pb-globaltypography.php:377
 #, php-format
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
@@ -1224,7 +1224,7 @@ msgstr ""
 
 #: includes/class-pb-sass.php:48
 #: includes/modules/searchandreplace/types/class-pb-content.php:83
-#: templates/admin/import.php:61 templates/admin/organize.php:58
+#: templates/admin/import.php:76 templates/admin/organize.php:58
 msgid "Chapter"
 msgstr "Capítulo"
 
@@ -1446,27 +1446,27 @@ msgstr ""
 msgid "Notes"
 msgstr "Notas"
 
-#: includes/modules/import/class-pb-import.php:358
-#: includes/modules/import/class-pb-import.php:420
+#: includes/modules/import/class-pb-import.php:383
+#: includes/modules/import/class-pb-import.php:445
 #, php-format
 msgid "Your file does not appear to be a valid %s."
 msgstr "O teu ficheiro non semella ser un %s válido."
 
-#: includes/modules/import/class-pb-import.php:365
+#: includes/modules/import/class-pb-import.php:390
 msgid "Your URL does not appear to be valid"
 msgstr ""
 
-#: includes/modules/import/class-pb-import.php:381
+#: includes/modules/import/class-pb-import.php:406
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response header on a HEAD request: "
 msgstr ""
 
-#: includes/modules/import/class-pb-import.php:387
+#: includes/modules/import/class-pb-import.php:412
 msgid "The website you are attempting to reach is not returning HTML content"
 msgstr ""
 
-#: includes/modules/import/class-pb-import.php:404
+#: includes/modules/import/class-pb-import.php:429
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response on a GET request: "
@@ -2292,65 +2292,65 @@ msgstr ""
 msgid "Web Options"
 msgstr ""
 
-#: includes/pb-editor.php:73
+#: includes/pb-editor.php:77
 msgid "Indent"
 msgstr ""
 
-#: includes/pb-editor.php:79
+#: includes/pb-editor.php:83
 msgid "Hanging indent"
 msgstr ""
 
-#: includes/pb-editor.php:85
+#: includes/pb-editor.php:89
 msgid "No indent"
 msgstr ""
 
-#: includes/pb-editor.php:91
+#: includes/pb-editor.php:95
 msgid "Tight tracking"
 msgstr ""
 
-#: includes/pb-editor.php:97
+#: includes/pb-editor.php:101
 msgid "Very tight tracking"
 msgstr ""
 
-#: includes/pb-editor.php:103
+#: includes/pb-editor.php:107
 msgid "Loose tracking"
 msgstr ""
 
-#: includes/pb-editor.php:109
+#: includes/pb-editor.php:113
 msgid "Very loose tracking"
 msgstr ""
 
-#: includes/pb-editor.php:115
+#: includes/pb-editor.php:119
 msgid "Pullquote (left)"
 msgstr ""
 
-#: includes/pb-editor.php:121
+#: includes/pb-editor.php:125
 msgid "Pullquote (right)"
 msgstr ""
 
-#: includes/pb-editor.php:173 includes/pb-editor.php:191
-#: includes/pb-editor.php:205 languages/tinymce.php:7
+#: includes/pb-editor.php:177 includes/pb-editor.php:195
+#: includes/pb-editor.php:209 languages/tinymce.php:7
 msgid "Standard"
 msgstr ""
 
-#: includes/pb-editor.php:177
+#: includes/pb-editor.php:181
 msgid "No lines"
 msgstr ""
 
-#: includes/pb-editor.php:181
+#: includes/pb-editor.php:185
 msgid "Lines"
 msgstr ""
 
-#: includes/pb-editor.php:185 includes/pb-editor.php:199
-#: includes/pb-editor.php:213 languages/tinymce.php:9
+#: includes/pb-editor.php:189 includes/pb-editor.php:203
+#: includes/pb-editor.php:217 languages/tinymce.php:9
 msgid "Shaded"
 msgstr ""
 
-#: includes/pb-editor.php:195 includes/pb-editor.php:209
+#: includes/pb-editor.php:199 includes/pb-editor.php:213
 msgid "Border"
 msgstr ""
 
-#: includes/pb-editor.php:328
+#: includes/pb-editor.php:332
 msgid "Internal Link"
 msgstr ""
 
@@ -2376,40 +2376,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: includes/pb-l10n.php:329
-msgid "English (United States)"
-msgstr ""
-
-#: includes/pb-l10n.php:330
-msgid "Chinese (Taiwan)"
-msgstr ""
-
-#: includes/pb-l10n.php:331
-msgid "Estonian"
-msgstr "Estoniano"
-
-#: includes/pb-l10n.php:332
-msgid "French (France)"
-msgstr ""
-
-#: includes/pb-l10n.php:333
-msgid "German"
-msgstr "Alemán"
-
-#: includes/pb-l10n.php:334
-msgid "Italian"
-msgstr ""
-
-#: includes/pb-l10n.php:336
-msgid "Portuguese (Brazil)"
-msgstr ""
-
-#: includes/pb-l10n.php:337
-msgid "Spanish"
-msgstr "Español"
-
-#: includes/pb-l10n.php:338
-msgid "Swedish"
+#: includes/pb-l10n.php:482 includes/pb-l10n.php:505
+#, php-format
+msgid ""
+"Please contact your system administrator if you would like them to install "
+"extended %s language support for the Pressbooks interface."
 msgstr ""
 
 #: includes/pb-posttype.php:34
@@ -3072,7 +3043,7 @@ msgstr ""
 msgid "Apply Class"
 msgstr ""
 
-#: pressbooks.php:97
+#: pressbooks.php:101
 #, php-format
 msgid ""
 "Pressbooks dependencies are missing. Please make sure that your "
@@ -3080,7 +3051,7 @@ msgid ""
 "required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:106
+#: pressbooks.php:110
 msgid "Cannot find Pressbooks install."
 msgstr ""
 
@@ -3393,7 +3364,7 @@ msgstr ""
 msgid "PDF (mPDF)"
 msgstr ""
 
-#: templates/admin/export.php:124 templates/admin/import.php:157
+#: templates/admin/export.php:124 templates/admin/import.php:21
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
 msgstr ""
 
@@ -3467,60 +3438,60 @@ msgstr ""
 msgid "Delete All Exports"
 msgstr ""
 
-#: templates/admin/import.php:21
+#: templates/admin/import.php:20
+msgid "WXR (WordPress eXtended RSS)"
+msgstr ""
+
+#: templates/admin/import.php:22
+msgid "ODT (word processing file format of OpenDocument)"
+msgstr ""
+
+#: templates/admin/import.php:23
+msgid "DOCX (word processing file format of Microsoft)"
+msgstr ""
+
+#: templates/admin/import.php:24
+msgid "HTML (scrape content from a URL)"
+msgstr ""
+
+#: templates/admin/import.php:36
 #, php-format
 msgid "Import in progress: %s"
 msgstr "Importación en marcha: %s"
 
-#: templates/admin/import.php:41
+#: templates/admin/import.php:56
 msgid "Are you sure you want to abort the import?"
 msgstr ""
 
-#: templates/admin/import.php:67
+#: templates/admin/import.php:82
 msgid "Other"
 msgstr ""
 
-#: templates/admin/import.php:106
+#: templates/admin/import.php:121
 msgid "Start"
 msgstr ""
 
-#: templates/admin/import.php:108
+#: templates/admin/import.php:123
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: templates/admin/import.php:141
+#: templates/admin/import.php:156
 msgid "Supported file extensions:"
 msgstr "Extensións de ficheiros admitidas:"
 
-#: templates/admin/import.php:142
+#: templates/admin/import.php:157
 msgid "Maximum file size:"
 msgstr "Tamaño máximo do ficheiro:"
 
-#: templates/admin/import.php:152
+#: templates/admin/import.php:167
 msgid "Type of file"
 msgstr "Tipo de ficheiro"
 
-#: templates/admin/import.php:156
-msgid "WXR (WordPress eXtended RSS)"
-msgstr ""
-
-#: templates/admin/import.php:158
-msgid "ODT (word processing file format of OpenDocument)"
-msgstr ""
-
-#: templates/admin/import.php:159
-msgid "DOCX (word processing file format of Microsoft)"
-msgstr ""
-
-#: templates/admin/import.php:160
-msgid "HTML (scrape content from a URL)"
-msgstr ""
-
-#: templates/admin/import.php:166
+#: templates/admin/import.php:179
 msgid "File"
 msgstr "Ficheiro"
 
-#: templates/admin/import.php:179
+#: templates/admin/import.php:192
 msgid "Upload file"
 msgstr "Subir ficheiro"
 
@@ -3652,42 +3623,42 @@ msgstr ""
 msgid "Replace &amp; Save"
 msgstr ""
 
-#: templates/pb-catalog.php:153
+#: templates/pb-catalog.php:156
 msgid "'s Catalog Page"
 msgstr ""
 
-#: templates/pb-catalog.php:170
+#: templates/pb-catalog.php:173
 #: themes-book/pressbooks-book/page-cover-top-block.php:8
 msgid "login"
 msgstr ""
 
-#: templates/pb-catalog.php:172
+#: templates/pb-catalog.php:175
 #: themes-book/pressbooks-book/page-cover-top-block.php:10
 msgid "logout"
 msgstr "saír"
 
-#: templates/pb-catalog.php:180
+#: templates/pb-catalog.php:183
 #: themes-book/pressbooks-book/page-cover-top-block.php:12
 #: themes-book/pressbooks-book/sidebar.php:10
 #: themes-root/pressbooks-publisher/templates/header.php:6
 msgid "Admin"
 msgstr ""
 
-#: templates/pb-catalog.php:224
+#: templates/pb-catalog.php:227
 msgid "Catalog"
 msgstr ""
 
-#: templates/pb-catalog.php:224
+#: templates/pb-catalog.php:227
 msgid "filtering by"
 msgstr ""
 
-#: templates/pb-catalog.php:249
+#: templates/pb-catalog.php:252
 msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a class"
 "=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr ""
 
-#: templates/pb-catalog.php:253
+#: templates/pb-catalog.php:256
 msgid "Pressbooks: the CMS for Books."
 msgstr ""
 

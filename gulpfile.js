@@ -109,9 +109,9 @@ var writeToManifest = function(directory) {
 
 gulp.task('download-tmp', function () {
   return download([
-      'https://raw.githubusercontent.com/WordPress/WordPress/master/wp-admin/css/colors/_admin.scss',
-      'https://raw.githubusercontent.com/WordPress/WordPress/master/wp-admin/css/colors/_variables.scss',
-      'https://raw.githubusercontent.com/WordPress/WordPress/master/wp-admin/css/colors/_mixins.scss',
+      'https://raw.githubusercontent.com/WordPress/WordPress/4.7/wp-admin/css/colors/_admin.scss',
+      'https://raw.githubusercontent.com/WordPress/WordPress/4.7/wp-admin/css/colors/_variables.scss',
+      'https://raw.githubusercontent.com/WordPress/WordPress/4.7/wp-admin/css/colors/_mixins.scss',
       ])
     .pipe(gulp.dest('assets/src/styles/partials/tmp/'));
 });

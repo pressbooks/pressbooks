@@ -231,6 +231,7 @@ TK.
 == Upgrade Notice ==
 
 Pressbooks now requires [WordPress 4.7 "Vaughan"](https://wordpress.org/news/2016/12/vaughan/).
+
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
