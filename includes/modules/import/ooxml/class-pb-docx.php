@@ -72,7 +72,7 @@ class Docx extends Import {
 		// get the paths to content
 		$doc_path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
 		$meta_path = $this->getTargetPath( self::METADATA_SCHEMA );
-		$styles_path = $this->getTargetPath( self::STYLESHEET_SCHEMA );
+		$styles_path = $this->getTargetPath( self::STYLESHEET_SCHEMA, true );
 
 		// get the content
 		$xml = $this->getZipContent( $doc_path );
@@ -109,7 +109,7 @@ class Docx extends Import {
 		$proc->importStylesheet( $xsl );
 
 		// cram the styles into the main document
-		$xml->documentElement->appendChild( $styles->documentElement );
+		$xml->documentElement->appendChild( $xml->importNode( $styles->documentElement, true ) );
 
 		// throw it back into the DOM
 		$dom_doc = $proc->transformToDoc( $xml );
