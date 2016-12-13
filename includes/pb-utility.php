@@ -110,12 +110,12 @@ function truncate_exports( $max, $dir = null ) {
 
 /**
  * Return the full path to the directory containing media
- * Checks for existence of /wp-content/blogs.dir/; otherwise uses WordPress 3.5+ standard, /wp-content/uploads/sites/
+ * Checks for `ms_files_rewriting` site option; uses /wp-content/blogs.dir/ if present, otherwise uses WordPress 3.5+ standard, /wp-content/uploads/sites/
  *
  * @return string path
  */
 function get_media_prefix() {
-	if ( is_dir( WP_CONTENT_DIR . '/blogs.dir' ) ) {
+	if ( get_site_option( 'ms_files_rewriting' ) ) {
 		return WP_CONTENT_DIR . '/blogs.dir/' . get_current_blog_id() . '/files/';
 	} else {
 		return WP_CONTENT_DIR . '/uploads/sites/' . get_current_blog_id() . '/';
