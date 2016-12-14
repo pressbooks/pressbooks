@@ -289,11 +289,12 @@ class Activation {
 							$name = $user_info->display_name;
 							update_post_meta( $metadata_id, 'pb_author', $name );
 						}
-						$locale = get_site_option( 'WPLANG' );
-						if ( ! $locale ) {
-							$locale = 'en';
-						} else {
+						if ( $locale = get_option( 'WPLANG' ) ) {
 							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes() );
+						} elseif ( $locale = get_site_option( 'WPLANG' ) ) {
+							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes() );
+						} else {
+							$locale = 'en';
 						}
 						update_post_meta( $metadata_id, 'pb_title', get_option( 'blogname' ) );
 						update_post_meta( $metadata_id, 'pb_language', $locale );
