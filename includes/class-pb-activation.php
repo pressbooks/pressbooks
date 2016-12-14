@@ -51,13 +51,13 @@ class Activation {
 		if ( ! get_site_option( 'pressbooks-activated' ) ) {
 
 			/**
-			 * Allow the description of the root blog to be customized.
+			 * Allow the default description of the root blog to be customized.
 			 *
 			 * @since 3.9.7
 			 *
 			 * @param string Default description ('Simple Book Publishing').
 			 */
-			update_blog_option( 1, 'blogdescription', apply_filters( 'pb_root_description', 'Simple Book Publishing' ) );
+			update_blog_option( 1, 'blogdescription', apply_filters( 'pb_root_description', __( 'Simple Book Publishing', 'pressbooks' ) ) );
 
 			// Configure root blog theme (PB_ROOT_THEME, defined as 'pressbooks-publisher' by default).
 			update_blog_option( 1, 'template', PB_ROOT_THEME );
@@ -242,7 +242,14 @@ class Activation {
 		$post = array( 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id );
 		$page = array( 'post_status' => 'publish', 'comment_status' => 'closed', 'ping_status' => 'closed', 'post_content' => '<!-- Here be dragons.-->', 'post_author' => $this->user_id, 'tags_input' => __( 'Default Data', 'pressbooks' ) );
 
-		update_option( 'blogdescription', __( 'Simple Book Production', 'pressbooks' ) );
+		/**
+		 * Allow the default description of a new book to be customized.
+		 *
+		 * @since 3.9.7
+		 *
+		 * @param string Default description ('Simple Book Publishing').
+		 */
+		update_option( 'blogdescription', apply_filters( 'pb_book_description', __( 'Simple Book Publishing', 'pressbooks' ) ) );
 
 		$parent_part = 0;
 		$intro = 0;
