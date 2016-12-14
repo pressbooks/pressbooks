@@ -50,12 +50,19 @@ class Activation {
 		// Prevent overwriting customizations if Pressbooks has been disabled
 		if ( ! get_site_option( 'pressbooks-activated' ) ) {
 
-			// Insert Pressbooks description on root blog
-			update_blog_option( 1, 'blogdescription', 'Simple Book Publishing' );
+			/**
+			 * Allow the description of the root blog to be customized.
+			 *
+			 * @since 3.9.7
+			 *
+			 * @param string Default description ('Simple Book Publishing').
+			 */
+			update_blog_option( 1, 'blogdescription', apply_filters( 'pb_root_description', 'Simple Book Publishing' ) );
 
-			// Configure theme and remove widgets from root blog
-			update_blog_option( 1, 'template', 'pressbooks-publisher' );
-			update_blog_option( 1, 'stylesheet', 'pressbooks-publisher' );
+			// Configure root blog theme (PB_ROOT_THEME, defined as 'pressbooks-publisher' by default).
+			update_blog_option( 1, 'template', PB_ROOT_THEME );
+			update_blog_option( 1, 'stylesheet', PB_ROOT_THEME );
+			// Remove widgets from root blog.
 			delete_blog_option( 1, 'sidebars_widgets' );
 
 			// Add "activated" key to enable check above
