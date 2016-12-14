@@ -20,7 +20,7 @@
     "email": "code@pressbooks.com",
     "issues": "https://github.com/pressbooks/pressbooks/issues/",
     "forum": "https://discourse.pressbooks.org",
-    "docs": "https://pressbooks.github.io/pressbooks/",
+    "docs": "http://docs.pressbooks.org/",
     "source": "https://github.com/pressbooks/pressbooks/"
   },
   "require": {

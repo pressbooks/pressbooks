@@ -285,7 +285,7 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **Fix:** Fixed a visual glitch by hiding the TinyMCE table editor's inline toolbar.
 
 = 3.9.3 =
-* **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](https://pressbooks.github.io/pressbooks/installation)).
+* **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](http://docs.pressbooks.org/installation)).
 * **Feature:** The copy on the publish page can now be replaced by adding a filter to the `pressbooks_publish_page` filter hook.
 * **Feature:** If registration is enabled, a 'Register' button now appears on the front page of the Pressbooks Publisher theme.
 * **Enhancement:** A URL sanitization routine has been added to the `\Pressbooks\Options` class.
