@@ -49,7 +49,7 @@ class Docx extends Import {
 	const FOOTNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes';
 	const ENDNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/endnotes';
 	const HYPERLINK_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
-
+	const STYLESHEET_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles';
 	/**
 	 *
 	 */
@@ -72,10 +72,12 @@ class Docx extends Import {
 		// get the paths to content
 		$doc_path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
 		$meta_path = $this->getTargetPath( self::METADATA_SCHEMA );
+		$styles_path = $this->getTargetPath( self::STYLESHEET_SCHEMA, true );
 
 		// get the content
 		$xml = $this->getZipContent( $doc_path );
 		$meta = $this->getZipContent( $meta_path );
+		$styles = $this->getZipContent( $styles_path );
 
 		// get all Footnote IDs from document
 		$fn_ids = $this->getIDs( $xml );
@@ -105,6 +107,9 @@ class Docx extends Import {
 		$xsl = new \DOMDocument();
 		$xsl->load( __DIR__ . '/xsl/docx2html.xsl' );
 		$proc->importStylesheet( $xsl );
+
+		// cram the styles into the main document
+		$xml->documentElement->appendChild( $xml->importNode( $styles->documentElement, true ) );
 
 		// throw it back into the DOM
 		$dom_doc = $proc->transformToDoc( $xml );
