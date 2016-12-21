@@ -176,7 +176,7 @@ class Wxr extends Import {
 
 			// if this is a custom post type,
 			// and it has terms associated with it...
-			if ( ( in_array( $post_type, $custom_post_types ) && true == $p['terms'] ) ) {
+			if ( ( in_array( $post_type, $custom_post_types ) && isset( $p['terms'] ) ) ) {
 				// associate post with terms.
 				foreach ( $p['terms'] as $t ) {
 					if ( in_array( $t['domain'], $taxonomies ) ) {
@@ -195,19 +195,23 @@ class Wxr extends Import {
 			}
 
 			Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
-			++$totals[ $post_type ];
+			if ( 'metadata' !== $post_type ) {
+				++$totals[ $post_type ];
+			}
 		}
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
 		// Done
-		$_SESSION['pb_notices'][] = sprintf(
-			__( 'Imported %1$s front matter, %2$s parts, %3$s chapters, and %4$s back matter.', 'pressbooks' ),
-			$totals['front-matter'],
-			$totals['part'],
-			$totals['chapter'],
-			$totals['back-matter']
+		$_SESSION['pb_notices'][] =
+
+		sprintf(
+			_x( 'Imported %1$s, %2$s, %3$s, and %4$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
+			$totals['front-matter'] . ' ' . __( 'front matter', 'pressbooks' ),
+			( 1 == $totals['part'] ) ? $totals['part'] . ' ' . __( 'part', 'pressbooks' ) : $totals['part'] . ' ' . __( 'parts', 'pressbooks' ),
+			( 1 == $totals['chapter'] ) ? $totals['chapter'] . ' ' . __( 'chapter', 'pressbooks' ) : $totals['chapter'] . ' ' . __( 'chapters', 'pressbooks' ),
+			$totals['back-matter'] . ' ' . __( 'back matter', 'pressbooks' )
 		);
 		return $this->revokeCurrentImport();
 	}
