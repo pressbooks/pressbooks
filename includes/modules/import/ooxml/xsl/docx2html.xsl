@@ -3487,14 +3487,14 @@
 
   <xsl:template match="w:b" mode="rpr">
     <xsl:choose>
-      <xsl:when test="@w:val = 'off'">font-weight:normal;</xsl:when>
+      <xsl:when test="@w:val = 'off' or @w:val = '0'">font-weight:normal;</xsl:when>
       <xsl:otherwise>font-weight:bold;</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
   <xsl:template match="w:i" mode="rpr">
     <xsl:choose>
-      <xsl:when test="@w:val = 'off'">font-style:normal;</xsl:when>
+      <xsl:when test="@w:val = 'off' or @w:val = '0'">font-style:normal;</xsl:when>
       <xsl:otherwise>font-style:italic;</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
