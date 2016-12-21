@@ -2197,14 +2197,6 @@
           <xsl:call-template name="ApplyCellMar"/>
         </xsl:for-each>
       </xsl:when>
-      <xsl:when test="$type = $prrCantSplit">
-        <xsl:for-each select="w:trPr[1]/w:cantSplit[1]">
-          <xsl:choose>
-            <xsl:when test="@w:val = 'off'"></xsl:when>
-            <xsl:otherwise></xsl:otherwise>
-          </xsl:choose>
-        </xsl:for-each>
-      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -3383,25 +3375,31 @@
   </xsl:template>
 
   <xsl:template name="RecursiveApplyRPr.class">
-    <xsl:if test="w:basedOn">
-      <xsl:variable name="baseStyleName" select="w:basedOn[1]/@w:val" />
-      <xsl:variable name="sParaStyleBase" select="($nsStyles[@w:styleId=$baseStyleName])[1]"/>
-      <xsl:for-each select="$sParaStyleBase">
-        <xsl:call-template name="RecursiveApplyRPr.class" />
-      </xsl:for-each>
-    </xsl:if>
+    <xsl:variable name="inheritedStyleMods">
+      <xsl:if test="w:basedOn">
+        <xsl:variable name="baseStyleName" select="w:basedOn[1]/@w:val" />
+        <xsl:variable name="sParaStyleBase" select="($nsStyles[@w:styleId=$baseStyleName])[1]"/>
+        <xsl:for-each select="$sParaStyleBase">
+          <xsl:call-template name="RecursiveApplyRPr.class" />
+        </xsl:for-each>
+      </xsl:if>
+    </xsl:variable>
 
-    <xsl:call-template name="ApplyRPr.class"/>
+    <xsl:value-of select="normalize-space($inheritedStyleMods)"/>
+    <xsl:call-template name="ApplyRPr.class">
+      <xsl:with-param name="inheritedStyleMods" select="normalize-space($inheritedStyleMods)"/>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template name="ApplyRPr.class">
-    <xsl:for-each select="w:rPr[1]">
+    <xsl:param name="inheritedStyleMods" select="''"/>
 
+    <xsl:for-each select="w:rPr[1]">
       <xsl:choose>
         <xsl:when test="w:highlight">
           <xsl:text>background-color:</xsl:text>
           <xsl:call-template name="ConvColor">
-            <xsl:with-param name="value" select="w:hightlight[1]/@w:val"/>          
+            <xsl:with-param name="value" select="w:highlight[1]/@w:val"/>          
           </xsl:call-template>         
           <xsl:value-of select="value"/>
           <xsl:text>;</xsl:text>
@@ -3413,96 +3411,225 @@
         </xsl:otherwise>
       </xsl:choose>
 
-      <xsl:apply-templates select="*" mode="rpr"/>
+      <xsl:apply-templates select="*" mode="rpr">
+        <xsl:with-param name="inheritedStyleMods" select="$inheritedStyleMods"/>
+      </xsl:apply-templates>
     </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="w:highlight" mode="rpr">
-    background:<xsl:call-template name="ConvColor">
-      <xsl:with-param name="value" select="@w:val"/>
-    </xsl:call-template>
-    <xsl:value-of select="value"/>;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>background:</xsl:text>
+      <xsl:call-template name="ConvColor">
+        <xsl:with-param name="value" select="@w:val"/>
+      </xsl:call-template>
+      <xsl:value-of select="value"/>
+      <xsl:text>;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:color" mode="rpr">
-    color:<xsl:call-template name="ConvHexColor">
-      <xsl:with-param name="value" select="@w:val"/>
-    </xsl:call-template>;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>color:</xsl:text>
+      <xsl:call-template name="ConvHexColor">
+        <xsl:with-param name="value" select="@w:val"/>
+      </xsl:call-template>
+      <xsl:text>;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:rFonts" mode="rpr">
-    font-family:<xsl:value-of select="@w:ascii"/>;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>font-family:</xsl:text>
+      <xsl:value-of select="@w:ascii"/>
+      <xsl:text>;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:smallCaps" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">font-variant:normal;</xsl:when>
-      <xsl:otherwise>font-variant:small-caps;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>font-variant:normal;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>font-variant:small-caps;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:eastAsianLayout" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:vert = 'on'">layout-flow:horizontal;</xsl:when>
-      <xsl:when test="@w:vert-compress = 'on'">layout-flow:horizontal;</xsl:when>
-      <xsl:when test="@w:vert = 'off' or @w:vert-compress = 'off'">layout-flow:normal;</xsl:when>
-    </xsl:choose>
-    <xsl:if test="@w:combine = 'lines'">text-combine:lines;</xsl:if>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:vert = 'on'">
+          <xsl:text>layout-flow:horizontal;</xsl:text>
+        </xsl:when>
+        <xsl:when test="@w:vert-compress = 'on'">
+          <xsl:text>layout-flow:horizontal;</xsl:text>
+        </xsl:when>
+        <xsl:when test="@w:vert = 'off' or @w:vert = '0' or
+                        @w:vert-compress = 'off' or @w:vert-compress='0'">
+          <xsl:text>layout-flow:normal;</xsl:text>
+        </xsl:when>
+      </xsl:choose>
+      <xsl:if test="@w:combine = 'lines'">
+        <xsl:text>text-combine:lines;</xsl:text>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:spacing" mode="rpr">
-    letter-spacing:<xsl:value-of select="@w:val div 20"/>pt;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>letter-spacing:</xsl:text>
+      <xsl:value-of select="@w:val div 20"/>
+      <xsl:text>pt;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:position" mode="rpr">
+    <xsl:param name="inheritedStyleMods" select="''"/>
     <xsl:variable name="fDropCap">
       <xsl:value-of select="ancestor::w:p[1]/w:pPr/w:framePr/@w:drop-cap"/>
     </xsl:variable>
-    <xsl:if test="$fDropCap=''">
-      <xsl:text>position:relative;top:</xsl:text>
-      <xsl:value-of select="@w:val div -2"/>
-      <xsl:text>pt;</xsl:text>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:if test="$fDropCap=''">
+        <xsl:text>position:relative;top:</xsl:text>
+        <xsl:value-of select="@w:val div -2"/>
+        <xsl:text>pt;</xsl:text>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
     </xsl:if>
   </xsl:template>
+
   <xsl:template match="w:fitText" mode="rpr">
-    text-fit:<xsl:value-of select="@w:val div 20"/>pt;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>text-fit:</xsl:text>
+      <xsl:value-of select="@w:val div 20"/>
+      <xsl:text>pt;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
+
   <xsl:template match="w:shadow" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">text-shadow:none;</xsl:when>
-      <xsl:otherwise>text-shadow:0.2em 0.2em;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>text-shadow:none;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>text-shadow:0.2em 0.2em;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:caps" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">text-transform:none;</xsl:when>
-      <xsl:otherwise>text-transform:uppercase;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>text-transform:none;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>text-transform:uppercase;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:sz" mode="rpr">
-    font-size:<xsl:value-of select="@w:val div 2"/>pt;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>font-size:</xsl:text>
+      <xsl:value-of select="@w:val div 2"/>
+      <xsl:text>pt;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:b" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off' or @w:val = '0'">font-weight:normal;</xsl:when>
-      <xsl:otherwise>font-weight:bold;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>font-weight:normal;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>font-weight:bold;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:i" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off' or @w:val = '0'">font-style:normal;</xsl:when>
-      <xsl:otherwise>font-style:italic;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>font-style:normal;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>font-style:italic;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
   
   <xsl:template match="w:u" mode="rpr">
-        <xsl:if test="@w:val = 'single'">
-          text-decoration:underline;
-	</xsl:if>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:if test="@w:val = 'single'">
+        <xsl:text>text-decoration:underline;</xsl:text>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="*" mode="rpr"/>
@@ -6524,13 +6651,6 @@ if (msoBrowserCheck())
     <xsl:apply-templates />
   </xsl:template>
   
-  <!--this template is added now
-  <xsl:template match="w:background" mode="rpr">
-    bgcolor=<xsl:call-template name="ConvHexColor">
-      <xsl:with-param name="value" select="@w:color"/>
-    </xsl:call-template>;
-  </xsl:template>
--->
   <xsl:template match="/w:document">
 
     <html>
