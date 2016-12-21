@@ -49,7 +49,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 			);
 			// Power select
 			$("#checkall").click(function() {
-				$(':checkbox').prop('checked', this.checked);
+				$('td > :checkbox').prop('checked', this.checked);
 			});
 			// Abort import
 			$('#abort_button').bind('click', function () {
@@ -70,7 +70,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 		<table class="wp-list-table widefat">
 			<thead>
 			<tr>
-				<th style="width:10%;"><?php _e( 'Import', 'pressbooks' ); ?></th>
+				<td id="cb" class="manage-column column-cb check-column"><input type="checkbox" id="checkall" /> <label for="checkall" class="screen-reader-text"><?php _e( 'Import', 'pressbooks' ); ?></label></th>
 				<th><?php _e( 'Title', 'pressbooks' ); ?></th>
 				<th style="width:10%;"><?php _e( 'Front Matter', 'pressbooks' ); ?></th>
 				<th style="width:10%;"><?php _e( 'Chapter', 'pressbooks' ); ?></th>
@@ -84,10 +84,6 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 			</tr>
 			</thead>
 			<tbody>
-			<tr>
-				<td><input type="checkbox" id="checkall" /></td>
-				<td colspan="<?php echo $colspan; ?>" style="color:darkred;"><label for="checkall">Select all</label></td>
-			</tr>
 			<?php
 			$i = 1;
 			foreach ( $current_import['chapters'] as $key => $chapter ) {
@@ -95,7 +91,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 				<tr <?php if ( $i % 2 ) { echo 'class="alt"';} ?> >
 					<td><input type='checkbox' id='selective_import_<?php echo $i; ?>' name='chapters[<?php echo $key; ?>][import]' value='1'></td>
 					<?php if ( isset( $current_import['post_types'][ $key ] ) && 'metadata' == $current_import['post_types'][ $key ] ) { ?>
-						<td><label for="selective_import_<?php echo $i; ?>"><em>(<?php echo __( 'Book Info', 'pressbooks' ); ?>)</em></label></td>
+						<td><label for="selective_import_<?php echo $i; ?>"><em>(<?php echo __( 'Book Information', 'pressbooks' ); ?>)</em></label></td>
 						<td colspan="<?php echo $colspan; ?>"><input type="hidden" name='chapters[<?php echo $key; ?>][type]' value="metadata" /></td>
 					<?php } else { ?>
 						<td><label for="selective_import_<?php echo $i; ?>"><?php echo $chapter; ?></label></td>
@@ -118,8 +114,8 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 		</table>
 
 		<p><?php
-			submit_button( __( 'Start', 'pressbooks' ), 'primary', 'submit', false );
-			echo ' &nbsp; '; // Space
+			submit_button( __( 'Import Selection', 'pressbooks' ), 'primary', 'submit', false );
+			echo ' &nbsp; ';
 			submit_button( __( 'Cancel', 'pressbooks' ), 'delete', 'abort_button', false );
 		?></p>
 
