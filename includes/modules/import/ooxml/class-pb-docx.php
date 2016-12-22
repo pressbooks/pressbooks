@@ -51,7 +51,7 @@ class Docx extends Import {
 	const HYPERLINK_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
 	const STYLESHEET_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles';
 
-	const FOOTNOTE_HREF_PATTERN = '/^#sdfootnote(d+)sym$/';
+	const FOOTNOTE_HREF_PATTERN = '/^#sdfootnote(\d+)sym$/';
 
 	/**
 	 *
