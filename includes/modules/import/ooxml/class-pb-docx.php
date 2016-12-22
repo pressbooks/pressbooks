@@ -51,7 +51,7 @@ class Docx extends Import {
 	const HYPERLINK_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
 	const STYLESHEET_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles';
 
-    const FOOTNOTE_HREF_PATTERN = '^#sdfootnote(\d+)sym$';
+	const FOOTNOTE_HREF_PATTERN = '/^#sdfootnote(d+)sym$/';
 
 	/**
 	 *
@@ -514,8 +514,8 @@ class Docx extends Import {
 			$href = $fn_candidate->getAttribute( 'href' );
 			if ( null != $href ) {
 				$fn_matches = null;
-				if ( preg_match( FOONOTE_HREF_PATTERN, $href, $fn_matches ) ) {
-					$fn_ids[] = $fn_matches[0];
+				if ( preg_match( self::FOOTNOTE_HREF_PATTERN, $href, $fn_matches ) ) {
+					$fn_ids[] = $fn_matches[1];
 				}
 			}
 		}
