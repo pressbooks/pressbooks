@@ -50,6 +50,9 @@ class Docx extends Import {
 	const ENDNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/endnotes';
 	const HYPERLINK_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
 	const STYLESHEET_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles';
+
+    const FOOTNOTE_HREF_PATTERN = '^#sdfootnote(\d+)sym$';
+
 	/**
 	 *
 	 */
@@ -505,43 +508,46 @@ class Docx extends Import {
 	 * @return \DOMDocument
 	 */
 	protected function addFootnotes( \DOMDocument $chapter ) {
-
-		$fn = $chapter->getElementsByTagName( 'sup' );
-
-		if ( $fn->length > 0 ) {
-			$fn_ids = array();
-			foreach ( $fn as $int ) {
-				if ( is_numeric( $int->nodeValue ) ) { // TODO should be a stronger test for footnotes
-					$fn_ids[] = $int->nodeValue;
-				}
-			}
-			// append
-			// TODO either/or is not sufficient, needs to be built to cover
-			// a use case where both are present.
-			if ( ! empty( $this->fn ) ) { $notes = $this->fn;
-			}
-			if ( ! empty( $this->en ) ) { $notes = $this->en;
-			}
-
-			foreach ( $fn_ids as $id ) {
-				if ( array_key_exists( $id, $notes ) ) {
-					$grandparent = $chapter->createElement( 'div' );
-					$grandparent->setAttribute( 'id', "sdfootnote{$id}sym" );
-					$parent = $chapter->createElement( 'span' );
-					$child = $chapter->createElement( 'a', $id );
-					$child->setAttribute( 'href', "#sdfootnote{$id}anc" );
-					$child->setAttribute( 'name', "sdfootnote{$id}sym" );
-					$text = $chapter->createTextNode( $notes[ $id ] );
-
-					// attach
-					$grandparent->appendChild( $parent );
-					$parent->appendChild( $child );
-					$parent->appendChild( $text );
-
-					$chapter->documentElement->appendChild( $grandparent );
+		$fn_candidates = $chapter->getelementsByTagName( 'a' );
+		$fn_ids = array();
+		foreach ( $fn_candidates as $fn_candidate ) {
+			$href = $fn_candidate->getAttribute( 'href' );
+			if ( null != $href ) {
+				$fn_matches = null;
+				if ( preg_match( FOONOTE_HREF_PATTERN, $href, $fn_matches ) ) {
+					$fn_ids[] = $fn_matches[0];
 				}
 			}
 		}
+
+		// TODO either/or is not sufficient, needs to be built to
+		// cover a use case where both are present.
+		if ( ! empty( $this->fn ) ) {
+			$notes = $this->fn;
+		}
+		if ( ! empty( $this->en ) ) {
+			$notes = $this->en;
+		}
+
+		foreach ( $fn_ids as $id ) {
+			if ( array_key_exists( $id, $notes ) ) {
+				$grandparent = $chapter->createElement( 'div' );
+				$grandparent->setAttribute( 'id', "sdfootnote{$id}sym" );
+				$parent = $chapter->createElement( 'span' );
+				$child = $chapter->createElement( 'a', $id );
+				$child->setAttribute( 'href', "#sdfootnote{$id}anc" );
+				$child->setAttribute( 'name', "sdfootnote{$id}sym" );
+				$text = $chapter->createTextNode( $notes[ $id ] );
+
+				// attach
+				$grandparent->appendChild( $parent );
+				$parent->appendChild( $child );
+				$parent->appendChild( $text );
+
+				$chapter->documentElement->appendChild( $grandparent );
+			}
+		}
+
 		return $chapter;
 	}
 
