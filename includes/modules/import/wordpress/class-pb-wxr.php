@@ -44,6 +44,13 @@ class Wxr extends Import {
 			'allow_parts' => true,
 		);
 
+		/**
+		 * Allow custom post types to be imported.
+		 *
+		 * @since 3.6.0
+		 *
+		 * @param array
+		 */
 		$supported_post_types = apply_filters( 'pb_import_custom_post_types', array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
 
 		if ( $this->isPbWxr ) {
@@ -53,12 +60,14 @@ class Wxr extends Import {
 
 		foreach ( $xml['posts'] as $p ) {
 
-			// Skip
-			if ( ! in_array( $p['post_type'], $supported_post_types ) ) { continue;
+			// Skip unsupported post types.
+			if ( ! in_array( $p['post_type'], $supported_post_types ) ) {
+				continue;
 			}
-			if ( empty( $p['post_content'] ) && ! in_array( $p['post_type'], array( 'part', 'metadata' ) ) ) { continue;
-			}
-			if ( '<!-- Here be dragons.-->' == $p['post_content'] ) { continue;
+
+			// Skip webbook required pages.
+			if ( '<!-- Here be dragons.-->' == $p['post_content'] || '<!-- Here be dragons. -->' == $p['post_content'] ) {
+				continue;
 			}
 
 			// Set
@@ -92,10 +101,23 @@ class Wxr extends Import {
 
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 		$chapter_parent = $this->getChapterParent();
-		$total = 0;
+		$totals = array(
+			'front-matter' => 0,
+			'chapter' => 0,
+			'part' => 0,
+			'back-matter' => 0,
+		);
+
+		/**
+		 * Allow custom post taxonomies to be imported.
+		 *
+		 * @since 3.6.0
+		 *
+		 * @param array
+		 */
 		$taxonomies = apply_filters( 'pb_import_custom_taxonomies', array( 'front-matter-type', 'chapter-type', 'back-matter-type' ) );
 
-		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
+		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
 
 		// set custom terms...
 		$terms = apply_filters( 'pb_import_custom_terms', $xml['terms'] );
@@ -120,9 +142,11 @@ class Wxr extends Import {
 		foreach ( $xml['posts'] as $p ) {
 
 			// Skip
-			if ( ! $this->flaggedForImport( $p['post_id'] ) ) { continue;
+			if ( ! $this->flaggedForImport( $p['post_id'] ) ) {
+				continue;
 			}
-			if ( ! isset( $match_ids[ $p['post_id'] ] ) ) { continue;
+			if ( ! isset( $match_ids[ $p['post_id'] ] ) ) {
+				continue;
 			}
 
 			// Insert
@@ -152,7 +176,7 @@ class Wxr extends Import {
 
 			// if this is a custom post type,
 			// and it has terms associated with it...
-			if ( ( in_array( $post_type, $custom_post_types ) && true == $p['terms'] ) ) {
+			if ( ( in_array( $post_type, $custom_post_types ) && isset( $p['terms'] ) ) ) {
 				// associate post with terms.
 				foreach ( $p['terms'] as $t ) {
 					if ( in_array( $t['domain'], $taxonomies ) ) {
@@ -171,14 +195,24 @@ class Wxr extends Import {
 			}
 
 			Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
-			++$total;
+			if ( 'metadata' !== $post_type ) {
+				++$totals[ $post_type ];
+			}
 		}
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
 		// Done
-		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
+		$_SESSION['pb_notices'][] =
+
+		sprintf(
+			_x( 'Imported %1$s, %2$s, %3$s, and %4$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
+			$totals['front-matter'] . ' ' . __( 'front matter', 'pressbooks' ),
+			( 1 == $totals['part'] ) ? $totals['part'] . ' ' . __( 'part', 'pressbooks' ) : $totals['part'] . ' ' . __( 'parts', 'pressbooks' ),
+			( 1 == $totals['chapter'] ) ? $totals['chapter'] . ' ' . __( 'chapter', 'pressbooks' ) : $totals['chapter'] . ' ' . __( 'chapters', 'pressbooks' ),
+			$totals['back-matter'] . ' ' . __( 'back matter', 'pressbooks' )
+		);
 		return $this->revokeCurrentImport();
 	}
 
@@ -194,10 +228,14 @@ class Wxr extends Import {
 		foreach ( $xml['posts'] as $p ) {
 
 			if ( 'part' == $p['post_type'] ) { $pt = 1;
-			} elseif ( 'chapter' == $p['post_type'] ) { $ch = 1;
-			} elseif ( 'front-matter' == $p['post_type'] ) { $fm = 1;
-			} elseif ( 'back-matter' == $p['post_type'] ) { $bm = 1;
-			} elseif ( 'metadata' == $p['post_type'] ) { $meta = 1;
+			} elseif ( 'chapter' == $p['post_type'] ) {
+				$ch = 1;
+			} elseif ( 'front-matter' == $p['post_type'] ) {
+				$fm = 1;
+			} elseif ( 'back-matter' == $p['post_type'] ) {
+				$bm = 1;
+			} elseif ( 'metadata' == $p['post_type'] ) {
+				$meta = 1;
 			}
 
 			if ( $pt + $ch + $fm + $bm + $meta >= 2 ) {

@@ -67,24 +67,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 
-//	/**
-//	 * @covers \Pressbooks\Utility\wp_mail
-//	 */
-//	public function test_wp_mail() {
-//		// TODO: Testing this as-is would send emails. Need to refactor to allow mocking of postmarkapp endpoint.
-//		$this->markTestIncomplete();
-//	}
-
-
-//	/**
-//	 * @covers \Pressbooks\Utility\pm_send_mail
-//	 */
-//	public function test_pm_send_mail() {
-//		// TODO: Testing this as-is would send emails. Need to refactor to allow mocking of postmarkapp endpoint.
-//		$this->markTestIncomplete();
-//	}
-
-
 	/**
 	 * @covers \Pressbooks\Utility\add_sitemap_to_robots_txt
 	 */
