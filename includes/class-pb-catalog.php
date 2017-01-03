@@ -831,7 +831,7 @@ class Catalog {
 		$sql = "CREATE TABLE {$this->dbTagsTable} (
 				id INT(11) NOT null AUTO_INCREMENT,
   				users_id INT(11) NOT null,
-  				tag VARCHAR(255) NOT null,
+  				tag VARCHAR(200) NOT null,
   				PRIMARY KEY  (id),
   				UNIQUE KEY tag (tag)
 				); ";
