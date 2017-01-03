@@ -27,6 +27,7 @@ aside,
 .pullquote,
 .pullquote-left,
 .pullquote-right {
+  display: block;
   font-family: $pullquote-font-family;
   font-size: $pullquote-font-size;
   font-style: $pullquote-font-style;
