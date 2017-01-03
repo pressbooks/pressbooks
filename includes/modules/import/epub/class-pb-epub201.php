@@ -187,7 +187,7 @@ class Epub201 extends Import {
 			}
 
 			// Insert
-			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent );
+			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
 			++$total;
 		}
 
@@ -283,7 +283,7 @@ class Epub201 extends Import {
 	 * @param string $post_type
 	 * @param int $chapter_parent
 	 */
-	protected function kneadAndInsert( $href, $post_type, $chapter_parent ) {
+	protected function kneadAndInsert( $href, $post_type, $chapter_parent, $post_status ) {
 
 		$html = $this->getZipContent( $href, false );
 
@@ -300,7 +300,7 @@ class Epub201 extends Import {
 			'post_title' => $title,
 			'post_content' => $body,
 			'post_type' => $post_type,
-			'post_status' => 'draft',
+			'post_status' => $post_status,
 		);
 
 		if ( 'chapter' == $post_type ) {
