@@ -258,6 +258,9 @@ abstract class Import {
 
 		if ( @$_GET['import'] && is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
+			// Set post status
+			$current_import['default_post_status'] = ( isset( $_POST['import_as_drafts'] ) ) ? 'draft' : 'publish';
+
 			// --------------------------------------------------------------------------------------------------------
 			// Do Import
 
@@ -345,6 +348,7 @@ abstract class Import {
 			}
 
 			$ok = false;
+
 			switch ( $_POST['type_of'] ) {
 
 				case 'wxr':

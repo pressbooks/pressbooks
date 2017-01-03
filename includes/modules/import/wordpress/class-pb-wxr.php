@@ -168,7 +168,7 @@ class Wxr extends Import {
 			if ( 'metadata' == $post_type ) {
 				$pid = $this->bookInfoPid();
 			} else {
-				$pid = $this->insertNewPost( $post_type, $p, $html, $chapter_parent );
+				$pid = $this->insertNewPost( $post_type, $p, $html, $chapter_parent, $current_import['default_post_status'] );
 				if ( 'part' == $post_type ) {
 					$chapter_parent = $pid;
 				}
@@ -340,14 +340,14 @@ class Wxr extends Import {
 	 *
 	 * @return int Post ID
 	 */
-	protected function insertNewPost( $post_type, $p, $html, $chapter_parent ) {
+	protected function insertNewPost( $post_type, $p, $html, $chapter_parent, $post_status ) {
 
 		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 
 		$new_post = array(
 			'post_title' => wp_strip_all_tags( $p['post_title'] ),
 			'post_type' => $post_type,
-			'post_status' => ( 'part' == $post_type || in_array( $post_type, $custom_post_types ) ) ? 'publish' : 'draft',
+			'post_status' => ( 'part' == $post_type ) ? 'publish' : $post_status,
 		);
 
 		if ( 'part' != $post_type ) {

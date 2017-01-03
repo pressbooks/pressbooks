@@ -113,6 +113,8 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 			</tbody>
 		</table>
 
+		<p><input type='checkbox' id='import_as_drafts' name='import_as_drafts' value='1' checked><label for="import_as_drafts"> <?php _e( 'Import as drafts', 'pressbooks' ); ?></label></p>
+
 		<p><?php
 			submit_button( __( 'Import Selection', 'pressbooks' ), 'primary', 'submit', false );
 			echo ' &nbsp; ';
