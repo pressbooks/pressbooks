@@ -1,0 +1,120 @@
+//===================================
+// Running Head Inside (Content)
+//===================================
+
+// Displays user-defined content on the inside edge of the running head.
+
+// -------------------------------
+// |        lhead | rhead        |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// -------------------------------
+
+@import 'mixins', 'blank';
+
+@include runninghead-padding;
+
+// Front Matter
+
+@page front-matter:first {
+  @include blank-head;
+}
+
+@page front-matter:left {
+  @top-right {
+    content: $front-matter-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page front-matter:right {
+  @top-left {
+    content: $front-matter-running-content-right;
+    @include runninghead-right;
+  }
+}
+
+// Introduction
+
+@page introduction:first {
+  @include blank-head;
+}
+
+@page introduction:left {
+  @top-right {
+    content: $introduction-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page introduction:right {
+  @top-left {
+    content: $introduction-running-content-right;
+    @include runninghead-right;
+  }
+}
+
+// Parts
+
+@page part:first {
+  @include blank-head;
+}
+
+@page part:left {
+  @top-right {
+    content: $part-running-content-left;
+    @include runninghead-left;
+  }
+}
+@page part:right {
+  @top-left {
+    content: $part-running-content-right;
+    @include runninghead-right;
+  }
+}
+
+// Chapters
+
+@page chapter:first {
+  @include blank-head;
+}
+
+@page chapter:left {
+  @top-right {
+    content: $chapter-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page chapter:right {
+  @top-left {
+    content: $chapter-running-content-right;
+    @include runninghead-right;
+  }
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @include blank-head;
+}
+
+@page back-matter:left {
+  @top-right {
+    content: $back-matter-running-content-left;
+    @include runninghead-left;
+  }
+}
+
+@page back-matter:right {
+  @top-left {
+    content: $back-matter-running-content-right;
+    @include runninghead-right;
+  }
+}
