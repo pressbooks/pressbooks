@@ -66,16 +66,16 @@ $runningfoot-right-word-spacing: normal !default;
 // - chapter-author
 // - chapter-subtitle
 
-$front-matter-running-content-left: string(book-title) !default;
-$front-matter-running-content-right: string(section-title) !default;
-$introduction-running-content-left: string(book-title) !default;
-$introduction-running-content-right: string(section-title) !default;
-$part-running-content-left: string(book-title) !default;
-$part-running-content-right: string(part-title) !default;
-$chapter-running-content-left: string(book-title) !default;
-$chapter-running-content-right: string(section-title) !default;
-$back-matter-running-content-left: string(book-title) !default;
-$back-matter-running-content-right: string(section-title) !default;
+$front-matter-running-content-left: string(book-author) !default;
+$front-matter-running-content-right: string(book-title) !default;
+$introduction-running-content-left: string(book-author) !default;
+$introduction-running-content-right: string(book-title) !default;
+$part-running-content-left: string(book-author) !default;
+$part-running-content-right: string(book-title) !default;
+$chapter-running-content-left: string(book-author) !default;
+$chapter-running-content-right: string(book-title) !default;
+$back-matter-running-content-left: string(book-author) !default;
+$back-matter-running-content-right: string(book-title) !default;
 
 // Crop Marks (none | crop | cross)
 
