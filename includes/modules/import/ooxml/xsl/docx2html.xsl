@@ -3265,12 +3265,12 @@
 
 	      <xsl:choose>
 		      <xsl:when test="ancestor::w:sdtContent/preceding-sibling::w:sdtPr[1]/w:citation">
-			      <xsl:element name="cite">
+			      <cite>
 				      <xsl:apply-templates select="*"/>
-			      </xsl:element>
+			      </cite>
 		      </xsl:when>
 		      <xsl:when test="w:rPr/w:rStyle/@w:val = 'FootnoteReference'">
-				      <xsl:element name="a">
+				      <a>
           <xsl:variable name="fnanchor" select="concat('sdfootnote', w:footnoteReference/@w:id,'anc')"/>
           <xsl:attribute name="name">
             <xsl:value-of select="$fnanchor"/>
@@ -3281,13 +3281,11 @@
 					      <xsl:attribute name="href">
 						      <xsl:value-of select="concat('#sdfootnote', w:footnoteReference/@w:id,'sym')"/>
 					      </xsl:attribute>
-					      <xsl:element name="sup">
-						      <xsl:value-of select="w:footnoteReference/@w:id"/>
-					      </xsl:element>
-				      </xsl:element>
+					      <xsl:value-of select="w:footnoteReference/@w:id"/>
+				      </a>
 		      </xsl:when>
 		      <xsl:when test="w:endnoteReference">
-				      <xsl:element name="a">
+				      <a>
           <xsl:variable name="fnanchor" select="concat('sdfootnote', w:endnoteReference/@w:id,'anc')"/>
           <xsl:attribute name="name">
             <xsl:value-of select="$fnanchor"/>
@@ -3298,10 +3296,8 @@
 					      <xsl:attribute name="href">
 						      <xsl:value-of select="concat('#sdfootnote', w:endnoteReference/@w:id,'sym')"/>
 					      </xsl:attribute>
-					      <xsl:element name="sup">
-						      <xsl:value-of select="w:endnoteReference/@w:id"/>
-					      </xsl:element>
-				      </xsl:element>			      
+					      <xsl:value-of select="w:endnoteReference/@w:id"/>
+				      </a>
 		      </xsl:when>
 		      
 		      <xsl:otherwise>
