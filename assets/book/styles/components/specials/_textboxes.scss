@@ -5,6 +5,7 @@
 .textbox {
   padding: $textbox-padding-top $textbox-padding-right $textbox-padding-bottom $textbox-padding-left;
   margin: $textbox-margin-top $textbox-margin-right $textbox-margin-bottom $textbox-margin-left;
+  font-family: $textbox-font-family;
   font-size: $textbox-font-size;
   font-style: $textbox-font-style;
   font-weight: $textbox-font-weight;
