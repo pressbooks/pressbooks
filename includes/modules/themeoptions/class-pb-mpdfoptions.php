@@ -38,7 +38,7 @@ class MPDFOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-			$this->options = $options;
+		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 		$this->integers = $this->getIntegerOptions();
@@ -351,6 +351,7 @@ class MPDFOptions extends \Pressbooks\Options {
 			'mpdf_margin_left' => 15,
 			'mpdf_margin_right' => 30,
 			'mpdf_hyphens' => 0,
+			'mpdf_fontsize' => 0,
 		) );
 	}
 
