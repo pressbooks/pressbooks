@@ -359,9 +359,6 @@ class Wxr extends Import {
 
 		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
 
-		update_post_meta( $pid, 'pb_show_title', 'on' );
-		update_post_meta( $pid, 'pb_export', 'on' );
-
 		return $pid;
 	}
 
@@ -382,7 +379,7 @@ class Wxr extends Import {
 				update_post_meta( $pid, 'pb_part_content', $part_content );
 			}
 		} else {
-			$meta_to_update = apply_filters( 'pb_import_metakeys', array( 'pb_section_author', 'pb_section_license', 'pb_short_title', 'pb_subtitle' ) );
+			$meta_to_update = apply_filters( 'pb_import_metakeys', array( 'pb_section_author', 'pb_section_license', 'pb_short_title', 'pb_subtitle', 'pb_show_title', 'pb_export' ) );
 			foreach ( $meta_to_update as $meta_key ) {
 				$meta_val = $this->searchForMetaValue( $meta_key, $p['postmeta'] );
 				if ( is_serialized( $meta_val ) ) {
