@@ -228,7 +228,6 @@ $before-title-title-block-margin-top: 0 !default;
 $before-title-title-block-margin-bottom: .5em !default;
 
 // Copyright
-$copyright-float: bottom !default;
 $copyright-margin-bottom: 1em !default;
 $copyright-font-size: .8em !default;
 $copyright-font-family: $font-1 !default;
@@ -293,6 +292,7 @@ $back-matter-title-block-margin-top: $section-title-block-margin-top !default;
 $back-matter-title-block-margin-bottom: $section-title-block-margin-bottom !default;
 $back-matter-title-align: center !default;
 
+// Everything below here should be elsewhere
 $bibliography-padding-left: 2em !default;
 $bibliography-font-size: .9em !default;
 $bibliography-text-indent: -2em !default;
