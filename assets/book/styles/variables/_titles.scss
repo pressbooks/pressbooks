@@ -105,6 +105,7 @@ $aphorism-cite-font-size: .8em !default;
   $title-publisher-font-size: .9em !default;
   $title-publisher-city-font-size: .9em !default;
 } @else if $type == 'web' {
+  $title-half-title-display: none;
   $title-half-title-font-size: 1.5em !default;
   $title-title-block-margin-top: $section-title-block-margin-top !default;
   $title-title-font-size: 2em !default;
