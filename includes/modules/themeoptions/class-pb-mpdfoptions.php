@@ -377,7 +377,9 @@ class MPDFOptions extends \Pressbooks\Options {
 	 */
 	static function getBooleanOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom boolean options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_mpdf_booleans', array(
 			'mpdf_mirror_margins',
@@ -396,7 +398,9 @@ class MPDFOptions extends \Pressbooks\Options {
 	 */
 	static function getStringOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom string options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_mpdf_strings', array() );
 	}
@@ -408,7 +412,9 @@ class MPDFOptions extends \Pressbooks\Options {
 	 */
 	static function getIntegerOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom integer options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_mpdf_integers', array(
 			'mpdf_left_margin',
@@ -423,7 +429,9 @@ class MPDFOptions extends \Pressbooks\Options {
 	 */
 	static function getFloatOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom float options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_mpdf_floats', array() );
 	}
@@ -435,7 +443,9 @@ class MPDFOptions extends \Pressbooks\Options {
 	 */
 	static function getPredefinedOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom predifined options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_mpdf_predefined', array(
 			'mpdf_page_size'

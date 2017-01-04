@@ -203,7 +203,9 @@ class EbookOptions extends \Pressbooks\Options {
 	 */
 	static function getBooleanOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom boolean options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_ebook_booleans', array(
 			'ebook_compress_images'
@@ -217,7 +219,9 @@ class EbookOptions extends \Pressbooks\Options {
 	 */
 	static function getStringOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom string options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_ebook_strings', array() );
 	}
@@ -229,7 +233,9 @@ class EbookOptions extends \Pressbooks\Options {
 	 */
 	static function getIntegerOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom integer options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_ebook_integers', array() );
 	}
@@ -241,7 +247,9 @@ class EbookOptions extends \Pressbooks\Options {
 	 */
 	static function getFloatOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom float options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_ebook_floats', array() );
 	}
@@ -253,7 +261,9 @@ class EbookOptions extends \Pressbooks\Options {
 	 */
 	static function getPredefinedOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom predifined options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_ebook_predefined', array(
 			'ebook_paragraph_separation'

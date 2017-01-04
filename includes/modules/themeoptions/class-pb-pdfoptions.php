@@ -1034,7 +1034,9 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	static function getBooleanOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom boolean options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_pdf_booleans', array(
 			'pdf_hyphens',
@@ -1052,7 +1054,9 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	static function getStringOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom string options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_pdf_strings', array(
 			'pdf_page_width',
@@ -1081,7 +1085,9 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	static function getIntegerOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom integer options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_pdf_integers', array(
 			'pdf_body_font_size',
@@ -1097,7 +1103,9 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	static function getFloatOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom float options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_pdf_floats', array(
 			'pdf_body_line_height'
@@ -1111,7 +1119,9 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	static function getPredefinedOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom predifined options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_pdf_predefined', array(
 			'pdf_paragraph_separation',

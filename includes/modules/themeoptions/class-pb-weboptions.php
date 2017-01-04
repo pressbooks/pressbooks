@@ -206,7 +206,9 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getBooleanOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom boolean options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_web_booleans', array(
 			'social_media',
@@ -221,7 +223,9 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getStringOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom string options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_web_strings', array() );
 	}
@@ -233,7 +237,9 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getIntegerOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom integer options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_web_integers', array() );
 	}
@@ -245,7 +251,9 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getFloatOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom float options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_web_floats', array() );
 	}
@@ -257,7 +265,9 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function getPredefinedOptions() {
 		/**
-		 * @since 3.9.7 TODO
+		 * Allow custom predifined options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
 		 */
 		return apply_filters( 'pb_theme_options_web_predefined', array() );
 	}
