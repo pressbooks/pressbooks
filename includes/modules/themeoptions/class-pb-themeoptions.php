@@ -98,6 +98,9 @@ class ThemeOptions {
 			unset( $tabs['mpdf'] );
 		}
 
-		return apply_filters( 'pressbooks_theme_options_tabs', $tabs );
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_tabs', $tabs );
 	}
 }

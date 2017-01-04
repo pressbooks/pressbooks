@@ -38,7 +38,7 @@ class PDFOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-			$this->options = $options;
+		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 		$this->strings = $this->getStringOptions();
@@ -981,7 +981,10 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return apply_filters( 'pressbooks_theme_options_pdf_defaults', array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_pdf_defaults', array(
 			'pdf_body_font_size' => '11',
 			'pdf_body_line_height' => '1.4',
 			'pdf_page_width' => '5.5in',
@@ -1030,13 +1033,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getBooleanOptions() {
-		return array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_pdf_booleans', array(
 			'pdf_hyphens',
 			'pdf_toc',
 			'pdf_crop_marks',
 			'pdf_romanize_parts',
 			'pdf_fontsize',
-		);
+		) );
 	}
 
 	/**
@@ -1045,7 +1051,10 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getStringOptions() {
-		return array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_pdf_strings', array(
 			'pdf_page_width',
 			'pdf_page_height',
 			'pdf_page_margin_outside',
@@ -1062,7 +1071,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'running_content_chapter_right',
 			'running_content_back_matter_left',
 			'running_content_back_matter_right',
-		);
+		) );
 	}
 
 	/**
@@ -1071,11 +1080,14 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getIntegerOptions() {
-		return array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_pdf_integers', array(
 			'pdf_body_font_size',
 			'widows',
 			'orphans',
-		);
+		) );
 	}
 
 	/**
@@ -1084,9 +1096,12 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getFloatOptions() {
-		return array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_pdf_floats', array(
 			'pdf_body_line_height'
-		);
+		) );
 	}
 
 	/**
@@ -1095,11 +1110,14 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getPredefinedOptions() {
-		return array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_pdf_predefined', array(
 			'pdf_paragraph_separation',
 			'pdf_blankpages',
 			'pdf_image_resolution',
 			'pdf_footnotes_style',
-		);
+		) );
 	}
 }

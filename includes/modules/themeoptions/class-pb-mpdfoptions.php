@@ -41,7 +41,9 @@ class MPDFOptions extends \Pressbooks\Options {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
+		$this->strings = $this->getStringOptions();
 		$this->integers = $this->getIntegerOptions();
+		$this->floats = $this->getFloatOptions();
 		$this->predefined = $this->getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
@@ -342,7 +344,10 @@ class MPDFOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return apply_filters( 'pressbooks_theme_options_mpdf_defaults', array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_mpdf_defaults', array(
 			'mpdf_page_size' => 'Letter',
 			'mpdf_include_cover' => 1,
 			'mpdf_indent_paragraphs' => 0,
@@ -371,14 +376,29 @@ class MPDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getBooleanOptions() {
-		return array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_mpdf_booleans', array(
 			'mpdf_mirror_margins',
 			'mpdf_include_cover',
 			'mpdf_include_toc',
 			'mpdf_indent_paragraphs',
 			'mpdf_hyphens',
 			'mpdf_fontsize',
-		);
+		) );
+	}
+
+	/**
+	 * Get an array of options which return strings.
+	 *
+	 * @return array $options
+	 */
+	static function getStringOptions() {
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_mpdf_strings', array() );
 	}
 
 	/**
@@ -387,10 +407,25 @@ class MPDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getIntegerOptions() {
-		return array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_mpdf_integers', array(
 			'mpdf_left_margin',
 			'mpdf_right_margin',
-		);
+		) );
+	}
+
+	/**
+	 * Get an array of options which return floats.
+	 *
+	 * @return array $options
+	 */
+	static function getFloatOptions() {
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_mpdf_floats', array() );
 	}
 
 	/**
@@ -399,8 +434,11 @@ class MPDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getPredefinedOptions() {
-		return array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_mpdf_predefined', array(
 			'mpdf_page_size'
-		);
+		) );
 	}
 }
