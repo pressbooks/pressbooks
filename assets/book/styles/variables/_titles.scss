@@ -152,7 +152,6 @@ $title-author-align: center !default;
 $title-author-text-transform: uppercase !default;
 
 // Publisher Logo
-
 $title-publisher-logo-display: block !default;
 $title-publisher-logo-width: 20% !default;
 $title-publisher-logo-padding-top: .75em !default;
@@ -228,6 +227,7 @@ $before-title-title-block-margin-top: 0 !default;
 $before-title-title-block-margin-bottom: .5em !default;
 
 // Copyright
+$copyright-float: none !default;
 $copyright-margin-bottom: 1em !default;
 $copyright-font-size: .8em !default;
 $copyright-font-family: $font-1 !default;
@@ -283,6 +283,7 @@ $chapter-number-font-weight: normal !default;
 $chapter-number-line-height: 1em !default;
 $chapter-number-align: center !default;
 $chapter-number-text-transform: none !default;
+$chapter-number-after-content: '. ' !default;
 
 // Chapter Title
 $chapter-title-align: center !default;
