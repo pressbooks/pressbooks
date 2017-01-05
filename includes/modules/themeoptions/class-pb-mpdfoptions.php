@@ -222,6 +222,13 @@ class MPDFOptions extends \Pressbooks\Options {
 			)
 		);
 
+		/**
+		 * Add custom settings fields.
+		 *
+		 * @since 3.9.7
+		 */
+		do_action( 'pb_theme_options_mpdf_add_settings_fields', $_page, $_section );
+
 		register_setting(
 			$_option,
 			$_option,

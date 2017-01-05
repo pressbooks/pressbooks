@@ -153,7 +153,7 @@ abstract class Options {
 	 * @param string $size
 	 * @param bool $disabled
 	 */
-	protected function renderField( $id, $name, $option, $value = '', $description = '', $append = '', $type = 'text', $class = 'regular-text', $disabled = false ) {
+	static function renderField( $id, $name, $option, $value = '', $description = '', $append = '', $type = 'text', $class = 'regular-text', $disabled = false ) {
 		printf(
 			'<input id="%s" class="%s" name="%s[%s]" type="%s" value="%s" %s/>',
 			$id,
@@ -182,7 +182,7 @@ abstract class Options {
 	 * @param string $value
 	 * @param string $description
 	 */
-	protected function renderCheckbox( $id, $name, $option, $value = '', $description ) {
+	static function renderCheckbox( $id, $name, $option, $value = '', $description ) {
 		printf(
 			'<input id="%s" name="%s[%s]" type="checkbox" value="1" %s/><label for="%s">%s</label>',
 			$id,
@@ -204,7 +204,7 @@ abstract class Options {
 	 * @param string $args
 	 * @param bool $custom
 	 */
-	protected function renderRadioButtons( $id, $name, $option, $value = '', $args, $custom = false ) {
+	static function renderRadioButtons( $id, $name, $option, $value = '', $args, $custom = false ) {
 		$is_custom = false;
 		if ( ! array_key_exists( $value, $args ) ) {
 			$is_custom = true;
@@ -233,7 +233,7 @@ abstract class Options {
 	 * @param string $args
 	 * @param boolean $multiple
 	 */
-	protected function renderSelect( $id, $name, $option, $value = '', $args, $multiple = false ) {
+	static function renderSelect( $id, $name, $option, $value = '', $args, $multiple = false ) {
 		$options = '';
 		foreach ( $args as $key => $label ) {
 			$options .= sprintf(
@@ -262,7 +262,7 @@ abstract class Options {
 	 * @param string $args
 	 * @param boolean $multiple
 	 */
-	protected function renderCustomSelect( $id, $name, $value = '', $args, $multiple = false ) {
+	static function renderCustomSelect( $id, $name, $value = '', $args, $multiple = false ) {
 		$is_custom = false;
 		if ( ! array_key_exists( $value, $args ) ) {
 			$is_custom = true;
