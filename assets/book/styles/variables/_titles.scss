@@ -228,6 +228,8 @@ $title-publisher-logo-width: 20% !default;
 $title-publisher-logo-padding-top: .75em !default;
 $title-publisher-logo-padding-bottom: .75em !default;
 $title-publisher-logo-text-align: center !default;
+$title-publisher-logo-margin-right: auto !default;
+$title-publisher-logo-margin-left: auto !default;
 
 // Publisher
 $title-publisher-font-family: $font-3 !default;
@@ -281,8 +283,11 @@ $part-title-text-transform: uppercase !default;
 
 // --- FRONT MATTER --- //
 
+
+
 // Front Matter Title
 $front-matter-title-font-family: $section-title-font-family !default;
+$front-matter-title-font-size: $section-title-font-size !default;
 $front-matter-title-font-style: $section-title-font-style !default;
 $front-matter-title-font-weight: $section-title-font-weight !default;
 $front-matter-title-align: $section-title-align !default;
@@ -301,6 +306,7 @@ $copyright-font-family: $font-1 !default;
 $copyright-font-style: normal !default;
 $copyright-font-weight: normal !default;
 $copyright-line-height: 1.2em !default;
+$copyright-margin-bottom: intial !default;
 $copyright-align: left !default;
 
 // Dedication
