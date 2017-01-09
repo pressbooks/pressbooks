@@ -49,9 +49,6 @@ class Docx extends Import {
 	const FOOTNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes';
 	const ENDNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/endnotes';
 	const HYPERLINK_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
-	const STYLESHEET_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles';
-
-	const FOOTNOTE_HREF_PATTERN = '/^#sdfootnote(\d+)sym$/';
 
 	/**
 	 *
@@ -75,12 +72,10 @@ class Docx extends Import {
 		// get the paths to content
 		$doc_path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
 		$meta_path = $this->getTargetPath( self::METADATA_SCHEMA );
-		$styles_path = $this->getTargetPath( self::STYLESHEET_SCHEMA, true );
 
 		// get the content
 		$xml = $this->getZipContent( $doc_path );
 		$meta = $this->getZipContent( $meta_path );
-		$styles = $this->getZipContent( $styles_path );
 
 		// get all Footnote IDs from document
 		$fn_ids = $this->getIDs( $xml );
@@ -110,9 +105,6 @@ class Docx extends Import {
 		$xsl = new \DOMDocument();
 		$xsl->load( __DIR__ . '/xsl/docx2html.xsl' );
 		$proc->importStylesheet( $xsl );
-
-		// cram the styles into the main document
-		$xml->documentElement->appendChild( $xml->importNode( $styles->documentElement, true ) );
 
 		// throw it back into the DOM
 		$dom_doc = $proc->transformToDoc( $xml );
@@ -508,46 +500,43 @@ class Docx extends Import {
 	 * @return \DOMDocument
 	 */
 	protected function addFootnotes( \DOMDocument $chapter ) {
-		$fn_candidates = $chapter->getelementsByTagName( 'a' );
-		$fn_ids = array();
-		foreach ( $fn_candidates as $fn_candidate ) {
-			$href = $fn_candidate->getAttribute( 'href' );
-			if ( null != $href ) {
-				$fn_matches = null;
-				if ( preg_match( self::FOOTNOTE_HREF_PATTERN, $href, $fn_matches ) ) {
-					$fn_ids[] = $fn_matches[1];
+
+		$fn = $chapter->getElementsByTagName( 'sup' );
+
+		if ( $fn->length > 0 ) {
+			$fn_ids = array();
+			foreach ( $fn as $int ) {
+				if ( is_numeric( $int->nodeValue ) ) { // TODO should be a stronger test for footnotes
+					$fn_ids[] = $int->nodeValue;
+				}
+			}
+			// append
+			// TODO either/or is not sufficient, needs to be built to cover
+			// a use case where both are present.
+			if ( ! empty( $this->fn ) ) { $notes = $this->fn;
+			}
+			if ( ! empty( $this->en ) ) { $notes = $this->en;
+			}
+
+			foreach ( $fn_ids as $id ) {
+				if ( array_key_exists( $id, $notes ) ) {
+					$grandparent = $chapter->createElement( 'div' );
+					$grandparent->setAttribute( 'id', "sdfootnote{$id}sym" );
+					$parent = $chapter->createElement( 'span' );
+					$child = $chapter->createElement( 'a', $id );
+					$child->setAttribute( 'href', "#sdfootnote{$id}anc" );
+					$child->setAttribute( 'name', "sdfootnote{$id}sym" );
+					$text = $chapter->createTextNode( $notes[ $id ] );
+
+					// attach
+					$grandparent->appendChild( $parent );
+					$parent->appendChild( $child );
+					$parent->appendChild( $text );
+
+					$chapter->documentElement->appendChild( $grandparent );
 				}
 			}
 		}
-
-		// TODO either/or is not sufficient, needs to be built to
-		// cover a use case where both are present.
-		if ( ! empty( $this->fn ) ) {
-			$notes = $this->fn;
-		}
-		if ( ! empty( $this->en ) ) {
-			$notes = $this->en;
-		}
-
-		foreach ( $fn_ids as $id ) {
-			if ( array_key_exists( $id, $notes ) ) {
-				$grandparent = $chapter->createElement( 'div' );
-				$grandparent->setAttribute( 'id', "sdfootnote{$id}sym" );
-				$parent = $chapter->createElement( 'span' );
-				$child = $chapter->createElement( 'a', $id );
-				$child->setAttribute( 'href', "#sdfootnote{$id}anc" );
-				$child->setAttribute( 'name', "sdfootnote{$id}sym" );
-				$text = $chapter->createTextNode( $notes[ $id ] );
-
-				// attach
-				$grandparent->appendChild( $parent );
-				$parent->appendChild( $child );
-				$parent->appendChild( $text );
-
-				$chapter->documentElement->appendChild( $grandparent );
-			}
-		}
-
 		return $chapter;
 	}
 
