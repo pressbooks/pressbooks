@@ -34,7 +34,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-			$this->options = $options;
+		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 

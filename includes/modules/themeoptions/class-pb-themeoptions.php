@@ -98,6 +98,11 @@ class ThemeOptions {
 			unset( $tabs['mpdf'] );
 		}
 
-		return apply_filters( 'pressbooks_theme_options_tabs', $tabs );
+		/**
+		 * Add a custom tab to the theme options page.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_tabs', $tabs );
 	}
 }
