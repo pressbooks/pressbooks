@@ -64,10 +64,10 @@
   }
 }
 
-@if type == 'epub' {
+@if $type == 'epub' {
 	@include epub-display-none;
-} @else if type == 'prince' {
+} @else if $type == 'prince' {
 	@include pdf-display-none;
-} @else if type == 'web' {
+} @else if $type == 'web' {
 	@include web-display-none;
 }

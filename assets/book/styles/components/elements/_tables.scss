@@ -10,6 +10,10 @@ table {
   font-size: $table-font-size;
   text-align: $table-align;
   border-collapse: collapse;
+  border-top: $table-border-width solid;
+  border-bottom: $table-border-width solid;
+  border-top-color: $line-color-1;
+  border-bottom-color: $line-color-1;
 
   p {
     text-align: $table-align;
@@ -49,8 +53,10 @@ td {
 }
 
 .lines tr {
-  border-top: $table-border-width solid $line-color-1;
-  border-bottom: $table-border-width solid $line-color-1;
+  border-top: $table-border-width solid;
+  border-bottom: $table-border-width solid;
+  border-top-color: $line-color-1;
+  border-bottom-color: $line-color-1;
 }
 
 .no-lines tr,
@@ -64,7 +70,8 @@ td {
 }
 
 .border {
-  border: $table-border-width solid $line-color-1;
+  border: $table-border-width solid;
+  border-color: $line-color-1;
 }
 
 .no-border,

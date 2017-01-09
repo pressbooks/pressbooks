@@ -5,15 +5,17 @@
 // Body
 @if $type == 'epub' {
   $body-font-size: medium !default;
+  $body-line-height: 1.4em !default;
 } @else if $type == 'prince' {
   $body-font-size: 11pt !default;
+  $body-line-height: 1.4em !default;
 }  @else if $type == 'web' {
-  $body-font-size: medium !default;
+  $body-font-size: 14pt !default;
+  $body-line-height: 1.8em !default;
 }
 $body-font-family: $font-1 !default;
 $body-font-style: normal !default;
 $body-font-weight: normal !default;
-$body-line-height: 1.4em !default;
 
 // Headings
 $hx-margin-top: 1.5em !default;
@@ -152,7 +154,7 @@ $table-td-padding-bottom: .45em !default;
 $table-td-padding-left: .45em !default;
 $table-td-line-height: 1.1em !default;
 $table-td-align: left !default;
-$table-border-width: 1px !default; // TODO
+$table-border-width: 1px !default;
 
 // Cite
 $cite-font-size: .9em !default;

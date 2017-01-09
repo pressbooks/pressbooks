@@ -15,13 +15,13 @@
     display: block;
     margin-top: 0;
     margin-bottom: 0;
-    font-family: $section-title-font-family;
-    font-size: $section-title-font-size;
-    font-style: $section-title-font-style;
-    font-weight: $section-title-font-weight;
+    font-family: $front-matter-title-font-family;
+    font-size: $front-matter-title-font-size;
+    font-style: $front-matter-title-font-style;
+    font-weight: $front-matter-title-font-weight;
     hyphens: none;
     text-align: $front-matter-title-align;
-    text-transform: $section-title-text-transform;
+    text-transform: $front-matter-title-text-transform;
   }
 }
 

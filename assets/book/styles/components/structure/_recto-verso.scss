@@ -15,7 +15,8 @@
 div.front-matter {
   page-break-before: $recto-verso-first-section-opening;
 
-  &.introduction {
+  &.introduction,
+  + .front-matter.introduction {
     page-break-before: $recto-verso-first-section-opening;
   }
 

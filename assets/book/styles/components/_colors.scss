@@ -72,7 +72,12 @@ h1.back-matter-title {color: $back-matter-title-color;}
 
 /* SIDEBARS, TEXTBOXES COLOR */
 div.sidebar {background-color: $sidebar-color;}
-div.textbox {border-color: $textbox-border-color;}
+
+div.textbox {
+  background-color: $textbox-background-color;
+  border-color: $textbox-border-color;
+}
+
 .textbox.shaded {background-color: $shaded-color;}
 
 /* SHADED COLOR */

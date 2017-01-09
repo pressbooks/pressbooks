@@ -7,13 +7,13 @@ $column-margin-top: 1em !default;
 $column-margin-bottom: 1em !default;
 $column-line-height: 1.2em !default;
 $column-twocolumn-column-gap: 1.5em !default;
-$column-twocolumn-font-size: 1em !default;
+$column-twocolumn-font-size: .85em !default;
 $column-threecolumn-column-gap: 1em !default;
-$column-threecolumn-font-size: .9em !default;
+$column-threecolumn-font-size: .8em !default;
 
 // Dropcaps
 $first-character-font-family: $font-2 !default;
-$first-character-font-size: 3em !default;
+$first-character-font-size: 300% !default;
 $first-character-font-style: normal !default;
 $first-character-font-weight: bold !default;
 $first-character-line-height: .7em !default;
@@ -116,10 +116,14 @@ $section-break-page-invisible-margin-top: 1em !default;
 $section-break-page-invisible-margin-bottom: 1em !default;
 
 // Textboxes
+$textbox-font-family: $font-1 !default;
 $textbox-font-size: .9em !default;
 $textbox-font-style: normal !default;
 $textbox-font-weight: normal !default;
-$textbox-line-height: 1.2em;
+$textbox-line-height: 1.2em !default;
+$textbox-text-align: left !default;
+$textbox-background-color: initial !default;
+$textbox-shaded-background-color: #eee !default;
 $textbox-padding-top: .9em !default;
 $textbox-padding-right: .9em !default;
 $textbox-padding-bottom: .9em !default;
@@ -132,7 +136,6 @@ $textbox-border-style: solid !default;
 $textbox-border-color: #000 !default;
 $textbox-border-width: .05em !default; // TODO
 $textbox-border-radius: 0 !default;
-$textbox-shaded-background-color: #eee !default;
 $textbox-para-margin-top: 0 !default;
 $textbox-para-margin-bottom: .5em !default;
 $textbox-caption-font-family: $font-2 !default;

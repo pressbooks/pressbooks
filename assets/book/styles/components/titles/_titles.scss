@@ -1,4 +1,6 @@
 // Half Title Page
+#half-title-page {display: $title-half-title-display;}
+
 #half-title-page > h1.title {
   margin-top: $title-title-block-margin-top;
   font-family: $title-half-title-font-family;
@@ -107,14 +109,6 @@ h5.publisher-city {
   }
 }
 
-@mixin titles-epub {
-  #half-title-page {
-    display: none;
-  }
-}
-
 @if $type == 'prince' {
   @include titles-prince;
-} @else if $type == 'epub' {
-  @include titles-epub;
 }

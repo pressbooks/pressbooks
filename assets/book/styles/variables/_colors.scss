@@ -39,7 +39,7 @@ $h6-color: $color-3 !default;
 $table-color: $color-1 !default;
 $table-para-color: $color-1 !default;
 $shade-color-1: $color-4 !default;
-$line-color-1: $color-3 !default;
+$line-color-1: $color-3 !default; //FIX
 
 //INDEX PARA COLOR
 $index-para-color: $color-1 !default;
@@ -49,6 +49,7 @@ $image-caption-text-color: $color-3 !default;
 $first-character-color: $color-2 !default;
 $pullquote-color: $color-2 !default;
 $sidebar-color: $color-4 !default;
+$textbox-background-color: initial !default;
 $textbox-border-color: $color-1 !default;
 $shaded-color: $color-4 !default;
 
