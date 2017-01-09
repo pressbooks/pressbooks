@@ -164,6 +164,7 @@ $aphorism-cite-font-size: .8em !default;
 // --- TITLE PAGE --- //
 @if $type == 'epub' {
   $title-half-title-display: none;
+  $title-half-title-font-size: 1.5em !default;
   $title-title-font-size: 1.75em !default;
   $title-subtitle-font-size: 1.25em !default;
   $title-author-font-size: 1.25em !default;
@@ -179,6 +180,7 @@ $aphorism-cite-font-size: .8em !default;
   $title-publisher-city-font-size: .9em !default;
 } @else if $type == 'web' {
   $title-half-title-display: none;
+  $title-half-title-font-size: 1.5em !default;
   $title-title-font-size: 2em !default;
   $title-subtitle-font-size: 1em !default;
   $title-author-font-size: 1.5em !default;
