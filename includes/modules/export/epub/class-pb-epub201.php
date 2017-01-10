@@ -116,14 +116,6 @@ class Epub201 extends Export {
 
 
 	/**
-	 * Hack to romanize part numbers
-	 *
-	 * @var bool
-	 */
-	protected $romanizePartNumbers = false;
-
-
-	/**
 	 * Used by HtmLawed with $GLOBALS['hl_Ids']
 	 *
 	 * @var array
@@ -356,10 +348,6 @@ class Epub201 extends Export {
 			$this->numbered = true;
 		} else {
 			$this->numbered = false;
-		}
-
-		if ( isset( $hacks['ebook_romanize_part_numbers'] ) && $hacks['ebook_romanize_part_numbers'] ) {
-			$this->romanizePartNumbers = true;
 		}
 
 		if ( isset( $hacks['ebook_compress_images'] ) && $hacks['ebook_compress_images'] ) {
@@ -1310,7 +1298,7 @@ class Epub201 extends Export {
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
 					$invisibility,
 					$slug,
-					( $this->numbered ? ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) : '' ),
+					\Pressbooks\L10n\romanize( $m ),
 					Sanitize\decode( $part['post_title'] ),
 				$part_content );
 
@@ -1342,7 +1330,7 @@ class Epub201 extends Export {
 						( $part_printf_changed ? $part_printf_changed : $part_printf ),
 						$invisibility,
 						$slug,
-						( $this->numbered ? ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) : '' ),
+						\Pressbooks\L10n\romanize( $m ),
 						Sanitize\decode( $part['post_title'] ),
 					$part_content );
 
@@ -1374,7 +1362,7 @@ class Epub201 extends Export {
 							( $part_printf_changed ? $part_printf_changed : $part_printf ),
 							$invisibility,
 							$slug,
-							( $this->numbered ? ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) : '' ),
+							\Pressbooks\L10n\romanize( $m ),
 							Sanitize\decode( $part['post_title'] ),
 						$part_content );
 
@@ -1395,7 +1383,8 @@ class Epub201 extends Export {
 						) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 						++$i;
-						if ( 'invisible' !== $invisibility ) { ++$p;
+						if ( 'invisible' !== $invisibility ) {
+							++$p;
 						}
 					}
 				}
@@ -1559,7 +1548,7 @@ class Epub201 extends Export {
 				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) == 'on' ) {
 					$class .= ' display-none';
 				} else {
-					$title = __( 'Part', 'pressbooks' ) . ' ' . ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) . '. ' . $title;
+					$title = __( 'Part', 'pressbooks' ) . ' ' . \Pressbooks\L10n\romanize( $m ) . '. ' . $title;
 					$m++;
 				}
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
