@@ -654,14 +654,6 @@ function pressbooks_theme_ebook_hacks( $hacks ) {
 		$hacks['ebook_compress_images'] = true;
 	}
 
-	// --------------------------------------------------------------------
-	// Luther features we inject ourselves, (not user options, this theme not child)
-
-	$theme = strtolower( '' . wp_get_theme() );
-	if ( 'luther' == $theme ) {
-		$hacks['ebook_romanize_part_numbers'] = true;
-	}
-
 	return $hacks;
 }
 add_filter( 'pb_epub_hacks', 'pressbooks_theme_ebook_hacks' );

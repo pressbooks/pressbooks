@@ -1006,7 +1006,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'pdf_toc' => 1,
 			'pdf_image_resolution' => '300dpi',
 			'pdf_crop_marks' => 0,
-			'pdf_romanize_parts' => 0,
+			'pdf_romanize_parts' => 1,
 			'pdf_footnotes_style' => 'footnotes',
 			'widows' => 2,
 			'orphans' => 1,
