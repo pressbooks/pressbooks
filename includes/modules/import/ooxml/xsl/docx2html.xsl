@@ -12,16 +12,16 @@
     xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math"
     xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
     xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
-    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"                
     version="1.0">
 
   <xsl:param name="pmathml" select="''"/>
   <xsl:param name="dtd" select="false()"/>
-
-
-
-
-
+  
+  
+  
+  
+  
   <xsl:output method="html" encoding="utf-8" omit-xml-declaration="yes" indent="yes"/>
 
   <xsl:variable name="paraStyleID_Default">Normal</xsl:variable>
@@ -313,10 +313,10 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
-
+  
+  
   <!--template of underline,strikethrough-->
-
+  
   <xsl:template name="EvalBooleanType">
     <xsl:choose>
       <xsl:when test="string-length(@w:val) = 0 or @w:val = 'off' or @w:val = 'none' or @w:val = '0' ">
@@ -327,9 +327,9 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
-
-
+  
+  
+  
 
   <xsl:template name="GetBorderPr">
     <xsl:value-of select="@w:val"/>
@@ -483,7 +483,7 @@
     </xsl:variable>
 
     <xsl:text>background-color:</xsl:text>
-
+    
     <xsl:value-of select="$backgroundColor"/>
     <!--<xsl:variable select="backgroundColor"/>-->
     <xsl:text>;</xsl:text>
@@ -870,7 +870,7 @@
 
       <xsl:variable name="fU_Em">
         <xsl:variable name="condition1">
-
+                    
           <xsl:for-each select="w:u[1]">
             <xsl:call-template name="EvalBooleanType"/>
           </xsl:for-each>
@@ -908,7 +908,7 @@
       <xsl:variable name="fStrikeDStrike">
         <xsl:variable name="condition1">
           <xsl:for-each select="w:strike[1]">
-            <xsl:value-of select="$on"/>
+            <xsl:value-of select="$on"/>                        
           </xsl:for-each>
         </xsl:variable>
         <xsl:variable name="condition2">
@@ -2197,14 +2197,6 @@
           <xsl:call-template name="ApplyCellMar"/>
         </xsl:for-each>
       </xsl:when>
-      <xsl:when test="$type = $prrCantSplit">
-        <xsl:for-each select="w:trPr[1]/w:cantSplit[1]">
-          <xsl:choose>
-            <xsl:when test="@w:val = 'off'"></xsl:when>
-            <xsl:otherwise></xsl:otherwise>
-          </xsl:choose>
-        </xsl:for-each>
-      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -3154,8 +3146,8 @@
         <xsl:text> padding-bottom:5px;</xsl:text>
       </xsl:attribute>
     </div>
-  </xsl:template>
-
+  </xsl:template>  
+ 
   <xsl:template match="w:br">
     <br>
       <xsl:attribute name="clear">
@@ -3191,7 +3183,7 @@
     </span>
 
   </xsl:template>
-
+  
   <xsl:template match="w:pict">
     <span >
       <xsl:value-of select="."/>
@@ -3200,9 +3192,9 @@
     <br />
 
   </xsl:template>
-
+  
   <xsl:template match="w:t">
-     <xsl:value-of select ="."/>
+     <xsl:value-of select ="."/>   
   </xsl:template>
 
   <xsl:template match="w:sym">
@@ -3223,12 +3215,12 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="w:tab">
+  <xsl:template match="w:tab">    
 
     <span>
     <xsl:attribute name="style">
       <xsl:choose>
-        <xsl:when test="./@w:pos">
+        <xsl:when test="./@w:pos">          
             <xsl:choose>
               <xsl:when test="./@w:pos and ./@w:val = 'left'">
                   margin-left:
@@ -3239,7 +3231,7 @@
                     <xsl:otherwise>
                       <xsl:value-of select="@w:pos div 20"/>pt;
                     </xsl:otherwise>
-                  </xsl:choose>
+                  </xsl:choose>               
               </xsl:when>
               <xsl:when test="./@w:pos and ./@w:val = 'right'">
                 <xsl:choose>
@@ -3249,16 +3241,16 @@
                   <xsl:otherwise>
                     <xsl:value-of select="@w:pos div 20"/>pt;
                   </xsl:otherwise>
-                </xsl:choose>
-              </xsl:when>
-            </xsl:choose>
+                </xsl:choose>    
+              </xsl:when>              
+            </xsl:choose>              
         </xsl:when>
         <xsl:otherwise>
           margin-left:26pt
         </xsl:otherwise>
-      </xsl:choose>
+      </xsl:choose>     
     </xsl:attribute>
-    </span>
+    </span>  
   </xsl:template>
 <!-- Parwati modified to correct tab indentation-->
   <xsl:template match="w:softHyphen">
@@ -3273,12 +3265,12 @@
 
 	      <xsl:choose>
 		      <xsl:when test="ancestor::w:sdtContent/preceding-sibling::w:sdtPr[1]/w:citation">
-			      <xsl:element name="cite">
+			      <cite>
 				      <xsl:apply-templates select="*"/>
-			      </xsl:element>
+			      </cite>
 		      </xsl:when>
 		      <xsl:when test="w:rPr/w:rStyle/@w:val = 'FootnoteReference'">
-				      <xsl:element name="a">
+				      <a>
           <xsl:variable name="fnanchor" select="concat('sdfootnote', w:footnoteReference/@w:id,'anc')"/>
           <xsl:attribute name="name">
             <xsl:value-of select="$fnanchor"/>
@@ -3289,13 +3281,11 @@
 					      <xsl:attribute name="href">
 						      <xsl:value-of select="concat('#sdfootnote', w:footnoteReference/@w:id,'sym')"/>
 					      </xsl:attribute>
-					      <xsl:element name="sup">
-						      <xsl:value-of select="w:footnoteReference/@w:id"/>
-					      </xsl:element>
-				      </xsl:element>
+					      <xsl:value-of select="w:footnoteReference/@w:id"/>
+				      </a>
 		      </xsl:when>
 		      <xsl:when test="w:endnoteReference">
-				      <xsl:element name="a">
+				      <a>
           <xsl:variable name="fnanchor" select="concat('sdfootnote', w:endnoteReference/@w:id,'anc')"/>
           <xsl:attribute name="name">
             <xsl:value-of select="$fnanchor"/>
@@ -3306,14 +3296,12 @@
 					      <xsl:attribute name="href">
 						      <xsl:value-of select="concat('#sdfootnote', w:endnoteReference/@w:id,'sym')"/>
 					      </xsl:attribute>
-					      <xsl:element name="sup">
-						      <xsl:value-of select="w:endnoteReference/@w:id"/>
-					      </xsl:element>
-				      </xsl:element>
+					      <xsl:value-of select="w:endnoteReference/@w:id"/>
+				      </a>
 		      </xsl:when>
-
+		      
 		      <xsl:otherwise>
-
+			      
 			      <xsl:apply-templates select="*"/>
 		      </xsl:otherwise>
 	      </xsl:choose>
@@ -3383,26 +3371,34 @@
   </xsl:template>
 
   <xsl:template name="RecursiveApplyRPr.class">
-    <xsl:if test="w:basedOn">
-      <xsl:variable name="baseStyleName" select="w:basedOn[1]/@w:val" />
-      <xsl:variable name="sParaStyleBase" select="($nsStyles[@w:styleId=$baseStyleName])[1]"/>
-      <xsl:for-each select="$sParaStyleBase">
-        <xsl:call-template name="RecursiveApplyRPr.class" />
-      </xsl:for-each>
-    </xsl:if>
+    <xsl:variable name="inheritedStyleMods">
+      <xsl:if test="w:basedOn">
+        <xsl:variable name="baseStyleName" select="w:basedOn[1]/@w:val" />
+        <xsl:variable name="sParaStyleBase" select="($nsStyles[@w:styleId=$baseStyleName])[1]"/>
+        <xsl:for-each select="$sParaStyleBase">
+          <xsl:call-template name="RecursiveApplyRPr.class" />
+        </xsl:for-each>
+      </xsl:if>
+    </xsl:variable>
 
-    <xsl:call-template name="ApplyRPr.class"/>
+    <xsl:value-of select="normalize-space($inheritedStyleMods)"/>
+    <xsl:call-template name="ApplyRPr.class">
+      <xsl:with-param name="inheritedStyleMods" select="normalize-space($inheritedStyleMods)"/>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template name="ApplyRPr.class">
-    <xsl:for-each select="w:rPr[1]">
+    <xsl:param name="inheritedStyleMods" select="''"/>
 
+    <xsl:for-each select="w:rPr[1]">
       <xsl:choose>
         <xsl:when test="w:highlight">
-          background-color:<xsl:call-template name="ConvColor">
-            <xsl:with-param name="value" select="w:hightlight[1]/@w:val"/>
-          </xsl:call-template>
-          <xsl:value-of select="value"/>;
+          <xsl:text>background-color:</xsl:text>
+          <xsl:call-template name="ConvColor">
+            <xsl:with-param name="value" select="w:highlight[1]/@w:val"/>          
+          </xsl:call-template>         
+          <xsl:value-of select="value"/>
+          <xsl:text>;</xsl:text>
         </xsl:when>
         <xsl:otherwise>
           <xsl:for-each select="w:shd[1]">
@@ -3411,96 +3407,225 @@
         </xsl:otherwise>
       </xsl:choose>
 
-      <xsl:apply-templates select="*" mode="rpr"/>
+      <xsl:apply-templates select="*" mode="rpr">
+        <xsl:with-param name="inheritedStyleMods" select="$inheritedStyleMods"/>
+      </xsl:apply-templates>
     </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="w:highlight" mode="rpr">
-    background:<xsl:call-template name="ConvColor">
-      <xsl:with-param name="value" select="@w:val"/>
-    </xsl:call-template>
-    <xsl:value-of select="value"/>;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>background:</xsl:text>
+      <xsl:call-template name="ConvColor">
+        <xsl:with-param name="value" select="@w:val"/>
+      </xsl:call-template>
+      <xsl:value-of select="value"/>
+      <xsl:text>;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:color" mode="rpr">
-    color:<xsl:call-template name="ConvHexColor">
-      <xsl:with-param name="value" select="@w:val"/>
-    </xsl:call-template>;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>color:</xsl:text>
+      <xsl:call-template name="ConvHexColor">
+        <xsl:with-param name="value" select="@w:val"/>
+      </xsl:call-template>
+      <xsl:text>;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:rFonts" mode="rpr">
-    font-family:<xsl:value-of select="@w:ascii"/>;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>font-family:</xsl:text>
+      <xsl:value-of select="@w:ascii"/>
+      <xsl:text>;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:smallCaps" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">font-variant:normal;</xsl:when>
-      <xsl:otherwise>font-variant:small-caps;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>font-variant:normal;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>font-variant:small-caps;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:eastAsianLayout" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:vert = 'on'">layout-flow:horizontal;</xsl:when>
-      <xsl:when test="@w:vert-compress = 'on'">layout-flow:horizontal;</xsl:when>
-      <xsl:when test="@w:vert = 'off' or @w:vert-compress = 'off'">layout-flow:normal;</xsl:when>
-    </xsl:choose>
-    <xsl:if test="@w:combine = 'lines'">text-combine:lines;</xsl:if>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:vert = 'on'">
+          <xsl:text>layout-flow:horizontal;</xsl:text>
+        </xsl:when>
+        <xsl:when test="@w:vert-compress = 'on'">
+          <xsl:text>layout-flow:horizontal;</xsl:text>
+        </xsl:when>
+        <xsl:when test="@w:vert = 'off' or @w:vert = '0' or
+                        @w:vert-compress = 'off' or @w:vert-compress='0'">
+          <xsl:text>layout-flow:normal;</xsl:text>
+        </xsl:when>
+      </xsl:choose>
+      <xsl:if test="@w:combine = 'lines'">
+        <xsl:text>text-combine:lines;</xsl:text>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:spacing" mode="rpr">
-    letter-spacing:<xsl:value-of select="@w:val div 20"/>pt;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>letter-spacing:</xsl:text>
+      <xsl:value-of select="@w:val div 20"/>
+      <xsl:text>pt;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:position" mode="rpr">
+    <xsl:param name="inheritedStyleMods" select="''"/>
     <xsl:variable name="fDropCap">
       <xsl:value-of select="ancestor::w:p[1]/w:pPr/w:framePr/@w:drop-cap"/>
     </xsl:variable>
-    <xsl:if test="$fDropCap=''">
-      <xsl:text>position:relative;top:</xsl:text>
-      <xsl:value-of select="@w:val div -2"/>
-      <xsl:text>pt;</xsl:text>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:if test="$fDropCap=''">
+        <xsl:text>position:relative;top:</xsl:text>
+        <xsl:value-of select="@w:val div -2"/>
+        <xsl:text>pt;</xsl:text>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
     </xsl:if>
   </xsl:template>
+
   <xsl:template match="w:fitText" mode="rpr">
-    text-fit:<xsl:value-of select="@w:val div 20"/>pt;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>text-fit:</xsl:text>
+      <xsl:value-of select="@w:val div 20"/>
+      <xsl:text>pt;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
+
   <xsl:template match="w:shadow" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">text-shadow:none;</xsl:when>
-      <xsl:otherwise>text-shadow:0.2em 0.2em;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>text-shadow:none;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>text-shadow:0.2em 0.2em;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:caps" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">text-transform:none;</xsl:when>
-      <xsl:otherwise>text-transform:uppercase;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>text-transform:none;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>text-transform:uppercase;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:sz" mode="rpr">
-    font-size:<xsl:value-of select="@w:val div 2"/>pt;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>font-size:</xsl:text>
+      <xsl:value-of select="@w:val div 2"/>
+      <xsl:text>pt;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:b" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">font-weight:normal;</xsl:when>
-      <xsl:otherwise>font-weight:bold;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>font-weight:normal;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>font-weight:bold;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:i" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">font-style:normal;</xsl:when>
-      <xsl:otherwise>font-style:italic;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>font-style:normal;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>font-style:italic;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
-
+  
   <xsl:template match="w:u" mode="rpr">
-        <xsl:if test="@w:val = 'single'">
-          text-decoration:underline;
-	</xsl:if>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:if test="@w:val = 'single'">
+        <xsl:text>text-decoration:underline;</xsl:text>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="*" mode="rpr"/>
@@ -3588,6 +3713,7 @@
     <xsl:param name="runStyleName"/>
 
     <xsl:variable name="rStyleId" select="string(w:rPr/w:rStyle/@w:val)"/>
+    <xsl:variable name="rLanguageId" select="string(w:rPr/w:lang/@w:val)"/>
 
     <xsl:variable name="prsR.updated">
 
@@ -3633,6 +3759,9 @@
       </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="styleMod">
+      <xsl:for-each select="$nsStyles[@w:styleId=$rStyleId]">
+        <xsl:call-template name="RecursiveApplyRPr.class"/>
+      </xsl:for-each>
       <xsl:call-template name="ApplyRPr.class"/>
 
       <xsl:variable name="numId" select="w:numPr/w:numId/@w:val" />
@@ -3673,45 +3802,143 @@
         </xsl:if>
       </xsl:when>
       <xsl:otherwise>
-
-	      <xsl:choose>
-		      <xsl:when test="contains($styleMod, 'vertical-align:super')">
-			      <small>
-				      <xsl:element name='sup'>
-				      <xsl:call-template name="DisplayRContent"/>
-				      </xsl:element>
-			      </small>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'vertical-align:sub')">
-			      <small>
-				      <xsl:element name='sub'>
-					      <xsl:call-template name="DisplayRContent"/>
-				      </xsl:element>
-			      </small>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'font-weight:bold')">
-			      <b>
-				      <xsl:call-template name="DisplayRContent"/>
-			      </b>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'font-style:italic')">
-			      <i>
-				      <xsl:call-template name="DisplayRContent"/>
-			      </i>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'text-decoration:underline')">
-			      <span style="text-decoration: underline;">
-				      <xsl:call-template name="DisplayRContent"/>
-			      </span>
-		      </xsl:when>
-		      <xsl:otherwise>
-			      <xsl:call-template name="DisplayRContent"/>
-		      </xsl:otherwise>
-	      </xsl:choose>
-
-
+	<xsl:call-template name="StyleRContent">
+          <xsl:with-param name="rLanguageId" select="$rLanguageId"/>
+          <xsl:with-param name="rStyleId" select="$rStyleId"/>
+          <xsl:with-param name="styleMod" select="$styleMod"/>
+	</xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="StyleRContent">
+    <xsl:param name="rLanguageId" select="''"/>
+    <xsl:param name="rStyleId" select="''"/>
+    <xsl:param name="styleMod" select="''"/>
+    <xsl:variable name="action">
+      <!-- @TODO: This makes assumptions about Word’s built-in style
+           names, and will exacerbate bug #298. -->
+      <xsl:choose>
+        <xsl:when test="$rStyleId = 'Book Title'">
+          <xsl:value-of select="'cite italic'"/>
+        </xsl:when>
+        <xsl:when test="$rStyleId = 'Emphasis'">
+          <xsl:value-of select="'em italic'"/>
+        </xsl:when>
+        <xsl:when test="$rStyleId = 'Strong'">
+          <xsl:value-of select="'strong bold'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'vertical-align:super')">
+          <xsl:value-of select="'sup sup'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'vertical-align:sub')">
+          <xsl:value-of select="'sub sub'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'font-weight:bold')">
+          <xsl:value-of select="'strong bold'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'font-style:italic')">
+          <xsl:value-of select="'em italic'"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="'span '"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="wrapper" select="substring-before($action, ' ')"/>
+    <xsl:variable name="styleChange" select="substring-after($action, ' ')"/>
+    <xsl:variable name="nextStyleMod">
+      <xsl:choose>
+        <xsl:when test="$styleChange = 'bold'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'font-weight:bold;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-weight:bold;'),substring-after($styleMod, 'font-weight:bold;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'font-weight:bold')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-weight:bold'),substring-after($styleMod, 'font-weight:bold')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:when test="$styleChange = 'italic'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'font-style:italic;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-style:italic;'),substring-after($styleMod, 'font-style:italic;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'font-style:italic')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-style:italic'),substring-after($styleMod, 'font-style:italic')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:when test="$styleChange = 'sub'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'vertical-align:sub;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:sub;'),substring-after($styleMod, 'vertical-align:sub;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'vertical-align:sub;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:sub'),substring-after($styleMod, 'vertical-align:sub')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:when test="$styleChange = 'sup'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'vertical-align:super;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:super;'),substring-after($styleMod, 'vertical-align:super;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'vertical-align:super')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:super'),substring-after($styleMod, 'vertical-align:super')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="normalize-space($styleMod)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:element name="{$wrapper}">
+      <xsl:if test="$rStyleId != ''">
+        <xsl:attribute name="class">
+          <xsl:text>import-</xsl:text>
+          <xsl:value-of select="translate($rStyleId, ' ', '')"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="$rLanguageId != ''">
+        <xsl:attribute name="lang">
+          <xsl:value-of select="$rLanguageId"/>
+        </xsl:attribute>
+        <xsl:attribute name="xml:lang">
+          <xsl:value-of select="$rLanguageId"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="$nextStyleMod != '' and $wrapper != 'span'">
+          <xsl:call-template name="StyleRContent">
+            <xsl:with-param name="rLanguageId" select="''"/>
+            <xsl:with-param name="rStyleId" select="''"/>
+            <xsl:with-param name="styleMod" select="$nextStyleMod"/>
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:if test="$nextStyleMod != ''">
+            <xsl:attribute name="style">
+              <xsl:value-of select="$nextStyleMod"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:call-template name="DisplayRContent"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="w:r">
@@ -3730,7 +3957,7 @@
           <a>
 
             <xsl:variable name="href">
-
+            
               <xsl:choose>
                 <xsl:when test="contains($nInstrText,'\l')">
                   #<xsl:value-of select="translate(substring-before(substring-after($nInstrText, '\l '),' '),'&quot;', '')"/>
@@ -3803,11 +4030,11 @@
         <xsl:text disable-output-escaping="yes">&lt;div style="top:1010px;left:0px;position:absolute;visibility:show;"&gt;</xsl:text>
         </xsl:if>
       <xsl:text disable-output-escaping="yes">&lt;table cellpadding="5px"&gt;</xsl:text>
-      <xsl:text disable-output-escaping="yes">&lt;tr&gt;</xsl:text>
+      <xsl:text disable-output-escaping="yes">&lt;tr&gt;</xsl:text>  
     </xsl:if>
     <xsl:text disable-output-escaping="yes">&lt;td valign="top" width="</xsl:text>
     <xsl:value-of select="100 div $colNum"/>
-    <xsl:text disable-output-escaping="yes">%"&gt;</xsl:text>
+    <xsl:text disable-output-escaping="yes">%"&gt;</xsl:text>    
     <xsl:text disable-output-escaping="yes">&lt;p class="</xsl:text>
     <xsl:variable name="pStyleId">
       <xsl:call-template name="GetPStyleId"/>
@@ -3822,29 +4049,29 @@
       <xsl:otherwise>
         <xsl:value-of select="$Align"/>
       </xsl:otherwise>
-    </xsl:choose>
+    </xsl:choose>   
     <xsl:text>;</xsl:text>
     <xsl:value-of select="$style"/>
-    <xsl:text disable-output-escaping="yes">"&gt;</xsl:text>
-    <xsl:text disable-output-escaping="yes">&lt;span&gt;</xsl:text>
+    <xsl:text disable-output-escaping="yes">"&gt;</xsl:text>   
+    <xsl:text disable-output-escaping="yes">&lt;span&gt;</xsl:text>   
   </xsl:template>
   <!-- End to template for column rendering -->
-
+  
   <xsl:template match="w:r[count(preceding-sibling::w:r[w:fldChar/@w:fldCharType='begin']) = count(preceding-sibling::w:r[w:fldChar/@w:fldCharType='end'])]">
     <xsl:param name="b.bidi" select="''"/>
     <xsl:param name="prsR" select="$prsRDefault"/>
-    <xsl:param name="runStyleName"/>
-
+    <xsl:param name="runStyleName"/> 
+    
 
       <xsl:variable name="coverpage">
         <xsl:choose>
           <xsl:when test="./w:lastRenderedPageBreak/@Coverpage">
-            <xsl:value-of select="$on"/>
+            <xsl:value-of select="$on"/>  
           </xsl:when>
           <xsl:otherwise>
             <xsl:value-of select="$off"/>
           </xsl:otherwise>
-        </xsl:choose>
+        </xsl:choose>        
       </xsl:variable>
       <xsl:variable name="columnNo">
         <xsl:value-of select="./w:lastRenderedPageBreak/@colNum"/>
@@ -3866,21 +4093,21 @@
           </xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
-
+      
       <xsl:variable name="prsR.updated">
         <xsl:call-template name="PrsUpdateRPr">
           <xsl:with-param name="ndPrContainer" select="$sParaStyleName"/>
           <xsl:with-param name="prsR" select="$prsR"/>
         </xsl:call-template>
       </xsl:variable>
-
+      
       <xsl:variable name="prsP.updated1">
         <xsl:call-template name="PrsUpdatePPr">
           <xsl:with-param name="ndPrContainer" select="$sParaStyleName"/>
           <xsl:with-param name="prsP" select="$prsPDefault"/>
         </xsl:call-template>
       </xsl:variable>
-
+      
       <xsl:variable name="prsP.updated">
         <xsl:call-template name="PrsUpdatePPr">
           <xsl:with-param name="prsP" select="$prsP.updated1"/>
@@ -3888,13 +4115,13 @@
       </xsl:variable>
       <xsl:variable name="prsPAccum" select="''"/>
       <xsl:variable name="styleMod">
-
+        
         <xsl:value-of select="$prsPAccum"/>
-
+        
         <xsl:for-each select="$sParaStyleName">
           <xsl:call-template name="RecursiveApplyPPr.many"/>
         </xsl:for-each>
-
+        
         <xsl:call-template name="ApplyPPr.many">
           <xsl:with-param name="cxtSpacing">
             <xsl:variable name="cspacing" select="$sParaStyleName/w:pPr[1]/w:contextualSpacing[1]"/>
@@ -3908,7 +4135,7 @@
             </xsl:if>
           </xsl:with-param>
         </xsl:call-template>
-
+        
         <xsl:call-template name="ApplyPPr.class"/>
         <xsl:variable name="bdrBetween" select="''"/>
         <xsl:call-template name="ApplyPPr.once">
@@ -3939,7 +4166,7 @@
     <xsl:value-of select="$totalColumns"/>
     <xsl:text disable-output-escaping="yes">"&gt;</xsl:text>
   </xsl:template>
-
+ 
   <xsl:template match="w:pPr">
     <xsl:param name="b.bidi" select="''"/>
     <xsl:param name="prsR" select="$prsRDefault"/>
@@ -3948,7 +4175,7 @@
       <xsl:with-param name="prsR" select="$prsR"/>
     </xsl:call-template>
   </xsl:template>
-
+ 
 <xsl:template name="DisplayHlink">
     <xsl:param name="b.bidi"/>
     <xsl:param name="prsR"/>
@@ -3959,8 +4186,8 @@
 	    <xsl:if test="$rId != ''">
 		    <xsl:attribute name="class">
 			    <xsl:value-of select="$rId"/>
-		    </xsl:attribute>
-	    </xsl:if>
+		    </xsl:attribute>	
+	    </xsl:if>    	
 	<xsl:variable name="href">
         <xsl:for-each select="@w:dest">
           <xsl:value-of select="."/>
@@ -4107,7 +4334,7 @@
             <xsl:otherwise>
               <xsl:value-of select="$nInd.left div 20"/>pt;
             </xsl:otherwise>
-          </xsl:choose>
+          </xsl:choose>          
         </xsl:when>
         <xsl:when test="not($nInd.leftChars = '' and $nInd.hangingChars='')">
           <xsl:value-of select="$marginSide.before"/>
@@ -4149,7 +4376,7 @@
           </xsl:if>
         </xsl:when>
         <!-- TEXT INDENTATION FOR TABLE MODIFIED BY PRASAHANTH-->
-
+        
         <xsl:when test="not($nInd.hangingChars='')">
           text-indent:<xsl:value-of select="$nInd.hangingChars div -100"/>em;
         </xsl:when>
@@ -4254,14 +4481,14 @@
   </xsl:template>
 
   <!-- ID 1 Fix linespacing issue - div from 20 to 10-->
-
+  
   <xsl:template match="w:spacing[@w:lineRule or @w:line]" mode="ppr">
     <xsl:choose>
       <xsl:when test="not(@w:lineRule) or @w:lineRule = 'exact'or @w:lineRule = 'auto'">
 <!--        line-height:<xsl:value-of select="@w:line div 10"/>pt;-->
       </xsl:when>
     </xsl:choose>
-  </xsl:template>
+  </xsl:template> 
 
   <xsl:template match="w:topLinePunct" mode="ppr">
     <xsl:choose>
@@ -4342,7 +4569,7 @@
     <xsl:call-template name="ApplyPPr.many"/>
 
   </xsl:template>
-
+  
   <xsl:template match="w:p">
     <xsl:param name="bdrBetween" select="''"/>
     <xsl:param name="prsPAccum" select="''"/>
@@ -4350,7 +4577,7 @@
     <xsl:param name="prsR" select="$prsRDefault"/>
 
     <xsl:if test="not(w:pPr/w:pStyle/@w:val='z-TopofForm') and not(w:pPr/w:pStyle/@w:val='z-BottomofForm')">
-
+	   
 	    <xsl:variable name="pStyleId">
 		    <xsl:call-template name="GetPStyleId"/>
 	    </xsl:variable>
@@ -4412,10 +4639,10 @@
 			    </li>
 			    <xsl:if test="not(following-sibling::w:p[1]/w:pPr/w:pStyle/@w:val = 'ListParagraph')">
 				    <xsl:text disable-output-escaping="yes">&lt;/ul&gt;</xsl:text>
-			    </xsl:if>
-		    </xsl:when>
-
-		    <xsl:otherwise>
+			    </xsl:if>			    
+		    </xsl:when>	
+		    
+		    <xsl:otherwise>	   
 			    <p>
 
 				    <xsl:variable name="sParaStyleName" select="($nsStyles[@w:styleId=$pStyleId])[1]"/>
@@ -4482,13 +4709,19 @@
 						    <xsl:with-param name="pr.bdrBetween" select="$bdrBetween"/>
 					    </xsl:call-template>
 				    </xsl:variable>
+				    <xsl:if test="$pStyleId and $pStyleId != ''">
+					    <xsl:attribute name="class">
+						    <xsl:text>import-</xsl:text>
+						    <xsl:value-of select="translate($pStyleId, ' ', '')"/>
+					    </xsl:attribute>
+				    </xsl:if>
 				    <xsl:if test="not($styleMod='')">
 					    <xsl:attribute name="style">
-						    <xsl:value-of select="$styleMod"/>
+						    <xsl:value-of select="normalize-space($styleMod)"/>
 					    </xsl:attribute>
 				    </xsl:if>
 
-
+				    
 					    <xsl:call-template name="DisplayPContent">
 						    <xsl:with-param name="b.bidi" select="$b.bidi"/>
 						    <xsl:with-param name="prsR" select="$prsR.updated"/>
@@ -4497,7 +4730,7 @@
 							    <xsl:value-of select="$charStyleSuffix"/>
 						    </xsl:with-param>
 					    </xsl:call-template>
-
+				   
 			    </p>
 		    </xsl:otherwise>
 	    </xsl:choose>
@@ -4507,7 +4740,7 @@
       </xsl:if>
       </xsl:if>
   </xsl:template>
-
+  
   <xsl:template name="DisplayBodyContent">
 
     <xsl:param name="ns.content" select="descendant::*[(parent::WX:sect or parent::WX:sub-section) and not(name()='WX:sub-section')]"/>
@@ -5804,7 +6037,7 @@
         <xsl:with-param name="b.bidivisual" select="$b.bidivisual"/>
       </xsl:apply-templates>
 
-
+      
       <xsl:for-each select="w:tblGrid[1]">
         <tr height="0">
           <xsl:for-each select="w:gridCol">
@@ -5903,8 +6136,7 @@
     <xsl:value-of select="$charStyleSuffix"/>
     <xsl:text>{</xsl:text>
     <xsl:call-template name="MakeRStyleCore"/>
-    <xsl:text>}
-   </xsl:text>
+    <xsl:text>}&#xa;</xsl:text>
   </xsl:template>
 
   <xsl:template name="MakeRStyleCore">
@@ -5926,11 +6158,9 @@
     <xsl:text>.</xsl:text>
     <xsl:value-of select="@w:styleId"/>
     <xsl:value-of select="$paraStyleSuffix"/>
-    <xsl:text>{
-   </xsl:text>
+    <xsl:text>{&#xa;   </xsl:text>
     <xsl:call-template name="MakePStyleCore"/>
-    <xsl:text>}
-   </xsl:text>
+    <xsl:text>}&#xa;</xsl:text>
 
     <xsl:call-template name="MakeRStyle"/>
   </xsl:template>
@@ -6118,7 +6348,7 @@
         <xsl:text disable-output-escaping="yes">
 function msoCommentShow(anchor_id, com_id)
 {
-    if(msoBrowserCheck())
+    if(msoBrowserCheck()) 
         {
         c = document.all(com_id);
         a = document.all(anchor_id);
@@ -6131,7 +6361,7 @@ function msoCommentShow(anchor_id, com_id)
             var x  = a.offsetLeft;
             var y  = a.offsetTop;
             var el = a;
-            while (el.tagName != "BODY")
+            while (el.tagName != "BODY") 
                 {
                 el = el.offsetParent;
                 x = x + el.offsetLeft;
@@ -6141,17 +6371,17 @@ function msoCommentShow(anchor_id, com_id)
             var bh = document.body.clientHeight;
             var bsl = document.body.scrollLeft;
             var bst = document.body.scrollTop;
-            if (x + cw + ah / 2 > bw + bsl &amp;&amp; x + aw - ah / 2 - cw >= bsl )
+            if (x + cw + ah / 2 > bw + bsl &amp;&amp; x + aw - ah / 2 - cw >= bsl ) 
                 { c.style.left = x + aw - ah / 2 - cw; }
-            else
+            else 
                 { c.style.left = x + ah / 2; }
-            if (y + ch + ah / 2 > bh + bst &amp;&amp; y + ah / 2 - ch >= bst )
+            if (y + ch + ah / 2 > bh + bst &amp;&amp; y + ah / 2 - ch >= bst ) 
                 { c.style.top = y + ah / 2 - ch; }
-            else
+            else 
                 { c.style.top = y + ah / 2; }
             c.style.visibility = "visible";
 }    }    }
-function msoCommentHide(com_id)
+function msoCommentHide(com_id) 
 {
     if(msoBrowserCheck())
         {
@@ -6161,7 +6391,7 @@ function msoCommentHide(com_id)
         c.style.visibility = "hidden";
         c.style.left = -1000;
         c.style.top = -1000;
-        } }
+        } } 
 }
 function msoBrowserCheck()
 {
@@ -6412,18 +6642,11 @@ if (msoBrowserCheck())
   <xsl:template match="w:sdtContent">
 	<xsl:apply-templates />
   </xsl:template>
-
+  
   <xsl:template match="w:smartTag">
     <xsl:apply-templates />
   </xsl:template>
-
-  <!--this template is added now
-  <xsl:template match="w:background" mode="rpr">
-    bgcolor=<xsl:call-template name="ConvHexColor">
-      <xsl:with-param name="value" select="@w:color"/>
-    </xsl:call-template>;
-  </xsl:template>
--->
+  
   <xsl:template match="/w:document">
 
     <html>
@@ -6446,10 +6669,10 @@ if (msoBrowserCheck())
 
           <xsl:text disable-output-escaping="yes">&lt;/style&gt;</xsl:text>
           <xsl:text disable-output-escaping="yes">&lt;![endif]</xsl:text>
-        </xsl:comment>
+        </xsl:comment> 
 
         <style>
-          <xsl:comment>
+          <xsl:comment> 
 
             <xsl:apply-templates select="w:fonts[1]/w:font"/>
 
@@ -6467,7 +6690,7 @@ if (msoBrowserCheck())
 
             <xsl:apply-templates select="$nsStyles"/>
 
-          </xsl:comment>
+          </xsl:comment> 
         </style>
       </head>-->
 
@@ -6487,9 +6710,9 @@ if (msoBrowserCheck())
           <xsl:text disable-output-escaping="yes">&lt;tr&gt;</xsl:text>
           <xsl:text disable-output-escaping="yes">&lt;td valign="top"&gt;</xsl:text>
         </xsl:if>
-            End of change by Parwati -->
+            End of change by Parwati -->   
         <xsl:apply-templates select="w:body|w:cfChunk"/>
-
+        
         <xsl:if test="//v:background">
           <xsl:for-each select="//v:background[1]">
             <xsl:call-template name="copyElements" />
@@ -6504,9 +6727,9 @@ if (msoBrowserCheck())
         <xsl:if test="//w:body/w:sectPr/w:cols/@w:num | //w:body/w:p/w:pPr/w:sectPr/w:cols[@w:num] | //w:body/w:sdt/w:sdtContent">
           <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
           <xsl:text disable-output-escaping="yes">&lt;/tr&gt;</xsl:text>
-          <xsl:text disable-output-escaping="yes">&lt;/table&gt;</xsl:text>
-        </xsl:if>
-         End of change by Parwati -->
+          <xsl:text disable-output-escaping="yes">&lt;/table&gt;</xsl:text>          
+        </xsl:if>           
+         End of change by Parwati -->  
         <!--<xsl:if test="//w:body//w:sdt//w:sdtContent and //w:body/w:p/w:r/w:lastRenderedPageBreak"> --><!-- For coverpage Added by Parwati--><!--
           <xsl:text disable-output-escaping="yes">&lt;/div&gt;</xsl:text>
         </xsl:if>-->
@@ -6560,12 +6783,12 @@ if (msoBrowserCheck())
     <!--ADDED for Equations -->
     <xsl:apply-templates select="*"/>
   </xsl:template>
-
-
-
+  
+  
+  
   <!--ADDED FOR MATHML SUPPORT BY SHUBHA -->
-
-
+  
+  
   <!-- Every single unicode character that is recognized by OMML as an operator -->
   <xsl:variable name="sOperators"
     select="concat(
@@ -6648,7 +6871,7 @@ if (msoBrowserCheck())
     '&#x2AD8;&#x2AD9;&#x2ADA;&#x2ADB;&#x2ADC;&#x2ADD;&#x2ADE;&#x2ADF;&#x2AE0;&#x2AE2;&#x2AE3;&#x2AE4;',
     '&#x2AE5;&#x2AE6;&#x2AE7;&#x2AE8;&#x2AE9;&#x2AEA;&#x2AEB;&#x2AEC;&#x2AED;&#x2AEE;&#x2AEF;&#x2AF0;',
     '&#x2AF2;&#x2AF3;&#x2AF4;&#x2AF5;&#x2AF6;&#x2AF7;&#x2AF8;&#x2AF9;&#x2AFA;&#x2AFB;&#x2AFC;&#x2AFD;')" />
-
+ 
   <!-- A string of '-'s repeated exactly as many times as the operators above -->
   <xsl:variable name="sMinuses">
     <xsl:call-template name="SRepeatChar">
@@ -6656,27 +6879,27 @@ if (msoBrowserCheck())
       <xsl:with-param name="ch" select="'-'" />
     </xsl:call-template>
   </xsl:variable>
-
+  
   <!-- Every single unicode character that is recognized by OMML as a number -->
   <xsl:variable name="sNumbers" select="'0123456789'"/>
-
+  
   <!-- A string of '0's repeated exactly as many times as the list of numbers above -->
   <xsl:variable name="sOnes">
     <xsl:call-template name="SRepeatChar">
       <xsl:with-param name="cchRequired" select="string-length($sNumbers)" />
       <xsl:with-param name="ch" select="'1'" />
     </xsl:call-template>
-  </xsl:variable>
-
+  </xsl:variable>	
+  
   <!-- %%Template: SReplace
-
+    
     Replace all occurences of sOrig in sInput with sReplacement
     and return the resulting string. -->
   <xsl:template name="SReplace">
     <xsl:param name="sInput" />
     <xsl:param name="sOrig" />
     <xsl:param name="sReplacement" />
-
+    
     <xsl:choose>
       <xsl:when test="not(contains($sInput, $sOrig))">
         <xsl:value-of select="$sInput" />
@@ -6691,22 +6914,22 @@ if (msoBrowserCheck())
             <xsl:with-param name="sReplacement" select="$sReplacement" />
           </xsl:call-template>
         </xsl:variable>
-
-        <xsl:value-of select="concat($sBefore, concat($sReplacement, $sAfterProcessed))" />
+        
+        <xsl:value-of select="concat($sBefore, concat($sReplacement, $sAfterProcessed))" /> 
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:template>
-
+  </xsl:template>	
+  
   <!--  -->
   <xsl:template match="m:e | m:den | m:num | m:lim | m:sup | m:sub">
     <xsl:choose>
-
+      
       <!-- If there is no scriptLevel speified, just call through -->
       <xsl:when test="not(m:argPr[last()]/m:scrLvl/@m:val)">
         <!-- DPC make sure only one element returned -->
         <mml:mrow><xsl:apply-templates select="*" /></mml:mrow>
       </xsl:when>
-
+      
       <!-- Otherwise, create an mstyle and set the script level -->
       <xsl:otherwise>
         <mml:mstyle>
@@ -6718,7 +6941,7 @@ if (msoBrowserCheck())
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
+  
   <!--
     MS stylesheet uses DOE which is (a) unevil, (b) non necessary, and (c) breaks the pass through a temporay tree to get rid of namespace nodes.
     repeat the templates here without doe (and without double quoting amp)
@@ -6730,8 +6953,8 @@ if (msoBrowserCheck())
           <xsl:text>off</xsl:text>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="translate(m:naryPr[last()]/m:subHide/@m:val,
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+          <xsl:value-of select="translate(m:naryPr[last()]/m:subHide/@m:val, 
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
             'abcdefghijklmnopqrstuvwxyz')" />
         </xsl:otherwise>
       </xsl:choose>
@@ -6742,14 +6965,14 @@ if (msoBrowserCheck())
           <xsl:text>off</xsl:text>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="translate(m:naryPr[last()]/m:supHide/@m:val,
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+          <xsl:value-of select="translate(m:naryPr[last()]/m:supHide/@m:val, 
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
             'abcdefghijklmnopqrstuvwxyz')" />
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <xsl:choose>
-      <xsl:when test="not($sLowerCaseSupHide='off') and
+      <xsl:when test="not($sLowerCaseSupHide='off') and 
         not($sLowerCaseSubHide='off')">
         <mml:mo>
           <xsl:choose>
@@ -6878,14 +7101,14 @@ if (msoBrowserCheck())
       <xsl:apply-templates select="m:e[1]" />
     </mml:mrow>
   </xsl:template>
-
-
+  
+  
   <!--<xsl:template name="CreateGroupChr">
-    <xsl:variable name="sLowerCasePos" select="translate(m:groupChrPr[last()]/m:pos/@m:val,
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCasePos" select="translate(m:groupChrPr[last()]/m:pos/@m:val, 
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:choose>
-      <xsl:when test="$sLowerCasePos!='top' or
+      <xsl:when test="$sLowerCasePos!='top' or 
         not(m:groupChrPr[last()]/m:pos/@m:val)   or
         m:groupChrPr[last()]/m:pos/@m:val=''">
         <mml:munder>
@@ -6927,9 +7150,9 @@ if (msoBrowserCheck())
       <mml:mrow>
         <xsl:apply-templates select="m:sub[1]" />
       </mml:mrow>
-    </mml:msub>
+    </mml:msub>		
   </xsl:template>
-
+  
   <xsl:template match="m:sSup">
     <mml:msup>
       <mml:mrow>
@@ -6938,9 +7161,9 @@ if (msoBrowserCheck())
       <mml:mrow>
         <xsl:apply-templates select="m:sup[1]" />
       </mml:mrow>
-    </mml:msup>
+    </mml:msup>		
   </xsl:template>
-
+  
   <xsl:template match="m:sSubSup">
     <mml:msubsup>
       <mml:mrow>
@@ -6954,10 +7177,10 @@ if (msoBrowserCheck())
       </mml:mrow>
     </mml:msubsup>
   </xsl:template>
-
+  
   <xsl:template match="m:groupChr">
-    <xsl:variable name="sLowerCaseOpEmu" select="translate(m:groupChrPr[last()]/m:opEmu/@m:val,
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCaseOpEmu" select="translate(m:groupChrPr[last()]/m:opEmu/@m:val, 
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:choose>
       <xsl:when test="$sLowerCaseOpEmu='on'">
@@ -6970,15 +7193,15 @@ if (msoBrowserCheck())
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
-
+  
+  
   <!--Display cos,sin -->
   <xsl:template name="fName">
     <xsl:for-each select="m:fName/*">
       <xsl:apply-templates select="." />
     </xsl:for-each>
   </xsl:template>
-
+  
   <xsl:template match="m:func">
     <mml:mrow>
       <mml:mrow>
@@ -6988,10 +7211,10 @@ if (msoBrowserCheck())
       <xsl:apply-templates select="*[position() &gt; 1]" />
     </mml:mrow>
   </xsl:template>
-
-  <!-- %%Template: match m:f
-
-    m:f maps directly to mfrac.
+  
+  <!-- %%Template: match m:f 
+    
+    m:f maps directly to mfrac. 
   -->
   <xsl:template match="m:f">
     <mml:mfrac>
@@ -7001,14 +7224,14 @@ if (msoBrowserCheck())
         <xsl:with-param name="numJc" select="m:fPr[last()]/m:numJc/@m:val" />
         <xsl:with-param name="denJc" select="m:fPr[last()]/m:type/@m:val" />
       </xsl:call-template>
-
+      
       <mml:mrow><xsl:apply-templates select="m:num[1]" /></mml:mrow>
       <mml:mrow><xsl:apply-templates select="m:den[1]" /></mml:mrow>
     </mml:mfrac>
   </xsl:template>
-
-  <!-- %%Template: CreateMathMLFracProp
-
+  
+  <!-- %%Template: CreateMathMLFracProp 
+    
     Make fraction properties based on supplied parameters.
     OMML differentiates between a linear fraction and a skewed
     one. For MathML, we write both as bevelled.
@@ -7021,7 +7244,7 @@ if (msoBrowserCheck())
     <xsl:variable name="sLowerCaseType" select="translate($type, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:variable name="sLowerCaseNumJc" select="translate($numJc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:variable name="sLowerCaseDenJc" select="translate($denJc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz')" />
-
+    
     <xsl:if test="$sLowerCaseType='skw' or $sLowerCaseType='lin'">
       <xsl:attribute name="bevelled">true</xsl:attribute>
     </xsl:if>
@@ -7045,12 +7268,12 @@ if (msoBrowserCheck())
       </xsl:when>
     </xsl:choose>
   </xsl:template>
-
+  
   <xsl:template match="m:bar">
-    <xsl:variable name="sLowerCasePos" select="translate(m:barPr/m:pos/@m:val, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCasePos" select="translate(m:barPr/m:pos/@m:val, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:choose>
-      <xsl:when test="$sLowerCasePos!='bot' or
+      <xsl:when test="$sLowerCasePos!='bot' or 
         not($sLowerCasePos)   or
         $sLowerCasePos=''   ">
         <mml:mover>
@@ -7071,58 +7294,58 @@ if (msoBrowserCheck())
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
+  
   <!-- %%Template match m:d
-
-    Process a delimiter.
+    
+    Process a delimiter. 
   -->
   <xsl:template match="m:d">
-    <mml:mfenced>
+    <mml:mfenced>		
       <!-- open: default is ( for both OMML and MathML -->
       <xsl:if test="m:dPr[1]/m:begChr/@m:val and not(m:dPr[1]/m:begChr/@m:val ='(')">
         <xsl:attribute name="open">
           <xsl:value-of select="m:dPr[1]/m:begChr/@m:val" />
         </xsl:attribute>
       </xsl:if>
-
+      
       <!-- close: default is ) for both OMML and MathML -->
       <xsl:if test="m:dPr[1]/m:endChr/@m:val and not(m:dPr[1]/m:endChr/@m:val =')')">
         <xsl:attribute name="close">
           <xsl:value-of select="m:dPr[1]/m:endChr/@m:val" />
         </xsl:attribute>
       </xsl:if>
-
+      
       <!-- separator: the default is ',' for MathML, and '|' for OMML -->
       <xsl:choose>
         <!-- Matches MathML default. Write nothing -->
         <xsl:when test="m:dPr[1]/m:sepChr/@m:val = ','" />
-
+        
         <!-- OMML default: | -->
         <xsl:when test="not(m:dPr[1]/m:sepChr/@m:val)">
           <xsl:attribute name="separators">
             <xsl:value-of select="'|'" />
           </xsl:attribute>
         </xsl:when>
-
+        
         <xsl:otherwise>
           <xsl:attribute name="separators">
             <xsl:value-of select="m:dPr[1]/m:sepChr/@m:val" />
-          </xsl:attribute>
-        </xsl:otherwise>
+          </xsl:attribute>			
+        </xsl:otherwise>						
       </xsl:choose>
-
+      
       <!-- now write all the children. Put each one into an mrow
         just in case it produces multiple runs, etc -->
       <xsl:for-each select="m:e">
         <mml:mrow>
           <xsl:apply-templates select="." />
         </mml:mrow>
-      </xsl:for-each>
+      </xsl:for-each>			
     </mml:mfenced>
   </xsl:template>
-
+  
   <xsl:template match="m:r">
-    <xsl:variable name="sLowerCaseNor" select="translate(child::m:rPr[last()]/m:nor/@m:val, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCaseNor" select="translate(child::m:rPr[last()]/m:nor/@m:val, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:choose>
       <xsl:when test="$sLowerCaseNor='on'">
@@ -7142,14 +7365,14 @@ if (msoBrowserCheck())
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
+  
   <xsl:template name="CreateAttributesforToken">
     <xsl:param name="mscr" />
     <xsl:param name="msty" />
     <xsl:param name="mnor" />
     <xsl:param name="nCharToPrint" />
     <xsl:param name="sTokenType" />
-    <xsl:variable name="sLowerCaseNor" select="translate($mnor, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCaseNor" select="translate($mnor, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:choose>
       <xsl:when test="$sLowerCaseNor = 'on'">
@@ -7160,7 +7383,7 @@ if (msoBrowserCheck())
           <xsl:choose>
             <!-- numbers don't care -->
             <xsl:when test="$sTokenType='mn'" />
-
+            
             <xsl:when test="$mscr='monospace'">monospace</xsl:when>
             <xsl:when test="$mscr='sans-serif' and $msty='i'">sans-serif-italic</xsl:when>
             <xsl:when test="$mscr='sans-serif' and $msty='b'">bold-sans-serif</xsl:when>
@@ -7173,7 +7396,7 @@ if (msoBrowserCheck())
             <xsl:when test="($mscr='roman' or not($mscr) or $mscr='') and $msty='b'">bold</xsl:when>
             <xsl:when test="($mscr='roman' or not($mscr) or $mscr='') and $msty='i'">italic</xsl:when>
             <xsl:when test="($mscr='roman' or not($mscr) or $mscr='') and $msty='p'">normal</xsl:when>
-
+            
             <xsl:otherwise />
           </xsl:choose>
         </xsl:variable>
@@ -7189,15 +7412,15 @@ if (msoBrowserCheck())
             <xsl:otherwise>italic</xsl:otherwise>
           </xsl:choose>
         </xsl:variable>
-
+        
         <!-- Writing of attributes begins here -->
         <xsl:choose>
           <!-- Don't write mathvariant for operators unless they want to be normal -->
           <xsl:when test="$sTokenType='mo' and $mathvariant!='normal'" />
-
+          
           <!-- A single character within an mi is already italics, don't write -->
           <xsl:when test="$sTokenType='mi' and $nCharToPrint=1 and ($mathvariant='' or $mathvariant='italic')" />
-
+          
           <xsl:when test="$sTokenType='mi' and $nCharToPrint &gt; 1 and ($mathvariant='' or $mathvariant='italic')">
             <xsl:attribute name="mathvariant">
               <xsl:value-of select="'italic'" />
@@ -7220,7 +7443,7 @@ if (msoBrowserCheck())
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
+  
   <xsl:template match="m:eqArr">
     <mml:mtable>
       <xsl:attribute name="frame">none</xsl:attribute>
@@ -7231,8 +7454,8 @@ if (msoBrowserCheck())
           <mml:mtd>
             <mml:maligngroup />
             <xsl:choose>
-              <xsl:when test="m:argPr[last()]/m:scrLvl/@m:val!='0' or
-                not(m:argPr[last()]/m:scrLvl/@m:val)  or
+              <xsl:when test="m:argPr[last()]/m:scrLvl/@m:val!='0' or 
+                not(m:argPr[last()]/m:scrLvl/@m:val)  or 
                 m:argPr[last()]/m:scrLvl/@m:val=''">
                 <mml:mrow>
                   <xsl:call-template name="CreateEqArrRow">
@@ -7258,11 +7481,11 @@ if (msoBrowserCheck())
       </xsl:for-each>
     </mml:mtable>
   </xsl:template>
-
+  
   <xsl:template name="CreateEqArrRow">
-    <xsl:param name="align" />
+    <xsl:param name="align" /> 
     <xsl:param name="ndCur" />
-    <xsl:variable name="sAllMt">
+    <xsl:variable name="sAllMt"> 
       <xsl:for-each select="$ndCur/m:t">
         <xsl:value-of select="." />
       </xsl:for-each>
@@ -7270,7 +7493,7 @@ if (msoBrowserCheck())
     <xsl:choose>
       <xsl:when test="local-name($ndCur)='r' and
         namespace-uri($ndCur)='http://schemas.microsoft.com/office/omml/2004/12/core'">
-
+        
         <xsl:call-template name="ParseEqArrMr">
           <xsl:with-param name="sToParse" select="$sAllMt" />
           <xsl:with-param name="mscr" select="../m:rPr[last()]/m:scr/@m:val" />
@@ -7296,12 +7519,12 @@ if (msoBrowserCheck())
       </xsl:call-template>
     </xsl:if>
   </xsl:template>
-
+  
   <xsl:template name="CountAmp">
     <xsl:param name="sAllMt" />
     <xsl:param name="cAmp" />
     <xsl:choose>
-      <xsl:when test="string-length(substring-after($sAllMt, '&amp;')) &gt; 0 or
+      <xsl:when test="string-length(substring-after($sAllMt, '&amp;')) &gt; 0 or 
         substring($sAllMt, string-length($sAllMt))='&#x0026;'">
         <xsl:call-template name="CountAmp">
           <xsl:with-param name="sAllMt" select="substring-after($sAllMt, '&#x0026;')" />
@@ -7313,12 +7536,12 @@ if (msoBrowserCheck())
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
+  
   <!-- %%Template: ParseEqArrMr
-
-    Similar to ParseMt, but this one has to do more for an equation
+    
+    Similar to ParseMt, but this one has to do more for an equation 
     array. The presence of &amp; in a run that is in an equation array
-    indicates alignment
+    indicates alignment 
   -->
   <xsl:template name="ParseEqArrMr">
     <xsl:param name="sToParse" />
@@ -7326,7 +7549,7 @@ if (msoBrowserCheck())
     <xsl:param name="mscr" />
     <xsl:param name="mnor" />
     <xsl:param name="align" />
-    <xsl:if test="string-length($sToParse) &gt; 0">
+    <xsl:if test="string-length($sToParse) &gt; 0"> 
       <xsl:choose>
         <xsl:when test="substring($sToParse,1,1) = '&amp;'">
           <xsl:choose>
@@ -7352,51 +7575,51 @@ if (msoBrowserCheck())
             </xsl:with-param>
           </xsl:call-template>
         </xsl:when>
-        <xsl:otherwise>
+        <xsl:otherwise> 
           <xsl:variable name="sRepNumWith1">
             <xsl:call-template name="SReplaceNumWithOne">
               <xsl:with-param name="sToParse" select="$sToParse" />
             </xsl:call-template>
-          </xsl:variable>
+          </xsl:variable>					
           <xsl:variable name="sRepOperWith-">
             <xsl:call-template name="SReplaceOperWithMinus">
               <xsl:with-param name="sToParse" select="$sRepNumWith1" />
             </xsl:call-template>
           </xsl:variable>
-
+          
           <xsl:variable name="iFirstOper" select="string-length($sRepOperWith-) - string-length(substring-after($sRepOperWith-, '-'))" />
           <xsl:variable name="iFirstNum" select="string-length($sRepOperWith-) - string-length(substring-after($sRepOperWith-, '0'))" />
           <xsl:variable name="iFirstAmp" select="string-length($sRepOperWith-) - string-length(substring-after($sRepOperWith-, '&#x0026;'))" />
-          <xsl:variable name="fNumAtPos1">
+          <xsl:variable name="fNumAtPos1"> 
             <xsl:choose>
               <xsl:when test="substring($sRepOperWith-,1,1)='0'">1</xsl:when>
               <xsl:otherwise>0</xsl:otherwise>
             </xsl:choose>
           </xsl:variable>
-          <xsl:variable name="fOperAtPos1">
+          <xsl:variable name="fOperAtPos1"> 
             <xsl:choose>
               <xsl:when test="substring($sRepOperWith-,1,1)='-'">1</xsl:when>
               <xsl:otherwise>0</xsl:otherwise>
             </xsl:choose>
           </xsl:variable>
           <xsl:choose>
-
+            
             <!-- Case I: The string begins with neither a number, nor an operator -->
             <xsl:when test="$fNumAtPos1='0' and $fOperAtPos1='0'">
               <xsl:variable name="nCharToPrint">
                 <xsl:choose>
-                  <xsl:when test="($iFirstOper=$iFirstNum) and
+                  <xsl:when test="($iFirstOper=$iFirstNum) and 
                     ($iFirstAmp=$iFirstOper) and
                     ($iFirstOper=string-length($sToParse)) and
                     $fNumAtPos1='0' and
                     $fOperAtPos1='0'">
                     <xsl:value-of select="string-length($sToParse)" />
                   </xsl:when>
-                  <xsl:when test="($iFirstOper &lt; $iFirstNum) and
+                  <xsl:when test="($iFirstOper &lt; $iFirstNum) and 
                     ($iFirstOper &lt; $iFirstAmp)">
                     <xsl:value-of select="$iFirstOper - 1" />
                   </xsl:when>
-                  <xsl:when test="($iFirstNum &lt; $iFirstOper) and
+                  <xsl:when test="($iFirstNum &lt; $iFirstOper) and 
                     ($iFirstNum &lt; $iFirstAmp)">
                     <xsl:value-of select="$iFirstNum - 1" />
                   </xsl:when>
@@ -7423,7 +7646,7 @@ if (msoBrowserCheck())
                 <xsl:with-param name="align" select="$align" />
               </xsl:call-template>
             </xsl:when>
-
+            
             <!-- Case II: There is an operator at position 1 -->
             <xsl:when test="$fOperAtPos1='1'">
               <mml:mo>
@@ -7443,13 +7666,13 @@ if (msoBrowserCheck())
                 <xsl:with-param name="align" select="$align" />
               </xsl:call-template>
             </xsl:when>
-
+            
             <!-- Case III: There is a number at position 1 -->
             <xsl:otherwise>
               <xsl:variable name="sConsecNum">
                 <xsl:call-template name="SNumStart">
                   <xsl:with-param name="sToParse" select="$sToParse" />
-                  <xsl:with-param name="sPattern" select="$sRepNumWith1" />
+                  <xsl:with-param name="sPattern" select="$sRepNumWith1" />									
                 </xsl:call-template>
               </xsl:variable>
               <mml:mn>
@@ -7474,19 +7697,19 @@ if (msoBrowserCheck())
       </xsl:choose>
     </xsl:if>
   </xsl:template>
-
-  <!-- %%Template: SNumStart
-
-    Return the longest substring of sToParse starting from the
+  
+  <!-- %%Template: SNumStart 
+    
+    Return the longest substring of sToParse starting from the 
     start of sToParse that is a number. In addition, it takes the
-    pattern string, which is sToParse with all of its numbers
-    replaced with a 0. sPattern should be the same length
-    as sToParse
+    pattern string, which is sToParse with all of its numbers 
+    replaced with a 0. sPattern should be the same length 
+    as sToParse		
   -->
   <xsl:template name="SNumStart">
     <xsl:param name="sToParse" select="''" />
     <xsl:param name="sPattern" select="'$sToParse'"/>	<!-- if we don't get anything, take the string itself -->
-
+    
     <xsl:choose>
       <!-- the pattern says this is a number, recurse with the rest -->
       <xsl:when test="substring($sPattern, 1, 1) = '1'">
@@ -7495,7 +7718,7 @@ if (msoBrowserCheck())
           <xsl:with-param name="sPattern" select="substring($sPattern, 2)" />
         </xsl:call-template>
       </xsl:when>
-
+      
       <!-- the pattern says we've run out of numbers. Take as many
         characters from sToParse as we shaved off sPattern -->
       <xsl:otherwise>
@@ -7504,19 +7727,19 @@ if (msoBrowserCheck())
     </xsl:choose>
   </xsl:template>
   <!-- %%Template: ParseMt
-
-    Produce a run of text. Technically, OMML makes no distinction
-    between numbers, operators, and other characters in a run. For
-    MathML we need to break these into mi, mn, or mo elements.
-
+    
+    Produce a run of text. Technically, OMML makes no distinction 
+    between numbers, operators, and other characters in a run. For 
+    MathML we need to break these into mi, mn, or mo elements. 
+    
     See also ParseEqArrMr
-  -->
+  -->	
   <xsl:template name="ParseMt">
     <xsl:param name="sToParse" />
     <xsl:param name="msty" />
     <xsl:param name="mscr" />
     <xsl:param name="mnor" />
-    <xsl:if test="string-length($sToParse) &gt; 0">
+    <xsl:if test="string-length($sToParse) &gt; 0">		
       <xsl:variable name="sRepNumWith1">
         <xsl:call-template name="SReplaceNumWithOne">
           <xsl:with-param name="sToParse" select="$sToParse" />
@@ -7527,7 +7750,7 @@ if (msoBrowserCheck())
           <xsl:with-param name="sToParse" select="$sRepNumWith1" />
         </xsl:call-template>
       </xsl:variable>
-
+      
       <xsl:variable name="iFirstOper" select="string-length($sRepOperWith-) - string-length(substring-after($sRepOperWith-, '-'))" />
       <xsl:variable name="iFirstNum" select="string-length($sRepOperWith-) - string-length(substring-after($sRepOperWith-, '0'))" />
       <xsl:variable name="fNumAtPos1">
@@ -7536,22 +7759,22 @@ if (msoBrowserCheck())
           <xsl:otherwise>0</xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
-      <xsl:variable name="fOperAtPos1">
+      <xsl:variable name="fOperAtPos1"> 
         <xsl:choose>
           <xsl:when test="substring($sRepOperWith-,1,1)='-'">1</xsl:when>
           <xsl:otherwise>0</xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
-
+      
       <xsl:choose>
-
+        
         <!-- Case I: The string begins with neither a number, nor an operator -->
         <xsl:when test="$fOperAtPos1='0' and $fNumAtPos1='0'">
           <xsl:variable name="nCharToPrint">
             <xsl:choose>
-              <xsl:when test="($iFirstOper=$iFirstNum) and
+              <xsl:when test="($iFirstOper=$iFirstNum) and 
                 ($iFirstOper=string-length($sToParse)) and
-                (substring($sRepOperWith-, string-length($sRepOperWith-))!='0') and
+                (substring($sRepOperWith-, string-length($sRepOperWith-))!='0') and 
                 (substring($sRepOperWith-, string-length($sRepOperWith-))!='-')">
                 <xsl:value-of select="string-length($sToParse)" />
               </xsl:when>
@@ -7570,7 +7793,7 @@ if (msoBrowserCheck())
               <xsl:with-param name="mnor" select="$mnor" />
               <xsl:with-param name="nCharToPrint" select="$nCharToPrint" />
               <xsl:with-param name="sTokenType" select="'mi'" />
-            </xsl:call-template>
+            </xsl:call-template>      
             <xsl:value-of select="translate(substring($sToParse,1,$nCharToPrint),' ','&nbsp;')" />
           </mml:mi>
           <xsl:call-template name="ParseMt">
@@ -7580,7 +7803,7 @@ if (msoBrowserCheck())
             <xsl:with-param name="mnor" select="$mnor" />
           </xsl:call-template>
         </xsl:when>
-
+        
         <!-- Case II: There is an operator at position 1 -->
         <xsl:when test="$fOperAtPos1='1'">
           <mml:mo>
@@ -7599,13 +7822,13 @@ if (msoBrowserCheck())
             <xsl:with-param name="mnor" select="$mnor" />
           </xsl:call-template>
         </xsl:when>
-
+        
         <!-- Case III: There is a number at position 1 -->
         <xsl:otherwise>
-          <xsl:variable name="sConsecNum">
+          <xsl:variable name="sConsecNum">				
             <xsl:call-template name="SNumStart">
               <xsl:with-param name="sToParse" select="$sToParse" />
-              <xsl:with-param name="sPattern" select="$sRepNumWith1" />
+              <xsl:with-param name="sPattern" select="$sRepNumWith1" /> 
             </xsl:call-template>
           </xsl:variable>
           <mml:mn>
@@ -7628,21 +7851,21 @@ if (msoBrowserCheck())
     </xsl:if>
   </xsl:template>
   <!-- %%Template SReplaceOperWithMinus
-
+    
     Go through the given string and replace every instance
     of an operator with a minus '-'. This helps quickly identify
-    the first instance of an operator.
+    the first instance of an operator.  
   -->
-  <xsl:template name="SReplaceOperWithMinus">
+  <xsl:template name="SReplaceOperWithMinus">			
     <xsl:param name="sToParse" select="''" />
-
-    <xsl:value-of select="translate($sToParse, $sOperators, $sMinuses)" />
+    
+    <xsl:value-of select="translate($sToParse, $sOperators, $sMinuses)" />			                                
   </xsl:template>
   <!-- %%Template SRepeatCharAcc
-
+    
     The core of SRepeatChar with an accumulator. The current
     string is in param $acc, and we will double and recurse,
-    if we're less than half of the required length or else just
+    if we're less than half of the required length or else just 
     add the right amount of characters to the accumulator and
     return
   -->
@@ -7650,7 +7873,7 @@ if (msoBrowserCheck())
     <xsl:param name="cchRequired" select="1" />
     <xsl:param name="ch" select="'-'" />
     <xsl:param name="acc" select="$ch" />
-
+    
     <xsl:variable name="cchAcc" select="string-length($acc)" />
     <xsl:choose>
       <xsl:when test="(2 * $cchAcc) &lt; $cchRequired">
@@ -7660,66 +7883,66 @@ if (msoBrowserCheck())
           <xsl:with-param name="acc" select="concat($acc, $acc)" />
         </xsl:call-template>
       </xsl:when>
-
+      
       <xsl:otherwise>
         <xsl:value-of select="concat($acc, substring($acc, 1, $cchRequired - $cchAcc))" />
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
-
+  
+  
   <!-- %%Template SRepeatChar
-
+    
     Generates a string nchRequired long by repeating the given character ch
   -->
   <xsl:template name="SRepeatChar">
     <xsl:param name="cchRequired" select="1" />
     <xsl:param name="ch" select="'-'" />
-
+    
     <xsl:call-template name="SRepeatCharAcc">
       <xsl:with-param name="cchRequired" select="$cchRequired" />
       <xsl:with-param name="ch" select="$ch" />
       <xsl:with-param name="acc" select="$ch" />
     </xsl:call-template>
   </xsl:template>
-
+  
   <!-- %%Template SReplaceNumWithOne
-
+    
     Go through the given string and replace every instance
     of an number with a One '1'. This helps quickly identify
-    the first occurence of a number.
-
-    Considers the '.' and ',' part of a number iff they are sandwiched
+    the first occurence of a number. 
+    
+    Considers the '.' and ',' part of a number iff they are sandwiched 
     between two other numbers. 1.3 will be recognized as a number,
-    x.3 will not be. Since these characters can also be an operator, this
+    x.3 will not be. Since these characters can also be an operator, this 
     should be called before SReplaceOperWithMinus.
   -->
-  <xsl:template name="SReplaceNumWithOne">
+  <xsl:template name="SReplaceNumWithOne">			
     <xsl:param name="sToParse" select="''" />
-
+    
     <!-- First do a simple replace. Numbers will all be come 0's.
-      After this point, the pattern involving the . or , that
+      After this point, the pattern involving the . or , that 
       we are looking for will become 1.1 or 1,1 -->
     <xsl:variable name="sSimpleReplace" select="translate($sToParse, $sNumbers, $sOnes)" />
-
-    <!-- And then, replace 1.1 with just 111. This means that the . will
-      become part of the number -->
+    
+    <!-- And then, replace 1.1 with just 111. This means that the . will 
+      become part of the number -->		
     <xsl:variable name="sReplacePeriod">
       <xsl:call-template name="SReplace">
         <xsl:with-param name="sInput" select="$sSimpleReplace"/>
         <xsl:with-param name="sOrig" select="'1.1'"/>
-        <xsl:with-param name="sReplacement" select="'111'"/>
+        <xsl:with-param name="sReplacement" select="'111'"/>			
       </xsl:call-template>
     </xsl:variable>
-
-    <!-- And then, replace 1,1 with just 111. This means that the , will
+    
+    <!-- And then, replace 1,1 with just 111. This means that the , will 
       become part of the number -->
     <xsl:call-template name="SReplace">
       <xsl:with-param name="sInput" select="$sReplacePeriod"/>
       <xsl:with-param name="sOrig" select="'1,1'"/>
-      <xsl:with-param name="sReplacement" select="'111'"/>
-    </xsl:call-template>
-  </xsl:template>
+      <xsl:with-param name="sReplacement" select="'111'"/>			
+    </xsl:call-template>		
+  </xsl:template>	
   <xsl:template match="m:m">
     <mml:mtable>
       <xsl:call-template name="CreateMathMLMatrixAttr">
@@ -7736,10 +7959,10 @@ if (msoBrowserCheck())
       </xsl:for-each>
     </mml:mtable>
   </xsl:template>
-
+  
   <xsl:template name="CreateMathMLMatrixAttr">
     <xsl:param name="mcJc" />
-    <xsl:variable name="sLowerCaseMcjc" select="translate($mcJc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCaseMcjc" select="translate($mcJc, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:choose>
       <xsl:when test="$sLowerCaseMcjc='left'">
@@ -7750,7 +7973,7 @@ if (msoBrowserCheck())
       </xsl:when>
     </xsl:choose>
   </xsl:template>
-
+ 
   <xsl:template match="m:limLow">
     <mml:munder>
       <mml:mrow>
@@ -7761,7 +7984,7 @@ if (msoBrowserCheck())
       </mml:mrow>
     </mml:munder>
   </xsl:template>
-
+  
   <xsl:template match="m:limUpp">
     <mml:mover>
       <mml:mrow>
@@ -7772,18 +7995,18 @@ if (msoBrowserCheck())
       </mml:mrow>
     </mml:mover>
   </xsl:template>
-
-  <xsl:template match="m:rad">
-    <xsl:variable name="sLowerCaseDegHide" select="translate(m:radPr[last()]/m:degHide/@m:val,
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  
+  <xsl:template match="m:rad"> 
+    <xsl:variable name="sLowerCaseDegHide" select="translate(m:radPr[last()]/m:degHide/@m:val, 
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:choose>
-      <xsl:when test="$sLowerCaseDegHide='on'">
+      <xsl:when test="$sLowerCaseDegHide='on'"> 
         <mml:msqrt>
           <xsl:apply-templates select="m:e[1]" />
         </mml:msqrt>
       </xsl:when>
-      <xsl:otherwise>
+      <xsl:otherwise> 
         <mml:mroot>
           <mml:mrow>
             <xsl:apply-templates select="m:e[1]" />
@@ -7795,10 +8018,10 @@ if (msoBrowserCheck())
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  <xsl:template match="m:acc">
+  <xsl:template match="m:acc"> 
     <mml:mover>
       <xsl:attribute name="accent">true</xsl:attribute>
-      <xsl:apply-templates select="m:e[1]" />
+      <xsl:apply-templates select="m:e[1]" /> 
       <mml:mtext>
         <xsl:call-template name="CreateAttributesforToken">
           <xsl:with-param name="mscr" select="m:e[1]/*/m:rPr[last()]/m:scr/@m:val" />
@@ -7807,7 +8030,7 @@ if (msoBrowserCheck())
         </xsl:call-template>
         <xsl:choose>
           <xsl:when test="not(m:accPr[last()]/m:chr)">
-            <xsl:value-of select="'&#x0302;'" />
+            <xsl:value-of select="'&#x0302;'" /> 
           </xsl:when>
           <xsl:otherwise>
             <xsl:value-of select="substring(m:accPr/m:chr/@m:val,1,1)" />
@@ -7816,7 +8039,7 @@ if (msoBrowserCheck())
       </mml:mtext>
     </mml:mover>
   </xsl:template>
-
+  
   <xsl:template match="m:sPre">
     <mml:mmultiscripts>
       <mml:mrow>
@@ -7831,7 +8054,7 @@ if (msoBrowserCheck())
       </mml:mrow>
     </mml:mmultiscripts>
   </xsl:template>
-
+  
   <!-- Fixex -->
   <!-- avoid printing fnames twice -->
   <xsl:template match="m:func">
@@ -7843,9 +8066,9 @@ if (msoBrowserCheck())
       <xsl:apply-templates select="m:fName[1]/following-sibling::*" />
     </mml:mrow>
   </xsl:template>
-
+  
   <!-- m:r reconstituted from Word comments don't have character data in m:t it is directly i m:r (and style information is in interleaved span and i elements, weird but true -->
-
+  
   <xsl:template match="m:r[not(.//m:t)]">
     <xsl:for-each select=".//text()[translate(.,' &#10;&amp;','')]">
       <xsl:call-template name="ParseMt">
@@ -7856,7 +8079,7 @@ if (msoBrowserCheck())
       </xsl:call-template>
     </xsl:for-each>
   </xsl:template>
-
+  
   <!--
     MS stylesheet uses DOE which is (a) unevil, (b) non necessary, and (c) breaks the pass through a temporay tree to get rid of namespace nodes.
     repeat the templates here without doe (and without double quoting amp)
@@ -7868,8 +8091,8 @@ if (msoBrowserCheck())
           <xsl:text>off</xsl:text>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="translate(m:naryPr[last()]/m:subHide/@m:val,
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+          <xsl:value-of select="translate(m:naryPr[last()]/m:subHide/@m:val, 
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
             'abcdefghijklmnopqrstuvwxyz')" />
         </xsl:otherwise>
       </xsl:choose>
@@ -7880,14 +8103,14 @@ if (msoBrowserCheck())
           <xsl:text>off</xsl:text>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="translate(m:naryPr[last()]/m:supHide/@m:val,
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+          <xsl:value-of select="translate(m:naryPr[last()]/m:supHide/@m:val, 
+            'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
             'abcdefghijklmnopqrstuvwxyz')" />
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <xsl:choose>
-      <xsl:when test="not($sLowerCaseSupHide='off') and
+      <xsl:when test="not($sLowerCaseSupHide='off') and 
         not($sLowerCaseSubHide='off')">
         <mml:mo>
           <xsl:choose>
@@ -8017,11 +8240,11 @@ if (msoBrowserCheck())
     </mml:mrow>
   </xsl:template>
   <xsl:template name="CreateGroupChr">
-    <xsl:variable name="sLowerCasePos" select="translate(m:groupChrPr[last()]/m:pos/@m:val,
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCasePos" select="translate(m:groupChrPr[last()]/m:pos/@m:val, 
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:choose>
-      <xsl:when test="$sLowerCasePos!='top' or
+      <xsl:when test="$sLowerCasePos!='top' or 
         not(m:groupChrPr[last()]/m:pos/@m:val)   or
         m:groupChrPr[last()]/m:pos/@m:val=''">
         <mml:munder>
@@ -8056,10 +8279,10 @@ if (msoBrowserCheck())
     </xsl:choose>
   </xsl:template>
   <xsl:template match="m:bar">
-    <xsl:variable name="sLowerCasePos" select="translate(m:barPr/m:pos/@m:val, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCasePos" select="translate(m:barPr/m:pos/@m:val, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
     <xsl:choose>
-      <xsl:when test="$sLowerCasePos!='bot' or
+      <xsl:when test="$sLowerCasePos!='bot' or 
         not($sLowerCasePos)   or
         $sLowerCasePos=''   ">
         <mml:mover>
@@ -8080,32 +8303,32 @@ if (msoBrowserCheck())
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
+   
   <!-- wrong name for (m)phantom -->
-
+  
   <xsl:template match="m:phant">
-    <xsl:variable name="sLowerCaseWidth" select="translate(m:phantPr[last()]/m:width/@m:val,
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCaseWidth" select="translate(m:phantPr[last()]/m:width/@m:val, 
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
-    <xsl:variable name="sLowerCaseAsc" select="translate(m:phantPr[last()]/m:asc/@m:val,
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCaseAsc" select="translate(m:phantPr[last()]/m:asc/@m:val, 
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
-    <xsl:variable name="sLowerCaseDec" select="translate(m:phantPr[last()]/m:dec/@m:val,
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    <xsl:variable name="sLowerCaseDec" select="translate(m:phantPr[last()]/m:dec/@m:val, 
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 
       'abcdefghijklmnopqrstuvwxyz')" />
-    <xsl:if test="not($sLowerCaseWidth='off' and
+    <xsl:if test="not($sLowerCaseWidth='off' and 
       $sLowerCaseAsc='off'   and
       $sLowerCaseDec='off')">
-      <mml:mphantom>
+      <mml:mphantom>				
         <xsl:apply-templates select="m:e[1]" />
       </mml:mphantom>
     </xsl:if>
   </xsl:template>
-
+  
   <!--TEMPLATES NEWLY ADDED-->
-
+  
   <xsl:template match="m:oMath">
-    <xsl:variable name="varAlign">
+    <xsl:variable name="varAlign"> 
       <xsl:value-of select="preceding-sibling::m:oMathParaPr/m:jc/@m:val"/></xsl:variable>
     <xsl:variable name="spStyle">
       <xsl:choose>
@@ -8151,37 +8374,37 @@ if (msoBrowserCheck())
       </xsl:choose>
       text-align:<xsl:value-of select="$varAlign"></xsl:value-of>;
     </xsl:variable>
-
+    
     <xsl:choose>
       <xsl:when test="(parent::m:oMathPara) and not(preceding-sibling::m:oMathParaPr)">
-        <span style="{$spStyle}">
+        <span style="{$spStyle}"> 
         <mml:math display="block">
-        <xsl:apply-templates select="*"/>
-        </mml:math>
+        <xsl:apply-templates select="*"/> 
+        </mml:math> 
         </span>
       </xsl:when>
       <xsl:otherwise>
         <div align="{$varAlign}">
         <span style="{$spStyle}">
           <mml:math>
-            <xsl:apply-templates select="*"/>
+            <xsl:apply-templates select="*"/>  
           </mml:math>
-        </span>
+        </span>   
         </div>
       </xsl:otherwise>
     </xsl:choose>
-
-  </xsl:template>
+   
+  </xsl:template> 
   <!--ADDED FOR MATHML SUPPORT BY SHUBHA align="{$varAlign}" -->
-
-
+  
+  
   <xsl:template match="m:t">
-
+    
     <xsl:choose>
       <xsl:when test="/@xml:space">
        &#160;
       </xsl:when>
     </xsl:choose>
-    <xsl:apply-templates select="*"/>
+    <xsl:apply-templates select="*"/>  
   </xsl:template>
 </xsl:stylesheet>
