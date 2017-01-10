@@ -3906,39 +3906,42 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:element name="{$wrapper}">
-      <xsl:if test="$rStyleId != ''">
-        <xsl:attribute name="class">
-          <xsl:text>import-</xsl:text>
-          <xsl:value-of select="translate($rStyleId, ' ', '')"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="$rLanguageId != ''">
-        <xsl:attribute name="lang">
-          <xsl:value-of select="$rLanguageId"/>
-        </xsl:attribute>
-        <xsl:attribute name="xml:lang">
-          <xsl:value-of select="$rLanguageId"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:choose>
-        <xsl:when test="$nextStyleMod != '' and $wrapper != 'span'">
-          <xsl:call-template name="StyleRContent">
-            <xsl:with-param name="rLanguageId" select="''"/>
-            <xsl:with-param name="rStyleId" select="''"/>
-            <xsl:with-param name="styleMod" select="$nextStyleMod"/>
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:if test="$nextStyleMod != ''">
-            <xsl:attribute name="style">
-              <xsl:value-of select="$nextStyleMod"/>
+    <xsl:choose>
+      <!-- If the span conveys no information, don’t bother with it. -->
+      <xsl:when test="$wrapper = 'span' and $rStyleId = '' and $rLanguageId = ''">
+        <xsl:call-template name="DisplayRContent"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:element name="{$wrapper}">
+          <xsl:if test="$rStyleId != ''">
+            <xsl:attribute name="class">
+              <xsl:text>import-</xsl:text>
+              <xsl:value-of select="translate($rStyleId, ' ', '')"/>
             </xsl:attribute>
           </xsl:if>
-          <xsl:call-template name="DisplayRContent"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:element>
+          <xsl:if test="$rLanguageId != ''">
+            <xsl:attribute name="lang">
+              <xsl:value-of select="$rLanguageId"/>
+            </xsl:attribute>
+            <xsl:attribute name="xml:lang">
+              <xsl:value-of select="$rLanguageId"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:choose>
+            <xsl:when test="$nextStyleMod != '' and $wrapper != 'span'">
+              <xsl:call-template name="StyleRContent">
+                <xsl:with-param name="rLanguageId" select="''"/>
+                <xsl:with-param name="rStyleId" select="''"/>
+                <xsl:with-param name="styleMod" select="$nextStyleMod"/>
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:call-template name="DisplayRContent"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:element>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="w:r">
