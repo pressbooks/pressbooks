@@ -352,17 +352,17 @@ class Epub201 extends Export {
 		$hacks = apply_filters( 'pb_epub_hacks', $hacks );
 
 		// Display chapter numbers?
-		if ( @$hacks['chapter_numbers'] ) {
+		if ( isset( $hacks['chapter_numbers'] ) && $hacks['chapter_numbers'] ) {
 			$this->numbered = true;
 		} else {
 			$this->numbered = false;
 		}
 
-		if ( @$hacks['ebook_romanize_part_numbers'] ) {
+		if ( isset( $hacks['ebook_romanize_part_numbers'] ) && $hacks['ebook_romanize_part_numbers'] ) {
 			$this->romanizePartNumbers = true;
 		}
 
-		if ( @$hacks['ebook_compress_images'] ) {
+		if ( isset( $hacks['ebook_compress_images'] ) && $hacks['ebook_compress_images'] ) {
 			$this->compressImages = true;
 		}
 
@@ -1536,7 +1536,8 @@ class Epub201 extends Export {
 		// HTML
 
 		$li_count = 0;
-		$i = 1;
+		$i = 1; // Chapter count
+		$m = 1; // Part count
 		$html = '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $this->manifest as $k => $v ) {
 
@@ -1557,6 +1558,9 @@ class Epub201 extends Export {
 				$class = 'part';
 				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) == 'on' ) {
 					$class .= ' display-none';
+				} else {
+					$title = __( 'Part', 'pressbooks' ) . ' ' . ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) . '. ' . $title;
+					$m++;
 				}
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
 				$class = 'chapter';
@@ -1567,7 +1571,8 @@ class Epub201 extends Export {
 				if ( $this->numbered && \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) {
 					$title = " $i. " . $title;
 				}
-				if ( \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) { ++$i;
+				if ( \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) {
+					++$i;
 				}
 			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
 				$class = 'back-matter ';
