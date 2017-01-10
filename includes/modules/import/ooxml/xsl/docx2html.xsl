@@ -2197,14 +2197,6 @@
           <xsl:call-template name="ApplyCellMar"/>
         </xsl:for-each>
       </xsl:when>
-      <xsl:when test="$type = $prrCantSplit">
-        <xsl:for-each select="w:trPr[1]/w:cantSplit[1]">
-          <xsl:choose>
-            <xsl:when test="@w:val = 'off'"></xsl:when>
-            <xsl:otherwise></xsl:otherwise>
-          </xsl:choose>
-        </xsl:for-each>
-      </xsl:when>
     </xsl:choose>
   </xsl:template>
 
@@ -3273,12 +3265,12 @@
 
 	      <xsl:choose>
 		      <xsl:when test="ancestor::w:sdtContent/preceding-sibling::w:sdtPr[1]/w:citation">
-			      <xsl:element name="cite">
+			      <cite>
 				      <xsl:apply-templates select="*"/>
-			      </xsl:element>
+			      </cite>
 		      </xsl:when>
 		      <xsl:when test="w:rPr/w:rStyle/@w:val = 'FootnoteReference'">
-				      <xsl:element name="a">
+				      <a>
           <xsl:variable name="fnanchor" select="concat('sdfootnote', w:footnoteReference/@w:id,'anc')"/>
           <xsl:attribute name="name">
             <xsl:value-of select="$fnanchor"/>
@@ -3289,13 +3281,11 @@
 					      <xsl:attribute name="href">
 						      <xsl:value-of select="concat('#sdfootnote', w:footnoteReference/@w:id,'sym')"/>
 					      </xsl:attribute>
-					      <xsl:element name="sup">
-						      <xsl:value-of select="w:footnoteReference/@w:id"/>
-					      </xsl:element>
-				      </xsl:element>
+					      <xsl:value-of select="w:footnoteReference/@w:id"/>
+				      </a>
 		      </xsl:when>
 		      <xsl:when test="w:endnoteReference">
-				      <xsl:element name="a">
+				      <a>
           <xsl:variable name="fnanchor" select="concat('sdfootnote', w:endnoteReference/@w:id,'anc')"/>
           <xsl:attribute name="name">
             <xsl:value-of select="$fnanchor"/>
@@ -3306,10 +3296,8 @@
 					      <xsl:attribute name="href">
 						      <xsl:value-of select="concat('#sdfootnote', w:endnoteReference/@w:id,'sym')"/>
 					      </xsl:attribute>
-					      <xsl:element name="sup">
-						      <xsl:value-of select="w:endnoteReference/@w:id"/>
-					      </xsl:element>
-				      </xsl:element>
+					      <xsl:value-of select="w:endnoteReference/@w:id"/>
+				      </a>
 		      </xsl:when>
 
 		      <xsl:otherwise>
@@ -3383,26 +3371,34 @@
   </xsl:template>
 
   <xsl:template name="RecursiveApplyRPr.class">
-    <xsl:if test="w:basedOn">
-      <xsl:variable name="baseStyleName" select="w:basedOn[1]/@w:val" />
-      <xsl:variable name="sParaStyleBase" select="($nsStyles[@w:styleId=$baseStyleName])[1]"/>
-      <xsl:for-each select="$sParaStyleBase">
-        <xsl:call-template name="RecursiveApplyRPr.class" />
-      </xsl:for-each>
-    </xsl:if>
+    <xsl:variable name="inheritedStyleMods">
+      <xsl:if test="w:basedOn">
+        <xsl:variable name="baseStyleName" select="w:basedOn[1]/@w:val" />
+        <xsl:variable name="sParaStyleBase" select="($nsStyles[@w:styleId=$baseStyleName])[1]"/>
+        <xsl:for-each select="$sParaStyleBase">
+          <xsl:call-template name="RecursiveApplyRPr.class" />
+        </xsl:for-each>
+      </xsl:if>
+    </xsl:variable>
 
-    <xsl:call-template name="ApplyRPr.class"/>
+    <xsl:value-of select="normalize-space($inheritedStyleMods)"/>
+    <xsl:call-template name="ApplyRPr.class">
+      <xsl:with-param name="inheritedStyleMods" select="normalize-space($inheritedStyleMods)"/>
+    </xsl:call-template>
   </xsl:template>
 
   <xsl:template name="ApplyRPr.class">
-    <xsl:for-each select="w:rPr[1]">
+    <xsl:param name="inheritedStyleMods" select="''"/>
 
+    <xsl:for-each select="w:rPr[1]">
       <xsl:choose>
         <xsl:when test="w:highlight">
-          background-color:<xsl:call-template name="ConvColor">
-            <xsl:with-param name="value" select="w:hightlight[1]/@w:val"/>
+          <xsl:text>background-color:</xsl:text>
+          <xsl:call-template name="ConvColor">
+            <xsl:with-param name="value" select="w:highlight[1]/@w:val"/>
           </xsl:call-template>
-          <xsl:value-of select="value"/>;
+          <xsl:value-of select="value"/>
+          <xsl:text>;</xsl:text>
         </xsl:when>
         <xsl:otherwise>
           <xsl:for-each select="w:shd[1]">
@@ -3411,96 +3407,225 @@
         </xsl:otherwise>
       </xsl:choose>
 
-      <xsl:apply-templates select="*" mode="rpr"/>
+      <xsl:apply-templates select="*" mode="rpr">
+        <xsl:with-param name="inheritedStyleMods" select="$inheritedStyleMods"/>
+      </xsl:apply-templates>
     </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="w:highlight" mode="rpr">
-    background:<xsl:call-template name="ConvColor">
-      <xsl:with-param name="value" select="@w:val"/>
-    </xsl:call-template>
-    <xsl:value-of select="value"/>;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>background:</xsl:text>
+      <xsl:call-template name="ConvColor">
+        <xsl:with-param name="value" select="@w:val"/>
+      </xsl:call-template>
+      <xsl:value-of select="value"/>
+      <xsl:text>;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:color" mode="rpr">
-    color:<xsl:call-template name="ConvHexColor">
-      <xsl:with-param name="value" select="@w:val"/>
-    </xsl:call-template>;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>color:</xsl:text>
+      <xsl:call-template name="ConvHexColor">
+        <xsl:with-param name="value" select="@w:val"/>
+      </xsl:call-template>
+      <xsl:text>;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:rFonts" mode="rpr">
-    font-family:<xsl:value-of select="@w:ascii"/>;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>font-family:</xsl:text>
+      <xsl:value-of select="@w:ascii"/>
+      <xsl:text>;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:smallCaps" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">font-variant:normal;</xsl:when>
-      <xsl:otherwise>font-variant:small-caps;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>font-variant:normal;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>font-variant:small-caps;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:eastAsianLayout" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:vert = 'on'">layout-flow:horizontal;</xsl:when>
-      <xsl:when test="@w:vert-compress = 'on'">layout-flow:horizontal;</xsl:when>
-      <xsl:when test="@w:vert = 'off' or @w:vert-compress = 'off'">layout-flow:normal;</xsl:when>
-    </xsl:choose>
-    <xsl:if test="@w:combine = 'lines'">text-combine:lines;</xsl:if>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:vert = 'on'">
+          <xsl:text>layout-flow:horizontal;</xsl:text>
+        </xsl:when>
+        <xsl:when test="@w:vert-compress = 'on'">
+          <xsl:text>layout-flow:horizontal;</xsl:text>
+        </xsl:when>
+        <xsl:when test="@w:vert = 'off' or @w:vert = '0' or
+                        @w:vert-compress = 'off' or @w:vert-compress='0'">
+          <xsl:text>layout-flow:normal;</xsl:text>
+        </xsl:when>
+      </xsl:choose>
+      <xsl:if test="@w:combine = 'lines'">
+        <xsl:text>text-combine:lines;</xsl:text>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:spacing" mode="rpr">
-    letter-spacing:<xsl:value-of select="@w:val div 20"/>pt;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>letter-spacing:</xsl:text>
+      <xsl:value-of select="@w:val div 20"/>
+      <xsl:text>pt;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:position" mode="rpr">
+    <xsl:param name="inheritedStyleMods" select="''"/>
     <xsl:variable name="fDropCap">
       <xsl:value-of select="ancestor::w:p[1]/w:pPr/w:framePr/@w:drop-cap"/>
     </xsl:variable>
-    <xsl:if test="$fDropCap=''">
-      <xsl:text>position:relative;top:</xsl:text>
-      <xsl:value-of select="@w:val div -2"/>
-      <xsl:text>pt;</xsl:text>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:if test="$fDropCap=''">
+        <xsl:text>position:relative;top:</xsl:text>
+        <xsl:value-of select="@w:val div -2"/>
+        <xsl:text>pt;</xsl:text>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
     </xsl:if>
   </xsl:template>
+
   <xsl:template match="w:fitText" mode="rpr">
-    text-fit:<xsl:value-of select="@w:val div 20"/>pt;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>text-fit:</xsl:text>
+      <xsl:value-of select="@w:val div 20"/>
+      <xsl:text>pt;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
+
   <xsl:template match="w:shadow" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">text-shadow:none;</xsl:when>
-      <xsl:otherwise>text-shadow:0.2em 0.2em;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>text-shadow:none;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>text-shadow:0.2em 0.2em;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:caps" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">text-transform:none;</xsl:when>
-      <xsl:otherwise>text-transform:uppercase;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>text-transform:none;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>text-transform:uppercase;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:sz" mode="rpr">
-    font-size:<xsl:value-of select="@w:val div 2"/>pt;
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:text>font-size:</xsl:text>
+      <xsl:value-of select="@w:val div 2"/>
+      <xsl:text>pt;</xsl:text>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:b" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">font-weight:normal;</xsl:when>
-      <xsl:otherwise>font-weight:bold;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>font-weight:normal;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>font-weight:bold;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:i" mode="rpr">
-    <xsl:choose>
-      <xsl:when test="@w:val = 'off'">font-style:normal;</xsl:when>
-      <xsl:otherwise>font-style:italic;</xsl:otherwise>
-    </xsl:choose>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:choose>
+        <xsl:when test="@w:val = 'off' or @w:val = '0'">
+          <xsl:text>font-style:normal;</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>font-style:italic;</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="w:u" mode="rpr">
-        <xsl:if test="@w:val = 'single'">
-          text-decoration:underline;
-	</xsl:if>
+    <xsl:param name="inheritedStyleMods" select="''"/>
+    <xsl:variable name="candidateStyleMod">
+      <xsl:if test="@w:val = 'single'">
+        <xsl:text>text-decoration:underline;</xsl:text>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:if test="not(contains($inheritedStyleMods, $candidateStyleMod))">
+      <xsl:value-of select="$candidateStyleMod"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="*" mode="rpr"/>
@@ -3588,6 +3713,7 @@
     <xsl:param name="runStyleName"/>
 
     <xsl:variable name="rStyleId" select="string(w:rPr/w:rStyle/@w:val)"/>
+    <xsl:variable name="rLanguageId" select="string(w:rPr/w:lang/@w:val)"/>
 
     <xsl:variable name="prsR.updated">
 
@@ -3633,6 +3759,9 @@
       </xsl:call-template>
     </xsl:variable>
     <xsl:variable name="styleMod">
+      <xsl:for-each select="$nsStyles[@w:styleId=$rStyleId]">
+        <xsl:call-template name="RecursiveApplyRPr.class"/>
+      </xsl:for-each>
       <xsl:call-template name="ApplyRPr.class"/>
 
       <xsl:variable name="numId" select="w:numPr/w:numId/@w:val" />
@@ -3673,43 +3802,144 @@
         </xsl:if>
       </xsl:when>
       <xsl:otherwise>
+	<xsl:call-template name="StyleRContent">
+          <xsl:with-param name="rLanguageId" select="$rLanguageId"/>
+          <xsl:with-param name="rStyleId" select="$rStyleId"/>
+          <xsl:with-param name="styleMod" select="$styleMod"/>
+	</xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
-	      <xsl:choose>
-		      <xsl:when test="contains($styleMod, 'vertical-align:super')">
-			      <small>
-				      <xsl:element name='sup'>
-				      <xsl:call-template name="DisplayRContent"/>
-				      </xsl:element>
-			      </small>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'vertical-align:sub')">
-			      <small>
-				      <xsl:element name='sub'>
-					      <xsl:call-template name="DisplayRContent"/>
-				      </xsl:element>
-			      </small>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'font-weight:bold')">
-			      <b>
-				      <xsl:call-template name="DisplayRContent"/>
-			      </b>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'font-style:italic')">
-			      <i>
-				      <xsl:call-template name="DisplayRContent"/>
-			      </i>
-		      </xsl:when>
-		      <xsl:when test="contains($styleMod, 'text-decoration:underline')">
-			      <span style="text-decoration: underline;">
-				      <xsl:call-template name="DisplayRContent"/>
-			      </span>
-		      </xsl:when>
-		      <xsl:otherwise>
-			      <xsl:call-template name="DisplayRContent"/>
-		      </xsl:otherwise>
-	      </xsl:choose>
-
-
+  <xsl:template name="StyleRContent">
+    <xsl:param name="rLanguageId" select="''"/>
+    <xsl:param name="rStyleId" select="''"/>
+    <xsl:param name="styleMod" select="''"/>
+    <xsl:variable name="action">
+      <!-- @TODO: This makes assumptions about Word’s built-in style
+           names, and will exacerbate bug #298. -->
+      <xsl:choose>
+        <xsl:when test="$rStyleId = 'Book Title'">
+          <xsl:value-of select="'cite italic'"/>
+        </xsl:when>
+        <xsl:when test="$rStyleId = 'Emphasis'">
+          <xsl:value-of select="'em italic'"/>
+        </xsl:when>
+        <xsl:when test="$rStyleId = 'Strong'">
+          <xsl:value-of select="'strong bold'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'vertical-align:super')">
+          <xsl:value-of select="'sup sup'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'vertical-align:sub')">
+          <xsl:value-of select="'sub sub'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'font-weight:bold')">
+          <xsl:value-of select="'strong bold'"/>
+        </xsl:when>
+        <xsl:when test="contains($styleMod, 'font-style:italic')">
+          <xsl:value-of select="'em italic'"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="'span '"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="wrapper" select="substring-before($action, ' ')"/>
+    <xsl:variable name="styleChange" select="substring-after($action, ' ')"/>
+    <xsl:variable name="nextStyleMod">
+      <xsl:choose>
+        <xsl:when test="$styleChange = 'bold'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'font-weight:bold;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-weight:bold;'),substring-after($styleMod, 'font-weight:bold;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'font-weight:bold')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-weight:bold'),substring-after($styleMod, 'font-weight:bold')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:when test="$styleChange = 'italic'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'font-style:italic;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-style:italic;'),substring-after($styleMod, 'font-style:italic;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'font-style:italic')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'font-style:italic'),substring-after($styleMod, 'font-style:italic')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:when test="$styleChange = 'sub'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'vertical-align:sub;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:sub;'),substring-after($styleMod, 'vertical-align:sub;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'vertical-align:sub;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:sub'),substring-after($styleMod, 'vertical-align:sub')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:when test="$styleChange = 'sup'">
+          <xsl:choose>
+            <xsl:when test="contains($styleMod, 'vertical-align:super;')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:super;'),substring-after($styleMod, 'vertical-align:super;')))"/>
+            </xsl:when>
+            <xsl:when test="contains($styleMod, 'vertical-align:super')">
+              <xsl:value-of select="normalize-space(concat(substring-before($styleMod, 'vertical-align:super'),substring-after($styleMod, 'vertical-align:super')))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space($styleMod)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="normalize-space($styleMod)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:choose>
+      <!-- If the span conveys no information, don’t bother with it. -->
+      <xsl:when test="$wrapper = 'span' and $rStyleId = '' and $rLanguageId = ''">
+        <xsl:call-template name="DisplayRContent"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:element name="{$wrapper}">
+          <xsl:if test="$rStyleId != ''">
+            <xsl:attribute name="class">
+              <xsl:text>import-</xsl:text>
+              <xsl:value-of select="translate($rStyleId, ' ', '')"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="$rLanguageId != ''">
+            <xsl:attribute name="lang">
+              <xsl:value-of select="$rLanguageId"/>
+            </xsl:attribute>
+            <xsl:attribute name="xml:lang">
+              <xsl:value-of select="$rLanguageId"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:choose>
+            <xsl:when test="$nextStyleMod != '' and $wrapper != 'span'">
+              <xsl:call-template name="StyleRContent">
+                <xsl:with-param name="rLanguageId" select="''"/>
+                <xsl:with-param name="rStyleId" select="''"/>
+                <xsl:with-param name="styleMod" select="$nextStyleMod"/>
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:call-template name="DisplayRContent"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:element>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -4482,9 +4712,15 @@
 						    <xsl:with-param name="pr.bdrBetween" select="$bdrBetween"/>
 					    </xsl:call-template>
 				    </xsl:variable>
+				    <xsl:if test="$pStyleId and $pStyleId != ''">
+					    <xsl:attribute name="class">
+						    <xsl:text>import-</xsl:text>
+						    <xsl:value-of select="translate($pStyleId, ' ', '')"/>
+					    </xsl:attribute>
+				    </xsl:if>
 				    <xsl:if test="not($styleMod='')">
 					    <xsl:attribute name="style">
-						    <xsl:value-of select="$styleMod"/>
+						    <xsl:value-of select="normalize-space($styleMod)"/>
 					    </xsl:attribute>
 				    </xsl:if>
 
@@ -5903,8 +6139,7 @@
     <xsl:value-of select="$charStyleSuffix"/>
     <xsl:text>{</xsl:text>
     <xsl:call-template name="MakeRStyleCore"/>
-    <xsl:text>}
-   </xsl:text>
+    <xsl:text>}&#xa;</xsl:text>
   </xsl:template>
 
   <xsl:template name="MakeRStyleCore">
@@ -5926,11 +6161,9 @@
     <xsl:text>.</xsl:text>
     <xsl:value-of select="@w:styleId"/>
     <xsl:value-of select="$paraStyleSuffix"/>
-    <xsl:text>{
-   </xsl:text>
+    <xsl:text>{&#xa;   </xsl:text>
     <xsl:call-template name="MakePStyleCore"/>
-    <xsl:text>}
-   </xsl:text>
+    <xsl:text>}&#xa;</xsl:text>
 
     <xsl:call-template name="MakeRStyle"/>
   </xsl:template>
@@ -6417,13 +6650,6 @@ if (msoBrowserCheck())
     <xsl:apply-templates />
   </xsl:template>
 
-  <!--this template is added now
-  <xsl:template match="w:background" mode="rpr">
-    bgcolor=<xsl:call-template name="ConvHexColor">
-      <xsl:with-param name="value" select="@w:color"/>
-    </xsl:call-template>;
-  </xsl:template>
--->
   <xsl:template match="/w:document">
 
     <html>
