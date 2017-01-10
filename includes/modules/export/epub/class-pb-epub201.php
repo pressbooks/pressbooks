@@ -1267,14 +1267,16 @@ class Epub201 extends Export {
 					Sanitize\decode( $title ),
 					$content,
 					$var['append_chapter_content'] = $append_chapter_content,
-				'' );
+					''
+				);
 
 				$file_id = 'chapter-' . sprintf( '%03s', $j );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
+					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
+				);
 
 				$this->manifest[ $file_id ] = array(
 					'ID' => $chapter['ID'],
@@ -1286,7 +1288,8 @@ class Epub201 extends Export {
 
 				$j++;
 
-				if ( 'numberless' !== $subclass ) { ++$c;
+				if ( 'numberless' !== $subclass ) {
+					++$c;
 				}
 			}
 
@@ -1298,7 +1301,7 @@ class Epub201 extends Export {
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
 					$invisibility,
 					$slug,
-					\Pressbooks\L10n\romanize( $m ),
+					( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
 					Sanitize\decode( $part['post_title'] ),
 				$part_content );
 
@@ -1307,7 +1310,8 @@ class Epub201 extends Export {
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
+					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
+				);
 
 				// Insert into correct pos
 				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
@@ -1330,7 +1334,7 @@ class Epub201 extends Export {
 						( $part_printf_changed ? $part_printf_changed : $part_printf ),
 						$invisibility,
 						$slug,
-						\Pressbooks\L10n\romanize( $m ),
+						( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
 						Sanitize\decode( $part['post_title'] ),
 					$part_content );
 
@@ -1362,7 +1366,7 @@ class Epub201 extends Export {
 							( $part_printf_changed ? $part_printf_changed : $part_printf ),
 							$invisibility,
 							$slug,
-							\Pressbooks\L10n\romanize( $m ),
+							( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
 							Sanitize\decode( $part['post_title'] ),
 						$part_content );
 
@@ -1548,7 +1552,7 @@ class Epub201 extends Export {
 				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) == 'on' ) {
 					$class .= ' display-none';
 				} else {
-					$title = __( 'Part', 'pressbooks' ) . ' ' . \Pressbooks\L10n\romanize( $m ) . '. ' . $title;
+					$title = ( $this->numbered ? __( 'Part', 'pressbooks' ) . ' ' . \Pressbooks\L10n\romanize( $m ) . '. ' : '' ) . $title;
 					$m++;
 				}
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {

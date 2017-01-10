@@ -72,12 +72,12 @@ class GlobalOptions extends \Pressbooks\Options {
 
 		add_settings_field(
 			'chapter_numbers',
-			__( 'Chapter Numbers', 'pressbooks' ),
+			__( 'Part and Chapter Numbers', 'pressbooks' ),
 			array( $this, 'renderChapterNumbersField' ),
 			$_page,
 			$_section,
 			array(
-				 __( 'Display chapter numbers', 'pressbooks' )
+				 __( 'Display part and chapter numbers', 'pressbooks' )
 			)
 		);
 
