@@ -34,6 +34,7 @@
 }
 
 @mixin toc-part-number {
+  display: $toc-part-number-display;
   color: $toc-part-number-color;
   font-family: $toc-part-number-font-family;
   text-align: left;

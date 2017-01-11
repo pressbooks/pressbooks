@@ -75,7 +75,7 @@
     @include toc-chapter-number;
     position: relative;
     left: -1 * $toc-left-chapter-number-width + $toc-left-chapter-number-margin-right;
-    display: inline-block;
+    display: $toc-chapter-number-display;
     width: $toc-left-chapter-number-width;
     margin-right: -1 * $toc-left-chapter-number-width;
     line-height: $toc-base-line-height;

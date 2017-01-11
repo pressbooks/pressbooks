@@ -328,7 +328,7 @@ function pressbooks_copyright_license() {
 		// expires in 24 hours
 		set_transient( "license-inf-$id", $value, 86400 );
 	} else {
-		$html = $transient[$license] ;
+		$html = $transient[ $license ] ;
 	}
 
 	return $html;
@@ -347,7 +347,7 @@ function replace_running_content_tags( $input ) {
 			'%section_title%',
 			'%section_author%',
 			'%section_subtitle%',
-			'%blank%'
+			'%blank%',
 		),
 		array(
 			'" string(book-title) "',
@@ -358,7 +358,7 @@ function replace_running_content_tags( $input ) {
 			'" string(section-title) "',
 			'" string(chapter-author) "',
 			'" string(chapter-subtitle) "',
-			''
+			'',
 		),
 		$input
 	);
@@ -382,6 +382,9 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	if ( ! $options['chapter_numbers'] ) {
 		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= "\$chapter-number-display: none; \n";
+			$scss .= "\$part-number-display: none; \n";
+			$scss .= "\$toc-chapter-number-display: none; \n";
+			$scss .= "\$toc-part-number-display: none; \n";
 		} else {
 			$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
 		}

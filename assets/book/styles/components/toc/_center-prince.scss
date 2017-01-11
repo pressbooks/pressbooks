@@ -71,7 +71,7 @@
 
   .chapter a::before {
     @include toc-chapter-number;
-    display: inline;
+    display: $toc-chapter-number-display;
     content: counter(chapter) '.\A0\A0\A0';
     counter-increment: chapter;
     page-break-after: avoid;
