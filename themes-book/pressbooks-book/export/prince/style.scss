@@ -619,6 +619,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 }
 #toc .part a::before {
   content: $part " " counter(part, upper-roman) ". ";
+  text-transform: capitalize;
   counter-increment: part;
 }
 #toc .chapter a,

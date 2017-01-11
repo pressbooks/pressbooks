@@ -7,7 +7,7 @@
   margin-bottom: $part-title-block-margin-bottom;
 
   .part-number {
-    display: block;
+    display: $part-number-display;
     margin-top: 0;
     margin-bottom: $part-number-margin-bottom;
     font-family: $part-number-font-family;
