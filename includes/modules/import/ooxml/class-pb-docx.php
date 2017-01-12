@@ -788,11 +788,12 @@ class Docx extends Import {
 		// Make XHTML 1.1 strict using htmlLawed
 
 		$config = array(
-		    'safe' => 1,
-		    'valid_xhtml' => 1,
-		    'no_deprecated_attr' => 2,
-		    'deny_attribute' => 'div -id',
-		    'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
+			'safe' => 1,
+			'valid_xhtml' => 1,
+			'xml:lang' => 1, // keep xml:lang *and* lang
+			'no_deprecated_attr' => 2,
+			'deny_attribute' => 'div -id',
+			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
 		return htmLawed( $html, $config );
