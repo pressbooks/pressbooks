@@ -20,6 +20,7 @@ class GlobalTypography {
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
+			'cre' => __( 'Canadian Indigenous ', 'pressbooks' ),
 			'hi' => __( 'Hindi', 'pressbooks' ),
 			'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
 			'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
@@ -322,6 +323,12 @@ class GlobalTypography {
 
 		// List fonts
 		$fontpacks = array(
+			'cre' => array(
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
+				'files' => array(
+					'NotoSansCanadianAboriginal-Regular.ttf',
+				),
+			),
 			'hi' => array(
 				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
 				'files' => array(
