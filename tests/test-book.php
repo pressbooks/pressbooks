@@ -15,10 +15,10 @@ class BookTest extends \WP_UnitTestCase {
 			'post_title' => 'test chapter',
 			'post_type' => 'chapter',
 			'post_status' => 'publish',
-			'post_content' => 'some content'
+			'post_content' => 'some content',
 		);
 		$pid = wp_insert_post( $new_post );
-		update_post_meta( $pid, 'pb_export', true );
+		update_post_meta( $pid, 'pb_export', 'on' );
 
 		$this->book_structure = \Pressbooks\Book::getBookStructure();
 		$this->page = $this->book_structure['__orphans'][0]; // In __orphans because doesn't belong to a part
@@ -35,7 +35,7 @@ class BookTest extends \WP_UnitTestCase {
 	 * @covers \Pressbooks\Book::getBookStructure
 	 */
 	public function test_returnsCachedExportValue() {
-		update_post_meta( $this->page['ID'], 'pb_export', false );
+		delete_post_meta( $this->page['ID'], 'pb_export' );
 		$book_structure = \Pressbooks\Book::getBookStructure();
 		$this->page = $book_structure['__orphans'][0];
 
@@ -46,7 +46,7 @@ class BookTest extends \WP_UnitTestCase {
 	 * @covers \Pressbooks\Book::getBookStructure
 	 */
 	public function test_returnsLatestExportValueNoCache() {
-		update_post_meta( $this->page['ID'], 'pb_export', false );
+		delete_post_meta( $this->page['ID'], 'pb_export' );
 		wp_cache_flush();
 		$book_structure = \Pressbooks\Book::getBookStructure();
 

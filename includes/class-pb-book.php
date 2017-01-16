@@ -222,7 +222,7 @@ class Book {
 					'comment_count' => $post->comment_count,
 					'menu_order' => $post->menu_order,
 					'post_status' => $post->post_status,
-					'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 1 == $post_ids_to_export[ $post->ID ] ) ? true : false,
+					'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 'on' == $post_ids_to_export[ $post->ID ] ) ? true : false,
 					'post_parent' => $post->post_parent,
 				);
 			}
