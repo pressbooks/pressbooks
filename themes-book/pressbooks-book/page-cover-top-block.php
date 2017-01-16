@@ -109,3 +109,4 @@
 
 
 	</section> <!-- end .top-block -->
+	<pre><?php echo \Pressbooks\Metadata::getJsonMetadata(); ?></pre>
