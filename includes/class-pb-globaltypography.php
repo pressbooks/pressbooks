@@ -20,7 +20,7 @@ class GlobalTypography {
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
-			'cans' => __( 'Canadian Indigenous ', 'pressbooks' ),
+			'cans' => __( 'Canadian Indigenous Syllabics', 'pressbooks' ),
 			'hi' => __( 'Hindi', 'pressbooks' ),
 			'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
 			'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
