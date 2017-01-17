@@ -659,8 +659,8 @@ function add_bisac_subjects_field() {
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'BISAC Subject(s)', 'pressbooks' ),
 		'multiple' => true,
-		'description' => __( 'BISAC subject headings help your book get properly classified in (e)book stores. This is not used by Pressbooks.', 'pressbooks' ),
+		'description' => __( 'BISAC Subject Headings help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
 	) );
 }
 
-add_action( 'pb_add_bisac_subjects_field', __NAMESPACE__ . '\\add_bisac_subjects_field' );
+add_action( 'pb_add_bisac_subjects_field', __NAMESPACE__ . '\\add_bisac_subjects_field', 1 );
