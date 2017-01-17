@@ -52,5 +52,6 @@
   "bugs": {
     "url": "https://github.com/pressbooks/pressbooks/issues"
   },
-  "homepage": "https://github.com/pressbooks/pressbooks/"
+  "homepage": "https://github.com/pressbooks/pressbooks/",
+  "dependencies": {}
 }
