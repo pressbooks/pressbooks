@@ -358,16 +358,16 @@ function add_meta_boxes() {
 		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
-	x_add_metadata_field( 'pb_bisac_subject', 'metadata', array(
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'Bisac Subject', 'pressbooks' ),
-		'multiple' => true,
-		'description' => __( 'BISAC subject headings help your book get properly classified in (e)book stores. This is not used by Pressbooks.', 'pressbooks' ),
-	) );
+	/**
+	 * Add metadata field for BISAC Subject(s).
+	 *
+	 * @since 3.9.7
+	 */
+	do_action( 'pb_add_bisac_subjects_field' );
 
 	x_add_metadata_field( 'pb_bisac_regional_theme', 'metadata', array(
 		'group' => 'additional-catalogue-information',
-		'label' => __( 'Bisac Regional Theme', 'pressbooks' ),
+		'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
 		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
@@ -648,3 +648,19 @@ function metadata_save_box( $post ) {
 		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p" />
 	<?php }
 }
+
+/**
+ * Add the BISAC Subject(s) field.
+ *
+ * @since 3.9.7
+ */
+function add_bisac_subjects_field() {
+	x_add_metadata_field( 'pb_bisac_subject', 'metadata', array(
+		'group' => 'additional-catalogue-information',
+		'label' => __( 'BISAC Subject(s)', 'pressbooks' ),
+		'multiple' => true,
+		'description' => __( 'BISAC Subject Headings help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
+	) );
+}
+
+add_action( 'pb_add_bisac_subjects_field', __NAMESPACE__ . '\\add_bisac_subjects_field', 1 );
