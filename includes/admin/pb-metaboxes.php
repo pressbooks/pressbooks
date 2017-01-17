@@ -358,17 +358,10 @@ function add_meta_boxes() {
 		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
-	$codes = array();
-	foreach ( json_decode( file_get_contents( PB_PLUGIN_DIR . 'symbionts/subjects-utils/data/bisac.json' ) ) as $code ) {
-		$codes[ $code->code ] = $code->label;
-	}
-
 	x_add_metadata_field( 'pb_bisac_subject', 'metadata', array(
 		'group' => 'additional-catalogue-information',
-		'label' => __( 'Bisac Subject(s)', 'pressbooks' ),
-		'field_type' => 'multi_select',
-		'values' => $codes,
-		'select2' => true,
+		'label' => __( 'Bisac Subject', 'pressbooks' ),
+		'multiple' => true,
 		'description' => __( 'BISAC subject headings help your book get properly classified in (e)book stores. This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
