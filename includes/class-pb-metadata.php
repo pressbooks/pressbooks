@@ -304,7 +304,7 @@ class Metadata {
 	 */
 	static function getJsonMetadata() {
 		$metadata = Book::getBookInformation();
-		return json_encode( apply_filters( 'pb_json_metadata', $metadata ), JSON_PRETTY_PRINT );
+		return json_encode( apply_filters( 'pb_json_metadata', $metadata ) );
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------
