@@ -1,0 +1,26 @@
+//============================================================================//
+//                                Front Matter                                //
+//============================================================================//
+
+.front-matter-title-wrap {
+  margin-top: $front-matter-title-block-margin-top;
+  margin-bottom: $front-matter-title-block-margin-bottom;
+
+  .front-matter-number {
+    display: none;
+    visibility: hidden;
+  }
+
+  .front-matter-title {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: $front-matter-title-font-family;
+    font-size: $front-matter-title-font-size;
+    font-style: $front-matter-title-font-style;
+    font-weight: $front-matter-title-font-weight;
+    hyphens: none;
+    text-align: $front-matter-title-align;
+    text-transform: $front-matter-title-text-transform;
+  }
+}
