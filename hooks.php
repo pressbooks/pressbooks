@@ -77,7 +77,7 @@ if ( \Pressbooks\Book::isBook() && \Pressbooks\l10n\use_book_locale() ) {
 // Content filters
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', 'allow_post_content' );
+add_action( 'init', '\Pressbooks\Sanitize\allow_post_content' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Images
