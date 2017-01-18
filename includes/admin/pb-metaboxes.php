@@ -359,6 +359,19 @@ function add_meta_boxes() {
 		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
+	x_add_metadata_field( 'pb_audience', 'metadata', array(
+		'group' => 'additional-catalogue-information',
+		'field_type' => 'select',
+		'values' => array(
+			'' => __( 'Choose an audience&hellip;', 'pressbooks' ),
+			'juvenile' => __( 'Juvenile', 'pressbooks' ),
+			'young-adult' => __( 'Young Adult', 'pressbooks' ),
+			'adult' => __( 'Adult', 'pressbooks' ),
+		),
+		'label' => __( 'Audience', 'pressbooks' ),
+		'description' => __( 'The target audience for your book.', 'pressbooks' ),
+	) );
+
 	/**
 	 * Add metadata field for BISAC Subject(s).
 	 *
