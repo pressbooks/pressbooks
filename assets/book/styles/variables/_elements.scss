@@ -139,6 +139,7 @@ $table-margin-top: 1.5em !default;
 $table-margin-bottom: 1.5em !default;
 $table-font-family: $font-1 !default;
 $table-font-size: .9em !default;
+$table-line-height: 1.1em;
 $table-align: left !default;
 $table-caption-margin-bottom: .5em !default;
 $table-caption-font-weight: bold !default;
@@ -156,6 +157,7 @@ $table-td-padding-left: .45em !default;
 $table-td-line-height: 1.1em !default;
 $table-td-align: left !default;
 $table-border-width: 1px !default;
+$table-hyphens: none !default;
 
 // Cite
 $cite-font-size: .9em !default;

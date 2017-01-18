@@ -17,6 +17,8 @@ $page-number-text-transform: none !default;
 
 $runninghead-separator: '\A0\A0|\A0\A0' !default;
 $runninghead-padding-top: .4in !default;
+
+// Running head left
 $runninghead-left-font-family: $font-3 !default;
 $runninghead-left-font-size: .7em !default;
 $runninghead-left-font-style: normal !default;
@@ -24,6 +26,8 @@ $runninghead-left-font-weight: normal !default;
 $runninghead-left-text-transform: uppercase !default;
 $runninghead-left-letter-spacing: 1px !default;
 $runninghead-left-word-spacing: 2px !default;
+
+// Running head right
 $runninghead-right-font-family: $font-3 !default;
 $runninghead-right-font-size: .7em !default;
 $runninghead-right-font-style: normal !default;

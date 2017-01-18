@@ -9,12 +9,14 @@ table {
   overflow-x: scroll;
   font-family: $table-font-family;
   font-size: $table-font-size;
+  line-height: $table-line-height;
   text-align: $table-align;
   border-collapse: collapse;
   border-top: $table-border-width solid;
   border-bottom: $table-border-width solid;
   border-top-color: $line-color-1;
   border-bottom-color: $line-color-1;
+  hyphens: $table-hyphens;
 
   p {
     text-align: $table-align;
