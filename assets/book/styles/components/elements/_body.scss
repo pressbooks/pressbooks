@@ -8,4 +8,6 @@ body {
   font-style: $body-font-style;
   font-weight: $body-font-weight;
   line-height: $body-line-height;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
  }
