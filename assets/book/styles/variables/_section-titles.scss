@@ -37,6 +37,7 @@
 } @else if $type == 'prince' {
   $section-title-block-margin-top: 3cm !default;
   $section-title-block-margin-bottom: 2cm !default;
+  $section-title-margin-top: 0 !default;
   $section-title-margin-bottom: 1.5cm !default;
   $section-subtitle-margin-bottom: .2cm !default;
   $section-author-margin-bottom: .2cm !default;

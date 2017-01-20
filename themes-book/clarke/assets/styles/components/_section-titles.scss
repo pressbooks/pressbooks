@@ -1,0 +1,148 @@
+// Titles
+
+$title-half-title-align: left !default;
+$title-title-align: left !default;
+$title-subtitle-align: left !default;
+$title-subtitle-font-style: normal !default;
+$title-author-align: left !default;
+$title-author-text-transform: none !default;
+$title-publisher-align: left !default;
+$title-publisher-city-align: left !default;
+$section-title-font-weight: bold !default;
+$section-title-text-transform: none !default;
+$part-number-align: left !default;
+$part-title-font-weight: bold !default;
+$part-title-align: left !default;
+$part-title-text-transform: none !default;
+$chapter-number-font-weight: bold !default;
+$chapter-title-align: left !default;
+$chapter-title-font-weight: bold !default;
+$front-matter-title-align: left !default;
+$back-matter-title-align: left !default;
+$section-subtitle-align: left !default;
+$section-author-font-weight: bold;
+$section-author-align: left !default;
+$section-author-text-transform: none !default;
+$aphorism-align: center !default;
+$dedication-font-family: $font-1 !default;
+$dedication-font-style: italic !default;
+$dedication-align: center !default;
+$epigraph-align: left !default;
+$epigraph-margin-right: 0 !default;
+$epigraph-margin-left: 0 !default;
+$epigraph-margin-bottom: 0 !default;
+$epigraph-font-style: normal !default;
+
+$bibliography-font-size: .75em !default;
+$bibliography-padding-left: 1em !default;
+$bibliography-text-indent: -1em !default;
+
+$index-para-font-size: .75em !default;
+$index-para-padding-left: 1em !default;
+$index-para-indent: -1em !default;
+$index-sub-entry-padding-left: 2em;
+
+@if $type == 'epub' {
+  $title-half-title-font-size: 1.75em !default;
+  $title-title-block-margin-top: 8em !default;
+  $title-title-font-size: 1.75em !default;
+  $title-subtitle-margin-top: 2em !default;
+  $title-subtitle-font-size: 1.33em !default;
+  $title-author-margin-top: 2em !default;
+  $title-author-font-size: 1.0833em !default;
+  $title-publisher-font-size: .83em !default;
+  $title-publisher-city-font-size: .83em !default;
+  $before-title-title-block-margin-top: 3em !default;
+  $part-number-font-size: 1.33em !default;
+  $part-title-font-size: 1.75em !default;
+  $section-title-block-margin-top: 0 !default;
+  $section-title-block-margin-bottom: 4em !default;
+  $section-title-margin-bottom: 2em !default;
+  $section-title-font-size: 1.33em !default;
+  $section-subtitle-margin-bottom: 1em !default;
+  $section-subtitle-font-size: 1.33em !default;
+  $chapter-number-font-size: 1.33em !default;
+  $chapter-number-margin-bottom: 1.125em !default;
+  $section-author-margin-bottom: 1.5em !default;
+  $section-author-font-size: .9em !default;
+  $aphorism-cite-font-size: .875em !default;
+  $copyright-margin-bottom: .5em !default;
+  $copyright-font-size: .75em !default;
+} @else if $type == 'prince' {
+  $title-half-title-font-size: 1.75em !default;
+  $title-title-block-margin-top: 6cm !default;
+  $title-title-font-size: 1.75em !default;
+  $title-subtitle-margin-top: 1cm !default;
+  $title-subtitle-font-size: 1.33em !default;
+  $title-author-margin-top: 1cm !default;
+  $title-author-font-size: 1.0833em !default;
+  $title-publisher-font-size: .83em !default;
+  $title-publisher-city-font-size: .83em !default;
+  $before-title-title-block-margin-top: 1.5cm !default;
+  $part-number-font-size: 1.33em !default;
+  $part-title-font-size: 1.75em !default;
+  $section-title-block-margin-top: 0 !default;
+  $section-title-block-margin-bottom: 2cm !default;
+  $section-title-margin-bottom: .125cm !default;
+  $section-title-font-size: 1.33em !default;
+  $section-subtitle-margin-bottom: .125cm !default;
+  $section-subtitle-font-size: 1.0833em !default;
+  $chapter-number-font-size: 1.33em !default;
+  $chapter-number-margin-bottom: .125em !default;
+  $section-author-margin-bottom: .625cm !default;
+  $section-author-font-size: .833em !default;
+  $aphorism-cite-font-size: .875em !default;
+  $copyright-margin-bottom: .5em !default;
+  $copyright-font-size: .75em !default;
+} @else if $type == 'web' {
+}
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/titles';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/titles/titles';
+@import 'components/titles/parts';
+@import 'components/titles/front-matter';
+@import 'components/titles/chapters';
+@import 'components/titles/back-matter';
+
+.before-title .front-matter-title-wrap .front-matter-number,
+.before-title .front-matter-title-wrap .front-matter-title {
+  display: none;
+}
+
+.part-number::before {
+  content: '' !important;
+}
+
+.part-title-wrap,
+.front-matter-title-wrap,
+.chapter-title-wrap,
+.back-matter-title-wrap {
+  border-top: 1px solid #000;
+
+  .part-number,
+  .chapter-number,
+  .chapter-title {
+    margin-top: .5cm;
+  }
+}
+
+.dedication .front-matter-title-wrap,
+.disclaimer .front-matter-title-wrap,
+.epigraph .front-matter-title-wrap,
+.before-title .front-matter-title-wrap {
+  border-top: 0;
+}
+
+.aphorism {
+  width: 70%;
+  margin-right: auto;
+  margin-left: auto;
+  font-style: italic;
+
+  cite {
+    text-align: right;
+    font-variant: small-caps;
+  }
+}

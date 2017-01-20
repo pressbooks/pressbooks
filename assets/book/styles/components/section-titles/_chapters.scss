@@ -56,8 +56,8 @@
 
   .chapter-title {
     display: block;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: $section-title-margin-top;
+    margin-bottom: $section-title-margin-bottom;
     font-family: $section-title-font-family;
     font-size: $section-title-font-size;
     font-style: $section-title-font-style;
