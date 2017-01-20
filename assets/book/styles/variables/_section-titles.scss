@@ -101,7 +101,7 @@ $chapter-title-block-margin-bottom: $section-title-block-margin-bottom !default;
 @if $type == 'epub' {
   $chapter-number-margin-bottom: 1em !default;
 } @else if $type == 'prince' {
-  $chapter-number-margin-bottom: .5cm !default;
+  $chapter-number-margin-bottom: .5cm !default; //why?
 } @else if $type == 'web' {
   $chapter-number-margin-bottom: 1em !default;
 }
