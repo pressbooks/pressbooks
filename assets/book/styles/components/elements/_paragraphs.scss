@@ -4,7 +4,7 @@
 
 p {
   margin-bottom: $para-margin-bottom;
-  text-align: $para-align;
+  text-align: map-get($para-align, $type);
   widows: $widows;
   orphans: $orphans;
 }

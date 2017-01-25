@@ -2,7 +2,7 @@
 //                             Variables || Elements                          //
 //============================================================================//
 
-// Body
+/* Body
 @if $type == 'epub' {
   $body-font-size: medium !default;
   $body-line-height: 1.4em !default;
@@ -16,6 +16,21 @@
 $body-font-family: $font-1 !default;
 $body-font-style: normal !default;
 $body-font-weight: normal !default;
+*/
+
+$body-font-family: $font-1 !default;
+$body-font-size: (
+  epub: medium,
+  prince: 11pt,
+  web: 14pt
+) !default;
+$body-font-style: normal !default;
+$body-font-weight: normal !default;
+$body-line-height: (
+  epub: 1.4em,
+  prince: 1.4em,
+  web: 1.8em,
+) !default;
 
 // Headings
 $hx-margin-top: 1.5em !default;
@@ -71,25 +86,28 @@ $h6-text-transform: none !default;
 $h6-align: left !default;
 
 // Paragraphs
-$para-indent: 1em !default;
-$para-hanging-indent-padding-left: 1em !default;
-$para-hanging-indent-text-indent: -1em !default;
-$para-margin-top: 0 !default;
 $para-margin-bottom: 0 !default;
-$para-no-indent-margin-top: 1em !default;
-@if $type == 'epub' {
-    $para-align: initial !default;
-} @else if $type == 'prince' {
-    $para-align: justify !default;
-} @else if $type == 'web' {
-    $para-align: initial !default;
-}
+$para-align: (
+  epub: initial,
+  prince: justify,
+  web: initial
+) !default;
 $widows: 2 !default;
 $orphans: 1 !default;
+
+$para-margin-top: 0 !default;
+$para-indent: 1em !default;
+
+$para-no-indent-margin-top: 1em !default;
+
 $para-hyphens: auto !default;
 $para-hyphenate-before: 3 !default;
 $para-hyphenate-after: 3 !default;
 $para-hyphenate-lines: 2 !default;
+
+$para-hanging-indent-padding-left: 1em !default;
+$para-hanging-indent-text-indent: -1em !default;
+
 $para-tight-letter-spacing: -.25px !default; // TODO
 $para-tight-word-spacing: -.075em !default;
 $para-very-tight-letter-spacing: -.5px !default; // TODO
