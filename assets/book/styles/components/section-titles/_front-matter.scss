@@ -3,8 +3,10 @@
 //============================================================================//
 
 .front-matter-title-wrap {
-  margin-top: $front-matter-title-block-margin-top;
-  margin-bottom: $front-matter-title-block-margin-bottom;
+  margin-top: map-get($section-title-block-margin-top, $type);
+  margin-right: $section-title-block-margin-right;
+  margin-bottom: map-get($section-title-block-margin-bottom, $type);
+  margin-left: $section-title-block-margin-left;
 
   .front-matter-number {
     display: none;

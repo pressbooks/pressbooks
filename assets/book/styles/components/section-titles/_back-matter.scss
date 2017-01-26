@@ -3,8 +3,10 @@
 //============================================================================//
 
 .back-matter-title-wrap {
-  margin-top: $back-matter-title-block-margin-top;
-  margin-bottom: $back-matter-title-block-margin-bottom;
+  margin-top: map-get($section-title-block-margin-top, $type);
+  margin-right: $section-title-block-margin-right;
+  margin-bottom: map-get($section-title-block-margin-bottom, $type);
+  margin-left: $section-title-block-margin-left;
 
   .back-matter-number {
     display: none;
@@ -15,6 +17,7 @@
     display: block;
     margin-top: 0;
     margin-bottom: 0;
+
     font-family: $back-matter-title-font-family;
     font-size: $section-title-font-size;
     font-style: $section-title-font-style;
