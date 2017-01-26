@@ -5,7 +5,7 @@
 /* COLORS */
 /* STANDARD TEXT COLORS */
 
-a {color: $link-color;}
+a {color: map-get($link-color, $type);}
 body {color: $body-color;}
 blockquote {color: $blockquote-color;}
 

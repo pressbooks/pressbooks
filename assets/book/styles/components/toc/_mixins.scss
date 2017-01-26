@@ -49,7 +49,7 @@
   color: $toc-part-title-color;
   font-family: $toc-part-title-font-family;
   text-align: left;
-  font-size: $toc-part-title-font-size;
+  font-size: map-get($toc-part-title-font-size, $type);
   font-style: $toc-part-title-font-style;
   font-weight: $toc-part-title-font-weight;
   text-transform: $toc-part-title-text-transform;

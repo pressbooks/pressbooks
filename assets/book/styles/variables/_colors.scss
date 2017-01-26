@@ -13,13 +13,11 @@ $color-6: $color-1 !default;
 //HTML ELEMENTS COLOR
 
 //A-LINK COLOR
-@if $type == 'epub' {
-    $link-color: initial !default;
-} @else if $type == 'prince' {
-    $link-color: $color-1 !default;
-} @else if $type == 'web' {
-    $link-color: $color-1 !default;
-}
+$link-color: (
+  epub: initial,
+  prince: $color-1,
+  web: initial
+) !default;
 
 //BODY COLOR
 $body-color: $color-1 !default;

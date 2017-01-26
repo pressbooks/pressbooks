@@ -27,7 +27,7 @@
     display: prince-footnote;
     padding-left: $footnote-padding-left;
     margin-left: 0;
-    font-size: $footnote-font-size;
+    font-size: map-get($footnote-font-size, $type);
     line-height: $footnote-line-height;
     text-align: left;
     text-indent: $footnote-indent;
@@ -47,7 +47,6 @@
   p {
     prince-footnote-policy: keep-with-line;
   }
-
 }
 
 @mixin epub-footnotes {
@@ -61,7 +60,7 @@
   }
 
   .footnotes {
-    font-size: $footnote-font-size;
+    font-size: map-get($footnote-font-size, $type);
   }
 }
 
