@@ -1,12 +1,14 @@
 //============================================================================//
-//                                Title Page                                  //
+//                                Title Page(s)                                  //
 //============================================================================//
 
 // Half Title Page
-#half-title-page {display: $title-half-title-display;}
+#half-title-page {
+  display: map-get($title-half-title-display, $type);
+}
 
 #half-title-page > h1.title {
-  margin-top: $title-title-block-margin-top;
+  margin-top: $title-half-title-block-margin-top;
   font-family: $title-half-title-font-family;
   font-size: $title-half-title-font-size;
   font-style: $title-half-title-font-style;
@@ -22,7 +24,7 @@
 h1.title {
   margin-top: $title-title-block-margin-top;
   font-family: $title-title-font-family;
-  font-size: $title-title-font-size;
+  font-size: map-get($title-title-font-size, $type);
   font-style: $title-title-font-style;
   font-weight: $title-title-font-weight;
   hyphens: none;
@@ -35,7 +37,7 @@ h1.title {
 h2.subtitle {
   margin-top: $title-subtitle-margin-top;
   font-family: $title-subtitle-font-family;
-  font-size: $title-subtitle-font-size;
+  font-size: map-get($title-subtitle-font-size, $type);
   font-style: $title-subtitle-font-style;
   font-weight: $title-subtitle-font-weight;
   hyphens: none;
@@ -46,7 +48,7 @@ h2.subtitle {
 }
 
 h3.author {
-  margin-top: $title-author-margin-top;
+  margin-top: map-get($title-author-margin-top, $type);
   font-family: $title-author-font-family;
   font-size: $title-author-font-size;
   font-style: $title-author-font-style;

@@ -3,12 +3,14 @@
 //============================================================================//
 
 // Before Title
+
 .before-title .front-matter-title-wrap {
   margin-top: $before-title-title-block-margin-top;
   margin-bottom: $before-title-title-block-margin-bottom;
 }
 
 // Copyright Page
+
 #copyright-page {
   page-break-before: always;
 
@@ -23,12 +25,13 @@
       font-weight: $copyright-font-weight;
       line-height: $copyright-line-height;
       text-align: $copyright-align;
-      text-indent: 0;
+      text-indent: $copyright-indent;
     }
   }
 }
 
 // Dedication
+
 div.dedication {
   margin-right: $dedication-margin-right;
   margin-left: $dedication-margin-left;
@@ -45,6 +48,7 @@ div.dedication {
 }
 
 // Epigraph
+
 div.epigraph {
   margin-right: $epigraph-margin-right;
   margin-left: $epigraph-margin-left;

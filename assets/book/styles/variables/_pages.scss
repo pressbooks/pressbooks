@@ -95,7 +95,7 @@ $title-publisher-text-transform: uppercase !default;
 // Publisher city
 
 $title-publisher-city-font-family: $font-3 !default;
-$title-publisher-font-size: .9em !default;
+$title-publisher-city-font-size: .9em !default;
 $title-publisher-city-font-style: normal !default;
 $title-publisher-city-font-weight: normal !default;
 $title-publisher-city-line-height: 1em !default;
@@ -104,77 +104,30 @@ $title-publisher-city-word-spacing: 2px !default;
 $title-publisher-city-align: center !default;
 $title-publisher-city-text-transform: uppercase !default;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// --- PARTS --- //
-$part-title-block-margin-top: $section-title-block-margin-top !default;
-$part-title-block-margin-bottom: $section-title-block-margin-bottom !default;
-
-@if $type == 'epub' {
-  $part-number-margin-bottom: 1em !default;
-} @else if $type == 'prince' {
-  $part-number-margin-bottom: .5cm !default;
-} @else if $type == 'web' {
-  $part-number-margin-bottom: 1em !default;
-}
-
 // --- FRONT MATTER --- //
 
 // Before Title
-$before-title-title-block-margin-top: 0 !default;
-$before-title-title-block-margin-bottom: .5em !default;
 
-// Dedication
-$dedication-margin-right: 10% !default;
-$dedication-margin-bottom: 1em !default;
-$dedication-margin-left: 10% !default;
-
-// Epigraph
-$epigraph-margin-right: 10% !default;
-$epigraph-margin-bottom: 1em !default;
-$epigraph-margin-left: 10% !default;
-
-// -- TITLES TYPOGRAPHY (FONT-FAMILY, SIZE ETC) -- //
-
-// --- FRONT MATTER --- //
-
-// FRONT MATTER SPECIAL PAGES
-
-// Before Title
 $before-title-title-block-margin-top: 0 !default;
 $before-title-title-block-margin-bottom: .5em !default;
 
 // Copyright
+
 $copyright-float: none !default;
-$copyright-font-size: .8em !default;
+$copyright-margin-bottom: intial !default;
 $copyright-font-family: $font-1 !default;
+$copyright-font-size: .8em !default;
 $copyright-font-style: normal !default;
 $copyright-font-weight: normal !default;
 $copyright-line-height: 1.2em !default;
-$copyright-margin-bottom: intial !default;
 $copyright-align: left !default;
+$copyright-indent: 0 !default;
 
 // Dedication
+
+$dedication-margin-right: 10% !default;
+$dedication-margin-left: 10% !default;
+$dedication-margin-bottom: 1em !default;
 $dedication-font-family: $font-2 !default;
 $dedication-font-size: 1em !default;
 $dedication-font-style: italic !default;
@@ -183,6 +136,10 @@ $dedication-line-height: normal !default;
 $dedication-align: center !default;
 
 // Epigraph
+
+$epigraph-margin-right: 10% !default;
+$epigraph-margin-left: 10% !default;
+$epigraph-margin-bottom: 1em !default;
 $epigraph-font-family: $font-1 !default;
 $epigraph-font-size: 1em !default;
 $epigraph-font-style: italic !default;
@@ -190,15 +147,16 @@ $epigraph-font-weight: normal !default;
 $epigraph-line-height: normal !default;
 $epigraph-align: center !default;
 
-
-// BACK MATTER SPECIAL PAGES
+// BACK MATTER
 
 // Bibliography
+
 $bibliography-padding-left: 2em !default;
 $bibliography-font-size: .9em !default;
 $bibliography-text-indent: -2em !default;
 
 // Index
+
 $index-column-count: 2 !default;
 $index-column-gap: 2.5em !default;
 $index-margin-bottom: 4em !default;
