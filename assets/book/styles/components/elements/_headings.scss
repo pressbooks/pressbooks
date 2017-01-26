@@ -18,13 +18,15 @@ h6 {
 // This means that your PDF TOC won't list your subheadings, but in case of
 // 2-level TOC, `div.ugc h1` should be excluded.
 
-.ugc h1,
-.ugc h2,
-.ugc h3,
-.ugc h4,
-.ugc h5,
-.ugc h6 {
-  bookmark-level: none;
+@if $type == 'prince' {
+  .ugc h1,
+  .ugc h2,
+  .ugc h3,
+  .ugc h4,
+  .ugc h5,
+  .ugc h6 {
+    bookmark-level: none;
+  }
 }
 
 h1 {

@@ -8,6 +8,6 @@ body {
   font-style: $body-font-style;
   font-weight: $body-font-weight;
   line-height: map-get($body-line-height, $type);
-  overflow-wrap: break-word;
   word-wrap: break-word;
+  overflow-wrap: break-word;
  }
