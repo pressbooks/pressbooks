@@ -75,13 +75,13 @@ h2.chapter-subtitle {
   display: block;
   @if $type == 'prince' {
     margin-top: $section-title-margin-bottom - map-get($section-title-block-margin-bottom, $type);
-    margin-bottom: $section-title-block-margin-bottom;
+    margin-bottom: map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
     margin-bottom: $section-subtitle-margin-bottom;
   }
   font-family: $section-subtitle-font-family;
-  font-size: map-get($section-subtitle-font-size, $type);
+  font-size: $section-subtitle-font-size;
   font-style: $section-subtitle-font-style;
   font-weight: $section-subtitle-font-weight;
   hyphens: none;
@@ -94,7 +94,7 @@ h2.chapter-subtitle {
 h2.chapter-author {
   display: block;
   @if $type == 'prince' {
-    margin-bottom: $section-title-block-margin-bottom;
+    margin-bottom: map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-bottom: $section-author-margin-bottom;
   }
@@ -109,7 +109,7 @@ h2.chapter-author {
 
 h2.chapter-subtitle + h2.chapter-author {
   @if $type == 'prince' {
-    margin-top: $section-subtitle-margin-bottom - $section-title-block-margin-bottom;
+    margin-top: $section-subtitle-margin-bottom - map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -118,7 +118,7 @@ h2.chapter-subtitle + h2.chapter-author {
 h2.chapter-title-wrap + h2.chapter-author,
 h2.chapter-author:first-child {
   @if $type == 'prince' {
-    margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
+    margin-top: $section-title-margin-bottom - map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -127,7 +127,7 @@ h2.chapter-author:first-child {
 // Aphorism (outside .chapter-title-wrap)
 blockquote.aphorism,
 .aphorism {
-  margin-bottom: $section-title-block-margin-bottom;
+  margin-bottom: map-get($section-title-block-margin-bottom, $type);
   font-family: $aphorism-font-family;
   font-size: map-get($aphorism-font-size, $type);
   line-height: $body-line-height;
@@ -147,7 +147,7 @@ blockquote.aphorism,
 h2.chapter-author + blockquote.aphorism,
 h2.chapter-author + .aphorism {
   @if $type == 'prince' {
-    margin-top: $section-author-margin-bottom - $section-title-block-margin-bottom;
+    margin-top: $section-author-margin-bottom - map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -156,7 +156,7 @@ h2.chapter-author + .aphorism {
 h2.chapter-subtitle + blockquote.aphorism,
 h2.chapter-subtitle + .aphorism {
   @if $type == 'prince' {
-    margin-top: $section-subtitle-margin-bottom - $section-title-block-margin-bottom;
+    margin-top: $section-subtitle-margin-bottom - map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -165,7 +165,7 @@ h2.chapter-subtitle + .aphorism {
 .chapter-title-wrap + blockquote.aphorism,
 .aphorism:first-child {
   @if $type == 'prince' {
-    margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
+    margin-top: $section-title-margin-bottom - map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
