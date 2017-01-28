@@ -61,7 +61,11 @@ $title-author-margin-top:(
   web: 2em
 ) !default;
 $title-author-font-family: $font-2 !default;
-$title-author-font-size: 1em;
+$title-author-font-size:(
+  epub: 1em,
+  prince: 1.5em,
+  web: 1em
+) !default;
 $title-author-font-style: normal !default;
 $title-author-font-weight: normal !default;
 $title-author-letter-spacing: 1px !default;
