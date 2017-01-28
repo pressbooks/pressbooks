@@ -1,5 +1,8 @@
 //GLOBAL TOC - MIXINS
 
+// note: for TOC title "Contents" see
+//~/components/section-titles/front-matter
+
 @mixin toc-front-matter-title {
   color: $toc-front-matter-title-color;
   font-family: $toc-front-matter-title-font-family;
