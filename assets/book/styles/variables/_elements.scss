@@ -3,14 +3,14 @@
 //============================================================================//
 
 $body-font-family: $font-1 !default;
-$body-font-size: (
+$xbody-font-size:(
   epub: medium,
   prince: 11pt,
   web: 14pt
 ) !default;
 $body-font-style: normal !default;
 $body-font-weight: normal !default;
-$body-line-height: (
+$xbody-line-height:(
   epub: 1.4em,
   prince: 1.4em,
   web: 1.8em,

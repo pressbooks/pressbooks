@@ -7,7 +7,7 @@
 .entry-title {
   display: block;
   font-family: $section-title-font-family;
-  font-size: $section-title-font-size;
+  font-size: map-get($section-title-font-size, $type);
   font-style: $section-title-font-style;
   font-weight: $section-title-font-weight;
   hyphens: none;
@@ -19,7 +19,7 @@
   display: $chapter-number-display;
   margin-bottom: $chapter-number-margin-bottom;
   font-family: $chapter-number-font-family;
-  font-size: $chapter-number-font-size;
+  font-size: map-get($chapter-number-font-size, $type);
   font-style: $chapter-number-font-style;
   font-weight: $chapter-number-font-weight;
   line-height: $chapter-number-line-height;
@@ -74,14 +74,14 @@
 h2.chapter-subtitle {
   display: block;
   @if $type == 'prince' {
-    margin-top: $section-title-margin-bottom - $section-title-block-margin-bottom;
+    margin-top: $section-title-margin-bottom - map-get($section-title-block-margin-bottom, $type);
     margin-bottom: $section-title-block-margin-bottom;
   } @else if $type == 'epub' {
     margin-top: 0;
     margin-bottom: $section-subtitle-margin-bottom;
   }
   font-family: $section-subtitle-font-family;
-  font-size: $section-subtitle-font-size;
+  font-size: map-get($section-subtitle-font-size, $type);
   font-style: $section-subtitle-font-style;
   font-weight: $section-subtitle-font-weight;
   hyphens: none;
@@ -99,7 +99,7 @@ h2.chapter-author {
     margin-bottom: $section-author-margin-bottom;
   }
   font-family: $section-author-font-family;
-  font-size: $section-author-font-size;
+  font-size: map-get($section-author-font-size, $type);
   font-style: $section-author-font-style;
   font-weight: $section-author-font-weight;
   hyphens: none;
@@ -129,7 +129,7 @@ blockquote.aphorism,
 .aphorism {
   margin-bottom: $section-title-block-margin-bottom;
   font-family: $aphorism-font-family;
-  font-size: $aphorism-font-size;
+  font-size: map-get($aphorism-font-size, $type);
   line-height: $body-line-height;
   text-align: $aphorism-align;
   text-indent: 0;

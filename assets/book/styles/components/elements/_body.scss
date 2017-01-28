@@ -2,12 +2,18 @@
 //                                   Body                                     //
 //============================================================================//
 
+//Ned I need help, see comments below + see ~variables/_elements.scss
+//If I use $body-font-size, $body-font-line-height ... then those elements are missing
+//in the compiled CSS. Adding the $xbody... all works well.
+//I commented out all the SASS files so that ONLY components/body.scss & variables/elements.scss
+//were being used and the problem persisted. W the T the F.
+
 body {
   font-family: $body-font-family;
-  font-size: map-get($body-font-size, $type);
+  font-size: map-get($xbody-font-size, $type); //wtf ... ned? help $xbody-font-size works, but $body-font-size doesn't??
   font-style: $body-font-style;
   font-weight: $body-font-weight;
-  line-height: map-get($body-line-height, $type);
+  line-height: map-get($xbody-line-height, $type); //wtf ... ned? help $xbody-line-height works, but $body-font-size doesn't??
   word-wrap: break-word;
   overflow-wrap: break-word;
  }

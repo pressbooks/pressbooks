@@ -85,9 +85,9 @@ $section-author-text-transform: uppercase !default;
 // Section Aphorism
 
 $aphorism-font-family: $body-font-family !default;
-$aphorism-font-size: $body-font-size !default;
+$aphorism-font-size: .9em; //fixme
 $aphorism-align: left !default;
-$aphorism-cite-font-size: .8em !default;
+$aphorism-cite-font-size: .9em !default;
 
 // PARTS
 
@@ -127,7 +127,6 @@ $part-title-text-transform: uppercase !default;
 // Front matter title
 
 $front-matter-title-font-family: $section-title-font-family !default;
-$front-matter-title-font-size: map-get($section-title-font-size, $type);
 $front-matter-title-font-style: $section-title-font-style !default;
 $front-matter-title-font-weight: $section-title-font-weight !default;
 $front-matter-title-align: $section-title-align !default;
@@ -157,7 +156,6 @@ $chapter-number-after-content: '. ' !default;
 $chapter-title-margin-top: $section-title-margin-top !default;
 $chapter-title-margin-bottom: $section-title-margin-bottom !default;
 $chapter-title-font-family: $section-title-font-family !default;
-//$chapter-title-font-size: see: $section-title-font-size;
 $chapter-title-font-style: $section-title-font-style !default;
 $chapter-title-font-weight: $section-title-font-weight !default;
 $chapter-title-align: $section-title-align !default;
@@ -168,7 +166,6 @@ $chapter-title-text-transform: $section-title-text-transform !default;
 // Back matter titles
 
 $back-matter-title-font-family: $section-title-font-family !default;
-$back-matter-title-font-size: map-get($section-title-font-size, $type);
 $back-matter-title-font-style: $section-title-font-style !default;
 $back-matter-title-font-weight: $section-title-font-weight !default;
 $back-matter-title-align: $section-title-align !default;

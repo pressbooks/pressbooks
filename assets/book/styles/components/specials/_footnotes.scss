@@ -5,12 +5,6 @@
 // Prince footnotes
 @mixin prince-footnotes {
 
-  @page {
-    @footnotes {
-      padding-top: $footnote-padding-top;
-    }
-  }
-
   // Reset counter at the beginning of a new section
   .front-matter,
   .part,

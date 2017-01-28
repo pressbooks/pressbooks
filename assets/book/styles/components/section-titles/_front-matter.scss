@@ -18,7 +18,7 @@
     margin-top: 0;
     margin-bottom: 0;
     font-family: $front-matter-title-font-family;
-    font-size: $front-matter-title-font-size;
+    font-size: map-get($section-title-font-size, $type);
     font-style: $front-matter-title-font-style;
     font-weight: $front-matter-title-font-weight;
     hyphens: none;
