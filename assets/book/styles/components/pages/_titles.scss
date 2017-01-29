@@ -50,7 +50,7 @@ h2.subtitle {
 h3.author {
   margin-top: map-get($title-author-margin-top, $type);
   font-family: $title-author-font-family;
-  font-size: $title-author-font-size;
+  font-size: map-get($title-author-font-size, $type);
   font-style: $title-author-font-style;
   font-weight: $title-author-font-weight;
   hyphens: none;

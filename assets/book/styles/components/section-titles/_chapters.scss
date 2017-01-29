@@ -31,7 +31,7 @@
   content: $chapter-number-after-content;
 }
 
-// EPUB and PDF chapters are marked up differently
+// Web markup for chapters (above) is different than EPUB and PDF (below)
 
 .chapter-title-wrap {
   margin-top: map-get($section-title-block-margin-top, $type);
@@ -130,7 +130,7 @@ blockquote.aphorism,
   margin-bottom: map-get($section-title-block-margin-bottom, $type);
   font-family: $aphorism-font-family;
   font-size: map-get($aphorism-font-size, $type);
-  line-height: $body-line-height;
+  line-height: map-get($xbody-line-height, $type); //fixme ... should not have to be 'xbody'
   text-align: $aphorism-align;
   text-indent: 0;
 
@@ -169,9 +169,4 @@ h2.chapter-subtitle + .aphorism {
   } @else if $type == 'epub' {
     margin-top: 0;
   }
-}
-
-// Numberless Chapters
-.numberless .chapter-number {
-  display: none;
 }
