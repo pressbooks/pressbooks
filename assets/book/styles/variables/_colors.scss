@@ -2,7 +2,16 @@
 //                              Variables || Colors                           //
 //============================================================================//
 
-$color-1: initial !default; //body color, usually black
+// Is this inception .. $color-1 vs $default-color variable?
+
+$default-color:(
+  epub: initial,
+  prince: initial,
+  web: #373d3f
+) !default;
+
+//$color-1: initial !default; //body text, usually black
+$color-1: map-get($default-color, $type);
 $color-2: $color-1 !default; //highlight color, for titles etc.
 $color-3: $color-1 !default; //second hightlight color, or black
 $color-4: #eee !default; //shaded
