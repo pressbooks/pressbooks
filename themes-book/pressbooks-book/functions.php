@@ -463,6 +463,12 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 		} else {
 			$scss .= "p { hyphens: auto; } \n";
 		}
+	} else {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$para-hyphens: manual; \n"; // TODO
+		} else {
+			$scss .= "p { hyphens: manual; } \n";
+		}
 	}
 
 	// Indent paragraphs?
