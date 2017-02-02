@@ -81,12 +81,6 @@ if ( false == \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
 	$odt = true;
 }
 
-$dependency_errors = [
-	'odt' => 'OpenDocument',
-	'icml' => 'ICML',
-	'xhtml' => 'XHTML',
-];
-
 if ( $dependency_errors ) {
 	$formats = implode( ', ', $dependency_errors );
 	printf(
