@@ -2,12 +2,14 @@
 //                          Chapter Section Titles                            //
 //============================================================================//
 
+@import '../utilities';
+
 //Web chapters are marked up with .entry-title, not .chapter-title
 
 .entry-title {
   display: block;
   font-family: $section-title-font-family;
-  font-size: map-get($section-title-font-size, $type);
+  font-size: if-map-get($section-title-font-size, $type);
   font-style: $section-title-font-style;
   font-weight: $section-title-font-weight;
   hyphens: none;
@@ -19,7 +21,7 @@
   display: $chapter-number-display;
   margin-bottom: $chapter-number-margin-bottom;
   font-family: $chapter-number-font-family;
-  font-size: map-get($chapter-number-font-size, $type);
+  font-size: if-map-get($chapter-number-font-size, $type);
   font-style: $chapter-number-font-style;
   font-weight: $chapter-number-font-weight;
   line-height: $chapter-number-line-height;
@@ -34,9 +36,9 @@
 // Web markup for chapters (above) is different than EPUB and PDF (below)
 
 .chapter-title-wrap {
-  margin-top: map-get($section-title-block-margin-top, $type);
+  margin-top: if-map-get($section-title-block-margin-top, $type);
   margin-right: $section-title-block-margin-right;
-  margin-bottom: map-get($section-title-block-margin-bottom, $type);
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   margin-left: $section-title-block-margin-left;
 
   .chapter-number {
@@ -44,7 +46,7 @@
     margin-top: 0;
     margin-bottom: $chapter-number-margin-bottom;
     font-family: $chapter-number-font-family;
-    font-size: map-get($chapter-number-font-size, $type);
+    font-size: if-map-get($chapter-number-font-size, $type);
     font-style: $chapter-number-font-style;
     font-weight: $chapter-number-font-weight;
     line-height: $chapter-number-line-height;
@@ -61,7 +63,7 @@
     margin-top: $chapter-title-margin-top;
     margin-bottom: $chapter-title-margin-bottom;
     font-family: $chapter-title-font-family;
-    font-size: map-get($section-title-font-size, $type);
+    font-size: if-map-get($section-title-font-size, $type);
     font-style: $chapter-title-font-style;
     font-weight: $chapter-title-font-weight;
     hyphens: none;
@@ -74,8 +76,8 @@
 h2.chapter-subtitle {
   display: block;
   @if $type == 'prince' {
-    margin-top: $section-title-margin-bottom - map-get($section-title-block-margin-bottom, $type);
-    margin-bottom: map-get($section-title-block-margin-bottom, $type);
+    margin-top: $section-title-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
+    margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
     margin-bottom: $section-subtitle-margin-bottom;
@@ -94,12 +96,12 @@ h2.chapter-subtitle {
 h2.chapter-author {
   display: block;
   @if $type == 'prince' {
-    margin-bottom: map-get($section-title-block-margin-bottom, $type);
+    margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-bottom: $section-author-margin-bottom;
   }
   font-family: $section-author-font-family;
-  font-size: map-get($section-author-font-size, $type);
+  font-size: if-map-get($section-author-font-size, $type);
   font-style: $section-author-font-style;
   font-weight: $section-author-font-weight;
   hyphens: none;
@@ -109,7 +111,7 @@ h2.chapter-author {
 
 h2.chapter-subtitle + h2.chapter-author {
   @if $type == 'prince' {
-    margin-top: $section-subtitle-margin-bottom - map-get($section-title-block-margin-bottom, $type);
+    margin-top: $section-subtitle-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -118,7 +120,7 @@ h2.chapter-subtitle + h2.chapter-author {
 h2.chapter-title-wrap + h2.chapter-author,
 h2.chapter-author:first-child {
   @if $type == 'prince' {
-    margin-top: $section-title-margin-bottom - map-get($section-title-block-margin-bottom, $type);
+    margin-top: $section-title-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -127,10 +129,10 @@ h2.chapter-author:first-child {
 // Aphorism (outside .chapter-title-wrap)
 blockquote.aphorism,
 .aphorism {
-  margin-bottom: map-get($section-title-block-margin-bottom, $type);
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   font-family: $aphorism-font-family;
-  font-size: map-get($aphorism-font-size, $type);
-  line-height: map-get($body-line-height, $type);
+  font-size: if-map-get($aphorism-font-size, $type);
+  line-height: if-map-get($body-line-height, $type);
   text-align: $aphorism-align;
   text-indent: 0;
 
@@ -147,7 +149,7 @@ blockquote.aphorism,
 h2.chapter-author + blockquote.aphorism,
 h2.chapter-author + .aphorism {
   @if $type == 'prince' {
-    margin-top: $section-author-margin-bottom - map-get($section-title-block-margin-bottom, $type);
+    margin-top: $section-author-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -156,7 +158,7 @@ h2.chapter-author + .aphorism {
 h2.chapter-subtitle + blockquote.aphorism,
 h2.chapter-subtitle + .aphorism {
   @if $type == 'prince' {
-    margin-top: $section-subtitle-margin-bottom - map-get($section-title-block-margin-bottom, $type);
+    margin-top: $section-subtitle-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -165,7 +167,7 @@ h2.chapter-subtitle + .aphorism {
 .chapter-title-wrap + blockquote.aphorism,
 .aphorism:first-child {
   @if $type == 'prince' {
-    margin-top: $section-title-margin-bottom - map-get($section-title-block-margin-bottom, $type);
+    margin-top: $section-title-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }

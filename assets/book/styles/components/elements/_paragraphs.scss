@@ -2,9 +2,11 @@
 //                                 Paragraphs                                 //
 //============================================================================//
 
+@import '../utilities';
+
 p {
   margin-bottom: $para-margin-bottom;
-  text-align: map-get($para-align, $type);
+  text-align: if-map-get($para-align, $type);
   widows: $widows;
   orphans: $orphans;
 }

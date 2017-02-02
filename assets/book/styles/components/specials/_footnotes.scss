@@ -2,6 +2,8 @@
 //                            Footnotes & Endnotes                            //
 //============================================================================//
 
+@import '../utilities';
+
 // Prince footnotes
 @mixin prince-footnotes {
 
@@ -21,7 +23,7 @@
     display: prince-footnote;
     padding-left: $footnote-padding-left;
     margin-left: 0;
-    font-size: map-get($footnote-font-size, $type);
+    font-size: if-map-get($footnote-font-size, $type);
     line-height: $footnote-line-height;
     text-align: left;
     text-indent: $footnote-indent;
@@ -54,7 +56,7 @@
   }
 
   .footnotes {
-    font-size: map-get($footnote-font-size, $type);
+    font-size: if-map-get($footnote-font-size, $type);
   }
 }
 

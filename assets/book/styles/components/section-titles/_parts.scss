@@ -2,12 +2,14 @@
 //                         Parts Section Titles                               //
 //============================================================================//
 
+@import '../utilities';
+
 // --- PARTS --- //
 
 .part-title-wrap {
-  margin-top: map-get($section-title-block-margin-top, $type);
+  margin-top: if-map-get($section-title-block-margin-top, $type);
   margin-right: $section-title-block-margin-right;
-  margin-bottom: map-get($section-title-block-margin-bottom, $type);
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   margin-left: $section-title-block-margin-left;
 
   .part-number {
@@ -15,7 +17,7 @@
     margin-top: 0;
     margin-bottom: $part-number-margin-bottom;
     font-family: $part-number-font-family;
-    font-size: map-get($part-number-font-size, $type);
+    font-size: if-map-get($part-number-font-size, $type);
     font-style: $part-number-font-style;
     font-weight: $part-number-font-weight;
     letter-spacing: $part-number-letter-spacing;
@@ -34,7 +36,7 @@
     margin-top: 0;
     margin-bottom: 0;
     font-family: $part-title-font-family;
-    font-size: map-get($part-title-font-size, $type);
+    font-size: if-map-get($part-title-font-size, $type);
     font-style: $part-title-font-style;
     font-weight: $part-title-font-weight;
     hyphens: none;

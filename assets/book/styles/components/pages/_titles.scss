@@ -2,9 +2,11 @@
 //                                Title Page(s)                                  //
 //============================================================================//
 
+@import '../utilities';
+
 // Half Title Page
 #half-title-page {
-  display: map-get($title-half-title-display, $type);
+  display: if-map-get($title-half-title-display, $type);
 }
 
 #half-title-page > h1.title {
@@ -24,7 +26,7 @@
 h1.title {
   margin-top: $title-title-block-margin-top;
   font-family: $title-title-font-family;
-  font-size: map-get($title-title-font-size, $type);
+  font-size: if-map-get($title-title-font-size, $type);
   font-style: $title-title-font-style;
   font-weight: $title-title-font-weight;
   hyphens: none;
@@ -37,7 +39,7 @@ h1.title {
 h2.subtitle {
   margin-top: $title-subtitle-margin-top;
   font-family: $title-subtitle-font-family;
-  font-size: map-get($title-subtitle-font-size, $type);
+  font-size: if-map-get($title-subtitle-font-size, $type);
   font-style: $title-subtitle-font-style;
   font-weight: $title-subtitle-font-weight;
   hyphens: none;
@@ -48,9 +50,9 @@ h2.subtitle {
 }
 
 h3.author {
-  margin-top: map-get($title-author-margin-top, $type);
+  margin-top: if-map-get($title-author-margin-top, $type);
   font-family: $title-author-font-family;
-  font-size: map-get($title-author-font-size, $type);
+  font-size: if-map-get($title-author-font-size, $type);
   font-style: $title-author-font-style;
   font-weight: $title-author-font-weight;
   hyphens: none;

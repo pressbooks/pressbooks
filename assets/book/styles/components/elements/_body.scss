@@ -2,12 +2,14 @@
 //                                   Body                                     //
 //============================================================================//
 
+@import '../utilities';
+
 body {
   font-family: $body-font-family;
-  font-size: map-get($body-font-size, $type);
+  font-size: if-map-get($body-font-size, $type);
   font-style: $body-font-style;
   font-weight: $body-font-weight;
-  line-height: map-get($body-line-height, $type);
+  line-height: if-map-get($body-line-height, $type);
   word-wrap: break-word;
   overflow-wrap: break-word;
  }

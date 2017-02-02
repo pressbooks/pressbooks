@@ -2,10 +2,14 @@
 //                                    Colors                                  //
 //============================================================================//
 
+@import 'utilities';
+
 /* COLORS */
 /* STANDARD TEXT COLORS */
 
-a {color: map-get($link-color, $type);}
+a {
+  color: if-map-get($link-color, $type);
+}
 
 body,
 .entry-content {color: $body-color;}

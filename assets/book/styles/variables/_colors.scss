@@ -2,6 +2,8 @@
 //                              Variables || Colors                           //
 //============================================================================//
 
+@import '../utilities';
+
 // Is this inception .. $color-1 vs $default-color variable?
 
 $default-color:(
@@ -11,7 +13,7 @@ $default-color:(
 ) !default;
 
 //$color-1: initial !default; //body text, usually black
-$color-1: map-get($default-color, $type);
+$color-1: if-map-get($default-color, $type);
 $color-2: $color-1 !default; //highlight color, for titles etc.
 $color-3: $color-1 !default; //second hightlight color, or black
 $color-4: #eee !default; //shaded

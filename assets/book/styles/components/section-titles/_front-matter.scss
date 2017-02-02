@@ -2,10 +2,12 @@
 //                        Front Matter Section Titles                         //
 //============================================================================//
 
+@import '../utilities';
+
 .front-matter-title-wrap {
-  margin-top: map-get($section-title-block-margin-top, $type);
+  margin-top: if-map-get($section-title-block-margin-top, $type);
   margin-right: $section-title-block-margin-right;
-  margin-bottom: map-get($section-title-block-margin-bottom, $type);
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   margin-left: $section-title-block-margin-left;
 
   .front-matter-number {
@@ -18,7 +20,7 @@
     margin-top: 0;
     margin-bottom: 0;
     font-family: $front-matter-title-font-family;
-    font-size: map-get($section-title-font-size, $type);
+    font-size: if-map-get($section-title-font-size, $type);
     font-style: $front-matter-title-font-style;
     font-weight: $front-matter-title-font-weight;
     hyphens: none;
@@ -31,12 +33,12 @@
 
 #toc h1 {
   display: block;
-  margin-top: map-get($section-title-block-margin-top, $type);
+  margin-top: if-map-get($section-title-block-margin-top, $type);
   margin-right: $section-title-block-margin-right;
-  margin-bottom: map-get($section-title-block-margin-bottom, $type);
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   margin-left: $section-title-block-margin-left;
   font-family: $front-matter-title-font-family;
-  font-size: map-get($section-title-font-size, $type);
+  font-size: if-map-get($section-title-font-size, $type);
   font-style: $front-matter-title-font-style;
   font-weight: $front-matter-title-font-weight;
   hyphens: none;
