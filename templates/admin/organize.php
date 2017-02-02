@@ -10,6 +10,7 @@ global $user_ID;
 $statuses = get_post_statuses();
 $book_structure = \Pressbooks\Book::getBookStructure();
 $book_is_public = ( 1 == get_option( 'blog_public' ) );
+$disable_comments = \Pressbooks\Utility\disable_comments();
 ?>
 
 <div class="wrap">
@@ -46,7 +47,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 		    <a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a>
 		<?php endif; ?>
 	</h2>
-	
+
 	<?php // Iterate through types and output nice tables for each one.
 
 	$types = array(
@@ -76,7 +77,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 						        <a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php echo $part['post_title']; ?></a>
 						    </th>
 					        <th><?php _e( 'Author', 'pressbooks' ); ?></th>
-					        <th><?php _e( 'Comments', 'pressbooks' ); ?></th>
+					        <?php if ( false == $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
 					        <th><?php _e( 'Status', 'pressbooks' ); ?></th>
 							<th><?php _e( 'Private', 'pressbooks' ); ?></th>
 							<th><?php _e( 'Show Title', 'pressbooks' ); ?></th>
@@ -90,9 +91,9 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 					        </th>
 					    </tr>
 				    </thead>
-				
+
 					<?php if ( count( $part['chapters'] ) > 0 ) : ?>
-				    
+
 				    <tbody id="the-list">
 					<?php foreach ( $part['chapters'] as $content ) : ?>
 					    <tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
@@ -106,14 +107,14 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 					        <td class="author column-author">
 								<?php echo $content['post_author'] == $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; ?>
 					        </td>
-					        <td class="comments column-comments">
+					        <?php if ( false == $disable_comments ) : ?><td class="comments column-comments">
 					            <a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 									<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 					            </a>
-					        </td>
+					        </td><?php endif; ?>
 					        <td class="status column-status"><?php echo $statuses[ $content['post_status'] ]; ?></td>
 					        <td class="status column-privacy">
-						    	<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />	        
+						    	<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />
 					        </td>
 							<?php $export = get_post_meta( $content['ID'], 'pb_export', true ); ?>
 					        <td class="export column-showtitle">
@@ -133,7 +134,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 					    <tr>
 					        <th>&nbsp;</th>
 					        <th>&nbsp;</th>
-					        <th>&nbsp;</th>
+					        <?php if ( false == $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
 					        <th>&nbsp;</th>
 					        <th>&nbsp;</th>
 					        <th>&nbsp;</th>
@@ -152,7 +153,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 			    <tr>
 			        <th><?php echo $type_name; ?></th>
 			        <th><?php _e( 'Author', 'pressbooks' ); ?></th>
-			        <th><?php _e( 'Comments', 'pressbooks' ); ?></th>
+			        <?php if ( false == $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
 			        <th><?php _e( 'Status', 'pressbooks' ); ?></th>
 					<th><?php _e( 'Private', 'pressbooks' ); ?></th>
 					<th><?php _e( 'Show Title', 'pressbooks' ); ?></th>
@@ -160,7 +161,7 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 			        <th><?php _e( 'Edit', 'pressbooks' ); ?></th>
 			    </tr>
 		    </thead>
-		
+
 		    <tbody id="the-list">
 			<?php foreach ( $book_structure[ $type_slug ] as $content ) : ?>
 			    <tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
@@ -174,14 +175,14 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 			        <td class="author column-author">
 						<?php echo $content['post_author'] == $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; ?>
 			        </td>
-			        <td class="comments column-comments">
+			        <?php if ( false == $disable_comments ) : ?><td class="comments column-comments">
 			            <a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 							<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 			            </a>
-			        </td>
+			        </td><?php endif; ?>
 			        <td class="status column-status"><?php echo $statuses[ $content['post_status'] ]; ?></td>
 			        <td class="status column-privacy">
-				    	<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />	        
+				    	<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />
 			        </td>
 					<?php $export = get_post_meta( $content['ID'], 'pb_export', true ); ?>
 			        <td class="status column-showtitle">
@@ -199,8 +200,8 @@ $book_is_public = ( 1 == get_option( 'blog_public' ) );
 		    <tfoot>
 			    <tr>
 			        <th>&nbsp;</th>
-			        <th>&nbsp;</th>
-			        <th>&nbsp;</th>
+			        <th>&nbsp;</th><?php if ( false == $disable_comments ) : ?>
+							<th>&nbsp;</th><?php endif; ?>
 			        <th>&nbsp;</th>
 			        <th>&nbsp;</th>
 			        <th>&nbsp;</th>
