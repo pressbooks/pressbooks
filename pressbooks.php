@@ -46,7 +46,7 @@ add_action( 'wp_login', '_pb_session_kill' );
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
-	define( 'PB_PLUGIN_VERSION', '3.9.6' );
+	define( 'PB_PLUGIN_VERSION', '3.9.7' );
 }
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) ) {

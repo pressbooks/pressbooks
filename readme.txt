@@ -1,11 +1,10 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.6
+Version: 3.9.7-dev
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.7
-Tested up to: 4.7
-Version: 3.9.6
+Requires at least: 4.7.2
+Tested up to: 4.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
