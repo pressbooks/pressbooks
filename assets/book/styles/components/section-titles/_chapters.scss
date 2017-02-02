@@ -130,7 +130,7 @@ blockquote.aphorism,
   margin-bottom: map-get($section-title-block-margin-bottom, $type);
   font-family: $aphorism-font-family;
   font-size: map-get($aphorism-font-size, $type);
-  line-height: map-get($xbody-line-height, $type); //fixme ... should not have to be 'xbody'
+  line-height: map-get($body-line-height, $type);
   text-align: $aphorism-align;
   text-indent: 0;
 
