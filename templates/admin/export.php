@@ -81,8 +81,16 @@ if ( false == \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
 	$odt = true;
 }
 
-foreach ( $dependency_errors as $key => $format ) {
-	printf( '<div class="error"><p>%s</p></div>', sprintf( __( 'Some dependencies for %1$s export could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ), $format, 'http://docs.pressbooks.org/installation' ) );
+if ( $dependency_errors ) {
+	$formats = implode( ', ', $dependency_errors );
+	printf(
+		'<div class="error"><p>%s</p></div>',
+		sprintf(
+			__( 'Some dependencies for %1$s exports could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ),
+			( $pos = strrpos( $formats, ', ' ) ) ? substr_replace( $formats, ', ' . __( 'and', 'pressbooks' ) . ' ', $pos, strlen( ', ' ) ) : $formats,
+			'http://docs.pressbooks.org/installation'
+		)
+	);
 }
 
 if ( ! empty( $_GET['export_error'] ) ) {
