@@ -544,9 +544,9 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 		$back_matter_running_content_left = ( isset( $options['running_content_back_matter_left'] ) ) ? replace_running_content_tags( $options['running_content_back_matter_left'] ) : 'string(book-title)';
 		$back_matter_running_content_right = ( isset( $options['running_content_back_matter_right'] ) ) ? replace_running_content_tags( $options['running_content_back_matter_right'] ) : 'string(section-title)';
 		$scss .= "\$front-matter-running-content-left: $front_matter_running_content_left; \n";
-		$scss .= "\$front-matter-running-content-left: $front_matter_running_content_right; \n";
+		$scss .= "\$front-matter-running-content-right: $front_matter_running_content_right; \n";
 		$scss .= "\$introduction-running-content-left: $introduction_running_content_left; \n";
-		$scss .= "\$introduction-running-content-left: $introduction_running_content_right; \n";
+		$scss .= "\$introduction-running-content-right: $introduction_running_content_right; \n";
 		$scss .= "\$part-running-content-left: $part_running_content_left; \n";
 		$scss .= "\$part-running-content-right: $part_running_content_right; \n";
 		$scss .= "\$chapter-running-content-left: $chapter_running_content_left; \n";
