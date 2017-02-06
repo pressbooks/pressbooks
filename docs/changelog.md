@@ -37,6 +37,7 @@ permalink: /changelog/
 * **Fix:** Deleted books will now be removed from user catalogs (see #412).
 * **Fix:** Fixed an issue where hyphenation would be enabled in Prince exports even if it was disabled in theme options (see #645).
 * **Fix:** Fixed an issue where custom running content was being displayed in the wrong place (see #623).
+* **Fix:** Fixed an issue where OpenOffice files would not be properly exposed for download (see #649).
 
 ### 3.9.6
 **NOTICE:** Pressbooks now requires [WordPress 4.7 "Vaughan"](https://wordpress.org/news/2016/12/vaughan/).
