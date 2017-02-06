@@ -63,3 +63,22 @@ div.epigraph {
     text-align: $epigraph-align;
   }
 }
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    #copyright-page {
+      margin: 10%;
+      font-family: normal;
+      font-style: normal;
+      text-indent: 0;
+    }
+
+    #copyright-page p {
+      margin-bottom: .5em;
+      font-family: normal;
+      font-size: .875em;
+      font-style: normal;
+      text-indent: 0;
+    }
+  }
+}

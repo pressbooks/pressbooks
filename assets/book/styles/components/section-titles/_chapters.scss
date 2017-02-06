@@ -172,3 +172,59 @@ h2.chapter-subtitle + .aphorism {
     margin-top: 0;
   }
 }
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    div.chapter-title-wrap {
+      margin-top: 0;
+      margin-bottom: 0;
+      font-size: 1.5em;
+    }
+
+    h3.chapter-number {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1.2em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+
+    h2.chapter-title {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1.5em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+
+    h2.chapter-subtitle {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      font-size: .9em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+
+    h2.chapter-author {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      font-size: .8em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+  }
+
+  @media amzn-kf8 {
+     .chapter-title-wrap h2.chapter-title::before {
+        content: '';
+     }
+
+     .chapter-title-wrap h2.chapter-title::after {
+        content: '';
+     }
+  }
+}

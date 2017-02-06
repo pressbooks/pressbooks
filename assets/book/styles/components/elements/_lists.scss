@@ -60,20 +60,24 @@ dl {
   }
 }
 
-@mixin mobi-lists {
+@if $type == 'epub' {
   @media amzn-mobi {
+    ul,
+    ol {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
     ul {
       text-align: left !important;
     }
+
     ol {
       text-align: left !important;
     }
+
     li {
       text-align: left !important;
     }
   }
-}
-
-@if $type == 'epub' {
-  @include mobi-lists;
 }

@@ -13,3 +13,13 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
  }
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    body {
+      font-family: serif;
+      font-style: normal;
+      font-weight: normal;
+    }
+  }
+}

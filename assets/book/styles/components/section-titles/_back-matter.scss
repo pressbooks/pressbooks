@@ -29,3 +29,16 @@
     text-transform: $section-title-text-transform;
   }
 }
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    h1.back-matter-title {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1.3em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+     }
+  }
+}

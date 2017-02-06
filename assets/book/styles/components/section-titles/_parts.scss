@@ -45,3 +45,25 @@
     page-break-after: avoid;
   }
 }
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    h3.part-number {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1.3em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+
+    h1.part-title {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1.4em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+  }
+}
