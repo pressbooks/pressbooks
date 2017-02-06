@@ -14,12 +14,18 @@ body {
   overflow-wrap: break-word;
  }
 
-@if $type == 'epub' {
+@mixin mobi-style-body {
   @media amzn-mobi {
     body {
       font-family: serif;
+      font-size: medium;
       font-style: normal;
       font-weight: normal;
+      line-height: 1.4em;
     }
   }
+}
+
+@if $type == 'epub' {
+  @include mobi-style-body;
 }

@@ -16,10 +16,24 @@ blockquote {
   text-align: $blockquote-align;
 }
 
-@if $type == 'epub' {
+// Styling below should stay as is for web and mobi7, in theory
+
+@mixin mobi-style-blockquote {
   @media amzn-mobi {
+    blockquote,
+    .blockquote {
+      margin-top: 1em;
+      margin-right: 5%;
+      margin-bottom: 1em;
+      margin-left: 5%;
+      font-family: serif;
+      font-size: .9em;
+      font-style: normal;
+      font-weight: normal;
+    }
+
     p.bl_nonindent {
-      margin-left: 10%;
+      margin-left: 5%;
       font-size: .9em;
       font-style: normal;
       font-weight: normal;
@@ -27,18 +41,22 @@ blockquote {
     }
 
     p.bl_indent {
-      margin-left: 10%;
-      font-size: .9em;
+      margin-left: 5%;
       font-style: normal;
       font-weight: normal;
       text-indent: 1.5em;
     }
-
-    blockquote,
-    .blockquote {
-      margin-top: 1em;
-      margin-bottom: 1em;
-      margin-left: 10%;
-    }
   }
+}
+
+@mixin web-style-blockquote {
+//better yet, lets fix blockquotes in the style.scss
+}
+
+@if $type == 'epub' {
+  @include mobi-style-blockquote;
+}
+
+@if $type == 'web' {
+  @include web-style-blockquote;
 }

@@ -73,7 +73,8 @@
 }
 
 // Subtitle (outside .chapter-title-wrap)
-h2.chapter-subtitle {
+h2.chapter-subtitle,
+h2.chapter_subtitle { //ned, in web the markup is with a underscore, in xhtml it's a hyphen, whats up with that?
   display: block;
   @if $type == 'prince' {
     margin-top: $section-title-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
@@ -93,7 +94,8 @@ h2.chapter-subtitle {
 }
 
 // Author (outside .chapter-title-wrap)
-h2.chapter-author {
+h2.chapter-author,
+h2.chapter_author { //ned, in web the markup is with a underscore, in xhtml it's a hyphen, whats up with that? 
   display: block;
   @if $type == 'prince' {
     margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
