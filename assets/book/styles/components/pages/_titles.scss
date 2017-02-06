@@ -120,3 +120,57 @@ h5.publisher-city {
 @if $type == 'prince' {
   @include titles-prince;
 }
+
+@if $type == 'epub' {
+  @media amzn-kf8 {
+     #title-page h1.title::before {
+           content: '';
+     }
+
+     #title-page h1.title::after {
+           content: '';
+     }
+  }
+
+  @media amzn-mobi {
+    h1.title {
+      margin-top: 2em;
+      font-size: 2em;
+      font-style: normal;
+      font-weight: normal;
+    }
+
+    h2.subtitle {
+      font-size: 1em;
+      font-style: normal;
+      font-weight: normal;
+    }
+
+    h3.author {
+      font-style: normal;
+      font-weight: normal;
+    }
+
+    h4.publisher {
+      font-style: normal;
+      font-weight: normal;
+    }
+
+    h5.publisher-city {
+      font-style: normal;
+      font-weight: normal;
+    }
+
+    .pb-publogo-wrap {
+        display: none;
+    }
+
+    .pb-publogo {
+        display: none;
+    }
+
+    .pb-publogo-wide {
+        display: none;
+    }
+  }
+}
