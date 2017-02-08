@@ -106,8 +106,13 @@ class Pdf extends Export {
 	 *
 	 */
 	function __construct() {
-		// don't know who would actually wait for 10 minutes, but it's here
-		set_time_limit( 600 );
+		// don't know who would want to wait for 20 minutes, but it's here
+		if ( ! ini_get( 'safe_mode' ) ) {
+			$time_limit = (int) ini_get( 'max_execution_time' );
+			if ( $time_limit < 1200 ) {
+				set_time_limit( 1200 );
+			}
+		}
 
 		$memory_available = ( int ) ini_get( 'memory_limit' );
 
