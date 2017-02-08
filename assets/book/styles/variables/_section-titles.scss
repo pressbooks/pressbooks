@@ -66,7 +66,7 @@ $section-title-text-transform: none !default;
 
 $section-subtitle-margin-bottom: .5em !default;
 $section-subtitle-font-family: $font-2 !default;
-$section-subtitle-font-size: 1em;
+$section-subtitle-font-size: 1em !default;
 $section-subtitle-font-style: normal !default;
 $section-subtitle-font-weight: normal !default;
 $section-subtitle-align: center !default;
@@ -85,7 +85,7 @@ $section-author-text-transform: uppercase !default;
 // Section Aphorism
 
 $aphorism-font-family: $body-font-family !default;
-$aphorism-font-size: .9em; //fixme
+$aphorism-font-size: .9em; // TODO
 $aphorism-align: left !default;
 $aphorism-cite-font-size: .9em !default;
 
