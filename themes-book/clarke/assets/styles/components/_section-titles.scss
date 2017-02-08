@@ -26,33 +26,33 @@
 
 // Section title wrap
 
-// $section-title-block-margin-top:(
-//   epub: 2em,
-//   prince: 3cm,
-//   web: 3em
-// ) !default;
-// $section-title-block-margin-bottom:(
-//   epub: 2em,
-//   prince: 2cm,
-//   web: 2em
-// ) !default;
+$section-title-block-margin-top:(
+  epub: 0,
+  prince: 0,
+  web: 3em
+) !default;
+$section-title-block-margin-bottom:(
+  epub: 4em,
+  prince: 2cm,
+  web: 2em
+) !default;
 // $section-title-block-margin-left: 0 !default;
 // $section-title-block-margin-right: 0 !default;
 //
 // // Section title
 //
 // $section-title-margin-top: 0;
-// $section-title-margin-bottom:(
-//   epub: 2em,
-//   prince: 1.5cm,
-//   web: 2em
-// ) !default;
+$section-title-margin-bottom:(
+  epub: 2em,
+  prince: .125cm,
+  web: 2em
+) !default;
 // $section-title-font-family: $font-2 !default;
-// $section-title-font-size:(
-//   epub: 1.5em,
-//   prince: 2em,
-//   web: 2em
-// ) !default;
+$section-title-font-size:(
+  epub: 1.33em,
+  prince: 1.33em,
+  web: 2em
+) !default;
 // $section-title-font-style: normal !default;
 $section-title-font-weight: bold !default;
 $section-title-align: left !default;
@@ -60,9 +60,17 @@ $section-title-align: left !default;
 //
 // // Section subtitle
 //
-// $section-subtitle-margin-bottom: .5em !default;
+$section-subtitle-margin-bottom: (
+  epub: 1em,
+  prince: .125cm,
+  web: .5em
+) !default;
 // $section-subtitle-font-family: $font-2 !default;
-// $section-subtitle-font-size: 1em;
+$section-subtitle-font-size: (
+  epub: 1.33em,
+  prince: 1.0833em,
+  web: 1em
+) !default;
 // $section-subtitle-font-style: normal !default;
 // $section-subtitle-font-weight: normal !default;
 $section-subtitle-align: left !default;
@@ -70,9 +78,17 @@ $section-subtitle-align: left !default;
 //
 // // Section author
 //
-// $section-author-margin-bottom: .5em !default;
+$section-author-margin-bottom: (
+  epub: 1.5em,
+  prince: .625cm,
+  web: .5em
+) !default;
 // $section-author-font-family: $font-2 !default;
-// $section-author-font-size: 1em !default;
+$section-author-font-size: (
+  epub: .9em,
+  prince: .833em,
+  web: 1em
+) !default;
 // $section-author-font-style: normal !default;
 $section-author-font-weight: bold;
 $section-author-align: left !default;
@@ -83,7 +99,7 @@ $section-author-text-transform: none !default;
 // $aphorism-font-family: $body-font-family !default;
 // $aphorism-font-size: .9em; //fixme
 $aphorism-align: center !default;
-// $aphorism-cite-font-size: .9em !default;
+$aphorism-cite-font-size: .875em !default;
 //
 // // PARTS
 //
@@ -92,11 +108,7 @@ $aphorism-align: center !default;
 // $part-number-display: block !default;
 // $part-number-margin-bottom: 1em !default;
 // $part-number-font-family: $font-3 !default;
-// $part-number-font-size:(
-//   epub: 1em,
-//   prince: 1.5em,
-//   web: 1em
-// ) !default;
+$part-number-font-size: 1.33em !default;
 // $part-number-font-style: normal !default;
 // $part-number-font-weight: normal !default;
 // $part-number-letter-spacing: 1px !default;
@@ -108,11 +120,7 @@ $part-number-align: left !default;
 // // Part Title
 //
 // $part-title-font-family: $font-2 !default;
-// $part-title-font-size:(
-//   epub: 1.75em,
-//   prince: 2.5em,
-//   web: 2.5em
-// ) !default;
+$part-title-font-size: 1.75em !default;
 // $part-title-font-style: normal !default;
 $part-title-font-weight: bold !default;
 $part-title-align: left !default;
@@ -133,13 +141,17 @@ $part-title-text-transform: none !default;
 // // Chapter number
 //
 // $chapter-number-display: block !default;
-// $chapter-number-margin-bottom: 1em !default;
+$chapter-number-margin-bottom: (
+  epub: 1.125em,
+  prince: .125em,
+  web: 1em
+) !default;
 // $chapter-number-font-family: $font-3 !default;
-// $chapter-number-font-size:(
-//   epub: 1em,
-//   prince: 1.5em,
-//   web: 1em
-// ) !default;
+$chapter-number-font-size:(
+  epub: 1.33em,
+  prince: 1.33em,
+  web: 1em
+) !default;
 // $chapter-number-font-style: normal !default;
 $chapter-number-font-weight: bold !default;
 // $chapter-number-line-height: 1em !default;
@@ -175,3 +187,32 @@ $chapter-title-font-weight: bold !default;
 @import 'components/section-titles/front-matter';
 @import 'components/section-titles/chapters';
 @import 'components/section-titles/back-matter';
+
+.part-number::before {
+  content: '' !important;
+}
+
+.part-title-wrap,
+.front-matter-title-wrap,
+.chapter-title-wrap,
+.back-matter-title-wrap {
+  border-top: 1px solid #000;
+
+  .part-number,
+  .chapter-number,
+  .chapter-title {
+    margin-top: .5cm;
+  }
+}
+
+.aphorism {
+  width: 70%;
+  margin-right: auto;
+  margin-left: auto;
+  font-style: italic;
+
+  cite {
+    text-align: right;
+    font-variant: small-caps;
+  }
+}

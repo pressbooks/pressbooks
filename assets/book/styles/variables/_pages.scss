@@ -11,7 +11,11 @@ $title-half-title-display:(
   prince: initial,
   web: none
 ) !default;
-$title-half-title-block-margin-top: if-map-get($section-title-block-margin-top, $type) !default;
+$title-half-title-block-margin-top: (
+  epub: 2em,
+  prince: 3cm,
+  web: 3em
+) !default;
 $title-half-title-font-family: $font-2 !default;
 $title-half-title-font-size: 1.5em !default;
 $title-half-title-font-style: normal !default;
@@ -25,7 +29,11 @@ $title-half-title-text-transform: none !default;
 
 // Title
 
-$title-title-block-margin-top: if-map-get($section-title-block-margin-top, $type) !default;
+$title-title-block-margin-top: (
+  epub: 2em,
+  prince: 3cm,
+  web: 3em
+) !default;
 $title-title-font-family: $font-2 !default;
 $title-title-font-size:(
   epub: 1.75em,

@@ -2,10 +2,12 @@
 //                           Front Matter Pages                               //
 //============================================================================//
 
+@import '../utilities';
+
 // Before Title
 
 .before-title .front-matter-title-wrap {
-  margin-top: $before-title-title-block-margin-top;
+  margin-top: if-map-get($before-title-title-block-margin-top, $type);
   margin-bottom: $before-title-title-block-margin-bottom;
 }
 
@@ -18,9 +20,9 @@
     float: $copyright-float;
 
     p {
-      margin-bottom: $copyright-margin-bottom;
+      margin-bottom: if-map-get($copyright-margin-bottom, $type);
       font-family: $copyright-font-family;
-      font-size: $copyright-font-size;
+      font-size: if-map-get($copyright-font-size, $type);
       font-style: $copyright-font-style;
       font-weight: $copyright-font-weight;
       line-height: $copyright-line-height;

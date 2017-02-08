@@ -12,7 +12,7 @@
 #half-title-page > h1.title {
   margin-top: $title-half-title-block-margin-top;
   font-family: $title-half-title-font-family;
-  font-size: $title-half-title-font-size;
+  font-size: if-map-get($title-half-title-font-size, $type);
   font-style: $title-half-title-font-style;
   font-weight: $title-half-title-font-weight;
   hyphens: none;
@@ -24,7 +24,7 @@
 
 // Title Page
 h1.title {
-  margin-top: $title-title-block-margin-top;
+  margin-top: if-map-get($title-title-block-margin-top, $type);
   font-family: $title-title-font-family;
   font-size: if-map-get($title-title-font-size, $type);
   font-style: $title-title-font-style;
@@ -37,7 +37,7 @@ h1.title {
 }
 
 h2.subtitle {
-  margin-top: $title-subtitle-margin-top;
+  margin-top: if-map-get($title-subtitle-margin-top, $type);
   font-family: $title-subtitle-font-family;
   font-size: if-map-get($title-subtitle-font-size, $type);
   font-style: $title-subtitle-font-style;
@@ -78,7 +78,7 @@ h4.publisher {
   float: bottom;
   margin-bottom: $title-publisher-margin-bottom;
   font-family: $title-publisher-font-family;
-  font-size: $title-publisher-font-size;
+  font-size: if-map-get($title-publisher-font-size, $type);
   font-style: $title-publisher-font-style;
   font-weight: $title-publisher-font-weight;
   hyphens: none;
@@ -93,7 +93,7 @@ h5.publisher-city {
   float: bottom;
   margin-top: 0;
   font-family: $title-publisher-city-font-family;
-  font-size: $title-publisher-city-font-size;
+  font-size: if-map-get($title-publisher-city-font-size, $type);
   font-style: $title-publisher-city-font-style;
   font-weight: $title-publisher-city-font-weight;
   hyphens: none;

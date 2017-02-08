@@ -19,7 +19,7 @@
 
 .entry-title span {
   display: $chapter-number-display;
-  margin-bottom: $chapter-number-margin-bottom;
+  margin-bottom: if-map-get($chapter-number-margin-bottom, $type);
   font-family: $chapter-number-font-family;
   font-size: if-map-get($chapter-number-font-size, $type);
   font-style: $chapter-number-font-style;
@@ -44,7 +44,7 @@
   .chapter-number {
     display: $chapter-number-display;
     margin-top: 0;
-    margin-bottom: $chapter-number-margin-bottom;
+    margin-bottom: if-map-get($chapter-number-margin-bottom, $type);
     font-family: $chapter-number-font-family;
     font-size: if-map-get($chapter-number-font-size, $type);
     font-style: $chapter-number-font-style;
@@ -77,14 +77,14 @@ h2.chapter-subtitle,
 h2.chapter_subtitle { //ned, in web the markup is with a underscore, in xhtml it's a hyphen, whats up with that?
   display: block;
   @if $type == 'prince' {
-    margin-top: $section-title-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
+    margin-top: if-map-get($section-title-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
     margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
     margin-bottom: $section-subtitle-margin-bottom;
   }
   font-family: $section-subtitle-font-family;
-  font-size: $section-subtitle-font-size;
+  font-size: if-map-get($section-subtitle-font-size, $type);
   font-style: $section-subtitle-font-style;
   font-weight: $section-subtitle-font-weight;
   hyphens: none;
@@ -95,12 +95,12 @@ h2.chapter_subtitle { //ned, in web the markup is with a underscore, in xhtml it
 
 // Author (outside .chapter-title-wrap)
 h2.chapter-author,
-h2.chapter_author { //ned, in web the markup is with a underscore, in xhtml it's a hyphen, whats up with that? 
+h2.chapter_author { //ned, in web the markup is with a underscore, in xhtml it's a hyphen, whats up with that?
   display: block;
   @if $type == 'prince' {
     margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
-    margin-bottom: $section-author-margin-bottom;
+    margin-bottom: if-map-get($section-author-margin-bottom, $type);
   }
   font-family: $section-author-font-family;
   font-size: if-map-get($section-author-font-size, $type);
@@ -113,7 +113,7 @@ h2.chapter_author { //ned, in web the markup is with a underscore, in xhtml it's
 
 h2.chapter-subtitle + h2.chapter-author {
   @if $type == 'prince' {
-    margin-top: $section-subtitle-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
+    margin-top: if-map-get($section-subtitle-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -122,7 +122,7 @@ h2.chapter-subtitle + h2.chapter-author {
 h2.chapter-title-wrap + h2.chapter-author,
 h2.chapter-author:first-child {
   @if $type == 'prince' {
-    margin-top: $section-title-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
+    margin-top: if-map-get($section-title-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -140,7 +140,7 @@ blockquote.aphorism,
 
   cite {
     display: block;
-    font-size: $aphorism-cite-font-size;
+    font-size: if-map-get($aphorism-cite-font-size, $type);
 
     &::before {
       content: '–';
@@ -151,7 +151,7 @@ blockquote.aphorism,
 h2.chapter-author + blockquote.aphorism,
 h2.chapter-author + .aphorism {
   @if $type == 'prince' {
-    margin-top: $section-author-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
+    margin-top: if-map-get($section-author-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -160,7 +160,7 @@ h2.chapter-author + .aphorism {
 h2.chapter-subtitle + blockquote.aphorism,
 h2.chapter-subtitle + .aphorism {
   @if $type == 'prince' {
-    margin-top: $section-subtitle-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
+    margin-top: if-map-get($section-subtitle-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
@@ -169,7 +169,7 @@ h2.chapter-subtitle + .aphorism {
 .chapter-title-wrap + blockquote.aphorism,
 .aphorism:first-child {
   @if $type == 'prince' {
-    margin-top: $section-title-margin-bottom - if-map-get($section-title-block-margin-bottom, $type);
+    margin-top: if-map-get($section-title-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
   }
