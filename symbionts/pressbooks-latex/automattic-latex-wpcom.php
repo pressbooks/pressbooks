@@ -44,7 +44,7 @@ class Automattic_Latex_WPCOM {
 	function wrapper( $wrapper = false ) {}
 
 	function url() {
-		$this->url = 'http://s.wordpress.com/latex.php?latex=' . rawurlencode( $this->latex ) . "&bg=$this->bg_hex&fg=$this->fg_hex&s=$this->size";
+		$this->url = '//s.wordpress.com/latex.php?latex=' . rawurlencode( $this->latex ) . "&bg=$this->bg_hex&fg=$this->fg_hex&s=$this->size";
 		return $this->url;
 	}
 }
