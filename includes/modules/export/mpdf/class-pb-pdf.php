@@ -139,7 +139,11 @@ class Pdf extends Export {
 		if ( ! $this->hasDependencies() ) {
 			return false; // mPDF is not installed
 		}
-		require_once( PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php' );
+		if ( file_exists( PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php' ) ) {
+			require_once( PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php' );
+		} else {
+			require_once( PB_MPDF_DIR . 'vendor/mpdf/mpdf/mpdf.php' );
+		}
 		$this->mpdf = new \mPDF( '' );
 		$this->mpdf->SetAnchor2Bookmark( 1 );
 		$this->mpdf->ignore_invalid_utf8 = true;
