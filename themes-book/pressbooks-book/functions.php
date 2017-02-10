@@ -398,13 +398,21 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	// Change body font size
 	if ( $sass->isCurrentThemeCompatible( 2 ) && isset( $options['pdf_body_font_size'] ) ) {
 		$fontsize = $options['pdf_body_font_size'] . 'pt';
-		$scss .= "\$body-font-size: $fontsize; \n";
+		$scss .= "\$body-font-size: (\n
+		  epub: medium,\n
+		  prince: $fontsize,
+		  web: 14pt\n
+		); \n";
 	}
 
 	// Change body line height
 	if ( $sass->isCurrentThemeCompatible( 2 ) && isset( $options['pdf_body_line_height'] ) ) {
 		$lineheight = $options['pdf_body_line_height'] . 'em';
-		$scss .= "\$body-line-height: $lineheight; \n";
+		$scss .= "\$body-line-height: (\n
+		  epub: 1.4em,\n
+		  prince: $lineheight,
+		  web: 1.8em,\n
+		); \n";
 	}
 
 	// Page dimensions

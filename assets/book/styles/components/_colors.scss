@@ -2,11 +2,18 @@
 //                                    Colors                                  //
 //============================================================================//
 
+@import 'utilities';
+
 /* COLORS */
 /* STANDARD TEXT COLORS */
 
-a {color: $link-color;}
-body {color: $body-color;}
+a {
+  color: if-map-get($link-color, $type);
+}
+
+body,
+.entry-content {color: $body-color;}
+
 blockquote {color: $blockquote-color;}
 
 /* BODY HEADER COLOR */
@@ -47,10 +54,12 @@ h3.part-number {color: $part-number-color;}
 h1.part-title {color: $part-title-color;}
 
 /* CHAPTER TITLE COLOR */
-.chapter-number {
+.chapter-number,
+.entry-title span {
   color: $chapter-number-color;
   border-bottom-color: $chapter-number-border-bottom-color;
 }
+
 h2.chapter-title {color: $chapter-title-color;}
 h2.chapter-subtitle {color: $chapter-subtitle-color;}
 h2.chapter-author {color: $chapter-author-color;}

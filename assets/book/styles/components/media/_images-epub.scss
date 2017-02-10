@@ -83,6 +83,21 @@ img {
 
 // Mobi
 
+@media amzn-mobi {
+  .wp-caption {
+    text-align: center;
+  }
+  .wp-nocaption {
+    text-align: center;
+  }
+  p.wp-caption-text {
+    font-size: .8em !important;
+    font-style: italic !important;
+    margin-bottom: 1em !important;
+    text-align: center !important;
+  }
+}
+
 @media amzn-kf8 {
   .wp-caption,
   .wp-nocaption {

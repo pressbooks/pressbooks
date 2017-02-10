@@ -32,6 +32,12 @@
   .pdf-only {
     display: none;
   }
+
+  @media amzn-mobi {
+    .mobi-display-none {
+      display: none;
+    }
+  }
 }
 
 @mixin pdf-display-none {

@@ -2,7 +2,18 @@
 //                              Variables || Colors                           //
 //============================================================================//
 
-$color-1: initial !default; //body color, usually black
+@import '../utilities';
+
+// Is this inception .. $color-1 vs $default-color variable?
+
+$default-color:(
+  epub: initial,
+  prince: initial,
+  web: #373d3f
+) !default;
+
+//$color-1: initial !default; //body text, usually black
+$color-1: if-map-get($default-color, $type);
 $color-2: $color-1 !default; //highlight color, for titles etc.
 $color-3: $color-1 !default; //second hightlight color, or black
 $color-4: #eee !default; //shaded
@@ -13,13 +24,11 @@ $color-6: $color-1 !default;
 //HTML ELEMENTS COLOR
 
 //A-LINK COLOR
-@if $type == 'epub' {
-    $link-color: initial !default;
-} @else if $type == 'prince' {
-    $link-color: $color-1 !default;
-} @else if $type == 'web' {
-    $link-color: $color-1 !default;
-}
+$link-color: (
+  epub: initial,
+  prince: $color-1,
+  web: initial
+) !default;
 
 //BODY COLOR
 $body-color: $color-1 !default;

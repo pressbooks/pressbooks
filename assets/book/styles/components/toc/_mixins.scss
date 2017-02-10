@@ -1,5 +1,10 @@
 //GLOBAL TOC - MIXINS
 
+@import '../utilities';
+
+// note: for TOC title "Contents" see
+//~/components/section-titles/front-matter
+
 @mixin toc-front-matter-title {
   color: $toc-front-matter-title-color;
   font-family: $toc-front-matter-title-font-family;
@@ -49,7 +54,7 @@
   color: $toc-part-title-color;
   font-family: $toc-part-title-font-family;
   text-align: left;
-  font-size: $toc-part-title-font-size;
+  font-size: if-map-get($toc-part-title-font-size, $type);
   font-style: $toc-part-title-font-style;
   font-weight: $toc-part-title-font-weight;
   text-transform: $toc-part-title-text-transform;
