@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.7-dev
+Version: 3.9.7-RC1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.7.2
 Tested up to: 4.7.2
@@ -240,6 +240,8 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 
 * **Feature:** Added support for Canadian Indigenous syllabics, which are used for the Chipewyan, Inuktitut, Plains Cree, Cree, Moose Cree, Slave, Northern Cree, Naskapi, Swampy Cree, Southern East Cree, and Ojibwa languages (props to @bdolor; see #635).
 * **Feature:** Part numbers are now displayed consistently across all formats (see #341).
+* **Enhancement:** SCSS maps are now used to provide variables for different export formats.
+* **Enhancement:** The global `_titles.scss` partial for SCSS v2 themes has been split into `_pages.scss` and `_section-titles.scss` for better separation of concerns.
 * **Enhancement:** Added the `pb_add_latex_renderer_option`, `pb_require_latex`, `pb_latex_renderers`, and `pb_add_latex_config_scripts` filters and the `pb_enqueue_latex_scripts` action to support custom LaTeX renderers (props to @monkecheese; see #583).
 * **Enhancement:** Added the `pb_root_description` filter to allow the default root blog description to be changed.
 * **Enhancement:** Custom theme options can now be registered, either on an existing tab or on a new tab (see #470 and #618).
@@ -269,6 +271,9 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **Fix:** Fixed an issue where hyphenation would be enabled in Prince exports even if it was disabled in theme options (see #645).
 * **Fix:** Fixed an issue where custom running content was being displayed in the wrong place (see #623).
 * **Fix:** Fixed an issue where OpenOffice files would not be properly exposed for download (see #649).
+* **Fix:** The time allowed for an mPDF export to complete has been conditionally increased to account for certain edge cases (props to @bdolor; see #652).
+* **Fix:** Added between section numbers and titles in the mPDF TOC (props to @bdolor; see #653).
+* **Fix:** We now use the https endpoint for the Automattic LaTeX server to avoid mixed content errors (props to @bdolor; see #651).
 
 = 3.9.6 =
 **NOTICE:** Pressbooks now requires [WordPress 4.7 "Vaughan"](https://wordpress.org/news/2016/12/vaughan/).
