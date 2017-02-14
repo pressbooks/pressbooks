@@ -1,10 +1,4 @@
-$white: #fff;
-$shadow: rgba(0, 0, 0, .1);
-$fall-green: #e9ffe9;
-$verdun-green: #afa;
-$pippin: #ffe9e9;
-$monza: #faa;
-$grey: #eee;
+@import 'partials/colors';
 
 .form-table.search-form {
   th {
@@ -56,7 +50,7 @@ $grey: #eee;
       font-family: Consolas, Monaco, monospace;
       font-size: 14px;
       line-height: 1.618;
-      background-color: $grey;
+      background-color: $mercury;
       box-sizing: border-box;
 
     }
@@ -67,12 +61,12 @@ $grey: #eee;
 
     del {
       font-weight: normal;
-      background-color: $monza;
+      background-color: $cornflower-lilac;
     }
 
     ins {
       font-weight: normal;
-      background-color: $verdun-green;
+      background-color: $mint-green;
     }
 
     .content {
@@ -87,7 +81,7 @@ $grey: #eee;
 
     .replacement {
       float: right;
-      background-color: $fall-green;
+      background-color: $hint-of-green;
     }
   }
 }
