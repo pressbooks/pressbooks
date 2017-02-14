@@ -57,7 +57,7 @@
   margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   margin-left: $section-title-block-margin-left;
   font-family: $toc-title-font-family;
-  font-size: $toc-title-font-size;
+  font-size: if-map-get($toc-title-font-size, $type);
   font-style: $toc-title-font-style;
   font-weight: $toc-title-font-weight;
   hyphens: none;

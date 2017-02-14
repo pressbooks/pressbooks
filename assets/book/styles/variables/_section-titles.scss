@@ -135,7 +135,7 @@ $front-matter-title-text-transform: $section-title-text-transform !default;
 // TOC title
 
 $toc-title-font-family: $section-title-font-family !default;
-$toc-title-font-size: if-map-get($section-title-font-size, $type);
+$toc-title-font-size: $section-title-font-size !default;
 $toc-title-font-style: $section-title-font-style !default;
 $toc-title-font-weight: $section-title-font-weight !default;
 $toc-title-align: $section-title-align !default;
