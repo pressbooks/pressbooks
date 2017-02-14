@@ -3,3 +3,5 @@ scss:
 
 jshint:
   ignore_file: .jshintignore
+
+fail_on_violations: true
