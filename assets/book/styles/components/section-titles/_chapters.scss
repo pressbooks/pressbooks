@@ -61,7 +61,7 @@
   .chapter-title {
     display: block;
     margin-top: $chapter-title-margin-top;
-    margin-bottom: $chapter-title-margin-bottom;
+    margin-bottom: if-map-get($chapter-title-margin-bottom, $type);
     font-family: $chapter-title-font-family;
     font-size: if-map-get($section-title-font-size, $type);
     font-style: $chapter-title-font-style;
