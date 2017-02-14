@@ -10,7 +10,7 @@
 }
 
 #half-title-page > h1.title {
-  margin-top: $title-half-title-block-margin-top;
+  margin-top: if-map-get($title-half-title-block-margin-top, $type);
   font-family: $title-half-title-font-family;
   font-size: if-map-get($title-half-title-font-size, $type);
   font-style: $title-half-title-font-style;
