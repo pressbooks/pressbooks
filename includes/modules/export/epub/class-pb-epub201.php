@@ -866,7 +866,7 @@ class Epub201 extends Export {
 			$html .= sprintf( '<h3 class="author">%s</h3>', @$metadata['pb_author'] );
 			$html .= sprintf( '<h4 class="author">%s</h4>', @$metadata['pb_contributing_authors'] );
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
-				$html .= sprintf( '<div class="publisher-logo"><img src="%s" /></div>',  get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
+				$html .= sprintf( '<div class="publisher-logo"><img src="%s" alt="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'], __( 'Publisher Logo', 'pressbooks' ) ); // TODO: Support custom publisher logo.
 			}
 			$html .= sprintf( '<h4 class="publisher">%s</h4>', @$metadata['pb_publisher'] );
 			$html .= sprintf( '<h5 class="publisher-city">%s</h5>', @$metadata['pb_publisher_city'] );
@@ -878,7 +878,7 @@ class Epub201 extends Export {
 		$vars = array(
 			'post_title' => __( 'Title Page', 'pressbooks' ),
 			'stylesheet' => $this->stylesheet,
-			'post_content' => $html,
+			'post_content' => $this->kneadHtml( $html, 'custom' ),
 			'isbn' => @$metadata['pb_ebook_isbn'],
 			'lang' => $this->lang,
 		);
