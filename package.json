@@ -34,8 +34,8 @@
     "wiredep": "^2.2.2"
   },
   "scripts": {
-    "build": "gulp",
-    "build:production": "gulp --production",
+    "build": "bower install && gulp",
+    "build:production": "bower install && gulp --production",
     "sassdoc": "sassdoc -c sassdoc.yml assets/book/styles"
   },
   "repository": {

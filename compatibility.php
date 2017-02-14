@@ -34,7 +34,7 @@ function pb_meets_minimum_requirements() {
 	// WordPress Version -- override at your own risk!
 	global $pb_minimum_wp;
 	if ( empty( $pb_minimum_wp ) ) {
-		$pb_minimum_wp = '4.7';
+		$pb_minimum_wp = '4.7.2';
 	}
 
 	if ( ! is_multisite() || ! version_compare( get_bloginfo( 'version' ), $pb_minimum_wp, '>=' ) ) {
