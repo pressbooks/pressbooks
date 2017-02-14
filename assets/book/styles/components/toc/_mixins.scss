@@ -6,7 +6,7 @@
 //~/components/section-titles/front-matter
 
 @mixin toc-front-matter-title {
-  color: $toc-front-matter-title-color;
+  color: if-map-get($toc-front-matter-title-color, $type);
   font-family: $toc-front-matter-title-font-family;
   text-align: left;
   font-size: $toc-front-matter-title-font-size;
@@ -17,7 +17,7 @@
 }
 
 @mixin toc-front-matter-subtitle {
-  color: $toc-front-matter-subtitle-color;
+  color: if-map-get($toc-front-matter-subtitle-color, $type);
   font-family: $toc-front-matter-subtitle-font-family;
   text-align: left;
   font-size: $toc-front-matter-subtitle-font-size;
@@ -28,7 +28,7 @@
 }
 
 @mixin toc-front-matter-author {
-  color: $toc-front-matter-author-color;
+  color: if-map-get($toc-front-matter-author-color, $type);
   font-family: $toc-front-matter-author-font-family;
   text-align: left;
   font-size: $toc-front-matter-author-font-size;
@@ -40,7 +40,7 @@
 
 @mixin toc-part-number {
   display: $toc-part-number-display;
-  color: $toc-part-number-color;
+  color: if-map-get($toc-part-number-color, $type);
   font-family: $toc-part-number-font-family;
   text-align: left;
   font-size: $toc-part-number-font-size;
@@ -51,7 +51,7 @@
 }
 
 @mixin toc-part-title {
-  color: $toc-part-title-color;
+  color: if-map-get($toc-part-title-color, $type);
   font-family: $toc-part-title-font-family;
   text-align: left;
   font-size: if-map-get($toc-part-title-font-size, $type);
@@ -62,7 +62,7 @@
 }
 
 @mixin toc-chapter-number {
-  color: $toc-chapter-number-color;
+  color: if-map-get($toc-chapter-number-color, $type);
   font-family: $toc-chapter-number-font-family;
   font-size: $toc-chapter-number-font-size;
   font-style: $toc-chapter-number-font-style;
@@ -73,7 +73,7 @@
 }
 
 @mixin toc-chapter-title {
-  color: $toc-chapter-title-color;
+  color: if-map-get($toc-chapter-title-color, $type);
   font-family: $toc-chapter-title-font-family;
   font-size: $toc-chapter-title-font-size;
   font-style: $toc-chapter-title-font-style;
@@ -84,7 +84,7 @@
 }
 
 @mixin toc-chapter-subtitle {
-  color: $toc-chapter-subtitle-color;
+  color: if-map-get($toc-chapter-subtitle-color, $type);
   font-family: $toc-chapter-subtitle-font-family;
   text-align: left;
   font-size: $toc-chapter-subtitle-font-size;
@@ -95,7 +95,7 @@
 }
 
 @mixin toc-chapter-author {
-  color: $toc-chapter-author-color;
+  color: if-map-get($toc-chapter-author-color, $type);
   font-family: $toc-chapter-author-font-family;
   text-align: left;
   font-size: $toc-chapter-author-font-size;
@@ -118,7 +118,7 @@
 }
 
 @mixin toc-page-number {
-  color: $toc-page-number-color;
+  color: if-map-get($toc-page-number-color, $type);
   font-family: $toc-page-number-font-family;
   font-size: $toc-page-number-font-size;
   font-style: $toc-page-number-font-style;
@@ -129,7 +129,7 @@
 }
 
 @mixin toc-front-matter-page-number {
-  color: $toc-front-matter-page-number-color;
+  color: if-map-get($toc-front-matter-page-number-color, $type);
   font-family: $toc-page-number-font-family;
   font-size: $toc-front-matter-page-number-font-size;
   font-style: $toc-front-matter-page-number-font-style;

@@ -78,11 +78,10 @@ h2.chapter_subtitle { //ned, in web the markup is with a underscore, in xhtml it
   display: block;
   @if $type == 'prince' {
     margin-top: if-map-get($section-title-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
-    margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   } @else if $type == 'epub' {
     margin-top: 0;
-    margin-bottom: $section-subtitle-margin-bottom;
   }
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
   font-family: $section-subtitle-font-family;
   font-size: if-map-get($section-subtitle-font-size, $type);
   font-style: $section-subtitle-font-style;
