@@ -226,7 +226,6 @@ add_filter( 'xmlrpc_enabled', '__return_false' );
 remove_action( 'wp_head', 'rsd_link' );
 remove_action( 'wp_head', 'wlwmanifest_link' );
 
-
 // -------------------------------------------------------------------------------------------------------------------
 // Override other people's plugins
 // -------------------------------------------------------------------------------------------------------------------
@@ -244,3 +243,7 @@ add_filter( 'wpmu_validate_user_signup', '\Pressbooks\Registration\validate_pass
 add_filter( 'add_signup_meta', '\Pressbooks\Registration\add_temporary_password', 99 );
 add_action( 'signup_blogform', '\Pressbooks\Registration\add_hidden_password_field' );
 add_filter( 'random_password', '\Pressbooks\Registration\override_password_generation' );
+
+// Email configuration
+add_filter( 'wp_mail_from', '\Pressbooks\Utility\mail_from' );
+add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
