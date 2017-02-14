@@ -78,7 +78,11 @@ $section-subtitle-text-transform: none !default;
 
 // Section author
 
-$section-author-margin-bottom: .5em !default;
+$section-author-margin-bottom: (
+  epub: .5em,
+  prince: .375cm,
+  web: .5em
+) !default;
 $section-author-font-family: $font-2 !default;
 $section-author-font-size: 1em !default;
 $section-author-font-style: normal !default;
