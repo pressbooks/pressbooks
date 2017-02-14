@@ -64,7 +64,11 @@ $section-title-text-transform: none !default;
 
 // Section subtitle
 
-$section-subtitle-margin-bottom: .5em !default;
+$section-subtitle-margin-bottom: (
+  epub: .5em,
+  prince: .375cm,
+  web: .5em
+) !default;
 $section-subtitle-font-family: $font-2 !default;
 $section-subtitle-font-size: 1em !default;
 $section-subtitle-font-style: normal !default;
