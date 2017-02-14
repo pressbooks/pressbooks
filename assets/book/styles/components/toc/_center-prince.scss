@@ -9,10 +9,6 @@
   margin-right: $toc-center-margin-right;
   margin-left: $toc-center-margin-left;
 
-  h1 {
-    text-align: center;
-  }
-
   a::after {
     display: inline;
     content: '\A0\A0\A0' target-counter(attr(href), page);

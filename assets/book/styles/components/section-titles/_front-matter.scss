@@ -29,6 +29,7 @@
   }
 }
 
+/* OLD
 // Table of contents title should have same styling as front matter titles
 
 #toc h1 {
@@ -44,6 +45,24 @@
   hyphens: none;
   text-align: $front-matter-title-align;
   text-transform: $front-matter-title-text-transform;
+}
+*/
+
+// New TOC title
+
+#toc h1 {
+  display: block;
+  margin-top: if-map-get($section-title-block-margin-top, $type);
+  margin-right: $section-title-block-margin-right;
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
+  margin-left: $section-title-block-margin-left;
+  font-family: $toc-title-font-family;
+  font-size: $toc-title-font-size;
+  font-style: $toc-title-font-style;
+  font-weight: $toc-title-font-weight;
+  hyphens: none;
+  text-align: $toc-title-align;
+  text-transform: $toc-title-text-transform;
 }
 
 @if $type == 'epub' {
