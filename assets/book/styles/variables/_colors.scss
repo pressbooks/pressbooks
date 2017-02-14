@@ -4,7 +4,7 @@
 
 // Is this inception .. $color-1 vs $default-color variable?
 
-$default-color:(
+$default-color: (
   epub: initial,
   prince: initial,
   web: #373d3f
@@ -24,7 +24,7 @@ $color-6: $color-1 !default;
 //A-LINK COLOR
 $link-color: (
   epub: initial,
-  prince: $color-1,
+  prince: initial,
   web: initial
 ) !default;
 

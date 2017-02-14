@@ -2,6 +2,8 @@
 // Page Structure Mixins
 //========================
 
+@import '../utilities';
+
 // Running Head Padding
 
 @mixin runninghead-padding {
@@ -56,7 +58,7 @@
 
 @mixin front-matter-page-number {
   font-family: $front-matter-page-number-font-family;
-  color: $page-number-color;
+  color: if-map-get($page-number-color, $type);
   font-size: $front-matter-page-number-font-size;
   font-style: $front-matter-page-number-font-style;
   font-weight: $front-matter-page-number-font-weight;
@@ -66,7 +68,7 @@
 
 @mixin page-number {
   font-family: $page-number-font-family;
-  color: $page-number-color;
+  color: if-map-get($page-number-color, $type);
   font-size: $page-number-font-size;
   font-style: $page-number-font-style;
   font-weight: $page-number-font-weight;
@@ -76,7 +78,7 @@
 // Running Heads
 
 @mixin runninghead-left {
-  color: $runninghead-color;
+  color: if-map-get($runninghead-color, $type);
   font-family: $runninghead-left-font-family;
   font-size: $runninghead-left-font-size;
   font-style: $runninghead-left-font-style;
@@ -88,7 +90,7 @@
 }
 
 @mixin runninghead-right {
-  color: $runninghead-color;
+  color: if-map-get($runninghead-color, $type);
   font-family: $runninghead-right-font-family;
   font-size: $runninghead-right-font-size;
   font-style: $runninghead-right-font-style;
@@ -102,7 +104,7 @@
 // Running Feet
 
 @mixin runningfoot-left {
-  color: $runningfoot-color;
+  color: if-map-get($runningfoot-color, $type);
   font-family: $runningfoot-left-font-family;
   font-size: $runningfoot-left-font-size;
   font-style: $runningfoot-left-font-style;
@@ -114,7 +116,7 @@
 }
 
 @mixin runningfoot-right {
-  color: $runningfoot-color;
+  color: if-map-get($runningfoot-color, $type);
   font-family: $runningfoot-right-font-family;
   font-size: $runningfoot-right-font-size;
   font-style: $runningfoot-right-font-style;
