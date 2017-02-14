@@ -207,17 +207,20 @@ function pb_get_chapter_number( $post_name ) {
 			$chapter = get_posts( array( 'name' => $key, 'post_type' => 'chapter', 'post_status' => 'publish', 'numberposts' => 1 ) );
 			if ( isset( $chapter[0] ) ) {
 				$type = pb_get_section_type( $chapter[0] );
-				if ( 'numberless' !== $type ) { ++$i;
+				if ( 'numberless' !== $type ) {
+					++$i;
 				}
 			} else {
 				return 0;
 			}
-			if ( $key == $post_name ) { break;
+			if ( $key == $post_name ) {
+				break;
 			}
 		}
 	}
 
-	if ( 'numberless' == $type ) { $i = 0;
+	if ( 'numberless' == $type ) {
+		$i = 0;
 	}
 	return $i;
 }
