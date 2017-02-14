@@ -677,3 +677,39 @@ function asset_path( $filename ) {
 		return $dist_path . $directory . $file;
 	}
 }
+
+/**
+ * Set the wp_mail sender address
+ *
+ * @since 3.9.7
+ * @param string $email The default email address
+ * @return string
+ */
+function mail_from( $email ) {
+	if ( defined( 'WP_MAIL_FROM' ) ) {
+		$email = WP_MAIL_FROM;
+	} else {
+		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
+		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+			$sitename = substr( $sitename, 4 );
+		}
+		$email = 'pressbooks@' . $sitename;
+	}
+	return $email;
+}
+
+/**
+ * Set the wp_mail sender name
+ *
+ * @since 3.9.7
+ * @param string $name The default sender name
+ * @return string
+ */
+function mail_from_name( $name ) {
+	if ( defined( 'WP_MAIL_FROM_NAME' ) ) {
+		$name = WP_MAIL_FROM_NAME;
+	} else {
+		$name = 'Pressbooks';
+	}
+	return $name;
+}
