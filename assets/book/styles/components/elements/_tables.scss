@@ -2,6 +2,8 @@
 //                                  Tables                                    //
 //============================================================================//
 
+@import '../utilities';
+
 table {
   display: table;
   max-width: 100%;
@@ -16,8 +18,8 @@ table {
   border-collapse: collapse;
   border-top: $table-border-width solid;
   border-bottom: $table-border-width solid;
-  border-top-color: $line-color-1;
-  border-bottom-color: $line-color-1;
+  border-top-color: if-map-get($line-color-1, $type);
+  border-bottom-color: if-map-get($line-color-1, $type);
 
   p {
     text-align: $table-align;
@@ -59,8 +61,8 @@ td {
 .lines tr {
   border-top: $table-border-width solid;
   border-bottom: $table-border-width solid;
-  border-top-color: $line-color-1;
-  border-bottom-color: $line-color-1;
+  border-top-color: if-map-get($line-color-1, $type);
+  border-bottom-color: if-map-get($line-color-1, $type);
 }
 
 .no-lines tr,
@@ -75,7 +77,7 @@ td {
 
 .border {
   border: $table-border-width solid;
-  border-color: $line-color-1;
+  border-color: if-map-get($line-color-1, $type);
 }
 
 .no-border,
