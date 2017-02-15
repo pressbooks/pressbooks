@@ -139,7 +139,7 @@
 		<li>
 			<xsl:attribute name="id"><xsl:value-of select="@id" /></xsl:attribute>
 			<xsl:apply-templates />
-			<br style="line-height:0px;" />
+			<br style="line-height:0em;" />
 		</li>
 	</xsl:template>
 
