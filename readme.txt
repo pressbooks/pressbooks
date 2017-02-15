@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.7-RC2
+Version: 3.9.7-RC3
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.7.2
 Tested up to: 4.7.2
@@ -262,6 +262,8 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **Enhancement:** Inline language attributes are now properly imported from Word documents (props to @crism; see #630 and #639).
 * **Enhancement:** Removed the Postmark-specific `wp_mail()` override (see #587).
 * **Enhancement:** Export dependency errors are now grouped intelligently into a single alert (see #646).
+* **Enhancement:** Javascript and SCSS files are now validated on pull requests using [Hound](https://houndci.com) (see #617).
+* **Enhancement:** The sender address and name used for emails from a Pressbooks instance can now be customized by defining constants for `WP_MAIL_FROM` and `WP_MAIL_FROM_NAME` (see #663).
 * **Fix:** To prevent an erroneous reversion to the WordPress < 3.5 uploads directory structure, `\Pressbooks\Utility\get_media_prefix()` now checks for the `ms_files_rewriting` site option instead of for the `blogs.dir` directory.
 * **Fix:** The custom CSS file URL scheme is now relative, which should prevent mixed content errors under some circumstances (see #599).
 * **Fix:** Fixed an undefined index error in mPDF theme options (props to @monkecheese; see #613).
@@ -274,6 +276,7 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **Fix:** The time allowed for an mPDF export to complete has been conditionally increased to account for certain edge cases (props to @bdolor; see #652).
 * **Fix:** Added between section numbers and titles in the mPDF TOC (props to @bdolor; see #653).
 * **Fix:** We now use the https endpoint for the Automattic LaTeX server to avoid mixed content errors (props to @bdolor; see #651).
+* **Fix:** Publisher logos inserted via `add_theme_support( 'pressbooks_publisher_logo' )` hook are now properly copied into EPUB outputs (see #666).
 
 = 3.9.6 =
 **NOTICE:** Pressbooks now requires [WordPress 4.7 "Vaughan"](https://wordpress.org/news/2016/12/vaughan/).
