@@ -221,6 +221,7 @@ function add_meta_boxes() {
 		'group' => 'general-book-information',
 		'field_type' => 'select',
 		'values' => \Pressbooks\L10n\supported_languages(),
+		'select2' => true,
 		'label' => __( 'Language', 'pressbooks' ),
 		'description' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' ) . '<br />' . sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
 	) );
@@ -358,16 +359,29 @@ function add_meta_boxes() {
 		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
-	x_add_metadata_field( 'pb_bisac_subject', 'metadata', array(
+	x_add_metadata_field( 'pb_audience', 'metadata', array(
 		'group' => 'additional-catalogue-information',
-		'label' => __( 'Bisac Subject', 'pressbooks' ),
-		'multiple' => true,
-		'description' => __( 'BISAC subject headings help your book get properly classified in (e)book stores. This is not used by Pressbooks.', 'pressbooks' ),
+		'field_type' => 'select',
+		'values' => array(
+			'' => __( 'Choose an audience&hellip;', 'pressbooks' ),
+			'juvenile' => __( 'Juvenile', 'pressbooks' ),
+			'young-adult' => __( 'Young Adult', 'pressbooks' ),
+			'adult' => __( 'Adult', 'pressbooks' ),
+		),
+		'label' => __( 'Audience', 'pressbooks' ),
+		'description' => __( 'The target audience for your book.', 'pressbooks' ),
 	) );
+
+	/**
+	 * Add metadata field for BISAC Subject(s).
+	 *
+	 * @since 3.9.7
+	 */
+	do_action( 'pb_add_bisac_subjects_field' );
 
 	x_add_metadata_field( 'pb_bisac_regional_theme', 'metadata', array(
 		'group' => 'additional-catalogue-information',
-		'label' => __( 'Bisac Regional Theme', 'pressbooks' ),
+		'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
 		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
@@ -648,3 +662,19 @@ function metadata_save_box( $post ) {
 		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p" />
 	<?php }
 }
+
+/**
+ * Add the BISAC Subject(s) field.
+ *
+ * @since 3.9.7
+ */
+function add_bisac_subjects_field() {
+	x_add_metadata_field( 'pb_bisac_subject', 'metadata', array(
+		'group' => 'additional-catalogue-information',
+		'label' => __( 'BISAC Subject(s)', 'pressbooks' ),
+		'multiple' => true,
+		'description' => __( 'BISAC Subject Headings help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
+	) );
+}
+
+add_action( 'pb_add_bisac_subjects_field', __NAMESPACE__ . '\\add_bisac_subjects_field', 1 );

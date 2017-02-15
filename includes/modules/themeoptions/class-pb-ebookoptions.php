@@ -35,9 +35,12 @@ class EbookOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-			$this->options = $options;
+		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
+		$this->strings = $this->getStringOptions();
+		$this->integers = $this->getIntegerOptions();
+		$this->floats = $this->getFloatOptions();
 		$this->predefined = $this->getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
@@ -87,6 +90,13 @@ class EbookOptions extends \Pressbooks\Options {
 				__( 'Reduce image size and quality', 'pressbooks' )
 			)
 		);
+
+		/**
+		 * Add custom settings fields.
+		 *
+		 * @since 3.9.7
+		 */
+		do_action( 'pb_theme_options_ebook_add_settings_fields', $_page, $_section );
 
 		register_setting(
 			$_option,
@@ -174,7 +184,10 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return apply_filters( 'pressbooks_theme_options_ebook_defaults', array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_ebook_defaults', array(
 			'ebook_paragraph_separation' => 'indent',
 			'ebook_compress_images' => 0,
 		) );
@@ -196,9 +209,56 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getBooleanOptions() {
-		return array(
+		/**
+		 * Allow custom boolean options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_ebook_booleans', array(
 			'ebook_compress_images'
-		);
+		) );
+	}
+
+	/**
+	 * Get an array of options which return strings.
+	 *
+	 * @return array $options
+	 */
+	static function getStringOptions() {
+		/**
+		 * Allow custom string options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_ebook_strings', array() );
+	}
+
+	/**
+	 * Get an array of options which return integers.
+	 *
+	 * @return array $options
+	 */
+	static function getIntegerOptions() {
+		/**
+		 * Allow custom integer options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_ebook_integers', array() );
+	}
+
+	/**
+	 * Get an array of options which return floats.
+	 *
+	 * @return array $options
+	 */
+	static function getFloatOptions() {
+		/**
+		 * Allow custom float options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_ebook_floats', array() );
 	}
 
 	/**
@@ -207,8 +267,13 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getPredefinedOptions() {
-		return array(
+		/**
+		 * Allow custom predifined options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_ebook_predefined', array(
 			'ebook_paragraph_separation'
-		);
+		) );
 	}
 }

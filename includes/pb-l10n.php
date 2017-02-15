@@ -222,9 +222,9 @@ function wplang_codes() {
 		'fo' => '', // Faeroese
 		'fa' => 'fa_IR', // Farsi
 		'fi' => 'fi', // Finnish
-		'fr-be' => 'fr_FR', // French (Belgium)
-		'fr-ca' => 'fr_CA', // French (Canada)
 		'fr' => 'fr_FR', // French
+		'fr-ca' => 'fr_CA', // French (Canada)
+		'fr-be' => 'fr_FR', // French (Belgium)
 		'fr-lu' => 'fr_FR', // French (Luxembourg)
 		'fr-mc' => 'fr_FR', // French (Monaco)
 		'fr-ch' => 'fr_FR', // French (Switzerland)

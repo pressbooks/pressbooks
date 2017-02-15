@@ -106,8 +106,13 @@ class Pdf extends Export {
 	 *
 	 */
 	function __construct() {
-		// don't know who would actually wait for 10 minutes, but it's here
-		set_time_limit( 600 );
+		// don't know who would want to wait for 20 minutes, but it's here
+		if ( ! ini_get( 'safe_mode' ) ) {
+			$time_limit = (int) ini_get( 'max_execution_time' );
+			if ( $time_limit < 1200 ) {
+				set_time_limit( 1200 );
+			}
+		}
 
 		$memory_available = ( int ) ini_get( 'memory_limit' );
 
@@ -139,7 +144,11 @@ class Pdf extends Export {
 		if ( ! $this->hasDependencies() ) {
 			return false; // mPDF is not installed
 		}
-		require_once( PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php' );
+		if ( file_exists( PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php' ) ) {
+			require_once( PB_MPDF_DIR . 'symbionts/mpdf/mpdf.php' );
+		} else {
+			require_once( PB_MPDF_DIR . 'vendor/mpdf/mpdf/mpdf.php' );
+		}
 		$this->mpdf = new \mPDF( '' );
 		$this->mpdf->SetAnchor2Bookmark( 1 );
 		$this->mpdf->ignore_invalid_utf8 = true;
@@ -505,7 +514,7 @@ class Pdf extends Export {
 	 */
 	function getBookmarkEntry( $page ) {
 		static $id = 1;
-		$entry = $id . $page['post_title'];
+		$entry = $id . ' ' . $page['post_title'];
 		$id++;
 
 		return $entry;

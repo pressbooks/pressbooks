@@ -1,0 +1,7 @@
+@function if-map-get($var, $type) {
+  @if type-of($var) == 'map' {
+    @return map-get($var, $type);
+  } @else {
+    @return $var;
+  }
+}

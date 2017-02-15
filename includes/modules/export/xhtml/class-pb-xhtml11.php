@@ -1011,7 +1011,7 @@ class Xhtml11 extends Export {
 				( $part_printf_changed ? $part_printf_changed : $part_printf ),
 				$invisibility,
 				$slug,
-				$m,
+				\Pressbooks\L10n\romanize( $m ),
 				Sanitize\decode( $title ),
 			$part_content ) . "\n";
 

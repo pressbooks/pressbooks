@@ -544,7 +544,8 @@ h3.part-number, h3.chapter-number {
 	padding-bottom: 1em;
 }
 h3.part-number::before {
-	content: "part ";
+	content: $part " ";
+  text-transform: uppercase;
 }
 .part-title-wrap h1 {
 	font-size: 2.6em;
@@ -707,8 +708,9 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
 	page-break-after: avoid;
 }
 #toc .part a::before {
-	content: "part "counter(part) ". ";
+	content: $part " " counter(part, upper-roman) ". ";
 	counter-increment: part;
+  text-transform: capitalize;
 }
 #toc .front-matter,
 #toc .chapter,

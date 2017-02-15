@@ -1,8 +1,13 @@
 //GLOBAL TOC - MIXINS
 
+@import '../utilities';
+
+// note: for TOC title "Contents" see
+//~/components/section-titles/front-matter
+
 @mixin toc-front-matter-title {
-  color: $toc-front-matter-title-color;
-  font-family: $font-1;
+  color: if-map-get($toc-front-matter-title-color, $type);
+  font-family: $toc-front-matter-title-font-family;
   text-align: left;
   font-size: $toc-front-matter-title-font-size;
   font-style: $toc-front-matter-title-font-style;
@@ -12,8 +17,8 @@
 }
 
 @mixin toc-front-matter-subtitle {
-  color: $toc-front-matter-subtitle-color;
-  font-family: $font-1;
+  color: if-map-get($toc-front-matter-subtitle-color, $type);
+  font-family: $toc-front-matter-subtitle-font-family;
   text-align: left;
   font-size: $toc-front-matter-subtitle-font-size;
   font-style: $toc-front-matter-subtitle-font-style;
@@ -23,8 +28,8 @@
 }
 
 @mixin toc-front-matter-author {
-  color: $toc-front-matter-author-color;
-  font-family: $font-1;
+  color: if-map-get($toc-front-matter-author-color, $type);
+  font-family: $toc-front-matter-author-font-family;
   text-align: left;
   font-size: $toc-front-matter-author-font-size;
   font-style: $toc-front-matter-author-font-style;
@@ -34,8 +39,9 @@
 }
 
 @mixin toc-part-number {
-  color: $toc-part-number-color;
-  font-family: $font-3;
+  display: $toc-part-number-display;
+  color: if-map-get($toc-part-number-color, $type);
+  font-family: $toc-part-number-font-family;
   text-align: left;
   font-size: $toc-part-number-font-size;
   font-style: $toc-part-number-font-style;
@@ -45,10 +51,10 @@
 }
 
 @mixin toc-part-title {
-  color: $toc-part-title-color;
-  font-family: $font-3;
+  color: if-map-get($toc-part-title-color, $type);
+  font-family: $toc-part-title-font-family;
   text-align: left;
-  font-size: $toc-part-title-font-size;
+  font-size: if-map-get($toc-part-title-font-size, $type);
   font-style: $toc-part-title-font-style;
   font-weight: $toc-part-title-font-weight;
   text-transform: $toc-part-title-text-transform;
@@ -56,8 +62,8 @@
 }
 
 @mixin toc-chapter-number {
-  color: $toc-chapter-number-color;
-  font-family: $font-1;
+  color: if-map-get($toc-chapter-number-color, $type);
+  font-family: $toc-chapter-number-font-family;
   font-size: $toc-chapter-number-font-size;
   font-style: $toc-chapter-number-font-style;
   font-weight: $toc-chapter-number-font-weight;
@@ -67,8 +73,8 @@
 }
 
 @mixin toc-chapter-title {
-  color: $toc-chapter-title-color;
-  font-family: $font-1;
+  color: if-map-get($toc-chapter-title-color, $type);
+  font-family: $toc-chapter-title-font-family;
   font-size: $toc-chapter-title-font-size;
   font-style: $toc-chapter-title-font-style;
   font-weight: $toc-chapter-title-font-weight;
@@ -78,8 +84,8 @@
 }
 
 @mixin toc-chapter-subtitle {
-  color: $toc-chapter-subtitle-color;
-  font-family: $font-1;
+  color: if-map-get($toc-chapter-subtitle-color, $type);
+  font-family: $toc-chapter-subtitle-font-family;
   text-align: left;
   font-size: $toc-chapter-subtitle-font-size;
   font-style: $toc-chapter-subtitle-font-style;
@@ -89,8 +95,8 @@
 }
 
 @mixin toc-chapter-author {
-  color: $toc-chapter-author-color;
-  font-family: $font-1;
+  color: if-map-get($toc-chapter-author-color, $type);
+  font-family: $toc-chapter-author-font-family;
   text-align: left;
   font-size: $toc-chapter-author-font-size;
   font-style: $toc-chapter-author-font-style;
@@ -112,8 +118,8 @@
 }
 
 @mixin toc-page-number {
-  color: $toc-page-number-color;
-  font-family: $font-1;
+  color: if-map-get($toc-page-number-color, $type);
+  font-family: $toc-page-number-font-family;
   font-size: $toc-page-number-font-size;
   font-style: $toc-page-number-font-style;
   font-weight: $toc-page-number-font-weight;
@@ -123,8 +129,8 @@
 }
 
 @mixin toc-front-matter-page-number {
-  color: $toc-front-matter-page-number-color;
-  font-family: $font-1;
+  color: if-map-get($toc-front-matter-page-number-color, $type);
+  font-family: $toc-page-number-font-family;
   font-size: $toc-front-matter-page-number-font-size;
   font-style: $toc-front-matter-page-number-font-style;
   font-weight: $toc-front-matter-page-number-font-weight;

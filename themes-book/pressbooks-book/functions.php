@@ -328,7 +328,7 @@ function pressbooks_copyright_license() {
 		// expires in 24 hours
 		set_transient( "license-inf-$id", $value, 86400 );
 	} else {
-		$html = $transient[$license] ;
+		$html = $transient[ $license ] ;
 	}
 
 	return $html;
@@ -347,7 +347,7 @@ function replace_running_content_tags( $input ) {
 			'%section_title%',
 			'%section_author%',
 			'%section_subtitle%',
-			'%blank%'
+			'%blank%',
 		),
 		array(
 			'" string(book-title) "',
@@ -358,7 +358,7 @@ function replace_running_content_tags( $input ) {
 			'" string(section-title) "',
 			'" string(chapter-author) "',
 			'" string(chapter-subtitle) "',
-			''
+			'',
 		),
 		$input
 	);
@@ -382,6 +382,9 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	if ( ! $options['chapter_numbers'] ) {
 		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= "\$chapter-number-display: none; \n";
+			$scss .= "\$part-number-display: none; \n";
+			$scss .= "\$toc-chapter-number-display: none; \n";
+			$scss .= "\$toc-part-number-display: none; \n";
 		} else {
 			$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
 		}
@@ -395,13 +398,21 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	// Change body font size
 	if ( $sass->isCurrentThemeCompatible( 2 ) && isset( $options['pdf_body_font_size'] ) ) {
 		$fontsize = $options['pdf_body_font_size'] . 'pt';
-		$scss .= "\$body-font-size: $fontsize; \n";
+		$scss .= "\$body-font-size: (\n
+		  epub: medium,\n
+		  prince: $fontsize,
+		  web: 14pt\n
+		); \n";
 	}
 
 	// Change body line height
 	if ( $sass->isCurrentThemeCompatible( 2 ) && isset( $options['pdf_body_line_height'] ) ) {
 		$lineheight = $options['pdf_body_line_height'] . 'em';
-		$scss .= "\$body-line-height: $lineheight; \n";
+		$scss .= "\$body-line-height: (\n
+		  epub: 1.4em,\n
+		  prince: $lineheight,
+		  web: 1.8em,\n
+		); \n";
 	}
 
 	// Page dimensions
@@ -459,6 +470,12 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 			$scss .= "\$para-hyphens: auto; \n"; // TODO
 		} else {
 			$scss .= "p { hyphens: auto; } \n";
+		}
+	} else {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$para-hyphens: manual; \n"; // TODO
+		} else {
+			$scss .= "p { hyphens: manual; } \n";
 		}
 	}
 
@@ -535,9 +552,9 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 		$back_matter_running_content_left = ( isset( $options['running_content_back_matter_left'] ) ) ? replace_running_content_tags( $options['running_content_back_matter_left'] ) : 'string(book-title)';
 		$back_matter_running_content_right = ( isset( $options['running_content_back_matter_right'] ) ) ? replace_running_content_tags( $options['running_content_back_matter_right'] ) : 'string(section-title)';
 		$scss .= "\$front-matter-running-content-left: $front_matter_running_content_left; \n";
-		$scss .= "\$front-matter-running-content-left: $front_matter_running_content_right; \n";
+		$scss .= "\$front-matter-running-content-right: $front_matter_running_content_right; \n";
 		$scss .= "\$introduction-running-content-left: $introduction_running_content_left; \n";
-		$scss .= "\$introduction-running-content-left: $introduction_running_content_right; \n";
+		$scss .= "\$introduction-running-content-right: $introduction_running_content_right; \n";
 		$scss .= "\$part-running-content-left: $part_running_content_left; \n";
 		$scss .= "\$part-running-content-right: $part_running_content_right; \n";
 		$scss .= "\$chapter-running-content-left: $chapter_running_content_left; \n";
@@ -652,14 +669,6 @@ function pressbooks_theme_ebook_hacks( $hacks ) {
 	// Compress images
 	if ( $options['ebook_compress_images'] ) {
 		$hacks['ebook_compress_images'] = true;
-	}
-
-	// --------------------------------------------------------------------
-	// Luther features we inject ourselves, (not user options, this theme not child)
-
-	$theme = strtolower( '' . wp_get_theme() );
-	if ( 'luther' == $theme ) {
-		$hacks['ebook_romanize_part_numbers'] = true;
 	}
 
 	return $hacks;

@@ -5,7 +5,7 @@
 body {
 	font-family: "Trebuchet MS", "Times", serif;
 	font-size: 0.9em;
-	
+
 }
 
 a {
@@ -86,7 +86,7 @@ ul li li li::before {
 	font-size: 0.5em;
 	margin-right: 5px;
 }
-ol { 
+ol {
 	list-style-type: none;
 	counter-reset: level1;
 }
@@ -97,7 +97,7 @@ ol li::before {
 ol ol {
 	list-style-type: none;
 	counter-reset: level2;
-}   
+}
 ol li li::before {
 	content: counter(level1) "." counter(level2) " ";
 	counter-increment: level2;
@@ -118,14 +118,14 @@ cite {
 	padding-left: 1em;
 	text-indent: -1em;
 }
-/* HALF TITLE PAGE 
+/* HALF TITLE PAGE
 ================== */
 #half-title-page h1 {
 	font-size: 1.5em;
 }
 /* TITLE PAGE
 ================ */
-#title-page { 
+#title-page {
 	font-weight: normal;
 	height: 100%;
 }
@@ -145,7 +145,7 @@ cite {
 	font-size: 2em;
 	font-style: italic;
 	margin-top: 0;
-	padding-top: 5px;	
+	padding-top: 5px;
 }
 
 #title-page .author,
@@ -153,7 +153,7 @@ cite {
 #title-page .publisher,
 #title-page .publisher-city {
 	font-weight: normal;
-}	
+}
 
 #title-page .author {
 	font-size: 1.5em;
@@ -235,9 +235,9 @@ h5 + p {
 	margin-top: 0;
 }
 
-div.front-matter .entry-title, 
+div.front-matter .entry-title,
 div.chapter .entry-title,
-div.back-matter .entry-title, 
+div.back-matter .entry-title,
 div.part .entry-title,
 h1.toc {
 	font-size: 1.5em;
@@ -258,7 +258,8 @@ h3.part-number, h3.chapter-number {
 }
 
 h3.part-number::before {
-	content: "Part ";
+	content: $part " ";
+	text-transform: uppercase;
 }
 h3.chapter-number {
 	font-weight: lighter;
@@ -277,7 +278,7 @@ div.chapter.numberless h3.chapter-number {
 }
 .aphorism cite {
 	display: block;
-	font-size: 0.875em; 
+	font-size: 0.875em;
 	font-style: normal;
 	font-variant: small-caps;
 	text-align: right;
@@ -327,7 +328,7 @@ h2.chapter-author {
 }
 h2.chapter-subtitle {
 	margin-bottom: 2.8em;
-	padding-top: 0.5em;	
+	padding-top: 0.5em;
 }
 h2.chapter-author {
 	font-size: 0.9em;
@@ -393,7 +394,7 @@ img.aligncenter {
 .wp-caption {
 	height: auto;
 	max-width: 100%;
-	margin: 1em 0;	
+	margin: 1em 0;
 }
 .wp-caption-text {
 	font-size: 0.875em;
@@ -425,7 +426,7 @@ p.bl_indent {
 	text-indent: -14pt;
 }
 
-/* INDEX 
+/* INDEX
 ================== */
 .index .ugc  {
 	column-count: 2;
@@ -452,13 +453,13 @@ div.license-attribution p:first-of-type {
 }
 
 /*************************
-	Textbook styles 
+	Textbook styles
 **************************/
 
 .bcc-box{
 	/*	max-width: 100%;*/
 	padding: 1% 3%;
-	margin: 15px 0 15px; 
+	margin: 15px 0 15px;
 }
 
 .bcc-box h3:first-child{
@@ -586,4 +587,3 @@ span.mpdf_toc_t_level_2 {	/* Title level 2 */
 }
 span.mpdf_toc_p_level_2 {	/* Page no. level 2 - may be inside <a> */
 }
-

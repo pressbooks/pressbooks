@@ -159,16 +159,14 @@ class Catalog {
 		);
 
 		$catalog = $this->get();
+		$usercatalog = new static( $this->userId );
 		$data = array();
 		$i = 0;
 		$already_loaded = array();
 
 		foreach ( $catalog as $val ) {
 			if ( ! get_site( $val['blogs_id'] ) ) {
-				$data[ $i ]['ID'] = "{$val['users_id']}:{$val['blogs_id']}";
-				$data[ $i ]['users_id'] = $val['users_id'];
-				$data[ $i ]['blogs_id'] = $val['blogs_id'];
-				$data[ $i ]['deleted'] = 1;
+				$usercatalog->deleteBook( $val['blogs_id'], true );
 			} else {
 				switch_to_blog( $val['blogs_id'] );
 
@@ -186,18 +184,25 @@ class Catalog {
 				$data[ $i ]['private'] = ( 1 == get_option( 'blog_public' ) ? 0 : 1 );
 
 				// About
-				if ( ! empty( $metadata['pb_about_50'] ) ) { $about = $metadata['pb_about_50'];
-				} elseif ( ! empty( $metadata['pb_about_140'] ) ) { $about = $metadata['pb_about_140'];
-				} elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) { $about = $metadata['pb_about_unlimited'];
-				} else { $about = '';
+				if ( ! empty( $metadata['pb_about_50'] ) ) {
+					$about = $metadata['pb_about_50'];
+				} elseif ( ! empty( $metadata['pb_about_140'] ) ) {
+					$about = $metadata['pb_about_140'];
+				} elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) {
+					$about = $metadata['pb_about_unlimited'];
+				} else {
+					$about = '';
 				}
 				$data[ $i ]['about'] = $about;
 
 				// Cover Full
 				if ( $meta_version < 7 ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-				} elseif ( empty( $metadata['pb_cover_image'] ) ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-				} elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-				} else { $cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
+				} elseif ( empty( $metadata['pb_cover_image'] ) ) {
+					$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				} elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
+					$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				} else {
+					$cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
 				}
 				$data[ $i ]['cover_url']['full'] = $cover;
 
@@ -239,9 +244,11 @@ class Catalog {
 		foreach ( $userblogs as $book ) {
 
 			// Skip
-			if ( is_main_site( $book->userblog_id ) ) { continue;
+			if ( is_main_site( $book->userblog_id ) ) {
+				continue;
 			}
-			if ( isset( $already_loaded[ $book->userblog_id ] ) ) { continue;
+			if ( isset( $already_loaded[ $book->userblog_id ] ) ) {
+				continue;
 			}
 
 			switch_to_blog( $book->userblog_id );
@@ -260,18 +267,26 @@ class Catalog {
 			$data[ $i ]['private'] = ( 1 == get_option( 'blog_public' ) ? 0 : 1 );
 
 			// About
-			if ( ! empty( $metadata['pb_about_50'] ) ) { $about = $metadata['pb_about_50'];
-			} elseif ( ! empty( $metadata['pb_about_140'] ) ) { $about = $metadata['pb_about_140'];
-			} elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) { $about = $metadata['pb_about_unlimited'];
-			} else { $about = '';
+			if ( ! empty( $metadata['pb_about_50'] ) ) {
+				$about = $metadata['pb_about_50'];
+			} elseif ( ! empty( $metadata['pb_about_140'] ) ) {
+				$about = $metadata['pb_about_140'];
+			} elseif ( ! empty( $metadata['pb_about_unlimited'] ) ) {
+				$about = $metadata['pb_about_unlimited'];
+			} else {
+				$about = '';
 			}
 			$data[ $i ]['about'] = $about;
 
 			// Cover Full
-			if ( $meta_version < 7 ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-			} elseif ( empty( $metadata['pb_cover_image'] ) ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-			} elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
-			} else { $cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
+			if ( $meta_version < 7 ) {
+				$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+			} elseif ( empty( $metadata['pb_cover_image'] ) ) {
+				$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+			} elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
+				$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+			} else {
+				$cover = \Pressbooks\Image\thumbnail_from_url( $metadata['pb_cover_image'], 'full' );
 			}
 			$data[ $i ]['cover_url']['full'] = $cover;
 
@@ -831,7 +846,7 @@ class Catalog {
 		$sql = "CREATE TABLE {$this->dbTagsTable} (
 				id INT(11) NOT null AUTO_INCREMENT,
   				users_id INT(11) NOT null,
-  				tag VARCHAR(255) NOT null,
+  				tag VARCHAR(200) NOT null,
   				PRIMARY KEY  (id),
   				UNIQUE KEY tag (tag)
 				); ";

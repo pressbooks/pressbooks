@@ -28,6 +28,7 @@ img {
 .wp-nocaption {
   width: 80%;
   height: auto;
+  max-width: 80%;
   margin-top: $image-wrapper-margin-top;
   margin-right: 10%;
   margin-bottom: $image-wrapper-margin-bottom;
@@ -53,6 +54,7 @@ img {
   &.alignleft {
     float: left;
     width: 50%;
+    max-width: 50%;
     padding-left: 0;
     margin-right: $image-alignleft-margin-right;
     margin-left: 0;
@@ -67,6 +69,7 @@ img {
   &.alignright {
     float: right;
     width: 50%;
+    max-width: 50%;
     padding-left: 0;
     margin-right: 0;
     margin-left: $image-alignright-margin-left;
@@ -79,6 +82,21 @@ img {
 }
 
 // Mobi
+
+@media amzn-mobi {
+  .wp-caption {
+    text-align: center;
+  }
+  .wp-nocaption {
+    text-align: center;
+  }
+  p.wp-caption-text {
+    font-size: .8em !important;
+    font-style: italic !important;
+    margin-bottom: 1em !important;
+    text-align: center !important;
+  }
+}
 
 @media amzn-kf8 {
   .wp-caption,

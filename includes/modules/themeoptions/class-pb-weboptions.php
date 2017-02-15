@@ -35,9 +35,13 @@ class WebOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-			$this->options = $options;
+		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
+		$this->strings = $this->getStringOptions();
+		$this->integers = $this->getIntegerOptions();
+		$this->floats = $this->getFloatOptions();
+		$this->predefined = $this->getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -85,6 +89,13 @@ class WebOptions extends \Pressbooks\Options {
 				__( 'Display the Part title on each chapter', 'pressbooks' )
 			)
 		);
+
+		/**
+		 * Add custom settings fields.
+		 *
+		 * @since 3.9.7
+		 */
+		do_action( 'pb_theme_options_web_add_settings_fields', $_page, $_section );
 
 		register_setting(
 			$_page,
@@ -176,7 +187,10 @@ class WebOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return apply_filters( 'pressbooks_theme_options_web_defaults', array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_web_defaults', array(
 			'social_media' => 1,
 			'part_title' => 0,
 		) );
@@ -198,9 +212,70 @@ class WebOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getBooleanOptions() {
-		return array(
+		/**
+		 * Allow custom boolean options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_web_booleans', array(
 			'social_media',
 			'part_title',
-		);
+		) );
+	}
+
+	/**
+	 * Get an array of options which return strings.
+	 *
+	 * @return array $options
+	 */
+	static function getStringOptions() {
+		/**
+		 * Allow custom string options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_web_strings', array() );
+	}
+
+	/**
+	 * Get an array of options which return integers.
+	 *
+	 * @return array $options
+	 */
+	static function getIntegerOptions() {
+		/**
+		 * Allow custom integer options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_web_integers', array() );
+	}
+
+	/**
+	 * Get an array of options which return floats.
+	 *
+	 * @return array $options
+	 */
+	static function getFloatOptions() {
+		/**
+		 * Allow custom float options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_web_floats', array() );
+	}
+
+	/**
+	 * Get an array of options which return predefined values.
+	 *
+	 * @return array $options
+	 */
+	static function getPredefinedOptions() {
+		/**
+		 * Allow custom predifined options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_web_predefined', array() );
 	}
 }

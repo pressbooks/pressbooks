@@ -1,0 +1,44 @@
+//============================================================================//
+//                 Back Matter Section Titles                                 //
+//============================================================================//
+
+@import '../utilities';
+
+.back-matter-title-wrap {
+  margin-top: if-map-get($section-title-block-margin-top, $type);
+  margin-right: $section-title-block-margin-right;
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
+  margin-left: $section-title-block-margin-left;
+
+  .back-matter-number {
+    display: none;
+    visibility: hidden;
+  }
+
+  .back-matter-title {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+
+    font-family: $back-matter-title-font-family;
+    font-size: if-map-get($section-title-font-size, $type);
+    font-style: $section-title-font-style;
+    font-weight: $section-title-font-weight;
+    hyphens: none;
+    text-align: $back-matter-title-align;
+    text-transform: $section-title-text-transform;
+  }
+}
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    h1.back-matter-title {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1.3em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+     }
+  }
+}

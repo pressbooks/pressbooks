@@ -2,19 +2,23 @@
 //                                  Columns                                   //
 //============================================================================//
 
+@import '../utilities';
+
 .twocolumn {
   margin-top: $column-margin-top;
   margin-bottom: $column-margin-bottom;
-  column-count: 2;
+  font-size: $column-twocolumn-font-size;
+  line-height: $column-line-height;
+  text-align: if-map-get($para-align, $type);
   column-gap: $column-twocolumn-column-gap;
+  column-count: 2;
   column-fill: balance;
 
   p,
   p + p {
     margin-top: $para-margin-top;
-    font-size: $column-twocolumn-font-size;
     line-height: $column-line-height;
-    text-align: $para-align;
+    text-align: if-map-get($para-align, $type);
     text-indent: $para-indent;
   }
 }
@@ -22,14 +26,15 @@
 .threecolumn {
   margin-top: $column-margin-top;
   margin-bottom: $column-margin-bottom;
-  column-count: 3;
+  font-size: $column-threecolumn-font-size;
+  line-height: $column-line-height;
   column-gap: $column-threecolumn-column-gap;
+  column-count: 3;
   column-fill: balance;
 
   p,
   p + p {
     margin-top: $para-margin-top;
-    font-size: $column-threecolumn-font-size;
     line-height: $column-line-height;
     text-align: left;
     text-indent: $para-indent;

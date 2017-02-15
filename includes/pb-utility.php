@@ -110,12 +110,12 @@ function truncate_exports( $max, $dir = null ) {
 
 /**
  * Return the full path to the directory containing media
- * Checks for existence of /wp-content/blogs.dir/; otherwise uses WordPress 3.5+ standard, /wp-content/uploads/sites/
+ * Checks for `ms_files_rewriting` site option; uses /wp-content/blogs.dir/ if present, otherwise uses WordPress 3.5+ standard, /wp-content/uploads/sites/
  *
  * @return string path
  */
 function get_media_prefix() {
-	if ( is_dir( WP_CONTENT_DIR . '/blogs.dir' ) ) {
+	if ( get_site_option( 'ms_files_rewriting' ) ) {
 		return WP_CONTENT_DIR . '/blogs.dir/' . get_current_blog_id() . '/files/';
 	} else {
 		return WP_CONTENT_DIR . '/uploads/sites/' . get_current_blog_id() . '/';
@@ -194,87 +194,6 @@ function latest_exports() {
 	// @TODO filter these results against user prefs
 
 	return $latest;
-}
-
-/**
- * Override \wp_mail() to always use Postmark API
- *
- * @param string|array $to Array or comma-separated list of email addresses to send message.
- * @param string $subject Email subject
- * @param string $message Message contents
- * @param string|array $headers Optional. Additional headers.
- * @param string|array $attachments Optional. Files to attach.
- *
- * @const POSTMARK_API_KEY
- * @const POSTMARK_SENDER_ADDRESS
- *
- * @return bool Whether the email contents were sent successfully.
- */
-function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
-
-	$response = false;
-
-	// Define Headers
-
-	$postmark_headers = array(
-		'Accept' => 'application/json',
-		'Content-Type' => 'application/json',
-		'X-Postmark-Server-Token' => POSTMARK_API_KEY,
-	);
-
-	// Send Email
-
-	if ( ! is_array( $to ) ) {
-		$recipients = explode( ',', $to );
-	} else {
-		$recipients = $to;
-	}
-
-	foreach ( $recipients as $recipient ) {
-
-		$email = array();
-		$email['To'] = $recipient;
-		$email['From'] = POSTMARK_SENDER_ADDRESS;
-		$email['Subject'] = $subject;
-		$email['TextBody'] = $message;
-
-		if ( strpos( $headers, 'text/html' ) ) {
-			$email['HtmlBody'] = $message;
-		}
-
-		$response = pm_send_mail( $postmark_headers, $email );
-	}
-
-	return $response;
-}
-
-
-/**
- * Send JSON to Postmark API via POST method
- *
- * @param array $headers
- * @param array $email
- *
- * @return bool
- */
-function pm_send_mail( array $headers, array $email ) {
-
-	$postmark_endpoint = 'http://api.postmarkapp.com/email';
-
-	$args = array(
-		'headers' => $headers,
-		'body' => json_encode( $email ),
-	);
-
-	$response = wp_remote_post( $postmark_endpoint, $args );
-
-	if ( is_wp_error( $response ) ) {
-		return false;
-	} elseif ( 200 == $response['response']['code'] ) {
-		return true;
-	} else {
-		return false;
-	}
 }
 
 
@@ -757,4 +676,40 @@ function asset_path( $filename ) {
 	} else {
 		return $dist_path . $directory . $file;
 	}
+}
+
+/**
+ * Set the wp_mail sender address
+ *
+ * @since 3.9.7
+ * @param string $email The default email address
+ * @return string
+ */
+function mail_from( $email ) {
+	if ( defined( 'WP_MAIL_FROM' ) ) {
+		$email = WP_MAIL_FROM;
+	} else {
+		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
+		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+			$sitename = substr( $sitename, 4 );
+		}
+		$email = 'pressbooks@' . $sitename;
+	}
+	return $email;
+}
+
+/**
+ * Set the wp_mail sender name
+ *
+ * @since 3.9.7
+ * @param string $name The default sender name
+ * @return string
+ */
+function mail_from_name( $name ) {
+	if ( defined( 'WP_MAIL_FROM_NAME' ) ) {
+		$name = WP_MAIL_FROM_NAME;
+	} else {
+		$name = 'Pressbooks';
+	}
+	return $name;
 }

@@ -1,11 +1,10 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.6
+Version: 3.9.7
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.7
-Tested up to: 4.7
-Version: 3.9.6
+Requires at least: 4.7.2
+Tested up to: 4.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -235,6 +234,49 @@ Pressbooks now requires [WordPress 4.7 "Vaughan"](https://wordpress.org/news/201
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+
+### 3.9.7
+**NOTICE:** Pressbooks now requires [WordPress 4.7.2](https://wordpress.org/news/2017/01/wordpress-4-7-2-security-release/).
+
+* **Feature:** Added support for Canadian Indigenous syllabics, which are used for the Chipewyan, Inuktitut, Plains Cree, Cree, Moose Cree, Slave, Northern Cree, Naskapi, Swampy Cree, Southern East Cree, and Ojibwa languages (props to @bdolor; see #635).
+* **Feature:** Part numbers are now displayed consistently across all formats (see #341).
+* **Enhancement:** SCSS maps are now used to provide variables for different export formats.
+* **Enhancement:** The global `_titles.scss` partial for SCSS v2 themes has been split into `_pages.scss` and `_section-titles.scss` for better separation of concerns.
+* **Enhancement:** Added the `pb_add_latex_renderer_option`, `pb_require_latex`, `pb_latex_renderers`, and `pb_add_latex_config_scripts` filters and the `pb_enqueue_latex_scripts` action to support custom LaTeX renderers (props to @monkecheese; see #583).
+* **Enhancement:** Added the `pb_root_description` filter to allow the default root blog description to be changed.
+* **Enhancement:** Custom theme options can now be registered, either on an existing tab or on a new tab (see #470 and #618).
+* **Enhancement:** Added the `pb_publisher_catalog_query_args` filter to allow customizing the query for books on the front page of Pressbooks Publisher (see #619).
+* **Enhancement:** Added the `\Pressbooks\Metadata::getJsonMetadata()` function and the `pb_json_metadata` filter to support returning book information as JSON data for posting to an API endpoint (see #637).
+* **Enhancement:** Added the `pb_add_bisac_subjects_field` filter, which allows those with a licensed copy of the BISAC subject headers to display a multiple select instead of Pressbooks' default text input (see #637).
+* **Enhancement:** Added the `pb_audience` field to the Book Information page to allow setting a book's target audience (see #638).
+* **Enhancement:** The export metadata settings for all book contents are now fetched in a single query within `\Pressbooks\Book::getBookStructure()` (props to @monkecheese; see #633).
+* **Enhancement:** The book language will now be set to the language selected when the book is registered (see #595).
+* **Enhancement:** The Comments column on the Organize page will now be hidden if comments are disabled (see #644).
+* **Enhancement:** Core textbox styles now apply to the equivalent `.bcc-*` selectors for improved compatibility with Pressbooks Textbook.
+* **Enhancement:** Imported content can optionally be set to `published` status instead of `draft` (see #593).
+* **Enhancement:** Front matter, chapter, and back matter types will now be imported from Pressbooks WXR files (see #601).
+* **Enhancement:** Empty front matter, chapters, and back matter will now be imported from Pressbooks WXR files (see #592).
+* **Enhancement:** Title display and export metadata will now be imported from Pressbooks WXR files (see #606).
+* **Enhancement:** Completing an import from a Pressbooks WXR file will now correctly enumerate different content types instead of labelling all as chapters.
+* **Enhancement:** Bold, italic, superscript, and subscript text is now properly imported from Word documents (props to @crism; see #629).
+* **Enhancement:** Inline language attributes are now properly imported from Word documents (props to @crism; see #630 and #639).
+* **Enhancement:** Removed the Postmark-specific `wp_mail()` override (see #587).
+* **Enhancement:** Export dependency errors are now grouped intelligently into a single alert (see #646).
+* **Enhancement:** Javascript and SCSS files are now validated on pull requests using [Hound](https://houndci.com) (see #617).
+* **Enhancement:** The sender address and name used for emails from a Pressbooks instance can now be customized by defining constants for `WP_MAIL_FROM` and `WP_MAIL_FROM_NAME` (see #663).
+* **Fix:** To prevent an erroneous reversion to the WordPress < 3.5 uploads directory structure, `\Pressbooks\Utility\get_media_prefix()` now checks for the `ms_files_rewriting` site option instead of for the `blogs.dir` directory.
+* **Fix:** The custom CSS file URL scheme is now relative, which should prevent mixed content errors under some circumstances (see #599).
+* **Fix:** Fixed an undefined index error in mPDF theme options (props to @monkecheese; see #613).
+* **Fix:** Fixed a database max key length error when creating the catalog tables (see #589).
+* **Fix:** Removed the Pressbooks plugin installer tab, which was preventing plugin searching from being conducted (see #596).
+* **Fix:** Deleted books will now be removed from user catalogs (see #412).
+* **Fix:** Fixed an issue where hyphenation would be enabled in Prince exports even if it was disabled in theme options (see #645).
+* **Fix:** Fixed an issue where custom running content was being displayed in the wrong place (see #623).
+* **Fix:** Fixed an issue where OpenOffice files would not be properly exposed for download (see #649).
+* **Fix:** The time allowed for an mPDF export to complete has been conditionally increased to account for certain edge cases (props to @bdolor; see #652).
+* **Fix:** Added between section numbers and titles in the mPDF TOC (props to @bdolor; see #653).
+* **Fix:** We now use the https endpoint for the Automattic LaTeX server to avoid mixed content errors (props to @bdolor; see #651).
+* **Fix:** Publisher logos inserted via `add_theme_support( 'pressbooks_publisher_logo' )` hook are now properly copied into EPUB outputs (see #666).
 
 = 3.9.6 =
 **NOTICE:** Pressbooks now requires [WordPress 4.7 "Vaughan"](https://wordpress.org/news/2016/12/vaughan/).

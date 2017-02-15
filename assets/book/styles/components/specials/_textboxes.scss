@@ -5,11 +5,12 @@
 .textbox {
   padding: $textbox-padding-top $textbox-padding-right $textbox-padding-bottom $textbox-padding-left;
   margin: $textbox-margin-top $textbox-margin-right $textbox-margin-bottom $textbox-margin-left;
+  font-family: $textbox-font-family;
   font-size: $textbox-font-size;
   font-style: $textbox-font-style;
   font-weight: $textbox-font-weight;
   line-height: $textbox-line-height;
-  border-color: $textbox-border-color;
+  text-align: $textbox-text-align;
   border-style: $textbox-border-style;
   border-width: $textbox-border-width;
   border-radius: $textbox-border-radius;
@@ -116,4 +117,33 @@
 
 .bcc-info {
   @extend .exercises;
+}
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    div.textbox {
+     margin: 5%;
+     border-top: 1px solid;
+     border-bottom: 1px solid;
+    }
+
+    .ugc.chapter-ugc.textbox {
+      padding-left: 10%;
+      margin-top: 1.5em;
+      margin-right: 5%;
+      margin-bottom: 1.5em;
+      margin-left: 10%;
+      font-size: .9em;
+      font-style: italic;
+      border-top: 1px solid;
+    }
+
+    .ugc.chapter-ugc.textbox p.nonindent,
+    .ugc.chapter-ugc.textbox p.indent {
+      margin-right: 5%;
+      margin-left: 10%;
+      font-size: .9em;
+      font-style: italic;
+    }
+  }
 }

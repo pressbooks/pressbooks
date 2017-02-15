@@ -141,100 +141,117 @@ abstract class Options {
 	}
 
 	/**
-	* Render an input.
-	*
-	* @param string $id
-	* @param string $name
+	 * Render an input.
+	 *
+	 * @param string $id
+	 * @param string $name
 	 * @param string $option
-	* @param string $value
+	 * @param string $value
 	 * @param string $description
 	 * @param string $append
 	 * @param string $type
 	 * @param string $size
 	 * @param bool $disabled
-	*/
-	protected function renderField( $id, $name, $option, $value = '', $description = '', $append = '', $type = 'text', $class = 'regular-text', $disabled = false ) {
-	?>
-		<input id="<?php echo $id;
-?>" class="<?php echo $class;
-?>" name="<?php echo $name;
-?>[<?php echo $option;
-?>]" type="<?php echo $type;
-?>" value="<?php echo $value; ?>" <?php if ( $disabled ) : ?> disabled<?php endif; ?>/><?php if ( $append ) : ?> <?php echo $append; ?><?php endif; ?>
-			<?php if ( $description ) : ?><p class="description"><?php echo $description; ?><?php endif; ?>
-		<?php }
+	 */
+	static function renderField( $id, $name, $option, $value = '', $description = '', $append = '', $type = 'text', $class = 'regular-text', $disabled = false ) {
+		printf(
+			'<input id="%s" class="%s" name="%s[%s]" type="%s" value="%s" %s/>',
+			$id,
+			$class,
+			$name,
+			$option,
+			$type,
+			$value,
+			( $disabled ) ? ' disabled' : ''
+		);
+		if ( $append ) {
+			echo ' ' . $append;
+		}
+		printf(
+			'<p class="description">%s</p>',
+			$description
+		);
+	}
 
 	/**
-	* Render a checkbox.
-	*
-	* @param string $id
-	* @param string $name
+	 * Render a checkbox.
+	 *
+	 * @param string $id
+	 * @param string $name
 	 * @param string $option
-	* @param string $value
+	 * @param string $value
 	 * @param string $description
-	*/
-	protected function renderCheckbox( $id, $name, $option, $value = '', $description ) {
-	?>
-		<input id="<?php echo $id;
-?>" name="<?php echo $name;
-?>[<?php echo $option;
-?>]" type="checkbox" value="1" <?php echo checked( 1, $value, false ); ?>/>
-		<label for="<?php echo $id;
-?>"><?php echo $description; ?></label>
-	<?php }
+	 */
+	static function renderCheckbox( $id, $name, $option, $value = '', $description ) {
+		printf(
+			'<input id="%s" name="%s[%s]" type="checkbox" value="1" %s/><label for="%s">%s</label>',
+			$id,
+			$name,
+			$option,
+			checked( 1, $value, false ),
+			$id,
+			$description
+		);
+	}
 
 	/**
-	* Render radio buttons.
-	*
-	* @param string $id
-	* @param string $name
+	 * Render radio buttons.
+	 *
+	 * @param string $id
+	 * @param string $name
 	 * @param string $option
-	* @param string $value
+	 * @param string $value
 	 * @param string $args
 	 * @param bool $custom
-	*/
-	protected function renderRadioButtons( $id, $name, $option, $value = '', $args, $custom = false ) {
+	 */
+	static function renderRadioButtons( $id, $name, $option, $value = '', $args, $custom = false ) {
 		$is_custom = false;
 		if ( ! array_key_exists( $value, $args ) ) {
 			$is_custom = true;
 		}
-		foreach ( $args as $key => $label ) { ?>
-			<label for="<?php echo $id . '_' . sanitize_key( $key ); ?>">
-				<input type="radio" id="<?php echo $id . '_' . sanitize_key( $key );
-?>" name="<?php echo $name;
-?>[<?php echo $option;
-?>]" value="<?php echo $key; ?>" <?php if ( $custom && $is_custom ) {
-	if ( '' == $key ) {
-		echo('checked');
-	}
-} else {
-	checked( $key, $value );
-} ?>/><?php echo $label; ?>
-			</label><br />
-		<?php }
+		foreach ( $args as $key => $label ) {
+			printf(
+				'<label for="%s"><input type="radio" id="%s" name="%s[%s]" value="%s" %s/>%s</label><br />',
+				$id . '_' . sanitize_key( $key ),
+				$id . '_' . sanitize_key( $key ),
+				$name,
+				$option,
+				$key,
+				( $custom && $is_custom && '' == $key ) ? 'checked' : checked( $key, $value, false ),
+				$label
+			);
+		}
 	}
 
 	/**
-	* Render a select element.
-	*
-	* @param string $id
-	* @param string $name
+	 * Render a select element.
+	 *
+	 * @param string $id
+	 * @param string $name
 	 * @param string $option
-	* @param string $value
+	 * @param string $value
 	 * @param string $args
 	 * @param boolean $multiple
-	*/
-	protected function renderSelect( $id, $name, $option, $value = '', $args, $multiple = false ) {
-	?>
-		<select name='<?php echo $name;
-?>[<?php echo $option;
-?>]' id='<?php echo $id; ?>'<?php if ( $multiple ) : ?>multiple<?php endif; ?>>
-		<?php foreach ( $args as $key => $label ) { ?>
-			<option value='<?php echo $key; ?>' <?php selected( $key, $value );
-?>><?php echo $label; ?></option>
-		<?php } ?>
-		</select>
-	<?php }
+	 */
+	static function renderSelect( $id, $name, $option, $value = '', $args, $multiple = false ) {
+		$options = '';
+		foreach ( $args as $key => $label ) {
+			$options .= sprintf(
+				'<option value="%s" %s>%s</option>',
+				$key,
+				selected( $key, $value, false ),
+				$label
+			);
+		}
+		printf(
+			'<select name="%s[%s]" id="%s"%s>%s</select>',
+			$name,
+			$option,
+			$id,
+			( $multiple ) ? ' multiple' : '',
+			$options
+		);
+	}
 
 	/**
 	 * Render a custom select element.
@@ -245,20 +262,26 @@ abstract class Options {
 	 * @param string $args
 	 * @param boolean $multiple
 	 */
-	protected function renderCustomSelect( $id, $name, $value = '', $args, $multiple = false ) {
+	static function renderCustomSelect( $id, $name, $value = '', $args, $multiple = false ) {
 		$is_custom = false;
 		if ( ! array_key_exists( $value, $args ) ) {
 			$is_custom = true;
-		} ?>
-		<select name='<?php echo $name; ?>' id='<?php echo $id; ?>'>
-		<?php foreach ( $args as $key => $label ) { ?>
-			<option value='<?php echo $key; ?>' <?php
-			if ( '' == $key && $is_custom ) {
-				echo 'selected';
-			} else {
-				selected( $key, $value );
-			} ?>><?php echo $label; ?></option>
-		<?php } ?>
-		</select><br />
-	<?php }
+		}
+		$options = '';
+		foreach ( $args as $key => $label ) {
+			$options .= sprintf(
+				'<option value="%s" %s>%s</option>',
+				$key,
+				( '' == $key && $is_custom ) ? ' selected' : selected( $key, $value, false ),
+				$label
+			);
+		}
+		printf(
+			'<select name="%s" id="%s"%s>%s</select><br />',
+			$name,
+			$id,
+			( $multiple ) ? ' multiple' : '',
+			$options
+		);
+	}
 }

@@ -38,7 +38,7 @@ class PDFOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-			$this->options = $options;
+		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 		$this->strings = $this->getStringOptions();
@@ -514,6 +514,13 @@ class PDFOptions extends \Pressbooks\Options {
 			);
 		}
 
+		/**
+		 * Add custom settings fields.
+		 *
+		 * @since 3.9.7
+		 */
+		do_action( 'pb_theme_options_pdf_add_settings_fields', $_page, $_section );
+
 		register_setting(
 			$_option,
 			$_option,
@@ -981,7 +988,10 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return apply_filters( 'pressbooks_theme_options_pdf_defaults', array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_pdf_defaults', array(
 			'pdf_body_font_size' => '11',
 			'pdf_body_line_height' => '1.4',
 			'pdf_page_width' => '5.5in',
@@ -996,7 +1006,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'pdf_toc' => 1,
 			'pdf_image_resolution' => '300dpi',
 			'pdf_crop_marks' => 0,
-			'pdf_romanize_parts' => 0,
+			'pdf_romanize_parts' => 1,
 			'pdf_footnotes_style' => 'footnotes',
 			'widows' => 2,
 			'orphans' => 1,
@@ -1030,13 +1040,18 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getBooleanOptions() {
-		return array(
+		/**
+		 * Allow custom boolean options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_pdf_booleans', array(
 			'pdf_hyphens',
 			'pdf_toc',
 			'pdf_crop_marks',
 			'pdf_romanize_parts',
 			'pdf_fontsize',
-		);
+		) );
 	}
 
 	/**
@@ -1045,7 +1060,12 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getStringOptions() {
-		return array(
+		/**
+		 * Allow custom string options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_pdf_strings', array(
 			'pdf_page_width',
 			'pdf_page_height',
 			'pdf_page_margin_outside',
@@ -1062,7 +1082,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'running_content_chapter_right',
 			'running_content_back_matter_left',
 			'running_content_back_matter_right',
-		);
+		) );
 	}
 
 	/**
@@ -1071,11 +1091,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getIntegerOptions() {
-		return array(
+		/**
+		 * Allow custom integer options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_pdf_integers', array(
 			'pdf_body_font_size',
 			'widows',
 			'orphans',
-		);
+		) );
 	}
 
 	/**
@@ -1084,9 +1109,14 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getFloatOptions() {
-		return array(
+		/**
+		 * Allow custom float options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_pdf_floats', array(
 			'pdf_body_line_height'
-		);
+		) );
 	}
 
 	/**
@@ -1095,11 +1125,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getPredefinedOptions() {
-		return array(
+		/**
+		 * Allow custom predifined options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_pdf_predefined', array(
 			'pdf_paragraph_separation',
 			'pdf_blankpages',
 			'pdf_image_resolution',
 			'pdf_footnotes_style',
-		);
+		) );
 	}
 }

@@ -1,6 +1,13 @@
 <div class="page-content col-xs-12 col-md-8 col-md-offset-2">
 	<div class="catalog row">
-	<?php $books = new WP_Site_Query( array( 'public' => '1' ) );
+	<?php
+	/**
+	 * Filter the WP_Site_Query args for the catalog display.
+	 *
+	 * @since 3.9.7
+	 */
+	$args = apply_filters( 'pb_publisher_catalog_query_args', array( 'public' => '1' ) );
+	$books = new WP_Site_Query( $args );
 	foreach ( $books->sites as $book ) {
 		if ( get_blog_option( $book->blog_id, 'pressbooks_publisher_in_catalog' ) ) {
 			switch_to_blog( $book->blog_id );

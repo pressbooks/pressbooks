@@ -50,12 +50,19 @@ class Activation {
 		// Prevent overwriting customizations if Pressbooks has been disabled
 		if ( ! get_site_option( 'pressbooks-activated' ) ) {
 
-			// Insert Pressbooks description on root blog
-			update_blog_option( 1, 'blogdescription', 'Simple Book Publishing' );
+			/**
+			 * Allow the default description of the root blog to be customized.
+			 *
+			 * @since 3.9.7
+			 *
+			 * @param string Default description ('Simple Book Publishing').
+			 */
+			update_blog_option( 1, 'blogdescription', apply_filters( 'pb_root_description', __( 'Simple Book Publishing', 'pressbooks' ) ) );
 
-			// Configure theme and remove widgets from root blog
-			update_blog_option( 1, 'template', 'pressbooks-publisher' );
-			update_blog_option( 1, 'stylesheet', 'pressbooks-publisher' );
+			// Configure root blog theme (PB_ROOT_THEME, defined as 'pressbooks-publisher' by default).
+			update_blog_option( 1, 'template', PB_ROOT_THEME );
+			update_blog_option( 1, 'stylesheet', PB_ROOT_THEME );
+			// Remove widgets from root blog.
 			delete_blog_option( 1, 'sidebars_widgets' );
 
 			// Add "activated" key to enable check above
@@ -233,9 +240,16 @@ class Activation {
 		);
 
 		$post = array( 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id );
-		$page = array( 'post_status' => 'publish', 'comment_status' => 'closed', 'ping_status' => 'closed', 'post_content' => '<!-- Here be dragons.-->', 'post_author' => $this->user_id, 'tags_input' => __( 'Default Data', 'pressbooks' ) );
+		$page = array( 'post_status' => 'publish', 'comment_status' => 'closed', 'ping_status' => 'closed', 'post_content' => '<!-- Here be dragons. -->', 'post_author' => $this->user_id, 'tags_input' => __( 'Default Data', 'pressbooks' ) );
 
-		update_option( 'blogdescription', __( 'Simple Book Production', 'pressbooks' ) );
+		/**
+		 * Allow the default description of a new book to be customized.
+		 *
+		 * @since 3.9.7
+		 *
+		 * @param string Default description ('Simple Book Publishing').
+		 */
+		update_option( 'blogdescription', apply_filters( 'pb_book_description', __( 'Simple Book Publishing', 'pressbooks' ) ) );
 
 		$parent_part = 0;
 		$intro = 0;
@@ -282,11 +296,12 @@ class Activation {
 							$name = $user_info->display_name;
 							update_post_meta( $metadata_id, 'pb_author', $name );
 						}
-						$locale = get_site_option( 'WPLANG' );
-						if ( ! $locale ) {
-							$locale = 'en';
-						} else {
+						if ( $locale = get_option( 'WPLANG' ) ) {
 							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes() );
+						} elseif ( $locale = get_site_option( 'WPLANG' ) ) {
+							$locale = array_search( $locale, \Pressbooks\L10n\wplang_codes() );
+						} else {
+							$locale = 'en';
 						}
 						update_post_meta( $metadata_id, 'pb_title', get_option( 'blogname' ) );
 						update_post_meta( $metadata_id, 'pb_language', $locale );

@@ -61,9 +61,6 @@ if ( \Pressbooks\Book::isBook() ) {
 
 if ( is_network_admin() ) {
 	add_action( 'wp_network_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_network_dashboard_widgets' );
-	add_action( 'install_plugins_tabs', '\Pressbooks\Admin\Plugins\filter_install_plugins_tabs' );
-	add_action( 'install_plugins_pressbooks', '\Pressbooks\Admin\Plugins\install_plugins' );
-	add_filter( 'install_plugins_table_api_args_pressbooks', '\Pressbooks\Admin\Plugins\install_plugins_table_api_args_pressbooks' );
 }
 
 if ( true == is_main_site() ) {

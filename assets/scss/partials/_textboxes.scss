@@ -77,3 +77,19 @@ $examples-header-background: #7A333A !default;
 		margin: 0;
 	}
 }
+
+.bcc-box {
+  @extend .textbox;
+}
+
+.bcc-highlight {
+  @extend .learning-objectives;
+}
+
+.bcc-success {
+  @extend .key-takeaways;
+}
+
+.bcc-info {
+  @extend .exercises;
+}

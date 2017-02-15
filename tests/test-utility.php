@@ -67,24 +67,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 
-//	/**
-//	 * @covers \Pressbooks\Utility\wp_mail
-//	 */
-//	public function test_wp_mail() {
-//		// TODO: Testing this as-is would send emails. Need to refactor to allow mocking of postmarkapp endpoint.
-//		$this->markTestIncomplete();
-//	}
-
-
-//	/**
-//	 * @covers \Pressbooks\Utility\pm_send_mail
-//	 */
-//	public function test_pm_send_mail() {
-//		// TODO: Testing this as-is would send emails. Need to refactor to allow mocking of postmarkapp endpoint.
-//		$this->markTestIncomplete();
-//	}
-
-
 	/**
 	 * @covers \Pressbooks\Utility\add_sitemap_to_robots_txt
 	 */
@@ -284,17 +266,33 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertContains( '<title>Foobar</title>', $template );
 		$this->assertNotContains( '<title></title>', $template );
 
-		$this->assertContains( "<body>Hello World!</body>", $template );
+		$this->assertContains( '<body>Hello World!</body>', $template );
 		$this->assertNotContains( '<body></body>', $template );
 
 		try {
 			\Pressbooks\Utility\template( '/tmp/file/does/not/exist' );
-		}
-		catch ( \Exception $e ) {
+		} catch ( \Exception $e ) {
 			$this->assertTrue( true );
 			return;
 		}
 		$this->fail();
 	}
 
+	/**
+	 * @covers \Pressbooks\Utility\mail_from
+	 */
+	public function test_mail_from() {
+		$this->assertEquals( 'pressbooks@example.org', \Pressbooks\Utility\mail_from( '' ) );
+		define( 'WP_MAIL_FROM', 'hi@pressbooks.org' );
+		$this->assertEquals( 'hi@pressbooks.org', \Pressbooks\Utility\mail_from( '' ) );
+	}
+
+	/**
+	 * @covers \Pressbooks\Utility\mail_from_name
+	 */
+	public function test_mail_from_name() {
+		$this->assertEquals( 'Pressbooks', \Pressbooks\Utility\mail_from_name( '' ) );
+		define( 'WP_MAIL_FROM_NAME', 'Ned' );
+		$this->assertEquals( 'Ned', \Pressbooks\Utility\mail_from_name( '' ) );
+	}
 }
