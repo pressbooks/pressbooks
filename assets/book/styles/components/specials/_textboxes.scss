@@ -118,3 +118,32 @@
 .bcc-info {
   @extend .exercises;
 }
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    div.textbox {
+     margin: 5%;
+     border-top: 1px solid;
+     border-bottom: 1px solid;
+    }
+
+    .ugc.chapter-ugc.textbox {
+      padding-left: 10%;
+      margin-top: 1.5em;
+      margin-right: 5%;
+      margin-bottom: 1.5em;
+      margin-left: 10%;
+      font-size: .9em;
+      font-style: italic;
+      border-top: 1px solid;
+    }
+
+    .ugc.chapter-ugc.textbox p.nonindent,
+    .ugc.chapter-ugc.textbox p.indent {
+      margin-right: 5%;
+      margin-left: 10%;
+      font-size: .9em;
+      font-style: italic;
+    }
+  }
+}

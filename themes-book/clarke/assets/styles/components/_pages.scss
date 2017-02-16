@@ -1,0 +1,213 @@
+// HALF TITLE PAGE
+
+// $title-half-title-display:(
+//   epub: none,
+//   prince: initial,
+//   web: none
+// ) !default;
+// $title-half-title-block-margin-top: if-map-get($section-title-block-margin-top, $type) !default;
+// $title-half-title-font-family: $font-2 !default;
+$title-half-title-font-size: (
+  epub: 1.75em,
+  prince: 1.75em,
+  web: 1.5em
+) !default;
+// $title-half-title-font-style: normal !default;
+// $title-half-title-font-weight: normal !default;
+// $title-half-title-letter-spacing: normal !default;
+// $title-half-title-word-spacing: normal !default;
+$title-half-title-align: left !default;
+// $title-half-title-text-transform: none !default;
+
+// TITLE PAGE
+
+// Title
+
+$title-title-block-margin-top: (
+  epub: 8em,
+  prince: 6cm,
+  web: 3em
+) !default;
+// $title-title-font-family: $font-2 !default;
+$title-title-font-size:(
+  epub: 1.75em,
+  prince: 1.75em,
+  web: 1.75em
+) !default;
+// $title-title-font-style: normal !default;
+// $title-title-font-weight: normal !default;
+// $title-title-letter-spacing: normal !default;
+// $title-title-word-spacing: normal !default;
+$title-title-align: left !default;
+// $title-title-text-transform: none !default;
+
+// Subtitle
+
+$title-subtitle-margin-top: (
+  epub: 2em,
+  prince: 1cm,
+  web: 0
+) !default;
+// $title-subtitle-font-family: $font-3 !default;
+$title-subtitle-font-size:(
+  epub: 1.33em,
+  prince: 1.33em,
+  web: 1.25em
+) !default;
+$title-subtitle-font-style: normal !default;
+// $title-subtitle-font-weight: normal !default;
+// $title-subtitle-letter-spacing: normal !default;
+// $title-subtitle-word-spacing: normal !default;
+$title-subtitle-align: left !default;
+// $title-subtitle-text-transform: none !default;
+
+// Author
+
+$title-author-margin-top: (
+  epub: 2em,
+  prince: 1cm,
+  web: 2em
+) !default;
+// $title-author-font-family: $font-2 !default;
+$title-author-font-size: (
+  epub: 1.0833em,
+  prince: 1.0833em,
+  web: 1em
+) !default;
+// $title-author-font-style: normal !default;
+// $title-author-font-weight: normal !default;
+// $title-author-letter-spacing: 1px !default;
+// $title-author-word-spacing: 2px !default;
+$title-author-align: left !default;
+$title-author-text-transform: none !default;
+
+// Publisher logo
+
+// $title-publisher-logo-display: block !default;
+// $title-publisher-logo-width: 20% !default;
+// $title-publisher-logo-padding-top: .75em !default;
+// $title-publisher-logo-padding-bottom: .75em !default;
+// $title-publisher-logo-text-align: center !default;
+// $title-publisher-logo-margin-right: auto !default;
+// $title-publisher-logo-margin-left: auto !default;
+
+// Publisher
+
+// $title-publisher-margin-bottom: .5em !default;
+// $title-publisher-font-family: $font-3 !default;
+$title-publisher-font-size: (
+  epub: .83em,
+  prince: .83em,
+  web: .9em
+) !default;
+// $title-publisher-font-style: normal !default;
+// $title-publisher-font-weight: normal !default;
+// $title-publisher-line-height: 1em !default;
+// $title-publisher-letter-spacing: 1px !default;
+// $title-publisher-word-spacing: 2px !default;
+$title-publisher-align: left !default;
+// $title-publisher-text-transform: uppercase !default;
+
+// Publisher city
+
+// $title-publisher-city-font-family: $font-3 !default;
+$title-publisher-city-font-size: (
+  epub: .83em,
+  prince: .83em,
+  web: .9em
+) !default;
+// $title-publisher-city-font-style: normal !default;
+// $title-publisher-city-font-weight: normal !default;
+// $title-publisher-city-line-height: 1em !default;
+// $title-publisher-city-letter-spacing: 1px !default;
+// $title-publisher-city-word-spacing: 2px !default;
+$title-publisher-city-align: left !default;
+// $title-publisher-city-text-transform: uppercase !default;
+
+// --- FRONT MATTER --- //
+
+// Before Title
+
+$before-title-title-block-margin-top: (
+  epub: 3em,
+  prince: 1.5cm,
+  web: 0
+) !default;
+// $before-title-title-block-margin-bottom: .5em !default;
+
+// Copyright
+
+// $copyright-float: none !default;
+$copyright-margin-bottom: .5em !default;
+// $copyright-font-family: $font-1 !default;
+$copyright-font-size: .75em !default;
+// $copyright-font-style: normal !default;
+// $copyright-font-weight: normal !default;
+// $copyright-line-height: 1.2em !default;
+// $copyright-align: left !default;
+// $copyright-indent: 0 !default;
+
+// Dedication
+
+// $dedication-margin-right: 10% !default;
+// $dedication-margin-left: 10% !default;
+// $dedication-margin-bottom: 1em !default;
+$dedication-font-family: $font-1 !default;
+// $dedication-font-size: 1em !default;
+// $dedication-font-style: italic !default;
+// $dedication-font-weight: normal !default;
+// $dedication-line-height: normal !default;
+// $dedication-align: center !default;
+
+// Epigraph
+
+$epigraph-margin-right: 0 !default;
+$epigraph-margin-left: 0 !default;
+$epigraph-margin-bottom: 0 !default;
+// $epigraph-font-family: $font-1 !default;
+// $epigraph-font-size: 1em !default;
+$epigraph-font-style: normal !default;
+// $epigraph-font-weight: normal !default;
+// $epigraph-line-height: normal !default;
+$epigraph-align: left !default;
+
+// BACK MATTER
+
+// Bibliography
+
+$bibliography-padding-left: 1em !default;
+$bibliography-font-size: .75em !default;
+$bibliography-text-indent: -1em !default;
+
+// Index
+
+// $index-column-count: 2 !default;
+// $index-column-gap: 2.5em !default;
+// $index-margin-bottom: 4em !default;
+$index-para-padding-left: 1em !default;
+$index-para-font-size: .75em !default;
+// $index-para-align: left !default;
+$index-para-indent: -1em !default;
+$index-sub-entry-padding-left: 2em;
+
+// Override variables above this line, using the !default flag to allow further overrides.
+@import 'variables/pages';
+
+// Add custom SCSS below these imports and includes.
+@import 'components/pages/titles';
+@import 'components/pages/parts';
+@import 'components/pages/front-matter';
+@import 'components/pages/chapters';
+@import 'components/pages/back-matter';
+
+.before-title .front-matter-title-wrap .front-matter-number,
+.before-title .front-matter-title-wrap .front-matter-title {
+  display: none;
+}
+
+.dedication .front-matter-title-wrap,
+.disclaimer .front-matter-title-wrap,
+.epigraph .front-matter-title-wrap,
+.before-title .front-matter-title-wrap {
+  border-top: 0;
+}

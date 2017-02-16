@@ -1,0 +1,77 @@
+@media amzn-mobi {
+
+   #toc {
+      font-style: normal;
+      font-weight: normal;
+      border: 0px;
+      text-align: left;
+   }
+   #toc h1 {
+        font-size: 1em;
+        font-style: normal;
+        font-weight: normal;
+   }
+   span.chapter-author {
+        display: none;
+   }
+   span.chapter-subtitle {
+      display: none;
+   }
+   span.toc-chapter-title {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 1em;
+       text-align: left;
+   }
+   li.front-matter {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 0.9em;
+   }
+   li.part {
+      font-weight: bold;
+      font-size: 1.25em;
+      text-align: left;
+      margin-top: 1em;
+   }
+   li.chapter {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 1em;
+   }
+   li.back-matter {
+      font-weight: bold;
+      font-size: 0.9em;
+      text-align: left;
+      margin-top: 1em;
+   }
+   #toc a {
+      font-style: normal;
+      font-weight: normal;
+   }
+   #toc ul .front-matter,
+   #toc ul .back-matter {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 1em;
+   }
+   #toc .front-matter {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 1em;
+   }
+   #toc .back-matter {
+        font-style: normal;
+        font-weight: normal;
+        font-size: 1em;
+   }
+   #toc .part {
+      font-weight: bold;
+      margin-top: 1em;
+   }
+   #toc li {
+       font-style: normal;
+       font-weight: normal;
+       font-size: 1em;
+   }
+}

@@ -1,0 +1,60 @@
+//============================================================================//
+//                        Front Matter Section Titles                         //
+//============================================================================//
+
+@import '../utilities';
+
+.front-matter-title-wrap {
+  margin-top: if-map-get($section-title-block-margin-top, $type);
+  margin-right: $section-title-block-margin-right;
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
+  margin-left: $section-title-block-margin-left;
+
+  .front-matter-number {
+    display: none;
+    visibility: hidden;
+  }
+
+  .front-matter-title {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: $front-matter-title-font-family;
+    font-size: if-map-get($section-title-font-size, $type);
+    font-style: $front-matter-title-font-style;
+    font-weight: $front-matter-title-font-weight;
+    hyphens: none;
+    text-align: $front-matter-title-align;
+    text-transform: $front-matter-title-text-transform;
+  }
+}
+
+// New TOC title
+
+#toc h1 {
+  display: block;
+  margin-top: if-map-get($section-title-block-margin-top, $type);
+  margin-right: $section-title-block-margin-right;
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
+  margin-left: $section-title-block-margin-left;
+  font-family: $toc-title-font-family;
+  font-size: if-map-get($toc-title-font-size, $type);
+  font-style: $toc-title-font-style;
+  font-weight: $toc-title-font-weight;
+  hyphens: none;
+  text-align: $toc-title-align;
+  text-transform: $toc-title-text-transform;
+}
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    h1.front-matter-title {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1.4em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+  }
+}
