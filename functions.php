@@ -143,9 +143,9 @@ function pb_get_custom_stylesheet_url() {
 	$current_blog_id = get_current_blog_id();
 
 	if ( is_file( WP_CONTENT_DIR . "/blogs.dir/{$current_blog_id}/files/custom-css/web.css" ) ) {
-		return set_url_scheme( content_url( "/blogs.dir/{$current_blog_id}/files/custom-css/web.css" ), 'relative' );
+		return \Pressbooks\Sanitize\maybe_https( content_url( "/blogs.dir/{$current_blog_id}/files/custom-css/web.css" ) );
 	} elseif ( is_file( WP_CONTENT_DIR . "/uploads/sites/{$current_blog_id}/custom-css/web.css" ) ) {
-		return set_url_scheme( content_url( "/uploads/sites/{$current_blog_id}/custom-css/web.css" ), 'relative' );
+		return \Pressbooks\Sanitize\maybe_https( content_url( "/uploads/sites/{$current_blog_id}/custom-css/web.css" ) );
 	} else {
 		return PB_PLUGIN_URL . 'themes-book/pressbooks-custom-css/style.css';
 	}
