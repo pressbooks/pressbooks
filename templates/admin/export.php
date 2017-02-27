@@ -121,28 +121,59 @@ if ( ! empty( $_GET['export_warning'] ) && ( 1 == $exportoptions['email_validati
 	<h3><?php _e( 'Your Export Format Options', 'pressbooks' ); ?></h3>
 	<p><?php _e( 'Select which formats you want to export', 'pressbooks' ); ?>.</p>
 
+<?php
+/**
+ * @since 3.9.8
+ * Add custom export formats to the export page format list.
+ *
+ * For example, here's how one might add a hypothetical Word export format:
+ *
+ * add_filter( 'pb_export_formats', function ( $formats ) {
+ * 	$formats['exotic']['docx'] = __( 'Word (Beta)', 'pressbooks' );
+ *	return $formats;
+ * } );
+ *
+ */
+
+$formats = apply_filters( 'pb_export_formats', array(
+	'standard' => array(
+		'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
+		'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
+		'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
+		'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
+	),
+	'exotic' => array(
+		'epub3' => __( 'EPUB 3 (beta)', 'pressbooks' ),
+		'xhtml' => __( 'XHTML', 'pressbooks' ),
+		'odt' => __( 'OpenDocument (beta)', 'pressbooks' ),
+		'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
+		'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
+	),
+) ); ?>
+
 	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 	    <fieldset class="standard">
 				<legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
-	  		<input type="checkbox" id="print_pdf" name="export_formats[print_pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="print_pdf"> <?php _e( 'PDF (for print)', 'pressbooks' ); ?></label><br />
-				<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="pdf"> <?php _e( 'PDF (for digital distribution)', 'pressbooks' ); ?></label><br />
-				<?php if ( true == \Pressbooks\Modules\Export\Mpdf\Pdf::hasDependencies() ) { ?>
-					<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" /><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
-				<?php } ?>
-				<input type="checkbox" id="epub" name="export_formats[epub]" value="1" <?php if ( false == $epub ) { ?>disabled <?php } ?>/><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
-		  	<input type="checkbox" id="mobi" name="export_formats[mobi]" value="1" <?php if ( false == $mobi ) { ?>disabled <?php } ?>/><label for="mobi"> <?php _e( 'MOBI (for Kindle)', 'pressbooks' ); ?></label>
-	    </fieldset>
+<?php foreach ( $formats['standard'] as $key => $value ) {
+	printf(
+		'<input type="checkbox" id="%1$s" name="export_formats[%1$s]" value="1" %2$s/><label for="%1$s"> %3$s</label><br />',
+		$key,
+		isset( $dependency_errors[ $key ] ) ? 'disabled' : '',
+		$value
+	);
+} ?>
+		    </fieldset>
 
 	    <fieldset class="exotic">
 	    <legend><?php _e( 'Exotic formats', 'pressbooks' ); ?>:</legend>
-		    <input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php if ( false == $epub ) { ?>disabled <?php } ?>/><label for="epub3"> <?php _e( 'EPUB 3 (beta)', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" <?php if ( false == $xhtml ) { ?>disabled <?php } ?>/><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
-				<?php if ( true == \Pressbooks\Utility\show_experimental_features() ) { ?>
-				<input type="checkbox" id="icml" name="export_formats[icml]" value="1" <?php if ( false == $icml ) { ?>disabled <?php } ?>/><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
-				<?php } ?>
-				<input type="checkbox" id="odt" name="export_formats[odt]" value="1" <?php if ( false == $odt ) { ?>disabled <?php } ?>/><label for="odt"> <?php _e( 'OpenDocument (beta)', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="wxr" name="export_formats[wxr]" value="1" /><label for="wxr"> <?php _e( 'Pressbooks XML', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="vanillawxr" name="export_formats[vanillawxr]" value="1" /><label for="vanillawxr"> <?php _e( 'WordPress XML', 'pressbooks' ); ?></label>
+<?php foreach ( $formats['exotic'] as $key => $value ) {
+	printf(
+		'<input type="checkbox" id="%1$s" name="export_formats[%1$s]" value="1" %2$s/><label for="%1$s"> %3$s</label><br />',
+		$key,
+		isset( $dependency_errors[ $key ] ) ? 'disabled' : '',
+		$value
+	);
+} ?>
 	    </fieldset>
 	</form>
 	<div class="clear"></div>
@@ -201,9 +232,22 @@ foreach ( $exports as $file ) {
 	} elseif ( 'pdf' == $file_extension && '._print.pdf' == $pre_suffix ) {
 		$file_class = 'print-pdf';
 	} else {
-		$file_class = $file_extension;
+		/**
+		 * @since 3.9.8
+		 * Map custom export format file extensions to their CSS class.
+		 *
+		 * For example, here's how one might set the CSS class for a .docx file:
+		 *
+		 * add_filter( 'pb_get_export_file_class', function ( $file_extension ) {
+		 * 	if ( 'docx' == $file_extension ) {
+		 *		return 'word';
+		 * 	}
+		 *	return $file_extension;
+		 * } );
+		 *
+		 */
+		$file_class = apply_filters( 'pb_get_export_file_class', $file_extension );
 	}
-
 ?>
 	<form class="export-file" action="<?php echo $export_delete_url; ?>" method="post">
 		<input type="hidden" name="filename" value="<?php echo $file; ?>" />
