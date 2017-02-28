@@ -2,13 +2,16 @@
 // Running Content
 //===================================
 
+// This file builds generic "page", and populates it with running content & numbers in the
+//places we want them, using the CSS3 margin box locations
+
+// Let's pull in some stuff we'll use for styling
+
 @import 'mixins', 'blank';
 
 @include runninghead-padding;
 
-// This file builds generic "page", and populate with running content in the
-//places we want them, using the CSS3 margin box locations
-
+// Down to business:
 // We want different running content depending on the section type (which will be defined below)
 $left-running-content:(
   front-matter-pages: $front-matter-running-content-left,
@@ -26,7 +29,7 @@ $right-running-content:(
   back-matter-pages: $back-matter-running-content-right
 ) !default;
 
-//We want different page number formatting  depending on the section type
+//We want different page number formatting depending on the section type
 $left-page-number:(
   front-matter-pages: $front-matter-page-number-left,
   introduction-pages: $introduction-page-number-left,
@@ -48,6 +51,9 @@ $right-page-number:(
 // We will build a big ugly if-then statement, to populate numbers where we want them
 // and everywhere else we will populate number locations with '' = null
 // Note that we will also style the box, pulling in a mixin from the _mixins file
+// Note also: one imagines that someone who knows what they are doing could make this
+// more elegant, but, as the wise Del Griffith once said:
+//"It's not pretty, but it will get you where you want to go."
 
 @if $numbering-position == 'top-outside-corner' {
   $left-top-outside-corner-number: $left-page-number;
@@ -212,6 +218,7 @@ $right-page-number:(
 }
 
 //We must also set all page number variables (left pages & right pages) to 'null' as default
+//so that the boxes will be empty if no content is assigned
 
 //top of page
 $left-top-outside-corner-number: '' !default;
@@ -432,7 +439,7 @@ $right-bottom-inside-corner-separator: '' !default;
   }
 }
 
-//as above, we must set all page content variables (left pages & right pages) to 'null' as default
+//As above, we must set all page content variables (left pages & right pages) to 'null' as default
 
 //top of page
 $left-top-outside-corner-content: '' !default;
@@ -468,7 +475,7 @@ $left-bottom-inside-corner-content: '' !default;
 $right-bottom-inside-corner-content: '' !default;
 
 
-// Now, we've defined: our options, variables, and defaults
+// Now, we've defined: our options, our variables, and our defaults
 // so we can define what a generic page looks like, using the variable settings above
 // so let's make a generic page structure mixin (left page & right page)
 //note we're using if-map-get, which will enable us to pull in the right variable
@@ -561,7 +568,7 @@ $right-bottom-inside-corner-content: '' !default;
 //define specific page structure
 //using the generic mixins above, and a $page-type variable,
 //which allows us to stick different content & styling depending on the
-// page type
+//page type
 
 $page-type: 'front-matter-pages';
 
