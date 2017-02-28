@@ -1,14 +1,15 @@
 //===================================
-// Running Content testing
+// Running Content
 //===================================
 
 @import 'mixins', 'blank';
 
 @include runninghead-padding;
 
+// This file builds generic "page", and populate with running content in the
+//places we want them, using the CSS3 margin box locations
 
-// So now we need to adjust numbers & running content based on section types,
-//so we pull in the variables from elsewhere right? :
+// We want different running content depending on the section type (which will be defined below)
 $left-running-content:(
   front-matter-pages: $front-matter-running-content-left,
   introduction-pages: $introduction-running-content-left,
@@ -25,8 +26,7 @@ $right-running-content:(
   back-matter-pages: $back-matter-running-content-right
 ) !default;
 
-//Arrighrt, so now, page numbers might be different for front-matter & chapters.
-
+//We want different page number formatting  depending on the section type
 $left-page-number:(
   front-matter-pages: $front-matter-page-number-left,
   introduction-pages: $introduction-page-number-left,
@@ -43,11 +43,12 @@ $right-page-number:(
   back-matter-pages: $back-matter-page-number-right
 ) !default;
 
-// now make a giant honking if/then statement to position your numbers
-// based on which number position option was chosen above.
-// note: the running separator, if it exists, will be next to the
-// page number ... so we add it here as well.
-// (surely there is a better way to do this?)
+// In ~/variables/_structure.scss we have defined options for where you
+// want yout page numbers to appear, using the CSS3 paged media box margin model
+// We will build a big ugly if-then statement, to populate numbers where we want them
+// and everywhere else we will populate number locations with '' = null
+// Note that we will also style the box, pulling in a mixin from the _mixins file
+
 @if $numbering-position == 'top-outside-corner' {
   $left-top-outside-corner-number: $left-page-number;
   $right-top-outside-corner-number: $right-page-number;
@@ -210,7 +211,7 @@ $right-page-number:(
   }
 }
 
-//we must also set all page number variables (left pages & right pages) to 'null' as default
+//We must also set all page number variables (left pages & right pages) to 'null' as default
 
 //top of page
 $left-top-outside-corner-number: '' !default;
@@ -244,8 +245,7 @@ $right-bottom-inside-number: '' !default;
 $left-bottom-inside-corner-number: '' !default;
 $right-bottom-inside-corner-number: '' !default;
 
-
-//and do same for separators
+//We should  do the same for separators (did we mention separators yet?)
 
 //top of page
 $left-top-outside-corner-separator: '' !default;
@@ -280,9 +280,12 @@ $left-bottom-inside-corner-separator: '' !default;
 $right-bottom-inside-corner-separator: '' !default;
 
 
-//now we'll do another big if/then statement,
-//for setting running content
-//... and wish we knew how to program
+// Repeating the process above for running conent:
+// In ~/variables/_structure.scss we have defined options for where you
+// want your running content to appear, using the CSS3 paged media box margin model
+// We will build a big ugly if-then statement, to populate running content where we want it
+// and everywhere else we will populate number locations with '' = null
+// and ... we pull styling in from the _mixins.scss file, as above
 
 @if $running-content-position == 'top-outside-corner' {
   $left-top-outside-corner-content: $left-running-content !default;
@@ -465,10 +468,11 @@ $left-bottom-inside-corner-content: '' !default;
 $right-bottom-inside-corner-content: '' !default;
 
 
-// Now, we have defined our options, variables, and defaults
-// so we can define what a page looks like, using the variable settings above
-
-// generic page structure mixins
+// Now, we've defined: our options, variables, and defaults
+// so we can define what a generic page looks like, using the variable settings above
+// so let's make a generic page structure mixin (left page & right page)
+//note we're using if-map-get, which will enable us to pull in the right variable
+//depending on section type
 
 @mixin page-structure-left {
   @top-left-corner {
@@ -554,8 +558,10 @@ $right-bottom-inside-corner-content: '' !default;
   }
 }
 
-
-// now pull in the page structure, adjust by page type
+//define specific page structure
+//using the generic mixins above, and a $page-type variable,
+//which allows us to stick different content & styling depending on the
+// page type
 
 $page-type: 'front-matter-pages';
 
@@ -616,3 +622,5 @@ $page-type: 'back-matter-pages';
 @page back-matter:right {
   @include page-structure-right;
 }
+
+//bob's your uncle
