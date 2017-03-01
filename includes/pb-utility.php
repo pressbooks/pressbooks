@@ -154,7 +154,19 @@ function get_media_path( $guid ) {
  * @return array
  */
 function latest_exports() {
-	$filetypes = array(
+	/**
+	 * @since 3.9.8
+	 * Add custom export formats to the latest exports filetype mapping array.
+	 *
+	 * For example, here's how one might add a hypothetical Word export format:
+	 *
+	 * add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
+	 * 	$filetypes['word'] = '.docx';
+	 *	return $filetypes;
+	 * } );
+	 *
+	 */
+	$filetypes = apply_filters( 'pb_latest_export_filetypes', array(
 	    'epub3' => '._3.epub',
 	    'epub' => '.epub',
 	    'pdf' => '.pdf',
@@ -166,7 +178,7 @@ function latest_exports() {
 	    'vanillawxr' => '._vanilla.xml',
 	    'mpdf' => '._oss.pdf',
 	    'odf' => '.odt',
-	);
+	) );
 
 	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
 

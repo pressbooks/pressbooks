@@ -86,16 +86,11 @@ class ThemeOptions {
 			'global' => '\Pressbooks\Modules\ThemeOptions\GlobalOptions',
 			'web' => '\Pressbooks\Modules\ThemeOptions\WebOptions',
 			'pdf' => '\Pressbooks\Modules\ThemeOptions\PDFOptions',
-			'mpdf' => '\Pressbooks\Modules\ThemeOptions\MPDFOptions',
 			'ebook' => '\Pressbooks\Modules\ThemeOptions\EbookOptions',
 		);
 
 		if ( ! \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
 			unset( $tabs['pdf'] );
-		}
-
-		if ( ! \Pressbooks\Modules\Export\Mpdf\Pdf::hasDependencies() ) {
-			unset( $tabs['mpdf'] );
 		}
 
 		/**
