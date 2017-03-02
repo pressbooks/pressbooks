@@ -592,9 +592,6 @@ abstract class Export {
 			if ( isset( $x['print_pdf'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
 			}
-			if ( isset( $x['mpdf'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Mpdf\Pdf';
-			}
 			if ( isset( $x['epub'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 			}
@@ -622,6 +619,22 @@ abstract class Export {
 			if ( isset( $x['odt'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
 			}
+
+			/**
+			 * @since 3.9.8
+			 * Catch enabled custom formats and add their classes to the $modules array.
+			 *
+			 * For example, here's how one might catch a hypothetical Word exporter:
+			 *
+			 * add_filter( 'pb_active_export_modules', function ( $modules ) {
+			 * 	if ( isset( $_POST['export_formats']['docx'] ) ) {
+			 * 		$modules[] = '\Pressbooks\Modules\Export\Docx\Docx';
+			 * 	}
+			 * 	return $modules;
+		 	 * } );
+			 *
+			 */
+			$modules = apply_filters( 'pb_active_export_modules', $modules );
 
 			// --------------------------------------------------------------------------------------------------------
 			// Clear cache? Range is 1 hour.
