@@ -131,7 +131,8 @@ abstract class Export {
 
 		if ( CustomCss::isCustomCss() ) {
 			$fullpath = CustomCss::getCustomCssFolder() . "/$type.js";
-			if ( ! is_file( $fullpath ) ) { $fullpath = false;
+			if ( ! is_file( $fullpath ) ) {
+				$fullpath = false;
 			}
 		}
 
@@ -148,7 +149,6 @@ abstract class Export {
 
 		return $fullpath;
 	}
-
 
 	/**
 	 * Is section parsing enabled?

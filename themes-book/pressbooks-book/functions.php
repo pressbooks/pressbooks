@@ -58,7 +58,7 @@ function pb_enqueue_scripts() {
 		}
 		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), $deps, get_option( 'pressbooks_last_custom_css' ), 'screen' );
 		wp_enqueue_style( 'pressbooks-custom-css' );
-	} else  {
+	} else {
 		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
 		wp_enqueue_style( 'pressbooks' );
 		// Use default stylesheet as base (to avoid horribly broken webbook)
