@@ -196,6 +196,12 @@ class Xhtml11 extends Export {
 		$this->echoMetaData( $book_contents, $metadata );
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
+
+		if ( ! empty( $_GET['style'] ) ) {
+			$url = \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . $_GET['style'] . '.css';
+			echo "<link rel='stylesheet' href='$url'>\n"; // @codingStandardsIgnoreLine
+		}
+
 		echo "</head>\n<body lang='{$this->lang}'>\n";
 
 		// Before Title Page
