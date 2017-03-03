@@ -137,7 +137,8 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 themes
+			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+				// Check for v2 themes
 				$fullpath = realpath( get_stylesheet_directory() . "/assets/scripts/$type/script.js" );
 			} else {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
@@ -148,6 +149,29 @@ abstract class Export {
 		}
 
 		return $fullpath;
+	}
+
+	/**
+	 * Return the public URL to an export module's Javascript file.
+	 *
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	function getExportScriptUrl( $type ) {
+
+		$url = false;
+
+		if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) && realpath( get_stylesheet_directory() . "/assets/scripts/$type/script.js" ) ) {
+			$url = get_stylesheet_directory_uri() . "/assets/scripts/$type/script.js";
+		} elseif ( realpath( get_stylesheet_directory() . "/export/$type/script.js" ) ) {
+			$url = get_stylesheet_directory_uri() . "/export/$type/script.js";
+		}
+		if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' == $type ) {
+			$url = get_stylesheet_directory_uri() . "/export/$type/script-romanize.js";
+		}
+
+		return $url;
 	}
 
 	/**
