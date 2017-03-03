@@ -196,6 +196,15 @@ class Xhtml11 extends Export {
 		$this->echoMetaData( $book_contents, $metadata );
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
+
+		/**
+		 * Mimic wp_head functionality for XHTML exports.
+		 * This allows enqueuing styles and scripts to the XHTML <head>.
+		 *
+		 * @since 3.9.8
+		 */
+		do_action( 'pb_head' );
+
 		echo "</head>\n<body lang='{$this->lang}'>\n";
 
 		// Before Title Page
