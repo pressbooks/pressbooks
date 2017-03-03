@@ -382,6 +382,9 @@ function do_open() {
 				case 'mpdf':
 					$ext = '_oss.pdf';
 					break;
+				case 'print-pdf':
+					$ext = '_print.pdf';
+					break;
 				case 'odf':
 					$ext = 'odt';
 					break;
