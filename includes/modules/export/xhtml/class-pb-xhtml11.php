@@ -197,13 +197,10 @@ class Xhtml11 extends Export {
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
 
-		/**
-		 * Mimic wp_head functionality for XHTML exports.
-		 * This allows enqueuing styles and scripts to the XHTML <head>.
-		 *
-		 * @since 3.9.8
-		 */
-		do_action( 'pb_head' );
+		if ( ! empty( $_GET['style'] ) ) {
+			$url = \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . $_GET['style'] . '.css';
+			echo "<link rel='stylesheet' href='$url'>\n"; // @codingStandardsIgnoreLine
+		}
 
 		echo "</head>\n<body lang='{$this->lang}'>\n";
 
