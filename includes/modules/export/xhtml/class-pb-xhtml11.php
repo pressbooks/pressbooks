@@ -199,7 +199,13 @@ class Xhtml11 extends Export {
 
 		if ( ! empty( $_GET['style'] ) ) {
 			$url = \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . $_GET['style'] . '.css';
-			echo "<link rel='stylesheet' href='$url'>\n"; // @codingStandardsIgnoreLine
+			echo "<link rel='stylesheet' href='$url' type='text/css' />\n"; // @codingStandardsIgnoreLine
+		}
+
+		if ( ! empty( $_GET['script'] ) ) {
+			if ( $url = $this->getExportScriptUrl( $_GET['script'] ) . '/script.js' ) {
+				echo "<script src='$url' type='text/javascript'></script>\n"; // @codingStandardsIgnoreLine
+			}
 		}
 
 		echo "</head>\n<body lang='{$this->lang}'>\n";
