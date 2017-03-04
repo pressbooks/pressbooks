@@ -201,6 +201,10 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
 }
 
+// Theme Lock
+add_action( 'wp_ajax_pb_lock_theme', '\Pressbooks\Modules\ThemeLock\ThemeLock::lockTheme' );
+add_action( 'wp_ajax_pb_unlock_theme', '\Pressbooks\Modules\ThemeLock\ThemeLock::unlockTheme' );
+
 // -------------------------------------------------------------------------------------------------------------------
 // "Catch-all" routines, must come after taxonomies and friends
 // -------------------------------------------------------------------------------------------------------------------
