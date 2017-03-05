@@ -221,13 +221,13 @@ class PDFOptions extends \Pressbooks\Options {
 
 		add_settings_field(
 			'pdf_blankpages',
-			__( 'Blank Pages', 'pressbooks' ),
+			__( 'Section Openings', 'pressbooks' ),
 			array( $this, 'renderBlankPagesField' ),
 			$_page,
 			$_section,
 			array(
 				 'openauto' => __( 'Left or right page section opening (for print PDF)', 'pressbooks' ),
-				 'openright' => __( 'Right page section openings  (for print PDF)', 'pressbooks' ),
+				 'openright' => __( 'Right page section openings (for print PDF)', 'pressbooks' ),
 				 'remove' => __( 'No blank pages (for web PDF)', 'pressbooks' ),
 
 			)
