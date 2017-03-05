@@ -36,7 +36,7 @@ jQuery(function ($) {
 			type: 'POST',
 			data: {
 				action: 'pb_unlock_theme',
-				_ajax_nonce: PB_ThemeLockToken.lockNonce
+				_ajax_nonce: PB_ThemeLockToken.unlockNonce
 			},
 			cache: false,
 			dataType: 'html',

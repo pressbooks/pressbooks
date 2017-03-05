@@ -725,3 +725,23 @@ function mail_from_name( $name ) {
 	}
 	return $name;
 }
+
+/**
+ * Recursively delete a directory.
+ *
+ * @param string $dirpath
+ */
+
+function delete_directory( $dirpath ) {
+	if ( ! WP_Filesystem() ) {
+		exit;
+	}
+
+	global $wp_filesystem;
+
+	if ( ! $wp_filesystem->is_dir( $dirpath ) ) {
+		throw new \InvalidArgumentException( "$dirpath must be a directory." );
+	}
+
+	$wp_filesystem->rmdir( $dirpath, true );
+}
