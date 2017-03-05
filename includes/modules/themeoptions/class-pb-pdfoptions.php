@@ -226,8 +226,10 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			array(
-				 'include' => __( 'Include blank pages (for print PDF)', 'pressbooks' ),
-				 'remove' => __( 'Remove all blank pages (for web PDF)', 'pressbooks' ),
+				 'openauto' => __( 'Left or right page section opening (for print PDF)', 'pressbooks' ),
+				 'openright' => __( 'Right page section openings  (for print PDF)', 'pressbooks' ),
+				 'remove' => __( 'No blank pages (for web PDF)', 'pressbooks' ),
+
 			)
 		);
 
@@ -613,8 +615,10 @@ class PDFOptions extends \Pressbooks\Options {
 		}
 
 		if ( ! isset( $options['pdf_blankpages'] ) || '1' == $options['pdf_blankpages'] ) {
-			$options['pdf_blankpages'] = 'include';
+			$options['pdf_blankpages'] = 'openauto';
 		} elseif ( '2' == $options['pdf_blankpages'] ) {
+			$options['pdf_blankpages'] = 'openright';
+		} elseif ( '3' == $options['pdf_blankpages'] ) {
 			$options['pdf_blankpages'] = 'remove';
 		}
 
@@ -1002,7 +1006,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'pdf_page_margin_bottom' => '2cm',
 			'pdf_hyphens' => 0,
 			'pdf_paragraph_separation' => 'indent',
-			'pdf_blankpages' => 'include',
+			'pdf_blankpages' => 'openauto',
 			'pdf_toc' => 1,
 			'pdf_image_resolution' => '300dpi',
 			'pdf_crop_marks' => 0,
