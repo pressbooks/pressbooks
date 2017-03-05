@@ -15,9 +15,10 @@ jQuery(function ($) {
 			error: function (obj, status, thrown) {
 				// Theme has not been successfully locked.
 			},
-			success: function () {
+			success: function (response) {
 				// Theme has been successfully locked.
-				$('.lock').text('Unlock Theme');
+				$('.status').html('<strong>' + PB_ThemeLockToken.locked_status + ' ' + response + '</strong>');
+				$('.lock').text(PB_ThemeLockToken.unlock_button);
 				$('.lock').addClass('unlock');
 				$('.unlock').removeClass('lock');
 			},
@@ -43,9 +44,10 @@ jQuery(function ($) {
 			error: function (obj, status, thrown) {
 				// Theme has not been successfully unlocked.
 			},
-			success: function () {
+			success: function (response) {
 				// Theme has been successfully unlocked.
-				$('.unlock').text('Lock Theme');
+				$('.status').html('<strong>' + PB_ThemeLockToken.unlocked_status + '</strong>');
+				$('.unlock').text(PB_ThemeLockToken.lock_button);
 				$('.unlock').addClass('lock');
 				$('.lock').removeClass('unlock');
 			},

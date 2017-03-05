@@ -586,6 +586,11 @@ function init_css_js() {
 			// Ajax nonces
 			'lockNonce' => wp_create_nonce( 'pb-lock-theme' ),
 			'unlockNonce' => wp_create_nonce( 'pb-unlock-theme' ),
+			// Strings
+			'lock_button' => __( 'Lock Theme', 'pressbooks' ),
+			'locked_status' => __( 'Your book&rsquo;s theme has been locked in its current state.', 'pressbooks' ),
+			'unlock_button' => __( 'Unlock Theme', 'pressbooks' ),
+			'unlocked_status' => __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ),
 		) );
 
 	}

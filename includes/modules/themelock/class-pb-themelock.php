@@ -9,11 +9,19 @@ use Pressbooks\Container;
 
 class ThemeLock {
 
+	/**
+	 * Lock the current theme by copying assets to the lock directory and generating a timestamped lockfile.
+	 *
+	 * @return int
+	 */
 	static function lockTheme() {
 		if ( check_ajax_referer( 'pb-lock-theme' ) ) {
 			ThemeLock::copyAssets();
-			ThemeLock::generateLock( time() );
+			$time = time();
+			ThemeLock::generateLock( $time );
+			return $time;
 		}
+		return false;
 	}
 
 	static function unlockTheme() {
@@ -33,6 +41,7 @@ class ThemeLock {
 				$wp_filesystem->delete( ThemeLock::pathToLockDir() . '/style.scss' );
 			}
 		}
+		return false;
 	}
 
 	static function copyAssets() {
