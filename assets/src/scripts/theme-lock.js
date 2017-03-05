@@ -17,7 +17,7 @@ jQuery(function ($) {
 			},
 			success: function (response) {
 				// Theme has been successfully locked.
-				$('.status').html('<strong>' + PB_ThemeLockToken.locked_status + ' ' + response + '</strong>');
+				$('.status').html('<strong>' + PB_ThemeLockToken.locked_status + '</strong>');
 				$('.lock').text(PB_ThemeLockToken.unlock_button);
 				$('.lock').addClass('unlock');
 				$('.unlock').removeClass('lock');
