@@ -492,8 +492,16 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	}
 
 	// Include blank pages?
-	if ( $options['pdf_blankpages'] == 'include' ) {
+	if ( $options['pdf_blankpages'] == 'openauto' ) {
 		// Default, no change needed
+	} elseif ( $options['pdf_blankpages'] == 'openright' ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$recto-verso-standard-opening: right; \n";
+			$scss .= "\$recto-verso-first-section-opening: right; \n";
+			$scss .= "\$recto-verso-section-opening: right; \n";
+		} else {
+			$scss .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: right; } \n";
+		}
 	} elseif ( $options['pdf_blankpages'] == 'remove' ) {
 		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= "\$recto-verso-standard-opening: auto; \n";

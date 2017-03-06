@@ -1,6 +1,12 @@
 // Structure
 
-$runninghead-separator: '\A0\A0' !default;
+//running content
+$numbering-position: 'top-outside' !default;
+$running-content-position: 'top-outside' !default;
+$left-running-separator: '\A0\A0\A0' !default;
+$right-running-separator: '\A0\A0\A0' !default;
+
+//running content styling
 $runninghead-left-font-family: $font-2 !default;
 $runninghead-left-font-size: .75em !default;
 $runninghead-left-text-transform: none !default;
@@ -27,9 +33,7 @@ $recto-verso-section-opening: right !default;
 @import 'components/structure/recto-verso';
 @import 'components/structure/numbering';
 @import 'components/structure/content-strings';
-@import 'components/structure/runninghead-both-outside';
-@import 'components/structure/runningfoot-number-center-first';
-@import 'components/structure/index';
+@import 'components/structure/running-content';
 
 @page dedication {
   @include blank-foot;
