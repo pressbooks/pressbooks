@@ -170,7 +170,7 @@ $right-page-number:(
       @include page-number;
     }
   }
-} @elseif $numbering-position == 'bottom-outisde' {
+} @elseif $numbering-position == 'bottom-outside' {
   $left-bottom-outside-number: $left-page-number;
   $right-bottom-outside-number: $right-page-number;
   $left-bottom-outside-separator: $left-running-separator;
