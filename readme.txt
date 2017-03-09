@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.7.1
+Version: 3.9.7.2
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.7.2
 Tested up to: 4.7.2
@@ -234,6 +234,9 @@ Pressbooks now requires [WordPress 4.7.2](https://wordpress.org/download/).
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+
+### 3.9.7.2
+* **Enhancement:** Streamlined and refactored the running content SCSS partials for SCSS-based themes (see #675).
 
 ### 3.9.7.1
 * **Fix:** Fixed an issue where the custom CSS file for webbooks would not be loaded on subdirectory installs.

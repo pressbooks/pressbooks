@@ -4,6 +4,9 @@ title: Changelog
 permalink: /changelog/
 ---
 
+### 3.9.7.2
+* **Enhancement:** Streamlined and refactored the running content SCSS partials for SCSS-based themes (see #675).
+
 ### 3.9.7.1
 * **Fix:** Fixed an issue where the custom CSS file for webbooks would not be loaded on subdirectory installs.
 
