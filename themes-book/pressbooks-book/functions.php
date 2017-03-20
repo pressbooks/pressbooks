@@ -43,6 +43,32 @@ function pressbooks_book_info_page () {
 add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
 
 /* ------------------------------------------------------------------------ *
+ * Asyncronous loading to improve speed of page load
+ * ------------------------------------------------------------------------ */
+
+function pressbooks_async_scripts( $tag, $handle, $src ) {
+	$async = array(
+		'pressbooks-script',
+		'keyboard-nav',
+		'pb-pop-out-toc',
+		'pressbooks_toc_collapse',
+		'pressbooks-accessibility',
+		'columnizer',
+		'columnizer-load',
+		'sharer',
+		'jquery-migrate',
+	);
+
+	if ( in_array( $handle, $async ) ) {
+		return "<script async type='text/javascript' src='{$src}'></script>" . "\n";
+	}
+
+	return $tag;
+}
+
+add_filter( 'script_loader_tag', 'pressbooks_async_scripts', 10, 3 );
+
+/* ------------------------------------------------------------------------ *
  * Register and enqueue scripts and stylesheets.
  * ------------------------------------------------------------------------ */
 function pb_enqueue_scripts() {
