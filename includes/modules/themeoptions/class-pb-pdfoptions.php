@@ -637,7 +637,10 @@ class PDFOptions extends \Pressbooks\Options {
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
 
-	function updateSectionOpenings() {
+	/**
+	 * Replace pdf_blankpages option with pdf_sectionopenings option.
+	 */
+	function upgradeSectionOpenings() {
 		$_option = $this->getSlug();
 		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
 
