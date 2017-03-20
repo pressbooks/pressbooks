@@ -16,7 +16,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 1;
+	static $currentVersion = 2;
 
 	/**
 	* PDF theme options.
@@ -220,14 +220,15 @@ class PDFOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
-			'pdf_blankpages',
-			__( 'Blank Pages', 'pressbooks' ),
-			array( $this, 'renderBlankPagesField' ),
+			'pdf_sectionopenings',
+			__( 'Section Openings', 'pressbooks' ),
+			array( $this, 'renderSectionOpeningsField' ),
 			$_page,
 			$_section,
 			array(
-				 'include' => __( 'Include blank pages (for print PDF)', 'pressbooks' ),
-				 'remove' => __( 'Remove all blank pages (for web PDF)', 'pressbooks' ),
+				 'openauto' => __( 'Left or right page section opening (for print PDF)', 'pressbooks' ),
+				 'openright' => __( 'Right page section openings (for print PDF)', 'pressbooks' ),
+				 'remove' => __( 'No blank pages (for web PDF)', 'pressbooks' ),
 			)
 		);
 
@@ -548,6 +549,8 @@ class PDFOptions extends \Pressbooks\Options {
 	function upgrade( $version ) {
 		if ( $version < 1 ) {
 			$this->doInitialUpgrade();
+		} elseif ( $version < 2 ) {
+			$this->upgradeSectionOpenings();
 		}
 	}
 
@@ -630,6 +633,21 @@ class PDFOptions extends \Pressbooks\Options {
 				$options[ $key ] = $value;
 			}
 		}
+
+		update_option( 'pressbooks_theme_options_' . $_option, $options );
+	}
+
+	function updateSectionOpenings() {
+		$_option = $this->getSlug();
+		$options = get_option( 'pressbooks_theme_options_' . $_option, $this->defaults );
+
+		// Get more specific
+		if ( ! isset( $options['pdf_blankpages'] ) || '1' == $options['pdf_blankpages'] || 'include' == $options['pdf_blankpages'] ) {
+			$options['pdf_sectionopenings'] = 'openauto';
+		} elseif ( '2' == $options['pdf_blankpages'] || 'remove' == $options['pdf_blankpages'] ) {
+			$options['pdf_sectionopenings'] = 'remove';
+		}
+		unset( $options['pdf_blankpages'] );
 
 		update_option( 'pressbooks_theme_options_' . $_option, $options );
 	}
@@ -794,11 +812,11 @@ class PDFOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the pdf_blankpages radio buttons.
+	 * Render the pdf_sectionopenings radio buttons.
 	 * @param array $args
 	 */
-	function renderBlankPagesField( $args ) {
-		$this->renderRadioButtons( 'pdf_blankpages', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_blankpages', @$this->options['pdf_blankpages'], $args );
+	function renderSectionOpeningsField( $args ) {
+		$this->renderRadioButtons( 'pdf_sectionopenings', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_sectionopenings', @$this->options['pdf_sectionopenings'], $args );
 	}
 
 	/**
@@ -1002,7 +1020,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'pdf_page_margin_bottom' => '2cm',
 			'pdf_hyphens' => 0,
 			'pdf_paragraph_separation' => 'indent',
-			'pdf_blankpages' => 'include',
+			'pdf_sectionopenings' => 'openauto',
 			'pdf_toc' => 1,
 			'pdf_image_resolution' => '300dpi',
 			'pdf_crop_marks' => 0,
@@ -1132,7 +1150,7 @@ class PDFOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters( 'pb_theme_options_pdf_predefined', array(
 			'pdf_paragraph_separation',
-			'pdf_blankpages',
+			'pdf_sectionopenings',
 			'pdf_image_resolution',
 			'pdf_footnotes_style',
 		) );
