@@ -96,5 +96,7 @@
   or $position == 'bottom-center'
   or $position == 'bottom-inside' {
     @return 'foot';
+  } @else {
+    @return false;
   }
 }
