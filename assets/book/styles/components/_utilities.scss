@@ -5,3 +5,59 @@
     @return $var;
   }
 }
+
+/// This function converts a running content or page number position to the CSS3 paged media box margin declaration for the relevant page position.
+/// @param {string} $page-position - The page position: `left` or `right`.
+/// @param {string} $position - The running content or page number position.
+@function convert-position($page-position, $position) {
+  @if $position == 'top-outside-corner' {
+    @return '@top-#{$page-position}-corner';
+  } @elseif $position == 'top-outside' {
+    @return '@top-#{$page-position}';
+  } @elseif $position == 'top-center' {
+    @return '@top-center';
+  } @elseif $position == 'top-inside' {
+    @if $page-position == 'left' {
+      @return '@top-right';
+    } @elseif $page-position == 'right' {
+      @return '@top-left';
+    }
+  } @elseif $position == 'outside-top' {
+    @return '@#{$page-position}-top';
+  } @elseif $position == 'outside-middle' {
+    @return '@#{$page-position}-middle';
+  } @elseif $position == 'outside-bottom' {
+    @return '@#{$page-position}-bottom';
+  } @elseif $position == 'bottom-outside-corner' {
+    @return '@bottom-#{$page-position}-corner';
+  } @elseif $position == 'bottom-outside' {
+    @return '@bottom-#{$page-position}';
+  } @elseif $position == 'bottom-center' {
+    @return '@bottom-center';
+  } @elseif $position == 'bottom-inside' {
+    @if $page-position == 'left' {
+      @return '@bottom-right';
+    } @elseif $page-position == 'right' {
+      @return '@bottom-left';
+    }
+  }
+}
+
+/// This function determines whether a running content or page number position indicates a header or footer.
+/// @param {string} $position - The running content or page number position.
+@function head-or-foot($position) {
+  @if $position == 'top-outside-corner'
+  or $position == 'top-outside'
+  or $position == 'top-center'
+  or $position == 'top-inside'
+  or $position == 'outside-top'
+  or $position == 'outside-middle' {
+    @return 'head';
+  } @elseif $position == 'outside-bottom'
+  or $position == 'bottom-outside-corner'
+  or $position == 'bottom-outside'
+  or $position == 'bottom-center'
+  or $position == 'bottom-inside' {
+    @return 'foot';
+  }
+}
