@@ -1,3 +1,6 @@
+/// This function checks variable `$var` to see if it is a map, and if so, returns the appropriate value from the map for key `$type`.
+/// @param {string | map} $var - The input variable.
+/// @param {string} $type - The output format.
 @function if-map-get($var, $type) {
   @if type-of($var) == 'map' {
     @return map-get($var, $type);
