@@ -14,9 +14,14 @@ $numbering-position: 'top-outside' !default;
 //$numbering-position: 'outside-middle' !default;
 //$numbering-position: 'outside-bottom' !default;
 //$numbering-position: 'bottom-outside-corner' !default;
-//$numbering-position: 'bottom-outisde' !default;
+//$numbering-position: 'bottom-outside' !default;
 //$numbering-position: 'bottom-center' !default;
 //$numbering-position: 'bottom-inside' !default;
+
+$first-numbering-position: null !default;
+// $first-numbering-position: 'top-center' !default;
+// $first-numbering-position: 'bottom-center' !default;
+// TODO: Handle other positions based on recto-verso
 
 // Next, running content position options (choose one!)
 
