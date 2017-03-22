@@ -46,6 +46,7 @@ $right-page-number: (
 
 // Now we style the appropriate location using our page-numbers mixin.
 
+@include page-numbers('first', convert-position('first', $first-numbering-position));
 @include page-numbers('left', convert-position('left', $numbering-position));
 @include page-numbers('right', convert-position('right', $numbering-position));
 
@@ -73,6 +74,7 @@ $right-page-number: (
 @page front-matter:first {
   @include blank-head-and-foot;
 }
+@include page-structure('front-matter', 'first', convert-position('first', $first-numbering-position), false);
 @include page-structure('front-matter', 'left', convert-position('left', $numbering-position), convert-position('left', $running-content-position));
 @include page-structure('front-matter', 'right', convert-position('right', $numbering-position), convert-position('right', $running-content-position));
 
@@ -80,6 +82,7 @@ $right-page-number: (
 @page introduction:first {
   @include blank-head-and-foot;
 }
+@include page-structure('introduction', 'first', convert-position('first', $first-numbering-position), false);
 @include page-structure('introduction', 'left', convert-position('left', $numbering-position), convert-position('left', $running-content-position));
 @include page-structure('introduction', 'right', convert-position('right', $numbering-position), convert-position('right', $running-content-position));
 
@@ -87,6 +90,7 @@ $right-page-number: (
 @page part:first {
   @include blank-head-and-foot;
 }
+@include page-structure('part', 'first', convert-position('first', $first-numbering-position), false);
 @include page-structure('part', 'left', convert-position('left', $numbering-position), convert-position('left', $running-content-position));
 @include page-structure('part', 'right', convert-position('right', $numbering-position), convert-position('right', $running-content-position));
 
@@ -94,6 +98,7 @@ $right-page-number: (
 @page chapter:first {
   @include blank-head-and-foot;
 }
+@include page-structure('chapter', 'first', convert-position('first', $first-numbering-position), false);
 @include page-structure('chapter', 'left', convert-position('left', $numbering-position), convert-position('left', $running-content-position));
 @include page-structure('chapter', 'right', convert-position('right', $numbering-position), convert-position('right', $running-content-position));
 
@@ -101,5 +106,6 @@ $right-page-number: (
 @page back-matter:first {
   @include blank-head-and-foot;
 }
+@include page-structure('back-matter', 'first', convert-position('first', $first-numbering-position), false);
 @include page-structure('back-matter', 'left', convert-position('left', $numbering-position), convert-position('left', $running-content-position));
 @include page-structure('back-matter', 'right', convert-position('right', $numbering-position), convert-position('right', $running-content-position));

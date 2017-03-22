@@ -10,13 +10,23 @@
 }
 
 /// This function converts a running content or page number position to the CSS3 paged media box margin declaration for the relevant page position.
-/// @param {string} $page-position - The page position: `left` or `right`.
+/// @param {string} $page-position - The page position: `first`, `left` or `right`.
 /// @param {string} $position - The running content or page number position.
 @function convert-position($page-position, $position) {
-  @if $position == 'top-outside-corner' {
-    @return '@top-#{$page-position}-corner';
+  @if $position == null {
+    @return false;
+  } @elseif $position == 'top-outside-corner' {
+    @if $page-position != 'first' {
+      @return '@top-#{$page-position}-corner';
+    } @else {
+      @return false;
+    }
   } @elseif $position == 'top-outside' {
-    @return '@top-#{$page-position}';
+    @if $page-position != 'first' {
+      @return '@top-#{$page-position}';
+    } @else {
+      @return false;
+    }
   } @elseif $position == 'top-center' {
     @return '@top-center';
   } @elseif $position == 'top-inside' {
@@ -24,17 +34,39 @@
       @return '@top-right';
     } @elseif $page-position == 'right' {
       @return '@top-left';
+    } @else {
+      @return false;
     }
   } @elseif $position == 'outside-top' {
-    @return '@#{$page-position}-top';
+    @if $page-position != 'first' {
+      @return '@#{$page-position}-top';
+    } @else {
+      @return false;
+    }
   } @elseif $position == 'outside-middle' {
-    @return '@#{$page-position}-middle';
+    @if $page-position != 'first' {
+      @return '@#{$page-position}-middle';
+    } @else {
+      @return false;
+    }
   } @elseif $position == 'outside-bottom' {
-    @return '@#{$page-position}-bottom';
+    @if $page-position != 'first' {
+      @return '@#{$page-position}-bottom';
+    } @else {
+      @return false;
+    }
   } @elseif $position == 'bottom-outside-corner' {
-    @return '@bottom-#{$page-position}-corner';
+    @if $page-position != 'first' {
+      @return '@bottom-#{$page-position}-corner';
+    } @else {
+      @return false;
+    }
   } @elseif $position == 'bottom-outside' {
-    @return '@bottom-#{$page-position}';
+    @if $page-position != 'first' {
+      @return '@bottom-#{$page-position}';
+    } @else {
+      @return false;
+    }
   } @elseif $position == 'bottom-center' {
     @return '@bottom-center';
   } @elseif $position == 'bottom-inside' {
@@ -42,6 +74,8 @@
       @return '@bottom-right';
     } @elseif $page-position == 'right' {
       @return '@bottom-left';
+    } @else {
+      @return false;
     }
   }
 }

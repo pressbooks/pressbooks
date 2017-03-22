@@ -152,21 +152,28 @@
       }
     }
   } @else {
-    @page #{$page-type}:#{$page-position} {
-      #{$numbering-position} {
-        @if $page-position == 'left' {
-          content: if-map-get($left-page-number, $page-type);
-        } @elseif $page-position == 'right' {
-          content: if-map-get($right-page-number, $page-type);
+    @if $numbering-position {
+      @page #{$page-type}:#{$page-position} {
+        #{$numbering-position} {
+          @if $page-position == 'first' {
+            // We assume a right page, because we have nothing better to do.
+            content: if-map-get($right-page-number, $page-type);
+          } @elseif $page-position == 'left' {
+            content: if-map-get($left-page-number, $page-type);
+          } @elseif $page-position == 'right' {
+            content: if-map-get($right-page-number, $page-type);
+          }
         }
       }
     }
-    @page #{$page-type}:#{$page-position} {
-      #{$running-content-position} {
-        @if $page-position == 'left' {
-          content: if-map-get($left-running-content, $page-type);
-        } @elseif $page-position == 'right' {
-          content: if-map-get($right-running-content, $page-type);
+    @if $running-content-position {
+      @page #{$page-type}:#{$page-position} {
+        #{$running-content-position} {
+          @if $page-position == 'left' {
+            content: if-map-get($left-running-content, $page-type);
+          } @elseif $page-position == 'right' {
+            content: if-map-get($right-running-content, $page-type);
+          }
         }
       }
     }
