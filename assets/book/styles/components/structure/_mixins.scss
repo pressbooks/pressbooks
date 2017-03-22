@@ -4,125 +4,171 @@
 
 @import '../utilities';
 
-// Running Head Padding
-
-@mixin runninghead-padding {
-  @page {
-    @top {
-      padding-top: $runninghead-padding-top;
-    }
-    @top-left-corner {
-      padding-top: $runninghead-padding-top;
-    }
-    @top-left {
-      padding-top: $runninghead-padding-top;
-    }
-    @top-center {
-      padding-top: $runninghead-padding-top;
-    }
-    @top-right {
-      padding-top: $runninghead-padding-top;
-    }
-    @top-right-corner {
-      padding-top: $runninghead-padding-top;
-    }
-  }
-}
-
-// Running Foot Padding
-
-@mixin runningfoot-padding {
-  @page {
-    @bottom {
-      padding-bottom: $runningfoot-padding-bottom;
-    }
-    @bottom-left-corner {
-      padding-bottom: $runningfoot-padding-bottom;
-    }
-    @bottom-left {
-      padding-bottom: $runningfoot-padding-bottom;
-    }
-    @bottom-center {
-      padding-bottom: $runningfoot-padding-bottom;
-    }
-    @bottom-right {
-      padding-bottom: $runningfoot-padding-bottom;
-    }
-    @bottom-right-corner {
-      padding-bottom: $runningfoot-padding-bottom;
-    }
-  }
-}
-
 // Page Numbers
+@mixin page-numbers($page-position, $content-position) {
+  @each $page-type in
+  'front-matter:#{$page-position}',
+  'introduction:#{$page-position}' {
+    @page #{$page-type} {
+      #{$content-position} {
+        @if head-or-foot($content-position) == 'head' {
+          padding-top: $runninghead-padding-top;
+        } @elseif head-or-foot($content-position) == 'foot' {
+          padding-bottom: $runningfoot-padding-bottom;
+        }
+        @include front-matter-page-number;
+      }
+    }
+  }
+  @each $page-type in
+  'part:#{$page-position}',
+  'chapter:#{$page-position}',
+  'back-matter:#{$page-position}' {
+    @page #{$page-type} {
+      #{$content-position} {
+        @include page-number;
+      }
+    }
+  }
+}
 
 @mixin front-matter-page-number {
   font-family: $front-matter-page-number-font-family;
-  color: if-map-get($page-number-color, $type);
   font-size: $front-matter-page-number-font-size;
   font-style: $front-matter-page-number-font-style;
   font-weight: $front-matter-page-number-font-weight;
-  text-transform: $front-matter-page-number-text-transform;
   hyphens: none;
+  color: if-map-get($page-number-color, $type);
+  text-transform: $front-matter-page-number-text-transform;
 }
 
 @mixin page-number {
   font-family: $page-number-font-family;
-  color: if-map-get($page-number-color, $type);
   font-size: $page-number-font-size;
   font-style: $page-number-font-style;
   font-weight: $page-number-font-weight;
   hyphens: none;
+  color: if-map-get($page-number-color, $type);
 }
 
-// Running Heads
 
-@mixin runninghead-left {
-  color: if-map-get($runninghead-color, $type);
-  font-family: $runninghead-left-font-family;
-  font-size: $runninghead-left-font-size;
-  font-style: $runninghead-left-font-style;
-  font-weight: $runninghead-left-font-weight;
-  text-transform: $runninghead-left-text-transform;
-  letter-spacing: $runninghead-left-letter-spacing;
-  word-spacing: $runninghead-left-word-spacing;
-  hyphens: none;
+// Running Content
+@mixin runninghead($page-position, $content-position) {
+  @each $page-type in
+  'front-matter:#{$page-position}',
+  'introduction:#{$page-position}',
+  'part:#{$page-position}',
+  'chapter:#{$page-position}',
+  'back-matter:#{$page-position}' {
+    @page #{$page-type} {
+      #{$content-position} {
+        padding-top: $runninghead-padding-top;
+        @if $page-position == 'left' {
+          font-family: $runninghead-left-font-family;
+          font-size: $runninghead-left-font-size;
+          font-style: $runninghead-left-font-style;
+          font-weight: $runninghead-left-font-weight;
+          hyphens: none;
+          letter-spacing: $runninghead-left-letter-spacing;
+          word-spacing: $runninghead-left-word-spacing;
+          color: if-map-get($runninghead-color, $type);
+          text-transform: $runninghead-left-text-transform;
+        } @elseif $page-position == 'right' {
+          font-family: $runninghead-right-font-family;
+          font-size: $runninghead-right-font-size;
+          font-style: $runninghead-right-font-style;
+          font-weight: $runninghead-right-font-weight;
+          hyphens: none;
+          letter-spacing: $runninghead-right-letter-spacing;
+          word-spacing: $runninghead-right-word-spacing;
+          color: if-map-get($runninghead-color, $type);
+          text-transform: $runninghead-right-text-transform;
+        }
+      }
+    }
+  }
 }
 
-@mixin runninghead-right {
-  color: if-map-get($runninghead-color, $type);
-  font-family: $runninghead-right-font-family;
-  font-size: $runninghead-right-font-size;
-  font-style: $runninghead-right-font-style;
-  font-weight: $runninghead-right-font-weight;
-  text-transform: $runninghead-right-text-transform;
-  letter-spacing: $runninghead-right-letter-spacing;
-  word-spacing: $runninghead-right-word-spacing;
-  hyphens: none;
+@mixin runningfoot($page-position, $content-position) {
+  @each $page-type in
+  'front-matter:#{$page-position}',
+  'introduction:#{$page-position}',
+  'part:#{$page-position}',
+  'chapter:#{$page-position}',
+  'back-matter:#{$page-position}' {
+    @page #{$page-type} {
+      #{$content-position} {
+        padding-bottom: $runningfoot-padding-bottom;
+        @if $page-position == 'left' {
+          font-family: $runningfoot-left-font-family;
+          font-size: $runningfoot-left-font-size;
+          font-style: $runningfoot-left-font-style;
+          font-weight: $runningfoot-left-font-weight;
+          hyphens: none;
+          letter-spacing: $runningfoot-left-letter-spacing;
+          word-spacing: $runningfoot-left-word-spacing;
+          color: if-map-get($runningfoot-color, $type);
+          text-transform: $runningfoot-left-text-transform;
+        } @elseif $page-position == 'right' {
+          font-family: $runningfoot-right-font-family;
+          font-size: $runningfoot-right-font-size;
+          font-style: $runningfoot-right-font-style;
+          font-weight: $runningfoot-right-font-weight;
+          hyphens: none;
+          letter-spacing: $runningfoot-right-letter-spacing;
+          word-spacing: $runningfoot-right-word-spacing;
+          color: if-map-get($runningfoot-color, $type);
+          text-transform: $runningfoot-right-text-transform;
+        }
+      }
+    }
+  }
 }
 
-// Running Feet
-
-@mixin runningfoot-left {
-  color: if-map-get($runningfoot-color, $type);
-  font-family: $runningfoot-left-font-family;
-  font-size: $runningfoot-left-font-size;
-  font-style: $runningfoot-left-font-style;
-  font-weight: $runningfoot-left-font-weight;
-  text-transform: $runningfoot-left-text-transform;
-  letter-spacing: $runningfoot-left-letter-spacing;
-  word-spacing: $runningfoot-left-word-spacing;
-  hyphens: none;
-}
-
-@mixin runningfoot-right {
-  color: if-map-get($runningfoot-color, $type);
-  font-family: $runningfoot-right-font-family;
-  font-size: $runningfoot-right-font-size;
-  font-style: $runningfoot-right-font-style;
-  font-weight: $runningfoot-right-font-weight;
-  text-transform: $runningfoot-right-text-transform;
-  letter-spacing: $runningfoot-right-letter-spacing;
-  word-spacing: $runningfoot-right-word-spacing;
-  hyphens: none;
+// Page Structure
+@mixin page-structure($page-type, $page-position, $numbering-position, $running-content-position) {
+  @if $numbering-position == $running-content-position {
+    @page #{$page-type}:#{$page-position} {
+      #{$running-content-position} {
+        @if $page-position == 'left' {
+          @if $running-content-position == '@top-right'
+          or $running-content-position == '@top-right-corner'
+          or $running-content-position == '@bottom-right'
+          or $running-content-position == '@bottom-right-corner' {
+            content: if-map-get($left-running-content, $page-type) $left-running-separator if-map-get($left-page-number, $page-type);
+          } @else {
+            content: if-map-get($left-page-number, $page-type) $left-running-separator if-map-get($left-running-content, $page-type);
+          }
+        } @elseif $page-position == 'right' {
+          @if $running-content-position == '@top-left'
+          or $running-content-position == '@top-left-corner'
+          or $running-content-position == '@bottom-left'
+          or $running-content-position == '@bottom-left-corner' {
+            content: if-map-get($right-page-number, $page-type) $right-running-separator if-map-get($right-running-content, $page-type);
+          } @else {
+            content: if-map-get($right-running-content, $page-type) $right-running-separator if-map-get($left-page-number, $page-type);
+          }
+        }
+      }
+    }
+  } @else {
+    @page #{$page-type}:#{$page-position} {
+      #{$numbering-position} {
+        @if $page-position == 'left' {
+          content: if-map-get($left-page-number, $page-type);
+        } @elseif $page-position == 'right' {
+          content: if-map-get($right-page-number, $page-type);
+        }
+      }
+    }
+    @page #{$page-type}:#{$page-position} {
+      #{$running-content-position} {
+        @if $page-position == 'left' {
+          content: if-map-get($left-running-content, $page-type);
+        } @elseif $page-position == 'right' {
+          content: if-map-get($right-running-content, $page-type);
+        }
+      }
+    }
+  }
 }
