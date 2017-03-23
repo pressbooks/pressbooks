@@ -27,7 +27,6 @@
     'back-matter:#{$page-position}' {
       @page #{$page-type} {
         #{$content-position} {
-          content: head-or-foot($content-position);
           @if head-or-foot($content-position) == 'head' {
             padding-top: $runninghead-padding-top;
           } @elseif head-or-foot($content-position) == 'foot' {
