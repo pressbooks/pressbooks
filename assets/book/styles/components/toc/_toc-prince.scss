@@ -1,7 +1,3 @@
-@page toc {
-  @include blank-head-and-foot;
-}
-
 #toc {
   display: $toc-display;
   counter-reset: part;
