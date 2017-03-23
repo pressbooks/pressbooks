@@ -167,20 +167,9 @@ class Sass {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
 
 			if ( '' !== $scss ) {
-				if ( extension_loaded( 'sass' ) ) { // use sassphp extension
-					$scss_file = array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ) ) );
-					rename( $scss_file, $scss_file .= '.scss' );
-					register_shutdown_function( create_function( '', "unlink('{$scss_file}');" ) );
-					file_put_contents( $scss_file, $scss );
-					$sass = new \Sass();
-					$include_paths = implode( ':', $includes );
-					$sass->setIncludePath( $include_paths );
-					$css = $sass->compileFile( $scss_file );
-				} else { // use scssphp library
-					$sass = new \Leafo\ScssPhp\Compiler;
-					$sass->setImportPaths( $includes );
-					$css = $sass->compile( $scss );
-				}
+				$sass = new \Leafo\ScssPhp\Compiler;
+				$sass->setImportPaths( $includes );
+				$css = $sass->compile( $scss );
 			}
 		} catch ( \Exception $e ) {
 
