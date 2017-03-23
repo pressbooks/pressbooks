@@ -103,7 +103,6 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
  * For EPUB validation install [EpubCheck](https://github.com/idpf/epubcheck) - Version 4.0
  * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20706
- * It is recommended that you install [sassphp](https://github.com/sensational/sassphp) for SASS compilation; however, Pressbooks includes a bundled compiler, [scssphp](https://github.com/leafo/scssphp/), and will fall back to this if sassphp is absent.
  * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl"
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
