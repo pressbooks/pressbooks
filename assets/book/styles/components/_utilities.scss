@@ -84,16 +84,30 @@
 /// @param {string} $position - The running content or page number position.
 @function head-or-foot($position) {
   @if $position == 'top-outside-corner'
+  or $position == '@top-left-corner'
+  or $position == '@top-right-corner'
   or $position == 'top-outside'
+  or $position == '@top-left'
+  or $position == '@top-right'
   or $position == 'top-center'
+  or $position == '@top-center'
   or $position == 'top-inside'
   or $position == 'outside-top'
-  or $position == 'outside-middle' {
+  or $position == '@left-top'
+  or $position == '@right-top'
+  or $position == 'outside-middle'
+  or $position == '@left-middle'
+  or $position == '@right-middle' {
     @return 'head';
   } @elseif $position == 'outside-bottom'
   or $position == 'bottom-outside-corner'
+  or $position == '@bottom-left-corner'
+  or $position == '@bottom-right-corner'
   or $position == 'bottom-outside'
+  or $position == '@bottom-left'
+  or $position == '@bottom-right'
   or $position == 'bottom-center'
+  or $position == '@bottom-center'
   or $position == 'bottom-inside' {
     @return 'foot';
   } @else {

@@ -6,27 +6,35 @@
 
 // Page Numbers
 @mixin page-numbers($page-position, $content-position) {
-  @each $page-type in
-  'front-matter:#{$page-position}',
-  'introduction:#{$page-position}' {
-    @page #{$page-type} {
-      #{$content-position} {
-        @if head-or-foot($content-position) == 'head' {
-          padding-top: $runninghead-padding-top;
-        } @elseif head-or-foot($content-position) == 'foot' {
-          padding-bottom: $runningfoot-padding-bottom;
+  @if $content-position {
+    @each $page-type in
+    'front-matter:#{$page-position}',
+    'introduction:#{$page-position}' {
+      @page #{$page-type} {
+        #{$content-position} {
+          @if head-or-foot($content-position) == 'head' {
+            padding-top: $runninghead-padding-top;
+          } @elseif head-or-foot($content-position) == 'foot' {
+            padding-bottom: $runningfoot-padding-bottom;
+          }
+          @include front-matter-page-number;
         }
-        @include front-matter-page-number;
       }
     }
-  }
-  @each $page-type in
-  'part:#{$page-position}',
-  'chapter:#{$page-position}',
-  'back-matter:#{$page-position}' {
-    @page #{$page-type} {
-      #{$content-position} {
-        @include page-number;
+    @each $page-type in
+    'part:#{$page-position}',
+    'chapter:#{$page-position}',
+    'back-matter:#{$page-position}' {
+      @page #{$page-type} {
+        #{$content-position} {
+          content: head-or-foot($content-position);
+          @if head-or-foot($content-position) == 'head' {
+            padding-top: $runninghead-padding-top;
+          } @elseif head-or-foot($content-position) == 'foot' {
+            padding-bottom: $runningfoot-padding-bottom;
+          }
+          @include page-number;
+        }
       }
     }
   }
