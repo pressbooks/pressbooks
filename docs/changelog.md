@@ -4,6 +4,11 @@ title: Changelog
 permalink: /changelog/
 ---
 
+### 3.9.7.2
+**NOTICE:** Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/news/2017/03/wordpress-4-7-3-security-and-maintenance-release/).
+
+* **Enhancement:** Streamlined and refactored the running content SCSS partials for SCSS-based themes (see #675 and #686).
+
 ### 3.9.7.1
 * **Fix:** Fixed an issue where the custom CSS file for webbooks would not be loaded on subdirectory installs.
 

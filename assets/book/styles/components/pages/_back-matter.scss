@@ -10,6 +10,11 @@ div.bibliography p {
 }
 
 // Index
+.index .ugc,
+.index .ugc p {
+  text-align: $index-align;
+}
+
 div.index {
   .ugc {
     column-count: $index-column-count;

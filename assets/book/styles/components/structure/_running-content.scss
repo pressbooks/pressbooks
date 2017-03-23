@@ -1,0 +1,111 @@
+//===================================
+// Running Content
+//===================================
+
+// This file builds generic "page", and populates it with running content & page numbers
+// in the places we want them, using the CSS3 margin box locations.
+
+// Let's pull in some stuff we'll use for styling.
+
+@import 'mixins', 'blank';
+
+$left-running-content: (
+  front-matter: $front-matter-running-content-left,
+  introduction: $introduction-running-content-left,
+  part: $part-running-content-left,
+  chapter: $chapter-running-content-left,
+  back-matter: $back-matter-running-content-left
+) !default;
+
+$right-running-content: (
+  front-matter: $front-matter-running-content-right,
+  introduction: $introduction-running-content-right,
+  part: $part-running-content-right,
+  chapter: $chapter-running-content-right,
+  back-matter: $back-matter-running-content-right
+) !default;
+
+$left-page-number: (
+  front-matter: $front-matter-page-number-left,
+  introduction: $introduction-page-number-left,
+  part: $part-page-number-left,
+  chapter: $chapter-page-number-left,
+  back-matter: $back-matter-page-number-left
+) !default;
+
+$right-page-number: (
+  front-matter: $front-matter-page-number-right,
+  introduction: $introduction-page-number-right,
+  part: $part-page-number-right,
+  chapter: $chapter-page-number-right,
+  back-matter: $back-matter-page-number-right
+) !default;
+
+// In ~/variables/_structure.scss we have defined options for where we want
+// page numbers to appear, using the CSS3 paged media box margin model.
+
+// Now we style the appropriate location using our page-numbers mixin.
+
+@include page-numbers('first', convert-position('first', $first-numbering-position));
+@include page-numbers('left', convert-position('left', $numbering-position));
+@include page-numbers('right', convert-position('right', $numbering-position));
+
+// In ~/variables/_structure.scss we have defined options for where we want
+// running content to appear, using the CSS3 paged media box margin model.
+
+// Now we style the appropriate location using our runninghead or runningfoot mixin.
+
+@if head-or-foot($running-content-position) == 'head' {
+  @include runninghead('left', convert-position('left', $running-content-position));
+  @include runninghead('right', convert-position('right', $running-content-position));
+} @elseif head-or-foot($running-content-position) == 'foot' {
+  @include runningfoot('left', convert-position('left', $running-content-position));
+  @include runningfoot('right', convert-position('right', $running-content-position));
+}
+
+// Now, we've defined our variables.
+// so we can define what a generic page looks like, using the variable settings above
+// so let's make a generic page structure mixin (left page & right page)
+//note we're using if-map-get, which will enable us to pull in the right variable
+//depending on section type
+
+
+// Front Matter
+@page front-matter:first {
+  @include blank-head-and-foot;
+}
+@include page-structure('front-matter', 'first', convert-position('first', $first-numbering-position), false);
+@include page-structure('front-matter', 'left', convert-position('left', $numbering-position), convert-position('left', $running-content-position));
+@include page-structure('front-matter', 'right', convert-position('right', $numbering-position), convert-position('right', $running-content-position));
+
+// Introduction
+@page introduction:first {
+  @include blank-head-and-foot;
+}
+@include page-structure('introduction', 'first', convert-position('first', $first-numbering-position), false);
+@include page-structure('introduction', 'left', convert-position('left', $numbering-position), convert-position('left', $running-content-position));
+@include page-structure('introduction', 'right', convert-position('right', $numbering-position), convert-position('right', $running-content-position));
+
+// Parts
+@page part:first {
+  @include blank-head-and-foot;
+}
+@include page-structure('part', 'first', convert-position('first', $first-numbering-position), false);
+@include page-structure('part', 'left', convert-position('left', $numbering-position), convert-position('left', $running-content-position));
+@include page-structure('part', 'right', convert-position('right', $numbering-position), convert-position('right', $running-content-position));
+
+// Chapters
+@page chapter:first {
+  @include blank-head-and-foot;
+}
+@include page-structure('chapter', 'first', convert-position('first', $first-numbering-position), false);
+@include page-structure('chapter', 'left', convert-position('left', $numbering-position), convert-position('left', $running-content-position));
+@include page-structure('chapter', 'right', convert-position('right', $numbering-position), convert-position('right', $running-content-position));
+
+// Back Matter
+@page back-matter:first {
+  @include blank-head-and-foot;
+}
+@include page-structure('back-matter', 'first', convert-position('first', $first-numbering-position), false);
+@include page-structure('back-matter', 'left', convert-position('left', $numbering-position), convert-position('left', $running-content-position));
+@include page-structure('back-matter', 'right', convert-position('right', $numbering-position), convert-position('right', $running-content-position));

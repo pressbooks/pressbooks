@@ -1,5 +1,51 @@
 // VARS - GLOBAL PAGE STRUCTURE
 
+// Running content is made of three kinds of content:
+// -page number
+// -separator
+// -running content
+// First, choose page number position options (choose one!)
+
+//$numbering-position: 'top-outside-corner' !default;
+$numbering-position: 'top-outside' !default;
+//$numbering-position: 'top-center' !default;
+//$numbering-position: 'top-inside' !default;
+//$numbering-position: 'outside-top' !default;
+//$numbering-position: 'outside-middle' !default;
+//$numbering-position: 'outside-bottom' !default;
+//$numbering-position: 'bottom-outside-corner' !default;
+//$numbering-position: 'bottom-outside' !default;
+//$numbering-position: 'bottom-center' !default;
+//$numbering-position: 'bottom-inside' !default;
+
+$first-numbering-position: null !default;
+// $first-numbering-position: 'top-center' !default;
+// $first-numbering-position: 'bottom-center' !default;
+// TODO: Handle other positions based on recto-verso
+
+// Next, running content position options (choose one!)
+
+//$running-content-position: 'top-outside-corner' !default;
+//$running-content-position: 'top-outside' !default;
+$running-content-position: 'top-center' !default;
+//$running-content-position: 'top-inside' !default;
+//$running-content-position: 'outside-top' !default;
+//$running-content-position: 'outside-middle' !default;
+//$running-content-position: 'outside-bottom' !default;
+//$running-content-position: 'bottom-outside-corner' !default;
+//$running-content-position: 'bottom-outisde' !default;
+//$running-content-position: 'bottom-center' !default;
+//$running-content-position: 'bottom-inside' !default;
+
+
+// Finally, for the running separator, it either exists or it doesn't,
+//so choose between two options (null, or defined content):
+
+$left-running-separator: '' !default;
+$right-running-separator: '' !default;
+//$left-running-separator: '\A0\A0|\A0\A0' !default;
+//$right-running-separator: '\A0\A0|\A0\A0' !default;
+
 // Page Numbers
 
 $front-matter-page-number-font-family: $font-2 !default;
@@ -7,6 +53,7 @@ $front-matter-page-number-font-size: .8em !default;
 $front-matter-page-number-font-style: normal !default;
 $front-matter-page-number-font-weight: normal !default;
 $front-matter-page-number-text-transform: none !default;
+
 $page-number-font-family: $font-2 !default;
 $page-number-font-size: .9em !default;
 $page-number-font-style: normal !default;
@@ -15,7 +62,6 @@ $page-number-text-transform: none !default;
 
 // Running Head Styling
 
-$runninghead-separator: '\A0\A0|\A0\A0' !default;
 $runninghead-padding-top: .4in !default;
 
 // Running head left
@@ -38,7 +84,6 @@ $runninghead-right-word-spacing: 2px !default;
 
 // Running Feet Styling
 
-$runningfoot-separator: '\A0\A0|\A0\A0' !default;
 $runningfoot-padding-bottom: .4in !default;
 $runningfoot-left-font-family: $font-2 !default;
 $runningfoot-left-font-size: .7em !default;
@@ -81,6 +126,23 @@ $chapter-running-content-right: string(book-title) !default;
 $back-matter-running-content-left: string(book-author) !default;
 $back-matter-running-content-right: string(book-title) !default;
 
+// Page number style
+
+$front-matter-page-number-left: counter(page, lower-roman);
+$front-matter-page-number-right: counter(page, lower-roman);
+
+$introduction-page-number-left: counter(page);
+$introduction-page-number-right: counter(page);
+
+$part-page-number-left: counter(page);
+$part-page-number-right: counter(page);
+
+$chapter-page-number-left: counter(page);
+$chapter-page-number-right: counter(page);
+
+$back-matter-page-number-left: counter(page);
+$back-matter-page-number-right: counter(page);
+
 // Crop Marks (none | crop | cross)
 
 $page-cropmarks: none !default;
@@ -92,14 +154,10 @@ $page-height: 8.5in !default;
 
 // Page Margins (in | cm | % | px | &c)
 
-$page-margin-left-top: 2cm !default;
-$page-margin-left-right: 2cm !default;
-$page-margin-left-bottom: 2cm !default;
-$page-margin-left-left: 2cm !default;
-$page-margin-right-top: 2cm !default;
-$page-margin-right-right: 2cm !default;
-$page-margin-right-bottom: 2cm !default;
-$page-margin-right-left: 2cm !default;
+$page-margin-top: 2cm !default;
+$page-margin-inside: 2cm !default;
+$page-margin-bottom: 2cm !default;
+$page-margin-outside: 2cm !default;
 
 // Recto-Verso Openings (right | auto)
 
