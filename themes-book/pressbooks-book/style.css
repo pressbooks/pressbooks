@@ -145,8 +145,7 @@ h3 + p,
 h4 + p,
 h5 + p,
 h6 + p {
-  margin-top: -10px;
-  margin-bottom: 30px; }
+  margin-top: -10px; }
 
 ul,
 ol,
