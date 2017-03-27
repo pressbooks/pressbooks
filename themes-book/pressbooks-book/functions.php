@@ -518,9 +518,9 @@ function pressbooks_theme_pdf_css_override( $scss ) {
 	}
 
 	// Include blank pages?
-	if ( $options['pdf_sectionopenings'] == 'openauto' ) {
+	if ( !isset($options['pdf_sectionopenings']) || 'openauto' == $options['pdf_sectionopenings'] ) {
 		// Default, no change needed
-	} elseif ( $options['pdf_sectionopenings'] == 'openright' ) {
+	} elseif ( 'openright' == $options['pdf_sectionopenings'] ) {
 		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= "\$recto-verso-standard-opening: right; \n";
 			$scss .= "\$recto-verso-first-section-opening: right; \n";
