@@ -84,27 +84,32 @@ function pb_enqueue_scripts() {
 		}
 		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), $deps, get_option( 'pressbooks_last_custom_css' ), 'screen' );
 		wp_enqueue_style( 'pressbooks-custom-css' );
-	} else {
+	} elseif ( get_stylesheet() == 'pressbooks-book' ) {
+		$fullpath = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
+		if ( is_file( $fullpath ) ) {
+			wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', array(), null, 'screen, print' );
+			wp_enqueue_style( 'pressbooks-theme' );
+		} else {
+			wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
+			wp_enqueue_style( 'pressbooks' );
+		}
+	} elseif ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
 		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
-		wp_enqueue_style( 'pressbooks' );
-		// Use default stylesheet as base (to avoid horribly broken webbook)
 		$deps = array( 'pressbooks' );
-		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
-			$fullpath = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
-			if ( is_file( $fullpath ) && \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // SASS theme & custom webbook style has been generated
-				wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
-				wp_enqueue_style( 'pressbooks-theme' );
-			} elseif ( is_file( $fullpath ) && \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // SASS theme & custom webbook style has been generated
-				wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
-				wp_enqueue_style( 'pressbooks-theme' );
-			} else { // Use the bundled stylesheet
-				wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', $deps, null, 'screen, print' );
-				wp_enqueue_style( 'pressbooks-theme' );
-			}
+		$fullpath = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
+		if ( is_file( $fullpath ) && \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // SASS theme & custom webbook style has been generated
+			wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
+			wp_enqueue_style( 'pressbooks-theme' );
+		} elseif ( is_file( $fullpath ) && \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // SASS theme & custom webbook style has been generated
+			wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
+			wp_enqueue_style( 'pressbooks-theme' );
+		} else { // Use the bundled stylesheet
+			wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', $deps, null, 'screen, print' );
+			wp_enqueue_style( 'pressbooks-theme' );
 		}
 	}
 
-	if (! is_front_page() ) {
+	if ( ! is_front_page() ) {
 		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
 	}
 	wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
@@ -671,6 +676,32 @@ function pressbooks_theme_ebook_css_override( $scss ) {
 }
 add_filter( 'pb_epub_css_override', 'pressbooks_theme_ebook_css_override' );
 
+function pressbooks_theme_web_css_override( $scss ) {
+
+	$sass = \Pressbooks\Container::get( 'Sass' );
+	$options = get_option( 'pressbooks_theme_options_web' );
+
+	if ( isset( $options['paragraph_separation'] ) ) {
+		if ( 'indent' == $options['paragraph_separation'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$para-margin-top: 0; \n";
+				$scss .= "\$para-indent: 1em; \n";
+			} else {
+				$scss .= "* + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
+			}
+		} elseif ( 'skiplines' == $options['paragraph_separation'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$para-margin-top: 1em; \n";
+				$scss .= "\$para-indent: 0; \n";
+			} else {
+				$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+			}
+		}
+	}
+
+	return $scss;
+}
+add_filter( 'pb_web_css_override', 'pressbooks_theme_web_css_override' );
 
 function pressbooks_theme_pdf_hacks( $hacks ) {
 
