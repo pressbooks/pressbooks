@@ -39,6 +39,7 @@ add_filter( 'admin_footer_text', '\Pressbooks\Admin\Laf\add_footer_link' );
 add_action( 'admin_init', '\Pressbooks\Admin\Dashboard\dashboard_options_init' );
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 2 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 1 );
+add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 
 if ( \Pressbooks\Book::isBook() ) {
 	// Aggressively replace default interface
@@ -46,7 +47,6 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'init', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ) );
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
-	add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
