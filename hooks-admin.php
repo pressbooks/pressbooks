@@ -182,6 +182,7 @@ add_action( 'load-post.php', '\Pressbooks\Admin\CustomCss\redirect_css_editor' )
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'update_option_pressbooks_global_typography', '\Pressbooks\Admin\Fonts\update_font_stacks' );
+add_action( 'update_option_pressbooks_theme_options_web', '\Pressbooks\Admin\Fonts\update_font_stacks' );
 
 if ( \Pressbooks\Book::isBook() ) {
 

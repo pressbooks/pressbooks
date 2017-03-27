@@ -80,6 +80,18 @@ class WebOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
+			'paragraph_separation',
+			__( 'Paragraph Separation', 'pressbooks' ),
+			array( $this, 'renderParagraphSeparationField' ),
+			$_page,
+			$_section,
+			array(
+				'indent' => __( 'Indent paragraphs', 'pressbooks' ),
+				'skiplines' => __( 'Skip lines between paragraphs', 'pressbooks' ),
+			)
+		);
+
+		add_settings_field(
 			'part_title',
 			__( 'Display Part Title', 'pressbooks' ),
 			array( $this, 'renderPartTitle' ),
@@ -156,6 +168,14 @@ class WebOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the paragraph_separation radio buttons.
+	 * @param array $args
+	 */
+	function renderParagraphSeparationField( $args ) {
+		$this->renderRadioButtons( 'paragraph_separation', 'pressbooks_theme_options_' . $this->getSlug(), 'paragraph_separation', @$this->options['paragraph_separation'], $args );
+	}
+
+	/**
 	 * Render the social_media checkbox.
 	 * @param array $args
 	 */
@@ -192,6 +212,7 @@ class WebOptions extends \Pressbooks\Options {
 		 */
 		return apply_filters( 'pb_theme_options_web_defaults', array(
 			'social_media' => 1,
+			'paragraph_separation' => 'skiplines',
 			'part_title' => 0,
 		) );
 	}
@@ -276,6 +297,8 @@ class WebOptions extends \Pressbooks\Options {
 		 *
 		 * @since 3.9.7
 		 */
-		return apply_filters( 'pb_theme_options_web_predefined', array() );
+		return apply_filters( 'pb_theme_options_web_predefined', array(
+			'paragraph_separation'
+		) );
 	}
 }

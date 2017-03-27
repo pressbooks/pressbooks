@@ -244,12 +244,16 @@ class GlobalTypography {
 
 		$sass = Container::get( 'Sass' );
 
+		$overrides = apply_filters( 'pb_web_css_override', '' ) . "\n";
+
 		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
 			$path_to_style = realpath( get_stylesheet_directory() . '/style.scss' );
 			// Populate $url-base variable so that links to images and other assets remain intact
 			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
 
-			$scss .= file_get_contents( $path_to_style );
+			$scss .= $sass->applyOverrides( file_get_contents( $path_to_style ), $overrides );
+
+			$scss .= "\n";
 			$css = $sass->compile( $scss, [
 				$sass->pathToUserGeneratedSass(),
 				$sass->pathToPartials(),
@@ -263,7 +267,7 @@ class GlobalTypography {
 			// Populate $url-base variable so that links to images and other assets remain intact
 			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
 
-			$scss .= file_get_contents( $path_to_style );
+			$scss .= $sass->applyOverrides( file_get_contents( $path_to_style ), $overrides );
 			$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
 		} else {
 			return;
