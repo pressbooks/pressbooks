@@ -143,81 +143,64 @@ abstract class Options {
 	/**
 	 * Render an input.
 	 *
-	 * @param string $id
-	 * @param string $name
-	 * @param string $option
-	 * @param string $value
-	 * @param string $description
-	 * @param string $append
-	 * @param string $type
-	 * @param string $size
-	 * @param bool $disabled
+	 * @param array $args
 	 */
-	static function renderField( $id, $name, $option, $value = '', $description = '', $append = '', $type = 'text', $class = 'regular-text', $disabled = false ) {
+	static function renderField( $args = array( 'id' => null, 'name' => null, 'option' => null, 'value' => '', 'description' => '', 'append' => '', 'type' => 'text', 'class' => 'regular-text', 'disabled' => false ) ) {
 		printf(
 			'<input id="%s" class="%s" name="%s[%s]" type="%s" value="%s" %s/>',
-			$id,
-			$class,
-			$name,
-			$option,
-			$type,
-			$value,
-			( $disabled ) ? ' disabled' : ''
+			$args['id'],
+			$args['class'],
+			$args['name'],
+			$args['option'],
+			$args['type'],
+			$args['value'],
+			( $args['disabled'] ) ? ' disabled' : ''
 		);
-		if ( $append ) {
-			echo ' ' . $append;
+		if ( $args['append'] ) {
+			echo ' ' . $args['append'];
 		}
 		printf(
 			'<p class="description">%s</p>',
-			$description
+			$args['description']
 		);
 	}
 
 	/**
 	 * Render a checkbox.
 	 *
-	 * @param string $id
-	 * @param string $name
-	 * @param string $option
-	 * @param string $value
-	 * @param string $description
+	 * @param array $args
 	 */
-	static function renderCheckbox( $id, $name, $option, $value = '', $description ) {
+	static function renderCheckbox( $args = array( 'id' => null, 'name' => null, 'option' => null, 'value' => '', 'description' => '' ) ) {
 		printf(
 			'<input id="%s" name="%s[%s]" type="checkbox" value="1" %s/><label for="%s">%s</label>',
-			$id,
-			$name,
-			$option,
-			checked( 1, $value, false ),
-			$id,
-			$description
+			$args['id'],
+			$args['name'],
+			$args['option'],
+			checked( 1, $args['value'], false ),
+			$args['id'],
+			$args['description']
 		);
 	}
 
 	/**
 	 * Render radio buttons.
 	 *
-	 * @param string $id
-	 * @param string $name
-	 * @param string $option
-	 * @param string $value
-	 * @param string $args
-	 * @param bool $custom
+	 * @param array $args
 	 */
-	static function renderRadioButtons( $id, $name, $option, $value = '', $args, $custom = false ) {
+	static function renderRadioButtons( $args = array( 'id' => null, 'name' => null, 'option' => null, 'value' => '', 'choices' => array(), 'custom' => false ) ) {
 		$is_custom = false;
-		if ( ! array_key_exists( $value, $args ) ) {
+		if ( ! array_key_exists( $args['value'], $args['choices'] ) ) {
 			$is_custom = true;
 		}
-		foreach ( $args as $key => $label ) {
+		foreach ( $args['choices'] as $key => $label ) {
 			printf(
 				'<label for="%s"><input type="radio" id="%s" name="%s[%s]" value="%s" %s/>%s</label><br />',
-				$id . '_' . sanitize_key( $key ),
-				$id . '_' . sanitize_key( $key ),
-				$name,
-				$option,
+				$args['id'] . '_' . sanitize_key( $key ),
+				$args['id'] . '_' . sanitize_key( $key ),
+				$args['name'],
+				$args['option'],
 				$key,
-				( $custom && $is_custom && '' == $key ) ? 'checked' : checked( $key, $value, false ),
+				( $args['custom'] && $is_custom && '' == $key ) ? 'checked' : checked( $key, $args['value'], false ),
 				$label
 			);
 		}
@@ -226,29 +209,24 @@ abstract class Options {
 	/**
 	 * Render a select element.
 	 *
-	 * @param string $id
-	 * @param string $name
-	 * @param string $option
-	 * @param string $value
-	 * @param string $args
-	 * @param boolean $multiple
+	 * @param array $args
 	 */
-	static function renderSelect( $id, $name, $option, $value = '', $args, $multiple = false ) {
+	static function renderSelect( $args = array( 'id' => null, 'name' => null, 'option' => null, 'value' => '', 'choices' => array(), 'multiple' => false ) ) {
 		$options = '';
-		foreach ( $args as $key => $label ) {
+		foreach ( $args['choices'] as $key => $label ) {
 			$options .= sprintf(
 				'<option value="%s" %s>%s</option>',
 				$key,
-				selected( $key, $value, false ),
+				selected( $key, $args['value'], false ),
 				$label
 			);
 		}
 		printf(
 			'<select name="%s[%s]" id="%s"%s>%s</select>',
-			$name,
-			$option,
-			$id,
-			( $multiple ) ? ' multiple' : '',
+			$args['name'],
+			$args['option'],
+			$args['id'],
+			( $args['multiple'] ) ? ' multiple' : '',
 			$options
 		);
 	}
@@ -256,31 +234,27 @@ abstract class Options {
 	/**
 	 * Render a custom select element.
 	 *
-	 * @param string $id
-	 * @param string $name
-	 * @param string $value
-	 * @param string $args
-	 * @param boolean $multiple
+	 * @param array $args
 	 */
-	static function renderCustomSelect( $id, $name, $value = '', $args, $multiple = false ) {
+	static function renderCustomSelect( $args = array( 'id' => null, 'name' => null, 'value' => '', 'choices' => array(), 'multiple' => false ) ) {
 		$is_custom = false;
-		if ( ! array_key_exists( $value, $args ) ) {
+		if ( ! array_key_exists( $args['value'], $args['choices'] ) ) {
 			$is_custom = true;
 		}
 		$options = '';
-		foreach ( $args as $key => $label ) {
+		foreach ( $args['choices'] as $key => $label ) {
 			$options .= sprintf(
 				'<option value="%s" %s>%s</option>',
 				$key,
-				( '' == $key && $is_custom ) ? ' selected' : selected( $key, $value, false ),
+				( '' == $key && $is_custom ) ? ' selected' : selected( $key, $args['value'], false ),
 				$label
 			);
 		}
 		printf(
 			'<select name="%s" id="%s"%s>%s</select><br />',
-			$name,
-			$id,
-			( $multiple ) ? ' multiple' : '',
+			$args['name'],
+			$args['id'],
+			( $args['multiple'] ) ? ' multiple' : '',
 			$options
 		);
 	}
