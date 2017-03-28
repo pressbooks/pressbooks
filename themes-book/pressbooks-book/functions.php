@@ -365,64 +365,9 @@ function pressbooks_copyright_license() {
 	return $html;
 }
 
-function replace_running_content_tags( $input ) {
-	$input = '"' . $input . '"';
-
-	return str_replace(
-		array(
-			'%book_title%',
-			'%book_subtitle%',
-			'%book_author%',
-			'%part_number%',
-			'%part_title%',
-			'%section_title%',
-			'%section_author%',
-			'%section_subtitle%',
-			'%blank%',
-		),
-		array(
-			'" string(book-title) "',
-			'" string(book-subtitle) "',
-			'" string(book-author) "',
-			'" string(part-number) "',
-			'" string(part-title) "',
-			'" string(section-title) "',
-			'" string(chapter-author) "',
-			'" string(chapter-subtitle) "',
-			'',
-		),
-		$input
-	);
-}
-
 /* ------------------------------------------------------------------------ *
  * Hooks, Actions and Filters
  * ------------------------------------------------------------------------ */
-
-function pressbooks_theme_mpdf_css_override( $scss ) {
-	$options = get_option( 'pressbooks_theme_options_mpdf' );
-	$global_options = get_option( 'pressbooks_theme_options_global' );
-
-	// indent paragraphs
-	if ( $options['mpdf_indent_paragraphs'] ) {
-		$scss .= "p + p, .indent {text-indent: 2.0 em; }" . "\n";
-	}
-	// hyphenation
-	if ( $options['mpdf_hyphens'] ) {
-		$scss .= "p {hyphens: auto;}" . "\n";
-	}
-	// font-size
-	if ( $options['mpdf_fontsize'] ){
-                $scss .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
-        }
-	// chapter numbers
-	if ( ! $global_options['chapter_numbers'] ) {
-		$scss .= "h3.chapter-number {display: none;}" . "\n";
-	}
-	return $scss;
-}
-
-add_filter( 'pb_mpdf_css_override', 'pressbooks_theme_mpdf_css_override' );
 
 function pressbooks_theme_pdf_hacks( $hacks ) {
 
