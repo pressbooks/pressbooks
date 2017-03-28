@@ -143,9 +143,35 @@ abstract class Options {
 	/**
 	 * Render an input.
 	 *
-	 * @param array $args
+	 * @param array $args {
+	 *     Arguments to render the input.
+	 *
+	 *     @type string			$id      				The id which will be assigned to the rendered field.
+	 *     @type string			$name         	The name of the field.
+	 *     @type string     $option       	The name of the option that the field is within.
+	 *     @type string     $value          The stored value of the field as retrieved from the database.
+	 *     @type string     $description		A description which will be displayed below the field.
+	 *     @type string     $append					A string which will be appended to the field (e.g. 'px').
+	 *     @type string     $type						The type property of the input. Default 'text'.
+	 *     @type string     $class					The class(es) which will be assigned to the rendered input. Default 'regular-text'.
+	 *     @type bool     	$disabled				Is the field disabled?
+ * }
 	 */
-	static function renderField( $args = array( 'id' => null, 'name' => null, 'option' => null, 'value' => '', 'description' => '', 'append' => '', 'type' => 'text', 'class' => 'regular-text', 'disabled' => false ) ) {
+	static function renderField( $args ) {
+		$defaults = array(
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'description' => null,
+			'append' => null,
+			'type' => 'text',
+			'class' => 'regular-text',
+			'disabled' => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
 		printf(
 			'<input id="%s" class="%s" name="%s[%s]" type="%s" value="%s" %s/>',
 			$args['id'],
@@ -154,15 +180,17 @@ abstract class Options {
 			$args['option'],
 			$args['type'],
 			$args['value'],
-			( $args['disabled'] ) ? ' disabled' : ''
+			( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : ''
 		);
-		if ( $args['append'] ) {
+		if ( isset( $args['append'] ) ) {
 			echo ' ' . $args['append'];
 		}
-		printf(
-			'<p class="description">%s</p>',
-			$args['description']
-		);
+		if ( isset( $args['description'] ) ) {
+			printf(
+				'<p class="description">%s</p>',
+				$args['description']
+			);
+		}
 	}
 
 	/**
@@ -170,7 +198,17 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderCheckbox( $args = array( 'id' => null, 'name' => null, 'option' => null, 'value' => '', 'description' => '' ) ) {
+	static function renderCheckbox( $args ) {
+		$defaults = array(
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'description' => null,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
 		printf(
 			'<input id="%s" name="%s[%s]" type="checkbox" value="1" %s/><label for="%s">%s</label>',
 			$args['id'],
@@ -187,7 +225,18 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderRadioButtons( $args = array( 'id' => null, 'name' => null, 'option' => null, 'value' => '', 'choices' => array(), 'custom' => false ) ) {
+	static function renderRadioButtons( $args ) {
+		$defaults = array(
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'choices' => array(),
+			'custom' => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
 		$is_custom = false;
 		if ( ! array_key_exists( $args['value'], $args['choices'] ) ) {
 			$is_custom = true;
@@ -211,7 +260,18 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderSelect( $args = array( 'id' => null, 'name' => null, 'option' => null, 'value' => '', 'choices' => array(), 'multiple' => false ) ) {
+	static function renderSelect( $args ) {
+		$defaults = array(
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'choices' => array(),
+			'multiple' => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
 		$options = '';
 		foreach ( $args['choices'] as $key => $label ) {
 			$options .= sprintf(
@@ -236,7 +296,17 @@ abstract class Options {
 	 *
 	 * @param array $args
 	 */
-	static function renderCustomSelect( $args = array( 'id' => null, 'name' => null, 'value' => '', 'choices' => array(), 'multiple' => false ) ) {
+	static function renderCustomSelect( $args ) {
+		$defaults = array(
+			'id' => null,
+			'name' => null,
+			'value' => '',
+			'choices' => array(),
+			'multiple' => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
 		$is_custom = false;
 		if ( ! array_key_exists( $args['value'], $args['choices'] ) ) {
 			$is_custom = true;
