@@ -13,7 +13,7 @@ Download the [latest release][1] of Pressbooks from our [releases page][2].
 IMPORTANT!
 
 *   Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
-*   Pressbooks works with PHP 5.6.x and WordPress 4.7.2. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+*   Pressbooks works with PHP 5.6.x and WordPress 4.7.3. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
 
     $pb_minimum_php = '5.4';
 
@@ -80,7 +80,6 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
 *   For EPUB validation install [EpubCheck][9] - Version 4.0
 *   For XML validation install [xmllint][10] - Version 20800
 *   For ODT export install [Saxon-HE][11] - Version 9.7.0-10
-*   It is recommended that you install [sassphp][12] for SASS compilation; however, Pressbooks includes a bundled compiler, [scssphp][13], and will fall back to this if sassphp is absent.
 *   Certain Linux installations do not ship with the php5-xsl library enabled by default. If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like `apt-get install php5-xsl`
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
@@ -180,7 +179,7 @@ Once WP-CLI is installed on your server, the following shell commands executed i
     wp core multisite-convert --title="Pressbooks"
     wp plugin delete hello
     wp plugin update-all
-    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.5.1/pressbooks-v3.9.5.1.zip --activate-network
+    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/3.9.7.2/pressbooks-3.9.7.2.zip --activate-network
     wp theme list
     wp theme enable pressbooks-book --network
     wp theme enable clarke --network
@@ -203,6 +202,5 @@ Note that this does not install the required libraries for export. See above (Pa
  [9]: https://github.com/idpf/epubcheck
  [10]: http://xmlsoft.org/xmllint.html
  [11]: https://sourceforge.net/projects/saxon/files/Saxon-HE/
- [12]: https://github.com/sensational/sassphp
  [13]: https://github.com/leafo/scssphp/
  [14]: https://wp-cli.org/
