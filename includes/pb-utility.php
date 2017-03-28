@@ -373,7 +373,12 @@ function check_saxonhe_install() {
 		}
 	}
 
-	return false;
+	/**
+	 * @since 3.9.8
+	 *
+	 * Allows the SaxonHE dependency error to be disabled.
+	 */
+	return apply_filters( 'pb_odt_has_dependencies', false );
 }
 
 /**
