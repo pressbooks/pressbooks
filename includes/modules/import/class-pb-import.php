@@ -10,7 +10,7 @@ namespace Pressbooks\Modules\Import;
 require_once( ABSPATH . 'wp-admin/includes/image.php' );
 require_once( ABSPATH . 'wp-admin/includes/file.php' );
 require_once( ABSPATH . 'wp-admin/includes/media.php' );
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 
 abstract class Import {
 
@@ -218,7 +218,7 @@ abstract class Import {
 			'safe' => 1,
 		);
 
-		return htmLawed( $html, $config );
+		return \Htmlawed::filter( $html, $config );
 	}
 
 
