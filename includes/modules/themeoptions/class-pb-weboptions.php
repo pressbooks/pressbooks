@@ -164,7 +164,13 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderSocialMediaField( $args ) {
-		$this->renderCheckbox( 'social_media', 'pressbooks_theme_options_' . $this->getSlug(), 'social_media', @$this->options['social_media'], $args[0] );
+		$this->renderCheckbox( array(
+			'id' => 'social_media',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'social_media',
+			'value' => ( isset( $this->options['social_media'] ) ) ? $this->options['social_media'] : '',
+			'description' => $args[0],
+		) );
 	}
 
 	/**
@@ -172,7 +178,13 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderParagraphSeparationField( $args ) {
-		$this->renderRadioButtons( 'paragraph_separation', 'pressbooks_theme_options_' . $this->getSlug(), 'paragraph_separation', @$this->options['paragraph_separation'], $args );
+		$this->renderRadioButtons( array(
+			'id' => 'paragraph_separation',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'paragraph_separation',
+			'value' => ( isset( $this->options['paragraph_separation'] ) ) ? $this->options['paragraph_separation'] : '',
+			'choices' => $args,
+		) );
 	}
 
 	/**
@@ -180,7 +192,13 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderPartTitle( $args ) {
-		$this->renderCheckbox( 'part_title', 'pressbooks_theme_options_' . $this->getSlug(), 'part_title', @$this->options['part_title'], $args[0] );
+		$this->renderCheckbox( array(
+			'id' => 'part_title',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'part_title',
+			'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['part_title'] : '',
+			'description' => $args[0],
+		) );
 	}
 
 	/**
