@@ -202,7 +202,9 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
 
 	// Overrides
+	add_filter( 'pb_epub_css_override', array( '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ) );
 	add_filter( 'pb_pdf_css_override', array( '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ) );
+	add_filter( 'pb_web_css_override', array( '\Pressbooks\Modules\ThemeOptions\WebOptions', 'scssOverrides' ) );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
