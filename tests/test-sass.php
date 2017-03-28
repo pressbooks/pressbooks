@@ -55,7 +55,7 @@ class SassTest extends \WP_UnitTestCase {
 		$scss = '$red: #d4002d !default;
 		$font-size: 14pt;';
 
-		$vars = $this->sass->parseVariables( $scss );
+		$vars = $this->sass->parseVariables( $scss, 'prince' );
 
 		$this->assertArrayHasKey( 'red', $vars );
 		$this->assertArrayHasKey( 'font-size', $vars );
