@@ -288,4 +288,42 @@ class EbookOptions extends \Pressbooks\Options {
 			'ebook_paragraph_separation'
 		) );
 	}
+
+	/**
+	 * Apply overrides.
+	 *
+	 * @since 3.9.8
+	 */
+	static function scssOverrides( $scss ) {
+		// --------------------------------------------------------------------
+		// Global Options
+
+		$sass = \Pressbooks\Container::get( 'Sass' );
+		$options = get_option( 'pressbooks_theme_options_global' );
+
+		if ( ! $options['chapter_numbers'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$chapter-number-display: none; \n";
+			} else {
+				$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
+			}
+		}
+
+		// --------------------------------------------------------------------
+		// Ebook Options
+
+		$options = get_option( 'pressbooks_theme_options_ebook' );
+
+		// Indent paragraphs?
+		if ( 'skiplines' == $options['ebook_paragraph_separation'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$para-margin-top: 1em; \n";
+				$scss .= "\$para-indent: 0; \n";
+			} else {
+				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
+			}
+		}
+
+		return $scss;
+	}
 }
