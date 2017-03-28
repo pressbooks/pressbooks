@@ -1409,4 +1409,219 @@ class PDFOptions extends \Pressbooks\Options {
 			'pdf_footnotes_style',
 		) );
 	}
+
+	/**
+	 * Apply overrides.
+	 *
+	 * @since 3.9.8
+	 */
+	static function scssOverrides( $scss ) {
+		$scss .= "/* Theme Options */\n";
+
+		// --------------------------------------------------------------------
+		// Global Options
+
+		$sass = \Pressbooks\Container::get( 'Sass' );
+		$options = get_option( 'pressbooks_theme_options_global' );
+
+		// Display chapter numbers? true (default) / false
+		if ( ! $options['chapter_numbers'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$chapter-number-display: none; \n";
+				$scss .= "\$part-number-display: none; \n";
+				$scss .= "\$toc-chapter-number-display: none; \n";
+				$scss .= "\$toc-part-number-display: none; \n";
+			} else {
+				$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
+			}
+		}
+
+		// --------------------------------------------------------------------
+		// PDF Options
+
+		$options = get_option( 'pressbooks_theme_options_pdf' );
+
+		// Change body font size
+		if ( $sass->isCurrentThemeCompatible( 2 ) && isset( $options['pdf_body_font_size'] ) ) {
+			$fontsize = $options['pdf_body_font_size'] . 'pt';
+			$scss .= "\$body-font-size: (\n
+				epub: medium,\n
+				prince: $fontsize,
+				web: 14pt\n
+			); \n";
+		}
+
+		// Change body line height
+		if ( $sass->isCurrentThemeCompatible( 2 ) && isset( $options['pdf_body_line_height'] ) ) {
+			$lineheight = $options['pdf_body_line_height'] . 'em';
+			$scss .= "\$body-line-height: (\n
+				epub: 1.4em,\n
+				prince: $lineheight,
+				web: 1.8em,\n
+			); \n";
+		}
+
+		// Page dimensions
+		$width = $options['pdf_page_width'];
+		$height = $options['pdf_page_height'];
+
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$page-width: $width; \n";
+			$scss .= "\$page-height: $height; \n";
+		} else {
+			$scss .= "@page { size: $width $height; } \n";
+		}
+
+		// Margins
+		$outside = ( isset( $options['pdf_page_margin_outside'] ) ) ? $options['pdf_page_margin_outside'] : '2cm';
+		$inside = ( isset( $options['pdf_page_margin_inside'] ) ) ? $options['pdf_page_margin_inside'] : '2cm';
+		$top = ( isset( $options['pdf_page_margin_top'] ) ) ? $options['pdf_page_margin_top'] : '2cm';
+		$bottom = ( isset( $options['pdf_page_margin_bottom'] ) ) ? $options['pdf_page_margin_bottom'] : '2cm';
+
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$page-margin-left-top: $top; \n";
+			$scss .= "\$page-margin-left-right: $inside; \n";
+			$scss .= "\$page-margin-left-bottom: $bottom; \n";
+			$scss .= "\$page-margin-left-left: $outside; \n";
+			$scss .= "\$page-margin-right-top: $top; \n";
+			$scss .= "\$page-margin-right-right: $outside; \n";
+			$scss .= "\$page-margin-right-bottom: $bottom; \n";
+			$scss .= "\$page-margin-right-left: $inside; \n";
+		}
+
+		// Image resolution
+		if ( isset( $options['pdf_image_resolution'] ) ) {
+			$resolution = $options['pdf_image_resolution'];
+		} else {
+			$resolution = '300dpi';
+		}
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$prince-image-resolution: $resolution !default; \n";
+		} else {
+			$scss .= "img { prince-image-resolution: $resolution; } \n";
+		}
+
+		// Display crop marks? true / false (default)
+		if ( 1 == $options['pdf_crop_marks'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$page-cropmarks: crop; \n";
+			} else {
+				$scss .= "@page { marks: crop } \n";
+			}
+		}
+
+		// Hyphens?
+		if ( 1 == $options['pdf_hyphens'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$para-hyphens: auto; \n"; // TODO
+			} else {
+				$scss .= "p { hyphens: auto; } \n";
+			}
+		} else {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$para-hyphens: manual; \n"; // TODO
+			} else {
+				$scss .= "p { hyphens: manual; } \n";
+			}
+		}
+
+		// Indent paragraphs?
+		if ( 'skiplines' == $options['pdf_paragraph_separation'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$para-margin-top: 1em; \n";
+				$scss .= "\$para-indent: 0; \n";
+			} else {
+				$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+			}
+		}
+
+		// Include blank pages?
+		if ( isset( $options['pdf_sectionopenings'] ) ) {
+			if ( 'openright' == $options['pdf_sectionopenings'] ) {
+				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+					$scss .= "\$recto-verso-standard-opening: right; \n";
+					$scss .= "\$recto-verso-first-section-opening: right; \n";
+					$scss .= "\$recto-verso-section-opening: right; \n";
+				} else {
+					$scss .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: right; } \n";
+				}
+			} elseif ( 'remove' == $options['pdf_sectionopenings'] ) {
+				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+					$scss .= "\$recto-verso-standard-opening: auto; \n";
+					$scss .= "\$recto-verso-first-section-opening: auto; \n";
+					$scss .= "\$recto-verso-section-opening: auto; \n";
+				} else {
+					$scss .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: auto; } \n";
+				}
+			}
+		}
+
+		// Display TOC? true (default) / false
+		if ( ! $options['pdf_toc'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$toc-display: none; \n";
+			} else {
+				$scss .= "#toc { display: none; } \n";
+			}
+		}
+
+		// Widows
+		if ( isset( $options['widows'] ) ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "$widows: {$options['widows']}; \n";
+			} else {
+				$scss .= "p { widows: {$options['widows']}; }\n";
+			}
+		} else {
+			if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= 'p { widows: 2; }' . "\n";
+			}
+		}
+
+		// Orphans
+		if ( isset( $options['orphans'] ) ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$orphans: {$options['orphans']}; \n";
+			} else {
+				$scss .= "p { orphans: {$options['orphans']}; }\n";
+			}
+		} else {
+			if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= 'p { orphans: 1; }' . "\n";
+			}
+		}
+
+		// Running Content
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$front_matter_running_content_left = ( isset( $options['running_content_front_matter_left'] ) ) ? replace_running_content_tags( $options['running_content_front_matter_left'] ) : 'string(book-title)';
+			$front_matter_running_content_right = ( isset( $options['running_content_front_matter_right'] ) ) ? replace_running_content_tags( $options['running_content_front_matter_right'] ) : 'string(section-title)';
+			$introduction_running_content_left = ( isset( $options['running_content_introduction_left'] ) ) ? replace_running_content_tags( $options['running_content_introduction_left'] ) : 'string(book-title)';
+			$introduction_running_content_right = ( isset( $options['running_content_introduction_right'] ) ) ? replace_running_content_tags( $options['running_content_introduction_right'] ) : 'string(section-title)';
+			$part_running_content_left = ( isset( $options['running_content_part_left'] ) ) ? replace_running_content_tags( $options['running_content_part_left'] ) : 'string(book-title)';
+			$part_running_content_right = ( isset( $options['running_content_part_right'] ) ) ? replace_running_content_tags( $options['running_content_part_right'] ) : 'string(part-title)';
+			$chapter_running_content_left = ( isset( $options['running_content_chapter_left'] ) ) ? replace_running_content_tags( $options['running_content_chapter_left'] ) : 'string(book-title)';
+			$chapter_running_content_right = ( isset( $options['running_content_chapter_right'] ) ) ? replace_running_content_tags( $options['running_content_chapter_right'] ) : 'string(section-title)';
+			$back_matter_running_content_left = ( isset( $options['running_content_back_matter_left'] ) ) ? replace_running_content_tags( $options['running_content_back_matter_left'] ) : 'string(book-title)';
+			$back_matter_running_content_right = ( isset( $options['running_content_back_matter_right'] ) ) ? replace_running_content_tags( $options['running_content_back_matter_right'] ) : 'string(section-title)';
+			$scss .= "\$front-matter-running-content-left: $front_matter_running_content_left; \n";
+			$scss .= "\$front-matter-running-content-right: $front_matter_running_content_right; \n";
+			$scss .= "\$introduction-running-content-left: $introduction_running_content_left; \n";
+			$scss .= "\$introduction-running-content-right: $introduction_running_content_right; \n";
+			$scss .= "\$part-running-content-left: $part_running_content_left; \n";
+			$scss .= "\$part-running-content-right: $part_running_content_right; \n";
+			$scss .= "\$chapter-running-content-left: $chapter_running_content_left; \n";
+			$scss .= "\$chapter-running-content-right: $chapter_running_content_right; \n";
+			$scss .= "\$back-matter-running-content-left: $back_matter_running_content_left; \n";
+			$scss .= "\$back-matter-running-content-right: $back_matter_running_content_right; \n";
+		}
+
+		// a11y Font Size
+		if ( @$options['pdf_fontsize'] ) {
+			if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= 'body { font-size: 1.3em; line-height: 1.3; }' . "\n";
+			}
+		}
+
+		return $scss;
+	}
 }

@@ -200,6 +200,9 @@ if ( \Pressbooks\Book::isBook() ) {
 	// Init
 	add_action( 'admin_init', '\Pressbooks\Admin\Fonts\fix_missing_font_stacks' );
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
+
+	// Overrides
+	add_filter( 'pb_pdf_css_override', array( '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ) );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
