@@ -851,7 +851,7 @@ class Epub201 extends Export {
 				continue; // Skip
 			}
 
-			$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter' );
+			$content = $front_matter['post_content'];
 			break;
 		}
 
