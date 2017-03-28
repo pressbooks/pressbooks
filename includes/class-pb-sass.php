@@ -215,10 +215,9 @@ class Sass {
 	 * Parse an SCSS file into an array of variables.
 	 *
 	 * @param string $scss
-	 * @param string $type
 	 * @return array
 	 */
-	function parseVariables( $scss, $type ) {
+	function parseVariables( $scss ) {
 
 		preg_match_all( '/(?s)\n\$(.*?):(.*?);/', $scss, $matches );
 		$output = array_combine( $matches[1], $matches[2] );
