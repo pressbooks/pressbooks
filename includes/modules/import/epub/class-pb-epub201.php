@@ -335,7 +335,7 @@ class Epub201 extends Import {
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
-		return htmLawed( $html, $config );
+		return \Htmlawed::filter( $html, $config );
 	}
 
 

@@ -9,7 +9,7 @@ namespace Pressbooks\Modules\Export\Xhtml;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 
 class Xhtml11 extends Export {
 
@@ -487,7 +487,7 @@ class Xhtml11 extends Export {
 			'tidy' => -1,
 		);
 
-		return htmLawed( $html, $config );
+		return \Htmlawed::filter( $html, $config );
 	}
 
 
