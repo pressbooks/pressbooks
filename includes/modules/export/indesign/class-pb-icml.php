@@ -8,7 +8,7 @@ namespace Pressbooks\Modules\Export\InDesign;
 
 use Pressbooks\Modules\Export\Export;
 
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 
 class Icml extends Export {
 
@@ -222,7 +222,7 @@ class Icml extends Export {
 			'tidy' => -1,
 		);
 
-		return htmLawed( $html, $config );
+		return \Htmlawed::filter( $html, $config );
 	}
 
 	/**

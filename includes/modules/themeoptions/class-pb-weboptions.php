@@ -319,4 +319,34 @@ class WebOptions extends \Pressbooks\Options {
 			'paragraph_separation'
 		) );
 	}
+
+	/**
+	 * Apply overrides.
+	 *
+	 * @since 3.9.8
+	 */
+	static function scssOverrides( $scss ) {
+		$sass = \Pressbooks\Container::get( 'Sass' );
+		$options = get_option( 'pressbooks_theme_options_web' );
+
+		if ( isset( $options['paragraph_separation'] ) ) {
+			if ( 'indent' == $options['paragraph_separation'] ) {
+				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+					$scss .= "\$para-margin-top: 0; \n";
+					$scss .= "\$para-indent: 1em; \n";
+				} else {
+					$scss .= "* + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
+				}
+			} elseif ( 'skiplines' == $options['paragraph_separation'] ) {
+				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+					$scss .= "\$para-margin-top: 1em; \n";
+					$scss .= "\$para-indent: 0; \n";
+				} else {
+					$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+				}
+			}
+		}
+
+		return $scss;
+	}
 }
