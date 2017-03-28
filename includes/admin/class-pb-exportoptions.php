@@ -120,13 +120,13 @@ class ExportOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderEmailValidationLogsField( $args ) {
-		$this->renderRadioButtons(
-			'email_validation_logs',
-			$this->getSlug(),
-			'email_validation_logs',
-			@$this->options['email_validation_logs'],
-			$args
-		);
+		$this->renderRadioButtons( array(
+			'id' => 'email_validation_logs',
+			'name' => $this->getSlug(),
+			'option' => 'email_validation_logs',
+			'value' => ( isset( $this->options['email_validation_logs'] ) ) ? $this->options['email_validation_logs'] : '',
+			'choices' => $args,
+		) );
 	}
 
 	/**

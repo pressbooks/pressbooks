@@ -122,13 +122,13 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 */
 	function renderAllowRedistributionField( $args ) {
 		$options = get_site_option( $this->getSlug() );
-		$this->renderCheckbox(
-			'allow_redistribution',
-			$this->getSlug(),
-			'allow_redistribution',
-			@$options['allow_redistribution'],
-			$args[0]
-		);
+		$this->renderCheckbox( array(
+			'id' => 'allow_redistribution',
+			'name' => $this->getSlug(),
+			'option' => 'allow_redistribution',
+			'value' => ( isset( $options['allow_redistribution'] ) ) ? $options['allow_redistribution'] : '',
+			'description' => $args[0],
+		) );
 	}
 
 	/**
