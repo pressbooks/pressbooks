@@ -202,7 +202,13 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderChapterNumbersField( $args ) {
-		$this->renderCheckbox( 'chapter_numbers', 'pressbooks_theme_options_' . $this->getSlug(), 'chapter_numbers', $this->options['chapter_numbers'], $args[0] );
+		$this->renderCheckbox(
+			'chapter_numbers',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'chapter_numbers',
+			$this->options['chapter_numbers'],
+			$args[0]
+		);
 	}
 
 	/**
@@ -210,7 +216,13 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTwoLevelTOCField( $args ) {
-		$this->renderCheckbox( 'parse_subsections', 'pressbooks_theme_options_' . $this->getSlug(), 'parse_subsections', $this->options['parse_subsections'], $args[0] );
+		$this->renderCheckbox(
+			'parse_subsections',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'parse_subsections',
+			$this->options['parse_subsections'],
+			$args[0]
+		);
 	}
 
 	/**
@@ -267,7 +279,13 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderCopyrightLicenseField( $args ) {
-		$this->renderCheckbox( 'copyright_license', 'pressbooks_theme_options_' . $this->getSlug(), 'copyright_license', $this->options['copyright_license'], $args[0] );
+		$this->renderCheckbox(
+			'copyright_license',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'copyright_license',
+			$this->options['copyright_license'],
+			$args[0]
+		);
 	}
 
 	/**

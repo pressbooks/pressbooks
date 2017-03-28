@@ -660,7 +660,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderBodyFontSizeField( $args ) {
-		$this->renderField( 'pdf_body_font_size', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_body_font_size', @$this->options['pdf_body_font_size'], $args[0], $args[1], 'text', 'small-text' );
+		$this->renderField(
+			'pdf_body_font_size',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_body_font_size',
+			@$this->options['pdf_body_font_size'],
+			$args[0],
+			$args[1],
+			'text',
+			'small-text'
+		);
 	}
 
 	/**
@@ -671,7 +680,16 @@ class PDFOptions extends \Pressbooks\Options {
 		if ( ! isset( $this->options['pdf_body_line_height'] ) ) {
 			$this->options['pdf_body_line_height'] = $this->defaults['pdf_body_line_height'];
 		}
-		$this->renderField( 'pdf_body_line_height', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_body_line_height', @$this->options['pdf_body_line_height'], $args[0], $args[1], 'text', 'small-text' );
+		$this->renderField(
+			'pdf_body_line_height',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_body_line_height',
+			@$this->options['pdf_body_line_height'],
+			$args[0],
+			$args[1],
+			'text',
+			'small-text'
+		);
 	}
 
 	/**
@@ -720,7 +738,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderPageWidthField( $args ) {
-		$this->renderField( 'pdf_page_width', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_width', @$this->options['pdf_page_width'], $args[0], '', 'text', 'small-text' );
+		$this->renderField(
+			'pdf_page_width',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_page_width',
+			@$this->options['pdf_page_width'],
+			$args[0],
+			'',
+			'text',
+			'small-text'
+		);
 	}
 
 	/**
@@ -728,7 +755,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderPageHeightField( $args ) {
-		$this->renderField( 'pdf_page_height', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_height', @$this->options['pdf_page_height'], $args[0], '', 'text', 'small-text' );
+		$this->renderField(
+			'pdf_page_height',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_page_height',
+			@$this->options['pdf_page_height'],
+			$args[0],
+			'',
+			'text',
+			'small-text'
+		);
 	}
 
 	/**
@@ -771,7 +807,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 */
 	function renderOutsideMarginField( $args ) {
 	?>
-		<?php $this->renderField( 'pdf_page_margin_outside', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_margin_outside', @$this->options['pdf_page_margin_outside'], $args[0], '', 'text', 'small-text' );
+		<?php $this->renderField(
+			'pdf_page_margin_outside',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_page_margin_outside',
+			@$this->options['pdf_page_margin_outside'],
+			$args[0],
+			'',
+			'text',
+			'small-text'
+		);
 	}
 
 	/**
@@ -779,7 +824,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderInsideMarginField( $args ) {
-		$this->renderField( 'pdf_page_margin_inside', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_margin_inside', @$this->options['pdf_page_margin_inside'], $args[0], '', 'text', 'small-text' );
+		$this->renderField(
+			'pdf_page_margin_inside',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_page_margin_inside',
+			@$this->options['pdf_page_margin_inside'],
+			$args[0],
+			'',
+			'text',
+			'small-text'
+		);
 	}
 
 	/**
@@ -787,7 +841,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTopMarginField( $args ) {
-		$this->renderField( 'pdf_page_margin_top', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_margin_top', @$this->options['pdf_page_margin_top'], $args[0], '', 'text', 'small-text' );
+		$this->renderField(
+			'pdf_page_margin_top',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_page_margin_top',
+			@$this->options['pdf_page_margin_top'],
+			$args[0],
+			'',
+			'text',
+			'small-text'
+		);
 	}
 
 	/**
@@ -795,7 +858,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderBottomMarginField( $args ) {
-		$this->renderField( 'pdf_page_margin_bottom', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_page_margin_bottom', @$this->options['pdf_page_margin_bottom'], $args[0], '', 'text', 'small-text' );
+		$this->renderField(
+			'pdf_page_margin_bottom',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_page_margin_bottom',
+			@$this->options['pdf_page_margin_bottom'],
+			$args[0],
+			'',
+			'text',
+			'small-text'
+		);
 	}
 
 	/**
@@ -803,7 +875,13 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderHyphenationField( $args ) {
-		$this->renderCheckbox( 'pdf_hyphens', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_hyphens', @$this->options['pdf_hyphens'], $args[0] );
+		$this->renderCheckbox(
+			'pdf_hyphens',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_hyphens',
+			@$this->options['pdf_hyphens'],
+			$args[0]
+		);
 	}
 
 	/**
@@ -811,7 +889,13 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderParagraphSeparationField( $args ) {
-		$this->renderRadioButtons( 'pdf_paragraph_separation', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_paragraph_separation', @$this->options['pdf_paragraph_separation'], $args );
+		$this->renderRadioButtons(
+			'pdf_paragraph_separation',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_paragraph_separation',
+			@$this->options['pdf_paragraph_separation'],
+			$args
+		);
 	}
 
 	/**
@@ -819,7 +903,13 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderSectionOpeningsField( $args ) {
-		$this->renderRadioButtons( 'pdf_sectionopenings', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_sectionopenings', @$this->options['pdf_sectionopenings'], $args );
+		$this->renderRadioButtons(
+			'pdf_sectionopenings',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_sectionopenings',
+			@$this->options['pdf_sectionopenings'],
+			$args
+		);
 	}
 
 	/**
@@ -827,7 +917,13 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTOCField( $args ) {
-		$this->renderCheckbox( 'pdf_toc', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_toc', @$this->options['pdf_toc'], $args[0] );
+		$this->renderCheckbox(
+			'pdf_toc',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_toc',
+			@$this->options['pdf_toc'],
+			$args[0]
+		);
 	}
 
 	/**
@@ -835,7 +931,13 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderImageResolutionField( $args ) {
-		$this->renderRadioButtons( 'pdf_image_resolution', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_image_resolution', @$this->options['pdf_image_resolution'], $args );
+		$this->renderRadioButtons(
+			'pdf_image_resolution',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_image_resolution',
+			@$this->options['pdf_image_resolution'],
+			$args
+		);
 	}
 
 	/**
@@ -843,7 +945,13 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 		*/
 	function renderCropMarksField( $args ) {
-		$this->renderCheckbox( 'pdf_crop_marks', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_crop_marks', @$this->options['pdf_crop_marks'], $args[0] );
+		$this->renderCheckbox(
+			'pdf_crop_marks',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_crop_marks',
+			@$this->options['pdf_crop_marks'],
+			$args[0]
+		);
 	}
 
 	/**
@@ -851,7 +959,13 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRomanizePartsField( $args ) {
-		$this->renderCheckbox( 'pdf_romanize_parts', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_romanize_parts', @$this->options['pdf_romanize_parts'], $args[0] );
+		$this->renderCheckbox(
+			'pdf_romanize_parts',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_romanize_parts',
+			@$this->options['pdf_romanize_parts'],
+			$args[0]
+		);
 	}
 
 	/**
@@ -859,7 +973,13 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderFootnoteStyleField( $args ) {
-		$this->renderRadioButtons( 'pdf_footnotes_style', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_footnotes_style', @$this->options['pdf_footnotes_style'], $args );
+		$this->renderRadioButtons(
+			'pdf_footnotes_style',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_footnotes_style',
+			@$this->options['pdf_footnotes_style'],
+			$args
+		);
 	}
 
 	/**
@@ -867,7 +987,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderWidowsField( $args ) {
-		$this->renderField( 'widows', 'pressbooks_theme_options_' . $this->getSlug(), 'widows', @$this->options['widows'], '', '', 'text', 'small-text' );
+		$this->renderField(
+			'widows',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'widows',
+			@$this->options['widows'],
+			'',
+			'',
+			'text',
+			'small-text'
+		);
 	}
 
 	/**
@@ -875,7 +1004,16 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderOrphansField( $args ) {
-		$this->renderField( 'orphans', 'pressbooks_theme_options_' . $this->getSlug(), 'orphans', @$this->options['orphans'], '', '', 'text', 'small-text' );
+		$this->renderField(
+			'orphans',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'orphans',
+			@$this->options['orphans'],
+			'',
+			'',
+			'text',
+			'small-text'
+		);
 	}
 
 	/**
@@ -892,8 +1030,22 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentFrontMatterLeftField( $args ) {
-		$this->renderCustomSelect( 'running_content_front_matter_left', 'running_content_front_matter_left', @$this->options['running_content_front_matter_left'], $args );
-		$this->renderField( 'running_content_front_matter_left', 'pressbooks_theme_options_' . $this->getSlug(), 'running_content_front_matter_left', @$this->options['running_content_front_matter_left'], '', '', 'text', 'regular-text code' );
+		$this->renderCustomSelect(
+			'running_content_front_matter_left',
+			'running_content_front_matter_left',
+			@$this->options['running_content_front_matter_left'],
+			$args
+		);
+		$this->renderField(
+			'running_content_front_matter_left',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'running_content_front_matter_left',
+			@$this->options['running_content_front_matter_left'],
+			'',
+			'',
+			'text',
+			'regular-text code'
+		);
 	}
 
 	/**
@@ -901,8 +1053,22 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentFrontMatterRightField( $args ) {
-		$this->renderCustomSelect( 'running_content_front_matter_right', 'running_content_front_matter_right', @$this->options['running_content_front_matter_right'], $args );
-		$this->renderField( 'running_content_front_matter_right', 'pressbooks_theme_options_' . $this->getSlug(), 'running_content_front_matter_right', @$this->options['running_content_front_matter_right'], '', '', 'text', 'regular-text code' );
+		$this->renderCustomSelect(
+			'running_content_front_matter_right',
+			'running_content_front_matter_right',
+			@$this->options['running_content_front_matter_right'],
+			$args
+		);
+		$this->renderField(
+			'running_content_front_matter_right',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'running_content_front_matter_right',
+			@$this->options['running_content_front_matter_right'],
+			'',
+			'',
+			'text',
+			'regular-text code'
+		);
 	}
 
 	/**
@@ -910,8 +1076,22 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentIntroductionLeftField( $args ) {
-		$this->renderCustomSelect( 'running_content_introduction_left', 'running_content_introduction_left', @$this->options['running_content_introduction_left'], $args );
-		$this->renderField( 'running_content_introduction_left', 'pressbooks_theme_options_' . $this->getSlug(), 'running_content_introduction_left', @$this->options['running_content_introduction_left'], '', '', 'text', 'regular-text code' );
+		$this->renderCustomSelect(
+			'running_content_introduction_left',
+			'running_content_introduction_left',
+			@$this->options['running_content_introduction_left'],
+			$args
+		);
+		$this->renderField(
+			'running_content_introduction_left',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'running_content_introduction_left',
+			@$this->options['running_content_introduction_left'],
+			'',
+			'',
+			'text',
+			'regular-text code'
+		);
 	}
 
 	/**
@@ -919,8 +1099,22 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentIntroductionRightField( $args ) {
-		$this->renderCustomSelect( 'running_content_introduction_right', 'running_content_introduction_right', @$this->options['running_content_introduction_right'], $args );
-		$this->renderField( 'running_content_introduction_right', 'pressbooks_theme_options_' . $this->getSlug(), 'running_content_introduction_right', @$this->options['running_content_introduction_right'], '', '', 'text', 'regular-text code' );
+		$this->renderCustomSelect(
+			'running_content_introduction_right',
+			'running_content_introduction_right',
+			@$this->options['running_content_introduction_right'],
+			$args
+		);
+		$this->renderField(
+			'running_content_introduction_right',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'running_content_introduction_right',
+			@$this->options['running_content_introduction_right'],
+			'',
+			'',
+			'text',
+			'regular-text code'
+		);
 	}
 
 	/**
@@ -928,8 +1122,22 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentPartLeftField( $args ) {
-		$this->renderCustomSelect( 'running_content_part_left', 'running_content_part_left', @$this->options['running_content_part_left'], $args );
-		$this->renderField( 'running_content_part_left', 'pressbooks_theme_options_' . $this->getSlug(), 'running_content_part_left', @$this->options['running_content_part_left'], '', '', 'text', 'regular-text code' );
+		$this->renderCustomSelect(
+			'running_content_part_left',
+			'running_content_part_left',
+			@$this->options['running_content_part_left'],
+			$args
+		);
+		$this->renderField(
+			'running_content_part_left',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'running_content_part_left',
+			@$this->options['running_content_part_left'],
+			'',
+			'',
+			'text',
+			'regular-text code'
+		);
 	}
 
 	/**
@@ -937,8 +1145,23 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentPartRightField( $args ) {
-		$this->renderCustomSelect( 'running_content_part_right', 'running_content_part_right', @$this->options['running_content_part_right'], $args );
-		$this->renderField( 'running_content_part_right', 'pressbooks_theme_options_' . $this->getSlug(), 'running_content_part_right', @$this->options['running_content_part_right'], '', '', 'text', 'regular-text code' );
+		$this->renderCustomSelect(
+			'running_content_part_right',
+			'running_content_part_right',
+			@$this->options['running_content_part_right'],
+			$args
+		);
+		$this->renderField(
+			'running_content_part_right',
+			'pressbooks_theme_options_' .
+			$this->getSlug(),
+			'running_content_part_right',
+			@$this->options['running_content_part_right'],
+			'',
+			'',
+			'text',
+			'regular-text code'
+		);
 	}
 
 	/**
@@ -946,8 +1169,22 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentChapterLeftField( $args ) {
-		$this->renderCustomSelect( 'running_content_chapter_left', 'running_content_chapter_left', @$this->options['running_content_chapter_left'], $args );
-		$this->renderField( 'running_content_chapter_left', 'pressbooks_theme_options_' . $this->getSlug(), 'running_content_chapter_left', @$this->options['running_content_chapter_left'], '', '', 'text', 'regular-text code' );
+		$this->renderCustomSelect(
+			'running_content_chapter_left',
+			'running_content_chapter_left',
+			@$this->options['running_content_chapter_left'],
+			$args
+		);
+		$this->renderField(
+			'running_content_chapter_left',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'running_content_chapter_left',
+			@$this->options['running_content_chapter_left'],
+			'',
+			'',
+			'text',
+			'regular-text code'
+		);
 	}
 
 	/**
@@ -955,8 +1192,22 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentChapterRightField( $args ) {
-		$this->renderCustomSelect( 'running_content_chapter_right', 'running_content_chapter_right', @$this->options['running_content_chapter_right'], $args );
-		$this->renderField( 'running_content_chapter_right', 'pressbooks_theme_options_' . $this->getSlug(), 'running_content_chapter_right', @$this->options['running_content_chapter_right'], '', '', 'text', 'regular-text code' );
+		$this->renderCustomSelect(
+			'running_content_chapter_right',
+			'running_content_chapter_right',
+			@$this->options['running_content_chapter_right'],
+			$args
+		);
+		$this->renderField(
+			'running_content_chapter_right',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'running_content_chapter_right',
+			@$this->options['running_content_chapter_right'],
+			'',
+			'',
+			'text',
+			'regular-text code'
+		);
 	}
 
 	/**
@@ -964,8 +1215,22 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentBackMatterLeftField( $args ) {
-		$this->renderCustomSelect( 'running_content_back_matter_left', 'running_content_back_matter_left', @$this->options['running_content_back_matter_left'], $args );
-		$this->renderField( 'running_content_back_matter_left', 'pressbooks_theme_options_' . $this->getSlug(), 'running_content_back_matter_left', @$this->options['running_content_back_matter_left'], '', '', 'text', 'regular-text code' );
+		$this->renderCustomSelect(
+			'running_content_back_matter_left',
+			'running_content_back_matter_left',
+			@$this->options['running_content_back_matter_left'],
+			$args
+		);
+		$this->renderField(
+			'running_content_back_matter_left',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'running_content_back_matter_left',
+			@$this->options['running_content_back_matter_left'],
+			'',
+			'',
+			'text',
+			'regular-text code'
+		);
 	}
 
 	/**
@@ -973,8 +1238,22 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderRunningContentBackMatterRightField( $args ) {
-		$this->renderCustomSelect( 'running_content_back_matter_right', 'running_content_back_matter_right', @$this->options['running_content_back_matter_right'], $args );
-		$this->renderField( 'running_content_back_matter_right', 'pressbooks_theme_options_' . $this->getSlug(), 'running_content_back_matter_right', @$this->options['running_content_back_matter_right'], '', '', 'text', 'regular-text code' );
+		$this->renderCustomSelect(
+			'running_content_back_matter_right',
+			'running_content_back_matter_right',
+			@$this->options['running_content_back_matter_right'],
+			$args
+		);
+		$this->renderField(
+			'running_content_back_matter_right',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'running_content_back_matter_right',
+			@$this->options['running_content_back_matter_right'],
+			'',
+			'',
+			'text',
+			'regular-text code'
+		);
 	}
 
 	/**
@@ -982,7 +1261,13 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderFontSizeField( $args ) {
-		$this->renderCheckbox( 'pdf_fontsize', 'pressbooks_theme_options_' . $this->getSlug(), 'pdf_fontsize', @$this->options['pdf_fontsize'], $args[0] );
+		$this->renderCheckbox(
+			'pdf_fontsize',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'pdf_fontsize',
+			@$this->options['pdf_fontsize'],
+			$args[0]
+		);
 	}
 
 	/**

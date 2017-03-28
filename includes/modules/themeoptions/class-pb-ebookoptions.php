@@ -149,7 +149,13 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderParagraphSeparationField( $args ) {
-		$this->renderRadioButtons( 'ebook_paragraph_separation', 'pressbooks_theme_options_' . $this->getSlug(), 'ebook_paragraph_separation', @$this->options['ebook_paragraph_separation'], $args );
+		$this->renderRadioButtons(
+			'ebook_paragraph_separation',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'ebook_paragraph_separation',
+			@$this->options['ebook_paragraph_separation'],
+			$args
+		);
 	}
 
 	/**
@@ -157,7 +163,13 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderCompressImagesField( $args ) {
-		$this->renderCheckbox( 'ebook_compress_images', 'pressbooks_theme_options_' . $this->getSlug(), 'ebook_compress_images', @$this->options['ebook_compress_images'], $args[0] );
+		$this->renderCheckbox(
+			'ebook_compress_images',
+			'pressbooks_theme_options_' . $this->getSlug(),
+			'ebook_compress_images',
+			@$this->options['ebook_compress_images'],
+			$args[0]
+		);
 	}
 
 	/**
