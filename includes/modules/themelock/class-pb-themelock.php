@@ -10,38 +10,36 @@ use Pressbooks\Container;
 class ThemeLock {
 
 	/**
+	 *
+	 */
+	static function lockOrUnlockTheme( $old_value, $value, $option ) {
+		if ( isset( $value['theme_lock'] ) && 1 == $value['theme_lock'] ) {
+			ThemeLock::lockTheme();
+		} else {
+			ThemeLock::unlockTheme();
+		}
+	}
+
+	/**
 	 * Lock the current theme by copying assets to the lock directory and generating a timestamped lockfile.
 	 *
 	 * @return int
 	 */
 	static function lockTheme() {
-		if ( check_ajax_referer( 'pb-lock-theme' ) ) {
-			ThemeLock::copyAssets();
-			$time = time();
-			ThemeLock::generateLock( $time );
-			return $time;
-		}
-		return false;
+		ThemeLock::copyAssets();
+		$time = time();
+		ThemeLock::generateLock( $time );
+		return $time;
 	}
 
 	static function unlockTheme() {
-		if ( check_ajax_referer( 'pb-unlock-theme' ) ) {
-			if ( ! WP_Filesystem() ) {
-				exit;
-			}
-
-			global $wp_filesystem;
-
-			$wp_filesystem->delete( ThemeLock::pathToLockDir() . '/lock.json' );
-
-			if ( $wp_filesystem->is_dir( ThemeLock::pathToLockDir() . '/assets' ) ) {
-				\Pressbooks\Utility\delete_directory( ThemeLock::pathToLockDir() . '/assets' );
-			} elseif ( $wp_filesystem->is_dir( ThemeLock::pathToLockDir() . '/export' ) ) {
-				\Pressbooks\Utility\delete_directory( ThemeLock::pathToLockDir() . '/export' );
-				$wp_filesystem->delete( ThemeLock::pathToLockDir() . '/style.scss' );
-			}
+		if ( ! WP_Filesystem() ) {
+			exit;
 		}
-		return false;
+
+		global $wp_filesystem;
+
+		\Pressbooks\Utility\delete_directory( ThemeLock::pathToLockDir() );
 	}
 
 	static function copyAssets() {
@@ -51,16 +49,7 @@ class ThemeLock {
 
 		global $wp_filesystem;
 
-		if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) {
-			$target = ThemeLock::pathToLockDir() . '/export';
-			$wp_filesystem->mkdir( $target );
-			copy_dir( realpath( get_stylesheet_directory() . '/export' ), $target );
-		} elseif ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
-			$target = ThemeLock::pathToLockDir() . '/assets';
-			$wp_filesystem->mkdir( $target );
-			copy_dir( realpath( get_stylesheet_directory() . '/assets' ), $target );
-			$wp_filesystem->copy( realpath( get_stylesheet_directory() . '/style.scss' ), ThemeLock::pathToLockDir() . '/style.scss' );
-		}
+		copy_dir( get_stylesheet_directory(), ThemeLock::pathToLockDir() );
 	}
 
 	static function generateLock( $time ) {
@@ -99,7 +88,8 @@ class ThemeLock {
 	 * @return bool
 	 */
 	static function isLocked() {
-		if ( realpath( ThemeLock::pathToLockDir() . '/lock.json' ) ) {
+		$options = get_option( 'pressbooks_export_options' );
+		if ( realpath( ThemeLock::pathToLockDir() . '/lock.json' ) && 1 == @$options['theme_lock'] ) {
 			return true;
 		}
 		return false;
@@ -127,7 +117,7 @@ class ThemeLock {
 		if ( $locked ) {
 			// Notify users of theme lock status.
 			global $pagenow;
-			if ( 'themes.php' == $pagenow && 'pressbooks_theme_lock' !== @$_GET['page'] ) {
+			if ( 'themes.php' == $pagenow ) {
 				$_SESSION['pb_errors'][] = sprintf(
 					__( 'Your book&rsquo;s theme, %1$s, was locked in its current state on %2$s at %3$s. To select a new theme or change your theme options, please %4$s.', 'pressbooks' ),
 					$data['name'],
@@ -135,7 +125,7 @@ class ThemeLock {
 					strftime( '%X', $data['timestamp'] ),
 					sprintf(
 						'<a href="%s">%s</a>',
-						admin_url( 'themes.php?page=pressbooks_theme_lock' ),
+						admin_url( 'options-general.php?page=pressbooks_export_options' ),
 						'unlock your theme'
 					)
 				);
@@ -151,12 +141,5 @@ class ThemeLock {
 				echo '<script type="text/javascript">jQuery(document).ready(function() { jQuery("form :input").attr("disabled","disabled"); });</script>';
 			} );
 		}
-	}
-
-	/**
-	 * Display the theme lock page.
-	 */
-	static function display() {
-		require( PB_PLUGIN_DIR . 'templates/admin/themelock.php' );
 	}
 }

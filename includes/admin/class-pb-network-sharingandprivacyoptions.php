@@ -117,7 +117,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the allow_redistribution radio buttons.
+	 * Render the allow_redistribution checkbox.
 	 * @param array $args
 	 */
 	function renderAllowRedistributionField( $args ) {
