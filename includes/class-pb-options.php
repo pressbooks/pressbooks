@@ -204,8 +204,9 @@ abstract class Options {
 			'name' => null,
 			'option' => null,
 			'value' => '',
-			'description' => null,
+			'label' => null,
 			'disabled' => false,
+			'description' => null,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -218,8 +219,14 @@ abstract class Options {
 			checked( 1, $args['value'], false ),
 			( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : '',
 			$args['id'],
-			$args['description']
+			$args['label']
 		);
+		if ( isset( $args['description'] ) ) {
+			printf(
+				'<p class="description">%s</p>',
+				$args['description']
+			);
+		}
 	}
 
 	/**

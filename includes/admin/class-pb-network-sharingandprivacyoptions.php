@@ -127,7 +127,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			'name' => $this->getSlug(),
 			'option' => 'allow_redistribution',
 			'value' => ( isset( $options['allow_redistribution'] ) ) ? $options['allow_redistribution'] : '',
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 

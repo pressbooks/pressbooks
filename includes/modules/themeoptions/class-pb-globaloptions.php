@@ -207,7 +207,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'chapter_numbers',
 			'value' => ( isset( $this->options['chapter_numbers'] ) ) ? $this->options['chapter_numbers'] : '',
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 
@@ -221,7 +221,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'parse_subsections',
 			'value' => ( isset( $this->options['parse_subsections'] ) ) ? $this->options['parse_subsections'] : '',
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 
@@ -284,7 +284,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'copyright_license',
 			'value' => ( isset( $this->options['copyright_license'] ) ) ? $this->options['copyright_license'] : '',
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 

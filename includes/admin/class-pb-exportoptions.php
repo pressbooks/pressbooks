@@ -150,7 +150,8 @@ class ExportOptions extends \Pressbooks\Options {
 			'name' => $this->getSlug(),
 			'option' => 'theme_lock',
 			'value' => ( isset( $this->options['theme_lock'] ) ) ? $this->options['theme_lock'] : '',
-			'description' => $args[0],
+			'label' => $args[0],
+			'description' => __( 'This will prevent any changes to your book&rsquo;s appearance and page count when themes are updated.', 'pressbooks' ),
 		) );
 	}
 
