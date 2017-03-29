@@ -3,7 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace Pressbooks\Modules\ThemeLock;
+namespace Pressbooks;
 
 use Pressbooks\Container;
 
@@ -28,8 +28,17 @@ class ThemeLock {
 	static function lockTheme() {
 		ThemeLock::copyAssets();
 		$time = time();
-		ThemeLock::generateLock( $time );
-		return $time;
+		$data = ThemeLock::generateLock( $time );
+		$_SESSION['pb_notices'][] = sprintf(
+			'<strong>%s</strong>',
+			sprintf(
+				__( 'Your book&rsquo;s theme, %1$s, has been locked in its current state as of %2$s at %3$s.', 'pressbooks' ),
+				$data['name'],
+				strftime( '%x', $data['timestamp'] ),
+				strftime( '%X', $data['timestamp'] )
+			)
+		);
+		return $data;
 	}
 
 	static function unlockTheme() {
@@ -40,6 +49,7 @@ class ThemeLock {
 		global $wp_filesystem;
 
 		\Pressbooks\Utility\delete_directory( ThemeLock::getLockDir() );
+		$_SESSION['pb_notices'][] = sprintf( '<strong>%s</strong>', __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ) );
 	}
 
 	static function copyAssets() {
@@ -63,6 +73,7 @@ class ThemeLock {
 		$json = json_encode( $data );
 		$lockfile = ThemeLock::getLockDir() . '/lock.json';
 		file_put_contents( $lockfile, $json );
+		return $data;
 	}
 
 	/**
@@ -120,9 +131,9 @@ class ThemeLock {
 	 * Restrict access to Themes and Theme Options.
 	 */
 	static function restrictThemeManagement() {
-		$locked = \Pressbooks\Modules\ThemeLock\ThemeLock::isLocked();
+		$locked = \Pressbooks\ThemeLock::isLocked();
 		if ( $locked ) {
-			$data = \Pressbooks\Modules\ThemeLock\ThemeLock::getLockData();
+			$data = \Pressbooks\ThemeLock::getLockData();
 		}
 		if ( $locked ) {
 			// Redirect and notify users of theme lock status.

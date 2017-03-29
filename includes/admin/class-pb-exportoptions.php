@@ -71,16 +71,18 @@ class ExportOptions extends \Pressbooks\Options {
 			)
 		);
 
-		add_settings_field(
-			'theme_lock',
-			__( 'Lock Theme', 'pressbooks' ),
-			array( $this, 'renderThemeLockField' ),
-			$_page,
-			$_section,
-			array(
-				__( 'Lock your theme at its current version.', 'pressbooks' ),
-			)
-		);
+		if ( ! \Pressbooks\CustomCss::isCustomCss() ) {
+			add_settings_field(
+				'theme_lock',
+				__( 'Lock Theme', 'pressbooks' ),
+				array( $this, 'renderThemeLockField' ),
+				$_page,
+				$_section,
+				array(
+					__( 'Lock your theme at its current version.', 'pressbooks' ),
+				)
+			);
+		}
 
 		register_setting(
 			$_page,
