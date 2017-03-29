@@ -26,19 +26,29 @@ class ThemeLock {
 	 * @return int
 	 */
 	static function lockTheme() {
-		ThemeLock::copyAssets();
-		$time = time();
-		$data = ThemeLock::generateLock( $time );
-		$_SESSION['pb_notices'][] = sprintf(
-			'<strong>%s</strong>',
-			sprintf(
-				__( 'Your book&rsquo;s theme, %1$s, has been locked in its current state as of %2$s at %3$s.', 'pressbooks' ),
-				$data['name'],
-				strftime( '%x', $data['timestamp'] ),
-				strftime( '%X', $data['timestamp'] )
-			)
-		);
-		return $data;
+		if ( true == ThemeLock::copyAssets() ) {
+			$time = time();
+			$data = ThemeLock::generateLock( $time );
+			$_SESSION['pb_notices'][] = sprintf(
+				'<strong>%s</strong>',
+				sprintf(
+					__( 'Your book&rsquo;s theme, %1$s, has been locked in its current state as of %2$s at %3$s.', 'pressbooks' ),
+					$data['name'],
+					strftime( '%x', $data['timestamp'] ),
+					strftime( '%X', $data['timestamp'] )
+				)
+			);
+			return $data;
+		} else {
+			$option = get_option( 'pressbooks_export_options' );
+			unset( $option['theme_lock'] );
+			update_option( 'pressbooks_export_options', $option );
+			$_SESSION['pb_errors'][] = sprintf(
+				'<strong>%s</strong>',
+				__( 'Your book&rsquo;s theme could not be locked. Please ensure that you have write access to the uploads directory.', 'pressbooks' )
+			);
+		}
+		return false;
 	}
 
 	static function unlockTheme() {
@@ -59,7 +69,7 @@ class ThemeLock {
 
 		global $wp_filesystem;
 
-		copy_dir( get_stylesheet_directory(), ThemeLock::getLockDir() );
+		return copy_dir( get_stylesheet_directory(), ThemeLock::getLockDir() );
 	}
 
 	static function generateLock( $time ) {
@@ -98,9 +108,9 @@ class ThemeLock {
 	 */
 	static function getLockDirURI() {
 		$wp_upload_dir = wp_upload_dir();
-		$lock_dir = $wp_upload_dir['baseurl'] . '/lock';
-		$lock_dir = \Pressbooks\Sanitize\maybe_https( $lock_dir );
-		return $lock_dir;
+		$lock_dir_uri = $wp_upload_dir['baseurl'] . '/lock';
+		$lock_dir_uri = \Pressbooks\Sanitize\maybe_https( $lock_dir_uri );
+		return $lock_dir_uri;
 	}
 
 	/**
