@@ -39,7 +39,7 @@ class ThemeLock {
 
 		global $wp_filesystem;
 
-		\Pressbooks\Utility\delete_directory( ThemeLock::pathToLockDir() );
+		\Pressbooks\Utility\delete_directory( ThemeLock::getLockDir() );
 	}
 
 	static function copyAssets() {
@@ -49,7 +49,7 @@ class ThemeLock {
 
 		global $wp_filesystem;
 
-		copy_dir( get_stylesheet_directory(), ThemeLock::pathToLockDir() );
+		copy_dir( get_stylesheet_directory(), ThemeLock::getLockDir() );
 	}
 
 	static function generateLock( $time ) {
@@ -61,7 +61,7 @@ class ThemeLock {
 			'timestamp' => $time,
 		);
 		$json = json_encode( $data );
-		$lockfile = ThemeLock::pathToLockDir() . '/lock.json';
+		$lockfile = ThemeLock::getLockDir() . '/lock.json';
 		file_put_contents( $lockfile, $json );
 	}
 
@@ -70,7 +70,7 @@ class ThemeLock {
 	 *
 	 * @return string
 	 */
-	static function pathToLockDir() {
+	static function getLockDir() {
 
 		$wp_upload_dir = wp_upload_dir();
 		$lock_dir = $wp_upload_dir['basedir'] . '/lock';
@@ -83,13 +83,23 @@ class ThemeLock {
 	}
 
 	/**
+	 *
+	 */
+	static function getLockDirURI() {
+		$wp_upload_dir = wp_upload_dir();
+		$lock_dir = $wp_upload_dir['baseurl'] . '/lock';
+		$lock_dir = \Pressbooks\Sanitize\maybe_https( $lock_dir );
+		return $lock_dir;
+	}
+
+	/**
 	 * Check for a lockfile.
 	 *
 	 * @return bool
 	 */
 	static function isLocked() {
 		$options = get_option( 'pressbooks_export_options' );
-		if ( realpath( ThemeLock::pathToLockDir() . '/lock.json' ) && 1 == @$options['theme_lock'] ) {
+		if ( realpath( ThemeLock::getLockDir() . '/lock.json' ) && 1 == @$options['theme_lock'] ) {
 			return true;
 		}
 		return false;
@@ -101,7 +111,7 @@ class ThemeLock {
 	 * @return array
 	 */
 	static function getLockData() {
-		$json = file_get_contents( ThemeLock::pathToLockDir() . '/lock.json' );
+		$json = file_get_contents( ThemeLock::getLockDir() . '/lock.json' );
 		$output = json_decode( $json, true );
 		return $output;
 	}

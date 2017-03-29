@@ -180,7 +180,7 @@ $formats = apply_filters( 'pb_export_formats', array(
 	<h3><?php _e( 'Your Theme Options', 'pressbooks' ); ?></h3>
 	<div class="theme">
 		<div class="theme-screenshot">
-			<img src="<?php echo get_stylesheet_directory_uri(); ?>/screenshot.png" alt="">
+			<img src="<?php echo apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ); ?>/screenshot.png" alt="">
 		</div>
 		<h3 class="theme-name"><?php echo wp_get_theme();?><?php if ( \Pressbooks\Modules\ThemeLock\ThemeLock::isLocked() ) { echo ' <span class="dashicons dashicons-lock" style="vertical-align: text-bottom;"></span>'; } ?></h3>
 		<div class="theme-actions">

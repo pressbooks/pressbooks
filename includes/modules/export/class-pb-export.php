@@ -106,11 +106,11 @@ abstract class Export {
 
 		if ( ! $fullpath ) {
 			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
-				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
+				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.scss" );
 			} elseif ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
-				$fullpath = realpath( get_stylesheet_directory() . "/assets/styles/$type/style.scss" );
+				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/styles/$type/style.scss" );
 			} else {
-				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
+				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.css" );
 			}
 		}
 
@@ -139,9 +139,9 @@ abstract class Export {
 		if ( ! $fullpath ) {
 			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
 				// Check for v2 themes
-				$fullpath = realpath( get_stylesheet_directory() . "/assets/scripts/$type/script.js" );
+				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" );
 			} else {
-				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
+				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" );
 			}
 			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' == $type ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script-romanize.js" );
@@ -162,10 +162,10 @@ abstract class Export {
 
 		$url = false;
 
-		if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) && realpath( get_stylesheet_directory() . "/assets/scripts/$type/script.js" ) ) {
-			$url = get_stylesheet_directory_uri() . "/assets/scripts/$type/script.js";
-		} elseif ( realpath( get_stylesheet_directory() . "/export/$type/script.js" ) ) {
-			$url = get_stylesheet_directory_uri() . "/export/$type/script.js";
+		if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) && realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" ) ) {
+			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/assets/scripts/$type/script.js";
+		} elseif ( realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" ) ) {
+			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/export/$type/script.js";
 		}
 		if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' == $type ) {
 			$url = get_stylesheet_directory_uri() . "/export/$type/script-romanize.js";
