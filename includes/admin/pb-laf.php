@@ -579,19 +579,12 @@ function init_css_js() {
 		wp_enqueue_script( 'theme-options-js', \Pressbooks\Utility\asset_path( 'scripts/theme-options.js' ), [ 'jquery' ] );
 	}
 
-	if ( 'pressbooks_theme_lock' == esc_attr( @$_REQUEST['page'] ) ) {
-		wp_enqueue_script( 'theme-lock-js', \Pressbooks\Utility\asset_path( 'scripts/theme-lock.js' ), [ 'jquery' ] );
-		wp_localize_script( 'theme-lock-js', 'PB_ThemeLockToken', array(
-			// Ajax nonces
-			'lockNonce' => wp_create_nonce( 'pb-lock-theme' ),
-			'unlockNonce' => wp_create_nonce( 'pb-unlock-theme' ),
+	if ( 'pressbooks_export_options' == esc_attr( @$_REQUEST['page'] ) ) {
+		wp_enqueue_script( 'pressbooks/theme-lock', \Pressbooks\Utility\asset_path( 'scripts/theme-lock.js' ), [ 'jquery' ] );
+		wp_localize_script( 'pressbooks/theme-lock', 'PB_ThemeLockToken', array(
 			// Strings
-			'lock_button' => __( 'Lock Theme', 'pressbooks' ),
-			'locked_status' => __( 'Your book&rsquo;s theme has been locked in its current state.', 'pressbooks' ),
-			'unlock_button' => __( 'Unlock Theme', 'pressbooks' ),
-			'unlocked_status' => __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ),
+			'confirmation' => __( 'Are you sure you want to unlock your theme? Your book will update to the current version of your theme, which may change your book&rsquo;s appearance and page count. Once you save your settings, this action will NOT be reversable!', 'pressbooks' ),
 		) );
-
 	}
 
 	if ( 'pb_custom_css' == esc_attr( @$_REQUEST['page'] ) ) {
