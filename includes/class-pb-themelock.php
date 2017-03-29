@@ -10,13 +10,40 @@ use Pressbooks\Container;
 class ThemeLock {
 
 	/**
+	 * Get path to the theme lock directory.
+	 *
+	 * @return string
+	 */
+	static function getLockDir() {
+
+		$wp_upload_dir = wp_upload_dir();
+		$lock_dir = $wp_upload_dir['basedir'] . '/lock';
+
+		if ( ! file_exists( $lock_dir ) ) {
+			mkdir( $lock_dir, 0775, true );
+		}
+
+		return $lock_dir;
+	}
+
+	/**
 	 *
 	 */
-	static function lockOrUnlockTheme( $old_value, $value, $option ) {
+	static function getLockDirURI() {
+		$wp_upload_dir = wp_upload_dir();
+		$lock_dir_uri = $wp_upload_dir['baseurl'] . '/lock';
+		$lock_dir_uri = \Pressbooks\Sanitize\maybe_https( $lock_dir_uri );
+		return $lock_dir_uri;
+	}
+
+	/**
+	 *
+	 */
+	static function toggleThemeLock( $old_value, $value, $option ) {
 		if ( isset( $value['theme_lock'] ) && 1 == $value['theme_lock'] ) {
-			ThemeLock::lockTheme();
+			return ThemeLock::lockTheme();
 		} else {
-			ThemeLock::unlockTheme();
+			return ThemeLock::unlockTheme();
 		}
 	}
 
@@ -51,17 +78,6 @@ class ThemeLock {
 		return false;
 	}
 
-	static function unlockTheme() {
-		if ( ! WP_Filesystem() ) {
-			exit;
-		}
-
-		global $wp_filesystem;
-
-		\Pressbooks\Utility\delete_directory( ThemeLock::getLockDir() );
-		$_SESSION['pb_notices'][] = sprintf( '<strong>%s</strong>', __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ) );
-	}
-
 	static function copyAssets() {
 		if ( ! WP_Filesystem() ) {
 			exit;
@@ -86,31 +102,17 @@ class ThemeLock {
 		return $data;
 	}
 
-	/**
-	 * Get path to the theme lock directory.
-	 *
-	 * @return string
-	 */
-	static function getLockDir() {
-
-		$wp_upload_dir = wp_upload_dir();
-		$lock_dir = $wp_upload_dir['basedir'] . '/lock';
-
-		if ( ! file_exists( $lock_dir ) ) {
-			mkdir( $lock_dir, 0775, true );
+	static function unlockTheme() {
+		if ( ! WP_Filesystem() ) {
+			exit;
 		}
 
-		return $lock_dir;
-	}
+		global $wp_filesystem;
 
-	/**
-	 *
-	 */
-	static function getLockDirURI() {
-		$wp_upload_dir = wp_upload_dir();
-		$lock_dir_uri = $wp_upload_dir['baseurl'] . '/lock';
-		$lock_dir_uri = \Pressbooks\Sanitize\maybe_https( $lock_dir_uri );
-		return $lock_dir_uri;
+		\Pressbooks\Utility\delete_directory( ThemeLock::getLockDir() );
+		$_SESSION['pb_notices'][] = sprintf( '<strong>%s</strong>', __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ) );
+
+		return wp_get_theme();
 	}
 
 	/**

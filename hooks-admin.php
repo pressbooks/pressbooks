@@ -209,7 +209,7 @@ if ( \Pressbooks\Book::isBook() ) {
 
 // Theme Lock
 add_action( 'admin_init', '\Pressbooks\ThemeLock::restrictThemeManagement' );
-add_action( 'update_option_pressbooks_export_options', '\Pressbooks\ThemeLock::lockOrUnlockTheme', 10, 3 );
+add_action( 'update_option_pressbooks_export_options', '\Pressbooks\ThemeLock::toggleThemeLock', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // "Catch-all" routines, must come after taxonomies and friends
