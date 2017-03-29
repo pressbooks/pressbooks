@@ -117,6 +117,19 @@ class ThemeLock {
 	}
 
 	/**
+	 * Restrict access to Themes and Theme Options.
+	 */
+	static function restrictThemeManagement() {
+		$locked = \Pressbooks\Modules\ThemeLock\ThemeLock::isLocked();
+		if ( $locked ) {
+			// Disable theme options.
+			add_action( 'pb_before_themeoptions_settings_fields', function() {
+				echo '<script type="text/javascript">jQuery(document).ready(function() { jQuery("form :input").attr("disabled","disabled"); });</script>';
+			} );
+		}
+	}
+
+	/**
 	 * Display the theme lock page.
 	 */
 	static function display() {
