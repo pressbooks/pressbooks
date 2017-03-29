@@ -169,7 +169,7 @@ class WebOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'social_media',
 			'value' => ( isset( $this->options['social_media'] ) ) ? $this->options['social_media'] : '',
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 
@@ -197,7 +197,7 @@ class WebOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'part_title',
 			'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['part_title'] : '',
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 

@@ -168,7 +168,7 @@ class EbookOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'ebook_compress_images',
 			'value' => ( isset( $this->options['ebook_compress_images'] ) ) ? $this->options['ebook_compress_images'] : '',
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 

@@ -71,7 +71,7 @@ function replace_book_admin_menu() {
 	remove_menu_page( 'edit.php?post_type=metadata' );
 	remove_menu_page( 'link-manager.php' );
 	remove_menu_page( 'edit.php?post_type=page' );
-	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'render' ) ); // TODO
+	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'render' ) );
 
 	remove_submenu_page( 'tools.php', 'tools.php' );
 	remove_submenu_page( 'tools.php', 'import.php' );
@@ -577,6 +577,14 @@ function init_css_js() {
 		wp_enqueue_style( 'theme-options', \Pressbooks\Utility\asset_path( 'styles/theme-options.css' ) );
 		wp_enqueue_script( 'select2-js', \Pressbooks\Utility\asset_path( 'scripts/select2.js' ), [ 'jquery' ] );
 		wp_enqueue_script( 'theme-options-js', \Pressbooks\Utility\asset_path( 'scripts/theme-options.js' ), [ 'jquery' ] );
+	}
+
+	if ( 'pressbooks_export_options' == esc_attr( @$_REQUEST['page'] ) ) {
+		wp_enqueue_script( 'pressbooks/theme-lock', \Pressbooks\Utility\asset_path( 'scripts/theme-lock.js' ), [ 'jquery' ] );
+		wp_localize_script( 'pressbooks/theme-lock', 'PB_ThemeLockToken', array(
+			// Strings
+			'confirmation' => __( 'Are you sure you want to unlock your theme? Your book will update to the current version of your theme, which may change your book&rsquo;s appearance and page count. Once you save your settings, this action will NOT be reversable!', 'pressbooks' ),
+		) );
 	}
 
 	if ( 'pb_custom_css' == esc_attr( @$_REQUEST['page'] ) ) {

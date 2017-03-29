@@ -871,7 +871,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_hyphens',
 			'value' => @$this->options['pdf_hyphens'],
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 
@@ -913,7 +913,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_toc',
 			'value' => @$this->options['pdf_toc'],
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 
@@ -941,7 +941,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_crop_marks',
 			'value' => @$this->options['pdf_crop_marks'],
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 
@@ -955,7 +955,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_romanize_parts',
 			'value' => @$this->options['pdf_romanize_parts'],
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 
@@ -1232,7 +1232,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_fontsize',
 			'value' => @$this->options['pdf_fontsize'],
-			'description' => $args[0],
+			'label' => $args[0],
 		) );
 	}
 

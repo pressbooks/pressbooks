@@ -165,6 +165,12 @@ $_ = \Pressbooks\Shortcodes\Footnotes\Footnotes::getInstance();
 $_ = \Pressbooks\Shortcodes\Generics\Generics::getInstance();
 $_ = \Pressbooks\Shortcodes\WikiPublisher\Glyphs::getInstance();
 
+// Theme Lock
+if ( \Pressbooks\ThemeLock::isLocked() ) {
+	add_filter( 'pb_stylesheet_directory', array( '\Pressbooks\ThemeLock', 'getLockDir' ) );
+	add_filter( 'pb_stylesheet_directory_uri', array( '\Pressbooks\ThemeLock', 'getLockDirURI' ) );
+}
+
 // -------------------------------------------------------------------------------------------------------------------
 // Upgrade Book Metadata
 // -------------------------------------------------------------------------------------------------------------------

@@ -34,7 +34,7 @@ class ExportOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-			$this->options = $options;
+		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 
@@ -70,6 +70,19 @@ class ExportOptions extends \Pressbooks\Options {
 				'1' => __( 'Yes.', 'pressbooks' ) . ' ' . __( 'Email me validation error logs on export.', 'pressbooks' ),
 			)
 		);
+
+		if ( ! \Pressbooks\CustomCss::isCustomCss() ) {
+			add_settings_field(
+				'theme_lock',
+				__( 'Lock Theme', 'pressbooks' ),
+				array( $this, 'renderThemeLockField' ),
+				$_page,
+				$_section,
+				array(
+					__( 'Lock your theme at its current version.', 'pressbooks' ),
+				)
+			);
+		}
 
 		register_setting(
 			$_page,
@@ -130,6 +143,21 @@ class ExportOptions extends \Pressbooks\Options {
 	}
 
 	/**
+	 * Render the lock_theme checkbox.
+	 * @param array $args
+	 */
+	function renderThemeLockField( $args ) {
+		$this->renderCheckbox( array(
+			'id' => 'theme_lock',
+			'name' => $this->getSlug(),
+			'option' => 'theme_lock',
+			'value' => ( isset( $this->options['theme_lock'] ) ) ? $this->options['theme_lock'] : '',
+			'label' => $args[0],
+			'description' => __( 'This will prevent any changes to your book&rsquo;s appearance and page count when themes are updated.', 'pressbooks' ),
+		) );
+	}
+
+	/**
 	 * Get the slug for the export options page.
 	 *
 	 * @return string $slug
@@ -155,6 +183,7 @@ class ExportOptions extends \Pressbooks\Options {
 	static function getDefaults() {
 		return array(
 			'email_validation_logs' => 0,
+			'theme_lock' => 0,
 		);
 	}
 
@@ -166,6 +195,7 @@ class ExportOptions extends \Pressbooks\Options {
 	static function getBooleanOptions() {
 		return array(
 			'email_validation_logs',
+			'theme_lock',
 		);
 	}
 

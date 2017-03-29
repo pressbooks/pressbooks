@@ -33,7 +33,7 @@ class Sass {
 			$this->pathToUserGeneratedSass(),
 			$this->pathToGlobals(),
 			$this->pathToFonts(),
-			$theme->get_stylesheet_directory() . "/assets/styles/$type/",
+			apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() ) . "/assets/styles/$type/",
 		];
 	}
 
@@ -292,23 +292,24 @@ class Sass {
 
 		if ( null == $theme ) {
 			$theme = wp_get_theme();
+			$basepath = apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() );
 		}
 
 		$types = array(
 				'prince',
 				'epub',
 				'web',
-
 		);
+
 		foreach ( $types as $type ) {
 			if ( 1 == $version && 'web' !== $type ) {
-				$path = $theme->get_stylesheet_directory() . "/export/$type/style.scss";
+				$path = $basepath . "/export/$type/style.scss";
 			} elseif ( 1 == $version && 'web' == $type ) {
-				$path = $theme->get_stylesheet_directory() . '/style.scss';
+				$path = $basepath . '/style.scss';
 			}
 
 			if ( 2 == $version ) {
-				$path = $theme->get_stylesheet_directory() . "/assets/styles/$type/style.scss";
+				$path = $basepath . "/assets/styles/$type/style.scss";
 			}
 
 			$fullpath = realpath( $path );
@@ -316,7 +317,8 @@ class Sass {
 				return false;
 			}
 		}
-				return true;
+
+		return true;
 	}
 
 	/**
