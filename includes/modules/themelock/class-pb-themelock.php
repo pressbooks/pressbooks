@@ -125,11 +125,22 @@ class ThemeLock {
 			$data = \Pressbooks\Modules\ThemeLock\ThemeLock::getLockData();
 		}
 		if ( $locked ) {
-			// Notify users of theme lock status.
-			global $pagenow;
-			if ( 'themes.php' == $pagenow ) {
+			// Redirect and notify users of theme lock status.
+
+			$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+			$redirect_url = get_site_url( get_current_blog_id(), '/wp-admin/' );
+
+			// ---------------------------------------------------------------------------------------------------------------
+			// Don't let user go to theme (options) page, under any circumstance
+
+			$restricted = array(
+				'themes',
+			);
+
+			$expr = '~/wp-admin/(' . implode( '|', $restricted ) . ')\.php$~';
+			if ( preg_match( $expr, $check_against_url ) ) {
 				$_SESSION['pb_errors'][] = sprintf(
-					__( 'Your book&rsquo;s theme, %1$s, was locked in its current state on %2$s at %3$s. To select a new theme or change your theme options, please %4$s.', 'pressbooks' ),
+					__( 'Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at %3$s. To select a new theme or change your theme options, please %4$s.', 'pressbooks' ),
 					$data['name'],
 					strftime( '%x', $data['timestamp'] ),
 					strftime( '%X', $data['timestamp'] ),
@@ -139,17 +150,8 @@ class ThemeLock {
 						'unlock your theme'
 					)
 				);
+				\Pressbooks\Redirect\location( $redirect_url );
 			}
-
-			// Hide theme management elements.
-			add_action( 'admin_head-themes.php', function() {
-				echo '<style>.theme-browser, .theme-count, .wp-filter-search { display: none; }</style>';
-			} );
-
-			// Disable theme options.
-			add_action( 'pb_before_themeoptions_settings_fields', function() {
-				echo '<script type="text/javascript">jQuery(document).ready(function() { jQuery("form :input").attr("disabled","disabled"); });</script>';
-			} );
 		}
 	}
 }
