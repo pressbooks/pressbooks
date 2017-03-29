@@ -205,16 +205,18 @@ abstract class Options {
 			'option' => null,
 			'value' => '',
 			'description' => null,
+			'disabled' => false,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
 
 		printf(
-			'<input id="%s" name="%s[%s]" type="checkbox" value="1" %s/><label for="%s">%s</label>',
+			'<input id="%s" name="%s[%s]" type="checkbox" value="1" %s%s/><label for="%s">%s</label>',
 			$args['id'],
 			$args['name'],
 			$args['option'],
 			checked( 1, $args['value'], false ),
+			( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : '',
 			$args['id'],
 			$args['description']
 		);
@@ -233,6 +235,7 @@ abstract class Options {
 			'value' => '',
 			'choices' => array(),
 			'custom' => false,
+			'disabled' => false,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -243,13 +246,14 @@ abstract class Options {
 		}
 		foreach ( $args['choices'] as $key => $label ) {
 			printf(
-				'<label for="%s"><input type="radio" id="%s" name="%s[%s]" value="%s" %s/>%s</label><br />',
+				'<label for="%s"><input type="radio" id="%s" name="%s[%s]" value="%s" %s%s/>%s</label><br />',
 				$args['id'] . '_' . sanitize_key( $key ),
 				$args['id'] . '_' . sanitize_key( $key ),
 				$args['name'],
 				$args['option'],
 				$key,
 				( $args['custom'] && $is_custom && '' == $key ) ? 'checked' : checked( $key, $args['value'], false ),
+				( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : '',
 				$label
 			);
 		}
@@ -268,6 +272,7 @@ abstract class Options {
 			'value' => '',
 			'choices' => array(),
 			'multiple' => false,
+			'disabled' => false,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -282,11 +287,12 @@ abstract class Options {
 			);
 		}
 		printf(
-			'<select name="%s[%s]" id="%s"%s>%s</select>',
+			'<select name="%s[%s]" id="%s"%s%s>%s</select>',
 			$args['name'],
 			$args['option'],
 			$args['id'],
 			( $args['multiple'] ) ? ' multiple' : '',
+			( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : '',
 			$options
 		);
 	}
@@ -303,6 +309,7 @@ abstract class Options {
 			'value' => '',
 			'choices' => array(),
 			'multiple' => false,
+			'disabled' => false,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -321,10 +328,11 @@ abstract class Options {
 			);
 		}
 		printf(
-			'<select name="%s" id="%s"%s>%s</select><br />',
+			'<select name="%s" id="%s"%s%s>%s</select><br />',
 			$args['name'],
 			$args['id'],
 			( $args['multiple'] ) ? ' multiple' : '',
+			( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : '',
 			$options
 		);
 	}

@@ -122,6 +122,30 @@ class ThemeLock {
 	static function restrictThemeManagement() {
 		$locked = \Pressbooks\Modules\ThemeLock\ThemeLock::isLocked();
 		if ( $locked ) {
+			$data = \Pressbooks\Modules\ThemeLock\ThemeLock::getLockData();
+		}
+		if ( $locked ) {
+			// Notify users of theme lock status.
+			global $pagenow;
+			if ( 'themes.php' == $pagenow && 'pressbooks_theme_lock' !== @$_GET['page'] ) {
+				$_SESSION['pb_errors'][] = sprintf(
+					__( 'Your book&rsquo;s theme, %1$s, was locked in its current state on %2$s at %3$s. To select a new theme or change your theme options, please %4$s.', 'pressbooks' ),
+					$data['name'],
+					strftime( '%x', $data['timestamp'] ),
+					strftime( '%X', $data['timestamp'] ),
+					sprintf(
+						'<a href="%s">%s</a>',
+						admin_url( 'themes.php?page=pressbooks_theme_lock' ),
+						'unlock your theme'
+					)
+				);
+			}
+
+			// Hide theme management elements.
+			add_action( 'admin_head-themes.php', function() {
+				echo '<style>.theme-browser, .theme-count, .wp-filter-search { display: none; }</style>';
+			} );
+
 			// Disable theme options.
 			add_action( 'pb_before_themeoptions_settings_fields', function() {
 				echo '<script type="text/javascript">jQuery(document).ready(function() { jQuery("form :input").attr("disabled","disabled"); });</script>';
