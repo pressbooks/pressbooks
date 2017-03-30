@@ -59,12 +59,20 @@ $output .= 'Memory Limit: ' . WP_MEMORY_LIMIT . "\n\n";
 $output .= "#### Pressbooks Configuration\n\n";
 $output .= 'Version: ' . PB_PLUGIN_VERSION . "\n";
 if ( \Pressbooks\Book::isBook() ) {
-	$theme = wp_get_theme();
 	switch_to_blog( $GLOBALS['current_site']->blog_id );
 	$root_theme = wp_get_theme();
 	restore_current_blog();
-	$output .= 'Book Theme: ' . $theme->get( 'Name' ) . "\n";
-	$output .= 'Book Theme Version: ' . $theme->get( 'Version' ) . "\n";
+	if ( \Pressbooks\ThemeLock::isLocked() ) {
+		$theme = wp_get_theme();
+		$data = \Pressbooks\ThemeLock::getLockData();
+		$datetime = strftime( '%x', $data['timestamp'] ) . ' at ' . strftime( '%X', $data['timestamp'] );
+		$output .= 'Book Theme: ' . $data['name'] . " (LOCKED on $datetime)\n";
+		$output .= 'Book Theme Version: ' . $data['version'] . " (LOCKED on $datetime &mdash; Current Version " . $theme->get( 'Version' ) . ")\n";
+	} else {
+		$theme = wp_get_theme();
+		$output .= 'Book Theme: ' . $theme->get( 'Name' ) . "\n";
+		$output .= 'Book Theme Version: ' . $theme->get( 'Version' ) . "\n";
+	}
 } else {
 	$root_theme = wp_get_theme();
 }
