@@ -1,4 +1,4 @@
-$red: #870d0d;
+@import 'colors';
 
 // Screen Reader Text
 
@@ -28,7 +28,7 @@ $red: #870d0d;
   }
 
   .more-tag {
-    color: $red;
+    color: $tamarillo;
   }
 }
 

@@ -25,13 +25,13 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
-  margin: 0;
   padding: 0;
-  border: 0;
-  outline: 0;
+  margin: 0;
   font-size: 100%;
   vertical-align: baseline;
-  background: transparent; }
+  background: transparent;
+  border: 0;
+  outline: 0; }
 
 html,
 body {
@@ -39,7 +39,7 @@ body {
 
 body {
   background: url("images/bg.png") repeat 0 0 #f9f9f9;
-  color: #1F1F1D;
+  color: #1f1f1d;
   font-size: 1em;
   line-height: 1.8;
   font-family: "Droid Serif", "Georgia", "Times New Roman", serif;
@@ -57,8 +57,8 @@ a:hover {
   text-decoration: none; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
   margin-bottom: 20px;
+  font-weight: normal;
   line-height: 1.2; }
 
 h1 {
@@ -274,11 +274,11 @@ hr.break-blank {
   margin: 0 auto 40px; }
 
 #content {
-  background-color: #ffffff;
-  -moz-box-shadow: 2px 2px 2px #dddddd;
-  -o-box-shadow: 2px 2px 2px #dddddd;
-  -webkit-box-shadow: 2px 2px 2px #dddddd;
-  box-shadow: 2px 2px 2px #dddddd;
+  background-color: #fff;
+  -moz-box-shadow: 2px 2px 2px #ddd;
+  -o-box-shadow: 2px 2px 2px #ddd;
+  -webkit-box-shadow: 2px 2px 2px #ddd;
+  box-shadow: 2px 2px 2px #ddd;
   margin: 0 auto 60px;
   padding: 30px 60px;
   position: relative;
@@ -316,11 +316,11 @@ a.button-red {
   background-image: -ms-linear-gradient(top, #a62c2c, #820808);
   background-image: linear-gradient(top, #a62c2c, #820808);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#a62c2c', EndColorStr='#820808');
-  -moz-box-shadow: 0 1px 0 0 #C77A7A inset;
-  -webkit-box-shadow: 0 1px 0 0 #C77A7A inset;
-  box-shadow: 0 1px 0 0 #C77A7A inset;
+  -moz-box-shadow: 0 1px 0 0 #c77a7a inset;
+  -webkit-box-shadow: 0 1px 0 0 #c77a7a inset;
+  box-shadow: 0 1px 0 0 #c77a7a inset;
   border: 1px solid #4d0a0a;
-  color: #ffffff;
+  color: #fff;
   cursor: pointer;
   font: 0.75em "Oswald", Arial, Helvetica, sans-serif;
   text-shadow: 0 1px 0 #000;
@@ -402,7 +402,7 @@ nav {
   text-transform: uppercase; }
 
 .pressbooks-logo a {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none; }
 
 h1.book-title {
@@ -416,7 +416,7 @@ h1.book-title {
   width: 520px; }
 
 h1.book-title a {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   text-transform: none; }
 
@@ -425,10 +425,10 @@ h1.book-title a {
 ***************/
 .sub-nav {
   background: #fdfffa;
-  -moz-box-shadow: 2px 2px 2px #dddddd;
-  -o-box-shadow: 2px 2px 2px #dddddd;
-  -webkit-box-shadow: 2px 2px 2px #dddddd;
-  box-shadow: 2px 2px 2px #dddddd;
+  -moz-box-shadow: 2px 2px 2px #ddd;
+  -o-box-shadow: 2px 2px 2px #ddd;
+  -webkit-box-shadow: 2px 2px 2px #ddd;
+  box-shadow: 2px 2px 2px #ddd;
   margin: -5px 0 0 0;
   min-height: 25px;
   padding: 10px 0 5px;
@@ -478,7 +478,7 @@ h1.book-title a {
   width: 62px;
 }
 .share-btn {
-  background: url($url-base+'images/sprite.png') -150px -250px no-repeat #ffffff;
+  background: url($url-base+'images/sprite.png') -150px -250px no-repeat $white;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -492,15 +492,15 @@ h1.book-title a {
   z-index: 100;
 }
 .share {
-  background: #fff;
+  background: $white;
   -moz-border-radius: 0 0 6px 6px;
   -o-border-radius: 0 0 6px 6px;
   -webkit-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
-  -moz-box-shadow: 0px 2px 2px #dddddd;
-  -o-box-shadow: 0px 2px 2px #dddddd;
-  -webkit-box-shadow: 0px 2px 2px #dddddd;
-  box-shadow: 0px 2px 2px #dddddd;
+  -moz-box-shadow: 0px 2px 2px $alto;
+  -o-box-shadow: 0px 2px 2px $alto;
+  -webkit-box-shadow: 0px 2px 2px $alto;
+  box-shadow: 0px 2px 2px $alto;
   margin: 0;
   padding: 10px 0;
   position: relative;
@@ -546,15 +546,15 @@ h1.book-title a {
   text-decoration: none; }
 
 #booknav {
-  background: #ffffff;
+  background: #fff;
   -moz-border-radius: 0 6px 6px 0;
   -o-border-radius: 0 6px 6px 0;
   -webkit-border-radius: 0 6px 6px 0;
   border-radius: 0 6px 6px 0;
-  -moz-box-shadow: 2px 2px 2px #dddddd;
-  -o-box-shadow: 2px 2px 2px #dddddd;
-  -webkit-box-shadow: 2px 2px 2px #dddddd;
-  box-shadow: 2px 2px 2px #dddddd;
+  -moz-box-shadow: 2px 2px 2px #ddd;
+  -o-box-shadow: 2px 2px 2px #ddd;
+  -webkit-box-shadow: 2px 2px 2px #ddd;
+  box-shadow: 2px 2px 2px #ddd;
   margin: -5px 0 0;
   position: relative; }
 
@@ -562,7 +562,7 @@ h1.book-title a {
   height: 70px; }
 
 #booknav li:hover {
-  background: #eeeeee; }
+  background: #eee; }
 
 #booknav li:first-child {
   padding-top: 10px; }
@@ -601,22 +601,22 @@ h1.book-title a {
 #authors .authors-btn,
 #about .about-btn,
 #tableofcontents .toc-btn {
-  background: #eeeeee; }
+  background: #eee; }
 
 /****************
    Pop out TOC
 *****************/
 #toc {
   display: none;
-  background: #eeeeee;
+  background: #eee;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
   -webkit-border-radius: 6px;
   border-radius: 6px;
-  -moz-box-shadow: 2px 2px 2px #dddddd;
-  -o-box-shadow: 2px 2px 2px #dddddd;
-  -webkit-box-shadow: 2px 2px 2px #dddddd;
-  box-shadow: 2px 2px 2px #dddddd;
+  -moz-box-shadow: 2px 2px 2px #ddd;
+  -o-box-shadow: 2px 2px 2px #ddd;
+  -webkit-box-shadow: 2px 2px 2px #ddd;
+  box-shadow: 2px 2px 2px #ddd;
   margin-left: -132px;
   margin-top: 0;
   padding: 10px 10px 10px 20px;
@@ -660,13 +660,13 @@ a.close {
   text-indent: -10px; }
 
 #toc .dashicons {
-  color: #aaa; }
+  color: #aeaeae; }
 
 #toc h4:hover .dashicons {
   color: #777; }
 
 li.bg-color {
-  background: #eeeeee; }
+  background: #eee; }
 
 /********************
 	Images
@@ -687,7 +687,7 @@ img.right {
 
 img {
   background: #f5f5f5;
-  border: 1px solid #eeeeee;
+  border: 1px solid #eee;
   padding: 5px;
   height: auto;
   max-width: 98%; }
@@ -706,7 +706,7 @@ img.author-avatar {
   max-width: 98%; }
 
 .wp-caption-text {
-  color: #000000;
+  color: #000;
   font-size: 0.75em;
   text-align: center; }
 
@@ -867,15 +867,15 @@ div.aligncenter {
 
 /* TEXTBOXES & PULLQUOTES
 ===============*/
-.textbox {
+.textbox, .bcc-box {
   border: 1px solid #000;
   margin: 10px 0;
   padding: 10px; }
-  .textbox p {
+  .textbox p, .bcc-box p {
     margin-top: 0; }
-  .textbox.shaded {
+  .textbox.shaded, .shaded.bcc-box {
     background-color: #eee; }
-  .textbox.learning-objectives {
+  .textbox.learning-objectives, .learning-objectives.bcc-box, .bcc-box.bcc-highlight, .textbox.bcc-highlight {
     border-radius: 4px;
     margin-bottom: 15px;
     padding: 2% 3%;
@@ -883,16 +883,16 @@ div.aligncenter {
     margin-outside: auto;
     float: none;
     background-color: #F7F7F9; }
-    .textbox.learning-objectives h3 {
+    .textbox.learning-objectives h3, .learning-objectives.bcc-box h3, .bcc-box.bcc-highlight h3, .textbox.bcc-highlight h3 {
       color: #fff;
       margin: -2% -3% 15px;
       padding: 15px 0;
       text-align: center; }
-    .textbox.learning-objectives h3 {
+    .textbox.learning-objectives h3, .learning-objectives.bcc-box h3, .bcc-box.bcc-highlight h3, .textbox.bcc-highlight h3 {
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       background-color: #111111; }
-  .textbox.key-takeaways {
+  .textbox.key-takeaways, .key-takeaways.bcc-box, .bcc-box.bcc-success, .textbox.bcc-success {
     border-radius: 4px;
     margin-bottom: 15px;
     padding: 2% 3%;
@@ -900,16 +900,16 @@ div.aligncenter {
     margin-outside: auto;
     float: none;
     background-color: #EAF5EA; }
-    .textbox.key-takeaways h3 {
+    .textbox.key-takeaways h3, .key-takeaways.bcc-box h3, .bcc-box.bcc-success h3, .textbox.bcc-success h3 {
       color: #fff;
       margin: -2% -3% 15px;
       padding: 15px 0;
       text-align: center; }
-    .textbox.key-takeaways h3 {
+    .textbox.key-takeaways h3, .key-takeaways.bcc-box h3, .bcc-box.bcc-success h3, .textbox.bcc-success h3 {
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       background-color: #3A7A33; }
-  .textbox.exercises {
+  .textbox.exercises, .exercises.bcc-box, .bcc-box.bcc-info, .textbox.bcc-info {
     border-radius: 4px;
     margin-bottom: 15px;
     padding: 2% 3%;
@@ -917,16 +917,16 @@ div.aligncenter {
     margin-outside: auto;
     float: none;
     background-color: #E3EFF6; }
-    .textbox.exercises h3 {
+    .textbox.exercises h3, .exercises.bcc-box h3, .bcc-box.bcc-info h3, .textbox.bcc-info h3 {
       color: #fff;
       margin: -2% -3% 15px;
       padding: 15px 0;
       text-align: center; }
-    .textbox.exercises h3 {
+    .textbox.exercises h3, .exercises.bcc-box h3, .bcc-box.bcc-info h3, .textbox.bcc-info h3 {
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       background-color: #0B6396; }
-  .textbox.examples {
+  .textbox.examples, .examples.bcc-box {
     border-radius: 4px;
     margin-bottom: 15px;
     padding: 2% 3%;
@@ -934,12 +934,12 @@ div.aligncenter {
     margin-outside: auto;
     float: none;
     background-color: #F3E1E3; }
-    .textbox.examples h3 {
+    .textbox.examples h3, .examples.bcc-box h3 {
       color: #fff;
       margin: -2% -3% 15px;
       padding: 15px 0;
       text-align: center; }
-    .textbox.examples h3 {
+    .textbox.examples h3, .examples.bcc-box h3 {
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       background-color: #7A333A; }
@@ -951,7 +951,6 @@ div.aligncenter {
 
 .pullquote {
   border-color: #000;
-  border-style: solid;
   border-width: 1px 0;
   display: block;
   hyphens: none;
@@ -987,7 +986,7 @@ div.aligncenter {
 	  Content
 *********************/
 aside {
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   border-color: #ccc;
   border-style: solid;
   border-width: 0 1px 1px 0;
@@ -1059,7 +1058,7 @@ aside {
 
 #content tr th,
 #content thead th {
-  color: #888;
+  color: #888888;
   font-size: 12px;
   font-weight: bold;
   line-height: 18px;
@@ -1129,7 +1128,7 @@ ol li li li::before {
   margin-right: 24px; }
 
 .entry-content label {
-  color: #888;
+  color: #888888;
   font-size: 12px; }
 
 .entry-content select {
@@ -1336,7 +1335,7 @@ h3.author-name {
   margin-bottom: 15px; }
 
 .denied-text a {
-  background: #eeeeee;
+  background: #eee;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -1357,7 +1356,7 @@ h3.author-name {
 *****************/
 .footer {
   background: url("images/footer-shadow.png") 0 0 repeat-x #8d8d8d;
-  color: #ffffff;
+  color: #fff;
   font: 0.75em/1.5em "Open Sans Condensed", Arial, Helvetica, sans-serif;
   font-weight: bold; }
 
@@ -1384,7 +1383,7 @@ h3.author-name {
   font-weight: normal; }
 
 .cie-name a {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none; }
 
 .footer div.license-attribution p {
@@ -1392,7 +1391,7 @@ h3.author-name {
   text-align: center; }
 
 .footer div.license-attribution p a {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none; }
 
 .footer div.license-attribution img {
@@ -1424,13 +1423,13 @@ ol.commentlist {
   list-style: decimal; }
 
 ol.commentlist li {
-  background: #eeeeee;
+  background: #eee;
   border: 1px solid;
-  border-color: #FFF #CCC #CCC #DEDEDE;
+  border-color: #fff #ccc #ccc #dedede;
   padding: 10px 15px; }
 
 ol.commentlist li.odd {
-  background: #ffffff;
+  background: #fff;
   border-left: 1px solid #dedede; }
 
 .comment-author {
@@ -1464,24 +1463,24 @@ cite.fn {
   text-decoration: none; }
 
 .reply a:hover {
-  background-color: #000000;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#2c2c2c), to(#000000));
-  background-image: -webkit-linear-gradient(top, #2c2c2c, #000000);
-  background-image: -moz-linear-gradient(top, #2c2c2c, #000000);
-  background-image: -o-linear-gradient(top, #2c2c2c, #000000);
-  background-image: -ms-linear-gradient(top, #2c2c2c, #000000);
-  background-image: linear-gradient(top, #2c2c2c, #000000);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#2c2c2c', EndColorStr='#000000'); }
+  background-color: #000;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#2c2c2c), to(#000));
+  background-image: -webkit-linear-gradient(top, #2c2c2c, #000);
+  background-image: -moz-linear-gradient(top, #2c2c2c, #000);
+  background-image: -o-linear-gradient(top, #2c2c2c, #000);
+  background-image: -ms-linear-gradient(top, #2c2c2c, #000);
+  background-image: linear-gradient(top, #2c2c2c, #000);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#2c2c2c', EndColorStr='#000'); }
 
 .reply a:active {
   background-color: #434343;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#434343));
-  background-image: -webkit-linear-gradient(top, #222222, #434343);
-  background-image: -moz-linear-gradient(top, #222222, #434343);
-  background-image: -o-linear-gradient(top, #222222, #434343);
-  background-image: -ms-linear-gradient(top, #222222, #434343);
-  background-image: linear-gradient(top, #222222, #434343);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#222222', EndColorStr='#434343'); }
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#222), to(#434343));
+  background-image: -webkit-linear-gradient(top, #222, #434343);
+  background-image: -moz-linear-gradient(top, #222, #434343);
+  background-image: -o-linear-gradient(top, #222, #434343);
+  background-image: -ms-linear-gradient(top, #222, #434343);
+  background-image: linear-gradient(top, #222, #434343);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#222', EndColorStr='#434343'); }
 
 /********************
 	Comment Form
@@ -1526,7 +1525,7 @@ cite.fn {
   height: 30px; }
 
 #respond .form-allowed-tags {
-  color: #bbb;
+  color: #bbbbbb;
   font-size: 0.7em;
   line-height: 1.2em;
   margin: 10px 0 0 170px;
@@ -1544,11 +1543,11 @@ input#submit {
   background-image: -ms-linear-gradient(top, #a62c2c, #820808);
   background-image: linear-gradient(top, #a62c2c, #820808);
   filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#a62c2c', EndColorStr='#820808');
-  -moz-box-shadow: 0 1px 0 0 #C77A7A inset;
-  -webkit-box-shadow: 0 1px 0 0 #C77A7A inset;
-  box-shadow: 0 1px 0 0 #C77A7A inset;
+  -moz-box-shadow: 0 1px 0 0 #c77a7a inset;
+  -webkit-box-shadow: 0 1px 0 0 #c77a7a inset;
+  box-shadow: 0 1px 0 0 #c77a7a inset;
   border: 1px solid #4d0a0a;
-  color: #ffffff;
+  color: #fff;
   cursor: pointer;
   font: 0.75em "Oswald", Arial, Helvetica, sans-serif;
   text-shadow: 0 1px 0 #000;
@@ -1608,7 +1607,7 @@ code {
     position: static; }
 
   #toc {
-    background: #E0E0E0;
+    background: #e0e0e0;
     margin-left: -130px;
     margin-top: -10px; } }
 @media screen and (max-width: 768px) {
@@ -1654,8 +1653,8 @@ code {
     padding-top: 0; }
 
   #booknav li {
-    background: #ffffff;
-    border-right: 1px solid #E1E1E1;
+    background: #fff;
+    border-right: 1px solid #e1e1e1;
     -moz-border-radius: 6px 6px 0 0;
     -o-border-radius: 6px 6px 0 0;
     -webkit-border-radius: 6px 6px 0 0;
@@ -1728,7 +1727,7 @@ code {
   .nav {
     background-color: rgba(250, 250, 250, 0.8);
     bottom: 0;
-    box-shadow: -1px -1px 1px #CCC;
+    box-shadow: -1px -1px 1px #ccc;
     height: 43px;
     left: 0;
     margin-left: 0;
@@ -1969,7 +1968,7 @@ code {
 
   .footer,
   nav {
-    background: #ffffff none !important;
+    background: #fff none !important;
     color: #1f1f1d; }
 
   #content,
@@ -2009,7 +2008,6 @@ code {
     height: auto !important;
     min-height: 100px;
     margin: 0 auto; } }
-
 /* =Debug Stuff (PL)
 -------------------------------------------------------------- */
 div#debug {
@@ -2018,7 +2016,7 @@ div#debug {
   left: 0;
   width: 100%;
   height: 150px;
-  background-color: #EEEEEE;
+  background-color: #eee;
   display: none;
   overflow: auto; }
 

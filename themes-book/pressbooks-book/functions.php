@@ -72,7 +72,7 @@ add_filter( 'script_loader_tag', 'pressbooks_async_scripts', 10, 3 );
  * Register and enqueue scripts and stylesheets.
  * ------------------------------------------------------------------------ */
 function pb_enqueue_scripts() {
-	wp_enqueue_style( 'structure', PB_PLUGIN_URL . 'themes-book/pressbooks-book/css/structure.css', [], null, 'screen, print' );
+	wp_enqueue_style( 'pressbooks/structure', PB_PLUGIN_URL . 'themes-book/pressbooks-book/css/structure.css', [], null, 'screen, print' );
 
 	if ( pb_is_custom_theme() ) { // Custom CSS
 		$deps = array();

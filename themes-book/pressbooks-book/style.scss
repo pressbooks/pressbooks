@@ -1,4 +1,5 @@
-@import 'mixins', 'fonts-web', 'tables', 'textboxes';
+@import 'mixins', 'fonts-web', '../../assets/scss/partials/tables', '../../assets/scss/partials/textboxes';
+@import 'assets/src/styles/partials/colors';
 
 $url-base: '' !default;
 
@@ -19,13 +20,13 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section, summary,
 time, mark, audio, video {
-  margin: 0;
   padding: 0;
-  border: 0;
-  outline: 0;
+  margin: 0;
   font-size: 100%;
   vertical-align: baseline;
   background: transparent;
+  border: 0;
+  outline: 0;
 }
 
 html,
@@ -34,8 +35,8 @@ body {
 }
 
 body {
-  background: url($url-base+'images/bg.png') repeat 0 0 #f9f9f9;
-  color: #1F1F1D;
+  background: url($url-base+'images/bg.png') repeat 0 0 lighten($alabaster, .75%);
+  color: $tuatara;
   font-size: 1em;
   line-height: 1.8;
   font-family: $font-1;
@@ -49,7 +50,7 @@ section {
 }
 
 a {
-  color: #870d0d;
+  color: $tamarillo;
 }
 
 a:hover {
@@ -57,8 +58,8 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-weight: normal;
   margin-bottom: 20px;
+  font-weight: normal;
   line-height: 1.2;
 }
 
@@ -168,7 +169,7 @@ ol {
 }
 */
 blockquote {
-  background: url($url-base+'images/blockquote-open.png') no-repeat 10px 10px #f4f4f3;
+  background: url($url-base+'images/blockquote-open.png') no-repeat 10px 10px $desert-storm;
   padding: 1px 5px 5px 50px;
   margin-bottom: 20px;
 }
@@ -195,8 +196,8 @@ table {
 }
 
 pre {
-  background: #f7f7f7;
-  color: #222;
+  background: $alabaster;
+  color: $mine-shaft;
   line-height: 18px;
   margin-bottom: 18px;
   padding: 1.5em;
@@ -223,7 +224,7 @@ pre {
 
 abbr,
 acronym {
-  border-bottom: 1px dotted #666;
+  border-bottom: 1px dotted $dove-gray;
   cursor: help;
 }
 
@@ -311,11 +312,11 @@ hr.break-blank {
 }
 
 #content {
-  background-color: #ffffff;
-  -moz-box-shadow: 2px 2px 2px #dddddd;
-  -o-box-shadow: 2px 2px 2px #dddddd;
-  -webkit-box-shadow: 2px 2px 2px #dddddd;
-  box-shadow: 2px 2px 2px #dddddd;
+  background-color: $white;
+  -moz-box-shadow: 2px 2px 2px $alto;
+  -o-box-shadow: 2px 2px 2px $alto;
+  -webkit-box-shadow: 2px 2px 2px $alto;
+  box-shadow: 2px 2px 2px $alto;
   margin: 0 auto 60px;
   padding: 30px 60px;
   position: relative;
@@ -328,7 +329,7 @@ hr.break-blank {
 .ie7 #content,
 .ie8 #booknav,
 .ie7 #booknav {
-  border-color: #e1e1e1;
+  border-color: $mercury;
   border-style: solid;
   border-width: 0 1px 1px 0;
 }
@@ -350,22 +351,22 @@ hr.break-blank {
 }
 
 a.button-red {
-  background-color: #820808;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#a62c2c), to(#820808));
-  background-image: -webkit-linear-gradient(top, #a62c2c, #820808);
-  background-image: -moz-linear-gradient(top, #a62c2c, #820808);
-  background-image: -o-linear-gradient(top, #a62c2c, #820808);
-  background-image: -ms-linear-gradient(top, #a62c2c, #820808);
-  background-image: linear-gradient(top, #a62c2c, #820808);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#a62c2c', EndColorStr='#820808');
-  -moz-box-shadow: 0 1px 0 0 #C77A7A inset;
-  -webkit-box-shadow: 0 1px 0 0 #C77A7A inset;
-  box-shadow: 0 1px 0 0 #C77A7A inset;
-  border: 1px solid #4d0a0a;
-  color: #ffffff;
+  background-color: $dark-burgundy;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($tall-poppy), to($dark-burgundy));
+  background-image: -webkit-linear-gradient(top, $tall-poppy, $dark-burgundy);
+  background-image: -moz-linear-gradient(top, $tall-poppy, $dark-burgundy);
+  background-image: -o-linear-gradient(top, $tall-poppy, $dark-burgundy);
+  background-image: -ms-linear-gradient(top, $tall-poppy, $dark-burgundy);
+  background-image: linear-gradient(top, $tall-poppy, $dark-burgundy);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#{$tall-poppy}', EndColorStr='#{$dark-burgundy}');
+  -moz-box-shadow: 0 1px 0 0 $contessa inset;
+  -webkit-box-shadow: 0 1px 0 0 $contessa inset;
+  box-shadow: 0 1px 0 0 $contessa inset;
+  border: 1px solid $cab-sav;
+  color: $white;
   cursor: pointer;
   font: 0.75em $font-4;
-  text-shadow: 0 1px 0 #000;
+  text-shadow: 0 1px 0 $black;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -378,25 +379,25 @@ a.button-red {
 }
 
 a.button-red:hover {
-  background-color: #5c0102;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#801e1e), to(#5c0102));
-  background-image: -webkit-linear-gradient(top, #801e1e, #5c0102);
-  background-image: -moz-linear-gradient(top, #801e1e, #5c0102);
-  background-image: -o-linear-gradient(top, #801e1e, #5c0102);
-  background-image: -ms-linear-gradient(top, #801e1e, #5c0102);
-  background-image: linear-gradient(top, #801e1e, #5c0102);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#801e1e', EndColorStr='#5c0102');
+  background-color: $rosewood;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($crown-of-thorns), to($rosewood));
+  background-image: -webkit-linear-gradient(top, $crown-of-thorns, $rosewood);
+  background-image: -moz-linear-gradient(top, $crown-of-thorns, $rosewood);
+  background-image: -o-linear-gradient(top, $crown-of-thorns, $rosewood);
+  background-image: -ms-linear-gradient(top, $crown-of-thorns, $rosewood);
+  background-image: linear-gradient(top, $crown-of-thorns, $rosewood);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#{$crown-of-thorns}', EndColorStr='#{$rosewood}');
 }
 
 a.button-red:active {
-  background-color: #a62c2c;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#820808), to(#a62c2c));
-  background-image: -webkit-linear-gradient(top, #820808, #a62c2c);
-  background-image: -moz-linear-gradient(top, #820808, #a62c2c);
-  background-image: -o-linear-gradient(top, #820808, #a62c2c);
-  background-image: -ms-linear-gradient(top, #820808, #a62c2c);
-  background-image: linear-gradient(top, #820808, #a62c2c);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#820808', EndColorStr='#a62c2c');
+  background-color: $tall-poppy;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($dark-burgundy), to($tall-poppy));
+  background-image: -webkit-linear-gradient(top, $dark-burgundy, $tall-poppy);
+  background-image: -moz-linear-gradient(top, $dark-burgundy, $tall-poppy);
+  background-image: -o-linear-gradient(top, $dark-burgundy, $tall-poppy);
+  background-image: -ms-linear-gradient(top, $dark-burgundy, $tall-poppy);
+  background-image: linear-gradient(top, $dark-burgundy, $tall-poppy);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#{$dark-burgundy}', EndColorStr='#{$tall-poppy}');
 }
 
 /********************
@@ -407,12 +408,12 @@ a.button-red:active {
 }
 
 nav {
-  background: #313131;
-  background: none repeat scroll 0 0 rgba(0, 0, 0, 0.8);
-  -moz-box-shadow: 2px 2px 2px #aeaeae;
-  -o-box-shadow: 2px 2px 2px #aeaeae;
-  -webkit-box-shadow: 2px 2px 2px #aeaeae;
-  box-shadow: 2px 2px 2px #aeaeae;
+  background: lighten($mine-shaft, 6%);
+  background: none repeat scroll 0 0 transparentize($black, .2);
+  -moz-box-shadow: 2px 2px 2px $silver-chalice;
+  -o-box-shadow: 2px 2px 2px $silver-chalice;
+  -webkit-box-shadow: 2px 2px 2px $silver-chalice;
+  box-shadow: 2px 2px 2px $silver-chalice;
   position: relative;
   width: 100%;
   min-height: 50px;
@@ -454,7 +455,7 @@ nav {
 }
 
 .pressbooks-logo a {
-  color: #ffffff;
+  color: $white;
   text-decoration: none;
 }
 
@@ -470,7 +471,7 @@ h1.book-title {
 }
 
 h1.book-title a {
-  color: #ffffff;
+  color: $white;
   text-decoration: none;
   text-transform: none;
 }
@@ -479,11 +480,11 @@ h1.book-title a {
      Sub-Nav
 ***************/
 .sub-nav {
-  background: #fdfffa;
-  -moz-box-shadow: 2px 2px 2px #dddddd;
-  -o-box-shadow: 2px 2px 2px #dddddd;
-  -webkit-box-shadow: 2px 2px 2px #dddddd;
-  box-shadow: 2px 2px 2px #dddddd;
+  background: $ceramic;
+  -moz-box-shadow: 2px 2px 2px $alto;
+  -o-box-shadow: 2px 2px 2px $alto;
+  -webkit-box-shadow: 2px 2px 2px $alto;
+  box-shadow: 2px 2px 2px $alto;
   margin: -5px 0 0 0;
   min-height: 25px;
   padding: 10px 0 5px;
@@ -540,7 +541,7 @@ h1.book-title a {
   width: 62px;
 }
 .share-btn {
-  background: url($url-base+'images/sprite.png') -150px -250px no-repeat #ffffff;
+  background: url($url-base+'images/sprite.png') -150px -250px no-repeat $white;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -554,15 +555,15 @@ h1.book-title a {
   z-index: 100;
 }
 .share {
-  background: #fff;
+  background: $white;
   -moz-border-radius: 0 0 6px 6px;
   -o-border-radius: 0 0 6px 6px;
   -webkit-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
-  -moz-box-shadow: 0px 2px 2px #dddddd;
-  -o-box-shadow: 0px 2px 2px #dddddd;
-  -webkit-box-shadow: 0px 2px 2px #dddddd;
-  box-shadow: 0px 2px 2px #dddddd;
+  -moz-box-shadow: 0px 2px 2px $alto;
+  -o-box-shadow: 0px 2px 2px $alto;
+  -webkit-box-shadow: 0px 2px 2px $alto;
+  box-shadow: 0px 2px 2px $alto;
   margin: 0;
   padding: 10px 0;
   position: relative;
@@ -605,21 +606,21 @@ h1.book-title a {
 }
 
 #sidebar a {
-  color: #4a4a4a;
+  color: $tundora;
   font: 0.6em/1em $font-3;
   text-decoration: none;
 }
 
 #booknav {
-  background: #ffffff;
+  background: $white;
   -moz-border-radius: 0 6px 6px 0;
   -o-border-radius: 0 6px 6px 0;
   -webkit-border-radius: 0 6px 6px 0;
   border-radius: 0 6px 6px 0;
-  -moz-box-shadow: 2px 2px 2px #dddddd;
-  -o-box-shadow: 2px 2px 2px #dddddd;
-  -webkit-box-shadow: 2px 2px 2px #dddddd;
-  box-shadow: 2px 2px 2px #dddddd;
+  -moz-box-shadow: 2px 2px 2px $alto;
+  -o-box-shadow: 2px 2px 2px $alto;
+  -webkit-box-shadow: 2px 2px 2px $alto;
+  box-shadow: 2px 2px 2px $alto;
   margin: -5px 0 0;
   position: relative;
 }
@@ -629,7 +630,7 @@ h1.book-title a {
 }
 
 #booknav li:hover {
-  background: #eeeeee;
+  background: $gallery;
 }
 
 #booknav li:first-child {
@@ -678,7 +679,7 @@ h1.book-title a {
 #authors .authors-btn,
 #about .about-btn,
 #tableofcontents .toc-btn {
-  background: #eeeeee;
+  background: $gallery;
 }
 
 /****************
@@ -686,15 +687,15 @@ h1.book-title a {
 *****************/
 #toc {
   display: none;
-  background: #eeeeee;
+  background: $gallery;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
   -webkit-border-radius: 6px;
   border-radius: 6px;
-  -moz-box-shadow: 2px 2px 2px #dddddd;
-  -o-box-shadow: 2px 2px 2px #dddddd;
-  -webkit-box-shadow: 2px 2px 2px #dddddd;
-  box-shadow: 2px 2px 2px #dddddd;
+  -moz-box-shadow: 2px 2px 2px $alto;
+  -o-box-shadow: 2px 2px 2px $alto;
+  -webkit-box-shadow: 2px 2px 2px $alto;
+  box-shadow: 2px 2px 2px $alto;
   margin-left: -132px;
   margin-top: 0;
   padding: 10px 10px 10px 20px;
@@ -731,7 +732,7 @@ a.close {
 }
 
 #toc ul ul {
-  border-bottom: 1px dotted #999;
+  border-bottom: 1px dotted $dusty-gray;
   padding-bottom: 5px;
 }
 
@@ -746,15 +747,15 @@ a.close {
 }
 
 #toc .dashicons {
-  color: #aaa;
+  color: $silver-chalice;
 }
 
 #toc h4:hover .dashicons {
-  color: #777;
+  color: $boulder;
 }
 
 li.bg-color {
-  background: #eeeeee;
+  background: $gallery;
 }
 
 /********************
@@ -762,23 +763,23 @@ li.bg-color {
 *********************/
 img.left {
   float: left;
-  background-color: #fefefe;
+  background-color: darken($white, .5%);
   margin: 10px 12px 6px -8px;
   padding: 7px;
-  border: 1px solid #e4e4e4;
+  border: 1px solid lighten($mercury, 1%);
 }
 
 img.right {
   float: right;
-  background-color: #fefefe;
+  background-color: darken($white, .5%);
   margin: 10px -8px 6px 12px;
   padding: 7px;
-  border: 1px solid #e4e4e4;
+  border: 1px solid lighten($mercury, 1%);
 }
 
 img {
-  background: #f5f5f5;
-  border: 1px solid #eeeeee;
+  background: $wild-sand;
+  border: 1px solid $gallery;
   padding: 5px;
   height: auto;
   max-width: 98%;
@@ -801,7 +802,7 @@ img.author-avatar {
 }
 
 .wp-caption-text {
-  color: #000000;
+  color: $black;
   font-size: 0.75em;
   text-align: center;
 }
@@ -832,7 +833,7 @@ div.aligncenter {
     Gallery listing
 ***********************/
 .category-gallery .size-thumbnail img {
-  border: 10px solid #f1f1f1;
+  border: 10px solid $seashell;
   margin-bottom: 0;
 }
 
@@ -852,7 +853,7 @@ div.aligncenter {
 #access {
   display: none;
   float: left;
-  background: #000;
+  background: $black;
   margin: 0 auto;
   width: 940px;
 }
@@ -861,7 +862,7 @@ div.aligncenter {
 	 Page Navigation
 ************************/
 .pagenav {
-  border-color: #8d8d8d;
+  border-color: $gray;
   border-style: solid;
   border-width: 1px 0;
   padding: 0 0 10px;
@@ -995,7 +996,7 @@ div.aligncenter {
 @include textboxes();
 
 .pullquote {
-  border-color: #000;
+  border-color: $black;
   border-width: 1px 0;
   display: block;
   hyphens: none;
@@ -1007,7 +1008,7 @@ div.aligncenter {
 }
 
 .pullquote-left {
-  border-color: #000;
+  border-color: $black;
   border-style: solid;
   border-width: 1px 0;
   float: left;
@@ -1019,7 +1020,7 @@ div.aligncenter {
 }
 
 .pullquote-right {
-  border-color: #000;
+  border-color: $black;
   border-style: solid;
   border-width: 1px 0;
   float: right;
@@ -1034,8 +1035,8 @@ div.aligncenter {
 	  Content
 *********************/
 aside {
-  background-color: #F6F6F6;
-  border-color: #ccc;
+  background-color: lighten($wild-sand, .5%);
+  border-color: $silver;
   border-style: solid;
   border-width: 0 1px 1px 0;
   float: right;
@@ -1052,7 +1053,7 @@ aside {
 
 #content dt,
 #content th {
-  color: #000;
+  color: $black;
 }
 
 #content dt {
@@ -1072,7 +1073,7 @@ aside {
 }
 
 #content table {
-  border: 1px solid #e7e7e7;
+  border: 1px solid lighten($mercury, 2.5%);
   margin: 0 -1px 24px 0;
   text-align: left;
   width: 100%;
@@ -1080,7 +1081,7 @@ aside {
 
 #content tr th,
 #content thead th {
-  color: #888;
+  color: darken($gray, 2%);
   font-size: 12px;
   font-weight: bold;
   line-height: 18px;
@@ -1088,12 +1089,12 @@ aside {
 }
 
 #content tr td {
-  border-top: 1px solid #e7e7e7;
+  border-top: 1px solid lighten($mercury, 2.5%);
   padding: 6px 24px;
 }
 
 #content tr.odd td {
-  background: #f2f7fc;
+  background: $polar;
 }
 
 .entry-content ul {
@@ -1145,14 +1146,14 @@ ol li li li::before {
 }
 
 .entry-content fieldset {
-  border: 1px solid #e7e7e7;
+  border: 1px solid lighten($mercury, 2.5%);
   margin: 0 0 24px 0;
   padding: 24px;
 }
 
 .entry-content fieldset legend {
-  background: #fff;
-  color: #000;
+  background: $white;
+  color: $black;
   font-weight: bold;
   padding: 0 24px;
 }
@@ -1167,7 +1168,7 @@ ol li li li::before {
 }
 
 .entry-content label {
-  color: #888;
+  color: darken($gray, 2%);
   font-size: 12px;
 }
 
@@ -1181,7 +1182,7 @@ ol li li li::before {
 }
 
 .edit-link {
-  border-color: #ccc;
+  border-color: $silver;
   border-style: solid;
   border-width: 1px 0 0 1px;
   float: left;
@@ -1197,15 +1198,15 @@ ol li li li::before {
 
 .edit-link a {
   display: block;
-  background-color: #fcfcfc;
+  background-color: lighten($alabaster, 2%);
   text-decoration: none;
   padding: 5px 0;
-  color: #c03;
+  color: $monza;
 }
 
 .edit-link a:hover {
-  background-color: #c12328;
-  color: #fcfcfc;
+  background-color: $cardinal;
+  color: lighten($alabaster, 2%);
 }
 
 .indented {
@@ -1345,7 +1346,7 @@ h3.author-name {
 
 .social-media-profile li a {
   background: url($url-base+'images/sprite.png') 0 -296px no-repeat;
-  color: #4a4a4a;
+  color: $tundora;
   display: block;
   font: 1em/2em $font-5;
   height: 30px;
@@ -1411,25 +1412,25 @@ h3.author-name {
 	 Access Denied
 ********************/
 .denied-title {
-  color: #4d0a0a;
+  color: $cab-sav;
   font-size: 1.4em;
   margin-bottom: 15px;
 }
 
 .denied-text a {
-  background: #eeeeee;
+  background: $gallery;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
   -webkit-border-radius: 6px;
   border-radius: 6px;
-  color: #4a4a4a;
+  color: $tundora;
   font: 0.7em $font-4;
   padding: 5px;
   text-decoration: none;
 }
 
 .denied-text a:hover {
-  background: #aaaaaa;
+  background: darken($silver-chalice, 1.5%);
 }
 
 .sign-up {
@@ -1440,8 +1441,8 @@ h3.author-name {
 	 Footer
 *****************/
 .footer {
-  background: url($url-base+'images/footer-shadow.png') 0 0 repeat-x #8d8d8d;
-  color: #ffffff;
+  background: url($url-base+'images/footer-shadow.png') 0 0 repeat-x $gray;
+  color: $white;
   font: 0.75em/1.5em $font-5;
   font-weight: bold;
 }
@@ -1474,7 +1475,7 @@ h3.author-name {
 }
 
 .cie-name a {
-  color: #ffffff;
+  color: $white;
   text-decoration: none;
 }
 
@@ -1484,7 +1485,7 @@ h3.author-name {
 }
 
 .footer div.license-attribution p a {
-  color: #ffffff;
+  color: $white;
   text-decoration: none;
 }
 
@@ -1522,15 +1523,15 @@ ol.commentlist {
 }
 
 ol.commentlist li {
-  background: #eeeeee;
+  background: $gallery;
   border: 1px solid;
-  border-color: #FFF #CCC #CCC #DEDEDE;
+  border-color: $white $silver $silver lighten($alto, .5%);
   padding: 10px 15px;
 }
 
 ol.commentlist li.odd {
-  background: #ffffff;
-  border-left: 1px solid #dedede;
+  background: $white;
+  border-left: 1px solid lighten($alto, .5%);
 }
 
 .comment-author {
@@ -1554,12 +1555,12 @@ cite.fn {
 }
 
 .reply a {
-  background-color: #222;
-  border: 1px solid #000;
-  color: #fff;
+  background-color: $mine-shaft;
+  border: 1px solid $black;
+  color: $white;
   cursor: pointer;
   font: 0.75em $font-4;
-  text-shadow: 0 1px 0 #000;
+  text-shadow: 0 1px 0 $black;
   -moz-border-radius: 6px;
   -o-border-radius: 6px;
   -webkit-border-radius: 6px;
@@ -1569,32 +1570,32 @@ cite.fn {
 }
 
 .reply a:hover {
-  background-color: #000000;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#2c2c2c), to(#000000));
-  background-image: -webkit-linear-gradient(top, #2c2c2c, #000000);
-  background-image: -moz-linear-gradient(top, #2c2c2c, #000000);
-  background-image: -o-linear-gradient(top, #2c2c2c, #000000);
-  background-image: -ms-linear-gradient(top, #2c2c2c, #000000);
-  background-image: linear-gradient(top, #2c2c2c, #000000);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#2c2c2c', EndColorStr='#000000');
+  background-color: $black;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(lighten($mine-shaft, 4%)), to($black));
+  background-image: -webkit-linear-gradient(top, lighten($mine-shaft, 4%), $black);
+  background-image: -moz-linear-gradient(top, lighten($mine-shaft, 4%), $black);
+  background-image: -o-linear-gradient(top, lighten($mine-shaft, 4%), $black);
+  background-image: -ms-linear-gradient(top, lighten($mine-shaft, 4%), $black);
+  background-image: linear-gradient(top, lighten($mine-shaft, 4%), $black);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#{lighten($mine-shaft, 4%)}', EndColorStr='#{$black}');
 }
 
 .reply a:active {
-  background-color: #434343;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#222222), to(#434343));
-  background-image: -webkit-linear-gradient(top, #222222, #434343);
-  background-image: -moz-linear-gradient(top, #222222, #434343);
-  background-image: -o-linear-gradient(top, #222222, #434343);
-  background-image: -ms-linear-gradient(top, #222222, #434343);
-  background-image: linear-gradient(top, #222222, #434343);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#222222', EndColorStr='#434343');
+  background-color: darken($tundora, 2.75%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from($mine-shaft), to(darken($tundora, 2.75%)));
+  background-image: -webkit-linear-gradient(top, $mine-shaft, darken($tundora, 2.75%));
+  background-image: -moz-linear-gradient(top, $mine-shaft, darken($tundora, 2.75%));
+  background-image: -o-linear-gradient(top, $mine-shaft, darken($tundora, 2.75%));
+  background-image: -ms-linear-gradient(top, $mine-shaft, darken($tundora, 2.75%));
+  background-image: linear-gradient(top, $mine-shaft, darken($tundora, 2.75%));
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#{$mine-shaft}', EndColorStr='#{darken($tundora, 2.75%)}');
 }
 
 /********************
 	Comment Form
 *********************/
 .required {
-  color: #870d0d;
+  color: $tamarillo;
 }
 
 .comment-notes {
@@ -1641,7 +1642,7 @@ cite.fn {
 }
 
 #respond .form-allowed-tags {
-  color: #bbb;
+  color: darken($silver, 6.5%);
   font-size: 0.7em;
   line-height: 1.2em;
   margin: 10px 0 0 170px;
@@ -1653,47 +1654,47 @@ cite.fn {
 }
 
 input#submit {
-  background-color: #820808;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#a62c2c), to(#820808));
-  background-image: -webkit-linear-gradient(top, #a62c2c, #820808);
-  background-image: -moz-linear-gradient(top, #a62c2c, #820808);
-  background-image: -o-linear-gradient(top, #a62c2c, #820808);
-  background-image: -ms-linear-gradient(top, #a62c2c, #820808);
-  background-image: linear-gradient(top, #a62c2c, #820808);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#a62c2c', EndColorStr='#820808');
-  -moz-box-shadow: 0 1px 0 0 #C77A7A inset;
-  -webkit-box-shadow: 0 1px 0 0 #C77A7A inset;
-  box-shadow: 0 1px 0 0 #C77A7A inset;
-  border: 1px solid #4d0a0a;
-  color: #ffffff;
+  background-color: $dark-burgundy;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($tall-poppy), to($dark-burgundy));
+  background-image: -webkit-linear-gradient(top, $tall-poppy, $dark-burgundy);
+  background-image: -moz-linear-gradient(top, $tall-poppy, $dark-burgundy);
+  background-image: -o-linear-gradient(top, $tall-poppy, $dark-burgundy);
+  background-image: -ms-linear-gradient(top, $tall-poppy, $dark-burgundy);
+  background-image: linear-gradient(top, $tall-poppy, $dark-burgundy);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#{$tall-poppy}', EndColorStr='#{$dark-burgundy}');
+  -moz-box-shadow: 0 1px 0 0 $contessa inset;
+  -webkit-box-shadow: 0 1px 0 0 $contessa inset;
+  box-shadow: 0 1px 0 0 $contessa inset;
+  border: 1px solid $cab-sav;
+  color: $white;
   cursor: pointer;
   font: 0.75em $font-4;
-  text-shadow: 0 1px 0 #000;
+  text-shadow: 0 1px 0 $black;
   float: none;
   padding-bottom: 2px;
   width: 72px;
 }
 
 input#submit:hover {
-  background-color: #5c0102;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#801e1e), to(#5c0102));
-  background-image: -webkit-linear-gradient(top, #801e1e, #5c0102);
-  background-image: -moz-linear-gradient(top, #801e1e, #5c0102);
-  background-image: -o-linear-gradient(top, #801e1e, #5c0102);
-  background-image: -ms-linear-gradient(top, #801e1e, #5c0102);
-  background-image: linear-gradient(top, #801e1e, #5c0102);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#801e1e', EndColorStr='#5c0102');
+  background-color: $rosewood;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($crown-of-thorns), to($rosewood));
+  background-image: -webkit-linear-gradient(top, $crown-of-thorns, $rosewood);
+  background-image: -moz-linear-gradient(top, $crown-of-thorns, $rosewood);
+  background-image: -o-linear-gradient(top, $crown-of-thorns, $rosewood);
+  background-image: -ms-linear-gradient(top, $crown-of-thorns, $rosewood);
+  background-image: linear-gradient(top, $crown-of-thorns, $rosewood);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#{$crown-of-thorns}', EndColorStr='#{$rosewood}');
 }
 
 input#submit:active {
-  background-color: #a62c2c;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#820808), to(#a62c2c));
-  background-image: -webkit-linear-gradient(top, #820808, #a62c2c);
-  background-image: -moz-linear-gradient(top, #820808, #a62c2c);
-  background-image: -o-linear-gradient(top, #820808, #a62c2c);
-  background-image: -ms-linear-gradient(top, #820808, #a62c2c);
-  background-image: linear-gradient(top, #820808, #a62c2c);
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#820808', EndColorStr='#a62c2c');
+  background-color: $tall-poppy;
+  background-image: -webkit-gradient(linear, left top, left bottom, from($dark-burgundy), to($tall-poppy));
+  background-image: -webkit-linear-gradient(top, $dark-burgundy, $tall-poppy);
+  background-image: -moz-linear-gradient(top, $dark-burgundy, $tall-poppy);
+  background-image: -o-linear-gradient(top, $dark-burgundy, $tall-poppy);
+  background-image: -ms-linear-gradient(top, $dark-burgundy, $tall-poppy);
+  background-image: linear-gradient(top, $dark-burgundy, $tall-poppy);
+  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, StartColorStr='#{$dark-burgundy}', EndColorStr='#{$tall-poppy}');
 }
 
 /*************************************************
@@ -1732,7 +1733,7 @@ code {
     position: static;
   }
   #toc {
-    background: #E0E0E0;
+    background: lighten($alto, 1%);
     margin-left: -130px;
     margin-top: -10px;
   }
@@ -1762,7 +1763,7 @@ code {
     padding-top: 50px;
   }
   #content {
-    border-top: 1px solid #f5f5f5;
+    border-top: 1px solid $wild-sand;
     margin: 0 10px 60px;
   }
   #sidebar {
@@ -1781,8 +1782,8 @@ code {
     padding-top: 0;
   }
   #booknav li {
-    background: #ffffff;
-    border-right: 1px solid #E1E1E1;
+    background: $white;
+    border-right: 1px solid $mercury;
     -moz-border-radius: 6px 6px 0 0;
     -o-border-radius: 6px 6px 0 0;
     -webkit-border-radius: 6px 6px 0 0;
@@ -1856,9 +1857,9 @@ code {
     padding: 20px 10px 10px;
   }
   .nav {
-    background-color: rgba(250, 250, 250, 0.8);
+    background-color: transparentize(lighten($alabaster, 1%), .2);
     bottom: 0;
-    box-shadow: -1px -1px 1px #CCC;
+    box-shadow: -1px -1px 1px $silver;
     height: 43px;
     left: 0;
     margin-left: 0;
@@ -2062,7 +2063,7 @@ code {
     background: none !important;
   }
   a {
-    color: #1f1f1d !important;
+    color: $tuatara !important;
   }
   #wrap {
     clear: both !important;
@@ -2072,7 +2073,7 @@ code {
     margin: 0 auto !important;
   }
   #header {
-    border-bottom: 2pt solid #000;
+    border-bottom: 2pt solid $black;
     padding-bottom: 18pt;
   }
   .entry-content {
@@ -2105,8 +2106,8 @@ code {
   }
   .footer,
   nav {
-    background: #ffffff none !important;
-    color: #1f1f1d;
+    background: $white none !important;
+    color: $tuatara;
   }
   #content,
   .one-column #content {
@@ -2133,7 +2134,7 @@ code {
     padding: 0;
   }
   #entry-author-info {
-    border: 1px solid #e7e7e7;
+    border: 1px solid lighten($mercury, 2.5%);
   }
   #main {
     display: inline;
@@ -2156,7 +2157,7 @@ div#debug {
   left: 0;
   width: 100%;
   height: 150px;
-  background-color: #EEEEEE;
+  background-color: $gallery;
   display: none;
   overflow: auto;
 }
