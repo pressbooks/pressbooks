@@ -426,3 +426,15 @@ function pressbooks_cover_promo() { ?>
 }
 
 add_action( 'pb_cover_promo', 'pressbooks_cover_promo' );
+
+/**
+ * Restrict search.
+ */
+function pb_filter_search( $query ) {
+	if ( $query->is_search && ! is_admin() ) {
+		$query->set( 'post_type', array( 'front-matter', 'back-matter', 'chapter', 'part' ) );
+	}
+
+	return $query;
+}
+add_filter( 'pre_get_posts', 'pb_filter_search' );
