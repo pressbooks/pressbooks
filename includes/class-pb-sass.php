@@ -341,4 +341,78 @@ class Sass {
 
 		return $scss;
 	}
+
+	/**
+	 * Update and save the supplementary webBook stylesheet which incorporates user options, etc.
+	 *
+	 * @return void
+	 */
+	function updateWebBookStyleSheet() {
+
+		$overrides = apply_filters( 'pb_web_css_override', '' ) . "\n";
+
+		if ( $this->isCurrentThemeCompatible( 1 ) ) {
+			$path_to_style = realpath( get_stylesheet_directory() . '/style.scss' );
+			// Populate $url-base variable so that links to images and other assets remain intact
+			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
+
+			$scss .= $this->applyOverrides( file_get_contents( $path_to_style ), $overrides );
+
+			$scss .= "\n";
+			$css = $this->compile( $scss, [
+				$this->pathToUserGeneratedSass(),
+				$this->pathToPartials(),
+				$this->pathToFonts(),
+				get_stylesheet_directory(),
+			] );
+
+		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
+			$path_to_style = realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' );
+
+			// Populate $url-base variable so that links to images and other assets remain intact
+			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
+
+			$scss .= $this->applyOverrides( file_get_contents( $path_to_style ), $overrides );
+			$css = $this->compile( $scss, $this->defaultIncludePaths( 'web' ) );
+		} else {
+			return;
+		}
+
+		$css = $this->fixWebFonts( $css );
+
+		$css_file = $this->pathToUserGeneratedCss() . '/style.css';
+		file_put_contents( $css_file, $css );
+	}
+
+	/**
+	 * Fix relative/ambiguous URLs to web fonts
+	 *
+	 * @param $css
+	 * @return mixed
+	 */
+	function fixWebFonts( $css ) {
+
+		// Search for url("*"), url('*'), and url(*)
+		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
+		$css = preg_replace_callback( $url_regex, function ( $matches ) {
+
+			$url = $matches[3];
+			$filename = sanitize_file_name( basename( $url ) );
+
+			// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
+			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+				return 'url(' . PB_PLUGIN_URL . $url . ')';
+			}
+
+			// Look for uploads/assets/fonts/*.otf (or .woff, or .ttf), update URL
+			if ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+				return 'url(' . WP_CONTENT_URL . '/' . $url . ')';
+			}
+
+			return $matches[0]; // No change
+
+		}, $css );
+
+		return $css;
+	}
 }
