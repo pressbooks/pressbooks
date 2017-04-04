@@ -2,6 +2,7 @@
 
 class SassTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
 
   /**
 	 * @var \Pressbooks\Sass()
