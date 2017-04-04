@@ -175,7 +175,7 @@ Once WP-CLI is installed on your server, the following shell commands executed i
     wp core multisite-convert --title="Pressbooks"
     wp plugin delete hello
     wp plugin update-all
-    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/3.9.7.2/pressbooks-3.9.7.2.zip --activate-network
+    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/3.9.8/pressbooks-3.9.8.zip --activate-network
     wp theme list
     wp theme enable pressbooks-book --network
     wp theme enable clarke --network

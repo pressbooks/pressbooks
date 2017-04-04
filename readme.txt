@@ -224,11 +224,36 @@ TK.
 
 == Upgrade Notice ==
 
+Pressbooks now requres [PHP >= 5.6](https://secure.php.net/supported-versions.php)
+
 Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/download/).
 
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+
+### 3.9.8
+**NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
+
+* **Feature:** Themes can now be locked a particular version. The theme's stylesheets and other assets will be copied into the book's media directory and used for future exports (see #657, #704).
+* **Feature:** The paragraph separation option is now available for webbooks (see #655, #696).
+* **Feature:** The section openings PDF theme option now supports additional options (see #450, #691).
+* **Feature:** When export sharing is enabled, the download links are now stable, e.g. `/open/download?type=pdf` (props to @rootl for the suggestion; see #684, #699).
+* **Enhancement:** Pressbooks now supports third-party export formats (see #385 and #674).
+* **Enhancement:** `\Pressbooks\Options` field display functions have been refactored to use an array of arguments instead of a list of parameters (see #648, #697) [BREAKING CHANGE].
+* **Enhancement:** SCSS overrides have been moved into their respective theme options classes (see #452, #701).
+* **Enhancement:** Webbook interface styles have been separated from the Luther book theme's content styles (see #656, #708).
+* **Enhancement:** Webbook stylesheet and script enqueuing has been clarified and simplified (see #396).
+* **Enhancement:** Searching now excludes non-Pressbooks post types (props to @colomet for the report; see #706, #707).
+* **Enhancement:** Front-end scripts are now loaded asynchronously (props to @bdolor; see #681).
+* **Enhancement:** htmLawed is now a Composer dependency (see #702).
+* **Enhancement:** The sassphp dependency is no longer required (see #693).
+* **Enhancement:** The SaxonHE dependency check can now be overridden (see https://github.com/pressbooks/pressbooks/commit/7ea32fe).
+* **Fix:** Images on custom title pages are now exported as expected in EPUB and Kindle (see #690, #698).
+* **Fix:** The diagnostics page now functions as expected on the root blog (props to @colomet for the report; see #688, #695);
+* **Fix:** Print PDF exports are now available for download when export sharing is enabled (props to @bdolor; see #677).
+* **Fix:** Numberless chapters no longer display a lonely period in PDF outputs from SCSS v2 themes (props to @thomasdumm for the report; see #670).
+* **Fix:** Importing as a draft now works for EPUB imports (props to @thomasdumm for the report; see #668).
 
 ### 3.9.7.2
 **NOTICE:** Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/news/2017/03/wordpress-4-7-3-security-and-maintenance-release/).
