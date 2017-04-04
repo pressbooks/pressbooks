@@ -12,7 +12,8 @@
     <![endif]-->
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 <title><?php
@@ -36,7 +37,12 @@
 <?php wp_head(); ?>
 
 </head>
-<body <?php body_class(); if(wp_title('', false) != '') { print ' id="' . str_replace(' ', '', strtolower(wp_title('', false))) . '"'; } ?>>
+<?php if ( is_front_page() ) {
+	$schema = 'itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor image inLanguage keywords publisher" ';
+} else {
+	$schema = 'itemscope itemtype="http://schema.org/WebPage" itemref="about copyrightHolder copyrightYear inLanguage publisher" ';
+} ?>
+<body <?php body_class(); if(wp_title('', false) != '') { print ' id="' . str_replace(' ', '', strtolower(wp_title('', false))) . '"'; } ?> <?php echo $schema; ?>>
 <?php $social_media = get_option( 'pressbooks_theme_options_web' );
 if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media'] ) ) { ?>
 	<!-- Faccebook share js sdk -->
@@ -55,13 +61,9 @@ if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media
 	 <?php if (is_front_page()):?>
 
 	 	<!-- home page wrap -->
-	 	<span itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor
-		      image inLanguage keywords publisher">
-
-	 		<div class="book-info-container">
+	 	<div class="book-info-container">
 
 		<?php else: ?>
-		<span itemscope itemtype="http://schema.org/WebPage" itemref="about copyrightHolder copyrightYear inLanguage publisher">
 		<div class="nav-container">
 				<nav>
 
