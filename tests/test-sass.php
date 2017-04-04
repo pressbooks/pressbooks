@@ -70,4 +70,34 @@ class SassTest extends \WP_UnitTestCase {
 		$result = $this->sass->applyOverrides( '// SCSS.', '// Override.' );
 		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
 	}
+
+	/**
+	 * @covers \Pressbooks\Sass::updateWebBookStyleSheet
+	 */
+	public function test_updateWebBookStyleSheet() {
+
+		$this->_book( 'donham' ); // Pick a theme with some built-in $supported_languages
+
+		$this->sass->updateWebBookStyleSheet();
+
+		$file = $this->sass->pathToUserGeneratedCss() . '/style.css';
+
+		$this->assertFileExists( $file );
+		$this->assertNotEmpty( file_get_contents( $file ) );
+	}
+
+
+	/**
+	 * @covers \Pressbooks\Sass::fixWebFonts
+	 */
+	public function test_fixWebFonts() {
+
+		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
+		$css = $this->sass->fixWebFonts( $css );
+		$this->assertContains( 'url(' . PB_PLUGIN_URL . 'themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf', $css );
+
+		$css = 'url(themes-book/pressbooks-book/fonts/foo.garbage)';
+		$css = $this->sass->fixWebFonts( $css );
+		$this->assertNotContains( 'url(' . PB_PLUGIN_URL . 'themes-book/pressbooks-book/fonts/foo.garbage', $css );
+	}
 }
