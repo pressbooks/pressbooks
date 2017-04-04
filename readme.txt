@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.7.2
+Version: 3.9.8-RC1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.7.3
 Tested up to: 4.7.3
