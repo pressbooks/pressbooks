@@ -40,7 +40,7 @@ function pressbooks_book_info_page () {
 		wp_enqueue_script( 'sharer', \Pressbooks\Utility\asset_path( 'scripts/sharer.js' ) );
 	}
 }
-add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
+add_action( 'wp_enqueue_scripts', 'pressbooks_book_info_page' );
 
 /* ------------------------------------------------------------------------ *
  * Asyncronous loading to improve speed of page load
@@ -48,11 +48,10 @@ add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
 
 function pressbooks_async_scripts( $tag, $handle, $src ) {
 	$async = array(
-		'pressbooks-script',
-		'keyboard-nav',
-		'pb-pop-out-toc',
-		'pressbooks_toc_collapse',
-		'pressbooks-accessibility',
+		'pressbooks/a11y',
+		'pressbooks/keyboard-nav',
+		'pressbooks/navbar',
+		'pressbooks/toc',
 		'columnizer',
 		'columnizer-load',
 		'sharer',
@@ -72,7 +71,8 @@ add_filter( 'script_loader_tag', 'pressbooks_async_scripts', 10, 3 );
  * Register and enqueue scripts and stylesheets.
  * ------------------------------------------------------------------------ */
 function pb_enqueue_scripts() {
-	wp_enqueue_style( 'structure', PB_PLUGIN_URL . 'themes-book/pressbooks-book/css/structure.css', [], null, 'screen, print' );
+	wp_enqueue_style( 'pressbooks/structure', PB_PLUGIN_URL . 'themes-book/pressbooks-book/css/structure.css', [], null, 'screen, print' );
+	wp_enqueue_style( 'pressbooks/webfonts', 'https://fonts.googleapis.com/css?family=Oswald|Open+Sans+Condensed:300,300italic&subset=latin,cyrillic,greek,cyrillic-ext,greek-ext', false, null );
 
 	if ( pb_is_custom_theme() ) { // Custom CSS
 		$deps = array();
@@ -85,6 +85,10 @@ function pb_enqueue_scripts() {
 		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), $deps, get_option( 'pressbooks_last_custom_css' ), 'screen' );
 		wp_enqueue_style( 'pressbooks-custom-css' );
 	} elseif ( get_stylesheet() == 'pressbooks-book' ) {
+		if ( ! get_option( 'pressbooks_webbook_structure_version' ) ) {
+			\Pressbooks\Container::get( 'GlobalTypography' )->updateWebBookStyleSheet();
+			update_option( 'pressbooks_webbook_structure_version', 1 );
+		}
 		$fullpath = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
 		if ( is_file( $fullpath ) ) {
 			wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', array(), null, 'screen, print' );
@@ -94,33 +98,30 @@ function pb_enqueue_scripts() {
 			wp_enqueue_style( 'pressbooks' );
 		}
 	} elseif ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
-		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
-		$deps = array( 'pressbooks' );
 		$fullpath = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
 		if ( is_file( $fullpath ) && \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // SASS theme & custom webbook style has been generated
-			wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
+			wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', false, null, 'screen, print' );
 			wp_enqueue_style( 'pressbooks-theme' );
 		} elseif ( is_file( $fullpath ) && \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // SASS theme & custom webbook style has been generated
-			wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
+			wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', false, null, 'screen, print' );
 			wp_enqueue_style( 'pressbooks-theme' );
 		} else { // Use the bundled stylesheet
-			wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', $deps, null, 'screen, print' );
+			wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', false, null, 'screen, print' );
 			wp_enqueue_style( 'pressbooks-theme' );
 		}
 	}
 
 	if ( ! is_front_page() ) {
-		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
+		wp_enqueue_script( 'pressbooks/navbar', get_template_directory_uri() . '/js/navbar.js', array( 'jquery' ), '1.0', false );
 	}
-	wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
+	wp_enqueue_script( 'pressbooks/keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
 
 	if ( is_single() ) {
-		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
+		wp_enqueue_script( 'pressbooks/toc', get_template_directory_uri() . '/js/toc.js', array( 'jquery' ), '1.0', false );
 	}
 
-	wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
 	wp_enqueue_style( 'dashicons' );
-	wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
+	wp_enqueue_script( 'pressbooks/a11y', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
 	wp_enqueue_style( 'pressbooks-accessibility-toolbar', get_template_directory_uri() . '/css/a11y.css', array( 'dashicons' ), null, 'screen' );
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
@@ -194,15 +195,16 @@ function pb_get_links($echo=true) {
   $prev_chapter = pb_get_prev();
   $next_chapter = pb_get_next();
   if ($echo):
-?><div class="nav">
+?><nav class="navigation posts-navigation" role="navigation">
+	<div class="nav-links">
   <?php if ($prev_chapter != '/') : ?>
-	<span class="previous"><a href="<?php echo $prev_chapter; ?>"><?php _e('Previous', 'pressbooks'); ?></a></span>
+	<div class="nav-previous"><a href="<?php echo $prev_chapter; ?>"><?php _e('Previous', 'pressbooks'); ?></a></div>
   <?php endif; ?>
-<!-- 	<h2 class="entry-title"><?php the_title(); ?></h2> -->
   <?php if ($next_chapter != '/') : ?>
-	<span class="next"><a href="<?php echo $next_chapter ?>"><?php _e('Next', 'pressbooks'); ?></a></span>
+	<div class="nav-next"><a href="<?php echo $next_chapter ?>"><?php _e('Next', 'pressbooks'); ?></a></div>
   <?php endif; ?>
-  </div><?php
+	</div>
+	</nav><?php
   endif;
 }
 
@@ -211,13 +213,29 @@ function pb_get_links($echo=true) {
  * Prevent access by unregistered user if the book in question is private.
  */
 function pb_private() {
-	$bloginfourl= get_bloginfo('url'); ?>
+	$bloginfourl = get_bloginfo( 'url' ); ?>
   <div <?php post_class(); ?>>
-
-				<h2 class="entry-title denied-title"><?php _e('Access Denied', 'pressbooks'); ?></h2>
-				<!-- Table of content loop goes here. -->
-				<div class="entry_content denied-text"><?php _e('This book is private, and accessible only to registered users. If you have an account you can <a href="'. $bloginfourl .'/wp-login.php" class="login">login here</a>  <p class="sign-up">You can also set up your own Pressbooks book at: <a href="http://pressbooks.com">Pressbooks.com</a>.', 'pressbooks'); ?></p></div>
-			</div><!-- #post-## -->
+		<h2 class="entry-title denied-title"><?php _e('Access Denied', 'pressbooks'); ?></h2>
+		<!-- Table of content loop goes here. -->
+		<div class="entry-content denied-text">
+			<p><?php printf(
+				__( 'This book is private, and accessible only to registered users. If you have an account you can %s.', 'pressbooks' ),
+				sprintf(
+					'<a href="%1$s">%2$s</a>',
+					get_bloginfo( 'url' ) . '/wp-login.php',
+					__( 'login here', 'pressbooks' )
+				)
+			); ?></p>
+			<p><?php printf(
+				__( 'You can also set up your own Pressbooks book at %s.', 'pressbooks' ),
+				sprintf(
+					'<a href="%1$s">%2$s</a>',
+					apply_filters( 'pb_signup_url', 'https://pressbooks.com' ),
+					apply_filters( 'pb_signup_url', 'Pressbooks.com' )
+				)
+			); ?></p>
+		</div>
+	</div><!-- #post-## -->
 <?php
 }
 
