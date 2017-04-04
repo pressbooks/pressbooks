@@ -33,11 +33,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.7. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
-
-	$pb_minimum_php = '5.4';
-
-However, we encourage you to upgrade your environment instead as [PHP 5.4 is no longer supported](http://php.net/supported-versions.php).
+ * Pressbooks works with PHP 5.6.x and WordPress 4.7.3. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
