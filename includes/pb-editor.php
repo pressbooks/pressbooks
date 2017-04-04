@@ -262,7 +262,7 @@ function update_editor_style() {
 		] );
 	}
 
-	$css = Container::get( 'GlobalTypography' )->fixWebFonts( $css );
+	$css = Container::get( 'Sass' )->fixWebFonts( $css );
 
 	$output = $sass->pathToUserGeneratedCss() . '/editor.css';
 	file_put_contents( $output, $css );
