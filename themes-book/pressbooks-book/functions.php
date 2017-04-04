@@ -29,12 +29,12 @@ $metakeys = array(
 function pressbooks_book_info_page () {
 
 	if ( is_front_page() ) {
-		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130713', 'all' );
+		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '1.7.0', 'all' );
 		wp_enqueue_style( 'book-info-fonts', 'https://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700' );
 
 		// Book info page Table of Content columns
-		wp_enqueue_script( 'columnizer',  \Pressbooks\Utility\asset_path( 'scripts/columnizer.js' ), [ 'jquery' ] );
-		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '20130819', false );
+		wp_enqueue_script( 'columnizer',  \Pressbooks\Utility\asset_path( 'scripts/columnizer.js' ), array( 'jquery' ), '1.7.0' );
+		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '1.7.0', false );
 
 		// Sharer.js
 		wp_enqueue_script( 'sharer', \Pressbooks\Utility\asset_path( 'scripts/sharer.js' ) );
@@ -71,7 +71,7 @@ add_filter( 'script_loader_tag', 'pressbooks_async_scripts', 10, 3 );
  * Register and enqueue scripts and stylesheets.
  * ------------------------------------------------------------------------ */
 function pb_enqueue_scripts() {
-	wp_enqueue_style( 'pressbooks/structure', PB_PLUGIN_URL . 'themes-book/pressbooks-book/css/structure.css', [], null, 'screen, print' );
+	wp_enqueue_style( 'pressbooks/structure', PB_PLUGIN_URL . 'themes-book/pressbooks-book/css/structure.css', [], '1.7.0', 'screen, print' );
 	wp_enqueue_style( 'pressbooks/webfonts', 'https://fonts.googleapis.com/css?family=Oswald|Open+Sans+Condensed:300,300italic&subset=latin,cyrillic,greek,cyrillic-ext,greek-ext', false, null );
 
 	if ( pb_is_custom_theme() ) { // Custom CSS
@@ -93,16 +93,16 @@ function pb_enqueue_scripts() {
 	}
 
 	if ( ! is_front_page() ) {
-		wp_enqueue_script( 'pressbooks/navbar', get_template_directory_uri() . '/js/navbar.js', array( 'jquery' ), '1.0', false );
+		wp_enqueue_script( 'pressbooks/navbar', get_template_directory_uri() . '/js/navbar.js', array( 'jquery' ), '1.7.0', false );
 	}
-	wp_enqueue_script( 'pressbooks/keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
+	wp_enqueue_script( 'pressbooks/keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '1.7.0', true );
 
 	if ( is_single() ) {
-		wp_enqueue_script( 'pressbooks/toc', get_template_directory_uri() . '/js/toc.js', array( 'jquery' ), '1.0', false );
+		wp_enqueue_script( 'pressbooks/toc', get_template_directory_uri() . '/js/toc.js', array( 'jquery' ), '1.7.0', false );
 	}
 
-	wp_enqueue_script( 'pressbooks/a11y', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
-	wp_enqueue_style( 'pressbooks/a11y', get_template_directory_uri() . '/css/a11y.css', array( 'dashicons' ), null, 'screen' );
+	wp_enqueue_script( 'pressbooks/a11y', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ), '1.7.0' );
+	wp_enqueue_style( 'pressbooks/a11y', get_template_directory_uri() . '/css/a11y.css', array( 'dashicons' ), '1.7.0', 'screen' );
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 
