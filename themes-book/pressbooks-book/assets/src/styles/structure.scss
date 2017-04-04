@@ -943,7 +943,7 @@ cite.fn {
     background-repeat: repeat-x;
   }
 
-  &:active  {
+  &:active {
     background-color: darken($tundora, 2.75%);
     background-image: linear-gradient(to bottom, $mine-shaft 0%, darken($tundora, 2.75%) 100%);
     background-repeat: repeat-x;
