@@ -60,6 +60,13 @@ if ( false == \Pressbooks\Modules\Export\Mobi\Kindlegen::hasDependencies() ) {
 	$mobi = true;
 }
 
+if ( false == \Pressbooks\Modules\Export\Epub\Epub3::hasDependencies() ) {
+	$epub3 = false;
+	$dependency_errors['epub3'] = 'EPUB3';
+} else {
+	$epub3 = true;
+}
+
 if ( false == \Pressbooks\Modules\Export\Xhtml\Xhtml11::hasDependencies() ) {
 	$xhtml = false;
 	$dependency_errors['xhtml'] = 'XHTML';
