@@ -46,6 +46,13 @@ if ( false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
 	$prince = true;
 }
 
+if ( false == \Pressbooks\Modules\Export\Prince\PrintPdf::hasDependencies() ) {
+	$prince = false;
+	$dependency_errors['print_pdf'] = 'Print PDF';
+} else {
+	$prince = true;
+}
+
 if ( false == \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
 	$epub = false;
 	$dependency_errors['epub'] = 'EPUB';
