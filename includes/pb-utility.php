@@ -98,8 +98,6 @@ function truncate_exports( $max, $dir = null ) {
 			foreach ( $exports as $export ) {
 				$export = realpath( $dir . $export );
 
-				WP_Filesystem();
-
 				unlink( $export );
 			}
 		}
@@ -729,4 +727,37 @@ function mail_from_name( $name ) {
 		$name = 'Pressbooks';
 	}
 	return $name;
+}
+
+/**
+ * Recursive directory copy. Props to https://ben.lobaugh.net/blog/864/php-5-recursively-move-or-copy-files
+ *
+ * @since 3.9.8
+ * @author Ben Lobaugh <ben@lobaugh.net>
+ * @param string $src
+ * @param string $dest
+ * @return bool
+ */
+function rcopy( $src, $dest ) {
+	if ( ! is_dir( $src ) ) {
+		return false;
+	}
+
+	if ( ! is_dir( $dest ) ) {
+		if ( ! mkdir( $dest ) ) {
+			return false;
+		}
+	}
+
+	$i = new \DirectoryIterator( $src );
+	foreach ( $i as $f ) {
+		if ( $f->isFile() ) {
+			if ( false == copy( $f->getRealPath(), "$dest/" . $f->getFilename() ) ) {
+				return false;
+			}
+		} elseif ( ! $f->isDot() && $f->isDir() ) {
+			\Pressbooks\Utility\rcopy( $f->getRealPath(), "$dest/$f" );
+		}
+	}
+	return true;
 }

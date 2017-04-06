@@ -79,13 +79,7 @@ class ThemeLock {
 	}
 
 	static function copyAssets() {
-		if ( ! WP_Filesystem() ) {
-			exit;
-		}
-
-		global $wp_filesystem;
-
-		return copy_dir( realpath( get_stylesheet_directory() ), ThemeLock::getLockDir() );
+		return \Pressbooks\Utility\rcopy( realpath( get_stylesheet_directory() ), ThemeLock::getLockDir() );
 	}
 
 	static function generateLock( $time ) {
