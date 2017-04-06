@@ -109,7 +109,7 @@ class ThemeLock {
 
 		global $wp_filesystem;
 
-		\Pressbooks\Utility\delete_directory( ThemeLock::getLockDir() );
+		rmrdir( ThemeLock::getLockDir() );
 		$_SESSION['pb_notices'][] = sprintf( '<strong>%s</strong>', __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ) );
 
 		return wp_get_theme();

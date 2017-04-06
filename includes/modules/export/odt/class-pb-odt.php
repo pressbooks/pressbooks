@@ -225,7 +225,7 @@ class Odt extends Export {
 	/* Recursive Directory Deletion for media folder */
 
 	public static function deleteDirectory( $dirpath ) {
-		\Pressbooks\Utility\delete_directory( $dirpath );
+		rmrdir( $dirpath );
 	}
 
 	/**

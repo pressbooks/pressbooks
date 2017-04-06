@@ -730,13 +730,3 @@ function mail_from_name( $name ) {
 	}
 	return $name;
 }
-
-/**
- * Recursively delete a directory.
- *
- * @param string $dirpath
- */
-
-function delete_directory( $dirpath ) {
-	return rmrdir( $dirpath );
-}
