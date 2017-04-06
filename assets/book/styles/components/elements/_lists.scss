@@ -61,6 +61,7 @@ dl {
 }
 
 @if $type == 'epub' {
+  // scss-lint:disable ImportantRule
   @media amzn-mobi {
     ul,
     ol {
