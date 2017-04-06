@@ -9,8 +9,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2017-04-04 14:56-0300\n"
-"PO-Revision-Date: 2017-04-04 17:56+0000\n"
+"POT-Creation-Date: 2017-04-06 13:56-0300\n"
+"PO-Revision-Date: 2017-04-06 16:57+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Russian (http://www.transifex.com/pressbooks/pressbooks/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -537,7 +537,7 @@ msgid "Book Info"
 msgstr "Информация о книге"
 
 #: includes/admin/pb-laf.php:154 includes/admin/pb-laf.php:202
-#: templates/admin/export.php:115 templates/admin/organize.php:43
+#: templates/admin/export.php:129 templates/admin/organize.php:43
 #: templates/admin/organize.php:84 templates/admin/organize.php:160
 msgid "Export"
 msgstr "Экспорт"
@@ -585,10 +585,10 @@ msgstr "Посетить сайт"
 
 #: includes/admin/pb-laf.php:586
 msgid ""
-"Are you sure you want to unlock your theme? Your book will update to the "
-"current version of your theme, which may change your book&rsquo;s appearance"
-" and page count. Once you save your settings, this action will NOT be "
-"reversable!"
+"Are you sure you want to unlock your theme? This will update your book to "
+"the most recent version of your selected theme, which may change your "
+"book&rsquo;s appearance and page count. Once you save your settings on this "
+"page, this action will NOT be reversable!"
 msgstr ""
 
 #: includes/admin/pb-laf.php:634
@@ -1326,119 +1326,119 @@ msgstr "Добавить или удалить тип вступительной
 
 #: includes/class-pb-taxonomy.php:45
 msgid "Choose from the most used front matter type"
-msgstr ""
+msgstr "Выбрать тип из самых использованной вступительной части"
 
 #: includes/class-pb-taxonomy.php:46
 msgid "Front Matter Types"
-msgstr ""
+msgstr "Типы вступительной части"
 
 #: includes/class-pb-taxonomy.php:72
 msgctxt "taxonomy general name"
 msgid "Back Matter Types"
-msgstr ""
+msgstr "Типы задней части"
 
 #: includes/class-pb-taxonomy.php:73
 msgctxt "taxonomy singular name"
 msgid "Back Matter Type"
-msgstr ""
+msgstr "Тип задней части"
 
 #: includes/class-pb-taxonomy.php:74
 msgid "Search Back Matter Types"
-msgstr ""
+msgstr "Типы поиска задней части"
 
 #: includes/class-pb-taxonomy.php:75
 msgid "Popular Back Matter Types"
-msgstr ""
+msgstr "Популярные типы задней части"
 
 #: includes/class-pb-taxonomy.php:76
 msgid "All Back Matter Types"
-msgstr ""
+msgstr "Все типы задней части"
 
 #: includes/class-pb-taxonomy.php:79
 msgid "Edit Back Matter Type"
-msgstr ""
+msgstr "Выдать тип задней части"
 
 #: includes/class-pb-taxonomy.php:80
 msgid "Update Back Matter Type"
-msgstr ""
+msgstr "Обновить тип задней части"
 
 #: includes/class-pb-taxonomy.php:81
 msgid "Add New Back Matter Type"
-msgstr ""
+msgstr "Добавить новый тип задней части"
 
 #: includes/class-pb-taxonomy.php:82
 msgid "New Back Matter Type Name"
-msgstr ""
+msgstr "Новый тип названия задней части"
 
 #: includes/class-pb-taxonomy.php:83
 msgid "Separate back matter types with commas"
-msgstr ""
+msgstr "Выделить типы задней части запятыми"
 
 #: includes/class-pb-taxonomy.php:84
 msgid "Add or remove back matter type"
-msgstr ""
+msgstr "Добавить или удалить тип задней части"
 
 #: includes/class-pb-taxonomy.php:85
 msgid "Choose from the most used back matter type"
-msgstr ""
+msgstr "Выбрать тип из самых использованной задней части"
 
 #: includes/class-pb-taxonomy.php:86
 msgid "Back Matter Types"
-msgstr ""
+msgstr "Типы задней части"
 
 #: includes/class-pb-taxonomy.php:112
 msgctxt "taxonomy general name"
 msgid "Chapter Types"
-msgstr ""
+msgstr "Типы раздела"
 
 #: includes/class-pb-taxonomy.php:113
 msgctxt "taxonomy singular name"
 msgid "Chapter Type"
-msgstr ""
+msgstr "Тип раздела"
 
 #: includes/class-pb-taxonomy.php:114
 msgid "Search Chapter Types"
-msgstr ""
+msgstr "Типы поиска раздела"
 
 #: includes/class-pb-taxonomy.php:115
 msgid "Popular Chapter Types"
-msgstr ""
+msgstr "Популярные типы раздела"
 
 #: includes/class-pb-taxonomy.php:116
 msgid "All Chapter Types"
-msgstr ""
+msgstr "Все типы раздела"
 
 #: includes/class-pb-taxonomy.php:119
 msgid "Edit Chapter Type"
-msgstr ""
+msgstr "Выдать тип раздела"
 
 #: includes/class-pb-taxonomy.php:120
 msgid "Update Chapter Type"
-msgstr ""
+msgstr "Обновить тип раздела"
 
 #: includes/class-pb-taxonomy.php:121
 msgid "Add New Chapter Type"
-msgstr ""
+msgstr "Добавить новый тип раздела"
 
 #: includes/class-pb-taxonomy.php:122
 msgid "New Chapter Type Name"
-msgstr ""
+msgstr "Новый тип названия раздела"
 
 #: includes/class-pb-taxonomy.php:123
 msgid "Separate chapter types with commas"
-msgstr ""
+msgstr "Выделить типы раздела запятыми"
 
 #: includes/class-pb-taxonomy.php:124
 msgid "Add or remove chapter type"
-msgstr ""
+msgstr "Добавить или удалить тип раздела"
 
 #: includes/class-pb-taxonomy.php:125
 msgid "Choose from the most used chapter type"
-msgstr ""
+msgstr "Выбрать тип из самых использованного раздела"
 
 #: includes/class-pb-taxonomy.php:126
 msgid "Chapter Types"
-msgstr ""
+msgstr "Типы раздела"
 
 #: includes/class-pb-themelock.php:62
 #, php-format
@@ -1453,11 +1453,11 @@ msgid ""
 "write access to the uploads directory."
 msgstr ""
 
-#: includes/class-pb-themelock.php:113
+#: includes/class-pb-themelock.php:101
 msgid "Your book&rsquo;s theme has been unlocked."
 msgstr ""
 
-#: includes/class-pb-themelock.php:166
+#: includes/class-pb-themelock.php:154
 #, php-format
 msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
@@ -1476,7 +1476,7 @@ msgstr "Файл не найден"
 
 #: includes/modules/export/epub/class-pb-epub201.php:868
 msgid "Publisher Logo"
-msgstr ""
+msgstr "Логотип издателя"
 
 #: includes/modules/export/epub/class-pb-epub201.php:878
 msgid "Title Page"
@@ -1500,12 +1500,12 @@ msgstr "Контент"
 msgid ""
 "This book was produced using Pressbooks.com, and PDF rendering was done by "
 "PrinceXML."
-msgstr ""
+msgstr "Эта книга создана с помощью Pressbooks.com и PDF визуализации которая была выполнена путем PrinceXML."
 
 #: includes/modules/export/wordpress/class-pb-wxr.php:100
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:167
 msgid "Invalid permission error"
-msgstr ""
+msgstr "Непропустима ошибка"
 
 #: includes/modules/export/xhtml/class-pb-xhtml11.php:324
 msgid "Notes"
@@ -1519,23 +1519,23 @@ msgstr ""
 
 #: includes/modules/import/class-pb-import.php:394
 msgid "Your URL does not appear to be valid"
-msgstr ""
+msgstr "Ваша URL-адрес не соответствует действительности."
 
 #: includes/modules/import/class-pb-import.php:410
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response header on a HEAD request: "
-msgstr ""
+msgstr "Сайт, который вы пытаетесь посетить не отвечает на ваш запрос:"
 
 #: includes/modules/import/class-pb-import.php:416
 msgid "The website you are attempting to reach is not returning HTML content"
-msgstr ""
+msgstr "Сайт, который вы пытаетесь посетить не соответствует содержанию HTML"
 
 #: includes/modules/import/class-pb-import.php:433
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response on a GET request: "
-msgstr ""
+msgstr "Сайт, который вы пытаетесь посетить не соответствует успешно на полученный запрос:"
 
 #: includes/modules/import/epub/class-pb-epub201.php:196
 #, php-format
@@ -1559,11 +1559,11 @@ msgstr ""
 #: includes/modules/import/wordpress/class-pb-wxr.php:211
 #: includes/pb-posttype.php:353
 msgid "front matter"
-msgstr ""
+msgstr "вступительная часть"
 
 #: includes/modules/import/wordpress/class-pb-wxr.php:212
 msgid "part"
-msgstr ""
+msgstr "часть"
 
 #: includes/modules/import/wordpress/class-pb-wxr.php:212
 #: includes/pb-posttype.php:351
@@ -1572,7 +1572,7 @@ msgstr "части"
 
 #: includes/modules/import/wordpress/class-pb-wxr.php:213
 msgid "chapter"
-msgstr ""
+msgstr "глава"
 
 #: includes/modules/import/wordpress/class-pb-wxr.php:213
 #: includes/pb-posttype.php:352
@@ -1582,11 +1582,11 @@ msgstr "главы"
 #: includes/modules/import/wordpress/class-pb-wxr.php:214
 #: includes/pb-posttype.php:354
 msgid "back matter"
-msgstr ""
+msgstr "задняя часть"
 
 #: includes/modules/searchandreplace/class-pb-search.php:42
 msgid "No search pattern."
-msgstr ""
+msgstr "Не найдено систему."
 
 #: includes/modules/searchandreplace/class-pb-searchandreplace.php:39
 msgid ""
@@ -1599,7 +1599,7 @@ msgstr ""
 #: includes/modules/searchandreplace/class-pb-searchandreplace.php:47
 #: templates/admin/search.php:4
 msgid "Search & Replace"
-msgstr ""
+msgstr "Поиск и замена"
 
 #: includes/modules/searchandreplace/class-pb-searchandreplace.php:107
 #, php-format
@@ -1627,7 +1627,7 @@ msgstr ""
 
 #: includes/modules/searchandreplace/types/class-pb-content.php:106
 msgid "Content Text"
-msgstr ""
+msgstr "Содержание текста"
 
 #: includes/modules/searchandreplace/types/class-pb-part.php:99
 #, php-format
@@ -1638,19 +1638,19 @@ msgstr ""
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:212
 #: includes/modules/themeoptions/class-pb-weboptions.php:84
 msgid "Paragraph Separation"
-msgstr ""
+msgstr "Розділ параграфу"
 
 #: includes/modules/themeoptions/class-pb-ebookoptions.php:78
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:217
 #: includes/modules/themeoptions/class-pb-weboptions.php:89
 msgid "Indent paragraphs"
-msgstr ""
+msgstr "Отступ абзаца"
 
 #: includes/modules/themeoptions/class-pb-ebookoptions.php:79
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:218
 #: includes/modules/themeoptions/class-pb-weboptions.php:90
 msgid "Skip lines between paragraphs"
-msgstr ""
+msgstr "Пропускать строки между абзацами"
 
 #: includes/modules/themeoptions/class-pb-ebookoptions.php:85
 msgid "Compress Images"
@@ -1658,23 +1658,23 @@ msgstr "Сжатие Изображений"
 
 #: includes/modules/themeoptions/class-pb-ebookoptions.php:90
 msgid "Reduce image size and quality"
-msgstr ""
+msgstr "Зменшити розмір зображення і якість"
 
 #: includes/modules/themeoptions/class-pb-ebookoptions.php:112
 msgid "These options apply to ebook exports."
-msgstr ""
+msgstr "Эти параметры применяются для экспорта книг."
 
 #: includes/modules/themeoptions/class-pb-ebookoptions.php:190
 msgid "Ebook Options"
-msgstr ""
+msgstr "Параметры электронной книги"
 
 #: includes/modules/themeoptions/class-pb-globaloptions.php:75
 msgid "Part and Chapter Numbers"
-msgstr ""
+msgstr "Частина і кількість розділів"
 
 #: includes/modules/themeoptions/class-pb-globaloptions.php:80
 msgid "Display part and chapter numbers"
-msgstr ""
+msgstr "Отображение части и количество разделов"
 
 #: includes/modules/themeoptions/class-pb-globaloptions.php:86
 msgid "Two-Level TOC"
@@ -1683,26 +1683,26 @@ msgstr ""
 #: includes/modules/themeoptions/class-pb-globaloptions.php:91
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr ""
+msgstr "Включить двухуровневую таблицу содержания (отражает заголовки под названиями разделов)"
 
 #: includes/modules/themeoptions/class-pb-globaloptions.php:99
 msgid "Language Support"
-msgstr ""
+msgstr "Лингвистическая поддержка"
 
 #: includes/modules/themeoptions/class-pb-globaloptions.php:104
 msgid "Include fonts to support the following languages:"
-msgstr ""
+msgstr "Включить шрифты способствуя следующим языкам:"
 
 #: includes/modules/themeoptions/class-pb-globaloptions.php:123
 msgid "Display the selected copyright license"
-msgstr ""
+msgstr "Отображение выбранной лицензии авторского права"
 
 #: includes/modules/themeoptions/class-pb-globaloptions.php:145
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
+msgstr "Эти параметры применяются обще в webbook, pdf и в экспорте электронных книг."
 
 #: includes/modules/themeoptions/class-pb-globaloptions.php:254
-#: templates/admin/export.php:90
+#: templates/admin/export.php:104
 msgid "and"
 msgstr "и"
 
@@ -1721,17 +1721,17 @@ msgstr "Глобальные Опции"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:77
 msgid "Body Font Size"
-msgstr ""
+msgstr "Большой размер шрифта"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:82
 msgid ""
 "Heading sizes are proportional to the body font size and will also be "
 "affected by this setting."
-msgstr ""
+msgstr "Размеры заголовке пропорциональны большого размера шрифта и также будет зависеть от этого параметра."
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:89
 msgid "Body Line Height"
-msgstr ""
+msgstr "Большая высота строки"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:102
 msgid "Page Size"
@@ -1809,7 +1809,7 @@ msgstr ""
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:145
 msgid "Margins"
-msgstr "марджін"
+msgstr "Поля"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:150
 msgid "Customize your book&rsquo;s margins using the fields below."
@@ -1818,7 +1818,7 @@ msgstr ""
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:156
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:789
 msgid "Outside Margin"
-msgstr ""
+msgstr "Внешнее поле"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:161
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:172
@@ -1832,25 +1832,25 @@ msgstr ""
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:167
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:790
 msgid "Inside Margin"
-msgstr ""
+msgstr "Внутреннее поле"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:178
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:791
 msgid "Top Margin"
-msgstr ""
+msgstr "Верхнее поле"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:189
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:792
 msgid "Bottom Margin"
-msgstr ""
+msgstr "Нижнее поле"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:201
 msgid "Hyphens"
-msgstr ""
+msgstr "дефисы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:206
 msgid "Enable hyphenation"
-msgstr ""
+msgstr "Включить переносы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:224
 msgid "Section Openings"
@@ -1870,7 +1870,7 @@ msgstr ""
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:242
 msgid "Display table of contents"
-msgstr ""
+msgstr "Отобразить таблицу содержания"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:248
 msgid "Image resolution"
@@ -1886,53 +1886,53 @@ msgstr "Низкое (72 DPI)"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:260
 msgid "Crop Marks"
-msgstr ""
+msgstr "Угловые метки"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:265
 msgid "Display crop marks"
-msgstr ""
+msgstr "Отображать угловые метки"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:272
 msgid "Romanize Part Numbers"
-msgstr ""
+msgstr "Латинизировать номер детали"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:277
 msgid "Convert part numbers into Roman numerals"
-msgstr ""
+msgstr "Изменить номер деталей в римские цифры"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:284
 msgid "Footnote Style"
-msgstr ""
+msgstr "Тип сноски"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:289
 msgid "Regular footnotes"
-msgstr ""
+msgstr "Обычные сноски"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:290
 msgid "Display as chapter endnotes"
-msgstr ""
+msgstr "Отобразить как сноски раздела"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:296
 msgid "Widows"
-msgstr ""
+msgstr "Вдовы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:304
 msgid "Orphans"
-msgstr ""
+msgstr "Сироты"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:313
 msgid "Running Heads & Feet"
-msgstr ""
+msgstr "Колонтитулы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:318
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
-msgstr ""
+msgstr "Содержание работы появляется в колонтитулах (наверху или нанизу страницы) в зависимости от темы."
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:324
 msgid "Front Matter Left Page Running Content"
-msgstr ""
+msgstr "Вступительная часть левой страницы содержания работы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:329
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:347
@@ -1976,17 +1976,17 @@ msgstr "Автор Книги"
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:332
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:350
 msgid "Front Matter Title"
-msgstr ""
+msgstr "Заголовок вступительной части"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:333
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:351
 msgid "Front Matter Author"
-msgstr ""
+msgstr "Автор вступительной части"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:334
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:352
 msgid "Front Matter Subtitle"
-msgstr ""
+msgstr "Подзаголовок вступительной части"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:335
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:353
@@ -1999,102 +1999,102 @@ msgstr ""
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:481
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:499
 msgid "Blank"
-msgstr ""
+msgstr "Пустой"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:342
 msgid "Front Matter Right Page Running Content"
-msgstr ""
+msgstr "Объем работы вступительной части правой страницы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:360
 msgid "Introduction Left Page Running Content"
-msgstr ""
+msgstr "Объем работы вступления левой страницы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:368
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:386
 msgid "Introduction Title"
-msgstr ""
+msgstr "Заголовок вступления"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:369
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:387
 msgid "Introduction Author"
-msgstr ""
+msgstr "Автор вступления"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:370
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:388
 msgid "Introduction Subtitle"
-msgstr ""
+msgstr "Подзаголовок вступления"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:378
 msgid "Introduction Right Page Running Content"
-msgstr ""
+msgstr "Объем работы вступления правой страницы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:396
 msgid "Part Left Page Running Content"
-msgstr ""
+msgstr "Объем работы части левой страницы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:404
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:421
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:438
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:458
 msgid "Part Number"
-msgstr ""
+msgstr "Номер части"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:405
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:422
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:439
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:459
 msgid "Part Title"
-msgstr ""
+msgstr "Заголовок части"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:413
 msgid "Part Right Page Running Content"
-msgstr ""
+msgstr "Объем работы части правой страницы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:430
 msgid "Chapter Left Page Running Content"
-msgstr ""
+msgstr "Объем работы раздела левой страницы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:440
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:460
 msgid "Chapter Title"
-msgstr ""
+msgstr "Заголовок раздела"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:441
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:461
 msgid "Chapter Author"
-msgstr ""
+msgstr "Автор раздела"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:442
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:462
 msgid "Chapter Subtitle"
-msgstr ""
+msgstr "Подзаголовок раздела"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:450
 msgid "Chapter Right Page Running Content"
-msgstr ""
+msgstr "Объем работы раздела правой страницы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:470
 msgid "Back Matter Left Page Running Content"
-msgstr ""
+msgstr "Объем работы задней части левой страницы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:478
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:496
 msgid "Back Matter Title"
-msgstr ""
+msgstr "Заголовок задней части"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:479
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:497
 msgid "Back Matter Author"
-msgstr ""
+msgstr "Автор задньої частини"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:480
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:498
 msgid "Back Matter Subtitle"
-msgstr ""
+msgstr "Подзаголовок задней части"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:488
 msgid "Back Matter Right Page Running Content"
-msgstr ""
+msgstr "Объем работы задней части правой страницы"
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:508
 msgid "Increase Font Size"
@@ -2106,79 +2106,79 @@ msgstr ""
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:536
 msgid "These options apply to PDF exports."
-msgstr ""
+msgstr "Эти параметры применяются для экспорта в формате PDF."
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:796
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
-msgstr ""
+msgstr "Важно: если вы планируете воспользоваться системой \"печати на заказ\", поля по 2 см. На любой стороне могут повлечь отклонение вашего файла."
 
 #: includes/modules/themeoptions/class-pb-pdfoptions.php:1254
 msgid "PDF Options"
-msgstr ""
+msgstr "параметры PDF"
 
 #: includes/modules/themeoptions/class-pb-weboptions.php:73
 msgid "Enable Social Media"
-msgstr ""
+msgstr "Включить социальную сеть"
 
 #: includes/modules/themeoptions/class-pb-weboptions.php:78
 msgid ""
 "Add buttons to cover page and each chapter so that readers may share links "
 "to your book through social media: Facebook, Twitter, Google+"
-msgstr ""
+msgstr "Добавить кнопки к титульной страницы и каждой главы, так чтобы читатели смогли поделиться ссылками на книгу в социальных сетях: Facebook, Twitter, Google+"
 
 #: includes/modules/themeoptions/class-pb-weboptions.php:96
 msgid "Display Part Title"
-msgstr ""
+msgstr "Отобразить заголовок части"
 
 #: includes/modules/themeoptions/class-pb-weboptions.php:101
 msgid "Display the Part title on each chapter"
-msgstr ""
+msgstr "Отобразить заголовок части на каждом разделе"
 
 #: includes/modules/themeoptions/class-pb-weboptions.php:123
 msgid "These options apply to the webbook."
-msgstr ""
+msgstr "Эти параметры применяются к webbook."
 
 #: includes/modules/themeoptions/class-pb-weboptions.php:219
 msgid "Web Options"
-msgstr ""
+msgstr "параметры Веб"
 
 #: includes/pb-editor.php:77
 msgid "Indent"
-msgstr ""
+msgstr "Абзац"
 
 #: includes/pb-editor.php:83
 msgid "Hanging indent"
-msgstr ""
+msgstr "Обратная отступление"
 
 #: includes/pb-editor.php:89
 msgid "No indent"
-msgstr ""
+msgstr "Нет отступлений"
 
 #: includes/pb-editor.php:95
 msgid "Tight tracking"
-msgstr ""
+msgstr "Плотный трекинг"
 
 #: includes/pb-editor.php:101
 msgid "Very tight tracking"
-msgstr ""
+msgstr "Очень плотный трекинг"
 
 #: includes/pb-editor.php:107
 msgid "Loose tracking"
-msgstr ""
+msgstr "Свободный трекинг"
 
 #: includes/pb-editor.php:113
 msgid "Very loose tracking"
-msgstr ""
+msgstr "Очень свободный трекинг"
 
 #: includes/pb-editor.php:119
 msgid "Pullquote (left)"
-msgstr ""
+msgstr "Заметная цитата (слева)"
 
 #: includes/pb-editor.php:125
 msgid "Pullquote (right)"
-msgstr ""
+msgstr "Заметная цитата (справа)"
 
 #: includes/pb-editor.php:177 includes/pb-editor.php:195
 #: includes/pb-editor.php:209 languages/tinymce.php:7
@@ -2187,16 +2187,16 @@ msgstr "Стандартный"
 
 #: includes/pb-editor.php:181
 msgid "No lines"
-msgstr ""
+msgstr "Нету строку"
 
 #: includes/pb-editor.php:185
 msgid "Lines"
-msgstr ""
+msgstr "Есть строки"
 
 #: includes/pb-editor.php:189 includes/pb-editor.php:203
 #: includes/pb-editor.php:217 languages/tinymce.php:9
 msgid "Shaded"
-msgstr ""
+msgstr "Прикрыт"
 
 #: includes/pb-editor.php:199 includes/pb-editor.php:213
 msgid "Border"
@@ -2204,7 +2204,7 @@ msgstr ""
 
 #: includes/pb-editor.php:332
 msgid "Internal Link"
-msgstr ""
+msgstr "Внутренние ссылки"
 
 #: includes/pb-image.php:304
 msgid ""
@@ -2215,11 +2215,11 @@ msgid ""
 "cover/\">here</a>."
 msgstr ""
 
-#: includes/pb-image.php:344 templates/admin/export.php:259
+#: includes/pb-image.php:344 templates/admin/export.php:273
 #: templates/admin/organize.php:89 templates/admin/organize.php:127
 #: templates/admin/organize.php:195
 msgid "Are you sure you want to delete this?"
-msgstr ""
+msgstr "Вы уверены, что вы хотите удалить это?"
 
 #: includes/pb-image.php:376
 #: symbionts/custom-metadata/custom_metadata.php:1315
@@ -2276,7 +2276,7 @@ msgstr ""
 
 #: includes/pb-posttype.php:43
 msgid "No chapters found in Trash"
-msgstr ""
+msgstr "Не найдено раздела в корзине"
 
 #: includes/pb-posttype.php:45
 msgid "Text"
@@ -2311,148 +2311,148 @@ msgstr "Новая часть"
 
 #: includes/pb-posttype.php:75
 msgid "View Part"
-msgstr ""
+msgstr "Посмотреть часть"
 
 #: includes/pb-posttype.php:76
 msgid "Search Parts"
-msgstr ""
+msgstr "Найти части"
 
 #: includes/pb-posttype.php:77
 msgid "No parts found"
-msgstr ""
+msgstr "Не найдено части"
 
 #: includes/pb-posttype.php:78
 msgid "No parts found in Trash"
-msgstr ""
+msgstr "Не найдено части в корзине"
 
 #: includes/pb-posttype.php:80
 msgid "Parts"
-msgstr ""
+msgstr "Части"
 
 #: includes/pb-posttype.php:102
 msgctxt "post type general name"
 msgid "Front Matter"
-msgstr ""
+msgstr "Вступна частина"
 
 #: includes/pb-posttype.php:103
 msgctxt "post type singular name"
 msgid "Front Matter"
-msgstr ""
+msgstr "Задняя часть"
 
 #: includes/pb-posttype.php:104
 msgctxt "book"
 msgid "Add New Front Matter"
-msgstr ""
+msgstr "Добавить новую вводную часть"
 
 #: includes/pb-posttype.php:105
 msgid "Add New Front Matter"
-msgstr ""
+msgstr "Добавить новую вводную часть"
 
 #: includes/pb-posttype.php:106
 msgid "Edit Front Matter"
-msgstr ""
+msgstr "Выдать заднюю часть"
 
 #: includes/pb-posttype.php:107
 msgid "New Front Matter"
-msgstr ""
+msgstr "Новая вступительная часть"
 
 #: includes/pb-posttype.php:108
 msgid "View Front Matter"
-msgstr ""
+msgstr "Пересмотреть заднюю часть"
 
 #: includes/pb-posttype.php:109
 msgid "Search Front Matter"
-msgstr ""
+msgstr "Исследовать заднюю часть"
 
 #: includes/pb-posttype.php:110
 msgid "No front matter found"
-msgstr ""
+msgstr "Не найдено вступительной части"
 
 #: includes/pb-posttype.php:111
 msgid "No front matter found in Trash"
-msgstr ""
+msgstr "Не найдено вступительной части в корзине"
 
 #: includes/pb-posttype.php:136
 msgctxt "post type general name"
 msgid "Back Matter"
-msgstr ""
+msgstr "Задняя часть"
 
 #: includes/pb-posttype.php:137
 msgctxt "post type singular name"
 msgid "Back Matter"
-msgstr ""
+msgstr "Задняя часть"
 
 #: includes/pb-posttype.php:138
 msgctxt "book"
 msgid "Add New Back Matter"
-msgstr ""
+msgstr "Добавить новую заднюю часть"
 
 #: includes/pb-posttype.php:139
 msgid "Add New Back Matter"
-msgstr ""
+msgstr "Добавить новую заднюю часть"
 
 #: includes/pb-posttype.php:140
 msgid "Edit Back Matter"
-msgstr ""
+msgstr "Выдать заднюю часть"
 
 #: includes/pb-posttype.php:141
 msgid "New Back Matter"
-msgstr ""
+msgstr "Новая задняя часть"
 
 #: includes/pb-posttype.php:142
 msgid "View Back Matter"
-msgstr ""
+msgstr "Посмотреть заднюю часть"
 
 #: includes/pb-posttype.php:143
 msgid "Search Back Matter"
-msgstr ""
+msgstr "Исследовать заднюю часть"
 
 #: includes/pb-posttype.php:144
 msgid "No back matter found"
-msgstr ""
+msgstr "Не найдено задней части"
 
 #: includes/pb-posttype.php:145
 msgid "No back matter found in Trash"
-msgstr ""
+msgstr "Не найдено задней части в корзине"
 
 #: includes/pb-posttype.php:170
 msgctxt "post type general name"
 msgid "Book Information"
-msgstr ""
+msgstr "Інформація про книгу"
 
 #: includes/pb-posttype.php:171
 msgctxt "post type singular name"
 msgid "Book Information"
-msgstr ""
+msgstr "Інформація про книгу"
 
 #: includes/pb-posttype.php:172
 msgctxt "book"
 msgid "Add New Book Information"
-msgstr ""
+msgstr "Добавить новую информацию о книге"
 
 #: includes/pb-posttype.php:173 includes/pb-posttype.php:174
 msgid "Edit Book Information"
-msgstr ""
+msgstr "Опубликовать информацию о книге"
 
 #: includes/pb-posttype.php:175
 msgid "New Book Information"
-msgstr ""
+msgstr "Новая информация о книге"
 
 #: includes/pb-posttype.php:176
 msgid "View Book Information"
-msgstr ""
+msgstr "Пересмотреть информацию о книге"
 
 #: includes/pb-posttype.php:177
 msgid "Search Book Information"
-msgstr ""
+msgstr "Поиск информации о книге"
 
 #: includes/pb-posttype.php:178
 msgid "No book information found"
-msgstr ""
+msgstr "Не найдено информации о книге"
 
 #: includes/pb-posttype.php:179
 msgid "No book information found in Trash"
-msgstr ""
+msgstr "Не найдено информации о книге в корзине"
 
 #: includes/pb-posttype.php:231
 #, php-format
@@ -2461,19 +2461,19 @@ msgstr ""
 
 #: includes/pb-posttype.php:231 includes/pb-posttype.php:234
 msgid "Part updated."
-msgstr ""
+msgstr "Часть обновленная"
 
 #: includes/pb-posttype.php:232 includes/pb-posttype.php:249
 #: includes/pb-posttype.php:262 includes/pb-posttype.php:279
 #: includes/pb-posttype.php:296
 msgid "Custom field updated."
-msgstr ""
+msgstr "Пользовательские поля обновляются."
 
 #: includes/pb-posttype.php:233 includes/pb-posttype.php:250
 #: includes/pb-posttype.php:263 includes/pb-posttype.php:280
 #: includes/pb-posttype.php:297
 msgid "Custom field deleted."
-msgstr ""
+msgstr "Пользовательские поля удалены."
 
 #: includes/pb-posttype.php:236
 #, php-format
@@ -2487,11 +2487,11 @@ msgstr ""
 
 #: includes/pb-posttype.php:237
 msgid "Part published."
-msgstr ""
+msgstr "Часть опубликована."
 
 #: includes/pb-posttype.php:238
 msgid "Part saved."
-msgstr ""
+msgstr "Часть сохранена."
 
 #: includes/pb-posttype.php:239
 #, php-format
@@ -2518,7 +2518,7 @@ msgstr ""
 #: includes/pb-posttype.php:248 includes/pb-posttype.php:251
 #: includes/pb-posttype.php:254
 msgid "Book Information updated."
-msgstr ""
+msgstr "Информация о книге обновлена."
 
 #: includes/pb-posttype.php:253
 #, php-format
@@ -2527,11 +2527,11 @@ msgstr ""
 
 #: includes/pb-posttype.php:255
 msgid "Book Information saved."
-msgstr ""
+msgstr "Информация о книге сохранена."
 
 #: includes/pb-posttype.php:256
 msgid "Book Information submitted."
-msgstr ""
+msgstr "Информация о книге представлена."
 
 #: includes/pb-posttype.php:261
 #, php-format
@@ -2540,7 +2540,7 @@ msgstr ""
 
 #: includes/pb-posttype.php:264
 msgid "Chapter updated."
-msgstr ""
+msgstr "Раздел обновлен."
 
 #: includes/pb-posttype.php:266
 #, php-format
@@ -2554,7 +2554,7 @@ msgstr ""
 
 #: includes/pb-posttype.php:268
 msgid "Chapter saved."
-msgstr ""
+msgstr "Раздел обновлен."
 
 #: includes/pb-posttype.php:269
 #, php-format
@@ -2580,7 +2580,7 @@ msgstr ""
 
 #: includes/pb-posttype.php:281
 msgid "Front Matter updated."
-msgstr ""
+msgstr "Задняя часть обновлена."
 
 #: includes/pb-posttype.php:283
 #, php-format
@@ -2594,7 +2594,7 @@ msgstr ""
 
 #: includes/pb-posttype.php:285
 msgid "Front Matter saved."
-msgstr ""
+msgstr "Вступительная часть сохранена."
 
 #: includes/pb-posttype.php:286
 #, php-format
@@ -2624,7 +2624,7 @@ msgstr ""
 
 #: includes/pb-posttype.php:298
 msgid "Back Matter updated."
-msgstr ""
+msgstr "Задняя часть обновлена."
 
 #: includes/pb-posttype.php:300
 #, php-format
@@ -2663,23 +2663,23 @@ msgstr ""
 
 #: includes/pb-redirect.php:177 includes/pb-redirect.php:400
 msgid "Error: Unknown export format."
-msgstr ""
+msgstr "Ошибка: Неизвестный формат экспорта."
 
 #: includes/pb-redirect.php:211
 msgid "No catalog was found for user"
-msgstr ""
+msgstr "Каталог не был найден для пользователя."
 
 #: includes/pb-registration.php:26
 msgid "Register my book now"
-msgstr ""
+msgstr "Зарегистрируйте мою книгу сейчас"
 
 #: includes/pb-registration.php:29
 msgid "Register my book later"
-msgstr ""
+msgstr "Зарегистрируйте мою книгу позже"
 
 #: includes/pb-registration.php:33
 msgid "Web Book Address:"
-msgstr ""
+msgstr "Адреса веб -книги"
 
 #: includes/pb-registration.php:36
 msgid ""
@@ -2697,7 +2697,7 @@ msgstr "Язык Книги:"
 
 #: includes/pb-registration.php:45
 msgid "Would you like your web book to be visible to the public?"
-msgstr ""
+msgstr "Или вы бы хотели, чтобы ваша веб-книга была доступна людям?"
 
 #: includes/pb-registration.php:49
 msgid "Create Book"
@@ -2725,7 +2725,7 @@ msgstr ""
 
 #: includes/pb-registration.php:65
 msgid "Books you are already a member of:"
-msgstr ""
+msgstr "Книги, яких ти є членом:"
 
 #: includes/pb-registration.php:68
 msgid ""
@@ -2787,7 +2787,7 @@ msgstr "Подтвердите Пароль"
 
 #: includes/pb-registration.php:111
 msgid "Type in your password again."
-msgstr ""
+msgstr "Ввести пароль снова."
 
 #: includes/pb-registration.php:121 includes/pb-registration.php:153
 #: includes/pb-registration.php:173 includes/pb-registration.php:186
@@ -2796,15 +2796,15 @@ msgstr "Пожалуйста попробуйте снова."
 
 #: includes/pb-registration.php:131
 msgid "You have to enter a password."
-msgstr ""
+msgstr "Вы должны ввести пароль."
 
 #: includes/pb-registration.php:137
 msgid "Passwords do not match."
-msgstr ""
+msgstr "Пароли не совпадают."
 
 #: includes/shortcodes/footnotes/class-pb-footnotes.php:175
 msgid "Insert Footnote"
-msgstr ""
+msgstr "Вставить примечание"
 
 #: includes/shortcodes/footnotes/class-pb-footnotes.php:176
 msgid "Convert MS Word Footnotes"
@@ -2813,47 +2813,47 @@ msgstr ""
 #: includes/shortcodes/footnotes/class-pb-footnotes.php:247
 #: tests/test-shortcodes-footnotes-footnotes.php:188
 msgid "Invalid permissions."
-msgstr ""
+msgstr "Недействительное рарешение."
 
 #: languages/tinymce.php:4
 msgid "Class"
-msgstr ""
+msgstr "Вид"
 
 #: languages/tinymce.php:5
 msgid "Textboxes"
-msgstr ""
+msgstr "Текстовые поля"
 
 #: languages/tinymce.php:6
 msgid "Custom Textbox"
-msgstr ""
+msgstr "Пользовательское текстовое поле"
 
 #: languages/tinymce.php:8
 msgid "Type your textbox content here."
-msgstr ""
+msgstr "Ввести содержание текстового поля здесь."
 
 #: languages/tinymce.php:10
 msgid "Learning Objectives"
-msgstr ""
+msgstr "Цель обучения"
 
 #: languages/tinymce.php:11
 msgid "Type your learning objectives here."
-msgstr ""
+msgstr "Ввести цель обучения здесь."
 
 #: languages/tinymce.php:12
 msgid "Key Takeaways"
-msgstr ""
+msgstr "Основные тезисы"
 
 #: languages/tinymce.php:13
 msgid "Type your key takeaways here."
-msgstr ""
+msgstr "Ввести свои основные тезисы здесь."
 
 #: languages/tinymce.php:14
 msgid "Exercises"
-msgstr ""
+msgstr "Упражнения"
 
 #: languages/tinymce.php:15
 msgid "Type your exercises here."
-msgstr ""
+msgstr "Ввести ваши задачи здесь."
 
 #: languages/tinymce.php:16
 msgid "Examples"
@@ -2861,11 +2861,11 @@ msgstr "Примеры"
 
 #: languages/tinymce.php:17
 msgid "Type your examples here."
-msgstr ""
+msgstr "Ввести свои примеры здесь."
 
 #: languages/tinymce.php:18
 msgid "Custom..."
-msgstr ""
+msgstr "Замовлення"
 
 #: languages/tinymce.php:19
 msgid "First"
@@ -2877,7 +2877,7 @@ msgstr "Второй"
 
 #: languages/tinymce.php:21
 msgid "Apply Class"
-msgstr ""
+msgstr "Применить категорию"
 
 #: pressbooks.php:101
 #, php-format
@@ -2889,15 +2889,15 @@ msgstr ""
 
 #: pressbooks.php:110
 msgid "Cannot find Pressbooks install."
-msgstr ""
+msgstr "Не удалось найти установления Пресбуку"
 
 #: symbionts/custom-metadata/custom_metadata.php:282
 msgid "Choose a file"
-msgstr ""
+msgstr "Выбрать файл"
 
 #: symbionts/custom-metadata/custom_metadata.php:283
 msgid "Select this file"
-msgstr ""
+msgstr "Обрати цей файл"
 
 #: symbionts/custom-metadata/custom_metadata.php:284
 msgid "Clear"
@@ -2905,7 +2905,7 @@ msgstr "Очистить"
 
 #: symbionts/custom-metadata/custom_metadata.php:285
 msgid "Select"
-msgstr ""
+msgstr "Выбрать"
 
 #: symbionts/custom-metadata/custom_metadata.php:509
 #, php-format
@@ -2914,15 +2914,15 @@ msgstr ""
 
 #: symbionts/custom-metadata/custom_metadata.php:600
 msgid "Uh oh, something went wrong!"
-msgstr ""
+msgstr "Упс, что-то пошло не так!"
 
 #: symbionts/custom-metadata/custom_metadata.php:1135
 msgid "duplicate this set of fields"
-msgstr ""
+msgstr "дублировать этот ряд полей"
 
 #: symbionts/custom-metadata/custom_metadata.php:1138
 msgid "remove this set of fields"
-msgstr ""
+msgstr "удалить ряд полей"
 
 #: symbionts/custom-metadata/custom_metadata.php:1170
 msgid "<strong>Note:</strong> this field type cannot be multiplied"
@@ -2938,7 +2938,7 @@ msgstr ""
 
 #: symbionts/custom-metadata/custom_metadata.php:1379
 msgid "+ Add New"
-msgstr ""
+msgstr "+ Добавить новые"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:32
 msgctxt "post type general name"
@@ -2953,45 +2953,45 @@ msgstr "Тест"
 #: symbionts/custom-metadata/custom_metadata_examples.php:34
 msgctxt "Test"
 msgid "Add New"
-msgstr ""
+msgstr "Добавить новые"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:35
 msgid "Add New Test"
-msgstr ""
+msgstr "Добавить новую проверку"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:36
 msgid "Edit Test"
-msgstr ""
+msgstr "Редактировать проверку"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:37
 msgid "New Test"
-msgstr ""
+msgstr "Новая проверка"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:38
 msgid "All Tests"
-msgstr ""
+msgstr "Все проверки"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:39
 msgid "View Test"
-msgstr ""
+msgstr "Просмотр проверки"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:40
 msgid "Search Tests"
-msgstr ""
+msgstr "Пошук перевірки"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:41
 msgid "No Tests found"
-msgstr ""
+msgstr "Проверки не найдено"
 
 #: symbionts/custom-metadata/custom_metadata_examples.php:42
 msgid "No Tests found in Trash"
-msgstr ""
+msgstr "Проверки не найдено в корзине"
 
 #: symbionts/disable-comments-mu/disable-comments-mu.php:95
 #: symbionts/disable-comments-mu/disable-comments-mu.php:121
 #: themes-book/pressbooks-book/comments.php:40
 msgid "Comments are closed."
-msgstr ""
+msgstr "Проверки не найдено в корзине"
 
 #: symbionts/disable-comments-mu/disable-comments-mu.php:173
 msgctxt "feed link"
@@ -3005,7 +3005,7 @@ msgstr ""
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:33
 msgid "Settings"
-msgstr ""
+msgstr "Настройка"
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:39
 #: symbionts/pressbooks-latex/pb-latex-admin.php:187
@@ -3025,11 +3025,11 @@ msgstr ""
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:72
 msgid "Invalid text color"
-msgstr ""
+msgstr "Неправильный цвет текста"
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:83
 msgid "Invalid background color"
-msgstr ""
+msgstr "Неправильный цвет фона"
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:105
 msgid "<code>latex</code> path not found."
@@ -3037,11 +3037,11 @@ msgstr ""
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:134
 msgid "Test Image"
-msgstr ""
+msgstr "Тест изображения"
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:136
 msgid "If you can see a big integral, all is well."
-msgstr ""
+msgstr "Если вы видите большой интеграл, все хорошо."
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:197
 msgid "WordPress.com LaTeX Server (recommended)"
@@ -3053,7 +3053,7 @@ msgstr ""
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:250
 msgid "Syntax"
-msgstr ""
+msgstr "Синтаксис"
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:252
 #, php-format
@@ -3074,7 +3074,7 @@ msgstr ""
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:275
 msgid "Default text color"
-msgstr ""
+msgstr "Неправильный цвет текста"
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:278
 msgid ""
@@ -3084,7 +3084,7 @@ msgstr ""
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:283
 msgid "Default background color"
-msgstr ""
+msgstr "Неправильный цвет фона"
 
 #: symbionts/pressbooks-latex/pb-latex-admin.php:286
 msgid ""
@@ -3098,35 +3098,35 @@ msgstr ""
 
 #: templates/admin/catalog.php:27
 msgid "Tags For"
-msgstr ""
+msgstr "Теги для"
 
 #: templates/admin/catalog.php:50
 msgid "Tags"
-msgstr ""
+msgstr "Теги"
 
 #: templates/admin/catalog.php:91
 msgid "My Catalog Profile"
-msgstr ""
+msgstr "Мой профиль каталога"
 
 #: templates/admin/catalog.php:102
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: templates/admin/catalog.php:106
 msgid "Tags Name"
-msgstr ""
+msgstr "Название теги"
 
 #: templates/admin/catalog.php:115
 msgid "Sidebar Color"
-msgstr ""
+msgstr "Цвет боковой панели"
 
 #: templates/admin/catalog.php:118
 msgid "Logo Or Image"
-msgstr ""
+msgstr "Логотип или изображение"
 
 #: templates/admin/custom-css.php:21
 msgid "Error: Something went wrong. See logs for more details."
-msgstr ""
+msgstr "Ошибка: Что-то пошло не так. Посмотри журнал для получения дополнительной информации."
 
 #: templates/admin/custom-css.php:37
 msgid "You are currently editing CSS for"
@@ -3142,143 +3142,143 @@ msgstr "Сохранить"
 
 #: templates/admin/dashboard.php:34
 msgid "Dashboard Settings"
-msgstr ""
+msgstr "Настройка приборной панели"
 
 #: templates/admin/dashboard.php:36
 msgid "Customize your Pressbooks dashboard below."
-msgstr ""
+msgstr "Настроить свою приборную панель Пресбуку ниже."
 
-#: templates/admin/export.php:89
+#: templates/admin/export.php:103
 #, php-format
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
 msgstr ""
 
-#: templates/admin/export.php:98
+#: templates/admin/export.php:112
 msgid "Error: The export failed. See logs for more details."
-msgstr ""
+msgstr "Ошибка: Экспорт потерпел неудачу. Смотри журнал за более подробной информацией."
 
-#: templates/admin/export.php:104
+#: templates/admin/export.php:118
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
+msgstr "Предупреждение: Экспорт имеет ошибки проверки. Смотри журнал за более подробной информацией."
 
-#: templates/admin/export.php:105
+#: templates/admin/export.php:119
 msgid "Emailed to:"
-msgstr ""
+msgstr "Отправить Email:"
 
-#: templates/admin/export.php:116
+#: templates/admin/export.php:130
 #, php-format
 msgid ""
 "You can export multiple file formats by selecting your Export Format Options"
 " below. Pressbooks saves your last %s batches of exported files."
 msgstr ""
 
-#: templates/admin/export.php:121
+#: templates/admin/export.php:135
 msgid "Your Export Format Options"
-msgstr ""
+msgstr "Ваш формат экспорта данных"
 
-#: templates/admin/export.php:122
+#: templates/admin/export.php:136
 msgid "Select which formats you want to export"
-msgstr ""
+msgstr "Выбрать формат который вы хотите экспортировать"
 
-#: templates/admin/export.php:140
+#: templates/admin/export.php:154
 msgid "PDF (for print)"
-msgstr ""
+msgstr "PDF (для печати)"
 
-#: templates/admin/export.php:141
+#: templates/admin/export.php:155
 msgid "PDF (for digital distribution)"
-msgstr ""
+msgstr "PDF (для цифровой дистрибуции)"
 
-#: templates/admin/export.php:142 templates/admin/import.php:21
+#: templates/admin/export.php:156 templates/admin/import.php:21
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
-msgstr ""
+msgstr "EPUB (для Nook, iBooks, Kobo и др.)"
 
-#: templates/admin/export.php:143
+#: templates/admin/export.php:157
 msgid "MOBI (for Kindle)"
 msgstr ""
 
-#: templates/admin/export.php:146
+#: templates/admin/export.php:160
 msgid "EPUB 3 (beta)"
-msgstr ""
+msgstr "EPUB 3 (бета)"
 
-#: templates/admin/export.php:147
+#: templates/admin/export.php:161
 msgid "XHTML"
-msgstr ""
+msgstr "XHTML"
 
-#: templates/admin/export.php:148
+#: templates/admin/export.php:162
 msgid "OpenDocument (beta)"
 msgstr ""
 
-#: templates/admin/export.php:149
+#: templates/admin/export.php:163
 msgid "Pressbooks XML"
-msgstr ""
+msgstr "Pressbooks XML"
 
-#: templates/admin/export.php:150
+#: templates/admin/export.php:164
 msgid "WordPress XML"
-msgstr ""
+msgstr "WordPress XML"
 
-#: templates/admin/export.php:156
+#: templates/admin/export.php:170
 msgid "Standard book formats"
-msgstr ""
+msgstr "Форматы стандартной книги"
 
-#: templates/admin/export.php:168
+#: templates/admin/export.php:182
 msgid "Exotic formats"
-msgstr ""
+msgstr "иностранные форматы"
 
-#: templates/admin/export.php:180
+#: templates/admin/export.php:194
 msgid "Your Theme Options"
-msgstr ""
+msgstr "Твои параметры темы"
 
-#: templates/admin/export.php:187
+#: templates/admin/export.php:201
 msgid "Change Theme"
-msgstr ""
+msgstr "изменить тему"
 
-#: templates/admin/export.php:188
+#: templates/admin/export.php:202
 msgid "Options"
-msgstr ""
+msgstr "параметры"
 
-#: templates/admin/export.php:195
+#: templates/admin/export.php:209
 msgid "Export Your Book"
-msgstr ""
+msgstr "экспортировать книгу"
 
-#: templates/admin/export.php:203
+#: templates/admin/export.php:217
 msgid "Latest Export"
-msgstr ""
+msgstr "Последний экспорт"
 
-#: templates/admin/export.php:203 templates/admin/export.php:206
+#: templates/admin/export.php:217 templates/admin/export.php:220
 #, php-format
 msgctxt "Date and time string, e.g. \"January 1, 2016 at 12:00pm"
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: templates/admin/export.php:206
+#: templates/admin/export.php:220
 msgid "Exported"
-msgstr ""
+msgstr "экспортируемый"
 
-#: templates/admin/export.php:271
+#: templates/admin/export.php:285
 msgid "Are you sure you want to delete ALL your current exports?"
-msgstr ""
+msgstr "Вы уверены, что вы хотите удалить весь текущий экспорт?"
 
-#: templates/admin/export.php:271
+#: templates/admin/export.php:285
 msgid "Delete All Exports"
-msgstr ""
+msgstr "Удалить весь экспорт"
 
 #: templates/admin/import.php:20
 msgid "WXR (WordPress eXtended RSS)"
-msgstr ""
+msgstr "WXR (WordPress eXtended RSS)"
 
 #: templates/admin/import.php:22
 msgid "ODT (word processing file format of OpenDocument)"
-msgstr ""
+msgstr "ODT (обработка текстов файлового формата OpenDocument)"
 
 #: templates/admin/import.php:23
 msgid "DOCX (word processing file format of Microsoft)"
-msgstr ""
+msgstr "DOCX (обработка текстов файлового формата Microsoft)"
 
 #: templates/admin/import.php:24
 msgid "HTML (scrape content from a URL)"
-msgstr ""
+msgstr "HTML (содержание с URL)"
 
 #: templates/admin/import.php:36
 #, php-format
@@ -3287,19 +3287,19 @@ msgstr ""
 
 #: templates/admin/import.php:56
 msgid "Are you sure you want to abort the import?"
-msgstr ""
+msgstr "Ви впевнені, що ви хочете припинити імпорт?"
 
 #: templates/admin/import.php:82
 msgid "Other"
-msgstr ""
+msgstr "другие"
 
 #: templates/admin/import.php:116
 msgid "Import as drafts"
-msgstr ""
+msgstr "Импорт как проект"
 
 #: templates/admin/import.php:119
 msgid "Import Selection"
-msgstr ""
+msgstr "выбор импорта"
 
 #: templates/admin/import.php:121
 msgid "Cancel"
@@ -3307,15 +3307,15 @@ msgstr "Выход"
 
 #: templates/admin/import.php:154
 msgid "Supported file extensions:"
-msgstr ""
+msgstr "Поддержание расширение файла:"
 
 #: templates/admin/import.php:155
 msgid "Maximum file size:"
-msgstr ""
+msgstr "Максимальный размер файла"
 
 #: templates/admin/import.php:165
 msgid "Type of file"
-msgstr ""
+msgstr "Тип файла"
 
 #: templates/admin/import.php:177
 msgid "File"
@@ -3323,21 +3323,21 @@ msgstr "Файл"
 
 #: templates/admin/import.php:190
 msgid "Upload file"
-msgstr ""
+msgstr "скачать файл"
 
 #: templates/admin/organize.php:21 templates/admin/organize.php:23
 msgid "This book's global privacy is set to"
-msgstr ""
+msgstr "Глобальная конфиденциальность книги устанавливается на"
 
 #: templates/admin/organize.php:27
 msgid "Promote your book, set individual chapters privacy below."
-msgstr ""
+msgstr "Рекламировать книгу, установить конфиденциальность отдельных разделов ниже."
 
 #: templates/admin/organize.php:30
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "privacy settings below."
-msgstr ""
+msgstr "Только пользователи которых вы приглашаете могут просмотреть вашу книгу, независимо от настроек конфиденциальности отдельной раздела ниже."
 
 #: templates/admin/organize.php:39
 msgid "Chapters"
@@ -3345,19 +3345,19 @@ msgstr "Главы"
 
 #: templates/admin/organize.php:44
 msgid "Add Front Matter"
-msgstr ""
+msgstr "Додати вступну частину"
 
 #: templates/admin/organize.php:45
 msgid "Add Back Matter"
-msgstr ""
+msgstr "Добавить заднюю часть"
 
 #: templates/admin/organize.php:46
 msgid "Add Chapter"
-msgstr ""
+msgstr "Добавить раздел"
 
 #: templates/admin/organize.php:47 templates/admin/organize.php:149
 msgid "Add Part"
-msgstr ""
+msgstr "Добавить часть"
 
 #: templates/admin/organize.php:80 templates/admin/organize.php:156
 msgid "Comments"
@@ -3369,34 +3369,34 @@ msgstr "Статус"
 
 #: templates/admin/organize.php:83 templates/admin/organize.php:159
 msgid "Show Title"
-msgstr ""
+msgstr "Показать заголовок"
 
 #: templates/admin/organize.php:86 templates/admin/organize.php:127
 #: templates/admin/organize.php:161 templates/admin/organize.php:195
 #: themes-book/pressbooks-book/page.php:11
 #: themes-book/pressbooks-book/single.php:5
 msgid "Edit"
-msgstr ""
+msgstr "редактировать"
 
 #: templates/admin/organize.php:104 templates/admin/organize.php:172
 msgid "Ebook start point"
-msgstr ""
+msgstr "Начальная точка электронной книги"
 
 #: templates/admin/organize.php:220
 msgid "Reordering Chapters"
-msgstr ""
+msgstr "Просмотр разделов"
 
 #: templates/admin/organize.php:225
 msgid "Reordering Front Matter"
-msgstr ""
+msgstr "Просмотр вступительной части"
 
 #: templates/admin/organize.php:230
 msgid "Reordering Back Matter"
-msgstr ""
+msgstr "Просмотр задней части"
 
 #: templates/admin/results.php:4
 msgid "Results"
-msgstr ""
+msgstr "Результати"
 
 #: templates/admin/results.php:6
 #, php-format
@@ -3405,7 +3405,7 @@ msgstr ""
 
 #: templates/admin/results.php:21
 msgid "There are no results."
-msgstr ""
+msgstr "Нет результатов."
 
 #: templates/admin/search.php:5
 msgid ""
@@ -3423,31 +3423,31 @@ msgstr ""
 
 #: templates/admin/search.php:10
 msgid "Search Within"
-msgstr ""
+msgstr "Искать в"
 
 #: templates/admin/search.php:34
 msgid "Result Order"
-msgstr ""
+msgstr "результат заказа"
 
 #: templates/admin/search.php:39
 msgid "Ascending"
-msgstr ""
+msgstr "восходящий"
 
 #: templates/admin/search.php:40
 msgid "Descending"
-msgstr ""
+msgstr "нисходящий"
 
 #: templates/admin/search.php:45
 msgid "Search For"
-msgstr ""
+msgstr "Искать"
 
 #: templates/admin/search.php:51
 msgid "Replace With"
-msgstr ""
+msgstr "Замінити"
 
 #: templates/admin/search.php:62
 msgid "Preview Replacements"
-msgstr ""
+msgstr "Просмотр замены"
 
 #: templates/admin/search.php:63
 msgid "Replace &amp; Save"
@@ -3460,7 +3460,7 @@ msgstr ""
 #: templates/pb-catalog.php:173
 #: themes-book/pressbooks-book/page-cover-top-block.php:8
 msgid "login"
-msgstr ""
+msgstr "логин"
 
 #: templates/pb-catalog.php:175
 #: themes-book/pressbooks-book/page-cover-top-block.php:10
@@ -3472,15 +3472,15 @@ msgstr "выйти"
 #: themes-book/pressbooks-book/sidebar.php:10
 #: themes-root/pressbooks-publisher/templates/header.php:6
 msgid "Admin"
-msgstr ""
+msgstr "Адмін"
 
 #: templates/pb-catalog.php:227
 msgid "Catalog"
-msgstr ""
+msgstr "Каталог"
 
 #: templates/pb-catalog.php:227
 msgid "filtering by"
-msgstr ""
+msgstr "фильтрация по"
 
 #: templates/pb-catalog.php:252
 msgid ""
@@ -3490,24 +3490,24 @@ msgstr ""
 
 #: templates/pb-catalog.php:256
 msgid "Pressbooks: the CMS for Books."
-msgstr ""
+msgstr "Пресбук: CMS для книг"
 
 #: tests/test-options.php:69
 msgid "Mock settings."
-msgstr ""
+msgstr "Фіктивні налаштування."
 
 #: tests/test-options.php:102
 msgid "Mock"
-msgstr ""
+msgstr "поддельный"
 
 #: tests/test-registration.php:21
 msgid "Create Site"
-msgstr ""
+msgstr "Создать сайт"
 
 #: themes-book/pressbooks-book/comments.php:3
 msgid ""
 "This post is password protected. Enter the password to view any comments."
-msgstr ""
+msgstr "Цей пост захищений паролем. Введіть пароль, щоб переглянути коментарі."
 
 #: themes-book/pressbooks-book/comments.php:13
 #, php-format
@@ -3531,21 +3531,21 @@ msgstr ""
 
 #: themes-book/pressbooks-book/comments.php:48
 msgid "Submit"
-msgstr ""
+msgstr "Подтвердить"
 
 #: themes-book/pressbooks-book/content-none.php:2
 msgid "Nothing Found"
-msgstr ""
+msgstr "Ничего не найдено"
 
 #: themes-book/pressbooks-book/content-none.php:3
 msgid ""
 "Sorry, but nothing matched your search terms. Please try again with some "
 "different keywords."
-msgstr ""
+msgstr "Извините, но ничто не соответствует критериям поиска. Пожалуйста, попробуйте снова, с другими ключевыми словами."
 
 #: themes-book/pressbooks-book/content-social-footer.php:4
 msgid "I wanted to share this post with you from"
-msgstr ""
+msgstr "Я хочу поделиться этим постом с вами от"
 
 #: themes-book/pressbooks-book/content-social-footer.php:5
 msgid "Email to a friend"
@@ -3562,15 +3562,15 @@ msgstr "Название Книги"
 #. Description of the plugin/theme
 #: themes-book/pressbooks-book/footer.php:49
 msgid "Simple Book Production"
-msgstr ""
+msgstr "Простая книжная продукция"
 
 #: themes-book/pressbooks-book/functions.php:16
 msgid "Contributing Author"
-msgstr ""
+msgstr "дополнительный автор"
 
 #: themes-book/pressbooks-book/functions.php:19
 msgid "Keywords/Tags"
-msgstr ""
+msgstr "Ключевые слова, теги"
 
 #: themes-book/pressbooks-book/functions.php:181
 msgid "Previous"
@@ -3609,20 +3609,20 @@ msgstr ""
 #: themes-book/pressbooks-book/functions.php:244
 #: themes-book/pressbooks-book/functions.php:264
 msgid "(Edit)"
-msgstr ""
+msgstr "(Редактировать)"
 
 #: themes-book/pressbooks-book/functions.php:247
 msgid "Your comment is awaiting moderation."
-msgstr ""
+msgstr "Ваш комментарий ожидает модерации."
 
 #: themes-book/pressbooks-book/functions.php:264
 msgid "Pingback:"
-msgstr ""
+msgstr "сообщение:"
 
 #: themes-book/pressbooks-book/functions.php:420
 #: themes-book/pressbooks-book/page-cover-private-block.php:2
 msgid "Make your own books on Pressbooks"
-msgstr ""
+msgstr "Создать собственную книгу в Пресбуке"
 
 #: themes-book/pressbooks-book/header.php:31
 #, php-format
@@ -3675,11 +3675,11 @@ msgstr ""
 
 #: themes-book/pressbooks-book/page-buy.php:43
 msgid "Elsewhere"
-msgstr ""
+msgstr "В іншому місці"
 
 #: themes-book/pressbooks-book/page-buy.php:43
 msgid "Purchase here:"
-msgstr ""
+msgstr "Купить здесь:"
 
 #: themes-book/pressbooks-book/page-cover-fourth-block.php:19
 msgid "Other books"
@@ -3693,19 +3693,19 @@ msgstr "Описание Книги"
 #: themes-book/pressbooks-book/page-cover-second-block.php:17
 #: themes-book/pressbooks-book/page-cover-second-block.php:18
 msgid "Check out this great book on Pressbooks."
-msgstr ""
+msgstr "Перевірити цю відмінну книгу у Пресбук"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:16
 msgid "Tweet"
-msgstr ""
+msgstr "Твит"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:17
 msgid "Like"
-msgstr ""
+msgstr "Нравится"
 
 #: themes-book/pressbooks-book/page-cover-second-block.php:18
 msgid "+1"
-msgstr ""
+msgstr "+1"
 
 #: themes-book/pressbooks-book/page-cover-top-block.php:58
 msgid "Read"
@@ -3717,7 +3717,7 @@ msgstr "Скачать в следующих форматах:"
 
 #: themes-book/pressbooks-book/page.php:13
 msgid "Pages:"
-msgstr ""
+msgstr "Страници:"
 
 #: themes-book/pressbooks-book/search.php:5
 #, php-format
@@ -3726,7 +3726,7 @@ msgstr ""
 
 #: themes-book/pressbooks-book/sidebar.php:13
 msgid "Home"
-msgstr ""
+msgstr "Главная страница"
 
 #: themes-book/pressbooks-book/sidebar.php:23
 msgid "Close"
@@ -3734,7 +3734,7 @@ msgstr "Закрыть"
 
 #: themes-root/pressbooks-publisher/404.php:4
 msgid "Sorry, but this page does not exist."
-msgstr ""
+msgstr "Извините, но эта страница не существует."
 
 #: themes-root/pressbooks-publisher/base.php:14
 #: themes-root/pressbooks-publisher/header-wp-signup.php:14
@@ -3751,19 +3751,19 @@ msgstr ""
 
 #: themes-root/pressbooks-publisher/lib/admin.php:12
 msgid "Catalog updated."
-msgstr ""
+msgstr "Каталог обновлен."
 
 #: themes-root/pressbooks-publisher/lib/admin.php:13
 msgid "Sorry, but your catalog was not updated. Please try again."
-msgstr ""
+msgstr "Простите, но ваш каталог ни был обновлен. Пожалуйста попробуйте еще раз."
 
 #: themes-root/pressbooks-publisher/lib/admin.php:14
 msgid "Dismiss this notice."
-msgstr ""
+msgstr "Удалить ето уведомление."
 
 #: themes-root/pressbooks-publisher/lib/admin.php:36
 msgid "In Catalog"
-msgstr ""
+msgstr "У каталоге"
 
 #: themes-root/pressbooks-publisher/lib/admin.php:46
 msgid "This book is private, so you can&rsquo;t display it in your catalog."
@@ -3776,27 +3776,27 @@ msgstr "О нас"
 
 #: themes-root/pressbooks-publisher/lib/customizer.php:17
 msgid "Add a description of your collection or institution below."
-msgstr ""
+msgstr "Удалить это сообщение."
 
 #: themes-root/pressbooks-publisher/lib/customizer.php:49
 msgid "Columns"
-msgstr ""
+msgstr "Колонки"
 
 #: themes-root/pressbooks-publisher/lib/customizer.php:50
 msgid "Display your intro text in one or two columns."
-msgstr ""
+msgstr "Отобразить вступление текста в одной или в двух колонках."
 
 #: themes-root/pressbooks-publisher/lib/customizer.php:54
 msgid "One column"
-msgstr ""
+msgstr "Одна колонка"
 
 #: themes-root/pressbooks-publisher/lib/customizer.php:55
 msgid "Two columns"
-msgstr ""
+msgstr "Две колонки"
 
 #: themes-root/pressbooks-publisher/lib/extras.php:26
 msgid "Continued"
-msgstr ""
+msgstr "длительный"
 
 #: themes-root/pressbooks-publisher/lib/titles.php:13
 msgid "Latest Posts"
@@ -3821,25 +3821,25 @@ msgstr "Мои книги"
 
 #: themes-root/pressbooks-publisher/templates/header.php:12
 msgid "Sign Out"
-msgstr ""
+msgstr "выйти"
 
 #: themes-root/pressbooks-publisher/templates/header.php:32
 msgid "Sign In"
-msgstr ""
+msgstr "Ввойти"
 
 #: themes-root/pressbooks-publisher/templates/header.php:34
 msgid "Register"
-msgstr ""
+msgstr "регистрироваться"
 
 #. Plugin Name of the plugin/theme
 msgid "Pressbooks"
-msgstr ""
+msgstr "Пресбук"
 
 #. Plugin URI of the plugin/theme
 #. Author URI of the plugin/theme
 msgid "https://pressbooks.com"
-msgstr ""
+msgstr "https://pressbooks.com"
 
 #. Author of the plugin/theme
 msgid "Book Oven Inc."
-msgstr ""
+msgstr "Book Oven Inc."

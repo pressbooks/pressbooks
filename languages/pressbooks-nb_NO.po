@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2017-04-04 14:56-0300\n"
-"PO-Revision-Date: 2017-04-04 17:56+0000\n"
+"POT-Creation-Date: 2017-04-06 13:56-0300\n"
+"PO-Revision-Date: 2017-04-06 16:56+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/pressbooks/pressbooks/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -533,7 +533,7 @@ msgid "Book Info"
 msgstr "Bokinformasjon"
 
 #: includes/admin/pb-laf.php:154 includes/admin/pb-laf.php:202
-#: templates/admin/export.php:115 templates/admin/organize.php:43
+#: templates/admin/export.php:129 templates/admin/organize.php:43
 #: templates/admin/organize.php:84 templates/admin/organize.php:160
 msgid "Export"
 msgstr ""
@@ -581,10 +581,10 @@ msgstr ""
 
 #: includes/admin/pb-laf.php:586
 msgid ""
-"Are you sure you want to unlock your theme? Your book will update to the "
-"current version of your theme, which may change your book&rsquo;s appearance"
-" and page count. Once you save your settings, this action will NOT be "
-"reversable!"
+"Are you sure you want to unlock your theme? This will update your book to "
+"the most recent version of your selected theme, which may change your "
+"book&rsquo;s appearance and page count. Once you save your settings on this "
+"page, this action will NOT be reversable!"
 msgstr ""
 
 #: includes/admin/pb-laf.php:634
@@ -1449,11 +1449,11 @@ msgid ""
 "write access to the uploads directory."
 msgstr ""
 
-#: includes/class-pb-themelock.php:113
+#: includes/class-pb-themelock.php:101
 msgid "Your book&rsquo;s theme has been unlocked."
 msgstr ""
 
-#: includes/class-pb-themelock.php:166
+#: includes/class-pb-themelock.php:154
 #, php-format
 msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
@@ -1696,7 +1696,7 @@ msgid "These options apply universally to webbook, PDF and ebook exports."
 msgstr ""
 
 #: includes/modules/themeoptions/class-pb-globaloptions.php:254
-#: templates/admin/export.php:90
+#: templates/admin/export.php:104
 msgid "and"
 msgstr ""
 
@@ -2209,7 +2209,7 @@ msgid ""
 "cover/\">here</a>."
 msgstr ""
 
-#: includes/pb-image.php:344 templates/admin/export.php:259
+#: includes/pb-image.php:344 templates/admin/export.php:273
 #: templates/admin/organize.php:89 templates/admin/organize.php:127
 #: templates/admin/organize.php:195
 msgid "Are you sure you want to delete this?"
@@ -3142,119 +3142,119 @@ msgstr ""
 msgid "Customize your Pressbooks dashboard below."
 msgstr ""
 
-#: templates/admin/export.php:89
+#: templates/admin/export.php:103
 #, php-format
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
 msgstr ""
 
-#: templates/admin/export.php:98
+#: templates/admin/export.php:112
 msgid "Error: The export failed. See logs for more details."
 msgstr ""
 
-#: templates/admin/export.php:104
+#: templates/admin/export.php:118
 msgid "Warning: The export has validation errors. See logs for more details."
 msgstr ""
 
-#: templates/admin/export.php:105
+#: templates/admin/export.php:119
 msgid "Emailed to:"
 msgstr ""
 
-#: templates/admin/export.php:116
+#: templates/admin/export.php:130
 #, php-format
 msgid ""
 "You can export multiple file formats by selecting your Export Format Options"
 " below. Pressbooks saves your last %s batches of exported files."
 msgstr ""
 
-#: templates/admin/export.php:121
+#: templates/admin/export.php:135
 msgid "Your Export Format Options"
 msgstr ""
 
-#: templates/admin/export.php:122
+#: templates/admin/export.php:136
 msgid "Select which formats you want to export"
 msgstr ""
 
-#: templates/admin/export.php:140
+#: templates/admin/export.php:154
 msgid "PDF (for print)"
 msgstr ""
 
-#: templates/admin/export.php:141
+#: templates/admin/export.php:155
 msgid "PDF (for digital distribution)"
 msgstr ""
 
-#: templates/admin/export.php:142 templates/admin/import.php:21
+#: templates/admin/export.php:156 templates/admin/import.php:21
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
 msgstr ""
 
-#: templates/admin/export.php:143
+#: templates/admin/export.php:157
 msgid "MOBI (for Kindle)"
 msgstr ""
 
-#: templates/admin/export.php:146
+#: templates/admin/export.php:160
 msgid "EPUB 3 (beta)"
 msgstr ""
 
-#: templates/admin/export.php:147
+#: templates/admin/export.php:161
 msgid "XHTML"
 msgstr ""
 
-#: templates/admin/export.php:148
+#: templates/admin/export.php:162
 msgid "OpenDocument (beta)"
 msgstr ""
 
-#: templates/admin/export.php:149
+#: templates/admin/export.php:163
 msgid "Pressbooks XML"
 msgstr ""
 
-#: templates/admin/export.php:150
+#: templates/admin/export.php:164
 msgid "WordPress XML"
 msgstr ""
 
-#: templates/admin/export.php:156
+#: templates/admin/export.php:170
 msgid "Standard book formats"
 msgstr ""
 
-#: templates/admin/export.php:168
+#: templates/admin/export.php:182
 msgid "Exotic formats"
 msgstr ""
 
-#: templates/admin/export.php:180
+#: templates/admin/export.php:194
 msgid "Your Theme Options"
 msgstr ""
 
-#: templates/admin/export.php:187
+#: templates/admin/export.php:201
 msgid "Change Theme"
 msgstr ""
 
-#: templates/admin/export.php:188
+#: templates/admin/export.php:202
 msgid "Options"
 msgstr ""
 
-#: templates/admin/export.php:195
+#: templates/admin/export.php:209
 msgid "Export Your Book"
 msgstr ""
 
-#: templates/admin/export.php:203
+#: templates/admin/export.php:217
 msgid "Latest Export"
 msgstr ""
 
-#: templates/admin/export.php:203 templates/admin/export.php:206
+#: templates/admin/export.php:217 templates/admin/export.php:220
 #, php-format
 msgctxt "Date and time string, e.g. \"January 1, 2016 at 12:00pm"
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: templates/admin/export.php:206
+#: templates/admin/export.php:220
 msgid "Exported"
 msgstr ""
 
-#: templates/admin/export.php:271
+#: templates/admin/export.php:285
 msgid "Are you sure you want to delete ALL your current exports?"
 msgstr ""
 
-#: templates/admin/export.php:271
+#: templates/admin/export.php:285
 msgid "Delete All Exports"
 msgstr ""
 
