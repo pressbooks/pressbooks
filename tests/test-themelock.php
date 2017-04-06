@@ -26,6 +26,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	 */
 	public function test_toggleThemeLock() {
 		$time = time();
+		sleep( 10 );
 		$theme = wp_get_theme();
 		$result = \Pressbooks\ThemeLock::toggleThemeLock( array(), array( 'theme_lock' => 1 ), 'pressbooks_export_options' );
 
@@ -49,6 +50,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	 */
 	public function test_lockTheme() {
 		$time = time();
+		sleep( 10 );
 		$theme = wp_get_theme();
 
 		$result = \Pressbooks\ThemeLock::lockTheme();
@@ -81,6 +83,8 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	 */
 	public function test_generateLock() {
 		$time = time();
+		sleep( 10 );
+
 		$theme = wp_get_theme();
 
 		$result = \Pressbooks\ThemeLock::generateLock( $time );
@@ -130,6 +134,8 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	*/
 	public function test_getLockData() {
 		$time = time();
+		sleep( 10 );
+
 		$theme = wp_get_theme();
 
 		\Pressbooks\ThemeLock::generateLock( $time );
