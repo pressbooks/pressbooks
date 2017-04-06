@@ -103,12 +103,6 @@ class ThemeLock {
 	}
 
 	static function unlockTheme() {
-		if ( ! WP_Filesystem() ) {
-			exit;
-		}
-
-		global $wp_filesystem;
-
 		rmrdir( ThemeLock::getLockDir() );
 		$_SESSION['pb_notices'][] = sprintf( '<strong>%s</strong>', __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ) );
 
