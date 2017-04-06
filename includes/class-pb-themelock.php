@@ -41,11 +41,9 @@ class ThemeLock {
 	 */
 	static function toggleThemeLock( $old_value, $value, $option ) {
 		if ( isset( $value['theme_lock'] ) && 1 == $value['theme_lock'] ) {
-			wp_die('Should lock now.');
 			return ThemeLock::lockTheme();
 		} else {
-			wp_die('Should unlock now.');
-		return ThemeLock::unlockTheme();
+			return ThemeLock::unlockTheme();
 		}
 	}
 
@@ -82,6 +80,7 @@ class ThemeLock {
 
 	static function copyAssets() {
 		if ( ! WP_Filesystem() ) {
+			wp_die('Lacking credentials.');
 			exit;
 		}
 
