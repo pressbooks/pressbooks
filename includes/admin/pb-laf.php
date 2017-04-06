@@ -583,7 +583,7 @@ function init_css_js() {
 		wp_enqueue_script( 'pressbooks/theme-lock', \Pressbooks\Utility\asset_path( 'scripts/theme-lock.js' ), [ 'jquery' ] );
 		wp_localize_script( 'pressbooks/theme-lock', 'PB_ThemeLockToken', array(
 			// Strings
-			'confirmation' => __( 'Are you sure you want to unlock your theme? Your book will update to the current version of your theme, which may change your book&rsquo;s appearance and page count. Once you save your settings, this action will NOT be reversable!', 'pressbooks' ),
+			'confirmation' => __( 'Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!', 'pressbooks' ),
 		) );
 	}
 
