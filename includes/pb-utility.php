@@ -738,7 +738,7 @@ function mail_from_name( $name ) {
  */
 
 function delete_directory( $dirpath ) {
-	if ( ! WP_Filesystem() ) {
+	if ( ! \WP_Filesystem() ) {
 		exit;
 	}
 
