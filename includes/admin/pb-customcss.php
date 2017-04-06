@@ -287,6 +287,10 @@ function load_css_from() {
 			$css = $sass->compile( $scss, $includes );
 
 			$css = fix_url_paths( $css, $uri_to_style );
+
+			$uri = $theme->get( 'ThemeURI' );
+
+			$css = "/*\n Theme URI: {$uri}\n*/\n" . $css;
 		}
 	}
 
