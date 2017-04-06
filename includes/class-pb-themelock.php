@@ -85,6 +85,8 @@ class ThemeLock {
 
 		global $wp_filesystem;
 
+		die( realpath( get_stylesheet_directory() ) );
+
 		return copy_dir( realpath( get_stylesheet_directory() ), ThemeLock::getLockDir() );
 	}
 
