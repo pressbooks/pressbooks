@@ -41,9 +41,11 @@ class ThemeLock {
 	 */
 	static function toggleThemeLock( $old_value, $value, $option ) {
 		if ( isset( $value['theme_lock'] ) && 1 == $value['theme_lock'] ) {
+			wp_die('Should lock now.');
 			return ThemeLock::lockTheme();
 		} else {
-			return ThemeLock::unlockTheme();
+			wp_die('Should unlock now.');
+		return ThemeLock::unlockTheme();
 		}
 	}
 
@@ -84,8 +86,6 @@ class ThemeLock {
 		}
 
 		global $wp_filesystem;
-
-		die( realpath( get_stylesheet_directory() ) );
 
 		return copy_dir( realpath( get_stylesheet_directory() ), ThemeLock::getLockDir() );
 	}
