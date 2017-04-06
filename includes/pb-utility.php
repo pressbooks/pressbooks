@@ -738,6 +738,10 @@ function mail_from_name( $name ) {
  */
 
 function delete_directory( $dirpath ) {
+	if ( ! function_exists( '\\WP_Filesystem' ) ) {
+		require_once( ABSPATH . 'wp-admin/includes/file.php' );
+	}
+
 	if ( ! \WP_Filesystem() ) {
 		exit;
 	}
