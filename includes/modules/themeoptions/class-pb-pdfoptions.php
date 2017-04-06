@@ -1578,13 +1578,15 @@ class PDFOptions extends \Pressbooks\Options {
 					$scss .= "\$recto-verso-first-section-opening: right; \n";
 					$scss .= "\$recto-verso-section-opening: right; \n";
 				} else {
-					$scss .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: right; } \n";
+					$scss .= "#title-page, #toc, div.part, div.front-matter, div.front-matter.introduction, div.front-matter + div.front-matter, div.chapter, div.chapter + div.chapter, div.back-matter, div.back-matter + div.back-matter, #half-title-page h1.title:first-of-type  { page-break-before: right; } \n";
+					$scss .= "#copyright-page { page-break-before: left; }\n";
 				}
 			} elseif ( 'remove' == $options['pdf_sectionopenings'] ) {
 				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
 					$scss .= "\$recto-verso-standard-opening: auto; \n";
 					$scss .= "\$recto-verso-first-section-opening: auto; \n";
 					$scss .= "\$recto-verso-section-opening: auto; \n";
+					$scss .= "\$recto-verso-copyright-page-opening: auto; \n";
 				} else {
 					$scss .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: auto; } \n";
 				}
