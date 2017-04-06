@@ -37,7 +37,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['stylesheet'], get_stylesheet() );
 		$this->assertEquals( $result['name'], $theme->get( 'Name' ) );
 		$this->assertEquals( $result['version'], $theme->get( 'Version' ) );
-		$this->assertGreaterThanOrEqual( $result['timestamp'], $time );
+		$this->assertGreaterThanOrEqual( $time, $result['timestamp'] );
 
 		$theme = wp_get_theme();
 		$result = \Pressbooks\ThemeLock::toggleThemeLock( array( 'theme_lock' => 1 ), array(), 'pressbooks_export_options' );
@@ -62,7 +62,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result['stylesheet'], get_stylesheet() );
 		$this->assertEquals( $result['name'], $theme->get( 'Name' ) );
 		$this->assertEquals( $result['version'], $theme->get( 'Version' ) );
-		$this->assertGreaterThanOrEqual( $result['timestamp'], $time );
+		$this->assertGreaterThanOrEqual( $time, $result['timestamp'] );
 	}
 
 	/**
@@ -83,7 +83,6 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	 */
 	public function test_generateLock() {
 		$time = time();
-		sleep( 10 );
 
 		$theme = wp_get_theme();
 
