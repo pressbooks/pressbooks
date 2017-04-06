@@ -292,8 +292,9 @@ class Sass {
 
 		if ( null == $theme ) {
 			$theme = wp_get_theme();
-			$basepath = apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() );
 		}
+
+		$basepath = apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() );
 
 		$types = array(
 				'prince',
