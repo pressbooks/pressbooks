@@ -738,5 +738,5 @@ function mail_from_name( $name ) {
  */
 
 function delete_directory( $dirpath ) {
-	return \rmdir( $dirpath );
+	return rmrdir( $dirpath );
 }
