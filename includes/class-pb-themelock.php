@@ -80,7 +80,6 @@ class ThemeLock {
 
 	static function copyAssets() {
 		if ( ! WP_Filesystem() ) {
-			wp_die('Lacking credentials.');
 			exit;
 		}
 

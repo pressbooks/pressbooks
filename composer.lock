@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd7ffe4daf34349d25c8156d567d9f11",
+    "content-hash": "7a111d413b7e6b0f6ccb719ecdc92dff",
     "packages": [
         {
             "name": "composer/installers",
@@ -209,6 +209,48 @@
                 "stylesheet"
             ],
             "time": "2017-02-23T05:07:33+00:00"
+        },
+        {
+            "name": "perchten/rmrdir",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/perchten/php-rmrdir.git",
+                "reference": "ce8b95e509d64f339a10c3475a13ad687f1e6905"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/perchten/php-rmrdir/zipball/ce8b95e509d64f339a10c3475a13ad687f1e6905",
+                "reference": "ce8b95e509d64f339a10c3475a13ad687f1e6905",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/rmrdir.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alastair Brayne",
+                    "email": "al@perchten.co.uk",
+                    "homepage": "http://perchten.co.uk"
+                }
+            ],
+            "description": "Recusrive rmdir for PHP",
+            "homepage": "https://github.com/perchten/php-rmrdir",
+            "keywords": [
+                "dir",
+                "recursive",
+                "rm",
+                "rm -r",
+                "rmdir"
+            ],
+            "time": "2014-05-14T13:49:47+00:00"
         },
         {
             "name": "pimple/pimple",

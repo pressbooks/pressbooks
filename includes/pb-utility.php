@@ -738,19 +738,5 @@ function mail_from_name( $name ) {
  */
 
 function delete_directory( $dirpath ) {
-	if ( ! function_exists( '\\WP_Filesystem' ) ) {
-		require_once( ABSPATH . 'wp-admin/includes/file.php' );
-	}
-
-	if ( ! \WP_Filesystem() ) {
-		exit;
-	}
-
-	global $wp_filesystem;
-
-	if ( ! $wp_filesystem->is_dir( $dirpath ) ) {
-		throw new \InvalidArgumentException( "$dirpath must be a directory." );
-	}
-
-	$wp_filesystem->rmdir( $dirpath, true );
+	return \rmdir( $dirpath );
 }
