@@ -101,9 +101,9 @@ if ( $dependency_errors ) {
 	 *
 	 * Filter the array of dependency errors, remove unwanted formats.
 	 */
-	$dependency_errors = apply_filters('pb_dependency_errors', $dependency_errors);
-	if ( !empty( $dependency_errors ) ) {
-		$formats = implode( ', ', $dependency_errors );
+	$dependency_messages = apply_filters( 'pb_dependency_errors', $dependency_errors );
+	if ( !empty( $dependency_messages ) ) {
+		$formats = implode( ', ', $dependency_messages );
 		printf(
 			'<div class="error"><p>%s</p></div>',
 			sprintf(
