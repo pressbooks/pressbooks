@@ -96,15 +96,23 @@ if ( false == \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
 }
 
 if ( $dependency_errors ) {
-	$formats = implode( ', ', $dependency_errors );
-	printf(
-		'<div class="error"><p>%s</p></div>',
-		sprintf(
-			__( 'Some dependencies for %1$s exports could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ),
-			( $pos = strrpos( $formats, ', ' ) ) ? substr_replace( $formats, ', ' . __( 'and', 'pressbooks' ) . ' ', $pos, strlen( ', ' ) ) : $formats,
-			'http://docs.pressbooks.org/installation'
-		)
-	);
+	/**
+	 * @since 3.9.8
+	 *
+	 * Filter the array of dependency errors, remove unwanted formats.
+	 */
+	$dependency_errors = apply_filters('pb_dependency_errors', $dependency_errors);
+	if ( !empty( $dependency_errors ) ) {
+		$formats = implode( ', ', $dependency_errors );
+		printf(
+			'<div class="error"><p>%s</p></div>',
+			sprintf(
+				__( 'Some dependencies for %1$s exports could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ),
+				( $pos = strrpos( $formats, ', ' ) ) ? substr_replace( $formats, ', ' . __( 'and', 'pressbooks' ) . ' ', $pos, strlen( ', ' ) ) : $formats,
+				'http://docs.pressbooks.org/installation'
+			)
+		);
+	}
 }
 
 if ( ! empty( $_GET['export_error'] ) ) {
