@@ -309,6 +309,11 @@ img {
 	height: auto;
         max-width: 100%;
 }
+.wp-caption {
+  height: auto;
+  max-width: 100%;
+  margin: 1em 0;
+}
 .alignleft {
 	float: left;
 	margin: 1em 1em 1em 0;
@@ -331,11 +336,6 @@ img.aligncenter {
 	display: block;
 	margin: 1em auto;
 	text-align: center;      
-}
-.wp-caption {
-	height: auto;        
-	max-width: 100%;
-	margin: 1em 0;     
 }
 .wp-caption-text {
 	font-size: 0.875em;

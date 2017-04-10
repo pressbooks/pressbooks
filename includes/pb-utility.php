@@ -98,8 +98,6 @@ function truncate_exports( $max, $dir = null ) {
 			foreach ( $exports as $export ) {
 				$export = realpath( $dir . $export );
 
-				WP_Filesystem();
-
 				unlink( $export );
 			}
 		}
@@ -154,7 +152,19 @@ function get_media_path( $guid ) {
  * @return array
  */
 function latest_exports() {
-	$filetypes = array(
+	/**
+	 * @since 3.9.8
+	 * Add custom export formats to the latest exports filetype mapping array.
+	 *
+	 * For example, here's how one might add a hypothetical Word export format:
+	 *
+	 * add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
+	 * 	$filetypes['word'] = '.docx';
+	 *	return $filetypes;
+	 * } );
+	 *
+	 */
+	$filetypes = apply_filters( 'pb_latest_export_filetypes', array(
 	    'epub3' => '._3.epub',
 	    'epub' => '.epub',
 	    'pdf' => '.pdf',
@@ -166,7 +176,7 @@ function latest_exports() {
 	    'vanillawxr' => '._vanilla.xml',
 	    'mpdf' => '._oss.pdf',
 	    'odf' => '.odt',
-	);
+	) );
 
 	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
 
@@ -361,7 +371,12 @@ function check_saxonhe_install() {
 		}
 	}
 
-	return false;
+	/**
+	 * @since 3.9.8
+	 *
+	 * Allows the SaxonHE dependency error to be disabled.
+	 */
+	return apply_filters( 'pb_odt_has_dependencies', false );
 }
 
 /**
@@ -712,4 +727,37 @@ function mail_from_name( $name ) {
 		$name = 'Pressbooks';
 	}
 	return $name;
+}
+
+/**
+ * Recursive directory copy. Props to https://ben.lobaugh.net/blog/864/php-5-recursively-move-or-copy-files
+ *
+ * @since 3.9.8
+ * @author Ben Lobaugh <ben@lobaugh.net>
+ * @param string $src
+ * @param string $dest
+ * @return bool
+ */
+function rcopy( $src, $dest ) {
+	if ( ! is_dir( $src ) ) {
+		return false;
+	}
+
+	if ( ! is_dir( $dest ) ) {
+		if ( ! mkdir( $dest ) ) {
+			return false;
+		}
+	}
+
+	$i = new \DirectoryIterator( $src );
+	foreach ( $i as $f ) {
+		if ( $f->isFile() ) {
+			if ( false == copy( $f->getRealPath(), "$dest/" . $f->getFilename() ) ) {
+				return false;
+			}
+		} elseif ( ! $f->isDot() && $f->isDir() ) {
+			\Pressbooks\Utility\rcopy( $f->getRealPath(), "$dest/$f" );
+		}
+	}
+	return true;
 }

@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.7.2
+Version: 3.9.8
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.7.3
 Tested up to: 4.7.3
@@ -33,11 +33,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with PHP 5.6.x and WordPress 4.7. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
-
-	$pb_minimum_php = '5.4';
-
-However, we encourage you to upgrade your environment instead as [PHP 5.4 is no longer supported](http://php.net/supported-versions.php).
+ * Pressbooks works with [PHP 5.6.x](https://secure.php.net/supported-versions.php) and WordPress 4.7.3. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
@@ -103,7 +99,6 @@ However, we encourage you to upgrade your environment instead as [PHP 5.4 is no 
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
  * For EPUB validation install [EpubCheck](https://github.com/idpf/epubcheck) - Version 4.0
  * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20706
- * It is recommended that you install [sassphp](https://github.com/sensational/sassphp) for SASS compilation; however, Pressbooks includes a bundled compiler, [scssphp](https://github.com/leafo/scssphp/), and will fall back to this if sassphp is absent.
  * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl"
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
@@ -229,11 +224,35 @@ TK.
 
 == Upgrade Notice ==
 
-Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/download/).
-
-Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
+Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
 
 == Changelog ==
+
+### 3.9.8
+**NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
+
+* **Feature:** Themes can now be locked a particular version. The theme's stylesheets and other assets will be copied into the book's media directory and used for future exports (see #657, #704).
+* **Feature:** The paragraph separation option is now available for webbooks (see #655, #696).
+* **Feature:** The section openings PDF theme option now supports additional options (see #450, #691).
+* **Feature:** When export sharing is enabled, the download links are now stable, e.g. `/open/download?type=pdf` (props to @rootl for the suggestion; see #684, #699).
+* **Enhancement:** Pressbooks now supports third-party export formats (see #385 and #674).
+* **Enhancement:** `\Pressbooks\Options` field display functions have been refactored to use an array of arguments instead of a list of parameters (see #648, #697) [BREAKING CHANGE].
+* **Enhancement:** SCSS overrides have been moved into their respective theme options classes (see #452, #701).
+* **Enhancement:** Webbook interface styles have been separated from the Luther book theme's content styles (see #656, #708).
+* **Enhancement:** Webbook stylesheet and script enqueuing has been clarified and simplified (see #396).
+* **Enhancement:** Searching now excludes non-Pressbooks post types (props to @colomet for the report; see #706, #707).
+* **Enhancement:** Front-end scripts are now loaded asynchronously (props to @bdolor; see #681).
+* **Enhancement:** htmLawed is now a Composer dependency (see #702).
+* **Enhancement:** The sassphp dependency is no longer required (see #693).
+* **Enhancement:** The SaxonHE dependency check can now be overridden (see https://github.com/pressbooks/pressbooks/commit/7ea32fe).
+* **Enhancement:** [perchten/rmrdir](https://packagist.org/packages/perchten/rmrdir) is now used for recursive directory removal (see [37ab804](https://github.com/pressbooks/pressbooks/commit/37ab804489c580ad1d1121c0a07144f37772c7d0)).
+* **Enhancement:** Added \Pressbooks\Utility\rcopy() function for recursive directory copying (props to @blobaugh for the [example code](http://ben.lobaugh.net/blog/864/php-5-recursively-move-or-copy-files); see [52b087b](https://github.com/pressbooks/pressbooks/commit/52b087b5e2185ea08c6f67c24111ad9ef0ee1fa0)).
+* **Enhancement:** Added `pb_dependency_errors` filter hook for suppression of dependency errors (see #719).
+* **Fix:** Images on custom title pages are now exported as expected in EPUB and Kindle (see #690, #698).
+* **Fix:** The diagnostics page now functions as expected on the root blog (props to @colomet for the report; see #688, #695);
+* **Fix:** Print PDF exports are now available for download when export sharing is enabled (props to @bdolor; see #677).
+* **Fix:** Numberless chapters no longer display a lonely period in PDF outputs from SCSS v2 themes (props to @thomasdumm for the report; see #670).
+* **Fix:** Importing as a draft now works for EPUB imports (props to @thomasdumm for the report; see #668).
 
 ### 3.9.7.2
 **NOTICE:** Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/news/2017/03/wordpress-4-7-3-security-and-maintenance-release/).

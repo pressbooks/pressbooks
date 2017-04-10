@@ -46,6 +46,13 @@ if ( false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
 	$prince = true;
 }
 
+if ( false == \Pressbooks\Modules\Export\Prince\PrintPdf::hasDependencies() ) {
+	$prince = false;
+	$dependency_errors['print_pdf'] = 'Print PDF';
+} else {
+	$prince = true;
+}
+
 if ( false == \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
 	$epub = false;
 	$dependency_errors['epub'] = 'EPUB';
@@ -58,6 +65,13 @@ if ( false == \Pressbooks\Modules\Export\Mobi\Kindlegen::hasDependencies() ) {
 	$dependency_errors['mobi'] = 'MOBI';
 } else {
 	$mobi = true;
+}
+
+if ( false == \Pressbooks\Modules\Export\Epub\Epub3::hasDependencies() ) {
+	$epub3 = false;
+	$dependency_errors['epub3'] = 'EPUB3';
+} else {
+	$epub3 = true;
 }
 
 if ( false == \Pressbooks\Modules\Export\Xhtml\Xhtml11::hasDependencies() ) {
@@ -82,15 +96,23 @@ if ( false == \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
 }
 
 if ( $dependency_errors ) {
-	$formats = implode( ', ', $dependency_errors );
-	printf(
-		'<div class="error"><p>%s</p></div>',
-		sprintf(
-			__( 'Some dependencies for %1$s exports could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ),
-			( $pos = strrpos( $formats, ', ' ) ) ? substr_replace( $formats, ', ' . __( 'and', 'pressbooks' ) . ' ', $pos, strlen( ', ' ) ) : $formats,
-			'http://docs.pressbooks.org/installation'
-		)
-	);
+	/**
+	 * @since 3.9.8
+	 *
+	 * Filter the array of dependency errors, remove unwanted formats.
+	 */
+	$dependency_messages = apply_filters( 'pb_dependency_errors', $dependency_errors );
+	if ( ! empty( $dependency_messages ) ) {
+		$formats = implode( ', ', $dependency_messages );
+		printf(
+			'<div class="error"><p>%s</p></div>',
+			sprintf(
+				__( 'Some dependencies for %1$s exports could not be found. Please verify that you have completed the <a href="%2$s">installation instructions</a>.', 'pressbooks' ),
+				( $pos = strrpos( $formats, ', ' ) ) ? substr_replace( $formats, ', ' . __( 'and', 'pressbooks' ) . ' ', $pos, strlen( ', ' ) ) : $formats,
+				'http://docs.pressbooks.org/installation'
+			)
+		);
+	}
 }
 
 if ( ! empty( $_GET['export_error'] ) ) {
@@ -121,37 +143,68 @@ if ( ! empty( $_GET['export_warning'] ) && ( 1 == $exportoptions['email_validati
 	<h3><?php _e( 'Your Export Format Options', 'pressbooks' ); ?></h3>
 	<p><?php _e( 'Select which formats you want to export', 'pressbooks' ); ?>.</p>
 
+<?php
+/**
+ * @since 3.9.8
+ * Add custom export formats to the export page format list.
+ *
+ * For example, here's how one might add a hypothetical Word export format:
+ *
+ * add_filter( 'pb_export_formats', function ( $formats ) {
+ * 	$formats['exotic']['docx'] = __( 'Word (Beta)', 'pressbooks' );
+ *	return $formats;
+ * } );
+ *
+ */
+
+$formats = apply_filters( 'pb_export_formats', array(
+	'standard' => array(
+		'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
+		'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
+		'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
+		'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
+	),
+	'exotic' => array(
+		'epub3' => __( 'EPUB 3 (beta)', 'pressbooks' ),
+		'xhtml' => __( 'XHTML', 'pressbooks' ),
+		'odt' => __( 'OpenDocument (beta)', 'pressbooks' ),
+		'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
+		'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
+	),
+) ); ?>
+
 	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 	    <fieldset class="standard">
 				<legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
-	  		<input type="checkbox" id="print_pdf" name="export_formats[print_pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="print_pdf"> <?php _e( 'PDF (for print)', 'pressbooks' ); ?></label><br />
-				<input type="checkbox" id="pdf" name="export_formats[pdf]" value="1" <?php if ( false == $prince ) { ?>disabled <?php } ?>/><label for="pdf"> <?php _e( 'PDF (for digital distribution)', 'pressbooks' ); ?></label><br />
-				<?php if ( true == \Pressbooks\Modules\Export\Mpdf\Pdf::hasDependencies() ) { ?>
-					<input type="checkbox" id="mpdf" name="export_formats[mpdf]" value="1" /><label for="mpdf"> <?php _e( 'PDF (mPDF)', 'pressbooks' ); ?></label><br />
-				<?php } ?>
-				<input type="checkbox" id="epub" name="export_formats[epub]" value="1" <?php if ( false == $epub ) { ?>disabled <?php } ?>/><label for="epub"> <?php _e( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ); ?></label><br />
-		  	<input type="checkbox" id="mobi" name="export_formats[mobi]" value="1" <?php if ( false == $mobi ) { ?>disabled <?php } ?>/><label for="mobi"> <?php _e( 'MOBI (for Kindle)', 'pressbooks' ); ?></label>
-	    </fieldset>
+<?php foreach ( $formats['standard'] as $key => $value ) {
+	printf(
+		'<input type="checkbox" id="%1$s" name="export_formats[%1$s]" value="1" %2$s/><label for="%1$s"> %3$s</label><br />',
+		$key,
+		isset( $dependency_errors[ $key ] ) ? 'disabled' : '',
+		$value
+	);
+} ?>
+		    </fieldset>
 
 	    <fieldset class="exotic">
 	    <legend><?php _e( 'Exotic formats', 'pressbooks' ); ?>:</legend>
-		    <input type="checkbox" id="epub3" name="export_formats[epub3]" value="1" <?php if ( false == $epub ) { ?>disabled <?php } ?>/><label for="epub3"> <?php _e( 'EPUB 3 (beta)', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="xhtml" name="export_formats[xhtml]" value="1" <?php if ( false == $xhtml ) { ?>disabled <?php } ?>/><label for="xhtml"> <?php _e( 'XHTML', 'pressbooks' ); ?></label><br />
-				<?php if ( true == \Pressbooks\Utility\show_experimental_features() ) { ?>
-				<input type="checkbox" id="icml" name="export_formats[icml]" value="1" <?php if ( false == $icml ) { ?>disabled <?php } ?>/><label for="icml"> <?php _e( 'ICML (for InDesign)', 'pressbooks' ); ?></label><br />
-				<?php } ?>
-				<input type="checkbox" id="odt" name="export_formats[odt]" value="1" <?php if ( false == $odt ) { ?>disabled <?php } ?>/><label for="odt"> <?php _e( 'OpenDocument (beta)', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="wxr" name="export_formats[wxr]" value="1" /><label for="wxr"> <?php _e( 'Pressbooks XML', 'pressbooks' ); ?></label><br />
-	    	<input type="checkbox" id="vanillawxr" name="export_formats[vanillawxr]" value="1" /><label for="vanillawxr"> <?php _e( 'WordPress XML', 'pressbooks' ); ?></label>
+<?php foreach ( $formats['exotic'] as $key => $value ) {
+	printf(
+		'<input type="checkbox" id="%1$s" name="export_formats[%1$s]" value="1" %2$s/><label for="%1$s"> %3$s</label><br />',
+		$key,
+		isset( $dependency_errors[ $key ] ) ? 'disabled' : '',
+		$value
+	);
+} ?>
 	    </fieldset>
 	</form>
 	<div class="clear"></div>
 	<h3><?php _e( 'Your Theme Options', 'pressbooks' ); ?></h3>
 	<div class="theme">
 		<div class="theme-screenshot">
-			<img src="<?php echo get_stylesheet_directory_uri(); ?>/screenshot.png" alt="">
+			<img src="<?php echo apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ); ?>/screenshot.png" alt="">
 		</div>
-		<h3 class="theme-name"><?php echo wp_get_theme();?></h3>
+		<h3 class="theme-name"><?php echo wp_get_theme();?><?php if ( \Pressbooks\ThemeLock::isLocked() ) { echo ' <span class="dashicons dashicons-lock" style="vertical-align: text-bottom;"></span>'; } ?></h3>
 		<div class="theme-actions">
 			<a class="button button-primary" href="<?php echo get_bloginfo( 'url' ); ?>/wp-admin/themes.php"><?php _e( 'Change Theme', 'pressbooks' ); ?></a>
 			<a class="button button-secondary" href="<?php echo get_bloginfo( 'url' ); ?>/wp-admin/themes.php?page=pressbooks_theme_options"><?php _e( 'Options', 'pressbooks' ); ?></a>
@@ -201,9 +254,22 @@ foreach ( $exports as $file ) {
 	} elseif ( 'pdf' == $file_extension && '._print.pdf' == $pre_suffix ) {
 		$file_class = 'print-pdf';
 	} else {
-		$file_class = $file_extension;
+		/**
+		 * @since 3.9.8
+		 * Map custom export format file extensions to their CSS class.
+		 *
+		 * For example, here's how one might set the CSS class for a .docx file:
+		 *
+		 * add_filter( 'pb_get_export_file_class', function ( $file_extension ) {
+		 * 	if ( 'docx' == $file_extension ) {
+		 *		return 'word';
+		 * 	}
+		 *	return $file_extension;
+		 * } );
+		 *
+		 */
+		$file_class = apply_filters( 'pb_get_export_file_class', $file_extension );
 	}
-
 ?>
 	<form class="export-file" action="<?php echo $export_delete_url; ?>" method="post">
 		<input type="hidden" name="filename" value="<?php echo $file; ?>" />

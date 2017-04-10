@@ -125,7 +125,7 @@ class Epub201 extends Import {
 		$chapter_parent = $this->getChapterParent();
 
 		$this->parseMetadata( $xml );
-		$this->parseManifest( $xml, $match_ids, $chapter_parent );
+		$this->parseManifest( $xml, $match_ids, $chapter_parent, $current_import );
 
 		// Done
 		return $this->revokeCurrentImport();
@@ -163,7 +163,7 @@ class Epub201 extends Import {
 	 * @param array $match_ids
 	 * @param $chapter_parent
 	 */
-	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent ) {
+	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) {
 
 		$total = 0;
 		foreach ( $xml->manifest->children() as $item ) {
@@ -181,9 +181,11 @@ class Epub201 extends Import {
 			}
 
 			// Skip
-			if ( ! $this->flaggedForImport( $id ) ) { continue;
+			if ( ! $this->flaggedForImport( $id ) ) {
+				continue;
 			}
-			if ( ! isset( $match_ids[ $id ] ) ) { continue;
+			if ( ! isset( $match_ids[ $id ] ) ) {
+				continue;
 			}
 
 			// Insert
@@ -333,7 +335,7 @@ class Epub201 extends Import {
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
-		return htmLawed( $html, $config );
+		return \Htmlawed::filter( $html, $config );
 	}
 
 

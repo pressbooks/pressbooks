@@ -153,6 +153,11 @@
         "scripts/theme-options.js"
       ]
     },
+    "theme-lock.js": {
+      "files": [
+        "scripts/theme-lock.js"
+      ]
+    },
     "select2.js": {
       "bower": ["select2"]
     },

@@ -12,6 +12,10 @@
   page-break-before: $recto-verso-standard-opening;
 }
 
+#copyright-page {
+  page-break-before: $recto-verso-copyright-page-opening;
+}
+
 div.front-matter {
   page-break-before: $recto-verso-first-section-opening;
 

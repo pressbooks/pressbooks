@@ -149,7 +149,13 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderParagraphSeparationField( $args ) {
-		$this->renderRadioButtons( 'ebook_paragraph_separation', 'pressbooks_theme_options_' . $this->getSlug(), 'ebook_paragraph_separation', @$this->options['ebook_paragraph_separation'], $args );
+		$this->renderRadioButtons( array(
+			'id' => 'ebook_paragraph_separation',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'ebook_paragraph_separation',
+			'value' => ( isset( $this->options['ebook_paragraph_separation'] ) ) ? $this->options['ebook_paragraph_separation'] : '',
+			'choices' => $args,
+		) );
 	}
 
 	/**
@@ -157,7 +163,13 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderCompressImagesField( $args ) {
-		$this->renderCheckbox( 'ebook_compress_images', 'pressbooks_theme_options_' . $this->getSlug(), 'ebook_compress_images', @$this->options['ebook_compress_images'], $args[0] );
+		$this->renderCheckbox( array(
+			'id' => 'ebook_compress_images',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'ebook_compress_images',
+			'value' => ( isset( $this->options['ebook_compress_images'] ) ) ? $this->options['ebook_compress_images'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**
@@ -275,5 +287,43 @@ class EbookOptions extends \Pressbooks\Options {
 		return apply_filters( 'pb_theme_options_ebook_predefined', array(
 			'ebook_paragraph_separation'
 		) );
+	}
+
+	/**
+	 * Apply overrides.
+	 *
+	 * @since 3.9.8
+	 */
+	static function scssOverrides( $scss ) {
+		// --------------------------------------------------------------------
+		// Global Options
+
+		$sass = \Pressbooks\Container::get( 'Sass' );
+		$options = get_option( 'pressbooks_theme_options_global' );
+
+		if ( ! $options['chapter_numbers'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$chapter-number-display: none; \n";
+			} else {
+				$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
+			}
+		}
+
+		// --------------------------------------------------------------------
+		// Ebook Options
+
+		$options = get_option( 'pressbooks_theme_options_ebook' );
+
+		// Indent paragraphs?
+		if ( 'skiplines' == $options['ebook_paragraph_separation'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$para-margin-top: 1em; \n";
+				$scss .= "\$para-indent: 0; \n";
+			} else {
+				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
+			}
+		}
+
+		return $scss;
 	}
 }

@@ -295,4 +295,23 @@ class UtilityTest extends \WP_UnitTestCase {
 		define( 'WP_MAIL_FROM_NAME', 'Ned' );
 		$this->assertEquals( 'Ned', \Pressbooks\Utility\mail_from_name( '' ) );
 	}
+
+	/**
+	 * @covers \Pressbooks\Utility\rcopy
+	 */
+	public function test_rcopy() {
+		$uploads = wp_upload_dir();
+		$src = trailingslashit( $uploads['path'] ) . 'src';
+		$dest = trailingslashit( $uploads['path'] ) . 'dest';
+		mkdir( $src );
+		file_put_contents( $src . '/test.txt', 'test' );
+
+		$return = \Pressbooks\Utility\rcopy( $src, $dest );
+		$contents = file_get_contents( $dest . '/test.txt' );
+		$this->assertTrue( $return );
+		$this->assertEquals( 'test', $contents );
+
+		$return = \Pressbooks\Utility\rcopy( trailingslashit( $uploads['path'] ) . 'missing', $dest );
+		$this->assertEquals( $return, false );
+	}
 }
