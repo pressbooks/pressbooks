@@ -226,6 +226,10 @@ TK.
 
 Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
 
+Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/download/).
+
+Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
+
 == Changelog ==
 
 ### 3.9.8
