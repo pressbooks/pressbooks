@@ -20,22 +20,18 @@ function pb_meets_minimum_requirements() {
 
 	$is_compatible = true;
 
-	// PHP Version -- override at your own risk!
+	// PHP Version
 	global $pb_minimum_php;
-	if ( empty( $pb_minimum_php ) ) {
-		$pb_minimum_php = '5.6.0';
-	}
+	$pb_minimum_php = '5.6.0';
 
 	if ( ! version_compare( PHP_VERSION, $pb_minimum_php, '>=' ) ) {
 		add_action( 'admin_notices', '_pb_minimum_php' );
 		$is_compatible = false;
 	}
 
-	// WordPress Version -- override at your own risk!
+	// WordPress Version
 	global $pb_minimum_wp;
-	if ( empty( $pb_minimum_wp ) ) {
-		$pb_minimum_wp = '4.7.3';
-	}
+	$pb_minimum_wp = '4.7.3';
 
 	if ( ! is_multisite() || ! version_compare( get_bloginfo( 'version' ), $pb_minimum_wp, '>=' ) ) {
 		add_action( 'admin_notices', '_pb_minimum_wp' );

@@ -169,7 +169,14 @@ class PublishOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderAmazonField() {
-		$this->renderField( 'amazon', $this->getSlug(), 'amazon', @$this->options['amazon'], '', '', 'url', 'regular-text code' );
+		$this->renderField( array(
+			'id' => 'amazon',
+			'name' => $this->getSlug(),
+			'option' => 'amazon',
+			'value' => ( isset( $this->options['amazon'] ) ) ? $this->options['amazon'] : '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		) );
 	}
 
 	/**
@@ -177,7 +184,14 @@ class PublishOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderOReillyField() {
-		$this->renderField( 'oreilly', $this->getSlug(), 'oreilly', @$this->options['oreilly'], '', '', 'url', 'regular-text code' );
+		$this->renderField( array(
+			'id' => 'oreilly',
+			'name' => $this->getSlug(),
+			'option' => 'oreilly',
+			'value' => ( isset( $this->options['oreilly'] ) ) ? $this->options['oreilly'] : '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		) );
 	}
 
 	/**
@@ -185,7 +199,14 @@ class PublishOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderBarnesAndNobleField() {
-		$this->renderField( 'barnesandnoble', $this->getSlug(), 'barnesandnoble', @$this->options['barnesandnoble'], '', '', 'url', 'regular-text code' );
+		$this->renderField( array(
+			'id' => 'barnesandnoble',
+			'name' => $this->getSlug(),
+			'option' => 'barnesandnoble',
+			'value' => ( isset( $this->options['barnesandnoble'] ) ) ? $this->options['barnesandnoble'] : '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		) );
 	}
 
 	/**
@@ -193,7 +214,14 @@ class PublishOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderKoboField() {
-		$this->renderField( 'kobo', $this->getSlug(), 'kobo', @$this->options['kobo'], '', '', 'url', 'regular-text code' );
+		$this->renderField( array(
+			'id' => 'kobo',
+			'name' => $this->getSlug(),
+			'option' => 'kobo',
+			'value' => ( isset( $this->options['kobo'] ) ) ? $this->options['kobo'] : '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		) );
 	}
 
 	/**
@@ -201,7 +229,14 @@ class PublishOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderiBooksField() {
-		$this->renderField( 'ibooks', $this->getSlug(), 'ibooks', @$this->options['ibooks'], '', '', 'url', 'regular-text code' );
+		$this->renderField( array(
+			'id' => 'ibooks',
+			'name' => $this->getSlug(),
+			'option' => 'ibooks',
+			'value' => ( isset( $this->options['ibooks'] ) ) ? $this->options['ibooks'] : '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		) );
 	}
 
 	/**
@@ -209,7 +244,14 @@ class PublishOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderOtherServiceField() {
-		$this->renderField( 'otherservice', $this->getSlug(), 'otherservice', @$this->options['otherservice'], '', '', 'url', 'regular-text code' );
+		$this->renderField( array(
+			'id' => 'otherservice',
+			'name' => $this->getSlug(),
+			'option' => 'otherservice',
+			'value' => ( isset( $this->options['otherservice'] ) ) ? $this->options['otherservice'] : '',
+			'type' => 'url',
+			'class' => 'regular-text code',
+		) );
 	}
 
 	/**

@@ -1,4 +1,4 @@
-jQuery( document ).ready( function( $ ) {
+jQuery(document).ready(function($){
 	$( document ).keydown( function( e ) {
 		var url = false;
 		if ( e.which == 37 ) {  // Left arrow key code
@@ -11,4 +11,4 @@ jQuery( document ).ready( function( $ ) {
 			window.location = url;
 		}
 	} );
-} );
+});

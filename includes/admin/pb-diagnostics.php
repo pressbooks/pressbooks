@@ -33,10 +33,16 @@ function render_page() {
 		<p><?php _e( 'Please submit this information with any bug reports.', 'pressbooks' ); ?></p>
 		<textarea style="width: 800px; max-width: 100%; height: 600px; background: #fff; font-family: monospace;" readonly="readonly" onclick="this.focus(); this.select()" title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'pressbooks' ); ?>">
 <?php $output = "### System Information\n\n";
-$output .= "#### Book Info\n\n";
-$output .= 'Book ID: ' . get_current_blog_id() . "\n";
-$output .= 'Book URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n";
-$output .= 'Book Privacy: ' . ( get_bloginfo( 'blog_public' ) ? 'Public' : 'Private' ) . "\n\n";
+if ( \Pressbooks\Book::isBook() ) {
+	$output .= "#### Book Info\n\n";
+	$output .= 'Book ID: ' . get_current_blog_id() . "\n";
+	$output .= 'Book URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n";
+	$output .= 'Book Privacy: ' . ( get_bloginfo( 'blog_public' ) ? 'Public' : 'Private' ) . "\n\n";
+} else {
+	$output .= "#### Root Blog Info\n\n";
+	$output .= 'Root Blog ID: ' . get_current_blog_id() . "\n";
+	$output .= 'Root Blog URL: ' . trailingslashit( get_bloginfo( 'url' ) ) . "\n\n";
+}
 $output .= "#### Browser\n\n";
 $output .= 'Platform: ' . str_replace( 'mac', 'Mac', $browser->getPlatform() ) . "\n";
 $output .= 'Browser Name: ' . $browser->getBrowser() . "\n";
@@ -52,12 +58,24 @@ $output .= 'WP_DEBUG: ' . ( defined( 'WP_DEBUG' ) ? WP_DEBUG ? 'Enabled' : 'Disa
 $output .= 'Memory Limit: ' . WP_MEMORY_LIMIT . "\n\n";
 $output .= "#### Pressbooks Configuration\n\n";
 $output .= 'Version: ' . PB_PLUGIN_VERSION . "\n";
-$theme = wp_get_theme();
-switch_to_blog( $GLOBALS['current_site']->blog_id );
-$root_theme = wp_get_theme();
-restore_current_blog();
-$output .= 'Book Theme: ' . $theme->get( 'Name' ) . "\n";
-$output .= 'Book Theme Version: ' . $theme->get( 'Version' ) . "\n";
+if ( \Pressbooks\Book::isBook() ) {
+	switch_to_blog( $GLOBALS['current_site']->blog_id );
+	$root_theme = wp_get_theme();
+	restore_current_blog();
+	if ( \Pressbooks\ThemeLock::isLocked() ) {
+		$theme = wp_get_theme();
+		$data = \Pressbooks\ThemeLock::getLockData();
+		$datetime = strftime( '%x', $data['timestamp'] ) . ' at ' . strftime( '%X', $data['timestamp'] );
+		$output .= 'Book Theme: ' . $data['name'] . " (LOCKED on $datetime)\n";
+		$output .= 'Book Theme Version: ' . $data['version'] . " (LOCKED on $datetime &mdash; Current Version " . $theme->get( 'Version' ) . ")\n";
+	} else {
+		$theme = wp_get_theme();
+		$output .= 'Book Theme: ' . $theme->get( 'Name' ) . "\n";
+		$output .= 'Book Theme Version: ' . $theme->get( 'Version' ) . "\n";
+	}
+} else {
+	$root_theme = wp_get_theme();
+}
 $output .= 'Root Theme: ' . $root_theme->get( 'Name' ) . "\n";
 $output .= 'Root Theme Version: ' . $root_theme->get( 'Version' ) . "\n\n";
 $output .= "#### Pressbooks Dependencies\n\n";
@@ -82,7 +100,11 @@ foreach ( $plugins as $plugin_path => $plugin ) {
 	}
 	$output .= $plugin['Name'] . ': ' . $plugin['Version'] . "\n";
 }
-$output .= "\n#### Book Active Plugins\n\n";
+if ( \Pressbooks\Book::isBook() ) {
+	$output .= "\n#### Book Active Plugins\n\n";
+} else {
+	$output .= "\n#### Root Blog Active Plugins\n\n";
+}
 $plugins = get_plugins();
 $active_plugins = get_option( 'active_plugins', array() );
 foreach ( $plugins as $plugin_path => $plugin ) {
@@ -119,7 +141,6 @@ if ( function_exists( 'curl_init' ) && function_exists( 'curl_version' ) ) {
 	$output .= 'cURL Version: ' . $curl_values['version'] . "\n";
 }
 $output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
-$output .= 'sass: ' . ( extension_loaded( 'sass' ) ? 'Installed' : 'Not Installed' ) . "\n";
 $output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
 echo $output; ?></textarea>
 </div>

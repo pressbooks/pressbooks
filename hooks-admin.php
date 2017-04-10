@@ -39,6 +39,7 @@ add_filter( 'admin_footer_text', '\Pressbooks\Admin\Laf\add_footer_link' );
 add_action( 'admin_init', '\Pressbooks\Admin\Dashboard\dashboard_options_init' );
 add_action( 'network_admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 2 );
 add_action( 'admin_menu', '\Pressbooks\Admin\Dashboard\add_menu', 1 );
+add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 
 if ( \Pressbooks\Book::isBook() ) {
 	// Aggressively replace default interface
@@ -46,7 +47,6 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'init', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ) );
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
-	add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );
@@ -182,6 +182,7 @@ add_action( 'load-post.php', '\Pressbooks\Admin\CustomCss\redirect_css_editor' )
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'update_option_pressbooks_global_typography', '\Pressbooks\Admin\Fonts\update_font_stacks' );
+add_action( 'update_option_pressbooks_theme_options_web', '\Pressbooks\Admin\Fonts\update_font_stacks' );
 
 if ( \Pressbooks\Book::isBook() ) {
 
@@ -199,7 +200,16 @@ if ( \Pressbooks\Book::isBook() ) {
 	// Init
 	add_action( 'admin_init', '\Pressbooks\Admin\Fonts\fix_missing_font_stacks' );
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
+
+	// Overrides
+	add_filter( 'pb_epub_css_override', array( '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ) );
+	add_filter( 'pb_pdf_css_override', array( '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ) );
+	add_filter( 'pb_web_css_override', array( '\Pressbooks\Modules\ThemeOptions\WebOptions', 'scssOverrides' ) );
 }
+
+// Theme Lock
+add_action( 'admin_init', '\Pressbooks\ThemeLock::restrictThemeManagement' );
+add_action( 'update_option_pressbooks_export_options', '\Pressbooks\ThemeLock::toggleThemeLock', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // "Catch-all" routines, must come after taxonomies and friends

@@ -1,4 +1,18 @@
-jQuery(function($) {
+jQuery(document).ready(function($){
+	$('#toc').hide();
+	$(document).on('click', '.toc-btn a, a.close', function() {
+		if($('#toc').css('display') == 'none') {
+			$('.toc-btn a').addClass('tabbed');
+			$('.toc-btn').addClass('is-active');
+			$('#toc').toggle({ duration:200 });
+			return false;
+		} else {
+			$('.toc-btn a').removeClass('tabbed');
+			$('.toc-btn').removeClass('is-active');
+			$('#toc').toggle({ duration:100 });
+			return false;
+		}
+	});
 	var $toc = $("#toc");
 	var $tocbutton = $(".toc-btn");
 	if ( $toc.length > 0 && $tocbutton.length > 0 && ( $(window).height() - ( $tocbutton.offset().top + $tocbutton.height() + $toc.height() ) ) < 0 ) {

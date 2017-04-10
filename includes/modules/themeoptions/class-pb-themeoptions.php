@@ -62,7 +62,8 @@ class ThemeOptions {
 				<?php } ?>
 			</h2>
 			<form method="post" action="options.php">
-				<?php settings_fields( 'pressbooks_theme_options_' . $active_tab );
+				<?php do_action( 'pb_before_themeoptions_settings_fields' );
+				settings_fields( 'pressbooks_theme_options_' . $active_tab );
 				do_settings_sections( 'pressbooks_theme_options_' . $active_tab );
 				submit_button(); ?>
 			</form>
@@ -86,16 +87,11 @@ class ThemeOptions {
 			'global' => '\Pressbooks\Modules\ThemeOptions\GlobalOptions',
 			'web' => '\Pressbooks\Modules\ThemeOptions\WebOptions',
 			'pdf' => '\Pressbooks\Modules\ThemeOptions\PDFOptions',
-			'mpdf' => '\Pressbooks\Modules\ThemeOptions\MPDFOptions',
 			'ebook' => '\Pressbooks\Modules\ThemeOptions\EbookOptions',
 		);
 
 		if ( ! \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
 			unset( $tabs['pdf'] );
-		}
-
-		if ( ! \Pressbooks\Modules\Export\Mpdf\Pdf::hasDependencies() ) {
-			unset( $tabs['mpdf'] );
 		}
 
 		/**

@@ -72,6 +72,10 @@
   }
 }
 
+.numberless .chapter-title-wrap .chapter-number::after {
+  content: '';
+}
+
 // Subtitle (outside .chapter-title-wrap)
 h2.chapter-subtitle,
 h2.chapter_subtitle { //ned, in web the markup is with a underscore, in xhtml it's a hyphen, whats up with that?

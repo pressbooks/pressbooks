@@ -106,11 +106,11 @@ abstract class Export {
 
 		if ( ! $fullpath ) {
 			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
-				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
+				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.scss" );
 			} elseif ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
-				$fullpath = realpath( get_stylesheet_directory() . "/assets/styles/$type/style.scss" );
+				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/styles/$type/style.scss" );
 			} else {
-				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
+				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.css" );
 			}
 		}
 
@@ -131,15 +131,17 @@ abstract class Export {
 
 		if ( CustomCss::isCustomCss() ) {
 			$fullpath = CustomCss::getCustomCssFolder() . "/$type.js";
-			if ( ! is_file( $fullpath ) ) { $fullpath = false;
+			if ( ! is_file( $fullpath ) ) {
+				$fullpath = false;
 			}
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 themes
-				$fullpath = realpath( get_stylesheet_directory() . "/assets/scripts/$type/script.js" );
+			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+				// Check for v2 themes
+				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" );
 			} else {
-				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
+				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" );
 			}
 			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' == $type ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script-romanize.js" );
@@ -149,6 +151,28 @@ abstract class Export {
 		return $fullpath;
 	}
 
+	/**
+	 * Return the public URL to an export module's Javascript file.
+	 *
+	 * @param string $type
+	 *
+	 * @return string
+	 */
+	function getExportScriptUrl( $type ) {
+
+		$url = false;
+
+		if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) && realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" ) ) {
+			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/assets/scripts/$type/script.js";
+		} elseif ( realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" ) ) {
+			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/export/$type/script.js";
+		}
+		if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' == $type ) {
+			$url = get_stylesheet_directory_uri() . "/export/$type/script-romanize.js";
+		}
+
+		return $url;
+	}
 
 	/**
 	 * Is section parsing enabled?
@@ -592,9 +616,6 @@ abstract class Export {
 			if ( isset( $x['print_pdf'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
 			}
-			if ( isset( $x['mpdf'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Mpdf\Pdf';
-			}
 			if ( isset( $x['epub'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 			}
@@ -622,6 +643,22 @@ abstract class Export {
 			if ( isset( $x['odt'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
 			}
+
+			/**
+			 * @since 3.9.8
+			 * Catch enabled custom formats and add their classes to the $modules array.
+			 *
+			 * For example, here's how one might catch a hypothetical Word exporter:
+			 *
+			 * add_filter( 'pb_active_export_modules', function ( $modules ) {
+			 * 	if ( isset( $_POST['export_formats']['docx'] ) ) {
+			 * 		$modules[] = '\Pressbooks\Modules\Export\Docx\Docx';
+			 * 	}
+			 * 	return $modules;
+		 	 * } );
+			 *
+			 */
+			$modules = apply_filters( 'pb_active_export_modules', $modules );
 
 			// --------------------------------------------------------------------------------------------------------
 			// Clear cache? Range is 1 hour.
