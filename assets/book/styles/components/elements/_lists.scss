@@ -1,17 +1,18 @@
 //============================================================================//
 //                                   Lists                                    //
 //============================================================================//
+@import '../utilities';
 
 ol {
   margin-top: $ol-margin-top;
   margin-bottom: $ol-margin-bottom;
-  margin-left: $ol-margin-left;
+  margin-left: if-map-get($ol-margin-left, $type);
 }
 
 ul {
   margin-top: $ul-margin-top;
   margin-bottom: $ul-margin-bottom;
-  margin-left: $ul-margin-left;
+  margin-left: if-map-get($ul-margin-left, $type);
 }
 
 li + li {

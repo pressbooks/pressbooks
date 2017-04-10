@@ -52,6 +52,13 @@ $h6-font-family: $font-2 !default;
 // Paragraphs
 $para-indent: 2em !default;
 
+// Lists
+$ol-margin-left: (
+  epub: 2em,
+  prince: 2em,
+  web: -1em
+) !default;
+
 // Cite
 $cite-font-style: italic;
 $cite-text-transform: none !default;

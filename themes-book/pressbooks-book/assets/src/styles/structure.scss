@@ -178,6 +178,17 @@ blockquote p {
   list-style: disc;
 }
 
+#content img {
+  height: auto;
+  max-width: 100%;
+}
+
+#content .wp-caption,
+#content .wp-nocaption {
+  height: auto;
+  max-width: 100%;
+}
+
 .single #content {
   min-height: 350px;
   margin-bottom: 0;
