@@ -4,6 +4,11 @@ title: Changelog
 permalink: /changelog/
 ---
 
+### 3.9.8.1
+**NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
+
+* **Fix:** Restored some webbook styles that were being omitted in older book themes.
+
 ### 3.9.8
 **NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
 

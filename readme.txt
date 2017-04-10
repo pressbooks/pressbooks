@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.8
+Version: 3.9.8.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.7.3
 Tested up to: 4.7.3
@@ -231,6 +231,11 @@ Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/download/).
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+
+### 3.9.8.1
+**NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
+
+* **Fix:** Restored some webbook styles that were being omitted in older book themes.
 
 ### 3.9.8
 **NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
