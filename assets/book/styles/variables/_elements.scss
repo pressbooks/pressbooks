@@ -116,10 +116,18 @@ $blockquote-align: justify !default;
 // Lists
 $ol-margin-top: 1em !default;
 $ol-margin-bottom: 1em !default;
-$ol-margin-left: 2em !default;
+$ol-margin-left: (
+  epub: 2em,
+  prince: 2em,
+  web: 0
+) !default;
 $ul-margin-top: 1em !default;
 $ul-margin-bottom: 1em !default;
-$ul-margin-left: 2em !default;
+$ul-margin-left: (
+  epub: 2em,
+  prince: 2em,
+  web: 0
+) !default;
 $li-li-margin-top: .5em !default;
 
 // Definition Lists
