@@ -52,5 +52,8 @@
   "bugs": {
     "url": "https://github.com/pressbooks/pressbooks/issues"
   },
-  "homepage": "https://github.com/pressbooks/pressbooks/"
+  "homepage": "https://github.com/pressbooks/pressbooks/",
+  "dependencies": {
+    "wp-pot-cli": "^1.0.1"
+  }
 }
