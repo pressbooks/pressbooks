@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.8-RC3
+Version: 3.9.8
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.7.3
 Tested up to: 4.7.3
@@ -251,6 +251,7 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **Enhancement:** The SaxonHE dependency check can now be overridden (see https://github.com/pressbooks/pressbooks/commit/7ea32fe).
 * **Enhancement:** [perchten/rmrdir](https://packagist.org/packages/perchten/rmrdir) is now used for recursive directory removal (see [37ab804](https://github.com/pressbooks/pressbooks/commit/37ab804489c580ad1d1121c0a07144f37772c7d0)).
 * **Enhancement:** Added \Pressbooks\Utility\rcopy() function for recursive directory copying (props to @blobaugh for the [example code](http://ben.lobaugh.net/blog/864/php-5-recursively-move-or-copy-files); see [52b087b](https://github.com/pressbooks/pressbooks/commit/52b087b5e2185ea08c6f67c24111ad9ef0ee1fa0)).
+* **Enhancement:** Added `pb_dependency_errors` filter hook for suppression of dependency errors (see #719).
 * **Fix:** Images on custom title pages are now exported as expected in EPUB and Kindle (see #690, #698).
 * **Fix:** The diagnostics page now functions as expected on the root blog (props to @colomet for the report; see #688, #695);
 * **Fix:** Print PDF exports are now available for download when export sharing is enabled (props to @bdolor; see #677).
