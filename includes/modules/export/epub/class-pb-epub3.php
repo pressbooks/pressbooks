@@ -305,7 +305,7 @@ class Epub3 extends Epub201 {
 			$GLOBALS['hl_Ids'] = $this->fixme;
 		}
 
-		$html = \Htmlawed::filter( $html, $config, $spec );
+		$html = \Pressbooks\HtmLawed::filter( $html, $config, $spec );
 
 		return $html;
 	}

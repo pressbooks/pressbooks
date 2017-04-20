@@ -29,7 +29,6 @@
     "gridonic/princexml-php": "^1.2",
     "pimple/pimple": "^3.0",
     "leafo/scssphp": "^0.6.7",
-    "vanilla/htmlawed": "^2.2",
     "pressbooks/pb-api": "^1.1",
     "perchten/rmrdir": "^1.0"
   },

@@ -222,7 +222,7 @@ class Icml extends Export {
 			'tidy' => -1,
 		);
 
-		return \Htmlawed::filter( $html, $config );
+		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
 
 	/**

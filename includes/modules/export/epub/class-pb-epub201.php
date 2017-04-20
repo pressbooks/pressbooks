@@ -457,7 +457,7 @@ class Epub201 extends Export {
 			$GLOBALS['hl_Ids'] = $this->fixme;
 		}
 
-		return \Htmlawed::filter( $html, $config );
+		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
 
 

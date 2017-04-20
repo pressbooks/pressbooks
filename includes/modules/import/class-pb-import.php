@@ -218,7 +218,7 @@ abstract class Import {
 			'safe' => 1,
 		);
 
-		return \Htmlawed::filter( $html, $config );
+		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
 
 

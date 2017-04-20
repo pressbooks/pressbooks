@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a111d413b7e6b0f6ccb719ecdc92dff",
+    "content-hash": "b2c709d3aa797e66f0b1f5bd1182701f",
     "packages": [
         {
             "name": "composer/installers",
@@ -348,45 +348,6 @@
                 "ebooks publishing webbooks"
             ],
             "time": "2016-11-18T18:52:07+00:00"
-        },
-        {
-            "name": "vanilla/htmlawed",
-            "version": "v2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vanilla/htmlawed.git",
-                "reference": "282b1c939f321b1694dc4d5f2c5da2158293578c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vanilla/htmlawed/zipball/282b1c939f321b1694dc4d5f2c5da2158293578c",
-                "reference": "282b1c939f321b1694dc4d5f2c5da2158293578c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "tburry/pquery": "~1.0.1"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/Htmlawed.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Todd Burry",
-                    "email": "todd@vanillaforums.com"
-                }
-            ],
-            "description": "A composer wrapper for the htmLawed library to purify & filter HTML. Tested with PHPUnit and PhantomJS!",
-            "time": "2017-03-28T18:39:10+00:00"
         }
     ],
     "packages-dev": [
