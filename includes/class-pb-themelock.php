@@ -42,7 +42,7 @@ class ThemeLock {
 	static function toggleThemeLock( $old_value, $value, $option ) {
 		if ( isset( $value['theme_lock'] ) && 1 == $value['theme_lock'] ) {
 			return ThemeLock::lockTheme();
-		} else {
+		} elseif ( 1 == $old_value['theme_lock'] && ! isset( $value['theme_lock'] ) ) {
 			return ThemeLock::unlockTheme();
 		}
 	}
