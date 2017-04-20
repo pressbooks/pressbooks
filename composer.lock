@@ -115,16 +115,16 @@
         },
         {
             "name": "gridonic/princexml-php",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/gridonic/PrinceXMLPhp.git",
-                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc"
+                "reference": "c4441d82c50efa7635ab46eee01e03f70e11a53b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
-                "reference": "ebacd18a97dd5a6f8f75876e7a781d46d7b7d6fc",
+                "url": "https://api.github.com/repos/gridonic/PrinceXMLPhp/zipball/c4441d82c50efa7635ab46eee01e03f70e11a53b",
+                "reference": "c4441d82c50efa7635ab46eee01e03f70e11a53b",
                 "shasum": ""
             },
             "require": {
@@ -155,7 +155,7 @@
                 "princexml",
                 "xml"
             ],
-            "time": "2016-09-06T17:46:32+00:00"
+            "time": "2017-04-20T09:36:23+00:00"
         },
         {
             "name": "leafo/scssphp",
@@ -407,16 +407,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.6.0",
+            "version": "1.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "5a5a9fc8025a08d8919be87d6884d5a92520cefe"
+                "reference": "8e6e04167378abf1ddb4d3522d8755c5fd90d102"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/5a5a9fc8025a08d8919be87d6884d5a92520cefe",
-                "reference": "5a5a9fc8025a08d8919be87d6884d5a92520cefe",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/8e6e04167378abf1ddb4d3522d8755c5fd90d102",
+                "reference": "8e6e04167378abf1ddb4d3522d8755c5fd90d102",
                 "shasum": ""
             },
             "require": {
@@ -445,7 +445,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2017-01-26T22:05:40+00:00"
+            "time": "2017-04-12T18:52:22+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
