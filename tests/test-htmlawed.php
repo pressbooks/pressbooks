@@ -11,4 +11,5 @@ class HtmLawedTest extends \WP_UnitTestCase {
 
 		$output = \Pressbooks\HtmLawed::filter('<i>nothing to see</i><script>alert("xss")</script>');
 		$this->assertEquals('<i>nothing to see</i>alert("xss")', $output);
+	}
 }
