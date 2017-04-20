@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"POT-Creation-Date: 2017-04-10 11:11-0300\n"
+"POT-Creation-Date: 2017-04-20 14:20-0300\n"
 "PO-Revision-Date: 2015-08-08 13:43-0300\n"
 "Last-Translator: Ned Zimmerman <ned@bight.ca>\n"
 "Language-Team: Pressbooks <code@pressbooks.com>\n"
@@ -1052,7 +1052,7 @@ msgid "Buy"
 msgstr ""
 
 #: includes/class-pb-activation.php:214
-#: themes-book/pressbooks-book/functions.php:198
+#: themes-book/pressbooks-book/functions.php:201
 msgid "Access Denied"
 msgstr ""
 
@@ -2699,12 +2699,12 @@ msgstr ""
 msgid "Apply Class"
 msgstr ""
 
-#: pressbooks.php:101
+#: pressbooks.php:102
 #, php-format
 msgid "Pressbooks dependencies are missing. Please make sure that your project&rsquo;s <a href=\"%1$s\">Composer autoload file</a> is being required, or use the <a href=\"%2$s\">latest release</a> instead."
 msgstr ""
 
-#: pressbooks.php:110
+#: pressbooks.php:111
 msgid "Cannot find Pressbooks install."
 msgstr ""
 
@@ -3360,52 +3360,52 @@ msgstr ""
 msgid "Keywords/Tags"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:181
+#: themes-book/pressbooks-book/functions.php:184
 msgid "Previous"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:184
+#: themes-book/pressbooks-book/functions.php:187
 msgid "Next"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:202
+#: themes-book/pressbooks-book/functions.php:205
 #, php-format
 msgid "This book is private, and accessible only to registered users. If you have an account you can %s."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:206
+#: themes-book/pressbooks-book/functions.php:209
 msgid "login here"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:210
+#: themes-book/pressbooks-book/functions.php:213
 #, php-format
 msgid "You can also set up your own Pressbooks book at %s."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:244
+#: themes-book/pressbooks-book/functions.php:247
 #, php-format
 msgid "%s on"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:244
+#: themes-book/pressbooks-book/functions.php:247
 #, php-format
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:244
-#: themes-book/pressbooks-book/functions.php:264
+#: themes-book/pressbooks-book/functions.php:247
+#: themes-book/pressbooks-book/functions.php:267
 msgid "(Edit)"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:247
+#: themes-book/pressbooks-book/functions.php:250
 msgid "Your comment is awaiting moderation."
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:264
+#: themes-book/pressbooks-book/functions.php:267
 msgid "Pingback:"
 msgstr ""
 
-#: themes-book/pressbooks-book/functions.php:420
+#: themes-book/pressbooks-book/functions.php:423
 #: themes-book/pressbooks-book/page-cover-private-block.php:2
 msgid "Make your own books on Pressbooks"
 msgstr ""
