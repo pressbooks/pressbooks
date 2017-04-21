@@ -231,17 +231,8 @@ class Xhtml11 extends Export {
 		// Table of contents
 		$this->echoToc( $book_contents, $metadata );
 
-		// Front-matter
-		$this->echoFrontMatter( $book_contents, $metadata );
-
-		// Promo
-		$this->createPromo( $book_contents, $metadata );
-
-		// Parts, Chapters
-		$this->echoPartsAndChapters( $book_contents, $metadata );
-
-		// Back-matter
-		$this->echoBackMatter( $book_contents, $metadata );
+		// Content - Front Matter, Promos, Parts, Pages and Back Matter
+		$this->echoContent( $book_contents, $metadata );
 
 		// XHTML, Stop!
 		echo "</body>\n</html>";
@@ -877,6 +868,29 @@ class Xhtml11 extends Export {
 		}
 		echo "</ul></div>\n";
 
+	}
+
+
+	/**
+	 * @param array $book_contents
+	 * @param array $metadata
+	 */
+	protected function echoContent( $book_contents, $metadata ) {
+		echo '<div class="all-parts-and-contents" id="all-parts-and-contents">';
+
+		// Front-matter
+		$this->echoFrontMatter( $book_contents, $metadata );
+
+		// Promo
+		$this->createPromo( $book_contents, $metadata );
+
+		// Parts, Chapters
+		$this->echoPartsAndChapters( $book_contents, $metadata );
+
+		// Back-matter
+		$this->echoBackMatter( $book_contents, $metadata );
+
+		echo '</div>';
 	}
 
 
