@@ -21,6 +21,7 @@ require( PB_PLUGIN_DIR . 'includes/admin/pb-metaboxes.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-customcss.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-network-managers.php' );
 require( PB_PLUGIN_DIR . 'includes/admin/pb-fonts.php' );
+require( PB_PLUGIN_DIR . 'huh/huh.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
@@ -262,4 +263,11 @@ if ( \Pressbooks\Book::isBook() ) {
 add_action( 'admin_menu', function () {
 	remove_action( 'admin_notices', 'update_nag', 3 );
 	remove_filter( 'update_footer', 'core_update_footer' );
+} );
+
+// Onboarding
+add_action( 'admin_init', function() {
+	$markdown_url = 'https://raw.githubusercontent.com/pressbooks/pressbooks/onboarding/docs/quickstart.md';
+	$huh = new WP_Huh();
+	$huh->init( $markdown_url );
 } );
