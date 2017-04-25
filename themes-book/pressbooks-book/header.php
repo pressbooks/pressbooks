@@ -74,7 +74,7 @@ if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media
 
 					    <div class="sub-nav-left">
 							<!-- Logo -->
-							<h2 class="pressbooks-logo"><a href="<?php echo PATH_CURRENT_SITE; ?>"><?php echo get_site_option('site_name'); ?></a></h2>
+							<h2 class="pressbooks-logo"><a href="<?php echo esc_url( network_home_url() ); ?>"><?php echo get_site_option('site_name'); ?></a></h2>
 					    </div> <!-- end .sub-nav-left -->
 
 			    <div class="sub-nav-right">
