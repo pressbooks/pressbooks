@@ -1,34 +1,35 @@
 // This script is loaded when a user is on the [ Text → Organize ] page
+/* global jQuery:true */
 
 var Pressbooks = {
-	"oldPart": null,
-	"newPart": null,
-	"defaultOptions": {
+	'oldPart': null,
+	'newPart': null,
+	'defaultOptions': {
 		revert: true,
 		helper: 'clone',
 		zIndex: 2700,
 		distance: 3,
 		opacity: 0.6,
-		placeholder: "ui-state-highlight",
+		placeholder: 'ui-state-highlight',
 		connectWith: '.chapters',
 		dropOnEmpty: true,
 		cursor: 'crosshair',
 		items: 'tbody > tr',
 		start: function (index, el) {
-			Pressbooks.oldPart = el.item.parents('table').attr("id");
+			Pressbooks.oldPart = el.item.parents( 'table' ).attr( 'id' );
 		},
 		stop: function (index, el) {
-			Pressbooks.newPart = el.item.parents('table').attr("id");
-			Pressbooks.update(el.item);
+			Pressbooks.newPart = el.item.parents( 'table' ).attr( 'id' );
+			Pressbooks.update( el.item );
 		}
 	},
-	"frontMatterOptions": {
+	'frontMatterOptions': {
 		revert: true,
 		helper: 'clone',
 		zIndex: 2700,
 		distance: 3,
 		opacity: 0.6,
-		placeholder: "ui-state-highlight",
+		placeholder: 'ui-state-highlight',
 		dropOnEmpty: true,
 		cursor: 'crosshair',
 		items: 'tbody > tr',
@@ -36,16 +37,16 @@ var Pressbooks = {
 			//alert(el);
 		},
 		stop: function (index, el) {
-			Pressbooks.fmupdate(el.item);
+			Pressbooks.fmupdate( el.item );
 		}
 	},
-	"backMatterOptions": {
+	'backMatterOptions': {
 		revert: true,
 		helper: 'clone',
 		zIndex: 2700,
 		distance: 3,
 		opacity: 0.6,
-		placeholder: "ui-state-highlight",
+		placeholder: 'ui-state-highlight',
 		dropOnEmpty: true,
 		cursor: 'crosshair',
 		items: 'tbody > tr',
@@ -53,38 +54,37 @@ var Pressbooks = {
 			//alert(el);
 		},
 		stop: function (index, el) {
-			Pressbooks.bmupdate(el.item);
+			Pressbooks.bmupdate( el.item );
 		}
 	},
 	update: function (el) {
 		jQuery.ajax({
 			beforeSend: function () {
 				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI({message: jQuery('#loader.chapter')});
+				jQuery.blockUI( {message: jQuery( '#loader.chapter' )} );
 			},
 			url: ajaxurl,
 			type: 'POST',
 			data: {
 				action: 'pb_update_chapter',
 				// see http://forum.jquery.com/topic/sortable-serialize-not-changing-sort-order-over-3-div-cols
-				new_part_order: jQuery("#" + Pressbooks.newPart).sortable("serialize"),
-				old_part_order: jQuery("#" + Pressbooks.oldPart).sortable("serialize"),
-				new_part: Pressbooks.newPart.replace(/^part\-([0-9]+)$/i, '$1'),
-				old_part: Pressbooks.oldPart.replace(/^part\-([0-9]+)$/i, '$1'),
-				id: jQuery(el).attr('id').replace(/^chapter\-([0-9]+)$/i, '$1'),
+				new_part_order: jQuery( '#' + Pressbooks.newPart ).sortable( 'serialize' ),
+				old_part_order: jQuery( '#' + Pressbooks.oldPart ).sortable( 'serialize' ),
+				new_part: Pressbooks.newPart.replace( /^part\-([0-9]+)$/i, '$1' ),
+				old_part: Pressbooks.oldPart.replace( /^part\-([0-9]+)$/i, '$1' ),
+				id: jQuery( el ).attr( 'id' ).replace( /^chapter\-([0-9]+)$/i, '$1' ),
 				_ajax_nonce: PB_OrganizeToken.orderNonce
 			},
 			cache: false,
 			dataType: 'html',
 			error: function (obj, status, thrown) {
-				jQuery('#message').html('<p><strong>There has been an error updating your chapter data Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>').addClass('error');
+				jQuery( '#message' ).html( '<p><strong>There has been an error updating your chapter data. Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>' ).addClass( 'error' );
 				//window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
 			},
 			success: function (htmlStr) {
 				if (htmlStr == 'NOCHANGE') {
-					jQuery('#message').html('<p><strong>No changes were registered.</strong></p>').addClass('error');
-				}
-				else {
+					jQuery( '#message' ).html( '<p><strong>No changes were registered.</strong></p>' ).addClass( 'error' );
+				} else {
 					// Chapters have been reordered.
 				}
 			},
@@ -98,26 +98,25 @@ var Pressbooks = {
 		jQuery.ajax({
 			beforeSend: function () {
 				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI({message: jQuery('#loader.fm')});
+				jQuery.blockUI( {message: jQuery( '#loader.fm' )} );
 			},
 			url: ajaxurl,
 			type: 'POST',
 			data: {
 				action: 'pb_update_front_matter',
-				front_matter_order: jQuery('#front-matter').sortable("serialize"),
+				front_matter_order: jQuery( '#front-matter' ).sortable( 'serialize' ),
 				_ajax_nonce: PB_OrganizeToken.orderNonce
 			},
 			cache: false,
 			dataType: 'html',
 			error: function (obj, status, thrown) {
-				jQuery('#message').html('<p><strong>There has been an error updating your front matter data Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>').addClass('error');
+				jQuery( '#message' ).html( '<p><strong>There has been an error updating your front matter data. Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>' ).addClass( 'error' );
 				//window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
 			},
 			success: function (htmlStr) {
 				if (htmlStr == 'NOCHANGE') {
-					jQuery('#message').html('<p><strong>No changes were registered.</strong></p>').addClass('error');
-				}
-				else {
+					jQuery( '#message' ).html( '<p><strong>No changes were registered.</strong></p>' ).addClass( 'error' );
+				} else {
 					// Front Matter has been reordered.
 				}
 			},
@@ -131,26 +130,25 @@ var Pressbooks = {
 		jQuery.ajax({
 			beforeSend: function () {
 				jQuery.blockUI.defaults.applyPlatformOpacityRules = false;
-				jQuery.blockUI({message: jQuery('#loader.bm')});
+				jQuery.blockUI( {message: jQuery( '#loader.bm' )} );
 			},
 			url: ajaxurl,
 			type: 'POST',
 			data: {
 				action: 'pb_update_back_matter',
-				back_matter_order: jQuery('#back-matter').sortable("serialize"),
+				back_matter_order: jQuery( '#back-matter' ).sortable( 'serialize' ),
 				_ajax_nonce: PB_OrganizeToken.orderNonce
 			},
 			cache: false,
 			dataType: 'html',
 			error: function (obj, status, thrown) {
-				jQuery('#message').html('<p><strong>There has been an error updating your back matter data. Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>').addClass('error');
+				jQuery( '#message' ).html( '<p><strong>There has been an error updating your back matter data. Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>' ).addClass( 'error' );
 				//window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
 			},
 			success: function (htmlStr) {
 				if (htmlStr == 'NOCHANGE') {
-					jQuery('#message').html('<p><strong>No changes were registered.</strong></p>').addClass('error');
-				}
-				else {
+					jQuery( '#message' ).html( '<p><strong>No changes were registered.</strong></p>' ).addClass( 'error' );
+				} else {
 					// Back Matter has been reordered.
 				}
 			},
@@ -163,16 +161,16 @@ var Pressbooks = {
 
 // --------------------------------------------------------------------------------------------------------------------
 
-jQuery(document).ready(function ($) {
+jQuery( document ).ready(function ($) {
 
 	// Init drag & drop
-	$("table.chapters").sortable(Pressbooks.defaultOptions).disableSelection();
-	$("table#front-matter").sortable(Pressbooks.frontMatterOptions).disableSelection();
-	$("table#back-matter").sortable(Pressbooks.backMatterOptions).disableSelection();
+	$( 'table.chapters' ).sortable( Pressbooks.defaultOptions ).disableSelection();
+	$( 'table#front-matter' ).sortable( Pressbooks.frontMatterOptions ).disableSelection();
+	$( 'table#back-matter' ).sortable( Pressbooks.backMatterOptions ).disableSelection();
 
 	// Public/Private form at top of page
-	$('input[name=blog_public]').change(function () {
-		var blog_public = $("input[name=blog_public]:checked").val();
+	$( 'input[name=blog_public]' ).change(function () {
+		var blog_public = $( 'input[name=blog_public]:checked' ).val();
 		$.ajax({
 			url: ajaxurl,
 			type: 'POST',
@@ -183,15 +181,15 @@ jQuery(document).ready(function ($) {
 			},
 			beforeSend: function () {
 				if (blog_public === 0) {
-					$('h4.publicize-alert > span').text(PB_OrganizeToken.private);
-					$('label span.public').css('font-weight', 'normal');
-					$('label span.private').css('font-weight', 'bold');
-					$('.publicize-alert').removeClass('public').addClass('private');
+					$( 'h4.publicize-alert > span' ).text( PB_OrganizeToken.private );
+					$( 'label span.public' ).css( 'font-weight', 'normal' );
+					$( 'label span.private' ).css( 'font-weight', 'bold' );
+					$( '.publicize-alert' ).removeClass( 'public' ).addClass( 'private' );
 				} else {
-					$('h4.publicize-alert > span').text(PB_OrganizeToken.public);
-					$('label span.public').css('font-weight', 'bold');
-					$('label span.private').css('font-weight', 'normal');
-					$('.publicize-alert').removeClass('private').addClass('public');
+					$( 'h4.publicize-alert > span' ).text( PB_OrganizeToken.public );
+					$( 'label span.public' ).css( 'font-weight', 'bold' );
+					$( 'label span.private' ).css( 'font-weight', 'normal' );
+					$( '.publicize-alert' ).removeClass( 'private' ).addClass( 'public' );
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -199,18 +197,17 @@ jQuery(document).ready(function ($) {
 			}
 		});
 	});
-
 
 	// Chapter switches
 
-	$('.chapter_privacy').change(function () {
+	$( '.chapter_privacy' ).change(function () {
 
-		var col = $(this).parent().prev('.column-status');
-		var id = $(this).attr('id');
-		id = id.split('_');
+		var col = $( this ).parent().prev( '.column-status' );
+		var id = $( this ).attr( 'id' );
+		id = id.split( '_' );
 		id = id[id.length - 1];
 
-		if ($(this).is(':checked')) {
+		if ($( this ).is( ':checked' )) {
 			post_status = 'private';
 		} else {
 			post_status = 'publish';
@@ -227,9 +224,9 @@ jQuery(document).ready(function ($) {
 			},
 			beforeSend: function () {
 				if ('private' == post_status) {
-					col.text(PB_OrganizeToken.private);
+					col.text( PB_OrganizeToken.private );
 				} else {
-					col.text(PB_OrganizeToken.published);
+					col.text( PB_OrganizeToken.published );
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -238,13 +235,13 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
-	$('.chapter_show_title_check').change(function () {
+	$( '.chapter_show_title_check' ).change(function () {
 
-		var id = $(this).attr('id');
-		id = id.split('_');
+		var id = $( this ).attr( 'id' );
+		id = id.split( '_' );
 		id = id[id.length - 1];
 
-		if ($(this).is(':checked')) {
+		if ($( this ).is( ':checked' )) {
 			chapter_show_title = 1;
 		} else {
 			chapter_show_title = 0;
@@ -263,13 +260,13 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
-	$('.chapter_export_check').change(function () {
+	$( '.chapter_export_check' ).change(function () {
 
-		var id = $(this).attr('id');
-		id = id.split('_');
+		var id = $( this ).attr( 'id' );
+		id = id.split( '_' );
 		id = id[id.length - 1];
 
-		if ($(this).is(':checked')) {
+		if ($( this ).is( ':checked' )) {
 			chapter_export = 1;
 		} else {
 			chapter_export = 0;
@@ -287,18 +284,17 @@ jQuery(document).ready(function ($) {
 			}
 		});
 	});
-
 
 	// Front-matter switches
 
-	$('.fm_privacy').change(function () {
+	$( '.fm_privacy' ).change(function () {
 
-		var col = $(this).parent().prev('.column-status');
-		var id = $(this).attr('id');
-		id = id.split('_');
+		var col = $( this ).parent().prev( '.column-status' );
+		var id = $( this ).attr( 'id' );
+		id = id.split( '_' );
 		id = id[id.length - 1];
 
-		if ($(this).is(':checked')) {
+		if ($( this ).is( ':checked' )) {
 			post_status = 'private';
 		} else {
 			post_status = 'publish';
@@ -315,9 +311,9 @@ jQuery(document).ready(function ($) {
 			},
 			beforeSend: function () {
 				if ('private' == post_status) {
-					col.text(PB_OrganizeToken.private);
+					col.text( PB_OrganizeToken.private );
 				} else {
-					col.text(PB_OrganizeToken.published);
+					col.text( PB_OrganizeToken.published );
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -326,13 +322,13 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
-	$('.fm_show_title_check').change(function () {
+	$( '.fm_show_title_check' ).change(function () {
 
-		var id = $(this).attr('id');
-		id = id.split('_');
+		var id = $( this ).attr( 'id' );
+		id = id.split( '_' );
 		id = id[id.length - 1];
 
-		if ($(this).is(':checked')) {
+		if ($( this ).is( ':checked' )) {
 			chapter_show_title = 1;
 		} else {
 			chapter_show_title = 0;
@@ -351,13 +347,13 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
-	$('.fm_export_check').change(function () {
+	$( '.fm_export_check' ).change(function () {
 
-		var id = $(this).attr('id');
-		id = id.split('_');
+		var id = $( this ).attr( 'id' );
+		id = id.split( '_' );
 		id = id[id.length - 1];
 
-		if ($(this).is(':checked')) {
+		if ($( this ).is( ':checked' )) {
 			chapter_export = 1;
 		} else {
 			chapter_export = 0;
@@ -376,17 +372,16 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
-
 	// Back-matter switches
 
-	$('.bm_privacy').change(function () {
+	$( '.bm_privacy' ).change(function () {
 
-		var col = $(this).parent().prev('.column-status');
-		var id = $(this).attr('id');
-		id = id.split('_');
+		var col = $( this ).parent().prev( '.column-status' );
+		var id = $( this ).attr( 'id' );
+		id = id.split( '_' );
 		id = id[id.length - 1];
 
-		if ($(this).is(':checked')) {
+		if ($( this ).is( ':checked' )) {
 			post_status = 'private';
 		} else {
 			post_status = 'publish';
@@ -403,9 +398,9 @@ jQuery(document).ready(function ($) {
 			},
 			beforeSend: function () {
 				if ('private' == post_status) {
-					col.text(PB_OrganizeToken.private);
+					col.text( PB_OrganizeToken.private );
 				} else {
-					col.text(PB_OrganizeToken.published);
+					col.text( PB_OrganizeToken.published );
 				}
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
@@ -414,13 +409,13 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
-	$('.bm_show_title_check').change(function () {
+	$( '.bm_show_title_check' ).change(function () {
 
-		var id = $(this).attr('id');
-		id = id.split('_');
+		var id = $( this ).attr( 'id' );
+		id = id.split( '_' );
 		id = id[id.length - 1];
 
-		if ($(this).is(':checked')) {
+		if ($( this ).is( ':checked' )) {
 			chapter_show_title = 1;
 		} else {
 			chapter_show_title = 0;
@@ -439,13 +434,13 @@ jQuery(document).ready(function ($) {
 		});
 	});
 
-	$('.bm_export_check').change(function () {
+	$( '.bm_export_check' ).change(function () {
 
-		var id = $(this).attr('id');
-		id = id.split('_');
+		var id = $( this ).attr( 'id' );
+		id = id.split( '_' );
 		id = id[id.length - 1];
 
-		if ($(this).is(':checked')) {
+		if ($( this ).is( ':checked' )) {
 			chapter_export = 1;
 		} else {
 			chapter_export = 0;
