@@ -19,9 +19,8 @@ php:
   - nightly
 
 env:
-  - WP_VERSION=latest WP_MULTISITE=1
-  - TRAVIS_NODE_VERSION="6"
-  - TRAVIS_NODE_VERSION="7"
+  - WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="6"
+  - WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="7"
 
 
 matrix:
@@ -36,7 +35,6 @@ cache:
     - vendor
 
 before_install:
-  - composer self-update
   - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
 
 install:
