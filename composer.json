@@ -54,10 +54,10 @@
   "scripts": {
     "test": [
       "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml",
-      "vendor/bin/phpcs --standard=vendor/humanmade/coding-standards ."
+      "vendor/bin/phpcs --standard=phpcs.ruleset.xml ."
     ],
     "standards": [
-      "vendor/bin/phpcs --standard=vendor/humanmade/coding-standards ."
+      "vendor/bin/phpcs --standard=phpcs.ruleset.xml ."
     ]
   }
 }

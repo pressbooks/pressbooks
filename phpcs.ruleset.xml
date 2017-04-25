@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset>
+  <!-- Show colors in console -->
+  <arg value="-colors"/>
+	<!-- Do not print warnings -->
+  <arg value="n"/>
+  <!-- Show sniff codes in all reports -->
+  <arg value="s"/>
+
+	<!-- Exclude compiled assets -->
+	<exclude-pattern>assets/dist/</exclude-pattern>
+	<!-- Exclude bower_components -->
+	<exclude-pattern>bower_components/</exclude-pattern>
+	<!-- Exclude node_modules -->
+	<exclude-pattern>node_modules/</exclude-pattern>
+	<!-- Exclude tests -->
+	<exclude-pattern>tests/</exclude-pattern>
+	<!-- Exclude symbionts -->
+	<exclude-pattern>symbionts/</exclude-pattern>
+	<!-- Exclude templates -->
+	<exclude-pattern>templates/</exclude-pattern>
+	<!-- Exclude themes-* -->
+	<exclude-pattern>themes-*/</exclude-pattern>
+	<!-- Exclude vendor -->
+	<exclude-pattern>vendor/</exclude-pattern>
+
+	<!-- Use HM Coding Standards -->
+	<rule ref="vendor/humanmade/coding-standards" />
+</ruleset>
