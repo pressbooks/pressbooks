@@ -1,0 +1,51 @@
+// huh animations
+
+@keyframes popIn {
+	0% {
+		opacity: 0;
+		transform: scale( 0 );
+	}
+	55% {
+		opacity: 0;
+		transform: scale( 0 );
+	}
+	75% {
+		opacity: 1;
+		transform: scale( 1.1 );
+	}
+	90% {
+		opacity: 1;
+		transform: scale( 0.9 );
+	}
+	100% {
+		opacity: 1;
+		transform: scale( 1 );
+	}
+}
+
+@keyframes sonarEffect {
+	0% {
+		opacity: 1;
+	}
+	40% {
+		opacity: 0.5;
+		box-shadow: 0 0 4px 2px rgba( 0, 0, 0 , 0.2 );
+	}
+	100% {
+		box-shadow: 0 0 4px 2px rgba( 0, 0, 0 , 0.2 );
+		transform: scale(1.5);
+		opacity: 0;
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		transform: translateY( 20px );
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateY( 0 );
+	}
+}
