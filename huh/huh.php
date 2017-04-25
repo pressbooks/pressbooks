@@ -59,7 +59,7 @@ class WP_Huh {
 	 */
 	public function display_huh() {
 		$colors = $this->huh_get_admin_colors();
-		$huh_accent_color = $colors[2];
+		$huh_accent_color = $colors[0];
 
 		?>
 		<script type="text/javascript">var huhDocUrl = <?php echo json_encode( $this->markdown_doc_url ); ?>;</script>
