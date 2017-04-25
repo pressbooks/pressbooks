@@ -27,14 +27,15 @@ matrix:
   - php: nightly
 
 cache:
-  apt: true
   directories:
     - $HOME/.composer/cache
     - $HOME/.yarn-cache
+    - node_modules
     - vendor
 
 before_install:
   - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
+  - node -v
 
 install:
   - composer install
