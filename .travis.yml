@@ -34,7 +34,7 @@ cache:
     - vendor
 
 before_install:
-  # - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
+  - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
 
 install:
   - composer install
