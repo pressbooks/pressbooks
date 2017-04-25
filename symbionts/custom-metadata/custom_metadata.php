@@ -219,7 +219,10 @@ class custom_metadata_manager {
 	}
 
 	function enqueue_scripts() {
-		wp_enqueue_media();
+		$post = get_post();
+		wp_enqueue_media( array(
+			'post' => $post
+		) );
 		wp_enqueue_script( 'wplink' );
 		wp_enqueue_script( 'wpdialogs-popup' );
 		wp_enqueue_style( 'wp-jquery-ui-dialog' );
