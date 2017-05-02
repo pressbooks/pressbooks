@@ -93,6 +93,10 @@ class ThemeOptions {
 		if ( ! \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
 			unset( $tabs['pdf'] );
 		}
+		
+		if ( ! \Pressbooks\Modules\Export\Mobi\Kindlegen::hasDependencies() && ! \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
+			unset( $tabs['ebook'] );
+		}
 
 		/**
 		 * Add a custom tab to the theme options page.
