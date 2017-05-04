@@ -1,0 +1,86 @@
+// huh launcher button
+.huh-launcher {
+	animation: popIn 0.8s ease-in-out;
+	bottom: 30px;
+	position: fixed;
+	right: 20px;
+	z-index: 500001;
+}
+
+.huh-launcher--button {
+	-webkit-appearance: none;
+	background: $main-accent;
+	border: none;
+	border-radius: 50px;
+	box-shadow: 0 2px 10px rgba( 0, 0, 0, 0.2 );
+	box-sizing: border-box;
+	cursor: pointer;
+	height: 50px;
+	padding: 0;
+	position: relative;
+	transition: transform ease-out 0.1s;
+	width: 50px;
+	z-index: 1;
+
+	svg  {
+		fill: #fff;
+		float: right;
+		height: 50px;
+		left: 0;
+		position: absolute;
+		top: 0;
+		transition: transform 0.2s;
+		width: 50px;
+	}
+
+	.huh-launcher--icon-close {
+		height: 30px;
+		opacity: 0;
+		padding: 10px;
+		transform: scale( 0.2 );
+		width: 30px;
+	}
+
+	&.active {
+		.huh-launcher--icon-enable {
+			opacity: 0;
+			transform: scale( 0.2 );
+		}
+
+		.huh-launcher--icon-close {
+			opacity: 1;
+			transform: scale( 1);
+		}
+	}
+
+	&::after,
+	&::before {
+		border-radius: 50%;
+		box-sizing: content-box;
+		content: '';
+		left: 0;
+		height: 100%;
+		pointer-events: none;
+		position: absolute;
+		top: 0;
+		transform: scale( 0.9 );
+		width: 100%;
+	}
+
+	&:hover,
+	&:focus {
+		outline: none;
+		transform: scale( 0.9 );
+
+		&::after {
+			animation: sonarEffect 1.3s ease-out;
+		}
+	}
+}
+
+.huh-launcher--label {
+	display: block;
+	font-size: 0;
+	height: 0;
+	width: 0;
+}

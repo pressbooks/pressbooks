@@ -1,0 +1,25 @@
+{
+  "name": "huh",
+  "title": "huh",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/secretpizzaparty/huh"
+  },
+  "license": "GPL-2.0+",
+  "main": "Gruntfile.js",
+  "devDependencies": {
+    "grunt": "~1.0.1",
+    "grunt-checktextdomain": "~1.0.0",
+    "grunt-contrib-clean": "~1.0.0",
+    "grunt-contrib-cssmin": "~1.0.0",
+    "grunt-contrib-sass": "~1.0.0",
+    "grunt-contrib-watch": "~1.0.0",
+    "grunt-wp-i18n": "~0.5.4",
+    "node-bourbon": "~4.2.3"
+  },
+  "engines": {
+    "node": ">=0.8.0",
+    "npm": ">=1.1.0"
+  }
+}
