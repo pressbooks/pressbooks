@@ -295,7 +295,7 @@ function pressbooks_copyright_license() {
 	$transient = get_transient("license-inf-$id" );
 	$updated = array( $license, $copyright_holder, $title );
 	$changed = false;
-	$lang = $book_meta['pb_language'];
+	$lang = ( ! empty( $book_meta['pb_language'] ) ) ? $book_meta['pb_language'] : 'en' ;
 
 
 	// Copyright holder, set in order of precedence
@@ -305,11 +305,11 @@ function pressbooks_copyright_license() {
 
 	} elseif ( isset( $book_meta['pb_copyright_holder'] ) ) {
 		// book copyright holder overrides book author
-		$copyright_holder =  $book_meta['pb_copyright_holder'];
+		$copyright_holder = $book_meta['pb_copyright_holder'];
 
 	} elseif ( isset( $book_meta['pb_author'] ) ) {
 		// book author is the fallback, default
-		$copyright_holder =  $book_meta['pb_author'];
+		$copyright_holder = $book_meta['pb_author'];
 	}
 
 	// Copyright license, set in order of precedence

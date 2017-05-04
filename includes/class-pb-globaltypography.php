@@ -100,8 +100,8 @@ class GlobalTypography {
 	protected function _getBookLanguage() {
 
 		$lang = '';
-		$book_lang = Book::getBookInformation();
-		$book_lang = @$book_lang['pb_language'];
+		$metadata = Book::getBookInformation();
+		$book_lang = ( isset( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
 
 		switch ( $book_lang ) {
 			case 'el': // Ancient Greek
