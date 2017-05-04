@@ -129,9 +129,6 @@ class PublishOptions extends \Pressbooks\Options {
 
 				<h3><?php _e( 'Print-on-Demand', 'pressbooks' ); ?></h3>
 				<p><?php printf( __( 'If you wish to sell your printed books online, we recommend going through <a href="%1$1s">IngramSpark</a> or Amazon\'s <a href="%2$2s">CreateSpace</a>.', 'pressbooks' ), 'https://ingramspark.com', 'https://www.createspace.com' ); ?></p>
-
-				<h3><?php _e( 'Ordering Printed Books', 'pressbooks' ); ?></h3>
-				<p><?php printf( __( 'Pressbooks can print your books and send them to you. For pricing and more details, please send an email to: <a href="%1s">print@pressbooks.com</a>', 'pressbooks' ), 'mailto:print@pressbooks.com' ); ?></p>
 			</div>
 		</div>
 
