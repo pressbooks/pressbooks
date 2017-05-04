@@ -406,7 +406,7 @@ function show_experimental_features( $host = null ) {
 }
 
 /**
- * Include plugins in /vendor
+ * Include plugins in /symbionts
  *
  * @since 2.5.1
  */
@@ -504,6 +504,123 @@ function disable_comments() {
 
 	return $retval;
 }
+
+/**
+ * Remove the Featured tab, change order on the others so that Recommended is first.
+ * Adapted from https://github.com/secretpizzaparty/better-plugin-recommendations
+ *
+ * @since 3.9.9
+ * @author Joey Kudish <info@jkudish.com>
+ * @author Nick Hamze <me@nickhamze.com>
+ *
+ * @param array $tabs The Plugin Installer tabs.
+ * @return array
+ */
+function install_plugins_tabs( $tabs ) {
+	unset( $tabs['featured'] );
+	unset( $tabs['popular'] );
+	unset( $tabs['favorites'] );
+	$tabs['popular'] = _x( 'Popular', 'Plugin Installer' );
+	$tabs['favorites'] = _x( 'Favorites', 'Plugin Installer' );
+	return $tabs;
+}
+
+/**
+ * Replace the core Recommended tab with ours.
+ * Adapted from https://github.com/secretpizzaparty/better-plugin-recommendations
+ *
+ * @since 3.9.9
+ * @author Joey Kudish <info@jkudish.com>
+ * @author Nick Hamze <me@nickhamze.com>
+ *
+ * @param false|object|array $res The result object or array. Default false.
+ * @param string $action The type of information being requested from the Plugin Install API.
+ * @param object $args Plugin API arguments.
+ * @return object
+ */
+function hijack_recommended_tab( $res, $action, $args ) {
+	if ( ! isset( $args->browse ) || 'recommended' !== $args->browse ) {
+		return $res;
+	}
+	$res = get_site_transient( 'pressbooks_recommended_plugins_data' );
+	if ( ! $res || ! isset( $res->plugins ) ) {
+		$res = \Pressbooks\Utility\fetch_recommended_plugins();
+		if ( isset( $res->plugins ) ) {
+			set_site_transient( 'pressbooks_recommended_plugins_data', $res, HOUR_IN_SECONDS );
+		}
+	}
+	return $res;
+}
+
+/**
+ * Fetch recommended plugins from our server.
+ * Adapted from https://github.com/secretpizzaparty/better-plugin-recommendations
+ *
+ * @since 3.9.9
+ * @author Joey Kudish <info@jkudish.com>
+ * @author Nick Hamze <me@nickhamze.com>
+ *
+ * @return object
+ */
+function fetch_recommended_plugins() {
+	/**
+	 * Filter the URL of the Pressbooks Recommended Plugins server.
+	 *
+	 * @since 3.9.9
+	 */
+	$url = $http_url = apply_filters( 'pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh' ) . '/api/plugin-recommendations';
+	if ( $ssl = wp_http_supports( array( 'ssl' ) ) ) {
+		$url = set_url_scheme( $url, 'https' );
+	}
+	$request = wp_remote_get( $url, array( 'timeout' => 15 ) );
+	if ( $ssl && is_wp_error( $request ) ) {
+		trigger_error(
+			__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ) . ' ' . __( '(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)', 'pressbooks' ),
+			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
+		);
+		$request = wp_remote_get( $http_url, array( 'timeout' => 15 ) );
+	}
+	if ( is_wp_error( $request ) ) {
+		$res = new WP_Error( 'plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
+			$request->get_error_message()
+		);
+	} else {
+		$res = json_decode( wp_remote_retrieve_body( $request ) );
+		$res->info = (array) $res->info; // WP wants this as an array...
+		$res->plugins = array_map( function ( $plugin ) {
+			$plugin->icons = (array) $plugin->icons; // WP wants this as an array...
+			return $plugin;
+		}, $res->plugins );
+		if ( ! is_object( $res ) && ! is_array( $res ) ) {
+			$res = new WP_Error( 'plugins_api_failed',
+				__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
+				wp_remote_retrieve_body( $request )
+			);
+		}
+	}
+	return $res;
+}
+
+/**
+ * Replace the description on the Recommended tab.
+ * Adapted from https://github.com/secretpizzaparty/better-plugin-recommendations
+ *
+ * @since 3.9.9
+ * @author Joey Kudish <info@jkudish.com>
+ * @author Nick Hamze <me@nickhamze.com>
+ *
+ * @param string $translation
+ * @param string $text
+ * @param string $domain
+ * @return string
+ */
+function change_recommendations_sentence( $translation, $text, $domain ) {
+	if ( 'These suggestions are based on the plugins you and other users have installed.' === $text ) {
+		return __( 'These plugins have been created and/or recommended by the Pressbooks community.', 'pressbooks' );
+	}
+	return $translation;
+}
+
 
 /**
  * Function to return a string representing max import size by comparing values of upload_max_filesize, post_max_size
