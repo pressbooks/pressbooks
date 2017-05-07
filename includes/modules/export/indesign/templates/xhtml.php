@@ -26,7 +26,7 @@ echo '<?xml version="1.0" encoding="utf-8" ?>' . "\n";
 <?php if ( isset( $meta['pb_author'] ) ) {  ?>
 	<h2><?php echo $meta['pb_author']; ?></h2>
 <?php } ?>
-	
+
 <?php if ( isset( $meta['pb_contributing_authors'] ) ) {  ?>
 	<h3><?php echo $meta['pb_contributing_authors']; ?></h3>
 <?php } ?>
@@ -47,11 +47,14 @@ echo '<?xml version="1.0" encoding="utf-8" ?>' . "\n";
 	<?php if ( isset( $meta['pb_copyright_year'] ) || isset( $meta['pb_copyright_holder'] )  ) { ?>
 		<p class="copyright_notice"><strong>Copyright</strong>:
 			<?php
-			if ( ! empty( $meta['pb_copyright_year'] ) ) { echo $meta['pb_copyright_year'] . ' ';
+			if ( ! empty( $meta['pb_copyright_year'] ) ) {
+				echo $meta['pb_copyright_year'] . ' ';
 			}
-			if ( ! empty( $meta['pb_copyright_holder'] ) ) { echo ' by ' . $meta['pb_copyright_holder'] . '. ';
+			if ( ! empty( $meta['pb_copyright_holder'] ) ) {
+				echo ' by ' . $meta['pb_copyright_holder'] . '. ';
 			}
-			if ( ! empty( $do_copyright_license ) ) { echo $do_copyright_license . '. ';
+			if ( ! empty( $do_copyright_license ) ) {
+				echo $do_copyright_license . '. ';
 			}
 			?>
 		</p>

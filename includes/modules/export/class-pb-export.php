@@ -773,8 +773,8 @@ abstract class Export {
 			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
 
 			$codes = \Pressbooks\L10n\wplang_codes();
-			$book_lang = Book::getBookInformation();
-			$book_lang = ( isset( $book_lang['pb_language'] ) ) ? $book_lang['pb_language'] : 'en';
+			$metadata = Book::getBookInformation();
+			$book_lang = ( ! empty( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
 			$book_lang = $codes[ $book_lang ];
 
 			foreach ( $compare_with as $compare ) {

@@ -412,13 +412,14 @@ function set_locale( $lang ) {
 
 	// Book information
 	$metadata = \Pressbooks\Book::getBookInformation();
+	$book_lang = ( ! empty( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
 
 	if ( is_admin() ) {
 		// If user locale isn't set, use the book information value.
-		if ( function_exists( 'wp_get_current_user' ) && ! get_user_option( 'locale' ) ) {
-			if (  '__UNSET__' == $loc && ! empty( $metadata['pb_language'] ) ) {
+		if ( ! get_user_option( 'locale' ) ) {
+			if (  '__UNSET__' == $loc ) {
 				$locations = \Pressbooks\L10n\wplang_codes();
-				$loc = $locations[ $metadata['pb_language'] ];
+				$loc = $locations[ $book_lang ];
 			}
 		}
 	} elseif ( 'wp-signup.php' == @$GLOBALS['pagenow'] ) {
@@ -426,9 +427,9 @@ function set_locale( $lang ) {
 		$loc = get_site_option( 'WPLANG' );
 	} else {
 		// Use the book information value.
-		if (  '__UNSET__' == $loc && ! empty( $metadata['pb_language'] ) ) {
+		if (  '__UNSET__' == $loc ) {
 			$locations = \Pressbooks\L10n\wplang_codes();
-			$loc = $locations[ $metadata['pb_language'] ];
+			$loc = $locations[ $book_lang ];
 		}
 	}
 
@@ -495,8 +496,9 @@ function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value  ) {
  * @since 3.9.6
  */
 function update_user_locale() {
-	if ( function_exists( 'wp_get_current_user' ) && $locale = get_user_meta( get_current_user_id(), 'user_interface_lang', true ) ) {
-		if ( 'en_US' !== $locale ) {
+	if ( function_exists( 'get_user_meta' ) ) {
+		$locale = get_user_meta( get_current_user_id(), 'user_interface_lang', true );
+		if ( 'en_US' != $locale ) {
 			update_user_meta( get_current_user_id(), 'locale', $locale );
 			require_once( ABSPATH . '/wp-admin/includes/translation-install.php' );
 			$result = \wp_download_language_pack( $locale );
