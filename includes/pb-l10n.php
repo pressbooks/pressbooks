@@ -504,7 +504,7 @@ function update_user_locale() {
 			$result = \wp_download_language_pack( $locale );
 			if ( false == $result ) {
 				$supported_languages = supported_languages();
-				$_SESSION['pb_errors'][] = sprintf( __( 'Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface.', 'pressbooks' ), $supported_languages[ $meta_value ] );
+				$_SESSION['pb_errors'][] = sprintf( __( 'Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface.', 'pressbooks' ), $supported_languages[ $locale ] );
 			}
 		}
 		delete_user_meta( get_current_user_id(), 'user_interface_lang' );
