@@ -498,13 +498,15 @@ function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value  ) {
 function update_user_locale() {
 	if ( function_exists( 'get_user_meta' ) ) {
 		$locale = get_user_meta( get_current_user_id(), 'user_interface_lang', true );
-		if ( 'en_US' != $locale ) {
+		if ( $locale && 'en_US' != $locale ) {
 			update_user_meta( get_current_user_id(), 'locale', $locale );
 			require_once( ABSPATH . '/wp-admin/includes/translation-install.php' );
 			$result = \wp_download_language_pack( $locale );
 			if ( false == $result ) {
+				$wplang_codes = wplang_codes();
 				$supported_languages = supported_languages();
-				$_SESSION['pb_errors'][] = sprintf( __( 'Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface.', 'pressbooks' ), $supported_languages[ $locale ] );
+				$lang = array_search( $locale, $wplang_codes );
+				$_SESSION['pb_errors'][] = sprintf( __( 'Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface.', 'pressbooks' ), $supported_languages[ $lang ] );
 			}
 		}
 		delete_user_meta( get_current_user_id(), 'user_interface_lang' );
