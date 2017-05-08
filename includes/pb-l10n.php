@@ -416,7 +416,7 @@ function set_locale( $lang ) {
 
 	if ( is_admin() ) {
 		// If user locale isn't set, use the book information value.
-		if ( ! get_user_option( 'locale' ) ) {
+		if ( function_exists( 'wp_get_current_user' ) && ! get_user_option( 'locale' ) ) {
 			if (  '__UNSET__' == $loc ) {
 				$locations = \Pressbooks\L10n\wplang_codes();
 				$loc = $locations[ $book_lang ];
