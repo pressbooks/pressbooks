@@ -2,10 +2,12 @@
 
 
 //=====================
-//SASS: tocleft
+//SASS: TocLeft
 //=====================
 
-@mixin tocleft {
+// scss-lint:disable NameFormat
+@mixin TocLeft {
+// scss-lint:enable NameFormat
 
  /* TOC general page structure */
 
@@ -204,10 +206,12 @@
 
 
 //=====================
-//SASS: tocleftchimero
+//SASS: TocLeftChimero
 //=====================
 
-@mixin tocleftchimero {
+// scss-lint:disable NameFormat
+@mixin TocLeftChimero {
+// scss-lint:enable NameFormat
 
  /* TOC general page structure */
 
@@ -435,11 +439,12 @@
 
 
 //=========================
-//SASS: tocleftbringhurst
+//SASS: TocLeftBringhurst
 //==========================
 
-
-@mixin tocleftbringhurst {
+// scss-lint:disable NameFormat
+@mixin TocLeftBringhurst {
+// scss-lint:enable NameFormat
 
  /* TOC general page structure */
 
@@ -632,7 +637,9 @@
 //SASS: TocCenter
 //================
 
-@mixin toccenter {
+// scss-lint:disable NameFormat
+@mixin TocCenter {
+// scss-lint:enable NameFormat
 
   /* TOC general page structure */
 
