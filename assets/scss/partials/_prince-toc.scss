@@ -1,4 +1,4 @@
-// SASS MIXINS -- TABLE OF CONTENTS STYLING 
+// SASS MIXINS -- TABLE OF CONTENTS STYLING
 
 
 //=====================
@@ -6,8 +6,8 @@
 //=====================
 
 @mixin TocLeft {
- 
- /* TOC general page structure */ 
+
+ /* TOC general page structure */
 
   @page toc {
     @include blankheadandfoot;
@@ -16,24 +16,24 @@
     counter-reset: part;
     page-break-before: right;
   }
- 
+
  /* TOC Header */
 
   #toc h1 {
     @include frontmattertitle;
     margin-left: 1cm;
-    margin-top: 2cm;  
-    margin-bottom: 2cm; 
+    margin-top: 2cm;
+    margin-bottom: 2cm;
     text-align: left;
     display: block;
     padding-bottom: 1.5em;
   }
 
-/* TOC general styling */ 
+/* TOC general styling */
 
   #toc a {
     border: none;
-    color: inherit; 
+    color: inherit;
     margin-left: 0;
   }
   #toc ul, #toc li {
@@ -44,20 +44,20 @@
   #toc ul {
     counter-reset: chapter;
     line-height: 1.2;
-    margin-left: 1cm; 
+    margin-left: 1cm;
   }
   #toc li {
-    position: relative; 
+    position: relative;
   }
 
   /* TOC FRONT-MATTER/BACK-MATTER & Margins */
 
   #toc li.front-matter {
-    margin-top: 0.5em; 
+    margin-top: 0.5em;
   }
 
   #toc li.back-matter {
-    margin-top: 0.5em; 
+    margin-top: 0.5em;
   }
 
   #toc li.chapter {
@@ -97,13 +97,13 @@
 
   #toc .part {
     @include tocparttitle;
-    margin: 1.5em 0 1.5em 0; 
+    margin: 1.5em 0 1.5em 0;
     width: 80%;
     page-break-after: avoid;
   }
   #toc .part a::before {
     @include tocpartnumber;
-    content: "Part " counter(part, upper-roman) ".\A0";
+    content: $part ' ' counter(part, upper-roman) ".\A0";
     width: 80%;
     text-align: left;
     counter-increment: part;
@@ -112,7 +112,7 @@
     content:'' ;
   }
 
-  /* TOC CHAPTER STYLING */ 
+  /* TOC CHAPTER STYLING */
 
   #toc .chapter {
     margin-top: 0.3em;
@@ -140,17 +140,17 @@
     width: 75%;
   }
 
-  /* TOC CHAPTER NUMBERS */ 
+  /* TOC CHAPTER NUMBERS */
 
    #toc .chapter a::before {
     @include tocchapternumber;
     content: counter(chapter) ". ";
-    counter-increment: chapter; 
+    counter-increment: chapter;
     display: inline-block;
     vertical-align: top;
     position: relative;
-    line-height: 1.2; 
-    left: -1.5em; 
+    line-height: 1.2;
+    left: -1.5em;
     margin-right: -2em;
     width: 2em;
     text-align: right;
@@ -176,7 +176,7 @@
     text-decoration: none;
     line-height: 1.2;
   }
-  
+
   #toc .front-matter a::after {
     @include tocfrontmatterpagenumber;
     content: leader(" ") target-counter(attr(href), page, lower-roman);
@@ -192,8 +192,8 @@
 //=====================
 
 @mixin TocLeftChimero {
- 
- /* TOC general page structure */ 
+
+ /* TOC general page structure */
 
   @page toc {
     @include blankheadandfoot;
@@ -202,24 +202,24 @@
     counter-reset: part;
     page-break-before: right;
   }
- 
+
  /* TOC Header */
 
   #toc h1 {
     @include frontmattertitle;
     margin-left: 1cm;
-    margin-top: 2cm;  
-    margin-bottom: 2cm; 
+    margin-top: 2cm;
+    margin-bottom: 2cm;
     text-align: left;
     display: block;
     padding-bottom: 1.5em;
   }
 
-/* TOC general styling */ 
+/* TOC general styling */
 
   #toc a {
     border: none;
-    color: inherit; 
+    color: inherit;
     margin-left: 0;
   }
   #toc ul, #toc li {
@@ -230,20 +230,20 @@
   #toc ul {
     counter-reset: chapter;
     line-height: 1.2;
-    margin-left: 1cm; 
+    margin-left: 1cm;
   }
   #toc li {
-    position: relative; 
+    position: relative;
   }
 
   /* TOC FRONT-MATTER/BACK-MATTER & Margins */
 
   #toc li.front-matter {
-    margin-top: 0.5em; 
+    margin-top: 0.5em;
   }
 
   #toc li.back-matter {
-    margin-top: 0.5em; 
+    margin-top: 0.5em;
   }
 
   #toc li.chapter {
@@ -292,7 +292,7 @@
 
   #toc .part {
     @include tocparttitle;
-    margin: 1.5em 0 1.5em 0; 
+    margin: 1.5em 0 1.5em 0;
     width: 80%;
     page-break-after: avoid;
   }
@@ -307,7 +307,7 @@
     content:'' ;
   }
 
-  /* TOC CHAPTER STYLING */ 
+  /* TOC CHAPTER STYLING */
 
   #toc .chapter {
     margin-top: 0.3em;
@@ -335,7 +335,7 @@
     width: 75%;
   }
 
-  /* TOC CHAPTER NUMBERS */ 
+  /* TOC CHAPTER NUMBERS */
 
    #toc .chapter a::before {
     @include tocpagenumber;
@@ -344,8 +344,8 @@
     visibility: visible !important;
     vertical-align: top;
     position: relative;
-    line-height: 1.2; 
-    left: -1.5em; 
+    line-height: 1.2;
+    left: -1.5em;
     margin-right: -2em;
     width: 2em;
     text-align: right;
@@ -371,7 +371,7 @@
     display: inline-block;
     vertical-align: top;
     position: relative;
-    left: -1.5em; 
+    left: -1.5em;
     margin-right: -2em;
     width: 2em;
     text-align: right;
@@ -382,8 +382,8 @@
     display: inline-block;
     vertical-align: top;
     position: relative;
-    line-height: 1.2em; 
-    left: -1.5em; 
+    line-height: 1.2em;
+    left: -1.5em;
     margin-right: -2em;
     width: 2em;
     text-align: right;
@@ -394,8 +394,8 @@
     display: inline-block;
     vertical-align: top;
     position: relative;
-    line-height: 1.2; 
-    left: -1.5em; 
+    line-height: 1.2;
+    left: -1.5em;
     margin-right: -2em;
     width: 2em;
     text-align: right;
@@ -409,8 +409,8 @@
 
 
 @mixin TocLeftBringhurst {
- 
- /* TOC general page structure */ 
+
+ /* TOC general page structure */
 
   @page toc {
     @include blankheadandfoot;
@@ -419,24 +419,24 @@
     counter-reset: part;
     page-break-before: right;
   }
- 
+
  /* TOC Header */
 
   #toc h1 {
     @include frontmattertitle;
     margin-left: 1cm;
-    margin-top: 2cm;  
-    margin-bottom: 2cm; 
+    margin-top: 2cm;
+    margin-bottom: 2cm;
     text-align: center;
     display: block;
     padding-bottom: 1.5em;
   }
 
-/* TOC general styling */ 
+/* TOC general styling */
 
   #toc a {
     border: none;
-    color: inherit; 
+    color: inherit;
     margin-left: 0;
   }
   #toc ul, #toc li {
@@ -447,20 +447,20 @@
   #toc ul {
     counter-reset: chapter;
     line-height: 1.2;
-    margin-left: 1cm; 
+    margin-left: 1cm;
   }
   #toc li {
-    position: relative; 
+    position: relative;
   }
 
   /* TOC FRONT-MATTER/BACK-MATTER & Margins */
 
   #toc li.front-matter {
-    margin-top: 0.5em; 
+    margin-top: 0.5em;
   }
 
   #toc li.back-matter {
-    margin-top: 0.5em; 
+    margin-top: 0.5em;
   }
 
   #toc li.chapter {
@@ -496,7 +496,7 @@
 
   #toc .part {
     @include tocparttitle;
-    margin: 1.5em 0 1.5em 0; 
+    margin: 1.5em 0 1.5em 0;
     width: 80%;
     page-break-after: avoid;
   }
@@ -511,7 +511,7 @@
     content:'' ;
   }
 
-  /* TOC CHAPTER STYLING */ 
+  /* TOC CHAPTER STYLING */
 
   #toc .chapter {
     margin-top: 0.3em;
@@ -541,17 +541,17 @@
     width: 75%;
   }
 
-  /* TOC CHAPTER NUMBERS */ 
+  /* TOC CHAPTER NUMBERS */
 
    #toc .chapter a::before {
     @include tocchapternumber;
     content: counter(chapter) ". ";
-    counter-increment: chapter; 
+    counter-increment: chapter;
     display: inline-block;
     vertical-align: top;
     position: relative;
-    line-height: 1.2; 
-    left: -1.5em; 
+    line-height: 1.2;
+    left: -1.5em;
     margin-right: -2em;
     width: 2em;
     text-align: right;
@@ -589,14 +589,14 @@
 
 @mixin TocCenter {
 
-  /* TOC general page structure */ 
+  /* TOC general page structure */
 
   @page toc {
     @include blankheadandfoot;
   }
   #toc {
     counter-reset: part;
-    page-break-before: right; 
+    page-break-before: right;
     font-size: 0.9em;
     margin-left: 0.5cm;
     margin-right: 0.5cm;
@@ -611,11 +611,11 @@
     padding-bottom: 2em;
   }
 
-/* TOC general styling */ 
+/* TOC general styling */
 
   #toc a {
     border: none;
-    color: inherit; 
+    color: inherit;
   }
   #toc ul, #toc li {
     list-style: none;
@@ -627,20 +627,20 @@
   }
   #toc ul {
     counter-reset: chapter;
-    line-height: 1; 
+    line-height: 1;
   }
   #toc li {
-    position: relative; 
+    position: relative;
   }
 
  /* TOC FRONT-MATTER/BACK-MATTER & Margins */
 
   #toc li.front-matter {
-    margin-top: 0.3em; 
+    margin-top: 0.3em;
     text-align: center;
   }
   #toc li.back-matter {
-    margin-top: 0.3em; 
+    margin-top: 0.3em;
     text-align: center;
   }
   #toc li.chapter + li.back-matter {
@@ -676,24 +676,24 @@
     content: "Part " counter(part, upper-roman)".\A0";
     display: block;
     text-align: center;
-    counter-increment: part; 
+    counter-increment: part;
     page-break-after: avoid;
   }
   #toc .part a::after {
     content:'' ;
   }
 
-  /* CHAPTER NUMBERS */ 
+  /* CHAPTER NUMBERS */
 
   #toc .chapter a::before {
     @include tocchapternumber;
     content: counter(chapter) ".\A0\A0\A0";
-    counter-increment: chapter; 
+    counter-increment: chapter;
     display: inline;
     page-break-after: avoid;
   }
 
-  /* TOC CHAPTER STYLING */ 
+  /* TOC CHAPTER STYLING */
 
   #toc .chapter {
     margin-top: 0.75em;
@@ -730,6 +730,6 @@
     text-decoration: none;
     display: inline;
   }
-  
+
   /* END TOC */
 }
