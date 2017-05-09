@@ -251,6 +251,9 @@ class PDFOptions extends \Pressbooks\Options {
 			$_section,
 			array(
 				'300dpi' => __( 'High (300 DPI)', 'pressbooks' ),
+				'200dpi' => __( 'Med-High (200 DPI)', 'pressbooks' ),
+				'150dpi' => __( 'Medium (150 DPI)', 'pressbooks' ),
+				'100dpi' => __( 'Low-Med (100 DPI)', 'pressbooks' ),
 				'72dpi' => __( 'Low (72 DPI)', 'pressbooks' ),
 			)
 		);
