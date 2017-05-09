@@ -3,8 +3,8 @@
 Contributors: Pressbooks <code@pressbooks.com>
 Version: 3.9.8.2
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.7.3
-Tested up to: 4.7.3
+Requires at least: 4.7.4
+Tested up to: 4.7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,7 +33,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with [PHP 5.6.x](https://secure.php.net/supported-versions.php) and WordPress 4.7.3. Lower versions are not supported.
+ * Pressbooks works with [PHP 5.6.x](https://secure.php.net/supported-versions.php) and WordPress 4.7.4. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
