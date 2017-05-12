@@ -5,7 +5,21 @@ require_once( PB_PLUGIN_DIR . 'includes/admin/pb-metaboxes.php' );
 
 class MetaboxesTest extends \WP_UnitTestCase {
 
-	use utilsTrait;
+	/**
+	 * @covers \Pressbooks\Admin\Metaboxes\title_update
+	 */
+	public function test_title_update() {
+
+		$title = get_option( 'blogname' );
+		\Pressbooks\Admin\Metaboxes\title_update( null, null, 'pb_some_key', 'Nothing should happen' );
+		$option = get_option( 'blogname' );
+		$this->assertEquals( $option, $title );
+
+		$title = 'Hello World!';
+		\Pressbooks\Admin\Metaboxes\title_update( null, null, 'pb_title', $title );
+		$option = get_option( 'blogname' );
+		$this->assertEquals( $option, $title );
+	}
 
 	/**
 	 * @covers \Pressbooks\Admin\Metaboxes\add_meta_boxes
@@ -23,5 +37,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'general-book-information', $c->metadata['metadata'] );
 		$this->assertArrayHasKey( 'additional-catalogue-information', $c->metadata['metadata'] );
 	}
+
 
 }
