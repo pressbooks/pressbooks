@@ -9,15 +9,16 @@ namespace Pressbooks\Admin\Metaboxes;
 /**
  * If the user updates the book's title, then also update the blog name
  *
- * @param int $pid
- * @param \WP_Post $post
+ * @param string|int $meta_id
+ * @param int $post_id
+ * @param string $meta_key
+ * @param string $meta_value
  */
 function title_update( $meta_id, $post_id, $meta_key, $meta_value ) {
 	if ( 'pb_title' != $meta_key ) {
-		return false;
+		return;
 	} else {
 		update_option( 'blogname', $meta_value );
-		\wp_cache_flush();
 	}
 }
 
