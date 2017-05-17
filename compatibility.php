@@ -18,6 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function pb_meets_minimum_requirements() {
 
+	// Cheap cache
+	static $is_compatible = null;
+	if ( null !== $is_compatible ) {
+		return $is_compatible;
+	}
+
 	$is_compatible = true;
 
 	// PHP Version
