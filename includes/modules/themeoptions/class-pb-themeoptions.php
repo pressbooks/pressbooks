@@ -90,11 +90,13 @@ class ThemeOptions {
 			'ebook' => '\Pressbooks\Modules\ThemeOptions\EbookOptions',
 		);
 
-		if ( ! \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
+		if ( false == get_transient( 'pb_pdf_compatible' ) && false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
 			unset( $tabs['pdf'] );
+		} else {
+			set_transient( 'pb_pdf_compatible', true );
 		}
 
-		if ( ! \Pressbooks\Modules\Export\Mobi\Kindlegen::hasDependencies() && ! \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
+		if ( false == get_transient( 'pb_mobi_compatible' ) && false == \Pressbooks\Modules\Export\Mobi\Kindlegen::hasDependencies() && false == get_transient( 'pb_epub_compatible' ) && false == \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
 			unset( $tabs['ebook'] );
 		}
 
