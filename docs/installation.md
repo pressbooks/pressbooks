@@ -13,7 +13,7 @@ Download the [latest release][1] of Pressbooks from our [releases page][2].
 IMPORTANT!
 
 *   Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
-*   Pressbooks works with [PHP 5.6.x][3] and WordPress 4.7.4. Lower versions are not supported.
+*   Pressbooks works with [PHP 5.6.x][3] and WordPress 4.7.5. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
