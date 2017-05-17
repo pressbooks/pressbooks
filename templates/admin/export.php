@@ -39,60 +39,52 @@ if ( $timezone_string ) {
 
 $dependency_errors = array();
 
-if ( false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
-	$prince = false;
+if ( false == get_transient( 'pb_pdf_compatible' ) && false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
 	$dependency_errors['pdf'] = 'PDF';
 } else {
-	$prince = true;
+	set_transient( 'pb_pdf_compatible', true );
 }
 
-if ( false == \Pressbooks\Modules\Export\Prince\PrintPdf::hasDependencies() ) {
-	$prince = false;
+if ( false == get_transient( 'pb_print_pdf_compatible' ) && false == \Pressbooks\Modules\Export\Prince\PrintPdf::hasDependencies() ) {
 	$dependency_errors['print_pdf'] = 'Print PDF';
 } else {
-	$prince = true;
+	set_transient( 'pb_print_pdf_compatible', true );
 }
 
-if ( false == \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
-	$epub = false;
+if ( false == get_transient( 'pb_epub_compatible' ) && false == \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
 	$dependency_errors['epub'] = 'EPUB';
 } else {
-	$epub = true;
+	set_transient( 'pb_epub_compatible', true );
 }
 
-if ( false == \Pressbooks\Modules\Export\Mobi\Kindlegen::hasDependencies() ) {
-	$mobi = false;
+if ( false == get_transient( 'pb_mobi_compatible' ) && false == \Pressbooks\Modules\Export\Mobi\Kindlegen::hasDependencies() ) {
 	$dependency_errors['mobi'] = 'MOBI';
 } else {
-	$mobi = true;
+	set_transient( 'pb_mobi_compatible', true );
 }
 
-if ( false == \Pressbooks\Modules\Export\Epub\Epub3::hasDependencies() ) {
-	$epub3 = false;
+if ( false == get_transient( 'pb_epub3_compatible' ) && false == \Pressbooks\Modules\Export\Epub\Epub3::hasDependencies() ) {
 	$dependency_errors['epub3'] = 'EPUB3';
 } else {
-	$epub3 = true;
+	set_transient( 'pb_epub3_compatible', true );
 }
 
-if ( false == \Pressbooks\Modules\Export\Xhtml\Xhtml11::hasDependencies() ) {
-	$xhtml = false;
+if ( false == get_transient( 'pb_xhtml_compatible' ) && false == \Pressbooks\Modules\Export\Xhtml\Xhtml11::hasDependencies() ) {
 	$dependency_errors['xhtml'] = 'XHTML';
 } else {
-	$xhtml = true;
+	set_transient( 'pb_xhtml_compatible', true );
 }
 
-if ( false == \Pressbooks\Modules\Export\InDesign\Icml::hasDependencies() ) {
-	$icml = false;
+if ( false == get_transient( 'pb_icml_compatible' ) && false == \Pressbooks\Modules\Export\InDesign\Icml::hasDependencies() ) {
 	$dependency_errors['icml'] = 'ICML';
 } else {
-	$icml = true;
+	set_transient( 'pb_icml_compatible', true );
 }
 
-if ( false == \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
-	$odt = false;
+if ( false == get_transient( 'pb_odt_compatible' ) && false == \Pressbooks\Modules\Export\Odt\Odt::hasDependencies() ) {
 	$dependency_errors['odt'] = 'OpenDocument';
 } else {
-	$odt = true;
+	set_transient( 'pb_odt_compatible', true );
 }
 
 if ( $dependency_errors ) {
