@@ -12,7 +12,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 1;
+	const VERSION = 1;
 
 	/**
 	* Publish options.
@@ -163,7 +163,6 @@ class PublishOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the amazon field.
-	 * @param array $args
 	 */
 	function renderAmazonField() {
 		$this->renderField( array(
@@ -178,7 +177,6 @@ class PublishOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the oreilly field.
-	 * @param array $args
 	 */
 	function renderOReillyField() {
 		$this->renderField( array(
@@ -193,7 +191,6 @@ class PublishOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the barnesandnoble field.
-	 * @param array $args
 	 */
 	function renderBarnesAndNobleField() {
 		$this->renderField( array(
@@ -208,7 +205,6 @@ class PublishOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the barnesandnoble field.
-	 * @param array $args
 	 */
 	function renderKoboField() {
 		$this->renderField( array(
@@ -223,7 +219,6 @@ class PublishOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the ibooks field.
-	 * @param array $args
 	 */
 	function renderiBooksField() {
 		$this->renderField( array(
@@ -238,7 +233,6 @@ class PublishOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the ibooks field.
-	 * @param array $args
 	 */
 	function renderOtherServiceField() {
 		$this->renderField( array(

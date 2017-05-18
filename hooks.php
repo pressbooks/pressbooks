@@ -178,10 +178,10 @@ if ( \Pressbooks\Book::isBook() && \Pressbooks\ThemeLock::isLocked() ) {
 if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'init', function () {
 		$meta_version = get_option( 'pressbooks_metadata_version', 0 );
-		if ( $meta_version < \Pressbooks\Metadata::$currentVersion ) {
+		if ( $meta_version < \Pressbooks\Metadata::VERSION ) {
 			$metadata = new \Pressbooks\Metadata();
 			$metadata->upgrade( $meta_version );
-			update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::$currentVersion );
+			update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
 		}
 	}, 1000 );
 }
@@ -189,13 +189,16 @@ if ( \Pressbooks\Book::isBook() ) {
 // -------------------------------------------------------------------------------------------------------------------
 // Upgrade Taxonomies
 // -------------------------------------------------------------------------------------------------------------------
+
+// TODO: Before this commit, we were updating 'pressbooks_taxonomy_version' with \Pressbooks\Metadata::VERSION (bug)
+
 if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'init', function () {
 		$taxonomy_version = get_option( 'pressbooks_taxonomy_version', 0 );
-		if ( $taxonomy_version < \Pressbooks\Taxonomy::$currentVersion ) {
+		if ( $taxonomy_version < \Pressbooks\Taxonomy::VERSION ) {
 			$taxonomy = new \Pressbooks\Taxonomy();
 			$taxonomy->upgrade( $taxonomy_version );
-			update_option( 'pressbooks_taxonomy_version', \Pressbooks\Metadata::$currentVersion );
+			update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION );
 		}
 	}, 1000 );
 }
@@ -206,10 +209,10 @@ if ( \Pressbooks\Book::isBook() ) {
 
 add_action( 'init', function () {
 	$catalog_version = get_site_option( 'pressbooks_catalog_version', 0 );
-	if ( $catalog_version < \Pressbooks\Catalog::$currentVersion ) {
+	if ( $catalog_version < \Pressbooks\Catalog::VERSION ) {
 		$metadata = new \Pressbooks\Catalog();
 		$metadata->upgrade( $catalog_version );
-		update_site_option( 'pressbooks_catalog_version', \Pressbooks\Catalog::$currentVersion );
+		update_site_option( 'pressbooks_catalog_version', \Pressbooks\Catalog::VERSION );
 	}
 }, 1000 );
 

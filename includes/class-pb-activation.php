@@ -98,7 +98,7 @@ class Activation {
 		}
 
 		// Set current metadata version to skip redundant upgrade routines
-		update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::$currentVersion );
+		update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
 		flush_rewrite_rules( false );
 
 		do_action( 'pressbooks_new_blog' );

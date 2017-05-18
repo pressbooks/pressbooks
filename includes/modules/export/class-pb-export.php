@@ -283,7 +283,7 @@ abstract class Export {
 
 		// Within range of 5 minutes?
 		$within_range = time() - $timestamp;
-		if ( $within_range > ( 60 * 5 ) ) {
+		if ( $within_range > ( MINUTE_IN_SECONDS * 5 ) ) {
 			return false;
 		}
 
@@ -665,7 +665,7 @@ abstract class Export {
 
 			$last_export = get_option( 'pressbooks_last_export' );
 			$within_range = time() - $last_export;
-			if ( $within_range > ( 60 * 60 ) ) {
+			if ( $within_range > ( HOUR_IN_SECONDS ) ) {
 				\Pressbooks\Book::deleteBookObjectCache();
 				update_option( 'pressbooks_last_export', time() );
 			}

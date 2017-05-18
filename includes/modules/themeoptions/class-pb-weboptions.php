@@ -13,7 +13,7 @@ class WebOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 1;
+	const VERSION = 1;
 
 	/**
 	* Web theme options.

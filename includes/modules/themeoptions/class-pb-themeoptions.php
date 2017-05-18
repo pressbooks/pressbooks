@@ -35,11 +35,11 @@ class ThemeOptions {
 			$tab->init();
 			wp_cache_delete( 'pressbooks_theme_options_' . $slug . '_version', 'options' );
 			$version = get_option( 'pressbooks_theme_options_' . $slug . '_version', 0 );
-			if ( $version < $tab::$currentVersion ) {
+			if ( $version < $tab::VERSION ) {
 				$tab->upgrade( $version );
-				update_option( 'pressbooks_theme_options_' . $slug . '_version', $tab::$currentVersion, false );
+				update_option( 'pressbooks_theme_options_' . $slug . '_version', $tab::VERSION, false );
 				if ( WP_DEBUG ) {
-					error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::$currentVersion );
+					error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::VERSION );
 				}
 			}
 		}
