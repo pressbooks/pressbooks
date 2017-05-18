@@ -16,7 +16,7 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 2;
+	const VERSION = 2;
 
 	/**
 	* PDF theme options.

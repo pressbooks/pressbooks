@@ -180,7 +180,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			'author' => __( 'Author', 'pressbooks' ),
 		);
 
-		for ( $i = 1; $i <= Catalog::$maxTagsGroup; ++$i ) {
+		for ( $i = 1; $i <= Catalog::MAX_TAGS_GROUP; ++$i ) {
 			$columns[ "tag_{$i}" ] = ! empty( $profile[ "pb_catalog_tag_{$i}_name" ] ) ? $profile[ "pb_catalog_tag_{$i}_name" ] : __( 'Tag', 'pressbooks' ) . " $i";
 		}
 

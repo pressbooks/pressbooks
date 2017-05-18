@@ -56,7 +56,7 @@ function group_exports( $dir = null ) {
 	}
 	arsort( $files );
 
-	$interval = 3 * 60; // Three minutes
+	$interval = 3 * MINUTE_IN_SECONDS; // Three minutes
 	$pos = 0;
 	$output = array();
 

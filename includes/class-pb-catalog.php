@@ -20,7 +20,7 @@ class Catalog {
 	 * @see install()
 	 * @var int
 	 */
-	static $currentVersion = 3;
+	const VERSION = 3;
 
 
 	/**
@@ -28,7 +28,7 @@ class Catalog {
 	 *
 	 * @var int
 	 */
-	static $maxTagsGroup = 2;
+	const MAX_TAGS_GROUP = 2;
 
 
 	/**
@@ -88,7 +88,7 @@ class Catalog {
 		$this->dbLinkTable = $wpdb->base_prefix . 'pressbooks__catalog__tags';
 
 		// Tags
-		for ( $i = 1; $i <= static::$maxTagsGroup; ++$i ) {
+		for ( $i = 1; $i <= self::MAX_TAGS_GROUP; ++$i ) {
 			$this->profileMetaKeys[ "pb_catalog_tag_{$i}_name" ] = '%s';
 		}
 
@@ -231,7 +231,7 @@ class Catalog {
 				}
 
 				// Tags
-				for ( $j = 1; $j <= static::$maxTagsGroup; ++$j ) {
+				for ( $j = 1; $j <= self::MAX_TAGS_GROUP; ++$j ) {
 					$data[ $i ][ "tag_{$j}" ] = $this->getTagsByBook( $val['blogs_id'], $j );
 				}
 
@@ -303,7 +303,7 @@ class Catalog {
 			}
 
 			// Tags
-			for ( $j = 1; $j <= static::$maxTagsGroup; ++$j ) {
+			for ( $j = 1; $j <= self::MAX_TAGS_GROUP; ++$j ) {
 				$data[ $i ][ "tag_{$j}" ] = $this->getTagsByBook( $book->userblog_id, $j );
 			}
 
@@ -806,7 +806,7 @@ class Catalog {
 	 */
 	function upgrade( $version ) {
 
-		if ( $version < self::$currentVersion ) {
+		if ( $version < self::VERSION ) {
 			$this->createOrUpdateTables();
 		}
 	}
@@ -1174,7 +1174,7 @@ class Catalog {
 		$catalog->saveBook( $blog_id, array( 'featured' => absint( @$_REQUEST['featured'] ) ) );
 
 		// Tags
-		for ( $i = 1; $i <= static::$maxTagsGroup; ++$i ) {
+		for ( $i = 1; $i <= self::MAX_TAGS_GROUP; ++$i ) {
 			$catalog->deleteTags( $blog_id, $i );
 			$tags = ( isset( $_REQUEST[ "tags_$i" ] ) ) ? $_REQUEST[ "tags_$i" ] : array();
 			foreach ( $tags as $tag ) {
