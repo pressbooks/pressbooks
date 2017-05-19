@@ -15,6 +15,7 @@ use Pressbooks\Container;
 use Pressbooks\Sanitize;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 class Epub201 extends Export {
 
@@ -112,6 +113,14 @@ class Epub201 extends Export {
 	 * @var string
 	 */
 	protected $cssOverrides;
+
+
+	/**
+	 * Hack to romanize part numbers
+	 *
+	 * @var bool
+	 */
+	protected $romanizePartNumbers = false;
 
 
 	/**
@@ -343,13 +352,17 @@ class Epub201 extends Export {
 		$hacks = apply_filters( 'pb_epub_hacks', $hacks );
 
 		// Display chapter numbers?
-		if ( isset( $hacks['chapter_numbers'] ) && $hacks['chapter_numbers'] ) {
+		if ( @$hacks['chapter_numbers'] ) {
 			$this->numbered = true;
 		} else {
 			$this->numbered = false;
 		}
 
-		if ( isset( $hacks['ebook_compress_images'] ) && $hacks['ebook_compress_images'] ) {
+		if ( @$hacks['ebook_romanize_part_numbers'] ) {
+			$this->romanizePartNumbers = true;
+		}
+
+		if ( @$hacks['ebook_compress_images'] ) {
 			$this->compressImages = true;
 		}
 
@@ -457,7 +470,7 @@ class Epub201 extends Export {
 			$GLOBALS['hl_Ids'] = $this->fixme;
 		}
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
 
@@ -850,7 +863,7 @@ class Epub201 extends Export {
 				continue; // Skip
 			}
 
-			$content = $front_matter['post_content'];
+			$content = $this->kneadHtml( $front_matter['post_content'], 'front-matter' );
 			break;
 		}
 
@@ -865,7 +878,7 @@ class Epub201 extends Export {
 			$html .= sprintf( '<h3 class="author">%s</h3>', @$metadata['pb_author'] );
 			$html .= sprintf( '<h4 class="author">%s</h4>', @$metadata['pb_contributing_authors'] );
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
-				$html .= sprintf( '<div class="publisher-logo"><img src="%s" alt="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'], __( 'Publisher Logo', 'pressbooks' ) ); // TODO: Support custom publisher logo.
+				$html .= sprintf( '<div class="publisher-logo"><img src="%s" /></div>',  get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
 			}
 			$html .= sprintf( '<h4 class="publisher">%s</h4>', @$metadata['pb_publisher'] );
 			$html .= sprintf( '<h5 class="publisher-city">%s</h5>', @$metadata['pb_publisher_city'] );
@@ -877,7 +890,7 @@ class Epub201 extends Export {
 		$vars = array(
 			'post_title' => __( 'Title Page', 'pressbooks' ),
 			'stylesheet' => $this->stylesheet,
-			'post_content' => $this->kneadHtml( $html, 'custom' ),
+			'post_content' => $html,
 			'isbn' => @$metadata['pb_ebook_isbn'],
 			'lang' => $this->lang,
 		);
@@ -1266,16 +1279,14 @@ class Epub201 extends Export {
 					Sanitize\decode( $title ),
 					$content,
 					$var['append_chapter_content'] = $append_chapter_content,
-					''
-				);
+				'' );
 
 				$file_id = 'chapter-' . sprintf( '%03s', $j );
 				$filename = "{$file_id}-{$slug}.{$this->filext}";
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
-				);
+				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 				$this->manifest[ $file_id ] = array(
 					'ID' => $chapter['ID'],
@@ -1287,8 +1298,7 @@ class Epub201 extends Export {
 
 				$j++;
 
-				if ( 'numberless' !== $subclass ) {
-					++$c;
+				if ( 'numberless' !== $subclass ) { ++$c;
 				}
 			}
 
@@ -1300,7 +1310,7 @@ class Epub201 extends Export {
 					( $part_printf_changed ? $part_printf_changed : $part_printf ),
 					$invisibility,
 					$slug,
-					( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
+					( $this->numbered ? ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) : '' ),
 					Sanitize\decode( $part['post_title'] ),
 				$part_content );
 
@@ -1309,8 +1319,7 @@ class Epub201 extends Export {
 
 				file_put_contents(
 					$this->tmpDir . "/OEBPS/$filename",
-					$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars )
-				);
+				$this->loadTemplate( $this->dir . '/templates/epub201/html.php', $vars ) );
 
 				// Insert into correct pos
 				$this->manifest = array_slice( $this->manifest, 0, $array_pos, true ) + array(
@@ -1333,7 +1342,7 @@ class Epub201 extends Export {
 						( $part_printf_changed ? $part_printf_changed : $part_printf ),
 						$invisibility,
 						$slug,
-						( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
+						( $this->numbered ? ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) : '' ),
 						Sanitize\decode( $part['post_title'] ),
 					$part_content );
 
@@ -1365,7 +1374,7 @@ class Epub201 extends Export {
 							( $part_printf_changed ? $part_printf_changed : $part_printf ),
 							$invisibility,
 							$slug,
-							( $this->numbered ? \Pressbooks\L10n\romanize( $m ) : '' ),
+							( $this->numbered ? ( $this->romanizePartNumbers ? \Pressbooks\L10n\romanize( $m ) : $m ) : '' ),
 							Sanitize\decode( $part['post_title'] ),
 						$part_content );
 
@@ -1386,8 +1395,7 @@ class Epub201 extends Export {
 						) + array_slice( $this->manifest, $array_pos, count( $this->manifest ) - 1, true );
 
 						++$i;
-						if ( 'invisible' !== $invisibility ) {
-							++$p;
+						if ( 'invisible' !== $invisibility ) { ++$p;
 						}
 					}
 				}
@@ -1528,8 +1536,7 @@ class Epub201 extends Export {
 		// HTML
 
 		$li_count = 0;
-		$i = 1; // Chapter count
-		$m = 1; // Part count
+		$i = 1;
 		$html = '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $this->manifest as $k => $v ) {
 
@@ -1550,9 +1557,6 @@ class Epub201 extends Export {
 				$class = 'part';
 				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) == 'on' ) {
 					$class .= ' display-none';
-				} else {
-					$title = ( $this->numbered ? __( 'Part', 'pressbooks' ) . ' ' . \Pressbooks\L10n\romanize( $m ) . '. ' : '' ) . $title;
-					$m++;
 				}
 			} elseif ( preg_match( '/^chapter-/', $k ) ) {
 				$class = 'chapter';
@@ -1563,8 +1567,7 @@ class Epub201 extends Export {
 				if ( $this->numbered && \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) {
 					$title = " $i. " . $title;
 				}
-				if ( \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) {
-					++$i;
+				if ( \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) { ++$i;
 				}
 			} elseif ( preg_match( '/^back-matter-/', $k ) ) {
 				$class = 'back-matter ';
@@ -1754,7 +1757,7 @@ class Epub201 extends Export {
 			return $this->fetchedImageCache[ $url ];
 		}
 
-		$response = \Pressbooks\Utility\remote_get_retry( $url, array( 'timeout' => $this->timeout ) );
+		$response = wp_remote_get( $url, array( 'timeout' => $this->timeout ) );
 
 		// WordPress error?
 		if ( is_wp_error( $response ) ) {

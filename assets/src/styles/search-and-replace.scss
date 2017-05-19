@@ -1,4 +1,10 @@
-@import 'partials/colors';
+$white: #fff;
+$shadow: rgba(0, 0, 0, .1);
+$fall-green: #e9ffe9;
+$verdun-green: #afa;
+$pippin: #ffe9e9;
+$monza: #faa;
+$grey: #eee;
 
 .form-table.search-form {
   th {
@@ -50,7 +56,7 @@
       font-family: Consolas, Monaco, monospace;
       font-size: 14px;
       line-height: 1.618;
-      background-color: $mercury;
+      background-color: $grey;
       box-sizing: border-box;
 
     }
@@ -61,12 +67,12 @@
 
     del {
       font-weight: normal;
-      background-color: $cornflower-lilac;
+      background-color: $monza;
     }
 
     ins {
       font-weight: normal;
-      background-color: $mint-green;
+      background-color: $verdun-green;
     }
 
     .content {
@@ -81,7 +87,7 @@
 
     .replacement {
       float: right;
-      background-color: $hint-of-green;
+      background-color: $fall-green;
     }
   }
 }

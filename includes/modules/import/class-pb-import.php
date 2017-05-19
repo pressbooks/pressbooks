@@ -10,7 +10,7 @@ namespace Pressbooks\Modules\Import;
 require_once( ABSPATH . 'wp-admin/includes/image.php' );
 require_once( ABSPATH . 'wp-admin/includes/file.php' );
 require_once( ABSPATH . 'wp-admin/includes/media.php' );
-
+require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
 
 abstract class Import {
 
@@ -218,7 +218,7 @@ abstract class Import {
 			'safe' => 1,
 		);
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
 
@@ -258,9 +258,6 @@ abstract class Import {
 
 		if ( @$_GET['import'] && is_array( @$_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
-			// Set post status
-			$current_import['default_post_status'] = ( isset( $_POST['import_as_drafts'] ) ) ? 'draft' : 'publish';
-
 			// --------------------------------------------------------------------------------------------------------
 			// Do Import
 
@@ -292,17 +289,6 @@ abstract class Import {
 				case 'html':
 					$importer = new Html\Xhtml();
 					$ok = $importer->import( $current_import );
-					break;
-
-				default:
-					/**
-					 * Allows users to add a custom import routine for custom import type.
-					 *
-					 * @since 3.9.6
-					 */
-					$importer = apply_filters( 'pb_initialize_import', null );
-					$ok = $importer->import( $current_import );
-					break;
 			}
 
 			$msg = "Tried to import a file of type {$current_import['type_of']} and ";
@@ -319,20 +305,12 @@ abstract class Import {
 			// --------------------------------------------------------------------------------------------------------
 			// Set the 'pressbooks_current_import' option
 
-			/**
-			 * Allows users to append import options to the list of allowed file types.
-			 *
-			 * @since 3.9.6
-			 *
-			 * @param array The list of currently allowed file types.
-			 */
-			$allowed_file_types = apply_filters( 'pb_import_file_types', array(
+			$allowed_file_types = array(
 				'epub' => 'application/epub+zip',
 				'xml' => 'application/xml',
 				'odt' => 'application/vnd.oasis.opendocument.text',
 				'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-			) );
-
+			);
 			$overrides = array( 'test_form' => false, 'mimes' => $allowed_file_types );
 
 			if ( ! function_exists( 'wp_handle_upload' ) ) {
@@ -348,7 +326,6 @@ abstract class Import {
 			}
 
 			$ok = false;
-
 			switch ( $_POST['type_of'] ) {
 
 				case 'wxr':
@@ -368,12 +345,6 @@ abstract class Import {
 
 				case 'docx':
 					$importer = new Ooxml\Docx();
-					$ok = $importer->setCurrentImportOption( $upload );
-					break;
-
-				default:
-					/** This filter is documented above */
-					$importer = apply_filters( 'pb_initialize_import', null );
 					$ok = $importer->setCurrentImportOption( $upload );
 					break;
 			}

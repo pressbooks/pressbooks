@@ -1,0 +1,89 @@
+//=================================
+// Blank Running Foot
+//=================================
+
+// Ensures that the running foot is blank throughout.
+
+// -------------------------------
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// |              |              |
+// -------------------------------
+
+@import 'blank';
+
+// Front Matter
+
+@page front-matter:first {
+  @include blank-foot;
+}
+
+@page front-matter:left {
+  @include blank-foot;
+}
+
+@page front-matter:right {
+  @include blank-foot;
+}
+
+// Introduction
+
+@page introduction:first {
+  @include blank-foot;
+}
+
+@page introduction:left {
+  @include blank-foot;
+}
+
+@page introduction:right {
+  @include blank-foot;
+}
+
+// Parts
+
+@page part:first {
+  @include blank-foot;
+}
+
+@page part:left {
+  @include blank-foot;
+}
+
+@page part:right {
+  @include blank-foot;
+}
+
+// Chapters
+
+@page chapter:first {
+  @include blank-foot;
+}
+
+@page chapter:left {
+  @include blank-foot;
+}
+
+@page chapter:right {
+  @include blank-foot;
+}
+
+// Back Matter
+
+@page back-matter:first {
+  @include blank-foot;
+}
+
+@page back-matter:left {
+  @include blank-foot;
+}
+
+@page back-matter:right {
+  @include blank-foot;
+}

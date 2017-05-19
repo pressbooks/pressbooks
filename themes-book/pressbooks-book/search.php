@@ -8,7 +8,7 @@ if ( have_posts() ) : ?>
 					get_template_part( 'content', 'search' );
 				endwhile; ?>
 			</ul>
-				<?php the_posts_navigation(); ?>
+					<div class="nav"><?php the_posts_navigation(); ?></div>
 				</div>
 				<?php else :
 					get_template_part( 'content', 'none' );

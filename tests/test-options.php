@@ -7,7 +7,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
+	static $currentVersion = 1;
 
 	/**
 	 * Export options.
@@ -173,7 +173,7 @@ class OptionsTest extends \WP_UnitTestCase {
 	use utilsTrait;
 
 	/**
-	 * @var \Pressbooks\Options
+	 * @var \Options
 	 */
 	protected $options;
 

@@ -33,7 +33,7 @@ class Sass {
 			$this->pathToUserGeneratedSass(),
 			$this->pathToGlobals(),
 			$this->pathToFonts(),
-			apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() ) . "/assets/styles/$type/",
+			$theme->get_stylesheet_directory() . "/assets/styles/$type/",
 		];
 	}
 
@@ -167,9 +167,20 @@ class Sass {
 			$css = '/* Silence is golden. */'; // If no SCSS input was passed, prevent file write errors by putting a comment in the CSS output.
 
 			if ( '' !== $scss ) {
-				$sass = new \Leafo\ScssPhp\Compiler;
-				$sass->setImportPaths( $includes );
-				$css = $sass->compile( $scss );
+				if ( extension_loaded( 'sass' ) ) { // use sassphp extension
+					$scss_file = array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ) ) );
+					rename( $scss_file, $scss_file .= '.scss' );
+					register_shutdown_function( create_function( '', "unlink('{$scss_file}');" ) );
+					file_put_contents( $scss_file, $scss );
+					$sass = new \Sass();
+					$include_paths = implode( ':', $includes );
+					$sass->setIncludePath( $include_paths );
+					$css = $sass->compileFile( $scss_file );
+				} else { // use scssphp library
+					$sass = new \Leafo\ScssPhp\Compiler;
+					$sass->setImportPaths( $includes );
+					$css = $sass->compile( $scss );
+				}
 			}
 		} catch ( \Exception $e ) {
 
@@ -294,23 +305,21 @@ class Sass {
 			$theme = wp_get_theme();
 		}
 
-		$basepath = apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() );
-
 		$types = array(
 				'prince',
 				'epub',
 				'web',
-		);
 
+		);
 		foreach ( $types as $type ) {
 			if ( 1 == $version && 'web' !== $type ) {
-				$path = $basepath . "/export/$type/style.scss";
+				$path = $theme->get_stylesheet_directory() . "/export/$type/style.scss";
 			} elseif ( 1 == $version && 'web' == $type ) {
-				$path = $basepath . '/style.scss';
+				$path = $theme->get_stylesheet_directory() . '/style.scss';
 			}
 
 			if ( 2 == $version ) {
-				$path = $basepath . "/assets/styles/$type/style.scss";
+				$path = $theme->get_stylesheet_directory() . "/assets/styles/$type/style.scss";
 			}
 
 			$fullpath = realpath( $path );
@@ -318,8 +327,7 @@ class Sass {
 				return false;
 			}
 		}
-
-		return true;
+				return true;
 	}
 
 	/**
@@ -341,79 +349,5 @@ class Sass {
 		}
 
 		return $scss;
-	}
-
-	/**
-	 * Update and save the supplementary webBook stylesheet which incorporates user options, etc.
-	 *
-	 * @return void
-	 */
-	function updateWebBookStyleSheet() {
-
-		$overrides = apply_filters( 'pb_web_css_override', '' ) . "\n";
-
-		if ( $this->isCurrentThemeCompatible( 1 ) ) {
-			$path_to_style = realpath( get_stylesheet_directory() . '/style.scss' );
-			// Populate $url-base variable so that links to images and other assets remain intact
-			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
-
-			$scss .= $this->applyOverrides( file_get_contents( $path_to_style ), $overrides );
-
-			$scss .= "\n";
-			$css = $this->compile( $scss, [
-				$this->pathToUserGeneratedSass(),
-				$this->pathToPartials(),
-				$this->pathToFonts(),
-				get_stylesheet_directory(),
-			] );
-
-		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
-			$path_to_style = realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' );
-
-			// Populate $url-base variable so that links to images and other assets remain intact
-			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
-
-			$scss .= $this->applyOverrides( file_get_contents( $path_to_style ), $overrides );
-			$css = $this->compile( $scss, $this->defaultIncludePaths( 'web' ) );
-		} else {
-			return;
-		}
-
-		$css = $this->fixWebFonts( $css );
-
-		$css_file = $this->pathToUserGeneratedCss() . '/style.css';
-		file_put_contents( $css_file, $css );
-	}
-
-	/**
-	 * Fix relative/ambiguous URLs to web fonts
-	 *
-	 * @param $css
-	 * @return mixed
-	 */
-	function fixWebFonts( $css ) {
-
-		// Search for url("*"), url('*'), and url(*)
-		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback( $url_regex, function ( $matches ) {
-
-			$url = $matches[3];
-			$filename = sanitize_file_name( basename( $url ) );
-
-			// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
-			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				return 'url(' . PB_PLUGIN_URL . $url . ')';
-			}
-
-			// Look for uploads/assets/fonts/*.otf (or .woff, or .ttf), update URL
-			if ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				return 'url(' . WP_CONTENT_URL . '/' . $url . ')';
-			}
-
-			return $matches[0]; // No change
-
-		}, $css );
-
-		return $css;
 	}
 }

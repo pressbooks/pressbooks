@@ -111,7 +111,7 @@ class Pdf extends Export {
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
-		if ( defined( 'WP_ENV' ) && WP_ENV == 'development' || WP_ENV == 'staging' ) {
+		if ( defined( 'WP_ENV' ) && WP_ENV == 'development' ) {
 			$prince->setInsecure( true );
 		}
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {

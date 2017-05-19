@@ -83,7 +83,7 @@
 								$filename = preg_replace( '/(-\d{10})(.*)/ui', "$1", $filename );
 
 								// Rewrite rule
-								$url = home_url( "/open/download?type={$filetype}" );
+								$url = home_url( "/open/download?filename={$filename}&type={$filetype}" );
 
 								// Tracking event defaults to Google Analytics (Universal).
 								// Filter like so (for Piwik):

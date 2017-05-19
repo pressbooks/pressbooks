@@ -93,6 +93,30 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_array( $wplang_codes ) );
 	}
 
+
+	/**
+	 * @covers \Pressbooks\L10n\get_dashboard_languages
+	 */
+	public function test_get_dashboard_languages() {
+
+		$get_dashboard_languages = \Pressbooks\L10n\get_dashboard_languages();
+		$this->assertTrue( is_array( $get_dashboard_languages ) );
+	}
+
+
+	/**
+	 * @covers \Pressbooks\L10n\set_user_interface_lang
+	 */
+	function test_set_user_interface_lang() {
+
+		$user_id = $this->factory->user->create();
+
+		\Pressbooks\L10n\set_user_interface_lang( $user_id );
+
+		$this->assertTrue( true );
+	}
+
+
 	/**
 	 * @covers \Pressbooks\L10n\romanize
 	 */
@@ -105,27 +129,6 @@ class L10nTest extends \WP_UnitTestCase {
 		$this->assertEquals( \Pressbooks\L10n\romanize( 1975 ), 'MCMLXXV' );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\L10n\install_book_locale
-	 */
-	public function test_install_book_locale() {
-
-		// Test for incorrect meta_key
-		$output = \Pressbooks\L10n\install_book_locale( 1, 1, 'pb_author', 'Some Guy' );
-		$this->assertEquals( $output, false );
-
-		// Test for default or installed language
-		$output = \Pressbooks\L10n\install_book_locale( 1, 1, 'pb_language', 'en-us' );
-		$this->assertEquals( $output, false );
-	}
-
-	/**
-	 * @covers \Pressbooks\L10n\update_user_locale
-	 */
-	public function test_update_user_locale() {
-		// TODO
-	}
 
 	/**
 	 * @covers \Pressbooks\L10n\use_book_locale

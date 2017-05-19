@@ -1,0 +1,46 @@
+//============================================================================//
+//                                    Parts                                   //
+//============================================================================//
+
+.part-title-wrap {
+  margin-top: $part-title-block-margin-top;
+  margin-bottom: $part-title-block-margin-bottom;
+
+  .part-number {
+    display: block;
+    margin-top: 0;
+    margin-bottom: $part-number-margin-bottom;
+    font-family: $part-number-font-family;
+    font-size: $part-number-font-size;
+    font-style: $part-number-font-style;
+    font-weight: $part-number-font-weight;
+    letter-spacing: $part-number-letter-spacing;
+    word-spacing: $part-number-word-spacing;
+    text-align: $part-number-align;
+    text-transform: $part-number-text-transform;
+    page-break-after: avoid;
+
+    &::before {
+      text-transform: $part-number-prefix-text-transform;
+      content: $part + '\A0';
+    }
+  }
+
+  .part-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: $part-title-font-family;
+    font-size: $part-title-font-size;
+    font-style: $part-title-font-style;
+    font-weight: $part-title-font-weight;
+    hyphens: none;
+    text-align: $part-number-align;
+    text-transform: $part-title-text-transform;
+    page-break-after: avoid;
+  }
+}
+
+// Invisible Parts
+.part.invisible {
+  display: none;
+}

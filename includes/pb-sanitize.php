@@ -23,36 +23,36 @@ function html5_to_xhtml11( $html, $config = array(), $spec = array() ) {
 
 	$html5 = array(
 		'article',
-		'aside',
-		'audio',
-		'bdi',
-		'canvas',
-		'command',
-		'data',
-		'datalist',
-		'details',
-		'embed',
-		'figcaption',
+	'aside',
+	'audio',
+	'bdi',
+	'canvas',
+	'command',
+	'data',
+	'datalist',
+	'details',
+	'embed',
+	'figcaption',
 		'figure',
-		'footer',
-		'header',
-		'hgroup',
-		'keygen',
-		'mark',
-		'meter',
-		'nav',
-		'output',
-		'progress',
-		'rp',
-		'rt',
+	'footer',
+	'header',
+	'hgroup',
+	'keygen',
+	'mark',
+	'meter',
+	'nav',
+	'output',
+	'progress',
+	'rp',
+	'rt',
 		'ruby',
-		'section',
-		'source',
-		'summary',
-		'time',
-		'track',
-		'video',
-		'wbr',
+	'section',
+	'source',
+	'summary',
+	'time',
+	'track',
+	'video',
+	'wbr',
 	);
 
 	$search_open = $replace_open = $search_closed = $replace_closed = array();
@@ -294,95 +294,4 @@ function maybe_https( $url ) {
 	} else {
 		return preg_replace( '/^http:/', 'https:', $url );
 	}
-}
-
-/**
- * Allow language tagging on more inline elements.
- *
- * @return null
- */
-function allow_post_content() {
-	global $allowedposttags;
-
-	$allowedposttags['caption']['lang'] = true;
-	$allowedposttags['caption']['xml:lang'] = true;
-
-	$allowedposttags['cite']['xml:lang'] = true;
-
-	$allowedposttags['code']['lang'] = true;
-	$allowedposttags['code']['xml:lang'] = true;
-
-	$allowedposttags['dd']['lang'] = true;
-	$allowedposttags['dd']['xml:lang'] = true;
-
-	$allowedposttags['del']['lang'] = true;
-	$allowedposttags['del']['xml:lang'] = true;
-
-	$allowedposttags['dl']['lang'] = true;
-	$allowedposttags['dl']['xml:lang'] = true;
-
-	$allowedposttags['dt']['lang'] = true;
-	$allowedposttags['dt']['xml:lang'] = true;
-
-	$allowedposttags['em']['lang'] = true;
-	$allowedposttags['em']['xml:lang'] = true;
-
-	$allowedposttags['h1']['lang'] = true;
-	$allowedposttags['h1']['xml:lang'] = true;
-
-	$allowedposttags['h2']['lang'] = true;
-	$allowedposttags['h2']['xml:lang'] = true;
-
-	$allowedposttags['h3']['lang'] = true;
-	$allowedposttags['h3']['xml:lang'] = true;
-
-	$allowedposttags['h4']['lang'] = true;
-	$allowedposttags['h4']['xml:lang'] = true;
-
-	$allowedposttags['h5']['lang'] = true;
-	$allowedposttags['h5']['xml:lang'] = true;
-
-	$allowedposttags['h6']['lang'] = true;
-	$allowedposttags['h6']['xml:lang'] = true;
-
-	$allowedposttags['ins']['lang'] = true;
-	$allowedposttags['ins']['xml:lang'] = true;
-
-	$allowedposttags['kbd']['lang'] = true;
-	$allowedposttags['kbd']['xml:lang'] = true;
-
-	$allowedposttags['label']['lang'] = true;
-	$allowedposttags['label']['xml:lang'] = true;
-
-	$allowedposttags['legend']['lang'] = true;
-	$allowedposttags['legend']['xml:lang'] = true;
-
-	$allowedposttags['li']['lang'] = true;
-	$allowedposttags['li']['xml:lang'] = true;
-
-	$allowedposttags['ol']['lang'] = true;
-	$allowedposttags['ol']['xml:lang'] = true;
-
-	$allowedposttags['q']['lang'] = true;
-	$allowedposttags['q']['xml:lang'] = true;
-
-	$allowedposttags['strong']['lang'] = true;
-	$allowedposttags['strong']['xml:lang'] = true;
-
-	$allowedposttags['q']['lang'] = true;
-	$allowedposttags['q']['xml:lang'] = true;
-
-	$allowedposttags['td']['lang'] = true;
-	$allowedposttags['td']['xml:lang'] = true;
-
-	$allowedposttags['th']['lang'] = true;
-	$allowedposttags['th']['xml:lang'] = true;
-
-	$allowedposttags['ul']['lang'] = true;
-	$allowedposttags['ul']['xml:lang'] = true;
-
-	$allowedposttags['var']['lang'] = true;
-	$allowedposttags['var']['xml:lang'] = true;
-
-	return;
 }

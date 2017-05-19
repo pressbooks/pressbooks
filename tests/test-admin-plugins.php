@@ -35,4 +35,22 @@ class Admin_PluginsTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey('pressbooks-textbook/pressbooks-textbook.php', $filtered_plugins);
 	}
 
+	/**
+	 * @covers \Pressbooks\Admin\Plugins\filter_install_plugins_tabs
+	 */
+	public function test_filter_install_plugins_tabs() {
+		$tabs = array();
+		$tabs = \Pressbooks\Admin\Plugins\filter_install_plugins_tabs( $tabs );
+		$this->assertArrayHasKey('pressbooks', $tabs);
+	}
+
+	/**
+	 * @covers \Pressbooks\Admin\Plugins\install_plugins_table_api_args_pressbooks
+	 */
+	public function test_install_plugins_table_api_args_pressbooks() {
+		$args = array();
+		$args = \Pressbooks\Admin\Plugins\install_plugins_table_api_args_pressbooks( $args );
+		$this->assertEquals('pressbooks', $args['tag']);
+	}
+
 }

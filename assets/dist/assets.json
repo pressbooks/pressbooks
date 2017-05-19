@@ -6,7 +6,7 @@
   "catalog.css": "catalog-d824ec9923.css",
   "catalog.js": "catalog-df07a4db64.js",
   "color-picker.js": "color-picker-bd29b6a7ae.js",
-  "colors-pb.css": "colors-pb-8326a3360b.css",
+  "colors-pb.css": "colors-pb-f658b66ca0.css",
   "columnizer.js": "columnizer-ab7a796920.js",
   "custom-css.css": "custom-css-6bbe722767.css",
   "export.css": "export-aa58c53053.css",
@@ -23,9 +23,9 @@
   "organize.css": "organize-99ffadebd1.css",
   "organize.js": "organize-246178ea91.js",
   "part.css": "part-81c3afdd53.css",
-  "pressbooks.css": "pressbooks-59a1b59a68.css",
+  "pressbooks.css": "pressbooks-f10fc29499.css",
   "quicktags.js": "quicktags-dadaaf8b3c.js",
-  "search-and-replace.css": "search-and-replace-0320ae44c8.css",
+  "search-and-replace.css": "search-and-replace-c87ec924c5.css",
   "search-and-replace.js": "search-and-replace-2182202729.js",
   "select2.css": "select2-1b678c90cc.css",
   "select2.js": "select2-b7c617e03e.js",
@@ -36,7 +36,6 @@
   "style-catalog.css": "style-catalog-a40b19cf46.css",
   "table.js": "table-a685a42ea6.js",
   "textboxes.js": "textboxes-b3ef1ebdee.js",
-  "theme-lock.js": "theme-lock-9e30bdad9b.js",
   "theme-options.css": "theme-options-fd34b45cc4.css",
   "theme-options.js": "theme-options-e274d8b377.js"
 }

@@ -225,7 +225,21 @@ class Odt extends Export {
 	/* Recursive Directory Deletion for media folder */
 
 	public static function deleteDirectory( $dirpath ) {
-		rmrdir( $dirpath );
+		if ( ! is_dir( $dirpath ) ) {
+			throw new \InvalidArgumentException( "$dirpath must be a directory." );
+		}
+		if ( substr( $dirpath, strlen( $dirpath ) - 1, 1 ) != '/' ) {
+			$dirpath .= '/';
+		}
+		$files = glob( $dirpath . '*', GLOB_MARK );
+		foreach ( $files as $file ) {
+			if ( is_dir( $file ) ) {
+				self::deleteDirectory( $file );
+			} else {
+				unlink( $file );
+			}
+		}
+		rmdir( $dirpath );
 	}
 
 	/**

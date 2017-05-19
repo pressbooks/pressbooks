@@ -46,7 +46,7 @@ class Xhtml extends Import {
 		$post_type = $this->determinePostType( $id[0] );
 		$chapter_parent = $this->getChapterParent();
 
-		$body = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain, $current_import['default_post_status'] );
+		$body = $this->kneadandInsert( $html['body'], $post_type, $chapter_parent, $domain );
 
 		// Done
 		return $this->revokeCurrentImport();
@@ -60,7 +60,7 @@ class Xhtml extends Import {
 	 * @param int $chapter_parent
 	 * @param string $domain domain name of the webpage
 	 */
-	function kneadandInsert( $html, $post_type, $chapter_parent, $domain, $post_status ) {
+	function kneadandInsert( $html, $post_type, $chapter_parent, $domain ) {
 		$matches = array();
 
 		$meta = $this->getLicenseAttribution( $html );
@@ -91,7 +91,7 @@ class Xhtml extends Import {
 		    'post_title' => $title,
 		    'post_content' => $body,
 		    'post_type' => $post_type,
-		    'post_status' => $post_status,
+		    'post_status' => 'draft',
 		);
 
 		if ( 'chapter' == $post_type ) {
@@ -476,7 +476,7 @@ class Xhtml extends Import {
 		    'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
 }

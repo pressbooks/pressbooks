@@ -44,13 +44,6 @@ class Wxr extends Import {
 			'allow_parts' => true,
 		);
 
-		/**
-		 * Allow custom post types to be imported.
-		 *
-		 * @since 3.6.0
-		 *
-		 * @param array
-		 */
 		$supported_post_types = apply_filters( 'pb_import_custom_post_types', array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
 
 		if ( $this->isPbWxr ) {
@@ -60,14 +53,12 @@ class Wxr extends Import {
 
 		foreach ( $xml['posts'] as $p ) {
 
-			// Skip unsupported post types.
-			if ( ! in_array( $p['post_type'], $supported_post_types ) ) {
-				continue;
+			// Skip
+			if ( ! in_array( $p['post_type'], $supported_post_types ) ) { continue;
 			}
-
-			// Skip webbook required pages.
-			if ( '<!-- Here be dragons.-->' == $p['post_content'] || '<!-- Here be dragons. -->' == $p['post_content'] ) {
-				continue;
+			if ( empty( $p['post_content'] ) && ! in_array( $p['post_type'], array( 'part', 'metadata' ) ) ) { continue;
+			}
+			if ( '<!-- Here be dragons.-->' == $p['post_content'] ) { continue;
 			}
 
 			// Set
@@ -101,23 +92,10 @@ class Wxr extends Import {
 
 		$match_ids = array_flip( array_keys( $current_import['chapters'] ) );
 		$chapter_parent = $this->getChapterParent();
-		$totals = array(
-			'front-matter' => 0,
-			'chapter' => 0,
-			'part' => 0,
-			'back-matter' => 0,
-		);
-
-		/**
-		 * Allow custom post taxonomies to be imported.
-		 *
-		 * @since 3.6.0
-		 *
-		 * @param array
-		 */
+		$total = 0;
 		$taxonomies = apply_filters( 'pb_import_custom_taxonomies', array( 'front-matter-type', 'chapter-type', 'back-matter-type' ) );
 
-		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array( 'post', 'page', 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ) );
+		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 
 		// set custom terms...
 		$terms = apply_filters( 'pb_import_custom_terms', $xml['terms'] );
@@ -142,11 +120,9 @@ class Wxr extends Import {
 		foreach ( $xml['posts'] as $p ) {
 
 			// Skip
-			if ( ! $this->flaggedForImport( $p['post_id'] ) ) {
-				continue;
+			if ( ! $this->flaggedForImport( $p['post_id'] ) ) { continue;
 			}
-			if ( ! isset( $match_ids[ $p['post_id'] ] ) ) {
-				continue;
+			if ( ! isset( $match_ids[ $p['post_id'] ] ) ) { continue;
 			}
 
 			// Insert
@@ -168,7 +144,7 @@ class Wxr extends Import {
 			if ( 'metadata' == $post_type ) {
 				$pid = $this->bookInfoPid();
 			} else {
-				$pid = $this->insertNewPost( $post_type, $p, $html, $chapter_parent, $current_import['default_post_status'] );
+				$pid = $this->insertNewPost( $post_type, $p, $html, $chapter_parent );
 				if ( 'part' == $post_type ) {
 					$chapter_parent = $pid;
 				}
@@ -176,7 +152,7 @@ class Wxr extends Import {
 
 			// if this is a custom post type,
 			// and it has terms associated with it...
-			if ( ( in_array( $post_type, $custom_post_types ) && isset( $p['terms'] ) ) ) {
+			if ( ( in_array( $post_type, $custom_post_types ) && true == $p['terms'] ) ) {
 				// associate post with terms.
 				foreach ( $p['terms'] as $t ) {
 					if ( in_array( $t['domain'], $taxonomies ) ) {
@@ -195,24 +171,14 @@ class Wxr extends Import {
 			}
 
 			Book::consolidatePost( $pid, get_post( $pid ) ); // Reorder
-			if ( 'metadata' !== $post_type ) {
-				++$totals[ $post_type ];
-			}
+			++$total;
 		}
 
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
 		// Done
-		$_SESSION['pb_notices'][] =
-
-		sprintf(
-			_x( 'Imported %1$s, %2$s, %3$s, and %4$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
-			$totals['front-matter'] . ' ' . __( 'front matter', 'pressbooks' ),
-			( 1 == $totals['part'] ) ? $totals['part'] . ' ' . __( 'part', 'pressbooks' ) : $totals['part'] . ' ' . __( 'parts', 'pressbooks' ),
-			( 1 == $totals['chapter'] ) ? $totals['chapter'] . ' ' . __( 'chapter', 'pressbooks' ) : $totals['chapter'] . ' ' . __( 'chapters', 'pressbooks' ),
-			$totals['back-matter'] . ' ' . __( 'back matter', 'pressbooks' )
-		);
+		$_SESSION['pb_notices'][] = sprintf( __( 'Imported %s chapters.', 'pressbooks' ), $total );
 		return $this->revokeCurrentImport();
 	}
 
@@ -228,14 +194,10 @@ class Wxr extends Import {
 		foreach ( $xml['posts'] as $p ) {
 
 			if ( 'part' == $p['post_type'] ) { $pt = 1;
-			} elseif ( 'chapter' == $p['post_type'] ) {
-				$ch = 1;
-			} elseif ( 'front-matter' == $p['post_type'] ) {
-				$fm = 1;
-			} elseif ( 'back-matter' == $p['post_type'] ) {
-				$bm = 1;
-			} elseif ( 'metadata' == $p['post_type'] ) {
-				$meta = 1;
+			} elseif ( 'chapter' == $p['post_type'] ) { $ch = 1;
+			} elseif ( 'front-matter' == $p['post_type'] ) { $fm = 1;
+			} elseif ( 'back-matter' == $p['post_type'] ) { $bm = 1;
+			} elseif ( 'metadata' == $p['post_type'] ) { $meta = 1;
 			}
 
 			if ( $pt + $ch + $fm + $bm + $meta >= 2 ) {
@@ -340,14 +302,14 @@ class Wxr extends Import {
 	 *
 	 * @return int Post ID
 	 */
-	protected function insertNewPost( $post_type, $p, $html, $chapter_parent, $post_status ) {
+	protected function insertNewPost( $post_type, $p, $html, $chapter_parent ) {
 
 		$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
 
 		$new_post = array(
 			'post_title' => wp_strip_all_tags( $p['post_title'] ),
 			'post_type' => $post_type,
-			'post_status' => ( 'part' == $post_type ) ? 'publish' : $post_status,
+			'post_status' => ( 'part' == $post_type || in_array( $post_type, $custom_post_types ) ) ? 'publish' : 'draft',
 		);
 
 		if ( 'part' != $post_type ) {
@@ -358,6 +320,9 @@ class Wxr extends Import {
 		}
 
 		$pid = wp_insert_post( add_magic_quotes( $new_post ) );
+
+		update_post_meta( $pid, 'pb_show_title', 'on' );
+		update_post_meta( $pid, 'pb_export', 'on' );
 
 		return $pid;
 	}
@@ -379,7 +344,7 @@ class Wxr extends Import {
 				update_post_meta( $pid, 'pb_part_content', $part_content );
 			}
 		} else {
-			$meta_to_update = apply_filters( 'pb_import_metakeys', array( 'pb_section_author', 'pb_section_license', 'pb_short_title', 'pb_subtitle', 'pb_show_title', 'pb_export' ) );
+			$meta_to_update = apply_filters( 'pb_import_metakeys', array( 'pb_section_author', 'pb_section_license', 'pb_short_title', 'pb_subtitle' ) );
 			foreach ( $meta_to_update as $meta_key ) {
 				$meta_val = $this->searchForMetaValue( $meta_key, $p['postmeta'] );
 				if ( is_serialized( $meta_val ) ) {

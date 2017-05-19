@@ -24,10 +24,8 @@ aside,
 
 // Pullquotes
 
-.pullquote,
 .pullquote-left,
 .pullquote-right {
-  display: block;
   font-family: $pullquote-font-family;
   font-size: $pullquote-font-size;
   font-style: $pullquote-font-style;
@@ -36,11 +34,6 @@ aside,
   line-height: $pullquote-line-height;
   text-align: $pullquote-align;
   text-indent: 0;
-}
-
-.pullquote {
-  margin-top: $pullquote-margin-top;
-  margin-bottom: $pullquote-margin-bottom;
 }
 
 .pullquote-left {

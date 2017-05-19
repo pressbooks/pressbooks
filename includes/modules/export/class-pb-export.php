@@ -106,11 +106,11 @@ abstract class Export {
 
 		if ( ! $fullpath ) {
 			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.scss" );
+				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.scss" );
 			} elseif ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/styles/$type/style.scss" );
+				$fullpath = realpath( get_stylesheet_directory() . "/assets/styles/$type/style.scss" );
 			} else {
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.css" );
+				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/style.css" );
 			}
 		}
 
@@ -131,17 +131,15 @@ abstract class Export {
 
 		if ( CustomCss::isCustomCss() ) {
 			$fullpath = CustomCss::getCustomCssFolder() . "/$type.js";
-			if ( ! is_file( $fullpath ) ) {
-				$fullpath = false;
+			if ( ! is_file( $fullpath ) ) { $fullpath = false;
 			}
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
-				// Check for v2 themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" );
+			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 themes
+				$fullpath = realpath( get_stylesheet_directory() . "/assets/scripts/$type/script.js" );
 			} else {
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" );
+				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script.js" );
 			}
 			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' == $type ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script-romanize.js" );
@@ -151,28 +149,6 @@ abstract class Export {
 		return $fullpath;
 	}
 
-	/**
-	 * Return the public URL to an export module's Javascript file.
-	 *
-	 * @param string $type
-	 *
-	 * @return string
-	 */
-	function getExportScriptUrl( $type ) {
-
-		$url = false;
-
-		if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) && realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" ) ) {
-			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/assets/scripts/$type/script.js";
-		} elseif ( realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" ) ) {
-			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/export/$type/script.js";
-		}
-		if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' == $type ) {
-			$url = get_stylesheet_directory_uri() . "/export/$type/script-romanize.js";
-		}
-
-		return $url;
-	}
 
 	/**
 	 * Is section parsing enabled?
@@ -283,7 +259,7 @@ abstract class Export {
 
 		// Within range of 5 minutes?
 		$within_range = time() - $timestamp;
-		if ( $within_range > ( MINUTE_IN_SECONDS * 5 ) ) {
+		if ( $within_range > ( 60 * 5 ) ) {
 			return false;
 		}
 
@@ -616,6 +592,9 @@ abstract class Export {
 			if ( isset( $x['print_pdf'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
 			}
+			if ( isset( $x['mpdf'] ) ) {
+				$modules[] = '\Pressbooks\Modules\Export\Mpdf\Pdf';
+			}
 			if ( isset( $x['epub'] ) ) {
 				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 			}
@@ -644,28 +623,12 @@ abstract class Export {
 				$modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
 			}
 
-			/**
-			 * @since 3.9.8
-			 * Catch enabled custom formats and add their classes to the $modules array.
-			 *
-			 * For example, here's how one might catch a hypothetical Word exporter:
-			 *
-			 * add_filter( 'pb_active_export_modules', function ( $modules ) {
-			 * 	if ( isset( $_POST['export_formats']['docx'] ) ) {
-			 * 		$modules[] = '\Pressbooks\Modules\Export\Docx\Docx';
-			 * 	}
-			 * 	return $modules;
-		 	 * } );
-			 *
-			 */
-			$modules = apply_filters( 'pb_active_export_modules', $modules );
-
 			// --------------------------------------------------------------------------------------------------------
 			// Clear cache? Range is 1 hour.
 
 			$last_export = get_option( 'pressbooks_last_export' );
 			$within_range = time() - $last_export;
-			if ( $within_range > ( HOUR_IN_SECONDS ) ) {
+			if ( $within_range > ( 60 * 60 ) ) {
 				\Pressbooks\Book::deleteBookObjectCache();
 				update_option( 'pressbooks_last_export', time() );
 			}
@@ -773,8 +736,8 @@ abstract class Export {
 			$compare_with = get_available_languages( PB_PLUGIN_DIR . '/languages/' );
 
 			$codes = \Pressbooks\L10n\wplang_codes();
-			$metadata = Book::getBookInformation();
-			$book_lang = ( ! empty( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
+			$book_lang = Book::getBookInformation();
+			$book_lang = ( isset( $book_lang['pb_language'] ) ) ? $book_lang['pb_language'] : 'en';
 			$book_lang = $codes[ $book_lang ];
 
 			foreach ( $compare_with as $compare ) {

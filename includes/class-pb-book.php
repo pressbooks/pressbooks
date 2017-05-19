@@ -9,6 +9,7 @@
  */
 namespace Pressbooks;
 
+
 class Book {
 
 	/**
@@ -45,7 +46,6 @@ class Book {
 	/**
 	 * Returns book information in a useful, string only, format. Data is converted to HTML.
 	 *
-	 * @param int $id The book ID.
 	 * @return array
 	 */
 	static function getBookInformation( $id = '' ) {
@@ -185,15 +185,6 @@ class Book {
 
 		$q = new \WP_Query();
 
-		/**
-		 * Fetch all pb_export meta values for this book
-		 */
-		global $wpdb;
-		$post_ids_to_export = array();
-		foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", 'pb_export' ), ARRAY_A ) as $val ) {
-			$post_ids_to_export[ $val['post_id'] ] = $val['meta_value'];
-		}
-
 		foreach ( $custom_types as $type ) {
 
 			$book_structure[ $type ] = array();
@@ -222,7 +213,7 @@ class Book {
 					'comment_count' => $post->comment_count,
 					'menu_order' => $post->menu_order,
 					'post_status' => $post->post_status,
-					'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 'on' == $post_ids_to_export[ $post->ID ] ) ? true : false,
+					'export' => ( get_post_meta( $post->ID, 'pb_export', true ) ? true : false ),
 					'post_parent' => $post->post_parent,
 				);
 			}

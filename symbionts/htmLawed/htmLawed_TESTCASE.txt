@@ -1,9 +1,9 @@
 /*
-htmLawed_TESTCASE.txt, 11 February 2017
-To test htmLawed
+htmLawed_TESTCASE.txt, 27 February 2016
+htmLawed 1.2.beta.11, 5 March 2016
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
-A PHP Labware internal utility - www.bioinformatics.org/phplabware/internal_utilities/htmLawed
+A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed
 */
 
 This file has UTF-8-encoded text with both correct and incorrect/malformed HTML/XHTML code snippets to test htmLawed (test cases/samples). The entire text may also be used as a unit.
@@ -28,7 +28,7 @@ character encoding to Unicode/UTF-8
 <strong>Deprecated:</strong> <a id="id7" target="self" name="n">a</a>, <hr noshade="noshade" /><br />
 <strong>Casing:</strong> <a HREF=""></a><br />
 <strong>Custom:</strong> <img alt="image" my:data="portrait" /><br />
-<strong>Data-*:</strong> <a data-xml="x" data-xmnt="x" data-xmlnt="x" data-xmn:t="x" data-12="x"  data-רש="x" data-xmxm="x">a</a><br />
+<strong>Data-*:</strong> <a data-xml="x" data-xmnt="x" data-xmlnt="x" data-xmn:t="x" data-xmxm="x">a</a><br />
 <strong>Admin-restricted?:</strong> <a href="x" onclick="alert();"></a>
 
 <h6>Attribute values</h6>

@@ -1,10 +1,11 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.8.2
+Version: 3.9.5
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.7.5
-Tested up to: 4.7.5
+Requires at least: 4.6.1
+Tested up to: 4.6.1
+Version: 3.9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,7 +34,11 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with [PHP 5.6.x](https://secure.php.net/supported-versions.php) and WordPress 4.7.5. Lower versions are not supported.
+ * Pressbooks works with PHP 5.6.x and WordPress 4.6.1. Lower versions are not supported. If you wish to run Pressbooks in an environment where PHP < 5.6, you can add a line to wp-config.php as follows:
+
+	$pb_minimum_php = '5.4';
+
+However, we encourage you to upgrade your environment instead as [PHP 5.4 is no longer supported](http://php.net/supported-versions.php).
 
 *Part 1, WordPress generic:*
 
@@ -99,6 +104,7 @@ IMPORTANT!
  * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
  * For EPUB validation install [EpubCheck](https://github.com/idpf/epubcheck) - Version 4.0
  * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20706
+ * It is recommended that you install [sassphp](https://github.com/sensational/sassphp) for SASS compilation; however, Pressbooks includes a bundled compiler, [scssphp](https://github.com/leafo/scssphp/), and will fall back to this if sassphp is absent.
  * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl"
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
@@ -197,7 +203,7 @@ Once WP-CLI is installed on your server, the following shell commands executed i
 	    wp core multisite-convert --title="Pressbooks"
 	    wp plugin delete hello
 	    wp plugin update-all
-      wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.5.1/pressbooks-v3.9.5.1.zip --activate-network
+      wp plugin install https://pressbooks.org/latest/ --activate-network
 	    wp theme list
 	    wp theme enable pressbooks-book --network
 	    wp theme enable clarke --network
@@ -224,127 +230,11 @@ TK.
 
 == Upgrade Notice ==
 
-Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
+As of Pressbooks >= 3.9.3, [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support.
 
-Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/download/).
-
-Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
+Please note that Pressbooks >= 3.9.2 requires [PrinceXML 20160929](http://www.princexml.com/latest/) or later.
 
 == Changelog ==
-
-### 3.9.8.2
-**NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
-
-* **Fix:** Switched to an unmodified version of htmLawed to fix a regression in [vanilla/htmlawed](https://github.com/vanilla/htmlawed/) which was stripping paragraph tags from blockquotes (see #723).
-* **Fix:** Fixed an issue where users would be informed that their theme had been unlocked when saving Export options even thought it was already unlocked (see #722).
-* **Fix:** Fixed an issue where wp-cli would give a permissions error because of the `\Pressbooks\ThemeLock::isLocked()` check (see #721).
-
-### 3.9.8.1
-**NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
-
-* **Fix:** Restored some webbook styles that were being omitted in older book themes.
-
-### 3.9.8
-**NOTICE:** Pressbooks' PHP version requirement (>= 5.6) and WordPress version requirement (>= 4.7.3) can no longer be overridden. Before installing Pressbooks 3.9.8, please ensure that your system has been upgraded accordingly.
-
-* **Feature:** Themes can now be locked a particular version. The theme's stylesheets and other assets will be copied into the book's media directory and used for future exports (see #657, #704).
-* **Feature:** The paragraph separation option is now available for webbooks (see #655, #696).
-* **Feature:** The section openings PDF theme option now supports additional options (see #450, #691).
-* **Feature:** When export sharing is enabled, the download links are now stable, e.g. `/open/download?type=pdf` (props to @rootl for the suggestion; see #684, #699).
-* **Enhancement:** Pressbooks now supports third-party export formats (see #385 and #674).
-* **Enhancement:** `\Pressbooks\Options` field display functions have been refactored to use an array of arguments instead of a list of parameters (see #648, #697) [BREAKING CHANGE].
-* **Enhancement:** SCSS overrides have been moved into their respective theme options classes (see #452, #701).
-* **Enhancement:** Webbook interface styles have been separated from the Luther book theme's content styles (see #656, #708).
-* **Enhancement:** Webbook stylesheet and script enqueuing has been clarified and simplified (see #396).
-* **Enhancement:** Searching now excludes non-Pressbooks post types (props to @colomet for the report; see #706, #707).
-* **Enhancement:** Front-end scripts are now loaded asynchronously (props to @bdolor; see #681).
-* **Enhancement:** htmLawed is now a Composer dependency (see #702).
-* **Enhancement:** The sassphp dependency is no longer required (see #693).
-* **Enhancement:** The SaxonHE dependency check can now be overridden (see https://github.com/pressbooks/pressbooks/commit/7ea32fe).
-* **Enhancement:** [perchten/rmrdir](https://packagist.org/packages/perchten/rmrdir) is now used for recursive directory removal (see [37ab804](https://github.com/pressbooks/pressbooks/commit/37ab804489c580ad1d1121c0a07144f37772c7d0)).
-* **Enhancement:** Added \Pressbooks\Utility\rcopy() function for recursive directory copying (props to @blobaugh for the [example code](http://ben.lobaugh.net/blog/864/php-5-recursively-move-or-copy-files); see [52b087b](https://github.com/pressbooks/pressbooks/commit/52b087b5e2185ea08c6f67c24111ad9ef0ee1fa0)).
-* **Enhancement:** Added `pb_dependency_errors` filter hook for suppression of dependency errors (see #719).
-* **Fix:** Images on custom title pages are now exported as expected in EPUB and Kindle (see #690, #698).
-* **Fix:** The diagnostics page now functions as expected on the root blog (props to @colomet for the report; see #688, #695);
-* **Fix:** Print PDF exports are now available for download when export sharing is enabled (props to @bdolor; see #677).
-* **Fix:** Numberless chapters no longer display a lonely period in PDF outputs from SCSS v2 themes (props to @thomasdumm for the report; see #670).
-* **Fix:** Importing as a draft now works for EPUB imports (props to @thomasdumm for the report; see #668).
-
-### 3.9.7.2
-**NOTICE:** Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/news/2017/03/wordpress-4-7-3-security-and-maintenance-release/).
-
-* **Enhancement:** Streamlined and refactored the running content SCSS partials for SCSS-based themes (see #675 and #686).
-
-### 3.9.7.1
-* **Fix:** Fixed an issue where the custom CSS file for webbooks would not be loaded on subdirectory installs.
-
-### 3.9.7
-**NOTICE:** Pressbooks now requires [WordPress 4.7.2](https://wordpress.org/news/2017/01/wordpress-4-7-2-security-release/).
-
-* **Feature:** Added support for Canadian Indigenous syllabics, which are used for the Chipewyan, Inuktitut, Plains Cree, Cree, Moose Cree, Slave, Northern Cree, Naskapi, Swampy Cree, Southern East Cree, and Ojibwa languages (props to @bdolor; see #635).
-* **Feature:** Part numbers are now displayed consistently across all formats (see #341).
-* **Enhancement:** SCSS maps are now used to provide variables for different export formats.
-* **Enhancement:** The global `_titles.scss` partial for SCSS v2 themes has been split into `_pages.scss` and `_section-titles.scss` for better separation of concerns.
-* **Enhancement:** Added the `pb_add_latex_renderer_option`, `pb_require_latex`, `pb_latex_renderers`, and `pb_add_latex_config_scripts` filters and the `pb_enqueue_latex_scripts` action to support custom LaTeX renderers (props to @monkecheese; see #583).
-* **Enhancement:** Added the `pb_root_description` filter to allow the default root blog description to be changed.
-* **Enhancement:** Custom theme options can now be registered, either on an existing tab or on a new tab (see #470 and #618).
-* **Enhancement:** Added the `pb_publisher_catalog_query_args` filter to allow customizing the query for books on the front page of Pressbooks Publisher (see #619).
-* **Enhancement:** Added the `\Pressbooks\Metadata::getJsonMetadata()` function and the `pb_json_metadata` filter to support returning book information as JSON data for posting to an API endpoint (see #637).
-* **Enhancement:** Added the `pb_add_bisac_subjects_field` filter, which allows those with a licensed copy of the BISAC subject headers to display a multiple select instead of Pressbooks' default text input (see #637).
-* **Enhancement:** Added the `pb_audience` field to the Book Information page to allow setting a book's target audience (see #638).
-* **Enhancement:** The export metadata settings for all book contents are now fetched in a single query within `\Pressbooks\Book::getBookStructure()` (props to @monkecheese; see #633).
-* **Enhancement:** The book language will now be set to the language selected when the book is registered (see #595).
-* **Enhancement:** The Comments column on the Organize page will now be hidden if comments are disabled (see #644).
-* **Enhancement:** Core textbox styles now apply to the equivalent `.bcc-*` selectors for improved compatibility with Pressbooks Textbook.
-* **Enhancement:** Imported content can optionally be set to `published` status instead of `draft` (see #593).
-* **Enhancement:** Front matter, chapter, and back matter types will now be imported from Pressbooks WXR files (see #601).
-* **Enhancement:** Empty front matter, chapters, and back matter will now be imported from Pressbooks WXR files (see #592).
-* **Enhancement:** Title display and export metadata will now be imported from Pressbooks WXR files (see #606).
-* **Enhancement:** Completing an import from a Pressbooks WXR file will now correctly enumerate different content types instead of labelling all as chapters.
-* **Enhancement:** Bold, italic, superscript, and subscript text is now properly imported from Word documents (props to @crism; see #629).
-* **Enhancement:** Inline language attributes are now properly imported from Word documents (props to @crism; see #630 and #639).
-* **Enhancement:** Removed the Postmark-specific `wp_mail()` override (see #587).
-* **Enhancement:** Export dependency errors are now grouped intelligently into a single alert (see #646).
-* **Enhancement:** Javascript and SCSS files are now validated on pull requests using [Hound](https://houndci.com) (see #617).
-* **Enhancement:** The sender address and name used for emails from a Pressbooks instance can now be customized by defining constants for `WP_MAIL_FROM` and `WP_MAIL_FROM_NAME` (see #663).
-* **Fix:** To prevent an erroneous reversion to the WordPress < 3.5 uploads directory structure, `\Pressbooks\Utility\get_media_prefix()` now checks for the `ms_files_rewriting` site option instead of for the `blogs.dir` directory.
-* **Fix:** The custom CSS file URL scheme is now relative, which should prevent mixed content errors under some circumstances (see #599).
-* **Fix:** Fixed an undefined index error in mPDF theme options (props to @monkecheese; see #613).
-* **Fix:** Fixed a database max key length error when creating the catalog tables (see #589).
-* **Fix:** Removed the Pressbooks plugin installer tab, which was preventing plugin searching from being conducted (see #596).
-* **Fix:** Deleted books will now be removed from user catalogs (see #412).
-* **Fix:** Fixed an issue where hyphenation would be enabled in Prince exports even if it was disabled in theme options (see #645).
-* **Fix:** Fixed an issue where custom running content was being displayed in the wrong place (see #623).
-* **Fix:** Fixed an issue where OpenOffice files would not be properly exposed for download (see #649).
-* **Fix:** The time allowed for an mPDF export to complete has been conditionally increased to account for certain edge cases (props to @bdolor; see #652).
-* **Fix:** Added between section numbers and titles in the mPDF TOC (props to @bdolor; see #653).
-* **Fix:** We now use the https endpoint for the Automattic LaTeX server to avoid mixed content errors (props to @bdolor; see #651).
-* **Fix:** Publisher logos inserted via `add_theme_support( 'pressbooks_publisher_logo' )` hook are now properly copied into EPUB outputs (see #666).
-
-= 3.9.6 =
-**NOTICE:** Pressbooks now requires [WordPress 4.7 "Vaughan"](https://wordpress.org/news/2016/12/vaughan/).
-**NOTICE:** Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
-
-* **Feature:** If you select a language on the book information page and the WordPress language pack for that language is available but not installed, Pressbooks will try to install it for you (and politely inform you if it can't).
-* **Feature:** Added Hindi language support using [Noto Sans Devanagari](https://www.google.com/get/noto/#sans-deva) and [Noto Serif Devanagari](https://www.google.com/get/noto/#serif-deva).
-* **Enhancement:** The whitelist-based theme filtering behaviour of Pressbooks =< 3.9.5.1 has been removed; all book themes are now available for use in all books (if network enabled), and all non-book themes are now available for use on the root blog (if network enabled). If you wish to restrict theme availability further, you can do so by adding additional filters to the `allowed_themes` filter hook.
-* **Enhancement:** Added the ability to retry asset fetching during EPUB export in the event of server errors (props to @nathanielks, see [7344674](https://github.com/pressbooks/pressbooks/commit/7344674f823517ed7eb2fef462a4795f7182ce56))
-* **Enhancement:** Added filter and action hooks to support the addition of import modules via third-party plugins (props to @monkecheese, see [4d7ca64](https://github.com/pressbooks/pressbooks/commit/4d7ca649ec3b6c05c40e1c5bb8f92beb1de5ea30)).
-* **Enhancement:** Added the `pb_disable_root_comments` filter hook for control over comment display on the root blog (defaults to `true` -- disable comments -- as Pressbooks Publisher does not support comments).
-* **Enhancement:** Added a link from the user's catalog logo or profile image to their profile URL, if set.
-* **Enhancement:** Added variables for textbox header font size and text alignment to book theme partials.
-* **Enhancement:** Removed our custom `user_interface_lang` setting in favour of WordPress 4.7's user locale.
-* **Enhancement:** Removed `\Pressbooks\utility\multi_sort()` in favour of WordPress 4.7's shiny new `wp_list_sort()`.
-* **Enhancement:** Removed our last remaining use of `get_blog_details`, which will be deprecated in a forthcoming WordPress release.
-* **Fix:** Fixed an issue which prevented the Pressbooks admin color scheme from being applied upon manual plugin activation.
-* **Fix:** Fixed an issue which prevented the book name from properly updating under some circumstances.
-* **Fix:** Fixed some styles on the registration screen in the Pressbooks Publisher theme (now at v3.0.1).
-
-= 3.9.5.1 =
-* **Enhancement:** Added [`pb_cover_image`](https://github.com/pressbooks/pressbooks/pull/540/) filter to improve support for networks which host uploaded content on a third-party server (props to @monkecheese).
-* **Fix:** Fixed a discrepancy in the line height of PrinceXML PDF exports of books using Cardo as the body font which resulted from an invalid descender value.
-* **Fix:** Fixed an issue where the Network Sharing & Privacy page would not update the associated site option value.
-* **Fix:** Fixed the vertical alignment of the Facebook share button in the webbook theme (props to @colomet).
 
 = 3.9.5 =
 * **Enhancement:** The Pressbooks Publisher theme has been streamlined and refreshed.
@@ -370,7 +260,7 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **Fix:** Fixed a visual glitch by hiding the TinyMCE table editor's inline toolbar.
 
 = 3.9.3 =
-* **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](http://docs.pressbooks.org/installation)).
+* **NOTE:** [Saxon-HE 9.7.0-10](https://sourceforge.net/projects/saxon/files/Saxon-HE/) is no longer bundled with Pressbooks and must be installed separately for ODT export support (see [Installation](https://pressbooks.org/installation)).
 * **Feature:** The copy on the publish page can now be replaced by adding a filter to the `pressbooks_publish_page` filter hook.
 * **Feature:** If registration is enabled, a 'Register' button now appears on the front page of the Pressbooks Publisher theme.
 * **Enhancement:** A URL sanitization routine has been added to the `\Pressbooks\Options` class.
@@ -447,7 +337,7 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 * **Fix:** Fixed an admin style inconsistency introduced with WordPress 4.6.
 * **Fix:** Fixed an error where SCSS v2 themes could not be imported into the Custom CSS editor.
 * **Fix:** Added user feedback to allow recovery from JPEG errors (props to @bdolor).
-* **Fix:** Added a call to `wp_cache_flush()` to fix an error during book creation.
+* **Fix:** Added a call to `wp_flush_cache()` to fix an error during book creation.
 
 = 3.6.3 =
 * **Fix:** Fixed an error caused by the change to get_sites().

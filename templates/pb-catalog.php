@@ -80,10 +80,7 @@ function _books( PB_Catalog $catalog ) {
 		$books[ $key ]['cover_height'] = _cover_height( $val['cover_url']['pb_cover_medium'] );
 	}
 
-	return wp_list_sort( $books, array(
-		'featured' => 'desc',
-		'title' => 'asc',
-	) );
+	return \Pressbooks\Utility\multi_sort( $books, 'featured:desc', 'title:asc' );
 }
 
 /**
@@ -195,7 +192,7 @@ $_current_user_id = $catalog->getUserId();
 		</h2>
 		<p class="tag-menu assistive-text">Menu</p>
 		<div class="sidebar-inner-wrap">
-			<a href="<?php echo ( $profile['pb_catalog_url'] ) ? $profile['pb_catalog_url'] : _base_url(); ?>">
+			<a href="<?php echo _base_url(); ?>">
 			<img class="catalog-logo" src="<?php echo _logo_url( $profile ); ?>" alt="catalog-logo" width="100" height="99" />
 			</a>
 			<p class="about-blurb"><?php
