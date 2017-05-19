@@ -1,21 +1,19 @@
 <?php
 
 /*
-htmLawedTest.php, 27 February 2016
-htmLawed 1.2.beta.11, 5 March 2016
+htmLawedTest.php, 11 February 2017
+To test htmLawed
 Copyright Santosh Patnaik
 Dual licensed with LGPL 3 and GPL 2+
-A PHP Labware internal utility - http://www.bioinformatics.org/phplabware/internal_utilities/htmLawed
+A PHP Labware internal utility - www.bioinformatics.org/phplabware/internal_utilities/htmLawed
 
 Test htmLawed; user provides text input; input and processed input are shown as highlighted code and rendered HTML; also shown are execution time and peak memory usage
 */
 
 // config
 $_errs = 0; // display PHP errors
-$_limit = 8000; // input character limit
-
-// more config
-$_hlimit = 1000; // input character limit for showing hexdumps
+$_limit = 12000; // input character limit
+$_hlimit = 2000; // input character limit for showing hexdumps
 $_hilite = 1; // 0 turns off slow Javascript-based code-highlighting, e.g., if $_limit is high
 $_w3c_validate = 1; // 1 to show buttons to send input/output to w3c validator
 $_sid = 'sid'; // session name; alphanum.
@@ -523,7 +521,7 @@ $cfg = array(
 'no_deprecated_attr'=>array('3', '1', 'allow deprecated attributes, or transform them', '0'),
 'parent'=>array('', 'div', 'name of parent element', '25'),
 'safe'=>array('2', '0', 'for most <em>safe</em> HTML', '0'),
-'schemes'=>array('', 'href: aim, feed, file, ftp, gopher, http, https, irc, mailto, news, nntp, sftp, ssh, telnet; *:file, http, https', 'allowed URL protocols', '50'),
+'schemes'=>array('', 'href: aim, app, feed, file, ftp, gopher, http, https, irc, javascript, mailto, news, nntp, sftp, ssh, telnet, tel; *:data, file, http, https, javascript', 'allowed URL protocols', '50'),
 'show_setting'=>array('', 'htmLawed_setting', 'variable name to record <em>finalized</em> htmLawed settings', '25', 'd'=>1),
 'style_pass'=>array('2', 'nil', 'do not look at <em>style</em> attribute values', 'nil'),
 'tidy'=>array('3', '0', 'beautify/compact', '-1', '8', '1t1', 'format'),

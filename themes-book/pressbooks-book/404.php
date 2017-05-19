@@ -1,1 +1,1 @@
-<?php wp_redirect( PATH_CURRENT_SITE, 301 ); ?>
+<?php wp_redirect( esc_url( network_home_url() ), 301 ); ?>

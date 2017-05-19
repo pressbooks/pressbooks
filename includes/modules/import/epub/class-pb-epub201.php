@@ -125,7 +125,7 @@ class Epub201 extends Import {
 		$chapter_parent = $this->getChapterParent();
 
 		$this->parseMetadata( $xml );
-		$this->parseManifest( $xml, $match_ids, $chapter_parent );
+		$this->parseManifest( $xml, $match_ids, $chapter_parent, $current_import );
 
 		// Done
 		return $this->revokeCurrentImport();
@@ -163,7 +163,7 @@ class Epub201 extends Import {
 	 * @param array $match_ids
 	 * @param $chapter_parent
 	 */
-	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent ) {
+	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) {
 
 		$total = 0;
 		foreach ( $xml->manifest->children() as $item ) {
@@ -181,13 +181,15 @@ class Epub201 extends Import {
 			}
 
 			// Skip
-			if ( ! $this->flaggedForImport( $id ) ) { continue;
+			if ( ! $this->flaggedForImport( $id ) ) {
+				continue;
 			}
-			if ( ! isset( $match_ids[ $id ] ) ) { continue;
+			if ( ! isset( $match_ids[ $id ] ) ) {
+				continue;
 			}
 
 			// Insert
-			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent );
+			$this->kneadAndInsert( $href, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
 			++$total;
 		}
 
@@ -283,7 +285,7 @@ class Epub201 extends Import {
 	 * @param string $post_type
 	 * @param int $chapter_parent
 	 */
-	protected function kneadAndInsert( $href, $post_type, $chapter_parent ) {
+	protected function kneadAndInsert( $href, $post_type, $chapter_parent, $post_status ) {
 
 		$html = $this->getZipContent( $href, false );
 
@@ -300,7 +302,7 @@ class Epub201 extends Import {
 			'post_title' => $title,
 			'post_content' => $body,
 			'post_type' => $post_type,
-			'post_status' => 'draft',
+			'post_status' => $post_status,
 		);
 
 		if ( 'chapter' == $post_type ) {
@@ -333,7 +335,7 @@ class Epub201 extends Import {
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
-		return htmLawed( $html, $config );
+		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
 
 

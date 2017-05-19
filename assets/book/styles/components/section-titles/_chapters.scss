@@ -1,0 +1,234 @@
+//============================================================================//
+//                          Chapter Section Titles                            //
+//============================================================================//
+
+@import '../utilities';
+
+//Web chapters are marked up with .entry-title, not .chapter-title
+
+.entry-title {
+  display: block;
+  font-family: $section-title-font-family;
+  font-size: if-map-get($section-title-font-size, $type);
+  font-style: $section-title-font-style;
+  font-weight: $section-title-font-weight;
+  hyphens: none;
+  text-align: $chapter-title-align;
+  text-transform: $section-title-text-transform;
+}
+
+.entry-title span {
+  display: $chapter-number-display;
+  margin-bottom: if-map-get($chapter-number-margin-bottom, $type);
+  font-family: $chapter-number-font-family;
+  font-size: if-map-get($chapter-number-font-size, $type);
+  font-style: $chapter-number-font-style;
+  font-weight: $chapter-number-font-weight;
+  line-height: $chapter-number-line-height;
+  text-align: $chapter-number-align;
+  text-transform: $chapter-number-text-transform;
+}
+
+.entry-title span::after {
+  content: $chapter-number-after-content;
+}
+
+// Web markup for chapters (above) is different than EPUB and PDF (below)
+
+.chapter-title-wrap {
+  margin-top: if-map-get($section-title-block-margin-top, $type);
+  margin-right: $section-title-block-margin-right;
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
+  margin-left: $section-title-block-margin-left;
+
+  .chapter-number {
+    display: $chapter-number-display;
+    margin-top: 0;
+    margin-bottom: if-map-get($chapter-number-margin-bottom, $type);
+    font-family: $chapter-number-font-family;
+    font-size: if-map-get($chapter-number-font-size, $type);
+    font-style: $chapter-number-font-style;
+    font-weight: $chapter-number-font-weight;
+    line-height: $chapter-number-line-height;
+    text-align: $chapter-number-align;
+    text-transform: $chapter-number-text-transform;
+  }
+
+  .chapter-number::after {
+    content: $chapter-number-after-content;
+  }
+
+  .chapter-title {
+    display: block;
+    margin-top: $chapter-title-margin-top;
+    margin-bottom: if-map-get($chapter-title-margin-bottom, $type);
+    font-family: $chapter-title-font-family;
+    font-size: if-map-get($section-title-font-size, $type);
+    font-style: $chapter-title-font-style;
+    font-weight: $chapter-title-font-weight;
+    hyphens: none;
+    text-align: $chapter-title-align;
+    text-transform: $chapter-title-text-transform;
+  }
+}
+
+.numberless .chapter-title-wrap .chapter-number::after {
+  content: '';
+}
+
+// Subtitle (outside .chapter-title-wrap)
+h2.chapter-subtitle,
+h2.chapter_subtitle { //ned, in web the markup is with a underscore, in xhtml it's a hyphen, whats up with that?
+  display: block;
+  @if $type == 'prince' {
+    margin-top: if-map-get($section-title-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
+  } @else if $type == 'epub' {
+     margin-top: 1em;
+  }
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
+  font-family: $section-subtitle-font-family;
+  font-size: if-map-get($section-subtitle-font-size, $type);
+  font-style: $section-subtitle-font-style;
+  font-weight: $section-subtitle-font-weight;
+  hyphens: none;
+  text-align: $section-subtitle-align;
+  text-transform: $section-subtitle-text-transform;
+  column-span: all;
+}
+
+// Author (outside .chapter-title-wrap)
+h2.chapter-author,
+h2.chapter_author { //ned, in web the markup is with a underscore, in xhtml it's a hyphen, whats up with that?
+  display: block;
+  @if $type == 'prince' {
+    margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
+  } @else if $type == 'epub' {
+    margin-bottom: if-map-get($section-author-margin-bottom, $type);
+  }
+  font-family: $section-author-font-family;
+  font-size: if-map-get($section-author-font-size, $type);
+  font-style: $section-author-font-style;
+  font-weight: $section-author-font-weight;
+  hyphens: none;
+  text-align: $section-author-align;
+  text-transform: $section-author-text-transform;
+}
+
+h2.chapter-subtitle + h2.chapter-author {
+  @if $type == 'prince' {
+    margin-top: if-map-get($section-subtitle-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
+}
+
+h2.chapter-title-wrap + h2.chapter-author,
+h2.chapter-author:first-child {
+  @if $type == 'prince' {
+    margin-top: if-map-get($section-title-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
+}
+
+// Aphorism (outside .chapter-title-wrap)
+blockquote.aphorism,
+.aphorism {
+  margin-bottom: if-map-get($section-title-block-margin-bottom, $type);
+  font-family: $aphorism-font-family;
+  font-size: if-map-get($aphorism-font-size, $type);
+  line-height: if-map-get($body-line-height, $type);
+  text-align: $aphorism-align;
+  text-indent: 0;
+
+  cite {
+    display: block;
+    font-size: if-map-get($aphorism-cite-font-size, $type);
+
+    &::before {
+      content: '–';
+    }
+  }
+}
+
+h2.chapter-author + blockquote.aphorism,
+h2.chapter-author + .aphorism {
+  @if $type == 'prince' {
+    margin-top: if-map-get($section-author-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
+}
+
+h2.chapter-subtitle + blockquote.aphorism,
+h2.chapter-subtitle + .aphorism {
+  @if $type == 'prince' {
+    margin-top: if-map-get($section-subtitle-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
+}
+
+.chapter-title-wrap + blockquote.aphorism,
+.aphorism:first-child {
+  @if $type == 'prince' {
+    margin-top: if-map-get($section-title-margin-bottom, $type) - if-map-get($section-title-block-margin-bottom, $type);
+  } @else if $type == 'epub' {
+    margin-top: 0;
+  }
+}
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    div.chapter-title-wrap {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    h3.chapter-number {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1.2em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+
+    h2.chapter-title {
+      margin-top: 1em;
+      margin-bottom: 1em;
+      font-size: 1.5em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+
+    h2.chapter-subtitle {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      font-size: .9em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+
+    h2.chapter-author {
+      margin-top: .5em;
+      margin-bottom: .5em;
+      font-size: .8em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: center;
+    }
+  }
+
+  @media amzn-kf8 {
+     .chapter-title-wrap h2.chapter-title::before {
+        content: '';
+     }
+
+     .chapter-title-wrap h2.chapter-title::after {
+        content: '';
+     }
+  }
+}

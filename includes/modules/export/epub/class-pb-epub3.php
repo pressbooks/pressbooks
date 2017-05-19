@@ -10,7 +10,7 @@ namespace Pressbooks\Modules\Export\Epub;
 use Pressbooks\Sanitize;
 
 require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 
 class Epub3 extends Epub201 {
 
@@ -305,7 +305,7 @@ class Epub3 extends Epub201 {
 			$GLOBALS['hl_Ids'] = $this->fixme;
 		}
 
-		$html = htmLawed( $html, $config, $spec );
+		$html = \Pressbooks\HtmLawed::filter( $html, $config, $spec );
 
 		return $html;
 	}

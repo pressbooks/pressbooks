@@ -2,7 +2,8 @@
 //                              Images (Prince)                               //
 //============================================================================//
 
-.wp-caption-text {
+.wp-caption-text,
+.figurecaption {
   padding-bottom: $image-caption-padding-bottom;
   font-family: $image-caption-font-family;
   font-size: $image-caption-font-size;
@@ -26,7 +27,8 @@ img {
 
 // Wrapper for captioned and uncaptioned images
 .wp-caption,
-.wp-nocaption {
+.wp-nocaption,
+.figure {
   height: auto;
   max-width: 100%;
   margin-top: $image-wrapper-margin-top;
@@ -43,13 +45,11 @@ img {
 
   // Align (Center)
   &.aligncenter {
-    width: auto;
     margin-right: auto;
     margin-left: auto;
     text-align: center;
 
     img {
-      width: auto;
       margin-right: auto;
       margin-left: auto;
     }

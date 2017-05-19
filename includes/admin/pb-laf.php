@@ -71,7 +71,7 @@ function replace_book_admin_menu() {
 	remove_menu_page( 'edit.php?post_type=metadata' );
 	remove_menu_page( 'link-manager.php' );
 	remove_menu_page( 'edit.php?post_type=page' );
-	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'render' ) ); // TODO
+	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'render' ) );
 
 	remove_submenu_page( 'tools.php', 'tools.php' );
 	remove_submenu_page( 'tools.php', 'import.php' );
@@ -164,17 +164,16 @@ function replace_book_admin_menu() {
 
 	// Publish
 	require dirname( __FILE__ ) . '/class-pb-publishoptions.php';
-	$subclass = '\Pressbooks\Admin\PublishOptions';
-	$option = get_option( 'pressbooks_ecommerce_links', $subclass::getDefaults() );
-	$page = new $subclass( $option );
+	$option = get_option( 'pressbooks_ecommerce_links', \Pressbooks\Admin\PublishOptions::getDefaults() );
+	$page = new \Pressbooks\Admin\PublishOptions( $option );
 	$page->init();
 	wp_cache_delete( 'pressbooks_ecommerce_links_version', 'options' );
 	$version = get_option( 'pressbooks_ecommerce_links_version', 0 );
-	if ( $version < $page::$currentVersion ) {
+	if ( $version < $page::VERSION ) {
 		$page->upgrade( $version );
-		update_option( 'pressbooks_ecommerce_links_version', $page::$currentVersion, false );
+		update_option( 'pressbooks_ecommerce_links_version', $page::VERSION, false );
 		if ( WP_DEBUG ) {
-			error_log( 'Upgraded pressbooks_ecommerce_links from version ' . $version . ' --> ' . $page::$currentVersion );
+			error_log( 'Upgraded pressbooks_ecommerce_links from version ' . $version . ' --> ' . $page::VERSION );
 		}
 	}
 
@@ -185,17 +184,16 @@ function replace_book_admin_menu() {
 
 	// Export
 	require dirname( __FILE__ ) . '/class-pb-exportoptions.php';
-	$subclass = '\Pressbooks\Admin\ExportOptions';
-	$option = get_option( 'pressbooks_export_options', $subclass::getDefaults() );
-	$page = new $subclass( $option );
+	$option = get_option( 'pressbooks_export_options', \Pressbooks\Admin\ExportOptions::getDefaults() );
+	$page = new \Pressbooks\Admin\ExportOptions( $option );
 	$page->init();
 	wp_cache_delete( 'pressbooks_export_options_version', 'options' );
 	$version = get_option( 'pressbooks_export_options_version', 0 );
-	if ( $version < $page::$currentVersion ) {
+	if ( $version < $page::VERSION ) {
 		$page->upgrade( $version );
-		update_option( 'pressbooks_export_options_version', $page::$currentVersion, false );
+		update_option( 'pressbooks_export_options_version', $page::VERSION, false );
 		if ( WP_DEBUG ) {
-			error_log( 'Upgraded pressbooks_export_options from version ' . $version . ' --> ' . $page::$currentVersion );
+			error_log( 'Upgraded pressbooks_export_options from version ' . $version . ' --> ' . $page::VERSION );
 		}
 	}
 
@@ -215,16 +213,15 @@ function replace_book_admin_menu() {
 
 function network_admin_menu() {
 	require dirname( __FILE__ ) . '/class-pb-network-sharingandprivacyoptions.php';
-	$subclass = '\Pressbooks\Admin\Network\SharingAndPrivacyOptions';
-	$option = get_site_option( 'pressbooks_sharingandprivacy_options', $subclass::getDefaults(), false );
-	$page = new $subclass( $option );
+	$option = get_site_option( 'pressbooks_sharingandprivacy_options', \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getDefaults(), false );
+	$page = new \Pressbooks\Admin\Network\SharingAndPrivacyOptions( $option );
 	$page->init();
 	$version = get_site_option( 'pressbooks_sharingandprivacy_options_version', 0, false );
-	if ( $version < $page::$currentVersion ) {
+	if ( $version < $page::VERSION ) {
 		$page->upgrade( $version );
-		update_site_option( 'pressbooks_sharingandprivacy_options_version', $page::$currentVersion, false );
+		update_site_option( 'pressbooks_sharingandprivacy_options_version', $page::VERSION );
 		if ( WP_DEBUG ) {
-			error_log( 'Upgraded network pressbooks_sharingandprivacy_options from version ' . $version . ' --> ' . $page::$currentVersion );
+			error_log( 'Upgraded network pressbooks_sharingandprivacy_options from version ' . $version . ' --> ' . $page::VERSION );
 		}
 	}
 
@@ -579,6 +576,14 @@ function init_css_js() {
 		wp_enqueue_script( 'theme-options-js', \Pressbooks\Utility\asset_path( 'scripts/theme-options.js' ), [ 'jquery' ] );
 	}
 
+	if ( 'pressbooks_export_options' == esc_attr( @$_REQUEST['page'] ) ) {
+		wp_enqueue_script( 'pressbooks/theme-lock', \Pressbooks\Utility\asset_path( 'scripts/theme-lock.js' ), [ 'jquery' ] );
+		wp_localize_script( 'pressbooks/theme-lock', 'PB_ThemeLockToken', array(
+			// Strings
+			'confirmation' => __( 'Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!', 'pressbooks' ),
+		) );
+	}
+
 	if ( 'pb_custom_css' == esc_attr( @$_REQUEST['page'] ) ) {
 		wp_enqueue_style( 'pb-custom-css', \Pressbooks\Utility\asset_path( 'styles/custom-css.css' ) );
 	}
@@ -689,7 +694,8 @@ function privacy_settings_init() {
 		'privacy_settings',
 		'privacy_settings_section'
 	);
-	if ( get_site_option( 'pressbooks_sharingandprivacy_options' )['allow_redistribution'] ) {
+	$sharingandprivacy = get_site_option( 'pressbooks_sharingandprivacy_options' );
+	if ( isset( $sharingandprivacy['allow_redistribution'] ) && 1 == $sharingandprivacy['allow_redistribution'] ) {
 		add_settings_field(
 			'latest_files_public',
 			__( 'Share Latest Export Files', 'pressbooks' ),

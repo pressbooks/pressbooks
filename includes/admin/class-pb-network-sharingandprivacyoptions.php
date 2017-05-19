@@ -12,7 +12,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 1;
+	const VERSION = 1;
 
 	/**
 	* Sharing and Privacy options.
@@ -34,7 +34,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-			$this->options = $options;
+		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
 
@@ -117,12 +117,18 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the allow_redistribution radio buttons.
+	 * Render the allow_redistribution checkbox.
 	 * @param array $args
 	 */
 	function renderAllowRedistributionField( $args ) {
 		$options = get_site_option( $this->getSlug() );
-		$this->renderCheckbox( 'allow_redistribution', $this->getSlug(), 'allow_redistribution', @$options['allow_redistribution'], $args[0] );
+		$this->renderCheckbox( array(
+			'id' => 'allow_redistribution',
+			'name' => $this->getSlug(),
+			'option' => 'allow_redistribution',
+			'value' => ( isset( $options['allow_redistribution'] ) ) ? $options['allow_redistribution'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**

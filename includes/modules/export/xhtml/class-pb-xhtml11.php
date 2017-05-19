@@ -9,7 +9,7 @@ namespace Pressbooks\Modules\Export\Xhtml;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 
-require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
+
 
 class Xhtml11 extends Export {
 
@@ -196,6 +196,18 @@ class Xhtml11 extends Export {
 		$this->echoMetaData( $book_contents, $metadata );
 
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
+
+		if ( ! empty( $_GET['style'] ) ) {
+			$url = \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . $_GET['style'] . '.css';
+			echo "<link rel='stylesheet' href='$url' type='text/css' />\n"; // @codingStandardsIgnoreLine
+		}
+
+		if ( ! empty( $_GET['script'] ) ) {
+			if ( $url = $this->getExportScriptUrl( $_GET['script'] ) . '/script.js' ) {
+				echo "<script src='$url' type='text/javascript'></script>\n"; // @codingStandardsIgnoreLine
+			}
+		}
+
 		echo "</head>\n<body lang='{$this->lang}'>\n";
 
 		// Before Title Page
@@ -475,7 +487,7 @@ class Xhtml11 extends Export {
 			'tidy' => -1,
 		);
 
-		return htmLawed( $html, $config );
+		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
 
 
@@ -1011,7 +1023,7 @@ class Xhtml11 extends Export {
 				( $part_printf_changed ? $part_printf_changed : $part_printf ),
 				$invisibility,
 				$slug,
-				$m,
+				\Pressbooks\L10n\romanize( $m ),
 				Sanitize\decode( $title ),
 			$part_content ) . "\n";
 

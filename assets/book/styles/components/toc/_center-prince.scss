@@ -9,10 +9,6 @@
   margin-right: $toc-center-margin-right;
   margin-left: $toc-center-margin-left;
 
-  h1 {
-    text-align: center;
-  }
-
   a::after {
     display: inline;
     content: '\A0\A0\A0' target-counter(attr(href), page);
@@ -71,7 +67,7 @@
 
   .chapter a::before {
     @include toc-chapter-number;
-    display: inline;
+    display: $toc-chapter-number-display;
     content: counter(chapter) '.\A0\A0\A0';
     counter-increment: chapter;
     page-break-after: avoid;

@@ -1,0 +1,176 @@
+//============================================================================//
+//                                Title Page(s)                                  //
+//============================================================================//
+
+@import '../utilities';
+
+// Half Title Page
+#half-title-page {
+  display: if-map-get($title-half-title-display, $type);
+}
+
+#half-title-page > h1.title {
+  margin-top: if-map-get($title-half-title-block-margin-top, $type);
+  font-family: $title-half-title-font-family;
+  font-size: if-map-get($title-half-title-font-size, $type);
+  font-style: $title-half-title-font-style;
+  font-weight: $title-half-title-font-weight;
+  hyphens: none;
+  letter-spacing: $title-half-title-letter-spacing;
+  word-spacing: $title-half-title-word-spacing;
+  text-align: $title-half-title-align;
+  text-transform: $title-half-title-text-transform;
+}
+
+// Title Page
+h1.title {
+  margin-top: if-map-get($title-title-block-margin-top, $type);
+  font-family: $title-title-font-family;
+  font-size: if-map-get($title-title-font-size, $type);
+  font-style: $title-title-font-style;
+  font-weight: $title-title-font-weight;
+  hyphens: none;
+  letter-spacing: $title-title-letter-spacing;
+  word-spacing: $title-title-word-spacing;
+  text-align: $title-title-align;
+  text-transform: $title-title-text-transform;
+}
+
+h2.subtitle {
+  margin-top: if-map-get($title-subtitle-margin-top, $type);
+  font-family: $title-subtitle-font-family;
+  font-size: if-map-get($title-subtitle-font-size, $type);
+  font-style: $title-subtitle-font-style;
+  font-weight: $title-subtitle-font-weight;
+  hyphens: none;
+  letter-spacing: $title-subtitle-letter-spacing;
+  word-spacing: $title-subtitle-word-spacing;
+  text-align: $title-subtitle-align;
+  text-transform: $title-subtitle-text-transform;
+}
+
+h3.author {
+  margin-top: if-map-get($title-author-margin-top, $type);
+  font-family: $title-author-font-family;
+  font-size: if-map-get($title-author-font-size, $type);
+  font-style: $title-author-font-style;
+  font-weight: $title-author-font-weight;
+  hyphens: none;
+  letter-spacing: $title-author-letter-spacing;
+  word-spacing: $title-author-word-spacing;
+  text-align: $title-author-align;
+  text-transform: $title-author-text-transform;
+}
+
+div.publisher-logo {
+  display: $title-publisher-logo-display;
+  width: $title-publisher-logo-width;
+  height: auto;
+  padding-top: $title-publisher-logo-padding-top;
+  padding-bottom: $title-publisher-logo-padding-bottom;
+  margin-right: $title-publisher-logo-margin-right;
+  margin-left: $title-publisher-logo-margin-left;
+  text-align: $title-publisher-logo-text-align;
+}
+
+h4.publisher {
+  display: block;
+  float: bottom;
+  margin-bottom: $title-publisher-margin-bottom;
+  font-family: $title-publisher-font-family;
+  font-size: if-map-get($title-publisher-font-size, $type);
+  font-style: $title-publisher-font-style;
+  font-weight: $title-publisher-font-weight;
+  hyphens: none;
+  line-height: $title-publisher-line-height;
+  letter-spacing: $title-publisher-letter-spacing;
+  word-spacing: $title-publisher-word-spacing;
+  text-align: $title-publisher-align;
+  text-transform: $title-publisher-text-transform;
+}
+
+h5.publisher-city {
+  float: bottom;
+  margin-top: 0;
+  font-family: $title-publisher-city-font-family;
+  font-size: if-map-get($title-publisher-city-font-size, $type);
+  font-style: $title-publisher-city-font-style;
+  font-weight: $title-publisher-city-font-weight;
+  hyphens: none;
+  line-height: $title-publisher-city-line-height;
+  letter-spacing: $title-publisher-city-letter-spacing;
+  word-spacing: $title-publisher-city-word-spacing;
+  text-align: $title-publisher-city-align;
+  text-transform: $title-publisher-city-text-transform;
+}
+
+// Prince and EPUB-specific disply rules
+@mixin titles-prince {
+  #title-page {
+    > .subtitle,
+    > .author,
+    > .publisher-logo,
+    > .publisher,
+    > .publisher-city {
+      bookmark-level: none;
+    }
+  }
+}
+
+@if $type == 'prince' {
+  @include titles-prince;
+}
+
+@if $type == 'epub' {
+  @media amzn-kf8 {
+     #title-page h1.title::before {
+           content: '';
+     }
+
+     #title-page h1.title::after {
+           content: '';
+     }
+  }
+
+  @media amzn-mobi {
+    h1.title {
+      margin-top: 2em;
+      font-size: 2em;
+      font-style: normal;
+      font-weight: normal;
+    }
+
+    h2.subtitle {
+      font-size: 1em;
+      font-style: normal;
+      font-weight: normal;
+    }
+
+    h3.author {
+      font-style: normal;
+      font-weight: normal;
+    }
+
+    h4.publisher {
+      font-style: normal;
+      font-weight: normal;
+    }
+
+    h5.publisher-city {
+      font-style: normal;
+      font-weight: normal;
+    }
+
+    .pb-publogo-wrap {
+        display: none;
+    }
+
+    .pb-publogo {
+        display: none;
+    }
+
+    .pb-publogo-wide {
+        display: none;
+    }
+  }
+}

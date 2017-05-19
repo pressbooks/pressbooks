@@ -3,13 +3,14 @@
 Plugin Name: Pressbooks
 Plugin URI: https://pressbooks.com
 Description: Simple Book Production
-Version: 3.9.5
+Version: 3.9.8.2
 Author: Book Oven Inc.
 Author URI: https://pressbooks.com
 Text Domain: pressbooks
 License: GPLv2
 GitHub Plugin URI: https://github.com/pressbooks/pressbooks
 Release Asset: true
+Network: True
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -46,7 +47,7 @@ add_action( 'wp_login', '_pb_session_kill' );
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! defined( 'PB_PLUGIN_VERSION' ) ) {
-	define( 'PB_PLUGIN_VERSION', '3.9.5' );
+	define( 'PB_PLUGIN_VERSION', '3.9.8.2' );
 }
 
 if ( ! defined( 'PB_PLUGIN_DIR' ) ) {
@@ -63,6 +64,10 @@ if ( ! defined( 'WP_DEFAULT_THEME' ) ) {
 	} else {
 		define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
 	}
+}
+
+if ( ! defined( 'PB_ROOT_THEME' ) ) {
+	define( 'PB_ROOT_THEME', 'pressbooks-publisher' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -140,15 +145,5 @@ if ( is_admin() ) {
 // --------------------------------------------------------------------------------------------------------------------
 
 require( PB_PLUGIN_DIR . 'functions.php' );
-
-// -------------------------------------------------------------------------------------------------------------------
-// Override wp_mail()
-// -------------------------------------------------------------------------------------------------------------------
-
-if ( ! function_exists( 'wp_mail' ) && defined( 'POSTMARK_API_KEY' ) && defined( 'POSTMARK_SENDER_ADDRESS' ) ) {
-	function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
-		return \Pressbooks\Utility\wp_mail( $to, $subject, $message, $headers, $attachments );
-	}
-}
 
 /* The distinction between "the internet" & "books" will disappear in 5 years. Start adjusting now. */

@@ -363,72 +363,41 @@ function do_open() {
 
 	if ( 'download' == $action ) {
 		// Download
-		if ( ! empty( $_GET['filename'] ) && ! empty( $_GET['type'] ) ) {
-			$filename = sanitize_file_name( $_GET['filename'] );
+		if ( ! empty( $_GET['type'] ) ) {
+			$files = \Pressbooks\Utility\latest_exports();
+			if ( isset( $files[ $_GET['type'] ] ) ) {
+				$filepath = \Pressbooks\Modules\Export\Export::getExportFolder() . $files[ $_GET['type'] ];
+				$book_title = ( get_bloginfo( 'name' ) ) ? get_bloginfo( 'name' ) : __( 'book', 'pressbooks' );
+				$book_title_slug = sanitize_file_name( $book_title );
+				$book_title_slug = str_replace( array( '+' ), '', $book_title_slug ); // Remove symbols which confuse Apache (Ie. form urlencoded spaces)
+				$book_title_slug = sanitize_file_name( $book_title_slug );
+				if ( ! is_readable( $filepath ) ) {
+					wp_die( __( 'File not found', 'pressbooks' ) . ': ' . $files[ $_GET['type'] ], '', array( 'response' => 404 ) );
+				}
 
-			switch ( $_GET['type'] ) {
-				case 'xhtml':
-					$ext = 'html';
-					break;
-				case 'wxr':
-					$ext = 'xml';
-					break;
-				case 'epub3':
-					$ext = '_3.epub';
-					break;
-				case 'vanillawxr':
-					$ext = '_vanilla.xml';
-					break;
-				case 'mpdf':
-					$ext = '_oss.pdf';
-					break;
-				default:
-					$ext = $_GET['type'];
-					break;
+				// Force download
+				set_time_limit( 0 );
+				header( 'Content-Description: File Transfer' );
+				header( 'Content-Type: ' . \Pressbooks\Modules\Export\Export::mimeType( $filepath ) );
+				header( 'Content-Disposition: attachment; filename="' . $book_title_slug . '"' );
+				header( 'Content-Transfer-Encoding: binary' );
+				header( 'Expires: 0' );
+				header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
+				header( 'Pragma: public' );
+				header( 'Content-Length: ' . filesize( $filepath ) );
+				@ob_clean();
+				flush();
+				// @codingStandardsIgnoreLine
+				while ( @ob_end_flush() ) {
+					// Fix out-of-memory problem
+				}	readfile( $filepath );
+
+				exit;
 			}
-
-			$filename = $filename . '.' . $ext;
-			download_open_export_file( $filename );
 		}
 	}
 
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
-}
-
-
-/**
- * Handle download of a publicly available file.
- *
- * @author Brad Payne <brad@bradpayne.ca>
- * @copyright 2014 Brad Payne
- * @since 3.8.0
- */
-function download_open_export_file( $filename ) {
-
-	$filepath = \Pressbooks\Modules\Export\Export::getExportFolder() . $filename;
-	if ( ! is_readable( $filepath ) ) {
-		// Cannot read file
-		wp_die( __( 'File not found', 'pressbooks' ) . ": $filename", '', array( 'response' => 404 ) );
-	}
-
-	// Force download
-	set_time_limit( 0 );
-	header( 'Content-Description: File Transfer' );
-	header( 'Content-Type: ' . \Pressbooks\Modules\Export\Export::mimeType( $filepath ) );
-	header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
-	header( 'Content-Transfer-Encoding: binary' );
-	header( 'Expires: 0' );
-	header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
-	header( 'Pragma: public' );
-	header( 'Content-Length: ' . filesize( $filepath ) );
-	@ob_clean();
-	flush();
-	// @codingStandardsIgnoreLine
-	while ( @ob_end_flush() ) {
-		// Fix out-of-memory problem
-	}	readfile( $filepath );
-
-	exit;
 }
 
 /**

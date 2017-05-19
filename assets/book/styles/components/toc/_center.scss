@@ -1,5 +1,6 @@
 @if $type == 'epub' {
   // TODO
+  @import 'mobi';
 } @else if $type == 'prince' {
   @import 'center-prince';
 } @else if $type == 'web' {

@@ -1,17 +1,18 @@
 //============================================================================//
 //                                   Lists                                    //
 //============================================================================//
+@import '../utilities';
 
 ol {
   margin-top: $ol-margin-top;
   margin-bottom: $ol-margin-bottom;
-  margin-left: $ol-margin-left;
+  margin-left: if-map-get($ol-margin-left, $type);
 }
 
 ul {
   margin-top: $ul-margin-top;
   margin-bottom: $ul-margin-bottom;
-  margin-left: $ul-margin-left;
+  margin-left: if-map-get($ul-margin-left, $type);
 }
 
 li + li {
@@ -57,5 +58,28 @@ dl {
     margin-left: $dd-margin-left;
     font-style: $dd-font-style;
     font-weight: $dd-font-weight;
+  }
+}
+
+@if $type == 'epub' {
+  // scss-lint:disable ImportantRule
+  @media amzn-mobi {
+    ul,
+    ol {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    ul {
+      text-align: left !important;
+    }
+
+    ol {
+      text-align: left !important;
+    }
+
+    li {
+      text-align: left !important;
+    }
   }
 }

@@ -45,7 +45,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 					</select></td>
 			</tr>
 			<!-- Tags -->
-			<?php for ( $i = 1; $i <= $catalog::$maxTagsGroup; ++$i ) { ?>
+			<?php for ( $i = 1; $i <= $catalog::MAX_TAGS_GROUP; ++$i ) { ?>
 				<?php
 				$name = ! empty( $profile[ "pb_catalog_tag_{$i}_name" ] ) ? $profile[ "pb_catalog_tag_{$i}_name" ] : __( 'Tags', 'pressbooks' ) . " $i";
 				?>
@@ -69,7 +69,7 @@ if ( 'edit_tags' == $_REQUEST['action'] ) :
 	</form>
 	<script>
 		jQuery(function ($) {
-			<?php for ( $i = 1; $i <= $catalog::$maxTagsGroup; ++$i ) { ?>
+			<?php for ( $i = 1; $i <= $catalog::MAX_TAGS_GROUP; ++$i ) { ?>
 			$("#tags_<?php echo $i; ?>").select2({
 				tags: true,
 				tokenSeparators: [","]
@@ -102,7 +102,7 @@ else :
 				<th><label for="pb_catalog_url"><?php _e( 'URL', 'pressbooks' ); ?></label></th>
 				<td><input type="text" id="pb_catalog_url" name="pb_catalog_url" value="<?php echo esc_attr( $p['pb_catalog_url'] ); ?>" class="regular-text" /></td>
 			</tr>
-			<?php for ( $i = 1; $i <= $catalog::$maxTagsGroup; ++$i ) { ?>
+			<?php for ( $i = 1; $i <= $catalog::MAX_TAGS_GROUP; ++$i ) { ?>
 				<?php $name = __( 'Tags Name', 'pressbooks' ) . " $i" ?>
 				<tr>
 					<th><label for="pb_catalog_tag_<?php echo $i; ?>_name"><?php echo $name; ?></label></th>

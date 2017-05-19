@@ -28,6 +28,7 @@ img {
 .wp-nocaption {
   width: 80%;
   height: auto;
+  max-width: 80%;
   margin-top: $image-wrapper-margin-top;
   margin-right: 10%;
   margin-bottom: $image-wrapper-margin-bottom;
@@ -52,9 +53,10 @@ img {
   // Align (Left) – width is 50%
   &.alignleft {
     float: left;
-    width: 50%;
+    width: 50% !important;
+    max-width: 50%;
     padding-left: 0;
-    margin-right: $image-alignleft-margin-right;
+    margin-right: $image-alignleft-margin-right !important;
     margin-left: 0;
     page-break-inside: avoid !important;
 
@@ -66,10 +68,11 @@ img {
   // Align (Right) – width is 50%
   &.alignright {
     float: right;
-    width: 50%;
+    width: 50% !important;;
+    max-width: 50%;
     padding-left: 0;
     margin-right: 0;
-    margin-left: $image-alignright-margin-left;
+    margin-left: $image-alignright-margin-left !important;
     page-break-inside: avoid !important;
 
     img {
@@ -80,19 +83,34 @@ img {
 
 // Mobi
 
-@media amzn-kf8 {
-  .wp-caption,
-  .wp-nocaption {
-    width: auto;
-    height: auto;
-    margin-right: auto;
-    margin-left: auto;
+@media amzn-mobi {
+  .wp-caption {
     text-align: center;
-    page-break-inside: avoid !important;
+  }
+  .wp-nocaption {
+    text-align: center;
+  }
+  p.wp-caption-text {
+    font-size: .8em !important;
+    font-style: italic !important;
+    margin-bottom: 1em !important;
+    text-align: center !important;
+  }
+}
 
-    img {
-      width: auto;
-      page-break-inside: avoid !important;
-    }
+@media amzn-kf8 {
+  div.wp-caption,
+  div.wp-nocaption {
+    height: auto !important;
+    width: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
+    page-break-inside: avoid !important;
+}
+  div.wp-caption img,
+  div.wp-nocaption img {
+    width: auto;
+    page-break-inside: avoid !important;
   }
 }

@@ -1,0 +1,116 @@
+/// This function checks variable `$var` to see if it is a map, and if so, returns the appropriate value from the map for key `$type`.
+/// @param {string | map} $var - The input variable.
+/// @param {string} $type - The output format.
+@function if-map-get($var, $type) {
+  @if type-of($var) == 'map' {
+    @return map-get($var, $type);
+  } @else {
+    @return $var;
+  }
+}
+
+/// This function converts a running content or page number position to the CSS3 paged media box margin declaration for the relevant page position.
+/// @param {string} $page-position - The page position: `first`, `left` or `right`.
+/// @param {string} $position - The running content or page number position.
+@function convert-position($page-position, $position) {
+  @if $position == null {
+    @return false;
+  } @elseif $position == 'top-outside-corner' {
+    @if $page-position != 'first' {
+      @return '@top-#{$page-position}-corner';
+    } @else {
+      @return false;
+    }
+  } @elseif $position == 'top-outside' {
+    @if $page-position != 'first' {
+      @return '@top-#{$page-position}';
+    } @else {
+      @return false;
+    }
+  } @elseif $position == 'top-center' {
+    @return '@top-center';
+  } @elseif $position == 'top-inside' {
+    @if $page-position == 'left' {
+      @return '@top-right';
+    } @elseif $page-position == 'right' {
+      @return '@top-left';
+    } @else {
+      @return false;
+    }
+  } @elseif $position == 'outside-top' {
+    @if $page-position != 'first' {
+      @return '@#{$page-position}-top';
+    } @else {
+      @return false;
+    }
+  } @elseif $position == 'outside-middle' {
+    @if $page-position != 'first' {
+      @return '@#{$page-position}-middle';
+    } @else {
+      @return false;
+    }
+  } @elseif $position == 'outside-bottom' {
+    @if $page-position != 'first' {
+      @return '@#{$page-position}-bottom';
+    } @else {
+      @return false;
+    }
+  } @elseif $position == 'bottom-outside-corner' {
+    @if $page-position != 'first' {
+      @return '@bottom-#{$page-position}-corner';
+    } @else {
+      @return false;
+    }
+  } @elseif $position == 'bottom-outside' {
+    @if $page-position != 'first' {
+      @return '@bottom-#{$page-position}';
+    } @else {
+      @return false;
+    }
+  } @elseif $position == 'bottom-center' {
+    @return '@bottom-center';
+  } @elseif $position == 'bottom-inside' {
+    @if $page-position == 'left' {
+      @return '@bottom-right';
+    } @elseif $page-position == 'right' {
+      @return '@bottom-left';
+    } @else {
+      @return false;
+    }
+  }
+}
+
+/// This function determines whether a running content or page number position indicates a header or footer.
+/// @param {string} $position - The running content or page number position.
+@function head-or-foot($position) {
+  @if $position == 'top-outside-corner'
+  or $position == '@top-left-corner'
+  or $position == '@top-right-corner'
+  or $position == 'top-outside'
+  or $position == '@top-left'
+  or $position == '@top-right'
+  or $position == 'top-center'
+  or $position == '@top-center'
+  or $position == 'top-inside'
+  or $position == 'outside-top'
+  or $position == '@left-top'
+  or $position == '@right-top'
+  or $position == 'outside-middle'
+  or $position == '@left-middle'
+  or $position == '@right-middle' {
+    @return 'head';
+  } @elseif $position == 'outside-bottom'
+  or $position == 'bottom-outside-corner'
+  or $position == '@bottom-left-corner'
+  or $position == '@bottom-right-corner'
+  or $position == 'bottom-outside'
+  or $position == '@bottom-left'
+  or $position == '@bottom-right'
+  or $position == 'bottom-center'
+  or $position == '@bottom-center'
+  or $position == 'bottom-inside' {
+    @return 'foot';
+  } @else {
+    @return false;
+  }
+}

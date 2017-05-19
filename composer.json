@@ -12,20 +12,25 @@
     }
   ],
   "keywords": [
-    "ebooks publishing webbooks"
+    "ebooks",
+    "publishing",
+    "webbooks"
   ],
   "support": {
     "email": "code@pressbooks.com",
-    "issues": "https://github.com/pressbooks/pressbooks/issues",
-    "docs": "https://github.com/pressbooks/pressbooks/wiki"
+    "issues": "https://github.com/pressbooks/pressbooks/issues/",
+    "forum": "https://discourse.pressbooks.org",
+    "docs": "http://docs.pressbooks.org/",
+    "source": "https://github.com/pressbooks/pressbooks/"
   },
   "require": {
     "php": ">=5.6.0",
     "composer/installers": "~1.0",
     "gridonic/princexml-php": "^1.2",
     "pimple/pimple": "^3.0",
-    "leafo/scssphp": "^0.6.6",
-    "pressbooks/pb-api": "^1.1"
+    "leafo/scssphp": "^0.6.7",
+    "pressbooks/pb-api": "^1.1",
+    "perchten/rmrdir": "^1.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.5",

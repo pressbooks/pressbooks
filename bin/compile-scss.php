@@ -29,12 +29,13 @@ $includePaths = [
 	dirname( realpath( $input_file_name ) ),
 ];
 
+$scss = file_get_contents( $input_file_name );
+
 try {
-	// Requires: https://github.com/sensational/sassphp
-	$sass = new \Sass();
+	$sass = new \Leafo\ScssPhp\Compiler;
 	$sass->setStyle( Sass::STYLE_EXPANDED );
-	$sass->setIncludePath( implode( ':', $includePaths ) );
-	$css = $sass->compileFile( $input_file_name );
+	$sass->setImportPaths( $includePaths );
+	$css = $sass->compileFile( $scss );
 } catch ( Exception $e ) {
 	die( $e->getMessage() );
 }

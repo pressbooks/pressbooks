@@ -2,18 +2,19 @@
 //                             Variables || Elements                          //
 //============================================================================//
 
-// Body
-@if $type == 'epub' {
-  $body-font-size: medium !default;
-} @else if $type == 'prince' {
-  $body-font-size: 11pt !default;
-}  @else if $type == 'web' {
-  $body-font-size: medium !default;
-}
 $body-font-family: $font-1 !default;
+$body-font-size: (
+  epub: medium,
+  prince: 11pt,
+  web: 14pt
+) !default;
 $body-font-style: normal !default;
 $body-font-weight: normal !default;
-$body-line-height: 1.4em !default;
+$body-line-height: (
+  epub: 1.4em,
+  prince: 1.4em,
+  web: 1.8em,
+) !default;
 
 // Headings
 $hx-margin-top: 1.5em !default;
@@ -69,25 +70,28 @@ $h6-text-transform: none !default;
 $h6-align: left !default;
 
 // Paragraphs
-$para-indent: 1em !default;
-$para-hanging-indent-padding-left: 1em !default;
-$para-hanging-indent-text-indent: -1em !default;
-$para-margin-top: 0 !default;
 $para-margin-bottom: 0 !default;
-$para-no-indent-margin-top: 1em !default;
-@if $type == 'epub' {
-    $para-align: initial !default;
-} @else if $type == 'prince' {
-    $para-align: justify !default;
-} @else if $type == 'web' {
-    $para-align: initial !default;
-}
+$para-align: (
+  epub: initial,
+  prince: justify,
+  web: initial
+) !default;
 $widows: 2 !default;
 $orphans: 1 !default;
+
+$para-margin-top: 0 !default;
+$para-indent: 1em !default;
+
+$para-no-indent-margin-top: 1em !default;
+
 $para-hyphens: auto !default;
 $para-hyphenate-before: 3 !default;
 $para-hyphenate-after: 3 !default;
 $para-hyphenate-lines: 2 !default;
+
+$para-hanging-indent-padding-left: 1em !default;
+$para-hanging-indent-text-indent: -1em !default;
+
 $para-tight-letter-spacing: -.25px !default; // TODO
 $para-tight-word-spacing: -.075em !default;
 $para-very-tight-letter-spacing: -.5px !default; // TODO
@@ -112,10 +116,18 @@ $blockquote-align: justify !default;
 // Lists
 $ol-margin-top: 1em !default;
 $ol-margin-bottom: 1em !default;
-$ol-margin-left: 2em !default;
+$ol-margin-left: (
+  epub: 2em,
+  prince: 2em,
+  web: 0
+) !default;
 $ul-margin-top: 1em !default;
 $ul-margin-bottom: 1em !default;
-$ul-margin-left: 2em !default;
+$ul-margin-left: (
+  epub: 2em,
+  prince: 2em,
+  web: 0
+) !default;
 $li-li-margin-top: .5em !default;
 
 // Definition Lists
@@ -135,8 +147,12 @@ $dd-font-weight: normal !default;
 // Tables
 $table-margin-top: 1.5em !default;
 $table-margin-bottom: 1.5em !default;
-$table-font-size: .9em !default;
+$table-font-family: $font-1 !default;
+$table-font-size: .8em !default;
+$table-hyphens: none !default;
+$table-line-height: 1.1em;
 $table-align: left !default;
+$table-border-width: 1px !default;
 $table-caption-margin-bottom: .5em !default;
 $table-caption-font-weight: bold !default;
 $table-caption-line-height: 1.1em !default;
@@ -152,7 +168,8 @@ $table-td-padding-bottom: .45em !default;
 $table-td-padding-left: .45em !default;
 $table-td-line-height: 1.1em !default;
 $table-td-align: left !default;
-$table-border-width: 1px !default; // TODO
+
+
 
 // Cite
 $cite-font-size: .9em !default;

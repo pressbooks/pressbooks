@@ -72,3 +72,9 @@ div.blank-page {
 div.introduction {
   counter-reset: page 1;
 }
+
+// PDF Bookmark levels
+
+.chapter-number {
+  bookmark-level: none;
+}

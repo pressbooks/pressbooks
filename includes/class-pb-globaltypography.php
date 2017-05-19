@@ -20,6 +20,8 @@ class GlobalTypography {
 			'grc' => __( 'Ancient Greek', 'pressbooks' ),
 			'ar' => __( 'Arabic', 'pressbooks' ),
 			'he' => __( 'Biblical Hebrew', 'pressbooks' ),
+			'cans' => __( 'Canadian Indigenous Syllabics', 'pressbooks' ),
+			'hi' => __( 'Hindi', 'pressbooks' ),
 			'zh_HANS' => __( 'Chinese (Simplified)', 'pressbooks' ),
 			'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
 			'cop' => __( 'Coptic', 'pressbooks' ),
@@ -98,8 +100,8 @@ class GlobalTypography {
 	protected function _getBookLanguage() {
 
 		$lang = '';
-		$book_lang = Book::getBookInformation();
-		$book_lang = @$book_lang['pb_language'];
+		$metadata = Book::getBookInformation();
+		$book_lang = ( isset( $metadata['pb_language'] ) ) ? $metadata['pb_language'] : 'en';
 
 		switch ( $book_lang ) {
 			case 'el': // Ancient Greek
@@ -124,6 +126,9 @@ class GlobalTypography {
 				break;
 			case 'he': // Biblical Hebrew
 				$lang = 'he';
+				break;
+			case 'hi': // Biblical Hebrew
+				$lang = 'hi';
 				break;
 			case 'zh': // Chinese (Simplified)
 			case 'zh-cn':
@@ -229,80 +234,6 @@ class GlobalTypography {
 		file_put_contents( $file, $scss );
 	}
 
-
-	/**
-	 * Update and save the supplementary webBook stylesheet which adds global typography support.
-	 *
-	 * @return void
-	 */
-	function updateWebBookStyleSheet() {
-
-		$sass = Container::get( 'Sass' );
-
-		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
-			$path_to_style = realpath( get_stylesheet_directory() . '/style.scss' );
-			// Populate $url-base variable so that links to images and other assets remain intact
-			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
-
-			$scss .= file_get_contents( $path_to_style );
-			$css = $sass->compile( $scss, [
-				$sass->pathToUserGeneratedSass(),
-				$sass->pathToPartials(),
-				$sass->pathToFonts(),
-				get_stylesheet_directory(),
-			] );
-
-		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			$path_to_style = realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' );
-
-			// Populate $url-base variable so that links to images and other assets remain intact
-			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
-
-			$scss .= file_get_contents( $path_to_style );
-			$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
-		} else {
-			return;
-		}
-
-		$css = $this->fixWebFonts( $css );
-
-		$css_file = $sass->pathToUserGeneratedCss() . '/style.css';
-		file_put_contents( $css_file, $css );
-	}
-
-
-	/**
-	 * Fix relative/ambiguous URLs to web fonts
-	 *
-	 * @param $css
-	 * @return mixed
-	 */
-	function fixWebFonts( $css ) {
-
-		// Search for url("*"), url('*'), and url(*)
-		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback( $url_regex, function ( $matches ) {
-
-			$url = $matches[3];
-			$filename = sanitize_file_name( basename( $url ) );
-
-			// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
-			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				return 'url(' . PB_PLUGIN_URL . $url . ')';
-			}
-
-			// Look for uploads/assets/fonts/*.otf (or .woff, or .ttf), update URL
-			if ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				return 'url(' . WP_CONTENT_URL . '/' . $url . ')';
-			}
-
-			return $matches[0]; // No change
-
-		}, $css );
-
-		return $css;
-	}
-
 	/**
 	 * Check for absent font files and download if necessary.
 	 */
@@ -318,6 +249,21 @@ class GlobalTypography {
 
 		// List fonts
 		$fontpacks = array(
+			'cans' => array(
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
+				'files' => array(
+					'NotoSansCanadianAboriginal-Regular.ttf',
+				),
+			),
+			'hi' => array(
+				'baseurl' => 'https://github.com/googlei18n/noto-fonts/raw/master/unhinted/',
+				'files' => array(
+					'NotoSansDevanagari-Regular.ttf',
+					'NotoSansDevanagari-Bold.ttf',
+					'NotoSerifDevanagari-Bold.ttf',
+					'NotoSerifDevanagari-Regular.ttf',
+				),
+			),
 			'ja' => array(
 				'baseurl' => 'https://github.com/googlei18n/noto-cjk/raw/master/',
 				'files' => array(

@@ -12,7 +12,6 @@ function print_analytics() {
 
 	switch_to_blog( 1 );
 	$ga_mu_uaid_network = get_option( 'ga_mu_uaid' );
-	$ga_mu_maindomain = get_option( 'ga_mu_maindomain' );
 	$ga_mu_site_specific_allowed = get_option( 'ga_mu_site_specific_allowed' );
 	restore_current_blog();
 
@@ -38,8 +37,9 @@ function print_analytics() {
 		$book = false;
 	}
 
+	$html = '';
 	if ( $network || $book ) {
-		$html = "<!-- Google Analytics -->\n<script>\n(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n";
+		$html .= "<!-- Google Analytics -->\n<script>\n(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','//www.google-analytics.com/analytics.js','ga');\n";
 		if ( $network ) {
 			$html .= "ga('create', '" . $ga_mu_uaid_network . "', 'auto');\n";
 			$html .= "ga('send', 'pageview');\n";

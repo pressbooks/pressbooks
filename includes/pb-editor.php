@@ -34,11 +34,15 @@ function add_languages( $array ) {
  */
 function mce_buttons_2( $buttons ) {
 
-	$p = array_search( 'formatselect', $buttons );
-	array_splice( $buttons, $p + 1, 0, 'styleselect' );
+	array_splice( $buttons, 0, 0, 'styleselect' );
 	$p = array_search( 'styleselect', $buttons );
 	array_splice( $buttons, $p + 1, 0, 'textboxes' );
-	array_splice( $buttons, 6, 0, 'backcolor' );
+	$p = array_search( 'textboxes', $buttons );
+	array_splice( $buttons, $p + 1, 0, 'underline' );
+	$p = array_search( 'hr', $buttons );
+	array_splice( $buttons, $p + 1, 0, 'alignjustify' );
+	$p = array_search( 'forecolor', $buttons );
+	array_splice( $buttons, $p + 1, 0, 'backcolor' );
 	return $buttons;
 }
 
@@ -258,7 +262,7 @@ function update_editor_style() {
 		] );
 	}
 
-	$css = Container::get( 'GlobalTypography' )->fixWebFonts( $css );
+	$css = Container::get( 'Sass' )->fixWebFonts( $css );
 
 	$output = $sass->pathToUserGeneratedCss() . '/editor.css';
 	file_put_contents( $output, $css );

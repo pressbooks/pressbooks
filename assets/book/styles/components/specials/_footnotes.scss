@@ -2,14 +2,10 @@
 //                            Footnotes & Endnotes                            //
 //============================================================================//
 
+@import '../utilities';
+
 // Prince footnotes
 @mixin prince-footnotes {
-
-  @page {
-    @footnotes {
-      padding-top: $footnote-padding-top;
-    }
-  }
 
   // Reset counter at the beginning of a new section
   .front-matter,
@@ -27,7 +23,7 @@
     display: prince-footnote;
     padding-left: $footnote-padding-left;
     margin-left: 0;
-    font-size: $footnote-font-size;
+    font-size: if-map-get($footnote-font-size, $type);
     line-height: $footnote-line-height;
     text-align: left;
     text-indent: $footnote-indent;
@@ -47,7 +43,6 @@
   p {
     prince-footnote-policy: keep-with-line;
   }
-
 }
 
 @mixin epub-footnotes {
@@ -61,7 +56,7 @@
   }
 
   .footnotes {
-    font-size: $footnote-font-size;
+    font-size: if-map-get($footnote-font-size, $type);
   }
 }
 

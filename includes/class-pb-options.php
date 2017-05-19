@@ -141,124 +141,206 @@ abstract class Options {
 	}
 
 	/**
-	* Render an input.
-	*
-	* @param string $id
-	* @param string $name
-	 * @param string $option
-	* @param string $value
-	 * @param string $description
-	 * @param string $append
-	 * @param string $type
-	 * @param string $size
-	 * @param bool $disabled
-	*/
-	protected function renderField( $id, $name, $option, $value = '', $description = '', $append = '', $type = 'text', $class = 'regular-text', $disabled = false ) {
-	?>
-		<input id="<?php echo $id;
-?>" class="<?php echo $class;
-?>" name="<?php echo $name;
-?>[<?php echo $option;
-?>]" type="<?php echo $type;
-?>" value="<?php echo $value; ?>" <?php if ( $disabled ) : ?> disabled<?php endif; ?>/><?php if ( $append ) : ?> <?php echo $append; ?><?php endif; ?>
-			<?php if ( $description ) : ?><p class="description"><?php echo $description; ?><?php endif; ?>
-		<?php }
+	 * Render an input.
+	 *
+	 * @param array $args {
+	 *     Arguments to render the input.
+	 *
+	 *     @type string			$id      				The id which will be assigned to the rendered field.
+	 *     @type string			$name         	The name of the field.
+	 *     @type string     $option       	The name of the option that the field is within.
+	 *     @type string     $value          The stored value of the field as retrieved from the database.
+	 *     @type string     $description		A description which will be displayed below the field.
+	 *     @type string     $append					A string which will be appended to the field (e.g. 'px').
+	 *     @type string     $type						The type property of the input. Default 'text'.
+	 *     @type string     $class					The class(es) which will be assigned to the rendered input. Default 'regular-text'.
+	 *     @type bool     	$disabled				Is the field disabled?
+ * }
+	 */
+	static function renderField( $args ) {
+		$defaults = array(
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'description' => null,
+			'append' => null,
+			'type' => 'text',
+			'class' => 'regular-text',
+			'disabled' => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		printf(
+			'<input id="%s" class="%s" name="%s[%s]" type="%s" value="%s" %s/>',
+			$args['id'],
+			$args['class'],
+			$args['name'],
+			$args['option'],
+			$args['type'],
+			$args['value'],
+			( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : ''
+		);
+		if ( isset( $args['append'] ) ) {
+			echo ' ' . $args['append'];
+		}
+		if ( isset( $args['description'] ) ) {
+			printf(
+				'<p class="description">%s</p>',
+				$args['description']
+			);
+		}
+	}
 
 	/**
-	* Render a checkbox.
-	*
-	* @param string $id
-	* @param string $name
-	 * @param string $option
-	* @param string $value
-	 * @param string $description
-	*/
-	protected function renderCheckbox( $id, $name, $option, $value = '', $description ) {
-	?>
-		<input id="<?php echo $id;
-?>" name="<?php echo $name;
-?>[<?php echo $option;
-?>]" type="checkbox" value="1" <?php echo checked( 1, $value, false ); ?>/>
-		<label for="<?php echo $id;
-?>"><?php echo $description; ?></label>
-	<?php }
+	 * Render a checkbox.
+	 *
+	 * @param array $args
+	 */
+	static function renderCheckbox( $args ) {
+		$defaults = array(
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'label' => null,
+			'disabled' => false,
+			'description' => null,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		printf(
+			'<input id="%s" name="%s[%s]" type="checkbox" value="1" %s%s/><label for="%s">%s</label>',
+			$args['id'],
+			$args['name'],
+			$args['option'],
+			checked( 1, $args['value'], false ),
+			( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : '',
+			$args['id'],
+			$args['label']
+		);
+		if ( isset( $args['description'] ) ) {
+			printf(
+				'<p class="description">%s</p>',
+				$args['description']
+			);
+		}
+	}
 
 	/**
-	* Render radio buttons.
-	*
-	* @param string $id
-	* @param string $name
-	 * @param string $option
-	* @param string $value
-	 * @param string $args
-	 * @param bool $custom
-	*/
-	protected function renderRadioButtons( $id, $name, $option, $value = '', $args, $custom = false ) {
+	 * Render radio buttons.
+	 *
+	 * @param array $args
+	 */
+	static function renderRadioButtons( $args ) {
+		$defaults = array(
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'choices' => array(),
+			'custom' => false,
+			'disabled' => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
 		$is_custom = false;
-		if ( ! array_key_exists( $value, $args ) ) {
+		if ( ! array_key_exists( $args['value'], $args['choices'] ) ) {
 			$is_custom = true;
 		}
-		foreach ( $args as $key => $label ) { ?>
-			<label for="<?php echo $id . '_' . sanitize_key( $key ); ?>">
-				<input type="radio" id="<?php echo $id . '_' . sanitize_key( $key );
-?>" name="<?php echo $name;
-?>[<?php echo $option;
-?>]" value="<?php echo $key; ?>" <?php if ( $custom && $is_custom ) {
-	if ( '' == $key ) {
-		echo('checked');
-	}
-} else {
-	checked( $key, $value );
-} ?>/><?php echo $label; ?>
-			</label><br />
-		<?php }
+		foreach ( $args['choices'] as $key => $label ) {
+			printf(
+				'<label for="%s"><input type="radio" id="%s" name="%s[%s]" value="%s" %s%s/>%s</label><br />',
+				$args['id'] . '_' . sanitize_key( $key ),
+				$args['id'] . '_' . sanitize_key( $key ),
+				$args['name'],
+				$args['option'],
+				$key,
+				( $args['custom'] && $is_custom && '' == $key ) ? 'checked' : checked( $key, $args['value'], false ),
+				( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : '',
+				$label
+			);
+		}
 	}
 
 	/**
-	* Render a select element.
-	*
-	* @param string $id
-	* @param string $name
-	 * @param string $option
-	* @param string $value
-	 * @param string $args
-	 * @param boolean $multiple
-	*/
-	protected function renderSelect( $id, $name, $option, $value = '', $args, $multiple = false ) {
-	?>
-		<select name='<?php echo $name;
-?>[<?php echo $option;
-?>]' id='<?php echo $id; ?>'<?php if ( $multiple ) : ?>multiple<?php endif; ?>>
-		<?php foreach ( $args as $key => $label ) { ?>
-			<option value='<?php echo $key; ?>' <?php selected( $key, $value );
-?>><?php echo $label; ?></option>
-		<?php } ?>
-		</select>
-	<?php }
+	 * Render a select element.
+	 *
+	 * @param array $args
+	 */
+	static function renderSelect( $args ) {
+		$defaults = array(
+			'id' => null,
+			'name' => null,
+			'option' => null,
+			'value' => '',
+			'choices' => array(),
+			'multiple' => false,
+			'disabled' => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
+		$options = '';
+		foreach ( $args['choices'] as $key => $label ) {
+			$options .= sprintf(
+				'<option value="%s" %s>%s</option>',
+				$key,
+				selected( $key, $args['value'], false ),
+				$label
+			);
+		}
+		printf(
+			'<select name="%s[%s]" id="%s"%s%s>%s</select>',
+			$args['name'],
+			$args['option'],
+			$args['id'],
+			( $args['multiple'] ) ? ' multiple' : '',
+			( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : '',
+			$options
+		);
+	}
 
 	/**
 	 * Render a custom select element.
 	 *
-	 * @param string $id
-	 * @param string $name
-	 * @param string $value
-	 * @param string $args
-	 * @param boolean $multiple
+	 * @param array $args
 	 */
-	protected function renderCustomSelect( $id, $name, $value = '', $args, $multiple = false ) {
+	static function renderCustomSelect( $args ) {
+		$defaults = array(
+			'id' => null,
+			'name' => null,
+			'value' => '',
+			'choices' => array(),
+			'multiple' => false,
+			'disabled' => false,
+		);
+
+		$args = wp_parse_args( $args, $defaults );
+
 		$is_custom = false;
-		if ( ! array_key_exists( $value, $args ) ) {
+		if ( ! array_key_exists( $args['value'], $args['choices'] ) ) {
 			$is_custom = true;
-		} ?>
-		<select name='<?php echo $name; ?>' id='<?php echo $id; ?>'>
-		<?php foreach ( $args as $key => $label ) { ?>
-			<option value='<?php echo $key; ?>' <?php
-			if ( '' == $key && $is_custom ) {
-				echo 'selected';
-			} else {
-				selected( $key, $value );
-			} ?>><?php echo $label; ?></option>
-		<?php } ?>
-		</select><br />
-	<?php }
+		}
+		$options = '';
+		foreach ( $args['choices'] as $key => $label ) {
+			$options .= sprintf(
+				'<option value="%s" %s>%s</option>',
+				$key,
+				( '' == $key && $is_custom ) ? ' selected' : selected( $key, $args['value'], false ),
+				$label
+			);
+		}
+		printf(
+			'<select name="%s" id="%s"%s%s>%s</select><br />',
+			$args['name'],
+			$args['id'],
+			( $args['multiple'] ) ? ' multiple' : '',
+			( isset( $args['disabled'] ) && true == $args['disabled'] ) ? ' disabled' : '',
+			$options
+		);
+	}
 }

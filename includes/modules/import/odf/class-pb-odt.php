@@ -74,7 +74,7 @@ class Odt extends Import {
 			}
 
 			$html = $this->parseContent( $dom_doc, $chapter_title );
-			$this->kneadAndInsert( $html, $chapter_title, $this->determinePostType( $id ), $chapter_parent );
+			$this->kneadAndInsert( $html, $chapter_title, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
 		}
 
 		// Done
@@ -104,7 +104,7 @@ class Odt extends Import {
 	 * @param string $post_type (front-matter', 'chapter', 'back-matter')
 	 * @param int $chapter_parent
 	 */
-	protected function kneadAndInsert( $html, $title, $post_type, $chapter_parent ) {
+	protected function kneadAndInsert( $html, $title, $post_type, $chapter_parent, $post_status ) {
 
 		$body = $this->tidy( $html );
 		$body = $this->kneadHTML( $body );
@@ -115,7 +115,7 @@ class Odt extends Import {
 			'post_title' => $title,
 			'post_content' => $body,
 			'post_type' => $post_type,
-			'post_status' => 'draft',
+			'post_status' => $post_status,
 		);
 
 		if ( 'chapter' == $post_type ) {
@@ -279,7 +279,7 @@ class Odt extends Import {
 			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
-		return htmLawed( $html, $config );
+		return \Pressbooks\HtmLawed::filter( $html, $config );
 	}
 
 

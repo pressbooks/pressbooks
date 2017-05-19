@@ -180,7 +180,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			'author' => __( 'Author', 'pressbooks' ),
 		);
 
-		for ( $i = 1; $i <= Catalog::$maxTagsGroup; ++$i ) {
+		for ( $i = 1; $i <= Catalog::MAX_TAGS_GROUP; ++$i ) {
 			$columns[ "tag_{$i}" ] = ! empty( $profile[ "pb_catalog_tag_{$i}_name" ] ) ? $profile[ "pb_catalog_tag_{$i}_name" ] : __( 'Tag', 'pressbooks' ) . " $i";
 		}
 
@@ -246,9 +246,12 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc'; // If no order, default to asc
 		if ( isset( $_REQUEST['orderby'] ) && isset( $valid_cols[ $_REQUEST['orderby'] ] ) ) {
-			$data = \Pressbooks\Utility\multi_sort( $data, "{$_REQUEST['orderby']}:$order" );
+			$data = wp_list_sort( $data, $_REQUEST['orderby'], $order );
 		} else {
-			$data = \Pressbooks\Utility\multi_sort( $data, 'status:desc', 'title:asc' ); // Default
+			$data = wp_list_sort( $data, array(
+				'status' => 'desc',
+				'title' => 'asc',
+			) ); // Default
 		}
 
 		// Pagination

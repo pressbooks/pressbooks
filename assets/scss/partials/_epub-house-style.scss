@@ -4,7 +4,7 @@ This file must validate as CSS 2.01 with absolutely no errors
 + http://idpf.org/epub/20/spec/OPS_2.0.1_draft.htm#Section3.0
 */
 
-/* PRESSBOOKS EPUB FALL-BACK STYLESHEET FOR VARIOUS SPECIAL THINGS 
+/* PRESSBOOKS EPUB FALL-BACK STYLESHEET FOR VARIOUS SPECIAL THINGS
 in development
 copyright 2013-2014 Book Oven Inc. */
 
@@ -12,11 +12,11 @@ copyright 2013-2014 Book Oven Inc. */
 
 /* HEADERS */
 
-h1, 
-h2, 
-h3, 
-h4, 
-h5, 
+h1,
+h2,
+h3,
+h4,
+h5,
 h6,
 h1.front-matter-title,
 h1.part-title,
@@ -27,8 +27,8 @@ h1.back-matter-title {
   page-break-after: avoid;
 }
 
-/* DISPLAY NONE 
-IN VARIOUS CIRCUMSTANCES 
+/* DISPLAY NONE
+IN VARIOUS CIRCUMSTANCES
 ========================= */
 
 .display-none {
@@ -39,7 +39,7 @@ IN VARIOUS CIRCUMSTANCES
 
 .epub-display-none,
 .not-epub {
-    display:none; 
+    display:none;
 }
 .web-only {
   display: none;
@@ -48,7 +48,7 @@ IN VARIOUS CIRCUMSTANCES
   display: none;
 }
 
-/* This is used in the PDF to generate a short book title & chapter title for running headers 
+/* This is used in the PDF to generate a short book title & chapter title for running headers
 in the case that the chapter title is too long. It's spurious in the EPUB, should always be
 display: none; */
 
@@ -60,13 +60,13 @@ h6.short-title {
   display: none;
 }
 
-/* Invisible Parts are invisible */ 
+/* Invisible Parts are invisible */
 
 .part.invisible {
 	display: none;
 }
 
-/* Numberless chapters have no chapter numbers */ 
+/* Numberless chapters have no chapter numbers */
 
 div.chapter.numberless h3.chapter-number {
 	display: none;
@@ -75,12 +75,6 @@ div.chapter.numberless h3.chapter-number {
 /* Blank page ... this is to add a blank page in PDF ... */
 
 div.blank-page {
-  display: none;
-}
-
-/* PART NUMBER: DISPLAY NONE, NOT SURE IF WE SHOULD LEAVE THIS IN? */
-
-h3.part-number {
   display: none;
 }
 
@@ -135,7 +129,7 @@ div.ugc.chapter-ugc p.indent.no-indent {
 }
 
 
-body, 
+body,
 p {
   widows: 2;
 }
@@ -163,7 +157,7 @@ span.fn_blockquote {
 
 /* NO WRAP, NO HYPHENS */
 
-.nowrap, 
+.nowrap,
 span.nowrap {
   white-space: nowrap;
 }
@@ -175,7 +169,7 @@ p.no-hyphens {
   -webkit-hyphens: none;
 }
 
-/* TOC SECTIONS */ 
+/* TOC SECTIONS */
 
 #toc ul.sections {
   padding-top: 0.5em !important;
@@ -195,7 +189,7 @@ table,
 table tr,
 table th {
   page-break-inside: avoid !important;
-} 
+}
 
 .no-border,
 table.no-border,
@@ -209,7 +203,7 @@ table.no-border thead {
   border-right: none;
   border-bottom: none;
   border-left: none;
-} 
+}
 
 /* TEXTBOXES */
 
@@ -243,7 +237,7 @@ div.index .ugc p.nonindent,
   padding-left: 2.5em;
 }
 
-/* DROPCAPS */ 
+/* DROPCAPS */
 
 span.firstcharacter {
   font-weight: bold;
@@ -262,7 +256,7 @@ div.sidebar {
   margin-left: 0.75em;
   margin-right: 0;
   padding: 0.75em;
-  background-color: #E6E6E6; 
+  background-color: #E6E6E6;
   font-size: 0.8em;
   font-style: italic;
   text-align: left !important;

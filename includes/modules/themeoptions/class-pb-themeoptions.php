@@ -35,11 +35,11 @@ class ThemeOptions {
 			$tab->init();
 			wp_cache_delete( 'pressbooks_theme_options_' . $slug . '_version', 'options' );
 			$version = get_option( 'pressbooks_theme_options_' . $slug . '_version', 0 );
-			if ( $version < $tab::$currentVersion ) {
+			if ( $version < $tab::VERSION ) {
 				$tab->upgrade( $version );
-				update_option( 'pressbooks_theme_options_' . $slug . '_version', $tab::$currentVersion, false );
+				update_option( 'pressbooks_theme_options_' . $slug . '_version', $tab::VERSION, false );
 				if ( WP_DEBUG ) {
-					error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::$currentVersion );
+					error_log( 'Upgraded ' . $slug . ' options from version ' . $version . ' --> ' . $tab::VERSION );
 				}
 			}
 		}
@@ -62,7 +62,8 @@ class ThemeOptions {
 				<?php } ?>
 			</h2>
 			<form method="post" action="options.php">
-				<?php settings_fields( 'pressbooks_theme_options_' . $active_tab );
+				<?php do_action( 'pb_before_themeoptions_settings_fields' );
+				settings_fields( 'pressbooks_theme_options_' . $active_tab );
 				do_settings_sections( 'pressbooks_theme_options_' . $active_tab );
 				submit_button(); ?>
 			</form>
@@ -86,18 +87,26 @@ class ThemeOptions {
 			'global' => '\Pressbooks\Modules\ThemeOptions\GlobalOptions',
 			'web' => '\Pressbooks\Modules\ThemeOptions\WebOptions',
 			'pdf' => '\Pressbooks\Modules\ThemeOptions\PDFOptions',
-			'mpdf' => '\Pressbooks\Modules\ThemeOptions\MPDFOptions',
 			'ebook' => '\Pressbooks\Modules\ThemeOptions\EbookOptions',
 		);
 
-		if ( ! \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
+		if ( false == get_site_transient( 'pb_pdf_compatible' ) && false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
 			unset( $tabs['pdf'] );
+		} else {
+			set_site_transient( 'pb_pdf_compatible', true );
 		}
 
-		if ( ! \Pressbooks\Modules\Export\Mpdf\Pdf::hasDependencies() ) {
-			unset( $tabs['mpdf'] );
+		if ( false == get_site_transient( 'pb_epub_compatible' ) && false == \Pressbooks\Modules\Export\Epub\Epub201::hasDependencies() ) {
+			unset( $tabs['ebook'] );
+		} else {
+			set_site_transient( 'pb_epub_compatible', true );
 		}
 
-		return apply_filters( 'pressbooks_theme_options_tabs', $tabs );
+		/**
+		 * Add a custom tab to the theme options page.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_tabs', $tabs );
 	}
 }

@@ -36,12 +36,15 @@ class Pressbooks {
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-root' );
 		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
 
+		/**
+		 * Register additional theme directories.
+		 *
+		 * Additional theme directories (e.g. those within another plugin, or custom
+		 * subdirectories of wp-content) may be registered via this action hook.
+		 *
+		 * @since 3.8.0
+		 */
 		do_action( 'pressbooks_register_theme_directory' );
-
-		// Check for local themes-root directory
-		if ( realpath( WP_CONTENT_DIR . '/themes-root' ) ) :
-			register_theme_directory( WP_CONTENT_DIR . '/themes-root' );
-		endif;
 
 		if ( is_admin() ) {
 			if ( Book::isBook() ) {
@@ -54,8 +57,7 @@ class Pressbooks {
 
 
 	/**
-	 * Used by add_filter( 'allowed_themes' ) Will hide any theme not in ./themes-book/* with exceptions
-	 * for the PB_BOOK_THEME constant, and $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'][]
+	 * Used by add_filter( 'allowed_themes' ). Will hide any non-book themes.
 	 *
 	 * @param array $themes
 	 *
@@ -63,23 +65,13 @@ class Pressbooks {
 	 */
 	function allowedBookThemes( $themes ) {
 
-		$exceptions = array();
-
-		if ( defined( 'PB_BOOK_THEME' ) ) {
-			$exceptions[] = PB_BOOK_THEME;
-		}
-
-		if ( isset( $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] ) ) {
-			if ( is_array( $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] ) ) {
-				$exceptions = array_merge( $exceptions, $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'] );
-			} else {
-				$exceptions[] = $GLOBALS['PB_SECRET_SAUCE']['BOOK_THEMES'];
-			}
-		}
-
 		$compare = search_theme_directories();
+
 		foreach ( $compare as $key => $val ) {
-			if ( ! in_array( $key, $exceptions ) && untrailingslashit( $val['theme_root'] ) != PB_PLUGIN_DIR . 'themes-book' ) {
+			$stylesheet = str_replace( 'style.css', '', $val['theme_file'] );
+			$theme = wp_get_theme( $stylesheet, $val['theme_root'] );
+			// Hide any available non-book themes, as identified by checking to see if they are either pressbooks-book or a child theme of pressbooks-book.
+			if ( 'pressbooks-book/style.css' != $val['theme_file'] && 'pressbooks-book' != $theme->get( 'Template' ) ) {
 				unset( $themes[ $key ] );
 			}
 		}
@@ -89,32 +81,20 @@ class Pressbooks {
 
 
 	/**
-	 * Used by add_filter( 'allowed_themes' ) Will hide any theme not in ./themes-root/* with exceptions
-	 * for 'pressbooks-root', the PB_ROOT_THEME constant, and $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'][]
+	 * Used by add_filter( 'allowed_themes' ). Will hide any book themes.
 	 *
 	 * @param array $themes
 	 *
 	 * @return array
 	 */
 	function allowedRootThemes( $themes ) {
-
-		$exceptions = array( 'pressbooks-root' );
-
-		if ( defined( 'PB_ROOT_THEME' ) ) {
-			$exceptions[] = PB_ROOT_THEME;
-		}
-
-		if ( isset( $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] ) ) {
-			if ( is_array( $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] ) ) {
-				$exceptions = array_merge( $exceptions, $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'] );
-			} else {
-				$exceptions[] = $GLOBALS['PB_SECRET_SAUCE']['ROOT_THEMES'];
-			}
-		}
-
 		$compare = search_theme_directories();
+
 		foreach ( $compare as $key => $val ) {
-			if ( ! in_array( $key, $exceptions ) && untrailingslashit( $val['theme_root'] ) != PB_PLUGIN_DIR . 'themes-root' ) {
+			$stylesheet = str_replace( 'style.css', '', $val['theme_file'] );
+			$theme = wp_get_theme( $stylesheet, $val['theme_root'] );
+			// Hide any available book themes, as identified by checking to see if they are either pressbooks-book or a child theme of pressbooks-book.
+			if ( 'pressbooks-book/style.css' == $val['theme_file'] || 'pressbooks-book' == $theme->get( 'Template' ) ) {
 				unset( $themes[ $key ] );
 			}
 		}

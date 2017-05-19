@@ -1,0 +1,86 @@
+//============================================================================//
+//                           Front Matter Pages                               //
+//============================================================================//
+
+@import '../utilities';
+
+// Before Title
+
+.before-title .front-matter-title-wrap {
+  margin-top: if-map-get($before-title-title-block-margin-top, $type);
+  margin-bottom: $before-title-title-block-margin-bottom;
+}
+
+// Copyright Page
+
+#copyright-page {
+  page-break-before: always;
+
+  .ugc {
+    float: $copyright-float;
+
+    p {
+      margin-bottom: if-map-get($copyright-margin-bottom, $type);
+      font-family: $copyright-font-family;
+      font-size: if-map-get($copyright-font-size, $type);
+      font-style: $copyright-font-style;
+      font-weight: $copyright-font-weight;
+      line-height: $copyright-line-height;
+      text-align: $copyright-align;
+      text-indent: $copyright-indent;
+    }
+  }
+}
+
+// Dedication
+
+div.dedication {
+  margin-right: $dedication-margin-right;
+  margin-left: $dedication-margin-left;
+
+  p {
+    margin-bottom: $dedication-margin-bottom;
+    font-family: $dedication-font-family;
+    font-size: $dedication-font-size;
+    font-style: $dedication-font-style;
+    font-weight: $dedication-font-weight;
+    line-height: $dedication-line-height;
+    text-align: $dedication-align;
+  }
+}
+
+// Epigraph
+
+div.epigraph {
+  margin-right: $epigraph-margin-right;
+  margin-left: $epigraph-margin-left;
+
+  p {
+    margin-bottom: $epigraph-margin-bottom;
+    font-family: $epigraph-font-family;
+    font-size: $epigraph-font-size;
+    font-style: $epigraph-font-style;
+    font-weight: $epigraph-font-weight;
+    line-height: $epigraph-line-height;
+    text-align: $epigraph-align;
+  }
+}
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    #copyright-page {
+      margin: 10%;
+      font-family: normal;
+      font-style: normal;
+      text-indent: 0;
+    }
+
+    #copyright-page p {
+      margin-bottom: .5em;
+      font-family: normal;
+      font-size: .875em;
+      font-style: normal;
+      text-indent: 0;
+    }
+  }
+}

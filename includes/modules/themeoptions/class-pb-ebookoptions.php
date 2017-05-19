@@ -13,7 +13,7 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 1;
+	const VERSION = 1;
 
 	/**
 	* Web theme options.
@@ -35,9 +35,12 @@ class EbookOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-			$this->options = $options;
+		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
+		$this->strings = $this->getStringOptions();
+		$this->integers = $this->getIntegerOptions();
+		$this->floats = $this->getFloatOptions();
 		$this->predefined = $this->getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
@@ -87,6 +90,13 @@ class EbookOptions extends \Pressbooks\Options {
 				__( 'Reduce image size and quality', 'pressbooks' )
 			)
 		);
+
+		/**
+		 * Add custom settings fields.
+		 *
+		 * @since 3.9.7
+		 */
+		do_action( 'pb_theme_options_ebook_add_settings_fields', $_page, $_section );
 
 		register_setting(
 			$_option,
@@ -139,7 +149,13 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderParagraphSeparationField( $args ) {
-		$this->renderRadioButtons( 'ebook_paragraph_separation', 'pressbooks_theme_options_' . $this->getSlug(), 'ebook_paragraph_separation', @$this->options['ebook_paragraph_separation'], $args );
+		$this->renderRadioButtons( array(
+			'id' => 'ebook_paragraph_separation',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'ebook_paragraph_separation',
+			'value' => ( isset( $this->options['ebook_paragraph_separation'] ) ) ? $this->options['ebook_paragraph_separation'] : '',
+			'choices' => $args,
+		) );
 	}
 
 	/**
@@ -147,7 +163,13 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderCompressImagesField( $args ) {
-		$this->renderCheckbox( 'ebook_compress_images', 'pressbooks_theme_options_' . $this->getSlug(), 'ebook_compress_images', @$this->options['ebook_compress_images'], $args[0] );
+		$this->renderCheckbox( array(
+			'id' => 'ebook_compress_images',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'ebook_compress_images',
+			'value' => ( isset( $this->options['ebook_compress_images'] ) ) ? $this->options['ebook_compress_images'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**
@@ -174,7 +196,10 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return apply_filters( 'pressbooks_theme_options_ebook_defaults', array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_ebook_defaults', array(
 			'ebook_paragraph_separation' => 'indent',
 			'ebook_compress_images' => 0,
 		) );
@@ -196,9 +221,56 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getBooleanOptions() {
-		return array(
+		/**
+		 * Allow custom boolean options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_ebook_booleans', array(
 			'ebook_compress_images'
-		);
+		) );
+	}
+
+	/**
+	 * Get an array of options which return strings.
+	 *
+	 * @return array $options
+	 */
+	static function getStringOptions() {
+		/**
+		 * Allow custom string options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_ebook_strings', array() );
+	}
+
+	/**
+	 * Get an array of options which return integers.
+	 *
+	 * @return array $options
+	 */
+	static function getIntegerOptions() {
+		/**
+		 * Allow custom integer options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_ebook_integers', array() );
+	}
+
+	/**
+	 * Get an array of options which return floats.
+	 *
+	 * @return array $options
+	 */
+	static function getFloatOptions() {
+		/**
+		 * Allow custom float options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_ebook_floats', array() );
 	}
 
 	/**
@@ -207,8 +279,51 @@ class EbookOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getPredefinedOptions() {
-		return array(
+		/**
+		 * Allow custom predifined options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_ebook_predefined', array(
 			'ebook_paragraph_separation'
-		);
+		) );
+	}
+
+	/**
+	 * Apply overrides.
+	 *
+	 * @since 3.9.8
+	 */
+	static function scssOverrides( $scss ) {
+		// --------------------------------------------------------------------
+		// Global Options
+
+		$sass = \Pressbooks\Container::get( 'Sass' );
+		$options = get_option( 'pressbooks_theme_options_global' );
+
+		if ( ! $options['chapter_numbers'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$chapter-number-display: none; \n";
+			} else {
+				$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
+			}
+		}
+
+		// --------------------------------------------------------------------
+		// Ebook Options
+
+		$options = get_option( 'pressbooks_theme_options_ebook' );
+
+		// Indent paragraphs?
+		if ( 'skiplines' == $options['ebook_paragraph_separation'] ) {
+			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				$scss .= "\$para-margin-top: 1em; \n";
+				$scss .= "\$para-indent: 0; \n";
+			} else {
+				$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
+			}
+		}
+
+		return $scss;
 	}
 }

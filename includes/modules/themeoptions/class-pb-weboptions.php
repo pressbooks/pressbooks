@@ -13,7 +13,7 @@ class WebOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	static $currentVersion = 1;
+	const VERSION = 1;
 
 	/**
 	* Web theme options.
@@ -35,9 +35,13 @@ class WebOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-			$this->options = $options;
+		$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
+		$this->strings = $this->getStringOptions();
+		$this->integers = $this->getIntegerOptions();
+		$this->floats = $this->getFloatOptions();
+		$this->predefined = $this->getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -76,6 +80,18 @@ class WebOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
+			'paragraph_separation',
+			__( 'Paragraph Separation', 'pressbooks' ),
+			array( $this, 'renderParagraphSeparationField' ),
+			$_page,
+			$_section,
+			array(
+				'indent' => __( 'Indent paragraphs', 'pressbooks' ),
+				'skiplines' => __( 'Skip lines between paragraphs', 'pressbooks' ),
+			)
+		);
+
+		add_settings_field(
 			'part_title',
 			__( 'Display Part Title', 'pressbooks' ),
 			array( $this, 'renderPartTitle' ),
@@ -85,6 +101,13 @@ class WebOptions extends \Pressbooks\Options {
 				__( 'Display the Part title on each chapter', 'pressbooks' )
 			)
 		);
+
+		/**
+		 * Add custom settings fields.
+		 *
+		 * @since 3.9.7
+		 */
+		do_action( 'pb_theme_options_web_add_settings_fields', $_page, $_section );
 
 		register_setting(
 			$_page,
@@ -141,7 +164,27 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderSocialMediaField( $args ) {
-		$this->renderCheckbox( 'social_media', 'pressbooks_theme_options_' . $this->getSlug(), 'social_media', @$this->options['social_media'], $args[0] );
+		$this->renderCheckbox( array(
+			'id' => 'social_media',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'social_media',
+			'value' => ( isset( $this->options['social_media'] ) ) ? $this->options['social_media'] : '',
+			'label' => $args[0],
+		) );
+	}
+
+	/**
+	 * Render the paragraph_separation radio buttons.
+	 * @param array $args
+	 */
+	function renderParagraphSeparationField( $args ) {
+		$this->renderRadioButtons( array(
+			'id' => 'paragraph_separation',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'paragraph_separation',
+			'value' => ( isset( $this->options['paragraph_separation'] ) ) ? $this->options['paragraph_separation'] : '',
+			'choices' => $args,
+		) );
 	}
 
 	/**
@@ -149,7 +192,13 @@ class WebOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderPartTitle( $args ) {
-		$this->renderCheckbox( 'part_title', 'pressbooks_theme_options_' . $this->getSlug(), 'part_title', @$this->options['part_title'], $args[0] );
+		$this->renderCheckbox( array(
+			'id' => 'part_title',
+			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+			'option' => 'part_title',
+			'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['part_title'] : '',
+			'label' => $args[0],
+		) );
 	}
 
 	/**
@@ -176,8 +225,12 @@ class WebOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		return apply_filters( 'pressbooks_theme_options_web_defaults', array(
+		/**
+		 * @since 3.9.7 TODO
+		 */
+		return apply_filters( 'pb_theme_options_web_defaults', array(
 			'social_media' => 1,
+			'paragraph_separation' => 'skiplines',
 			'part_title' => 0,
 		) );
 	}
@@ -198,9 +251,102 @@ class WebOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getBooleanOptions() {
-		return array(
+		/**
+		 * Allow custom boolean options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_web_booleans', array(
 			'social_media',
 			'part_title',
-		);
+		) );
+	}
+
+	/**
+	 * Get an array of options which return strings.
+	 *
+	 * @return array $options
+	 */
+	static function getStringOptions() {
+		/**
+		 * Allow custom string options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_web_strings', array() );
+	}
+
+	/**
+	 * Get an array of options which return integers.
+	 *
+	 * @return array $options
+	 */
+	static function getIntegerOptions() {
+		/**
+		 * Allow custom integer options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_web_integers', array() );
+	}
+
+	/**
+	 * Get an array of options which return floats.
+	 *
+	 * @return array $options
+	 */
+	static function getFloatOptions() {
+		/**
+		 * Allow custom float options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_web_floats', array() );
+	}
+
+	/**
+	 * Get an array of options which return predefined values.
+	 *
+	 * @return array $options
+	 */
+	static function getPredefinedOptions() {
+		/**
+		 * Allow custom predifined options to be passed to sanitization routines.
+		 *
+		 * @since 3.9.7
+		 */
+		return apply_filters( 'pb_theme_options_web_predefined', array(
+			'paragraph_separation'
+		) );
+	}
+
+	/**
+	 * Apply overrides.
+	 *
+	 * @since 3.9.8
+	 */
+	static function scssOverrides( $scss ) {
+		$sass = \Pressbooks\Container::get( 'Sass' );
+		$options = get_option( 'pressbooks_theme_options_web' );
+
+		if ( isset( $options['paragraph_separation'] ) ) {
+			if ( 'indent' == $options['paragraph_separation'] ) {
+				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+					$scss .= "\$para-margin-top: 0; \n";
+					$scss .= "\$para-indent: 1em; \n";
+				} else {
+					$scss .= "* + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
+				}
+			} elseif ( 'skiplines' == $options['paragraph_separation'] ) {
+				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+					$scss .= "\$para-margin-top: 1em; \n";
+					$scss .= "\$para-indent: 0; \n";
+				} else {
+					$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+				}
+			}
+		}
+
+		return $scss;
 	}
 }

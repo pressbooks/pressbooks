@@ -32,4 +32,30 @@ class AnalyticsTest extends \WP_UnitTestCase {
 		$this->assertInternalType( 'int', \Pressbooks\Admin\Analytics\analytics_ga_mu_site_specific_allowed_sanitize( 1 ) );
 	}
 
+	/**
+	 * @covers \Pressbooks\Analytics\print_analytics
+	 */
+	public function test_print_analytic() {
+
+		ob_start();
+		\Pressbooks\Analytics\print_analytics();
+		$buffer = ob_get_clean();
+		$this->assertContains( '<script>', $buffer );
+		$this->assertContains( 'Google', $buffer );
+		$this->assertContains( 'Analytics', $buffer );
+	}
+
+	/**
+	 * @covers \Pressbooks\Admin\Analytics\print_admin_analytics
+	 */
+	public function test_print_admin_analytics() {
+
+		ob_start();
+		\Pressbooks\Admin\Analytics\print_admin_analytics();
+		$buffer = ob_get_clean();
+		$this->assertContains( '<script>', $buffer );
+		$this->assertContains( 'Google', $buffer );
+		$this->assertContains( 'Analytics', $buffer );
+	}
+
 }

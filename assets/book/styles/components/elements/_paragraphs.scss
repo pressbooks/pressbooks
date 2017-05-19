@@ -2,9 +2,11 @@
 //                                 Paragraphs                                 //
 //============================================================================//
 
+@import '../utilities';
+
 p {
   margin-bottom: $para-margin-bottom;
-  text-align: $para-align;
+  text-align: if-map-get($para-align, $type);
   widows: $widows;
   orphans: $orphans;
 }
@@ -60,6 +62,7 @@ p {
   text-indent: $para-hanging-indent-text-indent;
 }
 
+// Paragraph tracking (for Prince only)
 @mixin paragraph-tracking {
   .tight {
     letter-spacing: $para-tight-letter-spacing;
@@ -82,6 +85,67 @@ p {
   }
 }
 
-@if type == 'prince' {
+@if $type == 'prince' {
   @include paragraph-tracking;
+}
+
+@if $type == 'epub' {
+  @media amzn-mobi {
+    p,
+    .ugc p,
+    .chapter-ugc p {
+      font-family: serif;
+      font-size: 1em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: justify;
+    }
+
+    .nonindent,
+    .no-indent,
+    p.nonindent,
+    p.no-indent,
+    div.ugc p.no-indent,
+    div.ugc p.nonindent {
+      margin-top: .5em;
+      font-family: serif;
+      font-size: 1em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: justify;
+      text-indent: 0;
+    }
+
+    .indent,
+    p.indent,
+    div.ugc p.indent {
+      margin-top: 0;
+      font-family: serif;
+      font-size: 1em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: justify;
+      text-indent: 1.5em;
+    }
+
+    .front-matter-ugc p.indent,
+    .front-matter-ugc p.nonindent,
+    .front-matter-ugc p.no-indent {
+      font-family: serif;
+      font-size: 1em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: justify;
+    }
+
+    .back-matter-ugc p.indent,
+    .back-matter-ugc p.nonindent,
+    .back-matter-ugc p.no-indent {
+      font-family: serif;
+      font-size: 1em;
+      font-style: normal;
+      font-weight: normal;
+      text-align: justify;
+    }
+  }
 }
