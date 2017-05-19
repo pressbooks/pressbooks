@@ -6,22 +6,27 @@
 namespace Pressbooks\PostType;
 
 /**
- * List our post_types
- *
- * @return array
- */
+*  Filter to allow users to add additional custom post types to the list of permitted post types.
+*
+* @Since 3.9.9
+*
+* @param array $posttypes
+*
+* @return array
+*/
 function list_post_types() {
-
-	return array(
+	
+	$posttypes = apply_filters('pb_supported_post_types', array(
 		'metadata',
 		'part',
 		'chapter',
 		'front-matter',
 		'back-matter',
 		'custom-css',
-	);
-}
+	));
+	return $posttypes;
 
+}
 
 /**
  * Loads Chapter, Part, Front Matter, Back Matter, and Metadata custom post types
