@@ -14,8 +14,15 @@ class Search {
 	var $source = null;
 	var $error = null;
 
+	var $regex = false;
+	var $regex_error = null;
+
 	function name() {
 		return '';
+	}
+
+	function regex_error( $errno, $errstr, $errfile, $errline ) {
+		$this->regex_error = __( 'Invalid regular expression', 'pressbooks') . ': ' . preg_replace( '/(.*?):/', '', $errstr );
 	}
 
 	function search_and_replace( $search, $replace, $limit, $offset, $orderby, $save = false ) {
@@ -37,7 +44,18 @@ class Search {
 			if ( ! ini_get( 'safe_mode' ) ) {
 				set_time_limit( 0 );
 			}
-			return $this->find( '@' . preg_quote( $search, '@' ) . '@', $limit, $offset, $orderby );
+			if ( $this->regex ) {
+				// First test that the search and replace strings are valid regex
+				set_error_handler( array( &$this, 'regex_error' ) );
+				$valid = @preg_match( $search, '', $matches );
+				restore_error_handler();
+				if ( $valid === false ) {
+					return $this->regex_error;
+				}
+				return $this->find( $search, $limit, $offset, $orderby );
+			} else {
+				return $this->find( '@' . preg_quote( $search, '@' ) . '@', $limit, $offset, $orderby );
+			}
 		}
 		return __( 'No search pattern.', 'pressbooks' );
 	}
