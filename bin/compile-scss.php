@@ -33,9 +33,8 @@ $scss = file_get_contents( $input_file_name );
 
 try {
 	$sass = new \Leafo\ScssPhp\Compiler;
-	$sass->setStyle( Sass::STYLE_EXPANDED );
 	$sass->setImportPaths( $includePaths );
-	$css = $sass->compileFile( $scss );
+	$css = $sass->compile( $scss );
 } catch ( Exception $e ) {
 	die( $e->getMessage() );
 }
