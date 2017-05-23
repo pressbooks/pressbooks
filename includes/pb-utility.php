@@ -56,7 +56,7 @@ function group_exports( $dir = null ) {
 	}
 	arsort( $files );
 
-	$interval = 3 * MINUTE_IN_SECONDS; // Three minutes
+	$interval = 3 * 60; // Three minutes
 	$pos = 0;
 	$output = array();
 
@@ -98,6 +98,8 @@ function truncate_exports( $max, $dir = null ) {
 			foreach ( $exports as $export ) {
 				$export = realpath( $dir . $export );
 
+				WP_Filesystem();
+
 				unlink( $export );
 			}
 		}
@@ -108,12 +110,12 @@ function truncate_exports( $max, $dir = null ) {
 
 /**
  * Return the full path to the directory containing media
- * Checks for `ms_files_rewriting` site option; uses /wp-content/blogs.dir/ if present, otherwise uses WordPress 3.5+ standard, /wp-content/uploads/sites/
+ * Checks for existence of /wp-content/blogs.dir/; otherwise uses WordPress 3.5+ standard, /wp-content/uploads/sites/
  *
  * @return string path
  */
 function get_media_prefix() {
-	if ( get_site_option( 'ms_files_rewriting' ) ) {
+	if ( is_dir( WP_CONTENT_DIR . '/blogs.dir' ) ) {
 		return WP_CONTENT_DIR . '/blogs.dir/' . get_current_blog_id() . '/files/';
 	} else {
 		return WP_CONTENT_DIR . '/uploads/sites/' . get_current_blog_id() . '/';
@@ -152,19 +154,7 @@ function get_media_path( $guid ) {
  * @return array
  */
 function latest_exports() {
-	/**
-	 * @since 3.9.8
-	 * Add custom export formats to the latest exports filetype mapping array.
-	 *
-	 * For example, here's how one might add a hypothetical Word export format:
-	 *
-	 * add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
-	 * 	$filetypes['word'] = '.docx';
-	 *	return $filetypes;
-	 * } );
-	 *
-	 */
-	$filetypes = apply_filters( 'pb_latest_export_filetypes', array(
+	$filetypes = array(
 	    'epub3' => '._3.epub',
 	    'epub' => '.epub',
 	    'pdf' => '.pdf',
@@ -176,7 +166,7 @@ function latest_exports() {
 	    'vanillawxr' => '._vanilla.xml',
 	    'mpdf' => '._oss.pdf',
 	    'odf' => '.odt',
-	) );
+	);
 
 	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
 
@@ -204,6 +194,131 @@ function latest_exports() {
 	// @TODO filter these results against user prefs
 
 	return $latest;
+}
+
+/**
+ * Array multisort function for sorting on multiple fields like in SQL, e.g: 'ORDER BY field1, field2'
+ *
+ * Supports optional ASC or DESC parameter by using : delimiter, example:
+ *   multiSort($array, 'foo:asc', 'bar:desc', ...);
+ *
+ * @param array $array
+ * @param string $a, $b, $c ...
+ *
+ * @return array
+ */
+function multi_sort() {
+	//get args of the function
+	$args = func_get_args();
+	$c = count( $args );
+	if ( $c < 2 ) {
+		return false;
+	}
+	// get the array to sort
+	$array = array_splice( $args, 0, 1 );
+	$array = $array[0];
+	// sort with an anonymous function using args
+	usort( $array, function ( $a, $b ) use ( $args ) {
+		$orderby = 'asc';
+		$i = 0;
+		$c = count( $args );
+		$cmp = 0;
+		while ( 0 == $cmp && $i < $c ) {
+			@list( $arg, $orderby ) = explode( ':', $args[ $i ] );
+			$orderby = strtolower( $orderby ) == 'desc' ? 'desc' : 'asc';
+			$cmp = strcmp( $a[ $arg ], $b[ $arg ] );
+			$i ++;
+		}
+		if ( 'desc' == $orderby ) {
+			return - $cmp; // Negate the value
+		} else {
+			return $cmp; // As is
+		}
+	} );
+
+	return $array;
+}
+
+
+/**
+ * Override \wp_mail() to always use Postmark API
+ *
+ * @param string|array $to Array or comma-separated list of email addresses to send message.
+ * @param string $subject Email subject
+ * @param string $message Message contents
+ * @param string|array $headers Optional. Additional headers.
+ * @param string|array $attachments Optional. Files to attach.
+ *
+ * @const POSTMARK_API_KEY
+ * @const POSTMARK_SENDER_ADDRESS
+ *
+ * @return bool Whether the email contents were sent successfully.
+ */
+function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
+
+	$response = false;
+
+	// Define Headers
+
+	$postmark_headers = array(
+		'Accept' => 'application/json',
+		'Content-Type' => 'application/json',
+		'X-Postmark-Server-Token' => POSTMARK_API_KEY,
+	);
+
+	// Send Email
+
+	if ( ! is_array( $to ) ) {
+		$recipients = explode( ',', $to );
+	} else {
+		$recipients = $to;
+	}
+
+	foreach ( $recipients as $recipient ) {
+
+		$email = array();
+		$email['To'] = $recipient;
+		$email['From'] = POSTMARK_SENDER_ADDRESS;
+		$email['Subject'] = $subject;
+		$email['TextBody'] = $message;
+
+		if ( strpos( $headers, 'text/html' ) ) {
+			$email['HtmlBody'] = $message;
+		}
+
+		$response = pm_send_mail( $postmark_headers, $email );
+	}
+
+	return $response;
+}
+
+
+/**
+ * Send JSON to Postmark API via POST method
+ *
+ * @param array $headers
+ * @param array $email
+ *
+ * @return bool
+ */
+function pm_send_mail( array $headers, array $email ) {
+
+	$postmark_endpoint = 'http://api.postmarkapp.com/email';
+
+	$args = array(
+		'headers' => $headers,
+		'body' => json_encode( $email ),
+	);
+
+	$response = wp_remote_post( $postmark_endpoint, $args );
+
+	if ( is_wp_error( $response ) ) {
+		return false;
+	} elseif ( 200 == $response['response']['code'] ) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 
@@ -314,7 +429,7 @@ function check_prince_install() {
 	if ( false !== strpos( $output, 'Prince' ) ) { // Command found.
 		$output = explode( 'Prince ', $output );
 		$version = $output[1];
-		if ( version_compare( $version, '11' ) >= 0 ) {
+		if ( version_compare( $version, '20160929' ) >= 0 ) {
 			return true;
 		}
 	}
@@ -371,12 +486,7 @@ function check_saxonhe_install() {
 		}
 	}
 
-	/**
-	 * @since 3.9.8
-	 *
-	 * Allows the SaxonHE dependency error to be disabled.
-	 */
-	return apply_filters( 'pb_odt_has_dependencies', false );
+	return false;
 }
 
 /**
@@ -406,7 +516,7 @@ function show_experimental_features( $host = null ) {
 }
 
 /**
- * Include plugins in /symbionts
+ * Include plugins in /vendor
  *
  * @since 2.5.1
  */
@@ -476,15 +586,6 @@ function filter_plugins( $plugins ) {
  * @return bool
  */
 function disable_comments() {
-	if ( ! \Pressbooks\Book::isBook() ) {
-		/**
-		 * Allows comments to be enabled on the root blog by adding a function to this filter that returns false.
-		 *
-		 * @since 3.9.6
-		 */
-		return apply_filters( 'pb_disable_root_comments', true );
-	}
-
 	$old_option = get_option( 'disable_comments_options' );
 	$new_option = get_option( 'pressbooks_sharingandprivacy_options', array( 'disable_comments' => 1 ) );
 
@@ -504,123 +605,6 @@ function disable_comments() {
 
 	return $retval;
 }
-
-/**
- * Remove the Featured tab, change order on the others so that Recommended is first.
- * Adapted from https://github.com/secretpizzaparty/better-plugin-recommendations
- *
- * @since 3.9.9
- * @author Joey Kudish <info@jkudish.com>
- * @author Nick Hamze <me@nickhamze.com>
- *
- * @param array $tabs The Plugin Installer tabs.
- * @return array
- */
-function install_plugins_tabs( $tabs ) {
-	unset( $tabs['featured'] );
-	unset( $tabs['popular'] );
-	unset( $tabs['favorites'] );
-	$tabs['popular'] = _x( 'Popular', 'Plugin Installer' );
-	$tabs['favorites'] = _x( 'Favorites', 'Plugin Installer' );
-	return $tabs;
-}
-
-/**
- * Replace the core Recommended tab with ours.
- * Adapted from https://github.com/secretpizzaparty/better-plugin-recommendations
- *
- * @since 3.9.9
- * @author Joey Kudish <info@jkudish.com>
- * @author Nick Hamze <me@nickhamze.com>
- *
- * @param false|object|array $res The result object or array. Default false.
- * @param string $action The type of information being requested from the Plugin Install API.
- * @param object $args Plugin API arguments.
- * @return object
- */
-function hijack_recommended_tab( $res, $action, $args ) {
-	if ( ! isset( $args->browse ) || 'recommended' !== $args->browse ) {
-		return $res;
-	}
-	$res = get_site_transient( 'pressbooks_recommended_plugins_data' );
-	if ( ! $res || ! isset( $res->plugins ) ) {
-		$res = \Pressbooks\Utility\fetch_recommended_plugins();
-		if ( isset( $res->plugins ) ) {
-			set_site_transient( 'pressbooks_recommended_plugins_data', $res, HOUR_IN_SECONDS );
-		}
-	}
-	return $res;
-}
-
-/**
- * Fetch recommended plugins from our server.
- * Adapted from https://github.com/secretpizzaparty/better-plugin-recommendations
- *
- * @since 3.9.9
- * @author Joey Kudish <info@jkudish.com>
- * @author Nick Hamze <me@nickhamze.com>
- *
- * @return object
- */
-function fetch_recommended_plugins() {
-	/**
-	 * Filter the URL of the Pressbooks Recommended Plugins server.
-	 *
-	 * @since 3.9.9
-	 */
-	$url = $http_url = apply_filters( 'pb_recommended_plugins_url', 'https://pressbooks-plugins.now.sh' ) . '/api/plugin-recommendations';
-	if ( $ssl = wp_http_supports( array( 'ssl' ) ) ) {
-		$url = set_url_scheme( $url, 'https' );
-	}
-	$request = wp_remote_get( $url, array( 'timeout' => 15 ) );
-	if ( $ssl && is_wp_error( $request ) ) {
-		trigger_error(
-			__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ) . ' ' . __( '(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)', 'pressbooks' ),
-			headers_sent() || WP_DEBUG ? E_USER_WARNING : E_USER_NOTICE
-		);
-		$request = wp_remote_get( $http_url, array( 'timeout' => 15 ) );
-	}
-	if ( is_wp_error( $request ) ) {
-		$res = new WP_Error( 'plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
-			$request->get_error_message()
-		);
-	} else {
-		$res = json_decode( wp_remote_retrieve_body( $request ) );
-		$res->info = (array) $res->info; // WP wants this as an array...
-		$res->plugins = array_map( function ( $plugin ) {
-			$plugin->icons = (array) $plugin->icons; // WP wants this as an array...
-			return $plugin;
-		}, $res->plugins );
-		if ( ! is_object( $res ) && ! is_array( $res ) ) {
-			$res = new WP_Error( 'plugins_api_failed',
-				__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
-				wp_remote_retrieve_body( $request )
-			);
-		}
-	}
-	return $res;
-}
-
-/**
- * Replace the description on the Recommended tab.
- * Adapted from https://github.com/secretpizzaparty/better-plugin-recommendations
- *
- * @since 3.9.9
- * @author Joey Kudish <info@jkudish.com>
- * @author Nick Hamze <me@nickhamze.com>
- *
- * @param string $translation
- * @param string $text
- * @param string $domain
- * @return string
- */
-function change_recommendations_sentence( $translation, $text, $domain ) {
-	if ( 'These suggestions are based on the plugins you and other users have installed.' === $text ) {
-		return __( 'These plugins have been created and/or recommended by the Pressbooks community.', 'pressbooks' );
-	}
-	return $translation;
-}
-
 
 /**
  * Function to return a string representing max import size by comparing values of upload_max_filesize, post_max_size
@@ -735,31 +719,6 @@ function template( $path, array $vars = array() ) {
 	return $output;
 }
 
-function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [] ) {
-	$completed = false;
-
-	if ( $attempts >= $retry ) {
-		$completed = true;
-	}
-
-	if ( $completed ) { return $response;
-	}
-
-	$attempts++;
-
-	$response = wp_remote_get( $url, $args );
-
-	$retryResponseCodes = apply_filters( 'pressbooks_remote_get_retry_response_codes', [ 400 ] );
-
-	if ( ! is_array( $response ) || ! in_array( $response['response']['code'], $retryResponseCodes ) ) {
-		return $response;
-	}
-
-	$sleep = apply_filters( 'pressbooks_remote_get_retry_wait_time', 1000 );
-	usleep( $sleep );
-	return remote_get_retry( $url, $args, $retry, $attempts, $response );
-}
-
 /**
  * Get paths for assets
  */
@@ -808,73 +767,4 @@ function asset_path( $filename ) {
 	} else {
 		return $dist_path . $directory . $file;
 	}
-}
-
-/**
- * Set the wp_mail sender address
- *
- * @since 3.9.7
- * @param string $email The default email address
- * @return string
- */
-function mail_from( $email ) {
-	if ( defined( 'WP_MAIL_FROM' ) ) {
-		$email = WP_MAIL_FROM;
-	} else {
-		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
-		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
-			$sitename = substr( $sitename, 4 );
-		}
-		$email = 'pressbooks@' . $sitename;
-	}
-	return $email;
-}
-
-/**
- * Set the wp_mail sender name
- *
- * @since 3.9.7
- * @param string $name The default sender name
- * @return string
- */
-function mail_from_name( $name ) {
-	if ( defined( 'WP_MAIL_FROM_NAME' ) ) {
-		$name = WP_MAIL_FROM_NAME;
-	} else {
-		$name = 'Pressbooks';
-	}
-	return $name;
-}
-
-/**
- * Recursive directory copy. Props to https://ben.lobaugh.net/blog/864/php-5-recursively-move-or-copy-files
- *
- * @since 3.9.8
- * @author Ben Lobaugh <ben@lobaugh.net>
- * @param string $src
- * @param string $dest
- * @return bool
- */
-function rcopy( $src, $dest ) {
-	if ( ! is_dir( $src ) ) {
-		return false;
-	}
-
-	if ( ! is_dir( $dest ) ) {
-		if ( ! mkdir( $dest ) ) {
-			return false;
-		}
-	}
-
-	$i = new \DirectoryIterator( $src );
-	foreach ( $i as $f ) {
-		if ( $f->isFile() ) {
-			if ( false == copy( $f->getRealPath(), "$dest/" . $f->getFilename() ) ) {
-				return false;
-			}
-		} elseif ( ! $f->isDot() && $f->isDir() ) {
-			\Pressbooks\Utility\rcopy( $f->getRealPath(), "$dest/$f" );
-		}
-	}
-	return true;
 }

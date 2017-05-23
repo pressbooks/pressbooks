@@ -34,8 +34,8 @@
     "wiredep": "^2.2.2"
   },
   "scripts": {
-    "build": "bower install && gulp",
-    "build:production": "bower install && gulp --production",
+    "build": "gulp",
+    "build:production": "gulp --production",
     "sassdoc": "sassdoc -c sassdoc.yml assets/book/styles"
   },
   "repository": {
@@ -52,8 +52,5 @@
   "bugs": {
     "url": "https://github.com/pressbooks/pressbooks/issues"
   },
-  "homepage": "https://github.com/pressbooks/pressbooks/",
-  "dependencies": {
-    "wp-pot-cli": "^1.0.1"
-  }
+  "homepage": "https://github.com/pressbooks/pressbooks/"
 }

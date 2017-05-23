@@ -49,9 +49,6 @@ class Docx extends Import {
 	const FOOTNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/footnotes';
 	const ENDNOTES_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/endnotes';
 	const HYPERLINK_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink';
-	const STYLESHEET_SCHEMA = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles';
-
-	const FOOTNOTE_HREF_PATTERN = '/^#sdfootnote(\d+)sym$/';
 
 	/**
 	 *
@@ -75,12 +72,10 @@ class Docx extends Import {
 		// get the paths to content
 		$doc_path = $this->getTargetPath( self::DOCUMENT_SCHEMA );
 		$meta_path = $this->getTargetPath( self::METADATA_SCHEMA );
-		$styles_path = $this->getTargetPath( self::STYLESHEET_SCHEMA, true );
 
 		// get the content
 		$xml = $this->getZipContent( $doc_path );
 		$meta = $this->getZipContent( $meta_path );
-		$styles = $this->getZipContent( $styles_path );
 
 		// get all Footnote IDs from document
 		$fn_ids = $this->getIDs( $xml );
@@ -111,9 +106,6 @@ class Docx extends Import {
 		$xsl->load( __DIR__ . '/xsl/docx2html.xsl' );
 		$proc->importStylesheet( $xsl );
 
-		// cram the styles into the main document
-		$xml->documentElement->appendChild( $xml->importNode( $styles->documentElement, true ) );
-
 		// throw it back into the DOM
 		$dom_doc = $proc->transformToDoc( $xml );
 
@@ -126,7 +118,7 @@ class Docx extends Import {
 			}
 
 			$html = $this->parseContent( $dom_doc, $chapter_title );
-			$this->kneadAndInsert( $html, $chapter_title, $this->determinePostType( $id ), $chapter_parent, $current_import['default_post_status'] );
+			$this->kneadAndInsert( $html, $chapter_title, $this->determinePostType( $id ), $chapter_parent );
 		}
 		// Done
 		return $this->revokeCurrentImport();
@@ -227,7 +219,7 @@ class Docx extends Import {
 	 * @param string $post_type (front-matter', 'chapter', 'back-matter')
 	 * @param int $chapter_parent
 	 */
-	protected function kneadAndInsert( $html, $title, $post_type, $chapter_parent, $post_status ) {
+	protected function kneadAndInsert( $html, $title, $post_type, $chapter_parent ) {
 
 		$body = $this->tidy( $html );
 		$body = $this->kneadHTML( $body );
@@ -238,7 +230,7 @@ class Docx extends Import {
 		    'post_title' => $title,
 		    'post_content' => $body,
 		    'post_type' => $post_type,
-		    'post_status' => $post_status,
+		    'post_status' => 'draft',
 		);
 
 		if ( 'chapter' == $post_type ) {
@@ -508,46 +500,43 @@ class Docx extends Import {
 	 * @return \DOMDocument
 	 */
 	protected function addFootnotes( \DOMDocument $chapter ) {
-		$fn_candidates = $chapter->getelementsByTagName( 'a' );
-		$fn_ids = array();
-		foreach ( $fn_candidates as $fn_candidate ) {
-			$href = $fn_candidate->getAttribute( 'href' );
-			if ( null != $href ) {
-				$fn_matches = null;
-				if ( preg_match( self::FOOTNOTE_HREF_PATTERN, $href, $fn_matches ) ) {
-					$fn_ids[] = $fn_matches[1];
+
+		$fn = $chapter->getElementsByTagName( 'sup' );
+
+		if ( $fn->length > 0 ) {
+			$fn_ids = array();
+			foreach ( $fn as $int ) {
+				if ( is_numeric( $int->nodeValue ) ) { // TODO should be a stronger test for footnotes
+					$fn_ids[] = $int->nodeValue;
+				}
+			}
+			// append
+			// TODO either/or is not sufficient, needs to be built to cover
+			// a use case where both are present.
+			if ( ! empty( $this->fn ) ) { $notes = $this->fn;
+			}
+			if ( ! empty( $this->en ) ) { $notes = $this->en;
+			}
+
+			foreach ( $fn_ids as $id ) {
+				if ( array_key_exists( $id, $notes ) ) {
+					$grandparent = $chapter->createElement( 'div' );
+					$grandparent->setAttribute( 'id', "sdfootnote{$id}sym" );
+					$parent = $chapter->createElement( 'span' );
+					$child = $chapter->createElement( 'a', $id );
+					$child->setAttribute( 'href', "#sdfootnote{$id}anc" );
+					$child->setAttribute( 'name', "sdfootnote{$id}sym" );
+					$text = $chapter->createTextNode( $notes[ $id ] );
+
+					// attach
+					$grandparent->appendChild( $parent );
+					$parent->appendChild( $child );
+					$parent->appendChild( $text );
+
+					$chapter->documentElement->appendChild( $grandparent );
 				}
 			}
 		}
-
-		// TODO either/or is not sufficient, needs to be built to
-		// cover a use case where both are present.
-		if ( ! empty( $this->fn ) ) {
-			$notes = $this->fn;
-		}
-		if ( ! empty( $this->en ) ) {
-			$notes = $this->en;
-		}
-
-		foreach ( $fn_ids as $id ) {
-			if ( array_key_exists( $id, $notes ) ) {
-				$grandparent = $chapter->createElement( 'div' );
-				$grandparent->setAttribute( 'id', "sdfootnote{$id}sym" );
-				$parent = $chapter->createElement( 'span' );
-				$child = $chapter->createElement( 'a', $id );
-				$child->setAttribute( 'href', "#sdfootnote{$id}anc" );
-				$child->setAttribute( 'name', "sdfootnote{$id}sym" );
-				$text = $chapter->createTextNode( $notes[ $id ] );
-
-				// attach
-				$grandparent->appendChild( $parent );
-				$parent->appendChild( $child );
-				$parent->appendChild( $text );
-
-				$chapter->documentElement->appendChild( $grandparent );
-			}
-		}
-
 		return $chapter;
 	}
 
@@ -788,15 +777,14 @@ class Docx extends Import {
 		// Make XHTML 1.1 strict using htmlLawed
 
 		$config = array(
-			'safe' => 1,
-			'valid_xhtml' => 1,
-			'xml:lang' => 1, // keep xml:lang *and* lang
-			'no_deprecated_attr' => 2,
-			'deny_attribute' => 'div -id',
-			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
+		    'safe' => 1,
+		    'valid_xhtml' => 1,
+		    'no_deprecated_attr' => 2,
+		    'deny_attribute' => 'div -id',
+		    'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
-		return \Pressbooks\HtmLawed::filter( $html, $config );
+		return htmLawed( $html, $config );
 	}
 
 }

@@ -17,12 +17,12 @@ h1 {
 }
 
 h2 {
-  margin: 25px 0;
+  margin: 25px 0 0;
   font-size: 1.875em;
 }
 
 a {
-  @include transition(all .4s);
+  @include transition( all 0.4s );
   &:hover,
   &:active {
     text-decoration: none;

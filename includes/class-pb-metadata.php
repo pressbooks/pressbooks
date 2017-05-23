@@ -21,7 +21,7 @@ class Metadata {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 10;
+	static $currentVersion = 10;
 
 
 	/**
@@ -293,18 +293,6 @@ class Metadata {
 		}
 
 		return html_entity_decode( $html, ENT_XHTML, 'UTF-8' );
-	}
-
-	/**
-	 * Returns a JSON object of the book information which can be posted to an API.
-	 *
-	 * @since 3.9.7
-	 *
-	 * @return string $json JSON object of book information.
-	 */
-	static function getJsonMetadata() {
-		$metadata = Book::getBookInformation();
-		return json_encode( apply_filters( 'pb_json_metadata', $metadata ) );
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------

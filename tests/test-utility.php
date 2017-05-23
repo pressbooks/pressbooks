@@ -68,6 +68,52 @@ class UtilityTest extends \WP_UnitTestCase {
 
 
 	/**
+	 * @covers \Pressbooks\Utility\multi_sort
+	 */
+	public function test_multi_sort() {
+
+		$arr = [
+			[ 'foo' => 1, 'bar' => 'A' ],
+			[ 'foo' => 3, 'bar' => 'C' ],
+			[ 'foo' => 2, 'bar' => 'B' ],
+		];
+
+		$res = \Pressbooks\Utility\multi_sort( $arr, 'foo:desc' );
+
+		$this->assertEquals( '3', $res[0]['foo'] );
+		$this->assertEquals( '1', $res[2]['foo'] );
+
+		$res = \Pressbooks\Utility\multi_sort( $arr, 'bar:asc', 'foo:desc' );
+
+		$this->assertEquals( 'A', $res[0]['bar'] );
+		$this->assertEquals( 'C', $res[2]['bar'] );
+
+		$res = \Pressbooks\Utility\multi_sort( $arr );
+
+		$this->assertFalse( $res );
+
+	}
+
+
+//	/**
+//	 * @covers \Pressbooks\Utility\wp_mail
+//	 */
+//	public function test_wp_mail() {
+//		// TODO: Testing this as-is would send emails. Need to refactor to allow mocking of postmarkapp endpoint.
+//		$this->markTestIncomplete();
+//	}
+
+
+//	/**
+//	 * @covers \Pressbooks\Utility\pm_send_mail
+//	 */
+//	public function test_pm_send_mail() {
+//		// TODO: Testing this as-is would send emails. Need to refactor to allow mocking of postmarkapp endpoint.
+//		$this->markTestIncomplete();
+//	}
+
+
+	/**
 	 * @covers \Pressbooks\Utility\add_sitemap_to_robots_txt
 	 */
 	public function test_add_sitemap_to_robots_txt_0() {
@@ -266,52 +312,17 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertContains( '<title>Foobar</title>', $template );
 		$this->assertNotContains( '<title></title>', $template );
 
-		$this->assertContains( '<body>Hello World!</body>', $template );
+		$this->assertContains( "<body>Hello World!</body>", $template );
 		$this->assertNotContains( '<body></body>', $template );
 
 		try {
 			\Pressbooks\Utility\template( '/tmp/file/does/not/exist' );
-		} catch ( \Exception $e ) {
+		}
+		catch ( \Exception $e ) {
 			$this->assertTrue( true );
 			return;
 		}
 		$this->fail();
 	}
 
-	/**
-	 * @covers \Pressbooks\Utility\mail_from
-	 */
-	public function test_mail_from() {
-		$this->assertEquals( 'pressbooks@example.org', \Pressbooks\Utility\mail_from( '' ) );
-		define( 'WP_MAIL_FROM', 'hi@pressbooks.org' );
-		$this->assertEquals( 'hi@pressbooks.org', \Pressbooks\Utility\mail_from( '' ) );
-	}
-
-	/**
-	 * @covers \Pressbooks\Utility\mail_from_name
-	 */
-	public function test_mail_from_name() {
-		$this->assertEquals( 'Pressbooks', \Pressbooks\Utility\mail_from_name( '' ) );
-		define( 'WP_MAIL_FROM_NAME', 'Ned' );
-		$this->assertEquals( 'Ned', \Pressbooks\Utility\mail_from_name( '' ) );
-	}
-
-	/**
-	 * @covers \Pressbooks\Utility\rcopy
-	 */
-	public function test_rcopy() {
-		$uploads = wp_upload_dir();
-		$src = trailingslashit( $uploads['path'] ) . 'src';
-		$dest = trailingslashit( $uploads['path'] ) . 'dest';
-		mkdir( $src );
-		file_put_contents( $src . '/test.txt', 'test' );
-
-		$return = \Pressbooks\Utility\rcopy( $src, $dest );
-		$contents = file_get_contents( $dest . '/test.txt' );
-		$this->assertTrue( $return );
-		$this->assertEquals( 'test', $contents );
-
-		$return = \Pressbooks\Utility\rcopy( trailingslashit( $uploads['path'] ) . 'missing', $dest );
-		$this->assertEquals( $return, false );
-	}
 }

@@ -12,8 +12,7 @@
     <![endif]-->
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="shortcut icon" href="<?php bloginfo('stylesheet_directory'); ?>/favicon.ico" />
 <title><?php
@@ -37,12 +36,7 @@
 <?php wp_head(); ?>
 
 </head>
-<?php if ( is_front_page() ) {
-	$schema = 'itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor image inLanguage keywords publisher" ';
-} else {
-	$schema = 'itemscope itemtype="http://schema.org/WebPage" itemref="about copyrightHolder copyrightYear inLanguage publisher" ';
-} ?>
-<body <?php body_class(); if(wp_title('', false) != '') { print ' id="' . str_replace(' ', '', strtolower(wp_title('', false))) . '"'; } ?> <?php echo $schema; ?>>
+<body <?php body_class(); if(wp_title('', false) != '') { print ' id="' . str_replace(' ', '', strtolower(wp_title('', false))) . '"'; } ?>>
 <?php $social_media = get_option( 'pressbooks_theme_options_web' );
 if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media'] ) ) { ?>
 	<!-- Faccebook share js sdk -->
@@ -61,9 +55,13 @@ if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media
 	 <?php if (is_front_page()):?>
 
 	 	<!-- home page wrap -->
-	 	<div class="book-info-container">
+	 	<span itemscope itemtype="http://schema.org/Book" itemref="about alternativeHeadline author copyrightHolder copyrightYear datePublished description editor
+		      image inLanguage keywords publisher">
+
+	 		<div class="book-info-container">
 
 		<?php else: ?>
+		<span itemscope itemtype="http://schema.org/WebPage" itemref="about copyrightHolder copyrightYear inLanguage publisher">
 		<div class="nav-container">
 				<nav>
 
@@ -74,7 +72,7 @@ if ( 1 === @$social_media['social_media'] || !isset( $social_media['social_media
 
 					    <div class="sub-nav-left">
 							<!-- Logo -->
-							<h2 class="pressbooks-logo"><a href="<?php echo esc_url( network_home_url() ); ?>"><?php echo get_site_option('site_name'); ?></a></h2>
+							<h2 class="pressbooks-logo"><a href="<?php echo PATH_CURRENT_SITE; ?>"><?php echo get_site_option('site_name'); ?></a></h2>
 					    </div> <!-- end .sub-nav-left -->
 
 			    <div class="sub-nav-right">

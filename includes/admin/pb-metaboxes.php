@@ -9,14 +9,12 @@ namespace Pressbooks\Admin\Metaboxes;
 /**
  * If the user updates the book's title, then also update the blog name
  *
- * @param string|int $meta_id
- * @param int $post_id
- * @param string $meta_key
- * @param string $meta_value
+ * @param int $pid
+ * @param \WP_Post $post
  */
 function title_update( $meta_id, $post_id, $meta_key, $meta_value ) {
 	if ( 'pb_title' != $meta_key ) {
-		return;
+		return false;
 	} else {
 		update_option( 'blogname', $meta_value );
 	}
@@ -222,7 +220,6 @@ function add_meta_boxes() {
 		'group' => 'general-book-information',
 		'field_type' => 'select',
 		'values' => \Pressbooks\L10n\supported_languages(),
-		'select2' => true,
 		'label' => __( 'Language', 'pressbooks' ),
 		'description' => __( 'This sets metadata in your ebook, making it easier to find in some stores. It also changes some system generated content for supported languages, such as the "Contents" header.', 'pressbooks' ) . '<br />' . sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
 	) );
@@ -360,29 +357,16 @@ function add_meta_boxes() {
 		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
-	x_add_metadata_field( 'pb_audience', 'metadata', array(
+	x_add_metadata_field( 'pb_bisac_subject', 'metadata', array(
 		'group' => 'additional-catalogue-information',
-		'field_type' => 'select',
-		'values' => array(
-			'' => __( 'Choose an audience&hellip;', 'pressbooks' ),
-			'juvenile' => __( 'Juvenile', 'pressbooks' ),
-			'young-adult' => __( 'Young Adult', 'pressbooks' ),
-			'adult' => __( 'Adult', 'pressbooks' ),
-		),
-		'label' => __( 'Audience', 'pressbooks' ),
-		'description' => __( 'The target audience for your book.', 'pressbooks' ),
+		'label' => __( 'Bisac Subject', 'pressbooks' ),
+		'multiple' => true,
+		'description' => __( 'BISAC subject headings help your book get properly classified in (e)book stores. This is not used by Pressbooks.', 'pressbooks' ),
 	) );
-
-	/**
-	 * Add metadata field for BISAC Subject(s).
-	 *
-	 * @since 3.9.7
-	 */
-	do_action( 'pb_add_bisac_subjects_field' );
 
 	x_add_metadata_field( 'pb_bisac_regional_theme', 'metadata', array(
 		'group' => 'additional-catalogue-information',
-		'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
+		'label' => __( 'Bisac Regional Theme', 'pressbooks' ),
 		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
 	) );
 
@@ -664,18 +648,22 @@ function metadata_save_box( $post ) {
 	<?php }
 }
 
-/**
- * Add the BISAC Subject(s) field.
- *
- * @since 3.9.7
- */
-function add_bisac_subjects_field() {
-	x_add_metadata_field( 'pb_bisac_subject', 'metadata', array(
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'BISAC Subject(s)', 'pressbooks' ),
-		'multiple' => true,
-		'description' => __( 'BISAC Subject Headings help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
-	) );
-}
 
-add_action( 'pb_add_bisac_subjects_field', __NAMESPACE__ . '\\add_bisac_subjects_field', 1 );
+/**
+ * Adds some custom fields to user profiles
+ */
+function add_user_meta() {
+
+	x_add_metadata_group( 'profile-information', 'user', array(
+		'label' => __( 'Extra Profile Information', 'pressbooks' ),
+	) );
+
+	x_add_metadata_field( 'user_interface_lang', 'user', array(
+		'group' => 'profile-information',
+		'field_type' => 'select',
+		'values' => \Pressbooks\L10n\get_dashboard_languages(),
+		'label' => __( 'Language', 'pressbooks' ),
+		'description' => sprintf( '<a href="https://www.transifex.com/pressbooks/pressbooks/">%s</a>', __( 'Help translate Pressbooks into your language!', 'pressbooks' ) ),
+	) );
+
+}

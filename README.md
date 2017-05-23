@@ -32,12 +32,12 @@ Installing the Plugin
 
 Pressbooks is not for use on an existing blog. Instead it should be used with a fresh, multisite WordPress install.
 
-To install Pressbooks on your site, download the [latest release](https://github.com/pressbooks/pressbooks/releases/latest). If you need to install Pressbooks for development, please see the ["Contributing"](.github/CONTRIBUTING.md) guide.
+To install Pressbooks on your site, download the [latest release](https://github.com/pressbooks/pressbooks/releases/latest). If you need to install Pressbooks for development, please see the ["Contributing"](CONTRIBUTING.md) guide.
 
 Requirements
 ------------
 
-Pressbooks works with PHP 5.6.X and WordPress 4.7.5. Lower versions are not supported.
+Pressbooks works with PHP 5.6.X and WordPress 4.6.1. Lower versions are not supported.
 
 Disclaimers
 -----------

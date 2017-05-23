@@ -11,7 +11,7 @@ email: code@pressbooks.com
 description: > # this means to ignore newlines until "baseurl:"
   Documentation for the Pressbooks Open Source project.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://docs.pressbooks.org/" # the base hostname & protocol for your site
+url: "http://docs.pressbooks.org" # the base hostname & protocol for your site
 twitter_username: pressbooks
 github_username:  pressbooks
 

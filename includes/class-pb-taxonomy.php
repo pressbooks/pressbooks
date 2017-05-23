@@ -17,7 +17,7 @@ class Taxonomy {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
+	static $currentVersion = 1;
 
 	function __construct() {}
 

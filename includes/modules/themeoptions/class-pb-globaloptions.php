@@ -15,7 +15,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
+	static $currentVersion = 1;
 
 	/**
 	* Global theme options.
@@ -37,13 +37,9 @@ class GlobalOptions extends \Pressbooks\Options {
 	* @param array $options
 	*/
 	function __construct( array $options ) {
-		$this->options = $options;
+			$this->options = $options;
 		$this->defaults = $this->getDefaults();
 		$this->booleans = $this->getBooleanOptions();
-		$this->strings = $this->getStringOptions();
-		$this->integers = $this->getIntegerOptions();
-		$this->floats = $this->getFloatOptions();
-		$this->predefined = $this->getPredefinedOptions();
 
 		foreach ( $this->defaults as $key => $value ) {
 			if ( ! isset( $this->options[ $key ] ) ) {
@@ -72,12 +68,12 @@ class GlobalOptions extends \Pressbooks\Options {
 
 		add_settings_field(
 			'chapter_numbers',
-			__( 'Part and Chapter Numbers', 'pressbooks' ),
+			__( 'Chapter Numbers', 'pressbooks' ),
 			array( $this, 'renderChapterNumbersField' ),
 			$_page,
 			$_section,
 			array(
-				 __( 'Display part and chapter numbers', 'pressbooks' )
+				 __( 'Display chapter numbers', 'pressbooks' )
 			)
 		);
 
@@ -123,13 +119,6 @@ class GlobalOptions extends \Pressbooks\Options {
 				 __( 'Display the selected copyright license', 'pressbooks' )
 			)
 		);
-
-		/**
-		 * Add custom settings fields.
-		 *
-		 * @since 3.9.7
-		 */
-		do_action( 'pb_theme_options_global_add_settings_fields', $_page, $_section );
 
 		register_setting(
 			$_page,
@@ -202,13 +191,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderChapterNumbersField( $args ) {
-		$this->renderCheckbox( array(
-			'id' => 'chapter_numbers',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'chapter_numbers',
-			'value' => ( isset( $this->options['chapter_numbers'] ) ) ? $this->options['chapter_numbers'] : '',
-			'label' => $args[0],
-		) );
+		$this->renderCheckbox( 'chapter_numbers', 'pressbooks_theme_options_' . $this->getSlug(), 'chapter_numbers', $this->options['chapter_numbers'], $args[0] );
 	}
 
 	/**
@@ -216,13 +199,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderTwoLevelTOCField( $args ) {
-		$this->renderCheckbox( array(
-			'id' => 'parse_subsections',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'parse_subsections',
-			'value' => ( isset( $this->options['parse_subsections'] ) ) ? $this->options['parse_subsections'] : '',
-			'label' => $args[0],
-		) );
+		$this->renderCheckbox( 'parse_subsections', 'pressbooks_theme_options_' . $this->getSlug(), 'parse_subsections', $this->options['parse_subsections'], $args[0] );
 	}
 
 	/**
@@ -279,13 +256,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderCopyrightLicenseField( $args ) {
-		$this->renderCheckbox( array(
-			'id' => 'copyright_license',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'copyright_license',
-			'value' => ( isset( $this->options['copyright_license'] ) ) ? $this->options['copyright_license'] : '',
-			'label' => $args[0],
-		) );
+		$this->renderCheckbox( 'copyright_license', 'pressbooks_theme_options_' . $this->getSlug(), 'copyright_license', $this->options['copyright_license'], $args[0] );
 	}
 
 	/**
@@ -312,10 +283,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function getDefaults() {
-		/**
-		 * @since 3.9.7 TODO
-		 */
-		return apply_filters( 'pb_theme_options_global_defaults', array(
+		return apply_filters( 'pressbooks_theme_options_global_defaults', array(
 			'chapter_numbers' => 1,
 			'parse_subsections' => 0,
 			'copyright_license' => 0,
@@ -338,58 +306,11 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getBooleanOptions() {
-		/**
-		 * Allow custom boolean options to be passed to sanitization routines.
-		 *
-		 * @since 3.9.7
-		 */
-		return apply_filters( 'pb_theme_options_global_booleans', array(
+		return array(
 			'chapter_numbers',
 			'parse_subsections',
 			'copyright_license',
-		) );
-	}
-
-	/**
-	 * Get an array of options which return strings.
-	 *
-	 * @return array $options
-	 */
-	static function getStringOptions() {
-		/**
-		 * Allow custom string options to be passed to sanitization routines.
-		 *
-		 * @since 3.9.7
-		 */
-		return apply_filters( 'pb_theme_options_global_strings', array() );
-	}
-
-	/**
-	 * Get an array of options which return integers.
-	 *
-	 * @return array $options
-	 */
-	static function getIntegerOptions() {
-		/**
-		 * Allow custom integer options to be passed to sanitization routines.
-		 *
-		 * @since 3.9.7
-		 */
-		return apply_filters( 'pb_theme_options_global_integers', array() );
-	}
-
-	/**
-	 * Get an array of options which return floats.
-	 *
-	 * @return array $options
-	 */
-	static function getFloatOptions() {
-		/**
-		 * Allow custom float options to be passed to sanitization routines.
-		 *
-		 * @since 3.9.7
-		 */
-		return apply_filters( 'pb_theme_options_global_floats', array() );
+		);
 	}
 
 	/**
@@ -398,11 +319,6 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @return array $options
 	 */
 	static function getPredefinedOptions() {
-		/**
-		 * Allow custom predifined options to be passed to sanitization routines.
-		 *
-		 * @since 3.9.7
-		 */
-		return apply_filters( 'pb_theme_options_global_predefined', array() );
+		return array();
 	}
 }

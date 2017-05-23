@@ -1,70 +1,63 @@
-// SASS MIXINS -- TABLE OF CONTENTS STYLING
+// SASS MIXINS -- TABLE OF CONTENTS STYLING 
 
 
 //=====================
 //SASS: TocLeft
 //=====================
 
-// scss-lint:disable NameFormat
 @mixin TocLeft {
-// scss-lint:enable NameFormat
-
- /* TOC general page structure */
+ 
+ /* TOC general page structure */ 
 
   @page toc {
     @include blankheadandfoot;
   }
-
   #toc {
     counter-reset: part;
     page-break-before: right;
   }
-
+ 
  /* TOC Header */
 
   #toc h1 {
     @include frontmattertitle;
+    margin-left: 1cm;
+    margin-top: 2cm;  
+    margin-bottom: 2cm; 
+    text-align: left;
     display: block;
     padding-bottom: 1.5em;
-    margin-top: 2cm;
-    margin-bottom: 2cm;
-    margin-left: 1cm;
-    text-align: left;
   }
 
-/* TOC general styling */
+/* TOC general styling */ 
 
   #toc a {
+    border: none;
+    color: inherit; 
     margin-left: 0;
-    color: inherit;
-    border: 0;
   }
-
-  #toc ul,
-  #toc li {
-    padding: 0;
-    margin: 0;
+  #toc ul, #toc li {
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
-
   #toc ul {
-    margin-left: 1cm;
-    line-height: 1.2;
     counter-reset: chapter;
+    line-height: 1.2;
+    margin-left: 1cm; 
   }
-
   #toc li {
-    position: relative;
+    position: relative; 
   }
 
   /* TOC FRONT-MATTER/BACK-MATTER & Margins */
 
   #toc li.front-matter {
-    margin-top: .5em;
+    margin-top: 0.5em; 
   }
 
   #toc li.back-matter {
-    margin-top: .5em;
+    margin-top: 0.5em; 
   }
 
   #toc li.chapter {
@@ -86,20 +79,16 @@
   #toc li.chapter + li.back-matter {
     margin-top: 1.5em;
   }
-
   #toc li.part + li.back-matter {
     margin-top: 1.5em;
   }
-
   #toc .front-matter span.toc-chapter-title {
-    position: relative;
     display: block;
+    position: relative;
   }
-
   #toc .front-matter span.toc-chapter-title {
     @include tocfrontmattertitle;
   }
-
   #toc .introduction span.toc-chapter-title {
     @include tocfrontmattertitle;
   }
@@ -108,97 +97,90 @@
 
   #toc .part {
     @include tocparttitle;
+    margin: 1.5em 0 1.5em 0; 
     width: 80%;
-    margin: 1.5em 0;
     page-break-after: avoid;
   }
-
   #toc .part a::before {
     @include tocpartnumber;
+    content: "Part " counter(part, upper-roman) ".\A0";
     width: 80%;
     text-align: left;
-    content: $part ' ' counter(part, upper-roman) '.\A0';
     counter-increment: part;
   }
-
   #toc .part a::after {
-    content: '';
+    content:'' ;
   }
 
-  /* TOC CHAPTER STYLING */
+  /* TOC CHAPTER STYLING */ 
 
   #toc .chapter {
-    margin-top: .3em;
+    margin-top: 0.3em;
     margin-left: 0;
   }
-
   #toc span.toc-chapter-title {
     @include tocchaptertitle;
-    position: relative;
-    top: 0;
     display: inline-block;
-    width: 80%;
     text-indent: 0;
+    width: 80%;
+    top: 0;
+    position: relative;
     vertical-align: top;
   }
-
   #toc span.chapter-subtitle {
     @include tocchaptersubtitle;
   }
-
   #toc span.chapter-author {
     @include tocchapterauthor;
   }
-
   #toc span.chapter-author,
   #toc span.chapter-subtitle {
     display: inline-block;
-    width: 75%;
     text-indent: 0;
+    width: 75%;
   }
 
-  /* TOC CHAPTER NUMBERS */
+  /* TOC CHAPTER NUMBERS */ 
 
-  #toc .chapter a::before {
+   #toc .chapter a::before {
     @include tocchapternumber;
-    position: relative;
-    left: -1.5em;
+    content: counter(chapter) ". ";
+    counter-increment: chapter; 
     display: inline-block;
-    width: 2em;
-    margin-right: -2em;
-    line-height: 1.2;
-    text-align: right;
     vertical-align: top;
-    content: counter(chapter) '. ';
-    counter-increment: chapter;
+    position: relative;
+    line-height: 1.2; 
+    left: -1.5em; 
+    margin-right: -2em;
+    width: 2em;
+    text-align: right;
   }
 
   /* TOC BACK-MATTER STYLING */
 
   #toc .back-matter span.toc-chapter-title {
     @include tocbackmattertitle;
-    position: relative;
     display: block;
+    position: relative;
   }
 
 /* TOC PAGE NUMBERS */
 
   #toc a::after {
     @include tocpagenumber;
-    position: absolute;
-    top: .2em;
-    right: 0;
-    line-height: 1.2;
-    text-decoration: none;
-    vertical-align: top;
     content: target-counter(attr(href), page);
+    vertical-align: top;
+    position: absolute;
+    top: 0.2em;
+    right: 0;
+    text-decoration: none;
+    line-height: 1.2;
   }
-
+  
   #toc .front-matter a::after {
     @include tocfrontmatterpagenumber;
-    content: leader(' ') target-counter(attr(href), page, lower-roman);
+    content: leader(" ") target-counter(attr(href), page, lower-roman);
   }
-
   #toc .introduction a::after {
     content: leader(' ') target-counter(attr(href), page);
   }
@@ -209,66 +191,59 @@
 //SASS: TocLeftChimero
 //=====================
 
-// scss-lint:disable NameFormat
 @mixin TocLeftChimero {
-// scss-lint:enable NameFormat
-
- /* TOC general page structure */
+ 
+ /* TOC general page structure */ 
 
   @page toc {
     @include blankheadandfoot;
   }
-
   #toc {
     counter-reset: part;
     page-break-before: right;
   }
-
+ 
  /* TOC Header */
 
   #toc h1 {
     @include frontmattertitle;
+    margin-left: 1cm;
+    margin-top: 2cm;  
+    margin-bottom: 2cm; 
+    text-align: left;
     display: block;
     padding-bottom: 1.5em;
-    margin-top: 2cm;
-    margin-bottom: 2cm;
-    margin-left: 1cm;
-    text-align: left;
   }
 
-/* TOC general styling */
+/* TOC general styling */ 
 
   #toc a {
+    border: none;
+    color: inherit; 
     margin-left: 0;
-    color: inherit;
-    border: 0;
   }
-
-  #toc ul,
-  #toc li {
-    padding: 0;
-    margin: 0;
+  #toc ul, #toc li {
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
-
   #toc ul {
-    margin-left: 1cm;
-    line-height: 1.2;
     counter-reset: chapter;
+    line-height: 1.2;
+    margin-left: 1cm; 
   }
-
   #toc li {
-    position: relative;
+    position: relative; 
   }
 
   /* TOC FRONT-MATTER/BACK-MATTER & Margins */
 
   #toc li.front-matter {
-    margin-top: .5em;
+    margin-top: 0.5em; 
   }
 
   #toc li.back-matter {
-    margin-top: .5em;
+    margin-top: 0.5em; 
   }
 
   #toc li.chapter {
@@ -290,28 +265,26 @@
   #toc li.chapter + li.back-matter {
     margin-top: 1.5em;
   }
-
   #toc li.part + li.back-matter {
     margin-top: 1.5em;
   }
 
   #toc .front-matter span.toc-chapter-title {
     @include tocfrontmattertitle;
-    position: relative;
-    top: 0;
     display: inline-block;
-    width: 80%;
     text-indent: 0;
+    width: 80%;
+    top: 0;
+    position: relative;
     vertical-align: top;
   }
-
   #toc .introduction span.toc-chapter-title {
     @include tocfrontmattertitle;
-    position: relative;
-    top: 0;
     display: inline-block;
-    width: 80%;
     text-indent: 0;
+    width: 80%;
+    top: 0;
+    position: relative;
     vertical-align: top;
   }
 
@@ -319,80 +292,74 @@
 
   #toc .part {
     @include tocparttitle;
+    margin: 1.5em 0 1.5em 0; 
     width: 80%;
-    margin: 1.5em 0;
     page-break-after: avoid;
   }
-
   #toc .part a::before {
     @include tocpartnumber;
+    content: "Part " counter(part, upper-roman) ".\A0";
     width: 80%;
     text-align: left;
-    content: $part ' ' counter(part, upper-roman) '.\A0';
     counter-increment: part;
   }
-
   #toc .part a::after {
-    content: '';
+    content:'' ;
   }
 
-  /* TOC CHAPTER STYLING */
+  /* TOC CHAPTER STYLING */ 
 
   #toc .chapter {
-    margin-top: .3em;
+    margin-top: 0.3em;
     margin-left: 0;
   }
-
   #toc span.toc-chapter-title {
     @include tocchaptertitle;
-    position: relative;
-    top: 0;
     display: inline-block;
-    width: 80%;
     text-indent: 0;
+    width: 80%;
+    top: 0;
+    position: relative;
     vertical-align: top;
   }
-
   #toc span.chapter-subtitle {
     @include tocchaptersubtitle;
   }
-
   #toc span.chapter-author {
     @include tocchapterauthor;
   }
-
   #toc span.chapter-author,
   #toc span.chapter-subtitle {
     display: inline-block;
-    width: 75%;
     text-indent: 0;
+    width: 75%;
   }
 
-  /* TOC CHAPTER NUMBERS */
+  /* TOC CHAPTER NUMBERS */ 
 
-  #toc .chapter a::before {
+   #toc .chapter a::before {
     @include tocpagenumber;
-    position: relative;
-    left: -1.5em;
-    display: inline-block;
-    width: 2em;
-    margin-right: -2em;
-    line-height: 1.2;
-    text-align: right;
-    vertical-align: top;
     content: target-counter(attr(href), page);
-    visibility: visible;
+    display: inline-block !important;
+    visibility: visible !important;
+    vertical-align: top;
+    position: relative;
+    line-height: 1.2; 
+    left: -1.5em; 
+    margin-right: -2em;
+    width: 2em;
+    text-align: right;
   }
 
   /* TOC BACK-MATTER STYLING */
 
   #toc .back-matter span.toc-chapter-title {
     @include tocbackmattertitle;
-    position: relative;
-    top: 0;
     display: inline-block;
-    width: 80%;
     text-indent: 0;
+    width: 80%;
+    top: 0;
+    position: relative;
     vertical-align: top;
   }
 
@@ -400,40 +367,38 @@
 
   #toc .front-matter a::before {
     @include tocfrontmatterpagenumber;
-    position: relative;
-    left: -1.5em;
-    display: inline-block;
-    width: 2em;
-    margin-right: -2em;
-    text-align: right;
-    vertical-align: top;
     content: target-counter(attr(href), page, lower-roman);
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    left: -1.5em; 
+    margin-right: -2em;
+    width: 2em;
+    text-align: right;
   }
-
   #toc .introduction a::before {
     @include tocfrontmatterpagenumber;
-    position: relative;
-    left: -1.5em;
-    display: inline-block;
-    width: 2em;
-    margin-right: -2em;
-    line-height: 1.2em;
-    text-align: right;
-    vertical-align: top;
     content: target-counter(attr(href), page);
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    line-height: 1.2em; 
+    left: -1.5em; 
+    margin-right: -2em;
+    width: 2em;
+    text-align: right;
   }
-
   #toc .back-matter a::before {
     @include tocpagenumber;
-    position: relative;
-    left: -1.5em;
-    display: inline-block;
-    width: 2em;
-    margin-right: -2em;
-    line-height: 1.2;
-    text-align: right;
-    vertical-align: top;
     content: target-counter(attr(href), page);
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    line-height: 1.2; 
+    left: -1.5em; 
+    margin-right: -2em;
+    width: 2em;
+    text-align: right;
   }
 }
 
@@ -442,66 +407,60 @@
 //SASS: TocLeftBringhurst
 //==========================
 
-// scss-lint:disable NameFormat
-@mixin TocLeftBringhurst {
-// scss-lint:enable NameFormat
 
- /* TOC general page structure */
+@mixin TocLeftBringhurst {
+ 
+ /* TOC general page structure */ 
 
   @page toc {
     @include blankheadandfoot;
   }
-
   #toc {
     counter-reset: part;
     page-break-before: right;
   }
-
+ 
  /* TOC Header */
 
   #toc h1 {
     @include frontmattertitle;
+    margin-left: 1cm;
+    margin-top: 2cm;  
+    margin-bottom: 2cm; 
+    text-align: center;
     display: block;
     padding-bottom: 1.5em;
-    margin-top: 2cm;
-    margin-bottom: 2cm;
-    margin-left: 1cm;
-    text-align: center;
   }
 
-/* TOC general styling */
+/* TOC general styling */ 
 
   #toc a {
+    border: none;
+    color: inherit; 
     margin-left: 0;
-    color: inherit;
-    border: 0;
   }
-
-  #toc ul,
-  #toc li {
-    padding: 0;
-    margin: 0;
+  #toc ul, #toc li {
     list-style: none;
+    margin: 0;
+    padding: 0;
   }
-
   #toc ul {
-    margin-left: 1cm;
-    line-height: 1.2;
     counter-reset: chapter;
+    line-height: 1.2;
+    margin-left: 1cm; 
   }
-
   #toc li {
-    position: relative;
+    position: relative; 
   }
 
   /* TOC FRONT-MATTER/BACK-MATTER & Margins */
 
   #toc li.front-matter {
-    margin-top: .5em;
+    margin-top: 0.5em; 
   }
 
   #toc li.back-matter {
-    margin-top: .5em;
+    margin-top: 0.5em; 
   }
 
   #toc li.chapter {
@@ -523,15 +482,12 @@
   #toc li.chapter + li.back-matter {
     margin-top: 1.5em;
   }
-
   #toc li.part + li.back-matter {
     margin-top: 1.5em;
   }
-
   #toc .front-matter span.toc-chapter-title {
     @include tocfrontmattertitle;
   }
-
   #toc .introduction span.toc-chapter-title {
     @include tocfrontmattertitle;
   }
@@ -540,70 +496,65 @@
 
   #toc .part {
     @include tocparttitle;
+    margin: 1.5em 0 1.5em 0; 
     width: 80%;
-    margin: 1.5em 0;
     page-break-after: avoid;
   }
-
   #toc .part a::before {
     @include tocpartnumber;
+    content: "Part " counter(part, upper-roman) ".\A0";
     width: 80%;
     text-align: left;
-    content: $part ' ' counter(part, upper-roman) '.\A0';
     counter-increment: part;
   }
-
   #toc .part a::after {
-    content: '';
+    content:'' ;
   }
 
-  /* TOC CHAPTER STYLING */
+  /* TOC CHAPTER STYLING */ 
 
   #toc .chapter {
-    margin-top: .3em;
+    margin-top: 0.3em;
     margin-left: 0;
   }
-
   #toc span.toc-chapter-title {
     @include tocchaptertitle;
-    position: relative;
-    top: 0;
     display: inline-block;
     text-indent: 0;
+   /* width: 80%; */
+    top: 0;
+    position: relative;
     vertical-align: top;
   }
-
   #toc span.chapter-subtitle {
     @include tocchaptersubtitle;
     display: none;
   }
-
   #toc span.chapter-author {
     @include tocchapterauthor;
     display: none;
   }
-
   #toc span.chapter-author,
   #toc span.chapter-subtitle {
     display: none;
-    width: 75%;
     text-indent: 0;
+    width: 75%;
   }
 
-  /* TOC CHAPTER NUMBERS */
+  /* TOC CHAPTER NUMBERS */ 
 
-  #toc .chapter a::before {
+   #toc .chapter a::before {
     @include tocchapternumber;
-    position: relative;
-    left: -1.5em;
+    content: counter(chapter) ". ";
+    counter-increment: chapter; 
     display: inline-block;
-    width: 2em;
-    margin-right: -2em;
-    line-height: 1.2;
-    text-align: right;
     vertical-align: top;
-    content: counter(chapter) '. ';
-    counter-increment: chapter;
+    position: relative;
+    line-height: 1.2; 
+    left: -1.5em; 
+    margin-right: -2em;
+    width: 2em;
+    text-align: right;
   }
 
   /* TOC BACK-MATTER STYLING */
@@ -616,18 +567,16 @@
 
   #toc a::after {
     @include tocpagenumber;
+    content: "\A0\A0\A0\A0" target-counter(attr(href), page);
     display: inline;
     text-decoration: none;
-    content: '\A0\A0\A0\A0' target-counter(attr(href), page);
   }
-
   #toc .front-matter a::after {
     @include tocfrontmatterpagenumber;
-    content: '\A0\A0\A0\A0' target-counter(attr(href), page, lower-roman);
+    content: "\A0\A0\A0\A0" target-counter(attr(href), page, lower-roman);
   }
-
   #toc .introduction a::after {
-    content: '\A0\A0\A0\A0' target-counter(attr(href), page);
+    content: "\A0\A0\A0\A0" target-counter(attr(href), page);
   }
 }
 
@@ -637,84 +586,73 @@
 //SASS: TocCenter
 //================
 
-// scss-lint:disable NameFormat
-@mixin TocCenter {
-// scss-lint:enable NameFormat
 
-  /* TOC general page structure */
+@mixin TocCenter {
+
+  /* TOC general page structure */ 
 
   @page toc {
     @include blankheadandfoot;
   }
-
   #toc {
-    margin-right: .5cm;
-    margin-left: .5cm;
-    font-size: .9em;
     counter-reset: part;
-    page-break-before: right;
+    page-break-before: right; 
+    font-size: 0.9em;
+    margin-left: 0.5cm;
+    margin-right: 0.5cm;
   }
 
  /* TOC Header */
 
   #toc h1 {
     @include frontmattertitle;
+    text-align: center !important;
     display: block;
     padding-bottom: 2em;
-    text-align: center;
   }
 
-/* TOC general styling */
+/* TOC general styling */ 
 
   #toc a {
-    color: inherit;
-    border: 0;
+    border: none;
+    color: inherit; 
   }
-
-  #toc ul,
-  #toc li {
-    padding-right: 0;
-    padding-left: 0;
-    margin-right: 0;
-    margin-left: 0;
-    text-align: center;
+  #toc ul, #toc li {
     list-style: none;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
   }
-
   #toc ul {
-    line-height: 1;
     counter-reset: chapter;
+    line-height: 1; 
   }
-
   #toc li {
-    position: relative;
+    position: relative; 
   }
 
  /* TOC FRONT-MATTER/BACK-MATTER & Margins */
 
   #toc li.front-matter {
-    margin-top: .3em;
+    margin-top: 0.3em; 
     text-align: center;
   }
-
   #toc li.back-matter {
-    margin-top: .3em;
+    margin-top: 0.3em; 
     text-align: center;
   }
-
   #toc li.chapter + li.back-matter {
     margin-top: 2em;
   }
-
   #toc li.part + li.back-matter {
     margin-top: 1.5em;
   }
-
   #toc .front-matter span.toc-chapter-title {
     @include tocfrontmattertitle;
     text-align: center;
   }
-
   #toc .introduction span.toc-chapter-title {
     @include tocfrontmattertitle;
     text-align: center;
@@ -729,57 +667,51 @@
 
   #toc .part {
     @include tocparttitle;
+    text-align: center;
+    page-break-after: avoid;
     margin-top: 2em;
     margin-bottom: 1.5em;
-    text-align: center;
-    page-break-after: avoid;
   }
-
   #toc .part a::before {
+    content: "Part " counter(part, upper-roman)".\A0";
     display: block;
     text-align: center;
-    content: $part ' ' counter(part, upper-roman) '.\A0';
-    counter-increment: part;
+    counter-increment: part; 
     page-break-after: avoid;
   }
-
   #toc .part a::after {
-    content: '';
+    content:'' ;
   }
 
-  /* CHAPTER NUMBERS */
+  /* CHAPTER NUMBERS */ 
 
   #toc .chapter a::before {
     @include tocchapternumber;
+    content: counter(chapter) ".\A0\A0\A0";
+    counter-increment: chapter; 
     display: inline;
-    content: counter(chapter) '.\A0\A0\A0';
-    counter-increment: chapter;
     page-break-after: avoid;
   }
 
-  /* TOC CHAPTER STYLING */
+  /* TOC CHAPTER STYLING */ 
 
   #toc .chapter {
-    margin-top: .75em;
+    margin-top: 0.75em;
   }
-
   #toc span.toc-chapter-title {
     @include tocchaptertitle;
-    display: inline-block;
     text-align: center;
+    display: inline-block;
     page-break-after: avoid;
   }
-
   #toc span.chapter-author,
   #toc span.chapter-subtitle {
     display: none;
     text-align: center;
   }
-
   #toc span.chapter-subtitle {
     @include tocchaptersubtitle;
   }
-
   #toc span.chapter-author {
     @include tocchapterauthor;
   }
@@ -787,19 +719,17 @@
   /* PAGE NUMBERS */
 
   #toc .front-matter a::after {
-    content: '\A0\A0\A0'  target-counter(attr(href), page, lower-roman);
+    content: "\A0\A0\A0"  target-counter(attr(href), page, lower-roman);
   }
-
   #toc .introduction a::after {
-    content: '\A0\A0\A0'  target-counter(attr(href), page);
+    content: "\A0\A0\A0"  target-counter(attr(href), page);
   }
-
   #toc a::after {
     @include tocpagenumber;
-    display: inline;
+    content: "\A0\A0\A0" target-counter(attr(href), page);
     text-decoration: none;
-    content: '\A0\A0\A0' target-counter(attr(href), page);
+    display: inline;
   }
-
+  
   /* END TOC */
 }

@@ -236,8 +236,7 @@ function render_dropdown_for_css_copy( $custom_css, $slug ) {
 function load_css_from() {
 
 	check_ajax_referer( 'pb-load-css-from' );
-	if ( false == current_user_can( 'edit_theme_options' ) ) {
-		die( - 1 );
+	if ( false == current_user_can( 'edit_theme_options' ) ) { die( - 1 );
 	}
 
 	$css = '';
@@ -287,10 +286,6 @@ function load_css_from() {
 			$css = $sass->compile( $scss, $includes );
 
 			$css = fix_url_paths( $css, $uri_to_style );
-
-			$uri = $theme->get( 'ThemeURI' );
-
-			$css = "/*\n Theme URI: {$uri}\n*/\n" . $css;
 		}
 	}
 

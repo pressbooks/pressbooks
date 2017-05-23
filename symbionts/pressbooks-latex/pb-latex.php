@@ -3,11 +3,11 @@
  * @author    Brad Payne <brad@bradpayne.ca>
  * @license   GPL-2.0+
  * @copyright 2014 Brad Payne
- *
+ * 
  * Plugin Name: WP LaTeX for Pressbooks
  * Description:  Converts inline latex code into PNG images that are displayed in your Pressbooks blog posts.  Use either [latex]e^{\i \pi} + 1 = 0[/latex] or $latex e^{\i \pi} + 1 = 0$ or $$ e^{\i \pi} + 1 = 0 $$ syntax.
  * Version: 1.0.0
- * Author: Brad Payne
+ * Author: Brad Payne 
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
@@ -24,46 +24,19 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class PBLatex {
 
 	var $options;
-	var $methods;
+	var $methods = array(
+	    'Automattic_Latex_WPCOM' => 'wpcom',
+	);
 
 	function init() {
 		$this->options = get_option( 'pb_latex' );
-
-		/**
-		 * Append latex render methods to the list of default methods.
-		 *
-		 * @since 3.9.7
-		 *
-		 * @param array The list of default latex renderers.
-		 */
-		$this->methods = apply_filters( 'pb_latex_renderers', array(
-			'Automattic_Latex_WPCOM' => 'wpcom',
-		) );
 
 		@define( 'AUTOMATTIC_LATEX_LATEX_PATH', $this->options['latex_path'] );
 
 		add_action( 'wp_head', array( &$this, 'wpHead' ) );
 
 		add_filter( 'the_content', array( &$this, 'inlineToShortcode' ), 8 );
-
-		/**
-		 * Add additional style/script/shortcode dependencies for a given latex renderer.
-		 * Ex:
-		 * if ( 'katex' == $method ) {
-		 *   wp_enqueue_script( 'pb_katex', 'path/to/katex.js' );
-		 *   add_shortcode( 'katex', 'katexShortCode' );
-		 * }
-		 *
-		 * @since 3.9.7
-		 *
-		 * @param string The method.
-		 */
-		if ( has_action( 'pb_enqueue_latex_scripts' ) ) {
-			do_action( 'pb_enqueue_latex_scripts', $this->options['method'] );
-		} else {
-			add_shortcode( 'latex', array( &$this, 'shortCode' ) );
-		}
-
+		add_shortcode( 'latex', array( &$this, 'shortCode' ) );
 		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
 			$excluded_shortcodes[] = 'pb-latex';
 			return $excluded_shortcodes;
@@ -71,24 +44,8 @@ class PBLatex {
 	}
 
 	function wpHead() {
-		/**
-		 * Add config scripts to the head of the page.
-		 * Ex:
-		 *
-		 * if ( 'mathjax' == $method ) {
-		 *   echo '<script type="text/javascript">
-		 *     MathJax.Hub.Configured();
-		 *   </script>';
-		 * }
-		 *
-		 * @since 3.9.7
-		 *
-		 * @param string The method.
-		 */
-		apply_filters( 'pb_add_latex_config_scripts', $this->options['method'] );
-
 		if ( !$this->options['css'] )
-		return;
+			return;
 ?>
 <style type="text/css">
 /* <![CDATA[ */

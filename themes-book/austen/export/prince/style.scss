@@ -9,8 +9,8 @@ h1, h2, h3, h4, h5, h6 {
   size:6in 9in;
   margin: 2.5cm;
   font-size: 9.5pt;
-  orphans:3;
-  widows:3;
+  orphans:3; 
+  widows:3;  
 }
 
 
@@ -60,7 +60,7 @@ h1, h2, h3, h4, h5, h6 {
 {
   @top {
     margin-top: 175px;
-
+    
   }
 
   @top-right
@@ -89,13 +89,13 @@ h1, h2, h3, h4, h5, h6 {
   width: 36px;
   margin-bottom: 20px;
   margin-top: 25px;
-
+  
   }
 }
 @page chapter{
   @bottom {
   content: counter(page);
-  font-family: $font-2;
+  font-family: $font-2;  
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -163,17 +163,17 @@ h1, h2, h3, h4, h5, h6 {
   }
   @bottom {
   content: counter(page);
-  font-family: $font-2;
+  font-family: $font-2;  
   vertical-align: top;
   margin-bottom: 20px;
   margin-top: 25px;
   }
-
+  
 }
 @page introduction{
   @bottom {
   content: counter(page);
-  font-family: $font-2;
+  font-family: $font-2;  
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -282,7 +282,7 @@ h1, h2, h3, h4, h5, h6 {
 @page back-matter:right {
    @top {
     margin-top: 175px;
-
+    
   }
   @top-right
   {
@@ -310,13 +310,13 @@ h1, h2, h3, h4, h5, h6 {
   width: 36px;
   margin-bottom: 20px;
   margin-top: 25px;
-
+  
   }
 }
 @page back-matter{
   @bottom {
   content: counter(page);
-  font-family: $font-2;
+  font-family: $font-2;  
   text-align: center;
   vertical-align: top;
   border-top: 0.9px solid #000;
@@ -378,11 +378,11 @@ div.back-matter {
 div.part {
   background-repeat: no-repeat;
   background-position: bottom center;
-    margin-top: 2.5cm;
+    margin-top: 2.5cm;  
   padding-bottom: 0.25em;
-  padding: part;
+  padding: part;  
 }
-
+ 
 body {
   font-size: 10pt;
   line-height: 1.1;
@@ -474,7 +474,7 @@ cite {
 
 /* TITLE PAGE
 ================ */
-#title-page {
+#title-page { 
     page-break-before: right;
     height: 100%;
 }
@@ -485,7 +485,7 @@ cite {
 #title-page > .publisher,
 #title-page > .publisher-city {
   bookmark-level: none;
-}
+} 
 #title-page > div.logo {
   margin-top: 2cm;
     height: 26px;
@@ -498,7 +498,7 @@ cite {
 #title-page > .author {
   font-size: 17pt;
   margin-top: 1.5cm;
-  text-transform: uppercase;
+  text-transform: uppercase;  
 }
 
 #title-page > .publisher {
@@ -535,7 +535,7 @@ cite {
   font-style: italic;
   text-align: center;
 }
-/*   TITLES
+/*   TITLES 
 =================== */
 h3.front-matter-number, h3.part-number, h3.chapter-number, h3.back-matter-number {
   bookmark-level: none;
@@ -589,7 +589,7 @@ div.back-matter > div.ugc h6.short-title:first-of-type {
   font-size: 0;
   height: 0;
 }
-div.front-matter .front-matter-title-wrap > h1:first-of-type,
+div.front-matter .front-matter-title-wrap > h1:first-of-type, 
 div.chapter .chapter-title-wrap > h2:first-of-type,
 div.back-matter .back-matter-title-wrap > h1:first-of-type  {
   font-size: 15pt;
@@ -601,7 +601,7 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc > h1:first-of-type {
   font-size: 15pt;
   margin-top: 2cm;
-  margin-bottom: 2.5cm;
+  margin-bottom: 2.5cm; 
 }
 
 
@@ -634,11 +634,11 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc .part {
   margin: .6cm 0 .4em;
   text-align: center;
-  page-break-after: avoid;
+  page-break-after: avoid;  
 }
 #toc {
   page-break-before: right;
-  counter-reset: part;
+  counter-reset: part; 
   font-size: 10pt;
 }
 #toc ul {
@@ -646,19 +646,18 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
   line-height: 1.2em;
 }
 #toc .part a::before {
-  content: $part " "counter(part, upper-roman) ". ";
-  counter-increment: part;
-  text-transform: capitalize;
+  content: "Part "counter(part, upper-roman) ". ";
+  counter-increment: part; 
 }
 #toc .chapter a::before {
   content: counter(chapter) ". ";
-  counter-increment: chapter;
-  margin-right: 7pt;
+  counter-increment: chapter; 
+  margin-right: 7pt;  
 }
 #toc .chapter.numberless a::before {
 	content:'' ;
 	counter-increment: none;
-	margin-right: 0;
+	margin-right: 0;	
 }
 #toc .part a::after {
   content:'' ;
@@ -679,11 +678,11 @@ div.front-matter.preface .front-matter-title-wrap > h1:first-of-type,
 #toc span.chapter-subtitle {
   margin-bottom: 5px;
 }
-#toc span.chapter-subtitle +
-span.chapter-author,
+#toc span.chapter-subtitle + 
+span.chapter-author, 
 span.chapter-author +
-span.chapter-license,
-#toc span.chapter-subtitle +
+span.chapter-license, 
+#toc span.chapter-subtitle + 
 span.chapter-license {
   margin-bottom: 5px;
   position: relative;
@@ -719,8 +718,7 @@ h3.part-number, h3.chapter-number {
 }
 
 h3.part-number::before {
-  content: $part " ";
-  text-transform: capitalize;
+  content: "Part ";
 }
 h3.chapter-number {
   margin-bottom: 3em;
@@ -733,7 +731,7 @@ h3.chapter-number {
 }
 .aphorism cite {
     display: block;
-    font-size: 0.875em;
+    font-size: 0.875em; 
     font-style: normal;
     font-variant: small-caps;
     text-align: right;
@@ -825,7 +823,7 @@ div.ugc h2.chapter-author {
 }
 div.ugc h2.chapter-subtitle {
   margin-bottom: 2.8em;
-    padding-top: 0.5em;
+    padding-top: 0.5em; 
 }
 div.ugc h2.chapter-author {
   font-size: 0.9em;
@@ -898,7 +896,7 @@ img.aligncenter {
   font-size: 0.875em;
   font-style: italic;
   margin-top: 5px;
-  text-align: left;
+  text-align: left; 
 }
 
 /* BLOCKQUOTES
@@ -926,7 +924,7 @@ p.bl_indent {
   text-indent: -14pt;
 }
 
-/* INDEX
+/* INDEX 
 ================== */
 .index .ugc  {
   column-count: 2;
@@ -968,9 +966,9 @@ div.front-matter.before-title {
   font-weight: normal;
 }
 .chapter-title::after{
-  content:"";
+  content:""; 
   height:1px;
-  background:#000;
+  background:#000; 
   width:25%;
   display:block;
   margin: 0 auto;

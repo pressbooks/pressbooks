@@ -29,83 +29,68 @@ $metakeys = array(
 function pressbooks_book_info_page () {
 
 	if ( is_front_page() ) {
-		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '1.7.0', 'all' );
+		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '20130713', 'all' );
 		wp_enqueue_style( 'book-info-fonts', 'https://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700' );
 
 		// Book info page Table of Content columns
-		wp_enqueue_script( 'columnizer',  \Pressbooks\Utility\asset_path( 'scripts/columnizer.js' ), array( 'jquery' ), '1.7.0' );
-		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '1.7.0', false );
+		wp_enqueue_script( 'columnizer',  \Pressbooks\Utility\asset_path( 'scripts/columnizer.js' ), [ 'jquery' ] );
+		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '20130819', false );
 
 		// Sharer.js
 		wp_enqueue_script( 'sharer', \Pressbooks\Utility\asset_path( 'scripts/sharer.js' ) );
 	}
 }
-add_action( 'wp_enqueue_scripts', 'pressbooks_book_info_page' );
-
-/* ------------------------------------------------------------------------ *
- * Asyncronous loading to improve speed of page load
- * ------------------------------------------------------------------------ */
-
-function pressbooks_async_scripts( $tag, $handle, $src ) {
-	$async = array(
-		'pressbooks/a11y',
-		'pressbooks/keyboard-nav',
-		'pressbooks/navbar',
-		'pressbooks/toc',
-		'columnizer',
-		'columnizer-load',
-		'sharer',
-		'jquery-migrate',
-	);
-
-	if ( in_array( $handle, $async ) ) {
-		return "<script async type='text/javascript' src='{$src}'></script>" . "\n";
-	}
-
-	return $tag;
-}
-
-add_filter( 'script_loader_tag', 'pressbooks_async_scripts', 10, 3 );
+add_action('wp_enqueue_scripts', 'pressbooks_book_info_page');
 
 /* ------------------------------------------------------------------------ *
  * Register and enqueue scripts and stylesheets.
  * ------------------------------------------------------------------------ */
 function pb_enqueue_scripts() {
-	wp_enqueue_style( 'pressbooks/structure', PB_PLUGIN_URL . 'themes-book/pressbooks-book/css/structure.css', [], '1.7.0', 'screen, print' );
-	wp_enqueue_style( 'pressbooks/webfonts', 'https://fonts.googleapis.com/css?family=Oswald|Open+Sans+Condensed:300,300italic&subset=latin,cyrillic,greek,cyrillic-ext,greek-ext', false, null );
+	wp_enqueue_style( 'structure', PB_PLUGIN_URL . 'themes-book/pressbooks-book/css/structure.css', [], null, 'screen, print' );
 
 	if ( pb_is_custom_theme() ) { // Custom CSS
-		wp_enqueue_style( 'pressbooks/custom-css', pb_get_custom_stylesheet_url(), false, get_option( 'pressbooks_last_custom_css' ), 'screen' );
-	} else {
-		if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) || \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
-			if ( get_stylesheet() == 'pressbooks-book' && ! get_option( 'pressbooks_webbook_structure_version' ) ) {
-				\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
-				update_option( 'pressbooks_webbook_structure_version', 1 );
-			}
+		$deps = array();
+		if ( ! pb_custom_stylesheet_imports_base() ) {
+			// Use default stylesheet as base (to avoid horribly broken webbook)
+			wp_register_style( 'pressbooks-book', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
+			wp_enqueue_style( 'pressbooks-book' );
+			$deps = array( 'pressbooks-book' );
+		}
+		wp_register_style( 'pressbooks-custom-css', pb_get_custom_stylesheet_url(), $deps, get_option( 'pressbooks_last_custom_css' ), 'screen' );
+		wp_enqueue_style( 'pressbooks-custom-css' );
+	} else  {
+		wp_register_style( 'pressbooks', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', array(), null, 'screen, print' );
+		wp_enqueue_style( 'pressbooks' );
+		// Use default stylesheet as base (to avoid horribly broken webbook)
+		$deps = array( 'pressbooks' );
+		if ( get_stylesheet() !== 'pressbooks-book' ) { // If not pressbooks-book, we need to register and enqueue the theme stylesheet too
 			$fullpath = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
-			if ( ! is_file( $fullpath ) ) {
-				\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
+			if ( is_file( $fullpath ) && \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // SASS theme & custom webbook style has been generated
+				wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
+				wp_enqueue_style( 'pressbooks-theme' );
+			} elseif ( is_file( $fullpath ) && \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // SASS theme & custom webbook style has been generated
+				wp_register_style( 'pressbooks-theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', $deps, null, 'screen, print' );
+				wp_enqueue_style( 'pressbooks-theme' );
+			} else { // Use the bundled stylesheet
+				wp_register_style( 'pressbooks-theme', get_stylesheet_directory_uri() . '/style.css', $deps, null, 'screen, print' );
+				wp_enqueue_style( 'pressbooks-theme' );
 			}
-			if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) {
-				wp_enqueue_style( 'pressbooks/base', PB_PLUGIN_URL . 'themes-book/pressbooks-book/style.css', false, '1.7.0', 'screen, print' );
-			}
-			wp_enqueue_style( 'pressbooks/theme', \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/style.css', false, null, 'screen, print' );
-		} else {
-			wp_enqueue_style( 'pressbooks/theme', get_stylesheet_directory_uri() . '/style.css', false, null, 'screen, print' );
 		}
 	}
 
-	if ( ! is_front_page() ) {
-		wp_enqueue_script( 'pressbooks/navbar', get_template_directory_uri() . '/js/navbar.js', array( 'jquery' ), '1.7.0', false );
+	if (! is_front_page() ) {
+		wp_enqueue_script( 'pressbooks-script', get_template_directory_uri() . "/js/script.js", array( 'jquery' ), '1.0', false );
 	}
-	wp_enqueue_script( 'pressbooks/keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '1.7.0', true );
+	wp_enqueue_script( 'keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '20130306', true );
 
 	if ( is_single() ) {
-		wp_enqueue_script( 'pressbooks/toc', get_template_directory_uri() . '/js/toc.js', array( 'jquery' ), '1.7.0', false );
+		wp_enqueue_script( 'pb-pop-out-toc', get_template_directory_uri() . '/js/pop-out.js', array( 'jquery' ), '1.0', false );
 	}
 
-	wp_enqueue_script( 'pressbooks/a11y', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ), '1.7.0' );
-	wp_enqueue_style( 'pressbooks/a11y', get_template_directory_uri() . '/css/a11y.css', array( 'dashicons' ), '1.7.0', 'screen' );
+	wp_enqueue_script( 'pressbooks_toc_collapse',	get_template_directory_uri() . '/js/toc_collapse.js', array( 'jquery' ) );
+	wp_enqueue_style( 'dashicons' );
+	wp_enqueue_script( 'pressbooks-accessibility', get_template_directory_uri() . '/js/a11y.js', array( 'jquery' ) );
+	wp_enqueue_style( 'pressbooks-accessibility-toolbar', get_template_directory_uri() . '/css/a11y.css', array( 'dashicons' ), null, 'screen' );
 }
 add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 
@@ -147,7 +132,7 @@ function pressbooks_update_webbook_stylesheet() {
 
 	if ( true == $recompile ) {
 		error_log( 'Updating web book stylesheet.' );
-		\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
+		\Pressbooks\Container::get( 'GlobalTypography' )->updateWebBookStyleSheet();
 	} else {
 		error_log( 'No update needed.' );
 	}
@@ -178,16 +163,15 @@ function pb_get_links($echo=true) {
   $prev_chapter = pb_get_prev();
   $next_chapter = pb_get_next();
   if ($echo):
-?><nav class="navigation posts-navigation" role="navigation">
-	<div class="nav-links">
+?><div class="nav">
   <?php if ($prev_chapter != '/') : ?>
-	<div class="nav-previous"><a href="<?php echo $prev_chapter; ?>"><?php _e('Previous', 'pressbooks'); ?></a></div>
+	<span class="previous"><a href="<?php echo $prev_chapter; ?>"><?php _e('Previous', 'pressbooks'); ?></a></span>
   <?php endif; ?>
+<!-- 	<h2 class="entry-title"><?php the_title(); ?></h2> -->
   <?php if ($next_chapter != '/') : ?>
-	<div class="nav-next"><a href="<?php echo $next_chapter ?>"><?php _e('Next', 'pressbooks'); ?></a></div>
+	<span class="next"><a href="<?php echo $next_chapter ?>"><?php _e('Next', 'pressbooks'); ?></a></span>
   <?php endif; ?>
-	</div>
-	</nav><?php
+  </div><?php
   endif;
 }
 
@@ -196,29 +180,13 @@ function pb_get_links($echo=true) {
  * Prevent access by unregistered user if the book in question is private.
  */
 function pb_private() {
-	$bloginfourl = get_bloginfo( 'url' ); ?>
+	$bloginfourl= get_bloginfo('url'); ?>
   <div <?php post_class(); ?>>
-		<h2 class="entry-title denied-title"><?php _e('Access Denied', 'pressbooks'); ?></h2>
-		<!-- Table of content loop goes here. -->
-		<div class="entry-content denied-text">
-			<p><?php printf(
-				__( 'This book is private, and accessible only to registered users. If you have an account you can %s.', 'pressbooks' ),
-				sprintf(
-					'<a href="%1$s">%2$s</a>',
-					get_bloginfo( 'url' ) . '/wp-login.php',
-					__( 'login here', 'pressbooks' )
-				)
-			); ?></p>
-			<p><?php printf(
-				__( 'You can also set up your own Pressbooks book at %s.', 'pressbooks' ),
-				sprintf(
-					'<a href="%1$s">%2$s</a>',
-					apply_filters( 'pb_signup_url', 'https://pressbooks.com' ),
-					apply_filters( 'pb_signup_url', 'Pressbooks.com' )
-				)
-			); ?></p>
-		</div>
-	</div><!-- #post-## -->
+
+				<h2 class="entry-title denied-title"><?php _e('Access Denied', 'pressbooks'); ?></h2>
+				<!-- Table of content loop goes here. -->
+				<div class="entry_content denied-text"><?php _e('This book is private, and accessible only to registered users. If you have an account you can <a href="'. $bloginfourl .'/wp-login.php" class="login">login here</a>  <p class="sign-up">You can also set up your own Pressbooks book at: <a href="http://pressbooks.com">Pressbooks.com</a>.', 'pressbooks'); ?></p></div>
+			</div><!-- #post-## -->
 <?php
 }
 
@@ -295,7 +263,7 @@ function pressbooks_copyright_license() {
 	$transient = get_transient("license-inf-$id" );
 	$updated = array( $license, $copyright_holder, $title );
 	$changed = false;
-	$lang = ( ! empty( $book_meta['pb_language'] ) ) ? $book_meta['pb_language'] : 'en' ;
+	$lang = $book_meta['pb_language'];
 
 
 	// Copyright holder, set in order of precedence
@@ -305,11 +273,11 @@ function pressbooks_copyright_license() {
 
 	} elseif ( isset( $book_meta['pb_copyright_holder'] ) ) {
 		// book copyright holder overrides book author
-		$copyright_holder = $book_meta['pb_copyright_holder'];
+		$copyright_holder =  $book_meta['pb_copyright_holder'];
 
 	} elseif ( isset( $book_meta['pb_author'] ) ) {
 		// book author is the fallback, default
-		$copyright_holder = $book_meta['pb_author'];
+		$copyright_holder =  $book_meta['pb_author'];
 	}
 
 	// Copyright license, set in order of precedence
@@ -360,15 +328,298 @@ function pressbooks_copyright_license() {
 		// expires in 24 hours
 		set_transient( "license-inf-$id", $value, 86400 );
 	} else {
-		$html = $transient[ $license ] ;
+		$html = $transient[$license] ;
 	}
 
 	return $html;
 }
 
+function replace_running_content_tags( $input ) {
+	$input = '"' . $input . '"';
+
+	return str_replace(
+		array(
+			'%book_title%',
+			'%book_subtitle%',
+			'%book_author%',
+			'%part_number%',
+			'%part_title%',
+			'%section_title%',
+			'%section_author%',
+			'%section_subtitle%',
+			'%blank%'
+		),
+		array(
+			'" string(book-title) "',
+			'" string(book-subtitle) "',
+			'" string(book-author) "',
+			'" string(part-number) "',
+			'" string(part-title) "',
+			'" string(section-title) "',
+			'" string(chapter-author) "',
+			'" string(chapter-subtitle) "',
+			''
+		),
+		$input
+	);
+}
+
 /* ------------------------------------------------------------------------ *
  * Hooks, Actions and Filters
  * ------------------------------------------------------------------------ */
+
+function pressbooks_theme_pdf_css_override( $scss ) {
+
+	$scss .= "/* Theme Options */\n";
+
+	// --------------------------------------------------------------------
+	// Global Options
+
+	$sass = \Pressbooks\Container::get( 'Sass' );
+	$options = get_option( 'pressbooks_theme_options_global' );
+
+	// Display chapter numbers? true (default) / false
+	if ( ! $options['chapter_numbers'] ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$chapter-number-display: none; \n";
+		} else {
+			$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number, #toc .part a::before, #toc .chapter a::before { display: none !important; } \n";
+		}
+	}
+
+	// --------------------------------------------------------------------
+	// PDF Options
+
+	$options = get_option( 'pressbooks_theme_options_pdf' );
+
+	// Change body font size
+	if ( $sass->isCurrentThemeCompatible( 2 ) && isset( $options['pdf_body_font_size'] ) ) {
+		$fontsize = $options['pdf_body_font_size'] . 'pt';
+		$scss .= "\$body-font-size: $fontsize; \n";
+	}
+
+	// Change body line height
+	if ( $sass->isCurrentThemeCompatible( 2 ) && isset( $options['pdf_body_line_height'] ) ) {
+		$lineheight = $options['pdf_body_line_height'] . 'em';
+		$scss .= "\$body-line-height: $lineheight; \n";
+	}
+
+	// Page dimensions
+	$width = $options['pdf_page_width'];
+	$height = $options['pdf_page_height'];
+
+	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		$scss .= "\$page-width: $width; \n";
+		$scss .= "\$page-height: $height; \n";
+	} else {
+		$scss .= "@page { size: $width $height; } \n";
+	}
+
+	// Margins
+	$outside = ( isset( $options['pdf_page_margin_outside'] ) ) ? $options['pdf_page_margin_outside'] : '2cm';
+	$inside = ( isset( $options['pdf_page_margin_inside'] ) ) ? $options['pdf_page_margin_inside'] : '2cm';
+	$top = ( isset( $options['pdf_page_margin_top'] ) ) ? $options['pdf_page_margin_top'] : '2cm';
+	$bottom = ( isset( $options['pdf_page_margin_bottom'] ) ) ? $options['pdf_page_margin_bottom'] : '2cm';
+
+	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		$scss .= "\$page-margin-left-top: $top; \n";
+		$scss .= "\$page-margin-left-right: $inside; \n";
+		$scss .= "\$page-margin-left-bottom: $bottom; \n";
+		$scss .= "\$page-margin-left-left: $outside; \n";
+		$scss .= "\$page-margin-right-top: $top; \n";
+		$scss .= "\$page-margin-right-right: $outside; \n";
+		$scss .= "\$page-margin-right-bottom: $bottom; \n";
+		$scss .= "\$page-margin-right-left: $inside; \n";
+	}
+
+	// Image resolution
+	if ( isset( $options['pdf_image_resolution'] ) ) {
+		$resolution = $options['pdf_image_resolution'];
+	} else {
+		$resolution = '300dpi';
+	}
+	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		$scss .= "\$prince-image-resolution: $resolution !default; \n";
+	} else {
+		$scss .= "img { prince-image-resolution: $resolution; } \n";
+	}
+
+	// Display crop marks? true / false (default)
+	if ( $options['pdf_crop_marks'] == 1 ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$page-cropmarks: crop; \n";
+		} else {
+			$scss .= "@page { marks: crop } \n";
+		}
+	}
+
+	// Hyphens?
+	if ( $options['pdf_hyphens'] == 1 ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$para-hyphens: auto; \n"; // TODO
+		} else {
+			$scss .= "p { hyphens: auto; } \n";
+		}
+	}
+
+	// Indent paragraphs?
+	if ( $options['pdf_paragraph_separation'] == 'indent' ) {
+		// Default, no change needed
+	} elseif ( $options['pdf_paragraph_separation'] == 'skiplines' ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$para-margin-top: 1em; \n";
+			$scss .= "\$para-indent: 0; \n";
+		} else {
+			$scss .= "p + p { text-indent: 0em; margin-top: 1em; } \n";
+		}
+	}
+
+	// Include blank pages?
+	if ( $options['pdf_blankpages'] == 'include' ) {
+		// Default, no change needed
+	} elseif ( $options['pdf_blankpages'] == 'remove' ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$recto-verso-standard-opening: auto; \n";
+			$scss .= "\$recto-verso-first-section-opening: auto; \n";
+			$scss .= "\$recto-verso-section-opening: auto; \n";
+		} else {
+			$scss .= "#title-page, #copyright-page, #toc, div.part, div.front-matter, div.back-matter, div.chapter, #half-title-page h1.title:first-of-type  { page-break-before: auto; } \n";
+		}
+	}
+
+	// Display TOC? true (default) / false
+	if ( ! $options['pdf_toc'] ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$toc-display: none; \n";
+		} else {
+			$scss .= "#toc { display: none; } \n";
+		}
+	}
+
+	// Widows
+	if ( isset( $options['widows'] ) ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$widows: " . $options['widows'] . "; \n";
+		} else {
+			$scss .= 'p { widows: ' . $options['widows'] . '; }' . "\n";
+		}
+	} else {
+		if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= 'p { widows: 2; }' . "\n";
+		}
+	}
+
+	// Orphans
+	if ( isset( $options['orphans'] ) ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$orphans: " . $options['orphans'] . "; \n";
+		} else {
+			$scss .= 'p { orphans: ' . $options['orphans'] . '; }' . "\n";
+		}
+	} else {
+		if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= 'p { orphans: 1; }' . "\n";
+		}
+	}
+
+	// Running Content
+	if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		$front_matter_running_content_left = ( isset( $options['running_content_front_matter_left'] ) ) ? replace_running_content_tags( $options['running_content_front_matter_left'] ) : 'string(book-title)';
+		$front_matter_running_content_right = ( isset( $options['running_content_front_matter_right'] ) ) ? replace_running_content_tags( $options['running_content_front_matter_right'] ) : 'string(section-title)';
+		$introduction_running_content_left = ( isset( $options['running_content_introduction_left'] ) ) ? replace_running_content_tags( $options['running_content_introduction_left'] ) : 'string(book-title)';
+		$introduction_running_content_right = ( isset( $options['running_content_introduction_right'] ) ) ? replace_running_content_tags( $options['running_content_introduction_right'] ) : 'string(section-title)';
+		$part_running_content_left = ( isset( $options['running_content_part_left'] ) ) ? replace_running_content_tags( $options['running_content_part_left'] ) : 'string(book-title)';
+		$part_running_content_right = ( isset( $options['running_content_part_right'] ) ) ? replace_running_content_tags( $options['running_content_part_right'] ) : 'string(part-title)';
+		$chapter_running_content_left = ( isset( $options['running_content_chapter_left'] ) ) ? replace_running_content_tags( $options['running_content_chapter_left'] ) : 'string(book-title)';
+		$chapter_running_content_right = ( isset( $options['running_content_chapter_right'] ) ) ? replace_running_content_tags( $options['running_content_chapter_right'] ) : 'string(section-title)';
+		$back_matter_running_content_left = ( isset( $options['running_content_back_matter_left'] ) ) ? replace_running_content_tags( $options['running_content_back_matter_left'] ) : 'string(book-title)';
+		$back_matter_running_content_right = ( isset( $options['running_content_back_matter_right'] ) ) ? replace_running_content_tags( $options['running_content_back_matter_right'] ) : 'string(section-title)';
+		$scss .= "\$front-matter-running-content-left: $front_matter_running_content_left; \n";
+		$scss .= "\$front-matter-running-content-left: $front_matter_running_content_right; \n";
+		$scss .= "\$introduction-running-content-left: $introduction_running_content_left; \n";
+		$scss .= "\$introduction-running-content-left: $introduction_running_content_right; \n";
+		$scss .= "\$part-running-content-left: $part_running_content_left; \n";
+		$scss .= "\$part-running-content-right: $part_running_content_right; \n";
+		$scss .= "\$chapter-running-content-left: $chapter_running_content_left; \n";
+		$scss .= "\$chapter-running-content-right: $chapter_running_content_right; \n";
+		$scss .= "\$back-matter-running-content-left: $back_matter_running_content_left; \n";
+		$scss .= "\$back-matter-running-content-right: $back_matter_running_content_right; \n";
+	}
+
+	// a11y Font Size
+	if ( @$options['pdf_fontsize'] ) {
+		if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= 'body { font-size: 1.3em; line-height: 1.3; }' . "\n";
+		}
+	}
+
+	return $scss;
+}
+add_filter( 'pb_pdf_css_override', 'pressbooks_theme_pdf_css_override' );
+
+function pressbooks_theme_mpdf_css_override( $scss ) {
+	$options = get_option( 'pressbooks_theme_options_mpdf' );
+	$global_options = get_option( 'pressbooks_theme_options_global' );
+
+	// indent paragraphs
+	if ( $options['mpdf_indent_paragraphs'] ) {
+		$scss .= "p + p, .indent {text-indent: 2.0 em; }" . "\n";
+	}
+	// hyphenation
+	if ( $options['mpdf_hyphens'] ) {
+		$scss .= "p {hyphens: auto;}" . "\n";
+	}
+	// font-size
+	if ( $options['mpdf_fontsize'] ){
+                $scss .= 'body {font-size: 1.3em; line-height: 1.3; }' . "\n";
+        }
+	// chapter numbers
+	if ( ! $global_options['chapter_numbers'] ) {
+		$scss .= "h3.chapter-number {display: none;}" . "\n";
+	}
+	return $scss;
+}
+
+add_filter( 'pb_mpdf_css_override', 'pressbooks_theme_mpdf_css_override' );
+
+function pressbooks_theme_ebook_css_override( $scss ) {
+
+	// --------------------------------------------------------------------
+	// Global Options
+
+	$sass = \Pressbooks\Container::get( 'Sass' );
+	$options = get_option( 'pressbooks_theme_options_global' );
+
+	if ( ! $options['chapter_numbers'] ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$chapter-number-display: none; \n";
+		} else {
+			$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
+		}
+	}
+
+	// --------------------------------------------------------------------
+	// Ebook Options
+
+	$options = get_option( 'pressbooks_theme_options_ebook' );
+
+	// Indent paragraphs?
+	if ( $options['ebook_paragraph_separation'] == 'indent' ) {
+		// Default, no change needed
+	} elseif ( $options['ebook_paragraph_separation'] == 'skiplines' ) {
+		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			$scss .= "\$para-margin-top: 1em; \n";
+			$scss .= "\$para-indent: 0; \n";
+		} else {
+			$scss .= "p + p, .indent, div.ugc p.indent { text-indent: 0; margin-top: 1em; } \n";
+		}
+	}
+
+	return $scss;
+
+}
+add_filter( 'pb_epub_css_override', 'pressbooks_theme_ebook_css_override' );
+
 
 function pressbooks_theme_pdf_hacks( $hacks ) {
 
@@ -403,6 +654,14 @@ function pressbooks_theme_ebook_hacks( $hacks ) {
 		$hacks['ebook_compress_images'] = true;
 	}
 
+	// --------------------------------------------------------------------
+	// Luther features we inject ourselves, (not user options, this theme not child)
+
+	$theme = strtolower( '' . wp_get_theme() );
+	if ( 'luther' == $theme ) {
+		$hacks['ebook_romanize_part_numbers'] = true;
+	}
+
 	return $hacks;
 }
 add_filter( 'pb_epub_hacks', 'pressbooks_theme_ebook_hacks' );
@@ -427,15 +686,3 @@ function pressbooks_cover_promo() { ?>
 }
 
 add_action( 'pb_cover_promo', 'pressbooks_cover_promo' );
-
-/**
- * Restrict search.
- */
-function pb_filter_search( $query ) {
-	if ( $query->is_search && ! is_admin() ) {
-		$query->set( 'post_type', array( 'front-matter', 'back-matter', 'chapter', 'part' ) );
-	}
-
-	return $query;
-}
-add_filter( 'pre_get_posts', 'pb_filter_search' );
