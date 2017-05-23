@@ -26,6 +26,11 @@ class Search {
 	}
 
 	function search_and_replace( $search, $replace, $limit, $offset, $orderby, $save = false ) {
+		// escape potential backreferences when not in regex mode
+		if ( $this->regex === false ) {
+			$replace = str_replace( '\\', '\\\\', $replace );
+			$replace = str_replace( '$', '\\$', $replace );
+		}
 		$this->replace = $replace;
 		$results = $this->search_for_pattern( $search, $limit, $offset, $orderby );
 		if ( false !== $results && $save ) {
