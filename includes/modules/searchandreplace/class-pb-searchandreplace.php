@@ -86,7 +86,7 @@ class SearchAndReplace {
 			$searcher = new $source;
 
 			// Enable regex mode
-			$searcher->regex = !empty( $_POST['regex'] );
+			$searcher->regex = ! empty( $_POST['regex'] );
 
 			// Make sure no one sneaks in with a replace
 			if ( ! current_user_can( 'administrator' ) ) {

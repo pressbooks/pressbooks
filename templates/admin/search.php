@@ -33,8 +33,12 @@
 			<tr>
 				<th scope="row"><?php _e( 'Result Order', 'pressbooks' ); ?>:</th>
 				<td>
-					<?php // @codingStandardsIgnoreLine
-					$orderby = isset( $_POST['orderby'] ) ? $_POST['orderby'] : ''; ?>
+					<?php
+					// @codingStandardsIgnoreStart
+					$orderby = isset( $_POST['orderby'] ) ? $_POST['orderby'] : '';
+					$regex = ! empty( $_POST['regex'] );
+					// @codingStandardsIgnoreEnd
+					?>
 					<select name="orderby">
 						<option <?php selected( $orderby, 'asc' ); ?>value="asc"><?php _e( 'Ascending', 'pressbooks' ); ?></option>
 						<option <?php selected( $orderby, 'desc' ); ?>value="desc"><?php _e( 'Descending', 'pressbooks' ); ?></option>
@@ -57,7 +61,7 @@
 			  <th scope="row"><?php _e( 'Regex', 'pressbooks' ) ?>:</th>
 				<td>
 					<label>
-						<input name="regex" type="checkbox" value="true"<?php if (!empty($_POST['regex'])) echo 'checked="checked"'; ?>>
+						<input name="regex" type="checkbox" value="true"<?php echo $regex ? ' checked="checked"' : ''; ?>>
 						<?php _e( 'Enable regular expressions', 'pressbooks' ) ?>
 					</label>
 				</td>

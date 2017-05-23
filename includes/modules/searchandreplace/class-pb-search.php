@@ -22,12 +22,12 @@ class Search {
 	}
 
 	function regex_error( $errno, $errstr, $errfile, $errline ) {
-		$this->regex_error = __( 'Invalid regular expression', 'pressbooks') . ': ' . preg_replace( '/(.*?):/', '', $errstr );
+		$this->regex_error = __( 'Invalid regular expression', 'pressbooks' ) . ': ' . preg_replace( '/(.*?):/', '', $errstr );
 	}
 
 	function search_and_replace( $search, $replace, $limit, $offset, $orderby, $save = false ) {
 		// escape potential backreferences when not in regex mode
-		if ( $this->regex === false ) {
+		if ( ! $this->regex ) {
 			$replace = str_replace( '\\', '\\\\', $replace );
 			$replace = str_replace( '$', '\\$', $replace );
 		}
@@ -54,7 +54,7 @@ class Search {
 				set_error_handler( array( &$this, 'regex_error' ) );
 				$valid = @preg_match( $search, '', $matches );
 				restore_error_handler();
-				if ( $valid === false ) {
+				if ( false === $valid ) {
 					return $this->regex_error;
 				}
 				return $this->find( $search, $limit, $offset, $orderby );
