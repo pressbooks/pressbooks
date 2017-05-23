@@ -53,6 +53,15 @@
 				  <input class="term" type="text" name="replace_pattern" value="<?php echo esc_attr( $replace ) ?>"/><br/>
 				</td>
 			</tr>
+			<tr>
+			  <th scope="row"><?php _e( 'Regex', 'pressbooks' ) ?>:</th>
+				<td>
+					<label>
+						<input name="regex" type="checkbox" value="true"<?php if (!empty($_POST['regex'])) echo 'checked="checked"'; ?>>
+						<?php _e( 'Enable regular expressions', 'pressbooks' ) ?>
+					</label>
+				</td>
+			</tr>
 		</table>
 		<?php wp_nonce_field( 'search', 'pressbooks-search-and-replace-nonce' ); ?>
 		<p class="submit">
