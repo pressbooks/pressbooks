@@ -52,6 +52,7 @@ class Search {
 			if ( $this->regex ) {
 				// First test that the search and replace strings are valid regex
 				set_error_handler( array( &$this, 'regex_error' ) );
+				// @codingStandardsIgnoreLine
 				$valid = @preg_match( $search, '', $matches );
 				restore_error_handler();
 				if ( false === $valid ) {
