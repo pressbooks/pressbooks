@@ -548,11 +548,17 @@ function add_meta_boxes() {
 
 	// Part Metadata
 
+	add_action( 'edit_form_after_editor', function ( $post ) {
+		if ( 'part' == $post->post_type ) {
+			$tip = __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' );
+			echo '<p><span class="description">' . $tip . '</span></p>';
+		}
+	} );
+
 	x_add_metadata_group( 'part-metadata-visibility', 'part', array(
 		'label' => __( 'Part Visibility', 'pressbooks' ),
 		'context' => 'side',
 		'priority' => 'low',
-		'description' => __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_part_invisible', 'part', array(
