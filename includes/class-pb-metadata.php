@@ -693,6 +693,7 @@ class Metadata {
 				$success = wp_update_post( [
 					'ID' => $part->ID,
 					'post_content' => $pb_part_content,
+					'comment_status' => 'closed',
 				] );
 				if ( $success == $part->ID ) {
 					delete_post_meta( $part->ID, 'pb_part_content' );

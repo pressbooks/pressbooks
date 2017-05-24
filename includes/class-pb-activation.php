@@ -239,6 +239,7 @@ class Activation {
 			),
 		);
 
+		$part = array( 'post_status' => 'publish', 'comment_status' => 'closed', 'post_author' => $this->user_id );
 		$post = array( 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id );
 		$page = array( 'post_status' => 'publish', 'comment_status' => 'closed', 'ping_status' => 'closed', 'post_content' => '<!-- Here be dragons. -->', 'post_author' => $this->user_id, 'tags_input' => __( 'Default Data', 'pressbooks' ) );
 
@@ -262,6 +263,8 @@ class Activation {
 			if ( empty( $exists ) ) {
 				if ( 'page' == $item['post_type'] ) {
 					$data = array_merge( $item, $page );
+				} elseif ( 'part' == $item['post_type'] ) {
+					$data = array_merge( $item, $part );
 				} else {
 					$data = array_merge( $item, $post );
 				}
