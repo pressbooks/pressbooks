@@ -92,7 +92,7 @@ function register_post_types() {
 		'capability_type' => 'post',
 		'has_archive' => true,
 		'hierarchical' => true,
-		'supports' => array( 'title', 'page-attributes' ),
+		'supports' => array( 'title', 'editor', 'page-attributes' ),
 	);
 	register_post_type( 'part', $args );
 
@@ -228,13 +228,13 @@ function post_type_messages( $messages ) {
 
 	$messages['part'] = array(
 		0 => '', // Unused. Messages start at index 1.
-		1 => ( get_post_meta( $post->ID, 'pb_part_content' ) ? sprintf( __( 'Part updated. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part updated.', 'pressbooks' ) ),
+		1 => ( ! empty( trim( $post->post_content ) ) ? sprintf( __( 'Part updated. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part updated.', 'pressbooks' ) ),
 		2 => __( 'Custom field updated.', 'pressbooks' ),
 		3 => __( 'Custom field deleted.', 'pressbooks' ),
 		4 => __( 'Part updated.', 'pressbooks' ),
 		/* translators: %s: date and time of the revision */
 		5 => isset( $_GET['revision'] ) ? sprintf( __( 'Part restored to revision from %s', 'pressbooks' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		6 => ( get_post_meta( $post->ID, 'pb_part_content' ) ? sprintf( __( 'Part published. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part published.', 'pressbooks' ) ),
+		6 => ( ! empty( trim( $post->post_content ) ) ? sprintf( __( 'Part published. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part published.', 'pressbooks' ) ),
 		7 => __( 'Part saved.', 'pressbooks' ),
 		8 => sprintf( __( 'Part submitted. <a target="_blank" href="%s">Preview Part</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 		9 => sprintf( __( 'Part scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Part</a>', 'pressbooks' ),

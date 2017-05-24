@@ -157,6 +157,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 		// Is cached?
 		// -----------------------------------------------------------------------------
+
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			// @codingStandardsIgnoreLine
 			$blog_id = $id;
@@ -174,7 +175,16 @@ class Book {
 		// Query our custom post types, keep minimal data in $book_structure
 		// -----------------------------------------------------------------------------
 
+		// Pre-fetch all pb_export meta values for this book
+		global $wpdb;
+		$post_ids_to_export = array();
+		foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", 'pb_export' ), ARRAY_A ) as $val ) {
+			$post_ids_to_export[ $val['post_id'] ] = $val['meta_value'];
+		}
+
 		$book_structure = array();
+
+		$q = new \WP_Query();
 
 		$custom_types = array(
 			'front-matter',
@@ -182,17 +192,6 @@ class Book {
 			'chapter',
 			'back-matter',
 		);
-
-		$q = new \WP_Query();
-
-		/**
-		 * Fetch all pb_export meta values for this book
-		 */
-		global $wpdb;
-		$post_ids_to_export = array();
-		foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", 'pb_export' ), ARRAY_A ) as $val ) {
-			$post_ids_to_export[ $val['post_id'] ] = $val['meta_value'];
-		}
 
 		foreach ( $custom_types as $type ) {
 
@@ -210,19 +209,19 @@ class Book {
 
 			$results = $q->query( $args );
 
+			/** @var \WP_Post $post */
 			foreach ( $results as $post ) {
-
-				$post_name = static::fixSlug( $post->post_name );
 
 				$book_structure[ $type ][] = array(
 					'ID' => $post->ID,
 					'post_title' => $post->post_title,
-					'post_name' => $post_name,
+					'post_name' => static::fixSlug( $post->post_name ),
 					'post_author' => $post->post_author,
 					'comment_count' => $post->comment_count,
 					'menu_order' => $post->menu_order,
 					'post_status' => $post->post_status,
 					'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 'on' == $post_ids_to_export[ $post->ID ] ) ? true : false,
+					'has_post_content' => ! empty( trim( $post->post_content ) ),
 					'post_parent' => $post->post_parent,
 				);
 			}
@@ -273,7 +272,7 @@ class Book {
 				} else {
 					foreach ( $struct['chapters'] as $j => $chapter ) {
 						unset( $book_structure[ $type ][ $i ]['chapters'][ $j ]['post_parent'] );
-						if ( get_post_meta( $struct['ID'], 'pb_part_content', true ) && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' ) {
+						if ( $struct['has_post_content'] && get_post_meta( $struct['ID'], 'pb_part_invisible', true ) !== 'on' ) {
 							$book_structure['__order'][ $struct['ID'] ] = array( 'export' => $struct['export'], 'post_status' => $struct['post_status'] );
 						}
 						$book_structure['__order'][ $chapter['ID'] ] = array( 'export' => $chapter['export'], 'post_status' => $chapter['post_status'] );

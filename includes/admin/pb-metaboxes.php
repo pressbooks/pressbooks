@@ -545,23 +545,14 @@ function add_meta_boxes() {
 	    ),
 	    'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 	) );
+
 	// Part Metadata
-
-	x_add_metadata_group( 'part-metadata-text', 'part', array(
-		'label' => __( 'Part Text', 'pressbooks' ),
-	) );
-
-	x_add_metadata_field( 'pb_part_content', 'part', array(
-		'field_type' => 'wysiwyg',
-		'group' => 'part-metadata-text',
-		'label' => '',
-		'description' => __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' ),
-	) );
 
 	x_add_metadata_group( 'part-metadata-visibility', 'part', array(
 		'label' => __( 'Part Visibility', 'pressbooks' ),
 		'context' => 'side',
 		'priority' => 'low',
+		'description' => __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_part_invisible', 'part', array(

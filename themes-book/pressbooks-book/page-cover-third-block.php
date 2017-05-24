@@ -33,9 +33,9 @@
 						</li>
 							<?php foreach ($book['part'] as $part):?>
 							<li><h4><?php if ( count( $book['part'] ) > 1  && get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) { ?>
-							<?php if ( get_post_meta( $part['ID'], 'pb_part_content', true ) ) { ?><a href="<?php echo get_permalink($part['ID']); ?>"><?php } ?>
+							<?php if ( $part['has_post_content'] ) { ?><a href="<?php echo get_permalink($part['ID']); ?>"><?php } ?>
 							<?php echo $part['post_title']; ?>
-							<?php if ( get_post_meta( $part['ID'], 'pb_part_content', true ) ) { ?></a><?php } ?>
+							<?php if ( $part['has_post_content'] ) { ?></a><?php } ?>
 							<?php } ?></h4></li>
 							<li>
 								<ul>
