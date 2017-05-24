@@ -57,6 +57,7 @@
 				  <input class="term" type="text" name="replace_pattern" value="<?php echo esc_attr( $replace ) ?>"/><br/>
 				</td>
 			</tr>
+			<?php if ( defined( 'PB_ENABLE_REGEX_SEARCHREPLACE' ) && PB_ENABLE_REGEX_SEARCHREPLACE ) : ?>
 			<tr>
 			  <th scope="row"><?php _e( 'Regex', 'pressbooks' ) ?>:</th>
 				<td>
@@ -66,6 +67,7 @@
 					</label>
 				</td>
 			</tr>
+			<?php endif ?>
 		</table>
 		<?php wp_nonce_field( 'search', 'pressbooks-search-and-replace-nonce' ); ?>
 		<p class="submit">
