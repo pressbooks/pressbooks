@@ -457,12 +457,16 @@ abstract class Import {
 	 * @return bool
 	 */
 	static function isFormSubmission() {
-		if ( 'pb_import' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
-				return false;
+
+		if ( empty( $_REQUEST['page'] ) ) {
+			return false;
 		}
 
-		// @codingStandardsIgnoreLine
-		if ( ! empty( $_POST ) ) {
+		if ( 'pb_import' !== $_REQUEST['page'] ) {
+			return false;
+		}
+
+		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 			return true;
 		}
 

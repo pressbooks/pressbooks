@@ -998,11 +998,16 @@ class Catalog {
 	 * @return bool
 	 */
 	static function isFormSubmission() {
-		if ( 'pb_catalog' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
+
+		if ( empty( $_REQUEST['page'] ) ) {
 			return false;
 		}
 
-		if ( ! empty( $_POST ) ) { // @codingStandardsIgnoreLine
+		if ( 'pb_catalog' !== $_REQUEST['page'] ) {
+			return false;
+		}
+
+		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 			return true;
 		}
 

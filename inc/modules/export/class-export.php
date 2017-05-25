@@ -811,12 +811,16 @@ abstract class Export {
 	 * @return bool
 	 */
 	static function isFormSubmission() {
-		if ( 'pb_export' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
+
+		if ( empty( $_REQUEST['page'] ) ) {
 			return false;
 		}
 
-		// @codingStandardsIgnoreLine
-		if ( ! empty( $_POST ) ) {
+		if ( 'pb_export' !== $_REQUEST['page'] ) {
+			return false;
+		}
+
+		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 			return true;
 		}
 
