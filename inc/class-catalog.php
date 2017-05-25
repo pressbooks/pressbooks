@@ -8,6 +8,8 @@
 
 namespace Pressbooks;
 
+use function \Pressbooks\Utility\getset;
+
 class Catalog {
 
 
@@ -118,12 +120,12 @@ class Catalog {
 	 * @return array
 	 */
 	function get() {
-
 		/** @var $wpdb \wpdb */
 		global $wpdb;
-		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ", $this->userId ); // @codingStandardsIgnoreLine
 
-		return $wpdb->get_results( $sql, ARRAY_A ); // @codingStandardsIgnoreLine
+		$sql = "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ";
+
+		return $wpdb->get_results( $wpdb->prepare( $sql, $this->userId ), ARRAY_A ); // @codingStandardsIgnoreLine
 	}
 
 
@@ -337,9 +339,7 @@ class Catalog {
  				INNER JOIN {$this->dbTagsTable} ON {$this->dbTagsTable}.id = {$this->dbLinkTable}.tags_id
  				WHERE {$this->dbLinkTable}.users_id = %d AND {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.tags_id = %d AND {$this->dbTable}.deleted = 0 ";
 
-		$sql = $wpdb->prepare( $sql, $this->userId, $tag_group, $tag_id ); // @codingStandardsIgnoreLine
-
-		return $wpdb->get_results( $sql, ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $this->userId, $tag_group, $tag_id ), ARRAY_A ); // @codingStandardsIgnoreLine
 	}
 
 
@@ -389,9 +389,10 @@ class Catalog {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
-		$sql = $wpdb->prepare( "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND blogs_id = %d AND deleted = 0 ", $this->userId, $blog_id ); // @codingStandardsIgnoreLine
 
-		return $wpdb->get_row( $sql, ARRAY_A ); // @codingStandardsIgnoreLine
+		$sql = "SELECT * FROM {$this->dbTable} WHERE users_id = %d AND blogs_id = %d AND deleted = 0 ";
+
+		return $wpdb->get_row( $wpdb->prepare( $sql, $this->userId, $blog_id ), ARRAY_A ); // @codingStandardsIgnoreLine
 	}
 
 
@@ -404,9 +405,10 @@ class Catalog {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
-		$sql = $wpdb->prepare( "SELECT blogs_id FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ", $this->userId ); // @codingStandardsIgnoreLine
 
-		return $wpdb->get_col( $sql ); // @codingStandardsIgnoreLine
+		$sql = "SELECT blogs_id FROM {$this->dbTable} WHERE users_id = %d AND deleted = 0 ";
+
+		return $wpdb->get_col( $wpdb->prepare( $sql, $this->userId ) ); // @codingStandardsIgnoreLine
 	}
 
 
@@ -464,9 +466,7 @@ class Catalog {
 		if ( ! $i ) { $sql .= ' users_id = users_id '; // Do nothing
 		}
 
-		$sql = $wpdb->prepare( $sql, $args ); // @codingStandardsIgnoreLine
-
-		return $wpdb->query( $sql ); // @codingStandardsIgnoreLine
+		return $wpdb->query( $wpdb->prepare( $sql, $args ) ); // @codingStandardsIgnoreLine
 	}
 
 
@@ -514,9 +514,7 @@ class Catalog {
 		}
 		$sql .= "ORDER BY {$this->dbTagsTable}.tag ASC ";
 
-		$sql = $wpdb->prepare( $sql, $tag_group, $this->userId ); // @codingStandardsIgnoreLine
-
-		return $wpdb->get_results( $sql, ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $tag_group, $this->userId ), ARRAY_A ); // @codingStandardsIgnoreLine
 	}
 
 
@@ -539,9 +537,7 @@ class Catalog {
  				WHERE {$this->dbLinkTable}.tags_group = %d AND {$this->dbLinkTable}.users_id = %d AND {$this->dbLinkTable}.blogs_id = %d
  				ORDER BY {$this->dbTagsTable}.tag ASC ";
 
-		$sql = $wpdb->prepare( $sql, $tag_group, $this->userId, $blog_id ); // @codingStandardsIgnoreLine
-
-		return $wpdb->get_results( $sql, ARRAY_A ); // @codingStandardsIgnoreLine
+		return $wpdb->get_results( $wpdb->prepare( $sql, $tag_group, $this->userId, $blog_id ), ARRAY_A ); // @codingStandardsIgnoreLine
 	}
 
 
@@ -566,20 +562,17 @@ class Catalog {
 		// @see http://dev.mysql.com/doc/refman/5.0/en/insert-on-duplicate.html
 
 		$sql = "INSERT INTO {$this->dbTagsTable} ( users_id, tag ) VALUES ( %d, %s ) ON DUPLICATE KEY UPDATE id = id ";
-		$sql = $wpdb->prepare( $sql, $this->userId, $tag ); // @codingStandardsIgnoreLine
-		$_ = $wpdb->query( $sql ); // @codingStandardsIgnoreLine
+		$_ = $wpdb->query( $wpdb->prepare( $sql, $this->userId, $tag ) ); // @codingStandardsIgnoreLine
 
 		// Get ID
 
 		$sql = "SELECT id FROM {$this->dbTagsTable} WHERE tag = %s ";
-		$sql = $wpdb->prepare( $sql, $tag ); // @codingStandardsIgnoreLine
-		$tag_id = $wpdb->get_var( $sql ); // @codingStandardsIgnoreLine
+		$tag_id = $wpdb->get_var( $wpdb->prepare( $sql, $tag ) ); // @codingStandardsIgnoreLine
 
 		// Create JOIN
 
 		$sql = "INSERT INTO {$this->dbLinkTable} ( users_id, blogs_id, tags_id, tags_group ) VALUES ( %d, %d, %d, %d ) ON DUPLICATE KEY UPDATE users_id = users_id ";
-		$sql = $wpdb->prepare( $sql, $this->userId, $blog_id, $tag_id, $tag_group ); // @codingStandardsIgnoreLine
-		$result = $wpdb->query( $sql ); // @codingStandardsIgnoreLine
+		$result = $wpdb->query( $wpdb->prepare( $sql, $this->userId, $blog_id, $tag_id, $tag_group ) ); // @codingStandardsIgnoreLine
 
 		return $result;
 	}
@@ -605,8 +598,7 @@ class Catalog {
 		// Get ID
 
 		$sql = "SELECT id FROM {$this->dbTagsTable} WHERE tag = %s ";
-		$sql = $wpdb->prepare( $sql, $tag ); // @codingStandardsIgnoreLine
-		$tag_id = $wpdb->get_var( $sql ); // @codingStandardsIgnoreLine
+		$tag_id = $wpdb->get_var( $wpdb->prepare( $sql, $tag ) ); // @codingStandardsIgnoreLine
 
 		if ( ! $tag_id ) {
 			return false;
@@ -926,7 +918,7 @@ class Catalog {
 	 * WP Hook, Instantiate UI
 	 */
 	static function addMenu() {
-		switch ( @$_REQUEST['action'] ) { // TODO @codingStandardsIgnoreLine
+		switch ( getset( '_REQUEST', 'action' ) ) {
 			case 'edit_profile':
 			case 'edit_tags':
 				require( PB_PLUGIN_DIR . 'templates/admin/catalog.php' );
@@ -945,7 +937,7 @@ class Catalog {
 	/**
 	 * Find and load our catalog template.
 	 *
-	 * @param int $userId
+	 * @param int $user_id
 	 */
 	static function loadTemplate( $user_id ) {
 

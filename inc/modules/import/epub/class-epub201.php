@@ -240,14 +240,6 @@ class Epub201 extends Import {
 
 		/* Safety dance */
 
-		/* @codingStandardsIgnoreStart
-		// TODO: Do we need this? Some EPUBs are garbage...
-		$mimetype = $this->getZipContent( 'mimetype', false );
-		if ( $mimetype != 'application/epub+zip' ) {
-			throw new \Exception ( 'Wrong mimetype!' );
-		} @codingStandardsIgnoreEnd
-		*/
-
 		$ok = $this->getZipContent( 'META-INF/container.xml' );
 		if ( ! $ok ) {
 			throw new \Exception( 'Bad or corrupted META-INF/container.xml' );

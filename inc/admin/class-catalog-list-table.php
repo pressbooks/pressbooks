@@ -346,7 +346,7 @@ class Catalog_List_Table extends \WP_List_Table {
 		// Return the title contents
 		return sprintf( '%1$s %2$s',
 			$html,
-			$this->rowActions( $actions )
+			$this->row_actions( $actions )
 		);
 
 	}
