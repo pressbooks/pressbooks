@@ -6,11 +6,6 @@
 
 namespace Pressbooks\Modules\Import;
 
-require_once( ABSPATH . 'wp-admin/includes/image.php' );
-require_once( ABSPATH . 'wp-admin/includes/file.php' );
-require_once( ABSPATH . 'wp-admin/includes/media.php' );
-
-
 abstract class Import {
 
 	/**
@@ -300,7 +295,9 @@ abstract class Import {
 					 * @since 3.9.6
 					 */
 					$importer = apply_filters( 'pb_initialize_import', null );
-					$ok = $importer->import( $current_import );
+					if ( is_object( $importer ) ) {
+						$ok = $importer->import( $current_import );
+					}
 					break;
 			}
 
@@ -347,7 +344,6 @@ abstract class Import {
 			}
 
 			$ok = false;
-
 			switch ( $_POST['type_of'] ) {
 
 				case 'wxr':
@@ -373,7 +369,9 @@ abstract class Import {
 				default:
 					/** This filter is documented above */
 					$importer = apply_filters( 'pb_initialize_import', null );
-					$ok = $importer->setCurrentImportOption( $upload );
+					if ( is_object( $importer ) ) {
+						$ok = $importer->setCurrentImportOption( $upload );
+					}
 					break;
 			}
 

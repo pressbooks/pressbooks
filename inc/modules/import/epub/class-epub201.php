@@ -49,6 +49,11 @@ class Epub201 extends Import {
 	 *
 	 */
 	function __construct() {
+		if ( ! function_exists( 'media_handle_sideload' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/image.php' );
+			require_once( ABSPATH . 'wp-admin/includes/file.php' );
+			require_once( ABSPATH . 'wp-admin/includes/media.php' );
+		}
 
 		$this->zip = new \ZipArchive;
 	}

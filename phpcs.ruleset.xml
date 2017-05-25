@@ -29,21 +29,18 @@
   <!-- Disable Side Effects rule for the bootstrapping file and those where we have to include WordPress core files. -->
   <rule ref="PSR1.Files.SideEffects">
     <exclude-pattern>pressbooks.php</exclude-pattern>
-		<exclude-pattern>/inc/modules/export/epub/class-epub201.php</exclude-pattern>
-		<exclude-pattern>/inc/modules/export/epub/class-epub3.php</exclude-pattern>
-		<exclude-pattern>/inc/modules/export/odt/class-odt.php</exclude-pattern>
-		<exclude-pattern>/inc/modules/import/class-import.php</exclude-pattern>
   </rule>
 
-  <!-- Exclude functions.php, bower_components, node_modules, templates, tests, themes-*, symbionts and vendor directories -->
-	<exclude-pattern>autoloader.php</exclude-pattern>
-	<exclude-pattern>compatibility.php</exclude-pattern>
-	<exclude-pattern>functions.php</exclude-pattern>
-	<exclude-pattern>bower_components/</exclude-pattern>
+  <!-- Excludes -->
+  <exclude-pattern>autoloader.php</exclude-pattern>
+  <exclude-pattern>compatibility.php</exclude-pattern>
+  <exclude-pattern>functions.php</exclude-pattern>
+  <exclude-pattern>bower_components/</exclude-pattern>
   <exclude-pattern>node_modules/</exclude-pattern>
-	<exclude-pattern>templates/</exclude-pattern>
+  <exclude-pattern>templates/</exclude-pattern>
   <exclude-pattern>tests/</exclude-pattern>
-	<exclude-pattern>themes-*/</exclude-pattern>
-	<exclude-pattern>symbionts/</exclude-pattern>
+  <exclude-pattern>themes-*/</exclude-pattern>
+  <exclude-pattern>symbionts/</exclude-pattern>
   <exclude-pattern>vendor/</exclude-pattern>
+
 </ruleset>

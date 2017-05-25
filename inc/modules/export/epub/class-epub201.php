@@ -13,8 +13,6 @@ use Pressbooks\Modules\Export\Export;
 use Pressbooks\Container;
 use Pressbooks\Sanitize;
 
-require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
-
 class Epub201 extends Export {
 
 	/**
@@ -178,6 +176,10 @@ class Epub201 extends Export {
 	function __construct( array $args ) {
 
 		// Some defaults
+
+		if ( ! class_exists( '\PclZip' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+		}
 
 		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) {
 			define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );

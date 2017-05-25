@@ -9,8 +9,6 @@ namespace Pressbooks\Modules\Export\Epub;
 
 use Pressbooks\Sanitize;
 
-require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
-
 class Epub3 extends Epub201 {
 
 	/**

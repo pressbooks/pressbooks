@@ -7,8 +7,6 @@ namespace Pressbooks\Modules\Export\Odt;
 
 use Pressbooks\Modules\Export\Export;
 
-require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
-
 class Odt extends Export {
 
 	/**
@@ -50,6 +48,11 @@ class Odt extends Export {
 	function __construct( array $args ) {
 
 		// Some defaults
+
+		if ( ! class_exists( '\PclZip' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
+		}
+
 		if ( ! defined( 'PB_SAXON_COMMAND' ) ) {
 			define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
 		}
