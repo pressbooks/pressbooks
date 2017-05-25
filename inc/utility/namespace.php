@@ -8,16 +8,27 @@
 namespace Pressbooks\Utility;
 
 /**
- * Return array value even if is not set
+ * Return a value for a given key even if not set
  *
- * @param array $arr
+ * @param mixed $arr either an array or a string that points to an array in $GLOBALS
  * @param string $key
  * @param mixed $default
  *
  * @return mixed
  */
-function getset( array $arr, $key, $default = null ) {
-	return isset( $arr[ $key ] ) ? $arr[ $key ] : $default;
+function getset( $arr, $key, $default = null ) {
+
+	// Get from array
+	if ( is_array( $arr ) ) {
+		return isset( $arr[ $key ] ) ? $arr[ $key ] : $default;
+	}
+
+	// Get from a global or superglobal
+	if ( is_string( $arr ) && isset( $GLOBALS[ $arr ] ) && is_array( $GLOBALS[ $arr ] ) ) {
+		return isset( $GLOBALS[ $arr ][ $key ] ) ? $GLOBALS[ $arr ][ $key ] : $default;
+	}
+
+	return $default;
 }
 
 /**

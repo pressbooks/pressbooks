@@ -11,6 +11,17 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'hello' ), 'world' );
 		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'nothing' ), null );
 		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'nothing', 'something' ), 'something' );
+
+		global $fake_out;
+		$fake_out['hello'] = 'world';
+		$this->assertEquals( \Pressbooks\Utility\getset( 'fake_out', 'hello' ), 'world' );
+		$this->assertEquals( \Pressbooks\Utility\getset( 'fake_out', 'nothing' ), null );
+		$this->assertEquals( \Pressbooks\Utility\getset( 'fake_out', 'nothing', 'something' ), 'something' );
+
+		$_POST['hello'] = 'world';
+		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'hello' ), 'world' );
+		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'nothing' ), null );
+		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'nothing', 'something' ), 'something' );
 	}
 
 	/**
@@ -314,7 +325,7 @@ class UtilityTest extends \WP_UnitTestCase {
 		$uploads = wp_upload_dir();
 		$src = trailingslashit( $uploads['path'] ) . 'src';
 		$dest = trailingslashit( $uploads['path'] ) . 'dest';
-		mkdir( $src );
+		@mkdir( $src );
 		file_put_contents( $src . '/test.txt', 'test' );
 
 		$return = \Pressbooks\Utility\rcopy( $src, $dest );

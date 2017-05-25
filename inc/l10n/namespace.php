@@ -5,6 +5,8 @@
  */
 namespace Pressbooks\L10n;
 
+use function \Pressbooks\Utility\getset;
+
 /**
  * KindleGen is based on Mobipocket Creator and apparently supports only the following language codes.
  * This populates the language dropdown on the Book Info page.
@@ -543,8 +545,7 @@ function romanize( $integer ) {
  */
 function use_book_locale() {
 
-	// @codingStandardsIgnoreLine
-	if ( \Pressbooks\Modules\Export\Export::isFormSubmission() && is_array( @$_POST['export_formats'] ) ) {
+	if ( \Pressbooks\Modules\Export\Export::isFormSubmission() && is_array( getset( '_POST', 'export_formats' ) ) ) {
 		return true;
 	}
 

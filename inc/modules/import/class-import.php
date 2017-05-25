@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Modules\Import;
 
+use function \Pressbooks\Utility\getset;
+
 abstract class Import {
 
 	/**
@@ -121,18 +123,18 @@ abstract class Import {
 	 * @return bool
 	 */
 	protected function flaggedForImport( $id ) {
-		// @codingStandardsIgnoreLine
-		if ( ! @is_array( $_POST['chapters'] ) ) {
+
+		$chapters = getset( '_POST', 'chapters' );
+
+		if ( ! is_array( $chapters ) ) {
 			return false;
 		}
 
-		// @codingStandardsIgnoreLine
-		if ( ! @isset( $_POST['chapters'][ $id ]['import'] ) ) {
+		if ( ! isset( $chapters['chapters'][ $id ] ) && ! isset( $chapters['chapters'][ $id ]['import'] ) ) {
 			return false;
 		}
 
-		// @codingStandardsIgnoreLine
-		return ( 1 == $_POST['chapters'][ $id ]['import'] ? true : false );
+		return ( 1 === (int) $chapters['chapters'][ $id ]['import'] ? true : false );
 	}
 
 
@@ -144,27 +146,24 @@ abstract class Import {
 	 * @return string
 	 */
 	protected function determinePostType( $id ) {
-		$supported_types = apply_filters( 'pb_import_custom_post_types', [ 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ] );
 
+		$chapters = getset( '_POST', 'chapters' );
+		$supported_types = apply_filters( 'pb_import_custom_post_types', [ 'front-matter', 'chapter', 'part', 'back-matter', 'metadata' ] );
 		$default = 'chapter';
 
-		// @codingStandardsIgnoreLine
-		if ( ! @is_array( $_POST['chapters'] ) ) {
+		if ( ! is_array( $chapters ) ) {
 			return $default;
 		}
 
-		// @codingStandardsIgnoreLine
-		if ( ! @isset( $_POST['chapters'][ $id ]['type'] ) ) {
+		if ( ! isset( $chapters['chapters'][ $id ] ) && ! isset( $chapters['chapters'][ $id ]['type'] ) ) {
 			return $default;
 		}
 
-		// @codingStandardsIgnoreLine
-		if ( ! in_array( $_POST['chapters'][ $id ]['type'], $supported_types ) ) {
+		if ( ! in_array( $chapters['chapters'][ $id ]['type'], $supported_types, true ) ) {
 			return $default;
 		}
 
-		// @codingStandardsIgnoreLine
-		return $_POST['chapters'][ $id ]['type'];
+		return $chapters['chapters'][ $id ]['type'];
 	}
 
 
