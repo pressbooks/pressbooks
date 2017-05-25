@@ -24,7 +24,7 @@ class Search {
 		// evaluate expression without imput and capture potential error message
 		$regex_error = 'invalid';
 		$error_handler = function( $errno, $errstr, $errfile, $errline ) use ( &$regex_error ) {
-			$regex_error = preg_replace( '/(.*?):/', '', $errstr );
+			$regex_error = preg_replace( '/(.*?):/', '', $errstr, 1 );
 		};
 		set_error_handler( $error_handler );
 		// @codingStandardsIgnoreLine
