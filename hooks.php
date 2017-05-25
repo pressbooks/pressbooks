@@ -12,17 +12,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'includes/admin/pb-branding.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-analytics.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-utility.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-image.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-l10n.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-posttype.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-redirect.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-registration.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-sanitize.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-media.php' );
-require( PB_PLUGIN_DIR . 'includes/pb-editor.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/branding/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/analytics/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/utility/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/image/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/l10n/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/posttype/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/redirect/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/registration/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/sanitize/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/media/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/editor/namespace.php' );
 
 Pressbooks\Utility\include_plugins();
 
@@ -167,8 +167,8 @@ $_ = \Pressbooks\Shortcodes\WikiPublisher\Glyphs::getInstance();
 
 // Theme Lock
 if ( \Pressbooks\Book::isBook() && \Pressbooks\ThemeLock::isLocked() ) {
-	add_filter( 'pb_stylesheet_directory', array( '\Pressbooks\ThemeLock', 'getLockDir' ) );
-	add_filter( 'pb_stylesheet_directory_uri', array( '\Pressbooks\ThemeLock', 'getLockDirURI' ) );
+	add_filter( 'pb_stylesheet_directory', [ '\Pressbooks\ThemeLock', 'getLockDir' ] );
+	add_filter( 'pb_stylesheet_directory_uri', [ '\Pressbooks\ThemeLock', 'getLockDirURI' ] );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

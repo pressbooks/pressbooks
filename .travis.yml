@@ -15,11 +15,28 @@ php:
   - 5.6
   - 7.0
   - 7.1
+  - nightly
 
 env:
-  - WP_VERSION=latest WP_MULTISITE=1
+  - WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="6"
+  - WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="7"
+
+matrix:
+  allow_failures:
+  - php: nightly
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/.yarn-cache
+    - node_modules
+    - vendor
 
 before_install:
+  - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
+  - node -v
+
+install:
   - composer install
 
 before_script:

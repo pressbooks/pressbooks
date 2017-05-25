@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<ruleset>
+  <!-- Scan only PHP files -->
+  <arg name="extensions" value="php"/>
+
+  <!-- Show colors in console -->
+  <arg value="-colors"/>
+
+  <!-- Use HM Coding Standards -->
+  <rule ref="vendor/humanmade/coding-standards">
+    <!-- Disable all ESLint checks -->
+    <exclude name="HM.Debug.ESLint" />
+    <!-- Disable rules Pressbooks disagrees with -->
+    <exclude name="WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid" />
+    <exclude name="WordPress.NamingConventions.ValidVariableName.MemberNotSnakeCase" />
+    <exclude name="WordPress.NamingConventions.ValidVariableName.NotSnakeCaseMemberVar" />
+    <exclude name="WordPress.VIP.SessionVariableUsage" />
+		<!-- Disable LayoutOrder until humanmade/coding-standards#5 is fixed -->
+		<exclude name="HM.Layout.Order.WrongOrder" />
+  </rule>
+
+  <!-- Re-enable rules Pressbooks agrees with -->
+  <rule ref="Generic.NamingConventions.UpperCaseConstantName" />
+  <rule ref="PSR1.Methods.CamelCapsMethodName" />
+
+  <!-- Disable Side Effects rule for the bootstrapping file -->
+  <rule ref="PSR1.Files.SideEffects">
+    <exclude-pattern>pressbooks.php</exclude-pattern>
+  </rule>
+
+  <!-- Exclude functions.php, bower_components, node_modules, templates, tests, themes-*, symbionts and vendor directories -->
+	<exclude-pattern>compatibility.php</exclude-pattern>
+	<exclude-pattern>functions.php</exclude-pattern>
+	<exclude-pattern>bower_components/</exclude-pattern>
+  <exclude-pattern>node_modules/</exclude-pattern>
+	<exclude-pattern>templates/</exclude-pattern>
+  <exclude-pattern>tests/</exclude-pattern>
+	<exclude-pattern>themes-*/</exclude-pattern>
+	<exclude-pattern>symbionts/</exclude-pattern>
+  <exclude-pattern>vendor/</exclude-pattern>
+</ruleset>
