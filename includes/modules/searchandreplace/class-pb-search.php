@@ -15,14 +15,35 @@ class Search {
 	var $error = null;
 
 	var $regex = false;
-	var $regex_error = null;
 
 	function name() {
 		return '';
 	}
 
-	function regex_error( $errno, $errstr, $errfile, $errline ) {
-		$this->regex_error = __( 'Invalid regular expression', 'pressbooks' ) . ': ' . preg_replace( '/(.*?):/', '', $errstr );
+	function regex_validate( $expr ) {
+		// evaluate expression without imput and capture potential error message
+		$regex_error = 'invalid';
+		$error_handler = function( $errno, $errstr, $errfile, $errline ) use ( &$regex_error ) {
+			$regex_error = preg_replace( '/(.*?):/', '', $errstr );
+		};
+		set_error_handler( $error_handler );
+		// @codingStandardsIgnoreLine
+		$valid = @preg_match( $expr, null, $matches );
+		restore_error_handler();
+		if ( false === $valid ) {
+			return $regex_error;
+		}
+		// detect possibility to execute code:
+		// https://bitquark.co.uk/blog/2013/07/23/the_unexpected_dangers_of_preg_replace
+		if ( false !== strpos( $expr, "\0" ) ) {
+			return 'Null byte in regex';
+		}
+		$modifiers = preg_replace( '/^.*[^\\w\\s]([\\w\\s]*)$/s', '$1', $expr );
+		if ( false !== strpos( $modifiers, 'e' ) ) {
+			return 'Unknown modifier \'e\'';
+		}
+		// expression seems valid
+		return null;
 	}
 
 	function search_and_replace( $search, $replace, $limit, $offset, $orderby, $save = false ) {
@@ -50,13 +71,9 @@ class Search {
 				set_time_limit( 0 );
 			}
 			if ( $this->regex ) {
-				// First test that the search and replace strings are valid regex
-				set_error_handler( array( &$this, 'regex_error' ) );
-				// @codingStandardsIgnoreLine
-				$valid = @preg_match( $search, '', $matches );
-				restore_error_handler();
-				if ( false === $valid ) {
-					return $this->regex_error;
+				$error = $this->regex_validate( $search );
+				if ( null !== $error ) {
+					return __( 'Invalid regular expression', 'pressbooks' ) . ': ' . $error;
 				}
 				return $this->find( $search, $limit, $offset, $orderby );
 			} else {
