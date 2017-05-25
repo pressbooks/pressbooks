@@ -1,6 +1,6 @@
 <?php
 
-require_once( PB_PLUGIN_DIR . 'includes/admin/pb-plugins.php' );
+require_once( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 
 class Admin_PluginsTest extends \WP_UnitTestCase {
 

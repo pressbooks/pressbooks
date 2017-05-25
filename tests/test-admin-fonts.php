@@ -1,6 +1,6 @@
 <?php
 
-require_once( PB_PLUGIN_DIR . 'includes/admin/pb-fonts.php' );
+require_once( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
 
 use Pressbooks\Container;
 

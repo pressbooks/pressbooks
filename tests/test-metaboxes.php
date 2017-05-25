@@ -1,6 +1,6 @@
 <?php
 
-require_once( PB_PLUGIN_DIR . 'includes/admin/pb-metaboxes.php' );
+require_once( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
 
 
 class MetaboxesTest extends \WP_UnitTestCase {

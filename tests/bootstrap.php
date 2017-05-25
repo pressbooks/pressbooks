@@ -6,14 +6,14 @@ if ( ! $_tests_dir ) {
 }
 
 if ( ! function_exists( '\HM\Autoloader\register_class_path' ) ) {
-	require_once( __DIR__ . '/../pressbooks/autoloader.php' );
+	require_once( __DIR__ . '/../autoloader.php' );
 }
 
 require_once $_tests_dir . '/includes/functions.php';
 
 function _manually_load_plugin() {
-	require_once( __DIR__ . '/../pressbooks/autoloader.php' );
-	require_once( __DIR__ . '/../pressbooks/pressbooks.php' );
+	require_once( __DIR__ . '/../autoloader.php' );
+	require_once( __DIR__ . '/../pressbooks.php' );
 }
 
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );

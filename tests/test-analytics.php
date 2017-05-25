@@ -1,6 +1,6 @@
 <?php
 
-require_once( PB_PLUGIN_DIR . 'includes/admin/pb-analytics.php' );
+require_once( PB_PLUGIN_DIR . 'inc/admin/analytics/namespace.php' );
 
 class AnalyticsTest extends \WP_UnitTestCase {
 

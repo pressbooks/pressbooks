@@ -1,6 +1,6 @@
 <?php
 
-require_once( PB_PLUGIN_DIR . 'includes/admin/pb-laf.php' );
+require_once( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
 
 
 class Admin_LafsTest extends \WP_UnitTestCase {

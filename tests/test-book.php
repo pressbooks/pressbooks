@@ -1,6 +1,6 @@
 <?php
 
-require_once( PB_PLUGIN_DIR . 'includes/class-pb-book.php' );
+require_once( PB_PLUGIN_DIR . 'inc/class-book.php' );
 
 class BookTest extends \WP_UnitTestCase {
 
