@@ -6,13 +6,13 @@ if ( ! $_tests_dir ) {
 }
 
 if ( ! function_exists( '\HM\Autoloader\register_class_path' ) ) {
-	require_once __DIR__ . '/../../../mu-plugins/hm-autoloader.php';
+	require_once( __DIR__ . '/../pressbooks/autoloader.php' );
 }
 
 require_once $_tests_dir . '/includes/functions.php';
 
 function _manually_load_plugin() {
-	require_once( __DIR__ . '/../../../mu-plugins/hm-autoloader.php' );
+	require_once( __DIR__ . '/../pressbooks/autoloader.php' );
 	require_once( __DIR__ . '/../pressbooks/pressbooks.php' );
 }
 

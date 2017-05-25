@@ -41,7 +41,6 @@ install:
 
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-  - cd .. && mkdir mu-plugins && cd mu-plugins && wget https://raw.githubusercontent.com/humanmade/hm-base/master/content/plugins-mu/autoloader.php
 
 script:
   - composer test

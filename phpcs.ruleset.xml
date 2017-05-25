@@ -29,6 +29,7 @@
   </rule>
 
   <!-- Exclude functions.php, bower_components, node_modules, templates, tests, themes-*, symbionts and vendor directories -->
+	<exclude-pattern>autoloader.php</exclude-pattern>
 	<exclude-pattern>compatibility.php</exclude-pattern>
 	<exclude-pattern>functions.php</exclude-pattern>
 	<exclude-pattern>bower_components/</exclude-pattern>
