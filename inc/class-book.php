@@ -50,7 +50,6 @@ class Book {
 		// Is cached?
 		// -----------------------------------------------------------------------------
 		if ( ! empty( $id ) && is_int( $id ) ) {
-			// @codingStandardsIgnoreLine
 			$blog_id = $id;
 			switch_to_blog( $blog_id );
 		} else {
@@ -154,7 +153,6 @@ class Book {
 		// Is cached?
 		// -----------------------------------------------------------------------------
 		if ( ! empty( $id ) && is_int( $id ) ) {
-			// @codingStandardsIgnoreLine
 			$blog_id = $id;
 			switch_to_blog( $id );
 		} else {

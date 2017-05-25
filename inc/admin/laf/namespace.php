@@ -555,7 +555,6 @@ function init_css_js() {
 
 	// This is to work around JavaScript dependency errors
 	global $concatenate_scripts;
-	// @codingStandardsIgnoreLine
 	$concatenate_scripts = false;
 
 	// Note: Will auto-register a dependency $handle named 'colors'

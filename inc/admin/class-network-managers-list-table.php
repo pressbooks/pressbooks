@@ -34,8 +34,8 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @param array $item A singular item (one full row's worth of data)
 	 * @return string Text to be placed inside the column <td>
 	 **************************************************************************/
-	function column_display_name( $item ) { // @codingStandardsIgnoreLine
-	    return $item['display_name'];
+	function column_display_name( $item ) {
+		return $item['display_name'];
 	}
 
 	/** ************************************************************************
@@ -45,8 +45,8 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @param array $item A singular item (one full row's worth of data)
 	 * @return string Text to be placed inside the column <td>
 	 **************************************************************************/
-	function column_user_email( $item ) { // @codingStandardsIgnoreLine
-	    return $item['user_email'];
+	function column_user_email( $item ) {
+		return $item['user_email'];
 	}
 
 
@@ -57,7 +57,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @param array $item A singular item (one full row's worth of data)
 	 * @return string HTML to be placed inside the column <td>
 	 **************************************************************************/
-	function column_user_login( $item ) { // @codingStandardsIgnoreLine
+	function column_user_login( $item ) {
 
 		// Build row actions
 		$current_user = wp_get_current_user();
@@ -91,7 +91,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @see WP_List_Table::::single_row_columns()
 	 * @return array An associative array containing column information: 'slugs'=>'Visible Titles'
 	 **************************************************************************/
-	function get_columns() { // @codingStandardsIgnoreLine
+	function get_columns() {
 		$columns = [
 			'user_login'	=> 'Username',
 			'display_name'	=> 'Name',
@@ -106,7 +106,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 *
 	 * @return array An associative array containing all the columns that should be sortable: 'slugs'=>array('data_values',bool)
 	 **************************************************************************/
-	function get_sortable_columns() { // @codingStandardsIgnoreLine
+	function get_sortable_columns() {
 		$sortable_columns = [
 			'user_login' => [ 'user_login', true ], // True means it's already sorted
 			'display_name' => [ 'display_name', false ],
@@ -121,7 +121,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @param object $item The current item
 	 * @return string A row of cells
 	 */
-	function single_row( $item ) { // @codingStandardsIgnoreLine
+	function single_row( $item ) {
 		$class = '';
 		if ( ! empty( $item['restricted'] ) ) {
 			$class = 'restricted';
@@ -142,7 +142,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @uses $this->get_pagenum()
 	 * @uses $this->set_pagination_args()
 	 **************************************************************************/
-	function prepare_items() { // @codingStandardsIgnoreLine
+	function prepare_items() {
 		global $wpdb;
 
 		/**

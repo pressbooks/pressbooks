@@ -45,7 +45,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @return string Text or HTML to be placed inside the column <td>
 	 */
-	function column_default( $item, $column_name ) { // @codingStandardsIgnoreLine
+	function column_default( $item, $column_name ) {
 
 		if ( preg_match( '/^tag_\d+$/', $column_name ) ) {
 			return $this->renderTagColumn( $item, $column_name );
@@ -60,7 +60,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @return string Text to be placed inside the column <td>
 	 */
-	function column_title( $item ) { // @codingStandardsIgnoreLine
+	function column_title( $item ) {
 
 		list( $user_id, $blog_id ) = explode( ':', $item['ID'] );
 
@@ -88,7 +88,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @return string Text to be placed inside the column <td>
 	 */
-	function column_status( $item ) { // @codingStandardsIgnoreLine
+	function column_status( $item ) {
 
 		$add_url = sprintf( get_admin_url() . 'index.php?page=%s&action=%s&ID=%s', $_REQUEST['page'], 'add', $item['ID'] );
 		$add_url = esc_url( add_query_arg( '_wpnonce', wp_create_nonce( $item['ID'] ), $add_url ) );
@@ -125,7 +125,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @return string Text to be placed inside the column <td>
 	 */
-	function column_cover( $item ) { // @codingStandardsIgnoreLine
+	function column_cover( $item ) {
 
 		$img = esc_url( $item['cover'] );
 		$alt = esc_attr( $item['title'] );
@@ -145,7 +145,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @return string Text to be placed inside the column <td>
 	 */
-	function column_cb( $item ) { // @codingStandardsIgnoreLine
+	function column_cb( $item ) {
 		return sprintf(
 			'<input type="checkbox" name="%1$s[]" value="%2$s" />',
 			$this->_args['singular'], // Let's simply repurpose the table's singular label ("book")
@@ -159,7 +159,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @return array An associative array containing column information: 'slugs'=>'Visible Titles'
 	 */
-	function get_columns() { // @codingStandardsIgnoreLine
+	function get_columns() {
 
 		$profile = ( new Catalog() )->getProfile();
 
@@ -189,7 +189,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @return array An associative array containing all the columns that should be sortable: 'slugs'=>array('data_values',bool)
 	 */
-	function get_sortable_columns() { // @codingStandardsIgnoreLine
+	function get_sortable_columns() {
 
 		$sortable_columns = [
 			'status' => [ 'status', false ],
@@ -207,7 +207,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	/**
 	 * @return array An associative array containing all the bulk actions: 'slugs'=>'Visible Titles'
 	 */
-	function get_bulk_actions() { // @codingStandardsIgnoreLine
+	function get_bulk_actions() {
 
 		$actions = [
 			'add' => __( 'Show in Catalog', 'pressbooks' ),
@@ -224,7 +224,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 * get it ready to be displayed. At a minimum, we should set $this->items and
 	 * $this->set_pagination_args()
 	 */
-	function prepare_items() { // @codingStandardsIgnoreLine
+	function prepare_items() {
 
 		// Define Columns
 		$columns = $this->get_columns();
@@ -279,7 +279,7 @@ class Catalog_List_Table extends \WP_List_Table {
 	 *
 	 * @param bool $with_id
 	 */
-	function print_column_headers( $with_id = true ) { // @codingStandardsIgnoreLine
+	function print_column_headers( $with_id = true ) {
 		if ( isset( $_POST['pb_catalog_search'] ) ) {
 			if ( ! wp_verify_nonce( esc_attr( $_POST['pb_catalog_search'] ), 'pb_catalog_search' ) ) {
 				die( 'Security check.' );
@@ -302,13 +302,13 @@ class Catalog_List_Table extends \WP_List_Table {
 	}
 
 
-	function _js_vars() { // @codingStandardsIgnoreLine
+	function _js_vars() {
 
 		parent::_js_vars();
 	}
 
 
-	function ajax_response() { // @codingStandardsIgnoreLine
+	function ajax_response() {
 
 		parent::ajax_response();
 	}

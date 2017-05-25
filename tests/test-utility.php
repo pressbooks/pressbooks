@@ -3,6 +3,17 @@
 class UtilityTest extends \WP_UnitTestCase {
 
 	/**
+	 * @covers \Pressbooks\Utility\getset
+	 */
+	public function test_getset() {
+
+		$array = [ 'hello' => 'world' ];
+		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'hello' ), 'world' );
+		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'nothing' ), null );
+		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'nothing', 'something' ), 'something' );
+	}
+
+	/**
 	 * @covers \Pressbooks\Utility\scandir_by_date
 	 */
 	public function test_scandir_by_date() {

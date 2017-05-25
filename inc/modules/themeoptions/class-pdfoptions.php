@@ -5,8 +5,8 @@
  */
 namespace Pressbooks\Modules\ThemeOptions;
 
-use Pressbooks\Container;
 use Pressbooks\CustomCss;
+use function \Pressbooks\Utility\getset;
 
 class PDFOptions extends \Pressbooks\Options {
 
@@ -739,7 +739,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_page_width',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_page_width',
-			'value' => @$this->options['pdf_page_width'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_page_width' ),
 			'description' => $args[0],
 			'type' => 'text',
 			'class' => 'small-text',
@@ -755,7 +755,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_page_height',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_page_height',
-			'value' => @$this->options['pdf_page_height'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_page_height' ),
 			'description' => $args[0],
 			'type' => 'text',
 			'class' => 'small-text',
@@ -806,7 +806,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_page_margin_outside',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_page_margin_outside',
-			'value' => @$this->options['pdf_page_margin_outside'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_page_margin_outside' ),
 			'description' => $args[0],
 			'type' => 'text',
 			'class' => 'small-text',
@@ -822,7 +822,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_page_margin_inside',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_page_margin_inside',
-			'value' => @$this->options['pdf_page_margin_inside'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_page_margin_inside' ),
 			'description' => $args[0],
 			'type' => 'text',
 			'class' => 'small-text',
@@ -838,7 +838,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_page_margin_top',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_page_margin_top',
-			'value' => @$this->options['pdf_page_margin_top'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_page_margin_top' ),
 			'description' => $args[0],
 			'type' => 'text',
 			'class' => 'small-text',
@@ -854,7 +854,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_page_margin_bottom',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_page_margin_bottom',
-			'value' => @$this->options['pdf_page_margin_bottom'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_page_margin_bottom' ),
 			'description' => $args[0],
 			'type' => 'text',
 			'class' => 'small-text',
@@ -870,7 +870,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_hyphens',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_hyphens',
-			'value' => @$this->options['pdf_hyphens'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_hyphens' ),
 			'label' => $args[0],
 		] );
 	}
@@ -884,7 +884,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_paragraph_separation',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_paragraph_separation',
-			'value' => @$this->options['pdf_paragraph_separation'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_paragraph_separation' ),
 			'choices' => $args,
 		] );
 	}
@@ -898,7 +898,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_sectionopenings',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_sectionopenings',
-			'value' => @$this->options['pdf_sectionopenings'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_sectionopenings' ),
 			'choices' => $args,
 		] );
 	}
@@ -912,7 +912,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_toc',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_toc',
-			'value' => @$this->options['pdf_toc'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_toc' ),
 			'label' => $args[0],
 		] );
 	}
@@ -926,7 +926,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_image_resolution',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_image_resolution',
-			'value' => @$this->options['pdf_image_resolution'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_image_resolution' ),
 			'choices' => $args,
 		] );
 	}
@@ -940,7 +940,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_crop_marks',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_crop_marks',
-			'value' => @$this->options['pdf_crop_marks'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_crop_marks' ),
 			'label' => $args[0],
 		] );
 	}
@@ -954,7 +954,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_romanize_parts',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_romanize_parts',
-			'value' => @$this->options['pdf_romanize_parts'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_romanize_parts' ),
 			'label' => $args[0],
 		] );
 	}
@@ -968,7 +968,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_footnotes_style',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_footnotes_style',
-			'value' => @$this->options['pdf_footnotes_style'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_footnotes_style' ),
 			'choices' => $args,
 		] );
 	}
@@ -982,7 +982,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'widows',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'widows',
-			'value' => @$this->options['widows'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'widows' ),
 			'type' => 'text',
 			'class' => 'small-text',
 		] );
@@ -997,7 +997,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'orphans',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'orphans',
-			'value' => @$this->options['orphans'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'orphans' ),
 			'type' => 'text',
 			'class' => 'small-text',
 		] );
@@ -1020,14 +1020,14 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderCustomSelect( [
 			'id' => 'running_content_front_matter_left',
 			'name' => 'running_content_front_matter_left',
-			'value' => @$this->options['running_content_front_matter_left'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_front_matter_left' ),
 			'choices' => $args,
 		] );
 		$this->renderField( [
 			'id' => 'running_content_front_matter_left',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'running_content_front_matter_left',
-			'value' => @$this->options['running_content_front_matter_left'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_front_matter_left' ),
 			'type' => 'text',
 			'class' => 'regular-text code',
 		] );
@@ -1041,14 +1041,14 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderCustomSelect( [
 			'id' => 'running_content_front_matter_right',
 			'name' => 'running_content_front_matter_right',
-			'value' => @$this->options['running_content_front_matter_right'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_front_matter_right' ),
 			'choices' => $args,
 		] );
 		$this->renderField( [
 			'id' => 'running_content_front_matter_right',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'running_content_front_matter_right',
-			'value' => @$this->options['running_content_front_matter_right'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_front_matter_right' ),
 			'type' => 'text',
 			'class' => 'regular-text code',
 		] );
@@ -1062,14 +1062,14 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderCustomSelect( [
 			'id' => 'running_content_introduction_left',
 			'name' => 'running_content_introduction_left',
-			'value' => @$this->options['running_content_introduction_left'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_introduction_left' ),
 			'choices' => $args,
 		] );
 		$this->renderField( [
 			'id' => 'running_content_introduction_left',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'running_content_introduction_left',
-			'value' => @$this->options['running_content_introduction_left'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_introduction_left' ),
 			'type' => 'text',
 			'class' => 'regular-text code',
 		] );
@@ -1083,14 +1083,14 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderCustomSelect( [
 			'id' => 'running_content_introduction_right',
 			'name' => 'running_content_introduction_right',
-			'value' => @$this->options['running_content_introduction_right'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_introduction_right' ),
 			'choices' => $args,
 		] );
 		$this->renderField( [
 			'id' => 'running_content_introduction_right',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'running_content_introduction_right',
-			'value' => @$this->options['running_content_introduction_right'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_introduction_right' ),
 			'type' => 'text',
 			'class' => 'regular-text code',
 		] );
@@ -1104,14 +1104,14 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderCustomSelect( [
 			'id' => 'running_content_part_left',
 			'name' => 'running_content_part_left',
-			'value' => @$this->options['running_content_part_left'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_part_left' ),
 			'choices' => $args,
 		] );
 		$this->renderField( [
 			'id' => 'running_content_part_left',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'running_content_part_left',
-			'value' => @$this->options['running_content_part_left'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_part_left' ),
 			'type' => 'text',
 			'class' => 'regular-text code',
 		] );
@@ -1125,14 +1125,14 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderCustomSelect( [
 			'id' => 'running_content_part_right',
 			'name' => 'running_content_part_right',
-			'value' => @$this->options['running_content_part_right'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_part_right' ),
 			'choices' => $args,
 		] );
 		$this->renderField( [
 			'id' => 'running_content_part_right',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'running_content_part_right',
-			'value' => @$this->options['running_content_part_right'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_part_right' ),
 			'type' => 'text',
 			'class' => 'regular-text code',
 		] );
@@ -1146,14 +1146,14 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderCustomSelect( [
 			'id' => 'running_content_chapter_left',
 			'name' => 'running_content_chapter_left',
-			'value' => @$this->options['running_content_chapter_left'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_chapter_left' ),
 			'choices' => $args,
 		] );
 		$this->renderField( [
 			'id' => 'running_content_chapter_left',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'running_content_chapter_left',
-			'value' => @$this->options['running_content_chapter_left'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_chapter_left' ),
 			'type' => 'text',
 			'class' => 'regular-text code',
 		] );
@@ -1167,14 +1167,14 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderCustomSelect( [
 			'id' => 'running_content_chapter_right',
 			'name' => 'running_content_chapter_right',
-			'value' => @$this->options['running_content_chapter_right'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_chapter_right' ),
 			'choices' => $args,
 		] );
 		$this->renderField( [
 			'id' => 'running_content_chapter_right',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'running_content_chapter_right',
-			'value' => @$this->options['running_content_chapter_right'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_chapter_right' ),
 			'type' => 'text',
 			'class' => 'regular-text code',
 		] );
@@ -1188,14 +1188,14 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderCustomSelect( [
 			'id' => 'running_content_back_matter_left',
 			'name' => 'running_content_back_matter_left',
-			'value' => @$this->options['running_content_back_matter_left'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_back_matter_left' ),
 			'choices' => $args,
 		] );
 		$this->renderField( [
 			'id' => 'running_content_back_matter_left',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'running_content_back_matter_left',
-			'value' => @$this->options['running_content_back_matter_left'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_back_matter_left' ),
 			'type' => 'text',
 			'class' => 'regular-text code',
 		] );
@@ -1209,14 +1209,14 @@ class PDFOptions extends \Pressbooks\Options {
 		$this->renderCustomSelect( [
 			'id' => 'running_content_back_matter_right',
 			'name' => 'running_content_back_matter_right',
-			'value' => @$this->options['running_content_back_matter_right'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_back_matter_right' ),
 			'choices' => $args,
 		] );
 		$this->renderField( [
 			'id' => 'running_content_back_matter_right',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'running_content_back_matter_right',
-			'value' => @$this->options['running_content_back_matter_right'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'running_content_back_matter_right' ),
 			'type' => 'text',
 			'class' => 'regular-text code',
 		] );
@@ -1231,7 +1231,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'id' => 'pdf_fontsize',
 			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 			'option' => 'pdf_fontsize',
-			'value' => @$this->options['pdf_fontsize'], // @codingStandardsIgnoreLine
+			'value' => getset( $this->options, 'pdf_fontsize' ),
 			'label' => $args[0],
 		] );
 	}

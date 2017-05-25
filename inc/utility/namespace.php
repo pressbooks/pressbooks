@@ -7,7 +7,18 @@
  */
 namespace Pressbooks\Utility;
 
-use Pressbooks\Utility\JsonManifest;
+/**
+ * Return array value even if is not set
+ *
+ * @param array $arr
+ * @param string $key
+ * @param mixed $default
+ *
+ * @return mixed
+ */
+function getset( array $arr, $key, $default = null ) {
+	return isset( $arr[ $key ] ) ? $arr[ $key ] : $default;
+}
 
 /**
  * Scan a directory and return the files ordered by date, newest first.
@@ -241,7 +252,9 @@ function do_sitemap() {
  * @return string Path to temporary file
  */
 function create_tmp_file() {
-	return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ) ) ); // @codingStandardsIgnoreLine
+	$stream = stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() );
+
+	return $stream['uri'];
 }
 
 /**
@@ -727,8 +740,7 @@ function template( $path, array $vars = [] ) {
 	}
 
 	ob_start();
-	// @codingStandardsIgnoreLine
-	extract( $vars );
+	extract( $vars ); // @codingStandardsIgnoreLine
 	include( $path );
 	$output = ob_get_contents();
 	ob_end_clean();

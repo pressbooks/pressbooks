@@ -195,13 +195,13 @@ class Xhtml11 extends Export {
 
 		if ( ! empty( $_GET['style'] ) ) {
 			$url = \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . $_GET['style'] . '.css';
-			echo "<link rel='stylesheet' href='$url' type='text/css' />\n"; // @codingStandardsIgnoreLine
+			echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
 		}
 
 		if ( ! empty( $_GET['script'] ) ) {
 			$url = $this->getExportScriptUrl( $_GET['script'] ) . '/script.js';
 			if ( $url ) {
-				echo "<script src='$url' type='text/javascript'></script>\n"; // @codingStandardsIgnoreLine
+				echo "<script src='$url' type='text/javascript'></script>\n";
 			}
 		}
 
@@ -381,7 +381,6 @@ class Xhtml11 extends Export {
 			foreach ( $struct as $i => $val ) {
 
 				if ( isset( $val['post_content'] ) ) {
-					// @codingStandardsIgnoreLine
 					$id = $val['ID'];
 					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
 				}
@@ -398,7 +397,6 @@ class Xhtml11 extends Export {
 					foreach ( $book_contents[ $type ][ $i ]['chapters'] as $j => $val2 ) {
 
 						if ( isset( $val2['post_content'] ) ) {
-							// @codingStandardsIgnoreLine
 							$id = $val2['ID'];
 							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
 						}
@@ -413,7 +411,6 @@ class Xhtml11 extends Export {
 			}
 		}
 
-		// @codingStandardsIgnoreLine
 		$id = $old_id;
 		return $book_contents;
 	}

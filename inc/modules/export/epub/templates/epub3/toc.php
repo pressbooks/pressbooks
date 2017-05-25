@@ -14,7 +14,7 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 	<head>
 		<meta http-equiv="default-style" content="text/html; charset=utf-8"/>
 		<title><?php bloginfo( 'name' ); ?> </title>
-		<?php // @codingStandardsIgnoreLine
+		<?php
 		if ( ! empty( $stylesheet ) ) :  ?><link rel="stylesheet" href="<?php echo $stylesheet; ?>" type="text/css" /><?php endif; ?>
 	</head>
 
