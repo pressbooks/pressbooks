@@ -9,9 +9,6 @@
 	<!-- Show progress -->
 	<arg value="p" />
 
-	<!-- Ignore warnings -->
-	<arg value="n" />
-
   <!-- Use HM Coding Standards -->
   <rule ref="vendor/humanmade/coding-standards">
     <!-- Disable all ESLint checks -->
@@ -29,9 +26,13 @@
   <rule ref="Generic.NamingConventions.UpperCaseConstantName" />
   <rule ref="PSR1.Methods.CamelCapsMethodName" />
 
-  <!-- Disable Side Effects rule for the bootstrapping file -->
+  <!-- Disable Side Effects rule for the bootstrapping file and those where we have to include WordPress core files. -->
   <rule ref="PSR1.Files.SideEffects">
     <exclude-pattern>pressbooks.php</exclude-pattern>
+		<exclude-pattern>/inc/modules/export/epub/class-epub201.php</exclude-pattern>
+		<exclude-pattern>/inc/modules/export/epub/class-epub3.php</exclude-pattern>
+		<exclude-pattern>/inc/modules/export/odt/class-odt.php</exclude-pattern>
+		<exclude-pattern>/inc/modules/import/class-import.php</exclude-pattern>
   </rule>
 
   <!-- Exclude functions.php, bower_components, node_modules, templates, tests, themes-*, symbionts and vendor directories -->
