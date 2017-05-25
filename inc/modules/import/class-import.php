@@ -459,8 +459,8 @@ abstract class Import {
 	 * @return bool
 	 */
 	static function isFormSubmission() {
-		if ( isset( $_REQUEST['page'] ) && 'pb_import' !== $_REQUEST['page'] ) {
-			return false;
+		if ( 'pb_import' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
+				return false;
 		}
 
 		// @codingStandardsIgnoreLine

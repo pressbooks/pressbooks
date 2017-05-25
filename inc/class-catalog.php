@@ -998,8 +998,7 @@ class Catalog {
 	 * @return bool
 	 */
 	static function isFormSubmission() {
-
-		if ( isset( $_REQUEST['page'] ) && 'pb_catalog' !== $_REQUEST['page'] ) {
+		if ( 'pb_catalog' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
 			return false;
 		}
 

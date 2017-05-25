@@ -185,8 +185,7 @@ class CustomCss {
 	 * @return bool
 	 */
 	static function isFormSubmission() {
-
-		if ( isset( $_REQUEST['page'] ) && 'pb_custom_css' !== $_REQUEST['page'] ) {
+		if ( 'pb_custom_css' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
 			return false;
 		}
 

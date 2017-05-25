@@ -811,8 +811,7 @@ abstract class Export {
 	 * @return bool
 	 */
 	static function isFormSubmission() {
-
-		if ( isset( $_REQUEST['page'] ) && 'pb_export' !== $_REQUEST['page'] ) {
+		if ( 'pb_export' !== @$_REQUEST['page'] ) { // @codingStandardsIgnoreLine
 			return false;
 		}
 
