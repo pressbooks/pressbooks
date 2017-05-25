@@ -237,22 +237,11 @@ function do_sitemap() {
 
 /**
  * Create a temporary file that automatically gets deleted when PHP ends.
- * See: https://dpb587.me/blog/2013/03/05/path-based-tmpfile-in-php.html
  *
- * @author Danny Berger <dpb587@gmail.com>
- * @since 4.0.0
  * @return string Path to temporary file
  */
 function create_tmp_file() {
-	$path = stream_get_meta_data( tmpfile() )['uri'];
-
-	register_shutdown_function(
-		function () use ( $path ) {
-			unlink( $path );
-		}
-	);
-
-	return $path;
+	return array_search( 'uri', @array_flip( stream_get_meta_data( $GLOBALS[ mt_rand() ] = tmpfile() ) ) ); // @codingStandardsIgnoreLine
 }
 
 /**

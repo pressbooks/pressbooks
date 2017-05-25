@@ -23,7 +23,7 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
+	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::langShortcode
 	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::greek
 	 */
 	public function test_langShortcode_grk() {
@@ -47,7 +47,7 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
+	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::langShortcode
 	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::hebrew
 	 */
 	public function test_langShortcode_he() {
@@ -63,7 +63,7 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
+	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::langShortcode
 	 */
 	public function test_langShortcode_bad() {
 
