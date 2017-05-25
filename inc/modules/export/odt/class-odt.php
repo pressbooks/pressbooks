@@ -87,7 +87,7 @@ class Odt extends Export {
 
 		file_put_contents( $source, $this->queryXhtml() );
 
-		$xslt			= PB_PLUGIN_DIR . 'includes/modules/export/odt/xhtml2odt.xsl';
+		$xslt			= PB_PLUGIN_DIR . 'inc/modules/export/odt/xhtml2odt.xsl';
 		$content		= $content_path['dirname'] . '/content.xml';
 		$mimetype		= $content_path['dirname'] . '/mimetype';
 		$metafolder		= $content_path['dirname'] . '/META-INF';
