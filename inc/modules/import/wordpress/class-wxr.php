@@ -347,6 +347,7 @@ class Wxr extends Import {
 	 * @param array $p Single Item Returned From \Pressbooks\Modules\Import\WordPress\Parser::parse
 	 * @param string $html
 	 * @param int $chapter_parent
+	 * @param string $post_status
 	 *
 	 * @return int Post ID
 	 */
@@ -478,6 +479,7 @@ class Wxr extends Import {
 		$images = $doc->getElementsByTagName( 'img' );
 
 		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$old_src = $image->getAttribute( 'src' );
 

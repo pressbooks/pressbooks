@@ -142,6 +142,7 @@ class Docx extends Import {
 	 *
 	 * @param \DOMDocument $dom_doc
 	 * @param string $tag
+	 * @param string $attr
 	 *
 	 * @return array
 	 */
@@ -154,6 +155,7 @@ class Docx extends Import {
 		// if footnotes are in the document, get the ids
 		if ( $tags_fn_ref->length > 0 ) {
 			foreach ( $tags_fn_ref as $id ) {
+				/** @var \DOMElement $id */
 				if ( '' !== $id->getAttribute( $attr ) ) { // don't add if its empty
 					$fn_ids[] = $id->getAttribute( $attr );
 				}
@@ -231,6 +233,7 @@ class Docx extends Import {
 	 * @param string $title
 	 * @param string $post_type (front-matter', 'chapter', 'back-matter')
 	 * @param int $chapter_parent
+	 * @param string $post_status
 	 */
 	protected function kneadAndInsert( $html, $title, $post_type, $chapter_parent, $post_status ) {
 
@@ -296,6 +299,7 @@ class Docx extends Import {
 
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$old_src = $image->getAttribute( 'src' );
 			$new_src = $this->fetchAndSaveUniqueImage( $old_src );
@@ -495,6 +499,7 @@ class Docx extends Import {
 
 		if ( $ln->length > 0 ) {
 			foreach ( $ln as $link ) {
+				/** @var \DOMElement $link */
 				if ( $link->hasAttribute( 'class' ) ) {
 					$ln_id = $link->getAttribute( 'class' );
 
@@ -517,6 +522,7 @@ class Docx extends Import {
 		$fn_candidates = $chapter->getelementsByTagName( 'a' );
 		$fn_ids = [];
 		foreach ( $fn_candidates as $fn_candidate ) {
+			/** @var \DOMElement $fn_candidate */
 			$href = $fn_candidate->getAttribute( 'href' );
 			if ( ! empty( $href ) ) {
 				$fn_matches = null;
@@ -528,6 +534,7 @@ class Docx extends Import {
 
 		// TODO either/or is not sufficient, needs to be built to
 		// cover a use case where both are present.
+		$notes = [];
 		if ( ! empty( $this->fn ) ) {
 			$notes = $this->fn;
 		}
@@ -563,7 +570,7 @@ class Docx extends Import {
 	 * @param \DOMNode $node
 	 * @param string $chapter_name
 	 *
-	 * @return \DOMNode
+	 * @return \DOMNode|mixed
 	 */
 	protected function findTheNode( \DOMNode $node, $chapter_name ) {
 

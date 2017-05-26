@@ -107,6 +107,7 @@ class Odt extends Import {
 	 * @param string $title
 	 * @param string $post_type (front-matter', 'chapter', 'back-matter')
 	 * @param int $chapter_parent
+	 * @param string $post_status
 	 */
 	protected function kneadAndInsert( $html, $title, $post_type, $chapter_parent, $post_status ) {
 
@@ -174,6 +175,7 @@ class Odt extends Import {
 
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$old_src = $image->getAttribute( 'src' );
 			$new_src = $this->fetchAndSaveUniqueImage( $old_src );
@@ -344,7 +346,7 @@ class Odt extends Import {
 	 * @param \DOMNode $node
 	 * @param string $chapter_name
 	 *
-	 * @return \DOMNode
+	 * @return \DOMNode|mixed
 	 */
 	protected function findTheNode( \DOMNode $node, $chapter_name ) {
 

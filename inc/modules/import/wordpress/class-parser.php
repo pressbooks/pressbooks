@@ -128,6 +128,7 @@ class Parser {
 
 		// grab posts
 		foreach ( $xml->channel->item as $item ) {
+			/** @var \SimpleXMLElement $item */
 			$post = [
 				'post_title' => (string) $item->title,
 				'guid' => (string) $item->guid,

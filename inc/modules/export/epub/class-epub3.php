@@ -391,7 +391,7 @@ class Epub3 extends Epub201 {
 
 			$sources = $doc->getElementsByTagName( $tag );
 			foreach ( $sources as $source ) {
-
+				/** @var $source \DOMElement */
 				if ( ! empty( $source->getAttribute( 'src' ) ) ) {
 					// Fetch the audio file
 					$url = $source->getAttribute( 'src' );

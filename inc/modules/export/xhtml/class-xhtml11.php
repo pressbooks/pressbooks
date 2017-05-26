@@ -855,7 +855,7 @@ class Xhtml11 extends Export {
 					echo '</a>';
 
 					if ( \Pressbooks\Modules\Export\Export::isParsingSubsections() === true ) {
-						$sections = \Pressbooks\Book::getSubsections( $val['ID'], true );
+						$sections = \Pressbooks\Book::getSubsections( $val['ID'] );
 						if ( $sections ) {
 							echo '<ul class="sections">';
 							foreach ( $sections as $id => $title ) {

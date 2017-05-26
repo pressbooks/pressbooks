@@ -81,7 +81,7 @@ class Epub201 extends Import {
 
 		$xml = $this->getOpf();
 		foreach ( $xml->manifest->children() as $item ) {
-
+			/** @var \SimpleXMLElement $item */
 			// Get attributes
 			$id = $title = $type = $href = '';
 			foreach ( $item->attributes() as $key => $val ) {
@@ -170,12 +170,13 @@ class Epub201 extends Import {
 	 * @param \SimpleXMLElement $xml
 	 * @param array $match_ids
 	 * @param $chapter_parent
+	 * @param array $current_import
 	 */
 	protected function parseManifest( \SimpleXMLElement $xml, array $match_ids, $chapter_parent, $current_import ) {
 
 		$total = 0;
 		foreach ( $xml->manifest->children() as $item ) {
-
+			/** @var \SimpleXMLElement $item */
 			// Get attributes
 			$id = $href = '';
 			foreach ( $item->attributes() as $key => $val ) {
@@ -284,6 +285,7 @@ class Epub201 extends Import {
 	 * @param string $href
 	 * @param string $post_type
 	 * @param int $chapter_parent
+	 * @param string $post_status
 	 */
 	protected function kneadAndInsert( $href, $post_type, $chapter_parent, $post_status ) {
 
@@ -442,6 +444,7 @@ class Epub201 extends Import {
 
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$old_src = $image->getAttribute( 'src' );
 			$new_src = $this->fetchAndSaveUniqueImage( $old_src, $href );
