@@ -85,6 +85,9 @@ class SearchAndReplace {
 		if ( \Pressbooks\Modules\SearchAndReplace\Search::valid_search( $source ) && ( isset( $_POST['search'] ) || isset( $_POST['replace'] ) || isset( $_POST['replace_and_save'] ) ) ) {
 			$searcher = new $source;
 
+			// Enable regex mode
+			$searcher->regex = ! empty( $_POST['regex'] );
+
 			// Make sure no one sneaks in with a replace
 			if ( ! current_user_can( 'administrator' ) ) {
 				unset( $_POST['replace'] );
