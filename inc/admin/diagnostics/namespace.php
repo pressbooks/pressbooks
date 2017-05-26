@@ -14,7 +14,7 @@ use Sinergi\BrowserDetector\UserAgent;
  */
 
 function add_menu() {
-	$page = add_submenu_page(
+	add_submenu_page(
 		'options.php',
 		__( 'Diagnostics', 'pressbooks' ),
 		__( 'Diagnostics', 'pressbooks' ),
@@ -89,7 +89,7 @@ $output .= 'xmllint: ' . ( \Pressbooks\Utility\check_xmllint_install() ? 'Instal
 $output .= 'PrinceXML: ' . ( \Pressbooks\Utility\check_prince_install() ? 'Installed' : 'Not Installed' ) . "\n"; // TODO: version
 $output .= 'Saxon-HE: ' . ( \Pressbooks\Utility\check_saxonhe_install() ? 'Installed' : 'Not Installed' ) . "\n\n"; // TODO: version
 $muplugins = get_mu_plugins();
-if ( count( $muplugins > 0 ) ) {
+if ( count( $muplugins ) > 0 ) {
 	$output .= '#### Must-Use Plugins' . "\n\n";
 	foreach ( $muplugins as $plugin => $plugin_data ) {
 		$output .= $plugin_data['Name'] . ': ' . ( $plugin_data['Version'] ? $plugin_data['Version'] : 'n/a' ) . "\n";

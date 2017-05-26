@@ -7,7 +7,6 @@ namespace Pressbooks\Modules\Export\Prince;
 
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Container;
-use PrinceXMLPhp\PrinceWrapper;
 
 class Pdf extends Export {
 
@@ -49,6 +48,16 @@ class Pdf extends Export {
 	 * @var string
 	 */
 	protected $cssOverrides;
+
+	/**
+	 * @var string
+	 */
+	protected $pdfProfile;
+
+	/**
+	 * @var string
+	 */
+	protected $pdfOutputIntent;
 
 
 	/**
@@ -181,18 +190,24 @@ class Pdf extends Export {
 		return ( strpos( $mime, 'application/pdf' ) !== false );
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function getPdfProfile() {
 		if ( defined( 'PB_PDF_PROFILE' ) ) {
 			return PB_PDF_PROFILE;
 		}
-		return null;
+		return '';
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function getPdfOutputIntent() {
 		if ( defined( 'PB_PDF_OUTPUT_INTENT' ) ) {
 			return PB_PDF_OUTPUT_INTENT;
 		}
-		return null;
+		return '';
 	}
 
 	/**

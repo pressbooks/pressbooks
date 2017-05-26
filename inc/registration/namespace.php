@@ -115,6 +115,8 @@ function add_password_field( $errors ) {
  * Validate user submitted passwords
  *
  * @param array $content
+ *
+ * @return array
  */
 function validate_passwords( $content ) {
 	if ( isset( $_POST['_signup_form'] ) && ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
@@ -146,8 +148,9 @@ function validate_passwords( $content ) {
  * Add password to temporary user meta
  *
  * @param array $meta
+ *
+ * @return array
  */
-
 function add_temporary_password( $meta ) {
 	if ( isset( $_POST['_signup_form'] ) && ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
 		wp_die( __( 'Please try again.', 'pressbooks' ) );
@@ -180,8 +183,11 @@ function add_hidden_password_field() {
 
 /**
  * Override wp_generate_password() once when we're generating our form
+ *
+ * @param string $password
+ *
+ * @return string
  */
-
 function override_password_generation( $password ) {
 	if ( isset( $_POST['_signup_form'] ) && ! wp_verify_nonce( $_POST['_signup_form'], 'signup_form_' . $_POST['signup_form_id'] ) ) {
 		wp_die( __( 'Please try again.', 'pressbooks' ) );

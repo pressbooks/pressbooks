@@ -14,23 +14,11 @@ class PrintPdf extends Pdf {
 	 */
 	function __construct( array $args ) {
 
-		// Some defaults
+		parent::__construct( $args );
 
-		if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
-			define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
-		}
-
-		$this->exportStylePath = $this->getExportStylePath( 'prince' );
-		$this->exportScriptPath = $this->getExportScriptPath( 'prince' );
+		// Override
 		$this->pdfProfile = 'PDF/X-1a';
 		$this->pdfOutputIntent = '/usr/lib/prince/icc/USWebCoatedSWOP.icc';
-
-		// Set the access protected "format/xhtml" URL with a valid timestamp and NONCE
-		$timestamp = time();
-		$md5 = $this->nonce( $timestamp );
-		$this->url = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
-
-		$this->themeOptionsOverrides();
 	}
 
 

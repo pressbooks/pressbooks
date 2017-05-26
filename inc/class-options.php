@@ -6,6 +6,14 @@
 
 namespace Pressbooks;
 
+/**
+ * @property array booleans
+ * @property array strings
+ * @property array urls
+ * @property array integers
+ * @property array floats
+ * @property array predefined
+ */
 abstract class Options {
 
 	/**
@@ -294,7 +302,7 @@ abstract class Options {
 			);
 		}
 		printf(
-			'<select name="%s[%s]" id="%s"%s%s>%s</select>',
+			'<select name="%s[%s]" id="%s" %s%s>%s</select>',
 			$args['name'],
 			$args['option'],
 			$args['id'],
@@ -335,7 +343,7 @@ abstract class Options {
 			);
 		}
 		printf(
-			'<select name="%s" id="%s"%s%s>%s</select><br />',
+			'<select name="%s" id="%s" %s%s>%s</select><br />',
 			$args['name'],
 			$args['id'],
 			( $args['multiple'] ) ? ' multiple' : '',

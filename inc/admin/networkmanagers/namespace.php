@@ -112,7 +112,7 @@ function is_restricted() {
 }
 
 /**
- *
+ * @param \WP_Admin_Bar $wp_admin_bar
  */
 function hide_admin_bar_menus( $wp_admin_bar ) {
 	if ( is_restricted() ) {
@@ -121,7 +121,8 @@ function hide_admin_bar_menus( $wp_admin_bar ) {
 }
 
 /**
- *
+ * @param string $classes
+ * @return string
  */
 function admin_body_class( $classes ) {
 	if ( is_restricted() ) {

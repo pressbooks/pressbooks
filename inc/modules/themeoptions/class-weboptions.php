@@ -323,6 +323,10 @@ class WebOptions extends \Pressbooks\Options {
 	/**
 	 * Apply overrides.
 	 *
+	 * @param string $scss
+	 *
+	 * @return string
+	 *
 	 * @since 3.9.8
 	 */
 	static function scssOverrides( $scss ) {

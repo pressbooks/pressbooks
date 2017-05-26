@@ -307,7 +307,7 @@ class GlobalTypography {
 						}
 						$result = download_url( $val['baseurl'] . $font );
 						if ( is_wp_error( $result ) ) {
-							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $baseurl . $font . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
+							$_SESSION['pb_errors'][] = sprintf( __( 'Your %1$s font could not be downloaded from %2$s.', 'pressbooks' ), $language_names[ $language ], '<code>' . $val['baseurl'] . $font . '</code>' ) . '<br /><pre>' . $result->get_error_message() . '</pre>';
 							return false;
 						} else {
 							rename( $result, $basepath . $font );

@@ -402,7 +402,7 @@ function do_open() {
  * Callback function that strips whitespace characters
  *
  * @see array_filter()
- * @param array $value
+ * @param string $value
  */
 function trim_value( &$value ) {
 	$value = trim( $value );

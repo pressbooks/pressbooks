@@ -222,7 +222,7 @@ class Metadata {
 		];
 
 		// nothing meaningful to hit the api with, so bail
-		if ( ! array_key_exists( $type, $expected, true ) ) {
+		if ( ! array_key_exists( $type, $expected ) ) {
 			return '';
 		}
 

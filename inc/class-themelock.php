@@ -27,7 +27,7 @@ class ThemeLock {
 	}
 
 	/**
-	 *
+	 * @return string
 	 */
 	static function getLockDirURI() {
 		$wp_upload_dir = wp_upload_dir();
@@ -36,8 +36,13 @@ class ThemeLock {
 		return $lock_dir_uri;
 	}
 
+
 	/**
+	 * @param array $old_value
+	 * @param array $value
+	 * @param $option
 	 *
+	 * @return mixed
 	 */
 	static function toggleThemeLock( $old_value, $value, $option ) {
 		if ( isset( $value['theme_lock'] ) && 1 === absint( $value['theme_lock'] ) ) {
@@ -45,12 +50,13 @@ class ThemeLock {
 		} elseif ( 1 === absint( $old_value['theme_lock'] ) && ! isset( $value['theme_lock'] ) ) {
 			return ThemeLock::unlockTheme();
 		}
+		return false;
 	}
 
 	/**
 	 * Lock the current theme by copying assets to the lock directory and generating a timestamped lockfile.
 	 *
-	 * @return int
+	 * @return mixed
 	 */
 	static function lockTheme() {
 		if ( true === ThemeLock::copyAssets() ) {
@@ -82,6 +88,11 @@ class ThemeLock {
 		return \Pressbooks\Utility\rcopy( realpath( get_stylesheet_directory() ), ThemeLock::getLockDir() );
 	}
 
+	/**
+	 * @param $time
+	 *
+	 * @return array
+	 */
 	static function generateLock( $time ) {
 		$theme = wp_get_theme();
 		$data = [
@@ -96,6 +107,9 @@ class ThemeLock {
 		return $data;
 	}
 
+	/**
+	 * @return \WP_Theme
+	 */
 	static function unlockTheme() {
 		rmrdir( ThemeLock::getLockDir() );
 		$_SESSION['pb_notices'][] = sprintf( '<strong>%s</strong>', __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ) );
@@ -134,8 +148,7 @@ class ThemeLock {
 		$locked = \Pressbooks\ThemeLock::isLocked();
 		if ( $locked ) {
 			$data = \Pressbooks\ThemeLock::getLockData();
-		}
-		if ( $locked ) {
+
 			// Redirect and notify users of theme lock status.
 
 			$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );

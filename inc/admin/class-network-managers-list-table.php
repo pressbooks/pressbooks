@@ -119,7 +119,6 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * Set up classes for a single row based on active status
 	 *
 	 * @param object $item The current item
-	 * @return string A row of cells
 	 */
 	function single_row( $item ) {
 		$class = '';
@@ -143,7 +142,6 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @uses $this->set_pagination_args()
 	 **************************************************************************/
 	function prepare_items() {
-		global $wpdb;
 
 		/**
 		 * Define column headers.

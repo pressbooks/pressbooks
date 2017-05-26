@@ -152,6 +152,10 @@ class GlobalOptions extends \Pressbooks\Options {
 
 	/**
 	 * Sanitize the languages (just returns the array or an empty array, as these are predefined values).
+	 *
+	 * @param mixed $input
+	 *
+	 * @return array
 	 */
 	function sanitizeLanguages( $input ) {
 		if ( ! is_array( $input ) ) {

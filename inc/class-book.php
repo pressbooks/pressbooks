@@ -426,12 +426,14 @@ class Book {
 		$doc->loadHTML( $content );
 		$sections = $doc->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
+			/** @var $section \DOMElement */
 			$section->setAttribute( 'id', $type . '-' . $id . '-section-' . $s++ );
 			$section->setAttribute( 'class', 'section-header' );
 		}
 		$xpath = new \DOMXPath( $doc );
 		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 			foreach ( $nodes as $node ) {
+				/** @var $node \DOMElement */
 				$node->appendChild( new \DOMText( '' ) );
 			}
 		}
@@ -805,8 +807,6 @@ class Book {
 		$order = $post_to_delete->menu_order;
 		$type = $post_to_delete->post_type;
 		$parent = $post_to_delete->post_parent;
-
-		$query = "UPDATE {$wpdb->posts} SET menu_order = menu_order - 1 WHERE menu_order > {$order} AND post_type = '{$type}' ";
 
 		if ( 'chapter' === $type ) {
 			$success = $wpdb->query(

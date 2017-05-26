@@ -57,6 +57,10 @@ function mce_buttons_3( $buttons ) {
 
 /**
  * Adds Javascript for buttons above.
+ *
+ * @param array $plugin_array
+ *
+ * @return array
  */
 function mce_button_scripts( $plugin_array ) {
 	$plugin_array['apply_class'] = \Pressbooks\Utility\asset_path( 'scripts/applyclass.js' );
@@ -68,6 +72,10 @@ function mce_button_scripts( $plugin_array ) {
 
 /**
  * Adds Pressbooks custom CSS classes to the style select dropdown initiated above.
+ *
+ * @param array $init_array
+ *
+ * @return array
  */
 function mce_before_init_insert_formats( $init_array ) {
 

@@ -31,6 +31,7 @@ class ThemeOptions {
 		foreach ( $this->tabs as $slug => $subclass ) {
 			add_filter( 'pressbooks_theme_options_' . $slug . '_defaults', [ $subclass, 'filterDefaults' ], 10, 1 );
 			$option = get_option( 'pressbooks_theme_options_' . $slug, $subclass::getDefaults() );
+			/** @var \Pressbooks\Options $tab */
 			$tab = new $subclass( $option );
 			$tab->init();
 			wp_cache_delete( 'pressbooks_theme_options_' . $slug . '_version', 'options' );
@@ -80,7 +81,7 @@ class ThemeOptions {
 
 	/**
 	 * Returns a filtered array of tabs that we should be loading.
-	 * @returns array
+	 * @returns \Pressbooks\Options[]
 	 */
 	static function getTabs() {
 		$tabs = [

@@ -224,7 +224,6 @@ function latest_exports() {
 			$latest[ $type ] = $files[ $ext ][0];
 		}
 	}
-	// @TODO filter these results against user prefs
 
 	return $latest;
 }
@@ -406,9 +405,11 @@ function check_saxonhe_install() {
 /**
  * Function to determine whether or not experimental features should be visible to users.
  *
+ * @param $host string
+ *
  * @return boolean
  */
-function show_experimental_features( $host = null ) {
+function show_experimental_features( $host = '' ) {
 
 	if ( ! $host ) {
 		$host = parse_url( network_site_url(), PHP_URL_HOST );
@@ -606,7 +607,7 @@ function fetch_recommended_plugins() {
 		$request = wp_remote_get( $http_url, [ 'timeout' => 15 ] );
 	}
 	if ( is_wp_error( $request ) ) {
-		$res = new WP_Error( 'plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
+		$res = new \WP_Error( 'plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
 			$request->get_error_message()
 		);
 	} else {
@@ -617,7 +618,7 @@ function fetch_recommended_plugins() {
 			return $plugin;
 		}, $res->plugins );
 		if ( ! is_object( $res ) && ! is_array( $res ) ) {
-			$res = new WP_Error( 'plugins_api_failed',
+			$res = new \WP_Error( 'plugins_api_failed',
 				__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
 				wp_remote_retrieve_body( $request )
 			);
@@ -691,6 +692,10 @@ function parse_size( $size ) {
 
 /**
  * format_bytes converts an byte value supplied as an integer into a string suffixed with the appropriate unit of measurement.
+ *
+ * @param float $bytes
+ * @param int $precision
+ *
  * @return string
  */
 function format_bytes( $bytes, $precision = 2 ) {

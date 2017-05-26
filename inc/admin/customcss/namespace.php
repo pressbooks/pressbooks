@@ -251,6 +251,8 @@ function load_css_from() {
 
 		$sass = Container::get( 'Sass' );
 
+		$path_to_style = '';
+		$uri_to_style = '';
 		if ( $sass->isCurrentThemeCompatible( 1, $theme ) ) {
 			if ( 'web' === $slug ) {
 				$path_to_style = realpath( $theme->get_stylesheet_directory() . '/style.scss' );
@@ -280,6 +282,8 @@ function load_css_from() {
 				];
 			} elseif ( $sass->isCurrentThemeCompatible( 2, $theme ) ) {
 				$includes = $sass->defaultIncludePaths( $slug, $theme );
+			} else {
+				$includes = [];
 			}
 
 			$css = $sass->compile( $scss, $includes );

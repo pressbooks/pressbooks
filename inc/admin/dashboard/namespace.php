@@ -169,7 +169,7 @@ function display_users_widget() {
  *
  */
 function add_menu() {
-	$page = add_submenu_page(
+	add_submenu_page(
 		'settings.php',
 		__( 'Dashboard', 'pressbooks' ),
 		__( 'Dashboard', 'pressbooks' ),
@@ -189,7 +189,6 @@ function options() {
 function dashboard_options_init() {
 
 	$_page = 'pb_dashboard';
-	$_option = 'pressbooks_dashboard_feed';
 
 	add_settings_section(
 		'dashboard_feed',

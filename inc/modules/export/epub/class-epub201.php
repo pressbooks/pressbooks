@@ -291,7 +291,7 @@ class Epub201 extends Export {
 	 *
 	 * @param string $html
 	 *
-	 * @return string|void
+	 * @return string
 	 */
 	function fixAnnoyingCharacters( $html ) {
 
@@ -1691,6 +1691,7 @@ class Epub201 extends Export {
 		$xpath = new \DOMXPath( $doc );
 		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 			foreach ( $nodes as $node ) {
+				/** @var \DOMElement $node */
 				$node->appendChild( new \DOMText( '' ) );
 			}
 		}
@@ -1698,6 +1699,7 @@ class Epub201 extends Export {
 		// Remove srcset attributes because responsive images aren't a thing in the EPUB world.
 		$srcsets = $xpath->query( '//img[@srcset]' );
 		foreach ( $srcsets as $srcset ) {
+			/** @var \DOMElement $srcset */
 			$srcset->removeAttribute( 'srcset' );
 		}
 
@@ -1731,6 +1733,7 @@ class Epub201 extends Export {
 
 		$images = $doc->getElementsByTagName( 'img' );
 		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
 			// Fetch image, change src
 			$url = $image->getAttribute( 'src' );
 			$filename = $this->fetchAndSaveUniqueImage( $url, $fullpath );
@@ -1907,7 +1910,7 @@ class Epub201 extends Export {
 
 		$urls = $doc->getElementsByTagName( 'a' );
 		foreach ( $urls as $url ) {
-
+			/** @var \DOMElement $url */
 			$current_url = '' . $url->getAttribute( 'href' ); // Stringify
 
 			// Don't touch empty urls
@@ -1920,6 +1923,7 @@ class Epub201 extends Export {
 			// This causes an EPUB validation error of: hyperlink to non-standard resource ( of type 'image/...' )
 			// We fix this by removing the href
 			if ( $url->childNodes->length ) { foreach ( $url->childNodes as $node ) {
+					/** @var \DOMElement $node */
 					if ( 'img' === $node->nodeName && $this->fuzzyImageNameMatch( $current_url, $node->getAttribute( 'src' ) ) ) {
 						$url->removeAttribute( 'href' );
 						continue 2;
@@ -2039,7 +2043,10 @@ class Epub201 extends Export {
 		$lookup = \Pressbooks\Book::getBookStructure();
 		if ( 'part' !== $posttype && ! isset( $lookup['__export_lookup'][ $last_part ] ) ) {
 			return false;
-		} elseif ( 'part' !== $posttype && isset( $lookup['__export_lookup'][ $last_part ] ) ) {
+		}
+
+		$new_url = '';
+		if ( 'part' !== $posttype && isset( $lookup['__export_lookup'][ $last_part ] ) ) {
 			// Handle front/back matter and chapters
 			$new_type = $lookup['__export_lookup'][ $last_part ];
 			$new_pos = 0;

@@ -1413,6 +1413,10 @@ class PDFOptions extends \Pressbooks\Options {
 	/**
 	 * Replace running content tags with strings.
 	 *
+	 * @param string $input
+	 *
+	 * @return string
+	 *
 	 * @since 3.9.8
 	 */
 	static function replaceRunningContentTags( $input ) {
@@ -1447,6 +1451,10 @@ class PDFOptions extends \Pressbooks\Options {
 
 	/**
 	 * Apply overrides.
+	 *
+	 * @param string $scss
+	 *
+	 * @return string
 	 *
 	 * @since 3.9.8
 	 */

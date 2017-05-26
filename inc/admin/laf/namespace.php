@@ -7,9 +7,6 @@
  */
 namespace Pressbooks\Admin\Laf;
 
-use Pressbooks\Admin\ExportOptions;
-use Pressbooks\Admin\PublishOptions;
-
 /**
  * Add a custom message in admin footer
  */

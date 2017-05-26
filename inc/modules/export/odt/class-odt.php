@@ -113,11 +113,13 @@ class Odt extends Export {
 		$tables = $xpath->query( '//table' );
 
 		foreach ( $tables as $table ) {
+			/** @var \DOMElement $table */
 			$columncount = 0;
 			$columns = $xpath->query( '//tr[1]/*', $table );
 			foreach ( $columns as $column ) {
+				/** @var \DOMElement $column */
 				if ( $column->hasAttribute( 'colspan' ) ) {
-					$columncount = $columncount + $column->getAttribute( 'colspan' );
+					$columncount = $columncount + (int) $column->getAttribute( 'colspan' );
 				} else {
 					$columncount++;
 				}
@@ -137,6 +139,7 @@ class Odt extends Export {
 			}
 		}
 		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
 			$src = $image->getAttribute( 'src' );
 				$image_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
 			if ( $image_filename ) {
@@ -146,6 +149,7 @@ class Odt extends Export {
 		}
 
 		foreach ( $coverimages as $coverimage ) {
+			/** @var \DOMElement $coverimage */
 			$src = $coverimage->getAttribute( 'content' );
 				$cover_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
 			if ( $cover_filename ) {

@@ -21,6 +21,9 @@ class Sass {
 	 * Get default include paths
 	 *
 	 * @param string $type
+	 * @param string $theme
+	 *
+	 * @return array
 	 */
 	function defaultIncludePaths( $type, $theme = null ) {
 
@@ -265,6 +268,8 @@ class Sass {
 	 * Write CSS to a a debug dir
 	 *
 	 * @param string $css
+	 * @param string $scss
+	 * @param string $filename
 	 *
 	 * @param string $filename
 	 */
@@ -284,6 +289,7 @@ class Sass {
 	 * Are the current theme's stylesheets SCSS compatible?
 	 *
 	 * @param int $version
+	 * @param string $theme
 	 *
 	 * @return bool
 	 */
@@ -302,6 +308,7 @@ class Sass {
 		];
 
 		foreach ( $types as $type ) {
+			$path = '';
 			if ( 1 === $version && 'web' !== $type ) {
 				$path = $basepath . "/export/$type/style.scss";
 			} elseif ( 1 === $version && 'web' === $type ) {
@@ -397,7 +404,6 @@ class Sass {
 		$css = preg_replace_callback( $url_regex, function ( $matches ) {
 
 			$url = $matches[3];
-			$filename = sanitize_file_name( basename( $url ) );
 
 			// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
 			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
