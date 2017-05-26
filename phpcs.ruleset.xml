@@ -33,7 +33,11 @@
 
     <!-- Disable Side Effects rule for the bootstrapping file and those where we have to include WordPress core files. -->
     <rule ref="PSR1.Files.SideEffects">
-        <exclude-pattern>pressbooks.php</exclude-pattern>
+        <exclude-pattern>/pressbooks.php</exclude-pattern>
     </rule>
+
+    <exclude-pattern>/autoloader.php</exclude-pattern>
+    <exclude-pattern>/compatibility.php</exclude-pattern>
+    <exclude-pattern>/functions.php</exclude-pattern>
 
 </ruleset>

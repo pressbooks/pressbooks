@@ -57,7 +57,7 @@
       "@standards"
     ],
     "standards": [
-      "vendor/bin/phpcs --standard=phpcs.ruleset.xml hooks.php hooks-admin.php services.php inc/"
+      "vendor/bin/phpcs --standard=phpcs.ruleset.xml *.php inc/ bin/"
     ]
   }
 }
