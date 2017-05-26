@@ -47,11 +47,12 @@ class Book {
 	 *
 	 * @return array
 	 */
-	static function getBookInformation( $id = '' ) {
+	static function getBookInformation( $id = null ) {
 
 		// -----------------------------------------------------------------------------
 		// Is cached?
 		// -----------------------------------------------------------------------------
+
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
 			switch_to_blog( $blog_id );
@@ -147,15 +148,16 @@ class Book {
 	 *
 	 * @see bottom of this file for more info
 	 *
-	 * @param string $id
+	 * @param int $id
 	 *
 	 * @return array
 	 */
-	static function getBookStructure( $id = '' ) {
+	static function getBookStructure( $id = null ) {
 
 		// -----------------------------------------------------------------------------
 		// Is cached?
 		// -----------------------------------------------------------------------------
+
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
 			switch_to_blog( $id );
