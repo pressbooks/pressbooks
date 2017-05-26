@@ -33,4 +33,42 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertContains( 'anchor', $buttons );
 	}
 
+	public function test_mce_button_scripts() {
+
+		$x = Pressbooks\Editor\mce_button_scripts( [] );
+
+		$this->assertArrayHasKey( 'table', $x );
+	}
+
+	public function test_mce_before_init_insert_formats() {
+
+		$x = Pressbooks\Editor\mce_before_init_insert_formats( [] );
+
+		$this->assertArrayHasKey( 'style_formats', $x );
+	}
+
+	public function test_metadata_manager_default_editor_args() {
+
+		$x = Pressbooks\Editor\metadata_manager_default_editor_args( [] );
+
+		$this->assertArrayHasKey( 'tinymce', $x );
+	}
+
+	public function test_mce_table_editor_options() {
+
+		$x = Pressbooks\Editor\mce_table_editor_options( [] );
+
+		$this->assertArrayHasKey( 'table_class_list', $x );
+		$this->assertArrayHasKey( 'table_cell_class_list', $x );
+		$this->assertArrayHasKey( 'table_row_class_list', $x );
+	}
+
+	public function test_customize_wp_link_query_args() {
+
+		$x = \Pressbooks\Editor\customize_wp_link_query_args( [ 'post_type' => [ 'post' ] ] );
+
+		$this->assertFalse( in_array( 'post', $x['post_type'] ) );
+		$this->assertTrue( in_array( 'chapter', $x['post_type'] ) );
+	}
+
 }
