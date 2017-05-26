@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Admin\CustomCss;
 
 use Pressbooks\Book;
@@ -27,7 +28,7 @@ function redirect_css_editor() {
 	if ( isset( $_REQUEST['post'] ) && ! empty( $_REQUEST['post'] ) ) {
 		$post_id = absint( $_REQUEST['post'] );
 	} else {
-		 return; // Do nothing
+		return; // Do nothing
 	}
 
 	$post = get_post( $post_id );
@@ -52,7 +53,8 @@ function display_custom_css() {
 	$custom_css = new CustomCss();
 
 	$slug = isset( $_GET['slug'] ) ? $_GET['slug'] : get_transient( 'pb-last-custom-css-slug' );
-	if ( ! $slug ) { $slug = 'web';
+	if ( ! $slug ) {
+		$slug = 'web';
 	}
 
 	$supported = array_keys( $custom_css->supported );
@@ -217,7 +219,8 @@ function render_dropdown_for_css_copy( $custom_css, $slug ) {
 	$html .= '<select id="' . $select_id . '" name="' . $select_name . '">';
 	$html .= '<option value="">---</option>';
 	foreach ( $themes as $key => $theme ) {
-		if ( 'pressbooks-custom-css' === $key ) { continue; // Skip
+		if ( 'pressbooks-custom-css' === $key ) {
+			continue; // Skip
 		}
 		$html .= '<option value="' . "{$key}__{$slug}" . '"'; // Explode on __
 		$html .= '>' . $theme->name . '</option>';
@@ -235,7 +238,7 @@ function load_css_from() {
 
 	check_ajax_referer( 'pb-load-css-from' );
 	if ( empty( current_user_can( 'edit_theme_options' ) ) ) {
-		die( - 1 );
+		die( -1 );
 	}
 
 	$css = '';
@@ -275,10 +278,10 @@ function load_css_from() {
 
 			if ( $sass->isCurrentThemeCompatible( 1, $theme ) ) {
 				$includes = [
-						$sass->pathToUserGeneratedSass(),
-						$sass->pathToPartials(),
-						$sass->pathToFonts(),
-						$theme->get_stylesheet_directory(),
+					$sass->pathToUserGeneratedSass(),
+					$sass->pathToPartials(),
+					$sass->pathToFonts(),
+					$theme->get_stylesheet_directory(),
 				];
 			} elseif ( $sass->isCurrentThemeCompatible( 2, $theme ) ) {
 				$includes = $sass->defaultIncludePaths( $slug, $theme );
@@ -323,21 +326,23 @@ function fix_url_paths( $css, $style_uri ) {
 
 	// Search for all possible permutations of CSS url syntax: url("*"), url('*'), and url(*)
 	$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-	$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $style_uri ) {
+	$css = preg_replace_callback(
+		$url_regex, function ( $matches ) use ( $style_uri ) {
 
-		$url = $matches[3];
-		$url = ltrim( trim( $url ), '/' );
+			$url = $matches[3];
+			$url = ltrim( trim( $url ), '/' );
 
-		if ( preg_match( '#^https?://#i', $url ) ) {
-			return $matches[0]; // No change
-		}
+			if ( preg_match( '#^https?://#i', $url ) ) {
+				return $matches[0]; // No change
+			}
 
-		if ( $style_uri ) {
-			return "url($style_uri/$url)";
-		} else {
-			return "url($url)";
-		}
-	}, $css );
+			if ( $style_uri ) {
+				return "url($style_uri/$url)";
+			} else {
+				return "url($url)";
+			}
+		}, $css
+	);
 
 	return $css;
 }

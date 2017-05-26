@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Admin\Analytics;
 
 /**
@@ -51,7 +52,7 @@ function network_analytics_settings_init() {
 		$_page,
 		$_section,
 		[
-			__( 'The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;.', 'pressbooks' )
+			__( 'The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;.', 'pressbooks' ),
 		]
 	);
 	register_setting(
@@ -67,7 +68,7 @@ function network_analytics_settings_init() {
 			$_page,
 			$_section,
 			[
-				__( 'If enabled, the Google Analytics settings page will be visible to book administrators, allowing them to use their own Google Analytics accounts to track statistics at the book level.', 'pressbooks' )
+				__( 'If enabled, the Google Analytics settings page will be visible to book administrators, allowing them to use their own Google Analytics accounts to track statistics at the book level.', 'pressbooks' ),
 			]
 		);
 		register_setting(
@@ -98,7 +99,7 @@ function analytics_settings_init() {
 		$_page,
 		$_section,
 		[
-			__( 'The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;.', 'pressbooks' )
+			__( 'The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;.', 'pressbooks' ),
 		]
 	);
 	register_setting(
@@ -143,6 +144,7 @@ function analytics_ga_mu_site_specific_allowed_callback( $args ) {
  * Analytics settings, ga_mu_uaid field sanitization
  *
  * @param $input
+ *
  * @return string
  */
 function analytics_ga_mu_uaid_sanitize( $input ) {
@@ -153,6 +155,7 @@ function analytics_ga_mu_uaid_sanitize( $input ) {
  * Analytics settings, ga_mu_site_specific_allowed field sanitization
  *
  * @param $input
+ *
  * @return integer
  */
 function analytics_ga_mu_site_specific_allowed_sanitize( $input ) {
@@ -205,7 +208,7 @@ function display_analytics_settings() {
 			<?php submit_button(); ?>
 		</form>
 	</div>
-<?php
+	<?php
 }
 
 /**

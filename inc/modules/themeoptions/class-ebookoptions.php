@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Modules\ThemeOptions;
 
 class EbookOptions extends \Pressbooks\Options {
@@ -16,24 +17,24 @@ class EbookOptions extends \Pressbooks\Options {
 	const VERSION = 1;
 
 	/**
-	* Web theme options.
-	*
-	* @var array
-	*/
+	 * Web theme options.
+	 *
+	 * @var array
+	 */
 	public $options;
 
 	/**
-	* Web theme defaults.
-	*
-	* @var array
-	*/
+	 * Web theme defaults.
+	 *
+	 * @var array
+	 */
 	public $defaults;
 
 	/**
-	* Constructor.
-	*
-	* @param array $options
-	*/
+	 * Constructor.
+	 *
+	 * @param array $options
+	 */
 	function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
@@ -87,7 +88,7 @@ class EbookOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Reduce image size and quality', 'pressbooks' )
+				__( 'Reduce image size and quality', 'pressbooks' ),
 			]
 		);
 
@@ -115,7 +116,8 @@ class EbookOptions extends \Pressbooks\Options {
 	/**
 	 * Render the Ebook options tab form (NOT USED).
 	 */
-	function render() {}
+	function render() {
+	}
 
 	/**
 	 * Upgrade handler for Ebook options.
@@ -146,30 +148,36 @@ class EbookOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the ebook_paragraph_separation radio buttons.
+	 *
 	 * @param array $args
 	 */
 	function renderParagraphSeparationField( $args ) {
-		$this->renderRadioButtons( [
-			'id' => 'ebook_paragraph_separation',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'ebook_paragraph_separation',
-			'value' => ( isset( $this->options['ebook_paragraph_separation'] ) ) ? $this->options['ebook_paragraph_separation'] : '',
-			'choices' => $args,
-		] );
+		$this->renderRadioButtons(
+			[
+				'id' => 'ebook_paragraph_separation',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'ebook_paragraph_separation',
+				'value' => ( isset( $this->options['ebook_paragraph_separation'] ) ) ? $this->options['ebook_paragraph_separation'] : '',
+				'choices' => $args,
+			]
+		);
 	}
 
 	/**
 	 * Render the ebook_compress_images checkbox.
+	 *
 	 * @param array $args
 	 */
 	function renderCompressImagesField( $args ) {
-		$this->renderCheckbox( [
-			'id' => 'ebook_compress_images',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'ebook_compress_images',
-			'value' => ( isset( $this->options['ebook_compress_images'] ) ) ? $this->options['ebook_compress_images'] : '',
-			'label' => $args[0],
-		] );
+		$this->renderCheckbox(
+			[
+				'id' => 'ebook_compress_images',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'ebook_compress_images',
+				'value' => ( isset( $this->options['ebook_compress_images'] ) ) ? $this->options['ebook_compress_images'] : '',
+				'label' => $args[0],
+			]
+		);
 	}
 
 	/**
@@ -199,16 +207,19 @@ class EbookOptions extends \Pressbooks\Options {
 		/**
 		 * @since 3.9.7 TODO
 		 */
-		return apply_filters( 'pb_theme_options_ebook_defaults', [
+		return apply_filters(
+			'pb_theme_options_ebook_defaults', [
 			'ebook_paragraph_separation' => 'indent',
 			'ebook_compress_images' => 0,
-		] );
+			]
+		);
 	}
 
 	/**
 	 * Filter the array of default values for the Ebook options tab.
 	 *
 	 * @param array $defaults
+	 *
 	 * @return array $defaults
 	 */
 	static function filterDefaults( $defaults ) {
@@ -226,9 +237,11 @@ class EbookOptions extends \Pressbooks\Options {
 		 *
 		 * @since 3.9.7
 		 */
-		return apply_filters( 'pb_theme_options_ebook_booleans', [
-			'ebook_compress_images'
-		] );
+		return apply_filters(
+			'pb_theme_options_ebook_booleans', [
+			'ebook_compress_images',
+			]
+		);
 	}
 
 	/**
@@ -284,15 +297,18 @@ class EbookOptions extends \Pressbooks\Options {
 		 *
 		 * @since 3.9.7
 		 */
-		return apply_filters( 'pb_theme_options_ebook_predefined', [
-			'ebook_paragraph_separation'
-		] );
+		return apply_filters(
+			'pb_theme_options_ebook_predefined', [
+			'ebook_paragraph_separation',
+			]
+		);
 	}
 
 	/**
 	 * Apply overrides.
 	 *
 	 * @param string $scss
+	 *
 	 * @return string
 	 *
 	 * @since 3.9.8

@@ -166,9 +166,10 @@ class Epub3 extends Epub201 {
 	 * Check for existence of properties attributes
 	 *
 	 * @param string $html_file
+	 *
 	 * @return array $properties
 	 * @throws \Exception
-	*/
+	 */
 	protected function getProperties( $html_file ) {
 
 		$html = file_get_contents( $html_file );
@@ -269,7 +270,7 @@ class Epub3 extends Epub201 {
 			'no_deprecated_attr' => 2,
 			'unique_ids' => 'fixme-',
 			'hook' => '\Pressbooks\Sanitize\html5_to_epub3',
-			'tidy' => - 1,
+			'tidy' => -1,
 			'make_tag_strict' => 2,
 			'comment' => 1,
 		];
@@ -313,6 +314,7 @@ class Epub3 extends Epub201 {
 	 *
 	 * @param string $url
 	 * @param string $fullpath
+	 *
 	 * @return string|array
 	 */
 	protected function fetchAndSaveUniqueMedia( $url, $fullpath ) {
@@ -380,6 +382,7 @@ class Epub3 extends Epub201 {
 	 * into /OEBPS/assets/, return the HTML with changed 'src' paths.
 	 *
 	 * @param \DOMDocument $doc
+	 *
 	 * @return \DOMDocument
 	 */
 	protected function scrapeAndKneadMedia( \DOMDocument $doc ) {

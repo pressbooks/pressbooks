@@ -245,7 +245,7 @@ abstract class Import {
 		// only html import uses a url, not a file path
 		if ( 0 !== strcmp( $current_import['type_of'], 'html' ) ) {
 			// Appends 'last part' of the path to the dynamic first part of the path ($upload_dir)
-			$upload_dir             = wp_upload_dir();
+			$upload_dir = wp_upload_dir();
 			$current_import['file'] = trailingslashit( $upload_dir['path'] ) . basename( $current_import['file'] );
 		}
 
@@ -321,12 +321,14 @@ abstract class Import {
 			 *
 			 * @param array The list of currently allowed file types.
 			 */
-			$allowed_file_types = apply_filters( 'pb_import_file_types', [
+			$allowed_file_types = apply_filters(
+				'pb_import_file_types', [
 				'epub' => 'application/epub+zip',
 				'xml' => 'application/xml',
 				'odt' => 'application/vnd.oasis.opendocument.text',
 				'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-			] );
+				]
+			);
 
 			$overrides = [ 'test_form' => false, 'mimes' => $allowed_file_types ];
 
@@ -403,7 +405,7 @@ abstract class Import {
 
 			// weebly.com (and likely some others) prevent HEAD requests, but allow GET requests
 			if ( 200 !== $remote_head['response']['code'] && 405 !== $remote_head['response']['code'] ) {
-				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ' , 'pressbooks' ) . $remote_head['response']['code'];
+				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response header on a HEAD request: ', 'pressbooks' ) . $remote_head['response']['code'];
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
@@ -426,7 +428,7 @@ abstract class Import {
 
 			// check for a successful response code on GET request
 			if ( 200 !== $body['response']['code'] ) {
-				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ' , 'pressbooks' ) . $body['response']['code'];
+				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ', 'pressbooks' ) . $body['response']['code'];
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 

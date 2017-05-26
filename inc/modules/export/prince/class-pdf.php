@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version))
  */
+
 namespace Pressbooks\Modules\Export\Prince;
 
 use Pressbooks\Modules\Export\Export;
@@ -223,12 +224,14 @@ class Pdf extends Export {
 		$scss = $sass->applyOverrides( file_get_contents( $this->exportStylePath ), $this->cssOverrides );
 
 		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
-			$css = $sass->compile( $scss, [
+			$css = $sass->compile(
+				$scss, [
 				$sass->pathToUserGeneratedSass(),
 				$sass->pathToPartials(),
 				$sass->pathToFonts(),
 				get_stylesheet_directory(),
-			] );
+				]
+			);
 		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
 			$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'prince' ) );
 		} else {
@@ -237,30 +240,32 @@ class Pdf extends Export {
 
 		// Search for all possible permutations of CSS url syntax: url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback( $url_regex, function ( $matches ) use ( $scss_dir ) {
+		$css = preg_replace_callback(
+			$url_regex, function ( $matches ) use ( $scss_dir ) {
 
-			$url = $matches[3];
+				$url = $matches[3];
 
-			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				$my_asset = realpath( PB_PLUGIN_DIR . $url );
-				if ( $my_asset ) {
-					return 'url(' . PB_PLUGIN_DIR . $url . ')';
+				if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+					$my_asset = realpath( PB_PLUGIN_DIR . $url );
+					if ( $my_asset ) {
+						return 'url(' . PB_PLUGIN_DIR . $url . ')';
+					}
+				} elseif ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+					$my_asset = realpath( WP_CONTENT_DIR . '/' . $url );
+					if ( $my_asset ) {
+						return 'url(' . WP_CONTENT_DIR . '/' . $url . ')';
+					}
+				} elseif ( ! preg_match( '#^https?://#i', $url ) ) {
+					$my_asset = realpath( "$scss_dir/$url" );
+					if ( $my_asset ) {
+						return "url($scss_dir/$url)";
+					}
 				}
-			} elseif ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				$my_asset = realpath( WP_CONTENT_DIR . '/' . $url );
-				if ( $my_asset ) {
-					return 'url(' . WP_CONTENT_DIR . '/' . $url . ')';
-				}
-			} elseif ( ! preg_match( '#^https?://#i', $url ) ) {
-				$my_asset = realpath( "$scss_dir/$url" );
-				if ( $my_asset ) {
-					return "url($scss_dir/$url)";
-				}
-			}
 
-			return $matches[0]; // No change
+				return $matches[0]; // No change
 
-		}, $css );
+			}, $css
+		);
 
 		if ( WP_DEBUG ) {
 			Container::get( 'Sass' )->debug( $css, $scss, 'prince' );

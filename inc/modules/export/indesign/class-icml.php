@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Modules\Export\InDesign;
 
 use Pressbooks\Modules\Export\Export;
@@ -220,7 +221,7 @@ class Icml extends Export {
 	}
 
 	/**
-	* Dependency check.
+	 * Dependency check.
 	 *
 	 * @return bool
 	 */

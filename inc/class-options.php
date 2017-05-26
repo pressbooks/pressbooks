@@ -32,7 +32,7 @@ abstract class Options {
 	abstract function render();
 
 	/**
-	* Upgrade handler for the options page or tab.
+	 * Upgrade handler for the options page or tab.
 	 *
 	 * @param int $version
 	 */
@@ -63,16 +63,18 @@ abstract class Options {
 	 * Filter the array of default values for this set of options
 	 *
 	 * @param array $defaults
+	 *
 	 * @return array $defaults
 	 */
 	abstract static function filterDefaults( $defaults );
 
 	/**
-	* Sanitize various options (boolean, string, integer, float).
-	*
-	* @param array $input
+	 * Sanitize various options (boolean, string, integer, float).
+	 *
+	 * @param array $input
+	 *
 	 * @return array $options
-	*/
+	 */
 	function sanitize( $input ) {
 		$options = [];
 
@@ -154,16 +156,16 @@ abstract class Options {
 	 * @param array $args {
 	 *     Arguments to render the input.
 	 *
-	 *     @type string			$id      				The id which will be assigned to the rendered field.
-	 *     @type string			$name         	The name of the field.
-	 *     @type string     $option       	The name of the option that the field is within.
-	 *     @type string     $value          The stored value of the field as retrieved from the database.
-	 *     @type string     $description		A description which will be displayed below the field.
-	 *     @type string     $append					A string which will be appended to the field (e.g. 'px').
-	 *     @type string     $type						The type property of the input. Default 'text'.
-	 *     @type string     $class					The class(es) which will be assigned to the rendered input. Default 'regular-text'.
-	 *     @type bool     	$disabled				Is the field disabled?
- * }
+	 * @type string $id The id which will be assigned to the rendered field.
+	 * @type string $name The name of the field.
+	 * @type string $option The name of the option that the field is within.
+	 * @type string $value The stored value of the field as retrieved from the database.
+	 * @type string $description A description which will be displayed below the field.
+	 * @type string $append A string which will be appended to the field (e.g. 'px').
+	 * @type string $type The type property of the input. Default 'text'.
+	 * @type string $class The class(es) which will be assigned to the rendered input. Default 'regular-text'.
+	 * @type bool $disabled Is the field disabled?
+	 * }
 	 */
 	static function renderField( $args ) {
 		$defaults = [

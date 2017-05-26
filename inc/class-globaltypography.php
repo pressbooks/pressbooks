@@ -5,6 +5,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks;
 
 class GlobalTypography {
@@ -39,6 +40,7 @@ class GlobalTypography {
 	 * Get the current theme's font stacks.
 	 *
 	 * @param string $type (prince, epub, web ...)
+	 *
 	 * @return string
 	 */
 	function getThemeFontStacks( $type ) {
@@ -188,6 +190,7 @@ class GlobalTypography {
 	/**
 	 * @param $type
 	 * @param array $languages
+	 *
 	 * @return void
 	 */
 	protected function _sassify( $type, array $languages ) {

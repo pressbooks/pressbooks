@@ -7,6 +7,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks;
 
 class Book {
@@ -20,7 +21,8 @@ class Book {
 	 */
 	static $fixDupeSlugs = [];
 
-	function __construct() {}
+	function __construct() {
+	}
 
 	/**
 	 * Check if the current blog_id is considered a "book"
@@ -42,6 +44,7 @@ class Book {
 	 * Returns book information in a useful, string only, format. Data is converted to HTML.
 	 *
 	 * @param int $id The book ID.
+	 *
 	 * @return array
 	 */
 	static function getBookInformation( $id = '' ) {
@@ -145,6 +148,7 @@ class Book {
 	 * @see bottom of this file for more info
 	 *
 	 * @param string $id
+	 *
 	 * @return array
 	 */
 	static function getBookStructure( $id = '' ) {
@@ -194,7 +198,7 @@ class Book {
 
 			$args = [
 				'post_type' => $type,
-				'posts_per_page' => - 1,
+				'posts_per_page' => -1, // @codingStandardsIgnoreLine
 				'post_status' => 'any',
 				'orderby' => 'menu_order',
 				'order' => 'ASC',
@@ -367,6 +371,7 @@ class Book {
 	 * Returns an array of subsections in front matter, back matter, or chapters.
 	 *
 	 * @param $id
+	 *
 	 * @return array|false
 	 */
 	static function getSubsections( $id ) {
@@ -720,7 +725,7 @@ class Book {
 	/**
 	 * Ensures this chapter/part/front matter has a "menu_order" when it is saved
 	 *
-	 * @param integer $pid  Post ID
+	 * @param integer $pid Post ID
 	 * @param \WP_Post $post Post
 	 *
 	 * @return bool
@@ -895,7 +900,8 @@ class Book {
 				++static::$fixDupeSlugs[ $new_post_name ];
 				++static::$fixDupeSlugs[ $old_post_name ];
 				$new_post_name = $old_post_name . '-' . static::$fixDupeSlugs[ $old_post_name ];
-				if ( $i > 999 ) { break; // Safety
+				if ( $i > 999 ) {
+					break; // Safety
 				}
 				++$i;
 			}

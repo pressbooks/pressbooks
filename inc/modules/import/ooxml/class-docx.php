@@ -34,7 +34,7 @@ class Docx extends Import {
 	protected $fn = [];
 
 	/**
-	 *  @var array
+	 * @var array
 	 */
 	protected $en = [];
 
@@ -69,6 +69,7 @@ class Docx extends Import {
 	/**
 	 *
 	 * @param array $current_import
+	 *
 	 * @return boolean
 	 */
 	function import( array $current_import ) {
@@ -127,7 +128,8 @@ class Docx extends Import {
 
 		foreach ( $current_import['chapters'] as $id => $chapter_title ) {
 			// do nothing it has been omitted
-			if ( ! $this->flaggedForImport( $id ) ) { continue;
+			if ( ! $this->flaggedForImport( $id ) ) {
+				continue;
 			}
 
 			$html = $this->parseContent( $dom_doc, $chapter_title );
@@ -219,7 +221,7 @@ class Docx extends Import {
 
 		// get all the footnote ids
 		// +2 to the domlist skips over two default nodes that don't contain end/footnotes
-		for ( $i = 0; $i < $limit; $i ++  ) {
+		for ( $i = 0; $i < $limit; $i++ ) {
 			$footnotes[ $ids[ $i ] ] = $text_tags->item( $i + 2 )->nodeValue;
 		}
 
@@ -388,7 +390,8 @@ class Docx extends Import {
 
 		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
 		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) { $src = ''; // Change false to empty string
+		if ( ! $src ) {
+			$src = ''; // Change false to empty string
 		}
 		$already_done[ $img_location ] = $src;
 
@@ -408,7 +411,7 @@ class Docx extends Import {
 		$index = 0;
 
 		// loop through child siblings
-		for ( $i = 0; $i < $node_list->length; $i ++  ) {
+		for ( $i = 0; $i < $node_list->length; $i++ ) {
 
 			$chapter_node = $this->findTheNode( $node_list->item( $i ), $chapter_title );
 			if ( ! empty( $chapter_node ) ) {
@@ -419,7 +422,7 @@ class Docx extends Import {
 		}
 
 		if ( $chapter_node ) {
-				$chapter_title = strtolower( preg_replace( '/\s+/', '-', $chapter_node->nodeValue ) );
+			$chapter_title = strtolower( preg_replace( '/\s+/', '-', $chapter_node->nodeValue ) );
 		}
 
 		// iterate through
@@ -456,7 +459,7 @@ class Docx extends Import {
 		do {
 			$node = $chapter->importNode( $dom_list->item( $i ), true );
 			$chapter->documentElement->appendChild( $node );
-			$i ++;
+			$i++;
 
 			// TODO
 			// This is problematic
@@ -492,6 +495,7 @@ class Docx extends Import {
 	 * adds external hyperlinks, if they are present in a chapter
 	 *
 	 * @param \DOMDocument $chapter
+	 *
 	 * @return \DOMDocument
 	 */
 	protected function addHyperlinks( \DOMDocument $chapter ) {
@@ -516,6 +520,7 @@ class Docx extends Import {
 	 * adds footnotes, if they are present in the chapter
 	 *
 	 * @param \DOMDocument $chapter
+	 *
 	 * @return \DOMDocument
 	 */
 	protected function addFootnotes( \DOMDocument $chapter ) {
@@ -588,7 +593,7 @@ class Docx extends Import {
 		if ( $node->hasChildNodes() ) {
 			$node_list = $node->childNodes;
 
-			for ( $i = 0; $i < $node_list->length; $i ++  ) {
+			for ( $i = 0; $i < $node_list->length; $i++ ) {
 
 				if ( $node_list->item( $i )->nodeType !== XML_ELEMENT_NODE ) {
 					continue;
@@ -618,6 +623,7 @@ class Docx extends Import {
 	/**
 	 *
 	 * @param array $upload
+	 *
 	 * @return boolean
 	 */
 	function setCurrentImportOption( array $upload ) {
@@ -664,7 +670,7 @@ class Docx extends Import {
 		$headings = $dom_doc->getElementsByTagName( $this->tag );
 
 		// populate chapters with title names
-		for ( $i = 0; $i < $headings->length; $i ++  ) {
+		for ( $i = 0; $i < $headings->length; $i++ ) {
 			$chapters[] = trim( $headings->item( $i )->nodeValue );
 		}
 
@@ -708,6 +714,7 @@ class Docx extends Import {
 	 *
 	 * @param string $schema
 	 * @param string $id
+	 *
 	 * @return string
 	 */
 	protected function getTargetPath( $schema, $id = '' ) {

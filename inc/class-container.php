@@ -7,6 +7,7 @@ namespace Pressbooks;
  * PhpStorm IDE to auto-complete things or hot-swap services for Unit Testing.
  */
 class Container {
+
 	/**
 	 * @var \Pimple\Container
 	 */
@@ -29,6 +30,7 @@ class Container {
 
 	/**
 	 * @param string $var
+	 *
 	 * @return mixed
 	 */
 	static function get( $var ) {

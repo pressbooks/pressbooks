@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Modules\Export;
 
 use Pressbooks\Book;
@@ -98,7 +99,8 @@ abstract class Export {
 
 		if ( CustomCss::isCustomCss() ) {
 			$fullpath = CustomCss::getCustomCssFolder() . "$type.css";
-			if ( ! is_file( $fullpath ) ) { $fullpath = false;
+			if ( ! is_file( $fullpath ) ) {
+				$fullpath = false;
 			}
 		}
 
@@ -192,7 +194,7 @@ abstract class Export {
 	 * Log errors using wp_mail() and error_log(), include useful WordPress info.
 	 *
 	 * @param string $message
-	 * @param array  $more_info
+	 * @param array $more_info
 	 */
 	function logError( $message, array $more_info = [] ) {
 
@@ -358,7 +360,7 @@ abstract class Export {
 	 * Recursively delete all contents of a directory.
 	 *
 	 * @param string $dirname
-	 * @param bool   $only_empty
+	 * @param bool $only_empty
 	 *
 	 * @return bool
 	 */
@@ -380,7 +382,8 @@ abstract class Export {
 						continue;
 					}
 					$f = $dcur . '/' . $f;
-					if ( is_dir( $f ) ) { $dscan[] = $f;
+					if ( is_dir( $f ) ) {
+						$dscan[] = $f;
 					} else {
 						unlink( $f );
 					}
@@ -389,8 +392,9 @@ abstract class Export {
 			}
 		}
 		$i_until = ( $only_empty ) ? 1 : 0;
-		for ( $i = count( $darr ) - 1; $i >= $i_until; $i -- ) {
-			if ( ! rmdir( $darr[ $i ] ) ) { trigger_error( "Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING );
+		for ( $i = count( $darr ) - 1; $i >= $i_until; $i-- ) {
+			if ( ! rmdir( $darr[ $i ] ) ) {
+				trigger_error( "Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING );
 			}
 		}
 
@@ -401,8 +405,8 @@ abstract class Export {
 	/**
 	 * Convert an XML string via XSLT file.
 	 *
-	 * @param string     $content
-	 * @param string     $path_to_xsl
+	 * @param string $content
+	 * @param string $path_to_xsl
 	 *
 	 * @return string
 	 */
@@ -438,6 +442,7 @@ abstract class Export {
 	 * @param string $title
 	 * @param int $id
 	 * @param string $section_author
+	 *
 	 * @return string $html blob
 	 * @throws \Exception
 	 */
@@ -656,10 +661,10 @@ abstract class Export {
 			 * For example, here's how one might catch a hypothetical Word exporter:
 			 *
 			 * add_filter( 'pb_active_export_modules', function ( $modules ) {
-			 * 	if ( isset( $_POST['export_formats']['docx'] ) ) {
-			 * 		$modules[] = '\Pressbooks\Modules\Export\Docx\Docx';
-			 * 	}
-			 * 	return $modules;
+			 *    if ( isset( $_POST['export_formats']['docx'] ) ) {
+			 *        $modules[] = '\Pressbooks\Modules\Export\Docx\Docx';
+			 *    }
+			 *    return $modules;
 			 * } );
 			 *
 			 */
@@ -792,7 +797,8 @@ abstract class Export {
 				}
 			}
 
-			if ( '__UNSET__' === $loc ) { $loc = 'en_US'; // No match found, default to english
+			if ( '__UNSET__' === $loc ) {
+				$loc = 'en_US'; // No match found, default to english
 			}
 		}
 

@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Sanitize;
 
 /**
@@ -103,10 +104,12 @@ function html5_to_epub3( $html, $config = [], $spec = [] ) {
  */
 function fix_audio_shortcode() {
 
-	add_filter( 'wp_audio_shortcode', function ( $html, $atts, $audio, $post_id, $library ) {
-		$html = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', '$1', $html );
-		return $html;
-	}, 10, 5 );
+	add_filter(
+		'wp_audio_shortcode', function ( $html, $atts, $audio, $post_id, $library ) {
+			$html = preg_replace( '/(id=\"audio[0-9\-]*\")(.*)(style="[^\"]*\")/ui', '$1', $html );
+			return $html;
+		}, 10, 5
+	);
 
 }
 
@@ -260,7 +263,8 @@ function canonicalize_url( $url ) {
 	// Add http:// if it's missing
 	if ( ! preg_match( '#^https?://#i', $url ) ) {
 		// Remove ftp://, gopher://, fake://, etc
-		if ( mb_strpos( $url, '://' ) ) { list( $garbage, $url ) = mb_split( '://', $url );
+		if ( mb_strpos( $url, '://' ) ) {
+			list( $garbage, $url ) = mb_split( '://', $url );
 		}
 		// Prepend http
 		$url = 'http://' . $url;

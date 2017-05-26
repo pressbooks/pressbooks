@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Modules\ThemeOptions;
 
 class ThemeOptions {
@@ -50,16 +51,16 @@ class ThemeOptions {
 	 * Render the theme options page and load the appropriate tab.
 	 */
 	static function render() {
-	?>
+		?>
 		<div class="wrap">
-			<h1><?php echo wp_get_theme(); ?> <?php _e( 'Theme Options', 'pressbooks' ); ?></h1>
+			<h1><?php echo wp_get_theme(); ?><?php _e( 'Theme Options', 'pressbooks' ); ?></h1>
 			<?php settings_errors(); ?>
 			<?php $active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'global'; ?>
 			<h2 class="nav-tab-wrapper">
 				<?php foreach ( \Pressbooks\Modules\ThemeOptions\ThemeOptions::getTabs() as $slug => $subclass ) { ?>
 					<a href="<?php echo admin_url( '/themes.php' );
-?>?page=pressbooks_theme_options&tab=<?php echo $slug;
-?>" class="nav-tab <?php echo $active_tab === $slug ? 'nav-tab-active' : ''; ?>"><?php echo $subclass::getTitle() ?></a>
+					?>?page=pressbooks_theme_options&tab=<?php echo $slug;
+					?>" class="nav-tab <?php echo $active_tab === $slug ? 'nav-tab-active' : ''; ?>"><?php echo $subclass::getTitle() ?></a>
 				<?php } ?>
 			</h2>
 			<form method="post" action="options.php">

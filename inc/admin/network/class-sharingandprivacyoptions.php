@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Admin\Network;
 
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
@@ -15,24 +16,24 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	const VERSION = 1;
 
 	/**
-	* Sharing and Privacy options.
-	*
-	* @var array
-	*/
+	 * Sharing and Privacy options.
+	 *
+	 * @var array
+	 */
 	public $options;
 
 	/**
-	* Sharing and Privacy defaults.
-	*
-	* @var array
-	*/
+	 * Sharing and Privacy defaults.
+	 *
+	 * @var array
+	 */
 	public $defaults;
 
 	/**
-	* Constructor.
-	*
-	* @param array $options
-	*/
+	 * Constructor.
+	 *
+	 * @param array $options
+	 */
 	function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
@@ -118,17 +119,20 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the allow_redistribution checkbox.
+	 *
 	 * @param array $args
 	 */
 	function renderAllowRedistributionField( $args ) {
 		$options = get_site_option( $this->getSlug() );
-		$this->renderCheckbox( [
-			'id' => 'allow_redistribution',
-			'name' => $this->getSlug(),
-			'option' => 'allow_redistribution',
-			'value' => ( isset( $options['allow_redistribution'] ) ) ? $options['allow_redistribution'] : '',
-			'label' => $args[0],
-		] );
+		$this->renderCheckbox(
+			[
+				'id' => 'allow_redistribution',
+				'name' => $this->getSlug(),
+				'option' => 'allow_redistribution',
+				'value' => ( isset( $options['allow_redistribution'] ) ) ? $options['allow_redistribution'] : '',
+				'label' => $args[0],
+			]
+		);
 	}
 
 	/**
@@ -167,7 +171,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 */
 	static function getBooleanOptions() {
 		return [
-			'allow_redistribution'
+			'allow_redistribution',
 		];
 	}
 
@@ -175,6 +179,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * Filter the array of default values for this set of options
 	 *
 	 * @param array $defaults
+	 *
 	 * @return array $defaults
 	 */
 	static function filterDefaults( $defaults ) {

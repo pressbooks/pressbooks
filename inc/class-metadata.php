@@ -7,6 +7,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks;
 
 use Pressbooks\Sanitize;
@@ -36,7 +37,8 @@ class Metadata {
 	];
 
 
-	function __construct() {}
+	function __construct() {
+	}
 
 
 	/**
@@ -86,7 +88,7 @@ class Metadata {
 	/**
 	 * Return a database ID for a given meta key.
 	 *
-	 * @param int    $post_id
+	 * @param int $post_id
 	 * @param string $meta_key
 	 *
 	 * @return int|bool
@@ -177,6 +179,7 @@ class Metadata {
 	 * @param string $copyright_holder of the page
 	 * @param string $src_url of the page
 	 * @param string $title of the page
+	 *
 	 * @return string $xml response
 	 */
 	static function getLicenseXml( $type, $copyright_holder, $src_url, $title, $lang = '' ) {
@@ -230,8 +233,8 @@ class Metadata {
 			// api doesn't have an 'all-rights-reserved' endpoint, so manual build necessary
 			case 'all-rights-reserved':
 				$xml = '<result><html>'
-					. "<span property='dct:title'>" . Sanitize\sanitize_xml_attribute( $title ) . '</span> &#169; '
-					. Sanitize\sanitize_xml_attribute( $copyright_holder ) . '. ' . __( 'All Rights Reserved', 'pressbooks' ) . '.</html></result>';
+					   . "<span property='dct:title'>" . Sanitize\sanitize_xml_attribute( $title ) . '</span> &#169; '
+					   . Sanitize\sanitize_xml_attribute( $copyright_holder ) . '. ' . __( 'All Rights Reserved', 'pressbooks' ) . '.</html></result>';
 				break;
 			default:
 
@@ -240,7 +243,7 @@ class Metadata {
 
 				// build the url
 				$url = $endpoint . $key[0] . '/' . $val[0] . '/get?' . $key[1] . '=' . $val[1] . '&' . $key[2] . '=' . $val[2] .
-					'&creator=' . urlencode( $copyright_holder ) . '&attribution_url=' . urlencode( $src_url ) . '&title=' . urlencode( $title ) . '&locale=' . $lang ;
+					   '&creator=' . urlencode( $copyright_holder ) . '&attribution_url=' . urlencode( $src_url ) . '&title=' . urlencode( $title ) . '&locale=' . $lang;
 
 				$xml = wp_remote_get( $url );
 				$ok = wp_remote_retrieve_response_code( $xml );
@@ -269,6 +272,7 @@ class Metadata {
 	 * Returns an HTML blob if given an XML object
 	 *
 	 * @param \SimpleXMLElement $response
+	 *
 	 * @return string $html blob of copyright information
 	 */
 	static function getWebLicenseHtml( \SimpleXMLElement $response ) {
@@ -323,7 +327,7 @@ class Metadata {
 		if ( $version < 5 ) {
 			$this->changeDefaultBookCover();
 		}
-		if ( $version < 6 ||$version < 7 ) {
+		if ( $version < 6 || $version < 7 ) {
 			$this->makeThumbnailsForBookCover();
 		}
 		if ( $version < 8 ) {
@@ -557,7 +561,12 @@ class Metadata {
 		$post = [ 'post_status' => 'publish', 'post_author' => wp_get_current_user()->ID ];
 
 		foreach ( $posts as $item ) {
-			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ", [ $item['post_title'], $item['post_type'], $item['post_name'] ] ) );
+			$exists = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ",
+					[ $item['post_title'], $item['post_type'], $item['post_name'] ]
+				)
+			);
 			if ( empty( $exists ) ) {
 				$data = array_merge( $item, $post );
 				wp_insert_post( $data );

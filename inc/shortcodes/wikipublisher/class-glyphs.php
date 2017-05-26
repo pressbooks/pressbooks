@@ -9,6 +9,7 @@
  * @author   Pressbooks <code@pressbooks.com>
  * @license  GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Shortcodes\Wikipublisher;
 
 class Glyphs {
@@ -35,10 +36,12 @@ class Glyphs {
 	private function __construct() {
 
 		add_shortcode( 'pb_language', [ $this, 'langShortcode' ] );
-		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
-			$excluded_shortcodes[] = 'pb_language';
-			return $excluded_shortcodes;
-		} );
+		add_filter(
+			'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
+				$excluded_shortcodes[] = 'pb_language';
+				return $excluded_shortcodes;
+			}
+		);
 
 	}
 
@@ -66,9 +69,11 @@ class Glyphs {
 	 */
 	function langShortcode( $atts, $content = null ) {
 
-		$a = shortcode_atts( [
-			'lang' => '',
-		], $atts );
+		$a = shortcode_atts(
+			[
+				'lang' => '',
+			], $atts
+		);
 
 		if ( empty( $content ) || empty( $a['lang'] ) || ! in_array( $a['lang'], $this->supported_languages, true ) ) {
 			// We don't support this language

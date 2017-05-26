@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Admin\Diagnostics;
 
 use Sinergi\BrowserDetector\Browser;
@@ -35,7 +36,8 @@ function render_page() {
 	<div class="wrap">
 		<h1><?php _e( 'Diagnostics', 'pressbooks' ); ?></h1>
 		<p><?php _e( 'Please submit this information with any bug reports.', 'pressbooks' ); ?></p>
-		<textarea style="width: 800px; max-width: 100%; height: 600px; background: #fff; font-family: monospace;" readonly="readonly" onclick="this.focus(); this.select()" title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'pressbooks' ); ?>">
+		<textarea style="width: 800px; max-width: 100%; height: 600px; background: #fff; font-family: monospace;" readonly="readonly" onclick="this.focus(); this.select()"
+				  title="<?php _e( 'To copy the system info, click below then press Ctrl + C (PC) or Cmd + C (Mac).', 'pressbooks' ); ?>">
 <?php $output = "### System Information\n\n";
 if ( \Pressbooks\Book::isBook() ) {
 	$output .= "#### Book Info\n\n";
@@ -147,5 +149,5 @@ if ( function_exists( 'curl_init' ) && function_exists( 'curl_version' ) ) {
 $output .= 'imagick: ' . ( extension_loaded( 'imagick' ) ? 'Installed' : 'Not Installed' ) . "\n";
 $output .= 'xsl: ' . ( extension_loaded( 'xsl' ) ? 'Installed' : 'Not Installed' );
 echo $output; ?></textarea>
-</div>
+	</div>
 <?php }

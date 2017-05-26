@@ -6,6 +6,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks;
 
 class Activation {
@@ -88,11 +89,15 @@ class Activation {
 		switch_to_blog( $this->blog_id );
 		if ( ! $this->isBookSetup() ) {
 			$this->wpmuActivate();
-			array_walk( $this->opts, function ( $v, $k ) {
-				if ( empty( $v ) ) { delete_option( $k );
-				} else { update_option( $k, $v );
+			array_walk(
+				$this->opts, function ( $v, $k ) {
+					if ( empty( $v ) ) {
+						delete_option( $k );
+					} else {
+						update_option( $k, $v );
+					}
 				}
-			} );
+			);
 			wp_cache_flush();
 		}
 
@@ -239,7 +244,14 @@ class Activation {
 		];
 
 		$post = [ 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id ];
-		$page = [ 'post_status' => 'publish', 'comment_status' => 'closed', 'ping_status' => 'closed', 'post_content' => '<!-- Here be dragons. -->', 'post_author' => $this->user_id, 'tags_input' => __( 'Default Data', 'pressbooks' ) ];
+		$page = [
+			'post_status' => 'publish',
+			'comment_status' => 'closed',
+			'ping_status' => 'closed',
+			'post_content' => '<!-- Here be dragons. -->',
+			'post_author' => $this->user_id,
+			'tags_input' => __( 'Default Data', 'pressbooks' ),
+		];
 
 		/**
 		 * Allow the default description of a new book to be customized.
@@ -257,7 +269,15 @@ class Activation {
 
 		foreach ( $posts as $item ) {
 
-			$exists = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ", [ $item['post_title'], $item['post_type'], $item['post_name'] ] ) );
+			$exists = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ", [
+					$item['post_title'],
+					$item['post_type'],
+					$item['post_name'],
+					]
+				)
+			);
 			if ( empty( $exists ) ) {
 				if ( 'page' === $item['post_type'] ) {
 					$data = array_merge( $item, $page );

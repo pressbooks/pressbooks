@@ -5,6 +5,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Admin\Laf;
 
 /**
@@ -71,7 +72,12 @@ function replace_book_admin_menu() {
 	remove_menu_page( 'edit.php?post_type=metadata' );
 	remove_menu_page( 'link-manager.php' );
 	remove_menu_page( 'edit.php?post_type=page' );
-	add_theme_page( __( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', [ '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'render' ] );
+	add_theme_page(
+		__( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', [
+		'\Pressbooks\Modules\ThemeOptions\ThemeOptions',
+		'render',
+		]
+	);
 
 	remove_submenu_page( 'tools.php', 'tools.php' );
 	remove_submenu_page( 'tools.php', 'import.php' );
@@ -82,23 +88,27 @@ function replace_book_admin_menu() {
 
 	// Organize
 	$page = add_submenu_page( 'edit.php?post_type=chapter', __( 'Organize', 'pressbooks' ), __( 'Organize', 'pressbooks' ), 'edit_posts', 'pressbooks', __NAMESPACE__ . '\display_organize' );
-	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
-		if ( $hook === $page ) {
-			wp_enqueue_style( 'pb-organize' );
-			wp_enqueue_script( 'jquery-blockui' );
-			wp_enqueue_script( 'pb-organize' );
-			wp_localize_script( 'pb-organize', 'PB_OrganizeToken', [
-				// Ajax nonces
-				'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
-				'exportNonce' => wp_create_nonce( 'pb-update-book-export' ),
-				'showTitleNonce' => wp_create_nonce( 'pb-update-book-show-title' ),
-				'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
-				'private' => __( 'Private', 'pressbooks' ),
-				'published' => __( 'Published', 'pressbooks' ),
-				'public' => __( 'Public', 'pressbooks' ),
-			] );
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
+			if ( $hook === $page ) {
+				wp_enqueue_style( 'pb-organize' );
+				wp_enqueue_script( 'jquery-blockui' );
+				wp_enqueue_script( 'pb-organize' );
+				wp_localize_script(
+					'pb-organize', 'PB_OrganizeToken', [
+					// Ajax nonces
+					'orderNonce' => wp_create_nonce( 'pb-update-book-order' ),
+					'exportNonce' => wp_create_nonce( 'pb-update-book-export' ),
+					'showTitleNonce' => wp_create_nonce( 'pb-update-book-show-title' ),
+					'privacyNonce' => wp_create_nonce( 'pb-update-book-privacy' ),
+					'private' => __( 'Private', 'pressbooks' ),
+					'published' => __( 'Published', 'pressbooks' ),
+					'public' => __( 'Public', 'pressbooks' ),
+					]
+				);
+			}
 		}
-	} );
+	);
 	if ( current_user_can( 'publish_posts' ) ) {
 		$add_chapter = $submenu['edit.php?post_type=chapter'][10];
 		unset( $submenu['edit.php?post_type=chapter'][10] );
@@ -139,28 +149,36 @@ function replace_book_admin_menu() {
 		$book_info_url = 'post-new.php?post_type=metadata';
 	}
 	$page = add_menu_page( __( 'Book Info', 'pressbooks' ), __( 'Book Info', 'pressbooks' ), 'edit_posts', $book_info_url, '', 'dashicons-info', 12 );
-	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
-		if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
-			if ( 'metadata' === get_post_type() ) {
-				wp_enqueue_script( 'pb-metadata' );
-				wp_localize_script( 'pb-metadata', 'PB_BookInfoToken', [
-					'bookInfoMenuId' => preg_replace( '|[^a-zA-Z0-9_:.]|', '-', $page ),
-				] );
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
+			if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
+				if ( 'metadata' === get_post_type() ) {
+					wp_enqueue_script( 'pb-metadata' );
+					wp_localize_script(
+						'pb-metadata', 'PB_BookInfoToken', [
+						'bookInfoMenuId' => preg_replace( '|[^a-zA-Z0-9_:.]|', '-', $page ),
+						]
+					);
+				}
 			}
 		}
-	} );
+	);
 
 	// Export
 	$page = add_menu_page( __( 'Export', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'edit_posts', 'pb_export', __NAMESPACE__ . '\display_export', 'dashicons-migrate', 14 );
-	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
-		if ( $hook === $page ) {
-			wp_enqueue_style( 'pb-export' );
-			wp_enqueue_script( 'pb-export' );
-			wp_localize_script( 'pb-export', 'PB_ExportToken', [
-				'mobiConfirm' => __( 'EPUB is required for MOBI export. Would you like to reenable it?', 'pressbooks' ),
-			] );
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
+			if ( $hook === $page ) {
+				wp_enqueue_style( 'pb-export' );
+				wp_enqueue_script( 'pb-export' );
+				wp_localize_script(
+					'pb-export', 'PB_ExportToken', [
+					'mobiConfirm' => __( 'EPUB is required for MOBI export. Would you like to reenable it?', 'pressbooks' ),
+					]
+				);
+			}
 		}
-	} );
+	);
 
 	// Publish
 	$option = get_option( 'pressbooks_ecommerce_links', \Pressbooks\Admin\PublishOptions::getDefaults() );
@@ -199,11 +217,13 @@ function replace_book_admin_menu() {
 
 	// Import
 	$page = add_management_page( __( 'Import', 'pressbooks' ), __( 'Import', 'pressbooks' ), 'edit_posts', 'pb_import', __NAMESPACE__ . '\display_import' );
-	add_action( 'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
-		if ( $hook === $page ) {
-			wp_enqueue_script( 'pb-import' );
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
+			if ( $hook === $page ) {
+				wp_enqueue_script( 'pb-import' );
+			}
 		}
-	} );
+	);
 
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
@@ -222,7 +242,12 @@ function network_admin_menu() {
 		}
 	}
 
-	add_submenu_page( 'settings.php', __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_network', 'pressbooks_sharingandprivacy_options', [ $page, 'render' ] );
+	add_submenu_page(
+		'settings.php', __( 'Sharing and Privacy Settings', 'pressbooks' ), __( 'Sharing &amp; Privacy', 'pressbooks' ), 'manage_network', 'pressbooks_sharingandprivacy_options', [
+		$page,
+		'render',
+		]
+	);
 }
 
 /**
@@ -280,48 +305,58 @@ function replace_menu_bar_branding( $wp_admin_bar ) {
 	$wp_admin_bar->remove_menu( 'wp-logo' );
 	$wp_admin_bar->remove_menu( 'documentation' );
 	$wp_admin_bar->remove_menu( 'feedback' );
-	$wp_admin_bar->add_menu( [
-		'id' => 'wp-logo',
-		'title' => '<span class="ab-icon"></span>',
-		'href' => ( 'https://pressbooks.com/about' ),
-		'meta' => [
-			'title' => __( 'About Pressbooks', 'pressbooks' ),
-		],
-	] );
+	$wp_admin_bar->add_menu(
+		[
+			'id' => 'wp-logo',
+			'title' => '<span class="ab-icon"></span>',
+			'href' => ( 'https://pressbooks.com/about' ),
+			'meta' => [
+				'title' => __( 'About Pressbooks', 'pressbooks' ),
+			],
+		]
+	);
 
 	if ( is_user_logged_in() ) {
 		// Add "About WordPress" link
-		$wp_admin_bar->add_menu( [
-			'parent' => 'wp-logo',
-			'id' => 'about',
-			'title' => __( 'About Pressbooks', 'pressbooks' ),
-			'href' => 'https://pressbooks.com/about',
-		] );
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => 'wp-logo',
+				'id' => 'about',
+				'title' => __( 'About Pressbooks', 'pressbooks' ),
+				'href' => 'https://pressbooks.com/about',
+			]
+		);
 	}
 
 	// Add WordPress.org link
-	$wp_admin_bar->add_menu( [
-		'parent' => 'wp-logo-external',
-		'id' => 'wporg',
-		'title' => __( 'Pressbooks.com', 'pressbooks' ),
-		'href' => 'https://pressbooks.com',
-	] );
+	$wp_admin_bar->add_menu(
+		[
+			'parent' => 'wp-logo-external',
+			'id' => 'wporg',
+			'title' => __( 'Pressbooks.com', 'pressbooks' ),
+			'href' => 'https://pressbooks.com',
+		]
+	);
 
 	// Add forums link
-	$wp_admin_bar->add_menu( [
-		'parent' => 'wp-logo-external',
-		'id' => 'support-forums',
-		'title' => __( 'Help', 'pressbooks' ),
-		'href' => 'https://pressbooks.com/help',
-	] );
+	$wp_admin_bar->add_menu(
+		[
+			'parent' => 'wp-logo-external',
+			'id' => 'support-forums',
+			'title' => __( 'Help', 'pressbooks' ),
+			'href' => 'https://pressbooks.com/help',
+		]
+	);
 
 	// Add feedback link
-	$wp_admin_bar->add_menu( [
-		'parent' => 'wp-logo-external',
-		'id' => 'contact',
-		'title' => __( 'Contact', 'pressbooks' ),
-		'href' => 'https://pressbooks.com/contact',
-	] );
+	$wp_admin_bar->add_menu(
+		[
+			'parent' => 'wp-logo-external',
+			'id' => 'contact',
+			'title' => __( 'Contact', 'pressbooks' ),
+			'href' => 'https://pressbooks.com/contact',
+		]
+	);
 
 }
 
@@ -344,70 +379,88 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		return;
 	}
 
-	$wp_admin_bar->add_menu( [
-		'id' => 'my-books',
-		'title' => __( 'My Catalog', 'pressbooks' ),
-		'href' => admin_url( 'index.php?page=pb_catalog' ),
-	] );
+	$wp_admin_bar->add_menu(
+		[
+			'id' => 'my-books',
+			'title' => __( 'My Catalog', 'pressbooks' ),
+			'href' => admin_url( 'index.php?page=pb_catalog' ),
+		]
+	);
 
-	$wp_admin_bar->add_node( [
-		'parent' => 'my-books',
-		'id' => 'add-new-book',
-		'title' => __( 'Add A New Book', 'pressbooks' ),
-		'href' => network_home_url( 'wp-signup.php' ),
-	] );
+	$wp_admin_bar->add_node(
+		[
+			'parent' => 'my-books',
+			'id' => 'add-new-book',
+			'title' => __( 'Add A New Book', 'pressbooks' ),
+			'href' => network_home_url( 'wp-signup.php' ),
+		]
+	);
 
 	if ( is_super_admin() ) {
 
-		$wp_admin_bar->add_group( [
-			'parent' => 'my-books',
-			'id' => 'my-books-super-admin',
-		] );
+		$wp_admin_bar->add_group(
+			[
+				'parent' => 'my-books',
+				'id' => 'my-books-super-admin',
+			]
+		);
 
-		$wp_admin_bar->add_menu( [
-			'parent' => 'my-books-super-admin',
-			'id' => 'pb-network-admin',
-			'title' => __( 'Network Admin', 'pressbooks' ),
-			'href' => network_admin_url(),
-		] );
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => 'my-books-super-admin',
+				'id' => 'pb-network-admin',
+				'title' => __( 'Network Admin', 'pressbooks' ),
+				'href' => network_admin_url(),
+			]
+		);
 
-		$wp_admin_bar->add_menu( [
-			'parent' => 'pb-network-admin',
-			'id' => 'pb-network-admin-d',
-			'title' => __( 'Dashboard', 'pressbooks' ),
-			'href' => network_admin_url(),
-		] );
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => 'pb-network-admin',
+				'id' => 'pb-network-admin-d',
+				'title' => __( 'Dashboard', 'pressbooks' ),
+				'href' => network_admin_url(),
+			]
+		);
 
-		$wp_admin_bar->add_menu( [
-			'parent' => 'pb-network-admin',
-			'id' => 'pb-network-admin-s',
-			'title' => __( 'Sites', 'pressbooks' ),
-			'href' => network_admin_url( 'sites.php' ),
-		] );
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => 'pb-network-admin',
+				'id' => 'pb-network-admin-s',
+				'title' => __( 'Sites', 'pressbooks' ),
+				'href' => network_admin_url( 'sites.php' ),
+			]
+		);
 
-		$wp_admin_bar->add_menu( [
-			'parent' => 'pb-network-admin',
-			'id' => 'pb-network-admin-u',
-			'title' => __( 'Users', 'pressbooks' ),
-			'href' => network_admin_url( 'users.php' ),
-		] );
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => 'pb-network-admin',
+				'id' => 'pb-network-admin-u',
+				'title' => __( 'Users', 'pressbooks' ),
+				'href' => network_admin_url( 'users.php' ),
+			]
+		);
 
-		$wp_admin_bar->add_menu( [
-			'parent' => 'pb-network-admin',
-			'id' => 'pb-network-admin-v',
-			'title' => __( 'Visit Network', 'pressbooks' ),
-			'href' => network_home_url(),
-		] );
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => 'pb-network-admin',
+				'id' => 'pb-network-admin-v',
+				'title' => __( 'Visit Network', 'pressbooks' ),
+				'href' => network_home_url(),
+			]
+		);
 	}
 
 	// Add site links
-	$wp_admin_bar->add_group( [
-		'parent' => 'my-books',
-		'id' => 'my-books-list',
-		'meta' => [
-			'class' => is_super_admin() ? 'ab-sub-secondary' : '',
-		],
-	] );
+	$wp_admin_bar->add_group(
+		[
+			'parent' => 'my-books',
+			'id' => 'my-books-list',
+			'meta' => [
+				'class' => is_super_admin() ? 'ab-sub-secondary' : '',
+			],
+		]
+	);
 
 	foreach ( (array) $wp_admin_bar->user->blogs as $blog ) {
 
@@ -418,31 +471,37 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 
 		$admin_url = get_admin_url( $blog->userblog_id );
 
-		$wp_admin_bar->add_menu( [
-			'parent' => 'my-books-list',
-			'id' => $menu_id,
-			'title' => $blavatar . $blogname,
-			'href' => $admin_url,
-		] );
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => 'my-books-list',
+				'id' => $menu_id,
+				'title' => $blavatar . $blogname,
+				'href' => $admin_url,
+			]
+		);
 
-		$wp_admin_bar->add_menu( [
-			'parent' => $menu_id,
-			'id' => $menu_id . '-d',
-			'title' => __( 'Dashboard', 'pressbooks' ),
-			'href' => $admin_url,
-		] );
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => $menu_id,
+				'id' => $menu_id . '-d',
+				'title' => __( 'Dashboard', 'pressbooks' ),
+				'href' => $admin_url,
+			]
+		);
 
 		if ( current_user_can_for_blog( $blog->userblog_id, 'edit_posts' ) ) {
 			$wp_admin_bar->remove_menu( $menu_id . '-n' );
 			$wp_admin_bar->remove_menu( $menu_id . '-c' );
 		}
 
-		$wp_admin_bar->add_menu( [
-			'parent' => $menu_id,
-			'id' => $menu_id . '-v',
-			'title' => __( 'Visit Site', 'pressbooks' ),
-			'href' => get_home_url( $blog->userblog_id, '/' ),
-		] );
+		$wp_admin_bar->add_menu(
+			[
+				'parent' => $menu_id,
+				'id' => $menu_id . '-v',
+				'title' => __( 'Visit Site', 'pressbooks' ),
+				'href' => get_home_url( $blog->userblog_id, '/' ),
+			]
+		);
 	}
 
 }
@@ -495,11 +554,11 @@ function default_meta_checkboxes() {
 	global $pagenow;
 	if ( 'post-new.php' === $pagenow ) {
 		?>
-<script type="text/javascript">
-	jQuery('#pb_export').attr('checked', 'checked');
-	jQuery('#pb_show_title').attr('checked', 'checked');
-</script>
-	<?php
+		<script type="text/javascript">
+			jQuery('#pb_export').attr('checked', 'checked');
+			jQuery('#pb_show_title').attr('checked', 'checked');
+		</script>
+		<?php
 	}
 }
 
@@ -520,24 +579,24 @@ function transform_category_selection_box() {
 	}
 
 	?>
-<script type="text/javascript">
-	jQuery('.category-tabs, .category-pop').remove();
-	jQuery('input:checkbox[id^="in-front-matter-type"]').each(function () {
-		jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
-	});
-	jQuery('input:checkbox[id^="in-back-matter-type"]').each(function () {
-		jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
-	});
-	jQuery('input:checkbox[id^="in-chapter-type"]').each(function () {
-		jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
-	});
+	<script type="text/javascript">
+		jQuery('.category-tabs, .category-pop').remove();
+		jQuery('input:checkbox[id^="in-front-matter-type"]').each(function () {
+			jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
+		});
+		jQuery('input:checkbox[id^="in-back-matter-type"]').each(function () {
+			jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
+		});
+		jQuery('input:checkbox[id^="in-chapter-type"]').each(function () {
+			jQuery(this).replaceWith(jQuery(this).clone(true).attr('type', 'radio'));
+		});
 		<?php if ( isset( $term ) ) :  ?>
-	jQuery('input:radio[id="in-front-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
-	jQuery('input:radio[id="in-back-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
-	jQuery('input:radio[id="in-chapter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
+		jQuery('input:radio[id="in-front-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
+		jQuery('input:radio[id="in-back-matter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
+		jQuery('input:radio[id="in-chapter-type-<?php echo $term->term_id; ?>"]').attr('checked', 'checked');
 		<?php endif; ?>
-</script>
-<?php
+	</script>
+	<?php
 }
 
 function disable_customizer() {
@@ -555,7 +614,16 @@ function init_css_js() {
 	$concatenate_scripts = false;
 
 	// Note: Will auto-register a dependency $handle named 'colors'
-	wp_admin_css_color( 'pb_colors', 'Pressbooks', \Pressbooks\Utility\asset_path( 'styles/colors-pb.css' ), apply_filters( 'pressbooks_admin_colors', [ '#b40026', '#d4002d', '#e9e9e9', '#dfdfdf' ] ) );
+	wp_admin_css_color(
+		'pb_colors', 'Pressbooks', \Pressbooks\Utility\asset_path( 'styles/colors-pb.css' ), apply_filters(
+			'pressbooks_admin_colors', [
+			'#b40026',
+			'#d4002d',
+			'#e9e9e9',
+			'#dfdfdf',
+			]
+		)
+	);
 
 	wp_deregister_style( 'pressbooks-book' ); // Theme's CSS
 
@@ -577,10 +645,12 @@ function init_css_js() {
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pressbooks_export_options' ) {
 		wp_enqueue_script( 'pressbooks/theme-lock', \Pressbooks\Utility\asset_path( 'scripts/theme-lock.js' ), [ 'jquery' ] );
-		wp_localize_script( 'pressbooks/theme-lock', 'PB_ThemeLockToken', [
+		wp_localize_script(
+			'pressbooks/theme-lock', 'PB_ThemeLockToken', [
 			// Strings
 			'confirmation' => __( 'Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!', 'pressbooks' ),
-		] );
+			]
+		);
 	}
 
 	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_custom_css' ) {
@@ -589,9 +659,11 @@ function init_css_js() {
 
 	// Don't let other plugins override our scripts
 	$bad_scripts = [ 'jquery-blockui', 'jquery-bootstrap', 'pb-organize', 'pb-feedback', 'pb-export', 'pb-metadata', 'pb-import' ];
-	array_walk( $bad_scripts, function ( $value, $key ) {
-		wp_deregister_script( $value );
-	} );
+	array_walk(
+		$bad_scripts, function ( $value, $key ) {
+			wp_deregister_script( $value );
+		}
+	);
 
 	// Enqueue later, on-the-fly, using action: admin_print_scripts-
 	wp_register_script( 'jquery-blockui', \Pressbooks\Utility\asset_path( 'scripts/blockui.js' ), [ 'jquery', 'jquery-ui-core' ] );
@@ -743,12 +815,14 @@ function privacy_settings_section_callback() {
 function privacy_blog_public_callback( $args ) {
 	$blog_public = get_option( 'blog_public' );
 	$html = '<input type="radio" id="blog-public" name="blog_public" value="1" ';
-	if ( $blog_public ) { $html .= 'checked="checked" ';
+	if ( $blog_public ) {
+		$html .= 'checked="checked" ';
 	}
 	$html .= '/>';
 	$html .= '<label for="blog-public"> ' . __( 'Public. I would like this book to be visible to everyone.', 'pressbooks' ) . '</label><br />';
 	$html .= '<input type="radio" id="blog-public" name="blog_public" value="0" ';
-	if ( ! $blog_public ) { $html .= 'checked="checked" ';
+	if ( ! $blog_public ) {
+		$html .= 'checked="checked" ';
 	}
 	$html .= '/>';
 	$html .= '<label for="blog-norobots"> ' . __( 'Private. I would like this book to be accessible only to people I invite.', 'pressbooks' ) . '</label>';
@@ -777,8 +851,8 @@ function privacy_permissive_private_content_callback( $args ) {
 	<p><?php _e( 'Who can see private front matter, chapters and back matter?', 'pressbooks' ); ?></p>
 	<fieldgroup>
 		<input type="radio" id="standard-private-content" name="permissive_private_content" value="0" <?php checked( $permissive_private_content, 0 ); ?>/>
-		<label for="standard-private-content"><?php _e( 'Only logged in editors and administrators.', 'pressbooks' ); ?></label><br />
-		<input type="radio" id="permissive-private-content" name="permissive_private_content" value="1"  <?php checked( $permissive_private_content, 1 ); ?>/>
+		<label for="standard-private-content"><?php _e( 'Only logged in editors and administrators.', 'pressbooks' ); ?></label><br/>
+		<input type="radio" id="permissive-private-content" name="permissive_private_content" value="1" <?php checked( $permissive_private_content, 1 ); ?>/>
 		<label for="permissive-private-content"><?php _e( 'All logged in users including subscribers.', 'pressbooks' ); ?></label>
 	</fieldgroup>
 <?php }
@@ -813,12 +887,14 @@ function privacy_disable_comments_callback( $args ) {
 function privacy_latest_files_public_callback( $args ) {
 	$blog_public = get_option( 'pbt_redistribute_settings' );
 	$html = '<input type="radio" id="latest_files_public" name="pbt_redistribute_settings[latest_files_public]" value="1" ';
-	if ( $blog_public['latest_files_public'] ) { $html .= 'checked="checked" ';
+	if ( $blog_public['latest_files_public'] ) {
+		$html .= 'checked="checked" ';
 	}
 	$html .= '/>';
 	$html .= '<label for="latest_files_public"> ' . __( 'Yes. I would like the latest export files to be available on the homepage for free, to everyone.', 'pressbooks' ) . '</label><br />';
 	$html .= '<input type="radio" id="latest_files_private" name="pbt_redistribute_settings[latest_files_public]" value="0" ';
-	if ( ! $blog_public['latest_files_public'] ) { $html .= 'checked="checked" ';
+	if ( ! $blog_public['latest_files_public'] ) {
+		$html .= 'checked="checked" ';
 	}
 	$html .= '/>';
 	$html .= '<label for="latest_files_private"> ' . __( 'No. I would like the latest export files to only be available to administrators.', 'pressbooks' ) . '</label>';
@@ -829,6 +905,7 @@ function privacy_latest_files_public_callback( $args ) {
  * Privacy settings, blog_public field sanitization
  *
  * @param $input
+ *
  * @return string
  */
 function privacy_blog_public_sanitize( $input ) {
@@ -839,6 +916,7 @@ function privacy_blog_public_sanitize( $input ) {
  * Privacy settings, permissive_private_content field sanitization
  *
  * @param $input
+ *
  * @return string
  */
 function privacy_permissive_private_content_sanitize( $input ) {
@@ -849,6 +927,7 @@ function privacy_permissive_private_content_sanitize( $input ) {
  * Privacy settings, disable_comments field sanitization
  *
  * @param $input
+ *
  * @return string
  */
 function privacy_disable_comments_sanitize( $input ) {
@@ -860,6 +939,7 @@ function privacy_disable_comments_sanitize( $input ) {
  * Privacy settings, pbt_redistribute_settings field sanitization
  *
  * @param $input
+ *
  * @return string
  */
 function privacy_pbt_redistribute_settings_sanitize( $input ) {
@@ -872,16 +952,16 @@ function privacy_pbt_redistribute_settings_sanitize( $input ) {
  */
 function display_privacy_settings() {
 	?>
-<div class="wrap">
-	<h2><?php _e( 'Sharing and Privacy Settings', 'pressbooks' ); ?></h2>
-	<form method="post" action="options.php">
-		<?php settings_fields( 'privacy_settings' );
-		do_settings_sections( 'privacy_settings' ); ?>
-		<?php submit_button(); ?>
-	</form>
-</div>
+	<div class="wrap">
+		<h2><?php _e( 'Sharing and Privacy Settings', 'pressbooks' ); ?></h2>
+		<form method="post" action="options.php">
+			<?php settings_fields( 'privacy_settings' );
+			do_settings_sections( 'privacy_settings' ); ?>
+			<?php submit_button(); ?>
+		</form>
+	</div>
 
-<?php
+	<?php
 }
 
 /* ------------------------------------------------------------------------ *
@@ -891,8 +971,8 @@ function display_privacy_settings() {
 /**
  * Hook for add_action( 'admin_notices', ... ) Echo $_SESSION['pb_notices'] if any.
  *
- * @global array $_SESSION['pb_errors'] *
- * @global array $_SESSION['pb_notices']
+ * @global array $_SESSION ['pb_errors'] *
+ * @global array $_SESSION ['pb_notices']
  */
 function admin_notices() {
 

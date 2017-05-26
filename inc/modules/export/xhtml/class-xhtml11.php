@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Modules\Export\Xhtml;
 
 use Pressbooks\Modules\Export\Export;
@@ -283,7 +284,7 @@ class Xhtml11 extends Export {
 	 * @see doEndnotes
 	 *
 	 * @param array $atts
-	 * @param null  $content
+	 * @param null $content
 	 *
 	 * @return string
 	 */
@@ -561,13 +562,15 @@ class Xhtml11 extends Export {
 				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $front_matter['post_content'];
 
-				printf( $front_matter_printf,
+				printf(
+					$front_matter_printf,
 					$subclass,
 					$slug,
 					$i,
 					Sanitize\decode( $title ),
 					$content,
-				$this->doEndnotes( $front_matter_id ) );
+					$this->doEndnotes( $front_matter_id )
+				);
 
 				echo "\n";
 				++$i;
@@ -627,7 +630,7 @@ class Xhtml11 extends Export {
 			printf( '<h3 class="author">%s</h3>', ( isset( $metadata['pb_author'] ) ) ? $metadata['pb_author'] : '' );
 			printf( '<h4 class="contributing-authors">%s</h4>', ( isset( $metadata['pb_contributing_authors'] ) ) ? $metadata['pb_contributing_authors'] : '' );
 			if ( current_theme_supports( 'pressbooks_publisher_logo' ) ) {
-				printf( '<div class="publisher-logo"><img src="%s" /></div>',  get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
+				printf( '<div class="publisher-logo"><img src="%s" /></div>', get_theme_support( 'pressbooks_publisher_logo' )[0]['logo_uri'] ); // TODO: Support custom publisher logo.
 			}
 			printf( '<h4 class="publisher">%s</h4>', ( isset( $metadata['pb_publisher'] ) ) ? $metadata['pb_publisher'] : '' );
 			printf( '<h5 class="publisher-city">%s</h5>', ( isset( $metadata['pb_publisher_city'] ) ) ? $metadata['pb_publisher_city'] : '' );
@@ -663,7 +666,8 @@ class Xhtml11 extends Export {
 			echo '<p>';
 			echo get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
 			echo ( ! empty( $metadata['pb_copyright_year'] ) ) ? $metadata['pb_copyright_year'] : date( 'Y' );
-			if ( ! empty( $metadata['pb_copyright_holder'] ) ) { echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
+			if ( ! empty( $metadata['pb_copyright_holder'] ) ) {
+				echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
 			}
 			echo '</p>';
 		}
@@ -702,13 +706,15 @@ class Xhtml11 extends Export {
 				$title = ( get_post_meta( $front_matter_id, 'pb_show_title', true ) ? $front_matter['post_title'] : '<span class="display-none">' . $front_matter['post_title'] . '</span>' ); // Preserve auto-indexing in Prince using hidden span
 				$content = $front_matter['post_content'];
 
-				printf( $front_matter_printf,
+				printf(
+					$front_matter_printf,
 					$subclass,
 					$slug,
 					$i,
 					Sanitize\decode( $title ),
 					$content,
-				$this->doEndnotes( $front_matter_id ) );
+					$this->doEndnotes( $front_matter_id )
+				);
 
 				echo "\n";
 				++$i;
@@ -849,7 +855,7 @@ class Xhtml11 extends Export {
 					}
 
 					if ( $license ) {
-							echo ' <span class="chapter-license">' . $license . '</span> ';
+						echo ' <span class="chapter-license">' . $license . '</span> ';
 					}
 
 					echo '</a>';
@@ -931,14 +937,16 @@ class Xhtml11 extends Export {
 				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 			}
 
-			printf( $front_matter_printf,
+			printf(
+				$front_matter_printf,
 				$subclass,
 				$slug,
 				$i,
 				Sanitize\decode( $title ),
 				$content,
 				$append_front_matter_content,
-			$this->doEndnotes( $front_matter_id ) );
+				$this->doEndnotes( $front_matter_id )
+			);
 
 			echo "\n";
 			++$i;
@@ -1019,7 +1027,8 @@ class Xhtml11 extends Export {
 				$slug,
 				\Pressbooks\L10n\romanize( $m ),
 				Sanitize\decode( $title ),
-			$part_content ) . "\n";
+				$part_content
+			) . "\n";
 
 			$my_chapters = '';
 
@@ -1074,7 +1083,8 @@ class Xhtml11 extends Export {
 					Sanitize\decode( $title ),
 					$content,
 					$append_chapter_content,
-				$this->doEndnotes( $chapter_id ) ) . "\n";
+					$this->doEndnotes( $chapter_id )
+				) . "\n";
 
 				if ( 'numberless' !== $subclass ) {
 					++$j;
@@ -1129,7 +1139,8 @@ class Xhtml11 extends Export {
 		$i = $s = 1;
 		foreach ( $book_contents['back-matter'] as $back_matter ) {
 
-			if ( ! $back_matter['export'] ) { continue;
+			if ( ! $back_matter['export'] ) {
+				continue;
 			}
 
 			$back_matter_id = $back_matter['ID'];
@@ -1161,14 +1172,16 @@ class Xhtml11 extends Export {
 				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 			}
 
-			printf( $back_matter_printf,
+			printf(
+				$back_matter_printf,
 				$subclass,
 				$slug,
 				$i,
 				Sanitize\decode( $title ),
 				$content,
 				$append_back_matter_content,
-			$this->doEndnotes( $back_matter_id ) );
+				$this->doEndnotes( $back_matter_id )
+			);
 
 			echo "\n";
 			++$i;
@@ -1189,8 +1202,10 @@ class Xhtml11 extends Export {
 		foreach ( $chapters as $key => $val ) {
 			if ( is_array( $val ) ) {
 				$found = $this->atLeastOneExport( $val );
-				if ( $found ) { return true;
-				} else { continue;
+				if ( $found ) {
+					return true;
+				} else {
+					continue;
 				}
 			} elseif ( 'export' === (string) $key && $val ) {
 				return true;

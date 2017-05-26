@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\PostType;
 
 /**
@@ -14,16 +15,18 @@ function list_post_types() {
 
 	/**
 	 * Allow users to add additional custom post types to the list of permitted post types.
-   * @since 4.0.0
+	 * @since 4.0.0
 	 */
-	return apply_filters('pb_supported_post_types', [
+	return apply_filters(
+		'pb_supported_post_types', [
 		'metadata',
 		'part',
 		'chapter',
 		'front-matter',
 		'back-matter',
 		'custom-css',
-	] );
+		]
+	);
 }
 
 
@@ -241,9 +244,11 @@ function post_type_messages( $messages ) {
 		6 => ( get_post_meta( $post->ID, 'pb_part_content' ) ? sprintf( __( 'Part published. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part published.', 'pressbooks' ) ),
 		7 => __( 'Part saved.', 'pressbooks' ),
 		8 => sprintf( __( 'Part submitted. <a target="_blank" href="%s">Preview Part</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
-		9 => sprintf( __( 'Part scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Part</a>', 'pressbooks' ),
+		9 => sprintf(
+			__( 'Part scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Part</a>', 'pressbooks' ),
 			// translators: Publish box date format, see http://php.net/date
-		date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink ) ),
+			date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink )
+		),
 		10 => sprintf( __( 'Part draft updated. <a target="_blank" href="%s">Preview Part</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 	];
 
@@ -271,9 +276,11 @@ function post_type_messages( $messages ) {
 		6 => sprintf( __( 'Chapter published. <a href="%s">View Chapter</a>', 'pressbooks' ), esc_url( $permalink ) ),
 		7 => __( 'Chapter saved.', 'pressbooks' ),
 		8 => sprintf( __( 'Chapter submitted. <a target="_blank" href="%s">Preview Chapter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
-		9 => sprintf( __( 'Chapter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Chapter</a>', 'pressbooks' ),
+		9 => sprintf(
+			__( 'Chapter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Chapter</a>', 'pressbooks' ),
 			// translators: Publish box date format, see http://php.net/date
-		date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink ) ),
+			date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink )
+		),
 		10 => sprintf( __( 'Chapter draft updated. <a target="_blank" href="%s">Preview Chapter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 	];
 
@@ -288,9 +295,11 @@ function post_type_messages( $messages ) {
 		6 => sprintf( __( 'Front Matter published. <a href="%s">View Front Matter</a>', 'pressbooks' ), esc_url( $permalink ) ),
 		7 => __( 'Front Matter saved.', 'pressbooks' ),
 		8 => sprintf( __( 'Front Matter submitted. <a target="_blank" href="%s">Preview Front Matter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
-		9 => sprintf( __( 'Front Matter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Front Matter</a>', 'pressbooks' ),
+		9 => sprintf(
+			__( 'Front Matter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Front Matter</a>', 'pressbooks' ),
 			// translators: Publish box date format, see http://php.net/date
-		date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink ) ),
+			date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink )
+		),
 		10 => sprintf( __( 'Front Matter draft updated. <a target="_blank" href="%s">Preview Front Matter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 	];
 
@@ -305,9 +314,11 @@ function post_type_messages( $messages ) {
 		6 => sprintf( __( 'Back Matter published. <a href="%s">View Back Matter</a>', 'pressbooks' ), esc_url( $permalink ) ),
 		7 => __( 'Back Matter saved.', 'pressbooks' ),
 		8 => sprintf( __( 'Back Matter submitted. <a target="_blank" href="%s">Preview Back Matter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
-		9 => sprintf( __( 'Back Matter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Back Matter</a>', 'pressbooks' ),
+		9 => sprintf(
+			__( 'Back Matter scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview Back Matter</a>', 'pressbooks' ),
 			// translators: Publish box date format, see http://php.net/date
-		date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink ) ),
+			date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( $permalink )
+		),
 		10 => sprintf( __( 'Back Matter draft updated. <a target="_blank" href="%s">Preview Back Matter</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 	];
 

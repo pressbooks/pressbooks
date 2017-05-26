@@ -3,9 +3,8 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
-namespace Pressbooks;
 
-use Pressbooks\Container;
+namespace Pressbooks;
 
 class ThemeLock {
 

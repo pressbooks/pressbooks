@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Image;
 
 /**
@@ -152,8 +153,10 @@ function thumbnail_from_url( $url, $size ) {
 	$id = attachment_id_from_url( $url );
 	$image_thumb = wp_get_attachment_image_src( $id, $size );
 
-	if ( $image_thumb ) { return $image_thumb[0]; // URL
-	} else { return $url; // Couldn't find anything, return original
+	if ( $image_thumb ) {
+		return $image_thumb[0]; // URL
+	} else {
+		return $url; // Couldn't find anything, return original
 	}
 }
 
@@ -193,12 +196,21 @@ function fix_intermediate_image_size_options() {
 	$our_sizes = intermediate_image_sizes();
 
 	foreach ( $our_sizes as $key => $val ) {
-		add_filter( "pre_option_{$key}_size_w", function () use ( $val ) { return $val['width'];
-		} );
-		add_filter( "pre_option_{$key}_size_h", function () use ( $val ) { return $val['height'];
-		} );
-		add_filter( "pre_option_{$key}_crop", function () use ( $val ) { return $val['crop'];
-		} );
+		add_filter(
+			"pre_option_{$key}_size_w", function () use ( $val ) {
+				return $val['width'];
+			}
+		);
+		add_filter(
+			"pre_option_{$key}_size_h", function () use ( $val ) {
+				return $val['height'];
+			}
+		);
+		add_filter(
+			"pre_option_{$key}_crop", function () use ( $val ) {
+				return $val['crop'];
+			}
+		);
 	}
 }
 
@@ -330,12 +342,12 @@ function catalog_logo_box( $user_id ) {
 /**
  * Render cover image widget
  *
-* @param $form_id
-* @param $cover_pid
-* @param $image_url
-* @param $ajax_action
-* @param $nonce
-* @param string $description (optional)
+ * @param $form_id
+ * @param $cover_pid
+ * @param $image_url
+ * @param $ajax_action
+ * @param $nonce
+ * @param string $description (optional)
  */
 function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action, $nonce, $description = '' ) {
 	?>
@@ -343,8 +355,8 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 		<script type="text/javascript">
 			// <![CDATA[
 			jQuery.noConflict();
-			jQuery(document).ready(function($){
-				jQuery('#delete_cover_button').click(function(e) {
+			jQuery(document).ready(function ($) {
+				jQuery('#delete_cover_button').click(function (e) {
 					if (!confirm('<?php esc_attr_e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>')) {
 						e.preventDefault();
 						return false;
@@ -360,13 +372,13 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 							pid: pid,
 							_ajax_nonce: '<?php echo $nonce ?>'
 						},
-						success: function(data) {
+						success: function (data) {
 							jQuery('#delete_cover_button').remove();
 							jQuery("#cover_image_preview").fadeOut("slow", function () {
 								jQuery("#cover_image_preview").load(function () { //avoiding blinking, wait until loaded
 									jQuery("#cover_image_preview").fadeIn();
 								})
-								.attr('src', '<?php echo \Pressbooks\Image\default_cover_url(); ?>');
+									.attr('src', '<?php echo \Pressbooks\Image\default_cover_url(); ?>');
 							});
 						}
 					});
@@ -376,18 +388,19 @@ function render_cover_image_box( $form_id, $cover_pid, $image_url, $ajax_action,
 		</script>
 		<div class="<?php echo $form_id; ?>" id="<?php echo $form_id; ?>-1">
 			<?php if ( $image_url && ! \Pressbooks\Image\is_default_cover( $image_url ) ) { ?>
-				<p><img id="cover_image_preview" src="<?php echo $image_url; ?>" style="width:auto;height:100px;" alt="cover_image" /><br />
-					<button id="delete_cover_button" name="<?php echo $image_url; ?>" type="button" class="button-secondary" ><?php _e( 'Delete', 'pressbooks' ); ?></button></p>
-				<p><input type="file" name="<?php echo $form_id; ?>" value="" id="<?php echo $form_id; ?>" /></p>
-				<input type="hidden" id="cover_pid" name="cover_pid" value="<?php echo $cover_pid; ?>" />
+				<p><img id="cover_image_preview" src="<?php echo $image_url; ?>" style="width:auto;height:100px;" alt="cover_image"/><br/>
+					<button id="delete_cover_button" name="<?php echo $image_url; ?>" type="button" class="button-secondary"><?php _e( 'Delete', 'pressbooks' ); ?></button>
+				</p>
+				<p><input type="file" name="<?php echo $form_id; ?>" value="" id="<?php echo $form_id; ?>"/></p>
+				<input type="hidden" id="cover_pid" name="cover_pid" value="<?php echo $cover_pid; ?>"/>
 			<?php } else { ?>
-				<p><img id="cover_image_preview" src="<?php echo \Pressbooks\Image\default_cover_url(); ?>" style="width:auto;height:100px;" alt="cover_image" /></p>
-				<p><input type="file" name="<?php echo $form_id; ?>" value="<?php echo $image_url; ?>" id="<?php echo $form_id; ?>" /></p>
+				<p><img id="cover_image_preview" src="<?php echo \Pressbooks\Image\default_cover_url(); ?>" style="width:auto;height:100px;" alt="cover_image"/></p>
+				<p><input type="file" name="<?php echo $form_id; ?>" value="<?php echo $image_url; ?>" id="<?php echo $form_id; ?>"/></p>
 			<?php } ?>
-			<?php if ( $description ) :  ?><span class="description"><?php echo $description; ?></span><?php endif; ?>
+			<?php if ( $description ) : ?><span class="description"><?php echo $description; ?></span><?php endif; ?>
 		</div>
 	</div>
-<?php
+	<?php
 }
 
 
@@ -426,7 +439,7 @@ function resize_down( $format, $fullpath, $max_w = 1024, $max_h = 1024 ) {
 
 	// try again, but replace with placeholder image
 	if ( ! $src ) {
-		$src        = imagecreatetruecolor( 150, 100 );
+		$src = imagecreatetruecolor( 150, 100 );
 		$bkgd_color = imagecolorallocate( $src, 255, 255, 255 );
 		$font_color = imagecolorallocate( $src, 0, 0, 0 );
 
@@ -477,7 +490,8 @@ function fudge_factor( $format, $fullpath ) {
 	} else {
 		// Not Sure
 		$memory_needed = $size[0] * $size[1];
-		if ( isset( $size['bits'] ) ) { $memory_needed = $memory_needed * $size['bits'];
+		if ( isset( $size['bits'] ) ) {
+			$memory_needed = $memory_needed * $size['bits'];
 		}
 		$memory_needed = round( $memory_needed );
 	}

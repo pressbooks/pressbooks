@@ -37,7 +37,7 @@ class VanillaWxr extends Wxr {
 			throw new \Exception( print_r( libxml_get_errors(), true ) );
 		}
 
-		for ( $i = 0; $i < $post_type->length; $i ++ ) {
+		for ( $i = 0; $i < $post_type->length; $i++ ) {
 
 			switch ( $post_type->item( $i )->nodeValue ) {
 				case 'chapter':
@@ -64,7 +64,7 @@ class VanillaWxr extends Wxr {
 		// when you remove a child node, the next node becomes the first one,
 		// hence '$term->item(0)' and NOT '$term->item($i)'
 		$length = $term->length;
-		for ( $i = 0; $i < $length; $i ++ ) {
+		for ( $i = 0; $i < $length; $i++ ) {
 			$this->deleteNode( $term->item( 0 ) );
 		}
 

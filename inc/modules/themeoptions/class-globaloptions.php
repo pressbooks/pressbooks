@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Modules\ThemeOptions;
 
 use Pressbooks\Container;
@@ -18,24 +19,24 @@ class GlobalOptions extends \Pressbooks\Options {
 	const VERSION = 1;
 
 	/**
-	* Global theme options.
-	*
-	* @var array
-	*/
+	 * Global theme options.
+	 *
+	 * @var array
+	 */
 	public $options;
 
 	/**
-	* Global theme defaults.
-	*
-	* @var array
-	*/
+	 * Global theme defaults.
+	 *
+	 * @var array
+	 */
 	public $defaults;
 
 	/**
-	* Constructor.
-	*
-	* @param array $options
-	*/
+	 * Constructor.
+	 *
+	 * @param array $options
+	 */
 	function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
@@ -77,7 +78,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				 __( 'Display part and chapter numbers', 'pressbooks' )
+				__( 'Display part and chapter numbers', 'pressbooks' ),
 			]
 		);
 
@@ -88,7 +89,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				 __( 'Enable two-level table of contents (displays headings under chapter titles)', 'pressbooks' )
+				__( 'Enable two-level table of contents (displays headings under chapter titles)', 'pressbooks' ),
 			]
 		);
 
@@ -101,7 +102,7 @@ class GlobalOptions extends \Pressbooks\Options {
 				$_page,
 				$_section,
 				[
-					 __( 'Include fonts to support the following languages:', 'pressbooks' )
+					__( 'Include fonts to support the following languages:', 'pressbooks' ),
 				]
 			);
 
@@ -120,7 +121,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				 __( 'Display the selected copyright license', 'pressbooks' )
+				__( 'Display the selected copyright license', 'pressbooks' ),
 			]
 		);
 
@@ -148,7 +149,8 @@ class GlobalOptions extends \Pressbooks\Options {
 	/**
 	 * Render the PDF options tab form (NOT USED).
 	 */
-	function render() {}
+	function render() {
+	}
 
 	/**
 	 * Sanitize the languages (just returns the array or an empty array, as these are predefined values).
@@ -203,34 +205,41 @@ class GlobalOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the chapter_numbers checkbox.
+	 *
 	 * @param array $args
 	 */
 	function renderChapterNumbersField( $args ) {
-		$this->renderCheckbox( [
-			'id' => 'chapter_numbers',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'chapter_numbers',
-			'value' => ( isset( $this->options['chapter_numbers'] ) ) ? $this->options['chapter_numbers'] : '',
-			'label' => $args[0],
-		] );
+		$this->renderCheckbox(
+			[
+				'id' => 'chapter_numbers',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'chapter_numbers',
+				'value' => ( isset( $this->options['chapter_numbers'] ) ) ? $this->options['chapter_numbers'] : '',
+				'label' => $args[0],
+			]
+		);
 	}
 
 	/**
 	 * Render the parse_subsections checkbox.
+	 *
 	 * @param array $args
 	 */
 	function renderTwoLevelTOCField( $args ) {
-		$this->renderCheckbox( [
-			'id' => 'parse_subsections',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'parse_subsections',
-			'value' => ( isset( $this->options['parse_subsections'] ) ) ? $this->options['parse_subsections'] : '',
-			'label' => $args[0],
-		] );
+		$this->renderCheckbox(
+			[
+				'id' => 'parse_subsections',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'parse_subsections',
+				'value' => ( isset( $this->options['parse_subsections'] ) ) ? $this->options['parse_subsections'] : '',
+				'label' => $args[0],
+			]
+		);
 	}
 
 	/**
 	 * Render the pressbooks_global_typography select.
+	 *
 	 * @param array $args
 	 */
 	function renderLanguagesField( $args ) {
@@ -280,16 +289,19 @@ class GlobalOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the copyright_license checkbox.
+	 *
 	 * @param array $args
 	 */
 	function renderCopyrightLicenseField( $args ) {
-		$this->renderCheckbox( [
-			'id' => 'copyright_license',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'copyright_license',
-			'value' => ( isset( $this->options['copyright_license'] ) ) ? $this->options['copyright_license'] : '',
-			'label' => $args[0],
-		] );
+		$this->renderCheckbox(
+			[
+				'id' => 'copyright_license',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'copyright_license',
+				'value' => ( isset( $this->options['copyright_license'] ) ) ? $this->options['copyright_license'] : '',
+				'label' => $args[0],
+			]
+		);
 	}
 
 	/**
@@ -319,17 +331,20 @@ class GlobalOptions extends \Pressbooks\Options {
 		/**
 		 * @since 3.9.7 TODO
 		 */
-		return apply_filters( 'pb_theme_options_global_defaults', [
+		return apply_filters(
+			'pb_theme_options_global_defaults', [
 			'chapter_numbers' => 1,
 			'parse_subsections' => 0,
 			'copyright_license' => 0,
-		] );
+			]
+		);
 	}
 
 	/**
 	 * Filter the array of default values for the Global options tab.
 	 *
 	 * @param array $defaults
+	 *
 	 * @return array $defaults
 	 */
 	static function filterDefaults( $defaults ) {
@@ -347,11 +362,13 @@ class GlobalOptions extends \Pressbooks\Options {
 		 *
 		 * @since 3.9.7
 		 */
-		return apply_filters( 'pb_theme_options_global_booleans', [
+		return apply_filters(
+			'pb_theme_options_global_booleans', [
 			'chapter_numbers',
 			'parse_subsections',
 			'copyright_license',
-		] );
+			]
+		);
 	}
 
 	/**

@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks;
 
 class Pressbooks {
@@ -46,7 +47,7 @@ class Pressbooks {
 
 		if ( is_admin() ) {
 			if ( Book::isBook() ) {
-				add_filter( 'allowed_themes',[ $this, 'allowedBookThemes' ] );
+				add_filter( 'allowed_themes', [ $this, 'allowedBookThemes' ] );
 			} elseif ( ! is_network_admin() ) {
 				add_filter( 'allowed_themes', [ $this, 'allowedRootThemes' ] );
 			}

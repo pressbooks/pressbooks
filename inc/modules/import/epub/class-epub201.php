@@ -98,7 +98,8 @@ class Epub201 extends Import {
 			}
 
 			// Skip
-			if ( 'application/xhtml+xml' !== $type ) { continue;
+			if ( 'application/xhtml+xml' !== $type ) {
+				continue;
 			}
 
 			// Set
@@ -180,7 +181,8 @@ class Epub201 extends Import {
 			// Get attributes
 			$id = $href = '';
 			foreach ( $item->attributes() as $key => $val ) {
-				if ( 'id' === $key ) { $id = (string) $val;
+				if ( 'id' === $key ) {
+					$id = (string) $val;
 				} elseif ( 'href' === $key ) {
 					if ( 'OEBPS/copyright.html' === $val ) {
 						$this->pbCheck( $val );
@@ -382,6 +384,7 @@ class Epub201 extends Import {
 	 * Cleans imported html of unwanted tags
 	 *
 	 * @param string $html
+	 *
 	 * @return string
 	 */
 	protected function regexSearchReplace( $html ) {

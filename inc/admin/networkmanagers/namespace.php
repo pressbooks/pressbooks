@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Admin\NetworkManagers;
 
 /**
@@ -26,9 +27,11 @@ function add_menu() {
 function admin_enqueues() {
 	wp_enqueue_style( 'pb-network-managers', \Pressbooks\Utility\asset_path( 'styles/network-managers.css' ) );
 	wp_enqueue_script( 'pb-network-managers', \Pressbooks\Utility\asset_path( 'scripts/network-managers.js' ), [ 'jquery' ] );
-	wp_localize_script( 'pb-network-managers', 'PB_NetworkManagerToken', [
+	wp_localize_script(
+		'pb-network-managers', 'PB_NetworkManagerToken', [
 		'networkManagerNonce' => wp_create_nonce( 'pb-network-managers' ),
-	] );
+		]
+	);
 }
 
 /**
@@ -122,6 +125,7 @@ function hide_admin_bar_menus( $wp_admin_bar ) {
 
 /**
  * @param string $classes
+ *
  * @return string
  */
 function admin_body_class( $classes ) {

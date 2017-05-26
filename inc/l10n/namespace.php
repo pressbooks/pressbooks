@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\L10n;
 
 use function \Pressbooks\Utility\getset;
@@ -415,7 +416,7 @@ function set_locale( $lang ) {
 	if ( is_admin() ) {
 		// If user locale isn't set, use the book information value.
 		if ( function_exists( 'wp_get_current_user' ) && ! get_user_option( 'locale' ) ) {
-			if (  '__UNSET__' === $loc ) {
+			if ( '__UNSET__' === $loc ) {
 				$locations = \Pressbooks\L10n\wplang_codes();
 				$loc = $locations[ $book_lang ];
 			}
@@ -425,7 +426,7 @@ function set_locale( $lang ) {
 		$loc = get_site_option( 'WPLANG' );
 	} else {
 		// Use the book information value.
-		if (  '__UNSET__' === $loc ) {
+		if ( '__UNSET__' === $loc ) {
 			$locations = \Pressbooks\L10n\wplang_codes();
 			$loc = $locations[ $book_lang ];
 		}
@@ -458,6 +459,7 @@ function set_root_locale( $lang ) {
  * When a user changes their book's language, try to install the corresponding language pack.
  *
  * @since 3.9.6
+ *
  * @param int $meta_id The metadata ID
  * @param int $post_ID The book information post ID
  * @param string $meta_key The metadata key
@@ -466,7 +468,7 @@ function set_root_locale( $lang ) {
  * @return string|bool Returns the language code if successfully downloaded
  *                     (or already installed), or false on failure.
  */
-function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value  ) {
+function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value ) {
 	if ( 'pb_language' !== $meta_key ) {
 		return false;
 	}
@@ -485,7 +487,6 @@ function install_book_locale( $meta_id, $post_id, $meta_key, $meta_value  ) {
 
 	return false;
 }
-
 
 
 /**

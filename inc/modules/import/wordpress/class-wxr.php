@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Modules\Import\WordPress;
 
 use Pressbooks\Modules\Import\Import;
@@ -215,13 +216,13 @@ class Wxr extends Import {
 		// Done
 		$_SESSION['pb_notices'][] =
 
-		sprintf(
-			_x( 'Imported %1$s, %2$s, %3$s, and %4$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
-			$totals['front-matter'] . ' ' . __( 'front matter', 'pressbooks' ),
-			( 1 === $totals['part'] ) ? $totals['part'] . ' ' . __( 'part', 'pressbooks' ) : $totals['part'] . ' ' . __( 'parts', 'pressbooks' ),
-			( 1 === $totals['chapter'] ) ? $totals['chapter'] . ' ' . __( 'chapter', 'pressbooks' ) : $totals['chapter'] . ' ' . __( 'chapters', 'pressbooks' ),
-			$totals['back-matter'] . ' ' . __( 'back matter', 'pressbooks' )
-		);
+			sprintf(
+				_x( 'Imported %1$s, %2$s, %3$s, and %4$s.', 'String which tells user how many front matter, parts, chapters and back matter were imported.', 'pressbooks' ),
+				$totals['front-matter'] . ' ' . __( 'front matter', 'pressbooks' ),
+				( 1 === $totals['part'] ) ? $totals['part'] . ' ' . __( 'part', 'pressbooks' ) : $totals['part'] . ' ' . __( 'parts', 'pressbooks' ),
+				( 1 === $totals['chapter'] ) ? $totals['chapter'] . ' ' . __( 'chapter', 'pressbooks' ) : $totals['chapter'] . ' ' . __( 'chapters', 'pressbooks' ),
+				$totals['back-matter'] . ' ' . __( 'back matter', 'pressbooks' )
+			);
 		return $this->revokeCurrentImport();
 	}
 
@@ -267,9 +268,11 @@ class Wxr extends Import {
 		$array = [];
 
 		//first, put them in ascending menu_order
-		usort( $xml, function ( $a, $b ) {
-			  return ( $a['menu_order'] - $b['menu_order'] );
-		});
+		usort(
+			$xml, function ( $a, $b ) {
+				return ( $a['menu_order'] - $b['menu_order'] );
+			}
+		);
 
 		// Start with book info
 		foreach ( $xml as $p ) {
@@ -282,14 +285,14 @@ class Wxr extends Import {
 		//now, list all front matter
 		foreach ( $xml as $p ) {
 			if ( 'front-matter' === $p['post_type'] ) {
-				 $array[] = $p;
+				$array[] = $p;
 			}
 		}
 
 		//now, list all parts, then their associated chapters
 		foreach ( $xml as $p ) {
 			if ( 'part' === $p['post_type'] ) {
-				 $array[] = $p;
+				$array[] = $p;
 				foreach ( $xml as $psub ) {
 					if ( 'chapter' === $psub['post_type'] && $psub['post_parent'] === $p['post_id'] ) {
 						$array[] = $psub;
@@ -301,7 +304,7 @@ class Wxr extends Import {
 		//now, list all back matter
 		foreach ( $xml as $p ) {
 			if ( 'back-matter' === $p['post_type'] ) {
-				 $array[] = $p;
+				$array[] = $p;
 			}
 		}
 
@@ -447,7 +450,7 @@ class Wxr extends Import {
 	/**
 	 * Check for PB specific metadata, returns empty string if not found.
 	 *
-	 * @param $meta_key, array $postmeta
+	 * @param $meta_key , array $postmeta
 	 *
 	 * @return string meta field value
 	 */
@@ -561,7 +564,8 @@ class Wxr extends Import {
 
 		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
 		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) { $src = ''; // Change false to empty string
+		if ( ! $src ) {
+			$src = ''; // Change false to empty string
 		}
 		$already_done[ $remote_img_location ] = $src;
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine

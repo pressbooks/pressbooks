@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks;
 
 class Sass {
@@ -117,7 +118,6 @@ class Sass {
 	}
 
 
-
 	/**
 	 * Get path to a directory we can dump user generated Sass files into (create dir if it does not exist)
 	 *
@@ -159,6 +159,7 @@ class Sass {
 	 *
 	 * @param string $scss
 	 * @param array $includes (optional)
+	 *
 	 * @return string
 	 */
 	function compile( $scss, $includes = [] ) {
@@ -196,6 +197,7 @@ class Sass {
 	 * Prepend localized version of content string variables.
 	 *
 	 * @param string $scss
+	 *
 	 * @return string
 	 */
 	function prependLocalizedVars( $scss ) {
@@ -217,17 +219,21 @@ class Sass {
 	 * Parse an SCSS file into an array of variables.
 	 *
 	 * @param string $scss
+	 *
 	 * @return array
 	 */
 	function parseVariables( $scss ) {
 
 		preg_match_all( '/\$(.*?):(.*?);/', $scss, $matches );
 		$output = array_combine( $matches[1], $matches[2] );
-		$output = array_map( function( $val ) {
-			return ltrim( str_replace( ' !default', '', $val ) );
-		}, $output );
+		$output = array_map(
+			function ( $val ) {
+				return ltrim( str_replace( ' !default', '', $val ) );
+			}, $output
+		);
 		return $output;
 	}
+
 	/**
 	 * Log Exceptions
 	 *
@@ -302,9 +308,9 @@ class Sass {
 		$basepath = apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() );
 
 		$types = [
-				'prince',
-				'epub',
-				'web',
+			'prince',
+			'epub',
+			'web',
 		];
 
 		foreach ( $types as $type ) {
@@ -366,12 +372,14 @@ class Sass {
 			$scss .= $this->applyOverrides( file_get_contents( $path_to_style ), $overrides );
 
 			$scss .= "\n";
-			$css = $this->compile( $scss, [
-				$this->pathToUserGeneratedSass(),
-				$this->pathToPartials(),
-				$this->pathToFonts(),
-				get_stylesheet_directory(),
-			] );
+			$css = $this->compile(
+				$scss, [
+					$this->pathToUserGeneratedSass(),
+					$this->pathToPartials(),
+					$this->pathToFonts(),
+					get_stylesheet_directory(),
+				]
+			);
 
 		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
 			$path_to_style = realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' );
@@ -395,29 +403,32 @@ class Sass {
 	 * Fix relative/ambiguous URLs to web fonts
 	 *
 	 * @param $css
+	 *
 	 * @return mixed
 	 */
 	function fixWebFonts( $css ) {
 
 		// Search for all possible permutations of CSS url syntax: url("*"), url('*'), and url(*)
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback( $url_regex, function ( $matches ) {
+		$css = preg_replace_callback(
+			$url_regex, function ( $matches ) {
 
-			$url = $matches[3];
+				$url = $matches[3];
 
-			// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
-			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				return 'url(' . PB_PLUGIN_URL . $url . ')';
-			}
+				// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
+				if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+					return 'url(' . PB_PLUGIN_URL . $url . ')';
+				}
 
-			// Look for uploads/assets/fonts/*.otf (or .woff, or .ttf), update URL
-			if ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-				return 'url(' . WP_CONTENT_URL . '/' . $url . ')';
-			}
+				// Look for uploads/assets/fonts/*.otf (or .woff, or .ttf), update URL
+				if ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+					return 'url(' . WP_CONTENT_URL . '/' . $url . ')';
+				}
 
-			return $matches[0]; // No change
+				return $matches[0]; // No change
 
-		}, $css );
+			}, $css
+		);
 
 		return $css;
 	}

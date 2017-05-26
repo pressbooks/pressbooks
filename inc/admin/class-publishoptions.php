@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Admin;
 
 class PublishOptions extends \Pressbooks\Options {
@@ -15,24 +16,24 @@ class PublishOptions extends \Pressbooks\Options {
 	const VERSION = 1;
 
 	/**
-	* Publish options.
-	*
-	* @var array
-	*/
+	 * Publish options.
+	 *
+	 * @var array
+	 */
 	public $options;
 
 	/**
-	* Publish defaults.
-	*
-	* @var array
-	*/
+	 * Publish defaults.
+	 *
+	 * @var array
+	 */
 	public $defaults;
 
 	/**
-	* Constructor.
-	*
-	* @param array $options
-	*/
+	 * Constructor.
+	 *
+	 * @param array $options
+	 */
 	function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
@@ -142,7 +143,7 @@ class PublishOptions extends \Pressbooks\Options {
 	}
 
 	function render() {
-	?>
+		?>
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
 			<form method="post" action="options.php">
@@ -159,90 +160,103 @@ class PublishOptions extends \Pressbooks\Options {
 		}
 	}
 
-	function doInitialUpgrade() {}
+	function doInitialUpgrade() {
+	}
 
 	/**
 	 * Render the amazon field.
 	 */
 	function renderAmazonField() {
-		$this->renderField( [
-			'id' => 'amazon',
-			'name' => $this->getSlug(),
-			'option' => 'amazon',
-			'value' => ( isset( $this->options['amazon'] ) ) ? $this->options['amazon'] : '',
-			'type' => 'url',
-			'class' => 'regular-text code',
-		] );
+		$this->renderField(
+			[
+				'id' => 'amazon',
+				'name' => $this->getSlug(),
+				'option' => 'amazon',
+				'value' => ( isset( $this->options['amazon'] ) ) ? $this->options['amazon'] : '',
+				'type' => 'url',
+				'class' => 'regular-text code',
+			]
+		);
 	}
 
 	/**
 	 * Render the oreilly field.
 	 */
 	function renderOReillyField() {
-		$this->renderField( [
-			'id' => 'oreilly',
-			'name' => $this->getSlug(),
-			'option' => 'oreilly',
-			'value' => ( isset( $this->options['oreilly'] ) ) ? $this->options['oreilly'] : '',
-			'type' => 'url',
-			'class' => 'regular-text code',
-		] );
+		$this->renderField(
+			[
+				'id' => 'oreilly',
+				'name' => $this->getSlug(),
+				'option' => 'oreilly',
+				'value' => ( isset( $this->options['oreilly'] ) ) ? $this->options['oreilly'] : '',
+				'type' => 'url',
+				'class' => 'regular-text code',
+			]
+		);
 	}
 
 	/**
 	 * Render the barnesandnoble field.
 	 */
 	function renderBarnesAndNobleField() {
-		$this->renderField( [
-			'id' => 'barnesandnoble',
-			'name' => $this->getSlug(),
-			'option' => 'barnesandnoble',
-			'value' => ( isset( $this->options['barnesandnoble'] ) ) ? $this->options['barnesandnoble'] : '',
-			'type' => 'url',
-			'class' => 'regular-text code',
-		] );
+		$this->renderField(
+			[
+				'id' => 'barnesandnoble',
+				'name' => $this->getSlug(),
+				'option' => 'barnesandnoble',
+				'value' => ( isset( $this->options['barnesandnoble'] ) ) ? $this->options['barnesandnoble'] : '',
+				'type' => 'url',
+				'class' => 'regular-text code',
+			]
+		);
 	}
 
 	/**
 	 * Render the barnesandnoble field.
 	 */
 	function renderKoboField() {
-		$this->renderField( [
-			'id' => 'kobo',
-			'name' => $this->getSlug(),
-			'option' => 'kobo',
-			'value' => ( isset( $this->options['kobo'] ) ) ? $this->options['kobo'] : '',
-			'type' => 'url',
-			'class' => 'regular-text code',
-		] );
+		$this->renderField(
+			[
+				'id' => 'kobo',
+				'name' => $this->getSlug(),
+				'option' => 'kobo',
+				'value' => ( isset( $this->options['kobo'] ) ) ? $this->options['kobo'] : '',
+				'type' => 'url',
+				'class' => 'regular-text code',
+			]
+		);
 	}
 
 	/**
 	 * Render the ibooks field.
 	 */
 	function renderiBooksField() {
-		$this->renderField( [
-			'id' => 'ibooks',
-			'name' => $this->getSlug(),
-			'option' => 'ibooks',
-			'value' => ( isset( $this->options['ibooks'] ) ) ? $this->options['ibooks'] : '',
-			'type' => 'url',
-			'class' => 'regular-text code',
-		] );
+		$this->renderField(
+			[
+				'id' => 'ibooks',
+				'name' => $this->getSlug(),
+				'option' => 'ibooks',
+				'value' => ( isset( $this->options['ibooks'] ) ) ? $this->options['ibooks'] : '',
+				'type' => 'url',
+				'class' => 'regular-text code',
+			]
+		);
 	}
 
 	/**
 	 * Render the ibooks field.
 	 */
 	function renderOtherServiceField() {
-		$this->renderField( [
-			'id' => 'otherservice',
-			'name' => $this->getSlug(),
-			'option' => 'otherservice',
-			'value' => ( isset( $this->options['otherservice'] ) ) ? $this->options['otherservice'] : '',
-			'type' => 'url',
-			'class' => 'regular-text code',
-		] );
+		$this->renderField(
+			[
+				'id' => 'otherservice',
+				'name' => $this->getSlug(),
+				'option' => 'otherservice',
+				'value' => ( isset( $this->options['otherservice'] ) ) ? $this->options['otherservice'] : '',
+				'type' => 'url',
+				'class' => 'regular-text code',
+			]
+		);
 	}
 
 	/**
@@ -299,6 +313,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 * Filter the array of default values for this set of options
 	 *
 	 * @param array $defaults
+	 *
 	 * @return array $defaults
 	 */
 	static function filterDefaults( $defaults ) {

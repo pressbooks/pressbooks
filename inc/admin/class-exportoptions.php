@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Admin;
 
 class ExportOptions extends \Pressbooks\Options {
@@ -15,24 +16,24 @@ class ExportOptions extends \Pressbooks\Options {
 	const VERSION = 1;
 
 	/**
-	* Export options.
-	*
-	* @var array
-	*/
+	 * Export options.
+	 *
+	 * @var array
+	 */
 	public $options;
 
 	/**
-	* Export defaults.
-	*
-	* @var array
-	*/
+	 * Export defaults.
+	 *
+	 * @var array
+	 */
 	public $defaults;
 
 	/**
-	* Constructor.
-	*
-	* @param array $options
-	*/
+	 * Constructor.
+	 *
+	 * @param array $options
+	 */
 	function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
@@ -99,7 +100,7 @@ class ExportOptions extends \Pressbooks\Options {
 	}
 
 	function render() {
-	?>
+		?>
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
 			<form method="post" action="options.php">
@@ -130,31 +131,37 @@ class ExportOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the email_validation_logs radio buttons.
+	 *
 	 * @param array $args
 	 */
 	function renderEmailValidationLogsField( $args ) {
-		$this->renderRadioButtons( [
-			'id' => 'email_validation_logs',
-			'name' => $this->getSlug(),
-			'option' => 'email_validation_logs',
-			'value' => ( isset( $this->options['email_validation_logs'] ) ) ? $this->options['email_validation_logs'] : '',
-			'choices' => $args,
-		] );
+		$this->renderRadioButtons(
+			[
+				'id' => 'email_validation_logs',
+				'name' => $this->getSlug(),
+				'option' => 'email_validation_logs',
+				'value' => ( isset( $this->options['email_validation_logs'] ) ) ? $this->options['email_validation_logs'] : '',
+				'choices' => $args,
+			]
+		);
 	}
 
 	/**
 	 * Render the lock_theme checkbox.
+	 *
 	 * @param array $args
 	 */
 	function renderThemeLockField( $args ) {
-		$this->renderCheckbox( [
-			'id' => 'theme_lock',
-			'name' => $this->getSlug(),
-			'option' => 'theme_lock',
-			'value' => ( isset( $this->options['theme_lock'] ) ) ? $this->options['theme_lock'] : '',
-			'label' => $args[0],
-			'description' => __( 'This will prevent any changes to your book&rsquo;s appearance and page count when themes are updated.', 'pressbooks' ),
-		] );
+		$this->renderCheckbox(
+			[
+				'id' => 'theme_lock',
+				'name' => $this->getSlug(),
+				'option' => 'theme_lock',
+				'value' => ( isset( $this->options['theme_lock'] ) ) ? $this->options['theme_lock'] : '',
+				'label' => $args[0],
+				'description' => __( 'This will prevent any changes to your book&rsquo;s appearance and page count when themes are updated.', 'pressbooks' ),
+			]
+		);
 	}
 
 	/**
@@ -203,6 +210,7 @@ class ExportOptions extends \Pressbooks\Options {
 	 * Filter the array of default values for this set of options
 	 *
 	 * @param array $defaults
+	 *
 	 * @return array $defaults
 	 */
 	static function filterDefaults( $defaults ) {

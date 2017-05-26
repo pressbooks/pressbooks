@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version))
  */
+
 namespace Pressbooks\Modules\Export\Odt;
 
 use Pressbooks\Modules\Export\Export;
@@ -82,19 +83,19 @@ class Odt extends Export {
 
 		// Save ODT as file in exports folder
 
-		$content_path	= pathinfo( $filename );
-		$source			= $content_path['dirname'] . '/source.xhtml';
+		$content_path = pathinfo( $filename );
+		$source = $content_path['dirname'] . '/source.xhtml';
 
 		file_put_contents( $source, $this->queryXhtml() );
 
-		$xslt			= PB_PLUGIN_DIR . 'inc/modules/export/odt/xhtml2odt.xsl';
-		$content		= $content_path['dirname'] . '/content.xml';
-		$mimetype		= $content_path['dirname'] . '/mimetype';
-		$metafolder		= $content_path['dirname'] . '/META-INF';
-		$meta 			= $content_path['dirname'] . '/meta.xml';
-		$settings 		= $content_path['dirname'] . '/settings.xml';
-		$styles 		= $content_path['dirname'] . '/styles.xml';
-		$mediafolder	= $content_path['dirname'] . '/media/';
+		$xslt = PB_PLUGIN_DIR . 'inc/modules/export/odt/xhtml2odt.xsl';
+		$content = $content_path['dirname'] . '/content.xml';
+		$mimetype = $content_path['dirname'] . '/mimetype';
+		$metafolder = $content_path['dirname'] . '/META-INF';
+		$meta = $content_path['dirname'] . '/meta.xml';
+		$settings = $content_path['dirname'] . '/settings.xml';
+		$styles = $content_path['dirname'] . '/styles.xml';
+		$mediafolder = $content_path['dirname'] . '/media/';
 
 		if ( is_dir( $mediafolder ) ) {
 			$this->deleteDirectory( $mediafolder );
@@ -141,7 +142,7 @@ class Odt extends Export {
 		foreach ( $images as $image ) {
 			/** @var \DOMElement $image */
 			$src = $image->getAttribute( 'src' );
-				$image_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
+			$image_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
 			if ( $image_filename ) {
 				// Replace with new image
 				$image->setAttribute( 'src', $image_filename );
@@ -151,7 +152,7 @@ class Odt extends Export {
 		foreach ( $coverimages as $coverimage ) {
 			/** @var \DOMElement $coverimage */
 			$src = $coverimage->getAttribute( 'content' );
-				$cover_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
+			$cover_filename = $this->fetchAndSaveUniqueImage( $src, $mediafolder );
 			if ( $cover_filename ) {
 				// Replace with new image
 				$coverimage->setAttribute( 'src', $cover_filename );

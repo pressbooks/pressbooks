@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Admin;
 
 use Pressbooks\Catalog;
@@ -203,7 +204,6 @@ class Catalog_List_Table extends \WP_List_Table {
 	}
 
 
-
 	/**
 	 * @return array An associative array containing all the bulk actions: 'slugs'=>'Visible Titles'
 	 */
@@ -240,10 +240,12 @@ class Catalog_List_Table extends \WP_List_Table {
 		if ( isset( $_REQUEST['orderby'] ) && isset( $valid_cols[ $_REQUEST['orderby'] ] ) ) {
 			$data = wp_list_sort( $data, $_REQUEST['orderby'], $order );
 		} else {
-			$data = wp_list_sort( $data, [
+			$data = wp_list_sort(
+				$data, [
 				'status' => 'desc',
 				'title' => 'asc',
-			] );
+				]
+			);
 		}
 
 		// Pagination
@@ -329,7 +331,8 @@ class Catalog_List_Table extends \WP_List_Table {
 
 		$html = Catalog::tagsToString( $item[ $column_name ] );
 
-		if ( ! $html ) { $html = '<span style="color:silver">n/a</span>';
+		if ( ! $html ) {
+			$html = '<span style="color:silver">n/a</span>';
 		}
 
 		// Build row actions
@@ -344,7 +347,8 @@ class Catalog_List_Table extends \WP_List_Table {
 		];
 
 		// Return the title contents
-		return sprintf( '%1$s %2$s',
+		return sprintf(
+			'%1$s %2$s',
 			$html,
 			$this->row_actions( $actions )
 		);
@@ -423,8 +427,10 @@ class Catalog_List_Table extends \WP_List_Table {
 		foreach ( $data as $key => $val ) {
 			if ( is_array( $val ) ) {
 				$found = $this->atLeastOneKeyword( $keyword, $val );
-				if ( $found ) { return true;
-				} else { continue;
+				if ( $found ) {
+					return true;
+				} else {
+					continue;
 				}
 			} elseif ( false !== stripos( $val, $keyword ) ) {
 				return true;
@@ -455,8 +461,10 @@ class Catalog_List_Table extends \WP_List_Table {
 				<div class="inside">
 					<h4><?php _e( 'Organize your public Catalog page.', 'pressbooks' ); ?></h4>
 					<h5><span data-icon="a" class="show-hide-icon"></span><?php _e( 'Show/Hide books', 'pressbooks' ); ?></h5>
-					<p><?php printf( __( 'To display a book in your catalog choose "%s" under Catalog Status. ', 'pressbooks' ), '<strong>' . __( 'Show in Catalog', 'pressbooks' ) . '</strong>' ); ?><br>
-					<?php printf( __( 'To hide a book in your catalog choose "%s" under Catalog Status.', 'pressbooks' ), '<strong>' . __( 'Hide in Catalog', 'pressbooks' ) . '</strong>' ); ?></p>
+					<p><?php printf( __( 'To display a book in your catalog choose "%s" under Catalog Status. ', 'pressbooks' ), '<strong>' . __( 'Show in Catalog', 'pressbooks' ) . '</strong>' ); ?>
+						<br>
+						<?php printf( __( 'To hide a book in your catalog choose "%s" under Catalog Status.', 'pressbooks' ), '<strong>' . __( 'Hide in Catalog', 'pressbooks' ) . '</strong>' ); ?>
+					</p>
 
 					<h5><span data-icon="g" class="sort-icon"></span><?php _e( 'Catalog sorting', 'pressbooks' ); ?></h5>
 					<p><?php printf( __( 'To add sorting ability, add your Tag names to your <a href="%s">Catalog Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to each individual book.', 'pressbooks' ), $edit_url ); ?></p>
@@ -473,16 +481,18 @@ class Catalog_List_Table extends \WP_List_Table {
 
 			<form id="books-search" method="get" action="<?php echo $url; ?>">
 				<?php wp_nonce_field( 'pb_catalog_search', 'pb_catalog_search', false ); ?>
-				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>" />
-				<?php if ( isset( $_REQUEST['user_id'] ) && ! empty( $_REQUEST['user_id'] ) ) : ?><input type="hidden" name="user_id" value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
+				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>"/>
+				<?php if ( isset( $_REQUEST['user_id'] ) && ! empty( $_REQUEST['user_id'] ) ) : ?><input type="hidden" name="user_id"
+																										 value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
 				<?php $list_table->search_box( __( 'Search', 'pressbooks' ), 'search_id' ); ?>
 			</form>
 
-			<form id="books-filter" method="post" action="<?php echo $url; ?>" >
-				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>" />
-				<?php if ( isset( $_REQUEST['user_id'] ) && ! empty( $_REQUEST['user_id'] ) ) : ?><input type="hidden" name="user_id" value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
+			<form id="books-filter" method="post" action="<?php echo $url; ?>">
+				<input type="hidden" name="page" value="<?php echo esc_attr( $_REQUEST['page'] ); ?>"/>
+				<?php if ( isset( $_REQUEST['user_id'] ) && ! empty( $_REQUEST['user_id'] ) ) : ?><input type="hidden" name="user_id"
+																										 value="<?php echo esc_attr( $_REQUEST['user_id'] ); ?>" /><?php endif; ?>
 				<div id="add-by-url">
-					<input type="text" id="add_book_by_url" name="add_book_by_url" /><label for="add_book_by_url">
+					<input type="text" id="add_book_by_url" name="add_book_by_url"/><label for="add_book_by_url">
 						<input type="submit" name="" id="search-submit" class="button" value="<?php esc_attr_e( 'Add By URL', 'pressbooks' ); ?>">
 					</label>
 					&nbsp;
@@ -492,7 +502,7 @@ class Catalog_List_Table extends \WP_List_Table {
 			</form>
 
 		</div>
-	<?php
+		<?php
 
 	}
 

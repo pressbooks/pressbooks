@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Editor;
 
 use Pressbooks\Container;
@@ -11,6 +12,7 @@ use Pressbooks\Container;
  * Ensure that Word formatting that we like doesn't get filtered out.
  *
  * @param array $init_array
+ *
  * @return array
  */
 function mce_valid_word_elements( $init_array ) {
@@ -159,13 +161,13 @@ function metadata_manager_default_editor_args( $args ) {
 	// Precedence when using the + operator to merge arrays is from left to right
 
 	$args = [
-			'media_buttons' => false,
-			'tinymce' => [
-				'theme_advanced_buttons1' => 'bold,italic,underline,strikethrough,|,link,unlink,|,numlist,bullist,|,undo,redo,pastetext,pasteword,|',
-				'theme_advanced_buttons2' => '',
-				'theme_advanced_buttons3' => '',
-			],
-		] + $args;
+				'media_buttons' => false,
+				'tinymce' => [
+					'theme_advanced_buttons1' => 'bold,italic,underline,strikethrough,|,link,unlink,|,numlist,bullist,|,undo,redo,pastetext,pasteword,|',
+					'theme_advanced_buttons2' => '',
+					'theme_advanced_buttons3' => '',
+				],
+			] + $args;
 
 	return $args;
 }
@@ -250,23 +252,27 @@ function update_editor_style() {
 
 	if ( $sass->isCurrentThemeCompatible( 1 ) ) {
 		$scss = file_get_contents( $sass->pathToPartials() . '/_editor-with-custom-fonts.scss' );
-		$css = $sass->compile( $scss, [
+		$css = $sass->compile(
+			$scss, [
 			$sass->pathToUserGeneratedSass(),
 			$sass->pathToPartials(),
 			$sass->pathToFonts(),
 			get_stylesheet_directory(),
-		] );
+			]
+		);
 	} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
 		$scss = file_get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
 		$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
 	} else {
 		$scss = file_get_contents( $sass->pathToPartials() . '/_editor.scss' );
-		$css = $sass->compile( $scss, [
+		$css = $sass->compile(
+			$scss, [
 			$sass->pathToUserGeneratedSass(),
 			$sass->pathToPartials(),
 			$sass->pathToFonts(),
 			get_stylesheet_directory(),
-		] );
+			]
+		);
 	}
 
 	$css = Container::get( 'Sass' )->fixWebFonts( $css );

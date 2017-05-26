@@ -5,6 +5,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Utility;
 
 /**
@@ -44,7 +45,8 @@ function scandir_by_date( $dir ) {
 
 	$files = [];
 	foreach ( scandir( $dir ) as $file ) {
-		if ( in_array( $file, $ignored, true ) ) { continue;
+		if ( in_array( $file, $ignored, true ) ) {
+			continue;
 		}
 		$files[ $file ] = filemtime( $dir . '/' . $file );
 	}
@@ -59,6 +61,7 @@ function scandir_by_date( $dir ) {
  * Scan the exports directory, return the files grouped into intervals of 3 minutes, newest first.
  *
  * @param string $dir fullpath to the Exports folder. (optional)
+ *
  * @return array
  */
 function group_exports( $dir = null ) {
@@ -73,7 +76,8 @@ function group_exports( $dir = null ) {
 
 	$files = [];
 	foreach ( scandir( $dir ) as $file ) {
-		if ( in_array( $file, $ignored, true ) ) { continue;
+		if ( in_array( $file, $ignored, true ) ) {
+			continue;
 		}
 		$files[ $file ] = filemtime( $dir . $file );
 	}
@@ -182,12 +186,13 @@ function latest_exports() {
 	 * For example, here's how one might add a hypothetical Word export format:
 	 *
 	 * add_filter( 'pb_latest_export_filetypes', function ( $filetypes ) {
-	 * 	$filetypes['word'] = '.docx';
-	 *	return $filetypes;
+	 *    $filetypes['word'] = '.docx';
+	 *    return $filetypes;
 	 * } );
 	 *
 	 */
-	$filetypes = apply_filters( 'pb_latest_export_filetypes', [
+	$filetypes = apply_filters(
+		'pb_latest_export_filetypes', [
 		'epub3' => '._3.epub',
 		'epub' => '.epub',
 		'pdf' => '.pdf',
@@ -199,7 +204,8 @@ function latest_exports() {
 		'vanillawxr' => '._vanilla.xml',
 		'mpdf' => '._oss.pdf',
 		'odf' => '.odt',
-	] );
+		]
+	);
 
 	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();
 
@@ -459,7 +465,9 @@ function include_plugins() {
  * Filters out active plugins, to avoid collisions with plugins already installed.
  *
  * @since 2.5.1
+ *
  * @param array $plugins An array of plugins, key/values paired like so: 'pressbooks/pressbooks.php' => 1
+ *
  * @return array
  */
 function filter_plugins( $plugins ) {
@@ -539,6 +547,7 @@ function disable_comments() {
  * @author Nick Hamze <me@nickhamze.com>
  *
  * @param array $tabs The Plugin Installer tabs.
+ *
  * @return array
  */
 function install_plugins_tabs( $tabs ) {
@@ -561,6 +570,7 @@ function install_plugins_tabs( $tabs ) {
  * @param false|object|array $res The result object or array. Default false.
  * @param string $action The type of information being requested from the Plugin Install API.
  * @param object $args Plugin API arguments.
+ *
  * @return object
  */
 function hijack_recommended_tab( $res, $action, $args ) {
@@ -607,18 +617,22 @@ function fetch_recommended_plugins() {
 		$request = wp_remote_get( $http_url, [ 'timeout' => 15 ] );
 	}
 	if ( is_wp_error( $request ) ) {
-		$res = new \WP_Error( 'plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
+		$res = new \WP_Error(
+			'plugins_api_failed', __( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
 			$request->get_error_message()
 		);
 	} else {
 		$res = json_decode( wp_remote_retrieve_body( $request ) );
 		$res->info = (array) $res->info; // WP wants this as an array...
-		$res->plugins = array_map( function ( $plugin ) {
-			$plugin->icons = (array) $plugin->icons; // WP wants this as an array...
-			return $plugin;
-		}, $res->plugins );
+		$res->plugins = array_map(
+			function ( $plugin ) {
+				$plugin->icons = (array) $plugin->icons; // WP wants this as an array...
+				return $plugin;
+			}, $res->plugins
+		);
 		if ( ! is_object( $res ) && ! is_array( $res ) ) {
-			$res = new \WP_Error( 'plugins_api_failed',
+			$res = new \WP_Error(
+				'plugins_api_failed',
 				__( 'An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration.', 'pressbooks' ),
 				wp_remote_retrieve_body( $request )
 			);
@@ -638,6 +652,7 @@ function fetch_recommended_plugins() {
  * @param string $translation
  * @param string $text
  * @param string $domain
+ *
  * @return string
  */
 function change_recommendations_sentence( $translation, $text, $domain ) {
@@ -703,7 +718,7 @@ function format_bytes( $bytes, $precision = 2 ) {
 	$bytes = max( $bytes, 0 );
 	$pow = floor( ( $bytes ? log( $bytes ) : 0 ) / log( 1024 ) );
 	$pow = min( $pow, count( $units ) - 1 );
-	$bytes /= (1 << (10 * $pow));
+	$bytes /= ( 1 << ( 10 * $pow ) );
 
 	return round( $bytes, $precision ) . ' ' . $units[ $pow ];
 }
@@ -726,12 +741,16 @@ function email_error_log( $emails, $subject, $message ) {
 	// ------------------------------------------------------------------------------------------------------------
 	// Email logs
 
-	add_filter( 'wp_mail_from', function ( $from_email ) {
-		return str_replace( 'wordpress@', 'pressbooks@', $from_email );
-	} );
-	add_filter( 'wp_mail_from_name', function ( $from_name ) {
-		return 'Pressbooks';
-	} );
+	add_filter(
+		'wp_mail_from', function ( $from_email ) {
+			return str_replace( 'wordpress@', 'pressbooks@', $from_email );
+		}
+	);
+	add_filter(
+		'wp_mail_from_name', function ( $from_name ) {
+			return 'Pressbooks';
+		}
+	);
 
 	foreach ( $emails as $email ) {
 		// Call pluggable
@@ -771,7 +790,8 @@ function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [
 		$completed = true;
 	}
 
-	if ( $completed ) { return $response;
+	if ( $completed ) {
+		return $response;
 	}
 
 	$attempts++;
@@ -809,7 +829,9 @@ function asset_path( $filename ) {
  * Set the wp_mail sender address
  *
  * @since 3.9.7
+ *
  * @param string $email The default email address
+ *
  * @return string
  */
 function mail_from( $email ) {
@@ -829,7 +851,9 @@ function mail_from( $email ) {
  * Set the wp_mail sender name
  *
  * @since 3.9.7
+ *
  * @param string $name The default sender name
+ *
  * @return string
  */
 function mail_from_name( $name ) {
@@ -846,8 +870,10 @@ function mail_from_name( $name ) {
  *
  * @since 3.9.8
  * @author Ben Lobaugh <ben@lobaugh.net>
+ *
  * @param string $src
  * @param string $dest
+ *
  * @return bool
  */
 function rcopy( $src, $dest ) {

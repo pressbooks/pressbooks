@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Modules\ThemeOptions;
 
 class WebOptions extends \Pressbooks\Options {
@@ -16,24 +17,24 @@ class WebOptions extends \Pressbooks\Options {
 	const VERSION = 1;
 
 	/**
-	* Web theme options.
-	*
-	* @var array
-	*/
+	 * Web theme options.
+	 *
+	 * @var array
+	 */
 	public $options;
 
 	/**
-	* Web theme defaults.
-	*
-	* @var array
-	*/
+	 * Web theme defaults.
+	 *
+	 * @var array
+	 */
 	public $defaults;
 
 	/**
-	* Constructor.
-	*
-	* @param array $options
-	*/
+	 * Constructor.
+	 *
+	 * @param array $options
+	 */
 	function __construct( array $options ) {
 		$this->options = $options;
 		$this->defaults = $this->getDefaults();
@@ -75,7 +76,7 @@ class WebOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+', 'pressbooks' )
+				__( 'Add buttons to cover page and each chapter so that readers may share links to your book through social media: Facebook, Twitter, Google+', 'pressbooks' ),
 			]
 		);
 
@@ -98,7 +99,7 @@ class WebOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Display the Part title on each chapter', 'pressbooks' )
+				__( 'Display the Part title on each chapter', 'pressbooks' ),
 			]
 		);
 
@@ -126,7 +127,8 @@ class WebOptions extends \Pressbooks\Options {
 	/**
 	 * Render the web options tab form (NOT USED).
 	 */
-	function render() {}
+	function render() {
+	}
 
 	/**
 	 * Upgrade handler for web options.
@@ -161,44 +163,53 @@ class WebOptions extends \Pressbooks\Options {
 
 	/**
 	 * Render the social_media checkbox.
+	 *
 	 * @param array $args
 	 */
 	function renderSocialMediaField( $args ) {
-		$this->renderCheckbox( [
-			'id' => 'social_media',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'social_media',
-			'value' => ( isset( $this->options['social_media'] ) ) ? $this->options['social_media'] : '',
-			'label' => $args[0],
-		] );
+		$this->renderCheckbox(
+			[
+				'id' => 'social_media',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'social_media',
+				'value' => ( isset( $this->options['social_media'] ) ) ? $this->options['social_media'] : '',
+				'label' => $args[0],
+			]
+		);
 	}
 
 	/**
 	 * Render the paragraph_separation radio buttons.
+	 *
 	 * @param array $args
 	 */
 	function renderParagraphSeparationField( $args ) {
-		$this->renderRadioButtons( [
-			'id' => 'paragraph_separation',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'paragraph_separation',
-			'value' => ( isset( $this->options['paragraph_separation'] ) ) ? $this->options['paragraph_separation'] : '',
-			'choices' => $args,
-		] );
+		$this->renderRadioButtons(
+			[
+				'id' => 'paragraph_separation',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'paragraph_separation',
+				'value' => ( isset( $this->options['paragraph_separation'] ) ) ? $this->options['paragraph_separation'] : '',
+				'choices' => $args,
+			]
+		);
 	}
 
 	/**
 	 * Render the social_media checkbox.
+	 *
 	 * @param array $args
 	 */
 	function renderPartTitle( $args ) {
-		$this->renderCheckbox( [
-			'id' => 'part_title',
-			'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-			'option' => 'part_title',
-			'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['part_title'] : '',
-			'label' => $args[0],
-		] );
+		$this->renderCheckbox(
+			[
+				'id' => 'part_title',
+				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
+				'option' => 'part_title',
+				'value' => ( isset( $this->options['part_title'] ) ) ? $this->options['part_title'] : '',
+				'label' => $args[0],
+			]
+		);
 	}
 
 	/**
@@ -228,17 +239,20 @@ class WebOptions extends \Pressbooks\Options {
 		/**
 		 * @since 3.9.7 TODO
 		 */
-		return apply_filters( 'pb_theme_options_web_defaults', [
+		return apply_filters(
+			'pb_theme_options_web_defaults', [
 			'social_media' => 1,
 			'paragraph_separation' => 'skiplines',
 			'part_title' => 0,
-		] );
+			]
+		);
 	}
 
 	/**
 	 * Filter the array of default values for the web options tab.
 	 *
 	 * @param array $defaults
+	 *
 	 * @return array $defaults
 	 */
 	static function filterDefaults( $defaults ) {
@@ -256,10 +270,12 @@ class WebOptions extends \Pressbooks\Options {
 		 *
 		 * @since 3.9.7
 		 */
-		return apply_filters( 'pb_theme_options_web_booleans', [
+		return apply_filters(
+			'pb_theme_options_web_booleans', [
 			'social_media',
 			'part_title',
-		] );
+			]
+		);
 	}
 
 	/**
@@ -315,9 +331,11 @@ class WebOptions extends \Pressbooks\Options {
 		 *
 		 * @since 3.9.7
 		 */
-		return apply_filters( 'pb_theme_options_web_predefined', [
-			'paragraph_separation'
-		] );
+		return apply_filters(
+			'pb_theme_options_web_predefined', [
+			'paragraph_separation',
+			]
+		);
 	}
 
 	/**

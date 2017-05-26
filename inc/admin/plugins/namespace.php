@@ -5,6 +5,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Admin\Plugins;
 
 /**
@@ -13,6 +14,7 @@ namespace Pressbooks\Admin\Plugins;
  * `remove_filter( 'all_plugins', '\Pressbooks\Admin\Plugins\filter_plugins', 10 );`
  *
  * @param array $plugins
+ *
  * @return array $plugins
  */
 

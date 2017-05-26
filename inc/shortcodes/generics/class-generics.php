@@ -3,6 +3,7 @@
  * @author   Pressbooks <code@pressbooks.com>
  * @license  GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Shortcodes\Generics;
 
 class Generics {
@@ -27,14 +28,17 @@ class Generics {
 		'textbox' => [ 'div', 'textbox' ],
 	];
 
-	function __construct() {}
+	function __construct() {
+	}
 
 	function shortcodeHandler( $atts, $content = '', $shortcode ) {
 		$tag = $this->shortcodes[ $shortcode ];
 
-		if ( ! $content ) { return ''; }
+		if ( ! $content ) {
+			return '';
+		}
 		$class = '';
-		if ( is_array( $tag )  || ( is_array( $atts ) && array_key_exists( 'class', $atts ) ) ) {
+		if ( is_array( $tag ) || ( is_array( $atts ) && array_key_exists( 'class', $atts ) ) ) {
 			$classnames = [];
 			if ( is_array( $tag ) ) {
 				$classnames[] = $tag[1];

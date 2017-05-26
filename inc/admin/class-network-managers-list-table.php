@@ -18,11 +18,13 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 ***************************************************************************/
 	function __construct() {
 
-		parent::__construct( [
-			'singular'  => 'super-admin',
-			'plural'    => 'super-admins',
-			'ajax'      => false,
-		] );
+		parent::__construct(
+			[
+				'singular' => 'super-admin',
+				'plural' => 'super-admins',
+				'ajax' => false,
+			]
+		);
 
 	}
 
@@ -31,7 +33,9 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * Custom column method for the display_name column.
 	 *
 	 * @see WP_List_Table::::single_row_columns()
+	 *
 	 * @param array $item A singular item (one full row's worth of data)
+	 *
 	 * @return string Text to be placed inside the column <td>
 	 **************************************************************************/
 	function column_display_name( $item ) {
@@ -42,7 +46,9 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * Custom column method for the user_email column.
 	 *
 	 * @see WP_List_Table::::single_row_columns()
+	 *
 	 * @param array $item A singular item (one full row's worth of data)
+	 *
 	 * @return string Text to be placed inside the column <td>
 	 **************************************************************************/
 	function column_user_email( $item ) {
@@ -54,7 +60,9 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * Custom column method for the user_login column.
 	 *
 	 * @see WP_List_Table::::single_row_columns()
+	 *
 	 * @param array $item A singular item (one full row's worth of data)
+	 *
 	 * @return string HTML to be placed inside the column <td>
 	 **************************************************************************/
 	function column_user_login( $item ) {
@@ -65,11 +73,11 @@ class Network_Managers_List_Table extends \WP_List_Table {
 		if ( absint( $item['ID'] ) !== absint( $current_user->ID ) ) { // Don't let users restrict themselves
 			if ( ! empty( $item['restricted'] ) ) {
 				$actions = [
-					'unrestrict'	=> '<a data-restrict="0" data-restrict-text="' . __( 'Restrict Access', 'pressbooks' ) . '" data-unrestrict-text="' . __( 'Unrestrict Access', 'pressbooks' ) . '">' . __( 'Unrestrict Access', 'pressbooks' ) . '</a>',
+					'unrestrict' => '<a data-restrict="0" data-restrict-text="' . __( 'Restrict Access', 'pressbooks' ) . '" data-unrestrict-text="' . __( 'Unrestrict Access', 'pressbooks' ) . '">' . __( 'Unrestrict Access', 'pressbooks' ) . '</a>',
 				];
 			} else {
 				$actions = [
-					'restrict'	=> '<a data-restrict="1" data-restrict-text="' . __( 'Restrict Access', 'pressbooks' ) . '" data-unrestrict-text="' . __( 'Unrestrict Access', 'pressbooks' ) . '">' . __( 'Restrict Access', 'pressbooks' ) . '</a>',
+					'restrict' => '<a data-restrict="1" data-restrict-text="' . __( 'Restrict Access', 'pressbooks' ) . '" data-unrestrict-text="' . __( 'Unrestrict Access', 'pressbooks' ) . '">' . __( 'Restrict Access', 'pressbooks' ) . '</a>',
 				];
 			}
 		} else {
@@ -77,7 +85,8 @@ class Network_Managers_List_Table extends \WP_List_Table {
 		}
 
 		// Return the title contents
-		return sprintf('%1$s <span class="user_login">%2$s</span> %3$s',
+		return sprintf(
+			'%1$s <span class="user_login">%2$s</span> %3$s',
 			get_avatar( $item['ID'], 32 ),
 			$item['user_login'],
 			$this->row_actions( $actions )
@@ -93,9 +102,9 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 **************************************************************************/
 	function get_columns() {
 		$columns = [
-			'user_login'	=> 'Username',
-			'display_name'	=> 'Name',
-			'user_email'	=> 'E-mail',
+			'user_login' => 'Username',
+			'display_name' => 'Name',
+			'user_email' => 'E-mail',
 		];
 		return $columns;
 	}
@@ -167,20 +176,22 @@ class Network_Managers_List_Table extends \WP_List_Table {
 			$user = $user->data;
 			$is_restricted = ( in_array( absint( $user->ID ), $network_managers, true ) ) ? true : false; // Determine admin's restricted status
 			$tmp[ $id ] = [
-				'ID'				=> $user->ID,
-				'user_login'		=> $user->user_login,
-				'display_name'	=> $user->display_name,
-				'user_email'		=> $user->user_email,
-				'restricted'		=> $is_restricted,
+				'ID' => $user->ID,
+				'user_login' => $user->user_login,
+				'display_name' => $user->display_name,
+				'user_email' => $user->user_email,
+				'restricted' => $is_restricted,
 			];
 		}
 		$network_admins = $tmp;
-		usort( $network_admins, function( $a, $b ) {
-			$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'user_login';
-			$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc';
-			$result = strcmp( $a[ $orderby ], $b[ $orderby ] );
-			return ( 'asc' === $order ) ? $result : -$result;
-		});
+		usort(
+			$network_admins, function ( $a, $b ) {
+				$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'user_login';
+				$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc';
+				$result = strcmp( $a[ $orderby ], $b[ $orderby ] );
+				return ( 'asc' === $order ) ? $result : -$result;
+			}
+		);
 
 		$this->items = $network_admins; // Return our data
 	}

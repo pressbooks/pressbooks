@@ -74,7 +74,8 @@ class Odt extends Import {
 
 		foreach ( $current_import['chapters'] as $id => $chapter_title ) {
 			// do nothing it has been omitted
-			if ( ! $this->flaggedForImport( $id ) ) { continue;
+			if ( ! $this->flaggedForImport( $id ) ) {
+				continue;
 			}
 
 			$html = $this->parseContent( $dom_doc, $chapter_title );
@@ -256,7 +257,8 @@ class Odt extends Import {
 
 		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
 		$src = wp_get_attachment_url( $pid );
-		if ( ! $src ) { $src = ''; // Change false to empty string
+		if ( ! $src ) {
+			$src = ''; // Change false to empty string
 		}
 		$already_done[ $img_location ] = $src;
 
@@ -350,7 +352,7 @@ class Odt extends Import {
 	 */
 	protected function findTheNode( \DOMNode $node, $chapter_name ) {
 
-		if ( XML_ELEMENT_NODE !== $node->nodeType  ) {
+		if ( XML_ELEMENT_NODE !== $node->nodeType ) {
 			return '';
 		}
 
@@ -364,7 +366,7 @@ class Odt extends Import {
 		if ( $node->hasChildNodes() ) {
 			$node_list = $node->childNodes;
 
-			for ( $i = 0; $i < $node_list->length; $i ++ ) {
+			for ( $i = 0; $i < $node_list->length; $i++ ) {
 
 				if ( $node_list->item( $i )->nodeType !== XML_ELEMENT_NODE ) {
 					continue;
@@ -411,7 +413,7 @@ class Odt extends Import {
 		do {
 			$node = $chapter->importNode( $dom_list->item( $i ), true );
 			$chapter->documentElement->appendChild( $node );
-			$i ++;
+			$i++;
 
 			// TODO
 			// This is problematic
@@ -455,7 +457,7 @@ class Odt extends Import {
 		$index = 0;
 
 		// loop through child siblings
-		for ( $i = 0; $i < $node_list->length; $i ++ ) {
+		for ( $i = 0; $i < $node_list->length; $i++ ) {
 
 			$chapter_node = $this->findTheNode( $node_list->item( $i ), $chapter_title );
 			if ( ! empty( $chapter_node ) ) {
@@ -498,7 +500,7 @@ class Odt extends Import {
 		$headings = $dom_doc->getElementsByTagName( $this->tag );
 
 		// populate chapters with title names
-		for ( $i = 0; $i < $headings->length; $i ++ ) {
+		for ( $i = 0; $i < $headings->length; $i++ ) {
 			$chapters[] = trim( $headings->item( $i )->nodeValue );
 		}
 

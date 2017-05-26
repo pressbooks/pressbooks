@@ -195,7 +195,8 @@ class Catalog {
 				$data[ $i ]['about'] = $about;
 
 				// Cover Full
-				if ( $meta_version < 7 ) { $cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
+				if ( $meta_version < 7 ) {
+					$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
 				} elseif ( empty( $metadata['pb_cover_image'] ) ) {
 					$cover = PB_PLUGIN_URL . 'assets/dist/images/default-book-cover.jpg';
 				} elseif ( \Pressbooks\Image\is_default_cover( $metadata['pb_cover_image'] ) ) {
@@ -216,8 +217,8 @@ class Catalog {
 				 * @since 3.9.5.1
 				 *
 				 * @param string $cover The url to cover image.
-				 * @param string $metadata['pb_cover_image'] The original url to the
-				 *		cover image.
+				 * @param string $metadata ['pb_cover_image'] The original url to the
+				 *        cover image.
 				 */
 				$cid = \Pressbooks\Image\attachment_id_from_url( apply_filters( 'pb_cover_image', $cover, $metadata['pb_cover_image'] ) );
 				foreach ( $cover_sizes as $size => $default ) {
@@ -463,7 +464,8 @@ class Catalog {
 			++$i;
 		}
 		$sql = rtrim( $sql, ', ' );
-		if ( ! $i ) { $sql .= ' users_id = users_id '; // Do nothing
+		if ( ! $i ) {
+			$sql .= ' users_id = users_id '; // Do nothing
 		}
 
 		return $wpdb->query( $wpdb->prepare( $sql, $args ) ); // @codingStandardsIgnoreLine
@@ -609,7 +611,11 @@ class Catalog {
 			$wpdb->delete( $this->dbTagsTable, [ 'id' => $tag_id ], [ '%d' ] );
 			$result = 1;
 		} else {
-			$result = $wpdb->delete( $this->dbLinkTable, [ 'users_id' => $this->userId, 'blogs_id' => $blog_id, 'tags_id' => $tag_id, 'tags_group' => $tag_group ], [ '%d', '%d', '%d', '%d' ] );
+			$result = $wpdb->delete(
+				$this->dbLinkTable,
+				[ 'users_id' => $this->userId, 'blogs_id' => $blog_id, 'tags_id' => $tag_id, 'tags_group' => $tag_group ],
+				[ '%d',  '%d',  '%d', '%d' ]
+			);
 		}
 
 		// TODO:
@@ -734,7 +740,8 @@ class Catalog {
 		// Delete old images
 		foreach ( $old as $old_url ) {
 			$old_id = \Pressbooks\Image\attachment_id_from_url( $old_url );
-			if ( $old_id ) { wp_delete_attachment( $old_id, true );
+			if ( $old_id ) {
+				wp_delete_attachment( $old_id, true );
 			}
 		}
 
@@ -864,7 +871,8 @@ class Catalog {
 			$val = mb_split( '\W', $val ); // Split on negated \w
 			$val = implode( ' ', $val ); // Put back together with spaces
 			$val = trim( $val );
-			if ( ! $val ) { unset( $tags[ $key ] );
+			if ( ! $val ) {
+				unset( $tags[ $key ] );
 			}
 		}
 
@@ -1022,9 +1030,9 @@ class Catalog {
 	 */
 	static function isCurrentAction( $action ) {
 
-		if ( isset( $_REQUEST['action'] ) && - 1 !== (int) $_REQUEST['action'] ) {
+		if ( isset( $_REQUEST['action'] ) && -1 !== (int) $_REQUEST['action'] ) {
 			$compare = $_REQUEST['action'];
-		} elseif ( isset( $_REQUEST['action2'] ) && - 1 !== (int) $_REQUEST['action2'] ) {
+		} elseif ( isset( $_REQUEST['action2'] ) && -1 !== (int) $_REQUEST['action2'] ) {
 			$compare = $_REQUEST['action2'];
 		} else {
 			return false;
@@ -1051,7 +1059,8 @@ class Catalog {
 
 			// Delete old images
 			$old_id = \Pressbooks\Image\attachment_id_from_url( $image_url );
-			if ( $old_id ) { wp_delete_attachment( $old_id, true );
+			if ( $old_id ) {
+				wp_delete_attachment( $old_id, true );
 			}
 
 			update_user_meta( $user_id, 'pb_catalog_logo', \Pressbooks\Image\default_cover_url() );

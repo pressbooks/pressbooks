@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Redirect;
 
 /**
@@ -388,7 +389,8 @@ function do_open() {
 				flush();
 				while ( @ob_end_flush() ) { // @codingStandardsIgnoreLine
 					// Fix out-of-memory problem
-				}	readfile( $filepath );
+				}
+				readfile( $filepath );
 
 				exit;
 			}
@@ -402,6 +404,7 @@ function do_open() {
  * Callback function that strips whitespace characters
  *
  * @see array_filter()
+ *
  * @param string $value
  */
 function trim_value( &$value ) {

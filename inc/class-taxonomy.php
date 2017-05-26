@@ -7,6 +7,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks;
 
 class Taxonomy {
@@ -19,7 +20,8 @@ class Taxonomy {
 	 */
 	const VERSION = 1;
 
-	function __construct() {}
+	function __construct() {
+	}
 
 	/**
 	 * Create a custom taxonomy for Chapter, Front Matter and Back Matter post types

@@ -3,6 +3,7 @@
  * @author  Pressbooks <code@pressbooks.com>
  * @license GPLv2 (or any later version)
  */
+
 namespace Pressbooks;
 
 class CustomCss {
@@ -22,7 +23,8 @@ class CustomCss {
 		'prince' => 'PDF',
 	];
 
-	function __construct() {}
+	function __construct() {
+	}
 
 	/**
 	 * Get CSS from database
@@ -240,6 +242,7 @@ class CustomCss {
 
 	/**
 	 * Determine base theme that was used for the selected Custom CSS.
+	 *
 	 * @param $slug string
 	 *
 	 * @return string

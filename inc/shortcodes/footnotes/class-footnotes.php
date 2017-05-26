@@ -3,6 +3,7 @@
  * @author   Pressbooks <code@pressbooks.com>
  * @license  GPLv2 (or any later version)
  */
+
 namespace Pressbooks\Shortcodes\Footnotes;
 
 class Footnotes {
@@ -28,10 +29,12 @@ class Footnotes {
 	private function __construct() {
 
 		add_shortcode( 'footnote', [ $this, 'shortcodeHandler' ] );
-		add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
-			$excluded_shortcodes[] = 'footnote';
-			return $excluded_shortcodes;
-		} );
+		add_filter(
+			'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
+				$excluded_shortcodes[] = 'footnote';
+				return $excluded_shortcodes;
+			}
+		);
 
 		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
 		// We need to run $this->footNoteContent() after this, set to 12
@@ -59,8 +62,8 @@ class Footnotes {
 	/**
 	 * Pre-process footnote shortcode
 	 *
-	 * @param array   $atts
-	 * @param string  $content
+	 * @param array $atts
+	 * @param string $content
 	 *
 	 * @return string
 	 */
@@ -68,11 +71,13 @@ class Footnotes {
 
 		global $id;
 
-		$a = shortcode_atts( [
-			'numbered' => 'yes',
-			'symbol' => '*',
-			'suptext' => ' ',
-		], $atts );
+		$a = shortcode_atts(
+			[
+				'numbered' => 'yes',
+				'symbol' => '*',
+				'suptext' => ' ',
+			], $atts
+		);
 
 		if ( ! $content ) {
 			return '';
@@ -137,7 +142,7 @@ class Footnotes {
 		}
 
 		foreach ( $footnotes as $num => $footnote ) {
-			$num ++;
+			$num++;
 			$numlabel = "$id-$num";
 			$content .= '<li id="footnote-' . $numlabel . '">' . make_clickable( $footnote ) . ' <a href="#return-footnote-' . $numlabel . '" class="return-footnote">&crarr;</a></li>';
 		}
@@ -165,13 +170,17 @@ class Footnotes {
 
 		if ( get_user_option( 'rich_editing' ) ) {
 
-			add_action( 'admin_enqueue_scripts', function () {
-				wp_localize_script( 'editor', 'PB_FootnotesToken', [
-					'nonce' => wp_create_nonce( 'pb-footnote-convert' ),
-					'fn_title' => __( 'Insert Footnote', 'pressbooks' ),
-					'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
-				] );
-			} );
+			add_action(
+				'admin_enqueue_scripts', function () {
+					wp_localize_script(
+						'editor', 'PB_FootnotesToken', [
+						'nonce' => wp_create_nonce( 'pb-footnote-convert' ),
+						'fn_title' => __( 'Insert Footnote', 'pressbooks' ),
+						'ftnref_title' => __( 'Convert MS Word Footnotes', 'pressbooks' ),
+						]
+					);
+				}
+			);
 
 			add_filter( 'mce_external_plugins', [ $this, 'addFootnotePlugin' ] );
 			add_filter( 'mce_buttons_3', [ $this, 'registerFootnoteButtons' ] );
@@ -226,9 +235,11 @@ class Footnotes {
 	 */
 	static function ajaxFailure( $msg = '' ) {
 
-		if ( ! headers_sent() ) { header( 'HTTP/1.0 500 Internal Server Error' );
+		if ( ! headers_sent() ) {
+			header( 'HTTP/1.0 500 Internal Server Error' );
 		}
-		if ( $msg ) { echo "Something went wrong: \n\n $msg";
+		if ( $msg ) {
+			echo "Something went wrong: \n\n $msg";
 		}
 		wp_die();
 	}
@@ -293,12 +304,14 @@ class Footnotes {
 
 			foreach ( $footnotes as $footnote ) {
 
-				$tmp = wp_kses( $footnote[3], [
+				$tmp = wp_kses(
+					$footnote[3], [
 					'b' => [],
 					'em' => [],
 					'i' => [],
 					'strong' => [],
-				] );
+					]
+				);
 				$tmp = \Pressbooks\Sanitize\remove_control_characters( $tmp );
 				$tmp = trim( preg_replace( '/\s+/', ' ', $tmp ) ); // Normalize white spaces
 
