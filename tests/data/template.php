@@ -1,16 +1,17 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) )
+if ( ! defined( 'ABSPATH' ) ) {
 	exit;
+}
 
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title><?= $title ?></title>
+	<title><?php echo $title ?></title>
 </head>
 
-<body><?= $body ?></body>
+<body><?php echo $body ?></body>
 
 </html>

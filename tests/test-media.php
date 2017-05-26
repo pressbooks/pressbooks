@@ -2,9 +2,6 @@
 
 class MediaTest extends \WP_UnitTestCase {
 
-	/**
-	 * @covers \Pressbooks\Media\add_mime_types
-	 */
 	public function test_add_mime_types() {
 
 		$supportedFileExtensions = [ 'mp4', 'webm', 'ogv', 'ogg', 'mp3', 'aac', 'vorbis' ];
@@ -22,10 +19,6 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'baz', $mimes );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Media\is_valid_media
-	 */
 	public function test_is_valid_media() {
 
 		$goodFiles = [
@@ -48,7 +41,7 @@ class MediaTest extends \WP_UnitTestCase {
 			'image.jpg',
 			'image.jpeg',
 			'foo.bar',
-			'/etc/hosts'
+			'/etc/hosts',
 		];
 
 		foreach ( $badFiles as $file ) {
@@ -58,8 +51,6 @@ class MediaTest extends \WP_UnitTestCase {
 
 
 	/**
-	 * @covers \Pressbooks\Media\force_wrap_images
-	 *
 	 * @see https://github.com/pressbooks/pressbooks/issues/263
 	 */
 	public function test_force_wrap_images() {
@@ -83,14 +74,11 @@ class MediaTest extends \WP_UnitTestCase {
 		$this->assertStringEndsWith( '</a></div>', $converted );
 	}
 
-	/**
-	 * @covers \Pressbooks\Media\force_attach_media
-	 */
 	public function test_force_attach_media() {
 		global $post_ID;
 		$post_ID = '42';
 
-		$params = array();
+		$params = [];
 		$return = \Pressbooks\Media\force_attach_media( $params );
 		$this->assertEquals( $return['post_id'], 42 );
 	}

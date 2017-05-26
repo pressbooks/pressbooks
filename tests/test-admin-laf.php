@@ -7,9 +7,6 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	/**
-	 * @covers \Pressbooks\Admin\Laf\add_footer_link
-	 */
 	function test_add_footer_link() {
 
 		ob_start();
@@ -20,9 +17,6 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		$this->assertContains( 'Pressbooks', $buffer );
 	}
 
-	/**
-	 * @covers \Pressbooks\Admin\Laf\admin_title
-	 */
 	function test_admin_title() {
 
 		$result = \Pressbooks\Admin\Laf\admin_title( 'Hello WordPress!' );
@@ -32,9 +26,6 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, 'Hello World!' );
 	}
 
-	/**
-	 * @covers \Pressbooks\Admin\Laf\replace_book_admin_menu
-	 */
 	function test_replace_book_admin_menu() {
 
 		global $menu, $submenu;

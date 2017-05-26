@@ -5,9 +5,6 @@ require_once( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
 
 class MetaboxesTest extends \WP_UnitTestCase {
 
-	/**
-	 * @covers \Pressbooks\Admin\Metaboxes\title_update
-	 */
 	public function test_title_update() {
 
 		$title = get_option( 'blogname' );
@@ -21,9 +18,6 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertEquals( $option, $title );
 	}
 
-	/**
-	 * @covers \Pressbooks\Admin\Metaboxes\add_meta_boxes
-	 */
 	public function test_update_font_stacks() {
 
 		global $wp_meta_boxes;
