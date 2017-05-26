@@ -209,5 +209,13 @@ class SanitizeTest extends \WP_UnitTestCase {
 		}
 	}
 
+	public function test_allow_post_content() {
+
+		global $allowedposttags;
+
+		\Pressbooks\Sanitize\allow_post_content();
+
+		$this->assertTrue( $allowedposttags['h1']['xml:lang'] );
+	}
 
 }
