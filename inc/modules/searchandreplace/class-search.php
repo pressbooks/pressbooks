@@ -21,7 +21,7 @@ class Search {
 		return '';
 	}
 
-	function regex_validate( $expr ) {
+	function regexValidate( $expr ) {
 		// evaluate expression without imput and capture potential error message
 		$regex_error = 'invalid';
 		$error_handler = function( $errno, $errstr, $errfile, $errline ) use ( &$regex_error ) {
@@ -72,7 +72,7 @@ class Search {
 				set_time_limit( 0 );
 			}
 			if ( $this->regex ) {
-				$error = $this->regex_validate( $search );
+				$error = $this->regexValidate( $search );
 				if ( null !== $error ) {
 					return __( 'Invalid regular expression', 'pressbooks' ) . ': ' . $error;
 				}

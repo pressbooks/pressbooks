@@ -14,7 +14,7 @@
 							<option value="<?php echo get_class( $search_type ) ?>" <?php // @codingStandardsIgnoreLine
 							selected( stripslashes( @$_POST['source'] ), get_class( $search_type ) ); ?>/><?php echo esc_attr( $search_type->name() ) ?></option>
 						<?php endforeach; ?>
-					</fieldset>
+					</select>
 				</td>
 			</tr>
 			<?php /* <tr>
