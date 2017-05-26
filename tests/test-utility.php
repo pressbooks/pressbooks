@@ -131,6 +131,12 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( defined( 'PB_XMLLINT_COMMAND' ) );
 	}
 
+	public function test_check_saxonhe_install() {
+
+		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_saxonhe_install() );
+		$this->assertTrue( defined( 'PB_SAXON_COMMAND' ) );
+	}
+
 	public function test_show_experimental_features() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\show_experimental_features() );
