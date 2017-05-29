@@ -4,6 +4,17 @@ namespace Pressbooks\Api\Endpoints\Controller;
 
 class Posts extends \WP_REST_Posts_Controller {
 
+
+	/**
+	 * @param string $post_type Post type.
+	 */
+	public function __construct( $post_type ) {
+
+		parent::__construct( $post_type );
+
+		$this->namespace = 'pressbooks/v2';
+	}
+
 	/**
 	 * @param \WP_Post $post Post object.
 	 *
