@@ -21,7 +21,7 @@ class Metadata {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 10;
+	const VERSION = 11;
 
 
 	/**
@@ -342,6 +342,9 @@ class Metadata {
 		if ( $version < 10 ) {
 			\Pressbooks\Taxonomy::insertTerms();
 			flush_rewrite_rules( false );
+		}
+		if ( $version < 11 ) {
+			$this->migratePartContentToEditor();
 		}
 	}
 
@@ -674,5 +677,31 @@ class Metadata {
 		}
 	}
 
+
+	/**
+	 * Migrate part content to content editor
+	 */
+	function migratePartContentToEditor() {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		$parts = $wpdb->get_results( "SELECT ID FROM {$wpdb->posts} WHERE post_type = 'part' AND post_status = 'publish' " );
+		foreach ( $parts as $part ) {
+			$pb_part_content = trim( get_post_meta( $part->ID, 'pb_part_content', true ) );
+			if ( $pb_part_content ) {
+				$success = wp_update_post( [
+					'ID' => $part->ID,
+					'post_content' => $pb_part_content,
+					'comment_status' => 'closed',
+				] );
+				if ( $success == $part->ID ) {
+					delete_post_meta( $part->ID, 'pb_part_content' );
+				}
+			}
+		}
+
+		Book::deleteBookObjectCache();
+	}
 
 }
