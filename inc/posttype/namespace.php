@@ -67,6 +67,9 @@ function register_post_types() {
 		'supports' => [ 'title', 'editor', 'author', 'comments', 'page-attributes', 'revisions' ],
 		'taxonomies' => [ 'chapter-type' ],
 		'menu_icon' => 'dashicons-book',
+		'show_in_rest' => true,
+		'rest_base' => 'chapters',
+		'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
 	];
 
 	register_post_type( 'chapter', $args );
@@ -100,6 +103,9 @@ function register_post_types() {
 		'has_archive' => true,
 		'hierarchical' => true,
 		'supports' => [ 'title', 'page-attributes' ],
+		'show_in_rest' => true,
+		'rest_base' => 'parts',
+		'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
 	];
 	register_post_type( 'part', $args );
 
@@ -134,6 +140,8 @@ function register_post_types() {
 		'hierarchical' => true,
 		'supports' => [ 'title', 'editor', 'author', 'comments', 'revisions' ],
 		'taxonomies' => [ 'front-matter-type' ],
+		'show_in_rest' => true,
+		'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
 	];
 	register_post_type( 'front-matter', $args );
 
@@ -168,6 +176,8 @@ function register_post_types() {
 		'hierarchical' => true,
 		'supports' => [ 'title', 'editor', 'author', 'comments', 'revisions' ],
 		'taxonomies' => [ 'back-matter-type' ],
+		'show_in_rest' => true,
+		'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
 	];
 	register_post_type( 'back-matter', $args );
 
