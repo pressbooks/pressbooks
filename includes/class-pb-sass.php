@@ -219,13 +219,21 @@ class Sass {
 	 */
 	function parseVariables( $scss ) {
 
-		preg_match_all( '/\$(.*?):(.*?);/', $scss, $matches );
+		preg_match_all( '/(?s)\n\$(.*?):(.*?);/', $scss, $matches );
 		$output = array_combine( $matches[1], $matches[2] );
 		$output = array_map( function( $val ) {
-			return ltrim( str_replace( ' !default', '', $val ) );
+			$val = ltrim( str_replace( array( "\n", '(', ')', ' !default' ), array( '', '', '', '' ), $val ) );
+			if ( strpos( $val, ':' ) ) {
+				$val = $val . ',';
+				preg_match_all( '/(\S*?):(.*?),/', $val, $matches );
+				$val = array_combine( $matches[1], $matches[2] );
+			}
+
+			return $val;
 		}, $output );
 		return $output;
 	}
+
 	/**
 	 * Log Exceptions
 	 *

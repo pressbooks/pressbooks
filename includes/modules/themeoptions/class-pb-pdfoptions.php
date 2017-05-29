@@ -1303,6 +1303,13 @@ class PDFOptions extends \Pressbooks\Options {
 	 * @return array $defaults
 	 */
 	static function filterDefaults( $defaults ) {
+		if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+			$scss = file_get_contents( get_stylesheet_directory() . '/assets/styles/components/_elements.scss' );
+			$variables = \Pressbooks\Container::get( 'Sass' )->parseVariables( $scss, 'prince' );
+			$defaults['pdf_body_font_size'] = str_replace( 'pt', '', ( is_array( $variables['body-font-size'] ) ) ? $variables['body-font-size']['prince'] : $variables['body-font-size'] );
+			$defaults['pdf_body_line_height'] = str_replace( 'em', '', ( is_array( $variables['body-line-height'] ) ) ? $variables['body-line-height']['prince'] : $variables['body-line-height'] );
+		}
+
 		return $defaults;
 	}
 

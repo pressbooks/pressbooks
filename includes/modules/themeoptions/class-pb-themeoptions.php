@@ -61,6 +61,7 @@ class ThemeOptions {
 ?>" class="nav-tab <?php echo $active_tab == $slug ? 'nav-tab-active' : ''; ?>"><?php echo $subclass::getTitle() ?></a>
 				<?php } ?>
 			</h2>
+			<pre><?php \Pressbooks\Modules\ThemeOptions\PDFOptions::filterDefaults( [] ); ?></pre>
 			<form method="post" action="options.php">
 				<?php do_action( 'pb_before_themeoptions_settings_fields' );
 				settings_fields( 'pressbooks_theme_options_' . $active_tab );
