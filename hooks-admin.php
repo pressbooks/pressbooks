@@ -12,15 +12,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
-require( PB_PLUGIN_DIR . 'includes/admin/pb-dashboard.php' );
-require( PB_PLUGIN_DIR . 'includes/admin/pb-diagnostics.php' );
-require( PB_PLUGIN_DIR . 'includes/admin/pb-laf.php' );
-require( PB_PLUGIN_DIR . 'includes/admin/pb-plugins.php' );
-require( PB_PLUGIN_DIR . 'includes/admin/pb-analytics.php' );
-require( PB_PLUGIN_DIR . 'includes/admin/pb-metaboxes.php' );
-require( PB_PLUGIN_DIR . 'includes/admin/pb-customcss.php' );
-require( PB_PLUGIN_DIR . 'includes/admin/pb-network-managers.php' );
-require( PB_PLUGIN_DIR . 'includes/admin/pb-fonts.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/dashboard/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/diagnostics/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/analytics/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/customcss/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Look & feel of admin interface and Dashboard
@@ -43,8 +43,8 @@ add_action( 'admin_menu', '\Pressbooks\Admin\Diagnostics\add_menu', 30 );
 
 if ( \Pressbooks\Book::isBook() ) {
 	// Aggressively replace default interface
-	add_action( 'init', array( '\Pressbooks\Modules\SearchAndReplace\SearchAndReplace', 'init' ) );
-	add_action( 'init', array( '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ) );
+	add_action( 'init', [ '\Pressbooks\Modules\SearchAndReplace\SearchAndReplace', 'init' ] );
+	add_action( 'init', [ '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ] );
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
@@ -63,7 +63,7 @@ if ( is_network_admin() ) {
 	add_action( 'wp_network_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_network_dashboard_widgets' );
 }
 
-if ( true == is_main_site() ) {
+if ( true === is_main_site() ) {
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_root_dashboard_widgets' );
 }
 
@@ -127,6 +127,7 @@ add_action( 'admin_menu', function () {
 } );
 
 add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
+add_action( 'pb_add_bisac_subjects_field', '\Pressbooks\Admin\Metaboxes\add_bisac_subjects_field', 1 );
 
 if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\add_metadata_styles' );
@@ -192,7 +193,7 @@ if ( \Pressbooks\Book::isBook() ) {
 
 	// Posts, Meta Boxes
 	add_action( 'updated_postmeta', function ( $meta_id, $object_id, $meta_key, $meta_value ) {
-		if ( 'pb_language' == $meta_key ) {
+		if ( 'pb_language' === $meta_key ) {
 			\Pressbooks\Book::deleteBookObjectCache();
 			\Pressbooks\Admin\Fonts\update_font_stacks();
 		}
@@ -203,9 +204,9 @@ if ( \Pressbooks\Book::isBook() ) {
 	add_action( 'admin_init', '\Pressbooks\Editor\add_editor_style' );
 
 	// Overrides
-	add_filter( 'pb_epub_css_override', array( '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ) );
-	add_filter( 'pb_pdf_css_override', array( '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ) );
-	add_filter( 'pb_web_css_override', array( '\Pressbooks\Modules\ThemeOptions\WebOptions', 'scssOverrides' ) );
+	add_filter( 'pb_epub_css_override', [ '\Pressbooks\Modules\ThemeOptions\EbookOptions', 'scssOverrides' ] );
+	add_filter( 'pb_pdf_css_override', [ '\Pressbooks\Modules\ThemeOptions\PDFOptions', 'scssOverrides' ] );
+	add_filter( 'pb_web_css_override', [ '\Pressbooks\Modules\ThemeOptions\WebOptions', 'scssOverrides' ] );
 }
 
 // Theme Lock
@@ -233,12 +234,12 @@ if ( \Pressbooks\Book::isBook() ) {
 
 	// Disable all pointers (i.e. tooltips) all the time, see \WP_Internal_Pointers()
 	add_action( 'admin_init', function () {
-		remove_action( 'admin_enqueue_scripts', array( 'WP_Internal_Pointers', 'enqueue_scripts' ) );
+		remove_action( 'admin_enqueue_scripts', [ 'WP_Internal_Pointers', 'enqueue_scripts' ] );
 	} );
 
 	// Fix for "are you sure you want to leave page" message when editing a part
 	add_action( 'admin_enqueue_scripts', function () {
-		if ( 'part' == get_post_type() ) {
+		if ( 'part' === get_post_type() ) {
 			wp_dequeue_script( 'autosave' );
 		}
 	} );

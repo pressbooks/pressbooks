@@ -30,12 +30,6 @@ class ContainerTest extends \WP_UnitTestCase {
 		parent::tearDown();
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Container::init
-	 * @covers \Pressbooks\Container::setPimple
-	 * @covers \Pressbooks\Container::getPimple
-	 */
 	public function test_initSetGetPimple() {
 
 		Container::init( new FakePimpleContainer() );
@@ -45,29 +39,31 @@ class ContainerTest extends \WP_UnitTestCase {
 		$this->assertTrue( Container::getPimple() instanceof AnotherFakePimpleContainer );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Container::getPimple
-	 */
 	public function test_getPimpleException() {
-		
+
 		$this->setExpectedException( '\LogicException' );
 		$p = Container::getPimple();
 	}
 
-
-
-	/**
-	 * @covers \Pressbooks\Container::get
-	 * @covers \Pressbooks\Container::set
-	 */
 	public function test_getSet() {
 
 		Container::init( new FakePimpleContainer() );
 
-		Container::set( 'test1', function () { return 'test1'; } );
-		Container::set( 'test2', function () { return 'test2'; }, 'factory' );
-		Container::set( 'test3', function () { return 'test3'; }, 'protect' );
+		Container::set(
+			'test1', function () {
+				return 'test1';
+			}
+		);
+		Container::set(
+			'test2', function () {
+				return 'test2';
+			}, 'factory'
+		);
+		Container::set(
+			'test3', function () {
+				return 'test3';
+			}, 'protect'
+		);
 
 		$var1 = Container::get( 'test1' );
 		$var2 = Container::get( 'test2' );
@@ -82,20 +78,12 @@ class ContainerTest extends \WP_UnitTestCase {
 
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Container::get
-	 */
 	public function test_getException() {
 
 		$this->setExpectedException( '\LogicException' );
 		$var = Container::get( 'foo' );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Container::set
-	 */
 	public function test_setException() {
 
 		$this->setExpectedException( '\LogicException' );

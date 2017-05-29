@@ -2,10 +2,6 @@
 
 class SanitizeTest extends \WP_UnitTestCase {
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\html5_to_xhtml11
-	 */
 	public function test_html5_to_xhtml11() {
 
 		$html = '<article style="font-weight:bold;">Foo</article><h1>Hello!</h1><command>Bar</command>';
@@ -16,10 +12,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 		);
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\html5_to_epub3
-	 */
 	public function test_html5_to_epub3() {
 
 		$html = '<article style="font-weight:bold;">Foo</article><h1>Hello!</h1><command>Bar</command>';
@@ -30,24 +22,16 @@ class SanitizeTest extends \WP_UnitTestCase {
 		);
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\fix_audio_shortcode
-	 */
 	public function test_fix_audio_shortcode() {
 
 		\Pressbooks\Sanitize\fix_audio_shortcode();
 		$this->assertTrue( has_filter( 'wp_audio_shortcode' ) );
 
 		// Verify that style attribute is empty.
-		$var = wp_audio_shortcode( array( 'src' => 'http://foo/audio.mp3' ) );
+		$var = wp_audio_shortcode( [ 'src' => 'http://foo/audio.mp3' ] );
 		$this->assertFalse( strpos( $var, 'style=' ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\sanitize_xml_attribute
-	 */
 	public function test_sanitize_xml_attribute() {
 
 		$var = 'Hello-World!';
@@ -60,18 +44,14 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'test', \Pressbooks\Sanitize\sanitize_xml_attribute( $var ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\sanitize_xml_id
-	 */
 	public function test_sanitize_xml_id() {
 
-		$var = "Hello-World!";
+		$var = 'Hello-World!';
 		$test = $this->_generateControlCharacters() . $var;
 		$test = \Pressbooks\Sanitize\sanitize_xml_id( $test );
 		$this->assertEquals( 'Hello-World', $test );
 
-		$var = " Héllö Wôrld! ";
+		$var = ' Héllö Wôrld! ';
 		$test = \Pressbooks\Sanitize\sanitize_xml_id( $var );
 		$this->assertEquals( 'HelloWorld', $test );
 
@@ -79,47 +59,39 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$test = \Pressbooks\Sanitize\sanitize_xml_id( $var );
 		$this->assertStringStartsWith( 'slug-123', $test );
 
-		$var = "こんにちは世界!";
+		$var = 'こんにちは世界!';
 		$test = \Pressbooks\Sanitize\sanitize_xml_id( $var );
 		$this->assertStringStartsWith( 'slug-', $test );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\remove_control_characters
-	 */
 	public function test_remove_control_characters() {
 
-		$var = "Hello-World!";
+		$var = 'Hello-World!';
 		$test = $this->_generateControlCharacters() . $var;
 		$test = \Pressbooks\Sanitize\remove_control_characters( $test );
 		$this->assertEquals( 12, strlen( $test ) );
 
-		$var = "Héllö Wôrld!";
+		$var = 'Héllö Wôrld!';
 		$test = \Pressbooks\Sanitize\remove_control_characters( $var );
 		$this->assertEquals( 12, mb_strlen( $test, 'UTF-8' ) );
 
-		$var = "こんにちは世界!";
+		$var = 'こんにちは世界!';
 		$test = \Pressbooks\Sanitize\remove_control_characters( $var );
 		$this->assertEquals( 8, mb_strlen( $test, 'UTF-8' ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\force_ascii
-	 */
 	public function test_force_ascii() {
 
-		$var = "Hello-World!";
+		$var = 'Hello-World!';
 		$test = $this->_generateControlCharacters() . $var;
 		$test = \Pressbooks\Sanitize\force_ascii( $test );
 		$this->assertEquals( 12, strlen( $test ) );
 
-		$var = "Héllö Wôrld!";
+		$var = 'Héllö Wôrld!';
 		$test = \Pressbooks\Sanitize\force_ascii( $var );
 		$this->assertEquals( 9, strlen( $test ) );
 
-		$var = "こんにちは世界!";
+		$var = 'こんにちは世界!';
 		$test = \Pressbooks\Sanitize\force_ascii( $var );
 		$this->assertEquals( 1, strlen( $test ) );
 	}
@@ -133,17 +105,13 @@ class SanitizeTest extends \WP_UnitTestCase {
 	private function _generateControlCharacters() {
 
 		$controlCharacters = chr( 127 );
-		for ( $i = 0; $i < 32; ++ $i ) {
+		for ( $i = 0; $i < 32; ++$i ) {
 			$controlCharacters .= chr( $i );
 		}
 
 		return $controlCharacters;
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\decode
-	 */
 	public function test_decode() {
 
 		$test = '&#48;&#49;&#50;&#51;&#52;&#53;&#038;&#54;&#55;&#56;&#57;';
@@ -155,10 +123,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( '012345&#038;6789', $test );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\strip_br
-	 */
 	public function test_strip_br() {
 
 		$test = 'Hello <br /> World!';
@@ -178,10 +142,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Hello    World!', $test );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\filter_title
-	 */
 	public function test_filter_title() {
 
 		// Acceptable Tags: <br />, <span> with class, <em>, and <strong>.
@@ -195,10 +155,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( '<span class="pb">Foobar</span>Foobaz', $test );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\canonicalize_url
-	 */
 	public function test_canonicalize_url() {
 
 		$url = 'pressbooks.com/';
@@ -220,10 +176,6 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( $url, \Pressbooks\Sanitize\canonicalize_url( $url ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sanitize\maybe_https
-	 */
 	public function test_maybe_https() {
 
 		if ( isset( $_SERVER['HTTPS'] ) ) {
@@ -250,9 +202,20 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$url = \Pressbooks\Sanitize\maybe_https( $url );
 		$this->assertEquals( 'https://http.org', $url );
 
-		if ( isset( $old ) ) $_SERVER['HTTPS'] = $old;
-		else unset( $_SERVER['HTTPS'] );
+		if ( isset( $old ) ) {
+			$_SERVER['HTTPS'] = $old;
+		} else {
+			unset( $_SERVER['HTTPS'] );
+		}
 	}
 
+	public function test_allow_post_content() {
+
+		global $allowedposttags;
+
+		\Pressbooks\Sanitize\allow_post_content();
+
+		$this->assertTrue( $allowedposttags['h1']['xml:lang'] );
+	}
 
 }

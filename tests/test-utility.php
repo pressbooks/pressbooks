@@ -2,9 +2,27 @@
 
 class UtilityTest extends \WP_UnitTestCase {
 
-	/**
-	 * @covers \Pressbooks\Utility\scandir_by_date
-	 */
+
+	public function test_getset() {
+
+		$array = [ 'hello' => 'world' ];
+		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'hello' ), 'world' );
+		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'nothing' ), null );
+		$this->assertEquals( \Pressbooks\Utility\getset( $array, 'nothing', 'something' ), 'something' );
+
+		global $fake_out;
+		$fake_out['hello'] = 'world';
+		$this->assertEquals( \Pressbooks\Utility\getset( 'fake_out', 'hello' ), 'world' );
+		$this->assertEquals( \Pressbooks\Utility\getset( 'fake_out', 'nothing' ), null );
+		$this->assertEquals( \Pressbooks\Utility\getset( 'fake_out', 'nothing', 'something' ), 'something' );
+
+		$_POST['hello'] = 'world';
+		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'hello' ), 'world' );
+		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'nothing' ), null );
+		$this->assertEquals( \Pressbooks\Utility\getset( '_POST', 'nothing', 'something' ), 'something' );
+	}
+
+
 	public function test_scandir_by_date() {
 
 		$files = \Pressbooks\Utility\scandir_by_date( __DIR__ );
@@ -15,9 +33,6 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 
-	/**
-	 * @covers \Pressbooks\Utility\group_exports
-	 */
 	public function test_group_exports() {
 
 		$files = \Pressbooks\Utility\group_exports();
@@ -28,18 +43,11 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 
-//	/**
-//	 * @covers \Pressbooks\Utility\truncate_exports
-//	 */
-//	public function test_truncate_exports() {
-//		// TODO: Testing this as-is would delete files. Need to refactor to allow mocking the file system.
-//		$this->markTestIncomplete();
-//	}
+	//  public function test_truncate_exports() {
+	//      // TODO: Testing this as-is would delete files. Need to refactor to allow mocking the file system.
+	//      $this->markTestIncomplete();
+	//  }
 
-
-	/**
-	 * @covers \Pressbooks\Utility\get_media_prefix
-	 */
 	public function test_get_media_prefix() {
 
 		$prefix = \Pressbooks\Utility\get_media_prefix();
@@ -49,10 +57,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		);
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\get_media_path
-	 */
 	public function test_get_media_path() {
 
 		$guid = 'http://pressbooks.dev/test/wp-content/uploads/sites/3/2015/11/foobar.jpg';
@@ -66,10 +70,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		);
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\add_sitemap_to_robots_txt
-	 */
 	public function test_add_sitemap_to_robots_txt_0() {
 
 		update_option( 'blog_public', 0 );
@@ -77,10 +77,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		\Pressbooks\Utility\add_sitemap_to_robots_txt();
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\add_sitemap_to_robots_txt
-	 */
 	public function test_add_sitemap_to_robots_txt_1() {
 
 		update_option( 'blog_public', 1 );
@@ -88,10 +84,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		\Pressbooks\Utility\add_sitemap_to_robots_txt();
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\do_sitemap
-	 */
 	public function test_do_sitemap_0() {
 
 		update_option( 'blog_public', 0 );
@@ -99,10 +91,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		\Pressbooks\Utility\do_sitemap();
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\do_sitemap
-	 */
 	public function test_do_sitemap_1() {
 
 		update_option( 'blog_public', 1 );
@@ -110,10 +98,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		\Pressbooks\Utility\do_sitemap();
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\create_tmp_file
-	 */
 	public function test_create_tmp_file() {
 
 		$file = \Pressbooks\Utility\create_tmp_file();
@@ -123,46 +107,36 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Hello world!', file_get_contents( $file ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\check_prince_install
-	 */
 	public function test_check_prince_install() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_prince_install() );
 		$this->assertTrue( defined( 'PB_PRINCE_COMMAND' ) );
 	}
 
-	/**
-	 * @covers \Pressbooks\Utility\check_epubcheck_install
-	 */
 	public function test_check_epubcheck_install() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_epubcheck_install() );
 		$this->assertTrue( defined( 'PB_EPUBCHECK_COMMAND' ) );
 	}
 
-	/**
-	 * @covers \Pressbooks\Utility\check_kindlegen_install
-	 */
 	public function test_check_kindlegen_install() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_kindlegen_install() );
 		$this->assertTrue( defined( 'PB_KINDLEGEN_COMMAND' ) );
 	}
 
-	/**
-	 * @covers \Pressbooks\Utility\check_xmllint_install
-	 */
 	public function test_check_xmllint_install() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_xmllint_install() );
 		$this->assertTrue( defined( 'PB_XMLLINT_COMMAND' ) );
 	}
 
-	/**
-	 * @covers \Pressbooks\Utility\show_experimental_features
-	 */
+	public function test_check_saxonhe_install() {
+
+		$this->assertInternalType( 'bool', \Pressbooks\Utility\check_saxonhe_install() );
+		$this->assertTrue( defined( 'PB_SAXON_COMMAND' ) );
+	}
+
 	public function test_show_experimental_features() {
 
 		$this->assertInternalType( 'bool', \Pressbooks\Utility\show_experimental_features() );
@@ -170,20 +144,12 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\include_plugins
-	 */
 	public function test_include_plugins() {
 
 		\Pressbooks\Utility\include_plugins();
 		$this->assertTrue( class_exists( 'custom_metadata_manager' ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\filter_plugins
-	 */
 	public function test_filter_plugins() {
 
 		$symbionts = [ 'a-plugin-that-does-not-exist/foobar.php' => 1 ];
@@ -194,10 +160,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'a-plugin-that-does-not-exist/foobar.php', $filtered );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\file_upload_max_size
-	 */
 	public function test_file_upload_max_size() {
 
 		$maxSize = \Pressbooks\Utility\file_upload_max_size();
@@ -208,10 +170,6 @@ class UtilityTest extends \WP_UnitTestCase {
 
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\parse_size
-	 */
 	public function test_parse_size() {
 
 		$this->assertTrue( is_float( \Pressbooks\Utility\parse_size( '1' ) ) );
@@ -221,10 +179,6 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( 8388608, \Pressbooks\Utility\parse_size( '8M' ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Utility\format_bytes
-	 */
 	public function test_format_bytes() {
 
 		$this->assertEquals( '200 B', \Pressbooks\Utility\format_bytes( 200 ) );
@@ -244,18 +198,12 @@ class UtilityTest extends \WP_UnitTestCase {
 	}
 
 
-//	/**
-//	 * @covers \Pressbooks\Utility\email_error_log
-//	 */
-//	public function test_email_error_log() {
-//		// TODO: Testing this as-is would send emails, write to error_log... Need to refactor
-//		$this->markTestIncomplete();
-//	}
+	//  public function test_email_error_log() {
+	//      // TODO: Testing this as-is would send emails, write to error_log... Need to refactor
+	//      $this->markTestIncomplete();
+	//  }
 
 
-	/**
-	 * @covers \Pressbooks\Utility\template
-	 */
 	public function test_template() {
 
 		$template = \Pressbooks\Utility\template(
@@ -278,32 +226,23 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->fail();
 	}
 
-	/**
-	 * @covers \Pressbooks\Utility\mail_from
-	 */
 	public function test_mail_from() {
 		$this->assertEquals( 'pressbooks@example.org', \Pressbooks\Utility\mail_from( '' ) );
 		define( 'WP_MAIL_FROM', 'hi@pressbooks.org' );
 		$this->assertEquals( 'hi@pressbooks.org', \Pressbooks\Utility\mail_from( '' ) );
 	}
 
-	/**
-	 * @covers \Pressbooks\Utility\mail_from_name
-	 */
 	public function test_mail_from_name() {
 		$this->assertEquals( 'Pressbooks', \Pressbooks\Utility\mail_from_name( '' ) );
 		define( 'WP_MAIL_FROM_NAME', 'Ned' );
 		$this->assertEquals( 'Ned', \Pressbooks\Utility\mail_from_name( '' ) );
 	}
 
-	/**
-	 * @covers \Pressbooks\Utility\rcopy
-	 */
 	public function test_rcopy() {
 		$uploads = wp_upload_dir();
 		$src = trailingslashit( $uploads['path'] ) . 'src';
 		$dest = trailingslashit( $uploads['path'] ) . 'dest';
-		mkdir( $src );
+		@mkdir( $src );
 		file_put_contents( $src . '/test.txt', 'test' );
 
 		$return = \Pressbooks\Utility\rcopy( $src, $dest );

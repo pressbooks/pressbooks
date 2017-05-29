@@ -14,36 +14,27 @@ class Registration extends \WP_UnitTestCase {
 		remove_filter( 'gettext', '\Pressbooks\Registration\custom_signup_text' );
 	}
 
-	/**
-	 * @covers \Pressbooks\Registration\custom_signup_text
-	 */
 	public function test_custom_signup_text() {
 		$output = __( 'Create Site', 'pressbooks' );
 		$this->assertEquals( 'Create Book', $output );
 	}
 
-	/**
-	 * @covers \Pressbooks\Registration\add_password_field
-	 */
 	public function test_add_password_field() {
 
 		// Test for field label in output
-		
+
 		$e = new WP_Error();
 		$this->expectOutputRegex( '/<\/label>/' );
 		\Pressbooks\Registration\add_password_field( $e );
 	}
 
-	/**
-	 * @covers \Pressbooks\Registration\validate_passwords
-	 */
 	public function test_validate_passwords() {
 
 		global $_POST;
 
 		// Test for correct stage
 
-		$content = array( 'errors' => new WP_Error() );
+		$content = [ 'errors' => new WP_Error() ];
 		$_POST['stage'] = '';
 
 		\Pressbooks\Registration\validate_passwords( $content );
@@ -52,70 +43,57 @@ class Registration extends \WP_UnitTestCase {
 
 		// Test for empty password field
 
-		$content = array( 'errors' => new WP_Error() );
+		$content = [ 'errors' => new WP_Error() ];
 		$_POST['stage'] = 'validate-user-signup'; // Validation stage
 		$_POST['password_1'] = ''; // Empty password
 		$_POST['password_2'] = 'barrel aquiline abolish belabour'; // Legitimate password
-		
+
 		\Pressbooks\Registration\validate_passwords( $content );
-		
+
 		$this->assertEquals( 'You have to enter a password.', $content['errors']->get_error_message( 'password_1' ) );
 
 		// Test for password mismatch
 
-		$content = array( 'errors' => new WP_Error() );
+		$content = [ 'errors' => new WP_Error() ];
 		$_POST['stage'] = 'validate-user-signup'; // Validation stage
 		$_POST['password_1'] = 'colloquy glint tendril choler'; // Legitimate password
 		$_POST['password_2'] = 'barrel aquiline abolish belabour'; // Legitimate password that doesn't match
-		
+
 		\Pressbooks\Registration\validate_passwords( $content );
-		
+
 		$this->assertEquals( 'Passwords do not match.', $content['errors']->get_error_message( 'password_1' ) );
 	}
 
-	/**
-	 * @covers \Pressbooks\Registration\validate_passwords
-	 */
 	public function test_add_temporary_password() {
 
 		global $_POST;
-		
+
 		// Test for base64-encoded password key in $meta array, matching input password
-		
+
 		$_POST['password_1'] = 'colloquy glint tendril choler';
-		
-		$meta = \Pressbooks\Registration\add_temporary_password( array() );
+
+		$meta = \Pressbooks\Registration\add_temporary_password( [] );
 		$this->assertEquals( 'colloquy glint tendril choler', base64_decode( $meta['password'] ) );
-		
+
 		// Test for absence of password key in $meta array when no password is provided
-		
+
 		unset( $_POST['password_1'] );
-		
-		$meta = \Pressbooks\Registration\add_temporary_password( array() );
+
+		$meta = \Pressbooks\Registration\add_temporary_password( [] );
 		$this->assertArrayNotHasKey( 'password', $meta );
 	}
-	
-	/**
-	 * @covers \Pressbooks\Registration\add_hidden_password_field
-	 */
+
 	public function test_add_hidden_password_field() {
 
 		global $_POST;
-		
+
 		// Test for password field in output when password is supplied
-		
+
 		$_POST['password_1'] = 'colloquy glint tendril choler';
-		
+
 		$this->expectOutputRegex( '/(<input type="hidden" name="password_1.*)(" value=").*(").*(\/>)/' );
-		\Pressbooks\Registration\add_hidden_password_field( array() );
+		\Pressbooks\Registration\add_hidden_password_field( [] );
 
 	}
-
-//	/**
-//	 * @covers \Pressbooks\Registration\override_password_generation
-//	 */
-//	public function test_override_password_generation() {
-//		$this->markTestIncomplete();
-//	}
 
 }

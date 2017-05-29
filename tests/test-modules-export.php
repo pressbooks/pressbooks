@@ -32,10 +32,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->export = new \ExportMock();
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Modules\Export\Export::getExportStylePath
-	 */
 	public function test_getExportStylePath() {
 
 		$this->_book();
@@ -61,19 +57,11 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertFalse( $path );
 	}
 
+	//  public function test_getGlobalTypographyMixinPath() {
+	//      // TODO: Testing this as-is triggers updateGlobalTypographyMixin, generates _mixins.css, generates _global-font-stack.scss... Code needs to be decoupled?
+	//      $this->markTestIncomplete();
+	//  }
 
-//	/**
-//	 * @covers \Pressbooks\Modules\Export\Export::getGlobalTypographyMixinPath
-//	 */
-//	public function test_getGlobalTypographyMixinPath() {
-//		// TODO: Testing this as-is triggers updateGlobalTypographyMixin, generates _mixins.css, generates _global-font-stack.scss... Code needs to be decoupled?
-//		$this->markTestIncomplete();
-//	}
-
-
-	/**
-	 * @covers \Pressbooks\Modules\Export\Export::getExportScriptPath
-	 */
 	public function test_getExportScriptPath() {
 
 		$this->_book();
@@ -92,7 +80,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$opt = get_option( 'pressbooks_theme_options_pdf' );
 
 		$opt['pdf_romanize_parts'] = 0;
-		update_option( 'pressbooks_theme_options_pdf', $opt);
+		update_option( 'pressbooks_theme_options_pdf', $opt );
 
 		$path = $this->export->getExportScriptPath( 'epub' );
 		$this->assertFalse( $path );
@@ -101,7 +89,7 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringEndsWith( '/export/prince/script.js', $path );
 
 		$opt['pdf_romanize_parts'] = 1;
-		update_option( 'pressbooks_theme_options_pdf', $opt);
+		update_option( 'pressbooks_theme_options_pdf', $opt );
 
 		$path = $this->export->getExportScriptPath( 'prince' );
 		$this->assertStringEndsWith( '/export/prince/script-romanize.js', $path );
@@ -110,29 +98,17 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertFalse( $path );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Modules\Export\Export::isParsingSubsections
-	 */
 	public function test_isParsingSubsections() {
 
 		$val = $this->export->isParsingSubsections();
 		$this->assertInternalType( 'bool', $val );
 	}
 
+	//  public function test_logError() {
+	//      // TODO: Testing this as-is would send emails, writes to error log... Need to be refactored.
+	//      $this->markTestIncomplete();
+	//  }
 
-//	/**
-//	 * @covers \Pressbooks\Modules\Export\Export::logError
-//	 */
-//	public function test_logError() {
-//		// TODO: Testing this as-is would send emails, writes to error log... Need to be refactored.
-//		$this->markTestIncomplete();
-//	}
-
-
-	/**
-	 * @covers \Pressbooks\Modules\Export\Export::createTmpFile
-	 */
 	public function test_createTmpFile() {
 
 		$file = $this->export->createTmpFile();
@@ -142,10 +118,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'Hello world!', file_get_contents( $file ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Modules\Export\Export::timestampedFileName
-	 */
 	public function test_timestampedFileName() {
 
 		$this->_book();
@@ -162,11 +134,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertNotContains( '+', $file );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Modules\Export\Export::nonce
-	 * @covers \Pressbooks\Modules\Export\Export::verifyNonce
-	 */
 	public function test_nonce_AND_verifyNonce() {
 
 		if ( ! defined( 'NONCE_KEY' ) ) {
@@ -189,10 +156,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->export->verifyNonce( $time3, $nonce3 ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Modules\Export\Export::mimeType
-	 */
 	function test_mimeType() {
 
 		$i = $this->export;
@@ -200,10 +163,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertStringStartsWith( 'image/png', $mime );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Modules\Export\Export::getExportFolder
-	 */
 	function test_getExportFolder() {
 
 		$this->_book();

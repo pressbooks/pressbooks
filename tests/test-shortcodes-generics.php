@@ -22,9 +22,6 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 			->getMock();
 	}
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Generics\Generics::getInstance()
-	 */
 	public function test_getInstance() {
 		$val = $this->generics->getInstance();
 
@@ -32,9 +29,6 @@ class Shortcodes_Generics extends \WP_UnitTestCase {
 
 	}
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Generics\Generics::shortcodeHandler
-	 */
 	public function test_shortcodeHandler() {
 
 		// Test a straightforward tag.
