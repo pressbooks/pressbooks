@@ -1682,9 +1682,9 @@ class Epub201 extends Export {
 		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
 		$xpath = new \DOMXPath( $doc );
 		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
-		    foreach ( $nodes as $node ) {
-		        $node->appendChild( new \DOMText( '' ) );
-		    }
+			foreach ( $nodes as $node ) {
+				$node->appendChild( new \DOMText( '' ) );
+			}
 		}
 
 		// Remove srcset attributes because responsive images aren't a thing in the EPUB world.

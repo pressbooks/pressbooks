@@ -503,16 +503,16 @@ class PDFOptions extends \Pressbooks\Options {
 		}
 
 		if ( ! \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
-		 	add_settings_field(
-				'pdf_fontsize',
-				__( 'Increase Font Size', 'pressbooks' ),
-				array( $this, 'renderFontSizeField' ),
-				$_page,
-				$_section,
-				array(
-				    __( 'Increases font size and line height for greater accessibility', 'pressbooks' )
-				)
-			);
+			 add_settings_field(
+				 'pdf_fontsize',
+				 __( 'Increase Font Size', 'pressbooks' ),
+				 array( $this, 'renderFontSizeField' ),
+				 $_page,
+				 $_section,
+				 array(
+					__( 'Increases font size and line height for greater accessibility', 'pressbooks' )
+				 )
+			 );
 		}
 
 		/**

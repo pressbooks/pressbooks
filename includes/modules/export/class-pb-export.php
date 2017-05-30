@@ -655,7 +655,7 @@ abstract class Export {
 			 * 		$modules[] = '\Pressbooks\Modules\Export\Docx\Docx';
 			 * 	}
 			 * 	return $modules;
-		 	 * } );
+			  * } );
 			 *
 			 */
 			$modules = apply_filters( 'pb_active_export_modules', $modules );

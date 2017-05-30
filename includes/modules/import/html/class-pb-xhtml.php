@@ -88,10 +88,10 @@ class Xhtml extends Import {
 		$body = $this->kneadHtml( $xhtml, $post_type, $domain );
 
 		$new_post = array(
-		    'post_title' => $title,
-		    'post_content' => $body,
-		    'post_type' => $post_type,
-		    'post_status' => $post_status,
+			'post_title' => $title,
+			'post_content' => $body,
+			'post_type' => $post_type,
+			'post_status' => $post_status,
 		);
 
 		if ( 'chapter' == $post_type ) {
@@ -443,10 +443,10 @@ class Xhtml extends Import {
 
 		// set the args
 		$option = array(
-		    'file' => $upload['url'],
-		    'file_type' => $content_type,
-		    'type_of' => 'html',
-		    'chapters' => array(),
+			'file' => $upload['url'],
+			'file_type' => $content_type,
+			'type_of' => 'html',
+			'chapters' => array(),
 		);
 
 		// there will be only one chapter
@@ -468,12 +468,12 @@ class Xhtml extends Import {
 		// Make XHTML 1.1 strict using htmlLawed
 
 		$config = array(
-		    'deny_attribute' => 'style',
-		    'comment' => 1,
-		    'safe' => 1,
-		    'valid_xhtml' => 1,
-		    'no_deprecated_attr' => 2,
-		    'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
+			'deny_attribute' => 'style',
+			'comment' => 1,
+			'safe' => 1,
+			'valid_xhtml' => 1,
+			'no_deprecated_attr' => 2,
+			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		);
 
 		return \Pressbooks\HtmLawed::filter( $html, $config );

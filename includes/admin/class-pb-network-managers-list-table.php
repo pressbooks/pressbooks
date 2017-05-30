@@ -39,7 +39,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @return string Text to be placed inside the column <td>
 	 **************************************************************************/
 	function column_display_name( $item ) {
-	    return $item['display_name'];
+		return $item['display_name'];
 	}
 
 	/** ************************************************************************
@@ -50,7 +50,7 @@ class Network_Managers_List_Table extends \WP_List_Table {
 	 * @return string Text to be placed inside the column <td>
 	 **************************************************************************/
 	function column_user_email( $item ) {
-	    return $item['user_email'];
+		return $item['user_email'];
 	}
 
 
@@ -66,18 +66,18 @@ class Network_Managers_List_Table extends \WP_List_Table {
 		// Build row actions
 		$current_user = wp_get_current_user();
 
-	    if ( absint( $item['ID'] ) !== absint( $current_user->ID ) ) { // Don't let users restrict themselves
-	        if ( 1 == $item['restricted'] ) {
-		        $actions = array(
-		            'unrestrict'	=> '<a data-restrict="0" data-restrict-text="' . __( 'Restrict Access', 'pressbooks' ) . '" data-unrestrict-text="' . __( 'Unrestrict Access', 'pressbooks' ) . '">' . __( 'Unrestrict Access', 'pressbooks' ) . '</a>',
-		        );
-	        } else {
-	        	$actions = array(
-	            	'restrict'	=> '<a data-restrict="1" data-restrict-text="' . __( 'Restrict Access', 'pressbooks' ) . '" data-unrestrict-text="' . __( 'Unrestrict Access', 'pressbooks' ) . '">' . __( 'Restrict Access', 'pressbooks' ) . '</a>',
+		if ( absint( $item['ID'] ) !== absint( $current_user->ID ) ) { // Don't let users restrict themselves
+			if ( 1 == $item['restricted'] ) {
+				$actions = array(
+					'unrestrict'	=> '<a data-restrict="0" data-restrict-text="' . __( 'Restrict Access', 'pressbooks' ) . '" data-unrestrict-text="' . __( 'Unrestrict Access', 'pressbooks' ) . '">' . __( 'Unrestrict Access', 'pressbooks' ) . '</a>',
 				);
-	        }
+			} else {
+				$actions = array(
+					'restrict'	=> '<a data-restrict="1" data-restrict-text="' . __( 'Restrict Access', 'pressbooks' ) . '" data-unrestrict-text="' . __( 'Unrestrict Access', 'pressbooks' ) . '">' . __( 'Restrict Access', 'pressbooks' ) . '</a>',
+				);
+			}
 		} else {
-	        $actions = array();
+			$actions = array();
 		}
 
 		// Return the title contents
@@ -173,9 +173,9 @@ class Network_Managers_List_Table extends \WP_List_Table {
 		$restricted = $wpdb->get_results( "SELECT * FROM {$wpdb->sitemeta} WHERE meta_key = 'pressbooks_network_managers'" );
 		// Get restricted site admins (network managers)
 		if ( $restricted ) {
-	        $restricted = maybe_unserialize( $restricted[0]->meta_value );
-	    } else {
-		    $restricted = array();
+			$restricted = maybe_unserialize( $restricted[0]->meta_value );
+		} else {
+			$restricted = array();
 		}
 		$tmp = array();
 		foreach ( $data as $id => $username ) {
@@ -183,19 +183,19 @@ class Network_Managers_List_Table extends \WP_List_Table {
 			$user = $user->data;
 			$is_restricted = ( in_array( $user->ID, $restricted ) ) ? true : false; // Determine admin's restricted status
 			$tmp[ $id ] = array(
-		       'ID'				=> $user->ID,
-		       'user_login'		=> $user->user_login,
-		       'display_name'	=> $user->display_name,
-		       'user_email'		=> $user->user_email,
-		       'restricted'		=> $is_restricted,
+			   'ID'				=> $user->ID,
+			   'user_login'		=> $user->user_login,
+			   'display_name'	=> $user->display_name,
+			   'user_email'		=> $user->user_email,
+			   'restricted'		=> $is_restricted,
 			);
 		}
 		$data = $tmp;
 		usort( $data, function( $a, $b ) {
-		    $orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'user_login';
-		    $order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc';
-		    $result = strcmp( $a[ $orderby ], $b[ $orderby ] );
-		    return ( 'asc' === $order ) ? $result : -$result;
+			$orderby = ( ! empty( $_REQUEST['orderby'] ) ) ? $_REQUEST['orderby'] : 'user_login';
+			$order = ( ! empty( $_REQUEST['order'] ) ) ? $_REQUEST['order'] : 'asc';
+			$result = strcmp( $a[ $orderby ], $b[ $orderby ] );
+			return ( 'asc' === $order ) ? $result : -$result;
 		});
 
 		$this->items = $data; // Return our data

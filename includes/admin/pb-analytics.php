@@ -169,7 +169,7 @@ function display_network_analytics_settings() {
 		<?php $nonce = ( @$_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
 		if ( ! empty( $_POST ) ) {
 			if ( ! wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
-			    die( 'Security check' );
+				die( 'Security check' );
 			} else {
 				if ( @$_REQUEST['ga_mu_uaid'] ) {
 					update_option( 'ga_mu_uaid', $_REQUEST['ga_mu_uaid'] );

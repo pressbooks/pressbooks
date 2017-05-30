@@ -245,9 +245,9 @@ function add_meta_boxes() {
 	) );
 
 	x_add_metadata_field( 'pb_book_license', 'metadata', array(
-	    'group' => 'copyright',
-	    'field_type' => 'select',
-	    'values' => array(
+		'group' => 'copyright',
+		'field_type' => 'select',
+		'values' => array(
 		'' => '--Select--',
 		'public-domain' => 'No Rights Reserved (Public Domain)',
 		'cc-by' => 'CC BY (Attribution)',
@@ -257,9 +257,9 @@ function add_meta_boxes() {
 		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
 		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
 		'all-rights-reserved' => 'All Rights Reserved',
-	    ),
-	    'label' => __( 'Copyright License', 'pressbooks' ),
-	    'description' => __( 'You can select various licenses including Creative Commons.', 'pressbooks' ),
+		),
+		'label' => __( 'Copyright License', 'pressbooks' ),
+		'description' => __( 'You can select various licenses including Creative Commons.', 'pressbooks' ),
 	) );
 
 	x_add_metadata_field( 'pb_custom_copyright', 'metadata', array(
@@ -420,9 +420,9 @@ function add_meta_boxes() {
 	) );
 
 	x_add_metadata_field( 'pb_section_license', 'chapter', array(
-	    'group' => 'chapter-metadata',
-	    'field_type' => 'select',
-	    'values' => array(
+		'group' => 'chapter-metadata',
+		'field_type' => 'select',
+		'values' => array(
 		'' => '--Select--',
 		'public-domain' => 'No Rights Reserved (Public Domain)',
 		'cc-by' => 'CC BY (Attribution)',
@@ -432,8 +432,8 @@ function add_meta_boxes() {
 		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
 		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
 		'all-rights-reserved' => 'All Rights Reserved',
-	    ),
-	    'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
+		),
+		'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
 	) );
 
 	// Chapter Parent
@@ -492,9 +492,9 @@ function add_meta_boxes() {
 	) );
 
 	x_add_metadata_field( 'pb_section_license', 'front-matter', array(
-	    'group' => 'front-matter-metadata',
-	    'field_type' => 'select',
-	    'values' => array(
+		'group' => 'front-matter-metadata',
+		'field_type' => 'select',
+		'values' => array(
 		'' => '--Select--',
 		'public-domain' => 'No Rights Reserved (Public Domain)',
 		'cc-by' => 'CC BY (Attribution)',
@@ -504,8 +504,8 @@ function add_meta_boxes() {
 		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
 		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
 		'all-rights-reserved' => 'All Rights Reserved',
-	    ),
-	    'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
+		),
+		'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 	) );
 
 	// Back Matter Metadata
@@ -530,9 +530,9 @@ function add_meta_boxes() {
 	) );
 
 	x_add_metadata_field( 'pb_section_license', 'back-matter', array(
-	    'group' => 'back-matter-metadata',
-	    'field_type' => 'select',
-	    'values' => array(
+		'group' => 'back-matter-metadata',
+		'field_type' => 'select',
+		'values' => array(
 		'' => '--Select--',
 		'public-domain' => 'No Rights Reserved (Public Domain)',
 		'cc-by' => 'CC BY (Attribution)',
@@ -542,8 +542,8 @@ function add_meta_boxes() {
 		'cc-by-nc-sa' => 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)',
 		'cc-by-nc-nd' => 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)',
 		'all-rights-reserved' => 'All Rights Reserved',
-	    ),
-	    'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
+		),
+		'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 	) );
 	// Part Metadata
 

@@ -429,9 +429,9 @@ class Epub3 extends Epub201 {
 		}
 
 		$vars = array(
-		    'meta' => $metadata,
-		    'manifest' => $this->manifest,
-		    'stylesheet' => $this->stylesheet,
+			'meta' => $metadata,
+			'manifest' => $this->manifest,
+			'stylesheet' => $this->stylesheet,
 			'lang' => $this->lang,
 		);
 

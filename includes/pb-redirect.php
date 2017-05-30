@@ -278,30 +278,30 @@ function do_api() {
 	if ( is_array( $_GET ) ) {
 
 		$args = array(
-		    'titles' => array(
+			'titles' => array(
 			'filter' => FILTER_SANITIZE_STRING,
 			'flags' => FILTER_FLAG_STRIP_HIGH,
-		    ),
-		    'offset' => FILTER_SANITIZE_NUMBER_INT,
-		    'limit' => FILTER_SANITIZE_NUMBER_INT,
-		    'json' => FILTER_SANITIZE_NUMBER_INT,
-		    'xml' => FILTER_SANITIZE_NUMBER_INT,
-		    'subjects' => array(
+			),
+			'offset' => FILTER_SANITIZE_NUMBER_INT,
+			'limit' => FILTER_SANITIZE_NUMBER_INT,
+			'json' => FILTER_SANITIZE_NUMBER_INT,
+			'xml' => FILTER_SANITIZE_NUMBER_INT,
+			'subjects' => array(
 			'filter' => FILTER_SANITIZE_STRING,
 			'flags' => FILTER_FLAG_STRIP_LOW,
-		    ),
-		    'authors' => array(
+			),
+			'authors' => array(
 			'filter' => FILTER_SANITIZE_STRING,
 			'flags' => FILTER_FLAG_STRIP_LOW,
-		    ),
-		    'licenses' => array(
+			),
+			'licenses' => array(
 			'filter' => FILTER_SANITIZE_STRING,
 			'flags' => FILTER_FLAG_STRIP_HIGH,
-		    ),
-		    'keywords' => array(
+			),
+			'keywords' => array(
 			'filter' => FILTER_SANITIZE_STRING,
 			'flags' => FILTER_FLAG_STRIP_LOW,
-		    ),
+			),
 		);
 
 		$variations = filter_input_array( INPUT_GET, $args, false );

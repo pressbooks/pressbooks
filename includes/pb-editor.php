@@ -326,10 +326,10 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 		foreach ( $doc->getElementsByTagName( 'a' ) as $node ) {
 			if ( $node->hasAttribute( 'id' ) ) {
 				$anchors[] = array(
-	                'ID' => $post->ID,
-	                'title' => '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
-	                'permalink' => '#' . $node->getAttribute( 'id' ),
-	                'info' => __( 'Internal Link', 'pressbooks' ),
+					'ID' => $post->ID,
+					'title' => '#' . $node->getAttribute( 'id' ) . ' (' . $post->post_title . ')',
+					'permalink' => '#' . $node->getAttribute( 'id' ),
+					'info' => __( 'Internal Link', 'pressbooks' ),
 				);
 			}
 		}
@@ -339,9 +339,9 @@ function add_anchors_to_wp_link_query( $results, $query ) {
 
 	foreach ( $results as $key => $result ) {
 
-	    if ( $results[ $key ]['ID'] == $query['post'] ) {
-		    $offset = $key + 1;
-	    }
+		if ( $results[ $key ]['ID'] == $query['post'] ) {
+			$offset = $key + 1;
+		}
 	}
 
 	array_splice( $results, $offset, 0, $anchors );

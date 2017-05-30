@@ -122,7 +122,7 @@ class Book {
 		if ( empty( $book_information ) ) {
 			$book_information['pb_title'] = get_bloginfo( 'name' );
 			if ( ! function_exists( 'get_user_by' ) ) {
-			    include( ABSPATH . 'wp-includes/pluggable.php' );
+				include( ABSPATH . 'wp-includes/pluggable.php' );
 			}
 			$author = get_user_by( 'email', get_bloginfo( 'admin_email' ) );
 			$book_information['pb_author'] = isset( $author->display_name ) ? $author->display_name : '';
@@ -432,14 +432,14 @@ class Book {
 		$doc->loadHTML( $content );
 		$sections = $doc->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
-		    $section->setAttribute( 'id', $type . '-' . $id . '-section-' . $s++ );
-		    $section->setAttribute( 'class', 'section-header' );
+			$section->setAttribute( 'id', $type . '-' . $id . '-section-' . $s++ );
+			$section->setAttribute( 'class', 'section-header' );
 		}
 		$xpath = new \DOMXPath( $doc );
 		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
-		    foreach ( $nodes as $node ) {
-		        $node->appendChild( new \DOMText( '' ) );
-		    }
+			foreach ( $nodes as $node ) {
+				$node->appendChild( new \DOMText( '' ) );
+			}
 		}
 		$html = $doc->saveXML( $doc->documentElement );
 

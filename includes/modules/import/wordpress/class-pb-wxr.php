@@ -258,7 +258,7 @@ class Wxr extends Import {
 
 		//first, put them in ascending menu_order
 		usort( $xml, function ( $a, $b ) {
-	 	 	return ( $a['menu_order'] - $b['menu_order'] );
+			  return ( $a['menu_order'] - $b['menu_order'] );
 		});
 
 		// Start with book info

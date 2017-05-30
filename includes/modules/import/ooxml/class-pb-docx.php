@@ -235,10 +235,10 @@ class Docx extends Import {
 		$title = wp_strip_all_tags( $title );
 
 		$new_post = array(
-		    'post_title' => $title,
-		    'post_content' => $body,
-		    'post_type' => $post_type,
-		    'post_status' => $post_status,
+			'post_title' => $title,
+			'post_content' => $body,
+			'post_type' => $post_type,
+			'post_status' => $post_status,
 		);
 
 		if ( 'chapter' == $post_type ) {
@@ -614,10 +614,10 @@ class Docx extends Import {
 		}
 
 		$option = array(
-		    'file' => $upload['file'],
-		    'file_type' => $upload['type'],
-		    'type_of' => 'docx',
-		    'chapters' => array(),
+			'file' => $upload['file'],
+			'file_type' => $upload['type'],
+			'type_of' => 'docx',
+			'chapters' => array(),
 		);
 
 		$option['chapters'] = $this->getFuzzyChapterTitles();

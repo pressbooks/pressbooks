@@ -165,17 +165,17 @@ function latest_exports() {
 	 *
 	 */
 	$filetypes = apply_filters( 'pb_latest_export_filetypes', array(
-	    'epub3' => '._3.epub',
-	    'epub' => '.epub',
-	    'pdf' => '.pdf',
+		'epub3' => '._3.epub',
+		'epub' => '.epub',
+		'pdf' => '.pdf',
 			'print-pdf' => '._print.pdf',
-	    'mobi' => '.mobi',
-	    'icml' => '.icml',
-	    'xhtml' => '.html',
-	    'wxr' => '.xml',
-	    'vanillawxr' => '._vanilla.xml',
-	    'mpdf' => '._oss.pdf',
-	    'odf' => '.odt',
+		'mobi' => '.mobi',
+		'icml' => '.icml',
+		'xhtml' => '.html',
+		'wxr' => '.xml',
+		'vanillawxr' => '._vanilla.xml',
+		'mpdf' => '._oss.pdf',
+		'odf' => '.odt',
 	) );
 
 	$dir = \Pressbooks\Modules\Export\Export::getExportFolder();

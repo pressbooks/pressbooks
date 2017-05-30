@@ -35,16 +35,16 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 	<?php endif; ?>
 	<h2><?php bloginfo( 'name' ); ?>
 		<?php if ( is_super_admin() ) : ?>
-		    <a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=front-matter' ); ?>"><?php _e( 'Front Matter', 'pressbooks' ); ?></a>
-		    <a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=chapter' ); ?>"><?php _e( 'Chapters', 'pressbooks' ); ?></a>
-		    <a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=back-matter' ); ?>"><?php _e( 'Back Matter', 'pressbooks' ); ?></a>
-		    <a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=part' ); ?>"><?php _e( 'Part', 'pressbooks' ); ?></a>
+			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=front-matter' ); ?>"><?php _e( 'Front Matter', 'pressbooks' ); ?></a>
+			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=chapter' ); ?>"><?php _e( 'Chapters', 'pressbooks' ); ?></a>
+			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=back-matter' ); ?>"><?php _e( 'Back Matter', 'pressbooks' ); ?></a>
+			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=part' ); ?>"><?php _e( 'Part', 'pressbooks' ); ?></a>
 		<?php else : ?>
-		    <a class="page-title-action" href="<?php echo admin_url( 'admin.php?page=pb_export' ); ?>"><?php _e( 'Export', 'pressbooks' ); ?></a>
-		    <a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=front-matter' ); ?>"><?php _e( 'Add Front Matter', 'pressbooks' ); ?></a>
-		    <a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=back-matter' ); ?>"><?php _e( 'Add Back Matter', 'pressbooks' ); ?></a>
-		    <a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=chapter' ); ?>"><?php _e( 'Add Chapter', 'pressbooks' ); ?></a>
-		    <a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a>
+			<a class="page-title-action" href="<?php echo admin_url( 'admin.php?page=pb_export' ); ?>"><?php _e( 'Export', 'pressbooks' ); ?></a>
+			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=front-matter' ); ?>"><?php _e( 'Add Front Matter', 'pressbooks' ); ?></a>
+			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=back-matter' ); ?>"><?php _e( 'Add Back Matter', 'pressbooks' ); ?></a>
+			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=chapter' ); ?>"><?php _e( 'Add Chapter', 'pressbooks' ); ?></a>
+			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a>
 		<?php endif; ?>
 	</h2>
 
@@ -71,145 +71,145 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 		if ( 'chapter' == $type_slug ) : // Chapters have to be handled differently. ?>
 			<?php foreach ( $book_structure['part'] as $part ) : ?>
 				<table id="part-<?php echo $part['ID']; ?>" class="wp-list-table widefat fixed <?php echo $type_slug; ?>s" cellspacing="0">
-				    <thead>
-					    <tr>
-					        <th>
-						        <a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php echo $part['post_title']; ?></a>
-						    </th>
-					        <th><?php _e( 'Author', 'pressbooks' ); ?></th>
-					        <?php if ( false == $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
-					        <th><?php _e( 'Status', 'pressbooks' ); ?></th>
+					<thead>
+						<tr>
+							<th>
+								<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php echo $part['post_title']; ?></a>
+							</th>
+							<th><?php _e( 'Author', 'pressbooks' ); ?></th>
+							<?php if ( false == $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
+							<th><?php _e( 'Status', 'pressbooks' ); ?></th>
 							<th><?php _e( 'Private', 'pressbooks' ); ?></th>
 							<th><?php _e( 'Show Title', 'pressbooks' ); ?></th>
-					        <th><?php _e( 'Export', 'pressbooks' ); ?></th>
-					        <th>
-						        <a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a>
+							<th><?php _e( 'Export', 'pressbooks' ); ?></th>
+							<th>
+								<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a>
 								<?php if ( count( $book_structure['part'] ) > 1 ) : // Don't allow deletion of last remaining part. Bad things happen. ?>
 									<span class="sep"> &mdash; </span>
 									<a class="delete-link" href="<?php echo get_delete_post_link( $part['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
 								<?php endif; ?>
-					        </th>
-					    </tr>
-				    </thead>
+							</th>
+						</tr>
+					</thead>
 
 					<?php if ( count( $part['chapters'] ) > 0 ) : ?>
 
-				    <tbody id="the-list">
+					<tbody id="the-list">
 					<?php foreach ( $part['chapters'] as $content ) : ?>
-					    <tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
-					        <td class="title column-title">
-					            <strong><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
-					            <?php echo $content['post_title']; ?>
+						<tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
+							<td class="title column-title">
+								<strong><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
+								<?php echo $content['post_title']; ?>
 								<?php if ( get_post_meta( $content['ID'], 'pb_ebook_start', true ) ) { ?>
 									<span class="ebook-start-point" title="<?php _e( 'Ebook start point', 'pressbooks' ); ?>">&#9733;</span>
 								<?php } ?></a></strong>
-					        </td>
-					        <td class="author column-author">
+							</td>
+							<td class="author column-author">
 								<?php echo $content['post_author'] == $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; ?>
-					        </td>
-					        <?php if ( false == $disable_comments ) : ?><td class="comments column-comments">
-					            <a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
+							</td>
+							<?php if ( false == $disable_comments ) : ?><td class="comments column-comments">
+								<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 									<span class="comment-count"><?php echo $content['comment_count']; ?></span>
-					            </a>
-					        </td><?php endif; ?>
-					        <td class="status column-status"><?php echo $statuses[ $content['post_status'] ]; ?></td>
-					        <td class="status column-privacy">
-						    	<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />
-					        </td>
+								</a>
+							</td><?php endif; ?>
+							<td class="status column-status"><?php echo $statuses[ $content['post_status'] ]; ?></td>
+							<td class="status column-privacy">
+								<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />
+							</td>
 							<?php $export = get_post_meta( $content['ID'], 'pb_export', true ); ?>
-					        <td class="export column-showtitle">
+							<td class="export column-showtitle">
 								<input class="<?php echo $type_abbr; ?>_show_title_check" type="checkbox" name="<?php echo $type_abbr; ?>-showtitle[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_show_title_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', true ); ?>/>
-					        </td>
-					        <td class="export column-export">
+							</td>
+							<td class="export column-export">
 								<input class="<?php echo $type_abbr; ?>_export_check" type="checkbox" name="<?php echo $type_abbr; ?>-export[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_export_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_export', true ), 'on', true ); ?>/>
 							</td>
-					        <td class="action column-action">
-					            <a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> &mdash; <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
-					        </td>
-					    </tr>
+							<td class="action column-action">
+								<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> &mdash; <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
+							</td>
+						</tr>
 					<?php endforeach; ?>
-				    </tbody>
+					</tbody>
 					<?php endif; ?>
-				    <tfoot>
-					    <tr>
-					        <th>&nbsp;</th>
-					        <th>&nbsp;</th>
-					        <?php if ( false == $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
-					        <th>&nbsp;</th>
-					        <th>&nbsp;</th>
-					        <th>&nbsp;</th>
-					        <th>&nbsp;</th>
-					        <th>
-					            <a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug . '&startparent=' . $part['ID'] ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $type_name; ?></a>
-					        </th>
-					    </tr>
-				    </tfoot>
+					<tfoot>
+						<tr>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<?php if ( false == $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<th>&nbsp;</th>
+							<th>
+								<a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug . '&startparent=' . $part['ID'] ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $type_name; ?></a>
+							</th>
+						</tr>
+					</tfoot>
 				</table>
 			<?php endforeach; ?>
 			<p><a class="button" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a></p>
 		<?php else : ?>
 		<table id="<?php echo $type_slug; ?>" class="wp-list-table widefat fixed <?php echo $type_slug; ?>" cellspacing="0">
-		    <thead>
-			    <tr>
-			        <th><?php echo $type_name; ?></th>
-			        <th><?php _e( 'Author', 'pressbooks' ); ?></th>
-			        <?php if ( false == $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
-			        <th><?php _e( 'Status', 'pressbooks' ); ?></th>
+			<thead>
+				<tr>
+					<th><?php echo $type_name; ?></th>
+					<th><?php _e( 'Author', 'pressbooks' ); ?></th>
+					<?php if ( false == $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
+					<th><?php _e( 'Status', 'pressbooks' ); ?></th>
 					<th><?php _e( 'Private', 'pressbooks' ); ?></th>
 					<th><?php _e( 'Show Title', 'pressbooks' ); ?></th>
-			        <th><?php _e( 'Export', 'pressbooks' ); ?></th>
-			        <th><?php _e( 'Edit', 'pressbooks' ); ?></th>
-			    </tr>
-		    </thead>
+					<th><?php _e( 'Export', 'pressbooks' ); ?></th>
+					<th><?php _e( 'Edit', 'pressbooks' ); ?></th>
+				</tr>
+			</thead>
 
-		    <tbody id="the-list">
+			<tbody id="the-list">
 			<?php foreach ( $book_structure[ $type_slug ] as $content ) : ?>
-			    <tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
-			        <td class="title column-title">
-			            <strong><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
-			            <?php echo $content['post_title']; ?>
+				<tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
+					<td class="title column-title">
+						<strong><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
+						<?php echo $content['post_title']; ?>
 						<?php if ( get_post_meta( $content['ID'], 'pb_ebook_start', true ) ) { ?>
 							<span class="ebook-start-point" title="<?php _e( 'Ebook start point', 'pressbooks' ); ?>">&#9733;</span>
 						<?php } ?></a></strong>
-			        </td>
-			        <td class="author column-author">
+					</td>
+					<td class="author column-author">
 						<?php echo $content['post_author'] == $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; ?>
-			        </td>
-			        <?php if ( false == $disable_comments ) : ?><td class="comments column-comments">
-			            <a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
+					</td>
+					<?php if ( false == $disable_comments ) : ?><td class="comments column-comments">
+						<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 							<span class="comment-count"><?php echo $content['comment_count']; ?></span>
-			            </a>
-			        </td><?php endif; ?>
-			        <td class="status column-status"><?php echo $statuses[ $content['post_status'] ]; ?></td>
-			        <td class="status column-privacy">
-				    	<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />
-			        </td>
+						</a>
+					</td><?php endif; ?>
+					<td class="status column-status"><?php echo $statuses[ $content['post_status'] ]; ?></td>
+					<td class="status column-privacy">
+						<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />
+					</td>
 					<?php $export = get_post_meta( $content['ID'], 'pb_export', true ); ?>
-			        <td class="status column-showtitle">
+					<td class="status column-showtitle">
 						<input class="<?php echo $type_abbr; ?>_show_title_check" type="checkbox" name="<?php echo $type_abbr; ?>-showtitle[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_show_title_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_show_title', true ), 'on', true ); ?>/>
-			        </td>
-			        <td class="export column-export">
+					</td>
+					<td class="export column-export">
 						<input class="<?php echo $type_abbr; ?>_export_check" type="checkbox" name="<?php echo $type_abbr; ?>-export[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_export_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_export', true ), 'on', true ); ?>/>
 					</td>
-			        <td class="action column-action">
-			            <a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> &mdash; <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
-			        </td>
-			    </tr>
+					<td class="action column-action">
+						<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> &mdash; <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
+					</td>
+				</tr>
 			<?php endforeach; ?>
-		    </tbody>
-		    <tfoot>
-			    <tr>
-			        <th>&nbsp;</th>
-			        <th>&nbsp;</th><?php if ( false == $disable_comments ) : ?>
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th><?php if ( false == $disable_comments ) : ?>
 							<th>&nbsp;</th><?php endif; ?>
-			        <th>&nbsp;</th>
-			        <th>&nbsp;</th>
-			        <th>&nbsp;</th>
-			        <th>&nbsp;</th>
-			        <th><a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $type_name; ?></a>
-			        </th>
-			    </tr>
-		    </tfoot>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th><a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $type_name; ?></a>
+					</th>
+				</tr>
+			</tfoot>
 		</table>
 		<?php endif; ?>
 	<?php endforeach; ?>

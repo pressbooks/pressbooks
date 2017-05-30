@@ -116,10 +116,10 @@ class Metadata {
 	static function getSeoMetaElements() {
 		// map items that are already captured
 		$meta_mapping = array(
-		    'author' => 'pb_author',
-		    'description' => 'pb_about_50',
-		    'keywords' => 'pb_keywords_tags',
-		    'publisher' => 'pb_publisher',
+			'author' => 'pb_author',
+			'description' => 'pb_about_50',
+			'keywords' => 'pb_keywords_tags',
+			'publisher' => 'pb_publisher',
 		);
 		$html = "<meta name='application-name' content='Pressbooks'>\n";
 		$metadata = Book::getBookInformation();
@@ -143,19 +143,19 @@ class Metadata {
 		$html = '';
 		// map items that are already captured
 		$micro_mapping = array(
-		    'about' => 'pb_bisac_subject',
-		    'alternativeHeadline' => 'pb_subtitle',
-		    'author' => 'pb_author',
-		    'contributor' => 'pb_contributing_authors',
-		    'copyrightHolder' => 'pb_copyright_holder',
-		    'copyrightYear' => 'pb_copyright_year',
-		    'datePublished' => 'pb_publication_date',
-		    'description' => 'pb_about_50',
-		    'editor' => 'pb_editor',
-		    'image' => 'pb_cover_image',
-		    'inLanguage' => 'pb_language',
-		    'keywords' => 'pb_keywords_tags',
-		    'publisher' => 'pb_publisher',
+			'about' => 'pb_bisac_subject',
+			'alternativeHeadline' => 'pb_subtitle',
+			'author' => 'pb_author',
+			'contributor' => 'pb_contributing_authors',
+			'copyrightHolder' => 'pb_copyright_holder',
+			'copyrightYear' => 'pb_copyright_year',
+			'datePublished' => 'pb_publication_date',
+			'description' => 'pb_about_50',
+			'editor' => 'pb_editor',
+			'image' => 'pb_cover_image',
+			'inLanguage' => 'pb_language',
+			'keywords' => 'pb_keywords_tags',
+			'publisher' => 'pb_publisher',
 		);
 		$metadata = Book::getBookInformation();
 
@@ -187,42 +187,42 @@ class Metadata {
 		$endpoint = 'https://api.creativecommons.org/rest/1.5/';
 		$lang = ( ! empty( $lang ) ) ? substr( $lang, 0, 2 ) : '';
 		$expected = array(
-		    'public-domain' => array(
+			'public-domain' => array(
 			'license' => 'zero',
 			'commercial' => 'y',
 			'derivatives' => 'y',
-		    ),
-		    'cc-by' => array(
+			),
+			'cc-by' => array(
 			'license' => 'standard',
 			'commercial' => 'y',
 			'derivatives' => 'y',
-		    ),
-		    'cc-by-sa' => array(
+			),
+			'cc-by-sa' => array(
 			'license' => 'standard',
 			'commercial' => 'y',
 			'derivatives' => 'sa',
-		    ),
-		    'cc-by-nd' => array(
+			),
+			'cc-by-nd' => array(
 			'license' => 'standard',
 			'commercial' => 'y',
 			'derivatives' => 'n',
-		    ),
-		    'cc-by-nc' => array(
+			),
+			'cc-by-nc' => array(
 			'license' => 'standard',
 			'commercial' => 'n',
 			'derivatives' => 'y',
-		    ),
-		    'cc-by-nc-sa' => array(
+			),
+			'cc-by-nc-sa' => array(
 			'license' => 'standard',
 			'commercial' => 'n',
 			'derivatives' => 'sa',
-		    ),
-		    'cc-by-nc-nd' => array(
+			),
+			'cc-by-nc-nd' => array(
 			'license' => 'standard',
 			'commercial' => 'n',
 			'derivatives' => 'n',
-		    ),
-		    'all-rights-reserved' => array(),
+			),
+			'all-rights-reserved' => array(),
 		//          'other' => array(),
 		);
 
