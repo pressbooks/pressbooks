@@ -6063,6 +6063,10 @@ wordwrap@0.0.2:
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/wordwrap/-/wordwrap-0.0.2.tgz#b79669bb42ecb409f83d583cad52ca17eaa1643f"
 
+wp-admin-colors@pressbooks/wp-admin-colors:
+  version "4.7.5"
+  resolved "https://codeload.github.com/pressbooks/wp-admin-colors/tar.gz/871920f419bcbd4dab4fdd189ec82c8f89f7febb"
+
 wp-pot-cli@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/wp-pot-cli/-/wp-pot-cli-1.0.1.tgz#64fdc33700528195170cc23a8ed015aa3d239939"
