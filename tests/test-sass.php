@@ -82,4 +82,21 @@ class SassTest extends \WP_UnitTestCase {
 		$css = $this->sass->fixWebFonts( $css );
 		$this->assertNotContains( 'url(' . PB_PLUGIN_URL . 'themes-book/pressbooks-book/fonts/foo.garbage', $css );
 	}
+
+	/**
+	 * @covers \Pressbooks\Sass::maybeUpdateWebBookStyleSheet
+	 */
+	public function test_maybeUpdateWebBookStyleSheet() {
+
+		$this->_book( 'pressbooks-book' );
+		$theme = wp_get_theme();
+		$version = $theme->get( 'Version' );
+		update_option( 'pressbooks_theme_version', floatval( $version ) - 0.1 );
+
+		$result = $this->sass->maybeUpdateWebBookStylesheet();
+		$this->assertTrue( $result );
+
+		$result = $this->sass->maybeUpdateWebBookStylesheet();
+		$this->assertEquals( $result, false );
+	}
 }

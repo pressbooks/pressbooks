@@ -95,9 +95,6 @@ function pb_enqueue_scripts() {
 		}
 	}
 
-	if ( ! is_front_page() ) {
-		wp_enqueue_script( 'pressbooks/navbar', get_template_directory_uri() . '/js/navbar.js', array( 'jquery' ), '1.7.0', false );
-	}
 	wp_enqueue_script( 'pressbooks/keyboard-nav', get_template_directory_uri() . '/js/keyboard-nav.js', array( 'jquery' ), '1.7.0', true );
 
 	if ( is_single() ) {

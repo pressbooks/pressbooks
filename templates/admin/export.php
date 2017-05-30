@@ -166,7 +166,7 @@ $formats = apply_filters( 'pb_export_formats', array(
 ) ); ?>
 
 	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
-	    <fieldset class="standard">
+		<fieldset class="standard">
 				<legend><?php _e( 'Standard book formats', 'pressbooks' ); ?>:</legend>
 <?php foreach ( $formats['standard'] as $key => $value ) {
 	printf(
@@ -176,10 +176,10 @@ $formats = apply_filters( 'pb_export_formats', array(
 		$value
 	);
 } ?>
-		    </fieldset>
+			</fieldset>
 
-	    <fieldset class="exotic">
-	    <legend><?php _e( 'Exotic formats', 'pressbooks' ); ?>:</legend>
+		<fieldset class="exotic">
+		<legend><?php _e( 'Exotic formats', 'pressbooks' ); ?>:</legend>
 <?php foreach ( $formats['exotic'] as $key => $value ) {
 	printf(
 		'<input type="checkbox" id="%1$s" name="export_formats[%1$s]" value="1" %2$s/><label for="%1$s"> %3$s</label><br />',
@@ -188,7 +188,7 @@ $formats = apply_filters( 'pb_export_formats', array(
 		$value
 	);
 } ?>
-	    </fieldset>
+		</fieldset>
 	</form>
 	<div class="clear"></div>
 	<h3><?php _e( 'Your Theme Options', 'pressbooks' ); ?></h3>
