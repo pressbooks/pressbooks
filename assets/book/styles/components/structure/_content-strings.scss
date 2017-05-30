@@ -28,6 +28,10 @@ meta[name="pb-publisher-city"] {
   string-set: book-publisher-city attr('content');
 }
 
+.short-book-title {
+  visibility: hidden;
+}
+
 // Parts
 
 .part-title-wrap {
