@@ -21,7 +21,6 @@ class HtmLawed {
 	 * @return string
 	 */
 	static function filter( $html, array $config = null, $spec = null ) {
-		require_once( PB_PLUGIN_DIR . 'symbionts/htmLawed/htmLawed.php' );
-		return htmLawed( $html, $config, $spec );
+		return \Htmlawed::filter( $html, $config, $spec );
 	}
 }
