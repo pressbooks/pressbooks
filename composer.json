@@ -55,7 +55,6 @@
   },
   "scripts": {
     "test": [
-      "yarn run production",
       "vendor/bin/phpunit --configuration phpunit.xml --coverage-clover coverage.xml",
       "@standards"
     ],
