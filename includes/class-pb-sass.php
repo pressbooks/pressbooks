@@ -420,7 +420,7 @@ class Sass {
 	/**
 	 * If the current theme's version has increased, call updateWebBookStyleSheet().
 	 *
-	 * @return void
+	 * @return bool
 	 */
 	static function maybeUpdateWebBookStylesheet() {
 		$theme = wp_get_theme();
@@ -429,8 +429,10 @@ class Sass {
 
 		if ( version_compare( $current_version, $last_version ) > 0 ) {
 			\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
+			update_option( 'pressbooks_theme_version', $current_version );
+			return true;
 		}
 
-		update_option( 'pressbooks_theme_version', $current_version );
+		return false;
 	}
 }
