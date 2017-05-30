@@ -575,7 +575,7 @@ meta[name="pb-title"] {
 }
 
 meta[name="pb-short-title"] {
-  string-set: short-book-title attr('content');
+  string-set: book-title attr('content');
 }
 
 meta[name="pb-subtitle"] {
