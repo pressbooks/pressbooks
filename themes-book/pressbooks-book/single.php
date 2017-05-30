@@ -39,7 +39,7 @@
 							echo $content;
 						}
 					} else {
-						echo apply_filters( 'the_content', get_post_meta( $post->ID, 'pb_part_content', true ) );
+						echo apply_filters( 'the_content', $post->post_content );
 			} ?>
 
 					</div><!-- .entry-content -->

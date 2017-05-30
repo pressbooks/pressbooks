@@ -51,7 +51,6 @@ function register_post_types() {
 		'parent_item_colon' => '',
 		'menu_name' => __( 'Text', 'pressbooks' ),
 	];
-
 	$args = [
 		'labels' => $labels,
 		'public' => true,
@@ -71,7 +70,6 @@ function register_post_types() {
 		'rest_base' => 'chapters',
 		'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
 	];
-
 	register_post_type( 'chapter', $args );
 
 	/* Parts */
@@ -102,7 +100,7 @@ function register_post_types() {
 		'capability_type' => 'post',
 		'has_archive' => true,
 		'hierarchical' => true,
-		'supports' => [ 'title', 'page-attributes' ],
+		'supports' => [ 'title', 'editor', 'page-attributes' ],
 		'show_in_rest' => true,
 		'rest_base' => 'parts',
 		'rest_controller_class' => '\Pressbooks\Api\Endpoints\Controller\Posts',
@@ -125,7 +123,6 @@ function register_post_types() {
 		'parent_item_colon' => '',
 		'menu_name' => __( 'Front Matter', 'pressbooks' ),
 	];
-
 	$args = [
 		'labels' => $labels,
 		'public' => true,
@@ -161,7 +158,6 @@ function register_post_types() {
 		'parent_item_colon' => '',
 		'menu_name' => __( 'Back Matter', 'pressbooks' ),
 	];
-
 	$args = [
 		'labels' => $labels,
 		'public' => true,
@@ -197,7 +193,6 @@ function register_post_types() {
 		'parent_item_colon' => '',
 		'menu_name' => __( 'Book Information', 'pressbooks' ),
 	];
-
 	$args = [
 		'labels' => $labels,
 		'public' => true,
@@ -245,13 +240,13 @@ function post_type_messages( $messages ) {
 
 	$messages['part'] = [
 		0 => '', // Unused. Messages start at index 1.
-		1 => ( get_post_meta( $post->ID, 'pb_part_content' ) ? sprintf( __( 'Part updated. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part updated.', 'pressbooks' ) ),
+		1 => ( ! empty( trim( $post->post_content ) ) ? sprintf( __( 'Part updated. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part updated.', 'pressbooks' ) ),
 		2 => __( 'Custom field updated.', 'pressbooks' ),
 		3 => __( 'Custom field deleted.', 'pressbooks' ),
 		4 => __( 'Part updated.', 'pressbooks' ),
 		/* translators: %s: date and time of the revision */
 		5 => isset( $_GET['revision'] ) ? sprintf( __( 'Part restored to revision from %s', 'pressbooks' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-		6 => ( get_post_meta( $post->ID, 'pb_part_content' ) ? sprintf( __( 'Part published. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part published.', 'pressbooks' ) ),
+		6 => ( ! empty( trim( $post->post_content ) ) ? sprintf( __( 'Part published. <a target="_blank" href="%s">View Part</a>', 'pressbooks' ), esc_url( $permalink ) ) : __( 'Part published.', 'pressbooks' ) ),
 		7 => __( 'Part saved.', 'pressbooks' ),
 		8 => sprintf( __( 'Part submitted. <a target="_blank" href="%s">Preview Part</a>', 'pressbooks' ), esc_url( add_query_arg( 'preview', 'true', $permalink ) ) ),
 		9 => sprintf(

@@ -17,7 +17,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 						"SELECT ID, post_content, post_title
 						FROM $wpdb->posts
 						WHERE post_status != 'inherit'
-						AND post_type IN ('chapter','front-matter','back-matter')
+						AND post_type IN ('part','chapter','front-matter','back-matter')
 						ORDER BY ID ASC
 						LIMIT %d,%d",
 						$offset,
@@ -30,7 +30,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 						"SELECT ID, post_content, post_title
 						FROM $wpdb->posts
 						WHERE post_status != 'inherit'
-						AND post_type IN ('chapter','front-matter','back-matter')
+						AND post_type IN ('part','chapter','front-matter','back-matter')
 						ORDER BY ID DESC
 						LIMIT %d,%d",
 						$offset,
@@ -44,7 +44,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 					"SELECT ID, post_content, post_title
 					FROM $wpdb->posts
 					WHERE post_status != 'inherit'
-					AND post_type IN ('chapter','front-matter','back-matter')
+					AND post_type IN ('part','chapter','front-matter','back-matter')
 					ORDER BY ID ASC"
 				);
 			} else {
@@ -52,7 +52,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 					"SELECT ID, post_content, post_title
 					FROM $wpdb->posts
 					WHERE post_status != 'inherit'
-					AND post_type IN ('chapter','front-matter','back-matter')
+					AND post_type IN ('part','chapter','front-matter','back-matter')
 					ORDER BY ID DESC"
 				);
 			}
@@ -79,6 +79,9 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 	}
 	function show( $result ) {
 		switch ( get_post_type( $result->id ) ) :
+			case 'part':
+				$type = __( 'Part', 'pressbooks' );
+				break;
 			case 'chapter':
 				$type = __( 'Chapter', 'pressbooks' );
 				break;

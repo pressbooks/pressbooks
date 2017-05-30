@@ -243,6 +243,7 @@ class Activation {
 			],
 		];
 
+		$part = [ 'post_status' => 'publish', 'comment_status' => 'closed', 'post_author' => $this->user_id ];
 		$post = [ 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id ];
 		$page = [
 			'post_status' => 'publish',
@@ -281,6 +282,8 @@ class Activation {
 			if ( empty( $exists ) ) {
 				if ( 'page' === $item['post_type'] ) {
 					$data = array_merge( $item, $page );
+				} elseif ( 'part' === $item['post_type'] ) {
+					$data = array_merge( $item, $part );
 				} else {
 					$data = array_merge( $item, $post );
 				}

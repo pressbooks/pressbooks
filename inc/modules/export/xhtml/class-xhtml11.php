@@ -751,7 +751,7 @@ class Xhtml11 extends Export {
 				foreach ( $struct as $part ) {
 					$slug = $part['post_name'];
 					$title = Sanitize\strip_br( $part['post_title'] );
-					$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
+					$part_content = trim( $part['post_content'] );
 					if ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) !== 'on' ) { // visible
 						if ( count( $book_contents['part'] ) === 1 ) { // only part
 							if ( $part_content ) { // has content
@@ -994,7 +994,7 @@ class Xhtml11 extends Export {
 			$part_printf_changed = '';
 			$slug = $part['post_name'];
 			$title = $part['post_title'];
-			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
+			$part_content = trim( $part['post_content'] );
 
 			// Inject introduction class?
 			if ( 'invisible' !== $invisibility ) { // visible
