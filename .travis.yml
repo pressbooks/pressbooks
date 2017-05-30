@@ -1,4 +1,5 @@
 language: php
+dist: trusty
 
 notifications:
   email:
@@ -22,10 +23,12 @@ env:
   - WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="7"
 
 matrix:
+  fast_finish: true
   allow_failures:
   - php: nightly
 
 cache:
+  apt: true
   directories:
     - $HOME/.composer/cache
     - $HOME/.yarn-cache
@@ -34,21 +37,18 @@ cache:
 
 before_install:
   - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
-  - node -v
-  # - sudo apt-key adv --keyserver pgp.mit.edu --recv D101F7899D41F3C3
-  # - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-  # - sudo apt-get update -qq
-  # - sudo apt-get install -y -qq yarn
-  # - npm install -g cross-env
+  - export PATH=$HOME/.yarn/bin:$PATH && travis_retry curl -o- -L https://yarnpkg.com/install.sh | bash
 
 install:
+  - node -v && yarn -V
+  - travis_retry yarn
   - composer install
-  # - yarn
 
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 
 script:
+  - yarn run production
   - composer test
 
 after_success:
