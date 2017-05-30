@@ -566,34 +566,32 @@ content: string(arbitrary-string-set-name);
 
 /* book-wide strings  */
 
-#title-page > .title {
-  string-set: book-title content();
-}
-
-#title-page > .short-book-title {
-    string-set: book-title content();
-    visibility: hidden;
+meta[name="pb-title"] {
+  string-set: book-title attr('content');
 }
 
 .short-book-title {
-    string-set: book-title content();
-    visibility: hidden;
+  visibility: hidden;
 }
 
-#title-page > .subtitle {
-  string-set: book-subtitle content();
+meta[name="pb-short-title"] {
+  string-set: book-title attr('content');
 }
 
-#title-page > .author {
-  string-set: book-author content();
+meta[name="pb-subtitle"] {
+  string-set: book-subtitle attr('content');
 }
 
-#title-page > .publisher {
-  string-set: book-publisher content();
+meta[name="pb-author"] {
+  string-set: book-author attr('content');
 }
 
-#title-page > .publisher-city {
-	string-set: book-publisher-city content();
+meta[name="pb-publisher"] {
+  string-set: book-publisher attr('content');
+}
+
+meta[name="pb-publisher-city"] {
+  string-set: book-publisher-city attr('content');
 }
 
 /* PART & CHAPTER STRINGS */
