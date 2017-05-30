@@ -337,6 +337,9 @@ class Xhtml11 extends Export {
 	protected function queryXhtml() {
 
 		$args = [ 'timeout' => $this->timeout ];
+		if ( WP_ENV == 'development' ) {
+			$args['sslverify'] = false;
+		}
 		$response = wp_remote_get( $this->url, $args );
 
 		// WordPress error?

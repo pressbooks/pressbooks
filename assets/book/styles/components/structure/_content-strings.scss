@@ -2,34 +2,34 @@
 // Content String Settings
 //========================
 
-// Title Page
+// Metadata
 
-#title-page > {
-  .title {
-    string-set: book-title content();
-  }
+meta[name="pb-title"] {
+  string-set: book-title attr('content');
+}
 
-  .short-book-title,
-  .short-book-title {
-    visibility: hidden;
-    string-set: book-title content();
-  }
+meta[name="pb-short-title"] {
+  string-set: book-title attr('content');
+}
 
-  .subtitle {
-    string-set: book-subtitle content();
-  }
+meta[name="pb-subtitle"] {
+  string-set: book-subtitle attr('content');
+}
 
-  .author {
-    string-set: book-author content();
-  }
+meta[name="pb-author"] {
+  string-set: book-author attr('content');
+}
 
-  .publisher {
-    string-set: book-publisher content();
-  }
+meta[name="pb-publisher"] {
+  string-set: book-publisher attr('content');
+}
 
-  .publisher-city {
-    string-set: book-publisher-city content();
-  }
+meta[name="pb-publisher-city"] {
+  string-set: book-publisher-city attr('content');
+}
+
+.short-book-title {
+  visibility: hidden;
 }
 
 // Parts
