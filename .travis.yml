@@ -1,6 +1,4 @@
 language: php
-sudo: false
-dist: trusty
 
 notifications:
   email:
