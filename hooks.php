@@ -219,7 +219,9 @@ add_action( 'init', function () {
 // -------------------------------------------------------------------------------------------------------------------
 // Regenerate web theme stylesheet
 // -------------------------------------------------------------------------------------------------------------------
-add_action( 'init', \Pressbooks\Container::get( 'Sass' )->maybeUpdateWebBookStyleSheet() );
+add_action( 'init', function() {
+	\Pressbooks\Sass::maybeUpdateWebBookStyleSheet();
+} );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Force Flush
