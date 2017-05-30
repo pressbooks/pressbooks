@@ -84,14 +84,17 @@ The paths for all such fonts in your Custom CSS need to be as follows:
 
 3. More Mobi7 superstition.
 
-	Newer Kindles (KF8) work pretty good! Unfortunately there are no CSS standards for old Kindles (Mobi7). Mobi7
-	styling is all done inline. The problems you will encounter are when kindlegen converts CSS to inline HTML for
-	backwards compatibility.
+    Pressbooks uses Amazon's kindlegen tool to generate mobi files. 
 
-	`font-size`, `font-weight`, and `font-*` on `.someclass p`, `.someclass h5`, and `.someclass *random*` will mess up
-	Mobi7 ouput very badly. You can solve this by making valid CSS 2.1 too complicated for the Mobi7 converter to
-	figure  out. For example, defining a CSS selector that only applies to a node that has multi-class CSS inheritance,
-	e.g. `.ugc.ugc-chapter h5`, or by using the `>` symbol.
+    This tool generates two formats in a single mobi: KF8 + Mobi7. The (KF8) format behaves like Epub. The (Mobi7) 
+    format is weird and mostly reverse engineered.
+	
+	Pressbooks tries to make both formats look good. We do strange, awful things to workaround Mobi7. 	
+
+	For example, `font-size`, `font-weight`, and `font-*` on `.someclass p`, `.someclass h5`, and `.someclass *random*` will mess up
+	Mobi7 output very badly. We solve this by making valid CSS 2.1 "too complicated" for the Mobi7 converter to process - such as defining 
+	a CSS selector that only applies to a node that has multi-class CSS inheritance e.g. `.ugc.ugc-chapter h5`, or by using the `>` symbol
+	more than we should.
 
 	This is "throw salt over your shoulder" and "don't walk on sidewalk cracks" advice. The bugs you will encounter
 	with  Mobi7 conversion are time consuming and arbitrary. Expect a ton of exports, a ton of trial and error. You can
