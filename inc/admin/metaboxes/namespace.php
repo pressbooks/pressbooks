@@ -663,37 +663,32 @@ function add_meta_boxes() {
 		'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
+
 	// Part Metadata
 
-	x_add_metadata_group(
-		'part-metadata-text', 'part', [
-		'label' => __( 'Part Text', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_part_content', 'part', [
-		'field_type' => 'wysiwyg',
-		'group' => 'part-metadata-text',
-		'label' => '',
-		'description' => __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' ),
-		]
+	add_action(
+		'edit_form_after_editor', function ( $post ) {
+			if ( 'part' === $post->post_type ) {
+				$tip = __( 'Appears on part page. Parts will not appear if a book has only one part.', 'pressbooks' );
+				echo '<p><span class="description">' . $tip . '</span></p>';
+			}
+		}
 	);
 
 	x_add_metadata_group(
 		'part-metadata-visibility', 'part', [
-		'label' => __( 'Part Visibility', 'pressbooks' ),
-		'context' => 'side',
-		'priority' => 'low',
+			'label' => __( 'Part Visibility', 'pressbooks' ),
+			'context' => 'side',
+			'priority' => 'low',
 		]
 	);
 
 	x_add_metadata_field(
 		'pb_part_invisible', 'part', [
-		'field_type' => 'checkbox',
-		'group' => 'part-metadata-visibility',
-		'label' => 'Invisible',
-		'description' => __( 'Hide from table of contents and part numbering.', 'pressbooks' ),
+			'field_type' => 'checkbox',
+			'group' => 'part-metadata-visibility',
+			'label' => 'Invisible',
+			'description' => __( 'Hide from table of contents and part numbering.', 'pressbooks' ),
 		]
 	);
 }

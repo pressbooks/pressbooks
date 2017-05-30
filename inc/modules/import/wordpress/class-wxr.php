@@ -387,11 +387,6 @@ class Wxr extends Import {
 
 		if ( 'metadata' === $post_type ) {
 			$this->importMetaBoxes( $pid, $p );
-		} elseif ( 'part' === $post_type ) {
-			$part_content = $this->searchForMetaValue( 'pb_part_content', $p['postmeta'] );
-			if ( $part_content ) {
-				update_post_meta( $pid, 'pb_part_content', $part_content );
-			}
 		} else {
 			$meta_to_update = apply_filters( 'pb_import_metakeys', [ 'pb_section_author', 'pb_section_license', 'pb_short_title', 'pb_subtitle', 'pb_show_title', 'pb_export' ] );
 			foreach ( $meta_to_update as $meta_key ) {

@@ -109,10 +109,9 @@ add_action( 'wp_enqueue_scripts', 'pb_enqueue_scripts' );
 /**
  * Update web book stylesheet.
  */
-
 function pressbooks_update_webbook_stylesheet() {
 	if ( false == \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) && false == \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
-		return false;
+		return;
 	}
 
 	if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) {
@@ -129,6 +128,8 @@ function pressbooks_update_webbook_stylesheet() {
 		foreach ( glob( get_stylesheet_directory() . '/assets/styles/components/*.scss' ) as $import ) {
 			$inputs[] = realpath( $import );
 		}
+	} else {
+		$inputs = [];
 	}
 
 	$output = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/style.css';
@@ -143,10 +144,14 @@ function pressbooks_update_webbook_stylesheet() {
 	}
 
 	if ( true == $recompile ) {
-		error_log( 'Updating web book stylesheet.' );
+		if ( WP_DEBUG ) {
+			error_log( 'Updating web book stylesheet.' );
+		}
 		\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
 	} else {
-		error_log( 'No update needed.' );
+		if ( WP_DEBUG ) {
+			error_log( 'No web book stylesheet update needed.' );
+		}
 	}
 }
 

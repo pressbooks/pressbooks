@@ -1230,7 +1230,7 @@ class Epub201 extends Export {
 			}
 
 			// Inject part content?
-			$part_content = trim( get_post_meta( $part['ID'], 'pb_part_content', true ) );
+			$part_content = trim( $part['post_content'] );
 			if ( $part_content ) {
 				$part_content = $this->kneadHtml( $this->preProcessPostContent( $part_content ), 'custom', $p );
 				$part_printf_changed = str_replace( '</h1></div>%s</div>', '</h1></div><div class="ugc part-ugc">%s</div></div>', $part_printf );

@@ -21,7 +21,7 @@
 
 			<dl>
 				<dt><?php _e( 'Book Name', 'pressbooks' ); ?>:</dt>
-				<dd><?php bloginfo( 'name' ); ?></d>
+				<dd><?php bloginfo( 'name' ); ?></dd>
 				<?php global $metakeys;
 				$metadata = pb_get_book_information();
 				foreach ( $metadata as $key => $val ) :
