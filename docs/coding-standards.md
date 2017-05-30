@@ -8,7 +8,7 @@ permalink: /coding-standards/
 
 Instead of reading any of this why not just let the computer nag you? From the Pressbooks plugin directory:
 
-1. `composer install --dev`
+1. `composer install`
 2. `composer standards`
 
 Bonus: You can sometimes automatically fix errors by running `vendor/bin/phpcbf --standard=phpcs.ruleset.xml /path/to/your/file`
@@ -33,6 +33,8 @@ Our namespace is: `\Pressbooks\`
 ## Pressbooks Coding Recommendations (Optional)
 
 Write accurate [PHPDoc](http://en.wikipedia.org/wiki/PHPDoc) styled code comments.
+
+Prefix [action and filter hook](https://developer.wordpress.org/plugins/hooks/) names with `pb_`.
 
 Prefix WP Post meta keys with `pb_`.
 
