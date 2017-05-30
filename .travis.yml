@@ -42,6 +42,7 @@ before_install:
 
 install:
   - composer install
+  - yarn
 
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
