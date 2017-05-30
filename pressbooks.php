@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Turn on $_SESSION
 // -------------------------------------------------------------------------------------------------------------------
 
-function _pb_session_start() {
+function _pb_session_start() { // @codingStandardsIgnoreLine
 	if ( ! session_id() ) {
 		if ( ! headers_sent() ) {
 			ini_set( 'session.use_only_cookies', true );
@@ -33,8 +33,8 @@ function _pb_session_start() {
 	}
 }
 
-function _pb_session_kill() {
-	$_SESSION = array();
+function _pb_session_kill() { // @codingStandardsIgnoreLine
+	$_SESSION = [];
 	session_destroy();
 }
 
@@ -74,23 +74,7 @@ if ( ! defined( 'PB_ROOT_THEME' ) ) {
 // Class autoloader
 // -------------------------------------------------------------------------------------------------------------------
 
-function _pressbooks_autoload( $class_name ) {
-
-	$prefix = 'Pressbooks\\';
-	$len = strlen( $prefix );
-	if ( strncasecmp( $prefix, $class_name, $len ) !== 0 ) {
-		// Ignore classes not in our namespace
-		return;
-	}
-
-	$parts = explode( '\\', strtolower( $class_name ) );
-	array_shift( $parts );
-	$class_file = 'class-pb-' . str_replace( '_', '-', array_pop( $parts ) ) . '.php';
-	$path = count( $parts ) ? implode( '/', $parts ) . '/' : '';
-	@include( PB_PLUGIN_DIR . 'includes/' . $path . $class_file );
-}
-
-spl_autoload_register( '_pressbooks_autoload' );
+\HM\Autoloader\register_class_path( 'Pressbooks', __DIR__ . '/inc' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Composer autoloader (if needed)
@@ -106,7 +90,7 @@ if ( file_exists( $composer = PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 // Check minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
-if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) {
+if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) { // @codingStandardsIgnoreLine
 	add_action( 'admin_notices', function () {
 		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 	} );

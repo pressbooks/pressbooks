@@ -23,7 +23,7 @@ if ( ! file_exists( $input_file_name ) ) {
 // Sassify
 // --------------------------------------------------------------------------------------------------------------------
 
-$includePaths = [
+$include_paths = [
 	__DIR__ . '/../assets/scss/partials',
 	__DIR__ . '/../assets/scss/fonts',
 	dirname( realpath( $input_file_name ) ),
@@ -34,7 +34,7 @@ $scss = file_get_contents( $input_file_name );
 try {
 	$sass = new \Leafo\ScssPhp\Compiler;
 	$sass->setStyle( Sass::STYLE_EXPANDED );
-	$sass->setImportPaths( $includePaths );
+	$sass->setImportPaths( $include_paths );
 	$css = $sass->compileFile( $scss );
 } catch ( Exception $e ) {
 	die( $e->getMessage() );

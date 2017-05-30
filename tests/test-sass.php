@@ -4,7 +4,7 @@ class SassTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-  /**
+	/**
 	 * @var \Pressbooks\Sass()
 	 */
 	protected $sass;
@@ -19,39 +19,30 @@ class SassTest extends \WP_UnitTestCase {
 	}
 
 
-  /**
-   * @covers \Pressbooks\Sass::getStringsToLocalize
-   */
-  public function test_getStringsToLocalize() {
+	public function test_getStringsToLocalize() {
 
-    $result = $this->sass->getStringsToLocalize();
+		$result = $this->sass->getStringsToLocalize();
 
-    $this->assertTrue( is_array( $result ) );
+		$this->assertTrue( is_array( $result ) );
 
-    $this->assertArrayHasKey( 'chapter', $result );
+		$this->assertArrayHasKey( 'chapter', $result );
 
-    $this->assertEquals( 'chapter',  strtolower( $result['chapter'] ) );
+		$this->assertEquals( 'chapter', strtolower( $result['chapter'] ) );
 
-  }
+	}
 
-  /**
-   * @covers \Pressbooks\Sass::prependLocalizedVars
-   */
-  public function test_prependLocalizedVars() {
+	public function test_prependLocalizedVars() {
 
-    $scss = '/* Silence is golden. */';
+		$scss = '/* Silence is golden. */';
 
-    $result = $this->sass->prependLocalizedVars( $scss );
+		$result = $this->sass->prependLocalizedVars( $scss );
 
-    $this->assertContains( $scss, $result );
+		$this->assertContains( $scss, $result );
 
-    $this->assertContains( "\$chapter: 'Chapter';", $result );
+		$this->assertContains( "\$chapter: 'Chapter';", $result );
 
-  }
+	}
 
-	/**
-	 * @covers \Pressbooks\Sass::parseVariables
-	 */
 	public function test_parseVariables() {
 		$scss = '$red: #d4002d !default;
 		$font-size: 14pt;';
@@ -64,17 +55,11 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertEquals( $vars['font-size'], '14pt' );
 	}
 
-	/**
-	 * @covers \Pressbooks\Sass::applyOverrides
-	 */
 	public function test_applyOverrides() {
 		$result = $this->sass->applyOverrides( '// SCSS.', '// Override.' );
 		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
 	}
 
-	/**
-	 * @covers \Pressbooks\Sass::updateWebBookStyleSheet
-	 */
 	public function test_updateWebBookStyleSheet() {
 
 		$this->_book( 'donham' ); // Pick a theme with some built-in $supported_languages
@@ -87,10 +72,6 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( file_get_contents( $file ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Sass::fixWebFonts
-	 */
 	public function test_fixWebFonts() {
 
 		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf) format("truetype"); font-weight: normal; font-style: normal; }';

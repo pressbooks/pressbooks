@@ -17,19 +17,13 @@ class PressbooksTest extends \WP_UnitTestCase {
 		$this->pb = new \Pressbooks\Pressbooks();
 	}
 
-	/**
-	 * @covers \Pressbooks\Pressbooks::allowedBookThemes
-	 */
 	public function test_allowedBookThemes() {
-		$result = $this->pb->allowedBookThemes( array( 'pressbooks-mcluhan' ) );
+		$result = $this->pb->allowedBookThemes( [ 'pressbooks-mcluhan' ] );
 		$this->assertTrue( is_array( $result ) );
 	}
 
-	/**
-	 * @covers \Pressbooks\Pressbooks::allowedRootThemes
-	 */
 	public function test_allowedRootThemes() {
-		$result = $this->pb->allowedRootThemes( array( 'pressbooks-librarian' ) );
+		$result = $this->pb->allowedRootThemes( [ 'pressbooks-librarian' ] );
 		$this->assertTrue( is_array( $result ) );
 	}
 }

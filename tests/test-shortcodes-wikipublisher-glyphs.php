@@ -16,19 +16,14 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$this->glyphs = $this->getMockBuilder( '\Pressbooks\Shortcodes\Wikipublisher\Glyphs' )
-			->setMethods( null )// pass null to setMethods() to avoid mocking any method
-			->disableOriginalConstructor()// disable private constructor
-			->getMock();
+							 ->setMethods( null )// pass null to setMethods() to avoid mocking any method
+							 ->disableOriginalConstructor()// disable private constructor
+							 ->getMock();
 	}
 
+	public function test_langShortcode_grk() {
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
-	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::greek
-	 */
-	public function test_lang_shortcode_grk() {
-
-		$content = $this->glyphs->lang_shortcode(
+		$content = $this->glyphs->langShortcode(
 			[ 'lang' => 'grc' ],
 			'aeiou'
 		);
@@ -36,7 +31,7 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 		$this->assertContains( '<span lang="grc"', $content );
 		$this->assertContains( '&#945;&#949;&#953;&#959;&#965;', $content );
 
-		$content = $this->glyphs->lang_shortcode(
+		$content = $this->glyphs->langShortcode(
 			[ 'lang' => 'ell' ],
 			'aeiou'
 		);
@@ -45,14 +40,9 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 		$this->assertContains( '&#945;&#949;&#953;&#959;&#965;', $content );
 	}
 
+	public function test_langShortcode_he() {
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
-	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::hebrew
-	 */
-	public function test_lang_shortcode_he() {
-
-		$content = $this->glyphs->lang_shortcode(
+		$content = $this->glyphs->langShortcode(
 			[ 'lang' => 'hbo' ],
 			'aeiou'
 		);
@@ -61,13 +51,9 @@ class Shortcodes_WikiPublisher_GlyphsTest extends \WP_UnitTestCase {
 		$this->assertContains( '&#1463;&#1461;&#1460;&#1465;&#1467;', $content );
 	}
 
+	public function test_langShortcode_bad() {
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Wikipublisher\Glyphs::lang_shortcode
-	 */
-	public function test_lang_shortcode_bad() {
-
-		$content = $this->glyphs->lang_shortcode(
+		$content = $this->glyphs->langShortcode(
 			[ 'lang' => 'foobar' ],
 			'aeiou'
 		);
