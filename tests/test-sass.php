@@ -110,7 +110,7 @@ class SassTest extends \WP_UnitTestCase {
 		$this->_book( 'pressbooks-book' );
 		$theme = wp_get_theme();
 		$version = $theme->get( 'Version' );
-		update_option( 'pressbooks_theme_version', $version - 0.1 );
+		update_option( 'pressbooks_theme_version', floatval( $version ) - 0.1 );
 
 		$result = $this->sass->maybeUpdateWebBookStylesheet();
 		$this->assertTrue( $result );
