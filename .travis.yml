@@ -38,6 +38,7 @@ before_install:
 
 install:
   - node -v
+  - npm install -g cross-env
   - npm install
   - composer install
 
