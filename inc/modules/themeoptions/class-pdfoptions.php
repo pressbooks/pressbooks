@@ -245,18 +245,6 @@ class PDFOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
-			'pdf_image_resolution',
-			__( 'Image resolution', 'pressbooks' ),
-			[ $this, 'renderImageResolutionField' ],
-			$_page,
-			$_section,
-			[
-				'300dpi' => __( 'High (300 DPI)', 'pressbooks' ),
-				'72dpi' => __( 'Low (72 DPI)', 'pressbooks' ),
-			]
-		);
-
-		add_settings_field(
 			'pdf_crop_marks',
 			__( 'Crop Marks', 'pressbooks' ),
 			[ $this, 'renderCropMarksField' ],
@@ -960,23 +948,6 @@ class PDFOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the pdf_image_resolution radio buttons.
-	 *
-	 * @param array $args
-	 */
-	function renderImageResolutionField( $args ) {
-		$this->renderRadioButtons(
-			[
-				'id' => 'pdf_image_resolution',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'pdf_image_resolution',
-				'value' => getset( $this->options, 'pdf_image_resolution' ),
-				'choices' => $args,
-			]
-		);
-	}
-
-	/**
 	 * Render the pdf_crop_marks checkbox.
 	 *
 	 * @param array $args
@@ -1391,7 +1362,7 @@ class PDFOptions extends \Pressbooks\Options {
 			'pdf_paragraph_separation' => 'indent',
 			'pdf_sectionopenings' => 'openauto',
 			'pdf_toc' => 1,
-			'pdf_image_resolution' => '300dpi',
+			'pdf_image_resolution' => 'auto,normal',
 			'pdf_crop_marks' => 0,
 			'pdf_romanize_parts' => 1,
 			'pdf_footnotes_style' => 'footnotes',
@@ -1663,7 +1634,7 @@ class PDFOptions extends \Pressbooks\Options {
 		if ( isset( $options['pdf_image_resolution'] ) ) {
 			$resolution = $options['pdf_image_resolution'];
 		} else {
-			$resolution = '300dpi';
+			$resolution = 'auto,normal';
 		}
 		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= "\$prince-image-resolution: $resolution !default; \n";
