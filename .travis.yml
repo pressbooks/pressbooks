@@ -39,6 +39,7 @@ before_install:
 install:
   - node -v
   - npm install -g cross-env
+  - npm install -g webpack
   - npm install
   - composer install
 
