@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Admin\NetworkManagers;
 
+use PressbooksMix\Assets;
+
 /**
  *
  */
@@ -25,8 +27,10 @@ function add_menu() {
  * Enqueue css and javascript for the network manager administration page
  */
 function admin_enqueues() {
-	wp_enqueue_style( 'pb-network-managers', \Pressbooks\Utility\asset_path( 'styles/network-managers.css' ) );
-	wp_enqueue_script( 'pb-network-managers', \Pressbooks\Utility\asset_path( 'scripts/network-managers.js' ), [ 'jquery' ] );
+	$assets = new Assets( 'pressbooks', 'assets/dist' );
+
+	wp_enqueue_style( 'pb-network-managers', $assets->getPath( 'styles/network-managers.css' ) );
+	wp_enqueue_script( 'pb-network-managers', $assets->getPath( 'scripts/network-managers.js' ), [ 'jquery' ] );
 	wp_localize_script(
 		'pb-network-managers', 'PB_NetworkManagerToken', [
 		'networkManagerNonce' => wp_create_nonce( 'pb-network-managers' ),

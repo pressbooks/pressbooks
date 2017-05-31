@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Admin\Metaboxes;
 
+use PressbooksMix\Assets;
+
 /**
  * If the user updates the book's title, then also update the blog name
  *
@@ -112,9 +114,11 @@ function add_metadata_styles( $hook ) {
 	if ( 'post-new.php' === $hook || 'post.php' === $hook ) {
 		$post_type = get_post_type();
 		if ( 'metadata' === $post_type ) {
-			wp_enqueue_style( 'metadata', \Pressbooks\Utility\asset_path( 'styles/metadata.css' ) );
+			$assets = new Assets( 'pressbooks', 'assets/dist' );
+			wp_enqueue_style( 'metadata', $assets->getPath( 'styles/metadata.css' ) );
 		} elseif ( 'part' === $post_type ) {
-			wp_enqueue_style( 'part', \Pressbooks\Utility\asset_path( 'styles/part.css' ) );
+			$assets = new Assets( 'pressbooks', 'assets/dist' );
+			wp_enqueue_style( 'part', $assets->getPath( 'styles/part.css' ) );
 			add_filter(
 				'page_attributes_dropdown_pages_args', function () {
 					return [ 'post_type' => '__GARBAGE__' ];
