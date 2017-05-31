@@ -40,4 +40,4 @@ $image-alignleft-margin-right: 1em !default;
 $image-alignright-margin-left: 1em !default;
 /// Image resolution for PrinceXML PDF outputs.
 /// @type String
-$prince-image-resolution: 300dpi !default;
+$prince-image-resolution: auto,normal !default;
