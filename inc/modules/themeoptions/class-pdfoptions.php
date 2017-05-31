@@ -1362,7 +1362,6 @@ class PDFOptions extends \Pressbooks\Options {
 			'pdf_paragraph_separation' => 'indent',
 			'pdf_sectionopenings' => 'openauto',
 			'pdf_toc' => 1,
-			'pdf_image_resolution' => 'auto,normal',
 			'pdf_crop_marks' => 0,
 			'pdf_romanize_parts' => 1,
 			'pdf_footnotes_style' => 'footnotes',
@@ -1502,7 +1501,6 @@ class PDFOptions extends \Pressbooks\Options {
 			'pb_theme_options_pdf_predefined', [
 			'pdf_paragraph_separation',
 			'pdf_sectionopenings',
-			'pdf_image_resolution',
 			'pdf_footnotes_style',
 			]
 		);
@@ -1628,18 +1626,6 @@ class PDFOptions extends \Pressbooks\Options {
 			$scss .= "\$page-margin-right-right: $outside; \n";
 			$scss .= "\$page-margin-right-bottom: $bottom; \n";
 			$scss .= "\$page-margin-right-left: $inside; \n";
-		}
-
-		// Image resolution
-		if ( isset( $options['pdf_image_resolution'] ) ) {
-			$resolution = $options['pdf_image_resolution'];
-		} else {
-			$resolution = 'auto,normal';
-		}
-		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			$scss .= "\$prince-image-resolution: $resolution !default; \n";
-		} else {
-			$scss .= "img { prince-image-resolution: $resolution; } \n";
 		}
 
 		// Should we display crop marks? True or false (default).

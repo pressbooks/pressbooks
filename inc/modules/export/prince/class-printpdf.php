@@ -77,43 +77,4 @@ class PrintPdf extends Pdf {
 		return $retval;
 	}
 
-	/**
-	 * Override based on Theme Options
-	 */
-	protected function themeOptionsOverrides() {
-
-		$sass = \Pressbooks\Container::get( 'Sass' );
-
-		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			$extra = "/* Print Overrides */\n\$prince-image-resolution: auto,normal \n";
-		} else {
-			$extra = "/* Print Overrides */\nimg { prince-image-resolution: auto,normal; } \n";
-		}
-
-		$scss = '';
-		$scss = apply_filters( 'pb_pdf_css_override', $scss ) . "\n";
-
-		$scss = $sass->applyOverrides( $scss, $extra );
-
-		// Copyright
-		// Please be kind, help Pressbooks grow by leaving this on!
-		if ( empty( $GLOBALS['PB_SECRET_SAUCE']['TURN_OFF_FREEBIE_NOTICES_PDF'] ) ) {
-			$freebie_notice = __( 'This book was produced using Pressbooks.com, and PDF rendering was done by PrinceXML.', 'pressbooks' );
-			$scss .= '#copyright-page .ugc > p:last-of-type::after { display:block; margin-top: 1em; content: "' . $freebie_notice . '" }' . "\n";
-		}
-
-		$this->cssOverrides = $scss;
-
-		// --------------------------------------------------------------------
-		// Hacks
-
-		$hacks = [];
-		$hacks = apply_filters( 'pb_pdf_hacks', $hacks );
-
-		// Append endnotes to URL?
-		if ( 'endnotes' === $hacks['pdf_footnotes_style'] ) {
-			$this->url .= '&endnotes=true';
-		}
-
-	}
 }
