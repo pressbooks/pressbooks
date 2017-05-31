@@ -30,24 +30,22 @@ cache:
   apt: true
   directories:
     - $HOME/.composer/cache
-    - $HOME/.yarn-cache
     - node_modules
     - vendor
 
 before_install:
   - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
-  - export PATH=$HOME/.yarn/bin:$PATH && travis_retry curl -o- -L https://yarnpkg.com/install.sh | bash
 
 install:
-  - node -v && yarn -V
-  - travis_retry yarn
+  - node -v
+  - npm install
   - composer install
 
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 
 script:
-  - yarn run production
+  - npm run production
   - composer test
 
 after_success:
