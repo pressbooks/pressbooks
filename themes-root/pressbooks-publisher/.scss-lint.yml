@@ -1,5 +1,0 @@
-linters:
-  PropertySortOrder:
-    order: recess
-  PlaceholderInExtend:
-    enabled: false
