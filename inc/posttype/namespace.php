@@ -233,6 +233,23 @@ function register_post_types() {
 	register_post_type( 'custom-css', $args );
 }
 
+/**
+ * Register meta keys for our custom post types
+ */
+function register_meta() {
+	\register_meta( 'post', 'pb_short_title', [ 'single' => true, 'show_in_rest' => true ] );
+	\register_meta( 'post', 'pb_subtitle', [ 'single' => true, 'show_in_rest' => true ] );
+	\register_meta( 'post', 'pb_section_author', [ 'single' => true, 'show_in_rest' => true ] );
+	\register_meta( 'post', 'pb_section_license', [ 'single' => true, 'show_in_rest' => true ] );
+}
+
+/**
+ * Filters the post updated messages.
+ *
+ * @param array $messages
+ *
+ * @return array
+ */
 function post_type_messages( $messages ) {
 	global $post;
 
