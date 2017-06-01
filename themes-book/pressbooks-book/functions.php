@@ -4,6 +4,8 @@
  * @license GPLv2 (or any later version)
  */
 
+use PressbooksMix\Assets;
+
 // Turn off admin bar
 add_filter( 'show_admin_bar', function () { return false; } );
 
@@ -27,17 +29,18 @@ $metakeys = array(
  * ------------------------------------------------------------------------ */
 
 function pressbooks_book_info_page () {
+	$assets = new Assets( 'pressbooks', 'assets/dist' );
 
 	if ( is_front_page() ) {
-		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', array(), '1.7.0', 'all' );
+		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', [], null, 'all' );
 		wp_enqueue_style( 'book-info-fonts', 'https://fonts.googleapis.com/css?family=Droid+Serif:400,700|Oswald:300,400,700' );
 
 		// Book info page Table of Content columns
-		wp_enqueue_script( 'columnizer',  \Pressbooks\Utility\asset_path( 'scripts/columnizer.js' ), array( 'jquery' ), '1.7.0' );
-		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', array( 'jquery', 'columnizer' ), '1.7.0', false );
+		wp_enqueue_script( 'columnizer',  $assets->getPath( 'scripts/columnizer.js' ), [ 'jquery' ], null );
+		wp_enqueue_script( 'columnizer-load', get_template_directory_uri() . '/js/columnizer-load.js', [ 'jquery', 'columnizer' ], '1.7.0', false );
 
 		// Sharer.js
-		wp_enqueue_script( 'sharer', \Pressbooks\Utility\asset_path( 'scripts/sharer.js' ) );
+		wp_enqueue_script( 'sharer', $assets->getPath( 'scripts/sharer.js' ) );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'pressbooks_book_info_page' );

@@ -7,6 +7,7 @@
 namespace Pressbooks\Editor;
 
 use Pressbooks\Container;
+use PressbooksMix\Assets;
 
 /**
  * Ensure that Word formatting that we like doesn't get filtered out.
@@ -65,10 +66,13 @@ function mce_buttons_3( $buttons ) {
  * @return array
  */
 function mce_button_scripts( $plugin_array ) {
-	$plugin_array['apply_class'] = \Pressbooks\Utility\asset_path( 'scripts/applyclass.js' );
-	$plugin_array['textboxes'] = \Pressbooks\Utility\asset_path( 'scripts/textboxes.js' );
-	$plugin_array['anchor'] = \Pressbooks\Utility\asset_path( 'scripts/anchor.js' );
-	$plugin_array['table'] = \Pressbooks\Utility\asset_path( 'scripts/table.js' );
+	$assets = new Assets( 'pressbooks', 'assets/dist' );
+
+	$plugin_array['apply_class'] = $assets->getPath( 'scripts/applyclass.js' );
+	$plugin_array['textboxes'] = $assets->getPath( 'scripts/textboxes.js' );
+	$plugin_array['anchor'] = $assets->getPath( 'scripts/anchor.js' );
+	$plugin_array['table'] = $assets->getPath( 'scripts/table.js' );
+
 	return $plugin_array;
 }
 

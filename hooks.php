@@ -23,6 +23,7 @@ require( PB_PLUGIN_DIR . 'inc/registration/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/sanitize/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/media/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/editor/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/api/namespace.php' );
 
 Pressbooks\Utility\include_plugins();
 
@@ -32,8 +33,15 @@ Pressbooks\Utility\include_plugins();
 
 if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 	\Pressbooks\Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
-} else { \Pressbooks\Container::init();
+} else {
+	\Pressbooks\Container::init();
 }
+
+// -------------------------------------------------------------------------------------------------------------------
+// API
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'rest_api_init', '\Pressbooks\Api\init' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Login screen branding

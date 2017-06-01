@@ -10,6 +10,7 @@ namespace Pressbooks\Modules\SearchAndReplace;
 
 use Pressbooks\Modules\SearchAndReplace\Search;
 use Pressbooks\Modules\SearchAndReplace\Result;
+use PressbooksMix\Assets;
 
 class SearchAndReplace {
 	private static $instance = null;
@@ -29,8 +30,9 @@ class SearchAndReplace {
 	}
 
 	function searchHead() {
-		wp_enqueue_style( 'search-and-replace', \Pressbooks\Utility\asset_path( 'styles/search-and-replace.css' ) );
-		wp_register_script( 'search-and-replace', \Pressbooks\Utility\asset_path( 'scripts/search-and-replace.js' ) );
+		$assets = new Assets( 'pressbooks', 'assets/dist' );
+		wp_enqueue_style( 'search-and-replace', $assets->getPath( 'styles/search-and-replace.css' ) );
+		wp_register_script( 'search-and-replace', $assets->getPath( 'scripts/search-and-replace.js' ) );
 		wp_localize_script( 'search-and-replace', 'pb_sr', $this->getL10n() );
 		wp_enqueue_script( 'search-and-replace' );
 	}

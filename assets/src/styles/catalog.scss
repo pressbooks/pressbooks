@@ -1,18 +1,15 @@
-// Automatically injected Bower dependencies via wiredep (never manually edit this block)
-// bower:scss
-@import "../../../bower_components/select2/src/scss/core.scss";
-// endbower
-
+@import '~select2/src/scss/core';
 @import 'partials/colors';
 
 .postbox {
-	h4 {
-		font-size: #{(15/13)}em;
+  h4 {
+		font-size: #{(15 / 13)}em;
 		font-weight: normal;
 	}
+
 	h5 {
+    margin: 0;
 		font-size: 1.1em;
-		margin: 0;
 	}
 	p {
 		margin: 0 0 10px 28px;

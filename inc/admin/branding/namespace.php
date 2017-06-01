@@ -8,13 +8,16 @@
 
 namespace Pressbooks\Admin\Branding;
 
+use PressbooksMix\Assets;
+
 /**
  * Apply Color Scheme to Login Page
  * To customize this, add a filter to the 'pressbooks_login_color_scheme' hook
  * that returns a string containing a link tag for your own admin color scheme.
  */
 function custom_color_scheme() {
-	$html = '<link rel="stylesheet" type="text/css" href="' . \Pressbooks\Utility\asset_path( 'styles/colors-pb.css' ) . '" media="screen" />';
+	$assets = new Assets( 'pressbooks', 'assets/dist' );
+	$html = '<link rel="stylesheet" type="text/css" href="' . $assets->getPath( 'styles/colors-pb.css' ) . '" media="screen" />';
 	$html = apply_filters( 'pressbooks_login_color_scheme', $html );
 	echo $html;
 }
@@ -27,7 +30,7 @@ function custom_color_scheme() {
 function custom_login_logo() {
 	$html = '<style type="text/css">
 	.login h1 a {
-  	background-image: url(' . \Pressbooks\Utility\asset_path( 'images/PB-logo.svg' ) . ');
+  	background-image: url(' . PB_PLUGIN_URL . 'assets/dist//images/PB-logo.svg' . ');
   	background-size: 276px 40px;
   	width: 276px;
   	height: 40px; }
@@ -36,7 +39,7 @@ function custom_login_logo() {
 	.login #backtoblog a:hover, .login #backtoblog a:active, .login #backtoblog a:focus, .login #nav a:hover, .login #nav a:active, .login #nav a:focus {
   	color: #d4002d; }
 	.no-svg .login h1 a {
-  	background-image: url(' . \Pressbooks\Utility\asset_path( 'images/PB-logo.png' ) . '; }
+  	background-image: url(' . PB_PLUGIN_URL . 'assets/dist//images/PB-logo.png' . '; }
 	</style>';
 	$html = apply_filters( 'pressbooks_login_logo', $html );
 	echo $html;

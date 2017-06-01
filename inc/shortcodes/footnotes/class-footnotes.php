@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Shortcodes\Footnotes;
 
+use PressbooksMix\Assets;
+
 class Footnotes {
 
 	/**
@@ -193,7 +195,8 @@ class Footnotes {
 	 * Quicktag buttons for text mode editor
 	 */
 	function myCustomQuicktags() {
-		wp_enqueue_script( 'my_custom_quicktags', \Pressbooks\Utility\asset_path( 'scripts/quicktags.js' ), [ 'quicktags' ] );
+		$assets = new Assets( 'pressbooks', 'assets/dist' );
+		wp_enqueue_script( 'my_custom_quicktags', $assets->getPath( 'scripts/quicktags.js' ), [ 'quicktags' ] );
 	}
 
 
@@ -220,9 +223,9 @@ class Footnotes {
 	 * @return mixed
 	 */
 	function addFootnotePlugin( $plugin_array ) {
-
-		$plugin_array['footnote'] = \Pressbooks\Utility\asset_path( 'scripts/footnote.js' );
-		$plugin_array['ftnref_convert'] = \Pressbooks\Utility\asset_path( 'scripts/ftnref-convert.js' );
+		$assets = new Assets( 'pressbooks', 'assets/dist' );
+		$plugin_array['footnote'] = $assets->getPath( 'scripts/footnote.js' );
+		$plugin_array['ftnref_convert'] = $assets->getPath( 'scripts/ftnref-convert.js' );
 
 		return $plugin_array;
 	}

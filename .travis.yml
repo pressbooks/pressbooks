@@ -22,27 +22,32 @@ env:
   - WP_VERSION=latest WP_MULTISITE=1 TRAVIS_NODE_VERSION="7"
 
 matrix:
+  fast_finish: true
   allow_failures:
   - php: nightly
 
 cache:
+  apt: true
   directories:
     - $HOME/.composer/cache
-    - $HOME/.yarn-cache
     - node_modules
     - vendor
 
 before_install:
   - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
-  - node -v
 
 install:
+  - node -v
+  - npm install -g cross-env
+  - npm install -g webpack
+  - npm install
   - composer install
 
 before_script:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 
 script:
+  - npm run production
   - composer test
 
 after_success:

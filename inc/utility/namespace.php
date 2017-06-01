@@ -809,22 +809,6 @@ function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [
 	return remote_get_retry( $url, $args, $retry, $attempts, $response );
 }
 
-function asset_path( $filename ) {
-	$dist_path = PB_PLUGIN_URL . 'assets/dist/';
-	$directory = dirname( $filename ) . '/';
-	$file = basename( $filename );
-	static $manifest;
-	if ( empty( $manifest ) ) {
-		$manifest_path = PB_PLUGIN_DIR . 'assets/dist/assets.json';
-		$manifest = new JsonManifest( $manifest_path );
-	}
-	if ( array_key_exists( $file, $manifest->get() ) ) {
-		return $dist_path . $directory . $manifest->get()[ $file ];
-	} else {
-		return $dist_path . $directory . $file;
-	}
-}
-
 /**
  * Set the wp_mail sender address
  *
