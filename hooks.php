@@ -4,6 +4,12 @@
  * @license GPLv2 (or any later version)
  */
 
+use Pressbooks\Book;
+use Pressbooks\Container;
+use Pressbooks\ThemeLock;
+use function \Pressbooks\l10n\use_book_locale;
+use function \Pressbooks\Utility\include_plugins as include_symbionts;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -25,23 +31,31 @@ require( PB_PLUGIN_DIR . 'inc/media/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/editor/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/api/namespace.php' );
 
-Pressbooks\Utility\include_plugins();
+include_symbionts();
+
+// -------------------------------------------------------------------------------------------------------------------
+// Recycle, reduce, reuse
+// -------------------------------------------------------------------------------------------------------------------
+
+$is_book = Book::isBook();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize services
 // -------------------------------------------------------------------------------------------------------------------
 
 if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
-	\Pressbooks\Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
+	Container::init( $GLOBALS['PB_PIMPLE_OVERRIDE'] );
 } else {
-	\Pressbooks\Container::init();
+	Container::init();
 }
 
 // -------------------------------------------------------------------------------------------------------------------
 // API
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'rest_api_init', '\Pressbooks\Api\init' );
+if ( $is_book ) {
+	add_action( 'rest_api_init', '\Pressbooks\Api\init' );
+}
 
 // -------------------------------------------------------------------------------------------------------------------
 // Login screen branding
@@ -51,7 +65,6 @@ add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_color_scheme' );
 add_action( 'login_head', '\Pressbooks\Admin\Branding\custom_login_logo' );
 add_filter( 'login_headerurl', '\Pressbooks\Admin\Branding\login_url' );
 add_filter( 'login_headertitle', '\Pressbooks\Admin\Branding\login_title' );
-
 
 // -------------------------------------------------------------------------------------------------------------------
 // Analytics
@@ -73,11 +86,11 @@ add_action( 'init', '\Pressbooks\L10n\load_plugin_textdomain' );
 add_action( 'admin_init', '\Pressbooks\L10n\update_user_locale' );
 add_filter( 'gettext', '\Pressbooks\L10n\override_core_strings', 10, 3 );
 
-if ( \Pressbooks\Book::isBook() && \Pressbooks\l10n\use_book_locale() ) {
+if ( $is_book && use_book_locale() ) {
 	add_filter( 'locale', '\Pressbooks\Modules\Export\Export::setLocale' );
-} elseif ( \Pressbooks\Book::isBook() ) {
+} elseif ( $is_book ) {
 	add_filter( 'locale', '\Pressbooks\L10n\set_locale' );
-} elseif ( ! \Pressbooks\Book::isBook() ) {
+} elseif ( ! $is_book ) {
 	add_filter( 'locale', '\Pressbooks\L10n\set_root_locale' );
 }
 
@@ -109,10 +122,10 @@ add_filter( 'upload_mimes', '\Pressbooks\Media\add_mime_types' );
 // Custom Post Types and Taxonomies
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', '\Pressbooks\PostType\register_post_types' );
-add_action( 'post_updated_messages', '\Pressbooks\PostType\post_type_messages' );
-add_action( 'init', '\Pressbooks\Taxonomy::registerTaxonomies' );
-if ( \Pressbooks\Book::isBook() ) {
+if ( $is_book ) {
+	add_action( 'init', '\Pressbooks\PostType\register_post_types' );
+	add_action( 'init', '\Pressbooks\Taxonomy::registerTaxonomies' );
+	add_action( 'post_updated_messages', '\Pressbooks\PostType\post_type_messages' );
 	add_filter( 'request', '\Pressbooks\PostType\add_post_types_rss' );
 	add_filter( 'hypothesis_supported_posttypes', '\Pressbooks\PostType\add_posttypes_to_hypothesis' );
 }
@@ -136,8 +149,7 @@ if ( is_admin() === false ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'wpmu_new_blog', function ( $b, $u ) {
-	$activate = new \Pressbooks\Activation();
-	$activate->wpmuNewBlog( $b, $u );
+	( new \Pressbooks\Activation() )->wpmuNewBlog( $b, $u );
 }, 9, 2 );
 
 // Force PB colors
@@ -174,7 +186,7 @@ $_ = \Pressbooks\Shortcodes\Generics\Generics::getInstance();
 $_ = \Pressbooks\Shortcodes\WikiPublisher\Glyphs::getInstance();
 
 // Theme Lock
-if ( \Pressbooks\Book::isBook() && \Pressbooks\ThemeLock::isLocked() ) {
+if ( $is_book && ThemeLock::isLocked() ) {
 	add_filter( 'pb_stylesheet_directory', [ '\Pressbooks\ThemeLock', 'getLockDir' ] );
 	add_filter( 'pb_stylesheet_directory_uri', [ '\Pressbooks\ThemeLock', 'getLockDirURI' ] );
 }
@@ -183,12 +195,11 @@ if ( \Pressbooks\Book::isBook() && \Pressbooks\ThemeLock::isLocked() ) {
 // Upgrade Book Metadata
 // -------------------------------------------------------------------------------------------------------------------
 
-if ( \Pressbooks\Book::isBook() ) {
+if ( $is_book ) {
 	add_action( 'init', function () {
 		$meta_version = get_option( 'pressbooks_metadata_version', 0 );
 		if ( $meta_version < \Pressbooks\Metadata::VERSION ) {
-			$metadata = new \Pressbooks\Metadata();
-			$metadata->upgrade( $meta_version );
+			( new \Pressbooks\Metadata() )->upgrade( $meta_version );
 			update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
 		}
 	}, 1000 );
@@ -200,12 +211,11 @@ if ( \Pressbooks\Book::isBook() ) {
 
 // TODO: Before this commit, we were updating 'pressbooks_taxonomy_version' with \Pressbooks\Metadata::VERSION (bug)
 
-if ( \Pressbooks\Book::isBook() ) {
+if ( $is_book ) {
 	add_action( 'init', function () {
 		$taxonomy_version = get_option( 'pressbooks_taxonomy_version', 0 );
 		if ( $taxonomy_version < \Pressbooks\Taxonomy::VERSION ) {
-			$taxonomy = new \Pressbooks\Taxonomy();
-			$taxonomy->upgrade( $taxonomy_version );
+			( new \Pressbooks\Taxonomy() )->upgrade( $taxonomy_version );
 			update_option( 'pressbooks_taxonomy_version', \Pressbooks\Taxonomy::VERSION );
 		}
 	}, 1000 );
@@ -218,8 +228,7 @@ if ( \Pressbooks\Book::isBook() ) {
 add_action( 'init', function () {
 	$catalog_version = get_site_option( 'pressbooks_catalog_version', 0 );
 	if ( $catalog_version < \Pressbooks\Catalog::VERSION ) {
-		$metadata = new \Pressbooks\Catalog();
-		$metadata->upgrade( $catalog_version );
+		( new \Pressbooks\Catalog() )->upgrade( $catalog_version );
 		update_site_option( 'pressbooks_catalog_version', \Pressbooks\Catalog::VERSION );
 	}
 }, 1000 );
