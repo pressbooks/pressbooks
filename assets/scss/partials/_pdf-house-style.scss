@@ -1096,6 +1096,10 @@ div.chapter.introduction {
   page-break-inside: avoid;
 }
 
+img {
+  prince-image-resolution: auto,normal;
+}
+
 /* TABLES */
 
 @include tables();
