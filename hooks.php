@@ -53,8 +53,13 @@ if ( ! empty( $GLOBALS['PB_PIMPLE_OVERRIDE'] ) ) {
 // API
 // -------------------------------------------------------------------------------------------------------------------
 
+add_filter( 'rest_index', '\Pressbooks\Api\add_help_link' );
+
 if ( $is_book ) {
-	add_action( 'rest_api_init', '\Pressbooks\Api\init' );
+	add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
+	add_filter( 'rest_endpoints', 'Pressbooks\Api\hide_incompatible_endpoints' );
+} else {
+	add_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

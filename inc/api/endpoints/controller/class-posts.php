@@ -29,20 +29,21 @@ class Posts extends \WP_REST_Posts_Controller {
 	 */
 	private function overrideUsingFilterAndActions() {
 
-		// Override the order the posts are displayed
-		add_filter( "rest_{$this->post_type}_query", [ $this, 'overrideDefaultQueryArguments' ] );
-
 		// The post type must have custom-fields support otherwise the meta fields will not appear in the REST API.
 		add_post_type_support( $this->post_type, 'custom-fields' );
+
+		add_filter( "rest_{$this->post_type}_query", [ $this, 'overrideQueryArgs' ] );
 	}
 
 
 	/**
+	 * Override the order the posts are displayed
+	 *
 	 * @param array $args
 	 *
 	 * @return array
 	 */
-	public function overrideDefaultQueryArguments( $args ) {
+	public function overrideQueryArgs( $args ) {
 
 		// TODO: $args come from \Pressbooks\Book::getBookStructure, we should consolidate this somewhere?
 

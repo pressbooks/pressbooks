@@ -237,6 +237,10 @@ function register_post_types() {
  * Register meta keys for our custom post types
  */
 function register_meta() {
+
+	// TODO Change from 'post' to 'chapter,etc' when this bug is fixed:
+	// @see https://core.trac.wordpress.org/ticket/38323
+
 	\register_meta( 'post', 'pb_short_title', [ 'single' => true, 'show_in_rest' => true ] );
 	\register_meta( 'post', 'pb_subtitle', [ 'single' => true, 'show_in_rest' => true ] );
 	\register_meta( 'post', 'pb_section_author', [ 'single' => true, 'show_in_rest' => true ] );
