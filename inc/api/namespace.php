@@ -15,7 +15,7 @@ function get_custom_post_types() {
  * @return \WP_REST_Response
  */
 function add_help_link( $response ) {
-	$response->add_link( 'help', 'http://pressbooks.dev/api/v1/docs' );
+	$response->add_link( 'help', 'http://pressbooks.org/' );
 	return $response;
 }
 
