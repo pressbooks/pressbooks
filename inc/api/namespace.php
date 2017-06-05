@@ -29,15 +29,30 @@ function add_help_link( $response ) {
  * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/
  */
 function init_book() {
+
+	// Register TOC
+	$toc_controller = new Endpoints\Controller\Toc();
+	$toc_controller->register_routes();
+
+	// Override Revisions routes for our custom post types
 	foreach ( get_custom_post_types() as $post_type ) {
 		if ( post_type_supports( $post_type, 'revisions' ) ) {
 			$revisions_controller = new Endpoints\Controller\Revisions( $post_type );
 			$revisions_controller->register_routes();
 		}
 	}
-
-	$toc_controller = new Endpoints\Controller\Toc();
-	$toc_controller->register_routes();
+	// Add Part ID to chapters
+	// We disable hierarchical mode but still want to use `post_parent`
+	register_rest_field( 'chapter', 'part', [
+		'get_callback' => function ( $post_arr ) {
+			return (int) get_post( $post_arr['id'] )->post_parent;
+		},
+		'update_callback' => __NAMESPACE__ . '\update_part_id',
+		'schema' => [
+			'description' => __( 'Part id.', 'pressbooks' ),
+			'type' => 'integer',
+		],
+	] );
 }
 
 /**
@@ -89,4 +104,30 @@ function fix_book_urls( $url, $path ) {
 	}
 
 	return $url;
+}
+
+/**
+ * Update part ID callback function
+ *
+ * @param int $part_id
+ * @param \WP_Post $post_obj
+ *
+ * @return bool|\WP_Error
+ */
+function update_part_id( $part_id, $post_obj ) {
+
+	$part = get_post( $part_id );
+	if ( $part === null ) {
+		return new \WP_Error( 'rest_chapter_part_failed', __( 'Part does not exist', 'pressbooks' ), [ 'status' => 500 ] );
+	}
+	if ( $part->post_type !== 'part' ) {
+		return new \WP_Error( 'rest_chapter_part_failed', __( 'ID is not a part', 'pressbooks' ), [ 'status' => 500 ] );
+	}
+
+	$ret = wp_update_post( [ 'ID' => $post_obj->ID, 'post_parent' => $part_id ] );
+	if ( false === $ret ) {
+		return new \WP_Error( 'rest_chapter_part_failed', __( 'Failed to update chapter part', 'pressbooks' ), [ 'status' => 500 ] );
+	}
+
+	return true;
 }
