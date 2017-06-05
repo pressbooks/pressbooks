@@ -35,6 +35,9 @@ function init_book() {
 			$revisions_controller->register_routes();
 		}
 	}
+
+	$toc_controller = new Endpoints\Controller\Toc();
+	$toc_controller->register_routes();
 }
 
 /**
@@ -78,7 +81,7 @@ function fix_book_urls( $url, $path ) {
 
 	if ( strpos( $path, $wpns ) !== false ) {
 		foreach ( get_custom_post_types() as $post_type ) {
-			if ( strpos( $path, "v2/$post_type" ) !== false ) {
+			if ( strpos( $path, "{$wpns}{$post_type}" ) !== false ) {
 				$url = str_replace( $wpns, $pbns, $url );
 				break;
 			}
