@@ -3,13 +3,12 @@
 namespace Pressbooks\Api\Endpoints\Controller;
 
 use Pressbooks\Book;
-use function \Pressbooks\Utility\array_filter_recursive;
 
 class Toc extends \WP_REST_Controller {
 
 	// Here initialize our namespace and resource name.
 	public function __construct() {
-		$this->namespace = '/pressbooks/v2';
+		$this->namespace = 'pressbooks/v2';
 		$this->rest_base = 'toc';
 	}
 
@@ -53,6 +52,7 @@ class Toc extends \WP_REST_Controller {
 	public function get_items( $request ) {
 
 		$struct = Book::getBookStructure();
+		unset( $struct['__order'], $struct['__export_lookup'] );
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
 			$struct = $this->removePrivateNodes( $struct );
@@ -101,11 +101,6 @@ class Toc extends \WP_REST_Controller {
 			}
 		}
 		$toc['back-matter'] = $back_matter;
-
-		if ( WP_DEBUG ) {
-			$toc['__order'] = $book_structure['__order'];
-			$toc['__export_lookup'] = $book_structure['__export_lookup'];
-		}
 
 		return $toc;
 	}
