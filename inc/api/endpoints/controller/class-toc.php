@@ -3,6 +3,7 @@
 namespace Pressbooks\Api\Endpoints\Controller;
 
 use Pressbooks\Book;
+use function \Pressbooks\Utility\array_filter_recursive;
 
 class Toc extends \WP_REST_Controller {
 
@@ -53,9 +54,60 @@ class Toc extends \WP_REST_Controller {
 
 		$struct = Book::getBookStructure();
 
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			$struct = $this->removePrivateNodes( $struct );
+		}
+
 		$response = rest_ensure_response( $struct );
 
 		return $response;
+	}
+
+	/**
+	 * @param array $book_structure
+	 *
+	 * @return array
+	 */
+	private function removePrivateNodes( array $book_structure ) {
+
+		$toc = [];
+
+		// Front-matter
+		$front_matter = [];
+		foreach ( $book_structure['front-matter'] as $fm ) {
+			if ( 'publish' === $fm['post_status'] ) {
+				$front_matter[] = $fm;
+			}
+		}
+		$toc['front-matter'] = $front_matter;
+
+		// Book parts + chapters
+		foreach ( $book_structure['part'] as $p ) {
+			$chapters = [];
+			foreach ( $p['chapters'] as $c ) {
+				if ( 'publish' === $c['post_status'] ) {
+					$chapters[] = $c;
+				}
+			}
+			$p['chapters'] = $chapters;
+			$toc['part'][] = $p;
+		}
+
+		// Back-matter
+		$back_matter = [];
+		foreach ( $book_structure['back-matter'] as $bm ) {
+			if ( 'publish' === $bm['post_status'] ) {
+				$back_matter[] = $bm;
+			}
+		}
+		$toc['back-matter'] = $back_matter;
+
+		if ( WP_DEBUG ) {
+			$toc['__order'] = $book_structure['__order'];
+			$toc['__export_lookup'] = $book_structure['__export_lookup'];
+		}
+
+		return $toc;
 	}
 
 }
