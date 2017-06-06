@@ -6,6 +6,14 @@ use Pressbooks\Book;
 
 class Toc extends \WP_REST_Controller {
 
+	/**
+	 * @var array
+	 */
+	private $linkCollector = [];
+
+	/**
+	 * Table of contents
+	 */
 	public function __construct() {
 		$this->namespace = 'pressbooks/v2';
 		$this->rest_base = 'toc';
@@ -34,45 +42,67 @@ class Toc extends \WP_REST_Controller {
 	 */
 	public function get_item_schema() {
 
-		// TODO: context => [ view, edit, embed ], readonly => true, ... ?
-
 		$item = [
 			'id' => [
 				'description' => __( 'Unique identifier for the object.' ),
 				'type' => 'integer',
+				'context' => [ 'view' ],
+				'readonly' => true,
 			],
 			'title' => [
 				'description' => __( 'The title for the object.' ),
 				'type' => 'string',
+				'context' => [ 'view' ],
+				'readonly' => true,
 			],
 			'slug' => [
 				'description' => __( 'An alphanumeric identifier for the object unique to its type.' ),
 				'type' => 'string',
+				'context' => [ 'view' ],
+				'readonly' => true,
 			],
 			'author' => [
 				'description' => __( 'The ID for the author of the object.' ),
 				'type' => 'integer',
+				'context' => [ 'view' ],
+				'readonly' => true,
 			],
 			'comment_count' => [
 				'description' => __( 'Comment count', 'pressbooks' ),
 				'type' => 'integer',
+				'context' => [ 'view' ],
+				'readonly' => true,
 			],
 			'menu_order' => [
 				'description' => __( 'The order of the object in relation to other object of its type.' ),
 				'type' => 'integer',
+				'context' => [ 'view' ],
+				'readonly' => true,
 			],
 			'status' => [
 				'description' => __( 'A named status for the object.' ),
 				'type' => 'string',
 				'enum' => array_keys( get_post_stati( [ 'internal' => false ] ) ),
+				'context' => [ 'view' ],
+				'readonly' => true,
 			],
 			'export' => [
 				'description' => __( 'Include in exports.', 'pressbooks' ),
 				'type' => 'boolean',
+				'context' => [ 'view' ],
+				'readonly' => true,
 			],
 			'has_post_content' => [
 				'description' => __( 'Has post content, the content field is not empty.', 'pressbooks' ),
 				'type' => 'boolean',
+				'readonly' => true,
+			],
+			'link' => [
+				'description' => __( 'URL to the object.' ),
+				'type' => 'string',
+				'format' => 'uri',
+				'context' => [ 'view' ],
+				'readonly' => true,
 			],
 		];
 
@@ -150,8 +180,8 @@ class Toc extends \WP_REST_Controller {
 		$struct = $this->fixBookStructure( $struct, current_user_can( 'edit_posts' ) );
 
 		$response = rest_ensure_response( $struct );
-		$links = [ 'self' => [ 'href' => rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ) ] ];
-		$response->add_links( $links );
+		$this->linkCollector['self'] = [ 'href' => rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ) ];
+		$response->add_links( $this->linkCollector );
 
 		return $response;
 	}
@@ -202,11 +232,8 @@ class Toc extends \WP_REST_Controller {
 					$new_key = strtr( $old_key, $replacement_keys );
 					$new_fm[ $new_key ] = $val;
 				}
-				$new_fm['_links'] = [
-					'up' => [ 'href' => trailingslashit( $rest_url ) . $new_fm['id'] ],
-					'collection' => [ 'href' => $rest_url ],
-					'about' => [ 'href' => rest_url( 'wp/v2/types/' . $base ) ],
-				];
+				$new_fm['link'] = get_permalink( $new_fm['id'] );
+				$this->linkCollector['front-matter'][] = [ 'href' => trailingslashit( $rest_url ) . $new_fm['id'], 'embeddable' => true ];
 				$front_matter[] = $new_fm;
 			}
 		}
@@ -243,20 +270,14 @@ class Toc extends \WP_REST_Controller {
 						$new_key = strtr( $old_key, $replacement_keys );
 						$new_ch[ $new_key ] = $val;
 					}
-					$new_ch['_links'] = [
-						'up' => [ 'href' => trailingslashit( $chapter_rest_url ) . $new_ch['id'] ],
-						'collection' => [ 'href' => $chapter_rest_url ],
-						'about' => [ 'href' => rest_url( 'wp/v2/types/' . $chapter_base ) ],
-					];
+					$new_ch['link'] = get_permalink( $new_ch['id'] );
+					$this->linkCollector['chapter'][] = [ 'href' => trailingslashit( $chapter_rest_url ) . $new_ch['id'], 'embeddable' => true ];
 					$chapters[] = $new_ch;
 				}
 			}
 			$new_p['chapters'] = $chapters;
-			$new_p['_links'] = [
-				'up' => [ 'href' => trailingslashit( $part_rest_url ) . $new_p['id'] ],
-				'collection' => [ 'href' => $part_rest_url ],
-				'about' => [ 'href' => rest_url( 'wp/v2/types/' . $part_base ) ],
-			];
+			$new_p['link'] = get_permalink( $new_p['id'] );
+			$this->linkCollector['part'][] = [ 'href' => trailingslashit( $part_rest_url ) . $new_p['id'], 'embeddable' => true ];
 			$part[] = $new_p;
 		}
 
@@ -283,11 +304,8 @@ class Toc extends \WP_REST_Controller {
 					$new_key = strtr( $old_key, $replacement_keys );
 					$new_bm[ $new_key ] = $val;
 				}
-				$new_bm['_links'] = [
-					'up' => [ 'href' => trailingslashit( $rest_url ) . $new_bm['id'] ],
-					'collection' => [ 'href' => $rest_url ],
-					'about' => [ 'href' => rest_url( 'wp/v2/types/' . $base ) ],
-				];
+				$new_bm['link'] = get_permalink( $new_bm['id'] );
+				$this->linkCollector['back-matter'][] = [ 'href' => trailingslashit( $rest_url ) . $new_bm['id'], 'embeddable' => true ];
 				$back_matter[] = $new_bm;
 			}
 		}

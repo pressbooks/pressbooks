@@ -51,6 +51,7 @@ function init_book() {
 		'schema' => [
 			'description' => __( 'Part ID.', 'pressbooks' ),
 			'type' => 'integer',
+			'context' => [ 'view', 'edit', 'embed' ],
 		],
 	] );
 }
