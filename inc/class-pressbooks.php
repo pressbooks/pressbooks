@@ -30,10 +30,6 @@ class Pressbooks {
 	 */
 	function registerThemeDirectories() {
 
-		// No trailing slash, otherwise we get a double slash bug
-		// See \Pressbooks\Metadata::fixDoubleSlashBug
-		register_theme_directory( PB_PLUGIN_DIR . 'themes-book' );
-
 		/**
 		 * Register additional theme directories.
 		 *
