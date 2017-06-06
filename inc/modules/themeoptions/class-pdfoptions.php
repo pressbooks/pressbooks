@@ -245,18 +245,6 @@ class PDFOptions extends \Pressbooks\Options {
 		);
 
 		add_settings_field(
-			'pdf_image_resolution',
-			__( 'Image resolution', 'pressbooks' ),
-			[ $this, 'renderImageResolutionField' ],
-			$_page,
-			$_section,
-			[
-				'300dpi' => __( 'High (300 DPI)', 'pressbooks' ),
-				'72dpi' => __( 'Low (72 DPI)', 'pressbooks' ),
-			]
-		);
-
-		add_settings_field(
 			'pdf_crop_marks',
 			__( 'Crop Marks', 'pressbooks' ),
 			[ $this, 'renderCropMarksField' ],
@@ -960,23 +948,6 @@ class PDFOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the pdf_image_resolution radio buttons.
-	 *
-	 * @param array $args
-	 */
-	function renderImageResolutionField( $args ) {
-		$this->renderRadioButtons(
-			[
-				'id' => 'pdf_image_resolution',
-				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
-				'option' => 'pdf_image_resolution',
-				'value' => getset( $this->options, 'pdf_image_resolution' ),
-				'choices' => $args,
-			]
-		);
-	}
-
-	/**
 	 * Render the pdf_crop_marks checkbox.
 	 *
 	 * @param array $args
@@ -1391,7 +1362,6 @@ class PDFOptions extends \Pressbooks\Options {
 			'pdf_paragraph_separation' => 'indent',
 			'pdf_sectionopenings' => 'openauto',
 			'pdf_toc' => 1,
-			'pdf_image_resolution' => '300dpi',
 			'pdf_crop_marks' => 0,
 			'pdf_romanize_parts' => 1,
 			'pdf_footnotes_style' => 'footnotes',
@@ -1531,7 +1501,6 @@ class PDFOptions extends \Pressbooks\Options {
 			'pb_theme_options_pdf_predefined', [
 			'pdf_paragraph_separation',
 			'pdf_sectionopenings',
-			'pdf_image_resolution',
 			'pdf_footnotes_style',
 			]
 		);
@@ -1657,18 +1626,6 @@ class PDFOptions extends \Pressbooks\Options {
 			$scss .= "\$page-margin-right-right: $outside; \n";
 			$scss .= "\$page-margin-right-bottom: $bottom; \n";
 			$scss .= "\$page-margin-right-left: $inside; \n";
-		}
-
-		// Image resolution
-		if ( isset( $options['pdf_image_resolution'] ) ) {
-			$resolution = $options['pdf_image_resolution'];
-		} else {
-			$resolution = '300dpi';
-		}
-		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			$scss .= "\$prince-image-resolution: $resolution !default; \n";
-		} else {
-			$scss .= "img { prince-image-resolution: $resolution; } \n";
 		}
 
 		// Should we display crop marks? True or false (default).

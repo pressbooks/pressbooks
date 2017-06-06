@@ -12,15 +12,38 @@ class Posts extends \WP_REST_Posts_Controller {
 		parent::__construct( $post_type );
 
 		$this->namespace = 'pressbooks/v2';
-		add_filter( "rest_{$this->post_type}_query", [ $this, 'overrideDefaultQueryArguments' ] );
+
+		$this->overrideUsingFilterAndActions();
 	}
 
 	/**
+	 * Use object inheritance as little as possible to future-proof against WP API changes
+	 *
+	 * With the exception of the abstract \WP_REST_Controller class, the WordPress API documentation
+	 * strongly suggests not overriding controllers. Instead we are encouraged to create an entirely separate
+	 * controller class for each end point.
+	 *
+	 * Hooks, actions, and `register_rest_field` are fair game.
+	 *
+	 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/#overview-the-future
+	 */
+	private function overrideUsingFilterAndActions() {
+
+		// The post type must have custom-fields support otherwise the meta fields will not appear in the REST API.
+		add_post_type_support( $this->post_type, 'custom-fields' );
+
+		add_filter( "rest_{$this->post_type}_query", [ $this, 'overrideQueryArgs' ] );
+	}
+
+
+	/**
+	 * Override the order the posts are displayed
+	 *
 	 * @param array $args
 	 *
 	 * @return array
 	 */
-	public function overrideDefaultQueryArguments( $args ) {
+	public function overrideQueryArgs( $args ) {
 
 		// TODO: $args come from \Pressbooks\Book::getBookStructure, we should consolidate this somewhere?
 
@@ -31,10 +54,14 @@ class Posts extends \WP_REST_Posts_Controller {
 		return $args;
 	}
 
+	// -------------------------------------------------------------------------------------------------------------------
+	// Overrides
+	// -------------------------------------------------------------------------------------------------------------------
+
 	/**
 	 * @param  \WP_REST_Request $request Full details about the request.
 	 *
-	 * @return true|\WP_Error True if the request has read access, WP_Error object otherwise.
+	 * @return bool|\WP_Error True if the request has read access, WP_Error object otherwise.
 	 */
 	public function get_items_permissions_check( $request ) {
 

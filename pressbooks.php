@@ -79,6 +79,7 @@ if ( ! defined( 'PB_ROOT_THEME' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 // Composer autoloader (if needed)
 // -------------------------------------------------------------------------------------------------------------------
+
 if ( file_exists( $composer = PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 	require_once( $composer );
 } else {
@@ -90,11 +91,11 @@ if ( file_exists( $composer = PB_PLUGIN_DIR . 'vendor/autoload.php' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 // Check minimum requirements
 // -------------------------------------------------------------------------------------------------------------------
-if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) { // @codingStandardsIgnoreLine
-	add_action( 'admin_notices', function () {
+
+if ( ! function_exists( 'pb_meets_minimum_requirementsz' ) && ! @include_once( PB_PLUGIN_DIR . 'compatibility.php' ) ) { // @codingStandardsIgnoreLine
+	return add_action( 'admin_notices', function () {
 		echo '<div id="message" class="error fade"><p>' . __( 'Cannot find Pressbooks install.', 'pressbooks' ) . '</p></div>';
 	} );
-	return;
 } elseif ( ! pb_meets_minimum_requirements() ) {
 	return;
 }
@@ -104,8 +105,7 @@ if ( ! function_exists( 'pb_meets_minimum_requirements' ) && ! @include_once( PB
 // -------------------------------------------------------------------------------------------------------------------
 
 register_activation_hook( __FILE__, function () {
-	$activate = new \Pressbooks\Activation();
-	$activate->registerActivationHook();
+	( new \Pressbooks\Activation() )->registerActivationHook();
 } );
 
 // -------------------------------------------------------------------------------------------------------------------

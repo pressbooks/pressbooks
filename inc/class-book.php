@@ -233,6 +233,8 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		foreach ( $book_structure['part'] as $i => $part ) {
+			// There's no `pb_export` for parts. We instead have `pb_part_invisible` and it doesn't mean the same thing. Force to true.
+			$book_structure['part'][ $i ]['export'] = true;
 			$book_structure['part'][ $i ]['chapters'] = [];
 		}
 

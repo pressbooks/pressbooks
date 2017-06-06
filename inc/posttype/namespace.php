@@ -233,6 +233,59 @@ function register_post_types() {
 	register_post_type( 'custom-css', $args );
 }
 
+/**
+ * Register meta keys for our custom post types (used by REST API)
+ */
+function register_meta() {
+
+	// TODO Change from 'post' to 'chapter,etc' when this bug is fixed:
+	// @see https://core.trac.wordpress.org/ticket/38323
+
+	$defaults = [
+		'show_in_rest' => true,
+		'single' => true,
+		'type' => 'string',
+	];
+
+	\register_meta( 'post', 'pb_export', array_merge( $defaults, [
+		'description' => __( 'Include in exports', 'pressbooks' ),
+		'sanitize_callback' => function( $v ) { return ( $v ? 'on' : null ) ; },
+	] ) );
+
+	\register_meta( 'post', 'pb_show_title', array_merge( $defaults, [
+		'description' => __( 'Show title in exports', 'pressbooks' ),
+		'sanitize_callback' => function( $v ) { return ( $v ? 'on' : null ) ; },
+	] ) );
+
+	\register_meta( 'post', 'pb_ebook_start', array_merge( $defaults, [
+		'description' => __( 'Set as ebook start-point', 'pressbooks' ),
+		'sanitize_callback' => function( $v ) { return ( $v ? 'on' : null ) ; },
+	] ) );
+
+	\register_meta( 'post', 'pb_short_title', array_merge( $defaults, [
+		'description' => __( 'Chapter Short Title (appears in the PDF running header)', 'pressbooks' ),
+	] ) );
+
+	\register_meta( 'post', 'pb_subtitle', array_merge( $defaults, [
+		'description' => __( 'Chapter Subtitle (appears in the Web/ebook/PDF output)', 'pressbooks' ),
+	] ) );
+
+	\register_meta( 'post', 'pb_section_author', array_merge( $defaults, [
+		'description' => __( 'Chapter Author (appears in Web/ebook/PDF output)', 'pressbooks' ),
+	] ) );
+
+	\register_meta( 'post', 'pb_section_license', array_merge( $defaults, [
+		'description' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
+	] ) );
+}
+
+/**
+ * Filters the post updated messages.
+ *
+ * @param array $messages
+ *
+ * @return array
+ */
 function post_type_messages( $messages ) {
 	global $post;
 
