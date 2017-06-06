@@ -33,6 +33,7 @@ class Posts extends \WP_REST_Posts_Controller {
 		add_post_type_support( $this->post_type, 'custom-fields' );
 
 		add_filter( "rest_{$this->post_type}_query", [ $this, 'overrideQueryArgs' ] );
+		add_filter( "rest_prepare_{$this->post_type}", [ $this, 'overrideResponse' ], 10, 2 );
 	}
 
 
@@ -52,6 +53,26 @@ class Posts extends \WP_REST_Posts_Controller {
 		$args['order'] = 'ASC';
 
 		return $args;
+	}
+
+	/**
+	 * Override the response object
+	 *
+	 * @param \WP_REST_Response $response
+	 * @param \WP_Post $post
+	 *
+	 * @return mixed
+	 */
+	public function overrideResponse( $response, $post ) {
+
+		if ( $post->post_type === 'chapter' ) {
+			$response->add_link(
+				'part',
+				trailingslashit( rest_url( sprintf( '%s/%s', $this->namespace, 'parts' ) ) ) . $post->post_parent
+			);
+		}
+
+		return $response;
 	}
 
 	// -------------------------------------------------------------------------------------------------------------------
