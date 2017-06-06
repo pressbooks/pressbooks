@@ -118,6 +118,8 @@ class Toc extends \WP_REST_Controller {
 						'type' => 'object',
 						'properties' => $item,
 					],
+					'context' => [ 'view' ],
+					'readonly' => true,
 				],
 				'part' => [
 					'description' => __( 'Part', 'pressbooks' ),
@@ -133,8 +135,12 @@ class Toc extends \WP_REST_Controller {
 									'properties' => $item,
 								],
 							],
+							'context' => [ 'view' ],
+							'readonly' => true,
 						] ),
 					],
+					'context' => [ 'view' ],
+					'readonly' => true,
 				],
 				'back-matter' => [
 					'description' => __( 'Back Matter', 'pressbooks' ),
@@ -144,6 +150,8 @@ class Toc extends \WP_REST_Controller {
 						'properties' => $item,
 					],
 				],
+				'context' => [ 'view' ],
+				'readonly' => true,
 			],
 		];
 
@@ -156,7 +164,8 @@ class Toc extends \WP_REST_Controller {
 	public function get_collection_params() {
 
 		$params = parent::get_collection_params();
-		unset( $params['page'], $params['per_page'] );
+		$params['context']['default'] = 'view';
+		unset( $params['page'], $params['per_page'], $params['search'] );
 		return $params;
 	}
 
