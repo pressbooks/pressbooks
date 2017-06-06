@@ -151,6 +151,16 @@ class Toc extends \WP_REST_Controller {
 	}
 
 	/**
+	 * @return array
+	 */
+	public function get_collection_params() {
+
+		$params = parent::get_collection_params();
+		unset( $params['page'], $params['per_page'] );
+		return $params;
+	}
+
+	/**
 	 * @param  \WP_REST_Request $request Full details about the request.
 	 *
 	 * @return bool True if the request has read access, WP_Error object otherwise.
