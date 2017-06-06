@@ -41,6 +41,7 @@ function init_book() {
 			$revisions_controller->register_routes();
 		}
 	}
+
 	// Add Part ID to chapters
 	// We disable hierarchical mode but still want to use `post_parent`
 	register_rest_field( 'chapter', 'part', [
@@ -60,7 +61,10 @@ function init_book() {
  * Initialize REST API init for root site
  */
 function init_root() {
-	// TODO
+
+	// Register Books
+	$toc_controller = new Endpoints\Controller\Books();
+	$toc_controller->register_routes();
 }
 
 /**
