@@ -49,7 +49,7 @@ function init_book() {
 		},
 		'update_callback' => __NAMESPACE__ . '\update_part_id',
 		'schema' => [
-			'description' => __( 'Part id.', 'pressbooks' ),
+			'description' => __( 'Part ID.', 'pressbooks' ),
 			'type' => 'integer',
 		],
 	] );
