@@ -848,9 +848,9 @@ abstract class Export {
 	static function injectHouseStyles( $css ) {
 
 		$scan = [
-			'/*__INSERT_PDF_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/scss/partials/_pdf-house-style.scss',
-			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/scss/partials/_epub-house-style.scss',
-			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => PB_PLUGIN_DIR . '/assets/scss/partials/_mobi-house-style.scss',
+			'/*__INSERT_PDF_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_pdf-house-style.scss',
+			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_epub-house-style.scss',
+			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_mobi-house-style.scss',
 		];
 
 		foreach ( $scan as $token => $replace_with ) {

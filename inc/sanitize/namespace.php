@@ -300,6 +300,60 @@ function maybe_https( $url ) {
 }
 
 /**
+ * Search for all possible permutations of CSS url syntax -- url("*"), url('*'), and url(*) -- and update URLs as needed.
+ *
+ * @param string $css
+ * @param string $dir
+ *
+ * @return string
+ */
+function normalize_css_urls( $css, $dir = false ) {
+	$css = preg_replace_callback(
+		'/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', function ( $matches ) use ( $dir ) {
+
+			$url = $matches[3];
+
+			$typography_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/';
+
+			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+				$url = str_replace( 'themes-book/pressbooks-book/', '', $url );
+				$my_asset = realpath( $typography_dir . $url );
+				if ( $my_asset ) {
+					return 'url(' . get_template_directory_uri() . '/assets/book/typography/' . $url . ')';
+				}
+			}
+
+			if ( preg_match( '#^fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+				$my_asset = realpath( $typography_dir . $url );
+				if ( $my_asset ) {
+					return 'url(' . get_template_directory_uri() . '/assets/book/typography/' . $url . ')';
+				}
+			}
+
+			if ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
+				$my_asset = realpath( WP_CONTENT_DIR . '/' . $url );
+				if ( $my_asset ) {
+					return 'url(' . WP_CONTENT_DIR . '/' . $url . ')';
+				}
+			}
+
+			if ( $dir && ! preg_match( '#^https?://#i', $url ) ) {
+				$my_asset = realpath( "$dir/$url" );
+				if ( $my_asset ) {
+					return "url($dir/$url)";
+				}
+			}
+
+			return $matches[0]; // No change
+
+		},
+	$css );
+
+	return $css;
+}
+
+
+/**
  * Allow language tagging on more inline elements.
  *
  * @return null

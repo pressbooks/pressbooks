@@ -26,7 +26,7 @@ class CustomCssTest extends \WP_UnitTestCase {
 
 	public function test_getBaseTheme() {
 
-		$input = file_get_contents( PB_PLUGIN_DIR . 'themes-book/pressbooks-book/style.css' );
+		$input = file_get_contents( WP_CONTENT_DIR . '/themes/pressbooks-book/style.css' );
 		$output = $this->cc->getCustomCssFolder() . sanitize_file_name( 'web.css' );
 
 		file_put_contents( $output, $input );

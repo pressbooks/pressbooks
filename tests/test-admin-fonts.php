@@ -37,7 +37,7 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 				 ->willReturn( $this->_createTmpDir() );
 
 				$stub->method( 'pathToPartials' )
-				 ->willReturn( PB_PLUGIN_DIR . 'assets/scss/partials' );
+				 ->willReturn( WP_CONTENT_DIR . '/themes/pressbooks-book/assets/legacy/styles' );
 
 				return $stub;
 			}

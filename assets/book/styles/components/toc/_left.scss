@@ -1,8 +1,0 @@
-@if $type == 'epub' {
-  @import 'left-epub';
-  @import 'mobi';
-} @else if $type == 'prince' {
-  @import 'left-prince';
-} @else if $type == 'web' {
-  // TODO
-}

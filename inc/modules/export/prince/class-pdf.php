@@ -8,6 +8,7 @@ namespace Pressbooks\Modules\Export\Prince;
 
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Container;
+use function Pressbooks\Sanitize\normalize_css_urls;
 
 class Pdf extends Export {
 
@@ -238,34 +239,7 @@ class Pdf extends Export {
 			$css = static::injectHouseStyles( $scss );
 		}
 
-		// Search for all possible permutations of CSS url syntax: url("*"), url('*'), and url(*)
-		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback(
-			$url_regex, function ( $matches ) use ( $scss_dir ) {
-
-				$url = $matches[3];
-
-				if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-					$my_asset = realpath( PB_PLUGIN_DIR . $url );
-					if ( $my_asset ) {
-						return 'url(' . PB_PLUGIN_DIR . $url . ')';
-					}
-				} elseif ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-					$my_asset = realpath( WP_CONTENT_DIR . '/' . $url );
-					if ( $my_asset ) {
-						return 'url(' . WP_CONTENT_DIR . '/' . $url . ')';
-					}
-				} elseif ( ! preg_match( '#^https?://#i', $url ) ) {
-					$my_asset = realpath( "$scss_dir/$url" );
-					if ( $my_asset ) {
-						return "url($scss_dir/$url)";
-					}
-				}
-
-				return $matches[0]; // No change
-
-			}, $css
-		);
+		$css = normalize_css_urls( $css, $scss_dir );
 
 		if ( WP_DEBUG ) {
 			Container::get( 'Sass' )->debug( $css, $scss, 'prince' );
