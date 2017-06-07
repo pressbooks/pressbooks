@@ -22,7 +22,7 @@ class Books extends \WP_REST_Controller {
 	private $linkCollector = [];
 
 	/**
-	 * Table of contents
+	 * Books
 	 */
 	public function __construct() {
 		$this->namespace = 'pressbooks/v2';
