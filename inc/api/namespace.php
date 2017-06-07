@@ -68,6 +68,8 @@ function init_root() {
 }
 
 /**
+ * Hide endpoints that don't work well with a book
+ *
  * @param array $endpoints
  *
  * @return array
@@ -78,6 +80,8 @@ function hide_incompatible_endpoints( $endpoints ) {
 		if (
 			( strpos( $key, '/wp/v2/posts' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/pages' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/tags' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/categories' ) === 0 ) ||
 			( strpos( $key, '/wp/v2' ) === 0 && strpos( $key, '/revisions' ) !== false )
 		) {
 			unset( $endpoints[ $key ] );
