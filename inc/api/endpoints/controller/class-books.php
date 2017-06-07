@@ -5,6 +5,8 @@ namespace Pressbooks\Api\Endpoints\Controller;
 class Books extends \WP_REST_Controller {
 
 	/**
+	 * Maximum number of books per page
+	 *
 	 * @var int
 	 */
 	const LIMIT = 10;
@@ -118,7 +120,32 @@ class Books extends \WP_REST_Controller {
 	 * @return bool
 	 */
 	public function get_items_permissions_check( $request ) {
+
 		return true;
+	}
+
+	/**
+	 * @param \WP_REST_Request $request
+	 *
+	 * @return bool
+	 */
+	public function get_item_permissions_check( $request ) {
+
+		if ( $request['id'] === get_network()->site_id ) {
+			return false;
+		}
+
+		$allowed = false;
+
+		switch_to_blog( $request['id'] );
+
+		if ( 1 === absint( get_option( 'blog_public' ) ) ) {
+			$allowed = true;
+		}
+
+		restore_current_blog();
+
+		return $allowed;
 	}
 
 	/**
@@ -128,31 +155,68 @@ class Books extends \WP_REST_Controller {
 	 */
 	public function get_items( $request ) {
 
+		if ( ! empty( $request['search'] ) ) {
+			return rest_ensure_response( new \WP_Error( 'invalid-args', 'Search not yet implemented.', [ 'status' => 405 ] ) ); // TODO
+		}
+
 		// Register missing Toc routes
 		$this->toc->register_routes();
 
-		$request_internal = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
-
 		$results = [];
-		foreach ( $this->getBlogIds( $request ) as $blog_id ) {
-			switch_to_blog( $blog_id );
-
-			$response_toc = rest_do_request( $request_internal );
-			$results[] = [
-				'id' => $blog_id,
-				'link' => get_blogaddress_by_id( $blog_id ),
-				'meta' => [], // TODO
-				'toc' => $response_toc->get_data(),
-			];
-			$this->linkCollector['books'][] = [ 'href' => get_rest_url( $blog_id ) ];
-
-			restore_current_blog();
+		foreach ( $this->blogIds( $request ) as $blog_id ) {
+			$response = rest_ensure_response( $this->renderNode( $blog_id ) );
+			$response->add_links( $this->linkCollector );
+			$results[] = $this->prepare_response_for_collection( $response );
+			$this->linkCollector = []; // re-initialize
 		}
+		$response = rest_ensure_response( $results );
 
-		$response = rest_ensure_response( [ 'books' => $results ] );
+		return $response;
+	}
+
+	/**
+	 * @param \WP_REST_Request $request
+	 *
+	 * @return \WP_REST_Response
+	 */
+	public function get_item( $request ) {
+
+		// Register missing Toc routes
+		$this->toc->register_routes();
+
+		$result = $this->renderNode( $request['id'] );
+		$response = rest_ensure_response( $result );
 		$response->add_links( $this->linkCollector );
 
 		return $response;
+	}
+
+	/**
+	 * @param $blog_id
+	 *
+	 * @return array
+	 */
+	private function renderNode( $blog_id ) {
+
+		switch_to_blog( $blog_id );
+
+		$request_toc = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
+		$response_toc = rest_do_request( $request_toc );
+
+		$item = [
+			'id' => $blog_id,
+			'link' => get_blogaddress_by_id( $blog_id ),
+			'meta' => [], // TODO
+			'toc' => $this->prepare_response_for_collection( $response_toc ),
+		];
+
+		$this->linkCollector['api'][] = [ 'href' => get_rest_url( $blog_id ) ];
+
+		restore_current_blog();
+
+		$this->linkCollector['self'][] = [ 'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->rest_base, $blog_id ) ) ];
+
+		return $item;
 	}
 
 	/**
@@ -160,7 +224,7 @@ class Books extends \WP_REST_Controller {
 	 *
 	 * @return array blog ids
 	 */
-	private function getBlogIds( $request ) {
+	private function blogIds( $request ) {
 
 		global $wpdb;
 
