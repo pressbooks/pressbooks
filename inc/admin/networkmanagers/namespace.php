@@ -27,7 +27,7 @@ function add_menu() {
  * Enqueue css and javascript for the network manager administration page
  */
 function admin_enqueues() {
-	$assets = new Assets( 'pressbooks', 'assets/dist' );
+	$assets = new Assets( 'pressbooks', 'plugin', 'assets/dist' );
 
 	wp_enqueue_style( 'pb-network-managers', $assets->getPath( 'styles/network-managers.css' ) );
 	wp_enqueue_script( 'pb-network-managers', $assets->getPath( 'scripts/network-managers.js' ), [ 'jquery' ] );

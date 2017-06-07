@@ -32,8 +32,8 @@
     "pressbooks/pb-api": "^1.1",
     "perchten/rmrdir": "^1.0",
     "sinergi/browser-detector": "^6.1",
-    "vanilla/htmlawed": "v2.2.1.1",
-    "pressbooks/mix": "^1.0"
+    "vanilla/htmlawed": "^2.2.1.1",
+    "pressbooks/mix": "^1.1"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.5",
