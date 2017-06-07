@@ -31,7 +31,7 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
-	 *  Registers routes for TOC
+	 *  Registers routes for Books
 	 */
 	public function register_routes() {
 
