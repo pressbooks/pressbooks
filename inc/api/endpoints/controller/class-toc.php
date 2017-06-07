@@ -164,8 +164,10 @@ class Toc extends \WP_REST_Controller {
 	public function get_collection_params() {
 
 		$params = parent::get_collection_params();
+
 		$params['context']['default'] = 'view';
 		unset( $params['page'], $params['per_page'], $params['search'] );
+
 		return $params;
 	}
 

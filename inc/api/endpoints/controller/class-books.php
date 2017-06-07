@@ -4,6 +4,9 @@ namespace Pressbooks\Api\Endpoints\Controller;
 
 class Books extends \WP_REST_Controller {
 
+	/**
+	 * @var int
+	 */
 	const LIMIT = 10;
 
 	/**
@@ -94,6 +97,19 @@ class Books extends \WP_REST_Controller {
 		];
 
 		return $this->add_additional_fields_schema( $schema );
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_collection_params() {
+
+		$params = parent::get_collection_params();
+
+		$params['context']['default'] = 'view';
+		$params['per_page']['maximum'] = self::LIMIT;
+
+		return $params;
 	}
 
 	/**
