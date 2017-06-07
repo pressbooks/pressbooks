@@ -67,10 +67,8 @@ class Posts extends \WP_REST_Posts_Controller {
 	public function overrideResponse( $response, $post ) {
 
 		if ( $post->post_type === 'chapter' ) {
-			$response->add_link(
-				'part',
-				trailingslashit( rest_url( sprintf( '%s/%s', $this->namespace, 'parts' ) ) ) . $post->post_parent
-			);
+			// Add rest link to associated part
+			$response->add_link( 'part', trailingslashit( rest_url( sprintf( '%s/%s', $this->namespace, 'parts' ) ) ) . $post->post_parent );
 		}
 
 		return $response;
