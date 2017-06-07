@@ -34,6 +34,7 @@ class Posts extends \WP_REST_Posts_Controller {
 
 		add_filter( "rest_{$this->post_type}_query", [ $this, 'overrideQueryArgs' ] );
 		add_filter( "rest_prepare_{$this->post_type}", [ $this, 'overrideResponse' ], 10, 2 );
+		add_filter( "rest_{$this->post_type}_trashable", [ $this, 'overrideTrashable' ], 10, 2 );
 	}
 
 
@@ -73,6 +74,29 @@ class Posts extends \WP_REST_Posts_Controller {
 		}
 
 		return $response;
+	}
+
+	/**
+	 * @param bool $supports_trash
+	 * @param \WP_Post $post
+	 *
+	 * @return bool
+	 */
+	public function overrideTrashable( $supports_trash, $post ) {
+
+		global $wpdb;
+
+		if ( $post->post_type === 'part' && $supports_trash ) {
+			// Don't delete a part if it has chapters
+			$pids = $wpdb->get_col(
+				$wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d AND (post_status != 'trash' AND post_status != 'inherit') LIMIT 1 ", $post->ID )
+			);
+			if ( ! empty( $pids ) ) {
+				$supports_trash = false;
+			}
+		}
+
+		return $supports_trash;
 	}
 
 	// -------------------------------------------------------------------------------------------------------------------
