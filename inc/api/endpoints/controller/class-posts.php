@@ -10,9 +10,7 @@ class Posts extends \WP_REST_Posts_Controller {
 	public function __construct( $post_type ) {
 
 		parent::__construct( $post_type );
-
 		$this->namespace = 'pressbooks/v2';
-
 		$this->overrideUsingFilterAndActions();
 	}
 
@@ -27,7 +25,7 @@ class Posts extends \WP_REST_Posts_Controller {
 	 *
 	 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/#overview-the-future
 	 */
-	private function overrideUsingFilterAndActions() {
+	protected function overrideUsingFilterAndActions() {
 
 		// The post type must have custom-fields support otherwise the meta fields will not appear in the REST API.
 		add_post_type_support( $this->post_type, 'custom-fields' );
