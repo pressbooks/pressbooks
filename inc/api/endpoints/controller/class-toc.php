@@ -9,7 +9,7 @@ class Toc extends \WP_REST_Controller {
 	/**
 	 * @var array
 	 */
-	private $linkCollector = [];
+	protected $linkCollector = [];
 
 	/**
 	 * Table of contents
@@ -164,8 +164,10 @@ class Toc extends \WP_REST_Controller {
 	public function get_collection_params() {
 
 		$params = parent::get_collection_params();
+
 		$params['context']['default'] = 'view';
 		unset( $params['page'], $params['per_page'], $params['search'] );
+
 		return $params;
 	}
 
@@ -211,7 +213,7 @@ class Toc extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	private function fixBookStructure( array $book_structure, $has_permission ) {
+	protected function fixBookStructure( array $book_structure, $has_permission ) {
 
 		$toc = [];
 
@@ -237,7 +239,7 @@ class Toc extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	private function fixFrontMatterStructure( array $book_structure, $has_permission, array $replacement_keys ) {
+	protected function fixFrontMatterStructure( array $book_structure, $has_permission, array $replacement_keys ) {
 
 		$base = 'front-matter';
 		$rest_url = rest_url( sprintf( '%s/%s', $this->namespace, $base ) );
@@ -267,7 +269,7 @@ class Toc extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	private function fixPartChapterStructure( array $book_structure, $has_permission, array $replacement_keys ) {
+	protected function fixPartChapterStructure( array $book_structure, $has_permission, array $replacement_keys ) {
 
 		$part_base = 'parts';
 		$part_rest_url = rest_url( sprintf( '%s/%s', $this->namespace, $part_base ) );
@@ -310,7 +312,7 @@ class Toc extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	private function fixBackMatterStructure( array $book_structure, $has_permission, array $replacement_keys ) {
+	protected function fixBackMatterStructure( array $book_structure, $has_permission, array $replacement_keys ) {
 
 		$base = 'back-matter';
 		$rest_url = rest_url( sprintf( '%s/%s', $this->namespace, $base ) );
