@@ -120,7 +120,7 @@ class PublishOptions extends \Pressbooks\Options {
 	 */
 	function display() {
 		ob_start(); ?>
-		<p><?php _e( 'Once your book is finished, you can download the files and submit them to ebookstores and print-on-demand providers. And if you like, Pressbooks can print your books, and ship them right to your door.', 'pressbooks' ); ?></p>
+		<p><?php _e( 'Once your book is finished, you can download the files and submit them to ebookstores and print-on-demand providers.', 'pressbooks' ); ?></p>
 
 		<div class="postbox">
 			<div class="inside">

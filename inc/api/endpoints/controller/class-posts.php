@@ -10,9 +10,7 @@ class Posts extends \WP_REST_Posts_Controller {
 	public function __construct( $post_type ) {
 
 		parent::__construct( $post_type );
-
 		$this->namespace = 'pressbooks/v2';
-
 		$this->overrideUsingFilterAndActions();
 	}
 
@@ -27,12 +25,14 @@ class Posts extends \WP_REST_Posts_Controller {
 	 *
 	 * @see https://developer.wordpress.org/rest-api/extending-the-rest-api/controller-classes/#overview-the-future
 	 */
-	private function overrideUsingFilterAndActions() {
+	protected function overrideUsingFilterAndActions() {
 
 		// The post type must have custom-fields support otherwise the meta fields will not appear in the REST API.
 		add_post_type_support( $this->post_type, 'custom-fields' );
 
 		add_filter( "rest_{$this->post_type}_query", [ $this, 'overrideQueryArgs' ] );
+		add_filter( "rest_prepare_{$this->post_type}", [ $this, 'overrideResponse' ], 10, 2 );
+		add_filter( "rest_{$this->post_type}_trashable", [ $this, 'overrideTrashable' ], 10, 2 );
 	}
 
 
@@ -52,6 +52,47 @@ class Posts extends \WP_REST_Posts_Controller {
 		$args['order'] = 'ASC';
 
 		return $args;
+	}
+
+	/**
+	 * Override the response object
+	 *
+	 * @param \WP_REST_Response $response
+	 * @param \WP_Post $post
+	 *
+	 * @return mixed
+	 */
+	public function overrideResponse( $response, $post ) {
+
+		if ( $post->post_type === 'chapter' ) {
+			// Add rest link to associated part
+			$response->add_link( 'part', trailingslashit( rest_url( sprintf( '%s/%s', $this->namespace, 'parts' ) ) ) . $post->post_parent );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * @param bool $supports_trash
+	 * @param \WP_Post $post
+	 *
+	 * @return bool
+	 */
+	public function overrideTrashable( $supports_trash, $post ) {
+
+		global $wpdb;
+
+		if ( $post->post_type === 'part' && $supports_trash ) {
+			// Don't delete a part if it has chapters
+			$pids = $wpdb->get_col(
+				$wpdb->prepare( "SELECT ID FROM {$wpdb->posts} WHERE post_parent = %d AND (post_status != 'trash' AND post_status != 'inherit') LIMIT 1 ", $post->ID )
+			);
+			if ( ! empty( $pids ) ) {
+				$supports_trash = false;
+			}
+		}
+
+		return $supports_trash;
 	}
 
 	// -------------------------------------------------------------------------------------------------------------------
@@ -92,6 +133,30 @@ class Posts extends \WP_REST_Posts_Controller {
 		}
 
 		return false;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function get_item_schema() {
+
+		$schema = parent::get_item_schema();
+
+		// To reduce the number of HTTP requests required, clients may wish to fetch a resource as well as the linked resources.
+		// The _embed parameter indicates to the server that the response should include these embedded resources.
+		// @see https://developer.wordpress.org/rest-api/using-the-rest-api/global-parameters/#_embed
+
+		if ( isset( $_GET['_embed'] ) ) {
+			if ( isset( $schema['properties']['content'] ) ) {
+				$schema['properties']['content']['context'][] = 'embed';
+				$schema['properties']['content']['properties']['rendered']['context'][] = 'embed';
+			}
+			if ( isset( $schema['properties']['meta'] ) ) {
+				$schema['properties']['meta']['context'][] = 'embed';
+			}
+		}
+
+		return $schema;
 	}
 
 }

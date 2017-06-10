@@ -41,6 +41,7 @@ function init_book() {
 			$revisions_controller->register_routes();
 		}
 	}
+
 	// Add Part ID to chapters
 	// We disable hierarchical mode but still want to use `post_parent`
 	register_rest_field( 'chapter', 'part', [
@@ -51,6 +52,7 @@ function init_book() {
 		'schema' => [
 			'description' => __( 'Part ID.', 'pressbooks' ),
 			'type' => 'integer',
+			'context' => [ 'view', 'edit', 'embed' ],
 		],
 	] );
 }
@@ -59,10 +61,15 @@ function init_book() {
  * Initialize REST API init for root site
  */
 function init_root() {
-	// TODO
+
+	// Register Books
+	$toc_controller = new Endpoints\Controller\Books();
+	$toc_controller->register_routes();
 }
 
 /**
+ * Hide endpoints that don't work well with a book
+ *
  * @param array $endpoints
  *
  * @return array
@@ -73,6 +80,8 @@ function hide_incompatible_endpoints( $endpoints ) {
 		if (
 			( strpos( $key, '/wp/v2/posts' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/pages' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/tags' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/categories' ) === 0 ) ||
 			( strpos( $key, '/wp/v2' ) === 0 && strpos( $key, '/revisions' ) !== false )
 		) {
 			unset( $endpoints[ $key ] );
