@@ -57,6 +57,7 @@ add_filter( 'rest_index', '\Pressbooks\Api\add_help_link' );
 
 if ( $is_book ) {
 	add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
+	add_action( 'rest_api_init', '\Pressbooks\Api\init_metadata' );
 	add_filter( 'rest_endpoints', 'Pressbooks\Api\hide_incompatible_endpoints' );
 	add_filter( 'rest_url', 'Pressbooks\Api\fix_book_urls', 10, 2 );
 } else {
