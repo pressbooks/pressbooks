@@ -238,6 +238,7 @@ function filter_title( $title ) {
 		'span' => array( 'class' => array() ),
 		'em' => array(),
 		'strong' => array(),
+		'del' => [],
 	);
 	return wp_kses( $title, $allowed );
 }
