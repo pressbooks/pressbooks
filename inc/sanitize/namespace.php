@@ -240,6 +240,7 @@ function filter_title( $title ) {
 		'span' => [ 'class' => [] ],
 		'em' => [],
 		'strong' => [],
+		'del' => [],
 	];
 	return wp_kses( $title, $allowed );
 }
