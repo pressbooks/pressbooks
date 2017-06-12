@@ -1,1 +1,60 @@
-jQuery(function(e){e("#pb-export-button").click(function(){e(".export-file-container").unbind("mouseenter mouseleave"),e("#loader").show(),e("#pb-export-button").hide(),e("#pb-export-form").submit()}),e(".export-file-container").hover(function(){e(this).children(".file-actions").css("visibility","visible")},function(){e(this).children(".file-actions").css("visibility","hidden")}),e("#pb-export-form").find("input").each(function(){var t,i=e(this).attr("name"),o=Cookies.get("pb_"+i);void 0===o?"export_formats[pdf]"==i||"export_formats[mpdf]"==i||"export_formats[epub]"==i||"export_formats[mobi]"==i?e(this).prop("checked",!0):e(this).prop("checked",!1):(t="boolean"==typeof o?o:"true"===o,e(this).prop("checked",t)),e(this).attr("disabled")&&e(this).prop("checked",!1)}).change(function(){Cookies.set("pb_"+e(this).attr("name"),e(this).prop("checked"),{path:"/",expires:365})})});
+// This script is loaded when a user is on the [ Export ] page
+
+jQuery(function ($) {
+    /* Swap out and animate the 'Export Your Book' button */
+    $('#pb-export-button').click(function () {
+        $('.export-file-container').unbind('mouseenter mouseleave'); // Disable Download & Delete Buttons
+        $('#loader').show();
+        $('#pb-export-button').hide();
+        $('#pb-export-form').submit();
+    });
+    /* Show and hide download & delete button */
+    $('.export-file-container').hover(
+        function () {
+            $(this).children('.file-actions').css('visibility', 'visible');
+        },
+        function () {
+            $(this).children('.file-actions').css('visibility', 'hidden');
+        }
+    );
+
+    /* Remember User Checkboxes */
+    $('#pb-export-form').find('input').each(function () {
+        var name = $(this).attr('name');
+        var val = Cookies.get('pb_' + name);
+        var v;
+        // Defaults
+        if (typeof val === 'undefined') {
+            // Defaults
+            if (
+                'export_formats[pdf]' == name ||
+                'export_formats[mpdf]' == name ||
+                'export_formats[epub]' == name ||
+                'export_formats[mobi]' == name
+            ) {
+                $(this).prop('checked', true);
+            }
+            else {
+                $(this).prop('checked', false);
+            }
+        }
+        else {
+            // Toggle based on user's cookie
+            if (typeof val === 'boolean') {
+                v = val;
+            } else {
+                v = (val === 'true');
+            }
+            $(this).prop('checked', v);
+        }
+				if ( $(this).attr('disabled') ) {
+					$(this).prop('checked', false);
+				}
+    }).change(function () {
+      Cookies.set('pb_' + $(this).attr('name'), $(this).prop('checked'), {
+            path: '/',
+            expires: 365
+        });
+    });
+
+});

@@ -54,7 +54,7 @@ IMPORTANT!
 
  1. Copy/move Pressbooks plugin files to: `__PATH_TO_YOUR_SITE__/wp-content/plugins/pressbooks/*`.
 
- 2. Move the file found at `__PATH_TO_YOUR_SITE__/wp-content/plugins/pressbooks/autoloader.php` to `__PATH_TO_YOUR_SITE__/wp-content/mu-plugins/autoloader.php` (you may need to create an `mu-plugins` directory).
+ 2. Move the file found at `__PATH_TO_YOUR_SITE__/wp-content/plugins/pressbooks/hm-autoloader.php` to `__PATH_TO_YOUR_SITE__/wp-content/mu-plugins/hm-autoloader.php` (you may need to create an `mu-plugins` directory).
 
  3. Log out, log in, navigate to: My Sites → Network Admin → Dashboard.
 

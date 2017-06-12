@@ -1,1 +1,5 @@
-!function(o){o(function(){o(".pb_catalog_color").wpColorPicker()})}(jQuery);
+(function ($) {
+  $(function () {
+    $('.pb_catalog_color').wpColorPicker();
+  });
+}(jQuery));
