@@ -1,11 +1,1 @@
-jQuery(function ($) {
-	$('#theme_lock' ).change( function() {
-		if ( ! this.checked ) {
-			if ( window.confirm( PB_ThemeLockToken.confirmation ) ) {
-				$('#theme_lock' ).attr('checked', false);
-			} else {
-				$('#theme_lock' ).attr('checked', true);
-			}
-		}
-	});
-});
+jQuery(function(e){e("#theme_lock").change(function(){this.checked||(window.confirm(PB_ThemeLockToken.confirmation)?e("#theme_lock").attr("checked",!1):e("#theme_lock").attr("checked",!0))})});
