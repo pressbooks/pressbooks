@@ -8,27 +8,39 @@
 
 namespace Pressbooks\Modules\SearchAndReplace;
 
-use Pressbooks\Modules\SearchAndReplace\Search;
-use Pressbooks\Modules\SearchAndReplace\Result;
 use PressbooksMix\Assets;
 
 class SearchAndReplace {
+
+	/**
+	 * @var SearchAndReplace
+	 */
 	private static $instance = null;
 
+	/**
+	 * @return SearchAndReplace|null
+	 */
 	static function init() {
 		if ( is_admin() ) {
 			if ( is_null( self::$instance ) ) {
-				self::$instance = new \Pressbooks\Modules\SearchAndReplace\SearchAndReplace();
+				self::$instance = new self;
 			}
 			return self::$instance;
 		}
+		return null;
 	}
 
+	/**
+	 * Constructor
+	 */
 	function __construct() {
-		add_filter( 'admin_menu', [ &$this, 'adminMenu' ] );
-		add_action( 'load-tools_page_pressbooks-search-and-replace', [ &$this, 'searchHead' ] );
+		add_filter( 'admin_menu', [ $this, 'adminMenu' ] );
+		add_action( 'load-tools_page_pressbooks-search-and-replace', [ $this, 'searchHead' ] );
 	}
 
+	/**
+	 * Load styles and scripts
+	 */
 	function searchHead() {
 		$assets = new Assets( 'pressbooks', 'assets/dist' );
 		wp_enqueue_style( 'search-and-replace', $assets->getPath( 'styles/search-and-replace.css' ) );
@@ -37,12 +49,18 @@ class SearchAndReplace {
 		wp_enqueue_script( 'search-and-replace' );
 	}
 
+	/**
+	 * @return array
+	 */
 	function getL10n() {
 		return [
 		  'warning_text' => __( 'Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this will do what you want it to do?', 'pressbooks' ),
 		];
 	}
 
+	/**
+	 * Add admin page
+	 */
 	function adminMenu() {
 		if ( current_user_can( 'administrator' ) ) {
 			add_management_page(
@@ -50,13 +68,17 @@ class SearchAndReplace {
 				__( 'Search & Replace', 'pressbooks' ),
 				'administrator',
 				'pressbooks-search-and-replace',
-				[ &$this, 'adminScreen' ]
+				[ $this, 'adminScreen' ]
 			);
 		}
 	}
 
+	/**
+	 * Callable for add_management_page
+	 */
 	function adminScreen() {
 		$searches = Search::getSearches();
+
 		if ( isset( $_POST['search_pattern'] ) && ! wp_verify_nonce( $_POST['pressbooks-search-and-replace-nonce'], 'search' ) ) {
 			return;
 		}
@@ -86,10 +108,12 @@ class SearchAndReplace {
 		$source = isset( $_POST['source'] ) ? stripslashes( $_POST['source'] ) : '';
 
 		if ( Search::validSearch( $source ) && ( isset( $_POST['search'] ) || isset( $_POST['replace'] ) || isset( $_POST['replace_and_save'] ) ) ) {
+
+			/** @var \Pressbooks\Modules\SearchAndReplace\Search $searcher */
 			$searcher = new $source;
 
 			// Enable regex mode
-			$searcher->regex = ! empty( $_POST['regex'] );
+			$searcher->regex = defined( 'PB_ENABLE_REGEX_SEARCHREPLACE' ) && PB_ENABLE_REGEX_SEARCHREPLACE && ! empty( $_POST['regex'] );
 
 			// Make sure no one sneaks in with a replace
 			if ( ! current_user_can( 'administrator' ) ) {
