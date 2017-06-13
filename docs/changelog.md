@@ -4,6 +4,9 @@ title: Changelog
 permalink: /changelog/
 ---
 
+### 3.9.10
+* **Feature:** Strikethrough text (the `<del>` tag) can now be used in front matter, part, chapter and back matter titles (see #790).
+
 ### 3.9.9
 **NOTICE:** Pressbooks now requires [WordPress 4.7.5](https://wordpress.org/news/2017/05/wordpress-4-7-5/).
 
