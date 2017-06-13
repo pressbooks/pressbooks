@@ -25,7 +25,7 @@ abstract class Search {
 	 * @param int $offset
 	 * @param string $orderby
 	 *
-	 * @return array
+	 * @return Result[] array of result objects
 	 */
 	abstract public function find( $pattern, $limit, $offset, $orderby );
 
