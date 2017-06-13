@@ -7,6 +7,15 @@
 namespace Pressbooks\Modules\SearchAndReplace\Types;
 
 class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
+
+	/**
+	 * @param $pattern
+	 * @param $limit
+	 * @param $offset
+	 * @param $orderby
+	 *
+	 * @return \Pressbooks\Modules\SearchAndReplace\Result[]
+	 */
 	function find( $pattern, $limit, $offset, $orderby ) {
 		global $wpdb;
 		$results = [];
@@ -70,6 +79,11 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 		return $results;
 	}
 
+	/**
+	 * @param object $result
+	 *
+	 * @return array
+	 */
 	function getOptions( $result ) {
 		$options[] = '<a href="' . get_permalink( $result->id ) . '">' . __( 'view', 'pressbooks' ) . '</a>';
 		if ( current_user_can( 'edit_post', $result->id ) ) {
@@ -77,7 +91,12 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 		}
 		return $options;
 	}
+
+	/**
+	 * @param object $result
+	 */
 	function show( $result ) {
+		$type = '';
 		switch ( get_post_type( $result->id ) ) :
 			case 'part':
 				$type = __( 'Part', 'pressbooks' );
@@ -95,22 +114,32 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 		printf( __( '%1$s ID #%2$d: %1$s', 'pressbooks' ), $type, $result->id, $result->title );
 	}
 
+	/**
+	 * @param int $id
+	 *
+	 * @return string
+	 */
 	function getContent( $id ) {
 		global $wpdb;
-		$post = $wpdb->get_row( $wpdb->prepare( "SELECT post_content FROM {$wpdb->prefix}posts WHERE id=%d", $id ) );
+		$post = $wpdb->get_row( $wpdb->prepare( "SELECT post_content FROM {$wpdb->posts} WHERE id=%d", $id ) );
 		return $post->post_content;
 	}
 
+	/**
+	 * @param int $id
+	 * @param string $content
+	 */
 	function replaceContent( $id, $content ) {
 		global $wpdb;
 		$wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->posts} SET post_content=%s WHERE ID=%d", $content, $id ) );
 		wp_cache_flush();
 	}
 
+	/**
+	 * @return string
+	 */
 	function name() {
 		return __( 'Content Text', 'pressbooks' );
 	}
-
-
 
 }

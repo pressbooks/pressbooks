@@ -6,21 +6,51 @@
 
 namespace Pressbooks\Modules\SearchAndReplace;
 
-class Search {
-	var $search = null;
-	var $replace = null;
-	var $search_params = null;
-	var $save = false;
-	var $source = null;
-	var $error = null;
-	var $regex = false;
+abstract class Search {
 
-	function name() {
-		return '';
-	}
+	/** @var mixed */
+	public $replace;
 
+	/** @var bool */
+	public $regex = false;
+
+	/**
+	 * @return string
+	 */
+	abstract public function name();
+
+	/**
+	 * @param string $pattern
+	 * @param int $limit
+	 * @param int $offset
+	 * @param string $orderby
+	 *
+	 * @return array
+	 */
+	abstract public function find( $pattern, $limit, $offset, $orderby );
+
+	/**
+	 * @param int $id
+	 * @param string $content
+	 *
+	 * @return void
+	 */
+	abstract public function replaceContent( $id, $content );
+
+	/**
+	 * @param int $id
+	 *
+	 * @return string
+	 */
+	abstract public function getContent( $id );
+
+	/**
+	 * @param string $expr
+	 *
+	 * @return null|string
+	 */
 	function regexValidate( $expr ) {
-		// evaluate expression without imput and capture potential error message
+		// evaluate expression without input and capture potential error message
 		$regex_error = 'invalid';
 		$error_handler = function( $errno, $errstr, $errfile, $errline ) use ( &$regex_error ) {
 			$regex_error = preg_replace( '/(.*?):/', '', $errstr, 1 );
@@ -45,6 +75,16 @@ class Search {
 		return null;
 	}
 
+	/**
+	 * @param string $search
+	 * @param string $replace
+	 * @param int $limit
+	 * @param int $offset
+	 * @param string $orderby
+	 * @param bool $save
+	 *
+	 * @return \Pressbooks\Modules\SearchAndReplace\Result[]
+	 */
 	function searchAndReplace( $search, $replace, $limit, $offset, $orderby, $save = false ) {
 		// escape potential backreferences when not in regex mode
 		if ( ! $this->regex ) {
@@ -53,12 +93,20 @@ class Search {
 		}
 		$this->replace = $replace;
 		$results = $this->searchForPattern( $search, $limit, $offset, $orderby );
-		if ( false !== $results && $save ) {
+		if ( is_array( $results ) && $save ) {
 			$this->replace( $results );
 		}
 		return $results;
 	}
 
+	/**
+	 * @param string $search
+	 * @param int $limit
+	 * @param int $offset
+	 * @param string $orderby
+	 *
+	 * @return string|\Pressbooks\Modules\SearchAndReplace\Result[]
+	 */
 	function searchForPattern( $search, $limit, $offset, $orderby ) {
 		if ( ! in_array( $orderby, [ 'asc', 'desc' ], true ) ) {
 			$orderby = 'asc';
@@ -79,11 +127,17 @@ class Search {
 				return $this->find( '@' . preg_quote( $search, '@' ) . '@', $limit, $offset, $orderby );
 			}
 		}
+
 		return __( 'No search pattern.', 'pressbooks' );
 	}
 
+	/**
+	 * Scan types/*.php directory for classes we can use
+	 *
+	 * @return array
+	 */
 	static function getSearches() {
-		global $search_types;
+		static $search_types = null; // Cheap cache
 		if ( ! is_array( $search_types ) ) {
 			$classes = [];
 			$files = glob( __DIR__ . '/types/*.php' );
@@ -99,6 +153,11 @@ class Search {
 		return $search_types;
 	}
 
+	/**
+	 * @param string $class
+	 *
+	 * @return bool
+	 */
 	static function validSearch( $class ) {
 		$classes = Search::getSearches();
 		foreach ( $classes as $item ) {
@@ -109,6 +168,13 @@ class Search {
 		return false;
 	}
 
+	/**
+	 * @param string $pattern
+	 * @param string $content
+	 * @param int $id
+	 *
+	 * @return array|false
+	 */
 	function matches( $pattern, $content, $id ) {
 		if ( preg_match_all( $pattern, $content, $matches, PREG_OFFSET_CAPTURE ) > 0 ) {
 			$results = [];
@@ -174,9 +240,10 @@ class Search {
 		return false;
 	}
 
+	/**
+	 * @param array $results
+	 */
 	function replace( $results ) {
-		global $wpdb;
-
 		// Update database, if appropriate
 		if ( count( $results ) > 0 ) {
 			// We only do the first replace of any set, as that will cover everything
@@ -190,6 +257,12 @@ class Search {
 		}
 	}
 
+	/**
+	 * @param int $id
+	 * @param int $offset
+	 * @param int $length
+	 * @param string $replace
+	 */
 	function replaceInline( $id, $offset, $length, $replace ) {
 		$content = $this->getContent( $id );
 
