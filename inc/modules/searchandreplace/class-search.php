@@ -6,8 +6,6 @@
 
 namespace Pressbooks\Modules\SearchAndReplace;
 
-use Pressbooks\Modules\SearchAndReplace\Result;
-
 class Search {
 	var $search = null;
 	var $replace = null;
@@ -87,17 +85,12 @@ class Search {
 	static function getSearches() {
 		global $search_types;
 		if ( ! is_array( $search_types ) ) {
-			$available = get_declared_classes();
-			$files = glob( PB_PLUGIN_DIR . 'inc/modules/searchandreplace/types/*.php' );
-			if ( ! empty( $files ) ) {
-				foreach ( $files as $file ) {
-					include_once( $file );
-				}
-			}
 			$classes = [];
-			$available = array_diff( get_declared_classes(), $available );
-			if ( count( $available ) > 0 ) {
-				foreach ( $available as $class ) {
+			$files = glob( __DIR__ . '/types/*.php' );
+			foreach ( $files as $file ) {
+				preg_match( '/class-(.*?)\.php/', $file, $match );
+				$class = __NAMESPACE__ . '\Types\\' . ucfirst( $match[1] );
+				if ( class_exists( $class ) ) {
 					$classes[] = new $class;
 				}
 			}

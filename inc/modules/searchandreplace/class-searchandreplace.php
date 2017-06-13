@@ -8,8 +8,6 @@
 
 namespace Pressbooks\Modules\SearchAndReplace;
 
-use Pressbooks\Modules\SearchAndReplace\Search;
-use Pressbooks\Modules\SearchAndReplace\Result;
 use PressbooksMix\Assets;
 
 class SearchAndReplace {
