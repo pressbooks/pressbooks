@@ -193,6 +193,10 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$test = '<span class="pb" style="font-weight:bold;"><i><b>Foobar</b></i></span><p /><div>Foobaz</div>';
 		$test = \Pressbooks\Sanitize\filter_title( $test );
 		$this->assertEquals( '<span class="pb">Foobar</span>Foobaz', $test );
+
+		$test = '<del><strike>Keep me</strike></del>';
+		$test = \Pressbooks\Sanitize\filter_title( $test );
+		$this->assertEquals( '<del>Keep me</del>', $test );
 	}
 
 
