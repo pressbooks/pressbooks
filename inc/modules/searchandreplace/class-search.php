@@ -173,10 +173,14 @@ abstract class Search {
 	 * @param string $content
 	 * @param int $id
 	 *
-	 * @return array|false
+	 * @return \Pressbooks\Modules\SearchAndReplace\Result[]|false
 	 */
 	function matches( $pattern, $content, $id ) {
 		if ( preg_match_all( $pattern, $content, $matches, PREG_OFFSET_CAPTURE ) > 0 ) {
+
+			// Reduce memory usage by doing preg_replace() for the same $pattern/$replacement combination only once
+			$content_replace = preg_replace( $pattern, $this->replace, $content );
+
 			$results = [];
 			foreach ( $matches[0] as $found ) {
 				$result = new Result();
@@ -231,7 +235,7 @@ abstract class Search {
 						$result->replace .= '&hellip;';
 					}
 					// And the real thing
-					$result->content = preg_replace( $pattern, $this->replace, $content );
+					$result->content = $content_replace;
 				}
 				$results[] = $result;
 			}

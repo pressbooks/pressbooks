@@ -9,6 +9,9 @@ namespace Pressbooks\Modules\SearchAndReplace;
 class Result {
 
 	/** @var string */
+	public $title;
+
+	/** @var string */
 	public $search;
 
 	/** @var string */
