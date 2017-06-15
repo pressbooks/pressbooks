@@ -32,9 +32,15 @@
         <exclude-pattern>/api/endpoints/controller/*</exclude-pattern>
     </rule>
 
-    <!-- Disable Side Effects rule for the bootstrapping file and those where we have to include WordPress core files. -->
+    <!-- Disable Side Effects rule for bootstrapping file, extends WordPress core, cron scripts -->
     <rule ref="PSR1.Files.SideEffects">
-        <exclude-pattern>/pressbooks.php</exclude-pattern>
+        <exclude-pattern>/pressbooks-vip.php</exclude-pattern>
+        <exclude-pattern>/bin/*</exclude-pattern>
+    </rule>
+
+    <!-- Disable Namespaced Functions for cron scripts -->
+    <rule ref="HM.Functions.NamespacedFunctions">
+        <exclude-pattern>/bin/*</exclude-pattern>
     </rule>
 
     <exclude-pattern>/hm-autoloader.php</exclude-pattern>

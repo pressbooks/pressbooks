@@ -66,7 +66,7 @@ function mce_buttons_3( $buttons ) {
  * @return array
  */
 function mce_button_scripts( $plugin_array ) {
-	$assets = new Assets( 'pressbooks', 'assets/dist' );
+	$assets = new Assets( 'pressbooks', 'plugin' );
 
 	$plugin_array['apply_class'] = $assets->getPath( 'scripts/applyclass.js' );
 	$plugin_array['textboxes'] = $assets->getPath( 'scripts/textboxes.js' );

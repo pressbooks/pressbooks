@@ -29,7 +29,7 @@ $metakeys = array(
  * ------------------------------------------------------------------------ */
 
 function pressbooks_book_info_page () {
-	$assets = new Assets( 'pressbooks', 'assets/dist' );
+	$assets = new Assets( 'pressbooks', 'plugin' );
 
 	if ( is_front_page() ) {
 		wp_enqueue_style( 'pressbooks-book-info', get_template_directory_uri() . '/css/book-info.css', [], null, 'all' );

@@ -131,7 +131,7 @@ function _base_url() {
 // Variables
 // -------------------------------------------------------------------------------------------------------------------
 
-$assets = new Assets( 'pressbooks', 'assets/dist' );
+$assets = new Assets( 'pressbooks', 'plugin' );
 $catalog = new PB_Catalog( absint( $pb_user_id ) ); // Note: $pb_user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();
 $books = _books( $catalog );
