@@ -34,7 +34,7 @@
 
     <!-- Disable Side Effects rule for bootstrapping file, extends WordPress core, cron scripts -->
     <rule ref="PSR1.Files.SideEffects">
-        <exclude-pattern>/pressbooks-vip.php</exclude-pattern>
+        <exclude-pattern>/pressbooks.php</exclude-pattern>
         <exclude-pattern>/bin/*</exclude-pattern>
     </rule>
 
