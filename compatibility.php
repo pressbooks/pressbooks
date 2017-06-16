@@ -45,10 +45,12 @@ function pb_meets_minimum_requirements() {
 	}
 
 	// Is Pressbooks active?
-	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-	if ( ! is_plugin_active( 'pressbooks/pressbooks.php' ) ) {
-		add_action( 'admin_notices', '_pb_disabled' );
-		$is_compatible = false;
+	if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+		include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+		if ( ! is_plugin_active( 'pressbooks/pressbooks.php' ) ) {
+			add_action( 'admin_notices', '_pb_disabled' );
+			$is_compatible = false;
+		}
 	}
 
 	return $is_compatible;
