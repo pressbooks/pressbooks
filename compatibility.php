@@ -44,6 +44,13 @@ function pb_meets_minimum_requirements() {
 		$is_compatible = false;
 	}
 
+	// Is Pressbooks active?
+	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	if ( ! is_plugin_active( 'pressbooks/pressbooks.php' ) ) {
+		add_action( 'admin_notices', '_pb_disabled' );
+		$is_compatible = false;
+	}
+
 	return $is_compatible;
 }
 
@@ -70,5 +77,14 @@ function _pb_minimum_wp() {
 		esc_attr__( 'Pressbooks will not work with your version of WordPress. Pressbooks requires a dedicated install of WordPress Multisite, version %s or greater. Please upgrade WordPress if you would like to use Pressbooks.', 'pressbooks' ),
 		esc_attr( $pb_minimum_wp )
 	);
+	echo '</p></div>';
+}
+
+/**
+ * Echo message about Pressbooks not active
+ */
+function _pb_disabled() {
+	echo '<div id="message" class="error fade"><p>';
+	_e( 'The Pressbooks plugin is inactive, but you have active plugins that require Pressbooks. This is causing errors. Please go to the Plugins page, and activate Pressbooks.', 'pressbooks' );
 	echo '</p></div>';
 }
