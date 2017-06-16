@@ -42,7 +42,7 @@ class SearchAndReplace {
 	 * Load styles and scripts
 	 */
 	function searchHead() {
-		$assets = new Assets( 'pressbooks', 'assets/dist' );
+		$assets = new Assets( 'pressbooks', 'plugin' );
 		wp_enqueue_style( 'search-and-replace', $assets->getPath( 'styles/search-and-replace.css' ) );
 		wp_register_script( 'search-and-replace', $assets->getPath( 'scripts/search-and-replace.js' ) );
 		wp_localize_script( 'search-and-replace', 'pb_sr', $this->getL10n() );
