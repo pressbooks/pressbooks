@@ -126,11 +126,11 @@ Documentation of PHP functions should adhere to the [PHPDoc](https://en.wikipedi
 
 ### Git Commit Messages
 
-* Use the present tense ("Add feature" not "Added feature")
-* Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
-* Limit the first line to 72 characters or less
-* Reference issues and pull requests liberally
-* When only changing documentation, include `[ci skip]` in the commit description
+* Use the present tense ("Add feature" not "Added feature").
+* Use the imperative mood ("Move cursor to..." not "Moves cursor to...").
+* Limit the first line to 72 characters or less.
+* Reference issues and pull requests liberally.
+* When only changing documentation, include `[ci skip]` in the commit description to avoid running automated tests.
 
 ## Additional Notes
 
@@ -165,7 +165,7 @@ Please open an issue on `pressbooks/pressbooks` if you have suggestions for new 
 
 #### Pull Request Labels
 
-| Label name | `pressbooks/pressbooks` | Description
+| Label name | `pressbooks/pressbooks` | Description |
 | --- | --- | --- | --- |
 | `work-in-progress` | [search][search-pressbooks-repo-label-work-in-progress] | Pull requests which are still being worked on, more changes will follow. |
 | `needs-review` | [search][search-pressbooks-repo-label-needs-review] | Pull requests which need code review, and approval from maintainers or the Pressbooks team. |
