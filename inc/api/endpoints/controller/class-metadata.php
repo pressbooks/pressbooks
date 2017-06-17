@@ -47,7 +47,7 @@ class Metadata extends \WP_REST_Controller {
 			'title' => 'book',
 			'type' => 'object',
 			'properties' => [
-				'pb_title' => [
+				'name' => [
 					'type' => 'string',
 					'description' => __( 'The name of the thing.' ),
 					'context' => [ 'view' ],
