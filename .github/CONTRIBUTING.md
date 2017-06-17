@@ -33,27 +33,15 @@ Please report unacceptable behavior to [code@pressbooks.com](mailto:code@pressbo
 
 ### Installing for Development
 
-Pressbooks uses [Composer](https://getcomposer.org) for dependency management and [gulp](http://gulpjs.com) for asset compilation. If you are cloning this repository for local development, you will need to install dependencies and compile assets as follows:
+Pressbooks uses [Composer](https://getcomposer.org) for dependency management and [Webpack](https://webpack.github.io/) for asset compilation. The local development setup for Pressbooks is is based on [Bedrock](https://roots.io/bedrock/) and [Trellis](https://roots.io/trellis/). If you are cloning this repository for local development, please read:
 
-#### Install dependencies
-
-1. [Install](https://getcomposer.org/doc/00-intro.md) Composer.
-2. From the Pressbooks plugin directory, e.g. `/wp-content/plugins/pressbooks`, run the Composer install command: `php composer.phar install` or `composer install`
-
-#### Compile assets
-
-1. Install [Node.js](https://nodejs.org/) 0.12.x and npm.
-2. Install [gulp](http://gulpjs.com) and [Bower](http://bower.io): `npm install -g gulp && npm install -g bower`
-3. Install asset compilation tools: `npm install`
-4. Install dependencies via Bower: `bower install`.
-5. From the Pressbooks plugin directory, e.g. `/wp-content/plugins/pressbooks`, run gulp to generate assets: `gulp` (or `gulp --production`)
+https://pressbooks.github.io/local-development/
 
 ### Reporting Bugs
 
 #### Before Submitting A Bug Report
 
 * **Check the [debugging guide](http://docs.pressbooks.org/debugging).** You might be able to find the cause of the problem and fix things yourself. Most importantly, check if you can reproduce the problem [in the latest version of Pressbooks](http://github.com/pressbooks/pressbooks/releases/latest/) running on the [latest version of WordPress](http://codex.wordpress.org/Upgrading_WordPress) and if the problem happens with [all other plugins deactivated at the network level](http://codex.wordpress.org/Multisite_Network_Administration#Plugins).
-* **Check the [FAQs on the wiki](http://docs.pressbooks.org/faq)** for a list of common questions and problems.
 * **Perform a [cursory search](https://github.com/issues?q=+is%3Aissue+repo%3Apressbooks%2Fpressbooks)** to see if the problem has already been reported. If it has, add a comment to the existing issue instead of opening a new one.
 
 #### How Do I Submit A (Good) Bug Report?
@@ -130,7 +118,7 @@ We are in the process of creating comprehensive style guides for [code](#code-st
 
 ### Code Styleguide
 
-Our code styleguide can be found [here][http://docs.pressbooks.org/coding-standards].
+Our code styleguide can be found [here](http://docs.pressbooks.org/coding-standards).
 
 ### Documentation Styleguide
 
