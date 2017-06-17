@@ -24,7 +24,7 @@ The bash script installs a copy of WordPress and the WordPress unit testing tool
 
 Tests are in `/tests/*.*`
 
-Tests cover the code in `/includes/*.*`
+Tests cover the code in `/inc/*.*`
 
 Please [help us improve code coverage!][3]
 
