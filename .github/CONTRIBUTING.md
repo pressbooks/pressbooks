@@ -33,9 +33,7 @@ Please report unacceptable behavior to [code@pressbooks.com](mailto:code@pressbo
 
 ### Installing for Development
 
-Pressbooks uses [Composer](https://getcomposer.org) for dependency management and [Webpack](https://webpack.github.io/) for asset compilation. The local development setup for Pressbooks is is based on [Bedrock](https://roots.io/bedrock/) and [Trellis](https://roots.io/trellis/). If you are cloning this repository for local development, please read:
-
-https://pressbooks.github.io/local-development/
+Pressbooks uses [Composer](https://getcomposer.org) for dependency management and [Webpack](https://webpack.github.io/) for asset compilation. The local development setup for Pressbooks is based on [Bedrock](https://roots.io/bedrock/) and [Trellis](https://roots.io/trellis/). If you are cloning this repository for local development, please read our [local development guide](https://pressbooks.github.io/local-development/).
 
 ### Reporting Bugs
 
