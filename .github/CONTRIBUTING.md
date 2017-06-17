@@ -4,24 +4,19 @@ The following is a set of guidelines for contributing to Pressbooks (thanks to t
 
 #### Table Of Contents
 
-[Code of Conduct](#code-of-conduct)
-
-[How To Contribute?](#how-to-contribute)
-
-  * [Installing for Development](#installing-for-development)
-  * [Reporting Bugs](#reporting-bugs)
-  * [Suggesting Enhancements](#suggesting-enhancements)
-  * [Your First Code Contribution](#your-first-code-contribution)
-  * [Pull Requests](#pull-requests)
-
-[Styleguides](#styleguides)
-
-  * [Code Styleguide](#code-styleguide)
-  * [Documentation Styleguide](#documentation-styleguide)
-  * [Git Commit Messages](#git-commit-messages)
-
-[Additional Notes](#additional-notes)
-  * [Issue and Pull Request Labels](#issue-and-pull-request-labels)
+1. [Code of Conduct](#code-of-conduct)
+2. [How To Contribute?](#how-to-contribute)
+	* [Installing for Development](#installing-for-development)
+	* [Reporting Bugs](#reporting-bugs)
+	* [Suggesting Enhancements](#suggesting-enhancements)
+	* [Your First Code Contribution](#your-first-code-contribution)
+	* [Pull Requests](#pull-requests)
+3. [Styleguides](#styleguides)
+	* [Code Styleguide](#code-styleguide)
+	* [Documentation Styleguide](#documentation-styleguide)
+	* [Git Commit Messages](#git-commit-messages)
+4. [Additional Notes](#additional-notes)
+	* [Issue and Pull Request Labels](#issue-and-pull-request-labels)
 
 ## Code of Conduct
 
