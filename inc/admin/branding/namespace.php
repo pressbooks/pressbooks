@@ -16,7 +16,7 @@ use PressbooksMix\Assets;
  * that returns a string containing a link tag for your own admin color scheme.
  */
 function custom_color_scheme() {
-	$assets = new Assets( 'pressbooks', 'assets/dist' );
+	$assets = new Assets( 'pressbooks', 'plugin' );
 	$html = '<link rel="stylesheet" type="text/css" href="' . $assets->getPath( 'styles/colors-pb.css' ) . '" media="screen" />';
 	$html = apply_filters( 'pressbooks_login_color_scheme', $html );
 	echo $html;
