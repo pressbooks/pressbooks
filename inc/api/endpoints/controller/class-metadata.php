@@ -356,24 +356,24 @@ class Metadata extends \WP_REST_Controller {
 	 */
 	protected function buildMetadata( array $book_information, $has_permission ) {
 
-		$mapped_properties = [
-			'pb_bisac_subject' => 'about',
-			'pb_title' => 'name',
-			'pb_short_title' => 'alternateName',
-			'pb_keywords_tags' => 'keywords',
-			'pb_subtitle' => 'alternativeHeadline',
-			'pb_language' => 'inLanguage',
-			'pb_copyright_year' => 'copyrightYear',
-			'pb_about_50' => 'description',
-			'pb_cover_image' => 'image',
-		];
-
 		$new_book_information = [];
 
 		if ( $has_permission ) {
 
 			$new_book_information['@context'] = 'http://schema.org';
 			$new_book_information['@type'] = 'Book';
+
+			$mapped_properties = [
+				'pb_bisac_subject' => 'about',
+				'pb_title' => 'name',
+				'pb_short_title' => 'alternateName',
+				'pb_keywords_tags' => 'keywords',
+				'pb_subtitle' => 'alternativeHeadline',
+				'pb_language' => 'inLanguage',
+				'pb_copyright_year' => 'copyrightYear',
+				'pb_about_50' => 'description',
+				'pb_cover_image' => 'image',
+			];
 
 			foreach ( $mapped_properties as $old => $new ) {
 				if ( isset( $book_information[ $old ] ) ) {
@@ -440,6 +440,8 @@ class Metadata extends \WP_REST_Controller {
 					'name' => $book_information['pb_copyright_holder'],
 				];
 			}
+
+			// TODO: license, audience, educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 		}
 
 		return $new_book_information;
