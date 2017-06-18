@@ -43,13 +43,255 @@ class Metadata extends \WP_REST_Controller {
 	public function get_item_schema() {
 
 		$schema = [
-			'$schema' => 'http://schema.org',
+			'$schema' => 'http://json-schema.org/schema#',
 			'title' => 'book',
 			'type' => 'object',
 			'properties' => [
+				'@context' => [
+					'type' => 'string',
+					'format' => 'uri',
+					'enum' => [
+						'http://schema.org',
+					],
+					'description' => __( 'The JSON-LD context.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'@type' => [
+					'type' => 'string',
+					'enum' => [
+						'Book',
+					],
+					'description' => __( 'The type of the thing.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 				'name' => [
 					'type' => 'string',
 					'description' => __( 'The name of the thing.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'about' => [
+					'type' => 'string',
+					'description' => __( 'The subject matter of the content.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'alternateName' => [
+					'type' => 'string',
+					'description' => __( 'An alias for the item.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'keywords' => [
+					'type' => 'string',
+					'description' => __( 'Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'alternativeHeadline' => [
+					'type' => 'string',
+					'description' => __( 'A secondary title of the Book.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'inLanguage' => [
+					'type' => 'string',
+					'description' => __( 'The language of the content, expressed as one of the language codes from the IETF BCP 47 standard.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'copyrightYear' => [
+					'type' => 'integer',
+					'description' => __( 'The year during which the claimed copyright for the Book was first asserted.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'description' => [
+					'type' => 'string',
+					'description' => __( 'A description of the item.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'image' => [
+					'type' => 'string',
+					'format' => 'uri',
+					'description' => __( 'An image of the item.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'author' => [
+					'type' => 'object',
+					'description' => __( 'The author of this content.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Person',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'alternateName' => [
+							'type' => 'string',
+							'description' => __( 'An alias for the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'contributor' => [
+					'type' => 'object',
+					'description' => __( 'A secondary contributor to the Book.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Person',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'editor' => [
+					'type' => 'object',
+					'description' => __( 'Specifies the Person who edited the Book.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Person',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'translator' => [
+					'type' => 'object',
+					'description' => __( 'Organization or person who adapts a Book to different languages, regional differences and technical requirements of a target market.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Person',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'publisher' => [
+					'type' => 'object',
+					'description' => __( 'The publisher of the Book.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Organization',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'address' => [
+							'type' => 'object',
+							'description' => __( 'Physical address of the item.' ),
+							'properties' => [
+								'@type' => [
+									'type' => 'string',
+									'enum' => [
+										'PostalAddress',
+									],
+									'description' => __( 'The type of the thing.' ),
+									'context' => [ 'view' ],
+									'readonly' => true,
+								],
+								'addressLocality' => [
+									'type' => 'string',
+									'description' => __( 'The locality.' ),
+									'context' => [ 'view' ],
+									'readonly' => true,
+								],
+							],
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'datePublished' => [
+					'type' => 'string',
+					'description' => __( 'Date of first publication. A date value in ISO 8601 date format.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'copyrightHolder' => [
+					'type' => 'object',
+					'description' => __( 'The party holding the legal copyright to the CreativeWork.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Person',
+								'Organization',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
@@ -126,75 +368,78 @@ class Metadata extends \WP_REST_Controller {
 			'pb_cover_image' => 'image',
 		];
 
-		$new_book_information = [
-			'@context' => 'http://schema.org',
-			'@type' => 'Book',
-		];
+		$new_book_information = [];
 
-		foreach ( $mapped_properties as $old => $new ) {
-			if ( isset( $book_information[ $old ] ) ) {
-				$new_book_information[ $new ] = $book_information[ $old ];
+		if ( $has_permission ) {
+
+			$new_book_information['@context'] = 'http://schema.org';
+			$new_book_information['@type'] = 'Book';
+
+			foreach ( $mapped_properties as $old => $new ) {
+				if ( isset( $book_information[ $old ] ) ) {
+					$new_book_information[ $new ] = $book_information[ $old ];
+				}
 			}
-		}
 
-		if ( isset( $book_information['pb_author'] ) ) {
-			$new_book_information['author'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_author'],
-			];
-
-			if ( isset( $book_information['pb_author_file_as'] ) ) {
-				$new_book_information['author']['alternateName'] = $book_information['pb_author_file_as'];
-			}
-		}
-
-		if ( isset( $book_information['pb_contributing_authors'] ) ) {
-			$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
-			foreach ( $contributing_authors as $contributor ) {
-				$new_book_information['contributor'][] = [
+			if ( isset( $book_information['pb_author'] ) ) {
+				$new_book_information['author'] = [
 					'@type' => 'Person',
-					'name' => $contributor,
+					'name' => $book_information['pb_author'],
+				];
+
+				if ( isset( $book_information['pb_author_file_as'] ) ) {
+					$new_book_information['author']['alternateName'] = $book_information['pb_author_file_as'];
+				}
+			}
+
+			if ( isset( $book_information['pb_contributing_authors'] ) ) {
+				$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
+				foreach ( $contributing_authors as $contributor ) {
+					$new_book_information['contributor'][] = [
+						'@type' => 'Person',
+						'name' => $contributor,
+					];
+				}
+			}
+
+			if ( isset( $book_information['pb_editor'] ) ) {
+				$new_book_information['editor'] = [
+					'@type' => 'Person',
+					'name' => $book_information['pb_editor'],
 				];
 			}
-		}
 
-		if ( isset( $book_information['pb_editor'] ) ) {
-			$new_book_information['editor'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_editor'],
-			];
-		}
-
-		if ( isset( $book_information['pb_translator'] ) ) {
-			$new_book_information['translator'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_translator'],
-			];
-		}
-
-		if ( isset( $book_information['pb_publisher'] ) ) {
-			$new_book_information['publisher'] = [
-				'@type' => 'Organization',
-				'name' => $book_information['pb_publisher'],
-			];
-
-			if ( isset( $book_information['pb_publisher_city'] ) ) {
-				$new_book_information['publisher']['address'] = [
-					'@type' => 'PostalAddress',
-					'addressLocality' => $book_information['pb_publisher_city'],
+			if ( isset( $book_information['pb_translator'] ) ) {
+				$new_book_information['translator'] = [
+					'@type' => 'Person',
+					'name' => $book_information['pb_translator'],
 				];
 			}
-		}
 
-		if ( isset( $book_information['pb_publication_date'] ) ) {
-			$new_book_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
-		}
+			if ( isset( $book_information['pb_publisher'] ) ) {
+				$new_book_information['publisher'] = [
+					'@type' => 'Organization',
+					'name' => $book_information['pb_publisher'],
+				];
 
-		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
-			$new_book_information['copyrightHolder'] = [
-				'@type' => 'Organization',
-				'name' => $book_information['pb_copyright_holder'],
-			];
+				if ( isset( $book_information['pb_publisher_city'] ) ) {
+					$new_book_information['publisher']['address'] = [
+						'@type' => 'PostalAddress',
+						'addressLocality' => $book_information['pb_publisher_city'],
+					];
+				}
+			}
+
+			if ( isset( $book_information['pb_publication_date'] ) ) {
+				$new_book_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+			}
+
+			if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
+				$new_book_information['copyrightHolder'] = [
+					'@type' => 'Organization',
+					'name' => $book_information['pb_copyright_holder'],
+				];
+			}
 		}
 
 		return $new_book_information;
