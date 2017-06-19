@@ -4,9 +4,9 @@
  * @license GPLv2 (or any later version)
  */
 
-namespace Pressbooks;
+namespace Pressbooks\Theme;
 
-class ThemeLock {
+class Lock {
 
 	/**
 	 * Get path to the theme lock directory.
@@ -45,9 +45,9 @@ class ThemeLock {
 	 */
 	static function toggleThemeLock( $old_value, $value, $option ) {
 		if ( isset( $value['theme_lock'] ) && 1 === absint( $value['theme_lock'] ) ) {
-			return ThemeLock::lockTheme();
+			return Lock::lockTheme();
 		} elseif ( 1 === absint( $old_value['theme_lock'] ) && ! isset( $value['theme_lock'] ) ) {
-			return ThemeLock::unlockTheme();
+			return Lock::unlockTheme();
 		}
 		return false;
 	}
@@ -58,9 +58,9 @@ class ThemeLock {
 	 * @return mixed
 	 */
 	static function lockTheme() {
-		if ( true === ThemeLock::copyAssets() ) {
+		if ( true === Lock::copyAssets() ) {
 			$time = time();
-			$data = ThemeLock::generateLock( $time );
+			$data = Lock::generateLock( $time );
 			$_SESSION['pb_notices'][] = sprintf(
 				'<strong>%s</strong>',
 				sprintf(
@@ -84,7 +84,7 @@ class ThemeLock {
 	}
 
 	static function copyAssets() {
-		return \Pressbooks\Utility\rcopy( realpath( get_stylesheet_directory() ), ThemeLock::getLockDir() );
+		return \Pressbooks\Utility\rcopy( realpath( get_stylesheet_directory() ), Lock::getLockDir() );
 	}
 
 	/**
@@ -101,7 +101,7 @@ class ThemeLock {
 			'timestamp' => $time,
 		];
 		$json = json_encode( $data );
-		$lockfile = ThemeLock::getLockDir() . '/lock.json';
+		$lockfile = Lock::getLockDir() . '/lock.json';
 		file_put_contents( $lockfile, $json );
 		return $data;
 	}
@@ -110,7 +110,7 @@ class ThemeLock {
 	 * @return \WP_Theme
 	 */
 	static function unlockTheme() {
-		rmrdir( ThemeLock::getLockDir() );
+		rmrdir( Lock::getLockDir() );
 		$_SESSION['pb_notices'][] = sprintf( '<strong>%s</strong>', __( 'Your book&rsquo;s theme has been unlocked.', 'pressbooks' ) );
 
 		return wp_get_theme();
@@ -123,7 +123,7 @@ class ThemeLock {
 	 */
 	static function isLocked() {
 		$options = get_option( 'pressbooks_export_options' );
-		if ( realpath( ThemeLock::getLockDir() . '/lock.json' ) && isset( $options['theme_lock'] ) && 1 === absint( $options['theme_lock'] ) ) {
+		if ( realpath( Lock::getLockDir() . '/lock.json' ) && isset( $options['theme_lock'] ) && 1 === absint( $options['theme_lock'] ) ) {
 			return true;
 		}
 		return false;
@@ -135,7 +135,7 @@ class ThemeLock {
 	 * @return array
 	 */
 	static function getLockData() {
-		$json = file_get_contents( ThemeLock::getLockDir() . '/lock.json' );
+		$json = file_get_contents( Lock::getLockDir() . '/lock.json' );
 		$output = json_decode( $json, true );
 		return $output;
 	}
@@ -144,9 +144,9 @@ class ThemeLock {
 	 * Restrict access to Themes and Theme Options.
 	 */
 	static function restrictThemeManagement() {
-		$locked = \Pressbooks\ThemeLock::isLocked();
+		$locked = \Pressbooks\Theme\Lock::isLocked();
 		if ( $locked ) {
-			$data = \Pressbooks\ThemeLock::getLockData();
+			$data = \Pressbooks\Theme\Lock::getLockData();
 
 			// Redirect and notify users of theme lock status.
 

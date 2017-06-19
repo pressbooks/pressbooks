@@ -68,9 +68,9 @@ if ( \Pressbooks\Book::isBook() ) {
 	switch_to_blog( $GLOBALS['current_site']->blog_id );
 	$root_theme = wp_get_theme();
 	restore_current_blog();
-	if ( \Pressbooks\ThemeLock::isLocked() ) {
+	if ( \Pressbooks\Theme\Lock::isLocked() ) {
 		$theme = wp_get_theme();
-		$data = \Pressbooks\ThemeLock::getLockData();
+		$data = \Pressbooks\Theme\Lock::getLockData();
 		$datetime = strftime( '%x', $data['timestamp'] ) . ' at ' . strftime( '%X', $data['timestamp'] );
 		$output .= 'Book Theme: ' . $data['name'] . " (LOCKED on $datetime)\n";
 		$output .= 'Book Theme Version: ' . $data['version'] . " (LOCKED on $datetime &mdash; Current Version " . $theme->get( 'Version' ) . ")\n";
