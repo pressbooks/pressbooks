@@ -20,7 +20,7 @@ class Metadata extends \WP_REST_Controller {
 	}
 
 	/**
-	 *  Registers routes for TOC
+	 *  Registers routes for metadata
 	 */
 	public function register_routes() {
 
@@ -340,7 +340,7 @@ class Metadata extends \WP_REST_Controller {
 	public function get_metadata( $request ) {
 
 		$meta = Book::getBookInformation();
-		$meta = $this->buildMetadata( $meta, current_user_can( 'edit_posts' ) );
+		$meta = $this->buildMetadata( $meta, get_option( 'blog_public' ) );
 
 		$response = rest_ensure_response( $meta );
 		// TODO Do we need the linkCollector here?
