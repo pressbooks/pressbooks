@@ -182,7 +182,7 @@ class Epub201 extends Export {
 		}
 
 		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) {
-			define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+			define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/epubcheck' );
 		}
 
 		$this->tmpDir = $this->createTmpDir();

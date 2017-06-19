@@ -280,7 +280,7 @@ function create_tmp_file() {
  */
 function check_epubcheck_install() {
 	if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) { // @see wp-config.php
-		define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+		define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/epubcheck' );
 	}
 
 	$output = [];
