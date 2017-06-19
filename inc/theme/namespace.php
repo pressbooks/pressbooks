@@ -9,9 +9,15 @@
 namespace Pressbooks\Theme;
 
 /**
+ * Check for required themes; prompt to install if missing.
  *
+ * @since 4.0
  */
 function check_required_themes() {
+	if ( get_transient( 'pb_has_required_themes' ) !== false ) {
+		return;
+	}
+
 	$migrated_book_themes = [
 		'pressbooks-austenclassic',
 		'pressbooks-book',
@@ -22,6 +28,7 @@ function check_required_themes() {
 	];
 
 	$theme = wp_get_theme();
+
 	if ( ! $theme->exists() && in_array( $theme->get_stylesheet(), $migrated_book_themes, true ) ) {
 		wp_die( sprintf(
 			__( 'Your theme, %1$s, is not installed. Please visit %2$s for installation instructions.', 'pressbooks' ),
@@ -57,10 +64,14 @@ function check_required_themes() {
 			)
 		) );
 	}
+
+	set_transient( 'pb_has_required_themes', 1 );
 }
 
 /**
  * Update theme slugs from Pressbooks < 4.0.
+ *
+ * @since 4.0
  */
 function migrate_book_themes() {
 	if ( get_option( 'pressbooks_theme_migration' ) === false ) {
