@@ -330,7 +330,7 @@ class Metadata extends \WP_REST_Controller {
 	public function get_item( $request ) {
 
 		$meta = Book::getBookInformation();
-		$meta = $this->buildMetadata( $meta, get_option( 'blog_public' ) );
+		$meta = $this->buildMetadata( $meta );
 
 		$response = rest_ensure_response( $meta );
 		$this->linkCollector['self'] = [ 'href' => rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ) ];
@@ -345,95 +345,92 @@ class Metadata extends \WP_REST_Controller {
 	 *
 	 * @return array
 	 */
-	protected function buildMetadata( array $book_information, $has_permission ) {
+	protected function buildMetadata( array $book_information ) {
 
 		$new_book_information = [];
 
-		if ( $has_permission ) {
+		$new_book_information['@context'] = 'http://schema.org';
+		$new_book_information['@type'] = 'Book';
 
-			$new_book_information['@context'] = 'http://schema.org';
-			$new_book_information['@type'] = 'Book';
+		$mapped_properties = [
+			'pb_bisac_subject' => 'about',
+			'pb_title' => 'name',
+			'pb_short_title' => 'alternateName',
+			'pb_keywords_tags' => 'keywords',
+			'pb_subtitle' => 'alternativeHeadline',
+			'pb_language' => 'inLanguage',
+			'pb_copyright_year' => 'copyrightYear',
+			'pb_about_50' => 'description',
+			'pb_cover_image' => 'image',
+		];
 
-			$mapped_properties = [
-				'pb_bisac_subject' => 'about',
-				'pb_title' => 'name',
-				'pb_short_title' => 'alternateName',
-				'pb_keywords_tags' => 'keywords',
-				'pb_subtitle' => 'alternativeHeadline',
-				'pb_language' => 'inLanguage',
-				'pb_copyright_year' => 'copyrightYear',
-				'pb_about_50' => 'description',
-				'pb_cover_image' => 'image',
+		foreach ( $mapped_properties as $old => $new ) {
+			if ( isset( $book_information[ $old ] ) ) {
+				$new_book_information[ $new ] = $book_information[ $old ];
+			}
+		}
+
+		if ( isset( $book_information['pb_author'] ) ) {
+			$new_book_information['author'] = [
+				'@type' => 'Person',
+				'name' => $book_information['pb_author'],
 			];
 
-			foreach ( $mapped_properties as $old => $new ) {
-				if ( isset( $book_information[ $old ] ) ) {
-					$new_book_information[ $new ] = $book_information[ $old ];
-				}
+			if ( isset( $book_information['pb_author_file_as'] ) ) {
+				$new_book_information['author']['alternateName'] = $book_information['pb_author_file_as'];
 			}
-
-			if ( isset( $book_information['pb_author'] ) ) {
-				$new_book_information['author'] = [
-					'@type' => 'Person',
-					'name' => $book_information['pb_author'],
-				];
-
-				if ( isset( $book_information['pb_author_file_as'] ) ) {
-					$new_book_information['author']['alternateName'] = $book_information['pb_author_file_as'];
-				}
-			}
-
-			if ( isset( $book_information['pb_contributing_authors'] ) ) {
-				$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
-				foreach ( $contributing_authors as $contributor ) {
-					$new_book_information['contributor'][] = [
-						'@type' => 'Person',
-						'name' => $contributor,
-					];
-				}
-			}
-
-			if ( isset( $book_information['pb_editor'] ) ) {
-				$new_book_information['editor'] = [
-					'@type' => 'Person',
-					'name' => $book_information['pb_editor'],
-				];
-			}
-
-			if ( isset( $book_information['pb_translator'] ) ) {
-				$new_book_information['translator'] = [
-					'@type' => 'Person',
-					'name' => $book_information['pb_translator'],
-				];
-			}
-
-			if ( isset( $book_information['pb_publisher'] ) ) {
-				$new_book_information['publisher'] = [
-					'@type' => 'Organization',
-					'name' => $book_information['pb_publisher'],
-				];
-
-				if ( isset( $book_information['pb_publisher_city'] ) ) {
-					$new_book_information['publisher']['address'] = [
-						'@type' => 'PostalAddress',
-						'addressLocality' => $book_information['pb_publisher_city'],
-					];
-				}
-			}
-
-			if ( isset( $book_information['pb_publication_date'] ) ) {
-				$new_book_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
-			}
-
-			if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
-				$new_book_information['copyrightHolder'] = [
-					'@type' => 'Organization',
-					'name' => $book_information['pb_copyright_holder'],
-				];
-			}
-
-			// TODO: license, audience, educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 		}
+
+		if ( isset( $book_information['pb_contributing_authors'] ) ) {
+			$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
+			foreach ( $contributing_authors as $contributor ) {
+				$new_book_information['contributor'][] = [
+					'@type' => 'Person',
+					'name' => $contributor,
+				];
+			}
+		}
+
+		if ( isset( $book_information['pb_editor'] ) ) {
+			$new_book_information['editor'] = [
+				'@type' => 'Person',
+				'name' => $book_information['pb_editor'],
+			];
+		}
+
+		if ( isset( $book_information['pb_translator'] ) ) {
+			$new_book_information['translator'] = [
+				'@type' => 'Person',
+				'name' => $book_information['pb_translator'],
+			];
+		}
+
+		if ( isset( $book_information['pb_publisher'] ) ) {
+			$new_book_information['publisher'] = [
+				'@type' => 'Organization',
+				'name' => $book_information['pb_publisher'],
+			];
+
+			if ( isset( $book_information['pb_publisher_city'] ) ) {
+				$new_book_information['publisher']['address'] = [
+					'@type' => 'PostalAddress',
+					'addressLocality' => $book_information['pb_publisher_city'],
+				];
+			}
+		}
+
+		if ( isset( $book_information['pb_publication_date'] ) ) {
+			$new_book_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+		}
+
+		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
+			$new_book_information['copyrightHolder'] = [
+				'@type' => 'Organization',
+				'name' => $book_information['pb_copyright_holder'],
+			];
+		}
+
+		// TODO: license, audience, educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 
 		return $new_book_information;
 	}
