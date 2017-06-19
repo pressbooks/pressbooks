@@ -27,8 +27,8 @@ class Metadata extends \WP_REST_Controller {
 		register_rest_route( $this->namespace, '/' . $this->rest_base, [
 			[
 				'methods' => \WP_REST_Server::READABLE,
-				'callback' => [ $this, 'get_metadata' ],
-				'permission_callback' => [ $this, 'get_items_permissions_check' ],
+				'callback' => [ $this, 'get_item' ],
+				'permission_callback' => [ $this, 'get_item_permissions_check' ],
 				'args' => $this->get_collection_params(),
 			],
 			'schema' => [ $this, 'get_public_item_schema' ],
@@ -319,7 +319,7 @@ class Metadata extends \WP_REST_Controller {
 	 *
 	 * @return bool True if the request has read access, WP_Error object otherwise.
 	 */
-	public function get_items_permissions_check( $request ) {
+	public function get_item_permissions_check( $request ) {
 
 		if ( current_user_can( 'edit_posts' ) ) {
 			return true;
@@ -337,13 +337,14 @@ class Metadata extends \WP_REST_Controller {
 	 *
 	 * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
-	public function get_metadata( $request ) {
+	public function get_item( $request ) {
 
 		$meta = Book::getBookInformation();
 		$meta = $this->buildMetadata( $meta, get_option( 'blog_public' ) );
 
 		$response = rest_ensure_response( $meta );
-		// TODO Do we need the linkCollector here?
+		$this->linkCollector['self'] = [ 'href' => rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ) ];
+		$response->add_links( $this->linkCollector );
 
 		return $response;
 	}
