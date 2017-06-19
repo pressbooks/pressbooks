@@ -172,7 +172,12 @@ jQuery(document).ready(function ($) {
 
 	// Public/Private form at top of page
 	$('input[name=blog_public]').change(function () {
-		var blog_public = $("input[name=blog_public]:checked").val();
+		var blog_public;
+		if (this.value == 1) {
+			blog_public = 1;
+		} else {
+			blog_public = 0;
+		}
 		$.ajax({
 			url: ajaxurl,
 			type: 'POST',
@@ -187,7 +192,7 @@ jQuery(document).ready(function ($) {
 					$('label span.public').css('font-weight', 'normal');
 					$('label span.private').css('font-weight', 'bold');
 					$('.publicize-alert').removeClass('public').addClass('private');
-				} else {
+				} else if (blog_public === 1) {
 					$('h4.publicize-alert > span').text(PB_OrganizeToken.public);
 					$('label span.public').css('font-weight', 'bold');
 					$('label span.private').css('font-weight', 'normal');
