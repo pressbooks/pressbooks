@@ -38,7 +38,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 
 	public function test_getThemeFontStacks() {
 
-		$this->_book( 'donham' ); // Pick a theme with some built-in $supported_languages
+		$this->_book( 'pressbooks-clarke' ); // Pick a theme with some built-in $supported_languages
 
 		$this->gt->updateGlobalTypographyMixin();
 		$this->assertNotEmpty( $this->gt->getThemeFontStacks( 'epub' ) );
@@ -49,10 +49,11 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 
 	public function test_getThemeSupportedLanguages() {
 
-		$this->_book( 'donham' ); // Pick a theme with some built-in $supported_languages
+		$this->_book( 'pressbooks-donham' ); // Pick a theme with some built-in $supported_languages
 
 		$supported_languages = $this->gt->getThemeSupportedLanguages();
-		$this->assertTrue( is_array( $supported_languages ) );
+
+		$this->assertContains( 'grc', $supported_languages );
 	}
 
 

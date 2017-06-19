@@ -218,8 +218,8 @@ if ( $is_book ) {
 }
 
 // Theme Lock
-add_action( 'admin_init', '\Pressbooks\ThemeLock::restrictThemeManagement' );
-add_action( 'update_option_pressbooks_export_options', '\Pressbooks\ThemeLock::toggleThemeLock', 10, 3 );
+add_action( 'admin_init', '\Pressbooks\Theme\Lock::restrictThemeManagement' );
+add_action( 'update_option_pressbooks_export_options', '\Pressbooks\Theme\Lock::toggleThemeLock', 10, 3 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // "Catch-all" routines, must come after taxonomies and friends
@@ -278,3 +278,6 @@ add_action( 'admin_menu', function () {
 add_filter( 'install_plugins_tabs', '\Pressbooks\Utility\install_plugins_tabs' );
 add_filter( 'plugins_api', '\Pressbooks\Utility\hijack_recommended_tab', 10, 3 );
 add_filter( 'gettext', '\Pressbooks\Utility\change_recommendations_sentence', 10, 3 );
+
+// Theme check
+add_action( 'admin_init', '\Pressbooks\Theme\check_required_themes' );

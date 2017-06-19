@@ -4,13 +4,13 @@ class ThemeLockTest extends \WP_UnitTestCase {
 
 	public function test_getLockDir() {
 
-		$result = \Pressbooks\ThemeLock::getLockDir();
+		$result = \Pressbooks\Theme\Lock::getLockDir();
 
 		$this->assertEquals( true, substr( $result, -strlen( '/wp-content/uploads/lock' ) ) == '/wp-content/uploads/lock' );
 	}
 
 	public function test_getLockDirURI() {
-		$result = \Pressbooks\ThemeLock::getLockDirURI();
+		$result = \Pressbooks\Theme\Lock::getLockDirURI();
 
 		$this->assertEquals( true, substr( $result, -strlen( '/wp-content/uploads/lock' ) ) == '/wp-content/uploads/lock' );
 	}
@@ -19,7 +19,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		$time = time();
 		sleep( 10 );
 		$theme = wp_get_theme();
-		$result = \Pressbooks\ThemeLock::toggleThemeLock( [], [ 'theme_lock' => 1 ], 'pressbooks_export_options' );
+		$result = \Pressbooks\Theme\Lock::toggleThemeLock( [], [ 'theme_lock' => 1 ], 'pressbooks_export_options' );
 
 		$this->assertArrayHasKey( 'stylesheet', $result );
 		$this->assertArrayHasKey( 'name', $result );
@@ -31,7 +31,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		$this->assertGreaterThanOrEqual( $time, $result['timestamp'] );
 
 		$theme = wp_get_theme();
-		$result = \Pressbooks\ThemeLock::toggleThemeLock( [ 'theme_lock' => 1 ], [], 'pressbooks_export_options' );
+		$result = \Pressbooks\Theme\Lock::toggleThemeLock( [ 'theme_lock' => 1 ], [], 'pressbooks_export_options' );
 
 		$this->assertEquals( $theme, $result );
 	}
@@ -41,7 +41,7 @@ class ThemeLockTest extends \WP_UnitTestCase {
 		sleep( 10 );
 		$theme = wp_get_theme();
 
-		$result = \Pressbooks\ThemeLock::lockTheme();
+		$result = \Pressbooks\Theme\Lock::lockTheme();
 
 		$this->assertArrayHasKey( 'stylesheet', $result );
 		$this->assertArrayHasKey( 'name', $result );
@@ -54,10 +54,10 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	}
 
 	public function test_copyAssets() {
-		$return = \Pressbooks\ThemeLock::copyAssets();
+		$return = \Pressbooks\Theme\Lock::copyAssets();
 
 		$base = file_get_contents( get_stylesheet_directory() . '/style.css' );
-		$lock = file_get_contents( \Pressbooks\ThemeLock::getLockDir() . '/style.css' );
+		$lock = file_get_contents( \Pressbooks\Theme\Lock::getLockDir() . '/style.css' );
 
 		$this->assertEquals( true, $return );
 		$this->assertEquals( $base, $lock );
@@ -68,9 +68,9 @@ class ThemeLockTest extends \WP_UnitTestCase {
 
 		$theme = wp_get_theme();
 
-		$result = \Pressbooks\ThemeLock::generateLock( $time );
+		$result = \Pressbooks\Theme\Lock::generateLock( $time );
 
-		$this->assertEquals( true, file_exists( \Pressbooks\ThemeLock::getLockDir() . '/lock.json' ) );
+		$this->assertEquals( true, file_exists( \Pressbooks\Theme\Lock::getLockDir() . '/lock.json' ) );
 		$this->assertArrayHasKey( 'stylesheet', $result );
 		$this->assertArrayHasKey( 'name', $result );
 		$this->assertArrayHasKey( 'version', $result );
@@ -82,24 +82,24 @@ class ThemeLockTest extends \WP_UnitTestCase {
 	}
 
 	public function test_unlockTheme() {
-		$dir = \Pressbooks\ThemeLock::getLockDir();
-		\Pressbooks\ThemeLock::unlockTheme();
+		$dir = \Pressbooks\Theme\Lock::getLockDir();
+		\Pressbooks\Theme\Lock::unlockTheme();
 
 		$this->assertEquals( false, is_dir( $dir ) );
 	}
 
 	public function test_isLocked() {
 		update_option( 'pressbooks_export_options', [ 'theme_lock' => 1 ] );
-		\Pressbooks\ThemeLock::generateLock( time() );
+		\Pressbooks\Theme\Lock::generateLock( time() );
 
-		$value = \Pressbooks\ThemeLock::isLocked();
+		$value = \Pressbooks\Theme\Lock::isLocked();
 
 		$this->assertEquals( true, $value );
 
 		update_option( 'pressbooks_export_options', [] );
-		\Pressbooks\ThemeLock::unlockTheme();
+		\Pressbooks\Theme\Lock::unlockTheme();
 
-		$value = \Pressbooks\ThemeLock::isLocked();
+		$value = \Pressbooks\Theme\Lock::isLocked();
 
 		$this->assertEquals( false, $value );
 	}
@@ -110,9 +110,9 @@ class ThemeLockTest extends \WP_UnitTestCase {
 
 		$theme = wp_get_theme();
 
-		\Pressbooks\ThemeLock::generateLock( $time );
+		\Pressbooks\Theme\Lock::generateLock( $time );
 
-		$result = \Pressbooks\ThemeLock::getLockData();
+		$result = \Pressbooks\Theme\Lock::getLockData();
 
 		$this->assertArrayHasKey( 'stylesheet', $result );
 		$this->assertArrayHasKey( 'name', $result );

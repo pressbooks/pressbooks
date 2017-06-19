@@ -62,7 +62,7 @@ class SassTest extends \WP_UnitTestCase {
 
 	public function test_updateWebBookStyleSheet() {
 
-		$this->_book( 'donham' ); // Pick a theme with some built-in $supported_languages
+		$this->_book( 'pressbooks-clarke' ); // Pick a theme with some built-in $supported_languages
 
 		$this->sass->updateWebBookStyleSheet();
 
@@ -72,20 +72,6 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertNotEmpty( file_get_contents( $file ) );
 	}
 
-	public function test_fixWebFonts() {
-
-		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
-		$css = $this->sass->fixWebFonts( $css );
-		$this->assertContains( 'url(' . PB_PLUGIN_URL . 'themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf', $css );
-
-		$css = 'url(themes-book/pressbooks-book/fonts/foo.garbage)';
-		$css = $this->sass->fixWebFonts( $css );
-		$this->assertNotContains( 'url(' . PB_PLUGIN_URL . 'themes-book/pressbooks-book/fonts/foo.garbage', $css );
-	}
-
-	/**
-	 * @covers \Pressbooks\Sass::maybeUpdateWebBookStyleSheet
-	 */
 	public function test_maybeUpdateWebBookStyleSheet() {
 
 		$this->_book( 'pressbooks-book' );
