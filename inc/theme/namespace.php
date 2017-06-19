@@ -27,7 +27,6 @@ function migrate_book_themes() {
 		if ( isset( $comparisons[ $theme ] ) ) {
 			switch_theme( $comparisons[ $theme ] );
 		}
+		update_option( 'pressbooks_theme_migration', 1 );
 	}
-
-	update_option( 'pressbooks_theme_migration', 1 );
 }
