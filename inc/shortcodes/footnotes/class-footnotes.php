@@ -223,11 +223,7 @@ class Footnotes {
 	 * @return mixed
 	 */
 	function addFootnotePlugin( $plugin_array ) {
-<<<<<<< ours
-		$assets = new Assets( 'pressbooks', 'plugin', 'assets/dist' );
-=======
 		$assets = new Assets( 'pressbooks', 'plugin' );
->>>>>>> theirs
 		$plugin_array['footnote'] = $assets->getPath( 'scripts/footnote.js' );
 		$plugin_array['ftnref_convert'] = $assets->getPath( 'scripts/ftnref-convert.js' );
 
