@@ -27,9 +27,11 @@ class Toc extends \WP_REST_Controller {
 		register_rest_route( $this->namespace, '/' . $this->rest_base, [
 			[
 				'methods' => \WP_REST_Server::READABLE,
-				'callback' => [ $this, 'get_items' ],
-				'permission_callback' => [ $this, 'get_items_permissions_check' ],
-				'args' => $this->get_collection_params(),
+				'callback' => [ $this, 'get_item' ],
+				'permission_callback' => [ $this, 'get_item_permissions_check' ],
+				'args' => [
+					'context' => $this->get_context_param( [ 'default' => 'view' ] ),
+				],
 			],
 			'schema' => [ $this, 'get_public_item_schema' ],
 		] );
@@ -159,24 +161,11 @@ class Toc extends \WP_REST_Controller {
 	}
 
 	/**
-	 * @return array
-	 */
-	public function get_collection_params() {
-
-		$params = parent::get_collection_params();
-
-		$params['context']['default'] = 'view';
-		unset( $params['page'], $params['per_page'], $params['search'] );
-
-		return $params;
-	}
-
-	/**
 	 * @param  \WP_REST_Request $request Full details about the request.
 	 *
 	 * @return bool True if the request has read access, WP_Error object otherwise.
 	 */
-	public function get_items_permissions_check( $request ) {
+	public function get_item_permissions_check( $request ) {
 
 		if ( current_user_can( 'edit_posts' ) ) {
 			return true;
@@ -194,7 +183,7 @@ class Toc extends \WP_REST_Controller {
 	 *
 	 * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
-	public function get_items( $request ) {
+	public function get_item( $request ) {
 
 		$struct = Book::getBookStructure();
 		unset( $struct['__order'], $struct['__export_lookup'] );

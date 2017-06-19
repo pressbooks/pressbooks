@@ -58,6 +58,16 @@ function init_book() {
 }
 
 /**
+ * Initialize REST API init for metadata
+ */
+function init_metadata() {
+
+	// Register Metadata
+	$toc_controller = new Endpoints\Controller\Metadata();
+	$toc_controller->register_routes();
+}
+
+/**
  * Initialize REST API init for root site
  */
 function init_root() {

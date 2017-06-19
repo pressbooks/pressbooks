@@ -130,11 +130,11 @@ abstract class Import {
 			return false;
 		}
 
-		if ( ! isset( $chapters['chapters'][ $id ] ) && ! isset( $chapters['chapters'][ $id ]['import'] ) ) {
+		if ( ! isset( $chapters[ $id ] ) && ! isset( $chapters[ $id ]['import'] ) ) {
 			return false;
 		}
 
-		return ( 1 === (int) $chapters['chapters'][ $id ]['import'] ? true : false );
+		return ( 1 === (int) $chapters[ $id ]['import'] ? true : false );
 	}
 
 
@@ -155,15 +155,15 @@ abstract class Import {
 			return $default;
 		}
 
-		if ( ! isset( $chapters['chapters'][ $id ] ) && ! isset( $chapters['chapters'][ $id ]['type'] ) ) {
+		if ( ! isset( $chapters[ $id ] ) && ! isset( $chapters[ $id ]['type'] ) ) {
 			return $default;
 		}
 
-		if ( ! in_array( $chapters['chapters'][ $id ]['type'], $supported_types, true ) ) {
+		if ( ! in_array( $chapters[ $id ]['type'], $supported_types, true ) ) {
 			return $default;
 		}
 
-		return $chapters['chapters'][ $id ]['type'];
+		return $chapters[ $id ]['type'];
 	}
 
 

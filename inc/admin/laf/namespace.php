@@ -610,7 +610,7 @@ function disable_customizer() {
  * Instantiates various sub-classes, remove meta boxes from post pages & registers custom post status.
  */
 function init_css_js() {
-	$assets = new Assets( 'pressbooks', 'plugin', 'assets/dist' );
+	$assets = new Assets( 'pressbooks', 'plugin' );
 
 	// This is to work around JavaScript dependency errors
 	global $concatenate_scripts;
