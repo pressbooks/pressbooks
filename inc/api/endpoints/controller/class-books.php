@@ -2,6 +2,8 @@
 
 namespace Pressbooks\Api\Endpoints\Controller;
 
+use function Pressbooks\Api\get_custom_post_types;
+
 class Books extends \WP_REST_Controller {
 
 	/**
@@ -171,9 +173,8 @@ class Books extends \WP_REST_Controller {
 	 */
 	public function get_items( $request ) {
 
-		if ( ! empty( $request['search'] ) ) {
-			return rest_ensure_response( new \WP_Error( 'invalid-args', 'Search not yet implemented.', [ 'status' => 405 ] ) ); // TODO
-		}
+		// Search
+		$s = ! empty( $request['search'] ) ? $this->searchArgs( $request['search'] ) : [];
 
 		// Register missing routes
 		$this->registerRouteDependencies();
@@ -181,10 +182,12 @@ class Books extends \WP_REST_Controller {
 		$results = [];
 		$book_ids = $this->bookIds( $request );
 		foreach ( $book_ids as $id ) {
-			$response = rest_ensure_response( $this->renderNode( $id ) );
-			$response->add_links( $this->linkCollector );
-			$results[] = $this->prepare_response_for_collection( $response );
-			$this->linkCollector = []; // re-initialize
+			if ( ! empty( $node = $this->renderNode( $id, $s ) ) ) {
+				$response = rest_ensure_response( $node );
+				$response->add_links( $this->linkCollector );
+				$results[] = $this->prepare_response_for_collection( $response );
+				$this->linkCollector = []; // re-initialize
+			}
 		}
 		$response = rest_ensure_response( $results );
 		$this->addPreviousNextLinks( $request, $response );
@@ -242,21 +245,51 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
-	 * Render an item node for use in JSON response
+	 * Args for WP_Query
 	 *
-	 * @param $id
+	 * @see https://codex.wordpress.org/Class_Reference/WP_Query
+	 *
+	 * @param string $s
 	 *
 	 * @return array
 	 */
-	protected function renderNode( $id ) {
+	protected function searchArgs( $s ) {
+		$s = [
+			's' => $s,
+			'post_type' => get_custom_post_types(),
+			'fields' => 'ids', // Optimize: skip the unwanted returned array of WP_Post properties
+			'no_found_rows' => true, // Optimize: only interested in post count
+		];
+
+		return $s;
+	}
+
+	/**
+	 * Render an item node for use in JSON response
+	 *
+	 * @param int $id
+	 * @param array $s(optional) args for WP_Query
+	 *
+	 * @return array
+	 */
+	protected function renderNode( $id, $s = [] ) {
 
 		switch_to_blog( $id );
 
-		$request_toc = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
-		$response_toc = rest_do_request( $request_toc );
+		// Search
+		if ( ! empty( $s ) ) {
+			$q = new \WP_Query( $s );
+			if ( $q->post_count < 1 ) {
+				restore_current_blog();
+				return [];
+			}
+		}
 
 		$request_metadata = new \WP_REST_Request( 'GET', '/pressbooks/v2/metadata' );
 		$response_metadata = rest_do_request( $request_metadata );
+
+		$request_toc = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
+		$response_toc = rest_do_request( $request_toc );
 
 		$item = [
 			'id' => $id,
