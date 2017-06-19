@@ -34,6 +34,10 @@ function init_book() {
 	$toc_controller = new Endpoints\Controller\Toc();
 	$toc_controller->register_routes();
 
+	// Register Metadata
+	$toc_controller = new Endpoints\Controller\Metadata();
+	$toc_controller->register_routes();
+
 	// Override Revisions routes for our custom post types
 	foreach ( get_custom_post_types() as $post_type ) {
 		if ( post_type_supports( $post_type, 'revisions' ) ) {
@@ -55,16 +59,6 @@ function init_book() {
 			'context' => [ 'view', 'edit', 'embed' ],
 		],
 	] );
-}
-
-/**
- * Initialize REST API init for metadata
- */
-function init_metadata() {
-
-	// Register Metadata
-	$toc_controller = new Endpoints\Controller\Metadata();
-	$toc_controller->register_routes();
 }
 
 /**

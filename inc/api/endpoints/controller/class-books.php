@@ -22,6 +22,11 @@ class Books extends \WP_REST_Controller {
 	protected $toc;
 
 	/**
+	 * @var Metadata
+	 */
+	protected $metadata;
+
+	/**
 	 * @var array
 	 */
 	protected $linkCollector = [];
@@ -33,6 +38,7 @@ class Books extends \WP_REST_Controller {
 		$this->namespace = 'pressbooks/v2';
 		$this->rest_base = 'books';
 		$this->toc = new Toc();
+		$this->metadata = new Metadata();
 	}
 
 	/**
@@ -71,6 +77,7 @@ class Books extends \WP_REST_Controller {
 	public function get_item_schema() {
 
 		$toc = $this->toc->get_item_schema();
+		$metadata = $this->metadata->get_item_schema();
 
 		$schema = [
 			'$schema' => 'http://json-schema.org/schema#',
@@ -91,7 +98,11 @@ class Books extends \WP_REST_Controller {
 					'readonly' => true,
 				],
 				'meta' => [
-					// TODO
+					'description' => __( 'Metadata', 'pressbooks' ),
+					'type' => 'object',
+					'properties' => $metadata['properties'],
+					'context' => [ 'view' ],
+					'readonly' => true,
 				],
 				'toc' => [
 					'description' => __( 'Table of Contents', 'pressbooks' ),
@@ -164,8 +175,8 @@ class Books extends \WP_REST_Controller {
 			return rest_ensure_response( new \WP_Error( 'invalid-args', 'Search not yet implemented.', [ 'status' => 405 ] ) ); // TODO
 		}
 
-		// Register missing Toc routes
-		$this->toc->register_routes();
+		// Register missing routes
+		$this->registerRouteDependencies();
 
 		$results = [];
 		$book_ids = $this->bookIds( $request );
@@ -188,14 +199,23 @@ class Books extends \WP_REST_Controller {
 	 */
 	public function get_item( $request ) {
 
-		// Register missing Toc routes
-		$this->toc->register_routes();
+		// Register missing routes
+		$this->registerRouteDependencies();
 
 		$result = $this->renderNode( $request['id'] );
 		$response = rest_ensure_response( $result );
 		$response->add_links( $this->linkCollector );
 
 		return $response;
+	}
+
+	/**
+	 * Define route dependencies.
+	 * Books content is built by querying a book, but those API routes may not exist at the root level.
+	 */
+	protected function registerRouteDependencies() {
+		$this->toc->register_routes();
+		$this->metadata->register_routes();
 	}
 
 	/**
@@ -235,10 +255,13 @@ class Books extends \WP_REST_Controller {
 		$request_toc = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
 		$response_toc = rest_do_request( $request_toc );
 
+		$request_metadata = new \WP_REST_Request( 'GET', '/pressbooks/v2/metadata' );
+		$response_metadata = rest_do_request( $request_metadata );
+
 		$item = [
 			'id' => $id,
 			'link' => get_blogaddress_by_id( $id ),
-			'meta' => [], // TODO
+			'meta' => $this->prepare_response_for_collection( $response_metadata ),
 			'toc' => $this->prepare_response_for_collection( $response_toc ),
 		];
 
