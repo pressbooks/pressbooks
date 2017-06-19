@@ -29,7 +29,9 @@ class Metadata extends \WP_REST_Controller {
 				'methods' => \WP_REST_Server::READABLE,
 				'callback' => [ $this, 'get_item' ],
 				'permission_callback' => [ $this, 'get_item_permissions_check' ],
-				'args' => $this->get_collection_params(),
+				'args' => [
+					'context' => $this->get_context_param( [ 'default' => 'view' ] ),
+				],
 			],
 			'schema' => [ $this, 'get_public_item_schema' ],
 		] );
@@ -301,18 +303,6 @@ class Metadata extends \WP_REST_Controller {
 		return $this->add_additional_fields_schema( $schema );
 	}
 
-	/**
-	 * @return array
-	 */
-	public function get_collection_params() {
-
-		$params = parent::get_collection_params();
-
-		$params['context']['default'] = 'view';
-		unset( $params['page'], $params['per_page'], $params['search'] );
-
-		return $params;
-	}
 
 	/**
 	 * @param  \WP_REST_Request $request Full details about the request.
