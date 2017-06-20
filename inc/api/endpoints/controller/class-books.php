@@ -291,6 +291,12 @@ class Books extends \WP_REST_Controller {
 
 		restore_current_blog();
 
+		$this->linkCollector['metadata'][] = [ 'href' => $item['metadata']['_links']['self'][0]['href'] ];
+		unset( $item['metadata']['_links'] );
+
+		$this->linkCollector['toc'][] = [ 'href' => $item['toc']['_links']['self'][0]['href'] ];
+		unset( $item['toc']['_links'] );
+
 		$this->linkCollector['self'][] = [ 'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->rest_base, $id ) ) ];
 
 		return $item;
