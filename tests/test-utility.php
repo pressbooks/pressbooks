@@ -253,4 +253,14 @@ class UtilityTest extends \WP_UnitTestCase {
 		$return = \Pressbooks\Utility\rcopy( trailingslashit( $uploads['path'] ) . 'missing', $dest );
 		$this->assertEquals( $return, false );
 	}
+
+	public function test_array_to_csv(){
+		$one_dimensional = ['val1', 'val2', 'val3'];
+		$return = \Pressbooks\Utility\array_to_csv( $one_dimensional );
+		$this->assertSame( 'val1, val2, val3', $return );
+
+		$string = 'Kitchen Layer Isotope Diem 6000 Guava';
+		$return = \Pressbooks\Utility\array_to_csv( $string );
+		$this->assertEmpty( $return );
+	}
 }

@@ -883,3 +883,25 @@ function rcopy( $src, $dest ) {
 	}
 	return true;
 }
+
+/**
+ * Helper function to transform a one dimensional array to csv
+ *
+ * @since 3.9.10
+ *
+ * @param $any_array
+ *
+ * @return string
+ */
+function array_to_csv( $any_array ) {
+	$result = '';
+
+	if ( is_array( $any_array ) ) {
+		foreach ( $any_array as $item ) {
+			$result .= $item . ', ';
+		}
+		$result = rtrim( $result, ', ' );
+	}
+
+	return $result;
+}

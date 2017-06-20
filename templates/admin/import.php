@@ -24,6 +24,8 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 	'html' => __( 'HTML (scrape content from a URL)' ),
 ) );
 
+$supported_file_extensions = \Pressbooks\Utility\array_to_csv( array_keys( $import_option_types ) );
+
 ?>
 <div class="wrap">
 
@@ -151,7 +153,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 			});
 			</script>
 		<p>
-			<?php _e( 'Supported file extensions:', 'pressbooks' ); ?> XML, EPUB, ODT, DOCX, HTML <br />
+			<?php _e( 'Supported file extensions: ', 'pressbooks' ); echo strtoupper( $supported_file_extensions ); ?> <br />
 			<?php _e( 'Maximum file size:', 'pressbooks' );
 			echo ' ' . \Pressbooks\Utility\file_upload_max_size(); ?>
 		</p>
@@ -182,6 +184,15 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 					<td id="pb-www">
 						<input type="text" class="widefat" name="import_html" id="import_html" placeholder="http://url-of-the-html-page-to-import.html">
 					</td>
+					<?php
+					/**
+					 * Allows developers to add a new input type
+					 *
+					 * @since 3.9.10
+					 *
+					 */
+					echo apply_filters( 'pb_import_table_cell' );
+					?>
 				</tr>
 
 				</tbody>
