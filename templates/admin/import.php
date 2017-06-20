@@ -24,7 +24,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 	'html' => __( 'HTML (scrape content from a URL)' ),
 ) );
 
-$supported_file_extensions = \Pressbooks\Utility\array_to_csv( array_keys( $import_option_types ) );
+$supported_file_extensions = implode( ', ', array_keys( $import_option_types ) );
 
 ?>
 <div class="wrap">
