@@ -109,7 +109,7 @@ class Books extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'meta' => [
+				'metadata' => [
 					'description' => __( 'Metadata', 'pressbooks' ),
 					'type' => 'object',
 					'properties' => $metadata['properties'],
@@ -283,7 +283,7 @@ class Books extends \WP_REST_Controller {
 		$item = [
 			'id' => $id,
 			'link' => get_blogaddress_by_id( $id ),
-			'meta' => $this->prepare_response_for_collection( $response_metadata ),
+			'metadata' => $this->prepare_response_for_collection( $response_metadata ),
 			'toc' => $this->prepare_response_for_collection( $response_toc ),
 		];
 
