@@ -213,6 +213,17 @@ class SanitizeTest extends \WP_UnitTestCase {
 		}
 	}
 
+	public function test_normalize_css_urls() {
+		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
+		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
+		$template_directory_uri = get_template_directory_uri();
+		$this->assertContains( $template_directory_uri . '/assets/book/typography/fonts/Bergamot-Ornaments.ttf', $css );
+
+		$css = 'url(/fonts/foo.garbage)';
+		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
+		$this->assertNotContains( 'themes/pressbooks-book/assets/typography/fonts/foo.garbage', $css );
+	}
+
 	public function test_allow_post_content() {
 
 		global $allowedposttags;

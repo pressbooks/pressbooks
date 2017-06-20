@@ -89,7 +89,7 @@ Once installed, define the following `wp-config.php` variables. The defaults are
 
     define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
     define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
-    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/epubcheck' );
     define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
     define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
 

@@ -6,7 +6,7 @@
 
 use Pressbooks\Book;
 use Pressbooks\Container;
-use Pressbooks\ThemeLock;
+use Pressbooks\Theme\Lock;
 use function \Pressbooks\l10n\use_book_locale;
 use function \Pressbooks\Utility\include_plugins as include_symbionts;
 
@@ -27,6 +27,7 @@ require( PB_PLUGIN_DIR . 'inc/posttype/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/redirect/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/registration/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/sanitize/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/theme/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/media/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/editor/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/api/namespace.php' );
@@ -193,9 +194,9 @@ $_ = \Pressbooks\Shortcodes\Generics\Generics::getInstance();
 $_ = \Pressbooks\Shortcodes\WikiPublisher\Glyphs::getInstance();
 
 // Theme Lock
-if ( $is_book && ThemeLock::isLocked() ) {
-	add_filter( 'pb_stylesheet_directory', [ '\Pressbooks\ThemeLock', 'getLockDir' ] );
-	add_filter( 'pb_stylesheet_directory_uri', [ '\Pressbooks\ThemeLock', 'getLockDirURI' ] );
+if ( $is_book && Lock::isLocked() ) {
+	add_filter( 'pb_stylesheet_directory', [ '\Pressbooks\Theme\Lock', 'getLockDir' ] );
+	add_filter( 'pb_stylesheet_directory_uri', [ '\Pressbooks\Theme\Lock', 'getLockDirURI' ] );
 }
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -239,6 +240,11 @@ add_action( 'init', function () {
 		update_site_option( 'pressbooks_catalog_version', \Pressbooks\Catalog::VERSION );
 	}
 }, 1000 );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Migrate Themes
+// -------------------------------------------------------------------------------------------------------------------
+add_action( 'init', '\Pressbooks\Theme\migrate_book_themes' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Regenerate web theme stylesheet

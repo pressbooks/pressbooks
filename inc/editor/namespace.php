@@ -9,6 +9,8 @@ namespace Pressbooks\Editor;
 use Pressbooks\Container;
 use PressbooksMix\Assets;
 
+use function Pressbooks\Sanitize\normalize_css_urls;
+
 /**
  * Ensure that Word formatting that we like doesn't get filtered out.
  *
@@ -279,7 +281,7 @@ function update_editor_style() {
 		);
 	}
 
-	$css = Container::get( 'Sass' )->fixWebFonts( $css );
+	$css = normalize_css_urls( $css );
 
 	$output = $sass->pathToUserGeneratedCss() . '/editor.css';
 	file_put_contents( $output, $css );

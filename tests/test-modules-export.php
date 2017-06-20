@@ -44,17 +44,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		$path = $this->export->getExportStylePath( 'foobar' );
 		$this->assertFalse( $path );
-
-		switch_theme( 'pressbooks-custom-css' );
-
-		$path = $this->export->getExportStylePath( 'epub' );
-		$this->assertStringEndsWith( '/export/epub/style.css', $path );
-
-		$path = $this->export->getExportStylePath( 'prince' );
-		$this->assertStringEndsWith( '/export/prince/style.css', $path );
-
-		$path = $this->export->getExportStylePath( 'foobar' );
-		$this->assertFalse( $path );
 	}
 
 	//  public function test_getGlobalTypographyMixinPath() {
@@ -71,28 +60,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		$path = $this->export->getExportScriptPath( 'prince' );
 		$this->assertStringEndsWith( '/export/prince/script.js', $path );
-
-		$path = $this->export->getExportScriptPath( 'foobar' );
-		$this->assertFalse( $path );
-
-		switch_theme( 'pressbooks-custom-css' );
-
-		$opt = get_option( 'pressbooks_theme_options_pdf' );
-
-		$opt['pdf_romanize_parts'] = 0;
-		update_option( 'pressbooks_theme_options_pdf', $opt );
-
-		$path = $this->export->getExportScriptPath( 'epub' );
-		$this->assertFalse( $path );
-
-		$path = $this->export->getExportScriptPath( 'prince' );
-		$this->assertStringEndsWith( '/export/prince/script.js', $path );
-
-		$opt['pdf_romanize_parts'] = 1;
-		update_option( 'pressbooks_theme_options_pdf', $opt );
-
-		$path = $this->export->getExportScriptPath( 'prince' );
-		$this->assertStringEndsWith( '/export/prince/script-romanize.js', $path );
 
 		$path = $this->export->getExportScriptPath( 'foobar' );
 		$this->assertFalse( $path );

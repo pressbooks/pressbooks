@@ -182,7 +182,7 @@ class Epub201 extends Export {
 		}
 
 		if ( ! defined( 'PB_EPUBCHECK_COMMAND' ) ) {
-			define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+			define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/epubcheck' );
 		}
 
 		$this->tmpDir = $this->createTmpDir();
@@ -644,6 +644,8 @@ class Epub201 extends Export {
 		$css = preg_replace_callback(
 			$url_regex, function ( $matches ) use ( $scss_dir, $path_to_epub_assets ) {
 
+				$typography_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/';
+
 				$url = $matches[3];
 				$filename = sanitize_file_name( basename( $url ) );
 
@@ -677,9 +679,19 @@ class Epub201 extends Export {
 					}
 				} elseif ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(' . $this->supportedFontExtensions . ')$#i', $url ) ) {
 
-					// Look for themes-book/pressbooks-book/fonts/*.ttf (or .otf), copy into our Epub
+					// Update themes-book/pressbooks-book/fonts/*.ttf (or .otf) path to new location, copy into our Epub
+					$url = str_replace( 'themes-book/pressbooks-book/', $typography_dir, $url );
+					$my_font = realpath( $typography_dir . $url );
 
-					$my_font = realpath( PB_PLUGIN_DIR . $url );
+					if ( $my_font ) {
+						copy( $my_font, "$path_to_epub_assets/$filename" );
+						return "url(assets/$filename)";
+					}
+				} elseif ( preg_match( '#^fonts/[a-zA-Z0-9_-]+(' . $this->supportedFontExtensions . ')$#i', $url ) ) {
+
+					// Look for wp-content/themes/pressbooks-book/assets/typography/fonts/*.ttf (or .otf), copy into our Epub
+
+					$my_font = realpath( $typography_dir . $url );
 					if ( $my_font ) {
 						copy( $my_font, "$path_to_epub_assets/$filename" );
 						return "url(assets/$filename)";

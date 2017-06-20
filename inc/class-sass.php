@@ -6,6 +6,8 @@
 
 namespace Pressbooks;
 
+use function Pressbooks\Sanitize\normalize_css_urls;
+
 class Sass {
 
 	/**
@@ -55,13 +57,12 @@ class Sass {
 	}
 
 	/**
-	 * Get the path to our PB Partials
+	 * Get the path to legacy book theme partials.
 	 *
 	 * @return string
 	 */
 	function pathToPartials() {
-
-		return PB_PLUGIN_DIR . 'assets/scss/partials';
+		return get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/';
 	}
 
 	/**
@@ -70,8 +71,7 @@ class Sass {
 	 * @return string
 	 */
 	function pathToGlobals() {
-
-		return PB_PLUGIN_DIR . 'assets/book/styles';
+		return get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/styles/';
 	}
 
 
@@ -81,8 +81,7 @@ class Sass {
 	 * @return string
 	 */
 	function pathToFonts() {
-
-		return PB_PLUGIN_DIR . 'assets/scss/fonts';
+		return get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/styles/';
 	}
 
 
@@ -177,8 +176,9 @@ class Sass {
 		} catch ( \Exception $e ) {
 
 			$_SESSION['pb_errors'][] = sprintf(
-				__( 'There was a problem with SASS. Contact your site administrator. Error: %s', 'pressbooks' ),
-				$e->getMessage()
+				__( 'There was a problem with SASS. Contact your site administrator. Error: %1$s %2$s', 'pressbooks' ),
+				$e->getMessage(),
+				'<pre>' . print_r( $sass->getParsedFiles(), true ) . '</pre>'
 			);
 
 			$this->logException( $e );
@@ -372,6 +372,7 @@ class Sass {
 			$scss .= $this->applyOverrides( file_get_contents( $path_to_style ), $overrides );
 
 			$scss .= "\n";
+
 			$css = $this->compile(
 				$scss, [
 					$this->pathToUserGeneratedSass(),
@@ -393,44 +394,10 @@ class Sass {
 			return;
 		}
 
-		$css = $this->fixWebFonts( $css );
+		$css = normalize_css_urls( $css );
 
 		$css_file = $this->pathToUserGeneratedCss() . '/style.css';
 		file_put_contents( $css_file, $css );
-	}
-
-	/**
-	 * Fix relative/ambiguous URLs to web fonts
-	 *
-	 * @param $css
-	 *
-	 * @return mixed
-	 */
-	function fixWebFonts( $css ) {
-
-		// Search for all possible permutations of CSS url syntax: url("*"), url('*'), and url(*)
-		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
-		$css = preg_replace_callback(
-			$url_regex, function ( $matches ) {
-
-				$url = $matches[3];
-
-				// Look for themes-book/pressbooks-book/fonts/*.otf (or .woff, or .ttf), update URL
-				if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-					return 'url(' . PB_PLUGIN_URL . $url . ')';
-				}
-
-				// Look for uploads/assets/fonts/*.otf (or .woff, or .ttf), update URL
-				if ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
-					return 'url(' . WP_CONTENT_URL . '/' . $url . ')';
-				}
-
-				return $matches[0]; // No change
-
-			}, $css
-		);
-
-		return $css;
 	}
 
 	/**

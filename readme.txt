@@ -109,9 +109,9 @@ Once installed, define the following wp-config.php variables. The defaults are:
 
 	define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 	define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
-	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/epubcheck' );
 	define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
-  define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
+	define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
 
 
 Example config files for a dev site hosted at http://localhost/~dac514/textopress/
@@ -151,7 +151,7 @@ Example config files for a dev site hosted at http://localhost/~dac514/textopres
 	define( 'PB_KINDLEGEN_COMMAND', '/home/dac514/bin/kindlegen' );
 	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /home/dac514/bin/epubcheck-4.0/epubcheck-4.0.jar' );
 	define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
-  define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /home/dac514/bin/saxon-he/saxon-he.jar' );
+	define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /home/dac514/bin/saxon-he/saxon-he.jar' );
 
 	/**
 	 * Optional definitions
@@ -191,7 +191,7 @@ Once WP-CLI is installed on your server, the following shell commands executed i
 	    define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
 	    define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 	    define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
-	    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+	    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/epubcheck' );
 	    define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
 	    define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
 	    PHP

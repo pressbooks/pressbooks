@@ -39,6 +39,10 @@
     "phpunit/phpunit": "~5.5",
     "humanmade/coding-standards": "^0.2.1"
   },
+  "suggest": {
+    "pressbooks/pressbooks-book": "Pressbooks Book is the canonical book theme for Pressbooks.",
+    "pressbooks/pressbooks-publisher": "Pressbooks Publisher is the canonical root theme for Pressbooks."
+  },
   "archive" : {
     "exclude": [
       ".coveralls.yml",
