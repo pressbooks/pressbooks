@@ -253,4 +253,5 @@ class UtilityTest extends \WP_UnitTestCase {
 		$return = \Pressbooks\Utility\rcopy( trailingslashit( $uploads['path'] ) . 'missing', $dest );
 		$this->assertEquals( $return, false );
 	}
+
 }
