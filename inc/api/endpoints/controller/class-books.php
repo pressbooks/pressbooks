@@ -26,7 +26,7 @@ class Books extends \WP_REST_Controller {
 	/**
 	 * @var int
 	 */
-	protected $lastFoundBookId = 0;
+	protected $lastKnownBookId = 0;
 
 	/**
 	 * @var Toc
@@ -319,7 +319,7 @@ class Books extends \WP_REST_Controller {
 			$response->add_links( $this->linkCollector );
 			$results[] = $this->prepare_response_for_collection( $response );
 			$this->linkCollector = []; // re-initialize
-			$this->lastFoundBookId = $id;
+			$this->lastKnownBookId = $id;
 		}
 		return $results;
 	}
@@ -398,7 +398,7 @@ class Books extends \WP_REST_Controller {
 	protected function searchBooks( $request, $s, $m, $per_page ) {
 
 		if ( ! empty( $request['next'] ) ) {
-			$this->lastFoundBookId = $request['next'];
+			$this->lastKnownBookId = $request['next'];
 		}
 
 		$start_time = time();
@@ -417,7 +417,7 @@ class Books extends \WP_REST_Controller {
 					++$found_books;
 				}
 				++$searched_books;
-				$this->lastFoundBookId = $id;
+				$this->lastKnownBookId = $id;
 				if ( time() - $start_time > self::MAX_SEARCH_TIME ) {
 					break 2;
 				}
@@ -428,7 +428,7 @@ class Books extends \WP_REST_Controller {
 		}
 
 		if ( ! $searched_books ) {
-			$this->lastFoundBookId = 0;
+			$this->lastKnownBookId = 0;
 		}
 
 		return $results;
@@ -451,7 +451,7 @@ class Books extends \WP_REST_Controller {
 			$wpdb->prepare(
 				"SELECT SQL_CALC_FOUND_ROWS blog_id FROM {$wpdb->blogs} 
 				 WHERE public = 1 AND archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d AND blog_id > %d 
-				 ORDER BY blog_id LIMIT  %d ", get_network()->site_id, $this->lastFoundBookId, $limit
+				 ORDER BY blog_id LIMIT  %d ", get_network()->site_id, $this->lastKnownBookId, $limit
 			)
 		);
 
@@ -473,11 +473,11 @@ class Books extends \WP_REST_Controller {
 		$response->header( 'X-WP-Total', (int) $this->totalBooks );
 		$response->header( 'X-WP-TotalPages', $max_pages );
 
-		if ( $this->lastFoundBookId ) {
+		if ( $this->lastKnownBookId ) {
 			unset( $request['page'] );
 			$request_params = $request->get_query_params();
 			$base = add_query_arg( $request_params, rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ) );
-			$next_link = add_query_arg( 'next', $this->lastFoundBookId, $base );
+			$next_link = add_query_arg( 'next', $this->lastKnownBookId, $base );
 			$response->link_header( 'next', $next_link );
 		}
 	}
