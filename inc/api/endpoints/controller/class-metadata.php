@@ -341,7 +341,6 @@ class Metadata extends \WP_REST_Controller {
 
 	/**
 	 * @param array $book_information
-	 * @param $has_permission
 	 *
 	 * @return array
 	 */

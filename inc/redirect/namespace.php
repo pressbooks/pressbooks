@@ -237,8 +237,11 @@ function rewrite_rules_for_api() {
 }
 
 /**
+ * PB API v1
  * Expects the pattern `api/v1/books/{id}`
  *
+ * @see https://github.com/pressbooks/pb-api
+ * @deprecated
  */
 function do_api() {
 	// Don't do anything and return if `api` isn't part of the URL
@@ -321,7 +324,17 @@ function do_api() {
 			}
 			break;
 		case 'docs':
-			require( PB_PLUGIN_DIR . 'vendor/pressbooks/pb-api/includes/modules/api_v1/docs/api-documentation.php' );
+			$docs = [
+				PB_PLUGIN_DIR . 'vendor/pressbooks/pb-api/includes/modules/api_v1/docs/api-documentation.php', // Packaged
+				WP_CONTENT_DIR . '/../../vendor/pressbooks/pb-api/includes/modules/api_v1/docs/api-documentation.php', // Bedrock
+				WP_CONTENT_DIR . '/vendor/pressbooks/pb-api/includes/modules/api_v1/docs/api-documentation.php', // Maybe here?
+			];
+			foreach ( $docs as $path ) {
+				if ( file_exists( $path ) ) {
+					require( $path );
+					break;
+				}
+			}
 			break;
 		default:
 			\Pressbooks\Modules\Api_v1\Api::apiErrors( 'resource' );
