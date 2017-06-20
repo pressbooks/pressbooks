@@ -198,10 +198,10 @@ class Books extends \WP_REST_Controller {
 		// Register missing routes
 		$this->registerRouteDependencies();
 
+		// TODO: A more granular search like in API V1 (titles, subjects, authors, licenses, keywords)
+
 		if ( ! empty( $request['search'] ) ) {
-			$s = $this->searchArgs( $request['search'] );
-			$m = []; // TODO: https://codex.wordpress.org/Class_Reference/WP_Meta_Query
-			$response = rest_ensure_response( $this->searchBooks( $request, $s, $m, (int) $request['per_page'] ) );
+			$response = rest_ensure_response( $this->searchBooks( $request, (int) $request['per_page'] ) );
 			$this->addNextSearchLinks( $request, $response );
 		} else {
 			$response = rest_ensure_response( $this->listBooks( $request ) );
@@ -221,7 +221,7 @@ class Books extends \WP_REST_Controller {
 		// Register missing routes
 		$this->registerRouteDependencies();
 
-		$result = $this->renderNode( $request['id'] );
+		$result = $this->renderBook( $request['id'] );
 		$response = rest_ensure_response( $result );
 		$response->add_links( $this->linkCollector );
 
@@ -229,10 +229,10 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
-	 * @param int $lastKnownBookId
+	 * @param int $last_known_book_id
 	 */
-	public function setLastKnownBookId( $lastKnownBookId ) {
-		$this->lastKnownBookId = $lastKnownBookId;
+	public function setLastKnownBookId( $last_known_book_id ) {
+		$this->lastKnownBookId = $last_known_book_id;
 	}
 
 	/**
@@ -251,43 +251,25 @@ class Books extends \WP_REST_Controller {
 		$this->metadata->register_routes();
 	}
 
-	/**
-	 * Args for \WP_Query
-	 *
-	 * @see https://codex.wordpress.org/Class_Reference/WP_Query
-	 *
-	 * @param string $s
-	 *
-	 * @return array
-	 */
-	protected function searchArgs( $s ) {
-		$s = [
-			's' => $s,
-			'post_type' => get_custom_post_types(),
-			'fields' => 'ids', // Optimize: skip the unwanted returned array of WP_Post properties
-			'no_found_rows' => true, // Optimize: only interested in post count
-		];
-
-		return $s;
-	}
+	// -------------------------------------------------------------------------------------------------------------------
+	// List Books
+	// -------------------------------------------------------------------------------------------------------------------
 
 	/**
-	 * Render an item node for use in JSON response
+	 * Switches to a book, renders it for use in JSON response if found
 	 *
 	 * @param int $id
-	 * @param array $s (optional) args for \WP_Query
-	 * @param array $m (optional) args for \WP_Meta_Query
+	 * @param string $search (optional)
 	 *
 	 * @return array
 	 */
-	protected function renderNode( $id, $s = [], $m = [] ) {
+	protected function renderBook( $id, $search = '' ) {
 
 		switch_to_blog( $id );
 
 		// Search
-		if ( ! empty( $s ) ) {
-			$q = new \WP_Query( $s );
-			if ( $q->post_count < 1 ) {
+		if ( ! empty( $search ) ) {
+			if ( $this->findInPost( $search ) === false && $this->findInMeta( $search ) === false ) {
 				restore_current_blog();
 				return [];
 			}
@@ -321,10 +303,6 @@ class Books extends \WP_REST_Controller {
 		return $item;
 	}
 
-	// -------------------------------------------------------------------------------------------------------------------
-	// List Books
-	// -------------------------------------------------------------------------------------------------------------------
-
 	/**
 	 * @param \WP_REST_Request
 	 *
@@ -334,7 +312,7 @@ class Books extends \WP_REST_Controller {
 		$results = [];
 		$book_ids = $this->listBookIds( $request );
 		foreach ( $book_ids as $id ) {
-			$response = rest_ensure_response( $this->renderNode( $id ) );
+			$response = rest_ensure_response( $this->renderBook( $id ) );
 			$response->add_links( $this->linkCollector );
 			$results[] = $this->prepare_response_for_collection( $response );
 			$this->linkCollector = []; // re-initialize
@@ -407,14 +385,83 @@ class Books extends \WP_REST_Controller {
 	// -------------------------------------------------------------------------------------------------------------------
 
 	/**
+	 * Args for \WP_Query
+	 *
+	 * @see https://codex.wordpress.org/Class_Reference/WP_Query
+	 *
+	 * @param string $s
+	 *
+	 * @return array
+	 */
+	protected function searchArgs( $s ) {
+		$s = [
+			's' => $s,
+			'post_type' => get_custom_post_types(),
+			'fields' => 'ids', // Optimize: skip the unwanted returned array of WP_Post properties
+			'no_found_rows' => true, // Optimize: only interested in post count
+		];
+
+		return $s;
+	}
+
+	/**
+	 * @param string $search
+	 *
+	 * @return bool
+	 */
+	protected function findInPost( $search ) {
+
+		$s = $this->searchArgs( $search );
+		$q = new \WP_Query( $s );
+
+		// @codingStandardsIgnoreStart
+		//
+		// SELECT wp_2_posts.ID FROM wp_2_posts
+		// WHERE 1=1 AND (((wp_2_posts.post_title LIKE '%Foo%') OR (wp_2_posts.post_excerpt LIKE '%Foo%') OR (wp_2_posts.post_content LIKE '%Foo%')))
+		// AND (wp_2_posts.post_password = '')  AND wp_2_posts.post_type IN ('front-matter', 'back-matter', 'part', 'chapter') AND (wp_2_posts.post_status = 'publish')
+		// ORDER BY wp_2_posts.post_title LIKE '%Vikings%' DESC, wp_2_posts.post_date DESC LIMIT 0, 10
+		//
+		// @codingStandardsIgnoreEnd
+
+		if ( $q->post_count > 0 ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * @param string $search
+	 *
+	 * @return bool
+	 */
+	protected function findInMeta( $search ) {
+
+		$meta = new \Pressbooks\Metadata();
+		$data = $meta->getMetaPostMetadata();
+
+		foreach ( $data as $key => $haystack ) {
+			// Skip anything not prefixed with pb_
+			if ( ! preg_match( '/^pb_/', $key ) ) {
+				continue;
+			}
+			if ( is_array( $haystack ) ) {
+				$haystack = implode( ' ', $haystack );
+			}
+			if ( stripos( $haystack, $search ) !== false ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * @param \WP_REST_Request
-	 * @param array $s args for \WP_Query
-	 * @param array $m args for \WP_Meta_Query
 	 * @param int $per_page
 	 *
 	 * @return array
 	 */
-	protected function searchBooks( $request, $s, $m, $per_page ) {
+	protected function searchBooks( $request, $per_page ) {
 
 		if ( ! empty( $request['next'] ) ) {
 			$this->lastKnownBookId = $request['next'];
@@ -427,7 +474,7 @@ class Books extends \WP_REST_Controller {
 		while ( $found_books < $per_page ) {
 			$book_ids = $this->searchBookIds( $request );
 			foreach ( $book_ids as $id ) {
-				$node = $this->renderNode( $id, $s, $m );
+				$node = $this->renderBook( $id, $request['search'] );
 				if ( ! empty( $node ) ) {
 					$response = rest_ensure_response( $node );
 					$response->add_links( $this->linkCollector );
