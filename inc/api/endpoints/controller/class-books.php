@@ -11,12 +11,12 @@ class Books extends \WP_REST_Controller {
 	 *
 	 * @var int
 	 */
-	const LIMIT = 10;
+	protected $limit;
 
 	/**
 	 * Maximum amount of time for search, in seconds
 	 */
-	const MAX_SEARCH_TIME = 15;
+	protected $maxSearchTime;
 
 	/**
 	 * @var int
@@ -49,6 +49,10 @@ class Books extends \WP_REST_Controller {
 	public function __construct() {
 		$this->namespace = 'pressbooks/v2';
 		$this->rest_base = 'books';
+
+		$this->limit = apply_filters( 'pb_api_books_limit', 10 );
+		$this->maxSearchTime = apply_filters( 'pb_api_books_max_search_time', 15 );
+
 		$this->toc = new Toc();
 		$this->metadata = new Metadata();
 	}
@@ -137,7 +141,8 @@ class Books extends \WP_REST_Controller {
 		$params = parent::get_collection_params();
 
 		$params['context']['default'] = 'view';
-		$params['per_page']['maximum'] = self::LIMIT;
+		$params['per_page']['maximum'] = $this->limit;
+		$params['per_page']['default'] = $this->limit;
 
 		$params['next'] = [
 			'description' => __( 'ID offset, overrides page.', 'pressbooks' ),
@@ -349,7 +354,7 @@ class Books extends \WP_REST_Controller {
 
 		global $wpdb;
 
-		$limit = ! empty( $request['per_page'] ) ? $request['per_page'] : self::LIMIT;
+		$limit = ! empty( $request['per_page'] ) ? $request['per_page'] : $this->limit;
 		$offset = ! empty( $request['page'] ) ? ( $request['page'] - 1 ) * $limit : 0;
 
 		$blogs = $wpdb->get_col(
@@ -432,7 +437,7 @@ class Books extends \WP_REST_Controller {
 				}
 				++$searched_books;
 				$this->lastKnownBookId = $id;
-				if ( time() - $start_time > self::MAX_SEARCH_TIME ) {
+				if ( time() - $start_time > $this->maxSearchTime ) {
 					break 2;
 				}
 			}
@@ -459,7 +464,7 @@ class Books extends \WP_REST_Controller {
 
 		global $wpdb;
 
-		$limit = ! empty( $request['per_page'] ) ? $request['per_page'] : self::LIMIT;
+		$limit = ! empty( $request['per_page'] ) ? $request['per_page'] : $this->limit;
 
 		$blogs = $wpdb->get_col(
 			$wpdb->prepare(
