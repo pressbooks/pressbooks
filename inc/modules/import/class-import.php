@@ -410,7 +410,7 @@ abstract class Import {
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
-			$upload = array( 'url' => $_POST['import_http'] );
+			$upload = [ 'url' => $_POST['import_http'] ];
 
 			switch ( $_POST['type_of'] ) {
 				case 'html':
