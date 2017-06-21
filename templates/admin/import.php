@@ -133,25 +133,25 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 			jQuery(function ($) {
 				$('#pb-www').hide();
 
-				$( ".pb-html-target").change(
-					function(){
+				$(".pb-html-target").change(
+					function () {
 						var val = $('.pb-html-target').val();
 
-							if (val == 'html') {
-							$('#pb-file').hide();
-							$('#pb-www').show();
-						} else {
+						if (val == 'wxr' || val == 'epub' || val == 'odt' || val == 'docx') {
 							$('#pb-file').show();
 							$('#pb-www').hide();
 							// clear http value at input elem
 							$('.widefat').val('');
+						} else {
+							$('#pb-file').hide();
+							$('#pb-www').show();
 
 						}
 
 					});
 
 			});
-			</script>
+		</script>
 		<p>
 			<?php _e( 'Supported file extensions: ', 'pressbooks' ); echo strtoupper( $supported_file_extensions ); ?> <br />
 			<?php _e( 'Maximum file size:', 'pressbooks' );
@@ -174,7 +174,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 						</select>
 					</td>
 				</tr>
-				<tr>
+				<tr class="pb-input-types">
 					<th scope="row">
 						<label for="import_file"><?php _e( 'File', 'pressbooks' ); ?></label>
 					</th>
@@ -182,7 +182,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 						<input type="file" name="import_file" id="import_file">
 					</td>
 					<td id="pb-www">
-						<input type="text" class="widefat" name="import_html" id="import_html" placeholder="http://url-of-the-html-page-to-import.html">
+						<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com">
 					</td>
 					<?php
 					/**
@@ -191,7 +191,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 					 * @since 3.9.10
 					 *
 					 */
-					echo apply_filters( 'pb_import_table_cell' );
+					echo apply_filters( 'pb_import_table_cell', null );
 					?>
 				</tr>
 
