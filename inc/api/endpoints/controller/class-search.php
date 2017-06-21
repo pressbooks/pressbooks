@@ -107,28 +107,34 @@ class Search extends Books {
 		$response_metadata = rest_do_request( $request_metadata );
 		$metadata = $response_metadata->get_data();
 
+		$found = [];
 		foreach ( $search as $search_key => $needle ) {
+			$found[ $search_key ] = false;
 			if ( isset( $metadata[ $search_key ] ) ) {
-				$haystack = $metadata[ $search_key ];
-				if ( ! is_array( $haystack ) ) {
-					$haystack = (array) $haystack;
-				}
+				$haystack = is_array( $metadata[ $search_key ] ) ? $metadata[ $search_key ] : (array) $metadata[ $search_key ];
 				foreach ( $haystack as $hay ) {
 					if ( false !== strpos( $needle, ',' ) ) { // look for more than one search word
-						$needle = array_slice( explode( ',', $needle ), 0, 5 ); // prevent excessive requests
+						$needles = array_slice( explode( ',', $needle ), 0, 5 ); // prevent excessive requests
 					} else {
-						$needle = (array) $needle;
+						$needles = (array) $needle;
 					}
-					foreach ( $needle as $pin ) {
+					foreach ( $needles as $pin ) {
 						if ( stripos( $hay, trim( $pin ) ) !== false ) {
-							return true;
+							$found[ $search_key ] = true;
+							break 2;
 						}
 					}
 				}
 			}
 		}
 
-		return false;
+		foreach ( $found as $key => $val ) {
+			if ( $val === false ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 }
