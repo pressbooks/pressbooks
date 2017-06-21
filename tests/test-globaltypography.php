@@ -49,7 +49,9 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 
 	public function test_getThemeSupportedLanguages() {
 
-		$this->_book( 'pressbooks-donham' ); // Pick a theme with some built-in $supported_languages
+		$this->_book();
+
+		add_theme_support( 'pressbooks_global_typography', 'grc', 'he' );
 
 		$supported_languages = $this->gt->getThemeSupportedLanguages();
 
