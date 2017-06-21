@@ -198,10 +198,8 @@ class Books extends \WP_REST_Controller {
 		// Register missing routes
 		$this->registerRouteDependencies();
 
-		// TODO: A more granular search like in API V1 (titles, subjects, authors, licenses, keywords)
-
 		if ( ! empty( $request['search'] ) ) {
-			$response = rest_ensure_response( $this->searchBooks( $request, (int) $request['per_page'] ) );
+			$response = rest_ensure_response( $this->searchBooks( $request ) );
 			$this->addNextSearchLinks( $request, $response );
 		} else {
 			$response = rest_ensure_response( $this->listBooks( $request ) );
@@ -259,17 +257,17 @@ class Books extends \WP_REST_Controller {
 	 * Switches to a book, renders it for use in JSON response if found
 	 *
 	 * @param int $id
-	 * @param string $search (optional)
+	 * @param mixed $search (optional)
 	 *
 	 * @return array
 	 */
-	protected function renderBook( $id, $search = '' ) {
+	protected function renderBook( $id, $search = null ) {
 
 		switch_to_blog( $id );
 
 		// Search
 		if ( ! empty( $search ) ) {
-			if ( $this->findInPost( $search ) === false && $this->findInMeta( $search ) === false ) {
+			if ( ! $this->find( $search ) ) {
 				restore_current_blog();
 				return [];
 			}
@@ -385,6 +383,31 @@ class Books extends \WP_REST_Controller {
 	// -------------------------------------------------------------------------------------------------------------------
 
 	/**
+	 * Overridable find method for how to search a book
+	 *
+	 * @param mixed $search
+	 *
+	 * @return bool
+	 */
+	public function find( $search ) {
+
+		if ( ! is_array( $search ) ) {
+			$search = (array) $search;
+		}
+
+		foreach ( $search as $val ) {
+			if ( $this->fulltextSearchInPost( $val ) !== false ) {
+				return true;
+			}
+			if ( $this->fulltextSearchInMeta( $val ) !== false ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Args for \WP_Query
 	 *
 	 * @see https://codex.wordpress.org/Class_Reference/WP_Query
@@ -405,11 +428,13 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
+	 * Fulltext search entire book
+	 *
 	 * @param string $search
 	 *
 	 * @return bool
 	 */
-	protected function findInPost( $search ) {
+	protected function fulltextSearchInPost( $search ) {
 
 		$s = $this->searchArgs( $search );
 		$q = new \WP_Query( $s );
@@ -431,11 +456,13 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
+	 * Fulltext search all `pb_` prefixed meta keys in metadata post
+	 *
 	 * @param string $search
 	 *
 	 * @return bool
 	 */
-	protected function findInMeta( $search ) {
+	protected function fulltextSearchInMeta( $search ) {
 
 		$meta = new \Pressbooks\Metadata();
 		$data = $meta->getMetaPostMetadata();
@@ -456,12 +483,13 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
-	 * @param \WP_REST_Request
-	 * @param int $per_page
+	 * Fulltext search
+	 *
+	 * @param \WP_REST_Request $request
 	 *
 	 * @return array
 	 */
-	protected function searchBooks( $request, $per_page ) {
+	protected function searchBooks( $request ) {
 
 		if ( ! empty( $request['next'] ) ) {
 			$this->lastKnownBookId = $request['next'];
@@ -471,7 +499,7 @@ class Books extends \WP_REST_Controller {
 		$searched_books = 0;
 		$found_books = 0;
 		$results = [];
-		while ( $found_books < $per_page ) {
+		while ( $found_books < $request['per_page']  ) {
 			$book_ids = $this->searchBookIds( $request );
 			foreach ( $book_ids as $id ) {
 				$node = $this->renderBook( $id, $request['search'] );
