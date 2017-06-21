@@ -385,16 +385,17 @@ abstract class Import {
 				$_SESSION['pb_errors'][] = sprintf( __( 'Your file does not appear to be a valid %s.', 'pressbooks' ), strtoupper( $_POST['type_of'] ) );
 				unlink( $upload['file'] );
 			}
-		} elseif ( isset( $_GET['import'] ) && isset( $_POST['type_of'] ) && 'html' === $_POST['type_of'] && check_admin_referer( 'pb-import' ) ) {
+			// handles file uploads via http GET requests
+		} elseif ( isset( $_GET['import'] ) && isset( $_POST['type_of'] ) && ! empty( $_POST['import_http'] ) && check_admin_referer( 'pb-import' ) ) {
 
 			// check if it's a valid url
-			if ( false === filter_var( $_POST['import_html'], FILTER_VALIDATE_URL ) ) {
+			if ( false === filter_var( $_POST['import_http'], FILTER_VALIDATE_URL ) ) {
 				$_SESSION['pb_errors'][] = __( 'Your URL does not appear to be valid', 'pressbooks' );
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
 			// HEAD request, check for a valid response from server
-			$remote_head = wp_remote_head( $_POST['import_html'] );
+			$remote_head = wp_remote_head( $_POST['import_http'] );
 
 			// Something failed
 			if ( is_wp_error( $remote_head ) ) {
@@ -409,38 +410,37 @@ abstract class Import {
 				\Pressbooks\Redirect\location( $redirect_url );
 			}
 
-			// ensure the media type is HTML (not JSON, or something we can't deal with)
-			if ( false === strpos( $remote_head['headers']['content-type'], 'text/html' ) && false === strpos( $remote_head['headers']['content-type'], 'application/xhtml+xml' ) ) {
-				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
-				\Pressbooks\Redirect\location( $redirect_url );
+			$upload = array( 'url' => $_POST['import_http'] );
+
+			switch ( $_POST['type_of'] ) {
+				case 'html':
+					// ensure the media type is HTML (not JSON, or something we can't deal with)
+					if ( false === strpos( $remote_head['headers']['content-type'], 'text/html' ) && false === strpos( $remote_head['headers']['content-type'], 'application/xhtml+xml' ) ) {
+						$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning HTML content', 'pressbooks' );
+						\Pressbooks\Redirect\location( $redirect_url );
+					}
+
+					$importer = new Html\Xhtml();
+					$ok       = $importer->setCurrentImportOption( $upload );
+
+					break;
+
+				default:
+					/**
+					 * Allows users to add custom import routine for custom import type
+					 * via HTTP GET requests
+					 *
+					 * @since 4.0.0
+					 */
+					$importer = apply_filters( 'pb_initialize_import', null );
+					if ( is_object( $importer ) ) {
+						$ok = $importer->setCurrentImportOption( $upload );
+					}
 			}
-
-			// GET http request
-			$body = wp_remote_get( $_POST['import_html'] );
-
-			// check for wp error
-			if ( is_wp_error( $body ) ) {
-				$error_message = $body->get_error_message();
-				error_log( '\Pressbooks\Modules\Import::formSubmit error, import_html' . $error_message );
-				$_SESSION['pb_errors'][] = $error_message;
-				\Pressbooks\Redirect\location( $redirect_url );
-			}
-
-			// check for a successful response code on GET request
-			if ( 200 !== $body['response']['code'] ) {
-				$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ', 'pressbooks' ) . $body['response']['code'];
-				\Pressbooks\Redirect\location( $redirect_url );
-			}
-
-			// add our url
-			$body['url'] = $_POST['import_html'];
-
-			$importer = new Html\Xhtml();
-			$ok = $importer->setCurrentImportOption( $body );
 
 			$msg = "Tried to upload a file of type {$_POST['type_of']} and ";
 			$msg .= ( $ok ) ? 'succeeded :)' : 'failed :(';
-			self::log( $msg, $body['headers'] );
+			self::log( $msg, $upload );
 
 			if ( ! $ok ) {
 				// Not ok?
