@@ -198,10 +198,8 @@ class Books extends \WP_REST_Controller {
 		// Register missing routes
 		$this->registerRouteDependencies();
 
-		// TODO: A more granular search like in API V1 (titles, subjects, authors, licenses, keywords)
-
 		if ( ! empty( $request['search'] ) ) {
-			$response = rest_ensure_response( $this->searchBooks( $request, (int) $request['per_page'] ) );
+			$response = rest_ensure_response( $this->searchBooks( $request ) );
 			$this->addNextSearchLinks( $request, $response );
 		} else {
 			$response = rest_ensure_response( $this->listBooks( $request ) );
@@ -269,7 +267,7 @@ class Books extends \WP_REST_Controller {
 
 		// Search
 		if ( ! empty( $search ) ) {
-			if ( $this->findInPost( $search ) === false && $this->findInMeta( $search ) === false ) {
+			if ( ! $this->find( $search ) ) {
 				restore_current_blog();
 				return [];
 			}
@@ -409,6 +407,25 @@ class Books extends \WP_REST_Controller {
 	 *
 	 * @return bool
 	 */
+	protected function find( $search ) {
+
+		if ( $this->findInPost( $search ) !== false ) {
+			return true;
+		}
+		if ( $this->findInMeta( $search ) !== false ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Fulltext search entire book
+	 *
+	 * @param string $search
+	 *
+	 * @return bool
+	 */
 	protected function findInPost( $search ) {
 
 		$s = $this->searchArgs( $search );
@@ -431,6 +448,8 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
+	 * Fulltext search all `pb_` prefixed meta keys in metadata post
+	 *
 	 * @param string $search
 	 *
 	 * @return bool
@@ -456,12 +475,13 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
-	 * @param \WP_REST_Request
-	 * @param int $per_page
+	 * Fulltext search
+	 *
+	 * @param \WP_REST_Request $request
 	 *
 	 * @return array
 	 */
-	protected function searchBooks( $request, $per_page ) {
+	protected function searchBooks( $request ) {
 
 		if ( ! empty( $request['next'] ) ) {
 			$this->lastKnownBookId = $request['next'];
@@ -471,7 +491,7 @@ class Books extends \WP_REST_Controller {
 		$searched_books = 0;
 		$found_books = 0;
 		$results = [];
-		while ( $found_books < $per_page ) {
+		while ( $found_books < $request['per_page']  ) {
 			$book_ids = $this->searchBookIds( $request );
 			foreach ( $book_ids as $id ) {
 				$node = $this->renderBook( $id, $request['search'] );

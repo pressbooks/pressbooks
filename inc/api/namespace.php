@@ -69,6 +69,10 @@ function init_root() {
 	// Register Books
 	$toc_controller = new Endpoints\Controller\Books();
 	$toc_controller->register_routes();
+
+	// Register Search
+	$toc_controller = new Endpoints\Controller\Search();
+	$toc_controller->register_routes();
 }
 
 /**
