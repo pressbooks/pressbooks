@@ -34,8 +34,14 @@ class Search extends Books {
 	public function get_collection_params() {
 
 		$params = parent::get_collection_params();
+
 		unset( $params['page'] );
 		unset( $params['search'] );
+
+		$params['*'] = [
+			'description' => __( 'Any meta key, comma separated values, limit of 5.', 'pressbooks' ),
+			'type' => 'string',
+		];
 
 		return $params;
 	}
@@ -51,11 +57,78 @@ class Search extends Books {
 		// Register missing routes
 		$this->registerRouteDependencies();
 
+		// Override search request
+		$search = $request->get_query_params();
+		unset( $search['per_page'], $search['next'] );
+		$request['search'] = ! empty( $search ) ? $search : [ null => null ]; // Set some weird value that means abort
+
 		$response = rest_ensure_response( $this->searchBooks( $request ) );
+		unset( $request['search'] );
+
 		$this->addNextSearchLinks( $request, $response );
 
 		return $response;
 	}
 
+	/**
+	 * Overridable find method for how to search a book
+	 *
+	 * @param mixed $search
+	 *
+	 * @return bool
+	 */
+	public function find( $search ) {
+
+		if ( ! is_array( $search ) ) {
+			wp_die( 'LogicException: $search should be a [meta_key => val] array' );
+		}
+
+		if ( $search === [ null => null ] ) {
+			return false; // Abort search
+		}
+
+		if ( $this->keyValueSearchInMeta( $search ) !== false ) {
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Key/value search JSON from /pressbooks/v2/metadata endpoint
+	 *
+	 * @param array $search
+	 *
+	 * @return bool
+	 */
+	protected function keyValueSearchInMeta( array $search ) {
+
+		$request_metadata = new \WP_REST_Request( 'GET', '/pressbooks/v2/metadata' );
+		$response_metadata = rest_do_request( $request_metadata );
+		$metadata = $response_metadata->get_data();
+
+		foreach ( $search as $search_key => $needle ) {
+			if ( isset( $metadata[ $search_key ] ) ) {
+				$haystack = $metadata[ $search_key ];
+				if ( ! is_array( $haystack ) ) {
+					$haystack = (array) $haystack;
+				}
+				foreach ( $haystack as $hay ) {
+					if ( false !== strpos( $needle, ',' ) ) { // look for more than one search word
+						$needle = array_slice( explode( ',', $needle ), 0, 5 ); // prevent excessive requests
+					} else {
+						$needle = (array) $needle;
+					}
+					foreach ( $needle as $pin ) {
+						if ( stripos( $hay, trim( $pin ) ) !== false ) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+
+		return false;
+	}
 
 }

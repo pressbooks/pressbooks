@@ -257,11 +257,11 @@ class Books extends \WP_REST_Controller {
 	 * Switches to a book, renders it for use in JSON response if found
 	 *
 	 * @param int $id
-	 * @param string $search (optional)
+	 * @param mixed $search (optional)
 	 *
 	 * @return array
 	 */
-	protected function renderBook( $id, $search = '' ) {
+	protected function renderBook( $id, $search = null ) {
 
 		switch_to_blog( $id );
 
@@ -383,6 +383,31 @@ class Books extends \WP_REST_Controller {
 	// -------------------------------------------------------------------------------------------------------------------
 
 	/**
+	 * Overridable find method for how to search a book
+	 *
+	 * @param mixed $search
+	 *
+	 * @return bool
+	 */
+	public function find( $search ) {
+
+		if ( ! is_array( $search ) ) {
+			$search = (array) $search;
+		}
+
+		foreach ( $search as $val ) {
+			if ( $this->fulltextSearchInPost( $val ) !== false ) {
+				return true;
+			}
+			if ( $this->fulltextSearchInMeta( $val ) !== false ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Args for \WP_Query
 	 *
 	 * @see https://codex.wordpress.org/Class_Reference/WP_Query
@@ -403,30 +428,13 @@ class Books extends \WP_REST_Controller {
 	}
 
 	/**
-	 * @param string $search
-	 *
-	 * @return bool
-	 */
-	protected function find( $search ) {
-
-		if ( $this->findInPost( $search ) !== false ) {
-			return true;
-		}
-		if ( $this->findInMeta( $search ) !== false ) {
-			return true;
-		}
-
-		return false;
-	}
-
-	/**
 	 * Fulltext search entire book
 	 *
 	 * @param string $search
 	 *
 	 * @return bool
 	 */
-	protected function findInPost( $search ) {
+	protected function fulltextSearchInPost( $search ) {
 
 		$s = $this->searchArgs( $search );
 		$q = new \WP_Query( $s );
@@ -454,7 +462,7 @@ class Books extends \WP_REST_Controller {
 	 *
 	 * @return bool
 	 */
-	protected function findInMeta( $search ) {
+	protected function fulltextSearchInMeta( $search ) {
 
 		$meta = new \Pressbooks\Metadata();
 		$data = $meta->getMetaPostMetadata();
