@@ -188,7 +188,7 @@ $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) )
 					/**
 					 * Allows developers to add a new input type
 					 *
-					 * @since 3.9.10
+					 * @since 4.0.0
 					 *
 					 */
 					echo apply_filters( 'pb_import_table_cell', null );

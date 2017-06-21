@@ -430,7 +430,7 @@ abstract class Import {
 					 * Allows users to add custom import routine for custom import type
 					 * via HTTP GET requests
 					 *
-					 * @since 3.9.10
+					 * @since 4.0.0
 					 */
 					$importer = apply_filters( 'pb_initialize_import', null );
 					if ( is_object( $importer ) ) {

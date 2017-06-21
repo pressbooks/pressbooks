@@ -452,11 +452,11 @@ class Xhtml extends Import {
 	 */
 	function setCurrentImportOption( array $upload ) {
 		// GET http request
-		$body = wp_remote_get( $upload['url'] );
+		$html = wp_remote_get( $upload['url'] );
 
 		// check for wp error
-		if ( is_wp_error( $body ) ) {
-			$error_message = $body->get_error_message();
+		if ( is_wp_error( $html ) ) {
+			$error_message = $html->get_error_message();
 			error_log( '\Pressbooks\Modules\Import\Html::setCurrentImportOption error, wp_remote_get' . $error_message );
 			$_SESSION['pb_errors'][] = $error_message;
 
@@ -464,18 +464,18 @@ class Xhtml extends Import {
 		}
 
 		// check for a successful response code on GET request
-		if ( 200 !== $body['response']['code'] ) {
-			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ', 'pressbooks' ) . $body['response']['code'];
+		if ( 200 !== $html['response']['code'] ) {
+			$_SESSION['pb_errors'][] = __( 'The website you are attempting to reach is not returning a successful response on a GET request: ', 'pressbooks' ) . $html['response']['code'];
 
 			return false;
 		}
 
 		// just get the body of the array
-		$html = $body['body'];
+		$body = $html['body'];
 
 		// safety check if param (character encoding) with `;` isn't set
 		// @see http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.7
-		$content_type = ( false === strstr( $body['headers']['content-type'], ';' ) ) ? $content_type = $body['headers']['content-type'] : strstr( $body['headers']['content-type'], ';', true );
+		$content_type = ( false === strstr( $html['headers']['content-type'], ';' ) ) ? $html['headers']['content-type'] : strstr( $html['headers']['content-type'], ';', true );
 
 		// get the title
 		preg_match( '/<title>(.+)<\/title>/', $html, $matches );
