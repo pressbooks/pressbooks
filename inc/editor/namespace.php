@@ -290,12 +290,21 @@ function update_editor_style() {
 
 /**
  * Adds stylesheet for MCE previewing.
+ *
+ * @return bool
  */
 function add_editor_style() {
 
 	$sass = Container::get( 'Sass' );
-	$uri = $sass->urlToUserGeneratedCss() . '/editor.css';
-	\add_editor_style( $uri );
+	$path = $sass->pathToUserGeneratedCss() . '/editor.css';
+	if ( file_exists( $path ) ) {
+		$hash = md5( filemtime( $path ) );
+		$uri = $sass->urlToUserGeneratedCss() . '/editor.css?ver=' . $hash;
+		\add_editor_style( $uri );
+		return true;
+	}
+
+	return false;
 }
 
 

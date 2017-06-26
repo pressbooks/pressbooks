@@ -191,9 +191,6 @@ function replace_book_admin_menu() {
 	if ( $version < $page::VERSION ) {
 		$page->upgrade( $version );
 		update_option( 'pressbooks_ecommerce_links_version', $page::VERSION, false );
-		if ( WP_DEBUG ) {
-			error_log( 'Upgraded pressbooks_ecommerce_links from version ' . $version . ' --> ' . $page::VERSION );
-		}
 	}
 
 	add_menu_page( __( 'Publish', 'pressbooks' ), __( 'Publish', 'pressbooks' ), 'edit_posts', 'pb_publish', [ $page, 'render' ], 'dashicons-products', 16 );
@@ -210,9 +207,6 @@ function replace_book_admin_menu() {
 	if ( $version < $page::VERSION ) {
 		$page->upgrade( $version );
 		update_option( 'pressbooks_export_options_version', $page::VERSION, false );
-		if ( WP_DEBUG ) {
-			error_log( 'Upgraded pressbooks_export_options from version ' . $version . ' --> ' . $page::VERSION );
-		}
 	}
 
 	add_options_page( __( 'Export Settings', 'pressbooks' ), __( 'Export', 'pressbooks' ), 'manage_options', 'pressbooks_export_options', [ $page, 'render' ] );
@@ -239,9 +233,6 @@ function network_admin_menu() {
 	if ( $version < $page::VERSION ) {
 		$page->upgrade( $version );
 		update_site_option( 'pressbooks_sharingandprivacy_options_version', $page::VERSION );
-		if ( WP_DEBUG ) {
-			error_log( 'Upgraded network pressbooks_sharingandprivacy_options from version ' . $version . ' --> ' . $page::VERSION );
-		}
 	}
 
 	add_submenu_page(

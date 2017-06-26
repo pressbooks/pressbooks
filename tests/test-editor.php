@@ -4,11 +4,32 @@ use Pressbooks\Editor;
 
 class EditorTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
+
 	public function test_mce_valid_word_elements() {
 
 		$array = Pressbooks\Editor\mce_valid_word_elements( [] );
 
 		$this->assertArrayHasKey( 'paste_word_valid_elements', $array );
+	}
+
+	public function test_update_editor_style() {
+		$this->_book( 'pressbooks-clarke' );
+		Pressbooks\Editor\update_editor_style();
+
+		global $blog_id;
+
+		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/sites/' . $blog_id . '/css/editor.css' );
+	}
+
+	public function test_add_editor_style() {
+		$this->_book( 'pressbooks-clarke' );
+		$result = Pressbooks\Editor\add_editor_style();
+		$this->assertFalse( $result );
+
+		Pressbooks\Editor\update_editor_style();
+		$result = Pressbooks\Editor\add_editor_style();
+		$this->assertTrue( $result );
 	}
 
 	public function test_add_languages() {
