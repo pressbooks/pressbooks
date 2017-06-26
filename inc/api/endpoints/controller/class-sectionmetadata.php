@@ -8,16 +8,35 @@ use Pressbooks\Metadata as Meta;
 class SectionMetadata extends \WP_REST_Controller {
 
 	/**
+	 * Post type.
+	 *
+	 * @var string
+	 */
+	protected $post_type;
+
+	/**
+	 * The base of the parent controller's route.
+	 *
+	 * @var string
+	 */
+	protected $parent_base;
+
+	/**
 	 * @var array
 	 */
 	protected $linkCollector = [];
 
 	/**
 	 * Section Metadata
+	 *
+	 * @param string $post_type Post type.
 	 */
-	public function __construct() {
+	public function __construct( $post_type ) {
 		$this->namespace = 'pressbooks/v2';
 		$this->rest_base = 'metadata';
+		$this->post_type = $post_type;
+		$obj = get_post_type_object( $post_type );
+		$this->parent_base = ! empty( $obj->rest_base ) ? $obj->rest_base : $obj->name;
 	}
 
 	/**
@@ -25,21 +44,11 @@ class SectionMetadata extends \WP_REST_Controller {
 	 */
 	public function register_routes() {
 
-		register_rest_route( $this->namespace, '/(?P<post_type>[\w]+)/(?P<id>[\d]+)/' . $this->rest_base, [
+		register_rest_route( $this->namespace, '/' . $this->parent_base . '/(?P<parent>[\d]+)/' . $this->rest_base, [
 			'args' => [
-				'post_type' => [
+				'parent' => [
 					'required' => true,
-					'description' => __( 'The type of the object parent.' ),
-					'type' => 'string',
-					'enum' => [
-						'front-matter',
-						'chapters',
-						'back-matter',
-					],
-				],
-				'id' => [
-					'required' => true,
-					'description' => __( 'Unique identifier for the object.' ),
+					'description' => __( 'The ID for the parent of the object.' ),
 					'type' => 'integer',
 				],
 			],
@@ -334,8 +343,7 @@ class SectionMetadata extends \WP_REST_Controller {
 	 * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
 	public function get_item( $request ) {
-		$post_type = str_replace( 'chapters', 'chapter', $request['post_type'] );
-		$posts = get_posts( [ 'p' => $request['id'], 'post_type' => $post_type ] );
+		$posts = get_posts( [ 'p' => $request['parent'], 'post_type' => $this->post_type ] );
 		$error = new \WP_Error( 'rest_post_invalid_id', __( 'Invalid post ID.' ), [ 'status' => 404 ] );
 		if ( empty( $posts ) ) {
 			return $error;
@@ -344,7 +352,7 @@ class SectionMetadata extends \WP_REST_Controller {
 		$section_meta = get_post_meta( $request['id'], '', true );
 		$book_meta = Book::getBookInformation();
 		$section_meta['pb_title'] = get_the_title( $request['id'] );
-		if ( $post_type === 'chapter' ) {
+		if ( $this->post_type === 'chapter' ) {
 			$section_meta['pb_chapter_number'] = pb_get_chapter_number( get_post_field( 'post_name', $request['id'] ) );
 		}
 		foreach ( $section_meta as $key => $value ) {
@@ -355,7 +363,7 @@ class SectionMetadata extends \WP_REST_Controller {
 		$section_meta = $this->buildMetadata( $section_meta, $book_meta );
 
 		$response = rest_ensure_response( $section_meta );
-		$this->linkCollector['self'] = [ 'href' => rest_url( sprintf( '%s/%s/%d/%s', $this->namespace, $this->rest_base, $request['id'], 'metadata' ) ) ];
+		$this->linkCollector['self'] = [ 'href' => rest_url( sprintf( '%s/%s/%d/%s', $this->namespace, $this->parent_base, $request['parent'], 'metadata' ) ) ];
 		$response->add_links( $this->linkCollector );
 
 		return $response;
