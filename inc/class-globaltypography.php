@@ -176,7 +176,7 @@ class GlobalTypography {
 
 			require( $fullpath );
 
-			if ( isset( $supported_languages ) && ! empty( $supported_languages ) ) {
+			if ( ! empty( $supported_languages ) ) {
 				$return_value = $supported_languages;
 			}
 		} else {

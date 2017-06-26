@@ -769,7 +769,7 @@ function privacy_settings_init() {
 		'privacy_settings_section'
 	);
 	$sharingandprivacy = get_site_option( 'pressbooks_sharingandprivacy_options' );
-	if ( isset( $sharingandprivacy['allow_redistribution'] ) && ! empty( $sharingandprivacy['allow_redistribution'] ) ) {
+	if ( ! empty( $sharingandprivacy['allow_redistribution'] ) ) {
 		add_settings_field(
 			'latest_files_public',
 			__( 'Share Latest Export Files', 'pressbooks' ),

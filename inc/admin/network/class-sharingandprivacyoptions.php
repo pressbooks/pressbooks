@@ -90,7 +90,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		?>
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
-			<?php $nonce = ( isset( $_REQUEST['_wpnonce'] ) && ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
+			<?php $nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
 			if ( ! empty( $_POST ) ) {
 				if ( ! wp_verify_nonce( $nonce, $_option . '-options' ) ) {
 					die( 'Security check' );

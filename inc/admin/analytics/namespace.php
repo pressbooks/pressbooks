@@ -169,17 +169,17 @@ function display_network_analytics_settings() {
 	?>
 	<div class="wrap">
 		<h2><?php _e( 'Google Analytics', 'pressbooks' ); ?></h2>
-		<?php $nonce = ( isset( $_REQUEST['_wpnonce'] ) && ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
+		<?php $nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
 		if ( ! empty( $_POST ) ) {
 			if ( ! wp_verify_nonce( $nonce, 'pb_network_analytics-options' ) ) {
 				die( 'Security check' );
 			} else {
-				if ( isset( $_REQUEST['ga_mu_uaid'] ) && ! empty( $_REQUEST['ga_mu_uaid'] ) ) {
+				if ( ! empty( $_REQUEST['ga_mu_uaid'] ) ) {
 					update_option( 'ga_mu_uaid', $_REQUEST['ga_mu_uaid'] );
 				} else {
 					delete_option( 'ga_mu_uaid' );
 				}
-				if ( isset( $_REQUEST['ga_mu_site_specific_allowed'] ) && ! empty( $_REQUEST['ga_mu_site_specific_allowed'] ) ) {
+				if ( ! empty( $_REQUEST['ga_mu_site_specific_allowed'] ) ) {
 					update_option( 'ga_mu_site_specific_allowed', $_REQUEST['ga_mu_site_specific_allowed'] );
 				} else {
 					delete_option( 'ga_mu_site_specific_allowed' );

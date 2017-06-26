@@ -25,7 +25,7 @@ function add_menu() {
  */
 function redirect_css_editor() {
 
-	if ( isset( $_REQUEST['post'] ) && ! empty( $_REQUEST['post'] ) ) {
+	if ( ! empty( $_REQUEST['post'] ) ) {
 		$post_id = absint( $_REQUEST['post'] );
 	} else {
 		return; // Do nothing

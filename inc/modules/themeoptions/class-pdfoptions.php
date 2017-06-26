@@ -1745,7 +1745,7 @@ class PDFOptions extends \Pressbooks\Options {
 		}
 
 		// a11y Font Size
-		if ( isset( $options['pdf_fontsize'] ) && ! empty( $options['pdf_fontsize'] ) ) {
+		if ( ! empty( $options['pdf_fontsize'] ) ) {
 			if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
 				$scss .= 'body { font-size: 1.3em; line-height: 1.3; }' . "\n";
 			}
