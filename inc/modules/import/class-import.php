@@ -237,7 +237,7 @@ abstract class Import {
 		$current_import = get_option( 'pressbooks_current_import' );
 
 		// Revoke
-		if ( isset( $_GET['revoke'] ) && ! empty( $_GET['revoke'] ) && check_admin_referer( 'pb-revoke-import' ) ) {
+		if ( ! empty( $_GET['revoke'] ) && check_admin_referer( 'pb-revoke-import' ) ) {
 			self::revokeCurrentImport();
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
@@ -249,7 +249,7 @@ abstract class Import {
 			$current_import['file'] = trailingslashit( $upload_dir['path'] ) . basename( $current_import['file'] );
 		}
 
-		if ( isset( $_GET['import'] ) && ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
+		if ( ! empty( $_GET['import'] ) && isset( $_POST['chapters'] ) && is_array( $_POST['chapters'] ) && is_array( $current_import ) && isset( $current_import['file'] ) && check_admin_referer( 'pb-import' ) ) {
 
 			// Set post status
 			$current_import['default_post_status'] = ( isset( $_POST['import_as_drafts'] ) ) ? 'draft' : 'publish';
@@ -309,7 +309,7 @@ abstract class Import {
 				$success_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pressbooks' );
 				\Pressbooks\Redirect\location( $success_url );
 			}
-		} elseif ( isset( $_GET['import'] ) && isset( $_FILES['import_file']['name'] ) && ! empty( $_FILES['import_file']['name'] ) && isset( $_POST['type_of'] ) && check_admin_referer( 'pb-import' ) ) {
+		} elseif ( isset( $_GET['import'] ) && ! empty( $_FILES['import_file']['name'] ) && isset( $_POST['type_of'] ) && check_admin_referer( 'pb-import' ) ) {
 
 			// --------------------------------------------------------------------------------------------------------
 			// Set the 'pressbooks_current_import' option

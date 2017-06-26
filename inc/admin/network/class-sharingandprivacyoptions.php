@@ -8,12 +8,12 @@ namespace Pressbooks\Admin\Network;
 
 class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	/**
-	 * The value for option: pressbooks_network_sharingandprivacy_options_version
+	 * The value for *site* option: pressbooks_sharingandprivacy_options_version
 	 *
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
+	const VERSION = 2;
 
 	/**
 	 * Sharing and Privacy options.
@@ -71,6 +71,17 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			]
 		);
 
+		add_settings_field(
+			'enable_network_api',
+			__( 'Enable network API', 'pressbooks' ),
+			[ $this, 'renderAllowRootApi' ],
+			$_page,
+			$_section,
+			[
+				__( 'Enable access to your network of books via the Pressbooks REST API.', 'pressbooks' ),
+			]
+		);
+
 		register_setting(
 			$_page,
 			$_option,
@@ -90,15 +101,15 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		?>
 		<div class="wrap">
 			<h1><?php echo $this->getTitle(); ?></h1>
-			<?php $nonce = ( isset( $_REQUEST['_wpnonce'] ) && ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
+			<?php $nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
 			if ( ! empty( $_POST ) ) {
 				if ( ! wp_verify_nonce( $nonce, $_option . '-options' ) ) {
-					die( 'Security check' );
+					wp_die( 'Security check' );
 				} else {
-					if ( ! empty( $_REQUEST[ $_option ]['allow_redistribution'] ) ) {
-						$options['allow_redistribution'] = 1;
+					if ( isset( $_REQUEST[ $_option ] ) ) {
+						$options = $this->sanitize( $_REQUEST[ $_option ] );
 					} else {
-						$options['allow_redistribution'] = 0;
+						$options = $this->sanitize( [] ); // Get sanitized defaults
 					}
 					update_site_option( $_option, $options );
 					?>
@@ -113,8 +124,19 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		</div> <?php
 	}
 
+	/**
+	 * @param int $version
+	 */
 	function upgrade( $version ) {
-		// Nothing doing.
+
+		$slug = $this->getSlug();
+		$options = get_site_option( $slug, [] );
+
+		if ( $version < 2 ) {
+			$options['enable_network_api'] = 1;
+		}
+
+		update_site_option( $slug, $options );
 	}
 
 	/**
@@ -130,6 +152,24 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 				'name' => $this->getSlug(),
 				'option' => 'allow_redistribution',
 				'value' => ( isset( $options['allow_redistribution'] ) ) ? $options['allow_redistribution'] : '',
+				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
+	 * Render the allow_redistribution checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderAllowRootApi( $args ) {
+		$options = get_site_option( $this->getSlug() );
+		$this->renderCheckbox(
+			[
+				'id' => 'enable_network_api',
+				'name' => $this->getSlug(),
+				'option' => 'enable_network_api',
+				'value' => ( isset( $options['enable_network_api'] ) ) ? $options['enable_network_api'] : '',
 				'label' => $args[0],
 			]
 		);
@@ -161,6 +201,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	static function getDefaults() {
 		return [
 			'allow_redistribution' => 0,
+			'enable_network_api' => 1,
 		];
 	}
 
@@ -172,6 +213,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	static function getBooleanOptions() {
 		return [
 			'allow_redistribution',
+			'enable_network_api',
 		];
 	}
 

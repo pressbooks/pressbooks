@@ -229,7 +229,11 @@ function rewrite_rules_for_sitemap() {
 }
 
 /**
+ * PB API v1
  * Adding a rewrite rule for Book API
+ *
+ * @see https://github.com/pressbooks/pb-api
+ * @deprecated
  */
 function rewrite_rules_for_api() {
 	add_rewrite_endpoint( 'api', EP_ROOT );

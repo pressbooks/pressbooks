@@ -84,7 +84,7 @@ abstract class Options {
 
 		if ( property_exists( $this, 'booleans' ) ) {
 			foreach ( $this->booleans as $key ) {
-				if ( ! isset( $input[ $key ] ) || empty( $input[ $key ] ) ) {
+				if ( empty( $input[ $key ] ) ) {
 					$options[ $key ] = 0;
 				} else {
 					$options[ $key ] = 1;
@@ -190,7 +190,7 @@ abstract class Options {
 			$args['option'],
 			$args['type'],
 			$args['value'],
-			( isset( $args['disabled'] ) && ! empty( $args['disabled'] ) ) ? ' disabled' : ''
+			( ! empty( $args['disabled'] ) ) ? ' disabled' : ''
 		);
 		if ( isset( $args['append'] ) ) {
 			echo ' ' . $args['append'];
@@ -227,7 +227,7 @@ abstract class Options {
 			$args['name'],
 			$args['option'],
 			checked( 1, $args['value'], false ),
-			( isset( $args['disabled'] ) && ! empty( $args['disabled'] ) ) ? ' disabled' : '',
+			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
 			$args['id'],
 			$args['label']
 		);
@@ -270,7 +270,7 @@ abstract class Options {
 				$args['option'],
 				$key,
 				( $args['custom'] && $is_custom && empty( $key ) ) ? 'checked' : checked( $key, $args['value'], false ),
-				( isset( $args['disabled'] ) && ! empty( $args['disabled'] ) ) ? ' disabled' : '',
+				( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
 				$label
 			);
 		}
@@ -309,7 +309,7 @@ abstract class Options {
 			$args['option'],
 			$args['id'],
 			( $args['multiple'] ) ? ' multiple' : '',
-			( isset( $args['disabled'] ) && ! empty( $args['disabled'] ) ) ? ' disabled' : '',
+			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
 			$options
 		);
 	}
@@ -349,7 +349,7 @@ abstract class Options {
 			$args['name'],
 			$args['id'],
 			( $args['multiple'] ) ? ' multiple' : '',
-			( isset( $args['disabled'] ) && ! empty( $args['disabled'] ) ) ? ' disabled' : '',
+			( ! empty( $args['disabled'] ) ) ? ' disabled' : '',
 			$options
 		);
 	}

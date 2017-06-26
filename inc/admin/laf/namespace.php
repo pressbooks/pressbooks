@@ -226,10 +226,10 @@ function replace_book_admin_menu() {
 }
 
 function network_admin_menu() {
-	$option = get_site_option( 'pressbooks_sharingandprivacy_options', \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getDefaults(), false );
+	$option = get_site_option( 'pressbooks_sharingandprivacy_options', \Pressbooks\Admin\Network\SharingAndPrivacyOptions::getDefaults() );
 	$page = new \Pressbooks\Admin\Network\SharingAndPrivacyOptions( $option );
 	$page->init();
-	$version = get_site_option( 'pressbooks_sharingandprivacy_options_version', 0, false );
+	$version = get_site_option( 'pressbooks_sharingandprivacy_options_version', 0 );
 	if ( $version < $page::VERSION ) {
 		$page->upgrade( $version );
 		update_site_option( 'pressbooks_sharingandprivacy_options_version', $page::VERSION );
@@ -760,7 +760,7 @@ function privacy_settings_init() {
 		'privacy_settings_section'
 	);
 	$sharingandprivacy = get_site_option( 'pressbooks_sharingandprivacy_options' );
-	if ( isset( $sharingandprivacy['allow_redistribution'] ) && ! empty( $sharingandprivacy['allow_redistribution'] ) ) {
+	if ( ! empty( $sharingandprivacy['allow_redistribution'] ) ) {
 		add_settings_field(
 			'latest_files_public',
 			__( 'Share Latest Export Files', 'pressbooks' ),
