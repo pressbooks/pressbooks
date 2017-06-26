@@ -84,7 +84,7 @@ abstract class Options {
 
 		if ( property_exists( $this, 'booleans' ) ) {
 			foreach ( $this->booleans as $key ) {
-				if ( ! isset( $input[ $key ] ) || empty( $input[ $key ] ) ) {
+				if ( empty( $input[ $key ] ) ) {
 					$options[ $key ] = 0;
 				} else {
 					$options[ $key ] = 1;

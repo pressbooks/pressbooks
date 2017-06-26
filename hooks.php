@@ -4,6 +4,7 @@
  * @license GPLv2 (or any later version)
  */
 
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\Theme\Lock;
@@ -40,6 +41,9 @@ include_symbionts();
 
 $is_book = Book::isBook();
 
+$enable_network_api = get_site_option( 'pressbooks_sharingandprivacy_options', [] );
+$enable_network_api = (bool) isset( $enable_network_api['enable_network_api'] ) ? $enable_network_api['enable_network_api'] : SharingAndPrivacyOptions::getDefaults()['enable_network_api'];
+
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize services
 // -------------------------------------------------------------------------------------------------------------------
@@ -60,7 +64,7 @@ if ( $is_book ) {
 	add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
 	add_filter( 'rest_endpoints', 'Pressbooks\Api\hide_incompatible_endpoints' );
 	add_filter( 'rest_url', 'Pressbooks\Api\fix_book_urls', 10, 2 );
-} else {
+} elseif ( $enable_network_api ) {
 	add_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
 }
 
@@ -169,9 +173,11 @@ add_action( 'user_register', '\Pressbooks\Activation::forcePbColors' );
 // Redirects
 // -------------------------------------------------------------------------------------------------------------------
 
+if ( $enable_network_api ) {
+	add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_api', 1 ); // API V1
+}
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_format', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_catalog', 1 );
-add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_api', 1 );
 add_filter( 'init', '\Pressbooks\Redirect\rewrite_rules_for_open', 1 );
 add_filter( 'login_redirect', '\Pressbooks\Redirect\login', 10, 3 );
 
