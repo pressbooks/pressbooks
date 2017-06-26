@@ -93,7 +93,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			<?php $nonce = ( ! empty( $_REQUEST['_wpnonce'] ) ) ? $_REQUEST['_wpnonce'] : '';
 			if ( ! empty( $_POST ) ) {
 				if ( ! wp_verify_nonce( $nonce, $_option . '-options' ) ) {
-					die( 'Security check' );
+					wp_die( 'Security check' );
 				} else {
 					if ( ! empty( $_REQUEST[ $_option ]['allow_redistribution'] ) ) {
 						$options['allow_redistribution'] = 1;
