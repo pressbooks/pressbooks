@@ -349,11 +349,11 @@ class SectionMetadata extends \WP_REST_Controller {
 			return $error;
 		}
 
-		$section_meta = get_post_meta( $request['id'], '', true );
+		$section_meta = get_post_meta( $request['parent'], '', true );
 		$book_meta = Book::getBookInformation();
-		$section_meta['pb_title'] = get_the_title( $request['id'] );
+		$section_meta['pb_title'] = get_the_title( $request['$request'] );
 		if ( $this->post_type === 'chapter' ) {
-			$section_meta['pb_chapter_number'] = pb_get_chapter_number( get_post_field( 'post_name', $request['id'] ) );
+			$section_meta['pb_chapter_number'] = pb_get_chapter_number( get_post_field( 'post_name', $request['parent'] ) );
 		}
 		foreach ( $section_meta as $key => $value ) {
 			if ( is_array( $value ) ) {
