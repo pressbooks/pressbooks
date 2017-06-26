@@ -294,7 +294,9 @@ function update_editor_style() {
 function add_editor_style() {
 
 	$sass = Container::get( 'Sass' );
-	$uri = $sass->urlToUserGeneratedCss() . '/editor.css';
+	$path = $sass->pathToUserGeneratedCss() . '/editor.css';
+	$hash = md5( filemtime( $path ) );
+	$uri = $sass->urlToUserGeneratedCss() . '/editor.css?ver=' . $hash;
 	\add_editor_style( $uri );
 }
 
