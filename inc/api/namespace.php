@@ -34,15 +34,20 @@ function init_book() {
 	$toc_controller = new Endpoints\Controller\Toc();
 	$toc_controller->register_routes();
 
-	// Register Metadata
+	// Register Book Metadata
 	$toc_controller = new Endpoints\Controller\Metadata();
 	$toc_controller->register_routes();
 
-	// Override Revisions routes for our custom post types
 	foreach ( get_custom_post_types() as $post_type ) {
+		// Override Revisions routes for our custom post types
 		if ( post_type_supports( $post_type, 'revisions' ) ) {
 			$revisions_controller = new Endpoints\Controller\Revisions( $post_type );
 			$revisions_controller->register_routes();
+		}
+		// Register Section Metadata
+		if ( $post_type !== 'part' ) {
+			$toc_controller = new Endpoints\Controller\SectionMetadata( $post_type );
+			$toc_controller->register_routes();
 		}
 	}
 

@@ -5,7 +5,21 @@ namespace Pressbooks\Api\Endpoints\Controller;
 use Pressbooks\Book;
 use Pressbooks\Metadata as Meta;
 
-class Metadata extends \WP_REST_Controller {
+class SectionMetadata extends \WP_REST_Controller {
+
+	/**
+	 * Post type.
+	 *
+	 * @var string
+	 */
+	protected $post_type;
+
+	/**
+	 * The base of the parent controller's route.
+	 *
+	 * @var string
+	 */
+	protected $parent_base;
 
 	/**
 	 * @var array
@@ -13,11 +27,16 @@ class Metadata extends \WP_REST_Controller {
 	protected $linkCollector = [];
 
 	/**
-	 * Metadata
+	 * Section Metadata
+	 *
+	 * @param string $post_type Post type.
 	 */
-	public function __construct() {
+	public function __construct( $post_type ) {
 		$this->namespace = 'pressbooks/v2';
 		$this->rest_base = 'metadata';
+		$this->post_type = $post_type;
+		$obj = get_post_type_object( $post_type );
+		$this->parent_base = ! empty( $obj->rest_base ) ? $obj->rest_base : $obj->name;
 	}
 
 	/**
@@ -25,7 +44,14 @@ class Metadata extends \WP_REST_Controller {
 	 */
 	public function register_routes() {
 
-		register_rest_route( $this->namespace, '/' . $this->rest_base, [
+		register_rest_route( $this->namespace, '/' . $this->parent_base . '/(?P<parent>[\d]+)/' . $this->rest_base, [
+			'args' => [
+				'parent' => [
+					'required' => true,
+					'description' => __( 'The ID for the parent of the object.' ),
+					'type' => 'integer',
+				],
+			],
 			[
 				'methods' => \WP_REST_Server::READABLE,
 				'callback' => [ $this, 'get_item' ],
@@ -47,14 +73,14 @@ class Metadata extends \WP_REST_Controller {
 
 		$schema = [
 			'$schema' => 'http://json-schema.org/schema#',
-			'title' => 'book',
+			'title' => 'chapter',
 			'type' => 'object',
 			'properties' => [
 				'@context' => [
 					'type' => 'string',
 					'format' => 'uri',
 					'enum' => [
-						'http://schema.org',
+						'http://bib.schema.org',
 					],
 					'description' => __( 'The JSON-LD context.' ),
 					'context' => [ 'view' ],
@@ -63,7 +89,7 @@ class Metadata extends \WP_REST_Controller {
 				'@type' => [
 					'type' => 'string',
 					'enum' => [
-						'Book',
+						'Chapter',
 					],
 					'description' => __( 'The type of the thing.' ),
 					'context' => [ 'view' ],
@@ -75,27 +101,21 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'about' => [
-					'type' => 'string',
-					'description' => __( 'The subject matter of the content.' ),
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
 				'alternateName' => [
 					'type' => 'string',
 					'description' => __( 'An alias for the item.' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'keywords' => [
-					'type' => 'string',
-					'description' => __( 'Keywords or tags used to describe this content. Multiple entries in a keywords list are typically delimited by commas.' ),
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
 				'alternativeHeadline' => [
 					'type' => 'string',
 					'description' => __( 'A secondary title of the Book.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'position' => [
+					'type' => 'integer',
+					'description' => __( 'The position of an item in a series or sequence of items.' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
@@ -108,19 +128,6 @@ class Metadata extends \WP_REST_Controller {
 				'copyrightYear' => [
 					'type' => 'integer',
 					'description' => __( 'The year during which the claimed copyright for the Book was first asserted.' ),
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
-				'description' => [
-					'type' => 'string',
-					'description' => __( 'A description of the item.' ),
-					'context' => [ 'view' ],
-					'readonly' => true,
-				],
-				'image' => [
-					'type' => 'string',
-					'format' => 'uri',
-					'description' => __( 'An image of the item.' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
@@ -336,62 +343,92 @@ class Metadata extends \WP_REST_Controller {
 	 * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
 	public function get_item( $request ) {
+		$posts = get_posts( [ 'p' => $request['parent'], 'post_type' => $this->post_type ] );
+		$error = new \WP_Error( 'rest_post_invalid_id', __( 'Invalid post ID.' ), [ 'status' => 404 ] );
+		if ( empty( $posts ) ) {
+			return $error;
+		}
 
-		$meta = Book::getBookInformation();
-		$meta = $this->buildMetadata( $meta );
+		$section_meta = get_post_meta( $request['parent'], '', true );
+		$book_meta = Book::getBookInformation();
+		$section_meta['pb_title'] = get_the_title( $request['$request'] );
+		if ( $this->post_type === 'chapter' ) {
+			$section_meta['pb_chapter_number'] = pb_get_chapter_number( get_post_field( 'post_name', $request['parent'] ) );
+		}
+		foreach ( $section_meta as $key => $value ) {
+			if ( is_array( $value ) ) {
+				$section_meta[ $key ] = array_pop( $value );
+			}
+		}
+		$section_meta = $this->buildMetadata( $section_meta, $book_meta );
 
-		$response = rest_ensure_response( $meta );
-		$this->linkCollector['self'] = [ 'href' => rest_url( sprintf( '%s/%s', $this->namespace, $this->rest_base ) ) ];
+		$response = rest_ensure_response( $section_meta );
+		$this->linkCollector['self'] = [ 'href' => rest_url( sprintf( '%s/%s/%d/%s', $this->namespace, $this->parent_base, $request['parent'], 'metadata' ) ) ];
 		$response->add_links( $this->linkCollector );
 
 		return $response;
 	}
 
 	/**
+	 * @param array $section_information
 	 * @param array $book_information
 	 *
 	 * @return array
 	 */
-	protected function buildMetadata( array $book_information ) {
+	protected function buildMetadata( array $section_information, array $book_information ) {
 
-		$new_book_information = [];
+		$new_section_information = [];
 
-		$new_book_information['@context'] = 'http://schema.org';
-		$new_book_information['@type'] = 'Book';
+		$new_section_information['@context'] = 'http://bib.schema.org';
+		$new_section_information['@type'] = 'Chapter';
 
-		$mapped_properties = [
-			'pb_bisac_subject' => 'about',
+		$mapped_section_properties = [
 			'pb_title' => 'name',
 			'pb_short_title' => 'alternateName',
-			'pb_keywords_tags' => 'keywords',
 			'pb_subtitle' => 'alternativeHeadline',
-			'pb_language' => 'inLanguage',
-			'pb_copyright_year' => 'copyrightYear',
-			'pb_about_50' => 'description',
-			'pb_cover_image' => 'image',
 		];
 
-		foreach ( $mapped_properties as $old => $new ) {
-			if ( isset( $book_information[ $old ] ) ) {
-				$new_book_information[ $new ] = $book_information[ $old ];
+		$mapped_book_properties = [
+			'pb_language' => 'inLanguage',
+			'pb_copyright_year' => 'copyrightYear',
+		];
+
+		foreach ( $mapped_section_properties as $old => $new ) {
+			if ( isset( $section_information[ $old ] ) ) {
+				$new_section_information[ $new ] = $section_information[ $old ];
 			}
 		}
 
-		if ( isset( $book_information['pb_author'] ) ) {
-			$new_book_information['author'] = [
+		foreach ( $mapped_book_properties as $old => $new ) {
+			if ( isset( $book_information[ $old ] ) ) {
+				$new_section_information[ $new ] = $book_information[ $old ];
+			}
+		}
+
+		if ( ! empty( $section_information['pb_chapter_number'] ) ) {
+			$new_section_information['position'] = $section_information['pb_chapter_number'];
+		}
+
+		if ( isset( $section_information['pb_section_author'] ) ) {
+			$new_section_information['author'] = [
+				'@type' => 'Person',
+				'name' => $section_information['pb_section_author'],
+			];
+		} elseif ( isset( $book_information['pb_author'] ) ) {
+			$new_section_information['author'] = [
 				'@type' => 'Person',
 				'name' => $book_information['pb_author'],
 			];
 
 			if ( isset( $book_information['pb_author_file_as'] ) ) {
-				$new_book_information['author']['alternateName'] = $book_information['pb_author_file_as'];
+				$new_section_information['author']['alternateName'] = $book_information['pb_author_file_as'];
 			}
 		}
 
 		if ( isset( $book_information['pb_contributing_authors'] ) ) {
 			$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
 			foreach ( $contributing_authors as $contributor ) {
-				$new_book_information['contributor'][] = [
+				$new_section_information['contributor'][] = [
 					'@type' => 'Person',
 					'name' => $contributor,
 				];
@@ -399,27 +436,27 @@ class Metadata extends \WP_REST_Controller {
 		}
 
 		if ( isset( $book_information['pb_editor'] ) ) {
-			$new_book_information['editor'] = [
+			$new_section_information['editor'] = [
 				'@type' => 'Person',
 				'name' => $book_information['pb_editor'],
 			];
 		}
 
 		if ( isset( $book_information['pb_translator'] ) ) {
-			$new_book_information['translator'] = [
+			$new_section_information['translator'] = [
 				'@type' => 'Person',
 				'name' => $book_information['pb_translator'],
 			];
 		}
 
 		if ( isset( $book_information['pb_publisher'] ) ) {
-			$new_book_information['publisher'] = [
+			$new_section_information['publisher'] = [
 				'@type' => 'Organization',
 				'name' => $book_information['pb_publisher'],
 			];
 
 			if ( isset( $book_information['pb_publisher_city'] ) ) {
-				$new_book_information['publisher']['address'] = [
+				$new_section_information['publisher']['address'] = [
 					'@type' => 'PostalAddress',
 					'addressLocality' => $book_information['pb_publisher_city'],
 				];
@@ -427,25 +464,29 @@ class Metadata extends \WP_REST_Controller {
 		}
 
 		if ( isset( $book_information['pb_publication_date'] ) ) {
-			$new_book_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+			$new_section_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
 		}
 
 		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
-			$new_book_information['copyrightHolder'] = [
+			$new_section_information['copyrightHolder'] = [
 				'@type' => 'Organization',
 				'name' => $book_information['pb_copyright_holder'],
 			];
 		}
 
-		if ( ! isset( $book_information['pb_license'] ) ) {
-			$book_information['pb_license'] = '';
+		if ( ! isset( $section_information['pb_section_license'] ) ) {
+			if ( isset( $book_information['pb_license'] ) ) {
+				$section_information['pb_section_license'] = $book_information['pb_license'];
+			} else {
+				$section_information['pb_section_license'] = '';
+			}
 		}
 
-		$new_book_information['license'] = Meta::getUrlForLicense( $book_information['pb_license'] );
+		$new_section_information['license'] = Meta::getUrlForLicense( $section_information['pb_section_license'] );
 
 		// TODO: audience, educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 
-		return $new_book_information;
+		return $new_section_information;
 	}
 
 }

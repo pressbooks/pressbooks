@@ -290,6 +290,48 @@ class Metadata {
 	}
 
 	/**
+	 * Returns URL for saved license value.
+	 *
+	 * @since 4.0.0
+	 *
+	 * @param string
+	 *
+	 * @return string
+	 */
+	static function getUrlForLicense( $license ) {
+		switch ( $license ) {
+			case 'public-domain':
+				$url = 'https://creativecommons.org/publicdomain/zero/1.0/';
+				break;
+			case 'cc-by':
+				$url = 'https://creativecommons.org/licenses/by/4.0/';
+				break;
+			case 'cc-by-sa':
+				$url = 'https://creativecommons.org/licenses/by-sa/4.0/';
+				break;
+			case 'cc-by-nd':
+				$url = 'https://creativecommons.org/licenses/by-nd/4.0/';
+				break;
+			case 'cc-by-nc':
+				$url = 'https://creativecommons.org/licenses/by-nc/4.0/';
+				break;
+			case 'cc-by-nc-sa':
+				$url = 'https://creativecommons.org/licenses/by-nc-sa/4.0/';
+				break;
+			case 'cc-by-nc-nd':
+				$url = 'https://creativecommons.org/licenses/by-nc-nd/4.0/';
+				break;
+			case 'all-rights-reserved':
+				$url = 'https://choosealicense.com/no-license/';
+				break;
+			default:
+				$url = 'https://choosealicense.com/no-license/';
+		}
+
+		return $url;
+	}
+
+	/**
 	 * Returns a JSON object of the book information which can be posted to an API.
 	 *
 	 * @since 3.9.7
