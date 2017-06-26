@@ -371,6 +371,7 @@ class SectionMetadata extends \WP_REST_Controller {
 
 	/**
 	 * @param array $section_information
+	 * @param array $book_information
 	 *
 	 * @return array
 	 */
