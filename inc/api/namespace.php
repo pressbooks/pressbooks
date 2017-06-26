@@ -34,8 +34,12 @@ function init_book() {
 	$toc_controller = new Endpoints\Controller\Toc();
 	$toc_controller->register_routes();
 
-	// Register Metadata
+	// Register Book Metadata
 	$toc_controller = new Endpoints\Controller\Metadata();
+	$toc_controller->register_routes();
+
+	// Register Section Metadata
+	$toc_controller = new Endpoints\Controller\SectionMetadata();
 	$toc_controller->register_routes();
 
 	// Override Revisions routes for our custom post types

@@ -59,6 +59,7 @@ class Api_PostsTest extends \WP_UnitTestCase {
 			'/pressbooks/v2/front-matter',
 			'/pressbooks/v2/parts',
 			'/pressbooks/v2/chapters',
+			'/pressbooks/v2/chapters/5/metadata',
 			'/pressbooks/v2/back-matter',
 			'/pressbooks/v2/metadata',
 			'/pressbooks/v2/toc',

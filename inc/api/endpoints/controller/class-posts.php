@@ -69,6 +69,10 @@ class Posts extends \WP_REST_Posts_Controller {
 			$response->add_link( 'part', trailingslashit( rest_url( sprintf( '%s/%s', $this->namespace, 'parts' ) ) ) . $post->post_parent );
 		}
 
+		if ( in_array( $post->post_type, [ 'front-matter', 'chapter', 'back-matter' ], true ) ) {
+			$response->add_link( 'metadata', trailingslashit( rest_url( sprintf( '%s/%s/%d/metadata', $this->namespace, $this->rest_base, $post->ID ) ) ) );
+		}
+
 		return $response;
 	}
 
