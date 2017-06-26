@@ -56,11 +56,16 @@ class Api_PostsTest extends \WP_UnitTestCase {
 
 		// Test that endpoints exist
 		$endpoints = [
-			'/pressbooks/v2/front-matter',
 			'/pressbooks/v2/parts',
+			'/pressbooks/v2/front-matter',
+			'/pressbooks/v2/front-matter/999/metadata',
+			'/pressbooks/v2/front-matter/999/revisions',
 			'/pressbooks/v2/chapters',
-			'/pressbooks/v2/chapters/5/metadata',
+			'/pressbooks/v2/chapters/999/metadata',
+			'/pressbooks/v2/chapters/999/revisions',
 			'/pressbooks/v2/back-matter',
+			'/pressbooks/v2/back-matter/999/metadata',
+			'/pressbooks/v2/back-matter/999/revisions',
 			'/pressbooks/v2/metadata',
 			'/pressbooks/v2/toc',
 		];
@@ -72,15 +77,16 @@ class Api_PostsTest extends \WP_UnitTestCase {
 			$this->assertEquals( 'pressbooks/v2', $data['namespace'] );
 		}
 
-		// Test that incompatible WP endpoints are removed
-		$removed_endpoints = [
+		// Test that incompatible endpoints are removed
+		$incompatible_endpoints = [
 			'/wp/v2/posts',
 			'/wp/v2/pages',
 			'/wp/v2/tags',
 			'/wp/v2/categories',
+			'/pressbooks/v2/parts/999/metadata',
 		];
 		$server = $this->setupBookApi();
-		foreach ( $removed_endpoints as $endpoint ) {
+		foreach ( $incompatible_endpoints as $endpoint ) {
 			$request = new \WP_REST_Request( 'GET', $endpoint );
 			$response = $server->dispatch( $request );
 			$status = $response->get_status();
