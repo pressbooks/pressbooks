@@ -22,6 +22,16 @@ class EditorTest extends \WP_UnitTestCase {
 		$this->assertFileExists( WP_CONTENT_DIR . '/uploads/sites/' . $blog_id . '/css/editor.css' );
 	}
 
+	public function test_add_editor_style() {
+		$this->_book( 'pressbooks-clarke' );
+		$result = Pressbooks\Editor\add_editor_style();
+		$this->assertFalse( $result );
+
+		Pressbooks\Editor\update_editor_style();
+		$result = Pressbooks\Editor\add_editor_style();
+		$this->assertTrue( $result );
+	}
+
 	public function test_add_languages() {
 
 		$array = Pressbooks\Editor\add_languages( [] );
