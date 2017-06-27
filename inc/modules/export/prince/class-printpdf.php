@@ -34,7 +34,6 @@ class PrintPdf extends Pdf {
 
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
-
 			return false;
 		}
 
@@ -47,6 +46,9 @@ class PrintPdf extends Pdf {
 
 		// Fonts
 		Container::get( 'GlobalTypography' )->getFonts();
+
+		// Latex DPI
+		$this->fixLatexDpi();
 
 		// CSS File
 		$css = $this->kneadCss();
@@ -75,6 +77,14 @@ class PrintPdf extends Pdf {
 		}
 
 		return $retval;
+	}
+
+	/**
+	 * Increase PB-LaTeX resolution to ~300 dpi
+	 */
+	protected function fixLatexDpi() {
+		$this->url .= '&pb-latex-zoom=3';
+		$this->cssOverrides .= "\n" . 'img.latex { prince-image-resolution: 300dpi; }' . "\n";
 	}
 
 }
