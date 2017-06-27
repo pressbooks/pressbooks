@@ -95,10 +95,8 @@ class Pdf extends Export {
 	function convert() {
 
 		// Sanity check
-
 		if ( empty( $this->exportStylePath ) || ! is_file( $this->exportStylePath ) ) {
 			$this->logError( '$this->exportStylePath must be set before calling convert().' );
-
 			return false;
 		}
 
@@ -106,11 +104,14 @@ class Pdf extends Export {
 		$this->logfile = $this->createTmpFile();
 
 		// Set filename
-		$filename = $this->timestampedFileName( '.pdf' );
+		$filename = $this->generateFileName();
 		$this->outputPath = $filename;
 
 		// Fonts
 		Container::get( 'GlobalTypography' )->getFonts();
+
+		// Fix Latex DPI
+		$this->fixLatexDpi();
 
 		// CSS File
 		$css = $this->kneadCss();
@@ -177,6 +178,12 @@ class Pdf extends Export {
 		parent::logError( $message, $more_info );
 	}
 
+	/**
+	 * @return string
+	 */
+	protected function generateFileName() {
+		return $this->timestampedFileName( '.pdf' );
+	}
 
 	/**
 	 * Verify if body is actual PDF
@@ -282,6 +289,13 @@ class Pdf extends Export {
 
 	}
 
+	/**
+	 * Increase PB-LaTeX resolution to ~300 dpi
+	 */
+	protected function fixLatexDpi() {
+		$this->url .= '&pb-latex-zoom=3';
+		$this->cssOverrides .= "\n" . 'img.latex { prince-image-resolution: 300dpi; }' . "\n";
+	}
 
 	/**
 	 * Dependency check.
