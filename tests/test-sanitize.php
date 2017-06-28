@@ -233,4 +233,19 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertTrue( $allowedposttags['h1']['xml:lang'] );
 	}
 
+	public function test_clean_filename() {
+
+		$file = '../../hacker.php';
+		$file = \Pressbooks\Sanitize\clean_filename( $file );
+		$this->assertEquals( $file, 'hacker.php' );
+
+		$file = '../../hacker.php;../../~more-hacks.php...';
+		$file = \Pressbooks\Sanitize\clean_filename( $file );
+		$this->assertEquals( $file, 'hacker.php;~more-hacks.php' );
+
+		$file = 'フランス語.txt'; // UTF-8
+		$file = \Pressbooks\Sanitize\clean_filename( $file );
+		$this->assertEquals( $file, 'フランス語.txt' );
+	}
+
 }

@@ -8,6 +8,7 @@ namespace Pressbooks\Modules\Export\Xhtml;
 
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
+use function Pressbooks\Sanitize\clean_filename;
 
 class Xhtml11 extends Export {
 
@@ -195,12 +196,12 @@ class Xhtml11 extends Export {
 		echo '<title>' . get_bloginfo( 'name' ) . "</title>\n";
 
 		if ( ! empty( $_GET['style'] ) ) {
-			$url = \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . $_GET['style'] . '.css';
+			$url = \Pressbooks\Container::get( 'Sass' )->urlToUserGeneratedCss() . '/' . clean_filename( $_GET['style'] ) . '.css';
 			echo "<link rel='stylesheet' href='$url' type='text/css' />\n";
 		}
 
 		if ( ! empty( $_GET['script'] ) ) {
-			$url = $this->getExportScriptUrl( $_GET['script'] ) . '/script.js';
+			$url = $this->getExportScriptUrl( clean_filename( $_GET['script'] ) ) . '/script.js';
 			if ( $url ) {
 				echo "<script src='$url' type='text/javascript'></script>\n";
 			}
