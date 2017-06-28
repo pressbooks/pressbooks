@@ -12,12 +12,7 @@ class PrintPdf extends Pdf {
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
-
 		parent::__construct( $args );
-
-		// Override
-		$this->pdfProfile = 'PDF/X-1a';
-		$this->pdfOutputIntent = '/usr/lib/prince/icc/USWebCoatedSWOP.icc';
 	}
 
 	/**
@@ -26,4 +21,23 @@ class PrintPdf extends Pdf {
 	protected function generateFileName() {
 		return $this->timestampedFileName( '._print.pdf' );
 	}
+
+	/**
+	 * Return the desired PDF profile.
+	 *
+	 * @return string
+	 */
+	protected function getPdfProfile() {
+		return 'PDF/X-1a:2003';
+	}
+
+	/**
+	 * Return the desired PDF output intent.
+	 *
+	 * @return string
+	 */
+	protected function getPdfOutputIntent() {
+		return '/usr/lib/prince/icc/USWebCoatedSWOP.icc';
+	}
+
 }

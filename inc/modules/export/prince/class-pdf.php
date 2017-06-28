@@ -67,8 +67,6 @@ class Pdf extends Export {
 	 */
 	function __construct( array $args ) {
 
-		// Some defaults
-
 		if ( ! defined( 'PB_PRINCE_COMMAND' ) ) {
 			define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
 		}
@@ -84,6 +82,7 @@ class Pdf extends Export {
 		$this->url = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
 
 		$this->themeOptionsOverrides();
+		$this->fixLatexDpi();
 	}
 
 
@@ -110,15 +109,14 @@ class Pdf extends Export {
 		// Fonts
 		Container::get( 'GlobalTypography' )->getFonts();
 
-		// Fix Latex DPI
-		$this->fixLatexDpi();
-
 		// CSS File
 		$css = $this->kneadCss();
 		$css_file = $this->createTmpFile();
 		file_put_contents( $css_file, $css );
 
+		// --------------------------------------------------------------------
 		// Save PDF as file in exports folder
+
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
@@ -150,15 +148,11 @@ class Pdf extends Export {
 	 * @return bool
 	 */
 	function validate() {
-
 		// Is this a PDF?
 		if ( ! $this->isPdf( $this->outputPath ) ) {
-
 			$this->logError( file_get_contents( $this->logfile ) );
-
 			return false;
 		}
-
 		return true;
 	}
 
@@ -306,7 +300,6 @@ class Pdf extends Export {
 		if ( false !== \Pressbooks\Utility\check_prince_install() && false !== \Pressbooks\Utility\check_xmllint_install() ) {
 			return true;
 		}
-
 		return false;
 	}
 }
