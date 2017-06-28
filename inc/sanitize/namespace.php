@@ -456,7 +456,7 @@ function allow_post_content() {
 function clean_filename( $file ) {
 	// Remove anything which isn't a word, whitespace, number or any of the following caracters -_~,;[]().
 	$file = mb_ereg_replace( '([^\w\s\d\-_~,;\[\]\(\).])', '', $file );
-	// Remove any runs of periods (thanks falstro!)
+	// Remove any runs of periods
 	$file = mb_ereg_replace( '([\.]{2,})', '', $file );
 	return $file;
 }
