@@ -1,15 +1,6 @@
 .idea/
 .DS_Store
-symbionts/mpdf/
-.sass-cache
-.tx
-__MACOSX
-*.DS_Store
-config.codekit
+coverage.xml
+node_modules
 tests/logs/
 vendor
-bower_components
-node_modules
-deploy.sh
-coverage.xml
-themes-book/pressbooks-book/fonts/NotoSansCJK*
