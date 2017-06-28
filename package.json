@@ -6,13 +6,12 @@
     "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "lint": "node_modules/stylelint/bin/stylelint.js assets/src/styles/*.scss assets/src/styles/**/*.scss --syntax scss"
+    "lint": "node_modules/stylelint/bin/stylelint.js 'assets/src/styles/**/*.scss' --syntax scss"
   },
   "engines": {
     "node": ">= 6.9.4"
   },
   "dependencies": {
-    "stylelint-webpack-plugin": "^0.7.1"
   },
   "devDependencies": {
     "block-ui": "^2.70.1",
@@ -25,6 +24,7 @@
     "sidr": "^2.2.1",
     "stylelint": "^7.12.0",
     "stylelint-config-standard": "^16.0.0",
+    "stylelint-webpack-plugin": "^0.7.1",
     "tinymce": "^4.6.3",
     "wp-admin-colors": "^4.8.0",
     "wp-pot-cli": "^1.0.1"
