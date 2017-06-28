@@ -254,4 +254,16 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertEquals( $return, false );
 	}
 
+	public function test_str_starts_with() {
+		$this->assertTrue( \Pressbooks\Utility\str_starts_with( '', '' ) );
+		$this->assertTrue( \Pressbooks\Utility\str_starts_with( 's0.wp.com', 's0.wp' ) );
+		$this->assertFalse( \Pressbooks\Utility\str_starts_with( 's0.wp.com', 'wp.com' ) );
+	}
+
+	public function test_str_ends_with() {
+		$this->assertFalse( \Pressbooks\Utility\str_ends_with( 's0.wp.com', 's0.wp' ) );
+		$this->assertTrue( \Pressbooks\Utility\str_ends_with( 's0.wp.com', 'wp.com' ) );
+		$this->assertTrue( \Pressbooks\Utility\str_starts_with( '', '' ) );
+	}
+
 }
