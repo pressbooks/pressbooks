@@ -444,3 +444,19 @@ function allow_post_content() {
 
 	return;
 }
+
+
+/**
+ * Sanitizer for filename
+ *
+ * @param string $file
+ *
+ * @return string
+ */
+function clean_filename( $file ) {
+	// Remove anything which isn't a word, whitespace, number or any of the following caracters -_~,;[]().
+	$file = mb_ereg_replace( '([^\w\s\d\-_~,;\[\]\(\).])', '', $file );
+	// Remove any runs of periods (thanks falstro!)
+	$file = mb_ereg_replace( '([\.]{2,})', '', $file );
+	return $file;
+}
