@@ -883,3 +883,28 @@ function rcopy( $src, $dest ) {
 	}
 	return true;
 }
+
+/**
+ * @param string $haystack
+ * @param string $needle
+ *
+ * @return bool
+ */
+function str_starts_with( $haystack, $needle ) {
+	$length = strlen( $needle );
+	return ( substr( $haystack, 0, $length ) === $needle );
+}
+
+/**
+ * @param string $haystack
+ * @param string $needle
+ *
+ * @return bool
+ */
+function str_ends_with( $haystack, $needle ) {
+	$length = strlen( $needle );
+	if ( $length === 0 ) {
+		return true;
+	}
+	return ( substr( $haystack, -$length ) === $needle );
+}
