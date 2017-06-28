@@ -45,16 +45,22 @@
   },
   "archive" : {
     "exclude": [
-      ".coveralls.yml",
       ".editorconfig",
+      ".gitattributes",
+      ".github",
       ".gitignore",
       ".phpstorm.meta.php",
+      ".stylelintrc",
       ".travis.yml",
-      "CODE_OF_CONDUCT.md",
-      "CONTRIBUTING.md",
-      "ISSUE_TEMPLATE.md",
+      ".tx",
+      "assets/src",
+      "bin",
+      "codecov.yml",
+      "phpcs.ruleset.xml",
       "phpunit.xml",
-      "tests"
+      "tests",
+      "webpack.mx.js",
+      "yarn.lock"
     ]
   },
   "scripts": {
