@@ -294,6 +294,9 @@ class Books extends \WP_REST_Controller {
 		unset( $item['metadata']['_links'] );
 
 		$this->linkCollector['toc'][] = [ 'href' => $item['toc']['_links']['self'][0]['href'] ];
+		foreach ( $item['toc']['_links']['metadata'] as $v ) {
+			$this->linkCollector['metadata'][] = [ 'href' => $v['href'] ];
+		}
 		unset( $item['toc']['_links'] );
 
 		$this->linkCollector['self'][] = [ 'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->rest_base, $id ) ) ];

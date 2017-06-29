@@ -87,7 +87,7 @@ class Search extends Books {
 			return false; // Abort search
 		}
 
-		if ( $this->keyValueSearchInMeta( $search ) !== false ) {
+		if ( $this->paramSearchMeta( $search ) !== false ) {
 			return true;
 		}
 
@@ -95,17 +95,58 @@ class Search extends Books {
 	}
 
 	/**
-	 * Key/value search JSON from /pressbooks/v2/metadata endpoint
+	 * Parameter based search
 	 *
 	 * @param array $search
 	 *
 	 * @return bool
 	 */
-	protected function keyValueSearchInMeta( array $search ) {
+	protected function paramSearchMeta( array $search ) {
 
+		// Book Metadata
 		$request_metadata = new \WP_REST_Request( 'GET', '/pressbooks/v2/metadata' );
 		$response_metadata = rest_do_request( $request_metadata );
-		$metadata = $response_metadata->get_data();
+		$book_metadata = $response_metadata->get_data();
+		if ( $this->keyValueSearchInMeta( $search, $book_metadata ) ) {
+			return true;
+		}
+
+		// Chapter Metadata
+		$request_metadata = new \WP_REST_Request( 'GET', '/pressbooks/v2/toc' );
+		$response_metadata = rest_do_request( $request_metadata );
+		$toc = $response_metadata->get_data();
+		foreach ( $toc['front-matter'] as $fm ) {
+			if ( $this->keyValueSearchInMeta( $search, $fm['metadata'] ) ) {
+				return true;
+			}
+		}
+		foreach ( $toc['part'] as $p ) {
+			foreach ( $p['chapters'] as $ch ) {
+				if ( $this->keyValueSearchInMeta( $search, $ch['metadata'] ) ) {
+					return true;
+				}
+			}
+		}
+		foreach ( $toc['back-matter'] as $bm ) {
+			if ( $this->keyValueSearchInMeta( $search, $bm['metadata'] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * subjects=biology,technology&keywords=education
+	 * returns all books in a collection with either subject 'biology' OR 'technology' AND the keyword 'education',
+	 * (where 'subjects' and 'keywords' are keys in $metadata )
+	 *
+	 * @param array $search
+	 * @param array $metadata
+	 *
+	 * @return bool
+	 */
+	protected function keyValueSearchInMeta( array $search, array $metadata ) {
 
 		$found = [];
 		foreach ( $search as $search_key => $needle ) {
