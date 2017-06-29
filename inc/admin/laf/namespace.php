@@ -119,7 +119,6 @@ function replace_book_admin_menu() {
 		$add_back_matter = $submenu['edit.php?post_type=back-matter'][10];
 		array_push( $submenu['edit.php?post_type=chapter'], $add_part, $add_chapter, $add_front_matter, $add_back_matter );
 	}
-
 	if ( is_super_admin() ) {
 		// If network administrator, give the option to see chapter, front matter and back matter types.
 		$front_matter_types = $submenu['edit.php?post_type=front-matter'][15];
@@ -141,6 +140,7 @@ function replace_book_admin_menu() {
 			);
 		endif;
 	}
+	add_submenu_page( 'edit.php?post_type=chapter', __( 'Trash' ), __( 'Trash' ), 'delete_posts', 'trash', __NAMESPACE__ . '\display_trash' );
 
 	// Book Information
 	$metadata = new \Pressbooks\Metadata();
@@ -270,6 +270,13 @@ function display_organize() {
 	require( PB_PLUGIN_DIR . 'templates/admin/organize.php' );
 }
 
+/**
+ * Displays the trash page.
+ */
+function display_trash() {
+
+	require( PB_PLUGIN_DIR . 'templates/admin/trash.php' );
+}
 
 /**
  * Displays the Export Admin Page
