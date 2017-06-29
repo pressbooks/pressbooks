@@ -491,7 +491,7 @@ jQuery(document).ready(function ($) {
 
 	// Warn of incomplete AJAX
 	$(window).on('beforeunload', function(){
-      if($.active > 0) {
+      if ($.active > 0) {
           return 'Changes you made may not be saved...';
       }
   });
