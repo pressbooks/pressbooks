@@ -470,3 +470,23 @@ jQuery(document).ready(function ($) {
 	});
 
 });
+
+jQuery(document).ready(function ($) {
+    var pbOrganizeTdToggle = [];
+    $('table thead th').click(function () {
+        var tdIndex = $(this).index() + 1;
+        var tableIndex = $(this).parents('table').index();
+        var i = tableIndex + '_' + tdIndex;
+        if (pbOrganizeTdToggle[i]) {
+            $(this).parents('table').find("tr td:nth-of-type(" + tdIndex + ")")
+                .find('input[type=checkbox]:checked')
+                .click();
+            pbOrganizeTdToggle[i] = false;
+        } else {
+            $(this).parents('table').find("tr td:nth-of-type(" + tdIndex + ")")
+                .find('input[type=checkbox]:not(:checked)')
+                .click();
+            pbOrganizeTdToggle[i] = true;
+        }
+    });
+});
