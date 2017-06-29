@@ -16,12 +16,13 @@ $results = ( new \WP_Query() )->query( $args );
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Trash' ); ?></h1>
-	<p><?php _e( "One person's junk is another person's treasure.", 'pressbooks' ); ?></p>
+	<p><?php _e( 'Restore deleted chapters, parts, front and back matter.', 'pressbooks' ); ?></p>
+	<p><?php printf( __( '<strong>NOTE</strong>: Items in the trash will be permanently deleted after %d days.', 'pressbooks' ), EMPTY_TRASH_DAYS ); ?></p>
 
 	<?php
 	if ( empty( $results ) ) {
 		echo '<h2>';
-		_e( 'No trash found', 'pressbooks' );
+		_e( 'No trash found.', 'pressbooks' );
 		echo '</h2></div>';
 		return; // Exit!
 	}
