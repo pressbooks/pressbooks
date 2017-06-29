@@ -82,4 +82,12 @@ body.chapter_page_pressbooks {
   #loader {
     display: none;
   }
+
+  table thead {
+    th:nth-child(5),
+    th:nth-child(6),
+    th:nth-child(7) {
+      cursor: pointer;
+    }
+  }
 }
