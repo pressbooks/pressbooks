@@ -6,10 +6,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /* Outputs the content of the Organize page for a book */
 
-global $user_ID;
+global $user_ID; // @codingStandardsIgnoreLine
 $statuses = get_post_statuses();
 $book_structure = \Pressbooks\Book::getBookStructure();
-$book_is_public = ( 1 == get_option( 'blog_public' ) );
+$book_is_public = ( ! empty( get_option( 'blog_public' ) ) );
 $disable_comments = \Pressbooks\Utility\disable_comments();
 ?>
 
@@ -50,25 +50,25 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 
 	<?php // Iterate through types and output nice tables for each one.
 
-	$types = array(
-		'front-matter' => array(
+	$types = [
+		'front-matter' => [
 			'name' => __( 'Front Matter', 'pressbooks' ),
 			'abbreviation' => 'fm',
-		),
-		'chapter' => array(
+		],
+		'chapter' => [
 			'name' => __( 'Chapter', 'pressbooks' ),
 			'abbreviation' => 'chapter',
-		),
-		'back-matter' => array(
+		],
+		'back-matter' => [
 			'name' => __( 'Back Matter', 'pressbooks' ),
 			'abbreviation' => 'bm',
-		),
-	);
+		],
+	];
 
 	foreach ( $types as $type_slug => $type ) :
 		$type_name = $type['name'];
 		$type_abbr = $type['abbreviation'];
-		if ( 'chapter' == $type_slug ) : // Chapters have to be handled differently. ?>
+		if ( 'chapter' === $type_slug ) : // Chapters have to be handled differently. ?>
 			<?php foreach ( $book_structure['part'] as $part ) : ?>
 				<table id="part-<?php echo $part['ID']; ?>" class="wp-list-table widefat fixed <?php echo $type_slug; ?>s" cellspacing="0">
 					<thead>
@@ -77,11 +77,11 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 								<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php echo $part['post_title']; ?></a>
 							</th>
 							<th><?php _e( 'Author', 'pressbooks' ); ?></th>
-							<?php if ( false == $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
+							<?php if ( false === $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
 							<th><?php _e( 'Status', 'pressbooks' ); ?></th>
-							<th><?php _e( 'Private', 'pressbooks' ); ?></th>
-							<th><?php _e( 'Show Title', 'pressbooks' ); ?></th>
-							<th><?php _e( 'Export', 'pressbooks' ); ?></th>
+							<th role="button"><?php _e( 'Private', 'pressbooks' ); ?></th>
+							<th role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
+							<th role="button"><?php _e( 'Export', 'pressbooks' ); ?></th>
 							<th>
 								<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a>
 								<?php if ( count( $book_structure['part'] ) > 1 ) : // Don't allow deletion of last remaining part. Bad things happen. ?>
@@ -105,9 +105,9 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 								<?php } ?></a></strong>
 							</td>
 							<td class="author column-author">
-								<?php echo $content['post_author'] == $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; ?>
+								<?php echo $content['post_author'] === $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; // @codingStandardsIgnoreLine ?>
 							</td>
-							<?php if ( false == $disable_comments ) : ?><td class="comments column-comments">
+							<?php if ( false === $disable_comments ) : ?><td class="comments column-comments">
 								<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 									<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 								</a>
@@ -134,7 +134,7 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 						<tr>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
-							<?php if ( false == $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
+							<?php if ( false === $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
@@ -153,11 +153,11 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 				<tr>
 					<th><?php echo $type_name; ?></th>
 					<th><?php _e( 'Author', 'pressbooks' ); ?></th>
-					<?php if ( false == $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
+					<?php if ( false === $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
 					<th><?php _e( 'Status', 'pressbooks' ); ?></th>
-					<th><?php _e( 'Private', 'pressbooks' ); ?></th>
-					<th><?php _e( 'Show Title', 'pressbooks' ); ?></th>
-					<th><?php _e( 'Export', 'pressbooks' ); ?></th>
+					<th role="button"><?php _e( 'Private', 'pressbooks' ); ?></th>
+					<th role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
+					<th role="button"><?php _e( 'Export', 'pressbooks' ); ?></th>
 					<th><?php _e( 'Edit', 'pressbooks' ); ?></th>
 				</tr>
 			</thead>
@@ -173,9 +173,9 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 						<?php } ?></a></strong>
 					</td>
 					<td class="author column-author">
-						<?php echo $content['post_author'] == $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; ?>
+						<?php echo $content['post_author'] == $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; // @codingStandardsIgnoreLine ?>
 					</td>
-					<?php if ( false == $disable_comments ) : ?><td class="comments column-comments">
+					<?php if ( false === $disable_comments ) : ?><td class="comments column-comments">
 						<a class="post-comment-count" href="<?php echo admin_url( 'edit-comments.php?p=' . $content['ID'] ); ?>">
 							<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 						</a>
@@ -200,8 +200,8 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 			<tfoot>
 				<tr>
 					<th>&nbsp;</th>
-					<th>&nbsp;</th><?php if ( false == $disable_comments ) : ?>
-							<th>&nbsp;</th><?php endif; ?>
+					<th>&nbsp;</th>
+					<?php if ( false === $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
