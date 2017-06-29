@@ -35,8 +35,18 @@ class SectionMetadata extends \WP_REST_Controller {
 		$this->namespace = 'pressbooks/v2';
 		$this->rest_base = 'metadata';
 		$this->post_type = $post_type;
-		$obj = get_post_type_object( $post_type );
-		$this->parent_base = ! empty( $obj->rest_base ) ? $obj->rest_base : $obj->name;
+
+		switch ( $post_type ) {
+			case 'chapter':
+				$parent_base = 'chapters';
+				break;
+			case 'part':
+				$parent_base = 'parts';
+				break;
+			default:
+				$parent_base = $post_type;
+		}
+		$this->parent_base = $parent_base;
 	}
 
 	/**
@@ -364,6 +374,7 @@ class SectionMetadata extends \WP_REST_Controller {
 
 		$response = rest_ensure_response( $section_meta );
 		$this->linkCollector['self'] = [ 'href' => rest_url( sprintf( '%s/%s/%d/%s', $this->namespace, $this->parent_base, $request['parent'], 'metadata' ) ) ];
+		$this->linkCollector[ $this->post_type ] = [ 'href' => rest_url( sprintf( '%s/%s/%d', $this->namespace, $this->parent_base, $request['parent'] ) ) ];
 		$response->add_links( $this->linkCollector );
 
 		return $response;

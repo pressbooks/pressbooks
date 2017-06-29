@@ -31,23 +31,20 @@ function add_help_link( $response ) {
 function init_book() {
 
 	// Register TOC
-	$toc_controller = new Endpoints\Controller\Toc();
-	$toc_controller->register_routes();
+	( new Endpoints\Controller\Toc() )->register_routes();
 
 	// Register Book Metadata
-	$toc_controller = new Endpoints\Controller\Metadata();
-	$toc_controller->register_routes();
+	( new Endpoints\Controller\Metadata() )->register_routes();
+
+	// Register Section Metadata
+	( new Endpoints\Controller\SectionMetadata( 'front-matter' ) )->register_routes();
+	( new Endpoints\Controller\SectionMetadata( 'back-matter' ) )->register_routes();
+	( new Endpoints\Controller\SectionMetadata( 'chapter' ) )->register_routes();
 
 	foreach ( get_custom_post_types() as $post_type ) {
 		// Override Revisions routes for our custom post types
 		if ( post_type_supports( $post_type, 'revisions' ) ) {
-			$revisions_controller = new Endpoints\Controller\Revisions( $post_type );
-			$revisions_controller->register_routes();
-		}
-		// Register Section Metadata
-		if ( $post_type !== 'part' ) {
-			$toc_controller = new Endpoints\Controller\SectionMetadata( $post_type );
-			$toc_controller->register_routes();
+			( new Endpoints\Controller\Revisions( $post_type ) )->register_routes();
 		}
 	}
 
@@ -72,22 +69,20 @@ function init_book() {
 function init_root() {
 
 	// Register Books
-	$toc_controller = new Endpoints\Controller\Books();
-	$toc_controller->register_routes();
+	( new Endpoints\Controller\Books() )->register_routes();
 
 	// Register Search
-	$toc_controller = new Endpoints\Controller\Search();
-	$toc_controller->register_routes();
+	( new Endpoints\Controller\Search() )->register_routes();
 }
 
 /**
- * Hide endpoints that don't work well with a book
+ * Hide endpoints that don't work well with a book api
  *
  * @param array $endpoints
  *
  * @return array
  */
-function hide_incompatible_endpoints( $endpoints ) {
+function hide_endpoints_from_book( $endpoints ) {
 
 	foreach ( $endpoints as $key => $val ) {
 		if (
@@ -103,6 +98,18 @@ function hide_incompatible_endpoints( $endpoints ) {
 
 	ksort( $endpoints );
 	return $endpoints;
+}
+
+/**
+ * Hide endpoints from root api
+ *
+ * @param array $endpoints
+ *
+ * @return array
+ */
+function hide_endpoints_from_root( $endpoints ) {
+
+	return $endpoints; // Nothing to hide
 }
 
 /**

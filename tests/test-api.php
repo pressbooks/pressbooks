@@ -17,7 +17,7 @@ class Api_PostsTest extends \WP_UnitTestCase {
 		\Pressbooks\PostType\register_post_types();
 		remove_action( 'rest_api_init', '\Pressbooks\Api\init_root' );
 		add_action( 'rest_api_init', '\Pressbooks\Api\init_book' );
-		add_filter( 'rest_endpoints', 'Pressbooks\Api\hide_incompatible_endpoints' );
+		add_filter( 'rest_endpoints', 'Pressbooks\Api\hide_endpoints_from_book' );
 		add_filter( 'rest_url', 'Pressbooks\Api\fix_book_urls', 10, 2 );
 
 		do_action( 'rest_api_init' );

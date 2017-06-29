@@ -7,6 +7,21 @@ use Pressbooks\Book;
 class Toc extends \WP_REST_Controller {
 
 	/**
+	 * @var SectionMetadata
+	 */
+	protected $frontMatterMetadata;
+
+	/**
+	 * @var SectionMetadata
+	 */
+	protected $backMatterMetadata;
+
+	/**
+	 * @var SectionMetadata
+	 */
+	protected $chapterMetadata;
+
+	/**
 	 * @var array
 	 */
 	protected $linkCollector = [];
@@ -17,6 +32,10 @@ class Toc extends \WP_REST_Controller {
 	public function __construct() {
 		$this->namespace = 'pressbooks/v2';
 		$this->rest_base = 'toc';
+
+		$this->frontMatterMetadata = new SectionMetadata( 'front-matter' );
+		$this->backMatterMetadata = new SectionMetadata( 'back-matter' );
+		$this->chapterMetadata = new SectionMetadata( 'chapter' );
 	}
 
 	/**
@@ -108,6 +127,39 @@ class Toc extends \WP_REST_Controller {
 			],
 		];
 
+		$fm_meta_data = $this->frontMatterMetadata->get_item_schema();
+		$fm_item = array_merge( $item, [
+			'metadata' => [
+				'description' => __( 'Metadata', 'pressbooks' ),
+				'type' => 'object',
+				'properties' => $fm_meta_data['properties'],
+				'context' => [ 'view' ],
+				'readonly' => true,
+			],
+		]);
+
+		$bm_meta_data = $this->backMatterMetadata->get_item_schema();
+		$bm_item = array_merge( $item, [
+			'metadata' => [
+				'description' => __( 'Metadata', 'pressbooks' ),
+				'type' => 'object',
+				'properties' => $bm_meta_data['properties'],
+				'context' => [ 'view' ],
+				'readonly' => true,
+			],
+		]);
+
+		$ch_meta_data = $this->chapterMetadata->get_item_schema();
+		$ch_item = array_merge( $item, [
+			'metadata' => [
+				'description' => __( 'Metadata', 'pressbooks' ),
+				'type' => 'object',
+				'properties' => $ch_meta_data['properties'],
+				'context' => [ 'view' ],
+				'readonly' => true,
+			],
+		]);
+
 		$schema = [
 			'$schema' => 'http://json-schema.org/schema#',
 			'title' => 'toc',
@@ -118,7 +170,7 @@ class Toc extends \WP_REST_Controller {
 					'type' => 'array',
 					'items' => [
 						'type' => 'object',
-						'properties' => $item,
+						'properties' => $fm_item,
 					],
 					'context' => [ 'view' ],
 					'readonly' => true,
@@ -134,7 +186,7 @@ class Toc extends \WP_REST_Controller {
 								'type' => 'array',
 								'items' => [
 									'type' => 'object',
-									'properties' => $item,
+									'properties' => $ch_item,
 								],
 							],
 							'context' => [ 'view' ],
@@ -149,7 +201,7 @@ class Toc extends \WP_REST_Controller {
 					'type' => 'array',
 					'items' => [
 						'type' => 'object',
-						'properties' => $item,
+						'properties' => $bm_item,
 					],
 				],
 				'context' => [ 'view' ],
@@ -185,6 +237,9 @@ class Toc extends \WP_REST_Controller {
 	 */
 	public function get_item( $request ) {
 
+		// Register missing routes
+		$this->registerRouteDependencies();
+
 		$struct = Book::getBookStructure();
 		unset( $struct['__order'], $struct['__export_lookup'] );
 		$struct = $this->fixBookStructure( $struct, current_user_can( 'edit_posts' ) );
@@ -194,6 +249,16 @@ class Toc extends \WP_REST_Controller {
 		$response->add_links( $this->linkCollector );
 
 		return $response;
+	}
+
+	/**
+	 * Define route dependencies.
+	 * Toc content is built by querying section metadata, but those API routes may not exist at the root level.
+	 */
+	protected function registerRouteDependencies() {
+		$this->frontMatterMetadata->register_routes();
+		$this->backMatterMetadata->register_routes();
+		$this->chapterMetadata->register_routes();
 	}
 
 	/**
@@ -244,6 +309,14 @@ class Toc extends \WP_REST_Controller {
 				}
 				$new_fm['link'] = get_permalink( $new_fm['id'] );
 				$this->linkCollector['front-matter'][] = [ 'href' => trailingslashit( $rest_url ) . $new_fm['id'], 'embeddable' => true ];
+
+				// Metadata
+				$request_metadata = new \WP_REST_Request( 'GET', "/pressbooks/v2/{$base}/{$new_fm['id']}/metadata" );
+				$response_metadata = rest_do_request( $request_metadata );
+				$new_fm['metadata'] = $this->prepare_response_for_collection( $response_metadata );
+				$this->linkCollector['metadata'][] = [ 'href' => trailingslashit( $rest_url ) . "{$new_fm['id']}/metadata" ];
+				unset( $new_fm['metadata']['_links'] );
+
 				$front_matter[] = $new_fm;
 			}
 		}
@@ -282,6 +355,14 @@ class Toc extends \WP_REST_Controller {
 					}
 					$new_ch['link'] = get_permalink( $new_ch['id'] );
 					$this->linkCollector['chapter'][] = [ 'href' => trailingslashit( $chapter_rest_url ) . $new_ch['id'], 'embeddable' => true ];
+
+					// Metadata
+					$request_metadata = new \WP_REST_Request( 'GET', "/pressbooks/v2/{$chapter_base}/{$new_ch['id']}/metadata" );
+					$response_metadata = rest_do_request( $request_metadata );
+					$new_ch['metadata'] = $this->prepare_response_for_collection( $response_metadata );
+					$this->linkCollector['metadata'][] = [ 'href' => trailingslashit( $chapter_rest_url ) . "{$new_ch['id']}/metadata" ];
+					unset( $new_ch['metadata']['_links'] );
+
 					$chapters[] = $new_ch;
 				}
 			}
@@ -316,6 +397,14 @@ class Toc extends \WP_REST_Controller {
 				}
 				$new_bm['link'] = get_permalink( $new_bm['id'] );
 				$this->linkCollector['back-matter'][] = [ 'href' => trailingslashit( $rest_url ) . $new_bm['id'], 'embeddable' => true ];
+
+				// Metadata
+				$request_metadata = new \WP_REST_Request( 'GET', "/pressbooks/v2/{$base}/{$new_bm['id']}/metadata" );
+				$response_metadata = rest_do_request( $request_metadata );
+				$new_bm['metadata'] = $this->prepare_response_for_collection( $response_metadata );
+				$this->linkCollector['metadata'][] = [ 'href' => trailingslashit( $rest_url ) . "{$new_bm['id']}/metadata" ];
+				unset( $new_bm['metadata']['_links'] );
+
 				$back_matter[] = $new_bm;
 			}
 		}
