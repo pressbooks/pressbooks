@@ -361,7 +361,7 @@ class SectionMetadata extends \WP_REST_Controller {
 
 		$section_meta = get_post_meta( $request['parent'], '', true );
 		$book_meta = Book::getBookInformation();
-		$section_meta['pb_title'] = get_the_title( $request['$request'] );
+		$section_meta['pb_title'] = get_the_title( $request['parent'] );
 		if ( $this->post_type === 'chapter' ) {
 			$section_meta['pb_chapter_number'] = pb_get_chapter_number( get_post_field( 'post_name', $request['parent'] ) );
 		}

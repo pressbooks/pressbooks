@@ -1,6 +1,6 @@
 <?php
 
-class Api_PostsTest extends \WP_UnitTestCase {
+class ApiTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
@@ -100,11 +100,20 @@ class Api_PostsTest extends \WP_UnitTestCase {
 		update_option( 'blog_public', 1 );
 		restore_current_blog();
 
-		// Test search
+		// Test book metadata search
 		$server = $this->setupRootApi();
 		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
 		$request->set_param( 'name', 'site' );
 		$request->set_param( '@type', 'book' );
+		$response = $server->dispatch( $request );
+		$data = $response->get_data();
+		$this->assertNotEmpty( $data );
+
+		// Test chapter metadata search
+		$server = $this->setupRootApi();
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/books/search' );
+		$request->set_param( 'name', 'appendix' );
+		$request->set_param( '@type', 'chapter' );
 		$response = $server->dispatch( $request );
 		$data = $response->get_data();
 		$this->assertNotEmpty( $data );
