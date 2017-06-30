@@ -10,6 +10,7 @@ use Pressbooks\Book;
 use Pressbooks\CustomCss;
 use Pressbooks\Container;
 use Pressbooks\Metadata;
+use function \Pressbooks\Utility\getset;
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
 if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
@@ -599,7 +600,8 @@ abstract class Export {
 		// Download
 		if ( ! empty( $_GET['download_export_file'] ) ) {
 			$filename = sanitize_file_name( $_GET['download_export_file'] );
-			static::downloadExportFile( $filename );
+			static::downloadExportFile( $filename, false );
+			exit;
 		}
 
 		// Delete
@@ -609,15 +611,16 @@ abstract class Export {
 			unlink( $path . $filename );
 			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 			\Pressbooks\Redirect\location( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ) );
+			exit;
 		}
 
 		// Export
-		if ( isset( $_GET['export'] ) && 'yes' === $_GET['export'] && is_array( $_POST['export_formats'] ) && check_admin_referer( 'pb-export' ) ) {
+		if ( 'yes' === getset( '_GET', 'export' ) && is_array( getset( '_REQUEST', 'export_formats' ) ) && check_admin_referer( 'pb-export' ) ) {
 
 			// --------------------------------------------------------------------------------------------------------
 			// Define modules
 
-			$x = $_POST['export_formats'];
+			$x = $_REQUEST['export_formats'];
 			$modules = [];
 
 			if ( isset( $x['pdf'] ) ) {
@@ -724,8 +727,15 @@ abstract class Export {
 			// No errors?
 
 			if ( empty( $conversion_error ) && empty( $validation_warning ) ) {
-				// Ok!
-				\Pressbooks\Redirect\location( $redirect_url );
+				if ( ! empty( $_REQUEST['preview'] ) && count( $outputs ) === 1 ) {
+					$filename = array_values( $outputs );
+					$filename = array_shift( $filename );
+					$filename = basename( $filename );
+					static::downloadExportFile( $filename, true );
+				} else {
+					\Pressbooks\Redirect\location( $redirect_url );
+				}
+				exit;
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -867,8 +877,9 @@ abstract class Export {
 	 * Download an .htaccess protected file from the exports directory.
 	 *
 	 * @param string $filename sanitized $_GET['download_export_file']
+	 * @param bool $inline
 	 */
-	protected static function downloadExportFile( $filename ) {
+	protected static function downloadExportFile( $filename, $inline ) {
 
 		$filepath = static::getExportFolder() . $filename;
 		if ( ! is_readable( $filepath ) ) {
@@ -880,7 +891,11 @@ abstract class Export {
 		set_time_limit( 0 );
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Type: ' . static::mimeType( $filepath ) );
-		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+		if ( $inline ) {
+			header( 'Content-Disposition: inline; filename="' . $filename . '"' );
+		} else {
+			header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+		}
 		header( 'Content-Transfer-Encoding: binary' );
 		header( 'Expires: 0' );
 		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );

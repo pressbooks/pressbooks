@@ -84,6 +84,9 @@ class Xhtml11 extends Export {
 		$timestamp = time();
 		$md5 = $this->nonce( $timestamp );
 		$this->url = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
+		if ( ! empty( $_REQUEST['preview'] ) ) {
+			$this->url .= '&' . http_build_query( [ 'preview' => $_REQUEST['preview'] ] );
+		}
 
 		// Append endnotes to URL?
 		if ( $r['endnotes'] ) {
