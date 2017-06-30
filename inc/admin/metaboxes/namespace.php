@@ -753,9 +753,9 @@ function preview_export( $post ) {
 		'export' => 'yes',
 	];
 
-	$query = http_build_query( array_merge( [ 'export_formats' => [ 'pdf' => true ], $data ] ) );
+	$query = http_build_query( array_merge( [ 'export_formats' => [ 'print_pdf' => true ], $data ] ) );
 	$pdf_url = wp_nonce_url( get_admin_url( get_current_blog_id(), "/admin.php?$query" ), 'pb-export' );
-	$pdf_img = PB_PLUGIN_URL . 'assets/dist/images/pdf-36.png';
+	$pdf_img = PB_PLUGIN_URL . 'assets/dist/images/print-pdf-36.png';
 
 	$query = http_build_query( array_merge( [ 'export_formats' => [ 'epub' => true ], $data ] ) );
 	$epub_url = wp_nonce_url( get_admin_url( get_current_blog_id(), "/admin.php?$query" ), 'pb-export' );
@@ -766,9 +766,9 @@ function preview_export( $post ) {
 	$xhtml_img = PB_PLUGIN_URL . 'assets/dist/images/xhtml-36.png';
 
 	?>
-	<a href="<?php echo $pdf_url; ?>" target="<?php echo $target; ?>"><img src="<?php echo $pdf_img; ?>"/></a>
-	<a href="<?php echo $epub_url; ?>" target="<?php echo $target; ?>"><img src="<?php echo $epub_img; ?>"/></a>
-	<a href="<?php echo $xhtml_url; ?>" target="<?php echo $target; ?>"><img src="<?php echo $xhtml_img; ?>"/></a>
+	<a style="display:inline-block;width:30%;text-align:center;" href="<?php echo $pdf_url; ?>" target="<?php echo $target; ?>"><img src="<?php echo $pdf_img; ?>" /></a>
+	<a style="display:inline-block;width:30%;text-align:center;" href="<?php echo $epub_url; ?>" target="<?php echo $target; ?>"><img src="<?php echo $epub_img; ?>" /></a>
+	<a style="display:inline-block;width:30%;text-align:center;" href="<?php echo $xhtml_url; ?>" target="<?php echo $target; ?>"><img src="<?php echo $xhtml_img; ?>" /></a>
 	<?php
 }
 
