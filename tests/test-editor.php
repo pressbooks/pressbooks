@@ -1,7 +1,5 @@
 <?php
 
-use Pressbooks\Editor;
-
 class EditorTest extends \WP_UnitTestCase {
 
 	use utilsTrait;

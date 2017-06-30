@@ -13,6 +13,15 @@ namespace Pressbooks;
 class Book {
 
 	/**
+	 * Preview ids
+	 *
+	 * Note: If you set this property, but also set $_REQUEST['preview'], then $_REQUEST['preview'] will override.
+	 *
+	 * @var array
+	 */
+	static $preview = [];
+
+	/**
 	 * Fix duplicate slugs.
 	 * This can happen if a post is 'draft', 'pending', or 'auto-draft'
 	 *
@@ -941,8 +950,12 @@ class Book {
 		$post_ids_to_export = [];
 
 		if ( ! empty( $_REQUEST['preview'] ) ) {
+			static::$preview = $_REQUEST['preview'];
+		}
+
+		if ( ! empty( static::$preview ) ) {
 			// Preview mode
-			$preview = is_array( $_REQUEST['preview'] ) ? $_REQUEST['preview'] : (array) $_REQUEST['preview'];
+			$preview = is_array( static::$preview ) ? static::$preview : (array) static::$preview;
 			foreach ( $preview as $id ) {
 				$post_ids_to_export[ (int) $id ] = 'on';
 			}
@@ -963,6 +976,10 @@ class Book {
 	 * @return bool
 	 */
 	static protected function useCache() {
+
+		if ( ! empty( static::$preview ) ) {
+			return false;
+		}
 
 		if ( ! empty( $_REQUEST['preview'] ) ) {
 			return false;

@@ -607,8 +607,7 @@ abstract class Export {
 		// Delete
 		if ( isset( $_POST['delete_export_file'] ) && isset( $_POST['filename'] ) && check_admin_referer( 'pb-delete-export' ) ) {
 			$filename = sanitize_file_name( $_POST['filename'] );
-			$path = static::getExportFolder();
-			unlink( $path . $filename );
+			unlink( static::getExportFolder() . $filename );
 			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 			\Pressbooks\Redirect\location( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ) );
 			exit;
@@ -728,11 +727,14 @@ abstract class Export {
 
 			if ( empty( $conversion_error ) && empty( $validation_warning ) ) {
 				if ( ! empty( $_REQUEST['preview'] ) && count( $outputs ) === 1 ) {
-					$filename = array_values( $outputs );
-					$filename = array_shift( $filename );
-					$filename = basename( $filename );
+					// Preview the file, then delete it
+					$filename_fullpath = array_values( $outputs );
+					$filename_fullpath = array_shift( $filename_fullpath );
+					$filename = basename( $filename_fullpath );
 					static::downloadExportFile( $filename, true );
+					unlink( $filename_fullpath );
 				} else {
+					// Redirect the user back to the form
 					\Pressbooks\Redirect\location( $redirect_url );
 				}
 				exit;
@@ -907,7 +909,5 @@ abstract class Export {
 			// Fix out-of-memory problem
 		}
 		readfile( $filepath );
-
-		exit;
 	}
 }
