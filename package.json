@@ -43,5 +43,19 @@
   "bugs": {
     "url": "https://github.com/pressbooks/pressbooks/issues"
   },
-  "homepage": "https://github.com/pressbooks/pressbooks/"
+  "homepage": "https://github.com/pressbooks/pressbooks/",
+  "stylelint": {
+  	"extends": "stylelint-config-standard",
+  	"rules": {
+  		"indentation": 2,
+  		"media-feature-name-no-unknown": [
+  			true,
+  			{
+  				"ignoreMediaFeatureNames": [
+            "min--moz-device-pixel-ratio"
+          ]
+  			}
+  		]
+  	}
+  }
 }
