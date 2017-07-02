@@ -1,5 +1,5 @@
-(function ($) {
-  $(function () {
-    $('.pb_catalog_color').wpColorPicker();
-  });
-}(jQuery));
+jQuery( function ( $ ) { // eslint-disable-line
+	$( function () {
+	  $( '.pb_catalog_color' ).wpColorPicker();
+	} );
+} );
