@@ -54,5 +54,19 @@
   "homepage": "https://github.com/pressbooks/pressbooks/",
   "eslintConfig": {
     "extends": "humanmade"
+  },
+  "stylelint": {
+  	"extends": "stylelint-config-standard",
+  	"rules": {
+  		"indentation": 2,
+  		"media-feature-name-no-unknown": [
+  			true,
+  			{
+  				"ignoreMediaFeatureNames": [
+            "min--moz-device-pixel-ratio"
+          ]
+  			}
+  		]
+  	}
   }
 }
