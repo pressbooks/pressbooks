@@ -106,9 +106,9 @@ class Metadata implements \JsonSerializable {
 	/**
 	 * Returns a JSON object of the book information which can be posted to an API.
 	 *
-	 * @since 3.9.7
+	 * @since 4.0.0
 	 *
-	 * @return string $json JSON object of book information.
+	 * @return array
 	 */
 	public function jsonSerialize() {
 		$metadata = Book::getBookInformation();
