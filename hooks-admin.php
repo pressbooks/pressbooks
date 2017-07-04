@@ -135,7 +135,6 @@ add_action( 'admin_menu', function () {
 } );
 
 add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
-add_action( 'pb_add_bisac_subjects_field', '\Pressbooks\Admin\Metaboxes\add_bisac_subjects_field', 1 );
 
 if ( $is_book ) {
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\add_metadata_styles' );

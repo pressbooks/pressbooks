@@ -377,7 +377,7 @@ function add_meta_boxes() {
 
 	if ( $show_expanded_metadata ) {
 		x_add_metadata_group(
-			'additional-catalogue-information', 'metadata', [
+			'additional-catalog-information', 'metadata', [
 			'label' => __( 'Additional Catalog Information', 'pressbooks' ),
 			'priority' => 'low',
 			]
@@ -385,7 +385,7 @@ function add_meta_boxes() {
 
 		x_add_metadata_field(
 			'pb_series_title', 'metadata', [
-			'group' => 'additional-catalogue-information',
+			'group' => 'additional-catalog-information',
 			'label' => __( 'Series Title', 'pressbooks' ),
 			'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
 			]
@@ -393,7 +393,7 @@ function add_meta_boxes() {
 
 		x_add_metadata_field(
 			'pb_series_number', 'metadata', [
-			'group' => 'additional-catalogue-information',
+			'group' => 'additional-catalog-information',
 			'label' => __( 'Series Number', 'pressbooks' ),
 			'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
 			]
@@ -401,7 +401,7 @@ function add_meta_boxes() {
 
 		x_add_metadata_field(
 			'pb_keywords_tags', 'metadata', [
-			'group' => 'additional-catalogue-information',
+			'group' => 'additional-catalog-information',
 			'label' => __( 'Keywords', 'pressbooks' ),
 			'multiple' => true,
 			'description' => __( 'These are added to your webbook cover page, and in your ebook metadata. Keywords are used by online book stores and search engines.', 'pressbooks' ),
@@ -410,7 +410,7 @@ function add_meta_boxes() {
 
 		x_add_metadata_field(
 			'pb_hashtag', 'metadata', [
-			'group' => 'additional-catalogue-information',
+			'group' => 'additional-catalog-information',
 			'label' => __( 'Hashtag', 'pressbooks' ),
 			'description' => __( 'These are added to your webbook cover page. For those of you who like Twitter.', 'pressbooks' ),
 			]
@@ -418,7 +418,7 @@ function add_meta_boxes() {
 
 		x_add_metadata_field(
 			'pb_list_price_print', 'metadata', [
-			'group' => 'additional-catalogue-information',
+			'group' => 'additional-catalog-information',
 			'label' => __( 'List Price (Print)', 'pressbooks' ),
 			'description' => __( 'The list price of your book in print.', 'pressbooks' ),
 			]
@@ -426,7 +426,7 @@ function add_meta_boxes() {
 
 		x_add_metadata_field(
 			'pb_list_price_pdf', 'metadata', [
-			'group' => 'additional-catalogue-information',
+			'group' => 'additional-catalog-information',
 			'label' => __( 'List Price (PDF)', 'pressbooks' ),
 			'description' => __( 'The list price of your book in PDF format.', 'pressbooks' ),
 			]
@@ -434,7 +434,7 @@ function add_meta_boxes() {
 
 		x_add_metadata_field(
 			'pb_list_price_epub', 'metadata', [
-			'group' => 'additional-catalogue-information',
+			'group' => 'additional-catalog-information',
 			'label' => __( 'List Price (ebook)', 'pressbooks' ),
 			'description' => __( 'The list price of your book in Ebook formats.', 'pressbooks' ),
 			]
@@ -442,7 +442,7 @@ function add_meta_boxes() {
 
 		x_add_metadata_field(
 			'pb_list_price_web', 'metadata', [
-			'group' => 'additional-catalogue-information',
+			'group' => 'additional-catalog-information',
 			'label' => __( 'List Price (Web)', 'pressbooks' ),
 			'description' => __( 'The list price of your webbook.', 'pressbooks' ),
 			]
@@ -450,7 +450,7 @@ function add_meta_boxes() {
 
 		x_add_metadata_field(
 			'pb_audience', 'metadata', [
-			'group' => 'additional-catalogue-information',
+			'group' => 'additional-catalog-information',
 			'field_type' => 'select',
 			'values' => [
 				'' => __( 'Choose an audience&hellip;', 'pressbooks' ),
@@ -463,19 +463,31 @@ function add_meta_boxes() {
 			]
 		);
 
-		/**
-		 * Add metadata field for BISAC Subject(s).
-		 *
-		 * @since 3.9.7
-		 */
-		do_action( 'pb_add_bisac_subjects_field' );
+		x_add_metadata_field(
+			/**
+			 * Filter metadata field arguments for BISAC Subject(s).
+			 *
+			 * @since 4.0.0
+			 */
+			'pb_bisac_subject', 'metadata', apply_filters( 'pb_bisac_subject_field_args', [
+				'group' => 'additional-catalog-information',
+				'label' => __( 'BISAC Subject(s)', 'pressbooks' ),
+				'multiple' => true,
+				'description' => __( 'BISAC Subject Headings help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
+			] )
+		);
 
 		x_add_metadata_field(
-			'pb_bisac_regional_theme', 'metadata', [
-			'group' => 'additional-catalogue-information',
-			'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
-			'description' => __( 'BISAC Regional Themes help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
-			]
+			/**
+			 * Filter metadata field arguments for BISAC Regional Theme.
+			 *
+			 * @since 4.0.0
+			 */
+			'pb_bisac_regional_theme', 'metadata', apply_filters( 'pb_bisac_regional_theme_field_args', [
+				'group' => 'additional-catalog-information',
+				'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
+				'description' => __( 'BISAC Regional Themes help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
+			] )
 		);
 
 		// Only display Catalog Order metadata field if site is running a root theme other than Pressbooks Root.
@@ -491,7 +503,7 @@ function add_meta_boxes() {
 		if ( 'pressbooks-root' !== $root_theme ) {
 			x_add_metadata_field(
 				'pb_catalogue_order', 'metadata', [
-				'group' => 'additional-catalogue-information',
+				'group' => 'additional-catalog-information',
 				'label' => __( 'Catalog Order', 'pressbooks' ),
 				// 'description' => __( 'What does this do?', 'pressbooks' ), @codingStandardsIgnoreLine
 				]
@@ -806,20 +818,4 @@ function metadata_save_box( $post ) {
 		<input name="original_publish" type="hidden" id="original_publish" value="Publish"/>
 		<input name="publish" id="publish" type="submit" class="button button-primary button-large" value="Save" tabindex="5" accesskey="p"/>
 	<?php }
-}
-
-/**
- * Add the BISAC Subject(s) field.
- *
- * @since 3.9.7
- */
-function add_bisac_subjects_field() {
-	x_add_metadata_field(
-		'pb_bisac_subject', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'BISAC Subject(s)', 'pressbooks' ),
-		'multiple' => true,
-		'description' => __( 'BISAC Subject Headings help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
-		]
-	);
 }
