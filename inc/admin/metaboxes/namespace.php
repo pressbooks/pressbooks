@@ -133,6 +133,11 @@ function add_metadata_styles( $hook ) {
  * Register all metadata groups and fields
  */
 function add_meta_boxes() {
+	if ( isset( $_GET['pressbooks_show_expanded_metadata'] ) && check_admin_referer( 'pb-expanded-metadata' ) ) {
+		$show_expanded_metadata = ( ! empty( $_GET['pressbooks_show_expanded_metadata'] ) );
+	} else {
+		$show_expanded_metadata = ( ! empty( get_option( 'pressbooks_show_expanded_metadata' ) ) );
+	}
 
 	// Override WordPress' parent_id
 
@@ -185,20 +190,38 @@ function add_meta_boxes() {
 		]
 	);
 
-	x_add_metadata_field(
-		'pb_author_file_as', 'metadata', [
-		'group' => 'general-book-information',
-		'label' => __( 'Author, file as', 'pressbooks' ),
-		'description' => __( 'This ensures that your ebook will sort properly in ebook stores, by the author\'s last name.', 'pressbooks' ),
-		]
-	);
+	if ( $show_expanded_metadata ) {
+		x_add_metadata_field(
+			'pb_author_file_as', 'metadata', [
+			'group' => 'general-book-information',
+			'label' => __( 'Author, file as', 'pressbooks' ),
+			'description' => __( 'This ensures that your ebook will sort properly in ebook stores, by the author\'s last name.', 'pressbooks' ),
+			]
+		);
+	}
 
 	x_add_metadata_field(
 		'pb_contributing_authors', 'metadata', [
 		'group' => 'general-book-information',
-		'label' => __( 'Contributing Authors', 'pressbooks' ),
+		'label' => __( 'Contributing Author(s)', 'pressbooks' ),
 		'multiple' => true,
 		'description' => __( 'This may be used when more than one person shares the responsibility for the intellectual content of a book.', 'pressbooks' ),
+		]
+	);
+
+	x_add_metadata_field(
+		'pb_editor', 'metadata', [
+		'group' => 'general-book-information',
+		'label' => __( 'Editor(s)', 'pressbooks' ),
+		'multiple' => true,
+		]
+	);
+
+	x_add_metadata_field(
+		'pb_translator', 'metadata', [
+		'group' => 'general-book-information',
+		'label' => __( 'Translator(s)', 'pressbooks' ),
+		'multiple' => true,
 		]
 	);
 
@@ -227,14 +250,16 @@ function add_meta_boxes() {
 		]
 	);
 
-	x_add_metadata_field(
-		'pb_onsale_date', 'metadata', [
-		'field_type' => 'datepicker',
-		'group' => 'general-book-information',
-		'label' => __( 'On-Sale Date', 'pressbooks' ),
-		'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
-		]
-	);
+	if ( $show_expanded_metadata ) {
+		x_add_metadata_field(
+			'pb_onsale_date', 'metadata', [
+			'field_type' => 'datepicker',
+			'group' => 'general-book-information',
+			'label' => __( 'On-Sale Date', 'pressbooks' ),
+			'description' => __( 'This is added to the metadata in your ebook.', 'pressbooks' ),
+			]
+		);
+	}
 
 	x_add_metadata_field(
 		'pb_ebook_isbn', 'metadata', [
@@ -270,13 +295,15 @@ function add_meta_boxes() {
 		]
 	);
 
-	x_add_metadata_field(
-		'pb_copyright_year', 'metadata', [
-		'group' => 'copyright',
-		'label' => __( 'Copyright Year', 'pressbooks' ),
-		'description' => __( 'Year that the book is/was published.', 'pressbooks' ),
-		]
-	);
+	if ( $show_expanded_metadata ) {
+		x_add_metadata_field(
+			'pb_copyright_year', 'metadata', [
+			'group' => 'copyright',
+			'label' => __( 'Copyright Year', 'pressbooks' ),
+			'description' => __( 'Year that the book is/was published.', 'pressbooks' ),
+			]
+		);
+	}
 
 	x_add_metadata_field(
 		'pb_copyright_holder', 'metadata', [
@@ -348,142 +375,128 @@ function add_meta_boxes() {
 		]
 	);
 
-	x_add_metadata_group(
-		'additional-catalogue-information', 'metadata', [
-		'label' => __( 'Additional Catalog Information', 'pressbooks' ),
-		'priority' => 'low',
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_series_title', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'Series Title', 'pressbooks' ),
-		'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_series_number', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'Series Number', 'pressbooks' ),
-		'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_editor', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'Editor', 'pressbooks' ),
-		'multiple' => true,
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_translator', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'Translator', 'pressbooks' ),
-		'multiple' => true,
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_keywords_tags', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'Keywords', 'pressbooks' ),
-		'multiple' => true,
-		'description' => __( 'These are added to your webbook cover page, and in your ebook metadata. Keywords are used by online book stores and search engines.', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_hashtag', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'Hashtag', 'pressbooks' ),
-		'description' => __( 'These are added to your webbook cover page. For those of you who like Twitter.', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_list_price_print', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'List Price (Print)', 'pressbooks' ),
-		'description' => __( 'The list price of your book in print.', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_list_price_pdf', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'List Price (PDF)', 'pressbooks' ),
-		'description' => __( 'The list price of your book in PDF format.', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_list_price_epub', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'List Price (ebook)', 'pressbooks' ),
-		'description' => __( 'The list price of your book in Ebook formats.', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_list_price_web', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'List Price (Web)', 'pressbooks' ),
-		'description' => __( 'The list price of your webbook.', 'pressbooks' ),
-		]
-	);
-
-	x_add_metadata_field(
-		'pb_audience', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'field_type' => 'select',
-		'values' => [
-			'' => __( 'Choose an audience&hellip;', 'pressbooks' ),
-			'juvenile' => __( 'Juvenile', 'pressbooks' ),
-			'young-adult' => __( 'Young Adult', 'pressbooks' ),
-			'adult' => __( 'Adult', 'pressbooks' ),
-		],
-		'label' => __( 'Audience', 'pressbooks' ),
-		'description' => __( 'The target audience for your book.', 'pressbooks' ),
-		]
-	);
-
-	/**
-	 * Add metadata field for BISAC Subject(s).
-	 *
-	 * @since 3.9.7
-	 */
-	do_action( 'pb_add_bisac_subjects_field' );
-
-	x_add_metadata_field(
-		'pb_bisac_regional_theme', 'metadata', [
-		'group' => 'additional-catalogue-information',
-		'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
-		'description' => __( 'BISAC Regional Themes help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
-		]
-	);
-
-	// Only display Catalog Order metadata field if site is running a root theme other than Pressbooks Root.
-
-	$root_theme = get_site_transient( 'pb_root_theme' );
-	if ( empty( $root_theme ) ) {
-		switch_to_blog( 1 );
-		$root_theme = wp_get_theme();
-		$root_theme = $root_theme->Template;
-		restore_current_blog();
-		set_site_transient( 'pb_root_theme', $root_theme, MONTH_IN_SECONDS );
-	}
-	if ( 'pressbooks-root' !== $root_theme ) {
-		x_add_metadata_field(
-			'pb_catalogue_order', 'metadata', [
-			'group' => 'additional-catalogue-information',
-			'label' => __( 'Catalog Order', 'pressbooks' ),
-			'description' => __( 'What does this do?', 'pressbooks' ), // TODO
+	if ( $show_expanded_metadata ) {
+		x_add_metadata_group(
+			'additional-catalogue-information', 'metadata', [
+			'label' => __( 'Additional Catalog Information', 'pressbooks' ),
+			'priority' => 'low',
 			]
 		);
+
+		x_add_metadata_field(
+			'pb_series_title', 'metadata', [
+			'group' => 'additional-catalogue-information',
+			'label' => __( 'Series Title', 'pressbooks' ),
+			'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
+			]
+		);
+
+		x_add_metadata_field(
+			'pb_series_number', 'metadata', [
+			'group' => 'additional-catalogue-information',
+			'label' => __( 'Series Number', 'pressbooks' ),
+			'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
+			]
+		);
+
+		x_add_metadata_field(
+			'pb_keywords_tags', 'metadata', [
+			'group' => 'additional-catalogue-information',
+			'label' => __( 'Keywords', 'pressbooks' ),
+			'multiple' => true,
+			'description' => __( 'These are added to your webbook cover page, and in your ebook metadata. Keywords are used by online book stores and search engines.', 'pressbooks' ),
+			]
+		);
+
+		x_add_metadata_field(
+			'pb_hashtag', 'metadata', [
+			'group' => 'additional-catalogue-information',
+			'label' => __( 'Hashtag', 'pressbooks' ),
+			'description' => __( 'These are added to your webbook cover page. For those of you who like Twitter.', 'pressbooks' ),
+			]
+		);
+
+		x_add_metadata_field(
+			'pb_list_price_print', 'metadata', [
+			'group' => 'additional-catalogue-information',
+			'label' => __( 'List Price (Print)', 'pressbooks' ),
+			'description' => __( 'The list price of your book in print.', 'pressbooks' ),
+			]
+		);
+
+		x_add_metadata_field(
+			'pb_list_price_pdf', 'metadata', [
+			'group' => 'additional-catalogue-information',
+			'label' => __( 'List Price (PDF)', 'pressbooks' ),
+			'description' => __( 'The list price of your book in PDF format.', 'pressbooks' ),
+			]
+		);
+
+		x_add_metadata_field(
+			'pb_list_price_epub', 'metadata', [
+			'group' => 'additional-catalogue-information',
+			'label' => __( 'List Price (ebook)', 'pressbooks' ),
+			'description' => __( 'The list price of your book in Ebook formats.', 'pressbooks' ),
+			]
+		);
+
+		x_add_metadata_field(
+			'pb_list_price_web', 'metadata', [
+			'group' => 'additional-catalogue-information',
+			'label' => __( 'List Price (Web)', 'pressbooks' ),
+			'description' => __( 'The list price of your webbook.', 'pressbooks' ),
+			]
+		);
+
+		x_add_metadata_field(
+			'pb_audience', 'metadata', [
+			'group' => 'additional-catalogue-information',
+			'field_type' => 'select',
+			'values' => [
+				'' => __( 'Choose an audience&hellip;', 'pressbooks' ),
+				'juvenile' => __( 'Juvenile', 'pressbooks' ),
+				'young-adult' => __( 'Young Adult', 'pressbooks' ),
+				'adult' => __( 'Adult', 'pressbooks' ),
+			],
+			'label' => __( 'Audience', 'pressbooks' ),
+			'description' => __( 'The target audience for your book.', 'pressbooks' ),
+			]
+		);
+
+		/**
+		 * Add metadata field for BISAC Subject(s).
+		 *
+		 * @since 3.9.7
+		 */
+		do_action( 'pb_add_bisac_subjects_field' );
+
+		x_add_metadata_field(
+			'pb_bisac_regional_theme', 'metadata', [
+			'group' => 'additional-catalogue-information',
+			'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
+			'description' => __( 'BISAC Regional Themes help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
+			]
+		);
+
+		// Only display Catalog Order metadata field if site is running a root theme other than Pressbooks Root.
+
+		$root_theme = get_site_transient( 'pb_root_theme' );
+		if ( empty( $root_theme ) ) {
+			switch_to_blog( 1 );
+			$root_theme = wp_get_theme();
+			$root_theme = $root_theme->get( 'Template' );
+			restore_current_blog();
+			set_site_transient( 'pb_root_theme', $root_theme, MONTH_IN_SECONDS );
+		}
+		if ( 'pressbooks-root' !== $root_theme ) {
+			x_add_metadata_field(
+				'pb_catalogue_order', 'metadata', [
+				'group' => 'additional-catalogue-information',
+				'label' => __( 'Catalog Order', 'pressbooks' ),
+				// 'description' => __( 'What does this do?', 'pressbooks' ), @codingStandardsIgnoreLine
+				]
+			);
+		}
 	}
 
 	// Chapter Metadata
