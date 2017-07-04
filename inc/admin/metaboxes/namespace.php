@@ -473,6 +473,7 @@ function add_meta_boxes() {
 		switch_to_blog( 1 );
 		$root_theme = wp_get_theme();
 		$root_theme = $root_theme->Template;
+		restore_current_blog();
 		set_site_transient( 'pb_root_theme', $root_theme, MONTH_IN_SECONDS );
 	}
 	if ( 'pressbooks-root' !== $root_theme ) {
@@ -484,7 +485,6 @@ function add_meta_boxes() {
 			]
 		);
 	}
-	restore_current_blog();
 
 	// Chapter Metadata
 
