@@ -76,8 +76,25 @@ class Metadata extends \WP_REST_Controller {
 					'readonly' => true,
 				],
 				'about' => [
-					'type' => 'string',
+					'type' => 'object',
 					'description' => __( 'The subject matter of the content.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Thing',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'identifier' => [
+							'type' => 'string',
+							'description' => __( 'The identifier property represents any kind of identifier for any kind of Thing, such as ISBNs, GTIN codes, UUIDs etc.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
@@ -393,7 +410,6 @@ class Metadata extends \WP_REST_Controller {
 		$new_book_information['@type'] = 'Book';
 
 		$mapped_properties = [
-			'pb_bisac_subject' => 'about',
 			'pb_title' => 'name',
 			'pb_short_title' => 'alternateName',
 			'pb_ebook_isbn' => 'isbn',
@@ -409,6 +425,16 @@ class Metadata extends \WP_REST_Controller {
 		foreach ( $mapped_properties as $old => $new ) {
 			if ( isset( $book_information[ $old ] ) ) {
 				$new_book_information[ $new ] = $book_information[ $old ];
+			}
+		}
+
+		if ( isset( $book_information['pb_bisac_subject'] ) ) {
+			$bisac_subjects = explode( ', ', $book_information['pb_bisac_subject'] );
+			foreach ( $bisac_subjects as $bisac_subject ) {
+				$new_book_information['about'][] = [
+					'@type' => 'Thing',
+					'identifier' => $bisac_subject,
+				];
 			}
 		}
 
