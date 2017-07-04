@@ -738,7 +738,6 @@ function override_parent_id( $post ) {
 	}
 }
 
-
 /**
  * WP_Ajax hook for pb_delete_cover_image
  */

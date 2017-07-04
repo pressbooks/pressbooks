@@ -13,6 +13,21 @@ namespace Pressbooks;
 class Book {
 
 	/**
+	 * @var Book
+	 */
+	protected static $instance;
+
+	/**
+	 * Array of preview ids
+	 *
+	 * Note: If you set this property, but also set $_REQUEST['preview'], then $_REQUEST['preview'] will override.
+	 * Request format: ?preview[0]=111&preview[1]=222&preview[2]=333...
+	 *
+	 * @var array
+	 */
+	static $preview = [];
+
+	/**
 	 * Fix duplicate slugs.
 	 * This can happen if a post is 'draft', 'pending', or 'auto-draft'
 	 *
@@ -21,7 +36,32 @@ class Book {
 	 */
 	static $fixDupeSlugs = [];
 
-	function __construct() {
+	/**
+	 * @return Book
+	 */
+	public static function getInstance() {
+		if ( null === static::$instance ) {
+			static::$instance = new static();
+		}
+		return static::$instance;
+	}
+
+	/**
+	 * Unfortunate legacy code of only static methods that, per our own coding standards, should have been namespaced functions. Calling this constructor is pointless.
+	 */
+	private function __construct() {
+	}
+
+	/**
+	 * Prevent the instance from being cloned (which would create a second instance of it)
+	 */
+	private function __clone() {
+	}
+
+	/**
+	 * Prevent from being unserialized (which would create a second instance of it)
+	 */
+	private function __wakeup() {
 	}
 
 	/**
@@ -39,7 +79,6 @@ class Book {
 		return $is_book;
 	}
 
-
 	/**
 	 * Returns book information in a useful, string only, format. Data is converted to HTML.
 	 *
@@ -49,20 +88,23 @@ class Book {
 	 */
 	static function getBookInformation( $id = null ) {
 
-		// -----------------------------------------------------------------------------
-		// Is cached?
-		// -----------------------------------------------------------------------------
-
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
 			switch_to_blog( $blog_id );
 		} else {
 			global $blog_id;
 		}
+
+		// -----------------------------------------------------------------------------
+		// Is cached?
+		// -----------------------------------------------------------------------------
+
 		$cache_id = "book-inf-$blog_id";
-		$book_information = wp_cache_get( $cache_id, 'pb' );
-		if ( $book_information ) {
-			return $book_information;
+		if ( static::useCache() ) {
+			$book_information = wp_cache_get( $cache_id, 'pb' );
+			if ( $book_information ) {
+				return $book_information;
+			}
 		}
 
 		// ----------------------------------------------------------------------------
@@ -132,7 +174,9 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_information, 'pb', 86400 );
+		if ( static::useCache() ) {
+			wp_cache_set( $cache_id, $book_information, 'pb', 86400 );
+		}
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			restore_current_blog();
@@ -154,34 +198,30 @@ class Book {
 	 */
 	static function getBookStructure( $id = null ) {
 
-		// -----------------------------------------------------------------------------
-		// Is cached?
-		// -----------------------------------------------------------------------------
-
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			$blog_id = $id;
 			switch_to_blog( $id );
 		} else {
 			global $blog_id;
 		}
+
+		// -----------------------------------------------------------------------------
+		// Is cached?
+		// -----------------------------------------------------------------------------
+
 		$cache_id = "book-str-$blog_id";
-		$book_structure = wp_cache_get( $cache_id, 'pb' );
-		if ( $book_structure ) {
-			return $book_structure;
+		if ( static::useCache() ) {
+			$book_structure = wp_cache_get( $cache_id, 'pb' );
+			if ( $book_structure ) {
+				return $book_structure;
+			}
 		}
 
 		// -----------------------------------------------------------------------------
 		// Query our custom post types, keep minimal data in $book_structure
 		// -----------------------------------------------------------------------------
 
-		/**
-		 * Fetch all pb_export meta values for this book
-		 */
-		global $wpdb;
-		$post_ids_to_export = [];
-		foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", 'pb_export' ), ARRAY_A ) as $val ) {
-			$post_ids_to_export[ $val['post_id'] ] = $val['meta_value'];
-		}
+		$post_ids_to_export = static::getPostsIdsToExport();
 
 		$book_structure = [];
 
@@ -291,7 +331,9 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_structure, 'pb', 86400 );
+		if ( static::useCache() ) {
+			wp_cache_set( $cache_id, $book_structure, 'pb', 86400 );
+		}
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
 			restore_current_blog();
@@ -310,15 +352,18 @@ class Book {
 	 */
 	static function getBookContents() {
 
+		global $blog_id;
+
 		// -----------------------------------------------------------------------------
 		// Is cached?
 		// -----------------------------------------------------------------------------
 
-		global $blog_id;
 		$cache_id = "book-cnt-$blog_id";
-		$book_contents = wp_cache_get( $cache_id, 'pb' );
-		if ( $book_contents ) {
-			return $book_contents;
+		if ( static::useCache() ) {
+			$book_contents = wp_cache_get( $cache_id, 'pb' );
+			if ( $book_contents ) {
+				return $book_contents;
+			}
 		}
 
 		// -----------------------------------------------------------------------------
@@ -352,7 +397,9 @@ class Book {
 		// Cache & Return
 		// -----------------------------------------------------------------------------
 
-		wp_cache_set( $cache_id, $book_contents, 'pb', 86400 );
+		if ( static::useCache() ) {
+			wp_cache_set( $cache_id, $book_contents, 'pb', 86400 );
+		}
 
 		return $book_contents;
 	}
@@ -919,6 +966,54 @@ class Book {
 		}
 
 		return $post_name;
+	}
+
+	/**
+	 * Fetch all pb_export meta values for this book
+	 *
+	 * @return array
+	 */
+	static protected function getPostsIdsToExport() {
+
+		$post_ids_to_export = [];
+
+		if ( ! empty( $_REQUEST['preview'] ) ) {
+			static::$preview = $_REQUEST['preview'];
+		}
+
+		if ( ! empty( static::$preview ) ) {
+			// Preview mode
+			$preview = is_array( static::$preview ) ? static::$preview : (array) static::$preview;
+			foreach ( $preview as $id ) {
+				$post_ids_to_export[ (int) $id ] = 'on';
+			}
+		} else {
+			// Export mode
+			global $wpdb;
+			foreach ( $wpdb->get_results( $wpdb->prepare( "SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", 'pb_export' ), ARRAY_A ) as $val ) {
+				$post_ids_to_export[ $val['post_id'] ] = $val['meta_value'];
+			}
+		}
+
+		return $post_ids_to_export;
+	}
+
+	/**
+	 * Use cache?
+	 *
+	 * @return bool
+	 */
+	static protected function useCache() {
+
+		if ( ! empty( static::$preview ) ) {
+			return false;
+		}
+
+		if ( ! empty( $_REQUEST['preview'] ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 }
