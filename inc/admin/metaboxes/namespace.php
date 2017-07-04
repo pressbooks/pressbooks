@@ -147,10 +147,6 @@ function add_meta_boxes() {
 
 	add_meta_box( 'covers', __( 'Cover Image', 'pressbooks' ), '\Pressbooks\Image\cover_image_box', 'metadata', 'normal', 'low' );
 
-	// Preview export
-
-	add_meta_box( 'preview-export', __( 'Preview Chapter Export', 'pressbooks' ), __NAMESPACE__ . '\preview_export', [ 'chapter', 'front-matter', 'back-matter' ], 'side', 'low' );
-
 	// Book Metadata
 
 	x_add_metadata_group(
@@ -735,43 +731,6 @@ function override_parent_id( $post ) {
 		echo $pages;
 	}
 }
-
-/**
- * Render "Preview Export" meta box
- *
- * @see \Pressbooks\Modules\Export\Export::formSubmit
- *
- * @param |WP_Post $post
- */
-function preview_export( $post ) {
-
-	$target = 'pb-export-preview-' . (int) $post->ID;
-
-	$data = [
-		'page' => 'pb_export',
-		'preview' => [ $post->ID ],
-		'export' => 'yes',
-	];
-
-	$query = http_build_query( array_merge( [ 'export_formats' => [ 'print_pdf' => true ], $data ] ) );
-	$pdf_url = wp_nonce_url( get_admin_url( get_current_blog_id(), "/admin.php?$query" ), 'pb-export' );
-	$pdf_img = PB_PLUGIN_URL . 'assets/dist/images/print-pdf-36.png';
-
-	$query = http_build_query( array_merge( [ 'export_formats' => [ 'epub' => true ], $data ] ) );
-	$epub_url = wp_nonce_url( get_admin_url( get_current_blog_id(), "/admin.php?$query" ), 'pb-export' );
-	$epub_img = PB_PLUGIN_URL . 'assets/dist/images/epub-36.png';
-
-	$query = http_build_query( array_merge( [ 'export_formats' => [ 'xhtml' => true ], $data ] ) );
-	$xhtml_url = wp_nonce_url( get_admin_url( get_current_blog_id(), "/admin.php?$query" ), 'pb-export' );
-	$xhtml_img = PB_PLUGIN_URL . 'assets/dist/images/xhtml-36.png';
-
-	?>
-	<a style="display:inline-block;width:30%;text-align:center;" href="<?php echo $pdf_url; ?>" target="<?php echo $target; ?>"><img src="<?php echo $pdf_img; ?>" /></a>
-	<a style="display:inline-block;width:30%;text-align:center;" href="<?php echo $epub_url; ?>" target="<?php echo $target; ?>"><img src="<?php echo $epub_img; ?>" /></a>
-	<a style="display:inline-block;width:30%;text-align:center;" href="<?php echo $xhtml_url; ?>" target="<?php echo $target; ?>"><img src="<?php echo $xhtml_img; ?>" /></a>
-	<?php
-}
-
 
 /**
  * WP_Ajax hook for pb_delete_cover_image

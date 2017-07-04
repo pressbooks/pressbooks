@@ -13,9 +13,15 @@ namespace Pressbooks;
 class Book {
 
 	/**
-	 * Preview ids
+	 * @var Book
+	 */
+	protected static $instance;
+
+	/**
+	 * Array of preview ids
 	 *
 	 * Note: If you set this property, but also set $_REQUEST['preview'], then $_REQUEST['preview'] will override.
+	 * Request format: ?preview[0]=111&preview[1]=222&preview[2]=333...
 	 *
 	 * @var array
 	 */
@@ -31,9 +37,31 @@ class Book {
 	static $fixDupeSlugs = [];
 
 	/**
+	 * @return Book
+	 */
+	public static function getInstance() {
+		if ( null === static::$instance ) {
+			static::$instance = new static();
+		}
+		return static::$instance;
+	}
+
+	/**
 	 * Unfortunate legacy code of only static methods that, per our own coding standards, should have been namespaced functions. Calling this constructor is pointless.
 	 */
-	function __construct() {
+	private function __construct() {
+	}
+
+	/**
+	 * Prevent the instance from being cloned (which would create a second instance of it)
+	 */
+	private function __clone() {
+	}
+
+	/**
+	 * Prevent from being unserialized (which would create a second instance of it)
+	 */
+	private function __wakeup() {
 	}
 
 	/**
