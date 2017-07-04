@@ -239,6 +239,27 @@ class SectionMetadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'audience' => [
+					'type' => 'object',
+					'description' => __( 'An intended audience, i.e. a group for whom something was created.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Audience',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
+				],
 				'publisher' => [
 					'type' => 'object',
 					'description' => __( 'The publisher of the Book.' ),
@@ -464,6 +485,13 @@ class SectionMetadata extends \WP_REST_Controller {
 					'name' => $translator,
 				];
 			}
+		}
+
+		if ( isset( $book_information['pb_audience'] ) ) {
+			$new_section_information['audience'] = [
+				'@type' => 'Audience',
+				'name' => $book_information['pb_audience'],
+			];
 		}
 
 		if ( isset( $book_information['pb_publisher'] ) ) {

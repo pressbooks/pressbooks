@@ -234,6 +234,27 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'audience' => [
+					'type' => 'object',
+					'description' => __( 'An intended audience, i.e. a group for whom something was created.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Audience',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
+				],
 				'publisher' => [
 					'type' => 'object',
 					'description' => __( 'The publisher of the Book.' ),
@@ -444,6 +465,13 @@ class Metadata extends \WP_REST_Controller {
 					'addressLocality' => $book_information['pb_publisher_city'],
 				];
 			}
+		}
+
+		if ( isset( $book_information['pb_audience'] ) ) {
+			$new_book_information['audience'] = [
+				'@type' => 'Audience',
+				'name' => $book_information['pb_audience'],
+			];
 		}
 
 		if ( isset( $book_information['pb_publication_date'] ) ) {
