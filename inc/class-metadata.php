@@ -111,7 +111,13 @@ class Metadata implements \JsonSerializable {
 	 * @return array
 	 */
 	public function jsonSerialize() {
-		$metadata = Book::getBookInformation();
+
+		$request = new \WP_REST_Request( 'GET', '/pressbooks/v2/metadata' );
+		$meta = new \Pressbooks\Api\Endpoints\Controller\Metadata();
+		$metadata = $meta
+			->get_item( $request )
+			->get_data();
+
 		return apply_filters( 'pb_json_metadata', $metadata );
 	}
 

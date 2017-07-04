@@ -2,9 +2,14 @@
 
 class MetadataTest extends \WP_UnitTestCase {
 
+	/**
+	 * @see \Pressbooks\Metadata::jsonSerialize
+	 */
 	public function test_Metadata_JsonSerialize() {
 		$result = json_encode( new \Pressbooks\Metadata() );
-		$this->assertEquals( $result, '{"pb_title":"Test Blog","pb_author":"admin","pb_cover_image":"http:\/\/example.org\/wp-content\/plugins\/pressbooks\/assets\/dist\/images\/default-book-cover.jpg"}' );
+		$this->assertJson( $result );
+		$this->assertContains( '{"@context":"http:\/\/schema.org","@type":"Book","name":"Test Blog",', $result );
+
 	}
 
 	public function test_get_url_for_license() {
