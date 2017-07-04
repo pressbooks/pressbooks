@@ -497,7 +497,7 @@ abstract class Export {
 		}
 
 		// get xml response from API
-		$response = Metadata::getLicenseXml( $license, $copyright_holder, $link, $title, $lang );
+		$response = \Pressbooks\Metadata\get_license_xml( $license, $copyright_holder, $link, $title, $lang );
 
 		try {
 			// convert to object
@@ -505,10 +505,10 @@ abstract class Export {
 
 			// evaluate it for errors
 			if ( ! false === $result || ! isset( $result->html ) ) {
-				throw new \Exception( 'Creative Commons license API not returning expected results at Pressbooks\Metadata::getLicenseXml' );
+				throw new \Exception( 'Creative Commons license API not returning expected results at Pressbooks\Metadata\get_license_xml' );
 			} else {
 				// process the response, return html
-				$html = Metadata::getWebLicenseHtml( $result->html );
+				$html = \Pressbooks\Metadata\get_web_license_html( $result->html );
 			}
 		} catch ( \Exception $e ) {
 			$this->logError( $e->getMessage() );

@@ -14,15 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
+require( PB_PLUGIN_DIR . 'inc/admin/analytics/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/customcss/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/dashboard/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/diagnostics/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/analytics/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/customcss/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Recycle, reduce, reuse
