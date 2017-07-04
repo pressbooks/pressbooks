@@ -399,17 +399,23 @@ class Metadata extends \WP_REST_Controller {
 		}
 
 		if ( isset( $book_information['pb_editor'] ) ) {
-			$new_book_information['editor'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_editor'],
-			];
+			$editors = explode( ', ', $book_information['pb_editor'] );
+			foreach ( $editors as $editor ) {
+				$new_book_information['editor'][] = [
+					'@type' => 'Person',
+					'name' => $editor,
+				];
+			}
 		}
 
 		if ( isset( $book_information['pb_translator'] ) ) {
-			$new_book_information['translator'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_translator'],
-			];
+			$translators = explode( ', ', $book_information['pb_translator'] );
+			foreach ( $translators as $translator ) {
+				$new_book_information['translator'][] = [
+					'@type' => 'Person',
+					'name' => $translator,
+				];
+			}
 		}
 
 		if ( isset( $book_information['pb_publisher'] ) ) {

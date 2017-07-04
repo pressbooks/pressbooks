@@ -359,7 +359,7 @@ function add_meta_boxes() {
 		'pb_series_title', 'metadata', [
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Series Title', 'pressbooks' ),
-		'description' => __( 'Add if your book is part of a series. This is not used by Pressbooks.', 'pressbooks' ),
+		'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
 		]
 	);
 
@@ -367,7 +367,7 @@ function add_meta_boxes() {
 		'pb_series_number', 'metadata', [
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Series Number', 'pressbooks' ),
-		'description' => __( 'Add if your book is part of a series. This is not used by Pressbooks.', 'pressbooks' ),
+		'description' => __( 'Add if your book is part of a series.', 'pressbooks' ),
 		]
 	);
 
@@ -375,7 +375,7 @@ function add_meta_boxes() {
 		'pb_editor', 'metadata', [
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Editor', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
+		'multiple' => true,
 		]
 	);
 
@@ -383,7 +383,7 @@ function add_meta_boxes() {
 		'pb_translator', 'metadata', [
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'Translator', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
+		'multiple' => true,
 		]
 	);
 
@@ -408,7 +408,7 @@ function add_meta_boxes() {
 		'pb_list_price_print', 'metadata', [
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (Print)', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
+		'description' => __( 'The list price of your book in print.', 'pressbooks' ),
 		]
 	);
 
@@ -416,7 +416,7 @@ function add_meta_boxes() {
 		'pb_list_price_pdf', 'metadata', [
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (PDF)', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
+		'description' => __( 'The list price of your book in PDF format.', 'pressbooks' ),
 		]
 	);
 
@@ -424,7 +424,7 @@ function add_meta_boxes() {
 		'pb_list_price_epub', 'metadata', [
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (ebook)', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
+		'description' => __( 'The list price of your book in Ebook formats.', 'pressbooks' ),
 		]
 	);
 
@@ -432,7 +432,7 @@ function add_meta_boxes() {
 		'pb_list_price_web', 'metadata', [
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'List Price (Web)', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
+		'description' => __( 'The list price of your webbook.', 'pressbooks' ),
 		]
 	);
 
@@ -462,19 +462,25 @@ function add_meta_boxes() {
 		'pb_bisac_regional_theme', 'metadata', [
 		'group' => 'additional-catalogue-information',
 		'label' => __( 'BISAC Regional Theme', 'pressbooks' ),
-		'description' => __( 'This is not used by Pressbooks.', 'pressbooks' ),
+		'description' => __( 'BISAC Regional Themes help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
 		]
 	);
 
 	// Only display Catalog Order metadata field if site is running a root theme other than Pressbooks Root.
 
-	switch_to_blog( 1 );
-	$root_theme = wp_get_theme();
-	if ( 'pressbooks-root' !== $root_theme->Template ) {
+	$root_theme = get_site_transient( 'pb_root_theme' );
+	if ( empty( $root_theme ) ) {
+		switch_to_blog( 1 );
+		$root_theme = wp_get_theme();
+		$root_theme = $root_theme->Template;
+		set_site_transient( 'pb_root_theme', $root_theme, MONTH_IN_SECONDS );
+	}
+	if ( 'pressbooks-root' !== $root_theme ) {
 		x_add_metadata_field(
 			'pb_catalogue_order', 'metadata', [
 			'group' => 'additional-catalogue-information',
 			'label' => __( 'Catalog Order', 'pressbooks' ),
+			'description' => __( 'What does this do?', 'pressbooks' ), // TODO
 			]
 		);
 	}
