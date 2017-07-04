@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $import_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&import=yes' ), 'pb-import' );
 $import_revoke_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&revoke=yes' ), 'pb-revoke-import' );
 $current_import = get_option( 'pressbooks_current_import' );
-$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
+$custom_post_types = apply_filters( 'pb_import_custom_post_types', [] );
 
 /**
  * Allows users to append import options to the select field.
@@ -16,13 +16,13 @@ $custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
  *
  * @param array The list of current import options in select field.
  */
-$import_option_types = apply_filters( 'pb_select_import_type', array(
-	'wxr' => __( 'WXR (WordPress eXtended RSS)' ),
-	'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)' ),
-	'odt' => __( 'ODT (word processing file format of OpenDocument)' ),
-	'docx' => __( 'DOCX (word processing file format of Microsoft)' ),
-	'html' => __( 'HTML (scrape content from a URL)' ),
-) );
+$import_option_types = apply_filters( 'pb_select_import_type', [
+	'wxr' => __( 'WXR (WordPress eXtended RSS)', 'pressbooks' ),
+	'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
+	'odt' => __( 'ODT (word processing file format of OpenDocument)', 'pressbooks' ),
+	'docx' => __( 'DOCX (word processing file format of Microsoft)', 'pressbooks' ),
+	'html' => __( 'HTML (scrape content from a URL)', 'pressbooks' ),
+] );
 
 $supported_file_extensions = implode( ', ', array_keys( $import_option_types ) );
 

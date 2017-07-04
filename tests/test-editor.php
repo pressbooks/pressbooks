@@ -1,7 +1,5 @@
 <?php
 
-use Pressbooks\Editor;
-
 class EditorTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
@@ -24,8 +22,13 @@ class EditorTest extends \WP_UnitTestCase {
 
 	public function test_add_editor_style() {
 		$this->_book( 'pressbooks-clarke' );
+
+		$file = \Pressbooks\Container::get( 'Sass' )->pathToUserGeneratedCss() . '/editor.css';
+		if ( file_exists( $file ) ) {
+			@unlink( $file );
+		}
 		$result = Pressbooks\Editor\add_editor_style();
-		$this->assertFalse( $result );
+		$this->assertFalse( $result, "Test failed. Maybe delete ($file) and try again?" );
 
 		Pressbooks\Editor\update_editor_style();
 		$result = Pressbooks\Editor\add_editor_style();
