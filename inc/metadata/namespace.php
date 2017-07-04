@@ -247,7 +247,7 @@ function add_expanded_metadata_box( $post ) {
 		$show_expanded_metadata = ( ! empty( get_option( 'pressbooks_show_expanded_metadata' ) ) );
 	}
 
-	$url = get_edit_post_link( ( new \Pressbooks\Metadata() )->getMetaPost()->ID );
+	$url = get_edit_post_link( $post->ID );
 	if ( $show_expanded_metadata ) {
 		$text = __( 'Hide Expanded Metadata', 'pressbooks' );
 		$href = wp_nonce_url( $url . '&pressbooks_show_expanded_metadata=0', 'pb-expanded-metadata' );
