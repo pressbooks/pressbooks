@@ -159,7 +159,7 @@ function get_license_xml( $type, $copyright_holder, $src_url, $title, $lang = ''
 
 			} else {
 				// Something went wrong
-				\error_log( '\Pressbooks\Metadata::getLicenseXml error: ' . $xml->get_error_message() );
+				\error_log( '\Pressbooks\Metadata\get_license_xml() error: ' . $xml->get_error_message() );
 			}
 
 			break;
@@ -229,4 +229,40 @@ function get_url_for_license( $license ) {
 	}
 
 	return $url;
+}
+
+/**
+ * @param \WP_Post $post
+ */
+function add_expanded_metadata_box( $post ) {
+
+	if ( $post->post_type !== 'metadata' ) {
+		return;
+	}
+
+	if ( isset( $_GET['pressbooks_show_expanded_metadata'] ) && check_admin_referer( 'pb-expanded-metadata' ) ) {
+		$show_expanded_metadata = ( ! empty( $_GET['pressbooks_show_expanded_metadata'] ) );
+		update_option( 'pressbooks_show_expanded_metadata', $show_expanded_metadata );
+	} else {
+		$show_expanded_metadata = ( ! empty( get_option( 'pressbooks_show_expanded_metadata' ) ) );
+	}
+
+	$url = get_edit_post_link( ( new \Pressbooks\Metadata() )->getMetaPost()->ID );
+	if ( $show_expanded_metadata ) {
+		$text = __( 'Hide Expanded Metadata', 'pressbooks' );
+		$href = wp_nonce_url( $url . '&pressbooks_show_expanded_metadata=0', 'pb-expanded-metadata' );
+
+	} else {
+		$text = __( 'Show Expanded Metadata', 'pressbooks' );
+		$href = wp_nonce_url( $url . '&pressbooks_show_expanded_metadata=1', 'pb-expanded-metadata' );
+	}
+
+	?>
+	<div id="expanded-metadata-panel" class="postbox">
+		<div class="inside">
+			<p><?php _e( 'The book information you enter here appears on your book’s cover and title pages and in the metadata of your webbook and exported files.', 'pressbooks' ); ?></p>
+			<p><a class="button" href="<?php echo $href; ?>"><?php echo $text; ?></a></p>
+		</div>
+	</div>
+	<?php
 }
