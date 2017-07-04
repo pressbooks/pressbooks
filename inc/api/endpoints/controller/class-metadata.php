@@ -130,6 +130,12 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'position' => [
+					'type' => 'integer',
+					'description' => __( 'The position of an item in a series or sequence of items.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 				'author' => [
 					'type' => 'object',
 					'description' => __( 'The author of this content.' ),
@@ -376,6 +382,7 @@ class Metadata extends \WP_REST_Controller {
 			'pb_copyright_year' => 'copyrightYear',
 			'pb_about_50' => 'description',
 			'pb_cover_image' => 'image',
+			'pb_series_number' => 'position',
 		];
 
 		foreach ( $mapped_properties as $old => $new ) {
