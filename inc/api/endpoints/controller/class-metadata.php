@@ -99,6 +99,12 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'isbn' => [
+					'type' => 'string',
+					'description' => __( 'The ISBN of the book.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 				'inLanguage' => [
 					'type' => 'string',
 					'description' => __( 'The language of the content, expressed as one of the language codes from the IETF BCP 47 standard.' ),
@@ -363,6 +369,7 @@ class Metadata extends \WP_REST_Controller {
 			'pb_bisac_subject' => 'about',
 			'pb_title' => 'name',
 			'pb_short_title' => 'alternateName',
+			'pb_ebook_isbn' => 'isbn',
 			'pb_keywords_tags' => 'keywords',
 			'pb_subtitle' => 'alternativeHeadline',
 			'pb_language' => 'inLanguage',
