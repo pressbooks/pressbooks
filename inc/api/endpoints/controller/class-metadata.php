@@ -521,7 +521,7 @@ class Metadata extends \WP_REST_Controller {
 
 		$new_book_information['license'] = \Pressbooks\Metadata\get_url_for_license( $book_information['pb_book_license'] );
 
-		// TODO: audience, educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
+		// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 
 		return $new_book_information;
 	}
