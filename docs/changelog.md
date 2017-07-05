@@ -4,6 +4,12 @@ title: Changelog
 permalink: /changelog/
 ---
 
+### 4.0.0
+
+**NOTICE:** Pressbooks now requires [WordPress 4.8.0](https://wordpress.org/news/2017/06/evans/).
+
+TK.
+
 ### 3.9.9
 **NOTICE:** Pressbooks now requires [WordPress 4.7.5](https://wordpress.org/news/2017/05/wordpress-4-7-5/).
 

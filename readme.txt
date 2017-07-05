@@ -1,10 +1,10 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.9
+Version: 4.0.0-RC1
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.7.5
-Tested up to: 4.7.5
+Requires at least: 4.8.0
+Tested up to: 4.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -33,7 +33,7 @@ in source code headers.
 IMPORTANT!
 
  * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with [PHP 5.6.x](https://secure.php.net/supported-versions.php) and WordPress 4.7.5. Lower versions are not supported.
+ * Pressbooks works with [PHP 5.6.x](https://secure.php.net/supported-versions.php) and WordPress 4.8.0. Lower versions are not supported.
 
 *Part 1, WordPress generic:*
 
@@ -228,11 +228,17 @@ TK.
 
 Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
 
-Pressbooks now requires [WordPress 4.7.3](https://wordpress.org/download/).
+Pressbooks now requires [WordPress 4.8.0](https://wordpress.org/download/).
 
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+
+### 4.0.0
+
+**NOTICE:** Pressbooks now requires [WordPress 4.8.0](https://wordpress.org/news/2017/06/evans/).
+
+TK.
 
 ### 3.9.9
 **NOTICE:** Pressbooks now requires [WordPress 4.7.5](https://wordpress.org/news/2017/05/wordpress-4-7-5/).
