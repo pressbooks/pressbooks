@@ -154,6 +154,10 @@ class Taxonomy {
 	 */
 	static function insertTerms() {
 
+		if ( ! taxonomy_exists( 'front-matter-type' ) ) {
+			self::registerTaxonomies();
+		}
+
 		// Front Matter
 		wp_insert_term( 'Abstract', 'front-matter-type', [ 'slug' => 'abstracts' ] );
 		wp_insert_term( 'Acknowledgements', 'front-matter-type', [ 'slug' => 'acknowledgements' ] );

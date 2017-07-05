@@ -123,7 +123,7 @@ function replace_book_admin_menu() {
 		// If network administrator, give the option to see chapter, front matter and back matter types.
 		$front_matter_types = $submenu['edit.php?post_type=front-matter'][15];
 		$back_matter_types = $submenu['edit.php?post_type=back-matter'][15];
-		if ( isset( $submenu['edit.php?post_type=chapter'][15] ) ) :
+		if ( isset( $submenu['edit.php?post_type=chapter'][15] ) ) {
 			$chapter_types = $submenu['edit.php?post_type=chapter'][15];
 			unset( $submenu['edit.php?post_type=chapter'][15] );
 			array_push(
@@ -132,13 +132,13 @@ function replace_book_admin_menu() {
 				$front_matter_types,
 				$back_matter_types
 			);
-		else :
+		} else {
 			array_push(
 				$submenu['edit.php?post_type=chapter'],
 				$front_matter_types,
 				$back_matter_types
 			);
-		endif;
+		}
 	}
 	add_submenu_page( 'edit.php?post_type=chapter', __( 'Trash' ), __( 'Trash' ), 'delete_posts', 'trash', __NAMESPACE__ . '\display_trash' );
 
@@ -223,6 +223,43 @@ function replace_book_admin_menu() {
 
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
+}
+
+/**
+ * When user clicks [Front-Matter Types / Back-Matter Types] sub-menus, then they should be highlighted
+ *
+ * @param string $file
+ *
+ * @return string
+ */
+function fix_parent_file( $file ) {
+
+	$haystack = [
+		'edit.php?post_type=front-matter',
+		'edit.php?post_type=back-matter',
+	];
+	if ( in_array( $file, $haystack, true ) ) {
+		$file = 'edit.php?post_type=chapter';
+	}
+
+	return $file;
+}
+
+/**
+ * When user clicks [Text] menu, then the [Organize] sub-menu should be highlighted
+ *
+ * @param string $submenu_file
+ * @param string $parent_file
+ *
+ * @return string
+ */
+function fix_submenu_file( $submenu_file, $parent_file ) {
+
+	if ( empty( $submenu_file ) && empty( $_REQUEST['post_type'] ) && $parent_file === 'edit.php?post_type=chapter' ) {
+		$submenu_file = 'pressbooks';
+	}
+
+	return $submenu_file;
 }
 
 function network_admin_menu() {
