@@ -2,6 +2,8 @@
 
 class MetadataTest extends \WP_UnitTestCase {
 
+	use utilsTrait;
+
 	/**
 	 * @see \Pressbooks\Metadata::jsonSerialize
 	 */
@@ -52,5 +54,30 @@ class MetadataTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Metadata\get_seo_meta_elements();
 		$this->assertContains( '<meta', $result );
 	}
-	
+
+	public function test_show_expanded_metadata() {
+		$result = \Pressbooks\Metadata\show_expanded_metadata();
+		$this->assertFalse( $result );
+		update_option( 'pressbooks_show_expanded_metadata', 1 );
+		$result = \Pressbooks\Metadata\show_expanded_metadata();
+		$this->assertTrue( $result );
+	}
+
+	public function test_has_expanded_metadata() {
+		$book = \Pressbooks\Book::getInstance();
+
+		$this->_book();
+		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+
+		$result = \Pressbooks\Metadata\has_expanded_metadata();
+		$this->assertFalse( $result );
+
+		\Pressbooks\Book::deleteBookObjectCache();
+
+		update_post_meta( $meta_post->ID, 'pb_author_file_as', 'Zimmerman, Ned' );
+
+		$result = \Pressbooks\Metadata\has_expanded_metadata();
+		$this->assertTrue( $result );
+	}
+
 }
