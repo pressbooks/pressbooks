@@ -10,6 +10,7 @@ use Pressbooks\Book;
 use Pressbooks\CustomCss;
 use Pressbooks\Container;
 use Pressbooks\Metadata;
+use function \Pressbooks\Utility\getset;
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
 if ( ! defined( 'PCLZIP_TEMPORARY_DIR' ) ) {
@@ -496,7 +497,7 @@ abstract class Export {
 		}
 
 		// get xml response from API
-		$response = Metadata::getLicenseXml( $license, $copyright_holder, $link, $title, $lang );
+		$response = \Pressbooks\Metadata\get_license_xml( $license, $copyright_holder, $link, $title, $lang );
 
 		try {
 			// convert to object
@@ -504,10 +505,10 @@ abstract class Export {
 
 			// evaluate it for errors
 			if ( ! false === $result || ! isset( $result->html ) ) {
-				throw new \Exception( 'Creative Commons license API not returning expected results at Pressbooks\Metadata::getLicenseXml' );
+				throw new \Exception( 'Creative Commons license API not returning expected results at Pressbooks\Metadata\get_license_xml' );
 			} else {
 				// process the response, return html
-				$html = Metadata::getWebLicenseHtml( $result->html );
+				$html = \Pressbooks\Metadata\get_web_license_html( $result->html );
 			}
 		} catch ( \Exception $e ) {
 			$this->logError( $e->getMessage() );
@@ -599,25 +600,26 @@ abstract class Export {
 		// Download
 		if ( ! empty( $_GET['download_export_file'] ) ) {
 			$filename = sanitize_file_name( $_GET['download_export_file'] );
-			static::downloadExportFile( $filename );
+			static::downloadExportFile( $filename, false );
+			exit;
 		}
 
 		// Delete
 		if ( isset( $_POST['delete_export_file'] ) && isset( $_POST['filename'] ) && check_admin_referer( 'pb-delete-export' ) ) {
 			$filename = sanitize_file_name( $_POST['filename'] );
-			$path = static::getExportFolder();
-			unlink( $path . $filename );
+			unlink( static::getExportFolder() . $filename );
 			delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
 			\Pressbooks\Redirect\location( get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' ) );
+			exit;
 		}
 
 		// Export
-		if ( isset( $_GET['export'] ) && 'yes' === $_GET['export'] && is_array( $_POST['export_formats'] ) && check_admin_referer( 'pb-export' ) ) {
+		if ( 'yes' === getset( '_GET', 'export' ) && is_array( getset( '_REQUEST', 'export_formats' ) ) && check_admin_referer( 'pb-export' ) ) {
 
 			// --------------------------------------------------------------------------------------------------------
 			// Define modules
 
-			$x = $_POST['export_formats'];
+			$x = $_REQUEST['export_formats'];
 			$modules = [];
 
 			if ( isset( $x['pdf'] ) ) {
@@ -724,8 +726,18 @@ abstract class Export {
 			// No errors?
 
 			if ( empty( $conversion_error ) && empty( $validation_warning ) ) {
-				// Ok!
-				\Pressbooks\Redirect\location( $redirect_url );
+				if ( ! empty( $_REQUEST['preview'] ) && count( $outputs ) === 1 ) {
+					// Preview the file, then delete it
+					$filename_fullpath = array_values( $outputs );
+					$filename_fullpath = array_shift( $filename_fullpath );
+					$filename = basename( $filename_fullpath );
+					static::downloadExportFile( $filename, true );
+					unlink( $filename_fullpath );
+				} else {
+					// Redirect the user back to the form
+					\Pressbooks\Redirect\location( $redirect_url );
+				}
+				exit;
 			}
 
 			// --------------------------------------------------------------------------------------------------------
@@ -867,8 +879,9 @@ abstract class Export {
 	 * Download an .htaccess protected file from the exports directory.
 	 *
 	 * @param string $filename sanitized $_GET['download_export_file']
+	 * @param bool $inline
 	 */
-	protected static function downloadExportFile( $filename ) {
+	protected static function downloadExportFile( $filename, $inline ) {
 
 		$filepath = static::getExportFolder() . $filename;
 		if ( ! is_readable( $filepath ) ) {
@@ -880,7 +893,11 @@ abstract class Export {
 		set_time_limit( 0 );
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Type: ' . static::mimeType( $filepath ) );
-		header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+		if ( $inline ) {
+			header( 'Content-Disposition: inline; filename="' . $filename . '"' );
+		} else {
+			header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+		}
 		header( 'Content-Transfer-Encoding: binary' );
 		header( 'Expires: 0' );
 		header( 'Cache-Control: must-revalidate, post-check=0, pre-check=0' );
@@ -892,7 +909,5 @@ abstract class Export {
 			// Fix out-of-memory problem
 		}
 		readfile( $filepath );
-
-		exit;
 	}
 }

@@ -14,15 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Includes
 // -------------------------------------------------------------------------------------------------------------------
 
+require( PB_PLUGIN_DIR . 'inc/admin/analytics/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/customcss/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/dashboard/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/diagnostics/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/analytics/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/customcss/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/laf/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/metaboxes/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/networkmanagers/namespace.php' );
+require( PB_PLUGIN_DIR . 'inc/admin/plugins/namespace.php' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Recycle, reduce, reuse
@@ -135,7 +135,6 @@ add_action( 'admin_menu', function () {
 } );
 
 add_action( 'custom_metadata_manager_init_metadata', '\Pressbooks\Admin\Metaboxes\add_meta_boxes' );
-add_action( 'pb_add_bisac_subjects_field', '\Pressbooks\Admin\Metaboxes\add_bisac_subjects_field', 1 );
 
 if ( $is_book ) {
 	add_action( 'admin_enqueue_scripts', '\Pressbooks\Admin\Metaboxes\add_metadata_styles' );
@@ -157,6 +156,7 @@ if ( $is_book ) {
 	add_filter( 'mce_buttons_3', '\Pressbooks\Editor\mce_buttons_3', 11 );
 	add_filter( 'wp_link_query_args', '\Pressbooks\Editor\customize_wp_link_query_args' );
 	add_filter( 'wp_link_query', '\Pressbooks\Editor\add_anchors_to_wp_link_query', 1, 2 );
+	add_action( 'edit_form_after_title', '\Pressbooks\Metadata\add_expanded_metadata_box' );
 }
 
 // -------------------------------------------------------------------------------------------------------------------

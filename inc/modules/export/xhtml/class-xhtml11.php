@@ -84,6 +84,9 @@ class Xhtml11 extends Export {
 		$timestamp = time();
 		$md5 = $this->nonce( $timestamp );
 		$this->url = home_url() . "/format/xhtml?timestamp={$timestamp}&hashkey={$md5}";
+		if ( ! empty( $_REQUEST['preview'] ) ) {
+			$this->url .= '&' . http_build_query( [ 'preview' => $_REQUEST['preview'] ] );
+		}
 
 		// Append endnotes to URL?
 		if ( $r['endnotes'] ) {
@@ -669,7 +672,13 @@ class Xhtml11 extends Export {
 		if ( empty( $metadata['pb_custom_copyright'] ) && 0 === absint( $options['copyright_license'] ) ) {
 			echo '<p>';
 			echo get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
-			echo ( ! empty( $metadata['pb_copyright_year'] ) ) ? $metadata['pb_copyright_year'] : date( 'Y' );
+			if ( ! empty( $meta['pb_copyright_year'] ) ) {
+				echo $meta['pb_copyright_year'] . ' ';
+			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
+				echo strftime( '%Y', $meta['pb_publication_date'] );
+			} else {
+				echo date( 'Y' );
+			}
 			if ( ! empty( $metadata['pb_copyright_holder'] ) ) {
 				echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
 			}

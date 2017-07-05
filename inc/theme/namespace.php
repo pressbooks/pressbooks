@@ -8,6 +8,8 @@
 
 namespace Pressbooks\Theme;
 
+use Pressbooks\Theme\Lock;
+
 /**
  * Check for required themes; prompt to install if missing.
  *
@@ -86,7 +88,16 @@ function migrate_book_themes() {
 
 		if ( isset( $comparisons[ $theme ] ) ) {
 			switch_theme( $comparisons[ $theme ] );
+
+			if ( Lock::isLocked() ) {
+				$data = Lock::getLockData();
+				$data['stylesheet'] = $comparisons[ $theme ];
+				$json = json_encode( $data );
+				$lockfile = Lock::getLockDir() . '/lock.json';
+				file_put_contents( $lockfile, $json );
+			}
 		}
+
 		update_option( 'pressbooks_theme_migration', 1 );
 	}
 }

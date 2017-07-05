@@ -6,6 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use HumanNameParser\Parser;
+use HumanNameParser\Exception\NameParsingException;
+
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
 <package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="PrimaryID">
@@ -45,6 +48,15 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		echo '<dc:creator opf:role="aut"';
 		if ( ! empty( $meta['pb_author_file_as'] ) ) {
 			echo ' opf:file-as="' . $meta['pb_author_file_as'] . '"';
+		} else {
+			$nameparser = new Parser();
+			try	{
+				$author = $nameparser->parse( $meta['pb_author'] );
+				$author_file_as = $author->getLastName() . ', ' . $author->getFirstName();
+			} catch ( NameParsingException $e ) {
+				$author_file_as = $meta['pb_author'];
+			}
+			echo ' opf:file-as="' . $author_file_as . '"';
 		}
 		echo '>';
 		if ( ! empty( $meta['pb_author'] ) ) {
@@ -67,11 +79,18 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		if ( ! empty( $meta['pb_copyright_year'] ) || ! empty( $meta['pb_copyright_holder'] ) ) {
 			echo '<dc:rights>';
 			echo __( 'Copyright', 'pressbooks' ) . ' &#169; ';
-			if ( ! empty( $meta['pb_copyright_year'] ) ) { echo $meta['pb_copyright_year'] . ' ';
+			if ( ! empty( $meta['pb_copyright_year'] ) ) {
+				echo $meta['pb_copyright_year'];
+			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
+				echo strftime( '%Y', $meta['pb_publication_date'] );
+			} else {
+				echo date( 'Y' );
 			}
-			if ( ! empty( $meta['pb_copyright_holder'] ) ) { echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
+			if ( ! empty( $meta['pb_copyright_holder'] ) ) {
+				echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
 			}
-			if ( ! empty( $do_copyright_license ) ) { echo '. ' . $do_copyright_license;
+			if ( ! empty( $do_copyright_license ) ) {
+				echo '. ' . $do_copyright_license;
 			}
 			echo "</dc:rights>\n";
 		}

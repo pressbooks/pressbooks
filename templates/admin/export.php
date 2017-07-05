@@ -37,7 +37,7 @@ if ( $timezone_string ) {
 // Warnings and errors
 // -------------------------------------------------------------------------------------------------------------------
 
-$dependency_errors = array();
+$dependency_errors = [];
 
 if ( false == get_site_transient( 'pb_pdf_compatible' ) && false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
 	$dependency_errors['pdf'] = 'PDF';
@@ -149,21 +149,21 @@ if ( ! empty( $_GET['export_warning'] ) && ( 1 == $exportoptions['email_validati
  *
  */
 
-$formats = apply_filters( 'pb_export_formats', array(
-	'standard' => array(
+$formats = apply_filters( 'pb_export_formats', [
+	'standard' => [
 		'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
 		'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
 		'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
 		'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
-	),
-	'exotic' => array(
+	],
+	'exotic' => [
 		'epub3' => __( 'EPUB 3 (beta)', 'pressbooks' ),
 		'xhtml' => __( 'XHTML', 'pressbooks' ),
 		'odt' => __( 'OpenDocument (beta)', 'pressbooks' ),
 		'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 		'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
-	),
-) ); ?>
+	],
+] ); ?>
 
 	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 		<fieldset class="standard">

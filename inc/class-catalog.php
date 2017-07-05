@@ -237,6 +237,8 @@ class Catalog {
 
 				$already_loaded[ $val['blogs_id'] ] = true;
 				++$i;
+
+				restore_current_blog();
 			}
 		}
 
@@ -308,9 +310,9 @@ class Catalog {
 			}
 
 			++$i;
-		}
 
-		restore_current_blog();
+			restore_current_blog();
+		}
 
 		// -----------------------------------------------------------------------------
 		// Cache & Return
@@ -1080,6 +1082,10 @@ class Catalog {
 	 * @param $action
 	 */
 	protected static function formBulk( $action ) {
+
+		if ( ! class_exists( '\WP_List_Table' ) ) {
+			require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
+		}
 
 		$redirect_url = get_admin_url( get_current_blog_id(), '/index.php?page=pb_catalog' );
 		$redirect_url = Admin\Catalog_List_Table::addSearchParamsToUrl( $redirect_url );

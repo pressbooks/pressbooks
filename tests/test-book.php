@@ -22,10 +22,18 @@ class BookTest extends \WP_UnitTestCase {
 		return $pid;
 	}
 
+	public function test_getInstance() {
+
+		$book = \Pressbooks\Book::getInstance();
+
+		$this->assertInstanceOf( '\Pressbooks\Book', $book );
+	}
+
+
 
 	public function test_isBook() {
 
-		$book = new \Pressbooks\Book();
+		$book = \Pressbooks\Book::getInstance();
 
 		switch_to_blog( get_network()->site_id );
 		$this->assertFalse( $book::isBook() );
@@ -36,7 +44,7 @@ class BookTest extends \WP_UnitTestCase {
 
 	public function test_getBookStructure() {
 
-		$book = new \Pressbooks\Book();
+		$book = \Pressbooks\Book::getInstance();
 
 		// Returns export value
 		$this->_book();
@@ -66,7 +74,7 @@ class BookTest extends \WP_UnitTestCase {
 
 	public function test_getBookContents() {
 
-		$book = new \Pressbooks\Book();
+		$book = \Pressbooks\Book::getInstance();
 
 		// Returns export value
 		$this->_book();
@@ -95,7 +103,7 @@ class BookTest extends \WP_UnitTestCase {
 
 	public function test_getBookInformation() {
 
-		$book = new \Pressbooks\Book();
+		$book = \Pressbooks\Book::getInstance();
 
 		$this->_book();
 		$mp = ( new \Pressbooks\Metadata() )->getMetaPost();
