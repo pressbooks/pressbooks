@@ -118,6 +118,8 @@ function replace_book_admin_menu() {
 		$add_front_matter = $submenu['edit.php?post_type=front-matter'][10];
 		$add_back_matter = $submenu['edit.php?post_type=back-matter'][10];
 		array_push( $submenu['edit.php?post_type=chapter'], $add_part, $add_chapter, $add_front_matter, $add_back_matter );
+	} else {
+		unset( $submenu['edit.php?post_type=chapter'][10] );
 	}
 	if ( is_super_admin() ) {
 		// If network administrator, give the option to see chapter, front matter and back matter types.
