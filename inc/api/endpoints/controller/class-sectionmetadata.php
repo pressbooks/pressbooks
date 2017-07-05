@@ -510,6 +510,9 @@ class SectionMetadata extends \WP_REST_Controller {
 
 		if ( isset( $book_information['pb_publication_date'] ) ) {
 			$new_section_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+			if ( ! isset( $book_information['pb_copyright_year'] ) ) {
+				$new_section_information['copyrightYear'] = strftime( '%Y', $book_information['pb_publication_date'] );
+			}
 		}
 
 		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?

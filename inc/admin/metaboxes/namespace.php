@@ -133,11 +133,7 @@ function add_metadata_styles( $hook ) {
  * Register all metadata groups and fields
  */
 function add_meta_boxes() {
-	if ( isset( $_GET['pressbooks_show_expanded_metadata'] ) && check_admin_referer( 'pb-expanded-metadata' ) ) {
-		$show_expanded_metadata = ( ! empty( $_GET['pressbooks_show_expanded_metadata'] ) );
-	} else {
-		$show_expanded_metadata = ( ! empty( get_option( 'pressbooks_show_expanded_metadata' ) ) );
-	}
+	$show_expanded_metadata = \Pressbooks\Metadata\show_expanded_metadata();
 
 	// Override WordPress' parent_id
 

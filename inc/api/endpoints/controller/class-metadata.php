@@ -502,6 +502,10 @@ class Metadata extends \WP_REST_Controller {
 
 		if ( isset( $book_information['pb_publication_date'] ) ) {
 			$new_book_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+
+			if ( ! isset( $book_information['pb_copyright_year'] ) ) {
+				$new_book_information['copyrightYear'] = strftime( '%Y', $book_information['pb_publication_date'] );
+			}
 		}
 
 		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
