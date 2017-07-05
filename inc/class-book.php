@@ -176,7 +176,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		if ( static::useCache() ) {
-			wp_cache_set( $cache_id, $book_information, 'pb', 86400 );
+			wp_cache_set( $cache_id, $book_information, 'pb', DAY_IN_SECONDS );
 		}
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
@@ -329,7 +329,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		if ( static::useCache() ) {
-			wp_cache_set( $cache_id, $book_structure, 'pb', 86400 );
+			wp_cache_set( $cache_id, $book_structure, 'pb', DAY_IN_SECONDS );
 		}
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
@@ -395,7 +395,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		if ( static::useCache() ) {
-			wp_cache_set( $cache_id, $book_contents, 'pb', 86400 );
+			wp_cache_set( $cache_id, $book_contents, 'pb', DAY_IN_SECONDS );
 		}
 
 		return $book_contents;
