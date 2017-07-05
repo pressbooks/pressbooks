@@ -224,10 +224,6 @@ class Book {
 
 		$post_ids_to_export = static::getPostsIdsToExport();
 
-		$book_structure = [];
-
-		$q = new \WP_Query();
-
 		$custom_types = [
 			'front-matter',
 			'part',
@@ -235,38 +231,38 @@ class Book {
 			'back-matter',
 		];
 
+		$book_structure = [];
 		foreach ( $custom_types as $type ) {
-
 			$book_structure[ $type ] = [];
+		}
 
-			$args = [
-				'post_type' => $type,
+		$q = new \WP_Query();
+		$results = $q->query(
+			[
+				'post_type' => $custom_types,
 				'posts_per_page' => -1, // @codingStandardsIgnoreLine
 				'post_status' => 'any',
 				'orderby' => 'menu_order',
 				'order' => 'ASC',
 				'no_found_rows' => true,
 				'cache_results' => true,
+			]
+		);
+
+		/** @var \WP_Post $post */
+		foreach ( $results as $post ) {
+			$book_structure[ $post->post_type ][] = [
+				'ID' => $post->ID,
+				'post_title' => $post->post_title,
+				'post_name' => static::fixSlug( $post->post_name ),
+				'post_author' => (int) $post->post_author,
+				'comment_count' => (int) $post->comment_count,
+				'menu_order' => $post->menu_order,
+				'post_status' => $post->post_status,
+				'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 'on' === $post_ids_to_export[ $post->ID ] ) ? true : false,
+				'has_post_content' => ! empty( trim( $post->post_content ) ),
+				'post_parent' => $post->post_parent,
 			];
-
-			$results = $q->query( $args );
-
-			/** @var \WP_Post $post */
-			foreach ( $results as $post ) {
-
-				$book_structure[ $type ][] = [
-					'ID' => $post->ID,
-					'post_title' => $post->post_title,
-					'post_name' => static::fixSlug( $post->post_name ),
-					'post_author' => (int) $post->post_author,
-					'comment_count' => (int) $post->comment_count,
-					'menu_order' => $post->menu_order,
-					'post_status' => $post->post_status,
-					'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 'on' === $post_ids_to_export[ $post->ID ] ) ? true : false,
-					'has_post_content' => ! empty( trim( $post->post_content ) ),
-					'post_parent' => $post->post_parent,
-				];
-			}
 		}
 
 		// -----------------------------------------------------------------------------

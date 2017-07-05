@@ -7,6 +7,17 @@
 namespace Pressbooks\Admin\Dashboard;
 
 /**
+ * @return array
+ */
+function get_rss_defaults() {
+	return [
+		'display_feed' => 1,
+		'url' => 'https://pressbooks.com/feed/',
+		'title' => __( 'Pressbooks News', 'pressbooks' ),
+	];
+}
+
+/**
  *  Remove unwanted network Dashboard widgets, add our news feed.
  */
 function replace_network_dashboard_widgets() {
@@ -19,11 +30,7 @@ function replace_network_dashboard_widgets() {
 	// Add our news feed.
 	$options = array_map(
 		'stripslashes_deep', get_site_option(
-			'pressbooks_dashboard_feed', [
-			'display_feed' => 1,
-			'url' => 'https://pressbooks.com/feed/',
-			'title' => __( 'Pressbooks News', 'pressbooks' ),
-			]
+			'pressbooks_dashboard_feed', get_rss_defaults()
 		)
 	);
 	if ( ! empty( $options['display_feed'] ) ) {
@@ -46,11 +53,7 @@ function replace_root_dashboard_widgets() {
 	// Add our news feed.
 	$options = array_map(
 		'stripslashes_deep', get_site_option(
-			'pressbooks_dashboard_feed', [
-			'display_feed' => 1,
-			'url' => 'https://pressbooks.com/feed/',
-			'title' => __( 'Pressbooks News', 'pressbooks' ),
-			]
+			'pressbooks_dashboard_feed', get_rss_defaults()
 		)
 	);
 	if ( ! empty( $options['display_feed'] ) ) {
@@ -81,11 +84,7 @@ function replace_dashboard_widgets() {
 	// Add our news feed.
 	$options = array_map(
 		'stripslashes_deep', get_site_option(
-			'pressbooks_dashboard_feed', [
-			'display_feed' => 1,
-			'url' => 'https://pressbooks.com/feed/',
-			'title' => __( 'Pressbooks News', 'pressbooks' ),
-			]
+			'pressbooks_dashboard_feed', get_rss_defaults()
 		)
 	);
 	if ( ! empty( $options['display_feed'] ) ) {
@@ -143,11 +142,7 @@ function display_pressbooks_blog() {
 
 	$options = array_map(
 		'stripslashes_deep', get_site_option(
-			'pressbooks_dashboard_feed', [
-			'display_feed' => 1,
-			'url' => 'https://pressbooks.com/feed/',
-			'title' => 'Pressbooks News',
-			]
+			'pressbooks_dashboard_feed', get_rss_defaults()
 		)
 	);
 
@@ -269,11 +264,7 @@ function dashboard_feed_callback( $args ) {
 
 function display_feed_callback( $args ) {
 	$options = get_site_option(
-		'pressbooks_dashboard_feed', [
-		'display_feed' => 1,
-		'url' => 'https://pressbooks.com/feed/',
-		'title' => 'Pressbooks News',
-		]
+		'pressbooks_dashboard_feed', get_rss_defaults()
 	);
 
 	$html = '<input id="display_feed" name="pressbooks_dashboard_feed[display_feed]" type="checkbox" value="1" ' . checked( $options['display_feed'], 1, false ) . '/>';
@@ -284,11 +275,7 @@ function display_feed_callback( $args ) {
 function title_callback( $args ) {
 	$options = array_map(
 		'stripslashes_deep', get_site_option(
-			'pressbooks_dashboard_feed', [
-			'display_feed' => 1,
-			'url' => 'https://pressbooks.com/feed/',
-			'title' => 'Pressbooks News',
-			]
+			'pressbooks_dashboard_feed', get_rss_defaults()
 		)
 	);
 	$html = '<input id="title" name="pressbooks_dashboard_feed[title]" type="text" value="' . $options['title'] . '" />';
@@ -297,11 +284,7 @@ function title_callback( $args ) {
 
 function url_callback( $args ) {
 	$options = get_site_option(
-		'pressbooks_dashboard_feed', [
-		'display_feed' => 1,
-		'url' => 'https://pressbooks.com/feed/',
-		'title' => 'Pressbooks News',
-		]
+		'pressbooks_dashboard_feed', get_rss_defaults()
 	);
 	$html = '<input id="url" name="pressbooks_dashboard_feed[url]" type="text" value="' . $options['url'] . '" />';
 	echo $html;
