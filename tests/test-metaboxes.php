@@ -18,7 +18,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertEquals( $option, $title );
 	}
 
-	public function test_update_font_stacks() {
+	public function test_add_meta_boxes() {
 
 		global $wp_meta_boxes;
 		$c = custom_metadata_manager::instance();
