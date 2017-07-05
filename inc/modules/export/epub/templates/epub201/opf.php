@@ -49,8 +49,15 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 			echo ' opf:file-as="' . $meta['pb_author_file_as'] . '"';
 		} else {
 			$nameparser = new Parser();
-			$author = $nameparser->parse( $meta['pb_author'] );
-			echo ' opf:file-as="' . $author->getLastName() . ', ' . $author->getFirstName() . '"';
+			try	{
+				$author = $nameparser->parse( $meta['pb_author'] );
+				$author_file_as = $author->getLastName() . ', ' . $author->getFirstName();
+			} catch ( Exception $e ) {
+				if ( in_array( $e->getMessage(), [ 'Couldn\'t find a last name.', 'Couldn\'t find a first name.' ], true ) ) {
+					$author_file_as = $meta['pb_author'];
+				}
+			}
+			echo ' opf:file-as="' . $author_file_as . '"';
 		}
 		echo '>';
 		if ( ! empty( $meta['pb_author'] ) ) {
