@@ -321,7 +321,6 @@ function has_expanded_metadata() {
 		'pb_audience',
 		'pb_bisac_subject',
 		'pb_bisac_regional_theme',
-		'pb_catalogue_order',
 	];
 	foreach ( $additional_fields as $field ) {
 		if ( isset( $metadata[ $field ] ) && ! empty( $metadata[ $field ] ) ) {

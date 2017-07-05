@@ -485,26 +485,6 @@ function add_meta_boxes() {
 				'description' => __( 'BISAC Regional Themes help libraries and (e)book stores properly classify your book.', 'pressbooks' ),
 			] )
 		);
-
-		// Only display Catalog Order metadata field if site is running a root theme other than Pressbooks Root.
-
-		$root_theme = get_site_transient( 'pb_root_theme' );
-		if ( empty( $root_theme ) ) {
-			switch_to_blog( 1 );
-			$root_theme = wp_get_theme();
-			$root_theme = $root_theme->get( 'Template' );
-			restore_current_blog();
-			set_site_transient( 'pb_root_theme', $root_theme, MONTH_IN_SECONDS );
-		}
-		if ( 'pressbooks-root' !== $root_theme ) {
-			x_add_metadata_field(
-				'pb_catalogue_order', 'metadata', [
-				'group' => 'additional-catalog-information',
-				'label' => __( 'Catalog Order', 'pressbooks' ),
-				// 'description' => __( 'What does this do?', 'pressbooks' ), @codingStandardsIgnoreLine
-				]
-			);
-		}
 	}
 
 	// Chapter Metadata
