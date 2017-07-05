@@ -47,7 +47,8 @@ class Book {
 	}
 
 	/**
-	 * Unfortunate legacy code of only static methods that, per our own coding standards, should have been namespaced functions. Calling this constructor is pointless.
+	 * Unfortunate legacy code of only static methods that, per our own coding standards,
+	 * should have been namespaced functions. Calling this constructor is pointless.
 	 */
 	private function __construct() {
 	}
@@ -1020,9 +1021,9 @@ class Book {
 
 /* --------------------------------------------------------------------------------------------------------------------
 
-getBookStructure() and getBookContents() will return a "super array" or a "book object" that contains everything
-Pressbooks considers a book. This "book object" is returned in the correct order so that, with straightforward foreach()
-logic, a programmer or template designer can render a book however they see fit.
+getBookStructure() and getBookContents() will return a multidimensional array or an (air quotes) "book object" that
+contains everything Pressbooks considers a book. This book object is returned in the correct order so that, with
+straightforward foreach() loops, a programmer or template designer can render a book however they see fit.
 
  * getBookStructure() returns a minimal subset of get_post( $post->ID, ARRAY_A ) plus our own custom key/values
  * getBookContents() returns the entirety of get_post( $post->ID, ARRAY_A ) plus our own custom key/values
@@ -1030,82 +1031,82 @@ logic, a programmer or template designer can render a book however they see fit.
 getBookStructure() and getBookContents() will cache results using wp_cache_* functions. If you change the book, make
 sure to call static::deleteBookObjectCache() for a sane user experience.
 
-The "book object" looks something like this:
+The book object looks something like this:
 
-	$book_structure = array(
-		'front-matter' => array(
-			0 => array(
+	$book_structure = [
+		'front-matter' => [
+			0 => [
 				'export' => true,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-			),
-			1 => array(
+			],
+			1 => [
 				'export' => false,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-			),
+			],
 			// ...
-		),
-		'part' => array(
-			0 => array(
+		],
+		'part' => [
+			0 => [
 				'export' => true,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-				'chapters' => array(
-					0 => array(
+				'chapters' => [
+					0 => [
 						'export' => true,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
-					),
-					1 => array(
+					],
+					1 => [
 						'export' => false,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
-					),
+					],
 					// ...
-				),
-			),
-			1 => array(
+				],
+			],
+			1 => [
 				'export' => true,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-				'chapters' => array(
-					0 => array(
+				'chapters' => [
+					0 => [
 						'export' => true,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
-					),
-					1 => array(
+					],
+					1 => [
 						'export' => false,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
-					),
-				),
+					],
+				],
 				// ...
-			),
+			],
 			// ...
-		),
-		'back-matter' => array(
-			0 => array(
+		],
+		'back-matter' => [
+			0 => [
 				'export' => true,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-			),
-			1 => array(
+			],
+			1 => [
 				'export' => false,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-			),
+			],
 			// ...
-		),
-		'__order' => array(
-			$post->ID => array(
+		],
+		'__order' => [
+			$post->ID => [
 				'export' => true,
 				'post_status' => 'publish',
-			),
-			$post->ID => array(
+			],
+			$post->ID => [
 				'export' => false,
 				'post_status' => 'publish',
-			),
+			],
 			// ...
-		),
-		'__export_lookup' => array(
-            'introduction' => 'front-matter',
-            'chapter-1' => 'chapter',
-            'foo-bar' => 'chapter',
-            'appendix' => 'back-matter',
+		],
+		'__export_lookup' => [
+			'introduction' => 'front-matter',
+			'chapter-1' => 'chapter',
+			'foo-bar' => 'chapter',
+			'appendix' => 'back-matter',
 			// ...
-		),
-	);
+		],
+	];
 
 */
