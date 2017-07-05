@@ -6,6 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use HumanNameParser\Parser;
+
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
 <package version="3.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="PrimaryID">
@@ -69,9 +71,11 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		if ( ! empty( $meta['pb_author_file_as'] ) ) {
 			echo $meta['pb_author_file_as'];
 		} elseif ( ! empty( $meta['pb_author'] ) ) {
-			echo $meta['pb_author'];
+			$nameparser = new Parser();
+			$author = $nameparser->parse( $meta['pb_author'] );
+			echo $author->getLastName() . ', ' . $author->getFirstName();
 		} else {
-			echo 'Authored by: ' . get_bloginfo( 'url' );
+			echo __( 'Authored by: ', 'pressbooks' ) . get_bloginfo( 'url' );
 		}
 		echo '</meta>';
 		unset( $meta['pb_author_file_as'], $meta['pb_author'] );

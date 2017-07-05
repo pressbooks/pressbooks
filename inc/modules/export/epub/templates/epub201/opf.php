@@ -6,6 +6,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use HumanNameParser\Parser;
+
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
 <package version="2.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="PrimaryID">
@@ -45,6 +47,10 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		echo '<dc:creator opf:role="aut"';
 		if ( ! empty( $meta['pb_author_file_as'] ) ) {
 			echo ' opf:file-as="' . $meta['pb_author_file_as'] . '"';
+		} else {
+			$nameparser = new Parser();
+			$author = $nameparser->parse( $meta['pb_author'] );
+			echo ' opf:file-as="' . $author->getLastName() . ', ' . $author->getFirstName() . '"';
 		}
 		echo '>';
 		if ( ! empty( $meta['pb_author'] ) ) {
