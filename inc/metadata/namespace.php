@@ -252,6 +252,7 @@ function add_expanded_metadata_box( $post ) {
 	}
 
 	$show_expanded_metadata = show_expanded_metadata();
+	$has_expanded_metadata = has_expanded_metadata();
 
 	$url = get_edit_post_link( $post->ID );
 	if ( $show_expanded_metadata ) {
@@ -266,11 +267,13 @@ function add_expanded_metadata_box( $post ) {
 	<div id="expanded-metadata-panel" class="postbox">
 		<div class="inside">
 			<p><?php _e( 'The book information you enter here appears on your book’s cover and title pages and in the metadata of your webbook and exported files.', 'pressbooks' ); ?></p>
-			<?php if ( ! $show_expanded_metadata && $show_expanded_metadata !== null ) { ?>
-				<p><?php _e( 'If you need to enter additional information, click the button below to see all available fields.', 'pressbooks' ); ?></p>
+			<?php if ( ! $show_expanded_metadata && ! $has_expanded_metadata ) { ?>
+			<p><?php _e( 'If you need to enter additional information, click the button below to see all available fields.', 'pressbooks' ); ?></p>
 			<?php } ?>
+			<?php if ( ! $has_expanded_metadata ) { ?>
 			<p><a class="button" href="<?php echo $href; ?>"><?php echo $text; ?></a></p>
-		</div>
+			<?php } ?>
+	</div>
 	</div>
 	<?php
 }
@@ -278,38 +281,53 @@ function add_expanded_metadata_box( $post ) {
 /**
  * Should we show expanded metadata fields or not?
  *
- * @return bool | null
+ * @return bool
  */
 function show_expanded_metadata() {
-	if ( isset( $_GET['pressbooks_show_expanded_metadata'] ) && check_admin_referer( 'pb-expanded-metadata' ) && ! empty( $_GET['pressbooks_show_expanded_metadata'] ) ) {
-		return true;
+	if ( isset( $_GET['pressbooks_show_expanded_metadata'] ) && check_admin_referer( 'pb-expanded-metadata' ) ) {
+		if ( ! empty( $_GET['pressbooks_show_expanded_metadata'] ) ) {
+			return true;
+		} else {
+			return false;
+		}
 	} elseif ( ! empty( get_option( 'pressbooks_show_expanded_metadata' ) ) ) {
 		return true;
-	} else {
-		$metadata = Book::getBookInformation();
-		$additional_fields = [
-			'pb_author_file_as',
-			'pb_onsale_date',
-			'pb_copyright_year',
-			'pb_series_title',
-			'pb_series_number',
-			'pb_keywords_tags',
-			'pb_hashtag',
-			'pb_list_price_print',
-			'pb_list_price_pdf',
-			'pb_list_price_epub',
-			'pb_list_price_web',
-			'pb_audience',
-			'pb_bisac_subject',
-			'pb_bisac_regional_theme',
-			'pb_catalogue_order',
-		];
-		foreach ( $additional_fields as $field ) {
-			if ( isset( $metadata[ $field ] ) && ! empty( $metadata[ $field ] ) ) {
-				update_option( 'pressbooks_show_expanded_metadata', 1 );
-				return true;
-			}
+	} elseif ( has_expanded_metadata() ) {
+		update_option( 'pressbooks_show_expanded_metadata', 1 );
+		return true;
+	}
+	return false;
+}
+
+/**
+ * Is expanded metadata present in this book?
+ *
+ * @return bool
+ */
+function has_expanded_metadata() {
+	$metadata = Book::getBookInformation();
+	$additional_fields = [
+		'pb_author_file_as',
+		'pb_onsale_date',
+		'pb_copyright_year',
+		'pb_series_title',
+		'pb_series_number',
+		'pb_keywords_tags',
+		'pb_hashtag',
+		'pb_list_price_print',
+		'pb_list_price_pdf',
+		'pb_list_price_epub',
+		'pb_list_price_web',
+		'pb_audience',
+		'pb_bisac_subject',
+		'pb_bisac_regional_theme',
+		'pb_catalogue_order',
+	];
+	foreach ( $additional_fields as $field ) {
+		if ( isset( $metadata[ $field ] ) && ! empty( $metadata[ $field ] ) ) {
+			return true;
 		}
 	}
+
 	return false;
 }
