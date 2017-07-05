@@ -6,6 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use HumanNameParser\Parser;
+use HumanNameParser\Exception\NameParsingException;
+
 echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 ?>
 <package version="3.0" xmlns="http://www.idpf.org/2007/opf" unique-identifier="PrimaryID">
@@ -69,9 +72,15 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		if ( ! empty( $meta['pb_author_file_as'] ) ) {
 			echo $meta['pb_author_file_as'];
 		} elseif ( ! empty( $meta['pb_author'] ) ) {
-			echo $meta['pb_author'];
+			$nameparser = new Parser();
+			try	{
+				$author = $nameparser->parse( $meta['pb_author'] );
+				echo $author->getLastName() . ', ' . $author->getFirstName();
+			} catch ( NameParsingException $e ) {
+				echo $meta['pb_author'];
+			}
 		} else {
-			echo 'Authored by: ' . get_bloginfo( 'url' );
+			echo __( 'Authored by: ', 'pressbooks' ) . get_bloginfo( 'url' );
 		}
 		echo '</meta>';
 		unset( $meta['pb_author_file_as'], $meta['pb_author'] );
@@ -80,11 +89,18 @@ echo '<?xml version="1.0" encoding="UTF-8" ?>' . "\n";
 		if ( ! empty( $meta['pb_copyright_year'] ) || ! empty( $meta['pb_copyright_holder'] ) ) {
 			echo '<dc:rights>';
 			echo __( 'Copyright', 'pressbooks' ) . ' &#169; ';
-			if ( ! empty( $meta['pb_copyright_year'] ) ) { echo $meta['pb_copyright_year'] . ' ';
+			if ( ! empty( $meta['pb_copyright_year'] ) ) {
+				echo $meta['pb_copyright_year'];
+			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
+				echo strftime( '%Y', $meta['pb_publication_date'] );
+			} else {
+				echo date( 'Y' );
 			}
-			if ( ! empty( $meta['pb_copyright_holder'] ) ) { echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
+			if ( ! empty( $meta['pb_copyright_holder'] ) ) {
+				echo ' ' . __( 'by', 'pressbooks' ) . ' ' . $meta['pb_copyright_holder'];
 			}
-			if ( ! empty( $do_copyright_license ) ) { echo '. ' . $do_copyright_license;
+			if ( ! empty( $do_copyright_license ) ) {
+				echo '. ' . $do_copyright_license;
 			}
 			echo "</dc:rights>\n";
 		}

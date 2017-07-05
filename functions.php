@@ -113,23 +113,23 @@ function pb_is_scss( $version = 1 ) {
 
 
 /**
- * Shortcut to \Pressbooks\Metadata::getSeoMetaElements();
+ * Shortcut to \Pressbooks\Metadata\get_seo_meta_elements();
  *
  * @return string
  */
 function pb_get_seo_meta_elements() {
 
-	return \Pressbooks\Metadata::getSeoMetaElements();
+	return \Pressbooks\Metadata\get_seo_meta_elements();
 }
 
 /**
- * Shortcut to \Pressbooks\Metadata::getMicrodataElements();
+ * Shortcut to \Pressbooks\Metadata\get_microdata_elements();
  *
  * @return string
  */
 function pb_get_microdata_elements() {
 
-	return \Pressbooks\Metadata::getMicrodataElements();
+	return \Pressbooks\Metadata\get_microdata_elements();
 }
 
 /**

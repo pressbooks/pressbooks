@@ -951,7 +951,13 @@ class Epub201 extends Export {
 		if ( empty( $metadata['pb_custom_copyright'] ) && 0 === absint( $options['copyright_license'] ) ) {
 			$html .= '<p>';
 			$html .= get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
-			$html .= ( ! empty( $metadata['pb_copyright_year'] ) ) ? $metadata['pb_copyright_year'] : date( 'Y' );
+			if ( ! empty( $meta['pb_copyright_year'] ) ) {
+				$html .= $meta['pb_copyright_year'];
+			} elseif ( ! empty( $meta['pb_publication_date'] ) ) {
+				$html .= strftime( '%Y', $meta['pb_publication_date'] );
+			} else {
+				$html .= date( 'Y' );
+			}
 			if ( ! empty( $metadata['pb_copyright_holder'] ) ) {
 				$html .= ' ' . __( 'by', 'pressbooks' ) . ' ' . $metadata['pb_copyright_holder'] . '. ';
 			}

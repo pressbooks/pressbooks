@@ -239,6 +239,27 @@ class SectionMetadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'audience' => [
+					'type' => 'object',
+					'description' => __( 'An intended audience, i.e. a group for whom something was created.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Audience',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
+				],
 				'publisher' => [
 					'type' => 'object',
 					'description' => __( 'The publisher of the Book.' ),
@@ -447,16 +468,29 @@ class SectionMetadata extends \WP_REST_Controller {
 		}
 
 		if ( isset( $book_information['pb_editor'] ) ) {
-			$new_section_information['editor'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_editor'],
-			];
+			$editors = explode( ', ', $book_information['pb_editor'] );
+			foreach ( $editors as $editor ) {
+				$new_section_information['editor'][] = [
+					'@type' => 'Person',
+					'name' => $editor,
+				];
+			}
 		}
 
 		if ( isset( $book_information['pb_translator'] ) ) {
-			$new_section_information['translator'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_translator'],
+			$translators = explode( ', ', $book_information['pb_translator'] );
+			foreach ( $translators as $translator ) {
+				$new_section_information['translator'][] = [
+					'@type' => 'Person',
+					'name' => $translator,
+				];
+			}
+		}
+
+		if ( isset( $book_information['pb_audience'] ) ) {
+			$new_section_information['audience'] = [
+				'@type' => 'Audience',
+				'name' => $book_information['pb_audience'],
 			];
 		}
 
@@ -476,6 +510,9 @@ class SectionMetadata extends \WP_REST_Controller {
 
 		if ( isset( $book_information['pb_publication_date'] ) ) {
 			$new_section_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+			if ( ! isset( $book_information['pb_copyright_year'] ) ) {
+				$new_section_information['copyrightYear'] = strftime( '%Y', $book_information['pb_publication_date'] );
+			}
 		}
 
 		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
@@ -493,9 +530,9 @@ class SectionMetadata extends \WP_REST_Controller {
 			}
 		}
 
-		$new_section_information['license'] = Meta::getUrlForLicense( $section_information['pb_section_license'] );
+		$new_section_information['license'] = \Pressbooks\Metadata\get_url_for_license( $section_information['pb_section_license'] );
 
-		// TODO: audience, educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
+		// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 
 		return $new_section_information;
 	}

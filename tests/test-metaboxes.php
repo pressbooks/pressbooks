@@ -18,10 +18,12 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertEquals( $option, $title );
 	}
 
-	public function test_update_font_stacks() {
+	public function test_add_meta_boxes() {
 
 		global $wp_meta_boxes;
 		$c = custom_metadata_manager::instance();
+
+		update_option( 'pressbooks_show_expanded_metadata', 1 );
 
 		\Pressbooks\Admin\Metaboxes\add_meta_boxes();
 
@@ -29,8 +31,7 @@ class MetaboxesTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'part', $wp_meta_boxes );
 		$this->assertArrayHasKey( 'metadata', $c->metadata );
 		$this->assertArrayHasKey( 'general-book-information', $c->metadata['metadata'] );
-		$this->assertArrayHasKey( 'additional-catalogue-information', $c->metadata['metadata'] );
+		$this->assertArrayHasKey( 'additional-catalog-information', $c->metadata['metadata'] );
 	}
-
 
 }

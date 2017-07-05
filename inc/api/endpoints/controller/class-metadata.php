@@ -76,8 +76,25 @@ class Metadata extends \WP_REST_Controller {
 					'readonly' => true,
 				],
 				'about' => [
-					'type' => 'string',
+					'type' => 'object',
 					'description' => __( 'The subject matter of the content.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Thing',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'identifier' => [
+							'type' => 'string',
+							'description' => __( 'The identifier property represents any kind of identifier for any kind of Thing, such as ISBNs, GTIN codes, UUIDs etc.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
@@ -96,6 +113,12 @@ class Metadata extends \WP_REST_Controller {
 				'alternativeHeadline' => [
 					'type' => 'string',
 					'description' => __( 'A secondary title of the Book.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'isbn' => [
+					'type' => 'string',
+					'description' => __( 'The ISBN of the book.' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
@@ -121,6 +144,12 @@ class Metadata extends \WP_REST_Controller {
 					'type' => 'string',
 					'format' => 'uri',
 					'description' => __( 'An image of the item.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
+				'position' => [
+					'type' => 'integer',
+					'description' => __( 'The position of an item in a series or sequence of items.' ),
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
@@ -221,6 +250,27 @@ class Metadata extends \WP_REST_Controller {
 					],
 					'context' => [ 'view' ],
 					'readonly' => true,
+				],
+				'audience' => [
+					'type' => 'object',
+					'description' => __( 'An intended audience, i.e. a group for whom something was created.' ),
+					'properties' => [
+						'@type' => [
+							'type' => 'string',
+							'enum' => [
+								'Audience',
+							],
+							'description' => __( 'The type of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+						'name' => [
+							'type' => 'string',
+							'description' => __( 'The name of the thing.' ),
+							'context' => [ 'view' ],
+							'readonly' => true,
+						],
+					],
 				],
 				'publisher' => [
 					'type' => 'object',
@@ -360,20 +410,31 @@ class Metadata extends \WP_REST_Controller {
 		$new_book_information['@type'] = 'Book';
 
 		$mapped_properties = [
-			'pb_bisac_subject' => 'about',
 			'pb_title' => 'name',
 			'pb_short_title' => 'alternateName',
+			'pb_ebook_isbn' => 'isbn',
 			'pb_keywords_tags' => 'keywords',
 			'pb_subtitle' => 'alternativeHeadline',
 			'pb_language' => 'inLanguage',
 			'pb_copyright_year' => 'copyrightYear',
 			'pb_about_50' => 'description',
 			'pb_cover_image' => 'image',
+			'pb_series_number' => 'position',
 		];
 
 		foreach ( $mapped_properties as $old => $new ) {
 			if ( isset( $book_information[ $old ] ) ) {
 				$new_book_information[ $new ] = $book_information[ $old ];
+			}
+		}
+
+		if ( isset( $book_information['pb_bisac_subject'] ) ) {
+			$bisac_subjects = explode( ', ', $book_information['pb_bisac_subject'] );
+			foreach ( $bisac_subjects as $bisac_subject ) {
+				$new_book_information['about'][] = [
+					'@type' => 'Thing',
+					'identifier' => $bisac_subject,
+				];
 			}
 		}
 
@@ -399,17 +460,23 @@ class Metadata extends \WP_REST_Controller {
 		}
 
 		if ( isset( $book_information['pb_editor'] ) ) {
-			$new_book_information['editor'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_editor'],
-			];
+			$editors = explode( ', ', $book_information['pb_editor'] );
+			foreach ( $editors as $editor ) {
+				$new_book_information['editor'][] = [
+					'@type' => 'Person',
+					'name' => $editor,
+				];
+			}
 		}
 
 		if ( isset( $book_information['pb_translator'] ) ) {
-			$new_book_information['translator'] = [
-				'@type' => 'Person',
-				'name' => $book_information['pb_translator'],
-			];
+			$translators = explode( ', ', $book_information['pb_translator'] );
+			foreach ( $translators as $translator ) {
+				$new_book_information['translator'][] = [
+					'@type' => 'Person',
+					'name' => $translator,
+				];
+			}
 		}
 
 		if ( isset( $book_information['pb_publisher'] ) ) {
@@ -426,8 +493,19 @@ class Metadata extends \WP_REST_Controller {
 			}
 		}
 
+		if ( isset( $book_information['pb_audience'] ) ) {
+			$new_book_information['audience'] = [
+				'@type' => 'Audience',
+				'name' => $book_information['pb_audience'],
+			];
+		}
+
 		if ( isset( $book_information['pb_publication_date'] ) ) {
 			$new_book_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+
+			if ( ! isset( $book_information['pb_copyright_year'] ) ) {
+				$new_book_information['copyrightYear'] = strftime( '%Y', $book_information['pb_publication_date'] );
+			}
 		}
 
 		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
@@ -437,13 +515,13 @@ class Metadata extends \WP_REST_Controller {
 			];
 		}
 
-		if ( ! isset( $book_information['pb_license'] ) ) {
-			$book_information['pb_license'] = '';
+		if ( ! isset( $book_information['pb_book_license'] ) ) {
+			$book_information['pb_book_license'] = '';
 		}
 
-		$new_book_information['license'] = Meta::getUrlForLicense( $book_information['pb_license'] );
+		$new_book_information['license'] = \Pressbooks\Metadata\get_url_for_license( $book_information['pb_book_license'] );
 
-		// TODO: audience, educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
+		// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 
 		return $new_book_information;
 	}

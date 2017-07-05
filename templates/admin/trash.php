@@ -8,8 +8,8 @@ $args = [
 	'post_type' => [ 'front-matter', 'part', 'chapter', 'back-matter' ],
 	'posts_per_page' => -1, // @codingStandardsIgnoreLine
 	'post_status' => 'trash',
-	'orderby' => 'post_type',
-	'order' => 'ASC',
+	'orderby' => 'post_modified',
+	'order' => 'DESC',
 ];
 $results = ( new \WP_Query() )->query( $args );
 
