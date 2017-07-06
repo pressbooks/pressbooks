@@ -197,7 +197,7 @@ class Xhtml extends Import {
 	 *
 	 * @param string $html
 	 *
-	 * @return array $authors
+	 * @return string $authors
 	 */
 	protected function getAuthors( $html ) {
 
@@ -208,7 +208,7 @@ class Xhtml extends Import {
 			preg_match( '/(<meta itemprop="author" content=")(.+)(" id="author")>/is', $html, $matches );
 		}
 
-		$authors = $matches[2];
+		$authors = isset( $matches[2] ) ? $matches[2] : '';
 
 		// final attempt, must not be a PB html page
 		if ( empty( $authors ) ) {
