@@ -117,7 +117,7 @@ function replace_book_admin_menu() {
 			}
 		}
 	);
-	if ( current_user_can( 'publish_posts' ) ) {
+	if ( current_user_can( 'edit_posts' ) ) {
 		$add_chapter = $submenu['edit.php?post_type=chapter'][10];
 		unset( $submenu['edit.php?post_type=chapter'][10] );
 		$add_part = $submenu['edit.php?post_type=part'][10];
