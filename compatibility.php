@@ -37,9 +37,15 @@ function pb_meets_minimum_requirements() {
 
 	// WordPress Version
 	global $pb_minimum_wp;
-	$pb_minimum_wp = '4.7.5';
+	$pb_minimum_wp = '4.8.0';
 
-	if ( ! is_multisite() || ! version_compare( get_bloginfo( 'version' ), $pb_minimum_wp, '>=' ) ) {
+	$wp_version = get_bloginfo( 'version' );
+	if ( substr_count( $wp_version, '.' ) === 1 ) {
+		// Semantic versioning fail?
+		$wp_version .= '.0';
+	}
+
+	if ( ! is_multisite() || ! version_compare( $wp_version, $pb_minimum_wp, '>=' ) ) {
 		add_action( 'admin_notices', '_pb_minimum_wp' );
 		$is_compatible = false;
 	}

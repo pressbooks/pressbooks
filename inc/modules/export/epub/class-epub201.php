@@ -682,7 +682,7 @@ class Epub201 extends Export {
 
 					// Update themes-book/pressbooks-book/fonts/*.ttf (or .otf) path to new location, copy into our Epub
 					$url = str_replace( 'themes-book/pressbooks-book/', $typography_dir, $url );
-					$my_font = realpath( $typography_dir . $url );
+					$my_font = realpath( $url );
 
 					if ( $my_font ) {
 						copy( $my_font, "$path_to_epub_assets/$filename" );

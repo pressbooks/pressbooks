@@ -1969,7 +1969,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.3.3",
+            "version": "v3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",

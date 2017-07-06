@@ -9,6 +9,7 @@
 namespace Pressbooks\Theme;
 
 use Pressbooks\Theme\Lock;
+use function Pressbooks\Admin\Fonts\update_font_stacks;
 
 /**
  * Check for required themes; prompt to install if missing.
@@ -88,6 +89,7 @@ function migrate_book_themes() {
 
 		if ( isset( $comparisons[ $theme ] ) ) {
 			switch_theme( $comparisons[ $theme ] );
+			update_font_stacks();
 
 			if ( Lock::isLocked() ) {
 				$data = Lock::getLockData();

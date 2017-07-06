@@ -55,6 +55,8 @@ if ( $is_book ) {
 	add_action( 'init', [ '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ] );
 	add_action( 'admin_init', '\Pressbooks\Admin\Laf\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
+	add_filter( 'parent_file', '\Pressbooks\Admin\Laf\fix_parent_file' );
+	add_filter( 'submenu_file', '\Pressbooks\Admin\Laf\fix_submenu_file', 10, 2 );
 	add_action( 'wp_dashboard_setup', '\Pressbooks\Admin\Dashboard\replace_dashboard_widgets' );
 	remove_action( 'welcome_panel', 'wp_welcome_panel' );
 	add_action( 'customize_register', '\Pressbooks\Admin\Laf\customize_register', 1000 );

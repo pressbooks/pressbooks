@@ -47,7 +47,8 @@ class Book {
 	}
 
 	/**
-	 * Unfortunate legacy code of only static methods that, per our own coding standards, should have been namespaced functions. Calling this constructor is pointless.
+	 * Unfortunate legacy code of only static methods that, per our own coding standards,
+	 * should have been namespaced functions. Calling this constructor is pointless.
 	 */
 	private function __construct() {
 	}
@@ -175,7 +176,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		if ( static::useCache() ) {
-			wp_cache_set( $cache_id, $book_information, 'pb', 86400 );
+			wp_cache_set( $cache_id, $book_information, 'pb', DAY_IN_SECONDS );
 		}
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
@@ -223,10 +224,6 @@ class Book {
 
 		$post_ids_to_export = static::getPostsIdsToExport();
 
-		$book_structure = [];
-
-		$q = new \WP_Query();
-
 		$custom_types = [
 			'front-matter',
 			'part',
@@ -234,38 +231,38 @@ class Book {
 			'back-matter',
 		];
 
+		$book_structure = [];
 		foreach ( $custom_types as $type ) {
-
 			$book_structure[ $type ] = [];
+		}
 
-			$args = [
-				'post_type' => $type,
+		$q = new \WP_Query();
+		$results = $q->query(
+			[
+				'post_type' => $custom_types,
 				'posts_per_page' => -1, // @codingStandardsIgnoreLine
 				'post_status' => 'any',
 				'orderby' => 'menu_order',
 				'order' => 'ASC',
 				'no_found_rows' => true,
 				'cache_results' => true,
+			]
+		);
+
+		/** @var \WP_Post $post */
+		foreach ( $results as $post ) {
+			$book_structure[ $post->post_type ][] = [
+				'ID' => $post->ID,
+				'post_title' => $post->post_title,
+				'post_name' => static::fixSlug( $post->post_name ),
+				'post_author' => (int) $post->post_author,
+				'comment_count' => (int) $post->comment_count,
+				'menu_order' => $post->menu_order,
+				'post_status' => $post->post_status,
+				'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 'on' === $post_ids_to_export[ $post->ID ] ) ? true : false,
+				'has_post_content' => ! empty( trim( $post->post_content ) ),
+				'post_parent' => $post->post_parent,
 			];
-
-			$results = $q->query( $args );
-
-			/** @var \WP_Post $post */
-			foreach ( $results as $post ) {
-
-				$book_structure[ $type ][] = [
-					'ID' => $post->ID,
-					'post_title' => $post->post_title,
-					'post_name' => static::fixSlug( $post->post_name ),
-					'post_author' => (int) $post->post_author,
-					'comment_count' => (int) $post->comment_count,
-					'menu_order' => $post->menu_order,
-					'post_status' => $post->post_status,
-					'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 'on' === $post_ids_to_export[ $post->ID ] ) ? true : false,
-					'has_post_content' => ! empty( trim( $post->post_content ) ),
-					'post_parent' => $post->post_parent,
-				];
-			}
 		}
 
 		// -----------------------------------------------------------------------------
@@ -332,7 +329,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		if ( static::useCache() ) {
-			wp_cache_set( $cache_id, $book_structure, 'pb', 86400 );
+			wp_cache_set( $cache_id, $book_structure, 'pb', DAY_IN_SECONDS );
 		}
 
 		if ( ! empty( $id ) && is_int( $id ) ) {
@@ -398,7 +395,7 @@ class Book {
 		// -----------------------------------------------------------------------------
 
 		if ( static::useCache() ) {
-			wp_cache_set( $cache_id, $book_contents, 'pb', 86400 );
+			wp_cache_set( $cache_id, $book_contents, 'pb', DAY_IN_SECONDS );
 		}
 
 		return $book_contents;
@@ -1020,9 +1017,9 @@ class Book {
 
 /* --------------------------------------------------------------------------------------------------------------------
 
-getBookStructure() and getBookContents() will return a "super array" or a "book object" that contains everything
-Pressbooks considers a book. This "book object" is returned in the correct order so that, with straightforward foreach()
-logic, a programmer or template designer can render a book however they see fit.
+getBookStructure() and getBookContents() will return a multidimensional array or an (air quotes) "book object" that
+contains everything Pressbooks considers a book. This book object is returned in the correct order so that, with
+straightforward foreach() loops, a programmer or template designer can render a book however they see fit.
 
  * getBookStructure() returns a minimal subset of get_post( $post->ID, ARRAY_A ) plus our own custom key/values
  * getBookContents() returns the entirety of get_post( $post->ID, ARRAY_A ) plus our own custom key/values
@@ -1030,82 +1027,82 @@ logic, a programmer or template designer can render a book however they see fit.
 getBookStructure() and getBookContents() will cache results using wp_cache_* functions. If you change the book, make
 sure to call static::deleteBookObjectCache() for a sane user experience.
 
-The "book object" looks something like this:
+The book object looks something like this:
 
-	$book_structure = array(
-		'front-matter' => array(
-			0 => array(
+	$book_structure = [
+		'front-matter' => [
+			0 => [
 				'export' => true,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-			),
-			1 => array(
+			],
+			1 => [
 				'export' => false,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-			),
+			],
 			// ...
-		),
-		'part' => array(
-			0 => array(
+		],
+		'part' => [
+			0 => [
 				'export' => true,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-				'chapters' => array(
-					0 => array(
+				'chapters' => [
+					0 => [
 						'export' => true,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
-					),
-					1 => array(
+					],
+					1 => [
 						'export' => false,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
-					),
+					],
 					// ...
-				),
-			),
-			1 => array(
+				],
+			],
+			1 => [
 				'export' => true,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-				'chapters' => array(
-					0 => array(
+				'chapters' => [
+					0 => [
 						'export' => true,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
-					),
-					1 => array(
+					],
+					1 => [
 						'export' => false,
 						// key/values from: get_post( $post->ID, ARRAY_A ),
-					),
-				),
+					],
+				],
 				// ...
-			),
+			],
 			// ...
-		),
-		'back-matter' => array(
-			0 => array(
+		],
+		'back-matter' => [
+			0 => [
 				'export' => true,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-			),
-			1 => array(
+			],
+			1 => [
 				'export' => false,
 				// key/values from: get_post( $post->ID, ARRAY_A ),
-			),
+			],
 			// ...
-		),
-		'__order' => array(
-			$post->ID => array(
+		],
+		'__order' => [
+			$post->ID => [
 				'export' => true,
 				'post_status' => 'publish',
-			),
-			$post->ID => array(
+			],
+			$post->ID => [
 				'export' => false,
 				'post_status' => 'publish',
-			),
+			],
 			// ...
-		),
-		'__export_lookup' => array(
-            'introduction' => 'front-matter',
-            'chapter-1' => 'chapter',
-            'foo-bar' => 'chapter',
-            'appendix' => 'back-matter',
+		],
+		'__export_lookup' => [
+			'introduction' => 'front-matter',
+			'chapter-1' => 'chapter',
+			'foo-bar' => 'chapter',
+			'appendix' => 'back-matter',
 			// ...
-		),
-	);
+		],
+	];
 
 */

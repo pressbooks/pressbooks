@@ -66,6 +66,13 @@ abstract class Import {
 	 * @return bool
 	 */
 	function revokeCurrentImport() {
+		return self::_revokeCurrentImport();
+	}
+
+	/**
+	 * @return bool
+	 */
+	protected static function _revokeCurrentImport() {
 
 		$current_import = get_option( 'pressbooks_current_import' );
 
@@ -74,11 +81,11 @@ abstract class Import {
 		}
 
 		\Pressbooks\Book::deleteBookObjectCache();
-		delete_transient( 'dirsize_cache' ); /** @see get_dirsize() */
+		delete_transient( 'dirsize_cache' );
+		/** @see get_dirsize() */
 
 		return delete_option( 'pressbooks_current_import' );
 	}
-
 
 	/**
 	 * Create a temporary file that automatically gets deleted on __sleep()
@@ -238,7 +245,7 @@ abstract class Import {
 
 		// Revoke
 		if ( ! empty( $_GET['revoke'] ) && check_admin_referer( 'pb-revoke-import' ) ) {
-			self::revokeCurrentImport();
+			self::_revokeCurrentImport();
 			\Pressbooks\Redirect\location( $redirect_url );
 		}
 
@@ -421,7 +428,7 @@ abstract class Import {
 					}
 
 					$importer = new Html\Xhtml();
-					$ok       = $importer->setCurrentImportOption( $upload );
+					$ok = $importer->setCurrentImportOption( $upload );
 
 					break;
 
