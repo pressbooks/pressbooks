@@ -478,7 +478,7 @@ class Xhtml extends Import {
 		$content_type = ( false === strstr( $html['headers']['content-type'], ';' ) ) ? $html['headers']['content-type'] : strstr( $html['headers']['content-type'], ';', true );
 
 		// get the title
-		preg_match( '/<title>(.+)<\/title>/', $html, $matches );
+		preg_match( '/<title>(.+)<\/title>/', $body, $matches );
 		$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : '__UNKNOWN__' );
 
 		// set the args
