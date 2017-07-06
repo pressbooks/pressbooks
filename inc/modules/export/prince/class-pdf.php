@@ -127,7 +127,7 @@ class Pdf extends Export {
 			$prince->setInsecure( true );
 		}
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
-			$prince->setOptions( '--pdf-profile=' . $this->pdfProfile . ' --pdf-output-intent=' . $this->pdfOutputIntent );
+			$prince->setOptions( '--pdf-profile=' . $this->pdfProfile );
 		}
 		$prince->addStyleSheet( $css_file );
 		if ( $this->exportScriptPath ) {
@@ -263,6 +263,12 @@ class Pdf extends Export {
 
 		$scss = '';
 		$scss = apply_filters( 'pb_pdf_css_override', $scss ) . "\n";
+
+		// Output Intent
+		$icc = $this->pdfOutputIntent;
+		if ( ! empty( $icc ) ) {
+			$scss .= "@prince-pdf { prince-pdf-output-intent: url('$icc'); } \n";
+		}
 
 		// Copyright
 		// Please be kind, help Pressbooks grow by leaving this on!
