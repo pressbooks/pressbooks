@@ -1,4 +1,5 @@
 let mix = require('laravel-mix');
+let path = require('path');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,8 +12,8 @@ let mix = require('laravel-mix');
  |
  */
 
- mix.setPublicPath('assets/dist')
- 	.scripts('assets/src/scripts/anchor.js', 'assets/dist/scripts/anchor.js')
+mix.setPublicPath(path.join('assets', 'dist'))
+	.scripts('assets/src/scripts/anchor.js', 'assets/dist/scripts/anchor.js')
 	.scripts('assets/src/scripts/applyclass.js', 'assets/dist/scripts/applyclass.js')
 	.scripts('node_modules/block-ui/jquery.blockUI.js', 'assets/dist/scripts/blockui.js')
 	.scripts('assets/src/scripts/book-information.js', 'assets/dist/scripts/book-information.js')
@@ -63,6 +64,7 @@ let mix = require('laravel-mix');
 // mix.extract(vendorLibs);
 // mix.sass(src, output);
 // mix.standaloneSass('src', output); <-- Faster, but isolated from Webpack.
+// mix.fastSass('src', output); <-- Alias for mix.standaloneSass().
 // mix.less(src, output);
 // mix.stylus(src, output);
 // mix.browserSync('my-site.dev');
