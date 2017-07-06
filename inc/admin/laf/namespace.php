@@ -49,14 +49,20 @@ function replace_book_admin_menu() {
 
 	// Modify $menu and $submenu global arrays to do some tasks, such as adding a new separator, moving items from one menu into another, and reordering sub-menu items.
 
-	$menu[13] = $menu[60]; // Relocate Appearance
-	unset( $menu[60] );
+	if ( isset( $menu[60] ) ) {
+		$menu[13] = $menu[60]; // Relocate Appearance
+		unset( $menu[60] );
+	}
 
-	$menu[68] = $menu[10]; // Relocate Media
-	unset( $menu[10] );
+	if ( isset( $menu[10] ) ) {
+		$menu[68] = $menu[10]; // Relocate Media
+		unset( $menu[10] );
+	}
 
-	$menu[69] = $menu[25]; // Relocate Comments
-	unset( $menu[25] );
+	if ( isset( $menu[25] ) ) {
+		$menu[69] = $menu[25]; // Relocate Comments
+		unset( $menu[25] );
+	}
 
 	// Remove items we don't want the user to see.
 	remove_submenu_page( 'index.php', 'my-sites.php' );
