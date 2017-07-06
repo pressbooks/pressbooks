@@ -14,7 +14,7 @@ permalink: /changelog/
 
 ##### Next-Generation REST API
 
-Building on @bdolor's original REST API for Pressbooks, we've introduced an improved and expanded REST API based on the WordPress Core [REST API](https://developer.wordpress.org/rest-api/) infrastructure. The Pressbooks REST API v2 supports authenticated CRUD (Create, Read, Update, Destroy) access to all Pressbooks content types (front and back matter, parts, and chapters) as well as read-only access to book structure and metadata. For more information, see our [REST API documentation](http://docs.pressbooks.org/api). We're excited to see what the Pressbooks Open Source community will do with these new API capabilities! Share your projects with us: [code@pressbooks.com](mailto:code@pressbooks.com).
+Building on [Brad Payne's](http://bradpayne.ca) original REST API for Pressbooks, we've introduced an improved and expanded REST API based on the WordPress Core [REST API](https://developer.wordpress.org/rest-api/) infrastructure. The Pressbooks REST API v2 supports authenticated CRUD (Create, Read, Update, Destroy) access to all Pressbooks content types (front and back matter, parts, and chapters) as well as read-only access to book structure and metadata. For more information, see our [REST API documentation](http://docs.pressbooks.org/api). We're excited to see what the Pressbooks Open Source community will do with these new API capabilities! Share your projects with us: [code@pressbooks.com](mailto:code@pressbooks.com).
 
 ##### Enhanced LaTeX Rendering
 
