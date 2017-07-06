@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 4.0.0-RC1
+Version: 4.0.0
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.8.0
 Tested up to: 4.8.0
@@ -199,17 +199,9 @@ Once WP-CLI is installed on your server, the following shell commands executed i
 	    wp core multisite-convert --title="Pressbooks"
 	    wp plugin delete hello
 	    wp plugin update-all
-      wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.5.1/pressbooks-v3.9.5.1.zip --activate-network
-	    wp theme list
-	    wp theme enable pressbooks-book --network
-	    wp theme enable clarke --network
-	    wp theme enable donham --network
-	    wp theme enable fitzgerald --network
-	    wp theme enable austen --network
-	    wp theme enable pressbooks-custom-css --network
+			https://github.com/pressbooks/pressbooks/releases/download/4.0.0/pressbooks-4.0.0.zip --activate-network
 
-
-Note that this does not install the required libraries for export. See above (Part 3, Pressbooks dependencies).
+	Note that this does not install the required themes or libraries for export. See above (Part 3, Pressbooks dependencies).
 
 == Frequently Asked Questions ==
 

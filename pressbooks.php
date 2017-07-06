@@ -3,7 +3,7 @@
 Plugin Name: Pressbooks
 Plugin URI: https://pressbooks.com
 Description: Simple Book Production
-Version: 4.0.0-RC1
+Version: 4.0.0
 Author: Book Oven Inc.
 Author URI: https://pressbooks.com
 Text Domain: pressbooks
