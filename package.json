@@ -6,7 +6,7 @@
     "watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "cross-env NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "lint": "cross-env stylelint assets/src/styles/**/*.scss --syntax scss"
+    "lint": "stylelint \"assets/src/styles/**/*.scss\" --syntax scss"
   },
   "engines": {
     "node": ">= 6.9.4"
