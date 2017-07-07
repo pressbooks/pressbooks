@@ -123,7 +123,10 @@ class Docx extends Import {
 		// throw it back into the DOM
 		$dom_doc = $proc->transformToDoc( $xml );
 
-		$this->parseMetaData( $meta );
+		if ( $meta ) {
+			$this->parseMetaData( $meta );
+		}
+
 		$chapter_parent = $this->getChapterParent();
 
 		foreach ( $current_import['chapters'] as $id => $chapter_title ) {
@@ -715,7 +718,7 @@ class Docx extends Import {
 	 * @param string $schema
 	 * @param string $id
 	 *
-	 * @return string
+	 * @return string|array
 	 */
 	protected function getTargetPath( $schema, $id = '' ) {
 		$path = '';
@@ -733,7 +736,7 @@ class Docx extends Import {
 		);
 
 		foreach ( $relations->Relationship as $rel ) {
-			if ( $rel['Type'] === $schema ) {
+			if ( (string) $rel['Type'] === $schema ) {
 				switch ( $id ) {
 					// must be cast as a string to avoid returning SimpleXml Object.
 					case 'footnotes':
@@ -743,6 +746,7 @@ class Docx extends Import {
 						$path = 'word/' . (string) $rel['Target'];
 						break;
 					case 'hyperlink':
+						$path = [];
 						$path[ "{$rel['Id']}" ] = (string) $rel['Target'];
 						break;
 					default:

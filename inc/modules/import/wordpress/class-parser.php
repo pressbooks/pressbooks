@@ -45,7 +45,7 @@ class Parser {
 			throw new \Exception( print_r( libxml_get_errors(), true ) );
 		}
 
-		$xml = simplexml_import_dom( $dom );
+		$xml = @simplexml_import_dom( $dom ); // @codingStandardsIgnoreLine
 		unset( $dom );
 
 		// halt if loading produces an error
