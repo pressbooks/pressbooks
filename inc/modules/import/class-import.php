@@ -337,7 +337,7 @@ abstract class Import {
 				]
 			);
 
-			$overrides = [ 'test_form' => false, 'mimes' => $allowed_file_types ];
+			$overrides = [ 'test_form' => false, 'test_type' => false, 'mimes' => $allowed_file_types ];
 
 			if ( ! function_exists( 'wp_handle_upload' ) ) {
 				require_once( ABSPATH . 'wp-admin/includes/file.php' );

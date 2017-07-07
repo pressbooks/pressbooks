@@ -715,7 +715,7 @@ class Docx extends Import {
 	 * @param string $schema
 	 * @param string $id
 	 *
-	 * @return string
+	 * @return string|array
 	 */
 	protected function getTargetPath( $schema, $id = '' ) {
 		$path = '';
@@ -743,6 +743,7 @@ class Docx extends Import {
 						$path = 'word/' . (string) $rel['Target'];
 						break;
 					case 'hyperlink':
+						$path = [];
 						$path[ "{$rel['Id']}" ] = (string) $rel['Target'];
 						break;
 					default:
