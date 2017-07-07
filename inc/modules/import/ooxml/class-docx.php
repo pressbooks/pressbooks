@@ -733,7 +733,7 @@ class Docx extends Import {
 		);
 
 		foreach ( $relations->Relationship as $rel ) {
-			if ( $rel['Type'] === $schema ) {
+			if ( (string) $rel['Type'] === $schema ) {
 				switch ( $id ) {
 					// must be cast as a string to avoid returning SimpleXml Object.
 					case 'footnotes':
