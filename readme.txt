@@ -269,6 +269,7 @@ The Pressbooks command line interface is now part of Pressbooks. Want to make yo
 * **Enhancement:** We now use [vanilla/htmlawed](https://packagist.org/packages/vanilla/htmlawed) as our htmLawed provider (see #767).
 * **Enhancement:** Developers can now add new import types via the `pb_import_table_cell` and `pb_initialize_import` filter hooks (props @bdolor; see #802 and #811).
 * **Enhancement:** Releases are now packaged automatically via Travis (see #730 and #821).
+* **Fix:** DOCX and ODT files exported from Google Docs (which lack standard metadata) can now be imported without issue via the import module (see #837 and #838).
 * **Fix:** Images are now set to a `prince-image-resolution` of `auto, normal` rather than 300dpi for more reliably high-quality print PDF output (see #744 and #776).
 * **Fix:** Text suggesting that we offer printing services has been removed from the Publish page (see #784).
 * **Fix:** Export downloads from the webbook include the proper file extensions (props to @bdolor; see #808).
