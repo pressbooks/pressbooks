@@ -123,7 +123,10 @@ class Docx extends Import {
 		// throw it back into the DOM
 		$dom_doc = $proc->transformToDoc( $xml );
 
-		$this->parseMetaData( $meta );
+		if ( $meta ) {
+			$this->parseMetaData( $meta );
+		}
+
 		$chapter_parent = $this->getChapterParent();
 
 		foreach ( $current_import['chapters'] as $id => $chapter_title ) {
