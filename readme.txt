@@ -275,6 +275,7 @@ The Pressbooks command line interface is now part of Pressbooks. Want to make yo
 * **Fix:** Export downloads from the webbook include the proper file extensions (props to @bdolor; see #808).
 * **Fix:** Current privacy settings are now displayed properly when updating book privacy from the Organize page (see #711 and #801).
 * **Fix:** The editor style is now enqueued with a version for cache busting (see #813 and #814).
+* **Fix:** The Search and Replace module no longer searches items in the trash (see [6978734](https://github.com/pressbooks/pressbooks/commit/697873425439be829abaeb077fbc3f6a8391b17e)).
 * **Fix:** Miscellaneous improvements to improve performance and reduce unnecessary error output.
 
 ### 3.9.9
