@@ -37,7 +37,17 @@ class PrintPdf extends Pdf {
 	 * @return string
 	 */
 	protected function getPdfOutputIntent() {
-		return '/usr/lib/prince/icc/USWebCoatedSWOP.icc';
-	}
+		$known_paths = [
+			'/usr/lib/prince/icc/USWebCoatedSWOP.icc',
+			'/usr/local/lib/prince/icc/USWebCoatedSWOP.icc',
+		];
 
+		foreach ( $known_paths as $path ) {
+			if ( file_exists( $path ) ) {
+				return $path;
+			}
+		}
+
+		return ''; // Couldn't find it.
+	}
 }
