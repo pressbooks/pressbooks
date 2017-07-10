@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b19562bf0367ab035f4447bef10a06f6",
+    "content-hash": "61228f770983fa6728a04afbb3cee330",
     "packages": [
         {
             "name": "composer/installers",
@@ -440,16 +440,16 @@
         },
         {
             "name": "pressbooks/pb-cli",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/pb-cli.git",
-                "reference": "1bce0c4c3cd13048e6a96205c23b807a7fa59ff5"
+                "reference": "5be19b36de0c4df62ae0d866b6afbd07770f5096"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/1bce0c4c3cd13048e6a96205c23b807a7fa59ff5",
-                "reference": "1bce0c4c3cd13048e6a96205c23b807a7fa59ff5",
+                "url": "https://api.github.com/repos/pressbooks/pb-cli/zipball/5be19b36de0c4df62ae0d866b6afbd07770f5096",
+                "reference": "5be19b36de0c4df62ae0d866b6afbd07770f5096",
                 "shasum": ""
             },
             "require-dev": {
@@ -458,7 +458,8 @@
             "type": "wp-cli-package",
             "extra": {
                 "commands": [
-                    "scaffold book-theme"
+                    "scaffold book-theme",
+                    "pb issue-template"
                 ]
             },
             "autoload": {
@@ -472,7 +473,7 @@
             ],
             "description": "A suite of wp-cli commands for Pressbooks.",
             "homepage": "https://github.com/pressbooks/pb-cli/",
-            "time": "2017-07-04T19:39:50+00:00"
+            "time": "2017-07-10T02:39:25+00:00"
         },
         {
             "name": "psr/container",
