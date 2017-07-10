@@ -37,10 +37,17 @@ class PrintPdf extends Pdf {
 	 * @return string
 	 */
 	protected function getPdfOutputIntent() {
-		if ( PB_PRINCE_COMMAND === '/usr/bin/prince' ) {
-			return '/usr/lib/prince/icc/USWebCoatedSWOP.icc';
-		} else { // Attempt to extrapolate */lib/prince directory based on */bin/prince
-			return str_replace( '/bin/prince/', '/lib/prince/', PB_PRINCE_COMMAND ) . 'icc/USWebCoatedSWOP.icc';
+		$known_paths = [
+			'/usr/lib/prince/icc/USWebCoatedSWOP.icc',
+			'/usr/local/lib/prince/icc/USWebCoatedSWOP.icc',
+		];
+
+		foreach ( $known_paths as $path ) {
+			if ( file_exists( $path ) ) {
+				return $path;
+			}
 		}
+
+		return ''; // Couldn't find it.
 	}
 }
