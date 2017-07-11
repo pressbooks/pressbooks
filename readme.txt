@@ -32,7 +32,7 @@ in source code headers.
 
 ## Downloads
 
-Download the [Pressbooks][1], [Pressbooks Book][2], and [Pressbooks Publisher][3], as well as the latest releases of any other [book themes][4] you wish to install.
+Download the latest releases of [Pressbooks][1], [Pressbooks Book][2], and [Pressbooks Publisher][3], as well as the latest releases of any other [book themes][4] you wish to install.
 
 ## Installation (Manual)
 
