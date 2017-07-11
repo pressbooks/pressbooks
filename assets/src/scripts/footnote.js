@@ -1,28 +1,28 @@
-(function () {
-	tinymce.create('tinymce.plugins.footnote', {
-		init: function (ed, url) {
-			ed.addButton('footnote', {
-				title: PB_FootnotesToken.fn_title,
-				text: 'FN',
-				icon: false,
+( function () {
+	tinymce.create( 'tinymce.plugins.footnote', {
+		init: function ( ed, url ) {
+			ed.addButton( 'footnote', {
+				title:   PB_FootnotesToken.fn_title,
+				text:    'FN',
+				icon:    false,
 				onclick: function () {
-					var mySelection = ed.selection.getContent();
-					var footNote;
-					if (mySelection !== '') {
+					let mySelection = ed.selection.getContent();
+					let footNote;
+					if ( mySelection !== '' ) {
 						footNote = mySelection;
-						ed.selection.setContent('[footnote]' + footNote + '[/footnote]');
+						ed.selection.setContent( '[footnote]' + footNote + '[/footnote]' );
 					} else {
-						footNote = prompt("Footnote Content", "Enter your footnote content here.");
-						if (footNote !== '') {
-							ed.execCommand('mceInsertContent', false, '[footnote]' + footNote + '[/footnote]');
+						footNote = prompt( 'Footnote Content', 'Enter your footnote content here.' );
+						if ( footNote !== '' ) {
+							ed.execCommand( 'mceInsertContent', false, '[footnote]' + footNote + '[/footnote]' );
 						}
 					}
-				}
-			});
+				},
+			} );
 		},
-		createControl: function (n, cm) {
+		createControl: function ( n, cm ) {
 			return null;
-		}
-	});
-	tinymce.PluginManager.add('footnote', tinymce.plugins.footnote);
-})();
+		},
+	} );
+	tinymce.PluginManager.add( 'footnote', tinymce.plugins.footnote );
+} )();

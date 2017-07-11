@@ -6,15 +6,24 @@
     "watch": "cross-env NODE_ENV=development webpack --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "hot": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "cross-env NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "lint": "stylelint \"assets/src/styles/**/*.scss\" --syntax scss"
+    "lint": "eslint \"assets/src/scripts/**/*.js\" && stylelint \"assets/src/styles/**/*.scss\" --syntax scss"
   },
   "engines": {
     "node": ">= 6.9.4"
   },
   "dependencies": {},
   "devDependencies": {
+    "babel-eslint": "^7.2.3",
     "block-ui": "^2.70.1",
     "cross-env": "^5.0.1",
+    "eslint": "^3.19.0",
+    "eslint-config-humanmade": "^0.1.3",
+    "eslint-config-react-app": "^0.5.2",
+    "eslint-loader": "~1.8",
+    "eslint-plugin-flowtype": "^2.34.1",
+    "eslint-plugin-import": "^2.6.1",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.10.3",
     "isotope-layout": "^3.0.4",
     "jquery-match-height": "^0.7.2",
     "jquery-sticky": "^1.0.4",
@@ -44,6 +53,25 @@
     "url": "https://github.com/pressbooks/pressbooks/issues"
   },
   "homepage": "https://github.com/pressbooks/pressbooks/",
+  "eslintConfig": {
+    "extends": "humanmade",
+    "globals": {
+      "ajaxurl": true,
+      "chapter_export": true,
+      "chapter_show_title": true,
+      "edButton": true,
+      "edButtons": true,
+      "jQuery": true,
+      "PB_BookInfoToken": true,
+      "PB_FootnotesToken": true,
+      "PB_NetworkManagerToken": true,
+      "PB_OrganizeToken": true,
+      "PB_ThemeLockToken": true,
+      "pb_sr": true,
+      "post_status": true,
+      "tinymce": true
+    }
+  },
   "stylelint": {
     "extends": "stylelint-config-standard",
     "rules": {
