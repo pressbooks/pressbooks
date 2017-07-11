@@ -46,7 +46,7 @@ before_deploy:
 - composer install --no-dev
 - zip -9 -ry pressbooks-$TRAVIS_TAG.zip ../pressbooks
   -x *.git* *assets/src/\* *bin/\* *node_modules/\* *tests/\* *.editorconfig* *.gitattributes*
-  *.github* *.gitignore* *.phpstorm.meta.php* *.stylelintrc* *.travis.yml* *.tx* *phpcs.ruleset.xml*
+  *.github* *.gitignore* *.phpstorm.meta.php* *.travis.yml* *.tx* *phpcs.ruleset.xml*
   *phpunit.xml* *webpack.mix.js* *yarn.lock*
 deploy:
   provider: releases
