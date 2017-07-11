@@ -1,4 +1,4 @@
-jQuery( function ( $ ) { // eslint-disable-line
+jQuery( function ( $ ) {
 	$( document ).ready( function () {
 		$( 'div.row-actions .restrict a, div.row-actions .unrestrict a' ).on( 'click', function () {
 			let link = $( this );

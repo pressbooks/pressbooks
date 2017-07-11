@@ -1,4 +1,4 @@
-jQuery( function ( $ ) { // eslint-disable-line
+jQuery( function ( $ ) {
 	$( function () {
 	  $( '.pb_catalog_color' ).wpColorPicker();
 	} );

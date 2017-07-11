@@ -66,6 +66,8 @@
       "PB_FootnotesToken": true,
       "PB_NetworkManagerToken": true,
       "PB_OrganizeToken": true,
+      "PB_ThemeLockToken": true,
+      "pb_sr": true,
       "post_status": true,
       "tinymce": true
     }
