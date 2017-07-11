@@ -1,5 +1,5 @@
-let mix = require('laravel-mix');
-let path = require('path');
+let mix = require( 'laravel-mix' );
+let path = require( 'path' );
 
 /*
  |--------------------------------------------------------------------------
@@ -12,29 +12,29 @@ let path = require('path');
  |
  */
 
-mix.setPublicPath(path.join('assets', 'dist'))
+mix.setPublicPath( path.join( 'assets', 'dist' ) )
 	.js( 'assets/src/scripts/anchor.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/applyclass.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/book-information.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/catalog.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/color-picker.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/export.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/footnote.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/ftnref-convert.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/import.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/network-managers.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/organize.js', 'assets/dist/scripts/' )
+	.js( 'assets/src/scripts/quicktags.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/search-and-replace.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/small-menu.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/textboxes.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-lock.js', 'assets/dist/scripts/' )
 	.js( 'assets/src/scripts/theme-options.js', 'assets/dist/scripts/' )
 	.scripts( 'node_modules/block-ui/jquery.blockUI.js', 'assets/dist/scripts/blockui.js' )
-	.scripts( 'assets/src/scripts/book-information.js', 'assets/dist/scripts/book-information.js' )
-	.scripts( 'assets/src/scripts/ftnref-convert.js', 'assets/dist/scripts/ftnref-convert.js' )
-	.scripts( 'assets/src/scripts/import.js', 'assets/dist/scripts/import.js' )
 	.scripts( 'node_modules/isotope-layout/dist/isotope.pkgd.js', 'assets/dist/scripts/isotope.js' )
 	.scripts( 'node_modules/jquery-match-height/dist/jquery.matchHeight.js', 'assets/dist/scripts/matchheight.js' )
 	.scripts( 'node_modules/jquery-sticky/jquery.sticky.js', 'assets/dist/scripts/sticky.js' )
 	.scripts( 'node_modules/js-cookie/src/js.cookie.js', 'assets/dist/scripts/js-cookie.js' )
-	.scripts( 'assets/src/scripts/quicktags.js', 'assets/dist/scripts/quicktags.js' )
 	.scripts( 'node_modules/select2/dist/js/select2.js', 'assets/dist/scripts/select2.js' )
 	.scripts( 'node_modules/sidr/dist/jquery.sidr.js', 'assets/dist/scripts/sidr.js' )
 	.scripts( 'node_modules/tinymce/plugins/table/plugin.js', 'assets/dist/scripts/table.js' )

@@ -1,5 +1,7 @@
 // This script is loaded when a user is on the [ Export ] page
 
+import Cookies from 'js-cookie';
+
 jQuery( function ( $ ) {
     /* Swap out and animate the 'Export Your Book' button */
 	$( '#pb-export-button' ).click( function () {

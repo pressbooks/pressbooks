@@ -54,7 +54,21 @@
   },
   "homepage": "https://github.com/pressbooks/pressbooks/",
   "eslintConfig": {
-    "extends": "humanmade"
+    "extends": "humanmade",
+    "globals": {
+      "ajaxurl": true,
+      "chapter_export": true,
+      "chapter_show_title": true,
+      "edButton": true,
+      "edButtons": true,
+      "jQuery": true,
+      "PB_BookInfoToken": true,
+      "PB_FootnotesToken": true,
+      "PB_NetworkManagerToken": true,
+      "PB_OrganizeToken": true,
+      "post_status": true,
+      "tinymce": true
+    }
   },
   "stylelint": {
     "extends": "stylelint-config-standard",

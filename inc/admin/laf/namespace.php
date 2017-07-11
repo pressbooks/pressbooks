@@ -713,8 +713,7 @@ function init_css_js() {
 
 	// Enqueue later, on-the-fly, using action: admin_print_scripts-
 	wp_register_script( 'jquery-blockui', $assets->getPath( 'scripts/blockui.js' ), [ 'jquery', 'jquery-ui-core' ] );
-	wp_register_script( 'js-cookie', $assets->getPath( 'scripts/js-cookie.js' ), [ 'jquery' ] );
-	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery', 'js-cookie' ] );
+	wp_register_script( 'pb-export', $assets->getPath( 'scripts/export.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );

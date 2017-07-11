@@ -70,7 +70,7 @@ jQuery( function ( $ ) {
 				$( 'input#running_content_back_matter_left' ).focus();
 			}
 		} );
-		$( 'select#running_content_back_matter_right' ).change( function (){
+		$( 'select#running_content_back_matter_right' ).change( function () {
 			let runningcontent = $( this ).val();
 			$( 'input#running_content_back_matter_right' ).val( runningcontent );
 			if ( runningcontent === '' ) {
@@ -120,6 +120,9 @@ jQuery( function ( $ ) {
 				$( '#pdf_page_width' ).val( '' ).parent().parent().fadeToggle();
 				$( '#pdf_page_height' ).val( '' ).parent().parent().fadeToggle();
 				break;
+			default:
+				$( '#pdf_page_width' ).val( '5.5in' ).parent().parent().hide();
+				$( '#pdf_page_height' ).val( '8.5in' ).parent().parent().hide();
 			}
 		} );
 	} );

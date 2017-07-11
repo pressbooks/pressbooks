@@ -29,7 +29,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 		menu: [
 			{
 				text:    editor.getLang( 'strings.standard' ), onclick: function () {
- 				let selection = editor.selection.getContent();
+					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
 						editor.execCommand( 'mceReplaceContent', false, '<div class="textbox">'+selection+'</div><p></p>' );
 					} else {
@@ -39,7 +39,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 			},
 			{
 				text:    editor.getLang( 'strings.shaded' ), onclick: function () {
-  				let selection = editor.selection.getContent();
+					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
 						editor.execCommand( 'mceReplaceContent', false, '<div class="textbox shaded">'+selection+'</div><p></p>' );
 					} else {
@@ -51,7 +51,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 				text:    editor.getLang( 'strings.learningobjectives' ), onclick: function () {
 					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
-                	editor.execCommand( 'mceReplaceContent', false, '<div class="textbox learning-objectives"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.learningobjectives' )+'</h3>\n'+selection+'</div><p></p>' );
+						editor.execCommand( 'mceReplaceContent', false, '<div class="textbox learning-objectives"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.learningobjectives' )+'</h3>\n'+selection+'</div><p></p>' );
 					} else {
 						editor.execCommand( 'mceInsertContent', 0, '<div class="textbox learning-objectives"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.learningobjectives' )+'</h3>\n<p>'+editor.getLang( 'strings.learningobjectivesplaceholder' )+'</p><ul><li>'+editor.getLang( 'strings.first' )+'</li><li>'+editor.getLang( 'strings.second' )+'</li></ul></div><p></p>' );
 					}
@@ -61,7 +61,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 				text:    editor.getLang( 'strings.keytakeaways' ), onclick: function () {
 					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
-                	editor.execCommand( 'mceReplaceContent', false, '<div class="textbox key-takeaways"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.keytakeaways' )+'</h3>\n'+selection+'</div><p></p>' );
+						editor.execCommand( 'mceReplaceContent', false, '<div class="textbox key-takeaways"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.keytakeaways' )+'</h3>\n'+selection+'</div><p></p>' );
 					} else {
 						editor.execCommand( 'mceInsertContent', 0, '<div class="textbox key-takeaways"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.keytakeaways' )+'</h3>\n<p>'+editor.getLang( 'strings.keytakeawaysplaceholder' )+'</p><ul><li>'+editor.getLang( 'strings.first' )+'</li><li>'+editor.getLang( 'strings.second' )+'</li></ul></div><p></p>' );
 					}
@@ -71,7 +71,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 				text:    editor.getLang( 'strings.exercises' ), onclick: function () {
 					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
-                	editor.execCommand( 'mceReplaceContent', false, '<div class="textbox exercises"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.exercises' )+'</h3>\n'+selection+'</div><p></p>' );
+						editor.execCommand( 'mceReplaceContent', false, '<div class="textbox exercises"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.exercises' )+'</h3>\n'+selection+'</div><p></p>' );
 					} else {
 						editor.execCommand( 'mceInsertContent', 0, '<div class="textbox exercises"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.exercises' )+'</h3>\n<p>'+editor.getLang( 'strings.exercisesplaceholder' )+'</p><ul><li>'+editor.getLang( 'strings.first' )+'</li><li>'+editor.getLang( 'strings.second' )+'</li></ul></div><p></p>' );
 					}
@@ -81,7 +81,7 @@ tinymce.PluginManager.add( 'textboxes', function ( editor ) {
 				text:    editor.getLang( 'strings.examples' ), onclick: function () {
 					let selection = editor.selection.getContent();
 					if ( selection !== '' ) {
-                	editor.execCommand( 'mceReplaceContent', false, '<div class="textbox examples"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.examples' )+'</h3>\n'+selection+'</div><p></p>' );
+						editor.execCommand( 'mceReplaceContent', false, '<div class="textbox examples"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.examples' )+'</h3>\n'+selection+'</div><p></p>' );
 					} else {
 						editor.execCommand( 'mceInsertContent', 0, '<div class="textbox examples"><h3 itemprop="educationalUse">'+editor.getLang( 'strings.examples' )+'</h3>\n<p>'+editor.getLang( 'strings.examplesplaceholder' )+'</p><ul><li>'+editor.getLang( 'strings.first' )+'</li><li>'+editor.getLang( 'strings.second' )+'</li></ul></div><p></p>' );
 					}

@@ -1,6 +1,6 @@
 // This script is loaded when a user is on the [ Text → Organize ] page
 
-var Pressbooks = {
+let Pressbooks = {
 	'oldPart':        null,
 	'newPart':        null,
 	'defaultOptions': {
@@ -33,7 +33,7 @@ var Pressbooks = {
 		cursor:      'crosshair',
 		items:       'tbody > tr',
 		start:       function ( index, el ) {
-			//alert(el);
+			// alert(el);
 		},
 		stop: function ( index, el ) {
 			Pressbooks.fmupdate( el.item );
@@ -50,7 +50,7 @@ var Pressbooks = {
 		cursor:      'crosshair',
 		items:       'tbody > tr',
 		start:       function ( index, el ) {
-			//alert(el);
+			// alert(el);
 		},
 		stop: function ( index, el ) {
 			Pressbooks.bmupdate( el.item );
@@ -69,19 +69,19 @@ var Pressbooks = {
 				// see http://forum.jquery.com/topic/sortable-serialize-not-changing-sort-order-over-3-div-cols
 				new_part_order: jQuery( '#' + Pressbooks.newPart ).sortable( 'serialize' ),
 				old_part_order: jQuery( '#' + Pressbooks.oldPart ).sortable( 'serialize' ),
-				new_part:       Pressbooks.newPart.replace( /^part\-([0-9]+)$/i, '$1' ),
-				old_part:       Pressbooks.oldPart.replace( /^part\-([0-9]+)$/i, '$1' ),
-				id:             jQuery( el ).attr( 'id' ).replace( /^chapter\-([0-9]+)$/i, '$1' ),
+				new_part:       Pressbooks.newPart.replace( /^part-([0-9]+)$/i, '$1' ),
+				old_part:       Pressbooks.oldPart.replace( /^part-([0-9]+)$/i, '$1' ),
+				id:             jQuery( el ).attr( 'id' ).replace( /^chapter-([0-9]+)$/i, '$1' ),
 				_ajax_nonce:    PB_OrganizeToken.orderNonce,
 			},
 			cache:    false,
 			dataType: 'html',
 			error:    function ( obj, status, thrown ) {
-				jQuery( '#message' ).html( '<p><strong>There has been an error updating your chapter data Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>' ).addClass( 'error' );
-				//window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
+				jQuery( '#message' ).html( '<p><strong>There has been an error updating your chapter data. Usually, <a href="' + window.location.href + '">refreshing the page</a> helps.</strong></p>' ).addClass( 'error' );
+				// window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
 			},
 			success: function ( htmlStr ) {
-				if ( htmlStr == 'NOCHANGE' ) {
+				if ( htmlStr === 'NOCHANGE' ) {
 					jQuery( '#message' ).html( '<p><strong>No changes were registered.</strong></p>' ).addClass( 'error' );
 				}				else {
 					// Chapters have been reordered.
@@ -113,7 +113,7 @@ var Pressbooks = {
 				//window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
 			},
 			success: function ( htmlStr ) {
-				if ( htmlStr == 'NOCHANGE' ) {
+				if ( htmlStr === 'NOCHANGE' ) {
 					jQuery( '#message' ).html( '<p><strong>No changes were registered.</strong></p>' ).addClass( 'error' );
 				}				else {
 					// Front Matter has been reordered.
@@ -145,7 +145,7 @@ var Pressbooks = {
 				//window.setTimeout(function(){window.location.replace(window.location.href)}, 5000, true);
 			},
 			success: function ( htmlStr ) {
-				if ( htmlStr == 'NOCHANGE' ) {
+				if ( htmlStr === 'NOCHANGE' ) {
 					jQuery( '#message' ).html( '<p><strong>No changes were registered.</strong></p>' ).addClass( 'error' );
 				}				else {
 					// Back Matter has been reordered.
@@ -170,7 +170,7 @@ jQuery( document ).ready( function ( $ ) {
 	// Public/Private form at top of page
 	$( 'input[name=blog_public]' ).change( function () {
 		let blog_public;
-		if ( this.value == 1 ) {
+		if ( this.value === 1 ) {
 			blog_public = 1;
 		} else {
 			blog_public = 0;
@@ -227,7 +227,7 @@ jQuery( document ).ready( function ( $ ) {
 				_ajax_nonce: PB_OrganizeToken.privacyNonce,
 			},
 			beforeSend: function () {
-				if ( post_status == 'private' ) {
+				if ( post_status === 'private' ) {
 					col.text( PB_OrganizeToken.private );
 				} else {
 					col.text( PB_OrganizeToken.published );
@@ -314,7 +314,7 @@ jQuery( document ).ready( function ( $ ) {
 				_ajax_nonce: PB_OrganizeToken.privacyNonce,
 			},
 			beforeSend: function () {
-				if ( post_status == 'private' ) {
+				if ( post_status === 'private' ) {
 					col.text( PB_OrganizeToken.private );
 				} else {
 					col.text( PB_OrganizeToken.published );
@@ -401,7 +401,7 @@ jQuery( document ).ready( function ( $ ) {
 				_ajax_nonce: PB_OrganizeToken.privacyNonce,
 			},
 			beforeSend: function () {
-				if ( post_status == 'private' ) {
+				if ( post_status === 'private' ) {
 					col.text( PB_OrganizeToken.private );
 				} else {
 					col.text( PB_OrganizeToken.published );
