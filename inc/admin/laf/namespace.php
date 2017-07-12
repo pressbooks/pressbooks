@@ -229,6 +229,17 @@ function replace_book_admin_menu() {
 		}
 	);
 
+	// Clone
+	$page = add_management_page( __( 'Clone', 'pressbooks' ), __( 'Clone', 'pressbooks' ), 'edit_posts', 'pb_clone', __NAMESPACE__ . '\display_clone' );
+	add_action(
+		'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
+			if ( $hook === $page ) {
+				wp_enqueue_script( 'pressbooks/clone' );
+				wp_enqueue_style( 'pressbooks/clone' );
+			}
+		}
+	);
+
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
 }
@@ -311,7 +322,6 @@ function fix_root_admin_menu() {
  * @see http://wordpress.org/extend/plugins/custom-list-table-example/
  */
 function display_organize() {
-
 	require( PB_PLUGIN_DIR . 'templates/admin/organize.php' );
 }
 
@@ -319,7 +329,6 @@ function display_organize() {
  * Displays the trash page.
  */
 function display_trash() {
-
 	require( PB_PLUGIN_DIR . 'templates/admin/trash.php' );
 }
 
@@ -327,15 +336,20 @@ function display_trash() {
  * Displays the Export Admin Page
  */
 function display_export() {
-
 	require( PB_PLUGIN_DIR . 'templates/admin/export.php' );
+}
+
+/**
+ * Displays the Clone Admin Page
+ */
+function display_clone() {
+	require( PB_PLUGIN_DIR . 'templates/admin/clone.php' );
 }
 
 /**
  * Displays the Import Admin Page
  */
 function display_import() {
-
 	require( PB_PLUGIN_DIR . 'templates/admin/import.php' );
 }
 
@@ -717,9 +731,11 @@ function init_css_js() {
 	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );
+	wp_register_script( 'pressbooks/clone', $assets->getPath( 'scripts/clone.js' ), [ 'jquery' ] );
 
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
+	wp_register_style( 'pressbooks/clone', $assets->getPath( 'styles/clone.css' ) );
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );
