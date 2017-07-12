@@ -17,33 +17,27 @@ class CustomCssTest extends \WP_UnitTestCase {
 		$this->cc = new \Pressbooks\CustomCss();
 	}
 
-  /**
-	 * @covers \Pressbooks\CustomCss::getCustomCssFolder
-	 */
 	public function test_getCustomCssFolder() {
 
-    $path = $this->cc->getCustomCssFolder();
-    $this->assertStringEndsWith( '/custom-css/', $path );
+		$path = $this->cc->getCustomCssFolder();
+		$this->assertStringEndsWith( '/custom-css/', $path );
 
 	}
 
-  /**
-	 * @covers \Pressbooks\CustomCss::getBaseTheme
-	 */
 	public function test_getBaseTheme() {
 
-    $input = file_get_contents( PB_PLUGIN_DIR . 'themes-book/pressbooks-book/style.css' );
-    $output = $this->cc->getCustomCssFolder() . sanitize_file_name( 'web.css' );
+		$input = file_get_contents( WP_CONTENT_DIR . '/themes/pressbooks-book/style.css' );
+		$output = $this->cc->getCustomCssFolder() . sanitize_file_name( 'web.css' );
 
-    file_put_contents( $output, $input );
+		file_put_contents( $output, $input );
 
-    $web = $this->cc->getBaseTheme( 'web' );
+		$web = $this->cc->getBaseTheme( 'web' );
 
-    $this->assertTrue( 'pressbooks-book' == $web );
+		$this->assertTrue( 'pressbooks-book' == $web );
 
-    $prince = $this->cc->getBaseTheme( 'prince' );
+		$prince = $this->cc->getBaseTheme( 'prince' );
 
-    $this->assertFalse( 'pressbooks-book' == $prince );
+		$this->assertFalse( 'pressbooks-book' == $prince );
 
 	}
 

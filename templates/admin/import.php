@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $import_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&import=yes' ), 'pb-import' );
 $import_revoke_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/tools.php?page=pb_import&revoke=yes' ), 'pb-revoke-import' );
 $current_import = get_option( 'pressbooks_current_import' );
-$custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
+$custom_post_types = apply_filters( 'pb_import_custom_post_types', [] );
 
 /**
  * Allows users to append import options to the select field.
@@ -16,13 +16,15 @@ $custom_post_types = apply_filters( 'pb_import_custom_post_types', array() );
  *
  * @param array The list of current import options in select field.
  */
-$import_option_types = apply_filters( 'pb_select_import_type', array(
-	'wxr' => __( 'WXR (WordPress eXtended RSS)' ),
-	'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)' ),
-	'odt' => __( 'ODT (word processing file format of OpenDocument)' ),
-	'docx' => __( 'DOCX (word processing file format of Microsoft)' ),
-	'html' => __( 'HTML (scrape content from a URL)' ),
-) );
+$import_option_types = apply_filters( 'pb_select_import_type', [
+	'wxr' => __( 'WXR (WordPress eXtended RSS)', 'pressbooks' ),
+	'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
+	'odt' => __( 'ODT (word processing file format of OpenDocument)', 'pressbooks' ),
+	'docx' => __( 'DOCX (word processing file format of Microsoft)', 'pressbooks' ),
+	'html' => __( 'HTML (scrape content from a URL)', 'pressbooks' ),
+] );
+
+$supported_file_extensions = implode( ', ', array_keys( $import_option_types ) );
 
 ?>
 <div class="wrap">
@@ -131,27 +133,27 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 			jQuery(function ($) {
 				$('#pb-www').hide();
 
-				$( ".pb-html-target").change(
-					function(){
+				$(".pb-html-target").change(
+					function () {
 						var val = $('.pb-html-target').val();
 
-							if (val == 'html') {
-							$('#pb-file').hide();
-							$('#pb-www').show();
-						} else {
+						if (val == 'wxr' || val == 'epub' || val == 'odt' || val == 'docx') {
 							$('#pb-file').show();
 							$('#pb-www').hide();
 							// clear http value at input elem
 							$('.widefat').val('');
+						} else {
+							$('#pb-file').hide();
+							$('#pb-www').show();
 
 						}
 
 					});
 
 			});
-			</script>
+		</script>
 		<p>
-			<?php _e( 'Supported file extensions:', 'pressbooks' ); ?> XML, EPUB, ODT, DOCX, HTML <br />
+			<?php _e( 'Supported file extensions: ', 'pressbooks' ); echo strtoupper( $supported_file_extensions ); ?> <br />
 			<?php _e( 'Maximum file size:', 'pressbooks' );
 			echo ' ' . \Pressbooks\Utility\file_upload_max_size(); ?>
 		</p>
@@ -172,7 +174,7 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 						</select>
 					</td>
 				</tr>
-				<tr>
+				<tr class="pb-input-types">
 					<th scope="row">
 						<label for="import_file"><?php _e( 'File', 'pressbooks' ); ?></label>
 					</th>
@@ -180,8 +182,17 @@ $import_option_types = apply_filters( 'pb_select_import_type', array(
 						<input type="file" name="import_file" id="import_file">
 					</td>
 					<td id="pb-www">
-						<input type="text" class="widefat" name="import_html" id="import_html" placeholder="http://url-of-the-html-page-to-import.html">
+						<input type="url" class="widefat" name="import_http" id="import_http" placeholder="https://url-to-import.com">
 					</td>
+					<?php
+					/**
+					 * Allows developers to add a new input type
+					 *
+					 * @since 4.0.0
+					 *
+					 */
+					echo apply_filters( 'pb_import_table_cell', null );
+					?>
 				</tr>
 
 				</tbody>

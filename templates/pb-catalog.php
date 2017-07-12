@@ -4,8 +4,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-use \Pressbooks\Image as PB_Image;
-use \Pressbooks\Catalog as PB_Catalog;
+use Pressbooks\Image as PB_Image;
+use Pressbooks\Catalog as PB_Catalog;
+use PressbooksMix\Assets;
 
 // TODO: Move logic out of the template
 
@@ -130,6 +131,7 @@ function _base_url() {
 // Variables
 // -------------------------------------------------------------------------------------------------------------------
 
+$assets = new Assets( 'pressbooks', 'plugin' );
 $catalog = new PB_Catalog( absint( $pb_user_id ) ); // Note: $pb_user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();
 $books = _books( $catalog );
@@ -155,13 +157,13 @@ $_current_user_id = $catalog->getUserId();
 	<title><?php echo ucfirst( get_userdata( $pb_user_id )->user_login );
 	_e( '\'s Catalog Page', 'pressbooks' ); ?> | Pressbooks</title>
  	<?php // @codingStandardsIgnoreStart ?>
- 	<link rel="stylesheet" type="text/css" href="<?php echo \Pressbooks\Utility\asset_path( 'styles/style-catalog.css' ); ?>" />
+ 	<link rel="stylesheet" type="text/css" href="<?php echo $assets->getPath( 'styles/style-catalog.css' ); ?>" />
 	<link href='https://fonts.googleapis.com/css?family=Oswald|Open+Sans:400,400italic,600' rel='stylesheet' type='text/css'>
 	<script type="text/javascript" src="<?php echo network_site_url( '/wp-includes/js/jquery/jquery.js?ver=1.10.2' ); ?>"></script>
-	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/matchheight.js' ); ?>" type="text/javascript"></script>
-	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/isotope.js' ); ?>" type="text/javascript"></script>
-	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/small-menu.js' ); ?>" type="text/javascript"></script>
-	<script src="<?php echo \Pressbooks\Utility\asset_path( 'scripts/catalog.js' ); ?>" type="text/javascript"></script>
+	<script src="<?php echo $assets->getPath( 'scripts/matchheight.js' ); ?>" type="text/javascript"></script>
+	<script src="<?php echo $assets->getPath( 'scripts/isotope.js' ); ?>" type="text/javascript"></script>
+	<script src="<?php echo $assets->getPath( 'scripts/small-menu.js' ); ?>" type="text/javascript"></script>
+	<script src="<?php echo $assets->getPath( 'scripts/catalog.js' ); ?>" type="text/javascript"></script>
 	<?php // @codingStandardsIgnoreEnd ?>
 	<?php \Pressbooks\analytics\print_analytics(); ?>
 </head>

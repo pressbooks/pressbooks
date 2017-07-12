@@ -42,7 +42,9 @@ trait utilsTrait {
 	 */
 	private function _fakeAjax() {
 
-		if ( ! defined( 'DOING_AJAX' ) ) define( 'DOING_AJAX', true );
+		if ( ! defined( 'DOING_AJAX' ) ) {
+			define( 'DOING_AJAX', true );
+		}
 		add_filter( 'wp_die_ajax_handler', '__return_false', 1, 1 ); // Override die()
 		error_reporting( error_reporting() & ~E_WARNING ); // Suppress warnings
 	}

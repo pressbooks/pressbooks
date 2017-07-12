@@ -5,7 +5,7 @@
 $nonce = ( @$_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : '';
 if ( ! empty( $_POST ) ) {
 	if ( ! wp_verify_nonce( $nonce, 'pb_dashboard-options' ) ) {
-		die( 'Security check' );
+		wp_die( 'Security check' );
 	} else {
 		$options = get_site_option( 'pressbooks_dashboard_feed', [
 			'display_feed' => 1,

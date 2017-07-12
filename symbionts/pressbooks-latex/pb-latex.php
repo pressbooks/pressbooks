@@ -44,7 +44,8 @@ class PBLatex {
 
 		add_action( 'wp_head', array( &$this, 'wpHead' ) );
 
-		add_filter( 'the_content', array( &$this, 'inlineToShortcode' ), 8 );
+		add_filter( 'the_content', array( &$this, 'inlineToShortcode' ), 7 ); // Before wptexturize()
+		add_filter( 'the_content', array( &$this, 'doThisShortcode' ), 8 ); // Before wpautop()
 
 		/**
 		 * Add additional style/script/shortcode dependencies for a given latex renderer.
@@ -111,7 +112,9 @@ class PBLatex {
 		$latex = preg_replace( array( '#<br\s*/?>#i', '#</?p>#i' ), ' ', $latex );
 
 		$latex = str_replace(
-			array( '&lt;', '&gt;', '&quot;', '&#8220;', '&#8221;', '&#039;', '&#8125;', '&#8127;', '&#8217;', '&#038;', '&amp;', "\n", "\r", "\xa0", '&#8211;' ), array( '<', '>', '"', '``', "''", "'", "'", "'", "'", '&', '&', ' ', ' ', ' ', '-' ), $latex
+			array( '&lt;', '&gt;', '&quot;', '&#8220;', '&#8221;', '&#039;', '&#8125;', '&#8127;', '&#8217;', '&#038;', '&amp;', "\n", "\r", "\xa0", '&#8211;' ),
+			array( '<',    '>',    '"',      '``',       "''",     "'",      "'",       "'",       "'",       '&',      '&',     ' ',  ' ',  ' ',    '-' ),
+			$latex
 		);
 
 		$latex_object = $this->latex( $latex, $atts['background'], $atts['color'], $atts['size'] );
@@ -157,22 +160,35 @@ class PBLatex {
 	function inlineToShortcodeCallback( $matches ) {
 		$r = "{$matches[1]}[latex";
 
-		if ( preg_match( '/.+((?:&#038;|&amp;)s=(-?[0-4])).*/i', $matches[2], $s_matches ) ) {
+		if ( preg_match( '/.+((?:&#038;|&amp;|&)s=(-?[0-4])).*/i', $matches[2], $s_matches ) ) {
 			$r .= ' size="' . ( int ) $s_matches[2] . '"';
 			$matches[2] = str_replace( $s_matches[1], '', $matches[2] );
 		}
 
-		if ( preg_match( '/.+((?:&#038;|&amp;)fg=([0-9a-f]{6})).*/i', $matches[2], $fg_matches ) ) {
+		if ( preg_match( '/.+((?:&#038;|&amp;|&)fg=([0-9a-f]{6})).*/i', $matches[2], $fg_matches ) ) {
 			$r .= ' color="' . $fg_matches[2] . '"';
 			$matches[2] = str_replace( $fg_matches[1], '', $matches[2] );
 		}
 
-		if ( preg_match( '/.+((?:&#038;|&amp;)bg=([0-9a-f]{6})).*/i', $matches[2], $bg_matches ) ) {
+		if ( preg_match( '/.+((?:&#038;|&amp;|&)bg=([0-9a-f]{6})).*/i', $matches[2], $bg_matches ) ) {
 			$r .= ' background="' . $bg_matches[2] . '"';
 			$matches[2] = str_replace( $bg_matches[1], '', $matches[2] );
 		}
 
 		return "$r]{$matches[2]}[/latex]{$matches[3]}";
+	}
+
+	function doThisShortcode( $text ) {
+		$current_shortcodes = $GLOBALS['shortcode_tags'];
+		remove_all_shortcodes();
+
+		add_shortcode( 'latex', [ $this, 'shortCode' ] );
+
+		$text = do_shortcode( $text );
+
+		$GLOBALS['shortcode_tags'] = $current_shortcodes;
+
+		return $text;
 	}
 
 }

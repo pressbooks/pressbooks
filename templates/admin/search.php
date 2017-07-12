@@ -14,7 +14,7 @@
 							<option value="<?php echo get_class( $search_type ) ?>" <?php // @codingStandardsIgnoreLine
 							selected( stripslashes( @$_POST['source'] ), get_class( $search_type ) ); ?>/><?php echo esc_attr( $search_type->name() ) ?></option>
 						<?php endforeach; ?>
-					</fieldset>
+					</select>
 				</td>
 			</tr>
 			<?php /* <tr>
@@ -75,7 +75,7 @@
 
 			<?php if ( current_user_can( 'administrator' ) ) : ?>
 				<input type="submit" class="button" name="replace" value="<?php esc_attr_e( 'Preview Replacements', 'pressbooks' )?>" />
-				<input type="button" class="button" onClick="confirmSubmit(this.form);" value="<?php esc_attr_e( 'Replace &amp; Save', 'pressbooks' ) ?>"/>
+				<input type="button" class="button replace-and-save" value="<?php esc_attr_e( 'Replace &amp; Save', 'pressbooks' ) ?>"/>
 			<?php endif; ?>
 		</p>
 	</form>

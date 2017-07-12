@@ -16,10 +16,10 @@
 	</testsuites>
 	<filter>
 		<whitelist>
-			<directory suffix=".php">./includes</directory>
+			<directory suffix=".php">./inc</directory>
 			<exclude>
-				<directory suffix=".php">./includes/modules/export/epub/templates</directory>
-				<directory suffix=".php">./includes/modules/export/indesign/templates</directory>
+				<directory suffix=".php">./inc/modules/export/epub/templates</directory>
+				<directory suffix=".php">./inc/modules/export/indesign/templates</directory>
 			</exclude>
 		</whitelist>
 	</filter>

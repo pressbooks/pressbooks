@@ -1,10 +1,12 @@
 <?php
-/*
-Version: 1.1
-Copyright: Automattic, Inc.
-License: GPL2+
-*/
 
+/**
+ *
+ * This plugin is forked from the original WP Latex (c) Sidney Markowitz, Automattic, Inc.
+ * It modifies the plugin to work with Pressbooks, strips unwanted features, adds others — activated at the network level
+ *
+ * @see https://github.com/wp-plugins/wp-latex
+ */
 class Automattic_Latex_WPCOM {
 	var $latex;
 	var $bg_hex;
@@ -44,7 +46,22 @@ class Automattic_Latex_WPCOM {
 	function wrapper( $wrapper = false ) {}
 
 	function url() {
-		$this->url = 'https://s.wordpress.com/latex.php?latex=' . rawurlencode( $this->latex ) . "&bg=$this->bg_hex&fg=$this->fg_hex&s=$this->size";
+
+		if ( ! empty( $_GET['pb-latex-zoom'] ) ) {
+			$this->zoom = (int) $_GET['pb-latex-zoom'];
+		}
+
+		$this->url = add_query_arg(
+			urlencode_deep( array(
+				'latex' => $this->latex,
+				'bg' => $this->bg_hex,
+				'fg' => $this->fg_hex,
+				's' => $this->size,
+				'zoom' => $this->zoom,
+			) ),
+			( is_ssl() ? 'https' : 'http' ) . '://s0.wp.com/latex.php'
+		);
+
 		return $this->url;
 	}
 }

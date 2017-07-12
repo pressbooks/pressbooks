@@ -3,71 +3,91 @@
 /* Organize Page */
 
 body.chapter_page_pressbooks {
-	#publicize-panel {
-		h4 {
-			font-size: 15px;
-			font-weight: normal;
-			span {
-				font-weight: bold;
-				padding: 2px 3px;
-				margin: 15px 0 5px;
-				text-transform: uppercase;
-			}
-			&.private {
-				span {
-					background-color: $pippin;
-				}
-			}
-			&.public {
-				span {
-					background-color: $fall-green;
-				}
-			}
-		}
-		.publicize-form {
-			label {
-				display: block;
-				&:first-child {
-					margin-bottom: 10px;
-				}
-				span.active {
-					font-weight: bold;
-				}
-			}
-		}
-	}
-	
-	.widefat {
-		margin-top: 10px;
-		.delete-link {
-			color: $torch-red;
-		}
-		thead {
-			tr {
-				th {
-					font-weight: bold;
-				}
-			}
-		}
-		tbody {
-			tr {
-				td {
-					vertical-align: middle;
-					span.comment-count {
-						width: auto !important;
-						float: none;
-					}
-				}
-				&.ui-state-highlight {
-					background: $mercury;
-					color: $mine-shaft;
-					height: 1.5em;
-					line-height: 1.2em;
-				}
-			}
-		}
-	}
-	#loader {
-		display: none;
-	}
+  #publicize-panel {
+    h4 {
+      font-size: 15px;
+      font-weight: normal;
+
+      span {
+        font-weight: bold;
+        padding: 2px 3px;
+        margin: 15px 0 5px;
+        text-transform: uppercase;
+      }
+
+      &.private {
+        span {
+          background-color: $pippin;
+        }
+      }
+
+      &.public {
+        span {
+          background-color: $fall-green;
+        }
+      }
+    }
+
+    .publicize-form {
+      label {
+        display: block;
+
+        &:first-child {
+          margin-bottom: 10px;
+        }
+
+        span.active {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .widefat {
+    margin-top: 10px;
+
+    .delete-link {
+      color: $torch-red;
+    }
+
+    thead {
+      tr {
+        th {
+          font-weight: bold;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          vertical-align: middle;
+
+          span.comment-count {
+            width: auto !important;
+            float: none;
+          }
+        }
+
+        &.ui-state-highlight {
+          background: $mercury;
+          color: $mine-shaft;
+          height: 1.5em;
+          line-height: 1.2em;
+        }
+      }
+    }
+  }
+
+  #loader {
+    display: none;
+  }
+
+  table thead {
+    th:nth-child(5),
+    th:nth-child(6),
+    th:nth-child(7) {
+      cursor: pointer;
+    }
+  }
 }

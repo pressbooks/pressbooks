@@ -9,7 +9,7 @@
 		<?php foreach ( $results as $pos => $result ) : ?>
 			<li<?php if ( $result->replace ) : ?> class="diff"<?php endif; ?>>
 				<h3 class="title"><?php $search->show( $result ); ?></h3>
-				<div class="options"><?php echo implode( ' | ', $search->get_options( $result ) ); ?></div>
+				<div class="options"><?php echo implode( ' | ', $search->getOptions( $result ) ); ?></div>
 				<div class="content original"><?php echo $result->search ?></div>
 				<?php if ( $result->replace ) : ?>
 				<div class="content replacement"><?php echo $result->replace ?></div>

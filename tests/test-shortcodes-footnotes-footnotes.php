@@ -18,15 +18,11 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 		parent::setUp();
 
 		$this->fn = $this->getMockBuilder( '\Pressbooks\Shortcodes\Footnotes\footnotes' )
-			->setMethods( null )// pass null to setMethods() to avoid mocking any method
-			->disableOriginalConstructor()// disable private constructor
-			->getMock();
+						 ->setMethods( null )// pass null to setMethods() to avoid mocking any method
+						 ->disableOriginalConstructor()// disable private constructor
+						 ->getMock();
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::getInstance
-	 */
 	public function test_getInstance() {
 
 		$val = $this->fn->getInstance();
@@ -34,10 +30,6 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Footnotes\Footnotes );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::shortcodeHandler
-	 */
 	public function test_shortcodeHandler_numbered() {
 
 		global $id;
@@ -54,19 +46,15 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 		$this->assertContains( '#footnote-1-3', $content );
 
-		$this->assertEmpty( $this->fn->shortcodeHandler( [ ] ) );
+		$this->assertEmpty( $this->fn->shortcodeHandler( [] ) );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::shortcodeHandler
-	 */
 	public function test_shortcodeHandler_notNumbered() {
 
 		global $id;
 		$id = 999;
 
-		$content = $this->fn->shortcodeHandler( [ 'numbered' => 'no', ], 'Hello world!' );
+		$content = $this->fn->shortcodeHandler( [ 'numbered' => 'no' ], 'Hello world!' );
 		$this->assertContains( '[*]</sup></a>', $content );
 
 		$content = $this->fn->shortcodeHandler( [ 'symbol' => '!' ], 'Hello again world!' );
@@ -79,9 +67,6 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 	}
 
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::footnoteContent
-	 */
 	public function test_footnoteContent_numbered() {
 
 		global $id;
@@ -89,8 +74,8 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 		// First, add some footnotes
 		$_ = $this->fn->shortcodeHandler( [ 'numbered' => 'yes' ], 'First.' );
-		$_ = $this->fn->shortcodeHandler( [ ], 'Second.' );
-		$_ = $this->fn->shortcodeHandler( [ ], 'Third.' );
+		$_ = $this->fn->shortcodeHandler( [], 'Second.' );
+		$_ = $this->fn->shortcodeHandler( [], 'Third.' );
 
 		$content = $this->fn->footnoteContent( 'Hello World' );
 
@@ -102,9 +87,6 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 	}
 
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::footnoteContent
-	 */
 	public function test_footnoteContent_notNumbered() {
 
 		global $id;
@@ -112,8 +94,8 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 		// First, add some footnotes
 		$_ = $this->fn->shortcodeHandler( [ 'numbered' => 'no' ], 'First.' );
-		$_ = $this->fn->shortcodeHandler( [ ], 'Second.' );
-		$_ = $this->fn->shortcodeHandler( [ ], 'Third.' );
+		$_ = $this->fn->shortcodeHandler( [], 'Second.' );
+		$_ = $this->fn->shortcodeHandler( [], 'Third.' );
 
 		$content = $this->fn->footnoteContent( 'Hello World' );
 
@@ -125,9 +107,6 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 	}
 
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::myCustomQuicktags
-	 */
 	public function test_myCustomQuicktags() {
 
 		$this->fn->myCustomQuicktags();
@@ -136,31 +115,22 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 	}
 
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::registerFootnoteButtons
-	 */
 	public function test_registerFootnoteButtons() {
 
-		$buttons = $this->fn->registerFootnoteButtons( [ ] );
+		$buttons = $this->fn->registerFootnoteButtons( [] );
 
 		$this->assertNotEmpty( $buttons );
 	}
 
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::addFootnotePlugin
-	 */
 	public function test_addFootnotePlugin() {
 
-		$val = $this->fn->addFootnotePlugin( [ ] );
+		$val = $this->fn->addFootnotePlugin( [] );
 
 		$this->assertNotEmpty( $val );
 	}
 
 
-	/**
-	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::ajaxFailure
-	 */
 	public function test_ajaxFailure() {
 
 		$this->_fakeAjax();
@@ -172,10 +142,6 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 		$this->assertContains( 'foobar', $buffer );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes
-	 */
 	public function test_convertWordFootnotes() {
 
 		$this->_fakeAjax();
@@ -189,7 +155,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 		// Test is json
 
-		$user_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-footnote-convert' );
 		$_POST['content'] = 'Hello world!';

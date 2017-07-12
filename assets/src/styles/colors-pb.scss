@@ -35,7 +35,7 @@ $menu-collapse-focus-icon:			$monza;
 $adminbar-avatar-frame:				$white;
 $adminbar-input-background:			$white;
 
-@import 'partials/tmp/admin';
+@import '~wp-admin-colors/dist/admin';
 
 // Core UI
 
@@ -81,57 +81,58 @@ div.error {
   background: darken($monza, 5%);
 
   .ab-item,
-	a.ab-item,
-	&> #wp-toolbar span.ab-label,
-	&> #wp-toolbar span.noticon {
+  a.ab-item,
+  & > #wp-toolbar span.ab-label,
+  & > #wp-toolbar span.noticon {
     color: $white;
   }
 
   .ab-icon,
-	.ab-icon::before,
-	.ab-item::before,
-	.ab-item::after {
+  .ab-icon::before,
+  .ab-item::before,
+  .ab-item::after {
     color: $white;
-	}
+  }
 
   #wp-admin-bar-menu-toggle .ab-item {
     background: darken($monza, 5%);
 
     .ab-icon,
-		.ab-icon:before {
+    .ab-icon::before {
       color: $white;
-		}
+    }
 
     &:hover,
     &:active {
       background: $white;
 
       .ab-icon,
-			.ab-icon:before {
+      .ab-icon::before {
         color: $monza;
-			}
-		}
+      }
+    }
 
     &[aria-expanded="true"] {
       background: $white;
+
       .ab-icon,
-			.ab-icon:before {
+      .ab-icon::before {
         color: darken($monza, 5%);
-			}
+      }
 
       &:hover,
       &:active {
         .ab-icon,
-				.ab-icon::before {
+        .ab-icon::before {
           color: $monza;
-				}
-			}
-		}
-	}
+        }
+      }
+    }
+  }
 
   &.mobile {
-    .quicklinks .ab-icon:before,
-    .quicklinks .ab-item:before {
+    .quicklinks .ab-icon::before,
+    .quicklinks .ab-item::before {
       color: $white;
     }
   }

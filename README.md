@@ -1,17 +1,18 @@
 # [Pressbooks](https://pressbooks.org/)
 
-[![Build Status](https://travis-ci.org/pressbooks/pressbooks.svg?branch=dev)](https://travis-ci.org/pressbooks/pressbooks) [![Code Coverage](https://codecov.io/gh/pressbooks/pressbooks/branch/dev/graph/badge.svg)](https://codecov.io/gh/pressbooks/pressbooks) [![Current Release](https://img.shields.io/github/release/pressbooks/pressbooks.svg)](https://github.com/pressbooks/pressbooks/releases/latest/) [![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
+[![Packagist](https://img.shields.io/packagist/l/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks) [![Build Status](https://travis-ci.org/pressbooks/pressbooks.svg?branch=dev)](https://travis-ci.org/pressbooks/pressbooks) [![Code Coverage](https://codecov.io/gh/pressbooks/pressbooks/branch/dev/graph/badge.svg)](https://codecov.io/gh/pressbooks/pressbooks) [![Current Release](https://img.shields.io/github/release/pressbooks/pressbooks.svg)](https://github.com/pressbooks/pressbooks/releases/latest/) [![Packagist](https://img.shields.io/packagist/v/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks) [![Packagist](https://img.shields.io/packagist/dt/pressbooks/pressbooks.svg)](https://packagist.org/packages/pressbooks/pressbooks)
 
-[Pressbooks](http://pressbooks.com) is a book content management system which exports in multiple formats: ebooks, webbooks, print-ready [PDF][], and various XML flavours. [Pressbooks](http://pressbooks.com) is built on top of [WordPress Multisite](http://codex.wordpress.org/Glossary#Multisite), and makes significant changes to:
+[Pressbooks](http://pressbooks.org) is a book content management system which exports in multiple formats: ebooks, webbooks, print-ready [PDF][], and various XML flavours. [Pressbooks](http://pressbooks.org) is built on top of [WordPress Multisite](http://codex.wordpress.org/Glossary#Multisite), and makes significant changes to:
+
   * admin interface (customized for books and other structured documents, such as magazines, journals, reports, etc.);
   * web presentation layer (again, customized for books and structured documents); and
   * export routines.
 
-Pressbooks is free software, released under the GPL v.2.0 license.
+Pressbooks is free software, released under the [GPL 2.0+](https://www.gnu.org/licenses/gpl-2.0.txt) license.
 
-Our web/ebook and [PDF][] exports are all driven by HTML+CSS. XML outputs have no styling.
+Our web/ebook and [PDF][] exports are all driven by HTML + CSS. XML outputs have no styling.
 
-  [PDF]: http://pressbooks.com/prince        "Note: we use the non-free software Prince XML for PDF export."
+  [PDF]: http://pressbooks.com/prince        "Note: we use the non-free software PrinceXML for PDF export."
 
 
 Important!
@@ -37,7 +38,7 @@ To install Pressbooks on your site, download the [latest release](https://github
 Requirements
 ------------
 
-Pressbooks works with PHP 5.6.X and WordPress 4.7.5. Lower versions are not supported.
+Pressbooks works with PHP 5.6.x and WordPress 4.8.0. Lower versions are not supported.
 
 Disclaimers
 -----------
@@ -47,4 +48,4 @@ The Pressbooks plugin is supplied "as is" and all use is at your own risk.
 More Details
 ------------
 
-See [readme.txt](https://github.com/pressbooks/pressbooks/blob/dev/readme.txt) for installation details.
+Visit our [documentation website](https://docs.pressbooks.org) for [installation instructions](https://docs.pressbooks.org/installation) etc.

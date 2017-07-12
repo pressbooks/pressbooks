@@ -1,9 +1,9 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 3.9.10
+Version: 4.0.0
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.7.5
+Requires at least: 4.8.0
 Tested up to: 4.8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -21,7 +21,7 @@ like Pressbooks to run a dedicated instance for you on our servers. You can reac
 
 == Communication ==
 
-Our main communication channel for the Pressbooks plugin is [GitHub](https://github.com/pressbooks/pressbooks/issues). You can post issues or ask questions there.
+Our main communication channel for Pressbooks is [Discourse](https://discourse.pressbooks.org). You can ask questions there. Reproducible issues or clearly spec'ed feature requests go on [Github](https://github.com/pressbooks/pressbooks).
 
 == Contributors ==
 
@@ -30,184 +30,215 @@ in source code headers.
 
 == Installation ==
 
+## Downloads
+
+Download the latest releases of [Pressbooks][1], [Pressbooks Book][2], and [Pressbooks Publisher][3], as well as the latest releases of any other [book themes][4] you wish to install.
+
+## Installation (Manual)
+
 IMPORTANT!
 
- * Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
- * Pressbooks works with [PHP 5.6.x](https://secure.php.net/supported-versions.php) and WordPress 4.7.5. Lower versions are not supported.
+*   Do not install Pressbooks on an existing WordPress blog -- create a new WordPress install instead.
+*   Pressbooks works with [PHP 5.6.x][5] and WordPress 4.8. Lower versions are not supported.
 
-*Part 1, WordPress generic:*
+### Part 1: WordPress
 
- 1. Install WordPress using the [Famous 5-Minute Install](http://codex.wordpress.org/Installing_WordPress).
+1.  Install WordPress using the [Famous 5-Minute Install][6].
 
- 2. [Create a Network](http://codex.wordpress.org/Create_A_Network) of WordPress sites, i.e.:
+2.  [Create a Network][7] of WordPress sites, i.e.:
 
- 3. Edit the wp-config.php file and add the following:
+3.  Edit the wp-config.php file and add the following:
 
     `define('WP_ALLOW_MULTISITE', true);`
 
- 4. Login to the WordPress admin area. Navigate to Tools → Network Setup, click Install.
+4.  Login to the WordPress admin area. Navigate to **Tools** → **Network Setup**, click **Install**.
 
- 5. Complete the steps printed on the screen (i.e. edit your `wp-config.php` and `.htaccess files` with the information
-    provided.)
+5.  Complete the steps printed on the screen (i.e. edit your `wp-config.php` and `.htaccess files` with the information provided).
 
-*Part 2, Pressbooks specific:*
+### Part 2: Pressbooks
 
- 1. Copy/move Pressbooks plugin files to: __PATH_TO_YOUR_SITE__/wp-content/plugins/pressbooks/*.
+1.  Copy the Pressbooks plugin folder to: `/path/to/your/site/wp-content/plugins/*`.
 
- 2. Log out, log in, navigate to: My Sites → Network Admin → Dashboard.
+2.  Copy the Pressbooks Book, Pressbooks Publisher and other theme folders to: `/path/to/your/site/wp-content/themes/*`
 
- 3. Navigate to: Plugins → Installed Plugins.
+3.  Log out, log in, navigate to: **My Sites** → **Network Admin** → **Dashboard**.
 
- 4. Network Enable "Pressbooks."
+4.  Navigate to **Plugins** → **Installed Plugins**.
 
- 5. Navigate to: Themes → Installed Themes.
+5.  Network Enable "Pressbooks".
 
- 6. Network Enable "Luther", "Clarke", "Donham", "Fitzgerald", "Austen", "Pressbooks Publisher", and any other
-    Pressbooks theme you want to use.
+6.  Navigate to **Themes** → **Installed Themes**.
 
- 7. Navigate to: Settings → Network Settings.
+7.  Network Enable "Luther", "Pressbooks Publisher", and any other Pressbooks theme you want to use.
 
- 8. Pick the most appropriate Registration Setting:
-    + User accounts may be registered. (do not use this setting, since it will not allow users to create new books)
-    + Logged in users may register new sites. (if you are a publisher using Pressbooks as a production tool, this is the
-      best setting: it allows network administrators to add new users, who can then create books/sites. However,
-      registration is not available to the public.)
-    + Both sites and user accounts can be registered. (use this setting if you intend on offering a publishing-platform
-      open to the public, such as Pressbooks.com)
+8.  Navigate to **Settings** → **Network Settings**.
 
- 9. Navigate to: My Catalog → __YOUR_SITE__ → Dashboard
+9.  Pick the most appropriate Registration setting:
 
- 10. Navigate to: Appearance. Activate "Pressbooks Publisher"
+    *   User accounts may be registered. (Do not use this setting, since it will not allow users to create new books!)
+    *   Logged in users may register new sites. (If you are a publisher using Pressbooks as a production tool, this is the best setting: it allows network administrators to add new users, who can then create books/sites. However, registration is not available to the public.)
+    *   Both sites and user accounts can be registered. (Use this setting if you intend on offering a publishing-platform open to the public, such as [Pressbooks.com][8])
 
- 11. Navigate to: My Catalog → Network Admin → Sites
+10. Navigate to **My Catalog** → **Your Site** → **Dashboard**
 
- 12. Add a new site (this will be your first book).
+11. Navigate to **Appearance** and activate "Pressbooks Publisher".
 
- 13. Navigate to: My Catalog → __YOUR_FIRST_BOOK__
+12. Navigate to **My Catalog** → **Add A New Book** (this will be your first book).
 
- 14. Navigate to: Book Info. Make sure to fill out Title, Author and Publication Date.
+13. Navigate to **My Catalog** → **Your First Book** → **Dashboard**.
 
- 15. Navigate to: Text → Organize. Make sure some content is selected for export.
+14. Navigate to **Book Info**. Make sure to fill out Title, Author and Publication Date.
 
-*Part 3, Pressbooks dependencies:*
+15. Navigate to **Text** → **Organize**. Make sure some content is selected for export.
 
- * For PDF export install [Prince](http://pressbooks.com/prince) (note: this is not free software) - Version 20160929
- * For PDF export via mPDF install the [Pressbooks mPDF plugin](https://wordpress.org/plugins/pressbooks-mpdf). You will also need to ensure that the following folders have write access and/or they are owned by the appropriate user. See http://codex.wordpress.org/Changing_File_Permissions for more details on adjusting file permissions.
-   + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/ttfontdata
-   + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/tmp
-   + wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/graph_cache
- * For MOBI export install [KindleGen](http://www.amazon.com/gp/feature.html?docId=1000765211) - Version 2.9
- * For EPUB validation install [EpubCheck](https://github.com/idpf/epubcheck) - Version 4.0
- * For XML validation install [xmllint](http://xmlsoft.org/xmllint.html) - Version 20706
- * Certain Linux installations do not ship with the php5-xsl library enabled by default.  If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like "apt-get install php5-xsl"
+### Part 3: Pressbooks Dependencies
+
+Pressbooks requires some third-party libraries to be installed on your server to enable export capabilities.
+
+*   For PDF export, install [PrinceXML][9] 11 (note: this is not free software)
+*   For PDF export via mPDF, install the [Pressbooks mPDF plugin][10]. You will also need to ensure that the following folders have write access and/or they are owned by the appropriate user. See [http://codex.wordpress.org/Changing_File_Permissions][11] for more details on adjusting file permissions.
+    *   `wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/ttfontdata`
+    *   `wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/tmp`
+    *   `wp-content/plugins/pressbooks-mpdf/symbionts/mpdf/graph_cache`
+*   For MOBI export install [KindleGen][12] 2.9
+*   For EPUB validation install [EpubCheck][13] 4.0
+*   For XML validation install [xmllint][14] 20800
+*   For ODT export install [Saxon-HE][15] 9.7.0-10
+*   Certain Linux installations do not ship with the `php5-xsl` library enabled by default. If you attempt to export an ePub and get a either a white screen with minimal text, or a "Fatal error: Class 'XSLTProcessor' not found" error, you may need to run a command like `apt-get install php5-xsl`.
 
 Unlisted versions are not supported. Upgrade/downgrade accordingly.
 
-Once installed, define the following wp-config.php variables. The defaults are:
+Once installed, define the following `wp-config.php` variables. The defaults are:
 
-	define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
-	define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
-	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
-	define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
-  define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
+    define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
+    define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
+    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/epubcheck' );
+    define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+    define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
 
 
 Example config files for a dev site hosted at http://localhost/~dac514/textopress/
 
-### wp-config.php file [snippet]: ###
+### wp-config.php file [snippet]:
 
-	/**
-	 * For developers: WordPress debugging mode.
-	 *
-	 * Change this to true to enable the display of notices during development.
-	 * It is strongly recommended that plugin and theme developers use WP_DEBUG
-	 * in their development environments.
-	 */
-	define('WP_DEBUG', true);
-	define('WP_DEBUG_LOG', true);
+    /**
+     * For developers: WordPress debugging mode.
+     *
+     * Change this to true to enable the display of notices during development.
+     * It is strongly recommended that plugin and theme developers use WP_DEBUG
+     * in their development environments.
+     */
+    define('WP_DEBUG', true);
+    define('WP_DEBUG_LOG', true);
 
-	/**
-	 * Multi-site support, Part 1
-	 */
-	define('WP_ALLOW_MULTISITE', true);
+    /**
+     * Multi-site support, Part 1
+     */
+    define('WP_ALLOW_MULTISITE', true);
 
-	/**
-	 * Multi-site support, Part 2
-	 */
-	define('MULTISITE', true);
-	define('SUBDOMAIN_INSTALL', false);
-	$base = '/~dac514/textopress/';
-	define('DOMAIN_CURRENT_SITE', 'localhost');
-	define('PATH_CURRENT_SITE', '/~dac514/textopress/');
-	define('SITE_ID_CURRENT_SITE', 1);
-	define('BLOG_ID_CURRENT_SITE', 1);
+    /**
+     * Multi-site support, Part 2
+     */
+    define('MULTISITE', true);
+    define('SUBDOMAIN_INSTALL', false);
+    $base = '/~dac514/textopress/';
+    define('DOMAIN_CURRENT_SITE', 'localhost');
+    define('PATH_CURRENT_SITE', '/~dac514/textopress/');
+    define('SITE_ID_CURRENT_SITE', 1);
+    define('BLOG_ID_CURRENT_SITE', 1);
 
-	/**
-	 * Pressbooks
-	 */
-	define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
-	define( 'PB_KINDLEGEN_COMMAND', '/home/dac514/bin/kindlegen' );
-	define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /home/dac514/bin/epubcheck-4.0/epubcheck-4.0.jar' );
-	define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
-  define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /home/dac514/bin/saxon-he/saxon-he.jar' );
+    /**
+     * Pressbooks
+     */
+    define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
+    define( 'PB_KINDLEGEN_COMMAND', '/home/dac514/bin/kindlegen' );
+    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /home/dac514/bin/epubcheck-4.0/epubcheck-4.0.jar' );
+    define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+    define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar home/dac514/bin/saxon-he/saxon-he.jar' );
 
-	/**
-	 * Optional definitions
-	 */
-	// define( 'WP_POST_REVISIONS', 5 ); // Limit post revisions: int or false
-	// define( 'EMPTY_TRASH_DAYS', 1 ); // Purge trash interval
-	// define( 'AUTOSAVE_INTERVAL', 60 ); // Autosave every N seconds
+    /**
+     * Optional definitions
+     */
+    // define( 'WP_POST_REVISIONS', 5 ); // Limit post revisions: int or false
+    // define( 'EMPTY_TRASH_DAYS', 1 ); // Purge trash interval
+    // define( 'AUTOSAVE_INTERVAL', 60 ); // Autosave every N seconds
 
-	/* That's all, stop editing! Happy blogging. */
+    /* That's all, stop editing! Happy blogging. */
 
 
-### .htaccess file: ###
+### .htaccess file:
 
-	RewriteEngine On
-	RewriteBase /~dac514/textopress/
-	RewriteRule ^index\.php$ - [L]
+    RewriteEngine On
+    RewriteBase /~dac514/textopress/
+    RewriteRule ^index.php$ - [L]
 
-	# add a trailing slash to /wp-admin
-	RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
+    # add a trailing slash to /wp-admin
+    RewriteRule ^([_0-9a-zA-Z-]+/)?wp-admin$ $1wp-admin/ [R=301,L]
 
-	RewriteCond %{REQUEST_FILENAME} -f [OR]
-	RewriteCond %{REQUEST_FILENAME} -d
-	RewriteRule ^ - [L]
-	RewriteRule  ^[_0-9a-zA-Z-]+/(wp-(content|admin|includes).*) $1 [L]
-	RewriteRule  ^[_0-9a-zA-Z-]+/(.*\.php)$ $1 [L]
-	RewriteRule . index.php [L]
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+    RewriteRule  ^[_0-9a-zA-Z-]+/(wp-(content|admin|includes).*) $1 [L]
+    RewriteRule  ^[_0-9a-zA-Z-]+/(.*.php)$ $1 [L]
+    RewriteRule . index.php [L]
 
-*Installation (WP-CLI)*
 
-First, get [WP-CLI](https://wp-cli.org/).
+## Installation (WP-CLI)
+
+First, get [WP-CLI][16].
 
 Once WP-CLI is installed on your server, the following shell commands executed in the site root will download and install a fresh version of Pressbooks. Obviously you need to put in the correct information for your server and install on lines 2 and 10, and enter the correct paths to `WP_PRINCE_COMMAND`, `PB_KINDLEGEN_COMMAND`, `PB_EPUBCHECK_COMMAND` and `PB_XMLLINT_COMMAND` where indicated.
 
-	    wp core download
-	    wp core config --dbname="dbname" --dbuser="dbuser" --dbpass="dbpass" --extra-php <<PHP
-	    /* Pressbooks */
-	    define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
-	    define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
-	    define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
-	    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
-	    define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
-	    define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
-	    PHP
-	    wp core install --url="http://domain.com" --title="Pressbooks" --admin_user="username" --admin_password="password" --admin_email="user@domain.com"
-	    wp core multisite-convert --title="Pressbooks"
-	    wp plugin delete hello
-	    wp plugin update-all
-      wp plugin install https://github.com/pressbooks/pressbooks/releases/download/v3.9.5.1/pressbooks-v3.9.5.1.zip --activate-network
-	    wp theme list
-	    wp theme enable pressbooks-book --network
-	    wp theme enable clarke --network
-	    wp theme enable donham --network
-	    wp theme enable fitzgerald --network
-	    wp theme enable austen --network
-	    wp theme enable pressbooks-custom-css --network
+    wp core download
+    wp core config --dbname="dbname" --dbuser="dbuser" --dbpass="dbpass" --extra-php <<PHP
+    /* Pressbooks */
+    define( 'WP_DEFAULT_THEME', 'pressbooks-book' );
+    define( 'PB_PRINCE_COMMAND', '/usr/bin/prince' );
+    define( 'PB_KINDLEGEN_COMMAND', '/opt/kindlegen/kindlegen' );
+    define( 'PB_EPUBCHECK_COMMAND', '/usr/bin/java -jar /opt/epubcheck/epubcheck.jar' );
+    define( 'PB_XMLLINT_COMMAND', '/usr/bin/xmllint' );
+    define( 'PB_SAXON_COMMAND', '/usr/bin/java -jar /opt/saxon-he/saxon-he.jar' );
+    PHP
+    wp core install --url="http://domain.com" --title="Pressbooks" --admin_user="username" --admin_password="password" --admin_email="user@domain.com"
+    wp core multisite-convert --title="Pressbooks"
+    wp plugin delete hello
+    wp plugin update-all
+    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/4.0.0/pressbooks-4.0.0.zip --activate-network
+    wp theme install https://github.com/pressbooks/pressbooks-book/releases/download/1.9.0/pressbooks-1.9.0.zip
+    wp theme install https://github.com/pressbooks/pressbooks-publisher/archive/master.zip
+    wp theme install https://github.com/pressbooks/pressbooks-austenclassic/archive/master.zip
+    wp theme install https://github.com/pressbooks/pressbooks-clarke/archive/master.zip
+    wp theme install https://github.com/pressbooks/pressbooks-donham/archive/master.zip
+    wp theme install https://github.com/pressbooks/pressbooks-fitzgerald/archive/master.zip
+    wp theme install https://github.com/pressbooks/pressbooks-custom-css/archive/master.zip
+    wp theme list
+    wp theme enable pressbooks-book --network
+    wp theme enable pressbooks-clarke --network
+    wp theme enable pressbooks-donham --network
+    wp theme enable pressbooks-fitzgerald --network
+    wp theme enable pressbooks-austenclassic --network
+    wp theme enable pressbooks-custom-css --network
 
 
-Note that this does not install the required libraries for export. See above (Part 3, Pressbooks dependencies).
+Note that this does not install the required libraries for export. See above (Part 3).
+
+
+  [1]: https://github.com/pressbooks/pressbooks/releases/latest
+  [2]: https://github.com/pressbooks/pressbooks-book/releases/latest
+  [3]: https://github.com/pressbooks/pressbooks-publisher/releases/latest
+  [4]: https://github.com/search?q=topic:book-theme%20org:pressbooks&type=Repositories
+  [5]: https://secure.php.net/supported-versions.php
+  [6]: http://codex.wordpress.org/Installing_WordPress
+  [7]: http://codex.wordpress.org/Create_A_Network
+  [8]: https://pressbooks.com
+  [9]: http://pressbooks.com/prince
+  [10]: https://wordpress.org/plugins/pressbooks-mpdf
+  [11]: here
+  [12]: http://www.amazon.com/gp/feature.html?docId=1000765211
+  [13]: https://github.com/idpf/epubcheck
+  [14]: http://xmlsoft.org/xmllint.html
+  [15]: https://sourceforge.net/projects/saxon/files/Saxon-HE/
+  [16]: https://wp-cli.org/
 
 == Frequently Asked Questions ==
 
@@ -224,13 +255,67 @@ TK.
 
 == Upgrade Notice ==
 
+Upon upgrading to Pressbooks 4.0, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
 Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
 
-Pressbooks now requires [WordPress 4.7.5](https://wordpress.org/download/).
+Pressbooks now requires [WordPress 4.8.0](https://wordpress.org/download/).
 
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+
+### 4.0.0
+
+**NOTICE:** Upon upgrading to Pressbooks 4.0, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
+
+**NOTICE:** Pressbooks 4.0 requires [WordPress 4.8.0](https://wordpress.org/news/2017/06/evans/).
+
+#### Pressbooks 4.0 "Slate"
+
+##### Next-Generation REST API
+
+Building on [Brad Payne's](http://bradpayne.ca) original REST API for Pressbooks, we've introduced an improved and expanded REST API based on the WordPress Core [REST API](https://developer.wordpress.org/rest-api/) infrastructure. The Pressbooks REST API v2 supports authenticated CRUD (Create, Read, Update, Destroy) access to all Pressbooks content types (front and back matter, parts, and chapters) as well as read-only access to book structure and metadata. For more information, see our [REST API documentation](http://docs.pressbooks.org/api). We're excited to see what the Pressbooks Open Source community will do with these new API capabilities! Share your projects with us: [code@pressbooks.com](mailto:code@pressbooks.com).
+
+##### Enhanced LaTeX Rendering
+
+Pressbooks' core LaTeX renderer now produces high resolution output suitable for print! More improvements to come, and thanks for your patience as we've worked to improve this important feature.
+
+##### Better Content Management
+
+Want to mark all chapters for export on the Organize screen? You can do that now! Trashed something that you want back? Just navigate to Text &rarr; Trash and you can restore it. Many more improvements to come!
+
+##### Pressbooks CLI
+
+The Pressbooks command line interface is now part of Pressbooks. Want to make your own book theme? Run `wp scaffold book-theme` from the root of your Pressbooks install and take advantage of our intuitive SCSS-based theme structure. More commands to come -- [submit your ideas](https://github.com/pressbooks/pb-cli/issues)!
+
+#### Detailed Changelog
+
+* **Feature:** REST API v2 (see #472, #763, #770, #771, #774, #778, #780, #781, #783, #785, #788, #798, #803, #804, #806, #807, #810, #812, #815, #816, #823, #832, and our [API Docs](http://docs.pressbooks.org/api)
+* **Feature:** LaTeX outputs are now at a sufficient resolution for print applications (see #819).
+* **Feature:** You can now change statuses in bulk on the **Organize** page (see #249 and #822).
+* **Feature:** Deleted content can now be restored from **Text &rarr; Trash** (see [9283c26](https://github.com/pressbooks/pressbooks/tree/9283c26504007ba55259672c5cb9efc8ee07b3c0)).
+* **Enhancement:** The Pressbooks CLI is now bundled in Pressbooks (see #464 and #826).
+* **Enhancement:** `new \Pressbooks\Metadata()` now returns book metadata as an implementation of [JsonSerializeable](https://secure.php.net/manual/en/class.jsonserializable.php) (see #804 and #832).
+* **Enhancement:** Expanded metadata is now hidden on the **Book Information** page unless needed (see #804 and #832).
+* **Enhancement:** We now use the [Human Made coding standards](https://engineering.hmn.md/how-we-work/style/php/) for PHP. [Check your code](http://docs.pressbooks.org/coding-standards/#validating-with-php-code-sniffer) before submitting a PR 👍.
+* **Enhancement:** We now use [Laravel Mix](https://github.com/jeffreyway/laravel-mix) to handle all plugin assets (see #769 and #795). Making a change in `/assets/src/`? With [Yarn](https://yarnpkg.com) installed in your development environment, run `yarn && yarn run build` to build assets for distribution.
+* **Enhancement:** SCSS files can now be checked against our coding standards using [stylelint](https://stylelint.io) with the command `yarn run lint` (see #743 and #817).
+* **Enhancement:** JS files have been updated to ES6 and can now be checked against our coding standards using [eslint](http://eslint.org) with the command `yarn run lint` (see #829).
+* **Enhancement:** Root and book themes are now distributed separately from the Pressbooks plugin -- make sure you install the required themes when you [upgrade](http://docs.pressbooks.org/upgrading)! (See #756 and #799.)
+* **Enhancement:** Part content has been migrated to the standard content editor instead of a custom field (see #486 and #764).
+* **Enhancement:** The Search and Replace module has been heavily optimized, reducing memory usage by ~85% (see #759 and #793).
+* **Enhancement:** Additional post types can be added to the list of permitted post types for editing using the [`pb_supported_post_types` filter](https://github.com/pressbooks/pressbooks/blob/4.0.0/inc/posttype/namespace.php#L16-L29) (props to @steelwagstaff, see #758).
+* **Enhancement:** We now use [vanilla/htmlawed](https://packagist.org/packages/vanilla/htmlawed) as our htmLawed provider (see #767).
+* **Enhancement:** Developers can now add new import types via the `pb_import_table_cell` and `pb_initialize_import` filter hooks (props @bdolor; see #802 and #811).
+* **Enhancement:** Releases are now packaged automatically via Travis (see #730 and #821).
+* **Fix:** DOCX and ODT files exported from Google Docs (which lack standard metadata) can now be imported without issue via the import module (see #837 and #838).
+* **Fix:** Images are now set to a `prince-image-resolution` of `auto, normal` rather than 300dpi for more reliably high-quality print PDF output (see #744 and #776).
+* **Fix:** Text suggesting that we offer printing services has been removed from the Publish page (see #784).
+* **Fix:** Export downloads from the webbook include the proper file extensions (props to @bdolor; see #808).
+* **Fix:** Current privacy settings are now displayed properly when updating book privacy from the Organize page (see #711 and #801).
+* **Fix:** The editor style is now enqueued with a version for cache busting (see #813 and #814).
+* **Fix:** The Search and Replace module no longer searches items in the trash (see [6978734](https://github.com/pressbooks/pressbooks/commit/697873425439be829abaeb077fbc3f6a8391b17e)).
+* **Fix:** Miscellaneous improvements to improve performance and reduce unnecessary error output.
 
 ### 3.9.10
 * **Feature:** Strikethrough text (the `<del>` tag) can now be used in front matter, part, chapter and back matter titles (see #790).

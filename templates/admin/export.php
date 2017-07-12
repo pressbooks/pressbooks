@@ -37,7 +37,7 @@ if ( $timezone_string ) {
 // Warnings and errors
 // -------------------------------------------------------------------------------------------------------------------
 
-$dependency_errors = array();
+$dependency_errors = [];
 
 if ( false == get_site_transient( 'pb_pdf_compatible' ) && false == \Pressbooks\Modules\Export\Prince\Pdf::hasDependencies() ) {
 	$dependency_errors['pdf'] = 'PDF';
@@ -149,21 +149,21 @@ if ( ! empty( $_GET['export_warning'] ) && ( 1 == $exportoptions['email_validati
  *
  */
 
-$formats = apply_filters( 'pb_export_formats', array(
-	'standard' => array(
+$formats = apply_filters( 'pb_export_formats', [
+	'standard' => [
 		'print_pdf' => __( 'PDF (for print)', 'pressbooks' ),
 		'pdf' => __( 'PDF (for digital distribution)', 'pressbooks' ),
 		'epub' => __( 'EPUB (for Nook, iBooks, Kobo etc.)', 'pressbooks' ),
 		'mobi' => __( 'MOBI (for Kindle)', 'pressbooks' ),
-	),
-	'exotic' => array(
+	],
+	'exotic' => [
 		'epub3' => __( 'EPUB 3 (beta)', 'pressbooks' ),
 		'xhtml' => __( 'XHTML', 'pressbooks' ),
 		'odt' => __( 'OpenDocument (beta)', 'pressbooks' ),
 		'wxr' => __( 'Pressbooks XML', 'pressbooks' ),
 		'vanillawxr' => __( 'WordPress XML', 'pressbooks' ),
-	),
-) ); ?>
+	],
+] ); ?>
 
 	<form id="pb-export-form" action="<?php echo $export_form_url ?>" method="POST">
 		<fieldset class="standard">
@@ -196,7 +196,7 @@ $formats = apply_filters( 'pb_export_formats', array(
 		<div class="theme-screenshot">
 			<img src="<?php echo apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ); ?>/screenshot.png" alt="">
 		</div>
-		<h3 class="theme-name"><?php echo wp_get_theme();?><?php if ( \Pressbooks\ThemeLock::isLocked() ) { echo ' <span class="dashicons dashicons-lock" style="vertical-align: text-bottom;"></span>'; } ?></h3>
+		<h3 class="theme-name"><?php echo wp_get_theme();?><?php if ( \Pressbooks\Theme\Lock::isLocked() ) { echo ' <span class="dashicons dashicons-lock" style="vertical-align: text-bottom;"></span>'; } ?></h3>
 		<div class="theme-actions">
 			<a class="button button-primary" href="<?php echo get_bloginfo( 'url' ); ?>/wp-admin/themes.php"><?php _e( 'Change Theme', 'pressbooks' ); ?></a>
 			<a class="button button-secondary" href="<?php echo get_bloginfo( 'url' ); ?>/wp-admin/themes.php?page=pressbooks_theme_options"><?php _e( 'Options', 'pressbooks' ); ?></a>

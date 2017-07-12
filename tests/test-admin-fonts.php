@@ -1,6 +1,6 @@
 <?php
 
-require_once( PB_PLUGIN_DIR . 'includes/admin/pb-fonts.php' );
+require_once( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
 
 use Pressbooks\Container;
 
@@ -16,29 +16,32 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 		parent::setUp();
 
 		// Replace GlobalTypography service with mock
-		Container::set( 'GlobalTypography', function () {
+		Container::set(
+			'GlobalTypography', function () {
 
-			$stub = $this->getMockBuilder( '\Pressbooks\GlobalTypography' )
-				->getMock();
+				$stub = $this->getMockBuilder( '\Pressbooks\GlobalTypography' )
+						 ->getMock();
 
-			return $stub;
-		} );
-
+				return $stub;
+			}
+		);
 
 		// Replace Sass service with mock
-		Container::set( 'Sass', function () {
+		Container::set(
+			'Sass', function () {
 
-			$stub = $this->getMockBuilder( '\Pressbooks\Sass' )
-				->getMock();
+				$stub = $this->getMockBuilder( '\Pressbooks\Sass' )
+						 ->getMock();
 
-			$stub->method( 'pathToUserGeneratedCss' )
-				->willReturn( $this->_createTmpDir() );
+				$stub->method( 'pathToUserGeneratedCss' )
+				 ->willReturn( $this->_createTmpDir() );
 
-			$stub->method( 'pathToPartials' )
-				->willReturn( PB_PLUGIN_DIR . 'assets/scss/partials' );
+				$stub->method( 'pathToPartials' )
+				 ->willReturn( WP_CONTENT_DIR . '/themes/pressbooks-book/assets/legacy/styles' );
 
-			return $stub;
-		} );
+				return $stub;
+			}
+		);
 	}
 
 
@@ -51,20 +54,12 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 		parent::tearDown();
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Admin\Fonts\update_font_stacks
-	 */
 	public function test_update_font_stacks() {
 
 		\Pressbooks\Admin\Fonts\update_font_stacks();
 		$this->assertTrue( true );
 	}
 
-
-	/**
-	 * @covers \Pressbooks\Admin\Fonts\fix_missing_font_stacks
-	 */
 	public function test_fix_missing_font_stacks() {
 
 		$this->_book();

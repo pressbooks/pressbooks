@@ -1,1 +1,0 @@
-jQuery(function(t){t("form").submit(function(){t("input[type=submit]",this).attr("disabled","disabled")})});

@@ -42,23 +42,19 @@
       right: 0;
       font-size: 12px;
       text-transform: uppercase;
-
     }
 
     .content {
-      padding: .5em;
+      padding: 0.5em;
       font-family: Consolas, Monaco, monospace;
       font-size: 14px;
       line-height: 1.618;
       background-color: $mercury;
       box-sizing: border-box;
-
     }
-
   }
 
   .diff {
-
     del {
       font-weight: normal;
       background-color: $cornflower-lilac;

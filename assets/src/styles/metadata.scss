@@ -1,10 +1,13 @@
 @import 'partials/colors';
 
-.page-title-action,
+.page-title-action {
+  display: none;
+}
+
 #post-body-content {
-	display: none;
+  margin-bottom: 0;
 }
 
 .datepicker input[readonly='readonly'] {
-	background-color: $white;
+  background-color: $white;
 }
