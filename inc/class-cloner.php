@@ -46,6 +46,15 @@ class Cloner {
 	protected $targetBook;
 
 	/**
+	 * The ID of the target book.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @var int
+	 */
+	protected $targetBookId;
+
+	/**
 	 * The REST API base.
 	 *
 	 * @since 4.1.0
@@ -75,9 +84,10 @@ class Cloner {
 		$this->sourceBook = esc_url( untrailingslashit( $source_url ) );
 		if ( $target_url ) {
 			$this->targetBook = esc_url( untrailingslashit( $target_url ) );
+			$this->targetBookId = $this->getTargetBookId();
 		}
 
-		if ( define( 'WP_ENV' ) && WP_ENV === 'development' ) {
+		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
 			$this->requestArgs = [ 'sslverify' => false ];
 		}
 	}
@@ -201,6 +211,21 @@ class Cloner {
 	}
 
 	/**
+	 * Get a local book ID from its URL.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @return int 0 of no blog was found, or the ID of the matched book.
+	 */
+
+	public function getTargetBookId() {
+		return get_blog_id_from_url(
+			wp_parse_url( $this->targetBook, PHP_URL_HOST ),
+			trailingslashit( wp_parse_url( $this->targetBook, PHP_URL_PATH ) )
+		);
+	}
+
+	/**
 	 * Is the source book cloneable?
 	 *
 	 * @since 4.1.0
@@ -244,6 +269,8 @@ class Cloner {
 	 * @return bool | int False if the clone failed; the ID of the new section if it succeeded.
 	 */
 	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
+		global $blog_id;
+
 		// Determine endpoint based on $post_type
 		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
 
@@ -265,50 +292,52 @@ class Cloner {
 			return false;
 		}
 
+		// Process response
 		$section = json_decode( $response['body'], true );
 
-		// Process response
-		foreach ( [ 'guid', 'link', 'id' ] as $bad_key ) {
+		// Get links
+		$links = array_pop( $section );
+
+		// Remove source-specific properties
+		$bad_keys = [ 'guid', 'link', 'id' ];
+		foreach ( $bad_keys as $bad_key ) {
 			unset( $section[ $bad_key ] );
 		}
-		$title = $section['title']['rendered'];
-		$content = $section['content']['rendered'];
-		$section['title'] = $title;
-		$section['content'] = $content;
+
+		// Move title and content up
+		$section['title'] = $section['title']['rendered'];
+		$section['content'] = $section['content']['rendered'];
+
+		// Set part
 		if ( $post_type === 'chapter' ) {
 			$section['part'] = $target_parent_id;
 		}
 
-		// Build request URL
-		$request_url = sprintf(
-			'%1$s/%2$s/pressbooks/v2/%3$s',
-			$this->targetBook,
-			$this->restBase,
-			$endpoint
-		);
+		// TODO Handle authors
 
-		// Prepare request body
-		$args = array_merge( $this->requestArgs, [ 'body' => $section ] );
-
-		// POST data to API
-		$response = wp_remote_post( $request_url, $args );
+		// POST internal request
+		if ( $blog_id !== $this->targetBookId ) {
+			switch_to_blog( $this->targetBookId );
+		}
+		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
+		$request->set_body_params( $section );
+		$response = rest_do_request( $request )->get_data();
+		if ( $blog_id !== $this->targetBookId ) {
+			restore_current_blog();
+		}
 
 		// Inform user of failure, bail
-		if ( is_wp_error( $response ) ) {
-			wp_die( $response->get_error_message() ); // TODO
+		if ( @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
+			wp_die( $response['message'] ); // TODO
 			return false;
 		}
 
-		// Get clone ID from response
-		$response = json_decode( $response['body'], true );
-		$clone_id = 42; // TODO
-
 		// Clone associated content
-		$this->cloneSectionRevisions( $section_id, $clone_id );
-		$this->cloneSectionAttachments( $section_id, $clone_id );
-		$this->cloneSectionComments( $section_id, $clone_id );
+		$this->cloneSectionRevisions( $section_id, $response['id'] );
+		$this->cloneSectionAttachments( $section_id, $response['id'] );
+		$this->cloneSectionComments( $section_id, $response['id'] );
 
-		return $clone_id;
+		return $response['id'];
 	}
 
 	/**
@@ -317,9 +346,10 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $section_id The ID of the section within the source book.
+	 * @param int $target_id The ID of the section within the target book.
 	 * @return bool | int | array False if the clone failed; the ID or IDs of the new revisions if it succeeded.
 	 */
-	protected function cloneSectionRevisions( $section_id ) {
+	protected function cloneSectionRevisions( $section_id, $target_id ) {
 		// TODO
 	}
 
@@ -329,9 +359,10 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $id The ID of the section within the source book.
+	 * @param int $target_id The ID of the section within the target book.
 	 * @return bool | int | array False if the clone failed; the ID or IDs of the new attachments if it succeeded.
 	 */
-	protected function cloneSectionAttachments( $section_id ) {
+	protected function cloneSectionAttachments( $section_id, $target_id ) {
 		// TODO
 	}
 
@@ -341,9 +372,10 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $section_id The ID of the section within the source book.
+	 * @param int $target_id The ID of the section within the target book.
 	 * @return bool | int | array False if the clone failed; the ID or IDs of the new attachments if it succeeded.
 	 */
-	protected function cloneSectionComments( $section_id ) {
+	protected function cloneSectionComments( $section_id, $target_id ) {
 		// TODO
 	}
 }
