@@ -20,17 +20,17 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SearchPathExcluded-1: vendor\n"
 
-#: compatibility.php:66
+#: compatibility.php:72
 #, php-format
 msgid "Pressbooks will not work with your version of PHP. Pressbooks requires PHP version %s or greater. Please upgrade PHP if you would like to use Pressbooks."
 msgstr ""
 
-#: compatibility.php:79
+#: compatibility.php:85
 #, php-format
 msgid "Pressbooks will not work with your version of WordPress. Pressbooks requires a dedicated install of WordPress Multisite, version %s or greater. Please upgrade WordPress if you would like to use Pressbooks."
 msgstr ""
 
-#: compatibility.php:90
+#: compatibility.php:96
 msgid "The Pressbooks plugin is inactive, but you have active plugins that require Pressbooks. This is causing errors. Please go to the Plugins page, and activate Pressbooks."
 msgstr ""
 
@@ -132,13 +132,13 @@ msgstr ""
 msgid "Edit Tags"
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:385 inc/admin/laf/namespace.php:106
+#: inc/admin/class-catalog-list-table.php:385 inc/admin/laf/namespace.php:112
 #: templates/admin/organize.php:23 templates/admin/organize.php:29
 #: templates/admin/organize.php:82 templates/admin/organize.php:158
 msgid "Private"
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:385 inc/admin/laf/namespace.php:108
+#: inc/admin/class-catalog-list-table.php:385 inc/admin/laf/namespace.php:114
 #: templates/admin/organize.php:21 templates/admin/organize.php:26
 msgid "Public"
 msgstr ""
@@ -178,8 +178,8 @@ msgstr ""
 msgid "The public link to your catalog page"
 msgstr ""
 
-#: inc/admin/class-catalog-list-table.php:477 inc/admin/laf/namespace.php:225
-#: inc/admin/laf/namespace.php:258 inc/admin/laf/namespace.php:385
+#: inc/admin/class-catalog-list-table.php:477 inc/admin/laf/namespace.php:233
+#: inc/admin/laf/namespace.php:303 inc/admin/laf/namespace.php:430
 msgid "My Catalog"
 msgstr ""
 
@@ -241,7 +241,7 @@ msgstr ""
 msgid "This will prevent any changes to your book&rsquo;s appearance and page count when themes are updated."
 msgstr ""
 
-#: inc/admin/class-exportoptions.php:182 inc/admin/laf/namespace.php:212
+#: inc/admin/class-exportoptions.php:182 inc/admin/laf/namespace.php:220
 #: inc/admin/metaboxes/namespace.php:552
 msgid "Export Settings"
 msgstr ""
@@ -315,7 +315,7 @@ msgstr ""
 msgid "If you would like to add <strong>BUY</strong> links to your Pressbooks web book, add the links to your book at the different retailers below:"
 msgstr ""
 
-#: inc/admin/class-publishoptions.php:277 inc/admin/laf/namespace.php:196
+#: inc/admin/class-publishoptions.php:277 inc/admin/laf/namespace.php:204
 msgid "Publish"
 msgstr ""
 
@@ -348,71 +348,72 @@ msgstr ""
 msgid "This will overwrite existing custom CSS. Are you sure?"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:25 inc/admin/dashboard/namespace.php:52
-#: inc/admin/dashboard/namespace.php:87
+#: inc/admin/dashboard/namespace.php:16
 msgid "Pressbooks News"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:78
+#: inc/admin/dashboard/namespace.php:81
 msgid "My Book"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:79 inc/admin/laf/namespace.php:439
+#: inc/admin/dashboard/namespace.php:82 inc/admin/laf/namespace.php:484
 msgid "Users"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:106
+#: inc/admin/dashboard/namespace.php:105
 #: inc/api/endpoints/controller/class-toc.php:169
-#: inc/modules/searchandreplace/types/class-content.php:109
+#: inc/modules/searchandreplace/types/class-content.php:74
 #: inc/posttype/namespace.php:124 templates/admin/import.php:77
 #: templates/admin/organize.php:38 templates/admin/organize.php:55
+#: templates/admin/trash.php:50
 msgid "Front Matter"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:126
+#: inc/admin/dashboard/namespace.php:125
 #: inc/api/endpoints/controller/class-toc.php:200
-#: inc/modules/searchandreplace/types/class-content.php:112
+#: inc/modules/searchandreplace/types/class-content.php:77
 #: inc/posttype/namespace.php:159 templates/admin/import.php:82
 #: templates/admin/organize.php:40 templates/admin/organize.php:63
+#: templates/admin/trash.php:59
 msgid "Back Matter"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:135 inc/admin/dashboard/namespace.php:184
+#: inc/admin/dashboard/namespace.php:134 inc/admin/dashboard/namespace.php:179
 #: templates/admin/organize.php:143 templates/admin/organize.php:209
 msgid "Add"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:135 inc/admin/dashboard/namespace.php:184
-#: inc/admin/laf/namespace.php:92
+#: inc/admin/dashboard/namespace.php:134 inc/admin/dashboard/namespace.php:179
+#: inc/admin/laf/namespace.php:98
 msgid "Organize"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:193 inc/admin/dashboard/namespace.php:194
-#: inc/admin/laf/namespace.php:421 inc/admin/laf/namespace.php:487
+#: inc/admin/dashboard/namespace.php:188 inc/admin/dashboard/namespace.php:189
+#: inc/admin/laf/namespace.php:466 inc/admin/laf/namespace.php:532
 msgid "Dashboard"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:214
+#: inc/admin/dashboard/namespace.php:209
 msgid "Dashboard Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:221
+#: inc/admin/dashboard/namespace.php:216
 msgid "Display Feed"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:226
+#: inc/admin/dashboard/namespace.php:221
 msgid "Display an RSS feed widget on the dashboard."
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:232
+#: inc/admin/dashboard/namespace.php:227
 msgid "Feed Title"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:240
+#: inc/admin/dashboard/namespace.php:235
 msgid "Feed URL"
 msgstr ""
 
-#: inc/admin/dashboard/namespace.php:267
+#: inc/admin/dashboard/namespace.php:262
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr ""
 
@@ -439,150 +440,150 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:22 inc/admin/laf/namespace.php:346
+#: inc/admin/laf/namespace.php:22 inc/admin/laf/namespace.php:391
 msgid "Help"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:25 inc/admin/laf/namespace.php:356
+#: inc/admin/laf/namespace.php:25 inc/admin/laf/namespace.php:401
 msgid "Contact"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:78
+#: inc/admin/laf/namespace.php:84
 #: inc/modules/themeoptions/class-themeoptions.php:56
 msgid "Theme Options"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:107
+#: inc/admin/laf/namespace.php:113
 msgid "Published"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:143 templates/admin/trash.php:18
+#: inc/admin/laf/namespace.php:151 templates/admin/trash.php:18
 msgid "Trash"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:153
+#: inc/admin/laf/namespace.php:161
 #: inc/modules/import/wordpress/class-wxr.php:334
 msgid "Book Info"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:170 inc/admin/laf/namespace.php:212
+#: inc/admin/laf/namespace.php:178 inc/admin/laf/namespace.php:220
 #: templates/admin/export.php:129 templates/admin/organize.php:43
 #: templates/admin/organize.php:84 templates/admin/organize.php:160
 msgid "Export"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:178
+#: inc/admin/laf/namespace.php:186
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:199 inc/admin/laf/namespace.php:239
-#: inc/admin/laf/namespace.php:957
+#: inc/admin/laf/namespace.php:207 inc/admin/laf/namespace.php:284
+#: inc/admin/laf/namespace.php:1001
 #: inc/admin/network/class-sharingandprivacyoptions.php:193
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:199 inc/admin/laf/namespace.php:239
+#: inc/admin/laf/namespace.php:207 inc/admin/laf/namespace.php:284
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:215 templates/admin/import.php:32
+#: inc/admin/laf/namespace.php:223 templates/admin/import.php:32
 #: templates/admin/import.php:75
 msgid "Import"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:314 inc/admin/laf/namespace.php:325
+#: inc/admin/laf/namespace.php:359 inc/admin/laf/namespace.php:370
 msgid "About Pressbooks"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:336
+#: inc/admin/laf/namespace.php:381
 msgid "Pressbooks.com"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:394
+#: inc/admin/laf/namespace.php:439
 msgid "Add A New Book"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:412
+#: inc/admin/laf/namespace.php:457
 msgid "Network Admin"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:430
+#: inc/admin/laf/namespace.php:475
 msgid "Sites"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:448
+#: inc/admin/laf/namespace.php:493
 msgid "Visit Network"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:501
+#: inc/admin/laf/namespace.php:546
 msgid "Visit Site"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:652
+#: inc/admin/laf/namespace.php:697
 msgid "Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:703
+#: inc/admin/laf/namespace.php:747
 msgid "Unsupported post type."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:728
+#: inc/admin/laf/namespace.php:772
 msgid "You do not have sufficient permissions to access that URL."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:750
+#: inc/admin/laf/namespace.php:794
 msgid "Book Visibility"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:757
+#: inc/admin/laf/namespace.php:801
 msgid "Private Content"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:764
+#: inc/admin/laf/namespace.php:808
 msgid "Disable Comments"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:773
+#: inc/admin/laf/namespace.php:817
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:807
+#: inc/admin/laf/namespace.php:851
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:823
+#: inc/admin/laf/namespace.php:867
 msgid "Public. I would like this book to be visible to everyone."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:829
+#: inc/admin/laf/namespace.php:873
 msgid "Private. I would like this book to be accessible only to people I invite."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:852
+#: inc/admin/laf/namespace.php:896
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: inc/admin/laf/namespace.php:855
+#: inc/admin/laf/namespace.php:899
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:857
+#: inc/admin/laf/namespace.php:901
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:873
+#: inc/admin/laf/namespace.php:917
 msgid "Yes. I want to automatically disable comments, trackbacks and pingbacks on all front matter, chapters and back matter."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:879
+#: inc/admin/laf/namespace.php:923
 msgid "No. I want to leave comments, trackbacks and pingbacks enabled on all front matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:895
+#: inc/admin/laf/namespace.php:939
 msgid "Yes. I would like the latest export files to be available on the homepage for free, to everyone."
 msgstr ""
 
-#: inc/admin/laf/namespace.php:901
+#: inc/admin/laf/namespace.php:945
 msgid "No. I would like the latest export files to only be available to administrators."
 msgstr ""
 
@@ -604,8 +605,9 @@ msgstr ""
 #: inc/admin/metaboxes/namespace.php:140 inc/admin/metaboxes/namespace.php:542
 #: inc/api/endpoints/controller/class-toc.php:179 inc/class-sass.php:54
 #: inc/modules/export/epub/class-epub201.php:1606
-#: inc/modules/searchandreplace/types/class-content.php:103
+#: inc/modules/searchandreplace/types/class-content.php:68
 #: templates/admin/import.php:80 templates/admin/organize.php:41
+#: templates/admin/trash.php:53
 msgid "Part"
 msgstr ""
 
@@ -1270,8 +1272,9 @@ msgid "Has post content, the content field is not empty."
 msgstr ""
 
 #: inc/api/endpoints/controller/class-toc.php:185 inc/class-sass.php:53
-#: inc/modules/searchandreplace/types/class-content.php:106
+#: inc/modules/searchandreplace/types/class-content.php:71
 #: templates/admin/import.php:78 templates/admin/organize.php:59
+#: templates/admin/trash.php:56
 msgid "Chapter"
 msgstr ""
 
@@ -1745,7 +1748,7 @@ msgstr ""
 msgid "Authored by: "
 msgstr ""
 
-#: inc/modules/export/prince/class-pdf.php:270
+#: inc/modules/export/prince/class-pdf.php:276
 msgid "This book was produced using Pressbooks.com, and PDF rendering was done by PrinceXML."
 msgstr ""
 
@@ -1758,21 +1761,21 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: inc/modules/import/class-import.php:385
-#: inc/modules/import/class-import.php:447
+#: inc/modules/import/class-import.php:392
+#: inc/modules/import/class-import.php:454
 #, php-format
 msgid "Your file does not appear to be a valid %s."
 msgstr ""
 
-#: inc/modules/import/class-import.php:393
+#: inc/modules/import/class-import.php:400
 msgid "Your URL does not appear to be valid"
 msgstr ""
 
-#: inc/modules/import/class-import.php:409
+#: inc/modules/import/class-import.php:416
 msgid "The website you are attempting to reach is not returning a successful response header on a HEAD request: "
 msgstr ""
 
-#: inc/modules/import/class-import.php:419
+#: inc/modules/import/class-import.php:426
 msgid "The website you are attempting to reach is not returning HTML content"
 msgstr ""
 
@@ -1849,20 +1852,20 @@ msgid_plural "%d occurrences replaced."
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/modules/searchandreplace/types/class-content.php:89
+#: inc/modules/searchandreplace/types/class-content.php:54
 msgid "view"
 msgstr ""
 
-#: inc/modules/searchandreplace/types/class-content.php:91
+#: inc/modules/searchandreplace/types/class-content.php:56
 msgid "edit"
 msgstr ""
 
-#: inc/modules/searchandreplace/types/class-content.php:115
+#: inc/modules/searchandreplace/types/class-content.php:80
 #, php-format
 msgid "%1$s ID #%2$d: %1$s"
 msgstr ""
 
-#: inc/modules/searchandreplace/types/class-content.php:143
+#: inc/modules/searchandreplace/types/class-content.php:108
 msgid "Content Text"
 msgstr ""
 
@@ -2909,17 +2912,17 @@ msgstr ""
 msgid "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at %3$s. To select a new theme or change your theme options, please %4$s."
 msgstr ""
 
-#: inc/theme/namespace.php:36
+#: inc/theme/namespace.php:37
 #, php-format
 msgid "Your theme, %1$s, is not installed. Please visit %2$s for installation instructions."
 msgstr ""
 
-#: inc/theme/namespace.php:49
+#: inc/theme/namespace.php:51
 #, php-format
 msgid "The Pressbooks Publisher theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions."
 msgstr ""
 
-#: inc/theme/namespace.php:61
+#: inc/theme/namespace.php:64
 #, php-format
 msgid "The Pressbooks Book theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions."
 msgstr ""
@@ -3594,12 +3597,12 @@ msgstr ""
 msgid "(no title)"
 msgstr ""
 
-#: templates/admin/trash.php:56
+#: templates/admin/trash.php:69
 #, php-format
 msgid "Restore &#8220;%s&#8221; from the Trash"
 msgstr ""
 
-#: templates/admin/trash.php:57
+#: templates/admin/trash.php:70
 msgid "Restore"
 msgstr ""
 
