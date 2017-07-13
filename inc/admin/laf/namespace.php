@@ -229,8 +229,8 @@ function replace_book_admin_menu() {
 		}
 	);
 
-	// Clone
-	$page = add_management_page( __( 'Clone', 'pressbooks' ), __( 'Clone', 'pressbooks' ), 'edit_posts', 'pb_clone', __NAMESPACE__ . '\display_clone' );
+	// Clone a Book
+	$page = add_submenu_page( 'options.php', __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
 	add_action(
 		'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
 			if ( $hook === $page ) {
@@ -340,10 +340,10 @@ function display_export() {
 }
 
 /**
- * Displays the Clone Admin Page
+ * Displays the Clone a Book Page
  */
-function display_clone() {
-	require( PB_PLUGIN_DIR . 'templates/admin/clone.php' );
+function display_cloner() {
+	require( PB_PLUGIN_DIR . 'templates/admin/cloner.php' );
 }
 
 /**
@@ -452,6 +452,15 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			'id' => 'add-new-book',
 			'title' => __( 'Add A New Book', 'pressbooks' ),
 			'href' => network_home_url( 'wp-signup.php' ),
+		]
+	);
+
+	$wp_admin_bar->add_node(
+		[
+			'parent' => 'my-books',
+			'id' => 'clone-a-book',
+			'title' => __( 'Clone A Book', 'pressbooks' ),
+			'href' => home_url( 'wp-admin/options.php?page=pb_cloner' ),
 		]
 	);
 
