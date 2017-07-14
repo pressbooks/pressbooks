@@ -64,7 +64,7 @@ function check_required_themes() {
 			__( 'The Pressbooks Book theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions.', 'pressbooks' ),
 			sprintf(
 				'<a href="%1$s">%2$s</a>',
-				'https://github.com/pressbooks/pressbooks-publisher',
+				'https://github.com/pressbooks/pressbooks-book',
 				'GitHub'
 			)
 		) );
