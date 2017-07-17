@@ -9,6 +9,7 @@
 namespace Pressbooks\Theme;
 
 use Pressbooks\Theme\Lock;
+
 use function Pressbooks\Admin\Fonts\update_font_stacks;
 
 /**
@@ -44,16 +45,18 @@ function check_required_themes() {
 		) );
 	}
 
-	$theme = wp_get_theme( 'pressbooks-publisher' );
-	if ( ! $theme->exists() ) {
-		wp_die( sprintf(
-			__( 'The Pressbooks Publisher theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions.', 'pressbooks' ),
-			sprintf(
-				'<a href="%1$s">%2$s</a>',
-				'https://github.com/pressbooks/pressbooks-book',
-				'GitHub'
-			)
-		) );
+	if ( PB_ROOT_THEME === 'pressbooks-publisher' ) { // To bypass this check, define PB_ROOT_THEME to the name of your custom root theme in wp-config.php.
+		$theme = wp_get_theme( 'pressbooks-publisher' );
+		if ( ! $theme->exists() ) {
+			wp_die( sprintf(
+				__( 'The Pressbooks Publisher theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions.', 'pressbooks' ),
+				sprintf(
+					'<a href="%1$s">%2$s</a>',
+					'https://github.com/pressbooks/pressbooks-publisher',
+					'GitHub'
+				)
+			) );
+		}
 	}
 
 	$theme = wp_get_theme( 'pressbooks-book' );
@@ -62,7 +65,7 @@ function check_required_themes() {
 			__( 'The Pressbooks Book theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions.', 'pressbooks' ),
 			sprintf(
 				'<a href="%1$s">%2$s</a>',
-				'https://github.com/pressbooks/pressbooks-publisher',
+				'https://github.com/pressbooks/pressbooks-book',
 				'GitHub'
 			)
 		) );
@@ -89,7 +92,6 @@ function migrate_book_themes() {
 
 		if ( isset( $comparisons[ $theme ] ) ) {
 			switch_theme( $comparisons[ $theme ] );
-			update_font_stacks();
 
 			if ( Lock::isLocked() ) {
 				$data = Lock::getLockData();

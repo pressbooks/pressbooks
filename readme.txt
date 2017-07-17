@@ -255,6 +255,7 @@ TK.
 
 == Upgrade Notice ==
 
+Upon upgrading to Pressbooks 4.0, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
 Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
 
 Pressbooks now requires [WordPress 4.8.0](https://wordpress.org/download/).
@@ -265,7 +266,7 @@ Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for P
 
 ### 4.0.0
 
-**NOTICE:** Upon upgrading to Pressbooks 4.0, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](upgrading.md).
+**NOTICE:** Upon upgrading to Pressbooks 4.0, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
 
 **NOTICE:** Pressbooks 4.0 requires [WordPress 4.8.0](https://wordpress.org/news/2017/06/evans/).
 
@@ -315,6 +316,9 @@ The Pressbooks command line interface is now part of Pressbooks. Want to make yo
 * **Fix:** The editor style is now enqueued with a version for cache busting (see #813 and #814).
 * **Fix:** The Search and Replace module no longer searches items in the trash (see [6978734](https://github.com/pressbooks/pressbooks/commit/697873425439be829abaeb077fbc3f6a8391b17e)).
 * **Fix:** Miscellaneous improvements to improve performance and reduce unnecessary error output.
+
+### 3.9.10
+* **Feature:** Strikethrough text (the `<del>` tag) can now be used in front matter, part, chapter and back matter titles (see #790).
 
 ### 3.9.9
 **NOTICE:** Pressbooks now requires [WordPress 4.7.5](https://wordpress.org/news/2017/05/wordpress-4-7-5/).
