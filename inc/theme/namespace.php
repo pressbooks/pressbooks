@@ -10,8 +10,6 @@ namespace Pressbooks\Theme;
 
 use Pressbooks\Theme\Lock;
 
-require_once( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
-
 use function Pressbooks\Admin\Fonts\update_font_stacks;
 
 /**
