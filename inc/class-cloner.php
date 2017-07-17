@@ -16,25 +16,25 @@ class Cloner {
 	 *
 	 * @var string
 	 */
-	protected $sourceBook;
+	protected $sourceBookUrl;
 
 	/**
-	 * The metadata of the source book.
+	 * The structure and contents of the source book as returned by the Pressbooks REST API v2.
 	 *
 	 * @since 4.1.0
 	 *
 	 * @var array
 	 */
-	protected $sourceMetadata;
+	protected $sourceBookStructure;
 
 	/**
-	 * The TOC of the source book.
+	 * The metadata of the source book as returned by the Pressbooks REST API v2.
 	 *
 	 * @since 4.1.0
 	 *
 	 * @var array
 	 */
-	protected $sourceToc;
+	protected $sourceBookMetadata;
 
 	/**
 	 * The URL of the target book.
@@ -43,7 +43,7 @@ class Cloner {
 	 *
 	 * @var string
 	 */
-	protected $targetBook;
+	protected $targetBookUrl;
 
 	/**
 	 * The ID of the target book.
@@ -81,15 +81,25 @@ class Cloner {
 	 * @param string $target_url The URL of the target book.
 	 */
 	public function __construct( $source_url, $target_url = null ) {
-		$this->sourceBook = esc_url( untrailingslashit( $source_url ) );
-		if ( $target_url ) {
-			$this->targetBook = esc_url( untrailingslashit( $target_url ) );
-			$this->targetBookId = $this->getTargetBookId();
-		}
-
+		// Disable SSL verification for development
 		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
 			$this->requestArgs = [ 'sslverify' => false ];
 		}
+
+		// Set up $this->sourceBookUrl
+		$this->sourceBookUrl = esc_url( untrailingslashit( $source_url ) );
+
+		// Set up $this->sourceBookStructure
+		$this->sourceBookStructure = $this->getSourceBookStructure();
+
+		// Set up $this->sourceBookMetadata
+		$this->sourceBookMetadata = $this->getSourceBookMetadata();
+
+		if ( $target_url ) {
+			$this->targetBookUrl = esc_url( untrailingslashit( $target_url ) );
+			$this->targetBookId = $this->getTargetBookId();
+		}
+
 	}
 
 	/**
@@ -100,15 +110,9 @@ class Cloner {
 	 * @return bool
 	 */
 	public function cloneBook() {
-		// Populate Metadata
-		$this->sourceMetadata = $this->getSourceMetadata();
-
 		if ( ! $this->isCloneable() ) {
 			return false; // TODO Explain why
 		}
-
-		// Populate TOC
-		$this->sourceToc = $this->getSourceToc();
 
 		// Create Book
 		$this->targetBook = $this->createBook();
@@ -117,22 +121,22 @@ class Cloner {
 		$this->cloneMetadata();
 
 		// Clone Front Matter
-		foreach ( $this->sourceToc['front-matter'] as $id ) {
+		foreach ( $this->sourceBookStructure['front-matter'] as $id ) {
 			$this->cloneFrontMatter( $id );
 		}
 
 		// Clone Parts
-		foreach ( $this->sourceToc['parts'] as $id ) {
+		foreach ( $this->sourceBookStructure['parts'] as $id ) {
 			$part_id = $this->clonePart( $id );
 
 			// Clone Chapters
-			foreach ( $this->sourceToc['parts'][ $part_id ]['chapters'] as $id ) {
+			foreach ( $this->sourceBookStructure['parts'][ $part_id ]['chapters'] as $id ) {
 				$this->cloneChapter( $id, $part_id );
 			}
 		}
 
 		// Clone Back Matter
-		foreach ( $this->sourceToc['back-matter'] as $id ) {
+		foreach ( $this->sourceBookStructure['back-matter'] as $id ) {
 			$this->cloneBackMatter( $id );
 		}
 
@@ -189,25 +193,59 @@ class Cloner {
 	}
 
 	/**
-	 * Fetch an array of metadata from a source book.
+	 * Fetch an array containing the structure and contents of a source book.
 	 *
 	 * @since 4.1.0
 	 *
-	 * @return bool | array False if the operation failed; the array of metadata if it succeeded.
+	 * @return bool | array False if the operation failed; the structure and contents array if it succeeded.
 	 */
-	public function getSourceMetadata() {
-		// TODO
+	public function getSourceBookStructure() {
+		// Build request URL
+		$request_url = sprintf(
+			'%1$s/%2$s/pressbooks/v2/toc?_embed',
+			$this->sourceBookUrl,
+			$this->restBase
+		);
+
+		// GET response from API
+		$response = wp_remote_get( $request_url, $this->requestArgs );
+
+		// Inform user of failure, bail
+		if ( is_wp_error( $response ) ) {
+			wp_die( $response->get_error_message() ); // TODO
+			return false;
+		}
+
+		// Process response
+		return json_decode( $response['body'], true );
 	}
 
 	/**
-	 * Fetch a TOC array from a source book.
+	 * Fetch an array containing the metadata of a source book.
 	 *
 	 * @since 4.1.0
 	 *
-	 * @return bool | array False if the operation failed; the TOC array if it succeeded.
+	 * @return bool | array False if the operation failed; the metadata array if it succeeded.
 	 */
-	public function getSourceToc() {
-		// TODO
+	public function getSourceBookMetadata() {
+		// Build request URL
+		$request_url = sprintf(
+			'%1$s/%2$s/pressbooks/v2/metadata',
+			$this->sourceBookUrl,
+			$this->restBase
+		);
+
+		// GET response from API
+		$response = wp_remote_get( $request_url, $this->requestArgs );
+
+		// Inform user of failure, bail
+		if ( is_wp_error( $response ) ) {
+			wp_die( $response->get_error_message() ); // TODO
+			return false;
+		}
+
+		// Process response
+		return json_decode( $response['body'], true );
 	}
 
 	/**
@@ -233,6 +271,13 @@ class Cloner {
 	 * @return bool Whether or not the book is public and licensed for cloning.
 	 */
 	public function isCloneable() {
+		if ( in_array( $this->sourceBookMetadata['license'], [
+			'https://creativecommons.org/licenses/by-nd/4.0/',
+			'https://creativecommons.org/licenses/by-nc-nd/4.0/',
+			'https://choosealicense.com/no-license/',
+		], true ) ) {
+			return false; // No derivatives OR all rights reserved
+		}
 		return true;
 	}
 
@@ -271,35 +316,18 @@ class Cloner {
 	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
 		global $blog_id;
 
-		// Determine endpoint based on $post_type
-		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
-
-		// Build request URL
-		$request_url = sprintf(
-			'%1$s/%2$s/pressbooks/v2/%3$s/%4$s',
-			$this->sourceBook,
-			$this->restBase,
-			$endpoint,
-			$section_id
-		);
-
-		// GET response from API
-		$response = wp_remote_get( $request_url, $this->requestArgs );
-
-		// Inform user of failure, bail
-		if ( is_wp_error( $response ) ) {
-			wp_die( $response->get_error_message() ); // TODO
-			return false;
-		}
-
-		// Process response
-		$section = json_decode( $response['body'], true );
+		// Retrieve section
+		foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $k => $v ) {
+			if ( $v['id'] === absint( $section_id ) ) {
+				$section = $this->sourceBookStructure['_embedded'][ $post_type ][ $k ];
+			}
+		};
 
 		// Get links
 		$links = array_pop( $section );
 
 		// Remove source-specific properties
-		$bad_keys = [ 'guid', 'link', 'id' ];
+		$bad_keys = [ 'author', 'link', 'id' ];
 		foreach ( $bad_keys as $bad_key ) {
 			unset( $section[ $bad_key ] );
 		}
@@ -308,12 +336,13 @@ class Cloner {
 		$section['title'] = $section['title']['rendered'];
 		$section['content'] = $section['content']['rendered'];
 
-		// Set part
+		// TODO Set part
 		if ( $post_type === 'chapter' ) {
-			$section['part'] = $target_parent_id;
+			$section['part'] = $parent_id;
 		}
 
-		// TODO Handle authors
+		// Determine endpoint based on $post_type
+		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
 
 		// POST internal request
 		if ( $blog_id !== $this->targetBookId ) {
