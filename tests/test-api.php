@@ -86,6 +86,9 @@ class ApiTest extends \WP_UnitTestCase {
 			'/wp/v2/pages',
 			'/wp/v2/tags',
 			'/wp/v2/categories',
+			'/wp/v2/front-matter-type',
+			'/wp/v2/chapter-type',
+			'/wp/v2/back-matter-type',
 			'/pressbooks/v2/parts/999/metadata',
 		];
 		$server = $this->setupBookApi();

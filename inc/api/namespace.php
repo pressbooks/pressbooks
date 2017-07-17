@@ -97,6 +97,9 @@ function hide_endpoints_from_book( $endpoints ) {
 			( strpos( $key, '/wp/v2/pages' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/tags' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/categories' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/front-matter-type' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/chapter-type' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/back-matter-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2' ) === 0 && strpos( $key, '/revisions' ) !== false )
 		) {
 			unset( $endpoints[ $key ] );
