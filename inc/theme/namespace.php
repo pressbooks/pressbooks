@@ -92,7 +92,6 @@ function migrate_book_themes() {
 
 		if ( isset( $comparisons[ $theme ] ) ) {
 			switch_theme( $comparisons[ $theme ] );
-			update_font_stacks();
 
 			if ( Lock::isLocked() ) {
 				$data = Lock::getLockData();
