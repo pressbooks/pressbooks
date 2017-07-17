@@ -44,10 +44,12 @@ after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_deploy:
 - composer install --no-dev
+- cd ../
 - zip -9 -ry pressbooks-$TRAVIS_TAG.zip ../pressbooks
   -x *.git* *assets/src/\* *bin/\* *node_modules/\* *tests/\* *.editorconfig* *.gitattributes*
   *.github* *.gitignore* *.phpstorm.meta.php* *.travis.yml* *.tx* *phpcs.ruleset.xml*
   *phpunit.xml* *webpack.mix.js* *yarn.lock*
+- mv pressbooks-$TRAVIS_TAG.zip pressbooks/pressbooks-$TRAVIS_TAG.zip
 deploy:
   provider: releases
   skip_cleanup: true
