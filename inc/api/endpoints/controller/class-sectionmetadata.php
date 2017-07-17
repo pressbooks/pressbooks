@@ -343,6 +343,13 @@ class SectionMetadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'isBasedOn' => [
+					'type' => 'string',
+					'format' => 'uri',
+					'description' => __( 'A resource that was used in the creation of this resource. This term can be repeated for multiple sources.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 			],
 		];
 
@@ -418,6 +425,7 @@ class SectionMetadata extends \WP_REST_Controller {
 			'pb_title' => 'name',
 			'pb_short_title' => 'alternateName',
 			'pb_subtitle' => 'alternativeHeadline',
+			'pb_is_based_on' => 'isBasedOn',
 		];
 
 		$mapped_book_properties = [
@@ -531,6 +539,10 @@ class SectionMetadata extends \WP_REST_Controller {
 		}
 
 		$new_section_information['license'] = \Pressbooks\Metadata\get_url_for_license( $section_information['pb_section_license'] );
+
+		if ( ! isset( $section_information['pb_is_based_on'] ) && isset( $book_information['pb_is_based_on'] ) ) {
+			$new_section_information['isBasedOn'] = $book_information['pb_is_based_on'];
+		}
 
 		// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 

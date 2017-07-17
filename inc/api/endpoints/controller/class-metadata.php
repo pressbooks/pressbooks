@@ -355,6 +355,13 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'isBasedOn' => [
+					'type' => 'string',
+					'format' => 'uri',
+					'description' => __( 'A resource that was used in the creation of this resource. This term can be repeated for multiple sources.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 			],
 		];
 
@@ -420,6 +427,7 @@ class Metadata extends \WP_REST_Controller {
 			'pb_about_50' => 'description',
 			'pb_cover_image' => 'image',
 			'pb_series_number' => 'position',
+			'pb_is_based_on' => 'isBasedOn',
 		];
 
 		foreach ( $mapped_properties as $old => $new ) {

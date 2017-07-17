@@ -53,6 +53,7 @@ function get_microdata_elements() {
 		'inLanguage' => 'pb_language',
 		'keywords' => 'pb_keywords_tags',
 		'publisher' => 'pb_publisher',
+		'isBasedOn' => 'pb_is_based_on',
 	];
 	$metadata = Book::getBookInformation();
 
