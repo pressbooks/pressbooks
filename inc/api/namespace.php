@@ -48,6 +48,13 @@ function init_book() {
 		}
 	}
 
+	foreach ( get_taxonomies() as $taxonomy ) {
+		// Override Revisions routes for our custom post types
+		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type' ], true ) ) {
+			( new Endpoints\Controller\Terms( $taxonomy ) )->register_routes();
+		}
+	}
+
 	// Add Part ID to chapters
 	// We disable hierarchical mode but still want to use `post_parent`
 	register_rest_field( 'chapter', 'part', [
