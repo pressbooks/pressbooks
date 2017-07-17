@@ -48,6 +48,13 @@ function init_book() {
 		}
 	}
 
+	foreach ( get_taxonomies() as $taxonomy ) {
+		// Override Revisions routes for our custom post types
+		if ( in_array( $taxonomy, [ 'front-matter-type', 'chapter-type', 'back-matter-type' ], true ) ) {
+			( new Endpoints\Controller\Terms( $taxonomy ) )->register_routes();
+		}
+	}
+
 	// Add Part ID to chapters
 	// We disable hierarchical mode but still want to use `post_parent`
 	register_rest_field( 'chapter', 'part', [
@@ -90,6 +97,9 @@ function hide_endpoints_from_book( $endpoints ) {
 			( strpos( $key, '/wp/v2/pages' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/tags' ) === 0 ) ||
 			( strpos( $key, '/wp/v2/categories' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/front-matter-type' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/chapter-type' ) === 0 ) ||
+			( strpos( $key, '/wp/v2/back-matter-type' ) === 0 ) ||
 			( strpos( $key, '/wp/v2' ) === 0 && strpos( $key, '/revisions' ) !== false )
 		) {
 			unset( $endpoints[ $key ] );

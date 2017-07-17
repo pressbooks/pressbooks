@@ -63,6 +63,7 @@ class Taxonomy {
 				],
 				'labels' => $labels,
 				'show_ui' => true,
+				'show_in_rest' => true,
 				'query_var' => true,
 				'rewrite' => [ 'slug' => 'front-matter-type' ],
 			]
@@ -103,6 +104,7 @@ class Taxonomy {
 				],
 				'labels' => $labels,
 				'show_ui' => true,
+				'show_in_rest' => true,
 				'query_var' => true,
 				'rewrite' => [ 'slug' => 'back-matter-type' ],
 			]
@@ -143,6 +145,7 @@ class Taxonomy {
 				],
 				'labels' => $labels,
 				'show_ui' => true,
+				'show_in_rest' => true,
 				'query_var' => true,
 				'rewrite' => [ 'slug' => 'chapter-type' ],
 			]
