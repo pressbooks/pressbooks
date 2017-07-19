@@ -110,12 +110,14 @@ class Cloner {
 	 * @return bool
 	 */
 	public function cloneBook() {
-		if ( ! $this->isCloneable() ) {
+		if ( ! $this->isBookCloneable() ) {
+			echo 'Can\'t do it!';
 			return false; // TODO Explain why
 		}
 
 		// Create Book
 		$this->targetBook = $this->createBook();
+		echo $this->targetBook;
 
 		// Clone Metadata
 		$this->cloneMetadata();
@@ -264,19 +266,40 @@ class Cloner {
 	}
 
 	/**
+	 * Is the source book local?
+	 *
+	 * @since 4.1.0
+	 *
+	 * @return bool Whether or not the book is part of the local network.
+	 */
+	public function isBookLocal() {
+		return false;
+	}
+
+	/**
 	 * Is the source book cloneable?
 	 *
 	 * @since 4.1.0
 	 *
-	 * @return bool Whether or not the book is public and licensed for cloning.
+	 * @return bool Whether or not the book is public and licensed for cloning (or true if the current user is a network administrator and the book is in the current network).
 	 */
-	public function isCloneable() {
-		if ( in_array( $this->sourceBookMetadata['license'], [
+	public function isBookCloneable() {
+		$restrictive_licenses = [
 			'https://creativecommons.org/licenses/by-nd/4.0/',
 			'https://creativecommons.org/licenses/by-nc-nd/4.0/',
 			'https://choosealicense.com/no-license/',
-		], true ) ) {
-			return false; // No derivatives OR all rights reserved
+		];
+
+		if ( $this->isBookLocal() ) {
+			if ( current_user_can( 'manage_network_options' ) ) {
+				return true; // Network administrators can clone local books no matter how they're licensed
+			} elseif ( ! in_array( $this->sourceBookMetadata['license'], $restrictive_licenses, true ) ) {
+				return true; // Anyone can clone local books that aren't restrictively licensed
+			} else {
+				return false;
+			}
+		} elseif ( in_array( $this->sourceBookMetadata['license'], $restrictive_licenses, true ) ) {
+			return false; // No one can clone global books that are restrictively licensed
 		}
 		return true;
 	}
@@ -289,7 +312,24 @@ class Cloner {
 	 * @return bool | string False if the creation failed; the URL of the new book if it succeeded.
 	 */
 	protected function createBook() {
-		// TODO
+		$host = wp_parse_url( network_home_url(), PHP_URL_HOST );
+		if ( is_subdomain_install() ) {
+			$domain = $this->getSubdomainOrSubDirectory( $this->sourceBookUrl ) . '.' . $host;
+			$path = '/';
+			if ( get_blog_id_from_url( $domain, $path ) ) {
+				// TODO: Sidestep existing book with the same URL.
+			}
+		} else {
+			$domain = $host;
+			$path = '/' . $this->getSubdomainOrSubDirectory( $this->sourceBookUrl );
+			if ( get_blog_id_from_url( $domain, $path ) ) {
+				// TODO: Sidestep existing book with the same URL.
+			}
+		}
+
+		$title = $this->sourceBookMetadata['name'];
+		$user_id = get_current_user_id();
+		wpmu_create_blog( $domain, $path, $title, $user_id );
 	}
 
 	/**
@@ -406,5 +446,25 @@ class Cloner {
 	 */
 	protected function cloneSectionComments( $section_id, $target_id ) {
 		// TODO
+	}
+
+	/**
+	 * Given a URL, get the subdomain or subdirectory (depending on the type of multisite install).
+	 *
+	 * @since 4.1.0
+	 *
+	 * @return string
+	 */
+	public static function getSubdomainOrSubDirectory( $url ) {
+		$url = untrailingslashit( $url );
+		$host = wp_parse_url( $url, PHP_URL_HOST );
+		$path = wp_parse_url( $url, PHP_URL_PATH );
+		if ( $path ) {
+			return ltrim( $path, '/\\' );
+		} else {
+			$host = explode( '.', $host );
+			$subdomain = array_shift( $host );
+			return $subdomain;
+		}
 	}
 }
