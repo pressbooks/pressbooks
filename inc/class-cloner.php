@@ -73,6 +73,15 @@ class Cloner {
 	protected $termMap = [];
 
 	/**
+	 * An array of cloned item types.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @var array
+	 */
+	protected $clonedItems = [ 'term' => 0, 'front-matter' => 0, 'part' => 0, 'chapter' => 0, 'back-matter' => 0 ];
+
+	/**
 	 * The REST API base.
 	 *
 	 * @since 4.1.0
@@ -107,20 +116,10 @@ class Cloner {
 		// Set up $this->sourceBookUrl
 		$this->sourceBookUrl = esc_url( untrailingslashit( $source_url ) );
 
-		// Set up $this->sourceBookStructure
-		$this->sourceBookStructure = $this->getSourceBookStructure();
-
-		// Set up $this->sourceBookTerms
-		$this->sourceBookTerms = $this->getSourceBookTerms();
-
-		// Set up $this->sourceBookMetadata
-		$this->sourceBookMetadata = $this->getSourceBookMetadata();
-
 		if ( $target_url ) {
 			$this->targetBookUrl = esc_url( untrailingslashit( $target_url ) );
 			$this->targetBookId = $this->getBookId( $url );
 		}
-
 	}
 
 	/**
@@ -131,12 +130,33 @@ class Cloner {
 	 * @return bool
 	 */
 	public function cloneBook() {
+		// Set up $this->sourceBookMetadata
+		$this->sourceBookMetadata = $this->getSourceBookMetadata();
+		if ( empty( $this->sourceBookMetadata ) ) {
+			return false;
+		}
+
+		// Verify license or network administrator override
 		if ( ! $this->isBookCloneable() ) {
-			return false; // TODO Error message
+			$_SESSION['pb_errors'][] = sprintf( __( '%s is not licensed for cloning.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			return false;
+		}
+
+		// Set up $this->sourceBookStructure
+		$this->sourceBookStructure = $this->getSourceBookStructure();
+		if ( empty( $this->sourceBookStructure ) ) {
+			return false;
+		}
+
+		// Set up $this->sourceBookTerms
+		$this->sourceBookTerms = $this->getSourceBookTerms();
+		if ( empty( $this->sourceBookTerms ) ) {
+			return false;
 		}
 
 		// Create Book
 		$this->targetBookId = $this->createBook();
+		$this->targetBookUrl = get_blogaddress_by_id( $this->targetBookId );
 
 		// Clone Metadata
 		$this->cloneMetadata();
@@ -166,6 +186,16 @@ class Cloner {
 			$this->cloneBackMatter( $backmatter['id'] );
 		}
 
+		$_SESSION['pb_notices'][] = sprintf(
+			__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, and %5$s to %6$s.', 'pressbooks' ),
+			sprintf( _n( '%s term', '%s terms', $this->clonedItems['term'], 'pressbooks' ), $this->clonedItems['term'] ),
+			sprintf( _n( '%s front matter', '%s front matter', $this->clonedItems['front-matter'], 'pressbooks' ), $this->clonedItems['front-matter'] ),
+			sprintf( _n( '%s part', '%s parts', $this->clonedItems['part'], 'pressbooks' ), $this->clonedItems['part'] ),
+			sprintf( _n( '%s chapter', '%s chapters', $this->clonedItems['chapter'], 'pressbooks' ), $this->clonedItems['chapter'] ),
+			sprintf( _n( '%s back matter', '%s back matter', $this->clonedItems['back-matter'], 'pressbooks' ), $this->clonedItems['back-matter'] ),
+			sprintf( '<a href="%1$s"><em>%2$s</em></a>', $this->targetBookUrl, $this->sourceBookMetadata['name'] )
+		);
+
 		return true;
 	}
 
@@ -180,6 +210,7 @@ class Cloner {
 	 */
 	public function cloneTerm( $id, $taxonomy ) {
 		// TODO
+		$this->clonedItems['term']++;
 		return $id;
 	}
 
@@ -233,11 +264,50 @@ class Cloner {
 	}
 
 	/**
+	 * Fetch an array containing the metadata of a source book.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @return false | array False if the operation failed; the metadata array if it succeeded.
+	 */
+	public function getSourceBookMetadata() {
+		// Build request URL
+		$request_url = sprintf(
+			'%1$s/%2$s/pressbooks/v2/metadata',
+			$this->sourceBookUrl,
+			$this->restBase
+		);
+
+		// GET response from API
+		$response = wp_remote_get( $request_url, $this->requestArgs );
+
+		// Bail on error
+		if ( is_wp_error( $response ) ) {
+			$_SESSION['pb_errors'][] = sprintf(
+				'<p>%1$s</p><p>%2$s</p>',
+				__( 'The source book&rsquo;s metadata could not be read.', 'pressbooks' ),
+				$response->get_error_message()
+			);
+			return false;
+		} elseif ( isset( $response['response']['code'] ) && $response['response']['code'] >= 400 ) {
+			$_SESSION['pb_errors'][] = sprintf(
+				'<p>%1$s</p><p>%2$s</p>',
+				__( 'The source book&rsquo;s metadata could not be read.', 'pressbooks' ),
+				$response['response']['code'] . ': ' . $response['response']['message']
+			);
+			return false;
+		}
+
+		// Process response
+		return json_decode( $response['body'], true );
+	}
+
+	/**
 	 * Fetch an array containing the structure and contents of a source book.
 	 *
 	 * @since 4.1.0
 	 *
-	 * @return bool | array False if the operation failed; the structure and contents array if it succeeded.
+	 * @return WP_Error | array WP_Error object if the operation failed; the structure and contents array if it succeeded.
 	 */
 	public function getSourceBookStructure() {
 		// Build request URL
@@ -250,9 +320,21 @@ class Cloner {
 		// GET response from API
 		$response = wp_remote_get( $request_url, $this->requestArgs );
 
-		// Inform user of failure, bail
+		// Bail on error
 		if ( is_wp_error( $response ) ) {
-			return false; // TODO Error message
+			$_SESSION['pb_errors'][] = sprintf(
+				'<p>%1$s</p><p>%2$s</p>',
+				__( 'The source book&rsquo;s structure and contents could not be read.', 'pressbooks' ),
+				$response->get_error_message()
+			);
+			return false;
+		} elseif ( isset( $response['response']['code'] ) && $response['response']['code'] >= 400 ) {
+			$_SESSION['pb_errors'][] = sprintf(
+				'<p>%1$s</p><p>%2$s</p>',
+				__( 'The source book&rsquo;s structure and contents could not be read.', 'pressbooks' ),
+				$response['response']['code'] . ': ' . $response['response']['message']
+			);
+			return false;
 		}
 
 		// Process response
@@ -264,7 +346,7 @@ class Cloner {
 	 *
 	 * @since 4.1.0
 	 *
-	 * @return bool | array False if the operation failed; the term array if it succeeded.
+	 * @return WP_Error | array WP_Error object if the operation failed; the term array if it succeeded.
 	 */
 	public function getSourceBookTerms() {
 		$terms = [];
@@ -281,9 +363,21 @@ class Cloner {
 			// GET response from API
 			$response = wp_remote_get( $request_url, $this->requestArgs );
 
-			// Inform user of failure, bail
+			// Bail on error
 			if ( is_wp_error( $response ) ) {
-				return false; // TODO Error message
+				$_SESSION['pb_errors'][] = sprintf(
+					'<p>%1$s</p><p>%2$s</p>',
+					__( 'The source book&rsquo;s taxonomies could not be read.', 'pressbooks' ),
+					$response->get_error_message()
+				);
+				return false;
+			} elseif ( isset( $response['response']['code'] ) && $response['response']['code'] >= 400 ) {
+				$_SESSION['pb_errors'][] = sprintf(
+					'<p>%1$s</p><p>%2$s</p>',
+					__( 'The source book&rsquo;s taxonomies could not be read.', 'pressbooks' ),
+					$response['response']['code'] . ': ' . $response['response']['message']
+				);
+				return false;
 			}
 
 			// Process response
@@ -291,34 +385,6 @@ class Cloner {
 		}
 
 		return $terms;
-	}
-
-
-	/**
-	 * Fetch an array containing the metadata of a source book.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @return bool | array False if the operation failed; the metadata array if it succeeded.
-	 */
-	public function getSourceBookMetadata() {
-		// Build request URL
-		$request_url = sprintf(
-			'%1$s/%2$s/pressbooks/v2/metadata',
-			$this->sourceBookUrl,
-			$this->restBase
-		);
-
-		// GET response from API
-		$response = wp_remote_get( $request_url, $this->requestArgs );
-
-		// Inform user of failure, bail
-		if ( is_wp_error( $response ) ) {
-			return false; // TODO Error message
-		}
-
-		// Process response
-		return json_decode( $response['body'], true );
 	}
 
 	/**
@@ -472,6 +538,8 @@ class Cloner {
 		$this->cloneSectionRevisions( $section_id, $response['id'] );
 		$this->cloneSectionAttachments( $section_id, $response['id'] );
 		$this->cloneSectionComments( $section_id, $response['id'] );
+
+		$this->clonedItems[ $post_type ]++;
 
 		return $response['id'];
 	}
