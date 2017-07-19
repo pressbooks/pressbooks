@@ -111,7 +111,9 @@ class Activation {
 
 		if ( is_user_logged_in() ) {
 			( new \Pressbooks\Catalog() )->deleteCache();
-			\Pressbooks\Redirect\location( get_admin_url( $this->blog_id ) );
+			if ( apply_filters( 'pb_redirect_to_new_book', true ) ) {
+				\Pressbooks\Redirect\location( get_admin_url( $this->blog_id ) );
+			}
 		}
 
 	}

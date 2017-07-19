@@ -116,30 +116,29 @@ class Cloner {
 		}
 
 		// Create Book
-		$this->targetBook = $this->createBook();
-		echo $this->targetBook;
+		$this->targetBookId = $this->createBook();
 
 		// Clone Metadata
 		$this->cloneMetadata();
 
 		// Clone Front Matter
-		foreach ( $this->sourceBookStructure['front-matter'] as $id ) {
-			$this->cloneFrontMatter( $id );
+		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
+			$this->cloneFrontMatter( $frontmatter['id'] );
 		}
 
 		// Clone Parts
-		foreach ( $this->sourceBookStructure['parts'] as $id ) {
-			$part_id = $this->clonePart( $id );
+		foreach ( $this->sourceBookStructure['part'] as $key => $part ) {
+			$part_id = $this->clonePart( $part['id'] );
 
 			// Clone Chapters
-			foreach ( $this->sourceBookStructure['parts'][ $part_id ]['chapters'] as $id ) {
-				$this->cloneChapter( $id, $part_id );
+			foreach ( $this->sourceBookStructure['part'][ $key ]['chapters'] as $chapter ) {
+				$this->cloneChapter( $chapter['id'], $part_id );
 			}
 		}
 
 		// Clone Back Matter
-		foreach ( $this->sourceBookStructure['back-matter'] as $id ) {
-			$this->cloneBackMatter( $id );
+		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
+			$this->cloneBackMatter( $backmatter['id'] );
 		}
 
 		return true;
@@ -154,7 +153,7 @@ class Cloner {
 	 * @return bool | int False if the clone failed; the ID of the new front matter if it succeeded.
 	 */
 	public function cloneFrontMatter( $id ) {
-		$this->cloneSection( $id, 'front-matter' );
+		return $this->cloneSection( $id, 'front-matter' );
 	}
 
 	/**
@@ -166,7 +165,7 @@ class Cloner {
 	 * @return bool | int False if the clone failed; the ID of the new part if it succeeded.
 	 */
 	public function clonePart( $id ) {
-		$this->cloneSection( $id, 'part' );
+		return $this->cloneSection( $id, 'part' );
 	}
 
 	/**
@@ -179,7 +178,7 @@ class Cloner {
 	 * @return bool | int False if the clone failed; the ID of the new chapter if it succeeded.
 	 */
 	public function cloneChapter( $id, $part_id ) {
-		$this->cloneSection( $id, 'chapter', $part_id );
+		return $this->cloneSection( $id, 'chapter', $part_id );
 	}
 
 	/**
@@ -191,7 +190,7 @@ class Cloner {
 	 * @return bool | int False if the clone failed; the ID of the new back matter if it succeeded.
 	 */
 	public function cloneBackMatter( $id ) {
-		$this->cloneSection( $id, 'back-matter' );
+		return $this->cloneSection( $id, 'back-matter' );
 	}
 
 	/**
@@ -329,7 +328,18 @@ class Cloner {
 
 		$title = $this->sourceBookMetadata['name'];
 		$user_id = get_current_user_id();
-		wpmu_create_blog( $domain, $path, $title, $user_id );
+		add_filter( 'pb_redirect_to_new_book', function () {
+			return false;
+		} );
+		// TODO Delete default content (or prevent it from being added in the first place)
+		$result = wpmu_create_blog( $domain, $path, $title, $user_id );
+		remove_all_filters( 'pb_redirect_to_new_book' );
+
+		if ( ! is_wp_error( $result ) ) {
+			return $result;
+		}
+
+		return false;
 	}
 
 	/**
@@ -375,6 +385,8 @@ class Cloner {
 		// Move title and content up
 		$section['title'] = $section['title']['rendered'];
 		$section['content'] = $section['content']['rendered'];
+
+		// TODO Get/set taxonomy term
 
 		// TODO Set part
 		if ( $post_type === 'chapter' ) {
