@@ -7,12 +7,13 @@ use Pressbooks\Cloner;
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Clone', 'pressbooks' ); ?></h1>
-	<p><?php _e( 'Select a book within your network. You can clone it as a new book, or you can clone any of its content into an existing book to which you have administrative access.', 'pressbooks' ); ?><p>
-	<form action="">
+	<p><?php _e( 'Enter the URL to a Pressbooks book to clone it.', 'pressbooks' ); ?><p>
+	<form action="" method="post">
+		<?php wp_nonce_field( 'pb-cloner' ); ?>
 		<table class="form-table">
 			<tr>
 				<th scope=row><?php _e( 'Source Book URL', 'pressbooks' ); ?></th>
-				<td><input class="regular-text code" name="source_book_id" type="url" /></td>
+				<td><input class="regular-text code" name="source_book_url" type="url" /></td>
 			</tr>
 		</table>
 		<p><input class="button button-primary" type="submit" value="<?php _e( 'Clone It!', 'pressbooks' ); ?>" /></p>

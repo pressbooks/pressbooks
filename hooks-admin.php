@@ -231,6 +231,7 @@ add_action( 'init', '\Pressbooks\Modules\Export\Export::formSubmit', 50 );
 add_action( 'init', '\Pressbooks\Modules\Import\Import::formSubmit', 50 );
 add_action( 'init', '\Pressbooks\CustomCss::formSubmit', 50 );
 add_action( 'init', '\Pressbooks\Catalog::formSubmit', 50 );
+add_action( 'init', '\Pressbooks\Cloner::formSubmit', 50 );
 
 // -------------------------------------------------------------------------------------------------------------------
 // Leftovers

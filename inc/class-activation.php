@@ -111,6 +111,13 @@ class Activation {
 
 		if ( is_user_logged_in() ) {
 			( new \Pressbooks\Catalog() )->deleteCache();
+			/**
+			 * Determine whether or not to redirect the user to the new book's dashboard.
+			 *
+			 * @since 4.1.0
+			 *
+			 * @param bool Whether or not to redirect the user
+			 */
 			if ( apply_filters( 'pb_redirect_to_new_book', true ) ) {
 				\Pressbooks\Redirect\location( get_admin_url( $this->blog_id ) );
 			}
@@ -163,27 +170,27 @@ class Activation {
 
 		$posts = [
 			// Parts, Chapters, Front-Matter, Back-Matter
-			[
+			'main-body' => [
 				'post_title' => __( 'Main Body', 'pressbooks' ),
 				'post_name' => 'main-body',
 				'post_type' => 'part',
 				'menu_order' => 1,
 			],
-			[
+			'introduction' => [
 				'post_title' => __( 'Introduction', 'pressbooks' ),
 				'post_name' => 'introduction',
 				'post_content' => __( 'This is where you can write your introduction.', 'pressbooks' ),
 				'post_type' => 'front-matter',
 				'menu_order' => 1,
 			],
-			[
+			'chapter-1' => [
 				'post_title' => __( 'Chapter 1', 'pressbooks' ),
 				'post_name' => 'chapter-1',
 				'post_content' => __( 'This is the first chapter in the main body of the text. You can change the text, rename the chapter, add new chapters, and add new parts.', 'pressbooks' ),
 				'post_type' => 'chapter',
 				'menu_order' => 1,
 			],
-			[
+			'appendix' => [
 				'post_title' => __( 'Appendix', 'pressbooks' ),
 				'post_name' => 'appendix',
 				'post_content' => __( 'This is where you can add appendices or other back matter.', 'pressbooks' ),
@@ -191,49 +198,49 @@ class Activation {
 				'menu_order' => 1,
 			],
 			// Pages
-			[
+			'authors' => [
 				'post_title' => __( 'Authors', 'pressbooks' ),
 				'post_name' => 'authors',
 				'post_type' => 'page',
 			],
-			[
+			'cover' => [
 				'post_title' => __( 'Cover', 'pressbooks' ),
 				'post_name' => 'cover',
 				'post_type' => 'page',
 			],
-			[
+			'table-of-contents' => [
 				'post_title' => __( 'Table of Contents', 'pressbooks' ),
 				'post_name' => 'table-of-contents',
 				'post_type' => 'page',
 			],
-			[
+			'about' => [
 				'post_title' => __( 'About', 'pressbooks' ),
 				'post_name' => 'about',
 				'post_type' => 'page',
 			],
-			[
+			'buy' => [
 				'post_title' => __( 'Buy', 'pressbooks' ),
 				'post_name' => 'buy',
 				'post_type' => 'page',
 			],
-			[
+			'access-denied' => [
 				'post_title' => __( 'Access Denied', 'pressbooks' ),
 				'post_name' => 'access-denied',
 				'post_content' => __( 'This book is private, and accessible only to registered users. If you have an account you can login <a href="/wp-login.php">here</a>. You can also set up your own Pressbooks book at: <a href="http://pressbooks.com">Pressbooks.com</a>.', 'pressbooks' ),
 				'post_type' => 'page',
 			],
 			// Custom CSS
-			[
+			'custom-css-epub' => [
 				'post_title' => __( 'Custom CSS for Ebook', 'pressbooks' ),
 				'post_name' => 'epub',
 				'post_type' => 'custom-css',
 			],
-			[
+			'custom-css-prince' => [
 				'post_title' => __( 'Custom CSS for PDF', 'pressbooks' ),
 				'post_name' => 'prince',
 				'post_type' => 'custom-css',
 			],
-			[
+			'custom-css-web' => [
 				'post_title' => __( 'Custom CSS for Web', 'pressbooks' ),
 				'post_name' => 'web',
 				'post_type' => 'custom-css',
@@ -244,6 +251,15 @@ class Activation {
 				'post_type' => 'metadata',
 			],
 		];
+
+		/**
+		 * Filter the default content for new books.
+		 *
+		 * @since 4.1.0
+		 *
+		 * @param array The default book content.
+		 */
+		$posts = apply_filters( 'pb_default_book_content', $posts );
 
 		$part = [ 'post_status' => 'publish', 'comment_status' => 'closed', 'post_author' => $this->user_id ];
 		$post = [ 'post_status' => 'publish', 'comment_status' => 'open', 'post_author' => $this->user_id ];
@@ -308,11 +324,14 @@ class Activation {
 						$my_post['ID'] = $newpost;
 						$my_post['post_parent'] = $parent_part;
 						wp_update_post( $my_post );
-						$chapter1 = $newpost;
+						// Apply 'standard' chapter type to 'chapter 1' post
+						wp_set_object_terms( $newpost, 'standard', 'chapter-type' );
 					} elseif ( 'front-matter' === $item['post_type'] ) {
-						$intro = $newpost;
+						// Apply 'introduction' front matter type to 'introduction' post
+						wp_set_object_terms( $newpost, 'introduction', 'front-matter-type' );
 					} elseif ( 'back-matter' === $item['post_type'] ) {
-						$appendix = $newpost;
+						// Apply 'appendix' front matter type to 'appendix' post
+						wp_set_object_terms( $newpost, 'appendix', 'back-matter-type' );
 					} elseif ( 'metadata' === $item['post_type'] ) {
 						$metadata_id = $newpost;
 						if ( 0 !== get_current_user_id() ) {
@@ -337,13 +356,6 @@ class Activation {
 				}
 			}
 		}
-
-		// Apply 'introduction' front matter type to 'introduction' post
-		wp_set_object_terms( $intro, 'introduction', 'front-matter-type' );
-		// Apply 'appendix' front matter type to 'appendix' post
-		wp_set_object_terms( $appendix, 'appendix', 'back-matter-type' );
-		// Apply 'standard' chapter type to 'chapter 1' post
-		wp_set_object_terms( $chapter1, 'standard', 'chapter-type' );
 
 		// Remove content generated by wp_install_defaults
 		if ( ! wp_delete_post( 1, true ) ) {
