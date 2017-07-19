@@ -186,16 +186,6 @@ class Cloner {
 			$this->cloneBackMatter( $backmatter['id'] );
 		}
 
-		$_SESSION['pb_notices'][] = sprintf(
-			__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, and %5$s to %6$s.', 'pressbooks' ),
-			sprintf( _n( '%s term', '%s terms', $this->clonedItems['term'], 'pressbooks' ), $this->clonedItems['term'] ),
-			sprintf( _n( '%s front matter', '%s front matter', $this->clonedItems['front-matter'], 'pressbooks' ), $this->clonedItems['front-matter'] ),
-			sprintf( _n( '%s part', '%s parts', $this->clonedItems['part'], 'pressbooks' ), $this->clonedItems['part'] ),
-			sprintf( _n( '%s chapter', '%s chapters', $this->clonedItems['chapter'], 'pressbooks' ), $this->clonedItems['chapter'] ),
-			sprintf( _n( '%s back matter', '%s back matter', $this->clonedItems['back-matter'], 'pressbooks' ), $this->clonedItems['back-matter'] ),
-			sprintf( '<a href="%1$s"><em>%2$s</em></a>', $this->targetBookUrl, $this->sourceBookMetadata['name'] )
-		);
-
 		return true;
 	}
 
@@ -673,7 +663,18 @@ class Cloner {
 		if ( isset( $_POST['_wpnonce'] ) &&  wp_verify_nonce( $_POST['_wpnonce'], 'pb-cloner' ) ) {
 			if ( isset( $_POST['source_book_url'] ) && ! empty( $_POST['source_book_url'] ) ) {
 				$cloner = new Cloner( esc_url( $_POST['source_book_url'] ) );
-				$cloner->cloneBook();
+				if ( $cloner->cloneBook() ) {
+					$_SESSION['pb_notices'][] = sprintf(
+						__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, and %5$s to %6$s.', 'pressbooks' ),
+						sprintf( _n( '%s term', '%s terms', $cloner->clonedItems['term'], 'pressbooks' ), $cloner->clonedItems['term'] ),
+						sprintf( _n( '%s front matter', '%s front matter', $cloner->clonedItems['front-matter'], 'pressbooks' ), $cloner->clonedItems['front-matter'] ),
+						sprintf( _n( '%s part', '%s parts', $cloner->clonedItems['part'], 'pressbooks' ), $cloner->clonedItems['part'] ),
+						sprintf( _n( '%s chapter', '%s chapters', $cloner->clonedItems['chapter'], 'pressbooks' ), $cloner->clonedItems['chapter'] ),
+						sprintf( _n( '%s back matter', '%s back matter', $cloner->clonedItems['back-matter'], 'pressbooks' ), $cloner->clonedItems['back-matter'] ),
+						sprintf( '<a href="%1$s"><em>%2$s</em></a>', $cloner->targetBookUrl, $cloner->sourceBookMetadata['name'] )
+					);
+				}
+				\Pressbooks\Redirect\location( admin_url( 'options.php?page=pb_cloner' ) );
 			} else {
 				$_SESSION['pb_errors'][] = __( 'You must enter a valid URL to a book on a Pressbooks network running Pressbooks 4.1 or greater.', 'pressbooks' );
 			}
