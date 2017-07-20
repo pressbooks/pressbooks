@@ -43,13 +43,14 @@ script:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 before_deploy:
+- export TRAVIS_PROJECT_SLUG="$(basename $TRAVIS_BUILD_DIR)"
 - composer install --no-dev
 - cd ../
-- zip -9 -ry pressbooks-$TRAVIS_TAG.zip ../pressbooks
+- zip -9 -ry $TRAVIS_BUILD_DIR/$TRAVIS_PROJECT_SLUG-$TRAVIS_TAG.zip $TRAVIS_PROJECT_SLUG
   -x *.git* *assets/src/\* *bin/\* *node_modules/\* *tests/\* *.editorconfig* *.gitattributes*
   *.github* *.gitignore* *.phpstorm.meta.php* *.travis.yml* *.tx* *phpcs.ruleset.xml*
   *phpunit.xml* *webpack.mix.js* *yarn.lock*
-- mv pressbooks-$TRAVIS_TAG.zip pressbooks/pressbooks-$TRAVIS_TAG.zip
+- cd $TRAVIS_BUILD_DIR
 deploy:
   provider: releases
   skip_cleanup: true
