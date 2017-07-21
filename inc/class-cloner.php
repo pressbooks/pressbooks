@@ -19,6 +19,15 @@ class Cloner {
 	protected $sourceBookUrl;
 
 	/**
+	 * The ID of the source book, or 0 if the source book is not part of this network.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @var bool
+	 */
+	protected $sourceBookId;
+
+	/**
 	 * The structure and contents of the source book as returned by the Pressbooks REST API v2.
 	 *
 	 * @since 4.1.0
@@ -116,6 +125,10 @@ class Cloner {
 		// Set up $this->sourceBookUrl
 		$this->sourceBookUrl = esc_url( untrailingslashit( $source_url ) );
 
+		// Set up $this->sourceBookId
+		$this->sourceBookId = $this->getBookId( $this->sourceBookUrl );
+
+		// Set up $this->targetBookUrl and $this->targetBookId if set
 		if ( $target_url ) {
 			$this->targetBookUrl = esc_url( untrailingslashit( $target_url ) );
 			$this->targetBookId = $this->getBookId( $url );
@@ -196,11 +209,11 @@ class Cloner {
 	 *
 	 * @param int $id The ID of the term within the source book.
 	 * @param int $taxonomy The taxonomy of the term within the source book.
-	 * @return bool The ID of the new term if it the clone succeeded or the idea of a matching term if it exists.
+	 * @return bool The ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
 	 */
 	public function cloneTerm( $id, $taxonomy ) {
 		// TODO
-		$this->clonedItems['term']++;
+		// $this->clonedItems['term']++; @codingStandardsIgnoreLine
 		return $id;
 	}
 
@@ -261,17 +274,10 @@ class Cloner {
 	 * @return false | array False if the operation failed; the metadata array if it succeeded.
 	 */
 	public function getSourceBookMetadata() {
-		// Build request URL
-		$request_url = sprintf(
-			'%1$s/%2$s/pressbooks/v2/metadata',
-			$this->sourceBookUrl,
-			$this->restBase
-		);
+		// Handle request (local or global)
+		$response = $this->handleRequest( 'pressbooks/v2', 'metadata' );
 
-		// GET response from API
-		$response = wp_remote_get( $request_url, $this->requestArgs );
-
-		// Bail on error
+		// Handle errors
 		if ( is_wp_error( $response ) ) {
 			$_SESSION['pb_errors'][] = sprintf(
 				'<p>%1$s</p><p>%2$s</p>',
@@ -279,17 +285,10 @@ class Cloner {
 				$response->get_error_message()
 			);
 			return false;
-		} elseif ( isset( $response['response']['code'] ) && $response['response']['code'] >= 400 ) {
-			$_SESSION['pb_errors'][] = sprintf(
-				'<p>%1$s</p><p>%2$s</p>',
-				__( 'The source book&rsquo;s metadata could not be read.', 'pressbooks' ),
-				$response['response']['code'] . ': ' . $response['response']['message']
-			);
-			return false;
 		}
 
-		// Process response
-		return json_decode( $response['body'], true );
+		// Return successful response
+		return $response;
 	}
 
 	/**
@@ -300,17 +299,10 @@ class Cloner {
 	 * @return WP_Error | array WP_Error object if the operation failed; the structure and contents array if it succeeded.
 	 */
 	public function getSourceBookStructure() {
-		// Build request URL
-		$request_url = sprintf(
-			'%1$s/%2$s/pressbooks/v2/toc?_embed',
-			$this->sourceBookUrl,
-			$this->restBase
-		);
+		// Handle request (local or global)
+		$response = $this->handleRequest( 'pressbooks/v2', 'toc' );
 
-		// GET response from API
-		$response = wp_remote_get( $request_url, $this->requestArgs );
-
-		// Bail on error
+		// Handle errors
 		if ( is_wp_error( $response ) ) {
 			$_SESSION['pb_errors'][] = sprintf(
 				'<p>%1$s</p><p>%2$s</p>',
@@ -318,17 +310,10 @@ class Cloner {
 				$response->get_error_message()
 			);
 			return false;
-		} elseif ( isset( $response['response']['code'] ) && $response['response']['code'] >= 400 ) {
-			$_SESSION['pb_errors'][] = sprintf(
-				'<p>%1$s</p><p>%2$s</p>',
-				__( 'The source book&rsquo;s structure and contents could not be read.', 'pressbooks' ),
-				$response['response']['code'] . ': ' . $response['response']['message']
-			);
-			return false;
 		}
 
-		// Process response
-		return json_decode( $response['body'], true );
+		// Return successful response
+		return $response;
 	}
 
 	/**
@@ -342,16 +327,8 @@ class Cloner {
 		$terms = [];
 
 		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
-			// Build request URL
-			$request_url = sprintf(
-				'%1$s/%2$s/pressbooks/v2/%3$s?per_page=25',
-				$this->sourceBookUrl,
-				$this->restBase,
-				$taxonomy
-			);
-
-			// GET response from API
-			$response = wp_remote_get( $request_url, $this->requestArgs );
+			// Handle request (local or global)
+			$response = $this->handleRequest( 'pressbooks/v2', "$taxonomy", [ 'per_page' => 25 ] );
 
 			// Bail on error
 			if ( is_wp_error( $response ) ) {
@@ -361,17 +338,10 @@ class Cloner {
 					$response->get_error_message()
 				);
 				return false;
-			} elseif ( isset( $response['response']['code'] ) && $response['response']['code'] >= 400 ) {
-				$_SESSION['pb_errors'][] = sprintf(
-					'<p>%1$s</p><p>%2$s</p>',
-					__( 'The source book&rsquo;s taxonomies could not be read.', 'pressbooks' ),
-					$response['response']['code'] . ': ' . $response['response']['message']
-				);
-				return false;
 			}
 
 			// Process response
-			$terms = array_merge( $terms, json_decode( $response['body'], true ) );
+			$terms = array_merge( $terms, $response );
 		}
 
 		return $terms;
@@ -391,7 +361,7 @@ class Cloner {
 			'https://choosealicense.com/no-license/',
 		];
 
-		if ( $this->getBookId( $this->sourceBookUrl ) ) {
+		if ( ! empty( $this->sourceBookId ) ) {
 			if ( current_user_can( 'manage_network_options' ) ) {
 				return true; // Network administrators can clone local books no matter how they're licensed
 			} elseif ( ! in_array( $this->sourceBookMetadata['license'], $restrictive_licenses, true ) ) {
@@ -470,18 +440,28 @@ class Cloner {
 	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
 		global $blog_id;
 
+		$endpoint = ( in_array( $post_type, [ 'part', 'chapter' ], true ) ) ? $post_type . 's' : $post_type;
+
 		// Retrieve section
-		foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $k => $v ) {
-			if ( $v['id'] === absint( $section_id ) ) {
-				$section = $this->sourceBookStructure['_embedded'][ $post_type ][ $k ];
-			}
-		};
+		$response = $this->handleRequest( 'pressbooks/v2', "$endpoint/$section_id" );
+
+		// Handle errors
+		if ( is_wp_error( $response ) ) {
+			$_SESSION['pb_errors'][] = sprintf(
+				'<p>%1$s</p><p>%2$s</p>',
+				sprintf( __( 'The %1$s %2$s could not be read.', 'pressbooks' ), $post_type, $section_id ),
+				$response->get_error_message()
+			);
+			return false;
+		} else {
+			$section = $response;
+		}
 
 		// Get links
 		$links = array_pop( $section );
 
 		// Remove source-specific properties
-		$bad_keys = [ 'author', 'link', 'id' ];
+		$bad_keys = [ 'author', 'guid', 'id', 'link' ];
 		foreach ( $bad_keys as $bad_key ) {
 			unset( $section[ $bad_key ] );
 		}
@@ -571,6 +551,48 @@ class Cloner {
 	 */
 	protected function cloneSectionComments( $section_id, $target_id ) {
 		// TODO Write this function
+	}
+
+	protected function handleRequest( $namespace, $endpoint, $params = [] ) {
+		// Build request URL
+		$request_url = sprintf(
+			'%1$s/%2$s/%3$s/%4$s',
+			$this->sourceBookUrl,
+			$this->restBase,
+			$namespace,
+			$endpoint
+		);
+
+		// Add params
+		if ( ! empty( $params ) ) {
+			$request_url .= '?' . build_query( $params );
+		}
+
+		if ( ! empty( $this->sourceBookId ) ) {
+			// GET response from API
+			switch_to_blog( $this->sourceBookId );
+			$response = rest_do_request( \WP_REST_Request::from_url( $request_url ) );
+			restore_current_blog();
+
+			// Handle errors
+			if ( is_wp_error( $response ) ) {
+				return $response;
+			} else {
+				return array_merge( $response->get_data(), [ '_links' => $response->get_links() ] );
+			}
+		} else {
+			// GET response from API
+			$response = wp_remote_get( $request_url, $this->requestArgs );
+
+			// Handle errors
+			if ( is_wp_error( $response ) ) {
+				return $response;
+			} elseif ( isset( $response['response']['code'] ) && $response['response']['code'] >= 400 ) {
+				return new \WP_Error( $response['response']['code'], $response['response']['message'] );
+			} else {
+				return json_decode( $response['body'], true );
+			}
+		}
 	}
 
 	/**
