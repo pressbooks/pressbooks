@@ -340,6 +340,9 @@ class Cloner {
 				return false;
 			}
 
+			// Remove links
+			unset( $response['_links'] );
+
 			// Process response
 			$terms = array_merge( $terms, $response );
 		}
@@ -488,14 +491,15 @@ class Cloner {
 		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
 
 		// POST internal request
-		if ( $blog_id !== $this->targetBookId ) {
+		$switch = ( $blog_id !== $this->targetBookId ) ? true : false;
+		if ( $switch ) {
 			switch_to_blog( $this->targetBookId );
 		}
 
 		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $section );
 		$response = rest_do_request( $request )->get_data();
-		if ( $blog_id !== $this->targetBookId ) {
+		if ( $switch ) {
 			restore_current_blog();
 		}
 
@@ -554,24 +558,14 @@ class Cloner {
 	}
 
 	protected function handleRequest( $namespace, $endpoint, $params = [] ) {
-		// Build request URL
-		$request_url = sprintf(
-			'%1$s/%2$s/%3$s/%4$s',
-			$this->sourceBookUrl,
-			$this->restBase,
-			$namespace,
-			$endpoint
-		);
-
-		// Add params
-		if ( ! empty( $params ) ) {
-			$request_url .= '?' . build_query( $params );
-		}
-
 		if ( ! empty( $this->sourceBookId ) ) {
 			// GET response from API
 			switch_to_blog( $this->sourceBookId );
-			$response = rest_do_request( \WP_REST_Request::from_url( $request_url ) );
+			$request = new \WP_REST_Request( 'GET', "/$namespace/$endpoint" );
+			if ( ! empty( $params ) ) {
+				$request->set_query_params( $params );
+			}
+			$response = rest_do_request( $request );
 			restore_current_blog();
 
 			// Handle errors
@@ -581,6 +575,20 @@ class Cloner {
 				return array_merge( $response->get_data(), [ '_links' => $response->get_links() ] );
 			}
 		} else {
+			// Build request URL
+			$request_url = sprintf(
+				'%1$s/%2$s/%3$s/%4$s',
+				$this->sourceBookUrl,
+				$this->restBase,
+				$namespace,
+				$endpoint
+			);
+
+			// Add params
+			if ( ! empty( $params ) ) {
+				$request_url .= '?' . build_query( $params );
+			}
+
 			// GET response from API
 			$response = wp_remote_get( $request_url, $this->requestArgs );
 
