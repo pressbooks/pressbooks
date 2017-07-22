@@ -176,6 +176,7 @@ class Cloner {
 
 		// Clone Taxonomy Terms
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
+
 		foreach ( $this->sourceBookTerms as $term ) {
 			$this->termMap[ $term['id'] ] = $this->cloneTerm( $term['id'], $term['taxonomy'] );
 		}
@@ -208,13 +209,60 @@ class Cloner {
 	 *
 	 * @since 4.1.0
 	 *
-	 * @param int $id The ID of the term within the source book.
+	 * @param int $term_id The ID of the term within the source book.
 	 * @param int $taxonomy The taxonomy of the term within the source book.
 	 * @return bool The ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
 	 */
-	public function cloneTerm( $id, $taxonomy ) {
-		// $this->clonedItems['term']++; @codingStandardsIgnoreLine
-		return $id;
+	public function cloneTerm( $term_id, $taxonomy ) {
+		global $blog_id;
+
+		// Retrieve term
+		foreach ( $this->sourceBookTerms as $k => $v ) {
+			if ( $v['id'] === absint( $term_id ) ) {
+				$term = $this->sourceBookTerms[ $k ];
+			}
+		};
+
+		// Check for matching term
+		foreach ( $this->targetBookTerms as $k => $v ) {
+			if ( $v['slug'] === $term['slug'] && $v['taxonomy'] === $term['taxonomy'] ) {
+				$this->clonedItems['term']++;
+				return $v['id'];
+			}
+		};
+
+		// Set endpoint
+		$endpoint = $term['taxonomy'];
+
+		// Get links
+		$links = array_pop( $term );
+
+		// Remove source-specific properties
+		$bad_keys = [ 'id', 'count', 'link', 'parent', 'taxonomy' ];
+		foreach ( $bad_keys as $bad_key ) {
+			unset( $term[ $bad_key ] );
+		}
+
+		// POST internal request
+		$switch = ( $blog_id !== $this->targetBookId ) ? true : false;
+		if ( $switch ) {
+			switch_to_blog( $this->targetBookId );
+		}
+
+		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
+		$request->set_body_params( $term );
+		$response = rest_do_request( $request )->get_data();
+		if ( $switch ) {
+			restore_current_blog();
+		}
+
+		// Inform user of failure, bail
+		if ( is_wp_error( $response ) ) {
+			wp_die( $response->get_message() );
+		} else {
+			$this->clonedItems['term']++;
+			return $response['id'];
+		}
 	}
 
 	/**
@@ -394,13 +442,13 @@ class Cloner {
 			$domain = $this->getSubdomainOrSubDirectory( $this->sourceBookUrl ) . '.' . $host;
 			$path = '/';
 			if ( get_blog_id_from_url( $domain, trailingslashit( $path ) ) ) {
-				$domain = $this->getSubdomainOrSubDirectory( $this->sourceBookUrl ) . strftime( '%Y%m%d%H%M' ) . '.' . $host;
+				$domain = $this->getSubdomainOrSubDirectory( $this->sourceBookUrl ) . strftime( '%Y%m%d%H%M%S' ) . '.' . $host;
 			}
 		} else {
 			$domain = $host;
 			$path = '/' . $this->getSubdomainOrSubDirectory( $this->sourceBookUrl );
 			if ( get_blog_id_from_url( $domain, trailingslashit( $path ) ) ) {
-				$path = $path . strftime( '%Y%m%d%H%M' );
+				$path = $path . strftime( '%Y%m%d%H%M%S' );
 			}
 		}
 
@@ -462,9 +510,12 @@ class Cloner {
 			unset( $section[ $bad_key ] );
 		}
 
-		// Move title and content up
-		$section['title'] = $section['title']['rendered'];
-		$section['content'] = $section['content']['rendered'];
+		// Set status
+		$section['status'] = 'publish';
+
+		// Set title and content
+		$section['title'] = ( isset( $section['title']['rendered'] ) ) ? $section['title']['rendered'] : '';
+		$section['content'] = ( isset( $section['content']['rendered'] ) ) ? $section['content']['rendered'] : '';
 
 		// Set part
 		if ( $post_type === 'chapter' ) {
@@ -474,8 +525,8 @@ class Cloner {
 		// Set mapped term ID
 		if ( $post_type !== 'part' ) {
 			if ( isset( $section[ "$post_type-type" ] ) ) {
-				foreach ( $section[ "$post_type-type" ] as $key => $term ) {
-					$section[ "$post_type-type" ][ $key ] = $this->termMap[ $term ];
+				foreach ( $section[ "$post_type-type" ] as $key => $term_id ) {
+					$section[ "$post_type-type" ][ $key ] = $this->termMap[ $term_id ];
 				}
 			}
 		}
