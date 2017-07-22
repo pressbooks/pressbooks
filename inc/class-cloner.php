@@ -553,9 +553,8 @@ class Cloner {
 		}
 
 		// Clone associated content
-		$this->cloneSectionRevisions( $section_id, $response['id'] );
+		$this->cloneSectionMetadata( $section_id, $response['id'] );
 		$this->cloneSectionAttachments( $section_id, $response['id'] );
-		$this->cloneSectionComments( $section_id, $response['id'] );
 
 		$this->clonedItems[ $post_type ]++;
 
@@ -563,15 +562,15 @@ class Cloner {
 	}
 
 	/**
-	 * Clone revisions of a section (front matter, part, chapter, back matter) from a source book to a target book.
+	 * Clone metadata of a section (front matter, part, chapter, back matter) from a source book to a target book.
 	 *
 	 * @since 4.1.0
 	 *
 	 * @param int $section_id The ID of the section within the source book.
 	 * @param int $target_id The ID of the section within the target book.
-	 * @return bool | int | array False if the clone failed; the ID or IDs of the new revisions if it succeeded.
+	 * @return bool False if the clone failed; true if it succeeded.
 	 */
-	protected function cloneSectionRevisions( $section_id, $target_id ) {
+	protected function cloneSectionMetadata( $section_id, $target_id ) {
 		// TODO Write this function
 	}
 
@@ -585,19 +584,6 @@ class Cloner {
 	 * @return bool | int | array False if the clone failed; the ID or IDs of the new attachments if it succeeded.
 	 */
 	protected function cloneSectionAttachments( $section_id, $target_id ) {
-		// TODO Write this function
-	}
-
-	/**
-	 * Clone comments on a section (front matter, part, chapter, back matter) from a source book to a target book.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @param int $section_id The ID of the section within the source book.
-	 * @param int $target_id The ID of the section within the target book.
-	 * @return bool | int | array False if the clone failed; the ID or IDs of the new attachments if it succeeded.
-	 */
-	protected function cloneSectionComments( $section_id, $target_id ) {
 		// TODO Write this function
 	}
 
