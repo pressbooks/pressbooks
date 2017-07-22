@@ -144,7 +144,7 @@ class Cloner {
 	 */
 	public function cloneBook() {
 		// Set up $this->sourceBookMetadata
-		$this->sourceBookMetadata = $this->getSourceBookMetadata();
+		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookMetadata ) ) {
 			return false;
 		}
@@ -156,13 +156,13 @@ class Cloner {
 		}
 
 		// Set up $this->sourceBookStructure
-		$this->sourceBookStructure = $this->getSourceBookStructure();
+		$this->sourceBookStructure = $this->getBookStructure( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookStructure ) ) {
 			return false;
 		}
 
 		// Set up $this->sourceBookTerms
-		$this->sourceBookTerms = $this->getSourceBookTerms();
+		$this->sourceBookTerms = $this->getBookTerms( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookTerms ) ) {
 			return false;
 		}
@@ -175,6 +175,7 @@ class Cloner {
 		$this->cloneMetadata();
 
 		// Clone Taxonomy Terms
+		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
 			$this->termMap[ $term['id'] ] = $this->cloneTerm( $term['id'], $term['taxonomy'] );
 		}
@@ -212,7 +213,6 @@ class Cloner {
 	 * @return bool The ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
 	 */
 	public function cloneTerm( $id, $taxonomy ) {
-		// TODO
 		// $this->clonedItems['term']++; @codingStandardsIgnoreLine
 		return $id;
 	}
@@ -267,15 +267,16 @@ class Cloner {
 	}
 
 	/**
-	 * Fetch an array containing the metadata of a source book.
+	 * Fetch an array containing the metadata of a book.
 	 *
 	 * @since 4.1.0
 	 *
+	 * @param string $url The URL of the book.
 	 * @return false | array False if the operation failed; the metadata array if it succeeded.
 	 */
-	public function getSourceBookMetadata() {
+	public function getBookMetadata( $url ) {
 		// Handle request (local or global)
-		$response = $this->handleRequest( 'pressbooks/v2', 'metadata' );
+		$response = $this->handleRequest( $url, 'pressbooks/v2', 'metadata' );
 
 		// Handle errors
 		if ( is_wp_error( $response ) ) {
@@ -292,15 +293,16 @@ class Cloner {
 	}
 
 	/**
-	 * Fetch an array containing the structure and contents of a source book.
+	 * Fetch an array containing the structure and contents of a book.
 	 *
 	 * @since 4.1.0
 	 *
+	 * @param string $url The URL of the book.
 	 * @return WP_Error | array WP_Error object if the operation failed; the structure and contents array if it succeeded.
 	 */
-	public function getSourceBookStructure() {
+	public function getBookStructure( $url ) {
 		// Handle request (local or global)
-		$response = $this->handleRequest( 'pressbooks/v2', 'toc' );
+		$response = $this->handleRequest( $url , 'pressbooks/v2', 'toc', [ '_embed' => 1 ] );
 
 		// Handle errors
 		if ( is_wp_error( $response ) ) {
@@ -317,18 +319,19 @@ class Cloner {
 	}
 
 	/**
-	 * Fetch an array containing the terms of a source book.
+	 * Fetch an array containing the terms of a book.
 	 *
 	 * @since 4.1.0
 	 *
+	 * @param string $url The URL of the book.
 	 * @return WP_Error | array WP_Error object if the operation failed; the term array if it succeeded.
 	 */
-	public function getSourceBookTerms() {
+	public function getBookTerms( $url ) {
 		$terms = [];
 
 		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
 			// Handle request (local or global)
-			$response = $this->handleRequest( 'pressbooks/v2', "$taxonomy", [ 'per_page' => 25 ] );
+			$response = $this->handleRequest( $url, 'pressbooks/v2', "$taxonomy", [ 'per_page' => 25 ] );
 
 			// Bail on error
 			if ( is_wp_error( $response ) ) {
@@ -443,28 +446,18 @@ class Cloner {
 	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
 		global $blog_id;
 
-		$endpoint = ( in_array( $post_type, [ 'part', 'chapter' ], true ) ) ? $post_type . 's' : $post_type;
-
 		// Retrieve section
-		$response = $this->handleRequest( 'pressbooks/v2', "$endpoint/$section_id" );
-
-		// Handle errors
-		if ( is_wp_error( $response ) ) {
-			$_SESSION['pb_errors'][] = sprintf(
-				'<p>%1$s</p><p>%2$s</p>',
-				sprintf( __( 'The %1$s %2$s could not be read.', 'pressbooks' ), $post_type, $section_id ),
-				$response->get_error_message()
-			);
-			return false;
-		} else {
-			$section = $response;
-		}
+		foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $k => $v ) {
+			if ( $v['id'] === absint( $section_id ) ) {
+				$section = $this->sourceBookStructure['_embedded'][ $post_type ][ $k ];
+			}
+		};
 
 		// Get links
 		$links = array_pop( $section );
 
 		// Remove source-specific properties
-		$bad_keys = [ 'author', 'guid', 'id', 'link' ];
+		$bad_keys = [ 'author', 'id', 'link' ];
 		foreach ( $bad_keys as $bad_key ) {
 			unset( $section[ $bad_key ] );
 		}
@@ -557,10 +550,11 @@ class Cloner {
 		// TODO Write this function
 	}
 
-	protected function handleRequest( $namespace, $endpoint, $params = [] ) {
-		if ( ! empty( $this->sourceBookId ) ) {
+	protected function handleRequest( $url, $namespace, $endpoint, $params = [] ) {
+		$local_book = $this->getBookId( $url );
+		if ( $local_book ) {
 			// GET response from API
-			switch_to_blog( $this->sourceBookId );
+			switch_to_blog( $local_book );
 			$request = new \WP_REST_Request( 'GET', "/$namespace/$endpoint" );
 			if ( ! empty( $params ) ) {
 				$request->set_query_params( $params );
@@ -572,7 +566,7 @@ class Cloner {
 			if ( is_wp_error( $response ) ) {
 				return $response;
 			} else {
-				return array_merge( $response->get_data(), [ '_links' => $response->get_links() ] );
+				return rest_get_server()->response_to_data( $response, true );
 			}
 		} else {
 			// Build request URL
