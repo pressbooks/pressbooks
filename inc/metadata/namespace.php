@@ -240,6 +240,48 @@ function get_url_for_license( $license ) {
 }
 
 /**
+ * Returns Book Information-compatible license value from URL.
+ *
+ * @since 4.1.0
+ *
+ * @param string
+ *
+ * @return string
+ */
+function get_license_from_url( $url ) {
+	switch ( $url ) {
+		case 'https://creativecommons.org/publicdomain/zero/1.0/':
+			$license = 'public-domain';
+			break;
+		case 'https://creativecommons.org/licenses/by/4.0/':
+			$license = 'cc-by';
+			break;
+		case 'https://creativecommons.org/licenses/by-sa/4.0/':
+			$license = 'cc-by-sa';
+			break;
+		case 'https://creativecommons.org/licenses/by-nd/4.0/':
+			$license = 'cc-by-nd';
+			break;
+		case 'https://creativecommons.org/licenses/by-nc/4.0/':
+			$license = 'cc-by-nc';
+			break;
+		case 'https://creativecommons.org/licenses/by-nc-sa/4.0/':
+			$license = 'cc-by-nc-sa';
+			break;
+		case 'https://creativecommons.org/licenses/by-nc-nd/4.0/':
+			$license = 'cc-by-nc-nd';
+			break;
+		case 'https://choosealicense.com/no-license/':
+			$license = 'all-rights-reserved';
+			break;
+		default:
+			$license = 'all-rights-reserved';
+	}
+
+	return $license;
+}
+
+/**
  * @param \WP_Post $post
  */
 function add_expanded_metadata_box( $post ) {
@@ -477,6 +519,87 @@ function book_information_to_schema( $book_information ) {
 function schema_to_book_information( $book_schema ) {
 	$book_information = [];
 
+	$mapped_properties = [
+		'name' => 'pb_title',
+		'alternateName' => 'pb_short_title',
+		'isbn' => 'pb_ebook_isbn',
+		'keywords' => 'pb_keywords_tags',
+		'alternativeHeadline' => 'pb_subtitle',
+		'inLanguage' => 'pb_language',
+		'copyrightYear' => 'pb_copyright_year',
+		'description' => 'pb_about_50',
+		'image' => 'pb_cover_image',
+		'position' => 'pb_series_number',
+		'isBasedOn' => 'pb_is_based_on',
+	];
+
+	foreach ( $mapped_properties as $old => $new ) {
+		if ( isset( $book_schema[ $old ] ) ) {
+			$book_information[ $new ] = $book_schema[ $old ];
+		}
+	}
+
+	if ( isset( $book_schema['about'] ) ) {
+		$bisac_subjects = [];
+		foreach ( $book_schema['about'] as $bisac_subject ) {
+			$bisac_subjects[] = $bisac_subject['identifier'];
+		}
+		$book_information['pb_bisac_subject'] = implode( ', ', $bisac_subjects );
+	}
+
+	if ( isset( $book_schema['author'] ) ) {
+		$book_information['pb_author'] = $book_schema['author']['name'];
+		if ( isset( $book_schema['author']['alternateName'] ) ) {
+			$book_information['pb_author_file_as'] = $book_schema['author']['alternateName'];
+		}
+	}
+
+	if ( isset( $book_schema['contributor'] ) ) {
+		$contributors = [];
+		foreach ( $book_schema['contributor'] as $contributor ) {
+			$contributors[] = $book_schema['contributor']['name'];
+		}
+		$book_information['pb_contributing_authors'] = implode( ', ', $contributors );
+	}
+
+	if ( isset( $book_schema['editor'] ) ) {
+		$editors = [];
+		foreach ( $book_schema['editor'] as $editor ) {
+			$editors[] = $book_schema['editor']['name'];
+		}
+		$book_information['pb_editor'] = implode( ', ', $editors );
+	}
+
+	if ( isset( $book_schema['translator'] ) ) {
+		$translators = [];
+		foreach ( $book_schema['translator'] as $translator ) {
+			$translators[] = $book_schema['translator']['name'];
+		}
+		$book_information['pb_translator'] = implode( ', ', $translators );
+	}
+
+	if ( isset( $book_schema['publisher'] ) ) {
+		$book_information['pb_publisher'] = $book_schema['publisher']['name'];
+
+		if ( isset( $book_schema['publisher']['address'] ) ) {
+			$book_information['pb_publisher_city'] = $book_schema['publisher']['address']['addressLocality'];
+		}
+	}
+
+	if ( isset( $book_schema['audience'] ) ) {
+		$book_information['pb_audience'] = $book_schema['audience']['name'];
+	}
+
+	if ( isset( $book_schema['datePublished'] ) ) {
+		$book_information['pb_publication_date'] = strtotime( $book_schema['datePublished'] );
+	}
+
+	if ( isset( $book_schema['copyrightHolder'] ) ) {
+		$book_information['pb_copyright_holder'] = $book_schema['copyrightHolder']['name'];
+	}
+
+	$book_information['pb_book_license'] = get_license_from_url( $book_schema['license'] );
+
 	return $book_information;
 }
 
@@ -613,7 +736,7 @@ function section_information_to_schema( $section_information, $book_information 
 			}
 		}
 
-		$section_schema['license'] = \Pressbooks\Metadata\get_url_for_license( $section_information['pb_section_license'] );
+		$section_schema['license'] = get_url_for_license( $section_information['pb_section_license'] );
 
 		if ( ! isset( $section_information['pb_is_based_on'] ) && isset( $book_information['pb_is_based_on'] ) ) {
 			$section_schema['isBasedOn'] = $book_information['pb_is_based_on'];
@@ -635,6 +758,29 @@ function section_information_to_schema( $section_information, $book_information 
  */
 function schema_to_section_information( $section_schema, $book_schema ) {
 	$section_information = [];
+
+	$mapped_section_properties = [
+		'alternateName' => 'pb_short_title',
+		'alternativeHeadline' => 'pb_subtitle',
+	];
+
+	foreach ( $mapped_section_properties as $old => $new ) {
+		if ( isset( $section_schema[ $old ] ) ) {
+			$section_information[ $new ] = $section_schema[ $old ];
+		}
+	}
+
+	if ( $section_schema['author']['name'] !== $book_schema['author']['name'] ) {
+		$section_information['pb_section_author'] = $section_schema['author']['name'];
+	}
+
+	if ( $section_schema['license'] !== $book_schema['license'] ) {
+		$section_information['pb_section_license'] = get_license_from_url( $section_schema['license'] );
+	}
+
+	if ( $section_schema['isBasedOn'] !== $book_schema['isBasedOn'] ) {
+		$section_information['pb_is_based_on'] = $section_schema['isBasedOn'];
+	}
 
 	return $section_information;
 }
