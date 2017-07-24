@@ -342,10 +342,10 @@ function has_expanded_metadata() {
  * @return array
  */
 function book_information_to_schema( $book_information ) {
-	 $new_book_information = [];
+	 $book_schema = [];
 
-	 $new_book_information['@context'] = 'http://schema.org';
-	 $new_book_information['@type'] = 'Book';
+	 $book_schema['@context'] = 'http://schema.org';
+	 $book_schema['@type'] = 'Book';
 
 	 $mapped_properties = [
 		 'pb_title' => 'name',
@@ -363,106 +363,121 @@ function book_information_to_schema( $book_information ) {
 
 	 foreach ( $mapped_properties as $old => $new ) {
 		 if ( isset( $book_information[ $old ] ) ) {
-			 $new_book_information[ $new ] = $book_information[ $old ];
-		 }
-	 }
+			 $book_schema[ $new ] = $book_information[ $old ];
+			}
+		}
 
-	 if ( isset( $book_information['pb_bisac_subject'] ) ) {
-		 $bisac_subjects = explode( ', ', $book_information['pb_bisac_subject'] );
-		 foreach ( $bisac_subjects as $bisac_subject ) {
-			 $new_book_information['about'][] = [
+		if ( isset( $book_information['pb_bisac_subject'] ) ) {
+			$bisac_subjects = explode( ', ', $book_information['pb_bisac_subject'] );
+			foreach ( $bisac_subjects as $bisac_subject ) {
+				$book_schema['about'][] = [
 				 '@type' => 'Thing',
 				 'identifier' => $bisac_subject,
-			 ];
-		 }
-	 }
+				];
+			}
+		}
 
-	 if ( isset( $book_information['pb_author'] ) ) {
-		 $new_book_information['author'] = [
+		if ( isset( $book_information['pb_author'] ) ) {
+			$book_schema['author'] = [
 			 '@type' => 'Person',
 			 'name' => $book_information['pb_author'],
-		 ];
+			];
 
-		 if ( isset( $book_information['pb_author_file_as'] ) ) {
-			 $new_book_information['author']['alternateName'] = $book_information['pb_author_file_as'];
-		 }
-	 }
+			if ( isset( $book_information['pb_author_file_as'] ) ) {
+				$book_schema['author']['alternateName'] = $book_information['pb_author_file_as'];
+			}
+		}
 
-	 if ( isset( $book_information['pb_contributing_authors'] ) ) {
-		 $contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
-		 foreach ( $contributing_authors as $contributor ) {
-			 $new_book_information['contributor'][] = [
+		if ( isset( $book_information['pb_contributing_authors'] ) ) {
+			$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
+			foreach ( $contributing_authors as $contributor ) {
+				$book_schema['contributor'][] = [
 				 '@type' => 'Person',
 				 'name' => $contributor,
-			 ];
-		 }
-	 }
+				];
+			}
+		}
 
-	 if ( isset( $book_information['pb_editor'] ) ) {
-		 $editors = explode( ', ', $book_information['pb_editor'] );
-		 foreach ( $editors as $editor ) {
-			 $new_book_information['editor'][] = [
+		if ( isset( $book_information['pb_editor'] ) ) {
+			$editors = explode( ', ', $book_information['pb_editor'] );
+			foreach ( $editors as $editor ) {
+				$book_schema['editor'][] = [
 				 '@type' => 'Person',
 				 'name' => $editor,
-			 ];
-		 }
-	 }
+				];
+			}
+		}
 
-	 if ( isset( $book_information['pb_translator'] ) ) {
-		 $translators = explode( ', ', $book_information['pb_translator'] );
-		 foreach ( $translators as $translator ) {
-			 $new_book_information['translator'][] = [
+		if ( isset( $book_information['pb_translator'] ) ) {
+			$translators = explode( ', ', $book_information['pb_translator'] );
+			foreach ( $translators as $translator ) {
+				$book_schema['translator'][] = [
 				 '@type' => 'Person',
 				 'name' => $translator,
-			 ];
-		 }
-	 }
+				];
+			}
+		}
 
-	 if ( isset( $book_information['pb_publisher'] ) ) {
-		 $new_book_information['publisher'] = [
+		if ( isset( $book_information['pb_publisher'] ) ) {
+			$book_schema['publisher'] = [
 			 '@type' => 'Organization',
 			 'name' => $book_information['pb_publisher'],
-		 ];
+			];
 
-		 if ( isset( $book_information['pb_publisher_city'] ) ) {
-			 $new_book_information['publisher']['address'] = [
+			if ( isset( $book_information['pb_publisher_city'] ) ) {
+				$book_schema['publisher']['address'] = [
 				 '@type' => 'PostalAddress',
 				 'addressLocality' => $book_information['pb_publisher_city'],
-			 ];
-		 }
-	 }
+				];
+			}
+		}
 
-	 if ( isset( $book_information['pb_audience'] ) ) {
-		 $new_book_information['audience'] = [
+		if ( isset( $book_information['pb_audience'] ) ) {
+			$book_schema['audience'] = [
 			 '@type' => 'Audience',
 			 'name' => $book_information['pb_audience'],
-		 ];
-	 }
+			];
+		}
 
-	 if ( isset( $book_information['pb_publication_date'] ) ) {
-		 $new_book_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+		if ( isset( $book_information['pb_publication_date'] ) ) {
+			$book_schema['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
 
-		 if ( ! isset( $book_information['pb_copyright_year'] ) ) {
-			 $new_book_information['copyrightYear'] = strftime( '%Y', $book_information['pb_publication_date'] );
-		 }
-	 }
+			if ( ! isset( $book_information['pb_copyright_year'] ) ) {
+				$book_schema['copyrightYear'] = strftime( '%Y', $book_information['pb_publication_date'] );
+			}
+		}
 
-	 if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
-		 $new_book_information['copyrightHolder'] = [
+		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
+			$book_schema['copyrightHolder'] = [
 			 '@type' => 'Organization',
 			 'name' => $book_information['pb_copyright_holder'],
-		 ];
-	 }
+			];
+		}
 
-	 if ( ! isset( $book_information['pb_book_license'] ) ) {
-		 $book_information['pb_book_license'] = '';
-	 }
+		if ( ! isset( $book_information['pb_book_license'] ) ) {
+			$book_information['pb_book_license'] = '';
+		}
 
-	 $new_book_information['license'] = get_url_for_license( $book_information['pb_book_license'] );
+		$book_schema['license'] = get_url_for_license( $book_information['pb_book_license'] );
 
-	 // TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
+		// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 
-	 return $new_book_information;
+		return $book_schema;
+}
+
+/**
+ * Convert book Schema.org metadata to Pressbooks Book Information
+ *
+ * @since 4.1
+ *
+ * @param array $schema
+ *
+ * @return array
+ */
+function schema_to_book_information( $book_schema ) {
+	$book_information = [];
+
+	return $book_information;
 }
 
 /**
@@ -476,10 +491,10 @@ function book_information_to_schema( $book_information ) {
  * @return array
  */
 function section_information_to_schema( $section_information, $book_information ) {
-	 $new_section_information = [];
+	 $section_schema = [];
 
-	 $new_section_information['@context'] = 'http://bib.schema.org';
-	 $new_section_information['@type'] = 'Chapter';
+	 $section_schema['@context'] = 'http://bib.schema.org';
+	 $section_schema['@type'] = 'Chapter';
 
 	 $mapped_section_properties = [
 		 'pb_title' => 'name',
@@ -495,116 +510,131 @@ function section_information_to_schema( $section_information, $book_information 
 
 	 foreach ( $mapped_section_properties as $old => $new ) {
 		 if ( isset( $section_information[ $old ] ) ) {
-			 $new_section_information[ $new ] = $section_information[ $old ];
-		 }
-	 }
+			 $section_schema[ $new ] = $section_information[ $old ];
+			}
+		}
 
-	 foreach ( $mapped_book_properties as $old => $new ) {
-		 if ( isset( $book_information[ $old ] ) ) {
-			 $new_section_information[ $new ] = $book_information[ $old ];
-		 }
-	 }
+		foreach ( $mapped_book_properties as $old => $new ) {
+			if ( isset( $book_information[ $old ] ) ) {
+				$section_schema[ $new ] = $book_information[ $old ];
+			}
+		}
 
-	 if ( ! empty( $section_information['pb_chapter_number'] ) ) {
-		 $new_section_information['position'] = $section_information['pb_chapter_number'];
-	 }
+		if ( ! empty( $section_information['pb_chapter_number'] ) ) {
+			$section_schema['position'] = $section_information['pb_chapter_number'];
+		}
 
-	 if ( isset( $section_information['pb_section_author'] ) ) {
-		 $new_section_information['author'] = [
+		if ( isset( $section_information['pb_section_author'] ) ) {
+			$section_schema['author'] = [
 			 '@type' => 'Person',
 			 'name' => $section_information['pb_section_author'],
-		 ];
-	 } elseif ( isset( $book_information['pb_author'] ) ) {
-		 $new_section_information['author'] = [
+			];
+		} elseif ( isset( $book_information['pb_author'] ) ) {
+			$section_schema['author'] = [
 			 '@type' => 'Person',
 			 'name' => $book_information['pb_author'],
-		 ];
+			];
 
-		 if ( isset( $book_information['pb_author_file_as'] ) ) {
-			 $new_section_information['author']['alternateName'] = $book_information['pb_author_file_as'];
-		 }
-	 }
+			if ( isset( $book_information['pb_author_file_as'] ) ) {
+				$section_schema['author']['alternateName'] = $book_information['pb_author_file_as'];
+			}
+		}
 
-	 if ( isset( $book_information['pb_contributing_authors'] ) ) {
-		 $contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
-		 foreach ( $contributing_authors as $contributor ) {
-			 $new_section_information['contributor'][] = [
+		if ( isset( $book_information['pb_contributing_authors'] ) ) {
+			$contributing_authors = explode( ', ', $book_information['pb_contributing_authors'] );
+			foreach ( $contributing_authors as $contributor ) {
+				$section_schema['contributor'][] = [
 				 '@type' => 'Person',
 				 'name' => $contributor,
-			 ];
-		 }
-	 }
+				];
+			}
+		}
 
-	 if ( isset( $book_information['pb_editor'] ) ) {
-		 $editors = explode( ', ', $book_information['pb_editor'] );
-		 foreach ( $editors as $editor ) {
-			 $new_section_information['editor'][] = [
+		if ( isset( $book_information['pb_editor'] ) ) {
+			$editors = explode( ', ', $book_information['pb_editor'] );
+			foreach ( $editors as $editor ) {
+				$section_schema['editor'][] = [
 				 '@type' => 'Person',
 				 'name' => $editor,
-			 ];
-		 }
-	 }
+				];
+			}
+		}
 
-	 if ( isset( $book_information['pb_translator'] ) ) {
-		 $translators = explode( ', ', $book_information['pb_translator'] );
-		 foreach ( $translators as $translator ) {
-			 $new_section_information['translator'][] = [
+		if ( isset( $book_information['pb_translator'] ) ) {
+			$translators = explode( ', ', $book_information['pb_translator'] );
+			foreach ( $translators as $translator ) {
+				$section_schema['translator'][] = [
 				 '@type' => 'Person',
 				 'name' => $translator,
-			 ];
-		 }
-	 }
+				];
+			}
+		}
 
-	 if ( isset( $book_information['pb_audience'] ) ) {
-		 $new_section_information['audience'] = [
+		if ( isset( $book_information['pb_audience'] ) ) {
+			$section_schema['audience'] = [
 			 '@type' => 'Audience',
 			 'name' => $book_information['pb_audience'],
-		 ];
-	 }
+			];
+		}
 
-	 if ( isset( $book_information['pb_publisher'] ) ) {
-		 $new_section_information['publisher'] = [
+		if ( isset( $book_information['pb_publisher'] ) ) {
+			$section_schema['publisher'] = [
 			 '@type' => 'Organization',
 			 'name' => $book_information['pb_publisher'],
-		 ];
+			];
 
-		 if ( isset( $book_information['pb_publisher_city'] ) ) {
-			 $new_section_information['publisher']['address'] = [
+			if ( isset( $book_information['pb_publisher_city'] ) ) {
+				$section_schema['publisher']['address'] = [
 				 '@type' => 'PostalAddress',
 				 'addressLocality' => $book_information['pb_publisher_city'],
-			 ];
-		 }
-	 }
+				];
+			}
+		}
 
-	 if ( isset( $book_information['pb_publication_date'] ) ) {
-		 $new_section_information['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
-		 if ( ! isset( $book_information['pb_copyright_year'] ) ) {
-			 $new_section_information['copyrightYear'] = strftime( '%Y', $book_information['pb_publication_date'] );
-		 }
-	 }
+		if ( isset( $book_information['pb_publication_date'] ) ) {
+			$section_schema['datePublished'] = strftime( '%F', $book_information['pb_publication_date'] );
+			if ( ! isset( $book_information['pb_copyright_year'] ) ) {
+				$section_schema['copyrightYear'] = strftime( '%Y', $book_information['pb_publication_date'] );
+			}
+		}
 
-	 if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
-		 $new_section_information['copyrightHolder'] = [
+		if ( isset( $book_information['pb_copyright_holder'] ) ) { // TODO: Person or Organization?
+			$section_schema['copyrightHolder'] = [
 			 '@type' => 'Organization',
 			 'name' => $book_information['pb_copyright_holder'],
-		 ];
-	 }
+			];
+		}
 
-	 if ( ! isset( $section_information['pb_section_license'] ) ) {
-		 if ( isset( $book_information['pb_license'] ) ) {
-			 $section_information['pb_section_license'] = $book_information['pb_license'];
-		 } else {
-			 $section_information['pb_section_license'] = '';
-		 }
-	 }
+		if ( ! isset( $section_information['pb_section_license'] ) ) {
+			if ( isset( $book_information['pb_license'] ) ) {
+				$section_information['pb_section_license'] = $book_information['pb_license'];
+			} else {
+				$section_information['pb_section_license'] = '';
+			}
+		}
 
-	 $new_section_information['license'] = \Pressbooks\Metadata\get_url_for_license( $section_information['pb_section_license'] );
+		$section_schema['license'] = \Pressbooks\Metadata\get_url_for_license( $section_information['pb_section_license'] );
 
-	 if ( ! isset( $section_information['pb_is_based_on'] ) && isset( $book_information['pb_is_based_on'] ) ) {
-		 $new_section_information['isBasedOn'] = $book_information['pb_is_based_on'];
-	 }
+		if ( ! isset( $section_information['pb_is_based_on'] ) && isset( $book_information['pb_is_based_on'] ) ) {
+			$section_schema['isBasedOn'] = $book_information['pb_is_based_on'];
+		}
 
-	 // TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
+		// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 
-	 return $new_section_information;
+		return $section_schema;
+}
+
+/**
+ * Convert section Schema.org metadata to Pressbooks Section Information
+ *
+ * @since 4.1
+ *
+ * @param array $schema
+ *
+ * @return array
+ */
+function schema_to_section_information( $section_schema, $book_schema ) {
+	$section_information = [];
+
+	return $section_information;
 }
