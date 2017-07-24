@@ -778,7 +778,7 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 		$section_information['pb_section_license'] = get_license_from_url( $section_schema['license'] );
 	}
 
-	if ( $section_schema['isBasedOn'] !== $book_schema['isBasedOn'] ) {
+	if ( isset( $section_schema['isBasedOn'] ) && $section_schema['isBasedOn'] !== $book_schema['isBasedOn'] ) {
 		$section_information['pb_is_based_on'] = $section_schema['isBasedOn'];
 	}
 
