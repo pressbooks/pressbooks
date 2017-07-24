@@ -521,8 +521,8 @@ function disable_comments() {
 	$old_option = get_option( 'disable_comments_options' );
 	$new_option = get_option( 'pressbooks_sharingandprivacy_options', [ 'disable_comments' => 1 ] );
 
-	if ( false === absint( $old_option ) ) {
-		$retval = absint( $new_option['disable_comments'] );
+	if ( false === (bool) $old_option ) {
+		$retval = (bool) $new_option['disable_comments'];
 	} elseif ( is_array( $old_option['disabled_post_types'] ) && in_array( 'chapter', $old_option['disabled_post_types'], true ) && in_array( 'front-matter', $old_option['disabled_post_types'], true ) && in_array( 'front-matter', $old_option['disabled_post_types'], true ) ) {
 		$retval = true;
 		$new_option['disable_comments'] = 1;
