@@ -498,6 +498,7 @@ class Cloner {
 		}
 
 		$book_information = schema_to_book_information( $this->sourceBookMetadata );
+		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
 
 		$array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
 
@@ -553,6 +554,9 @@ class Cloner {
 		// Get links
 		$links = array_pop( $section );
 
+		// Get permalink
+		$permalink = $section['link'];
+
 		// Remove source-specific properties
 		$bad_keys = [ 'author', 'guid', 'id', 'link' ];
 		foreach ( $bad_keys as $bad_key ) {
@@ -596,6 +600,17 @@ class Cloner {
 		// Inform user of failure, bail
 		if ( @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
 			return false;  // TODO Error message
+		}
+
+		if ( $switch ) {
+			switch_to_blog( $this->targetBookId );
+		}
+
+		// Set pb_is_based_on property
+		update_post_meta( $response['id'], 'pb_is_based_on', $permalink );
+
+		if ( $switch ) {
+			restore_current_blog();
 		}
 
 		// Clone associated content

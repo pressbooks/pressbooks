@@ -519,7 +519,9 @@ function book_information_to_schema( $book_information ) {
 function schema_to_book_information( $book_schema ) {
 	$book_information = [];
 
-	$book_schema['description'] = html_entity_decode( $book_schema['description'] );
+	if ( isset( $book_schema['description'] ) ) {
+		$book_schema['description'] = html_entity_decode( $book_schema['description'] );
+	}
 
 	$mapped_properties = [
 		'name' => 'pb_title',
