@@ -692,7 +692,26 @@ class Cloner {
 	 * @return bool | int | array False if the clone failed; the ID or IDs of the new attachments if it succeeded.
 	 */
 	protected function cloneSectionAttachments( $section_id, $post_type, $target_id ) {
-		// TODO Write this function
+		global $blog_id;
+
+		// Retrieve section
+		$response = $this->handleRequest( $this->sourceBookUrl, 'wp/v2', 'media', [ 'parent' => $section_id ] );
+
+		// Handle errors
+		if ( is_wp_error( $response ) ) {
+			$_SESSION['pb_errors'][] = sprintf(
+				'<p>%1$s</p><p>%2$s</p>',
+				sprintf( __( 'The metadata for %1$s ID %2$s could not be read.', 'pressbooks' ), $post_type, $section_id ),
+				$response->get_error_message()
+			);
+			return false;
+		} else {
+			$attachments = $response;
+		}
+
+		if ( ! empty( $attachments ) ) {
+			// Do something with them.
+		}
 	}
 
 	protected function handleRequest( $url, $namespace, $endpoint, $params = [] ) {
