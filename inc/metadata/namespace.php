@@ -519,6 +519,8 @@ function book_information_to_schema( $book_information ) {
 function schema_to_book_information( $book_schema ) {
 	$book_information = [];
 
+	$book_schema['description'] = html_entity_decode( $book_schema['description'] );
+
 	$mapped_properties = [
 		'name' => 'pb_title',
 		'alternateName' => 'pb_short_title',
@@ -557,7 +559,7 @@ function schema_to_book_information( $book_schema ) {
 	if ( isset( $book_schema['contributor'] ) ) {
 		$contributors = [];
 		foreach ( $book_schema['contributor'] as $contributor ) {
-			$contributors[] = $book_schema['contributor']['name'];
+			$contributors[] = $contributor['name'];
 		}
 		$book_information['pb_contributing_authors'] = implode( ', ', $contributors );
 	}
@@ -565,7 +567,7 @@ function schema_to_book_information( $book_schema ) {
 	if ( isset( $book_schema['editor'] ) ) {
 		$editors = [];
 		foreach ( $book_schema['editor'] as $editor ) {
-			$editors[] = $book_schema['editor']['name'];
+			$editors[] = $editor['name'];
 		}
 		$book_information['pb_editor'] = implode( ', ', $editors );
 	}
@@ -573,7 +575,7 @@ function schema_to_book_information( $book_schema ) {
 	if ( isset( $book_schema['translator'] ) ) {
 		$translators = [];
 		foreach ( $book_schema['translator'] as $translator ) {
-			$translators[] = $book_schema['translator']['name'];
+			$translators[] = $translator['name'];
 		}
 		$book_information['pb_translator'] = implode( ', ', $translators );
 	}

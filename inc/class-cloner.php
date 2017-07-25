@@ -8,6 +8,10 @@
 
 namespace Pressbooks;
 
+use Pressbooks\Book;
+use Pressbooks\Metadata;
+use function Pressbooks\Metadata\schema_to_book_information;
+
 class Cloner {
 	/**
 	 * The URL of the source book.
@@ -478,7 +482,34 @@ class Cloner {
 	 * @return bool | int False if the creation failed; the ID of the new book's book information post if it succeeded.
 	 */
 	protected function cloneMetadata() {
-		// TODO Write this function
+		global $blog_id;
+
+		$switch = ( $this->targetBookId !== $blog_id ) ? true : false;
+
+		if ( $switch ) {
+			switch_to_blog( $this->targetBookId );
+		}
+
+		$metadata_id = ( new Metadata )->getMetaPost()->ID;
+
+		$book_information = schema_to_book_information( $this->sourceBookMetadata );
+
+		$array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
+
+		foreach( $book_information as $key => $value ) {
+			if ( in_array( $key, $array_values, true ) ) {
+				$values = explode( ', ', $value );
+				foreach ( $values as $v ) {
+					add_post_meta( $metadata_id, $key, $v );
+				}
+			} else {
+				update_post_meta( $metadata_id, $key, $value );
+			}
+		}
+
+		if ( $switch ) {
+			restore_current_blog();
+		}
 	}
 
 	/**
