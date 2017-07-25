@@ -496,7 +496,7 @@ class Cloner {
 
 		$array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
 
-		foreach( $book_information as $key => $value ) {
+		foreach ( $book_information as $key => $value ) {
 			if ( in_array( $key, $array_values, true ) ) {
 				$values = explode( ', ', $value );
 				foreach ( $values as $v ) {
