@@ -81,7 +81,7 @@ function replace_book_admin_menu() {
 	remove_menu_page( 'link-manager.php' );
 	remove_menu_page( 'edit.php?post_type=page' );
 	add_theme_page(
-		__( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_theme_options', 'pressbooks_theme_options', [
+		__( 'Theme Options', 'pressbooks' ), __( 'Theme Options', 'pressbooks' ), 'edit_others_posts', 'pressbooks_theme_options', [
 		'\Pressbooks\Modules\ThemeOptions\ThemeOptions',
 		'render',
 		]

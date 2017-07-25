@@ -137,7 +137,7 @@ class CustomCss {
 	 */
 	static function formSubmit() {
 
-		if ( empty( static::isFormSubmission() ) || empty( current_user_can( 'edit_theme_options' ) ) ) {
+		if ( empty( static::isFormSubmission() ) || empty( current_user_can( 'edit_others_posts' ) ) ) {
 			// Don't do anything in this function, bail.
 			return;
 		}

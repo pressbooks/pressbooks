@@ -221,12 +221,12 @@ function register_post_types() {
 		'can_export' => false,
 		'rewrite' => false,
 		'capabilities' => [
-			'edit_post' => 'edit_theme_options',
+			'edit_post' => 'edit_others_posts',
 			'read_post' => 'read',
-			'delete_post' => 'edit_theme_options',
-			'edit_posts' => 'edit_theme_options',
-			'edit_others_posts' => 'edit_theme_options',
-			'publish_posts' => 'edit_theme_options',
+			'delete_post' => 'edit_others_posts',
+			'edit_posts' => 'edit_others_posts',
+			'edit_others_posts' => 'edit_others_posts',
+			'publish_posts' => 'edit_others_posts',
 			'read_private_posts' => 'read',
 		],
 	];
