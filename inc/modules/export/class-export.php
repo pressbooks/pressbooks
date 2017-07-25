@@ -461,7 +461,7 @@ abstract class Export {
 
 		// if they don't want to see it, return
 		// at minimum we need book copyright information set
-		if ( false === absint( $options['copyright_license'] ) || ! isset( $metadata['pb_book_license'] ) ) {
+		if ( false === (bool) $options['copyright_license'] || ! isset( $metadata['pb_book_license'] ) ) {
 			return '';
 		}
 
