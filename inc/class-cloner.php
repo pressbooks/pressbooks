@@ -11,6 +11,7 @@ namespace Pressbooks;
 use Pressbooks\Book;
 use Pressbooks\Metadata;
 use function Pressbooks\Metadata\schema_to_book_information;
+use function Pressbooks\Metadata\schema_to_section_information;
 
 class Cloner {
 	/**
@@ -492,6 +493,10 @@ class Cloner {
 
 		$metadata_id = ( new Metadata )->getMetaPost()->ID;
 
+		if ( ! $metadata_id ) {
+			return false;
+		}
+
 		$book_information = schema_to_book_information( $this->sourceBookMetadata );
 
 		$array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
@@ -510,6 +515,8 @@ class Cloner {
 		if ( $switch ) {
 			restore_current_blog();
 		}
+
+		return $metadata_id;
 	}
 
 	/**
@@ -518,7 +525,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $section_id The ID of the section within the source book.
-	 * @param string $post_type The post type of the section (default 'chapter').
+	 * @param string $post_type The post type of the section.
 	 * @param int $parent_id The ID of the part to which the chapter should be added (only required for chapters) within the target book.
 	 * @return bool | int False if the clone failed; the ID of the new section if it succeeded.
 	 */
@@ -592,8 +599,10 @@ class Cloner {
 		}
 
 		// Clone associated content
-		$this->cloneSectionMetadata( $section_id, $response['id'] );
-		$this->cloneSectionAttachments( $section_id, $response['id'] );
+		if ( $post_type !== 'part' ) {
+			$this->cloneSectionMetadata( $section_id, $post_type, $response['id'] );
+		}
+		$this->cloneSectionAttachments( $section_id, $post_type,  $response['id'] );
 
 		$this->clonedItems[ $post_type ]++;
 
@@ -606,11 +615,48 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $section_id The ID of the section within the source book.
+	 * @param string $post_type The post type of the section.
 	 * @param int $target_id The ID of the section within the target book.
 	 * @return bool False if the clone failed; true if it succeeded.
 	 */
-	protected function cloneSectionMetadata( $section_id, $target_id ) {
-		// TODO Write this function
+	protected function cloneSectionMetadata( $section_id, $post_type, $target_id ) {
+		global $blog_id;
+
+		// Determine endpoint based on $post_type
+		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
+
+		// Retrieve section
+		$response = $this->handleRequest( $this->sourceBookUrl, 'pressbooks/v2', "$endpoint/$section_id/metadata" );
+
+		// Handle errors
+		if ( is_wp_error( $response ) ) {
+			$_SESSION['pb_errors'][] = sprintf(
+				'<p>%1$s</p><p>%2$s</p>',
+				sprintf( __( 'The metadata for %1$s ID %2$s could not be read.', 'pressbooks' ), $post_type, $section_id ),
+				$response->get_error_message()
+			);
+			return false;
+		} else {
+			$section_metadata = $response;
+		}
+
+		$switch = ( $this->targetBookId !== $blog_id ) ? true : false;
+
+		if ( $switch ) {
+			switch_to_blog( $this->targetBookId );
+		}
+
+		$section_information = schema_to_section_information( $section_metadata, $this->sourceBookMetadata );
+
+		foreach ( $section_information as $key => $value ) {
+			update_post_meta( $target_id, $key, $value );
+		}
+
+		if ( $switch ) {
+			restore_current_blog();
+		}
+
+		return true;
 	}
 
 	/**
@@ -619,10 +665,11 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $id The ID of the section within the source book.
+	 * @param string $post_type The post type of the section.
 	 * @param int $target_id The ID of the section within the target book.
 	 * @return bool | int | array False if the clone failed; the ID or IDs of the new attachments if it succeeded.
 	 */
-	protected function cloneSectionAttachments( $section_id, $target_id ) {
+	protected function cloneSectionAttachments( $section_id, $post_type, $target_id ) {
 		// TODO Write this function
 	}
 
@@ -778,7 +825,7 @@ class Cloner {
 						sprintf( _n( '%s part', '%s parts', $cloner->clonedItems['part'], 'pressbooks' ), $cloner->clonedItems['part'] ),
 						sprintf( _n( '%s chapter', '%s chapters', $cloner->clonedItems['chapter'], 'pressbooks' ), $cloner->clonedItems['chapter'] ),
 						sprintf( _n( '%s back matter', '%s back matter', $cloner->clonedItems['back-matter'], 'pressbooks' ), $cloner->clonedItems['back-matter'] ),
-						sprintf( '<a href="%1$s"><em>%2$s</em></a>', $cloner->targetBookUrl, $cloner->sourceBookMetadata['name'] )
+						sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/' , $cloner->sourceBookMetadata['name'] )
 					);
 				}
 				\Pressbooks\Redirect\location( admin_url( 'options.php?page=pb_cloner' ) );
