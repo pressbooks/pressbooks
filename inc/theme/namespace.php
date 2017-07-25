@@ -108,6 +108,8 @@ function migrate_book_themes() {
 
 /**
  * Update template_root from Pressbooks < 4.0.
+ *
+ * @since 4.0.1
  */
 function update_template_root() {
 	$template_root = get_option( 'template_root' );

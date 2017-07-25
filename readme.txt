@@ -1,7 +1,7 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 4.0.0
+Version: 4.0.1
 Tags: ebooks, publishing, webbooks
 Requires at least: 4.8.0
 Tested up to: 4.8.0
@@ -203,8 +203,8 @@ Once WP-CLI is installed on your server, the following shell commands executed i
     wp core multisite-convert --title="Pressbooks"
     wp plugin delete hello
     wp plugin update-all
-    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/4.0.0/pressbooks-4.0.0.zip --activate-network
-    wp theme install https://github.com/pressbooks/pressbooks-book/releases/download/1.9.0/pressbooks-1.9.0.zip
+    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/4.0.1/pressbooks-4.0.1.zip --activate-network
+    wp theme install https://github.com/pressbooks/pressbooks-book/releases/download/1.9.2/pressbooks-1.9.2.zip
     wp theme install https://github.com/pressbooks/pressbooks-publisher/archive/master.zip
     wp theme install https://github.com/pressbooks/pressbooks-austenclassic/archive/master.zip
     wp theme install https://github.com/pressbooks/pressbooks-clarke/archive/master.zip
@@ -263,6 +263,12 @@ Pressbooks now requires [WordPress 4.8.0](https://wordpress.org/download/).
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+
+### 4.0.1
+* **Fix:** Fixed an issue where the template root for book themes was not properly updated (see #854, #859).
+* **Fix:** Fixed an issue where ampersands were not being sanitized in XML outputs (see #860).
+* **Fix:** Fixed an issue where the Disable Comments setting was not being saved properly (see #861).
+* **Fix:** Fixed an incorrect link in upgrade notices (see #848, #849).
 
 ### 4.0.0
 
