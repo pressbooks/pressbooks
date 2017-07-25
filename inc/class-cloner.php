@@ -637,7 +637,6 @@ class Cloner {
 		if ( $post_type !== 'part' ) {
 			$this->cloneSectionMetadata( $section_id, $post_type, $response['id'] );
 		}
-		// $this->cloneSectionAttachments( $section_id, $post_type,  $response['id'] );
 
 		$this->clonedItems[ $post_type ]++;
 
