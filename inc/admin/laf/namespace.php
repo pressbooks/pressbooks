@@ -90,7 +90,6 @@ function replace_book_admin_menu() {
 	remove_submenu_page( 'tools.php', 'tools.php' );
 	remove_submenu_page( 'tools.php', 'import.php' );
 	remove_submenu_page( 'tools.php', 'export.php' );
-	remove_submenu_page( 'tools.php', 'ms-delete-site.php' );
 
 	remove_submenu_page( 'edit.php?post_type=chapter', 'edit.php?post_type=chapter' );
 
