@@ -8,6 +8,7 @@
 namespace Pressbooks\Modules\Export\Epub;
 
 use Pressbooks\Sanitize;
+use function \Pressbooks\Sanitize\sanitize_xml_attribute;
 
 class Epub3 extends Epub201 {
 
@@ -429,7 +430,6 @@ class Epub3 extends Epub201 {
 		}
 
 		$vars = [
-			'meta' => $metadata,
 			'manifest' => $this->manifest,
 			'stylesheet' => $this->stylesheet,
 			'lang' => $this->lang,
@@ -437,10 +437,11 @@ class Epub3 extends Epub201 {
 
 		$vars['manifest_assets'] = $this->buildManifestAssetsHtml();
 
-		$vars['do_copyright_license'] = strip_tags( $this->doCopyrightLicense( $metadata ) );
+		$vars['do_copyright_license'] = sanitize_xml_attribute(
+			wp_strip_all_tags( $this->doCopyrightLicense( $metadata ), true )
+		);
 
 		// Loop through the html files for the manifest and assemble them. Assign properties based on their content.
-		//
 		$html = '';
 		foreach ( $this->manifest as $k => $v ) {
 			$properties = $this->getProperties( $this->tmpDir . '/OEBPS/' . $v['filename'] );
@@ -451,6 +452,12 @@ class Epub3 extends Epub201 {
 			$html .= sprintf( '<item id="%s" href="OEBPS/%s" %s%smedia-type="application/xhtml+xml" />', $k, $v['filename'], $mathml, $scripted ) . "\n\t\t";
 		}
 		$vars['manifest_filelist'] = $html;
+
+		// Sanitize metadata for usage in XML template
+		foreach ( $metadata as $key => $val ) {
+			$metadata[ $key ] = sanitize_xml_attribute( $val );
+		}
+		$vars['meta'] = $metadata;
 
 		// Put contents
 		file_put_contents(
@@ -473,10 +480,11 @@ class Epub3 extends Epub201 {
 			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEPBS() ?' );
 		}
 
+		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => ( isset( $metadata['pb_author'] ) ) ? $metadata['pb_author'] : '',
+			'author' => isset( $metadata['pb_author'] ) ? sanitize_xml_attribute( $metadata['pb_author'] ) : '',
 			'manifest' => $this->manifest,
-			'dtd_uid' => ( ! empty( $metadata['pb_ebook_isbn'] ) ? $metadata['pb_ebook_isbn'] : get_bloginfo( 'url' ) ),
+			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => false,
 			'lang' => $this->lang,
 		];
