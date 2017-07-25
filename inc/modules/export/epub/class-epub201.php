@@ -12,7 +12,8 @@ namespace Pressbooks\Modules\Export\Epub;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Container;
 use Pressbooks\Sanitize;
-use function Pressbooks\Utility\str_ends_with;
+use function \Pressbooks\Sanitize\sanitize_xml_attribute;
+use function \Pressbooks\Utility\str_ends_with;
 
 class Epub201 extends Export {
 
@@ -382,7 +383,7 @@ class Epub201 extends Export {
 					$book_contents[ $type ][ $i ]['post_content'] = $this->preProcessPostContent( $val['post_content'] );
 				}
 				if ( isset( $val['post_title'] ) ) {
-					$book_contents[ $type ][ $i ]['post_title'] = Sanitize\sanitize_xml_attribute( $val['post_title'] );
+					$book_contents[ $type ][ $i ]['post_title'] = sanitize_xml_attribute( $val['post_title'] );
 				}
 				if ( isset( $val['post_name'] ) ) {
 					$book_contents[ $type ][ $i ]['post_name'] = $this->preProcessPostName( $val['post_name'] );
@@ -398,7 +399,7 @@ class Epub201 extends Export {
 							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_content'] = $this->preProcessPostContent( $val2['post_content'] );
 						}
 						if ( isset( $val2['post_title'] ) ) {
-							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_title'] = Sanitize\sanitize_xml_attribute( $val2['post_title'] );
+							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_title'] = sanitize_xml_attribute( $val2['post_title'] );
 						}
 						if ( isset( $val2['post_name'] ) ) {
 							$book_contents[ $type ][ $i ]['chapters'][ $j ]['post_name'] = $this->preProcessPostName( $val2['post_name'] );
@@ -2142,7 +2143,6 @@ class Epub201 extends Export {
 
 		// Vars
 		$vars = [
-			'meta' => $metadata,
 			'manifest' => $this->manifest,
 			'stylesheet' => $this->stylesheet,
 			'lang' => $this->lang,
@@ -2150,7 +2150,15 @@ class Epub201 extends Export {
 
 		$vars['manifest_assets'] = $this->buildManifestAssetsHtml();
 
-		$vars['do_copyright_license'] = strip_tags( $this->doCopyrightLicense( $metadata ) );
+		$vars['do_copyright_license'] = sanitize_xml_attribute(
+			wp_strip_all_tags( $this->doCopyrightLicense( $metadata ), true )
+		);
+
+		// Sanitize metadata for usage in XML template
+		foreach ( $metadata as $key => $val ) {
+			$metadata[ $key ] = sanitize_xml_attribute( $val );
+		}
+		$vars['meta'] = $metadata;
 
 		// Put contents
 		file_put_contents(
@@ -2217,10 +2225,11 @@ class Epub201 extends Export {
 			throw new \Exception( '$this->manifest cannot be empty. Did you forget to call $this->createOEPBS() ?' );
 		}
 
+		// Sanitize variables for usage in XML template
 		$vars = [
-			'author' => ( isset( $metadata['pb_author'] ) ) ? $metadata['pb_author'] : '',
+			'author' => isset( $metadata['pb_author'] ) ? sanitize_xml_attribute( $metadata['pb_author'] ) : '',
 			'manifest' => $this->manifest,
-			'dtd_uid' => ( ! empty( $metadata['pb_ebook_isbn'] ) ? $metadata['pb_ebook_isbn'] : get_bloginfo( 'url' ) ),
+			'dtd_uid' => ! empty( $metadata['pb_ebook_isbn'] ) ? sanitize_xml_attribute( $metadata['pb_ebook_isbn'] ) : sanitize_xml_attribute( get_bloginfo( 'url' ) ),
 			'enable_external_identifier' => true,
 			'lang' => $this->lang,
 		];

@@ -66,7 +66,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * Display the mock options page description.
 	 */
 	function display() {
-		echo '<p>' . esc_attr__( 'Mock settings.', 'pressbooks' ) . '</p>';
+		echo '<p>' . 'Mock settings.' . '</p>';
 	}
 
 	function render() {
@@ -100,7 +100,7 @@ class OptionsMock extends \Pressbooks\Options {
 	 * @return string $title
 	 */
 	static function getTitle() {
-		return __( 'Mock', 'pressbooks' );
+		return 'Mock';
 	}
 
 	static function getDefaults() {

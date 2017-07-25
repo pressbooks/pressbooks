@@ -105,3 +105,15 @@ function migrate_book_themes() {
 		update_option( 'pressbooks_theme_migration', 1 );
 	}
 }
+
+/**
+ * Update template_root from Pressbooks < 4.0.
+ *
+ * @since 4.0.1
+ */
+function update_template_root() {
+	$template_root = get_option( 'template_root' );
+	if ( strpos( $template_root, '/plugins/pressbooks/themes-book' ) !== false ) {
+		update_option( 'template_root', str_replace( '/plugins/pressbooks/themes-book', '/themes', $template_root ) );
+	}
+}
