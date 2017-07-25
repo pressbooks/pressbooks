@@ -170,7 +170,7 @@ jQuery( document ).ready( function ( $ ) {
 	// Public/Private form at top of page
 	$( 'input[name=blog_public]' ).change( function () {
 		let blog_public;
-		if ( this.value === 1 ) {
+		if ( parseInt( this.value, 10 ) === 1 ) {
 			blog_public = 1;
 		} else {
 			blog_public = 0;
