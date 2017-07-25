@@ -30,6 +30,7 @@ class ThemeOptions {
 	 */
 	function loadTabs() {
 		foreach ( $this->tabs as $slug => $subclass ) {
+			add_filter( "option_page_capability_pressbooks_theme_options_$slug", [ $this, 'setPermissions' ], 10, 1 );
 			add_filter( 'pressbooks_theme_options_' . $slug . '_defaults', [ $subclass, 'filterDefaults' ], 10, 1 );
 			$option = get_option( 'pressbooks_theme_options_' . $slug, $subclass::getDefaults() );
 			/** @var \Pressbooks\Options $tab */
@@ -45,6 +46,18 @@ class ThemeOptions {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Modifies the capability for theme options to allow Editors to manage them.
+	 * @see https://developer.wordpress.org/reference/hooks/option_page_capability_option_page/
+	 *
+	 * @since 4.1.0
+	 * @param string $capability
+	 * @return string
+	 */
+	function setPermissions( $capability ) {
+		return 'edit_others_posts';
 	}
 
 	/**
@@ -111,4 +124,5 @@ class ThemeOptions {
 		 */
 		return apply_filters( 'pb_theme_options_tabs', $tabs );
 	}
+
 }

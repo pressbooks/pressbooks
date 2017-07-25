@@ -16,7 +16,7 @@ use Pressbooks\CustomCss;
 function add_menu() {
 
 	if ( Book::isBook() && CustomCss::isCustomCss() ) {
-		add_theme_page( __( 'Edit CSS', 'pressbooks' ), __( 'Edit CSS', 'pressbooks' ), 'edit_theme_options', 'pb_custom_css', __NAMESPACE__ . '\display_custom_css' );
+		add_theme_page( __( 'Edit CSS', 'pressbooks' ), __( 'Edit CSS', 'pressbooks' ), 'edit_others_posts', 'pb_custom_css', __NAMESPACE__ . '\display_custom_css' );
 	}
 }
 
@@ -237,7 +237,7 @@ function render_dropdown_for_css_copy( $custom_css, $slug ) {
 function load_css_from() {
 
 	check_ajax_referer( 'pb-load-css-from' );
-	if ( empty( current_user_can( 'edit_theme_options' ) ) ) {
+	if ( empty( current_user_can( 'edit_others_posts' ) ) ) {
 		die( -1 );
 	}
 
