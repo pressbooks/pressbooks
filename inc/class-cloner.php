@@ -573,9 +573,22 @@ class Cloner {
 		// Set status
 		$section['status'] = 'publish';
 
+		// Load HTMl snippet into DOMDocument using UTF-8 hack
+		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
+		$doc = new \DOMDocument();
+		$doc->loadHTML( $utf8_hack . $section['content']['rendered'] );
+
+		// Download images, change image paths
+		$doc = $this->scrapeAndKneadImages( $doc );
+
+		$content = $doc->saveXML( $doc->documentElement );
+
+		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
+		$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $content ) );
+
 		// Set title and content
 		$section['title'] = $section['title']['rendered'];
-		$section['content'] = $section['content']['rendered'];
+		$section['content'] = $content;
 
 		// Set part
 		if ( $post_type === 'chapter' ) {
@@ -624,7 +637,7 @@ class Cloner {
 		if ( $post_type !== 'part' ) {
 			$this->cloneSectionMetadata( $section_id, $post_type, $response['id'] );
 		}
-		$this->cloneSectionAttachments( $section_id, $post_type,  $response['id'] );
+		// $this->cloneSectionAttachments( $section_id, $post_type,  $response['id'] );
 
 		$this->clonedItems[ $post_type ]++;
 
@@ -681,39 +694,6 @@ class Cloner {
 		return true;
 	}
 
-	/**
-	 * Clone attachments of a section (front matter, part, chapter, back matter) from a source book to a target book.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @param int $id The ID of the section within the source book.
-	 * @param string $post_type The post type of the section.
-	 * @param int $target_id The ID of the section within the target book.
-	 * @return bool | int | array False if the clone failed; the ID or IDs of the new attachments if it succeeded.
-	 */
-	protected function cloneSectionAttachments( $section_id, $post_type, $target_id ) {
-		global $blog_id;
-
-		// Retrieve section
-		$response = $this->handleRequest( $this->sourceBookUrl, 'wp/v2', 'media', [ 'parent' => $section_id ] );
-
-		// Handle errors
-		if ( is_wp_error( $response ) ) {
-			$_SESSION['pb_errors'][] = sprintf(
-				'<p>%1$s</p><p>%2$s</p>',
-				sprintf( __( 'The metadata for %1$s ID %2$s could not be read.', 'pressbooks' ), $post_type, $section_id ),
-				$response->get_error_message()
-			);
-			return false;
-		} else {
-			$attachments = $response;
-		}
-
-		if ( ! empty( $attachments ) ) {
-			// Do something with them.
-		}
-	}
-
 	protected function handleRequest( $url, $namespace, $endpoint, $params = [] ) {
 		global $blog_id;
 		$local_book = $this->getBookId( $url );
@@ -766,6 +746,116 @@ class Cloner {
 				return json_decode( $response['body'], true );
 			}
 		}
+	}
+
+	/**
+	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
+	 *
+	 * @param \DOMDocument $doc
+	 *
+	 * @return \DOMDocument
+	 */
+	protected function scrapeAndKneadImages( \DOMDocument $doc ) {
+
+		$images = $doc->getElementsByTagName( 'img' );
+
+		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
+			// Fetch image, change src
+			$old_src = $image->getAttribute( 'src' );
+
+			$new_src = $this->fetchAndSaveUniqueImage( $old_src );
+
+			if ( $new_src ) {
+				// Replace with new image
+				$image->setAttribute( 'src', $new_src );
+			} else {
+				// Tag broken image
+				$image->setAttribute( 'src', "{$old_src}#fixme" );
+			}
+		}
+
+		return $doc;
+	}
+
+	/**
+	 * Load remote url of image into WP using media_handle_sideload()
+	 * Will return an empty string if something went wrong.
+	 *
+	 * @param string $url
+	 *
+	 * @see media_handle_sideload
+	 *
+	 * @return string filename
+	 */
+	protected function fetchAndSaveUniqueImage( $url ) {
+		global $blog_id;
+
+		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
+			return '';
+		}
+
+		$remote_img_location = $url;
+
+		// Cheap cache
+		static $already_done = [];
+		if ( isset( $already_done[ $remote_img_location ] ) ) {
+			return $already_done[ $remote_img_location ];
+		}
+
+		/* Process */
+
+		// Basename without query string
+		$filename = explode( '?', basename( $url ) );
+		$filename = array_shift( $filename );
+
+		$filename = sanitize_file_name( urldecode( $filename ) );
+
+		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
+			// Unsupported image type
+			$already_done[ $remote_img_location ] = '';
+			return '';
+		}
+
+		$tmp_name = download_url( $remote_img_location );
+		if ( is_wp_error( $tmp_name ) ) {
+			// Download failed
+			$already_done[ $remote_img_location ] = '';
+			return '';
+		}
+
+		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+
+			try { // changing the file name so that extension matches the mime type
+				$filename = $this->properImageExtension( $tmp_name, $filename );
+
+				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
+					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
+				}
+			} catch ( \Exception $exc ) {
+				// Garbage, don't import
+				$already_done[ $remote_img_location ] = '';
+				unlink( $tmp_name );
+				return '';
+			}
+		}
+
+		$switch = ( $blog_id !== $this->targetBookId ) ? true : false;
+		if ( $switch ) {
+			switch_to_blog( $this->targetBookId );
+		}
+		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
+		$src = wp_get_attachment_url( $pid );
+		if ( ! $src ) {
+			$src = ''; // Change false to empty string
+		}
+		if ( $switch ) {
+			restore_current_blog();
+		}
+		$already_done[ $remote_img_location ] = $src;
+		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
+
+		return $src;
 	}
 
 	/**
