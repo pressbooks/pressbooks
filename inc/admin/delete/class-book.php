@@ -59,7 +59,24 @@ class Book {
 	 * @return string
 	 */
 	public function deleteBookEmailContent( $content ) {
-		// TODO: Change email text
+
+		/* translators: Do not translate USERNAME, URL_DELETE, SITE_NAME: those are placeholders. */
+		$content = __( "Howdy ###USERNAME###,
+
+You recently clicked the 'Delete Book' link on your book and filled in a
+form on that page.
+
+If you really want to delete your book, click the link below. You will not
+be asked to confirm again so only click this link if you are absolutely certain:
+###URL_DELETE###
+
+If you delete your book, please consider starting a new book project with us
+some time in the future! (But remember your current book
+is gone forever.)
+
+Thanks for using Pressbooks,
+###SITE_NAME###", 'pressbooks' );
+
 		return $content;
 	}
 }
