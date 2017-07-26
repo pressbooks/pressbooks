@@ -23,7 +23,10 @@ class SearchAndReplace {
 	static function init() {
 		if ( is_admin() ) {
 			if ( is_null( self::$instance ) ) {
-				self::$instance = new self;
+				$self = new self;
+				add_filter( 'admin_menu', [ $self, 'adminMenu' ] );
+				add_action( 'load-tools_page_pressbooks-search-and-replace', [ $self, 'searchHead' ] );
+				self::$instance = $self;
 			}
 			return self::$instance;
 		}
@@ -33,15 +36,13 @@ class SearchAndReplace {
 	/**
 	 * Constructor
 	 */
-	function __construct() {
-		add_filter( 'admin_menu', [ $this, 'adminMenu' ] );
-		add_action( 'load-tools_page_pressbooks-search-and-replace', [ $this, 'searchHead' ] );
+	public function __construct() {
 	}
 
 	/**
 	 * Load styles and scripts
 	 */
-	function searchHead() {
+	public function searchHead() {
 		$assets = new Assets( 'pressbooks', 'plugin' );
 		wp_enqueue_style( 'search-and-replace', $assets->getPath( 'styles/search-and-replace.css' ) );
 		wp_register_script( 'search-and-replace', $assets->getPath( 'scripts/search-and-replace.js' ) );
@@ -52,7 +53,7 @@ class SearchAndReplace {
 	/**
 	 * @return array
 	 */
-	function getL10n() {
+	public function getL10n() {
 		return [
 		  'warning_text' => __( 'Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this will do what you want it to do?', 'pressbooks' ),
 		];
@@ -61,7 +62,7 @@ class SearchAndReplace {
 	/**
 	 * Add admin page
 	 */
-	function adminMenu() {
+	public function adminMenu() {
 		if ( current_user_can( 'administrator' ) ) {
 			add_management_page(
 				__( 'Search & Replace', 'pressbooks' ),
@@ -76,7 +77,7 @@ class SearchAndReplace {
 	/**
 	 * Callable for add_management_page
 	 */
-	function adminScreen() {
+	public function adminScreen() {
 		$searches = Search::getSearches();
 
 		if ( isset( $_POST['search_pattern'] ) && ! wp_verify_nonce( $_POST['pressbooks-search-and-replace-nonce'], 'search' ) ) {
@@ -157,7 +158,7 @@ class SearchAndReplace {
 		}
 	}
 
-	function renderError( $message ) {
+	public function renderError( $message ) {
 		?>
 	<div class="fade error" id="message">
 		<p><?php echo $message ?></p>

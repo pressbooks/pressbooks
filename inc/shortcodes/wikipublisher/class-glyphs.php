@@ -27,39 +27,30 @@ class Glyphs {
 		'hbo', // Ancient Hebrew
 	];
 
-
-	/**
-	 * Setup the [pb_language] shortcode, which is private to force the use of getInstance()
-	 *
-	 * @deprecated
-	 */
-	private function __construct() {
-
-		add_shortcode( 'pb_language', [ $this, 'langShortcode' ] );
-		add_filter(
-			'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = 'pb_language';
-				return $excluded_shortcodes;
-			}
-		);
-
-	}
-
-
 	/**
 	 * Function to instantiate our class and make it a singleton
 	 *
 	 * @deprecated
 	 * @return Glyphs
 	 */
-	public static function getInstance() {
+	public static function init() {
 		if ( ! self::$instance ) {
-			self::$instance = new self;
+			$self = new self;
+			add_shortcode( 'pb_language', [ $self, 'langShortcode' ] );
+			add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
+				$excluded_shortcodes[] = 'pb_language';
+				return $excluded_shortcodes;
+			} );
+			self::$instance = $self;
 		}
-
 		return self::$instance;
 	}
 
+	/**
+	 * @deprecated
+	 */
+	public function __construct() {
+	}
 
 	/**
 	 * @param      $atts
@@ -67,7 +58,7 @@ class Glyphs {
 	 *
 	 * @return string
 	 */
-	function langShortcode( $atts, $content = null ) {
+	public function langShortcode( $atts, $content = null ) {
 
 		$a = shortcode_atts(
 			[

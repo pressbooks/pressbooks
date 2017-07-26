@@ -28,10 +28,24 @@ class Generics {
 		'textbox' => [ 'div', 'textbox' ],
 	];
 
-	function __construct() {
+	/**
+	 * Adds shortcodes based on $self->generics.
+	 */
+	public static function init() {
+		if ( ! self::$instance ) {
+			$self = new self;
+			foreach ( $self->shortcodes as $shortcode => $tag ) {
+				add_shortcode( $shortcode, [ $self, 'shortcodeHandler' ] );
+			}
+			self::$instance = $self;
+		}
+		return self::$instance;
 	}
 
-	function shortcodeHandler( $atts, $content = '', $shortcode ) {
+	public function __construct() {
+	}
+
+	public function shortcodeHandler( $atts, $content = '', $shortcode ) {
 		$tag = $this->shortcodes[ $shortcode ];
 
 		if ( ! $content ) {
@@ -51,20 +65,5 @@ class Generics {
 		}
 		$content = wpautop( trim( $content ) );
 		return '<' . $tag . $class . '>' . do_shortcode( $content ) . '</' . $tag . '>';
-	}
-
-	/**
-	 * Adds shortcodes based on $self->generics.
-	 */
-	static function getInstance() {
-		if ( ! self::$instance ) {
-			self::$instance = new self;
-		}
-
-		foreach ( self::$instance->shortcodes as $shortcode => $tag ) {
-			add_shortcode( $shortcode, [ self::$instance, 'shortcodeHandler' ] );
-		}
-
-		return self::$instance;
 	}
 }
