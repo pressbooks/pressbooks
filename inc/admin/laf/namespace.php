@@ -725,55 +725,6 @@ function init_css_js() {
 	wp_enqueue_script( 'jquery-ui-sortable' );
 }
 
-
-/**
- * Redirect away from (what we consider) bad WordPress admin pages
- */
-function redirect_away_from_bad_urls() {
-
-	if ( is_super_admin() ) {
-		return; // Do nothing
-	}
-
-	$check_against_url = parse_url( ( is_ssl() ? 'http://' : 'https://' ) . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'], PHP_URL_PATH );
-	$redirect_url = get_site_url( get_current_blog_id(), '/wp-admin/' );
-
-	// ---------------------------------------------------------------------------------------------------------------
-	// If user is on post-new.php, check for valid post_type
-
-	if ( preg_match( '~/wp-admin/post-new\.php$~', $check_against_url ) ) {
-		if ( isset( $_REQUEST['post_type'] ) && ! in_array( $_REQUEST['post_type'], \Pressbooks\PostType\list_post_types(), true ) ) {
-			$_SESSION['pb_notices'][] = __( 'Unsupported post type.', 'pressbooks' );
-			\Pressbooks\Redirect\location( $redirect_url );
-		}
-	}
-
-	// ---------------------------------------------------------------------------------------------------------------
-	// Don't let user go to any of these pages, under any circumstance
-
-	$restricted = [
-		'edit-tags',
-		'export',
-		'import',
-		'link-(manager|add)',
-		'nav-menus',
-		'options-(discussion|media|permalink|reading|writing)',
-		'plugin-(install|editor)',
-		'theme-editor',
-		'update-core',
-		'widgets',
-	];
-
-	// Todo: Fine grained control over: options-general.php
-
-	$expr = '~/wp-admin/(' . implode( '|', $restricted ) . ')\.php$~';
-	if ( preg_match( $expr, $check_against_url ) ) {
-		$_SESSION['pb_notices'][] = __( 'You do not have sufficient permissions to access that URL.', 'pressbooks' );
-		\Pressbooks\Redirect\location( $redirect_url );
-	}
-}
-
-
 /* ------------------------------------------------------------------------ *
  * Privacy
  * ------------------------------------------------------------------------ */
