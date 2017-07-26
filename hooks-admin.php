@@ -53,7 +53,7 @@ if ( $is_book ) {
 	// Aggressively replace default interface
 	add_action( 'init', [ '\Pressbooks\Modules\SearchAndReplace\SearchAndReplace', 'init' ] );
 	add_action( 'init', [ '\Pressbooks\Modules\ThemeOptions\ThemeOptions', 'init' ] );
-	add_action( 'admin_init', '\Pressbooks\Admin\Laf\redirect_away_from_bad_urls' );
+	add_action( 'admin_init', '\Pressbooks\Redirect\redirect_away_from_bad_urls' );
 	add_action( 'admin_menu', '\Pressbooks\Admin\Laf\replace_book_admin_menu', 1 );
 	add_action( 'admin_menu', [ '\Pressbooks\Admin\Delete\Book', 'init' ] );
 	add_filter( 'parent_file', '\Pressbooks\Admin\Laf\fix_parent_file' );
