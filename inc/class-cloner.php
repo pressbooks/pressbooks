@@ -111,7 +111,7 @@ class Cloner {
 	 *
 	 * @var array
 	 */
-	protected $requestArgs;
+	protected $requestArgs = [ 'timeout' => 30 ];
 
 	/**
 	 * Constructor.
@@ -124,7 +124,7 @@ class Cloner {
 	public function __construct( $source_url, $target_url = null ) {
 		// Disable SSL verification for development
 		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
-			$this->requestArgs = [ 'sslverify' => false ];
+			$this->requestArgs['sslverify'] = false;
 		}
 
 		// Set up $this->sourceBookUrl
@@ -188,7 +188,6 @@ class Cloner {
 
 		// Clone Taxonomy Terms
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
-
 		foreach ( $this->sourceBookTerms as $term ) {
 			$this->termMap[ $term['id'] ] = $this->cloneTerm( $term['id'], $term['taxonomy'] );
 		}
@@ -223,7 +222,7 @@ class Cloner {
 	 *
 	 * @param int $term_id The ID of the term within the source book.
 	 * @param int $taxonomy The taxonomy of the term within the source book.
-	 * @return bool The ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
+	 * @return int The ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
 	 */
 	public function cloneTerm( $term_id, $taxonomy ) {
 		global $blog_id;
@@ -270,7 +269,7 @@ class Cloner {
 
 		// Inform user of failure, bail
 		if ( is_wp_error( $response ) ) {
-			wp_die( $response->get_message() );
+			wp_die( $response->get_message() ); // TODO
 		} else {
 			$this->clonedItems['term']++;
 			return $response['id'];
@@ -573,6 +572,8 @@ class Cloner {
 		// Set status
 		$section['status'] = 'publish';
 
+		libxml_use_internal_errors( true );
+
 		// Load HTMl snippet into DOMDocument using UTF-8 hack
 		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
 		$doc = new \DOMDocument();
@@ -580,8 +581,10 @@ class Cloner {
 
 		// Download images, change image paths
 		$doc = $this->scrapeAndKneadImages( $doc );
-
 		$content = $doc->saveXML( $doc->documentElement );
+
+		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+		libxml_clear_errors();
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $content ) );
@@ -693,6 +696,16 @@ class Cloner {
 		return true;
 	}
 
+	/**
+	 * Handle a REST API request using either rest_do_request() or wp_remote_get() as appropriate.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $url
+	 * @param string $namespace
+	 * @param string $endpoint
+	 * @param array $params
+	 */
 	protected function handleRequest( $url, $namespace, $endpoint, $params = [] ) {
 		global $blog_id;
 		$local_book = $this->getBookId( $url );
@@ -768,6 +781,7 @@ class Cloner {
 			if ( $new_src ) {
 				// Replace with new image
 				$image->setAttribute( 'src', $new_src );
+				// TODO Update srcset also
 			} else {
 				// Tag broken image
 				$image->setAttribute( 'src', "{$old_src}#fixme" );
