@@ -25,9 +25,12 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 	public function test_getInstance() {
 
-		$val = $this->fn->getInstance();
+		$val = $this->fn->init();
 
 		$this->assertTrue( $val instanceof \Pressbooks\Shortcodes\Footnotes\Footnotes );
+
+		global $shortcode_tags;
+		$this->assertArrayHasKey( 'footnote', $shortcode_tags );
 	}
 
 	public function test_shortcodeHandler_numbered() {
