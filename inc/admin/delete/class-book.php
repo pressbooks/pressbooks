@@ -18,25 +18,24 @@ class Book {
 	 */
 	static function init() {
 		if ( is_null( self::$instance ) ) {
-			self::$instance = new self;
+			$self = new self;
+			// Hide from side menu
+			remove_submenu_page( 'tools.php', 'ms-delete-site.php' );
+			// Add to top menu
+			if ( current_user_can( 'delete_site' ) ) {
+				add_action( 'admin_bar_menu', [ $self, 'addMenu' ], 31 );
+			}
+			// Override delete site email
+			add_filter( 'delete_site_email_content', [ $self, 'deleteBookEmailContent' ] );
+			$self::$instance = $self;
 		}
 		return self::$instance;
 	}
 
 	/**
-	 * Private constructor, use init instead
+	 *
 	 */
-	private function __construct() {
-
-		// Hide from side menu
-		remove_submenu_page( 'tools.php', 'ms-delete-site.php' );
-
-		// Add to top menu
-		if ( current_user_can( 'delete_site' ) ) {
-			add_action( 'admin_bar_menu', [ $this, 'addMenu' ], 31 );
-		}
-
-		add_filter( 'delete_site_email_content', [ $this, 'deleteBookEmailContent' ] );
+	public function __construct() {
 	}
 
 	/**
