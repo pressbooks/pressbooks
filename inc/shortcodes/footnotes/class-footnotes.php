@@ -26,40 +26,33 @@ class Footnotes {
 	var $numbered = [];
 
 	/**
-	 * This is our constructor, which is private to force the use of getInstance()
-	 */
-	private function __construct() {
-
-		add_shortcode( 'footnote', [ $this, 'shortcodeHandler' ] );
-		add_filter(
-			'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
-				$excluded_shortcodes[] = 'footnote';
-				return $excluded_shortcodes;
-			}
-		);
-
-		// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
-		// We need to run $this->footNoteContent() after this, set to 12
-		add_filter( 'the_content', [ $this, 'footnoteContent' ], 12 );
-
-		add_action( 'init', [ $this, 'footnoteButton' ] ); // TinyMCE button
-		add_action( 'admin_enqueue_scripts', [ $this, 'myCustomQuicktags' ] ); // Quicktag button
-	}
-
-
-	/**
 	 * Function to instantiate our class and make it a singleton
 	 *
 	 * @return Footnotes
 	 */
-	public static function getInstance() {
+	public static function init() {
 		if ( ! self::$instance ) {
-			self::$instance = new self;
+			$self = new self;
+			add_shortcode( 'footnote', [ $self, 'shortcodeHandler' ] );
+			add_filter( 'no_texturize_shortcodes', function ( $excluded_shortcodes ) {
+				$excluded_shortcodes[] = 'footnote';
+				return $excluded_shortcodes;
+			} );
+			// do_shortcode() is registered as a default filter on 'the_content' with a priority of 11.
+			// We need to run $this->footNoteContent() after this, set to 12
+			add_filter( 'the_content', [ $self, 'footnoteContent' ], 12 );
+			add_action( 'init', [ $self, 'footnoteButton' ] ); // TinyMCE button
+			add_action( 'admin_enqueue_scripts', [ $self, 'myCustomQuicktags' ] ); // Quicktag button
+			self::$instance = $self;
 		}
-
 		return self::$instance;
 	}
 
+	/**
+	 *
+	 */
+	public function __construct() {
+	}
 
 	/**
 	 * Pre-process footnote shortcode
