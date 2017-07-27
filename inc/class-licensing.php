@@ -97,6 +97,7 @@ class Licensing {
 				'desc' => __( 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)', 'pressbooks' ),
 			],
 			'all-rights-reserved' => [
+				'api' => [], // Not supported
 				'url' => 'https://choosealicense.com/no-license/',
 				'desc' => __( 'All Rights Reserved', 'pressbooks' ),
 			],
@@ -119,27 +120,28 @@ class Licensing {
 	 * Will create an html blob of copyright information, returns empty string
 	 * if license not supported
 	 *
-	 * @param array $metadata
-	 * @param int $id (optional)
+	 * @param array $metadata \Pressbooks\Book::getBookInformation
+	 * @param int $post_id (optional)
 	 * @param string $title (optional)
-	 * @param string $section_author (optional)
 	 *
 	 * @return string
 	 * @throws \Exception`
 	 */
-	public function doLicense( $metadata, $id = 0, $title = '', $section_author = '' ) {
+	public function doLicense( $metadata, $post_id = 0, $title = '' ) {
 
 		$license = $copyright_holder = '';
 		$lang = ! empty( $metadata['pb_language'] ) ? $metadata['pb_language'] : 'en';
-		$transient_id = "license-inf-$id";
+		$transient_id = "license-inf-$post_id";
 
 		// if no post $id given, we default to book copyright
-		if ( empty( $id ) ) {
+		if ( empty( $post_id ) ) {
 			$section_license = '';
+			$section_author = '';
 			$link = get_bloginfo( 'url' );
 		} else {
-			$section_license = get_post_meta( $id, 'pb_section_license', true );
-			$link = get_permalink( $id );
+			$section_license = get_post_meta( $post_id, 'pb_section_license', true );
+			$section_author = get_post_meta( $post_id, 'pb_section_author', true );
+			$link = get_permalink( $post_id );
 		}
 
 		// Copyright license, set in order of precedence
@@ -151,12 +153,13 @@ class Licensing {
 			$license = $metadata['pb_book_license'];
 		}
 		if ( ! $this->isSupportedType( $license ) ) {
+			// License not supported, bail
 			return '';
 		}
 
 		// Title
 		if ( empty( $title ) ) {
-			$title = get_bloginfo( 'name' );
+			$title = empty( $post_id ) ? get_bloginfo( 'name' ) : get_post( $post_id )->post_title;
 		}
 
 		// Copyright holder, set in order of precedence
@@ -276,7 +279,7 @@ class Licensing {
 	public function getWebLicenseHtml( \SimpleXMLElement $response ) {
 
 		$content = $response->asXML();
-		$content = trim( str_replace( [ '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ], [ '', '', '', '' ], $content ) );
+		$content = trim( str_replace( [ '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ], '', $content ) );
 		$content = preg_replace( '/http:\/\/i.creativecommons/iU', 'https://i.creativecommons', $content );
 
 		$html =

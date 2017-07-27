@@ -440,22 +440,22 @@ abstract class Export {
 	 * if user doesn't want it displayed
 	 *
 	 * @param array $metadata
-	 * @param int $id (optional)
 	 * @param string $title (optional)
-	 * @param string $section_author (optional)
+	 * @param int $id (optional)
+	 * @param string $section_author (optional, deprecated)
 	 *
 	 * @return string $html blob
 	 * @throws \Exception
 	 */
-	protected function doCopyrightLicense( $metadata, $id = 0, $title = '', $section_author = '' ) {
+	protected function doCopyrightLicense( $metadata, $title = '', $id = 0, $section_author = '' ) {
 		$option = get_option( 'pressbooks_theme_options_global' );
 		if ( ! empty( $option['copyright_license'] ) ) {
 			try {
 				$licensing = new \Pressbooks\Licensing();
 				if ( 1 === absint( $option['copyright_license'] ) ) {
-					return $licensing->doLicense( $metadata, $id, $title, $section_author );
+					return $licensing->doLicense( $metadata, $id, $title );
 				} elseif ( 2 === absint( $option['copyright_license'] ) ) {
-					return $licensing->doLicense( $metadata, $id, $title, $section_author );
+					return $licensing->doLicense( $metadata, $id, $title );
 				}
 			} catch ( \Exception $e ) {
 				$this->logError( $e->getMessage() );
@@ -468,15 +468,15 @@ abstract class Export {
 	 * Returns a string of text to be used in TOC, returns empty string
 	 * if user doesn't want it displayed
 	 *
-	 * @param $id
+	 * @param int $post_id Post ID.
 	 *
 	 * @return string
 	 */
-	protected function doTocLicense( $id ) {
+	protected function doTocLicense( $post_id ) {
 		$option = get_option( 'pressbooks_theme_options_global' );
 		if ( ! empty( $option['copyright_license'] ) ) {
 			if ( 1 === absint( $option['copyright_license'] ) ) {
-				return (string) get_post_meta( $id, 'pb_section_license', true );
+				return (string) get_post_meta( $post_id, 'pb_section_license', true );
 			} elseif ( 2 === absint( $option['copyright_license'] ) ) {
 				return '';
 			}
