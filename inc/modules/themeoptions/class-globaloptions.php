@@ -7,6 +7,7 @@
 namespace Pressbooks\Modules\ThemeOptions;
 
 use Pressbooks\Container;
+use function \Pressbooks\Utility\getset;
 
 class GlobalOptions extends \Pressbooks\Options {
 
@@ -16,7 +17,7 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 1;
+	const VERSION = 2;
 
 	/**
 	 * Global theme options.
@@ -121,7 +122,9 @@ class GlobalOptions extends \Pressbooks\Options {
 			$_page,
 			$_section,
 			[
-				__( 'Display the selected copyright license', 'pressbooks' ),
+				0 => __( 'Disable', 'pressbooks' ),
+				1 => __( 'Display license on copyright page and table of contents in export formats, and footers in webbook. If no license is selected, then nothing will be displayed.', 'pressbooks' ),
+				2 => __( 'V2', 'pressbooks' ),
 			]
 		);
 
@@ -293,13 +296,13 @@ class GlobalOptions extends \Pressbooks\Options {
 	 * @param array $args
 	 */
 	function renderCopyrightLicenseField( $args ) {
-		$this->renderCheckbox(
+		$this->renderRadioButtons(
 			[
 				'id' => 'copyright_license',
 				'name' => 'pressbooks_theme_options_' . $this->getSlug(),
 				'option' => 'copyright_license',
-				'value' => ( isset( $this->options['copyright_license'] ) ) ? $this->options['copyright_license'] : '',
-				'label' => $args[0],
+				'value' => getset( $this->options, 'copyright_license', 0 ),
+				'choices' => $args,
 			]
 		);
 	}
@@ -366,7 +369,6 @@ class GlobalOptions extends \Pressbooks\Options {
 			'pb_theme_options_global_booleans', [
 			'chapter_numbers',
 			'parse_subsections',
-			'copyright_license',
 			]
 		);
 	}
@@ -396,7 +398,11 @@ class GlobalOptions extends \Pressbooks\Options {
 		 *
 		 * @since 3.9.7
 		 */
-		return apply_filters( 'pb_theme_options_global_integers', [] );
+		return apply_filters(
+			'pb_theme_options_global_integers', [
+				'copyright_license',
+			]
+		);
 	}
 
 	/**

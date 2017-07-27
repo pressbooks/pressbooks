@@ -440,80 +440,48 @@ abstract class Export {
 	 * if user doesn't want it displayed
 	 *
 	 * @param array $metadata
-	 * @param string $title
-	 * @param int $id
-	 * @param string $section_author
+	 * @param int $id (optional)
+	 * @param string $title (optional)
+	 * @param string $section_author (optional)
 	 *
 	 * @return string $html blob
 	 * @throws \Exception
 	 */
-	protected function doCopyrightLicense( $metadata, $title = '', $id = null, $section_author = '' ) {
-
-		$options = get_option( 'pressbooks_theme_options_global' );
-		foreach ( [ 'copyright_license' ] as $required_global_option ) {
-			if ( ! isset( $options[ $required_global_option ] ) ) {
-				$options[ $required_global_option ] = 0;
+	protected function doCopyrightLicense( $metadata, $id = 0, $title = '', $section_author = '' ) {
+		$option = get_option( 'pressbooks_theme_options_global' );
+		if ( ! empty( $option['copyright_license'] ) ) {
+			try {
+				$licensing = new \Pressbooks\Licensing();
+				if ( 1 === absint( $option['copyright_license'] ) ) {
+					return $licensing->doLicense( $metadata, $id, $title, $section_author );
+				} elseif ( 2 === absint( $option['copyright_license'] ) ) {
+					return $licensing->doLicense( $metadata, $id, $title, $section_author );
+				}
+			} catch ( \Exception $e ) {
+				$this->logError( $e->getMessage() );
 			}
 		}
+		return '';
+	}
 
-		$html = $license = $copyright_holder = '';
-		$lang = ! empty( $metadata['pb_language'] ) ? $metadata['pb_language'] : 'en';
-
-		// if they don't want to see it, return
-		// at minimum we need book copyright information set
-		if ( false === (bool) $options['copyright_license'] || ! isset( $metadata['pb_book_license'] ) ) {
-			return '';
-		}
-
-		// if no post $id given, we default to book copyright
-		if ( ! empty( $id ) ) {
-			$section_license = get_post_meta( $id, 'pb_section_license', true );
-			$link = get_permalink( $id );
-		} else {
-			$section_license = '';
-			$link = get_bloginfo( 'url' );
-			$title = get_bloginfo( 'name' );
-		}
-
-		// Copyright holder, set in order of precedence
-		if ( ! empty( $section_author ) ) {
-			// section author higher priority than book author, copyrightholder
-			$copyright_holder = $section_author;
-		} elseif ( isset( $metadata['pb_copyright_holder'] ) ) {
-			// book copyright holder higher priority than book author
-			$copyright_holder = $metadata['pb_copyright_holder'];
-		} elseif ( isset( $metadata['pb_author'] ) ) {
-			// book author is the fallback, default
-			$copyright_holder = $metadata['pb_author'];
-		}
-
-		// Copyright license, set in order of precedence
-		if ( ! empty( $section_license ) ) {
-			// section copyright higher priority than book
-			$license = $section_license;
-		} elseif ( isset( $metadata['pb_book_license'] ) ) {
-			// book is the fallback, default
-			$license = $metadata['pb_book_license'];
-		}
-
-		// get xml response from API
-		$response = \Pressbooks\Metadata\get_license_xml( $license, $copyright_holder, $link, $title, $lang );
-
-		try {
-			// convert to object
-			$result = simplexml_load_string( $response );
-
-			// evaluate it for errors
-			if ( ! false === $result || ! isset( $result->html ) ) {
-				throw new \Exception( 'Creative Commons license API not returning expected results at Pressbooks\Metadata\get_license_xml' );
-			} else {
-				// process the response, return html
-				$html = \Pressbooks\Metadata\get_web_license_html( $result->html );
+	/**
+	 * Returns a string of text to be used in TOC, returns empty string
+	 * if user doesn't want it displayed
+	 *
+	 * @param $id
+	 *
+	 * @return string
+	 */
+	protected function doTocLicense( $id ) {
+		$option = get_option( 'pressbooks_theme_options_global' );
+		if ( ! empty( $option['copyright_license'] ) ) {
+			if ( 1 === absint( $option['copyright_license'] ) ) {
+				return (string) get_post_meta( $id, 'pb_section_license', true );
+			} elseif ( 2 === absint( $option['copyright_license'] ) ) {
+				return '';
 			}
-		} catch ( \Exception $e ) {
-			$this->logError( $e->getMessage() );
 		}
-		return $html;
+		return '';
 	}
 
 	/**

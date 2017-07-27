@@ -931,25 +931,22 @@ class Epub201 extends Export {
 	 */
 	protected function createCopyright( $book_contents, $metadata ) {
 
-		$options = get_option( 'pressbooks_theme_options_global' );
-		foreach ( [ 'copyright_license' ] as $required_global_option ) {
-			if ( ! isset( $options[ $required_global_option ] ) ) {
-				$options[ $required_global_option ] = 0;
-			}
-		}
-
 		// HTML
 		$html = '<div id="copyright-page"><div class="ugc">';
 
+		// Custom copyright
 		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
 			$html .= $this->kneadHtml( $this->tidy( $metadata['pb_custom_copyright'] ), 'custom' );
 		}
 
-		if ( 1 === absint( $options['copyright_license'] ) ) {
-			$html .= $this->kneadHtml( $this->tidy( $this->doCopyrightLicense( $metadata ) ), 'custom' );
+		// License
+		$license = $this->doCopyrightLicense( $metadata );
+		if ( $license ) {
+			$html .= $this->kneadHtml( $this->tidy( $license ), 'custom' );
 		}
+
 		// default, so something is displayed
-		if ( empty( $metadata['pb_custom_copyright'] ) && 0 === absint( $options['copyright_license'] ) ) {
+		if ( empty( $metadata['pb_custom_copyright'] ) && empty( $license ) ) {
 			$html .= '<p>';
 			$html .= get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
@@ -1556,13 +1553,6 @@ class Epub201 extends Export {
 			'lang' => $this->lang,
 		];
 
-		$options = get_option( 'pressbooks_theme_options_global' );
-		foreach ( [ 'copyright_license' ] as $required_global_option ) {
-			if ( ! isset( $options[ $required_global_option ] ) ) {
-				$options[ $required_global_option ] = 0;
-			}
-		}
-
 		// Start by inserting self into correct manifest position
 		$array_pos = $this->positionOfToc();
 
@@ -1598,7 +1588,7 @@ class Epub201 extends Export {
 				$class .= \Pressbooks\Taxonomy::getFrontMatterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
+				$license = $this->doTocLicense( $v['ID'] );
 			} elseif ( preg_match( '/^part-/', $k ) ) {
 				$class = 'part';
 				if ( get_post_meta( $v['ID'], 'pb_part_invisible', true ) === 'on' ) {
@@ -1612,7 +1602,7 @@ class Epub201 extends Export {
 				$class .= \Pressbooks\Taxonomy::getChapterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
+				$license = $this->doTocLicense( $v['ID'] );
 				if ( $this->numbered && \Pressbooks\Taxonomy::getChapterType( $v['ID'] ) !== 'numberless' ) {
 					$title = " $i. " . $title;
 				}
@@ -1624,7 +1614,7 @@ class Epub201 extends Export {
 				$class .= \Pressbooks\Taxonomy::getBackMatterType( $v['ID'] );
 				$subtitle = trim( get_post_meta( $v['ID'], 'pb_subtitle', true ) );
 				$author = trim( get_post_meta( $v['ID'], 'pb_section_author', true ) );
-				$license = ( $options['copyright_license'] ) ? get_post_meta( $v['ID'], 'pb_section_license', true ) : '';
+				$license = $this->doTocLicense( $v['ID'] );
 			} else {
 				continue;
 			}
