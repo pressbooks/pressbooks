@@ -117,14 +117,14 @@ class GlobalOptions extends \Pressbooks\Options {
 
 		add_settings_field(
 			'copyright_license',
-			__( 'Copyright License', 'pressbooks' ),
+			__( 'Chapter Licenses', 'pressbooks' ),
 			[ $this, 'renderCopyrightLicenseField' ],
 			$_page,
 			$_section,
 			[
-				0 => __( 'Disable', 'pressbooks' ),
-				1 => __( 'Display license on copyright page and table of contents in export formats, and footers in webbook. If no license is selected, then nothing will be displayed.', 'pressbooks' ),
-				2 => __( 'V2', 'pressbooks' ),
+				0 => __( 'Do not display section level copyright license', 'pressbooks' ),
+				1 => __( 'Display section level license on table of contents in export formats', 'pressbooks' ),
+				2 => __( 'Display section level license at end of chapter in export formats', 'pressbooks' ),
 			]
 		);
 

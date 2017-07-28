@@ -9,7 +9,7 @@ namespace Pressbooks;
 class Licensing {
 
 	/**
-	 *
+	 * Wheee!
 	 */
 	public function __construct() {
 	}
@@ -129,9 +129,8 @@ class Licensing {
 	 */
 	public function doLicense( $metadata, $post_id = 0, $title = '' ) {
 
-		$license = $copyright_holder = '';
+		$transient_id = "license-inf-{$post_id}";
 		$lang = ! empty( $metadata['pb_language'] ) ? $metadata['pb_language'] : 'en';
-		$transient_id = "license-inf-$post_id";
 
 		// if no post $id given, we default to book copyright
 		if ( empty( $post_id ) ) {
@@ -151,6 +150,8 @@ class Licensing {
 		} elseif ( isset( $metadata['pb_book_license'] ) ) {
 			// book is the fallback, default
 			$license = $metadata['pb_book_license'];
+		} else {
+			$license = 'all-rights-reserved';
 		}
 		if ( ! $this->isSupportedType( $license ) ) {
 			// License not supported, bail
@@ -172,21 +173,22 @@ class Licensing {
 		} elseif ( isset( $metadata['pb_author'] ) ) {
 			// book author is the fallback, default
 			$copyright_holder = $metadata['pb_author'];
+		} else {
+			$copyright_holder = '';
 		}
 
-		// Check if the user has changed anything
+		// Check if the user has changed anything about the license
 		$transient = get_transient( $transient_id );
 		$changed = false;
 		if ( is_array( $transient ) ) {
-			$updated = [ $license, $copyright_holder, $title, $lang ];
-			foreach ( $updated as $val ) {
+			foreach ( [ $license, $copyright_holder, $title, $lang ] as $val ) {
 				if ( ! array_key_exists( $val, $transient ) ) {
 					$changed = true;
 				}
 			}
 		}
 
-		// if the cache has expired, or the user changed the license
+		// if the cache has expired, or the user changed something about the license
 		if ( false === $transient || true === $changed ) {
 			// get xml response from API
 			$response = $this->getLicenseXml( $license, $copyright_holder, $link, $title, $lang );
@@ -194,7 +196,6 @@ class Licensing {
 			// convert to object
 			$result = simplexml_load_string( $response );
 
-			// evaluate it for errors
 			if ( ! false === $result || ! isset( $result->html ) ) {
 				throw new \Exception( 'Creative Commons license API not returning expected results' );
 			} else {
@@ -202,7 +203,11 @@ class Licensing {
 				$html = $this->getWebLicenseHtml( $result->html[0] );
 			}
 
-			set_transient( $transient_id, [ $license => $html, $copyright_holder => true, $title => true, $lang => true ] );
+			set_transient(
+				$transient_id,
+				[ $license => $html, $copyright_holder => 1, $title => 1, $lang => 1 ]
+			);
+
 		} else {
 			$html = $transient[ $license ];
 		}

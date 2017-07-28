@@ -17,7 +17,23 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->licensing = new \Pressbooks\Licensing();
 	}
 
-	public function test_get_web_license_html() {
+	public function test_getSupportedTypes() {
+		$result = $this->licensing->getSupportedTypes();
+		$this->assertTrue( is_array( $result ) );
+		foreach ( $result as $key => $val ) {
+			$this->assertArrayHasKey( 'api', $val );
+			$this->assertArrayHasKey( 'url', $val );
+			$this->assertArrayHasKey( 'desc', $val );
+		}
+	}
+
+	public function test_doLicense() {
+		$result = $this->licensing->doLicense( [], 0, 'Hello World!' );
+		$this->assertContains( 'All Rights Reserved', $result ); // Returns some default
+		$this->assertContains( 'Hello World!', $result ); //
+	}
+
+	public function test_getWebLicenseHtml() {
 
 		$xml = new \SimpleXMLElement( '<book><title>Hello World!</title></book>' );
 		$result = $this->licensing->getWebLicenseHtml( $xml );
@@ -26,12 +42,12 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertContains( '</div>', $result );
 	}
 
-	public function test_get_url_for_license() {
+	public function test_getUrlForLicense() {
 		$result = $this->licensing->getUrlForLicense( 'public-domain' );
 		$this->assertEquals( $result, 'https://creativecommons.org/publicdomain/zero/1.0/' );
 	}
 
-	public function test_get_license_xml() {
+	public function test_getLicenseXml() {
 
 		$result = $this->licensing->getLicenseXml( 'all-rights-reserved', 'Foo', 'http://pressbooks.dev', 'Bar', 'en' );
 		$this->assertContains( 'All Rights Reserved', $result );

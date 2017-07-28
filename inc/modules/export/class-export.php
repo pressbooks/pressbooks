@@ -436,37 +436,33 @@ abstract class Export {
 	}
 
 	/**
-	 * Will create an html blob of copyright information, returns empty string
-	 * if user doesn't want it displayed
+	 * Will create an html blob of copyright, returns empty string if something goes wrong
 	 *
 	 * @param array $metadata
 	 * @param string $title (optional)
 	 * @param int $id (optional)
-	 * @param string $section_author (optional, deprecated)
+	 * @param string $section_author (deprecated)
 	 *
 	 * @return string $html blob
 	 * @throws \Exception
 	 */
 	protected function doCopyrightLicense( $metadata, $title = '', $id = 0, $section_author = '' ) {
-		$option = get_option( 'pressbooks_theme_options_global' );
-		if ( ! empty( $option['copyright_license'] ) ) {
-			try {
-				$licensing = new \Pressbooks\Licensing();
-				if ( 1 === absint( $option['copyright_license'] ) ) {
-					return $licensing->doLicense( $metadata, $id, $title );
-				} elseif ( 2 === absint( $option['copyright_license'] ) ) {
-					return $licensing->doLicense( $metadata, $id, $title );
-				}
-			} catch ( \Exception $e ) {
-				$this->logError( $e->getMessage() );
-			}
+
+		if ( ! empty( $section_author ) ) {
+			_deprecated_argument( __METHOD__, '4.1.0' );
+		}
+
+		try {
+			$licensing = new \Pressbooks\Licensing();
+			return $licensing->doLicense( $metadata, $id, $title );
+		} catch ( \Exception $e ) {
+			$this->logError( $e->getMessage() );
 		}
 		return '';
 	}
 
 	/**
-	 * Returns a string of text to be used in TOC, returns empty string
-	 * if user doesn't want it displayed
+	 * Returns a string of text to be used in TOC, returns empty string if user doesn't want it displayed
 	 *
 	 * @param int $post_id Post ID.
 	 *
@@ -479,6 +475,32 @@ abstract class Export {
 				return (string) get_post_meta( $post_id, 'pb_section_license', true );
 			} elseif ( 2 === absint( $option['copyright_license'] ) ) {
 				return '';
+			}
+		}
+		return '';
+	}
+
+	/**
+	 * Returns a string of text to be used in a section (chapter, front-matter, back-matter, ...)
+	 * returns empty string if user doesn't want it displayed
+	 *
+	 * @param array $metadata
+	 * @param int $post_id Post ID.
+	 *
+	 * @return string
+	 */
+	protected function doSectionLevelLicense( $metadata, $post_id ) {
+		$option = get_option( 'pressbooks_theme_options_global' );
+		if ( ! empty( $option['copyright_license'] ) ) {
+			if ( 1 === absint( $option['copyright_license'] ) ) {
+				return '';
+			} elseif ( 2 === absint( $option['copyright_license'] ) ) {
+				try {
+					$licensing = new \Pressbooks\Licensing();
+					return $licensing->doLicense( $metadata, $post_id );
+				} catch ( \Exception $e ) {
+					$this->logError( $e->getMessage() );
+				}
 			}
 		}
 		return '';

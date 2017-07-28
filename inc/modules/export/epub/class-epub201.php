@@ -1139,6 +1139,8 @@ class Epub201 extends Export {
 				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 			}
 
+			$append_front_matter_content .= $this->doSectionLevelLicense( $metadata, $front_matter_id );
+
 			$vars['post_title'] = $front_matter['post_title'];
 			$vars['post_content'] = sprintf(
 				$front_matter_printf,
@@ -1295,6 +1297,8 @@ class Epub201 extends Export {
 					$chapter_printf_changed = str_replace( '<div class="chapter %s" id=', '<div class="chapter introduction %s" id=', $chapter_printf );
 					$this->hasIntroduction = true;
 				}
+
+				$append_chapter_content .= $this->doSectionLevelLicense( $metadata, $chapter_id );
 
 				$n = ( 'numberless' === $subclass ) ? '' : $c;
 				$vars['post_title'] = $chapter['post_title'];
@@ -1504,6 +1508,8 @@ class Epub201 extends Export {
 			if ( $short_title ) {
 				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 			}
+
+			$append_back_matter_content .= $this->doSectionLevelLicense( $metadata, $back_matter_id );
 
 			$vars['post_title'] = $back_matter['post_title'];
 			$vars['post_content'] = sprintf(
