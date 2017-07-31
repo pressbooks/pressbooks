@@ -120,7 +120,7 @@ class Search extends Books {
 				return true;
 			}
 		}
-		foreach ( $toc['part'] as $p ) {
+		foreach ( $toc['parts'] as $p ) {
 			foreach ( $p['chapters'] as $ch ) {
 				if ( $this->keyValueSearchInMeta( $search, $ch['metadata'] ) ) {
 					return true;
