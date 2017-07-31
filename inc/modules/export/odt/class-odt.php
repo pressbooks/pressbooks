@@ -106,11 +106,17 @@ class Odt extends Export {
 		}
 
 		$urlcontent = file_get_contents( $source );
-
 		$urlcontent = preg_replace( '/xmlns\="http\:\/\/www\.w3\.org\/1999\/xhtml"/i', '', $urlcontent );
 
+		if ( empty( $urlcontent ) ) {
+			$this->logError( 'source.xhtml is empty' );
+			return false;
+		}
+
+		libxml_use_internal_errors( true );
 		$old_value = libxml_disable_entity_loader( true );
 		$doc = new \DOMDocument();
+		$doc->recover = true; // Try to parse non-well formed documents
 		$doc->loadXML( $urlcontent, LIBXML_NOBLANKS | LIBXML_NOENT | LIBXML_NONET | LIBXML_XINCLUDE | LIBXML_NOERROR | LIBXML_NOWARNING );
 		libxml_disable_entity_loader( $old_value );
 		$xpath = new \DOMXPath( $doc );
@@ -164,6 +170,9 @@ class Odt extends Export {
 		}
 
 		file_put_contents( $source, $doc->saveXML() );
+
+		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
+		libxml_clear_errors();
 
 		try {
 			$result = exec( PB_SAXON_COMMAND . ' -xsl:' . $xslt . ' -s:' . $source . ' -o:' . $content );
@@ -247,6 +256,9 @@ class Odt extends Export {
 	protected function queryXhtml() {
 
 		$args = [ 'timeout' => $this->timeout ];
+		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
+			$args['sslverify'] = false;
+		}
 		$response = wp_remote_get( $this->url, $args );
 
 		// WordPress error?

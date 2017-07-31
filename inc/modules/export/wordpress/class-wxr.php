@@ -133,6 +133,9 @@ class Wxr extends Export {
 	protected function queryWxr() {
 
 		$args = [ 'timeout' => $this->timeout ];
+		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
+			$args['sslverify'] = false;
+		}
 		$response = wp_remote_get( $this->url, $args );
 
 		// WordPress error?
