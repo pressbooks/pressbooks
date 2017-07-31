@@ -28,7 +28,7 @@ class Cloner {
 	 *
 	 * @since 4.1.0
 	 *
-	 * @var bool
+	 * @var int
 	 */
 	protected $sourceBookId;
 
@@ -93,7 +93,7 @@ class Cloner {
 	 *
 	 * @var array
 	 */
-	protected $clonedItems = [ 'term' => 0, 'front-matter' => 0, 'part' => 0, 'chapter' => 0, 'back-matter' => 0 ];
+	protected $clonedItems = [ 'term' => 0, 'front-matter' => 0, 'part' => 0, 'chapter' => 0, 'back-matter' => 0, 'media' => 0 ];
 
 	/**
 	 * The REST API base.
@@ -118,8 +118,8 @@ class Cloner {
 	 *
 	 * @since 4.1.0
 	 *
-	 * @param string $source_url The URL of the source book.
-	 * @param string $target_url The URL of the target book.
+	 * @param string $source_url The public URL of the source book.
+	 * @param string $target_url The public URL of the target book.
 	 */
 	public function __construct( $source_url, $target_url = null ) {
 		// Disable SSL verification for development
@@ -333,7 +333,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param string $url The URL of the book.
-	 * @return false | array False if the operation failed; the metadata array if it succeeded.
+	 * @return bool | array False if the operation failed; the metadata array if it succeeded.
 	 */
 	public function getBookMetadata( $url ) {
 		// Handle request (local or global)
@@ -359,7 +359,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param string $url The URL of the book.
-	 * @return WP_Error | array WP_Error object if the operation failed; the structure and contents array if it succeeded.
+	 * @return bool | array False if the operation failed; the structure and contents array if it succeeded.
 	 */
 	public function getBookStructure( $url ) {
 		// Handle request (local or global)
@@ -385,7 +385,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param string $url The URL of the book.
-	 * @return WP_Error | array WP_Error object if the operation failed; the term array if it succeeded.
+	 * @return bool | array False if the operation failed; the term array if it succeeded.
 	 */
 	public function getBookTerms( $url ) {
 		$terms = [];
@@ -447,7 +447,7 @@ class Cloner {
 	 *
 	 * @since 4.1.0
 	 *
-	 * @return bool | string False if the creation failed; the URL of the new book if it succeeded.
+	 * @return bool | int False if the creation failed; the ID of the new book if it succeeded.
 	 */
 	protected function createBook() {
 		$host = wp_parse_url( network_home_url(), PHP_URL_HOST );
@@ -553,7 +553,7 @@ class Cloner {
 
 		// Load HTMl snippet into DOMDocument using UTF-8 hack
 		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-		$doc = new \DOMDocument();
+		$doc = new \DOMDocument(); // TODO Switch to html5
 		$doc->loadHTML( $utf8_hack . $section['content']['rendered'] );
 
 		// Download images, change image paths
@@ -646,7 +646,7 @@ class Cloner {
 		$section_information = schema_to_section_information( $section_metadata, $this->sourceBookMetadata );
 
 		foreach ( $section_information as $key => $value ) {
-			update_post_meta( $target_id, $key, $value );
+			update_post_meta( $target_id, $key, $value ); // TODO handle errors
 		}
 
 		return true;
@@ -657,21 +657,25 @@ class Cloner {
 	 *
 	 * @since 4.1.0
 	 *
-	 * @param string $url
-	 * @param string $namespace
-	 * @param string $endpoint
-	 * @param array $params
+	 * @param string $url The URL against which the request should be made (not including the REST base)
+	 * @param string $namespace The namespace for the request, e.g. 'pressbooks/v2'
+	 * @param string $endpoint The endpoint for the request, e.g. 'toc'
+	 * @param array $params URL parameters
+	 *
+	 * @return array
 	 */
 	protected function handleRequest( $url, $namespace, $endpoint, $params = [] ) {
 		global $blog_id;
+
+		// Is the book local? If so, is it the current book? If not, switch to it.
 		$local_book = $this->getBookId( $url );
 		if ( $local_book ) {
 			$switch = ( $local_book !== $blog_id ) ? true : false;
-
-			// GET response from API
 			if ( $switch ) {
 				switch_to_blog( $local_book );
 			}
+
+			// Set up WP_REST_Request, retrieve response.
 			$_GET['_embed'] = 1;
 			$request = new \WP_REST_Request( 'GET', "/$namespace/$endpoint" );
 			if ( ! empty( $params ) ) {
@@ -720,6 +724,8 @@ class Cloner {
 	/**
 	 * Parse HTML snippet, save all found <img> tags using media_handle_sideload(), return the HTML with changed <img> paths.
 	 *
+	 * @since 4.1.0
+	 *
 	 * @param \DOMDocument $doc
 	 *
 	 * @return \DOMDocument
@@ -738,6 +744,7 @@ class Cloner {
 			if ( $new_src ) {
 				// Replace with new image
 				$image->setAttribute( 'src', $new_src );
+				$this->clonedItems['media']++;
 				// TODO Update srcset also
 			} else {
 				// Tag broken image
@@ -751,6 +758,8 @@ class Cloner {
 	/**
 	 * Load remote url of image into WP using media_handle_sideload()
 	 * Will return an empty string if something went wrong.
+	 *
+	 * @since 4.1.0
 	 *
 	 * @param string $url
 	 *
@@ -846,6 +855,8 @@ class Cloner {
 	 *
 	 * @since 4.1.0
 	 *
+	 * @param string $url
+	 *
 	 * @return int 0 of no blog was found, or the ID of the matched book.
 	 */
 
@@ -860,6 +871,8 @@ class Cloner {
 	 * Given a URL, get the subdomain or subdirectory (depending on the type of multisite install).
 	 *
 	 * @since 4.1.0
+	 *
+	 * @param string $url
 	 *
 	 * @return string
 	 */
@@ -911,12 +924,13 @@ class Cloner {
 				$cloner = new Cloner( esc_url( $_POST['source_book_url'] ) );
 				if ( $cloner->cloneBook() ) {
 					$_SESSION['pb_notices'][] = sprintf(
-						__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, and %5$s to %6$s.', 'pressbooks' ),
+						__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s.', 'pressbooks' ),
 						sprintf( _n( '%s term', '%s terms', $cloner->clonedItems['term'], 'pressbooks' ), $cloner->clonedItems['term'] ),
 						sprintf( _n( '%s front matter', '%s front matter', $cloner->clonedItems['front-matter'], 'pressbooks' ), $cloner->clonedItems['front-matter'] ),
 						sprintf( _n( '%s part', '%s parts', $cloner->clonedItems['part'], 'pressbooks' ), $cloner->clonedItems['part'] ),
 						sprintf( _n( '%s chapter', '%s chapters', $cloner->clonedItems['chapter'], 'pressbooks' ), $cloner->clonedItems['chapter'] ),
 						sprintf( _n( '%s back matter', '%s back matter', $cloner->clonedItems['back-matter'], 'pressbooks' ), $cloner->clonedItems['back-matter'] ),
+						sprintf( _n( '%s media attachment', '%s media attachments', $cloner->clonedItems['media'], 'pressbooks' ), $cloner->clonedItems['media'] ),
 						sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/' , $cloner->sourceBookMetadata['name'] )
 					);
 				}
