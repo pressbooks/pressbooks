@@ -191,6 +191,8 @@ class Cloner {
 		$this->targetBookId = $this->createBook();
 		$this->targetBookUrl = get_blogaddress_by_id( $this->targetBookId );
 
+		switch_to_blog( $this->targetBookId );
+
 		// Clone Metadata
 		$this->cloneMetadata();
 
@@ -220,6 +222,8 @@ class Cloner {
 			$this->cloneBackMatter( $backmatter['id'] );
 		}
 
+		restore_current_blog();
+
 		return true;
 	}
 
@@ -233,8 +237,6 @@ class Cloner {
 	 * @return int The ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
 	 */
 	public function cloneTerm( $term_id, $taxonomy ) {
-		global $blog_id;
-
 		// Retrieve term
 		foreach ( $this->sourceBookTerms as $k => $v ) {
 			if ( $v['id'] === absint( $term_id ) ) {
@@ -263,17 +265,9 @@ class Cloner {
 		}
 
 		// POST internal request
-		$switch = ( $blog_id !== $this->targetBookId ) ? true : false;
-		if ( $switch ) {
-			switch_to_blog( $this->targetBookId );
-		}
-
 		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $term );
 		$response = rest_do_request( $request )->get_data();
-		if ( $switch ) {
-			restore_current_blog();
-		}
 
 		// Inform user of failure, bail
 		if ( is_wp_error( $response ) ) {
@@ -382,7 +376,6 @@ class Cloner {
 		}
 
 		// Return successful response
-		// wp_die( '<pre>' . print_r( $response, true ) . '</pre>' );
 		return $response;
 	}
 
@@ -498,14 +491,6 @@ class Cloner {
 	 * @return bool | int False if the creation failed; the ID of the new book's book information post if it succeeded.
 	 */
 	protected function cloneMetadata() {
-		global $blog_id;
-
-		$switch = ( $this->targetBookId !== $blog_id ) ? true : false;
-
-		if ( $switch ) {
-			switch_to_blog( $this->targetBookId );
-		}
-
 		$metadata_id = ( new Metadata )->getMetaPost()->ID;
 
 		if ( ! $metadata_id ) {
@@ -528,10 +513,6 @@ class Cloner {
 			}
 		}
 
-		if ( $switch ) {
-			restore_current_blog();
-		}
-
 		return $metadata_id;
 	}
 
@@ -546,8 +527,6 @@ class Cloner {
 	 * @return bool | int False if the clone failed; the ID of the new section if it succeeded.
 	 */
 	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
-		global $blog_id;
-
 		// Locate section
 		foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $k => $v ) {
 			if ( $v['id'] === absint( $section_id ) ) {
@@ -609,33 +588,17 @@ class Cloner {
 		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
 
 		// POST internal request
-		$switch = ( $blog_id !== $this->targetBookId ) ? true : false;
-		if ( $switch ) {
-			switch_to_blog( $this->targetBookId );
-		}
-
 		$request = new \WP_REST_Request( 'POST', "/pressbooks/v2/$endpoint" );
 		$request->set_body_params( $section );
 		$response = rest_do_request( $request )->get_data();
-		if ( $switch ) {
-			restore_current_blog();
-		}
 
 		// Inform user of failure, bail
 		if ( @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
 			return false;  // TODO Error message
 		}
 
-		if ( $switch ) {
-			switch_to_blog( $this->targetBookId );
-		}
-
 		// Set pb_is_based_on property
 		update_post_meta( $response['id'], 'pb_is_based_on', $permalink );
-
-		if ( $switch ) {
-			restore_current_blog();
-		}
 
 		// Clone associated content
 		if ( $post_type !== 'part' ) {
@@ -658,8 +621,6 @@ class Cloner {
 	 * @return bool False if the clone failed; true if it succeeded.
 	 */
 	protected function cloneSectionMetadata( $section_id, $post_type, $target_id ) {
-		global $blog_id;
-
 		// Determine endpoint based on $post_type
 		$endpoint = ( in_array( $post_type, [ 'chapter' ], true ) ) ? $post_type . 's' : $post_type;
 
@@ -682,20 +643,10 @@ class Cloner {
 			$section_metadata = [];
 		}
 
-		$switch = ( $this->targetBookId !== $blog_id ) ? true : false;
-
-		if ( $switch ) {
-			switch_to_blog( $this->targetBookId );
-		}
-
 		$section_information = schema_to_section_information( $section_metadata, $this->sourceBookMetadata );
 
 		foreach ( $section_information as $key => $value ) {
 			update_post_meta( $target_id, $key, $value );
-		}
-
-		if ( $switch ) {
-			restore_current_blog();
 		}
 
 		return true;
@@ -808,8 +759,6 @@ class Cloner {
 	 * @return string filename
 	 */
 	protected function fetchAndSaveUniqueImage( $url ) {
-		global $blog_id;
-
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
 			return '';
 		}
@@ -859,17 +808,10 @@ class Cloner {
 			}
 		}
 
-		$switch = ( $blog_id !== $this->targetBookId ) ? true : false;
-		if ( $switch ) {
-			switch_to_blog( $this->targetBookId );
-		}
 		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
 			$src = ''; // Change false to empty string
-		}
-		if ( $switch ) {
-			restore_current_blog();
 		}
 		$already_done[ $remote_img_location ] = $src;
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
