@@ -1,16 +1,17 @@
 # Copyright (C) 2017 Pressbooks
 # This file is distributed under the same license as the Pressbooks package.
 # Translators:
+# fish free <winofchina@hotmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"PO-Revision-Date: 2017-07-25 15:17+0000\n"
-"Last-Translator: Ned Zimmerman\n"
-"Language-Team: Chinese (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
+"PO-Revision-Date: 2017-07-31 09:27+0000\n"
+"Last-Translator: fish free <winofchina@hotmail.com>\n"
+"Language-Team: Chinese (http://www.transifex.com/pressbooks/pressbooks/language/zh/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
+"Language: zh\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -23,85 +24,85 @@ msgid ""
 "Pressbooks will not work with your version of PHP. Pressbooks requires PHP "
 "version %s or greater. Please upgrade PHP if you would like to use "
 "Pressbooks."
-msgstr ""
+msgstr "Pressbooks will not work with your version of PHP. Pressbooks requires PHP version %s or greater. Please upgrade PHP if you would like to use Pressbooks."
 
 #: ../compatibility.php:85
 msgid ""
 "Pressbooks will not work with your version of WordPress. Pressbooks requires"
 " a dedicated install of WordPress Multisite, version %s or greater. Please "
 "upgrade WordPress if you would like to use Pressbooks."
-msgstr ""
+msgstr "Pressbooks will not work with your version of WordPress. Pressbooks requires a dedicated install of WordPress Multisite, version %s or greater. Please upgrade WordPress if you would like to use Pressbooks."
 
 #: ../compatibility.php:96
 msgid ""
 "The Pressbooks plugin is inactive, but you have active plugins that require "
 "Pressbooks. This is causing errors. Please go to the Plugins page, and "
 "activate Pressbooks."
-msgstr ""
+msgstr "The Pressbooks plugin is inactive, but you have active plugins that require Pressbooks. This is causing errors. Please go to the Plugins page, and activate Pressbooks."
 
 #: ../inc/class-activation.php60, ../inc/class-activation.php:264
 msgid "Simple Book Publishing"
-msgstr ""
+msgstr "简单书籍发行"
 
 #: ../inc/class-activation.php:165
 msgid "Main Body"
-msgstr ""
+msgstr "主体正文"
 
 #: ../inc/class-activation.php171, ../tests/test-book.php:55
 msgid "Introduction"
-msgstr ""
+msgstr "引子"
 
 #: ../inc/class-activation.php173, ../tests/test-book.php:85
 msgid "This is where you can write your introduction."
-msgstr ""
+msgstr "您可以在在此撰写引子。"
 
 #: ../inc/class-activation.php:178
 msgid "Chapter 1"
-msgstr ""
+msgstr "第1章"
 
 #: ../inc/class-activation.php:180
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
-msgstr ""
+msgstr "这是主体正文部分的第一章。您可以更改文字、重命名章名、添加新章以及新建书籍部件（如：序言、索引等）。"
 
 #: ../inc/class-activation.php:185
 msgid "Appendix"
-msgstr ""
+msgstr "附录"
 
 #: ../inc/class-activation.php:187
 msgid "This is where you can add appendices or other back matter."
-msgstr ""
+msgstr "您可再次添加附录或其他书籍后记内容。"
 
 #: ../inc/class-activation.php:193
 msgid "Authors"
-msgstr ""
+msgstr "作者"
 
 #: ../inc/class-activation.php198,
 #: ../inc/admin/class-catalog-list-table.php171,
 #: ../inc/modules/export/epub/class-epub201.php:763
 msgid "Cover"
-msgstr ""
+msgstr "封面"
 
 #: ../inc/class-activation.php203,
 #: ../inc/modules/themeoptions/class-pdfoptions.php238,
 #: ../inc/api/endpoints/controller/class-books.php124,
 #: ../inc/modules/export/epub/templates/epub3/toc.php:23
 msgid "Table of Contents"
-msgstr ""
+msgstr "目录"
 
 #: ../inc/class-activation.php208, ../inc/admin/laf/namespace.php21,
 #: ../templates/admin/catalog.php:98
 msgid "About"
-msgstr ""
+msgstr "关于"
 
 #: ../inc/class-activation.php:213
 msgid "Buy"
-msgstr ""
+msgstr "购买"
 
 #: ../inc/class-activation.php:218
 msgid "Access Denied"
-msgstr ""
+msgstr "拒绝访问"
 
 #: ../inc/class-activation.php:220
 msgid ""
@@ -109,38 +110,38 @@ msgid ""
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
 "set up your own Pressbooks book at: <a "
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
-msgstr ""
+msgstr "该书是私有的，只有注册用户才能访问。若您有账户则可以 <a href=\"/wp-login.php\">点此登录</a>。您也可以 <a href=\"http://pressbooks.com\">P点此创建</a>。"
 
 #: ../inc/class-activation.php225, ../inc/class-metadata.php:368
 msgid "Custom CSS for Ebook"
-msgstr ""
+msgstr "EBook版自定义CSS"
 
 #: ../inc/class-activation.php230, ../inc/class-metadata.php:373
 msgid "Custom CSS for PDF"
-msgstr ""
+msgstr "PDF版自定义CSS"
 
 #: ../inc/class-activation.php235, ../inc/class-metadata.php:378
 msgid "Custom CSS for Web"
-msgstr ""
+msgstr "Web版自定义CSS"
 
 #: ../inc/class-activation.php240, ../inc/posttype/namespace.php194,
 #: ../templates/admin/import.php:96
 msgid "Book Information"
-msgstr ""
+msgstr "书籍信息"
 
 #: ../inc/class-activation.php:254
 msgid "Default Data"
-msgstr ""
+msgstr "默认数据"
 
 #: ../inc/class-catalog.php:753
 msgid "Catalog Logo"
-msgstr ""
+msgstr "编目Logo"
 
 #: ../inc/class-catalog.php1115, ../inc/class-catalog.php1170,
 #: ../inc/class-catalog.php1214, ../inc/admin/class-catalog-list-table.php549,
 #: ../templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
-msgstr ""
+msgstr "您无权限做此操作。"
 
 #: ../inc/class-catalog.php1142, ../inc/class-catalog.php1197,
 #: ../inc/class-catalog.php1233, ../inc/class-catalog.php1289,
@@ -148,91 +149,91 @@ msgstr ""
 #: ../inc/admin/network/class-sharingandprivacyoptions.php116,
 #: ../templates/admin/dashboard.php:28
 msgid "Settings saved."
-msgstr ""
+msgstr "设置已保存。"
 
 #: ../inc/class-catalog.php:1261
 msgid "Invalid URL."
-msgstr ""
+msgstr "无效网址。"
 
 #: ../inc/class-catalog.php:1281
 msgid "No book found."
-msgstr ""
+msgstr "未发现书籍。"
 
 #: ../inc/class-globaltypography.php:20
 msgid "Ancient Greek"
-msgstr ""
+msgstr "古希腊语"
 
 #: ../inc/class-globaltypography.php:21
 msgid "Arabic"
-msgstr ""
+msgstr "阿拉伯语"
 
 #: ../inc/class-globaltypography.php:22
 msgid "Biblical Hebrew"
-msgstr ""
+msgstr "圣经版希伯来语"
 
 #: ../inc/class-globaltypography.php:23
 msgid "Canadian Indigenous Syllabics"
-msgstr ""
+msgstr "加拿大土著语言"
 
 #: ../inc/class-globaltypography.php:24
 msgid "Hindi"
-msgstr ""
+msgstr "印地语"
 
 #: ../inc/class-globaltypography.php:25
 msgid "Chinese (Simplified)"
-msgstr ""
+msgstr "简体中文"
 
 #: ../inc/class-globaltypography.php:26
 msgid "Chinese (Traditional)"
-msgstr ""
+msgstr "繁体中文"
 
 #: ../inc/class-globaltypography.php:27
 msgid "Coptic"
-msgstr ""
+msgstr "科普特语"
 
 #: ../inc/class-globaltypography.php:28
 msgid "Gujarati"
-msgstr ""
+msgstr "古吉拉特语"
 
 #: ../inc/class-globaltypography.php:29
 msgid "Japanese"
-msgstr ""
+msgstr "日语"
 
 #: ../inc/class-globaltypography.php:30
 msgid "Korean"
-msgstr ""
+msgstr "朝鲜语"
 
 #: ../inc/class-globaltypography.php:31
 msgid "Syriac"
-msgstr ""
+msgstr "叙利亚语"
 
 #: ../inc/class-globaltypography.php:32
 msgid "Tamil"
-msgstr ""
+msgstr "泰米尔语"
 
 #: ../inc/class-globaltypography.php:33
 msgid "Tibetan"
-msgstr ""
+msgstr "藏语"
 
 #: ../inc/class-globaltypography.php:34
 msgid "Turkish"
-msgstr ""
+msgstr "土耳其语"
 
 #: ../inc/class-globaltypography.php:313
 msgid "Your %1$s font could not be downloaded from %2$s."
-msgstr ""
+msgstr "无法从%2$s下载您的 %1$s 字体。"
 
 #: ../inc/class-metadata.php453, ../inc/admin/metaboxes/namespace.php97,
 #: ../inc/admin/metaboxes/namespace.php:149
 msgid "Cover Image"
-msgstr ""
+msgstr "封面图片"
 
 #: ../inc/class-sass.php53, ../inc/api/endpoints/controller/class-toc.php185,
 #: ../inc/modules/searchandreplace/types/class-content.php71,
 #: ../templates/admin/import.php78, ../templates/admin/organize.php59,
 #: ../templates/admin/trash.php:56
 msgid "Chapter"
-msgstr ""
+msgstr "章"
 
 #: ../inc/class-sass.php54, ../inc/admin/metaboxes/namespace.php140,
 #: ../inc/admin/metaboxes/namespace.php542,
@@ -242,391 +243,391 @@ msgstr ""
 #: ../templates/admin/import.php80, ../templates/admin/organize.php41,
 #: ../templates/admin/trash.php:53
 msgid "Part"
-msgstr ""
+msgstr "部件"
 
 #: ../inc/class-sass.php:244
 msgid "SASS Error"
-msgstr ""
+msgstr "SASS错误"
 
 #: ../inc/class-taxonomy.php:34
 msgctxt "taxonomy general name"
 msgid "Front Matter Types"
-msgstr ""
+msgstr " 正文前材料的类型"
 
 #: ../inc/class-taxonomy.php:35
 msgctxt "taxonomy singular name"
 msgid "Front Matter Type"
-msgstr ""
+msgstr "正文前材料的类型"
 
 #: ../inc/class-taxonomy.php:36
 msgid "Search Front Matter Types"
-msgstr ""
+msgstr "搜索正文前材料 "
 
 #: ../inc/class-taxonomy.php:37
 msgid "Popular Front Matter Types"
-msgstr ""
+msgstr "流行的正文前材料类型"
 
 #: ../inc/class-taxonomy.php:38
 msgid "All Front Matter Types"
-msgstr ""
+msgstr "所有正文前材料类型"
 
 #: ../inc/class-taxonomy.php:41
 msgid "Edit Front Matter Type"
-msgstr ""
+msgstr "编辑正文前材料类型"
 
 #: ../inc/class-taxonomy.php:42
 msgid "Update Front Matter Type"
-msgstr ""
+msgstr "更新正文前材料 "
 
 #: ../inc/class-taxonomy.php:43
 msgid "Add New Front Matter Type"
-msgstr ""
+msgstr "添加正文前材料 "
 
 #: ../inc/class-taxonomy.php:44
 msgid "New Front Matter Type Name"
-msgstr ""
+msgstr "新建的正文前材料类型名"
 
 #: ../inc/class-taxonomy.php:45
 msgid "Separate front matter types with commas"
-msgstr ""
+msgstr "用逗号隔开正文前材料类型名"
 
 #: ../inc/class-taxonomy.php:46
 msgid "Add or remove front matter type"
-msgstr ""
+msgstr "添加或删除正文前材料类型"
 
 #: ../inc/class-taxonomy.php:47
 msgid "Choose from the most used front matter type"
-msgstr ""
+msgstr "从最常用正文前材料类型中选择"
 
 #: ../inc/class-taxonomy.php:48
 msgid "Front Matter Types"
-msgstr ""
+msgstr "正文前材料类型"
 
 #: ../inc/class-taxonomy.php:74
 msgctxt "taxonomy general name"
 msgid "Back Matter Types"
-msgstr ""
+msgstr "正文后材料类型"
 
 #: ../inc/class-taxonomy.php:75
 msgctxt "taxonomy singular name"
 msgid "Back Matter Type"
-msgstr ""
+msgstr "正文后材料类型"
 
 #: ../inc/class-taxonomy.php:76
 msgid "Search Back Matter Types"
-msgstr ""
+msgstr "搜索正文后材料 "
 
 #: ../inc/class-taxonomy.php:77
 msgid "Popular Back Matter Types"
-msgstr ""
+msgstr "流行的正文后材料类型"
 
 #: ../inc/class-taxonomy.php:78
 msgid "All Back Matter Types"
-msgstr ""
+msgstr "所有正文后材料类型"
 
 #: ../inc/class-taxonomy.php:81
 msgid "Edit Back Matter Type"
-msgstr ""
+msgstr "编辑正文后材料类型"
 
 #: ../inc/class-taxonomy.php:82
 msgid "Update Back Matter Type"
-msgstr ""
+msgstr "更新正文后材料 "
 
 #: ../inc/class-taxonomy.php:83
 msgid "Add New Back Matter Type"
-msgstr ""
+msgstr "添加正文后材料 "
 
 #: ../inc/class-taxonomy.php:84
 msgid "New Back Matter Type Name"
-msgstr ""
+msgstr "新建的正文后材料类型名"
 
 #: ../inc/class-taxonomy.php:85
 msgid "Separate back matter types with commas"
-msgstr ""
+msgstr "用逗号隔开正文后材料类型名"
 
 #: ../inc/class-taxonomy.php:86
 msgid "Add or remove back matter type"
-msgstr ""
+msgstr "添加或删除正文后材料类型"
 
 #: ../inc/class-taxonomy.php:87
 msgid "Choose from the most used back matter type"
-msgstr ""
+msgstr "从最常用正文后材料类型中选择"
 
 #: ../inc/class-taxonomy.php:88
 msgid "Back Matter Types"
-msgstr ""
+msgstr "正文后材料类型"
 
 #: ../inc/class-taxonomy.php:114
 msgctxt "taxonomy general name"
 msgid "Chapter Types"
-msgstr ""
+msgstr "章类型"
 
 #: ../inc/class-taxonomy.php:115
 msgctxt "taxonomy singular name"
 msgid "Chapter Type"
-msgstr ""
+msgstr "章类型"
 
 #: ../inc/class-taxonomy.php:116
 msgid "Search Chapter Types"
-msgstr ""
+msgstr "搜索章类型"
 
 #: ../inc/class-taxonomy.php:117
 msgid "Popular Chapter Types"
-msgstr ""
+msgstr "流行的章类型"
 
 #: ../inc/class-taxonomy.php:118
 msgid "All Chapter Types"
-msgstr ""
+msgstr "所有章类型"
 
 #: ../inc/class-taxonomy.php:121
 msgid "Edit Chapter Type"
-msgstr ""
+msgstr "编辑章类型"
 
 #: ../inc/class-taxonomy.php:122
 msgid "Update Chapter Type"
-msgstr ""
+msgstr "更新章类型"
 
 #: ../inc/class-taxonomy.php:123
 msgid "Add New Chapter Type"
-msgstr ""
+msgstr " 新建章类型"
 
 #: ../inc/class-taxonomy.php:124
 msgid "New Chapter Type Name"
-msgstr ""
+msgstr "新建的章类型名"
 
 #: ../inc/class-taxonomy.php:125
 msgid "Separate chapter types with commas"
-msgstr ""
+msgstr "用逗号隔开章类型名"
 
 #: ../inc/class-taxonomy.php:126
 msgid "Add or remove chapter type"
-msgstr ""
+msgstr "添加或删除章类型"
 
 #: ../inc/class-taxonomy.php:127
 msgid "Choose from the most used chapter type"
-msgstr ""
+msgstr "从最常用章类型中选择"
 
 #: ../inc/class-taxonomy.php:128
 msgid "Chapter Types"
-msgstr ""
+msgstr "章类型"
 
 #: ../inc/admin/class-catalog-list-table.php:70
 msgid "Visit Book"
-msgstr ""
+msgstr "在线阅读"
 
 #: ../inc/admin/class-catalog-list-table.php:75
 msgid "Visit Admin"
-msgstr ""
+msgstr "管理书籍"
 
 #: ../inc/admin/class-catalog-list-table.php106,
 #: ../inc/admin/class-catalog-list-table.php214,
 #: ../inc/admin/class-catalog-list-table.php:466
 msgid "Hide in Catalog"
-msgstr ""
+msgstr "在编目中隐藏"
 
 #: ../inc/admin/class-catalog-list-table.php111,
 #: ../inc/admin/class-catalog-list-table.php213,
 #: ../inc/admin/class-catalog-list-table.php:464
 msgid "Show in Catalog"
-msgstr ""
+msgstr "在编目中显示"
 
 #: ../inc/admin/class-catalog-list-table.php:169
 msgid "Catalog Status"
-msgstr ""
+msgstr "编目状态"
 
 #: ../inc/admin/class-catalog-list-table.php:170
 msgid "Privacy Status"
-msgstr ""
+msgstr "隐私状态"
 
 #: ../inc/admin/class-catalog-list-table.php172,
 #: ../templates/admin/import.php76, ../templates/admin/trash.php:34
 msgid "Title"
-msgstr ""
+msgstr "标题"
 
 #: ../inc/admin/class-catalog-list-table.php173,
 #: ../inc/admin/metaboxes/namespace.php185, ../templates/admin/organize.php79,
 #: ../templates/admin/organize.php:155
 msgid "Author"
-msgstr ""
+msgstr "作者"
 
 #: ../inc/admin/class-catalog-list-table.php177,
 #: ../templates/pb-catalog.php:213
 msgid "Tag"
-msgstr ""
+msgstr "标签"
 
 #: ../inc/admin/class-catalog-list-table.php180,
 #: ../templates/admin/catalog.php:36
 msgid "Featured"
-msgstr ""
+msgstr "精选的"
 
 #: ../inc/admin/class-catalog-list-table.php:181
 msgid "Pub Date"
-msgstr ""
+msgstr "发布日期"
 
 #: ../inc/admin/class-catalog-list-table.php:345
 msgid "Edit Tags"
-msgstr ""
+msgstr "编辑标签"
 
 #: ../inc/admin/class-catalog-list-table.php385,
 #: ../inc/admin/laf/namespace.php112, ../templates/admin/organize.php23,
 #: ../templates/admin/organize.php29, ../templates/admin/organize.php82,
 #: ../templates/admin/organize.php:158
 msgid "Private"
-msgstr ""
+msgstr "私有"
 
 #: ../inc/admin/class-catalog-list-table.php385,
 #: ../inc/admin/laf/namespace.php114, ../templates/admin/organize.php21,
 #: ../templates/admin/organize.php:26
 msgid "Public"
-msgstr ""
+msgstr "公开"
 
 #: ../inc/admin/class-catalog-list-table.php:462
 msgid "Organize your public Catalog page."
-msgstr ""
+msgstr "组织公开的编目页。"
 
 #: ../inc/admin/class-catalog-list-table.php:463
 msgid "Show/Hide books"
-msgstr ""
+msgstr "显示/隐藏书籍"
 
 #: ../inc/admin/class-catalog-list-table.php:464
 msgid "To display a book in your catalog choose \"%s\" under Catalog Status. "
-msgstr ""
+msgstr "在编目状态下选择“%s”以显示一本书。"
 
 #: ../inc/admin/class-catalog-list-table.php:466
 msgid "To hide a book in your catalog choose \"%s\" under Catalog Status."
-msgstr ""
+msgstr "在编目状态下选择“%s”以隐藏一本书。"
 
 #: ../inc/admin/class-catalog-list-table.php:469
 msgid "Catalog sorting"
-msgstr ""
+msgstr "编目排序"
 
 #: ../inc/admin/class-catalog-list-table.php:470
 msgid ""
 "To add sorting ability, add your Tag names to your <a href=\"%s\">Catalog "
 "Profile</a> page (ex: Authors, Book Genre), then add the appropriate tags to"
 " each individual book."
-msgstr ""
+msgstr "要想增加排序功能，请在<a href=\"%s\">编目资料页</a>中（如：作者、书籍流派）中添加标签名，并把合适的标签选配给每本书。"
 
 #: ../inc/admin/class-catalog-list-table.php:472
 msgid "Share your catalog"
-msgstr ""
+msgstr "分享您的编目"
 
 #: ../inc/admin/class-catalog-list-table.php:473
 msgid "The public link to your catalog page"
-msgstr ""
+msgstr "可访问您的编目页的公开超链接"
 
 #: ../inc/admin/class-catalog-list-table.php477,
 #: ../inc/admin/laf/namespace.php233, ../inc/admin/laf/namespace.php233,
 #: ../inc/admin/laf/namespace.php303, ../inc/admin/laf/namespace.php303,
 #: ../inc/admin/laf/namespace.php:430
 msgid "My Catalog"
-msgstr ""
+msgstr "我的编目"
 
 #: ../inc/admin/class-catalog-list-table.php:478
 msgid "Edit Profile"
-msgstr ""
+msgstr "编辑个人资料"
 
 #: ../inc/admin/class-catalog-list-table.php:479
 msgid "Visit Catalog"
-msgstr ""
+msgstr " 访问编目"
 
 #: ../inc/admin/class-catalog-list-table.php487,
 #: ../templates/admin/search.php:74
 msgid "Search"
-msgstr ""
+msgstr "搜索"
 
 #: ../inc/admin/class-catalog-list-table.php:496
 msgid "Add By URL"
-msgstr ""
+msgstr "通过网址添加"
 
 #: ../inc/admin/class-catalog-list-table.php:554
 msgid "The requested user does not exist."
-msgstr ""
+msgstr "请求的用户不存在。"
 
 #: ../inc/admin/class-exportoptions.php:65
 msgid "Email Validation Logs"
-msgstr ""
+msgstr "Email验证日志"
 
 #: ../inc/admin/class-exportoptions.php:70
 msgid "No. Ignore validation errors."
-msgstr ""
+msgstr "不。忽略验证错误。"
 
 #: ../inc/admin/class-exportoptions.php:71
 msgid "Yes."
-msgstr ""
+msgstr "是。"
 
 #: ../inc/admin/class-exportoptions.php:71
 msgid "Email me validation error logs on export."
-msgstr ""
+msgstr "把导出时的错误日志通过Email发给我。"
 
 #: ../inc/admin/class-exportoptions.php:78
 msgid "Lock Theme"
-msgstr ""
+msgstr "锁定主题"
 
 #: ../inc/admin/class-exportoptions.php:83
 msgid "Lock your theme at its current version."
-msgstr ""
+msgstr "把您的主题锁定在当前版本。"
 
 #: ../inc/admin/class-exportoptions.php:99
 msgid "Export settings."
-msgstr ""
+msgstr "导出设置。"
 
 #: ../inc/admin/class-exportoptions.php:162
 msgid ""
 "This will prevent any changes to your book&rsquo;s appearance and page count"
 " when themes are updated."
-msgstr ""
+msgstr "选定此设置项时，即使主题更新了，您的书的外观和页码也不会随着改变。"
 
 #: ../inc/admin/class-exportoptions.php182, ../inc/admin/laf/namespace.php220,
 #: ../inc/admin/metaboxes/namespace.php:552
 msgid "Export Settings"
-msgstr ""
+msgstr "导出设置"
 
 #: ../inc/admin/class-network-managers-list-table.php76,
 #: ../inc/admin/class-network-managers-list-table.php80,
 #: ../inc/admin/class-network-managers-list-table.php:80
 msgid "Restrict Access"
-msgstr ""
+msgstr "设置访问限制"
 
 #: ../inc/admin/class-network-managers-list-table.php76,
 #: ../inc/admin/class-network-managers-list-table.php76,
 #: ../inc/admin/class-network-managers-list-table.php:80
 msgid "Unrestrict Access"
-msgstr ""
+msgstr "取消访问限制"
 
 #: ../inc/admin/class-publishoptions.php:65
 msgid "Amazon URL"
-msgstr ""
+msgstr "Amazon网址"
 
 #: ../inc/admin/class-publishoptions.php:73
 msgid "O'Reilly URL"
-msgstr ""
+msgstr "O'Reilly网址"
 
 #: ../inc/admin/class-publishoptions.php:81
 msgid "Barnes and Noble URL"
-msgstr ""
+msgstr "Barnes and Noble网址"
 
 #: ../inc/admin/class-publishoptions.php:89
 msgid "Kobo URL"
-msgstr ""
+msgstr "Kob网址"
 
 #: ../inc/admin/class-publishoptions.php:97
 msgid "iBooks URL"
-msgstr ""
+msgstr "iBooks网址"
 
 #: ../inc/admin/class-publishoptions.php:105
 msgid "Other Service URL"
-msgstr ""
+msgstr "其他电子书服务网址"
 
 #: ../inc/admin/class-publishoptions.php:123
 msgid ""
 "Once your book is finished, you can download the files and submit them to "
 "ebookstores and print-on-demand providers."
-msgstr ""
+msgstr "当您的书籍完成时，您可以下载书籍文件并提交到在线电子书店和印刷服务商。"
 
 #: ../inc/admin/class-publishoptions.php:127
 msgid "Ebook Stores"
-msgstr ""
+msgstr "电子书店"
 
 #: ../inc/admin/class-publishoptions.php:128
 msgid ""
@@ -635,72 +636,72 @@ msgid ""
 "serve ebookstores are <a href=\"%1$1s\">Kindle</a>, <a "
 "href=\"%2$2s\">Kobo</a>, and <a href=\"%3$3s\">Nook</a>. Other ebook stores "
 "include Apple iBooks and Google."
-msgstr ""
+msgstr "当您下载好文件后，您既可以自行提交到在线电子书店，也可以使用第三方发行商的服务。推荐的自服务在线电子书店有：<a href=\"%1$1s\">Kindle</a>、<a href=\"%2$2s\">Kobo</a>、<a href=\"%3$3s\">Nook</a>，其他的还有苹果的iBooks和谷歌。"
 
 #: ../inc/admin/class-publishoptions.php:129
 msgid ""
 "If you do not wish to submit your ebooks yourself, we recommend using a "
 "third-party distribution service such as <a href=\"%1s\">IngramSpark</a>, "
 "which can also make your books available online in print."
-msgstr ""
+msgstr "若您不想自己提交电子书，我们推荐使用第三方发行服务商如<a href=\"%1s\">IngramSpark</a>，它在线发型或打印您的书籍。"
 
 #: ../inc/admin/class-publishoptions.php:131
 msgid "Print-on-Demand"
-msgstr ""
+msgstr "打印服务"
 
 #: ../inc/admin/class-publishoptions.php:132
 msgid ""
 "If you wish to sell your printed books online, we recommend going through <a"
 " href=\"%1$1s\">IngramSpark</a> or Amazon's <a "
 "href=\"%2$2s\">CreateSpace</a>."
-msgstr ""
+msgstr "若您想在线销售您的纸质版书，我们推荐使用<a href=\"%1$1s\">IngramSpark</a>或Amazon的<a href=\"%2$2s\">CreateSpace</a>服务。"
 
 #: ../inc/admin/class-publishoptions.php:136
 msgid "Adding BUY Links to Your Pressbooks Web Book"
-msgstr ""
+msgstr "添加您的书籍的在线购买链接。"
 
 #: ../inc/admin/class-publishoptions.php:137
 msgid ""
 "If you would like to add <strong>BUY</strong> links to your Pressbooks web "
 "book, add the links to your book at the different retailers below:"
-msgstr ""
+msgstr "　如淘宝宝贝网址。"
 
 #: ../inc/admin/class-publishoptions.php277,
 #: ../inc/admin/laf/namespace.php204, ../inc/admin/laf/namespace.php:204
 msgid "Publish"
-msgstr ""
+msgstr "发布"
 
 #: ../inc/api/namespace.php:59
 msgid "Part ID."
-msgstr ""
+msgstr "书籍部ID。"
 
 #: ../inc/api/namespace.php:150
 msgid "Part does not exist"
-msgstr ""
+msgstr "部件不存在"
 
 #: ../inc/api/namespace.php:153
 msgid "ID is not a part"
-msgstr ""
+msgstr "该ID不是一个部件的ID"
 
 #: ../inc/api/namespace.php:158
 msgid "Failed to update chapter part"
-msgstr ""
+msgstr "更新章部件失败"
 
 #: ../inc/editor/namespace.php:92
 msgid "Indent"
-msgstr ""
+msgstr "缩进"
 
 #: ../inc/editor/namespace.php:98
 msgid "Hanging indent"
-msgstr ""
+msgstr "悬挂缩进"
 
 #: ../inc/editor/namespace.php:104
 msgid "No indent"
-msgstr ""
+msgstr "不缩进"
 
 #: ../inc/editor/namespace.php:110
 msgid "Tight tracking"
-msgstr ""
+msgstr "紧凑字间距"
 
 #: ../inc/editor/namespace.php:116
 msgid "Very tight tracking"
@@ -708,45 +709,45 @@ msgstr ""
 
 #: ../inc/editor/namespace.php:122
 msgid "Loose tracking"
-msgstr ""
+msgstr "宽松的字间距"
 
 #: ../inc/editor/namespace.php:128
 msgid "Very loose tracking"
-msgstr ""
+msgstr "非常宽松的 "
 
 #: ../inc/editor/namespace.php:134
 msgid "Pullquote (left)"
-msgstr ""
+msgstr "左浮动醒目引文"
 
 #: ../inc/editor/namespace.php:140
 msgid "Pullquote (right)"
-msgstr ""
+msgstr "右浮动醒目引文"
 
 #: ../inc/editor/namespace.php192, ../inc/editor/namespace.php210,
 #: ../inc/editor/namespace.php224, tinymce.php:7
 msgid "Standard"
-msgstr ""
+msgstr " "
 
 #: ../inc/editor/namespace.php:196
 msgid "No lines"
-msgstr ""
+msgstr "没有行"
 
 #: ../inc/editor/namespace.php:200
 msgid "Lines"
-msgstr ""
+msgstr "行"
 
 #: ../inc/editor/namespace.php204, ../inc/editor/namespace.php218,
 #: ../inc/editor/namespace.php232, tinymce.php:9
 msgid "Shaded"
-msgstr ""
+msgstr "有阴影的"
 
 #: ../inc/editor/namespace.php214, ../inc/editor/namespace.php:228
 msgid "Border"
-msgstr ""
+msgstr "边框"
 
 #: ../inc/editor/namespace.php:360
 msgid "Internal Link"
-msgstr ""
+msgstr "内部链接"
 
 #: ../inc/image/namespace.php:320
 msgid ""
@@ -755,194 +756,194 @@ msgid ""
 "your ebook files but not your PDF export. Read more <a "
 "href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-"
 "cover/\">here</a>."
-msgstr ""
+msgstr "封面图片的比例应为1:1.5。推荐的尺寸规格是2500px × 3750px，最大文件大小是2MB。<br />注意：该封面将包含在您的电子书文件里，但不会输出在PDF版文件内。<a href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\">点此了解更多</a>。"
 
 #: ../inc/image/namespace.php360, ../templates/admin/export.php273,
 #: ../templates/admin/organize.php89, ../templates/admin/organize.php127,
 #: ../templates/admin/organize.php:195
 msgid "Are you sure you want to delete this?"
-msgstr ""
+msgstr "您确认要删除该项吗？"
 
 #: ../inc/image/namespace.php392,
 #: ../symbionts/custom-metadata/custom_metadata.php1318,
 #: ../templates/admin/organize.php89, ../templates/admin/organize.php127,
 #: ../templates/admin/organize.php:195
 msgid "Delete"
-msgstr ""
+msgstr "删除"
 
 #: ../inc/l10n/namespace.php483, ../inc/l10n/namespace.php:508
 msgid ""
 "Please contact your system administrator if you would like them to install "
 "extended %s language support for the Pressbooks interface."
-msgstr ""
+msgstr "若您要安装系统扩展界面语言%s，请联系系统管理员。"
 
 #: ../inc/metadata/namespace.php144, ../inc/admin/metaboxes/namespace.php325,
 #: ../inc/admin/metaboxes/namespace.php532,
 #: ../inc/admin/metaboxes/namespace.php624,
 #: ../inc/admin/metaboxes/namespace.php:672
 msgid "All Rights Reserved"
-msgstr ""
+msgstr "保留所有版权。"
 
 #: ../inc/metadata/namespace.php:193
 msgid "except where otherwise noted."
-msgstr ""
+msgstr "除了其他地方有特别指出的。"
 
 #: ../inc/metadata/namespace.php:259
 msgid "Hide Additional Book Information"
-msgstr ""
+msgstr "隐藏书籍扩展信息。"
 
 #: ../inc/metadata/namespace.php:262
 msgid "Show Additional Book Information"
-msgstr ""
+msgstr "显示书籍扩展信息。"
 
 #: ../inc/metadata/namespace.php:269
 msgid ""
 "The book information you enter here appears on your book’s cover and title "
 "pages and in the metadata of your webbook and exported files."
-msgstr ""
+msgstr "您在此输入的信息将显示在您的书籍的封面和标题页中，也会作为元数据保存在导出的电子书文件中。"
 
 #: ../inc/metadata/namespace.php:271
 msgid ""
 "If you need to enter additional information, click the button below to see "
 "all available fields."
-msgstr ""
+msgstr "若您要输入扩展信息，请点击下面的按钮展开表单。"
 
 #: ../inc/posttype/namespace.php:41
 msgctxt "post type general name"
 msgid "Chapters"
-msgstr ""
+msgstr "章"
 
 #: ../inc/posttype/namespace.php:42
 msgctxt "post type singular name"
 msgid "Chapter"
-msgstr ""
+msgstr "章"
 
 #: ../inc/posttype/namespace.php:43
 msgctxt "book"
 msgid "Add New Chapter"
-msgstr ""
+msgstr "新建章"
 
 #: ../inc/posttype/namespace.php:44
 msgid "Add New Chapter"
-msgstr ""
+msgstr "新建章"
 
 #: ../inc/posttype/namespace.php:45
 msgid "Edit Chapter"
-msgstr ""
+msgstr "编辑章"
 
 #: ../inc/posttype/namespace.php:46
 msgid "New Chapter"
-msgstr ""
+msgstr "新建章"
 
 #: ../inc/posttype/namespace.php:47
 msgid "View Chapter"
-msgstr ""
+msgstr "查看 "
 
 #: ../inc/posttype/namespace.php:48
 msgid "Search Chapters"
-msgstr ""
+msgstr "搜索章"
 
 #: ../inc/posttype/namespace.php:49
 msgid "No chapters found"
-msgstr ""
+msgstr "未找到章"
 
 #: ../inc/posttype/namespace.php:50
 msgid "No chapters found in Trash"
-msgstr ""
+msgstr "回收站里未发现章"
 
 #: ../inc/posttype/namespace.php:52
 msgid "Text"
-msgstr ""
+msgstr "文本"
 
 #: ../inc/posttype/namespace.php:78
 msgctxt "post type general name"
 msgid "Parts"
-msgstr ""
+msgstr "部件"
 
 #: ../inc/posttype/namespace.php:79
 msgctxt "post type singular name"
 msgid "Part"
-msgstr ""
+msgstr "部件"
 
 #: ../inc/posttype/namespace.php:80
 msgctxt "book"
 msgid "Add Part"
-msgstr ""
+msgstr "新建部件"
 
 #: ../inc/posttype/namespace.php:81
 msgid "Add New Part"
-msgstr ""
+msgstr "新建部件"
 
 #: ../inc/posttype/namespace.php:82
 msgid "Edit Part"
-msgstr ""
+msgstr "编辑部件"
 
 #: ../inc/posttype/namespace.php:83
 msgid "New Part"
-msgstr ""
+msgstr "新建部件"
 
 #: ../inc/posttype/namespace.php:84
 msgid "View Part"
-msgstr ""
+msgstr "查看部件"
 
 #: ../inc/posttype/namespace.php:85
 msgid "Search Parts"
-msgstr ""
+msgstr "搜索部件"
 
 #: ../inc/posttype/namespace.php:86
 msgid "No parts found"
-msgstr ""
+msgstr "未找到部件"
 
 #: ../inc/posttype/namespace.php:87
 msgid "No parts found in Trash"
-msgstr ""
+msgstr "回收站里未找到部件"
 
 #: ../inc/posttype/namespace.php:89
 msgid "Parts"
-msgstr ""
+msgstr "部件"
 
 #: ../inc/posttype/namespace.php:113
 msgctxt "post type general name"
 msgid "Front Matter"
-msgstr ""
+msgstr "正文前材料"
 
 #: ../inc/posttype/namespace.php:114
 msgctxt "post type singular name"
 msgid "Front Matter"
-msgstr ""
+msgstr "正文前材料"
 
 #: ../inc/posttype/namespace.php:115
 msgctxt "book"
 msgid "Add New Front Matter"
-msgstr ""
+msgstr "新建正文前材料"
 
 #: ../inc/posttype/namespace.php:116
 msgid "Add New Front Matter"
-msgstr ""
+msgstr "新建正文前材料"
 
 #: ../inc/posttype/namespace.php:117
 msgid "Edit Front Matter"
-msgstr ""
+msgstr "编辑正文前材料"
 
 #: ../inc/posttype/namespace.php:118
 msgid "New Front Matter"
-msgstr ""
+msgstr "新建正文前材料"
 
 #: ../inc/posttype/namespace.php:119
 msgid "View Front Matter"
-msgstr ""
+msgstr "查看正文前材料"
 
 #: ../inc/posttype/namespace.php:120
 msgid "Search Front Matter"
-msgstr ""
+msgstr "搜索正文前材料"
 
 #: ../inc/posttype/namespace.php:121
 msgid "No front matter found"
-msgstr ""
+msgstr "未找到正文前材料"
 
 #: ../inc/posttype/namespace.php:122
 msgid "No front matter found in Trash"
-msgstr ""
+msgstr "回收站里未找到正文前材料"
 
 #: ../inc/posttype/namespace.php124, ../inc/admin/dashboard/namespace.php105,
 #: ../inc/api/endpoints/controller/class-toc.php169,
@@ -950,50 +951,50 @@ msgstr ""
 #: ../templates/admin/import.php77, ../templates/admin/organize.php38,
 #: ../templates/admin/organize.php55, ../templates/admin/trash.php:50
 msgid "Front Matter"
-msgstr ""
+msgstr "正文前材料"
 
 #: ../inc/posttype/namespace.php:148
 msgctxt "post type general name"
 msgid "Back Matter"
-msgstr ""
+msgstr "正文后材料"
 
 #: ../inc/posttype/namespace.php:149
 msgctxt "post type singular name"
 msgid "Back Matter"
-msgstr ""
+msgstr "正文后材料"
 
 #: ../inc/posttype/namespace.php:150
 msgctxt "book"
 msgid "Add New Back Matter"
-msgstr ""
+msgstr "新建正文后材料"
 
 #: ../inc/posttype/namespace.php:151
 msgid "Add New Back Matter"
-msgstr ""
+msgstr "新建正文后材料"
 
 #: ../inc/posttype/namespace.php:152
 msgid "Edit Back Matter"
-msgstr ""
+msgstr "变价正文后材料"
 
 #: ../inc/posttype/namespace.php:153
 msgid "New Back Matter"
-msgstr ""
+msgstr "新建正文后材料"
 
 #: ../inc/posttype/namespace.php:154
 msgid "View Back Matter"
-msgstr ""
+msgstr "查看正文后材料"
 
 #: ../inc/posttype/namespace.php:155
 msgid "Search Back Matter"
-msgstr ""
+msgstr "搜索正文后材料"
 
 #: ../inc/posttype/namespace.php:156
 msgid "No back matter found"
-msgstr ""
+msgstr "未找到正文后材料"
 
 #: ../inc/posttype/namespace.php:157
 msgid "No back matter found in Trash"
-msgstr ""
+msgstr "回收站里未找到正文后材料"
 
 #: ../inc/posttype/namespace.php159, ../inc/admin/dashboard/namespace.php125,
 #: ../inc/api/endpoints/controller/class-toc.php200,
@@ -1001,66 +1002,66 @@ msgstr ""
 #: ../templates/admin/import.php82, ../templates/admin/organize.php40,
 #: ../templates/admin/organize.php63, ../templates/admin/trash.php:59
 msgid "Back Matter"
-msgstr ""
+msgstr "正文后材料"
 
 #: ../inc/posttype/namespace.php:183
 msgctxt "post type general name"
 msgid "Book Information"
-msgstr ""
+msgstr "书籍信息"
 
 #: ../inc/posttype/namespace.php:184
 msgctxt "post type singular name"
 msgid "Book Information"
-msgstr ""
+msgstr "书籍信息"
 
 #: ../inc/posttype/namespace.php:185
 msgctxt "book"
 msgid "Add New Book Information"
-msgstr ""
+msgstr "新建书籍信息"
 
 #: ../inc/posttype/namespace.php186, ../inc/posttype/namespace.php:187
 msgid "Edit Book Information"
-msgstr ""
+msgstr "编辑书籍信息"
 
 #: ../inc/posttype/namespace.php:188
 msgid "New Book Information"
-msgstr ""
+msgstr "新建书籍信息"
 
 #: ../inc/posttype/namespace.php:189
 msgid "View Book Information"
-msgstr ""
+msgstr "查看书籍信息"
 
 #: ../inc/posttype/namespace.php:190
 msgid "Search Book Information"
-msgstr ""
+msgstr "搜索书籍信息"
 
 #: ../inc/posttype/namespace.php:191
 msgid "No book information found"
-msgstr ""
+msgstr "未找到书籍信息"
 
 #: ../inc/posttype/namespace.php:192
 msgid "No book information found in Trash"
-msgstr ""
+msgstr "回收站里未找到书籍信息"
 
 #: ../inc/posttype/namespace.php251, ../inc/admin/metaboxes/namespace.php:562
 msgid "Include in exports"
-msgstr ""
+msgstr "包含在导出文件中"
 
 #: ../inc/posttype/namespace.php256, ../inc/admin/metaboxes/namespace.php:570
 msgid "Show title in exports"
-msgstr ""
+msgstr "在导出文件中显示标题"
 
 #: ../inc/posttype/namespace.php261, ../inc/admin/metaboxes/namespace.php:578
 msgid "Set as ebook start-point"
-msgstr ""
+msgstr "设置成电子书起读点"
 
 #: ../inc/posttype/namespace.php266, ../inc/admin/metaboxes/namespace.php:501
 msgid "Chapter Short Title (appears in the PDF running header)"
-msgstr ""
+msgstr "章短标题（显示在PDF版的页眉处）"
 
 #: ../inc/posttype/namespace.php270, ../inc/admin/metaboxes/namespace.php:508
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
+msgstr "章副标题（显示在网页/电子书/PDF版中）"
 
 #: ../inc/posttype/namespace.php274, ../inc/admin/metaboxes/namespace.php:515
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
@@ -1068,299 +1069,299 @@ msgstr ""
 
 #: ../inc/posttype/namespace.php278, ../inc/admin/metaboxes/namespace.php:534
 msgid "Chapter Copyright License (overrides book license on this page)"
-msgstr ""
+msgstr "章版权许可（可设置成和整本书不一样的版权）"
 
 #: ../inc/posttype/namespace.php:296
 msgid "Part updated. <a target=\"_blank\" href=\"%s\">View Part</a>"
-msgstr ""
+msgstr "部件已更新。<a target=\"_blank\" href=\"%s\">查看部件</a>"
 
 #: ../inc/posttype/namespace.php296, ../inc/posttype/namespace.php:299
 msgid "Part updated."
-msgstr ""
+msgstr "部件已更新。"
 
 #: ../inc/posttype/namespace.php297, ../inc/posttype/namespace.php316,
 #: ../inc/posttype/namespace.php329, ../inc/posttype/namespace.php348,
 #: ../inc/posttype/namespace.php:367
 msgid "Custom field updated."
-msgstr ""
+msgstr "自定义字段已更新。"
 
 #: ../inc/posttype/namespace.php298, ../inc/posttype/namespace.php317,
 #: ../inc/posttype/namespace.php330, ../inc/posttype/namespace.php349,
 #: ../inc/posttype/namespace.php:368
 msgid "Custom field deleted."
-msgstr ""
+msgstr "自定义字段已删除。"
 
 #: ../inc/posttype/namespace.php:301
 msgid "Part restored to revision from %s"
-msgstr ""
+msgstr "部件已还原成版本%s"
 
 #: ../inc/posttype/namespace.php:302
 msgid "Part published. <a target=\"_blank\" href=\"%s\">View Part</a>"
-msgstr ""
+msgstr "部件已发布。<a target=\"_blank\" href=\"%s\">查看部件</a>"
 
 #: ../inc/posttype/namespace.php:302
 msgid "Part published."
-msgstr ""
+msgstr "部件已发布。"
 
 #: ../inc/posttype/namespace.php:303
 msgid "Part saved."
-msgstr ""
+msgstr "部件已保存。"
 
 #: ../inc/posttype/namespace.php:304
 msgid "Part submitted. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
-msgstr ""
+msgstr "部件已提交。<a target=\"_blank\" href=\"%s\">预览部件</a>"
 
 #: ../inc/posttype/namespace.php:306
 msgid ""
 "Part scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Part</a>"
-msgstr ""
+msgstr "部件已排程：<strong>%1$s</strong>。<a target=\"_blank\" href=\"%2$s\">预览部件</a>"
 
 #: ../inc/posttype/namespace.php308, ../inc/posttype/namespace.php340,
 #: ../inc/posttype/namespace.php359, ../inc/posttype/namespace.php:378
 msgid "M j, Y @ G:i"
-msgstr ""
+msgstr "M j, Y @ G:i"
 
 #: ../inc/posttype/namespace.php:310
 msgid "Part draft updated. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
-msgstr ""
+msgstr "部件草稿已更新。<a target=\"_blank\" href=\"%s\">预览部件</a>"
 
 #: ../inc/posttype/namespace.php315, ../inc/posttype/namespace.php318,
 #: ../inc/posttype/namespace.php:321
 msgid "Book Information updated."
-msgstr ""
+msgstr " 书籍信息已更新。"
 
 #: ../inc/posttype/namespace.php:320
 msgid "Book Information restored to revision from %s"
-msgstr ""
+msgstr "书籍信息已还原成%s"
 
 #: ../inc/posttype/namespace.php:322
 msgid "Book Information saved."
-msgstr ""
+msgstr "书籍信息已保存。"
 
 #: ../inc/posttype/namespace.php:323
 msgid "Book Information submitted."
-msgstr ""
+msgstr "书籍信息已提交。"
 
 #: ../inc/posttype/namespace.php:328
 msgid "Chapter updated. <a target=\"_blank\" href=\"%s\">View Chapter</a>"
-msgstr ""
+msgstr "章已更新。<a target=\"_blank\" href=\"%s\">查看章</a>"
 
 #: ../inc/posttype/namespace.php:331
 msgid "Chapter updated."
-msgstr ""
+msgstr "章已更新。"
 
 #: ../inc/posttype/namespace.php:333
 msgid "Chapter restored to revision from %s"
-msgstr ""
+msgstr "章已还原成%s"
 
 #: ../inc/posttype/namespace.php:334
 msgid "Chapter published. <a href=\"%s\">View Chapter</a>"
-msgstr ""
+msgstr "章已发布。<a href=\"%s\">查看章</a>"
 
 #: ../inc/posttype/namespace.php:335
 msgid "Chapter saved."
-msgstr ""
+msgstr "章已保存。"
 
 #: ../inc/posttype/namespace.php:336
 msgid "Chapter submitted. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
-msgstr ""
+msgstr "章已更新。<a target=\"_blank\" href=\"%s\">预览章</a>"
 
 #: ../inc/posttype/namespace.php:338
 msgid ""
 "Chapter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Chapter</a>"
-msgstr ""
+msgstr "章已排程：<strong>%1$s</strong>。<a target=\"_blank\" href=\"%2$s\">预览章</a>"
 
 #: ../inc/posttype/namespace.php:342
 msgid "Chapter draft updated. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
-msgstr ""
+msgstr "章草稿已更新。<a target=\"_blank\" href=\"%s\">预览章</a>"
 
 #: ../inc/posttype/namespace.php:347
 msgid "Front Matter updated. <a target=\"_blank\" href=\"%s\">View Front Matter</a>"
-msgstr ""
+msgstr "正文前材料已更新。<a target=\"_blank\" href=\"%s\">预览正文前材料</a>"
 
 #: ../inc/posttype/namespace.php:350
 msgid "Front Matter updated."
-msgstr ""
+msgstr "正文前材料已更新。"
 
 #: ../inc/posttype/namespace.php:352
 msgid "Front Matter restored to revision from %s"
-msgstr ""
+msgstr "正文前材料已还原成%s"
 
 #: ../inc/posttype/namespace.php:353
 msgid "Front Matter published. <a href=\"%s\">View Front Matter</a>"
-msgstr ""
+msgstr "正文前材料已发布。<a href=\"%s\">查看正文前材料</a>"
 
 #: ../inc/posttype/namespace.php:354
 msgid "Front Matter saved."
-msgstr ""
+msgstr "正文前材料已保存。"
 
 #: ../inc/posttype/namespace.php:355
 msgid ""
 "Front Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Front "
 "Matter</a>"
-msgstr ""
+msgstr "正文前材料已提交。<a target=\"_blank\" href=\"%s\">预览正文前材料</a>"
 
 #: ../inc/posttype/namespace.php:357
 msgid ""
 "Front Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Front Matter</a>"
-msgstr ""
+msgstr "正文前材料已排程：<strong>%1$s</strong>。<a target=\"_blank\" href=\"%2$s\">预览正文前材料</a>"
 
 #: ../inc/posttype/namespace.php:361
 msgid ""
 "Front Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Front "
 "Matter</a>"
-msgstr ""
+msgstr "正文前材料草稿已更新。<a target=\"_blank\" href=\"%s\">预览正文前材料</a>"
 
 #: ../inc/posttype/namespace.php:366
 msgid "Back Matter updated. <a target=\"_blank\" href=\"%s\">View Back Matter</a>"
-msgstr ""
+msgstr "正文后材料已更新。<a target=\"_blank\" href=\"%s\">查看正文后材料</a>"
 
 #: ../inc/posttype/namespace.php:369
 msgid "Back Matter updated."
-msgstr ""
+msgstr "正文后材料已更新。"
 
 #: ../inc/posttype/namespace.php:371
 msgid "Back Matter restored to revision from %s"
-msgstr ""
+msgstr "正文后材料已还原成%s"
 
 #: ../inc/posttype/namespace.php:372
 msgid "Back Matter published. <a href=\"%s\">View Back Matter</a>"
-msgstr ""
+msgstr "正文后材料已发布。<a href=\"%s\">查看正文后材料</a>"
 
 #: ../inc/posttype/namespace.php:373
 msgid "Back Matter saved."
-msgstr ""
+msgstr "正文后材料已保存。"
 
 #: ../inc/posttype/namespace.php:374
 msgid ""
 "Back Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Back "
 "Matter</a>"
-msgstr ""
+msgstr "正文后材料已提交。<a target=\"_blank\" href=\"%s\">预览正文后材料</a>"
 
 #: ../inc/posttype/namespace.php:376
 msgid ""
 "Back Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Back Matter</a>"
-msgstr ""
+msgstr "正文后材料已排程：<strong>%1$s</strong>。<a target=\"_blank\" href=\"%2$s\">预览正文后材料</a>"
 
 #: ../inc/posttype/namespace.php:380
 msgid ""
 "Back Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Back "
 "Matter</a>"
-msgstr ""
+msgstr "正文后材料草稿已提交。<a target=\"_blank\" href=\"%s\">预览正文后材料</a>"
 
 #: ../inc/posttype/namespace.php424,
 #: ../inc/modules/import/wordpress/class-wxr.php:222
 msgid "parts"
-msgstr ""
+msgstr "部件"
 
 #: ../inc/posttype/namespace.php425,
 #: ../inc/modules/import/wordpress/class-wxr.php:223
 msgid "chapters"
-msgstr ""
+msgstr "章"
 
 #: ../inc/posttype/namespace.php426,
 #: ../inc/modules/import/wordpress/class-wxr.php:221
 msgid "front matter"
-msgstr ""
+msgstr "正文前材料"
 
 #: ../inc/posttype/namespace.php427,
 #: ../inc/modules/import/wordpress/class-wxr.php:224
 msgid "back matter"
-msgstr ""
+msgstr "正文后材料"
 
 #: ../inc/redirect/namespace.php177, ../inc/redirect/namespace.php:418
 msgid "Error: Unknown export format."
-msgstr ""
+msgstr "错误：未知导出格式。"
 
 #: ../inc/redirect/namespace.php:211
 msgid "No catalog was found for user"
-msgstr ""
+msgstr "未找到用户的编目"
 
 #: ../inc/redirect/namespace.php388,
 #: ../inc/modules/export/class-export.php:245
 msgid "book"
-msgstr ""
+msgstr "书"
 
 #: ../inc/redirect/namespace.php393,
 #: ../inc/modules/export/class-export.php:889
 msgid "File not found"
-msgstr ""
+msgstr "文件未找到"
 
 #: ../inc/registration/namespace.php:28
 msgid "Register my book now"
-msgstr ""
+msgstr "现在注册我的书籍"
 
 #: ../inc/registration/namespace.php:31
 msgid "Register my book later"
-msgstr ""
+msgstr "以后注册我的书籍"
 
 #: ../inc/registration/namespace.php:35
 msgid "Web Book Address:"
-msgstr ""
+msgstr "Web书籍地址："
 
 #: ../inc/registration/namespace.php:38
 msgid ""
 "Must be at least 4 characters, letters and numbers only. Your web book "
 "address <strong>cannot be changed</strong>, so choose carefully!"
-msgstr ""
+msgstr "必须至少4个字符，只能含有字母和数字。您的Web书籍地址<strong>不能更改</strong>，所以请仔细选择！"
 
 #: ../inc/registration/namespace.php:41
 msgid "Book Title:"
-msgstr ""
+msgstr "书籍标题："
 
 #: ../inc/registration/namespace.php:44
 msgid "Book Language:"
-msgstr ""
+msgstr "书籍语言："
 
 #: ../inc/registration/namespace.php:47
 msgid "Would you like your web book to be visible to the public?"
-msgstr ""
+msgstr "您希望您的Web书籍向公众开放吗？"
 
 #: ../inc/registration/namespace.php:51
 msgid "Create Book"
-msgstr ""
+msgstr "创建书"
 
 #: ../inc/registration/namespace.php:54
 msgid "Register a %s account"
-msgstr ""
+msgstr "注册%s账户"
 
 #: ../inc/registration/namespace.php:57
 msgid "Create a new book"
-msgstr ""
+msgstr "创建一本新书"
 
 #: ../inc/registration/namespace.php:60
 msgid ""
 "Welcome, %s. Fill out the form below to <strong>add a new book to your "
 "account</strong>."
-msgstr ""
+msgstr "欢迎%s。请填写下面的表单<strong>向您的账户里添加一本新书</strong>。"
 
 #: ../inc/registration/namespace.php:64
 msgid "yourwebbookname"
-msgstr ""
+msgstr "yourwebbookname"
 
 #: ../inc/registration/namespace.php:67
 msgid "Books you are already a member of:"
-msgstr ""
+msgstr "您参与编著的书籍："
 
 #: ../inc/registration/namespace.php:70
 msgid ""
 "Your web book address must be at least 4 characters, letters and numbers "
 "only. It <strong>cannot be changed</strong>, so choose carefully!"
-msgstr ""
+msgstr "您的Web书籍地址必须至少有4个字符，只能含有字母和数字。您的Web书籍地址<strong>不能更改</strong>，所以请仔细选择！"
 
 #: ../inc/registration/namespace.php:73
 msgid "Congratulations! Your new book, %s, is almost ready"
-msgstr ""
+msgstr "恭喜！您的新书%s即将要完成了"
 
 #: ../inc/registration/namespace.php:76
 msgid ""
 "But, before you can start writing your book, <strong>you must activate "
 "it</strong>."
-msgstr ""
+msgstr "但在您开始写书前，先要激活它。"
 
 #: ../inc/registration/namespace.php:79
 msgid ""
@@ -1370,7 +1371,7 @@ msgid ""
 " not receive an email, please check your junk or spam folder. If you still "
 "do not receive an email within an hour, you can <a href=\"%4$s\">reset your "
 "password</a>."
-msgstr ""
+msgstr "您的账户已激活。您现在可以<a href=\"%1$s\">登入</a>您的书籍，用户名 of &#8220;%2$s&#8221;。请检查您的邮箱%3$s查收含有密码和登录说明的邮件。如果您在收件箱里未收到邮件，请检查您的垃圾邮件文件夹里是否有邮件。如果您在一小时内仍未收到邮件，可以<a href=\"%4$s\">重置您的密码</a>。"
 
 #: ../inc/registration/namespace.php:82
 msgid ""
@@ -1380,111 +1381,111 @@ msgid ""
 "receive an email, please check your junk or spam folder. If you still do not"
 " receive an email within an hour, you can <a href=\"%5$s\">reset your "
 "password</a>."
-msgstr ""
+msgstr "您的书籍<a href=\"%1$s\">%2$s</a>已激活。您现在可以登入您的书籍，用户名 &#8220;%3$s&#8221;。请检查您的邮箱%4$s查收含有密码和登录说明的邮件。如果您在收件箱里未收到邮件，请检查您的垃圾邮件文件夹里是否有邮件。如果您在一小时内仍未收到邮件，可以<a href=\"%5$s\">重置您的密码</a>。"
 
 #: ../inc/registration/namespace.php:85
 msgid ""
 "Your account is now activated. <a href=\"%1$s\">View your book</a> or <a "
 "href=\"%2$s\">Log in</a>"
-msgstr ""
+msgstr "您的账户现在已激活。<a href=\"%1$s\">查看您的书籍</a>或<a href=\"%2$s\">登入</a>"
 
 #: ../inc/registration/namespace.php:106
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 #: ../inc/registration/namespace.php:109
 msgid "Type in your password."
-msgstr ""
+msgstr "输入您的密码。"
 
 #: ../inc/registration/namespace.php:111
 msgid "Confirm Password"
-msgstr ""
+msgstr " "
 
 #: ../inc/registration/namespace.php:113
 msgid "Type in your password again."
-msgstr ""
+msgstr "再次输入您的密码。"
 
 #: ../inc/registration/namespace.php125, ../inc/registration/namespace.php158,
 #: ../inc/registration/namespace.php178, ../inc/registration/namespace.php:195
 msgid "Please try again."
-msgstr ""
+msgstr "请重试。"
 
 #: ../inc/registration/namespace.php:135
 msgid "You have to enter a password."
-msgstr ""
+msgstr "您必须输入密码。"
 
 #: ../inc/registration/namespace.php:141
 msgid "Passwords do not match."
-msgstr ""
+msgstr "两次输入的密码不一致。"
 
 #: ../inc/theme/class-lock.php:67
 msgid ""
 "Your book&rsquo;s theme, %1$s, has been locked in its current state as of "
 "%2$s at %3$s."
-msgstr ""
+msgstr "密码不一致。"
 
 #: ../inc/theme/class-lock.php:80
 msgid ""
 "Your book&rsquo;s theme could not be locked. Please ensure that you have "
 "write access to the uploads directory."
-msgstr ""
+msgstr "您的书籍&rsquo;s 的主题已被锁定。请确保您对上传文件目录有写权限。"
 
 #: ../inc/theme/class-lock.php:114
 msgid "Your book&rsquo;s theme has been unlocked."
-msgstr ""
+msgstr "您的书籍的主题已被锁定。"
 
 #: ../inc/theme/class-lock.php:166
 msgid ""
 "Your book&rsquo;s theme, %1$s, was locked in its current state as of %2$s at"
 " %3$s. To select a new theme or change your theme options, please %4$s."
-msgstr ""
+msgstr "您的书籍的主题%1$s已被锁定，当前状态是 %2$s 于 %3$s。要选用一个新主题或者更改主题选项，请%4$s。"
 
 #: ../inc/theme/namespace.php:37
 msgid ""
 "Your theme, %1$s, is not installed. Please visit %2$s for installation "
 "instructions."
-msgstr ""
+msgstr " 您的主题%1$s未安装，请访问 %2$s阅读安装说明。"
 
 #: ../inc/theme/namespace.php:51
 msgid ""
 "The Pressbooks Publisher theme is not installed, but Pressbooks needs it in "
 "order to function properly. Please visit %s for installation instructions."
-msgstr ""
+msgstr "The Pressbooks Publisher theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions."
 
 #: ../inc/theme/namespace.php:64
 msgid ""
 "The Pressbooks Book theme is not installed, but Pressbooks needs it in order"
 " to function properly. Please visit %s for installation instructions."
-msgstr ""
+msgstr "The Pressbooks Book theme is not installed, but Pressbooks needs it in order to function properly. Please visit %s for installation instructions."
 
 #: ../inc/utility/namespace.php:557
 msgctxt "Plugin Installer"
 msgid "Popular"
-msgstr ""
+msgstr "流行的"
 
 #: ../inc/utility/namespace.php:558
 msgctxt "Plugin Installer"
 msgid "Favorites"
-msgstr ""
+msgstr "我的收藏"
 
 #: ../inc/utility/namespace.php614, ../inc/utility/namespace.php621,
 #: ../inc/utility/namespace.php:636
 msgid ""
 "An unexpected error occurred. Something may be wrong with the plugin "
 "recommendations server or your site&#8217;s server&#8217;s configuration."
-msgstr ""
+msgstr "An unexpected error occurred. Something may be wrong with the plugin recommendations server or your site&#8217;s server&#8217;s configuration."
 
 #: ../inc/utility/namespace.php:614
 msgid ""
 "(Pressbooks could not establish a secure connection to the plugin "
 "recommendations server. Please contact your server administrator.)"
-msgstr ""
+msgstr "(Pressbooks could not establish a secure connection to the plugin recommendations server. Please contact your server administrator.)"
 
 #: ../inc/utility/namespace.php:660
 msgid ""
 "These plugins have been created and/or recommended by the Pressbooks "
 "community."
-msgstr ""
+msgstr "These plugins have been created and/or recommended by the Pressbooks community."
 
 #: ../inc/admin/analytics/namespace.php15,
 #: ../inc/admin/analytics/namespace.php16,
@@ -1493,53 +1494,53 @@ msgstr ""
 #: ../inc/admin/analytics/namespace.php171,
 #: ../inc/admin/analytics/namespace.php:204
 msgid "Google Analytics"
-msgstr ""
+msgstr "Google Analytics"
 
 #: ../inc/admin/analytics/namespace.php50,
 #: ../inc/admin/analytics/namespace.php:97
 msgid "Google Analytics ID"
-msgstr ""
+msgstr "Google Analytics ID"
 
 #: ../inc/admin/analytics/namespace.php:55
 msgid ""
 "The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "The Google Analytics ID for your network, e.g. &lsquo;UA-01234567-8&rsquo;."
 
 #: ../inc/admin/analytics/namespace.php:66
 msgid "Site-Specific Tracking"
-msgstr ""
+msgstr "Site-Specific Tracking"
 
 #: ../inc/admin/analytics/namespace.php:71
 msgid ""
 "If enabled, the Google Analytics settings page will be visible to book "
 "administrators, allowing them to use their own Google Analytics accounts to "
 "track statistics at the book level."
-msgstr ""
+msgstr "If enabled, the Google Analytics settings page will be visible to book administrators, allowing them to use their own Google Analytics accounts to track statistics at the book level."
 
 #: ../inc/admin/analytics/namespace.php:102
 msgid ""
 "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
-msgstr ""
+msgstr "The Google Analytics ID for your book, e.g. &lsquo;UA-01234567-8&rsquo;."
 
 #: ../inc/admin/analytics/namespace.php:116
 msgid "Google Analytics settings."
-msgstr ""
+msgstr "Google Analytics settings."
 
 #: ../inc/admin/customcss/namespace.php19,
 #: ../inc/admin/customcss/namespace.php19,
 #: ../templates/admin/custom-css.php:28
 msgid "Edit CSS"
-msgstr ""
+msgstr "编辑CSS"
 
 #: ../inc/admin/customcss/namespace.php:67
 msgid ""
 "Unexpected Error: There was a problem trying to query slug: %s - Please "
 "contact technical support."
-msgstr ""
+msgstr "当查询%s时发生未预期错误，请联系技术支持。"
 
 #: ../inc/admin/customcss/namespace.php:118
 msgid "Last 10 CSS Revisions"
-msgstr ""
+msgstr "最后10个CSS修改"
 
 #: ../inc/admin/customcss/namespace.php121,
 #: ../inc/modules/export/epub/class-epub201.php963,
@@ -1547,11 +1548,11 @@ msgstr ""
 #: ../inc/modules/export/epub/templates/epub201/opf.php90,
 #: ../inc/modules/export/epub/templates/epub3/opf.php:100
 msgid "by"
-msgstr ""
+msgstr " "
 
 #: ../inc/admin/customcss/namespace.php:162
 msgid "Web"
-msgstr ""
+msgstr "Web"
 
 #: ../inc/admin/customcss/namespace.php:193
 msgid "This will overwrite existing custom CSS. Are you sure?"
@@ -1563,49 +1564,49 @@ msgstr ""
 
 #: ../inc/admin/dashboard/namespace.php:81
 msgid "My Book"
-msgstr ""
+msgstr "我的书籍"
 
 #: ../inc/admin/dashboard/namespace.php82, ../inc/admin/laf/namespace.php:484
 msgid "Users"
-msgstr ""
+msgstr "用户"
 
 #: ../inc/admin/dashboard/namespace.php134,
 #: ../inc/admin/dashboard/namespace.php179,
 #: ../templates/admin/organize.php143, ../templates/admin/organize.php:209
 msgid "Add"
-msgstr ""
+msgstr "添加"
 
 #: ../inc/admin/dashboard/namespace.php134,
 #: ../inc/admin/dashboard/namespace.php179, ../inc/admin/laf/namespace.php98,
 #: ../inc/admin/laf/namespace.php:98
 msgid "Organize"
-msgstr ""
+msgstr "组织"
 
 #: ../inc/admin/dashboard/namespace.php188,
 #: ../inc/admin/dashboard/namespace.php189, ../inc/admin/laf/namespace.php466,
 #: ../inc/admin/laf/namespace.php:532
 msgid "Dashboard"
-msgstr ""
+msgstr "仪表板"
 
 #: ../inc/admin/dashboard/namespace.php:209
 msgid "Dashboard Feed"
-msgstr ""
+msgstr "仪表板Feed"
 
 #: ../inc/admin/dashboard/namespace.php:216
 msgid "Display Feed"
-msgstr ""
+msgstr "显示Feed"
 
 #: ../inc/admin/dashboard/namespace.php:221
 msgid "Display an RSS feed widget on the dashboard."
-msgstr ""
+msgstr "在仪表板上显示一条RSS Fee "
 
 #: ../inc/admin/dashboard/namespace.php:227
 msgid "Feed Title"
-msgstr ""
+msgstr "Feed标题"
 
 #: ../inc/admin/dashboard/namespace.php:235
 msgid "Feed URL"
-msgstr ""
+msgstr "Feed网址"
 
 #: ../inc/admin/dashboard/namespace.php:262
 msgid "Adjust settings for your dashboard RSS feed widget below."
@@ -1615,7 +1616,7 @@ msgstr ""
 #: ../inc/admin/diagnostics/namespace.php21,
 #: ../inc/admin/diagnostics/namespace.php37, ../inc/admin/laf/namespace.php:24
 msgid "Diagnostics"
-msgstr ""
+msgstr "诊断"
 
 #: ../inc/admin/diagnostics/namespace.php:38
 msgid "Please submit this information with any bug reports."
@@ -1633,60 +1634,60 @@ msgstr ""
 
 #: ../inc/admin/laf/namespace.php22, ../inc/admin/laf/namespace.php:391
 msgid "Help"
-msgstr ""
+msgstr "帮助"
 
 #: ../inc/admin/laf/namespace.php25, ../inc/admin/laf/namespace.php:401
 msgid "Contact"
-msgstr ""
+msgstr "联系"
 
 #: ../inc/admin/laf/namespace.php84, ../inc/admin/laf/namespace.php84,
 #: ../inc/modules/themeoptions/class-themeoptions.php:56
 msgid "Theme Options"
-msgstr ""
+msgstr "主题选项"
 
 #: ../inc/admin/laf/namespace.php:113
 msgid "Published"
-msgstr ""
+msgstr "已发布"
 
 #: ../inc/admin/laf/namespace.php151, ../inc/admin/laf/namespace.php151,
 #: ../templates/admin/trash.php:18
 msgid "Trash"
-msgstr ""
+msgstr " "
 
 #: ../inc/admin/laf/namespace.php161, ../inc/admin/laf/namespace.php161,
 #: ../inc/modules/import/wordpress/class-wxr.php:334
 msgid "Book Info"
-msgstr ""
+msgstr "书籍信息"
 
 #: ../inc/admin/laf/namespace.php178, ../inc/admin/laf/namespace.php178,
 #: ../inc/admin/laf/namespace.php220, ../templates/admin/export.php129,
 #: ../templates/admin/organize.php43, ../templates/admin/organize.php84,
 #: ../templates/admin/organize.php:160
 msgid "Export"
-msgstr ""
+msgstr "导出"
 
 #: ../inc/admin/laf/namespace.php:186
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
-msgstr ""
+msgstr "MOBI导出功能依赖于EPUB导出。您要重新启用EPUB导出功能吗？"
 
 #: ../inc/admin/laf/namespace.php207, ../inc/admin/laf/namespace.php284,
 #: ../inc/admin/laf/namespace.php1001,
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:193
 msgid "Sharing and Privacy Settings"
-msgstr ""
+msgstr "分享和隐私设置"
 
 #: ../inc/admin/laf/namespace.php207, ../inc/admin/laf/namespace.php:284
 msgid "Sharing &amp; Privacy"
-msgstr ""
+msgstr "分享 &amp; 隐私"
 
 #: ../inc/admin/laf/namespace.php223, ../inc/admin/laf/namespace.php223,
 #: ../templates/admin/import.php32, ../templates/admin/import.php:75
 msgid "Import"
-msgstr ""
+msgstr "导入"
 
 #: ../inc/admin/laf/namespace.php359, ../inc/admin/laf/namespace.php:370
 msgid "About Pressbooks"
-msgstr ""
+msgstr "关于 "
 
 #: ../inc/admin/laf/namespace.php:381
 msgid "Pressbooks.com"
@@ -1694,23 +1695,23 @@ msgstr ""
 
 #: ../inc/admin/laf/namespace.php:439
 msgid "Add A New Book"
-msgstr ""
+msgstr "新建书"
 
 #: ../inc/admin/laf/namespace.php:457
 msgid "Network Admin"
-msgstr ""
+msgstr " "
 
 #: ../inc/admin/laf/namespace.php:475
 msgid "Sites"
-msgstr ""
+msgstr "站点"
 
 #: ../inc/admin/laf/namespace.php:493
 msgid "Visit Network"
-msgstr ""
+msgstr "访问网络"
 
 #: ../inc/admin/laf/namespace.php:546
 msgid "Visit Site"
-msgstr ""
+msgstr "访问站点"
 
 #: ../inc/admin/laf/namespace.php:697
 msgid ""
@@ -1722,181 +1723,181 @@ msgstr ""
 
 #: ../inc/admin/laf/namespace.php:747
 msgid "Unsupported post type."
-msgstr ""
+msgstr "不支持的帖子类型"
 
 #: ../inc/admin/laf/namespace.php:772
 msgid "You do not have sufficient permissions to access that URL."
-msgstr ""
+msgstr "您没有足够的权限访问该网址。"
 
 #: ../inc/admin/laf/namespace.php:794
 msgid "Book Visibility"
-msgstr ""
+msgstr "书籍的可见性"
 
 #: ../inc/admin/laf/namespace.php:801
 msgid "Private Content"
-msgstr ""
+msgstr "私有内容"
 
 #: ../inc/admin/laf/namespace.php:808
 msgid "Disable Comments"
-msgstr ""
+msgstr "禁用评论"
 
 #: ../inc/admin/laf/namespace.php:817
 msgid "Share Latest Export Files"
-msgstr ""
+msgstr "分享最近导出的文件"
 
 #: ../inc/admin/laf/namespace.php:851
 msgid "Sharing and Privacy settings"
-msgstr ""
+msgstr "分享和隐私设置"
 
 #: ../inc/admin/laf/namespace.php:867
 msgid "Public. I would like this book to be visible to everyone."
-msgstr ""
+msgstr "公开。我想每个人都可以访问该书。"
 
 #: ../inc/admin/laf/namespace.php:873
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
-msgstr ""
+msgstr "私有。我想该书只能被我邀请的人访问。"
 
 #: ../inc/admin/laf/namespace.php:896
 msgid "Who can see private front matter, chapters and back matter?"
-msgstr ""
+msgstr "谁能看到私有的正文前材料、章和正文后材料？"
 
 #: ../inc/admin/laf/namespace.php:899
 msgid "Only logged in editors and administrators."
-msgstr ""
+msgstr "只有登入的编辑们和管理员们。"
 
 #: ../inc/admin/laf/namespace.php:901
 msgid "All logged in users including subscribers."
-msgstr ""
+msgstr "所有登入用户，包括订阅者们。"
 
 #: ../inc/admin/laf/namespace.php:917
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
-msgstr ""
+msgstr "是。我想在所有的正文前材料、章、正文后材料中自动禁用评论、引用通告和、参照通知。"
 
 #: ../inc/admin/laf/namespace.php:923
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
-msgstr ""
+msgstr "不。我想在所有的正文前材料、章、正文后材料中启用评论、引用通告和、参照通知，除非我手动禁用。"
 
 #: ../inc/admin/laf/namespace.php:939
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
-msgstr ""
+msgstr "是。我想最新的导出文件显示在首页上，每个人都可以免费下载。"
 
 #: ../inc/admin/laf/namespace.php:945
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
-msgstr ""
+msgstr "不。我想最近导出的文件只能被管理员访问。"
 
 #: ../inc/admin/metaboxes/namespace.php:74
 msgid ""
 "Your cover image (%1$s x %1$s) is too small. It should be 625px on the "
 "shortest side."
-msgstr ""
+msgstr "您的封面图片（%1$s x %1$s）太小。窄边至少要有625px。"
 
 #: ../inc/admin/metaboxes/namespace.php:80
 msgid "Your cover image (%s) is too big. It should be no more than 2MB."
-msgstr ""
+msgstr "您的封面图片（%s）文件体积太大。最大不能超过2MB。"
 
 #: ../inc/admin/metaboxes/namespace.php:144
 msgid "Save Part"
-msgstr ""
+msgstr "保存部件"
 
 #: ../inc/admin/metaboxes/namespace.php:145
 msgid "Save Book Information"
-msgstr ""
+msgstr "保存书籍信息"
 
 #: ../inc/admin/metaboxes/namespace.php:155
 msgid "General Book Information"
-msgstr ""
+msgstr "通用书籍信息"
 
 #: ../inc/admin/metaboxes/namespace.php:170
 msgid "Short Title"
-msgstr ""
+msgstr "短标题"
 
 #: ../inc/admin/metaboxes/namespace.php:171
 msgid ""
 "In case of long titles that might be truncated in running heads in the PDF "
 "export."
-msgstr ""
+msgstr "防止PDF版输出文件的页眉处会截断过长的标题。"
 
 #: ../inc/admin/metaboxes/namespace.php:178
 msgid "Subtitle"
-msgstr ""
+msgstr "副标题"
 
 #: ../inc/admin/metaboxes/namespace.php:193
 msgid "Author, file as"
-msgstr ""
+msgstr "作者，file as"
 
 #: ../inc/admin/metaboxes/namespace.php:194
 msgid ""
 "This ensures that your ebook will sort properly in ebook stores, by the "
 "author's last name."
-msgstr ""
+msgstr "这将确保您的电子书在电子书店里按照作者姓氏正确排序。"
 
 #: ../inc/admin/metaboxes/namespace.php:202
 msgid "Contributing Author(s)"
-msgstr ""
+msgstr "非第一作者"
 
 #: ../inc/admin/metaboxes/namespace.php:204
 msgid ""
 "This may be used when more than one person shares the responsibility for the"
 " intellectual content of a book."
-msgstr ""
+msgstr "当一本书有多位作者时可使用。"
 
 #: ../inc/admin/metaboxes/namespace.php:211
 msgid "Editor(s)"
-msgstr ""
+msgstr "编辑"
 
 #: ../inc/admin/metaboxes/namespace.php:219
 msgid "Translator(s)"
-msgstr ""
+msgstr "译者"
 
 #: ../inc/admin/metaboxes/namespace.php:227
 msgid "Publisher"
-msgstr ""
+msgstr "发行者"
 
 #: ../inc/admin/metaboxes/namespace.php228,
 #: ../inc/admin/metaboxes/namespace.php:236
 msgid "This text appears on the title page of your book."
-msgstr ""
+msgstr "该文字显示在您的书籍的标题页上。"
 
 #: ../inc/admin/metaboxes/namespace.php:235
 msgid "Publisher City"
-msgstr ""
+msgstr "发行者所在城市"
 
 #: ../inc/admin/metaboxes/namespace.php:244
 msgid "Publication Date"
-msgstr ""
+msgstr "发行日期"
 
 #: ../inc/admin/metaboxes/namespace.php245,
 #: ../inc/admin/metaboxes/namespace.php:255
 msgid "This is added to the metadata in your ebook."
-msgstr ""
+msgstr "这些将添加到您的电子书的元数据中。"
 
 #: ../inc/admin/metaboxes/namespace.php:254
 msgid "On-Sale Date"
-msgstr ""
+msgstr "开售日期"
 
 #: ../inc/admin/metaboxes/namespace.php:263
 msgid "Ebook ISBN"
-msgstr ""
+msgstr "电子书ISBN"
 
 #: ../inc/admin/metaboxes/namespace.php:264
 msgid ""
 "ISBN is the International Standard Book Number, and you'll need one if you "
 "want to sell your book in some online ebook stores. This is added to the "
 "metadata in your ebook."
-msgstr ""
+msgstr "ISBN也将添加到电子书的元数据中。"
 
 #: ../inc/admin/metaboxes/namespace.php:271
 msgid "Print ISBN"
-msgstr ""
+msgstr "纸质书ISBN"
 
 #: ../inc/admin/metaboxes/namespace.php:272
 msgid ""
@@ -1906,14 +1907,14 @@ msgstr ""
 
 #: ../inc/admin/metaboxes/namespace.php:282
 msgid "Language"
-msgstr ""
+msgstr "语言"
 
 #: ../inc/admin/metaboxes/namespace.php:283
 msgid ""
 "This sets metadata in your ebook, making it easier to find in some stores. "
 "It also changes some system generated content for supported languages, such "
 "as the \"Contents\" header."
-msgstr ""
+msgstr "这将添加到您的电子书的元数据中，可帮助用户更快找到您的书。也会改变一些受支持语种的系统生成的内容，如：“内容”页眉。"
 
 #: ../inc/admin/metaboxes/namespace.php:283
 msgid "Help translate Pressbooks into your language!"
@@ -1926,323 +1927,323 @@ msgstr ""
 #: ../inc/modules/export/epub/templates/epub201/opf.php81,
 #: ../inc/modules/export/epub/templates/epub3/opf.php:91
 msgid "Copyright"
-msgstr ""
+msgstr "版权"
 
 #: ../inc/admin/metaboxes/namespace.php:298
 msgid "Copyright Year"
-msgstr ""
+msgstr "版权年"
 
 #: ../inc/admin/metaboxes/namespace.php:299
 msgid "Year that the book is/was published."
-msgstr ""
+msgstr "书籍发行年份"
 
 #: ../inc/admin/metaboxes/namespace.php:307
 msgid "Copyright Holder"
-msgstr ""
+msgstr "版权所有人"
 
 #: ../inc/admin/metaboxes/namespace.php:308
 msgid "Name of the copyright holder."
-msgstr ""
+msgstr "版权所有人名称"
 
 #: ../inc/admin/metaboxes/namespace.php318,
 #: ../inc/admin/metaboxes/namespace.php525,
 #: ../inc/admin/metaboxes/namespace.php617,
 #: ../inc/admin/metaboxes/namespace.php:665
 msgid "No Rights Reserved (Public Domain)"
-msgstr ""
+msgstr "无保留版权（公共领域）"
 
 #: ../inc/admin/metaboxes/namespace.php319,
 #: ../inc/admin/metaboxes/namespace.php526,
 #: ../inc/admin/metaboxes/namespace.php618,
 #: ../inc/admin/metaboxes/namespace.php:666
 msgid "CC BY (Attribution)"
-msgstr ""
+msgstr "创作共享版权（署名）"
 
 #: ../inc/admin/metaboxes/namespace.php320,
 #: ../inc/admin/metaboxes/namespace.php527,
 #: ../inc/admin/metaboxes/namespace.php619,
 #: ../inc/admin/metaboxes/namespace.php:667
 msgid "CC BY-SA (Attribution ShareAlike)"
-msgstr ""
+msgstr "创作共享版权（署名-相同方式共享）"
 
 #: ../inc/admin/metaboxes/namespace.php321,
 #: ../inc/admin/metaboxes/namespace.php528,
 #: ../inc/admin/metaboxes/namespace.php620,
 #: ../inc/admin/metaboxes/namespace.php:668
 msgid "CC BY-ND (Attribution NoDerivatives)"
-msgstr ""
+msgstr "创作共享版权（署名-禁止演绎）"
 
 #: ../inc/admin/metaboxes/namespace.php322,
 #: ../inc/admin/metaboxes/namespace.php529,
 #: ../inc/admin/metaboxes/namespace.php621,
 #: ../inc/admin/metaboxes/namespace.php:669
 msgid "CC BY-NC (Attribution NonCommercial)"
-msgstr ""
+msgstr "创作共享版权（署名-非商业性）"
 
 #: ../inc/admin/metaboxes/namespace.php323,
 #: ../inc/admin/metaboxes/namespace.php530,
 #: ../inc/admin/metaboxes/namespace.php622,
 #: ../inc/admin/metaboxes/namespace.php:670
 msgid "CC BY-NC-SA (Attribution NonCommercial ShareAlike)"
-msgstr ""
+msgstr "创作分享版权（署名-非商业性-相同方式共享）"
 
 #: ../inc/admin/metaboxes/namespace.php324,
 #: ../inc/admin/metaboxes/namespace.php531,
 #: ../inc/admin/metaboxes/namespace.php623,
 #: ../inc/admin/metaboxes/namespace.php:671
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
-msgstr ""
+msgstr "创作分享版权（署名-非商业性-禁止演绎）"
 
 #: ../inc/admin/metaboxes/namespace.php327,
 #: ../inc/modules/themeoptions/class-globaloptions.php:119
 msgid "Copyright License"
-msgstr ""
+msgstr "版权授权"
 
 #: ../inc/admin/metaboxes/namespace.php:328
 msgid "You can select various licenses including Creative Commons."
-msgstr ""
+msgstr "您可以选择多种授权，包括创作共享。"
 
 #: ../inc/admin/metaboxes/namespace.php:336
 msgid "Copyright Notice"
-msgstr ""
+msgstr "版权告知"
 
 #: ../inc/admin/metaboxes/namespace.php:337
 msgid ""
 "Enter a custom copyright notice, with whatever infomation you like. This "
 "will override the auto-generated copyright notice, and be inserted after the"
 " title page."
-msgstr ""
+msgstr "输入自定义版权告知，可输入任意内容。这将会覆盖自动生成的版权告知，同时也被插入到标题页后面。"
 
 #: ../inc/admin/metaboxes/namespace.php:351
 msgid "Book Tagline"
-msgstr ""
+msgstr "书籍标语"
 
 #: ../inc/admin/metaboxes/namespace.php:352
 msgid ""
 "A very short description of your book. It should fit in a Twitter post, and "
 "encapsulate your book in the briefest sentence."
-msgstr ""
+msgstr "一句对您的书籍的极短描述。"
 
 #: ../inc/admin/metaboxes/namespace.php:360
 msgid "Short Description"
-msgstr ""
+msgstr "简短描述"
 
 #: ../inc/admin/metaboxes/namespace.php:361
 msgid ""
 "A short paragraph about your book, for catalogs, reviewers etc. to quote."
-msgstr ""
+msgstr "一段关于您的书籍的文字，可用于编目、审稿来引用。"
 
 #: ../inc/admin/metaboxes/namespace.php:369
 msgid "Long Description"
-msgstr ""
+msgstr "长描述"
 
 #: ../inc/admin/metaboxes/namespace.php:370
 msgid "The full description of your book."
-msgstr ""
+msgstr "对您的书籍的完整描述。"
 
 #: ../inc/admin/metaboxes/namespace.php:377
 msgid "Additional Catalog Information"
-msgstr ""
+msgstr "扩展的编目信息"
 
 #: ../inc/admin/metaboxes/namespace.php:385
 msgid "Series Title"
-msgstr ""
+msgstr "丛书标题"
 
 #: ../inc/admin/metaboxes/namespace.php386,
 #: ../inc/admin/metaboxes/namespace.php:394
 msgid "Add if your book is part of a series."
-msgstr ""
+msgstr "若您的书是一套丛书其中一本时，请输入此信息。"
 
 #: ../inc/admin/metaboxes/namespace.php:393
 msgid "Series Number"
-msgstr ""
+msgstr "丛书编号"
 
 #: ../inc/admin/metaboxes/namespace.php:401
 msgid "Keywords"
-msgstr ""
+msgstr "关键词"
 
 #: ../inc/admin/metaboxes/namespace.php:403
 msgid ""
 "These are added to your webbook cover page, and in your ebook metadata. "
 "Keywords are used by online book stores and search engines."
-msgstr ""
+msgstr "这些将添加到您的Web书籍的封面中和电子书的元数据中。在线书店和搜索引擎会用到这些关键词。"
 
 #: ../inc/admin/metaboxes/namespace.php:410
 msgid "Hashtag"
-msgstr ""
+msgstr "井号标签"
 
 #: ../inc/admin/metaboxes/namespace.php:411
 msgid ""
 "These are added to your webbook cover page. For those of you who like "
 "Twitter."
-msgstr ""
+msgstr "这些将添加到您的Web书籍的封面中，类似于Twitter中的井号标签。"
 
 #: ../inc/admin/metaboxes/namespace.php:418
 msgid "List Price (Print)"
-msgstr ""
+msgstr "零售指导价（纸质版）"
 
 #: ../inc/admin/metaboxes/namespace.php:419
 msgid "The list price of your book in print."
-msgstr ""
+msgstr "纸质版书的零售指导价"
 
 #: ../inc/admin/metaboxes/namespace.php:426
 msgid "List Price (PDF)"
-msgstr ""
+msgstr "零售指导价（PDF版）"
 
 #: ../inc/admin/metaboxes/namespace.php:427
 msgid "The list price of your book in PDF format."
-msgstr ""
+msgstr "PDF版书的零售指导价。"
 
 #: ../inc/admin/metaboxes/namespace.php:434
 msgid "List Price (ebook)"
-msgstr ""
+msgstr "零售指导价（电子书）"
 
 #: ../inc/admin/metaboxes/namespace.php:435
 msgid "The list price of your book in Ebook formats."
-msgstr ""
+msgstr "电子书零售指导价。"
 
 #: ../inc/admin/metaboxes/namespace.php:442
 msgid "List Price (Web)"
-msgstr ""
+msgstr "零售指导价（Web）"
 
 #: ../inc/admin/metaboxes/namespace.php:443
 msgid "The list price of your webbook."
-msgstr ""
+msgstr "Web书零售指导价。"
 
 #: ../inc/admin/metaboxes/namespace.php:452
 msgid "Choose an audience&hellip;"
-msgstr ""
+msgstr "选择读者群&hellip;"
 
 #: ../inc/admin/metaboxes/namespace.php:453
 msgid "Juvenile"
-msgstr ""
+msgstr "少年"
 
 #: ../inc/admin/metaboxes/namespace.php:454
 msgid "Young Adult"
-msgstr ""
+msgstr "青年"
 
 #: ../inc/admin/metaboxes/namespace.php:455
 msgid "Adult"
-msgstr ""
+msgstr " 成年"
 
 #: ../inc/admin/metaboxes/namespace.php:457
 msgid "Audience"
-msgstr ""
+msgstr "读者群"
 
 #: ../inc/admin/metaboxes/namespace.php:458
 msgid "The target audience for your book."
-msgstr ""
+msgstr "您的书籍的目标读者"
 
 #: ../inc/admin/metaboxes/namespace.php:470
 msgid "BISAC Subject(s)"
-msgstr ""
+msgstr "BISAC分类"
 
 #: ../inc/admin/metaboxes/namespace.php:472
 msgid ""
 "BISAC Subject Headings help libraries and (e)book stores properly classify "
 "your book."
-msgstr ""
+msgstr "BISAC分类可帮助图书管理员和电子书店正确分类您的书籍。"
 
 #: ../inc/admin/metaboxes/namespace.php:484
 msgid "BISAC Regional Theme"
-msgstr ""
+msgstr "BISAC地区主题"
 
 #: ../inc/admin/metaboxes/namespace.php:485
 msgid ""
 "BISAC Regional Themes help libraries and (e)book stores properly classify "
 "your book."
-msgstr ""
+msgstr "BISAC地区主题可帮助图书管理员和电子书店合理分类您的书籍。"
 
 #: ../inc/admin/metaboxes/namespace.php:494
 msgid "Chapter Metadata"
-msgstr ""
+msgstr "章元数据"
 
 #: ../inc/admin/metaboxes/namespace.php:586
 msgid "Front Matter Metadata"
-msgstr ""
+msgstr "正文前材料元数据"
 
 #: ../inc/admin/metaboxes/namespace.php:593
 msgid "Front Matter Short Title (appears in the PDF running header)"
-msgstr ""
+msgstr "正文前材料短标题（显示在PDF版页眉中）"
 
 #: ../inc/admin/metaboxes/namespace.php:600
 msgid "Front Matter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
+msgstr "正文前材料副标题（显示在Web/电子书/PDF版中）"
 
 #: ../inc/admin/metaboxes/namespace.php:607
 msgid "Front Matter Author (appears in Web/ebook/PDF output)"
-msgstr ""
+msgstr "正文前材料作者（显示在Web/电子书/PDF版中）"
 
 #: ../inc/admin/metaboxes/namespace.php:626
 msgid "Front Matter Copyright License (overrides book license on this page)"
-msgstr ""
+msgstr "正文前材料版权（覆盖整本书的全局设置）"
 
 #: ../inc/admin/metaboxes/namespace.php:634
 msgid "Back Matter Metadata"
-msgstr ""
+msgstr "正文后材料元数据"
 
 #: ../inc/admin/metaboxes/namespace.php:641
 msgid "Back Matter Short Title (appears in the PDF running header)"
-msgstr ""
+msgstr "正文后材料短标题（显示在PDF版页眉中）"
 
 #: ../inc/admin/metaboxes/namespace.php:648
 msgid "Back Matter Subtitle (appears in the Web/ebook/PDF output)"
-msgstr ""
+msgstr "正文 材料副标题（显示在Web/电子书/PDF版中）"
 
 #: ../inc/admin/metaboxes/namespace.php:655
 msgid "Back Matter Author (appears in Web/ebook/PDF output)"
-msgstr ""
+msgstr "正文后材料作者（显示在Web/电子书/PDF版中）"
 
 #: ../inc/admin/metaboxes/namespace.php:674
 msgid "Back Matter Copyright License (overrides book license on this page)"
-msgstr ""
+msgstr "正文后材料版权（覆盖整本书的全局设置）"
 
 #: ../inc/admin/metaboxes/namespace.php:683
 msgid ""
 "Appears on part page. Parts will not appear if a book has only one part."
-msgstr ""
+msgstr "显示在部件页中。当一本书中只有一个部件时，部件页不会显示。"
 
 #: ../inc/admin/metaboxes/namespace.php:691
 msgid "Part Visibility"
-msgstr ""
+msgstr "部件可见性"
 
 #: ../inc/admin/metaboxes/namespace.php:702
 msgid "Hide from table of contents and part numbering."
-msgstr ""
+msgstr "在目录和部件页码中隐藏。"
 
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:65
 msgid "Allow Redistribution"
-msgstr ""
+msgstr "允许重新发行"
 
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:70
 msgid "Allow book administrators to enable redistribution of export files."
-msgstr ""
+msgstr "允许书籍管理员启用导出文件的重新发行。"
 
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:76
 msgid "Enable network API"
-msgstr ""
+msgstr "启用网络API"
 
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:81
 msgid "Enable access to your network of books via the Pressbooks REST API."
-msgstr ""
+msgstr "允许使用Pressbooks的API远程访问您的书籍网络。"
 
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:96
 msgid "Sharing and Privacy settings."
-msgstr ""
+msgstr "分享和隐私设置。"
 
 #: ../inc/admin/networkmanagers/namespace.php17,
 #: ../inc/admin/networkmanagers/namespace.php:18
 msgid "Network Managers"
-msgstr ""
+msgstr "网络管理员"
 
 #: ../inc/admin/networkmanagers/namespace.php81,
 #: ../templates/admin/dashboard.php:2
 msgid "You do not have sufficient permissions to access this page."
-msgstr ""
+msgstr "您没有足够的权限访问此页。"
 
 #: ../inc/admin/networkmanagers/namespace.php:89
 msgid "Pressbooks Network Managers"
-msgstr ""
+msgstr "书籍系统网络管理员"
 
 #: ../inc/admin/networkmanagers/namespace.php:91
 msgid ""
@@ -2253,11 +2254,11 @@ msgstr ""
 #: ../inc/modules/import/class-import.php392,
 #: ../inc/modules/import/class-import.php:454
 msgid "Your file does not appear to be a valid %s."
-msgstr ""
+msgstr "您的文件貌似不是一个合法的%s。"
 
 #: ../inc/modules/import/class-import.php:400
 msgid "Your URL does not appear to be valid"
-msgstr ""
+msgstr "您的网址貌似无效"
 
 #: ../inc/modules/import/class-import.php:416
 msgid ""
@@ -2271,163 +2272,163 @@ msgstr ""
 
 #: ../inc/modules/searchandreplace/class-search.php:123
 msgid "Invalid regular expression"
-msgstr ""
+msgstr "非法正则表达式"
 
 #: ../inc/modules/searchandreplace/class-search.php:131
 msgid "No search pattern."
-msgstr ""
+msgstr "无此模式。"
 
 #: ../inc/modules/searchandreplace/class-searchandreplace.php:57
 msgid ""
 "Once you&rsquo;ve pressed &lsquo;Replace & Save&rsquo; there is no going "
 "back! Have you checked &lsquo;Preview Replacements&rsquo; to make sure this "
 "will do what you want it to do?"
-msgstr ""
+msgstr "当你&rsquo;ve按下&lsquo;替换&保存&rsquo;后，将无法撤销！您已经通过&lsquo;预览替换&rsquo;检查了您的替换是你想要做的吗？"
 
 #: ../inc/modules/searchandreplace/class-searchandreplace.php67,
 #: ../inc/modules/searchandreplace/class-searchandreplace.php68,
 #: ../templates/admin/search.php:4
 msgid "Search & Replace"
-msgstr ""
+msgstr "查找&替换"
 
 #: ../inc/modules/searchandreplace/class-searchandreplace.php:137
 msgid "%d occurrence replaced."
 msgid_plural "%d occurrences replaced."
-msgstr[0] ""
+msgstr[0] "替换了%d 处。"
 
 #: ../inc/modules/themeoptions/class-ebookoptions.php74,
 #: ../inc/modules/themeoptions/class-pdfoptions.php213,
 #: ../inc/modules/themeoptions/class-weboptions.php:85
 msgid "Paragraph Separation"
-msgstr ""
+msgstr "段落分离"
 
 #: ../inc/modules/themeoptions/class-ebookoptions.php79,
 #: ../inc/modules/themeoptions/class-pdfoptions.php218,
 #: ../inc/modules/themeoptions/class-weboptions.php:90
 msgid "Indent paragraphs"
-msgstr ""
+msgstr "缩进段落"
 
 #: ../inc/modules/themeoptions/class-ebookoptions.php80,
 #: ../inc/modules/themeoptions/class-pdfoptions.php219,
 #: ../inc/modules/themeoptions/class-weboptions.php:91
 msgid "Skip lines between paragraphs"
-msgstr ""
+msgstr "跳过段落之间的空行"
 
 #: ../inc/modules/themeoptions/class-ebookoptions.php:86
 msgid "Compress Images"
-msgstr ""
+msgstr "压缩图片"
 
 #: ../inc/modules/themeoptions/class-ebookoptions.php:91
 msgid "Reduce image size and quality"
-msgstr ""
+msgstr "降低图片尺寸和质量"
 
 #: ../inc/modules/themeoptions/class-ebookoptions.php:113
 msgid "These options apply to ebook exports."
-msgstr ""
+msgstr "这些选项将要应用到导出电子书功能中。"
 
 #: ../inc/modules/themeoptions/class-ebookoptions.php:198
 msgid "Ebook Options"
-msgstr ""
+msgstr "电子书选项"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:76
 msgid "Part and Chapter Numbers"
-msgstr ""
+msgstr "部件和章的序号"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:81
 msgid "Display part and chapter numbers"
-msgstr ""
+msgstr "显示部件和章的序号"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:87
 msgid "Two-Level TOC"
-msgstr ""
+msgstr "二级目录"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:92
 msgid ""
 "Enable two-level table of contents (displays headings under chapter titles)"
-msgstr ""
+msgstr "启用二级目录（在章标题下显示H1以下标题）"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:100
 msgid "Language Support"
-msgstr ""
+msgstr "语言支持"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:105
 msgid "Include fonts to support the following languages:"
-msgstr ""
+msgstr "包含字体一直吃下列语言："
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:124
 msgid "Display the selected copyright license"
-msgstr ""
+msgstr "显示选中的版权授权"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:146
 msgid "These options apply universally to webbook, PDF and ebook exports."
-msgstr ""
+msgstr "这些选项将全局性应用到Web/PDF/电子书导出功能中。"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php267,
 #: ../templates/admin/export.php:103
 msgid "and"
-msgstr ""
+msgstr "和"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:276
 msgid "Select languages&hellip;"
-msgstr ""
+msgstr "选择语言&hellip;"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:284
 msgid "This theme includes built-in support for %s."
-msgstr ""
+msgstr "该主题包含对%s的内建支持。"
 
 #: ../inc/modules/themeoptions/class-globaloptions.php:322
 msgid "Global Options"
-msgstr ""
+msgstr "全局选项"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:78
 msgid "Body Font Size"
-msgstr ""
+msgstr "正文字号"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:83
 msgid ""
 "Heading sizes are proportional to the body font size and will also be "
 "affected by this setting."
-msgstr ""
+msgstr "各级标题的字号和正文字号成比例缩放，会被此设置影响。"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:90
 msgid "Body Line Height"
-msgstr ""
+msgstr "正文行高"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:103
 msgid "Page Size"
-msgstr ""
+msgstr "页面大小"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:108
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
-msgstr ""
+msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:109
 msgid "US Trade (6&quot; &times; 9&quot;)"
-msgstr ""
+msgstr "US Trade (6&quot; &times; 9&quot;)"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:110
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
-msgstr ""
+msgstr "US Letter (8.5&quot; &times; 11&quot;)"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:111
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
-msgstr ""
+msgstr "Custom (8.5&quot; &times; 9.25&quot;)"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:112
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
-msgstr ""
+msgstr "Duodecimo (5&quot; &times; 7.75&quot;)"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:113
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
-msgstr ""
+msgstr "Pocket (4.25&quot; &times; 7&quot;)"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:114
 msgid "A4 (21cm &times; 29.7cm)"
-msgstr ""
+msgstr "A4 (21cm &times; 29.7cm)"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:115
 msgid "A5 (14.8cm &times; 21cm)"
-msgstr ""
+msgstr "A5 (14.8cm &times; 21cm)"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:116
 msgid "5&quot; &times; 8&quot;"
@@ -2445,17 +2446,17 @@ msgstr ""
 #: ../inc/modules/themeoptions/class-pdfoptions.php471,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:489
 msgid "Custom&hellip;"
-msgstr ""
+msgstr "自定义&hellip;"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:123
 msgid "Page Width"
-msgstr ""
+msgstr "页面宽度"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:128
 msgid ""
 "Page width must be expressed in CSS-compatible units, e.g. "
 "&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
-msgstr ""
+msgstr "页面宽度必须要用CSS兼容的单位来注明，如：&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:134
 msgid "Page Height"
@@ -2465,20 +2466,20 @@ msgstr ""
 msgid ""
 "Page height must be expressed in CSS-compatible units, e.g. "
 "&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
-msgstr ""
+msgstr "页面高 度必须要用CSS兼容的单位来注明，如：&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:146
 msgid "Margins"
-msgstr ""
+msgstr "页边距"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:151
 msgid "Customize your book&rsquo;s margins using the fields below."
-msgstr ""
+msgstr "设置您书籍的页边距"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php157,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:793
 msgid "Outside Margin"
-msgstr ""
+msgstr "外边距"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php162,
 #: ../inc/modules/themeoptions/class-pdfoptions.php173,
@@ -2487,90 +2488,90 @@ msgstr ""
 msgid ""
 "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
 "or &lsquo;10cm&rsquo;."
-msgstr ""
+msgstr "边距必须要用CSS兼容的单位来注明，如：&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php168,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:794
 msgid "Inside Margin"
-msgstr ""
+msgstr "内边距"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php179,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:795
 msgid "Top Margin"
-msgstr ""
+msgstr "上边距"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php190,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:796
 msgid "Bottom Margin"
-msgstr ""
+msgstr "下边距"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:202
 msgid "Hyphens"
-msgstr ""
+msgstr "连字符"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:207
 msgid "Enable hyphenation"
-msgstr ""
+msgstr "启用断字"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:225
 msgid "Section Openings"
-msgstr ""
+msgstr "节（Section）头"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:230
 msgid "Left or right page section opening (for print PDF)"
-msgstr ""
+msgstr "左侧页或右侧页节（Section）头（用于打印PDF）"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:231
 msgid "Right page section openings (for print PDF)"
-msgstr ""
+msgstr "右侧页节（Section）头（用于打印PDF）"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:232
 msgid "No blank pages (for web PDF)"
-msgstr ""
+msgstr "无空白页（用于Web/PDF）"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:243
 msgid "Display table of contents"
-msgstr ""
+msgstr "显示目录"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:249
 msgid "Crop Marks"
-msgstr ""
+msgstr "裁切标记"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:254
 msgid "Display crop marks"
-msgstr ""
+msgstr "显示裁切标记"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:261
 msgid "Romanize Part Numbers"
-msgstr ""
+msgstr "部件页码使用罗马数字"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:266
 msgid "Convert part numbers into Roman numerals"
-msgstr ""
+msgstr "把页码转换成罗马数字"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:273
 msgid "Footnote Style"
-msgstr ""
+msgstr "脚注样式"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:278
 msgid "Regular footnotes"
-msgstr ""
+msgstr "正规的脚注"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:279
 msgid "Display as chapter endnotes"
-msgstr ""
+msgstr "显示成章的尾注"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:285
 msgid "Widows"
-msgstr ""
+msgstr "寡行（一段的最后一行在一页或一栏的开始处，和该段的其他行分开）"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:293
 msgid "Orphans"
-msgstr ""
+msgstr "孤行（1. 一段的第一行在一页或一栏的最后。2. 一段的最后一行只有一个字，一个字的一部分，或是最后一行的字母很少，因此和下一段之间看起来会有较多的空白。）"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:302
 msgid "Running Heads & Feet"
-msgstr ""
+msgstr "印刷衔头&衔尾"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:307
 msgid ""
@@ -2593,7 +2594,7 @@ msgstr ""
 #: ../inc/modules/themeoptions/class-pdfoptions.php464,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:482
 msgid "Book Title"
-msgstr ""
+msgstr "书籍标题"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php319,
 #: ../inc/modules/themeoptions/class-pdfoptions.php337,
@@ -2606,7 +2607,7 @@ msgstr ""
 #: ../inc/modules/themeoptions/class-pdfoptions.php465,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:483
 msgid "Book Subtitle"
-msgstr ""
+msgstr "书籍副标题"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php320,
 #: ../inc/modules/themeoptions/class-pdfoptions.php338,
@@ -2619,22 +2620,22 @@ msgstr ""
 #: ../inc/modules/themeoptions/class-pdfoptions.php466,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:484
 msgid "Book Author"
-msgstr ""
+msgstr "书籍作者"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php321,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:339
 msgid "Front Matter Title"
-msgstr ""
+msgstr "正文前材料 "
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php322,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:340
 msgid "Front Matter Author"
-msgstr ""
+msgstr "正文前材料作者"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php323,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:341
 msgid "Front Matter Subtitle"
-msgstr ""
+msgstr "正文前材料副标题"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php324,
 #: ../inc/modules/themeoptions/class-pdfoptions.php342,
@@ -2647,7 +2648,7 @@ msgstr ""
 #: ../inc/modules/themeoptions/class-pdfoptions.php470,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:488
 msgid "Blank"
-msgstr ""
+msgstr "空白"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:331
 msgid "Front Matter Right Page Running Content"
@@ -2660,17 +2661,17 @@ msgstr ""
 #: ../inc/modules/themeoptions/class-pdfoptions.php357,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:375
 msgid "Introduction Title"
-msgstr ""
+msgstr "引子标题"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php358,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:376
 msgid "Introduction Author"
-msgstr ""
+msgstr "引子作者"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php359,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:377
 msgid "Introduction Subtitle"
-msgstr ""
+msgstr "引子副标题"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:367
 msgid "Introduction Right Page Running Content"
@@ -2685,14 +2686,14 @@ msgstr ""
 #: ../inc/modules/themeoptions/class-pdfoptions.php427,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:447
 msgid "Part Number"
-msgstr ""
+msgstr "部件号码"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php394,
 #: ../inc/modules/themeoptions/class-pdfoptions.php411,
 #: ../inc/modules/themeoptions/class-pdfoptions.php428,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:448
 msgid "Part Title"
-msgstr ""
+msgstr "部件标题"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:402
 msgid "Part Right Page Running Content"
@@ -2705,17 +2706,17 @@ msgstr ""
 #: ../inc/modules/themeoptions/class-pdfoptions.php429,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:449
 msgid "Chapter Title"
-msgstr ""
+msgstr "章标题"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php430,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:450
 msgid "Chapter Author"
-msgstr ""
+msgstr "章作者"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php431,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:451
 msgid "Chapter Subtitle"
-msgstr ""
+msgstr "章副标题"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:439
 msgid "Chapter Right Page Running Content"
@@ -2728,17 +2729,17 @@ msgstr ""
 #: ../inc/modules/themeoptions/class-pdfoptions.php467,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:485
 msgid "Back Matter Title"
-msgstr ""
+msgstr "正文后材料标题"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php468,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:486
 msgid "Back Matter Author"
-msgstr ""
+msgstr "正文后材料作者"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php469,
 #: ../inc/modules/themeoptions/class-pdfoptions.php:487
 msgid "Back Matter Subtitle"
-msgstr ""
+msgstr "正文后材料副标题"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:477
 msgid "Back Matter Right Page Running Content"
@@ -2746,91 +2747,91 @@ msgstr ""
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:497
 msgid "Increase Font Size"
-msgstr ""
+msgstr "增大字号"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:502
 msgid "Increases font size and line height for greater accessibility"
-msgstr ""
+msgstr "增大字号和行高方便阅读"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:525
 msgid "These options apply to PDF exports."
-msgstr ""
+msgstr "这些选项应用到PDF导出功能中。"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:801
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
-msgstr ""
+msgstr "重要：若您计划使用印刷服务提供商，上下左右任何一边的边距小于2厘米会导致您的文件被拒绝印刷。"
 
 #: ../inc/modules/themeoptions/class-pdfoptions.php:1339
 msgid "PDF Options"
-msgstr ""
+msgstr "PDF选项"
 
 #: ../inc/modules/themeoptions/class-weboptions.php:74
 msgid "Enable Social Media"
-msgstr ""
+msgstr "启用社交媒体"
 
 #: ../inc/modules/themeoptions/class-weboptions.php:79
 msgid ""
 "Add buttons to cover page and each chapter so that readers may share links "
 "to your book through social media: Facebook, Twitter, Google+"
-msgstr ""
+msgstr "在封面和每章中加上Facebook/Twitter/Google+社交分享按钮。"
 
 #: ../inc/modules/themeoptions/class-weboptions.php:97
 msgid "Display Part Title"
-msgstr ""
+msgstr "显示部件标题"
 
 #: ../inc/modules/themeoptions/class-weboptions.php:102
 msgid "Display the Part title on each chapter"
-msgstr ""
+msgstr "在每章中显示部件标题"
 
 #: ../inc/modules/themeoptions/class-weboptions.php:124
 msgid "These options apply to the webbook."
-msgstr ""
+msgstr "这些选项应用到Web书中。"
 
 #: ../inc/modules/themeoptions/class-weboptions.php:230
 msgid "Web Options"
-msgstr ""
+msgstr "Web选项"
 
 #: ../inc/shortcodes/footnotes/class-footnotes.php:180
 msgid "Insert Footnote"
-msgstr ""
+msgstr "插入脚注"
 
 #: ../inc/shortcodes/footnotes/class-footnotes.php:181
 msgid "Convert MS Word Footnotes"
-msgstr ""
+msgstr "转换微软Word脚注"
 
 #: ../inc/shortcodes/footnotes/class-footnotes.php257,
 #: ../tests/test-shortcodes-footnotes-footnotes.php:154
 msgid "Invalid permissions."
-msgstr ""
+msgstr "非法权限。"
 
 #: ../inc/api/endpoints/controller/class-books.php78,
 #: ../inc/api/endpoints/controller/class-books.php104,
 #: ../inc/api/endpoints/controller/class-toc.php:68
 msgid "Unique identifier for the object."
-msgstr ""
+msgstr "对象唯一标识符。"
 
 #: ../inc/api/endpoints/controller/class-books.php110,
 #: ../inc/api/endpoints/controller/class-toc.php:122
 msgid "URL to the object."
-msgstr ""
+msgstr "对象的网址"
 
 #: ../inc/api/endpoints/controller/class-books.php117,
 #: ../inc/api/endpoints/controller/class-toc.php133,
 #: ../inc/api/endpoints/controller/class-toc.php144,
 #: ../inc/api/endpoints/controller/class-toc.php:155
 msgid "Metadata"
-msgstr ""
+msgstr "元数据"
 
 #: ../inc/api/endpoints/controller/class-books.php:148
 msgid "ID offset, overrides page."
-msgstr ""
+msgstr "ID偏离，覆盖页面。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php59,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:95
 msgid "The JSON-LD context."
-msgstr ""
+msgstr "JSON-LD上下文。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php68,
 #: ../inc/api/endpoints/controller/class-metadata.php87,
@@ -2852,7 +2853,7 @@ msgstr ""
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php291,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:325
 msgid "The type of the thing."
-msgstr ""
+msgstr "事物类型。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php74,
 #: ../inc/api/endpoints/controller/class-metadata.php171,
@@ -2871,83 +2872,83 @@ msgstr ""
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php278,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:331
 msgid "The name of the thing."
-msgstr ""
+msgstr "事物名。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php:80
 msgid "The subject matter of the content."
-msgstr ""
+msgstr "内容的科目材料。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php:93
 msgid ""
 "The identifier property represents any kind of identifier for any kind of "
 "Thing, such as ISBNs, GTIN codes, UUIDs etc."
-msgstr ""
+msgstr "标识符属性表征了任何事物的任何种类标识符，如：ISBN、GTIN代码、UUID等。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php103,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:116
 msgid "An alias for the item."
-msgstr ""
+msgstr "项的别名。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php:109
 msgid ""
 "Keywords or tags used to describe this content. Multiple entries in a "
 "keywords list are typically delimited by commas."
-msgstr ""
+msgstr "描述内容的关键词或标签。多个关键词之间用英文逗号隔开。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php115,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:122
 msgid "A secondary title of the Book."
-msgstr ""
+msgstr "书籍的副标题。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php:121
 msgid "The ISBN of the book."
-msgstr ""
+msgstr "书籍的ISBN。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php127,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:134
 msgid ""
 "The language of the content, expressed as one of the language codes from the"
 " IETF BCP 47 standard."
-msgstr ""
+msgstr "内容的语种，使用IETF BCP 47标准的语种代码表示。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php133,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:140
 msgid ""
 "The year during which the claimed copyright for the Book was first asserted."
-msgstr ""
+msgstr "该书版权声明的所在年份。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php:139
 msgid "A description of the item."
-msgstr ""
+msgstr "项的描述。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php:146
 msgid "An image of the item."
-msgstr ""
+msgstr "项的图片。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php152,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:128
 msgid "The position of an item in a series or sequence of items."
-msgstr ""
+msgstr "某一项在系里或者序列的位置。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php158,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:146
 msgid "The author of this content."
-msgstr ""
+msgstr "该内容的作者。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php177,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:165
 msgid "An alias for the thing."
-msgstr ""
+msgstr "事物的别名。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php187,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:175
 msgid "A secondary contributor to the Book."
-msgstr ""
+msgstr "书的第二作者。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php210,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:198
 msgid "Specifies the Person who edited the Book."
-msgstr ""
+msgstr "编辑"
 
 #: ../inc/api/endpoints/controller/class-metadata.php233,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:221
@@ -2959,122 +2960,122 @@ msgstr ""
 #: ../inc/api/endpoints/controller/class-metadata.php256,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:244
 msgid "An intended audience, i.e. a group for whom something was created."
-msgstr ""
+msgstr "目标读者群。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php277,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:265
 msgid "The publisher of the Book."
-msgstr ""
+msgstr "发行商"
 
 #: ../inc/api/endpoints/controller/class-metadata.php296,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:284
 msgid "Physical address of the item."
-msgstr ""
+msgstr "项的物理地址。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php309,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:297
 msgid "The locality."
-msgstr ""
+msgstr "地址。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php323,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:311
 msgid "Date of first publication. A date value in ISO 8601 date format."
-msgstr ""
+msgstr "首次发行日期，使用ISO 8601日期格式。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php329,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:317
 msgid "The party holding the legal copyright to the CreativeWork."
-msgstr ""
+msgstr "CreativeWork的版权合法所有者。"
 
 #: ../inc/api/endpoints/controller/class-metadata.php354,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:342
 msgid ""
 "A license document that applies to this content, typically indicated by URL."
-msgstr ""
+msgstr "该内容的授权许可文档，通常给出授权文档的网址。"
 
 #: ../inc/api/endpoints/controller/class-search.php:42
 msgid "Any meta key, comma separated values, limit of 5."
-msgstr ""
+msgstr "任何元数据键，最多5个，英文逗号隔开。"
 
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:61
 msgid "The ID for the parent of the object."
-msgstr ""
+msgstr "对象的父级ID。"
 
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:378
 msgid "Invalid post ID."
-msgstr ""
+msgstr "无效帖子ID。"
 
 #: ../inc/api/endpoints/controller/class-toc.php:74
 msgid "The title for the object."
-msgstr ""
+msgstr "对象的标题。"
 
 #: ../inc/api/endpoints/controller/class-toc.php:80
 msgid "An alphanumeric identifier for the object unique to its type."
-msgstr ""
+msgstr "对象在其所属类型范围内的唯一标识符，由字母数字组成。"
 
 #: ../inc/api/endpoints/controller/class-toc.php:86
 msgid "The ID for the author of the object."
-msgstr ""
+msgstr "对象的作者ID。"
 
 #: ../inc/api/endpoints/controller/class-toc.php:92
 msgid "Comment count"
-msgstr ""
+msgstr "评论数"
 
 #: ../inc/api/endpoints/controller/class-toc.php:98
 msgid "The order of the object in relation to other object of its type."
-msgstr ""
+msgstr "对象在其所属类型中的所有对象中的的排序。"
 
 #: ../inc/api/endpoints/controller/class-toc.php:104
 msgid "A named status for the object."
-msgstr ""
+msgstr "对象的命名状态。"
 
 #: ../inc/api/endpoints/controller/class-toc.php:111
 msgid "Include in exports."
-msgstr ""
+msgstr "包含在导出中。"
 
 #: ../inc/api/endpoints/controller/class-toc.php:117
 msgid "Has post content, the content field is not empty."
-msgstr ""
+msgstr "有帖子内容，内容字段不为空。"
 
 #: ../inc/modules/export/epub/class-epub201.php:894
 msgid "Publisher Logo"
-msgstr ""
+msgstr "发行商Logo"
 
 #: ../inc/modules/export/epub/class-epub201.php:904
 msgid "Title Page"
-msgstr ""
+msgstr "标题页"
 
 #: ../inc/modules/export/epub/class-epub201.php:1191
 msgid "Make your own books using Pressbooks.com"
-msgstr ""
+msgstr "使用Pressbooks.com创建您自己的书"
 
 #: ../inc/modules/export/epub/class-epub201.php:1571
 msgid "Table Of Contents"
-msgstr ""
+msgstr "目录"
 
 #: ../inc/modules/export/epub/class-epub201.php1586,
 #: ../inc/modules/export/xhtml/class-xhtml11.php:753
 msgid "Contents"
-msgstr ""
+msgstr "内容"
 
 #: ../inc/modules/export/prince/class-pdf.php:276
 msgid ""
 "This book was produced using Pressbooks.com, and PDF rendering was done by "
 "PrinceXML."
-msgstr ""
+msgstr "该书由Pressbooks.com生成，PDF版有PrinceXML生成。"
 
 #: ../inc/modules/export/wordpress/class-wxr.php100,
 #: ../inc/modules/export/xhtml/class-xhtml11.php:168
 msgid "Invalid permission error"
-msgstr ""
+msgstr "非法权限错误"
 
 #: ../inc/modules/export/xhtml/class-xhtml11.php:326
 msgid "Notes"
-msgstr ""
+msgstr "笔记"
 
 #: ../inc/modules/import/epub/class-epub201.php:207
 msgid "Imported %s chapters."
-msgstr ""
+msgstr "导入%s章。"
 
 #: ../inc/modules/import/html/class-xhtml.php:468
 msgid ""
@@ -3093,220 +3094,220 @@ msgctxt ""
 "String which tells user how many front matter, parts, chapters and back "
 "matter were imported."
 msgid "Imported %1$s, %2$s, %3$s, and %4$s."
-msgstr ""
+msgstr "已导入 %1$s、%2$s、%3$s和%4$s。"
 
 #: ../inc/modules/import/wordpress/class-wxr.php:222
 msgid "part"
-msgstr ""
+msgstr "部件"
 
 #: ../inc/modules/import/wordpress/class-wxr.php:223
 msgid "chapter"
-msgstr ""
+msgstr "章"
 
 #: ../inc/modules/searchandreplace/types/class-content.php:54
 msgid "view"
-msgstr ""
+msgstr "查看"
 
 #: ../inc/modules/searchandreplace/types/class-content.php:56
 msgid "edit"
-msgstr ""
+msgstr "编辑"
 
 #: ../inc/modules/searchandreplace/types/class-content.php:80
 msgid "%1$s ID #%2$d: %1$s"
-msgstr ""
+msgstr "%1$s ID #%2$d：%1$s"
 
 #: ../inc/modules/searchandreplace/types/class-content.php:108
 msgid "Content Text"
-msgstr ""
+msgstr "内容文本"
 
 #: ../inc/modules/export/epub/templates/epub3/opf.php:83
 msgid "Authored by: "
-msgstr ""
+msgstr "作者是："
 
 #: tinymce.php:4
 msgid "Class"
-msgstr ""
+msgstr "类"
 
 #: tinymce.php:5
 msgid "Textboxes"
-msgstr ""
+msgstr "文本框"
 
 #: tinymce.php:6
 msgid "Custom Textbox"
-msgstr ""
+msgstr "自定义文本框"
 
 #: tinymce.php:8
 msgid "Type your textbox content here."
-msgstr ""
+msgstr "在此输入您的教科书的内容。"
 
 #: tinymce.php:10
 msgid "Learning Objectives"
-msgstr ""
+msgstr "学习目标"
 
 #: tinymce.php:11
 msgid "Type your learning objectives here."
-msgstr ""
+msgstr "再次输入学习目标。"
 
 #: tinymce.php:12
 msgid "Key Takeaways"
-msgstr ""
+msgstr "关键知识点"
 
 #: tinymce.php:13
 msgid "Type your key takeaways here."
-msgstr ""
+msgstr "在此输入关键知识点。"
 
 #: tinymce.php:14
 msgid "Exercises"
-msgstr ""
+msgstr "练习"
 
 #: tinymce.php:15
 msgid "Type your exercises here."
-msgstr ""
+msgstr "在此输入练习。"
 
 #: tinymce.php:16
 msgid "Examples"
-msgstr ""
+msgstr "例子"
 
 #: tinymce.php:17
 msgid "Type your examples here."
-msgstr ""
+msgstr "在此输入例子。"
 
 #: tinymce.php:18
 msgid "Custom..."
-msgstr ""
+msgstr "自定义..."
 
 #: tinymce.php:19
 msgid "First"
-msgstr ""
+msgstr "第一"
 
 #: tinymce.php:20
 msgid "Second"
-msgstr ""
+msgstr "第二"
 
 #: tinymce.php:21
 msgid "Apply Class"
-msgstr ""
+msgstr "应用CSS类"
 
 #: ../pressbooks.php:97
 msgid "Cannot find Pressbooks install."
-msgstr ""
+msgstr "未能找到Pressbooks安装。"
 
 #: ../symbionts/custom-metadata/custom_metadata.php:285
 msgid "Choose a file"
-msgstr ""
+msgstr "选择一个文件"
 
 #: ../symbionts/custom-metadata/custom_metadata.php:286
 msgid "Select this file"
-msgstr ""
+msgstr "选中该文件"
 
 #: ../symbionts/custom-metadata/custom_metadata.php:287
 msgid "Clear"
-msgstr ""
+msgstr "清楚"
 
 #: ../symbionts/custom-metadata/custom_metadata.php:288
 msgid "Select"
-msgstr ""
+msgstr "选择"
 
 #: ../symbionts/custom-metadata/custom_metadata.php:512
 msgid "<strong>%1$s:</strong> %2$s"
-msgstr ""
+msgstr "<strong>%1$s：</strong>%2$s"
 
 #: ../symbionts/custom-metadata/custom_metadata.php:603
 msgid "Uh oh, something went wrong!"
-msgstr ""
+msgstr "出错了！"
 
 #: ../symbionts/custom-metadata/custom_metadata.php:1138
 msgid "duplicate this set of fields"
-msgstr ""
+msgstr "复制此字段组合"
 
 #: ../symbionts/custom-metadata/custom_metadata.php:1141
 msgid "remove this set of fields"
-msgstr ""
+msgstr "删除该字段组合"
 
 #: ../symbionts/custom-metadata/custom_metadata.php:1173
 msgid "<strong>Note:</strong> this field type cannot be multiplied"
-msgstr ""
+msgstr "<strong>注意：</strong>该字段类型不能被乘"
 
 #: ../symbionts/custom-metadata/custom_metadata.php1290,
 #: ../symbionts/custom-metadata/custom_metadata.php1305,
 #: ../symbionts/custom-metadata/custom_metadata.php1352,
 #: ../symbionts/custom-metadata/custom_metadata.php:1365
 msgid "There are no %s to select from yet."
-msgstr ""
+msgstr "还没有%s可选。"
 
 #: ../symbionts/custom-metadata/custom_metadata.php:1382
 msgid "+ Add New"
-msgstr ""
+msgstr "+新建"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:32
 msgctxt "post type general name"
 msgid "Tests"
-msgstr ""
+msgstr "测试"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:33
 msgctxt "post type singular name"
 msgid "Test"
-msgstr ""
+msgstr "测试"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:34
 msgctxt "Test"
 msgid "Add New"
-msgstr ""
+msgstr "新建"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:35
 msgid "Add New Test"
-msgstr ""
+msgstr "新建测试"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:36
 msgid "Edit Test"
-msgstr ""
+msgstr "编辑测试"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:37
 msgid "New Test"
-msgstr ""
+msgstr "新建测试"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:38
 msgid "All Tests"
-msgstr ""
+msgstr "所有测试"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:39
 msgid "View Test"
-msgstr ""
+msgstr "查看测试"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:40
 msgid "Search Tests"
-msgstr ""
+msgstr "搜索测试"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:41
 msgid "No Tests found"
-msgstr ""
+msgstr "未找到测试"
 
 #: ../symbionts/custom-metadata/custom_metadata_examples.php:42
 msgid "No Tests found in Trash"
-msgstr ""
+msgstr "回收站里未找到测试"
 
 #: ../symbionts/disable-comments-mu/disable-comments-mu.php95,
 #: ../symbionts/disable-comments-mu/disable-comments-mu.php:121
 msgid "Comments are closed."
-msgstr ""
+msgstr "已关闭评论。"
 
 #: ../symbionts/disable-comments-mu/disable-comments-mu.php:173
 msgctxt "feed link"
 msgid "&raquo;"
-msgstr ""
+msgstr "&raquo;"
 
 #: ../symbionts/disable-comments-mu/disable-comments-mu.php:175
 msgid "%1$s %2$s Feed"
-msgstr ""
+msgstr "%1$s%2$sFeed"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:33
 msgid "Settings"
-msgstr ""
+msgstr "设置"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php39,
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:187
 msgid "Insufficient LaTeX-fu"
-msgstr ""
+msgstr "LaTeX-fu 不够"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php45,
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:100
@@ -3317,261 +3318,261 @@ msgstr ""
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:63
 msgid "Invalid LaTeX generation method"
-msgstr ""
+msgstr "无效的LaTeX生成方法"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:72
 msgid "Invalid text color"
-msgstr ""
+msgstr "无效的文字颜色"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:83
 msgid "Invalid background color"
-msgstr ""
+msgstr "无效的背景色"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:105
 msgid "<code>latex</code> path not found."
-msgstr ""
+msgstr "<code>latex</code>路径未找到。"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:134
 msgid "Test Image"
-msgstr ""
+msgstr "测试图片"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:136
 msgid "If you can see a big integral, all is well."
-msgstr ""
+msgstr "如果您能看到一个大积分公式，说明一切正常。"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:197
 msgid "WordPress.com LaTeX Server (recommended)"
-msgstr ""
+msgstr "WordPress.com LaTeX 服务器(推荐)"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:240
 msgid "PB LaTeX Options"
-msgstr ""
+msgstr "PB LaTeX 选项"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:250
 msgid "Syntax"
-msgstr ""
+msgstr "语法"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:252
 msgid ""
 "You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
 " syntax %s OR %s<br /> to insert LaTeX into your posts."
-msgstr ""
+msgstr "您既可以使用shortcode语法%s<br />，也可以使用&#8220;i内嵌&#8221; 语法%s<br />，来插入LaTeX公式。"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:257
 msgid ""
 "For more information, see the <a href=\"http://wordpress.org/extend/plugins"
 "/wp-latex/faq/\">FAQ</a>"
-msgstr ""
+msgstr "查看<a href=\"http://wordpress.org/extend/plugins/wp-latex/faq/\">FAQ</a>以了解更多"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:264
 msgid "LaTeX generation method"
-msgstr ""
+msgstr "LaTeX生成方法"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:275
 msgid "Default text color"
-msgstr ""
+msgstr "默认文字颜色"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:278
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>"
-msgstr ""
+msgstr "6位十六机制数，如：<code>000000</code>或<code>fffffff</code>"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:283
 msgid "Default background color"
-msgstr ""
+msgstr "默认背景颜色"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:286
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>, or <code>transparent</code>"
-msgstr ""
+msgstr "6位十六机制数，如：<code>000000</code>或<code>fffffff</code>"
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php:294
 msgid "Update LaTeX Options"
-msgstr ""
+msgstr "更新LaTeX选项"
 
 #: ../templates/pb-catalog.php:158
 msgid "'s Catalog Page"
-msgstr ""
+msgstr "的编目页"
 
 #: ../templates/pb-catalog.php:175
 msgid "login"
-msgstr ""
+msgstr " 登入"
 
 #: ../templates/pb-catalog.php:177
 msgid "logout"
-msgstr ""
+msgstr "登出"
 
 #: ../templates/pb-catalog.php:185
 msgid "Admin"
-msgstr ""
+msgstr "管理"
 
 #: ../templates/pb-catalog.php:229
 msgid "Catalog"
-msgstr ""
+msgstr "编目"
 
 #: ../templates/pb-catalog.php:229
 msgid "filtering by"
-msgstr ""
+msgstr "过滤由"
 
 #: ../templates/pb-catalog.php:254
 msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a class"
 "=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
-msgstr ""
+msgstr "对不起，没有书籍符合您的过滤标准。请<a class=\"clear-filters\" href=\"#\">清除当前过滤</a>后重试。"
 
 #: ../templates/pb-catalog.php:258
 msgid "Pressbooks: the CMS for Books."
-msgstr ""
+msgstr "Pressbooks：书籍内容管理系统。"
 
 #: ../templates/admin/catalog.php:27
 msgid "Tags For"
-msgstr ""
+msgstr "标签 "
 
 #: ../templates/admin/catalog.php:50
 msgid "Tags"
-msgstr ""
+msgstr "标签"
 
 #: ../templates/admin/catalog.php:91
 msgid "My Catalog Profile"
-msgstr ""
+msgstr "我的编目资料"
 
 #: ../templates/admin/catalog.php:102
 msgid "URL"
-msgstr ""
+msgstr "网址"
 
 #: ../templates/admin/catalog.php:106
 msgid "Tags Name"
-msgstr ""
+msgstr "标签名"
 
 #: ../templates/admin/catalog.php:115
 msgid "Sidebar Color"
-msgstr ""
+msgstr "侧边栏颜色"
 
 #: ../templates/admin/catalog.php:118
 msgid "Logo Or Image"
-msgstr ""
+msgstr "Logo或 "
 
 #: ../templates/admin/custom-css.php:21
 msgid "Error: Something went wrong. See logs for more details."
-msgstr ""
+msgstr "出错了。请查看日志获得更多细节。"
 
 #: ../templates/admin/custom-css.php:37
 msgid "You are currently editing CSS for"
-msgstr ""
+msgstr "您正在编辑CSS样式 "
 
 #: ../templates/admin/custom-css.php:38
 msgid "Copy CSS from"
-msgstr ""
+msgstr "拷贝CSS样式自："
 
 #: ../templates/admin/custom-css.php:43
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: ../templates/admin/dashboard.php:34
 msgid "Dashboard Settings"
-msgstr ""
+msgstr "仪表板设置"
 
 #: ../templates/admin/dashboard.php:36
 msgid "Customize your Pressbooks dashboard below."
-msgstr ""
+msgstr "在下面自定义您的Pressbooks仪表板。"
 
 #: ../templates/admin/export.php:102
 msgid ""
 "Some dependencies for %1$s exports could not be found. Please verify that "
 "you have completed the <a href=\"%2$s\">installation instructions</a>."
-msgstr ""
+msgstr "%1$s导出功能必需的依赖软件未找到。请检查您是否完成了<a href=\"%2$s\">安装指南</a>。"
 
 #: ../templates/admin/export.php:112
 msgid "Error: The export failed. See logs for more details."
-msgstr ""
+msgstr "导出失败。请查看日志了解更多详情。"
 
 #: ../templates/admin/export.php:118
 msgid "Warning: The export has validation errors. See logs for more details."
-msgstr ""
+msgstr "警告：导出验证错误。请查看日志了解更多详情。"
 
 #: ../templates/admin/export.php:119
 msgid "Emailed to:"
-msgstr ""
+msgstr "发Email到："
 
 #: ../templates/admin/export.php:130
 msgid ""
 "You can export multiple file formats by selecting your Export Format Options"
 " below. Pressbooks saves your last %s batches of exported files."
-msgstr ""
+msgstr "您可以一次性选择多种格式文件并导出。系统保存您上%s次导出的文件。"
 
 #: ../templates/admin/export.php:135
 msgid "Your Export Format Options"
-msgstr ""
+msgstr "您的导出格式选项"
 
 #: ../templates/admin/export.php:136
 msgid "Select which formats you want to export"
-msgstr ""
+msgstr "选择要导出的文件格式"
 
 #: ../templates/admin/export.php:154
 msgid "PDF (for print)"
-msgstr ""
+msgstr "PDF (用于印刷)"
 
 #: ../templates/admin/export.php:155
 msgid "PDF (for digital distribution)"
-msgstr ""
+msgstr "PDF (用于数字分发)"
 
 #: ../templates/admin/export.php156, ../templates/admin/import.php:21
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
-msgstr ""
+msgstr "EPUB (用于Nook, iBooks, Kobo 等.)"
 
 #: ../templates/admin/export.php:157
 msgid "MOBI (for Kindle)"
-msgstr ""
+msgstr "MOBI (用于Kindle)"
 
 #: ../templates/admin/export.php:160
 msgid "EPUB 3 (beta)"
-msgstr ""
+msgstr "EPUB 3 (beta)"
 
 #: ../templates/admin/export.php:161
 msgid "XHTML"
-msgstr ""
+msgstr "XHTML"
 
 #: ../templates/admin/export.php:162
 msgid "OpenDocument (beta)"
-msgstr ""
+msgstr "OpenDocument (beta)"
 
 #: ../templates/admin/export.php:163
 msgid "Pressbooks XML"
-msgstr ""
+msgstr "Pressbooks XML"
 
 #: ../templates/admin/export.php:164
 msgid "WordPress XML"
-msgstr ""
+msgstr "WordPress XML"
 
 #: ../templates/admin/export.php:170
 msgid "Standard book formats"
-msgstr ""
+msgstr "标准书籍格式"
 
 #: ../templates/admin/export.php:182
 msgid "Exotic formats"
-msgstr ""
+msgstr "非标准格式"
 
 #: ../templates/admin/export.php:194
 msgid "Your Theme Options"
-msgstr ""
+msgstr "您的主题选项"
 
 #: ../templates/admin/export.php:201
 msgid "Change Theme"
-msgstr ""
+msgstr "更改主题"
 
 #: ../templates/admin/export.php:202
 msgid "Options"
-msgstr ""
+msgstr "选项"
 
 #: ../templates/admin/export.php:209
 msgid "Export Your Book"
-msgstr ""
+msgstr "导出您的书籍"
 
 #: ../templates/admin/export.php:217
 msgid "Latest Export"
-msgstr ""
+msgstr "最近导出"
 
 #: ../templates/admin/export.php217, ../templates/admin/export.php:220
 msgctxt "Date and time string, e.g. \"January 1, 2016 at 12:00pm"
@@ -3580,79 +3581,79 @@ msgstr ""
 
 #: ../templates/admin/export.php:220
 msgid "Exported"
-msgstr ""
+msgstr "已导出"
 
 #: ../templates/admin/export.php:285
 msgid "Are you sure you want to delete ALL your current exports?"
-msgstr ""
+msgstr "您确认要删除所有已导出的文件吗？"
 
 #: ../templates/admin/export.php:285
 msgid "Delete All Exports"
-msgstr ""
+msgstr "删除所有导出文件"
 
 #: ../templates/admin/import.php:20
 msgid "WXR (WordPress eXtended RSS)"
-msgstr ""
+msgstr "WXR (WordPress eXtended RSS)"
 
 #: ../templates/admin/import.php:22
 msgid "ODT (word processing file format of OpenDocument)"
-msgstr ""
+msgstr "ODT (OpenOffice文档，微软Word也可另存为此类型)"
 
 #: ../templates/admin/import.php:23
 msgid "DOCX (word processing file format of Microsoft)"
-msgstr ""
+msgstr "DOCX (微软Word文档)"
 
 #: ../templates/admin/import.php:24
 msgid "HTML (scrape content from a URL)"
-msgstr ""
+msgstr "HTML (从一个网址上抓取)"
 
 #: ../templates/admin/import.php:38
 msgid "Import in progress: %s"
-msgstr ""
+msgstr "正在导入：%s"
 
 #: ../templates/admin/import.php:58
 msgid "Are you sure you want to abort the import?"
-msgstr ""
+msgstr "您确认要终止导入吗？"
 
 #: ../templates/admin/import.php:84
 msgid "Other"
-msgstr ""
+msgstr "其他"
 
 #: ../templates/admin/import.php:118
 msgid "Import as drafts"
-msgstr ""
+msgstr "导入为草稿"
 
 #: ../templates/admin/import.php:121
 msgid "Import Selection"
-msgstr ""
+msgstr "导入选中的项"
 
 #: ../templates/admin/import.php:123
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #: ../templates/admin/import.php:156
 msgid "Supported file extensions: "
-msgstr ""
+msgstr "支持的后缀名（文件类型）："
 
 #: ../templates/admin/import.php:157
 msgid "Maximum file size:"
-msgstr ""
+msgstr "最大文件大小："
 
 #: ../templates/admin/import.php:167
 msgid "Type of file"
-msgstr ""
+msgstr "文件类型"
 
 #: ../templates/admin/import.php:179
 msgid "File"
-msgstr ""
+msgstr "文件"
 
 #: ../templates/admin/import.php:201
 msgid "Upload file"
-msgstr ""
+msgstr "上传文件"
 
 #: ../templates/admin/organize.php21, ../templates/admin/organize.php:23
 msgid "This book's global privacy is set to"
-msgstr ""
+msgstr "该书的全局隐私设置到"
 
 #: ../templates/admin/organize.php:27
 msgid "Promote your book, set individual chapters privacy below."
@@ -3662,165 +3663,165 @@ msgstr ""
 msgid ""
 "Only users you invite can see your book, regardless of individual chapter "
 "privacy settings below."
-msgstr ""
+msgstr "只有您邀请的用户可以看到您的书，忽略下列每一章的隐私设置。"
 
 #: ../templates/admin/organize.php:39
 msgid "Chapters"
-msgstr ""
+msgstr "章"
 
 #: ../templates/admin/organize.php:44
 msgid "Add Front Matter"
-msgstr ""
+msgstr "添加正文前材料"
 
 #: ../templates/admin/organize.php:45
 msgid "Add Back Matter"
-msgstr ""
+msgstr "添加正文后材料"
 
 #: ../templates/admin/organize.php:46
 msgid "Add Chapter"
-msgstr ""
+msgstr "添加章"
 
 #: ../templates/admin/organize.php47, ../templates/admin/organize.php:149
 msgid "Add Part"
-msgstr ""
+msgstr "添加部件"
 
 #: ../templates/admin/organize.php80, ../templates/admin/organize.php:156
 msgid "Comments"
-msgstr ""
+msgstr "评论"
 
 #: ../templates/admin/organize.php81, ../templates/admin/organize.php:157
 msgid "Status"
-msgstr ""
+msgstr "状态"
 
 #: ../templates/admin/organize.php83, ../templates/admin/organize.php:159
 msgid "Show Title"
-msgstr ""
+msgstr "显示标题"
 
 #: ../templates/admin/organize.php86, ../templates/admin/organize.php127,
 #: ../templates/admin/organize.php161, ../templates/admin/organize.php:195
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 #: ../templates/admin/organize.php104, ../templates/admin/organize.php:172
 msgid "Ebook start point"
-msgstr ""
+msgstr "电子书起读点"
 
 #: ../templates/admin/organize.php:220
 msgid "Reordering Chapters"
-msgstr ""
+msgstr "对章重新排序"
 
 #: ../templates/admin/organize.php:225
 msgid "Reordering Front Matter"
-msgstr ""
+msgstr "对正文前材料重新排序"
 
 #: ../templates/admin/organize.php:230
 msgid "Reordering Back Matter"
-msgstr ""
+msgstr "对正文后材料重新排序"
 
 #: ../templates/admin/results.php:4
 msgid "Results"
-msgstr ""
+msgstr "结果"
 
 #: ../templates/admin/results.php:6
 msgid "%1$s result(s) found."
-msgstr ""
+msgstr "找到%1$s条结果。"
 
 #: ../templates/admin/results.php:21
 msgid "There are no results."
-msgstr ""
+msgstr "未找到结果。"
 
 #: ../templates/admin/search.php:5
 msgid ""
 "Search & Replace will find and replace ALL instances of the search pattern "
 "in your entire book. Replacements will only be saved if you click "
 "&lsquo;<strong>Replace &amp; Save</strong>&rsquo;."
-msgstr ""
+msgstr "搜索&替换将应用到整本书里匹配到搜索模式的所有文字。只有当您点击了<strong>&lsquo;替换&amp; 保存</strong>&rsquo;.后才会真正替换掉。"
 
 #: ../templates/admin/search.php:6
 msgid ""
 "Be careful replacing text. There is no undo button. However, you can revert "
 "your changes using the Revision History within each chapter, front matter or"
 " back matter."
-msgstr ""
+msgstr "执行替换操作时要小心。因为其无法撤销。然而，您还是可以使用系统的历史版本功能来回退到某个版本。"
 
 #: ../templates/admin/search.php:10
 msgid "Search Within"
-msgstr ""
+msgstr "搜索Within"
 
 #: ../templates/admin/search.php:34
 msgid "Result Order"
-msgstr ""
+msgstr "结果排序"
 
 #: ../templates/admin/search.php:43
 msgid "Ascending"
-msgstr ""
+msgstr "升序"
 
 #: ../templates/admin/search.php:44
 msgid "Descending"
-msgstr ""
+msgstr "降序"
 
 #: ../templates/admin/search.php:49
 msgid "Search For"
-msgstr ""
+msgstr "搜索"
 
 #: ../templates/admin/search.php:55
 msgid "Replace With"
-msgstr ""
+msgstr "替换成"
 
 #: ../templates/admin/search.php:62
 msgid "Regex"
-msgstr ""
+msgstr "正则表达式"
 
 #: ../templates/admin/search.php:66
 msgid "Enable regular expressions"
-msgstr ""
+msgstr "启用正则表达式"
 
 #: ../templates/admin/search.php:77
 msgid "Preview Replacements"
-msgstr ""
+msgstr "预览替换结果"
 
 #: ../templates/admin/search.php:78
 msgid "Replace &amp; Save"
-msgstr ""
+msgstr "替换 &amp; 保存"
 
 #: ../templates/admin/trash.php:19
 msgid "Restore deleted chapters, parts, front and back matter."
-msgstr ""
+msgstr "还原删除的章、部件、正文前后材料。"
 
 #: ../templates/admin/trash.php:20
 msgid ""
 "<strong>NOTE</strong>: Items in the trash will be permanently deleted after "
 "%d days."
-msgstr ""
+msgstr "<strong>注意</strong>：回收站内的项将会在%d天后自动永久删除。"
 
 #: ../templates/admin/trash.php:25
 msgid "No trash found."
-msgstr ""
+msgstr "未发现回收站。"
 
 #: ../templates/admin/trash.php:35
 msgid "Last Modified"
-msgstr ""
+msgstr "最后修改于"
 
 #: ../templates/admin/trash.php:36
 msgid "Type"
-msgstr ""
+msgstr "类型"
 
 #: ../templates/admin/trash.php:37
 msgid "Action"
-msgstr ""
+msgstr "操作"
 
 #: ../templates/admin/trash.php:47
 msgid "(no title)"
-msgstr ""
+msgstr "(无标题)"
 
 #: ../templates/admin/trash.php:69
 msgid "Restore &#8220;%s&#8221; from the Trash"
-msgstr ""
+msgstr "从回收站里还原了 &#8220;%s&#8221; "
 
 #: ../templates/admin/trash.php:70
 msgid "Restore"
-msgstr ""
+msgstr "还原"
 
 #: ../tests/test-registration.php:18
 msgid "Create Site"
-msgstr ""
+msgstr " 创建站点"
