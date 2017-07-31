@@ -402,6 +402,38 @@ class Book {
 		return $book_contents;
 	}
 
+	/**
+	 * @param bool $selected_for_export (optional)
+	 *
+	 * @return int
+	 */
+	static function wordCount( $selected_for_export = false ) {
+		$wc = 0;
+		$wc_selected_for_export = 0;
+		foreach ( static::getBookStructure() as $key => $section ) {
+			if ( $key === 'front-matter' || $key === 'front-matter' ) {
+				foreach ( $section as $val ) {
+					$wc += $val['word_count'];
+					if ( $val['export'] ) {
+						$wc_selected_for_export += $val['word_count'];
+					}
+				}
+			}
+			if ( $key === 'part' ) {
+				foreach ( $section as $part ) {
+					foreach ( $part['chapters'] as $val ) {
+						$wc += $val['word_count'];
+						if ( $val['export'] ) {
+							$wc_selected_for_export += $val['word_count'];
+						}
+					}
+				}
+			}
+		}
+
+		return $selected_for_export ? $wc_selected_for_export : $wc;
+	}
+
 
 	/**
 	 * Delete the Book Object cache(s)

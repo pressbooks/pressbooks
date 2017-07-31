@@ -11,6 +11,8 @@ $statuses = get_post_statuses();
 $book_structure = \Pressbooks\Book::getBookStructure();
 $book_is_public = ( ! empty( get_option( 'blog_public' ) ) );
 $disable_comments = \Pressbooks\Utility\disable_comments();
+$wc = \Pressbooks\Book::wordCount();
+$wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 ?>
 
 <div class="wrap">
@@ -30,6 +32,10 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 						<?php _e( 'Only users you invite can see your book, regardless of individual chapter privacy settings below.', 'pressbooks' ); ?>
 					</label>
 				</div>
+				<p>
+					<?php printf( __( 'Word count (all content): %d', 'pressbooks' ), $wc ); ?><br/>
+					<?php printf( __( 'Word count (selected for export): %d', 'pressbooks' ), $wc_selected_for_export ); ?><br/>
+				</p>
 			</div>
 		</div>
 	<?php endif; ?>
