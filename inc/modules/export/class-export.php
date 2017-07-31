@@ -495,11 +495,14 @@ abstract class Export {
 			if ( 1 === absint( $option['copyright_license'] ) ) {
 				return '';
 			} elseif ( 2 === absint( $option['copyright_license'] ) ) {
-				try {
-					$licensing = new \Pressbooks\Licensing();
-					return $licensing->doLicense( $metadata, $post_id );
-				} catch ( \Exception $e ) {
-					$this->logError( $e->getMessage() );
+				$section_license = get_post_meta( $post_id, 'pb_section_license', true );
+				if ( ! empty( $section_license ) ) {
+					try {
+						$licensing = new \Pressbooks\Licensing();
+						return $licensing->doLicense( $metadata, $post_id );
+					} catch ( \Exception $e ) {
+						$this->logError( $e->getMessage() );
+					}
 				}
 			}
 		}
