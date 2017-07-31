@@ -318,7 +318,7 @@ function add_meta_boxes() {
 		'pb_book_license', 'metadata', [
 		'group' => 'copyright',
 		'field_type' => 'select',
-		'values' => [ '' => '--Select--' ] + $licenses,
+		'values' => [ '' => __( 'Select a License', 'pressbooks' ) ] + $licenses,
 		'label' => __( 'Copyright License', 'pressbooks' ),
 		'description' => __( 'You can select various licenses including Creative Commons.', 'pressbooks' ),
 		]
@@ -515,7 +515,7 @@ function add_meta_boxes() {
 		'pb_section_license', 'chapter', [
 		'group' => 'chapter-metadata',
 		'field_type' => 'select',
-		'values' => [ '' => '--Select--' ] + $licenses,
+		'values' => [ '' => __( 'Select a License', 'pressbooks' ) ] + $licenses,
 		'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
@@ -597,7 +597,7 @@ function add_meta_boxes() {
 		'pb_section_license', 'front-matter', [
 		'group' => 'front-matter-metadata',
 		'field_type' => 'select',
-		'values' => [ '' => '--Select--' ] + $licenses,
+		'values' => [ '' => __( 'Select a License', 'pressbooks' ) ] + $licenses,
 		'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
@@ -635,7 +635,7 @@ function add_meta_boxes() {
 		'pb_section_license', 'back-matter', [
 		'group' => 'back-matter-metadata',
 		'field_type' => 'select',
-		'values' => [ '' => '--Select--' ] + $licenses,
+		'values' => [ '' => __( 'Select a License', 'pressbooks' ) ] + $licenses,
 		'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
