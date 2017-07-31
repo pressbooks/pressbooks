@@ -652,24 +652,21 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoCopyright( $book_contents, $metadata ) {
 
-		$options = get_option( 'pressbooks_theme_options_global' );
-		foreach ( [ 'copyright_license' ] as $required_global_option ) {
-			if ( ! isset( $options[ $required_global_option ] ) ) {
-				$options[ $required_global_option ] = 0;
-			}
-		}
-
 		echo '<div id="copyright-page"><div class="ugc">';
 
+		// Custom copyright
 		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
 			echo $this->tidy( $metadata['pb_custom_copyright'] );
 		}
 
-		if ( 1 === absint( $options['copyright_license'] ) ) {
-			echo $this->doCopyrightLicense( $metadata );
+		// License
+		$license = $this->doCopyrightLicense( $metadata );
+		if ( $license ) {
+			echo $license;
 		}
+
 		// default, so something is displayed
-		if ( empty( $metadata['pb_custom_copyright'] ) && 0 === absint( $options['copyright_license'] ) ) {
+		if ( empty( $metadata['pb_custom_copyright'] ) && empty( $license ) ) {
 			echo '<p>';
 			echo get_bloginfo( 'name' ) . ' ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
 			if ( ! empty( $meta['pb_copyright_year'] ) ) {
@@ -743,13 +740,6 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoToc( $book_contents, $metadata ) {
 
-		$options = get_option( 'pressbooks_theme_options_global' );
-		foreach ( [ 'copyright_license' ] as $required_global_option ) {
-			if ( ! isset( $options[ $required_global_option ] ) ) {
-				$options[ $required_global_option ] = 0;
-			}
-		}
-
 		echo '<div id="toc"><h1>' . __( 'Contents', 'pressbooks' ) . '</h1><ul>';
 		foreach ( $book_contents as $type => $struct ) {
 
@@ -794,7 +784,7 @@ class Xhtml11 extends Export {
 						$title = Sanitize\strip_br( $chapter['post_title'] );
 						$subtitle = trim( get_post_meta( $chapter['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $chapter['ID'], 'pb_section_author', true ) );
-						$license = ( $options['copyright_license'] ) ? get_post_meta( $chapter['ID'], 'pb_section_license', true ) : '';
+						$license = $this->doTocLicense( $chapter['ID'] );
 
 						printf( '<li class="chapter %s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $subclass, $slug, Sanitize\decode( $title ) );
 
@@ -848,13 +838,13 @@ class Xhtml11 extends Export {
 							$typetype = $type . ' ' . $subclass;
 							$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 							$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
-							$license = ( $options['copyright_license'] ) ? get_post_meta( $val['ID'], 'pb_section_license', true ) : '';
+							$license = $this->doTocLicense( $val['ID'] );
 						}
 					} elseif ( 'back-matter' === $type ) {
 						$typetype = $type . ' ' . \Pressbooks\Taxonomy::getBackMatterType( $val['ID'] );
 						$subtitle = trim( get_post_meta( $val['ID'], 'pb_subtitle', true ) );
 						$author = trim( get_post_meta( $val['ID'], 'pb_section_author', true ) );
-						$license = ( $options['copyright_license'] ) ? get_post_meta( $val['ID'], 'pb_section_license', true ) : '';
+						$license = $this->doTocLicense( $val['ID'] );
 					}
 
 					printf( '<li class="%s"><a href="#%s"><span class="toc-chapter-title">%s</span>', $typetype, $slug, Sanitize\decode( $title ) );
@@ -949,6 +939,8 @@ class Xhtml11 extends Export {
 			if ( $short_title ) {
 				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 			}
+
+			$append_front_matter_content .= $this->doSectionLevelLicense( $metadata, $front_matter_id );
 
 			printf(
 				$front_matter_printf,
@@ -1087,6 +1079,8 @@ class Xhtml11 extends Export {
 					$this->hasIntroduction = true;
 				}
 
+				$append_chapter_content .= $this->doSectionLevelLicense( $metadata, $chapter_id );
+
 				$n = ( 'numberless' === $subclass ) ? '' : $j;
 				$my_chapters .= sprintf(
 					( $chapter_printf_changed ? $chapter_printf_changed : $chapter_printf ),
@@ -1184,6 +1178,8 @@ class Xhtml11 extends Export {
 			if ( $short_title ) {
 				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 			}
+
+			$append_back_matter_content .= $this->doSectionLevelLicense( $metadata, $back_matter_id );
 
 			printf(
 				$back_matter_printf,

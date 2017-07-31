@@ -538,7 +538,8 @@ class SectionMetadata extends \WP_REST_Controller {
 			}
 		}
 
-		$new_section_information['license'] = \Pressbooks\Metadata\get_url_for_license( $section_information['pb_section_license'] );
+		$licensing = new \Pressbooks\Licensing();
+		$new_section_information['license'] = $licensing->getUrlForLicense( $section_information['pb_section_license'] );
 
 		if ( ! isset( $section_information['pb_is_based_on'] ) && isset( $book_information['pb_is_based_on'] ) ) {
 			$new_section_information['isBasedOn'] = $book_information['pb_is_based_on'];

@@ -135,6 +135,11 @@ function add_metadata_styles( $hook ) {
 function add_meta_boxes() {
 	$show_expanded_metadata = \Pressbooks\Metadata\show_expanded_metadata();
 
+	$licenses = [];
+	foreach ( ( new \Pressbooks\Licensing() )->getSupportedTypes() as $key => $val ) {
+		$licenses[ $key ] = $val['desc'];
+	}
+
 	// Override WordPress' parent_id
 
 	add_meta_box( 'chapter-parent', __( 'Part', 'pressbooks' ), __NAMESPACE__ . '\override_parent_id', 'chapter', 'side', 'high' );
@@ -313,17 +318,7 @@ function add_meta_boxes() {
 		'pb_book_license', 'metadata', [
 		'group' => 'copyright',
 		'field_type' => 'select',
-		'values' => [
-			'' => '--Select--',
-			'public-domain' => __( 'No Rights Reserved (Public Domain)', 'pressbooks' ),
-			'cc-by' => __( 'CC BY (Attribution)', 'pressbooks' ),
-			'cc-by-sa' => __( 'CC BY-SA (Attribution ShareAlike)', 'pressbooks' ),
-			'cc-by-nd' => __( 'CC BY-ND (Attribution NoDerivatives)', 'pressbooks' ),
-			'cc-by-nc' => __( 'CC BY-NC (Attribution NonCommercial)', 'pressbooks' ),
-			'cc-by-nc-sa' => __( 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)', 'pressbooks' ),
-			'cc-by-nc-nd' => __( 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)', 'pressbooks' ),
-			'all-rights-reserved' => __( 'All Rights Reserved', 'pressbooks' ),
-		],
+		'values' => [ '' => __( 'Select a License', 'pressbooks' ) ] + $licenses,
 		'label' => __( 'Copyright License', 'pressbooks' ),
 		'description' => __( 'You can select various licenses including Creative Commons.', 'pressbooks' ),
 		]
@@ -520,17 +515,7 @@ function add_meta_boxes() {
 		'pb_section_license', 'chapter', [
 		'group' => 'chapter-metadata',
 		'field_type' => 'select',
-		'values' => [
-			'' => '--Select--',
-			'public-domain' => __( 'No Rights Reserved (Public Domain)', 'pressbooks' ),
-			'cc-by' => __( 'CC BY (Attribution)', 'pressbooks' ),
-			'cc-by-sa' => __( 'CC BY-SA (Attribution ShareAlike)', 'pressbooks' ),
-			'cc-by-nd' => __( 'CC BY-ND (Attribution NoDerivatives)', 'pressbooks' ),
-			'cc-by-nc' => __( 'CC BY-NC (Attribution NonCommercial)', 'pressbooks' ),
-			'cc-by-nc-sa' => __( 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)', 'pressbooks' ),
-			'cc-by-nc-nd' => __( 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)', 'pressbooks' ),
-			'all-rights-reserved' => __( 'All Rights Reserved', 'pressbooks' ),
-		],
+		'values' => [ '' => __( 'Select a License', 'pressbooks' ) ] + $licenses,
 		'label' => __( 'Chapter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
@@ -612,17 +597,7 @@ function add_meta_boxes() {
 		'pb_section_license', 'front-matter', [
 		'group' => 'front-matter-metadata',
 		'field_type' => 'select',
-		'values' => [
-			'' => '--Select--',
-			'public-domain' => __( 'No Rights Reserved (Public Domain)', 'pressbooks' ),
-			'cc-by' => __( 'CC BY (Attribution)', 'pressbooks' ),
-			'cc-by-sa' => __( 'CC BY-SA (Attribution ShareAlike)', 'pressbooks' ),
-			'cc-by-nd' => __( 'CC BY-ND (Attribution NoDerivatives)', 'pressbooks' ),
-			'cc-by-nc' => __( 'CC BY-NC (Attribution NonCommercial)', 'pressbooks' ),
-			'cc-by-nc-sa' => __( 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)', 'pressbooks' ),
-			'cc-by-nc-nd' => __( 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)', 'pressbooks' ),
-			'all-rights-reserved' => __( 'All Rights Reserved', 'pressbooks' ),
-		],
+		'values' => [ '' => __( 'Select a License', 'pressbooks' ) ] + $licenses,
 		'label' => __( 'Front Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
@@ -660,17 +635,7 @@ function add_meta_boxes() {
 		'pb_section_license', 'back-matter', [
 		'group' => 'back-matter-metadata',
 		'field_type' => 'select',
-		'values' => [
-			'' => '--Select--',
-			'public-domain' => __( 'No Rights Reserved (Public Domain)', 'pressbooks' ),
-			'cc-by' => __( 'CC BY (Attribution)', 'pressbooks' ),
-			'cc-by-sa' => __( 'CC BY-SA (Attribution ShareAlike)', 'pressbooks' ),
-			'cc-by-nd' => __( 'CC BY-ND (Attribution NoDerivatives)', 'pressbooks' ),
-			'cc-by-nc' => __( 'CC BY-NC (Attribution NonCommercial)', 'pressbooks' ),
-			'cc-by-nc-sa' => __( 'CC BY-NC-SA (Attribution NonCommercial ShareAlike)', 'pressbooks' ),
-			'cc-by-nc-nd' => __( 'CC BY-NC-ND (Attribution NonCommercial NoDerivatives)', 'pressbooks' ),
-			'all-rights-reserved' => __( 'All Rights Reserved', 'pressbooks' ),
-		],
+		'values' => [ '' => __( 'Select a License', 'pressbooks' ) ] + $licenses,
 		'label' => __( 'Back Matter Copyright License (overrides book license on this page)', 'pressbooks' ),
 		]
 	);
