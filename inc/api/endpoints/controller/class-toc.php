@@ -118,6 +118,11 @@ class Toc extends \WP_REST_Controller {
 				'type' => 'boolean',
 				'readonly' => true,
 			],
+			'word_count' => [
+				'description' => __( 'Word count.', 'pressbooks' ),
+				'type' => 'integer',
+				'readonly' => true,
+			],
 			'link' => [
 				'description' => __( 'URL to the object.' ),
 				'type' => 'string',

@@ -261,6 +261,7 @@ class Book {
 				'post_status' => $post->post_status,
 				'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 'on' === $post_ids_to_export[ $post->ID ] ) ? true : false,
 				'has_post_content' => ! empty( trim( $post->post_content ) ),
+				'word_count' => \Pressbooks\Utility\word_count( $post->post_content ),
 				'post_parent' => $post->post_parent,
 			];
 		}

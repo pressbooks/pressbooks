@@ -264,4 +264,19 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( \Pressbooks\Utility\str_ends_with( 's0.wp.com', 'wp.com' ) );
 	}
 
+	public function test_word_count() {
+
+		$content = 'This is four words.';
+		$count = \Pressbooks\Utility\word_count( $content );
+		$this->assertEquals( 4, $count );
+
+		$content = "<p>This</p> <strong>is</strong> \r\n\r\n\r\n four! <script>five?</script> words.";
+		$count = \Pressbooks\Utility\word_count( $content );
+		$this->assertEquals( 4, $count );
+
+		$content = '电脑坏了。';
+		$count = \Pressbooks\Utility\word_count( $content );
+		$this->assertEquals( 4, $count );
+	}
+
 }
