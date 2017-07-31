@@ -175,13 +175,13 @@ class Toc extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
-				'part' => [
+				'parts' => [
 					'description' => __( 'Part', 'pressbooks' ),
 					'type' => 'array',
 					'items' => [
 						'type' => 'object',
 						'properties' => array_merge( $item, [
-							'chapter' => [
+							'chapters' => [
 								'description' => __( 'Chapter', 'pressbooks' ),
 								'type' => 'array',
 								'items' => [
@@ -280,7 +280,7 @@ class Toc extends \WP_REST_Controller {
 		];
 
 		$toc['front-matter'] = $this->fixFrontMatterStructure( $book_structure, $has_permission, $replacement_keys );
-		$toc['part'] = $this->fixPartChapterStructure( $book_structure, $has_permission, $replacement_keys );
+		$toc['parts'] = $this->fixPartChapterStructure( $book_structure, $has_permission, $replacement_keys );
 		$toc['back-matter'] = $this->fixBackMatterStructure( $book_structure, $has_permission, $replacement_keys );
 
 		return $toc;
