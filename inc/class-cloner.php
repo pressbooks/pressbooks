@@ -155,6 +155,10 @@ class Cloner {
 	 * @return bool
 	 */
 	public function cloneBook() {
+		if ( ! empty( $this->sourceBookId ) ) {
+			switch_to_blog( $this->sourceBookId );
+		}
+
 		// Set up $this->sourceBookMetadata
 		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookMetadata ) ) {
@@ -179,6 +183,10 @@ class Cloner {
 			return false;
 		}
 
+		if ( ! empty( $this->sourceBookId ) ) {
+			restore_current_blog();
+		}
+
 		// Create Book
 		$this->targetBookId = $this->createBook();
 		$this->targetBookUrl = get_blogaddress_by_id( $this->targetBookId );
@@ -198,11 +206,11 @@ class Cloner {
 		}
 
 		// Clone Parts
-		foreach ( $this->sourceBookStructure['part'] as $key => $part ) {
+		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
 			$part_id = $this->clonePart( $part['id'] );
 
 			// Clone Chapters
-			foreach ( $this->sourceBookStructure['part'][ $key ]['chapters'] as $chapter ) {
+			foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
 				$this->cloneChapter( $chapter['id'], $part_id );
 			}
 		}
@@ -361,7 +369,7 @@ class Cloner {
 	 */
 	public function getBookStructure( $url ) {
 		// Handle request (local or global)
-		$response = $this->handleRequest( $url , 'pressbooks/v2', 'toc' );
+		$response = $this->handleRequest( $url , 'pressbooks/v2', 'toc', [ '_embed' => 1 ] );
 
 		// Handle errors
 		if ( is_wp_error( $response ) ) {
@@ -374,6 +382,7 @@ class Cloner {
 		}
 
 		// Return successful response
+		// wp_die( '<pre>' . print_r( $response, true ) . '</pre>' );
 		return $response;
 	}
 
@@ -539,23 +548,12 @@ class Cloner {
 	protected function cloneSection( $section_id, $post_type, $parent_id = null ) {
 		global $blog_id;
 
-		// Determine endpoint based on $post_type
-		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
-
-		// Retrieve section
-		$response = $this->handleRequest( $this->sourceBookUrl, 'pressbooks/v2', "$endpoint/$section_id" );
-
-		// Handle errors
-		if ( is_wp_error( $response ) ) {
-			$_SESSION['pb_errors'][] = sprintf(
-				'<p>%1$s</p><p>%2$s</p>',
-				sprintf( __( 'The %1$s %2$s could not be read.', 'pressbooks' ), $post_type, $section_id ),
-				$response->get_error_message()
-			);
-			return false;
-		} else {
-			$section = $response;
-		}
+		// Locate section
+		foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $k => $v ) {
+			if ( $v['id'] === absint( $section_id ) ) {
+				$section = $this->sourceBookStructure['_embedded'][ $post_type ][ $k ];
+			}
+		};
 
 		// Get links
 		$links = array_pop( $section );
@@ -564,7 +562,7 @@ class Cloner {
 		$permalink = $section['link'];
 
 		// Remove source-specific properties
-		$bad_keys = [ 'author', 'guid', 'id', 'link' ];
+		$bad_keys = [ 'author', 'id', 'link' ];
 		foreach ( $bad_keys as $bad_key ) {
 			unset( $section[ $bad_key ] );
 		}
@@ -606,6 +604,9 @@ class Cloner {
 				}
 			}
 		}
+
+		// Determine endpoint based on $post_type
+		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
 
 		// POST internal request
 		$switch = ( $blog_id !== $this->targetBookId ) ? true : false;
@@ -660,21 +661,25 @@ class Cloner {
 		global $blog_id;
 
 		// Determine endpoint based on $post_type
-		$endpoint = ( in_array( $post_type, [ 'chapter', 'part' ], true ) ) ? $post_type . 's' : $post_type;
+		$endpoint = ( in_array( $post_type, [ 'chapter' ], true ) ) ? $post_type . 's' : $post_type;
 
-		// Retrieve section
-		$response = $this->handleRequest( $this->sourceBookUrl, 'pressbooks/v2', "$endpoint/$section_id/metadata" );
-
-		// Handle errors
-		if ( is_wp_error( $response ) ) {
-			$_SESSION['pb_errors'][] = sprintf(
-				'<p>%1$s</p><p>%2$s</p>',
-				sprintf( __( 'The metadata for %1$s ID %2$s could not be read.', 'pressbooks' ), $post_type, $section_id ),
-				$response->get_error_message()
-			);
-			return false;
+		// Retrieve metadata
+		if ( in_array( $post_type, [ 'front-matter', 'back-matter' ], true ) ) {
+			foreach ( $this->sourceBookStructure[ $post_type ] as $k => $v ) {
+				if ( $v['id'] === absint( $section_id ) ) {
+					$section_metadata = $v['metadata'];
+				}
+			}
+		} elseif ( $post_type === 'chapter' ) {
+			foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+				foreach ( $part['chapters']  as $k => $v ) {
+					if ( $v['id'] === absint( $section_id ) ) {
+						$section_metadata = $v['metadata'];
+					}
+				}
+			}
 		} else {
-			$section_metadata = $response;
+			$section_metadata = [];
 		}
 
 		$switch = ( $this->targetBookId !== $blog_id ) ? true : false;
@@ -716,6 +721,7 @@ class Cloner {
 			if ( $switch ) {
 				switch_to_blog( $local_book );
 			}
+			$_GET['_embed'] = 1;
 			$request = new \WP_REST_Request( 'GET', "/$namespace/$endpoint" );
 			if ( ! empty( $params ) ) {
 				$request->set_query_params( $params );
