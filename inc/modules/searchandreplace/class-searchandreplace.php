@@ -114,7 +114,8 @@ class SearchAndReplace {
 			$searcher = new $source;
 
 			// Enable regex mode
-			$searcher->regex = defined( 'PB_ENABLE_REGEX_SEARCHREPLACE' ) && PB_ENABLE_REGEX_SEARCHREPLACE && ! empty( $_POST['regex'] );
+			$enabled = ( defined( 'PB_ENABLE_REGEX_SEARCHREPLACE' ) && PB_ENABLE_REGEX_SEARCHREPLACE ) || is_super_admin();
+			$searcher->regex = $enabled && ! empty( $_POST['regex'] );
 
 			// Make sure no one sneaks in with a replace
 			if ( ! current_user_can( 'administrator' ) ) {
