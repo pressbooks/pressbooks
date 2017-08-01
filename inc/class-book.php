@@ -261,6 +261,7 @@ class Book {
 				'post_status' => $post->post_status,
 				'export' => ( isset( $post_ids_to_export[ $post->ID ] ) && 'on' === $post_ids_to_export[ $post->ID ] ) ? true : false,
 				'has_post_content' => ! empty( trim( $post->post_content ) ),
+				'word_count' => \Pressbooks\Utility\word_count( $post->post_content ),
 				'post_parent' => $post->post_parent,
 			];
 		}
@@ -399,6 +400,49 @@ class Book {
 		}
 
 		return $book_contents;
+	}
+
+	/**
+	 * @param bool $selected_for_export (optional)
+	 *
+	 * @return int
+	 */
+	static function wordCount( $selected_for_export = false ) {
+		$wc = 0;
+		$wc_selected_for_export = 0;
+		foreach ( static::getBookStructure() as $key => $section ) {
+			if ( $key === 'front-matter' || $key === 'back-matter' ) {
+				foreach ( $section as $val ) {
+					$wc += $val['word_count'];
+					if ( $val['export'] ) {
+						$wc_selected_for_export += $val['word_count'];
+					}
+				}
+			}
+			if ( $key === 'part' ) {
+				foreach ( $section as $part ) {
+					foreach ( $part['chapters'] as $val ) {
+						$wc += $val['word_count'];
+						if ( $val['export'] ) {
+							$wc_selected_for_export += $val['word_count'];
+						}
+					}
+				}
+			}
+		}
+
+		return $selected_for_export ? $wc_selected_for_export : $wc;
+	}
+
+
+	/**
+	 * @return int
+	 */
+	static function ajaxWordCount() {
+		if ( check_ajax_referer( 'pb-update-word-count-for-export' ) ) {
+			echo \Pressbooks\Book::wordCount( true );
+			wp_die();
+		}
 	}
 
 

@@ -11,27 +11,29 @@ $statuses = get_post_statuses();
 $book_structure = \Pressbooks\Book::getBookStructure();
 $book_is_public = ( ! empty( get_option( 'blog_public' ) ) );
 $disable_comments = \Pressbooks\Utility\disable_comments();
+$wc = \Pressbooks\Book::wordCount();
+$wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 ?>
 
 <div class="wrap">
 	<?php if ( current_user_can( 'manage_options' ) ) : ?>
-		<div id="publicize-panel" class="postbox">
-			<div class="inside">
-				<?php if ( $book_is_public ) { ?>
-				<h4 class="publicize-alert public"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Public', 'pressbooks' ); ?></span></h4>
-				<?php } else { ?>
-				<h4 class="publicize-alert private"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Private', 'pressbooks' ); ?></span></h4>
-				<?php } ?>
-				<div class="publicize-form">
-					<label for="blog-public"><input type="radio" <?php if ( $book_is_public ) { echo 'checked="checked"';} ?> value="1" name="blog_public" id="blog-public"><span class="public<?php if ( $book_is_public ) { echo ' active';} ?>"><?php _e( 'Public', 'pressbooks' ); ?></span> &mdash;
-						<?php _e( 'Promote your book, set individual chapters privacy below.', 'pressbooks' ); ?>
-					</label>
-					<label for="blog-private"><input type="radio" <?php if ( ! $book_is_public ) { echo 'checked="checked"';} ?> value="0" name="blog_public" id="blog-private"><span class="private<?php if ( ! $book_is_public ) { echo ' active';} ?>"><?php _e( 'Private', 'pressbooks' ); ?></span> &mdash;
-						<?php _e( 'Only users you invite can see your book, regardless of individual chapter privacy settings below.', 'pressbooks' ); ?>
-					</label>
-				</div>
+	<div id="publicize-panel" class="postbox">
+		<div class="inside">
+			<?php if ( $book_is_public ) { ?>
+			<h4 class="publicize-alert public"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Public', 'pressbooks' ); ?></span></h4>
+			<?php } else { ?>
+			<h4 class="publicize-alert private"><?php _e( 'This book\'s global privacy is set to', 'pressbooks' ); ?> <span><?php _e( 'Private', 'pressbooks' ); ?></span></h4>
+			<?php } ?>
+			<div class="publicize-form">
+				<label for="blog-public"><input type="radio" <?php if ( $book_is_public ) { echo 'checked="checked"';} ?> value="1" name="blog_public" id="blog-public"><span class="public<?php if ( $book_is_public ) { echo ' active';} ?>"><?php _e( 'Public', 'pressbooks' ); ?></span> &mdash;
+					<?php _e( 'Promote your book, set individual chapters privacy below.', 'pressbooks' ); ?>
+				</label>
+				<label for="blog-private"><input type="radio" <?php if ( ! $book_is_public ) { echo 'checked="checked"';} ?> value="0" name="blog_public" id="blog-private"><span class="private<?php if ( ! $book_is_public ) { echo ' active';} ?>"><?php _e( 'Private', 'pressbooks' ); ?></span> &mdash;
+					<?php _e( 'Only users you invite can see your book, regardless of individual chapter privacy settings below.', 'pressbooks' ); ?>
+				</label>
 			</div>
 		</div>
+	</div>
 	<?php endif; ?>
 	<h2><?php bloginfo( 'name' ); ?>
 		<?php if ( is_super_admin() ) : ?>
@@ -47,6 +49,11 @@ $disable_comments = \Pressbooks\Utility\disable_comments();
 			<a class="page-title-action" href="<?php echo admin_url( 'post-new.php?post_type=part' ); ?>"><?php _e( 'Add Part', 'pressbooks' ); ?></a>
 		<?php endif; ?>
 	</h2>
+
+	<p>
+		<strong><?php _e( 'Word Count:', 'pressbooks' ); ?></strong> <?php printf( __( '%s (whole book)', 'pressbooks' ), "<span id='wc-all'>$wc</span>" ); ?> /
+		<?php printf( __( '%s (selected for export)', 'pressbooks' ), "<span id='wc-selected-for-export'>$wc_selected_for_export</span>" ); ?>
+	</p>
 
 	<?php // Iterate through types and output nice tables for each one.
 

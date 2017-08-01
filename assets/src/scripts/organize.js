@@ -1,5 +1,7 @@
 // This script is loaded when a user is on the [ Text → Organize ] page
 
+import CountUp from 'countup.js';
+
 let Pressbooks = {
 	'oldPart':        null,
 	'newPart':        null,
@@ -205,6 +207,7 @@ jQuery( document ).ready( function ( $ ) {
 	// Chapter switches
 
 	$( '.chapter_privacy' ).change( function () {
+		let post_status;
 
 		let col = $( this ).parent().prev( '.column-status' );
 		let id = $( this ).attr( 'id' );
@@ -240,6 +243,7 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	$( '.chapter_show_title_check' ).change( function () {
+		let chapter_show_title;
 
 		let id = $( this ).attr( 'id' );
 		id = id.split( '_' );
@@ -265,6 +269,7 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	$( '.chapter_export_check' ).change( function () {
+		let chapter_export;
 
 		let id = $( this ).attr( 'id' );
 		id = id.split( '_' );
@@ -286,12 +291,16 @@ jQuery( document ).ready( function ( $ ) {
 				type:           'pb_export',
 				_ajax_nonce:    PB_OrganizeToken.exportNonce,
 			},
+			success: function () {
+				updateWordCountForExport();
+			},
 		} );
 	} );
 
 	// Front-matter switches
 
 	$( '.fm_privacy' ).change( function () {
+		let post_status;
 
 		let col = $( this ).parent().prev( '.column-status' );
 		let id = $( this ).attr( 'id' );
@@ -327,6 +336,7 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	$( '.fm_show_title_check' ).change( function () {
+		let chapter_show_title;
 
 		let id = $( this ).attr( 'id' );
 		id = id.split( '_' );
@@ -352,6 +362,7 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	$( '.fm_export_check' ).change( function () {
+		let chapter_export;
 
 		let id = $( this ).attr( 'id' );
 		id = id.split( '_' );
@@ -373,12 +384,16 @@ jQuery( document ).ready( function ( $ ) {
 				type:           'pb_export',
 				_ajax_nonce:    PB_OrganizeToken.exportNonce,
 			},
+			success: function () {
+				updateWordCountForExport();
+			},
 		} );
 	} );
 
 	// Back-matter switches
 
 	$( '.bm_privacy' ).change( function () {
+		let post_status;
 
 		let col = $( this ).parent().prev( '.column-status' );
 		let id = $( this ).attr( 'id' );
@@ -414,6 +429,7 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	$( '.bm_show_title_check' ).change( function () {
+		let chapter_show_title;
 
 		let id = $( this ).attr( 'id' );
 		id = id.split( '_' );
@@ -439,6 +455,7 @@ jQuery( document ).ready( function ( $ ) {
 	} );
 
 	$( '.bm_export_check' ).change( function () {
+		let chapter_export;
 
 		let id = $( this ).attr( 'id' );
 		id = id.split( '_' );
@@ -459,6 +476,9 @@ jQuery( document ).ready( function ( $ ) {
 				chapter_export: chapter_export,
 				type:           'pb_export',
 				_ajax_nonce:    PB_OrganizeToken.exportNonce,
+			},
+			success: function () {
+				updateWordCountForExport();
 			},
 		} );
 	} );
@@ -488,4 +508,18 @@ jQuery( document ).ready( function ( $ ) {
 			return 'Changes you made may not be saved...';
 		}
 	} );
+
+	// Update word count when needed.
+	function updateWordCountForExport() {
+		const data = {
+			'action':      'pb_update_word_count_for_export',
+			'_ajax_nonce': PB_OrganizeToken.wordCountNonce,
+		};
+		$.post( ajaxurl, data, function ( response ) {
+			const current_count = parseInt( $( '#wc-selected-for-export' ).text(), 10 );
+			let count_up = new CountUp( 'wc-selected-for-export', current_count, response, 0, 2.5 );
+			count_up.start();
+		} );
+	}
+
 } );

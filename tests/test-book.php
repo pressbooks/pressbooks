@@ -131,4 +131,16 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'pb_about_unlimited', $info );
 	}
 
+	public function test_wordCount() {
+
+		$book = \Pressbooks\Book::getInstance();
+
+		$this->_book();
+		$wc = $book::wordCount();
+		$wc_selected_for_export = $book::wordCount( true );
+
+		$this->assertEquals( 46, $wc );
+		$this->assertEquals( 0, $wc_selected_for_export );
+	}
+
 }
