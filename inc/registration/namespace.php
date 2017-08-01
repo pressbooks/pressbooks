@@ -35,7 +35,7 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
 				$translated_text = __( 'Webbook Address:', 'pressbooks' );
 				break;
 			case 'Must be at least 4 characters, letters and numbers only. It cannot be changed, so choose carefully!' :
-			$translated_text = __( 'Your webbook address is the web address where you will access and create your book. It must be at least 4 characters, letters and numbers only. It <strong>cannot be changed</strong>, so choose carefully! We suggest using the title of your book with no spaces.', 'pressbooks' );
+				$translated_text = __( 'Your webbook address is the web address where you will access and create your book. It must be at least 4 characters, letters and numbers only. It <strong>cannot be changed</strong>, so choose carefully! We suggest using the title of your book with no spaces.', 'pressbooks' );
 				break;
 			case 'Site Title:' :
 				$translated_text = __( 'Book Title:', 'pressbooks' );
