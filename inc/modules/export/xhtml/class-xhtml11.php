@@ -654,15 +654,15 @@ class Xhtml11 extends Export {
 
 		echo '<div id="copyright-page"><div class="ugc">';
 
-		// Custom copyright
-		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
-			echo $this->tidy( $metadata['pb_custom_copyright'] );
-		}
-
 		// License
 		$license = $this->doCopyrightLicense( $metadata );
 		if ( $license ) {
 			echo $license;
+		}
+
+		// Custom copyright
+		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
+			echo $this->tidy( $metadata['pb_custom_copyright'] );
 		}
 
 		// default, so something is displayed
