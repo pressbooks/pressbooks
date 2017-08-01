@@ -411,7 +411,7 @@ class Book {
 		$wc = 0;
 		$wc_selected_for_export = 0;
 		foreach ( static::getBookStructure() as $key => $section ) {
-			if ( $key === 'front-matter' || $key === 'front-matter' ) {
+			if ( $key === 'front-matter' || $key === 'back-matter' ) {
 				foreach ( $section as $val ) {
 					$wc += $val['word_count'];
 					if ( $val['export'] ) {
