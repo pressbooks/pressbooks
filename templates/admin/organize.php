@@ -32,13 +32,17 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 						<?php _e( 'Only users you invite can see your book, regardless of individual chapter privacy settings below.', 'pressbooks' ); ?>
 					</label>
 				</div>
-				<p>
-					<?php printf( __( 'Word count (all content): %d', 'pressbooks' ), $wc ); ?><br/>
-					<?php printf( __( 'Word count (selected for export): %d', 'pressbooks' ), $wc_selected_for_export ); ?><br/>
-				</p>
 			</div>
 		</div>
 	<?php endif; ?>
+	<div id="wordcount-panel" class="postbox">
+		<div class="inside">
+			<p>
+				<?php _e( 'Word count (all content):', 'pressbooks' ); ?> <span class="wc-all"><?php echo $wc; ?></span><br />
+				<?php _e( 'Word count (selected for export):', 'pressbooks' ); ?> <span class="wc-selected-for-export"><?php echo $wc_selected_for_export; ?></span>
+			</p>
+		</div>
+	</div>
 	<h2><?php bloginfo( 'name' ); ?>
 		<?php if ( is_super_admin() ) : ?>
 			<a class="page-title-action" href="<?php echo admin_url( 'edit.php?post_type=front-matter' ); ?>"><?php _e( 'Front Matter', 'pressbooks' ); ?></a>

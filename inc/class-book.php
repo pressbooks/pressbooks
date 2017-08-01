@@ -436,6 +436,17 @@ class Book {
 
 
 	/**
+	 * @return int
+	 */
+	static function ajaxWordCount() {
+		if ( check_ajax_referer( 'pb-update-word-count-for-export' ) ) {
+			echo \Pressbooks\Book::wordCount( true );
+			wp_die();
+		}
+	}
+
+
+	/**
 	 * Delete the Book Object cache(s)
 	 */
 	static function deleteBookObjectCache() {

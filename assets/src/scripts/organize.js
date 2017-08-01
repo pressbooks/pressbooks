@@ -286,6 +286,9 @@ jQuery( document ).ready( function ( $ ) {
 				type:           'pb_export',
 				_ajax_nonce:    PB_OrganizeToken.exportNonce,
 			},
+			success: function () {
+				updateWordCountForExport();
+			},
 		} );
 	} );
 
@@ -372,6 +375,9 @@ jQuery( document ).ready( function ( $ ) {
 				chapter_export: chapter_export,
 				type:           'pb_export',
 				_ajax_nonce:    PB_OrganizeToken.exportNonce,
+			},
+			success: function () {
+				updateWordCountForExport();
 			},
 		} );
 	} );
@@ -460,6 +466,9 @@ jQuery( document ).ready( function ( $ ) {
 				type:           'pb_export',
 				_ajax_nonce:    PB_OrganizeToken.exportNonce,
 			},
+			success: function () {
+				updateWordCountForExport();
+			},
 		} );
 	} );
 
@@ -488,4 +497,16 @@ jQuery( document ).ready( function ( $ ) {
 			return 'Changes you made may not be saved...';
 		}
 	} );
+
+	// Update word count when needed.
+	function updateWordCountForExport() {
+		const data = {
+			'action':      'pb_update_word_count_for_export',
+			'_ajax_nonce': PB_OrganizeToken.wordCountNonce,
+		};
+		$.post( ajaxurl, data, function ( response ) {
+			$( '.wc-selected-for-export' ).text( response );
+		} );
+	}
+
 } );
