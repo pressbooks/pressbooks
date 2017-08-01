@@ -908,3 +908,27 @@ function str_ends_with( $haystack, $needle ) {
 	}
 	return ( substr( $haystack, -$length ) === $needle );
 }
+
+
+/**
+ * @param string $content
+ *
+ * @return int
+ */
+function word_count( $content ) {
+
+	$n = 0;
+	$content = wp_strip_all_tags( $content, true );
+
+	// Is this chinese?
+	if ( preg_match( '/[\x{4e00}-\x{9fa5}]+/u', $content ) ) {
+		$content = preg_replace( '/[！，。？、]/', ' ', $content ); // Remove chinese punctuation
+		$content = preg_replace( '/[\x80-\xff]{1,3}/', ' ', $content, -1, $n ); // Count chinese characters, replace $n
+	}
+
+	if ( ! empty( trim( $content ) ) ) {
+		$n += count( preg_split( '/\s+/', $content ) ); // Count between spaces
+	}
+
+	return $n;
+}

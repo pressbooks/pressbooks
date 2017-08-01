@@ -1457,6 +1457,10 @@ cosmiconfig@^2.1.0, cosmiconfig@^2.1.1:
     parse-json "^2.2.0"
     require-from-string "^1.1.0"
 
+countup.js@^1.8.5:
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/countup.js/-/countup.js-1.8.5.tgz#0941f62c605835c601478b45e8c096b16d7e9881"
+
 create-ecdh@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/create-ecdh/-/create-ecdh-4.0.0.tgz#888c723596cdf7612f6498233eebd7a35301737d"
