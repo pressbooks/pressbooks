@@ -106,7 +106,7 @@ class Epub201 extends Import {
 			// Extract title from file
 			$html = $this->getZipContent( $this->basedir . $href, false );
 			$matches = [];
-			preg_match( '/(?:<title[^>]*>)(.+)<\/title>/isU', $html, $matches );
+			preg_match( '/(?:<title[^>]*>)(.+)<\/title\s*>/isU', $html, $matches );
 			$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : $id );
 
 			$option['chapters'][ $id ] = $title;
@@ -295,10 +295,10 @@ class Epub201 extends Import {
 
 		$matches = [];
 
-		preg_match( '/(?:<title[^>]*>)(.+)<\/title>/isU', $html, $matches );
+		preg_match( '/(?:<title[^>]*>)(.+)<\/title\s*>/isU', $html, $matches );
 		$title = ( ! empty( $matches[1] ) ? wp_strip_all_tags( $matches[1] ) : '__UNKNOWN__' );
 
-		preg_match( '/(?:<body[^>]*>)(.*)<\/body>/isU', $html, $matches );
+		preg_match( '/(?:<body[^>]*>)(.*)<\/body\s*>/isU', $html, $matches );
 		$body = ( isset( $matches[1] ) ) ? $this->tidy( $matches[1] ) : '';
 		$body = $this->kneadHtml( $body, $post_type, $href );
 
