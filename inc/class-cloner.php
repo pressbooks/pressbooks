@@ -11,6 +11,7 @@ namespace Pressbooks;
 use Masterminds\HTML5;
 use Pressbooks\Book;
 use Pressbooks\Metadata;
+use function Pressbooks\Image\default_cover_url;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
 
@@ -500,6 +501,12 @@ class Cloner {
 
 		$book_information = schema_to_book_information( $this->sourceBookMetadata );
 		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
+		if ( strpos( $book_information['pb_cover_image'], 'plugins/pressbooks/assets/dist/images/default-book-cover.jpg' ) !== false ) {
+			$book_information['pb_cover_image'] = default_cover_url();
+		} else {
+			$new_cover = $this->fetchAndSaveUniqueImage( $book_information['pb_cover_image'] );
+			$book_information['pb_cover_image'] = ( ! empty( $new_cover ) ) ? $new_cover : default_cover_url();
+		}
 
 		$array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
 
