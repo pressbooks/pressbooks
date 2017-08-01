@@ -200,7 +200,7 @@ class Licensing {
 				throw new \Exception( 'Creative Commons license API not returning expected results' );
 			} else {
 				// process the response, return html
-				$html = $this->getWebLicenseHtml( $result->html[0] );
+				$html = $this->getLicenseHtml( $result->html[0] );
 			}
 
 			set_transient(
@@ -281,7 +281,7 @@ class Licensing {
 	 *
 	 * @return string $html blob of copyright information
 	 */
-	public function getWebLicenseHtml( \SimpleXMLElement $response ) {
+	public function getLicenseHtml( \SimpleXMLElement $response ) {
 
 		$content = $response->asXML();
 		$content = trim( str_replace( [ '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ], '', $content ) );

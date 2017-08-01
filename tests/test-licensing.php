@@ -36,7 +36,7 @@ class LicensingTest extends \WP_UnitTestCase {
 	public function test_getWebLicenseHtml() {
 
 		$xml = new \SimpleXMLElement( '<book><title>Hello World!</title></book>' );
-		$result = $this->licensing->getWebLicenseHtml( $xml );
+		$result = $this->licensing->getLicenseHtml( $xml );
 		$this->assertContains( 'Hello World!', $result );
 		$this->assertContains( 'creativecommons.org', $result );
 		$this->assertContains( '</div>', $result );
