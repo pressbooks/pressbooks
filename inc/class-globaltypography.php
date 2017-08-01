@@ -26,6 +26,7 @@ class GlobalTypography {
 			'zh_HANT' => __( 'Chinese (Traditional)', 'pressbooks' ),
 			'cop' => __( 'Coptic', 'pressbooks' ),
 			'gu' => __( 'Gujarati', 'pressbooks' ),
+			'pan' => __( 'Punjabi (Gurmukhi)', 'pressbooks' ),
 			'ja' => __( 'Japanese', 'pressbooks' ),
 			'ko' => __( 'Korean', 'pressbooks' ),
 			'syr' => __( 'Syriac', 'pressbooks' ),
