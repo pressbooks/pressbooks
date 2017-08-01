@@ -32,10 +32,10 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
 				break;
 			case 'Site Name:' :
 			case 'Site Domain:' :
-				$translated_text = __( 'Web Book Address:', 'pressbooks' );
+				$translated_text = __( 'Webbook Address:', 'pressbooks' );
 				break;
 			case 'Must be at least 4 characters, letters and numbers only. It cannot be changed, so choose carefully!' :
-				$translated_text = __( 'Must be at least 4 characters, letters and numbers only. Your web book address <strong>cannot be changed</strong>, so choose carefully!', 'pressbooks' );
+			$translated_text = __( 'Your webbook address is the web address where you will access and create your book. It must be at least 4 characters, letters and numbers only. It <strong>cannot be changed</strong>, so choose carefully! We suggest using the title of your book with no spaces.', 'pressbooks' );
 				break;
 			case 'Site Title:' :
 				$translated_text = __( 'Book Title:', 'pressbooks' );
@@ -44,7 +44,7 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
 				$translated_text = __( 'Book Language:', 'pressbooks' );
 				break;
 			case 'Allow search engines to index this site.' :
-				$translated_text = __( 'Would you like your web book to be visible to the public?', 'pressbooks' );
+				$translated_text = __( 'Would you like your webbook to be visible to the public?', 'pressbooks' );
 				break;
 			case 'Create Site' :
 			case 'Signup' :
@@ -67,7 +67,7 @@ function custom_signup_text( $translated_text, $untranslated_text, $domain ) {
 				$translated_text = __( 'Books you are already a member of:', 'pressbooks' );
 				break;
 			case 'If you&#8217;re not going to use a great site domain, leave it for a new user. Now have at it!' :
-				$translated_text = __( 'Your web book address must be at least 4 characters, letters and numbers only. It <strong>cannot be changed</strong>, so choose carefully!', 'pressbooks' );
+				$translated_text = __( 'Your webbook address is the web address where you will access and create your book. It must be at least 4 characters, letters and numbers only. It <strong>cannot be changed</strong>, so choose carefully! We suggest using the title of your book with no spaces.', 'pressbooks' );
 				break;
 			case 'Congratulations! Your new site, %s, is almost ready.' :
 				$translated_text = __( 'Congratulations! Your new book, %s, is almost ready', 'pressbooks' );
