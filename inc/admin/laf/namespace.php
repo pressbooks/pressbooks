@@ -230,14 +230,6 @@ function replace_book_admin_menu() {
 
 	// Clone a Book
 	$page = add_submenu_page( 'options.php', __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
-	add_action(
-		'admin_enqueue_scripts', function ( $hook ) use ( $page ) {
-			if ( $hook === $page ) {
-				wp_enqueue_script( 'pressbooks/clone' );
-				wp_enqueue_style( 'pressbooks/clone' );
-			}
-		}
-	);
 
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
@@ -739,11 +731,9 @@ function init_css_js() {
 	wp_register_script( 'pb-organize', $assets->getPath( 'scripts/organize.js' ), [ 'jquery', 'jquery-ui-core', 'jquery-blockui' ] );
 	wp_register_script( 'pb-metadata', $assets->getPath( 'scripts/book-information.js' ), [ 'jquery' ] );
 	wp_register_script( 'pb-import', $assets->getPath( 'scripts/import.js' ), [ 'jquery' ] );
-	wp_register_script( 'pressbooks/clone', $assets->getPath( 'scripts/clone.js' ), [ 'jquery' ] );
 
 	wp_register_style( 'pb-export', $assets->getPath( 'styles/export.css' ) );
 	wp_register_style( 'pb-organize', $assets->getPath( 'styles/organize.css' ) );
-	wp_register_style( 'pressbooks/clone', $assets->getPath( 'styles/clone.css' ) );
 
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'jquery-ui-core' );

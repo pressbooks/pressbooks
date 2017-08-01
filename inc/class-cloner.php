@@ -89,13 +89,13 @@ class Cloner {
 	protected $termMap = [];
 
 	/**
-	 * An array of cloned item types.
+	 * An array of cloned items.
 	 *
 	 * @since 4.1.0
 	 *
 	 * @var array
 	 */
-	protected $clonedItems = [ 'term' => 0, 'front-matter' => 0, 'part' => 0, 'chapter' => 0, 'back-matter' => 0, 'media' => 0 ];
+	protected $clonedItems;
 
 	/**
 	 * The REST API base.
@@ -196,32 +196,40 @@ class Cloner {
 		switch_to_blog( $this->targetBookId );
 
 		// Clone Metadata
-		$this->cloneMetadata();
+		$this->clonedItems['metadata'] = $this->cloneMetadata();
 
 		// Clone Taxonomy Terms
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
-			$this->termMap[ $term['id'] ] = $this->cloneTerm( $term['id'], $term['taxonomy'] );
+			$new_term = $this->cloneTerm( $term['id'], $term['taxonomy'] );
+			if ( $new_term ) {
+				$this->termMap[ $term['id'] ] = $new_term;
+				$this->clonedItems['terms'][] = $new_term;
+			} else {
+				$this->clonedItems['terms'][] = false;
+			}
 		}
 
 		// Clone Front Matter
 		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
-			$this->cloneFrontMatter( $frontmatter['id'] );
+			$this->clonedItems['front-matter'][] = $this->cloneFrontMatter( $frontmatter['id'] );
 		}
 
 		// Clone Parts
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
-			$part_id = $this->clonePart( $part['id'] );
-
-			// Clone Chapters
-			foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
-				$this->cloneChapter( $chapter['id'], $part_id );
+			$new_part = $this->clonePart( $part['id'] );
+			$this->clonedItems['parts'][] = $new_part;
+			if ( $new_part ) {
+				// Clone Chapters
+				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
+					$this->clonedItems['chapters'][] = $this->cloneChapter( $chapter['id'], $new_part );
+				}
 			}
 		}
 
 		// Clone Back Matter
 		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
-			$this->cloneBackMatter( $backmatter['id'] );
+			$this->clonedItems['back-matter'][] = $this->cloneBackMatter( $backmatter['id'] );
 		}
 
 		restore_current_blog();
@@ -236,7 +244,7 @@ class Cloner {
 	 *
 	 * @param int $term_id The ID of the term within the source book.
 	 * @param int $taxonomy The taxonomy of the term within the source book.
-	 * @return int The ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
+	 * @return bool | int False if creating a new term failed; the ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
 	 */
 	public function cloneTerm( $term_id, $taxonomy ) {
 		// Retrieve term
@@ -249,7 +257,6 @@ class Cloner {
 		// Check for matching term
 		foreach ( $this->targetBookTerms as $k => $v ) {
 			if ( $v['slug'] === $term['slug'] && $v['taxonomy'] === $term['taxonomy'] ) {
-				$this->clonedItems['term']++;
 				return $v['id'];
 			}
 		};
@@ -273,7 +280,7 @@ class Cloner {
 
 		// Inform user of failure, bail
 		if ( is_wp_error( $response ) ) {
-			wp_die( $response->get_message() ); // TODO
+			return false; // TODO
 		} else {
 			$this->clonedItems['term']++;
 			return $response['id'];
@@ -501,11 +508,15 @@ class Cloner {
 
 		$book_information = schema_to_book_information( $this->sourceBookMetadata );
 		$book_information['pb_is_based_on'] = $this->sourceBookUrl;
-		if ( strpos( $book_information['pb_cover_image'], 'plugins/pressbooks/assets/dist/images/default-book-cover.jpg' ) !== false ) {
-			$book_information['pb_cover_image'] = default_cover_url();
-		} else {
+		if ( strpos( $book_information['pb_cover_image'], 'plugins/pressbooks/assets/dist/images/default-book-cover.jpg' ) === false ) {
 			$new_cover = $this->fetchAndSaveUniqueImage( $book_information['pb_cover_image'] );
-			$book_information['pb_cover_image'] = ( ! empty( $new_cover ) ) ? $new_cover : default_cover_url();
+			if ( $new_cover ) {
+				$book_information['pb_cover_image'] = $new_cover;
+			} else {
+				$book_information['pb_cover_image'] = default_cover_url();
+			}
+		} else {
+			$book_information['pb_cover_image'] = default_cover_url();
 		}
 
 		$array_values = [ 'pb_keywords_tags', 'pb_bisac_subject', 'pb_contributing_authors', 'pb_editor', 'pb_translator' ];
@@ -606,8 +617,6 @@ class Cloner {
 		if ( $post_type !== 'part' ) {
 			$this->cloneSectionMetadata( $section_id, $post_type, $response['id'] );
 		}
-
-		$this->clonedItems[ $post_type ]++;
 
 		return $response['id'];
 	}
@@ -746,7 +755,6 @@ class Cloner {
 			if ( $new_src ) {
 				// Replace with new image
 				$image->setAttribute( 'src', $new_src );
-				$this->clonedItems['media']++;
 				// TODO Update srcset also
 			} else {
 				// Tag broken image
@@ -823,6 +831,8 @@ class Cloner {
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
 			$src = ''; // Change false to empty string
+		} else {
+			$this->clonedItems['media'][] = $src;
 		}
 		$already_done[ $remote_img_location ] = $src;
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
@@ -927,12 +937,12 @@ class Cloner {
 				if ( $cloner->cloneBook() ) {
 					$_SESSION['pb_notices'][] = sprintf(
 						__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s.', 'pressbooks' ),
-						sprintf( _n( '%s term', '%s terms', $cloner->clonedItems['term'], 'pressbooks' ), $cloner->clonedItems['term'] ),
-						sprintf( _n( '%s front matter', '%s front matter', $cloner->clonedItems['front-matter'], 'pressbooks' ), $cloner->clonedItems['front-matter'] ),
-						sprintf( _n( '%s part', '%s parts', $cloner->clonedItems['part'], 'pressbooks' ), $cloner->clonedItems['part'] ),
-						sprintf( _n( '%s chapter', '%s chapters', $cloner->clonedItems['chapter'], 'pressbooks' ), $cloner->clonedItems['chapter'] ),
-						sprintf( _n( '%s back matter', '%s back matter', $cloner->clonedItems['back-matter'], 'pressbooks' ), $cloner->clonedItems['back-matter'] ),
-						sprintf( _n( '%s media attachment', '%s media attachments', $cloner->clonedItems['media'], 'pressbooks' ), $cloner->clonedItems['media'] ),
+						sprintf( _n( '%s term', '%s terms', count( $cloner->clonedItems['terms'] ), 'pressbooks' ), count( $cloner->clonedItems['term'] ) ),
+						sprintf( _n( '%s front matter', '%s front matter', count( $cloner->clonedItems['front-matter'] ), 'pressbooks' ), count( $cloner->clonedItems['front-matter'] ) ),
+						sprintf( _n( '%s part', '%s parts', count( $cloner->clonedItems['parts'] ), 'pressbooks' ), count( $cloner->clonedItems['part'] ) ),
+						sprintf( _n( '%s chapter', '%s chapters', count( $cloner->clonedItems['chapters'] ), 'pressbooks' ), count( $cloner->clonedItems['chapter'] ) ),
+						sprintf( _n( '%s back matter', '%s back matter', count( $cloner->clonedItems['back-matter'] ), 'pressbooks' ), count( $cloner->clonedItems['back-matter'] ) ),
+						sprintf( _n( '%s media attachment', '%s media attachments', count( $cloner->clonedItems['media'] ), 'pressbooks' ), count( $cloner->clonedItems['media'] ) ),
 						sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/' , $cloner->sourceBookMetadata['name'] )
 					);
 				}
