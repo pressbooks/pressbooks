@@ -163,30 +163,34 @@ msgid "Gujarati"
 msgstr ""
 
 #: ../inc/class-globaltypography.php:29
-msgid "Japanese"
+msgid "Punjabi (Gurmukhi)"
 msgstr ""
 
 #: ../inc/class-globaltypography.php:30
-msgid "Korean"
+msgid "Japanese"
 msgstr ""
 
 #: ../inc/class-globaltypography.php:31
-msgid "Syriac"
+msgid "Korean"
 msgstr ""
 
 #: ../inc/class-globaltypography.php:32
-msgid "Tamil"
+msgid "Syriac"
 msgstr ""
 
 #: ../inc/class-globaltypography.php:33
-msgid "Tibetan"
+msgid "Tamil"
 msgstr ""
 
 #: ../inc/class-globaltypography.php:34
+msgid "Tibetan"
+msgstr ""
+
+#: ../inc/class-globaltypography.php:35
 msgid "Turkish"
 msgstr ""
 
-#: ../inc/class-globaltypography.php:313
+#: ../inc/class-globaltypography.php:314
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
@@ -230,11 +234,11 @@ msgstr ""
 msgid "Cover Image"
 msgstr ""
 
-#: ../inc/class-sass.php:53, ../inc/api/endpoints/controller/class-toc.php:185, ../inc/modules/searchandreplace/types/class-content.php:71, ../templates/admin/import.php:78, ../templates/admin/organize.php:59, ../templates/admin/trash.php:56
+#: ../inc/class-sass.php:53, ../inc/api/endpoints/controller/class-toc.php:190, ../inc/modules/searchandreplace/types/class-content.php:71, ../templates/admin/import.php:78, ../templates/admin/organize.php:66, ../templates/admin/trash.php:56
 msgid "Chapter"
 msgstr ""
 
-#: ../inc/class-sass.php:54, ../inc/admin/metaboxes/namespace.php:145, ../inc/admin/metaboxes/namespace.php:527, ../inc/api/endpoints/controller/class-toc.php:179, ../inc/modules/export/epub/class-epub201.php:1612, ../inc/modules/searchandreplace/types/class-content.php:68, ../templates/admin/import.php:80, ../templates/admin/organize.php:41, ../templates/admin/trash.php:53
+#: ../inc/class-sass.php:54, ../inc/admin/metaboxes/namespace.php:145, ../inc/admin/metaboxes/namespace.php:527, ../inc/api/endpoints/controller/class-toc.php:184, ../inc/modules/export/epub/class-epub201.php:1612, ../inc/modules/searchandreplace/types/class-content.php:68, ../templates/admin/import.php:80, ../templates/admin/organize.php:43, ../templates/admin/trash.php:53
 msgid "Part"
 msgstr ""
 
@@ -432,7 +436,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: ../inc/admin/class-catalog-list-table.php:173, ../inc/admin/metaboxes/namespace.php:190, ../templates/admin/organize.php:79, ../templates/admin/organize.php:155
+#: ../inc/admin/class-catalog-list-table.php:173, ../inc/admin/metaboxes/namespace.php:190, ../templates/admin/organize.php:86, ../templates/admin/organize.php:162
 msgid "Author"
 msgstr ""
 
@@ -452,11 +456,11 @@ msgstr ""
 msgid "Edit Tags"
 msgstr ""
 
-#: ../inc/admin/class-catalog-list-table.php:385, ../inc/admin/laf/namespace.php:111, ../templates/admin/organize.php:23, ../templates/admin/organize.php:29, ../templates/admin/organize.php:82, ../templates/admin/organize.php:158
+#: ../inc/admin/class-catalog-list-table.php:385, ../inc/admin/laf/namespace.php:112, ../templates/admin/organize.php:25, ../templates/admin/organize.php:31, ../templates/admin/organize.php:89, ../templates/admin/organize.php:165
 msgid "Private"
 msgstr ""
 
-#: ../inc/admin/class-catalog-list-table.php:385, ../inc/admin/laf/namespace.php:113, ../templates/admin/organize.php:21, ../templates/admin/organize.php:26
+#: ../inc/admin/class-catalog-list-table.php:385, ../inc/admin/laf/namespace.php:114, ../templates/admin/organize.php:23, ../templates/admin/organize.php:28
 msgid "Public"
 msgstr ""
 
@@ -492,7 +496,7 @@ msgstr ""
 msgid "The public link to your catalog page"
 msgstr ""
 
-#: ../inc/admin/class-catalog-list-table.php:477, ../inc/admin/laf/namespace.php:232, ../inc/admin/laf/namespace.php:232, ../inc/admin/laf/namespace.php:302, ../inc/admin/laf/namespace.php:302, ../inc/admin/laf/namespace.php:429
+#: ../inc/admin/class-catalog-list-table.php:477, ../inc/admin/laf/namespace.php:233, ../inc/admin/laf/namespace.php:233, ../inc/admin/laf/namespace.php:303, ../inc/admin/laf/namespace.php:303, ../inc/admin/laf/namespace.php:430
 msgid "My Catalog"
 msgstr ""
 
@@ -548,7 +552,7 @@ msgstr ""
 msgid "This will prevent any changes to your book&rsquo;s appearance and page count when themes are updated."
 msgstr ""
 
-#: ../inc/admin/class-exportoptions.php:182, ../inc/admin/laf/namespace.php:219, ../inc/admin/metaboxes/namespace.php:537
+#: ../inc/admin/class-exportoptions.php:182, ../inc/admin/laf/namespace.php:220, ../inc/admin/metaboxes/namespace.php:537
 msgid "Export Settings"
 msgstr ""
 
@@ -616,7 +620,7 @@ msgstr ""
 msgid "If you would like to add <strong>BUY</strong> links to your Pressbooks web book, add the links to your book at the different retailers below:"
 msgstr ""
 
-#: ../inc/admin/class-publishoptions.php:277, ../inc/admin/laf/namespace.php:203, ../inc/admin/laf/namespace.php:203
+#: ../inc/admin/class-publishoptions.php:277, ../inc/admin/laf/namespace.php:204, ../inc/admin/laf/namespace.php:204
 msgid "Publish"
 msgstr ""
 
@@ -700,11 +704,11 @@ msgstr ""
 msgid "Cover Image should be 1:1.5 aspect ratio. Recommended dimensions are 2500px × 3750px, maximum size is 2MB.<br />NOTE: This cover will be included in your ebook files but not your PDF export. Read more <a href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\">here</a>."
 msgstr ""
 
-#: ../inc/image/namespace.php:360, ../templates/admin/export.php:273, ../templates/admin/organize.php:89, ../templates/admin/organize.php:127, ../templates/admin/organize.php:195
+#: ../inc/image/namespace.php:360, ../templates/admin/export.php:273, ../templates/admin/organize.php:96, ../templates/admin/organize.php:134, ../templates/admin/organize.php:202
 msgid "Are you sure you want to delete this?"
 msgstr ""
 
-#: ../inc/image/namespace.php:392, ../symbionts/custom-metadata/custom_metadata.php:1318, ../templates/admin/organize.php:89, ../templates/admin/organize.php:127, ../templates/admin/organize.php:195
+#: ../inc/image/namespace.php:392, ../symbionts/custom-metadata/custom_metadata.php:1318, ../templates/admin/organize.php:96, ../templates/admin/organize.php:134, ../templates/admin/organize.php:202
 msgid "Delete"
 msgstr ""
 
@@ -865,7 +869,7 @@ msgstr ""
 msgid "No front matter found in Trash"
 msgstr ""
 
-#: ../inc/posttype/namespace.php:124, ../inc/admin/dashboard/namespace.php:105, ../inc/api/endpoints/controller/class-toc.php:169, ../inc/modules/searchandreplace/types/class-content.php:74, ../templates/admin/import.php:77, ../templates/admin/organize.php:38, ../templates/admin/organize.php:55, ../templates/admin/trash.php:50
+#: ../inc/posttype/namespace.php:124, ../inc/admin/dashboard/namespace.php:105, ../inc/api/endpoints/controller/class-toc.php:174, ../inc/modules/searchandreplace/types/class-content.php:74, ../templates/admin/import.php:77, ../templates/admin/organize.php:40, ../templates/admin/organize.php:62, ../templates/admin/trash.php:50
 msgid "Front Matter"
 msgstr ""
 
@@ -912,7 +916,7 @@ msgstr ""
 msgid "No back matter found in Trash"
 msgstr ""
 
-#: ../inc/posttype/namespace.php:159, ../inc/admin/dashboard/namespace.php:125, ../inc/api/endpoints/controller/class-toc.php:200, ../inc/modules/searchandreplace/types/class-content.php:77, ../templates/admin/import.php:82, ../templates/admin/organize.php:40, ../templates/admin/organize.php:63, ../templates/admin/trash.php:59
+#: ../inc/posttype/namespace.php:159, ../inc/admin/dashboard/namespace.php:125, ../inc/api/endpoints/controller/class-toc.php:205, ../inc/modules/searchandreplace/types/class-content.php:77, ../templates/admin/import.php:82, ../templates/admin/organize.php:42, ../templates/admin/organize.php:70, ../templates/admin/trash.php:59
 msgid "Back Matter"
 msgstr ""
 
@@ -1393,11 +1397,11 @@ msgstr ""
 msgid "My Book"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:82, ../inc/admin/laf/namespace.php:483
+#: ../inc/admin/dashboard/namespace.php:82, ../inc/admin/laf/namespace.php:484
 msgid "Users"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:134, ../inc/admin/dashboard/namespace.php:179, ../templates/admin/organize.php:143, ../templates/admin/organize.php:209
+#: ../inc/admin/dashboard/namespace.php:134, ../inc/admin/dashboard/namespace.php:179, ../templates/admin/organize.php:150, ../templates/admin/organize.php:216
 msgid "Add"
 msgstr ""
 
@@ -1405,7 +1409,7 @@ msgstr ""
 msgid "Organize"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:188, ../inc/admin/dashboard/namespace.php:189, ../inc/admin/laf/namespace.php:465, ../inc/admin/laf/namespace.php:531
+#: ../inc/admin/dashboard/namespace.php:188, ../inc/admin/dashboard/namespace.php:189, ../inc/admin/laf/namespace.php:466, ../inc/admin/laf/namespace.php:532
 msgid "Dashboard"
 msgstr ""
 
@@ -1473,11 +1477,11 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:22, ../inc/admin/laf/namespace.php:390
+#: ../inc/admin/laf/namespace.php:22, ../inc/admin/laf/namespace.php:391
 msgid "Help"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:25, ../inc/admin/laf/namespace.php:400
+#: ../inc/admin/laf/namespace.php:25, ../inc/admin/laf/namespace.php:401
 msgid "Contact"
 msgstr ""
 
@@ -1485,123 +1489,123 @@ msgstr ""
 msgid "Theme Options"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:112
+#: ../inc/admin/laf/namespace.php:113
 msgid "Published"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:150, ../inc/admin/laf/namespace.php:150, ../templates/admin/trash.php:18
+#: ../inc/admin/laf/namespace.php:151, ../inc/admin/laf/namespace.php:151, ../templates/admin/trash.php:18
 msgid "Trash"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:160, ../inc/admin/laf/namespace.php:160, ../inc/modules/import/wordpress/class-wxr.php:334
+#: ../inc/admin/laf/namespace.php:161, ../inc/admin/laf/namespace.php:161, ../inc/modules/import/wordpress/class-wxr.php:334
 msgid "Book Info"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:177, ../inc/admin/laf/namespace.php:177, ../inc/admin/laf/namespace.php:219, ../templates/admin/export.php:129, ../templates/admin/organize.php:43, ../templates/admin/organize.php:84, ../templates/admin/organize.php:160
+#: ../inc/admin/laf/namespace.php:178, ../inc/admin/laf/namespace.php:178, ../inc/admin/laf/namespace.php:220, ../templates/admin/export.php:129, ../templates/admin/organize.php:45, ../templates/admin/organize.php:91, ../templates/admin/organize.php:167
 msgid "Export"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:185
+#: ../inc/admin/laf/namespace.php:186
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:206, ../inc/admin/laf/namespace.php:283, ../inc/admin/laf/namespace.php:951, ../inc/admin/network/class-sharingandprivacyoptions.php:193
+#: ../inc/admin/laf/namespace.php:207, ../inc/admin/laf/namespace.php:284, ../inc/admin/laf/namespace.php:952, ../inc/admin/network/class-sharingandprivacyoptions.php:193
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:206, ../inc/admin/laf/namespace.php:283
+#: ../inc/admin/laf/namespace.php:207, ../inc/admin/laf/namespace.php:284
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:222, ../inc/admin/laf/namespace.php:222, ../templates/admin/import.php:32, ../templates/admin/import.php:75
+#: ../inc/admin/laf/namespace.php:223, ../inc/admin/laf/namespace.php:223, ../templates/admin/import.php:32, ../templates/admin/import.php:75
 msgid "Import"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:358, ../inc/admin/laf/namespace.php:369
+#: ../inc/admin/laf/namespace.php:359, ../inc/admin/laf/namespace.php:370
 msgid "About Pressbooks"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:380
+#: ../inc/admin/laf/namespace.php:381
 msgid "Pressbooks.com"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:438
+#: ../inc/admin/laf/namespace.php:439
 msgid "Add A New Book"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:456
+#: ../inc/admin/laf/namespace.php:457
 msgid "Network Admin"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:474
+#: ../inc/admin/laf/namespace.php:475
 msgid "Sites"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:492
+#: ../inc/admin/laf/namespace.php:493
 msgid "Visit Network"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:545
+#: ../inc/admin/laf/namespace.php:546
 msgid "Visit Site"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:696
+#: ../inc/admin/laf/namespace.php:697
 msgid "Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:744
+#: ../inc/admin/laf/namespace.php:745
 msgid "Book Visibility"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:751
+#: ../inc/admin/laf/namespace.php:752
 msgid "Private Content"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:758
+#: ../inc/admin/laf/namespace.php:759
 msgid "Disable Comments"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:767
+#: ../inc/admin/laf/namespace.php:768
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:801
+#: ../inc/admin/laf/namespace.php:802
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:817
+#: ../inc/admin/laf/namespace.php:818
 msgid "Public. I would like this book to be visible to everyone."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:823
+#: ../inc/admin/laf/namespace.php:824
 msgid "Private. I would like this book to be accessible only to people I invite."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:846
+#: ../inc/admin/laf/namespace.php:847
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:849
+#: ../inc/admin/laf/namespace.php:850
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:851
+#: ../inc/admin/laf/namespace.php:852
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:867
+#: ../inc/admin/laf/namespace.php:868
 msgid "Yes. I want to automatically disable comments, trackbacks and pingbacks on all front matter, chapters and back matter."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:873
+#: ../inc/admin/laf/namespace.php:874
 msgid "No. I want to leave comments, trackbacks and pingbacks enabled on all front matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:889
+#: ../inc/admin/laf/namespace.php:890
 msgid "Yes. I would like the latest export files to be available on the homepage for free, to everyone."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:895
+#: ../inc/admin/laf/namespace.php:896
 msgid "No. I would like the latest export files to only be available to administrators."
 msgstr ""
 
@@ -2443,11 +2447,11 @@ msgstr ""
 msgid "Unique identifier for the object."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-books.php:110, ../inc/api/endpoints/controller/class-toc.php:122
+#: ../inc/api/endpoints/controller/class-books.php:110, ../inc/api/endpoints/controller/class-toc.php:127
 msgid "URL to the object."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-books.php:117, ../inc/api/endpoints/controller/class-toc.php:133, ../inc/api/endpoints/controller/class-toc.php:144, ../inc/api/endpoints/controller/class-toc.php:155
+#: ../inc/api/endpoints/controller/class-books.php:117, ../inc/api/endpoints/controller/class-toc.php:138, ../inc/api/endpoints/controller/class-toc.php:149, ../inc/api/endpoints/controller/class-toc.php:160
 msgid "Metadata"
 msgstr ""
 
@@ -2605,6 +2609,10 @@ msgstr ""
 
 #: ../inc/api/endpoints/controller/class-toc.php:117
 msgid "Has post content, the content field is not empty."
+msgstr ""
+
+#: ../inc/api/endpoints/controller/class-toc.php:122
+msgid "Word count."
 msgstr ""
 
 #: ../inc/modules/export/epub/class-epub201.php:894
@@ -3189,67 +3197,79 @@ msgstr ""
 msgid "Upload file"
 msgstr ""
 
-#: ../templates/admin/organize.php:21, ../templates/admin/organize.php:23
+#: ../templates/admin/organize.php:23, ../templates/admin/organize.php:25
 msgid "This book's global privacy is set to"
 msgstr ""
 
-#: ../templates/admin/organize.php:27
+#: ../templates/admin/organize.php:29
 msgid "Promote your book, set individual chapters privacy below."
 msgstr ""
 
-#: ../templates/admin/organize.php:30
+#: ../templates/admin/organize.php:32
 msgid "Only users you invite can see your book, regardless of individual chapter privacy settings below."
 msgstr ""
 
-#: ../templates/admin/organize.php:39
+#: ../templates/admin/organize.php:41
 msgid "Chapters"
 msgstr ""
 
-#: ../templates/admin/organize.php:44
+#: ../templates/admin/organize.php:46
 msgid "Add Front Matter"
 msgstr ""
 
-#: ../templates/admin/organize.php:45
+#: ../templates/admin/organize.php:47
 msgid "Add Back Matter"
 msgstr ""
 
-#: ../templates/admin/organize.php:46
+#: ../templates/admin/organize.php:48
 msgid "Add Chapter"
 msgstr ""
 
-#: ../templates/admin/organize.php:47, ../templates/admin/organize.php:149
+#: ../templates/admin/organize.php:49, ../templates/admin/organize.php:156
 msgid "Add Part"
 msgstr ""
 
-#: ../templates/admin/organize.php:80, ../templates/admin/organize.php:156
+#: ../templates/admin/organize.php:54
+msgid "Word Count:"
+msgstr ""
+
+#: ../templates/admin/organize.php:54
+msgid "%s (whole book)"
+msgstr ""
+
+#: ../templates/admin/organize.php:55
+msgid "%s (selected for export)"
+msgstr ""
+
+#: ../templates/admin/organize.php:87, ../templates/admin/organize.php:163
 msgid "Comments"
 msgstr ""
 
-#: ../templates/admin/organize.php:81, ../templates/admin/organize.php:157
+#: ../templates/admin/organize.php:88, ../templates/admin/organize.php:164
 msgid "Status"
 msgstr ""
 
-#: ../templates/admin/organize.php:83, ../templates/admin/organize.php:159
+#: ../templates/admin/organize.php:90, ../templates/admin/organize.php:166
 msgid "Show Title"
 msgstr ""
 
-#: ../templates/admin/organize.php:86, ../templates/admin/organize.php:127, ../templates/admin/organize.php:161, ../templates/admin/organize.php:195
+#: ../templates/admin/organize.php:93, ../templates/admin/organize.php:134, ../templates/admin/organize.php:168, ../templates/admin/organize.php:202
 msgid "Edit"
 msgstr ""
 
-#: ../templates/admin/organize.php:104, ../templates/admin/organize.php:172
+#: ../templates/admin/organize.php:111, ../templates/admin/organize.php:179
 msgid "Ebook start point"
 msgstr ""
 
-#: ../templates/admin/organize.php:220
+#: ../templates/admin/organize.php:227
 msgid "Reordering Chapters"
 msgstr ""
 
-#: ../templates/admin/organize.php:225
+#: ../templates/admin/organize.php:232
 msgid "Reordering Front Matter"
 msgstr ""
 
-#: ../templates/admin/organize.php:230
+#: ../templates/admin/organize.php:237
 msgid "Reordering Back Matter"
 msgstr ""
 
