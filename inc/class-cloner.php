@@ -8,6 +8,7 @@
 
 namespace Pressbooks;
 
+use Masterminds\HTML5;
 use Pressbooks\Book;
 use Pressbooks\Metadata;
 use function Pressbooks\Metadata\schema_to_book_information;
@@ -549,19 +550,13 @@ class Cloner {
 		// Set status
 		$section['status'] = 'publish';
 
-		libxml_use_internal_errors( true );
-
-		// Load HTMl snippet into DOMDocument using UTF-8 hack
-		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-		$doc = new \DOMDocument(); // TODO Switch to html5
-		$doc->loadHTML( $utf8_hack . $section['content']['rendered'] );
+		// Load HTMl snippet into DOMDocument
+		$html5 = new HTML5();
+		$dom = $html5->loadHTML( $section['content']['rendered'] );
 
 		// Download images, change image paths
-		$doc = $this->scrapeAndKneadImages( $doc );
-		$content = $doc->saveXML( $doc->documentElement );
-
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
+		$dom = $this->scrapeAndKneadImages( $dom );
+		$content = $html5->saveHTML( $dom );
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
 		$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $content ) );
@@ -726,13 +721,13 @@ class Cloner {
 	 *
 	 * @since 4.1.0
 	 *
-	 * @param \DOMDocument $doc
+	 * @param \DOMDocument $dom
 	 *
 	 * @return \DOMDocument
 	 */
-	protected function scrapeAndKneadImages( \DOMDocument $doc ) {
+	protected function scrapeAndKneadImages( \DOMDocument $dom ) {
 
-		$images = $doc->getElementsByTagName( 'img' );
+		$images = $dom->getElementsByTagName( 'img' );
 
 		foreach ( $images as $image ) {
 			/** @var \DOMElement $image */
@@ -752,7 +747,7 @@ class Cloner {
 			}
 		}
 
-		return $doc;
+		return $dom;
 	}
 
 	/**
