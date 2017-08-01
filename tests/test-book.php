@@ -139,7 +139,7 @@ class BookTest extends \WP_UnitTestCase {
 		$wc = $book::wordCount();
 		$wc_selected_for_export = $book::wordCount( true );
 
-		$this->assertEquals( 35, $wc );
+		$this->assertEquals( 46, $wc );
 		$this->assertEquals( 0, $wc_selected_for_export );
 	}
 
