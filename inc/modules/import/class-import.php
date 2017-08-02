@@ -185,21 +185,7 @@ abstract class Import {
 	 * otherwise returns the filename that was passed to it
 	 */
 	protected function properImageExtension( $path_to_file, $filename ) {
-		$mimes = [
-			'jpg|jpeg|jpe' => 'image/jpeg',
-			'gif' => 'image/gif',
-			'png' => 'image/png',
-		];
-
-		// Attempt to determine the real file type of a file.
-		$validate = wp_check_filetype_and_ext( $path_to_file, $filename, $mimes );
-
-		// change filename to the extension that matches its mimetype
-		if ( false !== $validate['proper_filename'] ) {
-			return $validate['proper_filename'];
-		} else {
-			return $filename;
-		}
+		return \Pressbooks\Image\proper_image_extension( $path_to_file, $filename );
 	}
 
 

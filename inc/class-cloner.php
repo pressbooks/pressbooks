@@ -9,11 +9,10 @@
 namespace Pressbooks;
 
 use Masterminds\HTML5;
-use Pressbooks\Book;
-use Pressbooks\Metadata;
 use function Pressbooks\Image\default_cover_url;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
+use function \Pressbooks\Utility\getset;
 
 class Cloner {
 	/**
@@ -124,6 +123,11 @@ class Cloner {
 	protected $requestArgs = [ 'timeout' => 30 ];
 
 	/**
+	 * @var array
+	 */
+	protected $targetBookTerms = [];
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 4.1.0
@@ -146,7 +150,7 @@ class Cloner {
 		// Set up $this->targetBookUrl and $this->targetBookId if set
 		if ( $target_url ) {
 			$this->targetBookUrl = esc_url( untrailingslashit( $target_url ) );
-			$this->targetBookId = $this->getBookId( $url );
+			$this->targetBookId = $this->getBookId( $target_url );
 		}
 
 		// Include media utilities
@@ -210,7 +214,7 @@ class Cloner {
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
 			$this->itemsToClone['terms']++;
-			$new_term = $this->cloneTerm( $term['id'], $term['taxonomy'] );
+			$new_term = $this->cloneTerm( $term['id'] );
 			if ( $new_term ) {
 				$this->termMap[ $term['id'] ] = $new_term;
 				$this->clonedItems['terms'][] = $new_term;
@@ -256,16 +260,20 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param int $term_id The ID of the term within the source book.
-	 * @param int $taxonomy The taxonomy of the term within the source book.
 	 * @return bool | int False if creating a new term failed; the ID of the new term if it the clone succeeded or the ID of a matching term if it exists.
 	 */
-	public function cloneTerm( $term_id, $taxonomy ) {
+	public function cloneTerm( $term_id ) {
 		// Retrieve term
 		foreach ( $this->sourceBookTerms as $k => $v ) {
 			if ( $v['id'] === absint( $term_id ) ) {
 				$term = $this->sourceBookTerms[ $k ];
 			}
 		};
+
+		if ( empty( $term['slug'] )|| empty( $term['taxonomy'] ) ) {
+			// Doing it wrong...
+			return false;
+		}
 
 		// Check for matching term
 		foreach ( $this->targetBookTerms as $k => $v ) {
@@ -407,7 +415,7 @@ class Cloner {
 	 * @since 4.1.0
 	 *
 	 * @param string $url The URL of the book.
-	 * @return bool | array False if the operation failed; the term array if it succeeded.
+	 * @return array
 	 */
 	public function getBookTerms( $url ) {
 		$terms = [];
@@ -423,7 +431,7 @@ class Cloner {
 					__( 'The source book&rsquo;s taxonomies could not be read.', 'pressbooks' ),
 					$response->get_error_message()
 				);
-				return false;
+				return [];
 			}
 
 			// Remove links
@@ -659,6 +667,7 @@ class Cloner {
 		$endpoint = ( in_array( $post_type, [ 'chapter' ], true ) ) ? $post_type . 's' : $post_type;
 
 		// Retrieve metadata
+		$section_metadata = [];
 		if ( in_array( $post_type, [ 'front-matter', 'back-matter' ], true ) ) {
 			foreach ( $this->sourceBookStructure[ $post_type ] as $k => $v ) {
 				if ( $v['id'] === absint( $section_id ) ) {
@@ -673,8 +682,6 @@ class Cloner {
 					}
 				}
 			}
-		} else {
-			$section_metadata = [];
 		}
 
 		$section_information = schema_to_section_information( $section_metadata, $this->sourceBookMetadata );
@@ -696,7 +703,7 @@ class Cloner {
 	 * @param string $endpoint The endpoint for the request, e.g. 'toc'
 	 * @param array $params URL parameters
 	 *
-	 * @return array
+	 * @return array|\WP_Error
 	 */
 	protected function handleGetRequest( $url, $namespace, $endpoint, $params = [] ) {
 		global $blog_id;
@@ -843,8 +850,7 @@ class Cloner {
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 
 			try { // changing the file name so that extension matches the mime type
-				$filename = $this->properImageExtension( $tmp_name, $filename );
-
+				$filename = \Pressbooks\Image\proper_image_extension( $tmp_name, $filename );
 				if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
 					throw new \Exception( 'Image is corrupt, and file extension matches the mime type' );
 				}
@@ -966,12 +972,12 @@ class Cloner {
 				if ( $cloner->cloneBook() ) {
 					$_SESSION['pb_notices'][] = sprintf(
 						__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s.', 'pressbooks' ),
-						sprintf( _n( '%s term', '%s terms', count( $cloner->clonedItems['terms'] ), 'pressbooks' ), count( $cloner->clonedItems['terms'] ) ),
-						sprintf( _n( '%s front matter', '%s front matter', count( $cloner->clonedItems['front-matter'] ), 'pressbooks' ), count( $cloner->clonedItems['front-matter'] ) ),
-						sprintf( _n( '%s part', '%s parts', count( $cloner->clonedItems['parts'] ), 'pressbooks' ), count( $cloner->clonedItems['parts'] ) ),
-						sprintf( _n( '%s chapter', '%s chapters', count( $cloner->clonedItems['chapters'] ), 'pressbooks' ), count( $cloner->clonedItems['chapters'] ) ),
-						sprintf( _n( '%s back matter', '%s back matter', count( $cloner->clonedItems['back-matter'] ), 'pressbooks' ), count( $cloner->clonedItems['back-matter'] ) ),
-						sprintf( _n( '%s media attachment', '%s media attachments', count( $cloner->clonedItems['media'] ), 'pressbooks' ), count( $cloner->clonedItems['media'] ) ),
+						sprintf( _n( '%s term', '%s terms', count( getset( $cloner->clonedItems, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'terms', [] ) ) ),
+						sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloner->clonedItems, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'front-matter', [] ) ) ),
+						sprintf( _n( '%s part', '%s parts', count( getset( $cloner->clonedItems, 'parts', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'parts', [] ) ) ),
+						sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloner->clonedItems, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'cahpters', [] ) ) ),
+						sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloner->clonedItems, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'back-matter', [] ) ) ),
+						sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloner->clonedItems, 'media', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'media', [] ) ) ),
 						sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/' , $cloner->sourceBookMetadata['name'] )
 					);
 				}

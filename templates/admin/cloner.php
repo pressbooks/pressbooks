@@ -2,8 +2,6 @@
 	exit;
 }
 
-use Pressbooks\Cloner;
-
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Clone', 'pressbooks' ); ?></h1>
