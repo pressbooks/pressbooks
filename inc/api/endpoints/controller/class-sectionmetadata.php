@@ -381,7 +381,7 @@ class SectionMetadata extends \WP_REST_Controller {
 	 * @return \WP_Error|\WP_REST_Response Response object on success, or WP_Error object on failure.
 	 */
 	public function get_item( $request ) {
-		$posts = get_posts( [ 'p' => $request['parent'], 'post_type' => $this->post_type ] );
+		$posts = get_posts( [ 'p' => $request['parent'], 'post_type' => $this->post_type, 'post_status' => 'any' ] );
 		$error = new \WP_Error( 'rest_post_invalid_id', __( 'Invalid post ID.' ), [ 'status' => 404 ] );
 		if ( empty( $posts ) ) {
 			return $error;
