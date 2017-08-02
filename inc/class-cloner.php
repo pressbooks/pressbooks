@@ -89,6 +89,14 @@ class Cloner {
 	protected $termMap = [];
 
 	/**
+	 * An array with the quantity of items to be cloned.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @var array
+	 */
+	protected $itemsToClone = [ 'terms' => 0, 'front-matter' => 0, 'back-matter' => 0, 'parts' => 0, 'chapters' => 0 ];
+	/**
 	 * An array of cloned items.
 	 *
 	 * @since 4.1.0
@@ -201,6 +209,7 @@ class Cloner {
 		// Clone Taxonomy Terms
 		$this->targetBookTerms = $this->getBookTerms( $this->targetBookUrl );
 		foreach ( $this->sourceBookTerms as $term ) {
+			$this->itemsToClone['terms']++;
 			$new_term = $this->cloneTerm( $term['id'], $term['taxonomy'] );
 			if ( $new_term ) {
 				$this->termMap[ $term['id'] ] = $new_term;
@@ -212,16 +221,19 @@ class Cloner {
 
 		// Clone Front Matter
 		foreach ( $this->sourceBookStructure['front-matter'] as $frontmatter ) {
+			$this->itemsToClone['front-matter']++;
 			$this->clonedItems['front-matter'][] = $this->cloneFrontMatter( $frontmatter['id'] );
 		}
 
 		// Clone Parts
 		foreach ( $this->sourceBookStructure['parts'] as $key => $part ) {
+			$this->itemsToClone['parts']++;
 			$new_part = $this->clonePart( $part['id'] );
 			$this->clonedItems['parts'][] = $new_part;
 			if ( $new_part ) {
 				// Clone Chapters
 				foreach ( $this->sourceBookStructure['parts'][ $key ]['chapters'] as $chapter ) {
+					$this->itemsToClone['chapters']++;
 					$this->clonedItems['chapters'][] = $this->cloneChapter( $chapter['id'], $new_part );
 				}
 			}
@@ -229,6 +241,7 @@ class Cloner {
 
 		// Clone Back Matter
 		foreach ( $this->sourceBookStructure['back-matter'] as $backmatter ) {
+			$this->itemsToClone['back-matter']++;
 			$this->clonedItems['back-matter'][] = $this->cloneBackMatter( $backmatter['id'] );
 		}
 
@@ -346,7 +359,7 @@ class Cloner {
 	 */
 	public function getBookMetadata( $url ) {
 		// Handle request (local or global)
-		$response = $this->handleRequest( $url, 'pressbooks/v2', 'metadata' );
+		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'metadata' );
 
 		// Handle errors
 		if ( is_wp_error( $response ) ) {
@@ -372,7 +385,7 @@ class Cloner {
 	 */
 	public function getBookStructure( $url ) {
 		// Handle request (local or global)
-		$response = $this->handleRequest( $url , 'pressbooks/v2', 'toc', [ '_embed' => 1 ] );
+		$response = $this->handleGetRequest( $url , 'pressbooks/v2', 'toc', [ '_embed' => 1 ] );
 
 		// Handle errors
 		if ( is_wp_error( $response ) ) {
@@ -401,7 +414,7 @@ class Cloner {
 
 		foreach ( [ 'front-matter-type', 'chapter-type', 'back-matter-type' ] as $taxonomy ) {
 			// Handle request (local or global)
-			$response = $this->handleRequest( $url, 'pressbooks/v2', "$taxonomy", [ 'per_page' => 25 ] );
+			$response = $this->handleGetRequest( $url, 'pressbooks/v2', "$taxonomy", [ 'per_page' => 25 ] );
 
 			// Bail on error
 			if ( is_wp_error( $response ) ) {
@@ -573,7 +586,10 @@ class Cloner {
 		$dom = $html5->loadHTML( $section['content']['rendered'] );
 
 		// Download images, change image paths
-		$dom = $this->scrapeAndKneadImages( $dom );
+		$media = $this->scrapeAndKneadImages( $dom );
+		$dom = $media['dom'];
+		$attachments = $media['attachments'];
+
 		$content = $html5->saveHTML( $dom );
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
@@ -616,6 +632,13 @@ class Cloner {
 		// Clone associated content
 		if ( $post_type !== 'part' ) {
 			$this->cloneSectionMetadata( $section_id, $post_type, $response['id'] );
+		}
+
+		foreach ( $attachments as $attachment ) {
+			wp_update_post( [
+				'ID' => $attachment,
+				'post_parent' => $response['id'],
+			] );
 		}
 
 		return $response['id'];
@@ -664,7 +687,7 @@ class Cloner {
 	}
 
 	/**
-	 * Handle a REST API request using either rest_do_request() or wp_remote_get() as appropriate.
+	 * Handle a get request against the REST API using either rest_do_request() or wp_remote_get() as appropriate.
 	 *
 	 * @since 4.1.0
 	 *
@@ -675,7 +698,7 @@ class Cloner {
 	 *
 	 * @return array
 	 */
-	protected function handleRequest( $url, $namespace, $endpoint, $params = [] ) {
+	protected function handleGetRequest( $url, $namespace, $endpoint, $params = [] ) {
 		global $blog_id;
 
 		// Is the book local? If so, is it the current book? If not, switch to it.
@@ -739,35 +762,41 @@ class Cloner {
 	 *
 	 * @param \DOMDocument $dom
 	 *
-	 * @return \DOMDocument
+	 * @return array An array containing the \DOMDocument and the IDs of created attachments
 	 */
 	protected function scrapeAndKneadImages( \DOMDocument $dom ) {
 
 		$images = $dom->getElementsByTagName( 'img' );
 
+		$attachments = [];
+
 		foreach ( $images as $image ) {
 			/** @var \DOMElement $image */
 			// Fetch image, change src
-			$old_src = $image->getAttribute( 'src' );
+			$src = $image->getAttribute( 'src' );
 
-			$new_src = $this->fetchAndSaveUniqueImage( $old_src );
+			$attachment = $this->fetchAndSaveUniqueImage( $src );
 
-			if ( $new_src ) {
+			if ( $attachment ) {
 				// Replace with new image
-				$image->setAttribute( 'src', $new_src );
-				// TODO Update srcset also
+				$image->setAttribute( 'src', wp_get_attachment_url( $attachment ) );
+				// TODO Handle srcset
+				$attachments[] = $attachment;
 			} else {
 				// Tag broken image
-				$image->setAttribute( 'src', "{$old_src}#fixme" );
+				$image->setAttribute( 'src', "{$src}#fixme" );
 			}
 		}
 
-		return $dom;
+		return [
+			'dom' => $dom,
+			'attachments' => $attachments,
+		];
 	}
 
 	/**
 	 * Load remote url of image into WP using media_handle_sideload()
-	 * Will return an empty string if something went wrong.
+	 * Will return 0 if something went wrong.
 	 *
 	 * @since 4.1.0
 	 *
@@ -775,7 +804,7 @@ class Cloner {
 	 *
 	 * @see media_handle_sideload
 	 *
-	 * @return string filename
+	 * @return int attachment ID or 0 if import failed
 	 */
 	protected function fetchAndSaveUniqueImage( $url ) {
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
@@ -830,14 +859,14 @@ class Cloner {
 		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
-			$src = ''; // Change false to empty string
+			$pid = 0;
 		} else {
-			$this->clonedItems['media'][] = $src;
+			$this->clonedItems['media'][] = $pid;
+			$already_done[ $remote_img_location ] = $src;
 		}
-		$already_done[ $remote_img_location ] = $src;
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
-		return $src;
+		return $pid;
 	}
 
 	/**
@@ -937,10 +966,10 @@ class Cloner {
 				if ( $cloner->cloneBook() ) {
 					$_SESSION['pb_notices'][] = sprintf(
 						__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s.', 'pressbooks' ),
-						sprintf( _n( '%s term', '%s terms', count( $cloner->clonedItems['terms'] ), 'pressbooks' ), count( $cloner->clonedItems['term'] ) ),
+						sprintf( _n( '%s term', '%s terms', count( $cloner->clonedItems['terms'] ), 'pressbooks' ), count( $cloner->clonedItems['terms'] ) ),
 						sprintf( _n( '%s front matter', '%s front matter', count( $cloner->clonedItems['front-matter'] ), 'pressbooks' ), count( $cloner->clonedItems['front-matter'] ) ),
-						sprintf( _n( '%s part', '%s parts', count( $cloner->clonedItems['parts'] ), 'pressbooks' ), count( $cloner->clonedItems['part'] ) ),
-						sprintf( _n( '%s chapter', '%s chapters', count( $cloner->clonedItems['chapters'] ), 'pressbooks' ), count( $cloner->clonedItems['chapter'] ) ),
+						sprintf( _n( '%s part', '%s parts', count( $cloner->clonedItems['parts'] ), 'pressbooks' ), count( $cloner->clonedItems['parts'] ) ),
+						sprintf( _n( '%s chapter', '%s chapters', count( $cloner->clonedItems['chapters'] ), 'pressbooks' ), count( $cloner->clonedItems['chapters'] ) ),
 						sprintf( _n( '%s back matter', '%s back matter', count( $cloner->clonedItems['back-matter'] ), 'pressbooks' ), count( $cloner->clonedItems['back-matter'] ) ),
 						sprintf( _n( '%s media attachment', '%s media attachments', count( $cloner->clonedItems['media'] ), 'pressbooks' ), count( $cloner->clonedItems['media'] ) ),
 						sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/' , $cloner->sourceBookMetadata['name'] )
