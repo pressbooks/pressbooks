@@ -47,6 +47,11 @@ class LicensingTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, 'https://creativecommons.org/publicdomain/zero/1.0/' );
 	}
 
+	public function test_getLicenseFromUrl() {
+		$result = $this->licensing->getLicenseFromUrl( 'https://creativecommons.org/publicdomain/zero/1.0/' );
+		$this->assertEquals( $result, 'public-domain' );
+	}
+
 	public function test_getLicenseXml() {
 
 		$result = $this->licensing->getLicenseXml( 'all-rights-reserved', 'Foo', 'http://pressbooks.dev', 'Bar', 'en' );

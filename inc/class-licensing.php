@@ -298,7 +298,7 @@ class Licensing {
 	/**
 	 * Returns URL for saved license value.
 	 *
-	 * @since 4.0.0
+	 * @since 4.1.0
 	 *
 	 * @param string
 	 *
@@ -312,4 +312,23 @@ class Licensing {
 		}
 	}
 
+	/**
+	 * Returns Book Information-compatible license value from URL.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string
+	 *
+	 * @return string
+	 */
+	function getLicenseFromUrl( $url ) {
+		$licenses = $this->getSupportedTypes();
+		foreach ( $licenses as $license => $v ) {
+			if ( $url === $v['url'] ) {
+				return $license;
+			}
+		}
+
+		return 'all-rights-reserved';
+	}
 }

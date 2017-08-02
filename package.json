@@ -38,7 +38,8 @@
     "stylelint-webpack-plugin": "^0.7.1",
     "tinymce": "^4.6.3",
     "wp-admin-colors": "^4.8.0",
-    "wp-pot-cli": "^1.0.1"
+    "wp-pot-cli": "^1.0.1",
+    "wpapi": "^1.1.2"
   },
   "repository": {
     "type": "git",

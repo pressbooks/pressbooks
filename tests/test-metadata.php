@@ -51,4 +51,78 @@ class MetadataTest extends \WP_UnitTestCase {
 		$this->assertTrue( $result );
 	}
 
+	public function test_book_information_to_schema() {
+		$book_information = [
+			'pb_author' => 'Herman Melville',
+			'pb_title' => 'Moby Dick',
+		];
+
+		$result = \Pressbooks\Metadata\book_information_to_schema( $book_information );
+		$this->assertEquals( $result['name'], 'Moby Dick' );
+		$this->assertEquals( $result['author']['name'], 'Herman Melville' );
+	}
+
+	public function test_schema_to_book_information() {
+		$schema = [
+			'@context' => 'http://schema.org',
+			'@type' => 'Book',
+			'author' => [
+				'@type' => 'Person',
+				'name' => 'Herman Melville',
+			],
+			'name' => 'Moby Dick',
+			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+		];
+
+		$result = \Pressbooks\Metadata\schema_to_book_information( $schema );
+		$this->assertEquals( $result['pb_title'], 'Moby Dick' );
+		$this->assertEquals( $result['pb_author'], 'Herman Melville' );
+		$this->assertEquals( $result['pb_book_license'], 'public-domain' );
+	}
+
+	public function test_section_information_to_schema() {
+		$section_information = [
+			'pb_title' => 'Loomings',
+			'pb_chapter_number' => 1,
+		];
+
+		$book_information = [
+			'pb_author' => 'Herman Melville',
+			'pb_title' => 'Moby Dick',
+		];
+
+		$result = \Pressbooks\Metadata\section_information_to_schema( $section_information, $book_information );
+		$this->assertEquals( $result['name'], 'Loomings' );
+		$this->assertEquals( $result['author']['name'], 'Herman Melville' );
+		$this->assertEquals( $result['position'], 1 );
+	}
+
+	public function test_schema_to_section_information() {
+		$book_schema = [
+			'@context' => 'http://schema.org',
+			'@type' => 'Book',
+			'author' => [
+				'@type' => 'Person',
+				'name' => 'Herman Melville',
+			],
+			'name' => 'Moby Dick',
+			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+		];
+
+		$section_schema = [
+			'@context' => 'http://bib.schema.org',
+			'@type' => 'Chapter',
+			'author' => [
+				'@type' => 'Person',
+				'name' => 'Herman Melville',
+			],
+			'name' => 'Loomings',
+			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+		];
+
+		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
+		$this->assertArrayNotHasKey( 'pb_section_author', $result );
+		$this->assertArrayNotHasKey( 'pb_section_license', $result );
+	}
+
 }

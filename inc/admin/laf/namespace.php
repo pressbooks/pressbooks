@@ -229,6 +229,9 @@ function replace_book_admin_menu() {
 		}
 	);
 
+	// Clone a Book
+	$page = add_submenu_page( 'options.php', __( 'Clone a Book', 'pressbooks' ), __( 'Clone a Book', 'pressbooks' ), 'edit_posts', 'pb_cloner', __NAMESPACE__ . '\display_cloner' );
+
 	// Catalog
 	add_submenu_page( 'index.php', __( 'My Catalog', 'pressbooks' ), __( 'My Catalog', 'pressbooks' ), 'read', 'pb_catalog', '\Pressbooks\Catalog::addMenu' );
 }
@@ -311,7 +314,6 @@ function fix_root_admin_menu() {
  * @see http://wordpress.org/extend/plugins/custom-list-table-example/
  */
 function display_organize() {
-
 	require( PB_PLUGIN_DIR . 'templates/admin/organize.php' );
 }
 
@@ -319,7 +321,6 @@ function display_organize() {
  * Displays the trash page.
  */
 function display_trash() {
-
 	require( PB_PLUGIN_DIR . 'templates/admin/trash.php' );
 }
 
@@ -327,15 +328,20 @@ function display_trash() {
  * Displays the Export Admin Page
  */
 function display_export() {
-
 	require( PB_PLUGIN_DIR . 'templates/admin/export.php' );
+}
+
+/**
+ * Displays the Clone a Book Page
+ */
+function display_cloner() {
+	require( PB_PLUGIN_DIR . 'templates/admin/cloner.php' );
 }
 
 /**
  * Displays the Import Admin Page
  */
 function display_import() {
-
 	require( PB_PLUGIN_DIR . 'templates/admin/import.php' );
 }
 
@@ -438,6 +444,15 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 			'id' => 'add-new-book',
 			'title' => __( 'Add A New Book', 'pressbooks' ),
 			'href' => network_home_url( 'wp-signup.php' ),
+		]
+	);
+
+	$wp_admin_bar->add_node(
+		[
+			'parent' => 'my-books',
+			'id' => 'clone-a-book',
+			'title' => __( 'Clone A Book', 'pressbooks' ),
+			'href' => home_url( 'wp-admin/options.php?page=pb_cloner' ),
 		]
 	);
 

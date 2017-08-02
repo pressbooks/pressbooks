@@ -313,6 +313,7 @@ class Toc extends \WP_REST_Controller {
 					$new_fm[ $new_key ] = $val;
 				}
 				$new_fm['link'] = get_permalink( $new_fm['id'] );
+				$new_fm['front-matter-type'] = wp_get_object_terms( $new_fm['id'], 'front-matter-type', [ 'fields' => 'ids' ] );
 				$this->linkCollector['front-matter'][] = [ 'href' => trailingslashit( $rest_url ) . $new_fm['id'], 'embeddable' => true ];
 
 				// Metadata
@@ -359,6 +360,7 @@ class Toc extends \WP_REST_Controller {
 						$new_ch[ $new_key ] = $val;
 					}
 					$new_ch['link'] = get_permalink( $new_ch['id'] );
+					$new_ch['chapter-type'] = wp_get_object_terms( $new_ch['id'], 'chapter-type', [ 'fields' => 'ids' ] );
 					$this->linkCollector['chapter'][] = [ 'href' => trailingslashit( $chapter_rest_url ) . $new_ch['id'], 'embeddable' => true ];
 
 					// Metadata
@@ -401,6 +403,7 @@ class Toc extends \WP_REST_Controller {
 					$new_bm[ $new_key ] = $val;
 				}
 				$new_bm['link'] = get_permalink( $new_bm['id'] );
+				$new_bm['back-matter-type'] = wp_get_object_terms( $new_bm['id'], 'back-matter-type', [ 'fields' => 'ids' ] );
 				$this->linkCollector['back-matter'][] = [ 'href' => trailingslashit( $rest_url ) . $new_bm['id'], 'embeddable' => true ];
 
 				// Metadata
