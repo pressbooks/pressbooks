@@ -600,8 +600,10 @@ class Cloner {
 
 		$content = $html5->saveHTML( $dom );
 
+		unset( $html5, $dom, $media ); // premature optimization, try to free up memory
+
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $content ) );
+		$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], '', $content ) );
 
 		// Set title and content
 		$section['title'] = $section['title']['rendered'];

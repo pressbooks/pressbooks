@@ -557,7 +557,8 @@ function section_information_to_schema( $section_information, $book_information 
  *
  * @since 4.1
  *
- * @param array $schema
+ * @param array $section_schema
+ * @param array $book_schema
  *
  * @return array
  */
