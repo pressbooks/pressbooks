@@ -176,13 +176,15 @@ abstract class Search {
 	 * @return \Pressbooks\Modules\SearchAndReplace\Result[]|false
 	 */
 	function matches( $pattern, $content, $id ) {
+		$matches = null;
 		if ( preg_match_all( $pattern, $content, $matches, PREG_OFFSET_CAPTURE ) > 0 ) {
-
 			// Reduce memory usage by doing preg_replace() for the same $pattern/$replacement combination only once
 			$content_replace = preg_replace( $pattern, $this->replace, $content );
-
 			$results = [];
 			foreach ( $matches[0] as $found ) {
+				if ( empty( $found[0] ) ) {
+					continue; // Some weird regex looking for nothing?
+				}
 				$result = new Result();
 				$result->id = $id;
 				$result->offset = $found[1];

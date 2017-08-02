@@ -77,7 +77,7 @@ class Content extends \Pressbooks\Modules\SearchAndReplace\Search {
 				$type = __( 'Back Matter', 'pressbooks' );
 				break;
 		endswitch;
-		printf( __( '%1$s ID #%2$d: %1$s', 'pressbooks' ), $type, $result->id, $result->title );
+		printf( __( '%1$s ID #%2$d: %3$s', 'pressbooks' ), $type, $result->id, $result->title );
 	}
 
 	/**
