@@ -49,4 +49,22 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'edit.php?post_type=chapter', $submenu );
 	}
 
+	function test_replace_menu_bar_my_sites() {
+		$this->_book();
+		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		wp_set_current_user( $user_id );
+		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
+		$wp_admin_bar = new \WP_Admin_Bar();
+		$wp_admin_bar->initialize();
+		\Pressbooks\Admin\Laf\replace_menu_bar_my_sites( $wp_admin_bar );
+
+		$node = $wp_admin_bar->get_node( 'my-books' );
+		$this->assertTrue( is_object( $node ) );
+		$this->assertEquals( $node->id, 'my-books' );
+
+		$node = $wp_admin_bar->get_node( 'clone-a-book' );
+		$this->assertTrue( is_object( $node ) );
+		$this->assertEquals( $node->id, 'clone-a-book' );
+	}
+
 }
