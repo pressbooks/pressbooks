@@ -11,7 +11,7 @@ jQuery( function ( $ ) {
 		$( '.export-file-container' ).unbind( 'mouseenter mouseleave' ); // Disable Download & Delete Buttons
 		$( '.export-control button' ).prop('disabled', true);
 		$( '#pb-export-form' ).submit();
-	} ); //
+	} );
     /* Show and hide download & delete button */
 	$( '.export-file-container' ).hover(
 		function () {
