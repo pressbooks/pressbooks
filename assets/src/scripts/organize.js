@@ -517,7 +517,7 @@ jQuery( document ).ready( function ( $ ) {
 		};
 		$.post( ajaxurl, data, function ( response ) {
 			const current_count = parseInt( $( '#wc-selected-for-export' ).text(), 10 );
-			let count_up = new CountUp( 'wc-selected-for-export', current_count, response, 0, 2.5 );
+			let count_up = new CountUp( 'wc-selected-for-export', current_count, response, 0, 2.5, { separator: '' } );
 			count_up.start();
 		} );
 	}
