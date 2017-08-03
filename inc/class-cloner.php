@@ -9,9 +9,11 @@
 namespace Pressbooks;
 
 use Masterminds\HTML5;
+use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use function Pressbooks\Image\default_cover_url;
 use function Pressbooks\Metadata\schema_to_book_information;
 use function Pressbooks\Metadata\schema_to_section_information;
+use Pressbooks\Modules\ThemeOptions\PDFOptions;
 use function \Pressbooks\Utility\getset;
 
 class Cloner {
@@ -939,6 +941,15 @@ class Cloner {
 	}
 
 	/**
+	 * @return bool
+	 */
+	public static function isEnabled() {
+		$enable_cloning = get_site_option( 'pressbooks_sharingandprivacy_options', [] );
+		$enable_cloning = isset( $enable_cloning['enable_cloning'] ) ? $enable_cloning['enable_cloning'] : SharingAndPrivacyOptions::getDefaults()['enable_cloning'];
+		return (bool) $enable_cloning;
+	}
+
+	/**
 	 * Check if a user submitted something to options.php?page=pb_cloner
 	 *
 	 * @return bool
@@ -968,7 +979,7 @@ class Cloner {
 			return;
 		}
 
-		if ( isset( $_POST['_wpnonce'] ) &&  wp_verify_nonce( $_POST['_wpnonce'], 'pb-cloner' ) ) {
+		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'pb-cloner' ) ) {
 			if ( isset( $_POST['source_book_url'] ) && ! empty( $_POST['source_book_url'] ) ) {
 				$cloner = new Cloner( esc_url( $_POST['source_book_url'] ) );
 				if ( $cloner->cloneBook() ) {
@@ -980,8 +991,10 @@ class Cloner {
 						sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloner->clonedItems, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'cahpters', [] ) ) ),
 						sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloner->clonedItems, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'back-matter', [] ) ) ),
 						sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloner->clonedItems, 'media', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'media', [] ) ) ),
-						sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/' , $cloner->sourceBookMetadata['name'] )
+						sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/', $cloner->sourceBookMetadata['name'] )
 					);
+				} elseif ( empty( $_SESSION['pb_errors'] ) ) {
+					$_SESSION['pb_errors'][] = __( 'Cloning failed.', 'pressbooks' );
 				}
 				\Pressbooks\Redirect\location( admin_url( 'options.php?page=pb_cloner' ) );
 			} else {
