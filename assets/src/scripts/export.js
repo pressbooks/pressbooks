@@ -5,11 +5,11 @@ import Cookies from 'js-cookie';
 jQuery( function ( $ ) {
     /* Swap out and animate the 'Export Your Book' button */
 	$( '#pb-export-button' ).click( function ( e ) {
-        e.preventDefault();
+		e.preventDefault();
 		$( '#loader' ).show();
 		$( '#pb-export-button' ).hide();
-        $( '.export-file-container' ).unbind( 'mouseenter mouseleave' ); // Disable Download & Delete Buttons
-        $( '.export-control button' ).prop('disabled', true);
+		$( '.export-file-container' ).unbind( 'mouseenter mouseleave' ); // Disable Download & Delete Buttons
+		$( '.export-control button' ).prop('disabled', true);
 		$( '#pb-export-form' ).submit();
 	} ); //
     /* Show and hide download & delete button */
