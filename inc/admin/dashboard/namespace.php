@@ -139,22 +139,29 @@ function display_book_widget() {
  * Displays the Pressbooks Blog RSS as a widget
  */
 function display_pressbooks_blog() {
+	$rss = get_site_transient( 'pb_rss_widget' );
+	if ( empty( $rss ) ) {
+		$options = array_map(
+			'stripslashes_deep', get_site_option(
+				'pressbooks_dashboard_feed', get_rss_defaults()
+			)
+		);
 
-	$options = array_map(
-		'stripslashes_deep', get_site_option(
-			'pressbooks_dashboard_feed', get_rss_defaults()
-		)
-	);
+		ob_start();
+		wp_widget_rss_output(
+			[
+				'url' => $options['url'],
+				'items' => 5,
+				'show_summary' => 1,
+				'show_author' => 0,
+				'show_date' => 1,
+			]
+		);
+		$rss = ob_get_clean();
 
-	wp_widget_rss_output(
-		[
-			'url' => $options['url'],
-			'items' => 5,
-			'show_summary' => 1,
-			'show_author' => 0,
-			'show_date' => 1,
-		]
-	);
+		set_site_transient( 'pb_rss_widget', $rss, DAY_IN_SECONDS );
+	}
+	echo $rss;
 }
 
 
