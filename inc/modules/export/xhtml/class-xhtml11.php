@@ -971,7 +971,7 @@ class Xhtml11 extends Export {
 				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 			}
 
-			$append_front_matter_content .= $this->doSectionLevelLicense( $metadata, $front_matter_id );
+			$append_front_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $front_matter_id ) );
 
 			printf(
 				$front_matter_printf,
@@ -1110,7 +1110,7 @@ class Xhtml11 extends Export {
 					$this->hasIntroduction = true;
 				}
 
-				$append_chapter_content .= $this->doSectionLevelLicense( $metadata, $chapter_id );
+				$append_chapter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $chapter_id ) );
 
 				$n = ( 'numberless' === $subclass ) ? '' : $j;
 				$my_chapters .= sprintf(
@@ -1210,7 +1210,7 @@ class Xhtml11 extends Export {
 				$content = '<h6 class="short-title">' . Sanitize\decode( $short_title ) . '</h6>' . $content;
 			}
 
-			$append_back_matter_content .= $this->doSectionLevelLicense( $metadata, $back_matter_id );
+			$append_back_matter_content .= $this->removeAttributionLink( $this->doSectionLevelLicense( $metadata, $back_matter_id ) );
 
 			printf(
 				$back_matter_printf,
