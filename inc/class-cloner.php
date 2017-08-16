@@ -178,6 +178,7 @@ class Cloner {
 		// Set up $this->sourceBookMetadata
 		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookMetadata ) ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			return false;
 		}
 
@@ -190,12 +191,14 @@ class Cloner {
 		// Set up $this->sourceBookStructure
 		$this->sourceBookStructure = $this->getBookStructure( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookStructure ) ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve contents and structure from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			return false;
 		}
 
 		// Set up $this->sourceBookTerms
 		$this->sourceBookTerms = $this->getBookTerms( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookTerms ) ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve taxonomies from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			return false;
 		}
 
