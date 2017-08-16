@@ -8,12 +8,13 @@ jQuery( function ( $ ) {
 		e.preventDefault();
 		$( '.export-file-container' ).unbind( 'mouseenter mouseleave' ); // Disable Download & Delete Buttons
 		$( '.export-control button' ).prop( 'disabled', true );
-		$( '#pb-export-button' ).hide( 0, function() {
-			$( '#loader' ).show( 0, function() {
-				$( '#pb-export-form' ).submit();
-			});
-		});
-	});
+		$( '#pb-export-button' ).hide();
+		$( '#loader' ).show();
+		const submission = function () {
+			$( '#pb-export-form' ).submit();
+		};
+		setTimeout( submission, 0 );
+	} );
     /* Show and hide download & delete button */
 	$( '.export-file-container' ).hover(
 		function () {
