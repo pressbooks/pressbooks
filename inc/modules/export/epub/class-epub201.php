@@ -1968,6 +1968,15 @@ class Epub201 extends Export {
 			/** @var \DOMElement $url */
 			$current_url = '' . $url->getAttribute( 'href' ); // Stringify
 
+			// Is this the the attributionUrl?
+			if ( $url->getAttribute( 'rel' ) === 'cc:attributionURL' ) {
+				$url->parentNode->replaceChild(
+					$doc->createTextNode( $url->nodeValue ),
+					$url
+				);
+				continue;
+			}
+
 			// Don't touch empty urls
 			if ( ! trim( $current_url ) ) {
 				continue;

@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Modules\Export\Xhtml;
 
+use Masterminds\HTML5;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Sanitize;
 use function Pressbooks\Sanitize\clean_filename;
@@ -471,6 +472,36 @@ class Xhtml11 extends Export {
 	}
 
 	/**
+	 * Removes the CC attribution link.
+	 *
+	 * @since 4.1
+	 *
+	 * @param string $content
+	 *
+	 * @return string
+	 */
+	protected function removeAttributionLink( $content ) {
+		$html5 = new HTML5();
+		$dom = $html5->loadHTML( $content );
+
+		$urls = $dom->getElementsByTagName( 'a' );
+		foreach ( $urls as $url ) {
+			// Is this the the attributionUrl?
+			if ( $url->getAttribute( 'rel' ) === 'cc:attributionURL' ) {
+				$url->parentNode->replaceChild(
+					$dom->createTextNode( $url->nodeValue ),
+					$url
+				);
+			}
+		}
+
+		$content = $html5->saveHTML( $dom );
+		$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], '', $content ) );
+
+		return $content;
+	}
+
+	/**
 	 * Tidy HTML
 	 *
 	 * @param string $html
@@ -657,7 +688,7 @@ class Xhtml11 extends Export {
 		// License
 		$license = $this->doCopyrightLicense( $metadata );
 		if ( $license ) {
-			echo $license;
+			echo $this->removeAttributionLink( $license );
 		}
 
 		// Custom copyright
