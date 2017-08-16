@@ -454,7 +454,7 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 	);
 
 	if ( \Pressbooks\Cloner::isEnabled() ) {
-		$href = home_url( 'wp-admin/options.php?page=pb_cloner' );
+		$href = home_url( 'wp-admin/options.php?page=pb_cloner', 'relative' );
 		if ( ! \Pressbooks\Book::isBook() ) {
 			$blogs = get_blogs_of_user( get_current_user_id() );
 			foreach ( $blogs as $blog ) {
