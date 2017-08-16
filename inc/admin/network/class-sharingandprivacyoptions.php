@@ -13,7 +13,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	 * @see upgrade()
 	 * @var int
 	 */
-	const VERSION = 2;
+	const VERSION = 3;
 
 	/**
 	 * Sharing and Privacy options.
@@ -82,6 +82,17 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			]
 		);
 
+		add_settings_field(
+			'enable_cloning',
+			__( 'Enable Cloning', 'pressbooks' ),
+			[ $this, 'renderAllowCloning' ],
+			$_page,
+			$_section,
+			[
+				__( 'Enable book cloning via the Pressbooks REST API.', 'pressbooks' ),
+			]
+		);
+
 		register_setting(
 			$_page,
 			$_option,
@@ -136,6 +147,10 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 			$options['enable_network_api'] = 1;
 		}
 
+		if ( $version < 3 ) {
+			$options['enable_cloning'] = 1;
+		}
+
 		update_site_option( $slug, $options );
 	}
 
@@ -158,7 +173,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 	}
 
 	/**
-	 * Render the allow_redistribution checkbox.
+	 * Render the enable_network_api checkbox.
 	 *
 	 * @param array $args
 	 */
@@ -170,6 +185,24 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 				'name' => $this->getSlug(),
 				'option' => 'enable_network_api',
 				'value' => ( isset( $options['enable_network_api'] ) ) ? $options['enable_network_api'] : '',
+				'label' => $args[0],
+			]
+		);
+	}
+
+	/**
+	 * Render the enable_cloning checkbox.
+	 *
+	 * @param array $args
+	 */
+	function renderAllowCloning( $args ) {
+		$options = get_site_option( $this->getSlug() );
+		$this->renderCheckbox(
+			[
+				'id' => 'enable_cloning',
+				'name' => $this->getSlug(),
+				'option' => 'enable_cloning',
+				'value' => ( isset( $options['enable_cloning'] ) ) ? $options['enable_cloning'] : '',
 				'label' => $args[0],
 			]
 		);
@@ -202,6 +235,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		return [
 			'allow_redistribution' => 0,
 			'enable_network_api' => 1,
+			'enable_cloning' => 1,
 		];
 	}
 
@@ -214,6 +248,7 @@ class SharingAndPrivacyOptions extends \Pressbooks\Options {
 		return [
 			'allow_redistribution',
 			'enable_network_api',
+			'enable_cloning',
 		];
 	}
 

@@ -152,4 +152,9 @@ class ApiTest extends \WP_UnitTestCase {
 		$this->assertEmpty( $data );
 	}
 
+	public function test_is_enabled() {
+		$result = \Pressbooks\Api\is_enabled();
+		$this->assertTrue( is_bool( $result ) );
+	}
+
 }

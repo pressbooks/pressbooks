@@ -4,11 +4,16 @@ import Cookies from 'js-cookie';
 
 jQuery( function ( $ ) {
     /* Swap out and animate the 'Export Your Book' button */
-	$( '#pb-export-button' ).click( function () {
+	$( '#pb-export-button' ).click( function ( e ) {
+		e.preventDefault();
 		$( '.export-file-container' ).unbind( 'mouseenter mouseleave' ); // Disable Download & Delete Buttons
-		$( '#loader' ).show();
+		$( '.export-control button' ).prop( 'disabled', true );
 		$( '#pb-export-button' ).hide();
-		$( '#pb-export-form' ).submit();
+		$( '#loader' ).show();
+		const submission = function () {
+			$( '#pb-export-form' ).submit();
+		};
+		setTimeout( submission, 0 );
 	} );
     /* Show and hide download & delete button */
 	$( '.export-file-container' ).hover(

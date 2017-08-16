@@ -4,7 +4,6 @@
  * @license GPLv2 (or any later version)
  */
 
-use Pressbooks\Admin\Network\SharingAndPrivacyOptions;
 use Pressbooks\Book;
 use Pressbooks\Container;
 use Pressbooks\Theme\Lock;
@@ -41,9 +40,7 @@ include_symbionts();
 // -------------------------------------------------------------------------------------------------------------------
 
 $is_book = Book::isBook();
-
-$enable_network_api = get_site_option( 'pressbooks_sharingandprivacy_options', [] );
-$enable_network_api = (bool) isset( $enable_network_api['enable_network_api'] ) ? $enable_network_api['enable_network_api'] : SharingAndPrivacyOptions::getDefaults()['enable_network_api'];
+$enable_network_api = \Pressbooks\Api\is_enabled();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Initialize services

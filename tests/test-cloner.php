@@ -79,4 +79,8 @@ class ClonerTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, 'sub' );
 	}
 
+	public function test_isEnabled() {
+		$result = \Pressbooks\Cloner::isEnabled();
+		$this->assertTrue( is_bool( $result ) );
+	}
 }
