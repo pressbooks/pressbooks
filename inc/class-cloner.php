@@ -960,7 +960,12 @@ class Cloner {
 		$minimum_site_name_length = apply_filters( 'minimum_site_name_length', 4 );
 
 		if ( is_subdomain_install() ) {
-			$baredomain = wp_parse_url( preg_replace( '|^www\.|', '', $domain ), PHP_URL_HOST );
+			$host = wp_parse_url( esc_url( $domain ), PHP_URL_HOST );
+			$host = explode( '.', $host );
+			if ( count( $host ) > 2 ) {
+				array_shift( $host );
+			}
+			$baredomain = implode( '.', $host );
 			$mydomain = $blogname . '.' . $baredomain;
 			$path = $base;
 		} else {
