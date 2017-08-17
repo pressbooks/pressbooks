@@ -38,7 +38,7 @@ To install Pressbooks on your site, download the [latest release](https://github
 Requirements
 ------------
 
-Pressbooks works with PHP 5.6.x and WordPress 4.8.0. Lower versions are not supported.
+Pressbooks works with PHP 5.6.x and WordPress 4.8.1. Lower versions are not supported.
 
 Disclaimers
 -----------

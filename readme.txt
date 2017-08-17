@@ -1,10 +1,10 @@
 === Pressbooks ===
 
 Contributors: Pressbooks <code@pressbooks.com>
-Version: 4.0.2
+Version: 4.1.0
 Tags: ebooks, publishing, webbooks
-Requires at least: 4.8.0
-Tested up to: 4.8.0
+Requires at least: 4.8.1
+Tested up to: 4.8.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -203,8 +203,8 @@ Once WP-CLI is installed on your server, the following shell commands executed i
     wp core multisite-convert --title="Pressbooks"
     wp plugin delete hello
     wp plugin update-all
-    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/4.0.2/pressbooks-4.0.2.zip --activate-network
-    wp theme install https://github.com/pressbooks/pressbooks-book/releases/download/1.9.2/pressbooks-1.9.2.zip
+    wp plugin install https://github.com/pressbooks/pressbooks/releases/download/4.1.0/pressbooks-4.1.0.zip --activate-network
+    wp theme install https://github.com/pressbooks/pressbooks-book/releases/download/1.9.3/pressbooks-1.9.3.zip
     wp theme install https://github.com/pressbooks/pressbooks-publisher/archive/master.zip
     wp theme install https://github.com/pressbooks/pressbooks-austenclassic/archive/master.zip
     wp theme install https://github.com/pressbooks/pressbooks-clarke/archive/master.zip
@@ -263,6 +263,24 @@ Pressbooks now requires [WordPress 4.8.0](https://wordpress.org/download/).
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
 == Changelog ==
+
+### 4.1
+
+**NOTICE:** Pressbooks 4.1 requires [WordPress 4.8.1](https://wordpress.org/news/2017/08/wordpress-4-8-1-maintenance-release/).
+
+* **Feature:** Cloning! Clone any public, properly-licensed book from any Pressbooks 4.1 network including your own (super admins can clone any book from their own network, regardless of license) (see #841, #857, #881, #885).
+* **Feature:** Granular display controls for content licenses at the book and section level (see #805, #867, #873, #883, #884).
+* **Feature:** Word count for the entire book and for content marked for export is now displayed on the Organize page (see #842, #878, #880).
+* **Feature:** Users can now delete their own books from the book menu (see #845, #864).
+* **Feature:** Custom taxonomies are now available in the Pressbooks REST API v2 (see #851, #853).
+* **Feature:** The Schema.org [isBasedOn](http://bib.schema.org/isBasedOn) property is now saved in metadata and displayed in the Pressbooks REST API v2 (see #850, #852).
+* **Feature:** Search & Replace with RegEx is now available for super admins without additional configuration (see #870, #871, #879).
+* **Feature:** Punjabi Gurmukhi support (props to @alexpflores) (see #877).
+* **Enhancement:** Book editors can now modify theme options and custom CSS (see #862, #863).
+* **Enhancement:** The Pressbooks News feed is now cached across all sites to reduce unnecessary network access (see #882).
+* **Fix:** The TOC endpoint in the Pressbooks REST API v2 now uses `chapters` and `parts` for consistency with the endpoints for these post types.
+* **Fix:** The EPUB importer now properly detects and handles optional whitespaces (see #554, #874).
+* **Fix:** Users without super admin privileges can no longer access the trash when they shouldn't be able to do so (see #865).
 
 ### 4.0.2
 * **Fix:** Fixed an issue where locating a PDF output intent file would fail on certain systems (see #866).

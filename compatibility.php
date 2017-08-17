@@ -37,7 +37,7 @@ function pb_meets_minimum_requirements() {
 
 	// WordPress Version
 	global $pb_minimum_wp;
-	$pb_minimum_wp = '4.8.0';
+	$pb_minimum_wp = '4.8.1';
 
 	$wp_version = get_bloginfo( 'version' );
 	if ( substr_count( $wp_version, '.' ) === 1 ) {

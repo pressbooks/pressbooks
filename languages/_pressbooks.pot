@@ -26,83 +26,83 @@ msgstr ""
 msgid "The Pressbooks plugin is inactive, but you have active plugins that require Pressbooks. This is causing errors. Please go to the Plugins page, and activate Pressbooks."
 msgstr ""
 
-#: ../inc/class-activation.php:60, ../inc/class-activation.php:264
+#: ../inc/class-activation.php:60, ../inc/class-activation.php:282
 msgid "Simple Book Publishing"
 msgstr ""
 
-#: ../inc/class-activation.php:165
+#: ../inc/class-activation.php:174
 msgid "Main Body"
 msgstr ""
 
-#: ../inc/class-activation.php:171, ../tests/test-book.php:55
+#: ../inc/class-activation.php:180, ../tests/test-book.php:55
 msgid "Introduction"
 msgstr ""
 
-#: ../inc/class-activation.php:173, ../tests/test-book.php:85
+#: ../inc/class-activation.php:182, ../tests/test-book.php:85
 msgid "This is where you can write your introduction."
 msgstr ""
 
-#: ../inc/class-activation.php:178
+#: ../inc/class-activation.php:187
 msgid "Chapter 1"
 msgstr ""
 
-#: ../inc/class-activation.php:180
+#: ../inc/class-activation.php:189
 msgid "This is the first chapter in the main body of the text. You can change the text, rename the chapter, add new chapters, and add new parts."
 msgstr ""
 
-#: ../inc/class-activation.php:185
+#: ../inc/class-activation.php:194
 msgid "Appendix"
 msgstr ""
 
-#: ../inc/class-activation.php:187
+#: ../inc/class-activation.php:196
 msgid "This is where you can add appendices or other back matter."
 msgstr ""
 
-#: ../inc/class-activation.php:193
+#: ../inc/class-activation.php:202, ../tests/test-cloner.php:37
 msgid "Authors"
 msgstr ""
 
-#: ../inc/class-activation.php:198, ../inc/admin/class-catalog-list-table.php:171, ../inc/modules/export/epub/class-epub201.php:763
+#: ../inc/class-activation.php:207, ../inc/admin/class-catalog-list-table.php:171, ../inc/modules/export/epub/class-epub201.php:763, ../tests/test-cloner.php:42
 msgid "Cover"
 msgstr ""
 
-#: ../inc/class-activation.php:203, ../inc/modules/themeoptions/class-pdfoptions.php:238, ../inc/api/endpoints/controller/class-books.php:124, ../inc/modules/export/epub/templates/epub3/toc.php:23
+#: ../inc/class-activation.php:212, ../inc/modules/themeoptions/class-pdfoptions.php:238, ../inc/api/endpoints/controller/class-books.php:124, ../inc/modules/export/epub/templates/epub3/toc.php:23, ../tests/test-cloner.php:47
 msgid "Table of Contents"
 msgstr ""
 
-#: ../inc/class-activation.php:208, ../inc/admin/laf/namespace.php:21, ../templates/admin/catalog.php:98
+#: ../inc/class-activation.php:217, ../inc/admin/laf/namespace.php:21, ../templates/admin/catalog.php:98
 msgid "About"
 msgstr ""
 
-#: ../inc/class-activation.php:213
+#: ../inc/class-activation.php:222
 msgid "Buy"
 msgstr ""
 
-#: ../inc/class-activation.php:218
+#: ../inc/class-activation.php:227
 msgid "Access Denied"
 msgstr ""
 
-#: ../inc/class-activation.php:220
+#: ../inc/class-activation.php:229
 msgid "This book is private, and accessible only to registered users. If you have an account you can login <a href=\"/wp-login.php\">here</a>. You can also set up your own Pressbooks book at: <a href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: ../inc/class-activation.php:225, ../inc/class-metadata.php:368
+#: ../inc/class-activation.php:234, ../inc/class-metadata.php:368
 msgid "Custom CSS for Ebook"
 msgstr ""
 
-#: ../inc/class-activation.php:230, ../inc/class-metadata.php:373
+#: ../inc/class-activation.php:239, ../inc/class-metadata.php:373
 msgid "Custom CSS for PDF"
 msgstr ""
 
-#: ../inc/class-activation.php:235, ../inc/class-metadata.php:378
+#: ../inc/class-activation.php:244, ../inc/class-metadata.php:378
 msgid "Custom CSS for Web"
 msgstr ""
 
-#: ../inc/class-activation.php:240, ../inc/posttype/namespace.php:194, ../templates/admin/import.php:96
+#: ../inc/class-activation.php:249, ../inc/posttype/namespace.php:194, ../templates/admin/import.php:96
 msgid "Book Information"
 msgstr ""
 
-#: ../inc/class-activation.php:254
+#: ../inc/class-activation.php:272
 msgid "Default Data"
 msgstr ""
 
@@ -114,7 +114,7 @@ msgstr ""
 msgid "You do not have permission to do that."
 msgstr ""
 
-#: ../inc/class-catalog.php:1142, ../inc/class-catalog.php:1197, ../inc/class-catalog.php:1233, ../inc/class-catalog.php:1289, ../inc/admin/analytics/namespace.php:187, ../inc/admin/network/class-sharingandprivacyoptions.php:116, ../templates/admin/dashboard.php:28
+#: ../inc/class-catalog.php:1142, ../inc/class-catalog.php:1197, ../inc/class-catalog.php:1233, ../inc/class-catalog.php:1289, ../inc/admin/analytics/namespace.php:187, ../inc/admin/network/class-sharingandprivacyoptions.php:127, ../templates/admin/dashboard.php:28
 msgid "Settings saved."
 msgstr ""
 
@@ -124,6 +124,108 @@ msgstr ""
 
 #: ../inc/class-catalog.php:1281
 msgid "No book found."
+msgstr ""
+
+#: ../inc/class-cloner.php:186
+msgid "Could not retrieve metadata from %s."
+msgstr ""
+
+#: ../inc/class-cloner.php:192
+msgid "%s is not licensed for cloning."
+msgstr ""
+
+#: ../inc/class-cloner.php:199
+msgid "Could not retrieve contents and structure from %s."
+msgstr ""
+
+#: ../inc/class-cloner.php:206
+msgid "Could not retrieve taxonomies from %s."
+msgstr ""
+
+#: ../inc/class-cloner.php:386
+msgid "The source book&rsquo;s metadata could not be read."
+msgstr ""
+
+#: ../inc/class-cloner.php:412
+msgid "The source book&rsquo;s structure and contents could not be read."
+msgstr ""
+
+#: ../inc/class-cloner.php:441
+msgid "The source book&rsquo;s taxonomies could not be read."
+msgstr ""
+
+#: ../inc/class-cloner.php:978
+msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
+msgstr ""
+
+#: ../inc/class-cloner.php:980
+msgid "Your book URL must contain at least some letters."
+msgstr ""
+
+#: ../inc/class-cloner.php:982
+msgid "That book URL is not allowed."
+msgstr ""
+
+#: ../inc/class-cloner.php:984
+msgid "Your book URL must be at least %s character."
+msgid_plural "Your book URL must be at least %s characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-cloner.php:986
+msgid "Sorry, you may not use that book URL."
+msgstr ""
+
+#: ../inc/class-cloner.php:988
+msgid "Sorry, that book URL already exists!"
+msgstr ""
+
+#: ../inc/class-cloner.php:1041
+msgid "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s."
+msgstr ""
+
+#: ../inc/class-cloner.php:1042
+msgid "%s term"
+msgid_plural "%s terms"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-cloner.php:1043
+msgid "%s front matter"
+msgid_plural "%s front matter"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-cloner.php:1044
+msgid "%s part"
+msgid_plural "%s parts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-cloner.php:1045
+msgid "%s chapter"
+msgid_plural "%s chapters"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-cloner.php:1046
+msgid "%s back matter"
+msgid_plural "%s back matter"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-cloner.php:1047
+msgid "%s media attachment"
+msgid_plural "%s media attachments"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../inc/class-cloner.php:1051
+msgid "Cloning failed."
+msgstr ""
+
+#: ../inc/class-cloner.php:1056
+msgid "You must enter a valid URL for a book on a Pressbooks network running Pressbooks 4.1 or greater as well as a new URL for your cloned book."
 msgstr ""
 
 #: ../inc/class-globaltypography.php:20
@@ -496,7 +598,7 @@ msgstr ""
 msgid "The public link to your catalog page"
 msgstr ""
 
-#: ../inc/admin/class-catalog-list-table.php:477, ../inc/admin/laf/namespace.php:233, ../inc/admin/laf/namespace.php:233, ../inc/admin/laf/namespace.php:303, ../inc/admin/laf/namespace.php:303, ../inc/admin/laf/namespace.php:430
+#: ../inc/admin/class-catalog-list-table.php:477, ../inc/admin/laf/namespace.php:242, ../inc/admin/laf/namespace.php:242, ../inc/admin/laf/namespace.php:312, ../inc/admin/laf/namespace.php:312, ../inc/admin/laf/namespace.php:442
 msgid "My Catalog"
 msgstr ""
 
@@ -624,19 +726,19 @@ msgstr ""
 msgid "Publish"
 msgstr ""
 
-#: ../inc/api/namespace.php:66
+#: ../inc/api/namespace.php:68
 msgid "Part ID."
 msgstr ""
 
-#: ../inc/api/namespace.php:160
+#: ../inc/api/namespace.php:162
 msgid "Part does not exist"
 msgstr ""
 
-#: ../inc/api/namespace.php:163
+#: ../inc/api/namespace.php:165
 msgid "ID is not a part"
 msgstr ""
 
-#: ../inc/api/namespace.php:168
+#: ../inc/api/namespace.php:170
 msgid "Failed to update chapter part"
 msgstr ""
 
@@ -716,19 +818,19 @@ msgstr ""
 msgid "Please contact your system administrator if you would like them to install extended %s language support for the Pressbooks interface."
 msgstr ""
 
-#: ../inc/metadata/namespace.php:99
+#: ../inc/metadata/namespace.php:100
 msgid "Hide Additional Book Information"
 msgstr ""
 
-#: ../inc/metadata/namespace.php:102
+#: ../inc/metadata/namespace.php:103
 msgid "Show Additional Book Information"
 msgstr ""
 
-#: ../inc/metadata/namespace.php:109
+#: ../inc/metadata/namespace.php:110
 msgid "The book information you enter here appears on your book’s cover and title pages and in the metadata of your webbook and exported files."
 msgstr ""
 
-#: ../inc/metadata/namespace.php:111
+#: ../inc/metadata/namespace.php:112
 msgid "If you need to enter additional information, click the button below to see all available fields."
 msgstr ""
 
@@ -1377,7 +1479,7 @@ msgstr ""
 msgid "Last 10 CSS Revisions"
 msgstr ""
 
-#: ../inc/admin/customcss/namespace.php:121, ../inc/modules/export/epub/class-epub201.php:960, ../inc/modules/export/xhtml/class-xhtml11.php:680, ../inc/modules/export/epub/templates/epub201/opf.php:90, ../inc/modules/export/epub/templates/epub3/opf.php:100
+#: ../inc/admin/customcss/namespace.php:121, ../inc/modules/export/epub/class-epub201.php:960, ../inc/modules/export/xhtml/class-xhtml11.php:711, ../inc/modules/export/epub/templates/epub201/opf.php:90, ../inc/modules/export/epub/templates/epub3/opf.php:100
 msgid "by"
 msgstr ""
 
@@ -1397,43 +1499,43 @@ msgstr ""
 msgid "My Book"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:82, ../inc/admin/laf/namespace.php:484
+#: ../inc/admin/dashboard/namespace.php:82, ../inc/admin/laf/namespace.php:517
 msgid "Users"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:134, ../inc/admin/dashboard/namespace.php:179, ../templates/admin/organize.php:150, ../templates/admin/organize.php:216
+#: ../inc/admin/dashboard/namespace.php:134, ../inc/admin/dashboard/namespace.php:186, ../templates/admin/organize.php:150, ../templates/admin/organize.php:216
 msgid "Add"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:134, ../inc/admin/dashboard/namespace.php:179, ../inc/admin/laf/namespace.php:97, ../inc/admin/laf/namespace.php:97
+#: ../inc/admin/dashboard/namespace.php:134, ../inc/admin/dashboard/namespace.php:186, ../inc/admin/laf/namespace.php:97, ../inc/admin/laf/namespace.php:97
 msgid "Organize"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:188, ../inc/admin/dashboard/namespace.php:189, ../inc/admin/laf/namespace.php:466, ../inc/admin/laf/namespace.php:532
+#: ../inc/admin/dashboard/namespace.php:195, ../inc/admin/dashboard/namespace.php:196, ../inc/admin/laf/namespace.php:499, ../inc/admin/laf/namespace.php:565
 msgid "Dashboard"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:209
+#: ../inc/admin/dashboard/namespace.php:216
 msgid "Dashboard Feed"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:216
+#: ../inc/admin/dashboard/namespace.php:223
 msgid "Display Feed"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:221
+#: ../inc/admin/dashboard/namespace.php:228
 msgid "Display an RSS feed widget on the dashboard."
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:227
+#: ../inc/admin/dashboard/namespace.php:234
 msgid "Feed Title"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:235
+#: ../inc/admin/dashboard/namespace.php:242
 msgid "Feed URL"
 msgstr ""
 
-#: ../inc/admin/dashboard/namespace.php:262
+#: ../inc/admin/dashboard/namespace.php:269
 msgid "Adjust settings for your dashboard RSS feed widget below."
 msgstr ""
 
@@ -1477,11 +1579,11 @@ msgstr ""
 msgid "Powered by"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:22, ../inc/admin/laf/namespace.php:391
+#: ../inc/admin/laf/namespace.php:22, ../inc/admin/laf/namespace.php:403
 msgid "Help"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:25, ../inc/admin/laf/namespace.php:401
+#: ../inc/admin/laf/namespace.php:25, ../inc/admin/laf/namespace.php:413
 msgid "Contact"
 msgstr ""
 
@@ -1509,11 +1611,11 @@ msgstr ""
 msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:207, ../inc/admin/laf/namespace.php:284, ../inc/admin/laf/namespace.php:952, ../inc/admin/network/class-sharingandprivacyoptions.php:193
+#: ../inc/admin/laf/namespace.php:207, ../inc/admin/laf/namespace.php:293, ../inc/admin/laf/namespace.php:987, ../inc/admin/network/class-sharingandprivacyoptions.php:226
 msgid "Sharing and Privacy Settings"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:207, ../inc/admin/laf/namespace.php:284
+#: ../inc/admin/laf/namespace.php:207, ../inc/admin/laf/namespace.php:293
 msgid "Sharing &amp; Privacy"
 msgstr ""
 
@@ -1521,91 +1623,99 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:359, ../inc/admin/laf/namespace.php:370
+#: ../inc/admin/laf/namespace.php:232, ../inc/admin/laf/namespace.php:232
+msgid "Clone a Book"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php:371, ../inc/admin/laf/namespace.php:382
 msgid "About Pressbooks"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:381
+#: ../inc/admin/laf/namespace.php:393
 msgid "Pressbooks.com"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:439
+#: ../inc/admin/laf/namespace.php:451
 msgid "Add A New Book"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:457
+#: ../inc/admin/laf/namespace.php:471
+msgid "Clone A Book"
+msgstr ""
+
+#: ../inc/admin/laf/namespace.php:490
 msgid "Network Admin"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:475
+#: ../inc/admin/laf/namespace.php:508
 msgid "Sites"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:493
+#: ../inc/admin/laf/namespace.php:526
 msgid "Visit Network"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:546
+#: ../inc/admin/laf/namespace.php:579
 msgid "Visit Site"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:697
+#: ../inc/admin/laf/namespace.php:730
 msgid "Are you sure you want to unlock your theme? This will update your book to the most recent version of your selected theme, which may change your book&rsquo;s appearance and page count. Once you save your settings on this page, this action will NOT be reversable!"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:745
+#: ../inc/admin/laf/namespace.php:780
 msgid "Book Visibility"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:752
+#: ../inc/admin/laf/namespace.php:787
 msgid "Private Content"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:759
+#: ../inc/admin/laf/namespace.php:794
 msgid "Disable Comments"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:768
+#: ../inc/admin/laf/namespace.php:803
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:802
+#: ../inc/admin/laf/namespace.php:837
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:818
+#: ../inc/admin/laf/namespace.php:853
 msgid "Public. I would like this book to be visible to everyone."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:824
+#: ../inc/admin/laf/namespace.php:859
 msgid "Private. I would like this book to be accessible only to people I invite."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:847
+#: ../inc/admin/laf/namespace.php:882
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:850
+#: ../inc/admin/laf/namespace.php:885
 msgid "Only logged in editors and administrators."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:852
+#: ../inc/admin/laf/namespace.php:887
 msgid "All logged in users including subscribers."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:868
+#: ../inc/admin/laf/namespace.php:903
 msgid "Yes. I want to automatically disable comments, trackbacks and pingbacks on all front matter, chapters and back matter."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:874
+#: ../inc/admin/laf/namespace.php:909
 msgid "No. I want to leave comments, trackbacks and pingbacks enabled on all front matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:890
+#: ../inc/admin/laf/namespace.php:925
 msgid "Yes. I would like the latest export files to be available on the homepage for free, to everyone."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:896
+#: ../inc/admin/laf/namespace.php:931
 msgid "No. I would like the latest export files to only be available to administrators."
 msgstr ""
 
@@ -1717,7 +1827,7 @@ msgstr ""
 msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
-#: ../inc/admin/metaboxes/namespace.php:294, ../inc/modules/export/epub/class-epub201.php:951, ../inc/modules/export/epub/class-epub201.php:977, ../inc/modules/export/xhtml/class-xhtml11.php:671, ../inc/modules/export/epub/templates/epub201/opf.php:81, ../inc/modules/export/epub/templates/epub3/opf.php:91
+#: ../inc/admin/metaboxes/namespace.php:294, ../inc/modules/export/epub/class-epub201.php:951, ../inc/modules/export/epub/class-epub201.php:977, ../inc/modules/export/xhtml/class-xhtml11.php:702, ../inc/modules/export/epub/templates/epub201/opf.php:81, ../inc/modules/export/epub/templates/epub3/opf.php:91
 msgid "Copyright"
 msgstr ""
 
@@ -1957,7 +2067,15 @@ msgstr ""
 msgid "Enable access to your network of books via the Pressbooks REST API."
 msgstr ""
 
-#: ../inc/admin/network/class-sharingandprivacyoptions.php:96
+#: ../inc/admin/network/class-sharingandprivacyoptions.php:87
+msgid "Enable Cloning"
+msgstr ""
+
+#: ../inc/admin/network/class-sharingandprivacyoptions.php:92
+msgid "Enable book cloning via the Pressbooks REST API."
+msgstr ""
+
+#: ../inc/admin/network/class-sharingandprivacyoptions.php:107
 msgid "Sharing and Privacy settings."
 msgstr ""
 
@@ -1977,19 +2095,19 @@ msgstr ""
 msgid "Network administrators&rsquo; access to network admininistration menus can be restricted to leave only sites and users visible to them."
 msgstr ""
 
-#: ../inc/modules/import/class-import.php:392, ../inc/modules/import/class-import.php:454
+#: ../inc/modules/import/class-import.php:378, ../inc/modules/import/class-import.php:440
 msgid "Your file does not appear to be a valid %s."
 msgstr ""
 
-#: ../inc/modules/import/class-import.php:400
+#: ../inc/modules/import/class-import.php:386
 msgid "Your URL does not appear to be valid"
 msgstr ""
 
-#: ../inc/modules/import/class-import.php:416
+#: ../inc/modules/import/class-import.php:402
 msgid "The website you are attempting to reach is not returning a successful response header on a HEAD request: "
 msgstr ""
 
-#: ../inc/modules/import/class-import.php:426
+#: ../inc/modules/import/class-import.php:412
 msgid "The website you are attempting to reach is not returning HTML content"
 msgstr ""
 
@@ -2631,7 +2749,7 @@ msgstr ""
 msgid "Table Of Contents"
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:1591, ../inc/modules/export/xhtml/class-xhtml11.php:743
+#: ../inc/modules/export/epub/class-epub201.php:1591, ../inc/modules/export/xhtml/class-xhtml11.php:774
 msgid "Contents"
 msgstr ""
 
@@ -2639,11 +2757,11 @@ msgstr ""
 msgid "This book was produced using Pressbooks.com, and PDF rendering was done by PrinceXML."
 msgstr ""
 
-#: ../inc/modules/export/wordpress/class-wxr.php:100, ../inc/modules/export/xhtml/class-xhtml11.php:168
+#: ../inc/modules/export/wordpress/class-wxr.php:100, ../inc/modules/export/xhtml/class-xhtml11.php:169
 msgid "Invalid permission error"
 msgstr ""
 
-#: ../inc/modules/export/xhtml/class-xhtml11.php:326
+#: ../inc/modules/export/xhtml/class-xhtml11.php:327
 msgid "Notes"
 msgstr ""
 
@@ -2681,7 +2799,7 @@ msgid "edit"
 msgstr ""
 
 #: ../inc/modules/searchandreplace/types/class-content.php:80
-msgid "%1$s ID #%2$d: %1$s"
+msgid "%1$s ID #%2$d: %3$s"
 msgstr ""
 
 #: ../inc/modules/searchandreplace/types/class-content.php:108
@@ -3002,6 +3120,26 @@ msgstr ""
 
 #: ../templates/admin/catalog.php:118
 msgid "Logo Or Image"
+msgstr ""
+
+#: ../templates/admin/cloner.php:14
+msgid "Clone"
+msgstr ""
+
+#: ../templates/admin/cloner.php:15
+msgid "Enter the URL to a Pressbooks book to clone it."
+msgstr ""
+
+#: ../templates/admin/cloner.php:20
+msgid "Source Book URL"
+msgstr ""
+
+#: ../templates/admin/cloner.php:24
+msgid "Target Book URL"
+msgstr ""
+
+#: ../templates/admin/cloner.php:32
+msgid "Clone It!"
 msgstr ""
 
 #: ../templates/admin/custom-css.php:21
