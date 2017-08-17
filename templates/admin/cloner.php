@@ -2,6 +2,13 @@
 	exit;
 }
 
+$base_url = wp_parse_url( network_home_url(), PHP_URL_HOST );
+if ( is_subdomain_install() ) {
+	$template_string = "<p>%s</p><p>.$base_url</p>";
+} else {
+	$template_string = "<p>$base_url/</p><p>%s</p>";
+}
+
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Clone', 'pressbooks' ); ?></h1>
@@ -12,6 +19,13 @@
 			<tr>
 				<th scope=row><?php _e( 'Source Book URL', 'pressbooks' ); ?></th>
 				<td><input class="regular-text code" name="source_book_url" type="url" /></td>
+			</tr>
+			<tr>
+				<th scope=row><?php _e( 'Target Book URL', 'pressbooks' ); ?></th>
+				<td><?php printf(
+					$template_string,
+					'<input class="regular-text code" name="target_book_url" />'
+				); ?></td>
 			</tr>
 		</table>
 	</form>

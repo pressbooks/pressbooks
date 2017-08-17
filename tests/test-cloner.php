@@ -83,4 +83,13 @@ class ClonerTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Cloner::isEnabled();
 		$this->assertTrue( is_bool( $result ) );
 	}
+
+	public function test_validateNewBookName() {
+		$result = \Pressbooks\Cloner::validateNewBookName( '12345' );
+		$this->assertTrue( is_wp_error( $result ) );
+		$result = \Pressbooks\Cloner::validateNewBookName( 'bad-name' );
+		$this->assertTrue( is_wp_error( $result ) );
+		$result = \Pressbooks\Cloner::validateNewBookName( 'newbook' );
+		$this->assertEquals( $result, 'example.org/newbook/' );
+	}
 }

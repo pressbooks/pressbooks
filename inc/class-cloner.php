@@ -137,7 +137,7 @@ class Cloner {
 	 * @param string $source_url The public URL of the source book.
 	 * @param string $target_url The public URL of the target book.
 	 */
-	public function __construct( $source_url, $target_url = null ) {
+	public function __construct( $source_url, $target_url ) {
 		// Disable SSL verification for development
 		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
 			$this->requestArgs['sslverify'] = false;
@@ -153,6 +153,11 @@ class Cloner {
 		if ( $target_url ) {
 			$this->targetBookUrl = esc_url( untrailingslashit( $target_url ) );
 			$this->targetBookId = $this->getBookId( $target_url );
+		}
+
+		// Set up $this->targetBookUrl and $this->targetBookId if set
+		if ( $target_name ) {
+			$this->targetBookName = $target_name;
 		}
 
 		// Include media utilities
@@ -178,6 +183,7 @@ class Cloner {
 		// Set up $this->sourceBookMetadata
 		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookMetadata ) ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			return false;
 		}
 
@@ -190,12 +196,14 @@ class Cloner {
 		// Set up $this->sourceBookStructure
 		$this->sourceBookStructure = $this->getBookStructure( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookStructure ) ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve contents and structure from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			return false;
 		}
 
 		// Set up $this->sourceBookTerms
 		$this->sourceBookTerms = $this->getBookTerms( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookTerms ) ) {
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve taxonomies from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
 			return false;
 		}
 
@@ -484,17 +492,11 @@ class Cloner {
 	protected function createBook() {
 		$host = wp_parse_url( network_home_url(), PHP_URL_HOST );
 		if ( is_subdomain_install() ) {
-			$domain = $this->getSubdomainOrSubDirectory( $this->sourceBookUrl ) . '.' . $host;
+			$domain = $this->getSubdomainOrSubDirectory( $this->targetBookUrl ) . '.' . $host;
 			$path = '/';
-			if ( get_blog_id_from_url( $domain, trailingslashit( $path ) ) ) {
-				$domain = $this->getSubdomainOrSubDirectory( $this->sourceBookUrl ) . strftime( '%Y%m%d%H%M%S' ) . '.' . $host;
-			}
 		} else {
 			$domain = $host;
-			$path = '/' . $this->getSubdomainOrSubDirectory( $this->sourceBookUrl );
-			if ( get_blog_id_from_url( $domain, trailingslashit( $path ) ) ) {
-				$path = $path . strftime( '%Y%m%d%H%M%S' );
-			}
+			$path = '/' . $this->getSubdomainOrSubDirectory( $this->targetBookUrl );
 		}
 
 		$title = $this->sourceBookMetadata['name'];
@@ -512,7 +514,7 @@ class Cloner {
 			return $result;
 		}
 
-		return false;  // TODO Error message
+		return false;
 	}
 
 	/**
@@ -941,6 +943,47 @@ class Cloner {
 	}
 
 	/**
+	 * Given a book name, see if we can use it to create a new book. Sort of like wpmu_validate_blog_signup().
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $blogname
+	 *
+	 * @return bool
+	 */
+	public static function validateNewBookName( $blogname ) {
+		global $wpdb, $domain;
+
+		$current_network = get_network();
+		$base = $current_network->path;
+		$illegal_names = get_site_option( 'illegal_names' );
+		$minimum_site_name_length = apply_filters( 'minimum_site_name_length', 4 );
+
+		if ( is_subdomain_install() ) {
+			$mydomain = $blogname . '.' . preg_replace( '|^www\.|', '', $domain );
+			$path = $base;
+		} else {
+			$illegal_names = array_merge( $illegal_names, get_subdirectory_reserved_names() );
+			$mydomain = "$domain";
+			$path = $base . $blogname . '/';
+		}
+		if ( preg_match( '/[^a-z0-9]+/', $blogname ) ) {
+			return new \WP_Error( 'blogname', __( 'Your book URL can only contain lowercase letters (a-z) and numbers.', 'pressbooks' ) );
+		} elseif ( preg_match( '/^[0-9]*$/', $blogname ) ) {
+			return new \WP_Error( 'blogname', __( 'Your book URL must contain at least some letters.', 'pressbooks' ) );
+		} elseif ( in_array( $blogname, $illegal_names, true ) ) {
+			return new \WP_Error( 'blogname', __( 'That book URL is not allowed.', 'pressbooks' ) );
+		} elseif ( strlen( $blogname ) < $minimum_site_name_length ) {
+			return new \WP_Error( 'blogname', sprintf( _n( 'Your book URL must be at least %s character.', 'Your book URL must be at least %s characters.', $minimum_site_name_length, 'pressbooks' ), number_format_i18n( $minimum_site_name_length ) ) );
+		} elseif ( ! is_subdomain_install() && $wpdb->get_var( $wpdb->prepare( "SELECT post_name FROM " . $wpdb->get_blog_prefix( $current_network->site_id ) . "posts WHERE post_type = 'page' AND post_name = %s", $blogname ) ) ) { // @codingStandardsIgnoreLine
+			return new \WP_Error( 'blogname', __( 'Sorry, you may not use that book URL.', 'pressbooks' ) );
+		} elseif ( domain_exists( $mydomain, $path, $current_network->id ) ) {
+			return new \WP_Error( 'blogname', __( 'Sorry, that book URL already exists!', 'pressbooks' ) );
+		}
+		return $mydomain . $path;
+	}
+
+	/**
 	 * @return bool
 	 */
 	public static function isEnabled() {
@@ -980,25 +1023,30 @@ class Cloner {
 		}
 
 		if ( isset( $_POST['_wpnonce'] ) && wp_verify_nonce( $_POST['_wpnonce'], 'pb-cloner' ) ) {
-			if ( isset( $_POST['source_book_url'] ) && ! empty( $_POST['source_book_url'] ) ) {
-				$cloner = new Cloner( esc_url( $_POST['source_book_url'] ) );
-				if ( $cloner->cloneBook() ) {
-					$_SESSION['pb_notices'][] = sprintf(
-						__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s.', 'pressbooks' ),
-						sprintf( _n( '%s term', '%s terms', count( getset( $cloner->clonedItems, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'terms', [] ) ) ),
-						sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloner->clonedItems, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'front-matter', [] ) ) ),
-						sprintf( _n( '%s part', '%s parts', count( getset( $cloner->clonedItems, 'parts', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'parts', [] ) ) ),
-						sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloner->clonedItems, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'cahpters', [] ) ) ),
-						sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloner->clonedItems, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'back-matter', [] ) ) ),
-						sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloner->clonedItems, 'media', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'media', [] ) ) ),
-						sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/', $cloner->sourceBookMetadata['name'] )
-					);
-				} elseif ( empty( $_SESSION['pb_errors'] ) ) {
-					$_SESSION['pb_errors'][] = __( 'Cloning failed.', 'pressbooks' );
+			if ( isset( $_POST['source_book_url'] ) && ! empty( $_POST['source_book_url'] ) && isset( $_POST['target_book_url'] ) && ! empty( $_POST['target_book_url'] ) ) {
+				$bookname = \Pressbooks\Cloner::validateNewBookName( $_POST['target_book_url'] );
+				if ( is_wp_error( $bookname ) ) {
+					$_SESSION['pb_errors'][] = $bookname->get_error_message();
+				} else {
+					$cloner = new Cloner( esc_url( $_POST['source_book_url'] ), $bookname );
+					if ( $cloner->cloneBook() ) {
+						$_SESSION['pb_notices'][] = sprintf(
+							__( 'Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s.', 'pressbooks' ),
+							sprintf( _n( '%s term', '%s terms', count( getset( $cloner->clonedItems, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'terms', [] ) ) ),
+							sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloner->clonedItems, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'front-matter', [] ) ) ),
+							sprintf( _n( '%s part', '%s parts', count( getset( $cloner->clonedItems, 'parts', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'parts', [] ) ) ),
+							sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloner->clonedItems, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'cahpters', [] ) ) ),
+							sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloner->clonedItems, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'back-matter', [] ) ) ),
+							sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloner->clonedItems, 'media', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'media', [] ) ) ),
+							sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/', $cloner->sourceBookMetadata['name'] )
+						);
+					} elseif ( empty( $_SESSION['pb_errors'] ) ) {
+						$_SESSION['pb_errors'][] = __( 'Cloning failed.', 'pressbooks' );
+					}
 				}
 				\Pressbooks\Redirect\location( admin_url( 'options.php?page=pb_cloner' ) );
 			} else {
-				$_SESSION['pb_errors'][] = __( 'You must enter a valid URL to a book on a Pressbooks network running Pressbooks 4.1 or greater.', 'pressbooks' );
+				$_SESSION['pb_errors'][] = __( 'You must enter a valid URL for a book on a Pressbooks network running Pressbooks 4.1 or greater as well as a new URL for your cloned book.', 'pressbooks' );
 			}
 		}
 	}
