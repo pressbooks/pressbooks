@@ -960,13 +960,15 @@ class Cloner {
 		$minimum_site_name_length = apply_filters( 'minimum_site_name_length', 4 );
 
 		if ( is_subdomain_install() ) {
-			$mydomain = $blogname . '.' . preg_replace( '|^www\.|', '', $domain );
+			$baredomain = wp_parse_url( preg_replace( '|^www\.|', '', $domain ), PHP_URL_HOST );
+			$mydomain = $blogname . '.' . $baredomain;
 			$path = $base;
 		} else {
 			$illegal_names = array_merge( $illegal_names, get_subdirectory_reserved_names() );
 			$mydomain = "$domain";
 			$path = $base . $blogname . '/';
 		}
+
 		if ( preg_match( '/[^a-z0-9]+/', $blogname ) ) {
 			return new \WP_Error( 'blogname', __( 'Your book URL can only contain lowercase letters (a-z) and numbers.', 'pressbooks' ) );
 		} elseif ( preg_match( '/^[0-9]*$/', $blogname ) ) {
