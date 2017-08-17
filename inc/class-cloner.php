@@ -837,7 +837,7 @@ class Cloner {
 		// Basename without query string
 		$filename = explode( '?', basename( $url ) );
 		$filename = array_shift( $filename );
-
+		$filename = explode( '#', $filename )[0]; // Remove trailing anchors
 		$filename = sanitize_file_name( urldecode( $filename ) );
 
 		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {

@@ -354,7 +354,7 @@ class Epub3 extends Epub201 {
 		// Basename without query string
 		$filename = explode( '?', basename( $url ) );
 		$filename = array_shift( $filename );
-
+		$filename = explode( '#', $filename )[0]; // Remove trailing anchors
 		$filename = sanitize_file_name( urldecode( $filename ) );
 		$filename = Sanitize\force_ascii( $filename );
 
