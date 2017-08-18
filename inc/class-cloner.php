@@ -155,11 +155,6 @@ class Cloner {
 			$this->targetBookId = $this->getBookId( $target_url );
 		}
 
-		// Set up $this->targetBookUrl and $this->targetBookId if set
-		if ( $target_name ) {
-			$this->targetBookName = $target_name;
-		}
-
 		// Include media utilities
 		if ( ! function_exists( 'media_handle_sideload' ) ) {
 			require_once( ABSPATH . 'wp-admin/includes/image.php' );
@@ -536,7 +531,7 @@ class Cloner {
 		if ( strpos( $book_information['pb_cover_image'], 'plugins/pressbooks/assets/dist/images/default-book-cover.jpg' ) === false ) {
 			$new_cover = $this->fetchAndSaveUniqueImage( $book_information['pb_cover_image'] );
 			if ( $new_cover ) {
-				$book_information['pb_cover_image'] = $new_cover;
+				$book_information['pb_cover_image'] = wp_get_attachment_url( $new_cover );
 			} else {
 				$book_information['pb_cover_image'] = default_cover_url();
 			}
