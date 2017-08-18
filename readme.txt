@@ -258,7 +258,7 @@ TK.
 Upon upgrading to Pressbooks 4.0, you will need to install the [Pressbooks Book](https://github.com/pressbooks/pressbooks-book) and [Pressbooks Publisher](https://github.com/pressbooks/pressbooks-publisher) themes along with any of our other open source [book themes](https://github.com/search?q=topic%3Abook-theme+org%3Apressbooks&type=Repositories) that were bundled with earlier versions of Pressbooks. For more information, see the [upgrading instructions](https://docs.pressbooks.org/upgrading).
 Pressbooks now requires [PHP >= 5.6](https://secure.php.net/supported-versions.php)
 
-Pressbooks now requires [WordPress 4.8.0](https://wordpress.org/download/).
+Pressbooks now requires [WordPress 4.8.1](https://wordpress.org/download/).
 
 Pressbooks now requires [PrinceXML 11](http://www.princexml.com/download/) for PDF exports.
 
