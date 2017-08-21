@@ -168,7 +168,7 @@ class Wxr extends Import {
 			$html = $doc->saveHTML( $dom );
 
 			// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-			$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], '', $html ) );
+			$html = \Pressbooks\Sanitize\strip_container_tags( $html );
 
 			if ( 'metadata' === $post_type ) {
 				$pid = $this->bookInfoPid();

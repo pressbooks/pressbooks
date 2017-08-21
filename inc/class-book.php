@@ -10,6 +10,8 @@
 
 namespace Pressbooks;
 
+use Masterminds\HTML5;
+
 class Book {
 
 	/**
@@ -468,8 +470,6 @@ class Book {
 	 */
 	static function getSubsections( $id ) {
 
-		libxml_use_internal_errors( true );
-
 		$parent = get_post( $id );
 		$type = $parent->post_type;
 		$output = [];
@@ -480,16 +480,13 @@ class Book {
 			return false;
 		}
 
-		$doc = new \DOMDocument();
-		$doc->loadHTML( $content );
-		$sections = $doc->getElementsByTagName( 'h1' );
+		$doc = new HTML5();
+		$dom = $doc->loadHTML( $content );
+		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
 			$s++;
 		}
-
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
 
 		if ( empty( $output ) ) {
 			return false;
@@ -507,8 +504,6 @@ class Book {
 	 */
 	static function tagSubsections( $content, $id ) {
 
-		libxml_use_internal_errors( true );
-
 		$s = 1;
 		$parent = get_post( $id );
 		$type = $parent->post_type;
@@ -519,27 +514,24 @@ class Book {
 			return false;
 		}
 
-		$doc = new \DOMDocument();
-		$doc->loadHTML( $content );
-		$sections = $doc->getElementsByTagName( 'h1' );
+		$doc = new HTML5();
+		$dom = $doc->loadHTML( $content );
+		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 			/** @var $section \DOMElement */
 			$section->setAttribute( 'id', $type . '-' . $id . '-section-' . $s++ );
 			$section->setAttribute( 'class', 'section-header' );
 		}
-		$xpath = new \DOMXPath( $doc );
+		$xpath = new \DOMXPath( $dom );
 		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 			foreach ( $nodes as $node ) {
 				/** @var $node \DOMElement */
 				$node->appendChild( new \DOMText( '' ) );
 			}
 		}
-		$html = $doc->saveXML( $doc->documentElement );
+		$html = $dom->saveXML( $dom->documentElement );
 
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
-
-		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], '', $html ) );
+		return \Pressbooks\Sanitize\strip_container_tags( $html );
 	}
 
 	/**

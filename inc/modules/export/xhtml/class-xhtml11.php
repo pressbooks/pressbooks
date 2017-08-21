@@ -496,7 +496,7 @@ class Xhtml11 extends Export {
 		}
 
 		$content = $html5->saveHTML( $dom );
-		$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], '', $content ) );
+		$content = \Pressbooks\Sanitize\strip_container_tags( $content );
 
 		return $content;
 	}

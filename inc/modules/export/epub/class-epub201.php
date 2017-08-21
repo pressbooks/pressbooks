@@ -1758,7 +1758,7 @@ class Epub201 extends Export {
 		$html = $dom->saveXML( $dom->documentElement );
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '<html xmlns="http://www.w3.org/1999/xhtml">', '</html>', '<body>', '</body>' ], '', $html ) );
+		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
 
 		// Mobi7 hacks
 		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
