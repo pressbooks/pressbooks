@@ -382,7 +382,7 @@ class Epub201 extends Import {
 	protected function regexSearchReplace( $html ) {
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$result = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $html ) );
+		$result = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], '', $html ) );
 
 		if ( true === $this->isPbEpub ) {
 			// Remove PB created div id (on EPUB201 Export) that will generate a princexml error on re-export

@@ -513,7 +513,7 @@ class Book {
 		$parent = get_post( $id );
 		$type = $parent->post_type;
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-		$content = str_replace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], [ '', '', '', '' ], $content );
+		$content = str_replace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 
 		if ( empty( $content ) ) {
 			return false;
@@ -539,7 +539,7 @@ class Book {
 		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
 		libxml_clear_errors();
 
-		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $html ) );
+		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], '', $html ) );
 	}
 
 	/**
