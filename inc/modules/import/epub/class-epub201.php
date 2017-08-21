@@ -7,6 +7,7 @@
 
 namespace Pressbooks\Modules\Import\Epub;
 
+use Masterminds\HTML5;
 use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
 
@@ -354,28 +355,19 @@ class Epub201 extends Import {
 	 */
 	protected function kneadHtml( $html, $type, $href ) {
 
-		libxml_use_internal_errors( true );
-
-		// Load HTMl snippet into DOMDocument using UTF-8 hack
-		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-		$doc = new \DOMDocument();
-		$doc->loadHTML( $utf8_hack . $html );
+		$doc = new HTML5();
+		$dom = $doc->loadHTML( $html );
 
 		// Download images, change to relative paths
-		$doc = $this->scrapeAndKneadImages( $doc, $href );
+		$dom = $this->scrapeAndKneadImages( $dom, $href );
 
 		// Deal with <a href="">, <a href=''>, and other mutations
-		$doc = $this->kneadHref( $doc, $type, $href );
+		$dom = $this->kneadHref( $dom, $type, $href );
 
-		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
-		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
-		$html = $doc->saveXML( $doc->documentElement );
+		$html = $doc->saveHTML( $dom );
 
 		// Clean up html
 		$html = $this->regexSearchReplace( $html );
-
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
 
 		return $html;
 	}
