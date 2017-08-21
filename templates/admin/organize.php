@@ -80,8 +80,12 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 				<table id="part-<?php echo $part['ID']; ?>" class="wp-list-table widefat fixed <?php echo $type_slug; ?>s" cellspacing="0">
 					<thead>
 						<tr>
-							<th>
+							<th class="has-row-actions">
 								<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php echo $part['post_title']; ?></a>
+								<div class="row-actions">
+									<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> | <?php if ( count( $book_structure['part'] ) > 1 ) : // Don't allow deletion of last remaining part. Bad things happen. ?> <a class="delete-link" href="<?php echo get_delete_post_link( $part['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Trash', 'pressbooks' ); ?></a> | <?php endif; ?> <a href="<?php echo get_permalink( $part['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
+								</div>
+
 							</th>
 							<th><?php _e( 'Author', 'pressbooks' ); ?></th>
 							<?php if ( false === $disable_comments ) : ?><th><?php _e( 'Comments', 'pressbooks' ); ?></th><?php endif; ?>
@@ -89,13 +93,6 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 							<th role="button"><?php _e( 'Private', 'pressbooks' ); ?></th>
 							<th role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
 							<th role="button"><?php _e( 'Export', 'pressbooks' ); ?></th>
-							<th>
-								<a href="<?php echo admin_url( 'post.php?post=' . $part['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a>
-								<?php if ( count( $book_structure['part'] ) > 1 ) : // Don't allow deletion of last remaining part. Bad things happen. ?>
-									<span class="sep"> &mdash; </span>
-									<a class="delete-link" href="<?php echo get_delete_post_link( $part['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
-								<?php endif; ?>
-							</th>
 						</tr>
 					</thead>
 
@@ -104,12 +101,16 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 					<tbody id="the-list">
 					<?php foreach ( $part['chapters'] as $content ) : ?>
 						<tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
-							<td class="title column-title">
-								<strong><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
+							<td class="title column-title has-row-actions">
+								<div class="row-title"><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
 								<?php echo $content['post_title']; ?>
 								<?php if ( get_post_meta( $content['ID'], 'pb_ebook_start', true ) ) { ?>
 									<span class="ebook-start-point" title="<?php _e( 'Ebook start point', 'pressbooks' ); ?>">&#9733;</span>
-								<?php } ?></a></strong>
+								<?php } ?></a>
+								<div class="row-actions">
+									<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> | <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Trash', 'pressbooks' ); ?></a> | <a href="<?php echo get_permalink( $content['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
+								</div>
+								</div>
 							</td>
 							<td class="author column-author">
 								<?php echo $content['post_author'] === $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; // @codingStandardsIgnoreLine ?>
@@ -130,9 +131,6 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 							<td class="export column-export">
 								<input class="<?php echo $type_abbr; ?>_export_check" type="checkbox" name="<?php echo $type_abbr; ?>-export[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_export_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_export', true ), 'on', true ); ?>/>
 							</td>
-							<td class="action column-action">
-								<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> &mdash; <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
-							</td>
 						</tr>
 					<?php endforeach; ?>
 					</tbody>
@@ -142,7 +140,6 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 							<?php if ( false === $disable_comments ) : ?><th>&nbsp;</th><?php endif; ?>
-							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
 							<th>&nbsp;</th>
@@ -165,19 +162,22 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 					<th role="button"><?php _e( 'Private', 'pressbooks' ); ?></th>
 					<th role="button"><?php _e( 'Show Title', 'pressbooks' ); ?></th>
 					<th role="button"><?php _e( 'Export', 'pressbooks' ); ?></th>
-					<th><?php _e( 'Edit', 'pressbooks' ); ?></th>
 				</tr>
 			</thead>
 
 			<tbody id="the-list">
 			<?php foreach ( $book_structure[ $type_slug ] as $content ) : ?>
 				<tr id="<?php echo $type_slug; ?>-<?php echo $content['ID']; ?>">
-					<td class="title column-title">
-						<strong><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
+					<td class="title column-title has-row-actions">
+						<div class="row-title"><a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>">
 						<?php echo $content['post_title']; ?>
 						<?php if ( get_post_meta( $content['ID'], 'pb_ebook_start', true ) ) { ?>
 							<span class="ebook-start-point" title="<?php _e( 'Ebook start point', 'pressbooks' ); ?>">&#9733;</span>
-						<?php } ?></a></strong>
+						<?php } ?></a>
+						<div class="row-actions">
+							<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> | <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Trash', 'pressbooks' ); ?></a> | <a href="<?php echo get_permalink( $content['ID'] ); ?>"><?php _e( 'View', 'pressbooks' ); ?></a>
+						</div>
+						</div>
 					</td>
 					<td class="author column-author">
 						<?php echo $content['post_author'] == $user_ID ? 'You' : get_userdata( $content['post_author'] )->display_name; // @codingStandardsIgnoreLine ?>
@@ -198,9 +198,6 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 					<td class="export column-export">
 						<input class="<?php echo $type_abbr; ?>_export_check" type="checkbox" name="<?php echo $type_abbr; ?>-export[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_export_<?php echo $content['ID']; ?>" <?php checked( get_post_meta( $content['ID'], 'pb_export', true ), 'on', true ); ?>/>
 					</td>
-					<td class="action column-action">
-						<a href="<?php echo admin_url( 'post.php?post=' . $content['ID'] . '&action=edit' ); ?>"><?php _e( 'Edit', 'pressbooks' ); ?></a> &mdash; <a class="delete-link" href="<?php echo get_delete_post_link( $content['ID'] ); ?>" onclick="if ( !confirm( '<?php _e( 'Are you sure you want to delete this?', 'pressbooks' ); ?>' ) ) { return false }"><?php _e( 'Delete', 'pressbooks' ); ?></a>
-					</td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>
@@ -212,8 +209,8 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
 					<th>&nbsp;</th>
-					<th>&nbsp;</th>
-					<th><a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $type_name; ?></a>
+					<th>
+						<a href="<?php echo admin_url( 'post-new.php?post_type=' . $type_slug ); ?>" class="button"><?php _e( 'Add', 'pressbooks' ); ?> <?php echo $type_name; ?></a>
 					</th>
 				</tr>
 			</tfoot>
