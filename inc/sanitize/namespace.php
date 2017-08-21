@@ -13,6 +13,8 @@ namespace Pressbooks\Sanitize;
  * Example: <aside>Howdy</aside> will become <div class="bc-aside aside">Howdy</div> (bc = Backward Compatible)
  * This function is used by htmLawed's hook.
  *
+ * @deprecated htmLawed has HTML5 support since version 1.2
+ *
  * @param string $html
  * @param array $config (optional)
  * @param array $spec (optional) Extra HTML specifications using the $spec parameter
