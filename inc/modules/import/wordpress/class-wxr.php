@@ -6,6 +6,7 @@
 
 namespace Pressbooks\Modules\Import\WordPress;
 
+use Masterminds\HTML5;
 use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
 
@@ -147,8 +148,6 @@ class Wxr extends Import {
 			}
 		}
 
-		libxml_use_internal_errors( true );
-
 		foreach ( $xml['posts'] as $p ) {
 
 			// Skip
@@ -162,15 +161,11 @@ class Wxr extends Import {
 			// Insert
 			$post_type = $this->determinePostType( $p['post_id'] );
 
-			// Load HTMl snippet into DOMDocument using UTF-8 hack
-			$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-			$doc = new \DOMDocument();
-			$doc->loadHTML( $utf8_hack . $this->tidy( $p['post_content'] ) );
-
-			// Download images, change image paths
-			$doc = $this->scrapeAndKneadImages( $doc );
-
-			$html = $doc->saveXML( $doc->documentElement );
+			$doc = new HTML5();
+			$html = $this->tidy( wpautop( $p['post_content'] ) );
+			$dom = $doc->loadHtml( $html );
+			$dom = $this->scrapeAndKneadImages( $dom );
+			$html = $doc->saveHTML( $dom );
 
 			// Remove auto-created <html> <body> and <!DOCTYPE> tags.
 			$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $html ) );
@@ -209,9 +204,6 @@ class Wxr extends Import {
 				++$totals[ $post_type ];
 			}
 		}
-
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
 
 		// Done
 		$_SESSION['pb_notices'][] =
