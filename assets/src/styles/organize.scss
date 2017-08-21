@@ -50,10 +50,18 @@ body.chapter_page_pressbooks {
       color: $torch-red;
     }
 
+    .row-actions {
+      font-weight: normal;
+    }
+
     thead {
       tr {
         th {
           font-weight: bold;
+
+          &:first-child {
+            width: 20%;
+          }
         }
       }
     }
@@ -61,11 +69,19 @@ body.chapter_page_pressbooks {
     tbody {
       tr {
         td {
-          vertical-align: middle;
+          vertical-align: top;
 
           span.comment-count {
             width: auto !important;
             float: none;
+          }
+
+          &.column-comments {
+            padding: 8px 10px;
+          }
+
+          &:first-child {
+            width: 20%;
           }
         }
 
