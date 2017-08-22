@@ -486,6 +486,7 @@ class Xhtml11 extends Export {
 
 		$urls = $dom->getElementsByTagName( 'a' );
 		foreach ( $urls as $url ) {
+			/** @var \DOMElement $url */
 			// Is this the the attributionUrl?
 			if ( $url->getAttribute( 'rel' ) === 'cc:attributionURL' ) {
 				$url->parentNode->replaceChild(
@@ -534,8 +535,6 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoDocType( $book_contents, $metadata ) {
 
-		$lang = isset( $metadata['pb_language'] ) ? $metadata['pb_language'] : 'en';
-
 		echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">' . "\n";
 		echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $this->lang . '">' . "\n";
@@ -556,7 +555,6 @@ class Xhtml11 extends Export {
 			printf( '<meta name="%s" content="%s" />', $name, $content );
 			echo "\n";
 		}
-
 	}
 
 
@@ -627,7 +625,6 @@ class Xhtml11 extends Export {
 		echo '<div id="half-title-page">';
 		echo '<h1 class="title">' . get_bloginfo( 'name' ) . '</h1>';
 		echo '</div>' . "\n";
-
 	}
 
 
@@ -925,7 +922,6 @@ class Xhtml11 extends Export {
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s%s';
 		$front_matter_printf .= '</div>';
 
-		$s = 1;
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -1019,7 +1015,7 @@ class Xhtml11 extends Export {
 		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s%s';
 		$chapter_printf .= '</div>';
 
-		$s = $i = $j = 1;
+		$i = $j = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';

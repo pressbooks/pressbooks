@@ -58,6 +58,23 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'pb.unknown', $result );
 	}
 
+	public function test_get_dpi() {
 
+		$file = __DIR__ . '/data/template.php';
+		$dpi = \Pressbooks\Image\get_dpi( $file );
+		$this->assertEquals( false, $dpi );
+
+		$file = __DIR__ . '/data/pb.png';
+		$dpi = \Pressbooks\Image\get_dpi( $file );
+		$this->assertEquals( false, $dpi );
+
+		$file = __DIR__ . '/data/mountains.jpg';
+		$dpi = \Pressbooks\Image\get_dpi( $file );
+		$this->assertEquals( 300, $dpi );
+
+		$file = __DIR__ . '/data/mountains.jpg';
+		$dpi = \Pressbooks\Image\get_dpi( $file, true );
+		$this->assertEquals( 300, $dpi );
+	}
 
 }

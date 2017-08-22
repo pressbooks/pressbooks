@@ -531,3 +531,33 @@ function proper_image_extension( $path_to_file, $filename ) {
 		return $filename;
 	}
 }
+
+/**
+ * Get image DPI
+ *
+ * @param $path_to_file
+ * @param bool $force_exif (optional)
+ *
+ * @return float|false
+ */
+function get_dpi( $path_to_file, $force_exif = false ) {
+
+	if ( extension_loaded( 'imagick' ) && $force_exif === false ) {
+		try {
+			$image = new \Imagick( $path_to_file );
+			$res = $image->getImageResolution();
+			if ( isset( $res['x'], $res['y'] ) && $res['x'] === $res['y'] ) {
+				$dpi = (float) $res['x'];
+			}
+		} catch ( \Exception $e ) {
+			return false;
+		}
+	} else {
+		$exif = @exif_read_data( $path_to_file ); // @codingStandardsIgnoreLine
+		if ( isset( $exif['XResolution'], $exif['YResolution'] ) && $exif['XResolution'] === $exif['YResolution'] ) {
+			$dpi = (float) $exif['XResolution'];
+		}
+	}
+
+	return ! empty( $dpi ) ? $dpi : false;
+}
