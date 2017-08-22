@@ -471,6 +471,9 @@ class Book {
 	static function getSubsections( $id ) {
 
 		$parent = get_post( $id );
+		if ( empty( $parent ) ) {
+			return false;
+		}
 		$type = $parent->post_type;
 		$output = [];
 		$s = 1;
@@ -499,13 +502,17 @@ class Book {
 	 * Returns chapter, front or back matter content with section ID and classes added.
 	 *
 	 * @param string $content
+	 * @param int $id
 	 *
-	 * @return string
+	 * @return string|false
 	 */
 	static function tagSubsections( $content, $id ) {
 
 		$s = 1;
 		$parent = get_post( $id );
+		if ( empty( $parent ) ) {
+			return false;
+		}
 		$type = $parent->post_type;
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
 		$content = str_replace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
