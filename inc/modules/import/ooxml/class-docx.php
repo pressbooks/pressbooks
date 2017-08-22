@@ -243,7 +243,7 @@ class Docx extends Import {
 	protected function kneadAndInsert( $html, $title, $post_type, $chapter_parent, $post_status ) {
 
 		$body = $this->tidy( $html );
-		$body = $this->kneadHTML( $body );
+		$body = $this->kneadXML( $body );
 
 		$title = wp_strip_all_tags( $title );
 
@@ -273,7 +273,7 @@ class Docx extends Import {
 	 *
 	 * @return string - modified with correct image paths
 	 */
-	protected function kneadHTML( $body ) {
+	protected function kneadXML( $body ) {
 
 		libxml_use_internal_errors( true );
 
