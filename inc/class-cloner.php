@@ -602,7 +602,7 @@ class Cloner {
 		unset( $html5, $dom, $media ); // premature optimization, try to free up memory
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$content = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], '', $content ) );
+		$content = \Pressbooks\Sanitize\strip_container_tags( $content );
 
 		// Set title and content
 		$section['title'] = $section['title']['rendered'];

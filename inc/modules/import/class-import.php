@@ -137,7 +137,11 @@ abstract class Import {
 			return false;
 		}
 
-		if ( ! isset( $chapters[ $id ] ) && ! isset( $chapters[ $id ]['import'] ) ) {
+		if ( ! isset( $chapters[ $id ] ) ) {
+			return false;
+		}
+
+		if ( ! isset( $chapters[ $id ]['import'] ) ) {
 			return false;
 		}
 

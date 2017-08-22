@@ -10,6 +10,8 @@
 
 namespace Pressbooks;
 
+use Masterminds\HTML5;
+
 class Book {
 
 	/**
@@ -468,9 +470,10 @@ class Book {
 	 */
 	static function getSubsections( $id ) {
 
-		libxml_use_internal_errors( true );
-
 		$parent = get_post( $id );
+		if ( empty( $parent ) ) {
+			return false;
+		}
 		$type = $parent->post_type;
 		$output = [];
 		$s = 1;
@@ -480,16 +483,13 @@ class Book {
 			return false;
 		}
 
-		$doc = new \DOMDocument();
-		$doc->loadHTML( $content );
-		$sections = $doc->getElementsByTagName( 'h1' );
+		$doc = new HTML5();
+		$dom = $doc->loadHTML( $content );
+		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 			$output[ $type . '-' . $id . '-section-' . $s ] = $section->textContent;
 			$s++;
 		}
-
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
 
 		if ( empty( $output ) ) {
 			return false;
@@ -502,44 +502,43 @@ class Book {
 	 * Returns chapter, front or back matter content with section ID and classes added.
 	 *
 	 * @param string $content
+	 * @param int $id
 	 *
-	 * @return string
+	 * @return string|false
 	 */
 	static function tagSubsections( $content, $id ) {
 
-		libxml_use_internal_errors( true );
-
 		$s = 1;
 		$parent = get_post( $id );
+		if ( empty( $parent ) ) {
+			return false;
+		}
 		$type = $parent->post_type;
 		$content = mb_convert_encoding( $content, 'HTML-ENTITIES', 'UTF-8' );
-		$content = str_replace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], [ '', '', '', '' ], $content );
+		$content = str_replace( [ '<b></b>', '<i></i>', '<strong></strong>', '<em></em>' ], '', $content );
 
 		if ( empty( $content ) ) {
 			return false;
 		}
 
-		$doc = new \DOMDocument();
-		$doc->loadHTML( $content );
-		$sections = $doc->getElementsByTagName( 'h1' );
+		$doc = new HTML5();
+		$dom = $doc->loadHTML( $content );
+		$sections = $dom->getElementsByTagName( 'h1' );
 		foreach ( $sections as $section ) {
 			/** @var $section \DOMElement */
 			$section->setAttribute( 'id', $type . '-' . $id . '-section-' . $s++ );
 			$section->setAttribute( 'class', 'section-header' );
 		}
-		$xpath = new \DOMXPath( $doc );
+		$xpath = new \DOMXPath( $dom );
 		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 			foreach ( $nodes as $node ) {
 				/** @var $node \DOMElement */
 				$node->appendChild( new \DOMText( '' ) );
 			}
 		}
-		$html = $doc->saveXML( $doc->documentElement );
+		$html = $dom->saveXML( $dom->documentElement );
 
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
-
-		return preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $html ) );
+		return \Pressbooks\Sanitize\strip_container_tags( $html );
 	}
 
 	/**

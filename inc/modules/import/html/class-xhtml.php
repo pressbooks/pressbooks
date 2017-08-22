@@ -7,6 +7,7 @@
 
 namespace Pressbooks\Modules\Import\Html;
 
+use Masterminds\HTML5;
 use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
 
@@ -174,19 +175,10 @@ class Xhtml extends Import {
 
 		if ( ! empty( $matches[1] ) ) {
 
-			// dom it up
-			libxml_use_internal_errors( true );
+			$doc = new HTML5();
+			$dom = $doc->loadHTML( $matches[1] );
 
-			// Load HTMl snippet into DOMDocument using UTF-8 hack
-			$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-			$doc = new \DOMDocument();
-
-			$doc->loadHTML( $utf8_hack . $matches[1] );
-
-			$meta = $this->scrapeAndKneadMeta( $doc );
-
-			$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-			libxml_clear_errors();
+			$meta = $this->scrapeAndKneadMeta( $dom );
 		}
 		return $meta;
 	}
@@ -282,23 +274,16 @@ class Xhtml extends Import {
 	 */
 	function kneadHtml( $html, $type, $domain ) {
 
-		libxml_use_internal_errors( true );
-
-		// Load HTMl snippet into DOMDocument using UTF-8 hack
-		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-		$doc = new \DOMDocument();
-
-		$doc->loadHTML( $utf8_hack . $html );
+		$doc = new HTML5();
+		$dom = $doc->loadHTML( $html );
 
 		// Download images, change relative paths to absolute
-		$doc = $this->scrapeAndKneadImages( $doc, $domain );
+		$dom = $this->scrapeAndKneadImages( $dom, $domain );
 
-		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
-		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
-		$html = $doc->saveXML( $doc->documentElement );
+		$html = $doc->saveHTML( $dom );
 
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
+		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
+		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
 
 		return $html;
 	}
@@ -513,7 +498,6 @@ class Xhtml extends Import {
 			'safe' => 1,
 			'valid_xhtml' => 1,
 			'no_deprecated_attr' => 2,
-			'hook' => '\Pressbooks\Sanitize\html5_to_xhtml11',
 		];
 
 		return \Pressbooks\HtmLawed::filter( $html, $config );

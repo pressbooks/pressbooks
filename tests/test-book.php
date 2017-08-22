@@ -143,4 +143,34 @@ class BookTest extends \WP_UnitTestCase {
 		$this->assertEquals( 0, $wc_selected_for_export );
 	}
 
+	public function test_getSubsections() {
+		$this->_book();
+		$book = \Pressbooks\Book::getInstance();
+
+		$test = "<h1>Hi there!<b></b></h1><p>How are you?</p>";
+		$result = $book::getSubsections( 0 );
+		$this->assertEquals( false, $result );
+
+		$id = $book::getBookStructure()['front-matter'][0]['ID'];
+		$this->factory()->post->update_object( $id, [ 'post_content' => $test ] );
+		$result = $book::getSubsections( $id );
+		$this->assertArrayHasKey( "front-matter-{$id}-section-1", $result );
+		$this->assertEquals( 'Hi there!', $result["front-matter-{$id}-section-1"] );
+	}
+
+	public function test_tagSubsections() {
+
+		$this->_book();
+		$book = \Pressbooks\Book::getInstance();
+
+		$test = "<h1>Hi there!<b></b></h1><p>How are you?.</p>";
+		$result = $book::tagSubsections( $test, 0 );
+		$this->assertEquals( false, $result );
+
+		$id = $book::getBookStructure()['front-matter'][0]['ID'];
+		$result = $book::tagSubsections( $test, $id );
+		$this->assertContains( "<h1 id=\"front-matter-{$id}-section-1", $result );
+		$this->assertNotContains( '<b></b>', $result );
+	}
+
 }

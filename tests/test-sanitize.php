@@ -248,4 +248,36 @@ class SanitizeTest extends \WP_UnitTestCase {
 		$this->assertEquals( $file, 'フランス語.txt' );
 	}
 
+	public function test_strip_container_tags() {
+
+		$test = '<HTML><div id="title-page"><h1 class="title">My Test Book</h1></div></HTML>';
+		$result = \Pressbooks\Sanitize\strip_container_tags( $test );
+		$this->assertEquals( '<div id="title-page"><h1 class="title">My Test Book</h1></div>', $result );
+
+		$test = '<html xmlns="http://www.w3.org/1999/xhtml"><div id="title-page"><h1 class="title">My Test Book</h1></div></html>';
+		$result = \Pressbooks\Sanitize\strip_container_tags( $test );
+		$this->assertEquals( '<div id="title-page"><h1 class="title">My Test Book</h1></div>', $result );
+
+		$test = '<?xml version="1.0"?><!DOCTYPE html>';
+		$result = \Pressbooks\Sanitize\strip_container_tags( $test );
+		$this->assertEquals( '', $result );
+
+		$test = <<< TERRIBLE
+<html
+lang="en-US"
+xmlns="http://www.w3.org/1999/xhtml"
+><body
+><p>:(</p></body
+></html
+>
+TERRIBLE;
+
+		$result = \Pressbooks\Sanitize\strip_container_tags( $test );
+		$this->assertEquals( '<p>:(</p>', $result );
+
+		$test = '<p>No change</p>';
+		$result = \Pressbooks\Sanitize\strip_container_tags( $test );
+		$this->assertEquals( '<p>No change</p>', $result );
+	}
+
 }

@@ -9,6 +9,7 @@
 
 namespace Pressbooks\Modules\Export\Epub;
 
+use Masterminds\HTML5;
 use Pressbooks\Modules\Export\Export;
 use Pressbooks\Container;
 use Pressbooks\Sanitize;
@@ -1724,24 +1725,20 @@ class Epub201 extends Export {
 	 */
 	protected function kneadHtml( $html, $type, $pos = 0 ) {
 
-		libxml_use_internal_errors( true );
-
-		// Load HTML snippet into DOMDocument using UTF-8 hack
-		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
-		$doc = new \DOMDocument();
-		$doc->loadHTML( $utf8_hack . $html );
+		$doc = new HTML5();
+		$dom = $doc->loadHTML( $html );
 
 		// Download images, change to relative paths
-		$doc = $this->scrapeAndKneadImages( $doc );
+		$dom = $this->scrapeAndKneadImages( $dom );
 
 		// Download audio files, change to relative paths
-		$doc = $this->scrapeAndKneadMedia( $doc );
+		$dom = $this->scrapeAndKneadMedia( $dom );
 
 		// Deal with <a href="">, <a href=''>, and other mutations
-		$doc = $this->kneadHref( $doc, $type, $pos );
+		$dom = $this->kneadHref( $dom, $type, $pos );
 
 		// Make sure empty tags (e.g. <b></b>) don't get turned into self-closing versions by adding an empty text node to them.
-		$xpath = new \DOMXPath( $doc );
+		$xpath = new \DOMXPath( $dom );
 		while ( ( $nodes = $xpath->query( '//*[not(text() or node() or self::br or self::hr or self::img)]' ) ) && $nodes->length > 0 ) {
 			foreach ( $nodes as $node ) {
 				/** @var \DOMElement $node */
@@ -1758,16 +1755,14 @@ class Epub201 extends Export {
 
 		// If you are storing multi-byte characters in XML, then saving the XML using saveXML() will create problems.
 		// Ie. It will spit out the characters converted in encoded format. Instead do the following:
-		$html = $doc->saveXML( $doc->documentElement );
+		$html = $dom->saveXML( $dom->documentElement );
 
 		// Remove auto-created <html> <body> and <!DOCTYPE> tags.
-		$html = preg_replace( '/^<!DOCTYPE.+?>/', '', str_replace( [ '<html>', '</html>', '<body>', '</body>' ], [ '', '', '', '' ], $html ) );
+		$html = \Pressbooks\Sanitize\strip_container_tags( $html );
 
 		// Mobi7 hacks
-		$html = $this->transformXML( $utf8_hack . "<html>$html</html>", $this->dir . '/templates/epub201/mobi-hacks.xsl' );
-
-		$errors = libxml_get_errors(); // TODO: Handle errors gracefully
-		libxml_clear_errors();
+		$utf8_hack = '<?xml version="1.0" encoding="UTF-8"?>';
+		$html = $this->transformXML( "{$utf8_hack }<html>{$html}</html>", $this->dir . '/templates/epub201/mobi-hacks.xsl' );
 
 		return $html;
 	}

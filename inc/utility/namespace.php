@@ -783,6 +783,17 @@ function template( $path, array $vars = [] ) {
 	return $output;
 }
 
+/**
+ * If we get error code 400, retry wp_remote_get()
+ *
+ * @param string $url
+ * @param array $args
+ * @param int $retry
+ * @param int $attempts
+ * @param array $response
+ *
+ * @return array|\WP_Error
+ */
 function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [] ) {
 	$completed = false;
 
