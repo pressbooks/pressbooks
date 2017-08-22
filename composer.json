@@ -36,7 +36,8 @@
     "vanilla/htmlawed": "v2.2.1.1",
     "pressbooks/mix": "~2.0.0",
     "pressbooks/pb-cli": "^1.5",
-    "masterminds/html5": "^2.2"
+    "masterminds/html5": "^2.2",
+    "yahnis-elsts/plugin-update-checker": "^4.2"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.5",
