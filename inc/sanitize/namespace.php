@@ -469,8 +469,15 @@ function clean_filename( $file ) {
  * @return string
  */
 function strip_container_tags( $html ) {
+	// Strip all
+	$strip_list = [ 'html', 'body' ];
+	foreach ( $strip_list as $tag ) {
+		$html = preg_replace( '/<\/?' . $tag . '(.|\s)*?>/im', '', $html );
+	}
+	// Strip <?xml (limit 1)
+	$html = preg_replace( '/<\?xml.*>/im', '', $html, 1 );
+	// Strip <!DOCTYPE (limit 1)
+	$html = preg_replace( '/<!DOCTYPE.*>/im', '', $html, 1 );
 
-	$html = str_replace( [ '<html>', '<html xmlns="http://www.w3.org/1999/xhtml">', '</html>', '<body>', '</body>' ], '', $html );
-	$html = preg_replace( '/^<!DOCTYPE.+?>/im', '', $html );
 	return (string) $html;
 }
