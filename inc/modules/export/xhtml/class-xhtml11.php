@@ -157,6 +157,8 @@ class Xhtml11 extends Export {
 
 	/**
 	 * Procedure for "format/xhtml" rewrite rule.
+	 *
+	 * @see \Pressbooks\Redirect\do_format
 	 */
 	function transform() {
 
@@ -187,6 +189,8 @@ class Xhtml11 extends Export {
 		if ( isset( $metadata['pb_language'] ) ) {
 			list( $this->lang ) = explode( '-', $metadata['pb_language'] );
 		}
+
+		ob_start();
 
 		$this->echoDocType( $book_contents, $metadata );
 
@@ -248,6 +252,10 @@ class Xhtml11 extends Export {
 
 		// XHTML, Stop!
 		echo "</body>\n</html>";
+
+		$buffer = ob_get_clean();
+
+		echo $buffer;
 	}
 
 
@@ -436,6 +444,9 @@ class Xhtml11 extends Export {
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
 		$content = $this->switchLaTexFormat( $content );
+		if ( ! empty( $_GET['fullsize-images'] ) ) {
+			$content = $this->fixImages( $content );
+		}
 		$content = $this->tidy( $content );
 
 		return $content;
@@ -498,6 +509,47 @@ class Xhtml11 extends Export {
 
 		$content = $html5->saveHTML( $dom );
 		$content = \Pressbooks\Sanitize\strip_container_tags( $content );
+
+		return $content;
+	}
+
+	/**
+	 * Replace every image with the bigger original image
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	protected function fixImages( $content ) {
+
+		// Cheap cache
+		static $already_done = [];
+
+		$changed = false;
+		$html5 = new HTML5();
+		$dom = $html5->loadHTML( $content );
+
+		$images = $dom->getElementsByTagName( 'img' );
+		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
+			$old_src = $image->getAttribute( 'src' );
+			if ( isset( $already_done[ $old_src ] ) ) {
+				$new_src = $already_done[ $old_src ];
+			} else {
+				$new_src = \Pressbooks\Image\maybe_swap_with_bigger( $old_src );
+			}
+			if ( $old_src !== $new_src ) {
+				$image->setAttribute( 'src', $new_src );
+				$image->removeAttribute( 'srcset' );
+				$changed = true;
+			}
+			$already_done[ $old_src ] = $new_src;
+		}
+
+		if ( $changed ) {
+			$content = $html5->saveHTML( $dom );
+			$content = \Pressbooks\Sanitize\strip_container_tags( $content );
+		}
 
 		return $content;
 	}

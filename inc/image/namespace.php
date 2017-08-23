@@ -637,7 +637,7 @@ function is_bigger_version( $smaller, $bigger ) {
 }
 
 /**
- * Change image URL to a bigger version (if we can find one)
+ * Change image URL to bigger original version (if we can find it)
  *
  * @param string $url
  *
