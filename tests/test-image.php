@@ -76,12 +76,12 @@ class ImageTest extends \WP_UnitTestCase {
 		$dpi = \Pressbooks\Image\get_dpi( $file, true );
 		$this->assertEquals( 300, $dpi );
 
-		$file = __DIR__ . '/data/skates.jpg';
-		$dpi = \Pressbooks\Image\get_dpi( $file );
-		$this->assertEquals( 72, $dpi );
+		$file = __DIR__ . '/data/DosenmoorBirken1.jpg';
+		$dpi = \Pressbooks\Image\get_dpi( $file, true );
+		$this->assertEquals( 300, $dpi );
 
 		$file = __DIR__ . '/data/skates.jpg';
-		$dpi = \Pressbooks\Image\get_dpi( $file, true );
+		$dpi = \Pressbooks\Image\get_dpi( $file );
 		$this->assertEquals( 72, $dpi );
 	}
 
@@ -109,7 +109,7 @@ class ImageTest extends \WP_UnitTestCase {
 
 		$file = __DIR__ . '/data/DosenmoorBirken1.jpg';
 		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
-		$this->assertEquals( '121:81', $aspect_ratio );
+		$this->assertEquals( '1024:685', $aspect_ratio );
 	}
 
 	public function test_is_similar() {
