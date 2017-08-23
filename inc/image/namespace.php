@@ -561,3 +561,31 @@ function get_dpi( $path_to_file, $force_exif = false ) {
 
 	return ! empty( $dpi ) ? $dpi : false;
 }
+
+/**
+ * Greatest common divisor
+ *
+ * @param int $a
+ * @param int $b
+ *
+ * @return int
+ */
+function gcd( $a, $b ) {
+	return ( $a % $b ) ? gcd( $b, $a % $b ) : $b;
+}
+
+/**
+ * Get image aspect ratio
+ *
+ * @param string $path_to_file
+ *
+ * @return string|false
+ */
+function get_aspect_ratio( $path_to_file ) {
+	list( $x, $y ) = @getimagesize( $path_to_file ); // @codingStandardsIgnoreLine
+	if ( empty( $x ) || empty( $y ) ) {
+		return false;
+	}
+	$gcd = gcd( $x, $y );
+	return ( $x / $gcd ) . ':' . ( $y / $gcd );
+}

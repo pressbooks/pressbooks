@@ -75,6 +75,33 @@ class ImageTest extends \WP_UnitTestCase {
 		$file = __DIR__ . '/data/mountains.jpg';
 		$dpi = \Pressbooks\Image\get_dpi( $file, true );
 		$this->assertEquals( 300, $dpi );
+
+		$file = __DIR__ . '/data/skates.jpg';
+		$dpi = \Pressbooks\Image\get_dpi( $file );
+		$this->assertEquals( 72, $dpi );
+
+		$file = __DIR__ . '/data/skates.jpg';
+		$dpi = \Pressbooks\Image\get_dpi( $file, true );
+		$this->assertEquals( 72, $dpi );
+	}
+
+	public function test_get_aspect_ratio() {
+
+		$file = __DIR__ . '/data/template.php';
+		$dpi = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( false, $dpi );
+
+		$file = __DIR__ . '/data/pb.png';
+		$dpi = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '1:1', $dpi );
+
+		$file = __DIR__ . '/data/mountains.jpg';
+		$dpi = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '4:3', $dpi );
+
+		$file = __DIR__ . '/data/skates.jpg';
+		$dpi = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '3:4', $dpi );
 	}
 
 }
