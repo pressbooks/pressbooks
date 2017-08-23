@@ -121,6 +121,19 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertTrue( $distance > 0 );
 	}
 
+	public function test_is_bigger_version() {
+
+		$mountains = __DIR__ . '/data/mountains.jpg';
+		$file1 = __DIR__ . '/data/template.php';
+		$file2 = __DIR__ . '/data/pb.png';
+		$file3 = __DIR__ . '/data/mountains-300x225.jpg';
+
+		$this->assertFalse( \Pressbooks\Image\is_bigger_version( $file1, $mountains ) );
+		$this->assertFalse( \Pressbooks\Image\is_bigger_version( $file2, $mountains ) );
+		$this->assertFalse( \Pressbooks\Image\is_bigger_version( $mountains, $file3 ) );
+		$this->assertTrue( \Pressbooks\Image\is_bigger_version( $file3, $mountains ) );
+	}
+
 	public function test_swap_with_bigger_version() {
 		$id = $this->factory()->attachment->create_upload_object( __DIR__ . '/data/mountains.jpg' );
 
