@@ -470,7 +470,7 @@ class Epub201 extends Export {
 
 		// Cleanup temporary directory, if any
 		if ( ! empty( $this->tmpDir ) ) {
-			$this->obliterateDir( $this->tmpDir );
+			rmrdir( $this->tmpDir );
 		}
 	}
 
