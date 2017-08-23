@@ -920,6 +920,22 @@ function str_ends_with( $haystack, $needle ) {
 	return ( substr( $haystack, -$length ) === $needle );
 }
 
+/**
+ * Replace last occurrence of a String
+ *
+ * @param string $search
+ * @param string $replace
+ * @param string  $subject
+ *
+ * @return string
+ */
+function str_lreplace( $search, $replace, $subject ) {
+	$pos = strrpos( $subject, $search );
+	if ( $pos !== false ) {
+		$subject = substr_replace( $subject, $replace, $pos, strlen( $search ) );
+	}
+	return (string) $subject;
+}
 
 /**
  * @param string $content

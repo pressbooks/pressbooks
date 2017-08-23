@@ -157,6 +157,8 @@ class Xhtml11 extends Export {
 
 	/**
 	 * Procedure for "format/xhtml" rewrite rule.
+	 *
+	 * @see \Pressbooks\Redirect\do_format
 	 */
 	function transform() {
 
@@ -187,6 +189,8 @@ class Xhtml11 extends Export {
 		if ( isset( $metadata['pb_language'] ) ) {
 			list( $this->lang ) = explode( '-', $metadata['pb_language'] );
 		}
+
+		ob_start();
 
 		$this->echoDocType( $book_contents, $metadata );
 
@@ -248,6 +252,10 @@ class Xhtml11 extends Export {
 
 		// XHTML, Stop!
 		echo "</body>\n</html>";
+
+		$buffer = ob_get_clean();
+
+		echo $buffer;
 	}
 
 
@@ -436,6 +444,9 @@ class Xhtml11 extends Export {
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
 		$content = $this->switchLaTexFormat( $content );
+		if ( ! empty( $_GET['fullsize-images'] ) ) {
+			$content = $this->fixImages( $content );
+		}
 		$content = $this->tidy( $content );
 
 		return $content;
@@ -486,6 +497,7 @@ class Xhtml11 extends Export {
 
 		$urls = $dom->getElementsByTagName( 'a' );
 		foreach ( $urls as $url ) {
+			/** @var \DOMElement $url */
 			// Is this the the attributionUrl?
 			if ( $url->getAttribute( 'rel' ) === 'cc:attributionURL' ) {
 				$url->parentNode->replaceChild(
@@ -497,6 +509,47 @@ class Xhtml11 extends Export {
 
 		$content = $html5->saveHTML( $dom );
 		$content = \Pressbooks\Sanitize\strip_container_tags( $content );
+
+		return $content;
+	}
+
+	/**
+	 * Replace every image with the bigger original image
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	protected function fixImages( $content ) {
+
+		// Cheap cache
+		static $already_done = [];
+
+		$changed = false;
+		$html5 = new HTML5();
+		$dom = $html5->loadHTML( $content );
+
+		$images = $dom->getElementsByTagName( 'img' );
+		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
+			$old_src = $image->getAttribute( 'src' );
+			if ( isset( $already_done[ $old_src ] ) ) {
+				$new_src = $already_done[ $old_src ];
+			} else {
+				$new_src = \Pressbooks\Image\maybe_swap_with_bigger( $old_src );
+			}
+			if ( $old_src !== $new_src ) {
+				$image->setAttribute( 'src', $new_src );
+				$image->removeAttribute( 'srcset' );
+				$changed = true;
+			}
+			$already_done[ $old_src ] = $new_src;
+		}
+
+		if ( $changed ) {
+			$content = $html5->saveHTML( $dom );
+			$content = \Pressbooks\Sanitize\strip_container_tags( $content );
+		}
 
 		return $content;
 	}
@@ -534,8 +587,6 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoDocType( $book_contents, $metadata ) {
 
-		$lang = isset( $metadata['pb_language'] ) ? $metadata['pb_language'] : 'en';
-
 		echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">' . "\n";
 		echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $this->lang . '">' . "\n";
@@ -556,7 +607,6 @@ class Xhtml11 extends Export {
 			printf( '<meta name="%s" content="%s" />', $name, $content );
 			echo "\n";
 		}
-
 	}
 
 
@@ -627,7 +677,6 @@ class Xhtml11 extends Export {
 		echo '<div id="half-title-page">';
 		echo '<h1 class="title">' . get_bloginfo( 'name' ) . '</h1>';
 		echo '</div>' . "\n";
-
 	}
 
 
@@ -925,7 +974,6 @@ class Xhtml11 extends Export {
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s%s';
 		$front_matter_printf .= '</div>';
 
-		$s = 1;
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -1019,7 +1067,7 @@ class Xhtml11 extends Export {
 		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s%s';
 		$chapter_printf .= '</div>';
 
-		$s = $i = $j = 1;
+		$i = $j = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';

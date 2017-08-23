@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "040a9ed30605497855b7708a9c5f0a46",
+    "content-hash": "a41c33ccd4983e01b754901e1c497f32",
     "packages": [
         {
             "name": "composer/installers",
@@ -206,6 +206,60 @@
                 "xml"
             ],
             "time": "2017-04-20T09:36:23+00:00"
+        },
+        {
+            "name": "jenssegers/imagehash",
+            "version": "v0.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jenssegers/imagehash.git",
+                "reference": "005c906420c21f7e48480a3c9d26e63028828ae7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jenssegers/imagehash/zipball/005c906420c21f7e48480a3c9d26e63028828ae7",
+                "reference": "005c906420c21f7e48480a3c9d26e63028828ae7",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0|^5.0",
+                "satooshi/php-coveralls": "^0.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jenssegers\\ImageHash\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kenneth Rapp"
+                },
+                {
+                    "name": "Jens Segers",
+                    "homepage": "https://jenssegers.com"
+                }
+            ],
+            "description": "Perceptual image hashing for PHP",
+            "homepage": "https://github.com/jenssegers/imagehash",
+            "keywords": [
+                "ahash",
+                "dhash",
+                "hash",
+                "image hash",
+                "imagehash",
+                "perceptual",
+                "phash"
+            ],
+            "time": "2017-04-21T10:05:59+00:00"
         },
         {
             "name": "leafo/scssphp",

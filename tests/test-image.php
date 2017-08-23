@@ -58,6 +58,95 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertEquals( 'pb.unknown', $result );
 	}
 
+	public function test_get_dpi() {
 
+		$file = __DIR__ . '/data/template.php';
+		$dpi = \Pressbooks\Image\get_dpi( $file );
+		$this->assertTrue( false === $dpi );
+
+		$file = __DIR__ . '/data/pb.png';
+		$dpi = \Pressbooks\Image\get_dpi( $file );
+		$this->assertTrue( false === $dpi );
+
+		$file = __DIR__ . '/data/mountains.jpg';
+		$dpi = \Pressbooks\Image\get_dpi( $file );
+		$this->assertEquals( 300, $dpi );
+
+		$file = __DIR__ . '/data/mountains.jpg';
+		$dpi = \Pressbooks\Image\get_dpi( $file, true );
+		$this->assertEquals( 300, $dpi );
+
+		$file = __DIR__ . '/data/skates.jpg';
+		$dpi = \Pressbooks\Image\get_dpi( $file );
+		$this->assertEquals( 72, $dpi );
+
+		$file = __DIR__ . '/data/skates.jpg';
+		$dpi = \Pressbooks\Image\get_dpi( $file, true );
+		$this->assertEquals( 72, $dpi );
+	}
+
+	public function test_get_aspect_ratio() {
+
+		$file = __DIR__ . '/data/template.php';
+		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertTrue( false === $aspect_ratio );
+
+		$file = __DIR__ . '/data/pb.png';
+		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '1:1', $aspect_ratio );
+
+		$file = __DIR__ . '/data/mountains.jpg';
+		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '4:3', $aspect_ratio );
+
+		$file = __DIR__ . '/data/skates.jpg';
+		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '3:4', $aspect_ratio );
+	}
+
+	public function test_is_similar() {
+
+		$file1 = __DIR__ . '/data/template.php';
+		$file2 = __DIR__ . '/data/pb.png';
+		$file3 = __DIR__ . '/data/mountains.jpg';
+		$file4 = __DIR__ . '/data/skates.jpg';
+
+		$distance = \Pressbooks\Image\differences( $file1, $file2 );
+		$this->assertTrue( false === $distance );
+
+		$distance = \Pressbooks\Image\differences( $file3, $file3 );
+		$this->assertTrue( 0 === $distance );
+
+		$distance = \Pressbooks\Image\differences( $file3, $file4 );
+		$this->assertTrue( $distance > 0 );
+	}
+
+	public function test_is_bigger_version() {
+
+		$mountains = __DIR__ . '/data/mountains.jpg';
+		$file1 = __DIR__ . '/data/template.php';
+		$file2 = __DIR__ . '/data/pb.png';
+		$file3 = __DIR__ . '/data/mountains-300x225.jpg';
+
+		$this->assertFalse( \Pressbooks\Image\is_bigger_version( $file1, $mountains ) );
+		$this->assertFalse( \Pressbooks\Image\is_bigger_version( $file2, $mountains ) );
+		$this->assertFalse( \Pressbooks\Image\is_bigger_version( $mountains, $file3 ) );
+		$this->assertTrue( \Pressbooks\Image\is_bigger_version( $file3, $mountains ) );
+	}
+
+	public function test_swap_with_bigger_version() {
+		$id = $this->factory()->attachment->create_upload_object( __DIR__ . '/data/mountains.jpg' );
+
+		$old = wp_get_attachment_image_src( $id, 'medium' )[0];
+		$new = \Pressbooks\Image\maybe_swap_with_bigger( $old );
+		$this->assertFalse( $old == $new );
+
+		$old = wp_get_attachment_image_src( $id, 'thumbnail' )[0]; // Not the same aspect ratio, should stay the same
+		$new = \Pressbooks\Image\maybe_swap_with_bigger( $old );
+		$this->assertTrue( $old == $new );
+
+		$new = \Pressbooks\Image\maybe_swap_with_bigger( 'blah-blah-blah' );
+		$this->assertEquals( 'blah-blah-blah', $new );
+	}
 
 }
