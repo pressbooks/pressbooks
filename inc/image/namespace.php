@@ -593,7 +593,7 @@ function get_aspect_ratio( $path_to_file ) {
 }
 
 /**
- * Check if images are similar.
+ * Return a number representing the differences between two images.
  * Low distance values will indicate that the images are similar or the same, high distance values indicate that the images are different.
  *
  * @param string $path_to_file_1
@@ -601,7 +601,7 @@ function get_aspect_ratio( $path_to_file ) {
  *
  * @return int|false Distance. On failure, false is returned.
  */
-function is_similar( $path_to_file_1, $path_to_file_2 ) {
+function differences( $path_to_file_1, $path_to_file_2 ) {
 
 	try {
 		$hasher = new ImageHash();
@@ -611,4 +611,73 @@ function is_similar( $path_to_file_1, $path_to_file_2 ) {
 	}
 
 	return $distance;
+}
+
+/**
+ * Check if $smaller and $bigger are the same image, but $bigger is bigger
+ *
+ * @param string $smaller path to smaller image file
+ * @param string $bigger path to bigger image file
+ *
+ * @return bool
+ */
+function is_bigger_version( $smaller, $bigger ) {
+	if (
+		get_aspect_ratio( $smaller ) === get_aspect_ratio( $bigger ) &&
+		differences( $smaller, $bigger ) <= 5
+	) {
+		// Check if the image is, in fact, bigger.
+		list( $x1, $y1 ) = getimagesize( $smaller );
+		list( $x2, $y2 ) = getimagesize( $bigger );
+		if ( $x1 < $x2 && $y1 < $y2 ) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * Change image URL to a bigger version (if we can find one)
+ *
+ * @param string $url
+ *
+ * @return string
+ */
+function maybe_swap_with_bigger( $url ) {
+
+	if ( ! preg_match( '/-\d+x\d+(?=\.(jp?g|png|gif)$)/i', $url ) ) {
+		// Does not look like resized image, return unchanged
+		return $url;
+	}
+
+	$id = attachment_id_from_url( $url );
+	if ( ! $id ) {
+		// Could not find in database, return unchanged
+		return $url;
+	}
+
+	$upload_dir = dirname( get_attached_file( $id ) );
+	$src_base = strip_baseurl( $url );
+	$src_file = basename( $src_base );
+
+	$meta = wp_get_attachment_metadata( $id, true );
+	if ( $meta['file'] === $src_base ) {
+		// This is the original image, return unchanged
+		return $url;
+	}
+
+	$original_file = basename( $meta['file'] );
+	foreach ( $meta['sizes'] as $size ) {
+		$resized_file = basename( $size['file'] );
+		if ( $resized_file === $src_file ) {
+			// Check if original image is a good replacement
+			$a = "{$upload_dir}/{$resized_file}";
+			$b = "{$upload_dir}/{$original_file}";
+			if ( is_bigger_version( $a, $b ) ) {
+				$url = \Pressbooks\Utility\str_lreplace( $src_file, $original_file, $url );
+			}
+		}
+	}
+
+	return $url;
 }

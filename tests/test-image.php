@@ -111,14 +111,29 @@ class ImageTest extends \WP_UnitTestCase {
 		$file3 = __DIR__ . '/data/mountains.jpg';
 		$file4 = __DIR__ . '/data/skates.jpg';
 
-		$distance = \Pressbooks\Image\is_similar( $file1, $file2 );
+		$distance = \Pressbooks\Image\differences( $file1, $file2 );
 		$this->assertTrue( false === $distance );
 
-		$distance = \Pressbooks\Image\is_similar( $file3, $file3 );
+		$distance = \Pressbooks\Image\differences( $file3, $file3 );
 		$this->assertTrue( 0 === $distance );
 
-		$distance = \Pressbooks\Image\is_similar( $file3, $file4 );
+		$distance = \Pressbooks\Image\differences( $file3, $file4 );
 		$this->assertTrue( $distance > 0 );
+	}
+
+	public function test_swap_with_bigger_version() {
+		$id = $this->factory()->attachment->create_upload_object( __DIR__ . '/data/mountains.jpg' );
+
+		$old = wp_get_attachment_image_src( $id, 'medium' )[0];
+		$new = \Pressbooks\Image\maybe_swap_with_bigger( $old );
+		$this->assertFalse( $old == $new );
+
+		$old = wp_get_attachment_image_src( $id, 'thumbnail' )[0]; // Not the same aspect ratio, should stay the same
+		$new = \Pressbooks\Image\maybe_swap_with_bigger( $old );
+		$this->assertTrue( $old == $new );
+
+		$new = \Pressbooks\Image\maybe_swap_with_bigger( 'blah-blah-blah' );
+		$this->assertEquals( 'blah-blah-blah', $new );
 	}
 
 }

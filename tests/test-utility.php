@@ -264,6 +264,15 @@ class UtilityTest extends \WP_UnitTestCase {
 		$this->assertTrue( \Pressbooks\Utility\str_ends_with( 's0.wp.com', 'wp.com' ) );
 	}
 
+	public function test_str_lreplace() {
+
+		$result = \Pressbooks\Utility\str_lreplace( 'foo', 'bar', 'foo foo foo bar' );
+		$this->assertEquals( 'foo foo bar bar', $result );
+
+		$result = \Pressbooks\Utility\str_lreplace( 'FOO', 'BAR', 'foo foo foo bar' );
+		$this->assertEquals( 'foo foo foo bar', $result );
+	}
+
 	public function test_word_count() {
 
 		$content = 'This is four words.';
