@@ -62,11 +62,11 @@ class ImageTest extends \WP_UnitTestCase {
 
 		$file = __DIR__ . '/data/template.php';
 		$dpi = \Pressbooks\Image\get_dpi( $file );
-		$this->assertEquals( false, $dpi );
+		$this->assertTrue( false === $dpi );
 
 		$file = __DIR__ . '/data/pb.png';
 		$dpi = \Pressbooks\Image\get_dpi( $file );
-		$this->assertEquals( false, $dpi );
+		$this->assertTrue( false === $dpi );
 
 		$file = __DIR__ . '/data/mountains.jpg';
 		$dpi = \Pressbooks\Image\get_dpi( $file );
@@ -88,20 +88,37 @@ class ImageTest extends \WP_UnitTestCase {
 	public function test_get_aspect_ratio() {
 
 		$file = __DIR__ . '/data/template.php';
-		$dpi = \Pressbooks\Image\get_aspect_ratio( $file );
-		$this->assertEquals( false, $dpi );
+		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertTrue( false === $aspect_ratio );
 
 		$file = __DIR__ . '/data/pb.png';
-		$dpi = \Pressbooks\Image\get_aspect_ratio( $file );
-		$this->assertEquals( '1:1', $dpi );
+		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '1:1', $aspect_ratio );
 
 		$file = __DIR__ . '/data/mountains.jpg';
-		$dpi = \Pressbooks\Image\get_aspect_ratio( $file );
-		$this->assertEquals( '4:3', $dpi );
+		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '4:3', $aspect_ratio );
 
 		$file = __DIR__ . '/data/skates.jpg';
-		$dpi = \Pressbooks\Image\get_aspect_ratio( $file );
-		$this->assertEquals( '3:4', $dpi );
+		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '3:4', $aspect_ratio );
+	}
+
+	public function test_is_similar() {
+
+		$file1 = __DIR__ . '/data/template.php';
+		$file2 = __DIR__ . '/data/pb.png';
+		$file3 = __DIR__ . '/data/mountains.jpg';
+		$file4 = __DIR__ . '/data/skates.jpg';
+
+		$distance = \Pressbooks\Image\is_similar( $file1, $file2 );
+		$this->assertTrue( false === $distance );
+
+		$distance = \Pressbooks\Image\is_similar( $file3, $file3 );
+		$this->assertTrue( 0 === $distance );
+
+		$distance = \Pressbooks\Image\is_similar( $file3, $file4 );
+		$this->assertTrue( $distance > 0 );
 	}
 
 }

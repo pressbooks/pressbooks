@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Image;
 
+use Jenssegers\ImageHash\ImageHash;
+
 /**
  * URL to default cover image
  *
@@ -538,7 +540,7 @@ function proper_image_extension( $path_to_file, $filename ) {
  * @param $path_to_file
  * @param bool $force_exif (optional)
  *
- * @return float|false
+ * @return float|false DPI. On failure, false is returned.
  */
 function get_dpi( $path_to_file, $force_exif = false ) {
 
@@ -579,7 +581,7 @@ function gcd( $a, $b ) {
  *
  * @param string $path_to_file
  *
- * @return string|false
+ * @return string|false Aspect ratio. On failure, false is returned.
  */
 function get_aspect_ratio( $path_to_file ) {
 	list( $x, $y ) = @getimagesize( $path_to_file ); // @codingStandardsIgnoreLine
@@ -588,4 +590,25 @@ function get_aspect_ratio( $path_to_file ) {
 	}
 	$gcd = gcd( $x, $y );
 	return ( $x / $gcd ) . ':' . ( $y / $gcd );
+}
+
+/**
+ * Check if images are similar.
+ * Low distance values will indicate that the images are similar or the same, high distance values indicate that the images are different.
+ *
+ * @param string $path_to_file_1
+ * @param string $path_to_file_2
+ *
+ * @return int|false Distance. On failure, false is returned.
+ */
+function is_similar( $path_to_file_1, $path_to_file_2 ) {
+
+	try {
+		$hasher = new ImageHash();
+		$distance = $hasher->compare( $path_to_file_1, $path_to_file_2 );
+	} catch ( \Exception $e ) {
+		return false;
+	}
+
+	return $distance;
 }
