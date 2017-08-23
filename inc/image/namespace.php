@@ -593,6 +593,50 @@ function get_aspect_ratio( $path_to_file ) {
 }
 
 /**
+ * Check if two images have the same aspect ratio
+ *
+ * @param string $path_to_file_1
+ * @param string $path_to_file_2
+ *
+ * @return bool
+ */
+function same_aspect_ratio( $path_to_file_1, $path_to_file_2 ) {
+
+	$a = get_aspect_ratio( $path_to_file_1 );
+	$b = get_aspect_ratio( $path_to_file_2 );
+
+	if ( $a === false || $b === false ) {
+		return false;
+	}
+
+	if ( $a === $b ) {
+		return true;
+	}
+
+	// Plan b, test against what would happen on resize
+	// (big height / big width) x small width = small height
+
+	list( $width1, $height1 ) = @getimagesize( $path_to_file_1 ); // @codingStandardsIgnoreLine
+	list( $width2, $height2 ) = @getimagesize( $path_to_file_2 ); // @codingStandardsIgnoreLine
+
+	if ( $width1 && $width2 ) {
+		if ( $width1 > $width2 ) {
+			$x = ( $height1 / $width1 ) * $width2;
+			if ( round( $x ) === round( $height2 ) ) {
+				return true;
+			}
+		} else {
+			$x = ( $height2 / $width2 ) * $width1;
+			if ( round( $x ) === round( $height1 ) ) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+/**
  * Return a number representing the differences between two images.
  * Low distance values will indicate that the images are similar or the same, high distance values indicate that the images are different.
  *
@@ -623,7 +667,7 @@ function differences( $path_to_file_1, $path_to_file_2 ) {
  */
 function is_bigger_version( $smaller, $bigger ) {
 	if (
-		get_aspect_ratio( $smaller ) === get_aspect_ratio( $bigger ) &&
+		same_aspect_ratio( $smaller, $bigger ) &&
 		differences( $smaller, $bigger ) <= 5
 	) {
 		// Check if the image is, in fact, bigger.

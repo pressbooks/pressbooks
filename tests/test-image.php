@@ -99,9 +99,17 @@ class ImageTest extends \WP_UnitTestCase {
 		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
 		$this->assertEquals( '4:3', $aspect_ratio );
 
+		$file = __DIR__ . '/data/mountains-300x225.jpg';
+		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '4:3', $aspect_ratio );
+
 		$file = __DIR__ . '/data/skates.jpg';
 		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
 		$this->assertEquals( '3:4', $aspect_ratio );
+
+		$file = __DIR__ . '/data/DosenmoorBirken1.jpg';
+		$aspect_ratio = \Pressbooks\Image\get_aspect_ratio( $file );
+		$this->assertEquals( '121:81', $aspect_ratio );
 	}
 
 	public function test_is_similar() {
@@ -147,6 +155,27 @@ class ImageTest extends \WP_UnitTestCase {
 
 		$new = \Pressbooks\Image\maybe_swap_with_bigger( 'blah-blah-blah' );
 		$this->assertEquals( 'blah-blah-blah', $new );
+	}
+
+	public function test_same_aspect_ratio() {
+
+		$file1 = __DIR__ . '/data/DosenmoorBirken1.jpg';
+		$file2 = __DIR__ . '/data/DosenmoorBirken1-300x201.jpg';
+		$file3 = __DIR__ . '/data/mountains.jpg';
+		$file4 = __DIR__ . '/data/mountains-300x225.jpg';
+		$file5 = __DIR__ . '/data/template.php';
+
+		$this->assertTrue( \Pressbooks\Image\same_aspect_ratio( $file1, $file2 ) );
+		$this->assertTrue( \Pressbooks\Image\same_aspect_ratio( $file2, $file1 ) );
+		$this->assertTrue( \Pressbooks\Image\same_aspect_ratio( $file3, $file4 ) );
+		$this->assertTrue( \Pressbooks\Image\same_aspect_ratio( $file4, $file3 ) );
+
+		$this->assertFalse( \Pressbooks\Image\same_aspect_ratio( $file1, $file4 ) );
+		$this->assertFalse( \Pressbooks\Image\same_aspect_ratio( $file4, $file1 ) );
+		$this->assertFalse( \Pressbooks\Image\same_aspect_ratio( $file3, $file2 ) );
+		$this->assertFalse( \Pressbooks\Image\same_aspect_ratio( $file2, $file3 ) );
+
+		$this->assertFalse( \Pressbooks\Image\same_aspect_ratio( $file5, $file5 ) );
 	}
 
 }
