@@ -158,6 +158,17 @@ class Xhtml11 extends Export {
 	/**
 	 * Procedure for "format/xhtml" rewrite rule.
 	 *
+	 * Supported params:
+	 *
+	 *   + timestamp: (int) combines with `hashkey` to allow a 3rd party service temporary access
+	 *   + hashkey: (string) combines with `timestamp` to allow a 3rd party service temporary access
+	 *   + endnotes: (bool) move all footnotes to end of the book
+	 *   + style: (string) name of a user generated stylesheet you want included in the header
+	 *   + script: (string) name of javascript file you you want included in the header
+	 *   + preview: (bool) Use `Content-Disposition: inline` instead of `Content-Disposition: attachment` when passing through Export::formSubmit
+	 *   + pb-latex-zoom (int): Set zoom param when passing through wp.com/latex.php
+	 *   + fullsize-images: (bool) replace images with originals when possible
+	 *
 	 * @see \Pressbooks\Redirect\do_format
 	 */
 	function transform() {
