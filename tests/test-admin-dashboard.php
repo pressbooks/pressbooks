@@ -53,6 +53,10 @@ class Admin_DashboardTest extends \WP_UnitTestCase {
 		ob_start();
 		\Pressbooks\Admin\Dashboard\display_pressbooks_blog();
 		$buffer = ob_get_clean();
+		if ( empty( $buffer ) ) {
+			$this->markTestIncomplete( 'Unable to fetch Pressbooks RSS' );
+			return;
+		}
 		$this->assertContains( "class='rsswidget'", $buffer );
 
 		// Cache

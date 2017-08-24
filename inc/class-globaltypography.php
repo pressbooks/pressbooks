@@ -59,6 +59,8 @@ class GlobalTypography {
 
 	/**
 	 * Get required languages for this book, excluding those supported by the theme.
+	 *
+	 * @return array
 	 */
 	function _getRequiredLanguages() {
 		$languages = get_option( 'pressbooks_global_typography', [] );
@@ -240,8 +242,11 @@ class GlobalTypography {
 
 	/**
 	 * Check for absent font files and download if necessary.
+	 *
+	 * @param array $languages
+	 *
+	 * @return bool
 	 */
-
 	function getFonts( $languages = null ) {
 		if ( ! $languages ) {
 			$languages = $this->_getRequiredLanguages();
