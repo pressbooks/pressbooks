@@ -9,9 +9,25 @@ trait utilsTrait {
 	 */
 	private function _book( $theme = 'pressbooks-book' ) {
 
-		$blog_id = $this->factory->blog->create();
+		$blog_id = $this->factory()->blog->create();
 		switch_to_blog( $blog_id );
 		switch_theme( $theme );
+	}
+
+	/**
+	 * @return int
+	 */
+	private function _createChapter() {
+		$new_post = [
+			'post_title' => 'test chapter',
+			'post_type' => 'chapter',
+			'post_status' => 'publish',
+			'post_content' => 'some content',
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		update_post_meta( $pid, 'pb_export', 'on' );
+
+		return $pid;
 	}
 
 

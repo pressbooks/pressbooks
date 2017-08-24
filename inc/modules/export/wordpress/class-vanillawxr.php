@@ -13,7 +13,7 @@ class VanillaWxr extends Wxr {
 
 	function convert() {
 		// Get WXR
-		$output = $this->queryWxr();
+		$output = $this->transform( true );
 
 		if ( ! $output ) {
 			return false;

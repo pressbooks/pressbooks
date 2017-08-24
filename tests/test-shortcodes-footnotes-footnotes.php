@@ -158,7 +158,7 @@ class Shortcodes_Footnotes_Footnotes extends \WP_UnitTestCase {
 
 		// Test is json
 
-		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		$_REQUEST['_ajax_nonce'] = wp_create_nonce( 'pb-footnote-convert' );
 		$_POST['content'] = 'Hello world!';

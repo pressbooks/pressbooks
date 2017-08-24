@@ -14,15 +14,6 @@ use function Pressbooks\Sanitize\clean_filename;
 class Xhtml11 extends Export {
 
 	/**
-	 * Timeout in seconds.
-	 * Used with wp_remote_get()
-	 *
-	 * @var int
-	 */
-	public $timeout = 90;
-
-
-	/**
 	 * Service URL
 	 *
 	 * @var string
@@ -92,6 +83,7 @@ class Xhtml11 extends Export {
 		// Append endnotes to URL?
 		if ( $r['endnotes'] ) {
 			$this->url .= '&endnotes=true';
+			$_GET['endnotes'] = true;
 		}
 
 		// HtmLawed: id values not allowed in input
@@ -113,7 +105,7 @@ class Xhtml11 extends Export {
 
 		// Get XHTML
 
-		$output = $this->queryXhtml();
+		$output = $this->transform( true );
 
 		if ( ! $output ) {
 			return false;
@@ -158,7 +150,7 @@ class Xhtml11 extends Export {
 	/**
 	 * Procedure for "format/xhtml" rewrite rule.
 	 *
-	 * Supported params:
+	 * Supported http params:
 	 *
 	 *   + timestamp: (int) combines with `hashkey` to allow a 3rd party service temporary access
 	 *   + hashkey: (string) combines with `timestamp` to allow a 3rd party service temporary access
@@ -170,13 +162,21 @@ class Xhtml11 extends Export {
 	 *   + fullsize-images: (bool) replace images with originals when possible
 	 *
 	 * @see \Pressbooks\Redirect\do_format
+	 *
+	 * @param bool $return (optional)
+	 * If you would like to capture the output of transform,
+	 * use the return parameter. If this parameter is set
+	 * to true, transform will return its output, instead of
+	 * printing it.
+	 *
+	 * @return mixed
 	 */
-	function transform() {
+	function transform( $return = false ) {
 
 		// Check permissions
 
-		if ( ! current_user_can( 'manage_options' ) ) {
-			$timestamp = ( isset( $_REQUEST['timestamp'] ) ) ? absint( $_REQUEST['timestamp'] ) : '';
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			$timestamp = ( isset( $_REQUEST['timestamp'] ) ) ? absint( $_REQUEST['timestamp'] ) : 0;
 			$hashkey = ( isset( $_REQUEST['hashkey'] ) ) ? $_REQUEST['hashkey'] : '';
 			if ( ! $this->verifyNonce( $timestamp, $hashkey ) ) {
 				wp_die( __( 'Invalid permission error', 'pressbooks' ) );
@@ -265,8 +265,12 @@ class Xhtml11 extends Export {
 		echo "</body>\n</html>";
 
 		$buffer = ob_get_clean();
-
-		echo $buffer;
+		if ( $return ) {
+			return $buffer;
+		} else {
+			echo $buffer;
+			return null;
+		}
 	}
 
 
@@ -351,36 +355,6 @@ class Xhtml11 extends Export {
 		$e .= '</ol></div>';
 
 		return $e;
-	}
-
-	/**
-	 * Query the access protected "format/xhtml" URL, return the results.
-	 *
-	 * @return bool|string
-	 */
-	protected function queryXhtml() {
-
-		$args = [ 'timeout' => $this->timeout ];
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
-			$args['sslverify'] = false;
-		}
-		$response = wp_remote_get( $this->url, $args );
-
-		// WordPress error?
-		if ( is_wp_error( $response ) ) {
-			$this->logError( $response->get_error_message() );
-
-			return false;
-		}
-
-		// Server error?
-		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			$this->logError( wp_remote_retrieve_response_message( $response ) );
-
-			return false;
-		}
-
-		return wp_remote_retrieve_body( $response );
 	}
 
 

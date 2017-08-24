@@ -112,7 +112,7 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertEquals( '1024:685', $aspect_ratio );
 	}
 
-	public function test_is_similar() {
+	public function test_differences() {
 
 		$file1 = __DIR__ . '/data/template.php';
 		$file2 = __DIR__ . '/data/pb.png';
@@ -142,7 +142,7 @@ class ImageTest extends \WP_UnitTestCase {
 		$this->assertTrue( \Pressbooks\Image\is_bigger_version( $file3, $mountains ) );
 	}
 
-	public function test_swap_with_bigger_version() {
+	public function test_maybe_swap_with_bigger() {
 		$id = $this->factory()->attachment->create_upload_object( __DIR__ . '/data/mountains.jpg' );
 
 		$old = wp_get_attachment_image_src( $id, 'medium' )[0];
