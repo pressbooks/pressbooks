@@ -285,10 +285,11 @@ class Cloner {
 		foreach ( $this->sourceBookTerms as $k => $v ) {
 			if ( $v['id'] === absint( $term_id ) ) {
 				$term = $this->sourceBookTerms[ $k ];
+				break;
 			}
 		};
 
-		if ( empty( $term['slug'] )|| empty( $term['taxonomy'] ) ) {
+		if ( empty( $term['slug'] ) || empty( $term['taxonomy'] ) ) {
 			// Doing it wrong...
 			return false;
 		}
@@ -303,9 +304,6 @@ class Cloner {
 		// Set endpoint
 		$endpoint = $term['taxonomy'];
 
-		// Get links
-		$links = array_pop( $term );
-
 		// Remove source-specific properties
 		$bad_keys = [ 'id', 'count', 'link', 'parent', 'taxonomy' ];
 		foreach ( $bad_keys as $bad_key ) {
@@ -319,7 +317,7 @@ class Cloner {
 
 		// Inform user of failure, bail
 		if ( is_wp_error( $response ) ) {
-			return false; // TODO
+			return false;
 		} else {
 			$this->clonedItems['term']++;
 			return $response['id'];
@@ -515,10 +513,10 @@ class Cloner {
 			} elseif ( ! in_array( $this->sourceBookMetadata['license'], $restrictive_licenses, true ) ) {
 				return true; // Anyone can clone local books that aren't restrictively licensed
 			} else {
-				return false; // TODO Error message
+				return false;
 			}
 		} elseif ( in_array( $this->sourceBookMetadata['license'], $restrictive_licenses, true ) ) {
-			return false; // No one can clone global books that are restrictively licensed TODO Error message
+			return false; // No one can clone global books that are restrictively licensed
 		}
 		return true;
 	}
@@ -616,11 +614,14 @@ class Cloner {
 		foreach ( $this->sourceBookStructure['_embedded'][ $post_type ] as $k => $v ) {
 			if ( $v['id'] === absint( $section_id ) ) {
 				$section = $this->sourceBookStructure['_embedded'][ $post_type ][ $k ];
+				break;
 			}
 		};
 
-		// Get links
-		$links = array_pop( $section );
+		if ( empty( $section['link'] ) ) {
+			// Doing it wrong...
+			return false;
+		}
 
 		// Get permalink
 		$permalink = $section['link'];
@@ -678,7 +679,7 @@ class Cloner {
 
 		// Inform user of failure, bail
 		if ( @$response['data']['status'] >= 400 ) { // @codingStandardsIgnoreLine
-			return false;  // TODO Error message
+			return false;
 		}
 
 		// Set pb_is_based_on property
@@ -710,9 +711,6 @@ class Cloner {
 	 * @return bool False if the clone failed; true if it succeeded.
 	 */
 	protected function cloneSectionMetadata( $section_id, $post_type, $target_id ) {
-		// Determine endpoint based on $post_type
-		$endpoint = ( in_array( $post_type, [ 'chapter' ], true ) ) ? $post_type . 's' : $post_type;
-
 		// Retrieve metadata
 		$section_metadata = [];
 		if ( in_array( $post_type, [ 'front-matter', 'back-matter' ], true ) ) {
@@ -771,7 +769,7 @@ class Cloner {
 			}
 			$response = rest_do_request( $request );
 
-			// WordPress shows only 10-100 results. We need to paginate on $response->headers['Link']
+			// TODO: WordPress shows only 10-100 results. We need to paginate on $response->headers['Link']
 			// Format: <http://pressbooks.dev/pdfimages/wp-json/wp/v2/media?media_type=image&page=2>; rel="next"
 
 			if ( $switch ) {
@@ -1029,7 +1027,7 @@ class Cloner {
 	 *
 	 * @param string $blogname
 	 *
-	 * @return bool
+	 * @return string|\WP_Error
 	 */
 	public static function validateNewBookName( $blogname ) {
 		global $wpdb, $domain;
