@@ -14,15 +14,6 @@ use function Pressbooks\Sanitize\clean_filename;
 class Xhtml11 extends Export {
 
 	/**
-	 * Timeout in seconds.
-	 * Used with wp_remote_get()
-	 *
-	 * @var int
-	 */
-	public $timeout = 90;
-
-
-	/**
 	 * Service URL
 	 *
 	 * @var string
@@ -185,7 +176,7 @@ class Xhtml11 extends Export {
 		// Check permissions
 
 		if ( ! current_user_can( 'edit_posts' ) ) {
-			$timestamp = ( isset( $_REQUEST['timestamp'] ) ) ? absint( $_REQUEST['timestamp'] ) : '';
+			$timestamp = ( isset( $_REQUEST['timestamp'] ) ) ? absint( $_REQUEST['timestamp'] ) : 0;
 			$hashkey = ( isset( $_REQUEST['hashkey'] ) ) ? $_REQUEST['hashkey'] : '';
 			if ( ! $this->verifyNonce( $timestamp, $hashkey ) ) {
 				wp_die( __( 'Invalid permission error', 'pressbooks' ) );

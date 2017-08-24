@@ -20,3 +20,7 @@ tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 require $_tests_dir . '/includes/bootstrap.php';
 require 'utils-trait.php';
+
+if ( ! defined( 'NONCE_KEY' ) ) {
+	define( 'NONCE_KEY', '40~wF,SH)lm,Zr+^[b?_M8Z.g4gk%^gnqr+ZtnT,p6_K5.NuuN 0g@Y|T9+yBI|{' );
+}

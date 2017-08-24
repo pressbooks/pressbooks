@@ -123,7 +123,7 @@ class Pdf extends Export {
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' || WP_ENV === 'staging' ) {
+		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' || WP_ENV === 'staging' )  ) {
 			$prince->setInsecure( true );
 		}
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
@@ -286,7 +286,7 @@ class Pdf extends Export {
 		$hacks = apply_filters( 'pb_pdf_hacks', $hacks );
 
 		// Append endnotes to URL?
-		if ( 'endnotes' === $hacks['pdf_footnotes_style'] ) {
+		if ( isset( $hacks['pdf_footnotes_style'] ) && 'endnotes' === $hacks['pdf_footnotes_style'] ) {
 			$this->url .= '&endnotes=true';
 		}
 

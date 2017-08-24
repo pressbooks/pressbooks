@@ -90,7 +90,11 @@ class Odt extends Export {
 		$content_path = pathinfo( $filename );
 		$source = $content_path['dirname'] . '/source.xhtml';
 
-		file_put_contents( $source, $this->queryXhtml() );
+		if ( defined( 'WP_TESTS_MULTISITE' ) ) {
+			file_put_contents( $source, file_get_contents( $this->url ) );
+		} else {
+			file_put_contents( $source, $this->queryXhtml() );
+		}
 
 		$xslt = PB_PLUGIN_DIR . 'inc/modules/export/odt/xhtml2odt.xsl';
 		$content = $content_path['dirname'] . '/content.xml';

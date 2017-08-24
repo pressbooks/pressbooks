@@ -218,7 +218,9 @@ abstract class Export {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
 
-		\Pressbooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			\Pressbooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
+		}
 	}
 
 
@@ -578,7 +580,7 @@ abstract class Export {
 				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 			}
 			if ( isset( $x['epub3'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3'; // Must be set before MOBI
+				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
 			}
 			if ( isset( $x['mobi'] ) ) {
 				if ( ! isset( $x['epub'] ) ) { // Make sure Epub source file is generated

@@ -10,35 +10,10 @@ use Pressbooks\Modules\Export\Export;
 
 class Wxr extends Export {
 
-
-	/**
-	 * Timeout in seconds.
-	 * Used with wp_remote_get()
-	 *
-	 * @var int
-	 */
-	public $timeout = 90;
-
-
-	/**
-	 * Service URL
-	 *
-	 * @var string
-	 */
-	public $url;
-
-
 	/**
 	 * @param array $args
 	 */
 	function __construct( array $args ) {
-
-		// Some defaults
-
-		// Set the access protected "format/wxr" URL with a valid timestamp and NONCE
-		$timestamp = time();
-		$md5 = $this->nonce( $timestamp );
-		$this->url = home_url() . "/format/wxr?timestamp={$timestamp}&hashkey={$md5}";
 
 	}
 
@@ -101,13 +76,18 @@ class Wxr extends Export {
 	 */
 	function transform( $return = false ) {
 
+		// Check permissions
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_die( __( 'Invalid permission error', 'pressbooks' ) );
+		}
+
 		// Ahoy! Gross code ahead.
 		// Cannot redeclare a function inside of a function, execute export_wp() only once
 		static $buffer;
 		if ( ! function_exists( 'wxr_cdata' ) ) {
 			ob_start();
 			require_once( ABSPATH . 'wp-admin/includes/export.php' );
-			export_wp();
+			@export_wp(); // @codingStandardsIgnoreLine
 			$buffer = ob_get_clean();
 		}
 
@@ -117,22 +97,6 @@ class Wxr extends Export {
 			echo $buffer;
 			return null;
 		}
-	}
-
-
-	/**
-	 * Add $this->url as additional log info, fallback to parent.
-	 *
-	 * @param $message
-	 * @param array $more_info (unused, overridden)
-	 */
-	function logError( $message, array $more_info = [] ) {
-
-		$more_info = [
-			'url' => $this->url,
-		];
-
-		parent::logError( $message, $more_info );
 	}
 
 }

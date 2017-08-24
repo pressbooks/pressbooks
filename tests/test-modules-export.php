@@ -103,10 +103,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 	public function test_nonce_AND_verifyNonce() {
 
-		if ( ! defined( 'NONCE_KEY' ) ) {
-			define( 'NONCE_KEY', '40~wF,SH)lm,Zr+^[b?_M8Z.g4gk%^gnqr+ZtnT,p6_K5.NuuN 0g@Y|T9+yBI|{' );
-		}
-
 		$time1 = time();
 		$nonce1 = $this->export->nonce( $time1 );
 		$this->assertInternalType( 'string', $nonce1 );
@@ -123,14 +119,14 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$this->assertFalse( $this->export->verifyNonce( $time3, $nonce3 ) );
 	}
 
-	function test_mimeType() {
+	public function test_mimeType() {
 
 		$i = $this->export;
 		$mime = $i::mimeType( __DIR__ . '/data/pb.png' );
 		$this->assertStringStartsWith( 'image/png', $mime );
 	}
 
-	function test_getExportFolder() {
+	public function test_getExportFolder() {
 
 		$this->_book();
 
@@ -139,6 +135,53 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 
 		$this->assertTrue( is_dir( $path ) );
 		$this->assertStringStartsWith( 'deny from all', file_get_contents( $path . '.htaccess' ) );
+	}
+
+	public function test_sanityChecks() {
+
+		$this->_book();
+		$this->_createChapter();
+		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
+		update_post_meta( $meta_post->ID, 'pb_author', 'Zimmerman, Ned' );
+		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
+		wp_set_current_user( $user_id );
+
+		$modules[] = '\Pressbooks\Modules\Export\Xhtml\Xhtml11'; // Must be first
+		$modules[] = '\Pressbooks\Modules\Export\Prince\Pdf';
+		$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
+		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
+		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
+		$modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB
+		$modules[] = '\Pressbooks\Modules\Export\InDesign\Icml';
+		$modules[] = '\Pressbooks\Modules\Export\WordPress\Wxr';
+		$modules[] = '\Pressbooks\Modules\Export\WordPress\VanillaWxr';
+		$modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
+
+		$paths = [];
+		$xhtml_path = null;
+		foreach ( $modules as $module ) {
+			/** @var \Pressbooks\Modules\Export\Export $exporter */
+			$exporter = new $module( [] );
+
+			if (
+				strpos( $module, '\Prince\\' ) !== false ||
+				strpos( $module, '\Odt\\' ) !== false
+			) {
+				$exporter->url = $xhtml_path;
+			}
+
+			$this->assertTrue( $exporter->convert() );
+			$this->assertTrue( $exporter->validate() );
+			$paths[] = $exporter->getOutputPath();
+
+			if ( strpos( $module, '\Xhtml\Xhtml1' ) !== false ) {
+				$xhtml_path = $exporter->getOutputPath();
+			}
+		}
+
+		foreach ( $paths as $path ) {
+			unlink( $path );
+		}
 	}
 
 }
