@@ -85,7 +85,9 @@ class Pdf extends Export {
 		}
 
 		$this->themeOptionsOverrides();
-		$this->fixLatexDpi();
+		if ( ! empty( $_GET['fullsize-images'] ) ) {
+			$this->fixLatexDpi();
+		}
 	}
 
 
@@ -294,6 +296,8 @@ class Pdf extends Export {
 
 	/**
 	 * Increase PB-LaTeX resolution to ~300 dpi
+	 *
+	 * @see symbionts/pressbooks-latex/automattic-latex-wpcom.php
 	 */
 	protected function fixLatexDpi() {
 		$this->url .= '&pb-latex-zoom=3';

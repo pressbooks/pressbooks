@@ -124,7 +124,7 @@ class BookTest extends \WP_UnitTestCase {
 		$wc_selected_for_export = $book::wordCount( true );
 
 		$this->assertEquals( 46, $wc );
-		$this->assertEquals( 0, $wc_selected_for_export );
+		$this->assertEquals( 46, $wc_selected_for_export );
 	}
 
 	public function test_getSubsections() {

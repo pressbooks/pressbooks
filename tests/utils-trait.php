@@ -12,9 +12,30 @@ trait utilsTrait {
 		$blog_id = $this->factory()->blog->create();
 		switch_to_blog( $blog_id );
 		switch_theme( $theme );
+
+		// Export = on
+		$book = \Pressbooks\Book::getInstance();
+		foreach ( $book::getBookStructure() as $key => $section ) {
+			if ( $key === 'front-matter' || $key === 'back-matter' ) {
+				foreach ( $section as $val ) {
+					update_post_meta( $val['ID'], 'pb_export', 'on' );
+				}
+			}
+			if ( $key === 'part' ) {
+				foreach ( $section as $part ) {
+					foreach ( $part['chapters'] as $val ) {
+						update_post_meta( $val['ID'], 'pb_export', 'on' );
+					}
+				}
+			}
+		}
+
+		$book::deleteBookObjectCache();
 	}
 
 	/**
+	 * Creates chapter (no associated part, is orphan)
+	 *
 	 * @return int
 	 */
 	private function _createChapter() {
