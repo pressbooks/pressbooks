@@ -52,7 +52,7 @@ class Wxr extends Export {
 
 		// Get WXR
 
-		$output = $this->queryWxr();
+		$output = $this->transform( true );
 
 		if ( ! $output ) {
 			return false;
@@ -88,24 +88,35 @@ class Wxr extends Export {
 
 	/**
 	 * Procedure for "format/wxr" rewrite rule.
+	 *
+	 * @see \Pressbooks\Redirect\do_format
+	 *
+	 * @param bool $return (optional)
+	 * If you would like to capture the output of transform,
+	 * use the return parameter. If this parameter is set
+	 * to true, transform will return its output, instead of
+	 * printing it.
+	 *
+	 * @return mixed
 	 */
-	function transform() {
+	function transform( $return = false ) {
 
-		// Check permissions
-
-		if ( ! current_user_can( 'manage_options' ) ) {
-			$timestamp = ( isset( $_REQUEST['timestamp'] ) ) ? absint( $_REQUEST['timestamp'] ) : '';
-			$hashkey = ( isset( $_REQUEST['hashkey'] ) ) ? $_REQUEST['hashkey'] : '';
-			if ( ! $this->verifyNonce( $timestamp, $hashkey ) ) {
-				wp_die( __( 'Invalid permission error', 'pressbooks' ) );
-			}
+		// Ahoy! Gross code ahead.
+		// Cannot redeclare a function inside of a function, execute export_wp() only once
+		static $buffer;
+		if ( ! function_exists( 'wxr_cdata' ) ) {
+			ob_start();
+			require_once( ABSPATH . 'wp-admin/includes/export.php' );
+			export_wp();
+			$buffer = ob_get_clean();
 		}
 
-		// ------------------------------------------------------------------------------------------------------------
-		// WXR, Start!
-
-		require_once( ABSPATH . 'wp-admin/includes/export.php' );
-		export_wp();
+		if ( $return ) {
+			return $buffer;
+		} else {
+			echo $buffer;
+			return null;
+		}
 	}
 
 
@@ -123,37 +134,5 @@ class Wxr extends Export {
 
 		parent::logError( $message, $more_info );
 	}
-
-
-	/**
-	 * Query the access protected "format/wxr" URL, return the results.
-	 *
-	 * @return bool|string
-	 */
-	protected function queryWxr() {
-
-		$args = [ 'timeout' => $this->timeout ];
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
-			$args['sslverify'] = false;
-		}
-		$response = wp_remote_get( $this->url, $args );
-
-		// WordPress error?
-		if ( is_wp_error( $response ) ) {
-			$this->logError( $response->get_error_message() );
-
-			return false;
-		}
-
-		// Server error?
-		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			$this->logError( wp_remote_retrieve_response_message( $response ) );
-
-			return false;
-		}
-
-		return wp_remote_retrieve_body( $response );
-	}
-
 
 }

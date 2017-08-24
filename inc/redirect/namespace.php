@@ -166,14 +166,6 @@ function do_format() {
 		exit;
 	}
 
-	if ( 'wxr' === $format ) {
-
-		$args = [];
-		$foo = new \Pressbooks\Modules\Export\WordPress\Wxr( $args );
-		$foo->transform();
-		exit;
-	}
-
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
 }
 
