@@ -151,11 +151,11 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$modules[] = '\Pressbooks\Modules\Export\Prince\PrintPdf';
 		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 		$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
-		$modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB
+		// $modules[] = '\Pressbooks\Modules\Export\Mobi\Kindlegen'; // Must be set after EPUB
 		$modules[] = '\Pressbooks\Modules\Export\InDesign\Icml';
 		$modules[] = '\Pressbooks\Modules\Export\WordPress\Wxr';
 		$modules[] = '\Pressbooks\Modules\Export\WordPress\VanillaWxr';
-		$modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
+		// $modules[] = '\Pressbooks\Modules\Export\Odt\Odt';
 
 		$paths = [];
 		$xhtml_path = null;
