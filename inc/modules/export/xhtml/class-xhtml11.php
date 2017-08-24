@@ -158,7 +158,6 @@ class Xhtml11 extends Export {
 	 *   + style: (string) name of a user generated stylesheet you want included in the header
 	 *   + script: (string) name of javascript file you you want included in the header
 	 *   + preview: (bool) Use `Content-Disposition: inline` instead of `Content-Disposition: attachment` when passing through Export::formSubmit
-	 *   + pb-latex-zoom (int): Set zoom param when passing through wp.com/latex.php
 	 *   + fullsize-images: (bool) replace images with originals when possible
 	 *
 	 * @see \Pressbooks\Redirect\do_format

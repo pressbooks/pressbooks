@@ -140,7 +140,6 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 	public function test_sanityChecks() {
 
 		$this->_book();
-		$this->_createChapter();
 		$meta_post = ( new \Pressbooks\Metadata() )->getMetaPost();
 		update_post_meta( $meta_post->ID, 'pb_author', 'Zimmerman, Ned' );
 		$user_id = $this->factory()->user->create( [ 'role' => 'contributor' ] );
