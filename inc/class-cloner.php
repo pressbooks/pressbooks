@@ -1030,6 +1030,7 @@ class Cloner {
 				if ( is_wp_error( $bookname ) ) {
 					$_SESSION['pb_errors'][] = $bookname->get_error_message();
 				} else {
+					@set_time_limit( 300 ); // @codingStandardsIgnoreLine
 					$cloner = new Cloner( esc_url( $_POST['source_book_url'] ), $bookname );
 					if ( $cloner->cloneBook() ) {
 						$_SESSION['pb_notices'][] = sprintf(

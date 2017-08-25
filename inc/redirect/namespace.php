@@ -386,7 +386,7 @@ function do_open() {
 				}
 
 				// Force download
-				set_time_limit( 0 );
+				@set_time_limit( 0 ); // @codingStandardsIgnoreLine
 				header( 'Content-Description: File Transfer' );
 				header( 'Content-Type: ' . \Pressbooks\Modules\Export\Export::mimeType( $filepath ) );
 				header( 'Content-Disposition: attachment; filename="' . $book_title_slug . '.' . $file_ext . '"' );

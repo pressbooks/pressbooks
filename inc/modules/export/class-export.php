@@ -633,7 +633,7 @@ abstract class Export {
 			// --------------------------------------------------------------------------------------------------------
 			// Do Export
 
-			set_time_limit( 300 );
+			@set_time_limit( 300 ); // @codingStandardsIgnoreLine
 
 			$redirect_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' );
 			$conversion_error = [];
@@ -838,7 +838,7 @@ abstract class Export {
 		}
 
 		// Force download
-		set_time_limit( 0 );
+		@set_time_limit( 0 ); // @codingStandardsIgnoreLine
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Type: ' . static::mimeType( $filepath ) );
 		if ( $inline ) {

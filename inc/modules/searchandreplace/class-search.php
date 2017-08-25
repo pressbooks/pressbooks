@@ -114,9 +114,7 @@ abstract class Search {
 		$limit = intval( $limit );
 		$offset = intval( $offset );
 		if ( strlen( $search ) > 0 ) {
-			if ( ! ini_get( 'safe_mode' ) ) {
-				set_time_limit( 0 );
-			}
+			@set_time_limit( 300 ); // @codingStandardsIgnoreLine
 			if ( $this->regex ) {
 				$error = $this->regexValidate( $search );
 				if ( null !== $error ) {
