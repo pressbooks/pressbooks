@@ -9,6 +9,7 @@ namespace Pressbooks\Modules\Import\WordPress;
 use Masterminds\HTML5;
 use Pressbooks\Modules\Import\Import;
 use Pressbooks\Book;
+use function Pressbooks\Image\attachment_id_from_url;
 
 class Wxr extends Import {
 
@@ -18,6 +19,20 @@ class Wxr extends Import {
 	 * @var boolean
 	 */
 	protected $isPbWxr = false;
+
+	/**
+	 * The URL of the source book.
+	 *
+	 * @var string
+	 */
+	protected $sourceBookUrl;
+
+	/**
+	 * Array of known images, format: [ 2017/08/foo-bar-300x225.png ] => [ Fullsize URL ], ...
+	 *
+	 * @var array
+	 */
+	protected $knownImages = [];
 
 	/**
 	 *
@@ -45,6 +60,8 @@ class Wxr extends Import {
 		}
 
 		$this->pbCheck( $xml );
+
+		$this->sourceBookUrl = $xml['base_url'];
 
 		$option = [
 			'file' => $upload['file'],
@@ -105,6 +122,9 @@ class Wxr extends Import {
 		}
 
 		$this->pbCheck( $xml );
+
+		$this->sourceBookUrl = $xml['base_url'];
+		$this->knownImages = $this->buildListOfKnownImages( $xml );
 
 		if ( $this->isPbWxr ) {
 			$xml['posts'] = $this->customNestedSort( $xml['posts'] );
@@ -348,8 +368,6 @@ class Wxr extends Import {
 	 */
 	protected function insertNewPost( $post_type, $p, $html, $chapter_parent, $post_status ) {
 
-		$custom_post_types = apply_filters( 'pb_import_custom_post_types', [] );
-
 		$new_post = [
 			'post_title' => wp_strip_all_tags( $p['post_title'] ),
 			'post_type' => $post_type,
@@ -471,22 +489,98 @@ class Wxr extends Import {
 		foreach ( $images as $image ) {
 			/** @var \DOMElement $image */
 			// Fetch image, change src
-			$old_src = $image->getAttribute( 'src' );
+			$src_old = $image->getAttribute( 'src' );
 
-			$new_src = $this->fetchAndSaveUniqueImage( $old_src );
+			$attachment_id = $this->fetchAndSaveUniqueImage( $src_old );
 
-			if ( $new_src ) {
-				// Replace with new image
-				$image->setAttribute( 'src', $new_src );
+			if ( $attachment_id ) {
+				// Replace image
+				$src_new = wp_get_attachment_url( $attachment_id );
+				if ( $this->sameAsSource( $src_old ) && $attachment_id === attachment_id_from_url( $src_old ) ) {
+					// Use old filename to keep resizing
+					$basename_old = $this->basename( $src_old );
+					$basename_new = $this->basename( $src_new );
+					$src_new = \Pressbooks\Utility\str_lreplace( $basename_new, $basename_old, $src_new );
+				}
+				$image->setAttribute( 'src', $src_new );
 			} else {
 				// Tag broken image
-				$image->setAttribute( 'src', "{$old_src}#fixme" );
+				$image->setAttribute( 'src', "{$src_old}#fixme" );
 			}
 		}
 
 		return $doc;
 	}
 
+
+	/**
+	 * Parse XML to build an array of known images
+	 *
+	 * @param array $xml
+	 *
+	 * @return array
+	 */
+	public function buildListOfKnownImages( $xml ) {
+
+		$known_images = [];
+
+		foreach ( $xml['posts'] as $item ) {
+
+			if ( $item['post_type'] !== 'attachment' ) {
+				continue; // Not an attachment, skip
+			}
+			if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $item['attachment_url'] ) ) {
+				continue; // Not a supported image, skip
+			}
+
+			$x = [];
+			foreach ( $item['postmeta'] as $meta ) {
+				if ( $meta['key'] === '_wp_attachment_metadata' ) {
+					$x = maybe_unserialize( $meta['value'] );
+					break;
+				}
+			}
+			if ( ! is_array( $x ) || empty( $x ) ) {
+				continue; // Something went wrong, skip
+			}
+
+			$fullsize = $item['attachment_url'];
+			$prefix = str_replace( $this->basename( $fullsize ), '', $x['file'] );
+			foreach ( $x['sizes'] as $size => $info ) {
+				$attached_file = $prefix . $info['file'];
+				$known_images[ $attached_file ] = $fullsize;
+			}
+		}
+
+		return $known_images;
+	}
+
+	/**
+	 * Get sanitized basename without query string or anchors
+	 *
+	 * @param $url
+	 *
+	 * @return array|mixed|string
+	 */
+	protected function basename( $url ) {
+		$filename = explode( '?', basename( $url ) );
+		$filename = array_shift( $filename );
+		$filename = explode( '#', $filename )[0]; // Remove trailing anchors
+		$filename = sanitize_file_name( urldecode( $filename ) );
+
+		return $filename;
+	}
+
+	/**
+	 * @param $url
+	 *
+	 * @return bool
+	 */
+	protected function sameAsSource( $url ) {
+		$same_host = ( parse_url( $this->sourceBookUrl, PHP_URL_HOST ) === parse_url( $url, PHP_URL_HOST ) );
+
+		return $same_host;
+	}
 
 	/**
 	 * Load remote url of image into WP using media_handle_sideload()
@@ -496,15 +590,22 @@ class Wxr extends Import {
 	 *
 	 * @see media_handle_sideload
 	 *
-	 * @return string filename
+	 * @return int attachment ID or 0 if import failed
 	 */
 	protected function fetchAndSaveUniqueImage( $url ) {
-
 		if ( ! filter_var( $url, FILTER_VALIDATE_URL ) ) {
-			return '';
+			return 0;
 		}
 
-		$remote_img_location = $url;
+		$filename = $this->basename( $url );
+		$attached_file = \Pressbooks\Image\strip_baseurl( $url );
+
+		if ( $this->sameAsSource( $url ) && isset( $this->knownImages[ $attached_file ] ) ) {
+			$remote_img_location = $this->knownImages[ $attached_file ];
+			$filename = basename( $this->knownImages[ $attached_file ] );
+		} else {
+			$remote_img_location = $url;
+		}
 
 		// Cheap cache
 		static $already_done = [];
@@ -514,23 +615,17 @@ class Wxr extends Import {
 
 		/* Process */
 
-		// Basename without query string
-		$filename = explode( '?', basename( $url ) );
-		$filename = array_shift( $filename );
-
-		$filename = sanitize_file_name( urldecode( $filename ) );
-
 		if ( ! preg_match( '/\.(jpe?g|gif|png)$/i', $filename ) ) {
 			// Unsupported image type
 			$already_done[ $remote_img_location ] = '';
-			return '';
+			return 0;
 		}
 
 		$tmp_name = download_url( $remote_img_location );
 		if ( is_wp_error( $tmp_name ) ) {
 			// Download failed
 			$already_done[ $remote_img_location ] = '';
-			return '';
+			return 0;
 		}
 
 		if ( ! \Pressbooks\Image\is_valid_image( $tmp_name, $filename ) ) {
@@ -545,19 +640,19 @@ class Wxr extends Import {
 				// Garbage, don't import
 				$already_done[ $remote_img_location ] = '';
 				unlink( $tmp_name );
-				return '';
+				return 0;
 			}
 		}
 
 		$pid = media_handle_sideload( [ 'name' => $filename, 'tmp_name' => $tmp_name ], 0 );
 		$src = wp_get_attachment_url( $pid );
 		if ( ! $src ) {
-			$src = ''; // Change false to empty string
+			$pid = 0;
 		}
-		$already_done[ $remote_img_location ] = $src;
+		$already_done[ $remote_img_location ] = $pid;
 		@unlink( $tmp_name ); // @codingStandardsIgnoreLine
 
-		return $src;
+		return $pid;
 	}
 
 }
