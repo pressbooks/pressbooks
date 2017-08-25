@@ -130,7 +130,7 @@ class Cloner {
 	protected $targetBookTerms = [];
 
 	/**
-	 * Array of known images, format: [ Resized Filename ] => [ Fullsize URL ]
+	 * Array of known images, format: [ 2017/08/foo-bar-300x225.png ] => [ Fullsize URL ], ...
 	 *
 	 * @var array
 	 */
@@ -374,7 +374,7 @@ class Cloner {
 	}
 
 	/**
-	 * Use media endpoint to build an array of known images, format: [ Resized Filename ] => [ Fullsize URL ]
+	 * Use media endpoint to build an array of known images
 	 *
 	 * @param string $url The URL of the book.
 	 *
@@ -399,7 +399,8 @@ class Cloner {
 		foreach ( $response as $item ) {
 			$fullsize = $item['source_url'];
 			foreach ( $item['media_details']['sizes'] as $size => $info ) {
-				$known_images[ $info['file'] ] = $fullsize;
+				$attached_file = \Pressbooks\Image\strip_baseurl( $info['source_url'] ); // 2017/08/foo-bar-300x225.png
+				$known_images[ $attached_file ] = $fullsize;
 			}
 		}
 
@@ -875,10 +876,11 @@ class Cloner {
 		}
 
 		$filename = $this->basename( $url );
+		$attached_file = \Pressbooks\Image\strip_baseurl( $url );
 
-		if ( $this->sameAsSource( $url ) && isset( $this->knownImages[ $filename ] ) ) {
-			$remote_img_location = $this->knownImages[ $filename ];
-			$filename = basename( $this->knownImages[ $filename ] );
+		if ( $this->sameAsSource( $url ) && isset( $this->knownImages[ $attached_file ] ) ) {
+			$remote_img_location = $this->knownImages[ $attached_file ];
+			$filename = basename( $this->knownImages[ $attached_file ] );
 		} else {
 			$remote_img_location = $url;
 		}

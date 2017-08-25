@@ -34,6 +34,10 @@ class ImageTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Image\strip_baseurl( $test );
 		$this->assertEquals( '2017/08/foo-bar.png', $result );
 
+		$test = 'https://pressbooks.dev/upload/2017/08/foo-bar-300x225.png';
+		$result = \Pressbooks\Image\strip_baseurl( $test );
+		$this->assertEquals( '2017/08/foo-bar-300x225.png', $result );
+
 		$test = 'https://pressbooks.dev/upload/zig/zag/foo-bar.png';
 		$result = \Pressbooks\Image\strip_baseurl( $test );
 		$this->assertEquals( 'https://pressbooks.dev/upload/zig/zag/foo-bar.png', $result );

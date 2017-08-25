@@ -94,7 +94,7 @@ function thumbify( $thumb, $path ) {
 
 
 /**
- * Remove the upload path base directory from the attachment URL
+ * Returns the upload path and basename from attachment URL (ie. 2017/08/foo-bar.png), or unchanged if no match is found.
  *
  * @param string $url
  *
@@ -126,14 +126,14 @@ function attachment_id_from_url( $url ) {
 	// If this is the URL of an auto-generated thumbnail, get the URL of the original image
 	$url = preg_replace( '/-\d+x\d+(?=\.(jp?g|png|gif)$)/i', '', $url );
 
-	$url = strip_baseurl( $url );
+	$attached_file = strip_baseurl( $url );
 
 	// Get the attachment ID from the modified attachment URL
 	$id = $wpdb->get_var(
 		$wpdb->prepare(
 			"SELECT ID FROM {$wpdb->posts}
 			INNER JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
-			WHERE {$wpdb->posts}.post_type = 'attachment' AND {$wpdb->postmeta}.meta_key = '_wp_attached_file' AND {$wpdb->postmeta}.meta_value = '%s' ", $url
+			WHERE {$wpdb->posts}.post_type = 'attachment' AND {$wpdb->postmeta}.meta_key = '_wp_attached_file' AND {$wpdb->postmeta}.meta_value = '%s' ", $attached_file
 		)
 	);
 
@@ -255,13 +255,13 @@ function delete_attachment( $post_id ) {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
-		$url = strip_baseurl( wp_get_attachment_url( $post->ID ) );
+		$attached_file = strip_baseurl( wp_get_attachment_url( $post->ID ) );
 
 		$id = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT umeta_id FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key = 'pb_catalog_logo' AND meta_value REGEXP %s ",
 				$post->post_author,
-				"{$url}$" // End of string regex for URL
+				"{$attached_file}$" // End of string regex for URL
 			)
 		);
 
@@ -701,11 +701,11 @@ function maybe_swap_with_bigger( $url ) {
 	}
 
 	$upload_dir = dirname( get_attached_file( $id ) );
-	$src_base = strip_baseurl( $url );
-	$src_file = basename( $src_base );
+	$attached_file = strip_baseurl( $url );
+	$src_file = basename( $attached_file );
 
 	$meta = wp_get_attachment_metadata( $id, true );
-	if ( $meta['file'] === $src_base ) {
+	if ( $meta['file'] === $attached_file ) {
 		// This is the original image, return unchanged
 		return $url;
 	}
