@@ -304,6 +304,9 @@ class Cloner {
 		// Set endpoint
 		$endpoint = $term['taxonomy'];
 
+		// _links key needs to be removed, pop it out into an ignored variable
+		$_links = array_pop( $term );
+
 		// Remove source-specific properties
 		$bad_keys = [ 'id', 'count', 'link', 'parent', 'taxonomy' ];
 		foreach ( $bad_keys as $bad_key ) {
@@ -618,6 +621,9 @@ class Cloner {
 				break;
 			}
 		};
+
+		// _links key needs to be removed, pop it out into an ignored variable
+		$_links = array_pop( $section );
 
 		if ( empty( $section['link'] ) ) {
 			// Doing it wrong...
