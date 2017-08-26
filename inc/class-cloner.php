@@ -625,11 +625,6 @@ class Cloner {
 		// _links key needs to be removed, pop it out into an ignored variable
 		$_links = array_pop( $section );
 
-		if ( empty( $section['link'] ) ) {
-			// Doing it wrong...
-			return false;
-		}
-
 		// Get permalink
 		$permalink = $section['link'];
 
