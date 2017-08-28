@@ -24,7 +24,7 @@ class CustomCssTest extends \WP_UnitTestCase {
 	public function test_isRomanized() {
 		$this->assertTrue( is_bool( CustomCss::isRomanized() ) );
 	}
-	
+
 	public function test_getBaseTheme() {
 
 		$input = file_get_contents( WP_CONTENT_DIR . '/themes/pressbooks-book/style.css' );
