@@ -9,7 +9,6 @@ namespace Pressbooks\Modules\Export;
 use Pressbooks\Book;
 use Pressbooks\CustomCss;
 use Pressbooks\Container;
-use Pressbooks\Metadata;
 use function \Pressbooks\Utility\getset;
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.

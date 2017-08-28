@@ -354,8 +354,13 @@ class Metadata implements \JsonSerializable {
 
 
 	/**
-	 * Upgrade Custom CSS types.
+	 * Leftover code from old Custom CSS Editor.
 	 *
+	 * Users should be encouraged to use "Custom Styles" instead.
+	 *
+	 * @deprecated
+	 *
+	 * @see https://github.com/pressbooks/pressbooks-custom-css
 	 * @see \Pressbooks\Activation::wpmuActivate
 	 */
 	function upgradeCustomCss() {
