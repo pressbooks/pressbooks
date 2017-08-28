@@ -90,6 +90,8 @@ function pb_strip_br( $val ) {
 /**
  * Shortcut to \Pressbooks\CustomCss::isCustomCss();
  *
+ * @deprecated Leftover code from old Custom CSS Editor. Use Custom Styles instead.
+ *
  * @return bool
  */
 function pb_is_custom_theme() {
@@ -135,6 +137,8 @@ function pb_get_microdata_elements() {
 /**
  * Get url to the custom stylesheet for web.
  *
+ * @deprecated Leftover code from old Custom CSS Editor. Use Custom Styles instead.
+ *
  * @see: \Pressbooks\CustomCss
  * @return string
  */
@@ -153,6 +157,8 @@ function pb_get_custom_stylesheet_url() {
 
 /**
  * Check if custom stylesheet for web already imports pressbooks-book/style.css
+ *
+ * @deprecated Leftover code from old Custom CSS Editor. Use Custom Styles instead.
  *
  * @see: \Pressbooks\CustomCss
  * @return bool

@@ -354,11 +354,7 @@ class Metadata implements \JsonSerializable {
 
 
 	/**
-	 * Leftover code from old Custom CSS Editor.
-	 *
-	 * Users should be encouraged to use "Custom Styles" instead.
-	 *
-	 * @deprecated
+	 * @deprecated Leftover code from old Custom CSS Editor. Use Custom Styles instead.
 	 *
 	 * @see https://github.com/pressbooks/pressbooks-custom-css
 	 * @see \Pressbooks\Activation::wpmuActivate
