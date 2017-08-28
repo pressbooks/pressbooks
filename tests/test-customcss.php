@@ -1,5 +1,7 @@
 <?php
 
+use Pressbooks\CustomCss;
+
 class CustomCssTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
@@ -9,36 +11,34 @@ class CustomCssTest extends \WP_UnitTestCase {
 	 */
 	protected $cc;
 
-	/**
-	 *
-	 */
-	public function setUp() {
-		parent::setUp();
-		$this->cc = new \Pressbooks\CustomCss();
-	}
-
 	public function test_getCustomCssFolder() {
-
-		$path = $this->cc->getCustomCssFolder();
+		$path = CustomCss::getCustomCssFolder();
 		$this->assertStringEndsWith( '/custom-css/', $path );
 
 	}
 
+	public function test_isCustomCss() {
+		$this->assertTrue( is_bool( CustomCss::isCustomCss() ) );
+	}
+
+	public function test_isRomanized() {
+		$this->assertTrue( is_bool( CustomCss::isRomanized() ) );
+	}
+	
 	public function test_getBaseTheme() {
 
 		$input = file_get_contents( WP_CONTENT_DIR . '/themes/pressbooks-book/style.css' );
-		$output = $this->cc->getCustomCssFolder() . sanitize_file_name( 'web.css' );
+		$output = CustomCss::getCustomCssFolder() . sanitize_file_name( 'web.css' );
 
 		file_put_contents( $output, $input );
 
-		$web = $this->cc->getBaseTheme( 'web' );
+		$web = CustomCss::getBaseTheme( 'web' );
 
 		$this->assertTrue( 'pressbooks-book' == $web );
 
-		$prince = $this->cc->getBaseTheme( 'prince' );
+		$prince = CustomCss::getBaseTheme( 'prince' );
 
 		$this->assertFalse( 'pressbooks-book' == $prince );
-
 	}
 
 }
