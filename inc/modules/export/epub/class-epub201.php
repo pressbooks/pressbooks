@@ -642,7 +642,27 @@ class Epub201 extends Export {
 			$css = static::injectHouseStyles( $scss );
 		}
 
-		// Search for all possible permutations of CSS url syntax: url("*"), url('*'), and url(*)
+		$css = $this->normalizeCssUrls( $css, $scss_dir, $path_to_epub_assets );
+
+		// Overwrite the new file with new info
+		file_put_contents( $path_to_copy_of_stylesheet, $css );
+
+		if ( WP_DEBUG ) {
+			Container::get( 'Sass' )->debug( $css, $scss, 'epub' );
+		}
+
+	}
+
+	/**
+	 * Search for all possible permutations of CSS url syntax -- url("*"), url('*'), and url(*) -- and update URLs as needed.
+	 *
+	 * @param string $css
+	 * @param string $scss_dir
+	 * @param string $path_to_epub_assets
+	 *
+	 * @return string
+	 */
+	protected function normalizeCssUrls( $css, $scss_dir, $path_to_epub_assets ) {
 		$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
 		$css = preg_replace_callback(
 			$url_regex, function ( $matches ) use ( $scss_dir, $path_to_epub_assets ) {
@@ -714,13 +734,7 @@ class Epub201 extends Export {
 			}, $css
 		);
 
-		// Overwrite the new file with new info
-		file_put_contents( $path_to_copy_of_stylesheet, $css );
-
-		if ( WP_DEBUG ) {
-			Container::get( 'Sass' )->debug( $css, $scss, 'epub' );
-		}
-
+		return $css;
 	}
 
 

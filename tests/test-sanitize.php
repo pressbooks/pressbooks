@@ -214,14 +214,27 @@ class SanitizeTest extends \WP_UnitTestCase {
 	}
 
 	public function test_normalize_css_urls() {
+		// Relative font
 		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(themes-book/pressbooks-book/fonts/Bergamot-Ornaments.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 		$template_directory_uri = get_template_directory_uri();
 		$this->assertContains( $template_directory_uri . '/assets/book/typography/fonts/Bergamot-Ornaments.ttf', $css );
 
-		$css = 'url(/fonts/foo.garbage)';
+		// Uploaded font
+		$fullpath_font = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/fonts/Bergamot-Ornaments.ttf';
+		$uploaded_font = WP_CONTENT_DIR . '/uploads/assets/fonts/Bergamot-Ornaments.ttf';
+		copy( $fullpath_font, $uploaded_font );
+		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(uploads/assets/fonts/Bergamot-Ornaments.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
-		$this->assertNotContains( 'themes/pressbooks-book/assets/typography/fonts/foo.garbage', $css );
+		$this->assertContains( set_url_scheme( WP_CONTENT_URL ), $css );
+		$css = '@font-face { font-family: "Bergamot Ornaments"; src: url(uploads/assets/fonts/garbage.ttf) format("truetype"); font-weight: normal; font-style: normal; }';
+		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
+		$this->assertNotContains( set_url_scheme( WP_CONTENT_URL ), $css );
+		unlink( $uploaded_font );
+
+		// Can't find, no change
+		$css = 'url(/fonts/foo.garbage)';
+		$this->assertEquals( $css, \Pressbooks\Sanitize\normalize_css_urls( $css ) );
 	}
 
 	public function test_allow_post_content() {
