@@ -300,3 +300,11 @@ add_filter( 'random_password', '\Pressbooks\Registration\override_password_gener
 // Email configuration
 add_filter( 'wp_mail_from', '\Pressbooks\Utility\mail_from' );
 add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Custom Styles
+// -------------------------------------------------------------------------------------------------------------------
+
+add_action( 'init', function () {
+	Container::get( 'CustomStyles' )->init();
+} );

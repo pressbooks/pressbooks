@@ -8,8 +8,12 @@ $c['Sass'] = function () {
 	return new \Pressbooks\Sass();
 };
 
-$c['GlobalTypography'] = function() {
-	return new \Pressbooks\GlobalTypography();
+$c['GlobalTypography'] = function ( $c ) {
+	return new \Pressbooks\GlobalTypography( $c['Sass'] );
+};
+
+$c['CustomStyles'] = function ( $c ) {
+	return new \Pressbooks\CustomStyles( $c['Sass'] );
 };
 
 return $c;

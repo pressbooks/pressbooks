@@ -9,6 +9,7 @@ namespace PHPSTORM_META {
 		\Pressbooks\Container::get( '' ) => [
 			'Sass' instanceof \Pressbooks\Sass,
 			'GlobalTypography' instanceof \Pressbooks\GlobalTypography,
+			'CustomStyles' instanceof \Pressbooks\CustomStyles,
 		],
 	];
 }
