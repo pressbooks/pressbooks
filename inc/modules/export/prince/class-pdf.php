@@ -225,26 +225,11 @@ class Pdf extends Export {
 	 */
 	protected function kneadCss() {
 
-		$sass = Container::get( 'Sass' );
+		$scss = file_get_contents( $this->exportStylePath );
+
+		$css = Container::get( 'CustomStyles' )->customize( 'prince', $scss, $this->cssOverrides );
+
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
-
-		$scss = $sass->applyOverrides( file_get_contents( $this->exportStylePath ), $this->cssOverrides );
-
-		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
-			$css = $sass->compile(
-				$scss, [
-				$sass->pathToUserGeneratedSass(),
-				$sass->pathToPartials(),
-				$sass->pathToFonts(),
-				get_stylesheet_directory(),
-				]
-			);
-		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'prince' ) );
-		} else {
-			$css = static::injectHouseStyles( $scss );
-		}
-
 		$css = normalize_css_urls( $css, $scss_dir );
 
 		if ( WP_DEBUG ) {

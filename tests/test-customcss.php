@@ -4,13 +4,6 @@ use Pressbooks\CustomCss;
 
 class CustomCssTest extends \WP_UnitTestCase {
 
-	use utilsTrait;
-
-	/**
-	 * @var \Pressbooks\CustomCss()
-	 */
-	protected $cc;
-
 	public function test_getCustomCssFolder() {
 		$path = CustomCss::getCustomCssFolder();
 		$this->assertStringEndsWith( '/custom-css/', $path );

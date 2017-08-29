@@ -100,13 +100,13 @@ function pb_is_custom_theme() {
 }
 
 /**
- * Shortcut to \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( $version );
+ * Shortcut to \Pressbooks\Container::get('CustomStyles')->isCurrentThemeCompatible( $version );
  *
  * @return bool
  */
 function pb_is_scss( $version = 1 ) {
 
-	if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( $version ) ) {
+	if ( \Pressbooks\Container::get( 'CustomStyles' )->isCurrentThemeCompatible( $version ) ) {
 		return true;
 	}
 

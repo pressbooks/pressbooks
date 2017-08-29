@@ -615,33 +615,16 @@ class Epub201 extends Export {
 	 */
 	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
-		$sass = Container::get( 'Sass' );
-		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
-		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';
-
 		$scss = file_get_contents( $path_to_copy_of_stylesheet );
 
 		if ( $this->extraCss ) {
 			$scss .= "\n" . $this->loadTemplate( $this->extraCss );
 		}
 
-		$scss = $sass->applyOverrides( $scss, $this->cssOverrides );
+		$css = Container::get( 'CustomStyles' )->customize( 'epub', $scss, $this->cssOverrides );
 
-		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
-			$css = $sass->compile(
-				$scss, [
-				$sass->pathToUserGeneratedSass(),
-				$sass->pathToPartials(),
-				$sass->pathToFonts(),
-				get_stylesheet_directory(),
-				]
-			);
-		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'epub' ) );
-		} else {
-			$css = static::injectHouseStyles( $scss );
-		}
-
+		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
+		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';
 		$css = $this->normalizeCssUrls( $css, $scss_dir, $path_to_epub_assets );
 
 		// Overwrite the new file with new info

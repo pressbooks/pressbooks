@@ -256,8 +256,9 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 // -------------------------------------------------------------------------------------------------------------------
 // Regenerate web theme stylesheet
 // -------------------------------------------------------------------------------------------------------------------
+
 add_action( 'init', function() {
-	\Pressbooks\Sass::maybeUpdateWebBookStyleSheet();
+	Container::get( 'CustomStyles' )->maybeUpdateWebBookStyleSheet();
 } );
 
 // -------------------------------------------------------------------------------------------------------------------

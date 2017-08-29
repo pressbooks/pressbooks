@@ -11,15 +11,22 @@ namespace Pressbooks;
 class GlobalTypography {
 
 	/**
-	 * @var \Pressbooks\Sass
+	 * @var Sass
 	 */
 	protected $sass;
 
 	/**
-	 * @param \Pressbooks\Sass $sass
+	 * @param Sass $sass
 	 */
 	public function __construct( $sass ) {
 		$this->sass = $sass;
+	}
+
+	/**
+	 * @return Sass
+	 */
+	public function getSass() {
+		return $this->sass;
 	}
 
 	/**

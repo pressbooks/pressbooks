@@ -105,9 +105,9 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
+			if ( Container::get( 'CustomStyles' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
 				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.scss" );
-			} elseif ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
+			} elseif ( Container::get( 'CustomStyles' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
 				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/styles/$type/style.scss" );
 			} else {
 				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.css" );
@@ -137,7 +137,7 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+			if ( Container::get( 'CustomStyles' )->isCurrentThemeCompatible( 2 ) ) {
 				// Check for v2 themes
 				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" );
 			} else {
@@ -162,7 +162,7 @@ abstract class Export {
 
 		$url = false;
 
-		if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) && realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" ) ) {
+		if ( Container::get( 'CustomStyles' )->isCurrentThemeCompatible( 2 ) && realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/assets/scripts/$type/script.js";
 		} elseif ( realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/export/$type/script.js";
@@ -794,31 +794,6 @@ abstract class Export {
 		}
 
 		return false;
-	}
-
-
-	/**
-	 * Inject house styles into CSS
-	 *
-	 * @param string $css
-	 *
-	 * @return string
-	 */
-	static function injectHouseStyles( $css ) {
-
-		$scan = [
-			'/*__INSERT_PDF_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_pdf-house-style.scss',
-			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_epub-house-style.scss',
-			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_mobi-house-style.scss',
-		];
-
-		foreach ( $scan as $token => $replace_with ) {
-			if ( is_file( $replace_with ) ) {
-				$css = str_replace( $token, file_get_contents( $replace_with ), $css );
-			}
-		}
-
-		return $css;
 	}
 
 

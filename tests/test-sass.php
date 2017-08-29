@@ -1,11 +1,13 @@
 <?php
 
+use Pressbooks\Container;
+
 class SassTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
 	/**
-	 * @var \Pressbooks\Sass()
+	 * @var \Pressbooks\Sass
 	 */
 	protected $sass;
 
@@ -15,7 +17,7 @@ class SassTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->sass = new \Pressbooks\Sass();
+		$this->sass = Container::get( 'Sass' );
 	}
 
 
@@ -53,36 +55,5 @@ class SassTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'font-size', $vars );
 		$this->assertEquals( $vars['red'], '#d4002d' );
 		$this->assertEquals( $vars['font-size'], '14pt' );
-	}
-
-	public function test_applyOverrides() {
-		$result = $this->sass->applyOverrides( '// SCSS.', '// Override.' );
-		$this->assertTrue( strpos( $result, '// SCSS.' ) === 0 );
-	}
-
-	public function test_updateWebBookStyleSheet() {
-
-		$this->_book( 'pressbooks-clarke' ); // Pick a theme with some built-in $supported_languages
-
-		$this->sass->updateWebBookStyleSheet();
-
-		$file = $this->sass->pathToUserGeneratedCss() . '/style.css';
-
-		$this->assertFileExists( $file );
-		$this->assertNotEmpty( file_get_contents( $file ) );
-	}
-
-	public function test_maybeUpdateWebBookStyleSheet() {
-
-		$this->_book( 'pressbooks-book' );
-		$theme = wp_get_theme();
-		$version = $theme->get( 'Version' );
-		update_option( 'pressbooks_theme_version', floatval( $version ) - 0.1 );
-
-		$result = $this->sass->maybeUpdateWebBookStylesheet();
-		$this->assertTrue( $result );
-
-		$result = $this->sass->maybeUpdateWebBookStylesheet();
-		$this->assertEquals( $result, false );
 	}
 }
