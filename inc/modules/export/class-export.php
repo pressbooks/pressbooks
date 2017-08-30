@@ -105,12 +105,11 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			$dir = Container::get( 'Styles' )->getDir();
-			if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
-				$fullpath = realpath( "$dir/export/$type/style.scss" );
-			} elseif ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
-				$fullpath = realpath( "$dir/assets/styles/$type/style.scss" );
-			} else {
+			// Look for SCSS file
+			$fullpath = Container::get( 'Styles' )->pathToScss( $type );
+			if ( ! $fullpath ) {
+				// Look For CSS file
+				$dir = Container::get( 'Styles' )->getDir();
 				$fullpath = realpath( "$dir/export/$type/style.css" );
 			}
 		}

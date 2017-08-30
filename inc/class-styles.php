@@ -127,8 +127,6 @@ class Styles {
 			$theme = wp_get_theme();
 		}
 
-		$path_to_style = false;
-
 		if ( $this->isCurrentThemeCompatible( 1, $theme ) ) {
 			if ( 'web' === $type ) {
 				$path_to_style = realpath( $this->getDir( $theme ) . '/style.scss' );
@@ -137,6 +135,8 @@ class Styles {
 			}
 		} elseif ( $this->isCurrentThemeCompatible( 2, $theme ) ) {
 			$path_to_style = realpath( $this->getDir( $theme ) . "/assets/styles/$type/style.scss" );
+		} else {
+			$path_to_style = false;
 		}
 
 		return $path_to_style;

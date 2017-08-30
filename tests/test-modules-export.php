@@ -42,6 +42,9 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 		$path = $this->export->getExportStylePath( 'prince' );
 		$this->assertStringEndsWith( '/export/prince/style.scss', $path );
 
+		$path = $this->export->getExportStylePath( 'web' );
+		$this->assertStringEndsWith( '/pressbooks-book/style.scss', $path );
+
 		$path = $this->export->getExportStylePath( 'foobar' );
 		$this->assertFalse( $path );
 	}
