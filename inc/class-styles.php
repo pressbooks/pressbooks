@@ -53,20 +53,99 @@ class Styles {
 	}
 
 	/**
-	 * Are the current theme's stylesheets SCSS compatible?
-	 *
-	 * @param int $version
 	 * @param \WP_Theme $theme
+	 * @param bool $realpath (optional)
 	 *
-	 * @return bool
+	 * @return string|false
 	 */
-	function isCurrentThemeCompatible( $version = 1, $theme = null ) {
+	public function basepath( $theme, $realpath = true ) {
+
+		$basepath = apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() );
+
+		if ( $realpath ) {
+			$basepath = realpath( $basepath );
+		}
+
+		return $basepath;
+	}
+
+	/**
+	 * Fullpath to SCSS file for Web
+	 *
+	 * @param \WP_Theme $theme (optional)
+	 *
+	 * @return false|string
+	 */
+	public function pathToWebScss( $theme = null ) {
+		return $this->pathToScss( 'web', $theme );
+	}
+
+	/**
+	 * Fullpath to SCSS file for Prince XML
+	 *
+	 * @param \WP_Theme $theme (optional)
+	 *
+	 * @return false|string
+	 */
+	public function pathToPrinceScss( $theme = null ) {
+		return $this->pathToScss( 'prince', $theme );
+	}
+
+	/**
+	 * Fullpath to SCSS file for Epub
+	 *
+	 * @param \WP_Theme $theme (optional)
+	 *
+	 * @return false|string
+	 */
+	public function pathToEpubScss( $theme = null ) {
+		return $this->pathToScss( 'epub', $theme );
+	}
+
+	/**
+	 * Fullpath to SCSS file
+	 *
+	 * @param string $type
+	 * @param \WP_Theme $theme (optional)
+	 *
+	 * @return string|false
+	 */
+	public function pathToScss( $type, $theme = null ) {
 
 		if ( null === $theme ) {
 			$theme = wp_get_theme();
 		}
 
-		$basepath = apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() );
+		$path_to_style = false;
+
+		if ( $this->isCurrentThemeCompatible( 1, $theme ) ) {
+			if ( 'web' === $type ) {
+				$path_to_style = realpath( $this->basepath( $theme, false ) . '/style.scss' );
+			} else {
+				$path_to_style = realpath( $this->basepath( $theme, false ) . "/export/$type/style.scss" );
+			}
+		} elseif ( $this->isCurrentThemeCompatible( 2, $theme ) ) {
+			$path_to_style = realpath( $this->basepath( $theme, false ) . "/assets/styles/$type/style.scss" );
+		}
+
+		return $path_to_style;
+	}
+
+	/**
+	 * Are the current theme's stylesheets SCSS compatible?
+	 *
+	 * @param int $version
+	 * @param \WP_Theme $theme (optional)
+	 *
+	 * @return bool
+	 */
+	public  function isCurrentThemeCompatible( $version = 1, $theme = null ) {
+
+		if ( null === $theme ) {
+			$theme = wp_get_theme();
+		}
+
+		$basepath = $this->basepath( $theme, false );
 
 		$types = [
 			'prince',
