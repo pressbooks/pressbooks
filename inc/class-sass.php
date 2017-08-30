@@ -38,7 +38,7 @@ class Sass {
 			$this->pathToUserGeneratedSass(),
 			$this->pathToGlobals(),
 			$this->pathToFonts(),
-			apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() ) . "/assets/styles/$type/",
+			Container::get( 'Styles' )->getDir( $theme ) . "/assets/styles/$type/",
 		];
 	}
 

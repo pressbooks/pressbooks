@@ -105,12 +105,13 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
+			$dir = Container::get( 'Styles' )->getDir();
 			if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.scss" );
+				$fullpath = realpath( "$dir/export/$type/style.scss" );
 			} elseif ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/styles/$type/style.scss" );
+				$fullpath = realpath( "$dir/assets/styles/$type/style.scss" );
 			} else {
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.css" );
+				$fullpath = realpath( "$dir/export/$type/style.css" );
 			}
 		}
 
@@ -137,11 +138,12 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
+			$dir = Container::get( 'Styles' )->getDir();
 			if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
 				// Check for v2 themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" );
+				$fullpath = realpath( "$dir/assets/scripts/$type/script.js" );
 			} else {
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" );
+				$fullpath = realpath( "$dir/export/$type/script.js" );
 			}
 			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' === $type ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script-romanize.js" );
@@ -162,9 +164,10 @@ abstract class Export {
 
 		$url = false;
 
-		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" ) ) {
+		$dir = Container::get( 'Styles' )->getDir();
+		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && realpath( "$dir/assets/scripts/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/assets/scripts/$type/script.js";
-		} elseif ( realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" ) ) {
+		} elseif ( realpath( "$dir/export/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/export/$type/script.js";
 		}
 		if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' === $type ) {

@@ -22,8 +22,11 @@ class StylesTest extends \WP_UnitTestCase {
 
 	public function test_basepath() {
 		$v1 = wp_get_theme( 'pressbooks-book' );
-		$this->assertNotEmpty( $this->cs->basepath( $v1, true ) );
-		$this->assertNotEmpty( $this->cs->basepath( $v1, false ) );
+		$this->assertNotEmpty( $this->cs->getDir( $v1, true ) );
+		$this->assertNotEmpty( $this->cs->getDir( $v1, false ) );
+
+		$this->assertNotEmpty( $this->cs->getDir( null, true ) );
+		$this->assertNotEmpty( $this->cs->getDir( null, false ) );
 	}
 
 	public function test_pathToScss() {

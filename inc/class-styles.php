@@ -33,9 +33,11 @@ class Styles {
 	public function init() {
 
 		if ( ! Book::isBook() ) {
+			// Not a book, disable
 			return;
 		}
 		if ( class_exists( '\Pressbooks\CustomCss' ) && CustomCss::isCustomCss() ) {
+			// Uses old Custom CSS Editor, disable
 			return;
 		}
 
@@ -53,14 +55,23 @@ class Styles {
 	}
 
 	/**
-	 * @param \WP_Theme $theme
+	 *
+	 * Get stylesheet directory, applies filter: pb_stylesheet_directory
+	 *
+	 * @param \WP_Theme $theme (optional)
 	 * @param bool $realpath (optional)
 	 *
 	 * @return string|false
 	 */
-	public function basepath( $theme, $realpath = true ) {
+	public function getDir( $theme = null, $realpath = false ) {
 
-		$basepath = apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() );
+		if ( $theme ) {
+			$dir = $theme->get_stylesheet_directory();
+		} else {
+			$dir = get_stylesheet_directory();
+		}
+
+		$basepath = apply_filters( 'pb_stylesheet_directory', $dir );
 
 		if ( $realpath ) {
 			$basepath = realpath( $basepath );
@@ -120,12 +131,12 @@ class Styles {
 
 		if ( $this->isCurrentThemeCompatible( 1, $theme ) ) {
 			if ( 'web' === $type ) {
-				$path_to_style = realpath( $this->basepath( $theme, false ) . '/style.scss' );
+				$path_to_style = realpath( $this->getDir( $theme ) . '/style.scss' );
 			} else {
-				$path_to_style = realpath( $this->basepath( $theme, false ) . "/export/$type/style.scss" );
+				$path_to_style = realpath( $this->getDir( $theme ) . "/export/$type/style.scss" );
 			}
 		} elseif ( $this->isCurrentThemeCompatible( 2, $theme ) ) {
-			$path_to_style = realpath( $this->basepath( $theme, false ) . "/assets/styles/$type/style.scss" );
+			$path_to_style = realpath( $this->getDir( $theme ) . "/assets/styles/$type/style.scss" );
 		}
 
 		return $path_to_style;
@@ -145,7 +156,7 @@ class Styles {
 			$theme = wp_get_theme();
 		}
 
-		$basepath = $this->basepath( $theme, false );
+		$basepath = $this->getDir( $theme );
 
 		$types = [
 			'prince',
