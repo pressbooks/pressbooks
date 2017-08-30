@@ -32,14 +32,14 @@ class StylesTest extends \WP_UnitTestCase {
 	public function test_pathToScss() {
 		// V1
 		$v1 = wp_get_theme( 'pressbooks-book' );
-		$this->assertContains( 'style.scss', $this->cs->pathToWebScss( $v1 ) );
-		$this->assertContains( '/export/', $this->cs->pathToEpubScss( $v1 ) );
-		$this->assertContains( '/export/', $this->cs->pathToPrinceScss( $v1 ) );
+		$this->assertContains( 'style.scss', $this->cs->getPathToWebScss( $v1 ) );
+		$this->assertContains( '/export/', $this->cs->getPathToEpubScss( $v1 ) );
+		$this->assertContains( '/export/', $this->cs->getPathToPrinceScss( $v1 ) );
 		// V2
 		$v2 = wp_get_theme( 'pressbooks-clarke' );
-		$this->assertContains( '/assets/styles/', $this->cs->pathToWebScss( $v2 ) );
-		$this->assertContains( '/assets/styles/', $this->cs->pathToEpubScss( $v2 ) );
-		$this->assertContains( '/assets/styles/', $this->cs->pathToPrinceScss( $v2 ) );
+		$this->assertContains( '/assets/styles/', $this->cs->getPathToWebScss( $v2 ) );
+		$this->assertContains( '/assets/styles/', $this->cs->getPathToEpubScss( $v2 ) );
+		$this->assertContains( '/assets/styles/', $this->cs->getPathToPrinceScss( $v2 ) );
 	}
 
 	public function test_isCurrentThemeCompatible() {
@@ -71,6 +71,20 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertTrue( strpos( $result, '// Override 1.' ) === 0 );
 		$this->assertContains( '// SCSS.', $result );
 	}
+
+	public function test_customize() {
+		// V1
+		$this->_book();
+		$this->assertContains( 'font-size:', $this->cs->customizeWeb() );
+		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
+		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
+		// V2
+		switch_theme( 'pressbooks-clarke' );
+		$this->assertContains( 'font-size:', $this->cs->customizeWeb() );
+		$this->assertContains( 'font-size:', $this->cs->customizeEpub() );
+		$this->assertContains( 'font-size:', $this->cs->customizePrince() );
+	}
+
 
 	public function test_updateWebBookStyleSheet() {
 

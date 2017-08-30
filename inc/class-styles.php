@@ -87,8 +87,8 @@ class Styles {
 	 *
 	 * @return false|string
 	 */
-	public function pathToWebScss( $theme = null ) {
-		return $this->pathToScss( 'web', $theme );
+	public function getPathToWebScss( $theme = null ) {
+		return $this->getPathToScss( 'web', $theme );
 	}
 
 	/**
@@ -98,8 +98,8 @@ class Styles {
 	 *
 	 * @return false|string
 	 */
-	public function pathToPrinceScss( $theme = null ) {
-		return $this->pathToScss( 'prince', $theme );
+	public function getPathToPrinceScss( $theme = null ) {
+		return $this->getPathToScss( 'prince', $theme );
 	}
 
 	/**
@@ -109,8 +109,8 @@ class Styles {
 	 *
 	 * @return false|string
 	 */
-	public function pathToEpubScss( $theme = null ) {
-		return $this->pathToScss( 'epub', $theme );
+	public function getPathToEpubScss( $theme = null ) {
+		return $this->getPathToScss( 'epub', $theme );
 	}
 
 	/**
@@ -121,7 +121,7 @@ class Styles {
 	 *
 	 * @return string|false
 	 */
-	public function pathToScss( $type, $theme = null ) {
+	public function getPathToScss( $type, $theme = null ) {
 
 		if ( null === $theme ) {
 			$theme = wp_get_theme();
@@ -185,9 +185,47 @@ class Styles {
 		return true;
 	}
 
+	/**
+	 * @param array|string $overrides (optional)
+	 *
+	 * @return string
+	 */
+	public function customizeWeb( $overrides = [] ) {
+		$path = $this->getPathToWebScss();
+		if ( $path ) {
+			return $this->customize( 'web', file_get_contents( $path ), $overrides );
+		}
+		return '';
+	}
 
 	/**
-	 * Compile SCSS based on to theme compatibility
+	 * @param array|string $overrides (optional)
+	 *
+	 * @return string
+	 */
+	public function customizePrince( $overrides = [] ) {
+		$path = $this->getPathToPrinceScss();
+		if ( $path ) {
+			return $this->customize( 'prince', file_get_contents( $path ), $overrides );
+		}
+		return '';
+	}
+
+	/**
+	 * @param array|string $overrides (optional)
+	 *
+	 * @return string
+	 */
+	public function customizeEpub( $overrides = [] ) {
+		$path = $this->getPathToEpubScss();
+		if ( $path ) {
+			return $this->customize( 'epub', file_get_contents( $path ), $overrides );
+		}
+		return '';
+	}
+
+	/**
+	 * Transpile SCSS based on theme compatibility
 	 *
 	 * @param string $type
 	 * @param string $scss

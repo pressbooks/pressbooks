@@ -106,7 +106,7 @@ abstract class Export {
 
 		if ( ! $fullpath ) {
 			// Look for SCSS file
-			$fullpath = Container::get( 'Styles' )->pathToScss( $type );
+			$fullpath = Container::get( 'Styles' )->getPathToScss( $type );
 			if ( ! $fullpath ) {
 				// Look For CSS file
 				$dir = Container::get( 'Styles' )->getDir();

@@ -12,6 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $custom_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_styles&customstyles=yes' ), 'pb-custom-styles' );
 
+$styles = \Pressbooks\Container::get( 'Styles' );
+
+$path = $styles->getPathToPrinceScss();
+$output = $styles->customize( 'prince', file_get_contents( $path ) );
+
+echo "<pre>$output</pre>";
+die();
+
 // -------------------------------------------------------------------------------------------------------------------
 // Warnings and errors
 // -------------------------------------------------------------------------------------------------------------------
