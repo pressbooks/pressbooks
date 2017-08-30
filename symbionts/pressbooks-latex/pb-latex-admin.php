@@ -18,7 +18,9 @@ class PBLatexAdmin extends PBLatex {
 		// since we're activating at the network level, this needs to be called in the constructor
 		$this->addOptions();
 
-		add_action( 'admin_menu', array( &$this, 'adminMenu' ) );
+		if ( \Pressbooks\Book::isBook() ) {
+			add_action( 'admin_menu', [ &$this, 'adminMenu' ] );
+		}
 	}
 
 	function adminMenu() {
