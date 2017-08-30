@@ -306,6 +306,6 @@ add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
 // Custom Styles
 // -------------------------------------------------------------------------------------------------------------------
 
-add_action( 'init', function () {
-	Container::get( 'Styles' )->init();
-} );
+Container::get( 'Styles' )->init();
+
+

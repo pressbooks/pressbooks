@@ -12,7 +12,9 @@
   "engines": {
     "node": ">= 6.9.4"
   },
-  "dependencies": {},
+  "dependencies": {
+    "codemirror": "^5.29.0"
+  },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "block-ui": "^2.70.1",

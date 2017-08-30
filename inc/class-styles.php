@@ -41,17 +41,43 @@ class Styles {
 			return;
 		}
 
-		add_action( 'admin_menu', function () {
-			add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', 'pb_custom_styles', [ $this, 'editor' ] );
-		}, 11 );
+		// Code Mirror
+		// TODO: Use built-in WP when released, see: https://core.trac.wordpress.org/ticket/12423
+		if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_custom_styles' ) {
+			$codemirror_version = '5.29.0';
+			add_action(
+				'wp_default_scripts', function ( \WP_Scripts $scripts ) use ( $codemirror_version ) {
+					$scripts->add( 'codemirror', PB_PLUGIN_URL . 'node_modules/codemirror/lib/codemirror.js', [], $codemirror_version );
+					$scripts->add( 'codemirror-mode-css', PB_PLUGIN_URL . 'node_modules/codemirror/mode/css/css.js', [ 'codemirror' ], $codemirror_version );
+				}
+			);
+			add_action(
+				'wp_default_styles', function ( \WP_Styles $styles ) use ( $codemirror_version ) {
+					$codemirror_version = '5.29.0';
+					$styles->add( 'codemirror', PB_PLUGIN_URL . 'node_modules/codemirror/lib/codemirror.css', [], $codemirror_version );
+				}
+			);
+			add_action(
+				'admin_enqueue_scripts', function () {
+					wp_enqueue_script( 'codemirror-mode-css' );
+					wp_enqueue_style( 'codemirror' );
+				}
+			);
+		}
+
+		// Admin Menu
+		add_action( 'init', function () {
+			add_action( 'admin_menu', function () {
+				add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', 'pb_custom_styles', [ $this, 'editor' ] );
+			}, 11 );
+		} );
 	}
 
 	/**
 	 *
 	 */
 	public function editor() {
-		echo 'TODO';
-		// require( PB_PLUGIN_DIR . 'templates/admin/custom-styles.php' );
+		require( PB_PLUGIN_DIR . 'templates/admin/custom-styles.php' );
 	}
 
 	/**

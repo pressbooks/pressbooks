@@ -12,13 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $custom_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_styles&customstyles=yes' ), 'pb-custom-styles' );
 
+// TODO: Testing
 $styles = \Pressbooks\Container::get( 'Styles' );
-
-$path = $styles->getPathToPrinceScss();
-$output = $styles->customize( 'prince', file_get_contents( $path ) );
-
-echo "<pre>$output</pre>";
-die();
+$output = $styles->customizePrince();
 
 // -------------------------------------------------------------------------------------------------------------------
 // Warnings and errors
@@ -39,14 +35,11 @@ if ( ! empty( $_GET['customstyles_error'] ) ) {
 
 		<form id="pb-custom-styles-form" action="<?php echo $custom_form_url ?>" method="post">
 
-			<input type="hidden" name="post_id" value="<?php echo $post_id; ?>"/>
-			<input type="hidden" name="post_id_integrity" value="<?php echo md5( NONCE_KEY . $post_id ); ?>"/>
+			<h3><?php _e( 'Theme Styles', 'pressbooks' ); ?></h3>
+			<textarea readonly id="theme_css" name="theme_css"><?php echo esc_textarea( $output ); ?></textarea>
 
-			<div style="float:left;"><?php echo __( 'You are currently editing CSS for', 'pressbooks' ) . ': ' . $slugs_dropdown; ?></div>
-			<div style="float:right;"><?php echo __( 'Format', 'pressbooks' ) . ': ' . $css_copy_dropdown; ?></div>
-
-			<label for="my_custom_css"></label>
-			<textarea id="my_custom_css" name="my_custom_css" cols="70" rows="30"><?php echo esc_textarea( $my_custom_css ); ?></textarea>
+			<h3><?php _e( 'Your Styles', 'pressbooks' ); ?></h3>
+			<textarea id="custom_css" name="custom_css"></textarea>
 
 			<?php submit_button( __( 'Save', 'pressbooks' ), 'primary', 'save' ); ?>
 
@@ -54,6 +47,19 @@ if ( ! empty( $_GET['customstyles_error'] ) ) {
 
 	</div>
 
-	<?php echo $revisions_table; ?>
 
 </div>
+
+<script>
+	var editor1 = CodeMirror.fromTextArea(document.getElementById('theme_css'), {
+		lineNumbers: true,
+		matchBrackets: true,
+		readOnly: true,
+		mode: 'text/x-scss'
+	});
+	var editor2 = CodeMirror.fromTextArea(document.getElementById('custom_css'), {
+		lineNumbers: true,
+		matchBrackets: true,
+		mode: 'text/css'
+	});
+</script>
