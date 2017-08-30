@@ -227,7 +227,7 @@ class Pdf extends Export {
 
 		$scss = file_get_contents( $this->exportStylePath );
 
-		$css = Container::get( 'CustomStyles' )->customize( 'prince', $scss, $this->cssOverrides );
+		$css = Container::get( 'Styles' )->customize( 'prince', $scss, $this->cssOverrides );
 
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 		$css = normalize_css_urls( $css, $scss_dir );

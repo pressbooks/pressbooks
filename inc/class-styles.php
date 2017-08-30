@@ -6,7 +6,7 @@
 
 namespace Pressbooks;
 
-class CustomStyles {
+class Styles {
 
 	/**
 	 * @var Sass
@@ -196,11 +196,11 @@ class CustomStyles {
 
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
 			$scss .= file_get_contents( realpath( get_stylesheet_directory() . '/style.scss' ) );
-			$css = Container::get( 'CustomStyles' )->customize( 'web', $scss, $overrides );
+			$css = Container::get( 'Styles' )->customize( 'web', $scss, $overrides );
 
 		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= file_get_contents( realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
-			$css = Container::get( 'CustomStyles' )->customize( 'web', $scss, $overrides );
+			$css = Container::get( 'Styles' )->customize( 'web', $scss, $overrides );
 		} else {
 			return;
 		}

@@ -621,7 +621,7 @@ class Epub201 extends Export {
 			$scss .= "\n" . $this->loadTemplate( $this->extraCss );
 		}
 
-		$css = Container::get( 'CustomStyles' )->customize( 'epub', $scss, $this->cssOverrides );
+		$css = Container::get( 'Styles' )->customize( 'epub', $scss, $this->cssOverrides );
 
 		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';

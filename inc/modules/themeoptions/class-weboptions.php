@@ -349,7 +349,7 @@ class WebOptions extends \Pressbooks\Options {
 	 */
 	static function scssOverrides( $scss ) {
 
-		$custom_styles = \Pressbooks\Container::get( 'CustomStyles' );
+		$custom_styles = \Pressbooks\Container::get( 'Styles' );
 		$v2_compatible = $custom_styles->isCurrentThemeCompatible( 2 );
 
 		$options = get_option( 'pressbooks_theme_options_web' );

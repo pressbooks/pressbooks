@@ -105,9 +105,9 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'CustomStyles' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
+			if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
 				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.scss" );
-			} elseif ( Container::get( 'CustomStyles' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
+			} elseif ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
 				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/styles/$type/style.scss" );
 			} else {
 				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.css" );
@@ -137,7 +137,7 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'CustomStyles' )->isCurrentThemeCompatible( 2 ) ) {
+			if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
 				// Check for v2 themes
 				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" );
 			} else {
@@ -162,7 +162,7 @@ abstract class Export {
 
 		$url = false;
 
-		if ( Container::get( 'CustomStyles' )->isCurrentThemeCompatible( 2 ) && realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" ) ) {
+		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/assets/scripts/$type/script.js";
 		} elseif ( realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/export/$type/script.js";

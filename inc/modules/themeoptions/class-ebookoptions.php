@@ -317,7 +317,7 @@ class EbookOptions extends \Pressbooks\Options {
 		// --------------------------------------------------------------------
 		// Global Options
 
-		$custom_styles = \Pressbooks\Container::get( 'CustomStyles' );
+		$custom_styles = \Pressbooks\Container::get( 'Styles' );
 		$options = get_option( 'pressbooks_theme_options_global' );
 
 		if ( ! $options['chapter_numbers'] ) {

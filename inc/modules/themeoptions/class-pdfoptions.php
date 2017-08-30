@@ -72,7 +72,7 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page
 		);
 
-		$custom_syles = \Pressbooks\Container::get( 'CustomStyles' );
+		$custom_syles = \Pressbooks\Container::get( 'Styles' );
 		$v2_compatible = $custom_syles->isCurrentThemeCompatible( 2 );
 
 		if ( $v2_compatible ) {
@@ -1563,7 +1563,7 @@ class PDFOptions extends \Pressbooks\Options {
 		// --------------------------------------------------------------------
 		// Global Options
 
-		$custom_syles = \Pressbooks\Container::get( 'CustomStyles' );
+		$custom_syles = \Pressbooks\Container::get( 'Styles' );
 		$v2_compatible = $custom_syles->isCurrentThemeCompatible( 2 );
 
 		$options = get_option( 'pressbooks_theme_options_global' );

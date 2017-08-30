@@ -293,7 +293,7 @@ class Sass {
 	/**
 	 * Are the current theme's stylesheets SCSS compatible?
 	 *
-	 * @deprecated Use the same function found in CustomStyles instead
+	 * @deprecated Use the same function found in Styles instead
 	 *
 	 * @param int $version
 	 * @param \WP_Theme $theme
@@ -301,17 +301,17 @@ class Sass {
 	 * @return bool
 	 */
 	function isCurrentThemeCompatible( $version = 1, $theme = null ) {
-		return Container::get( 'CustomStyles' )->isCurrentThemeCompatible( $version, $theme );
+		return Container::get( 'Styles' )->isCurrentThemeCompatible( $version, $theme );
 	}
 
 	/**
 	 * Update and save the supplementary webBook stylesheet which incorporates user options, etc.
 	 *
-	 * @deprecated Use the same function found in CustomStyles instead
+	 * @deprecated Use the same function found in Styles instead
 	 *
 	 * @return void
 	 */
 	function updateWebBookStyleSheet() {
-		Container::get( 'CustomStyles' )->updateWebBookStyleSheet();
+		Container::get( 'Styles' )->updateWebBookStyleSheet();
 	}
 }

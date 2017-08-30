@@ -9,7 +9,7 @@ namespace Pressbooks;
 /**
  * @deprecated Leftover code from old Custom CSS Editor. Use Custom Styles instead.
  *
- * @see CustomStyles
+ * @see Styles
  * @see https://github.com/pressbooks/pressbooks-custom-css
  */
 class CustomCss {

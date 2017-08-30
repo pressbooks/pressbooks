@@ -2,12 +2,12 @@
 
 use Pressbooks\Container;
 
-class CustomStylesTest extends \WP_UnitTestCase {
+class StylesTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
 	/**
-	 * @var \Pressbooks\CustomStyles
+	 * @var \Pressbooks\Styles
 	 */
 	protected $cs;
 
@@ -16,7 +16,7 @@ class CustomStylesTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->cs = Container::get( 'CustomStyles' );
+		$this->cs = Container::get( 'Styles' );
 	}
 
 	public function test_isCurrentThemeCompatible() {

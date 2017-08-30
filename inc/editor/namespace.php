@@ -254,15 +254,15 @@ function mce_table_editor_options( $settings ) {
  */
 function update_editor_style() {
 
-	$cs = Container::get( 'CustomStyles' );
+	$styles = Container::get( 'Styles' );
 	$sass = Container::get( 'Sass' );
 
-	if ( $cs->isCurrentThemeCompatible( 1 ) ) {
-		$scss = file_get_contents( $cs->getSass()->pathToPartials() . '/_editor-with-custom-fonts.scss' );
-		$css = $cs->customize( 'web', $scss );
-	} elseif ( $cs->isCurrentThemeCompatible( 2 ) ) {
+	if ( $styles->isCurrentThemeCompatible( 1 ) ) {
+		$scss = file_get_contents( $sass->pathToPartials() . '/_editor-with-custom-fonts.scss' );
+		$css = $styles->customize( 'web', $scss );
+	} elseif ( $styles->isCurrentThemeCompatible( 2 ) ) {
 		$scss = file_get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
-		$css = $cs->customize( 'web', $scss );
+		$css = $styles->customize( 'web', $scss );
 	} else {
 		$scss = file_get_contents( $sass->pathToPartials() . '/_editor.scss' );
 		$css = $sass->compile(

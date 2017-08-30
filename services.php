@@ -12,8 +12,8 @@ $c['GlobalTypography'] = function ( $c ) {
 	return new \Pressbooks\GlobalTypography( $c['Sass'] );
 };
 
-$c['CustomStyles'] = function ( $c ) {
-	return new \Pressbooks\CustomStyles( $c['Sass'] );
+$c['Styles'] = function ( $c ) {
+	return new \Pressbooks\Styles( $c['Sass'] );
 };
 
 return $c;

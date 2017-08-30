@@ -258,7 +258,7 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', function() {
-	Container::get( 'CustomStyles' )->maybeUpdateWebBookStyleSheet();
+	Container::get( 'Styles' )->maybeUpdateWebBookStyleSheet();
 } );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -307,5 +307,5 @@ add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
 // -------------------------------------------------------------------------------------------------------------------
 
 add_action( 'init', function () {
-	Container::get( 'CustomStyles' )->init();
+	Container::get( 'Styles' )->init();
 } );
