@@ -9,6 +9,20 @@ namespace Pressbooks;
 class Styles {
 
 	/**
+	 * Supported formats
+	 *
+	 * Array key is slug, array val is text (passed to _e() where necessary.)
+	 * All keys must match an *existing* WP post where post_name = __key__ and post_type = 'custom-style'
+	 *
+	 * @return array
+	 */
+	protected $supported = [
+		'web' => 'Web',
+		'epub' => 'Ebook',
+		'prince' => 'PDF',
+	];
+
+	/**
 	 * @var Sass
 	 */
 	protected $sass;
@@ -28,7 +42,7 @@ class Styles {
 	}
 
 	/**
-	 * Set filters & hooks for editor UI
+	 * Set filters & hooks
 	 */
 	public function init() {
 
@@ -71,15 +85,14 @@ class Styles {
 				add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', 'pb_custom_styles', [ $this, 'editor' ] );
 			}, 11 );
 			// Register Post Types
-			$this->registerCustomPosts();
+			$this->registerPosts();
 		} );
 	}
-
 
 	/**
 	 * Custom style rules will be saved in a custom post type: custom-style
 	 */
-	public function initCustomPosts() {
+	public function initPosts() {
 
 		/** @var $wpdb \wpdb */
 		global $wpdb;
@@ -121,7 +134,7 @@ class Styles {
 	/**
 	 * Custom style rules will be saved in a custom post type: custom-style
 	 */
-	function registerCustomPosts() {
+	function registerPosts() {
 		$args = [
 			'exclude_from_search' => true,
 			'public' => false,
@@ -144,6 +157,38 @@ class Styles {
 		register_post_type( 'custom-style', $args );
 	}
 
+	/**
+	 * @param string $slug post_name
+	 *
+	 * @return \WP_Post|bool
+	 */
+	function getPost( $slug ) {
+
+		// Supported post names (ie. slugs)
+		$supported = array_keys( $this->supported );
+		if ( ! in_array( $slug, $supported, true ) ) {
+			return false;
+		}
+
+		$args = [
+			'name' => $slug,
+			'post_type' => 'custom-style',
+			'posts_per_page' => 1,
+			'post_status' => 'publish',
+			'orderby' => 'modified',
+			'no_found_rows' => true,
+			'cache_results' => true,
+		];
+
+		$q = new \WP_Query();
+		$results = $q->query( $args );
+
+		if ( empty( $results ) ) {
+			return false;
+		}
+
+		return $results[0];
+	}
 
 	/**
 	 *
@@ -356,7 +401,6 @@ class Styles {
 
 		return $css;
 	}
-
 
 	/**
 	 * Prepend or append SCSS overrides depending on which version of the theme architecture is in use.

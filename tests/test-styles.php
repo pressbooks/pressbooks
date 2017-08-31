@@ -19,6 +19,17 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->cs = Container::get( 'Styles' );
 	}
 
+	public function test_custom_posts() {
+		global $wp_post_types;
+		$this->cs->registerPosts();
+		$this->assertArrayHasKey( 'custom-style', $wp_post_types );
+
+		$this->cs->initPosts();
+		$this->assertNotEmpty( $this->cs->getPost( 'web' ) );
+		$this->assertNotEmpty( $this->cs->getPost( 'epub' ) );
+		$this->assertNotEmpty( $this->cs->getPost( 'prince' ) );
+		$this->assertFalse( $this->cs->getPost( 'garbage' ) );
+	}
 
 	public function test_basepath() {
 		$v1 = wp_get_theme( 'pressbooks-book' );

@@ -161,7 +161,7 @@ class Metadata implements \JsonSerializable {
 			$this->migratePartContentToEditor();
 		}
 		if ( $version < 12 ) {
-			Container::get( 'Styles' )->initCustomPosts();
+			Container::get( 'Styles' )->initPosts();
 		}
 	}
 
