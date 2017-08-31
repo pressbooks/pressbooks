@@ -65,13 +65,85 @@ class Styles {
 			);
 		}
 
-		// Admin Menu
 		add_action( 'init', function () {
+			// Admin Menu
 			add_action( 'admin_menu', function () {
 				add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', 'pb_custom_styles', [ $this, 'editor' ] );
 			}, 11 );
+			// Register Post Types
+			$this->registerCustomPosts();
 		} );
 	}
+
+
+	/**
+	 * Custom style rules will be saved in a custom post type: custom-style
+	 */
+	public function initCustomPosts() {
+
+		/** @var $wpdb \wpdb */
+		global $wpdb;
+
+		$posts = [
+			[
+				'post_title' => __( 'Custom Style for Ebook', 'pressbooks' ),
+				'post_name' => 'epub',
+				'post_type' => 'custom-style',
+			],
+			[
+				'post_title' => __( 'Custom Style for PDF', 'pressbooks' ),
+				'post_name' => 'prince',
+				'post_type' => 'custom-style',
+			],
+			[
+				'post_title' => __( 'Custom Style for Web', 'pressbooks' ),
+				'post_name' => 'web',
+				'post_type' => 'custom-style',
+			],
+		];
+
+		$post = [ 'post_status' => 'publish', 'post_author' => wp_get_current_user()->ID ];
+
+		foreach ( $posts as $item ) {
+			$exists = $wpdb->get_var(
+				$wpdb->prepare(
+					"SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ",
+					[ $item['post_title'], $item['post_type'], $item['post_name'] ]
+				)
+			);
+			if ( empty( $exists ) ) {
+				$data = array_merge( $item, $post );
+				wp_insert_post( $data );
+			}
+		}
+	}
+
+	/**
+	 * Custom style rules will be saved in a custom post type: custom-style
+	 */
+	function registerCustomPosts() {
+		$args = [
+			'exclude_from_search' => true,
+			'public' => false,
+			'publicly_queryable' => false,
+			'show_ui' => false,
+			'supports' => [ 'revisions' ],
+			'label' => 'Custom Style',
+			'can_export' => false,
+			'rewrite' => false,
+			'capabilities' => [
+				'edit_post' => 'edit_others_posts',
+				'read_post' => 'read',
+				'delete_post' => 'edit_others_posts',
+				'edit_posts' => 'edit_others_posts',
+				'edit_others_posts' => 'edit_others_posts',
+				'publish_posts' => 'edit_others_posts',
+				'read_private_posts' => 'read',
+			],
+		];
+		register_post_type( 'custom-style', $args );
+	}
+
 
 	/**
 	 *
