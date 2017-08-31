@@ -55,6 +55,6 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 	var e2 = CodeMirror.fromTextArea( document.getElementById( 'your_styles' ), {
 		lineNumbers: true,
 		matchBrackets: true,
-		mode: 'text/css'
+		mode: 'text/x-scss'
 	} );
 </script>

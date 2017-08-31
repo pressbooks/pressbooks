@@ -299,6 +299,9 @@ TERRIBLE;
 
 		$css = "body { font-family: '<em>Doing It Wrong</em>' !important; \\}";
 		$this->assertEquals( "body { font-family: 'Doing It Wrong' !important; }", \Pressbooks\Sanitize\cleanup_css( $css ) );
+
+		$css = '\\\\\A0';
+		$this->assertEquals( '\\\A0', \Pressbooks\Sanitize\cleanup_css( $css ) );
 	}
 
 }

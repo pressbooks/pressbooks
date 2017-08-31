@@ -61,16 +61,17 @@ class Styles {
 		// TODO: Use built-in WP when released, see: https://core.trac.wordpress.org/ticket/12423
 		if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === $this::PAGE ) {
 			$codemirror_version = '5.29.0';
+			$assets = new \PressbooksMix\Assets( 'pressbooks', 'plugin' );
 			add_action(
-				'wp_default_scripts', function ( \WP_Scripts $scripts ) use ( $codemirror_version ) {
-					$scripts->add( 'codemirror', PB_PLUGIN_URL . 'node_modules/codemirror/lib/codemirror.js', [], $codemirror_version );
-					$scripts->add( 'codemirror-mode-css', PB_PLUGIN_URL . 'node_modules/codemirror/mode/css/css.js', [ 'codemirror' ], $codemirror_version );
+				'wp_default_scripts', function ( \WP_Scripts $scripts ) use ( $codemirror_version, $assets ) {
+					$scripts->add( 'codemirror',  $assets->getPath( 'scripts/codemirror.js' ), [], $codemirror_version );
+					$scripts->add( 'codemirror-mode-css', $assets->getPath( 'scripts/codemirror-mode-css.js' ), [ 'codemirror' ], $codemirror_version );
 				}
 			);
 			add_action(
-				'wp_default_styles', function ( \WP_Styles $styles ) use ( $codemirror_version ) {
+				'wp_default_styles', function ( \WP_Styles $styles ) use ( $codemirror_version, $assets ) {
 					$codemirror_version = '5.29.0';
-					$styles->add( 'codemirror', PB_PLUGIN_URL . 'node_modules/codemirror/lib/codemirror.css', [], $codemirror_version );
+					$styles->add( 'codemirror',  $assets->getPath( 'styles/codemirror.css' ), [], $codemirror_version );
 				}
 			);
 			add_action(
