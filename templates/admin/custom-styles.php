@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 
 $styles = \Pressbooks\Container::get( 'Styles' );
-$custom_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_styles&custom_styles=yes' ), 'pb-custom-styles' );
+$custom_form_url = wp_nonce_url( get_admin_url( get_current_blog_id(), '/themes.php?page=' . $styles::PAGE . '&custom_styles=yes' ), 'pb-custom-styles' );
 $slugs_dropdown = $styles->renderDropdownForSlugs( $slug );
 $revisions_table = $styles->renderRevisionsTable( $slug, $style_post->ID );
 $post_id = absint( $style_post->ID );

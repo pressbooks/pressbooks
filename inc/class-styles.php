@@ -8,6 +8,8 @@ namespace Pressbooks;
 
 class Styles {
 
+	const PAGE = 'pb_custom_styles';
+
 	/**
 	 * Supported formats
 	 *
@@ -57,7 +59,7 @@ class Styles {
 
 		// Code Mirror
 		// TODO: Use built-in WP when released, see: https://core.trac.wordpress.org/ticket/12423
-		if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_custom_styles' ) {
+		if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === $this::PAGE ) {
 			$codemirror_version = '5.29.0';
 			add_action(
 				'wp_default_scripts', function ( \WP_Scripts $scripts ) use ( $codemirror_version ) {
@@ -82,7 +84,7 @@ class Styles {
 		add_action( 'init', function () {
 			// Admin Menu
 			add_action( 'admin_menu', function () {
-				add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', 'pb_custom_styles', [ $this, 'editor' ] );
+				add_theme_page( __( 'Custom Styles', 'pressbooks' ), __( 'Custom Styles', 'pressbooks' ), 'edit_others_posts', $this::PAGE, [ $this, 'editor' ] );
 			}, 11 );
 			// Register Post Types
 			$this->registerPosts();
@@ -531,7 +533,7 @@ class Styles {
 	function renderDropdownForSlugs( $slug ) {
 
 		$select_id = $select_name = 'slug';
-		$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_styles&slug=' );
+		$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=' . $this::PAGE . '&slug=' );
 		$html = '';
 
 		$html .= "
@@ -596,7 +598,7 @@ class Styles {
 	}
 
 	/**
-	 * Save custom CSS to database (and filesystem)
+	 * Save custom styles to database
 	 */
 	function formSubmit() {
 
@@ -608,7 +610,7 @@ class Styles {
 		// Process form
 		if ( isset( $_GET['custom_styles'] ) && $_GET['custom_styles'] === 'yes' && isset( $_POST['your_styles'] ) && check_admin_referer( 'pb-custom-styles' ) ) {
 			$slug = isset( $_POST['slug'] ) ? $_POST['slug'] : 'web';
-			$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_styles&slug=' . $slug );
+			$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=' . $this::PAGE . '&slug=' . $slug );
 
 			if ( ! isset( $_POST['post_id'], $_POST['post_id_integrity'] ) ) {
 				error_log( __METHOD__ . ' error: Missing post ID' );
@@ -651,7 +653,7 @@ class Styles {
 			return false;
 		}
 
-		if ( 'pb_custom_styles' !== $_REQUEST['page'] ) {
+		if ( $this::PAGE !== $_REQUEST['page'] ) {
 			return false;
 		}
 
