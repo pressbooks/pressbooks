@@ -293,4 +293,12 @@ TERRIBLE;
 		$this->assertEquals( '<p>No change</p>', $result );
 	}
 
+	public function test_cleanup_css() {
+		$css = "body { font-family: 'Comic Sans' !important; }";
+		$this->assertEquals( $css, \Pressbooks\Sanitize\cleanup_css( $css ) );
+
+		$css = "body { font-family: '<em>Doing It Wrong</em>' !important; \\}";
+		$this->assertEquals( "body { font-family: 'Doing It Wrong' !important; }", \Pressbooks\Sanitize\cleanup_css( $css ) );
+	}
+
 }

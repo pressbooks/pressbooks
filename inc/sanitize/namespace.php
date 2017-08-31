@@ -484,3 +484,37 @@ function strip_container_tags( $html ) {
 
 	return (string) $html;
 }
+
+
+/**
+ * Clean up CSS.
+ *
+ * Minimal intervention, but prevent users from injecting garbage.
+ *
+ * @param $css
+ *
+ * @return string
+ */
+function cleanup_css( $css ) {
+
+	$css = stripslashes( $css );
+
+	$css = preg_replace( '/\\\\([0-9a-fA-F]{2,4})/', '\\\\\\\\$1', $prev = $css );
+
+	if ( $css !== $prev ) {
+		$warnings[] = 'preg_replace() double escaped unicode escape sequences';
+	}
+
+	$css = str_replace( '<=', '&lt;=', $css ); // Some people put weird stuff in their CSS, KSES tends to be greedy
+	$css = wp_kses_split( $prev = $css, [], [] );
+	$css = str_replace( '&gt;', '>', $css ); // kses replaces lone '>' with &gt;
+	$css = strip_tags( $css );
+
+	if ( $css !== $prev ) {
+		$warnings[] = 'kses() and strip_tags() do not match';
+	}
+
+	// TODO: Something with $warnings[]
+
+	return $css;
+}

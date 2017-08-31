@@ -87,6 +87,9 @@ class Styles {
 			// Register Post Types
 			$this->registerPosts();
 		} );
+
+		// Catch form submission
+		add_action( 'init', [ $this, 'formSubmit' ], 50 );
 	}
 
 	/**
@@ -188,13 +191,6 @@ class Styles {
 		}
 
 		return $results[0];
-	}
-
-	/**
-	 *
-	 */
-	public function editor() {
-		require( PB_PLUGIN_DIR . 'templates/admin/custom-styles.php' );
 	}
 
 	/**
@@ -494,6 +490,176 @@ class Styles {
 		if ( version_compare( $current_version, $last_version ) > 0 ) {
 			$this->updateWebBookStyleSheet();
 			update_option( 'pressbooks_theme_version', $current_version );
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 *
+	 */
+	public function editor() {
+
+		$slug = isset( $_GET['slug'] ) ? $_GET['slug'] : get_transient( 'pb-last-custom-style-slug' );
+		if ( ! $slug ) {
+			$slug = 'web';
+		}
+
+		$supported = array_keys( $this->supported );
+		if ( ! in_array( $slug, $supported, true ) ) {
+			wp_die( "Unknown slug: $slug" );
+		}
+
+		$style_post = $this->getPost( $slug );
+		if ( false === $style_post ) {
+			wp_die( sprintf( __( 'Unexpected Error: There was a problem trying to query slug: %s - Please contact technical support.', 'pressbooks' ), $slug ) );
+		}
+
+		set_transient( 'pb-last-custom-style-slug', $slug );
+
+		require( PB_PLUGIN_DIR . 'templates/admin/custom-styles.php' );
+	}
+
+	/**
+	 * Render dropdown and JavaScript for slugs.
+	 *
+	 * @param string $slug
+	 *
+	 * @return string
+	 */
+	function renderDropdownForSlugs( $slug ) {
+
+		$select_id = $select_name = 'slug';
+		$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_styles&slug=' );
+		$html = '';
+
+		$html .= "
+	<script type='text/javascript'>
+    // <![CDATA[
+	jQuery.noConflict();
+	jQuery(function ($) {
+		$('#" . $select_id . "').change(function() {
+		  window.location = '" . $redirect_url . "' + $(this).val();
+		});
+	});
+	// ]]>
+    </script>";
+
+		$html .= '<select id="' . $select_id . '" name="' . $select_name . '">';
+		foreach ( $this->supported as $key => $val ) {
+			$html .= '<option value="' . $key . '"';
+			if ( $key === $slug ) {
+				$html .= ' selected="selected"';
+			}
+			if ( 'Web' === $val ) {
+				$val = __( 'Web', 'pressbooks' );
+			}
+			$html .= '>' . $val . '</option>';
+		}
+		$html .= '</select>';
+
+		return $html;
+	}
+
+	/**
+	 * Render table for revisions.
+	 *
+	 * @param string $slug
+	 * @param int $post_id
+	 *
+	 * @return string
+	 */
+	function renderRevisionsTable( $slug, $post_id ) {
+
+		$args = [
+			'posts_per_page' => 10,
+			'post_type' => 'revision',
+			'post_status' => 'inherit',
+			'post_parent' => $post_id,
+			'orderby' => 'date',
+			'order' => 'DESC',
+		];
+
+		$q = new \WP_Query();
+		$results = $q->query( $args );
+
+		$html = '<table class="widefat fixed" cellspacing="0">';
+		$html .= '<thead><th>' . __( 'Last 10 Revisions', 'pressbooks' ) . ' <em>(' . $this->supported[ $slug ] . ')</em> </th></thead><tbody>';
+		foreach ( $results as $post ) {
+			$html .= '<tr><td>' . wp_post_revision_title( $post ) . ' ';
+			$html .= __( 'by', 'pressbooks' ) . ' ' . get_userdata( $post->post_author )->user_login . '</td></tr>';
+		}
+		$html .= '</tbody></table>';
+
+		return $html;
+	}
+
+	/**
+	 * Save custom CSS to database (and filesystem)
+	 */
+	function formSubmit() {
+
+		if ( empty( $this->isFormSubmission() ) || empty( current_user_can( 'edit_others_posts' ) ) ) {
+			// Don't do anything in this function, bail.
+			return;
+		}
+
+		// Process form
+		if ( isset( $_GET['custom_styles'] ) && $_GET['custom_styles'] === 'yes' && isset( $_POST['your_styles'] ) && check_admin_referer( 'pb-custom-styles' ) ) {
+			$slug = isset( $_POST['slug'] ) ? $_POST['slug'] : 'web';
+			$redirect_url = get_admin_url( get_current_blog_id(), '/themes.php?page=pb_custom_styles&slug=' . $slug );
+
+			if ( ! isset( $_POST['post_id'], $_POST['post_id_integrity'] ) ) {
+				error_log( __METHOD__ . ' error: Missing post ID' );
+				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
+			}
+			if ( md5( NONCE_KEY . $_POST['post_id'] ) !== $_POST['post_id_integrity'] ) {
+				// A hacker trying to overwrite posts?.
+				error_log( __METHOD__ . ' error: unexpected value for post_id_integrity' );
+				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
+			}
+
+			// Write to database
+			$my_post = [
+				'ID' => absint( $_POST['post_id'] ),
+				'post_content' => \Pressbooks\Sanitize\cleanup_css( $_POST['your_styles'] ),
+			];
+			$response = wp_update_post( $my_post, true );
+
+			if ( is_wp_error( $response ) ) {
+				// Something went wrong?
+				error_log( __METHOD__ . ' error, wp_update_post(): ' . $response->get_error_message() );
+				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
+			}
+
+			// Ok!
+			\Pressbooks\Redirect\location( $redirect_url );
+		}
+
+	}
+
+
+	/**
+	 * Check if a user submitted something to themes.php?page=pb_custom_styles
+	 *
+	 * @return bool
+	 */
+	public function isFormSubmission() {
+
+		if ( empty( $_REQUEST['page'] ) ) {
+			return false;
+		}
+
+		if ( 'pb_custom_styles' !== $_REQUEST['page'] ) {
+			return false;
+		}
+
+		if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
+			return true;
+		}
+
+		if ( count( $_GET ) > 1 ) {
 			return true;
 		}
 

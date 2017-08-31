@@ -123,6 +123,24 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertEquals( $result, false );
 	}
 
+	public function test_editor() {
+		$this->_book();
+
+		$dropdown = $this->cs->renderDropdownForSlugs( 'web' );
+		$this->assertContains( '</select>', $dropdown );
+		$revisions = $this->cs->renderRevisionsTable( 'web', $this->cs->getPost( 'web' )->ID );
+		$this->assertContains( '</table>', $revisions );
+
+		ob_start();
+		$this->cs->editor();
+		$output = ob_get_clean();
+		$this->assertContains( '<h2>Custom Styles</h2>', $output );
+	}
+
+
+
+
+
 }
 
 
