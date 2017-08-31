@@ -51,15 +51,15 @@ if ( ! empty( $_GET['customstyles_error'] ) ) {
 </div>
 
 <script>
-	var editor1 = CodeMirror.fromTextArea(document.getElementById('theme_css'), {
+	var editor1 = CodeMirror.fromTextArea( document.getElementById( 'theme_css' ), {
 		lineNumbers: true,
 		matchBrackets: true,
 		readOnly: true,
 		mode: 'text/x-scss'
-	});
-	var editor2 = CodeMirror.fromTextArea(document.getElementById('custom_css'), {
+	} );
+	var editor2 = CodeMirror.fromTextArea( document.getElementById( 'custom_css' ), {
 		lineNumbers: true,
 		matchBrackets: true,
 		mode: 'text/css'
-	});
+	} );
 </script>

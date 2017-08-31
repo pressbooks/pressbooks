@@ -208,29 +208,6 @@ function register_post_types() {
 		'supports' => [ '' ],
 	];
 	register_post_type( 'metadata', $args );
-
-	/* Custom CSS */
-
-	$args = [
-		'exclude_from_search' => true,
-		'public' => false,
-		'publicly_queryable' => false,
-		'show_ui' => false,
-		'supports' => [ 'revisions' ],
-		'label' => 'Custom CSS',
-		'can_export' => false,
-		'rewrite' => false,
-		'capabilities' => [
-			'edit_post' => 'edit_others_posts',
-			'read_post' => 'read',
-			'delete_post' => 'edit_others_posts',
-			'edit_posts' => 'edit_others_posts',
-			'edit_others_posts' => 'edit_others_posts',
-			'publish_posts' => 'edit_others_posts',
-			'read_private_posts' => 'read',
-		],
-	];
-	register_post_type( 'custom-css', $args );
 }
 
 /**

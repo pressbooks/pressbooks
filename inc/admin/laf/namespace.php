@@ -732,11 +732,6 @@ function init_css_js() {
 		);
 	}
 
-	// @deprecated Leftover code from old Custom CSS Editor. Use Custom Styles instead.
-	if ( isset( $_REQUEST['page'] ) && $_REQUEST['page'] === 'pb_custom_css' ) {
-		wp_enqueue_style( 'pb-custom-css', $assets->getPath( 'styles/custom-css.css' ) );
-	}
-
 	// Don't let other plugins override our scripts
 	$bad_scripts = [ 'jquery-blockui', 'jquery-bootstrap', 'pb-organize', 'pb-feedback', 'pb-cloner', 'pb-export', 'pb-metadata', 'pb-import' ];
 	array_walk(

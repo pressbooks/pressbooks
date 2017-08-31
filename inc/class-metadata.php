@@ -139,7 +139,7 @@ class Metadata implements \JsonSerializable {
 			$this->upgradeBook();
 		}
 		if ( $version < 3 ) {
-			$this->upgradeCustomCss();
+			\Pressbooks\CustomCss::upgradeCustomCss();
 		}
 		if ( $version < 4 ) {
 			$this->fixDoubleSlashBug();
@@ -351,54 +351,6 @@ class Metadata implements \JsonSerializable {
 
 		return $metadata;
 	}
-
-
-	/**
-	 * @deprecated Leftover code from old Custom CSS Editor. Use Custom Styles instead.
-	 *
-	 * @see https://github.com/pressbooks/pressbooks-custom-css
-	 * @see \Pressbooks\Activation::wpmuActivate
-	 */
-	function upgradeCustomCss() {
-
-		/** @var $wpdb \wpdb */
-		global $wpdb;
-
-		$posts = [
-			[
-				'post_title' => __( 'Custom CSS for Ebook', 'pressbooks' ),
-				'post_name' => 'epub',
-				'post_type' => 'custom-css',
-			],
-			[
-				'post_title' => __( 'Custom CSS for PDF', 'pressbooks' ),
-				'post_name' => 'prince',
-				'post_type' => 'custom-css',
-			],
-			[
-				'post_title' => __( 'Custom CSS for Web', 'pressbooks' ),
-				'post_name' => 'web',
-				'post_type' => 'custom-css',
-			],
-		];
-
-		$post = [ 'post_status' => 'publish', 'post_author' => wp_get_current_user()->ID ];
-
-		foreach ( $posts as $item ) {
-			$exists = $wpdb->get_var(
-				$wpdb->prepare(
-					"SELECT ID FROM {$wpdb->posts} WHERE post_title = %s AND post_type = %s AND post_name = %s AND post_status = 'publish' ",
-					[ $item['post_title'], $item['post_type'], $item['post_name'] ]
-				)
-			);
-			if ( empty( $exists ) ) {
-				$data = array_merge( $item, $post );
-				wp_insert_post( $data );
-			}
-		}
-
-	}
-
 
 	/**
 	 * Fix a double slash bug by reactivating theme with new settings.
