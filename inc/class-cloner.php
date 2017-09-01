@@ -838,11 +838,14 @@ class Cloner {
 			if ( $attachment_id ) {
 				// Replace image
 				$src_new = wp_get_attachment_url( $attachment_id );
-				if ( $this->sameAsSource( $src_old ) && $attachment_id === attachment_id_from_url( $src_old ) ) {
-					// This is a cloned image, use old filename to keep resizing
+				if ( $this->sameAsSource( $src_old ) && isset( $this->knownImages[ \Pressbooks\Image\strip_baseurl( $src_old ) ] ) ) {
 					$basename_old = $this->basename( $src_old );
 					$basename_new = $this->basename( $src_new );
-					$src_new = \Pressbooks\Utility\str_lreplace( $basename_new, $basename_old, $src_new );
+					$maybe_src_new = \Pressbooks\Utility\str_lreplace( $basename_new, $basename_old, $src_new );
+					if ( $attachment_id === attachment_id_from_url( $maybe_src_new ) ) {
+						// Our best guess is that this is a cloned image, use old filename to keep resizing
+						$src_new = $maybe_src_new;
+					}
 				}
 				$image->setAttribute( 'src', $src_new );
 				// TODO Handle srcset
