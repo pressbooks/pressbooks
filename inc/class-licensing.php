@@ -40,7 +40,7 @@ class Licensing {
 					'derivatives' => 'y',
 				],
 				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
-				'desc' => __( 'No Rights Reserved (Public Domain)', 'pressbooks' ),
+				'desc' => __( 'Public Domain (No Rights Reserved)', 'pressbooks' ),
 			],
 			'cc-by' => [
 				'api' => [
