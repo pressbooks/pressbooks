@@ -154,7 +154,7 @@ function display_pressbooks_blog() {
 				'items' => 5,
 				'show_summary' => 1,
 				'show_author' => 0,
-				'show_date' => 1,
+				'show_date' => 0,
 			]
 		);
 		$rss = ob_get_clean();
