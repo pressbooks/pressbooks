@@ -256,7 +256,7 @@ class Licensing {
 					'<result><html>' .
 					"<span property='dct:title'>" . Sanitize\sanitize_xml_attribute( $title ) . '</span> ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
 				if ( $year ) {
-					$xml .= $year . ' ' . __( 'by', 'pressbooks' ) . ' ';
+					$xml .= Sanitize\sanitize_xml_attribute( $year ) . ' ' . __( 'by', 'pressbooks' ) . ' ';
 				}
 				$xml .= Sanitize\sanitize_xml_attribute( $copyright_holder );
 				$xml .= '. ' . __( 'All Rights Reserved', 'pressbooks' ) . '.</html></result>';
