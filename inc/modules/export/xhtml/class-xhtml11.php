@@ -716,16 +716,32 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoCopyright( $book_contents, $metadata ) {
 
+		if ( empty( $metadata['pb_book_license'] ) ) {
+			$all_rights_reserved = true;
+		} elseif ( $metadata['pb_book_license'] === 'all-rights-reserved' ) {
+			$all_rights_reserved = true;
+		} else {
+			$all_rights_reserved = false;
+		}
+		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
+			$has_custom_copyright = true;
+		} else {
+			$has_custom_copyright = false;
+		}
+
+		// HTML
 		echo '<div id="copyright-page"><div class="ugc">';
 
-		// License
-		$license = $this->doCopyrightLicense( $metadata );
-		if ( $license ) {
-			echo $this->removeAttributionLink( $license );
+		// Custom Copyright must override All Rights Reserved
+		if ( ! $has_custom_copyright || ( $has_custom_copyright && ! $all_rights_reserved ) ) {
+			$license = $this->doCopyrightLicense( $metadata );
+			if ( $license ) {
+				echo $this->removeAttributionLink( $license );
+			}
 		}
 
 		// Custom copyright
-		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
+		if ( $has_custom_copyright ) {
 			echo $this->tidy( $metadata['pb_custom_copyright'] );
 		}
 

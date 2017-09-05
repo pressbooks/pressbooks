@@ -36,9 +36,17 @@ class LicensingTest extends \WP_UnitTestCase {
 	public function test_getWebLicenseHtml() {
 
 		$xml = new \SimpleXMLElement( '<book><title>Hello World!</title></book>' );
+
 		$result = $this->licensing->getLicenseHtml( $xml );
 		$this->assertContains( 'Hello World!', $result );
 		$this->assertContains( 'creativecommons.org', $result );
+		$this->assertContains( 'except where otherwise noted', $result );
+		$this->assertContains( '</div>', $result );
+
+		$result = $this->licensing->getLicenseHtml( $xml, false );
+		$this->assertContains( 'Hello World!', $result );
+		$this->assertContains( 'creativecommons.org', $result );
+		$this->assertNotContains( 'except where otherwise noted', $result );
 		$this->assertContains( '</div>', $result );
 	}
 
@@ -54,8 +62,9 @@ class LicensingTest extends \WP_UnitTestCase {
 
 	public function test_getLicenseXml() {
 
-		$result = $this->licensing->getLicenseXml( 'all-rights-reserved', 'Foo', 'http://pressbooks.dev', 'Bar', 'en' );
+		$result = $this->licensing->getLicenseXml( 'all-rights-reserved', 'Foo', 'http://pressbooks.dev', 'Bar', 'en', 1970 );
 		$this->assertContains( 'All Rights Reserved', $result );
+		$this->assertContains( '1970', $result );
 		$this->assertContains( '</result>', $result );
 
 		$result = $this->licensing->getLicenseXml( 'cc-by-nc-nd', 'Foo', 'http://pressbooks.dev', 'Bar', 'fr' );
