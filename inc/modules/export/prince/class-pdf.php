@@ -85,9 +85,7 @@ class Pdf extends Export {
 		}
 
 		$this->themeOptionsOverrides();
-		if ( ! empty( $_GET['fullsize-images'] ) ) {
-			$this->fixLatexDpi();
-		}
+		$this->fixLatexDpi();
 	}
 
 
@@ -300,8 +298,21 @@ class Pdf extends Export {
 	 * @see symbionts/pressbooks-latex/automattic-latex-wpcom.php
 	 */
 	protected function fixLatexDpi() {
-		$this->url .= '&pb-latex-zoom=3';
-		$this->cssOverrides .= "\n" . 'img.latex { prince-image-resolution: 300dpi; }' . "\n";
+		$fix = false;
+		if ( ! $fix && ! empty( $_GET['fullsize-images'] ) ) {
+			$fix = true;
+		}
+		if ( ! $fix && strpos( $this->url, 'fullsize-images=1' ) !== false ) {
+			$fix = true;
+		}
+		if ( ! $fix && stripos( get_class( $this ), 'print' ) !== false ) {
+			$fix = true;
+		}
+
+		if ( $fix ) {
+			$this->url .= '&pb-latex-zoom=3';
+			$this->cssOverrides .= "\n" . 'img.latex { prince-image-resolution: 300dpi; }' . "\n";
+		}
 	}
 
 	/**
