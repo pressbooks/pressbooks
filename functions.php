@@ -90,6 +90,8 @@ function pb_strip_br( $val ) {
 /**
  * Shortcut to \Pressbooks\CustomCss::isCustomCss();
  *
+ * @deprecated Leftover code from old Custom CSS Editor. Use Custom Styles instead.
+ *
  * @return bool
  */
 function pb_is_custom_theme() {
@@ -98,13 +100,13 @@ function pb_is_custom_theme() {
 }
 
 /**
- * Shortcut to \Pressbooks\Container::get('Sass')->isCurrentThemeCompatible( $version );
+ * Shortcut to \Pressbooks\Container::get('Styles')->isCurrentThemeCompatible( $version );
  *
  * @return bool
  */
 function pb_is_scss( $version = 1 ) {
 
-	if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( $version ) ) {
+	if ( \Pressbooks\Container::get( 'Styles' )->isCurrentThemeCompatible( $version ) ) {
 		return true;
 	}
 
@@ -135,6 +137,8 @@ function pb_get_microdata_elements() {
 /**
  * Get url to the custom stylesheet for web.
  *
+ * @deprecated Leftover code from old Custom CSS Editor. Use Custom Styles instead.
+ *
  * @see: \Pressbooks\CustomCss
  * @return string
  */
@@ -149,35 +153,6 @@ function pb_get_custom_stylesheet_url() {
 	} else {
 		return PB_PLUGIN_URL . 'themes-book/pressbooks-custom-css/style.css';
 	}
-}
-
-/**
- * Check if custom stylesheet for web already imports pressbooks-book/style.css
- *
- * @see: \Pressbooks\CustomCss
- * @return bool
- */
-function pb_custom_stylesheet_imports_base() {
-
-	$current_blog_id = get_current_blog_id();
-	$custom_file = false;
-	$_res = false;
-
-	if ( is_file( WP_CONTENT_DIR . "/blogs.dir/{$current_blog_id}/files/custom-css/web.css" ) ) {
-		$custom_file = WP_CONTENT_DIR . "/blogs.dir/{$current_blog_id}/files/custom-css/web.css";
-	} elseif ( is_file( WP_CONTENT_DIR . "/uploads/sites/{$current_blog_id}/custom-css/web.css" ) ) {
-		$custom_file = WP_CONTENT_DIR . "/uploads/sites/{$current_blog_id}/custom-css/web.css";
-	}
-
-	if ( $custom_file ) {
-		$custom_file_contents = file_get_contents( $custom_file, null, null, null, 2600 );
-		$import_pattern = '#@import(\s+)url\(([\s])?([\"|\'])?(.*?)themes-book/pressbooks-book/style\.css([\"|\'])?([\s])?\)#i';
-		if ( preg_match( $import_pattern, $custom_file_contents ) ) {
-			$_res = true;
-		}
-	}
-
-	return $_res;
 }
 
 /**

@@ -94,7 +94,7 @@ class GlobalOptions extends \Pressbooks\Options {
 			]
 		);
 
-		if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) === true || Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) === true ) { // we can only enable foreign language typography for themes that use SCSS
+		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 1 ) === true || Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) === true ) { // we can only enable foreign language typography for themes that use SCSS
 
 			add_settings_field(
 				'pressbooks_global_typography',

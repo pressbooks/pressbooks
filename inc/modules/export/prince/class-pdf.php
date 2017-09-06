@@ -123,7 +123,7 @@ class Pdf extends Export {
 		$prince = new \PrinceXMLPhp\PrinceWrapper( PB_PRINCE_COMMAND );
 		$prince->setHTML( true );
 		$prince->setCompress( true );
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' || WP_ENV === 'staging' ) {
+		if ( defined( 'WP_ENV' ) && ( WP_ENV === 'development' || WP_ENV === 'staging' )  ) {
 			$prince->setInsecure( true );
 		}
 		if ( $this->pdfProfile && $this->pdfOutputIntent ) {
@@ -223,26 +223,11 @@ class Pdf extends Export {
 	 */
 	protected function kneadCss() {
 
-		$sass = Container::get( 'Sass' );
+		$scss = file_get_contents( $this->exportStylePath );
+
+		$css = Container::get( 'Styles' )->customize( 'prince', $scss, $this->cssOverrides );
+
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
-
-		$scss = $sass->applyOverrides( file_get_contents( $this->exportStylePath ), $this->cssOverrides );
-
-		if ( $sass->isCurrentThemeCompatible( 1 ) ) {
-			$css = $sass->compile(
-				$scss, [
-				$sass->pathToUserGeneratedSass(),
-				$sass->pathToPartials(),
-				$sass->pathToFonts(),
-				get_stylesheet_directory(),
-				]
-			);
-		} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
-			$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'prince' ) );
-		} else {
-			$css = static::injectHouseStyles( $scss );
-		}
-
 		$css = normalize_css_urls( $css, $scss_dir );
 
 		if ( WP_DEBUG ) {
@@ -286,7 +271,7 @@ class Pdf extends Export {
 		$hacks = apply_filters( 'pb_pdf_hacks', $hacks );
 
 		// Append endnotes to URL?
-		if ( 'endnotes' === $hacks['pdf_footnotes_style'] ) {
+		if ( isset( $hacks['pdf_footnotes_style'] ) && 'endnotes' === $hacks['pdf_footnotes_style'] ) {
 			$this->url .= '&endnotes=true';
 		}
 
@@ -294,10 +279,25 @@ class Pdf extends Export {
 
 	/**
 	 * Increase PB-LaTeX resolution to ~300 dpi
+	 *
+	 * @see symbionts/pressbooks-latex/automattic-latex-wpcom.php
 	 */
 	protected function fixLatexDpi() {
-		$this->url .= '&pb-latex-zoom=3';
-		$this->cssOverrides .= "\n" . 'img.latex { prince-image-resolution: 300dpi; }' . "\n";
+		$fix = false;
+		if ( ! $fix && ! empty( $_GET['fullsize-images'] ) ) {
+			$fix = true;
+		}
+		if ( ! $fix && strpos( $this->url, 'fullsize-images=1' ) !== false ) {
+			$fix = true;
+		}
+		if ( ! $fix && stripos( get_class( $this ), 'print' ) !== false ) {
+			$fix = true;
+		}
+
+		if ( $fix ) {
+			$this->url .= '&pb-latex-zoom=3';
+			$this->cssOverrides .= "\n" . 'img.latex { prince-image-resolution: 300dpi; }' . "\n";
+		}
 	}
 
 	/**

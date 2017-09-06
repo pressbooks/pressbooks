@@ -12,7 +12,7 @@ branches:
   - "/\\d+\\.\\d+(\\.\\d+)?(-\\S*)?$/"
 php:
 - 5.6
-- 7.0
+- 7.0.8
 - 7.1
 - nightly
 env:
@@ -28,6 +28,10 @@ cache:
   - node_modules
   - vendor
 before_install:
+- sudo apt-get -qq update
+- sudo apt-get install -y epubcheck libxml2-utils default-jdk
+- wget https://www.princexml.com/download/prince_11.3-1_ubuntu14.04_amd64.deb
+- sudo dpkg -i prince_11.3-1_ubuntu14.04_amd64.deb
 - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
 install:
 - node -v
@@ -51,7 +55,7 @@ after_success:
 - tx push -s
 before_deploy:
 - export TRAVIS_PROJECT_SLUG="$(basename $TRAVIS_BUILD_DIR)"
-- composer install --no-dev
+- composer install --no-dev --optimize-autoloader
 - cd ../
 - zip -9 -ry $TRAVIS_BUILD_DIR/$TRAVIS_PROJECT_SLUG-$TRAVIS_TAG.zip $TRAVIS_PROJECT_SLUG
   -x *.git* *assets/src/\* *bin/\* *node_modules/\* *tests/\* *.editorconfig* *.gitattributes*

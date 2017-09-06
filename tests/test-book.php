@@ -6,22 +6,6 @@ class BookTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
 
-	/**
-	 * @return int
-	 */
-	protected function createChapter() {
-		$new_post = [
-			'post_title' => 'test chapter',
-			'post_type' => 'chapter',
-			'post_status' => 'publish',
-			'post_content' => 'some content',
-		];
-		$pid = wp_insert_post( $new_post );
-		update_post_meta( $pid, 'pb_export', 'on' );
-
-		return $pid;
-	}
-
 	public function test_getInstance() {
 
 		$book = \Pressbooks\Book::getInstance();
@@ -48,7 +32,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		// Returns export value
 		$this->_book();
-		$this->createChapter();
+		$this->_createChapter();
 		$structure = $book::getBookStructure();
 		$page = $structure['__orphans'][0]; // In __orphans because doesn't belong to a part
 		$this->assertTrue( $page['export'] );
@@ -78,7 +62,7 @@ class BookTest extends \WP_UnitTestCase {
 
 		// Returns export value
 		$this->_book();
-		$this->createChapter();
+		$this->_createChapter();
 		$contents = $book::getBookContents();
 		$page = $contents['__orphans'][0]; // In __orphans because doesn't belong to a part
 		$this->assertTrue( $page['export'] );
@@ -140,7 +124,7 @@ class BookTest extends \WP_UnitTestCase {
 		$wc_selected_for_export = $book::wordCount( true );
 
 		$this->assertEquals( 46, $wc );
-		$this->assertEquals( 0, $wc_selected_for_export );
+		$this->assertEquals( 46, $wc_selected_for_export );
 	}
 
 	public function test_getSubsections() {

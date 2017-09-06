@@ -1,9 +1,8 @@
 {
-    "/scripts/anchor.js": "/scripts/anchor.js?id=93dbf0faa543061de453",
+    "/scripts/anchor.js": "/scripts/anchor.js?id=59b4bc86ca705a58d191",
     "/styles/catalog.css": "/styles/catalog.css?id=b79007e4618c2f3deb07",
     "/styles/colors-pb.css": "/styles/colors-pb.css?id=7a8e1e7655cc0d56a0c0",
     "/styles/cloner.css": "/styles/cloner.css?id=2d45920e06cfcdc16ae9",
-    "/styles/custom-css.css": "/styles/custom-css.css?id=6bbe722767d0bba3e29b",
     "/styles/export.css": "/styles/export.css?id=00b43962d0551c330a62",
     "/styles/metadata.css": "/styles/metadata.css?id=0f07ef0ed371a8cd93c5",
     "/styles/network-managers.css": "/styles/network-managers.css?id=77d465c0788f57898bdc",
@@ -38,5 +37,8 @@
     "/scripts/js-cookie.js": "/scripts/js-cookie.js?id=6e9eb1f53afb135aedaf",
     "/scripts/select2.js": "/scripts/select2.js?id=49283e815f0ce68a27a6",
     "/scripts/sidr.js": "/scripts/sidr.js?id=32495427b04ceeab5376",
-    "/scripts/table.js": "/scripts/table.js?id=91254dca68b8df2b6da6"
+    "/scripts/table.js": "/scripts/table.js?id=91254dca68b8df2b6da6",
+    "/scripts/codemirror.js": "/scripts/codemirror.js?id=ea406e6f0c7be461f35b",
+    "/scripts/codemirror-mode-css.js": "/scripts/codemirror-mode-css.js?id=61bee8734295d343fb46",
+    "/styles/codemirror.css": "/styles/codemirror.css?id=9555ceae663b6ebb3ca2"
 }

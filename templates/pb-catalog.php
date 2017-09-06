@@ -131,6 +131,7 @@ function _base_url() {
 // Variables
 // -------------------------------------------------------------------------------------------------------------------
 
+$pb_user_id = get_user_by( 'login', get_query_var( 'pb_catalog_user' ) )->ID;
 $assets = new Assets( 'pressbooks', 'plugin' );
 $catalog = new PB_Catalog( absint( $pb_user_id ) ); // Note: $pb_user_id is set in PB_Catalog::loadTemplate()
 $profile = $catalog->getProfile();

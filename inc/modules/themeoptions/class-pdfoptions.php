@@ -72,7 +72,10 @@ class PDFOptions extends \Pressbooks\Options {
 			$_page
 		);
 
-		if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+		$custom_syles = \Pressbooks\Container::get( 'Styles' );
+		$v2_compatible = $custom_syles->isCurrentThemeCompatible( 2 );
+
+		if ( $v2_compatible ) {
 			add_settings_field(
 				'pdf_body_font_size',
 				__( 'Body Font Size', 'pressbooks' ),
@@ -140,7 +143,7 @@ class PDFOptions extends \Pressbooks\Options {
 			]
 		);
 
-		if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+		if ( $v2_compatible ) {
 			add_settings_field(
 				'pdf_page_margins',
 				__( 'Margins', 'pressbooks' ),
@@ -296,7 +299,7 @@ class PDFOptions extends \Pressbooks\Options {
 			$_section
 		);
 
-		if ( \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+		if ( $v2_compatible ) {
 			add_settings_field(
 				'running_content',
 				__( 'Running Heads & Feet', 'pressbooks' ),
@@ -491,7 +494,7 @@ class PDFOptions extends \Pressbooks\Options {
 			);
 		}
 
-		if ( ! \Pressbooks\Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+		if ( ! $v2_compatible ) {
 			add_settings_field(
 				'pdf_fontsize',
 				__( 'Increase Font Size', 'pressbooks' ),
@@ -1560,12 +1563,14 @@ class PDFOptions extends \Pressbooks\Options {
 		// --------------------------------------------------------------------
 		// Global Options
 
-		$sass = \Pressbooks\Container::get( 'Sass' );
+		$custom_syles = \Pressbooks\Container::get( 'Styles' );
+		$v2_compatible = $custom_syles->isCurrentThemeCompatible( 2 );
+
 		$options = get_option( 'pressbooks_theme_options_global' );
 
 		// Should we display chapter numbers? True (default) or false.
 		if ( ! $options['chapter_numbers'] ) {
-			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( $v2_compatible ) {
 				$scss .= "\$chapter-number-display: none; \n";
 				$scss .= "\$part-number-display: none; \n";
 				$scss .= "\$toc-chapter-number-display: none; \n";
@@ -1581,7 +1586,7 @@ class PDFOptions extends \Pressbooks\Options {
 		$options = get_option( 'pressbooks_theme_options_pdf' );
 
 		// Change body font size
-		if ( $sass->isCurrentThemeCompatible( 2 ) && isset( $options['pdf_body_font_size'] ) ) {
+		if ( $v2_compatible && isset( $options['pdf_body_font_size'] ) ) {
 			$fontsize = $options['pdf_body_font_size'] . 'pt';
 			$scss .= "\$body-font-size: (\n
 				epub: medium,\n
@@ -1591,7 +1596,7 @@ class PDFOptions extends \Pressbooks\Options {
 		}
 
 		// Change body line height
-		if ( $sass->isCurrentThemeCompatible( 2 ) && isset( $options['pdf_body_line_height'] ) ) {
+		if ( $v2_compatible && isset( $options['pdf_body_line_height'] ) ) {
 			$lineheight = $options['pdf_body_line_height'] . 'em';
 			$scss .= "\$body-line-height: (\n
 				epub: 1.4em,\n
@@ -1604,7 +1609,7 @@ class PDFOptions extends \Pressbooks\Options {
 		$width = $options['pdf_page_width'];
 		$height = $options['pdf_page_height'];
 
-		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		if ( $v2_compatible ) {
 			$scss .= "\$page-width: $width; \n";
 			$scss .= "\$page-height: $height; \n";
 		} else {
@@ -1617,7 +1622,7 @@ class PDFOptions extends \Pressbooks\Options {
 		$top = ( isset( $options['pdf_page_margin_top'] ) ) ? $options['pdf_page_margin_top'] : '2cm';
 		$bottom = ( isset( $options['pdf_page_margin_bottom'] ) ) ? $options['pdf_page_margin_bottom'] : '2cm';
 
-		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		if ( $v2_compatible ) {
 			$scss .= "\$page-margin-left-top: $top; \n";
 			$scss .= "\$page-margin-left-right: $inside; \n";
 			$scss .= "\$page-margin-left-bottom: $bottom; \n";
@@ -1630,7 +1635,7 @@ class PDFOptions extends \Pressbooks\Options {
 
 		// Should we display crop marks? True or false (default).
 		if ( 1 === absint( $options['pdf_crop_marks'] ) ) {
-			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( $v2_compatible ) {
 				$scss .= "\$page-cropmarks: crop; \n";
 			} else {
 				$scss .= "@page { marks: crop } \n";
@@ -1639,13 +1644,13 @@ class PDFOptions extends \Pressbooks\Options {
 
 		// Hyphens?
 		if ( 1 === absint( $options['pdf_hyphens'] ) ) {
-			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( $v2_compatible ) {
 				$scss .= "\$para-hyphens: auto; \n"; // TODO
 			} else {
 				$scss .= "p { hyphens: auto; } \n";
 			}
 		} else {
-			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( $v2_compatible ) {
 				$scss .= "\$para-hyphens: manual; \n"; // TODO
 			} else {
 				$scss .= "p { hyphens: manual; } \n";
@@ -1654,7 +1659,7 @@ class PDFOptions extends \Pressbooks\Options {
 
 		// Indent paragraphs?
 		if ( 'skiplines' === $options['pdf_paragraph_separation'] ) {
-			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( $v2_compatible ) {
 				$scss .= "\$para-margin-top: 1em; \n";
 				$scss .= "\$para-indent: 0; \n";
 			} else {
@@ -1665,7 +1670,7 @@ class PDFOptions extends \Pressbooks\Options {
 		// Include blank pages?
 		if ( isset( $options['pdf_sectionopenings'] ) ) {
 			if ( 'openright' === $options['pdf_sectionopenings'] ) {
-				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				if ( $v2_compatible ) {
 					$scss .= "\$recto-verso-standard-opening: right; \n";
 					$scss .= "\$recto-verso-first-section-opening: right; \n";
 					$scss .= "\$recto-verso-section-opening: right; \n";
@@ -1674,7 +1679,7 @@ class PDFOptions extends \Pressbooks\Options {
 					$scss .= "#copyright-page { page-break-before: left; }\n";
 				}
 			} elseif ( 'remove' === $options['pdf_sectionopenings'] ) {
-				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				if ( $v2_compatible ) {
 					$scss .= "\$recto-verso-standard-opening: auto; \n";
 					$scss .= "\$recto-verso-first-section-opening: auto; \n";
 					$scss .= "\$recto-verso-section-opening: auto; \n";
@@ -1687,7 +1692,7 @@ class PDFOptions extends \Pressbooks\Options {
 
 		// Should we display the TOC? True (default) or false.
 		if ( ! $options['pdf_toc'] ) {
-			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( $v2_compatible ) {
 				$scss .= "\$toc-display: none; \n";
 			} else {
 				$scss .= "#toc { display: none; } \n";
@@ -1696,32 +1701,32 @@ class PDFOptions extends \Pressbooks\Options {
 
 		// Widows
 		if ( isset( $options['widows'] ) ) {
-			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( $v2_compatible ) {
 				$scss .= "\$widows: {$options['widows']}; \n";
 			} else {
 				$scss .= "p { widows: {$options['widows']}; }\n";
 			}
 		} else {
-			if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( ! $v2_compatible ) {
 				$scss .= 'p { widows: 2; }' . "\n";
 			}
 		}
 
 		// Orphans
 		if ( isset( $options['orphans'] ) ) {
-			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( $v2_compatible ) {
 				$scss .= "\$orphans: {$options['orphans']}; \n";
 			} else {
 				$scss .= "p { orphans: {$options['orphans']}; }\n";
 			}
 		} else {
-			if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( ! $v2_compatible ) {
 				$scss .= 'p { orphans: 1; }' . "\n";
 			}
 		}
 
 		// Running Content
-		if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		if ( $v2_compatible ) {
 			$front_matter_running_content_left = ( isset( $options['running_content_front_matter_left'] ) ) ? \Pressbooks\Modules\ThemeOptions\PDFOptions::replaceRunningContentTags( $options['running_content_front_matter_left'] ) : 'string(book-title)';
 			$front_matter_running_content_right = ( isset( $options['running_content_front_matter_right'] ) ) ? \Pressbooks\Modules\ThemeOptions\PDFOptions::replaceRunningContentTags( $options['running_content_front_matter_right'] ) : 'string(section-title)';
 			$introduction_running_content_left = ( isset( $options['running_content_introduction_left'] ) ) ? \Pressbooks\Modules\ThemeOptions\PDFOptions::replaceRunningContentTags( $options['running_content_introduction_left'] ) : 'string(book-title)';
@@ -1746,7 +1751,7 @@ class PDFOptions extends \Pressbooks\Options {
 
 		// a11y Font Size
 		if ( ! empty( $options['pdf_fontsize'] ) ) {
-			if ( ! $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( ! $v2_compatible ) {
 				$scss .= 'body { font-size: 1.3em; line-height: 1.3; }' . "\n";
 			}
 		}

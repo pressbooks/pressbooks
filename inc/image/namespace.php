@@ -6,6 +6,8 @@
 
 namespace Pressbooks\Image;
 
+use Jenssegers\ImageHash\ImageHash;
+
 /**
  * URL to default cover image
  *
@@ -92,7 +94,7 @@ function thumbify( $thumb, $path ) {
 
 
 /**
- * Remove the upload path base directory from the attachment URL
+ * Returns the upload path and basename from attachment URL (ie. 2017/08/foo-bar.png), or unchanged if no match is found.
  *
  * @param string $url
  *
@@ -124,14 +126,14 @@ function attachment_id_from_url( $url ) {
 	// If this is the URL of an auto-generated thumbnail, get the URL of the original image
 	$url = preg_replace( '/-\d+x\d+(?=\.(jp?g|png|gif)$)/i', '', $url );
 
-	$url = strip_baseurl( $url );
+	$attached_file = strip_baseurl( $url );
 
 	// Get the attachment ID from the modified attachment URL
 	$id = $wpdb->get_var(
 		$wpdb->prepare(
 			"SELECT ID FROM {$wpdb->posts}
 			INNER JOIN {$wpdb->postmeta} ON {$wpdb->posts}.ID = {$wpdb->postmeta}.post_id
-			WHERE {$wpdb->posts}.post_type = 'attachment' AND {$wpdb->postmeta}.meta_key = '_wp_attached_file' AND {$wpdb->postmeta}.meta_value = '%s' ", $url
+			WHERE {$wpdb->posts}.post_type = 'attachment' AND {$wpdb->postmeta}.meta_key = '_wp_attached_file' AND {$wpdb->postmeta}.meta_value = '%s' ", $attached_file
 		)
 	);
 
@@ -253,13 +255,13 @@ function delete_attachment( $post_id ) {
 		/** @var $wpdb \wpdb */
 		global $wpdb;
 
-		$url = strip_baseurl( wp_get_attachment_url( $post->ID ) );
+		$attached_file = strip_baseurl( wp_get_attachment_url( $post->ID ) );
 
 		$id = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT umeta_id FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key = 'pb_catalog_logo' AND meta_value REGEXP %s ",
 				$post->post_author,
-				"{$url}$" // End of string regex for URL
+				"{$attached_file}$" // End of string regex for URL
 			)
 		);
 
@@ -530,4 +532,196 @@ function proper_image_extension( $path_to_file, $filename ) {
 	} else {
 		return $filename;
 	}
+}
+
+/**
+ * Get image DPI
+ *
+ * @param $path_to_file
+ * @param bool $force_exif (optional)
+ *
+ * @return float|false DPI. On failure, false is returned.
+ */
+function get_dpi( $path_to_file, $force_exif = false ) {
+
+	if ( extension_loaded( 'imagick' ) && $force_exif === false ) {
+		try {
+			$image = new \Imagick( $path_to_file );
+			$res = $image->getImageResolution();
+			if ( isset( $res['x'], $res['y'] ) && $res['x'] === $res['y'] ) {
+				$dpi = (float) $res['x'];
+			}
+		} catch ( \Exception $e ) {
+			return false;
+		}
+	} else {
+		$exif = @exif_read_data( $path_to_file ); // @codingStandardsIgnoreLine
+		if ( isset( $exif['XResolution'], $exif['YResolution'] ) && $exif['XResolution'] === $exif['YResolution'] ) {
+			$dpi = (float) $exif['XResolution'];
+		}
+	}
+
+	return ! empty( $dpi ) ? $dpi : false;
+}
+
+/**
+ * Greatest common divisor
+ *
+ * @param int $a
+ * @param int $b
+ *
+ * @return int
+ */
+function gcd( $a, $b ) {
+	return ( $a % $b ) ? gcd( $b, $a % $b ) : $b;
+}
+
+/**
+ * Get image aspect ratio
+ *
+ * @param string $path_to_file
+ *
+ * @return string|false Aspect ratio. On failure, false is returned.
+ */
+function get_aspect_ratio( $path_to_file ) {
+	list( $x, $y ) = @getimagesize( $path_to_file ); // @codingStandardsIgnoreLine
+	if ( empty( $x ) || empty( $y ) ) {
+		return false;
+	}
+	$gcd = gcd( $x, $y );
+	return ( $x / $gcd ) . ':' . ( $y / $gcd );
+}
+
+/**
+ * Check if two images have the same aspect ratio
+ *
+ * @param string $path_to_file_1
+ * @param string $path_to_file_2
+ *
+ * @return bool
+ */
+function same_aspect_ratio( $path_to_file_1, $path_to_file_2 ) {
+
+	$a = get_aspect_ratio( $path_to_file_1 );
+	$b = get_aspect_ratio( $path_to_file_2 );
+
+	if ( $a === false || $b === false ) {
+		return false;
+	}
+
+	if ( $a === $b ) {
+		return true;
+	}
+
+	// Plan b, test against what would happen on resize
+	// (big height / big width) x small width = small height
+
+	list( $width1, $height1 ) = @getimagesize( $path_to_file_1 ); // @codingStandardsIgnoreLine
+	list( $width2, $height2 ) = @getimagesize( $path_to_file_2 ); // @codingStandardsIgnoreLine
+
+	if ( $width1 && $width2 ) {
+		if ( $width1 > $width2 ) {
+			$x = ( $height1 / $width1 ) * $width2;
+			if ( round( $x ) === round( $height2 ) ) {
+				return true;
+			}
+		} else {
+			$x = ( $height2 / $width2 ) * $width1;
+			if ( round( $x ) === round( $height1 ) ) {
+				return true;
+			}
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Return a number representing the differences between two images.
+ * Low distance values will indicate that the images are similar or the same, high distance values indicate that the images are different.
+ *
+ * @param string $path_to_file_1
+ * @param string $path_to_file_2
+ *
+ * @return int|false Distance. On failure, false is returned.
+ */
+function differences( $path_to_file_1, $path_to_file_2 ) {
+
+	try {
+		$hasher = new ImageHash();
+		$distance = $hasher->compare( $path_to_file_1, $path_to_file_2 );
+	} catch ( \Exception $e ) {
+		return false;
+	}
+
+	return $distance;
+}
+
+/**
+ * Check if $smaller and $bigger are the same image, but $bigger is bigger
+ *
+ * @param string $smaller path to smaller image file
+ * @param string $bigger path to bigger image file
+ *
+ * @return bool
+ */
+function is_bigger_version( $smaller, $bigger ) {
+	if (
+		same_aspect_ratio( $smaller, $bigger ) &&
+		differences( $smaller, $bigger ) <= 5
+	) {
+		// Check if the image is, in fact, bigger.
+		list( $x1, $y1 ) = getimagesize( $smaller );
+		list( $x2, $y2 ) = getimagesize( $bigger );
+		if ( $x1 < $x2 && $y1 < $y2 ) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * Change image URL to bigger original version (if we can find it)
+ *
+ * @param string $url
+ *
+ * @return string
+ */
+function maybe_swap_with_bigger( $url ) {
+
+	if ( ! preg_match( '/-\d+x\d+(?=\.(jp?g|png|gif)$)/i', $url ) ) {
+		// Does not look like resized image, return unchanged
+		return $url;
+	}
+
+	$id = attachment_id_from_url( $url );
+	if ( ! $id ) {
+		// Could not find in database, return unchanged
+		return $url;
+	}
+
+	$upload_dir = dirname( get_attached_file( $id ) );
+	$attached_file = strip_baseurl( $url );
+	$src_file = basename( $attached_file );
+
+	$meta = wp_get_attachment_metadata( $id, true );
+	if ( $meta['file'] === $attached_file ) {
+		// This is the original image, return unchanged
+		return $url;
+	}
+
+	$original_file = basename( $meta['file'] );
+	foreach ( $meta['sizes'] as $size ) {
+		$resized_file = basename( $size['file'] );
+		if ( $resized_file === $src_file ) {
+			// Check if original image is a good replacement
+			$a = "{$upload_dir}/{$resized_file}";
+			$b = "{$upload_dir}/{$original_file}";
+			if ( is_bigger_version( $a, $b ) ) {
+				$url = \Pressbooks\Utility\str_lreplace( $src_file, $original_file, $url );
+			}
+		}
+	}
+
+	return $url;
 }

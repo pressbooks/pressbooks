@@ -96,10 +96,10 @@ function flusher() {
 	}
 
 	// See rewrite_rules_for_catalog()
-	$set = get_option( 'pressbooks_flushed_catalog' );
+	$set = get_option( 'pressbooks_flushed_catalog_V2' );
 	if ( ! $set ) {
 		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_catalog', true );
+		update_option( 'pressbooks_flushed_catalog_V2', true );
 	}
 
 	// See rewrite_rules_for_sitemap()
@@ -166,55 +166,38 @@ function do_format() {
 		exit;
 	}
 
-	if ( 'wxr' === $format ) {
-
-		$args = [];
-		$foo = new \Pressbooks\Modules\Export\WordPress\Wxr( $args );
-		$foo->transform();
-		exit;
-	}
-
 	wp_die( __( 'Error: Unknown export format.', 'pressbooks' ) );
 }
 
 
 /**
- * Add a rewrite rule for the keyword "catalog"
+ * Add a rewrite rule for the keyword "catalog" (Changed in Pressbooks 4.2)
  *
+ * @since 4.2
  * @see flusher()
  */
 function rewrite_rules_for_catalog() {
-
-	add_rewrite_endpoint( 'catalog', EP_ROOT );
-	add_filter( 'template_redirect', __NAMESPACE__ . '\do_catalog', 0 );
+	global $wp;
+	$wp->add_query_var( 'pb_catalog_user' );
+	add_rewrite_rule( '^catalog/(.*)', 'index.php?pagename=pb_catalog&pb_catalog_user=$matches[1]' );
+	add_filter( 'template_include', __NAMESPACE__ . '\do_catalog', 1 );
 }
-
 
 /**
  * Display catalog
+ *
+ * @param string $template
+ *
+ * @return string
  */
-function do_catalog() {
-
-	if ( ! array_key_exists( 'catalog', $GLOBALS['wp_query']->query_vars ) ) {
-		// Don't do anything and return
-		return;
+function do_catalog( $template ) {
+	if ( get_query_var( 'pagename' ) === 'pb_catalog' ) {
+		$user = get_user_by( 'login', get_query_var( 'pb_catalog_user' ) );
+		if ( $user !== false ) {
+			return \Pressbooks\Catalog::getTemplatePath();
+		}
 	}
-
-	$user_login = get_query_var( 'catalog' );
-	if ( ! is_main_site() ) {
-		// Hard redirect
-		location( network_site_url( "/catalog/$user_login" ) );
-	}
-
-	$user = get_user_by( 'login', $user_login );
-	if ( false === $user ) {
-		$msg = __( 'No catalog was found for user', 'pressbooks' ) . ": $user_login";
-		$args = [ 'response' => '404' ];
-		wp_die( $msg, '', $args );
-	}
-
-	\Pressbooks\Catalog::loadTemplate( $user->ID );
-	exit;
+	return $template;
 }
 
 
@@ -244,8 +227,9 @@ function rewrite_rules_for_api() {
  * PB API v1
  * Expects the pattern `api/v1/books/{id}`
  *
- * @see https://github.com/pressbooks/pb-api
  * @deprecated
+ *
+ * @see https://github.com/pressbooks/pb-api
  */
 function do_api() {
 	// Don't do anything and return if `api` isn't part of the URL
@@ -394,7 +378,7 @@ function do_open() {
 				}
 
 				// Force download
-				set_time_limit( 0 );
+				@set_time_limit( 0 ); // @codingStandardsIgnoreLine
 				header( 'Content-Description: File Transfer' );
 				header( 'Content-Type: ' . \Pressbooks\Modules\Export\Export::mimeType( $filepath ) );
 				header( 'Content-Disposition: attachment; filename="' . $book_title_slug . '.' . $file_ext . '"' );

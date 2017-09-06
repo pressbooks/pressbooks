@@ -46,10 +46,15 @@ class Container {
 	 * @param string $key
 	 * @param mixed $val
 	 * @param string $type (optional)
+	 * @param bool $replace (optional)
 	 */
-	static function set( $key, $val, $type = null ) {
+	static function set( $key, $val, $type = null, $replace = false ) {
 		if ( ! static::$pimple ) {
 			throw new \LogicException( '\Pimple\Container not set, call init() or setPimple() before using set().' );
+		}
+
+		if ( $replace ) {
+			unset( static::$pimple[ $key ] ); // Override frozen service
 		}
 
 		if ( 'factory' === $type ) {

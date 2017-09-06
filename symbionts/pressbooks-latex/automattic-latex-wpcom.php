@@ -48,6 +48,8 @@ class Automattic_Latex_WPCOM {
 	function url() {
 
 		if ( ! empty( $_GET['pb-latex-zoom'] ) ) {
+			// Undocumented zoom parameter increases image resolution
+			// @see https://github.com/Automattic/jetpack/issues/7392
 			$this->zoom = (int) $_GET['pb-latex-zoom'];
 		}
 

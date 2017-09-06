@@ -76,6 +76,21 @@ class ContainerTest extends \WP_UnitTestCase {
 		$this->assertTrue( is_object( $var3 ) && ( $var3 instanceof Closure ) );
 		$this->assertTrue( 'test3' == $var3() );
 
+		$this->expectException(\Pimple\Exception\FrozenServiceException::class);
+		Container::set(
+			'test1', function () {
+				return 'test4';
+			}
+		);
+
+		Container::set(
+			'test1', function () {
+				return 'test4';
+			},
+			null, true
+		);
+		$var4 = Container::get( 'test1' );
+		$this->assertTrue( 'test4' == $var4 );
 	}
 
 	public function test_getException() {

@@ -947,19 +947,14 @@ class Catalog {
 	/**
 	 * Find and load our catalog template.
 	 *
-	 * @param int $user_id
+	 * @return string
 	 */
-	static function loadTemplate( $user_id ) {
-
-		global $wp_query;
-		$wp_query->set( 'pb_user_id', $user_id );
-
+	static function getTemplatePath() {
 		$overridden_template = locate_template( 'pb-catalog.php' );
-
 		if ( $overridden_template ) {
-			load_template( $overridden_template, false );
+			return $overridden_template;
 		} else {
-			load_template( PB_PLUGIN_DIR . 'templates/pb-catalog.php', false );
+			return PB_PLUGIN_DIR . 'templates/pb-catalog.php';
 		}
 	}
 

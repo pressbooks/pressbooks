@@ -254,29 +254,24 @@ function mce_table_editor_options( $settings ) {
  */
 function update_editor_style() {
 
+	$styles = Container::get( 'Styles' );
 	$sass = Container::get( 'Sass' );
 
-	if ( $sass->isCurrentThemeCompatible( 1 ) ) {
+	if ( $styles->isCurrentThemeCompatible( 1 ) ) {
 		$scss = file_get_contents( $sass->pathToPartials() . '/_editor-with-custom-fonts.scss' );
-		$css = $sass->compile(
-			$scss, [
-			$sass->pathToUserGeneratedSass(),
-			$sass->pathToPartials(),
-			$sass->pathToFonts(),
-			get_stylesheet_directory(),
-			]
-		);
-	} elseif ( $sass->isCurrentThemeCompatible( 2 ) ) {
+		$css = $styles->customize( 'web', $scss );
+	} elseif ( $styles->isCurrentThemeCompatible( 2 ) ) {
 		$scss = file_get_contents( $sass->pathToGlobals() . '/editor/_editor.scss' );
-		$css = $sass->compile( $scss, $sass->defaultIncludePaths( 'web' ) );
+		$css = $styles->customize( 'web', $scss );
 	} else {
 		$scss = file_get_contents( $sass->pathToPartials() . '/_editor.scss' );
 		$css = $sass->compile(
-			$scss, [
-			$sass->pathToUserGeneratedSass(),
-			$sass->pathToPartials(),
-			$sass->pathToFonts(),
-			get_stylesheet_directory(),
+			$scss,
+			[
+				$sass->pathToUserGeneratedSass(),
+				$sass->pathToPartials(),
+				$sass->pathToFonts(),
+				get_stylesheet_directory(),
 			]
 		);
 	}

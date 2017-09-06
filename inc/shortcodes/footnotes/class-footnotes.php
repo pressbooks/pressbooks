@@ -11,7 +11,7 @@ use PressbooksMix\Assets;
 class Footnotes {
 
 	/**
-	 * @var Footnotes - Static property to hold our singleton instance
+	 * @var Footnotes
 	 */
 	static $instance = false;
 
@@ -26,7 +26,7 @@ class Footnotes {
 	var $numbered = [];
 
 	/**
-	 * Function to instantiate our class and make it a singleton
+	 * Function to init our class, set filters & hooks, set a singleton instance
 	 *
 	 * @return Footnotes
 	 */

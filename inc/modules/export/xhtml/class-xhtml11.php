@@ -14,15 +14,6 @@ use function Pressbooks\Sanitize\clean_filename;
 class Xhtml11 extends Export {
 
 	/**
-	 * Timeout in seconds.
-	 * Used with wp_remote_get()
-	 *
-	 * @var int
-	 */
-	public $timeout = 90;
-
-
-	/**
 	 * Service URL
 	 *
 	 * @var string
@@ -92,6 +83,7 @@ class Xhtml11 extends Export {
 		// Append endnotes to URL?
 		if ( $r['endnotes'] ) {
 			$this->url .= '&endnotes=true';
+			$_GET['endnotes'] = true;
 		}
 
 		// HtmLawed: id values not allowed in input
@@ -113,7 +105,7 @@ class Xhtml11 extends Export {
 
 		// Get XHTML
 
-		$output = $this->queryXhtml();
+		$output = $this->transform( true );
 
 		if ( ! $output ) {
 			return false;
@@ -157,13 +149,33 @@ class Xhtml11 extends Export {
 
 	/**
 	 * Procedure for "format/xhtml" rewrite rule.
+	 *
+	 * Supported http params:
+	 *
+	 *   + timestamp: (int) combines with `hashkey` to allow a 3rd party service temporary access
+	 *   + hashkey: (string) combines with `timestamp` to allow a 3rd party service temporary access
+	 *   + endnotes: (bool) move all footnotes to end of the book
+	 *   + style: (string) name of a user generated stylesheet you want included in the header
+	 *   + script: (string) name of javascript file you you want included in the header
+	 *   + preview: (bool) Use `Content-Disposition: inline` instead of `Content-Disposition: attachment` when passing through Export::formSubmit
+	 *   + fullsize-images: (bool) replace images with originals when possible
+	 *
+	 * @see \Pressbooks\Redirect\do_format
+	 *
+	 * @param bool $return (optional)
+	 * If you would like to capture the output of transform,
+	 * use the return parameter. If this parameter is set
+	 * to true, transform will return its output, instead of
+	 * printing it.
+	 *
+	 * @return mixed
 	 */
-	function transform() {
+	function transform( $return = false ) {
 
 		// Check permissions
 
-		if ( ! current_user_can( 'manage_options' ) ) {
-			$timestamp = ( isset( $_REQUEST['timestamp'] ) ) ? absint( $_REQUEST['timestamp'] ) : '';
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			$timestamp = ( isset( $_REQUEST['timestamp'] ) ) ? absint( $_REQUEST['timestamp'] ) : 0;
 			$hashkey = ( isset( $_REQUEST['hashkey'] ) ) ? $_REQUEST['hashkey'] : '';
 			if ( ! $this->verifyNonce( $timestamp, $hashkey ) ) {
 				wp_die( __( 'Invalid permission error', 'pressbooks' ) );
@@ -187,6 +199,8 @@ class Xhtml11 extends Export {
 		if ( isset( $metadata['pb_language'] ) ) {
 			list( $this->lang ) = explode( '-', $metadata['pb_language'] );
 		}
+
+		ob_start();
 
 		$this->echoDocType( $book_contents, $metadata );
 
@@ -248,6 +262,14 @@ class Xhtml11 extends Export {
 
 		// XHTML, Stop!
 		echo "</body>\n</html>";
+
+		$buffer = ob_get_clean();
+		if ( $return ) {
+			return $buffer;
+		} else {
+			echo $buffer;
+			return null;
+		}
 	}
 
 
@@ -334,36 +356,6 @@ class Xhtml11 extends Export {
 		return $e;
 	}
 
-	/**
-	 * Query the access protected "format/xhtml" URL, return the results.
-	 *
-	 * @return bool|string
-	 */
-	protected function queryXhtml() {
-
-		$args = [ 'timeout' => $this->timeout ];
-		if ( defined( 'WP_ENV' ) && WP_ENV === 'development' ) {
-			$args['sslverify'] = false;
-		}
-		$response = wp_remote_get( $this->url, $args );
-
-		// WordPress error?
-		if ( is_wp_error( $response ) ) {
-			$this->logError( $response->get_error_message() );
-
-			return false;
-		}
-
-		// Server error?
-		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-			$this->logError( wp_remote_retrieve_response_message( $response ) );
-
-			return false;
-		}
-
-		return wp_remote_retrieve_body( $response );
-	}
-
 
 	// ----------------------------------------------------------------------------------------------------------------
 	// Sanitize book
@@ -436,6 +428,9 @@ class Xhtml11 extends Export {
 		$content = $this->fixAnnoyingCharacters( $content ); // is this used?
 		$content = $this->fixInternalLinks( $content );
 		$content = $this->switchLaTexFormat( $content );
+		if ( ! empty( $_GET['fullsize-images'] ) ) {
+			$content = $this->fixImages( $content );
+		}
 		$content = $this->tidy( $content );
 
 		return $content;
@@ -486,6 +481,7 @@ class Xhtml11 extends Export {
 
 		$urls = $dom->getElementsByTagName( 'a' );
 		foreach ( $urls as $url ) {
+			/** @var \DOMElement $url */
 			// Is this the the attributionUrl?
 			if ( $url->getAttribute( 'rel' ) === 'cc:attributionURL' ) {
 				$url->parentNode->replaceChild(
@@ -497,6 +493,47 @@ class Xhtml11 extends Export {
 
 		$content = $html5->saveHTML( $dom );
 		$content = \Pressbooks\Sanitize\strip_container_tags( $content );
+
+		return $content;
+	}
+
+	/**
+	 * Replace every image with the bigger original image
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	protected function fixImages( $content ) {
+
+		// Cheap cache
+		static $already_done = [];
+
+		$changed = false;
+		$html5 = new HTML5();
+		$dom = $html5->loadHTML( $content );
+
+		$images = $dom->getElementsByTagName( 'img' );
+		foreach ( $images as $image ) {
+			/** @var \DOMElement $image */
+			$old_src = $image->getAttribute( 'src' );
+			if ( isset( $already_done[ $old_src ] ) ) {
+				$new_src = $already_done[ $old_src ];
+			} else {
+				$new_src = \Pressbooks\Image\maybe_swap_with_bigger( $old_src );
+			}
+			if ( $old_src !== $new_src ) {
+				$image->setAttribute( 'src', $new_src );
+				$image->removeAttribute( 'srcset' );
+				$changed = true;
+			}
+			$already_done[ $old_src ] = $new_src;
+		}
+
+		if ( $changed ) {
+			$content = $html5->saveHTML( $dom );
+			$content = \Pressbooks\Sanitize\strip_container_tags( $content );
+		}
 
 		return $content;
 	}
@@ -534,8 +571,6 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoDocType( $book_contents, $metadata ) {
 
-		$lang = isset( $metadata['pb_language'] ) ? $metadata['pb_language'] : 'en';
-
 		echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 		echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">' . "\n";
 		echo '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . $this->lang . '">' . "\n";
@@ -556,7 +591,6 @@ class Xhtml11 extends Export {
 			printf( '<meta name="%s" content="%s" />', $name, $content );
 			echo "\n";
 		}
-
 	}
 
 
@@ -627,7 +661,6 @@ class Xhtml11 extends Export {
 		echo '<div id="half-title-page">';
 		echo '<h1 class="title">' . get_bloginfo( 'name' ) . '</h1>';
 		echo '</div>' . "\n";
-
 	}
 
 
@@ -683,16 +716,32 @@ class Xhtml11 extends Export {
 	 */
 	protected function echoCopyright( $book_contents, $metadata ) {
 
+		if ( empty( $metadata['pb_book_license'] ) ) {
+			$all_rights_reserved = true;
+		} elseif ( $metadata['pb_book_license'] === 'all-rights-reserved' ) {
+			$all_rights_reserved = true;
+		} else {
+			$all_rights_reserved = false;
+		}
+		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
+			$has_custom_copyright = true;
+		} else {
+			$has_custom_copyright = false;
+		}
+
+		// HTML
 		echo '<div id="copyright-page"><div class="ugc">';
 
-		// License
-		$license = $this->doCopyrightLicense( $metadata );
-		if ( $license ) {
-			echo $this->removeAttributionLink( $license );
+		// Custom Copyright must override All Rights Reserved
+		if ( ! $has_custom_copyright || ( $has_custom_copyright && ! $all_rights_reserved ) ) {
+			$license = $this->doCopyrightLicense( $metadata );
+			if ( $license ) {
+				echo $this->removeAttributionLink( $license );
+			}
 		}
 
 		// Custom copyright
-		if ( ! empty( $metadata['pb_custom_copyright'] ) ) {
+		if ( $has_custom_copyright ) {
 			echo $this->tidy( $metadata['pb_custom_copyright'] );
 		}
 
@@ -925,7 +974,6 @@ class Xhtml11 extends Export {
 		$front_matter_printf .= '<div class="ugc front-matter-ugc">%s</div>%s%s';
 		$front_matter_printf .= '</div>';
 
-		$s = 1;
 		$i = $this->frontMatterPos;
 		foreach ( $book_contents['front-matter'] as $front_matter ) {
 
@@ -1019,7 +1067,7 @@ class Xhtml11 extends Export {
 		$chapter_printf .= '<div class="ugc chapter-ugc">%s</div>%s%s';
 		$chapter_printf .= '</div>';
 
-		$s = $i = $j = 1;
+		$i = $j = 1;
 		foreach ( $book_contents['part'] as $part ) {
 
 			$invisibility = ( get_post_meta( $part['ID'], 'pb_part_invisible', true ) === 'on' ) ? 'invisible' : '';

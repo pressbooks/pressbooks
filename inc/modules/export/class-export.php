@@ -9,7 +9,6 @@ namespace Pressbooks\Modules\Export;
 use Pressbooks\Book;
 use Pressbooks\CustomCss;
 use Pressbooks\Container;
-use Pressbooks\Metadata;
 use function \Pressbooks\Utility\getset;
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
@@ -106,12 +105,12 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.scss" );
-			} elseif ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/styles/$type/style.scss" );
-			} else {
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.css" );
+			// Look for SCSS file
+			$fullpath = Container::get( 'Styles' )->getPathToScss( $type );
+			if ( ! $fullpath ) {
+				// Look For CSS file
+				$dir = Container::get( 'Styles' )->getDir();
+				$fullpath = realpath( "$dir/export/$type/style.css" );
 			}
 		}
 
@@ -138,11 +137,12 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+			$dir = Container::get( 'Styles' )->getDir();
+			if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
 				// Check for v2 themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" );
+				$fullpath = realpath( "$dir/assets/scripts/$type/script.js" );
 			} else {
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" );
+				$fullpath = realpath( "$dir/export/$type/script.js" );
 			}
 			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' === $type ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script-romanize.js" );
@@ -163,9 +163,10 @@ abstract class Export {
 
 		$url = false;
 
-		if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) && realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" ) ) {
+		$dir = Container::get( 'Styles' )->getDir();
+		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && realpath( "$dir/assets/scripts/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/assets/scripts/$type/script.js";
-		} elseif ( realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" ) ) {
+		} elseif ( realpath( "$dir/export/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/export/$type/script.js";
 		}
 		if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' === $type ) {
@@ -218,7 +219,9 @@ abstract class Export {
 			$this->errorsEmail[] = $current_user->user_email;
 		}
 
-		\Pressbooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
+		if ( ! defined( 'WP_TESTS_MULTISITE' ) ) {
+			\Pressbooks\Utility\email_error_log( $this->errorsEmail, $subject, $message );
+		}
 	}
 
 
@@ -355,53 +358,6 @@ abstract class Export {
 
 		return untrailingslashit( $temp_file );
 	}
-
-
-	/**
-	 * Recursively delete all contents of a directory.
-	 *
-	 * @param string $dirname
-	 * @param bool $only_empty
-	 *
-	 * @return bool
-	 */
-	protected function obliterateDir( $dirname, $only_empty = false ) {
-
-		if ( ! is_dir( $dirname ) ) {
-			return false;
-		}
-
-		$dscan = [ realpath( $dirname ) ];
-		$darr = [];
-		while ( ! empty( $dscan ) ) {
-			$dcur = array_pop( $dscan );
-			$darr[] = $dcur;
-			$d = opendir( $dcur );
-			if ( $d ) {
-				while ( $f = readdir( $d ) ) {
-					if ( '.' === $f || '..' === $f ) {
-						continue;
-					}
-					$f = $dcur . '/' . $f;
-					if ( is_dir( $f ) ) {
-						$dscan[] = $f;
-					} else {
-						unlink( $f );
-					}
-				}
-				closedir( $d );
-			}
-		}
-		$i_until = ( $only_empty ) ? 1 : 0;
-		for ( $i = count( $darr ) - 1; $i >= $i_until; $i-- ) {
-			if ( ! rmdir( $darr[ $i ] ) ) {
-				trigger_error( "Warning: There was a problem deleting a temporary file in $dirname", E_USER_WARNING );
-			}
-		}
-
-		return ( ( $only_empty ) ? ( count( scandir( $dirname ) ) <= 2 ) : ( ! is_dir( $dirname ) ) );
-	}
-
 
 	/**
 	 * Convert an XML string via XSLT file.
@@ -625,7 +581,7 @@ abstract class Export {
 				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub201'; // Must be set before MOBI
 			}
 			if ( isset( $x['epub3'] ) ) {
-				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3'; // Must be set before MOBI
+				$modules[] = '\Pressbooks\Modules\Export\Epub\Epub3';
 			}
 			if ( isset( $x['mobi'] ) ) {
 				if ( ! isset( $x['epub'] ) ) { // Make sure Epub source file is generated
@@ -678,7 +634,7 @@ abstract class Export {
 			// --------------------------------------------------------------------------------------------------------
 			// Do Export
 
-			set_time_limit( 300 );
+			@set_time_limit( 300 ); // @codingStandardsIgnoreLine
 
 			$redirect_url = get_admin_url( get_current_blog_id(), '/admin.php?page=pb_export' );
 			$conversion_error = [];
@@ -844,31 +800,6 @@ abstract class Export {
 
 
 	/**
-	 * Inject house styles into CSS
-	 *
-	 * @param string $css
-	 *
-	 * @return string
-	 */
-	static function injectHouseStyles( $css ) {
-
-		$scan = [
-			'/*__INSERT_PDF_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_pdf-house-style.scss',
-			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_epub-house-style.scss',
-			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_mobi-house-style.scss',
-		];
-
-		foreach ( $scan as $token => $replace_with ) {
-			if ( is_file( $replace_with ) ) {
-				$css = str_replace( $token, file_get_contents( $replace_with ), $css );
-			}
-		}
-
-		return $css;
-	}
-
-
-	/**
 	 * Download an .htaccess protected file from the exports directory.
 	 *
 	 * @param string $filename sanitized $_GET['download_export_file']
@@ -883,7 +814,7 @@ abstract class Export {
 		}
 
 		// Force download
-		set_time_limit( 0 );
+		@set_time_limit( 0 ); // @codingStandardsIgnoreLine
 		header( 'Content-Description: File Transfer' );
 		header( 'Content-Type: ' . static::mimeType( $filepath ) );
 		if ( $inline ) {

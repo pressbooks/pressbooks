@@ -9,9 +9,46 @@ trait utilsTrait {
 	 */
 	private function _book( $theme = 'pressbooks-book' ) {
 
-		$blog_id = $this->factory->blog->create();
+		$blog_id = $this->factory()->blog->create();
 		switch_to_blog( $blog_id );
 		switch_theme( $theme );
+
+		// Export = on
+		$book = \Pressbooks\Book::getInstance();
+		foreach ( $book::getBookStructure() as $key => $section ) {
+			if ( $key === 'front-matter' || $key === 'back-matter' ) {
+				foreach ( $section as $val ) {
+					update_post_meta( $val['ID'], 'pb_export', 'on' );
+				}
+			}
+			if ( $key === 'part' ) {
+				foreach ( $section as $part ) {
+					foreach ( $part['chapters'] as $val ) {
+						update_post_meta( $val['ID'], 'pb_export', 'on' );
+					}
+				}
+			}
+		}
+
+		$book::deleteBookObjectCache();
+	}
+
+	/**
+	 * Creates chapter (no associated part, is orphan)
+	 *
+	 * @return int
+	 */
+	private function _createChapter() {
+		$new_post = [
+			'post_title' => 'test chapter',
+			'post_type' => 'chapter',
+			'post_status' => 'publish',
+			'post_content' => 'some content',
+		];
+		$pid = $this->factory()->post->create_object( $new_post );
+		update_post_meta( $pid, 'pb_export', 'on' );
+
+		return $pid;
 	}
 
 

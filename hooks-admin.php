@@ -15,7 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 // -------------------------------------------------------------------------------------------------------------------
 
 require( PB_PLUGIN_DIR . 'inc/admin/analytics/namespace.php' );
-require( PB_PLUGIN_DIR . 'inc/admin/customcss/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/dashboard/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/diagnostics/namespace.php' );
 require( PB_PLUGIN_DIR . 'inc/admin/fonts/namespace.php' );
@@ -179,17 +178,8 @@ add_action( 'wp_ajax_pb_update_global_privacy_options', '\Pressbooks\Book::updat
 add_action( 'wp_ajax_pb_delete_cover_image', '\Pressbooks\Admin\Metaboxes\delete_cover_image' );
 // Convert MS Word Footnotes
 add_action( 'wp_ajax_pb_ftnref_convert', '\Pressbooks\Shortcodes\Footnotes\Footnotes::convertWordFootnotes' );
-// Load CSS into Custom CSS textarea
-add_action( 'wp_ajax_pb_load_css_from', '\Pressbooks\Admin\CustomCss\load_css_from' );
 // User Catalog Page
 add_action( 'wp_ajax_pb_delete_catalog_logo', '\Pressbooks\Catalog::deleteLogo' );
-
-// -------------------------------------------------------------------------------------------------------------------
-// Custom Css
-// -------------------------------------------------------------------------------------------------------------------
-
-add_action( 'admin_menu', '\Pressbooks\Admin\CustomCss\add_menu' );
-add_action( 'load-post.php', '\Pressbooks\Admin\CustomCss\redirect_css_editor' );
 
 // -------------------------------------------------------------------------------------------------------------------
 // SASS
@@ -231,7 +221,6 @@ add_action( 'update_option_pressbooks_export_options', '\Pressbooks\Theme\Lock::
 
 add_action( 'init', '\Pressbooks\Modules\Export\Export::formSubmit', 50 );
 add_action( 'init', '\Pressbooks\Modules\Import\Import::formSubmit', 50 );
-add_action( 'init', '\Pressbooks\CustomCss::formSubmit', 50 );
 add_action( 'init', '\Pressbooks\Catalog::formSubmit', 50 );
 add_action( 'init', '\Pressbooks\Cloner::formSubmit', 50 );
 

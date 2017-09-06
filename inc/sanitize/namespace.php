@@ -308,13 +308,16 @@ function maybe_https( $url ) {
  *
  * @return string
  */
-function normalize_css_urls( $css, $dir = false ) {
+function normalize_css_urls( $css, $dir = '' ) {
+	$url_regex = '/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i';
 	$css = preg_replace_callback(
-		'/url\(([\s])?([\"|\'])?(.*?)([\"|\'])?([\s])?\)/i', function ( $matches ) use ( $dir ) {
+		$url_regex, function ( $matches ) use ( $dir ) {
+
+			$typography_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/';
 
 			$url = $matches[3];
 
-			$typography_dir = get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/book/typography/';
+			// Look for relative fonts, convert to full http(s) url
 
 			if ( preg_match( '#^themes-book/pressbooks-book/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
 				$url = str_replace( 'themes-book/pressbooks-book/', '', $url );
@@ -323,20 +326,20 @@ function normalize_css_urls( $css, $dir = false ) {
 					return 'url(' . get_template_directory_uri() . '/assets/book/typography/' . $url . ')';
 				}
 			}
-
 			if ( preg_match( '#^fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
 				$my_asset = realpath( $typography_dir . $url );
 				if ( $my_asset ) {
 					return 'url(' . get_template_directory_uri() . '/assets/book/typography/' . $url . ')';
 				}
 			}
-
 			if ( preg_match( '#^uploads/assets/fonts/[a-zA-Z0-9_-]+(\.woff|\.otf|\.ttf)$#i', $url ) ) {
 				$my_asset = realpath( WP_CONTENT_DIR . '/' . $url );
 				if ( $my_asset ) {
-					return 'url(' . WP_CONTENT_DIR . '/' . $url . ')';
+					return 'url(' . set_url_scheme( WP_CONTENT_URL ) . '/' . $url . ')';
 				}
 			}
+
+			// Look for anything !NOT! prefixed with http(s), convert to fullpath
 
 			if ( $dir && ! preg_match( '#^https?://#i', $url ) ) {
 				$my_asset = realpath( "$dir/$url" );
@@ -480,4 +483,38 @@ function strip_container_tags( $html ) {
 	$html = preg_replace( '/<!DOCTYPE.*>/im', '', $html, 1 );
 
 	return (string) $html;
+}
+
+
+/**
+ * Clean up CSS.
+ *
+ * Minimal intervention, but prevent users from injecting garbage.
+ *
+ * @param $css
+ *
+ * @return string
+ */
+function cleanup_css( $css ) {
+
+	$css = stripslashes( $css );
+
+	$css = preg_replace( '/\\\\([0-9a-fA-F]{2,4})/', '\\\\\\\\$1', $prev = $css );
+
+	if ( $css !== $prev ) {
+		$warnings[] = 'preg_replace() double escaped unicode escape sequences';
+	}
+
+	$css = str_replace( '<=', '&lt;=', $css ); // Some people put weird stuff in their CSS, KSES tends to be greedy
+	$css = wp_kses_split( $prev = $css, [], [] );
+	$css = str_replace( '&gt;', '>', $css ); // kses replaces lone '>' with &gt;
+	$css = strip_tags( $css );
+
+	if ( $css !== $prev ) {
+		$warnings[] = 'kses() and strip_tags() do not match';
+	}
+
+	// TODO: Something with $warnings[]
+
+	return $css;
 }

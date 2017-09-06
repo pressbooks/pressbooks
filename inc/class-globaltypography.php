@@ -11,6 +11,25 @@ namespace Pressbooks;
 class GlobalTypography {
 
 	/**
+	 * @var Sass
+	 */
+	protected $sass;
+
+	/**
+	 * @param Sass $sass
+	 */
+	public function __construct( $sass ) {
+		$this->sass = $sass;
+	}
+
+	/**
+	 * @return Sass
+	 */
+	public function getSass() {
+		return $this->sass;
+	}
+
+	/**
 	 * Get Pressbooks-supported languages.
 	 *
 	 * @return array
@@ -48,7 +67,7 @@ class GlobalTypography {
 
 		$return_value = '';
 
-		$fullpath = Container::get( 'Sass' )->pathToUserGeneratedSass() . "/_font-stack-{$type}.scss";
+		$fullpath = $this->sass->pathToUserGeneratedSass() . "/_font-stack-{$type}.scss";
 
 		if ( is_file( $fullpath ) ) {
 			$return_value = file_get_contents( $fullpath );
@@ -59,6 +78,8 @@ class GlobalTypography {
 
 	/**
 	 * Get required languages for this book, excluding those supported by the theme.
+	 *
+	 * @return array
 	 */
 	function _getRequiredLanguages() {
 		$languages = get_option( 'pressbooks_global_typography', [] );
@@ -204,7 +225,7 @@ class GlobalTypography {
 
 			// Find scss font template in order of priority
 			foreach ( [ "fonts-{$lang}-{$type}", "fonts-{$lang}" ] as $i ) {
-				if ( file_exists( Container::get( 'Sass' )->pathToFonts() . "/_{$i}.scss" ) ) {
+				if ( file_exists( $this->sass->pathToFonts() . "/_{$i}.scss" ) ) {
 					$import = $i;
 					break;
 				}
@@ -233,15 +254,18 @@ class GlobalTypography {
 
 		// Save file
 
-		$dir = Container::get( 'Sass' )->pathToUserGeneratedSass();
+		$dir = $this->sass->pathToUserGeneratedSass();
 		$file = $dir . "/_font-stack-{$type}.scss";
 		file_put_contents( $file, $scss );
 	}
 
 	/**
 	 * Check for absent font files and download if necessary.
+	 *
+	 * @param array $languages
+	 *
+	 * @return bool
 	 */
-
 	function getFonts( $languages = null ) {
 		if ( ! $languages ) {
 			$languages = $this->_getRequiredLanguages();

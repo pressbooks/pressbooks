@@ -35,7 +35,7 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 		if ( ! post_type_exists( ' chapter' ) ) {
 			\Pressbooks\PostType\register_post_types();
 		}
-		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		include_once( ABSPATH . '/wp-admin/menu.php' );
 
@@ -51,7 +51,7 @@ class Admin_LafsTest extends \WP_UnitTestCase {
 
 	function test_replace_menu_bar_my_sites() {
 		$this->_book();
-		$user_id = $this->factory->user->create( [ 'role' => 'administrator' ] );
+		$user_id = $this->factory()->user->create( [ 'role' => 'administrator' ] );
 		wp_set_current_user( $user_id );
 		require_once ABSPATH . WPINC . '/class-wp-admin-bar.php';
 		$wp_admin_bar = new \WP_Admin_Bar();

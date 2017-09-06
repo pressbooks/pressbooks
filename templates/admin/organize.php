@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /* Outputs the content of the Organize page for a book */
 
 global $user_ID; // @codingStandardsIgnoreLine
-$statuses = get_post_statuses();
+$statuses = get_post_stati( [], 'objects' );
 $book_structure = \Pressbooks\Book::getBookStructure();
 $book_is_public = ( ! empty( get_option( 'blog_public' ) ) );
 $disable_comments = \Pressbooks\Utility\disable_comments();
@@ -120,7 +120,7 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 									<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 								</a>
 							</td><?php endif; ?>
-							<td class="status column-status"><?php echo $statuses[ $content['post_status'] ]; ?></td>
+							<td class="status column-status"><?php echo $statuses[ $content['post_status'] ]->label; ?></td>
 							<td class="status column-privacy">
 								<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />
 							</td>
@@ -187,7 +187,7 @@ $wc_selected_for_export = \Pressbooks\Book::wordCount( true );
 							<span class="comment-count"><?php echo $content['comment_count']; ?></span>
 						</a>
 					</td><?php endif; ?>
-					<td class="status column-status"><?php echo $statuses[ $content['post_status'] ]; ?></td>
+					<td class="status column-status"><?php echo $statuses[ $content['post_status'] ]->label; ?></td>
 					<td class="status column-privacy">
 						<input class="<?php echo $type_abbr; ?>_privacy" type="checkbox" name="<?php echo $type_abbr; ?>-private[<?php echo $content['ID']; ?>]" id="<?php echo $type_abbr; ?>_private_<?php echo $content['ID']; ?>" <?php checked( 'private', get_post_status( $content['ID'] ) ); ?> />
 					</td>

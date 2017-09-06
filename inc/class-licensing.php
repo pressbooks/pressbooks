@@ -40,7 +40,7 @@ class Licensing {
 					'derivatives' => 'y',
 				],
 				'url' => 'https://creativecommons.org/publicdomain/zero/1.0/',
-				'desc' => __( 'No Rights Reserved (Public Domain)', 'pressbooks' ),
+				'desc' => __( 'Public Domain (No Rights Reserved)', 'pressbooks' ),
 			],
 			'cc-by' => [
 				'api' => [
@@ -177,11 +177,19 @@ class Licensing {
 			$copyright_holder = '';
 		}
 
+		if ( ! empty( $metadata['pb_copyright_year'] ) ) {
+			$copyright_year = $metadata['pb_copyright_year'];
+		} elseif ( ! empty( $metadata['pb_publication_date'] ) ) {
+			$copyright_year = strftime( '%Y', $metadata['pb_publication_date'] );
+		} else {
+			$copyright_year = 0;
+		}
+
 		// Check if the user has changed anything about the license
 		$transient = get_transient( $transient_id );
 		$changed = false;
 		if ( is_array( $transient ) ) {
-			foreach ( [ $license, $copyright_holder, $title, $lang ] as $val ) {
+			foreach ( [ $license, $copyright_holder, $title, $lang, $copyright_year ] as $val ) {
 				if ( ! array_key_exists( $val, $transient ) ) {
 					$changed = true;
 				}
@@ -191,7 +199,7 @@ class Licensing {
 		// if the cache has expired, or the user changed something about the license
 		if ( false === $transient || true === $changed ) {
 			// get xml response from API
-			$response = $this->getLicenseXml( $license, $copyright_holder, $link, $title, $lang );
+			$response = $this->getLicenseXml( $license, $copyright_holder, $link, $title, $lang, $copyright_year );
 
 			// convert to object
 			$result = simplexml_load_string( $response );
@@ -200,12 +208,13 @@ class Licensing {
 				throw new \Exception( 'Creative Commons license API not returning expected results' );
 			} else {
 				// process the response, return html
-				$html = $this->getLicenseHtml( $result->html[0] );
+				$except_where_otherwise_noted = in_array( $license, [ 'all-rights-reserved' ], true ) ? false : true;
+				$html = $this->getLicenseHtml( $result->html[0], $except_where_otherwise_noted );
 			}
 
 			set_transient(
 				$transient_id,
-				[ $license => $html, $copyright_holder => 1, $title => 1, $lang => 1 ]
+				[ $license => $html, $copyright_holder => 1, $title => 1, $lang => 1, $copyright_year => 1 ]
 			);
 
 		} else {
@@ -225,10 +234,11 @@ class Licensing {
 	 * @param string $src_url of the page
 	 * @param string $title of the page
 	 * @param string $lang (optional)
+	 * @param int $year (optional)
 	 *
 	 * @return string $xml response
 	 */
-	public function getLicenseXml( $type, $copyright_holder, $src_url, $title, $lang = '' ) {
+	public function getLicenseXml( $type, $copyright_holder, $src_url, $title, $lang = '', $year = 0 ) {
 
 		$endpoint = 'https://api.creativecommons.org/rest/1.5/';
 		$lang = ( ! empty( $lang ) ) ? substr( $lang, 0, 2 ) : '';
@@ -244,16 +254,24 @@ class Licensing {
 			case 'all-rights-reserved':
 				$xml =
 					'<result><html>' .
-					"<span property='dct:title'>" . Sanitize\sanitize_xml_attribute( $title ) . '</span> &#169; ' .
-					Sanitize\sanitize_xml_attribute( $copyright_holder ) . '. ' . __( 'All Rights Reserved', 'pressbooks' ) . '.</html></result>';
+					"<span property='dct:title'>" . Sanitize\sanitize_xml_attribute( $title ) . '</span> ' . __( 'Copyright', 'pressbooks' ) . ' &#169; ';
+				if ( $year ) {
+					$xml .= Sanitize\sanitize_xml_attribute( $year ) . ' ' . __( 'by', 'pressbooks' ) . ' ';
+				}
+				$xml .= Sanitize\sanitize_xml_attribute( $copyright_holder );
+				$xml .= '. ' . __( 'All Rights Reserved', 'pressbooks' ) . '.</html></result>';
 				break;
 
 			default:
 				$key = array_keys( $expected[ $type ]['api'] );
 				$val = array_values( $expected[ $type ]['api'] );
+
 				$url =
 					$endpoint . $key[0] . '/' . $val[0] . '/get?' . $key[1] . '=' . $val[1] . '&' . $key[2] . '=' . $val[2] .
 					'&creator=' . urlencode( $copyright_holder ) . '&attribution_url=' . urlencode( $src_url ) . '&title=' . urlencode( $title ) . '&locale=' . $lang;
+				if ( $year ) {
+					$url .= '&year=' . (int) $year;
+				}
 
 				$xml = wp_remote_get( $url );
 				$ok = wp_remote_retrieve_response_code( $xml );
@@ -278,19 +296,23 @@ class Licensing {
 	 * Returns an HTML blob if given an XML object
 	 *
 	 * @param \SimpleXMLElement $response
+	 * @param $except_where_otherwise_noted bool (optional)
 	 *
 	 * @return string $html blob of copyright information
 	 */
-	public function getLicenseHtml( \SimpleXMLElement $response ) {
+	public function getLicenseHtml( \SimpleXMLElement $response, $except_where_otherwise_noted = true ) {
 
 		$content = $response->asXML();
 		$content = trim( str_replace( [ '<p xmlns:dct="http://purl.org/dc/terms/">', '</p>', '<html>', '</html>' ], '', $content ) );
 		$content = preg_replace( '/http:\/\/i.creativecommons/iU', 'https://i.creativecommons', $content );
 
-		$html =
-			'<div class="license-attribution" xmlns:cc="http://creativecommons.org/ns#"><p xmlns:dct="http://purl.org/dc/terms/">' .
-			rtrim( $content, '.' ) . ', ' . __( 'except where otherwise noted.', 'pressbooks' ) .
-			'</p></div>';
+		$html = '<div class="license-attribution" xmlns:cc="http://creativecommons.org/ns#"><p xmlns:dct="http://purl.org/dc/terms/">';
+		if ( $except_where_otherwise_noted ) {
+			$html .= rtrim( $content, '.' ) . ', ' . __( 'except where otherwise noted.', 'pressbooks' );
+		} else {
+			$html .= $content;
+		}
+		$html .= '</p></div>';
 
 		return html_entity_decode( $html, ENT_XHTML, 'UTF-8' );
 	}

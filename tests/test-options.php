@@ -195,6 +195,36 @@ class OptionsTest extends \WP_UnitTestCase {
 		);
 	}
 
+	public function test_sanityChecks() {
+
+		$options[] = '\Pressbooks\Modules\ThemeOptions\EbookOptions';
+		$options[] = '\Pressbooks\Modules\ThemeOptions\GlobalOptions';
+		$options[] = '\Pressbooks\Modules\ThemeOptions\PDFOptions';
+		$options[] = '\Pressbooks\Modules\ThemeOptions\WebOptions';
+		$options[] = '\Pressbooks\Admin\PublishOptions';
+		$options[] = '\Pressbooks\Admin\ExportOptions';
+		$options[] = '\Pressbooks\Admin\Network\SharingAndPrivacyOptions';
+
+		foreach ( $options as $option ) {
+			/** @var \Pressbooks\Options $opt */
+			$opt = new $option( [] );
+			ob_start();
+			$opt->init();
+			$opt->display();
+			$opt->render();
+			$this->assertNotEmpty( ob_get_clean() );
+
+			$slug = $opt::getSlug();
+			$this->assertTrue( is_string( $slug ) );
+
+			$title = $opt::getTitle();
+			$this->assertTrue( is_string( $title ) );
+
+			$defaults = $opt::filterDefaults( $opt::getDefaults() );
+			$this->assertTrue( is_array( $defaults ) );
+		}
+	}
+
 	public function test_sanitize() {
 
 		// Test empty boolean.

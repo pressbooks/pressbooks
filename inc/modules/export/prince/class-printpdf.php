@@ -13,6 +13,10 @@ class PrintPdf extends Pdf {
 	 */
 	function __construct( array $args ) {
 		parent::__construct( $args );
+		$this->url .= '&fullsize-images=1';
+
+		// PDF size tends to shrink if you disable links
+		$this->cssOverrides .= "\n" . ':link { prince-link: none !important }' . "\n";
 	}
 
 	/**
