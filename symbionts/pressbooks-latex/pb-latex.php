@@ -40,8 +40,6 @@ class PBLatex {
 			'Automattic_Latex_WPCOM' => 'wpcom',
 		) );
 
-		@define( 'AUTOMATTIC_LATEX_LATEX_PATH', $this->options['latex_path'] );
-
 		add_action( 'wp_head', array( &$this, 'wpHead' ) );
 
 		add_filter( 'the_content', array( &$this, 'inlineToShortcode' ), 7 ); // Before wptexturize()

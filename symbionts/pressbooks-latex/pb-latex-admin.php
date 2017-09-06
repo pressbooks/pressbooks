@@ -101,14 +101,7 @@ class PBLatexAdmin extends PBLatex {
 		if ( $wrapper && ( false !== strpos( $wrapper, '%BG_COLOR_RGB%' ) || false !== strpos( $wrapper, '%FG_COLOR_RGB%' ) ) )
 				$this->errors->add( 'wrapper', __( 'PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them.' ), $new['wrapper'] );
 
-		if ( isset( $new['latex_path'] ) ) {
-			$new['latex_path'] = trim( $new['latex_path'] );
-			if ( ( ! $new['latex_path'] || ! file_exists( $new['latex_path'] ) ) && 'Automattic_Latex_WPCOM' != $method )
-					$this->errors->add( 'latex_path', __( '<code>latex</code> path not found.', 'pb-latex' ), $new['latex_path'] );
-			else $latex_path = $new['latex_path'];
-		}
-
-		$this->options = compact( 'bg', 'fg', 'css', 'latex_path', 'wrapper', 'method' );
+		$this->options = compact( 'bg', 'fg', 'css', 'wrapper', 'method' );
 		update_option( 'pb_latex', $this->options );
 		return ! count( $this->errors->get_error_codes() );
 	}
@@ -319,15 +312,10 @@ tr.pb-latex-method-<?php echo $current_method; ?> {
 		if ( empty( $css ) )
 			$css = 'img.latex { vertical-align: middle; border: none; background: none; }';
 
-		if ( empty( $latex_path ) )
-			$latex_path = trim( @exec( 'which latex' ) );
-
-		$latex_path   = $latex_path   && @file_exists( $latex_path )   ? $latex_path   : false;
-
 		if ( empty( $wrapper ) )
 			$wrapper = false;
 
-		$this->options = compact( 'bg', 'fg', 'method', 'css', 'latex_path', 'wrapper' );
+		$this->options = compact( 'bg', 'fg', 'method', 'css', 'wrapper' );
 		update_option( 'pb_latex', $this->options );
 	}
 }
