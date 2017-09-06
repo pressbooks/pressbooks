@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "901198fb19fed2f270f14566d54444a8",
+    "content-hash": "7547db90890050f51bb29b2c70588ec5",
     "packages": [
         {
             "name": "composer/installers",
@@ -476,16 +476,16 @@
         },
         {
             "name": "pressbooks/mix",
-            "version": "2.0.0",
+            "version": "2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pressbooks/mix.git",
-                "reference": "58df15055d97ce6b5349b52e5533b83b9c77c8ec"
+                "reference": "4cb5d44244468480c24f30ea08070b37711ba864"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pressbooks/mix/zipball/58df15055d97ce6b5349b52e5533b83b9c77c8ec",
-                "reference": "58df15055d97ce6b5349b52e5533b83b9c77c8ec",
+                "url": "https://api.github.com/repos/pressbooks/mix/zipball/4cb5d44244468480c24f30ea08070b37711ba864",
+                "reference": "4cb5d44244468480c24f30ea08070b37711ba864",
                 "shasum": ""
             },
             "require-dev": {
@@ -507,7 +507,7 @@
                     "email": "code@pressbooks.com"
                 }
             ],
-            "time": "2017-06-15T14:44:44+00:00"
+            "time": "2017-09-06T21:35:04+00:00"
         },
         {
             "name": "pressbooks/pb-api",
