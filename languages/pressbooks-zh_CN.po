@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"PO-Revision-Date: 2017-08-17 18:37+0000\n"
+"PO-Revision-Date: 2017-09-06 21:01+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Chinese (China) (http://www.transifex.com/pressbooks/pressbooks/language/zh_CN/)\n"
 "MIME-Version: 1.0\n"
@@ -48,11 +48,11 @@ msgstr "让出书更容易"
 msgid "Main Body"
 msgstr "正文"
 
-#: ../inc/class-activation.php180, ../tests/test-book.php:55
+#: ../inc/class-activation.php180, ../tests/test-book.php:39
 msgid "Introduction"
 msgstr "引子"
 
-#: ../inc/class-activation.php182, ../tests/test-book.php:85
+#: ../inc/class-activation.php182, ../tests/test-book.php:69
 msgid "This is where you can write your introduction."
 msgstr "您可以在在此撰写引子。"
 
@@ -80,7 +80,7 @@ msgstr "作者"
 
 #: ../inc/class-activation.php207,
 #: ../inc/admin/class-catalog-list-table.php171,
-#: ../inc/modules/export/epub/class-epub201.php763,
+#: ../inc/modules/export/epub/class-epub201.php764,
 #: ../tests/test-cloner.php:42
 msgid "Cover"
 msgstr "封面"
@@ -139,121 +139,129 @@ msgstr "默认数据"
 msgid "Catalog Logo"
 msgstr "编目Logo"
 
-#: ../inc/class-catalog.php1115, ../inc/class-catalog.php1170,
-#: ../inc/class-catalog.php1214, ../inc/admin/class-catalog-list-table.php549,
+#: ../inc/class-catalog.php1110, ../inc/class-catalog.php1165,
+#: ../inc/class-catalog.php1209, ../inc/admin/class-catalog-list-table.php549,
 #: ../templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
 msgstr "您无权限做此操作。"
 
-#: ../inc/class-catalog.php1142, ../inc/class-catalog.php1197,
-#: ../inc/class-catalog.php1233, ../inc/class-catalog.php1289,
+#: ../inc/class-catalog.php1137, ../inc/class-catalog.php1192,
+#: ../inc/class-catalog.php1228, ../inc/class-catalog.php1284,
 #: ../inc/admin/analytics/namespace.php187,
 #: ../inc/admin/network/class-sharingandprivacyoptions.php127,
 #: ../templates/admin/dashboard.php:28
 msgid "Settings saved."
 msgstr "设置已保存。"
 
-#: ../inc/class-catalog.php:1261
+#: ../inc/class-catalog.php:1256
 msgid "Invalid URL."
 msgstr "无效网址。"
 
-#: ../inc/class-catalog.php:1281
+#: ../inc/class-catalog.php:1276
 msgid "No book found."
 msgstr "未发现书籍。"
 
-#: ../inc/class-cloner.php:186
+#: ../inc/class-cloner.php:188
 msgid "Could not retrieve metadata from %s."
 msgstr ""
 
-#: ../inc/class-cloner.php:192
+#: ../inc/class-cloner.php:194
 msgid "%s is not licensed for cloning."
 msgstr ""
 
-#: ../inc/class-cloner.php:199
+#: ../inc/class-cloner.php:201
 msgid "Could not retrieve contents and structure from %s."
 msgstr ""
 
-#: ../inc/class-cloner.php:206
+#: ../inc/class-cloner.php:208
 msgid "Could not retrieve taxonomies from %s."
 msgstr ""
 
-#: ../inc/class-cloner.php:386
+#: ../inc/class-cloner.php:214
+msgid "Could not retrieve media from %s."
+msgstr ""
+
+#: ../inc/class-cloner.php:395
+msgid "The source book&rsquo;s media could not be read."
+msgstr ""
+
+#: ../inc/class-cloner.php:429
 msgid "The source book&rsquo;s metadata could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:412
+#: ../inc/class-cloner.php:455
 msgid "The source book&rsquo;s structure and contents could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:441
+#: ../inc/class-cloner.php:484
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:978
+#: ../inc/class-cloner.php:1059
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: ../inc/class-cloner.php:980
+#: ../inc/class-cloner.php:1061
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: ../inc/class-cloner.php:982
+#: ../inc/class-cloner.php:1063
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: ../inc/class-cloner.php:984
+#: ../inc/class-cloner.php:1065
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:986
+#: ../inc/class-cloner.php:1067
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: ../inc/class-cloner.php:988
+#: ../inc/class-cloner.php:1069
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
-#: ../inc/class-cloner.php:1041
+#: ../inc/class-cloner.php:1123
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s."
 msgstr ""
 
-#: ../inc/class-cloner.php:1042
+#: ../inc/class-cloner.php:1124
 msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1043
+#: ../inc/class-cloner.php:1125
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1044
+#: ../inc/class-cloner.php:1126
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1045
+#: ../inc/class-cloner.php:1127
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1046
+#: ../inc/class-cloner.php:1128
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1047
+#: ../inc/class-cloner.php:1129
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1051
+#: ../inc/class-cloner.php:1133
 msgid "Cloning failed."
 msgstr ""
 
-#: ../inc/class-cloner.php:1056
+#: ../inc/class-cloner.php:1138
 msgid ""
 "You must enter a valid URL for a book on a Pressbooks network running "
 "Pressbooks 4.1 or greater as well as a new URL for your cloned book."
@@ -323,7 +331,7 @@ msgstr "藏语"
 msgid "Turkish"
 msgstr "土耳其语"
 
-#: ../inc/class-globaltypography.php:314
+#: ../inc/class-globaltypography.php:319
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr "无法从%2$s下载您的 %1$s 字体。"
 
@@ -378,7 +386,7 @@ msgstr "章"
 #: ../inc/class-sass.php54, ../inc/admin/metaboxes/namespace.php145,
 #: ../inc/admin/metaboxes/namespace.php527,
 #: ../inc/api/endpoints/controller/class-toc.php184,
-#: ../inc/modules/export/epub/class-epub201.php1612,
+#: ../inc/modules/export/epub/class-epub201.php1613,
 #: ../inc/modules/searchandreplace/types/class-content.php68,
 #: ../templates/admin/import.php80, ../templates/admin/organize.php43,
 #: ../templates/admin/trash.php:53
@@ -585,13 +593,13 @@ msgid "Title"
 msgstr "标题"
 
 #: ../inc/admin/class-catalog-list-table.php173,
-#: ../inc/admin/metaboxes/namespace.php190, ../templates/admin/organize.php86,
-#: ../templates/admin/organize.php:162
+#: ../inc/admin/metaboxes/namespace.php190, ../templates/admin/organize.php90,
+#: ../templates/admin/organize.php:159
 msgid "Author"
 msgstr "作者"
 
 #: ../inc/admin/class-catalog-list-table.php177,
-#: ../templates/pb-catalog.php:213
+#: ../templates/pb-catalog.php:214
 msgid "Tag"
 msgstr "标签"
 
@@ -610,8 +618,8 @@ msgstr "编辑标签"
 
 #: ../inc/admin/class-catalog-list-table.php385,
 #: ../inc/admin/laf/namespace.php112, ../templates/admin/organize.php25,
-#: ../templates/admin/organize.php31, ../templates/admin/organize.php89,
-#: ../templates/admin/organize.php:165
+#: ../templates/admin/organize.php31, ../templates/admin/organize.php93,
+#: ../templates/admin/organize.php:162
 msgid "Private"
 msgstr "私有"
 
@@ -889,7 +897,7 @@ msgstr "边框"
 msgid "Internal Link"
 msgstr "内部链接"
 
-#: ../inc/image/namespace.php:320
+#: ../inc/image/namespace.php:322
 msgid ""
 "Cover Image should be 1:1.5 aspect ratio. Recommended dimensions are 2500px "
 "× 3750px, maximum size is 2MB.<br />NOTE: This cover will be included in "
@@ -898,16 +906,14 @@ msgid ""
 "cover/\">here</a>."
 msgstr "封面图片的比例应为1:1.5。推荐的尺寸规格是2500px × 3750px，最大文件大小是2MB。<br />注意：该封面将包含在您的电子书文件里，但不会输出在PDF版文件内。<a href=\"https://guide.pressbooks.com/chapter/how-to-design-your-book-cover/\">点此了解更多</a>。"
 
-#: ../inc/image/namespace.php360, ../templates/admin/export.php273,
-#: ../templates/admin/organize.php96, ../templates/admin/organize.php134,
-#: ../templates/admin/organize.php:202
+#: ../inc/image/namespace.php362, ../templates/admin/export.php273,
+#: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
+#: ../templates/admin/organize.php:178
 msgid "Are you sure you want to delete this?"
 msgstr "您确认要删除该项吗？"
 
-#: ../inc/image/namespace.php392,
-#: ../symbionts/custom-metadata/custom_metadata.php1318,
-#: ../templates/admin/organize.php96, ../templates/admin/organize.php134,
-#: ../templates/admin/organize.php:202
+#: ../inc/image/namespace.php394,
+#: ../symbionts/custom-metadata/custom_metadata.php:1318
 msgid "Delete"
 msgstr "删除"
 
@@ -1383,48 +1389,44 @@ msgid ""
 msgstr "正文后材料草稿已提交。<a target=\"_blank\" href=\"%s\">预览正文后材料</a>"
 
 #: ../inc/posttype/namespace.php424,
-#: ../inc/modules/import/wordpress/class-wxr.php:222
+#: ../inc/modules/import/wordpress/class-wxr.php:234
 msgid "parts"
 msgstr "部件"
 
 #: ../inc/posttype/namespace.php425,
-#: ../inc/modules/import/wordpress/class-wxr.php:223
+#: ../inc/modules/import/wordpress/class-wxr.php:235
 msgid "chapters"
 msgstr "章"
 
 #: ../inc/posttype/namespace.php426,
-#: ../inc/modules/import/wordpress/class-wxr.php:221
+#: ../inc/modules/import/wordpress/class-wxr.php:233
 msgid "front matter"
 msgstr "正文前材料"
 
 #: ../inc/posttype/namespace.php427,
-#: ../inc/modules/import/wordpress/class-wxr.php:224
+#: ../inc/modules/import/wordpress/class-wxr.php:236
 msgid "back matter"
 msgstr "正文后材料"
 
-#: ../inc/redirect/namespace.php177, ../inc/redirect/namespace.php:418
+#: ../inc/redirect/namespace.php169, ../inc/redirect/namespace.php:401
 msgid "Error: Unknown export format."
 msgstr "错误：未知导出格式。"
 
-#: ../inc/redirect/namespace.php:211
-msgid "No catalog was found for user"
-msgstr "未找到用户的编目"
-
-#: ../inc/redirect/namespace.php388,
-#: ../inc/modules/export/class-export.php:245
+#: ../inc/redirect/namespace.php371,
+#: ../inc/modules/export/class-export.php:247
 msgid "book"
 msgstr "书"
 
-#: ../inc/redirect/namespace.php393,
-#: ../inc/modules/export/class-export.php:882
+#: ../inc/redirect/namespace.php376,
+#: ../inc/modules/export/class-export.php:837
 msgid "File not found"
 msgstr "文件未找到"
 
-#: ../inc/redirect/namespace.php:459
+#: ../inc/redirect/namespace.php:442
 msgid "Unsupported post type."
 msgstr "不支持的帖子类型"
 
-#: ../inc/redirect/namespace.php:484
+#: ../inc/redirect/namespace.php:467
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "您没有足够的权限访问该网址。"
 
@@ -1676,8 +1678,8 @@ msgid "Last 10 CSS Revisions"
 msgstr "最后10个CSS修改"
 
 #: ../inc/admin/customcss/namespace.php121,
-#: ../inc/modules/export/epub/class-epub201.php960,
-#: ../inc/modules/export/xhtml/class-xhtml11.php711,
+#: ../inc/modules/export/epub/class-epub201.php961,
+#: ../inc/modules/export/xhtml/class-xhtml11.php744,
 #: ../inc/modules/export/epub/templates/epub201/opf.php90,
 #: ../inc/modules/export/epub/templates/epub3/opf.php:100
 msgid "by"
@@ -1705,7 +1707,7 @@ msgstr "用户"
 
 #: ../inc/admin/dashboard/namespace.php134,
 #: ../inc/admin/dashboard/namespace.php186,
-#: ../templates/admin/organize.php150, ../templates/admin/organize.php:216
+#: ../templates/admin/organize.php147, ../templates/admin/organize.php:213
 msgid "Add"
 msgstr "添加"
 
@@ -1808,19 +1810,20 @@ msgid "Published"
 msgstr "已发布"
 
 #: ../inc/admin/laf/namespace.php151, ../inc/admin/laf/namespace.php151,
-#: ../templates/admin/trash.php:18
+#: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
+#: ../templates/admin/organize.php178, ../templates/admin/trash.php:18
 msgid "Trash"
 msgstr " 回收站"
 
 #: ../inc/admin/laf/namespace.php161, ../inc/admin/laf/namespace.php161,
-#: ../inc/modules/import/wordpress/class-wxr.php:334
+#: ../inc/modules/import/wordpress/class-wxr.php:346
 msgid "Book Info"
 msgstr "书籍信息"
 
 #: ../inc/admin/laf/namespace.php178, ../inc/admin/laf/namespace.php178,
 #: ../inc/admin/laf/namespace.php220, ../templates/admin/export.php129,
-#: ../templates/admin/organize.php45, ../templates/admin/organize.php91,
-#: ../templates/admin/organize.php:167
+#: ../templates/admin/organize.php45, ../templates/admin/organize.php95,
+#: ../templates/admin/organize.php:164
 msgid "Export"
 msgstr "导出"
 
@@ -2079,9 +2082,9 @@ msgid "Help translate Pressbooks into your language!"
 msgstr "帮助我们一起将Pressbooks翻译成您的本地化语言！"
 
 #: ../inc/admin/metaboxes/namespace.php294,
-#: ../inc/modules/export/epub/class-epub201.php951,
-#: ../inc/modules/export/epub/class-epub201.php977,
-#: ../inc/modules/export/xhtml/class-xhtml11.php702,
+#: ../inc/modules/export/epub/class-epub201.php952,
+#: ../inc/modules/export/epub/class-epub201.php978,
+#: ../inc/modules/export/xhtml/class-xhtml11.php735,
 #: ../inc/modules/export/epub/templates/epub201/opf.php81,
 #: ../inc/modules/export/epub/templates/epub3/opf.php:91
 msgid "Copyright"
@@ -2374,30 +2377,30 @@ msgid ""
 "be restricted to leave only sites and users visible to them."
 msgstr "Network administrators&rsquo; access to network admininistration menus can be restricted to leave only sites and users visible to them."
 
-#: ../inc/modules/import/class-import.php378,
-#: ../inc/modules/import/class-import.php:440
+#: ../inc/modules/import/class-import.php382,
+#: ../inc/modules/import/class-import.php:444
 msgid "Your file does not appear to be a valid %s."
 msgstr "您的文件貌似不是一个合法的%s。"
 
-#: ../inc/modules/import/class-import.php:386
+#: ../inc/modules/import/class-import.php:390
 msgid "Your URL does not appear to be valid"
 msgstr "您的网址貌似无效"
 
-#: ../inc/modules/import/class-import.php:402
+#: ../inc/modules/import/class-import.php:406
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response header on a HEAD request: "
 msgstr "The website you are attempting to reach is not returning a successful response header on a HEAD request: "
 
-#: ../inc/modules/import/class-import.php:412
+#: ../inc/modules/import/class-import.php:416
 msgid "The website you are attempting to reach is not returning HTML content"
 msgstr "The website you are attempting to reach is not returning HTML content"
 
-#: ../inc/modules/searchandreplace/class-search.php:123
+#: ../inc/modules/searchandreplace/class-search.php:121
 msgid "Invalid regular expression"
 msgstr "非法正则表达式"
 
-#: ../inc/modules/searchandreplace/class-search.php:131
+#: ../inc/modules/searchandreplace/class-search.php:129
 msgid "No search pattern."
 msgstr "无此模式。"
 
@@ -3183,47 +3186,47 @@ msgstr "有帖子内容，内容字段不为空。"
 msgid "Word count."
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:894
+#: ../inc/modules/export/epub/class-epub201.php:895
 msgid "Publisher Logo"
 msgstr "发行商Logo"
 
-#: ../inc/modules/export/epub/class-epub201.php:904
+#: ../inc/modules/export/epub/class-epub201.php:905
 msgid "Title Page"
 msgstr "标题页"
 
-#: ../inc/modules/export/epub/class-epub201.php:1193
+#: ../inc/modules/export/epub/class-epub201.php:1194
 msgid "Make your own books using Pressbooks.com"
 msgstr "使用Pressbooks.com创建您自己的书"
 
-#: ../inc/modules/export/epub/class-epub201.php:1576
+#: ../inc/modules/export/epub/class-epub201.php:1577
 msgid "Table Of Contents"
 msgstr "目录"
 
-#: ../inc/modules/export/epub/class-epub201.php1591,
-#: ../inc/modules/export/xhtml/class-xhtml11.php:774
+#: ../inc/modules/export/epub/class-epub201.php1592,
+#: ../inc/modules/export/xhtml/class-xhtml11.php:807
 msgid "Contents"
 msgstr "内容"
 
-#: ../inc/modules/export/prince/class-pdf.php:276
+#: ../inc/modules/export/prince/class-pdf.php:278
 msgid ""
 "This book was produced using Pressbooks.com, and PDF rendering was done by "
 "PrinceXML."
 msgstr "该书由Pressbooks.com生成，PDF版有PrinceXML生成。"
 
-#: ../inc/modules/export/wordpress/class-wxr.php100,
-#: ../inc/modules/export/xhtml/class-xhtml11.php:169
+#: ../inc/modules/export/wordpress/class-wxr.php81,
+#: ../inc/modules/export/xhtml/class-xhtml11.php:181
 msgid "Invalid permission error"
 msgstr "非法权限错误"
 
-#: ../inc/modules/export/xhtml/class-xhtml11.php:327
+#: ../inc/modules/export/xhtml/class-xhtml11.php:349
 msgid "Notes"
 msgstr "笔记"
 
-#: ../inc/modules/import/epub/class-epub201.php:207
+#: ../inc/modules/import/epub/class-epub201.php:208
 msgid "Imported %s chapters."
 msgstr "导入%s章。"
 
-#: ../inc/modules/import/html/class-xhtml.php:468
+#: ../inc/modules/import/html/class-xhtml.php:453
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response on a GET request: "
@@ -3235,18 +3238,18 @@ msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr "This does not appear to be a WXR file, missing/invalid WXR version number"
 
-#: ../inc/modules/import/wordpress/class-wxr.php:220
+#: ../inc/modules/import/wordpress/class-wxr.php:232
 msgctxt ""
 "String which tells user how many front matter, parts, chapters and back "
 "matter were imported."
 msgid "Imported %1$s, %2$s, %3$s, and %4$s."
 msgstr "已导入 %1$s、%2$s、%3$s和%4$s。"
 
-#: ../inc/modules/import/wordpress/class-wxr.php:222
+#: ../inc/modules/import/wordpress/class-wxr.php:234
 msgid "part"
 msgstr "部件"
 
-#: ../inc/modules/import/wordpress/class-wxr.php:223
+#: ../inc/modules/import/wordpress/class-wxr.php:235
 msgid "chapter"
 msgstr "章"
 
@@ -3446,129 +3449,129 @@ msgstr "&raquo;"
 msgid "%1$s %2$s Feed"
 msgstr "%1$s%2$sFeed"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:33
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:35
 msgid "Settings"
 msgstr "设置"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php39,
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:187
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php41,
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:189
 msgid "Insufficient LaTeX-fu"
 msgstr "LaTeX-fu 不够"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php45,
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:100
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php47,
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:102
 msgid ""
 "PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
 "<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 msgstr "PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or <code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:63
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:65
 msgid "Invalid LaTeX generation method"
 msgstr "无效的LaTeX生成方法"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:72
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:74
 msgid "Invalid text color"
 msgstr "无效的文字颜色"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:83
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:85
 msgid "Invalid background color"
 msgstr "无效的背景色"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:105
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:107
 msgid "<code>latex</code> path not found."
 msgstr "<code>latex</code>路径未找到。"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:134
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:136
 msgid "Test Image"
 msgstr "测试图片"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:136
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:138
 msgid "If you can see a big integral, all is well."
 msgstr "如果您能看到一个大积分公式，说明一切正常。"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:197
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:199
 msgid "WordPress.com LaTeX Server (recommended)"
 msgstr "WordPress.com LaTeX 服务器(推荐)"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:240
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:242
 msgid "PB LaTeX Options"
 msgstr "PB LaTeX 选项"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:250
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:252
 msgid "Syntax"
 msgstr "语法"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:252
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:254
 msgid ""
 "You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
 " syntax %s OR %s<br /> to insert LaTeX into your posts."
 msgstr "您既可以使用shortcode语法%s<br />，也可以使用&#8220;i内嵌&#8221; 语法%s<br />，来插入LaTeX公式。"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:257
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:259
 msgid ""
 "For more information, see the <a href=\"http://wordpress.org/extend/plugins"
 "/wp-latex/faq/\">FAQ</a>"
 msgstr "查看<a href=\"http://wordpress.org/extend/plugins/wp-latex/faq/\">FAQ</a>以了解更多"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:264
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:266
 msgid "LaTeX generation method"
 msgstr "LaTeX生成方法"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:275
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:277
 msgid "Default text color"
 msgstr "默认文字颜色"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:278
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:280
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>"
 msgstr "6位十六机制数，如：<code>000000</code>或<code>fffffff</code>"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:283
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:285
 msgid "Default background color"
 msgstr "默认背景颜色"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:286
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:288
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>, or <code>transparent</code>"
 msgstr "6位十六机制数，如：<code>000000</code>或<code>fffffff</code>"
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:294
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:296
 msgid "Update LaTeX Options"
 msgstr "更新LaTeX选项"
 
-#: ../templates/pb-catalog.php:158
+#: ../templates/pb-catalog.php:159
 msgid "'s Catalog Page"
 msgstr "的编目页"
 
-#: ../templates/pb-catalog.php:175
+#: ../templates/pb-catalog.php:176
 msgid "login"
 msgstr " 登入"
 
-#: ../templates/pb-catalog.php:177
+#: ../templates/pb-catalog.php:178
 msgid "logout"
 msgstr "登出"
 
-#: ../templates/pb-catalog.php:185
+#: ../templates/pb-catalog.php:186
 msgid "Admin"
 msgstr "管理"
 
-#: ../templates/pb-catalog.php:229
+#: ../templates/pb-catalog.php:230
 msgid "Catalog"
 msgstr "编目"
 
-#: ../templates/pb-catalog.php:229
+#: ../templates/pb-catalog.php:230
 msgid "filtering by"
 msgstr "过滤由"
 
-#: ../templates/pb-catalog.php:254
+#: ../templates/pb-catalog.php:255
 msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a class"
 "=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr "对不起，没有书籍符合您的过滤标准。请<a class=\"clear-filters\" href=\"#\">清除当前过滤</a>后重试。"
 
-#: ../templates/pb-catalog.php:258
+#: ../templates/pb-catalog.php:259
 msgid "Pressbooks: the CMS for Books."
 msgstr "Pressbooks：书籍内容管理系统。"
 
@@ -3847,7 +3850,7 @@ msgstr "添加正文后材料"
 msgid "Add Chapter"
 msgstr "添加章"
 
-#: ../templates/admin/organize.php49, ../templates/admin/organize.php:156
+#: ../templates/admin/organize.php49, ../templates/admin/organize.php:153
 msgid "Add Part"
 msgstr "添加部件"
 
@@ -3863,36 +3866,41 @@ msgstr ""
 msgid "%s (selected for export)"
 msgstr ""
 
-#: ../templates/admin/organize.php87, ../templates/admin/organize.php:163
-msgid "Comments"
-msgstr "评论"
-
-#: ../templates/admin/organize.php88, ../templates/admin/organize.php:164
-msgid "Status"
-msgstr "状态"
-
-#: ../templates/admin/organize.php90, ../templates/admin/organize.php:166
-msgid "Show Title"
-msgstr "显示标题"
-
-#: ../templates/admin/organize.php93, ../templates/admin/organize.php134,
-#: ../templates/admin/organize.php168, ../templates/admin/organize.php:202
+#: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
+#: ../templates/admin/organize.php:178
 msgid "Edit"
 msgstr "编辑"
 
-#: ../templates/admin/organize.php111, ../templates/admin/organize.php:179
+#: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
+#: ../templates/admin/organize.php:178
+msgid "View"
+msgstr ""
+
+#: ../templates/admin/organize.php91, ../templates/admin/organize.php:160
+msgid "Comments"
+msgstr "评论"
+
+#: ../templates/admin/organize.php92, ../templates/admin/organize.php:161
+msgid "Status"
+msgstr "状态"
+
+#: ../templates/admin/organize.php94, ../templates/admin/organize.php:163
+msgid "Show Title"
+msgstr "显示标题"
+
+#: ../templates/admin/organize.php108, ../templates/admin/organize.php:175
 msgid "Ebook start point"
 msgstr "电子书起读点"
 
-#: ../templates/admin/organize.php:227
+#: ../templates/admin/organize.php:224
 msgid "Reordering Chapters"
 msgstr "对章重新排序"
 
-#: ../templates/admin/organize.php:232
+#: ../templates/admin/organize.php:229
 msgid "Reordering Front Matter"
 msgstr "对正文前材料重新排序"
 
-#: ../templates/admin/organize.php:237
+#: ../templates/admin/organize.php:234
 msgid "Reordering Back Matter"
 msgstr "对正文后材料重新排序"
 

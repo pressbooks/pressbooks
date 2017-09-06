@@ -55,7 +55,7 @@ after_success:
 - tx push -s
 before_deploy:
 - export TRAVIS_PROJECT_SLUG="$(basename $TRAVIS_BUILD_DIR)"
-- composer install --no-dev
+- composer install --no-dev --optimize-autoloader
 - cd ../
 - zip -9 -ry $TRAVIS_BUILD_DIR/$TRAVIS_PROJECT_SLUG-$TRAVIS_TAG.zip $TRAVIS_PROJECT_SLUG
   -x *.git* *assets/src/\* *bin/\* *node_modules/\* *tests/\* *.editorconfig* *.gitattributes*

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"PO-Revision-Date: 2017-08-17 18:37+0000\n"
+"PO-Revision-Date: 2017-09-06 21:01+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Norwegian Bokmål (http://www.transifex.com/pressbooks/pressbooks/language/nb/)\n"
 "MIME-Version: 1.0\n"
@@ -48,11 +48,11 @@ msgstr ""
 msgid "Main Body"
 msgstr "Hoveddel"
 
-#: ../inc/class-activation.php180, ../tests/test-book.php:55
+#: ../inc/class-activation.php180, ../tests/test-book.php:39
 msgid "Introduction"
 msgstr "Innledning"
 
-#: ../inc/class-activation.php182, ../tests/test-book.php:85
+#: ../inc/class-activation.php182, ../tests/test-book.php:69
 msgid "This is where you can write your introduction."
 msgstr ""
 
@@ -80,7 +80,7 @@ msgstr "Forfattere"
 
 #: ../inc/class-activation.php207,
 #: ../inc/admin/class-catalog-list-table.php171,
-#: ../inc/modules/export/epub/class-epub201.php763,
+#: ../inc/modules/export/epub/class-epub201.php764,
 #: ../tests/test-cloner.php:42
 msgid "Cover"
 msgstr "Omslag"
@@ -139,128 +139,136 @@ msgstr ""
 msgid "Catalog Logo"
 msgstr ""
 
-#: ../inc/class-catalog.php1115, ../inc/class-catalog.php1170,
-#: ../inc/class-catalog.php1214, ../inc/admin/class-catalog-list-table.php549,
+#: ../inc/class-catalog.php1110, ../inc/class-catalog.php1165,
+#: ../inc/class-catalog.php1209, ../inc/admin/class-catalog-list-table.php549,
 #: ../templates/admin/catalog.php:19
 msgid "You do not have permission to do that."
 msgstr "Du har ikke tillatelse til å gjøre det."
 
-#: ../inc/class-catalog.php1142, ../inc/class-catalog.php1197,
-#: ../inc/class-catalog.php1233, ../inc/class-catalog.php1289,
+#: ../inc/class-catalog.php1137, ../inc/class-catalog.php1192,
+#: ../inc/class-catalog.php1228, ../inc/class-catalog.php1284,
 #: ../inc/admin/analytics/namespace.php187,
 #: ../inc/admin/network/class-sharingandprivacyoptions.php127,
 #: ../templates/admin/dashboard.php:28
 msgid "Settings saved."
 msgstr ""
 
-#: ../inc/class-catalog.php:1261
+#: ../inc/class-catalog.php:1256
 msgid "Invalid URL."
 msgstr ""
 
-#: ../inc/class-catalog.php:1281
+#: ../inc/class-catalog.php:1276
 msgid "No book found."
 msgstr ""
 
-#: ../inc/class-cloner.php:186
+#: ../inc/class-cloner.php:188
 msgid "Could not retrieve metadata from %s."
 msgstr ""
 
-#: ../inc/class-cloner.php:192
+#: ../inc/class-cloner.php:194
 msgid "%s is not licensed for cloning."
 msgstr ""
 
-#: ../inc/class-cloner.php:199
+#: ../inc/class-cloner.php:201
 msgid "Could not retrieve contents and structure from %s."
 msgstr ""
 
-#: ../inc/class-cloner.php:206
+#: ../inc/class-cloner.php:208
 msgid "Could not retrieve taxonomies from %s."
 msgstr ""
 
-#: ../inc/class-cloner.php:386
+#: ../inc/class-cloner.php:214
+msgid "Could not retrieve media from %s."
+msgstr ""
+
+#: ../inc/class-cloner.php:395
+msgid "The source book&rsquo;s media could not be read."
+msgstr ""
+
+#: ../inc/class-cloner.php:429
 msgid "The source book&rsquo;s metadata could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:412
+#: ../inc/class-cloner.php:455
 msgid "The source book&rsquo;s structure and contents could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:441
+#: ../inc/class-cloner.php:484
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:978
+#: ../inc/class-cloner.php:1059
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: ../inc/class-cloner.php:980
+#: ../inc/class-cloner.php:1061
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: ../inc/class-cloner.php:982
+#: ../inc/class-cloner.php:1063
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: ../inc/class-cloner.php:984
+#: ../inc/class-cloner.php:1065
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:986
+#: ../inc/class-cloner.php:1067
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: ../inc/class-cloner.php:988
+#: ../inc/class-cloner.php:1069
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
-#: ../inc/class-cloner.php:1041
+#: ../inc/class-cloner.php:1123
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s."
 msgstr ""
 
-#: ../inc/class-cloner.php:1042
+#: ../inc/class-cloner.php:1124
 msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1043
+#: ../inc/class-cloner.php:1125
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1044
+#: ../inc/class-cloner.php:1126
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1045
+#: ../inc/class-cloner.php:1127
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1046
+#: ../inc/class-cloner.php:1128
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1047
+#: ../inc/class-cloner.php:1129
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../inc/class-cloner.php:1051
+#: ../inc/class-cloner.php:1133
 msgid "Cloning failed."
 msgstr ""
 
-#: ../inc/class-cloner.php:1056
+#: ../inc/class-cloner.php:1138
 msgid ""
 "You must enter a valid URL for a book on a Pressbooks network running "
 "Pressbooks 4.1 or greater as well as a new URL for your cloned book."
@@ -330,7 +338,7 @@ msgstr ""
 msgid "Turkish"
 msgstr ""
 
-#: ../inc/class-globaltypography.php:314
+#: ../inc/class-globaltypography.php:319
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
@@ -385,7 +393,7 @@ msgstr "Kapittel"
 #: ../inc/class-sass.php54, ../inc/admin/metaboxes/namespace.php145,
 #: ../inc/admin/metaboxes/namespace.php527,
 #: ../inc/api/endpoints/controller/class-toc.php184,
-#: ../inc/modules/export/epub/class-epub201.php1612,
+#: ../inc/modules/export/epub/class-epub201.php1613,
 #: ../inc/modules/searchandreplace/types/class-content.php68,
 #: ../templates/admin/import.php80, ../templates/admin/organize.php43,
 #: ../templates/admin/trash.php:53
@@ -592,13 +600,13 @@ msgid "Title"
 msgstr "Tittel"
 
 #: ../inc/admin/class-catalog-list-table.php173,
-#: ../inc/admin/metaboxes/namespace.php190, ../templates/admin/organize.php86,
-#: ../templates/admin/organize.php:162
+#: ../inc/admin/metaboxes/namespace.php190, ../templates/admin/organize.php90,
+#: ../templates/admin/organize.php:159
 msgid "Author"
 msgstr "Forfatter"
 
 #: ../inc/admin/class-catalog-list-table.php177,
-#: ../templates/pb-catalog.php:213
+#: ../templates/pb-catalog.php:214
 msgid "Tag"
 msgstr ""
 
@@ -617,8 +625,8 @@ msgstr ""
 
 #: ../inc/admin/class-catalog-list-table.php385,
 #: ../inc/admin/laf/namespace.php112, ../templates/admin/organize.php25,
-#: ../templates/admin/organize.php31, ../templates/admin/organize.php89,
-#: ../templates/admin/organize.php:165
+#: ../templates/admin/organize.php31, ../templates/admin/organize.php93,
+#: ../templates/admin/organize.php:162
 msgid "Private"
 msgstr "Privat"
 
@@ -896,7 +904,7 @@ msgstr ""
 msgid "Internal Link"
 msgstr ""
 
-#: ../inc/image/namespace.php:320
+#: ../inc/image/namespace.php:322
 msgid ""
 "Cover Image should be 1:1.5 aspect ratio. Recommended dimensions are 2500px "
 "× 3750px, maximum size is 2MB.<br />NOTE: This cover will be included in "
@@ -905,16 +913,14 @@ msgid ""
 "cover/\">here</a>."
 msgstr ""
 
-#: ../inc/image/namespace.php360, ../templates/admin/export.php273,
-#: ../templates/admin/organize.php96, ../templates/admin/organize.php134,
-#: ../templates/admin/organize.php:202
+#: ../inc/image/namespace.php362, ../templates/admin/export.php273,
+#: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
+#: ../templates/admin/organize.php:178
 msgid "Are you sure you want to delete this?"
 msgstr ""
 
-#: ../inc/image/namespace.php392,
-#: ../symbionts/custom-metadata/custom_metadata.php1318,
-#: ../templates/admin/organize.php96, ../templates/admin/organize.php134,
-#: ../templates/admin/organize.php:202
+#: ../inc/image/namespace.php394,
+#: ../symbionts/custom-metadata/custom_metadata.php:1318
 msgid "Delete"
 msgstr ""
 
@@ -1390,48 +1396,44 @@ msgid ""
 msgstr ""
 
 #: ../inc/posttype/namespace.php424,
-#: ../inc/modules/import/wordpress/class-wxr.php:222
+#: ../inc/modules/import/wordpress/class-wxr.php:234
 msgid "parts"
 msgstr ""
 
 #: ../inc/posttype/namespace.php425,
-#: ../inc/modules/import/wordpress/class-wxr.php:223
+#: ../inc/modules/import/wordpress/class-wxr.php:235
 msgid "chapters"
 msgstr ""
 
 #: ../inc/posttype/namespace.php426,
-#: ../inc/modules/import/wordpress/class-wxr.php:221
+#: ../inc/modules/import/wordpress/class-wxr.php:233
 msgid "front matter"
 msgstr ""
 
 #: ../inc/posttype/namespace.php427,
-#: ../inc/modules/import/wordpress/class-wxr.php:224
+#: ../inc/modules/import/wordpress/class-wxr.php:236
 msgid "back matter"
 msgstr ""
 
-#: ../inc/redirect/namespace.php177, ../inc/redirect/namespace.php:418
+#: ../inc/redirect/namespace.php169, ../inc/redirect/namespace.php:401
 msgid "Error: Unknown export format."
 msgstr ""
 
-#: ../inc/redirect/namespace.php:211
-msgid "No catalog was found for user"
-msgstr ""
-
-#: ../inc/redirect/namespace.php388,
-#: ../inc/modules/export/class-export.php:245
+#: ../inc/redirect/namespace.php371,
+#: ../inc/modules/export/class-export.php:247
 msgid "book"
 msgstr ""
 
-#: ../inc/redirect/namespace.php393,
-#: ../inc/modules/export/class-export.php:882
+#: ../inc/redirect/namespace.php376,
+#: ../inc/modules/export/class-export.php:837
 msgid "File not found"
 msgstr ""
 
-#: ../inc/redirect/namespace.php:459
+#: ../inc/redirect/namespace.php:442
 msgid "Unsupported post type."
 msgstr ""
 
-#: ../inc/redirect/namespace.php:484
+#: ../inc/redirect/namespace.php:467
 msgid "You do not have sufficient permissions to access that URL."
 msgstr ""
 
@@ -1683,8 +1685,8 @@ msgid "Last 10 CSS Revisions"
 msgstr "Siste 10 CSS revisjoner"
 
 #: ../inc/admin/customcss/namespace.php121,
-#: ../inc/modules/export/epub/class-epub201.php960,
-#: ../inc/modules/export/xhtml/class-xhtml11.php711,
+#: ../inc/modules/export/epub/class-epub201.php961,
+#: ../inc/modules/export/xhtml/class-xhtml11.php744,
 #: ../inc/modules/export/epub/templates/epub201/opf.php90,
 #: ../inc/modules/export/epub/templates/epub3/opf.php:100
 msgid "by"
@@ -1712,7 +1714,7 @@ msgstr "Brukere"
 
 #: ../inc/admin/dashboard/namespace.php134,
 #: ../inc/admin/dashboard/namespace.php186,
-#: ../templates/admin/organize.php150, ../templates/admin/organize.php:216
+#: ../templates/admin/organize.php147, ../templates/admin/organize.php:213
 msgid "Add"
 msgstr "Legg til"
 
@@ -1815,19 +1817,20 @@ msgid "Published"
 msgstr "Publisert"
 
 #: ../inc/admin/laf/namespace.php151, ../inc/admin/laf/namespace.php151,
-#: ../templates/admin/trash.php:18
+#: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
+#: ../templates/admin/organize.php178, ../templates/admin/trash.php:18
 msgid "Trash"
 msgstr ""
 
 #: ../inc/admin/laf/namespace.php161, ../inc/admin/laf/namespace.php161,
-#: ../inc/modules/import/wordpress/class-wxr.php:334
+#: ../inc/modules/import/wordpress/class-wxr.php:346
 msgid "Book Info"
 msgstr "Bokinformasjon"
 
 #: ../inc/admin/laf/namespace.php178, ../inc/admin/laf/namespace.php178,
 #: ../inc/admin/laf/namespace.php220, ../templates/admin/export.php129,
-#: ../templates/admin/organize.php45, ../templates/admin/organize.php91,
-#: ../templates/admin/organize.php:167
+#: ../templates/admin/organize.php45, ../templates/admin/organize.php95,
+#: ../templates/admin/organize.php:164
 msgid "Export"
 msgstr ""
 
@@ -2086,9 +2089,9 @@ msgid "Help translate Pressbooks into your language!"
 msgstr ""
 
 #: ../inc/admin/metaboxes/namespace.php294,
-#: ../inc/modules/export/epub/class-epub201.php951,
-#: ../inc/modules/export/epub/class-epub201.php977,
-#: ../inc/modules/export/xhtml/class-xhtml11.php702,
+#: ../inc/modules/export/epub/class-epub201.php952,
+#: ../inc/modules/export/epub/class-epub201.php978,
+#: ../inc/modules/export/xhtml/class-xhtml11.php735,
 #: ../inc/modules/export/epub/templates/epub201/opf.php81,
 #: ../inc/modules/export/epub/templates/epub3/opf.php:91
 msgid "Copyright"
@@ -2381,30 +2384,30 @@ msgid ""
 "be restricted to leave only sites and users visible to them."
 msgstr ""
 
-#: ../inc/modules/import/class-import.php378,
-#: ../inc/modules/import/class-import.php:440
+#: ../inc/modules/import/class-import.php382,
+#: ../inc/modules/import/class-import.php:444
 msgid "Your file does not appear to be a valid %s."
 msgstr ""
 
-#: ../inc/modules/import/class-import.php:386
+#: ../inc/modules/import/class-import.php:390
 msgid "Your URL does not appear to be valid"
 msgstr ""
 
-#: ../inc/modules/import/class-import.php:402
+#: ../inc/modules/import/class-import.php:406
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response header on a HEAD request: "
 msgstr ""
 
-#: ../inc/modules/import/class-import.php:412
+#: ../inc/modules/import/class-import.php:416
 msgid "The website you are attempting to reach is not returning HTML content"
 msgstr ""
 
-#: ../inc/modules/searchandreplace/class-search.php:123
+#: ../inc/modules/searchandreplace/class-search.php:121
 msgid "Invalid regular expression"
 msgstr ""
 
-#: ../inc/modules/searchandreplace/class-search.php:131
+#: ../inc/modules/searchandreplace/class-search.php:129
 msgid "No search pattern."
 msgstr ""
 
@@ -3191,47 +3194,47 @@ msgstr ""
 msgid "Word count."
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:894
+#: ../inc/modules/export/epub/class-epub201.php:895
 msgid "Publisher Logo"
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:904
+#: ../inc/modules/export/epub/class-epub201.php:905
 msgid "Title Page"
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:1193
+#: ../inc/modules/export/epub/class-epub201.php:1194
 msgid "Make your own books using Pressbooks.com"
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:1576
+#: ../inc/modules/export/epub/class-epub201.php:1577
 msgid "Table Of Contents"
 msgstr "Innholdsfortegnelse"
 
-#: ../inc/modules/export/epub/class-epub201.php1591,
-#: ../inc/modules/export/xhtml/class-xhtml11.php:774
+#: ../inc/modules/export/epub/class-epub201.php1592,
+#: ../inc/modules/export/xhtml/class-xhtml11.php:807
 msgid "Contents"
 msgstr "Innhold"
 
-#: ../inc/modules/export/prince/class-pdf.php:276
+#: ../inc/modules/export/prince/class-pdf.php:278
 msgid ""
 "This book was produced using Pressbooks.com, and PDF rendering was done by "
 "PrinceXML."
 msgstr ""
 
-#: ../inc/modules/export/wordpress/class-wxr.php100,
-#: ../inc/modules/export/xhtml/class-xhtml11.php:169
+#: ../inc/modules/export/wordpress/class-wxr.php81,
+#: ../inc/modules/export/xhtml/class-xhtml11.php:181
 msgid "Invalid permission error"
 msgstr ""
 
-#: ../inc/modules/export/xhtml/class-xhtml11.php:327
+#: ../inc/modules/export/xhtml/class-xhtml11.php:349
 msgid "Notes"
 msgstr "Noter"
 
-#: ../inc/modules/import/epub/class-epub201.php:207
+#: ../inc/modules/import/epub/class-epub201.php:208
 msgid "Imported %s chapters."
 msgstr ""
 
-#: ../inc/modules/import/html/class-xhtml.php:468
+#: ../inc/modules/import/html/class-xhtml.php:453
 msgid ""
 "The website you are attempting to reach is not returning a successful "
 "response on a GET request: "
@@ -3243,18 +3246,18 @@ msgid ""
 "This does not appear to be a WXR file, missing/invalid WXR version number"
 msgstr ""
 
-#: ../inc/modules/import/wordpress/class-wxr.php:220
+#: ../inc/modules/import/wordpress/class-wxr.php:232
 msgctxt ""
 "String which tells user how many front matter, parts, chapters and back "
 "matter were imported."
 msgid "Imported %1$s, %2$s, %3$s, and %4$s."
 msgstr ""
 
-#: ../inc/modules/import/wordpress/class-wxr.php:222
+#: ../inc/modules/import/wordpress/class-wxr.php:234
 msgid "part"
 msgstr "del"
 
-#: ../inc/modules/import/wordpress/class-wxr.php:223
+#: ../inc/modules/import/wordpress/class-wxr.php:235
 msgid "chapter"
 msgstr ""
 
@@ -3454,129 +3457,129 @@ msgstr ""
 msgid "%1$s %2$s Feed"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:33
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:35
 msgid "Settings"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php39,
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:187
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php41,
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:189
 msgid "Insufficient LaTeX-fu"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php45,
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:100
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php47,
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:102
 msgid ""
 "PB LaTeX no longer supports ><code>%BG_COLOR_RGB%</code> or "
 "<code>%FG_COLOR_RGB</code> in the LaTeX preamble.  Please remove them."
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:63
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:65
 msgid "Invalid LaTeX generation method"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:72
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:74
 msgid "Invalid text color"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:83
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:85
 msgid "Invalid background color"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:105
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:107
 msgid "<code>latex</code> path not found."
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:134
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:136
 msgid "Test Image"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:136
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:138
 msgid "If you can see a big integral, all is well."
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:197
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:199
 msgid "WordPress.com LaTeX Server (recommended)"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:240
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:242
 msgid "PB LaTeX Options"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:250
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:252
 msgid "Syntax"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:252
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:254
 msgid ""
 "You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
 " syntax %s OR %s<br /> to insert LaTeX into your posts."
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:257
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:259
 msgid ""
 "For more information, see the <a href=\"http://wordpress.org/extend/plugins"
 "/wp-latex/faq/\">FAQ</a>"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:264
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:266
 msgid "LaTeX generation method"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:275
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:277
 msgid "Default text color"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:278
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:280
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:283
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:285
 msgid "Default background color"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:286
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:288
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>, or <code>transparent</code>"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:294
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:296
 msgid "Update LaTeX Options"
 msgstr ""
 
-#: ../templates/pb-catalog.php:158
+#: ../templates/pb-catalog.php:159
 msgid "'s Catalog Page"
 msgstr ""
 
-#: ../templates/pb-catalog.php:175
+#: ../templates/pb-catalog.php:176
 msgid "login"
 msgstr ""
 
-#: ../templates/pb-catalog.php:177
+#: ../templates/pb-catalog.php:178
 msgid "logout"
 msgstr ""
 
-#: ../templates/pb-catalog.php:185
+#: ../templates/pb-catalog.php:186
 msgid "Admin"
 msgstr ""
 
-#: ../templates/pb-catalog.php:229
+#: ../templates/pb-catalog.php:230
 msgid "Catalog"
 msgstr ""
 
-#: ../templates/pb-catalog.php:229
+#: ../templates/pb-catalog.php:230
 msgid "filtering by"
 msgstr ""
 
-#: ../templates/pb-catalog.php:254
+#: ../templates/pb-catalog.php:255
 msgid ""
 "Sorry, but no books matched your filtering criteria. Please <a class"
 "=\"clear-filters\" href=\"#\">clear your current filters</a> and try again."
 msgstr ""
 
-#: ../templates/pb-catalog.php:258
+#: ../templates/pb-catalog.php:259
 msgid "Pressbooks: the CMS for Books."
 msgstr ""
 
@@ -3855,7 +3858,7 @@ msgstr ""
 msgid "Add Chapter"
 msgstr "Legg til kapittel"
 
-#: ../templates/admin/organize.php49, ../templates/admin/organize.php:156
+#: ../templates/admin/organize.php49, ../templates/admin/organize.php:153
 msgid "Add Part"
 msgstr "Legg til del"
 
@@ -3871,36 +3874,41 @@ msgstr ""
 msgid "%s (selected for export)"
 msgstr ""
 
-#: ../templates/admin/organize.php87, ../templates/admin/organize.php:163
-msgid "Comments"
-msgstr "Kommentarer"
-
-#: ../templates/admin/organize.php88, ../templates/admin/organize.php:164
-msgid "Status"
-msgstr "Status"
-
-#: ../templates/admin/organize.php90, ../templates/admin/organize.php:166
-msgid "Show Title"
-msgstr ""
-
-#: ../templates/admin/organize.php93, ../templates/admin/organize.php134,
-#: ../templates/admin/organize.php168, ../templates/admin/organize.php:202
+#: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
+#: ../templates/admin/organize.php:178
 msgid "Edit"
 msgstr "Rediger"
 
-#: ../templates/admin/organize.php111, ../templates/admin/organize.php:179
+#: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
+#: ../templates/admin/organize.php:178
+msgid "View"
+msgstr ""
+
+#: ../templates/admin/organize.php91, ../templates/admin/organize.php:160
+msgid "Comments"
+msgstr "Kommentarer"
+
+#: ../templates/admin/organize.php92, ../templates/admin/organize.php:161
+msgid "Status"
+msgstr "Status"
+
+#: ../templates/admin/organize.php94, ../templates/admin/organize.php:163
+msgid "Show Title"
+msgstr ""
+
+#: ../templates/admin/organize.php108, ../templates/admin/organize.php:175
 msgid "Ebook start point"
 msgstr ""
 
-#: ../templates/admin/organize.php:227
+#: ../templates/admin/organize.php:224
 msgid "Reordering Chapters"
 msgstr ""
 
-#: ../templates/admin/organize.php:232
+#: ../templates/admin/organize.php:229
 msgid "Reordering Front Matter"
 msgstr ""
 
-#: ../templates/admin/organize.php:237
+#: ../templates/admin/organize.php:234
 msgid "Reordering Back Matter"
 msgstr ""
 
