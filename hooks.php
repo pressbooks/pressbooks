@@ -256,8 +256,9 @@ add_action( 'init', '\Pressbooks\Theme\update_template_root' );
 // -------------------------------------------------------------------------------------------------------------------
 // Regenerate web theme stylesheet
 // -------------------------------------------------------------------------------------------------------------------
+
 add_action( 'init', function() {
-	\Pressbooks\Sass::maybeUpdateWebBookStyleSheet();
+	Container::get( 'Styles' )->maybeUpdateWebBookStyleSheet();
 } );
 
 // -------------------------------------------------------------------------------------------------------------------
@@ -300,3 +301,11 @@ add_filter( 'random_password', '\Pressbooks\Registration\override_password_gener
 // Email configuration
 add_filter( 'wp_mail_from', '\Pressbooks\Utility\mail_from' );
 add_filter( 'wp_mail_from_name', '\Pressbooks\Utility\mail_from_name' );
+
+// -------------------------------------------------------------------------------------------------------------------
+// Custom Styles
+// -------------------------------------------------------------------------------------------------------------------
+
+Container::get( 'Styles' )->init();
+
+

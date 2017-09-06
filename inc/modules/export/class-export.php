@@ -9,7 +9,6 @@ namespace Pressbooks\Modules\Export;
 use Pressbooks\Book;
 use Pressbooks\CustomCss;
 use Pressbooks\Container;
-use Pressbooks\Metadata;
 use function \Pressbooks\Utility\getset;
 
 // IMPORTANT! if this isn't set correctly before include, with a trailing slash, PclZip will fail.
@@ -106,12 +105,12 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 1 ) ) { // Check for v1 SCSS themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.scss" );
-			} elseif ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) { // Check for v2 SCSS themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/styles/$type/style.scss" );
-			} else {
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/style.css" );
+			// Look for SCSS file
+			$fullpath = Container::get( 'Styles' )->getPathToScss( $type );
+			if ( ! $fullpath ) {
+				// Look For CSS file
+				$dir = Container::get( 'Styles' )->getDir();
+				$fullpath = realpath( "$dir/export/$type/style.css" );
 			}
 		}
 
@@ -138,11 +137,12 @@ abstract class Export {
 		}
 
 		if ( ! $fullpath ) {
-			if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) ) {
+			$dir = Container::get( 'Styles' )->getDir();
+			if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) ) {
 				// Check for v2 themes
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" );
+				$fullpath = realpath( "$dir/assets/scripts/$type/script.js" );
 			} else {
-				$fullpath = realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" );
+				$fullpath = realpath( "$dir/export/$type/script.js" );
 			}
 			if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' === $type ) {
 				$fullpath = realpath( get_stylesheet_directory() . "/export/$type/script-romanize.js" );
@@ -163,9 +163,10 @@ abstract class Export {
 
 		$url = false;
 
-		if ( Container::get( 'Sass' )->isCurrentThemeCompatible( 2 ) && realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/assets/scripts/$type/script.js" ) ) {
+		$dir = Container::get( 'Styles' )->getDir();
+		if ( Container::get( 'Styles' )->isCurrentThemeCompatible( 2 ) && realpath( "$dir/assets/scripts/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/assets/scripts/$type/script.js";
-		} elseif ( realpath( apply_filters( 'pb_stylesheet_directory', get_stylesheet_directory() ) . "/export/$type/script.js" ) ) {
+		} elseif ( realpath( "$dir/export/$type/script.js" ) ) {
 			$url = apply_filters( 'pb_stylesheet_directory_uri', get_stylesheet_directory_uri() ) . "/export/$type/script.js";
 		}
 		if ( CustomCss::isCustomCss() && CustomCss::isRomanized() && 'prince' === $type ) {
@@ -795,31 +796,6 @@ abstract class Export {
 		}
 
 		return false;
-	}
-
-
-	/**
-	 * Inject house styles into CSS
-	 *
-	 * @param string $css
-	 *
-	 * @return string
-	 */
-	static function injectHouseStyles( $css ) {
-
-		$scan = [
-			'/*__INSERT_PDF_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_pdf-house-style.scss',
-			'/*__INSERT_EPUB_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_epub-house-style.scss',
-			'/*__INSERT_MOBI_HOUSE_STYLE__*/' => get_theme_root( 'pressbooks-book' ) . '/pressbooks-book/assets/legacy/styles/_mobi-house-style.scss',
-		];
-
-		foreach ( $scan as $token => $replace_with ) {
-			if ( is_file( $replace_with ) ) {
-				$css = str_replace( $token, file_get_contents( $replace_with ), $css );
-			}
-		}
-
-		return $css;
 	}
 
 

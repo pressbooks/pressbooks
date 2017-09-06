@@ -227,8 +227,9 @@ function rewrite_rules_for_api() {
  * PB API v1
  * Expects the pattern `api/v1/books/{id}`
  *
- * @see https://github.com/pressbooks/pb-api
  * @deprecated
+ *
+ * @see https://github.com/pressbooks/pb-api
  */
 function do_api() {
 	// Don't do anything and return if `api` isn't part of the URL

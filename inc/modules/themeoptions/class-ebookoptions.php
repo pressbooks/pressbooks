@@ -317,11 +317,11 @@ class EbookOptions extends \Pressbooks\Options {
 		// --------------------------------------------------------------------
 		// Global Options
 
-		$sass = \Pressbooks\Container::get( 'Sass' );
+		$custom_styles = \Pressbooks\Container::get( 'Styles' );
 		$options = get_option( 'pressbooks_theme_options_global' );
 
 		if ( ! $options['chapter_numbers'] ) {
-			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( $custom_styles->isCurrentThemeCompatible( 2 ) ) {
 				$scss .= "\$chapter-number-display: none; \n";
 			} else {
 				$scss .= "div.part-title-wrap > .part-number, div.chapter-title-wrap > .chapter-number { display: none !important; } \n";
@@ -335,7 +335,7 @@ class EbookOptions extends \Pressbooks\Options {
 
 		// Indent paragraphs?
 		if ( 'skiplines' === $options['ebook_paragraph_separation'] ) {
-			if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+			if ( $custom_styles->isCurrentThemeCompatible( 2 ) ) {
 				$scss .= "\$para-margin-top: 1em; \n";
 				$scss .= "\$para-indent: 0; \n";
 			} else {

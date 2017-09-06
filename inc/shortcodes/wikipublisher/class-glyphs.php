@@ -28,7 +28,7 @@ class Glyphs {
 	];
 
 	/**
-	 * Function to instantiate our class and make it a singleton
+	 * Function to init our class, set filters & hooks, set a singleton instance
 	 *
 	 * @deprecated
 	 * @return Glyphs

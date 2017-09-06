@@ -38,7 +38,7 @@ class Sass {
 			$this->pathToUserGeneratedSass(),
 			$this->pathToGlobals(),
 			$this->pathToFonts(),
-			apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() ) . "/assets/styles/$type/",
+			Container::get( 'Styles' )->getDir( $theme ) . "/assets/styles/$type/",
 		];
 	}
 
@@ -290,132 +290,28 @@ class Sass {
 		file_put_contents( $scss_debug_file, $scss );
 	}
 
-
 	/**
 	 * Are the current theme's stylesheets SCSS compatible?
 	 *
+	 * @deprecated Use the same function found in Styles instead
+	 *
 	 * @param int $version
-	 * @param string $theme
+	 * @param \WP_Theme $theme
 	 *
 	 * @return bool
 	 */
 	function isCurrentThemeCompatible( $version = 1, $theme = null ) {
-
-		if ( null === $theme ) {
-			$theme = wp_get_theme();
-		}
-
-		$basepath = apply_filters( 'pb_stylesheet_directory', $theme->get_stylesheet_directory() );
-
-		$types = [
-			'prince',
-			'epub',
-			'web',
-		];
-
-		foreach ( $types as $type ) {
-			$path = '';
-			if ( 1 === $version && 'web' !== $type ) {
-				$path = $basepath . "/export/$type/style.scss";
-			} elseif ( 1 === $version && 'web' === $type ) {
-				$path = $basepath . '/style.scss';
-			}
-
-			if ( 2 === $version ) {
-				$path = $basepath . "/assets/styles/$type/style.scss";
-			}
-
-			$fullpath = realpath( $path );
-			if ( ! is_file( $fullpath ) ) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	/**
-	 * Prepend or append SCSS overrides depending on which version of the theme architecture is in use.
-	 *
-	 * @param string $scss The theme SCSS.
-	 * @param string $overrides The SCSS overrides.
-	 *
-	 * @return string
-	 */
-	function applyOverrides( $scss, $overrides ) {
-
-		if ( $this->isCurrentThemeCompatible( 2 ) ) {
-			// Prepend override variables (see: http://sass-lang.com/documentation/file.SASS_REFERENCE.html#variable_defaults_).
-			$scss = $overrides . "\n" . $scss;
-		} else {
-			// Append overrides.
-			$scss .= "\n" . $overrides;
-		}
-
-		return $scss;
+		return Container::get( 'Styles' )->isCurrentThemeCompatible( $version, $theme );
 	}
 
 	/**
 	 * Update and save the supplementary webBook stylesheet which incorporates user options, etc.
 	 *
+	 * @deprecated Use the same function found in Styles instead
+	 *
 	 * @return void
 	 */
 	function updateWebBookStyleSheet() {
-
-		$overrides = apply_filters( 'pb_web_css_override', '' ) . "\n";
-
-		if ( $this->isCurrentThemeCompatible( 1 ) ) {
-			$path_to_style = realpath( get_stylesheet_directory() . '/style.scss' );
-			// Populate $url-base variable so that links to images and other assets remain intact
-			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
-
-			$scss .= $this->applyOverrides( file_get_contents( $path_to_style ), $overrides );
-
-			$scss .= "\n";
-
-			$css = $this->compile(
-				$scss, [
-					$this->pathToUserGeneratedSass(),
-					$this->pathToPartials(),
-					$this->pathToFonts(),
-					get_stylesheet_directory(),
-				]
-			);
-
-		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
-			$path_to_style = realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' );
-
-			// Populate $url-base variable so that links to images and other assets remain intact
-			$scss = '$url-base: \'' . get_stylesheet_directory_uri() . "/';\n";
-
-			$scss .= $this->applyOverrides( file_get_contents( $path_to_style ), $overrides );
-			$css = $this->compile( $scss, $this->defaultIncludePaths( 'web' ) );
-		} else {
-			return;
-		}
-
-		$css = normalize_css_urls( $css );
-
-		$css_file = $this->pathToUserGeneratedCss() . '/style.css';
-		file_put_contents( $css_file, $css );
-	}
-
-	/**
-	 * If the current theme's version has increased, call updateWebBookStyleSheet().
-	 *
-	 * @return bool
-	 */
-	static function maybeUpdateWebBookStylesheet() {
-		$theme = wp_get_theme();
-		$current_version = $theme->get( 'Version' );
-		$last_version = get_option( 'pressbooks_theme_version', $current_version );
-
-		if ( version_compare( $current_version, $last_version ) > 0 ) {
-			\Pressbooks\Container::get( 'Sass' )->updateWebBookStyleSheet();
-			update_option( 'pressbooks_theme_version', $current_version );
-			return true;
-		}
-
-		return false;
+		Container::get( 'Styles' )->updateWebBookStyleSheet();
 	}
 }

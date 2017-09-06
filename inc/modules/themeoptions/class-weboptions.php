@@ -348,19 +348,22 @@ class WebOptions extends \Pressbooks\Options {
 	 * @since 3.9.8
 	 */
 	static function scssOverrides( $scss ) {
-		$sass = \Pressbooks\Container::get( 'Sass' );
+
+		$custom_styles = \Pressbooks\Container::get( 'Styles' );
+		$v2_compatible = $custom_styles->isCurrentThemeCompatible( 2 );
+
 		$options = get_option( 'pressbooks_theme_options_web' );
 
 		if ( isset( $options['paragraph_separation'] ) ) {
 			if ( 'indent' === $options['paragraph_separation'] ) {
-				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				if ( $v2_compatible ) {
 					$scss .= "\$para-margin-top: 0; \n";
 					$scss .= "\$para-indent: 1em; \n";
 				} else {
 					$scss .= "* + p { text-indent: 1em; margin-top: 0; margin-bottom: 0; } \n";
 				}
 			} elseif ( 'skiplines' === $options['paragraph_separation'] ) {
-				if ( $sass->isCurrentThemeCompatible( 2 ) ) {
+				if ( $v2_compatible ) {
 					$scss .= "\$para-margin-top: 1em; \n";
 					$scss .= "\$para-indent: 0; \n";
 				} else {

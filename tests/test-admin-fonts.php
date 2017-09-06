@@ -15,33 +15,34 @@ class Admin_FontsTest extends \WP_UnitTestCase {
 
 		parent::setUp();
 
-		// Replace GlobalTypography service with mock
-		Container::set(
-			'GlobalTypography', function () {
-
-				$stub = $this->getMockBuilder( '\Pressbooks\GlobalTypography' )
-						 ->getMock();
-
-				return $stub;
-			}
-		);
-
 		// Replace Sass service with mock
-		Container::set(
-			'Sass', function () {
+		Container::set( 'Sass', function () {
 
-				$stub = $this->getMockBuilder( '\Pressbooks\Sass' )
-						 ->getMock();
+			$stub = $this
+				->getMockBuilder( '\Pressbooks\Sass' )
+				->getMock();
 
-				$stub->method( 'pathToUserGeneratedCss' )
-				 ->willReturn( $this->_createTmpDir() );
+			$stub
+				->method( 'pathToUserGeneratedCss' )
+				->willReturn( $this->_createTmpDir() );
 
-				$stub->method( 'pathToPartials' )
-				 ->willReturn( WP_CONTENT_DIR . '/themes/pressbooks-book/assets/legacy/styles' );
+			$stub
+				->method( 'pathToPartials' )
+				->willReturn( WP_CONTENT_DIR . '/themes/pressbooks-book/assets/legacy/styles' );
 
-				return $stub;
-			}
-		);
+			return $stub;
+		}, null, true );
+
+		// Replace GlobalTypography service with mock
+		Container::set( 'GlobalTypography', function () {
+
+			$stub = $this
+				->getMockBuilder( '\Pressbooks\GlobalTypography' )
+				->setConstructorArgs( [ Container::get( 'Sass' ) ] )
+				->getMock();
+
+			return $stub;
+		}, null, true );
 	}
 
 

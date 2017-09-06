@@ -1,5 +1,8 @@
 <?php
 
+use \Pressbooks\GlobalTypography;
+use \Pressbooks\Container;
+
 class GlobaltypographyTest extends \WP_UnitTestCase {
 
 	use utilsTrait;
@@ -15,7 +18,7 @@ class GlobaltypographyTest extends \WP_UnitTestCase {
 	 */
 	public function setUp() {
 		parent::setUp();
-		$this->gt = new \Pressbooks\GlobalTypography();
+		$this->gt = new GlobalTypography( Container::get( 'Sass' ) );
 	}
 
 	public function test_getSupportedLanguages() {
