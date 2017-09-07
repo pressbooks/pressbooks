@@ -25,9 +25,9 @@ class StylesTest extends \WP_UnitTestCase {
 		$this->assertArrayHasKey( 'custom-style', $wp_post_types );
 
 		$this->cs->initPosts();
-		$this->assertNotEmpty( $this->cs->getPost( 'web' ) );
-		$this->assertNotEmpty( $this->cs->getPost( 'epub' ) );
-		$this->assertNotEmpty( $this->cs->getPost( 'prince' ) );
+		$this->assertNotEmpty( $this->cs->getWebPost() );
+		$this->assertNotEmpty( $this->cs->getEpubPost() );
+		$this->assertNotEmpty( $this->cs->getPrincePost() );
 		$this->assertFalse( $this->cs->getPost( 'garbage' ) );
 	}
 
