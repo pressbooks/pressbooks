@@ -32,6 +32,7 @@ before_install:
 - sudo apt-get install -y epubcheck libxml2-utils default-jdk
 - wget https://www.princexml.com/download/prince_11.3-1_ubuntu14.04_amd64.deb
 - sudo dpkg -i prince_11.3-1_ubuntu14.04_amd64.deb
+- rm prince_11.3-1_ubuntu14.04_amd64.deb
 - source ~/.nvm/nvm.sh && nvm install $TRAVIS_NODE_VERSION && nvm use $TRAVIS_NODE_VERSION
 install:
 - node -v
