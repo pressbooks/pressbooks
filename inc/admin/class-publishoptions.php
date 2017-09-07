@@ -139,7 +139,21 @@ class PublishOptions extends \Pressbooks\Options {
 		<?php $output = ob_get_contents();
 		ob_end_clean();
 
-		echo apply_filters( 'pressbooks_publish_page', $output );
+		/**
+		* Filter the contents of the Dashboard Publish page.
+		 *
+		 * @since 4.3.0
+		 */
+		echo apply_filters(
+			'pb_publish_page',
+			/**
+			 * Filter the contents of the Dashboard Publish page.
+			 *
+			 * @since 3.9.3
+			 * @deprecated 4.3.0 Use pb_publish_page instead.
+			 */
+			apply_filters( 'pressbooks_publish_page', $output )
+		);
 	}
 
 	function render() {
