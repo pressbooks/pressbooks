@@ -615,13 +615,21 @@ class Epub201 extends Export {
 	 */
 	protected function scrapeKneadAndSaveCss( $path_to_original_stylesheet, $path_to_copy_of_stylesheet ) {
 
+		$styles = Container::get( 'Styles' );
+
 		$scss = file_get_contents( $path_to_copy_of_stylesheet );
 
 		if ( $this->extraCss ) {
 			$scss .= "\n" . $this->loadTemplate( $this->extraCss );
 		}
 
-		$css = Container::get( 'Styles' )->customize( 'epub', $scss, $this->cssOverrides );
+		$custom_styles = $styles->getEpubPost();
+		if ( $custom_styles && ! empty( $custom_styles->post_content ) ) {
+			// append the user's custom styles to the theme stylesheet prior to compilation
+			$scss .= "\n" . $custom_styles->post_content;
+		}
+
+		$css = $styles->customize( 'epub', $scss, $this->cssOverrides );
 
 		$scss_dir = pathinfo( $path_to_original_stylesheet, PATHINFO_DIRNAME );
 		$path_to_epub_assets = $this->tmpDir . '/OEBPS/assets';

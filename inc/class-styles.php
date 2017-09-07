@@ -164,11 +164,32 @@ class Styles {
 	}
 
 	/**
+	 * @return \WP_Post|false
+	 */
+	public function getWebPost() {
+		return $this->getPost( 'web' );
+	}
+
+	/**
+	 * @return \WP_Post|false
+	 */
+	public function getEpubPost() {
+		return $this->getPost( 'epub' );
+	}
+
+	/**
+	 * @return \WP_Post|false
+	 */
+	public function getPrincePost() {
+		return $this->getPost( 'prince' );
+	}
+
+	/**
 	 * @param string $slug post_name
 	 *
-	 * @return \WP_Post|bool
+	 * @return \WP_Post|false
 	 */
-	function getPost( $slug ) {
+	public  function getPost( $slug ) {
 
 		// Supported post names (ie. slugs)
 		$supported = array_keys( $this->supported );
@@ -465,15 +486,19 @@ class Styles {
 
 		if ( $this->isCurrentThemeCompatible( 1 ) ) {
 			$scss .= file_get_contents( realpath( get_stylesheet_directory() . '/style.scss' ) );
-			$css = Container::get( 'Styles' )->customize( 'web', $scss, $overrides );
-
 		} elseif ( $this->isCurrentThemeCompatible( 2 ) ) {
 			$scss .= file_get_contents( realpath( get_stylesheet_directory() . '/assets/styles/web/style.scss' ) );
-			$css = Container::get( 'Styles' )->customize( 'web', $scss, $overrides );
 		} else {
 			return;
 		}
 
+		$custom_styles = $this->getWebPost();
+		if ( $custom_styles && ! empty( $custom_styles->post_content ) ) {
+			// append the user's custom styles to the theme stylesheet prior to compilation
+			$scss .= "\n" . $custom_styles->post_content;
+		}
+
+		$css = $this->customize( 'web', $scss, $overrides );
 		$css = \Pressbooks\Sanitize\normalize_css_urls( $css );
 
 		$css_file = $this->sass->pathToUserGeneratedCss() . '/style.css';
@@ -634,6 +659,11 @@ class Styles {
 				// Something went wrong?
 				error_log( __METHOD__ . ' error, wp_update_post(): ' . $response->get_error_message() );
 				\Pressbooks\Redirect\location( $redirect_url . '&custom_styles_error=true' );
+			}
+
+			if ( $slug === 'web' ) {
+				// a recompile will be triggered whenever the user saves custom styles targeting web
+				$this->updateWebBookStyleSheet();
 			}
 
 			// Ok!
