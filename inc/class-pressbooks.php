@@ -21,6 +21,14 @@ class Pressbooks {
 
 		$this->registerThemeDirectories();
 
+		/**
+		 * @since 4.3.0
+		 */
+		do_action( 'pb_loaded' );
+
+		/**
+		 * @deprecated 4.3.0 Use pb_loaded instead.
+		 */
 		do_action( 'pressbooks_loaded' );
 	}
 

@@ -123,7 +123,17 @@ if ( ! empty( $_GET['export_warning'] ) && ( 1 == $exportoptions['email_validati
 ?>
 <div class="wrap">
 
-<?php do_action( 'pressbooks_top_of_export_page' ); ?>
+<?php
+/**
+ * @since 4.3.0
+ */
+do_action( 'pb_top_of_export_page' );
+
+/**
+ * @deprecated 4.3.0 Use pb_top_of_export_page instead.
+ */
+do_action( 'pressbooks_top_of_export_page' );
+?>
 
 <div id="icon-pressbooks-export" class="icon32"></div>
 <h2><?php _e( 'Export', 'pressbooks' ); ?> &ldquo;<?php bloginfo( 'name' ); ?>&rdquo;</h2>
