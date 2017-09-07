@@ -180,7 +180,7 @@ function rewrite_rules_for_catalog() {
 	global $wp;
 	$wp->add_query_var( 'pb_catalog_user' );
 	add_rewrite_rule( '^catalog/(.*)', 'index.php?pagename=pb_catalog&pb_catalog_user=$matches[1]' );
-	add_filter( 'template_include', __NAMESPACE__ . '\do_catalog', 1 );
+	add_filter( 'template_include', __NAMESPACE__ . '\do_catalog', 999 ); // Must come after \Roots\Sage\Wrapper\SageWrapping (to override)
 }
 
 /**
