@@ -172,11 +172,11 @@ class Modules_ExportTest extends \WP_UnitTestCase {
 				$exporter->url = $xhtml_path;
 			}
 
-			$this->assertTrue( $exporter->convert() );
-			$this->assertTrue( $exporter->validate() );
+			$this->assertTrue( $exporter->convert(), "Could not convert with {$module}" );
+			$this->assertTrue( $exporter->validate(), "Could not validate with {$module}");
 			$paths[] = $exporter->getOutputPath();
 
-			if ( strpos( $module, '\Xhtml\Xhtml1' ) !== false ) {
+			if ( strpos( $module, '\Xhtml\Xhtml11' ) !== false ) {
 				$xhtml_path = $exporter->getOutputPath();
 			}
 		}

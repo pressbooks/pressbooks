@@ -809,13 +809,41 @@ function remote_get_retry( $url, $args, $retry = 3, $attempts = 0, $response = [
 
 	$response = wp_remote_get( $url, $args );
 
-	$retry_response_codes = apply_filters( 'pressbooks_remote_get_retry_response_codes', [ 400 ] );
+	/**
+	 * Filter the array of response codes which should prompt a retry.
+	 *
+	 * @since 4.3.0
+	 */
+	$retry_response_codes = apply_filters(
+		'pb_remote_get_retry_response_codes',
+		/**
+		 * Filter the array of response codes which should prompt a retry.
+		 *
+		 * @since 3.9.6
+		 * @deprecated 4.3.0 Use pb_remote_get_retry_response_codes isntead.
+		 */
+		apply_filters( 'pressbooks_remote_get_retry_response_codes', [ 400 ] )
+	);
 
 	if ( ! is_array( $response ) || ! in_array( $response['response']['code'], $retry_response_codes, true ) ) {
 		return $response;
 	}
 
-	$sleep = apply_filters( 'pressbooks_remote_get_retry_wait_time', 1000 );
+	/**
+	 * Filter the sleep time for a retry.
+	 *
+	 * @since 4.3.0
+	 */
+	$sleep = apply_filters(
+		'pb_remote_get_retry_wait_time',
+		/**
+		 * Filter the sleep time for a retry.
+		 *
+		 * @since 3.9.6
+		 * @deprecated 4.3.0 Use pb_remote_get_retry_wait_time isntead.
+		 */
+		apply_filters( 'pressbooks_remote_get_retry_wait_time', 1000 )
+	);
 	usleep( $sleep );
 	return remote_get_retry( $url, $args, $retry, $attempts, $response );
 }

@@ -12,20 +12,34 @@ use PressbooksMix\Assets;
 
 /**
  * Apply Color Scheme to Login Page
- * To customize this, add a filter to the 'pressbooks_login_color_scheme' hook
+ * To customize this, add a filter to the 'pb_login_color_scheme' hook
  * that returns a string containing a link tag for your own admin color scheme.
  */
 function custom_color_scheme() {
 	$assets = new Assets( 'pressbooks', 'plugin' );
 	$html = '<link rel="stylesheet" type="text/css" href="' . $assets->getPath( 'styles/colors-pb.css' ) . '" media="screen" />';
-	$html = apply_filters( 'pressbooks_login_color_scheme', $html );
+	/**
+	 * Print <link> to a custom color scheme for the login page.
+	 *
+	 * @since 4.3.0
+	 */
+	$html = apply_filters(
+		'pb_login_color_scheme',
+		/**
+		 * Print <link> to a custom color scheme for the login page.
+		 *
+		 * @since 3.5.2
+		 * @deprecated 4.3.0 Use pb_login_color_scheme instead.
+		 */
+		apply_filters( 'pressbooks_login_color_scheme', $html )
+	);
 	echo $html;
 }
 
 /**
  * Add Custom Login Graphic.
- * To customize this, add a filter to the 'pressbooks_login_logo' hook that
- * returns a string containing a style tag comparable to the one below.
+ * To customize this, add a filter to the 'pb_login_logo' hook that
+ * returns a string containing a <link> or <style> tag that supplies your custom logo.
  */
 function custom_login_logo() {
 	$html = '<style type="text/css">
@@ -41,7 +55,21 @@ function custom_login_logo() {
 	.no-svg .login h1 a {
   	background-image: url(' . PB_PLUGIN_URL . 'assets/dist//images/PB-logo.png' . '; }
 	</style>';
-	$html = apply_filters( 'pressbooks_login_logo', $html );
+	/**
+	 * Print <link> or <style> tag to add a custom logo for the login page.
+	 *
+	 * @since 4.3.0
+	 */
+	$html = apply_filters(
+		'pb_login_logo',
+		/**
+		 * Print <link> or <style> tag to add a custom logo for the login page.
+		 *
+		 * @since 3.5.2
+		 * @deprecated 4.3.0 Use pb_login_logo instead.
+		 */
+		apply_filters( 'pressbooks_login_logo', $html )
+	);
 	echo $html;
 }
 

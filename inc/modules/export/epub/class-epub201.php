@@ -278,6 +278,13 @@ class Epub201 extends Export {
 		$return_var = 0;
 		exec( $command, $output, $return_var );
 
+		// Remove JAVA warnings that are not actually errors
+		foreach ( $output as $k => $v ) {
+			if ( strpos( $v, 'Picked up _JAVA_OPTIONS:' ) !== false ) {
+				unset( $output[ $k ] );
+			}
+		}
+
 		// Is this a valid Epub?
 		if ( ! empty( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
