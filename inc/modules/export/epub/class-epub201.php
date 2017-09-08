@@ -282,6 +282,10 @@ class Epub201 extends Export {
 		if ( ! empty( $output ) ) {
 			$this->logError( implode( "\n", $output ) );
 
+			// TODO Remove me.
+			var_dump( implode( "\n", $output ) );
+			$this->debugMe = implode( "\n", $output );
+
 			return false;
 		}
 
