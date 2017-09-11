@@ -8,7 +8,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pressbooks\n"
-"PO-Revision-Date: 2017-09-06 21:01+0000\n"
+"PO-Revision-Date: 2017-09-11 17:32+0000\n"
 "Last-Translator: Ned Zimmerman\n"
 "Language-Team: Korean (http://www.transifex.com/pressbooks/pressbooks/language/ko/)\n"
 "MIME-Version: 1.0\n"
@@ -43,73 +43,73 @@ msgid ""
 "activate Pressbooks."
 msgstr ""
 
-#: ../inc/class-activation.php60, ../inc/class-activation.php:282
+#: ../inc/class-activation.php60, ../inc/class-activation.php:291
 msgid "Simple Book Publishing"
 msgstr ""
 
-#: ../inc/class-activation.php:174
+#: ../inc/class-activation.php:182
 msgid "Main Body"
 msgstr "본문"
 
-#: ../inc/class-activation.php180, ../tests/test-book.php:39
+#: ../inc/class-activation.php188, ../tests/test-book.php:39
 msgid "Introduction"
 msgstr "소개"
 
-#: ../inc/class-activation.php182, ../tests/test-book.php:69
+#: ../inc/class-activation.php190, ../tests/test-book.php:69
 msgid "This is where you can write your introduction."
 msgstr "이곳에 소개를 작성해주세요."
 
-#: ../inc/class-activation.php:187
+#: ../inc/class-activation.php:195
 msgid "Chapter 1"
 msgstr "챕터 1"
 
-#: ../inc/class-activation.php:189
+#: ../inc/class-activation.php:197
 msgid ""
 "This is the first chapter in the main body of the text. You can change the "
 "text, rename the chapter, add new chapters, and add new parts."
 msgstr "본문의 첫 번째 챕터입니다. 텍스트를 바꾸거나, 챕터명을 수정하거나, 새로운 챕터와 새로운 파트를 추가할 수 있습니다. "
 
-#: ../inc/class-activation.php:194
+#: ../inc/class-activation.php:202
 msgid "Appendix"
 msgstr "부록"
 
-#: ../inc/class-activation.php:196
+#: ../inc/class-activation.php:204
 msgid "This is where you can add appendices or other back matter."
 msgstr "이곳에 부록을 작성해주세요."
 
-#: ../inc/class-activation.php202, ../tests/test-cloner.php:37
+#: ../inc/class-activation.php210, ../tests/test-cloner.php:37
 msgid "Authors"
 msgstr "저자"
 
-#: ../inc/class-activation.php207,
+#: ../inc/class-activation.php215,
 #: ../inc/admin/class-catalog-list-table.php171,
-#: ../inc/modules/export/epub/class-epub201.php764,
+#: ../inc/modules/export/epub/class-epub201.php776,
 #: ../tests/test-cloner.php:42
 msgid "Cover"
 msgstr "표지"
 
-#: ../inc/class-activation.php212,
-#: ../inc/modules/themeoptions/class-pdfoptions.php238,
+#: ../inc/class-activation.php220,
+#: ../inc/modules/themeoptions/class-pdfoptions.php241,
 #: ../inc/api/endpoints/controller/class-books.php124,
 #: ../inc/modules/export/epub/templates/epub3/toc.php23,
 #: ../tests/test-cloner.php:47
 msgid "Table of Contents"
 msgstr "목차"
 
-#: ../inc/class-activation.php217, ../inc/admin/laf/namespace.php21,
+#: ../inc/class-activation.php225, ../inc/admin/laf/namespace.php21,
 #: ../templates/admin/catalog.php:98
 msgid "About"
 msgstr "About"
 
-#: ../inc/class-activation.php:222
+#: ../inc/class-activation.php:230
 msgid "Buy"
 msgstr "구매하다"
 
-#: ../inc/class-activation.php:227
+#: ../inc/class-activation.php:235
 msgid "Access Denied"
 msgstr "접근거부"
 
-#: ../inc/class-activation.php:229
+#: ../inc/class-activation.php:237
 msgid ""
 "This book is private, and accessible only to registered users. If you have "
 "an account you can login <a href=\"/wp-login.php\">here</a>. You can also "
@@ -117,24 +117,24 @@ msgid ""
 "href=\"http://pressbooks.com\">Pressbooks.com</a>."
 msgstr ""
 
-#: ../inc/class-activation.php234, ../inc/class-metadata.php:368
+#: ../inc/class-activation.php242, ../inc/class-customcss.php:91
 msgid "Custom CSS for Ebook"
 msgstr "Ebook의 사용자정의 CSS"
 
-#: ../inc/class-activation.php239, ../inc/class-metadata.php:373
+#: ../inc/class-activation.php247, ../inc/class-customcss.php:96
 msgid "Custom CSS for PDF"
 msgstr "PDF의 사용자정의 CSS"
 
-#: ../inc/class-activation.php244, ../inc/class-metadata.php:378
+#: ../inc/class-activation.php252, ../inc/class-customcss.php:101
 msgid "Custom CSS for Web"
 msgstr "Web의 사용자정의 CSS"
 
-#: ../inc/class-activation.php249, ../inc/posttype/namespace.php194,
+#: ../inc/class-activation.php258, ../inc/posttype/namespace.php194,
 #: ../templates/admin/import.php:96
 msgid "Book Information"
 msgstr "도서 정보"
 
-#: ../inc/class-activation.php:272
+#: ../inc/class-activation.php:281
 msgid "Default Data"
 msgstr "기본값 데이터"
 
@@ -164,182 +164,188 @@ msgstr "유효하지 않은 URL"
 msgid "No book found."
 msgstr "책을 찾을 수 없습니다."
 
-#: ../inc/class-cloner.php:188
+#: ../inc/class-cloner.php:192
 msgid "Could not retrieve metadata from %s."
 msgstr ""
 
-#: ../inc/class-cloner.php:194
+#: ../inc/class-cloner.php:198
 msgid "%s is not licensed for cloning."
 msgstr ""
 
-#: ../inc/class-cloner.php:201
+#: ../inc/class-cloner.php:205
 msgid "Could not retrieve contents and structure from %s."
 msgstr ""
 
-#: ../inc/class-cloner.php:208
+#: ../inc/class-cloner.php:212
 msgid "Could not retrieve taxonomies from %s."
 msgstr ""
 
-#: ../inc/class-cloner.php:214
+#: ../inc/class-cloner.php:218
 msgid "Could not retrieve media from %s."
 msgstr ""
 
-#: ../inc/class-cloner.php:395
+#: ../inc/class-cloner.php:396
 msgid "The source book&rsquo;s media could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:429
+#: ../inc/class-cloner.php:430
 msgid "The source book&rsquo;s metadata could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:455
+#: ../inc/class-cloner.php:456
 msgid "The source book&rsquo;s structure and contents could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:484
+#: ../inc/class-cloner.php:485
 msgid "The source book&rsquo;s taxonomies could not be read."
 msgstr ""
 
-#: ../inc/class-cloner.php:1059
+#: ../inc/class-cloner.php:980
+msgid ""
+"You can only clone from a book hosted by Pressbooks 4.1 or later. Please "
+"ensure that your source book meets these requirements."
+msgstr ""
+
+#: ../inc/class-cloner.php:1081
 msgid "Your book URL can only contain lowercase letters (a-z) and numbers."
 msgstr ""
 
-#: ../inc/class-cloner.php:1061
+#: ../inc/class-cloner.php:1083
 msgid "Your book URL must contain at least some letters."
 msgstr ""
 
-#: ../inc/class-cloner.php:1063
+#: ../inc/class-cloner.php:1085
 msgid "That book URL is not allowed."
 msgstr ""
 
-#: ../inc/class-cloner.php:1065
+#: ../inc/class-cloner.php:1087
 msgid "Your book URL must be at least %s character."
 msgid_plural "Your book URL must be at least %s characters."
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1067
+#: ../inc/class-cloner.php:1089
 msgid "Sorry, you may not use that book URL."
 msgstr ""
 
-#: ../inc/class-cloner.php:1069
+#: ../inc/class-cloner.php:1091
 msgid "Sorry, that book URL already exists!"
 msgstr ""
 
-#: ../inc/class-cloner.php:1123
+#: ../inc/class-cloner.php:1145
 msgid ""
 "Cloning succeeded! Cloned %1$s, %2$s, %3$s, %4$s, %5$s, and %6$s to %7$s."
 msgstr ""
 
-#: ../inc/class-cloner.php:1124
+#: ../inc/class-cloner.php:1146
 msgid "%s term"
 msgid_plural "%s terms"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1125
+#: ../inc/class-cloner.php:1147
 msgid "%s front matter"
 msgid_plural "%s front matter"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1126
+#: ../inc/class-cloner.php:1148
 msgid "%s part"
 msgid_plural "%s parts"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1127
+#: ../inc/class-cloner.php:1149
 msgid "%s chapter"
 msgid_plural "%s chapters"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1128
+#: ../inc/class-cloner.php:1150
 msgid "%s back matter"
 msgid_plural "%s back matter"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1129
+#: ../inc/class-cloner.php:1151
 msgid "%s media attachment"
 msgid_plural "%s media attachments"
 msgstr[0] ""
 
-#: ../inc/class-cloner.php:1133
+#: ../inc/class-cloner.php:1155
 msgid "Cloning failed."
 msgstr ""
 
-#: ../inc/class-cloner.php:1138
+#: ../inc/class-cloner.php:1160
 msgid ""
 "You must enter a valid URL for a book on a Pressbooks network running "
 "Pressbooks 4.1 or greater as well as a new URL for your cloned book."
 msgstr ""
 
-#: ../inc/class-globaltypography.php:20
+#: ../inc/class-globaltypography.php:39
 msgid "Ancient Greek"
 msgstr "고대 그리스어"
 
-#: ../inc/class-globaltypography.php:21
+#: ../inc/class-globaltypography.php:40
 msgid "Arabic"
 msgstr "아랍어"
 
-#: ../inc/class-globaltypography.php:22
+#: ../inc/class-globaltypography.php:41
 msgid "Biblical Hebrew"
 msgstr "히브리어"
 
-#: ../inc/class-globaltypography.php:23
+#: ../inc/class-globaltypography.php:42
 msgid "Canadian Indigenous Syllabics"
 msgstr ""
 
-#: ../inc/class-globaltypography.php:24
+#: ../inc/class-globaltypography.php:43
 msgid "Hindi"
 msgstr ""
 
-#: ../inc/class-globaltypography.php:25
+#: ../inc/class-globaltypography.php:44
 msgid "Chinese (Simplified)"
 msgstr "중국어(간체)"
 
-#: ../inc/class-globaltypography.php:26
+#: ../inc/class-globaltypography.php:45
 msgid "Chinese (Traditional)"
 msgstr "중국어(번체)"
 
-#: ../inc/class-globaltypography.php:27
+#: ../inc/class-globaltypography.php:46
 msgid "Coptic"
 msgstr "콥트어"
 
-#: ../inc/class-globaltypography.php:28
+#: ../inc/class-globaltypography.php:47
 msgid "Gujarati"
 msgstr "구자라트어"
 
-#: ../inc/class-globaltypography.php:29
+#: ../inc/class-globaltypography.php:48
 msgid "Punjabi (Gurmukhi)"
 msgstr ""
 
-#: ../inc/class-globaltypography.php:30
+#: ../inc/class-globaltypography.php:49
 msgid "Japanese"
 msgstr "일본어"
 
-#: ../inc/class-globaltypography.php:31
+#: ../inc/class-globaltypography.php:50
 msgid "Korean"
 msgstr "ㄴ국어"
 
-#: ../inc/class-globaltypography.php:32
+#: ../inc/class-globaltypography.php:51
 msgid "Syriac"
 msgstr "시리아어"
 
-#: ../inc/class-globaltypography.php:33
+#: ../inc/class-globaltypography.php:52
 msgid "Tamil"
 msgstr "타밀어"
 
-#: ../inc/class-globaltypography.php:34
+#: ../inc/class-globaltypography.php:53
 msgid "Tibetan"
 msgstr "티베트어"
 
-#: ../inc/class-globaltypography.php:35
+#: ../inc/class-globaltypography.php:54
 msgid "Turkish"
 msgstr ""
 
-#: ../inc/class-globaltypography.php:319
+#: ../inc/class-globaltypography.php:338
 msgid "Your %1$s font could not be downloaded from %2$s."
 msgstr ""
 
 #: ../inc/class-licensing.php:43
-msgid "No Rights Reserved (Public Domain)"
+msgid "Public Domain (No Rights Reserved)"
 msgstr ""
 
 #: ../inc/class-licensing.php:52
@@ -366,15 +372,32 @@ msgstr ""
 msgid "CC BY-NC-ND (Attribution NonCommercial NoDerivatives)"
 msgstr ""
 
-#: ../inc/class-licensing.php102, ../inc/class-licensing.php:248
+#: ../inc/class-licensing.php102, ../inc/class-licensing.php:262
 msgid "All Rights Reserved"
 msgstr "All Rights Reserved"
 
-#: ../inc/class-licensing.php:292
+#: ../inc/class-licensing.php257, ../inc/admin/metaboxes/namespace.php294,
+#: ../inc/modules/export/epub/class-epub201.php979,
+#: ../inc/modules/export/epub/class-epub201.php1005,
+#: ../inc/modules/export/xhtml/class-xhtml11.php751,
+#: ../inc/modules/export/epub/templates/epub201/opf.php81,
+#: ../inc/modules/export/epub/templates/epub3/opf.php:91
+msgid "Copyright"
+msgstr "저작권"
+
+#: ../inc/class-licensing.php259, ../inc/class-styles.php619,
+#: ../inc/modules/export/epub/class-epub201.php988,
+#: ../inc/modules/export/xhtml/class-xhtml11.php760,
+#: ../inc/modules/export/epub/templates/epub201/opf.php90,
+#: ../inc/modules/export/epub/templates/epub3/opf.php:100
+msgid "by"
+msgstr "by"
+
+#: ../inc/class-licensing.php:311
 msgid "except where otherwise noted."
 msgstr "별도로 언급된 경우를 제외하고."
 
-#: ../inc/class-metadata.php453, ../inc/admin/metaboxes/namespace.php97,
+#: ../inc/class-metadata.php409, ../inc/admin/metaboxes/namespace.php97,
 #: ../inc/admin/metaboxes/namespace.php:154
 msgid "Cover Image"
 msgstr "표지 이미지"
@@ -389,7 +412,7 @@ msgstr "챕터"
 #: ../inc/class-sass.php54, ../inc/admin/metaboxes/namespace.php145,
 #: ../inc/admin/metaboxes/namespace.php527,
 #: ../inc/api/endpoints/controller/class-toc.php184,
-#: ../inc/modules/export/epub/class-epub201.php1613,
+#: ../inc/modules/export/epub/class-epub201.php1640,
 #: ../inc/modules/searchandreplace/types/class-content.php68,
 #: ../templates/admin/import.php80, ../templates/admin/organize.php43,
 #: ../templates/admin/trash.php:53
@@ -399,6 +422,37 @@ msgstr "파트"
 #: ../inc/class-sass.php:244
 msgid "SASS Error"
 msgstr "SASS 에러"
+
+#: ../inc/class-styles.php88, ../inc/class-styles.php88,
+#: ../templates/admin/custom-styles.php:33
+msgid "Custom Styles"
+msgstr ""
+
+#: ../inc/class-styles.php:108
+msgid "Custom Style for Ebook"
+msgstr ""
+
+#: ../inc/class-styles.php:113
+msgid "Custom Style for PDF"
+msgstr ""
+
+#: ../inc/class-styles.php:118
+msgid "Custom Style for Web"
+msgstr ""
+
+#: ../inc/class-styles.php:544
+msgid ""
+"Unexpected Error: There was a problem trying to query slug: %s - Please "
+"contact technical support."
+msgstr "예상치 못한 오류: %s 슬러그를 조회하는 동안 문제가 발생했습니다. 기술 지원 부서에 연락해 주세요."
+
+#: ../inc/class-styles.php:584
+msgid "Web"
+msgstr ""
+
+#: ../inc/class-styles.php:616
+msgid "Last 10 Revisions"
+msgstr ""
 
 #: ../inc/class-taxonomy.php:34
 msgctxt "taxonomy general name"
@@ -817,7 +871,7 @@ msgid ""
 "book, add the links to your book at the different retailers below:"
 msgstr ""
 
-#: ../inc/admin/class-publishoptions.php277,
+#: ../inc/admin/class-publishoptions.php291,
 #: ../inc/admin/laf/namespace.php204, ../inc/admin/laf/namespace.php:204
 msgid "Publish"
 msgstr "발행하기"
@@ -896,7 +950,7 @@ msgstr "음영상자"
 msgid "Border"
 msgstr "경계선"
 
-#: ../inc/editor/namespace.php:360
+#: ../inc/editor/namespace.php:355
 msgid "Internal Link"
 msgstr ""
 
@@ -909,7 +963,7 @@ msgid ""
 "cover/\">here</a>."
 msgstr ""
 
-#: ../inc/image/namespace.php362, ../templates/admin/export.php273,
+#: ../inc/image/namespace.php362, ../templates/admin/export.php283,
 #: ../templates/admin/organize.php86, ../templates/admin/organize.php111,
 #: ../templates/admin/organize.php:178
 msgid "Are you sure you want to delete this?"
@@ -1181,255 +1235,255 @@ msgstr "도서 정보를 찾을 수 없습니다."
 msgid "No book information found in Trash"
 msgstr "휴지통에서 도서 정보를 찾을 수 없습니다."
 
-#: ../inc/posttype/namespace.php251, ../inc/admin/metaboxes/namespace.php:547
+#: ../inc/posttype/namespace.php228, ../inc/admin/metaboxes/namespace.php:547
 msgid "Include in exports"
 msgstr "내보내기 포함"
 
-#: ../inc/posttype/namespace.php256, ../inc/admin/metaboxes/namespace.php:555
+#: ../inc/posttype/namespace.php233, ../inc/admin/metaboxes/namespace.php:555
 msgid "Show title in exports"
 msgstr "내보내기에 제목 보이기"
 
-#: ../inc/posttype/namespace.php261, ../inc/admin/metaboxes/namespace.php:563
+#: ../inc/posttype/namespace.php238, ../inc/admin/metaboxes/namespace.php:563
 msgid "Set as ebook start-point"
 msgstr "ebook의 시작 지점으로 설정"
 
-#: ../inc/posttype/namespace.php266, ../inc/admin/metaboxes/namespace.php:496
+#: ../inc/posttype/namespace.php243, ../inc/admin/metaboxes/namespace.php:496
 msgid "Chapter Short Title (appears in the PDF running header)"
 msgstr "챕터 짧은 제목 (PDF 헤더에 표시됩니다.)"
 
-#: ../inc/posttype/namespace.php270, ../inc/admin/metaboxes/namespace.php:503
+#: ../inc/posttype/namespace.php247, ../inc/admin/metaboxes/namespace.php:503
 msgid "Chapter Subtitle (appears in the Web/ebook/PDF output)"
 msgstr "챕터 부제 (WEB/ebook/PDF에 표시됩니다.)"
 
-#: ../inc/posttype/namespace.php274, ../inc/admin/metaboxes/namespace.php:510
+#: ../inc/posttype/namespace.php251, ../inc/admin/metaboxes/namespace.php:510
 msgid "Chapter Author (appears in Web/ebook/PDF output)"
 msgstr "챕터 저자 (WEB/ebook/PDF에 표시됩니다.)"
 
-#: ../inc/posttype/namespace.php278, ../inc/admin/metaboxes/namespace.php:519
+#: ../inc/posttype/namespace.php255, ../inc/admin/metaboxes/namespace.php:519
 msgid "Chapter Copyright License (overrides book license on this page)"
 msgstr "챕터 저작권 (overrides book license on this page)"
 
-#: ../inc/posttype/namespace.php:296
+#: ../inc/posttype/namespace.php:273
 msgid "Part updated. <a target=\"_blank\" href=\"%s\">View Part</a>"
 msgstr "파트 업데이트. <a target=\"_blank\" href=\"%s\">파트 보기</a>"
 
-#: ../inc/posttype/namespace.php296, ../inc/posttype/namespace.php:299
+#: ../inc/posttype/namespace.php273, ../inc/posttype/namespace.php:276
 msgid "Part updated."
 msgstr "파트 업데이트"
 
-#: ../inc/posttype/namespace.php297, ../inc/posttype/namespace.php316,
-#: ../inc/posttype/namespace.php329, ../inc/posttype/namespace.php348,
-#: ../inc/posttype/namespace.php:367
+#: ../inc/posttype/namespace.php274, ../inc/posttype/namespace.php293,
+#: ../inc/posttype/namespace.php306, ../inc/posttype/namespace.php325,
+#: ../inc/posttype/namespace.php:344
 msgid "Custom field updated."
 msgstr "사용자 필드 업데이트"
 
-#: ../inc/posttype/namespace.php298, ../inc/posttype/namespace.php317,
-#: ../inc/posttype/namespace.php330, ../inc/posttype/namespace.php349,
-#: ../inc/posttype/namespace.php:368
+#: ../inc/posttype/namespace.php275, ../inc/posttype/namespace.php294,
+#: ../inc/posttype/namespace.php307, ../inc/posttype/namespace.php326,
+#: ../inc/posttype/namespace.php:345
 msgid "Custom field deleted."
 msgstr "사용자 필드 업데이트"
 
-#: ../inc/posttype/namespace.php:301
+#: ../inc/posttype/namespace.php:278
 msgid "Part restored to revision from %s"
 msgstr "파트가 %s 버전으로 복원되었습니다."
 
-#: ../inc/posttype/namespace.php:302
+#: ../inc/posttype/namespace.php:279
 msgid "Part published. <a target=\"_blank\" href=\"%s\">View Part</a>"
 msgstr "파트 발행. <a target=\"_blank\" href=\"%s\">파트 보기</a>"
 
-#: ../inc/posttype/namespace.php:302
+#: ../inc/posttype/namespace.php:279
 msgid "Part published."
 msgstr "파트 발행"
 
-#: ../inc/posttype/namespace.php:303
+#: ../inc/posttype/namespace.php:280
 msgid "Part saved."
 msgstr "파트 저장"
 
-#: ../inc/posttype/namespace.php:304
+#: ../inc/posttype/namespace.php:281
 msgid "Part submitted. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
 msgstr "파트 제출. <a target=\"_blank\" href=\"%s\">파트 미리보기</a>"
 
-#: ../inc/posttype/namespace.php:306
+#: ../inc/posttype/namespace.php:283
 msgid ""
 "Part scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Part</a>"
 msgstr "파트 예약발행: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">파트 미리보기</a>"
 
-#: ../inc/posttype/namespace.php308, ../inc/posttype/namespace.php340,
-#: ../inc/posttype/namespace.php359, ../inc/posttype/namespace.php:378
+#: ../inc/posttype/namespace.php285, ../inc/posttype/namespace.php317,
+#: ../inc/posttype/namespace.php336, ../inc/posttype/namespace.php:355
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: ../inc/posttype/namespace.php:310
+#: ../inc/posttype/namespace.php:287
 msgid "Part draft updated. <a target=\"_blank\" href=\"%s\">Preview Part</a>"
 msgstr "파트 초안 업데이트. <a target=\"_blank\" href=\"%s\">파트 미리보기</a>"
 
-#: ../inc/posttype/namespace.php315, ../inc/posttype/namespace.php318,
-#: ../inc/posttype/namespace.php:321
+#: ../inc/posttype/namespace.php292, ../inc/posttype/namespace.php295,
+#: ../inc/posttype/namespace.php:298
 msgid "Book Information updated."
 msgstr "도서 정보 업데이트"
 
-#: ../inc/posttype/namespace.php:320
+#: ../inc/posttype/namespace.php:297
 msgid "Book Information restored to revision from %s"
 msgstr "도서 정보가 %s 버전으로 복원되었습니다."
 
-#: ../inc/posttype/namespace.php:322
+#: ../inc/posttype/namespace.php:299
 msgid "Book Information saved."
 msgstr "도서 정보 저장"
 
-#: ../inc/posttype/namespace.php:323
+#: ../inc/posttype/namespace.php:300
 msgid "Book Information submitted."
 msgstr "도서 정보 제출"
 
-#: ../inc/posttype/namespace.php:328
+#: ../inc/posttype/namespace.php:305
 msgid "Chapter updated. <a target=\"_blank\" href=\"%s\">View Chapter</a>"
 msgstr "챕터 업데이트. <a target=\"_blank\" href=\"%s\">챕터 보기</a>"
 
-#: ../inc/posttype/namespace.php:331
+#: ../inc/posttype/namespace.php:308
 msgid "Chapter updated."
 msgstr "챕터 업데이트"
 
-#: ../inc/posttype/namespace.php:333
+#: ../inc/posttype/namespace.php:310
 msgid "Chapter restored to revision from %s"
 msgstr "챕터가 %s 버전으로 복원되었습니다."
 
-#: ../inc/posttype/namespace.php:334
+#: ../inc/posttype/namespace.php:311
 msgid "Chapter published. <a href=\"%s\">View Chapter</a>"
 msgstr "챕터 발행. <a target=\"_blank\" href=\"%s\">챕터 보기</a>"
 
-#: ../inc/posttype/namespace.php:335
+#: ../inc/posttype/namespace.php:312
 msgid "Chapter saved."
 msgstr "챕터 저장"
 
-#: ../inc/posttype/namespace.php:336
+#: ../inc/posttype/namespace.php:313
 msgid "Chapter submitted. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
 msgstr "챕터 제출됨. <a target=\"_blank\" href=\"%s\">챕터 미리보기</a>"
 
-#: ../inc/posttype/namespace.php:338
+#: ../inc/posttype/namespace.php:315
 msgid ""
 "Chapter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Chapter</a>"
 msgstr "챕터 예약발행: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">챕터 미리보기</a>"
 
-#: ../inc/posttype/namespace.php:342
+#: ../inc/posttype/namespace.php:319
 msgid "Chapter draft updated. <a target=\"_blank\" href=\"%s\">Preview Chapter</a>"
 msgstr "챕터 초안 업데이트. <a target=\"_blank\" href=\"%s\">챕터 미리보기</a>"
 
-#: ../inc/posttype/namespace.php:347
+#: ../inc/posttype/namespace.php:324
 msgid "Front Matter updated. <a target=\"_blank\" href=\"%s\">View Front Matter</a>"
 msgstr "머리말 업데이트. <a target=\"_blank\" href=\"%s\">머리말 보기</a>"
 
-#: ../inc/posttype/namespace.php:350
+#: ../inc/posttype/namespace.php:327
 msgid "Front Matter updated."
 msgstr "머리말 업데이트"
 
-#: ../inc/posttype/namespace.php:352
+#: ../inc/posttype/namespace.php:329
 msgid "Front Matter restored to revision from %s"
 msgstr "머리말이 %s 버전으로 복원되었습니다."
 
-#: ../inc/posttype/namespace.php:353
+#: ../inc/posttype/namespace.php:330
 msgid "Front Matter published. <a href=\"%s\">View Front Matter</a>"
 msgstr "머리말 발행. <a target=\"_blank\" href=\"%s\">머리말 보기</a>"
 
-#: ../inc/posttype/namespace.php:354
+#: ../inc/posttype/namespace.php:331
 msgid "Front Matter saved."
 msgstr "머리말 저장."
 
-#: ../inc/posttype/namespace.php:355
+#: ../inc/posttype/namespace.php:332
 msgid ""
 "Front Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Front "
 "Matter</a>"
 msgstr "머리말 제출. <a target=\"_blank\" href=\"%s\">머리말 미리보기</a>"
 
-#: ../inc/posttype/namespace.php:357
+#: ../inc/posttype/namespace.php:334
 msgid ""
 "Front Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Front Matter</a>"
 msgstr "머리말 예약발행: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">머리말 미리보기</a>"
 
-#: ../inc/posttype/namespace.php:361
+#: ../inc/posttype/namespace.php:338
 msgid ""
 "Front Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Front "
 "Matter</a>"
 msgstr "머리말 초안 업데이트. <a target=\"_blank\" href=\"%s\">머리말 미리보기</a>"
 
-#: ../inc/posttype/namespace.php:366
+#: ../inc/posttype/namespace.php:343
 msgid "Back Matter updated. <a target=\"_blank\" href=\"%s\">View Back Matter</a>"
 msgstr "부록 업데이트. <a target=\"_blank\" href=\"%s\">부록 보기</a>"
 
-#: ../inc/posttype/namespace.php:369
+#: ../inc/posttype/namespace.php:346
 msgid "Back Matter updated."
 msgstr "부록 업데이트"
 
-#: ../inc/posttype/namespace.php:371
+#: ../inc/posttype/namespace.php:348
 msgid "Back Matter restored to revision from %s"
 msgstr "부록이 %s 버전으로 복원되었습니다."
 
-#: ../inc/posttype/namespace.php:372
+#: ../inc/posttype/namespace.php:349
 msgid "Back Matter published. <a href=\"%s\">View Back Matter</a>"
 msgstr "부록 발행. <a target=\"_blank\" href=\"%s\">부록 보기</a>"
 
-#: ../inc/posttype/namespace.php:373
+#: ../inc/posttype/namespace.php:350
 msgid "Back Matter saved."
 msgstr "부록 저장됨."
 
-#: ../inc/posttype/namespace.php:374
+#: ../inc/posttype/namespace.php:351
 msgid ""
 "Back Matter submitted. <a target=\"_blank\" href=\"%s\">Preview Back "
 "Matter</a>"
 msgstr "부록 제출. <a target=\"_blank\" href=\"%s\">부록 미리보기</a>"
 
-#: ../inc/posttype/namespace.php:376
+#: ../inc/posttype/namespace.php:353
 msgid ""
 "Back Matter scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" "
 "href=\"%2$s\">Preview Back Matter</a>"
 msgstr "부록 예약발행: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">부록 미리보기</a>"
 
-#: ../inc/posttype/namespace.php:380
+#: ../inc/posttype/namespace.php:357
 msgid ""
 "Back Matter draft updated. <a target=\"_blank\" href=\"%s\">Preview Back "
 "Matter</a>"
 msgstr "부록 초안 업데이트. <a target=\"_blank\" href=\"%s\">부록 미리보기</a>"
 
-#: ../inc/posttype/namespace.php424,
+#: ../inc/posttype/namespace.php401,
 #: ../inc/modules/import/wordpress/class-wxr.php:234
 msgid "parts"
 msgstr ""
 
-#: ../inc/posttype/namespace.php425,
+#: ../inc/posttype/namespace.php402,
 #: ../inc/modules/import/wordpress/class-wxr.php:235
 msgid "chapters"
 msgstr ""
 
-#: ../inc/posttype/namespace.php426,
+#: ../inc/posttype/namespace.php403,
 #: ../inc/modules/import/wordpress/class-wxr.php:233
 msgid "front matter"
 msgstr ""
 
-#: ../inc/posttype/namespace.php427,
+#: ../inc/posttype/namespace.php404,
 #: ../inc/modules/import/wordpress/class-wxr.php:236
 msgid "back matter"
 msgstr ""
 
-#: ../inc/redirect/namespace.php169, ../inc/redirect/namespace.php:401
+#: ../inc/redirect/namespace.php169, ../inc/redirect/namespace.php:402
 msgid "Error: Unknown export format."
 msgstr "Error: 알려지지 않은 내보내기 유형"
 
-#: ../inc/redirect/namespace.php371,
-#: ../inc/modules/export/class-export.php:247
+#: ../inc/redirect/namespace.php372,
+#: ../inc/modules/export/class-export.php:248
 msgid "book"
 msgstr "책"
 
-#: ../inc/redirect/namespace.php376,
-#: ../inc/modules/export/class-export.php:837
+#: ../inc/redirect/namespace.php377,
+#: ../inc/modules/export/class-export.php:813
 msgid "File not found"
 msgstr "파일을 찾을 수 없습니다."
 
-#: ../inc/redirect/namespace.php:442
+#: ../inc/redirect/namespace.php:443
 msgid "Unsupported post type."
 msgstr "지원하지 않는 포스트 유형"
 
-#: ../inc/redirect/namespace.php:467
+#: ../inc/redirect/namespace.php:468
 msgid "You do not have sufficient permissions to access that URL."
 msgstr "해당 URL에 접근할 수 있는 권한이 없습니다."
 
@@ -1664,38 +1718,6 @@ msgstr ""
 msgid "Google Analytics settings."
 msgstr ""
 
-#: ../inc/admin/customcss/namespace.php19,
-#: ../inc/admin/customcss/namespace.php19,
-#: ../templates/admin/custom-css.php:28
-msgid "Edit CSS"
-msgstr "CSS 편집"
-
-#: ../inc/admin/customcss/namespace.php:67
-msgid ""
-"Unexpected Error: There was a problem trying to query slug: %s - Please "
-"contact technical support."
-msgstr "예상치 못한 오류: %s 슬러그를 조회하는 동안 문제가 발생했습니다. 기술 지원 부서에 연락해 주세요."
-
-#: ../inc/admin/customcss/namespace.php:118
-msgid "Last 10 CSS Revisions"
-msgstr "마지막 10개의 CSS 수정본"
-
-#: ../inc/admin/customcss/namespace.php121,
-#: ../inc/modules/export/epub/class-epub201.php961,
-#: ../inc/modules/export/xhtml/class-xhtml11.php744,
-#: ../inc/modules/export/epub/templates/epub201/opf.php90,
-#: ../inc/modules/export/epub/templates/epub3/opf.php:100
-msgid "by"
-msgstr "by"
-
-#: ../inc/admin/customcss/namespace.php:162
-msgid "Web"
-msgstr ""
-
-#: ../inc/admin/customcss/namespace.php:193
-msgid "This will overwrite existing custom CSS. Are you sure?"
-msgstr "기존 사용자 정의 CSS에 덮어쓰기 합니다. 괜찮습니까?"
-
 #: ../inc/admin/dashboard/namespace.php:16
 msgid "Pressbooks News"
 msgstr ""
@@ -1824,7 +1846,7 @@ msgid "Book Info"
 msgstr "도서 정보"
 
 #: ../inc/admin/laf/namespace.php178, ../inc/admin/laf/namespace.php178,
-#: ../inc/admin/laf/namespace.php220, ../templates/admin/export.php129,
+#: ../inc/admin/laf/namespace.php220, ../templates/admin/export.php139,
 #: ../templates/admin/organize.php45, ../templates/admin/organize.php95,
 #: ../templates/admin/organize.php:164
 msgid "Export"
@@ -1835,7 +1857,7 @@ msgid "EPUB is required for MOBI export. Would you like to reenable it?"
 msgstr ""
 
 #: ../inc/admin/laf/namespace.php207, ../inc/admin/laf/namespace.php293,
-#: ../inc/admin/laf/namespace.php987,
+#: ../inc/admin/laf/namespace.php983,
 #: ../inc/admin/network/class-sharingandprivacyoptions.php:226
 msgid "Sharing and Privacy Settings"
 msgstr ""
@@ -1893,66 +1915,66 @@ msgid ""
 "page, this action will NOT be reversable!"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:780
+#: ../inc/admin/laf/namespace.php:776
 msgid "Book Visibility"
 msgstr "도서 가시성"
 
-#: ../inc/admin/laf/namespace.php:787
+#: ../inc/admin/laf/namespace.php:783
 msgid "Private Content"
 msgstr "비공개 내용"
 
-#: ../inc/admin/laf/namespace.php:794
+#: ../inc/admin/laf/namespace.php:790
 msgid "Disable Comments"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:803
+#: ../inc/admin/laf/namespace.php:799
 msgid "Share Latest Export Files"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:837
+#: ../inc/admin/laf/namespace.php:833
 msgid "Sharing and Privacy settings"
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:853
+#: ../inc/admin/laf/namespace.php:849
 msgid "Public. I would like this book to be visible to everyone."
 msgstr "공개. 이 책을 모든 사용자가 볼 수 있기를 원합니다."
 
-#: ../inc/admin/laf/namespace.php:859
+#: ../inc/admin/laf/namespace.php:855
 msgid ""
 "Private. I would like this book to be accessible only to people I invite."
 msgstr "비공개. 이 책을 내가 초대한 사용자만 볼 수 있기를 원합니다."
 
-#: ../inc/admin/laf/namespace.php:882
+#: ../inc/admin/laf/namespace.php:878
 msgid "Who can see private front matter, chapters and back matter?"
 msgstr "비공개인 머리말, 챕터, 부록을 누가 볼 수 있습니까?"
 
-#: ../inc/admin/laf/namespace.php:885
+#: ../inc/admin/laf/namespace.php:881
 msgid "Only logged in editors and administrators."
 msgstr "편집자와 관리자로만 로그인"
 
-#: ../inc/admin/laf/namespace.php:887
+#: ../inc/admin/laf/namespace.php:883
 msgid "All logged in users including subscribers."
 msgstr "구독자를 포함한 모든 사용자 로그인"
 
-#: ../inc/admin/laf/namespace.php:903
+#: ../inc/admin/laf/namespace.php:899
 msgid ""
 "Yes. I want to automatically disable comments, trackbacks and pingbacks on "
 "all front matter, chapters and back matter."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:909
+#: ../inc/admin/laf/namespace.php:905
 msgid ""
 "No. I want to leave comments, trackbacks and pingbacks enabled on all front "
 "matter, chapters and back matter unless I disable them manually."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:925
+#: ../inc/admin/laf/namespace.php:921
 msgid ""
 "Yes. I would like the latest export files to be available on the homepage "
 "for free, to everyone."
 msgstr ""
 
-#: ../inc/admin/laf/namespace.php:931
+#: ../inc/admin/laf/namespace.php:927
 msgid ""
 "No. I would like the latest export files to only be available to "
 "administrators."
@@ -2083,15 +2105,6 @@ msgstr ""
 #: ../inc/admin/metaboxes/namespace.php:288
 msgid "Help translate Pressbooks into your language!"
 msgstr ""
-
-#: ../inc/admin/metaboxes/namespace.php294,
-#: ../inc/modules/export/epub/class-epub201.php952,
-#: ../inc/modules/export/epub/class-epub201.php978,
-#: ../inc/modules/export/xhtml/class-xhtml11.php735,
-#: ../inc/modules/export/epub/templates/epub201/opf.php81,
-#: ../inc/modules/export/epub/templates/epub3/opf.php:91
-msgid "Copyright"
-msgstr "저작권"
 
 #: ../inc/admin/metaboxes/namespace.php:303
 msgid "Copyright Year"
@@ -2426,19 +2439,19 @@ msgid_plural "%d occurrences replaced."
 msgstr[0] ""
 
 #: ../inc/modules/themeoptions/class-ebookoptions.php74,
-#: ../inc/modules/themeoptions/class-pdfoptions.php213,
+#: ../inc/modules/themeoptions/class-pdfoptions.php216,
 #: ../inc/modules/themeoptions/class-weboptions.php:85
 msgid "Paragraph Separation"
 msgstr "단락 구분"
 
 #: ../inc/modules/themeoptions/class-ebookoptions.php79,
-#: ../inc/modules/themeoptions/class-pdfoptions.php218,
+#: ../inc/modules/themeoptions/class-pdfoptions.php221,
 #: ../inc/modules/themeoptions/class-weboptions.php:90
 msgid "Indent paragraphs"
 msgstr "단락 들여쓰기"
 
 #: ../inc/modules/themeoptions/class-ebookoptions.php80,
-#: ../inc/modules/themeoptions/class-pdfoptions.php219,
+#: ../inc/modules/themeoptions/class-pdfoptions.php222,
 #: ../inc/modules/themeoptions/class-weboptions.php:91
 msgid "Skip lines between paragraphs"
 msgstr "단락 사이에 줄 건너뛰기"
@@ -2521,390 +2534,390 @@ msgstr "이 테마는 %s 의 내부적인 지원을 포함하고 있습니다."
 msgid "Global Options"
 msgstr "글로벌 옵션"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:78
+#: ../inc/modules/themeoptions/class-pdfoptions.php:81
 msgid "Body Font Size"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:83
+#: ../inc/modules/themeoptions/class-pdfoptions.php:86
 msgid ""
 "Heading sizes are proportional to the body font size and will also be "
 "affected by this setting."
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:90
+#: ../inc/modules/themeoptions/class-pdfoptions.php:93
 msgid "Body Line Height"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:103
+#: ../inc/modules/themeoptions/class-pdfoptions.php:106
 msgid "Page Size"
 msgstr "페이지 크기"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:108
+#: ../inc/modules/themeoptions/class-pdfoptions.php:111
 msgid "Digest (5.5&quot; &times; 8.5&quot;)"
 msgstr "Digest (5.5&quot; &times; 8.5&quot;)"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:109
+#: ../inc/modules/themeoptions/class-pdfoptions.php:112
 msgid "US Trade (6&quot; &times; 9&quot;)"
 msgstr "US Trade (6&quot; &times; 9&quot;)"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:110
+#: ../inc/modules/themeoptions/class-pdfoptions.php:113
 msgid "US Letter (8.5&quot; &times; 11&quot;)"
 msgstr "US Letter (8.5&quot; &times; 11&quot;)"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:111
+#: ../inc/modules/themeoptions/class-pdfoptions.php:114
 msgid "Custom (8.5&quot; &times; 9.25&quot;)"
 msgstr "Custom (8.5&quot; &times; 9.25&quot;)"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:112
+#: ../inc/modules/themeoptions/class-pdfoptions.php:115
 msgid "Duodecimo (5&quot; &times; 7.75&quot;)"
 msgstr "Duodecimo (5&quot; &times; 7.75&quot;)"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:113
+#: ../inc/modules/themeoptions/class-pdfoptions.php:116
 msgid "Pocket (4.25&quot; &times; 7&quot;)"
 msgstr "Pocket (4.25&quot; &times; 7&quot;)"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:114
+#: ../inc/modules/themeoptions/class-pdfoptions.php:117
 msgid "A4 (21cm &times; 29.7cm)"
 msgstr "A4 (21cm &times; 29.7cm)"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:115
+#: ../inc/modules/themeoptions/class-pdfoptions.php:118
 msgid "A5 (14.8cm &times; 21cm)"
 msgstr "A5 (14.8cm &times; 21cm)"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:116
+#: ../inc/modules/themeoptions/class-pdfoptions.php:119
 msgid "5&quot; &times; 8&quot;"
 msgstr "5&quot; &times; 8&quot;"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php117,
-#: ../inc/modules/themeoptions/class-pdfoptions.php325,
-#: ../inc/modules/themeoptions/class-pdfoptions.php343,
-#: ../inc/modules/themeoptions/class-pdfoptions.php361,
-#: ../inc/modules/themeoptions/class-pdfoptions.php379,
-#: ../inc/modules/themeoptions/class-pdfoptions.php396,
-#: ../inc/modules/themeoptions/class-pdfoptions.php413,
-#: ../inc/modules/themeoptions/class-pdfoptions.php433,
-#: ../inc/modules/themeoptions/class-pdfoptions.php453,
-#: ../inc/modules/themeoptions/class-pdfoptions.php471,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:489
+#: ../inc/modules/themeoptions/class-pdfoptions.php120,
+#: ../inc/modules/themeoptions/class-pdfoptions.php328,
+#: ../inc/modules/themeoptions/class-pdfoptions.php346,
+#: ../inc/modules/themeoptions/class-pdfoptions.php364,
+#: ../inc/modules/themeoptions/class-pdfoptions.php382,
+#: ../inc/modules/themeoptions/class-pdfoptions.php399,
+#: ../inc/modules/themeoptions/class-pdfoptions.php416,
+#: ../inc/modules/themeoptions/class-pdfoptions.php436,
+#: ../inc/modules/themeoptions/class-pdfoptions.php456,
+#: ../inc/modules/themeoptions/class-pdfoptions.php474,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:492
 msgid "Custom&hellip;"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:123
+#: ../inc/modules/themeoptions/class-pdfoptions.php:126
 msgid "Page Width"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:128
+#: ../inc/modules/themeoptions/class-pdfoptions.php:131
 msgid ""
 "Page width must be expressed in CSS-compatible units, e.g. "
 "&lsquo;5.5in&rsquo; or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:134
+#: ../inc/modules/themeoptions/class-pdfoptions.php:137
 msgid "Page Height"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:139
+#: ../inc/modules/themeoptions/class-pdfoptions.php:142
 msgid ""
 "Page height must be expressed in CSS-compatible units, e.g. "
 "&lsquo;8.5in&rsquo; or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:146
+#: ../inc/modules/themeoptions/class-pdfoptions.php:149
 msgid "Margins"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:151
+#: ../inc/modules/themeoptions/class-pdfoptions.php:154
 msgid "Customize your book&rsquo;s margins using the fields below."
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php157,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:793
+#: ../inc/modules/themeoptions/class-pdfoptions.php160,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:796
 msgid "Outside Margin"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php162,
-#: ../inc/modules/themeoptions/class-pdfoptions.php173,
-#: ../inc/modules/themeoptions/class-pdfoptions.php184,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:195
+#: ../inc/modules/themeoptions/class-pdfoptions.php165,
+#: ../inc/modules/themeoptions/class-pdfoptions.php176,
+#: ../inc/modules/themeoptions/class-pdfoptions.php187,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:198
 msgid ""
 "Margins must be expressed in CSS-compatible units, e.g. &lsquo;8.5in&rsquo; "
 "or &lsquo;10cm&rsquo;."
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php168,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:794
+#: ../inc/modules/themeoptions/class-pdfoptions.php171,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:797
 msgid "Inside Margin"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php179,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:795
+#: ../inc/modules/themeoptions/class-pdfoptions.php182,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:798
 msgid "Top Margin"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php190,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:796
+#: ../inc/modules/themeoptions/class-pdfoptions.php193,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:799
 msgid "Bottom Margin"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:202
+#: ../inc/modules/themeoptions/class-pdfoptions.php:205
 msgid "Hyphens"
 msgstr "하이픈"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:207
+#: ../inc/modules/themeoptions/class-pdfoptions.php:210
 msgid "Enable hyphenation"
 msgstr "하이픈으로 연결하기 활성화"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:225
+#: ../inc/modules/themeoptions/class-pdfoptions.php:228
 msgid "Section Openings"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:230
+#: ../inc/modules/themeoptions/class-pdfoptions.php:233
 msgid "Left or right page section opening (for print PDF)"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:231
+#: ../inc/modules/themeoptions/class-pdfoptions.php:234
 msgid "Right page section openings (for print PDF)"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:232
+#: ../inc/modules/themeoptions/class-pdfoptions.php:235
 msgid "No blank pages (for web PDF)"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:243
+#: ../inc/modules/themeoptions/class-pdfoptions.php:246
 msgid "Display table of contents"
 msgstr "목차 보이기"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:249
+#: ../inc/modules/themeoptions/class-pdfoptions.php:252
 msgid "Crop Marks"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:254
+#: ../inc/modules/themeoptions/class-pdfoptions.php:257
 msgid "Display crop marks"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:261
+#: ../inc/modules/themeoptions/class-pdfoptions.php:264
 msgid "Romanize Part Numbers"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:266
+#: ../inc/modules/themeoptions/class-pdfoptions.php:269
 msgid "Convert part numbers into Roman numerals"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:273
+#: ../inc/modules/themeoptions/class-pdfoptions.php:276
 msgid "Footnote Style"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:278
+#: ../inc/modules/themeoptions/class-pdfoptions.php:281
 msgid "Regular footnotes"
 msgstr "각주footnote로 보내기"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:279
+#: ../inc/modules/themeoptions/class-pdfoptions.php:282
 msgid "Display as chapter endnotes"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:285
+#: ../inc/modules/themeoptions/class-pdfoptions.php:288
 msgid "Widows"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:293
+#: ../inc/modules/themeoptions/class-pdfoptions.php:296
 msgid "Orphans"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:302
+#: ../inc/modules/themeoptions/class-pdfoptions.php:305
 msgid "Running Heads & Feet"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:307
+#: ../inc/modules/themeoptions/class-pdfoptions.php:310
 msgid ""
 "Running content appears in either running heads or running feet (at the top "
 "or bottom of the page) depending on your theme."
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:313
+#: ../inc/modules/themeoptions/class-pdfoptions.php:316
 msgid "Front Matter Left Page Running Content"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php318,
-#: ../inc/modules/themeoptions/class-pdfoptions.php336,
-#: ../inc/modules/themeoptions/class-pdfoptions.php354,
-#: ../inc/modules/themeoptions/class-pdfoptions.php372,
-#: ../inc/modules/themeoptions/class-pdfoptions.php390,
-#: ../inc/modules/themeoptions/class-pdfoptions.php407,
-#: ../inc/modules/themeoptions/class-pdfoptions.php424,
-#: ../inc/modules/themeoptions/class-pdfoptions.php444,
-#: ../inc/modules/themeoptions/class-pdfoptions.php464,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:482
-msgid "Book Title"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php319,
-#: ../inc/modules/themeoptions/class-pdfoptions.php337,
-#: ../inc/modules/themeoptions/class-pdfoptions.php355,
-#: ../inc/modules/themeoptions/class-pdfoptions.php373,
-#: ../inc/modules/themeoptions/class-pdfoptions.php391,
-#: ../inc/modules/themeoptions/class-pdfoptions.php408,
-#: ../inc/modules/themeoptions/class-pdfoptions.php425,
-#: ../inc/modules/themeoptions/class-pdfoptions.php445,
-#: ../inc/modules/themeoptions/class-pdfoptions.php465,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:483
-msgid "Book Subtitle"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php320,
-#: ../inc/modules/themeoptions/class-pdfoptions.php338,
-#: ../inc/modules/themeoptions/class-pdfoptions.php356,
-#: ../inc/modules/themeoptions/class-pdfoptions.php374,
-#: ../inc/modules/themeoptions/class-pdfoptions.php392,
-#: ../inc/modules/themeoptions/class-pdfoptions.php409,
-#: ../inc/modules/themeoptions/class-pdfoptions.php426,
-#: ../inc/modules/themeoptions/class-pdfoptions.php446,
-#: ../inc/modules/themeoptions/class-pdfoptions.php466,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:484
-msgid "Book Author"
-msgstr ""
-
 #: ../inc/modules/themeoptions/class-pdfoptions.php321,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:339
-msgid "Front Matter Title"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php322,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:340
-msgid "Front Matter Author"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php323,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:341
-msgid "Front Matter Subtitle"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php324,
-#: ../inc/modules/themeoptions/class-pdfoptions.php342,
-#: ../inc/modules/themeoptions/class-pdfoptions.php360,
-#: ../inc/modules/themeoptions/class-pdfoptions.php378,
-#: ../inc/modules/themeoptions/class-pdfoptions.php395,
-#: ../inc/modules/themeoptions/class-pdfoptions.php412,
-#: ../inc/modules/themeoptions/class-pdfoptions.php432,
-#: ../inc/modules/themeoptions/class-pdfoptions.php452,
-#: ../inc/modules/themeoptions/class-pdfoptions.php470,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:488
-msgid "Blank"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php:331
-msgid "Front Matter Right Page Running Content"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php:349
-msgid "Introduction Left Page Running Content"
-msgstr ""
-
+#: ../inc/modules/themeoptions/class-pdfoptions.php339,
 #: ../inc/modules/themeoptions/class-pdfoptions.php357,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:375
-msgid "Introduction Title"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php358,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:376
-msgid "Introduction Author"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php359,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:377
-msgid "Introduction Subtitle"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php:367
-msgid "Introduction Right Page Running Content"
-msgstr ""
-
-#: ../inc/modules/themeoptions/class-pdfoptions.php:385
-msgid "Part Left Page Running Content"
-msgstr ""
-
+#: ../inc/modules/themeoptions/class-pdfoptions.php375,
 #: ../inc/modules/themeoptions/class-pdfoptions.php393,
 #: ../inc/modules/themeoptions/class-pdfoptions.php410,
 #: ../inc/modules/themeoptions/class-pdfoptions.php427,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:447
-msgid "Part Number"
+#: ../inc/modules/themeoptions/class-pdfoptions.php447,
+#: ../inc/modules/themeoptions/class-pdfoptions.php467,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:485
+msgid "Book Title"
 msgstr ""
 
+#: ../inc/modules/themeoptions/class-pdfoptions.php322,
+#: ../inc/modules/themeoptions/class-pdfoptions.php340,
+#: ../inc/modules/themeoptions/class-pdfoptions.php358,
+#: ../inc/modules/themeoptions/class-pdfoptions.php376,
 #: ../inc/modules/themeoptions/class-pdfoptions.php394,
 #: ../inc/modules/themeoptions/class-pdfoptions.php411,
 #: ../inc/modules/themeoptions/class-pdfoptions.php428,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:448
+#: ../inc/modules/themeoptions/class-pdfoptions.php448,
+#: ../inc/modules/themeoptions/class-pdfoptions.php468,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:486
+msgid "Book Subtitle"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php323,
+#: ../inc/modules/themeoptions/class-pdfoptions.php341,
+#: ../inc/modules/themeoptions/class-pdfoptions.php359,
+#: ../inc/modules/themeoptions/class-pdfoptions.php377,
+#: ../inc/modules/themeoptions/class-pdfoptions.php395,
+#: ../inc/modules/themeoptions/class-pdfoptions.php412,
+#: ../inc/modules/themeoptions/class-pdfoptions.php429,
+#: ../inc/modules/themeoptions/class-pdfoptions.php449,
+#: ../inc/modules/themeoptions/class-pdfoptions.php469,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:487
+msgid "Book Author"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php324,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:342
+msgid "Front Matter Title"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php325,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:343
+msgid "Front Matter Author"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php326,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:344
+msgid "Front Matter Subtitle"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php327,
+#: ../inc/modules/themeoptions/class-pdfoptions.php345,
+#: ../inc/modules/themeoptions/class-pdfoptions.php363,
+#: ../inc/modules/themeoptions/class-pdfoptions.php381,
+#: ../inc/modules/themeoptions/class-pdfoptions.php398,
+#: ../inc/modules/themeoptions/class-pdfoptions.php415,
+#: ../inc/modules/themeoptions/class-pdfoptions.php435,
+#: ../inc/modules/themeoptions/class-pdfoptions.php455,
+#: ../inc/modules/themeoptions/class-pdfoptions.php473,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:491
+msgid "Blank"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php:334
+msgid "Front Matter Right Page Running Content"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php:352
+msgid "Introduction Left Page Running Content"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php360,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:378
+msgid "Introduction Title"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php361,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:379
+msgid "Introduction Author"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php362,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:380
+msgid "Introduction Subtitle"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php:370
+msgid "Introduction Right Page Running Content"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php:388
+msgid "Part Left Page Running Content"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php396,
+#: ../inc/modules/themeoptions/class-pdfoptions.php413,
+#: ../inc/modules/themeoptions/class-pdfoptions.php430,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:450
+msgid "Part Number"
+msgstr ""
+
+#: ../inc/modules/themeoptions/class-pdfoptions.php397,
+#: ../inc/modules/themeoptions/class-pdfoptions.php414,
+#: ../inc/modules/themeoptions/class-pdfoptions.php431,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:451
 msgid "Part Title"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:402
+#: ../inc/modules/themeoptions/class-pdfoptions.php:405
 msgid "Part Right Page Running Content"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:419
+#: ../inc/modules/themeoptions/class-pdfoptions.php:422
 msgid "Chapter Left Page Running Content"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php429,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:449
+#: ../inc/modules/themeoptions/class-pdfoptions.php432,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:452
 msgid "Chapter Title"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php430,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:450
+#: ../inc/modules/themeoptions/class-pdfoptions.php433,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:453
 msgid "Chapter Author"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php431,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:451
+#: ../inc/modules/themeoptions/class-pdfoptions.php434,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:454
 msgid "Chapter Subtitle"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:439
+#: ../inc/modules/themeoptions/class-pdfoptions.php:442
 msgid "Chapter Right Page Running Content"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:459
+#: ../inc/modules/themeoptions/class-pdfoptions.php:462
 msgid "Back Matter Left Page Running Content"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php467,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:485
+#: ../inc/modules/themeoptions/class-pdfoptions.php470,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:488
 msgid "Back Matter Title"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php468,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:486
+#: ../inc/modules/themeoptions/class-pdfoptions.php471,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:489
 msgid "Back Matter Author"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php469,
-#: ../inc/modules/themeoptions/class-pdfoptions.php:487
+#: ../inc/modules/themeoptions/class-pdfoptions.php472,
+#: ../inc/modules/themeoptions/class-pdfoptions.php:490
 msgid "Back Matter Subtitle"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:477
+#: ../inc/modules/themeoptions/class-pdfoptions.php:480
 msgid "Back Matter Right Page Running Content"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:497
+#: ../inc/modules/themeoptions/class-pdfoptions.php:500
 msgid "Increase Font Size"
 msgstr "폰트 사이즈 키우기"
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:502
+#: ../inc/modules/themeoptions/class-pdfoptions.php:505
 msgid "Increases font size and line height for greater accessibility"
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:525
+#: ../inc/modules/themeoptions/class-pdfoptions.php:528
 msgid "These options apply to PDF exports."
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:801
+#: ../inc/modules/themeoptions/class-pdfoptions.php:804
 msgid ""
 "IMPORTANT: If you plan to use a print-on-demand service, margins under 2cm "
 "on any side can cause your file to be rejected."
 msgstr ""
 
-#: ../inc/modules/themeoptions/class-pdfoptions.php:1339
+#: ../inc/modules/themeoptions/class-pdfoptions.php:1342
 msgid "PDF Options"
 msgstr "PDF옵션"
 
@@ -2976,14 +2989,14 @@ msgstr ""
 
 #: ../inc/api/endpoints/controller/class-metadata.php68,
 #: ../inc/api/endpoints/controller/class-metadata.php87,
-#: ../inc/api/endpoints/controller/class-metadata.php165,
-#: ../inc/api/endpoints/controller/class-metadata.php194,
-#: ../inc/api/endpoints/controller/class-metadata.php217,
-#: ../inc/api/endpoints/controller/class-metadata.php240,
-#: ../inc/api/endpoints/controller/class-metadata.php263,
-#: ../inc/api/endpoints/controller/class-metadata.php284,
-#: ../inc/api/endpoints/controller/class-metadata.php303,
-#: ../inc/api/endpoints/controller/class-metadata.php337,
+#: ../inc/api/endpoints/controller/class-metadata.php171,
+#: ../inc/api/endpoints/controller/class-metadata.php200,
+#: ../inc/api/endpoints/controller/class-metadata.php223,
+#: ../inc/api/endpoints/controller/class-metadata.php246,
+#: ../inc/api/endpoints/controller/class-metadata.php269,
+#: ../inc/api/endpoints/controller/class-metadata.php290,
+#: ../inc/api/endpoints/controller/class-metadata.php309,
+#: ../inc/api/endpoints/controller/class-metadata.php343,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php104,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php153,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php182,
@@ -2997,13 +3010,13 @@ msgid "The type of the thing."
 msgstr ""
 
 #: ../inc/api/endpoints/controller/class-metadata.php74,
-#: ../inc/api/endpoints/controller/class-metadata.php171,
-#: ../inc/api/endpoints/controller/class-metadata.php200,
-#: ../inc/api/endpoints/controller/class-metadata.php223,
-#: ../inc/api/endpoints/controller/class-metadata.php246,
-#: ../inc/api/endpoints/controller/class-metadata.php269,
-#: ../inc/api/endpoints/controller/class-metadata.php290,
-#: ../inc/api/endpoints/controller/class-metadata.php343,
+#: ../inc/api/endpoints/controller/class-metadata.php177,
+#: ../inc/api/endpoints/controller/class-metadata.php206,
+#: ../inc/api/endpoints/controller/class-metadata.php229,
+#: ../inc/api/endpoints/controller/class-metadata.php252,
+#: ../inc/api/endpoints/controller/class-metadata.php275,
+#: ../inc/api/endpoints/controller/class-metadata.php296,
+#: ../inc/api/endpoints/controller/class-metadata.php349,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php110,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php159,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php188,
@@ -3059,82 +3072,88 @@ msgid ""
 msgstr ""
 
 #: ../inc/api/endpoints/controller/class-metadata.php:139
+msgid ""
+"A short description of the item used to disambiguate from other, similar "
+"items."
+msgstr ""
+
+#: ../inc/api/endpoints/controller/class-metadata.php:145
 msgid "A description of the item."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php:146
+#: ../inc/api/endpoints/controller/class-metadata.php:152
 msgid "An image of the item."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php152,
+#: ../inc/api/endpoints/controller/class-metadata.php158,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:128
 msgid "The position of an item in a series or sequence of items."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php158,
+#: ../inc/api/endpoints/controller/class-metadata.php164,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:146
 msgid "The author of this content."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php177,
+#: ../inc/api/endpoints/controller/class-metadata.php183,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:165
 msgid "An alias for the thing."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php187,
+#: ../inc/api/endpoints/controller/class-metadata.php193,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:175
 msgid "A secondary contributor to the Book."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php210,
+#: ../inc/api/endpoints/controller/class-metadata.php216,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:198
 msgid "Specifies the Person who edited the Book."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php233,
+#: ../inc/api/endpoints/controller/class-metadata.php239,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:221
 msgid ""
 "Organization or person who adapts a Book to different languages, regional "
 "differences and technical requirements of a target market."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php256,
+#: ../inc/api/endpoints/controller/class-metadata.php262,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:244
 msgid "An intended audience, i.e. a group for whom something was created."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php277,
+#: ../inc/api/endpoints/controller/class-metadata.php283,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:265
 msgid "The publisher of the Book."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php296,
+#: ../inc/api/endpoints/controller/class-metadata.php302,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:284
 msgid "Physical address of the item."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php309,
+#: ../inc/api/endpoints/controller/class-metadata.php315,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:297
 msgid "The locality."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php323,
+#: ../inc/api/endpoints/controller/class-metadata.php329,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:311
 msgid "Date of first publication. A date value in ISO 8601 date format."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php329,
+#: ../inc/api/endpoints/controller/class-metadata.php335,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:317
 msgid "The party holding the legal copyright to the CreativeWork."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php354,
+#: ../inc/api/endpoints/controller/class-metadata.php360,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:342
 msgid ""
 "A license document that applies to this content, typically indicated by URL."
 msgstr ""
 
-#: ../inc/api/endpoints/controller/class-metadata.php361,
+#: ../inc/api/endpoints/controller/class-metadata.php367,
 #: ../inc/api/endpoints/controller/class-sectionmetadata.php:349
 msgid ""
 "A resource that was used in the creation of this resource. This term can be "
@@ -3189,28 +3208,28 @@ msgstr ""
 msgid "Word count."
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:895
+#: ../inc/modules/export/epub/class-epub201.php:907
 msgid "Publisher Logo"
 msgstr ""
 
-#: ../inc/modules/export/epub/class-epub201.php:905
+#: ../inc/modules/export/epub/class-epub201.php:917
 msgid "Title Page"
 msgstr "제목 페이지"
 
-#: ../inc/modules/export/epub/class-epub201.php:1194
+#: ../inc/modules/export/epub/class-epub201.php:1221
 msgid "Make your own books using Pressbooks.com"
 msgstr "Pressbooks.com을 사용해서 여러분의 책을 만드세요."
 
-#: ../inc/modules/export/epub/class-epub201.php:1577
+#: ../inc/modules/export/epub/class-epub201.php:1604
 msgid "Table Of Contents"
 msgstr "목차"
 
-#: ../inc/modules/export/epub/class-epub201.php1592,
-#: ../inc/modules/export/xhtml/class-xhtml11.php:807
+#: ../inc/modules/export/epub/class-epub201.php1619,
+#: ../inc/modules/export/xhtml/class-xhtml11.php:823
 msgid "Contents"
 msgstr "내용"
 
-#: ../inc/modules/export/prince/class-pdf.php:278
+#: ../inc/modules/export/prince/class-pdf.php:269
 msgid ""
 "This book was produced using Pressbooks.com, and PDF rendering was done by "
 "PrinceXML."
@@ -3340,7 +3359,7 @@ msgstr "두 번째"
 msgid "Apply Class"
 msgstr ""
 
-#: ../pressbooks.php:97
+#: ../pressbooks.php:111
 msgid "Cannot find Pressbooks install."
 msgstr "Pressbooks 설치를 찾을 수 없습니다."
 
@@ -3457,7 +3476,7 @@ msgid "Settings"
 msgstr ""
 
 #: ../symbionts/pressbooks-latex/pb-latex-admin.php41,
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:189
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:182
 msgid "Insufficient LaTeX-fu"
 msgstr ""
 
@@ -3480,67 +3499,63 @@ msgstr ""
 msgid "Invalid background color"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:107
-msgid "<code>latex</code> path not found."
-msgstr ""
-
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:136
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:129
 msgid "Test Image"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:138
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:131
 msgid "If you can see a big integral, all is well."
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:199
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:192
 msgid "WordPress.com LaTeX Server (recommended)"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:242
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:235
 msgid "PB LaTeX Options"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:252
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:245
 msgid "Syntax"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:254
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:247
 msgid ""
 "You may use either the shortcode syntax %s<br /> or the &#8220;inline&#8221;"
 " syntax %s OR %s<br /> to insert LaTeX into your posts."
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:259
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:252
 msgid ""
 "For more information, see the <a href=\"http://wordpress.org/extend/plugins"
 "/wp-latex/faq/\">FAQ</a>"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:266
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:259
 msgid "LaTeX generation method"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:277
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:270
 msgid "Default text color"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:280
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:273
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:285
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:278
 msgid "Default background color"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:288
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:281
 msgid ""
 "A six digit hexadecimal number like <code>000000</code> or "
 "<code>ffffff</code>, or <code>transparent</code>"
 msgstr ""
 
-#: ../symbionts/pressbooks-latex/pb-latex-admin.php:296
+#: ../symbionts/pressbooks-latex/pb-latex-admin.php:289
 msgid "Update LaTeX Options"
 msgstr ""
 
@@ -3626,19 +3641,23 @@ msgstr ""
 msgid "Clone It!"
 msgstr ""
 
-#: ../templates/admin/custom-css.php:21
+#: ../templates/admin/custom-styles.php:27
 msgid "Error: Something went wrong. See logs for more details."
 msgstr "Error: 문제가 생겼습니다. 자세한 내용은 로그를 참고해주세요."
 
-#: ../templates/admin/custom-css.php:37
-msgid "You are currently editing CSS for"
+#: ../templates/admin/custom-styles.php:38
+msgid "You are currently editing styles for"
 msgstr ""
 
-#: ../templates/admin/custom-css.php:38
-msgid "Copy CSS from"
-msgstr "CSS 복사하기"
+#: ../templates/admin/custom-styles.php:39
+msgid "Theme Styles"
+msgstr ""
 
-#: ../templates/admin/custom-css.php:43
+#: ../templates/admin/custom-styles.php:41
+msgid "Your Styles"
+msgstr ""
+
+#: ../templates/admin/custom-styles.php:43
 msgid "Save"
 msgstr "저장하기"
 
@@ -3668,98 +3687,98 @@ msgstr ""
 msgid "Emailed to:"
 msgstr "이메일 보내기:"
 
-#: ../templates/admin/export.php:130
+#: ../templates/admin/export.php:140
 msgid ""
 "You can export multiple file formats by selecting your Export Format Options"
 " below. Pressbooks saves your last %s batches of exported files."
 msgstr ""
 
-#: ../templates/admin/export.php:135
+#: ../templates/admin/export.php:145
 msgid "Your Export Format Options"
 msgstr "내보내기 유형 옵션"
 
-#: ../templates/admin/export.php:136
+#: ../templates/admin/export.php:146
 msgid "Select which formats you want to export"
 msgstr ""
 
-#: ../templates/admin/export.php:154
+#: ../templates/admin/export.php:164
 msgid "PDF (for print)"
 msgstr ""
 
-#: ../templates/admin/export.php:155
+#: ../templates/admin/export.php:165
 msgid "PDF (for digital distribution)"
 msgstr ""
 
-#: ../templates/admin/export.php156, ../templates/admin/import.php:21
+#: ../templates/admin/export.php166, ../templates/admin/import.php:21
 msgid "EPUB (for Nook, iBooks, Kobo etc.)"
 msgstr "EPUB (for Nook, iBooks, Kobo etc.)"
 
-#: ../templates/admin/export.php:157
+#: ../templates/admin/export.php:167
 msgid "MOBI (for Kindle)"
 msgstr "MOBI (for Kindle)"
 
-#: ../templates/admin/export.php:160
+#: ../templates/admin/export.php:170
 msgid "EPUB 3 (beta)"
 msgstr ""
 
-#: ../templates/admin/export.php:161
+#: ../templates/admin/export.php:171
 msgid "XHTML"
 msgstr "XHTML"
 
-#: ../templates/admin/export.php:162
+#: ../templates/admin/export.php:172
 msgid "OpenDocument (beta)"
 msgstr ""
 
-#: ../templates/admin/export.php:163
+#: ../templates/admin/export.php:173
 msgid "Pressbooks XML"
 msgstr "Pressbooks XML"
 
-#: ../templates/admin/export.php:164
+#: ../templates/admin/export.php:174
 msgid "WordPress XML"
 msgstr "WordPress XML"
 
-#: ../templates/admin/export.php:170
+#: ../templates/admin/export.php:180
 msgid "Standard book formats"
 msgstr "표준 도서 포멧"
 
-#: ../templates/admin/export.php:182
+#: ../templates/admin/export.php:192
 msgid "Exotic formats"
 msgstr ""
 
-#: ../templates/admin/export.php:194
+#: ../templates/admin/export.php:204
 msgid "Your Theme Options"
 msgstr "테마 옵션"
 
-#: ../templates/admin/export.php:201
+#: ../templates/admin/export.php:211
 msgid "Change Theme"
 msgstr "테마 변경"
 
-#: ../templates/admin/export.php:202
+#: ../templates/admin/export.php:212
 msgid "Options"
 msgstr "옵션"
 
-#: ../templates/admin/export.php:209
+#: ../templates/admin/export.php:219
 msgid "Export Your Book"
 msgstr "책 내보내기"
 
-#: ../templates/admin/export.php:217
+#: ../templates/admin/export.php:227
 msgid "Latest Export"
 msgstr "최근 내보내기"
 
-#: ../templates/admin/export.php217, ../templates/admin/export.php:220
+#: ../templates/admin/export.php227, ../templates/admin/export.php:230
 msgctxt "Date and time string, e.g. \"January 1, 2016 at 12:00pm"
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: ../templates/admin/export.php:220
+#: ../templates/admin/export.php:230
 msgid "Exported"
 msgstr "내보내기됨"
 
-#: ../templates/admin/export.php:285
+#: ../templates/admin/export.php:295
 msgid "Are you sure you want to delete ALL your current exports?"
 msgstr ""
 
-#: ../templates/admin/export.php:285
+#: ../templates/admin/export.php:295
 msgid "Delete All Exports"
 msgstr ""
 
