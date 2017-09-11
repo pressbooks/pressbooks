@@ -300,7 +300,14 @@ function book_information_to_schema( $book_information ) {
 		}
 
 		$licensing = new Licensing;
-		$book_schema['license'] = $licensing->getUrlForLicense( $book_information['pb_book_license'] );
+		$book_schema['license'] = [
+			'@type' => 'CreativeWork',
+			'url' => $licensing->getUrlForLicense( $book_information['pb_book_license'] ),
+			'name' => $licensing->getSupportedTypes()[ $book_information['pb_book_license'] ]['desc'],
+		];
+		if ( isset( $book_information['pb_custom_copyright'] ) ) {
+			$book_schema['license']['description'] = $book_information['pb_custom_copyright'];
+		}
 
 		// TODO: educationalAlignment, educationalUse, timeRequired, typicalAgeRange, interactivityType, learningResourceType, isBasedOn, isBasedOnUrl
 
@@ -404,7 +411,14 @@ function schema_to_book_information( $book_schema ) {
 	}
 
 	$licensing = new Licensing;
-	$book_information['pb_book_license'] = $licensing->getLicenseFromUrl( $book_schema['license'] );
+	if ( is_array( $book_schema['license'] ) ) {
+		$book_information['pb_book_license'] = $licensing->getLicenseFromUrl( $book_schema['license']['url'] );
+		if (isset( $book_schema['license']['description'] ) ) {
+			$book_information['pb_custom_copyright'] = $book_schema['license']['description'];
+		}
+	} else {
+		$book_information['pb_book_license'] = $licensing->getLicenseFromUrl( $book_schema['license'] );
+	}
 
 	return $book_information;
 }
@@ -543,7 +557,11 @@ function section_information_to_schema( $section_information, $book_information 
 		}
 
 		$licensing = new Licensing;
-		$section_schema['license'] = $licensing->getUrlForLicense( $section_information['pb_section_license'] );
+		$section_schema['license'] = [
+			'@type' => 'CreativeWork',
+			'url' => $licensing->getUrlForLicense( $section_information['pb_section_license'] ),
+			'name' => $licensing->getSupportedTypes()[ $section_information['pb_section_license'] ]['desc'],
+		];
 
 		if ( ! isset( $section_information['pb_is_based_on'] ) && isset( $book_information['pb_is_based_on'] ) ) {
 			$section_schema['isBasedOn'] = $book_information['pb_is_based_on'];
@@ -582,9 +600,9 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 		$section_information['pb_section_author'] = $section_schema['author']['name'];
 	}
 
-	if ( $section_schema['license'] !== $book_schema['license'] ) {
+	if ( $section_schema['license']['url'] !== $book_schema['license']['url'] ) {
 		$licensing = new Licensing;
-		$section_information['pb_section_license'] = $licensing->getLicenseFromUrl( $section_schema['license'] );
+		$section_information['pb_section_license'] = $licensing->getLicenseFromUrl( $section_schema['license']['url'] );
 	}
 
 	if ( isset( $section_schema['isBasedOn'] ) && $section_schema['isBasedOn'] !== $book_schema['isBasedOn'] ) {
