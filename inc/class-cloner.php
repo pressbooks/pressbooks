@@ -179,13 +179,17 @@ class Cloner {
 	 */
 	public function cloneBook() {
 		if ( ! empty( $this->sourceBookId ) ) {
+			// Local book
 			switch_to_blog( $this->sourceBookId );
+		} elseif ( ! $this->isCompatible( $this->sourceBookUrl ) ) {
+			// Remote is not compatible, bail.
+			return false;
 		}
 
 		// Set up $this->sourceBookMetadata
 		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookMetadata ) ) {
-			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookUrl ) );
 			return false;
 		}
 
@@ -963,6 +967,24 @@ class Cloner {
 		$same_host = ( parse_url( $this->sourceBookUrl, PHP_URL_HOST ) === parse_url( $url, PHP_URL_HOST ) );
 
 		return $same_host;
+	}
+
+	/**
+	 * @param $url
+	 *
+	 * @return bool
+	 */
+	public function isCompatible( $url ) {
+		// Check for taxonomies introduced in Pressbooks 4.1
+		// We specifically check for 404 Not Found.
+		// If we get another kind of error it will be caught later because we want to know what went wrong.
+		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'chapter-type', [ 'per_page' => 1 ] );
+		if ( is_wp_error( $response ) && in_array( (int) $response->get_error_code(), [ 404 ], true ) ) {
+			$_SESSION['pb_errors'][] = __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' );
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
