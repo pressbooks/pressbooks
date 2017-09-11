@@ -413,7 +413,7 @@ function schema_to_book_information( $book_schema ) {
 	$licensing = new Licensing;
 	if ( is_array( $book_schema['license'] ) ) {
 		$book_information['pb_book_license'] = $licensing->getLicenseFromUrl( $book_schema['license']['url'] );
-		if (isset( $book_schema['license']['description'] ) ) {
+		if ( isset( $book_schema['license']['description'] ) ) {
 			$book_information['pb_custom_copyright'] = $book_schema['license']['description'];
 		}
 	} else {
