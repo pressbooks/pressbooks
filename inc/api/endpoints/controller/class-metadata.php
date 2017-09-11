@@ -134,6 +134,12 @@ class Metadata extends \WP_REST_Controller {
 					'context' => [ 'view' ],
 					'readonly' => true,
 				],
+				'disambiguatingDescription' => [
+					'type' => 'string',
+					'description' => __( 'A short description of the item used to disambiguate from other, similar items.' ),
+					'context' => [ 'view' ],
+					'readonly' => true,
+				],
 				'description' => [
 					'type' => 'string',
 					'description' => __( 'A description of the item.' ),
