@@ -130,14 +130,29 @@ class PBLatex {
 	}
 
 	function &latex( $latex, $background = false, $color = false, $size = 0 ) {
-		if ( empty( $this->methods[$this->options['method']] ) ) return false;
+		$method = $this->methods[$this->options['method']];
+
+		if ( empty( $method ) ) return false;
 
 		if ( ! $background )
 				$background = empty( $this->options['bg'] ) ? 'ffffff' : $this->options['bg'];
 		if ( ! $color )
 				$color = empty( $this->options['fg'] ) ? '000000' : $this->options['fg'];
 
-		require_once( dirname( __FILE__ ) . "/automattic-latex-{$this->methods[$this->options['method']]}.php" );
+		if ( 'wpcom' == $method ) {
+			require_once( dirname( __FILE__ ) . "/automattic-latex-wpcom.php" );
+		} else {
+			/**
+			 * Require custom latex class file.
+			 * Ex: require_once( __DIR__ . '/custom_latex.php' );
+			 *
+			 * @since 3.9.7
+			 *
+			 * @param string The name of the class to be used.
+			 */
+			apply_filters( 'pb_require_latex', $method );
+		}
+
 		$latex_object = new $this->options['method']( $latex, $background, $color, $size, WP_CONTENT_DIR . '/latex', WP_CONTENT_URL . '/latex' );
 		if ( isset( $this->options['wrapper'] ) )
 				$latex_object->wrapper( $this->options['wrapper'] );

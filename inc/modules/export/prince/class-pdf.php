@@ -223,9 +223,17 @@ class Pdf extends Export {
 	 */
 	protected function kneadCss() {
 
+		$styles = Container::get( 'Styles' );
+
 		$scss = file_get_contents( $this->exportStylePath );
 
-		$css = Container::get( 'Styles' )->customize( 'prince', $scss, $this->cssOverrides );
+		$custom_styles = $styles->getPrincePost();
+		if ( $custom_styles && ! empty( $custom_styles->post_content ) ) {
+			// append the user's custom styles to the theme stylesheet prior to compilation
+			$scss .= "\n" . $custom_styles->post_content;
+		}
+
+		$css = $styles->customize( 'prince', $scss, $this->cssOverrides );
 
 		$scss_dir = pathinfo( $this->exportStylePath, PATHINFO_DIRNAME );
 		$css = normalize_css_urls( $css, $scss_dir );

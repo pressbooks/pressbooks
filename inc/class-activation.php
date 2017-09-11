@@ -105,6 +105,14 @@ class Activation {
 		update_option( 'pressbooks_metadata_version', \Pressbooks\Metadata::VERSION );
 		flush_rewrite_rules( false );
 
+		/**
+		 * @since 4.3.0
+		 */
+		do_action( 'pb_new_blog' );
+
+		/**
+		 * @deprecated 4.3.0 Use pb_new_blog instead.
+		 */
 		do_action( 'pressbooks_new_blog' );
 
 		restore_current_blog();

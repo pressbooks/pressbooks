@@ -23,7 +23,21 @@ function _pb_session_start() { // @codingStandardsIgnoreLine
 	if ( ! session_id() ) {
 		if ( ! headers_sent() ) {
 			ini_set( 'session.use_only_cookies', true );
-			apply_filters( 'pressbooks_session_configuration', false );
+			/**
+			 * Adjust session configuration as needed.
+			 *
+			 * @since 4.3.0.
+			 */
+			apply_filters(
+				'pb_session_configuration',
+				/**
+				 * Adjust session configuration as needed.
+				 *
+				 * @since 3.9.4.2
+				 * @deprecated 4.3.0 Use pb_session_configuration instead.
+				 */
+				apply_filters( 'pressbooks_session_configuration', false )
+			);
 			session_start();
 		} else {
 			error_log( 'There was a problem with _pb_session_start(), headers already sent!' );

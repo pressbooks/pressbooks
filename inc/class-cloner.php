@@ -179,13 +179,17 @@ class Cloner {
 	 */
 	public function cloneBook() {
 		if ( ! empty( $this->sourceBookId ) ) {
+			// Local book
 			switch_to_blog( $this->sourceBookId );
+		} elseif ( ! $this->isCompatible( $this->sourceBookUrl ) ) {
+			// Remote is not compatible, bail.
+			return false;
 		}
 
 		// Set up $this->sourceBookMetadata
 		$this->sourceBookMetadata = $this->getBookMetadata( $this->sourceBookUrl );
 		if ( empty( $this->sourceBookMetadata ) ) {
-			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookMetadata['name'] ) );
+			$_SESSION['pb_errors'][] = sprintf( __( 'Could not retrieve metadata from %s.', 'pressbooks' ), sprintf( '<em>%s</em>', $this->sourceBookUrl ) );
 			return false;
 		}
 
@@ -236,8 +240,6 @@ class Cloner {
 			if ( $new_term ) {
 				$this->termMap[ $term['id'] ] = $new_term;
 				$this->clonedItems['terms'][] = $new_term;
-			} else {
-				$this->clonedItems['terms'][] = false;
 			}
 		}
 
@@ -322,7 +324,6 @@ class Cloner {
 		if ( is_wp_error( $response ) ) {
 			return false;
 		} else {
-			$this->clonedItems['term']++;
 			return $response['id'];
 		}
 	}
@@ -966,6 +967,24 @@ class Cloner {
 	}
 
 	/**
+	 * @param $url
+	 *
+	 * @return bool
+	 */
+	public function isCompatible( $url ) {
+		// Check for taxonomies introduced in Pressbooks 4.1
+		// We specifically check for 404 Not Found.
+		// If we get another kind of error it will be caught later because we want to know what went wrong.
+		$response = $this->handleGetRequest( $url, 'pressbooks/v2', 'chapter-type', [ 'per_page' => 1 ] );
+		if ( is_wp_error( $response ) && in_array( (int) $response->get_error_code(), [ 404 ], true ) ) {
+			$_SESSION['pb_errors'][] = __( 'You can only clone from a book hosted by Pressbooks 4.1 or later. Please ensure that your source book meets these requirements.', 'pressbooks' );
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * When creating a new book as the target of a clone operation, this function removes
 	 * default front matter, parts, chapters and back matter from the book creation routines.
 	 *
@@ -1127,7 +1146,7 @@ class Cloner {
 							sprintf( _n( '%s term', '%s terms', count( getset( $cloner->clonedItems, 'terms', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'terms', [] ) ) ),
 							sprintf( _n( '%s front matter', '%s front matter', count( getset( $cloner->clonedItems, 'front-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'front-matter', [] ) ) ),
 							sprintf( _n( '%s part', '%s parts', count( getset( $cloner->clonedItems, 'parts', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'parts', [] ) ) ),
-							sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloner->clonedItems, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'cahpters', [] ) ) ),
+							sprintf( _n( '%s chapter', '%s chapters', count( getset( $cloner->clonedItems, 'chapters', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'chapters', [] ) ) ),
 							sprintf( _n( '%s back matter', '%s back matter', count( getset( $cloner->clonedItems, 'back-matter', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'back-matter', [] ) ) ),
 							sprintf( _n( '%s media attachment', '%s media attachments', count( getset( $cloner->clonedItems, 'media', [] ) ), 'pressbooks' ), count( getset( $cloner->clonedItems, 'media', [] ) ) ),
 							sprintf( '<a href="%1$s"><em>%2$s</em></a>', trailingslashit( $cloner->targetBookUrl ) . 'wp-admin/', $cloner->sourceBookMetadata['name'] )
