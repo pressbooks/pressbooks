@@ -453,9 +453,11 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 		]
 	);
 
+	// Cloner
 	if ( \Pressbooks\Cloner::isEnabled() ) {
-		$href = home_url( 'wp-admin/options.php?page=pb_cloner', 'relative' );
+		$href = false;
 		if ( ! \Pressbooks\Book::isBook() ) {
+			// Find a book
 			$blogs = get_blogs_of_user( get_current_user_id() );
 			foreach ( $blogs as $blog ) {
 				if ( ! is_main_site( $blog->userblog_id ) ) {
@@ -463,15 +465,27 @@ function replace_menu_bar_my_sites( $wp_admin_bar ) {
 					break;
 				}
 			}
+			if ( ! $href && is_super_admin() ) {
+				// If no book was found, but is a super admin, then redirect to any book
+				global $wpdb;
+				$book = $wpdb->get_results( $wpdb->prepare( "SELECT blog_id AS ID FROM {$wpdb->blogs} WHERE archived = 0 AND spam = 0 AND deleted = 0 AND blog_id != %d LIMIT 1", get_network()->site_id ) );
+				if ( ! empty( $book ) ) {
+					$href = get_blogaddress_by_id( $book[0]->ID ) . 'wp-admin/options.php?page=pb_cloner';
+				}
+			}
+		} else {
+			$href = home_url( 'wp-admin/options.php?page=pb_cloner', 'relative' );
 		}
-		$wp_admin_bar->add_node(
-			[
-				'parent' => 'my-books',
-				'id' => 'clone-a-book',
-				'title' => __( 'Clone A Book', 'pressbooks' ),
-				'href' => $href,
-			]
-		);
+		if ( $href ) {
+			$wp_admin_bar->add_node(
+				[
+					'parent' => 'my-books',
+					'id' => 'clone-a-book',
+					'title' => __( 'Clone A Book', 'pressbooks' ),
+					'href' => $href,
+				]
+			);
+		}
 	}
 
 	if ( is_super_admin() ) {
