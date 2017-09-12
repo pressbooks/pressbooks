@@ -96,10 +96,10 @@ function flusher() {
 	}
 
 	// See rewrite_rules_for_catalog()
-	$set = get_option( 'pressbooks_flushed_catalog_V2' );
+	$set = get_option( 'pressbooks_flushed_catalog_V3' );
 	if ( ! $set ) {
 		$pull_the_lever = true;
-		update_option( 'pressbooks_flushed_catalog_V2', true );
+		update_option( 'pressbooks_flushed_catalog_V3', true );
 	}
 
 	// See rewrite_rules_for_sitemap()
@@ -179,7 +179,7 @@ function do_format() {
 function rewrite_rules_for_catalog() {
 	global $wp;
 	$wp->add_query_var( 'pb_catalog_user' );
-	add_rewrite_rule( '^catalog/(.*)', 'index.php?pagename=pb_catalog&pb_catalog_user=$matches[1]' );
+	add_rewrite_rule( '^catalog/(.*)', 'index.php?pagename=pb_catalog&pb_catalog_user=$matches[1]', 'top' );
 	add_filter( 'template_include', __NAMESPACE__ . '\do_catalog', 999 ); // Must come after \Roots\Sage\Wrapper\SageWrapping (to override)
 }
 
