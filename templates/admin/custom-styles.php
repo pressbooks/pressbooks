@@ -50,11 +50,13 @@ if ( ! empty( $_GET['custom_styles_error'] ) ) {
 		lineNumbers: true,
 		matchBrackets: true,
 		readOnly: true,
+		viewportMargin: 5000,
 		mode: 'text/x-scss'
 	} );
 	var e2 = CodeMirror.fromTextArea( document.getElementById( 'your_styles' ), {
 		lineNumbers: true,
 		matchBrackets: true,
+		viewportMargin: 5000,
 		mode: 'text/x-scss'
 	} );
 </script>
