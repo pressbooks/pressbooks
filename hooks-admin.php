@@ -275,3 +275,4 @@ add_filter( 'gettext', '\Pressbooks\Utility\change_recommendations_sentence', 10
 
 // Theme check
 add_action( 'admin_init', '\Pressbooks\Theme\check_required_themes' );
+add_action( 'admin_init', '\Pressbooks\Theme\check_upgraded_customcss' );
