@@ -600,9 +600,21 @@ function schema_to_section_information( $section_schema, $book_schema ) {
 		$section_information['pb_section_author'] = $section_schema['author']['name'];
 	}
 
-	if ( $section_schema['license']['url'] !== $book_schema['license']['url'] ) {
+	if ( is_array( $book_schema['license'] ) ) {
+		$book_license = $book_schema['license']['url'];
+	} else {
+		$book_license = $book_schema['license'];
+	}
+
+	if ( is_array( $section_schema['license'] ) ) {
+		$section_license = $section_schema['license']['url'];
+	} else {
+		$section_license = $section_schema['license'];
+	}
+
+	if ( $section_license !== $book_license ) {
 		$licensing = new Licensing;
-		$section_information['pb_section_license'] = $licensing->getLicenseFromUrl( $section_schema['license']['url'] );
+		$section_information['pb_section_license'] = $licensing->getLicenseFromUrl( $section_license );
 	}
 
 	if ( isset( $section_schema['isBasedOn'] ) && $section_schema['isBasedOn'] !== $book_schema['isBasedOn'] ) {

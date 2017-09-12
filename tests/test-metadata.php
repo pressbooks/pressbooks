@@ -147,6 +147,34 @@ class MetadataTest extends \WP_UnitTestCase {
 		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
 		$this->assertArrayNotHasKey( 'pb_section_author', $result );
 		$this->assertArrayNotHasKey( 'pb_section_license', $result );
+
+		$book_schema = [
+			'@context' => 'http://schema.org',
+			'@type' => 'Book',
+			'author' => [
+				'@type' => 'Person',
+				'name' => 'Herman Melville',
+			],
+			'name' => 'Moby Dick',
+			'license' => 'https://creativecommons.org/publicdomain/zero/1.0/',
+		];
+
+		$section_schema = [
+			'@context' => 'http://bib.schema.org',
+			'@type' => 'Chapter',
+			'author' => [
+				'@type' => 'Person',
+				'name' => 'Herman Melville',
+			],
+			'name' => 'Loomings',
+			'license' => [
+				'url' => 'https://choosealicense.com/no-license/',
+				'name' => 'All Rights Reserved',
+			],
+		];
+
+		$result = \Pressbooks\Metadata\schema_to_section_information( $section_schema, $book_schema );
+		$this->assertArrayHasKey( 'pb_section_license', $result );
 	}
 
 }
