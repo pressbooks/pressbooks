@@ -2,7 +2,9 @@
 
 Contributors: Pressbooks <code@pressbooks.com>
 Version: 4.2.0
+Stable Tag: 4.2.0
 Tags: ebooks, publishing, webbooks
+Requires PHP: 5.6
 Requires at least: 4.8.1
 Tested up to: 4.8.1
 License: GPLv2 or later
